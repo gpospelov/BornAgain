@@ -14,13 +14,8 @@
 #include <complex>
 #include <vector>
 
-#include "Precomputed.h"
-#include "BasicVector3D.h"
-
-typedef std::complex<double> complex_t;
-typedef Geometry::BasicVector3D<complex_t> cvector_t;
-typedef Geometry::BasicVector3D<double> kvector_t;
-#include "FormFactorPolyhedron.h"
+#include "FormFactorDodecahedron.h"
+#include "FormFactorIcosahedron.h"
 
 using std::cout;
 using std::cerr;
@@ -31,9 +26,10 @@ static double eps(2e-16);
 Diagnosis diagnosis;
 
 //***************************************************************************************************
-// Make test polyhedra
+// Test polyhedra
 //***************************************************************************************************
 
+/*
 FormFactorPolyhedron make_cube(int symFlag)
 {
     kvector_t V[8] = {
@@ -58,167 +54,7 @@ FormFactorPolyhedron make_cube(int symFlag)
     ret.assert_platonic();
     return ret;
 }
-
-FormFactorPolyhedron make_dodeka(int symFlag)
-{
-    kvector_t V[20] = {
-        {  0.4314688659163168,                   0, -0.5648000780281441}, // V[ 0]
-        {  0.1333312121118274,  0.4103512765081929, -0.5648000780281441}, // V[ 1]
-        { -0.3490656450699858,  0.2536110362089695, -0.5648000780281441}, // V[ 2]
-        { -0.3490656450699858, -0.2536110362089695, -0.5648000780281441}, // V[ 3]
-        {  0.1333312121118274, -0.4103512765081929, -0.5648000780281441}, // V[ 4]
-        {  0.6981312901399717,                   0, -0.1333312121118274}, // V[ 5]
-        {  0.2157344329581584,  0.6639623127171626, -0.1333312121118274}, // V[ 6]
-        { -0.5648000780281442,   0.410351276508193, -0.1333312121118274}, // V[ 7]
-        { -0.5648000780281442,  -0.410351276508193, -0.1333312121118274}, // V[ 8]
-        {  0.2157344329581584, -0.6639623127171626, -0.1333312121118274}, // V[ 9]
-        { -0.6981312901399717,                   0,  0.1333312121118274}, // V[10]
-        { -0.2157344329581584, -0.6639623127171626,  0.1333312121118274}, // V[11]
-        {  0.5648000780281442,  -0.410351276508193,  0.1333312121118274}, // V[12]
-        {  0.5648000780281442,   0.410351276508193,  0.1333312121118274}, // V[13]
-        { -0.2157344329581584,  0.6639623127171626,  0.1333312121118274}, // V[14]
-        { -0.4314688659163168,                   0,  0.5648000780281441}, // V[15]
-        { -0.1333312121118274, -0.4103512765081929,  0.5648000780281441}, // V[16]
-        {  0.3490656450699858, -0.2536110362089695,  0.5648000780281441}, // V[17]
-        {  0.3490656450699858,  0.2536110362089695,  0.5648000780281441}, // V[18]
-        { -0.1333312121118274,  0.4103512765081929,  0.5648000780281441}, // V[19]
-    };
-    std::vector<PolyhedralFace> faces;
-    // bottom:
-    faces.push_back( PolyhedralFace( { V[ 0], V[ 4], V[ 3], V[ 2], V[ 1] } ) );
-    // lower ring:
-    faces.push_back( PolyhedralFace( { V[ 0], V[ 5], V[12], V[ 9], V[ 4] } ) );
-    faces.push_back( PolyhedralFace( { V[ 4], V[ 9], V[11], V[ 8], V[ 3] } ) );
-    faces.push_back( PolyhedralFace( { V[ 3], V[ 8], V[10], V[ 7], V[ 2] } ) );
-    faces.push_back( PolyhedralFace( { V[ 2], V[ 7], V[14], V[ 6], V[ 1] } ) );
-    faces.push_back( PolyhedralFace( { V[ 1], V[ 6], V[13], V[ 5], V[ 0] } ) );
-     // upper ring:
-    faces.push_back( PolyhedralFace( { V[ 8], V[11], V[16], V[15], V[10] } ) );
-    faces.push_back( PolyhedralFace( { V[ 9], V[12], V[17], V[16], V[11] } ) );
-    faces.push_back( PolyhedralFace( { V[ 5], V[13], V[18], V[17], V[12] } ) );
-    faces.push_back( PolyhedralFace( { V[ 6], V[14], V[19], V[18], V[13] } ) );
-    faces.push_back( PolyhedralFace( { V[ 7], V[10], V[15], V[19], V[14] } ) );
-    // top:
-    faces.push_back( PolyhedralFace( { V[15], V[16], V[17], V[18], V[19] } ) );
-
-    FormFactorPolyhedron ret( faces, -0.5648000780281441, symFlag&1 );
-    ret.assert_platonic();
-    return ret;
-}
-
-FormFactorPolyhedron make_icosa(int symFlag)
-{
-    kvector_t V[20] = {
-        {  0.4451516913595344,                   0, -0.5827111290643819}, // V[ 0]
-        { -0.2225758456797672,  0.3855126732549665, -0.5827111290643819}, // V[ 1]
-        { -0.2225758456797672, -0.3855126732549665, -0.5827111290643819}, // V[ 2]
-        { -0.7202705667692294,                   0, -0.1375594377048475}, // V[ 3]
-        {  0.3601352833846148,  0.6237726084203683, -0.1375594377048475}, // V[ 4]
-        {  0.3601352833846148, -0.6237726084203683, -0.1375594377048475}, // V[ 5]
-        {  0.7202705667692294,                   0,  0.1375594377048475}, // V[ 6]
-        { -0.3601352833846148,  0.6237726084203683,  0.1375594377048475}, // V[ 7]
-        { -0.3601352833846148, -0.6237726084203683,  0.1375594377048475}, // V[ 8]
-        { -0.4451516913595344,                   0,  0.5827111290643819}, // V[ 9]
-        {  0.2225758456797672,  0.3855126732549665,  0.5827111290643819}, // V[10]
-        {  0.2225758456797672, -0.3855126732549665,  0.5827111290643819}, // V[11]
-    };
-    std::vector<PolyhedralFace> faces;
-    // bottom:
-    faces.push_back( PolyhedralFace( { V[ 0], V[ 2], V[ 1] } ) );
-    // 1st row:
-    faces.push_back( PolyhedralFace( { V[ 0], V[ 5], V[ 2] } ) );
-    faces.push_back( PolyhedralFace( { V[ 2], V[ 3], V[ 1] } ) );
-    faces.push_back( PolyhedralFace( { V[ 1], V[ 4], V[ 0] } ) );
-    // 2nd row:
-    faces.push_back( PolyhedralFace( { V[ 0], V[ 6], V[ 5] } ) );
-    faces.push_back( PolyhedralFace( { V[ 2], V[ 5], V[ 8] } ) );
-    faces.push_back( PolyhedralFace( { V[ 2], V[ 8], V[ 3] } ) );
-    faces.push_back( PolyhedralFace( { V[ 1], V[ 3], V[ 7] } ) );
-    faces.push_back( PolyhedralFace( { V[ 1], V[ 7], V[ 4] } ) );
-    faces.push_back( PolyhedralFace( { V[ 0], V[ 4], V[ 6] } ) );
-    // 3rd row:
-    faces.push_back( PolyhedralFace( { V[ 3], V[ 8], V[ 9] } ) );
-    faces.push_back( PolyhedralFace( { V[ 5], V[11], V[ 8] } ) );
-    faces.push_back( PolyhedralFace( { V[ 5], V[ 6], V[11] } ) );
-    faces.push_back( PolyhedralFace( { V[ 4], V[10], V[ 6] } ) );
-    faces.push_back( PolyhedralFace( { V[ 4], V[ 7], V[10] } ) );
-    faces.push_back( PolyhedralFace( { V[ 3], V[ 9], V[ 7] } ) );
-    // 4th row:
-    faces.push_back( PolyhedralFace( { V[ 8], V[11], V[ 9] } ) );
-    faces.push_back( PolyhedralFace( { V[ 6], V[10], V[11] } ) );
-    faces.push_back( PolyhedralFace( { V[ 7], V[ 9], V[10] } ) );
-    // top:
-    faces.push_back( PolyhedralFace( { V[ 9], V[11], V[10] } ) );
-
-    FormFactorPolyhedron ret( faces, -0.5827111290643819, symFlag&1 );
-    ret.assert_platonic();
-    return ret;
-}
-
-FormFactorPolyhedron make_tetra1(int symFlag)
-{
-    constexpr double a = pow(6.,1/3.);
-    kvector_t V[4] = {
-        { 0., 0., 0. },
-        { a, 0., 0. },
-        { 0., a, 0. },
-        { 0., 0., a } };
-    std::vector<PolyhedralFace> faces;
-    faces.push_back( PolyhedralFace( { V[2], V[1], V[0] } ) );
-    faces.push_back( PolyhedralFace( { V[0], V[1], V[3] } ) );
-    faces.push_back( PolyhedralFace( { V[0], V[3], V[2] } ) );
-    faces.push_back( PolyhedralFace( { V[1], V[2], V[3] } ) );
-
-    FormFactorPolyhedron ret( faces, 0., 0 );
-    return ret;
-}
-
-FormFactorPolyhedron make_pyramid6(int symFlag)
-{
-    constexpr double a = 1.;
-    constexpr double b = 2/(sqrt(3)*a*a);
-    constexpr double as = a/2;
-    constexpr double ac = a*sqrt(3)/2;
-
-    kvector_t V[7] = {
-        {  a,   0., 0. },
-        {  as,  ac, 0. },
-        { -as,  ac, 0. },
-        { -a,   0., 0. },
-        { -as, -ac, 0. },
-        {  as, -ac, 0. },
-        {  0.,  0., b  } };
-    std::vector<PolyhedralFace> faces;
-    faces.push_back( PolyhedralFace( { V[5], V[4], V[3], V[2], V[1], V[0] }, symFlag&2 ) );
-    faces.push_back( PolyhedralFace( { V[6], V[0], V[1] } ) );
-    faces.push_back( PolyhedralFace( { V[6], V[1], V[2] } ) );
-    faces.push_back( PolyhedralFace( { V[6], V[2], V[3] } ) );
-    faces.push_back( PolyhedralFace( { V[6], V[3], V[4] } ) );
-    faces.push_back( PolyhedralFace( { V[6], V[4], V[5] } ) );
-    faces.push_back( PolyhedralFace( { V[6], V[5], V[0] } ) );
-
-    FormFactorPolyhedron ret( faces, 0., 0 );
-    return ret;
-}
-
-//! extremely excentric polyhedron, not to be used in usual continuity test
-
-FormFactorPolyhedron make_tetra2(int symFlag)
-{
-    kvector_t V[4] = {
-        { -.1, -.1, -.1 },
-        { .1, 0., 0. },
-        { 0., .9, 0. },
-        { 0., 0., 31.5315789475 } };
-    std::vector<PolyhedralFace> faces;
-    faces.push_back( PolyhedralFace( { V[2], V[1], V[0] } ) );
-    faces.push_back( PolyhedralFace( { V[0], V[1], V[3] } ) );
-    faces.push_back( PolyhedralFace( { V[0], V[3], V[2] } ) );
-    faces.push_back( PolyhedralFace( { V[1], V[2], V[3] } ) );
-
-    FormFactorPolyhedron ret( faces, -.1, 0 );
-    return ret;
-}
+*/
 
 //***************************************************************************************************
 // Test functions
@@ -226,22 +62,12 @@ FormFactorPolyhedron make_tetra2(int symFlag)
 
 //! Returns a polyhedron, according to given code
 
-FormFactorPolyhedron make_polyhedron( int icode )
+FormFactorPolyhedron* make_polyhedron( int ishape )
 {
-    int symFlag = icode/10;
-    int ishape = icode%10;
     if       ( ishape==0 ) {
-        return make_cube(symFlag);
+        return new FormFactorDodecahedron(3.);
     } else if( ishape==1 ) {
-        return make_dodeka(symFlag);
-    } else if( ishape==2 ) {
-        return make_icosa(symFlag);
-    } else if( ishape==3 ) {
-        return make_tetra1(symFlag);
-    } else if( ishape==4 ) {
-        return make_pyramid6(symFlag);
-    } else if( ishape==5 ) {
-        return make_tetra2(symFlag);
+        return new FormFactorIcosahedron(3.);
     } else
         throw "Shape not implemented";
 }
@@ -249,7 +75,7 @@ FormFactorPolyhedron make_polyhedron( int icode )
 //! Bisect between two q's to find possible discontinuities
 
 void bisect(
-    const FormFactorPolyhedron& polyh, const int ishape, const double q0mag,
+    const FormFactorPolyhedron* polyh, const int ishape, const double q0mag,
     const cvector_t qi, const complex_t ri, const Diagnosis di,
     const cvector_t qf, const complex_t rf, const Diagnosis df,
     double& maxrelstep )
@@ -266,7 +92,7 @@ void bisect(
         return;
     }
     cvector_t q2 = (qi + qf)/2.;
-    complex_t r2 = polyh.evaluate_for_q(q2);
+    complex_t r2 = polyh->evaluate_for_q(q2);
     Diagnosis d2 = diagnosis;
     if( d2!=di )
         bisect( polyh, ishape, q0mag, qi, ri, di, q2, r2, d2, maxrelstep );
@@ -277,7 +103,7 @@ void bisect(
 //! Computes form factor or runs bisection, and prints result according to outfilter.
 
 void run(
-    const FormFactorPolyhedron& polyh,
+    const FormFactorPolyhedron* polyh,
     const double step, const int ishape, const cvector_t q, const cvector_t qlast,
     const int outfilter, double& maxrelstep )
 {
@@ -285,7 +111,7 @@ void run(
     static complex_t last_ret = 0;
     static Diagnosis last_diag;
     Diagnosis diag = diagnosis;
-    ret = polyh.evaluate_for_q(q);
+    ret = polyh->evaluate_for_q(q);
 
     if( outfilter==6 ) {
         if( qlast!=cvector_t() && diag!=last_diag )
@@ -351,8 +177,8 @@ void test_loop( int outfilter )
         { 0., 2., 3. },
         { 1., 2.71813+0.1*I, 3.14158-0.2*I, },
         { -200.+I, 30000.-I, 1. } };
-    for( int ishape=0; ishape<5; ++ishape ){
-        FormFactorPolyhedron polyh( make_polyhedron( 30+ishape ) );
+    for( int ishape=0; ishape<2; ++ishape ){
+        FormFactorPolyhedron* polyh( make_polyhedron( ishape ) );
         // For different directions ...
         for( int idx_qdir=0; idx_qdir<n_qdir; ++idx_qdir ){
             for( int irot=0; irot<3; ++irot ){
@@ -395,9 +221,9 @@ void test_loop( int outfilter )
 void help_and_exit()
 {
     cerr << "Usage: fftest inmode outfilter [shape qxr qxi qyr qyi qzr qzi q]\n";
-    cerr << "inmode: q from 0: stdin, 1: cmdline, 2: loop\n";
-    cerr << "outfilter: return 0: all, 1: real, 2:imag, 6:cont_test, 7:plot_tab, 8:ref_tab, 9:nil\n";
-    cerr << "shape: 0: cube, 1:dodeka, 2:icosa, 3: tetra 4: asym tetrahedron\n";
+    cerr << "inmode: q from 0 stdin, 1 cmdline, 2 loop\n";
+    cerr << "outfilter: return 0 all, 1 real, 2 imag, 6 cont_test, 7 plot_tab, 8 ref_tab, 9 nil\n";
+    cerr << "shape: 0 dodeka, 1 icosa\n";
     exit(0);
 }
 
@@ -417,7 +243,7 @@ int main (int argc, char *argv[])
         if( argc!=11 )
             help_and_exit();
         int ishape = atoi( argv[3] );
-        FormFactorPolyhedron polyh( make_polyhedron( ishape ) );
+        FormFactorPolyhedron* polyh( make_polyhedron( ishape ) );
         cvector_t uq( complex_t(atof(argv[4]),atof(argv[5])),
                       complex_t(atof(argv[6]),atof(argv[7])),
                       complex_t(atof(argv[8]),atof(argv[9])) );

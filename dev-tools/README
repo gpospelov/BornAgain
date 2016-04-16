@@ -3,8 +3,7 @@ Collection of various tools for code development.
 Directory content:
 git-utils       - number of lines of code
 log             - results of performance tests
-math            - reference code; code to compute coefficients
+math            - code used to derive or/and to test math code
 profiling       - scripts to run code profiling using valgrind/gperftool
-python-bindings - collection of scripts for automatic generation of libBornAgainCore and libBornAgainFit boost-python bindings
 user-api        - collection of tools to generate User API description
 

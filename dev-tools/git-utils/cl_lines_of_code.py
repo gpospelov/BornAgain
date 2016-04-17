@@ -19,22 +19,34 @@ import datetime, optparse, os, re, sys, time
 # categorize files
 # ------------------------------------------------------------------------------
 
+descr=["Core", # 0
+       "Functional Tests", # 1
+       "Unit Tests", # 2
+       "GUI", # 3
+       "PythonAPI", #4
+       "Third", #5
+       "other C++", #6
+       "Undef", #7
+]
+
 def filetype(x):
-    file_type=8
+    file_type=7 # undef
     if dirSkip(x):
-        return file_type
+        pass
     if fileCpp(x) and dirCore(x):
-        file_type = 0
+        file_type = 0 # core C++ code
     elif (fileCpp(x) or filePython(x)) and dirFuncTest(x):
-        file_type = 1
+        file_type = 1 # functional tests
     elif dirUnitTests(x):
-        file_type = 2
+        file_type = 2 # unit tests
     elif dirGUI(x):
-        file_type = 5
+        file_type = 3 # GUI
     elif dirPyAPI(x):
-        file_type = 6
+        file_type = 4 # auto-generated Python code
     elif dirThirdParty(x):
-        file_type = 7
+        file_type = 5 # other third-party code
+    elif fileCpp(x):
+        file_type = 6 # other C++ code
     return file_type
 
 def filePython(x):
@@ -48,16 +60,19 @@ def fileCpp(x):
 def dirCore(x):
     if "Core/Algorithms" in x: return True
     if "Core/FormFactors" in x: return True
+    if "Core/Geometry" in x: return True
+    if "Core/InputOutput" in x: return True
     if "Core/Samples" in x: return True
     if "Core/StandardSamples" in x: return True
     if "Core/Tools" in x: return True
-    if "Core/Fitting" in x: return True
-    if "Core/inc" in x: return True
-    if "Core/src" in x: return True
     if "Fit/Factory" in x: return True
     if "Fit/FitKernel" in x: return True
     if "Fit/StandardFits" in x: return True
-    if "Core/Geometry" in x: return True
+    # abolished directories:
+    if "GISASFW" in x: return True
+    if "Core/Fitting" in x: return True
+    if "Core/inc" in x: return True
+    if "Core/src" in x: return True
     return False
 
 def dirPyAPI(x):
@@ -76,22 +91,27 @@ def dirFuncTest(x):
 def dirGUI(x):
     if "GUI/coregui" in x  and not "widgetbox" in x and not "qttools" in x: return True
     if "GUI/main" in x: return True
+    # abolished directories:
     if "AppGUI/coregui" in x: return True
     if "BASuite" in x: return True
     return False
 
 def dirThirdParty(x):
     if "ThirdParty" in x: return True
+    if "ROOT" in x: return True
+    if "GUI/externals" in x: return True
     return False
 
 def dirSkip(x):
+    # abolished directories:
     if "pub/core" in x: return True
     return False
 
 def dirUnitTests(x):
-    if "UnitTests/" in x: return True
     if "Tests/UnitTests/TestCore/" in x: return True
     if "Tests/UnitTests/TestFit/" in x: return True
+    # abolished directories:
+    if "UnitTests/" in x: return True
     return False
 
 # ------------------------------------------------------------------------------
@@ -125,8 +145,6 @@ parser.add_option('-o', '--output-filename', type="string", action="store", dest
 parser.add_option('-i', '--input-dir', type="string", action="store", dest="gitdir", help="Path to the .git folder.", default=".")
 (options, args) = parser.parse_args()
 
-#       0      1                  2            3      4        5      6     7       8
-descr=["Core","Functional Tests","Unit Tests","*.py","macros","GUI", "PythonAPI","Third","Undef"]
 fc=0
 locs=0
 locs_type=[0 for cat in descr]
@@ -142,25 +160,24 @@ history=[]
 prevfolder = os.getcwd()
 os.chdir(options.gitdir)
 
-# parsing output of git log 
-file_type_ppp = 8
-file_type_mmm = 8
-
 pos = -1
 for x in os.popen('git log develop --reverse --pretty=format:"A: %ae%nD: %ct%nS: %s%nH: %h%n" --numstat'):
-    if pos==-1 or pos==6:
+    x = x.rstrip(' \t\r\n')
+    if pos==-1 or pos==4:
         m = re.match(r'A: (.+)@', x )
         if m:
             who = m.group(1)
             if pos!=-1:
                 append_to_history()
             pos = 0
-        adds=0
-        dels=0
-    elif pos==0:
+            adds=0
+            dels=0
+            continue
+            
+    if pos==0:
         m = re.match(r'D: (.+)$', x )
         if m is None:
-            raise "D not found" 
+            raise RuntimeError("D not found")
         pos = 1
         raw = m.group(1)
         d = datetime.datetime.fromtimestamp(float(raw))
@@ -177,25 +194,30 @@ for x in os.popen('git log develop --reverse --pretty=format:"A: %ae%nD: %ct%nS:
     elif pos==2:
         m = re.match(r'H: (.+)$', x )
         if m is None:
-            raise "H not found"
+            raise RuntimeError("H not found")
         pos = 3
         hsh = m.group(1)
     elif pos==3:
-        if x.rstrip()!="":
-            raise "empty line not found"
+        if x!="":
+            raise RuntimeError("empty line not found")
         pos = 4
     else:
         pos = 5
+        if x=="":
+            pos = 4
+            continue
+        m = re.match(r'-\s+-\s+(.+)$', x )
+        if m:
+            continue
         m = re.match(r'(\d+)\s+(\d+)\s+(.+)$', x )
         if m is None:
-            pos = 6
-            continue
+            raise RuntimeError( "Unexpected record '"+x+"'" )
         lines_inserted = int(m.group(1))
         lines_deleted = int(m.group(2))
         fnam = m.group(3)
         ftyp = filetype(fnam)
         locs_type[ftyp] += lines_inserted - lines_deleted
-        if file_type_ppp <6:
+        if ftyp <= 3:
             adds += lines_inserted
             dels += lines_deleted
             locs += lines_inserted - lines_deleted

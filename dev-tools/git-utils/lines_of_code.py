@@ -1,3 +1,8 @@
+# calculate number of lines of code in BornAgain project as a function of time
+
+# object-oriented rewrite of cl_lines_of_code
+# JWu apr2016: don't use this, it's outdated by latest refactoring of cl_lines_of_code
+
 from __future__ import print_function
 import os
 import re

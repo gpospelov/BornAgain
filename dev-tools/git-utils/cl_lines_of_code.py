@@ -15,11 +15,27 @@
 
 import datetime, email.utils, optparse, os, re, sys, time
 
-def append_to_history():
-    if adds is None:
-        return
-    # print( "%s %8u %5s %5s %7s %s \t%s"%(d,locs,'+'+str(adds),'-'+str(dels),hsh,who,cmt.strip()) )
-    history.append((d,locs,list(locs_type),adds,dels,hsh,who,cmt))
+# ------------------------------------------------------------------------------
+# categorize files
+# ------------------------------------------------------------------------------
+
+def filetype(x):
+    file_type=8
+    if dirSkip(x):
+        return file_type
+    if fileCpp(x) and dirCore(x):
+        file_type = 0
+    elif (fileCpp(x) or filePython(x)) and dirFuncTest(x):
+        file_type = 1
+    elif dirUnitTests(x):
+        file_type = 2
+    elif dirGUI(x):
+        file_type = 5
+    elif dirPyAPI(x):
+        file_type = 6
+    elif dirThirdParty(x):
+        file_type = 7
+    return file_type
 
 def filePython(x):
     if ".py" in x and not ".pypp." in x: return True
@@ -78,30 +94,25 @@ def dirUnitTests(x):
     if "/Tests/UnitTests/TestFit/" in x: return True
     return False
 
-def filetype(x):
-    file_type=8
-    if dirSkip(x):
-        return file_type
-    if fileCpp(x) and dirCore(x):
-        file_type = 0
-    elif (fileCpp(x) or filePython(x)) and dirFuncTest(x):
-        file_type = 1
-    elif dirUnitTests(x):
-        file_type = 2
-    elif dirGUI(x):
-        file_type = 5
-    elif dirPyAPI(x):
-        file_type = 6
-    elif dirThirdParty(x):
-        file_type = 7
-    return file_type
+# ------------------------------------------------------------------------------
+# 
+# ------------------------------------------------------------------------------
+
+def append_to_history():
+    if adds is None:
+        return
+    # print( "%s %8u %5s %5s %7s %s \t%s"%(d,locs,'+'+str(adds),'-'+str(dels),hsh,who,cmt.strip()) )
+    history.append((d,locs,list(locs_type),adds,dels,hsh,who,cmt))
 
 def save_history_as_table(fname):
     f = open(fname, 'w')
     for entry in history:
         d = entry[0]
         tim = 2012 +  (d - datetime.datetime(2012,1,1)).total_seconds()/366.0/24/3600
-        f.write( "%9.4f %s\n" % ( tim, entry[1:] ) )
+        f.write( "%9.4f" % ( tim ) )
+        for i in entry[2]+[entry[1]]:
+            f.write( " %6i" % ( i ) )
+        f.write( " # %s %s\n" % (entry[5], entry[7] ) )
     f.close()
     print( "Table with one line per commit written to "+fname )
     
@@ -114,14 +125,12 @@ parser.add_option('-o', '--output-filename', type="string", action="store", dest
 parser.add_option('-i', '--input-dir', type="string", action="store", dest="gitdir", help="Path to the .git folder.", default=".")
 (options, args) = parser.parse_args()
 
-extfolder=True
-targetfolder=options.gitdir
-fc=0
-locs=0
-locs_type=[0,0,0,0,0,0,0,0,0]
-
 #       0      1                  2            3      4        5      6     7       8
 descr=["Core","Functional Tests","Unit Tests","*.py","macros","GUI", "PythonAPI","Third","Undef"]
+fc=0
+locs=0
+locs_type=[0 for cat in descr]
+
 adds=None
 cmt=None
 prev_time = datetime.datetime(2000,1,1)
@@ -129,13 +138,13 @@ prev_time = datetime.datetime(2000,1,1)
 history=[]
 
 prevfolder = os.getcwd()
-if extfolder: os.chdir(targetfolder)
+os.chdir(options.gitdir)
 
 # parsing output of git log 
 file_type_ppp = 8
 file_type_mmm = 8
 
-for x in os.popen('git log develop --reverse -p'):
+for x in os.popen('git log develop --no-renames --reverse -p'):
     if x.startswith('commit'):
         append_to_history()
         hsh=x[7:14];
@@ -154,8 +163,8 @@ for x in os.popen('git log develop --reverse -p'):
         sys.stdout.write( '\r' )
         sys.stdout.flush()
         # accelerate development
-        if( d.year!=2012 ):
-            break
+        #if( d.year!=2012 ):
+        #    break
     if fc==2:
         cmt=x[:-1]
         fc=0

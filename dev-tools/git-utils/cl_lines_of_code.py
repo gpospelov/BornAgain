@@ -13,7 +13,7 @@
 # see http://root.cern.ch/drupal/content/how-use-use-python-pyroot-interpreter
 # MG: I've modified this file to run it from command line in release.sh script
 
-import datetime, email.utils, optparse, os, re, sys, time
+import datetime, optparse, os, re, sys, time
 
 # ------------------------------------------------------------------------------
 # categorize files
@@ -46,52 +46,52 @@ def fileCpp(x):
     return False
 
 def dirCore(x):
-    if "/Core/Algorithms" in x: return True
-    if "/Core/FormFactors" in x: return True
-    if "/Core/Samples" in x: return True
-    if "/Core/StandardSamples" in x: return True
-    if "/Core/Tools" in x: return True
-    if "/Core/Fitting" in x: return True
-    if "/Core/inc" in x: return True
-    if "/Core/src" in x: return True
-    if "/Fit/Factory" in x: return True
-    if "/Fit/FitKernel" in x: return True
-    if "/Fit/StandardFits" in x: return True
-    if "/Core/Geometry" in x: return True
+    if "Core/Algorithms" in x: return True
+    if "Core/FormFactors" in x: return True
+    if "Core/Samples" in x: return True
+    if "Core/StandardSamples" in x: return True
+    if "Core/Tools" in x: return True
+    if "Core/Fitting" in x: return True
+    if "Core/inc" in x: return True
+    if "Core/src" in x: return True
+    if "Fit/Factory" in x: return True
+    if "Fit/FitKernel" in x: return True
+    if "Fit/StandardFits" in x: return True
+    if "Core/Geometry" in x: return True
     return False
 
 def dirPyAPI(x):
-    if "/Core/PythonAPI" in x: return True
-    if "/Fit/PythonAPI" in x: return True
+    if "Core/PythonAPI" in x: return True
+    if "Fit/PythonAPI" in x: return True
     return False
 
 def dirFuncTest(x):
-    if "/App/" in x: return True
-    if "/Tests/FunctionalTests/TestCore" in x: return True
-    if "/Tests/FunctionalTests/TestFit" in x: return True
-    if "/Tests/FunctionalTests/TestPyCore" in x: return True
-    if "/Tests/FunctionalTests/TestPyFit" in x: return True
+    if "App/" in x: return True
+    if "Tests/FunctionalTests/TestCore" in x: return True
+    if "Tests/FunctionalTests/TestFit" in x: return True
+    if "Tests/FunctionalTests/TestPyCore" in x: return True
+    if "Tests/FunctionalTests/TestPyFit" in x: return True
     return False
 
 def dirGUI(x):
-    if "/GUI/coregui" in x  and not "widgetbox" in x and not "qttools" in x: return True
-    if "/GUI/main" in x: return True
-    if "/AppGUI/coregui" in x: return True
-    if "/BASuite" in x: return True
+    if "GUI/coregui" in x  and not "widgetbox" in x and not "qttools" in x: return True
+    if "GUI/main" in x: return True
+    if "AppGUI/coregui" in x: return True
+    if "BASuite" in x: return True
     return False
 
 def dirThirdParty(x):
-    if "/ThirdParty" in x: return True
+    if "ThirdParty" in x: return True
     return False
 
 def dirSkip(x):
-    if "/pub/core" in x: return True
+    if "pub/core" in x: return True
     return False
 
 def dirUnitTests(x):
-    if "/UnitTests/" in x: return True
-    if "/Tests/UnitTests/TestCore/" in x: return True
-    if "/Tests/UnitTests/TestFit/" in x: return True
+    if "UnitTests/" in x: return True
+    if "Tests/UnitTests/TestCore/" in x: return True
+    if "Tests/UnitTests/TestFit/" in x: return True
     return False
 
 # ------------------------------------------------------------------------------
@@ -112,7 +112,7 @@ def save_history_as_table(fname):
         f.write( "%9.4f" % ( tim ) )
         for i in entry[2]+[entry[1]]:
             f.write( " %6i" % ( i ) )
-        f.write( " # %s %s\n" % (entry[5], entry[7] ) )
+        f.write( " # %s %s\n" % (entry[5], entry[7][0:28] ) )
     f.close()
     print( "Table with one line per commit written to "+fname )
     
@@ -131,8 +131,10 @@ fc=0
 locs=0
 locs_type=[0 for cat in descr]
 
-adds=None
-cmt=None
+adds = None
+dels = None
+cmt = None
+hsh = None
 prev_time = datetime.datetime(2000,1,1)
 
 history=[]
@@ -144,46 +146,59 @@ os.chdir(options.gitdir)
 file_type_ppp = 8
 file_type_mmm = 8
 
-for x in os.popen('git log develop --no-renames --reverse -p'):
-    if x.startswith('commit'):
-        append_to_history()
-        hsh=x[7:14];
-    if x.startswith('Author'):
-        who=x.replace("Author: ",'').replace('\n','');
-        who=re.sub(">.*","",who);
-        who=re.sub(".*<","",who);
-    if x.startswith('Date'):
-        fc=1
-        pd=email.utils.parsedate(x[5:])
-        d=datetime.datetime(*pd[:7])
-        t=time.mktime(pd)
+pos = -1
+for x in os.popen('git log develop --reverse --pretty=format:"A: %ae%nD: %ct%nS: %s%nH: %h%n" --numstat'):
+    if pos==-1 or pos==6:
+        m = re.match(r'A: (.+)@', x )
+        if m:
+            who = m.group(1)
+            if pos!=-1:
+                append_to_history()
+            pos = 0
         adds=0
         dels=0
-        sys.stdout.write( x.rstrip() )
+    elif pos==0:
+        m = re.match(r'D: (.+)$', x )
+        if m is None:
+            raise "D not found" 
+        pos = 1
+        raw = m.group(1)
+        d = datetime.datetime.fromtimestamp(float(raw))
+        sys.stdout.write( str(d) )
         sys.stdout.write( '\r' )
         sys.stdout.flush()
-        # accelerate development
-        #if( d.year!=2012 ):
-        #    break
-    if fc==2:
-        cmt=x[:-1]
-        fc=0
-    if fc==1:
-        if len(x)==1: fc=2
-    if x.startswith('+++'):
-        file_type_ppp = filetype(x)
-    if x.startswith('---'):
-        file_type_mmm = filetype(x)
-    if x.startswith('+') and not x.startswith('+++'):
-        locs_type[file_type_ppp] += 1
+        # if( d.year!=2012 ): break # TEMPORARY, to accelerate development
+    elif pos==1:
+        m = re.match(r'S: (.+)$', x )
+        if m is None:
+            raise "S not found"
+        pos = 2
+        cmt = m.group(1)
+    elif pos==2:
+        m = re.match(r'H: (.+)$', x )
+        if m is None:
+            raise "H not found"
+        pos = 3
+        hsh = m.group(1)
+    elif pos==3:
+        if x.rstrip()!="":
+            raise "empty line not found"
+        pos = 4
+    else:
+        pos = 5
+        m = re.match(r'(\d+)\s+(\d+)\s+(.+)$', x )
+        if m is None:
+            pos = 6
+            continue
+        lines_inserted = int(m.group(1))
+        lines_deleted = int(m.group(2))
+        fnam = m.group(3)
+        ftyp = filetype(fnam)
+        locs_type[ftyp] += lines_inserted - lines_deleted
         if file_type_ppp <6:
-            adds+=1
-            locs+=1
-    if x.startswith('-') and not x.startswith('---'):
-        locs_type[file_type_mmm] -= 1
-        if file_type_mmm <6:
-            dels+=1
-            locs-=1
+            adds += lines_inserted
+            dels += lines_deleted
+            locs += lines_inserted - lines_deleted
 append_to_history() # once more upon leaving the loop
 
 save_history_as_table("lines_of_code.tab")

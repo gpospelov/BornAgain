@@ -24,41 +24,6 @@ static double eps(2e-16);
 
 Diagnosis diagnosis;
 
-//***************************************************************************************************
-// Test polyhedra
-//***************************************************************************************************
-
-/*
-FormFactorPolyhedron make_cube(int symFlag)
-{
-    kvector_t V[8] = {
-        { -.5, -.5, -.5 },
-        { -.5, -.5, +.5 },
-        { -.5, +.5, -.5 },
-        { -.5, +.5, +.5 },
-        { +.5, -.5, -.5 },
-        { +.5, -.5, +.5 },
-        { +.5, +.5, -.5 },
-        { +.5, +.5, +.5 }
-    };
-    std::vector<PolyhedralFace> faces;
-    faces.push_back( PolyhedralFace( { V[0], V[2], V[6], V[4] }, symFlag&2 ) );
-    faces.push_back( PolyhedralFace( { V[0], V[4], V[5], V[1] }, symFlag&2 ) );
-    faces.push_back( PolyhedralFace( { V[4], V[6], V[7], V[5] }, symFlag&2 ) );
-    faces.push_back( PolyhedralFace( { V[0], V[1], V[3], V[2] }, symFlag&2 ) );
-    faces.push_back( PolyhedralFace( { V[2], V[3], V[7], V[6] }, symFlag&2 ) );
-    faces.push_back( PolyhedralFace( { V[1], V[5], V[7], V[3] }, symFlag&2 ) );
-
-    FormFactorPolyhedron ret( faces, -.5, symFlag&1 );
-    ret.assert_platonic();
-    return ret;
-}
-*/
-
-//***************************************************************************************************
-// Test functions
-//***************************************************************************************************
-
 int nshape = 11;
 
 //! Returns a polyhedron, according to given code
@@ -72,7 +37,7 @@ IFormFactorBorn* make_polyhedron( int ishape )
     } else if( ishape==2 ) { // true tetrahedron
         double alpha = 72 * Units::degree;
         return new FormFactorTetrahedron(1., tan(alpha)/2/sqrt(3), alpha);
-    } else if( ishape==3 ) { // tetrahedral pyramid
+    } else if( ishape==3 ) { // tetrahedral frustum
         double alpha = 72 * Units::degree;
         return new FormFactorTetrahedron(1., 0.5*tan(alpha)/2/sqrt(3), alpha);
     } else if( ishape==4 ) {
@@ -241,10 +206,6 @@ void test_loop( int outfilter )
     if( outfilter==6 )
         cout << "grand total max rel step = " << totmaxrelstep << "\n";
 }
-
-//***************************************************************************************************
-// Main test program
-//***************************************************************************************************
 
 void help_and_exit()
 {

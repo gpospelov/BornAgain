@@ -428,6 +428,9 @@ double FormFactorPolygonalPrism::getHeight() const { return m_height; }
 
 complex_t FormFactorPolygonalPrism::evaluate_for_q( const cvector_t& q ) const
 {
+#ifdef POLYHEDRAL_DIAGNOSTIC
+    diagnosis = { 0, 0 };
+#endif
     const cvector_t qxy( q.x(), q.y(), 0. );
     return m_height * exp(I*(m_height/2)*q.z()) * MathFunctions::sinc(m_height/2*q.z()) * m_base.ff_2D( qxy );
 }

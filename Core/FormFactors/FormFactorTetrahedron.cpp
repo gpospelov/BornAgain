@@ -34,31 +34,49 @@ FormFactorTetrahedron::~FormFactorTetrahedron() {}
 std::vector<PolyhedralFace> FormFactorTetrahedron::polyhedral_faces(
     double length, double height, double alpha)
 {
+    std::vector<PolyhedralFace> faces;
+
     double a = length;
     double as = a/2;
     double ac = a/sqrt(3)/2;
     double ah = a/sqrt(3);
     double b = a - 2*sqrt(3)*height/std::tan(alpha);
-    double bs = b/2;
-    double bc = b/sqrt(3)/2;
-    double bh = b/sqrt(3);
 
-    kvector_t V[6] = {
-        // base:
-        { -as, -ac, 0. },
-        {  as, -ac, 0. },
-        {  0.,  ah, 0. },
-        // top:
-        { -bs, -bc, height },
-        {  bs, -bc, height },
-        {  0.,  bh, height } };
-    std::vector<PolyhedralFace> faces;
-    faces.push_back( PolyhedralFace( { V[2], V[1], V[0] } ) );
-    faces.push_back( PolyhedralFace( { V[0], V[1], V[4], V[3] } ) );
-    faces.push_back( PolyhedralFace( { V[1], V[2], V[5], V[4] } ) );
-    faces.push_back( PolyhedralFace( { V[2], V[0], V[3], V[5] } ) );
-    faces.push_back( PolyhedralFace( { V[3], V[4], V[5] } ) );
+    if( std::abs(b)<1e-14*a ) {
+        // true pyramid
+        kvector_t V[4] = {
+            // base:
+            { -as, -ac, 0. },
+            {  as, -ac, 0. },
+            {  0.,  ah, 0. },
+            // top:
+            {  0.,  0., height } };
+        faces.push_back( PolyhedralFace( { V[2], V[1], V[0] } ) );
+        faces.push_back( PolyhedralFace( { V[0], V[1], V[3] } ) );
+        faces.push_back( PolyhedralFace( { V[1], V[2], V[3] } ) );
+        faces.push_back( PolyhedralFace( { V[2], V[0], V[3] } ) );
 
+    } else {
+        // frustum
+        double bs = b/2;
+        double bc = b/sqrt(3)/2;
+        double bh = b/sqrt(3);
+
+        kvector_t V[6] = {
+            // base:
+            { -as, -ac, 0. },
+            {  as, -ac, 0. },
+            {  0.,  ah, 0. },
+            // top:
+            { -bs, -bc, height },
+            {  bs, -bc, height },
+            {  0.,  bh, height } };
+        faces.push_back( PolyhedralFace( { V[2], V[1], V[0] } ) );
+        faces.push_back( PolyhedralFace( { V[0], V[1], V[4], V[3] } ) );
+        faces.push_back( PolyhedralFace( { V[1], V[2], V[5], V[4] } ) );
+        faces.push_back( PolyhedralFace( { V[2], V[0], V[3], V[5] } ) );
+        faces.push_back( PolyhedralFace( { V[3], V[4], V[5] } ) );
+    }
     return faces;
 }
 

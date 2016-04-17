@@ -1,4 +1,4 @@
-CC=             g++ -ggdb -O0 -std=c++11 -Wall -I/G/ba/Core/FormFactors/ -I/G/ba/Core/Geometry -I/G/ba/Core/Tools -I/G/ba/Core/Samples -I/usr/include/eigen3
+CC=             g++ -ggdb -O3 -std=c++11 -Wall -I/G/ba/Core/FormFactors/ -I/G/ba/Core/Geometry -I/G/ba/Core/Tools -I/G/ba/Core/Samples -I/usr/include/eigen3
 
 # LIBS=           -lm -lgslcblas -lgsl -lyaml-cpp
 

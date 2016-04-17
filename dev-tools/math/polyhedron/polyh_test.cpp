@@ -14,8 +14,7 @@
 #include <complex>
 #include <vector>
 
-#include "FormFactorDodecahedron.h"
-#include "FormFactorIcosahedron.h"
+#include "ParticleShapes.h"
 
 using std::cout;
 using std::cerr;
@@ -60,14 +59,39 @@ FormFactorPolyhedron make_cube(int symFlag)
 // Test functions
 //***************************************************************************************************
 
+int nshape = 11;
+
 //! Returns a polyhedron, according to given code
 
-FormFactorPolyhedron* make_polyhedron( int ishape )
+IFormFactorBorn* make_polyhedron( int ishape )
 {
     if       ( ishape==0 ) {
         return new FormFactorDodecahedron(3.);
     } else if( ishape==1 ) {
-        return new FormFactorIcosahedron(3.);
+        return new FormFactorIcosahedron(15.);
+    } else if( ishape==2 ) { // true tetrahedron
+        double alpha = 72 * Units::degree;
+        return new FormFactorTetrahedron(1., tan(alpha)/2/sqrt(3), alpha);
+    } else if( ishape==3 ) { // tetrahedral pyramid
+        double alpha = 72 * Units::degree;
+        return new FormFactorTetrahedron(1., 0.5*tan(alpha)/2/sqrt(3), alpha);
+    } else if( ishape==4 ) {
+        double alpha = 72 * Units::degree;
+        return new FormFactorCone6(10., 10., alpha);
+    } else if( ishape==5 ) {
+        double alpha = 72 * Units::degree;
+        return new FormFactorPyramid(10., 10., alpha);
+    } else if( ishape==6 ) {
+        return new FormFactorPrism3(1., 10.);
+    } else if( ishape==7 ) {
+        return new FormFactorPrism3(10., 1.);
+    } else if( ishape==8 ) {
+        return new FormFactorPrism6(1., 1.);
+    } else if( ishape==9 ) {
+        return new FormFactorTruncatedCube(4., 1.);
+    } else if( ishape==10 ) {
+        double alpha = 72 * Units::degree;
+        return new FormFactorCuboctahedron(1., 1., .8, alpha);
     } else
         throw "Shape not implemented";
 }
@@ -75,7 +99,7 @@ FormFactorPolyhedron* make_polyhedron( int ishape )
 //! Bisect between two q's to find possible discontinuities
 
 void bisect(
-    const FormFactorPolyhedron* polyh, const int ishape, const double q0mag,
+    const IFormFactorBorn* polyh, const int ishape, const double q0mag,
     const cvector_t qi, const complex_t ri, const Diagnosis di,
     const cvector_t qf, const complex_t rf, const Diagnosis df,
     double& maxrelstep )
@@ -103,7 +127,7 @@ void bisect(
 //! Computes form factor or runs bisection, and prints result according to outfilter.
 
 void run(
-    const FormFactorPolyhedron* polyh,
+    const IFormFactorBorn* polyh,
     const double step, const int ishape, const cvector_t q, const cvector_t qlast,
     const int outfilter, double& maxrelstep )
 {
@@ -144,7 +168,7 @@ void run(
 
 void test_loop( int outfilter )
 {
-    double maxrelstep = 0;
+    double totmaxrelstep = 0;
     static int n_qdir = 10;
     int nsteps;
     if( outfilter==7 )
@@ -177,8 +201,9 @@ void test_loop( int outfilter )
         { 0., 2., 3. },
         { 1., 2.71813+0.1*I, 3.14158-0.2*I, },
         { -200.+I, 30000.-I, 1. } };
-    for( int ishape=0; ishape<2; ++ishape ){
-        FormFactorPolyhedron* polyh( make_polyhedron( ishape ) );
+    for( int ishape=0; ishape<nshape; ++ishape ){
+        double maxrelstep = 0;
+        IFormFactorBorn* polyh( make_polyhedron( ishape ) );
         // For different directions ...
         for( int idx_qdir=0; idx_qdir<n_qdir; ++idx_qdir ){
             for( int irot=0; irot<3; ++irot ){
@@ -209,9 +234,12 @@ void test_loop( int outfilter )
                 }
             }
         }
+        if( outfilter==6 )
+            cout << "shape " << ishape << " => max rel step = " << maxrelstep << "\n";
+        totmaxrelstep = std::max( maxrelstep, totmaxrelstep );
     }
     if( outfilter==6 )
-        cout << "max rel step = " << maxrelstep << "\n";
+        cout << "grand total max rel step = " << totmaxrelstep << "\n";
 }
 
 //***************************************************************************************************
@@ -243,7 +271,7 @@ int main (int argc, char *argv[])
         if( argc!=11 )
             help_and_exit();
         int ishape = atoi( argv[3] );
-        FormFactorPolyhedron* polyh( make_polyhedron( ishape ) );
+        IFormFactorBorn* polyh( make_polyhedron( ishape ) );
         cvector_t uq( complex_t(atof(argv[4]),atof(argv[5])),
                       complex_t(atof(argv[6]),atof(argv[7])),
                       complex_t(atof(argv[8]),atof(argv[9])) );

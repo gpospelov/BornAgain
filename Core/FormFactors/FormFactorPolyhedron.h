@@ -28,8 +28,7 @@ typedef Geometry::BasicVector3D<double> kvector_t;
 
 class PolyhedralEdge {
 public:
-    PolyhedralEdge( const kvector_t _Vlow, const kvector_t _Vhig ) :
-        E((_Vhig-_Vlow)/2), R((_Vhig+_Vlow)/2) {};
+    PolyhedralEdge( const kvector_t _Vlow, const kvector_t _Vhig );
     kvector_t E; //!< vector pointing from mid of edge to upper vertex
     kvector_t R; //!< position vector of edge midpoint
     complex_t contrib(int m, cvector_t prevec, cvector_t qpa) const;

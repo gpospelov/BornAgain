@@ -19,6 +19,7 @@
 
 #include <cmath>
 #include <iostream>
+#include <sstream>
 #include <iomanip>
 #include <algorithm>
 #include <complex>
@@ -44,6 +45,17 @@ extern Diagnosis diagnosis;
 //***************************************************************************************************
 //  PolyhedralEdge implementation
 //***************************************************************************************************
+
+PolyhedralEdge::PolyhedralEdge( const kvector_t _Vlow, const kvector_t _Vhig )
+    : E((_Vhig-_Vlow)/2)
+    , R((_Vhig+_Vlow)/2)
+{
+    if( E.mag2()==0 ) {
+        std::ostringstream msg;
+        msg<<"zero-length edge between "<<_Vlow<<" and "<<_Vhig;
+        throw std::runtime_error(msg.str());
+    }
+};
 
 //! Returns the contribution of this edge to the form factor.
 
@@ -92,7 +104,16 @@ PolyhedralFace::PolyhedralFace( const std::vector<kvector_t>& V, bool _sym_S2 )
     normal = kvector_t();
     for( size_t j=0; j<N; ++j ){
         size_t jj = (j+1)%N;
-        normal += edges[j].E.cross( edges[jj].E ).unit();
+        kvector_t ee = edges[j].E.cross( edges[jj].E );
+        if( ee.mag2()==0 ) {
+            std::ostringstream msg;
+            size_t jjj = (j+2)%N;
+            msg<<"parallel edges between V["<<j<<"]="<<V[j]<<
+                " and V["<<jj<<"]="<<V[jj]<<
+                " and  V["<<jjj<<"]="<<V[jjj];
+            throw std::runtime_error(msg.str());
+        }
+        normal += ee.unit();
     }
     normal /= N;
     rperp = 0;

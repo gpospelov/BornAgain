@@ -12,53 +12,14 @@
 # ROOT graphics added
 # see http://root.cern.ch/drupal/content/how-use-use-python-pyroot-interpreter
 # MG: I've modified this file to run it from command line in release.sh script
-import re
-from email.utils import parsedate
-from time import mktime
-from datetime import datetime
-from os import popen
-import os
-from sys import argv,stderr,stdout
-#import getopt
-from array import array
-from optparse import OptionParser
 
+import datetime, email.utils, optparse, os, re, sys, time
 
-#opts, args = getopt.getopt(argv[1:],None)
-usage = "usage: %prog [options]"
-parser = OptionParser(usage)
-parser.add_option('-o', '--output-filename', type="string", action="store", dest="outfname", help="Output plot file name.", default="lines_of_code.png")
-parser.add_option('-i', '--input-dir', type="string", action="store", dest="gitdir", help="Path to the .git folder.", default=".")
-(options, args) = parser.parse_args()
-
-
-
-#extfolder = False
-#if len(args) == 1:
-#    extfolder = True
-#    targetfolder = args[0]
-
-extfolder=True
-targetfolder=options.gitdir
-fc=0
-locs=0
-locs_type=[0,0,0,0,0,0,0,0,0]
-#       0      1                  2            3      4        5      6     7       8
-descr=["Core","Functional Tests","Unit Tests","*.py","macros","GUI", "PythonAPI","Third","Undef"]
-adds=None
-cmt=None
-prev_time = datetime(2000,1,1)
-
-history=[]
-
-def pop():
-    if adds is not None:
-        pstr="%s %8u %5s %5s %7s %s \t%s"%(d,locs,'+'+str(adds),'-'+str(dels),hsh,who,cmt.strip())
-        print pstr
-        atmp = []
-        for x in locs_type:
-            atmp.append(x)
-        history.append((d,locs,atmp,adds,dels,hsh,who,cmt))
+def append_to_history():
+    if adds is None:
+        return
+    # print( "%s %8u %5s %5s %7s %s \t%s"%(d,locs,'+'+str(adds),'-'+str(dels),hsh,who,cmt.strip()) )
+    history.append((d,locs,list(locs_type),adds,dels,hsh,who,cmt))
 
 def filePython(x):
     if ".py" in x and not ".pypp." in x: return True
@@ -117,42 +78,66 @@ def dirUnitTests(x):
     if "/Tests/UnitTests/TestFit/" in x: return True
     return False
 
-
-# ------------------------------------------------------------------------------
 def filetype(x):
     file_type=8
-
-    if dirSkip(x): return file_type
-
+    if dirSkip(x):
+        return file_type
     if fileCpp(x) and dirCore(x):
         file_type = 0
     elif (fileCpp(x) or filePython(x)) and dirFuncTest(x):
         file_type = 1
-
     elif dirUnitTests(x):
         file_type = 2
-
     elif dirGUI(x):
         file_type = 5
-
     elif dirPyAPI(x):
         file_type = 6
-
     elif dirThirdParty(x):
         file_type = 7
     return file_type
 
-
+def save_history_as_table(fname):
+    f = open(fname, 'w')
+    for entry in history:
+        d = entry[0]
+        tim = 2012 +  (d - datetime.datetime(2012,1,1)).total_seconds()/366.0/24/3600
+        f.write( "%9.4f %s\n" % ( tim, entry[1:] ) )
+    f.close()
+    print( "Table with one line per commit written to "+fname )
+    
 # ------------------------------------------------------------------------------
+# MAIN
+# ------------------------------------------------------------------------------
+usage = "usage: %prog [options]"
+parser = optparse.OptionParser(usage)
+parser.add_option('-o', '--output-filename', type="string", action="store", dest="outfname", help="Output plot file name.", default="lines_of_code.png")
+parser.add_option('-i', '--input-dir', type="string", action="store", dest="gitdir", help="Path to the .git folder.", default=".")
+(options, args) = parser.parse_args()
+
+extfolder=True
+targetfolder=options.gitdir
+fc=0
+locs=0
+locs_type=[0,0,0,0,0,0,0,0,0]
+
+#       0      1                  2            3      4        5      6     7       8
+descr=["Core","Functional Tests","Unit Tests","*.py","macros","GUI", "PythonAPI","Third","Undef"]
+adds=None
+cmt=None
+prev_time = datetime.datetime(2000,1,1)
+
+history=[]
+
 prevfolder = os.getcwd()
 if extfolder: os.chdir(targetfolder)
 
 # parsing output of git log 
 file_type_ppp = 8
 file_type_mmm = 8
-for x in popen('git log develop --reverse -p'):
+
+for x in os.popen('git log develop --reverse -p'):
     if x.startswith('commit'):
-        pop()
+        append_to_history()
         hsh=x[7:14];
     if x.startswith('Author'):
         who=x.replace("Author: ",'').replace('\n','');
@@ -160,11 +145,17 @@ for x in popen('git log develop --reverse -p'):
         who=re.sub(".*<","",who);
     if x.startswith('Date'):
         fc=1
-        d=datetime(*parsedate(x[5:])[:7])
-        t=mktime(parsedate(x[5:]))
+        pd=email.utils.parsedate(x[5:])
+        d=datetime.datetime(*pd[:7])
+        t=time.mktime(pd)
         adds=0
         dels=0
-        print x
+        sys.stdout.write( x.rstrip() )
+        sys.stdout.write( '\r' )
+        sys.stdout.flush()
+        # accelerate development
+        if( d.year!=2012 ):
+            break
     if fc==2:
         cmt=x[:-1]
         fc=0
@@ -172,10 +163,8 @@ for x in popen('git log develop --reverse -p'):
         if len(x)==1: fc=2
     if x.startswith('+++'):
         file_type_ppp = filetype(x)
-
     if x.startswith('---'):
         file_type_mmm = filetype(x)
-
     if x.startswith('+') and not x.startswith('+++'):
         locs_type[file_type_ppp] += 1
         if file_type_ppp <6:
@@ -186,10 +175,15 @@ for x in popen('git log develop --reverse -p'):
         if file_type_mmm <6:
             dels+=1
             locs-=1
+append_to_history() # once more upon leaving the loop
 
-pop()
+save_history_as_table("lines_of_code.tab")
+
+# clear progress line
+sys.stdout.write( '\r' )
+sys.stdout.flush()
+
 os.chdir(prevfolder)
-
 
 # --------------------------------------------------------
 # making ROOT plot - number of lines of code .vs. time
@@ -205,10 +199,8 @@ time_offset = int(td_first.Convert()) - 7*24.*3600 # one week before first commi
 
 ntimebins = 4*int((td_last.Convert() - time_offset)/3600./24)
 
-
 #print "ntimebins", ntimebins
 hist_ncommits = TH1D("ncommits", "ncommits", ntimebins, td_first.Convert() - time_offset, td_last.Convert() - time_offset)
-
 
 # ---------------------------------
 # creating histograms
@@ -237,7 +229,6 @@ for i in range(0, len(selected_hist) ):
     hist.SetLineColor(a_colors[i_hist])
     hist.SetFillColor(a_colors[i_hist])
     a_histograms.append(hist)
-
 
 # adding histograms to legend in right order
 for i_hist in range(len(a_histograms)-1,-1,-1):
@@ -269,14 +260,6 @@ for h in a_histograms:
             h.SetBinContent(i_bin, prev_content)
         prev_content = h.GetBinContent(i_bin)
         
-    
-
-
-
-
-
-
-
 #preparing canvas
 c1 = TCanvas( 'gisasfw_loc', 'Number of lines of code in BornAgain project', 800, 800)
 c1.cd()
@@ -307,14 +290,4 @@ gPad.RedrawAxis()
 gPad.RedrawAxis("G")
 
 c1.Print(options.outfname)
-
-
-
-# wait for input to keep the GUI (which lives on a ROOT event dispatcher) alive
-#if __name__ == '__main__':
-#   rep = ''
-#   while not rep in [ 'q', 'Q' ]:
-#      rep = raw_input( 'enter "q" to quit: ' )
-#      if 1 < len(rep):
-#         rep = rep[0]
-
+print( "Plot saved in "+options.outfname )

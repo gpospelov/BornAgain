@@ -51,7 +51,7 @@ public:
 
     SampleModel *getSampleModel() { return m_sampleModel; }
 
-    IView *getViewForItem(SessionItem *item) { return m_ItemToView[item]; }
+    IView *getViewForItem(SessionItem *item);
 
     NodeEditor *getNodeEditor() { return m_nodeEditor;}
 

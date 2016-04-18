@@ -44,7 +44,7 @@ QStringList SampleViewFactory::m_valid_item_names  = QStringList()
         << Constants::InterferenceFunction2DLatticeType;
 
 
-bool SampleViewFactory::isValidItemName(const QString &name)
+bool SampleViewFactory::isValidType(const QString &name)
 {
     if(name.startsWith(Constants::FormFactorType)) {
         return true;

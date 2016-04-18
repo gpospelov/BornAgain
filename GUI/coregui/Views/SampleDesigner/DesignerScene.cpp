@@ -119,6 +119,15 @@ void DesignerScene::setSelectionModel(QItemSelectionModel *model, FilterProperty
     }
 }
 
+IView *DesignerScene::getViewForItem(SessionItem *item)
+{
+    auto it = m_ItemToView.find(item);
+    if(it != m_ItemToView.end()) {
+        return it.value();
+    }
+    return nullptr;
+}
+
 void DesignerScene::resetScene()
 {
     qDebug() << "DesignerScene::resetScene()";
@@ -224,10 +233,12 @@ void DesignerScene::updateViews(const QModelIndex &parentIndex, IView *parentVie
 
         if (SessionItem *item = m_sampleModel->itemForIndex(itemIndex)) {
 
+            if(item && !SampleViewFactory::isValidType(item->modelType()))
+                    continue;
 
-            if (item && (item->modelType() == Constants::GroupItemType || item->modelType() == Constants::PropertyType)) {
-                continue;
-            }
+//            if (item && (item->modelType() == Constants::GroupItemType || item->modelType() == Constants::PropertyType)) {
+//                continue;
+//            }
 
             childView = addViewForItem(item);
             if (childView) {
@@ -253,7 +264,8 @@ IView *DesignerScene::addViewForItem(SessionItem *item)
     qDebug() << "DesignerScene::addViewForItem() ->" << item->modelType();
     Q_ASSERT(item);
 
-    IView *view = m_ItemToView[item];
+    IView *view = getViewForItem(item);
+
     if (!view) {
         qDebug() << "       DesignerScene::addViewForItem() -> Creating view for item"
                  << item->modelType();
@@ -436,7 +448,7 @@ void DesignerScene::dropEvent(QGraphicsSceneDragDropEvent *event)
         } else {
             // other views can be dropped on canvas anywhere
             qDebug() << "DesignerScene::dropEvent() -> about to drop";
-            if (SampleViewFactory::isValidItemName(mimeData->getClassName())) {
+            if (SampleViewFactory::isValidType(mimeData->getClassName())) {
 
                 SessionItem *new_item(0);
                 if (mimeData->getClassName().startsWith(Constants::FormFactorType)) {

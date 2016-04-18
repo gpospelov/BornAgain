@@ -42,7 +42,7 @@ MaterialItem *MaterialModel::addMaterial(const QString &name, double delta, doub
     materialItem->setItemName(name);
 
     RefractiveIndexItem *refractiveIndexItem =
-            dynamic_cast<RefractiveIndexItem *>(materialItem->getGroupItem(MaterialItem::P_REFRACTIVE_INDEX));
+            dynamic_cast<RefractiveIndexItem *>(materialItem->getItem(MaterialItem::P_REFRACTIVE_INDEX));
     Q_ASSERT(refractiveIndexItem);
 
     refractiveIndexItem->setDelta(delta);

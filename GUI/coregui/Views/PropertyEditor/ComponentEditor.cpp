@@ -171,19 +171,27 @@ ComponentEditor::componentItems(SessionItem *item) const
     foreach (SessionItem *child, item->childItems()) {
         if (!child->isVisible())
             continue;
+
         if (child->modelType() == Constants::PropertyType) {
             result.append(child);
         }
-        if (child->modelType() == Constants::GroupItemType) {
+
+        else if (child->modelType() == Constants::GroupItemType) {
             result.append(child);
         }
+
+        else if (child->modelType() == Constants::VectorType) {
+            result.append(child);
+        }
+
+        else if (child->modelType() == Constants::RefractiveIndexType) {
+            result.append(child);
+        }
+
         if (item->modelType() == Constants::GroupItemType) {
             foreach (SessionItem *childOfChild, child->childItems()) {
                 result.append(childOfChild);
             }
-        }
-        if (child->modelType() == Constants::VectorType) {
-            result.append(child);
         }
 
     }

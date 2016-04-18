@@ -55,7 +55,7 @@ private:
     kvector_t normal; //!< normal vector of this polygon's plane
     double rperp; //!< distance of this polygon's plane from the origin, along 'normal'
     double radius_2d; //!< radius of enclosing cylinder
-    void decompose_q( const cvector_t q, complex_t& qperp, cvector_t qpa ) const;
+    void decompose_q( const cvector_t q, complex_t& qperp, cvector_t& qpa ) const;
     complex_t ff_n_core( int m, const cvector_t qpa ) const;
 };
 

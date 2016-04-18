@@ -161,7 +161,7 @@ double PolyhedralFace::getPyramidalVolume() const { return rperp*area/3; }
 
 //! Sets qperp and qpa according to argument q and to this polygon's normal.
 
-void PolyhedralFace::decompose_q( const cvector_t q, complex_t& qperp, cvector_t qpa ) const
+void PolyhedralFace::decompose_q( const cvector_t q, complex_t& qperp, cvector_t& qpa ) const
 {
     qperp = normal.dot(q);
     qpa = q - qperp*normal;

@@ -96,7 +96,7 @@ void IDetector2D::applyDetectorResolution(OutputData<double> *p_intensity_map) c
     }
 }
 
-void IDetector2D::setAnalyzerProperties(const kvector_t &direction, double efficiency,
+void IDetector2D::setAnalyzerProperties(const kvector_t direction, double efficiency,
                                      double total_transmission)
 {
     if (!checkAnalyzerProperties(direction, efficiency, total_transmission)) {
@@ -259,7 +259,7 @@ void IDetector2D::swapContent(IDetector2D &other)
     std::swap(this->m_detector_mask, other.m_detector_mask);
 }
 
-bool IDetector2D::checkAnalyzerProperties(const kvector_t &direction, double efficiency,
+bool IDetector2D::checkAnalyzerProperties(const kvector_t direction, double efficiency,
                                        double total_transmission) const
 {
     if (direction.mag() == 0.0)
@@ -273,7 +273,7 @@ bool IDetector2D::checkAnalyzerProperties(const kvector_t &direction, double eff
     return true;
 }
 
-Eigen::Matrix2cd IDetector2D::calculateAnalyzerOperator(const kvector_t &direction, double efficiency,
+Eigen::Matrix2cd IDetector2D::calculateAnalyzerOperator(const kvector_t direction, double efficiency,
                                                      double total_transmission) const
 {
     Eigen::Matrix2cd result;

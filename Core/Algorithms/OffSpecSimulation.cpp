@@ -95,7 +95,7 @@ void OffSpecSimulation::setBeamIntensity(double intensity)
     m_instrument.setBeamIntensity(intensity);
 }
 
-void OffSpecSimulation::setBeamPolarization(const kvector_t &bloch_vector)
+void OffSpecSimulation::setBeamPolarization(const kvector_t bloch_vector)
 {
     m_instrument.setBeamPolarization(bloch_vector);
 }
@@ -124,7 +124,7 @@ void OffSpecSimulation::removeDetectorResolutionFunction()
     m_instrument.setDetectorResolutionFunction(0);
 }
 
-void OffSpecSimulation::setAnalyzerProperties(const kvector_t &direction, double efficiency,
+void OffSpecSimulation::setAnalyzerProperties(const kvector_t direction, double efficiency,
                                               double total_transmission)
 {
     m_instrument.setAnalyzerProperties(direction, efficiency, total_transmission);

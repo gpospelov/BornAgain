@@ -36,14 +36,14 @@ public:
 
     //! Computes refraction angle reflection/transmission coefficients
     //! for given multilayer and wavevector k
-    static void execute(const MultiLayer& sample, const kvector_t& k,
+    static void execute(const MultiLayer& sample, const kvector_t k,
            MultiLayerCoeff_t& coeff);
 
 private:
-    static void calculateEigenvalues(const MultiLayer& sample, const kvector_t& k,
+    static void calculateEigenvalues(const MultiLayer& sample, const kvector_t k,
            MultiLayerCoeff_t& coeff);
     static void calculateTransferAndBoundary(const MultiLayer& sample,
-           const kvector_t& k, MultiLayerCoeff_t& coeff);
+           const kvector_t k, MultiLayerCoeff_t& coeff);
     static void setForNoTransmission(MultiLayerCoeff_t& coeff);
     static complex_t getImExponential(complex_t exponent);
 };

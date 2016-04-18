@@ -91,7 +91,7 @@ const IFTDecayFunction2D *InterferenceFunction2DLattice::getDecayFunction() cons
     return mp_pdf;
 }
 
-double InterferenceFunction2DLattice::evaluate(const kvector_t &q) const
+double InterferenceFunction2DLattice::evaluate(const kvector_t q) const
 {
     if (!mp_pdf) {
         throw NullPointerException("InterferenceFunction2DLattice::evaluate"

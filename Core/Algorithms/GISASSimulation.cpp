@@ -106,7 +106,7 @@ void GISASSimulation::setBeamIntensity(double intensity)
     m_instrument.setBeamIntensity(intensity);
 }
 
-void GISASSimulation::setBeamPolarization(const kvector_t &bloch_vector)
+void GISASSimulation::setBeamPolarization(const kvector_t bloch_vector)
 {
     m_instrument.setBeamPolarization(bloch_vector);
 }
@@ -150,7 +150,7 @@ void GISASSimulation::removeDetectorResolutionFunction()
     m_instrument.setDetectorResolutionFunction(0);
 }
 
-void GISASSimulation::setAnalyzerProperties(const kvector_t &direction, double efficiency,
+void GISASSimulation::setAnalyzerProperties(const kvector_t direction, double efficiency,
                                        double total_transmission)
 {
     m_instrument.setAnalyzerProperties(direction, efficiency, total_transmission);

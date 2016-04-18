@@ -37,7 +37,7 @@ void FormFactorLongBoxLorentz::accept(ISampleVisitor *visitor) const
     visitor->visit(this);
 }
 
-complex_t FormFactorLongBoxLorentz::evaluate_for_q(const cvector_t &q) const
+complex_t FormFactorLongBoxLorentz::evaluate_for_q(const cvector_t q) const
 {
     complex_t qxL2 = 2.5*std::pow(m_length * q.x(), 2);
     complex_t qyWdiv2 = m_width * q.y() / 2.0;

@@ -68,7 +68,7 @@ public:
     //! and a given wavevector used for the specular calculation.
     //! This matrix appears in the one-dimensional Schroedinger equation
     //! in the z-direction
-    Eigen::Matrix2cd getSpecularScatteringMatrix(const kvector_t &k) const;
+    Eigen::Matrix2cd getSpecularScatteringMatrix(const kvector_t k) const;
 
     //! Get the scattering matrix (~potential V) from the material.
     //! This matrix appears in the full three-dimensional Schroedinger equation.
@@ -92,7 +92,7 @@ inline IMaterial *IMaterial::clone() const
 }
 
 #ifndef GCCXML_SKIP_THIS
-inline Eigen::Matrix2cd IMaterial::getSpecularScatteringMatrix(const kvector_t &k) const
+inline Eigen::Matrix2cd IMaterial::getSpecularScatteringMatrix(const kvector_t k) const
 {
     Eigen::Matrix2cd result;
     double k_mag2 = k.mag2();

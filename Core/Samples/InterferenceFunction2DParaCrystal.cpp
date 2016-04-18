@@ -77,7 +77,7 @@ void InterferenceFunction2DParaCrystal::setProbabilityDistributions(
     m_pdfs[1] = pdf_2.clone();
 }
 
-double InterferenceFunction2DParaCrystal::evaluate(const kvector_t& q) const
+double InterferenceFunction2DParaCrystal::evaluate(const kvector_t q) const
 {
     m_qx = q.x();
     m_qy = q.y();

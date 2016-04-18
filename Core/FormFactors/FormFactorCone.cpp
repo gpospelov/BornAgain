@@ -77,7 +77,7 @@ complex_t FormFactorCone::Integrand(double Z) const
             std::exp(complex_t(0.0, 1.0)*m_q.z()*Z);
 }
 
-complex_t FormFactorCone::evaluate_for_q(const cvector_t& q) const
+complex_t FormFactorCone::evaluate_for_q(const cvector_t q) const
 {   m_q = q;
 
   if ( std::abs(m_q.mag()) < Numeric::double_epsilon) {

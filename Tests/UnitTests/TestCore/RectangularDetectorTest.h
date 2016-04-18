@@ -18,10 +18,10 @@ class RectangularDetectorTest : public ::testing::Test
 
     double phi(SimulationElement &element) {return element.getPhiMean()/Units::degree; }
     double alpha(SimulationElement &element) {return element.getAlphaMean()/Units::degree; }
-    double phi(kvector_t &k) {return k.phi()/Units::degree; }
-    double alpha(kvector_t &k) {return 90.0 - k.theta()/Units::degree; }
+    double phi(kvector_t k) {return k.phi()/Units::degree; }
+    double alpha(kvector_t k) {return 90.0 - k.theta()/Units::degree; }
 
-    bool isEqual(const kvector_t &lhs, const kvector_t &rhs) {
+    bool isEqual(const kvector_t lhs, const kvector_t rhs) {
         bool is_equal = Numeric::areAlmostEqual(lhs.x(), rhs.x()) &&
                 Numeric::areAlmostEqual(lhs.y(), rhs.y()) &&
                 Numeric::areAlmostEqual(lhs.z(), rhs.z());

@@ -44,7 +44,7 @@ public:
 
     const IFTDecayFunction1D *getDecayFunction() const;
 
-    virtual double evaluate(const kvector_t& q) const;
+    virtual double evaluate(const kvector_t q) const;
 
 protected:
     Lattice1DParameters m_lattice_params;

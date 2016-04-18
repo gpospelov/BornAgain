@@ -72,7 +72,7 @@ complex_t FormFactorFullSpheroid::Integrand(double Z) const
     return Rz*Rz* J1_qrRz_div_qrRz *std::cos(m_q.z()*Z);
 }
 
-complex_t FormFactorFullSpheroid::evaluate_for_q(const cvector_t& q) const
+complex_t FormFactorFullSpheroid::evaluate_for_q(const cvector_t q) const
 {
     double H = m_height;
     double R = m_radius;

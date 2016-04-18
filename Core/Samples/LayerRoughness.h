@@ -42,9 +42,9 @@ public:
     }
 
     //! Returns power spectral density of the surface roughness
-    double getSpectralFun(const kvector_t& kvec) const;
+    double getSpectralFun(const kvector_t kvec) const;
 
-    double getCorrFun(const kvector_t& k) const;
+    double getCorrFun(const kvector_t k) const;
 
     //! Sets rms of roughness
     void setSigma(double sigma);

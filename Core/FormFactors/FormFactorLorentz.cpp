@@ -62,7 +62,7 @@ double FormFactorLorentz::getRadius() const
     return m_width / 2.0;
 }
 
-complex_t FormFactorLorentz::evaluate_for_q(const cvector_t& q) const
+complex_t FormFactorLorentz::evaluate_for_q(const cvector_t q) const
 {
     static const double sigma2 = 4.0*std::pow(Units::PI, 2.0/3.0);
     double R = m_width;

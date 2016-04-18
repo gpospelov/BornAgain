@@ -88,7 +88,7 @@ complex_t FormFactorHemiEllipsoid::Integrand(double Z) const
     return Rz * Wz * J1_gamma_div_gamma *exp_imag;
 }
 
-complex_t FormFactorHemiEllipsoid::evaluate_for_q(const cvector_t& q) const
+complex_t FormFactorHemiEllipsoid::evaluate_for_q(const cvector_t q) const
 {
      m_q = q;
      double R = m_radius_x;

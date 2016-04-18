@@ -45,7 +45,7 @@ public:
     virtual Eigen::Matrix2cd evaluatePol(const WavevectorInfo& wavevectors) const;
 #endif
 
-    virtual complex_t evaluate_for_q(const cvector_t& q) const;
+    virtual complex_t evaluate_for_q(const cvector_t q) const;
 
 private:
     void calculateLargestReciprocalDistance();

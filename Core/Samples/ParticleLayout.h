@@ -55,14 +55,14 @@ public:
     //! @param abundance Particle abundance
     //! @param position Particle position
     virtual void addParticle(const IParticle &particle, double abundance,
-                             const kvector_t &position);
+                             const kvector_t position);
 
     //! @brief Adds particle to the layout with abundance, position and the rotation defined
     //! @param abundance Particle abundance
     //! @param position Particle position
     //! @param rotation Particle rotation
     virtual void addParticle(const IParticle &particle, double abundance,
-                             const kvector_t &position, const IRotation& rotation);
+                             const kvector_t position, const IRotation& rotation);
 
     //! Returns number of particles
     virtual size_t getNumberOfParticles() const;

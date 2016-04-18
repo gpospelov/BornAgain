@@ -406,7 +406,7 @@ Gets the beam intensity in neutrons/sec.
 Sets the beam intensity in neutrons/sec. 
 ";
 
-%feature("docstring")  Beam::setPolarization "void Beam::setPolarization(const kvector_t &bloch_vector)
+%feature("docstring")  Beam::setPolarization "void Beam::setPolarization(const kvector_t bloch_vector)
 
 Sets the polarization density matrix according to the given Bloch vector. 
 ";
@@ -458,7 +458,7 @@ C++ includes: Bin.h
 %feature("docstring")  Bin1DCVector::Bin1DCVector "Bin1DCVector::Bin1DCVector()
 ";
 
-%feature("docstring")  Bin1DCVector::Bin1DCVector "Bin1DCVector::Bin1DCVector(const cvector_t &lower, const cvector_t &upper)
+%feature("docstring")  Bin1DCVector::Bin1DCVector "Bin1DCVector::Bin1DCVector(const cvector_t lower, const cvector_t upper)
 ";
 
 %feature("docstring")  Bin1DCVector::Bin1DCVector "Bin1DCVector::Bin1DCVector(double wavelength, const Bin1D &alpha_bin, const Bin1D &phi_bin)
@@ -484,7 +484,7 @@ C++ includes: Bin.h
 %feature("docstring")  Bin1DKVector::Bin1DKVector "Bin1DKVector::Bin1DKVector()
 ";
 
-%feature("docstring")  Bin1DKVector::Bin1DKVector "Bin1DKVector::Bin1DKVector(const kvector_t &lower, const kvector_t &upper)
+%feature("docstring")  Bin1DKVector::Bin1DKVector "Bin1DKVector::Bin1DKVector(const kvector_t lower, const kvector_t upper)
 ";
 
 %feature("docstring")  Bin1DKVector::Bin1DKVector "Bin1DKVector::Bin1DKVector(double wavelength, const Bin1D &alpha_bin, const Bin1D &phi_bin)
@@ -1500,7 +1500,7 @@ C++ includes: DWBADiffuseReflection.h
 %feature("docstring")  DWBADiffuseReflection::DWBADiffuseReflection "DWBADiffuseReflection::DWBADiffuseReflection()
 ";
 
-%feature("docstring")  DWBADiffuseReflection::execute "void DWBADiffuseReflection::execute(const MultiLayer &sample, const kvector_t &ki, const kvector_t &kf)
+%feature("docstring")  DWBADiffuseReflection::execute "void DWBADiffuseReflection::execute(const MultiLayer &sample, const kvector_t ki, const kvector_t kf)
 ";
 
 %feature("docstring")  DWBADiffuseReflection::setSample "void DWBADiffuseReflection::setSample(const MultiLayer &sample)
@@ -1512,7 +1512,7 @@ C++ includes: DWBADiffuseReflection.h
 %feature("docstring")  DWBADiffuseReflection::getDiffuseCrosscorr "double DWBADiffuseReflection::getDiffuseCrosscorr() const 
 ";
 
-%feature("docstring")  DWBADiffuseReflection::setKvectors "void DWBADiffuseReflection::setKvectors(const kvector_t &ki, const kvector_t &kf)
+%feature("docstring")  DWBADiffuseReflection::setKvectors "void DWBADiffuseReflection::setKvectors(const kvector_t ki, const kvector_t kf)
 ";
 
 
@@ -1826,7 +1826,7 @@ Returns the (approximate in some cases) radial size of the particle of this form
 %feature("docstring")  FormFactorAnisoPyramid::getAlpha "double FormFactorAnisoPyramid::getAlpha() const 
 ";
 
-%feature("docstring")  FormFactorAnisoPyramid::evaluate_for_q "complex_t FormFactorAnisoPyramid::evaluate_for_q(const cvector_t &q) const
+%feature("docstring")  FormFactorAnisoPyramid::evaluate_for_q "complex_t FormFactorAnisoPyramid::evaluate_for_q(const cvector_t q) const
 
 evaluate scattering amplitude for complex wavevector
 
@@ -1895,7 +1895,7 @@ Returns radius of Box.
 Returns width of Box. 
 ";
 
-%feature("docstring")  FormFactorBox::evaluate_for_q "complex_t FormFactorBox::evaluate_for_q(const cvector_t &q) const
+%feature("docstring")  FormFactorBox::evaluate_for_q "complex_t FormFactorBox::evaluate_for_q(const cvector_t q) const
 
 evaluate scattering amplitude for complex wavevector
 
@@ -1956,7 +1956,7 @@ Returns the (approximate in some cases) radial size of the particle of this form
 %feature("docstring")  FormFactorCone::getAlpha "double FormFactorCone::getAlpha() const 
 ";
 
-%feature("docstring")  FormFactorCone::evaluate_for_q "complex_t FormFactorCone::evaluate_for_q(const cvector_t &q) const
+%feature("docstring")  FormFactorCone::evaluate_for_q "complex_t FormFactorCone::evaluate_for_q(const cvector_t q) const
 
 evaluate scattering amplitude for complex wavevector
 
@@ -2077,7 +2077,7 @@ k_f_bin:
 outgoing wavevector bin 
 ";
 
-%feature("docstring")  FormFactorCrystal::evaluate_for_q "complex_t FormFactorCrystal::evaluate_for_q(const cvector_t &q) const
+%feature("docstring")  FormFactorCrystal::evaluate_for_q "complex_t FormFactorCrystal::evaluate_for_q(const cvector_t q) const
 
 evaluate scattering amplitude for complex wavevector
 
@@ -2191,7 +2191,7 @@ Calls the  ISampleVisitor's visit method.
 Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
 
-%feature("docstring")  FormFactorCylinder::evaluate_for_q "complex_t FormFactorCylinder::evaluate_for_q(const cvector_t &q) const
+%feature("docstring")  FormFactorCylinder::evaluate_for_q "complex_t FormFactorCylinder::evaluate_for_q(const cvector_t q) const
 
 evaluate scattering amplitude for complex wavevector
 
@@ -2653,7 +2653,7 @@ Returns the (approximate in some cases) radial size of the particle of this form
 %feature("docstring")  FormFactorEllipsoidalCylinder::getHeight "double FormFactorEllipsoidalCylinder::getHeight() const 
 ";
 
-%feature("docstring")  FormFactorEllipsoidalCylinder::evaluate_for_q "complex_t FormFactorEllipsoidalCylinder::evaluate_for_q(const cvector_t &q) const
+%feature("docstring")  FormFactorEllipsoidalCylinder::evaluate_for_q "complex_t FormFactorEllipsoidalCylinder::evaluate_for_q(const cvector_t q) const
 
 evaluate scattering amplitude for complex wavevector
 
@@ -2699,7 +2699,7 @@ Calls the  ISampleVisitor's visit method.
 Returns radius of sphere. 
 ";
 
-%feature("docstring")  FormFactorFullSphere::evaluate_for_q "complex_t FormFactorFullSphere::evaluate_for_q(const cvector_t &q) const
+%feature("docstring")  FormFactorFullSphere::evaluate_for_q "complex_t FormFactorFullSphere::evaluate_for_q(const cvector_t q) const
 
 evaluate scattering amplitude for complex wavevector
 
@@ -2754,7 +2754,7 @@ Calls the  ISampleVisitor's visit method.
 Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
 
-%feature("docstring")  FormFactorFullSpheroid::evaluate_for_q "complex_t FormFactorFullSpheroid::evaluate_for_q(const cvector_t &q) const
+%feature("docstring")  FormFactorFullSpheroid::evaluate_for_q "complex_t FormFactorFullSpheroid::evaluate_for_q(const cvector_t q) const
 
 evaluate scattering amplitude for complex wavevector
 
@@ -2793,7 +2793,7 @@ Returns a clone of this  ISample object.
 Calls the  ISampleVisitor's visit method. 
 ";
 
-%feature("docstring")  FormFactorGauss::evaluate_for_q "complex_t FormFactorGauss::evaluate_for_q(const cvector_t &q) const
+%feature("docstring")  FormFactorGauss::evaluate_for_q "complex_t FormFactorGauss::evaluate_for_q(const cvector_t q) const
 
 evaluate scattering amplitude for complex wavevector
 
@@ -2867,7 +2867,7 @@ Returns the (approximate in some cases) radial size of the particle of this form
 %feature("docstring")  FormFactorHemiEllipsoid::getRadiusY "double FormFactorHemiEllipsoid::getRadiusY() const 
 ";
 
-%feature("docstring")  FormFactorHemiEllipsoid::evaluate_for_q "complex_t FormFactorHemiEllipsoid::evaluate_for_q(const cvector_t &q) const
+%feature("docstring")  FormFactorHemiEllipsoid::evaluate_for_q "complex_t FormFactorHemiEllipsoid::evaluate_for_q(const cvector_t q) const
 
 evaluate scattering amplitude for complex wavevector
 
@@ -2985,7 +2985,7 @@ Returns radius of Box.
 Returns width of Box. 
 ";
 
-%feature("docstring")  FormFactorLongBoxGauss::evaluate_for_q "complex_t FormFactorLongBoxGauss::evaluate_for_q(const cvector_t &q) const
+%feature("docstring")  FormFactorLongBoxGauss::evaluate_for_q "complex_t FormFactorLongBoxGauss::evaluate_for_q(const cvector_t q) const
 
 evaluate scattering amplitude for complex wavevector
 
@@ -3047,7 +3047,7 @@ Returns radius of Box.
 Returns width of Box. 
 ";
 
-%feature("docstring")  FormFactorLongBoxLorentz::evaluate_for_q "complex_t FormFactorLongBoxLorentz::evaluate_for_q(const cvector_t &q) const
+%feature("docstring")  FormFactorLongBoxLorentz::evaluate_for_q "complex_t FormFactorLongBoxLorentz::evaluate_for_q(const cvector_t q) const
 
 evaluate scattering amplitude for complex wavevector
 
@@ -3111,7 +3111,7 @@ Returns the (approximate in some cases) radial size of the particle of this form
 %feature("docstring")  FormFactorLongRipple1Gauss::getLength "double FormFactorLongRipple1Gauss::getLength() const 
 ";
 
-%feature("docstring")  FormFactorLongRipple1Gauss::evaluate_for_q "complex_t FormFactorLongRipple1Gauss::evaluate_for_q(const cvector_t &q) const
+%feature("docstring")  FormFactorLongRipple1Gauss::evaluate_for_q "complex_t FormFactorLongRipple1Gauss::evaluate_for_q(const cvector_t q) const
 
 Complex formfactor. 
 ";
@@ -3169,7 +3169,7 @@ Returns the (approximate in some cases) radial size of the particle of this form
 %feature("docstring")  FormFactorLongRipple1Lorentz::getLength "double FormFactorLongRipple1Lorentz::getLength() const 
 ";
 
-%feature("docstring")  FormFactorLongRipple1Lorentz::evaluate_for_q "complex_t FormFactorLongRipple1Lorentz::evaluate_for_q(const cvector_t &q) const
+%feature("docstring")  FormFactorLongRipple1Lorentz::evaluate_for_q "complex_t FormFactorLongRipple1Lorentz::evaluate_for_q(const cvector_t q) const
 
 Complex formfactor. 
 ";
@@ -3233,7 +3233,7 @@ Returns the (approximate in some cases) radial size of the particle of this form
 %feature("docstring")  FormFactorLongRipple2Gauss::getAsymmetry "double FormFactorLongRipple2Gauss::getAsymmetry() const 
 ";
 
-%feature("docstring")  FormFactorLongRipple2Gauss::evaluate_for_q "complex_t FormFactorLongRipple2Gauss::evaluate_for_q(const cvector_t &q) const
+%feature("docstring")  FormFactorLongRipple2Gauss::evaluate_for_q "complex_t FormFactorLongRipple2Gauss::evaluate_for_q(const cvector_t q) const
 
 Complex formfactor. 
 ";
@@ -3297,7 +3297,7 @@ Returns the (approximate in some cases) radial size of the particle of this form
 %feature("docstring")  FormFactorLongRipple2Lorentz::getAsymmetry "double FormFactorLongRipple2Lorentz::getAsymmetry() const 
 ";
 
-%feature("docstring")  FormFactorLongRipple2Lorentz::evaluate_for_q "complex_t FormFactorLongRipple2Lorentz::evaluate_for_q(const cvector_t &q) const
+%feature("docstring")  FormFactorLongRipple2Lorentz::evaluate_for_q "complex_t FormFactorLongRipple2Lorentz::evaluate_for_q(const cvector_t q) const
 
 Complex formfactor. 
 ";
@@ -3342,7 +3342,7 @@ Returns height of shape.
 Returns width of shape. 
 ";
 
-%feature("docstring")  FormFactorLorentz::evaluate_for_q "complex_t FormFactorLorentz::evaluate_for_q(const cvector_t &q) const
+%feature("docstring")  FormFactorLorentz::evaluate_for_q "complex_t FormFactorLorentz::evaluate_for_q(const cvector_t q) const
 
 evaluate scattering amplitude for complex wavevector
 
@@ -3365,7 +3365,7 @@ C++ includes: FormFactorPolyhedron.h
 %feature("docstring")  FormFactorPolygonalPrism::FormFactorPolygonalPrism "FormFactorPolygonalPrism::FormFactorPolygonalPrism(const PolyhedralFace &_base, const double _height)
 ";
 
-%feature("docstring")  FormFactorPolygonalPrism::evaluate_for_q "complex_t FormFactorPolygonalPrism::evaluate_for_q(const cvector_t &q) const final
+%feature("docstring")  FormFactorPolygonalPrism::evaluate_for_q "complex_t FormFactorPolygonalPrism::evaluate_for_q(const cvector_t q) const final
 
 Returns the form factor F(q) of this polyhedron, respecting the offset z_origin. 
 ";
@@ -3392,7 +3392,7 @@ C++ includes: FormFactorPolyhedron.h
 %feature("docstring")  FormFactorPolyhedron::FormFactorPolyhedron "FormFactorPolyhedron::FormFactorPolyhedron(const std::vector< PolyhedralFace > &_faces, const double _z_origin, const bool _sym_Ci=false)
 ";
 
-%feature("docstring")  FormFactorPolyhedron::evaluate_for_q "complex_t FormFactorPolyhedron::evaluate_for_q(const cvector_t &q) const final
+%feature("docstring")  FormFactorPolyhedron::evaluate_for_q "complex_t FormFactorPolyhedron::evaluate_for_q(const cvector_t q) const final
 
 Returns the form factor F(q) of this polyhedron, respecting the offset z_origin. 
 ";
@@ -3589,7 +3589,7 @@ Returns the (approximate in some cases) radial size of the particle of this form
 %feature("docstring")  FormFactorRipple1::getLength "double FormFactorRipple1::getLength() const 
 ";
 
-%feature("docstring")  FormFactorRipple1::evaluate_for_q "complex_t FormFactorRipple1::evaluate_for_q(const cvector_t &q) const
+%feature("docstring")  FormFactorRipple1::evaluate_for_q "complex_t FormFactorRipple1::evaluate_for_q(const cvector_t q) const
 
 Complex formfactor. 
 ";
@@ -3653,7 +3653,7 @@ Returns the (approximate in some cases) radial size of the particle of this form
 %feature("docstring")  FormFactorRipple2::getAsymmetry "double FormFactorRipple2::getAsymmetry() const 
 ";
 
-%feature("docstring")  FormFactorRipple2::evaluate_for_q "complex_t FormFactorRipple2::evaluate_for_q(const cvector_t &q) const
+%feature("docstring")  FormFactorRipple2::evaluate_for_q "complex_t FormFactorRipple2::evaluate_for_q(const cvector_t q) const
 
 Complex formfactor. 
 ";
@@ -3688,7 +3688,7 @@ Calls the  ISampleVisitor's visit method.
 Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
 
-%feature("docstring")  FormFactorSphereGaussianRadius::evaluate_for_q "complex_t FormFactorSphereGaussianRadius::evaluate_for_q(const cvector_t &q) const
+%feature("docstring")  FormFactorSphereGaussianRadius::evaluate_for_q "complex_t FormFactorSphereGaussianRadius::evaluate_for_q(const cvector_t q) const
 
 evaluate scattering amplitude for complex wavevector
 
@@ -3729,7 +3729,7 @@ Calls the  ISampleVisitor's visit method.
 Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
 
-%feature("docstring")  FormFactorSphereLogNormalRadius::evaluate_for_q "complex_t FormFactorSphereLogNormalRadius::evaluate_for_q(const cvector_t &q) const
+%feature("docstring")  FormFactorSphereLogNormalRadius::evaluate_for_q "complex_t FormFactorSphereLogNormalRadius::evaluate_for_q(const cvector_t q) const
 
 evaluate scattering amplitude for complex wavevector
 
@@ -3770,7 +3770,7 @@ Calls the  ISampleVisitor's visit method.
 Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
 
-%feature("docstring")  FormFactorSphereUniformRadius::evaluate_for_q "complex_t FormFactorSphereUniformRadius::evaluate_for_q(const cvector_t &q) const
+%feature("docstring")  FormFactorSphereUniformRadius::evaluate_for_q "complex_t FormFactorSphereUniformRadius::evaluate_for_q(const cvector_t q) const
 
 evaluate scattering amplitude for complex wavevector
 
@@ -3867,7 +3867,7 @@ Calls the  ISampleVisitor's visit method.
 Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
 
-%feature("docstring")  FormFactorTrivial::evaluate_for_q "complex_t FormFactorTrivial::evaluate_for_q(const cvector_t &q) const
+%feature("docstring")  FormFactorTrivial::evaluate_for_q "complex_t FormFactorTrivial::evaluate_for_q(const cvector_t q) const
 
 evaluate scattering amplitude for complex wavevector
 
@@ -4016,7 +4016,7 @@ Calls the  ISampleVisitor's visit method.
 Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
 
-%feature("docstring")  FormFactorTruncatedSpheroid::evaluate_for_q "complex_t FormFactorTruncatedSpheroid::evaluate_for_q(const cvector_t &q) const
+%feature("docstring")  FormFactorTruncatedSpheroid::evaluate_for_q "complex_t FormFactorTruncatedSpheroid::evaluate_for_q(const cvector_t q) const
 
 evaluate scattering amplitude for complex wavevector
 
@@ -4677,7 +4677,7 @@ Sets beam parameters from here (forwarded to  Instrument)
 Sets beam intensity from here (forwarded to  Instrument) 
 ";
 
-%feature("docstring")  GISASSimulation::setBeamPolarization "void GISASSimulation::setBeamPolarization(const kvector_t &bloch_vector)
+%feature("docstring")  GISASSimulation::setBeamPolarization "void GISASSimulation::setBeamPolarization(const kvector_t bloch_vector)
 
 Sets the beam polarization according to the given Bloch vector. 
 ";
@@ -4731,7 +4731,7 @@ Define resolution function for detector.
 Removes detector resolution function. 
 ";
 
-%feature("docstring")  GISASSimulation::setAnalyzerProperties "void GISASSimulation::setAnalyzerProperties(const kvector_t &direction, double efficiency, double total_transmission=1.0)
+%feature("docstring")  GISASSimulation::setAnalyzerProperties "void GISASSimulation::setAnalyzerProperties(const kvector_t direction, double efficiency, double total_transmission=1.0)
 
 Sets the polarization analyzer characteristics of the detector. 
 ";
@@ -5009,12 +5009,12 @@ An homogeneous material with magnetization.
 C++ includes: HomogeneousMagneticMaterial.h
 ";
 
-%feature("docstring")  HomogeneousMagneticMaterial::HomogeneousMagneticMaterial "HomogeneousMagneticMaterial::HomogeneousMagneticMaterial(const std::string &name, const complex_t &refractive_index, const kvector_t &magnetic_field)
+%feature("docstring")  HomogeneousMagneticMaterial::HomogeneousMagneticMaterial "HomogeneousMagneticMaterial::HomogeneousMagneticMaterial(const std::string &name, const complex_t &refractive_index, const kvector_t magnetic_field)
 
 Constructs a material with  name,  refractive_index and  magnetic_field
 ";
 
-%feature("docstring")  HomogeneousMagneticMaterial::HomogeneousMagneticMaterial "HomogeneousMagneticMaterial::HomogeneousMagneticMaterial(const std::string &name, double refractive_index_delta, double refractive_index_beta, const kvector_t &magnetic_field)
+%feature("docstring")  HomogeneousMagneticMaterial::HomogeneousMagneticMaterial "HomogeneousMagneticMaterial::HomogeneousMagneticMaterial(const std::string &name, double refractive_index_delta, double refractive_index_beta, const kvector_t magnetic_field)
 
 Constructs a material with  name, refractive_index parameters and  magnetic_field
 ";
@@ -5029,7 +5029,7 @@ Clone.
 Get the magnetic field (in Tesla) 
 ";
 
-%feature("docstring")  HomogeneousMagneticMaterial::setMagneticField "void HomogeneousMagneticMaterial::setMagneticField(const kvector_t &magnetic_field)
+%feature("docstring")  HomogeneousMagneticMaterial::setMagneticField "void HomogeneousMagneticMaterial::setMagneticField(const kvector_t magnetic_field)
 
 Set the magnetic field (in Tesla) 
 ";
@@ -5582,7 +5582,7 @@ Applies the detector resolution to the given intensity maps.
 %feature("docstring")  IDetector2D::getDetectorResolutionFunction "const IDetectorResolution * IDetector2D::getDetectorResolutionFunction() const 
 ";
 
-%feature("docstring")  IDetector2D::setAnalyzerProperties "void IDetector2D::setAnalyzerProperties(const kvector_t &direction, double efficiency, double total_transmission=1.0)
+%feature("docstring")  IDetector2D::setAnalyzerProperties "void IDetector2D::setAnalyzerProperties(const kvector_t direction, double efficiency, double total_transmission=1.0)
 
 Sets the polarization analyzer characteristics of the detector. 
 ";
@@ -5933,7 +5933,7 @@ k_f_bin:
 outgoing wavevector bin 
 ";
 
-%feature("docstring")  IFormFactorBorn::evaluate_for_q "virtual complex_t IFormFactorBorn::evaluate_for_q(const cvector_t &q) const =0
+%feature("docstring")  IFormFactorBorn::evaluate_for_q "virtual complex_t IFormFactorBorn::evaluate_for_q(const cvector_t q) const =0
 
 evaluate scattering amplitude for complex wavevector
 
@@ -6507,7 +6507,7 @@ C++ includes: IInterferenceFunction.h
 %feature("docstring")  IInterferenceFunction::~IInterferenceFunction "virtual IInterferenceFunction::~IInterferenceFunction()
 ";
 
-%feature("docstring")  IInterferenceFunction::evaluate "virtual double IInterferenceFunction::evaluate(const kvector_t &q) const =0
+%feature("docstring")  IInterferenceFunction::evaluate "virtual double IInterferenceFunction::evaluate(const kvector_t q) const =0
 
 Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
 ";
@@ -6738,7 +6738,7 @@ Indicates whether the interaction with the material is scalar. This means that d
 Return refractive index. 
 ";
 
-%feature("docstring")  IMaterial::getSpecularScatteringMatrix "Eigen::Matrix2cd IMaterial::getSpecularScatteringMatrix(const kvector_t &k) const
+%feature("docstring")  IMaterial::getSpecularScatteringMatrix "Eigen::Matrix2cd IMaterial::getSpecularScatteringMatrix(const kvector_t k) const
 
 Get the effective scattering matrix from the refractive index and a given wavevector used for the specular calculation. This matrix appears in the one-dimensional Schroedinger equation in the z-direction 
 ";
@@ -6845,7 +6845,7 @@ Sets the beam wavelength and incoming angles.
 Sets the beam's intensity. 
 ";
 
-%feature("docstring")  Instrument::setBeamPolarization "void Instrument::setBeamPolarization(const kvector_t &bloch_vector)
+%feature("docstring")  Instrument::setBeamPolarization "void Instrument::setBeamPolarization(const kvector_t bloch_vector)
 
 Sets the beam's polarization according to the given Bloch vector. 
 ";
@@ -6901,7 +6901,7 @@ Sets detector resolution function.
 %feature("docstring")  Instrument::setDetectorResolutionFunction "void Instrument::setDetectorResolutionFunction(const IResolutionFunction2D &p_resolution_function)
 ";
 
-%feature("docstring")  Instrument::setAnalyzerProperties "void Instrument::setAnalyzerProperties(const kvector_t &direction, double efficiency, double total_transmission=1.0)
+%feature("docstring")  Instrument::setAnalyzerProperties "void Instrument::setAnalyzerProperties(const kvector_t direction, double efficiency, double total_transmission=1.0)
 
 Sets the polarization analyzer characteristics of the detector. 
 ";
@@ -7154,7 +7154,7 @@ Calls the  ISampleVisitor's visit method.
 %feature("docstring")  InterferenceFunction1DLattice::getDecayFunction "const IFTDecayFunction1D * InterferenceFunction1DLattice::getDecayFunction() const 
 ";
 
-%feature("docstring")  InterferenceFunction1DLattice::evaluate "double InterferenceFunction1DLattice::evaluate(const kvector_t &q) const
+%feature("docstring")  InterferenceFunction1DLattice::evaluate "double InterferenceFunction1DLattice::evaluate(const kvector_t q) const
 
 Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
 ";
@@ -7207,7 +7207,7 @@ Calls the  ISampleVisitor's visit method.
 %feature("docstring")  InterferenceFunction2DLattice::getDecayFunction "const IFTDecayFunction2D * InterferenceFunction2DLattice::getDecayFunction() const 
 ";
 
-%feature("docstring")  InterferenceFunction2DLattice::evaluate "double InterferenceFunction2DLattice::evaluate(const kvector_t &q) const
+%feature("docstring")  InterferenceFunction2DLattice::evaluate "double InterferenceFunction2DLattice::evaluate(const kvector_t q) const
 
 Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
 ";
@@ -7301,7 +7301,7 @@ probability distribution in second lattice direction
 %feature("docstring")  InterferenceFunction2DParaCrystal::setIntegrationOverXi "void InterferenceFunction2DParaCrystal::setIntegrationOverXi(bool integrate_xi)
 ";
 
-%feature("docstring")  InterferenceFunction2DParaCrystal::evaluate "double InterferenceFunction2DParaCrystal::evaluate(const kvector_t &q) const
+%feature("docstring")  InterferenceFunction2DParaCrystal::evaluate "double InterferenceFunction2DParaCrystal::evaluate(const kvector_t q) const
 
 Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
 ";
@@ -7353,7 +7353,7 @@ Returns a clone of this  ISample object.
 Calls the  ISampleVisitor's visit method. 
 ";
 
-%feature("docstring")  InterferenceFunctionNone::evaluate "double InterferenceFunctionNone::evaluate(const kvector_t &q) const
+%feature("docstring")  InterferenceFunctionNone::evaluate "double InterferenceFunctionNone::evaluate(const kvector_t q) const
 
 Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
 ";
@@ -7433,7 +7433,7 @@ Gets size-spacing coupling parameter.
 Size-spacing coupling parameter 
 ";
 
-%feature("docstring")  InterferenceFunctionRadialParaCrystal::evaluate "double InterferenceFunctionRadialParaCrystal::evaluate(const kvector_t &q) const
+%feature("docstring")  InterferenceFunctionRadialParaCrystal::evaluate "double InterferenceFunctionRadialParaCrystal::evaluate(const kvector_t q) const
 
 Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
 ";
@@ -8359,7 +8359,7 @@ C++ includes: FastVector.h
 %feature("docstring")  KVectorContainer::KVectorContainer "KVectorContainer::KVectorContainer(int buff_size=3)
 ";
 
-%feature("docstring")  KVectorContainer::push_back "void KVectorContainer::push_back(const kvector_t &k)
+%feature("docstring")  KVectorContainer::push_back "void KVectorContainer::push_back(const kvector_t k)
 ";
 
 %feature("docstring")  KVectorContainer::clear "void KVectorContainer::clear()
@@ -8404,7 +8404,7 @@ C++ includes: Lattice.h
 %feature("docstring")  Lattice::Lattice "Lattice::Lattice()
 ";
 
-%feature("docstring")  Lattice::Lattice "Lattice::Lattice(const kvector_t &a1, const kvector_t &a2, const kvector_t &a3)
+%feature("docstring")  Lattice::Lattice "Lattice::Lattice(const kvector_t a1, const kvector_t a2, const kvector_t a3)
 ";
 
 %feature("docstring")  Lattice::Lattice "Lattice::Lattice(const Lattice &lattice)
@@ -8443,22 +8443,22 @@ Returns basis vector c.
 Returns the volume of the unit cell. 
 ";
 
-%feature("docstring")  Lattice::getReciprocalLatticeBasis "void Lattice::getReciprocalLatticeBasis(kvector_t &b1, kvector_t &b2, kvector_t &b3) const
+%feature("docstring")  Lattice::getReciprocalLatticeBasis "void Lattice::getReciprocalLatticeBasis(kvector_t b1, kvector_t b2, kvector_t b3) const
 
 Returns the reciprocal basis vectors. 
 ";
 
-%feature("docstring")  Lattice::getNearestLatticeVectorCoordinates "IndexVector3D Lattice::getNearestLatticeVectorCoordinates(const kvector_t &vector_in) const
+%feature("docstring")  Lattice::getNearestLatticeVectorCoordinates "IndexVector3D Lattice::getNearestLatticeVectorCoordinates(const kvector_t vector_in) const
 
 Returns the nearest lattice point from a given vector. 
 ";
 
-%feature("docstring")  Lattice::getNearestReciprocalLatticeVectorCoordinates "IndexVector3D Lattice::getNearestReciprocalLatticeVectorCoordinates(const kvector_t &vector_in) const
+%feature("docstring")  Lattice::getNearestReciprocalLatticeVectorCoordinates "IndexVector3D Lattice::getNearestReciprocalLatticeVectorCoordinates(const kvector_t vector_in) const
 
 Returns the nearest reciprocal lattice point from a given vector. 
 ";
 
-%feature("docstring")  Lattice::computeReciprocalLatticeVectorsWithinRadius "void Lattice::computeReciprocalLatticeVectorsWithinRadius(const kvector_t &input_vector, double radius) const
+%feature("docstring")  Lattice::computeReciprocalLatticeVectorsWithinRadius "void Lattice::computeReciprocalLatticeVectorsWithinRadius(const kvector_t input_vector, double radius) const
 
 Computes a list of reciprocal lattice vectors within a specified distance of a given vector. 
 ";
@@ -8724,7 +8724,7 @@ Returns a clone of this  ISample object.
 Calls the  ISampleVisitor's visit method. 
 ";
 
-%feature("docstring")  LayerRoughness::getSpectralFun "double LayerRoughness::getSpectralFun(const kvector_t &kvec) const
+%feature("docstring")  LayerRoughness::getSpectralFun "double LayerRoughness::getSpectralFun(const kvector_t kvec) const
 
 Returns power spectral density of the surface roughness.
 
@@ -8733,7 +8733,7 @@ Power spectral density of the surface roughness is a result of two-dimensional F
 Based on the article D.K.G. de Boer, Physical review B, Volume 51, Number 8, 15 February 1995 \"X-ray reflection and transmission by rough surfaces\" 
 ";
 
-%feature("docstring")  LayerRoughness::getCorrFun "double LayerRoughness::getCorrFun(const kvector_t &k) const
+%feature("docstring")  LayerRoughness::getCorrFun "double LayerRoughness::getCorrFun(const kvector_t k) const
 
 Correlation function of the roughness profile. 
 ";
@@ -9373,7 +9373,7 @@ Sets cross correlation length of roughnesses between interfaces.
 Returns cross correlation length of roughnesses between interfaces. 
 ";
 
-%feature("docstring")  MultiLayer::getCrossCorrSpectralFun "double MultiLayer::getCrossCorrSpectralFun(const kvector_t &kvec, size_t j, size_t k) const
+%feature("docstring")  MultiLayer::getCrossCorrSpectralFun "double MultiLayer::getCrossCorrSpectralFun(const kvector_t kvec, size_t j, size_t k) const
 
 ! correlation function of roughnesses between the interfaces
 
@@ -9575,7 +9575,7 @@ Sets beam parameters from here (forwarded to  Instrument)
 Sets beam intensity from here (forwarded to  Instrument) 
 ";
 
-%feature("docstring")  OffSpecSimulation::setBeamPolarization "void OffSpecSimulation::setBeamPolarization(const kvector_t &bloch_vector)
+%feature("docstring")  OffSpecSimulation::setBeamPolarization "void OffSpecSimulation::setBeamPolarization(const kvector_t bloch_vector)
 
 Sets the beam polarization according to the given Bloch vector. 
 ";
@@ -9600,7 +9600,7 @@ Define resolution function for detector.
 Removes detector resolution function. 
 ";
 
-%feature("docstring")  OffSpecSimulation::setAnalyzerProperties "void OffSpecSimulation::setAnalyzerProperties(const kvector_t &direction, double efficiency, double total_transmission=1.0)
+%feature("docstring")  OffSpecSimulation::setAnalyzerProperties "void OffSpecSimulation::setAnalyzerProperties(const kvector_t direction, double efficiency, double total_transmission=1.0)
 
 Sets the polarization analyzer characteristics of the detector. 
 ";
@@ -10683,7 +10683,7 @@ abundance:
  Particle abundance 
 ";
 
-%feature("docstring")  ParticleLayout::addParticle "void ParticleLayout::addParticle(const IParticle &particle, double abundance, const kvector_t &position)
+%feature("docstring")  ParticleLayout::addParticle "void ParticleLayout::addParticle(const IParticle &particle, double abundance, const kvector_t position)
 
 Adds particle to the layout with abundance and position defined.
 
@@ -10697,7 +10697,7 @@ position:
  Particle position 
 ";
 
-%feature("docstring")  ParticleLayout::addParticle "void ParticleLayout::addParticle(const IParticle &particle, double abundance, const kvector_t &position, const IRotation &rotation)
+%feature("docstring")  ParticleLayout::addParticle "void ParticleLayout::addParticle(const IParticle &particle, double abundance, const kvector_t position, const IRotation &rotation)
 
 Adds particle to the layout with abundance, position and the rotation defined.
 
@@ -10902,69 +10902,6 @@ C++ includes: Precomputed.h
 %feature("docstring")  Precomputed::Precomputed "Precomputed::Precomputed()
 
 Precompute things upon class instantiation. 
-";
-
-
-// File: classProgramOptions.xml
-%feature("docstring") ProgramOptions "
-
-Handles command line and config file program options.
-
-The definition of program options are done separately from CoreOptionsDescription, AppOptionsDescription modules and then added to given class using  add() method
-
-C++ includes: ProgramOptions.h
-";
-
-%feature("docstring")  ProgramOptions::ProgramOptions "ProgramOptions::ProgramOptions()
-";
-
-%feature("docstring")  ProgramOptions::add "ProgramOptions& ProgramOptions::add(bpo::options_description opt)
-
-Adds options to the global options list (object is passed by value, so no dependency from object life) 
-";
-
-%feature("docstring")  ProgramOptions::addPositional "ProgramOptions& ProgramOptions::addPositional(std::string option_name, int num_occurencies)
-
-Adds positional options. 
-";
-
-%feature("docstring")  ProgramOptions::find "bool ProgramOptions::find(std::string name) const
-
-Returns true if option with given name has been set. 
-";
-
-%feature("docstring")  ProgramOptions::isConsistent "bool ProgramOptions::isConsistent() const
-
-Returns true if options are consistent (no conflicting options, no help request, config file is parsed) 
-";
-
-%feature("docstring")  ProgramOptions::parseCommandLine "void ProgramOptions::parseCommandLine(int argc, char **argv)
-
-Parses command line arguments.
-
-parse command line arguments 
-";
-
-%feature("docstring")  ProgramOptions::parseConfigFile "void ProgramOptions::parseConfigFile()
-
-Parses config file for arguments.
-
-parse config file for arguments 
-";
-
-%feature("docstring")  ProgramOptions::getVariables "bpo::variables_map& ProgramOptions::getVariables()
-
-Returns reference to the variables container. 
-";
-
-%feature("docstring")  ProgramOptions::getOptions "bpo::options_description& ProgramOptions::getOptions()
-
-Returns reference to the options description. 
-";
-
-%feature("docstring")  ProgramOptions::getPositionalOptions "bpo::positional_options_description& ProgramOptions::getPositionalOptions()
-
-Returns reference to the positional options description. 
 ";
 
 
@@ -11384,7 +11321,7 @@ Height of the detector in mm along y-direction
 Inits detector with the beam settings. 
 ";
 
-%feature("docstring")  RectangularDetector::setPosition "void RectangularDetector::setPosition(const kvector_t &normal_to_detector, double u0, double v0, const kvector_t &direction=kvector_t(0.0,-1.0, 0.0))
+%feature("docstring")  RectangularDetector::setPosition "void RectangularDetector::setPosition(const kvector_t normal_to_detector, double u0, double v0, const kvector_t direction=kvector_t(0.0,-1.0, 0.0))
 ";
 
 %feature("docstring")  RectangularDetector::setPerpendicularToSampleX "void RectangularDetector::setPerpendicularToSampleX(double distance, double u0, double v0)
@@ -13623,19 +13560,19 @@ C++ includes: WavevectorInfo.h
 // File: classMathFunctions_1_1Convolve_1_1Workspace.xml
 
 
-// File: namespace_0D300.xml
+// File: namespace_0D301.xml
 
 
-// File: namespace_0D314.xml
+// File: namespace_0D315.xml
 
 
-// File: namespace_0D320.xml
+// File: namespace_0D321.xml
 
 
-// File: namespace_0D344.xml
+// File: namespace_0D345.xml
 
 
-// File: namespace_0D358.xml
+// File: namespace_0D359.xml
 
 
 // File: namespace_0D95.xml
@@ -14002,10 +13939,10 @@ Fills output data raw buffer from input stream.
 %feature("docstring")  PyGenTools::getRepresentation "std::string PyGenTools::getRepresentation(const std::string &indent, const Geometry::IShape2D *ishape, bool mask_value)
 ";
 
-%feature("docstring")  PyGenTools::printKvector "std::string PyGenTools::printKvector(const kvector_t &value)
+%feature("docstring")  PyGenTools::printKvector "std::string PyGenTools::printKvector(const kvector_t value)
 ";
 
-%feature("docstring")  PyGenTools::isDefaultDirection "bool PyGenTools::isDefaultDirection(const kvector_t &direction)
+%feature("docstring")  PyGenTools::isDefaultDirection "bool PyGenTools::isDefaultDirection(const kvector_t direction)
 
 returns true if it is (0, -1, 0) vector 
 ";
@@ -14623,6 +14560,8 @@ Set all element intensities to given value.
 
 
 // File: FormFactorRipple1_8cpp.xml
+%feature("docstring")  I "static complex_t I(0., 1.)
+";
 
 
 // File: FormFactorRipple1_8h.xml
@@ -14707,6 +14646,9 @@ Set all element intensities to given value.
 
 
 // File: IFormFactorDecorator_8h.xml
+
+
+// File: ParticleShapes_8h.xml
 
 
 // File: WavevectorInfo_8h.xml
@@ -15288,20 +15230,6 @@ Runs a functional test and returns error code. Note the analogy with CORE_FUNCTI
 // File: Convolve_8h.xml
 
 
-// File: CoreOptionsDescription_8cpp.xml
-%feature("docstring")  AddCoreOptions "void AddCoreOptions(ProgramOptions *p_options)
-
-Adds command line and config file options. 
-";
-
-
-// File: CoreOptionsDescription_8h.xml
-%feature("docstring")  AddCoreOptions "void BA_CORE_API_ AddCoreOptions(ProgramOptions *p_options)
-
-Adds command line and config file options. 
-";
-
-
 // File: CumulativeValue_8h.xml
 
 
@@ -15508,17 +15436,6 @@ creation function
 // File: Precomputed_8h.xml
 
 
-// File: ProgramOptions_8cpp.xml
-
-
-// File: ProgramOptions_8h.xml
-%feature("docstring")  GCC_DIAG_OFF "GCC_DIAG_OFF(unused-parameter)
-";
-
-%feature("docstring")  GCC_DIAG_ON "GCC_DIAG_ON(unused-parameter)
-";
-
-
 // File: PyGenTools_8cpp.xml
 
 
@@ -15588,29 +15505,26 @@ creation function
 // File: todo.xml
 
 
-// File: dir_71ac7d288b31ea5199cbab5049eb200a.xml
+// File: dir_e1ea50aa565d9a3ab2d030f355b28273.xml
 
 
-// File: dir_d0c8f8fb9032c27878972645c4679f14.xml
+// File: dir_c6310732a22f63c0c2fc5595561e68f1.xml
 
 
-// File: dir_c83916cd1ff49c9e86c8a91c5655951d.xml
+// File: dir_a2ca5d2cdcaf135a87dcab85b198454f.xml
 
 
-// File: dir_a9c786a61b4a710816d2413b8525d71a.xml
+// File: dir_41c864f8b362cbf9598de792bd07bfbb.xml
 
 
-// File: dir_0dfb301c6da10da77ed3e615fec89a12.xml
+// File: dir_d7044b5fc4daccc5700de9f07da81a11.xml
 
 
-// File: dir_e8bc32d0cf85ef86a42504cd31af1370.xml
+// File: dir_3089b6128da5fa5b3826c81ab6bab5ef.xml
 
 
-// File: dir_5bdd7468584af37b90b299acfd1751f3.xml
+// File: dir_5d2259b43612a5a0ff7512df653d7370.xml
 
 
-// File: dir_44b1a8f39c14c02f6e3c2be419aa97b0.xml
-
-
-// File: dir_1a0696269c107461a4ce8ff1a48cd2f2.xml
+// File: dir_e120110860f9b345e7b3217e8b15cbb8.xml
 

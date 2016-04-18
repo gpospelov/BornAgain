@@ -20,7 +20,7 @@ const double HomogeneousMagneticMaterial::m_magnetic_prefactor
 
 HomogeneousMagneticMaterial::HomogeneousMagneticMaterial(
         const std::string& name, const complex_t& refractive_index,
-        const kvector_t& magnetic_field)
+        const kvector_t magnetic_field)
 : HomogeneousMaterial(name, refractive_index)
 , m_magnetic_field(magnetic_field)
 {
@@ -29,7 +29,7 @@ HomogeneousMagneticMaterial::HomogeneousMagneticMaterial(
 
 HomogeneousMagneticMaterial::HomogeneousMagneticMaterial(
         const std::string& name, double refractive_index_delta,
-        double refractive_index_beta, const kvector_t& magnetic_field)
+        double refractive_index_beta, const kvector_t magnetic_field)
 : HomogeneousMaterial(name, refractive_index_delta, refractive_index_beta)
 , m_magnetic_field(magnetic_field)
 {

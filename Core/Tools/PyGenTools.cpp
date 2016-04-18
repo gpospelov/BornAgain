@@ -285,7 +285,7 @@ std::string PyGenTools::getRepresentation(const std::string &indent, const Geome
 
 
 
-std::string PyGenTools::printKvector(const kvector_t &value)
+std::string PyGenTools::printKvector(const kvector_t value)
 {
     std::ostringstream result;
     result << "kvector_t(" << PyGenTools::printDouble(value.x()) << ", "
@@ -295,7 +295,7 @@ std::string PyGenTools::printKvector(const kvector_t &value)
 }
 
 //! returns true if it is (0, -1, 0) vector
-bool PyGenTools::isDefaultDirection(const kvector_t &direction)
+bool PyGenTools::isDefaultDirection(const kvector_t direction)
 {
     if(Numeric::areAlmostEqual(0.0, direction.x()) &&
        Numeric::areAlmostEqual(-1.0, direction.y()) &&

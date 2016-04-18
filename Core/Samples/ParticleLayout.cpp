@@ -104,7 +104,7 @@ void ParticleLayout::addParticle(const IAbstractParticle& particle, double abund
 }
 
 void ParticleLayout::addParticle(const IParticle &particle, double abundance,
-                                 const kvector_t &position)
+                                 const kvector_t position)
 {
     std::unique_ptr<IParticle> P_particle_clone { particle.clone() };
     P_particle_clone->setAbundance(abundance);
@@ -115,7 +115,7 @@ void ParticleLayout::addParticle(const IParticle &particle, double abundance,
 }
 
 void ParticleLayout::addParticle(const IParticle &particle, double abundance,
-                                 const kvector_t &position, const IRotation& rotation)
+                                 const kvector_t position, const IRotation& rotation)
 {
     std::unique_ptr<IParticle> P_particle_clone { particle.clone() };
     P_particle_clone->setAbundance(abundance);

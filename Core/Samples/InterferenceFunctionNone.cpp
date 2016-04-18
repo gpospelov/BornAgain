@@ -32,7 +32,7 @@ void InterferenceFunctionNone::accept(ISampleVisitor *visitor) const
     visitor->visit(this);
 }
 
-double InterferenceFunctionNone::evaluate(const kvector_t &) const
+double InterferenceFunctionNone::evaluate(const kvector_t ) const
 {
     return 1.0;
 }

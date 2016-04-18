@@ -49,7 +49,7 @@ void FormFactorFullSphere::accept(ISampleVisitor *visitor) const
     visitor->visit(this);
 }
 
-complex_t FormFactorFullSphere::evaluate_for_q(const cvector_t& q) const
+complex_t FormFactorFullSphere::evaluate_for_q(const cvector_t q) const
 {
     complex_t qz = q.z();
     double R = m_radius;

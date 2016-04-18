@@ -88,7 +88,7 @@ double FormFactorLongRipple2Lorentz::getRadius() const
 }
 
 //! Complex formfactor.
-complex_t FormFactorLongRipple2Lorentz::evaluate_for_q(const cvector_t& q) const
+complex_t FormFactorLongRipple2Lorentz::evaluate_for_q(const cvector_t q) const
 {
     m_q = q;
 //    complex_t factor = m_length * MathFunctions::sinc(m_q.x() * m_length * 0.5) * m_width;

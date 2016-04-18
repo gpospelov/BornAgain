@@ -81,7 +81,7 @@ complex_t FormFactorTruncatedSphere::Integrand(double Z) const
 
 //! Complex formfactor.
 
-complex_t FormFactorTruncatedSphere::evaluate_for_q(const cvector_t& q) const
+complex_t FormFactorTruncatedSphere::evaluate_for_q(const cvector_t q) const
 {
     m_q = q;
     if ( std::abs(m_q.mag()) < Numeric::double_epsilon) {

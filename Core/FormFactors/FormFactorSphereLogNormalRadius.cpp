@@ -54,7 +54,7 @@ double FormFactorSphereLogNormalRadius::getRadius() const
 }
 
 complex_t FormFactorSphereLogNormalRadius::evaluate_for_q(
-        const cvector_t& q) const
+        const cvector_t q) const
 {
     if (m_form_factors.size()<1) return complex_t(0.0, 0.0);
     complex_t result(0.0, 0.0);

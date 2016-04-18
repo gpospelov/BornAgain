@@ -61,7 +61,7 @@ void LayerRoughness::init_parameters()
 //! D.K.G. de Boer, Physical review B, Volume 51, Number 8, 15 February 1995
 //! "X-ray reflection and transmission by rough surfaces"
 /* ************************************************************************* */
-double LayerRoughness::getSpectralFun(const kvector_t& kvec) const
+double LayerRoughness::getSpectralFun(const kvector_t kvec) const
 {
     double H = m_hurstParameter;
     double clength2 = m_latteralCorrLength*m_latteralCorrLength;
@@ -71,7 +71,7 @@ double LayerRoughness::getSpectralFun(const kvector_t& kvec) const
 
 //! Correlation function of the roughness profile
 
-double LayerRoughness::getCorrFun(const kvector_t& k) const
+double LayerRoughness::getCorrFun(const kvector_t k) const
 {
     double H = m_hurstParameter;
     double clength = m_latteralCorrLength;

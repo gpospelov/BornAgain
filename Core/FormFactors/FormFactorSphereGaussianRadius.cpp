@@ -53,7 +53,7 @@ double FormFactorSphereGaussianRadius::getRadius() const
 }
 
 complex_t FormFactorSphereGaussianRadius::evaluate_for_q(
-        const cvector_t& q) const
+        const cvector_t q) const
 {
     double q2 = std::norm(q.x()) + std::norm(q.y()) + std::norm(q.z());
     double dw = std::exp(-q2*m_sigma*m_sigma/2.0);

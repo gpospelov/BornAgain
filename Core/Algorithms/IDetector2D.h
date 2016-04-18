@@ -75,7 +75,7 @@ public:
     const IDetectorResolution *getDetectorResolutionFunction() const;
 
     //! Sets the polarization analyzer characteristics of the detector
-    void setAnalyzerProperties(const kvector_t &direction, double efficiency,
+    void setAnalyzerProperties(const kvector_t direction, double efficiency,
                                double total_transmission=1.0);
 
 #ifndef GCCXML_SKIP_THIS
@@ -160,11 +160,11 @@ protected:
     DetectorMask m_detector_mask;
 private:
     //! Verify if the given analyzer properties are physical
-    bool checkAnalyzerProperties(const kvector_t &direction, double efficiency,
+    bool checkAnalyzerProperties(const kvector_t direction, double efficiency,
                                  double total_transmission) const;
 
 #ifndef GCCXML_SKIP_THIS
-    Eigen::Matrix2cd calculateAnalyzerOperator(const kvector_t &direction, double efficiency,
+    Eigen::Matrix2cd calculateAnalyzerOperator(const kvector_t direction, double efficiency,
                                                double total_transmission = 1.0) const;
 #endif
 };

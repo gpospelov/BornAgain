@@ -47,7 +47,7 @@ public:
     //! Returns width of Box
     double getWidth() const;
 
-    virtual complex_t evaluate_for_q(const cvector_t& q) const;
+    virtual complex_t evaluate_for_q(const cvector_t q) const;
 
 protected:
     virtual bool check_initialization() const;

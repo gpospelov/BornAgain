@@ -28,7 +28,7 @@ Lattice::Lattice()
     initialize();
 }
 
-Lattice::Lattice(const kvector_t& a1, const kvector_t& a2, const kvector_t& a3)
+Lattice::Lattice(const kvector_t a1, const kvector_t a2, const kvector_t a3)
 : mp_selection_rule(0)
 , m_a1(a1)
 , m_a2(a2)
@@ -78,8 +78,8 @@ double Lattice::getVolume() const
     return std::abs(m_a1.dot( m_a2.cross(m_a3)));
 }
 
-void Lattice::getReciprocalLatticeBasis(kvector_t& b1, kvector_t& b2,
-        kvector_t& b3) const
+void Lattice::getReciprocalLatticeBasis(kvector_t b1, kvector_t b2,
+        kvector_t b3) const
 {
     if (!m_cache_ok) {
         initialize();
@@ -90,7 +90,7 @@ void Lattice::getReciprocalLatticeBasis(kvector_t& b1, kvector_t& b2,
     return;
 }
 
-IndexVector3D Lattice::getNearestLatticeVectorCoordinates(const kvector_t& vector_in) const
+IndexVector3D Lattice::getNearestLatticeVectorCoordinates(const kvector_t vector_in) const
 {
     double a1_coord = vector_in.dot(m_b1)/Units::PI2;
     double a2_coord = vector_in.dot(m_b2)/Units::PI2;
@@ -102,7 +102,7 @@ IndexVector3D Lattice::getNearestLatticeVectorCoordinates(const kvector_t& vecto
 }
 
 IndexVector3D Lattice::getNearestReciprocalLatticeVectorCoordinates(
-        const kvector_t& vector_in) const
+        const kvector_t vector_in) const
 {
     double b1_coord = vector_in.dot(m_a1)/Units::PI2;
     double b2_coord = vector_in.dot(m_a2)/Units::PI2;
@@ -114,7 +114,7 @@ IndexVector3D Lattice::getNearestReciprocalLatticeVectorCoordinates(
 }
 
 void Lattice::computeReciprocalLatticeVectorsWithinRadius(
-        const kvector_t& input_vector, double radius) const
+        const kvector_t input_vector, double radius) const
 {
     if (!m_cache_ok) {
         initialize();
@@ -152,10 +152,10 @@ void Lattice::computeReciprocalVectors() const
     m_b3 = Units::PI2/m_a3.dot(a12)*a12;
 }
 
-void Lattice::computeVectorsWithinRadius(const kvector_t& input_vector,
-        const IndexVector3D& nearest_coords, double radius, const kvector_t& v1,
-        const kvector_t& v2, const kvector_t& v3, const kvector_t& rec1,
-        const kvector_t& rec2, const kvector_t& rec3) const
+void Lattice::computeVectorsWithinRadius(const kvector_t input_vector,
+        const IndexVector3D& nearest_coords, double radius, const kvector_t v1,
+        const kvector_t v2, const kvector_t v3, const kvector_t rec1,
+        const kvector_t rec2, const kvector_t rec3) const
 {
     int max_X = (int)std::floor( rec1.mag()*radius/Units::PI2 );
     int max_Y = (int)std::floor( rec2.mag()*radius/Units::PI2 );
@@ -181,8 +181,8 @@ void Lattice::computeVectorsWithinRadius(const kvector_t& input_vector,
     }
 }
 
-void Lattice::computeInverseVectors(const kvector_t& v1, const kvector_t& v2,
-        const kvector_t& v3, kvector_t& o1, kvector_t& o2, kvector_t& o3)
+void Lattice::computeInverseVectors(const kvector_t v1, const kvector_t v2,
+        const kvector_t v3, kvector_t o1, kvector_t o2, kvector_t o3)
 {
     gsl_matrix* p_basisMatrix = gsl_matrix_alloc(3, 3);
     gsl_matrix* p_inverseMatrix = gsl_matrix_alloc(3, 3);

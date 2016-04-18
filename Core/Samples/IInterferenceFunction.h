@@ -30,7 +30,7 @@ public:
 
     //! Evaluates the interference function for a given wavevector transfer (only the real
     //! x and y components are relevant)
-    virtual double evaluate(const kvector_t& q) const=0;
+    virtual double evaluate(const kvector_t q) const=0;
 
     virtual IInterferenceFunction *clone() const=0;
 

@@ -48,7 +48,7 @@ public:
     void setBeamIntensity(double intensity);
 
     //! Sets the beam's polarization according to the given Bloch vector
-    void setBeamPolarization(const kvector_t &bloch_vector);
+    void setBeamPolarization(const kvector_t bloch_vector);
 
     //! Returns the beam's intensity
     double getBeamIntensity() const;
@@ -81,7 +81,7 @@ public:
     void setDetectorResolutionFunction(const IResolutionFunction2D &p_resolution_function);
 
     //! Sets the polarization analyzer characteristics of the detector
-    void setAnalyzerProperties(const kvector_t &direction, double efficiency,
+    void setAnalyzerProperties(const kvector_t direction, double efficiency,
                                double total_transmission=1.0);
 
     //! apply the detector resolution to the given intensity map
@@ -128,7 +128,7 @@ inline void Instrument::setBeamIntensity(double intensity)
     m_beam.setIntensity(intensity);
 }
 
-inline void Instrument::setBeamPolarization(const kvector_t &bloch_vector)
+inline void Instrument::setBeamPolarization(const kvector_t bloch_vector)
 {
     m_beam.setPolarization(bloch_vector);
 }
@@ -158,7 +158,7 @@ inline size_t Instrument::getDetectorDimension() const
     return mP_detector->getDimension();
 }
 
-inline void Instrument::setAnalyzerProperties(const kvector_t &direction, double efficiency,
+inline void Instrument::setAnalyzerProperties(const kvector_t direction, double efficiency,
                                               double total_transmission)
 {
     mP_detector->setAnalyzerProperties(direction, efficiency, total_transmission);

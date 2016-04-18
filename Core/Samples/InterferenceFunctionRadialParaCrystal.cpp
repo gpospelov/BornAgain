@@ -80,7 +80,7 @@ double InterferenceFunctionRadialParaCrystal::getKappa() const
     return m_kappa;
 }
 
-double InterferenceFunctionRadialParaCrystal::evaluate(const kvector_t& q) const
+double InterferenceFunctionRadialParaCrystal::evaluate(const kvector_t q) const
 {
     if (!mP_pdf.get()) {
         throw NullPointerException("InterferenceFunctionRadialParaCrystal::"

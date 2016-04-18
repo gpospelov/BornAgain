@@ -71,7 +71,7 @@ public:
 
     void setIntegrationOverXi(bool integrate_xi);
 
-    virtual double evaluate(const kvector_t& q) const;
+    virtual double evaluate(const kvector_t q) const;
 
     std::vector<double> getDomainSizes() const;
     std::vector<const IFTDistribution2D *> getProbabilityDistributions() const;

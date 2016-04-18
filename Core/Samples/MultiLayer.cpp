@@ -185,7 +185,7 @@ void MultiLayer::addLayer(const Layer& layer)
 
 //! Fourier transform of the correlation function of roughnesses between the interfaces
 //! j,k - indexes of layers in multilayer whose bottom interfaces we are considering
-double MultiLayer::getCrossCorrSpectralFun(const kvector_t& kvec, size_t j, size_t k) const
+double MultiLayer::getCrossCorrSpectralFun(const kvector_t kvec, size_t j, size_t k) const
 {
     if(m_crossCorrLength == 0) return 0.0;
     double z_j = getLayerBottomZ(j);

@@ -40,7 +40,7 @@ public:
 
     //! evaluate scattering amplitude for complex wavevector
     //! @param q  wavevector transfer q=k_i-k_f
-    virtual complex_t evaluate_for_q(const cvector_t& q) const=0;
+    virtual complex_t evaluate_for_q(const cvector_t q) const=0;
 
 protected:
     //! check if object initialization was correct

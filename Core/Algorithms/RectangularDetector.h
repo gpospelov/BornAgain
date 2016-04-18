@@ -59,8 +59,8 @@ public:
 
     virtual void init(const Beam &beam);
 
-    void setPosition(const kvector_t &normal_to_detector, double u0, double v0,
-                     const kvector_t &direction = kvector_t(0.0, -1.0, 0.0));
+    void setPosition(const kvector_t normal_to_detector, double u0, double v0,
+                     const kvector_t direction = kvector_t(0.0, -1.0, 0.0));
 
     void setPerpendicularToSampleX(double distance, double u0, double v0);
 
@@ -113,7 +113,7 @@ protected:
     void swapContent(RectangularDetector &other);
 private:
     void setDistanceAndOffset(double distance, double u0, double v0);
-    void initNormalVector(const kvector_t &central_k);
+    void initNormalVector(const kvector_t central_k);
     void initUandV(double alpha_i);
 
     kvector_t m_normal_to_detector;
@@ -138,7 +138,7 @@ public:
     virtual double getIntegrationFactor(double x, double y) const;
     virtual double getSolidAngle() const;
 private:
-    kvector_t normalizeLength(const kvector_t& direction, double length) const;
+    kvector_t normalizeLength(const kvector_t direction, double length) const;
     double calculateSolidAngle() const;
     kvector_t m_corner_pos;
     kvector_t m_width;

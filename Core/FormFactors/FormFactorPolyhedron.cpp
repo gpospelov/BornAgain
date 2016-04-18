@@ -161,7 +161,7 @@ double PolyhedralFace::getPyramidalVolume() const { return rperp*area/3; }
 
 //! Sets qperp and qpa according to argument q and to this polygon's normal.
 
-void PolyhedralFace::decompose_q( const cvector_t q, complex_t& qperp, cvector_t& qpa ) const
+void PolyhedralFace::decompose_q( const cvector_t q, complex_t& qperp, cvector_t qpa ) const
 {
     qperp = normal.dot(q);
     qpa = q - qperp*normal;
@@ -347,14 +347,14 @@ FormFactorPolyhedron::FormFactorPolyhedron(
 
 //! Returns the form factor F(q) of this polyhedron, respecting the offset z_origin.
 
-complex_t FormFactorPolyhedron::evaluate_for_q( const cvector_t& q ) const
+complex_t FormFactorPolyhedron::evaluate_for_q( const cvector_t q ) const
 {
     return exp(-I*z_origin*q.z()) * evaluate_centered(q);
 }
 
 //! Returns the form factor F(q) of this polyhedron, with origin at z=0.
 
-complex_t FormFactorPolyhedron::evaluate_centered( const cvector_t& q ) const
+complex_t FormFactorPolyhedron::evaluate_centered( const cvector_t q ) const
 {
     double q_red = radius * q.mag();
 #ifdef POLYHEDRAL_DIAGNOSTIC
@@ -426,7 +426,7 @@ double FormFactorPolygonalPrism::getHeight() const { return m_height; }
 
 //! Returns the form factor F(q) of this polyhedron, respecting the offset z_origin.
 
-complex_t FormFactorPolygonalPrism::evaluate_for_q( const cvector_t& q ) const
+complex_t FormFactorPolygonalPrism::evaluate_for_q( const cvector_t q ) const
 {
 #ifdef POLYHEDRAL_DIAGNOSTIC
     diagnosis = { 0, 0 };

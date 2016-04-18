@@ -37,7 +37,7 @@ void FormFactorBox::accept(ISampleVisitor *visitor) const
     visitor->visit(this);
 }
 
-complex_t FormFactorBox::evaluate_for_q(const cvector_t& q) const
+complex_t FormFactorBox::evaluate_for_q(const cvector_t q) const
 {
     complex_t qxRdiv2 = m_length*q.x()/2.0;
     complex_t qyWdiv2 = m_width*q.y()/2.0;

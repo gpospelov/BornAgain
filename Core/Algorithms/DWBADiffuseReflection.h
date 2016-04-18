@@ -31,7 +31,7 @@ public:
     DWBADiffuseReflection();
 
     void execute(const MultiLayer& sample,
-                 const kvector_t& ki, const kvector_t& kf);
+                 const kvector_t ki, const kvector_t kf);
 
     void setSample(const MultiLayer& sample) {m_sample =& sample; }
 
@@ -39,7 +39,7 @@ public:
 
     double getDiffuseCrosscorr() const { return m_diffuse_crosscorr; }
 
-    void setKvectors(const kvector_t& ki, const kvector_t& kf);
+    void setKvectors(const kvector_t ki, const kvector_t kf);
 
 private:
     void diffuse_autocorr();

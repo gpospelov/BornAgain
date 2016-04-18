@@ -78,7 +78,7 @@ public:
     void setBeamIntensity(double intensity);
 
     //! Sets the beam polarization according to the given Bloch vector
-    void setBeamPolarization(const kvector_t& bloch_vector);
+    void setBeamPolarization(const kvector_t bloch_vector);
 
     //! Sets the detector (axes can be overwritten later)
     void setDetector(const IDetector2D& detector);
@@ -104,7 +104,7 @@ public:
     void removeDetectorResolutionFunction();
 
     //! Sets the polarization analyzer characteristics of the detector
-    void setAnalyzerProperties(const kvector_t &direction, double efficiency,
+    void setAnalyzerProperties(const kvector_t direction, double efficiency,
                                double total_transmission=1.0);
 
     //! removes all masks from the detector

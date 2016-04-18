@@ -43,7 +43,7 @@ public:
 #endif
 
 private:
-    complex_t getPositionsFactor(const cvector_t& q) const;
+    complex_t getPositionsFactor(const cvector_t q) const;
     std::vector<kvector_t> m_positions;
 };
 

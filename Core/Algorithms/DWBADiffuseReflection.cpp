@@ -24,7 +24,7 @@ DWBADiffuseReflection::DWBADiffuseReflection()
 {
 }
 
-void DWBADiffuseReflection::execute(const MultiLayer& sample, const kvector_t& ki, const kvector_t& kf)
+void DWBADiffuseReflection::execute(const MultiLayer& sample, const kvector_t ki, const kvector_t kf)
 {
     setSample(sample);
     setKvectors(ki, kf);
@@ -39,7 +39,7 @@ void DWBADiffuseReflection::execute(const MultiLayer& sample, const kvector_t& k
 
 }
 
-void DWBADiffuseReflection::setKvectors(const kvector_t& ki, const kvector_t& kf)
+void DWBADiffuseReflection::setKvectors(const kvector_t ki, const kvector_t kf)
 {
     m_ki = ki;
     m_kf = kf;

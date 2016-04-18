@@ -46,18 +46,18 @@ protected:
 
 private:
     bool checkVectorSizes() const;
-    complex_t getMeanCharacteristicFF(const kvector_t &q,
+    complex_t getMeanCharacteristicFF(const kvector_t q,
                                       const std::vector<complex_t> &ff_list) const;
-    Eigen::Matrix2cd getMeanCharacteristicMatrixFF(const kvector_t &q,
+    Eigen::Matrix2cd getMeanCharacteristicMatrixFF(const kvector_t q,
                                                    const MatrixFFVector &ff_list) const;
-    complex_t getMeanConjCharacteristicFF(const kvector_t &q,
+    complex_t getMeanConjCharacteristicFF(const kvector_t q,
                                           const std::vector<complex_t> &ff_list) const;
-    Eigen::Matrix2cd getMeanConjCharacteristicMatrixFF(const kvector_t &q,
+    Eigen::Matrix2cd getMeanConjCharacteristicMatrixFF(const kvector_t q,
                                                        const MatrixFFVector &ff_list) const;
     complex_t getCharacteristicDistribution(double qp) const;
     complex_t getCharacteristicSizeCoupling(double qp, double kappa) const;
     complex_t calculatePositionOffsetPhase(double qp, double kappa, size_t index) const;
-    double getqp(const kvector_t &q) const;
+    double getqp(const kvector_t q) const;
     void initMeanRadius();
     double m_mean_radius;
     double m_kappa;

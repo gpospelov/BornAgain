@@ -44,7 +44,7 @@ struct BA_CORE_API_ Bin1D
 struct BA_CORE_API_ Bin1DKVector
 {
     Bin1DKVector() : m_q_lower(), m_q_upper() {}
-    Bin1DKVector(const kvector_t& lower, const kvector_t& upper)
+    Bin1DKVector(const kvector_t lower, const kvector_t upper)
         : m_q_lower(lower), m_q_upper(upper) {}
     Bin1DKVector(double wavelength, const Bin1D& alpha_bin, const Bin1D& phi_bin);
 
@@ -69,7 +69,7 @@ inline Bin1DKVector::Bin1DKVector(double wavelength, const Bin1D &alpha_bin, con
 struct BA_CORE_API_ Bin1DCVector
 {
     Bin1DCVector() : m_q_lower(), m_q_upper() {}
-    Bin1DCVector(const cvector_t& lower, const cvector_t& upper)
+    Bin1DCVector(const cvector_t lower, const cvector_t upper)
         : m_q_lower(lower), m_q_upper(upper) {}
     Bin1DCVector(double wavelength, const Bin1D& alpha_bin, const Bin1D& phi_bin);
     cvector_t getMidPoint() const { return (m_q_lower + m_q_upper)/2.0; }

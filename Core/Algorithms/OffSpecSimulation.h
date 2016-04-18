@@ -62,7 +62,7 @@ public:
     void setBeamIntensity(double intensity);
 
     //! Sets the beam polarization according to the given Bloch vector
-    void setBeamPolarization(const kvector_t &bloch_vector);
+    void setBeamPolarization(const kvector_t bloch_vector);
 
     //! Sets detector parameters using axes of output data
     void setDetectorParameters(const OutputData<double> &output_data);
@@ -78,7 +78,7 @@ public:
     void removeDetectorResolutionFunction();
 
     //! Sets the polarization analyzer characteristics of the detector
-    void setAnalyzerProperties(const kvector_t &direction, double efficiency,
+    void setAnalyzerProperties(const kvector_t direction, double efficiency,
                                double total_transmission = 1.0);
 
     //! Adds parameters from local pool to external pool and recursively calls its direct children.

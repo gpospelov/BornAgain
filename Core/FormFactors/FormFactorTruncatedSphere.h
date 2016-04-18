@@ -48,7 +48,7 @@ public:
 protected:
     virtual bool check_initialization() const;
     virtual void init_parameters();
-    virtual complex_t evaluate_for_q(const cvector_t& q) const;
+    virtual complex_t evaluate_for_q(const cvector_t q) const;
 
 private:
     complex_t Integrand(double Z) const;

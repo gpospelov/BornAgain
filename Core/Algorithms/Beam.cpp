@@ -65,7 +65,7 @@ void Beam::setCentralK(double wavelength, double alpha_i, double phi_i)
     m_phi = phi_i;
 }
 
-void Beam::setPolarization(const kvector_t &bloch_vector)
+void Beam::setPolarization(const kvector_t bloch_vector)
 {
     if (bloch_vector.mag() > 1.0) {
         throw Exceptions::ClassInitializationException("Beam::setPolarization: The given Bloch "
@@ -75,7 +75,7 @@ void Beam::setPolarization(const kvector_t &bloch_vector)
     m_polarization = calculatePolarization(bloch_vector);
 }
 
-Eigen::Matrix2cd Beam::calculatePolarization(const kvector_t &bloch_vector) const
+Eigen::Matrix2cd Beam::calculatePolarization(const kvector_t bloch_vector) const
 {
     Eigen::Matrix2cd result;
     double x = bloch_vector.x();

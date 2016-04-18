@@ -55,7 +55,7 @@ private:
     kvector_t normal; //!< normal vector of this polygon's plane
     double rperp; //!< distance of this polygon's plane from the origin, along 'normal'
     double radius_2d; //!< radius of enclosing cylinder
-    void decompose_q( const cvector_t q, complex_t& qperp, cvector_t& qpa ) const;
+    void decompose_q( const cvector_t q, complex_t& qperp, cvector_t qpa ) const;
     complex_t ff_n_core( int m, const cvector_t qpa ) const;
 };
 
@@ -66,7 +66,7 @@ class FormFactorPolyhedron : public IFormFactorBorn {
 public:
     FormFactorPolyhedron( const std::vector<PolyhedralFace>& _faces,
                           const double _z_origin, const bool _sym_Ci=false );
-    virtual complex_t evaluate_for_q(const cvector_t& q ) const final;
+    virtual complex_t evaluate_for_q(const cvector_t q ) const final;
     double getVolume() const { return volume; }
     void assert_platonic() const;
 private:
@@ -76,7 +76,7 @@ private:
     double volume;
     static const double q_limit_series;
     std::vector<PolyhedralFace> faces;
-    complex_t evaluate_centered( const cvector_t& q ) const;
+    complex_t evaluate_centered( const cvector_t q ) const;
 };
 
 
@@ -85,7 +85,7 @@ private:
 class FormFactorPolygonalPrism : public IFormFactorBorn {
 public:
     FormFactorPolygonalPrism( const PolyhedralFace& _base, const double _height );
-    virtual complex_t evaluate_for_q(const cvector_t& q ) const final;
+    virtual complex_t evaluate_for_q(const cvector_t q ) const final;
     double getVolume() const;
     double getHeight() const;
 protected:

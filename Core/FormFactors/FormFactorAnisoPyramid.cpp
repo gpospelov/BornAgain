@@ -91,7 +91,7 @@ double FormFactorAnisoPyramid::getRadius() const
     return m_length / 2.0;
 }
 
-complex_t FormFactorAnisoPyramid::evaluate_for_q(const cvector_t& q) const
+complex_t FormFactorAnisoPyramid::evaluate_for_q(const cvector_t q) const
 {
     double H = m_height;
     double L = m_length;

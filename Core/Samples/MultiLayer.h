@@ -94,12 +94,12 @@ public:
     double getCrossCorrLength() const;
 
     ///! correlation function of roughnesses between the interfaces
-    //double getCrossCorrFun(const kvector_t& k, int j, int k) const;
+    //double getCrossCorrFun(const kvector_t k, int j, int k) const;
 
     //! Fourier transform of the correlation function of roughnesses between
     //! the interfaces
     double getCrossCorrSpectralFun(
-        const kvector_t& kvec, size_t j, size_t k) const;
+        const kvector_t kvec, size_t j, size_t k) const;
 
     //! Sets thickness of layer.
     void setLayerThickness(size_t i_layer, double thickness);

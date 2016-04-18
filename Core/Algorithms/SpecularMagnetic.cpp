@@ -17,7 +17,7 @@
 
 #include <Eigen/LU>
 
-void SpecularMagnetic::execute(const MultiLayer& sample, const kvector_t& k,
+void SpecularMagnetic::execute(const MultiLayer& sample, const kvector_t k,
         MultiLayerCoeff_t& coeff)
 {
     coeff.clear();
@@ -29,7 +29,7 @@ void SpecularMagnetic::execute(const MultiLayer& sample, const kvector_t& k,
 }
 
 void SpecularMagnetic::calculateEigenvalues(const MultiLayer& sample,
-        const kvector_t& k, MultiLayerCoeff_t& coeff)
+        const kvector_t k, MultiLayerCoeff_t& coeff)
 {
     double mag_k = k.mag();
     double sign_kz = k.z() > 0.0 ? -1.0 : 1.0;
@@ -49,7 +49,7 @@ void SpecularMagnetic::calculateEigenvalues(const MultiLayer& sample,
 }
 
 void SpecularMagnetic::calculateTransferAndBoundary(const MultiLayer& sample,
-        const kvector_t& k, MultiLayerCoeff_t& coeff)
+        const kvector_t k, MultiLayerCoeff_t& coeff)
 {
     (void)k;
     size_t N = coeff.size();

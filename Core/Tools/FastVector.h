@@ -37,7 +37,7 @@ public:
             m_buffer.push_back(kvector_t(0.0, 0.0, 0.0));
     }
 
-    inline void push_back(const kvector_t& k) {
+    inline void push_back(const kvector_t k) {
         if(m_current_position == m_max_buff_size) {
 //            std::cout << "KVectorContainer::push_back() -> "
 //                         "Info. Increasing size of the buffer from "

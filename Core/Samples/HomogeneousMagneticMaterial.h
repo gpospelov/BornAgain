@@ -36,12 +36,12 @@ public:
     //! Constructs a material with _name_, _refractive_index_ and
     //! _magnetic_field_
     HomogeneousMagneticMaterial(const std::string &name, const complex_t &refractive_index,
-                                const kvector_t &magnetic_field);
+                                const kvector_t magnetic_field);
 
     //! Constructs a material with _name_, refractive_index parameters and
     //! _magnetic_field_
     HomogeneousMagneticMaterial(const std::string &name, double refractive_index_delta,
-                                double refractive_index_beta, const kvector_t &magnetic_field);
+                                double refractive_index_beta, const kvector_t magnetic_field);
 
     //! Clone
     virtual HomogeneousMagneticMaterial *clone() const;
@@ -53,7 +53,7 @@ public:
     }
 
     //! Set the magnetic field (in Tesla)
-    void setMagneticField(const kvector_t &magnetic_field)
+    void setMagneticField(const kvector_t magnetic_field)
     {
         m_magnetic_field = magnetic_field;
     }

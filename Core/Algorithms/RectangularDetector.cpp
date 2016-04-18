@@ -81,8 +81,8 @@ void RectangularDetector::init(const Beam &beam)
     initUandV(alpha_i);
 }
 
-void RectangularDetector::setPosition(const kvector_t &normal_to_detector,
-                                      double u0, double v0, const kvector_t &direction)
+void RectangularDetector::setPosition(const kvector_t normal_to_detector,
+                                      double u0, double v0, const kvector_t direction)
 {
     m_detector_arrangement = GENERIC;
     m_normal_to_detector = normal_to_detector;
@@ -341,7 +341,7 @@ void RectangularDetector::setDistanceAndOffset(double distance, double u0, doubl
     m_v0 = v0;
 }
 
-void RectangularDetector::initNormalVector(const kvector_t &central_k)
+void RectangularDetector::initNormalVector(const kvector_t central_k)
 {
     kvector_t central_k_unit = central_k.unit();
 
@@ -431,7 +431,7 @@ double RectPixelMap::getSolidAngle() const
     return m_solid_angle;
 }
 
-kvector_t RectPixelMap::normalizeLength(const kvector_t &direction, double length) const
+kvector_t RectPixelMap::normalizeLength(const kvector_t direction, double length) const
 {
     return direction.unit()*length;
 }

@@ -47,7 +47,7 @@ public:
     void setIntensity(double intensity);
 
     //! Sets the polarization density matrix according to the given Bloch vector
-    void setPolarization(const kvector_t &bloch_vector);
+    void setPolarization(const kvector_t bloch_vector);
 
 #ifndef GCCXML_SKIP_THIS
     //! Gets the polarization density matrix (in spin basis along z-axis)
@@ -72,7 +72,7 @@ private:
     void initPolarization();
 
 #ifndef GCCXML_SKIP_THIS
-    Eigen::Matrix2cd calculatePolarization(const kvector_t &bloch_vector) const;
+    Eigen::Matrix2cd calculatePolarization(const kvector_t bloch_vector) const;
 #endif
 
     double m_wavelength, m_alpha, m_phi; //!< wavelength and angles of beam

@@ -55,7 +55,7 @@ void InterferenceFunction1DLattice::setDecayFunction(const IFTDecayFunction1D &p
     m_na = (int)(std::abs(qa_max) + 0.5);
 }
 
-double InterferenceFunction1DLattice::evaluate(const kvector_t &q) const
+double InterferenceFunction1DLattice::evaluate(const kvector_t q) const
 {
     if (!mp_pdf) {
         throw NullPointerException("InterferenceFunction1DLattice::evaluate"

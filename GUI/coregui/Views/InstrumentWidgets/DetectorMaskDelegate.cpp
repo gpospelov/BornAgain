@@ -114,7 +114,7 @@ DetectorMaskDelegate::createOutputData(DetectorItem *detectorItem)
     if (subDetector->modelType() == Constants::SphericalDetectorType) {
 
         auto x_axis = dynamic_cast<BasicAxisItem *>(
-            subDetector->getGroupItem(SphericalDetectorItem::P_PHI_AXIS));
+            subDetector->getItem(SphericalDetectorItem::P_PHI_AXIS));
         Q_ASSERT(x_axis);
         int n_x = x_axis->getItemValue(BasicAxisItem::P_NBINS).toInt();
         double x_min
@@ -123,7 +123,7 @@ DetectorMaskDelegate::createOutputData(DetectorItem *detectorItem)
             = x_axis->getItemValue(BasicAxisItem::P_MAX).toDouble();
 
         auto y_axis = dynamic_cast<BasicAxisItem *>(
-            subDetector->getGroupItem(SphericalDetectorItem::P_ALPHA_AXIS));
+            subDetector->getItem(SphericalDetectorItem::P_ALPHA_AXIS));
         Q_ASSERT(y_axis);
         int n_y = y_axis->getItemValue(BasicAxisItem::P_NBINS).toInt();
         double y_min

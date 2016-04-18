@@ -66,22 +66,19 @@ RectangularDetectorItem::RectangularDetectorItem()
     , m_is_constructed(false)
 {
     // axes parameters
-    addGroupProperty(P_X_AXIS, Constants::BasicAxisType);
-    getGroupItem(P_X_AXIS)->getItem(BasicAxisItem::P_TITLE)->setVisible(false);
-    getGroupItem(P_X_AXIS)->getItem(BasicAxisItem::P_MIN)->setVisible(false);
+    SessionItem *item = addGroupPropertyTmp(P_X_AXIS, Constants::BasicAxisType);
+    item->getItem(BasicAxisItem::P_TITLE)->setVisible(false);
+    item->getItem(BasicAxisItem::P_MIN)->setVisible(false);
+    item->setItemValue(BasicAxisItem::P_MAX, default_detector_width);
+    item->getItem(BasicAxisItem::P_MAX)->setDisplayName(QStringLiteral("Width"));
+    item->getItem(BasicAxisItem::P_MAX)->setToolTip(QStringLiteral("Width of the detector in mm"));
 
-    getGroupItem(P_X_AXIS)->setItemValue(BasicAxisItem::P_MAX, default_detector_width);
-    getGroupItem(P_X_AXIS)->getItem(BasicAxisItem::P_MAX)->setDisplayName(QStringLiteral("Width"));
-    getGroupItem(P_X_AXIS)->getItem(BasicAxisItem::P_MAX)
-            ->setToolTip(QStringLiteral("Width of the detector in mm"));
-
-    addGroupProperty(P_Y_AXIS, Constants::BasicAxisType);
-    getGroupItem(P_Y_AXIS)->getItem(BasicAxisItem::P_TITLE)->setVisible(false);
-    getGroupItem(P_Y_AXIS)->getItem(BasicAxisItem::P_MIN)->setVisible(false);
-    getGroupItem(P_Y_AXIS)->setItemValue(BasicAxisItem::P_MAX, default_detector_height);
-    getGroupItem(P_Y_AXIS)->getItem(BasicAxisItem::P_MAX)->setDisplayName(QStringLiteral("Height"));
-    getGroupItem(P_Y_AXIS)->getItem(BasicAxisItem::P_MAX)
-        ->setToolTip(QStringLiteral("Height of the detector in mm"));
+    item = addGroupPropertyTmp(P_Y_AXIS, Constants::BasicAxisType);
+    item->getItem(BasicAxisItem::P_TITLE)->setVisible(false);
+    item->getItem(BasicAxisItem::P_MIN)->setVisible(false);
+    item->setItemValue(BasicAxisItem::P_MAX, default_detector_height);
+    item->getItem(BasicAxisItem::P_MAX)->setDisplayName(QStringLiteral("Height"));
+    item->getItem(BasicAxisItem::P_MAX)->setToolTip(QStringLiteral("Height of the detector in mm"));
 
     // resolution function
     addGroupProperty(P_RESOLUTION_FUNCTION, Constants::ResolutionFunctionGroup);
@@ -89,7 +86,6 @@ RectangularDetectorItem::RectangularDetectorItem()
 
     // alignment selector
     ComboProperty alignment;
-
     alignment << Constants::ALIGNMENT_GENERIC << Constants::ALIGNMENT_TO_DIRECT_BEAM
               << Constants::ALIGNMENT_TO_SAMPLE << Constants::ALIGNMENT_TO_REFLECTED_BEAM
               << Constants::ALIGNMENT_TO_REFLECTED_BEAM_DPOS;
@@ -97,11 +93,12 @@ RectangularDetectorItem::RectangularDetectorItem()
     addProperty(P_ALIGNMENT, alignment.getVariant());
 
     // alignment parameters
-    addGroupProperty(P_NORMAL, Constants::VectorType);
-    getGroupItem(P_NORMAL)->setItemValue(VectorItem::P_X, default_detector_distance);
+    item = addGroupPropertyTmp(P_NORMAL, Constants::VectorType);
+    item->setItemValue(VectorItem::P_X, default_detector_distance);
 
-    addGroupProperty(P_DIRECTION, Constants::VectorType);
-    getGroupItem(P_DIRECTION)->setItemValue(VectorItem::P_Y, -1.0);
+    // direction
+    item = addGroupPropertyTmp(P_DIRECTION, Constants::VectorType);
+    item->setItemValue(VectorItem::P_Y, -1.0);
 
     addProperty(P_U0, default_detector_width/2.)->setToolTip(tooltip_u0);
     addProperty(P_V0, 0.0)->setToolTip(tooltip_v0);
@@ -124,13 +121,13 @@ std::unique_ptr<IDetector2D> RectangularDetectorItem::createDetector() const
 {
     // basic axes parameters
     auto x_axis = dynamic_cast<BasicAxisItem *>(
-        getGroupItem(RectangularDetectorItem::P_X_AXIS));
+        getItem(RectangularDetectorItem::P_X_AXIS));
     Q_ASSERT(x_axis);
     int n_x = x_axis->getItemValue(BasicAxisItem::P_NBINS).toInt();
     double width = x_axis->getItemValue(BasicAxisItem::P_MAX).toDouble();
 
     auto y_axis = dynamic_cast<BasicAxisItem *>(
-        getGroupItem(RectangularDetectorItem::P_Y_AXIS));
+        getItem(RectangularDetectorItem::P_Y_AXIS));
     Q_ASSERT(y_axis);
     int n_y = y_axis->getItemValue(BasicAxisItem::P_NBINS).toInt();
     double height = y_axis->getItemValue(BasicAxisItem::P_MAX).toDouble();
@@ -247,7 +244,7 @@ void RectangularDetectorItem::update_properties_appearance()
 kvector_t RectangularDetectorItem::getNormalVector() const
 {
     auto item = dynamic_cast<VectorItem *>(
-        getGroupItem(RectangularDetectorItem::P_NORMAL));
+        getItem(RectangularDetectorItem::P_NORMAL));
     Q_ASSERT(item);
     return item->getVector();
 }
@@ -255,7 +252,7 @@ kvector_t RectangularDetectorItem::getNormalVector() const
 kvector_t RectangularDetectorItem::getDirectionVector() const
 {
     auto item = dynamic_cast<VectorItem *>(
-        getGroupItem(RectangularDetectorItem::P_DIRECTION));
+        getItem(RectangularDetectorItem::P_DIRECTION));
     Q_ASSERT(item);
     return item->getVector();
 }

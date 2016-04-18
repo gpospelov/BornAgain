@@ -349,13 +349,13 @@ void TransformFromDomain::setItemFromSample(RectangularDetectorItem *detectorIte
 {
     // Axes
     BasicAxisItem *xAxisItem = dynamic_cast<BasicAxisItem *>(
-        detectorItem->getGroupItem(RectangularDetectorItem::P_X_AXIS));
+        detectorItem->getItem(RectangularDetectorItem::P_X_AXIS));
     Q_ASSERT(xAxisItem);
     xAxisItem->setItemValue(BasicAxisItem::P_NBINS, (int)detector.getNbinsX());
     xAxisItem->setItemValue(BasicAxisItem::P_MAX, detector.getWidth());
 
     BasicAxisItem *yAxisItem = dynamic_cast<BasicAxisItem *>(
-        detectorItem->getGroupItem(RectangularDetectorItem::P_Y_AXIS));
+        detectorItem->getItem(RectangularDetectorItem::P_Y_AXIS));
     Q_ASSERT(yAxisItem);
     yAxisItem->setItemValue(BasicAxisItem::P_NBINS, (int)detector.getNbinsY());
     yAxisItem->setItemValue(BasicAxisItem::P_MAX, detector.getHeight());
@@ -364,19 +364,19 @@ void TransformFromDomain::setItemFromSample(RectangularDetectorItem *detectorIte
         detectorItem->setDetectorAlignment(Constants::ALIGNMENT_GENERIC);
 
         kvector_t normal = detector.getNormalVector();
-        detectorItem->getGroupItem(RectangularDetectorItem::P_NORMAL)->setItemValue(
+        detectorItem->getItem(RectangularDetectorItem::P_NORMAL)->setItemValue(
             VectorItem::P_X, normal.x());
-        detectorItem->getGroupItem(RectangularDetectorItem::P_NORMAL)->setItemValue(
+        detectorItem->getItem(RectangularDetectorItem::P_NORMAL)->setItemValue(
             VectorItem::P_Y, normal.y());
-        detectorItem->getGroupItem(RectangularDetectorItem::P_NORMAL)->setItemValue(
+        detectorItem->getItem(RectangularDetectorItem::P_NORMAL)->setItemValue(
             VectorItem::P_Z, normal.z());
 
         kvector_t direction = detector.getDirectionVector();
-        detectorItem->getGroupItem(RectangularDetectorItem::P_DIRECTION)->setItemValue(
+        detectorItem->getItem(RectangularDetectorItem::P_DIRECTION)->setItemValue(
             VectorItem::P_X, direction.x());
-        detectorItem->getGroupItem(RectangularDetectorItem::P_DIRECTION)->setItemValue(
+        detectorItem->getItem(RectangularDetectorItem::P_DIRECTION)->setItemValue(
             VectorItem::P_Y, direction.y());
-        detectorItem->getGroupItem(RectangularDetectorItem::P_DIRECTION)->setItemValue(
+        detectorItem->getItem(RectangularDetectorItem::P_DIRECTION)->setItemValue(
             VectorItem::P_Z, direction.z());
 
         detectorItem->setItemValue(RectangularDetectorItem::P_U0, detector.getU0());

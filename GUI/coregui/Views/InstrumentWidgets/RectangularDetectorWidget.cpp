@@ -144,12 +144,12 @@ void RectangularDetectorWidget::create_editors()
 void RectangularDetectorWidget::init_editors()
 {
     m_xAxisEditor->clearEditor();
-    SessionItem *xAxisItem = m_detectorItem->getGroupItem(RectangularDetectorItem::P_X_AXIS);
+    SessionItem *xAxisItem = m_detectorItem->getItem(RectangularDetectorItem::P_X_AXIS);
     m_xAxisEditor->addPropertyItems(xAxisItem, QString("X axis"));
 
     m_yAxisEditor->clearEditor();
     SessionItem *yAxisItem
-        = m_detectorItem->getGroupItem(RectangularDetectorItem::P_Y_AXIS);
+        = m_detectorItem->getItem(RectangularDetectorItem::P_Y_AXIS);
     m_yAxisEditor->addPropertyItems(yAxisItem, QString("Y axis"));
 
     m_resolutionFunctionEditor->clearEditor();
@@ -188,11 +188,11 @@ void RectangularDetectorWidget::init_alignment_editors()
         m_positionsEditor->addPropertyItems(m_detectorItem->getItem(RectangularDetectorItem::P_V0), "Positions");
 
         SessionItem *normalVectorItem
-            = m_detectorItem->getGroupItem(RectangularDetectorItem::P_NORMAL);
+            = m_detectorItem->getItem(RectangularDetectorItem::P_NORMAL);
         m_normalEditor->addPropertyItems(normalVectorItem, "Normal vector");
 
         SessionItem *directionVectorItem
-            = m_detectorItem->getGroupItem(RectangularDetectorItem::P_DIRECTION);
+            = m_detectorItem->getItem(RectangularDetectorItem::P_DIRECTION);
         m_directionEditor->addPropertyItems(directionVectorItem, "Direction vector");
 
     } else if (alignment.getValue() == Constants::ALIGNMENT_TO_DIRECT_BEAM ||

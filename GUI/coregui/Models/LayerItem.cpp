@@ -35,9 +35,4 @@ LayerItem::LayerItem()
     setGroupProperty(P_ROUGHNESS, Constants::LayerZeroRoughnessType);
     registerTag(T_LAYOUTS, 0, -1, QStringList() << Constants::ParticleLayoutType);
     setDefaultTag(T_LAYOUTS);
-
-//    registerTag("XXX", 1, 1, QStringList() << Constants::VectorType);
-//    SessionItem *vectorItem = ItemFactory::createItem(Constants::VectorType);
-//    insertItem(0, vectorItem, "XXX");
-    addGroupPropertyTmp("XXX", Constants::VectorType);
 }

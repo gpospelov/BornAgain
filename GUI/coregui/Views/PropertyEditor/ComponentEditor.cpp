@@ -188,6 +188,11 @@ ComponentEditor::componentItems(SessionItem *item) const
             result.append(child);
         }
 
+        else if (child->modelType() == Constants::BasicAxisType ||
+                 child->modelType() == Constants::AmplitudeAxisType) {
+            result.append(child);
+        }
+
         if (item->modelType() == Constants::GroupItemType) {
             foreach (SessionItem *childOfChild, child->childItems()) {
                 result.append(childOfChild);

@@ -194,37 +194,6 @@ void SessionReader::readItems(QXmlStreamReader *reader, SessionItem *item, const
                     if (reader->attributes().hasAttribute(SessionXML::DisplayNameAttribute)) {
                         new_item->setDisplayName(reader->attributes().value(SessionXML::DisplayNameAttribute).toString());
                     }
-
-
-
-//                    qDebug() << "QQQ 1.3";
-//                    SessionItem *new_item = ItemFactory::createItem(model_type);
-//                    qDebug() << "QQQ 1.3.1" << new_item << new_item->modelType();
-//                    Q_ASSERT(new_item);
-//                    if (reader->attributes().hasAttribute(SessionXML::DisplayNameAttribute)) {
-//                        new_item->setDisplayName(reader->attributes().value(SessionXML::DisplayNameAttribute).toString());
-//                    }
-//                    if (tag == "")
-//                        tag = item->defaultTag();
-
-//                    qDebug() << "QQQ 1.3.2";
-//                    if (!item->insertItem(-1, new_item, tag)) {
-//                        // this must be VectorItem or similar registered via addProperty mechanism
-//                        qDebug() << "QQQ 1.3.3";
-
-//                        SessionTagInfo info = item->getTagInfo(tag);
-//                        if (info.max == info.childCount && info.childCount == 1) {
-//                            qDebug() << "QQQ 1.3.4";
-//                            delete item->takeItem(0, tag);
-//                            bool result = item->insertItem(-1, new_item, tag);
-//                            qDebug() << "QQQ 1.3.5" << result;
-//                        } else {
-//                            throw GUIHelpers::Error("SessionReader::readItems -> Error. "
-//                                                "Can't insert item 1.2");
-//                        }
-
-//                    }
-
                     item = new_item;
                 }
                 if (!item) {

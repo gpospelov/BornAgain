@@ -676,15 +676,27 @@ void SessionItem::setDefaultTag(const QString &tag)
  */
 QString SessionItem::displayName() const
 {
-    if (m_parent) {
-        int index = m_parent->getCopyNumberOfChild(this);
-        if (index >= 0 && modelType() != Constants::PropertyType &&
-                modelType() != Constants::GroupItemType && modelType() != Constants::ParameterLabelType
-                && modelType() != Constants::ParameterType) {
-            return data(SessionModel::DisplayNameRole).toString() + QString::number(index);
+    QString result = data(SessionModel::DisplayNameRole).toString();
+
+    if(modelType() == Constants::PropertyType || modelType() == Constants::GroupItemType ||
+       modelType() == Constants::ParameterLabelType) return result;
+
+    if(m_parent) {
+        QString tag = m_parent->tagFromItem(this);
+        SessionTagInfo info = m_parent->getTagInfo(tag);
+        // if only one child of this type is allowed, return name without change
+        if (info.min == 1 && info.max == 1 && info.childCount == 1) {
+            return result;
         }
+
+        int index = m_parent->getCopyNumberOfChild(this);
+        if(index > 0) {
+            return result + QString::number(index);
+        }
+
     }
-    return data(SessionModel::DisplayNameRole).toString();
+
+    return result;
 }
 
 /*!

@@ -75,8 +75,8 @@ public:
     QMap<SessionItem *, ComponentEditorFlags::InsertMode> m_item_to_insert_mode;
 
     ComponentEditorFlags::PresentationType m_presentationType;
+    QList<SessionItem *> m_changedItems;
     std::unique_ptr<WheelEventEater> m_wheel_event_filter;
-
 };
 
 #endif

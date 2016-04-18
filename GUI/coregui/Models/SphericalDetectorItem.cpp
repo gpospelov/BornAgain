@@ -29,15 +29,15 @@ const QString SphericalDetectorItem::P_RESOLUTION_FUNCTION = "Type";
 SphericalDetectorItem::SphericalDetectorItem()
     : SessionItem(Constants::SphericalDetectorType)
 {
-    addGroupProperty(P_PHI_AXIS, Constants::BasicAxisType);
-    getGroupItem(P_PHI_AXIS)->getItem(BasicAxisItem::P_TITLE)->setVisible(false);
-    getGroupItem(P_PHI_AXIS)->setItemValue(BasicAxisItem::P_MIN, -1.0);
-    getGroupItem(P_PHI_AXIS)->setItemValue(BasicAxisItem::P_MAX, 1.0);
+    SessionItem *item = addGroupProperty(P_PHI_AXIS, Constants::BasicAxisType);
+    item->getItem(BasicAxisItem::P_TITLE)->setVisible(false);
+    item->setItemValue(BasicAxisItem::P_MIN, -1.0);
+    item->setItemValue(BasicAxisItem::P_MAX, 1.0);
 
-    addGroupProperty(P_ALPHA_AXIS, Constants::BasicAxisType);
-    getGroupItem(P_ALPHA_AXIS)->getItem(BasicAxisItem::P_TITLE)->setVisible(false);
-    getGroupItem(P_ALPHA_AXIS)->setItemValue(BasicAxisItem::P_MIN, 0.0);
-    getGroupItem(P_ALPHA_AXIS)->setItemValue(BasicAxisItem::P_MAX, 2.0);
+    item = addGroupProperty(P_ALPHA_AXIS, Constants::BasicAxisType);
+    item->getItem(BasicAxisItem::P_TITLE)->setVisible(false);
+    item->setItemValue(BasicAxisItem::P_MIN, 0.0);
+    item->setItemValue(BasicAxisItem::P_MAX, 2.0);
 
     addGroupProperty(P_RESOLUTION_FUNCTION, Constants::ResolutionFunctionGroup);
     setGroupProperty(P_RESOLUTION_FUNCTION, Constants::ResolutionFunctionNoneType);
@@ -45,13 +45,10 @@ SphericalDetectorItem::SphericalDetectorItem()
 
 std::unique_ptr<IDetector2D> SphericalDetectorItem::createDetector() const
 {
-
-//    return GUIHelpers::make_unique<SphericalDetector>();
-//    std::unique_ptr<SphericalDetector> result = GUIHelpers::make_unique<SphericalDetector>();
     std::unique_ptr<SphericalDetector> result(new SphericalDetector());
 
     auto x_axis = dynamic_cast<BasicAxisItem *>(
-        getGroupItem(SphericalDetectorItem::P_PHI_AXIS));
+        getItem(SphericalDetectorItem::P_PHI_AXIS));
     Q_ASSERT(x_axis);
     int n_x = x_axis->getItemValue(BasicAxisItem::P_NBINS).toInt();
     double x_min
@@ -60,7 +57,7 @@ std::unique_ptr<IDetector2D> SphericalDetectorItem::createDetector() const
         = Units::deg2rad(x_axis->getItemValue(BasicAxisItem::P_MAX).toDouble());
 
     auto y_axis = dynamic_cast<BasicAxisItem *>(
-        getGroupItem(SphericalDetectorItem::P_ALPHA_AXIS));
+        getItem(SphericalDetectorItem::P_ALPHA_AXIS));
     Q_ASSERT(y_axis);
     int n_y = y_axis->getItemValue(BasicAxisItem::P_NBINS).toInt();
     double y_min

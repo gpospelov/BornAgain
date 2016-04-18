@@ -698,10 +698,11 @@ void GUIObjectBuilder::visit(const RotationEuler *sample)
 void GUIObjectBuilder::buildPositionInfo(SessionItem *particleItem, const IParticle *sample)
 {
     kvector_t position = sample->getPosition();
-    SessionItem *p_position_item = particleItem->getGroupItem(ParticleItem::P_POSITION);
-    p_position_item->setItemValue(VectorItem::P_X, position.x());
-    p_position_item->setItemValue(VectorItem::P_Y, position.y());
-    p_position_item->setItemValue(VectorItem::P_Z, position.z());
+    SessionItem *positionItem = particleItem->getItem(ParticleItem::P_POSITION);
+    Q_ASSERT(positionItem);
+    positionItem->setItemValue(VectorItem::P_X, position.x());
+    positionItem->setItemValue(VectorItem::P_Y, position.y());
+    positionItem->setItemValue(VectorItem::P_Z, position.z());
 }
 
 MaterialProperty GUIObjectBuilder::createMaterialFromDomain(

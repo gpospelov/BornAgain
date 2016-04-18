@@ -15,6 +15,7 @@
 // ************************************************************************** //
 
 #include "VectorItem.h"
+#include <QDebug>
 
 const QString VectorItem::P_X = "X";
 const QString VectorItem::P_Y = "Y";
@@ -26,6 +27,15 @@ VectorItem::VectorItem()
     addProperty(P_X, 0.0)->setLimits(AttLimits::limitless());
     addProperty(P_Y, 0.0)->setLimits(AttLimits::limitless());
     addProperty(P_Z, 0.0)->setLimits(AttLimits::limitless());
+
+    mapper()->setOnPropertyChange(
+        [this](const QString &){
+            setValue(itemLabel());
+        }
+    );
+
+    setValue(itemLabel());
+    setEditable(false);
 }
 
 QString VectorItem::itemLabel() const

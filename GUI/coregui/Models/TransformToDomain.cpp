@@ -358,21 +358,21 @@ void TransformToDomain::addDistributionParametersToSimulation(const SessionItem 
     pattern_phi.beginsWith("*").add(BeamType).add(Phi);
     if (beam_item.modelType() == Constants::BeamType) {
         if (auto beamWavelength
-            = dynamic_cast<BeamWavelengthItem *>(beam_item.getGroupItem(BeamItem::P_WAVELENGTH))) {
+            = dynamic_cast<BeamWavelengthItem *>(beam_item.getItem(BeamItem::P_WAVELENGTH))) {
             auto P_par_distr = beamWavelength->getParameterDistributionForName(
                         pattern_wavelength.toStdString());
             if (P_par_distr)
                 simulation->addParameterDistribution(*P_par_distr);
         }
         if (auto inclinationAngle = dynamic_cast<BeamInclinationAngleItem *>(
-                beam_item.getGroupItem(BeamItem::P_INCLINATION_ANGLE))) {
+                beam_item.getItem(BeamItem::P_INCLINATION_ANGLE))) {
             auto P_par_distr = inclinationAngle->getParameterDistributionForName(
                         pattern_alpha.toStdString());
             if (P_par_distr)
                 simulation->addParameterDistribution(*P_par_distr);
         }
         if (auto azimuthalAngle = dynamic_cast<BeamAzimuthalAngleItem *>(
-                beam_item.getGroupItem(BeamItem::P_AZIMUTHAL_ANGLE))) {
+                beam_item.getItem(BeamItem::P_AZIMUTHAL_ANGLE))) {
             auto P_par_distr = azimuthalAngle->getParameterDistributionForName(
                         pattern_phi.toStdString());
             if (P_par_distr)
@@ -429,10 +429,11 @@ void TransformToDomain::setTransformationInfo(IParticle *result, const SessionIt
 
 void TransformToDomain::setPositionInfo(IParticle *result, const SessionItem &item)
 {
-    SessionItem *pos_item = item.getGroupItem(ParticleItem::P_POSITION);
-    double pos_x = pos_item->getItemValue(VectorItem::P_X).toDouble();
-    double pos_y = pos_item->getItemValue(VectorItem::P_Y).toDouble();
-    double pos_z = pos_item->getItemValue(VectorItem::P_Z).toDouble();
+    SessionItem *positionItem = item.getItem(ParticleItem::P_POSITION);
+    Q_ASSERT(positionItem);
+    double pos_x = positionItem->getItemValue(VectorItem::P_X).toDouble();
+    double pos_y = positionItem->getItemValue(VectorItem::P_Y).toDouble();
+    double pos_z = positionItem->getItemValue(VectorItem::P_Z).toDouble();
     result->setPosition(pos_x, pos_y, pos_z);
 }
 

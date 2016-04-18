@@ -37,6 +37,12 @@ ApplicationModels::ApplicationModels(QObject *parent)
 {
     createModels();
     testGUIObjectBuilder();
+
+//    SessionItem *multilayer = m_sampleModel->insertNewItem(Constants::MultiLayerType);
+//    SessionItem *layer = m_sampleModel->insertNewItem(Constants::LayerType, multilayer->index());
+
+//    SampleModel * mmm = m_sampleModel->createCopy();
+
 }
 
 ApplicationModels::~ApplicationModels()

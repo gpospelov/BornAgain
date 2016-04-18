@@ -284,7 +284,9 @@ SessionItem *SessionModel::insertNewItem(QString model_type, const QModelIndex &
     if (!new_item)
         throw GUIHelpers::Error("SessionModel::insertNewItem() -> Wrong model type " + model_type);
 
-    parent_item->insertItem(row, new_item, tag);
+    if(!parent_item->insertItem(row, new_item, tag)) {
+        throw GUIHelpers::Error("SessionModel::insertNewItem -> Error. Can't insert item");
+    }
 
     return new_item;
 }

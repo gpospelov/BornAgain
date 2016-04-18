@@ -33,7 +33,11 @@ class BA_CORE_API_ GroupPropertyRegistry
 public:
     using SelectableGroupMap_t = std::map<QString, std::map<QString, QString>>;
 
-    static GroupProperty_t createGroupProperty(const QString &group_name, const Constants::ModelType &group_model = Constants::ModelType());
+    static bool isValidGroup(const QString &group_type);
+
+    static GroupProperty_t createGroupProperty(const QString &group_name,
+            const Constants::ModelType &group_type);
+
 private:
     static SelectableGroupMap_t m_selectable_group_map;
     //!< Contains correspondance of selectable group names to their content,

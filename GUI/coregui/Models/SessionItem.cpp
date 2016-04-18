@@ -441,7 +441,9 @@ SessionItem *SessionItem::addProperty(const QString &name, const QVariant &varia
     SessionItem *property = ItemFactory::createItem(property_type);
     property->setDisplayName(name);
     registerTag(name, 1, 1, QStringList() << property_type);
-    insertItem(0, property, name);
+    if(!insertItem(0, property, name)) {
+        throw GUIHelpers::Error("SessionItem::addProperty -> Error. Can't insert item");
+    }
     property->setValue(variant);
     return property;
 }
@@ -474,17 +476,35 @@ void SessionItem::setItemValue(const QString &tag, const QVariant &variant)
 /*!
  * \brief Creates new group item and register new tag.
  */
-SessionItem *SessionItem::addGroupProperty(const QString &groupName, const QString &groupModel)
+SessionItem *SessionItem::addGroupProperty(const QString &groupName, const QString &groupType)
 {
-    GroupProperty_t group_property
-        = GroupPropertyRegistry::createGroupProperty(groupName, groupModel);
-    GroupItem *groupItem = dynamic_cast<GroupItem *>(ItemFactory::createItem(Constants::GroupItemType));
-    Q_ASSERT(groupItem);
-    groupItem->setGroup(group_property);
-    groupItem->setDisplayName(groupName);
-    registerTag(groupName, 1, 1, QStringList() << Constants::GroupItemType);
-    insertItem(0, groupItem, groupName);
-    return groupItem;
+    SessionItem *result(0);
+
+    if(GroupPropertyRegistry::isValidGroup(groupType)) {
+        // create group item
+        GroupProperty_t group_property
+            = GroupPropertyRegistry::createGroupProperty(groupName, groupType);
+        GroupItem *groupItem = dynamic_cast<GroupItem *>(
+                    ItemFactory::createItem(Constants::GroupItemType));
+        Q_ASSERT(groupItem);
+        groupItem->setGroup(group_property);
+        registerTag(groupName, 1, 1, QStringList() << Constants::GroupItemType);
+        result = groupItem;
+    }
+
+    else {
+        // create single item
+        registerTag(groupName, 1, 1, QStringList() << groupType);
+        result = ItemFactory::createItem(groupType);
+    }
+
+    Q_ASSERT(result);
+    result->setDisplayName(groupName);
+    if(!insertItem(0, result, groupName)) {
+        throw GUIHelpers::Error("SessionItem::addGroupProperty -> Error. Can't insert group item");
+    }
+
+    return result;
 }
 
 /*!
@@ -662,15 +682,28 @@ void SessionItem::setDefaultTag(const QString &tag)
  */
 QString SessionItem::displayName() const
 {
-    if (m_parent) {
-        int index = m_parent->getCopyNumberOfChild(this);
-        if (index >= 0 && modelType() != Constants::PropertyType &&
-                modelType() != Constants::GroupItemType && modelType() != Constants::ParameterLabelType
-                && modelType() != Constants::ParameterType) {
-            return data(SessionModel::DisplayNameRole).toString() + QString::number(index);
+    QString result = data(SessionModel::DisplayNameRole).toString();
+
+    if(modelType() == Constants::PropertyType || modelType() == Constants::GroupItemType ||
+       modelType() == Constants::ParameterType || modelType() == Constants::ParameterLabelType)
+        return result;
+
+    if(m_parent) {
+        QString tag = m_parent->tagFromItem(this);
+        SessionTagInfo info = m_parent->getTagInfo(tag);
+        // if only one child of this type is allowed, return name without change
+        if (info.min == 1 && info.max == 1 && info.childCount == 1) {
+            return result;
         }
+
+        int index = m_parent->getCopyNumberOfChild(this);
+        if(index > 0) {
+            return result + QString::number(index);
+        }
+
     }
-    return data(SessionModel::DisplayNameRole).toString();
+
+    return result;
 }
 
 /*!

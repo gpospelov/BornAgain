@@ -81,11 +81,11 @@ void SphericalDetectorWidget::setDetectorItem(DetectorItem *detectorItem)
                 detectorItem->getGroupItem(DetectorItem::P_DETECTOR));
     Q_ASSERT(sphericalDetector);
 
-    SessionItem *phiAxisItem = sphericalDetector->getGroupItem(SphericalDetectorItem::P_PHI_AXIS);
+    SessionItem *phiAxisItem = sphericalDetector->getItem(SphericalDetectorItem::P_PHI_AXIS);
     m_phiAxisEditor->addPropertyItems(phiAxisItem, QString("Phi axis"));
 
     SessionItem *alphaAxisItem
-        = sphericalDetector->getGroupItem(SphericalDetectorItem::P_ALPHA_AXIS);
+        = sphericalDetector->getItem(SphericalDetectorItem::P_ALPHA_AXIS);
     m_alphaAxisEditor->addPropertyItems(alphaAxisItem, QString("Alpha axis"));
 
     SessionItem *resFuncGroup = sphericalDetector->getItem(SphericalDetectorItem::P_RESOLUTION_FUNCTION);

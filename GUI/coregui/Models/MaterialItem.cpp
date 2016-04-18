@@ -49,15 +49,17 @@ QString MaterialItem::getIdentifier() const
 
 QColor MaterialItem::getColor() const
 {
-    ColorProperty color_property = getItemValue(P_COLOR).value<ColorProperty>();
-    return color_property.getColor();
+    ColorProperty property = getItemValue(P_COLOR).value<ColorProperty>();
+    return property.getColor();
 }
 
 std::unique_ptr<IMaterial> MaterialItem::createMaterial() const
 {
     const RefractiveIndexItem *refractiveIndexItem
         = dynamic_cast<const RefractiveIndexItem *>(
-            getGroupItem(MaterialItem::P_REFRACTIVE_INDEX));
+            getItem(MaterialItem::P_REFRACTIVE_INDEX));
+
+    Q_ASSERT(refractiveIndexItem);
 
     double delta = refractiveIndexItem->getDelta();
     double beta = refractiveIndexItem->getBeta();

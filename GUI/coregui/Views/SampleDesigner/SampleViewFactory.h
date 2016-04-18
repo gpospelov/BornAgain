@@ -26,7 +26,7 @@ class IView;
 class BA_CORE_API_ SampleViewFactory
 {
 public:
-    static bool isValidItemName(const QString &name);
+    static bool isValidType(const QString &name);
     static IView *createSampleView(const QString &name);
 
     static bool isValidExampleName();

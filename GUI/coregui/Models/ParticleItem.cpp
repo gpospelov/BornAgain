@@ -58,11 +58,11 @@ ParticleItem::ParticleItem()
                 getItem(ParticleItem::P_ABUNDANCE)->setEnabled(false);
                 if (parent()->modelType() == Constants::ParticleCoreShellType &&
                     parent()->tagFromItem(this) == ParticleCoreShellItem::T_SHELL) {
-                        SessionItem *p_position_item = getGroupItem(ParticleItem::P_POSITION);
-                    p_position_item->setItemValue(VectorItem::P_X, 0.0);
-                    p_position_item->setItemValue(VectorItem::P_Y, 0.0);
-                    p_position_item->setItemValue(VectorItem::P_Z, 0.0);
-                    getItem(ParticleItem::P_POSITION)->setEnabled(false);
+                        SessionItem *positionItem = getItem(ParticleItem::P_POSITION);
+                    positionItem->setItemValue(VectorItem::P_X, 0.0);
+                    positionItem->setItemValue(VectorItem::P_Y, 0.0);
+                    positionItem->setItemValue(VectorItem::P_Z, 0.0);
+                    positionItem->setEnabled(false);
                 } else {
                     getItem(ParticleItem::P_POSITION)->setEnabled(true);
                 }

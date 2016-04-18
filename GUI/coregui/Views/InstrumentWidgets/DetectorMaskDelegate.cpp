@@ -78,7 +78,7 @@ void DetectorMaskDelegate::createIntensityDataItem()
 //                                           gradient.getVariant());
 
     AmplitudeAxisItem *zAxisItem = dynamic_cast<AmplitudeAxisItem *>(
-        m_intensityItem->getGroupItem(IntensityDataItem::P_ZAXIS));
+        m_intensityItem->getItem(IntensityDataItem::P_ZAXIS));
 
     zAxisItem->setItemValue(BasicAxisItem::P_IS_VISIBLE, false);
     zAxisItem->setItemValue(BasicAxisItem::P_MIN, 0.0);
@@ -114,7 +114,7 @@ DetectorMaskDelegate::createOutputData(DetectorItem *detectorItem)
     if (subDetector->modelType() == Constants::SphericalDetectorType) {
 
         auto x_axis = dynamic_cast<BasicAxisItem *>(
-            subDetector->getGroupItem(SphericalDetectorItem::P_PHI_AXIS));
+            subDetector->getItem(SphericalDetectorItem::P_PHI_AXIS));
         Q_ASSERT(x_axis);
         int n_x = x_axis->getItemValue(BasicAxisItem::P_NBINS).toInt();
         double x_min
@@ -123,7 +123,7 @@ DetectorMaskDelegate::createOutputData(DetectorItem *detectorItem)
             = x_axis->getItemValue(BasicAxisItem::P_MAX).toDouble();
 
         auto y_axis = dynamic_cast<BasicAxisItem *>(
-            subDetector->getGroupItem(SphericalDetectorItem::P_ALPHA_AXIS));
+            subDetector->getItem(SphericalDetectorItem::P_ALPHA_AXIS));
         Q_ASSERT(y_axis);
         int n_y = y_axis->getItemValue(BasicAxisItem::P_NBINS).toInt();
         double y_min
@@ -134,18 +134,18 @@ DetectorMaskDelegate::createOutputData(DetectorItem *detectorItem)
         result->addAxis("x", n_x, x_min, x_max);
         result->addAxis("y", n_y, y_min, y_max);
 
-    } else if (subDetector->modelType() == Constants::RectangularDetectorType) {
+    }
+
+    else if (subDetector->modelType() == Constants::RectangularDetectorType) {
         auto x_axis = dynamic_cast<BasicAxisItem *>(
-            subDetector->getGroupItem(RectangularDetectorItem::P_X_AXIS));
+            subDetector->getItem(RectangularDetectorItem::P_X_AXIS));
         Q_ASSERT(x_axis);
         int n_x = x_axis->getItemValue(BasicAxisItem::P_NBINS).toInt();
-        double x_min
-            = x_axis->getItemValue(BasicAxisItem::P_MIN).toDouble();
-        double x_max
-            = x_axis->getItemValue(BasicAxisItem::P_MAX).toDouble();
+        double x_min = x_axis->getItemValue(BasicAxisItem::P_MIN).toDouble();
+        double x_max = x_axis->getItemValue(BasicAxisItem::P_MAX).toDouble();
 
         auto y_axis = dynamic_cast<BasicAxisItem *>(
-            subDetector->getGroupItem(RectangularDetectorItem::P_Y_AXIS));
+            subDetector->getItem(RectangularDetectorItem::P_Y_AXIS));
         Q_ASSERT(y_axis);
         int n_y = y_axis->getItemValue(BasicAxisItem::P_NBINS).toInt();
         double y_min

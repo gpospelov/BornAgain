@@ -49,7 +49,7 @@ if(ROOT_FOUND AND BORNAGAIN_APP) # TODO: find out whether this is still needed
 endif()
 if(BORNAGAIN_GUI)
     add_subdirectory(GUI)
-    add_subdirectory(Tests/UnitTests/TestGUI)
+#    add_subdirectory(Tests/UnitTests/TestGUI)
 endif()
 add_subdirectory(Tests/FunctionalTests)  # functional tests (make check)
 

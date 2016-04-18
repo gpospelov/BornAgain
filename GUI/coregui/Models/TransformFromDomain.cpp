@@ -246,15 +246,15 @@ void TransformFromDomain::setItemFromSample(BeamItem *beamItem, const GISASSimul
         std::string mainParameterName = distributions[i].getMainParameterName();
         if (mainParameterName == pattern_wavelength.toStdString()) {
             BeamDistributionItem *beamWavelength = dynamic_cast<BeamDistributionItem *>(
-                beamItem->getGroupItem(BeamItem::P_WAVELENGTH));
+                beamItem->getItem(BeamItem::P_WAVELENGTH));
             setItemFromSample(beamWavelength, distributions[i]);
         } else if (mainParameterName == pattern_alpha.toStdString()) {
             BeamDistributionItem *inclinationAngle = dynamic_cast<BeamDistributionItem *>(
-                beamItem->getGroupItem(BeamItem::P_INCLINATION_ANGLE));
+                beamItem->getItem(BeamItem::P_INCLINATION_ANGLE));
             setItemFromSample(inclinationAngle, distributions[i]);
         } else if (mainParameterName == pattern_phi.toStdString()) {
             BeamDistributionItem *azimuthalAngle = dynamic_cast<BeamDistributionItem *>(
-                beamItem->getGroupItem(BeamItem::P_AZIMUTHAL_ANGLE));
+                beamItem->getItem(BeamItem::P_AZIMUTHAL_ANGLE));
             setItemFromSample(azimuthalAngle, distributions[i]);
         }
     }
@@ -300,14 +300,14 @@ void TransformFromDomain::setItemFromSample(SphericalDetectorItem *detectorItem,
     const IAxis &alpha_axis = detector.getAxis(1);
 
     BasicAxisItem *phiAxisItem = dynamic_cast<BasicAxisItem *>(
-        detectorItem->getGroupItem(SphericalDetectorItem::P_PHI_AXIS));
+        detectorItem->getItem(SphericalDetectorItem::P_PHI_AXIS));
     Q_ASSERT(phiAxisItem);
     phiAxisItem->setItemValue(BasicAxisItem::P_NBINS, (int)phi_axis.getSize());
     phiAxisItem->setItemValue(BasicAxisItem::P_MIN, Units::rad2deg(phi_axis.getMin()));
     phiAxisItem->setItemValue(BasicAxisItem::P_MAX, Units::rad2deg(phi_axis.getMax()));
 
     BasicAxisItem *alphaAxisItem = dynamic_cast<BasicAxisItem *>(
-        detectorItem->getGroupItem(SphericalDetectorItem::P_ALPHA_AXIS));
+        detectorItem->getItem(SphericalDetectorItem::P_ALPHA_AXIS));
     Q_ASSERT(alphaAxisItem);
     alphaAxisItem->setItemValue(BasicAxisItem::P_NBINS, (int)alpha_axis.getSize());
     alphaAxisItem->setItemValue(BasicAxisItem::P_MIN, Units::rad2deg(alpha_axis.getMin()));
@@ -348,13 +348,13 @@ void TransformFromDomain::setItemFromSample(RectangularDetectorItem *detectorIte
 {
     // Axes
     BasicAxisItem *xAxisItem = dynamic_cast<BasicAxisItem *>(
-        detectorItem->getGroupItem(RectangularDetectorItem::P_X_AXIS));
+        detectorItem->getItem(RectangularDetectorItem::P_X_AXIS));
     Q_ASSERT(xAxisItem);
     xAxisItem->setItemValue(BasicAxisItem::P_NBINS, (int)detector.getNbinsX());
     xAxisItem->setItemValue(BasicAxisItem::P_MAX, detector.getWidth());
 
     BasicAxisItem *yAxisItem = dynamic_cast<BasicAxisItem *>(
-        detectorItem->getGroupItem(RectangularDetectorItem::P_Y_AXIS));
+        detectorItem->getItem(RectangularDetectorItem::P_Y_AXIS));
     Q_ASSERT(yAxisItem);
     yAxisItem->setItemValue(BasicAxisItem::P_NBINS, (int)detector.getNbinsY());
     yAxisItem->setItemValue(BasicAxisItem::P_MAX, detector.getHeight());
@@ -363,19 +363,19 @@ void TransformFromDomain::setItemFromSample(RectangularDetectorItem *detectorIte
         detectorItem->setDetectorAlignment(Constants::ALIGNMENT_GENERIC);
 
         kvector_t normal = detector.getNormalVector();
-        detectorItem->getGroupItem(RectangularDetectorItem::P_NORMAL)->setItemValue(
+        detectorItem->getItem(RectangularDetectorItem::P_NORMAL)->setItemValue(
             VectorItem::P_X, normal.x());
-        detectorItem->getGroupItem(RectangularDetectorItem::P_NORMAL)->setItemValue(
+        detectorItem->getItem(RectangularDetectorItem::P_NORMAL)->setItemValue(
             VectorItem::P_Y, normal.y());
-        detectorItem->getGroupItem(RectangularDetectorItem::P_NORMAL)->setItemValue(
+        detectorItem->getItem(RectangularDetectorItem::P_NORMAL)->setItemValue(
             VectorItem::P_Z, normal.z());
 
         kvector_t direction = detector.getDirectionVector();
-        detectorItem->getGroupItem(RectangularDetectorItem::P_DIRECTION)->setItemValue(
+        detectorItem->getItem(RectangularDetectorItem::P_DIRECTION)->setItemValue(
             VectorItem::P_X, direction.x());
-        detectorItem->getGroupItem(RectangularDetectorItem::P_DIRECTION)->setItemValue(
+        detectorItem->getItem(RectangularDetectorItem::P_DIRECTION)->setItemValue(
             VectorItem::P_Y, direction.y());
-        detectorItem->getGroupItem(RectangularDetectorItem::P_DIRECTION)->setItemValue(
+        detectorItem->getItem(RectangularDetectorItem::P_DIRECTION)->setItemValue(
             VectorItem::P_Z, direction.z());
 
         detectorItem->setItemValue(RectangularDetectorItem::P_U0, detector.getU0());

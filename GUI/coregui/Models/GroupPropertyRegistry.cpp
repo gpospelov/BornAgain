@@ -134,28 +134,19 @@ GroupPropertyRegistry::SelectableGroupMap_t initializeSelectableGroupMap()
 GroupPropertyRegistry::SelectableGroupMap_t GroupPropertyRegistry::m_selectable_group_map
     = initializeSelectableGroupMap();
 
+bool GroupPropertyRegistry::isValidGroup(const QString &group_type)
+{
+    auto it = m_selectable_group_map.find(group_type);
+    return it==m_selectable_group_map.end() ? false : true;
+}
+
 GroupProperty_t
 GroupPropertyRegistry::createGroupProperty(const QString &group_name,
-                                           const Constants::ModelType &group_model)
+                                           const Constants::ModelType &group_type)
 {
-    Constants::ModelType groupModelType = group_model;
-    if (groupModelType.isEmpty())
-        groupModelType = group_name;
-
+    Q_ASSERT(isValidGroup(group_type));
     GroupProperty_t result(new GroupProperty(group_name));
-
-    if (m_selectable_group_map.find(groupModelType) != m_selectable_group_map.end()) {
-        qDebug() << "GroupPropertyRegistry::createGroupProperty() -> creating selectable group of "
-                    "groupModelType" << groupModelType;
-        result->setGroupType(GroupProperty::SELECTABLE);
-        result->setGroupMap(m_selectable_group_map[groupModelType]);
-    } else {
-        result->setGroupType(GroupProperty::FIXED);
-        // result->setValue(group_n);
-        std::map<QString, QString> group_map;
-        group_map[groupModelType] = "No label";
-        result->setGroupMap(group_map);
-    }
+    result->setGroupMap(m_selectable_group_map[group_type]);
 
     return result;
 }

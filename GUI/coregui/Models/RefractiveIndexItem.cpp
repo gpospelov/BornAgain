@@ -30,6 +30,15 @@ RefractiveIndexItem::RefractiveIndexItem()
 
     ScientificDoubleProperty beta(0.0);
     addProperty(P_BETA, beta.getVariant());
+
+    mapper()->setOnPropertyChange(
+        [this](const QString &){
+            setValue(itemLabel());
+        }
+    );
+
+    setValue(itemLabel());
+    setEditable(false);
 }
 
 QString RefractiveIndexItem::itemLabel() const
@@ -44,9 +53,9 @@ double RefractiveIndexItem::getDelta() const
 
 void RefractiveIndexItem::setDelta(double delta)
 {
-    ScientificDoubleProperty scd_property = getItemValue(P_DELTA).value<ScientificDoubleProperty>();
-    scd_property.setValue(delta);
-    setItemValue(P_DELTA, scd_property.getVariant());
+    ScientificDoubleProperty property = getItemValue(P_DELTA).value<ScientificDoubleProperty>();
+    property.setValue(delta);
+    setItemValue(P_DELTA, property.getVariant());
 }
 
 double RefractiveIndexItem::getBeta() const
@@ -56,7 +65,7 @@ double RefractiveIndexItem::getBeta() const
 
 void RefractiveIndexItem::setBeta(double beta)
 {
-    ScientificDoubleProperty scd_property = getItemValue(P_BETA).value<ScientificDoubleProperty>();
-    scd_property.setValue(beta);
-    setItemValue(P_BETA, scd_property.getVariant());
+    ScientificDoubleProperty property = getItemValue(P_BETA).value<ScientificDoubleProperty>();
+    property.setValue(beta);
+    setItemValue(P_BETA, property.getVariant());
 }

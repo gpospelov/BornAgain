@@ -52,6 +52,7 @@ void ComponentEditorPrivate::clear()
     m_groupname_to_qtvariant.clear();
     m_item_to_qtparent.clear();
     m_item_to_insert_mode.clear();
+    m_changedItems.clear();
 }
 
 void ComponentEditorPrivate::init_browser()

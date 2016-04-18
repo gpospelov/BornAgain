@@ -15,6 +15,7 @@
 // ************************************************************************** //
 
 #include "GroupItem.h"
+#include <QDebug>
 
 const QString GroupItem::T_ITEMS = "Item tag";
 
@@ -23,6 +24,17 @@ GroupItem::GroupItem()
 {
     registerTag(T_ITEMS);
     setDefaultTag(T_ITEMS);
+
+//    mapper()->setOnChildPropertyChange(
+//                [this](SessionItem* item, const QString &name)
+//    {
+//        qDebug() << "QQQQ" << item->itemLabel() << name;
+//        group()->setCurrentLabel(item->itemLabel());
+////        qDebug() << "emmiting..." << modelType();
+////        emitDataChanged();
+////        qDebug() << "...emmited";
+//    });
+
 }
 
 void GroupItem::setGroup(GroupProperty_t group)

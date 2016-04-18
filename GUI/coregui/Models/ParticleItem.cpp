@@ -39,7 +39,7 @@ ParticleItem::ParticleItem()
                      MaterialUtils::getDefaultMaterialProperty().getVariant());
     addProperty(P_ABUNDANCE, 1.0)->setLimits(AttLimits::limited(0.0, 1.0));
     getItem(P_ABUNDANCE)->setDecimals(3);
-    addGroupProperty(P_POSITION, Constants::VectorType);
+    addGroupPropertyTmp(P_POSITION, Constants::VectorType);
     PositionTranslator position_translator;
     ModelPath::addParameterTranslator(position_translator);
 
@@ -58,11 +58,11 @@ ParticleItem::ParticleItem()
                 getItem(ParticleItem::P_ABUNDANCE)->setEnabled(false);
                 if (parent()->modelType() == Constants::ParticleCoreShellType &&
                     parent()->tagFromItem(this) == ParticleCoreShellItem::T_SHELL) {
-                        SessionItem *p_position_item = getGroupItem(ParticleItem::P_POSITION);
-                    p_position_item->setItemValue(VectorItem::P_X, 0.0);
-                    p_position_item->setItemValue(VectorItem::P_Y, 0.0);
-                    p_position_item->setItemValue(VectorItem::P_Z, 0.0);
-                    getItem(ParticleItem::P_POSITION)->setEnabled(false);
+                        SessionItem *positionItem = getItem(ParticleItem::P_POSITION);
+                    positionItem->setItemValue(VectorItem::P_X, 0.0);
+                    positionItem->setItemValue(VectorItem::P_Y, 0.0);
+                    positionItem->setItemValue(VectorItem::P_Z, 0.0);
+                    positionItem->setEnabled(false);
                 } else {
                     getItem(ParticleItem::P_POSITION)->setEnabled(true);
                 }

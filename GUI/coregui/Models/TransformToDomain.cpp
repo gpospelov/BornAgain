@@ -429,10 +429,11 @@ void TransformToDomain::setTransformationInfo(IParticle *result, const SessionIt
 
 void TransformToDomain::setPositionInfo(IParticle *result, const SessionItem &item)
 {
-    SessionItem *pos_item = item.getGroupItem(ParticleItem::P_POSITION);
-    double pos_x = pos_item->getItemValue(VectorItem::P_X).toDouble();
-    double pos_y = pos_item->getItemValue(VectorItem::P_Y).toDouble();
-    double pos_z = pos_item->getItemValue(VectorItem::P_Z).toDouble();
+    SessionItem *positionItem = item.getItem(ParticleItem::P_POSITION);
+    Q_ASSERT(positionItem);
+    double pos_x = positionItem->getItemValue(VectorItem::P_X).toDouble();
+    double pos_y = positionItem->getItemValue(VectorItem::P_Y).toDouble();
+    double pos_z = positionItem->getItemValue(VectorItem::P_Z).toDouble();
     result->setPosition(pos_x, pos_y, pos_z);
 }
 

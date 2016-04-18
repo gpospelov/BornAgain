@@ -31,7 +31,7 @@ ParticleCoreShellItem::ParticleCoreShellItem()
     addProperty(ParticleItem::P_ABUNDANCE, 1.0);
     getItem(ParticleItem::P_ABUNDANCE)->setLimits(AttLimits::limited(0.0, 1.0));
     getItem(ParticleItem::P_ABUNDANCE)->setDecimals(3);
-    addGroupProperty(ParticleItem::P_POSITION, Constants::VectorType);
+    addGroupPropertyTmp(ParticleItem::P_POSITION, Constants::VectorType);
     PositionTranslator position_translator;
     ModelPath::addParameterTranslator(position_translator);
 

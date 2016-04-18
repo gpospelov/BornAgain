@@ -491,6 +491,16 @@ SessionItem *SessionItem::addGroupProperty(const QString &groupName, const QStri
     return groupItem;
 }
 
+SessionItem *SessionItem::addGroupPropertyTmp(const QString &groupName, const QString &groupModel)
+{
+    registerTag(groupName, 1, 1, QStringList() << groupModel);
+    SessionItem *sessionItem = ItemFactory::createItem(groupModel);
+    sessionItem->setDisplayName(groupName);
+    insertItem(0, sessionItem, groupName);
+    Q_ASSERT(sessionItem);
+    return sessionItem;
+}
+
 /*!
  * \brief Access subitem of group item. If not existing, new item will be created by group property.
  */

@@ -43,13 +43,8 @@ QStringList ModelPath::getParameterTreeList(const SessionItem *item, QString pre
                     if (p_child->modelType() ==  Constants::GroupItemType) {
                         if (const GroupItem *groupItem = dynamic_cast<const GroupItem*>(p_child)) {
                             if (const SessionItem *subItem = groupItem->group()->getCurrentItem()) {
-                                if (groupItem->group()->isFixed()) {
-                                    QString child_prefix = prefix + groupItem->itemName() + QString("/");
-                                    result << getParameterTreeList(subItem, child_prefix);
-                                } else {
-                                    QString child_prefix = prefix + subItem->itemName() + QString("/");
-                                    result << getParameterTreeList(subItem, child_prefix);
-                                }
+                                QString child_prefix = prefix + subItem->itemName() + QString("/");
+                                result << getParameterTreeList(subItem, child_prefix);
                             }
                         }
                     } else {

@@ -51,13 +51,11 @@ void ParameterModelBuilder::createParameterTree(JobItem *item, const QString tag
 void ParameterModelBuilder::handleItem(SessionItem *tree, SessionItem *source)
 {
     if (tree->modelType() == Constants::ParameterLabelType) {
-        GroupItem *parent = dynamic_cast<GroupItem*>(source->parent());
-        if (parent && parent->group()->isFixed()) {
-            tree->setDisplayName(parent->itemName());
-        } else {
-            tree->setDisplayName(source->itemName());
-        }
-    } else if (tree->modelType() == Constants::ParameterType) {
+        tree->setDisplayName(source->itemName());
+
+    }
+
+    else if (tree->modelType() == Constants::ParameterType) {
         tree->setDisplayName(source->itemName());
         tree->setValue(source->value());
         QString path = ModelPath::getPathFromIndex(source->index());
@@ -66,9 +64,12 @@ void ParameterModelBuilder::handleItem(SessionItem *tree, SessionItem *source)
         tree->setItemValue(ParameterItem::P_LINK, path);
         tree->setItemValue(ParameterItem::P_BACKUP, source->value());
         return;
-    } else {
+    }
+
+    else {
         return;
     }
+
     for (SessionItem *child : source->childItems()) {
         if (child->isVisible() && child->isEnabled()) {
             if (child->modelType() == Constants::PropertyType) {

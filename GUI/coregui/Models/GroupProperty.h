@@ -33,23 +33,16 @@ class SessionItem;
 class BA_CORE_API_ GroupProperty
 {
 public:
-    enum EGroupType { UNDEFINED, FIXED, SELECTABLE };
-
-    EGroupType type() const;
-
     void setGroupItem(SessionItem *groupItem);
 
     SessionItem *getCurrentItem();
 
     SessionItem *createCorrespondingItem();
 
-    QString getGroupName() const;
-
     QString getCurrentType() const;
     void setCurrentType(const QString &type, bool = true);
 
     QString getCurrentLabel() const;
-    void setCurrentLabel(const QString &label);
 
     QStringList getTypes() const;
     QStringList getLabels() const;
@@ -58,26 +51,19 @@ public:
     int toIndex(const QString &type) const;
     QString toString(int index) const;
 
-    bool isFixed() const;
-
     friend class GroupPropertyRegistry;
+
 private:
     GroupProperty(QString group_name);
-
     void setGroupMap(std::map<QString, QString> group_map);
-    void setGroupType(EGroupType group_type);
 
     QString m_group_name;
-    EGroupType m_group_type;
     SessionItem *m_groupItem;
     QString m_current_type;
-
     std::map<QString, QString > m_type_label_map;
 };
 
 typedef QSharedPointer<GroupProperty> GroupProperty_t;
-
 Q_DECLARE_METATYPE(GroupProperty_t)
-
 
 #endif

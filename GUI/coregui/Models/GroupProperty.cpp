@@ -22,14 +22,8 @@
 
 GroupProperty::GroupProperty(QString group_name)
     : m_group_name(std::move(group_name))
-    , m_group_type(UNDEFINED)
     , m_groupItem(0)
 {
-}
-
-GroupProperty::EGroupType GroupProperty::type() const
-{
-    return m_group_type;
 }
 
 SessionItem *GroupProperty::getCurrentItem()
@@ -50,15 +44,7 @@ void GroupProperty::setGroupItem(SessionItem *groupItem)
 SessionItem *GroupProperty::createCorrespondingItem()
 {
     SessionItem *result = ItemFactory::createItem(getCurrentType());
-    if(type() == FIXED) {
-        setCurrentLabel(result->itemLabel());
-    }
     return result;
-}
-
-QString GroupProperty::getGroupName() const
-{
-    return m_group_name;
 }
 
 QString GroupProperty::getCurrentType() const
@@ -68,7 +54,6 @@ QString GroupProperty::getCurrentType() const
 
 void GroupProperty::setCurrentType(const QString &type, bool)
 {
-    qDebug() << "GGG GroupProperty::setCurrentType(const QString &type)" << type;
     if(type == getCurrentType()) return;
 
     SessionItem *prevItem = getCurrentItem();
@@ -95,20 +80,6 @@ void GroupProperty::setCurrentType(const QString &type, bool)
 QString GroupProperty::getCurrentLabel() const
 {
     return m_type_label_map.at(m_current_type);
-}
-
-void GroupProperty::setCurrentLabel(const QString &label)
-{
-    if(type() == FIXED) {
-        m_type_label_map[m_current_type] = label;
-//        if(m_groupItem) {
-//            m_groupItem->emitDataChanged();
-//        }
-////        if(m_groupItem) m_groupItem->getItem(getGroupName())->emitValueChanged();
-////        if(m_groupItem) {
-////            qDebug() << "!!!" << m_groupItem
-////        }
-    }
 }
 
 QStringList GroupProperty::getTypes() const
@@ -154,19 +125,8 @@ QString GroupProperty::toString(int index) const
     return name_list[index];
 }
 
-bool GroupProperty::isFixed() const
-{
-    return m_group_type == GroupProperty::FIXED;
-}
-
 void GroupProperty::setGroupMap(std::map<QString, QString> group_map)
 {
     m_type_label_map = std::move(group_map);
     setCurrentType(m_type_label_map.begin()->first);
 }
-
-void GroupProperty::setGroupType(GroupProperty::EGroupType group_type)
-{
-    m_group_type = group_type;
-}
-

@@ -70,14 +70,14 @@ public:
     GroupProperty_t group() const;
     void setGroup(GroupProperty_t group);
 
-
 signals:
     void groupPropertyChanged(const GroupProperty_t &group_property);
+
 private slots:
     void indexChanged(int index);
+
 private:
-    void processFixedGroup();
-    void processSelectableGroup();
+    void processGroup();
     QComboBox *m_box;
     QLabel *m_label;
     GroupProperty_t m_groupProperty;

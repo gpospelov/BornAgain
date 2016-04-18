@@ -113,45 +113,26 @@ GroupPropertyEdit::~GroupPropertyEdit()
 void GroupPropertyEdit::setGroupProperty(
         GroupProperty_t groupProperty)
 {
-    qDebug() << "GroupPropertyEdit::setGroupProperty() ->" << groupProperty;
     if(groupProperty) {
         m_groupProperty = groupProperty;
-
-        if(groupProperty->type() == GroupProperty::FIXED) {
-            processFixedGroup();
-        }
-        else if(groupProperty->type() == GroupProperty::SELECTABLE) {
-            processSelectableGroup();
-        }
-        else {
-            throw GUIHelpers::Error(" GroupPropertyEdit::setGroupProperty() -> Error. Unknown group type");
-        }
+        processGroup();
     }
 }
 
-void GroupPropertyEdit::processFixedGroup()
+void GroupPropertyEdit::processGroup()
 {
-    qDebug() << "GroupPropertyEdit::processFixedGroup()" << m_groupProperty->getCurrentLabel();
-    m_box->hide();
-    m_label->show();
-    m_label->setText(m_groupProperty->getCurrentLabel());
-}
-
-void GroupPropertyEdit::processSelectableGroup()
-{
-    qDebug() << "GroupPropertyEdit::processSelectableGroup()";
+    qDebug() << "GroupPropertyEdit::processGroup()";
     disconnect(m_box, SIGNAL(currentIndexChanged(int)),
             this, SLOT(indexChanged(int)));
 
     if(m_box->count() != m_groupProperty->getLabels().size()) {
         m_box->clear();
-        qDebug() << "XXX inserting_items" << m_groupProperty->getLabels();
         m_box->insertItems(0, m_groupProperty->getLabels());
     }
     m_box->setCurrentIndex(m_groupProperty->index());
 
     connect(m_box, SIGNAL(currentIndexChanged(int)),
-            this, SLOT(indexChanged(int)));
+            this, SLOT(indexChanged(int)), Qt::UniqueConnection);
 }
 
 void GroupPropertyEdit::indexChanged(int index)
@@ -162,23 +143,23 @@ void GroupPropertyEdit::indexChanged(int index)
 
 QSize GroupPropertyEdit::sizeHint() const
 {
-    if(m_box) {
+    if(m_box)
         return m_box->sizeHint();
-    }
-    if(m_label) {
+
+    if(m_label)
         return m_label->sizeHint();
-    }
+
     return QSize(100,10);
 }
 
 QSize GroupPropertyEdit::minimumSizeHint() const
 {
-    if(m_box) {
+    if(m_box)
         return m_box->minimumSizeHint();
-    }
-    if(m_label) {
+
+    if(m_label)
         return m_label->minimumSizeHint();
-    }
+
     return QSize(100,10);
 }
 

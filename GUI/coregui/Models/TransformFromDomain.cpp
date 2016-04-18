@@ -247,15 +247,15 @@ void TransformFromDomain::setItemFromSample(BeamItem *beamItem, const GISASSimul
         std::string mainParameterName = distributions[i].getMainParameterName();
         if (mainParameterName == pattern_wavelength.toStdString()) {
             BeamDistributionItem *beamWavelength = dynamic_cast<BeamDistributionItem *>(
-                beamItem->getGroupItem(BeamItem::P_WAVELENGTH));
+                beamItem->getItem(BeamItem::P_WAVELENGTH));
             setItemFromSample(beamWavelength, distributions[i]);
         } else if (mainParameterName == pattern_alpha.toStdString()) {
             BeamDistributionItem *inclinationAngle = dynamic_cast<BeamDistributionItem *>(
-                beamItem->getGroupItem(BeamItem::P_INCLINATION_ANGLE));
+                beamItem->getItem(BeamItem::P_INCLINATION_ANGLE));
             setItemFromSample(inclinationAngle, distributions[i]);
         } else if (mainParameterName == pattern_phi.toStdString()) {
             BeamDistributionItem *azimuthalAngle = dynamic_cast<BeamDistributionItem *>(
-                beamItem->getGroupItem(BeamItem::P_AZIMUTHAL_ANGLE));
+                beamItem->getItem(BeamItem::P_AZIMUTHAL_ANGLE));
             setItemFromSample(azimuthalAngle, distributions[i]);
         }
     }

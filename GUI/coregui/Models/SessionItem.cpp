@@ -679,7 +679,8 @@ QString SessionItem::displayName() const
     QString result = data(SessionModel::DisplayNameRole).toString();
 
     if(modelType() == Constants::PropertyType || modelType() == Constants::GroupItemType ||
-       modelType() == Constants::ParameterLabelType) return result;
+       modelType() == Constants::ParameterType || modelType() == Constants::ParameterLabelType)
+        return result;
 
     if(m_parent) {
         QString tag = m_parent->tagFromItem(this);

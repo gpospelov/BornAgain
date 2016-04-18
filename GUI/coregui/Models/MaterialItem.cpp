@@ -37,7 +37,7 @@ MaterialItem::MaterialItem()
 
     ColorProperty color;
     addProperty(P_COLOR, color.getVariant());
-    addGroupPropertyTmp(P_REFRACTIVE_INDEX, Constants::RefractiveIndexType);
+    addGroupProperty(P_REFRACTIVE_INDEX, Constants::RefractiveIndexType);
     addProperty(P_IDENTIFIER, QUuid::createUuid().toString());
     getItem(P_IDENTIFIER)->setVisible(false);
 }

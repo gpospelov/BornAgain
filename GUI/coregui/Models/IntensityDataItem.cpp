@@ -62,13 +62,13 @@ IntensityDataItem::IntensityDataItem()
 
     addProperty(P_PROPERTY_PANEL_FLAG, false)->setVisible(false);
 
-    SessionItem *item = addGroupPropertyTmp(P_XAXIS, Constants::BasicAxisType);
+    SessionItem *item = addGroupProperty(P_XAXIS, Constants::BasicAxisType);
     item->getItem(BasicAxisItem::P_NBINS)->setVisible(false);
 
-    item = addGroupPropertyTmp(P_YAXIS, Constants::BasicAxisType);
+    item = addGroupProperty(P_YAXIS, Constants::BasicAxisType);
     item->getItem(BasicAxisItem::P_NBINS)->setVisible(false);
 
-    item = addGroupPropertyTmp(P_ZAXIS, Constants::AmplitudeAxisType);
+    item = addGroupProperty(P_ZAXIS, Constants::AmplitudeAxisType);
     item->getItem(BasicAxisItem::P_NBINS)->setVisible(false);
 
     registerTag(T_MASKS, 0, -1, QStringList() << Constants::MaskContainerType);

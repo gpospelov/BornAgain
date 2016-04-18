@@ -78,7 +78,7 @@ void DetectorMaskDelegate::createIntensityDataItem()
 //                                           gradient.getVariant());
 
     AmplitudeAxisItem *zAxisItem = dynamic_cast<AmplitudeAxisItem *>(
-        m_intensityItem->getGroupItem(IntensityDataItem::P_ZAXIS));
+        m_intensityItem->getItem(IntensityDataItem::P_ZAXIS));
 
     zAxisItem->setItemValue(BasicAxisItem::P_IS_VISIBLE, false);
     zAxisItem->setItemValue(BasicAxisItem::P_MIN, 0.0);

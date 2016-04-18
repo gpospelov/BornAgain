@@ -29,12 +29,12 @@ const QString SphericalDetectorItem::P_RESOLUTION_FUNCTION = "Type";
 SphericalDetectorItem::SphericalDetectorItem()
     : SessionItem(Constants::SphericalDetectorType)
 {
-    SessionItem *item = addGroupPropertyTmp(P_PHI_AXIS, Constants::BasicAxisType);
+    SessionItem *item = addGroupProperty(P_PHI_AXIS, Constants::BasicAxisType);
     item->getItem(BasicAxisItem::P_TITLE)->setVisible(false);
     item->setItemValue(BasicAxisItem::P_MIN, -1.0);
     item->setItemValue(BasicAxisItem::P_MAX, 1.0);
 
-    item = addGroupPropertyTmp(P_ALPHA_AXIS, Constants::BasicAxisType);
+    item = addGroupProperty(P_ALPHA_AXIS, Constants::BasicAxisType);
     item->getItem(BasicAxisItem::P_TITLE)->setVisible(false);
     item->setItemValue(BasicAxisItem::P_MIN, 0.0);
     item->setItemValue(BasicAxisItem::P_MAX, 2.0);

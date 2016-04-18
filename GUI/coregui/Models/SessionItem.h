@@ -95,9 +95,7 @@ public:
     SessionItem *addProperty(const QString &name, const QVariant &variant);
     QVariant getItemValue(const QString &tag) const;
     void setItemValue(const QString &tag, const QVariant &variant);
-    SessionItem *addGroupProperty(const QString &groupName, const QString &groupModel);
-    SessionItem *addGroupPropertyTmp(const QString &groupName, const QString &groupModel);
-
+    SessionItem *addGroupProperty(const QString &groupName, const QString &groupType);
 
     SessionItem *setGroupProperty(const QString &name, const QString &value) const;
     SessionItem *getGroupItem(const QString &name, const QString &type = QString()) const;

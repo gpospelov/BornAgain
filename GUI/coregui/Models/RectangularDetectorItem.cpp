@@ -66,14 +66,14 @@ RectangularDetectorItem::RectangularDetectorItem()
     , m_is_constructed(false)
 {
     // axes parameters
-    SessionItem *item = addGroupPropertyTmp(P_X_AXIS, Constants::BasicAxisType);
+    SessionItem *item = addGroupProperty(P_X_AXIS, Constants::BasicAxisType);
     item->getItem(BasicAxisItem::P_TITLE)->setVisible(false);
     item->getItem(BasicAxisItem::P_MIN)->setVisible(false);
     item->setItemValue(BasicAxisItem::P_MAX, default_detector_width);
     item->getItem(BasicAxisItem::P_MAX)->setDisplayName(QStringLiteral("Width"));
     item->getItem(BasicAxisItem::P_MAX)->setToolTip(QStringLiteral("Width of the detector in mm"));
 
-    item = addGroupPropertyTmp(P_Y_AXIS, Constants::BasicAxisType);
+    item = addGroupProperty(P_Y_AXIS, Constants::BasicAxisType);
     item->getItem(BasicAxisItem::P_TITLE)->setVisible(false);
     item->getItem(BasicAxisItem::P_MIN)->setVisible(false);
     item->setItemValue(BasicAxisItem::P_MAX, default_detector_height);
@@ -93,11 +93,11 @@ RectangularDetectorItem::RectangularDetectorItem()
     addProperty(P_ALIGNMENT, alignment.getVariant());
 
     // alignment parameters
-    item = addGroupPropertyTmp(P_NORMAL, Constants::VectorType);
+    item = addGroupProperty(P_NORMAL, Constants::VectorType);
     item->setItemValue(VectorItem::P_X, default_detector_distance);
 
     // direction
-    item = addGroupPropertyTmp(P_DIRECTION, Constants::VectorType);
+    item = addGroupProperty(P_DIRECTION, Constants::VectorType);
     item->setItemValue(VectorItem::P_Y, -1.0);
 
     addProperty(P_U0, default_detector_width/2.)->setToolTip(tooltip_u0);

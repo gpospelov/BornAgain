@@ -476,29 +476,35 @@ void SessionItem::setItemValue(const QString &tag, const QVariant &variant)
 /*!
  * \brief Creates new group item and register new tag.
  */
-SessionItem *SessionItem::addGroupProperty(const QString &groupName, const QString &groupModel)
+SessionItem *SessionItem::addGroupProperty(const QString &groupName, const QString &groupType)
 {
-    GroupProperty_t group_property
-        = GroupPropertyRegistry::createGroupProperty(groupName, groupModel);
-    GroupItem *groupItem = dynamic_cast<GroupItem *>(ItemFactory::createItem(Constants::GroupItemType));
-    Q_ASSERT(groupItem);
-    groupItem->setGroup(group_property);
-    groupItem->setDisplayName(groupName);
-    registerTag(groupName, 1, 1, QStringList() << Constants::GroupItemType);
-    if(!insertItem(0, groupItem, groupName)) {
-        throw GUIHelpers::Error("SessionItem::addGroupProperty -> Error. Can't insert item");
-    }
-    return groupItem;
-}
+    SessionItem *result(0);
 
-SessionItem *SessionItem::addGroupPropertyTmp(const QString &groupName, const QString &groupModel)
-{
-    registerTag(groupName, 1, 1, QStringList() << groupModel);
-    SessionItem *sessionItem = ItemFactory::createItem(groupModel);
-    sessionItem->setDisplayName(groupName);
-    insertItem(0, sessionItem, groupName);
-    Q_ASSERT(sessionItem);
-    return sessionItem;
+    if(GroupPropertyRegistry::isValidGroup(groupType)) {
+        // create group item
+        GroupProperty_t group_property
+            = GroupPropertyRegistry::createGroupProperty(groupName, groupType);
+        GroupItem *groupItem = dynamic_cast<GroupItem *>(
+                    ItemFactory::createItem(Constants::GroupItemType));
+        Q_ASSERT(groupItem);
+        groupItem->setGroup(group_property);
+        registerTag(groupName, 1, 1, QStringList() << Constants::GroupItemType);
+        result = groupItem;
+    }
+
+    else {
+        // create single item
+        registerTag(groupName, 1, 1, QStringList() << groupType);
+        result = ItemFactory::createItem(groupType);
+    }
+
+    Q_ASSERT(result);
+    result->setDisplayName(groupName);
+    if(!insertItem(0, result, groupName)) {
+        throw GUIHelpers::Error("SessionItem::addGroupProperty -> Error. Can't insert group item");
+    }
+
+    return result;
 }
 
 /*!

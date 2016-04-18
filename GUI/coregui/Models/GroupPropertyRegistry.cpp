@@ -132,11 +132,19 @@ GroupPropertyRegistry::SelectableGroupMap_t initializeSelectableGroupMap()
 GroupPropertyRegistry::SelectableGroupMap_t GroupPropertyRegistry::m_selectable_group_map
     = initializeSelectableGroupMap();
 
+bool GroupPropertyRegistry::isValidGroup(const QString &group_type)
+{
+    auto it = m_selectable_group_map.find(group_type);
+    return it==m_selectable_group_map.end() ? false : true;
+}
+
 GroupProperty_t
 GroupPropertyRegistry::createGroupProperty(const QString &group_name,
-                                           const Constants::ModelType &group_model)
+                                           const Constants::ModelType &group_type)
 {
-    Constants::ModelType groupModelType = group_model;
+    Q_ASSERT(isValidGroup(group_type));
+
+    Constants::ModelType groupModelType = group_type;
     if (groupModelType.isEmpty())
         groupModelType = group_name;
 

@@ -36,9 +36,9 @@ BeamItem::BeamItem() : SessionItem(Constants::BeamType)
 {
     ScientificDoubleProperty intensity(1e+08);
     addProperty(P_INTENSITY, intensity.getVariant())->setLimits(AttLimits::limited(0.0, 1e+32));
-    addGroupPropertyTmp(P_WAVELENGTH, Constants::BeamWavelengthType);
-    addGroupPropertyTmp(P_INCLINATION_ANGLE, Constants::BeamInclinationAngleType);
-    addGroupPropertyTmp(P_AZIMUTHAL_ANGLE, Constants::BeamAzimuthalAngleType);
+    addGroupProperty(P_WAVELENGTH, Constants::BeamWavelengthType);
+    addGroupProperty(P_INCLINATION_ANGLE, Constants::BeamInclinationAngleType);
+    addGroupProperty(P_AZIMUTHAL_ANGLE, Constants::BeamAzimuthalAngleType);
 }
 
 double BeamItem::getIntensity() const

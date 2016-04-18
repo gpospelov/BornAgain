@@ -39,7 +39,7 @@ ParticleItem::ParticleItem()
                      MaterialUtils::getDefaultMaterialProperty().getVariant());
     addProperty(P_ABUNDANCE, 1.0)->setLimits(AttLimits::limited(0.0, 1.0));
     getItem(P_ABUNDANCE)->setDecimals(3);
-    addGroupPropertyTmp(P_POSITION, Constants::VectorType);
+    addGroupProperty(P_POSITION, Constants::VectorType);
     PositionTranslator position_translator;
     ModelPath::addParameterTranslator(position_translator);
 

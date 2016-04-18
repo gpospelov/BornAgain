@@ -17,6 +17,7 @@
 #include "ModelMapper.h"
 #include "SessionModel.h"
 #include "SessionItem.h"
+#include <QDebug>
 
 #include <QModelIndex>
 
@@ -207,6 +208,8 @@ void ModelMapper::onDataChanged(const QModelIndex &topLeft, const QModelIndex &b
 void ModelMapper::onRowsInserted(const QModelIndex &parent, int first, int /*last*/)
 {
     SessionItem *newChild = m_model->itemForIndex(parent.child(first, 0));
+    qDebug() << "AAA 1.1" << m_item << m_item->displayName();
+    qDebug() << "AAA 1.2" << newChild << newChild->displayName();
 
     int nestling = nestlingDepth(newChild);
 
@@ -221,13 +224,22 @@ void ModelMapper::onRowsInserted(const QModelIndex &parent, int first, int /*las
 
         // inform siblings about the change
         // FIXME SessionItems with invalid parent index (i.e. IView's located on top of graphics scene like ParticleView) should be also notified to update the label
-        if(SessionItem *parent = newChild->parent()) {
-            QVector<SessionItem *> items = parent->getChildrenOfType(newChild->modelType());
-            foreach(SessionItem *sibling, items) {
-                if(m_item == sibling) callOnSiblingsChange();
-            }
+//        if(SessionItem *parent = newChild->parent()) {
+//            QVector<SessionItem *> items = parent->getChildrenOfType(newChild->modelType());
+//            foreach(SessionItem *sibling, items) {
+//                if(m_item == sibling) callOnSiblingsChange();
+//            }
+//        }
+    }
+
+    if(SessionItem *parent = newChild->parent()) {
+        QVector<SessionItem *> items = parent->getChildrenOfType(newChild->modelType());
+        foreach(SessionItem *sibling, items) {
+            if(m_item == sibling)
+                callOnSiblingsChange();
         }
     }
+
 
     if (nestling > 0) {
         callOnAnyChildChange(newChild);
@@ -238,6 +250,8 @@ void ModelMapper::onRowsInserted(const QModelIndex &parent, int first, int /*las
 void ModelMapper::onBeginRemoveRows(const QModelIndex &parent, int first, int /*last*/)
 {
     SessionItem *oldChild = m_model->itemForIndex(parent.child(first, 0));
+    qDebug() << "AAA 1.1" << m_item << m_item->displayName();
+    qDebug() << "AAA 1.2" << oldChild << oldChild->displayName();
 
     int nestling = nestlingDepth(m_model->itemForIndex(parent));
 
@@ -250,13 +264,23 @@ void ModelMapper::onBeginRemoveRows(const QModelIndex &parent, int first, int /*
             callOnChildrenChange(0);
 
             // inform siblings about the change
-            if(SessionItem *parent = oldChild->parent()) {
-                QVector<SessionItem *> items = parent->getChildrenOfType(oldChild->modelType());
-                foreach(SessionItem *sibling, items) {
-                    if(m_item == sibling) callOnSiblingsChange();
-                }
-            }
+//            if(SessionItem *parent = oldChild->parent()) {
+//                QVector<SessionItem *> items = parent->getChildrenOfType(oldChild->modelType());
+//                foreach(SessionItem *sibling, items) {
+//                    if(m_item == sibling) callOnSiblingsChange();
+//                }
+//            }
         }
+
+//        if(SessionItem *parent = oldChild->parent()) {
+//            QVector<SessionItem *> items = parent->getChildrenOfType(oldChild->modelType());
+//            foreach(SessionItem *sibling, items) {
+//                if(m_item == sibling)
+//                    callOnSiblingsChange();
+//            }
+//        }
+
+
     }
 
 }
@@ -267,5 +291,7 @@ void ModelMapper::onRowRemoved(const QModelIndex &parent, int /*first*/, int /*l
 
     if (nestling >= 0 || m_model->itemForIndex(parent) == m_item->parent()) {
         callOnAnyChildChange(nullptr);
+        callOnSiblingsChange();
+
     }
 }

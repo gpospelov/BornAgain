@@ -56,19 +56,16 @@ public:
     static Transform3D createRotateZ(double phi);
 
     //! Creates rotation defined by Euler angles
-    static Transform3D createRotateEuler(double alpha,
-                                         double beta, double gamma);
+    static Transform3D createRotateEuler(double alpha, double beta, double gamma);
 
     //! Calculates the Euler angles corresponding to the rotation
-    void calculateEulerAngles(double *p_alpha, double *p_beta,
-                              double *p_gamma) const;
+    void calculateEulerAngles(double *p_alpha, double *p_beta, double *p_gamma) const;
 
     //! Returns the inverse transformation.
     Transform3D getInverse() const;
 
     //! Return transformed vector _v_.
-    BasicVector3D<double>
-        transformed(const BasicVector3D<double>& v) const;
+    BasicVector3D<double> transformed(const BasicVector3D<double>& v) const;
 
     //! Return transformed vector _v_.
     BasicVector3D<complex_t>
@@ -113,5 +110,3 @@ private:
 }// namespace Geometry
 
 #endif /* GEOMETRY_TRANSFORM3D_H */
-
-

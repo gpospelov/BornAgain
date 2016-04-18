@@ -74,8 +74,8 @@ Geometry::Transform3D Geometry::Transform3D::createRotateZ(double phi)
     return Transform3D(matrix);
 }
 
-Geometry::Transform3D Geometry::Transform3D::createRotateEuler(double alpha,
-                           double beta, double gamma)
+Geometry::Transform3D Geometry::Transform3D::createRotateEuler(
+    double alpha, double beta, double gamma)
 {
     Transform3D zrot = createRotateZ(alpha);
     Transform3D xrot = createRotateX(beta);
@@ -83,8 +83,8 @@ Geometry::Transform3D Geometry::Transform3D::createRotateEuler(double alpha,
     return zrot2*xrot*zrot;
 }
 
-void Geometry::Transform3D::calculateEulerAngles(double *p_alpha,
-    double *p_beta, double *p_gamma) const
+void Geometry::Transform3D::calculateEulerAngles(
+    double *p_alpha, double *p_beta, double *p_gamma) const
 {
     // First check if second angle is zero or pi
     if (m_matrix(2,0)==0.0 && m_matrix(2,1)==0.0) {
@@ -219,4 +219,3 @@ bool Geometry::Transform3D::isZRotation() const
     if (m_matrix(2,1) != 0.0) return false;
     return true;
 }
-

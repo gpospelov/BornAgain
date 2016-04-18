@@ -27,7 +27,7 @@ class BA_CORE_API_ HomogeneousMaterial : public IMaterial
 {
 public:
     //! Constructs a material with _name_ and _refractive_index_.
-    HomogeneousMaterial(const std::string &name, const complex_t &refractive_index)
+    HomogeneousMaterial(const std::string &name, const complex_t refractive_index)
         : IMaterial(name), m_refractive_index(refractive_index)
     {
     }
@@ -54,7 +54,7 @@ public:
     }
 
     //! Set refractive index.
-    void setRefractiveIndex(const complex_t &refractive_index)
+    void setRefractiveIndex(const complex_t refractive_index)
     {
         m_refractive_index = refractive_index;
     }

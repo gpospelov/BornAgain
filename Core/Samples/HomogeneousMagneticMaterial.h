@@ -35,7 +35,7 @@ public:
 #endif
     //! Constructs a material with _name_, _refractive_index_ and
     //! _magnetic_field_
-    HomogeneousMagneticMaterial(const std::string &name, const complex_t &refractive_index,
+    HomogeneousMagneticMaterial(const std::string &name, const complex_t refractive_index,
                                 const kvector_t magnetic_field);
 
     //! Constructs a material with _name_, refractive_index parameters and

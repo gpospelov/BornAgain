@@ -2257,7 +2257,7 @@ Decorates a formfactor with a constant factor.
 C++ includes: FormFactorDecoratorFactor.h
 ";
 
-%feature("docstring")  FormFactorDecoratorFactor::FormFactorDecoratorFactor "FormFactorDecoratorFactor::FormFactorDecoratorFactor(const IFormFactor &form_factor, const complex_t &factor)
+%feature("docstring")  FormFactorDecoratorFactor::FormFactorDecoratorFactor "FormFactorDecoratorFactor::FormFactorDecoratorFactor(const IFormFactor &form_factor, const complex_t factor)
 ";
 
 %feature("docstring")  FormFactorDecoratorFactor::~FormFactorDecoratorFactor "virtual FormFactorDecoratorFactor::~FormFactorDecoratorFactor()
@@ -5009,7 +5009,7 @@ An homogeneous material with magnetization.
 C++ includes: HomogeneousMagneticMaterial.h
 ";
 
-%feature("docstring")  HomogeneousMagneticMaterial::HomogeneousMagneticMaterial "HomogeneousMagneticMaterial::HomogeneousMagneticMaterial(const std::string &name, const complex_t &refractive_index, const kvector_t magnetic_field)
+%feature("docstring")  HomogeneousMagneticMaterial::HomogeneousMagneticMaterial "HomogeneousMagneticMaterial::HomogeneousMagneticMaterial(const std::string &name, const complex_t refractive_index, const kvector_t magnetic_field)
 
 Constructs a material with  name,  refractive_index and  magnetic_field
 ";
@@ -5058,7 +5058,7 @@ An homogeneous material with a refractive index.
 C++ includes: HomogeneousMaterial.h
 ";
 
-%feature("docstring")  HomogeneousMaterial::HomogeneousMaterial "HomogeneousMaterial::HomogeneousMaterial(const std::string &name, const complex_t &refractive_index)
+%feature("docstring")  HomogeneousMaterial::HomogeneousMaterial "HomogeneousMaterial::HomogeneousMaterial(const std::string &name, const complex_t refractive_index)
 
 Constructs a material with  name and  refractive_index. 
 ";
@@ -5081,7 +5081,7 @@ Clone.
 Return refractive index. 
 ";
 
-%feature("docstring")  HomogeneousMaterial::setRefractiveIndex "void HomogeneousMaterial::setRefractiveIndex(const complex_t &refractive_index)
+%feature("docstring")  HomogeneousMaterial::setRefractiveIndex "void HomogeneousMaterial::setRefractiveIndex(const complex_t refractive_index)
 
 Set refractive index. 
 ";

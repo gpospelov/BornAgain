@@ -19,7 +19,7 @@ const double HomogeneousMagneticMaterial::m_magnetic_prefactor
                  = -2.91042993836710484e-3;
 
 HomogeneousMagneticMaterial::HomogeneousMagneticMaterial(
-        const std::string& name, const complex_t& refractive_index,
+        const std::string& name, const complex_t refractive_index,
         const kvector_t magnetic_field)
 : HomogeneousMaterial(name, refractive_index)
 , m_magnetic_field(magnetic_field)

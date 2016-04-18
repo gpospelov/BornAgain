@@ -14213,7 +14213,7 @@ class HomogeneousMaterial(IMaterial):
 
     def __init__(self, *args):
         """
-        __init__(HomogeneousMaterial self, std::string const & name, complex_t const & refractive_index) -> HomogeneousMaterial
+        __init__(HomogeneousMaterial self, std::string const & name, complex_t const refractive_index) -> HomogeneousMaterial
         __init__(HomogeneousMaterial self, std::string const & name, double refractive_index_delta, double refractive_index_beta) -> HomogeneousMaterial
 
         HomogeneousMaterial::HomogeneousMaterial(const std::string &name, double refractive_index_delta, double refractive_index_beta)
@@ -14255,9 +14255,9 @@ class HomogeneousMaterial(IMaterial):
 
     def setRefractiveIndex(self, refractive_index):
         """
-        setRefractiveIndex(HomogeneousMaterial self, complex_t const & refractive_index)
+        setRefractiveIndex(HomogeneousMaterial self, complex_t const refractive_index)
 
-        void HomogeneousMaterial::setRefractiveIndex(const complex_t &refractive_index)
+        void HomogeneousMaterial::setRefractiveIndex(const complex_t refractive_index)
 
         Set refractive index. 
 
@@ -14300,7 +14300,7 @@ class HomogeneousMagneticMaterial(HomogeneousMaterial):
 
     def __init__(self, *args):
         """
-        __init__(HomogeneousMagneticMaterial self, std::string const & name, complex_t const & refractive_index, kvector_t magnetic_field) -> HomogeneousMagneticMaterial
+        __init__(HomogeneousMagneticMaterial self, std::string const & name, complex_t const refractive_index, kvector_t magnetic_field) -> HomogeneousMagneticMaterial
         __init__(HomogeneousMagneticMaterial self, std::string const & name, double refractive_index_delta, double refractive_index_beta, kvector_t magnetic_field) -> HomogeneousMagneticMaterial
 
         HomogeneousMagneticMaterial::HomogeneousMagneticMaterial(const std::string &name, double refractive_index_delta, double refractive_index_beta, const kvector_t magnetic_field)

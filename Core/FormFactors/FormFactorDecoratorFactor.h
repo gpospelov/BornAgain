@@ -26,7 +26,7 @@
 class BA_CORE_API_ FormFactorDecoratorFactor : public IFormFactorDecorator
 {
 public:
-    FormFactorDecoratorFactor(const IFormFactor &form_factor, const complex_t &factor);
+    FormFactorDecoratorFactor(const IFormFactor &form_factor, const complex_t factor);
 
     virtual ~FormFactorDecoratorFactor() {}
 
@@ -42,7 +42,7 @@ protected:
 };
 
 inline FormFactorDecoratorFactor::FormFactorDecoratorFactor(const IFormFactor &form_factor,
-                                                            const complex_t &factor)
+                                                            const complex_t factor)
     : IFormFactorDecorator(form_factor), m_factor(factor)
 {
     setName(BornAgain::FormFactorDecoratorFactorType);

@@ -23,7 +23,6 @@ typedef _object PyObject;
 #endif
 #endif
 
-
 #include "Types.h"
 #include "FixedBinAxis.h"
 #include "LLData.h"
@@ -32,6 +31,7 @@ typedef _object PyObject;
 #include "ThreadInfo.h"
 #include <sstream>
 #include <cassert>
+
 
 //! @class OutputData
 //! @ingroup tools
@@ -50,8 +50,7 @@ public:
     template <class U> void copyShapeFrom(const OutputData<U>& other);
 
     void addAxis(const IAxis& new_axis);
-    void addAxis(const std::string& name, size_t size,
-                 double start, double end);
+    void addAxis(const std::string& name, size_t size, double start, double end);
 
     //! returns axis with given serial number
     const IAxis *getAxis(size_t serial_number) const;
@@ -223,15 +222,13 @@ public:
     //! indexed accessor
     T& operator[](size_t index) {
         if (mp_ll_data) return (*mp_ll_data)[index];
-        throw ClassInitializationException("Low-level data object was not"
-                " yet initialized");
+        throw ClassInitializationException("Low-level data object was not yet initialized");
     }
 
     //! indexed accessor (const)
     const T& operator[](size_t index) const {
         if (mp_ll_data) return (*mp_ll_data)[index];
-        throw ClassInitializationException("Low-level data object was not"
-                " yet initialized");
+        throw ClassInitializationException("Low-level data object was not yet initialized");
     }
 
     // --------

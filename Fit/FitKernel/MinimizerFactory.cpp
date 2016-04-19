@@ -105,10 +105,9 @@ IMinimizer *MinimizerFactory::createMinimizer(const std::string& minimizer, cons
     } else if( minimizer == "Genetic" ) {
         result = new ROOTGeneticMinimizer(minimizer, algorithm);
 
-    }
-
-    if(!result) {
+    } else  {
         throw LogicErrorException("MinimizerFactory::createMinimizer() -> Error! Wrong minimizer name '"+minimizer+"'");
+        
     }
 
     if( !options.empty() ) {
@@ -123,7 +122,6 @@ IMinimizer *MinimizerFactory::createMinimizer(const std::string& minimizer, cons
 }
 
 
-
 //! Create minimizer using existing one. Only minimizer type and minimizer settings are propagated.
 //! This method serves as a kind of 'shallow' clone for minimizer.
 //! The reason why the minimizer doesn't have own clone method is because of complicate structure of
@@ -134,4 +132,3 @@ IMinimizer *MinimizerFactory::createMinimizer(const IMinimizer *minimizer)
     result->setOptions(*minimizer->getOptions());
     return result;
 }
-

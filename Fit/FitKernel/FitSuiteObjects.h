@@ -96,7 +96,6 @@ class BA_CORE_API_  FitSuiteObjects : public IParameterized
 
     inline size_t check_index(size_t index) const;
 
-
     FitObjects_t m_fit_objects;
     double m_total_weight;
     int m_nfree_parameters;

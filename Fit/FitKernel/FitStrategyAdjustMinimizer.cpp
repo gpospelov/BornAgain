@@ -19,15 +19,14 @@
 
 
 FitStrategyAdjustMinimizer::FitStrategyAdjustMinimizer()
-    : IFitStrategy("FitStrategyAdjustMinimizer"), m_minimizer(0)
+    : IFitStrategy("FitStrategyAdjustMinimizer"), m_minimizer(nullptr)
 {
-
 }
 
 FitStrategyAdjustMinimizer::FitStrategyAdjustMinimizer(const std::string &minimizer_name,
                                                        const std::string &algorithm_name,
                                                        const std::string &minimizer_options)
-    : IFitStrategy("FitStrategyAdjustMinimizer"), m_minimizer(0)
+    : IFitStrategy("FitStrategyAdjustMinimizer"), m_minimizer(nullptr)
 {
     setMinimizer(minimizer_name, algorithm_name, minimizer_options);
 }
@@ -72,16 +71,13 @@ void FitStrategyAdjustMinimizer::execute()
     m_fit_kernel->minimize();
 
     //m_fit_suite->printResults();
-
 }
 
 MinimizerOptions *FitStrategyAdjustMinimizer::getMinimizerOptions()
 {
-    if(!m_minimizer) {
-        return 0;
-    } else {
-        return m_minimizer->getOptions();
-    }
+    if(!m_minimizer)
+        return nullptr;
+    return m_minimizer->getOptions();
 }
 
 void FitStrategyAdjustMinimizer::print(std::ostream &ostr) const

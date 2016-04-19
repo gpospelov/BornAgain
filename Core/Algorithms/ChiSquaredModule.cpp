@@ -181,6 +181,5 @@ void ChiSquaredModule::processFitElements(std::vector<FitElement>::iterator firs
         double residual = std::sqrt(weight)*(value_simu - value_real)/std::sqrt(squared_error);
 
         it->setResidual(residual);
-
     }
 }

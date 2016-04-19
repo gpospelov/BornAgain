@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Tools/OutputData.cpp
-//! @brief     Just include OutputData.h.
+//! @brief     Implements template specializations of class OutputData.cpp.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -22,9 +22,9 @@
 #define NO_IMPORT_ARRAY
 #include "numpy/arrayobject.h"
 
-
-
 #include <iostream>
+
+
 template<>
 PyObject *OutputData<double>::getArray() const
 {
@@ -49,8 +49,7 @@ PyObject *OutputData<double>::getArray() const
     PyObject *pyarray = PyArray_SimpleNew(ndim_numpy, ndimsizes_numpy, NPY_DOUBLE);
     delete [] ndimsizes_numpy;
     if(pyarray == nullptr ) {
-        throw RuntimeErrorException(
-                "ExportOutputData() -> Panic in PyArray_SimpleNew");
+        throw RuntimeErrorException("ExportOutputData() -> Panic in PyArray_SimpleNew");
     }
     Py_INCREF(pyarray);
 

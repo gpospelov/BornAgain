@@ -91,13 +91,13 @@ void FitKernel::runFit()
 
     m_is_last_iteration = false;
 
-    // linking fit parameters with parameters defined in the simulation
+    // link fit parameters with parameters defined in the simulation
     link_fit_parameters();
 
-    // running minimization using strategies
+    // run minimization using strategies
     m_fit_strategies.minimize();
 
-    // calling observers to let them to get results
+    // call observers to let them to get results
     m_is_last_iteration = true;
     notifyObservers();
 
@@ -106,7 +106,7 @@ void FitKernel::runFit()
 
 void FitKernel::minimize()
 {
-    // initializing minimizer with fitting functions
+    // initialize minimizer with fitting functions
     IMinimizer::function_chi2_t fun_chi2 =  [&] (const double* pars) {return m_function_chi2.evaluate(pars);};
     m_minimizer->setChiSquaredFunction( fun_chi2, m_fit_parameters.size());
 
@@ -117,18 +117,18 @@ void FitKernel::minimize()
         };
     m_minimizer->setGradientFunction( fun_gradient, m_fit_parameters.size(), m_fit_objects.getSizeOfDataSet() );
 
-    // initializing minimizer's parameters with the list of local fit parameters
+    // initialize minimizer's parameters with the list of local fit parameters
     m_minimizer->setParameters(m_fit_parameters);
 
     // setting number of free parameters for proper chi2 normalization
     m_fit_objects.setNfreeParameters((int)m_fit_parameters.getNfreeParameters());
 
-    // minimizing
+    // minimize
     try {
         m_minimizer->minimize();
     } catch (int) {}
 
-    // setting found values to the parameters
+    // set found values to the parameters
     m_fit_parameters.setValues(m_minimizer->getValueOfVariablesAtMinimum());
     m_fit_parameters.setErrors(m_minimizer->getErrorOfVariables());
     m_fit_objects.runSimulations(); // we run simulation once again for best values found

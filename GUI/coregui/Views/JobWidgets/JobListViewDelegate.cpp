@@ -83,7 +83,6 @@ bool JobListViewDelegate::editorEvent(QEvent *event,
     } else {
         m_buttonState = QStyle::State_Raised;
         return QItemDelegate::editorEvent(event, model, option, index);
-        return true;
     }
 
     const JobModel* jqmodel = static_cast<const JobModel*>(index.model());

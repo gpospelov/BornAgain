@@ -17,32 +17,19 @@
 #include "FitKernel.h"
 
 IFitStrategy::IFitStrategy()
-    : m_fit_kernel(0)
+    : m_fit_kernel(nullptr)
 {
-
 }
 
 IFitStrategy::IFitStrategy(const std::string &name)
-    : INamed(name), m_fit_kernel(0)
+    : INamed(name), m_fit_kernel(nullptr)
 {
-
-}
-
-IFitStrategy::~IFitStrategy()
-{
-
 }
 
 void IFitStrategy::init(FitKernel *fit_suite)
 {
     m_fit_kernel = fit_suite;
 }
-
-//std::ostream &IFitStrategy::operator<<(std::ostream &ostr, const IFitStrategy &m)
-//{
-//    m.print(ostr);
-//    return ostr;
-//}
 
 void IFitStrategy::print(std::ostream &ostr) const
 {
@@ -60,7 +47,6 @@ IFitStrategy::IFitStrategy(const IFitStrategy &other)
 FitStrategyDefault::FitStrategyDefault()
     : IFitStrategy("DefaultFitStrategy")
 {
-
 }
 
 IFitStrategy *FitStrategyDefault::clone() const
@@ -76,4 +62,3 @@ void FitStrategyDefault::execute()
     // calling minimization
     m_fit_kernel->minimize();
 }
-

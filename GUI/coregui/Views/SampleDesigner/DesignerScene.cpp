@@ -236,10 +236,6 @@ void DesignerScene::updateViews(const QModelIndex &parentIndex, IView *parentVie
             if(item && !SampleViewFactory::isValidType(item->modelType()))
                     continue;
 
-//            if (item && (item->modelType() == Constants::GroupItemType || item->modelType() == Constants::PropertyType)) {
-//                continue;
-//            }
-
             childView = addViewForItem(item);
             if (childView) {
                 if (parentView) {

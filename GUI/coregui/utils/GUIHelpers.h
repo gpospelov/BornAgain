@@ -57,6 +57,10 @@ BA_CORE_API_ QString getBornAgainVersionString();
 
 BA_CORE_API_ QString getValidFileName(const QString &proposed_name);
 
+BA_CORE_API_ bool parseVersion(const QString &version, int &major_num, int &minor_num, int &patch_num);
+
+BA_CORE_API_ bool isVersionMatchMinimal(const QString &version, const QString &minimal_version);
+
 template<class T, class... Ts> std::unique_ptr<T> make_unique(Ts&&... params)
 {
     return std::unique_ptr<T>(new T(std::forward<Ts>(params)...));

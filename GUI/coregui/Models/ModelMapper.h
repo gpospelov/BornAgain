@@ -22,6 +22,7 @@
 #include <QObject>
 #include <QVector>
 #include <functional>
+#include <QModelIndex>
 
 class QModelIndex;
 class SessionModel;
@@ -74,6 +75,7 @@ private:
     void callOnSiblingsChange();
     void callOnAnyChildChange(SessionItem *item);
 
+    void clearMapper();
 
     bool m_active;
     SessionModel *m_model;
@@ -85,6 +87,7 @@ private:
     std::vector<std::function<void(SessionItem*)>> m_onChildrenChange;
     std::vector<std::function<void(void)>> m_onSiblingsChange;
     std::vector<std::function<void(SessionItem*)>> m_onAnyChildChange;
+    QModelIndex m_aboutToDelete;
 };
 
 #endif

@@ -20,9 +20,7 @@
 #include <QAbstractItemModel>
 #include <QtCore/QXmlStreamReader>
 #include <QtCore/QXmlStreamWriter>
-
 #include "SessionItem.h"
-
 #include "SessionXML.h"
 
 class IconProvider;
@@ -91,7 +89,7 @@ public:
     // Returns root item if index is not valid
     SessionItem *itemForIndex(const QModelIndex &index) const;
 
-    void readFrom(QXmlStreamReader *reader);
+    void readFrom(QXmlStreamReader *reader, WarningMessageService *messageService=0);
     void writeTo(QXmlStreamWriter *writer, SessionItem *parent = 0);
 
     SessionItem *moveParameterizedItem(SessionItem *item,
@@ -110,27 +108,18 @@ public:
     SessionItem *getTopItem(const QString &model_type = QString(),
                                   const QString &item_name = QString()) const;
 
-    void setMessageService(WarningMessageService *messageService);
-
     virtual void initFrom(SessionModel *model, SessionItem *parent);
     SessionItem* rootItem() const;
-
-
-
 
 protected:
     void setRootItem(SessionItem *root) {m_root_item = root;}
 
 private:
-
-    void report_error(const QString &error_type, const QString &message);
-
     SessionItem *m_root_item;
     QString m_dragged_item_type;
     QString m_name;      //!< model name
     QString m_model_tag; //!< model tag (SampleModel, InstrumentModel)
     std::unique_ptr<IconProvider> m_iconProvider;
-    WarningMessageService *m_messageService;
 };
 
 inline bool SessionModel::setHeaderData(int, Qt::Orientation, const QVariant &, int)

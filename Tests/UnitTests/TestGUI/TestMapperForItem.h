@@ -249,10 +249,13 @@ inline void TestMapperForItem::test_onSiblingsChange()
     QCOMPARE(m_onChildPropertyChangeCount, 0);
     QCOMPARE(m_onParentChangeCount, 0);
     QCOMPARE(m_onChildrenChangeCount, 0);
-    //QVERIFY(m_onSiblingsChangeCount == 1);
+    QCOMPARE(m_onSiblingsChangeCount, 1);
     QVERIFY(m_mapped_item == layer);
     QVERIFY(m_reported_items.isEmpty());
     QVERIFY(m_reported_names.isEmpty());
+
+    multilayer->takeItem(1, MultiLayerItem::T_LAYERS);
+    QCOMPARE(m_onSiblingsChangeCount, 2);
 
     // FIXME
 //    multilayer->takeRow(layer2->parentRow());

@@ -24,7 +24,6 @@
 #include "SampleBuilderFactory.h"
 #include "GUIObjectBuilder.h"
 #include "InstrumentModel.h"
-#include "SessionProxyModels.h"
 #include <QItemSelectionModel>
 #include <QHBoxLayout>
 #include <QTreeView>

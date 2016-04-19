@@ -52,7 +52,6 @@ public slots:
     void onRealData();
 
 private:
-
     JobModel *m_jobModel;
     JobItem *m_currentJobItem;
     QItemSelectionModel *m_selectionModel;

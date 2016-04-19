@@ -19,8 +19,6 @@
 #include "MinimizerFactory.h"
 #include "IHistogram.h"
 
-#include <memory>
-
 FitSuite::FitSuite()
     : m_kernel(new FitKernel(this))
 {

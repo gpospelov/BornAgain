@@ -40,8 +40,7 @@ class BA_CORE_API_ RunFitWidget : public QWidget
 public:
     RunFitWidget(FitModel *fitModel, QWidget *parent = 0);
 
-    // test only
-    std::shared_ptr<FitSuite> init_test_fitsuite();
+    std::shared_ptr<FitSuite> init_test_fitsuite(); // test only
 
 public slots:
     void onIntervalChanged(int value);
@@ -59,7 +58,8 @@ private:
     FitProgressWidget *m_fitprogress;
     FitModel *m_fitModel;
 
-    SessionItem *getTopItemFromSelection(SessionModel *model, const QString &itemType, const QString &selectionType);
+    SessionItem *getTopItemFromSelection(
+        SessionModel *model, const QString &itemType, const QString &selectionType);
 };
 
 #endif

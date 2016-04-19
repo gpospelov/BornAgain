@@ -106,7 +106,6 @@ void FitTools::onStartClick()
     if (!m_currentJobItem)
         return;
 
-
     try {
     DomainSimulationBuilder builder;
     const std::unique_ptr<GISASSimulation> simulation(

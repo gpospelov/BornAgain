@@ -63,9 +63,9 @@ void DetectorEditorWidget::setDetectorItem(DetectorItem *detectorItem)
     m_detectorItem = detectorItem;
     if(!m_detectorItem) return;
 
-    ModelMapper *mapper = new ModelMapper(this);
-    mapper->setItem(m_detectorItem);
-    mapper->setOnPropertyChange(
+    m_mapper.reset(new ModelMapper);
+    m_mapper->setItem(m_detectorItem);
+    m_mapper->setOnPropertyChange(
                 [this](const QString &name)
     {
         onPropertyChanged(name);

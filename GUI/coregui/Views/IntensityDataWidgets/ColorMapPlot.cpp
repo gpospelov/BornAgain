@@ -35,7 +35,12 @@ ColorMapPlot::ColorMapPlot(QWidget *parent)
     setMouseTracking(false);
     m_customPlot->setMouseTracking(false);
 
-//    setFixedColorMapMargins();
+    //    setFixedColorMapMargins();
+}
+
+ColorMapPlot::~ColorMapPlot()
+{
+
 }
 
 //! initializes everything with new IntensityDataItem or plot it, if it was already the case
@@ -61,15 +66,16 @@ void ColorMapPlot::setItem(IntensityDataItem *item)
 
 //    connect(m_item, SIGNAL(intensityModified()), this,
 //               SLOT(onIntensityModified()));
-    ModelMapper *mapper = new ModelMapper(this);
-    mapper->setItem(item);
-    mapper->setOnPropertyChange(
+    m_mapper.reset(new ModelMapper);
+
+    m_mapper->setItem(item);
+    m_mapper->setOnPropertyChange(
                 [this](const QString &name)
     {
         onPropertyChanged(name);
         onIntensityModified();
     });
-    mapper->setOnChildPropertyChange(
+    m_mapper->setOnChildPropertyChange(
                 [this](SessionItem* item, const QString name)
     {
 //        if (item->parent() && item->parent()->modelType() == Constants::GroupItemType)

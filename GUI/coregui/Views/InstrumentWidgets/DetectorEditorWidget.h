@@ -19,6 +19,7 @@
 
 #include "WinDllMacros.h"
 #include <QWidget>
+#include <memory>
 
 class GroupInfoBox;
 class DetectorItem;
@@ -26,6 +27,7 @@ class ComponentBoxEditor;
 class QGridLayout;
 class SphericalDetectorWidget;
 class ColumnResizer;
+class ModelMapper;
 
 class BA_CORE_API_ DetectorEditorWidget : public QWidget
 {
@@ -52,6 +54,7 @@ private:
     GroupInfoBox *m_groupBox;
     DetectorItem *m_detectorItem;
     QWidget *m_subDetectorWidget;
+    std::unique_ptr<ModelMapper> m_mapper;
 };
 
 #endif

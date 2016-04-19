@@ -183,9 +183,11 @@ QWidget *ModelTuningDelegate::createEditor(QWidget *parent,
         m_contentLayout->addWidget(m_valueBox);
         m_contentLayout->addWidget(m_slider);
 
-        ModelMapper *mapper = new ModelMapper(m_contentWidget);
-        mapper->setItem(m_currentItem);
-        mapper->setOnValueChange(
+//        ModelMapper *mapper = new ModelMapper(m_contentWidget);
+
+        m_mapper.reset(new ModelMapper);
+        m_mapper->setItem(m_currentItem);
+        m_mapper->setOnValueChange(
                     [this](){
             m_valueBox->setValue(m_currentItem->value().toDouble());
         });

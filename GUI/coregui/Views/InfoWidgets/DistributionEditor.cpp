@@ -57,6 +57,8 @@ DistributionEditor::DistributionEditor(QWidget *parent)
     setLayout(mainLayout);
 }
 
+DistributionEditor::~DistributionEditor() {}
+
 void DistributionEditor::setItem(SessionItem *item)
 {
     m_propertyEditor->clearEditor();
@@ -70,14 +72,14 @@ void DistributionEditor::setItem(SessionItem *item)
     if (!m_item)
         return;
 
-    ModelMapper *mapper = new ModelMapper(this);
-    mapper->setItem(m_item);
-    mapper->setOnPropertyChange(
+    m_mapper.reset(new ModelMapper);
+
+    m_mapper->setItem(m_item);
+    m_mapper->setOnPropertyChange(
                 [this](const QString &name)
     {
         onPropertyChanged(name);
     });
-
 
     DistributionItem *distrItem = dynamic_cast<DistributionItem *>(
         m_item->getCurrentItem());

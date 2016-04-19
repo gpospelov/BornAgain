@@ -82,9 +82,9 @@ void DistributionWidget::setItem(DistributionItem *item)
 
     plotItem();
 
-    ModelMapper *mapper = new ModelMapper(this);
-    mapper->setItem(item);
-    mapper->setOnPropertyChange(
+    m_mapper.reset(new ModelMapper);
+    m_mapper->setItem(item);
+    m_mapper->setOnPropertyChange(
                 [this](QString)
     {
         plotItem();

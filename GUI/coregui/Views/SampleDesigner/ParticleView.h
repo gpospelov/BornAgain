@@ -17,11 +17,8 @@
 #ifndef PARTICLEVIEW_H
 #define PARTICLEVIEW_H
 
-
 #include "ConnectableView.h"
 #include <QPixmap>
-
-class ModelMapper;
 
 //! Class representing view of Particle item
 class BA_CORE_API_ ParticleView : public ConnectableView

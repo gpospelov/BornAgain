@@ -91,9 +91,10 @@ void IntensityDataWidget::setPropertyPanelVisible(bool visible)
 void IntensityDataWidget::updateItem(IntensityDataItem *item)
 {
     setPropertyPanelVisible(item->getItemValue(IntensityDataItem::P_PROPERTY_PANEL_FLAG).toBool());
-    ModelMapper *mapper = new ModelMapper(this);
-    mapper->setItem(item);
-    mapper->setOnPropertyChange(
+
+    m_mapper.reset(new ModelMapper);
+    m_mapper->setItem(item);
+    m_mapper->setOnPropertyChange(
                  [this](const QString &name)
     {
         if(name == IntensityDataItem::P_PROPERTY_PANEL_FLAG) {

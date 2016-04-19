@@ -43,7 +43,7 @@ IntensityDataPlotWidget::IntensityDataPlotWidget(QWidget *parent)
     , m_leftHistogramArea(150)
     , m_bottomHistogramArea(150)
     , m_item(0)
-    , m_mapper(0)
+//    , m_mapper(0)
 {
     setObjectName(QStringLiteral("IntensityDataPlotWidget"));
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -86,6 +86,11 @@ IntensityDataPlotWidget::IntensityDataPlotWidget(QWidget *parent)
     setupContextMenuActions();
 }
 
+IntensityDataPlotWidget::~IntensityDataPlotWidget()
+{
+
+}
+
 //! initializes the class with NIntensityDataItem
 void IntensityDataPlotWidget::setItem(IntensityDataItem *item)
 {
@@ -108,9 +113,13 @@ void IntensityDataPlotWidget::setItem(IntensityDataItem *item)
     if (!m_item) return;
 
     updateItem(m_item);
-    if (m_mapper)
-        m_mapper->deleteLater();
-    m_mapper = new ModelMapper(this);
+
+//    if (m_mapper)
+//        m_mapper->deleteLater();
+//    m_mapper = new ModelMapper(this);
+
+
+    m_mapper.reset(new ModelMapper);
     m_mapper->setItem(item);
     m_mapper->setOnPropertyChange(
                 [this](const QString &name)

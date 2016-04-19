@@ -19,6 +19,8 @@
 
 #include "WinDllMacros.h"
 #include <QWidget>
+#include <memory>
+
 class IntensityDataItem;
 class QCustomPlot;
 class QCPBars;
@@ -56,7 +58,8 @@ private:
     QCustomPlot *m_customPlot;
     QCPBars *m_bars;
     IntensityDataItem *m_item;
-    ModelMapper *m_mapper;
+//    ModelMapper *m_mapper;
+    std::unique_ptr<ModelMapper> m_mapper;
 };
 
 

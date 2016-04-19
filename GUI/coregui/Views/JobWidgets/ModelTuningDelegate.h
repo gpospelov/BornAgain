@@ -19,11 +19,13 @@
 
 #include <QItemDelegate>
 #include "AttLimits.h"
+#include <memory>
 
 class QDoubleSpinBox;
 class QHBoxLayout;
 class ParameterItem;
 class SessionItem;
+class ModelMapper;
 
 class BA_CORE_API_ ModelTuningDelegate : public QItemDelegate
 {
@@ -83,6 +85,7 @@ private:
     mutable QHBoxLayout * m_contentLayout;
     mutable ParameterItem *m_currentItem;
     mutable SliderData m_slider_data;
+    mutable std::unique_ptr<ModelMapper> m_mapper;
 };
 
 #endif //SAMPLETUNINGDELEGATE_H

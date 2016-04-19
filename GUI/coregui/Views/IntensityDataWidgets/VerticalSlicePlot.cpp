@@ -26,7 +26,7 @@ VerticalSlicePlot::VerticalSlicePlot(QWidget *parent)
     , m_customPlot(0)
     , m_bars(0)
     , m_item(0)
-    , m_mapper(0)
+//    , m_mapper(0)
 {
     m_customPlot = new QCustomPlot();
     m_bars = new QCPBars(m_customPlot->yAxis, m_customPlot->xAxis);
@@ -56,9 +56,11 @@ void VerticalSlicePlot::setItem(IntensityDataItem *item)
     if (!m_item) return;
 
     plotItem(m_item);
-    if (m_mapper)
-        m_mapper->deleteLater();
-    m_mapper = new ModelMapper(this);
+//    if (m_mapper)
+//        m_mapper->deleteLater();
+//    m_mapper = new ModelMapper(this);
+
+    m_mapper.reset(new ModelMapper);
     m_mapper->setItem(item);
     m_mapper->setOnChildPropertyChange(
                 [this](SessionItem* item, const QString name)

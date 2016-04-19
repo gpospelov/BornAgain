@@ -51,7 +51,7 @@ ModelTuningWidget::ModelTuningWidget(JobModel *jobModel, QWidget *parent)
     , m_sliderSettingsWidget(0)
     , m_delegate(new ModelTuningDelegate)
     , m_warningSign(0)
-    , m_mapper(0)
+//    , m_mapper(0)
     , m_fitTools(new FitTools(jobModel, parent))
 {
     setMinimumSize(128, 128);
@@ -104,9 +104,11 @@ void ModelTuningWidget::setCurrentItem(JobItem *item)
 
     updateParameterModel();
 
-    if (m_mapper)
-        m_mapper->deleteLater();
-    m_mapper = new ModelMapper(this);
+//    if (m_mapper)
+//        m_mapper->deleteLater();
+//    m_mapper = new ModelMapper(this);
+
+    m_mapper.reset(new ModelMapper);
     m_mapper->setItem(item);
     m_mapper->setOnPropertyChange(
                 [this](const QString &name)

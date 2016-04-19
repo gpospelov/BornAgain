@@ -26,7 +26,7 @@ HorizontalSlicePlot::HorizontalSlicePlot(QWidget *parent)
     , m_customPlot(0)
     , m_bars(0)
     , m_item(0)
-    , m_mapper(0)
+//    , m_mapper(0)
 {
     m_customPlot = new QCustomPlot();
     m_bars = new QCPBars(m_customPlot->xAxis, m_customPlot->yAxis);
@@ -59,9 +59,12 @@ void HorizontalSlicePlot::setItem(IntensityDataItem *item)
 
 //    connect(m_item, SIGNAL(propertyChanged(QString)),
 //            this, SLOT(onPropertyChanged(QString)));
-    if (m_mapper)
-        m_mapper->deleteLater();
-    m_mapper = new ModelMapper(this);
+
+//    if (m_mapper)
+//        m_mapper->deleteLater();
+//    m_mapper = new ModelMapper(this);
+
+    m_mapper.reset(new ModelMapper);
     m_mapper->setItem(item);
     m_mapper->setOnChildPropertyChange(
                 [this](SessionItem* item, const QString name)

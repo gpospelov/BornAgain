@@ -19,10 +19,12 @@
 
 #include "WinDllMacros.h"
 #include <QWidget>
+#include <memory>
 
 class IntensityDataPropertyWidget;
 class IntensityDataItem;
 class IntensityDataPlotWidget;
+class ModelMapper;
 
 //! The widget presents IntensityData color map and property editor.
 //! Belongs to the stack handled by JobOutputDataWidget
@@ -47,13 +49,13 @@ public slots:
     void toggleProjections();
     void setPropertyPanelVisible(bool visible);
 
-
 private:
     void updateItem(IntensityDataItem *item);
 
     IntensityDataPlotWidget *m_plotWidget;
     IntensityDataPropertyWidget *m_propertyWidget;
     IntensityDataItem *m_currentItem;
+    std::unique_ptr<ModelMapper> m_mapper;
 };
 
 

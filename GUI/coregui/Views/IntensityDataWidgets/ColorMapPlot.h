@@ -22,11 +22,13 @@
 #include <QWidget>
 #include <QMap>
 #include <QPoint>
+#include <memory>
 
 class IntensityDataItem;
 class QCustomPlot;
 class QCPColorMap;
 class QCPColorScale;
+class ModelMapper;
 
 //! 2D color map widget for IntensityData
 class BA_CORE_API_ ColorMapPlot : public QWidget
@@ -34,6 +36,7 @@ class BA_CORE_API_ ColorMapPlot : public QWidget
     Q_OBJECT
 public:
     explicit ColorMapPlot(QWidget *parent = 0);
+    ~ColorMapPlot();
 
     QSize sizeHint() const { return QSize(500, 400); }
     QSize minimumSizeHint() const { return QSize(128, 128); }
@@ -116,6 +119,7 @@ private:
     QMap<QString, QCPColorGradient > m_gradient_map;
     bool m_block_update;
     PositionData m_posData;
+    std::unique_ptr<ModelMapper> m_mapper;
 };
 
 

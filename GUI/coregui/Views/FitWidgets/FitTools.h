@@ -23,7 +23,6 @@
 
 class JobItem;
 class JobModel;
-class ModelMapper;
 class QHBoxLayout;
 class QItemSelectionModel;
 class QPushButton;

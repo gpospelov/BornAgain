@@ -41,14 +41,15 @@ void IView::setParameterizedItem(SessionItem *item)
         setX(m_item->getItemValue(SessionGraphicsItem::P_XPOS).toReal());
         setY(m_item->getItemValue(SessionGraphicsItem::P_YPOS).toReal());
 
-        mapper()->setItem(item);
-        mapper()->setOnPropertyChange(
+        m_mapper.reset(new ModelMapper);
+        m_mapper->setItem(item);
+        m_mapper->setOnPropertyChange(
                     [this] (const QString &name)
         {
             onPropertyChange(name);
         });
 
-        mapper()->setOnSiblingsChange(
+        m_mapper->setOnSiblingsChange(
                     [this]()
         {
             onSiblingsChange();
@@ -77,13 +78,13 @@ void IView::onChangedY()
     m_item->setItemValue(SessionGraphicsItem::P_YPOS, y());
 }
 
-ModelMapper *IView::mapper()
-{
-    if (!m_mapper) {
-        m_mapper = std::unique_ptr<ModelMapper>(new ModelMapper);
-    }
-    return m_mapper.get();
-}
+//ModelMapper *IView::mapper()
+//{
+//    if (!m_mapper) {
+//        m_mapper = std::unique_ptr<ModelMapper>(new ModelMapper);
+//    }
+//    return m_mapper.get();
+//}
 
 //! updates visual appearance of the item (color, icons, size etc)
 void IView::update_appearance()

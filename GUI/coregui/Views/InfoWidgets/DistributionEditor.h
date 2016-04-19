@@ -19,11 +19,13 @@
 
 #include <QWidget>
 #include "qcustomplot.h"
+#include <memory>
 
 class QGroupBox;
 class DistributionWidget;
 class GroupItem;
 class ComponentBoxEditor;
+class ModelMapper;
 
 //! The DistributionEditor class, being a child of DistributionDialog, contains a widget
 //! to show Distribution1D and awesome property editor to change distribution parameters
@@ -32,7 +34,8 @@ class DistributionEditor : public QWidget
     Q_OBJECT
 public:
     DistributionEditor(QWidget *parent = 0);
-    virtual ~DistributionEditor() {}
+    virtual ~DistributionEditor();
+
     void setItem(SessionItem *item);
     void plotItem(SessionItem *item);
     void setNameOfEditor(QString name);
@@ -46,6 +49,7 @@ private:
     DistributionWidget *m_plotwidget;
     QString m_nameOfEditor;
     QGroupBox *m_box;
+    std::unique_ptr<ModelMapper> m_mapper;
 };
 
 #endif

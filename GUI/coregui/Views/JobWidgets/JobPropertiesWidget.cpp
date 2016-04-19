@@ -32,7 +32,6 @@ JobPropertiesWidget::JobPropertiesWidget(QWidget *parent)
     , m_propertyEditor(0)
     , m_commentsEditor(0)
     , m_block_update(false)
-    , m_mapper(0)
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     setWindowTitle(QLatin1String("Job Properties"));
@@ -93,9 +92,11 @@ void JobPropertiesWidget::setItem(JobItem *jobItem)
     if (!m_currentItem) return;
 
     updateItem(m_currentItem);
-    if (m_mapper)
-        m_mapper->deleteLater();
-    m_mapper = new ModelMapper(this);
+//    if (m_mapper)
+//        m_mapper->deleteLater();
+//    m_mapper = new ModelMapper(this);
+
+    m_mapper.reset(new ModelMapper);
     m_mapper->setItem(jobItem);
     m_mapper->setOnPropertyChange(
                 [this](const QString &name)

@@ -19,6 +19,7 @@
 
 #include "WinDllMacros.h"
 #include <QWidget>
+#include <memory>
 
 class ColumnResizer;
 class GroupInfoBox;
@@ -27,6 +28,7 @@ class AwesomePropertyEditor;
 class ComponentBoxEditor;
 class QGridLayout;
 class ColumnResizer;
+class ModelMapper;
 
 class BA_CORE_API_ RectangularDetectorWidget : public QWidget
 {
@@ -61,7 +63,7 @@ private:
     QGridLayout *m_gridLayout;
 
     RectangularDetectorItem *m_detectorItem;
-
+    std::unique_ptr<ModelMapper> m_mapper;
 };
 
 #endif

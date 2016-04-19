@@ -50,7 +50,6 @@ public slots:
     virtual void onChangedY();
 
 protected:
-    ModelMapper *mapper();
     virtual void update_appearance();
     virtual void onPropertyChange(const QString &propertyName);
     virtual void onSiblingsChange();

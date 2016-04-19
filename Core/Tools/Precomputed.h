@@ -23,8 +23,8 @@
 class Precomputed
 {
 public:
-    Precomputed(); //! Precomputes everything.
-    std::vector<double> factorial; //! factorial[k] = k! for k=0,1,...,170 (for IEEE double).
+    Precomputed(); //!< Constructor, precomputes everything.
+    std::vector<double> factorial; //!< factorial[k] = k! for k=0,1,...,170 (for IEEE double).
 };
 
 //! This singleton interface class gives access to the precomputed constants.

@@ -10901,6 +10901,8 @@ C++ includes: Precomputed.h
 
 %feature("docstring")  Precomputed::Precomputed "Precomputed::Precomputed()
 
+Constructor, precomputes everything.
+
 Precompute things upon class instantiation. 
 ";
 

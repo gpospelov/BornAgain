@@ -63,5 +63,3 @@ void RealParameterWrapper::swapContent(RealParameterWrapper& other)
     std::swap(this->m_data, other.m_data);
     std::swap(this->m_limits, other.m_limits);
 }
-
-

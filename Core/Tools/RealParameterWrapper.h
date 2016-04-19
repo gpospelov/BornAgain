@@ -34,7 +34,7 @@ public:
     RealParameterWrapper& operator=(const RealParameterWrapper& other);
     ~RealParameterWrapper() {}
 
-    //! Sets value of wrapped parameter and emmit signal
+    //! Sets value of wrapped parameter and emit signal
     bool setValue(double value);
 
     //! Returns value of wrapped parameter
@@ -97,5 +97,3 @@ inline bool RealParameterWrapper::operator!=(const RealParameterWrapper &other) 
 
 
 #endif // REALPARAMETERPROXY_H
-
-

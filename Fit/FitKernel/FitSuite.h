@@ -28,6 +28,7 @@ class IMinimizer;
 class FitSuiteObjects;
 class FitSuiteParameters;
 class FitSuiteStrategies;
+class FitOptions;
 class FitKernel;
 
 //! @class FitSuite

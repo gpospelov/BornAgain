@@ -3,8 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Tools/IParameterized.cpp
-//! @brief     Implements class IParameterized,
-//!               mainly by including IParameterized.h.
+//! @brief     Implements class IParameterized.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -20,13 +19,12 @@
 #include <iostream>
 #include <memory>
 
+// Copies INamed, but not the parameters.
+
 IParameterized& IParameterized::operator=(const IParameterized& other)
 {
-    if( this !=& other)
-    {
+    if( this != &other)
         INamed::operator=(other);
-        // parameters are not copied
-    }
     return *this;
 }
 

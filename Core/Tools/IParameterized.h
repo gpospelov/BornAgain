@@ -31,7 +31,7 @@ public:
     IParameterized() : m_parameters() {}
     IParameterized(const std::string &name) : INamed(name), m_parameters() {}
     IParameterized(const IParameterized &other) : INamed(other), m_parameters() {}
-    IParameterized &operator=(const IParameterized &other);
+    IParameterized& operator=(const IParameterized &other);
 
     virtual ~IParameterized() {}
 
@@ -112,5 +112,3 @@ inline std::ostream& operator<<(std::ostream &ostr, const IParameterized &m)
 }
 
 #endif /* IPARAMETERIZED_H_ */
-
-

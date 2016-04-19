@@ -6048,12 +6048,11 @@ SWIGINTERN void std_vector_Sl_std_string_Sg__insert__SWIG_1(std::vector< std::st
 #include <numpy/arrayobject.h>
 
 
-
-
 #include "ChiSquaredModule.h"
 #include "FitObject.h"
 #include "FitOptions.h"
 #include "FitParameter.h"
+#include "FitKernel.h"
 #include "FitSuite.h"
 #include "FitSuiteObjects.h"
 #include "FitSuiteParameters.h"
@@ -6071,13 +6070,8 @@ SWIGINTERN void std_vector_Sl_std_string_Sg__insert__SWIG_1(std::vector< std::st
 #include "MinimizerOptions.h"
 #include "FitStrategyAdjustMinimizer.h"
 
-
-
 //! file containig additional exposers
 #include "PythonFitExposer.h"
-
-
-
 
 
 struct SWIG_null_deleter {

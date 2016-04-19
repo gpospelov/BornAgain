@@ -202,8 +202,8 @@
 #include "WavevectorInfo.h"
 %}
 
-// import headers to be exported to Python interace.
-// Note that the order of inclusion matters, as base classes must be imported before derived classes
+// The following goes verbatim from libBornAgainCore.i to libBornAgainCore_wrap.cxx.
+// Note that the order matters, as base classes must be included before derived classes.
 
 %include "AttLimits.h"
 %include "ICloneable.h"

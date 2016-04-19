@@ -21,7 +21,7 @@
 
 //! @class FitElement
 //! @ingroup fitting_internal
-//! @brief Data stucture containing real data and simulation results for single detector cell.
+//! @brief Measured ("real") and simulated scattering intensity value for one detector cell.
 //! Used for chi2/residual calculations.
 
 class BA_CORE_API_ FitElement
@@ -33,16 +33,11 @@ public:
     FitElement &operator=(const FitElement &other);
 
     size_t getIndex() const;
-
     double getSimulValue() const;
-
     double getRealValue() const;
-
     double getWeight() const;
-
     double getSquaredDifference() const;
     void setSquaredDifference(double value);
-
     double getResidual() const;
     void setResidual(double value);
 
@@ -98,4 +93,3 @@ inline void FitElement::setResidual(double value)
 }
 
 #endif
-

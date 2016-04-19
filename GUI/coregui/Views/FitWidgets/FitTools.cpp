@@ -14,7 +14,6 @@
 //
 // ************************************************************************** //
 
-#include "FitTools.h"
 #include "JobItem.h"
 #include "FilterPropertyProxy.h"
 #include "JobModel.h"
@@ -31,6 +30,9 @@
 #include "ParameterTreeItems.h"
 #include "SessionItem.h"
 #include "RealDataWindow.h"
+
+#include "FitTools.h"
+
 #include <boost/scoped_ptr.hpp>
 #include <QHBoxLayout>
 #include <QLabel>

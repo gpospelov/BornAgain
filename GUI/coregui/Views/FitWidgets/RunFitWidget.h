@@ -38,26 +38,19 @@ class BA_CORE_API_ RunFitWidget : public QWidget
     Q_OBJECT
 
 public:
-
     RunFitWidget(FitModel *fitModel, QWidget *parent = 0);
 
     // test only
     std::shared_ptr<FitSuite> init_test_fitsuite();
 
 public slots:
-
     void onIntervalChanged(int value);
-
     void onStartClicked();
-
     void onStopClicked();
-
     void onFittingStarted();
-
     void onFittingFinished();
 
 private:
-
     QPushButton *m_start_button;
     QPushButton *m_stop_button;
     QLabel *m_interval_label;

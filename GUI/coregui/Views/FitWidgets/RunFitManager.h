@@ -29,7 +29,6 @@ class BA_CORE_API_ RunFitManager : public QObject
     Q_OBJECT
 
 public:
-
     RunFitManager(QObject *parent);
 
     void setFitSuite(std::shared_ptr<FitSuite> suite);
@@ -37,21 +36,17 @@ public:
     void runFitting();
 
 public slots:
-
     void interruptFitting();
 
 signals:
-
     void finishedFitting();
 
     void startedFitting();
 
     void error(const QString &message);
 
-
 // only used by manager for communication with FittingWorker
 private slots:
-
     void intern_workerFinished();
 
     void intern_workerStarted();
@@ -59,15 +54,11 @@ private slots:
     void intern_error(const QString &mesg);
 
 signals:
-
     void intern_interruptFittingWorker();
 
-
 private:
-
     std::shared_ptr<FitSuite> m_fitSuite;
     std::atomic<bool> m_is_fit_running;
-
 };
 
 #endif

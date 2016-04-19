@@ -19,7 +19,6 @@
 #include "WinDllMacros.h"
 #include "Numeric.h"
 #include <iostream>
-#include <iomanip>
 
 
 //! @class AttLimits
@@ -118,22 +117,7 @@ class BA_CORE_API_ AttLimits
     double m_lower_limit; //! minimum allowed value
     double m_upper_limit; //! maximum allowed value
 
-    //! Prints class
-    void print(std::ostream& ostr) const
-    {
-        if(isFixed()) {
-            ostr << "fixed";
-        }else if(!hasLowerLimit() && !hasUpperLimit() ) {
-            ostr << "free";
-        } else if(hasLowerLimit() && !hasUpperLimit()) {
-            ostr << "lim("  << std::fixed <<std::setprecision(2) << m_lower_limit << ",)";
-        }else if(hasUpperLimit() && !hasLowerLimit()) {
-            ostr << "lim(," << std::fixed <<std::setprecision(2) << m_upper_limit << ",)";
-        }else if(hasLowerAndUpperLimits()) {
-            ostr << "lim(" << std::fixed <<std::setprecision(2) << m_lower_limit << "," << std::fixed <<std::setprecision(2) << m_upper_limit << ")";
-
-        }
-    }
+    void print(std::ostream& ostr) const;
 };
 
 

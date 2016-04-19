@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      coregui/Models/TransformFromDomain.h
-//! @brief     Declares class TransformFromDomain
+//! @brief     Declares namespace TransformFromDomain
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -72,7 +72,6 @@ BA_CORE_API_ void setItemFromSample(class BeamDistributionItem *beamDistribution
 
 BA_CORE_API_ void setItemFromSample(class BeamDistributionItem *beamDistributionItem,
                                     const class ParameterDistribution &parameterDistribution);
-
 
 BA_CORE_API_ QString translateParameterNameToGUI(class SessionItem *item,
                                                  const class QString &par_name);

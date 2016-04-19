@@ -21,6 +21,15 @@
 #include "OutputData.h"
 #include "AttLimits.h"
 
+class GISASSimulation;
+class IChiSquaredModule;
+class IFitStrategy;
+class IMinimizer;
+class FitSuiteObjects;
+class FitSuiteParameters;
+class FitSuiteStrategies;
+class FitKernel;
+
 //! @class FitSuite
 //! @ingroup fitting
 //! @brief User interface class that wraps all fit methods.
@@ -36,11 +45,11 @@ public:
     // ------------------------------------------------------------------------
 
     //! Assigns pair of (simulation, real data) for fitting. More than one pair can be added.
-    void addSimulationAndRealData(const class GISASSimulation& simulation,
+    void addSimulationAndRealData(const GISASSimulation& simulation,
                                   const OutputData<double>& real_data, double weight=1);
 
     //! Assigns pair of (simulation, real data) for fitting. More than one pair can be added.
-    void addSimulationAndRealData(const class GISASSimulation& simulation,
+    void addSimulationAndRealData(const GISASSimulation& simulation,
                                   const IHistogram& real_data, double weight=1);
 
     //! Adds fit parameter
@@ -60,16 +69,16 @@ public:
                       const std::string& minimizer_options=std::string());
 
     //! Replaces default ChiSquaredModule with new one
-    void setChiSquaredModule(const class IChiSquaredModule &chi2_module);
+    void setChiSquaredModule(const IChiSquaredModule &chi2_module);
 
     //! Adds fit strategy
-    void addFitStrategy(const class IFitStrategy &strategy);
+    void addFitStrategy(const IFitStrategy &strategy);
 
     //! Sets minimizer
-    void setMinimizer(class IMinimizer *minimizer);
+    void setMinimizer(IMinimizer *minimizer);
 
     //! Returns minimizer
-    class IMinimizer *getMinimizer();
+    IMinimizer *getMinimizer();
 
     //! Initializes printing to standard output during the fitting.
     //! Prints also the summary when completed.
@@ -108,13 +117,13 @@ public:
     IHistogram* getChiSquaredMap(size_t i_item = 0) const;
 
     //! returns FitObject (pair of simulation/real data)
-    class FitSuiteObjects* getFitObjects();
+    FitSuiteObjects* getFitObjects();
 
     //! Returns reference to fit parameters
-    class FitSuiteParameters* getFitParameters();
+    FitSuiteParameters* getFitParameters();
 
     //! Returns reference to fit parameters
-    class FitSuiteStrategies* getFitStrategies();
+    FitSuiteStrategies* getFitStrategies();
 
     //! if the last iteration is done (used by observers to print summary)
     bool isLastIteration() const;
@@ -131,7 +140,7 @@ public:
     double getChi2() const;
 
     //! Returns general setting of fit kernel
-    class FitOptions& getOptions();
+    FitOptions& getOptions();
 
     //! Sets general setting of fit kernel
     void setOptions(const FitOptions &fit_options);
@@ -148,7 +157,7 @@ private:
     FitSuite& operator=(const FitSuite& );
     FitSuite(const FitSuite& );
 
-    class FitKernel* m_kernel; //!< pointer to implementation
+    FitKernel* m_kernel; //!< pointer to implementation
         // do not use unique_ptr here;
         // otherwise no instance of FitSuite can be created without knowing the size of FitKernel
 };

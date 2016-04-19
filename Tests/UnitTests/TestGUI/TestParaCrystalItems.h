@@ -27,10 +27,6 @@ inline void TestParaCrystalItems::test_Para1D_InitialState()
     QCOMPARE(item.getItemValue(InterferenceFunctionRadialParaCrystalItem::P_KAPPA).toDouble(), 0.0);
 
     QCOMPARE(item.getGroupItem(InterferenceFunctionRadialParaCrystalItem::P_PDF)->modelType(), Constants::FTDistribution1DCauchyType);
-
-    GroupProperty_t group_property = item.getItemValue(InterferenceFunctionRadialParaCrystalItem::P_PDF).value<GroupProperty_t>();
-    QCOMPARE(group_property->type(), GroupProperty::SELECTABLE);
-
 }
 
 inline void TestParaCrystalItems::test_Para1D_PDFGroupProperty()

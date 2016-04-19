@@ -1,7 +1,6 @@
 #ifndef TESTFORMFACTORITEMS_H
 #define TESTFORMFACTORITEMS_H
 
-
 #include <QtTest>
 #include "FormFactors.h"
 #include "FormFactorItems.h"

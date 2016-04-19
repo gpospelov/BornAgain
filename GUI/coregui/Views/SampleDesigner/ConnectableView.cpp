@@ -21,6 +21,7 @@
 #include "GUIHelpers.h"
 #include "SessionItem.h"
 #include <QPainter>
+#include <QDebug>
 #include <QStyleOptionGraphicsItem>
 #include <QObject>
 #include <iostream>
@@ -170,7 +171,8 @@ int ConnectableView::getNumberOfInputPorts()
 
 void ConnectableView::update_appearance()
 {
-    setLabel( hyphenate(m_item->itemName()) );
+    qDebug() << "AAAA COnnectableView " << m_item->modelType() << m_item->displayName();
+    setLabel( hyphenate(m_item->displayName()) );
     IView::update_appearance();
 }
 

@@ -3,7 +3,6 @@
 #include <QDebug>
 #include <QCoreApplication>
 #include "TestMapperCases.h"
-#include "TestPropertyAttributes.h"
 #include "TestFormFactorItems.h"
 #include "TestFTDistributionItems.h"
 #include "TestParameterizedItem.h"
@@ -15,12 +14,12 @@
 #include "TestGUICoreObjectCorrespondence.h"
 #include "TestMapperForItem.h"
 #include "TestParticleDistributionItem.h"
+#include "TestGUIHelpers.h"
 
 int main(int argc, char** argv) {
     QCoreApplication app(argc, argv);
     Q_UNUSED(app);
 
-////    TestPropertyAttributes testPropertyAttributes;
     TestFormFactorItems testFormFactorItems;
     TestFTDistributionItems testFTDistributionItems;
     TestParameterizedItem testParameterizedItem;
@@ -33,6 +32,7 @@ int main(int argc, char** argv) {
     TestMapperCases testMapperCases;
     TestMapperForItem testMapperForItem;
     TestParticleDistributionItem testParticleDistributionItem;
+    TestGUIHelpers testGUIHelpers;
 
     bool status(false);
 
@@ -45,12 +45,11 @@ int main(int argc, char** argv) {
     status |= QTest::qExec(&testSessionModel, argc, argv);
     status |= QTest::qExec(&testGUICoreObjectCorrespondence, argc, argv);
     status |= QTest::qExec(&testSessionItem);
-    //status |= QTest::qExec(&testPropertyAttributes, argc, argv);
     status |= QTest::qExec(&testMapperCases, argc, argv);
     status |= QTest::qExec(&testSessionModel, argc, argv);
     status |= QTest::qExec(&testMapperForItem, argc, argv);
     status |= QTest::qExec(&testParticleDistributionItem, argc, argv);
-
+    status |= QTest::qExec(&testGUIHelpers, argc, argv);
 
     return status;
 }

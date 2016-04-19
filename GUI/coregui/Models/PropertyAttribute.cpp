@@ -16,6 +16,7 @@
 
 #include "PropertyAttribute.h"
 #include "SessionItem.h"
+#include "tooltipdatabase.h"
 #include <QDebug>
 
 PropertyAttribute::PropertyAttribute(PropertyAttribute::Appearance appearance,
@@ -181,6 +182,14 @@ PropertyAttribute PropertyAttribute::fromItem(SessionItem *item)
         attribute.setReadOnly();
     if (!item->isEnabled())
         attribute.setDisabled();
+
+    if(attribute.getToolTip().isEmpty()) {
+        if(SessionItem *parent = item->parent()) {
+            attribute.setToolTip(ToolTipDataBase::getSampleViewToolTip(
+                                     parent->modelType(), item->displayName()));
+        }
+    }
+
     return attribute;
 }
 

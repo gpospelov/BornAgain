@@ -44,6 +44,7 @@ namespace {
 const QString OPEN_FILE_ERROR = "OPEN_FILE_ERROR";
 const QString EXCEPTION_THROW = "EXCEPTION_THROW";
 const QString XML_FORMAT_ERROR = "XML_FORMAT_ERROR";
+const QString minimal_supported_version = "1.5.0";
 }
 
 ProjectDocument::ProjectDocument()
@@ -202,7 +203,6 @@ QString ProjectDocument::getDocumentVersion() const
 {
     QString result(m_currentVersion);
     if(result.isEmpty()) result = GUIHelpers::getBornAgainVersionString();
-    return QString("1.2.0");
     return result;
 }
 
@@ -223,6 +223,15 @@ void ProjectDocument::readFrom(QIODevice *device)
                 m_currentVersion = reader.attributes()
                                             .value(ProjectDocumentXML::BornAgainVersionAttribute)
                                             .toString();
+                if(!GUIHelpers::isVersionMatchMinimal(m_currentVersion, minimal_supported_version)) {
+                    m_documentStatus = EDocumentStatus(m_documentStatus | STATUS_FAILED);
+                    QString message = QString("Can't open document version '%1', "
+                        "minimal supported version '%2'").arg(m_currentVersion)
+                            .arg(minimal_supported_version);
+                    m_messageService->send_message(this, OPEN_FILE_ERROR, message);
+                    return;
+                }
+
             }
 
             else if (reader.name() == ProjectDocumentXML::InfoTag) {
@@ -289,14 +298,12 @@ void ProjectDocument::writeTo(QIODevice *device)
 
 void ProjectDocument::readModel(SessionModel *model, QXmlStreamReader *reader)
 {
-    model->setMessageService(m_messageService);
+//    model->setMessageService(m_messageService);
 
-    model->readFrom(reader);
-
+    model->readFrom(reader, m_messageService);
     if(m_messageService->hasWarnings(model)) {
         m_documentStatus = EDocumentStatus(m_documentStatus|STATUS_WARNING);
     }
-    model->setMessageService(0);
 }
 
 //! Adjusts name of IntensityData item to possibly changed name of JobItem. Take care of old

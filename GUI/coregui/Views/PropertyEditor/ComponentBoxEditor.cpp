@@ -83,7 +83,7 @@ void ComponentBoxEditor::onDataChanged(const QModelIndex &topLeft, const QModelI
 
     if (QtVariantProperty *property = m_d->getPropertyForItem(item)) {
         // updating editor's property appearance (tooltips, limits)
-        if (roles.contains(Qt::UserRole)) {
+        if (roles.contains(SessionModel::FlagRole)) {
             m_d->updatePropertyAppearance(property, PropertyAttribute::fromItem(item));
         }
 

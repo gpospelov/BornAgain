@@ -697,7 +697,7 @@ QString SessionItem::displayName() const
         }
 
         int index = m_parent->getCopyNumberOfChild(this);
-        if(index > 0) {
+        if(index >= 0) {
             return result + QString::number(index);
         }
 

@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      coregui/Views/IntensityDataWidgets/ColorMapPlot.h
-//! @brief     Defines class ColorMapPlot
+//! @brief     Declares class ColorMapPlot
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

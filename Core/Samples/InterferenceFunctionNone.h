@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Samples/InterferenceFunctionNone.h
-//! @brief     Defines class InterferenceFunctionNone.
+//! @brief     Declares class InterferenceFunctionNone.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

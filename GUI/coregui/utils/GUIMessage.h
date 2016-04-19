@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      coregui/utils/GUIMessage.h
-//! @brief     Defines class GUIMessage.
+//! @brief     Declares class GUIMessage.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      FormFactors/FormFactorSphereLogNormalRadius.h
-//! @brief     Defines and implements class FormFactorSphereLogNormalRadius.
+//! @brief     Declares and implements class FormFactorSphereLogNormalRadius.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

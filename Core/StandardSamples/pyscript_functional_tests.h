@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      StandardSamples/pyscript_functional_test.h
-//! @brief     Defines function to run all pyscript functional tests
+//! @brief     Declares function to run all pyscript functional tests
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

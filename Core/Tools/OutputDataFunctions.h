@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Tools/OutputDataFunctions.h
-//! @brief     Defines functions in namespace OutputDataFunctions.
+//! @brief     Declares functions in namespace OutputDataFunctions.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

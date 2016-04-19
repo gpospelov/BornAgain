@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Samples/InterferenceFunction1DLattice.h
-//! @brief     Defines class InterferenceFunction1DLattice.
+//! @brief     Declares class InterferenceFunction1DLattice.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

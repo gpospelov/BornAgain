@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Tools/IntegratorComplex.h
-//! @brief     Defines and implements class template IntegratorComplex.
+//! @brief     Declares and implements class template IntegratorComplex.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

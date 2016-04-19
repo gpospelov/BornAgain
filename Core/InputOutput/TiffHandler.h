@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      InputOutput/TiffHandler.h
-//! @brief     Defines class TiffHandler.
+//! @brief     Declares class TiffHandler.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

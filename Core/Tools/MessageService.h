@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Tools/MessageService.h
-//! @brief     Defines MSG namespace and Logger class.
+//! @brief     Declares MSG namespace and Logger class.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

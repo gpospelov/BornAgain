@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Samples/LayerRoughness.h
-//! @brief     Defines class LayerRoughness.
+//! @brief     Declares class LayerRoughness.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

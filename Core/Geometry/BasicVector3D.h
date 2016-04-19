@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file       Geometry/BasicVector3D.h
-//! @brief      Defines template class BasicVector3D.
+//! @brief      Declares template class BasicVector3D.
 //!
 //! Forked from CLHEP/Geometry by E. Chernyaev <Evgueni.Tcherniaev@cern.ch>,
 //! then reworked beyond recongnition. Removed split of point and vector semantics.

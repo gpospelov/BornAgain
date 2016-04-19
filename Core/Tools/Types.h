@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Tools/Types.h
-//! @brief     Defines size_t, complex_t, and the array types vdouble1d_t, vdouble2d_t.
+//! @brief     Declares size_t, complex_t, and the array types vdouble1d_t, vdouble2d_t.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      coregui/Views/JobWidgets/JobOutputDataToolBar.h
-//! @brief     Defines class JobOutputDataToolBar
+//! @brief     Declares class JobOutputDataToolBar
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

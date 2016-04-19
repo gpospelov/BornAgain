@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      coregui/Views/MaskWidgets/MaskResultsPresenter.h
-//! @brief     Defines class MaskResultsPresenter
+//! @brief     Declares class MaskResultsPresenter
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

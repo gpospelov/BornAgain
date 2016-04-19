@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      coregui/Views/SampleDesigner/DesignerMimeData.h
-//! @brief     Defines class DesignerMimeData
+//! @brief     Declares class DesignerMimeData
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

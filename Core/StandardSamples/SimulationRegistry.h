@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      StandardSamples/SimulationRegistry.h
-//! @brief     Defines class SimulationRegistry.
+//! @brief     Declares class SimulationRegistry.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Tools/Precomputed.h
-//! @brief     Defines classes Precomputed, IPrecomputed, providing precomputed constants
+//! @brief     Declares classes Precomputed, IPrecomputed, providing precomputed constants
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

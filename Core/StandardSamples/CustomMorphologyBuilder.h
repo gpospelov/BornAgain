@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      StandardSamples/CustomMorphologyBuilder.h
-//! @brief     Defines class CustomMorphologyBuilder.
+//! @brief     Declares class CustomMorphologyBuilder.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

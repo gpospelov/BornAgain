@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      StandardFits/RectDetectorFitTest.h
-//! @brief     Defines class RectDetectorFitTest.
+//! @brief     Declares class RectDetectorFitTest.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

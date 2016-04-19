@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      coregui/Views/IntensityDataWidgets/OutputDataToolBar.h
-//! @brief     Defines class OutputDataToolBar
+//! @brief     Declares class OutputDataToolBar
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

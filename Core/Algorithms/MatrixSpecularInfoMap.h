@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Algorithms/MatrixSpecularInfoMap.h
-//! @brief     Defines class MatrixSpecularInfoMap.
+//! @brief     Declares class MatrixSpecularInfoMap.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      coregui/Views/PropertyEditor/PropertyBrowserUtils.h
-//! @brief     Defines class PropertyBrowserUtils
+//! @brief     Declares class PropertyBrowserUtils
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

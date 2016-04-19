@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      StandardSamples/ParticleDistributionsBuilder.h
-//! @brief     Defines classes of with different types of particle distributions.
+//! @brief     Declares classes of with different types of particle distributions.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

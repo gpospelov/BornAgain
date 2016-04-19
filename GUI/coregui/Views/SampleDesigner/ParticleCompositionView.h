@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      coregui/Views/SampleDesigner/ParticleCompositionView.h
-//! @brief     Defines class ParticleCompositionView
+//! @brief     Declares class ParticleCompositionView
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Geometry/IShape2D.h
-//! @brief     Defines basic class for all 2D shapes.
+//! @brief     Declares basic class for all 2D shapes.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      coregui/Models/BeamWavelengthItem.h
-//! @brief     Defines class BeamWavelengthItem
+//! @brief     Declares class BeamWavelengthItem
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

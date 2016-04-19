@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      FitKernel/FitStrategyAdjustMinimizer.h
-//! @brief     Defines class FitStrategyAdjustMinimizer
+//! @brief     Declares class FitStrategyAdjustMinimizer
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      ThreadInfoTest.h
-//! @brief     Defines unit test for ThreadInfo class.
+//! @brief     Declares unit test for ThreadInfo class.
 //!
 //! @homepage  http://bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

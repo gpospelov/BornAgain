@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      coregui/Views/InfoWidgets/InfoToolBar.h
-//! @brief     Defines class InfoToolBar
+//! @brief     Declares class InfoToolBar
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

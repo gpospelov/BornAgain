@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      StandardFits/MinimizerFunctionalTests.h
-//! @brief     Defines classes MinimizerFunctionalTests.
+//! @brief     Declares classes MinimizerFunctionalTests.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

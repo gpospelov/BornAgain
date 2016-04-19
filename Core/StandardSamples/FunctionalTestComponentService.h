@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      StandardSamples/FunctionalTestComponentService.h
-//! @brief     Defines class FunctionalTestComponentService.
+//! @brief     Declares class FunctionalTestComponentService.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

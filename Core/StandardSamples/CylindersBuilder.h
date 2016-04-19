@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      StandardSamples/CylindersBuilder.h
-//! @brief     Defines classes of CylindersBuilder family.
+//! @brief     Declares classes of CylindersBuilder family.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

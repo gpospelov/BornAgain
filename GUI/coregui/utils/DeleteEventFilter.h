@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      coregui/utils/DeleteEventFilter.h
-//! @brief     Defines classes releted to event filtering
+//! @brief     Declares classes releted to event filtering
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      StandardFits/fit_functional_tests.h
-//! @brief     Defines function to run all fit functional tests
+//! @brief     Declares function to run all fit functional tests
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

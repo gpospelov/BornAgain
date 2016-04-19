@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Samples/ParticleDistribution.h
-//! @brief     Defines class ParticleDistribution.
+//! @brief     Declares class ParticleDistribution.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

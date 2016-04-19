@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      FormFactors/FormFactorDodecahedron.h
-//! @brief     Defines class FormFactorDodecahedron.
+//! @brief     Declares class FormFactorDodecahedron.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

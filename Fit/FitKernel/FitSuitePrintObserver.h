@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      FitKernel/FitSuitePrintObserver.h
-//! @brief     Defines class FitSuitePrintObserver.
+//! @brief     Declares class FitSuitePrintObserver.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

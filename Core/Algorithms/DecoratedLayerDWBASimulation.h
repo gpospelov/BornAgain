@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Algorithms/DecoratedLayerDWBASimulation.h
-//! @brief     Defines class DecoratedLayerDWBASimulation.
+//! @brief     Declares class DecoratedLayerDWBASimulation.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

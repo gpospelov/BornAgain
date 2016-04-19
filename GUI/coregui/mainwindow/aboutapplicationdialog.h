@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      coregui/mainwindow/aboutapplicationdialog.h
-//! @brief     Defines class AboutApplicationDialog
+//! @brief     Declares class AboutApplicationDialog
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

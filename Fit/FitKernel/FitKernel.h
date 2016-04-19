@@ -22,18 +22,14 @@
 #include "FitSuiteParameters.h"
 #include "FitSuiteStrategies.h"
 #include "ChiSquaredModule.h"
-#include "IMinimizer.h"
 #include "IObserver.h"
+
 #include <string>
-#include <boost/date_time/posix_time/posix_time.hpp>
 #include <memory>
+#include <boost/date_time/posix_time/posix_time.hpp>
 #ifndef GCCXML_SKIP_THIS
 #include <atomic>
 #endif
-
-class GISASSimulation;
-class ParameterPool;
-class FitSuite;
 
 //! @class FitKernel
 //! @ingroup fitting_internal
@@ -42,14 +38,14 @@ class FitSuite;
 class BA_CORE_API_ FitKernel
 {
  public:
-    FitKernel(FitSuite *fit_suite);
+    FitKernel(class FitSuite *fit_suite);
     virtual ~FitKernel();
 
-    //! clear all and prepare for the next fit
+    //! Resets most state variables, to get prepared for the next fit
     void clear();
 
     //! Adds pair of (simulation, real data) for consecutive simulation
-    void addSimulationAndRealData(const GISASSimulation& simulation,
+    void addSimulationAndRealData(const class GISASSimulation& simulation,
                                   const OutputData<double>& real_data,
                                   double weight);
 
@@ -62,15 +58,15 @@ class BA_CORE_API_ FitKernel
     void addFitStrategy(const IFitStrategy &strategy);
 
     //! Sets minimizer
-    void setMinimizer(IMinimizer *minimizer);
+    void setMinimizer(class IMinimizer *minimizer);
 
     //! Returns minimizer
-    IMinimizer *getMinimizer();
+    class IMinimizer *getMinimizer();
 
-    //! run fitting which may consist of several minimization rounds
+    //! Runs a fit, which may consist of several minimization rounds
     virtual void runFit();
 
-    //! run single minimization round (called by FitSuiteStrategy)
+    //! Runs a single minimization round (called by FitSuiteStrategy)
     void minimize();
 
     //! Returns reference to the kit with data
@@ -92,10 +88,13 @@ class BA_CORE_API_ FitKernel
     //! Returns the number of current strategy
     size_t getCurrentStrategyIndex() const;
 
-    //! Prints results of the screen
+    //! Prints fit results to stdout
     void printResults() const;
 
+    //! Returns current fit options
     FitOptions &getOptions();
+
+    //! Sets fit options
     void setOptions(const FitOptions &fit_options);
 
     //! Returns total wall time in seconds which was spend for run fit
@@ -120,7 +119,7 @@ private:
     FitSuiteObjects m_fit_objects;
     FitSuiteParameters m_fit_parameters;
     FitSuiteStrategies m_fit_strategies;
-    std::unique_ptr<IMinimizer>  m_minimizer;
+    std::unique_ptr<class IMinimizer> m_minimizer;
     FitSuiteChiSquaredFunction m_function_chi2;
     FitSuiteGradientFunction m_function_gradient;
     bool m_is_last_iteration;
@@ -129,9 +128,7 @@ private:
 #endif
     boost::posix_time::ptime m_start_time;
     boost::posix_time::ptime m_end_time;
-    FitSuite *m_fit_suite;
+    class FitSuite *m_fit_suite;
 };
 
 #endif // FITKERNEL_H
-
-

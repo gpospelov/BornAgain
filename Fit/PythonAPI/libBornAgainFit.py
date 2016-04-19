@@ -2763,6 +2763,8 @@ class FitSuite(libBornAgainCore.IObservable):
             self.this.append(this)
         except:
             self.this = this
+    __swig_destroy__ = _libBornAgainFit.delete_FitSuite
+    __del__ = lambda self: None
 
     def addSimulationAndRealData(self, *args):
         """
@@ -3150,8 +3152,6 @@ class FitSuite(libBornAgainCore.IObservable):
         """
         return _libBornAgainFit.FitSuite_getChiSquaredOutputData(self, i_item)
 
-    __swig_destroy__ = _libBornAgainFit.delete_FitSuite
-    __del__ = lambda self: None
 FitSuite_swigregister = _libBornAgainFit.FitSuite_swigregister
 FitSuite_swigregister(FitSuite)
 

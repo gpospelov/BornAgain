@@ -24,7 +24,8 @@
 
 //! @class IChiSquaredModule
 //! @ingroup algorithms_internal
-//! @brief Interface for ChiSquaredModule, ChiSquaredFrequency for chi2 calculations.
+//! @brief Interface for ChiSquaredModule for chi2 calculations.
+//! Until BornAgain-1.1, there was another child, ChiSquaredFrequency.
 
 class BA_CORE_API_ IChiSquaredModule : public ICloneable
 {

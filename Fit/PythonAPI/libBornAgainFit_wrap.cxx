@@ -23346,6 +23346,27 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_delete_FitSuite(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  FitSuite *arg1 = (FitSuite *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:delete_FitSuite",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitSuite, SWIG_POINTER_DISOWN |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_FitSuite" "', argument " "1"" of type '" "FitSuite *""'"); 
+  }
+  arg1 = reinterpret_cast< FitSuite * >(argp1);
+  delete arg1;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_FitSuite_addSimulationAndRealData__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   FitSuite *arg1 = (FitSuite *) 0 ;
@@ -25270,27 +25291,6 @@ fail:
     "    FitSuite::getChiSquaredOutputData(size_t) const\n"
     "    FitSuite::getChiSquaredOutputData() const\n");
   return 0;
-}
-
-
-SWIGINTERN PyObject *_wrap_delete_FitSuite(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  FitSuite *arg1 = (FitSuite *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj0 = 0 ;
-  
-  if (!PyArg_ParseTuple(args,(char *)"O:delete_FitSuite",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitSuite, SWIG_POINTER_DISOWN |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_FitSuite" "', argument " "1"" of type '" "FitSuite *""'"); 
-  }
-  arg1 = reinterpret_cast< FitSuite * >(argp1);
-  delete arg1;
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
 }
 
 
@@ -31007,6 +31007,7 @@ static PyMethodDef SwigMethods[] = {
 		"FitSuite::FitSuite()\n"
 		"\n"
 		""},
+	 { (char *)"delete_FitSuite", _wrap_delete_FitSuite, METH_VARARGS, (char *)"delete_FitSuite(FitSuite self)"},
 	 { (char *)"FitSuite_addSimulationAndRealData", _wrap_FitSuite_addSimulationAndRealData, METH_VARARGS, (char *)"\n"
 		"addSimulationAndRealData(GISASSimulation const & simulation, OutputData< double > const & real_data, double weight=1)\n"
 		"addSimulationAndRealData(GISASSimulation const & simulation, OutputData< double > const & real_data)\n"
@@ -31278,7 +31279,6 @@ static PyMethodDef SwigMethods[] = {
 		"const OutputData< double > * FitSuite::getChiSquaredOutputData(size_t i_item=0) const \n"
 		"\n"
 		""},
-	 { (char *)"delete_FitSuite", _wrap_delete_FitSuite, METH_VARARGS, (char *)"delete_FitSuite(FitSuite self)"},
 	 { (char *)"FitSuite_swigregister", FitSuite_swigregister, METH_VARARGS, NULL},
 	 { (char *)"new_FitSuiteObjects", _wrap_new_FitSuiteObjects, METH_VARARGS, (char *)"\n"
 		"new_FitSuiteObjects() -> FitSuiteObjects\n"

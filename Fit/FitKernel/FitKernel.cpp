@@ -13,14 +13,13 @@
 //
 // ************************************************************************** //
 
-#include "FitKernel.h"
 #include "FitSuite.h"
 #include "FitParameterLinked.h"
 #include "IMinimizer.h"
 #include "MessageService.h"
 #include "FitSuitePrintObserver.h"
 #include "MinimizerFactory.h"
-#include "ChiSquaredModule.h"
+#include "FitKernel.h"
 
 
 FitKernel::FitKernel(FitSuite *fit_suite)

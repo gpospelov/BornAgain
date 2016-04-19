@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      coregui/Models/TransformFromDomain.cpp
-//! @brief     Implements class TransformFromDomain
+//! @brief     Implements namespace TransformFromDomain
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -209,18 +209,12 @@ bool TransformFromDomain::isValidRoughness(const LayerRoughness *roughness)
 
 bool TransformFromDomain::isSquareLattice(double length1, double length2, double angle)
 {
-    if (length1 == length2 && Numeric::areAlmostEqual(angle, Units::PI / 2.0)) {
-        return true;
-    }
-    return false;
+    return length1 == length2 && Numeric::areAlmostEqual(angle, Units::PI / 2.0);
 }
 
 bool TransformFromDomain::isHexagonalLattice(double length1, double length2, double angle)
 {
-    if (length1 == length2 && Numeric::areAlmostEqual(angle, 2 * Units::PI / 3.0)) {
-        return true;
-    }
-    return false;
+    return length1 == length2 && Numeric::areAlmostEqual(angle, 2*Units::PI / 3.0);
 }
 
 void TransformFromDomain::setItemFromSample(BeamItem *beamItem, const GISASSimulation &simulation)
@@ -271,7 +265,6 @@ void TransformFromDomain::setItemFromSample(DetectorItem *detectorItem,
                                              Constants::SphericalDetectorType));
         Q_ASSERT(item);
         setItemFromSample(item, *detector);
-
     }
 
     else if(auto detector = dynamic_cast<const RectangularDetector *>(iDetector)) {
@@ -280,15 +273,12 @@ void TransformFromDomain::setItemFromSample(DetectorItem *detectorItem,
                                              Constants::RectangularDetectorType));
         Q_ASSERT(item);
         setItemFromSample(item, *detector);
-
     }
 
     else {
         throw GUIHelpers::Error(
             "TransformFromDomain::setItemFromSample(DetectorItem*) -> Unknown detector type.");
-
     }
-
 }
 
 

@@ -150,5 +150,37 @@ QString getValidFileName(const QString &proposed_name)
     return result;
 }
 
+//! parses version string into 3 numbers, returns true in the case of success
+bool parseVersion(const QString &version, int &major_num, int &minor_num, int &patch_num)
+{
+    major_num = minor_num = patch_num = 0;
+    bool success(true);
+    QStringList nums = version.split(QStringLiteral("."));
+    if(nums.size() != 3) return false;
+
+    bool ok(false);
+    major_num = nums.at(0).toInt(&ok); success &= ok;
+    minor_num = nums.at(1).toInt(&ok); success &= ok;
+    patch_num = nums.at(2).toInt(&ok); success &= ok;
+
+    return success;
+}
+
+
+//! returns true if current BornAgain version match minimal required version
+bool isVersionMatchMinimal(const QString &version, const QString &minimal_version)
+{
+    int ba_major(0), ba_minor(0), ba_patch(0);
+    if(!parseVersion(version, ba_major, ba_minor, ba_patch))
+        return false;
+
+    int minv_major(0), minv_minor(0), minv_patch(0);
+    if(!parseVersion(minimal_version, minv_major, minv_minor, minv_patch))
+        return false;
+
+    int ba = ba_major*10000 + ba_minor*100 + ba_patch;
+    int minv = minv_major*10000 + minv_minor*100 + minv_patch;
+    return ba >= minv;
+}
 
 } // namespace GUIHelpers

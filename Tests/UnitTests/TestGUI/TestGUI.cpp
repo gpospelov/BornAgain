@@ -14,6 +14,7 @@
 #include "TestGUICoreObjectCorrespondence.h"
 #include "TestMapperForItem.h"
 #include "TestParticleDistributionItem.h"
+#include "TestGUIHelpers.h"
 
 int main(int argc, char** argv) {
     QCoreApplication app(argc, argv);
@@ -31,6 +32,7 @@ int main(int argc, char** argv) {
     TestMapperCases testMapperCases;
     TestMapperForItem testMapperForItem;
     TestParticleDistributionItem testParticleDistributionItem;
+    TestGUIHelpers testGUIHelpers;
 
     bool status(false);
 
@@ -47,6 +49,7 @@ int main(int argc, char** argv) {
     status |= QTest::qExec(&testSessionModel, argc, argv);
     status |= QTest::qExec(&testMapperForItem, argc, argv);
     status |= QTest::qExec(&testParticleDistributionItem, argc, argv);
+    status |= QTest::qExec(&testGUIHelpers, argc, argv);
 
     return status;
 }

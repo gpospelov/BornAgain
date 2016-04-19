@@ -26,10 +26,16 @@
 #include "GUIHelpers.h"
 #include "ItemFactory.h"
 #include "GroupItem.h"
-
+#include "WarningMessageService.h"
 #include <QXmlStreamWriter>
 #include <QDebug>
 
+namespace
+{
+const QString SET_ITEM_PROPERTY_ERROR = "SET_ITEM_PROPERTY_ERROR";
+const QString ITEM_IS_NOT_INITIALIZED = "ITEM_IS_NOT_INITIALIZED";
+const QString NON_EXISTING_SUBITEM = "NON_EXISTING_SUBITEM";
+}
 
 void SessionWriter::writeTo(QXmlStreamWriter *writer, SessionItem *parent)
 {
@@ -136,14 +142,17 @@ void SessionWriter::writeVariant(QXmlStreamWriter *writer, QVariant variant, int
                                    QString::number(value, 'g'));
             writer->writeAttribute(SessionXML::AngleUnitsAttribute,
                                    variant.value<AngleProperty>().getUnits());
+
         } else {
             throw GUIHelpers::Error("SessionModel::writeProperty: Parameter type not supported " + type_name);
         }
+
         writer->writeEndElement(); // end ParameterTag
     }
 }
 
-void SessionReader::readItems(QXmlStreamReader *reader, SessionItem *item, const QString &topTag)
+void SessionReader::readItems(QXmlStreamReader *reader, SessionItem *item, const QString &topTag,
+                              WarningMessageService *messageService)
 {
     bool isTopItem = true;
     qDebug() << "SessionModel::readItems()  item:" << item << "topTag:" << topTag;
@@ -162,39 +171,53 @@ void SessionReader::readItems(QXmlStreamReader *reader, SessionItem *item, const
                 if (tag == SessionItem::P_NAME)
                     item->setItemName("");
                 if (model_type == Constants::PropertyType || model_type == Constants::GroupItemType) {
-                    item = item->getItem(tag);
-                    if (!item) {
-                        qDebug() << "!!";
+                    SessionItem *newItem = item->getItem(tag);
+                    if (!newItem) {
+                        QString message = QString("Unrecoverable read error for model '%1', "
+                            "Can't get item for tag '%2'").arg(item->model()->getModelTag()).arg(tag);
+                        throw GUIHelpers::Error(message);
                     }
-                    Q_ASSERT(item);
+                    item = newItem;
+
                 } else if (item->modelType() == Constants::GroupItemType) {
-                    item = item->parent()->getGroupItem(item->parent()->tagFromItem(item), model_type);
-                    if (!item) {
-                        qDebug() << "!!";
+                    SessionItem *newItem = item->parent()->getGroupItem(item->parent()
+                                                ->tagFromItem(item), model_type);
+                    if (!newItem) {
+                        QString message = QString("Unrecoverable read error for model '%1', "
+                            "Can't get group item").arg(item->model()->getModelTag());
+                        throw GUIHelpers::Error(message);
                     }
-                    Q_ASSERT(item);
+                    item = newItem;
 
                 } else {
                     if (tag == "")
                         tag = item->defaultTag();
 
-                    SessionItem *new_item(0);
+                    SessionItem *newItem(0);
                     SessionTagInfo info = item->getTagInfo(tag);
                     if (info.min == 1 && info.max == 1 && info.childCount == 1) {
-                        new_item = item->getItem(tag);
+                        newItem = item->getItem(tag);
                     } else {
-                        new_item = ItemFactory::createItem(model_type);
-                        if (!item->insertItem(-1, new_item, tag)) {
-                            Q_ASSERT(0);
+                        newItem = ItemFactory::createItem(model_type);
+                        if (!item->insertItem(-1, newItem, tag)) {
+                            QString message = QString("Attempt to create item '%1' for tag '%2' failed")
+                                              .arg(model_type).arg(tag);
+                            report_error(messageService, item, ITEM_IS_NOT_INITIALIZED, message);
+                            return;
                         }
 
                     }
 
-                    Q_ASSERT(new_item);
-                    if (reader->attributes().hasAttribute(SessionXML::DisplayNameAttribute)) {
-                        new_item->setDisplayName(reader->attributes().value(SessionXML::DisplayNameAttribute).toString());
+                    if (!newItem) {
+                        QString message = QString("Unrecoverable read error for model '%1', "
+                            "Can't add item for tag").arg(item->model()->getModelTag()).arg(tag);
+                        throw GUIHelpers::Error(message);
                     }
-                    item = new_item;
+
+                    if (reader->attributes().hasAttribute(SessionXML::DisplayNameAttribute)) {
+                        newItem->setDisplayName(reader->attributes().value(SessionXML::DisplayNameAttribute).toString());
+                    }
+                    item = newItem;
                 }
                 if (!item) {
 //                    tag = -1;
@@ -204,7 +227,7 @@ void SessionReader::readItems(QXmlStreamReader *reader, SessionItem *item, const
                 isTopItem = false;
 
             } else if (reader->name() == SessionXML::ParameterTag) {
-                readProperty(reader, item);
+                readProperty(reader, item, messageService);
             }
         } else if (reader->isEndElement()) {
             if (reader->name() == SessionXML::ItemTag) {
@@ -213,6 +236,7 @@ void SessionReader::readItems(QXmlStreamReader *reader, SessionItem *item, const
                 } else {
                     // handling the case when reading obsolete project file, when SubItem doesn't exist anymore
                     qDebug() << "!!";
+                    Q_ASSERT(0);
                 }
             }
             if (reader->name() == modelType) {
@@ -224,7 +248,8 @@ void SessionReader::readItems(QXmlStreamReader *reader, SessionItem *item, const
     }
 }
 
-QString SessionReader::readProperty(QXmlStreamReader *reader, SessionItem *item)
+QString SessionReader::readProperty(QXmlStreamReader *reader,
+        SessionItem *item, WarningMessageService *messageService)
 {
 //    qDebug() << "SessionModel::readProperty() for" << item;
     if (item)
@@ -235,48 +260,50 @@ QString SessionReader::readProperty(QXmlStreamReader *reader, SessionItem *item)
         = reader->attributes().value(SessionXML::ParameterTypeAttribute).toString();
     const int role
             = reader->attributes().value(SessionXML::ParameterRoleAttribute).toInt();
-    // qDebug() << "           SessionModel::readProperty " << item->itemName() << item->modelType()
-    // << parameter_name << parameter_type << parameter_name.toUtf8().constData();
 
     if(!item) {
         QString message = QString("Attempt to set property '%1' for non existing item")
                           .arg(parameter_name);
-//        report_error(ITEM_IS_NOT_INITIALIZED, message);
+        report_error(messageService, item, ITEM_IS_NOT_INITIALIZED, message);
         return parameter_name;
     }
 
-//    if(!item->isRegisteredTag(parameter_name)) {
-//        QString message = QString("Unknown property '%1' for item type '%2'")
-//                          .arg(parameter_name).arg(item->modelType());
-////        report_error(SET_ITEM_PROPERTY_ERROR, message);
-//        return parameter_name;
-//    }
     QVariant variant;
     if (parameter_type == "double") {
         double parameter_value
             = reader->attributes().value(SessionXML::ParameterValueAttribute).toDouble();
         variant = parameter_value;
 
-    } else if (parameter_type == "int") {
+    }
+
+    else if (parameter_type == "int") {
         int parameter_value
             = reader->attributes().value(SessionXML::ParameterValueAttribute).toInt();
         variant = parameter_value;
-    } else if (parameter_type == "bool") {
+    }
+
+    else if (parameter_type == "bool") {
         bool parameter_value
             = reader->attributes().value(SessionXML::ParameterValueAttribute).toInt();
         variant = parameter_value;
 
-    } else if (parameter_type == "QString") {
+    }
+
+    else if (parameter_type == "QString") {
         QString parameter_value
             = reader->attributes().value(SessionXML::ParameterValueAttribute).toString();
         variant = parameter_value;
 
-    } else if (parameter_type == "MaterialProperty") {
+    }
+
+    else if (parameter_type == "MaterialProperty") {
         QString identifier = reader->attributes().value(SessionXML::IdentifierAttribute).toString();
 
         MaterialProperty material_property(identifier);
         variant = material_property.getVariant();
-    } else if (parameter_type == "ComboProperty") {
+    }
+
+    else if (parameter_type == "ComboProperty") {
         QString parameter_value
             = reader->attributes().value(SessionXML::ParameterValueAttribute).toString();
 
@@ -287,7 +314,9 @@ QString SessionReader::readProperty(QXmlStreamReader *reader, SessionItem *item)
         }
         combo_property.setCachedValue(parameter_value);
         variant = combo_property.getVariant();
-    } else if (parameter_type == "ScientificDoubleProperty") {
+    }
+
+    else if (parameter_type == "ScientificDoubleProperty") {
         double parameter_value
             = reader->attributes().value(SessionXML::ParameterValueAttribute).toDouble();
 
@@ -295,22 +324,34 @@ QString SessionReader::readProperty(QXmlStreamReader *reader, SessionItem *item)
         QVariant v;
         v.setValue(scdouble_property);
         variant = v;
-    } else if (parameter_type == "GroupProperty_t") {
+    }
+
+    else if (parameter_type == "GroupProperty_t") {
         QString parameter_value
             = reader->attributes().value(SessionXML::ParameterValueAttribute).toString();
 
-        GroupProperty_t group_property
-            = item->value().value<GroupProperty_t>();
-        group_property->setCurrentType(parameter_value);
-        variant = QVariant::fromValue<GroupProperty_t>(group_property);
-    } else if (parameter_type == "ColorProperty") {
+        QVariant v = item->value();
+        if(!v.canConvert<GroupProperty_t>()) {
+            report_error(messageService, item, SET_ITEM_PROPERTY_ERROR,
+                         QStringLiteral("GroupProperty conversion failed"));
+        } else {
+            GroupProperty_t group_property = v.value<GroupProperty_t>();
+            group_property->setCurrentType(parameter_value);
+            variant = QVariant::fromValue<GroupProperty_t>(group_property);
+        }
+
+    }
+
+    else if (parameter_type == "ColorProperty") {
         int r = reader->attributes().value(SessionXML::ColorRedAttribute).toInt();
         int g = reader->attributes().value(SessionXML::ColorGreenAttribute).toInt();
         int b = reader->attributes().value(SessionXML::ColorBlueAttribute).toInt();
         int a = reader->attributes().value(SessionXML::ColorAlphaAttribute).toInt();
         ColorProperty color(QColor(r, g, b, a));
         variant = color.getVariant();
-    } else if (parameter_type == "AngleProperty") {
+    }
+
+    else if (parameter_type == "AngleProperty") {
         double parameter_value
             = reader->attributes().value(SessionXML::ParameterValueAttribute).toDouble();
         QString units = reader->attributes().value(SessionXML::AngleUnitsAttribute).toString();
@@ -323,9 +364,21 @@ QString SessionReader::readProperty(QXmlStreamReader *reader, SessionItem *item)
         throw GUIHelpers::Error("SessionModel::readProperty: "
                                 "Parameter type not supported" + parameter_type);
     }
+
     if (variant.isValid()) {
         item->setData(role, variant);
     }
 
     return parameter_name;
+}
+
+void SessionReader::report_error(WarningMessageService *messageService,
+                                 SessionItem *item, const QString &error_type,
+                                 const QString &message)
+{
+    if(messageService) {
+        messageService->send_message(item->model(), error_type, message);
+    } else {
+        throw GUIHelpers::Error(error_type + QString(" ") + message);
+    }
 }

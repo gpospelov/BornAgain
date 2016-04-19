@@ -33,10 +33,6 @@
 namespace
 {
 const int MaxCompression = 9;
-
-const QString SET_ITEM_PROPERTY_ERROR = "SET_ITEM_PROPERTY_ERROR";
-const QString ITEM_IS_NOT_INITIALIZED = "ITEM_IS_NOT_INITIALIZED";
-const QString NON_EXISTING_SUBITEM = "NON_EXISTING_SUBITEM";
 }
 
 SessionModel::SessionModel(QString model_tag, QObject *parent)
@@ -44,7 +40,6 @@ SessionModel::SessionModel(QString model_tag, QObject *parent)
     , m_root_item(0)
     , m_name("DefaultName")
     , m_model_tag(model_tag)
-    , m_messageService(0)
 {
     createRootItem();
 }
@@ -348,7 +343,7 @@ SessionItem *SessionModel::itemForIndex(const QModelIndex &index) const
     return m_root_item;
 }
 
-void SessionModel::readFrom(QXmlStreamReader *reader)
+void SessionModel::readFrom(QXmlStreamReader *reader, WarningMessageService *messageService)
 {
     Q_ASSERT(reader);
 
@@ -365,7 +360,7 @@ void SessionModel::readFrom(QXmlStreamReader *reader)
 
     createRootItem();
 
-    SessionReader::readItems(reader, m_root_item);
+    SessionReader::readItems(reader, m_root_item, QString(), messageService);
     if (reader->hasError())
         throw GUIHelpers::Error(reader->errorString());
     endResetModel();
@@ -374,9 +369,6 @@ void SessionModel::readFrom(QXmlStreamReader *reader)
 
 void SessionModel::writeTo(QXmlStreamWriter *writer, SessionItem *parent)
 {
-    // MOVED OUT TO SessionXML.h
-
-    qDebug() << "SessionModel::writeTo";
     if (!parent)
         parent = m_root_item;
     SessionWriter::writeTo(writer, parent);
@@ -488,11 +480,6 @@ SessionItem *SessionModel::getTopItem(const QString &model_type,
     return result;
 }
 
-void SessionModel::setMessageService(WarningMessageService *messageService)
-{
-    m_messageService = messageService;
-}
-
 void SessionModel::initFrom(SessionModel *model, SessionItem *parent)
 {
     qDebug() << "SessionModel::initFrom() -> " << model->getModelTag() << parent;
@@ -509,16 +496,6 @@ void SessionModel::initFrom(SessionModel *model, SessionItem *parent)
         if (reader.isStartElement()) {
             readFrom(&reader);
         }
-    }
-}
-
-//! reports error
-void SessionModel::report_error(const QString &error_type, const QString &message)
-{
-    if(m_messageService) {
-        m_messageService->send_message(this, error_type, message);
-    } else {
-        throw GUIHelpers::Error(error_type + QString(" ") + message);
     }
 }
 

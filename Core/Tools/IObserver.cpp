@@ -26,5 +26,3 @@ void IObservable::notifyObservers()
         (*it)->notify(this);
     }
 }
-
-

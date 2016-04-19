@@ -24,7 +24,7 @@
 
 //! @class AttLimits
 //! @ingroup fitting
-//! @brief Limits for fit parameters
+//! @brief Attributes and limits for a fit parameter. Currently, the only attribute is fixed/free.
 
 class BA_CORE_API_ AttLimits
 {
@@ -158,7 +158,4 @@ inline bool AttLimits::operator!=(const AttLimits &other) const
     return !(*this == other);
 }
 
-
 #endif // LIMITS_H
-
-

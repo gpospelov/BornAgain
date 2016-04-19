@@ -15,6 +15,7 @@
 
 #include "MinimizerFunctionalTests.h"
 #include "FitSuite.h"
+#include "FitKernel.h"
 #include "MinimizerFactory.h"
 
 Minuit2MigradTest::Minuit2MigradTest()
@@ -56,7 +57,7 @@ std::unique_ptr<FitSuite> GSLSimulatedAnnealingTest::createFitSuite()
     minimizer->getOptions()->setValue("t_min", 1.0);
     result->setMinimizer(minimizer);
     for (size_t i = 0; i < m_parameters.size(); ++i) {
-        result->addFitParameter(m_parameters[i].m_name, m_parameters[i].m_start_value,                                    
+        result->addFitParameter(m_parameters[i].m_name, m_parameters[i].m_start_value,
                                     AttLimits::limited(4.0, 6.0), m_parameters[i].m_start_value / 100.);
     }
 

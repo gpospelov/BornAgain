@@ -23,7 +23,7 @@ using std::size_t;
 
 //! @class SafePointerVector
 //! @ingroup tools_internal
-//! @brief Safe handling of vectors of pointers that are owned by the vector
+//! @brief A vector of pointers, owned by *this, with methods to handle them safely.
 //!
 //! The objects pointed to must support the ICLoneable interface.
 
@@ -47,8 +47,6 @@ public:
     iterator end() { return m_pointers.end(); }
     const_iterator end() const { return m_pointers.end(); }
 
-    std::vector<const T *> getSTLVector() const;
-
     bool deleteElement(T* pointer);
 
     T *back() { return m_pointers.back(); }
@@ -64,8 +62,7 @@ template<class T> SafePointerVector<T>::SafePointerVector() : m_pointers()
 
 template<class T> SafePointerVector<T>::SafePointerVector(const SafePointerVector<T>& other)
 {
-    for (const_iterator it = other.begin();
-            it != other.end(); ++it) {
+    for (const_iterator it = other.begin(); it != other.end(); ++it) {
         m_pointers.push_back((*it)->clone());
     }
 }
@@ -80,8 +77,7 @@ template<class T> SafePointerVector<T>& SafePointerVector<T>::operator=(
 {
     if (this ==& right) return *this;
     clear();
-    for (const_iterator it = right.begin();
-            it != right.end(); ++it) {
+    for (const_iterator it = right.begin(); it != right.end(); ++it) {
         m_pointers.push_back((*it)->clone());
     }
     return *this;
@@ -118,20 +114,9 @@ inline const T* SafePointerVector<T>::operator[](size_t index) const
 }
 
 template<class T>
-inline std::vector<const T *> SafePointerVector<T>::getSTLVector() const
-{
-    std::vector<const T *> result;
-    for (size_t i=0; i<m_pointers.size(); ++i) {
-        result.push_back(m_pointers[i]);
-    }
-    return result;
-}
-
-template<class T>
 inline bool SafePointerVector<T>::deleteElement(T *pointer)
 {
-    typename std::vector<T *>::iterator it = std::find(m_pointers.begin(),
-                                              m_pointers.end(), pointer);
+    iterator it = std::find(m_pointers.begin(), m_pointers.end(), pointer);
     if (it == m_pointers.end()) return false;
     m_pointers.erase(it);
     delete pointer;
@@ -147,5 +132,3 @@ template<class T> void SafePointerVector<T>::clear()
 }
 
 #endif /* SAFEPOINTERVECTOR_H_ */
-
-

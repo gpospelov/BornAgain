@@ -53,6 +53,15 @@ public:
 
     void setActive(bool state) {m_active = state;}
 
+signals:
+    void valueChange();
+    void propertyChange(const QString &name);
+    void childPropertyChange(SessionItem *item, const QString &name);
+    void parentChange(SessionItem *item);
+    void childrenChange(SessionItem *item);
+    void siblingsChange();
+    void anyChildChange(SessionItem *item);
+
 public slots:
     void onDataChanged(const QModelIndex & topLeft, const QModelIndex & bottomRight,
                        const QVector<int> & roles = QVector<int> ());

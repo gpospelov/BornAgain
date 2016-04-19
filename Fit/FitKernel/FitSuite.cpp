@@ -24,7 +24,11 @@
 FitSuite::FitSuite()
     : m_kernel(new FitKernel(this))
 {
+}
 
+FitSuite::~FitSuite()
+{
+    delete m_kernel;
 }
 
 void FitSuite::addSimulationAndRealData(const GISASSimulation &simulation,

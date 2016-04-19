@@ -32,7 +32,6 @@ public:
     explicit RealParameterWrapper(double *par, const AttLimits &limits = AttLimits::limitless());
     RealParameterWrapper(const RealParameterWrapper& other );
     RealParameterWrapper& operator=(const RealParameterWrapper& other);
-    ~RealParameterWrapper() {}
 
     //! Sets value of wrapped parameter and emit signal
     bool setValue(double value);
@@ -94,6 +93,5 @@ inline bool RealParameterWrapper::operator!=(const RealParameterWrapper &other) 
 {
     return !(*this == other);
 }
-
 
 #endif // REALPARAMETERPROXY_H

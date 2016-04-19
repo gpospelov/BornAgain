@@ -14,11 +14,12 @@
 // ************************************************************************** //
 
 #include "Units.h"
-#include "IMinimizerFunctionalTest.h"
+#include "FitKernel.h"
 #include "SampleBuilderFactory.h"
 #include "SimulationRegistry.h"
 #include "OutputData.h"
 #include "FitSuite.h"
+#include "IMinimizerFunctionalTest.h"
 #include "MinimizerFactory.h"
 #include <memory>
 #include <boost/format.hpp>

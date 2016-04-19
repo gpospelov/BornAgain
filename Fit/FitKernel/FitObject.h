@@ -88,5 +88,3 @@ private:
 };
 
 #endif // FITOBJECT_H
-
-

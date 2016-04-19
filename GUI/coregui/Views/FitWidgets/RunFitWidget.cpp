@@ -14,7 +14,6 @@
 //
 // ************************************************************************** //
 
-#include "RunFitWidget.h"
 #include "RunFitManager.h"
 #include "SampleBuilderFactory.h"
 #include "SimulationRegistry.h"
@@ -31,6 +30,9 @@
 #include "InstrumentItem.h"
 #include "SessionModel.h"
 #include "IntensityDataIOFactory.h"
+
+#include "RunFitWidget.h"
+
 #include <QWidget>
 #include <QPushButton>
 #include <QSlider>

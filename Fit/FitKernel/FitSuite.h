@@ -17,30 +17,30 @@
 #define FITSUITE_H
 
 #include "IObserver.h"
-#include "FitKernel.h"
 #include "IHistogram.h"
 #include "OutputData.h"
-
+#include "AttLimits.h"
 
 //! @class FitSuite
 //! @ingroup fitting
-//! @brief Main class to setup and run GISAS fitting in BornAgain.
+//! @brief User interface class that wraps all fit methods.
 
 class BA_CORE_API_ FitSuite : public IObservable
 {
 public:
     FitSuite();
+    ~FitSuite();
 
     // ------------------------------------------------------------------------
     // Fitting setup
     // ------------------------------------------------------------------------
 
     //! Assigns pair of (simulation, real data) for fitting. More than one pair can be added.
-    void addSimulationAndRealData(const GISASSimulation& simulation,
+    void addSimulationAndRealData(const class GISASSimulation& simulation,
                                   const OutputData<double>& real_data, double weight=1);
 
     //! Assigns pair of (simulation, real data) for fitting. More than one pair can be added.
-    void addSimulationAndRealData(const GISASSimulation& simulation,
+    void addSimulationAndRealData(const class GISASSimulation& simulation,
                                   const IHistogram& real_data, double weight=1);
 
     //! Adds fit parameter
@@ -60,16 +60,16 @@ public:
                       const std::string& minimizer_options=std::string());
 
     //! Replaces default ChiSquaredModule with new one
-    void setChiSquaredModule(const IChiSquaredModule &chi2_module);
+    void setChiSquaredModule(const class IChiSquaredModule &chi2_module);
 
     //! Adds fit strategy
-    void addFitStrategy(const IFitStrategy &strategy);
+    void addFitStrategy(const class IFitStrategy &strategy);
 
     //! Sets minimizer
-    void setMinimizer(IMinimizer *minimizer);
+    void setMinimizer(class IMinimizer *minimizer);
 
     //! Returns minimizer
-    IMinimizer *getMinimizer();
+    class IMinimizer *getMinimizer();
 
     //! Initializes printing to standard output during the fitting.
     //! Prints also the summary when completed.
@@ -97,24 +97,24 @@ public:
 
     //! returns real data histogram
     //! @param i_item The index of fit object
-    IHistogram * getRealData(size_t i_item = 0) const;
+    IHistogram* getRealData(size_t i_item = 0) const;
 
     //! returns simulated data  histogram
     //! @param i_item The index of fit object
-    IHistogram * getSimulationData(size_t i_item = 0) const;
+    IHistogram* getSimulationData(size_t i_item = 0) const;
 
     //! returns chi2 histogram calculated for (real, simulated) data pair
     //! @param i_item The index of fit object
-    IHistogram * getChiSquaredMap(size_t i_item = 0) const;
+    IHistogram* getChiSquaredMap(size_t i_item = 0) const;
 
     //! returns FitObject (pair of simulation/real data)
-    FitSuiteObjects *getFitObjects();
+    class FitSuiteObjects* getFitObjects();
 
     //! Returns reference to fit parameters
-    FitSuiteParameters *getFitParameters();
+    class FitSuiteParameters* getFitParameters();
 
     //! Returns reference to fit parameters
-    FitSuiteStrategies *getFitStrategies();
+    class FitSuiteStrategies* getFitStrategies();
 
     //! if the last iteration is done (used by observers to print summary)
     bool isLastIteration() const;
@@ -131,28 +131,26 @@ public:
     double getChi2() const;
 
     //! Returns general setting of fit kernel
-    FitOptions &getOptions();
+    class FitOptions& getOptions();
 
     //! Sets general setting of fit kernel
     void setOptions(const FitOptions &fit_options);
 
     void interruptFitting();
-
     void resetInterrupt();
-
     bool isInterrupted();
 
     const OutputData<double> *getRealOutputData(size_t i_item = 0) const;
-
     const OutputData<double> *getSimulationOutputData(size_t i_item = 0) const;
-
     const OutputData<double> *getChiSquaredOutputData(size_t i_item = 0) const;
 
 private:
     FitSuite& operator=(const FitSuite& );
     FitSuite(const FitSuite& );
 
-    std::unique_ptr<FitKernel> m_kernel;
+    class FitKernel* m_kernel; //!< pointer to implementation
+        // do not use unique_ptr here;
+        // otherwise no instance of FitSuite can be created without knowing the size of FitKernel
 };
 
 #endif

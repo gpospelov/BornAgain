@@ -21369,8 +21369,6 @@ class RealParameterWrapper(_object):
             self.this.append(this)
         except:
             self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_RealParameterWrapper
-    __del__ = lambda self: None
 
     def setValue(self, value):
         """
@@ -21439,6 +21437,8 @@ class RealParameterWrapper(_object):
         """__ne__(RealParameterWrapper self, RealParameterWrapper other) -> bool"""
         return _libBornAgainCore.RealParameterWrapper___ne__(self, other)
 
+    __swig_destroy__ = _libBornAgainCore.delete_RealParameterWrapper
+    __del__ = lambda self: None
 RealParameterWrapper_swigregister = _libBornAgainCore.RealParameterWrapper_swigregister
 RealParameterWrapper_swigregister(RealParameterWrapper)
 

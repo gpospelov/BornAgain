@@ -18,7 +18,6 @@
 
 #include "INamed.h"
 #include <iostream>
-class FitKernel;
 
 //! @class IFitStrategy
 //! @ingroup fitting_internal
@@ -35,7 +34,7 @@ public:
     virtual IFitStrategy *clone() const = 0;
 
     virtual ~IFitStrategy();
-    virtual void init(FitKernel *fit_suite);
+    virtual void init(class FitKernel *fit_suite);
     virtual void execute() = 0;
 
     friend std::ostream &operator<<(std::ostream &ostr, const IFitStrategy &m)
@@ -44,11 +43,10 @@ public:
         return ostr;
     }
 
-
 protected:
     virtual void print(std::ostream &ostr) const;
 
-    FitKernel *m_fit_kernel;
+    class FitKernel *m_fit_kernel;
     IFitStrategy(const IFitStrategy &other);
 
 private:
@@ -68,7 +66,4 @@ class BA_CORE_API_ FitStrategyDefault : public IFitStrategy
     virtual void execute();
 };
 
-
 #endif // FITSTRATEGY_H
-
-

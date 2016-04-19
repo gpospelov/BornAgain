@@ -17,67 +17,25 @@
 
 %feature("autodoc");
 
-//%feature("director");
-
- // gives libBornAgainFit knowledge of the libBornAgainCore python module
- // %import "../../Core/PythonAPI/libBornAgainCore.i"
-
 %include "stdint.i"
 %include "std_complex.i"
 %include "std_string.i"
 %include "std_vector.i"
 %include "std_shared_ptr.i"
 
- // import list of shared pointers (common between Core and Fit)
 %include "shared_pointers.i"
 
 %include "doxygen_fit.i"
 %include "warnings.i"
 %include "ignores.i"
-
-
-
 %include "directors.i"
 
- //%shared_ptr(ISampleBuilder)
- //%shared_ptr(IParametrized)
- //%shared_ptr(INamed)
- //%template(SampleBuilder_t) boost::shared_ptr<ISampleBuilder>;
-
-
-
- //%shared_ptr(FitSuite)
-
-
-
-/*
-%feature("director") IObserver;
-%feature("director") IObservable;
-%feature("director") IFitObserver;
-%feature("director") IFitSuite;
-/**/
-
-// // from PythonCoreExposer.h
 %template(vdouble1d_t) std::vector<double>;
 %template(vdouble2d_t) std::vector< std::vector<double> >;
 %template(vector_integer_t) std::vector<int >;
 %template(vector_longinteger_t) std::vector<unsigned long int >;
 %template(vector_complex_t) std::vector< std::complex<double> >;
 %template(vector_string_t) std::vector<std::string>;
-
-
-
-
-
-
-
-
-// fix smart pointer problem
-//%ignore IFitObserver::notify(IObservable*);
-//%ignore IFitObserver::update(FitSuite*);
-
-
-
 
 #define SWIG_FILE_WITH_INIT
 
@@ -89,62 +47,24 @@
 %include "numpy.i"
 %init %{
 import_array();
-%} 
+%}
 
 #define GCCXML_SKIP_THIS 1
-#define GCC_DIAG_OFF(x)  
-#define GCC_DIAG_ON(x) 
-
-
+#define GCC_DIAG_OFF(x)
+#define GCC_DIAG_ON(x)
 
 #ifndef BORNAGAIN_PYTHON
 #define BORNAGAIN_PYTHON
 #endif
 
-
-
-
-
 %import "WinDllMacros.h"
 
-
-
-
- //%import "INamed.h"
- //%import "IParameterized.h"
- //%import "ISample.h"
- //%import "IMaterial.h"
- //%import "IAxis.h"
- //%import "VariableBinAxis.h"
- //%import "ICompositeSample.h"
- //%import "IClusteredParticles.h"
- //%import "IShape2D.h"
-
- //%import "IFormFactor.h"
- //%import "IFormFactorDecorator.h"
- //%import "IFormFactorBorn.h"
- //%import "IDetector2D.h"
- //%import "RealParameterWrapper.h"
- //%import "IParticle.h"
- //%import "ParameterDistribution.h"
- //%import "SafePointerVector.h"
-
- //%import "Simulation.h"
- //%import "IHistogram.h"
-
- //%import "IPixelMap.h"
- //%import "SphericalDetector.h"
-
-
- //%import "IRoughness.h"
-
 %{
-
-
 #include "ChiSquaredModule.h"
 #include "FitObject.h"
 #include "FitOptions.h"
 #include "FitParameter.h"
+#include "FitKernel.h"
 #include "FitSuite.h"
 #include "FitSuiteObjects.h"
 #include "FitSuiteParameters.h"
@@ -162,13 +82,8 @@ import_array();
 #include "MinimizerOptions.h"
 #include "FitStrategyAdjustMinimizer.h"
 
-
-
 //! file containig additional exposers
 #include "PythonFitExposer.h"
-
-
-
 %}
 
 %import(module="libBornAgainCore") "AttLimits.h"
@@ -177,34 +92,27 @@ import_array();
 %import(module="libBornAgainCore") "IParameterized.h"
 %import(module="libBornAgainCore") "IObserver.h"
 
+// The following goes verbatim from libBornAgainFit.i to libBornAgainFit_wrap.cxx.
+// Note that the order matters, as base classes must be included before derived classes.
 
 %include "IMinimizer.h"
-
 %include "IChiSquaredModule.h"
 %include "IFitObserver.h"
 %include "IFitStrategy.h"
 %include "IIntensityFunction.h"
 %include "IIntensityNormalizer.h"
-
 %include "ISquaredFunction.h"
-
-
 %include "ChiSquaredModule.h"
 %include "FitObject.h"
 %include "FitOptions.h"
 %include "FitParameter.h"
-
 %include "FitSuite.h"
 %include "FitSuiteObjects.h"
 %include "FitSuiteParameters.h"
-
 %include "MathFunctions.h"
-
 %include "MinimizerOptions.h"
 %include "MinimizerFactory.h"
-
-
 %include "FitStrategyAdjustMinimizer.h"
 
- // extends included at end because swig needs to know something about the extended classes beforehand
+ // included at end because swig needs to know something about the extended classes beforehand
 %include "extends.i"

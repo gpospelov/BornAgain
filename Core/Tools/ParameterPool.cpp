@@ -38,25 +38,18 @@ ParameterPool *ParameterPool::cloneWithPrefix(const std::string& prefix) const
 void ParameterPool::registerParameter(const std::string& name,
                                       double *parameter_address, const AttLimits &limits)
 {
-    parameter_t par(parameter_address, limits);
-    if( !addParameter(name, par) ) throw RuntimeErrorException(
-       "ParameterPool::registerParameter() -> Error! Can't register parameter");
+    addParameter(name, parameter_t(parameter_address, limits) );
 }
 
 //! Low-level routine.
 
-bool ParameterPool::addParameter(const std::string& name, parameter_t par)
+void ParameterPool::addParameter(const std::string& name, parameter_t par)
 {
-    parametermap_t::iterator it = m_map.find(name);
-    if( it!=m_map.end() ) {
+    if ( !m_map.insert(parametermap_t::value_type(name, par ) ).second ) {
         print(std::cout);
-        std::ostringstream os;
-        os << "ParameterPool::registerParameter() -> Warning!"
-              " Registering parameter with same name '" << name
-           << "'. Previous link will be replaced ";
-        throw RuntimeErrorException(os.str());
+        throw RuntimeErrorException("ParameterPool::addParameter() -> Error! Parameter '"+
+                                    name+"' is already registered");
     }
-    return m_map.insert(parametermap_t::value_type(name, par ) ).second;
 }
 
 //! Copy parameters of given pool to the external pool while adding prefix to

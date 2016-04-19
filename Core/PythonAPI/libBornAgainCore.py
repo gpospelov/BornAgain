@@ -15535,6 +15535,8 @@ def CreateProduct(left, right):
 
     BA_CORE_API_ IRotation* CreateProduct(const IRotation &left, const IRotation &right)
 
+    Returns concatenated rotation (first right, then left). 
+
     """
     return _libBornAgainCore.CreateProduct(left, right)
 class RotationX(IRotation):
@@ -20355,9 +20357,9 @@ class ParameterPool(ICloneable):
 
     def addParameter(self, name, par):
         """
-        addParameter(ParameterPool self, std::string const & name, RealParameterWrapper par) -> bool
+        addParameter(ParameterPool self, std::string const & name, RealParameterWrapper par)
 
-        bool ParameterPool::addParameter(const std::string &name, parameter_t par)
+        void ParameterPool::addParameter(const std::string &name, parameter_t par)
 
         Adds parameter to the pool.
 

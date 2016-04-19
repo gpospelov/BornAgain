@@ -16,7 +16,6 @@ class FitParameterLinkedTest : public ::testing::Test
 };
 
 
-
 TEST_F(FitParameterLinkedTest, FitParameterLinkedInitial)
 {
     FitParameterLinked fitParameterLinked;
@@ -53,7 +52,6 @@ TEST_F(FitParameterLinkedTest, FitParameterLinkedParamPool)
 {
     FitParameterLinked fitParameterLinked;
 
-
     double pValue1 = 1.0;
     double pValue2 = 2.0;
     double pValue3 = 3.0;
@@ -78,7 +76,6 @@ TEST_F(FitParameterLinkedTest, FitParameterLinkedParamPool)
     EXPECT_EQ(11.2, pValue2);
     EXPECT_EQ(11.2, pValue3);
 
-
     ParameterPool m_pool;
     m_pool.addParameter("par4",poolpar4);
     m_pool.addParameter("par5",poolpar5);
@@ -92,9 +89,6 @@ TEST_F(FitParameterLinkedTest, FitParameterLinkedParamPool)
     EXPECT_EQ(2.3, pValue2);
     EXPECT_EQ(2.3, pValue3);
     EXPECT_EQ(2.3, pValue4);
-
-
 }
-
 
 #endif //FITPARAMETERLINKEDTEST_H

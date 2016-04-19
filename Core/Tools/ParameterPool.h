@@ -65,7 +65,7 @@ public:
     void registerParameter(const std::string& name, double *parpointer, const AttLimits &limits=AttLimits::limitless());
 
     //! Adds parameter to the pool
-    bool addParameter(const std::string& name, parameter_t par);
+    void addParameter(const std::string& name, parameter_t par);
 
     //! Returns parameter named _name_.
     parameter_t getParameter(const std::string& name) const;
@@ -106,5 +106,3 @@ protected:
 };
 
 #endif // PARAMETERPOOL_H
-
-

@@ -10284,7 +10284,7 @@ Registers a parameter with key  name and pointer-to-value  parpointer.
 Registers parameter with given name. 
 ";
 
-%feature("docstring")  ParameterPool::addParameter "bool ParameterPool::addParameter(const std::string &name, parameter_t par)
+%feature("docstring")  ParameterPool::addParameter "void ParameterPool::addParameter(const std::string &name, parameter_t par)
 
 Adds parameter to the pool.
 
@@ -14958,11 +14958,15 @@ Set all element intensities to given value.
 
 // File: Rotations_8cpp.xml
 %feature("docstring")  CreateProduct "IRotation* CreateProduct(const IRotation &left, const IRotation &right)
+
+Returns concatenated rotation (first right, then left). 
 ";
 
 
 // File: Rotations_8h.xml
 %feature("docstring")  CreateProduct "BA_CORE_API_ IRotation* CreateProduct(const IRotation &left, const IRotation &right)
+
+Returns concatenated rotation (first right, then left). 
 ";
 
 

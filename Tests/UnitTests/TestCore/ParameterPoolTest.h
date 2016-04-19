@@ -1,7 +1,6 @@
 #ifndef PARAMETERPOOLTEST_H
 #define PARAMETERPOOLTEST_H
 
-
 #include "ParameterPool.h"
 
 
@@ -20,7 +19,8 @@ class ParameterPoolTest : public ::testing::Test
 };
 
 
-ParameterPoolTest::ParameterPoolTest() : m_real_par1(1.0), m_real_par2(2.0), m_real_par3(3.0), m_real_par4(4.0)
+ParameterPoolTest::ParameterPoolTest()
+    : m_real_par1(1.0), m_real_par2(2.0), m_real_par3(3.0), m_real_par4(4.0)
 {
     m_pool.registerParameter("a_par1",&m_real_par1);
     m_pool.registerParameter("a_par2",&m_real_par2);

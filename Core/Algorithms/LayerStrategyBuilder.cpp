@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Algorithms/src/LayerStrategyBuilder.cpp
+//! @file      Algorithms/LayerStrategyBuilder.cpp
 //! @brief     Implements classes LayerStrategyBuilder and
 //!              FormFactorInfo
 //!

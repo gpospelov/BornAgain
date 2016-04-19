@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      FitKernel/src/IFitStrategy.cpp
+//! @file      FitKernel/IFitStrategy.cpp
 //! @brief     Implements class IFitStrategy.
 //!
 //! @homepage  http://www.bornagainproject.org

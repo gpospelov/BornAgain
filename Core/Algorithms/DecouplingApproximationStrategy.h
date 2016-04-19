@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Algorithms/inc/DecouplingApproximationStrategy.h
+//! @file      Algorithms/DecouplingApproximationStrategy.h
 //! @brief     Defines class DecouplingApproximationStrategy.
 //!
 //! @homepage  http://www.bornagainproject.org

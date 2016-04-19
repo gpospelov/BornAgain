@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Samples/inc/ISample.h
+//! @file      Samples/ISample.h
 //! @brief     Defines interface class ISample.
 //!
 //! @homepage  http://www.bornagainproject.org

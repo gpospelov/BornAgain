@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tools/inc/ISingleton.h
+//! @file      Tools/ISingleton.h
 //! @brief     Defines the standard mix-in ISingleton.
 //!
 //! @homepage  http://www.bornagainproject.org

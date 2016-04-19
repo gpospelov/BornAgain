@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Algorithms/inc/IResolutionFunction2D.h
+//! @file      Algorithms/IResolutionFunction2D.h
 //! @brief     Defines interface class IResolutionFunction2D.
 //!
 //! @homepage  http://www.bornagainproject.org

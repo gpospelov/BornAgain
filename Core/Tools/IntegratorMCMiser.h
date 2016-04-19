@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tools/inc/IntegratorMCMiser.h
+//! @file      Tools/IntegratorMCMiser.h
 //! @brief     Defines and implements template class IntegratorMCMiser.
 //!
 //! @homepage  http://www.bornagainproject.org

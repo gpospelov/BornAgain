@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tools/inc/Histogram1D.h
+//! @file      Tools/Histogram1D.h
 //! @brief     Defines class Histogram1D.
 //!
 //! @homepage  http://www.bornagainproject.org

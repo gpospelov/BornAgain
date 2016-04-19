@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tools/inc/FastVector.h
+//! @file      Tools/FastVector.h
 //! @brief     Defines class KVectorContainer.
 //!
 //! @homepage  http://www.bornagainproject.org

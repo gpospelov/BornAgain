@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Algorithms/inc/LayerDWBASimulation.h
+//! @file      Algorithms/LayerDWBASimulation.h
 //! @brief     Defines class LayerDWBASimulation.
 //!
 //! @homepage  http://www.bornagainproject.org

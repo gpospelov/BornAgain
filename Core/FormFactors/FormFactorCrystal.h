@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      FormFactors/inc/FormFactorCrystal.h
+//! @file      FormFactors/FormFactorCrystal.h
 //! @brief     Defines class FormFactorCrystal.
 //!
 //! @homepage  http://www.bornagainproject.org

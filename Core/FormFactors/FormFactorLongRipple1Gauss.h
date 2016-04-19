@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      FormFactors/inc/FormFactorLongRipple1Gauss.h
+//! @file      FormFactors/FormFactorLongRipple1Gauss.h
 //! @brief     Defines class FormFactorLongRipple1Gauss.
 //!
 //! @homepage  http://www.bornagainproject.org

@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tools/inc/IFactory.h
+//! @file      Tools/IFactory.h
 //! @brief     Defines interface class IFactory.
 //!
 //! @homepage  http://www.bornagainproject.org

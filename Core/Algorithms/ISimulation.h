@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Algorithms/inc/ISimulation.h
+//! @file      Algorithms/ISimulation.h
 //! @brief     Defines interface class ISimulation.
 //!
 //! @homepage  http://www.bornagainproject.org

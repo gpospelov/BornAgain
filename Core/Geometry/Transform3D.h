@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file       Geometry/inc/Transform3D.h
+//! @file       Geometry/Transform3D.h
 //! @brief      Defines class Transform3D.
 //!
 //! @homepage  http://www.bornagainproject.org

@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tools/inc/SamplePrintVisitor.h
+//! @file      Tools/SamplePrintVisitor.h
 //! @brief     Defines SamplePrintVisitor class.
 //!
 //! @homepage  http://www.bornagainproject.org

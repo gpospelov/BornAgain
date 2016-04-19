@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      FitKernel/inc/ROOTMinimizer.h
+//! @file      FitKernel/ROOTMinimizer.h
 //! @brief     Defines class ROOTMinimizer.
 //!
 //! @homepage  http://www.bornagainproject.org

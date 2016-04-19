@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tools/inc/IShareable.h
+//! @file      Tools/IShareable.h
 //! @brief     Defines the class ISharable (used for SWIG smart pointers)
 //!
 //! @homepage  http://www.bornagainproject.org

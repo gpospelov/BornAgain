@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Algorithms/src/IChiSquaredModule.cpp
+//! @file      Algorithms/IChiSquaredModule.cpp
 //! @brief     Implements class IChiSquaredModule.
 //!
 //! @homepage  http://www.bornagainproject.org

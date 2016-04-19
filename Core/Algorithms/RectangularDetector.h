@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Algorithms/inc/RectangularDetector.h
+//! @file      Algorithms/RectangularDetector.h
 //! @brief     Defines class RectangularDetector.
 //!
 //! @homepage  http://www.bornagainproject.org

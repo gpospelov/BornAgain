@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tools/inc/IHistogram.h
+//! @file      Tools/IHistogram.h
 //! @brief     Defines class IHistogram.
 //!
 //! @homepage  http://www.bornagainproject.org

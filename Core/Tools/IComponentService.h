@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Algorithms/inc/IComponentService.h
+//! @file      Algorithms/IComponentService.h
 //! @brief     Defines interface IComponentService.
 //!
 //! @homepage  http://www.bornagainproject.org

@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tools/inc/FileSystem.h
+//! @file      Tools/FileSystem.h
 //! @brief     Defines class FileSystem
 //!
 //! @homepage  http://www.bornagainproject.org

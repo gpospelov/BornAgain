@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tools/inc/CustomBinAxis.h
+//! @file      Tools/CustomBinAxis.h
 //! @brief     Defines class CustomBinAxis.
 //!
 //! @homepage  http://www.bornagainproject.org

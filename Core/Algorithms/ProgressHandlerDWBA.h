@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Algorithms/inc/ProgressHandlerDWBA.h
+//! @file      Algorithms/ProgressHandlerDWBA.h
 //! @brief     Defines class ProgressHandlerDWBA.
 //!
 //! @homepage  http://www.bornagainproject.org

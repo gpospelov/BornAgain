@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      FormFactors/inc/FormFactorRipple2.h
+//! @file      FormFactors/FormFactorRipple2.h
 //! @brief     Defines class FormFactorRipple2.
 //!
 //! @homepage  http://www.bornagainproject.org

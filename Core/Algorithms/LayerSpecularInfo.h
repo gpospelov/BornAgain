@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Algorithms/inc/LayerSpecularInfo.h
+//! @file      Algorithms/LayerSpecularInfo.h
 //! @brief     Defines class LayerSpecularInfo.
 //!
 //! @homepage  http://www.bornagainproject.org

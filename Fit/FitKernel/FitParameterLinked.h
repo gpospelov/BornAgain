@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      FitKernel/inc/FitParameterLinked.h
+//! @file      FitKernel/FitParameterLinked.h
 //! @brief     Defines class FitParameterLinked.
 //!
 //! @homepage  http://www.bornagainproject.org

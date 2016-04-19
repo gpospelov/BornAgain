@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Algorithms/inc/IIntensityFunction.h
+//! @file      Algorithms/IIntensityFunction.h
 //! @brief     Defines and implements the interface class IIntensityFunction
 //!            and its child classes IntensityFunctionLog, IntensityFunctionSqrt
 //!

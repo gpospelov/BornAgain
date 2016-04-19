@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tools/src/Exceptions.cpp
+//! @file      Tools/Exceptions.cpp
 //! @brief     Implements class Exceptions.
 //!
 //! @homepage  http://www.bornagainproject.org

@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Algorithms/inc/Instrument.h
+//! @file      Algorithms/Instrument.h
 //! @brief     Defines class Instrument.
 //!
 //! @homepage  http://www.bornagainproject.org

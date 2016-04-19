@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      FitKernel/inc/FitElement.h
+//! @file      FitKernel/FitElement.h
 //! @brief     Defines class FitElement.
 //!
 //! @homepage  http://www.bornagainproject.org

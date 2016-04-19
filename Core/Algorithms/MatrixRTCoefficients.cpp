@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Algorithms/src/MatrixRTCoefficients.cpp
+//! @file      Algorithms/MatrixRTCoefficients.cpp
 //! @brief     Implements class MatrixRTCoefficients.
 //!
 //! @homepage  http://www.bornagainproject.org

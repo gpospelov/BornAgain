@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Samples/inc/ISelectionRule.h
+//! @file      Samples/ISelectionRule.h
 //! @brief     Defines classes ISelectionRule, SimpleSelectionRule
 //!
 //! @homepage  http://www.bornagainproject.org

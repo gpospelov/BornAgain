@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      FormFactors/inc/FormFactorSphereGaussianRadius.h
+//! @file      FormFactors/FormFactorSphereGaussianRadius.h
 //! @brief     Defines and implements class FormFactorSphereGaussianRadius.
 //!
 //! @homepage  http://www.bornagainproject.org

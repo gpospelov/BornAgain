@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Algorithms/inc/ILayerRTCoefficients.h
+//! @file      Algorithms/ILayerRTCoefficients.h
 //! @brief     Defines class ILayerRTCoefficients.
 //!
 //! @homepage  http://www.bornagainproject.org

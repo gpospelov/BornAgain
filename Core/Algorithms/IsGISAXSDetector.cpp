@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Algorithms/src/IsGISAXSDetector.cpp
+//! @file      Algorithms/IsGISAXSDetector.cpp
 //! @brief     Implements class IsGISAXSDetector.
 //!
 //! @homepage  http://www.bornagainproject.org

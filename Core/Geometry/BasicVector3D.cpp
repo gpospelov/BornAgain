@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file       Geometry/src/BasicVector3D.cpp
+//! @file       Geometry/BasicVector3D.cpp
 //! @brief      Implements template class BasicVector3D.
 //!
 //! @homepage  http://www.bornagainproject.org

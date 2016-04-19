@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Algorithms/inc/Distributions.h
+//! @file      Algorithms/Distributions.h
 //! @brief     Defines classes representing distributions.
 //!
 //! @homepage  http://www.bornagainproject.org

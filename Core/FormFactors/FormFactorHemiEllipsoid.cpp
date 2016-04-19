@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      FormFactors/src/FormFactorHemiEllipsoid.cpp
+//! @file      FormFactors/FormFactorHemiEllipsoid.cpp
 //! @brief     Implements class FormFactorHemiEllipsoid.
 //!
 //! @homepage  http://www.bornagainproject.org

@@ -75,13 +75,13 @@ void ModelMapper::setOnAnyChildChange(std::function<void (SessionItem *)> f, voi
 //! Cancells all subscribtion of given caller
 void ModelMapper::unsubscribe(void *caller)
 {
-    qDebug() << "XXX" << m_onPropertyChange.size();
-//    m_onPropertyChange.erase(std::remove_if(m_onPropertyChange.begin(), m_onPropertyChange.end(),
-//                           [](call_str_t const & x) -> bool { Q_UNUSED(x); return true; }),
-//            m_onPropertyChange.end());
-
-    clean_container(m_onPropertyChange);
-    qDebug() << "XXX 1.2" << m_onPropertyChange.size();
+    clean_container(m_onValueChange, caller);
+    clean_container(m_onPropertyChange, caller);
+    clean_container(m_onChildPropertyChange, caller);
+    clean_container(m_onParentChange, caller);
+    clean_container(m_onChildrenChange, caller);
+    clean_container(m_onSiblingsChange, caller);
+    clean_container(m_onAnyChildChange, caller);
 }
 
 void ModelMapper::setModel(SessionModel *model)

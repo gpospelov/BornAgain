@@ -76,14 +76,8 @@ public slots:
     void onRowRemoved(const QModelIndex & parent, int first, int last);
 
 private:
-    template<class U>
-    void clean_container(U& v) {
-        v.erase(std::remove_if(v.begin(), v.end(),
-                               [](call_str_t const & x) -> bool { Q_UNUSED(x); return true; }),
-                v.end());
-
-    }
-
+    //! removes all callbacks related to given caller
+    template<class U> void clean_container(U& v, void *caller);
 
     void setModel(SessionModel *model);
     int nestlingDepth(SessionItem* item, int level = 0);
@@ -116,5 +110,14 @@ private:
     std::vector<call_item_t> m_onAnyChildChange;
     QModelIndex m_aboutToDelete;
 };
+
+
+template<class U>
+inline void ModelMapper::clean_container(U& v, void *caller) {
+    v.erase(std::remove_if(v.begin(), v.end(),
+        [caller](typename U::value_type const &x) -> bool { return (x.second == caller ? true : false); }),
+            v.end());
+}
+
 
 #endif

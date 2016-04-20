@@ -23,6 +23,7 @@
 #include <QVector>
 #include <functional>
 #include <QModelIndex>
+#include <vector>
 
 class QModelIndex;
 class SessionModel;
@@ -37,21 +38,23 @@ public:
 
     void setItem(SessionItem* item);
 
-    void setOnValueChange(std::function<void(void)> f);
+    void setOnValueChange(std::function<void(void)> f, void *caller=0);
 
-    void setOnPropertyChange(std::function<void(QString)> f);
+    void setOnPropertyChange(std::function<void(QString)> f, void *caller=0);
 
-    void setOnChildPropertyChange(std::function<void(SessionItem*,QString)> f);
+    void setOnChildPropertyChange(std::function<void(SessionItem*,QString)> f, void *caller=0);
 
-    void setOnParentChange(std::function<void(SessionItem*)> f);
+    void setOnParentChange(std::function<void(SessionItem*)> f, void *caller=0);
 
-    void setOnChildrenChange(std::function<void(SessionItem*)> f);
+    void setOnChildrenChange(std::function<void(SessionItem*)> f, void *caller=0);
 
-    void setOnSiblingsChange(std::function<void(void)> f);
+    void setOnSiblingsChange(std::function<void(void)> f, void *caller=0);
 
-    void setOnAnyChildChange(std::function<void(SessionItem*)> f);
+    void setOnAnyChildChange(std::function<void(SessionItem*)> f, void *caller=0);
 
     void setActive(bool state) {m_active = state;}
+
+    void unsubscribe(void *caller);
 
 signals:
     void valueChange();
@@ -73,6 +76,15 @@ public slots:
     void onRowRemoved(const QModelIndex & parent, int first, int last);
 
 private:
+    template<class U>
+    void clean_container(U& v) {
+        v.erase(std::remove_if(v.begin(), v.end(),
+                               [](call_str_t const & x) -> bool { Q_UNUSED(x); return true; }),
+                v.end());
+
+    }
+
+
     void setModel(SessionModel *model);
     int nestlingDepth(SessionItem* item, int level = 0);
 
@@ -89,13 +101,19 @@ private:
     bool m_active;
     SessionModel *m_model;
     SessionItem *m_item;
-    std::vector<std::function<void(void)>> m_onValueChange;
-    std::vector<std::function<void(QString)>> m_onPropertyChange;
-    std::vector<std::function<void(SessionItem*,QString)>> m_onChildPropertyChange;
-    std::vector<std::function<void(SessionItem*)>> m_onParentChange;
-    std::vector<std::function<void(SessionItem*)>> m_onChildrenChange;
-    std::vector<std::function<void(void)>> m_onSiblingsChange;
-    std::vector<std::function<void(SessionItem*)>> m_onAnyChildChange;
+
+    using call_t = std::pair<std::function<void(void)>, void *>;
+    using call_str_t = std::pair<std::function<void(QString)>, void *>;
+    using call_item_t = std::pair<std::function<void(SessionItem *)>, void *>;
+    using call_item_str_t = std::pair<std::function<void(SessionItem*,QString)>, void *>;
+
+    std::vector<call_t> m_onValueChange;
+    std::vector<call_str_t> m_onPropertyChange;
+    std::vector<call_item_str_t> m_onChildPropertyChange;
+    std::vector<call_item_t> m_onParentChange;
+    std::vector<call_item_t> m_onChildrenChange;
+    std::vector<call_t> m_onSiblingsChange;
+    std::vector<call_item_t> m_onAnyChildChange;
     QModelIndex m_aboutToDelete;
 };
 

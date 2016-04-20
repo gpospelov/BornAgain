@@ -77,6 +77,46 @@ public:
 
     }
 
+    void setItemSubscribe(SessionItem *item)
+    {
+        clear();
+        m_mapped_item = item;
+        m_mapper.reset(new ModelMapper);
+        m_mapper->setItem(item);
+
+        m_mapper->setOnPropertyChange(
+                    [this] (QString name)
+        {
+            onPropertyChange(name);
+        }, this);
+
+        m_mapper->setOnChildPropertyChange(
+                    [this](SessionItem* item, QString name)
+        {
+            onChildPropertyChange(item, name);
+        }, this);
+
+        m_mapper->setOnParentChange(
+                    [this](SessionItem *parent) {
+            onParentChange(parent);
+        }, this);
+
+
+        m_mapper->setOnChildrenChange(
+                    [this](SessionItem*)
+        {
+            onChildrenChange();
+        }, this);
+
+        m_mapper->setOnSiblingsChange(
+                    [this]()
+        {
+            onSiblingsChange();
+        }, this);
+
+    }
+
+
 private:
     void onPropertyChange(const QString &name)
     {
@@ -123,6 +163,8 @@ private slots:
     void test_onParentChange();
     void test_onChildrenChange();
     void test_onSiblingsChange();
+
+    void test_Subscription();
 };
 
 inline void TestMapperForItem::test_onPropertyChange()
@@ -132,11 +174,11 @@ inline void TestMapperForItem::test_onPropertyChange()
     SessionItem *layer = model.insertNewItem(Constants::LayerType, model.indexOfItem(multilayer));
 
     // check initial state of our test class
-    QVERIFY(m_onPropertyChangeCount == 0);
-    QVERIFY(m_onChildPropertyChangeCount == 0);
-    QVERIFY(m_onParentChangeCount == 0);
-    QVERIFY(m_onChildrenChangeCount == 0);
-    QVERIFY(m_onSiblingsChangeCount == 0);
+    QCOMPARE(m_onPropertyChangeCount, 0);
+    QCOMPARE(m_onChildPropertyChangeCount, 0);
+    QCOMPARE(m_onParentChangeCount, 0);
+    QCOMPARE(m_onChildrenChangeCount, 0);
+    QCOMPARE(m_onSiblingsChangeCount, 0);
     QVERIFY(m_mapped_item == nullptr);
     QVERIFY(m_reported_items.isEmpty());
     QVERIFY(m_reported_names.isEmpty());
@@ -144,11 +186,11 @@ inline void TestMapperForItem::test_onPropertyChange()
     // Mapper is looking on child; set property of child
     setItem(layer);
     layer->setItemValue(LayerItem::P_THICKNESS, 1.0);
-    QVERIFY(m_onPropertyChangeCount == 1);
-    QVERIFY(m_onChildPropertyChangeCount == 0);
-    QVERIFY(m_onParentChangeCount == 0);
-    QVERIFY(m_onChildrenChangeCount == 0);
-    QVERIFY(m_onSiblingsChangeCount == 0);
+    QCOMPARE(m_onPropertyChangeCount, 1);
+    QCOMPARE(m_onChildPropertyChangeCount, 0);
+    QCOMPARE(m_onParentChangeCount, 0);
+    QCOMPARE(m_onChildrenChangeCount, 0);
+    QCOMPARE(m_onSiblingsChangeCount, 0);
     QVERIFY(m_mapped_item == layer);
     QVERIFY(m_reported_items.isEmpty());
     QVERIFY((m_reported_names.size() == 1) && (m_reported_names[0] == LayerItem::P_THICKNESS));
@@ -156,11 +198,11 @@ inline void TestMapperForItem::test_onPropertyChange()
     // Mapper is looking on child; set property of parent;
     setItem(layer);
     multilayer->setItemValue(MultiLayerItem::P_CROSS_CORR_LENGTH, 1.0);
-    QVERIFY(m_onPropertyChangeCount == 0);
-    QVERIFY(m_onChildPropertyChangeCount == 0);
-    QVERIFY(m_onParentChangeCount == 0);
-    QVERIFY(m_onChildrenChangeCount == 0);
-    QVERIFY(m_onSiblingsChangeCount == 0);
+    QCOMPARE(m_onPropertyChangeCount, 0);
+    QCOMPARE(m_onChildPropertyChangeCount, 0);
+    QCOMPARE(m_onParentChangeCount, 0);
+    QCOMPARE(m_onChildrenChangeCount, 0);
+    QCOMPARE(m_onSiblingsChangeCount, 0);
     QVERIFY(m_mapped_item == layer);
     QVERIFY(m_reported_items.isEmpty());
     QVERIFY(m_reported_names.isEmpty());
@@ -168,11 +210,11 @@ inline void TestMapperForItem::test_onPropertyChange()
     // Mapper is looking on parent; set property of child;
     setItem(multilayer);
     layer->setItemValue(LayerItem::P_THICKNESS, 2.0);
-    QVERIFY(m_onPropertyChangeCount == 0);
-    QVERIFY(m_onChildPropertyChangeCount == 1);
-    QVERIFY(m_onParentChangeCount == 0);
-    QVERIFY(m_onChildrenChangeCount == 0);
-    QVERIFY(m_onSiblingsChangeCount == 0);
+    QCOMPARE(m_onPropertyChangeCount, 0);
+    QCOMPARE(m_onChildPropertyChangeCount, 1);
+    QCOMPARE(m_onParentChangeCount, 0);
+    QCOMPARE(m_onChildrenChangeCount, 0);
+    QCOMPARE(m_onSiblingsChangeCount, 0);
     QVERIFY(m_mapped_item == multilayer);
     QVERIFY( (m_reported_items.size() == 1) && (m_reported_items[0] == layer));
     QVERIFY((m_reported_names.size() == 1) && (m_reported_names[0] == LayerItem::P_THICKNESS));
@@ -180,11 +222,11 @@ inline void TestMapperForItem::test_onPropertyChange()
     // Mapper is looking on parent; set property of parent;
     setItem(multilayer);
     multilayer->setItemValue(MultiLayerItem::P_CROSS_CORR_LENGTH, 2.0);
-    QVERIFY(m_onPropertyChangeCount == 1);
-    QVERIFY(m_onChildPropertyChangeCount == 0);
-    QVERIFY(m_onParentChangeCount == 0);
-    QVERIFY(m_onChildrenChangeCount == 0);
-    QVERIFY(m_onSiblingsChangeCount == 0);
+    QCOMPARE(m_onPropertyChangeCount, 1);
+    QCOMPARE(m_onChildPropertyChangeCount, 0);
+    QCOMPARE(m_onParentChangeCount, 0);
+    QCOMPARE(m_onChildrenChangeCount, 0);
+    QCOMPARE(m_onSiblingsChangeCount, 0);
     QVERIFY(m_mapped_item == multilayer);
     QVERIFY(m_reported_items.isEmpty());
     QVERIFY((m_reported_names.size() == 1) && (m_reported_names[0] == MultiLayerItem::P_CROSS_CORR_LENGTH));
@@ -204,10 +246,10 @@ inline void TestMapperForItem::test_onParentChange()
 //    model.moveParameterizedItem(layer, multilayer);
     // FIXME check onParentChange while moving an item
 
-    QVERIFY(m_onPropertyChangeCount == 0);
-    QVERIFY(m_onChildPropertyChangeCount == 0);
-    QVERIFY(m_onParentChangeCount == 1);
-    QVERIFY(m_onChildrenChangeCount == 0);
+    QCOMPARE(m_onPropertyChangeCount, 0);
+    QCOMPARE(m_onChildPropertyChangeCount, 0);
+    QCOMPARE(m_onParentChangeCount, 1);
+    QCOMPARE(m_onChildrenChangeCount, 0);
     QVERIFY(m_mapped_item == layer);
     //QVERIFY((m_reported_items.size() == 1) && (m_reported_items[0] == nullptr));
     QVERIFY(m_reported_names.isEmpty());
@@ -223,14 +265,14 @@ inline void TestMapperForItem::test_onChildrenChange()
     setItem(multilayer);
     model.insertNewItem(Constants::LayerType, model.indexOfItem(multilayer));
 
-    QVERIFY(m_onPropertyChangeCount == 0);
-    QVERIFY(m_onChildPropertyChangeCount == 2);
-    QVERIFY(m_onParentChangeCount == 0);
-    QVERIFY(m_onChildrenChangeCount == 1);
-    QVERIFY(m_onSiblingsChangeCount == 0);
+    QCOMPARE(m_onPropertyChangeCount, 0);
+    QCOMPARE(m_onChildPropertyChangeCount, 2);
+    QCOMPARE(m_onParentChangeCount, 0);
+    QCOMPARE(m_onChildrenChangeCount, 1);
+    QCOMPARE(m_onSiblingsChangeCount, 0);
     QVERIFY(m_mapped_item == multilayer);
-    QVERIFY(m_reported_items.size() == 2);
-    QVERIFY(m_reported_names.size() == 2);
+    QCOMPARE(m_reported_items.size(), 2);
+    QCOMPARE(m_reported_names.size(), 2);
 }
 
 inline void TestMapperForItem::test_onSiblingsChange()
@@ -259,7 +301,33 @@ inline void TestMapperForItem::test_onSiblingsChange()
 
     // FIXME
 //    multilayer->takeRow(layer2->parentRow());
-//    QCOMPARE(m_onSiblingsChangeCount, 2);
+    //    QCOMPARE(m_onSiblingsChangeCount, 2);
+}
+
+inline void TestMapperForItem::test_Subscription()
+{
+    SampleModel model;
+    SessionItem *multilayer = model.insertNewItem(Constants::MultiLayerType);
+    SessionItem *layer = model.insertNewItem(Constants::LayerType, model.indexOfItem(multilayer));
+
+    // Mapper is looking on child; set property of child
+    setItemSubscribe(layer);
+    layer->setItemValue(LayerItem::P_THICKNESS, 1.0);
+    QCOMPARE(m_onPropertyChangeCount, 1);
+    QCOMPARE(m_onChildPropertyChangeCount, 0);
+    QCOMPARE(m_onParentChangeCount, 0);
+    QCOMPARE(m_onChildrenChangeCount, 0);
+    QCOMPARE(m_onSiblingsChangeCount, 0);
+    QVERIFY(m_mapped_item == layer);
+    QVERIFY(m_reported_items.isEmpty());
+    QVERIFY((m_reported_names.size() == 1) && (m_reported_names[0] == LayerItem::P_THICKNESS));
+
+    layer->setItemValue(LayerItem::P_THICKNESS, 2.0);
+    QCOMPARE(m_onPropertyChangeCount, 2);
+
+    m_mapper->unsubscribe(this);
+    layer->setItemValue(LayerItem::P_THICKNESS, 3.0);
+    QCOMPARE(m_onPropertyChangeCount, 2);
 }
 
 

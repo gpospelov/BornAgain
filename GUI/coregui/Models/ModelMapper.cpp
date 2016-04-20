@@ -37,39 +37,51 @@ void ModelMapper::setItem(SessionItem *item)
     }
 }
 
-void ModelMapper::setOnValueChange(std::function<void ()> f)
+void ModelMapper::setOnValueChange(std::function<void(void)> f, void *caller)
 {
-    m_onValueChange.push_back(f);
+    m_onValueChange.push_back(call_t(f, caller));
 }
 
-void ModelMapper::setOnPropertyChange(std::function<void (QString)> f)
+void ModelMapper::setOnPropertyChange(std::function<void(QString)> f, void *caller)
 {
-    m_onPropertyChange.push_back(f);
+    m_onPropertyChange.push_back(call_str_t(f, caller));
 }
 
-void ModelMapper::setOnChildPropertyChange(std::function<void (SessionItem *, QString)> f)
+void ModelMapper::setOnChildPropertyChange(std::function<void (SessionItem *, QString)> f, void *caller)
 {
-    m_onChildPropertyChange.push_back(f);
+    m_onChildPropertyChange.push_back(call_item_str_t(f, caller));
 }
 
-void ModelMapper::setOnParentChange(std::function<void (SessionItem *)> f)
+void ModelMapper::setOnParentChange(std::function<void (SessionItem *)> f, void *caller)
 {
-    m_onParentChange.push_back(f);
+    m_onParentChange.push_back(call_item_t(f, caller));
 }
 
-void ModelMapper::setOnChildrenChange(std::function<void(SessionItem *)> f)
+void ModelMapper::setOnChildrenChange(std::function<void(SessionItem *)> f, void *caller)
 {
-    m_onChildrenChange.push_back(f);
+    m_onChildrenChange.push_back(call_item_t(f, caller));
 }
 
-void ModelMapper::setOnSiblingsChange(std::function<void ()> f)
+void ModelMapper::setOnSiblingsChange(std::function<void ()> f, void *caller)
 {
-    m_onSiblingsChange.push_back(f);
+    m_onSiblingsChange.push_back(call_t(f, caller));
 }
 
-void ModelMapper::setOnAnyChildChange(std::function<void (SessionItem *)> f)
+void ModelMapper::setOnAnyChildChange(std::function<void (SessionItem *)> f, void *caller)
 {
-    m_onAnyChildChange.push_back(f);
+    m_onAnyChildChange.push_back(call_item_t(f, caller));
+}
+
+//! Cancells all subscribtion of given caller
+void ModelMapper::unsubscribe(void *caller)
+{
+    qDebug() << "XXX" << m_onPropertyChange.size();
+//    m_onPropertyChange.erase(std::remove_if(m_onPropertyChange.begin(), m_onPropertyChange.end(),
+//                           [](call_str_t const & x) -> bool { Q_UNUSED(x); return true; }),
+//            m_onPropertyChange.end());
+
+    clean_container(m_onPropertyChange);
+    qDebug() << "XXX 1.2" << m_onPropertyChange.size();
 }
 
 void ModelMapper::setModel(SessionModel *model)
@@ -113,7 +125,7 @@ void ModelMapper::callOnValueChange()
 {
     if (m_active && m_onValueChange.size() > 0) {
         for (auto f : m_onValueChange) {
-            f();
+            f.first();
         }
     }
     if(m_active) emit valueChange();
@@ -123,7 +135,7 @@ void ModelMapper::callOnPropertyChange(const QString &name)
 {
     if (m_active && m_onPropertyChange.size() > 0) {
         for (auto f : m_onPropertyChange) {
-            f(name);
+            f.first(name);
         }
     }
     if(m_active) emit propertyChange(name);
@@ -133,7 +145,7 @@ void ModelMapper::callOnChildPropertyChange(SessionItem *item, const QString &na
 {
     if (m_active && m_onChildPropertyChange.size() > 0) {
         for (auto f : m_onChildPropertyChange) {
-            f(item, name);
+            f.first(item, name);
         }
     }
     if(m_active) emit childPropertyChange(item, name);
@@ -143,7 +155,7 @@ void ModelMapper::callOnParentChange(SessionItem *new_parent)
 {
     if (m_active && m_onParentChange.size() > 0) {
         for (auto f : m_onParentChange) {
-            f(new_parent);
+            f.first(new_parent);
         }
     }
     if(m_active) emit parentChange(new_parent);
@@ -153,7 +165,7 @@ void ModelMapper::callOnChildrenChange(SessionItem *item)
 {
     if (m_active && m_onChildrenChange.size() > 0) {
         for (auto f : m_onChildrenChange) {
-            f(item);
+            f.first(item);
         }
     }
     if(m_active) emit childrenChange(item);
@@ -163,7 +175,7 @@ void ModelMapper::callOnSiblingsChange()
 {
     if (m_active && m_onSiblingsChange.size() > 0) {
         for (auto f : m_onSiblingsChange) {
-            f();
+            f.first();
         }
     }
     if(m_active) emit siblingsChange();
@@ -173,7 +185,7 @@ void ModelMapper::callOnAnyChildChange(SessionItem *item)
 {
     if (m_active && m_onAnyChildChange.size() > 0) {
         for (auto f : m_onAnyChildChange) {
-            f(item);
+            f.first(item);
         }
     }
     if(m_active) emit anyChildChange(item);

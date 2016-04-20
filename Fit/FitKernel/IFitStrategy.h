@@ -47,7 +47,7 @@ public:
 protected:
     virtual void print(std::ostream &ostr) const;
 
-    FitKernel *m_fit_kernel;
+    FitKernel *m_kernel;
     IFitStrategy(const IFitStrategy &other);
 
 private:

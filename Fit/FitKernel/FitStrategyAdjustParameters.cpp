@@ -33,8 +33,8 @@ FitStrategyAdjustParameters::FitStrategyAdjustParameters(const FitStrategyAdjust
 //! strategy which fixes/releases fit parameters and then call minimizer
 void FitStrategyAdjustParameters::execute()
 {
-    if( !m_fit_kernel ) throw NullPointerException("FitSuiteStrategyAdjustParameters::execute() -> FitSuite doesn't exists");
-    FitSuiteParameters *fitParameters = m_fit_kernel->getFitParameters();
+    if( !m_kernel ) throw NullPointerException("FitSuiteStrategyAdjustParameters::execute() -> FitSuite doesn't exists");
+    FitSuiteParameters *fitParameters = m_kernel->getFitParameters();
 
     // fixing all parameters at they current values
     if( m_fix_all ) {
@@ -67,7 +67,7 @@ void FitStrategyAdjustParameters::execute()
     std::vector<double > original_param_values = fitParameters->getValues();
 
     // calling minimization
-    m_fit_kernel->minimize();
+    m_kernel->minimize();
 
     // returning parameters to original values as they were before minimization
     if(m_preserve_original_values) {

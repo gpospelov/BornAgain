@@ -19,7 +19,7 @@
 #include <cassert>
 
 FitSuiteStrategies::FitSuiteStrategies()
-    : m_fit_kernel(nullptr), m_current_strategy_index(0)
+    : m_kernel(nullptr), m_current_strategy_index(0)
 {
 }
 
@@ -43,8 +43,8 @@ IFitStrategy *FitSuiteStrategies::getCurrentStrategy()
 
 void FitSuiteStrategies::addStrategy(IFitStrategy *strategy)
 {
-    assert(m_fit_kernel);
-    strategy->init(m_fit_kernel);
+    assert(m_kernel);
+    strategy->init(m_kernel);
     m_strategies.push_back(strategy);
 }
 
@@ -52,7 +52,7 @@ void FitSuiteStrategies::minimize()
 {
     m_current_strategy_index = 0;
     if( m_strategies.empty() ) {
-         m_fit_kernel->minimize();
+         m_kernel->minimize();
     } else {
         for(auto it=m_strategies.begin(); it!=m_strategies.end(); ++it) {
             //msglog(MSG::INFO) << "FitSuiteStrategies::minimize() -> Running strategy #" << m_current_strategy_index << " '" << (*it)->getName() << "'";

@@ -65,7 +65,7 @@ void SamplePrintVisitor::visit(const Layer *sample)
     assert(sample);
     std::cout << get_indent() << sample->getName() << " "
               << (sample->getMaterial() ? sample->getMaterial()->getName() : "0_MATERIAL") << " "
-              << sample->getRefractiveIndex() << " " << "<<printParameters temporarily disabled>>" << std::endl;
+              << sample->getRefractiveIndex() << " " << *sample->getParameterPool() << std::endl;
 }
 
 void SamplePrintVisitor::visit(const LayerInterface *sample)
@@ -415,5 +415,6 @@ std::string SamplePrintVisitor::get_indent()
 void SamplePrintVisitor::print_default(const ISample *sample)
 {
     assert(sample);
-    std::cout << get_indent() << sample->getName() << " " << "<<printParameters temporarily disabled>>" << std::endl;
+    std::cout << get_indent() << sample->getName() << " " << (*sample->getParameterPool())
+              << std::endl;
 }

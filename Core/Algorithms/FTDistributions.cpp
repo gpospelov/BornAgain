@@ -24,7 +24,7 @@ using namespace BornAgain;
 
 void IFTDistribution1D::print(std::ostream& ostr) const
 {
-    ostr << getName() << " " << "<<printParameters temporarily disabled>>";
+    ostr << getName() << " " << *getParameterPool();
 }
 
 void IFTDistribution1D::init_parameters()
@@ -172,7 +172,7 @@ void IFTDistribution2D::init_parameters()
 
 void IFTDistribution2D::print(std::ostream& ostr) const
 {
-    ostr << getName() << " " << "<<printParameters temporarily disabled>>";
+    ostr << getName() << " " << *getParameterPool();
 }
 
 FTDistribution2DCauchy::FTDistribution2DCauchy(double coherence_length_x,

@@ -24,7 +24,7 @@ using namespace BornAgain;
 
 void IFTDecayFunction1D::print(std::ostream &ostr) const
 {
-    ostr << getName() << " " << "<<printParameters temporarily disabled>>";
+    ostr << getName() << " " << *getParameterPool();
 }
 
 void IFTDecayFunction1D::init_parameters()
@@ -175,7 +175,7 @@ void IFTDecayFunction2D::transformToStarBasis(double qX, double qY, double alpha
 
 void IFTDecayFunction2D::print(std::ostream &ostr) const
 {
-    ostr << getName() << " " << "<<printParameters temporarily disabled>>";
+    ostr << getName() << " " << *getParameterPool();
 }
 
 void IFTDecayFunction2D::init_parameters()

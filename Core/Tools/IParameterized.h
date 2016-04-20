@@ -36,7 +36,7 @@ public:
     virtual ~IParameterized() {}
 
     //! Returns pointer to the parameter pool.
-//    ParameterPool& getParameterPool() const;
+    const ParameterPool* getParameterPool() const;
 
     //! Creates new parameter pool, with all local parameters and those of its children.
     ParameterPool* createParameterTree() const;
@@ -89,10 +89,10 @@ private:
     std::string m_pattern;
 };
 
-//inline ParameterPool& IParameterized::getParameterPool() const
-//{
-//    return m_parameters;
-//}
+inline const ParameterPool* IParameterized::getParameterPool() const
+{
+    return &m_parameters;
+}
 
 inline void IParameterized::registerParameter(const std::string &name, double *parpointer,
                                               const AttLimits &limits)

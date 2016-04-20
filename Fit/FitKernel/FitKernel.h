@@ -79,7 +79,7 @@ class BA_CORE_API_ FitKernel
     //! Returns reference to fit parameters
     FitSuiteStrategies *getFitStrategies();
 
-    //! if the last iteration is done (used by observers to print summary)
+    //! Returns true if the last iteration is done (used by observers to print summary)
     bool isLastIteration() const;
 
     //! Returns current number of minimization function calls

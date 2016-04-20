@@ -95,7 +95,7 @@ class BA_CORE_API_ IMinimizer
     //! set minimizer option string
     virtual void setOptionString(const std::string& options);
 
-    //! Checks if type of algorithm is Levenberg-Marquardt or similar
+    //! Returns true if type of algorithm is Levenberg-Marquardt or similar
     virtual bool isGradientBasedAgorithm();
 
     //! return name of the minimizer

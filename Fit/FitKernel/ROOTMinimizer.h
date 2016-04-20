@@ -58,11 +58,11 @@ class BA_CORE_API_ ROOTMinimizer : public IMinimizer
 
     virtual double getValueOfVariableAtMinimum(size_t i) const;
 
-    virtual std::vector<double > getValueOfVariablesAtMinimum() const;
+    virtual std::vector<double> getValueOfVariablesAtMinimum() const;
 
     virtual double getErrorOfVariable(size_t i) const;
 
-    virtual std::vector<double > getErrorOfVariables() const;
+    virtual std::vector<double> getErrorOfVariables() const;
 
     virtual void printResults() const;
 
@@ -81,7 +81,7 @@ class BA_CORE_API_ ROOTMinimizer : public IMinimizer
     BA_ROOT::Math::Minimizer *getROOTMinimizer();
     const BA_ROOT::Math::Minimizer *getROOTMinimizer() const;
 
-    //! Checks if type of algorithm is Levenberg-Marquardt or similar
+    //! Returns true if type of algorithm is Levenberg-Marquardt or similar
     virtual bool isGradientBasedAgorithm() { return false;}
 
     //! return name of the minimizer

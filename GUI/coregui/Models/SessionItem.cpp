@@ -39,13 +39,11 @@ public:
 
 const QString SessionItem::P_NAME = "Name";
 
-/*!
- * \brief Constructs new item with given model type. The type must be defined.
- * \param modelType
- */
+//! Constructs new item with given model type. The type must be defined.
+
 SessionItem::SessionItem(const QString &modelType)
-    : m_parent(0)
-    , m_model(0)
+    : m_parent(nullptr)
+    , m_model(nullptr)
 {
     Q_ASSERT(!modelType.isEmpty());
 
@@ -55,9 +53,8 @@ SessionItem::SessionItem(const QString &modelType)
     setLimits(AttLimits::lowerLimited(0.0));
 }
 
-/*!
- * \brief Destructor deletes all its children and request parent to delete this item.
- */
+//! Destructor deletes all its children and request parent to delete this item.
+
 SessionItem::~SessionItem()
 {
     QVector<SessionItem*>::const_iterator it;
@@ -101,26 +98,24 @@ void SessionItem::setModel(SessionModel *model)
 }
 
 
-/*!
- * \brief Returns model of this item.
- */
+
+//! Returns model of this item.
+
 SessionModel *SessionItem::model() const
 {
     return m_model;
 }
 
-/*!
- * \brief Returns parent of this item.
- */
+//! Returns parent of this item.
+
 SessionItem *SessionItem::parent() const
 {
     return m_parent;
 }
 
-/*!
- * \brief Returns model index of this item.
- */
-QModelIndex SessionItem::index() const
+//! Returns model index of this item.
+
+ QModelIndex SessionItem::index() const
 {
     if (m_model) {
         return m_model->indexOfItem(const_cast<SessionItem*>(this));
@@ -128,61 +123,53 @@ QModelIndex SessionItem::index() const
     return QModelIndex();
 }
 
-/*!
- * \brief Returns true when item has children.
- */
+//! Returns true when item has children.
+
 bool SessionItem::hasChildren() const
 {
     return !m_children.isEmpty();
 }
 
-/*!
- * \brief Returns total number of children.
- */
+//! Returns total number of children.
+
 int SessionItem::rowCount() const
 {
     return m_children.count();
 }
 
-/*!
- * \brief Returns vector of all children.
- */
+//! Returns vector of all children.
+
 QVector<SessionItem *> SessionItem::childItems() const
 {
     return m_children;
 }
 
-/*!
- * \brief Returns the child at the given row.
- * \param row
- */
+
+//! Returns the child at the given row.
+
 SessionItem *SessionItem::childAt(int row) const
 {
     return m_children.value(row, nullptr);
 }
 
-/*!
- * \brief Returns row index of given child.
- */
+//! Returns row index of given child.
+
 int SessionItem::rowOfChild(SessionItem *child) const
 {
     return m_children.indexOf(child);
 }
 
-/*!
- * \brief Returns the index of this item within its parent, returns -1 when no parent is set.
- */
+
+//! Returns the index of this item within its parent, returns -1 when no parent is set.
+
 int SessionItem::parentRow() const
 {
     if (m_parent)
         return m_parent->rowOfChild(const_cast<SessionItem*>(this));
-
     return -1;
 }
 
-/*!
- * \brief Returns the first child with the given name.
- */
+//! Returns the first child with the given name.
 SessionItem *SessionItem::getChildByName(const QString &name) const
 {
     for (auto child : m_children) {
@@ -191,9 +178,8 @@ SessionItem *SessionItem::getChildByName(const QString &name) const
     return nullptr;
 }
 
-/*!
- * \brief Returns the first child of the given type.
- */
+//! Returns the first child of the given type.
+
 SessionItem *SessionItem::getChildOfType(const QString &type) const
 {
     for (auto child : m_children) {
@@ -202,9 +188,8 @@ SessionItem *SessionItem::getChildOfType(const QString &type) const
     return nullptr;
 }
 
-/*!
- * \brief Returns a vector of all children of the given type.
- */
+//! Returns a vector of all children of the given type.
+
 QVector<SessionItem *> SessionItem::getChildrenOfType(const QString &model_type) const
 {
     QVector<SessionItem *> result;
@@ -215,9 +200,8 @@ QVector<SessionItem *> SessionItem::getChildrenOfType(const QString &model_type)
     return result;
 }
 
-/*!
- * \brief Removes row from item and returns the item.
- */
+//! Removes row from item and returns the item.
+
 SessionItem *SessionItem::takeRow(int row)
 {
     SessionItem *item = childAt(row);
@@ -226,10 +210,9 @@ SessionItem *SessionItem::takeRow(int row)
     return takeItem(items.indexOf(item), tag);
 }
 
-/*!
- * \brief Add new tag to this item with given name, min, max and types.
- * \brief max = -1 -> unlimited, modelTypes empty -> all types allowed
- */
+//! Add new tag to this item with given name, min, max and types.
+//! max = -1 -> unlimited, modelTypes empty -> all types allowed
+
 bool SessionItem::registerTag(const QString &name, int min, int max, QStringList modelTypes)
 {
     if (min < 0 || (min > max && max >= 0))
@@ -240,17 +223,15 @@ bool SessionItem::registerTag(const QString &name, int min, int max, QStringList
     return true;
 }
 
-/*!
- * \brief Returns true if tag is available.
- */
+//! Returns true if tag is available.
+
 bool SessionItem::isTag(const QString &name) const
 {
     return getTagInfo(name).isValid();
 }
 
-/*!
- * \brief Returns the tag name of given item when existing.
- */
+//! Returns the tag name of given item when existing.
+
 QString SessionItem::tagFromItem(const SessionItem *item) const
 {
     int index = m_children.indexOf(const_cast<SessionItem*>(item));
@@ -268,9 +249,8 @@ QString SessionItem::tagFromItem(const SessionItem *item) const
     return QString();
 }
 
-/*!
- * \brief Returns corresponding tag info.
- */
+//! Returns corresponding tag info.
+
 SessionTagInfo SessionItem::getTagInfo(const QString &tag) const
 {
     QString tagName = tag.isEmpty() ? defaultTag() : tag;
@@ -283,17 +263,15 @@ SessionTagInfo SessionItem::getTagInfo(const QString &tag) const
     return SessionTagInfo();
 }
 
-/*!
- * \brief Checks if model type can be added to default tag.
- */
+//! Returns true if model type can be added to default tag.
+
 bool SessionItem::acceptsAsDefaultItem(const QString &item_name) const
 {
     return getTagInfo(defaultTag()).modelTypes.contains(item_name);
 }
 
-/*!
- * \brief Returns vector of acceptable default tag types.
- */
+//! Returns vector of acceptable default tag types.
+
 QVector<QString> SessionItem::acceptableDefaultItemTypes() const
 {
     return getTagInfo(defaultTag()).modelTypes.toVector();
@@ -315,9 +293,8 @@ int SessionItem::tagStartIndex(const QString &name) const
     return -1;
 }
 
-/*!
- * \brief Returns item in given row of given tag.
- */
+//! Returns item in given row of given tag.
+
 SessionItem *SessionItem::getItem(const QString &tag, int row) const
 {
     const QString tagName = tag.isEmpty() ? defaultTag() : tag;
@@ -333,9 +310,8 @@ SessionItem *SessionItem::getItem(const QString &tag, int row) const
     return m_children[index];
 }
 
-/*!
- * \brief Returns vector of all items of given tag.
- */
+//! Returns vector of all items of given tag.
+
 QVector<SessionItem *> SessionItem::getItems(const QString &tag) const
 {
     const QString tagName = tag.isEmpty() ? defaultTag() : tag;
@@ -347,9 +323,8 @@ QVector<SessionItem *> SessionItem::getItems(const QString &tag) const
     return m_children.mid(index, tagInfo.childCount);
 }
 
-/*!
- * \brief Insert item into given tag into given row.
- */
+//! Insert item into given tag into given row.
+
 bool SessionItem::insertItem(int row, SessionItem *item, const QString &tag)
 {
     if (!item)
@@ -395,9 +370,8 @@ bool SessionItem::insertItem(int row, SessionItem *item, const QString &tag)
     return true;
 }
 
-/*!
- * \brief Remove item from given row from given tag.
- */
+//! Remove item from given row from given tag.
+
 SessionItem *SessionItem::takeItem(int row, const QString &tag)
 {
     const QString tagName = tag.isEmpty() ? defaultTag() : tag;
@@ -428,9 +402,8 @@ SessionItem *SessionItem::takeItem(int row, const QString &tag)
     return result;
 }
 
-/*!
- * \brief Add new property item and register new tag.
- */
+//! Add new property item and register new tag.
+
 SessionItem *SessionItem::addProperty(const QString &name, const QVariant &variant)
 {
     if (isTag(name))
@@ -448,9 +421,8 @@ SessionItem *SessionItem::addProperty(const QString &name, const QVariant &varia
     return property;
 }
 
-/*!
- * \brief Directly access value of item under given tag.
- */
+//! Directly access value of item under given tag.
+
 QVariant SessionItem::getItemValue(const QString &tag) const
 {
     if (!isTag(tag))
@@ -461,9 +433,8 @@ QVariant SessionItem::getItemValue(const QString &tag) const
     return getItem(tag)->value();
 }
 
-/*!
- * \brief Directly set value of item under given tag.
- */
+//! Directly set value of item under given tag.
+
 void SessionItem::setItemValue(const QString &tag, const QVariant &variant)
 {
     // check if variant of previous property coincides with new one
@@ -473,9 +444,8 @@ void SessionItem::setItemValue(const QString &tag, const QVariant &variant)
      getItem(tag)->setValue(variant);
 }
 
-/*!
- * \brief Creates new group item and register new tag.
- */
+//! Creates new group item and register new tag.
+
 SessionItem *SessionItem::addGroupProperty(const QString &groupName, const QString &groupType)
 {
     SessionItem *result(0);
@@ -507,9 +477,8 @@ SessionItem *SessionItem::addGroupProperty(const QString &groupName, const QStri
     return result;
 }
 
-/*!
- * \brief Access subitem of group item. If not existing, new item will be created by group property.
- */
+//! Access subitem of group item. If not existing, new item will be created by group property.
+
 SessionItem *SessionItem::getGroupItem(const QString &name, const QString &type) const
 {
     if (GroupItem *item = dynamic_cast<GroupItem *>(getItem(name))) {
@@ -526,9 +495,8 @@ SessionItem *SessionItem::getGroupItem(const QString &name, const QString &type)
     return nullptr;
 }
 
-/*!
- * \brief Set the current type of group item.
- */
+//! Set the current type of group item.
+
 SessionItem *SessionItem::setGroupProperty(const QString &name, const QString &value) const
 {
     qDebug() << "ParameterizedItem::setGroupProperty()" << name << value;
@@ -540,9 +508,8 @@ SessionItem *SessionItem::setGroupProperty(const QString &name, const QString &v
     return nullptr;
 }
 
-/*!
- * \brief Returns corresponding variant under given role, invalid variant when role is not present.
- */
+//! Returns corresponding variant under given role, invalid variant when role is not present.
+
 QVariant SessionItem::data(int role) const
 {
     role = (role == Qt::EditRole) ? Qt::DisplayRole : role;
@@ -554,9 +521,8 @@ QVariant SessionItem::data(int role) const
     return QVariant();
 }
 
-/*!
- * \brief Set variant to role, create role if not present yet.
- */
+//! Set variant to role, create role if not present yet.
+
 bool SessionItem::setData(int role, const QVariant &value)
 {
     role = (role == Qt::EditRole) ? Qt::DisplayRole : role;
@@ -582,9 +548,8 @@ bool SessionItem::setData(int role, const QVariant &value)
     return true;
 }
 
-/*!
- * \brief Returns vector of all present roles.
- */
+//! Returns vector of all present roles.
+
 QVector<int> SessionItem::getRoles() const
 {
     QVector<int> result;
@@ -595,9 +560,8 @@ QVector<int> SessionItem::getRoles() const
     return result;
 }
 
-/*!
- * \brief Notify model about data changes.
- */
+//! Notify model about data changes.
+
 void SessionItem::emitDataChanged(int role)
 {
     if (m_model) {
@@ -628,25 +592,22 @@ void SessionItem::changeFlags(bool enabled, int flag)
     setData(SessionModel::FlagRole, flags);
 }
 
-/*!
- * \brief Get model type
- */
+//! Get model type
+
 QString SessionItem::modelType() const
 {
     return data(SessionModel::ModelTypeRole).toString();
 }
 
-/*!
- * \brief Get value
- */
+//! Get value
+
 QVariant SessionItem::value() const
 {
     return data(Qt::DisplayRole);
 }
 
-/*!
- * \brief Set value, ensure that variant types match.
- */
+//! Set value, ensure that variant types match.
+
 bool SessionItem::setValue(QVariant value)
 {
     QVariant previous_variant = this->value();
@@ -661,25 +622,22 @@ bool SessionItem::setValue(QVariant value)
     return setData(Qt::DisplayRole, value);
 }
 
-/*!
- * \brief Get default tag
- */
+//! Get default tag
+
 QString SessionItem::defaultTag() const
 {
     return data(SessionModel::DefaultTagRole).toString();
 }
 
-/*!
- * \brief Set default tag
- */
+//! Set default tag
+
 void SessionItem::setDefaultTag(const QString &tag)
 {
     setData(SessionModel::DefaultTagRole, tag);
 }
 
-/*!
- * \brief Get display name of item, append index if ambigue.
- */
+//! Get display name of item, append index if ambigue.
+
 QString SessionItem::displayName() const
 {
     QString result = data(SessionModel::DisplayNameRole).toString();
@@ -706,9 +664,8 @@ QString SessionItem::displayName() const
     return result;
 }
 
-/*!
- * \brief Set display name
- */
+//! Set display name
+
 void SessionItem::setDisplayName(const QString &display_name)
 {
     setData(SessionModel::DisplayNameRole, display_name);
@@ -735,9 +692,8 @@ int SessionItem::getCopyNumberOfChild(const SessionItem *item) const
     return -1;
 }
 
-/*!
- * \brief Get item name, return display name if no name is set.
- */
+//! Get item name, return display name if no name is set.
+
 QString SessionItem::itemName() const
 {
     if (isTag(P_NAME)) {
@@ -747,9 +703,8 @@ QString SessionItem::itemName() const
     }
 }
 
-/*!
- * \brief Set item name, add property if necessary.
- */
+//! Set item name, add property if necessary.
+
 void SessionItem::setItemName(const QString &name)
 {
     if (isTag(P_NAME)) {
@@ -832,17 +787,15 @@ void SessionItem::setToolTip(const QString &tooltip)
     setData(Qt::ToolTipRole, tooltip);
 }
 
-/*!
- * \brief Returns label of item shown in property editor.
- */
+//! Returns label of item shown in property editor.
+
 QString SessionItem::itemLabel() const
 {
     return QString("");
 }
 
-/*!
- * \brief Returns the current model mapper of this item. Creates new one if necessary.
- */
+//! Returns the current model mapper of this item. Creates new one if necessary.
+
 ModelMapper *SessionItem::mapper()
 {
     if (!m_mapper) {

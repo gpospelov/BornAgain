@@ -47,7 +47,7 @@ public:
     virtual DWBASimulation *clone() const;
 
 protected:
-    //! Checks if the sample requires a polarized calculation
+    //! Returns true if the sample requires a polarized calculation
     bool checkPolarizationPresent() const;
 
     //! Iterators that defines the sequence of elements that this simulation will work on

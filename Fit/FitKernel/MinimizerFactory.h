@@ -29,30 +29,13 @@
 class BA_CORE_API_ MinimizerFactory
 {
  public:
-    static IMinimizer *createMinimizer(const std::string& minimizer, const std::string& algorithm = std::string(), const std::string& options=std::string() );
+    static IMinimizer *createMinimizer(
+        const std::string& minimizer,
+        const std::string& algorithm="",
+        const std::string& options="" );
     static void printCatalogue();
-
-    //! Create minimizer using existing one. Only minimizer type and minimizer settings are propagated.
-    static IMinimizer *createMinimizer(const IMinimizer *minimizer);
-
- private:
-
-    //! @class map of minimizer names holding list of defined algorithms for every minimizer
-    class Catalogue {
-    public:
-        typedef std::map<std::string, std::vector<std::string > > catalogue_t;
-        typedef catalogue_t::const_iterator const_iterator;
-        Catalogue();
-        const_iterator begin() const { return m_data.begin(); }
-        const_iterator end() const { return m_data.end(); }
-        bool isValid(const std::string& minimizer, const std::string& algorithm) const;
-        friend std::ostream& operator<<(std::ostream& ostr, const Catalogue& m) { m.print(ostr); return ostr; }
-    private:
-        void print(std::ostream& ostr) const;
-        catalogue_t m_data;
-    };
-
-    static Catalogue m_catalogue;
+    //! Returns copy of minimizer type and settings. No full clone, would be too heavy!
+    static IMinimizer *createMinimizer(const IMinimizer *other);
 };
 
 #endif // MINIMIZERFACTORY_H

@@ -46,41 +46,59 @@ ColorMapPlot::~ColorMapPlot()
 //! initializes everything with new IntensityDataItem or plot it, if it was already the case
 void ColorMapPlot::setItem(IntensityDataItem *item)
 {
-    if (item && (m_item == item)) {
-        // qDebug() << "ColorMapPlot::setItem(NIntensityDataItem *item) item==m_item";
-        plotItem(m_item);
+    if(item == m_item) {
+        if(m_item)
+            plotItem(m_item);
         return;
+
+    } else {
+        if(m_item)
+            m_item->mapper()->unsubscribe(this);
+
+        m_item = item;
+        if(!m_item) return;
+
+        plotItem(m_item);
+
+        m_item->mapper()->setOnPropertyChange(
+                    [this](const QString &name)
+        {
+            onPropertyChanged(name);
+            onIntensityModified();
+        }, this);
+        m_item->mapper()->setOnChildPropertyChange(
+                    [this](SessionItem* item, const QString name)
+        {
+                onSubItemPropertyChanged(item->itemName(), name);
+        }, this);
+
     }
 
-//    if (m_item) {
-//        disconnect(m_item, SIGNAL(intensityModified()), this,
-//                   SLOT(onIntensityModified()));
-//    }
 
-    m_item = item;
+//    m_item = item;
 
-    if (!m_item)
-        return;
+//    if (!m_item)
+//        return;
 
-    plotItem(m_item);
+//    plotItem(m_item);
 
-//    connect(m_item, SIGNAL(intensityModified()), this,
-//               SLOT(onIntensityModified()));
-    m_mapper.reset(new ModelMapper);
+////    connect(m_item, SIGNAL(intensityModified()), this,
+////               SLOT(onIntensityModified()));
+//    m_mapper.reset(new ModelMapper);
 
-    m_mapper->setItem(item);
-    m_mapper->setOnPropertyChange(
-                [this](const QString &name)
-    {
-        onPropertyChanged(name);
-        onIntensityModified();
-    });
-    m_mapper->setOnChildPropertyChange(
-                [this](SessionItem* item, const QString name)
-    {
-//        if (item->parent() && item->parent()->modelType() == Constants::GroupItemType)
-            onSubItemPropertyChanged(item->itemName(), name);
-    });
+//    m_mapper->setItem(item);
+//    m_mapper->setOnPropertyChange(
+//                [this](const QString &name)
+//    {
+//        onPropertyChanged(name);
+//        onIntensityModified();
+//    });
+//    m_mapper->setOnChildPropertyChange(
+//                [this](SessionItem* item, const QString name)
+//    {
+////        if (item->parent() && item->parent()->modelType() == Constants::GroupItemType)
+//            onSubItemPropertyChanged(item->itemName(), name);
+//    });
 }
 
 //! returns string containing bin content information

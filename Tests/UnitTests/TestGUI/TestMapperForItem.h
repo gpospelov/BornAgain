@@ -124,12 +124,12 @@ public:
         , m_mapped_item(0)
     { }
 
-    void setItem(SessionItem *item, Widget *widget, bool with_subscription = false)
+    void setItem(SessionItem *item, Widget *widget = 0, bool with_subscription = false)
     {
         m_mapped_item = item;
         m_mapper.reset(new ModelMapper);
         m_mapper->setItem(item);
-        widget->subscribe(m_mapper.get(), with_subscription);
+        if(widget) widget->subscribe(m_mapper.get(), with_subscription);
     }
 
 private:
@@ -143,6 +143,7 @@ private slots:
     void test_onChildrenChange();
     void test_onSiblingsChange();
     void test_Subscription();
+    void test_TwoWidgetsSubscription();
 };
 
 inline void TestMapperForItem::test_initialCondition()
@@ -310,9 +311,35 @@ inline void TestMapperForItem::test_Subscription()
     layer->setItemValue(LayerItem::P_THICKNESS, 2.0);
     QCOMPARE(w.m_onPropertyChangeCount, 2);
 
+    // unsubscribe widget and check that it doesn't react on item value change
     w.unsubscribe(m_mapper.get());
     layer->setItemValue(LayerItem::P_THICKNESS, 3.0);
     QCOMPARE(w.m_onPropertyChangeCount, 2);
+}
+
+inline void TestMapperForItem::test_TwoWidgetsSubscription()
+{
+    Widget w1, w2;
+    SampleModel model;
+    SessionItem *multilayer = model.insertNewItem(Constants::MultiLayerType);
+    SessionItem *layer = model.insertNewItem(Constants::LayerType, model.indexOfItem(multilayer));
+
+    // Mapper is looking on child; set property of child
+    setItem(layer);
+    w1.subscribe(m_mapper.get(), true);
+    w2.subscribe(m_mapper.get(), true);
+    QCOMPARE(w1.m_onPropertyChangeCount, 0);
+    QCOMPARE(w2.m_onPropertyChangeCount, 0);
+
+    layer->setItemValue(LayerItem::P_THICKNESS, 1.0);
+    QCOMPARE(w1.m_onPropertyChangeCount, 1);
+    QCOMPARE(w2.m_onPropertyChangeCount, 1);
+
+    w1.unsubscribe(m_mapper.get());
+    layer->setItemValue(LayerItem::P_THICKNESS, 2.0);
+    QCOMPARE(w1.m_onPropertyChangeCount, 1);
+    QCOMPARE(w2.m_onPropertyChangeCount, 2);
+
 }
 
 

@@ -204,7 +204,7 @@ void DesignerScene::onSceneSelectionChanged()
     for (int i = 0; i < selected.size(); ++i) {
         IView *view = dynamic_cast<IView *>(selected[i]);
         if (view) {
-            SessionItem *sampleItem = view->getParameterizedItem();
+            SessionItem *sampleItem = view->getItem();
             QModelIndex itemIndex = m_sampleModel->indexOfItem(sampleItem);
             Q_ASSERT(itemIndex.isValid());
             if (!m_selectionModel->isSelected(m_proxy->mapFromSource(itemIndex)))
@@ -241,7 +241,7 @@ void DesignerScene::updateViews(const QModelIndex &parentIndex, IView *parentVie
                 if (parentView) {
                     qDebug() << "       DesignerScene::updateViews() -> adding child "
                              << item->modelType() << " to parent"
-                             << parentView->getParameterizedItem()->modelType();
+                             << parentView->getItem()->modelType();
                     parentView->addView(childView, childCount++);
                 }
             }
@@ -380,11 +380,11 @@ void DesignerScene::onEstablishedConnection(NodeEditorConnection *connection)
 //    childView->getParameterizedItem()->setPort(input_port_index);
     qDebug() << parentView->getInputPortIndex(connection->getInputPort());
     QString tag;
-    if (connection->getParentView()->getParameterizedItem()->modelType() == Constants::ParticleLayoutType) {
+    if (connection->getParentView()->getItem()->modelType() == Constants::ParticleLayoutType) {
         if (connection->getInputPort()->getPortType() == NodeEditorPort::INTERFERENCE)
             tag = ParticleLayoutItem::T_INTERFERENCE;
     }
-    else if (connection->getParentView()->getParameterizedItem()->modelType() == Constants::ParticleCoreShellType) {
+    else if (connection->getParentView()->getItem()->modelType() == Constants::ParticleCoreShellType) {
         if (parentView->getInputPortIndex(connection->getInputPort()) == 0)
             tag = ParticleCoreShellItem::T_CORE;
         else if (parentView->getInputPortIndex(connection->getInputPort()) == 1)
@@ -392,14 +392,14 @@ void DesignerScene::onEstablishedConnection(NodeEditorConnection *connection)
         else if (connection->getInputPort()->getPortType() == NodeEditorPort::TRANSFORMATION)
             tag = ParticleItem::T_TRANSFORMATION;
 
-    } else if (connection->getParentView()->getParameterizedItem()->modelType() == Constants::ParticleCompositionType) {
+    } else if (connection->getParentView()->getItem()->modelType() == Constants::ParticleCompositionType) {
         if (connection->getInputPort()->getPortType() == NodeEditorPort::TRANSFORMATION)
             tag = ParticleItem::T_TRANSFORMATION;
     }
     delete connection; // deleting just created connection because it will be recreated from the
                        // model
-    m_sampleModel->moveParameterizedItem(childView->getParameterizedItem(),
-                                         parentView->getParameterizedItem(), -1, tag);
+    m_sampleModel->moveParameterizedItem(childView->getItem(),
+                                         parentView->getItem(), -1, tag);
 }
 
 //! propagates break of connection between views on scene to the model
@@ -407,7 +407,7 @@ void DesignerScene::removeConnection(NodeEditorConnection *connection)
 {
     qDebug() << "DesignerScene::removeConnection()";
     IView *childView = dynamic_cast<IView *>(connection->getOutputPort()->parentItem());
-    m_sampleModel->moveParameterizedItem(childView->getParameterizedItem(), 0);
+    m_sampleModel->moveParameterizedItem(childView->getItem(), 0);
 }
 
 //! handles drag event

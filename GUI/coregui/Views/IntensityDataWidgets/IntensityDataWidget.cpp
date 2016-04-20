@@ -59,14 +59,40 @@ void IntensityDataWidget::setItem(IntensityDataItem *item)
     m_plotWidget->setItem(item);
     m_propertyWidget->setItem(item);
 
-    if (m_currentItem == item) return;
+    if (m_currentItem == item) {
+        return;
+
+    } else {
+        if(m_currentItem)
+            m_currentItem->mapper()->unsubscribe(this);
+
+        m_currentItem = item;
+        if (!m_currentItem) return;
+
+        setPropertyPanelVisible(m_currentItem->getItemValue(IntensityDataItem::P_PROPERTY_PANEL_FLAG).toBool());
+
+        m_currentItem->mapper()->setOnPropertyChange(
+                     [this](const QString &name)
+        {
+            if(name == IntensityDataItem::P_PROPERTY_PANEL_FLAG) {
+                setPropertyPanelVisible(m_currentItem->getItemValue(IntensityDataItem::P_PROPERTY_PANEL_FLAG).toBool());
+            }
+        }, this);
+    }
 
 
-    m_currentItem = item;
+//    m_plotWidget->setItem(item);
+//    m_propertyWidget->setItem(item);
 
-    if (!m_currentItem) return;
+//    if (m_currentItem == item) return;
 
-    updateItem(m_currentItem);
+
+//    m_currentItem = item;
+
+//    if (!m_currentItem) return;
+
+//    updateItem(m_currentItem);
+
 }
 
 void IntensityDataWidget::togglePropertyPanel()
@@ -88,20 +114,20 @@ void IntensityDataWidget::setPropertyPanelVisible(bool visible)
     m_propertyWidget->setVisible(visible);
 }
 
-void IntensityDataWidget::updateItem(IntensityDataItem *item)
-{
-    setPropertyPanelVisible(item->getItemValue(IntensityDataItem::P_PROPERTY_PANEL_FLAG).toBool());
+//void IntensityDataWidget::updateItem(IntensityDataItem *item)
+//{
+//    setPropertyPanelVisible(item->getItemValue(IntensityDataItem::P_PROPERTY_PANEL_FLAG).toBool());
 
-    m_mapper.reset(new ModelMapper);
-    m_mapper->setItem(item);
-    m_mapper->setOnPropertyChange(
-                 [this](const QString &name)
-    {
-        if(name == IntensityDataItem::P_PROPERTY_PANEL_FLAG) {
-            setPropertyPanelVisible(m_currentItem->getItemValue(IntensityDataItem::P_PROPERTY_PANEL_FLAG).toBool());
-        }
-    });
-}
+//    m_mapper.reset(new ModelMapper);
+//    m_mapper->setItem(item);
+//    m_mapper->setOnPropertyChange(
+//                 [this](const QString &name)
+//    {
+//        if(name == IntensityDataItem::P_PROPERTY_PANEL_FLAG) {
+//            setPropertyPanelVisible(m_currentItem->getItemValue(IntensityDataItem::P_PROPERTY_PANEL_FLAG).toBool());
+//        }
+//    });
+//}
 
 void IntensityDataWidget::toggleProjections()
 {

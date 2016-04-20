@@ -27,7 +27,6 @@ class VerticalSlicePlot;
 class ColorMapPlot;
 class QLabel;
 class IntensityDataItem;
-class ModelMapper;
 
 //! The widget contains IntensityDataItem color map, two projections and all
 //! logic. Belongs to IntensityDataWidget.
@@ -82,7 +81,6 @@ private:
     int m_leftHistogramArea;
     int m_bottomHistogramArea;
     IntensityDataItem *m_item;
-    std::unique_ptr<ModelMapper> m_mapper;
 };
 
 #endif

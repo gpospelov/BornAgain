@@ -29,7 +29,6 @@ class QCustomPlot;
 class DistributionItem;
 class QCPRange;
 class QAction;
-class ModelMapper;
 
 //! The DistributionWidget class plots 1d functions corresponding to domain's Distribution1D
 class DistributionWidget : public QWidget
@@ -64,7 +63,6 @@ private:
     QCPRange *m_xRange;
     QCPRange *m_yRange;
     WarningSignWidget *m_warningSign;
-    std::unique_ptr<ModelMapper> m_mapper;
 };
 
 #endif

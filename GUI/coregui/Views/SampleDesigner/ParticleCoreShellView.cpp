@@ -42,9 +42,9 @@ void ParticleCoreShellView::addView(IView *childView, int /* row */)
 //                    ->getRegisteredProperty(ParameterizedItem::OBSOLETE_P_PORT)
 //                    .toInt();
     int index = 0;
-    if (this->getParameterizedItem()->tagFromItem(childView->getParameterizedItem()) == ParticleCoreShellItem::T_CORE) {
+    if (this->getItem()->tagFromItem(childView->getItem()) == ParticleCoreShellItem::T_CORE) {
         index = 0;
-    } else if (this->getParameterizedItem()->tagFromItem(childView->getParameterizedItem()) == ParticleCoreShellItem::T_SHELL) {
+    } else if (this->getItem()->tagFromItem(childView->getItem()) == ParticleCoreShellItem::T_SHELL) {
         index = 1;
     } else {
         index = 2;

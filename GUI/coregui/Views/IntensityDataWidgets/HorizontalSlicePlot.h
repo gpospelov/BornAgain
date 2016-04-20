@@ -24,7 +24,6 @@
 class IntensityDataItem;
 class QCustomPlot;
 class QCPBars;
-class ModelMapper;
 
 //! Slice of 2D IntensityData along x-axis
 //!  FIXME functionality has to be merged with VerticalSlicePlot (code duplication)
@@ -59,7 +58,6 @@ private:
     QCustomPlot *m_customPlot;
     QCPBars *m_bars;
     IntensityDataItem *m_item;
-    std::unique_ptr<ModelMapper> m_mapper;
 };
 
 #endif

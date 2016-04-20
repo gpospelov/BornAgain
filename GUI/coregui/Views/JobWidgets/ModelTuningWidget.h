@@ -28,7 +28,6 @@ class QTreeView;
 class SampleModel;
 class InstrumentModel;
 class WarningSignWidget;
-class ModelMapper;
 class SessionItem;
 class FitTools;
 
@@ -65,7 +64,6 @@ private:
     ModelTuningDelegate *m_delegate;
     WarningSignWidget *m_warningSign;
     FitTools *m_fitTools;
-    std::unique_ptr<ModelMapper> m_mapper;
 };
 
 #endif

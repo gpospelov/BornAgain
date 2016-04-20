@@ -100,7 +100,7 @@ void ParticleView::updatePixmap()
 {
     GroupProperty_t group_property
         = dynamic_cast<GroupItem *>(
-              getParameterizedItem()->getItem(ParticleItem::P_FORM_FACTOR))
+              getItem()->getItem(ParticleItem::P_FORM_FACTOR))
               ->group();
     QString current_ff_type = group_property->getCurrentType();
     QString filename

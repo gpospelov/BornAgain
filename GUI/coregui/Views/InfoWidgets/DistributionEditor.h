@@ -25,7 +25,6 @@ class QGroupBox;
 class DistributionWidget;
 class GroupItem;
 class ComponentBoxEditor;
-class ModelMapper;
 
 //! The DistributionEditor class, being a child of DistributionDialog, contains a widget
 //! to show Distribution1D and awesome property editor to change distribution parameters
@@ -49,7 +48,6 @@ private:
     DistributionWidget *m_plotwidget;
     QString m_nameOfEditor;
     QGroupBox *m_box;
-    std::unique_ptr<ModelMapper> m_mapper;
 };
 
 #endif

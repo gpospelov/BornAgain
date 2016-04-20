@@ -118,7 +118,7 @@ QList<IView *> SampleViewAligner::getConnectedViews(IView *view)
 {
     QList<IView *> result;
 
-    SessionItem *itemOfView = view->getParameterizedItem();
+    SessionItem *itemOfView = view->getItem();
 
     QList<SessionItem *> connected_items;
 

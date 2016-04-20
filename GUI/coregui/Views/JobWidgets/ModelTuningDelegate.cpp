@@ -183,7 +183,7 @@ QWidget *ModelTuningDelegate::createEditor(QWidget *parent,
         m_contentLayout->addWidget(m_valueBox);
         m_contentLayout->addWidget(m_slider);
 
-//        ModelMapper *mapper = new ModelMapper(m_contentWidget);
+////        ModelMapper *mapper = new ModelMapper(m_contentWidget);
 
         m_mapper.reset(new ModelMapper);
         m_mapper->setItem(m_currentItem);
@@ -191,6 +191,14 @@ QWidget *ModelTuningDelegate::createEditor(QWidget *parent,
                     [this](){
             m_valueBox->setValue(m_currentItem->value().toDouble());
         });
+
+//        m_currentItem->mapper()->unsubscribe(this);
+//        m_currentItem->mapper()->setOnValueChange(
+//                     [this](){
+//              m_valueBox->setValue(m_currentItem->value().toDouble());
+//         }, this);
+
+
 
         m_contentWidget->setLayout(m_contentLayout);
 

@@ -35,7 +35,6 @@ protected:
    virtual void propagateOptions();
 
    BA_ROOT::Math::GeneticMinimizer *m_genetic_minimizer;
-
 };
 
 #endif // ROOTGENETICMINIMIZER_H

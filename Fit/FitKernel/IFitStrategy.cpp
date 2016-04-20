@@ -17,18 +17,18 @@
 #include "FitKernel.h"
 
 IFitStrategy::IFitStrategy()
-    : m_fit_kernel(nullptr)
+    : m_kernel(nullptr)
 {
 }
 
 IFitStrategy::IFitStrategy(const std::string &name)
-    : INamed(name), m_fit_kernel(nullptr)
+    : INamed(name), m_kernel(nullptr)
 {
 }
 
 void IFitStrategy::init(FitKernel *fit_suite)
 {
-    m_fit_kernel = fit_suite;
+    m_kernel = fit_suite;
 }
 
 void IFitStrategy::print(std::ostream &ostr) const
@@ -39,7 +39,7 @@ void IFitStrategy::print(std::ostream &ostr) const
 IFitStrategy::IFitStrategy(const IFitStrategy &other)
     : INamed(other)
 {
-    m_fit_kernel = other.m_fit_kernel;
+    m_kernel = other.m_kernel;
 }
 
 // ----------------------------------------------------------------------------
@@ -56,9 +56,9 @@ IFitStrategy *FitStrategyDefault::clone() const
 
 void FitStrategyDefault::execute()
 {
-    if( !m_fit_kernel )
+    if( !m_kernel )
         throw NullPointerException("FitStrategyDefault::execute() -> FitSuite doesn't exists");
 
     // calling minimization
-    m_fit_kernel->minimize();
+    m_kernel->minimize();
 }

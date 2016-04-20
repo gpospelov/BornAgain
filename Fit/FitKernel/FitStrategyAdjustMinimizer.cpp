@@ -66,9 +66,9 @@ void FitStrategyAdjustMinimizer::setMinimizer(const std::string &minimizer_name,
 void FitStrategyAdjustMinimizer::execute()
 {
 
-    m_fit_kernel->setMinimizer( MinimizerFactory::createMinimizer(m_minimizer) );
+    m_kernel->setMinimizer( MinimizerFactory::createMinimizer(m_minimizer) );
 
-    m_fit_kernel->minimize();
+    m_kernel->minimize();
 
     //m_fit_suite->printResults();
 }

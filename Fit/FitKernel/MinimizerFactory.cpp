@@ -23,12 +23,29 @@
 #include "ROOTGeneticMinimizer.h"
 #include <iomanip>
 
-MinimizerFactory::Catalogue MinimizerFactory::m_catalogue =
-        MinimizerFactory::Catalogue();
+// ************************************************************************** //
+// auxiliary class MinimizerCatalogue
+// ************************************************************************** //
+
+//! @class map of minimizer names holding list of defined algorithms for every minimizer
+class MinimizerCatalogue {
+public:
+    typedef std::map<std::string, std::vector<std::string > > catalogue_t;
+    typedef catalogue_t::const_iterator const_iterator;
+    MinimizerCatalogue();
+    const_iterator begin() const { return m_data.begin(); }
+    const_iterator end() const { return m_data.end(); }
+    bool isValid(const std::string& minimizer, const std::string& algorithm) const;
+    friend std::ostream& operator<<(std::ostream& ostr, const MinimizerCatalogue& m)
+        { m.print(ostr); return ostr; }
+private:
+    void print(std::ostream& ostr) const;
+    catalogue_t m_data;
+};
 
 // constructing map of minimizer names holding list of defined algorithms
 // for every minimizer
-MinimizerFactory::Catalogue::Catalogue()
+MinimizerCatalogue::MinimizerCatalogue()
 {
     // our minimizers
     //m_data["Test"]        = {""};
@@ -43,9 +60,9 @@ MinimizerFactory::Catalogue::Catalogue()
 }
 
 
-void MinimizerFactory::Catalogue::print(std::ostream& ostr) const
+void MinimizerCatalogue::print(std::ostream& ostr) const
 {
-    for(MinimizerFactory::Catalogue::const_iterator it=m_data.begin(); it!=m_data.end(); ++it) {
+    for(MinimizerCatalogue::const_iterator it=m_data.begin(); it!=m_data.end(); ++it) {
         ostr << std::setw(20) << std::left<< it->first << "  : ";
         for(size_t i=0; i<it->second.size(); ++i ) {
             ostr << it->second[i] << " ";
@@ -56,10 +73,10 @@ void MinimizerFactory::Catalogue::print(std::ostream& ostr) const
 }
 
 
-bool MinimizerFactory::Catalogue::isValid(const std::string& minimizer, const std::string& algorithm) const
+bool MinimizerCatalogue::isValid(const std::string& minimizer, const std::string& algorithm) const
 {
     // check minimizers names
-    MinimizerFactory::Catalogue::const_iterator it = m_data.find(minimizer);
+    MinimizerCatalogue::const_iterator it = m_data.find(minimizer);
     if(it != m_data.end() ) {
         // check minimizer's algorithm type
         for(size_t i=0; i<it->second.size(); ++i ) if(it->second[i] == algorithm ) return true;
@@ -67,19 +84,25 @@ bool MinimizerFactory::Catalogue::isValid(const std::string& minimizer, const st
     return false;
 }
 
+// ************************************************************************** //
+// class MinimizerFactory
+// ************************************************************************** //
+
+static MinimizerCatalogue catalogue;
+
 void MinimizerFactory::printCatalogue()
 {
-    std::cout << m_catalogue;
+    std::cout << catalogue;
 }
 
 
 IMinimizer *MinimizerFactory::createMinimizer(const std::string& minimizer, const std::string& algorithm, const std::string& options)
 {
-    if( !m_catalogue.isValid(minimizer, algorithm) ) {
+    if( !catalogue.isValid(minimizer, algorithm) ) {
         std::ostringstream ostr;
         ostr << "MinimizerFactory::MinimizerFactory() -> Error! Wrong minimizer name '" << minimizer << "' or algorithm '" << algorithm << "'" << std::endl;
         ostr << "Possible names are:" << std::endl;
-        ostr << m_catalogue;
+        ostr << catalogue;
         throw LogicErrorException(ostr.str());
     }
 
@@ -126,9 +149,9 @@ IMinimizer *MinimizerFactory::createMinimizer(const std::string& minimizer, cons
 //! This method serves as a kind of 'shallow' clone for minimizer.
 //! The reason why the minimizer doesn't have own clone method is because of complicate structure of
 //! ROOT minimizer internals.
-IMinimizer *MinimizerFactory::createMinimizer(const IMinimizer *minimizer)
+IMinimizer *MinimizerFactory::createMinimizer(const IMinimizer *other)
 {
-    IMinimizer *result = createMinimizer(minimizer->getMinimizerName(), minimizer->getAlgorithmName());
-    result->setOptions(*minimizer->getOptions());
+    IMinimizer *result = createMinimizer(other->getMinimizerName(), other->getAlgorithmName());
+    result->setOptions(*other->getOptions());
     return result;
 }

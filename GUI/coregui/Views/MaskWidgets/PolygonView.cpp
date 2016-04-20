@@ -73,8 +73,8 @@ QPointF PolygonView::getLastAddedPoint() const
     return result;
 }
 
-//! checks if there was a request to close polygon (emitted by its start point),
-//! and then closes a polygon. Return true if polygon was closed.
+//! Returns true if there was a request to close polygon (emitted by its start point),
+//! and then closes a polygon. Returns true if polygon was closed.
 bool PolygonView::closePolygonIfNecessary()
 {
     if(m_close_polygon_request) {

@@ -20359,7 +20359,7 @@ class ParameterPool(ICloneable):
         """
         addParameter(ParameterPool self, std::string const & name, RealParameterWrapper par)
 
-        void ParameterPool::addParameter(const std::string &name, parameter_t par)
+        void ParameterPool::addParameter(const std::string &name, RealParameterWrapper par)
 
         Adds parameter to the pool.
 
@@ -20373,7 +20373,7 @@ class ParameterPool(ICloneable):
         """
         getParameter(ParameterPool self, std::string const & name) -> RealParameterWrapper
 
-        ParameterPool::parameter_t ParameterPool::getParameter(const std::string &name) const
+        RealParameterWrapper ParameterPool::getParameter(const std::string &name) const
 
         Returns parameter named  name.
 
@@ -20385,9 +20385,9 @@ class ParameterPool(ICloneable):
 
     def getMatchedParameters(self, wildcards):
         """
-        getMatchedParameters(ParameterPool self, std::string const & wildcards) -> std::vector< ParameterPool::parameter_t,std::allocator< ParameterPool::parameter_t > >
+        getMatchedParameters(ParameterPool self, std::string const & wildcards) -> std::vector< RealParameterWrapper,std::allocator< RealParameterWrapper > >
 
-        std::vector< ParameterPool::parameter_t > ParameterPool::getMatchedParameters(const std::string &wildcards) const
+        std::vector< RealParameterWrapper > ParameterPool::getMatchedParameters(const std::string &wildcards) const
 
         Returns vector of parameters which fit pattern. 
 
@@ -21342,11 +21342,7 @@ Polygon_swigregister(Polygon)
 
 class RealParameterWrapper(_object):
     """
-
-
-    Wrapper to real parameter for remote access to its value and callback abilities.
-
-    C++ includes: RealParameterWrapper.h
+    RealParameterWrapper::RealParameterWrapper(const RealParameterWrapper &other)
 
     """
     __swig_setmethods__ = {}

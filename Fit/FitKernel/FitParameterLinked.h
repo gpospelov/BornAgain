@@ -31,7 +31,7 @@
 class BA_CORE_API_ FitParameterLinked : public FitParameter
 {
  public:
-    typedef std::vector<ParameterPool::parameter_t > pool_parameters_t;
+    typedef std::vector<RealParameterWrapper > pool_parameters_t;
 
     FitParameterLinked();
     FitParameterLinked(const std::string& name, double value, double step, const AttLimits& attlim=AttLimits::limitless(), double error=0.0);
@@ -46,7 +46,7 @@ class BA_CORE_API_ FitParameterLinked : public FitParameter
     }
 
     //! Adds real parameter to the collection
-    virtual void addParameter(ParameterPool::parameter_t par);
+    virtual void addParameter(RealParameterWrapper par);
 
     //! Adds parameters from pool which match given wildcard
     virtual void addMatchedParametersFromPool(const ParameterPool *pool, const std::string& wildcard = std::string());

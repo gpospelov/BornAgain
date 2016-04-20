@@ -59,28 +59,27 @@ void ParticleDistribution::generateParticles(
 {
     std::unique_ptr<ParameterPool> P_pool(createDistributedParameterPool());
     std::string main_par_name = m_par_distribution.getMainParameterName();
-    std::vector<ParameterPool::parameter_t> main_par_matches
+    std::vector<RealParameterWrapper> main_par_matches
         = P_pool->getMatchedParameters(main_par_name);
     if (main_par_matches.size() != 1) {
-        throw Exceptions::RuntimeErrorException("ParticleDistribution::generateParticles: "
-                                                "main parameter name matches nothing or more than "
-                                                "one parameter");
+        throw Exceptions::RuntimeErrorException(
+            "ParticleDistribution::generateParticles: "
+            "main parameter name matches nothing or more than one parameter");
     }
-    ParameterPool::parameter_t main_par = main_par_matches[0];
+    RealParameterWrapper main_par = main_par_matches[0];
     double main_par_value = main_par.getValue();
     std::vector<ParameterSample> main_par_samples = m_par_distribution.generateSamples();
     std::vector<std::string> linked_par_names = m_par_distribution.getLinkedParameterNames();
     std::map<std::string, double> linked_par_ratio_map;
     for (size_t i = 0; i < linked_par_names.size(); ++i) {
-        std::vector<ParameterPool::parameter_t> linked_par_matches
+        std::vector<RealParameterWrapper> linked_par_matches
             = P_pool->getMatchedParameters(linked_par_names[i]);
         if (linked_par_matches.size() != 1) {
             throw Exceptions::RuntimeErrorException(
                 "ParticleDistribution::generateParticles: "
-                "linked parameter name matches nothing or more than "
-                "one parameter");
+                "linked parameter name matches nothing or more than one parameter");
         }
-        ParameterPool::parameter_t linked_par = linked_par_matches[0];
+        RealParameterWrapper linked_par = linked_par_matches[0];
         double linked_par_value = linked_par.getValue();
         double linked_ratio = main_par_value == 0 ? 1.0 : linked_par_value / main_par_value;
         linked_par_ratio_map[linked_par_names[i]] = linked_ratio;
@@ -94,8 +93,7 @@ void ParticleDistribution::generateParticles(
         if (changed != 1) {
             throw Exceptions::RuntimeErrorException(
                 "ParticleDistribution::generateParticles: "
-                "main parameter name matches nothing or more than "
-                "one parameter");
+                "main parameter name matches nothing or more than one parameter");
         }
         for (std::map<std::string, double>::const_iterator it = linked_par_ratio_map.begin();
              it != linked_par_ratio_map.end(); ++it) {
@@ -104,8 +102,7 @@ void ParticleDistribution::generateParticles(
             if (changed != 1) {
                 throw Exceptions::RuntimeErrorException(
                     "ParticleDistribution::generateParticles: "
-                    "linked parameter name matches nothing or more than "
-                    "one parameter");
+                    "linked parameter name matches nothing or more than one parameter");
             }
         }
         p_particle_clone->setAbundance(particle_abundance);

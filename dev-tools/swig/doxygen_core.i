@@ -10284,21 +10284,21 @@ Registers a parameter with key  name and pointer-to-value  parpointer.
 Registers parameter with given name. 
 ";
 
-%feature("docstring")  ParameterPool::addParameter "void ParameterPool::addParameter(const std::string &name, parameter_t par)
+%feature("docstring")  ParameterPool::addParameter "void ParameterPool::addParameter(const std::string &name, RealParameterWrapper par)
 
 Adds parameter to the pool.
 
 Low-level routine. 
 ";
 
-%feature("docstring")  ParameterPool::getParameter "ParameterPool::parameter_t ParameterPool::getParameter(const std::string &name) const
+%feature("docstring")  ParameterPool::getParameter "RealParameterWrapper ParameterPool::getParameter(const std::string &name) const
 
 Returns parameter named  name.
 
 Returns parameter with given name. 
 ";
 
-%feature("docstring")  ParameterPool::getMatchedParameters "std::vector< ParameterPool::parameter_t > ParameterPool::getMatchedParameters(const std::string &wildcards) const
+%feature("docstring")  ParameterPool::getMatchedParameters "std::vector< RealParameterWrapper > ParameterPool::getMatchedParameters(const std::string &wildcards) const
 
 Returns vector of parameters which fit pattern. 
 ";
@@ -11191,10 +11191,10 @@ Wrapper to real parameter for remote access to its value and callback abilities.
 C++ includes: RealParameterWrapper.h
 ";
 
-%feature("docstring")  RealParameterWrapper::RealParameterWrapper "RealParameterWrapper::RealParameterWrapper(double *par, const AttLimits &limits=AttLimits::limitless())
+%feature("docstring")  RealParameterWrapper "RealParameterWrapper(double *par, const AttLimits &limits=AttLimits::limitless())
 ";
 
-%feature("docstring")  RealParameterWrapper::RealParameterWrapper "RealParameterWrapper::RealParameterWrapper(const RealParameterWrapper &other)
+%feature("docstring")  RealParameterWrapper "RealParameterWrapper::RealParameterWrapper(const RealParameterWrapper &other)
 ";
 
 %feature("docstring")  RealParameterWrapper::~RealParameterWrapper "RealParameterWrapper::~RealParameterWrapper()

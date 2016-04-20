@@ -31,10 +31,6 @@ class AttLimits;
 class BA_CORE_API_ ParameterPool : public ICloneable
 {
 public:
-    //! definition of parameter type and parameter container
-    typedef RealParameterWrapper parameter_t;
-    typedef std::map<std::string, parameter_t > parametermap_t;
-
     //! Constructs an empty parameter pool.
     ParameterPool() : m_map() {}
 
@@ -65,13 +61,13 @@ public:
     void registerParameter(const std::string& name, double *parpointer, const AttLimits &limits=AttLimits::limitless());
 
     //! Adds parameter to the pool
-    void addParameter(const std::string& name, parameter_t par);
+    void addParameter(const std::string& name, RealParameterWrapper par);
 
     //! Returns parameter named _name_.
-    parameter_t getParameter(const std::string& name) const;
+    RealParameterWrapper getParameter(const std::string& name) const;
 
     //! Returns vector of parameters which fit pattern
-    std::vector<parameter_t > getMatchedParameters(
+    std::vector<RealParameterWrapper> getMatchedParameters(
         const std::string& wildcards) const;
 
     //! Sets parameter value, return true in the case of success
@@ -83,10 +79,8 @@ public:
     //! Returns all parameter names
     std::vector<std::string> getParameterNames() const;
 
-    friend std::ostream& operator<<(std::ostream& ostr,
-                                    const ParameterPool& obj) {
-        obj.print(ostr); return ostr;
-    }
+    friend std::ostream& operator<<(std::ostream& ostr, const ParameterPool& obj)
+    { obj.print(ostr); return ostr; }
 
 protected:
     //! Prints parameter pool contents.
@@ -102,7 +96,7 @@ protected:
     void report_set_value_error(const std::string &parname, double value) const;
 
     //! Map of parameters.
-    parametermap_t m_map;
+    std::map<std::string, RealParameterWrapper> m_map;
 };
 
 #endif // PARAMETERPOOL_H

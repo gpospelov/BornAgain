@@ -31754,7 +31754,7 @@ static PyMethodDef SwigMethods[] = {
 		"createMinimizer(std::string const & minimizer, std::string const & algorithm, std::string const & options) -> IMinimizer\n"
 		"createMinimizer(std::string const & minimizer, std::string const & algorithm) -> IMinimizer\n"
 		"createMinimizer(std::string const & minimizer) -> IMinimizer\n"
-		"MinimizerFactory_createMinimizer(IMinimizer minimizer) -> IMinimizer\n"
+		"MinimizerFactory_createMinimizer(IMinimizer other) -> IMinimizer\n"
 		""},
 	 { (char *)"new_MinimizerFactory", _wrap_new_MinimizerFactory, METH_VARARGS, (char *)"\n"
 		"new_MinimizerFactory() -> MinimizerFactory\n"

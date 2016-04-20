@@ -21,6 +21,10 @@
 #include <iostream>
 #include <sstream>
 
+typedef RealParameterWrapper parameter_t;
+typedef std::map<std::string, parameter_t > parametermap_t;
+
+
 //! Returns a clone with _prefix_ added to every parameter key.
 
 ParameterPool *ParameterPool::cloneWithPrefix(const std::string& prefix) const
@@ -66,7 +70,7 @@ void ParameterPool::copyToExternalPool(const std::string& prefix,
 
 //! Returns parameter with given name.
 
-ParameterPool::parameter_t ParameterPool::getParameter(
+parameter_t ParameterPool::getParameter(
         const std::string& name) const
 {
     parametermap_t::const_iterator it = m_map.find(name);
@@ -80,10 +84,10 @@ ParameterPool::parameter_t ParameterPool::getParameter(
 
 //! Returns vector of parameters which fit pattern.
 
-std::vector<ParameterPool::parameter_t> ParameterPool::getMatchedParameters(
+std::vector<parameter_t> ParameterPool::getMatchedParameters(
         const std::string& wildcards) const
 {
-    std::vector<ParameterPool::parameter_t > selected_parameters;
+    std::vector<parameter_t > selected_parameters;
     // loop over all parameters in the pool
     for(parametermap_t::const_iterator it=m_map.begin(); it!= m_map.end(); ++it) {
         // (*it).first - parameter key, (*it).second - parameter itself

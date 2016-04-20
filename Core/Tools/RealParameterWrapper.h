@@ -23,9 +23,9 @@
 #include <ostream>
 
 
+//! Wrapper to real parameter for remote access to its value and callback abilities
 //! @class RealParameterWrapper
 //! @ingroup tools_internal
-//! @brief Wrapper to real parameter for remote access to its value and callback abilities
 
 class BA_CORE_API_ RealParameterWrapper {
 public:

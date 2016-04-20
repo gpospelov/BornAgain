@@ -295,7 +295,7 @@ C++ includes: FitParameterLinked.h
 Sets given value for all binded parameters. 
 ";
 
-%feature("docstring")  FitParameterLinked::addParameter "void FitParameterLinked::addParameter(ParameterPool::parameter_t par)
+%feature("docstring")  FitParameterLinked::addParameter "void FitParameterLinked::addParameter(RealParameterWrapper par)
 
 Adds real parameter to the collection. 
 ";

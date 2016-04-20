@@ -3962,7 +3962,7 @@ class MinimizerFactory(_object):
         createMinimizer(std::string const & minimizer, std::string const & algorithm, std::string const & options) -> IMinimizer
         createMinimizer(std::string const & minimizer, std::string const & algorithm) -> IMinimizer
         createMinimizer(std::string const & minimizer) -> IMinimizer
-        createMinimizer(IMinimizer minimizer) -> IMinimizer
+        createMinimizer(IMinimizer other) -> IMinimizer
         """
         return _libBornAgainFit.MinimizerFactory_createMinimizer(*args)
 
@@ -4000,7 +4000,7 @@ def MinimizerFactory_createMinimizer(*args):
     createMinimizer(std::string const & minimizer, std::string const & algorithm, std::string const & options) -> IMinimizer
     createMinimizer(std::string const & minimizer, std::string const & algorithm) -> IMinimizer
     createMinimizer(std::string const & minimizer) -> IMinimizer
-    MinimizerFactory_createMinimizer(IMinimizer minimizer) -> IMinimizer
+    MinimizerFactory_createMinimizer(IMinimizer other) -> IMinimizer
     """
     return _libBornAgainFit.MinimizerFactory_createMinimizer(*args)
 

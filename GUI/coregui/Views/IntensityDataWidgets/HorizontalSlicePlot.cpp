@@ -63,44 +63,6 @@ void HorizontalSlicePlot::setItem(IntensityDataItem *item)
     }
 
 
-
-
-
-//    if (m_item == item) return;
-
-//    if (m_item) {
-////        disconnect(m_item, SIGNAL(propertyChanged(QString)),
-////                this, SLOT(onPropertyChanged(QString)));
-////        disconnect(m_item, SIGNAL(subItemPropertyChanged(QString,QString)),
-////                this, SLOT(onSubItemPropertyChanged(QString,QString)));
-//    }
-
-//    m_item = item;
-
-//    if (!m_item) return;
-
-//    plotItem(m_item);
-
-////    connect(m_item, SIGNAL(propertyChanged(QString)),
-////            this, SLOT(onPropertyChanged(QString)));
-
-////    if (m_mapper)
-////        m_mapper->deleteLater();
-////    m_mapper = new ModelMapper(this);
-
-//    m_mapper.reset(new ModelMapper);
-//    m_mapper->setItem(item);
-//    m_mapper->setOnChildPropertyChange(
-//                [this](SessionItem* item, const QString name)
-//    {
-//        if (item->parent() && item->parent()->modelType() == Constants::GroupItemType)
-//            onSubItemPropertyChanged(item->itemName(), name);
-//    });
-
-
-////    connect(m_item, SIGNAL(subItemPropertyChanged(QString,QString)),
-////            this, SLOT(onSubItemPropertyChanged(QString,QString)));
-
 }
 
 void HorizontalSlicePlot::plotData(const QVector<double> &x, const QVector<double> &y)

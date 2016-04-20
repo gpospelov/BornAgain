@@ -66,7 +66,4 @@ inline SessionItem *IView::getItem()
     return m_item;
 }
 
-
-
-
 #endif // IVIEW_H

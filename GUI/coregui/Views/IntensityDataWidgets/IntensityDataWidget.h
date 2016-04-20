@@ -49,14 +49,9 @@ public slots:
     void setPropertyPanelVisible(bool visible);
 
 private:
-//    void updateItem(IntensityDataItem *item);
-
     IntensityDataPlotWidget *m_plotWidget;
     IntensityDataPropertyWidget *m_propertyWidget;
     IntensityDataItem *m_currentItem;
 };
-
-
-
 
 #endif

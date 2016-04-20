@@ -91,29 +91,6 @@ void DistributionWidget::setItem(DistributionItem *item)
 
     }
 
-
-
-//    if (m_item == item)
-//        return;
-//    if (m_item) {
-
-//        disconnect();
-//    }
-//    m_item = item;
-
-//    if (!m_item)
-//        return;
-
-//    plotItem();
-
-//    m_mapper.reset(new ModelMapper);
-//    m_mapper->setItem(item);
-//    m_mapper->setOnPropertyChange(
-//                [this](QString)
-//    {
-//        plotItem();
-//    });
-
 }
 
 void DistributionWidget::plotItem()

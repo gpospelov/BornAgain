@@ -58,47 +58,6 @@ void IMaskView::setParameterizedItem(SessionItem *item)
         }, this);
     }
 
-
-
-
-////    if(m_item != item) {
-////        if(m_item) {
-////            disconnect(m_item, SIGNAL(propertyChanged(const QString &)), this,
-////                    SLOT(onPropertyChange(const QString &)));
-////            disconnect(m_item, SIGNAL(subItemChanged(const QString &)), this,
-////                    SLOT(onPropertyChange(const QString &)));
-
-////        }
-
-////        m_item = item;
-
-////        if(m_item) {
-////            connect(m_item, SIGNAL(propertyChanged(const QString &)), this,
-////                    SLOT(onPropertyChange(const QString &)));
-////            connect(m_item, SIGNAL(subItemChanged(const QString &)), this,
-////                    SLOT(onPropertyChange(const QString &)));
-////        }
-////    }
-
-//    if(m_item != item) {
-//        m_item = item;
-
-////        if (m_mapper)
-////            m_mapper->deleteLater();
-////        m_mapper = new ModelMapper(this);
-
-//        m_mapper.reset(new ModelMapper);
-//        m_mapper->setItem(item);
-//        m_mapper->setOnPropertyChange(
-//                    [this](const QString &name)
-//        {
-//            onPropertyChange(name);
-//        });
-
-//    }
-
-
-
 }
 
 SessionItem *IMaskView::getParameterizedItem()

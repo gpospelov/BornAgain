@@ -78,21 +78,6 @@ void RectangularDetectorWidget::setDetectorItem(RectangularDetectorItem *detecto
 
         init_editors();
     }
-
-
-
-//    m_detectorItem = detectorItem;
-//    if(!m_detectorItem) return;
-
-//    m_mapper.reset(new ModelMapper);
-//    m_mapper->setItem(m_detectorItem);
-//    m_mapper->setOnPropertyChange(
-//                [this](const QString &name)
-//    {
-//        onPropertyChanged(name);
-//    });
-
-//    init_editors();
 }
 
 void RectangularDetectorWidget::onPropertyChanged(const QString &propertyName)

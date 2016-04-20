@@ -115,31 +115,6 @@ void ModelTuningWidget::setCurrentItem(JobItem *item)
 
         m_fitTools->setCurrentItem(m_currentJobItem, m_treeView->selectionModel());
     }
-
-//    if (m_currentJobItem == item) return;
-
-
-//    m_currentJobItem = item;
-
-//    if (!m_currentJobItem) return;
-
-//    updateParameterModel();
-
-////    if (m_mapper)
-////        m_mapper->deleteLater();
-////    m_mapper = new ModelMapper(this);
-
-//    m_mapper.reset(new ModelMapper);
-//    m_mapper->setItem(item);
-//    m_mapper->setOnPropertyChange(
-//                [this](const QString &name)
-//    {
-//        onPropertyChanged(name);
-//    });
-
-
-//    m_fitTools->setCurrentItem(item, m_treeView->selectionModel());
-
 }
 
 void ModelTuningWidget::onCurrentLinkChanged(SessionItem *item)

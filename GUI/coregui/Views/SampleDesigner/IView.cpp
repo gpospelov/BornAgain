@@ -74,14 +74,6 @@ void IView::onChangedY()
     m_item->setItemValue(SessionGraphicsItem::P_YPOS, y());
 }
 
-//ModelMapper *IView::mapper()
-//{
-//    if (!m_mapper) {
-//        m_mapper = std::unique_ptr<ModelMapper>(new ModelMapper);
-//    }
-//    return m_mapper.get();
-//}
-
 //! updates visual appearance of the item (color, icons, size etc)
 void IView::update_appearance()
 {

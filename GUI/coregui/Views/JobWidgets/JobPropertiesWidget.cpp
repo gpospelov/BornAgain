@@ -106,30 +106,6 @@ void JobPropertiesWidget::setItem(JobItem *jobItem)
         }, this);
     }
 
-
-//    m_propertyEditor->setItem(jobItem);
-
-//    if (m_currentItem == jobItem) return;
-
-//    m_currentItem = jobItem;
-
-//    if (!m_currentItem) return;
-
-//    updateItem(m_currentItem);
-////    if (m_mapper)
-////        m_mapper->deleteLater();
-////    m_mapper = new ModelMapper(this);
-
-//    m_mapper.reset(new ModelMapper);
-//    m_mapper->setItem(jobItem);
-//    m_mapper->setOnPropertyChange(
-//                [this](const QString &name)
-//    {
-//        if(name == JobItem::P_COMMENTS) {
-//            updateItem(m_currentItem);
-//        }
-//    });
-
 }
 
 void JobPropertiesWidget::onTextChanged()

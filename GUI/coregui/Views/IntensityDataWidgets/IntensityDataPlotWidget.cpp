@@ -122,47 +122,6 @@ void IntensityDataPlotWidget::setItem(IntensityDataItem *item)
         }, this);
     }
 
-
-
-
-//    //qDebug() << "IntensityDataPlotWidget::setItem(NIntensityDataItem *item)";
-
-//    m_centralPlot->setItem(item);
-//    m_horizontalPlot->setItem(item);
-//    m_verticalPlot->setItem(item);
-
-//    if (m_item == item) return;
-
-//    if (m_item) {
-////        disconnect(m_item, SIGNAL(propertyChanged(QString)),
-////                this, SLOT(onPropertyChanged(QString)));
-////        disconnect(m_item, SIGNAL(intensityModified()), this, SLOT(onIntensityModified()));
-//    }
-
-//    m_item = item;
-
-//    if (!m_item) return;
-
-//    updateItem(m_item);
-
-////    if (m_mapper)
-////        m_mapper->deleteLater();
-////    m_mapper = new ModelMapper(this);
-
-
-//    m_mapper.reset(new ModelMapper);
-//    m_mapper->setItem(item);
-//    m_mapper->setOnPropertyChange(
-//                [this](const QString &name)
-//    {
-//        if(name == IntensityDataItem::P_PROJECTIONS_FLAG) {
-//            showProjections(m_item->getItemValue(IntensityDataItem::P_PROJECTIONS_FLAG).toBool());
-//        }
-//    });
-//    m_mapper->setOnValueChange([this](void){
-//        onIntensityModified();
-//    });
-
 }
 
 //! provide syncronious move of top and bottom splitters

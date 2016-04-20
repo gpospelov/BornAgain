@@ -23,14 +23,15 @@
 
 IParameterized& IParameterized::operator=(const IParameterized& other)
 {
-    if( this != &other)
+    if( this != &other) {
         INamed::operator=(other);
+    }
     return *this;
 }
 
 ParameterPool *IParameterized::createParameterTree() const
 {
-    std::unique_ptr<ParameterPool> P_new_pool { new ParameterPool };
+    std::unique_ptr<ParameterPool> P_new_pool { new ParameterPool(this) };
     std::string path("/");
     addParametersToExternalPool(path, P_new_pool.get());
     return P_new_pool.release();

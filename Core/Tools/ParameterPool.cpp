@@ -13,6 +13,7 @@
 //
 // ************************************************************************** //
 
+#include "IParameterized.h"
 #include "ParameterPool.h"
 #include "Exceptions.h"
 #include "Utils.h"
@@ -21,15 +22,28 @@
 #include <iostream>
 #include <sstream>
 
-typedef RealParameterWrapper parameter_t;
-typedef std::map<std::string, parameter_t > parametermap_t;
+typedef std::map<std::string, RealParameterWrapper > parametermap_t;
+
+
+//! Constructs an empty parameter pool.
+ParameterPool::ParameterPool(const IParameterized* parent)
+    : m_parent(parent), m_map()
+{}
+
+//! Returns a literal clone.
+ParameterPool* ParameterPool::clone() const
+{
+    ParameterPool *new_pool = new ParameterPool(m_parent);
+    new_pool->m_map = m_map;
+    return new_pool;
+}
 
 
 //! Returns a clone with _prefix_ added to every parameter key.
 
-ParameterPool *ParameterPool::cloneWithPrefix(const std::string& prefix) const
+ParameterPool* ParameterPool::cloneWithPrefix(const std::string& prefix) const
 {
-    ParameterPool *new_pool = new ParameterPool();
+    ParameterPool *new_pool = new ParameterPool(m_parent);
     for(parametermap_t::const_iterator it=m_map.begin(); it!= m_map.end(); ++it)
     {
         new_pool->addParameter(prefix+it->first, it->second);
@@ -42,12 +56,12 @@ ParameterPool *ParameterPool::cloneWithPrefix(const std::string& prefix) const
 void ParameterPool::registerParameter(const std::string& name,
                                       double *parameter_address, const AttLimits &limits)
 {
-    addParameter(name, parameter_t(parameter_address, limits) );
+    addParameter(name, RealParameterWrapper(parameter_address, limits) );
 }
 
 //! Low-level routine.
 
-void ParameterPool::addParameter(const std::string& name, parameter_t par)
+void ParameterPool::addParameter(const std::string& name, RealParameterWrapper par)
 {
     if ( !m_map.insert(parametermap_t::value_type(name, par ) ).second ) {
         print(std::cout);
@@ -70,7 +84,7 @@ void ParameterPool::copyToExternalPool(const std::string& prefix,
 
 //! Returns parameter with given name.
 
-parameter_t ParameterPool::getParameter(
+RealParameterWrapper ParameterPool::getParameter(
         const std::string& name) const
 {
     parametermap_t::const_iterator it = m_map.find(name);
@@ -84,10 +98,10 @@ parameter_t ParameterPool::getParameter(
 
 //! Returns vector of parameters which fit pattern.
 
-std::vector<parameter_t> ParameterPool::getMatchedParameters(
+std::vector<RealParameterWrapper> ParameterPool::getMatchedParameters(
         const std::string& wildcards) const
 {
-    std::vector<parameter_t > selected_parameters;
+    std::vector<RealParameterWrapper > selected_parameters;
     // loop over all parameters in the pool
     for(parametermap_t::const_iterator it=m_map.begin(); it!= m_map.end(); ++it) {
         // (*it).first - parameter key, (*it).second - parameter itself
@@ -106,7 +120,7 @@ std::vector<parameter_t> ParameterPool::getMatchedParameters(
 
 bool ParameterPool::setParameterValue(const std::string& name, double value)
 {
-    parameter_t x = getParameter(name);
+    RealParameterWrapper x = getParameter(name);
     if( x.isNull() ) {
         throw LogicErrorException("ParameterPool::setParameterValue() ->"
                                   " Error! Unitialized parameter '"+name+"'.");

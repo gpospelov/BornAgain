@@ -28,15 +28,15 @@ class AttLimits;
 class BA_CORE_API_ IParameterized : public INamed
 {
 public:
-    IParameterized() : m_parameters() {}
-    IParameterized(const std::string &name) : INamed(name), m_parameters() {}
-    IParameterized(const IParameterized &other) : INamed(other), m_parameters() {}
+    IParameterized() : m_parameters(this) {}
+    IParameterized(const std::string &name) : INamed(name), m_parameters(this) {}
+    IParameterized(const IParameterized &other) : INamed(other), m_parameters(this) {}
     IParameterized& operator=(const IParameterized &other);
 
     virtual ~IParameterized() {}
 
     //! Returns pointer to the parameter pool.
-    const ParameterPool* getParameterPool() const;
+//    ParameterPool& getParameterPool() const;
 
     //! Creates new parameter pool, with all local parameters and those of its children.
     ParameterPool* createParameterTree() const;
@@ -89,10 +89,10 @@ private:
     std::string m_pattern;
 };
 
-inline const ParameterPool *IParameterized::getParameterPool() const
-{
-    return& m_parameters;
-}
+//inline ParameterPool& IParameterized::getParameterPool() const
+//{
+//    return m_parameters;
+//}
 
 inline void IParameterized::registerParameter(const std::string &name, double *parpointer,
                                               const AttLimits &limits)

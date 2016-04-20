@@ -1868,18 +1868,6 @@ class IParameterized(INamed):
     __swig_destroy__ = _libBornAgainCore.delete_IParameterized
     __del__ = lambda self: None
 
-    def getParameterPool(self):
-        """
-        getParameterPool(IParameterized self) -> ParameterPool
-
-        const ParameterPool * IParameterized::getParameterPool() const
-
-        Returns pointer to the parameter pool. 
-
-        """
-        return _libBornAgainCore.IParameterized_getParameterPool(self)
-
-
     def createParameterTree(self):
         """
         createParameterTree(IParameterized self) -> ParameterPool
@@ -20261,16 +20249,16 @@ class ParameterPool(ICloneable):
     __getattr__ = lambda self, name: _swig_getattr(self, ParameterPool, name)
     __repr__ = _swig_repr
 
-    def __init__(self):
+    def __init__(self, parent):
         """
-        __init__(ParameterPool self) -> ParameterPool
+        __init__(ParameterPool self, IParameterized parent) -> ParameterPool
 
         ParameterPool::ParameterPool()
 
         Constructs an empty parameter pool. 
 
         """
-        this = _libBornAgainCore.new_ParameterPool()
+        this = _libBornAgainCore.new_ParameterPool(parent)
         try:
             self.this.append(this)
         except:

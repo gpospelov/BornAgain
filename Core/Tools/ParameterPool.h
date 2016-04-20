@@ -22,6 +22,7 @@
 #include <map>
 #include <vector>
 
+class IParameterized;
 class AttLimits;
 
 //! @class ParameterPool
@@ -31,18 +32,12 @@ class AttLimits;
 class BA_CORE_API_ ParameterPool : public ICloneable
 {
 public:
-    //! Constructs an empty parameter pool.
-    ParameterPool() : m_map() {}
-
+    ParameterPool(const IParameterized* parent);
+    ParameterPool() = delete;
     virtual ~ParameterPool() {}
 
     //! Returns a literal clone.
-    ParameterPool *clone() const
-    {
-        ParameterPool *new_pool = new ParameterPool();
-        new_pool->m_map = m_map;
-        return new_pool;
-    }
+    ParameterPool *clone() const;
 
     //! Returns a clone with _prefix_ added to every parameter key.
     ParameterPool *cloneWithPrefix(const std::string& prefix) const;
@@ -94,6 +89,9 @@ protected:
 
     //! reports error while setting parname to given value
     void report_set_value_error(const std::string &parname, double value) const;
+
+    //! Parametrized object that "owns" this pool
+    const IParameterized* m_parent;
 
     //! Map of parameters.
     std::map<std::string, RealParameterWrapper> m_map;

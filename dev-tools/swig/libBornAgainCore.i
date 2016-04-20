@@ -41,6 +41,7 @@
 %template(vector_longinteger_t) std::vector<unsigned long int >;
 %template(vector_complex_t) std::vector< std::complex<double> >;
 %template(vector_string_t) std::vector<std::string>;
+%nodefaultctor ParameterPool;
 
 #define SWIG_FILE_WITH_INIT
 

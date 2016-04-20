@@ -118,32 +118,32 @@ std::vector<RealParameterWrapper> ParameterPool::getMatchedParameters(
 
 //! Sets parameter value.
 
-bool ParameterPool::setParameterValue(const std::string& name, double value)
+void ParameterPool::setParameterValue(const std::string& name, double value)
 {
     RealParameterWrapper x = getParameter(name);
     if( x.isNull() ) {
         throw LogicErrorException("ParameterPool::setParameterValue() ->"
                                   " Error! Unitialized parameter '"+name+"'.");
     }
-
-    if(!x.setValue(value)) report_set_value_error(name, value);
-
-    return true;
+    try {
+        x.setValue(value);
+    } catch(RuntimeErrorException) {
+        report_set_value_error(name, value);
+    }
 }
 
 //! Sets parameter value.
 
-int ParameterPool::setMatchedParametersValue(const std::string& wildcards,
-                                             double value)
+int ParameterPool::setMatchedParametersValue(const std::string& wildcards, double value)
 {
     int npars(0);
     for(parametermap_t::iterator it=m_map.begin(); it!= m_map.end(); ++it) {
         if( Utils::String::MatchPattern( (*it).first, wildcards ) ) {
-            bool success = (*it).second.setValue(value);
-            if(!success) {
-                report_set_value_error((*it).first, value);
-            } else {
+            try {
+                (*it).second.setValue(value);
                 npars++;
+            } catch(RuntimeErrorException) {
+                report_set_value_error((*it).first, value);
             }
         }
     }
@@ -174,16 +174,14 @@ void ParameterPool::print(std::ostream& ostr) const
             ostr << "(";
             for(parametermap_t::const_iterator it=m_map.begin();
                 it!= m_map.end(); ++it) {
-                ostr << "'" << (*it).first << "'" << ":"
-                     << it->second.getValue() << " " ;
+                ostr << "'" << (*it).first << "'" << ":" << it->second.getValue() << " " ;
             }
             ostr << ")";
         // printing in several lines
         } else {
             for(parametermap_t::const_iterator it=m_map.begin();
                 it!= m_map.end(); ++it) {
-                ostr << "'" << (*it).first << "'" << ":"
-                     << it->second.getValue() << std::endl;
+                ostr << "'" << (*it).first << "'" << ":" << it->second.getValue() << std::endl;
             }
         }
     } else {

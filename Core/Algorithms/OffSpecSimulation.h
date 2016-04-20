@@ -29,7 +29,7 @@ class BA_CORE_API_ OffSpecSimulation : public Simulation
 public:
     OffSpecSimulation();
     OffSpecSimulation(const ISample &p_sample);
-    OffSpecSimulation(SampleBuilder_t p_sample_builder);
+    OffSpecSimulation(std::shared_ptr<class ISampleBuilder> p_sample_builder);
     virtual ~OffSpecSimulation() {}
 
     OffSpecSimulation *clone() const;

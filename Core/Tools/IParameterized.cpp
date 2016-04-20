@@ -54,17 +54,19 @@ std::string IParameterized::addParametersToExternalPool(
     return path;
 }
 
-bool IParameterized::setParameterValue(const std::string &name, double value)
+void IParameterized::setParameterValue(const std::string &name, double value)
 {
     if(name.find('*') == std::string::npos && name.find('/') == std::string::npos) {
-        return m_parameters.setParameterValue(name, value);
-    }
-    std::unique_ptr<ParameterPool> P_pool { createParameterTree() };
-    if(name.find('*') != std::string::npos) {
-        return P_pool->setMatchedParametersValue(name, value);
+        m_parameters.setParameterValue(name, value);
     } else {
-        return P_pool->setParameterValue(name, value);
+        std::unique_ptr<ParameterPool> P_pool { createParameterTree() };
+        if(name.find('*') != std::string::npos) {
+            P_pool->setMatchedParametersValue(name, value);
+        } else {
+            P_pool->setParameterValue(name, value);
+        }
     }
+    onChange();
 }
 
 void IParameterized::printParameters() const

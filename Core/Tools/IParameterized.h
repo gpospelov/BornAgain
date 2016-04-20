@@ -47,8 +47,8 @@ public:
     void registerParameter(const std::string &name, double *parpointer,
                            const AttLimits &limits = AttLimits::limitless());
 
-    //! Sets the value of the parameter with the given name; returns true in the case of success.
-    bool setParameterValue(const std::string &name, double value);
+    //! Sets the value of the parameter with the given name.
+    void setParameterValue(const std::string &name, double value);
 
     //! Clears the parameter pool.
     void clearParameterPool();
@@ -60,6 +60,9 @@ public:
                                                     int copy_number = -1) const;
 
 protected:
+    //! Action to be taken in inherited class when a parameter has changed.
+    virtual void onChange() {}
+
     //! Prints a representation of this IParameterized object to the given output stream.
     //! default implementation prints "IParameterized:" and the parameter pool
     virtual void print(std::ostream& ostr) const;

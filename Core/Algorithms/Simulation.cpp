@@ -41,7 +41,7 @@ Simulation::Simulation(const ISample &p_sample)
     init_parameters();
 }
 
-Simulation::Simulation(SampleBuilder_t p_sample_builder)
+Simulation::Simulation(std::shared_ptr<class ISampleBuilder> p_sample_builder)
     : IParameterized("Simulation"), mp_sample_builder(p_sample_builder)
 {
     init_parameters();
@@ -111,7 +111,7 @@ void Simulation::setSample(const ISample &sample)
     mP_sample.reset(sample.clone());
 }
 
-void Simulation::setSampleBuilder(SampleBuilder_t p_sample_builder)
+void Simulation::setSampleBuilder(std::shared_ptr<class ISampleBuilder> p_sample_builder)
 {
     if (!p_sample_builder.get())
         throw NullPointerException("Simulation::setSampleBuilder() -> "

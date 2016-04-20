@@ -65,8 +65,8 @@ public:
     std::vector<RealParameterWrapper> getMatchedParameters(
         const std::string& wildcards) const;
 
-    //! Sets parameter value, return true in the case of success
-    bool setParameterValue(const std::string& name, double value);
+    //! Sets parameter value
+    void setParameterValue(const std::string& name, double value);
 
     //! Sets parameter value, return number of changed parameters
     int setMatchedParametersValue(const std::string& wildcards, double value);

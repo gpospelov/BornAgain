@@ -11,7 +11,7 @@ int TestBatchSimulation()
     const std::unique_ptr<GISASSimulation > simulation(sim_registry.createSimulation("MiniGISAS"));
 
     SampleBuilderFactory sampleFactory;
-    SampleBuilder_t builder = sampleFactory.createBuilder("CylindersInBABuilder");
+    std::shared_ptr<class ISampleBuilder> builder = sampleFactory.createBuilder("CylindersInBABuilder");
 
     simulation->setSampleBuilder(builder);
     simulation->runSimulation();

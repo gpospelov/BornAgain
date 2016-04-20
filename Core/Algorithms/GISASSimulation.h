@@ -42,7 +42,7 @@ class BA_CORE_API_ GISASSimulation : public Simulation
 public:
     GISASSimulation();
     GISASSimulation(const ISample& p_sample);
-    GISASSimulation(SampleBuilder_t p_sample_builder);
+    GISASSimulation(std::shared_ptr<class ISampleBuilder> p_sample_builder);
 
     virtual ~GISASSimulation() {}
 

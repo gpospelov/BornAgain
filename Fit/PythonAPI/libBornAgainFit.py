@@ -1663,7 +1663,7 @@ class IMinimizer(_object):
 
         bool IMinimizer::isGradientBasedAgorithm()
 
-        Checks if type of algorithm is Levenberg-Marquardt or similar. 
+        Returns true if type of algorithm is Levenberg-Marquardt or similar. 
 
         """
         return _libBornAgainFit.IMinimizer_isGradientBasedAgorithm(self)
@@ -2736,7 +2736,7 @@ class FitSuite(libBornAgainCore.IObservable):
     """
 
 
-    Main class to setup and run GISAS fitting in BornAgain.
+    User interface class that wraps all fit methods.
 
     C++ includes: FitSuite.h
 

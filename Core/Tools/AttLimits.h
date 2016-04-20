@@ -28,7 +28,9 @@
 class BA_CORE_API_ AttLimits
 {
  public:
-    AttLimits() : m_has_lower_limit(false), m_has_upper_limit(false), m_is_fixed(false), m_lower_limit(0), m_upper_limit(0) {}
+    AttLimits()
+        : m_has_lower_limit(false), m_has_upper_limit(false),
+        m_is_fixed(false), m_lower_limit(0.), m_upper_limit(0.) {}
     ~AttLimits(){}
 
     //! if has lower limit
@@ -41,7 +43,7 @@ class BA_CORE_API_ AttLimits
     void setLowerLimit(double value) { m_lower_limit = value; m_has_lower_limit = true; }
 
     //! remove lower limit
-    void removeLowerLimit() { m_lower_limit = 0.0; m_has_lower_limit = false; }
+    void removeLowerLimit() { m_lower_limit = 0.; m_has_lower_limit = false; }
 
     //! if has upper limit
     bool hasUpperLimit() const { return m_has_upper_limit; }
@@ -53,7 +55,7 @@ class BA_CORE_API_ AttLimits
     void setUpperLimit(double value) { m_upper_limit = value; m_has_upper_limit = true; }
 
     //! remove upper limit
-    void removeUpperLimit() { m_upper_limit = 0.0; m_has_upper_limit = false; }
+    void removeUpperLimit() { m_upper_limit = 0.; m_has_upper_limit = false; }
 
     //! if has lower and upper limit
     bool hasLowerAndUpperLimits() const { return (m_has_lower_limit && m_has_upper_limit); }
@@ -77,34 +79,39 @@ class BA_CORE_API_ AttLimits
     // static creation methods
 
     //! Creates an object bounded from the left
-    static AttLimits lowerLimited(double bound_value) { return AttLimits(true, false, false, bound_value, 0.0); }
+    static AttLimits lowerLimited(double bound_value)
+    { return AttLimits(true, false, false, bound_value, 0.); }
 
-    //! Creates an object which can have only positive values (>0.0, zero is not included)
+    //! Creates an object which can have only positive values (>0., zero is not included)
     static AttLimits positive() { return lowerLimited(Numeric::double_min); }
 
-    //! Creates an object which can have only positive values with 0.0 included
-    static AttLimits n_positive() { return lowerLimited(0.0); }
+    //! Creates an object which can have only positive values with 0. included
+    static AttLimits n_positive() { return lowerLimited(0.); }
 
     //! Creates an object bounded from the right
-    static AttLimits upperLimited(double bound_value) { return AttLimits(false, true, false, 0.0, bound_value); }
+    static AttLimits upperLimited(double bound_value)
+    { return AttLimits(false, true, false, 0., bound_value); }
 
     //! Creates an object bounded from the left and right
-    static AttLimits limited(double left_bound_value, double right_bound_value)  { return AttLimits(true, true, false, left_bound_value, right_bound_value); }
+    static AttLimits limited(double left_bound_value, double right_bound_value)
+    { return AttLimits(true, true, false, left_bound_value, right_bound_value); }
 
     //! Creates an object withoud bounds (default)
     static AttLimits limitless() { return AttLimits(); }
 
     //! Creates a fixed value object
-    static AttLimits fixed() { return AttLimits(false, false, true, 0.0, 0.0); }
+    static AttLimits fixed() { return AttLimits(false, false, true, 0., 0.); }
 
     //! Prints class
-    friend std::ostream& operator<<(std::ostream& ostr, const AttLimits& m) { m.print(ostr); return ostr; }
+    friend std::ostream& operator<<(std::ostream& ostr, const AttLimits& m)
+    { m.print(ostr); return ostr; }
 
     bool operator==(const AttLimits &other) const;
     bool operator!=(const AttLimits &other) const;
 
  protected:
-    AttLimits(bool has_lower_limit, bool has_upper_limit, bool is_fixed, double lower_limit, double upper_limit)
+    AttLimits(bool has_lower_limit, bool has_upper_limit, bool is_fixed,
+              double lower_limit, double upper_limit)
         : m_has_lower_limit(has_lower_limit)
         , m_has_upper_limit(has_upper_limit)
         , m_is_fixed(is_fixed)
@@ -134,7 +141,6 @@ inline bool AttLimits::operator==(const AttLimits &other) const
             (m_has_upper_limit == other.m_has_upper_limit) &&
             (m_lower_limit == other.m_lower_limit) &&
             (m_upper_limit == other.m_upper_limit);
-
 }
 
 inline bool AttLimits::operator!=(const AttLimits &other) const

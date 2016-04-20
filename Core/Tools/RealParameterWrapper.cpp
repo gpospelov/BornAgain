@@ -44,18 +44,16 @@ RealParameterWrapper& RealParameterWrapper::operator=(const RealParameterWrapper
     return *this;
 }
 
-bool RealParameterWrapper::setValue(double value)
+void RealParameterWrapper::setValue(double value)
 {
-    bool success(true);
     checkNull();
     if(value != *m_data) {
         if(m_limits.isInRange(value) && !m_limits.isFixed()) {
             *m_data = value;
         } else {
-            success = false;
+            throw OutOfBoundsException("Value not in range");
         }
     }
-    return success;
 }
 
 void RealParameterWrapper::swapContent(RealParameterWrapper& other)

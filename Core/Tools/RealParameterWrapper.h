@@ -34,7 +34,7 @@ public:
     RealParameterWrapper& operator=(const RealParameterWrapper& other);
 
     //! Sets value of wrapped parameter and emit signal
-    bool setValue(double value);
+    void setValue(double value);
 
     //! Returns value of wrapped parameter
     double getValue() const;

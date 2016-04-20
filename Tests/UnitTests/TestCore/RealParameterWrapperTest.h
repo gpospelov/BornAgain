@@ -102,20 +102,20 @@ TEST_F(RealParameterWrapperTest, LimitedParameter)
     AttLimits limits = AttLimits::limited(10, 20);
     RealParameterWrapper par1(&m_real_parameter, limits);
 
-    EXPECT_TRUE(par1.setValue(16.0));
+    par1.setValue(16.0);
     EXPECT_EQ(16.0, m_real_parameter);
 
-    EXPECT_FALSE(par1.setValue(21.0));
+    EXPECT_THROW(par1.setValue(21.0), OutOfBoundsException);
     EXPECT_EQ(16.0, m_real_parameter);
 
     RealParameterWrapper par2(par1);
     EXPECT_TRUE(par1.getAttLimits() == par2.getAttLimits());
     EXPECT_TRUE(par1 == par2);
 
-    EXPECT_FALSE(par1.setValue(21.0));
+    EXPECT_THROW(par1.setValue(21.0), OutOfBoundsException);
     EXPECT_EQ(16.0, m_real_parameter);
 
-    EXPECT_TRUE(par1.setValue(11.0));
+    par1.setValue(11.0);
     EXPECT_EQ(11.0, m_real_parameter);
 }
 

@@ -345,6 +345,12 @@ FormFactorPolyhedron::FormFactorPolyhedron(
     }
 }
 
+void FormFactorPolyhedron::onChange()
+{
+    throw NotImplementedException(
+                "FFPolyhedron::onChange() -> Error! Method is not implemented");
+}
+
 //! Returns the form factor F(q) of this polyhedron, respecting the offset z_origin.
 
 complex_t FormFactorPolyhedron::evaluate_for_q( const cvector_t q ) const

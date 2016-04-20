@@ -76,6 +76,7 @@ private:
     double volume;
     static const double q_limit_series;
     std::vector<PolyhedralFace> faces;
+    virtual void onChange() final;
     complex_t evaluate_centered( const cvector_t q ) const;
 };
 

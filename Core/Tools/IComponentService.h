@@ -35,7 +35,7 @@ public:
     virtual IFormFactor *getFormFactor() const = 0;
     virtual IFTDistribution2D *getFTDistribution2D() const = 0;
     virtual GISASSimulation *getSimulation() const = 0;
-    virtual SampleBuilder_t getSampleBuilder() const = 0;
+    virtual std::shared_ptr<class ISampleBuilder> getSampleBuilder() const = 0;
     virtual OutputData<double> *getReferenceData() const = 0;
     virtual IFunctionalTest *getFunctionalTest() const = 0;
 

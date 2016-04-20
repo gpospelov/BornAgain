@@ -1437,7 +1437,7 @@ class AttLimits(_object):
     """
 
 
-    Limits for fit parameters.
+    Attributes and limits for a fit parameter. Currently, the only attribute is fixed/free.
 
     C++ includes: AttLimits.h
 
@@ -1868,6 +1868,18 @@ class IParameterized(INamed):
     __swig_destroy__ = _libBornAgainCore.delete_IParameterized
     __del__ = lambda self: None
 
+    def getParameterPool(self):
+        """
+        getParameterPool(IParameterized self) -> ParameterPool
+
+        const ParameterPool * IParameterized::getParameterPool() const
+
+        Returns pointer to the parameter pool. 
+
+        """
+        return _libBornAgainCore.IParameterized_getParameterPool(self)
+
+
     def createParameterTree(self):
         """
         createParameterTree(IParameterized self) -> ParameterPool
@@ -1892,11 +1904,11 @@ class IParameterized(INamed):
 
     def setParameterValue(self, name, value):
         """
-        setParameterValue(IParameterized self, std::string const & name, double value) -> bool
+        setParameterValue(IParameterized self, std::string const & name, double value)
 
-        bool IParameterized::setParameterValue(const std::string &name, double value)
+        void IParameterized::setParameterValue(const std::string &name, double value)
 
-        Sets the value of the parameter with the given name; returns true in the case of success. 
+        Sets the value of the parameter with the given name. 
 
         """
         return _libBornAgainCore.IParameterized_setParameterValue(self, name, value)
@@ -1912,6 +1924,11 @@ class IParameterized(INamed):
 
         """
         return _libBornAgainCore.IParameterized_clearParameterPool(self)
+
+
+    def onChange(self):
+        """onChange(IParameterized self)"""
+        return _libBornAgainCore.IParameterized_onChange(self)
 
 
     def _print(self, ostr):
@@ -4159,6 +4176,11 @@ class ISample(ICloneable, IParameterized):
         _libBornAgainCore.disown_ISample(self)
         return weakref_proxy(self)
 
+    def onChange(self):
+        """onChange(ISample self)"""
+        return _libBornAgainCore.ISample_onChange(self)
+
+
     def _print(self, ostr):
         """_print(ISample self, std::ostream & ostr)"""
         return _libBornAgainCore.ISample__print(self, ostr)
@@ -4646,13 +4668,18 @@ class ISampleBuilder(IParameterized):
 
 
     def setParameterValue(self, name, value):
-        """setParameterValue(ISampleBuilder self, std::string const & name, double value) -> bool"""
+        """setParameterValue(ISampleBuilder self, std::string const & name, double value)"""
         return _libBornAgainCore.ISampleBuilder_setParameterValue(self, name, value)
 
     def __disown__(self):
         self.this.disown()
         _libBornAgainCore.disown_ISampleBuilder(self)
         return weakref_proxy(self)
+
+    def onChange(self):
+        """onChange(ISampleBuilder self)"""
+        return _libBornAgainCore.ISampleBuilder_onChange(self)
+
 
     def _print(self, ostr):
         """_print(ISampleBuilder self, std::ostream & ostr)"""
@@ -7679,6 +7706,11 @@ class IFormFactor(ISample):
         _libBornAgainCore.disown_IFormFactor(self)
         return weakref_proxy(self)
 
+    def onChange(self):
+        """onChange(IFormFactor self)"""
+        return _libBornAgainCore.IFormFactor_onChange(self)
+
+
     def _print(self, ostr):
         """_print(IFormFactor self, std::ostream & ostr)"""
         return _libBornAgainCore.IFormFactor__print(self, ostr)
@@ -8004,6 +8036,11 @@ class IFormFactorBorn(IFormFactor):
         self.this.disown()
         _libBornAgainCore.disown_IFormFactorBorn(self)
         return weakref_proxy(self)
+
+    def onChange(self):
+        """onChange(IFormFactorBorn self)"""
+        return _libBornAgainCore.IFormFactorBorn_onChange(self)
+
 
     def _print(self, ostr):
         """_print(IFormFactorBorn self, std::ostream & ostr)"""
@@ -12721,9 +12758,9 @@ class Simulation(ICloneable, IParameterized):
 
     def setSampleBuilder(self, sample_builder):
         """
-        setSampleBuilder(Simulation self, SampleBuilder_t sample_builder)
+        setSampleBuilder(Simulation self, std::shared_ptr< ISampleBuilder > sample_builder)
 
-        void Simulation::setSampleBuilder(SampleBuilder_t sample_builder)
+        void Simulation::setSampleBuilder(std::shared_ptr< class ISampleBuilder > sample_builder)
 
         Sets the sample builder. 
 
@@ -12733,9 +12770,9 @@ class Simulation(ICloneable, IParameterized):
 
     def getSampleBuilder(self):
         """
-        getSampleBuilder(Simulation self) -> SampleBuilder_t
+        getSampleBuilder(Simulation self) -> std::shared_ptr< ISampleBuilder >
 
-        SampleBuilder_t Simulation::getSampleBuilder() const
+        std::shared_ptr<class ISampleBuilder> Simulation::getSampleBuilder() const
 
         return sample builder 
 
@@ -12983,9 +13020,9 @@ class GISASSimulation(Simulation):
         """
         __init__(GISASSimulation self) -> GISASSimulation
         __init__(GISASSimulation self, ISample p_sample) -> GISASSimulation
-        __init__(GISASSimulation self, SampleBuilder_t p_sample_builder) -> GISASSimulation
+        __init__(GISASSimulation self, std::shared_ptr< ISampleBuilder > p_sample_builder) -> GISASSimulation
 
-        GISASSimulation::GISASSimulation(SampleBuilder_t p_sample_builder)
+        GISASSimulation::GISASSimulation(std::shared_ptr< class ISampleBuilder > p_sample_builder)
 
         """
         this = _libBornAgainCore.new_GISASSimulation(*args)
@@ -19279,9 +19316,9 @@ class OffSpecSimulation(Simulation):
         """
         __init__(OffSpecSimulation self) -> OffSpecSimulation
         __init__(OffSpecSimulation self, ISample p_sample) -> OffSpecSimulation
-        __init__(OffSpecSimulation self, SampleBuilder_t p_sample_builder) -> OffSpecSimulation
+        __init__(OffSpecSimulation self, std::shared_ptr< ISampleBuilder > p_sample_builder) -> OffSpecSimulation
 
-        OffSpecSimulation::OffSpecSimulation(SampleBuilder_t p_sample_builder)
+        OffSpecSimulation::OffSpecSimulation(std::shared_ptr< class ISampleBuilder > p_sample_builder)
 
         """
         this = _libBornAgainCore.new_OffSpecSimulation(*args)
@@ -20253,9 +20290,7 @@ class ParameterPool(ICloneable):
         """
         __init__(ParameterPool self, IParameterized parent) -> ParameterPool
 
-        ParameterPool::ParameterPool()
-
-        Constructs an empty parameter pool. 
+        ParameterPool::ParameterPool()=delete
 
         """
         this = _libBornAgainCore.new_ParameterPool(parent)
@@ -20270,7 +20305,7 @@ class ParameterPool(ICloneable):
         """
         clone(ParameterPool self) -> ParameterPool
 
-        ParameterPool* ParameterPool::clone() const
+        ParameterPool * ParameterPool::clone() const
 
         Returns a literal clone. 
 
@@ -20385,11 +20420,9 @@ class ParameterPool(ICloneable):
 
     def setParameterValue(self, name, value):
         """
-        setParameterValue(ParameterPool self, std::string const & name, double value) -> bool
+        setParameterValue(ParameterPool self, std::string const & name, double value)
 
-        bool ParameterPool::setParameterValue(const std::string &name, double value)
-
-        Sets parameter value, return true in the case of success.
+        void ParameterPool::setParameterValue(const std::string &name, double value)
 
         Sets parameter value. 
 
@@ -21330,7 +21363,11 @@ Polygon_swigregister(Polygon)
 
 class RealParameterWrapper(_object):
     """
-    RealParameterWrapper::RealParameterWrapper(const RealParameterWrapper &other)
+
+
+    Wrapper to real parameter for remote access to its value and callback abilities
+
+    C++ includes: RealParameterWrapper.h
 
     """
     __swig_setmethods__ = {}
@@ -21356,11 +21393,11 @@ class RealParameterWrapper(_object):
 
     def setValue(self, value):
         """
-        setValue(RealParameterWrapper self, double value) -> bool
+        setValue(RealParameterWrapper self, double value)
 
-        bool RealParameterWrapper::setValue(double value)
+        void RealParameterWrapper::setValue(double value)
 
-        Sets value of wrapped parameter and emmit signal. 
+        Sets value of wrapped parameter and emit signal. 
 
         """
         return _libBornAgainCore.RealParameterWrapper_setValue(self, value)
@@ -22003,9 +22040,9 @@ class SpecularSimulation(ICloneable, IParameterized):
         """
         __init__(SpecularSimulation self) -> SpecularSimulation
         __init__(SpecularSimulation self, ISample sample) -> SpecularSimulation
-        __init__(SpecularSimulation self, SampleBuilder_t sample_builder) -> SpecularSimulation
+        __init__(SpecularSimulation self, std::shared_ptr< ISampleBuilder > sample_builder) -> SpecularSimulation
 
-        SpecularSimulation::SpecularSimulation(SampleBuilder_t sample_builder)
+        SpecularSimulation::SpecularSimulation(std::shared_ptr< class ISampleBuilder > sample_builder)
 
         """
         this = _libBornAgainCore.new_SpecularSimulation(*args)
@@ -22064,9 +22101,9 @@ class SpecularSimulation(ICloneable, IParameterized):
 
     def setSampleBuilder(self, sample_builder):
         """
-        setSampleBuilder(SpecularSimulation self, SampleBuilder_t sample_builder)
+        setSampleBuilder(SpecularSimulation self, std::shared_ptr< ISampleBuilder > sample_builder)
 
-        void SpecularSimulation::setSampleBuilder(SampleBuilder_t sample_builder)
+        void SpecularSimulation::setSampleBuilder(std::shared_ptr< class ISampleBuilder > sample_builder)
 
         Sets the sample builder. 
 
@@ -22076,9 +22113,9 @@ class SpecularSimulation(ICloneable, IParameterized):
 
     def getSampleBuilder(self):
         """
-        getSampleBuilder(SpecularSimulation self) -> SampleBuilder_t
+        getSampleBuilder(SpecularSimulation self) -> std::shared_ptr< ISampleBuilder >
 
-        SampleBuilder_t SpecularSimulation::getSampleBuilder() const
+        std::shared_ptr< class ISampleBuilder > SpecularSimulation::getSampleBuilder() const
 
         return sample builder 
 
@@ -22268,9 +22305,9 @@ class SampleBuilderFactory(_object):
 
     def createBuilder(self, name):
         """
-        createBuilder(SampleBuilderFactory self, std::string const & name) -> SampleBuilder_t
+        createBuilder(SampleBuilderFactory self, std::string const & name) -> std::shared_ptr< ISampleBuilder >
 
-        SampleBuilder_t SampleBuilderFactory::createBuilder(const std::string &name)
+        std::shared_ptr< class ISampleBuilder > SampleBuilderFactory::createBuilder(const std::string &name)
 
         """
         return _libBornAgainCore.SampleBuilderFactory_createBuilder(self, name)

@@ -44,6 +44,10 @@ public:
     SwigDirector_IParameterized(PyObject *self, IParameterized const &other);
     virtual ~SwigDirector_IParameterized();
     virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number = -1) const;
+    virtual void onChange();
+    virtual void onChangeSwigPublic() {
+      IParameterized::onChange();
+    }
     virtual void print(std::ostream &ostr) const;
     virtual void printSwigPublic(std::ostream &ostr) const {
       IParameterized::print(ostr);
@@ -82,7 +86,7 @@ private:
       return method;
     }
 private:
-    mutable swig::SwigVar_PyObject vtable[2];
+    mutable swig::SwigVar_PyObject vtable[3];
 #endif
 
 };
@@ -96,6 +100,10 @@ public:
     virtual ISample *clone() const;
     virtual void transferToCPP();
     virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number = -1) const;
+    virtual void onChange();
+    virtual void onChangeSwigPublic() {
+      IParameterized::onChange();
+    }
     virtual void print(std::ostream &ostr) const;
     virtual void printSwigPublic(std::ostream &ostr) const {
       IParameterized::print(ostr);
@@ -141,7 +149,7 @@ private:
       return method;
     }
 private:
-    mutable swig::SwigVar_PyObject vtable[11];
+    mutable swig::SwigVar_PyObject vtable[12];
 #endif
 
 };
@@ -153,6 +161,10 @@ public:
     SwigDirector_ISampleBuilder(PyObject *self);
     virtual ~SwigDirector_ISampleBuilder();
     virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number = -1) const;
+    virtual void onChange();
+    virtual void onChangeSwigPublic() {
+      IParameterized::onChange();
+    }
     virtual void print(std::ostream &ostr) const;
     virtual void printSwigPublic(std::ostream &ostr) const {
       IParameterized::print(ostr);
@@ -193,7 +205,7 @@ private:
       return method;
     }
 private:
-    mutable swig::SwigVar_PyObject vtable[4];
+    mutable swig::SwigVar_PyObject vtable[5];
 #endif
 
 };
@@ -207,6 +219,10 @@ public:
     virtual IFormFactor *clone() const;
     virtual void transferToCPP();
     virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number = -1) const;
+    virtual void onChange();
+    virtual void onChangeSwigPublic() {
+      IParameterized::onChange();
+    }
     virtual void print(std::ostream &ostr) const;
     virtual void printSwigPublic(std::ostream &ostr) const {
       IParameterized::print(ostr);
@@ -257,7 +273,7 @@ private:
       return method;
     }
 private:
-    mutable swig::SwigVar_PyObject vtable[16];
+    mutable swig::SwigVar_PyObject vtable[17];
 #endif
 
 };
@@ -271,6 +287,10 @@ public:
     virtual IFormFactorBorn *clone() const;
     virtual void transferToCPP();
     virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number = -1) const;
+    virtual void onChange();
+    virtual void onChangeSwigPublic() {
+      IParameterized::onChange();
+    }
     virtual void print(std::ostream &ostr) const;
     virtual void printSwigPublic(std::ostream &ostr) const {
       IParameterized::print(ostr);
@@ -326,7 +346,7 @@ private:
       return method;
     }
 private:
-    mutable swig::SwigVar_PyObject vtable[18];
+    mutable swig::SwigVar_PyObject vtable[19];
 #endif
 
 };

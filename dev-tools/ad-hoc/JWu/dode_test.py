@@ -6,6 +6,7 @@ from   bornagain import nanometer, degree
 import bornplot2 as bp
 import math
 import inspect
+
 det = bp.DetPars( 400, -.25, .25, -.25, .25 )
 n    = 3
 results = []
@@ -19,20 +20,11 @@ results.append( bp.Result(0, data, title) )
 
 pool = ff.getParameterPool()
 print( pool.getParameterNames() )
-for m in inspect.getmembers(pool, predicate=inspect.ismethod):
-    print(m)
-pool.setParameterValue('Edg', 10)
+pool.setParameterValue('Edge', 10)
 
 title = 'vertex normal'
-trafo = ba.RotationY(-52.6226*degree)
 ff = ba.FormFactorDodecahedron(edge*nanometer)
 data = bp.run_simulation(det,ff,trafo)
 results.append( bp.Result(1, data, title) )
-
-title = 'edge normal'
-trafo = ba.RotationY(58.2825*degree)
-ff = ba.FormFactorDodecahedron(edge*nanometer)
-data = bp.run_simulation(det,ff,trafo)
-results.append( bp.Result(2, data, title) )
 
 bp.make_plot( results, det, "tmp" )

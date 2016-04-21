@@ -39,9 +39,9 @@ public:
     const ParameterPool* getParameterPool() const;
 
     //! Creates new parameter pool, with all local parameters and those of its children.
-    ParameterPool* createParameterTree() const;
+    ParameterPool* createParameterTree();
 
-    void printParameters() const;
+    void printParameters(); // const;
 
     //! Register parameter address in the parameter pool
     void registerParameter(const std::string &name, double *parpointer,
@@ -61,7 +61,7 @@ public:
 
 protected:
     //! Action to be taken in inherited class when a parameter has changed.
-    virtual void onChange() {}
+    virtual void onChange() { std::cerr << "DEBUG: IPar'ed::onChange\n"; }
 
     //! Prints a representation of this IParameterized object to the given output stream.
     //! default implementation prints "IParameterized:" and the parameter pool
@@ -72,6 +72,7 @@ protected:
     virtual void init_parameters();
 
     ParameterPool m_parameters; //!< parameter pool
+    friend ParameterPool;
 };
 
 //! @class ParameterPattern

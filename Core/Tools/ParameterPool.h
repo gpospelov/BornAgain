@@ -32,7 +32,7 @@ class AttLimits;
 class BA_CORE_API_ ParameterPool : public ICloneable
 {
 public:
-    ParameterPool(const IParameterized* parent);
+    ParameterPool(IParameterized* const parent);
     ParameterPool() = delete;
     virtual ~ParameterPool() {}
 
@@ -90,7 +90,7 @@ protected:
     void report_set_value_error(const std::string &parname, double value) const;
 
     //! Parametrized object that "owns" this pool
-    const IParameterized* m_parent;
+    IParameterized* const m_parent;
 
     //! Map of parameters.
     std::map<std::string, RealParameterWrapper> m_map;

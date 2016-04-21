@@ -29,7 +29,7 @@ IParameterized& IParameterized::operator=(const IParameterized& other)
     return *this;
 }
 
-ParameterPool *IParameterized::createParameterTree() const
+ParameterPool* IParameterized::createParameterTree()
 {
     std::unique_ptr<ParameterPool> P_new_pool { new ParameterPool(this) };
     std::string path("/");
@@ -69,7 +69,7 @@ void IParameterized::setParameterValue(const std::string &name, double value)
     onChange();
 }
 
-void IParameterized::printParameters() const
+void IParameterized::printParameters() /* TODO restore const */
 {
     std::unique_ptr<ParameterPool> P_pool { createParameterTree() };
     std::cout << *P_pool << std::endl;

@@ -26,7 +26,7 @@ typedef std::map<std::string, RealParameterWrapper > parametermap_t;
 
 
 //! Constructs an empty parameter pool.
-ParameterPool::ParameterPool(const IParameterized* parent)
+ParameterPool::ParameterPool(IParameterized* const parent)
     : m_parent(parent), m_map()
 {}
 
@@ -129,6 +129,7 @@ void ParameterPool::setParameterValue(const std::string& name, double value)
     } catch(RuntimeErrorException) {
         report_set_value_error(name, value);
     }
+    m_parent->onChange();
 }
 
 //! Sets parameter value.
@@ -149,6 +150,7 @@ int ParameterPool::setMatchedParametersValue(const std::string& wildcards, doubl
     if(npars == 0) {
         report_find_matched_parameters_error(wildcards);
     }
+    m_parent->onChange();
     return npars;
 }
 

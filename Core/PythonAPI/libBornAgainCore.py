@@ -21156,8 +21156,8 @@ class RealParameterWrapper(_object):
 
     def __init__(self, *args):
         """
-        __init__(RealParameterWrapper self, double * par, AttLimits limits) -> RealParameterWrapper
-        __init__(RealParameterWrapper self, double * par) -> RealParameterWrapper
+        __init__(RealParameterWrapper self, IParameterized parent, double * par, AttLimits limits) -> RealParameterWrapper
+        __init__(RealParameterWrapper self, IParameterized parent, double * par) -> RealParameterWrapper
         __init__(RealParameterWrapper self, RealParameterWrapper other) -> RealParameterWrapper
 
         RealParameterWrapper::RealParameterWrapper(const RealParameterWrapper &other)

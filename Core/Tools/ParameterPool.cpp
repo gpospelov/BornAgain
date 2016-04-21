@@ -56,7 +56,7 @@ ParameterPool* ParameterPool::cloneWithPrefix(const std::string& prefix) const
 void ParameterPool::registerParameter(const std::string& name,
                                       double *parameter_address, const AttLimits &limits)
 {
-    addParameter(name, RealParameterWrapper(parameter_address, limits) );
+    addParameter(name, RealParameterWrapper(m_parent, parameter_address, limits) );
 }
 
 //! Low-level routine.
@@ -129,7 +129,6 @@ void ParameterPool::setParameterValue(const std::string& name, double value)
     } catch(RuntimeErrorException) {
         report_set_value_error(name, value);
     }
-    m_parent->onChange();
 }
 
 //! Sets parameter value.
@@ -150,7 +149,6 @@ int ParameterPool::setMatchedParametersValue(const std::string& wildcards, doubl
     if(npars == 0) {
         report_find_matched_parameters_error(wildcards);
     }
-    m_parent->onChange();
     return npars;
 }
 

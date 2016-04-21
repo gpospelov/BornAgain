@@ -22,6 +22,7 @@
 
 #include <ostream>
 
+class IParameterized;
 
 //! Wrapper to real parameter for remote access to its value and callback abilities
 //! @class RealParameterWrapper
@@ -29,7 +30,8 @@
 
 class BA_CORE_API_ RealParameterWrapper {
 public:
-    explicit RealParameterWrapper(double *par, const AttLimits &limits = AttLimits::limitless());
+    explicit RealParameterWrapper(
+        IParameterized* parent, double *par, const AttLimits &limits = AttLimits::limitless());
     RealParameterWrapper(const RealParameterWrapper& other );
     RealParameterWrapper& operator=(const RealParameterWrapper& other);
 
@@ -57,6 +59,7 @@ private:
     //! swap function
     void swapContent(RealParameterWrapper& other);
 
+    IParameterized* m_parent; //!< IParametrized object that "owns" this pool
     volatile double *m_data;
     AttLimits m_limits;
 };

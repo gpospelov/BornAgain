@@ -69,6 +69,7 @@ protected:
 
     ParameterPool m_parameters; //!< parameter pool
     friend ParameterPool;
+    friend RealParameterWrapper;
 };
 
 //! @class ParameterPattern

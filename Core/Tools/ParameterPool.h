@@ -89,10 +89,7 @@ protected:
     //! reports error while setting parname to given value
     void report_set_value_error(const std::string &parname, double value) const;
 
-    //! Parametrized object that "owns" this pool
-    IParameterized* const m_parent;
-
-    //! Map of parameters.
+    IParameterized* const m_parent; //!< Parametrized object that "owns" this pool
     std::map<std::string, RealParameterWrapper> m_map;
 };
 

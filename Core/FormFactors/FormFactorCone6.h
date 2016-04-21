@@ -37,9 +37,8 @@ public:
 
     virtual void accept(ISampleVisitor *visitor) const;
 
-    double getHeight() const;
-    virtual double getRadius() const final;
-    double getAlpha() const;
+    double getHeight() const { return m_height; }
+    double getAlpha() const { return m_alpha; }
 
 protected:
     virtual bool check_initialization() const;
@@ -50,9 +49,5 @@ private:
     double m_height;
     double m_alpha;
 };
-
-inline double FormFactorCone6::getHeight() const { return m_height; }
-inline double FormFactorCone6::getRadius() const { return m_radius; }
-inline double FormFactorCone6::getAlpha() const { return m_alpha; }
 
 #endif // FORMFACTORCONE6_H

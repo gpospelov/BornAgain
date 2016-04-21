@@ -91,11 +91,6 @@ void FormFactorIcosahedron::accept(ISampleVisitor *visitor) const
     visitor->visit(this);
 }
 
-double FormFactorIcosahedron::getRadius() const
-{
-    return m_edge/2.0; //! @todo this is obviously WRONG
-}
-
 bool FormFactorIcosahedron::check_initialization() const
 {
     bool result(true);

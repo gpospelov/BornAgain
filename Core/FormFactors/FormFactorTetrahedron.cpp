@@ -112,8 +112,3 @@ void FormFactorTetrahedron::accept(ISampleVisitor *visitor) const
 {
     visitor->visit(this);
 }
-
-double FormFactorTetrahedron::getRadius() const
-{
-    return m_length / 2;
-}

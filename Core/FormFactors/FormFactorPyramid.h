@@ -36,10 +36,9 @@ public:
     virtual FormFactorPyramid* clone() const final;
     virtual void accept(ISampleVisitor *visitor) const final;
 
-    virtual double getRadius() const final;
-    double getHeight() const;
-    double getLength() const;
-    double getAlpha() const;
+    double getHeight() const { return m_height; }
+    double getLength() const { return m_length; }
+    double getAlpha() const { return m_alpha; }
 
 private:
     virtual bool check_initialization() const final;
@@ -49,10 +48,5 @@ private:
     double m_height;
     double m_alpha;
 };
-
-inline double FormFactorPyramid::getHeight() const { return m_height; }
-inline double FormFactorPyramid::getLength() const { return m_length; }
-inline double FormFactorPyramid::getAlpha() const { return m_alpha; }
-inline double FormFactorPyramid::getRadius() const { return m_length/2.0; }
 
 #endif // FORMFACTORPYRAMID_H

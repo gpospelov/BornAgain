@@ -52,10 +52,6 @@ public:
     virtual void printSwigPublic(std::ostream &ostr) const {
       IParameterized::print(ostr);
     }
-    virtual void init_parameters();
-    virtual void init_parametersSwigPublic() {
-      IParameterized::init_parameters();
-    }
 
 /* Internal director utilities */
 public:
@@ -86,7 +82,7 @@ private:
       return method;
     }
 private:
-    mutable swig::SwigVar_PyObject vtable[3];
+    mutable swig::SwigVar_PyObject vtable[2];
 #endif
 
 };
@@ -107,10 +103,6 @@ public:
     virtual void print(std::ostream &ostr) const;
     virtual void printSwigPublic(std::ostream &ostr) const {
       IParameterized::print(ostr);
-    }
-    virtual void init_parameters();
-    virtual void init_parametersSwigPublic() {
-      IParameterized::init_parameters();
     }
     virtual ISample *cloneInvertB() const;
     virtual void accept(ISampleVisitor *p_visitor) const;
@@ -149,7 +141,7 @@ private:
       return method;
     }
 private:
-    mutable swig::SwigVar_PyObject vtable[12];
+    mutable swig::SwigVar_PyObject vtable[11];
 #endif
 
 };
@@ -168,10 +160,6 @@ public:
     virtual void print(std::ostream &ostr) const;
     virtual void printSwigPublic(std::ostream &ostr) const {
       IParameterized::print(ostr);
-    }
-    virtual void init_parameters();
-    virtual void init_parametersSwigPublic() {
-      IParameterized::init_parameters();
     }
     virtual ISample *buildSample() const;
     virtual void init_from(IComponentService const *arg0);
@@ -205,7 +193,7 @@ private:
       return method;
     }
 private:
-    mutable swig::SwigVar_PyObject vtable[5];
+    mutable swig::SwigVar_PyObject vtable[4];
 #endif
 
 };
@@ -226,10 +214,6 @@ public:
     virtual void print(std::ostream &ostr) const;
     virtual void printSwigPublic(std::ostream &ostr) const {
       IParameterized::print(ostr);
-    }
-    virtual void init_parameters();
-    virtual void init_parametersSwigPublic() {
-      IParameterized::init_parameters();
     }
     virtual ISample *cloneInvertB() const;
     virtual void accept(ISampleVisitor *visitor) const;
@@ -273,7 +257,7 @@ private:
       return method;
     }
 private:
-    mutable swig::SwigVar_PyObject vtable[17];
+    mutable swig::SwigVar_PyObject vtable[16];
 #endif
 
 };
@@ -294,10 +278,6 @@ public:
     virtual void print(std::ostream &ostr) const;
     virtual void printSwigPublic(std::ostream &ostr) const {
       IParameterized::print(ostr);
-    }
-    virtual void init_parameters();
-    virtual void init_parametersSwigPublic() {
-      IParameterized::init_parameters();
     }
     virtual ISample *cloneInvertB() const;
     virtual void accept(ISampleVisitor *visitor) const;
@@ -346,7 +326,7 @@ private:
       return method;
     }
 private:
-    mutable swig::SwigVar_PyObject vtable[19];
+    mutable swig::SwigVar_PyObject vtable[18];
 #endif
 
 };

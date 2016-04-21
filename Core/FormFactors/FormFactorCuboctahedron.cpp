@@ -103,8 +103,3 @@ void FormFactorCuboctahedron::accept(ISampleVisitor *visitor) const
 {
     visitor->visit(this);
 }
-
-double FormFactorCuboctahedron::getRadius() const
-{
-    return m_length / 2.0;
-}

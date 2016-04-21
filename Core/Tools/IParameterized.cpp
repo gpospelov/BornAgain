@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Tools/IParameterized.cpp
-//! @brief     Implements class IParameterized.
+//! @brief     Implements classes IParameterized and ParameterPattern.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -75,16 +75,11 @@ void IParameterized::printParameters() /* TODO restore const */
     std::cout << *P_pool << std::endl;
 }
 
-void IParameterized::init_parameters()
-{
-    throw NotImplementedException("IParameterized::init_parameters() -> "
-                                  "Error! Method is not implemented");
-}
-
 void IParameterized::print(std::ostream& ostr) const
 {
     ostr << "IParameterized:" << getName() << " " << m_parameters;
 }
+
 
 ParameterPattern::ParameterPattern()
     : m_pattern { }

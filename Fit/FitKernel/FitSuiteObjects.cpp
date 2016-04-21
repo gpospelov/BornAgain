@@ -30,7 +30,6 @@ FitSuiteObjects::FitSuiteObjects()
 
 FitSuiteObjects::~FitSuiteObjects()
 {
-
 }
 
 void FitSuiteObjects::add(const GISASSimulation& simulation, const OutputData<double >& real_data,
@@ -167,11 +166,6 @@ void FitSuiteObjects::clear()
     m_fit_elements.clear();
 }
 
-void FitSuiteObjects::init_parameters()
-{
-
-}
-
 double FitSuiteObjects::calculateChiSquaredValue()
 {
     m_chi2_module->processFitElements(m_fit_elements.begin(), m_fit_elements.end());
@@ -196,6 +190,3 @@ size_t FitSuiteObjects::check_index(size_t index) const
     return index < m_fit_objects.size() ? index :
                 throw OutOfBoundsException("FitSuiteKit::check() -> Index outside of range");
 }
-
-
-

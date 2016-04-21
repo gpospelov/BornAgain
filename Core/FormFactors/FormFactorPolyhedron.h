@@ -40,7 +40,7 @@ public:
 class PolyhedralFace {
 public:
     PolyhedralFace( const std::vector<kvector_t>& _V=std::vector<kvector_t>(), bool _sym_S2=false );
-    double radius_3d; //!< radius of enclosing sphere
+    double m_radius_3d; //!< radius of enclosing sphere
     double getArea() const;
     double getPyramidalVolume() const;
     complex_t ff_n( int m, const cvector_t q ) const;
@@ -54,7 +54,7 @@ private:
     double area;
     kvector_t normal; //!< normal vector of this polygon's plane
     double rperp; //!< distance of this polygon's plane from the origin, along 'normal'
-    double radius_2d; //!< radius of enclosing cylinder
+    double m_radius_2d; //!< radius of enclosing cylinder
     void decompose_q( const cvector_t q, complex_t& qperp, cvector_t& qpa ) const;
     complex_t ff_n_core( int m, const cvector_t qpa ) const;
 };
@@ -64,19 +64,23 @@ private:
 
 class FormFactorPolyhedron : public IFormFactorBorn {
 public:
+    FormFactorPolyhedron() {}
     FormFactorPolyhedron( const std::vector<PolyhedralFace>& _faces,
-                          const double _z_origin, const bool _sym_Ci=false );
+                          const double _z_origin, const bool _sym_Ci=false )
+    : m_faces(_faces), m_z_origin(_z_origin), m_sym_Ci(_sym_Ci) {}; //! @TODO rm
     virtual complex_t evaluate_for_q(const cvector_t q ) const final;
-    double getVolume() const { return volume; }
+    virtual double getVolume() const final { return m_volume; }
+    virtual double getRadius() const final { return m_radius; }
     void assert_platonic() const;
+protected:
+    std::vector<PolyhedralFace> m_faces;
+    double m_z_origin;
+    bool m_sym_Ci; //!< if true, then faces obtainable by inversion are not provided
+    void precompute();
 private:
-    double z_origin;
-    bool sym_Ci; //!< if true, then faces obtainable by inversion are not provided
-    double radius;
-    double volume;
+    double m_radius;
+    double m_volume;
     static const double q_limit_series;
-    std::vector<PolyhedralFace> faces;
-    virtual void onChange() final;
     complex_t evaluate_centered( const cvector_t q ) const;
 };
 

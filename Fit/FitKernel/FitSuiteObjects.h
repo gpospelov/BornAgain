@@ -30,10 +30,10 @@ class IChiSquaredModule;
 //! @ingroup fitting_internal
 //! @brief The class containing vector of FitObject (simulation and real data) to fit
 
-class BA_CORE_API_  FitSuiteObjects : public IParameterized
+class BA_CORE_API_ FitSuiteObjects : public IParameterized
 {
  public:
-    typedef SafePointerVector<FitObject > FitObjects_t;
+    typedef SafePointerVector<FitObject> FitObjects_t;
 
     FitSuiteObjects();
     virtual ~FitSuiteObjects();
@@ -85,7 +85,7 @@ class BA_CORE_API_  FitSuiteObjects : public IParameterized
 
  protected:
     //! Registers some class members for later access via parameter pool
-    virtual void init_parameters();
+    virtual void init_parameters() final {};
 
     double calculateChiSquaredValue();
 
@@ -105,5 +105,3 @@ class BA_CORE_API_  FitSuiteObjects : public IParameterized
 };
 
 #endif // FITSUITEOBJECTS_H
-
-

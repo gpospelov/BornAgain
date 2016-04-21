@@ -40,7 +40,6 @@ public:
     virtual FormFactorCuboctahedron *clone() const final;
     virtual void accept(ISampleVisitor *visitor) const final;
 
-    virtual double getRadius() const final;
     double getHeight() const;
     double getHeightRatio() const;
     double getLength() const;

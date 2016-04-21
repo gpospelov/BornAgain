@@ -35,9 +35,8 @@ public:
     virtual FormFactorTruncatedCube *clone() const final;
     virtual void accept(ISampleVisitor *visitor) const final;
 
-    virtual double getRadius() const final;
-    double getLength() const;
-    double getRemovedLength() const;
+    double getLength() const { return m_length; }
+    double getRemovedLength() const { return m_removed_length; }
 
 private:
     virtual bool check_initialization() const;
@@ -46,8 +45,5 @@ private:
     double m_length;
     double m_removed_length;
 };
-
-inline double FormFactorTruncatedCube::getLength() const { return m_length; }
-inline double FormFactorTruncatedCube::getRemovedLength() const { return m_removed_length; }
 
 #endif // FORMFACTORTRUNCATEDCUBE_H

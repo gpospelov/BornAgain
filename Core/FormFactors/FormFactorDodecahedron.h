@@ -29,18 +29,13 @@ public:
     //! @param edge length
     FormFactorDodecahedron(double edge);
 
-    static std::vector<PolyhedralFace> polyhedral_faces(double edge);
-
     virtual FormFactorDodecahedron *clone() const final;
     virtual void accept(ISampleVisitor *visitor) const final;
 
-    virtual double getRadius() const final;
     double getEdge() const;
 
 private:
-    virtual bool check_initialization() const;
-    virtual void init_parameters();
-
+    virtual void onChange() final;
     double m_edge;
 };
 

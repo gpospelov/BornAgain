@@ -34,7 +34,6 @@ public:
     virtual FormFactorIcosahedron *clone() const final;
     virtual void accept(ISampleVisitor *visitor) const final;
 
-    virtual double getRadius() const final;
     double getEdge() const;
 
 private:

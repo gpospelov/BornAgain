@@ -67,10 +67,6 @@ protected:
     //! default implementation prints "IParameterized:" and the parameter pool
     virtual void print(std::ostream& ostr) const;
 
-    //! Registers class parameters in the parameter pool
-    //! Needs to be implemented by subclasses.
-    virtual void init_parameters();
-
     ParameterPool m_parameters; //!< parameter pool
     friend ParameterPool;
 };

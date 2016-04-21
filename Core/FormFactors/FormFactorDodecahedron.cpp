@@ -20,18 +20,17 @@
 
 
 FormFactorDodecahedron::FormFactorDodecahedron(double edge)
-    : FormFactorPolyhedron( polyhedral_faces(edge), -1.113516364411607*edge, true )
+    : FormFactorPolyhedron()
     , m_edge(edge)
 {
     setName(BornAgain::FFDodecahedronType);
-    check_initialization();
-    assert_platonic();
-    init_parameters();
+    registerParameter(BornAgain::Edge, &m_edge);
+    onChange();
 }
 
-std::vector<PolyhedralFace> FormFactorDodecahedron::polyhedral_faces(double edge)
+void FormFactorDodecahedron::onChange()
 {
-    double a = edge;
+    double a = m_edge;
     kvector_t V[20] = {
         {  0.8506508083520399*a,                   0*a,  -1.113516364411607*a},
         {  0.2628655560595668*a,  0.8090169943749473*a,  -1.113516364411607*a},
@@ -53,30 +52,29 @@ std::vector<PolyhedralFace> FormFactorDodecahedron::polyhedral_faces(double edge
         {  0.6881909602355868*a,                -0.5*a,   1.113516364411607*a},
         {  0.6881909602355868*a,                 0.5*a,   1.113516364411607*a},
         { -0.2628655560595668*a,  0.8090169943749473*a,   1.113516364411607*a} };
-    std::vector<PolyhedralFace> faces;
+    m_faces.clear();
     // bottom:
-    faces.push_back( PolyhedralFace( { V[ 0], V[ 4], V[ 3], V[ 2], V[ 1] } ) );
+    m_faces.push_back( PolyhedralFace( { V[ 0], V[ 4], V[ 3], V[ 2], V[ 1] } ) );
     // lower ring:
-    faces.push_back( PolyhedralFace( { V[ 0], V[ 5], V[12], V[ 9], V[ 4] } ) );
-    faces.push_back( PolyhedralFace( { V[ 4], V[ 9], V[11], V[ 8], V[ 3] } ) );
-    faces.push_back( PolyhedralFace( { V[ 3], V[ 8], V[10], V[ 7], V[ 2] } ) );
-    faces.push_back( PolyhedralFace( { V[ 2], V[ 7], V[14], V[ 6], V[ 1] } ) );
-    faces.push_back( PolyhedralFace( { V[ 1], V[ 6], V[13], V[ 5], V[ 0] } ) );
+    m_faces.push_back( PolyhedralFace( { V[ 0], V[ 5], V[12], V[ 9], V[ 4] } ) );
+    m_faces.push_back( PolyhedralFace( { V[ 4], V[ 9], V[11], V[ 8], V[ 3] } ) );
+    m_faces.push_back( PolyhedralFace( { V[ 3], V[ 8], V[10], V[ 7], V[ 2] } ) );
+    m_faces.push_back( PolyhedralFace( { V[ 2], V[ 7], V[14], V[ 6], V[ 1] } ) );
+    m_faces.push_back( PolyhedralFace( { V[ 1], V[ 6], V[13], V[ 5], V[ 0] } ) );
      // upper ring:
-    faces.push_back( PolyhedralFace( { V[ 8], V[11], V[16], V[15], V[10] } ) );
-    faces.push_back( PolyhedralFace( { V[ 9], V[12], V[17], V[16], V[11] } ) );
-    faces.push_back( PolyhedralFace( { V[ 5], V[13], V[18], V[17], V[12] } ) );
-    faces.push_back( PolyhedralFace( { V[ 6], V[14], V[19], V[18], V[13] } ) );
-    faces.push_back( PolyhedralFace( { V[ 7], V[10], V[15], V[19], V[14] } ) );
+    m_faces.push_back( PolyhedralFace( { V[ 8], V[11], V[16], V[15], V[10] } ) );
+    m_faces.push_back( PolyhedralFace( { V[ 9], V[12], V[17], V[16], V[11] } ) );
+    m_faces.push_back( PolyhedralFace( { V[ 5], V[13], V[18], V[17], V[12] } ) );
+    m_faces.push_back( PolyhedralFace( { V[ 6], V[14], V[19], V[18], V[13] } ) );
+    m_faces.push_back( PolyhedralFace( { V[ 7], V[10], V[15], V[19], V[14] } ) );
     // top:
-    faces.push_back( PolyhedralFace( { V[15], V[16], V[17], V[18], V[19] } ) );
-    return faces;
-}
+    m_faces.push_back( PolyhedralFace( { V[15], V[16], V[17], V[18], V[19] } ) );
+    assert_platonic();
 
-void FormFactorDodecahedron::init_parameters()
-{
-    clearParameterPool();
-    registerParameter(BornAgain::Edge, &m_edge);
+    m_z_origin = -1.113516364411607*a;
+    m_sym_Ci = true;
+
+    FormFactorPolyhedron::precompute();
 }
 
 FormFactorDodecahedron* FormFactorDodecahedron::clone() const
@@ -87,15 +85,4 @@ FormFactorDodecahedron* FormFactorDodecahedron::clone() const
 void FormFactorDodecahedron::accept(ISampleVisitor *visitor) const
 {
     visitor->visit(this);
-}
-
-double FormFactorDodecahedron::getRadius() const
-{
-    return m_edge/2.0; //! @todo this is obviously WRONG
-}
-
-bool FormFactorDodecahedron::check_initialization() const
-{
-    bool result(true);
-    return result;
 }

@@ -12,18 +12,17 @@ n    = 3
 results = []
 edge = 30
 
-title = 'face normal'
+title = 'E=30'
 trafo = ba.RotationY(26.5651*degree)
-ff = ba.FormFactorDodecahedron(edge*nanometer)
+ff = ba.FormFactorPrism3(edge*nanometer,20*nanometer)
 data = bp.run_simulation(det,ff,trafo)
 results.append( bp.Result(0, data, title) )
 
 pool = ff.getParameterPool()
 print( pool.getParameterNames() )
-pool.setParameterValue('Edge', 10)
+pool.setParameterValue('Length', 10 )
 
-title = 'vertex normal'
-ff = ba.FormFactorDodecahedron(edge*nanometer)
+title = 'E=10'
 data = bp.run_simulation(det,ff,trafo)
 results.append( bp.Result(1, data, title) )
 

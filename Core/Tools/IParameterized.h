@@ -61,7 +61,7 @@ public:
 
 protected:
     //! Action to be taken in inherited class when a parameter has changed.
-    virtual void onChange() { std::cerr << "DEBUG: IPar'ed::onChange\n"; }
+    virtual void onChange() {}
 
     //! Prints a representation of this IParameterized object to the given output stream.
     //! default implementation prints "IParameterized:" and the parameter pool

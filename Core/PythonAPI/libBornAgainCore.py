@@ -8847,9 +8847,9 @@ class FormFactorCone6(FormFactorPolyhedron):
     __getattr__ = lambda self, name: _swig_getattr(self, FormFactorCone6, name)
     __repr__ = _swig_repr
 
-    def __init__(self, radius, height, alpha):
+    def __init__(self, base_edge, height, alpha):
         """
-        __init__(FormFactorCone6 self, double radius, double height, double alpha) -> FormFactorCone6
+        __init__(FormFactorCone6 self, double base_edge, double height, double alpha) -> FormFactorCone6
 
         FormFactorCone6::FormFactorCone6(double radius, double height, double alpha)
 
@@ -8868,19 +8868,11 @@ class FormFactorCone6(FormFactorPolyhedron):
         in radians between base and facet 
 
         """
-        this = _libBornAgainCore.new_FormFactorCone6(radius, height, alpha)
+        this = _libBornAgainCore.new_FormFactorCone6(base_edge, height, alpha)
         try:
             self.this.append(this)
         except:
             self.this = this
-
-    def polyhedral_faces(radius, height, alpha):
-        """polyhedral_faces(double radius, double height, double alpha) -> std::vector< PolyhedralFace,std::allocator< PolyhedralFace > >"""
-        return _libBornAgainCore.FormFactorCone6_polyhedral_faces(radius, height, alpha)
-
-    if _newclass:
-        polyhedral_faces = staticmethod(polyhedral_faces)
-    __swig_getmethods__["polyhedral_faces"] = lambda x: polyhedral_faces
 
     def clone(self):
         """
@@ -8916,18 +8908,6 @@ class FormFactorCone6(FormFactorPolyhedron):
         return _libBornAgainCore.FormFactorCone6_getHeight(self)
 
 
-    def getRadius(self):
-        """
-        getRadius(FormFactorCone6 self) -> double
-
-        double FormFactorCone6::getRadius() const final
-
-        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-
-        """
-        return _libBornAgainCore.FormFactorCone6_getRadius(self)
-
-
     def getAlpha(self):
         """
         getAlpha(FormFactorCone6 self) -> double
@@ -8941,10 +8921,6 @@ class FormFactorCone6(FormFactorPolyhedron):
     __del__ = lambda self: None
 FormFactorCone6_swigregister = _libBornAgainCore.FormFactorCone6_swigregister
 FormFactorCone6_swigregister(FormFactorCone6)
-
-def FormFactorCone6_polyhedral_faces(radius, height, alpha):
-    """FormFactorCone6_polyhedral_faces(double radius, double height, double alpha) -> std::vector< PolyhedralFace,std::allocator< PolyhedralFace > >"""
-    return _libBornAgainCore.FormFactorCone6_polyhedral_faces(radius, height, alpha)
 
 class FormFactorCrystal(IFormFactorBorn):
     """
@@ -9117,16 +9093,6 @@ class FormFactorCuboctahedron(FormFactorPolyhedron):
             self.this.append(this)
         except:
             self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_FormFactorCuboctahedron
-    __del__ = lambda self: None
-
-    def polyhedral_faces(length, height, height_ratio, alpha):
-        """polyhedral_faces(double length, double height, double height_ratio, double alpha) -> std::vector< PolyhedralFace,std::allocator< PolyhedralFace > >"""
-        return _libBornAgainCore.FormFactorCuboctahedron_polyhedral_faces(length, height, height_ratio, alpha)
-
-    if _newclass:
-        polyhedral_faces = staticmethod(polyhedral_faces)
-    __swig_getmethods__["polyhedral_faces"] = lambda x: polyhedral_faces
 
     def clone(self):
         """
@@ -9152,16 +9118,14 @@ class FormFactorCuboctahedron(FormFactorPolyhedron):
         return _libBornAgainCore.FormFactorCuboctahedron_accept(self, visitor)
 
 
-    def getRadius(self):
+    def getLength(self):
         """
-        getRadius(FormFactorCuboctahedron self) -> double
+        getLength(FormFactorCuboctahedron self) -> double
 
-        double FormFactorCuboctahedron::getRadius() const final
-
-        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+        double FormFactorCuboctahedron::getLength() const 
 
         """
-        return _libBornAgainCore.FormFactorCuboctahedron_getRadius(self)
+        return _libBornAgainCore.FormFactorCuboctahedron_getLength(self)
 
 
     def getHeight(self):
@@ -9184,16 +9148,6 @@ class FormFactorCuboctahedron(FormFactorPolyhedron):
         return _libBornAgainCore.FormFactorCuboctahedron_getHeightRatio(self)
 
 
-    def getLength(self):
-        """
-        getLength(FormFactorCuboctahedron self) -> double
-
-        double FormFactorCuboctahedron::getLength() const 
-
-        """
-        return _libBornAgainCore.FormFactorCuboctahedron_getLength(self)
-
-
     def getAlpha(self):
         """
         getAlpha(FormFactorCuboctahedron self) -> double
@@ -9203,12 +9157,10 @@ class FormFactorCuboctahedron(FormFactorPolyhedron):
         """
         return _libBornAgainCore.FormFactorCuboctahedron_getAlpha(self)
 
+    __swig_destroy__ = _libBornAgainCore.delete_FormFactorCuboctahedron
+    __del__ = lambda self: None
 FormFactorCuboctahedron_swigregister = _libBornAgainCore.FormFactorCuboctahedron_swigregister
 FormFactorCuboctahedron_swigregister(FormFactorCuboctahedron)
-
-def FormFactorCuboctahedron_polyhedral_faces(length, height, height_ratio, alpha):
-    """FormFactorCuboctahedron_polyhedral_faces(double length, double height, double height_ratio, double alpha) -> std::vector< PolyhedralFace,std::allocator< PolyhedralFace > >"""
-    return _libBornAgainCore.FormFactorCuboctahedron_polyhedral_faces(length, height, height_ratio, alpha)
 
 class FormFactorCylinder(IFormFactorBorn):
     """
@@ -10103,14 +10055,6 @@ class FormFactorIcosahedron(FormFactorPolyhedron):
         except:
             self.this = this
 
-    def polyhedral_faces(edge):
-        """polyhedral_faces(double edge) -> std::vector< PolyhedralFace,std::allocator< PolyhedralFace > >"""
-        return _libBornAgainCore.FormFactorIcosahedron_polyhedral_faces(edge)
-
-    if _newclass:
-        polyhedral_faces = staticmethod(polyhedral_faces)
-    __swig_getmethods__["polyhedral_faces"] = lambda x: polyhedral_faces
-
     def clone(self):
         """
         clone(FormFactorIcosahedron self) -> FormFactorIcosahedron
@@ -10135,18 +10079,6 @@ class FormFactorIcosahedron(FormFactorPolyhedron):
         return _libBornAgainCore.FormFactorIcosahedron_accept(self, visitor)
 
 
-    def getRadius(self):
-        """
-        getRadius(FormFactorIcosahedron self) -> double
-
-        double FormFactorIcosahedron::getRadius() const final
-
-        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-
-        """
-        return _libBornAgainCore.FormFactorIcosahedron_getRadius(self)
-
-
     def getEdge(self):
         """
         getEdge(FormFactorIcosahedron self) -> double
@@ -10160,10 +10092,6 @@ class FormFactorIcosahedron(FormFactorPolyhedron):
     __del__ = lambda self: None
 FormFactorIcosahedron_swigregister = _libBornAgainCore.FormFactorIcosahedron_swigregister
 FormFactorIcosahedron_swigregister(FormFactorIcosahedron)
-
-def FormFactorIcosahedron_polyhedral_faces(edge):
-    """FormFactorIcosahedron_polyhedral_faces(double edge) -> std::vector< PolyhedralFace,std::allocator< PolyhedralFace > >"""
-    return _libBornAgainCore.FormFactorIcosahedron_polyhedral_faces(edge)
 
 class FormFactorLongBoxGauss(IFormFactorBorn):
     """Proxy of C++ FormFactorLongBoxGauss class"""
@@ -11330,14 +11258,6 @@ class FormFactorPyramid(FormFactorPolyhedron):
         except:
             self.this = this
 
-    def polyhedral_faces(length, height, alpha):
-        """polyhedral_faces(double length, double height, double alpha) -> std::vector< PolyhedralFace,std::allocator< PolyhedralFace > >"""
-        return _libBornAgainCore.FormFactorPyramid_polyhedral_faces(length, height, alpha)
-
-    if _newclass:
-        polyhedral_faces = staticmethod(polyhedral_faces)
-    __swig_getmethods__["polyhedral_faces"] = lambda x: polyhedral_faces
-
     def clone(self):
         """
         clone(FormFactorPyramid self) -> FormFactorPyramid
@@ -11360,18 +11280,6 @@ class FormFactorPyramid(FormFactorPolyhedron):
 
         """
         return _libBornAgainCore.FormFactorPyramid_accept(self, visitor)
-
-
-    def getRadius(self):
-        """
-        getRadius(FormFactorPyramid self) -> double
-
-        double FormFactorPyramid::getRadius() const final
-
-        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-
-        """
-        return _libBornAgainCore.FormFactorPyramid_getRadius(self)
 
 
     def getHeight(self):
@@ -11407,10 +11315,6 @@ class FormFactorPyramid(FormFactorPolyhedron):
     __del__ = lambda self: None
 FormFactorPyramid_swigregister = _libBornAgainCore.FormFactorPyramid_swigregister
 FormFactorPyramid_swigregister(FormFactorPyramid)
-
-def FormFactorPyramid_polyhedral_faces(length, height, alpha):
-    """FormFactorPyramid_polyhedral_faces(double length, double height, double alpha) -> std::vector< PolyhedralFace,std::allocator< PolyhedralFace > >"""
-    return _libBornAgainCore.FormFactorPyramid_polyhedral_faces(length, height, alpha)
 
 class FormFactorRipple1(IFormFactorBorn):
     """
@@ -11996,16 +11900,6 @@ class FormFactorTetrahedron(FormFactorPolyhedron):
             self.this.append(this)
         except:
             self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_FormFactorTetrahedron
-    __del__ = lambda self: None
-
-    def polyhedral_faces(length, height, alpha):
-        """polyhedral_faces(double length, double height, double alpha) -> std::vector< PolyhedralFace,std::allocator< PolyhedralFace > >"""
-        return _libBornAgainCore.FormFactorTetrahedron_polyhedral_faces(length, height, alpha)
-
-    if _newclass:
-        polyhedral_faces = staticmethod(polyhedral_faces)
-    __swig_getmethods__["polyhedral_faces"] = lambda x: polyhedral_faces
 
     def clone(self):
         """
@@ -12031,16 +11925,14 @@ class FormFactorTetrahedron(FormFactorPolyhedron):
         return _libBornAgainCore.FormFactorTetrahedron_accept(self, visitor)
 
 
-    def getRadius(self):
+    def getLength(self):
         """
-        getRadius(FormFactorTetrahedron self) -> double
+        getLength(FormFactorTetrahedron self) -> double
 
-        double FormFactorTetrahedron::getRadius() const
-
-        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+        double FormFactorTetrahedron::getLength() const 
 
         """
-        return _libBornAgainCore.FormFactorTetrahedron_getRadius(self)
+        return _libBornAgainCore.FormFactorTetrahedron_getLength(self)
 
 
     def getHeight(self):
@@ -12053,16 +11945,6 @@ class FormFactorTetrahedron(FormFactorPolyhedron):
         return _libBornAgainCore.FormFactorTetrahedron_getHeight(self)
 
 
-    def getLength(self):
-        """
-        getLength(FormFactorTetrahedron self) -> double
-
-        double FormFactorTetrahedron::getLength() const 
-
-        """
-        return _libBornAgainCore.FormFactorTetrahedron_getLength(self)
-
-
     def getAlpha(self):
         """
         getAlpha(FormFactorTetrahedron self) -> double
@@ -12072,12 +11954,10 @@ class FormFactorTetrahedron(FormFactorPolyhedron):
         """
         return _libBornAgainCore.FormFactorTetrahedron_getAlpha(self)
 
+    __swig_destroy__ = _libBornAgainCore.delete_FormFactorTetrahedron
+    __del__ = lambda self: None
 FormFactorTetrahedron_swigregister = _libBornAgainCore.FormFactorTetrahedron_swigregister
 FormFactorTetrahedron_swigregister(FormFactorTetrahedron)
-
-def FormFactorTetrahedron_polyhedral_faces(length, height, alpha):
-    """FormFactorTetrahedron_polyhedral_faces(double length, double height, double alpha) -> std::vector< PolyhedralFace,std::allocator< PolyhedralFace > >"""
-    return _libBornAgainCore.FormFactorTetrahedron_polyhedral_faces(length, height, alpha)
 
 class FormFactorTrivial(IFormFactorBorn):
     """Proxy of C++ FormFactorTrivial class"""
@@ -12216,14 +12096,6 @@ class FormFactorTruncatedCube(FormFactorPolyhedron):
         except:
             self.this = this
 
-    def polyhedral_faces(length, removed_length):
-        """polyhedral_faces(double length, double removed_length) -> std::vector< PolyhedralFace,std::allocator< PolyhedralFace > >"""
-        return _libBornAgainCore.FormFactorTruncatedCube_polyhedral_faces(length, removed_length)
-
-    if _newclass:
-        polyhedral_faces = staticmethod(polyhedral_faces)
-    __swig_getmethods__["polyhedral_faces"] = lambda x: polyhedral_faces
-
     def clone(self):
         """
         clone(FormFactorTruncatedCube self) -> FormFactorTruncatedCube
@@ -12246,18 +12118,6 @@ class FormFactorTruncatedCube(FormFactorPolyhedron):
 
         """
         return _libBornAgainCore.FormFactorTruncatedCube_accept(self, visitor)
-
-
-    def getRadius(self):
-        """
-        getRadius(FormFactorTruncatedCube self) -> double
-
-        double FormFactorTruncatedCube::getRadius() const final
-
-        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-
-        """
-        return _libBornAgainCore.FormFactorTruncatedCube_getRadius(self)
 
 
     def getLength(self):
@@ -12283,10 +12143,6 @@ class FormFactorTruncatedCube(FormFactorPolyhedron):
     __del__ = lambda self: None
 FormFactorTruncatedCube_swigregister = _libBornAgainCore.FormFactorTruncatedCube_swigregister
 FormFactorTruncatedCube_swigregister(FormFactorTruncatedCube)
-
-def FormFactorTruncatedCube_polyhedral_faces(length, removed_length):
-    """FormFactorTruncatedCube_polyhedral_faces(double length, double removed_length) -> std::vector< PolyhedralFace,std::allocator< PolyhedralFace > >"""
-    return _libBornAgainCore.FormFactorTruncatedCube_polyhedral_faces(length, removed_length)
 
 class FormFactorTruncatedSphere(IFormFactorBorn):
     """

@@ -25,27 +25,20 @@ class BA_CORE_API_ FormFactorCone6 : public FormFactorPolyhedron
 {
 public:
     //! @brief Cone6 constructor
-    //! @param radius of hexagonal base (different from R in IsGisaxs)
+    //! @param base_edge of hexagonal base (different from R in IsGisaxs)
     //! @param height of Cone6
     //! @param angle in radians between base and facet
-    FormFactorCone6(double radius, double height,  double alpha);
-
-    static std::vector<PolyhedralFace> polyhedral_faces(
-        double radius, double height,  double alpha);
+    FormFactorCone6(double base_edge, double height,  double alpha);
 
     virtual FormFactorCone6* clone() const;
-
     virtual void accept(ISampleVisitor *visitor) const;
 
     double getHeight() const { return m_height; }
     double getAlpha() const { return m_alpha; }
 
-protected:
-    virtual bool check_initialization() const;
-    virtual void init_parameters();
-
 private:
-    double m_radius;
+    virtual void onChange() final;
+    double m_base_edge;
     double m_height;
     double m_alpha;
 };

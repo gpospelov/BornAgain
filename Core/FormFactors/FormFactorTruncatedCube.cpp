@@ -19,22 +19,34 @@
 #include "MathFunctions.h"
 
 
+//! @param side length of the full cube
+//! @param side length of the trirectangular tetrahedron removed from each vertex of the cube
+
 FormFactorTruncatedCube::FormFactorTruncatedCube(
    double length, double removed_length)
-    : FormFactorPolyhedron( polyhedral_faces(length, removed_length), -length/2, true )
+    : FormFactorPolyhedron()
     , m_length(length)
     , m_removed_length(removed_length)
 {
     setName(BornAgain::FFTruncatedCubeType);
-    check_initialization();
-    init_parameters();
+    registerParameter(BornAgain::Length, &m_length);
+    registerParameter(BornAgain::RemovedLength, &m_removed_length);
+    onChange();
 }
 
-std::vector<PolyhedralFace> FormFactorTruncatedCube::polyhedral_faces(
-   double length, double removed_length)
+void FormFactorTruncatedCube::onChange()
 {
-    double a = length/2;
-    double b = removed_length;
+    if(m_removed_length > 0.5*m_length) {
+        std::ostringstream ostr;
+        ostr << "::FormFactorTruncatedCube() -> Error in class initialization ";
+        ostr << "with parameters 'length':" << m_length;
+        ostr << " 'removed_length':" << m_removed_length << "\n\n";
+        ostr << "Check for removed_length <= 0.5*length failed.";
+        throw Exceptions::ClassInitializationException(ostr.str());
+    }
+
+    double a = m_length/2;
+    double b = m_removed_length;
 
     kvector_t V[24] = {
         { -a+b, -a  , -a   },
@@ -61,29 +73,26 @@ std::vector<PolyhedralFace> FormFactorTruncatedCube::polyhedral_faces(
         {  a-b,  a  ,  a   },
         {  a  ,  a-b,  a   },
         {  a  ,  a  ,  a-b } };
-    std::vector<PolyhedralFace> faces;
-    faces.push_back( PolyhedralFace( { V[ 0],V[ 1],V[ 7],V[ 6], V[ 9],V[10],V[ 4],V[ 3] }, true ) );
-    faces.push_back( PolyhedralFace( { V[ 0],V[ 2],V[ 1] } ) );
-    faces.push_back( PolyhedralFace( { V[ 3],V[ 4],V[ 5] } ) );
-    faces.push_back( PolyhedralFace( { V[ 9],V[11],V[10] } ) );
-    faces.push_back( PolyhedralFace( { V[ 6],V[ 7],V[ 8] } ) );
-    faces.push_back( PolyhedralFace( { V[ 0],V[ 3],V[ 5],V[17], V[15],V[12],V[14],V[ 2] }, true ) );
-    faces.push_back( PolyhedralFace( { V[ 4],V[10],V[11],V[23], V[22],V[16],V[17],V[ 5] }, true ) );
-    faces.push_back( PolyhedralFace( { V[ 1],V[ 2],V[14],V[13], V[19],V[20],V[ 8],V[ 7] }, true ) );
-    faces.push_back( PolyhedralFace( { V[ 6],V[ 8],V[20],V[18], V[21],V[23],V[11],V[ 9] }, true ) );
-    faces.push_back( PolyhedralFace( { V[15],V[17],V[16] } ) );
-    faces.push_back( PolyhedralFace( { V[12],V[13],V[14] } ) );
-    faces.push_back( PolyhedralFace( { V[18],V[20],V[19] } ) );
-    faces.push_back( PolyhedralFace( { V[21],V[22],V[23] } ) );
-    faces.push_back( PolyhedralFace( { V[12],V[15],V[16],V[22], V[21],V[18],V[19],V[13] }, true ) );
-    return faces;
-}
+    m_faces.clear();
+    m_faces.push_back( PolyhedralFace({ V[ 0],V[ 1],V[ 7],V[ 6], V[ 9],V[10],V[ 4],V[ 3] }, true ));
+    m_faces.push_back( PolyhedralFace({ V[ 0],V[ 2],V[ 1] } ));
+    m_faces.push_back( PolyhedralFace({ V[ 3],V[ 4],V[ 5] } ));
+    m_faces.push_back( PolyhedralFace({ V[ 9],V[11],V[10] } ));
+    m_faces.push_back( PolyhedralFace({ V[ 6],V[ 7],V[ 8] } ));
+    m_faces.push_back( PolyhedralFace({ V[ 0],V[ 3],V[ 5],V[17], V[15],V[12],V[14],V[ 2] }, true ));
+    m_faces.push_back( PolyhedralFace({ V[ 4],V[10],V[11],V[23], V[22],V[16],V[17],V[ 5] }, true ));
+    m_faces.push_back( PolyhedralFace({ V[ 1],V[ 2],V[14],V[13], V[19],V[20],V[ 8],V[ 7] }, true ));
+    m_faces.push_back( PolyhedralFace({ V[ 6],V[ 8],V[20],V[18], V[21],V[23],V[11],V[ 9] }, true ));
+    m_faces.push_back( PolyhedralFace({ V[15],V[17],V[16] } ));
+    m_faces.push_back( PolyhedralFace({ V[12],V[13],V[14] } ));
+    m_faces.push_back( PolyhedralFace({ V[18],V[20],V[19] } ));
+    m_faces.push_back( PolyhedralFace({ V[21],V[22],V[23] } ));
+    m_faces.push_back( PolyhedralFace({ V[12],V[15],V[16],V[22], V[21],V[18],V[19],V[13] }, true ));
 
-void FormFactorTruncatedCube::init_parameters()
-{
-    clearParameterPool();
-    registerParameter(BornAgain::Length, &m_length);
-    registerParameter(BornAgain::RemovedLength, &m_removed_length);
+    m_z_origin = -m_length/2;
+    m_sym_Ci = true;
+
+    FormFactorPolyhedron::precompute();
 }
 
 FormFactorTruncatedCube* FormFactorTruncatedCube::clone() const
@@ -94,18 +103,4 @@ FormFactorTruncatedCube* FormFactorTruncatedCube::clone() const
 void FormFactorTruncatedCube::accept(ISampleVisitor *visitor) const
 {
     visitor->visit(this);
-}
-
-bool FormFactorTruncatedCube::check_initialization() const
-{
-    bool result(true);
-    if(m_removed_length > 0.5*m_length) {
-        std::ostringstream ostr;
-        ostr << "::FormFactorTruncatedCube() -> Error in class initialization ";
-        ostr << "with parameters 'length':" << m_length;
-        ostr << " 'removed_length':" << m_removed_length << "\n\n";
-        ostr << "Check for removed_length <= 0.5*length failed.";
-        throw Exceptions::ClassInitializationException(ostr.str());
-    }
-    return result;
 }

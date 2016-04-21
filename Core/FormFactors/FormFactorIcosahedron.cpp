@@ -20,18 +20,17 @@
 
 
 FormFactorIcosahedron::FormFactorIcosahedron(double edge)
-    : FormFactorPolyhedron( polyhedral_faces(edge), -0.7557613140761708*edge, true )
+    : FormFactorPolyhedron()
     , m_edge(edge)
 {
     setName(BornAgain::FFIcosahedronType);
-    check_initialization();
-    assert_platonic();
-    init_parameters();
+    registerParameter(BornAgain::Edge, &m_edge);
+    onChange();
 }
 
-std::vector<PolyhedralFace> FormFactorIcosahedron::polyhedral_faces(double edge)
+void FormFactorIcosahedron::onChange()
 {
-    double a = edge;
+    double a = m_edge;
     kvector_t V[12] = {
         {  0.5773502691896258*a,                   0*a, -0.7557613140761708*a},
         {  -0.288675134594813*a,                 0.5*a, -0.7557613140761708*a},
@@ -45,40 +44,39 @@ std::vector<PolyhedralFace> FormFactorIcosahedron::polyhedral_faces(double edge)
         { -0.5773502691896258*a,                   0*a,  0.7557613140761708*a},
         {   0.288675134594813*a,                 0.5*a,  0.7557613140761708*a},
         {   0.288675134594813*a,                -0.5*a,  0.7557613140761708*a} };
-    std::vector<PolyhedralFace> faces;
+    m_faces.clear();
     // bottom:
-    faces.push_back( PolyhedralFace( { V[ 0], V[ 2], V[ 1] } ) );
+    m_faces.push_back( PolyhedralFace( { V[ 0], V[ 2], V[ 1] } ) );
     // 1st row:
-    faces.push_back( PolyhedralFace( { V[ 0], V[ 5], V[ 2] } ) );
-    faces.push_back( PolyhedralFace( { V[ 2], V[ 3], V[ 1] } ) );
-    faces.push_back( PolyhedralFace( { V[ 1], V[ 4], V[ 0] } ) );
+    m_faces.push_back( PolyhedralFace( { V[ 0], V[ 5], V[ 2] } ) );
+    m_faces.push_back( PolyhedralFace( { V[ 2], V[ 3], V[ 1] } ) );
+    m_faces.push_back( PolyhedralFace( { V[ 1], V[ 4], V[ 0] } ) );
     // 2nd row:
-    faces.push_back( PolyhedralFace( { V[ 0], V[ 6], V[ 5] } ) );
-    faces.push_back( PolyhedralFace( { V[ 2], V[ 5], V[ 8] } ) );
-    faces.push_back( PolyhedralFace( { V[ 2], V[ 8], V[ 3] } ) );
-    faces.push_back( PolyhedralFace( { V[ 1], V[ 3], V[ 7] } ) );
-    faces.push_back( PolyhedralFace( { V[ 1], V[ 7], V[ 4] } ) );
-    faces.push_back( PolyhedralFace( { V[ 0], V[ 4], V[ 6] } ) );
+    m_faces.push_back( PolyhedralFace( { V[ 0], V[ 6], V[ 5] } ) );
+    m_faces.push_back( PolyhedralFace( { V[ 2], V[ 5], V[ 8] } ) );
+    m_faces.push_back( PolyhedralFace( { V[ 2], V[ 8], V[ 3] } ) );
+    m_faces.push_back( PolyhedralFace( { V[ 1], V[ 3], V[ 7] } ) );
+    m_faces.push_back( PolyhedralFace( { V[ 1], V[ 7], V[ 4] } ) );
+    m_faces.push_back( PolyhedralFace( { V[ 0], V[ 4], V[ 6] } ) );
     // 3rd row:
-    faces.push_back( PolyhedralFace( { V[ 3], V[ 8], V[ 9] } ) );
-    faces.push_back( PolyhedralFace( { V[ 5], V[11], V[ 8] } ) );
-    faces.push_back( PolyhedralFace( { V[ 5], V[ 6], V[11] } ) );
-    faces.push_back( PolyhedralFace( { V[ 4], V[10], V[ 6] } ) );
-    faces.push_back( PolyhedralFace( { V[ 4], V[ 7], V[10] } ) );
-    faces.push_back( PolyhedralFace( { V[ 3], V[ 9], V[ 7] } ) );
+    m_faces.push_back( PolyhedralFace( { V[ 3], V[ 8], V[ 9] } ) );
+    m_faces.push_back( PolyhedralFace( { V[ 5], V[11], V[ 8] } ) );
+    m_faces.push_back( PolyhedralFace( { V[ 5], V[ 6], V[11] } ) );
+    m_faces.push_back( PolyhedralFace( { V[ 4], V[10], V[ 6] } ) );
+    m_faces.push_back( PolyhedralFace( { V[ 4], V[ 7], V[10] } ) );
+    m_faces.push_back( PolyhedralFace( { V[ 3], V[ 9], V[ 7] } ) );
     // 4th row:
-    faces.push_back( PolyhedralFace( { V[ 8], V[11], V[ 9] } ) );
-    faces.push_back( PolyhedralFace( { V[ 6], V[10], V[11] } ) );
-    faces.push_back( PolyhedralFace( { V[ 7], V[ 9], V[10] } ) );
+    m_faces.push_back( PolyhedralFace( { V[ 8], V[11], V[ 9] } ) );
+    m_faces.push_back( PolyhedralFace( { V[ 6], V[10], V[11] } ) );
+    m_faces.push_back( PolyhedralFace( { V[ 7], V[ 9], V[10] } ) );
     // top:
-    faces.push_back( PolyhedralFace( { V[ 9], V[11], V[10] } ) );
-    return faces;
-}
+    m_faces.push_back( PolyhedralFace( { V[ 9], V[11], V[10] } ) );
+    assert_platonic();
 
-void FormFactorIcosahedron::init_parameters()
-{
-    clearParameterPool();
-    registerParameter(BornAgain::Edge, &m_edge);
+    m_z_origin = -0.7557613140761708*a;
+    m_sym_Ci = true;
+
+    FormFactorPolyhedron::precompute();
 }
 
 FormFactorIcosahedron* FormFactorIcosahedron::clone() const
@@ -89,10 +87,4 @@ FormFactorIcosahedron* FormFactorIcosahedron::clone() const
 void FormFactorIcosahedron::accept(ISampleVisitor *visitor) const
 {
     visitor->visit(this);
-}
-
-bool FormFactorIcosahedron::check_initialization() const
-{
-    bool result(true);
-    return result;
 }

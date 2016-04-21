@@ -18,7 +18,7 @@
 #include <sstream>
 
 RealParameterWrapper::RealParameterWrapper(
-    IParameterized* parent, double *par, const AttLimits &limits)
+    IParameterized* parent, double* par, const AttLimits& limits)
     : m_parent(parent)
     , m_data(par)
     , m_limits(limits)
@@ -52,6 +52,8 @@ void RealParameterWrapper::setValue(double value)
 {
     checkNull();
     if(value != *m_data) {
+        std::cout << "DEBUG "<<value<<" was "<<*m_data<<" inrange="<<m_limits.isInRange(value)<<"\n";
+        std::cout << "RANGE "<<m_limits<<"\n";
         if(m_limits.isInRange(value) && !m_limits.isFixed()) {
             *m_data = value;
             m_parent->onChange();

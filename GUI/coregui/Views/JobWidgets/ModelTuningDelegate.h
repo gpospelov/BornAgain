@@ -19,6 +19,7 @@
 
 #include <QItemDelegate>
 #include "AttLimits.h"
+#include <memory>
 
 class QDoubleSpinBox;
 class QHBoxLayout;

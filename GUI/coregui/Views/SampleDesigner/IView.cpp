@@ -36,33 +36,30 @@ void IView::setParameterizedItem(SessionItem *item)
     Q_ASSERT(item);
     Q_ASSERT(m_item == nullptr);
 
-    if (item) {
-        m_item = item;
-        setX(m_item->getItemValue(SessionGraphicsItem::P_XPOS).toReal());
-        setY(m_item->getItemValue(SessionGraphicsItem::P_YPOS).toReal());
+    m_item = item;
+    setX(m_item->getItemValue(SessionGraphicsItem::P_XPOS).toReal());
+    setY(m_item->getItemValue(SessionGraphicsItem::P_YPOS).toReal());
 
-        mapper()->setItem(item);
-        mapper()->setOnPropertyChange(
-                    [this] (const QString &name)
-        {
-            onPropertyChange(name);
-        });
+    m_item->mapper()->setOnPropertyChange(
+                [this] (const QString &name)
+    {
+        onPropertyChange(name);
+    }, this);
 
-        mapper()->setOnSiblingsChange(
-                    [this]()
-        {
-            onSiblingsChange();
-        });
+    m_item->mapper()->setOnSiblingsChange(
+                [this]()
+    {
+         onSiblingsChange();
+    }, this);
 
 
-        update_appearance();
-    }
+    update_appearance();
 }
 
 void IView::addView(IView *childView, int row)
 {
     qDebug() << "IView::addView() " << m_item->itemName()
-             << childView->getParameterizedItem()->itemName() << " row:" << row;
+             << childView->getItem()->itemName() << " row:" << row;
 }
 
 void IView::onChangedX()
@@ -75,14 +72,6 @@ void IView::onChangedY()
 {
     Q_ASSERT(m_item);
     m_item->setItemValue(SessionGraphicsItem::P_YPOS, y());
-}
-
-ModelMapper *IView::mapper()
-{
-    if (!m_mapper) {
-        m_mapper = std::unique_ptr<ModelMapper>(new ModelMapper);
-    }
-    return m_mapper.get();
 }
 
 //! updates visual appearance of the item (color, icons, size etc)

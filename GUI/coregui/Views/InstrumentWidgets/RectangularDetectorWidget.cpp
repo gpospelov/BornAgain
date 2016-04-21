@@ -60,18 +60,24 @@ RectangularDetectorWidget::~RectangularDetectorWidget()
 
 void RectangularDetectorWidget::setDetectorItem(RectangularDetectorItem *detectorItem)
 {
-    m_detectorItem = detectorItem;
-    if(!m_detectorItem) return;
+    if(m_detectorItem == detectorItem) {
+        return;
 
-    ModelMapper *mapper = new ModelMapper(this);
-    mapper->setItem(m_detectorItem);
-    mapper->setOnPropertyChange(
-                [this](const QString &name)
-    {
-        onPropertyChanged(name);
-    });
+    } else {
+        if(m_detectorItem)
+            m_detectorItem->mapper()->unsubscribe(this);
 
-    init_editors();
+        m_detectorItem = detectorItem;
+        if(!m_detectorItem) return;
+
+        m_detectorItem->mapper()->setOnPropertyChange(
+                    [this](const QString &name)
+        {
+            onPropertyChanged(name);
+        }, this);
+
+        init_editors();
+    }
 }
 
 void RectangularDetectorWidget::onPropertyChanged(const QString &propertyName)

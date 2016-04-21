@@ -19,6 +19,7 @@
 
 #include "WinDllMacros.h"
 #include <QWidget>
+#include <memory>
 
 class IntensityDataPropertyWidget;
 class IntensityDataItem;
@@ -47,16 +48,10 @@ public slots:
     void toggleProjections();
     void setPropertyPanelVisible(bool visible);
 
-
 private:
-    void updateItem(IntensityDataItem *item);
-
     IntensityDataPlotWidget *m_plotWidget;
     IntensityDataPropertyWidget *m_propertyWidget;
     IntensityDataItem *m_currentItem;
 };
-
-
-
 
 #endif

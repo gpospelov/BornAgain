@@ -19,6 +19,7 @@
 
 #include "WinDllMacros.h"
 #include <QWidget>
+#include <memory>
 
 class QSplitter;
 class HorizontalSlicePlot;
@@ -26,7 +27,6 @@ class VerticalSlicePlot;
 class ColorMapPlot;
 class QLabel;
 class IntensityDataItem;
-class ModelMapper;
 
 //! The widget contains IntensityDataItem color map, two projections and all
 //! logic. Belongs to IntensityDataWidget.
@@ -35,6 +35,7 @@ class BA_CORE_API_ IntensityDataPlotWidget : public QWidget
     Q_OBJECT
 public:
     explicit IntensityDataPlotWidget(QWidget *parent = 0);
+    ~IntensityDataPlotWidget();
 
     QSize sizeHint() const { return QSize(800, 800); }
     QSize minimumSizeHint() const { return QSize(512, 512); }
@@ -80,7 +81,6 @@ private:
     int m_leftHistogramArea;
     int m_bottomHistogramArea;
     IntensityDataItem *m_item;
-    ModelMapper *m_mapper;
 };
 
 #endif

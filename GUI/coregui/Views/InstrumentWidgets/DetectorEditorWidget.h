@@ -19,6 +19,7 @@
 
 #include "WinDllMacros.h"
 #include <QWidget>
+#include <memory>
 
 class GroupInfoBox;
 class DetectorItem;

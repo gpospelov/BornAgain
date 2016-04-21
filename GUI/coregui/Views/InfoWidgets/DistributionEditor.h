@@ -19,6 +19,7 @@
 
 #include <QWidget>
 #include "qcustomplot.h"
+#include <memory>
 
 class QGroupBox;
 class DistributionWidget;
@@ -32,7 +33,8 @@ class DistributionEditor : public QWidget
     Q_OBJECT
 public:
     DistributionEditor(QWidget *parent = 0);
-    virtual ~DistributionEditor() {}
+    virtual ~DistributionEditor();
+
     void setItem(SessionItem *item);
     void plotItem(SessionItem *item);
     void setNameOfEditor(QString name);

@@ -19,10 +19,11 @@
 
 #include "WinDllMacros.h"
 #include <QWidget>
+#include <memory>
+
 class IntensityDataItem;
 class QCustomPlot;
 class QCPBars;
-class ModelMapper;
 
 //! Slice of 2D IntensityData along x-axis
 class BA_CORE_API_ VerticalSlicePlot : public QWidget
@@ -56,7 +57,6 @@ private:
     QCustomPlot *m_customPlot;
     QCPBars *m_bars;
     IntensityDataItem *m_item;
-    ModelMapper *m_mapper;
 };
 
 

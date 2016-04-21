@@ -35,46 +35,45 @@ ColorMapPlot::ColorMapPlot(QWidget *parent)
     setMouseTracking(false);
     m_customPlot->setMouseTracking(false);
 
-//    setFixedColorMapMargins();
+    //    setFixedColorMapMargins();
+}
+
+ColorMapPlot::~ColorMapPlot()
+{
+
 }
 
 //! initializes everything with new IntensityDataItem or plot it, if it was already the case
 void ColorMapPlot::setItem(IntensityDataItem *item)
 {
-    if (item && (m_item == item)) {
-        // qDebug() << "ColorMapPlot::setItem(NIntensityDataItem *item) item==m_item";
-        plotItem(m_item);
+    if(item == m_item) {
+        if(m_item)
+            plotItem(m_item);
         return;
+
+    } else {
+        if(m_item)
+            m_item->mapper()->unsubscribe(this);
+
+        m_item = item;
+        if(!m_item) return;
+
+        plotItem(m_item);
+
+        m_item->mapper()->setOnPropertyChange(
+                    [this](const QString &name)
+        {
+            onPropertyChanged(name);
+            onIntensityModified();
+        }, this);
+        m_item->mapper()->setOnChildPropertyChange(
+                    [this](SessionItem* item, const QString name)
+        {
+                onSubItemPropertyChanged(item->itemName(), name);
+        }, this);
+
     }
 
-//    if (m_item) {
-//        disconnect(m_item, SIGNAL(intensityModified()), this,
-//                   SLOT(onIntensityModified()));
-//    }
-
-    m_item = item;
-
-    if (!m_item)
-        return;
-
-    plotItem(m_item);
-
-//    connect(m_item, SIGNAL(intensityModified()), this,
-//               SLOT(onIntensityModified()));
-    ModelMapper *mapper = new ModelMapper(this);
-    mapper->setItem(item);
-    mapper->setOnPropertyChange(
-                [this](const QString &name)
-    {
-        onPropertyChanged(name);
-        onIntensityModified();
-    });
-    mapper->setOnChildPropertyChange(
-                [this](SessionItem* item, const QString name)
-    {
-//        if (item->parent() && item->parent()->modelType() == Constants::GroupItemType)
-            onSubItemPropertyChanged(item->itemName(), name);
-    });
 }
 
 //! returns string containing bin content information
@@ -133,8 +132,6 @@ void ColorMapPlot::drawLinesOverTheMap()
 //! switches visibility of two crossed lines
 void ColorMapPlot::showLinesOverTheMap(bool isVisible)
 {
-    m_customPlot->setMouseTracking(isVisible);
-
     if (m_customPlot->graph(0) && m_customPlot->graph(1)) {
         m_customPlot->graph(0)->setVisible(isVisible);
         m_customPlot->graph(1)->setVisible(isVisible);
@@ -223,7 +220,6 @@ void ColorMapPlot::onMouseMove(QMouseEvent *event)
     double xPos = m_customPlot->xAxis->pixelToCoord(point.x());
     double yPos = m_customPlot->yAxis->pixelToCoord(point.y());
 
-//    qDebug() << "AAA ColorMapPlot::onMouseMove() " << point << "xpos:" << xPos << "yPos:" << yPos;
 
     if (m_customPlot->xAxis->range().contains(xPos)
         && m_customPlot->yAxis->range().contains(yPos)) {

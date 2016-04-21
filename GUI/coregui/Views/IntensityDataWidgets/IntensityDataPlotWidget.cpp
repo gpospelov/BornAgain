@@ -43,7 +43,7 @@ IntensityDataPlotWidget::IntensityDataPlotWidget(QWidget *parent)
     , m_leftHistogramArea(150)
     , m_bottomHistogramArea(150)
     , m_item(0)
-    , m_mapper(0)
+//    , m_mapper(0)
 {
     setObjectName(QStringLiteral("IntensityDataPlotWidget"));
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -86,42 +86,42 @@ IntensityDataPlotWidget::IntensityDataPlotWidget(QWidget *parent)
     setupContextMenuActions();
 }
 
+IntensityDataPlotWidget::~IntensityDataPlotWidget()
+{
+
+}
+
 //! initializes the class with NIntensityDataItem
 void IntensityDataPlotWidget::setItem(IntensityDataItem *item)
 {
-    //qDebug() << "IntensityDataPlotWidget::setItem(NIntensityDataItem *item)";
-
     m_centralPlot->setItem(item);
     m_horizontalPlot->setItem(item);
     m_verticalPlot->setItem(item);
 
-    if (m_item == item) return;
+    if (m_item == item) {
+        return;
 
-    if (m_item) {
-//        disconnect(m_item, SIGNAL(propertyChanged(QString)),
-//                this, SLOT(onPropertyChanged(QString)));
-//        disconnect(m_item, SIGNAL(intensityModified()), this, SLOT(onIntensityModified()));
+    } else {
+        if(m_item)
+            m_item->mapper()->unsubscribe(this);
+
+        m_item = item;
+        if (!m_item) return;
+
+        updateItem(m_item);
+
+        m_item->mapper()->setOnPropertyChange(
+                    [this](const QString &name)
+        {
+            if(name == IntensityDataItem::P_PROJECTIONS_FLAG) {
+                showProjections(m_item->getItemValue(IntensityDataItem::P_PROJECTIONS_FLAG).toBool());
+            }
+        }, this);
+        m_item->mapper()->setOnValueChange([this](void){
+            onIntensityModified();
+        }, this);
     }
 
-    m_item = item;
-
-    if (!m_item) return;
-
-    updateItem(m_item);
-    if (m_mapper)
-        m_mapper->deleteLater();
-    m_mapper = new ModelMapper(this);
-    m_mapper->setItem(item);
-    m_mapper->setOnPropertyChange(
-                [this](const QString &name)
-    {
-        if(name == IntensityDataItem::P_PROJECTIONS_FLAG) {
-            showProjections(m_item->getItemValue(IntensityDataItem::P_PROJECTIONS_FLAG).toBool());
-        }
-    });
-    m_mapper->setOnValueChange([this](void){
-        onIntensityModified();
-    });
 }
 
 //! provide syncronious move of top and bottom splitters

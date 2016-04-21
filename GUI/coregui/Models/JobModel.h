@@ -48,6 +48,8 @@ public:
 
     bool hasUnfinishedJobs();
 
+    void clear();
+
 signals:
     void selectionChanged(JobItem *item);
     void aboutToDeleteJobItem(JobItem *item);

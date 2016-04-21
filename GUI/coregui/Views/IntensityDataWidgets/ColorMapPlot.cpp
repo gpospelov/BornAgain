@@ -74,31 +74,6 @@ void ColorMapPlot::setItem(IntensityDataItem *item)
 
     }
 
-
-//    m_item = item;
-
-//    if (!m_item)
-//        return;
-
-//    plotItem(m_item);
-
-////    connect(m_item, SIGNAL(intensityModified()), this,
-////               SLOT(onIntensityModified()));
-//    m_mapper.reset(new ModelMapper);
-
-//    m_mapper->setItem(item);
-//    m_mapper->setOnPropertyChange(
-//                [this](const QString &name)
-//    {
-//        onPropertyChanged(name);
-//        onIntensityModified();
-//    });
-//    m_mapper->setOnChildPropertyChange(
-//                [this](SessionItem* item, const QString name)
-//    {
-////        if (item->parent() && item->parent()->modelType() == Constants::GroupItemType)
-//            onSubItemPropertyChanged(item->itemName(), name);
-//    });
 }
 
 //! returns string containing bin content information

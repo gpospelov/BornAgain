@@ -110,6 +110,16 @@ bool JobModel::hasUnfinishedJobs()
     return m_queue_data->hasUnfinishedJobs();
 }
 
+void JobModel::clear()
+{
+    QMap<QString, SessionItem *> jobs = getTopItemMap(Constants::JobItemType);
+    for(auto it = jobs.begin(); it!=jobs.end(); ++it) {
+        removeJob(it.value()->index());
+    }
+
+    SessionModel::clear();
+}
+
 void JobModel::runJob(const QModelIndex &index)
 {
     m_queue_data->runJob(getJobItemForIndex(index));
@@ -125,6 +135,7 @@ void JobModel::removeJob(const QModelIndex &index)
 {
     qDebug() << "NJobModel::removeJob(const QModelIndex &index)";
     JobItem *jobItem = getJobItemForIndex(index);
+    Q_ASSERT(jobItem);
     m_queue_data->removeJob(jobItem->getIdentifier());
 
     emit aboutToDeleteJobItem(jobItem);

@@ -132,8 +132,6 @@ void ColorMapPlot::drawLinesOverTheMap()
 //! switches visibility of two crossed lines
 void ColorMapPlot::showLinesOverTheMap(bool isVisible)
 {
-    m_customPlot->setMouseTracking(isVisible);
-
     if (m_customPlot->graph(0) && m_customPlot->graph(1)) {
         m_customPlot->graph(0)->setVisible(isVisible);
         m_customPlot->graph(1)->setVisible(isVisible);
@@ -222,7 +220,6 @@ void ColorMapPlot::onMouseMove(QMouseEvent *event)
     double xPos = m_customPlot->xAxis->pixelToCoord(point.x());
     double yPos = m_customPlot->yAxis->pixelToCoord(point.y());
 
-//    qDebug() << "AAA ColorMapPlot::onMouseMove() " << point << "xpos:" << xPos << "yPos:" << yPos;
 
     if (m_customPlot->xAxis->range().contains(xPos)
         && m_customPlot->yAxis->range().contains(yPos)) {

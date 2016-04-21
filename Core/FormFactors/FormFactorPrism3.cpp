@@ -18,20 +18,20 @@
 #include "MathFunctions.h"
 
 //! @brief Prism3 constructor
-//! @param base_edge of hexagonal base (different from R in IsGisaxs)
+//! @param base_edge of hexagonal base
 //! @param height of Prism3
 FormFactorPrism3::FormFactorPrism3(const double base_edge, const double height)
-    : FormFactorPolygonalPrism( prismatic_face( base_edge ), height )
+    : FormFactorPolygonalPrism( height )
     , m_base_edge(base_edge)
 {
     setName(BornAgain::FFPrism3Type);
-    registerParameter(BornAgain::Height, &m_height, AttLimits::n_positive());
     registerParameter(BornAgain::BaseEdge, &m_base_edge, AttLimits::n_positive());
+    onChange();
 }
 
-PolyhedralFace FormFactorPrism3::prismatic_face(const double base_edge)
+void FormFactorPrism3::onChange()
 {
-    double a = base_edge;
+    double a = m_base_edge;
     double as = a/2;
     double ac = a/sqrt(3)/2;
     double ah = a/sqrt(3);
@@ -39,7 +39,7 @@ PolyhedralFace FormFactorPrism3::prismatic_face(const double base_edge)
         { -as, -ac, 0. },
         {  as, -ac, 0. },
         {  0.,  ah, 0. } };
-    return PolyhedralFace( { V[0], V[1], V[2] }, false );
+    m_base = PolyhedralFace( { V[0], V[1], V[2] }, false );
 }
 
 FormFactorPrism3* FormFactorPrism3::clone() const

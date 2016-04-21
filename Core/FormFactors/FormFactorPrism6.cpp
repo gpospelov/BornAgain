@@ -17,21 +17,21 @@
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
 
-    //! @brief Prism6 constructor
-    //! @param base_edge of hexagonal base (different from R in IsGisaxs)
-    //! @param height of Prism6
+//! @brief Prism6 constructor
+//! @param base_edge of hexagonal base
+//! @param height of Prism6
 FormFactorPrism6::FormFactorPrism6(const double base_edge, const double height)
-    : FormFactorPolygonalPrism( prismatic_face( base_edge ), height )
+    : FormFactorPolygonalPrism( height )
     , m_base_edge(base_edge)
 {
     setName(BornAgain::FFPrism6Type);
-    registerParameter(BornAgain::Height, &m_height, AttLimits::n_positive());
     registerParameter(BornAgain::BaseEdge, &m_base_edge, AttLimits::n_positive());
+    onChange();
 }
 
-PolyhedralFace FormFactorPrism6::prismatic_face(const double base_edge)
+void FormFactorPrism6::onChange()
 {
-    double a = base_edge;
+    double a = m_base_edge;
     double as = a/2;
     double ac = a*sqrt(3)/2;
     kvector_t V[6] = {
@@ -41,7 +41,7 @@ PolyhedralFace FormFactorPrism6::prismatic_face(const double base_edge)
         { -a,   0., 0. },
         { -as, -ac, 0. },
         {  as, -ac, 0. } };
-    return PolyhedralFace( { V[0], V[1], V[2], V[3], V[4], V[5] }, false );
+    m_base = PolyhedralFace( { V[0], V[1], V[2], V[3], V[4], V[5] }, false );
 }
 
 FormFactorPrism6* FormFactorPrism6::clone() const

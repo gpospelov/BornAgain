@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      FormFactors/FormFactorPolyhedron.cpp
-//! @brief     Implements class FormFactorPolyhedron, and auxiliary classes.
+//! @brief     Implements class FormFactorPolyhedron, FormFactorPrism, and auxiliary classes.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -28,6 +28,7 @@
 #include "Precomputed.h"
 #include "BasicVector3D.h"
 #include "MathFunctions.h"
+#include "BornAgainNamespace.h"
 
 typedef std::complex<double> complex_t;
 typedef Geometry::BasicVector3D<complex_t> cvector_t;
@@ -411,17 +412,14 @@ void FormFactorPolyhedron::assert_platonic() const
 //  FormFactorPolygonalPrism implementation
 //***************************************************************************************************
 
-FormFactorPolygonalPrism::FormFactorPolygonalPrism(
-    const PolyhedralFace& _base, const double _height )
-    : m_base(_base), m_height(_height)
+FormFactorPolygonalPrism::FormFactorPolygonalPrism(double height)
+    : m_height(height)
 {
+    registerParameter(BornAgain::Height, &m_height, AttLimits::n_positive());
 }
 
 //! Returns the volume of this prism.
 double FormFactorPolygonalPrism::getVolume() const { return m_height * m_base.getArea(); }
-
-//! Returns the height of this prism.
-double FormFactorPolygonalPrism::getHeight() const { return m_height; }
 
 //! Returns the form factor F(q) of this polyhedron, respecting the offset height/2.
 

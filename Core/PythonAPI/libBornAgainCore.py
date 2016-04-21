@@ -11072,14 +11072,6 @@ class FormFactorPrism3(FormFactorPolygonalPrism):
         except:
             self.this = this
 
-    def prismatic_face(base_edge):
-        """prismatic_face(double const base_edge) -> PolyhedralFace"""
-        return _libBornAgainCore.FormFactorPrism3_prismatic_face(base_edge)
-
-    if _newclass:
-        prismatic_face = staticmethod(prismatic_face)
-    __swig_getmethods__["prismatic_face"] = lambda x: prismatic_face
-
     def clone(self):
         """
         clone(FormFactorPrism3 self) -> FormFactorPrism3
@@ -11112,10 +11104,6 @@ class FormFactorPrism3(FormFactorPolygonalPrism):
     __del__ = lambda self: None
 FormFactorPrism3_swigregister = _libBornAgainCore.FormFactorPrism3_swigregister
 FormFactorPrism3_swigregister(FormFactorPrism3)
-
-def FormFactorPrism3_prismatic_face(base_edge):
-    """FormFactorPrism3_prismatic_face(double const base_edge) -> PolyhedralFace"""
-    return _libBornAgainCore.FormFactorPrism3_prismatic_face(base_edge)
 
 class FormFactorPrism6(FormFactorPolygonalPrism):
     """
@@ -11160,14 +11148,6 @@ class FormFactorPrism6(FormFactorPolygonalPrism):
         except:
             self.this = this
 
-    def prismatic_face(base_edge):
-        """prismatic_face(double const base_edge) -> PolyhedralFace"""
-        return _libBornAgainCore.FormFactorPrism6_prismatic_face(base_edge)
-
-    if _newclass:
-        prismatic_face = staticmethod(prismatic_face)
-    __swig_getmethods__["prismatic_face"] = lambda x: prismatic_face
-
     def clone(self):
         """
         clone(FormFactorPrism6 self) -> FormFactorPrism6
@@ -11200,10 +11180,6 @@ class FormFactorPrism6(FormFactorPolygonalPrism):
     __del__ = lambda self: None
 FormFactorPrism6_swigregister = _libBornAgainCore.FormFactorPrism6_swigregister
 FormFactorPrism6_swigregister(FormFactorPrism6)
-
-def FormFactorPrism6_prismatic_face(base_edge):
-    """FormFactorPrism6_prismatic_face(double const base_edge) -> PolyhedralFace"""
-    return _libBornAgainCore.FormFactorPrism6_prismatic_face(base_edge)
 
 class FormFactorPyramid(FormFactorPolyhedron):
     """

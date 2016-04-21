@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      FormFactors/src/FormFactorPolyhedron.h
-//! @brief     Declares class FormFactorPolyhedron, and auxiliary classes.
+//! @brief     Declares class FormFactorPolyhedron, FormFactorPrism, and auxiliary classes.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -65,9 +65,6 @@ private:
 class FormFactorPolyhedron : public IFormFactorBorn {
 public:
     FormFactorPolyhedron() {}
-    FormFactorPolyhedron( const std::vector<PolyhedralFace>& _faces,
-                          const double _z_origin, const bool _sym_Ci=false )
-    : m_faces(_faces), m_z_origin(_z_origin), m_sym_Ci(_sym_Ci) {}; //! @TODO rm
     virtual complex_t evaluate_for_q(const cvector_t q ) const final;
     virtual double getVolume() const final { return m_volume; }
     virtual double getRadius() const final { return m_radius; }
@@ -89,10 +86,10 @@ private:
 
 class FormFactorPolygonalPrism : public IFormFactorBorn {
 public:
-    FormFactorPolygonalPrism( const PolyhedralFace& _base, const double _height );
+    FormFactorPolygonalPrism( const double _height );
     virtual complex_t evaluate_for_q(const cvector_t q ) const final;
     double getVolume() const;
-    double getHeight() const;
+    double getHeight() const { return m_height; }
     virtual double getRadius() const final { return std::sqrt(m_base.getArea()); }
 protected:
     PolyhedralFace m_base;

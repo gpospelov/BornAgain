@@ -26,14 +26,13 @@ class BA_CORE_API_ FormFactorPrism3 : public FormFactorPolygonalPrism
 public:
     FormFactorPrism3(const double base_edge, const double height);
 
-    static PolyhedralFace prismatic_face(const double base_edge);
-
     virtual FormFactorPrism3 *clone() const;
     virtual void accept(ISampleVisitor *visitor) const;
 
     double getBaseEdge() const { return m_base_edge; }
 
 private:
+    virtual void onChange() final;
     double m_base_edge;
 };
 

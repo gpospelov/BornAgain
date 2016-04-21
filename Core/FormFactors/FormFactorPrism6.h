@@ -24,27 +24,17 @@
 class BA_CORE_API_ FormFactorPrism6 : public FormFactorPolygonalPrism
 {
 public:
-    //! @brief Prism6 constructor
-    //! @param radius of hexagonal base (different from R in IsGisaxs)
-    //! @param height of Prism6
-    FormFactorPrism6(const double radius, const double height);
+    FormFactorPrism6(const double base_edge, const double height);
 
-    static PolyhedralFace prismatic_face(const double radius);
+    static PolyhedralFace prismatic_face(const double base_edge);
 
     virtual FormFactorPrism6 *clone() const;
-
     virtual void accept(ISampleVisitor *visitor) const;
 
-    virtual double getRadius() const;
-
-protected:
-    virtual bool check_initialization() const;
-    virtual void init_parameters();
+    virtual double getBaseEdge() const { return m_base_edge; }
 
 private:
-    double m_radius;
+    double m_base_edge;
 };
-
-inline double FormFactorPrism6::getRadius() const { return m_radius; }
 
 #endif // FORMFACTORPRISM6_H

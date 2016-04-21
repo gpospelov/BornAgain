@@ -69,7 +69,7 @@ public:
 class BA_CORE_API_ Cone6Item : public FormFactorItem
 {
 public:
-    static const QString P_RADIUS;
+    static const QString P_BASEEDGE;
     static const QString P_HEIGHT;
     static const QString P_ALPHA;
     explicit Cone6Item();
@@ -159,7 +159,7 @@ class BA_CORE_API_ IcosahedronItem : public FormFactorItem
 class BA_CORE_API_ Prism3Item : public FormFactorItem
 {
 public:
-    static const QString P_LENGTH;
+    static const QString P_BASEEDGE;
     static const QString P_HEIGHT;
     explicit Prism3Item();
     std::unique_ptr<IFormFactor> createFormFactor() const;
@@ -169,7 +169,7 @@ public:
 class BA_CORE_API_ Prism6Item : public FormFactorItem
 {
 public:
-    static const QString P_RADIUS;
+    static const QString P_BASEEDGE;
     static const QString P_HEIGHT;
     explicit Prism6Item();
     std::unique_ptr<IFormFactor> createFormFactor() const;
@@ -179,7 +179,7 @@ public:
 class BA_CORE_API_ PyramidItem : public FormFactorItem
 {
 public:
-    static const QString P_LENGTH;
+    static const QString P_BASEEDGE;
     static const QString P_HEIGHT;
     static const QString P_ALPHA;
     explicit PyramidItem();
@@ -213,7 +213,7 @@ public:
 class BA_CORE_API_ TetrahedronItem : public FormFactorItem
 {
 public:
-    static const QString P_LENGTH;
+    static const QString P_BASEEDGE;
     static const QString P_HEIGHT;
     static const QString P_ALPHA;
     explicit TetrahedronItem();

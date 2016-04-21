@@ -33,6 +33,7 @@ public:
     virtual FormFactorCone6* clone() const;
     virtual void accept(ISampleVisitor *visitor) const;
 
+    double getBaseEdge() const { return m_base_edge; }
     double getHeight() const { return m_height; }
     double getAlpha() const { return m_alpha; }
 

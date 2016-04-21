@@ -8410,6 +8410,18 @@ class FormFactorPolygonalPrism(IFormFactorBorn):
         """
         return _libBornAgainCore.FormFactorPolygonalPrism_getHeight(self)
 
+
+    def getRadius(self):
+        """
+        getRadius(FormFactorPolygonalPrism self) -> double
+
+        virtual double IFormFactor::getRadius() const =0
+
+        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+
+        """
+        return _libBornAgainCore.FormFactorPolygonalPrism_getRadius(self)
+
     __swig_destroy__ = _libBornAgainCore.delete_FormFactorPolygonalPrism
     __del__ = lambda self: None
 FormFactorPolygonalPrism_swigregister = _libBornAgainCore.FormFactorPolygonalPrism_swigregister
@@ -8896,6 +8908,11 @@ class FormFactorCone6(FormFactorPolyhedron):
 
         """
         return _libBornAgainCore.FormFactorCone6_accept(self, visitor)
+
+
+    def getBaseEdge(self):
+        """getBaseEdge(FormFactorCone6 self) -> double"""
+        return _libBornAgainCore.FormFactorCone6_getBaseEdge(self)
 
 
     def getHeight(self):
@@ -11031,9 +11048,9 @@ class FormFactorPrism3(FormFactorPolygonalPrism):
     __getattr__ = lambda self, name: _swig_getattr(self, FormFactorPrism3, name)
     __repr__ = _swig_repr
 
-    def __init__(self, length, height):
+    def __init__(self, base_edge, height):
         """
-        __init__(FormFactorPrism3 self, double const length, double const height) -> FormFactorPrism3
+        __init__(FormFactorPrism3 self, double const base_edge, double const height) -> FormFactorPrism3
 
         FormFactorPrism3::FormFactorPrism3(const double length, const double height)
 
@@ -11049,15 +11066,15 @@ class FormFactorPrism3(FormFactorPolygonalPrism):
         of Prism3 
 
         """
-        this = _libBornAgainCore.new_FormFactorPrism3(length, height)
+        this = _libBornAgainCore.new_FormFactorPrism3(base_edge, height)
         try:
             self.this.append(this)
         except:
             self.this = this
 
-    def prismatic_face(length):
-        """prismatic_face(double const length) -> PolyhedralFace"""
-        return _libBornAgainCore.FormFactorPrism3_prismatic_face(length)
+    def prismatic_face(base_edge):
+        """prismatic_face(double const base_edge) -> PolyhedralFace"""
+        return _libBornAgainCore.FormFactorPrism3_prismatic_face(base_edge)
 
     if _newclass:
         prismatic_face = staticmethod(prismatic_face)
@@ -11087,35 +11104,18 @@ class FormFactorPrism3(FormFactorPolygonalPrism):
         return _libBornAgainCore.FormFactorPrism3_accept(self, visitor)
 
 
-    def getRadius(self):
-        """
-        getRadius(FormFactorPrism3 self) -> double
-
-        double FormFactorPrism3::getRadius() const
-
-        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-
-        """
-        return _libBornAgainCore.FormFactorPrism3_getRadius(self)
-
-
-    def getLength(self):
-        """
-        getLength(FormFactorPrism3 self) -> double
-
-        double FormFactorPrism3::getLength() const 
-
-        """
-        return _libBornAgainCore.FormFactorPrism3_getLength(self)
+    def getBaseEdge(self):
+        """getBaseEdge(FormFactorPrism3 self) -> double"""
+        return _libBornAgainCore.FormFactorPrism3_getBaseEdge(self)
 
     __swig_destroy__ = _libBornAgainCore.delete_FormFactorPrism3
     __del__ = lambda self: None
 FormFactorPrism3_swigregister = _libBornAgainCore.FormFactorPrism3_swigregister
 FormFactorPrism3_swigregister(FormFactorPrism3)
 
-def FormFactorPrism3_prismatic_face(length):
-    """FormFactorPrism3_prismatic_face(double const length) -> PolyhedralFace"""
-    return _libBornAgainCore.FormFactorPrism3_prismatic_face(length)
+def FormFactorPrism3_prismatic_face(base_edge):
+    """FormFactorPrism3_prismatic_face(double const base_edge) -> PolyhedralFace"""
+    return _libBornAgainCore.FormFactorPrism3_prismatic_face(base_edge)
 
 class FormFactorPrism6(FormFactorPolygonalPrism):
     """
@@ -11136,9 +11136,9 @@ class FormFactorPrism6(FormFactorPolygonalPrism):
     __getattr__ = lambda self, name: _swig_getattr(self, FormFactorPrism6, name)
     __repr__ = _swig_repr
 
-    def __init__(self, radius, height):
+    def __init__(self, base_edge, height):
         """
-        __init__(FormFactorPrism6 self, double const radius, double const height) -> FormFactorPrism6
+        __init__(FormFactorPrism6 self, double const base_edge, double const height) -> FormFactorPrism6
 
         FormFactorPrism6::FormFactorPrism6(const double radius, const double height)
 
@@ -11154,15 +11154,15 @@ class FormFactorPrism6(FormFactorPolygonalPrism):
         of Prism6 
 
         """
-        this = _libBornAgainCore.new_FormFactorPrism6(radius, height)
+        this = _libBornAgainCore.new_FormFactorPrism6(base_edge, height)
         try:
             self.this.append(this)
         except:
             self.this = this
 
-    def prismatic_face(radius):
-        """prismatic_face(double const radius) -> PolyhedralFace"""
-        return _libBornAgainCore.FormFactorPrism6_prismatic_face(radius)
+    def prismatic_face(base_edge):
+        """prismatic_face(double const base_edge) -> PolyhedralFace"""
+        return _libBornAgainCore.FormFactorPrism6_prismatic_face(base_edge)
 
     if _newclass:
         prismatic_face = staticmethod(prismatic_face)
@@ -11192,25 +11192,18 @@ class FormFactorPrism6(FormFactorPolygonalPrism):
         return _libBornAgainCore.FormFactorPrism6_accept(self, visitor)
 
 
-    def getRadius(self):
-        """
-        getRadius(FormFactorPrism6 self) -> double
-
-        double FormFactorPrism6::getRadius() const
-
-        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-
-        """
-        return _libBornAgainCore.FormFactorPrism6_getRadius(self)
+    def getBaseEdge(self):
+        """getBaseEdge(FormFactorPrism6 self) -> double"""
+        return _libBornAgainCore.FormFactorPrism6_getBaseEdge(self)
 
     __swig_destroy__ = _libBornAgainCore.delete_FormFactorPrism6
     __del__ = lambda self: None
 FormFactorPrism6_swigregister = _libBornAgainCore.FormFactorPrism6_swigregister
 FormFactorPrism6_swigregister(FormFactorPrism6)
 
-def FormFactorPrism6_prismatic_face(radius):
-    """FormFactorPrism6_prismatic_face(double const radius) -> PolyhedralFace"""
-    return _libBornAgainCore.FormFactorPrism6_prismatic_face(radius)
+def FormFactorPrism6_prismatic_face(base_edge):
+    """FormFactorPrism6_prismatic_face(double const base_edge) -> PolyhedralFace"""
+    return _libBornAgainCore.FormFactorPrism6_prismatic_face(base_edge)
 
 class FormFactorPyramid(FormFactorPolyhedron):
     """
@@ -11231,9 +11224,9 @@ class FormFactorPyramid(FormFactorPolyhedron):
     __getattr__ = lambda self, name: _swig_getattr(self, FormFactorPyramid, name)
     __repr__ = _swig_repr
 
-    def __init__(self, length, height, alpha):
+    def __init__(self, base_edge, height, alpha):
         """
-        __init__(FormFactorPyramid self, double length, double height, double alpha) -> FormFactorPyramid
+        __init__(FormFactorPyramid self, double base_edge, double height, double alpha) -> FormFactorPyramid
 
         FormFactorPyramid::FormFactorPyramid(double length, double height, double alpha)
 
@@ -11252,7 +11245,7 @@ class FormFactorPyramid(FormFactorPolyhedron):
         in radians between base and facet 
 
         """
-        this = _libBornAgainCore.new_FormFactorPyramid(length, height, alpha)
+        this = _libBornAgainCore.new_FormFactorPyramid(base_edge, height, alpha)
         try:
             self.this.append(this)
         except:
@@ -11292,14 +11285,9 @@ class FormFactorPyramid(FormFactorPolyhedron):
         return _libBornAgainCore.FormFactorPyramid_getHeight(self)
 
 
-    def getLength(self):
-        """
-        getLength(FormFactorPyramid self) -> double
-
-        double FormFactorPyramid::getLength() const 
-
-        """
-        return _libBornAgainCore.FormFactorPyramid_getLength(self)
+    def getBaseEdge(self):
+        """getBaseEdge(FormFactorPyramid self) -> double"""
+        return _libBornAgainCore.FormFactorPyramid_getBaseEdge(self)
 
 
     def getAlpha(self):
@@ -11874,9 +11862,9 @@ class FormFactorTetrahedron(FormFactorPolyhedron):
     __getattr__ = lambda self, name: _swig_getattr(self, FormFactorTetrahedron, name)
     __repr__ = _swig_repr
 
-    def __init__(self, length, height, alpha):
+    def __init__(self, base_edge, height, alpha):
         """
-        __init__(FormFactorTetrahedron self, double length, double height, double alpha) -> FormFactorTetrahedron
+        __init__(FormFactorTetrahedron self, double base_edge, double height, double alpha) -> FormFactorTetrahedron
 
         FormFactorTetrahedron::FormFactorTetrahedron(double length, double height, double alpha)
 
@@ -11895,7 +11883,7 @@ class FormFactorTetrahedron(FormFactorPolyhedron):
         in radians between base and facet 
 
         """
-        this = _libBornAgainCore.new_FormFactorTetrahedron(length, height, alpha)
+        this = _libBornAgainCore.new_FormFactorTetrahedron(base_edge, height, alpha)
         try:
             self.this.append(this)
         except:
@@ -11925,14 +11913,9 @@ class FormFactorTetrahedron(FormFactorPolyhedron):
         return _libBornAgainCore.FormFactorTetrahedron_accept(self, visitor)
 
 
-    def getLength(self):
-        """
-        getLength(FormFactorTetrahedron self) -> double
-
-        double FormFactorTetrahedron::getLength() const 
-
-        """
-        return _libBornAgainCore.FormFactorTetrahedron_getLength(self)
+    def getBaseEdge(self):
+        """getBaseEdge(FormFactorTetrahedron self) -> double"""
+        return _libBornAgainCore.FormFactorTetrahedron_getBaseEdge(self)
 
 
     def getHeight(self):

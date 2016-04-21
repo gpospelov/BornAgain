@@ -17,18 +17,18 @@
 #include "BornAgainNamespace.h"
 
 //! @brief Pyramid constructor
-//! @param length of one side of Pyramid's square base
+//! @param base_edge of one side of Pyramid's square base
 //! @param height of Pyramid
 //! @param angle in radians between base and facet
 
-FormFactorPyramid::FormFactorPyramid(double length, double height, double alpha)
+FormFactorPyramid::FormFactorPyramid(double base_edge, double height, double alpha)
     : FormFactorPolyhedron()
-    , m_length(length)
+    , m_base_edge(base_edge)
     , m_height(height)
     , m_alpha(alpha)
 {
     setName(BornAgain::FFPyramidType);
-    registerParameter(BornAgain::Length, &m_length, AttLimits::n_positive());
+    registerParameter(BornAgain::BaseEdge, &m_base_edge, AttLimits::n_positive());
     registerParameter(BornAgain::Height, &m_height, AttLimits::n_positive());
     registerParameter(BornAgain::Alpha, &m_alpha, AttLimits::n_positive());
     onChange();
@@ -36,19 +36,19 @@ FormFactorPyramid::FormFactorPyramid(double length, double height, double alpha)
 
 void FormFactorPyramid::onChange()
 {
-    if(m_height > m_length*std::tan(m_alpha)) {
+    if(m_height > m_base_edge*std::tan(m_alpha)) {
         std::ostringstream ostr;
         ostr << "FormFactorPyramid() -> Error in class initialization with parameters";
-        ostr << " length:" << m_length;
+        ostr << " base_edge:" << m_base_edge;
         ostr << " height:" << m_height;
         ostr << " alpha[rad]:" << m_alpha << "\n\n";
-        ostr << "Check for 'height <= length*tan(alpha)' failed.";
+        ostr << "Check for 'height <= base_edge*tan(alpha)' failed.";
         throw Exceptions::ClassInitializationException(ostr.str());
     }
 
     m_faces.clear();
-    double a = m_length/2;
-    double b = m_length/2 - m_height/std::tan(m_alpha);
+    double a = m_base_edge/2;
+    double b = m_base_edge/2 - m_height/std::tan(m_alpha);
 
     if( std::abs(b)<1e-14*a ) {
         // true pyramid
@@ -95,7 +95,7 @@ void FormFactorPyramid::onChange()
 
 FormFactorPyramid* FormFactorPyramid::clone() const
 {
-   return new FormFactorPyramid(m_length, m_height, m_alpha);
+   return new FormFactorPyramid(m_base_edge, m_height, m_alpha);
 }
 
 void FormFactorPyramid::accept(ISampleVisitor *visitor) const

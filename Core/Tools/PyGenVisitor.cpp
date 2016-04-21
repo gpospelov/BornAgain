@@ -520,19 +520,19 @@ std::string PyGenVisitor::defineFormFactors() const
 
         else if (const FormFactorPrism3 *prism3 = dynamic_cast<const FormFactorPrism3 *>(p_ff)) {
             result << " = FormFactorPrism3("
-                   << PyGenTools::printNm(prism3->getLength()) << ", "
+                   << PyGenTools::printNm(prism3->getBaseEdge()) << ", "
                    << PyGenTools::printNm(prism3->getHeight()) << ")\n";
         }
 
         else if (const FormFactorPrism6 *prism6 = dynamic_cast<const FormFactorPrism6 *>(p_ff)) {
             result << " = FormFactorPrism6("
-                   << PyGenTools::printNm(prism6->getRadius()) << ", "
+                   << PyGenTools::printNm(prism6->getBaseEdge()) << ", "
                    << PyGenTools::printNm(prism6->getHeight()) << ")\n";
         }
 
         else if (const FormFactorPyramid *pyramid = dynamic_cast<const FormFactorPyramid *>(p_ff)) {
             result << " = FormFactorPyramid("
-                   << PyGenTools::printNm(pyramid->getLength()) << ", "
+                   << PyGenTools::printNm(pyramid->getBaseEdge()) << ", "
                    << PyGenTools::printNm(pyramid->getHeight()) << ", "
                    << PyGenTools::printDegrees(pyramid->getAlpha()) << ")\n";
         }
@@ -555,7 +555,7 @@ std::string PyGenVisitor::defineFormFactors() const
         else if (const FormFactorTetrahedron *tetrahedron
                  = dynamic_cast<const FormFactorTetrahedron *>(p_ff)) {
             result << " = FormFactorTetrahedron("
-                   << PyGenTools::printNm(tetrahedron->getLength()) << ", "
+                   << PyGenTools::printNm(tetrahedron->getBaseEdge()) << ", "
                    << PyGenTools::printNm(tetrahedron->getHeight()) << ", "
                    << PyGenTools::printDegrees(tetrahedron->getAlpha()) << ")\n";
         }

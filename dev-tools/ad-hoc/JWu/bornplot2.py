@@ -131,34 +131,37 @@ def get_sample(ff, trafo):
     return multi_layer
 
 
-def get_simulation(detPars):
-    """Create and return GISAXS simulation with beam and detector defined
+def get_simulation(detPars, ff, trafo=None):
+    """Create and return GISAXS simulation
 
     :param detPars: Detector limits
+    :param sample
     """
     simulation = ba.GISASSimulation()
     detector = ba.RectangularDetector(detPars.y.n, detPars.y.range(), detPars.z.n, detPars.z.range())
     detector.setPerpendicularToSampleX(1., -detPars.y.vmin, -detPars.z.vmin)
     simulation.setDetector(detector)
     simulation.setBeamParameters(1.0*nanometer, 0, 0)
+    sample = get_sample(ff, trafo)
+    simulation.setSample(sample)
     return simulation
 
 
-def run_simulation(detPars, ff, trafo=None):
-    """Run simulation and plot results
-
-    :param detPars: Detector limits
-    :param ff: Form factor
-    :param trafo: Optional rotation
+def run_sim(simulation, detPars):
+    """Run simulation and return plottable results
     """
-    zero = ba.cvector_t(0, 0, 0)
-    volume = abs(ff.evaluate_for_q(zero))
-    print("Volume: %g" % volume)
-    sample = get_sample(ff, trafo)
-    simulation = get_simulation(detPars)
-    simulation.setSample(sample)
     simulation.runSimulation()
     data = simulation.getIntensityData().getArray()
     nor = data[detPars.z.n - detPars.z.origin_index() - 1, detPars.y.origin_index()]
     data /= nor
     return data + 1e-80  # for log scale
+
+
+def run_simulation(detPars, ff, trafo=None):
+    """Create simulation, run it, and return plottable results
+
+    :param detPars: Detector limits
+    :param ff: Form factor
+    :param trafo: Optional rotation
+    """
+    return run_sim( get_simulation(detPars, tt, trafo), detPars )

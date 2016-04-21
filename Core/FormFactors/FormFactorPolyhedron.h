@@ -93,6 +93,7 @@ public:
     virtual complex_t evaluate_for_q(const cvector_t q ) const final;
     double getVolume() const;
     double getHeight() const;
+    virtual double getRadius() const final { return std::sqrt(m_base.getArea()); }
 protected:
     PolyhedralFace m_base;
     double m_height;

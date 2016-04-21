@@ -19,38 +19,38 @@
 #include "IntegratorComplex.h"
 
 //! @brief Tetrahedron constructor
-//! @param length of a side of Tetrahedron's base
+//! @param base_edge of a side of Tetrahedron's base
 //! @param height of Tetrahedron
 //! @param angle in radians between base and facet
 
-FormFactorTetrahedron::FormFactorTetrahedron(double length, double height, double alpha)
+FormFactorTetrahedron::FormFactorTetrahedron(double base_edge, double height, double alpha)
     : FormFactorPolyhedron()
-    , m_length(length)
+    , m_base_edge(base_edge)
     , m_height(height)
     , m_alpha(alpha)
 {
     setName(BornAgain::FFTetrahedronType);
     registerParameter(BornAgain::Height, &m_height, AttLimits::n_positive());
-    registerParameter(BornAgain::Length, &m_length, AttLimits::n_positive());
+    registerParameter(BornAgain::BaseEdge, &m_base_edge, AttLimits::n_positive());
     registerParameter(BornAgain::Alpha, &m_alpha, AttLimits::n_positive());
     onChange();
 }
 
 void FormFactorTetrahedron::onChange()
 {
-    if (2*std::sqrt(3.) * m_height > m_length*std::tan(m_alpha)) {
+    if (2*std::sqrt(3.) * m_height > m_base_edge*std::tan(m_alpha)) {
         std::ostringstream ostr;
         ostr << "FormFactorTetrahedron() -> Error in class initialization with parameters ";
         ostr << " height:" << m_height;
-        ostr << " length:" << m_length;
+        ostr << " base_edge:" << m_base_edge;
         ostr << " alpha[rad]:" << m_alpha << "\n\n";
-        ostr << "Check for '2.*sqrt(3.) * height <= length*tan(alpha)' failed.";
+        ostr << "Check for '2.*sqrt(3.) * height <= base_edge*tan(alpha)' failed.";
         throw Exceptions::ClassInitializationException(ostr.str());
     }
 
     m_faces.clear();
 
-    double a = m_length;
+    double a = m_base_edge;
     double as = a/2;
     double ac = a/sqrt(3)/2;
     double ah = a/sqrt(3);
@@ -98,7 +98,7 @@ void FormFactorTetrahedron::onChange()
 
 FormFactorTetrahedron* FormFactorTetrahedron::clone() const
 {
-    return new FormFactorTetrahedron(m_length, m_height, m_alpha);
+    return new FormFactorTetrahedron(m_base_edge, m_height, m_alpha);
 }
 
 void FormFactorTetrahedron::accept(ISampleVisitor *visitor) const

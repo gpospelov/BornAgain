@@ -94,14 +94,14 @@ std::unique_ptr<IFormFactor> ConeItem::createFormFactor() const
 
 /* ------------------------------------------------ */
 
-const QString Cone6Item::P_RADIUS = QString::fromStdString(BornAgain::Radius);
+const QString Cone6Item::P_BASEEDGE = QString::fromStdString(BornAgain::BaseEdge);
 const QString Cone6Item::P_HEIGHT = QString::fromStdString(BornAgain::Height);
 const QString Cone6Item::P_ALPHA = QString::fromStdString(BornAgain::Alpha);
 
 Cone6Item::Cone6Item()
     : FormFactorItem(Constants::Cone6Type)
 {
-    addProperty(P_RADIUS, 10.0);
+    addProperty(P_BASEEDGE, 10.0);
     addProperty(P_HEIGHT, 13.0);
     addProperty(P_ALPHA, 60.0);
 }
@@ -109,7 +109,7 @@ Cone6Item::Cone6Item()
 std::unique_ptr<IFormFactor> Cone6Item::createFormFactor() const
 {
     return GUIHelpers::make_unique<FormFactorCone6>(
-                getItemValue(P_RADIUS).toDouble(),
+                getItemValue(P_BASEEDGE).toDouble(),
                 getItemValue(P_HEIGHT).toDouble(),
                 getItemValue(P_ALPHA).toDouble()*Units::degree
                 );
@@ -282,54 +282,54 @@ std::unique_ptr<IFormFactor> IcosahedronItem::createFormFactor() const
 
 /* ------------------------------------------------ */
 
-const QString Prism3Item::P_LENGTH = QString::fromStdString(BornAgain::Length);
+const QString Prism3Item::P_BASEEDGE = QString::fromStdString(BornAgain::BaseEdge);
 const QString Prism3Item::P_HEIGHT = QString::fromStdString(BornAgain::Height);
 
 Prism3Item::Prism3Item()
     : FormFactorItem(Constants::Prism3Type)
 {
-    addProperty(P_LENGTH, 10.0);
+    addProperty(P_BASEEDGE, 10.0);
     addProperty(P_HEIGHT, 13.0);
 }
 
 std::unique_ptr<IFormFactor> Prism3Item::createFormFactor() const
 {
     return GUIHelpers::make_unique<FormFactorPrism3>(
-                getItemValue(P_LENGTH).toDouble(),
+                getItemValue(P_BASEEDGE).toDouble(),
                 getItemValue(P_HEIGHT).toDouble()
                 );
 }
 
 /* ------------------------------------------------ */
 
-const QString Prism6Item::P_RADIUS = QString::fromStdString(BornAgain::Radius);
+const QString Prism6Item::P_BASEEDGE = QString::fromStdString(BornAgain::BaseEdge);
 const QString Prism6Item::P_HEIGHT = QString::fromStdString(BornAgain::Height);
 
 Prism6Item::Prism6Item()
     : FormFactorItem(Constants::Prism6Type)
 {
-    addProperty(P_RADIUS, 5.0);
+    addProperty(P_BASEEDGE, 5.0);
     addProperty(P_HEIGHT, 11.0);
 }
 
 std::unique_ptr<IFormFactor> Prism6Item::createFormFactor() const
 {
     return GUIHelpers::make_unique<FormFactorPrism6>(
-                getItemValue(P_RADIUS).toDouble(),
+                getItemValue(P_BASEEDGE).toDouble(),
                 getItemValue(P_HEIGHT).toDouble()
                 );
 }
 
 /* ------------------------------------------------ */
 
-const QString PyramidItem::P_LENGTH = QString::fromStdString(BornAgain::Length);
+const QString PyramidItem::P_BASEEDGE = QString::fromStdString(BornAgain::BaseEdge);
 const QString PyramidItem::P_HEIGHT = QString::fromStdString(BornAgain::Height);
 const QString PyramidItem::P_ALPHA = QString::fromStdString(BornAgain::Alpha);
 
 PyramidItem::PyramidItem()
     : FormFactorItem(Constants::PyramidType)
 {
-    addProperty(P_LENGTH, 18.0);
+    addProperty(P_BASEEDGE, 18.0);
     addProperty(P_HEIGHT, 13.0);
     addProperty(P_ALPHA, 60.0);
 }
@@ -337,7 +337,7 @@ PyramidItem::PyramidItem()
 std::unique_ptr<IFormFactor> PyramidItem::createFormFactor() const
 {
     return GUIHelpers::make_unique<FormFactorPyramid>(
-                getItemValue(P_LENGTH).toDouble(),
+                getItemValue(P_BASEEDGE).toDouble(),
                 getItemValue(P_HEIGHT).toDouble(),
                 getItemValue(P_ALPHA).toDouble()*Units::degree
                 );
@@ -394,14 +394,14 @@ std::unique_ptr<IFormFactor> Ripple2Item::createFormFactor() const
 
 /* ------------------------------------------------ */
 
-const QString TetrahedronItem::P_LENGTH = QString::fromStdString(BornAgain::Length);
+const QString TetrahedronItem::P_BASEEDGE = QString::fromStdString(BornAgain::BaseEdge);
 const QString TetrahedronItem::P_HEIGHT = QString::fromStdString(BornAgain::Height);
 const QString TetrahedronItem::P_ALPHA = QString::fromStdString(BornAgain::Alpha);
 
 TetrahedronItem::TetrahedronItem()
     : FormFactorItem(Constants::TetrahedronType)
 {
-    addProperty(P_LENGTH, 15.0);
+    addProperty(P_BASEEDGE, 15.0);
     addProperty(P_HEIGHT, 6.0);
     addProperty(P_ALPHA, 60.0);
 }
@@ -409,7 +409,7 @@ TetrahedronItem::TetrahedronItem()
 std::unique_ptr<IFormFactor> TetrahedronItem::createFormFactor() const
 {
     return GUIHelpers::make_unique<FormFactorTetrahedron>(
-                getItemValue(P_LENGTH).toDouble(),
+                getItemValue(P_BASEEDGE).toDouble(),
                 getItemValue(P_HEIGHT).toDouble(),
                 getItemValue(P_ALPHA).toDouble()*Units::degree
                 );

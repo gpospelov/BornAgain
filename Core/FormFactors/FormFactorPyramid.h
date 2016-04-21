@@ -20,23 +20,23 @@
 
 //! @class FormFactorPyramid
 //! @ingroup formfactors
-//! @brief The formfactor of a cone6.
+//! @brief The formfactor of a quadratic pyramid
 class BA_CORE_API_ FormFactorPyramid : public FormFactorPolyhedron
 {
 public:
-    FormFactorPyramid(double length, double height, double alpha);
+    FormFactorPyramid(double base_edge, double height, double alpha);
 
     virtual FormFactorPyramid* clone() const final;
     virtual void accept(ISampleVisitor *visitor) const final;
 
     double getHeight() const { return m_height; }
-    double getLength() const { return m_length; }
+    double getBaseEdge() const { return m_base_edge; }
     double getAlpha() const { return m_alpha; }
 
 private:
     virtual void onChange() final;
 
-    double m_length;
+    double m_base_edge;
     double m_height;
     double m_alpha;
 };

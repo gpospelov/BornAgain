@@ -37,39 +37,51 @@ void ModelMapper::setItem(SessionItem *item)
     }
 }
 
-void ModelMapper::setOnValueChange(std::function<void ()> f)
+void ModelMapper::setOnValueChange(std::function<void(void)> f, const void *caller)
 {
-    m_onValueChange.push_back(f);
+    m_onValueChange.push_back(call_t(f, caller));
 }
 
-void ModelMapper::setOnPropertyChange(std::function<void (QString)> f)
+void ModelMapper::setOnPropertyChange(std::function<void(QString)> f, const void *caller)
 {
-    m_onPropertyChange.push_back(f);
+    m_onPropertyChange.push_back(call_str_t(f, caller));
 }
 
-void ModelMapper::setOnChildPropertyChange(std::function<void (SessionItem *, QString)> f)
+void ModelMapper::setOnChildPropertyChange(std::function<void (SessionItem *, QString)> f, const void *caller)
 {
-    m_onChildPropertyChange.push_back(f);
+    m_onChildPropertyChange.push_back(call_item_str_t(f, caller));
 }
 
-void ModelMapper::setOnParentChange(std::function<void (SessionItem *)> f)
+void ModelMapper::setOnParentChange(std::function<void (SessionItem *)> f, const void *caller)
 {
-    m_onParentChange.push_back(f);
+    m_onParentChange.push_back(call_item_t(f, caller));
 }
 
-void ModelMapper::setOnChildrenChange(std::function<void(SessionItem *)> f)
+void ModelMapper::setOnChildrenChange(std::function<void(SessionItem *)> f, const void *caller)
 {
-    m_onChildrenChange.push_back(f);
+    m_onChildrenChange.push_back(call_item_t(f, caller));
 }
 
-void ModelMapper::setOnSiblingsChange(std::function<void ()> f)
+void ModelMapper::setOnSiblingsChange(std::function<void ()> f, const void *caller)
 {
-    m_onSiblingsChange.push_back(f);
+    m_onSiblingsChange.push_back(call_t(f, caller));
 }
 
-void ModelMapper::setOnAnyChildChange(std::function<void (SessionItem *)> f)
+void ModelMapper::setOnAnyChildChange(std::function<void (SessionItem *)> f, const void *caller)
 {
-    m_onAnyChildChange.push_back(f);
+    m_onAnyChildChange.push_back(call_item_t(f, caller));
+}
+
+//! Cancells all subscribtion of given caller
+void ModelMapper::unsubscribe(const void *caller)
+{
+    clean_container(m_onValueChange, caller);
+    clean_container(m_onPropertyChange, caller);
+    clean_container(m_onChildPropertyChange, caller);
+    clean_container(m_onParentChange, caller);
+    clean_container(m_onChildrenChange, caller);
+    clean_container(m_onSiblingsChange, caller);
+    clean_container(m_onAnyChildChange, caller);
 }
 
 void ModelMapper::setModel(SessionModel *model)
@@ -113,63 +125,70 @@ void ModelMapper::callOnValueChange()
 {
     if (m_active && m_onValueChange.size() > 0) {
         for (auto f : m_onValueChange) {
-            f();
+            f.first();
         }
     }
+    if(m_active) emit valueChange();
 }
 
 void ModelMapper::callOnPropertyChange(const QString &name)
 {
     if (m_active && m_onPropertyChange.size() > 0) {
         for (auto f : m_onPropertyChange) {
-            f(name);
+            f.first(name);
         }
     }
+    if(m_active) emit propertyChange(name);
 }
 
 void ModelMapper::callOnChildPropertyChange(SessionItem *item, const QString &name)
 {
     if (m_active && m_onChildPropertyChange.size() > 0) {
         for (auto f : m_onChildPropertyChange) {
-            f(item, name);
+            f.first(item, name);
         }
     }
+    if(m_active) emit childPropertyChange(item, name);
 }
 
 void ModelMapper::callOnParentChange(SessionItem *new_parent)
 {
     if (m_active && m_onParentChange.size() > 0) {
         for (auto f : m_onParentChange) {
-            f(new_parent);
+            f.first(new_parent);
         }
     }
+    if(m_active) emit parentChange(new_parent);
 }
 
 void ModelMapper::callOnChildrenChange(SessionItem *item)
 {
     if (m_active && m_onChildrenChange.size() > 0) {
         for (auto f : m_onChildrenChange) {
-            f(item);
+            f.first(item);
         }
     }
+    if(m_active) emit childrenChange(item);
 }
 
 void ModelMapper::callOnSiblingsChange()
 {
     if (m_active && m_onSiblingsChange.size() > 0) {
         for (auto f : m_onSiblingsChange) {
-            f();
+            f.first();
         }
     }
+    if(m_active) emit siblingsChange();
 }
 
 void ModelMapper::callOnAnyChildChange(SessionItem *item)
 {
     if (m_active && m_onAnyChildChange.size() > 0) {
         for (auto f : m_onAnyChildChange) {
-            f(item);
+            f.first(item);
         }
     }
+    if(m_active) emit anyChildChange(item);
 }
 
 void ModelMapper::clearMapper()
@@ -224,6 +243,7 @@ void ModelMapper::onDataChanged(const QModelIndex &topLeft, const QModelIndex &b
 
 void ModelMapper::onRowsInserted(const QModelIndex &parent, int first, int /*last*/)
 {
+    qDebug() << "OOO-> ModelMapper::onRowsInserted -> begin()";
     Q_ASSERT(m_item);
 
     SessionItem *newChild = m_model->itemForIndex(parent.child(first, 0));
@@ -264,14 +284,16 @@ void ModelMapper::onRowsInserted(const QModelIndex &parent, int first, int /*las
         callOnAnyChildChange(newChild);
     }
 
+    qDebug() << "OOO-> ModelMapper::onRowsInserted -> end()";
 }
 
 void ModelMapper::onBeginRemoveRows(const QModelIndex &parent, int first, int /*last*/)
 {
+    qDebug() << "OOO-> ModelMapper::onBeginRemoveRows -> begin()";
     Q_ASSERT(m_item);
     SessionItem *oldChild = m_model->itemForIndex(parent.child(first, 0));
-    qDebug() << "AAA 1.1" << m_item << m_item->displayName();
-    qDebug() << "AAA 1.2" << oldChild << oldChild->displayName();
+//    qDebug() << "AAA 1.1" << m_item << m_item->displayName();
+//    qDebug() << "AAA 1.2" << oldChild << oldChild->displayName();
 
     int nestling = nestlingDepth(m_model->itemForIndex(parent));
 
@@ -305,14 +327,16 @@ void ModelMapper::onBeginRemoveRows(const QModelIndex &parent, int first, int /*
 
     if (m_item == oldChild) {
         m_aboutToDelete = parent.child(first, 0);
+        qDebug() << "---------------------------->>>";
+        qDebug() << "ModelMapper::onBeginRemoveRows() -> preparing m_aboutToDelete" << m_aboutToDelete;
     }
 
-
+    qDebug() << "OOO-> ModelMapper::onBeginRemoveRows -> end()";
 }
 
 void ModelMapper::onRowRemoved(const QModelIndex &parent, int first, int /*last*/)
 {
-
+    qDebug() << "OOO-> ModelMapper::onRowRemoved -> begin()";
 
     int nestling = nestlingDepth(m_model->itemForIndex(parent));
 
@@ -323,6 +347,11 @@ void ModelMapper::onRowRemoved(const QModelIndex &parent, int first, int /*last*
     }
 
     if(m_aboutToDelete.isValid() && m_aboutToDelete == parent.child(first, 0)) {
+        qDebug() << "ModelMapper::onRowRemoved() -> clearingMapper";
         clearMapper();
+        qDebug() << "<<<- done ---------------------------";
+
     }
+    qDebug() << "OOO-> ModelMapper::onRowRemoved -> end()";
+
 }

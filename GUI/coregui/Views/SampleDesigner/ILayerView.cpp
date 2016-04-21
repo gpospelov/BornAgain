@@ -107,7 +107,7 @@ void ILayerView::mousePressEvent(QGraphicsSceneMouseEvent *event)
 void ILayerView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
     qDebug() << "ILayerView::mouseReleaseEvent()  this:" << this
-             << getParameterizedItem()->itemName() << " parentItem: " << parentItem();
+             << getItem()->itemName() << " parentItem: " << parentItem();
 
     DesignerScene *designerScene = dynamic_cast<DesignerScene *>(scene());
     Q_ASSERT(designerScene);
@@ -145,7 +145,7 @@ void ILayerView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 
     // Layer was moved only slightly, to the same row of his own MultiLayer: returning back.
     if (requested_parent == parentItem()
-        && requested_row == getParameterizedItem()->parent()->getItems().indexOf(getParameterizedItem())) {
+        && requested_row == getItem()->parent()->getItems().indexOf(getItem())) {
         qDebug() << "1.2 Layer->MultiLayer (same), same drop area";
         setPos(m_drag_start_position);
         QGraphicsItem::mouseReleaseEvent(event);
@@ -157,7 +157,7 @@ void ILayerView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     if (parentItem() && !requested_parent) {
         qDebug() << "1.3 Layer->Scene";
         setPos(mapToScene(event->pos()) - event->pos());
-        model->moveParameterizedItem(this->getParameterizedItem(), 0);
+        model->moveParameterizedItem(this->getItem(), 0);
         QGraphicsItem::mouseReleaseEvent(event);
         return;
     }
@@ -166,8 +166,8 @@ void ILayerView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     // one multilayer: changing ownership or row within same ownership.
     if (requested_parent) {
         qDebug() << "1.4 ILayerView->MultiLayer";
-        model->moveParameterizedItem(this->getParameterizedItem(),
-                                     requested_parent->getParameterizedItem(), requested_row);
+        model->moveParameterizedItem(this->getItem(),
+                                     requested_parent->getItem(), requested_row);
         QGraphicsItem::mouseReleaseEvent(event);
         return;
     }

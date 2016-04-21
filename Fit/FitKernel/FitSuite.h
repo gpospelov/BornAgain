@@ -20,6 +20,7 @@
 #include "IHistogram.h"
 #include "OutputData.h"
 #include "AttLimits.h"
+#include <memory>
 
 class GISASSimulation;
 class IChiSquaredModule;
@@ -157,10 +158,7 @@ public:
 private:
     FitSuite& operator=(const FitSuite& );
     FitSuite(const FitSuite& );
-
-    FitKernel* m_kernel; //!< pointer to implementation
-        // do not use unique_ptr here;
-        // otherwise no instance of FitSuite can be created without knowing the size of FitKernel
+    std::unique_ptr<FitKernel> m_kernel;
 };
 
 #endif

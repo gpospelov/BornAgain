@@ -20,14 +20,13 @@
 #include "WinDllMacros.h"
 #include <QWidget>
 #include <QMap>
+#include <memory>
 
 class JobModel;
 class JobItem;
 class QTextEdit;
 class QTabWidget;
-//class AwesomePropertyEditor;
 class ComponentEditor;
-class ModelMapper;
 
 //! Widget to show and change properties of currently selected JobItem
 //! Left buttom corner of JobView
@@ -55,11 +54,9 @@ private:
     JobModel *m_jobModel;
     JobItem *m_currentItem;
     QTabWidget *m_tabWidget;
-//    AwesomePropertyEditor *m_propertyEditor;
     ComponentEditor *m_propertyEditor;
     QTextEdit *m_commentsEditor;
     bool m_block_update;
-    ModelMapper *m_mapper;
 };
 
 #endif

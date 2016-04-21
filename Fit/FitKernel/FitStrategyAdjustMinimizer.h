@@ -57,4 +57,3 @@ private:
 };
 
 #endif // FITSTRATEGYADJUSTMINIMIZER_H
-

@@ -26,7 +26,7 @@ VerticalSlicePlot::VerticalSlicePlot(QWidget *parent)
     , m_customPlot(0)
     , m_bars(0)
     , m_item(0)
-    , m_mapper(0)
+//    , m_mapper(0)
 {
     m_customPlot = new QCustomPlot();
     m_bars = new QCPBars(m_customPlot->yAxis, m_customPlot->xAxis);
@@ -42,36 +42,25 @@ VerticalSlicePlot::VerticalSlicePlot(QWidget *parent)
 
 void VerticalSlicePlot::setItem(IntensityDataItem *item)
 {
-    if (m_item == item) return;
+    if (m_item == item) {
+        return;
 
-    if (m_item) {
-//        disconnect(m_item, SIGNAL(propertyChanged(QString)),
-//                this, SLOT(onPropertyChanged(QString)));
-//        disconnect(m_item, SIGNAL(subItemPropertyChanged(QString,QString)),
-//                this, SLOT(onSubItemPropertyChanged(QString,QString)));
+    } else {
+        if(m_item)
+            m_item->mapper()->unsubscribe(this);
+
+        m_item = item;
+        if (!m_item) return;
+
+        plotItem(m_item);
+
+        m_item->mapper()->setOnChildPropertyChange(
+                    [this](SessionItem* item, const QString name)
+        {
+            if (item->parent() && item->parent()->modelType() == Constants::GroupItemType)
+                onSubItemPropertyChanged(item->itemName(), name);
+        }, this);
     }
-
-    m_item = item;
-
-    if (!m_item) return;
-
-    plotItem(m_item);
-    if (m_mapper)
-        m_mapper->deleteLater();
-    m_mapper = new ModelMapper(this);
-    m_mapper->setItem(item);
-    m_mapper->setOnChildPropertyChange(
-                [this](SessionItem* item, const QString name)
-    {
-        if (item->parent() && item->parent()->modelType() == Constants::GroupItemType)
-            onSubItemPropertyChanged(item->itemName(), name);
-    });
-
-//    connect(m_item, SIGNAL(propertyChanged(QString)),
-//            this, SLOT(onPropertyChanged(QString)));
-
-//    connect(m_item, SIGNAL(subItemPropertyChanged(QString,QString)),
-//            this, SLOT(onSubItemPropertyChanged(QString,QString)));
 
 }
 

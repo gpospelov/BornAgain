@@ -51,7 +51,7 @@ ModelTuningWidget::ModelTuningWidget(JobModel *jobModel, QWidget *parent)
     , m_sliderSettingsWidget(0)
     , m_delegate(new ModelTuningDelegate)
     , m_warningSign(0)
-    , m_mapper(0)
+//    , m_mapper(0)
     , m_fitTools(new FitTools(jobModel, parent))
 {
     setMinimumSize(128, 128);
@@ -95,27 +95,26 @@ ModelTuningWidget::~ModelTuningWidget()
 
 void ModelTuningWidget::setCurrentItem(JobItem *item)
 {
-    if (m_currentJobItem == item) return;
+    if (m_currentJobItem == item) {
+        return;
 
+    } else {
+        if(m_currentJobItem)
+            m_currentJobItem->mapper()->unsubscribe(this);
 
-    m_currentJobItem = item;
+        m_currentJobItem = item;
+        if (!m_currentJobItem) return;
 
-    if (!m_currentJobItem) return;
+        updateParameterModel();
 
-    updateParameterModel();
-
-    if (m_mapper)
-        m_mapper->deleteLater();
-    m_mapper = new ModelMapper(this);
-    m_mapper->setItem(item);
-    m_mapper->setOnPropertyChange(
+        m_currentJobItem->mapper()->setOnPropertyChange(
                 [this](const QString &name)
-    {
-        onPropertyChanged(name);
-    });
+        {
+            onPropertyChanged(name);
+        }, this);
 
-
-    m_fitTools->setCurrentItem(item, m_treeView->selectionModel());
+        m_fitTools->setCurrentItem(m_currentJobItem, m_treeView->selectionModel());
+    }
 }
 
 void ModelTuningWidget::onCurrentLinkChanged(SessionItem *item)

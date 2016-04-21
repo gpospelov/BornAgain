@@ -17,32 +17,19 @@
 #include "FitKernel.h"
 
 IFitStrategy::IFitStrategy()
-    : m_fit_kernel(0)
+    : m_kernel(nullptr)
 {
-
 }
 
 IFitStrategy::IFitStrategy(const std::string &name)
-    : INamed(name), m_fit_kernel(0)
+    : INamed(name), m_kernel(nullptr)
 {
-
-}
-
-IFitStrategy::~IFitStrategy()
-{
-
 }
 
 void IFitStrategy::init(FitKernel *fit_suite)
 {
-    m_fit_kernel = fit_suite;
+    m_kernel = fit_suite;
 }
-
-//std::ostream &IFitStrategy::operator<<(std::ostream &ostr, const IFitStrategy &m)
-//{
-//    m.print(ostr);
-//    return ostr;
-//}
 
 void IFitStrategy::print(std::ostream &ostr) const
 {
@@ -52,7 +39,7 @@ void IFitStrategy::print(std::ostream &ostr) const
 IFitStrategy::IFitStrategy(const IFitStrategy &other)
     : INamed(other)
 {
-    m_fit_kernel = other.m_fit_kernel;
+    m_kernel = other.m_kernel;
 }
 
 // ----------------------------------------------------------------------------
@@ -60,7 +47,6 @@ IFitStrategy::IFitStrategy(const IFitStrategy &other)
 FitStrategyDefault::FitStrategyDefault()
     : IFitStrategy("DefaultFitStrategy")
 {
-
 }
 
 IFitStrategy *FitStrategyDefault::clone() const
@@ -70,10 +56,9 @@ IFitStrategy *FitStrategyDefault::clone() const
 
 void FitStrategyDefault::execute()
 {
-    if( !m_fit_kernel )
+    if( !m_kernel )
         throw NullPointerException("FitStrategyDefault::execute() -> FitSuite doesn't exists");
 
     // calling minimization
-    m_fit_kernel->minimize();
+    m_kernel->minimize();
 }
-

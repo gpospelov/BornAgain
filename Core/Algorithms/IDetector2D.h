@@ -140,7 +140,7 @@ protected:
 
     bool isCorrectAxisIndex(size_t index) const;
 
-    //! Checks if data has a compatible format with the detector.
+    //! Returns true if data has a compatible format with the detector.
     bool dataShapeMatches(const OutputData<double> *p_data) const;
 
     //! Initialize polarization (for constructors)

@@ -25,8 +25,7 @@ class FitKernel;
 //! @ingroup fitting_internal
 //! @brief Interface to concrete fit strategy.
 //!
-//!  Concrete implementation should manipulate with fit parameters/data
-//!  and then call minimizer.
+//!  Concrete implementation should manipulate with fit parameters/data and then call minimizer.
 
 class BA_CORE_API_ IFitStrategy : public INamed
 {
@@ -35,7 +34,7 @@ public:
     IFitStrategy(const std::string& name);
     virtual IFitStrategy *clone() const = 0;
 
-    virtual ~IFitStrategy();
+    virtual ~IFitStrategy() {};
     virtual void init(FitKernel *fit_suite);
     virtual void execute() = 0;
 
@@ -48,7 +47,7 @@ public:
 protected:
     virtual void print(std::ostream &ostr) const;
 
-    FitKernel *m_fit_kernel;
+    FitKernel *m_kernel;
     IFitStrategy(const IFitStrategy &other);
 
 private:

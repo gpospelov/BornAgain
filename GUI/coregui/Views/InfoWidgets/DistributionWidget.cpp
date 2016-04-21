@@ -69,26 +69,28 @@ DistributionWidget::DistributionWidget(QWidget *parent)
 
 void DistributionWidget::setItem(DistributionItem *item)
 {
-    if (m_item == item)
-        return;
-    if (m_item) {
-
-        disconnect();
-    }
-    m_item = item;
-
-    if (!m_item)
+    if (m_item == item) {
         return;
 
-    plotItem();
+    } else {
+        if (m_item) {
+            disconnect();
+            m_item->mapper()->unsubscribe(this);
+        }
 
-    ModelMapper *mapper = new ModelMapper(this);
-    mapper->setItem(item);
-    mapper->setOnPropertyChange(
-                [this](QString)
-    {
+        m_item = item;
+        if (!m_item) return;
+
         plotItem();
-    });
+
+        m_item->mapper()->setOnPropertyChange(
+                    [this](QString)
+        {
+            plotItem();
+        }, this);
+
+    }
+
 }
 
 void DistributionWidget::plotItem()

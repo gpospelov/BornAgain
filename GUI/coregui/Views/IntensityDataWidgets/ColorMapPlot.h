@@ -22,6 +22,7 @@
 #include <QWidget>
 #include <QMap>
 #include <QPoint>
+#include <memory>
 
 class IntensityDataItem;
 class QCustomPlot;
@@ -34,6 +35,7 @@ class BA_CORE_API_ ColorMapPlot : public QWidget
     Q_OBJECT
 public:
     explicit ColorMapPlot(QWidget *parent = 0);
+    ~ColorMapPlot();
 
     QSize sizeHint() const { return QSize(500, 400); }
     QSize minimumSizeHint() const { return QSize(128, 128); }

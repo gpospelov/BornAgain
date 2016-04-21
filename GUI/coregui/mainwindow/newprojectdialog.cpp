@@ -128,7 +128,7 @@ void NewProjectDialog::onBrowseDirectory()
     }
 }
 
-//! checks if ProjectPath is valid. Corresponding directory should exists.
+//! Returns true if ProjectPath is valid. Corresponding directory should exists.
 void NewProjectDialog::checkIfProjectPathIsValid(const QString &dirname)
 {
     if (QFile::exists(dirname)) {
@@ -140,7 +140,7 @@ void NewProjectDialog::checkIfProjectPathIsValid(const QString &dirname)
     updateWarningStatus();
 }
 
-//! checks if project name is valid. There should not be the directory with such
+//! Returns true if project name is valid. There should not be the directory with such
 //! name in ProjectPath
 void NewProjectDialog::checkIfProjectNameIsValid(const QString &projectName)
 {

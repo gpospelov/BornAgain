@@ -18,6 +18,7 @@
 #define MODELTUNINGWIDGET_H
 
 #include <QWidget>
+#include <memory>
 
 class JobItem;
 class SliderSettingsWidget;
@@ -27,7 +28,6 @@ class QTreeView;
 class SampleModel;
 class InstrumentModel;
 class WarningSignWidget;
-class ModelMapper;
 class SessionItem;
 class FitTools;
 
@@ -63,7 +63,6 @@ private:
     QTreeView *m_treeView;
     ModelTuningDelegate *m_delegate;
     WarningSignWidget *m_warningSign;
-    ModelMapper *m_mapper;
     FitTools *m_fitTools;
 };
 

@@ -27,11 +27,12 @@
 IMaskView::IMaskView()
     : m_item(0)
     , m_adaptor(0)
-    , m_mapper(0)
 {
     connect(this, SIGNAL(xChanged()), this, SLOT(onChangedX()));
     connect(this, SIGNAL(yChanged()), this, SLOT(onChangedY()));
 }
+
+IMaskView::~IMaskView(){}
 
 QRectF IMaskView::boundingRect() const
 {
@@ -40,42 +41,22 @@ QRectF IMaskView::boundingRect() const
 
 void IMaskView::setParameterizedItem(SessionItem *item)
 {
-//    if(m_item != item) {
-//        if(m_item) {
-//            disconnect(m_item, SIGNAL(propertyChanged(const QString &)), this,
-//                    SLOT(onPropertyChange(const QString &)));
-//            disconnect(m_item, SIGNAL(subItemChanged(const QString &)), this,
-//                    SLOT(onPropertyChange(const QString &)));
+    if(m_item == item) {
+        return;
 
-//        }
+    } else {
+        if(m_item)
+            m_item->mapper()->unsubscribe(this);
 
-//        m_item = item;
-
-//        if(m_item) {
-//            connect(m_item, SIGNAL(propertyChanged(const QString &)), this,
-//                    SLOT(onPropertyChange(const QString &)));
-//            connect(m_item, SIGNAL(subItemChanged(const QString &)), this,
-//                    SLOT(onPropertyChange(const QString &)));
-//        }
-//    }
-
-    if(m_item != item) {
         m_item = item;
+        if(!m_item) return;
 
-        if (m_mapper)
-            m_mapper->deleteLater();
-
-        m_mapper = new ModelMapper(this);
-        m_mapper->setItem(item);
-        m_mapper->setOnPropertyChange(
+        m_item->mapper()->setOnPropertyChange(
                     [this](const QString &name)
         {
             onPropertyChange(name);
-        });
-
+        }, this);
     }
-
-
 
 }
 

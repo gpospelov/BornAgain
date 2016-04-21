@@ -57,33 +57,37 @@ DistributionEditor::DistributionEditor(QWidget *parent)
     setLayout(mainLayout);
 }
 
+DistributionEditor::~DistributionEditor()
+{
+    if(m_item) m_item->mapper()->unsubscribe(this);
+}
+
 void DistributionEditor::setItem(SessionItem *item)
 {
     m_propertyEditor->clearEditor();
     m_propertyEditor->addPropertyItems(item);
 
-    if (m_item == item)
+    if (m_item == item) {
         return;
 
-    m_item = dynamic_cast<GroupItem *>(item);
+    } else {
+        if(m_item)
+            m_item->mapper()->unsubscribe(this);
 
-    if (!m_item)
-        return;
+        m_item = dynamic_cast<GroupItem *>(item);
+        if(!m_item) return;
 
-    ModelMapper *mapper = new ModelMapper(this);
-    mapper->setItem(m_item);
-    mapper->setOnPropertyChange(
-                [this](const QString &name)
-    {
-        onPropertyChanged(name);
-    });
+        m_item->mapper()->setOnPropertyChange(
+                    [this](const QString &name)
+        {
+            onPropertyChanged(name);
+        }, this);
 
-
-    DistributionItem *distrItem = dynamic_cast<DistributionItem *>(
-        m_item->getCurrentItem());
-
-    Q_ASSERT(distrItem);
-    m_plotwidget->setItem(distrItem);
+        DistributionItem *distrItem = dynamic_cast<DistributionItem *>(
+            m_item->getCurrentItem());
+        Q_ASSERT(distrItem);
+        m_plotwidget->setItem(distrItem);
+    }
 }
 
 void DistributionEditor::onPropertyChanged(const QString &property_name)

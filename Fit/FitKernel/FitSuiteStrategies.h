@@ -25,16 +25,13 @@ class FitKernel;
 //! @ingroup fitting_internal
 //! @brief Collection of strategies to fit
 
-class BA_CORE_API_  FitSuiteStrategies
+class BA_CORE_API_ FitSuiteStrategies
 {
 public:
-    typedef SafePointerVector<IFitStrategy > strategies_t;
-    typedef strategies_t::iterator iterator;
-
     FitSuiteStrategies();
     virtual ~FitSuiteStrategies();
 
-    void init(FitKernel *fit_suite) { m_fit_kernel = fit_suite; }
+    void init(FitKernel *fit_suite) { m_kernel = fit_suite; }
 
     void addStrategy(IFitStrategy *strategy);
 
@@ -47,12 +44,11 @@ public:
     void clear();
 
     IFitStrategy *getCurrentStrategy();
+    
 private:
-    strategies_t m_strategies;
-    FitKernel *m_fit_kernel;
+    SafePointerVector<IFitStrategy> m_strategies;
+    FitKernel *m_kernel;
     size_t m_current_strategy_index;
 };
 
 #endif // FITSUITESTRATEGIES_H
-
-

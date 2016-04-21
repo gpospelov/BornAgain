@@ -20,11 +20,11 @@
 #include "WinDllMacros.h"
 #include "MaskEditorHelper.h"
 #include <QGraphicsObject>
+#include <memory>
 
 class SessionItem;
 class ISceneAdaptor;
 class QPainter;
-class ModelMapper;
 
 //! Main interface class for views representing MaskItems on graphics scene
 
@@ -35,7 +35,7 @@ public:
     virtual int type() const { return MaskEditorHelper::IMASKVIEW; }
 
     IMaskView();
-    virtual ~IMaskView(){}
+    virtual ~IMaskView();
 
     QRectF boundingRect() const;
 
@@ -72,7 +72,6 @@ protected:
     SessionItem *m_item;
     const ISceneAdaptor *m_adaptor;
     QRectF m_bounding_rect;
-    ModelMapper *m_mapper;
 };
 
 

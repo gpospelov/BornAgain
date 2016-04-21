@@ -20,6 +20,7 @@
 #include <QWidget>
 #include "WarningSignWidget.h"
 #include "qcustomplot.h"
+#include <memory>
 
 class SessionItem;
 class AwesomePropertyEditor;

@@ -32,12 +32,12 @@ class FitKernel;
 class BA_CORE_API_ IFitSuiteFunction
 {
  public:
-    IFitSuiteFunction() : m_fit_kernel(0), m_ncall(0) {}
+    IFitSuiteFunction() : m_kernel(0), m_ncall(0) {}
     virtual ~IFitSuiteFunction() {}
-    virtual void init(FitKernel *fit_suite) { m_fit_kernel = fit_suite; }
+    virtual void init(FitKernel *fit_suite) { m_kernel = fit_suite; }
     virtual size_t getNCalls() const { return m_ncall; }
  protected:
-    FitKernel *m_fit_kernel;
+    FitKernel *m_kernel;
     size_t m_ncall;
 };
 

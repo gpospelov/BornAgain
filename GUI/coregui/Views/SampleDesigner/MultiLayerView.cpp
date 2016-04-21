@@ -57,7 +57,7 @@ void MultiLayerView::paint(QPainter *painter, const QStyleOptionGraphicsItem *op
 
 void MultiLayerView::addView(IView *childView, int row)
 {
-    qDebug() << "MultiLayerView::addView() " << m_item->itemName() << childView->getParameterizedItem()->itemName() << "row" << row;
+    qDebug() << "MultiLayerView::addView() " << m_item->itemName() << childView->getItem()->itemName() << "row" << row;
     ILayerView *layer = dynamic_cast<ILayerView *>(childView);
     Q_ASSERT(layer);
 
@@ -254,7 +254,7 @@ void MultiLayerView::dropEvent(QGraphicsSceneDragDropEvent *event)
             qDebug() << "\n XXX" << getDropArea(event->scenePos()) << event->scenePos();
             sampleModel->insertNewItem(
                         mimeData->getClassName(),
-                        sampleModel->indexOfItem(this->getParameterizedItem()),
+                        sampleModel->indexOfItem(this->getItem()),
                         getDropArea(event->pos())
                         );
         }
@@ -272,7 +272,7 @@ const DesignerMimeData *MultiLayerView::checkDragEvent(QGraphicsSceneDragDropEve
 
     int row = getDropArea(event->pos());
     if(mimeData->hasFormat("bornagain/widget")
-            && getParameterizedItem()->acceptsAsDefaultItem(mimeData->getClassName())
+            && getItem()->acceptsAsDefaultItem(mimeData->getClassName())
             && row!=-1 ) {
 
         qDebug() << "MultiLayerView::checkDragEvent -> yes"  << row << getDropAreaRectangle(row);

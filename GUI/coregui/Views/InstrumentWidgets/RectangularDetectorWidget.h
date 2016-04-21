@@ -19,6 +19,7 @@
 
 #include "WinDllMacros.h"
 #include <QWidget>
+#include <memory>
 
 class ColumnResizer;
 class GroupInfoBox;
@@ -61,7 +62,6 @@ private:
     QGridLayout *m_gridLayout;
 
     RectangularDetectorItem *m_detectorItem;
-
 };
 
 #endif

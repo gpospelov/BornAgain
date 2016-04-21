@@ -180,6 +180,8 @@ bool JobRealTimeWidget::isValidJobItem(JobItem *item)
 void JobRealTimeWidget::onJobItemDelete(JobItem *item)
 {
     //qDebug() << "JobOutputDataWidget::onJobItemDelete()";
+    if(item == m_currentJobItem) m_currentJobItem=0;
+
     ModelTuningWidget *widget = m_jobItemToTuningWidget[item];
     if( !widget ) {
         // this is the case when user removes failed job which doesn't have propper widget

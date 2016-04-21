@@ -79,7 +79,7 @@ public:
 
     QVector<QString> getAcceptableDefaultItemTypes(const QModelIndex &parent) const;
 
-    void clear();
+    virtual void clear();
     void load(const QString &filename = QString());
     void save(const QString &filename = QString());
 

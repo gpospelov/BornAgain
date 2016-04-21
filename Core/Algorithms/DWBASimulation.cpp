@@ -17,7 +17,7 @@
 
 
 DWBASimulation::DWBASimulation()
-: mp_simulation(0)
+: mp_simulation(nullptr)
 {
 }
 

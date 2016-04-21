@@ -86,7 +86,7 @@ private:
 
 class FormFactorPolygonalPrism : public IFormFactorBorn {
 public:
-    FormFactorPolygonalPrism( const double _height );
+    FormFactorPolygonalPrism( const double height );
     virtual complex_t evaluate_for_q(const cvector_t q ) const final;
     double getVolume() const;
     double getHeight() const { return m_height; }

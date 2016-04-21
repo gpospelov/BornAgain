@@ -5,10 +5,7 @@
 # --- math packages ---
 find_package(Eigen3 REQUIRED)
 find_package(FFTW REQUIRED)
-#find_package(GSL 1 EXACT REQUIRED) # revert this when issue 1404 is resolved
 find_package(GSL REQUIRED) # revert this when issue 1404 is resolved
-message(INFO "XXX ${GSL_VERSION}")
-
 
 # --- Boost ---
 set(Boost_NO_BOOST_CMAKE ON) # prevent shortcut

@@ -43,8 +43,7 @@ public:
     ParameterPool *cloneWithPrefix(const std::string& prefix) const;
 
     //! Copies parameters to _external_pool_, adding _prefix_ to every key.
-    void copyToExternalPool(
-        const std::string& prefix, ParameterPool *external_pool) const;
+    void copyToExternalPool(const std::string& prefix, ParameterPool *external_pool) const;
 
     //! Deletes parameter map.
     void clear() { m_map.clear(); }
@@ -53,7 +52,8 @@ public:
     size_t size() const { return m_map.size(); }
 
     //! Registers a parameter with key _name_ and pointer-to-value _parpointer_.
-    void registerParameter(const std::string& name, double *parpointer, const AttLimits &limits=AttLimits::limitless());
+    void registerParameter(const std::string& name, double *parpointer,
+                           const AttLimits &limits=AttLimits::limitless());
 
     //! Adds parameter to the pool
     void addParameter(const std::string& name, RealParameterWrapper par);
@@ -62,8 +62,7 @@ public:
     RealParameterWrapper getParameter(const std::string& name) const;
 
     //! Returns vector of parameters which fit pattern
-    std::vector<RealParameterWrapper> getMatchedParameters(
-        const std::string& wildcards) const;
+    std::vector<RealParameterWrapper> getMatchedParameters(const std::string& wildcards) const;
 
     //! Sets parameter value
     void setParameterValue(const std::string& name, double value);

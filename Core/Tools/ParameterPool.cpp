@@ -84,8 +84,7 @@ void ParameterPool::copyToExternalPool(const std::string& prefix,
 
 //! Returns parameter with given name.
 
-RealParameterWrapper ParameterPool::getParameter(
-        const std::string& name) const
+RealParameterWrapper ParameterPool::getParameter(const std::string& name) const
 {
     parametermap_t::const_iterator it = m_map.find(name);
     if( it!=m_map.end() ) {

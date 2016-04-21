@@ -5,7 +5,7 @@ import bornagain as ba
 from   bornagain import nanometer, degree
 import bornplot2 as bp
 import math
-
+import inspect
 det = bp.DetPars( 400, -.25, .25, -.25, .25 )
 n    = 3
 results = []
@@ -19,7 +19,9 @@ results.append( bp.Result(0, data, title) )
 
 pool = ff.getParameterPool()
 print( pool.getParameterNames() )
-pool.setParameter('Edg', 10)
+for m in inspect.getmembers(pool, predicate=inspect.ismethod):
+    print(m)
+pool.setParameterValue('Edg', 10)
 
 title = 'vertex normal'
 trafo = ba.RotationY(-52.6226*degree)

@@ -39,7 +39,7 @@ public:
 
     SpecularSimulation();
     SpecularSimulation(const ISample& sample);
-    SpecularSimulation(SampleBuilder_t sample_builder);
+    SpecularSimulation(std::shared_ptr<class ISampleBuilder> sample_builder);
     virtual ~SpecularSimulation();
 
     SpecularSimulation *clone() const;
@@ -54,10 +54,10 @@ public:
     ISample *getSample() const;
 
     //! Sets the sample builder
-    void setSampleBuilder(SampleBuilder_t sample_builder);
+    void setSampleBuilder(std::shared_ptr<class ISampleBuilder> sample_builder);
 
     //! return sample builder
-    SampleBuilder_t getSampleBuilder() const;
+    std::shared_ptr<class ISampleBuilder> getSampleBuilder() const;
 
     //! Sets beam parameters with alpha_i of the beam defined in the range
     void setBeamParameters(double lambda, const IAxis &alpha_axis);
@@ -111,7 +111,7 @@ protected:
     void updateCoefficientDataAxes();
 
     ISample *m_sample;
-    SampleBuilder_t m_sample_builder;
+    std::shared_ptr<class ISampleBuilder> m_sample_builder;
     IAxis *m_alpha_i_axis;
     IAxis *m_z_axis;
     double m_lambda;

@@ -1,9 +1,6 @@
 
 // File: index.xml
 
-// File: classMinimizerFactory_1_1Catalogue.xml
-
-
 // File: classFitKernel.xml
 %feature("docstring") FitKernel "
 
@@ -12,7 +9,7 @@ Fitting kernel for  FitSuite.
 C++ includes: FitKernel.h
 ";
 
-%feature("docstring")  FitKernel::FitKernel "FitKernel::FitKernel(FitSuite *fit_suite)
+%feature("docstring")  FitKernel::FitKernel "FitKernel::FitKernel(class FitSuite *fit_suite)
 ";
 
 %feature("docstring")  FitKernel::~FitKernel "FitKernel::~FitKernel()
@@ -20,12 +17,12 @@ C++ includes: FitKernel.h
 
 %feature("docstring")  FitKernel::clear "void FitKernel::clear()
 
-clear all and prepare for the next fit
+Resets most state variables, to get prepared for the next fit.
 
 clear all data 
 ";
 
-%feature("docstring")  FitKernel::addSimulationAndRealData "void FitKernel::addSimulationAndRealData(const GISASSimulation &simulation, const OutputData< double > &real_data, double weight)
+%feature("docstring")  FitKernel::addSimulationAndRealData "void FitKernel::addSimulationAndRealData(const class GISASSimulation &simulation, const OutputData< double > &real_data, double weight)
 
 Adds pair of (simulation, real data) for consecutive simulation. 
 ";
@@ -42,7 +39,7 @@ Adds fit parameter, step is calculated from initial parameter value.
 Adds fit strategy. 
 ";
 
-%feature("docstring")  FitKernel::setMinimizer "void FitKernel::setMinimizer(IMinimizer *minimizer)
+%feature("docstring")  FitKernel::setMinimizer "void FitKernel::setMinimizer(class IMinimizer *minimizer)
 
 Sets minimizer. 
 ";
@@ -54,12 +51,12 @@ Returns minimizer.
 
 %feature("docstring")  FitKernel::runFit "void FitKernel::runFit()
 
-run fitting which may consist of several minimization rounds 
+Runs a fit, which may consist of several minimization rounds. 
 ";
 
 %feature("docstring")  FitKernel::minimize "void FitKernel::minimize()
 
-run single minimization round (called by FitSuiteStrategy) 
+Runs a single minimization round (called by FitSuiteStrategy) 
 ";
 
 %feature("docstring")  FitKernel::getFitObjects "FitSuiteObjects * FitKernel::getFitObjects()
@@ -82,7 +79,7 @@ Returns reference to fit parameters.
 
 %feature("docstring")  FitKernel::isLastIteration "bool FitKernel::isLastIteration() const
 
-if the last iteration is done (used by observers to print summary) 
+Returns true if the last iteration is done (used by observers to print summary) 
 ";
 
 %feature("docstring")  FitKernel::getNCalls "size_t FitKernel::getNCalls() const
@@ -97,13 +94,17 @@ Returns the number of current strategy.
 
 %feature("docstring")  FitKernel::printResults "void FitKernel::printResults() const
 
-Prints results of the screen. 
+Prints fit results to stdout. 
 ";
 
 %feature("docstring")  FitKernel::getOptions "FitOptions & FitKernel::getOptions()
+
+Returns current fit options. 
 ";
 
 %feature("docstring")  FitKernel::setOptions "void FitKernel::setOptions(const FitOptions &fit_options)
+
+Sets fit options. 
 ";
 
 %feature("docstring")  FitKernel::getRunTime "double FitKernel::getRunTime() const
@@ -295,7 +296,7 @@ C++ includes: FitParameterLinked.h
 Sets given value for all binded parameters. 
 ";
 
-%feature("docstring")  FitParameterLinked::addParameter "void FitParameterLinked::addParameter(ParameterPool::parameter_t par)
+%feature("docstring")  FitParameterLinked::addParameter "void FitParameterLinked::addParameter(RealParameterWrapper par)
 
 Adds real parameter to the collection. 
 ";
@@ -461,12 +462,15 @@ C++ includes: FitStrategyAdjustParameters.h
 // File: classFitSuite.xml
 %feature("docstring") FitSuite "
 
-Main class to setup and run GISAS fitting in BornAgain.
+User interface class that wraps all fit methods.
 
 C++ includes: FitSuite.h
 ";
 
 %feature("docstring")  FitSuite::FitSuite "FitSuite::FitSuite()
+";
+
+%feature("docstring")  FitSuite::~FitSuite "FitSuite::~FitSuite()
 ";
 
 %feature("docstring")  FitSuite::addSimulationAndRealData "void FitSuite::addSimulationAndRealData(const GISASSimulation &simulation, const OutputData< double > &real_data, double weight=1)
@@ -1100,7 +1104,7 @@ C++ includes: IFitStrategy.h
 %feature("docstring")  IFitStrategy::clone "virtual IFitStrategy* IFitStrategy::clone() const =0
 ";
 
-%feature("docstring")  IFitStrategy::~IFitStrategy "IFitStrategy::~IFitStrategy()
+%feature("docstring")  IFitStrategy::~IFitStrategy "virtual IFitStrategy::~IFitStrategy()
 ";
 
 %feature("docstring")  IFitStrategy::init "void IFitStrategy::init(FitKernel *fit_suite)
@@ -1235,7 +1239,7 @@ set minimizer option string
 
 %feature("docstring")  IMinimizer::isGradientBasedAgorithm "bool IMinimizer::isGradientBasedAgorithm()
 
-Checks if type of algorithm is Levenberg-Marquardt or similar. 
+Returns true if type of algorithm is Levenberg-Marquardt or similar. 
 ";
 
 %feature("docstring")  IMinimizer::getMinimizerName "std::string IMinimizer::getMinimizerName() const
@@ -1274,6 +1278,26 @@ C++ includes: IMinimizerFunctionalTest.h
 
 
 // File: classmap.xml
+%feature("docstring") map "
+
+names holding list of defined algorithms for every minimizer 
+";
+
+
+// File: classMinimizerCatalogue.xml
+%feature("docstring") MinimizerCatalogue "";
+
+%feature("docstring")  MinimizerCatalogue::MinimizerCatalogue "MinimizerCatalogue::MinimizerCatalogue()
+";
+
+%feature("docstring")  MinimizerCatalogue::begin "const_iterator MinimizerCatalogue::begin() const 
+";
+
+%feature("docstring")  MinimizerCatalogue::end "const_iterator MinimizerCatalogue::end() const 
+";
+
+%feature("docstring")  MinimizerCatalogue::isValid "bool MinimizerCatalogue::isValid(const std::string &minimizer, const std::string &algorithm) const 
+";
 
 
 // File: classMinimizerFactory.xml
@@ -1589,7 +1613,7 @@ C++ includes: ROOTLMAMinimizer.h
 
 %feature("docstring")  ROOTLMAMinimizer::isGradientBasedAgorithm "virtual bool ROOTLMAMinimizer::isGradientBasedAgorithm()
 
-Checks if type of algorithm is Levenberg-Marquardt or similar. 
+Returns true if type of algorithm is Levenberg-Marquardt or similar. 
 ";
 
 
@@ -1700,7 +1724,7 @@ Returns created minimizer.
 
 %feature("docstring")  ROOTMinimizer::isGradientBasedAgorithm "virtual bool ROOTMinimizer::isGradientBasedAgorithm()
 
-Checks if type of algorithm is Levenberg-Marquardt or similar. 
+Returns true if type of algorithm is Levenberg-Marquardt or similar. 
 ";
 
 %feature("docstring")  ROOTMinimizer::getMinimizerName "std::string ROOTMinimizer::getMinimizerName() const
@@ -1783,7 +1807,7 @@ C++ includes: ROOTMinuit2Minimizer.h
 
 %feature("docstring")  ROOTMinuit2Minimizer::isGradientBasedAgorithm "bool ROOTMinuit2Minimizer::isGradientBasedAgorithm()
 
-Checks if type of algorithm is Levenberg-Marquardt or similar. 
+Returns true if type of algorithm is Levenberg-Marquardt or similar. 
 ";
 
 

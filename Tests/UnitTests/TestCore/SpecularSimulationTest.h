@@ -19,7 +19,7 @@ class SpecularSimulationTest : public ::testing::Test
         virtual ISample *buildSample() const { return new Layer(); }
     };
 
-    SampleBuilder_t sample_builder;
+    std::shared_ptr<class ISampleBuilder> sample_builder;
     MultiLayer multilayer;
 };
 

@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      FormFactors/FormFactorPolyhedron.cpp
-//! @brief     Implements class FormFactorPolyhedron, and auxiliary classes.
+//! @brief     Implements class FormFactorPolyhedron, FormFactorPrism, and auxiliary classes.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -28,6 +28,7 @@
 #include "Precomputed.h"
 #include "BasicVector3D.h"
 #include "MathFunctions.h"
+#include "BornAgainNamespace.h"
 
 typedef std::complex<double> complex_t;
 typedef Geometry::BasicVector3D<complex_t> cvector_t;
@@ -121,12 +122,12 @@ PolyhedralFace::PolyhedralFace( const std::vector<kvector_t>& V, bool _sym_S2 )
         rperp += V[j].dot(normal);
     rperp /= N;
     // compute radius in 3d
-    radius_3d = 0;
+    m_radius_3d = 0;
     for( const kvector_t v: V )
-        radius_3d = std::max( radius_3d, v.mag() );
+        m_radius_3d = std::max( m_radius_3d, v.mag() );
     // assert that the vertices lay in a plane
     for ( size_t j=1; j<N; ++j )
-        if( std::abs(V[j].dot(normal) - rperp) > 1e-14*radius_3d )
+        if( std::abs(V[j].dot(normal) - rperp) > 1e-14*m_radius_3d )
             throw std::runtime_error("Face is not planar");
     // compute area
     area = 0;
@@ -135,9 +136,9 @@ PolyhedralFace::PolyhedralFace( const std::vector<kvector_t>& V, bool _sym_S2 )
         area += normal.dot( V[j].cross( V[jj] ) ) / 2;
     }
     // compute radius in 2d
-    radius_2d = 0;
+    m_radius_2d = 0;
     for( const kvector_t v: V )
-        radius_2d = std::max( radius_2d, (v-rperp*normal).mag() );
+        m_radius_2d = std::max( m_radius_2d, (v-rperp*normal).mag() );
 
     // only now deal with inversion symmetry
     if( sym_S2 ) {
@@ -145,7 +146,7 @@ PolyhedralFace::PolyhedralFace( const std::vector<kvector_t>& V, bool _sym_S2 )
             throw std::runtime_error("Odd #edges violates symmetry S2");
         N /= 2;
         for( size_t j=0; j<N; ++j ){
-            if( ((V[j]-rperp*normal)+(V[j+N]-rperp*normal)).mag2()>1e-24*radius_2d*radius_2d )
+            if( ((V[j]-rperp*normal)+(V[j+N]-rperp*normal)).mag2()>1e-24*m_radius_2d*m_radius_2d )
                 throw std::runtime_error("Given points violate symmetry S2");
         }
         // keep only half of the egdes
@@ -213,7 +214,7 @@ complex_t PolyhedralFace::ff( const cvector_t q, const bool sym_Ci ) const
     complex_t qperp;
     cvector_t qpa;
     decompose_q( q, qperp, qpa );
-    double qpa_red = radius_2d * qpa.mag();
+    double qpa_red = m_radius_2d * qpa.mag();
     complex_t qr_perp = qperp*rperp;
     if ( qpa_red==0 ) {
         return qn * (sym_Ci ? 2.*I*sin(qr_perp) : exp(I*qr_perp)) * area;
@@ -268,7 +269,7 @@ complex_t PolyhedralFace::ff_2D( const cvector_t qpa ) const
 {
     if ( std::abs(qpa.dot(normal))>eps*qpa.mag() )
         throw std::runtime_error("ff_2D called with perpendicular q component");
-    double qpa_red = radius_2d * qpa.mag();
+    double qpa_red = m_radius_2d * qpa.mag();
     if ( qpa_red==0 ) {
         return area;
     } else if ( qpa_red < qpa_limit_series ) {
@@ -322,26 +323,24 @@ void PolyhedralFace::assert_Ci( const PolyhedralFace& other ) const
 
 const double FormFactorPolyhedron::q_limit_series = 1e-6;
 
-FormFactorPolyhedron::FormFactorPolyhedron(
-    const std::vector<PolyhedralFace>& _faces, const double _z_origin, const bool _sym_Ci )
-    : z_origin(_z_origin), sym_Ci(_sym_Ci), faces(_faces)
+void FormFactorPolyhedron::precompute()
 {
-    radius = 0;
-    volume = 0;
-    for( const PolyhedralFace& Gk: faces ) {
-        radius = std::max( radius, Gk.radius_3d );
-        volume += Gk.getPyramidalVolume();
+    m_radius = 0;
+    m_volume = 0;
+    for( const PolyhedralFace& Gk: m_faces ) {
+        m_radius = std::max( m_radius, Gk.m_radius_3d );
+        m_volume += Gk.getPyramidalVolume();
     }
 
-    if( sym_Ci ) {
-        if( faces.size()&1 )
+    if( m_sym_Ci ) {
+        if( m_faces.size()&1 )
             throw std::runtime_error("Odd #faces violates symmetry Ci");
-        size_t N = faces.size()/2;
-        // for this tests, faces must be in a specific order
+        size_t N = m_faces.size()/2;
+        // for this tests, m_faces must be in a specific order
         for( size_t k=0; k<N; ++k )
-            faces[k].assert_Ci( faces[2*N-1-k] );
+            m_faces[k].assert_Ci( m_faces[2*N-1-k] );
         // keep only half of the faces
-        faces.erase( faces.begin()+N, faces.end() );
+        m_faces.erase( m_faces.begin()+N, m_faces.end() );
     }
 }
 
@@ -349,44 +348,44 @@ FormFactorPolyhedron::FormFactorPolyhedron(
 
 complex_t FormFactorPolyhedron::evaluate_for_q( const cvector_t q ) const
 {
-    return exp(-I*z_origin*q.z()) * evaluate_centered(q);
+    return exp(-I*m_z_origin*q.z()) * evaluate_centered(q);
 }
 
 //! Returns the form factor F(q) of this polyhedron, with origin at z=0.
 
 complex_t FormFactorPolyhedron::evaluate_centered( const cvector_t q ) const
 {
-    double q_red = radius * q.mag();
+    double q_red = m_radius * q.mag();
 #ifdef POLYHEDRAL_DIAGNOSTIC
     diagnosis = { 0, 0 };
 #endif
     if( q_red==0 ) {
-        return volume;
+        return m_volume;
     } else if ( q_red < q_limit_series ) {
         // summation of power series
-        complex_t ret = volume;
-        complex_t n_fac = ( sym_Ci ? -2 : I ) / q.mag2();
+        complex_t ret = m_volume;
+        complex_t n_fac = ( m_sym_Ci ? -2 : I ) / q.mag2();
         for( int n=1; n<20; ++n ) {
-            if( sym_Ci && n&1 )
+            if( m_sym_Ci && n&1 )
                 continue;
 #ifdef POLYHEDRAL_DIAGNOSTIC
             diagnosis.maxOrder = std::max( diagnosis.maxOrder, n );
 #endif
             complex_t term = 0;
-            for( const PolyhedralFace& Gk: faces )
+            for( const PolyhedralFace& Gk: m_faces )
                 term += Gk.ff_n( n+1, q );
             term *= n_fac;
             ret += term;
             if( !(n&1) && std::abs(term)<=eps*std::abs(ret) )
                 return ret;
-            n_fac *= ( sym_Ci ? -1 : I );
+            n_fac *= ( m_sym_Ci ? -1 : I );
         }
         throw std::runtime_error("Bug in formfactor computation: series F(q) not converged");
     } else {
         // direct evaluation of analytic formula (coefficients may involve series)
         complex_t ret = 0;
-        for( const PolyhedralFace& Gk: faces )
-            ret += Gk.ff(q, sym_Ci );
+        for( const PolyhedralFace& Gk: m_faces )
+            ret += Gk.ff(q, m_sym_Ci );
         return ret / (I * q.mag2());
     }
 }
@@ -397,10 +396,10 @@ void FormFactorPolyhedron::assert_platonic() const
 {
     // just one test; one could do much more ...
     double pyramidal_volume = 0;
-    for( const auto& Gk: faces )
+    for( const auto& Gk: m_faces )
         pyramidal_volume += Gk.getPyramidalVolume();
-    pyramidal_volume /= faces.size();
-    for( const auto& Gk: faces )
+    pyramidal_volume /= m_faces.size();
+    for( const auto& Gk: m_faces )
         if (std::abs(Gk.getPyramidalVolume()-pyramidal_volume) > 160*eps*pyramidal_volume) {
             std::cout<<std::setprecision(16)<<"BUG: pyr_volume(this face)="<<
                 Gk.getPyramidalVolume()<<" vs pyr_volume(avge)="<<pyramidal_volume<<"\n";
@@ -413,18 +412,16 @@ void FormFactorPolyhedron::assert_platonic() const
 //  FormFactorPolygonalPrism implementation
 //***************************************************************************************************
 
-FormFactorPolygonalPrism::FormFactorPolygonalPrism(
-    const PolyhedralFace& _base, const double _height )
-    : m_base(_base), m_height(_height)
+FormFactorPolygonalPrism::FormFactorPolygonalPrism(double height)
+    : m_height(height)
 {
+    registerParameter(BornAgain::Height, &m_height, AttLimits::n_positive());
 }
 
 //! Returns the volume of this prism.
 double FormFactorPolygonalPrism::getVolume() const { return m_height * m_base.getArea(); }
-//! Returns the height of this prism.
-double FormFactorPolygonalPrism::getHeight() const { return m_height; }
 
-//! Returns the form factor F(q) of this polyhedron, respecting the offset z_origin.
+//! Returns the form factor F(q) of this polyhedron, respecting the offset height/2.
 
 complex_t FormFactorPolygonalPrism::evaluate_for_q( const cvector_t q ) const
 {

@@ -44,13 +44,13 @@ public:
     SwigDirector_IParameterized(PyObject *self, IParameterized const &other);
     virtual ~SwigDirector_IParameterized();
     virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number = -1) const;
+    virtual void onChange();
+    virtual void onChangeSwigPublic() {
+      IParameterized::onChange();
+    }
     virtual void print(std::ostream &ostr) const;
     virtual void printSwigPublic(std::ostream &ostr) const {
       IParameterized::print(ostr);
-    }
-    virtual void init_parameters();
-    virtual void init_parametersSwigPublic() {
-      IParameterized::init_parameters();
     }
 
 /* Internal director utilities */
@@ -96,13 +96,13 @@ public:
     virtual ISample *clone() const;
     virtual void transferToCPP();
     virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number = -1) const;
+    virtual void onChange();
+    virtual void onChangeSwigPublic() {
+      IParameterized::onChange();
+    }
     virtual void print(std::ostream &ostr) const;
     virtual void printSwigPublic(std::ostream &ostr) const {
       IParameterized::print(ostr);
-    }
-    virtual void init_parameters();
-    virtual void init_parametersSwigPublic() {
-      IParameterized::init_parameters();
     }
     virtual ISample *cloneInvertB() const;
     virtual void accept(ISampleVisitor *p_visitor) const;
@@ -153,13 +153,13 @@ public:
     SwigDirector_ISampleBuilder(PyObject *self);
     virtual ~SwigDirector_ISampleBuilder();
     virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number = -1) const;
+    virtual void onChange();
+    virtual void onChangeSwigPublic() {
+      IParameterized::onChange();
+    }
     virtual void print(std::ostream &ostr) const;
     virtual void printSwigPublic(std::ostream &ostr) const {
       IParameterized::print(ostr);
-    }
-    virtual void init_parameters();
-    virtual void init_parametersSwigPublic() {
-      IParameterized::init_parameters();
     }
     virtual ISample *buildSample() const;
     virtual void init_from(IComponentService const *arg0);
@@ -207,13 +207,13 @@ public:
     virtual IFormFactor *clone() const;
     virtual void transferToCPP();
     virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number = -1) const;
+    virtual void onChange();
+    virtual void onChangeSwigPublic() {
+      IParameterized::onChange();
+    }
     virtual void print(std::ostream &ostr) const;
     virtual void printSwigPublic(std::ostream &ostr) const {
       IParameterized::print(ostr);
-    }
-    virtual void init_parameters();
-    virtual void init_parametersSwigPublic() {
-      IParameterized::init_parameters();
     }
     virtual ISample *cloneInvertB() const;
     virtual void accept(ISampleVisitor *visitor) const;
@@ -271,13 +271,13 @@ public:
     virtual IFormFactorBorn *clone() const;
     virtual void transferToCPP();
     virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number = -1) const;
+    virtual void onChange();
+    virtual void onChangeSwigPublic() {
+      IParameterized::onChange();
+    }
     virtual void print(std::ostream &ostr) const;
     virtual void printSwigPublic(std::ostream &ostr) const {
       IParameterized::print(ostr);
-    }
-    virtual void init_parameters();
-    virtual void init_parametersSwigPublic() {
-      IParameterized::init_parameters();
     }
     virtual ISample *cloneInvertB() const;
     virtual void accept(ISampleVisitor *visitor) const;

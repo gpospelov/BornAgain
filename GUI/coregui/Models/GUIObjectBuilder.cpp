@@ -165,10 +165,9 @@ void GUIObjectBuilder::visit(const ParticleLayout *sample)
         approx_prop.setValue("Decoupling Approximation");
         break;
     }
-    item->setItemValue(ParticleLayoutItem::P_APPROX,
-                                approx_prop.getVariant());
+    item->setItemValue(ParticleLayoutItem::P_APPROX, approx_prop.getVariant());
     item->setItemValue(ParticleLayoutItem::P_TOTAL_DENSITY,
-                                sample->getTotalParticleSurfaceDensity());
+                       sample->getTotalParticleSurfaceDensity());
     m_levelToParentItem[getLevel()] = item;
 }
 
@@ -209,8 +208,7 @@ void GUIObjectBuilder::visit(const MultiLayer *sample)
     SessionItem *item =
             m_sampleModel->insertNewItem(Constants::MultiLayerType);
     item->setItemName(sample->getName().c_str());
-    item->setItemValue(MultiLayerItem::P_CROSS_CORR_LENGTH,
-                                sample->getCrossCorrLength());
+    item->setItemValue(MultiLayerItem::P_CROSS_CORR_LENGTH, sample->getCrossCorrLength());
     m_levelToParentItem[getLevel()] = item;
     m_itemToSample[item] = sample;
 }
@@ -301,8 +299,7 @@ void GUIObjectBuilder::visit(const ParticleComposition *sample)
     Q_ASSERT(parent);
     SessionItem *particle_composition_item = m_sampleModel->insertNewItem(
         Constants::ParticleCompositionType, m_sampleModel->indexOfItem(parent));
-    particle_composition_item->setItemValue(ParticleItem::P_ABUNDANCE,
-                                                     sample->getAbundance());
+    particle_composition_item->setItemValue(ParticleItem::P_ABUNDANCE, sample->getAbundance());
 
     buildPositionInfo(particle_composition_item, sample);
 
@@ -315,14 +312,10 @@ void GUIObjectBuilder::visit(const FormFactorAnisoPyramid *sample)
     SessionItem *particleItem = m_levelToParentItem[getLevel()-1];
     SessionItem *ffItem = particleItem->setGroupProperty(
         ParticleItem::P_FORM_FACTOR, Constants::AnisoPyramidType);
-    ffItem->setItemValue(AnisoPyramidItem::P_LENGTH,
-                                  sample->getLength());
-    ffItem->setItemValue(AnisoPyramidItem::P_WIDTH,
-                                  sample->getWidth());
-    ffItem->setItemValue(AnisoPyramidItem::P_HEIGHT,
-                                  sample->getHeight());
-    ffItem->setItemValue(AnisoPyramidItem::P_ALPHA,
-                                  Units::rad2deg(sample->getAlpha()));
+    ffItem->setItemValue(AnisoPyramidItem::P_LENGTH, sample->getLength());
+    ffItem->setItemValue(AnisoPyramidItem::P_WIDTH, sample->getWidth());
+    ffItem->setItemValue(AnisoPyramidItem::P_HEIGHT, sample->getHeight());
+    ffItem->setItemValue(AnisoPyramidItem::P_ALPHA, Units::rad2deg(sample->getAlpha()));
     m_levelToParentItem[getLevel()] = particleItem;
 }
 
@@ -344,8 +337,7 @@ void GUIObjectBuilder::visit(const FormFactorCone *sample)
         ParticleItem::P_FORM_FACTOR, Constants::ConeType);
     ffItem->setItemValue(ConeItem::P_RADIUS, sample->getRadius());
     ffItem->setItemValue(ConeItem::P_HEIGHT, sample->getHeight());
-    ffItem->setItemValue(ConeItem::P_ALPHA,
-                                  Units::rad2deg(sample->getAlpha()));
+    ffItem->setItemValue(ConeItem::P_ALPHA, Units::rad2deg(sample->getAlpha()));
     m_levelToParentItem[getLevel()] = particleItem;
 }
 
@@ -354,10 +346,9 @@ void GUIObjectBuilder::visit(const FormFactorCone6 *sample)
     SessionItem *particleItem = m_levelToParentItem[getLevel()-1];
     SessionItem *ffItem = particleItem->setGroupProperty(
         ParticleItem::P_FORM_FACTOR, Constants::Cone6Type);
-    ffItem->setItemValue(Cone6Item::P_RADIUS, sample->getRadius());
+    ffItem->setItemValue(Cone6Item::P_BASEEDGE, sample->getBaseEdge());
     ffItem->setItemValue(Cone6Item::P_HEIGHT, sample->getHeight());
-    ffItem->setItemValue(Cone6Item::P_ALPHA,
-                                  Units::rad2deg(sample->getAlpha()));
+    ffItem->setItemValue(Cone6Item::P_ALPHA, Units::rad2deg(sample->getAlpha()));
     m_levelToParentItem[getLevel()] = particleItem;
 }
 
@@ -366,14 +357,10 @@ void GUIObjectBuilder::visit(const FormFactorCuboctahedron *sample)
     SessionItem *particleItem = m_levelToParentItem[getLevel()-1];
     SessionItem *ffItem = particleItem->setGroupProperty(
         ParticleItem::P_FORM_FACTOR, Constants::CuboctahedronType);
-    ffItem->setItemValue(CuboctahedronItem::P_LENGTH,
-                                  sample->getLength());
-    ffItem->setItemValue(CuboctahedronItem::P_HEIGHT,
-                                  sample->getHeight());
-    ffItem->setItemValue(CuboctahedronItem::P_HEIGHT_RATIO,
-                                  sample->getHeightRatio());
-    ffItem->setItemValue(CuboctahedronItem::P_ALPHA,
-                                  Units::rad2deg(sample->getAlpha()));
+    ffItem->setItemValue(CuboctahedronItem::P_LENGTH, sample->getLength());
+    ffItem->setItemValue(CuboctahedronItem::P_HEIGHT, sample->getHeight());
+    ffItem->setItemValue(CuboctahedronItem::P_HEIGHT_RATIO, sample->getHeightRatio());
+    ffItem->setItemValue(CuboctahedronItem::P_ALPHA, Units::rad2deg(sample->getAlpha()));
     m_levelToParentItem[getLevel()] = particleItem;
 }
 
@@ -401,12 +388,9 @@ void GUIObjectBuilder::visit(const FormFactorEllipsoidalCylinder *sample)
     SessionItem *particleItem = m_levelToParentItem[getLevel()-1];
     SessionItem *ffItem = particleItem->setGroupProperty(
        ParticleItem::P_FORM_FACTOR, Constants::EllipsoidalCylinderType);
-    ffItem->setItemValue(EllipsoidalCylinderItem::P_RADIUS_X,
-                                  sample->getRadiusX());
-    ffItem->setItemValue(EllipsoidalCylinderItem::P_RADIUS_Y,
-                                  sample->getRadiusY());
-    ffItem->setItemValue(EllipsoidalCylinderItem::P_HEIGHT,
-                                  sample->getHeight());
+    ffItem->setItemValue(EllipsoidalCylinderItem::P_RADIUS_X, sample->getRadiusX());
+    ffItem->setItemValue(EllipsoidalCylinderItem::P_RADIUS_Y, sample->getRadiusY());
+    ffItem->setItemValue(EllipsoidalCylinderItem::P_HEIGHT, sample->getHeight());
     m_levelToParentItem[getLevel()] = particleItem;
 }
 
@@ -415,8 +399,7 @@ void GUIObjectBuilder::visit(const FormFactorFullSphere *sample)
     SessionItem *particleItem = m_levelToParentItem[getLevel()-1];
     SessionItem *ffItem = particleItem->setGroupProperty(
         ParticleItem::P_FORM_FACTOR, Constants::FullSphereType);
-    ffItem->setItemValue(FullSphereItem::P_RADIUS,
-                                  sample->getRadius());
+    ffItem->setItemValue(FullSphereItem::P_RADIUS, sample->getRadius());
     m_levelToParentItem[getLevel()] = particleItem;
 }
 
@@ -425,10 +408,8 @@ void GUIObjectBuilder::visit(const FormFactorFullSpheroid *sample)
     SessionItem *particleItem = m_levelToParentItem[getLevel()-1];
     SessionItem *ffItem = particleItem->setGroupProperty(
         ParticleItem::P_FORM_FACTOR, Constants::FullSpheroidType);
-    ffItem->setItemValue(FullSpheroidItem::P_RADIUS,
-                                  sample->getRadius());
-    ffItem->setItemValue(FullSpheroidItem::P_HEIGHT,
-                                  sample->getHeight());
+    ffItem->setItemValue(FullSpheroidItem::P_RADIUS, sample->getRadius());
+    ffItem->setItemValue(FullSpheroidItem::P_HEIGHT, sample->getHeight());
     m_levelToParentItem[getLevel()] = particleItem;
 }
 
@@ -446,12 +427,9 @@ void GUIObjectBuilder::visit(const FormFactorHemiEllipsoid *sample)
     SessionItem *particleItem = m_levelToParentItem[getLevel()-1];
     SessionItem *ffItem = particleItem->setGroupProperty(
         ParticleItem::P_FORM_FACTOR, Constants::HemiEllipsoidType);
-    ffItem->setItemValue(HemiEllipsoidItem::P_RADIUS_X,
-                                  sample->getRadiusX());
-    ffItem->setItemValue(HemiEllipsoidItem::P_RADIUS_Y,
-                                  sample->getRadiusY());
-    ffItem->setItemValue(HemiEllipsoidItem::P_HEIGHT,
-                                  sample->getHeight());
+    ffItem->setItemValue(HemiEllipsoidItem::P_RADIUS_X, sample->getRadiusX());
+    ffItem->setItemValue(HemiEllipsoidItem::P_RADIUS_Y, sample->getRadiusY());
+    ffItem->setItemValue(HemiEllipsoidItem::P_HEIGHT, sample->getHeight());
     m_levelToParentItem[getLevel()] = particleItem;
 }
 
@@ -460,7 +438,7 @@ void GUIObjectBuilder::visit(const FormFactorPrism3 *sample)
     SessionItem *particleItem = m_levelToParentItem[getLevel()-1];
     SessionItem *ffItem = particleItem->setGroupProperty(
         ParticleItem::P_FORM_FACTOR, Constants::Prism3Type);
-    ffItem->setItemValue(Prism3Item::P_LENGTH, sample->getLength());
+    ffItem->setItemValue(Prism3Item::P_BASEEDGE, sample->getBaseEdge());
     ffItem->setItemValue(Prism3Item::P_HEIGHT, sample->getHeight());
     m_levelToParentItem[getLevel()] = particleItem;
 }
@@ -470,7 +448,7 @@ void GUIObjectBuilder::visit(const FormFactorPrism6 *sample)
     SessionItem *particleItem = m_levelToParentItem[getLevel()-1];
     SessionItem *ffItem = particleItem->setGroupProperty(
         ParticleItem::P_FORM_FACTOR, Constants::Prism6Type);
-    ffItem->setItemValue(Prism6Item::P_RADIUS, sample->getRadius());
+    ffItem->setItemValue(Prism6Item::P_BASEEDGE, sample->getBaseEdge());
     ffItem->setItemValue(Prism6Item::P_HEIGHT, sample->getHeight());
     m_levelToParentItem[getLevel()] = particleItem;
 }
@@ -480,10 +458,9 @@ void GUIObjectBuilder::visit(const FormFactorPyramid *sample)
     SessionItem *particleItem = m_levelToParentItem[getLevel()-1];
     SessionItem *ffItem = particleItem->setGroupProperty(
         ParticleItem::P_FORM_FACTOR, Constants::PyramidType);
-    ffItem->setItemValue(PyramidItem::P_LENGTH, sample->getLength());
+    ffItem->setItemValue(PyramidItem::P_BASEEDGE, sample->getBaseEdge());
     ffItem->setItemValue(PyramidItem::P_HEIGHT, sample->getHeight());
-    ffItem->setItemValue(PyramidItem::P_ALPHA,
-                                  Units::rad2deg(sample->getAlpha()));
+    ffItem->setItemValue(PyramidItem::P_ALPHA, Units::rad2deg(sample->getAlpha()));
     m_levelToParentItem[getLevel()] = particleItem;
 }
 
@@ -506,8 +483,7 @@ void GUIObjectBuilder::visit(const FormFactorRipple2 *sample)
     ffItem->setItemValue(Ripple2Item::P_LENGTH, sample->getLength());
     ffItem->setItemValue(Ripple2Item::P_WIDTH, sample->getWidth());
     ffItem->setItemValue(Ripple2Item::P_HEIGHT, sample->getHeight());
-    ffItem->setItemValue(Ripple2Item::P_ASYMMETRY,
-                                  sample->getAsymmetry());
+    ffItem->setItemValue(Ripple2Item::P_ASYMMETRY, sample->getAsymmetry());
     m_levelToParentItem[getLevel()] = particleItem;
 }
 
@@ -516,12 +492,9 @@ void GUIObjectBuilder::visit(const FormFactorTetrahedron *sample)
     SessionItem *particleItem = m_levelToParentItem[getLevel()-1];
     SessionItem *ffItem = particleItem->setGroupProperty(
         ParticleItem::P_FORM_FACTOR, Constants::TetrahedronType);
-    ffItem->setItemValue(TetrahedronItem::P_LENGTH,
-                                  sample->getLength());
-    ffItem->setItemValue(TetrahedronItem::P_HEIGHT,
-                                  sample->getHeight());
-    ffItem->setItemValue(TetrahedronItem::P_ALPHA,
-                                  Units::rad2deg(sample->getAlpha()));
+    ffItem->setItemValue(TetrahedronItem::P_BASEEDGE, sample->getBaseEdge());
+    ffItem->setItemValue(TetrahedronItem::P_HEIGHT, sample->getHeight());
+    ffItem->setItemValue(TetrahedronItem::P_ALPHA, Units::rad2deg(sample->getAlpha()));
     m_levelToParentItem[getLevel()] = particleItem;
 }
 
@@ -530,10 +503,8 @@ void GUIObjectBuilder::visit(const FormFactorTruncatedCube *sample)
     SessionItem *particleItem = m_levelToParentItem[getLevel()-1];
     SessionItem *ffItem = particleItem->setGroupProperty(
         ParticleItem::P_FORM_FACTOR, Constants::TruncatedCubeType);
-    ffItem->setItemValue(TruncatedCubeItem::P_LENGTH,
-                                  sample->getLength());
-    ffItem->setItemValue(TruncatedCubeItem::P_REMOVED_LENGTH,
-                                  sample->getRemovedLength());
+    ffItem->setItemValue(TruncatedCubeItem::P_LENGTH, sample->getLength());
+    ffItem->setItemValue(TruncatedCubeItem::P_REMOVED_LENGTH, sample->getRemovedLength());
     m_levelToParentItem[getLevel()] = particleItem;
 }
 
@@ -542,10 +513,8 @@ void GUIObjectBuilder::visit(const FormFactorTruncatedSphere *sample)
     SessionItem *particleItem = m_levelToParentItem[getLevel()-1];
     SessionItem *ffItem = particleItem->setGroupProperty(
         ParticleItem::P_FORM_FACTOR, Constants::TruncatedSphereType);
-    ffItem->setItemValue(TruncatedSphereItem::P_RADIUS,
-                                  sample->getRadius());
-    ffItem->setItemValue(TruncatedSphereItem::P_HEIGHT,
-                                  sample->getHeight());
+    ffItem->setItemValue(TruncatedSphereItem::P_RADIUS, sample->getRadius());
+    ffItem->setItemValue(TruncatedSphereItem::P_HEIGHT, sample->getHeight());
     m_levelToParentItem[getLevel()] = particleItem;
 }
 
@@ -554,12 +523,9 @@ void GUIObjectBuilder::visit(const FormFactorTruncatedSpheroid *sample)
     SessionItem *particleItem = m_levelToParentItem[getLevel()-1];
     SessionItem *ffItem = particleItem->setGroupProperty(
                 ParticleItem::P_FORM_FACTOR, Constants::TruncatedSpheroidType);
-    ffItem->setItemValue(TruncatedSpheroidItem::P_RADIUS,
-                                  sample->getRadius());
-    ffItem->setItemValue(TruncatedSpheroidItem::P_HEIGHT,
-                                  sample->getHeight());
-    ffItem->setItemValue(TruncatedSpheroidItem::P_HFC,
-                                  sample->getHeightFlattening());
+    ffItem->setItemValue(TruncatedSpheroidItem::P_RADIUS, sample->getRadius());
+    ffItem->setItemValue(TruncatedSpheroidItem::P_HEIGHT, sample->getHeight());
+    ffItem->setItemValue(TruncatedSpheroidItem::P_HFC, sample->getHeightFlattening());
     m_levelToParentItem[getLevel()] = particleItem;
 }
 
@@ -651,8 +617,7 @@ void GUIObjectBuilder::visit(const RotationY *sample)
                 -1, ParticleItem::T_TRANSFORMATION);
     SessionItem *p_rotationItem = transformation_item->setGroupProperty(
         TransformationItem::P_ROT, Constants::YRotationType);
-    p_rotationItem->setItemValue(YRotationItem::P_ANGLE,
-                                          Units::rad2deg(sample->getAngle()));
+    p_rotationItem->setItemValue(YRotationItem::P_ANGLE, Units::rad2deg(sample->getAngle()));
     m_levelToParentItem[getLevel()] = transformation_item;
 }
 
@@ -668,8 +633,7 @@ void GUIObjectBuilder::visit(const RotationZ *sample)
                 -1, ParticleItem::T_TRANSFORMATION);
     SessionItem *p_rotationItem = transformation_item->setGroupProperty(
                 TransformationItem::P_ROT, Constants::ZRotationType);
-    p_rotationItem->setItemValue(ZRotationItem::P_ANGLE,
-                                          Units::rad2deg(sample->getAngle()) );
+    p_rotationItem->setItemValue(ZRotationItem::P_ANGLE, Units::rad2deg(sample->getAngle()) );
     m_levelToParentItem[getLevel()] = transformation_item;
 }
 
@@ -686,12 +650,9 @@ void GUIObjectBuilder::visit(const RotationEuler *sample)
     Q_ASSERT(transformation_item);
     SessionItem *p_rotationItem = transformation_item->setGroupProperty(
                 TransformationItem::P_ROT, Constants::EulerRotationType);
-    p_rotationItem->setItemValue(EulerRotationItem::P_ALPHA,
-                                          Units::rad2deg(sample->getAlpha()) );
-    p_rotationItem->setItemValue(EulerRotationItem::P_BETA,
-                                          Units::rad2deg(sample->getBeta()) );
-    p_rotationItem->setItemValue(EulerRotationItem::P_GAMMA,
-                                          Units::rad2deg(sample->getGamma()) );
+    p_rotationItem->setItemValue(EulerRotationItem::P_ALPHA,  Units::rad2deg(sample->getAlpha()) );
+    p_rotationItem->setItemValue(EulerRotationItem::P_BETA, Units::rad2deg(sample->getBeta()) );
+    p_rotationItem->setItemValue(EulerRotationItem::P_GAMMA, Units::rad2deg(sample->getGamma()) );
     m_levelToParentItem[getLevel()] = transformation_item;
 }
 

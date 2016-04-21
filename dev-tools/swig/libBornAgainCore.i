@@ -25,6 +25,7 @@
 %include "std_vector.i"
 %include "std_shared_ptr.i"
 
+ // TODO CLARIFY WHY THIS IS INCLUDED
 %include "doxygen_core.i"
 
 %include "warnings.i"
@@ -41,6 +42,7 @@
 %template(vector_longinteger_t) std::vector<unsigned long int >;
 %template(vector_complex_t) std::vector< std::complex<double> >;
 %template(vector_string_t) std::vector<std::string>;
+%nodefaultctor ParameterPool;
 
 #define SWIG_FILE_WITH_INIT
 

@@ -30619,7 +30619,7 @@ static PyMethodDef SwigMethods[] = {
 		"\n"
 		"bool IMinimizer::isGradientBasedAgorithm()\n"
 		"\n"
-		"Checks if type of algorithm is Levenberg-Marquardt or similar. \n"
+		"Returns true if type of algorithm is Levenberg-Marquardt or similar. \n"
 		"\n"
 		""},
 	 { (char *)"IMinimizer_getMinimizerName", _wrap_IMinimizer_getMinimizerName, METH_VARARGS, (char *)"\n"
@@ -30689,7 +30689,7 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"delete_IFitStrategy", _wrap_delete_IFitStrategy, METH_VARARGS, (char *)"\n"
 		"delete_IFitStrategy(IFitStrategy self)\n"
 		"\n"
-		"IFitStrategy::~IFitStrategy()\n"
+		"virtual IFitStrategy::~IFitStrategy()\n"
 		"\n"
 		""},
 	 { (char *)"IFitStrategy_init", _wrap_IFitStrategy_init, METH_VARARGS, (char *)"\n"
@@ -31007,7 +31007,12 @@ static PyMethodDef SwigMethods[] = {
 		"FitSuite::FitSuite()\n"
 		"\n"
 		""},
-	 { (char *)"delete_FitSuite", _wrap_delete_FitSuite, METH_VARARGS, (char *)"delete_FitSuite(FitSuite self)"},
+	 { (char *)"delete_FitSuite", _wrap_delete_FitSuite, METH_VARARGS, (char *)"\n"
+		"delete_FitSuite(FitSuite self)\n"
+		"\n"
+		"FitSuite::~FitSuite()\n"
+		"\n"
+		""},
 	 { (char *)"FitSuite_addSimulationAndRealData", _wrap_FitSuite_addSimulationAndRealData, METH_VARARGS, (char *)"\n"
 		"addSimulationAndRealData(GISASSimulation const & simulation, OutputData< double > const & real_data, double weight=1)\n"
 		"addSimulationAndRealData(GISASSimulation const & simulation, OutputData< double > const & real_data)\n"
@@ -31754,7 +31759,7 @@ static PyMethodDef SwigMethods[] = {
 		"createMinimizer(std::string const & minimizer, std::string const & algorithm, std::string const & options) -> IMinimizer\n"
 		"createMinimizer(std::string const & minimizer, std::string const & algorithm) -> IMinimizer\n"
 		"createMinimizer(std::string const & minimizer) -> IMinimizer\n"
-		"MinimizerFactory_createMinimizer(IMinimizer minimizer) -> IMinimizer\n"
+		"MinimizerFactory_createMinimizer(IMinimizer other) -> IMinimizer\n"
 		""},
 	 { (char *)"new_MinimizerFactory", _wrap_new_MinimizerFactory, METH_VARARGS, (char *)"\n"
 		"new_MinimizerFactory() -> MinimizerFactory\n"

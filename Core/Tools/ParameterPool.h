@@ -22,6 +22,7 @@
 #include <map>
 #include <vector>
 
+class IParameterized;
 class AttLimits;
 
 //! @class ParameterPool
@@ -31,29 +32,18 @@ class AttLimits;
 class BA_CORE_API_ ParameterPool : public ICloneable
 {
 public:
-    //! definition of parameter type and parameter container
-    typedef RealParameterWrapper parameter_t;
-    typedef std::map<std::string, parameter_t > parametermap_t;
-
-    //! Constructs an empty parameter pool.
-    ParameterPool() : m_map() {}
-
+    ParameterPool(IParameterized* const parent);
+    ParameterPool() = delete;
     virtual ~ParameterPool() {}
 
     //! Returns a literal clone.
-    ParameterPool *clone() const
-    {
-        ParameterPool *new_pool = new ParameterPool();
-        new_pool->m_map = m_map;
-        return new_pool;
-    }
+    ParameterPool *clone() const;
 
     //! Returns a clone with _prefix_ added to every parameter key.
     ParameterPool *cloneWithPrefix(const std::string& prefix) const;
 
     //! Copies parameters to _external_pool_, adding _prefix_ to every key.
-    void copyToExternalPool(
-        const std::string& prefix, ParameterPool *external_pool) const;
+    void copyToExternalPool(const std::string& prefix, ParameterPool *external_pool) const;
 
     //! Deletes parameter map.
     void clear() { m_map.clear(); }
@@ -62,20 +52,20 @@ public:
     size_t size() const { return m_map.size(); }
 
     //! Registers a parameter with key _name_ and pointer-to-value _parpointer_.
-    void registerParameter(const std::string& name, double *parpointer, const AttLimits &limits=AttLimits::limitless());
+    void registerParameter(const std::string& name, double *parpointer,
+                           const AttLimits &limits=AttLimits::limitless());
 
     //! Adds parameter to the pool
-    void addParameter(const std::string& name, parameter_t par);
+    void addParameter(const std::string& name, RealParameterWrapper par);
 
     //! Returns parameter named _name_.
-    parameter_t getParameter(const std::string& name) const;
+    RealParameterWrapper getParameter(const std::string& name) const;
 
     //! Returns vector of parameters which fit pattern
-    std::vector<parameter_t > getMatchedParameters(
-        const std::string& wildcards) const;
+    std::vector<RealParameterWrapper> getMatchedParameters(const std::string& wildcards) const;
 
-    //! Sets parameter value, return true in the case of success
-    bool setParameterValue(const std::string& name, double value);
+    //! Sets parameter value
+    void setParameterValue(const std::string& name, double value);
 
     //! Sets parameter value, return number of changed parameters
     int setMatchedParametersValue(const std::string& wildcards, double value);
@@ -83,10 +73,8 @@ public:
     //! Returns all parameter names
     std::vector<std::string> getParameterNames() const;
 
-    friend std::ostream& operator<<(std::ostream& ostr,
-                                    const ParameterPool& obj) {
-        obj.print(ostr); return ostr;
-    }
+    friend std::ostream& operator<<(std::ostream& ostr, const ParameterPool& obj)
+    { obj.print(ostr); return ostr; }
 
 protected:
     //! Prints parameter pool contents.
@@ -101,8 +89,8 @@ protected:
     //! reports error while setting parname to given value
     void report_set_value_error(const std::string &parname, double value) const;
 
-    //! Map of parameters.
-    parametermap_t m_map;
+    IParameterized* const m_parent; //!< Parametrized object that "owns" this pool
+    std::map<std::string, RealParameterWrapper> m_map;
 };
 
 #endif // PARAMETERPOOL_H

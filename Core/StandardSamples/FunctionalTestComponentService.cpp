@@ -66,10 +66,10 @@ GISASSimulation *FunctionalTestComponentService::getSimulation() const
     return result;
 }
 
-SampleBuilder_t FunctionalTestComponentService::getSampleBuilder() const
+std::shared_ptr<class ISampleBuilder> FunctionalTestComponentService::getSampleBuilder() const
 {
     SampleBuilderFactory sample_factory;
-    SampleBuilder_t sample_builder = sample_factory.createBuilder(m_testInfo.m_sample_builder_name);
+    std::shared_ptr<class ISampleBuilder> sample_builder = sample_factory.createBuilder(m_testInfo.m_sample_builder_name);
     sample_builder->init_from(this);
     return sample_builder;
 }

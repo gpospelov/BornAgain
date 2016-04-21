@@ -1437,7 +1437,7 @@ class AttLimits(_object):
     """
 
 
-    Limits for fit parameters.
+    Attributes and limits for a fit parameter. Currently, the only attribute is fixed/free.
 
     C++ includes: AttLimits.h
 
@@ -1904,11 +1904,11 @@ class IParameterized(INamed):
 
     def setParameterValue(self, name, value):
         """
-        setParameterValue(IParameterized self, std::string const & name, double value) -> bool
+        setParameterValue(IParameterized self, std::string const & name, double value)
 
-        bool IParameterized::setParameterValue(const std::string &name, double value)
+        void IParameterized::setParameterValue(const std::string &name, double value)
 
-        Sets the value of the parameter with the given name; returns true in the case of success. 
+        Sets the value of the parameter with the given name. 
 
         """
         return _libBornAgainCore.IParameterized_setParameterValue(self, name, value)
@@ -1926,14 +1926,14 @@ class IParameterized(INamed):
         return _libBornAgainCore.IParameterized_clearParameterPool(self)
 
 
+    def onChange(self):
+        """onChange(IParameterized self)"""
+        return _libBornAgainCore.IParameterized_onChange(self)
+
+
     def _print(self, ostr):
         """_print(IParameterized self, std::ostream & ostr)"""
         return _libBornAgainCore.IParameterized__print(self, ostr)
-
-
-    def init_parameters(self):
-        """init_parameters(IParameterized self)"""
-        return _libBornAgainCore.IParameterized_init_parameters(self)
 
 
     def registerParameter(self, *args):
@@ -4171,14 +4171,14 @@ class ISample(ICloneable, IParameterized):
         _libBornAgainCore.disown_ISample(self)
         return weakref_proxy(self)
 
+    def onChange(self):
+        """onChange(ISample self)"""
+        return _libBornAgainCore.ISample_onChange(self)
+
+
     def _print(self, ostr):
         """_print(ISample self, std::ostream & ostr)"""
         return _libBornAgainCore.ISample__print(self, ostr)
-
-
-    def init_parameters(self):
-        """init_parameters(ISample self)"""
-        return _libBornAgainCore.ISample_init_parameters(self)
 
 ISample_swigregister = _libBornAgainCore.ISample_swigregister
 ISample_swigregister(ISample)
@@ -4658,7 +4658,7 @@ class ISampleBuilder(IParameterized):
 
 
     def setParameterValue(self, name, value):
-        """setParameterValue(ISampleBuilder self, std::string const & name, double value) -> bool"""
+        """setParameterValue(ISampleBuilder self, std::string const & name, double value)"""
         return _libBornAgainCore.ISampleBuilder_setParameterValue(self, name, value)
 
     def __disown__(self):
@@ -4666,14 +4666,14 @@ class ISampleBuilder(IParameterized):
         _libBornAgainCore.disown_ISampleBuilder(self)
         return weakref_proxy(self)
 
+    def onChange(self):
+        """onChange(ISampleBuilder self)"""
+        return _libBornAgainCore.ISampleBuilder_onChange(self)
+
+
     def _print(self, ostr):
         """_print(ISampleBuilder self, std::ostream & ostr)"""
         return _libBornAgainCore.ISampleBuilder__print(self, ostr)
-
-
-    def init_parameters(self):
-        """init_parameters(ISampleBuilder self)"""
-        return _libBornAgainCore.ISampleBuilder_init_parameters(self)
 
 ISampleBuilder_swigregister = _libBornAgainCore.ISampleBuilder_swigregister
 ISampleBuilder_swigregister(ISampleBuilder)
@@ -7691,14 +7691,14 @@ class IFormFactor(ISample):
         _libBornAgainCore.disown_IFormFactor(self)
         return weakref_proxy(self)
 
+    def onChange(self):
+        """onChange(IFormFactor self)"""
+        return _libBornAgainCore.IFormFactor_onChange(self)
+
+
     def _print(self, ostr):
         """_print(IFormFactor self, std::ostream & ostr)"""
         return _libBornAgainCore.IFormFactor__print(self, ostr)
-
-
-    def init_parameters(self):
-        """init_parameters(IFormFactor self)"""
-        return _libBornAgainCore.IFormFactor_init_parameters(self)
 
 IFormFactor_swigregister = _libBornAgainCore.IFormFactor_swigregister
 IFormFactor_swigregister(IFormFactor)
@@ -8017,14 +8017,14 @@ class IFormFactorBorn(IFormFactor):
         _libBornAgainCore.disown_IFormFactorBorn(self)
         return weakref_proxy(self)
 
+    def onChange(self):
+        """onChange(IFormFactorBorn self)"""
+        return _libBornAgainCore.IFormFactorBorn_onChange(self)
+
+
     def _print(self, ostr):
         """_print(IFormFactorBorn self, std::ostream & ostr)"""
         return _libBornAgainCore.IFormFactorBorn__print(self, ostr)
-
-
-    def init_parameters(self):
-        """init_parameters(IFormFactorBorn self)"""
-        return _libBornAgainCore.IFormFactorBorn_init_parameters(self)
 
 IFormFactorBorn_swigregister = _libBornAgainCore.IFormFactorBorn_swigregister
 IFormFactorBorn_swigregister(IFormFactorBorn)
@@ -8198,10 +8198,10 @@ class PolyhedralFace(_object):
             self.this.append(this)
         except:
             self.this = this
-    __swig_setmethods__["radius_3d"] = _libBornAgainCore.PolyhedralFace_radius_3d_set
-    __swig_getmethods__["radius_3d"] = _libBornAgainCore.PolyhedralFace_radius_3d_get
+    __swig_setmethods__["m_radius_3d"] = _libBornAgainCore.PolyhedralFace_m_radius_3d_set
+    __swig_getmethods__["m_radius_3d"] = _libBornAgainCore.PolyhedralFace_m_radius_3d_get
     if _newclass:
-        radius_3d = _swig_property(_libBornAgainCore.PolyhedralFace_radius_3d_get, _libBornAgainCore.PolyhedralFace_radius_3d_set)
+        m_radius_3d = _swig_property(_libBornAgainCore.PolyhedralFace_m_radius_3d_get, _libBornAgainCore.PolyhedralFace_m_radius_3d_set)
 
     def getArea(self):
         """
@@ -8325,6 +8325,18 @@ class FormFactorPolyhedron(IFormFactorBorn):
         return _libBornAgainCore.FormFactorPolyhedron_getVolume(self)
 
 
+    def getRadius(self):
+        """
+        getRadius(FormFactorPolyhedron self) -> double
+
+        virtual double IFormFactor::getRadius() const =0
+
+        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+
+        """
+        return _libBornAgainCore.FormFactorPolyhedron_getRadius(self)
+
+
     def assert_platonic(self):
         """
         assert_platonic(FormFactorPolyhedron self)
@@ -8397,6 +8409,18 @@ class FormFactorPolygonalPrism(IFormFactorBorn):
 
         """
         return _libBornAgainCore.FormFactorPolygonalPrism_getHeight(self)
+
+
+    def getRadius(self):
+        """
+        getRadius(FormFactorPolygonalPrism self) -> double
+
+        virtual double IFormFactor::getRadius() const =0
+
+        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+
+        """
+        return _libBornAgainCore.FormFactorPolygonalPrism_getRadius(self)
 
     __swig_destroy__ = _libBornAgainCore.delete_FormFactorPolygonalPrism
     __del__ = lambda self: None
@@ -8835,9 +8859,9 @@ class FormFactorCone6(FormFactorPolyhedron):
     __getattr__ = lambda self, name: _swig_getattr(self, FormFactorCone6, name)
     __repr__ = _swig_repr
 
-    def __init__(self, radius, height, alpha):
+    def __init__(self, base_edge, height, alpha):
         """
-        __init__(FormFactorCone6 self, double radius, double height, double alpha) -> FormFactorCone6
+        __init__(FormFactorCone6 self, double base_edge, double height, double alpha) -> FormFactorCone6
 
         FormFactorCone6::FormFactorCone6(double radius, double height, double alpha)
 
@@ -8856,19 +8880,11 @@ class FormFactorCone6(FormFactorPolyhedron):
         in radians between base and facet 
 
         """
-        this = _libBornAgainCore.new_FormFactorCone6(radius, height, alpha)
+        this = _libBornAgainCore.new_FormFactorCone6(base_edge, height, alpha)
         try:
             self.this.append(this)
         except:
             self.this = this
-
-    def polyhedral_faces(radius, height, alpha):
-        """polyhedral_faces(double radius, double height, double alpha) -> std::vector< PolyhedralFace,std::allocator< PolyhedralFace > >"""
-        return _libBornAgainCore.FormFactorCone6_polyhedral_faces(radius, height, alpha)
-
-    if _newclass:
-        polyhedral_faces = staticmethod(polyhedral_faces)
-    __swig_getmethods__["polyhedral_faces"] = lambda x: polyhedral_faces
 
     def clone(self):
         """
@@ -8894,6 +8910,11 @@ class FormFactorCone6(FormFactorPolyhedron):
         return _libBornAgainCore.FormFactorCone6_accept(self, visitor)
 
 
+    def getBaseEdge(self):
+        """getBaseEdge(FormFactorCone6 self) -> double"""
+        return _libBornAgainCore.FormFactorCone6_getBaseEdge(self)
+
+
     def getHeight(self):
         """
         getHeight(FormFactorCone6 self) -> double
@@ -8902,18 +8923,6 @@ class FormFactorCone6(FormFactorPolyhedron):
 
         """
         return _libBornAgainCore.FormFactorCone6_getHeight(self)
-
-
-    def getRadius(self):
-        """
-        getRadius(FormFactorCone6 self) -> double
-
-        double FormFactorCone6::getRadius() const final
-
-        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-
-        """
-        return _libBornAgainCore.FormFactorCone6_getRadius(self)
 
 
     def getAlpha(self):
@@ -8929,10 +8938,6 @@ class FormFactorCone6(FormFactorPolyhedron):
     __del__ = lambda self: None
 FormFactorCone6_swigregister = _libBornAgainCore.FormFactorCone6_swigregister
 FormFactorCone6_swigregister(FormFactorCone6)
-
-def FormFactorCone6_polyhedral_faces(radius, height, alpha):
-    """FormFactorCone6_polyhedral_faces(double radius, double height, double alpha) -> std::vector< PolyhedralFace,std::allocator< PolyhedralFace > >"""
-    return _libBornAgainCore.FormFactorCone6_polyhedral_faces(radius, height, alpha)
 
 class FormFactorCrystal(IFormFactorBorn):
     """
@@ -9105,16 +9110,6 @@ class FormFactorCuboctahedron(FormFactorPolyhedron):
             self.this.append(this)
         except:
             self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_FormFactorCuboctahedron
-    __del__ = lambda self: None
-
-    def polyhedral_faces(length, height, height_ratio, alpha):
-        """polyhedral_faces(double length, double height, double height_ratio, double alpha) -> std::vector< PolyhedralFace,std::allocator< PolyhedralFace > >"""
-        return _libBornAgainCore.FormFactorCuboctahedron_polyhedral_faces(length, height, height_ratio, alpha)
-
-    if _newclass:
-        polyhedral_faces = staticmethod(polyhedral_faces)
-    __swig_getmethods__["polyhedral_faces"] = lambda x: polyhedral_faces
 
     def clone(self):
         """
@@ -9140,16 +9135,14 @@ class FormFactorCuboctahedron(FormFactorPolyhedron):
         return _libBornAgainCore.FormFactorCuboctahedron_accept(self, visitor)
 
 
-    def getRadius(self):
+    def getLength(self):
         """
-        getRadius(FormFactorCuboctahedron self) -> double
+        getLength(FormFactorCuboctahedron self) -> double
 
-        double FormFactorCuboctahedron::getRadius() const final
-
-        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+        double FormFactorCuboctahedron::getLength() const 
 
         """
-        return _libBornAgainCore.FormFactorCuboctahedron_getRadius(self)
+        return _libBornAgainCore.FormFactorCuboctahedron_getLength(self)
 
 
     def getHeight(self):
@@ -9172,16 +9165,6 @@ class FormFactorCuboctahedron(FormFactorPolyhedron):
         return _libBornAgainCore.FormFactorCuboctahedron_getHeightRatio(self)
 
 
-    def getLength(self):
-        """
-        getLength(FormFactorCuboctahedron self) -> double
-
-        double FormFactorCuboctahedron::getLength() const 
-
-        """
-        return _libBornAgainCore.FormFactorCuboctahedron_getLength(self)
-
-
     def getAlpha(self):
         """
         getAlpha(FormFactorCuboctahedron self) -> double
@@ -9191,12 +9174,10 @@ class FormFactorCuboctahedron(FormFactorPolyhedron):
         """
         return _libBornAgainCore.FormFactorCuboctahedron_getAlpha(self)
 
+    __swig_destroy__ = _libBornAgainCore.delete_FormFactorCuboctahedron
+    __del__ = lambda self: None
 FormFactorCuboctahedron_swigregister = _libBornAgainCore.FormFactorCuboctahedron_swigregister
 FormFactorCuboctahedron_swigregister(FormFactorCuboctahedron)
-
-def FormFactorCuboctahedron_polyhedral_faces(length, height, height_ratio, alpha):
-    """FormFactorCuboctahedron_polyhedral_faces(double length, double height, double height_ratio, double alpha) -> std::vector< PolyhedralFace,std::allocator< PolyhedralFace > >"""
-    return _libBornAgainCore.FormFactorCuboctahedron_polyhedral_faces(length, height, height_ratio, alpha)
 
 class FormFactorCylinder(IFormFactorBorn):
     """
@@ -9433,14 +9414,6 @@ class FormFactorDodecahedron(FormFactorPolyhedron):
         except:
             self.this = this
 
-    def polyhedral_faces(edge):
-        """polyhedral_faces(double edge) -> std::vector< PolyhedralFace,std::allocator< PolyhedralFace > >"""
-        return _libBornAgainCore.FormFactorDodecahedron_polyhedral_faces(edge)
-
-    if _newclass:
-        polyhedral_faces = staticmethod(polyhedral_faces)
-    __swig_getmethods__["polyhedral_faces"] = lambda x: polyhedral_faces
-
     def clone(self):
         """
         clone(FormFactorDodecahedron self) -> FormFactorDodecahedron
@@ -9465,18 +9438,6 @@ class FormFactorDodecahedron(FormFactorPolyhedron):
         return _libBornAgainCore.FormFactorDodecahedron_accept(self, visitor)
 
 
-    def getRadius(self):
-        """
-        getRadius(FormFactorDodecahedron self) -> double
-
-        double FormFactorDodecahedron::getRadius() const final
-
-        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-
-        """
-        return _libBornAgainCore.FormFactorDodecahedron_getRadius(self)
-
-
     def getEdge(self):
         """
         getEdge(FormFactorDodecahedron self) -> double
@@ -9490,10 +9451,6 @@ class FormFactorDodecahedron(FormFactorPolyhedron):
     __del__ = lambda self: None
 FormFactorDodecahedron_swigregister = _libBornAgainCore.FormFactorDodecahedron_swigregister
 FormFactorDodecahedron_swigregister(FormFactorDodecahedron)
-
-def FormFactorDodecahedron_polyhedral_faces(edge):
-    """FormFactorDodecahedron_polyhedral_faces(double edge) -> std::vector< PolyhedralFace,std::allocator< PolyhedralFace > >"""
-    return _libBornAgainCore.FormFactorDodecahedron_polyhedral_faces(edge)
 
 class FormFactorEllipsoidalCylinder(IFormFactorBorn):
     """
@@ -10115,14 +10072,6 @@ class FormFactorIcosahedron(FormFactorPolyhedron):
         except:
             self.this = this
 
-    def polyhedral_faces(edge):
-        """polyhedral_faces(double edge) -> std::vector< PolyhedralFace,std::allocator< PolyhedralFace > >"""
-        return _libBornAgainCore.FormFactorIcosahedron_polyhedral_faces(edge)
-
-    if _newclass:
-        polyhedral_faces = staticmethod(polyhedral_faces)
-    __swig_getmethods__["polyhedral_faces"] = lambda x: polyhedral_faces
-
     def clone(self):
         """
         clone(FormFactorIcosahedron self) -> FormFactorIcosahedron
@@ -10147,18 +10096,6 @@ class FormFactorIcosahedron(FormFactorPolyhedron):
         return _libBornAgainCore.FormFactorIcosahedron_accept(self, visitor)
 
 
-    def getRadius(self):
-        """
-        getRadius(FormFactorIcosahedron self) -> double
-
-        double FormFactorIcosahedron::getRadius() const final
-
-        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-
-        """
-        return _libBornAgainCore.FormFactorIcosahedron_getRadius(self)
-
-
     def getEdge(self):
         """
         getEdge(FormFactorIcosahedron self) -> double
@@ -10172,10 +10109,6 @@ class FormFactorIcosahedron(FormFactorPolyhedron):
     __del__ = lambda self: None
 FormFactorIcosahedron_swigregister = _libBornAgainCore.FormFactorIcosahedron_swigregister
 FormFactorIcosahedron_swigregister(FormFactorIcosahedron)
-
-def FormFactorIcosahedron_polyhedral_faces(edge):
-    """FormFactorIcosahedron_polyhedral_faces(double edge) -> std::vector< PolyhedralFace,std::allocator< PolyhedralFace > >"""
-    return _libBornAgainCore.FormFactorIcosahedron_polyhedral_faces(edge)
 
 class FormFactorLongBoxGauss(IFormFactorBorn):
     """Proxy of C++ FormFactorLongBoxGauss class"""
@@ -11115,9 +11048,9 @@ class FormFactorPrism3(FormFactorPolygonalPrism):
     __getattr__ = lambda self, name: _swig_getattr(self, FormFactorPrism3, name)
     __repr__ = _swig_repr
 
-    def __init__(self, length, height):
+    def __init__(self, base_edge, height):
         """
-        __init__(FormFactorPrism3 self, double const length, double const height) -> FormFactorPrism3
+        __init__(FormFactorPrism3 self, double const base_edge, double const height) -> FormFactorPrism3
 
         FormFactorPrism3::FormFactorPrism3(const double length, const double height)
 
@@ -11133,19 +11066,11 @@ class FormFactorPrism3(FormFactorPolygonalPrism):
         of Prism3 
 
         """
-        this = _libBornAgainCore.new_FormFactorPrism3(length, height)
+        this = _libBornAgainCore.new_FormFactorPrism3(base_edge, height)
         try:
             self.this.append(this)
         except:
             self.this = this
-
-    def prismatic_face(length):
-        """prismatic_face(double const length) -> PolyhedralFace"""
-        return _libBornAgainCore.FormFactorPrism3_prismatic_face(length)
-
-    if _newclass:
-        prismatic_face = staticmethod(prismatic_face)
-    __swig_getmethods__["prismatic_face"] = lambda x: prismatic_face
 
     def clone(self):
         """
@@ -11171,35 +11096,14 @@ class FormFactorPrism3(FormFactorPolygonalPrism):
         return _libBornAgainCore.FormFactorPrism3_accept(self, visitor)
 
 
-    def getRadius(self):
-        """
-        getRadius(FormFactorPrism3 self) -> double
-
-        double FormFactorPrism3::getRadius() const
-
-        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-
-        """
-        return _libBornAgainCore.FormFactorPrism3_getRadius(self)
-
-
-    def getLength(self):
-        """
-        getLength(FormFactorPrism3 self) -> double
-
-        double FormFactorPrism3::getLength() const 
-
-        """
-        return _libBornAgainCore.FormFactorPrism3_getLength(self)
+    def getBaseEdge(self):
+        """getBaseEdge(FormFactorPrism3 self) -> double"""
+        return _libBornAgainCore.FormFactorPrism3_getBaseEdge(self)
 
     __swig_destroy__ = _libBornAgainCore.delete_FormFactorPrism3
     __del__ = lambda self: None
 FormFactorPrism3_swigregister = _libBornAgainCore.FormFactorPrism3_swigregister
 FormFactorPrism3_swigregister(FormFactorPrism3)
-
-def FormFactorPrism3_prismatic_face(length):
-    """FormFactorPrism3_prismatic_face(double const length) -> PolyhedralFace"""
-    return _libBornAgainCore.FormFactorPrism3_prismatic_face(length)
 
 class FormFactorPrism6(FormFactorPolygonalPrism):
     """
@@ -11220,9 +11124,9 @@ class FormFactorPrism6(FormFactorPolygonalPrism):
     __getattr__ = lambda self, name: _swig_getattr(self, FormFactorPrism6, name)
     __repr__ = _swig_repr
 
-    def __init__(self, radius, height):
+    def __init__(self, base_edge, height):
         """
-        __init__(FormFactorPrism6 self, double const radius, double const height) -> FormFactorPrism6
+        __init__(FormFactorPrism6 self, double const base_edge, double const height) -> FormFactorPrism6
 
         FormFactorPrism6::FormFactorPrism6(const double radius, const double height)
 
@@ -11238,19 +11142,11 @@ class FormFactorPrism6(FormFactorPolygonalPrism):
         of Prism6 
 
         """
-        this = _libBornAgainCore.new_FormFactorPrism6(radius, height)
+        this = _libBornAgainCore.new_FormFactorPrism6(base_edge, height)
         try:
             self.this.append(this)
         except:
             self.this = this
-
-    def prismatic_face(radius):
-        """prismatic_face(double const radius) -> PolyhedralFace"""
-        return _libBornAgainCore.FormFactorPrism6_prismatic_face(radius)
-
-    if _newclass:
-        prismatic_face = staticmethod(prismatic_face)
-    __swig_getmethods__["prismatic_face"] = lambda x: prismatic_face
 
     def clone(self):
         """
@@ -11276,25 +11172,14 @@ class FormFactorPrism6(FormFactorPolygonalPrism):
         return _libBornAgainCore.FormFactorPrism6_accept(self, visitor)
 
 
-    def getRadius(self):
-        """
-        getRadius(FormFactorPrism6 self) -> double
-
-        double FormFactorPrism6::getRadius() const
-
-        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-
-        """
-        return _libBornAgainCore.FormFactorPrism6_getRadius(self)
+    def getBaseEdge(self):
+        """getBaseEdge(FormFactorPrism6 self) -> double"""
+        return _libBornAgainCore.FormFactorPrism6_getBaseEdge(self)
 
     __swig_destroy__ = _libBornAgainCore.delete_FormFactorPrism6
     __del__ = lambda self: None
 FormFactorPrism6_swigregister = _libBornAgainCore.FormFactorPrism6_swigregister
 FormFactorPrism6_swigregister(FormFactorPrism6)
-
-def FormFactorPrism6_prismatic_face(radius):
-    """FormFactorPrism6_prismatic_face(double const radius) -> PolyhedralFace"""
-    return _libBornAgainCore.FormFactorPrism6_prismatic_face(radius)
 
 class FormFactorPyramid(FormFactorPolyhedron):
     """
@@ -11315,9 +11200,9 @@ class FormFactorPyramid(FormFactorPolyhedron):
     __getattr__ = lambda self, name: _swig_getattr(self, FormFactorPyramid, name)
     __repr__ = _swig_repr
 
-    def __init__(self, length, height, alpha):
+    def __init__(self, base_edge, height, alpha):
         """
-        __init__(FormFactorPyramid self, double length, double height, double alpha) -> FormFactorPyramid
+        __init__(FormFactorPyramid self, double base_edge, double height, double alpha) -> FormFactorPyramid
 
         FormFactorPyramid::FormFactorPyramid(double length, double height, double alpha)
 
@@ -11336,19 +11221,11 @@ class FormFactorPyramid(FormFactorPolyhedron):
         in radians between base and facet 
 
         """
-        this = _libBornAgainCore.new_FormFactorPyramid(length, height, alpha)
+        this = _libBornAgainCore.new_FormFactorPyramid(base_edge, height, alpha)
         try:
             self.this.append(this)
         except:
             self.this = this
-
-    def polyhedral_faces(length, height, alpha):
-        """polyhedral_faces(double length, double height, double alpha) -> std::vector< PolyhedralFace,std::allocator< PolyhedralFace > >"""
-        return _libBornAgainCore.FormFactorPyramid_polyhedral_faces(length, height, alpha)
-
-    if _newclass:
-        polyhedral_faces = staticmethod(polyhedral_faces)
-    __swig_getmethods__["polyhedral_faces"] = lambda x: polyhedral_faces
 
     def clone(self):
         """
@@ -11374,18 +11251,6 @@ class FormFactorPyramid(FormFactorPolyhedron):
         return _libBornAgainCore.FormFactorPyramid_accept(self, visitor)
 
 
-    def getRadius(self):
-        """
-        getRadius(FormFactorPyramid self) -> double
-
-        double FormFactorPyramid::getRadius() const final
-
-        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-
-        """
-        return _libBornAgainCore.FormFactorPyramid_getRadius(self)
-
-
     def getHeight(self):
         """
         getHeight(FormFactorPyramid self) -> double
@@ -11396,14 +11261,9 @@ class FormFactorPyramid(FormFactorPolyhedron):
         return _libBornAgainCore.FormFactorPyramid_getHeight(self)
 
 
-    def getLength(self):
-        """
-        getLength(FormFactorPyramid self) -> double
-
-        double FormFactorPyramid::getLength() const 
-
-        """
-        return _libBornAgainCore.FormFactorPyramid_getLength(self)
+    def getBaseEdge(self):
+        """getBaseEdge(FormFactorPyramid self) -> double"""
+        return _libBornAgainCore.FormFactorPyramid_getBaseEdge(self)
 
 
     def getAlpha(self):
@@ -11419,10 +11279,6 @@ class FormFactorPyramid(FormFactorPolyhedron):
     __del__ = lambda self: None
 FormFactorPyramid_swigregister = _libBornAgainCore.FormFactorPyramid_swigregister
 FormFactorPyramid_swigregister(FormFactorPyramid)
-
-def FormFactorPyramid_polyhedral_faces(length, height, alpha):
-    """FormFactorPyramid_polyhedral_faces(double length, double height, double alpha) -> std::vector< PolyhedralFace,std::allocator< PolyhedralFace > >"""
-    return _libBornAgainCore.FormFactorPyramid_polyhedral_faces(length, height, alpha)
 
 class FormFactorRipple1(IFormFactorBorn):
     """
@@ -11982,9 +11838,9 @@ class FormFactorTetrahedron(FormFactorPolyhedron):
     __getattr__ = lambda self, name: _swig_getattr(self, FormFactorTetrahedron, name)
     __repr__ = _swig_repr
 
-    def __init__(self, length, height, alpha):
+    def __init__(self, base_edge, height, alpha):
         """
-        __init__(FormFactorTetrahedron self, double length, double height, double alpha) -> FormFactorTetrahedron
+        __init__(FormFactorTetrahedron self, double base_edge, double height, double alpha) -> FormFactorTetrahedron
 
         FormFactorTetrahedron::FormFactorTetrahedron(double length, double height, double alpha)
 
@@ -12003,21 +11859,11 @@ class FormFactorTetrahedron(FormFactorPolyhedron):
         in radians between base and facet 
 
         """
-        this = _libBornAgainCore.new_FormFactorTetrahedron(length, height, alpha)
+        this = _libBornAgainCore.new_FormFactorTetrahedron(base_edge, height, alpha)
         try:
             self.this.append(this)
         except:
             self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_FormFactorTetrahedron
-    __del__ = lambda self: None
-
-    def polyhedral_faces(length, height, alpha):
-        """polyhedral_faces(double length, double height, double alpha) -> std::vector< PolyhedralFace,std::allocator< PolyhedralFace > >"""
-        return _libBornAgainCore.FormFactorTetrahedron_polyhedral_faces(length, height, alpha)
-
-    if _newclass:
-        polyhedral_faces = staticmethod(polyhedral_faces)
-    __swig_getmethods__["polyhedral_faces"] = lambda x: polyhedral_faces
 
     def clone(self):
         """
@@ -12043,16 +11889,9 @@ class FormFactorTetrahedron(FormFactorPolyhedron):
         return _libBornAgainCore.FormFactorTetrahedron_accept(self, visitor)
 
 
-    def getRadius(self):
-        """
-        getRadius(FormFactorTetrahedron self) -> double
-
-        double FormFactorTetrahedron::getRadius() const
-
-        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-
-        """
-        return _libBornAgainCore.FormFactorTetrahedron_getRadius(self)
+    def getBaseEdge(self):
+        """getBaseEdge(FormFactorTetrahedron self) -> double"""
+        return _libBornAgainCore.FormFactorTetrahedron_getBaseEdge(self)
 
 
     def getHeight(self):
@@ -12065,16 +11904,6 @@ class FormFactorTetrahedron(FormFactorPolyhedron):
         return _libBornAgainCore.FormFactorTetrahedron_getHeight(self)
 
 
-    def getLength(self):
-        """
-        getLength(FormFactorTetrahedron self) -> double
-
-        double FormFactorTetrahedron::getLength() const 
-
-        """
-        return _libBornAgainCore.FormFactorTetrahedron_getLength(self)
-
-
     def getAlpha(self):
         """
         getAlpha(FormFactorTetrahedron self) -> double
@@ -12084,12 +11913,10 @@ class FormFactorTetrahedron(FormFactorPolyhedron):
         """
         return _libBornAgainCore.FormFactorTetrahedron_getAlpha(self)
 
+    __swig_destroy__ = _libBornAgainCore.delete_FormFactorTetrahedron
+    __del__ = lambda self: None
 FormFactorTetrahedron_swigregister = _libBornAgainCore.FormFactorTetrahedron_swigregister
 FormFactorTetrahedron_swigregister(FormFactorTetrahedron)
-
-def FormFactorTetrahedron_polyhedral_faces(length, height, alpha):
-    """FormFactorTetrahedron_polyhedral_faces(double length, double height, double alpha) -> std::vector< PolyhedralFace,std::allocator< PolyhedralFace > >"""
-    return _libBornAgainCore.FormFactorTetrahedron_polyhedral_faces(length, height, alpha)
 
 class FormFactorTrivial(IFormFactorBorn):
     """Proxy of C++ FormFactorTrivial class"""
@@ -12228,14 +12055,6 @@ class FormFactorTruncatedCube(FormFactorPolyhedron):
         except:
             self.this = this
 
-    def polyhedral_faces(length, removed_length):
-        """polyhedral_faces(double length, double removed_length) -> std::vector< PolyhedralFace,std::allocator< PolyhedralFace > >"""
-        return _libBornAgainCore.FormFactorTruncatedCube_polyhedral_faces(length, removed_length)
-
-    if _newclass:
-        polyhedral_faces = staticmethod(polyhedral_faces)
-    __swig_getmethods__["polyhedral_faces"] = lambda x: polyhedral_faces
-
     def clone(self):
         """
         clone(FormFactorTruncatedCube self) -> FormFactorTruncatedCube
@@ -12258,18 +12077,6 @@ class FormFactorTruncatedCube(FormFactorPolyhedron):
 
         """
         return _libBornAgainCore.FormFactorTruncatedCube_accept(self, visitor)
-
-
-    def getRadius(self):
-        """
-        getRadius(FormFactorTruncatedCube self) -> double
-
-        double FormFactorTruncatedCube::getRadius() const final
-
-        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-
-        """
-        return _libBornAgainCore.FormFactorTruncatedCube_getRadius(self)
 
 
     def getLength(self):
@@ -12295,10 +12102,6 @@ class FormFactorTruncatedCube(FormFactorPolyhedron):
     __del__ = lambda self: None
 FormFactorTruncatedCube_swigregister = _libBornAgainCore.FormFactorTruncatedCube_swigregister
 FormFactorTruncatedCube_swigregister(FormFactorTruncatedCube)
-
-def FormFactorTruncatedCube_polyhedral_faces(length, removed_length):
-    """FormFactorTruncatedCube_polyhedral_faces(double length, double removed_length) -> std::vector< PolyhedralFace,std::allocator< PolyhedralFace > >"""
-    return _libBornAgainCore.FormFactorTruncatedCube_polyhedral_faces(length, removed_length)
 
 class FormFactorTruncatedSphere(IFormFactorBorn):
     """
@@ -12733,9 +12536,9 @@ class Simulation(ICloneable, IParameterized):
 
     def setSampleBuilder(self, sample_builder):
         """
-        setSampleBuilder(Simulation self, SampleBuilder_t sample_builder)
+        setSampleBuilder(Simulation self, std::shared_ptr< ISampleBuilder > sample_builder)
 
-        void Simulation::setSampleBuilder(SampleBuilder_t sample_builder)
+        void Simulation::setSampleBuilder(std::shared_ptr< class ISampleBuilder > sample_builder)
 
         Sets the sample builder. 
 
@@ -12745,9 +12548,9 @@ class Simulation(ICloneable, IParameterized):
 
     def getSampleBuilder(self):
         """
-        getSampleBuilder(Simulation self) -> SampleBuilder_t
+        getSampleBuilder(Simulation self) -> std::shared_ptr< ISampleBuilder >
 
-        SampleBuilder_t Simulation::getSampleBuilder() const
+        std::shared_ptr<class ISampleBuilder> Simulation::getSampleBuilder() const
 
         return sample builder 
 
@@ -12995,9 +12798,9 @@ class GISASSimulation(Simulation):
         """
         __init__(GISASSimulation self) -> GISASSimulation
         __init__(GISASSimulation self, ISample p_sample) -> GISASSimulation
-        __init__(GISASSimulation self, SampleBuilder_t p_sample_builder) -> GISASSimulation
+        __init__(GISASSimulation self, std::shared_ptr< ISampleBuilder > p_sample_builder) -> GISASSimulation
 
-        GISASSimulation::GISASSimulation(SampleBuilder_t p_sample_builder)
+        GISASSimulation::GISASSimulation(std::shared_ptr< class ISampleBuilder > p_sample_builder)
 
         """
         this = _libBornAgainCore.new_GISASSimulation(*args)
@@ -19291,9 +19094,9 @@ class OffSpecSimulation(Simulation):
         """
         __init__(OffSpecSimulation self) -> OffSpecSimulation
         __init__(OffSpecSimulation self, ISample p_sample) -> OffSpecSimulation
-        __init__(OffSpecSimulation self, SampleBuilder_t p_sample_builder) -> OffSpecSimulation
+        __init__(OffSpecSimulation self, std::shared_ptr< ISampleBuilder > p_sample_builder) -> OffSpecSimulation
 
-        OffSpecSimulation::OffSpecSimulation(SampleBuilder_t p_sample_builder)
+        OffSpecSimulation::OffSpecSimulation(std::shared_ptr< class ISampleBuilder > p_sample_builder)
 
         """
         this = _libBornAgainCore.new_OffSpecSimulation(*args)
@@ -20261,16 +20064,14 @@ class ParameterPool(ICloneable):
     __getattr__ = lambda self, name: _swig_getattr(self, ParameterPool, name)
     __repr__ = _swig_repr
 
-    def __init__(self):
+    def __init__(self, parent):
         """
-        __init__(ParameterPool self) -> ParameterPool
+        __init__(ParameterPool self, IParameterized parent) -> ParameterPool
 
-        ParameterPool::ParameterPool()
-
-        Constructs an empty parameter pool. 
+        ParameterPool::ParameterPool()=delete
 
         """
-        this = _libBornAgainCore.new_ParameterPool()
+        this = _libBornAgainCore.new_ParameterPool(parent)
         try:
             self.this.append(this)
         except:
@@ -20282,7 +20083,7 @@ class ParameterPool(ICloneable):
         """
         clone(ParameterPool self) -> ParameterPool
 
-        ParameterPool* ParameterPool::clone() const
+        ParameterPool * ParameterPool::clone() const
 
         Returns a literal clone. 
 
@@ -20359,7 +20160,7 @@ class ParameterPool(ICloneable):
         """
         addParameter(ParameterPool self, std::string const & name, RealParameterWrapper par)
 
-        void ParameterPool::addParameter(const std::string &name, parameter_t par)
+        void ParameterPool::addParameter(const std::string &name, RealParameterWrapper par)
 
         Adds parameter to the pool.
 
@@ -20373,7 +20174,7 @@ class ParameterPool(ICloneable):
         """
         getParameter(ParameterPool self, std::string const & name) -> RealParameterWrapper
 
-        ParameterPool::parameter_t ParameterPool::getParameter(const std::string &name) const
+        RealParameterWrapper ParameterPool::getParameter(const std::string &name) const
 
         Returns parameter named  name.
 
@@ -20385,9 +20186,9 @@ class ParameterPool(ICloneable):
 
     def getMatchedParameters(self, wildcards):
         """
-        getMatchedParameters(ParameterPool self, std::string const & wildcards) -> std::vector< ParameterPool::parameter_t,std::allocator< ParameterPool::parameter_t > >
+        getMatchedParameters(ParameterPool self, std::string const & wildcards) -> std::vector< RealParameterWrapper,std::allocator< RealParameterWrapper > >
 
-        std::vector< ParameterPool::parameter_t > ParameterPool::getMatchedParameters(const std::string &wildcards) const
+        std::vector< RealParameterWrapper > ParameterPool::getMatchedParameters(const std::string &wildcards) const
 
         Returns vector of parameters which fit pattern. 
 
@@ -20397,11 +20198,9 @@ class ParameterPool(ICloneable):
 
     def setParameterValue(self, name, value):
         """
-        setParameterValue(ParameterPool self, std::string const & name, double value) -> bool
+        setParameterValue(ParameterPool self, std::string const & name, double value)
 
-        bool ParameterPool::setParameterValue(const std::string &name, double value)
-
-        Sets parameter value, return true in the case of success.
+        void ParameterPool::setParameterValue(const std::string &name, double value)
 
         Sets parameter value. 
 
@@ -21344,7 +21143,7 @@ class RealParameterWrapper(_object):
     """
 
 
-    Wrapper to real parameter for remote access to its value and callback abilities.
+    Wrapper to real parameter for remote access to its value and callback abilities
 
     C++ includes: RealParameterWrapper.h
 
@@ -21357,8 +21156,8 @@ class RealParameterWrapper(_object):
 
     def __init__(self, *args):
         """
-        __init__(RealParameterWrapper self, double * par, AttLimits limits) -> RealParameterWrapper
-        __init__(RealParameterWrapper self, double * par) -> RealParameterWrapper
+        __init__(RealParameterWrapper self, IParameterized parent, double * par, AttLimits limits) -> RealParameterWrapper
+        __init__(RealParameterWrapper self, IParameterized parent, double * par) -> RealParameterWrapper
         __init__(RealParameterWrapper self, RealParameterWrapper other) -> RealParameterWrapper
 
         RealParameterWrapper::RealParameterWrapper(const RealParameterWrapper &other)
@@ -21372,11 +21171,11 @@ class RealParameterWrapper(_object):
 
     def setValue(self, value):
         """
-        setValue(RealParameterWrapper self, double value) -> bool
+        setValue(RealParameterWrapper self, double value)
 
-        bool RealParameterWrapper::setValue(double value)
+        void RealParameterWrapper::setValue(double value)
 
-        Sets value of wrapped parameter and emmit signal. 
+        Sets value of wrapped parameter and emit signal. 
 
         """
         return _libBornAgainCore.RealParameterWrapper_setValue(self, value)
@@ -22019,9 +21818,9 @@ class SpecularSimulation(ICloneable, IParameterized):
         """
         __init__(SpecularSimulation self) -> SpecularSimulation
         __init__(SpecularSimulation self, ISample sample) -> SpecularSimulation
-        __init__(SpecularSimulation self, SampleBuilder_t sample_builder) -> SpecularSimulation
+        __init__(SpecularSimulation self, std::shared_ptr< ISampleBuilder > sample_builder) -> SpecularSimulation
 
-        SpecularSimulation::SpecularSimulation(SampleBuilder_t sample_builder)
+        SpecularSimulation::SpecularSimulation(std::shared_ptr< class ISampleBuilder > sample_builder)
 
         """
         this = _libBornAgainCore.new_SpecularSimulation(*args)
@@ -22080,9 +21879,9 @@ class SpecularSimulation(ICloneable, IParameterized):
 
     def setSampleBuilder(self, sample_builder):
         """
-        setSampleBuilder(SpecularSimulation self, SampleBuilder_t sample_builder)
+        setSampleBuilder(SpecularSimulation self, std::shared_ptr< ISampleBuilder > sample_builder)
 
-        void SpecularSimulation::setSampleBuilder(SampleBuilder_t sample_builder)
+        void SpecularSimulation::setSampleBuilder(std::shared_ptr< class ISampleBuilder > sample_builder)
 
         Sets the sample builder. 
 
@@ -22092,9 +21891,9 @@ class SpecularSimulation(ICloneable, IParameterized):
 
     def getSampleBuilder(self):
         """
-        getSampleBuilder(SpecularSimulation self) -> SampleBuilder_t
+        getSampleBuilder(SpecularSimulation self) -> std::shared_ptr< ISampleBuilder >
 
-        SampleBuilder_t SpecularSimulation::getSampleBuilder() const
+        std::shared_ptr< class ISampleBuilder > SpecularSimulation::getSampleBuilder() const
 
         return sample builder 
 
@@ -22284,9 +22083,9 @@ class SampleBuilderFactory(_object):
 
     def createBuilder(self, name):
         """
-        createBuilder(SampleBuilderFactory self, std::string const & name) -> SampleBuilder_t
+        createBuilder(SampleBuilderFactory self, std::string const & name) -> std::shared_ptr< ISampleBuilder >
 
-        SampleBuilder_t SampleBuilderFactory::createBuilder(const std::string &name)
+        std::shared_ptr< class ISampleBuilder > SampleBuilderFactory::createBuilder(const std::string &name)
 
         """
         return _libBornAgainCore.SampleBuilderFactory_createBuilder(self, name)

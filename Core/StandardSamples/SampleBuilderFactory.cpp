@@ -229,15 +229,15 @@ SampleBuilderFactory::SampleBuilderFactory()
 
 ISample *SampleBuilderFactory::createSample(const std::string& name)
 {
-    SampleBuilder_t builder(createItem(name));
+    std::shared_ptr<class ISampleBuilder> builder(createItem(name));
     ISample *result = builder->buildSample();
 //    result->setName(name);
     return result;
 }
 
-SampleBuilder_t SampleBuilderFactory::createBuilder(const std::string& name)
+std::shared_ptr<class ISampleBuilder> SampleBuilderFactory::createBuilder(const std::string& name)
 {
-    SampleBuilder_t result(createItem(name));
+    std::shared_ptr<class ISampleBuilder> result(createItem(name));
 //    result->setName(name);
     return result;
 }

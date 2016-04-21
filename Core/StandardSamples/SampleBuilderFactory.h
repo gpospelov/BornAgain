@@ -30,7 +30,7 @@ public:
     SampleBuilderFactory();
 
     ISample *createSample(const std::string& name);
-    SampleBuilder_t createBuilder(const std::string& name);
+    std::shared_ptr<class ISampleBuilder> createBuilder(const std::string& name);
 };
 
 

@@ -25,25 +25,16 @@
 class BA_CORE_API_ FormFactorIcosahedron : public FormFactorPolyhedron
 {
 public:
-    //! @brief Constructs a regular icosahedron
-    //! @param edge length
     FormFactorIcosahedron(double edge);
-
-    static std::vector<PolyhedralFace> polyhedral_faces(double edge);
 
     virtual FormFactorIcosahedron *clone() const final;
     virtual void accept(ISampleVisitor *visitor) const final;
 
-    virtual double getRadius() const final;
-    double getEdge() const;
+    double getEdge() const { return m_edge; }
 
 private:
-    virtual bool check_initialization() const;
-    virtual void init_parameters();
-
+    virtual void onChange() final;
     double m_edge;
 };
-
-inline double FormFactorIcosahedron::getEdge() const { return m_edge; }
 
 #endif // FORMFACTORICOSAHEDRON_H

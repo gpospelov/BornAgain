@@ -24,28 +24,16 @@
 class BA_CORE_API_ FormFactorPrism3 : public FormFactorPolygonalPrism
 {
 public:
-    //! @brief Prism3 constructor
-    //! @param length of hexagonal base (different from R in IsGisaxs)
-    //! @param height of Prism3
-    FormFactorPrism3(const double length, const double height);
-
-    static PolyhedralFace prismatic_face(const double length);
+    FormFactorPrism3(const double base_edge, const double height);
 
     virtual FormFactorPrism3 *clone() const;
-
     virtual void accept(ISampleVisitor *visitor) const;
 
-    virtual double getRadius() const;
-    double getLength() const;
-
-protected:
-    virtual bool check_initialization() const;
-    virtual void init_parameters();
+    double getBaseEdge() const { return m_base_edge; }
 
 private:
-    double m_length;
+    virtual void onChange() final;
+    double m_base_edge;
 };
-
-inline double FormFactorPrism3::getLength() const { return m_length; }
 
 #endif // FORMFACTORPRISM3_H

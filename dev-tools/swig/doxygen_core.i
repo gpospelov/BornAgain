@@ -29,7 +29,7 @@
 // File: classAttLimits.xml
 %feature("docstring") AttLimits "
 
-Limits for fit parameters.
+Attributes and limits for a fit parameter. Currently, the only attribute is fixed/free.
 
 C++ includes: AttLimits.h
 ";
@@ -1646,7 +1646,7 @@ C++ includes: FileSystem.h
 // File: classFitElement.xml
 %feature("docstring") FitElement "
 
-Data stucture containing real data and simulation results for single detector cell. Used for chi2/residual calculations.
+Measured (\"real\") and simulated scattering intensity value for one detector cell. Used for chi2/residual calculations.
 
 C++ includes: FitElement.h
 ";
@@ -4538,7 +4538,7 @@ C++ includes: FunctionalTestComponentService.h
 %feature("docstring")  FunctionalTestComponentService::getSimulation "GISASSimulation * FunctionalTestComponentService::getSimulation() const 
 ";
 
-%feature("docstring")  FunctionalTestComponentService::getSampleBuilder "SampleBuilder_t FunctionalTestComponentService::getSampleBuilder() const 
+%feature("docstring")  FunctionalTestComponentService::getSampleBuilder "std::shared_ptr< class ISampleBuilder > FunctionalTestComponentService::getSampleBuilder() const 
 ";
 
 %feature("docstring")  FunctionalTestComponentService::getReferenceData "OutputData< double > * FunctionalTestComponentService::getReferenceData() const 
@@ -4620,7 +4620,7 @@ C++ includes: FunctionalTestRegistry.h
 %feature("docstring")  GISASSimulation::GISASSimulation "GISASSimulation::GISASSimulation(const ISample &p_sample)
 ";
 
-%feature("docstring")  GISASSimulation::GISASSimulation "GISASSimulation::GISASSimulation(SampleBuilder_t p_sample_builder)
+%feature("docstring")  GISASSimulation::GISASSimulation "GISASSimulation::GISASSimulation(std::shared_ptr< class ISampleBuilder > p_sample_builder)
 ";
 
 %feature("docstring")  GISASSimulation::~GISASSimulation "virtual GISASSimulation::~GISASSimulation()
@@ -5269,7 +5269,7 @@ Returns true if axis contains given point.
 // File: classIChiSquaredModule.xml
 %feature("docstring") IChiSquaredModule "
 
-Interface for  ChiSquaredModule, ChiSquaredFrequency for chi2 calculations.
+Interface for  ChiSquaredModule for chi2 calculations. Until BornAgain-1.1, there was another child, ChiSquaredFrequency.
 
 C++ includes: IChiSquaredModule.h
 ";
@@ -5448,7 +5448,7 @@ C++ includes: IComponentService.h
 %feature("docstring")  IComponentService::getSimulation "virtual GISASSimulation* IComponentService::getSimulation() const =0
 ";
 
-%feature("docstring")  IComponentService::getSampleBuilder "virtual SampleBuilder_t IComponentService::getSampleBuilder() const =0
+%feature("docstring")  IComponentService::getSampleBuilder "virtual std::shared_ptr<class ISampleBuilder> IComponentService::getSampleBuilder() const =0
 ";
 
 %feature("docstring")  IComponentService::getReferenceData "virtual OutputData<double>* IComponentService::getReferenceData() const =0
@@ -7568,9 +7568,9 @@ Creates new parameter pool, with all local parameters and those of its children.
 Register parameter address in the parameter pool. 
 ";
 
-%feature("docstring")  IParameterized::setParameterValue "bool IParameterized::setParameterValue(const std::string &name, double value)
+%feature("docstring")  IParameterized::setParameterValue "void IParameterized::setParameterValue(const std::string &name, double value)
 
-Sets the value of the parameter with the given name; returns true in the case of success. 
+Sets the value of the parameter with the given name. 
 ";
 
 %feature("docstring")  IParameterized::clearParameterPool "void IParameterized::clearParameterPool()
@@ -9521,7 +9521,7 @@ C++ includes: OffSpecSimulation.h
 %feature("docstring")  OffSpecSimulation::OffSpecSimulation "OffSpecSimulation::OffSpecSimulation(const ISample &p_sample)
 ";
 
-%feature("docstring")  OffSpecSimulation::OffSpecSimulation "OffSpecSimulation::OffSpecSimulation(SampleBuilder_t p_sample_builder)
+%feature("docstring")  OffSpecSimulation::OffSpecSimulation "OffSpecSimulation::OffSpecSimulation(std::shared_ptr< class ISampleBuilder > p_sample_builder)
 ";
 
 %feature("docstring")  OffSpecSimulation::~OffSpecSimulation "virtual OffSpecSimulation::~OffSpecSimulation()
@@ -10242,15 +10242,18 @@ Holds a map of pointers to parameters (which must have different names).
 C++ includes: ParameterPool.h
 ";
 
-%feature("docstring")  ParameterPool::ParameterPool "ParameterPool::ParameterPool()
+%feature("docstring")  ParameterPool::ParameterPool "ParameterPool::ParameterPool(const IParameterized *parent)
 
 Constructs an empty parameter pool. 
+";
+
+%feature("docstring")  ParameterPool::ParameterPool "ParameterPool::ParameterPool()=delete
 ";
 
 %feature("docstring")  ParameterPool::~ParameterPool "virtual ParameterPool::~ParameterPool()
 ";
 
-%feature("docstring")  ParameterPool::clone "ParameterPool* ParameterPool::clone() const
+%feature("docstring")  ParameterPool::clone "ParameterPool * ParameterPool::clone() const
 
 Returns a literal clone. 
 ";
@@ -10284,28 +10287,26 @@ Registers a parameter with key  name and pointer-to-value  parpointer.
 Registers parameter with given name. 
 ";
 
-%feature("docstring")  ParameterPool::addParameter "void ParameterPool::addParameter(const std::string &name, parameter_t par)
+%feature("docstring")  ParameterPool::addParameter "void ParameterPool::addParameter(const std::string &name, RealParameterWrapper par)
 
 Adds parameter to the pool.
 
 Low-level routine. 
 ";
 
-%feature("docstring")  ParameterPool::getParameter "ParameterPool::parameter_t ParameterPool::getParameter(const std::string &name) const
+%feature("docstring")  ParameterPool::getParameter "RealParameterWrapper ParameterPool::getParameter(const std::string &name) const
 
 Returns parameter named  name.
 
 Returns parameter with given name. 
 ";
 
-%feature("docstring")  ParameterPool::getMatchedParameters "std::vector< ParameterPool::parameter_t > ParameterPool::getMatchedParameters(const std::string &wildcards) const
+%feature("docstring")  ParameterPool::getMatchedParameters "std::vector< RealParameterWrapper > ParameterPool::getMatchedParameters(const std::string &wildcards) const
 
 Returns vector of parameters which fit pattern. 
 ";
 
-%feature("docstring")  ParameterPool::setParameterValue "bool ParameterPool::setParameterValue(const std::string &name, double value)
-
-Sets parameter value, return true in the case of success.
+%feature("docstring")  ParameterPool::setParameterValue "void ParameterPool::setParameterValue(const std::string &name, double value)
 
 Sets parameter value. 
 ";
@@ -11186,7 +11187,7 @@ C++ includes: ParaCrystalBuilder.h
 // File: classRealParameterWrapper.xml
 %feature("docstring") RealParameterWrapper "
 
-Wrapper to real parameter for remote access to its value and callback abilities.
+Wrapper to real parameter for remote access to its value and callback abilities
 
 C++ includes: RealParameterWrapper.h
 ";
@@ -11197,12 +11198,9 @@ C++ includes: RealParameterWrapper.h
 %feature("docstring")  RealParameterWrapper::RealParameterWrapper "RealParameterWrapper::RealParameterWrapper(const RealParameterWrapper &other)
 ";
 
-%feature("docstring")  RealParameterWrapper::~RealParameterWrapper "RealParameterWrapper::~RealParameterWrapper()
-";
+%feature("docstring")  RealParameterWrapper::setValue "void RealParameterWrapper::setValue(double value)
 
-%feature("docstring")  RealParameterWrapper::setValue "bool RealParameterWrapper::setValue(double value)
-
-Sets value of wrapped parameter and emmit signal. 
+Sets value of wrapped parameter and emit signal. 
 ";
 
 %feature("docstring")  RealParameterWrapper::getValue "double RealParameterWrapper::getValue() const
@@ -11645,7 +11643,7 @@ Returns transformation.
 // File: classSafePointerVector.xml
 %feature("docstring") SafePointerVector "
 
-Safe handling of vectors of pointers that are owned by the vector.
+A vector of pointers, owned by *this, with methods to handle them safely.
 
 The objects pointed to must support the ICLoneable interface.
 
@@ -11682,9 +11680,6 @@ C++ includes: SafePointerVector.h
 %feature("docstring")  SafePointerVector::end "const_iterator SafePointerVector< T >::end() const 
 ";
 
-%feature("docstring")  SafePointerVector::getSTLVector "std::vector< const T * > SafePointerVector< T >::getSTLVector() const 
-";
-
 %feature("docstring")  SafePointerVector::deleteElement "bool SafePointerVector< T >::deleteElement(T *pointer)
 ";
 
@@ -11712,7 +11707,7 @@ C++ includes: SampleBuilderFactory.h
 %feature("docstring")  SampleBuilderFactory::createSample "ISample * SampleBuilderFactory::createSample(const std::string &name)
 ";
 
-%feature("docstring")  SampleBuilderFactory::createBuilder "SampleBuilder_t SampleBuilderFactory::createBuilder(const std::string &name)
+%feature("docstring")  SampleBuilderFactory::createBuilder "std::shared_ptr< class ISampleBuilder > SampleBuilderFactory::createBuilder(const std::string &name)
 ";
 
 
@@ -12489,7 +12484,7 @@ C++ includes: GISASSimulation.h
 %feature("docstring")  Simulation::Simulation "Simulation::Simulation(const ISample &p_sample)
 ";
 
-%feature("docstring")  Simulation::Simulation "Simulation::Simulation(SampleBuilder_t p_sample_builder)
+%feature("docstring")  Simulation::Simulation "Simulation::Simulation(std::shared_ptr< class ISampleBuilder > p_sample_builder)
 ";
 
 %feature("docstring")  Simulation::~Simulation "virtual Simulation::~Simulation()
@@ -12527,12 +12522,12 @@ The  ISample object will not be owned by the  Simulation object.
 Returns the sample. 
 ";
 
-%feature("docstring")  Simulation::setSampleBuilder "void Simulation::setSampleBuilder(SampleBuilder_t sample_builder)
+%feature("docstring")  Simulation::setSampleBuilder "void Simulation::setSampleBuilder(std::shared_ptr< class ISampleBuilder > sample_builder)
 
 Sets the sample builder. 
 ";
 
-%feature("docstring")  Simulation::getSampleBuilder "SampleBuilder_t Simulation::getSampleBuilder() const
+%feature("docstring")  Simulation::getSampleBuilder "std::shared_ptr<class ISampleBuilder> Simulation::getSampleBuilder() const
 
 return sample builder 
 ";
@@ -12854,7 +12849,7 @@ C++ includes: SpecularSimulation.h
 %feature("docstring")  SpecularSimulation::SpecularSimulation "SpecularSimulation::SpecularSimulation(const ISample &sample)
 ";
 
-%feature("docstring")  SpecularSimulation::SpecularSimulation "SpecularSimulation::SpecularSimulation(SampleBuilder_t sample_builder)
+%feature("docstring")  SpecularSimulation::SpecularSimulation "SpecularSimulation::SpecularSimulation(std::shared_ptr< class ISampleBuilder > sample_builder)
 ";
 
 %feature("docstring")  SpecularSimulation::~SpecularSimulation "SpecularSimulation::~SpecularSimulation()
@@ -12878,12 +12873,12 @@ Sets the sample to be tested.
 Returns the sample. 
 ";
 
-%feature("docstring")  SpecularSimulation::setSampleBuilder "void SpecularSimulation::setSampleBuilder(SampleBuilder_t sample_builder)
+%feature("docstring")  SpecularSimulation::setSampleBuilder "void SpecularSimulation::setSampleBuilder(std::shared_ptr< class ISampleBuilder > sample_builder)
 
 Sets the sample builder. 
 ";
 
-%feature("docstring")  SpecularSimulation::getSampleBuilder "SampleBuilder_t SpecularSimulation::getSampleBuilder() const
+%feature("docstring")  SpecularSimulation::getSampleBuilder "std::shared_ptr< class ISampleBuilder > SpecularSimulation::getSampleBuilder() const
 
 return sample builder 
 ";
@@ -15213,6 +15208,9 @@ Runs a functional test and returns error code. Note the analogy with CORE_FUNCTI
 
 
 // File: TwoDimLatticeBuilder_8h.xml
+
+
+// File: AttLimits_8cpp.xml
 
 
 // File: AttLimits_8h.xml

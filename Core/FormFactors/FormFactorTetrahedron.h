@@ -21,40 +21,24 @@
 //! @class FormFactorTetrahedron
 //! @ingroup formfactors
 //! @brief The formfactor of tetrahedron.
+
 class BA_CORE_API_ FormFactorTetrahedron : public FormFactorPolyhedron
 {
 public:
-    //! @brief Tetrahedron constructor
-    //! @param length of a side of Tetrahedron's base
-    //! @param height of Tetrahedron
-    //! @param angle in radians between base and facet
-    FormFactorTetrahedron(double length, double height, double alpha);
-    virtual ~FormFactorTetrahedron();
-
-    static std::vector<PolyhedralFace> polyhedral_faces(
-        double length, double height,  double alpha);
+    FormFactorTetrahedron(double base_edge, double height, double alpha);
 
     virtual FormFactorTetrahedron *clone() const;
-
     virtual void accept(ISampleVisitor *visitor) const;
 
-    virtual double getRadius() const;
-    double getHeight() const;
-    double getLength() const;
-    double getAlpha() const;
-
-protected:
-    virtual bool check_initialization() const;
-    virtual void init_parameters();
+    double getBaseEdge() const { return m_base_edge; }
+    double getHeight() const { return m_height; }
+    double getAlpha() const { return m_alpha; }
 
 private:
+    virtual void onChange() final;
+    double m_base_edge;
     double m_height;
-    double m_length;
     double m_alpha;
 };
-
-inline double FormFactorTetrahedron::getHeight() const { return m_height; }
-inline double FormFactorTetrahedron::getLength() const { return m_length; }
-inline double FormFactorTetrahedron::getAlpha() const { return m_alpha; }
 
 #endif // FORMFACTORTETRAHEDRON_H

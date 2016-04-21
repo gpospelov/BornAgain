@@ -38,7 +38,7 @@ GISASSimulation::GISASSimulation(const ISample& p_sample)
     initialize();
 }
 
-GISASSimulation::GISASSimulation(SampleBuilder_t p_sample_builder)
+GISASSimulation::GISASSimulation(std::shared_ptr<class ISampleBuilder> p_sample_builder)
     : Simulation(p_sample_builder)
 {
     initialize();

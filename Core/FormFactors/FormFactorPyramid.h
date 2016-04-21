@@ -20,39 +20,25 @@
 
 //! @class FormFactorPyramid
 //! @ingroup formfactors
-//! @brief The formfactor of a cone6.
+//! @brief The formfactor of a quadratic pyramid
 class BA_CORE_API_ FormFactorPyramid : public FormFactorPolyhedron
 {
 public:
-    //! @brief Pyramid constructor
-    //! @param length of one side of Pyramid's square base
-    //! @param height of Pyramid
-    //! @param angle in radians between base and facet
-    FormFactorPyramid(double length, double height, double alpha);
-
-    static std::vector<PolyhedralFace> polyhedral_faces(
-        double length, double height,  double alpha);
+    FormFactorPyramid(double base_edge, double height, double alpha);
 
     virtual FormFactorPyramid* clone() const final;
     virtual void accept(ISampleVisitor *visitor) const final;
 
-    virtual double getRadius() const final;
-    double getHeight() const;
-    double getLength() const;
-    double getAlpha() const;
+    double getHeight() const { return m_height; }
+    double getBaseEdge() const { return m_base_edge; }
+    double getAlpha() const { return m_alpha; }
 
 private:
-    virtual bool check_initialization() const final;
-    virtual void init_parameters() final;
+    virtual void onChange() final;
 
-    double m_length;
+    double m_base_edge;
     double m_height;
     double m_alpha;
 };
-
-inline double FormFactorPyramid::getHeight() const { return m_height; }
-inline double FormFactorPyramid::getLength() const { return m_length; }
-inline double FormFactorPyramid::getAlpha() const { return m_alpha; }
-inline double FormFactorPyramid::getRadius() const { return m_length/2.0; }
 
 #endif // FORMFACTORPYRAMID_H

@@ -17,18 +17,21 @@
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
 
-FormFactorPrism6::FormFactorPrism6(const double radius, const double height)
-    : FormFactorPolygonalPrism( prismatic_face( radius ), height )
-    , m_radius(radius)
+//! @brief Prism6 constructor
+//! @param base_edge of hexagonal base
+//! @param height of Prism6
+FormFactorPrism6::FormFactorPrism6(const double base_edge, const double height)
+    : FormFactorPolygonalPrism( height )
+    , m_base_edge(base_edge)
 {
     setName(BornAgain::FFPrism6Type);
-    check_initialization();
-    init_parameters();
+    registerParameter(BornAgain::BaseEdge, &m_base_edge, AttLimits::n_positive());
+    onChange();
 }
 
-PolyhedralFace FormFactorPrism6::prismatic_face(const double radius)
+void FormFactorPrism6::onChange()
 {
-    double a = radius;
+    double a = m_base_edge;
     double as = a/2;
     double ac = a*sqrt(3)/2;
     kvector_t V[6] = {
@@ -38,24 +41,12 @@ PolyhedralFace FormFactorPrism6::prismatic_face(const double radius)
         { -a,   0., 0. },
         { -as, -ac, 0. },
         {  as, -ac, 0. } };
-    return PolyhedralFace( { V[0], V[1], V[2], V[3], V[4], V[5] }, false );
-}
-
-bool FormFactorPrism6::check_initialization() const
-{
-    return true;
-}
-
-void FormFactorPrism6::init_parameters()
-{
-    clearParameterPool();
-    registerParameter(BornAgain::Height, &m_height, AttLimits::n_positive());
-    registerParameter(BornAgain::Radius, &m_radius, AttLimits::n_positive());
+    m_base = PolyhedralFace( { V[0], V[1], V[2], V[3], V[4], V[5] }, false );
 }
 
 FormFactorPrism6* FormFactorPrism6::clone() const
 {
-    return new FormFactorPrism6(m_radius, m_height);
+    return new FormFactorPrism6(m_base_edge, m_height);
 }
 
 void FormFactorPrism6::accept(ISampleVisitor *visitor) const

@@ -1663,7 +1663,7 @@ class IMinimizer(_object):
 
         bool IMinimizer::isGradientBasedAgorithm()
 
-        Checks if type of algorithm is Levenberg-Marquardt or similar. 
+        Returns true if type of algorithm is Levenberg-Marquardt or similar. 
 
         """
         return _libBornAgainFit.IMinimizer_isGradientBasedAgorithm(self)
@@ -2736,7 +2736,7 @@ class FitSuite(libBornAgainCore.IObservable):
     """
 
 
-    Main class to setup and run GISAS fitting in BornAgain.
+    User interface class that wraps all fit methods.
 
     C++ includes: FitSuite.h
 
@@ -3962,7 +3962,7 @@ class MinimizerFactory(_object):
         createMinimizer(std::string const & minimizer, std::string const & algorithm, std::string const & options) -> IMinimizer
         createMinimizer(std::string const & minimizer, std::string const & algorithm) -> IMinimizer
         createMinimizer(std::string const & minimizer) -> IMinimizer
-        createMinimizer(IMinimizer minimizer) -> IMinimizer
+        createMinimizer(IMinimizer other) -> IMinimizer
         """
         return _libBornAgainFit.MinimizerFactory_createMinimizer(*args)
 
@@ -4000,7 +4000,7 @@ def MinimizerFactory_createMinimizer(*args):
     createMinimizer(std::string const & minimizer, std::string const & algorithm, std::string const & options) -> IMinimizer
     createMinimizer(std::string const & minimizer, std::string const & algorithm) -> IMinimizer
     createMinimizer(std::string const & minimizer) -> IMinimizer
-    MinimizerFactory_createMinimizer(IMinimizer minimizer) -> IMinimizer
+    MinimizerFactory_createMinimizer(IMinimizer other) -> IMinimizer
     """
     return _libBornAgainFit.MinimizerFactory_createMinimizer(*args)
 

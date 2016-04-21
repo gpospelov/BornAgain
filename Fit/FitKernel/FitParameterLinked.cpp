@@ -25,7 +25,7 @@ FitParameterLinked::FitParameterLinked(const std::string& name, double value, do
 }
 
 //! Adds real parameter to the collection
-void FitParameterLinked::addParameter(ParameterPool::parameter_t par)
+void FitParameterLinked::addParameter(RealParameterWrapper par)
 {
     if( !par.isNull() ) {
         m_pool_parameters.push_back(par);

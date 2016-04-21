@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      coregui/Models/DistributionItem.h
-//! @brief     Declares class DistributionItem
+//! @brief     Declares class DistributionItem and several subclasses
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -115,4 +115,3 @@ public:
 };
 
 #endif // DISTRIBUTIONITEM_H
-

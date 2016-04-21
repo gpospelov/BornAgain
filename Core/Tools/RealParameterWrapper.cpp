@@ -13,11 +13,14 @@
 //
 // ************************************************************************** //
 
+#include "IParameterized.h"
 #include "RealParameterWrapper.h"
 #include <sstream>
 
-RealParameterWrapper::RealParameterWrapper(double *par, const AttLimits &limits)
-    : m_data(par)
+RealParameterWrapper::RealParameterWrapper(
+    IParameterized* parent, double *par, const AttLimits &limits)
+    : m_parent(parent)
+    , m_data(par)
     , m_limits(limits)
 {
     if(par && !m_limits.isInRange(getValue())) {
@@ -31,6 +34,7 @@ RealParameterWrapper::RealParameterWrapper(double *par, const AttLimits &limits)
 
 RealParameterWrapper::RealParameterWrapper(const RealParameterWrapper& other )
 {
+    m_parent = other.m_parent;
     m_data = other.m_data;
     m_limits = other.m_limits;
 }
@@ -44,22 +48,22 @@ RealParameterWrapper& RealParameterWrapper::operator=(const RealParameterWrapper
     return *this;
 }
 
-bool RealParameterWrapper::setValue(double value)
+void RealParameterWrapper::setValue(double value)
 {
-    bool success(true);
     checkNull();
     if(value != *m_data) {
         if(m_limits.isInRange(value) && !m_limits.isFixed()) {
             *m_data = value;
+            m_parent->onChange();
         } else {
-            success = false;
+            throw OutOfBoundsException("Value not in range");
         }
     }
-    return success;
 }
 
 void RealParameterWrapper::swapContent(RealParameterWrapper& other)
 {
+    std::swap(this->m_parent, other.m_parent);
     std::swap(this->m_data, other.m_data);
     std::swap(this->m_limits, other.m_limits);
 }

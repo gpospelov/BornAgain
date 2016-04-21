@@ -65,7 +65,7 @@ void SamplePrintVisitor::visit(const Layer *sample)
     assert(sample);
     std::cout << get_indent() << sample->getName() << " "
               << (sample->getMaterial() ? sample->getMaterial()->getName() : "0_MATERIAL") << " "
-              << sample->getRefractiveIndex() << " " << (*sample->getParameterPool()) << std::endl;
+              << sample->getRefractiveIndex() << " " << *sample->getParameterPool() << std::endl;
 }
 
 void SamplePrintVisitor::visit(const LayerInterface *sample)

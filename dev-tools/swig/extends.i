@@ -130,9 +130,9 @@ namespace Geometry {
       {
       return (*($self)).registerParameter(name, (double*)parpointer, limits);
       }*/
-    virtual bool setParameterValue(const std::string &name, double value)
+    virtual void setParameterValue(const std::string &name, double value)
     {
-        return dynamic_cast<IParameterized*>($self)->setParameterValue(name, value);
+        dynamic_cast<IParameterized*>($self)->setParameterValue(name, value);
     }
 };
 

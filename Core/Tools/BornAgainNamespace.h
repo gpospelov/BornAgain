@@ -156,6 +156,7 @@ const std::string MeanRadius = "MeanRadius";
 const std::string SigmaRadius = "SigmaRadius";
 const std::string FullWidth = "FullWidth";
 const std::string Edge = "Edge";
+const std::string BaseEdge = "BaseEdge";
 const std::string Length = "Length";
 const std::string RemovedLength = "RemovedLength";
 const std::string Width = "Width";

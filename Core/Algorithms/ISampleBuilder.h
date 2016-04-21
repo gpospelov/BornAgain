@@ -30,18 +30,14 @@ class IComponentService;
 class BA_CORE_API_ ISampleBuilder : public IParameterized
 {
 public:
-    ISampleBuilder() { setName("SampleBuilder"); }
+    ISampleBuilder() : IParameterized("SampleBuilder") {}
     virtual ~ISampleBuilder() {}
 
     virtual ISample *buildSample() const {
         throw NotImplementedException("ISampleBuilder::buildSample() -> Not implemented"); }
 
-    virtual void init_from(const IComponentService *){}
-
-protected:
+    virtual void init_from(const IComponentService *) {}
 };
 
-// Shared pointer is used when passing these objects from python to c++
-typedef std::shared_ptr<class ISampleBuilder > SampleBuilder_t;
 
 #endif /* ISAMPLEBUILDER_H_ */

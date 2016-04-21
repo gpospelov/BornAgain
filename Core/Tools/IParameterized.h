@@ -28,9 +28,9 @@ class AttLimits;
 class BA_CORE_API_ IParameterized : public INamed
 {
 public:
-    IParameterized() : m_parameters() {}
-    IParameterized(const std::string &name) : INamed(name), m_parameters() {}
-    IParameterized(const IParameterized &other) : INamed(other), m_parameters() {}
+    IParameterized() : m_parameters(this) {}
+    IParameterized(const std::string &name) : INamed(name), m_parameters(this) {}
+    IParameterized(const IParameterized &other) : INamed(other), m_parameters(this) {}
     IParameterized& operator=(const IParameterized &other);
 
     virtual ~IParameterized() {}
@@ -39,16 +39,16 @@ public:
     const ParameterPool* getParameterPool() const;
 
     //! Creates new parameter pool, with all local parameters and those of its children.
-    ParameterPool* createParameterTree() const;
+    ParameterPool* createParameterTree();
 
-    void printParameters() const;
+    void printParameters(); // const;
 
     //! Register parameter address in the parameter pool
     void registerParameter(const std::string &name, double *parpointer,
                            const AttLimits &limits = AttLimits::limitless());
 
-    //! Sets the value of the parameter with the given name; returns true in the case of success.
-    bool setParameterValue(const std::string &name, double value);
+    //! Sets the value of the parameter with the given name.
+    void setParameterValue(const std::string &name, double value);
 
     //! Clears the parameter pool.
     void clearParameterPool();
@@ -60,15 +60,16 @@ public:
                                                     int copy_number = -1) const;
 
 protected:
+    //! Action to be taken in inherited class when a parameter has changed.
+    virtual void onChange() {}
+
     //! Prints a representation of this IParameterized object to the given output stream.
     //! default implementation prints "IParameterized:" and the parameter pool
     virtual void print(std::ostream& ostr) const;
 
-    //! Registers class parameters in the parameter pool
-    //! Needs to be implemented by subclasses.
-    virtual void init_parameters();
-
     ParameterPool m_parameters; //!< parameter pool
+    friend ParameterPool;
+    friend RealParameterWrapper;
 };
 
 //! @class ParameterPattern
@@ -89,9 +90,9 @@ private:
     std::string m_pattern;
 };
 
-inline const ParameterPool *IParameterized::getParameterPool() const
+inline const ParameterPool* IParameterized::getParameterPool() const
 {
-    return& m_parameters;
+    return &m_parameters;
 }
 
 inline void IParameterized::registerParameter(const std::string &name, double *parpointer,

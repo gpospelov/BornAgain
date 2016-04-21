@@ -17,18 +17,21 @@
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
 
-FormFactorPrism3::FormFactorPrism3(const double length, const double height)
-    : FormFactorPolygonalPrism( prismatic_face( length ), height )
-    , m_length(length)
+//! @brief Prism3 constructor
+//! @param base_edge of hexagonal base
+//! @param height of Prism3
+FormFactorPrism3::FormFactorPrism3(const double base_edge, const double height)
+    : FormFactorPolygonalPrism( height )
+    , m_base_edge(base_edge)
 {
     setName(BornAgain::FFPrism3Type);
-    check_initialization();
-    init_parameters();
+    registerParameter(BornAgain::BaseEdge, &m_base_edge, AttLimits::n_positive());
+    onChange();
 }
 
-PolyhedralFace FormFactorPrism3::prismatic_face(const double length)
+void FormFactorPrism3::onChange()
 {
-    double a = length;
+    double a = m_base_edge;
     double as = a/2;
     double ac = a/sqrt(3)/2;
     double ah = a/sqrt(3);
@@ -36,32 +39,15 @@ PolyhedralFace FormFactorPrism3::prismatic_face(const double length)
         { -as, -ac, 0. },
         {  as, -ac, 0. },
         {  0.,  ah, 0. } };
-    return PolyhedralFace( { V[0], V[1], V[2] }, false );
-}
-
-bool FormFactorPrism3::check_initialization() const
-{
-    return true;
-}
-
-void FormFactorPrism3::init_parameters()
-{
-    clearParameterPool();
-    registerParameter(BornAgain::Height, &m_height, AttLimits::n_positive());
-    registerParameter(BornAgain::Length, &m_length, AttLimits::n_positive());
+    m_base = PolyhedralFace( { V[0], V[1], V[2] }, false );
 }
 
 FormFactorPrism3* FormFactorPrism3::clone() const
 {
-    return new FormFactorPrism3(m_length, m_height);
+    return new FormFactorPrism3(m_base_edge, m_height);
 }
 
 void FormFactorPrism3::accept(ISampleVisitor *visitor) const
 {
     visitor->visit(this);
-}
-
-double FormFactorPrism3::getRadius() const
-{
-    return m_length / 2;
 }

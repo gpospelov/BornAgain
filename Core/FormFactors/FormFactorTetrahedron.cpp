@@ -18,29 +18,43 @@
 #include "BornAgainNamespace.h"
 #include "IntegratorComplex.h"
 
-FormFactorTetrahedron::FormFactorTetrahedron(double length, double height, double alpha)
-    : FormFactorPolyhedron( polyhedral_faces( length, height, alpha ), 0. )
+//! @brief Tetrahedron constructor
+//! @param base_edge of a side of Tetrahedron's base
+//! @param height of Tetrahedron
+//! @param angle in radians between base and facet
+
+FormFactorTetrahedron::FormFactorTetrahedron(double base_edge, double height, double alpha)
+    : FormFactorPolyhedron()
+    , m_base_edge(base_edge)
+    , m_height(height)
+    , m_alpha(alpha)
 {
     setName(BornAgain::FFTetrahedronType);
-    m_height = height;
-    m_length = length;
-    m_alpha = alpha;
-    check_initialization();
-    init_parameters();
+    registerParameter(BornAgain::Height, &m_height, AttLimits::n_positive());
+    registerParameter(BornAgain::BaseEdge, &m_base_edge, AttLimits::n_positive());
+    registerParameter(BornAgain::Alpha, &m_alpha, AttLimits::n_positive());
+    onChange();
 }
 
-FormFactorTetrahedron::~FormFactorTetrahedron() {}
-
-std::vector<PolyhedralFace> FormFactorTetrahedron::polyhedral_faces(
-    double length, double height, double alpha)
+void FormFactorTetrahedron::onChange()
 {
-    std::vector<PolyhedralFace> faces;
+    if (2*std::sqrt(3.) * m_height > m_base_edge*std::tan(m_alpha)) {
+        std::ostringstream ostr;
+        ostr << "FormFactorTetrahedron() -> Error in class initialization with parameters ";
+        ostr << " height:" << m_height;
+        ostr << " base_edge:" << m_base_edge;
+        ostr << " alpha[rad]:" << m_alpha << "\n\n";
+        ostr << "Check for '2.*sqrt(3.) * height <= base_edge*tan(alpha)' failed.";
+        throw Exceptions::ClassInitializationException(ostr.str());
+    }
 
-    double a = length;
+    m_faces.clear();
+
+    double a = m_base_edge;
     double as = a/2;
     double ac = a/sqrt(3)/2;
     double ah = a/sqrt(3);
-    double b = a - 2*sqrt(3)*height/std::tan(alpha);
+    double b = a - 2*sqrt(3)*m_height/std::tan(m_alpha);
 
     if( std::abs(b)<1e-14*a ) {
         // true pyramid
@@ -50,11 +64,11 @@ std::vector<PolyhedralFace> FormFactorTetrahedron::polyhedral_faces(
             {  as, -ac, 0. },
             {  0.,  ah, 0. },
             // top:
-            {  0.,  0., height } };
-        faces.push_back( PolyhedralFace( { V[2], V[1], V[0] } ) );
-        faces.push_back( PolyhedralFace( { V[0], V[1], V[3] } ) );
-        faces.push_back( PolyhedralFace( { V[1], V[2], V[3] } ) );
-        faces.push_back( PolyhedralFace( { V[2], V[0], V[3] } ) );
+            {  0.,  0., m_height } };
+        m_faces.push_back( PolyhedralFace( { V[2], V[1], V[0] } ) );
+        m_faces.push_back( PolyhedralFace( { V[0], V[1], V[3] } ) );
+        m_faces.push_back( PolyhedralFace( { V[1], V[2], V[3] } ) );
+        m_faces.push_back( PolyhedralFace( { V[2], V[0], V[3] } ) );
 
     } else {
         // frustum
@@ -68,52 +82,26 @@ std::vector<PolyhedralFace> FormFactorTetrahedron::polyhedral_faces(
             {  as, -ac, 0. },
             {  0.,  ah, 0. },
             // top:
-            { -bs, -bc, height },
-            {  bs, -bc, height },
-            {  0.,  bh, height } };
-        faces.push_back( PolyhedralFace( { V[2], V[1], V[0] } ) );
-        faces.push_back( PolyhedralFace( { V[0], V[1], V[4], V[3] } ) );
-        faces.push_back( PolyhedralFace( { V[1], V[2], V[5], V[4] } ) );
-        faces.push_back( PolyhedralFace( { V[2], V[0], V[3], V[5] } ) );
-        faces.push_back( PolyhedralFace( { V[3], V[4], V[5] } ) );
+            { -bs, -bc, m_height },
+            {  bs, -bc, m_height },
+            {  0.,  bh, m_height } };
+        m_faces.push_back( PolyhedralFace( { V[2], V[1], V[0] } ) );
+        m_faces.push_back( PolyhedralFace( { V[0], V[1], V[4], V[3] } ) );
+        m_faces.push_back( PolyhedralFace( { V[1], V[2], V[5], V[4] } ) );
+        m_faces.push_back( PolyhedralFace( { V[2], V[0], V[3], V[5] } ) );
+        m_faces.push_back( PolyhedralFace( { V[3], V[4], V[5] } ) );
     }
-    return faces;
-}
-
-bool FormFactorTetrahedron::check_initialization() const
-{
-    bool result(true);
-    if (2*std::sqrt(3.) * m_height > m_length*std::tan(m_alpha)) {
-        std::ostringstream ostr;
-        ostr << "FormFactorTetrahedron() -> Error in class initialization with parameters ";
-        ostr << " height:" << m_height;
-        ostr << " length:" << m_length;
-        ostr << " alpha[rad]:" << m_alpha << "\n\n";
-        ostr << "Check for '2.*sqrt(3.) * height <= length*tan(alpha)' failed.";
-        throw Exceptions::ClassInitializationException(ostr.str());
-    }
-    return result;
-}
-
-void FormFactorTetrahedron::init_parameters()
-{
-    clearParameterPool();
-    registerParameter(BornAgain::Height, &m_height, AttLimits::n_positive());
-    registerParameter(BornAgain::Length, &m_length, AttLimits::n_positive());
-    registerParameter(BornAgain::Alpha, &m_alpha, AttLimits::n_positive());
+    m_z_origin = 0;
+    m_sym_Ci = false;
+    FormFactorPolyhedron::precompute();
 }
 
 FormFactorTetrahedron* FormFactorTetrahedron::clone() const
 {
-    return new FormFactorTetrahedron(m_length, m_height, m_alpha);
+    return new FormFactorTetrahedron(m_base_edge, m_height, m_alpha);
 }
 
 void FormFactorTetrahedron::accept(ISampleVisitor *visitor) const
 {
     visitor->visit(this);
-}
-
-double FormFactorTetrahedron::getRadius() const
-{
-    return m_length / 2;
 }

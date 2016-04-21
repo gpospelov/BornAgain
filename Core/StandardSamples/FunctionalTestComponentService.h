@@ -40,7 +40,7 @@ public:
     virtual IFormFactor *getFormFactor() const;
     virtual IFTDistribution2D *getFTDistribution2D() const;
     virtual GISASSimulation *getSimulation() const;
-    virtual SampleBuilder_t getSampleBuilder() const;
+    virtual std::shared_ptr<class ISampleBuilder> getSampleBuilder() const;
     virtual OutputData<double> *getReferenceData() const;
     virtual IFunctionalTest *getFunctionalTest() const;
 

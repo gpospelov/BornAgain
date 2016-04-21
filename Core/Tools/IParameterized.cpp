@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Tools/IParameterized.cpp
-//! @brief     Implements class IParameterized.
+//! @brief     Implements classes IParameterized and ParameterPattern.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -23,14 +23,15 @@
 
 IParameterized& IParameterized::operator=(const IParameterized& other)
 {
-    if( this != &other)
+    if( this != &other) {
         INamed::operator=(other);
+    }
     return *this;
 }
 
-ParameterPool *IParameterized::createParameterTree() const
+ParameterPool* IParameterized::createParameterTree()
 {
-    std::unique_ptr<ParameterPool> P_new_pool { new ParameterPool };
+    std::unique_ptr<ParameterPool> P_new_pool { new ParameterPool(this) };
     std::string path("/");
     addParametersToExternalPool(path, P_new_pool.get());
     return P_new_pool.release();
@@ -53,35 +54,32 @@ std::string IParameterized::addParametersToExternalPool(
     return path;
 }
 
-bool IParameterized::setParameterValue(const std::string &name, double value)
+void IParameterized::setParameterValue(const std::string &name, double value)
 {
     if(name.find('*') == std::string::npos && name.find('/') == std::string::npos) {
-        return m_parameters.setParameterValue(name, value);
-    }
-    std::unique_ptr<ParameterPool> P_pool { createParameterTree() };
-    if(name.find('*') != std::string::npos) {
-        return P_pool->setMatchedParametersValue(name, value);
+        m_parameters.setParameterValue(name, value);
     } else {
-        return P_pool->setParameterValue(name, value);
+        std::unique_ptr<ParameterPool> P_pool { createParameterTree() };
+        if(name.find('*') != std::string::npos) {
+            P_pool->setMatchedParametersValue(name, value);
+        } else {
+            P_pool->setParameterValue(name, value);
+        }
     }
+    onChange();
 }
 
-void IParameterized::printParameters() const
+void IParameterized::printParameters() /* TODO restore const */
 {
     std::unique_ptr<ParameterPool> P_pool { createParameterTree() };
     std::cout << *P_pool << std::endl;
-}
-
-void IParameterized::init_parameters()
-{
-    throw NotImplementedException("IParameterized::init_parameters() -> "
-                                  "Error! Method is not implemented");
 }
 
 void IParameterized::print(std::ostream& ostr) const
 {
     ostr << "IParameterized:" << getName() << " " << m_parameters;
 }
+
 
 ParameterPattern::ParameterPattern()
     : m_pattern { }

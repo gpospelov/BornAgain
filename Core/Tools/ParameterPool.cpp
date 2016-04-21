@@ -13,6 +13,7 @@
 //
 // ************************************************************************** //
 
+#include "IParameterized.h"
 #include "ParameterPool.h"
 #include "Exceptions.h"
 #include "Utils.h"
@@ -21,11 +22,28 @@
 #include <iostream>
 #include <sstream>
 
+typedef std::map<std::string, RealParameterWrapper > parametermap_t;
+
+
+//! Constructs an empty parameter pool.
+ParameterPool::ParameterPool(IParameterized* const parent)
+    : m_parent(parent), m_map()
+{}
+
+//! Returns a literal clone.
+ParameterPool* ParameterPool::clone() const
+{
+    ParameterPool *new_pool = new ParameterPool(m_parent);
+    new_pool->m_map = m_map;
+    return new_pool;
+}
+
+
 //! Returns a clone with _prefix_ added to every parameter key.
 
-ParameterPool *ParameterPool::cloneWithPrefix(const std::string& prefix) const
+ParameterPool* ParameterPool::cloneWithPrefix(const std::string& prefix) const
 {
-    ParameterPool *new_pool = new ParameterPool();
+    ParameterPool *new_pool = new ParameterPool(m_parent);
     for(parametermap_t::const_iterator it=m_map.begin(); it!= m_map.end(); ++it)
     {
         new_pool->addParameter(prefix+it->first, it->second);
@@ -38,12 +56,12 @@ ParameterPool *ParameterPool::cloneWithPrefix(const std::string& prefix) const
 void ParameterPool::registerParameter(const std::string& name,
                                       double *parameter_address, const AttLimits &limits)
 {
-    addParameter(name, parameter_t(parameter_address, limits) );
+    addParameter(name, RealParameterWrapper(m_parent, parameter_address, limits) );
 }
 
 //! Low-level routine.
 
-void ParameterPool::addParameter(const std::string& name, parameter_t par)
+void ParameterPool::addParameter(const std::string& name, RealParameterWrapper par)
 {
     if ( !m_map.insert(parametermap_t::value_type(name, par ) ).second ) {
         print(std::cout);
@@ -66,8 +84,7 @@ void ParameterPool::copyToExternalPool(const std::string& prefix,
 
 //! Returns parameter with given name.
 
-ParameterPool::parameter_t ParameterPool::getParameter(
-        const std::string& name) const
+RealParameterWrapper ParameterPool::getParameter(const std::string& name) const
 {
     parametermap_t::const_iterator it = m_map.find(name);
     if( it!=m_map.end() ) {
@@ -80,10 +97,10 @@ ParameterPool::parameter_t ParameterPool::getParameter(
 
 //! Returns vector of parameters which fit pattern.
 
-std::vector<ParameterPool::parameter_t> ParameterPool::getMatchedParameters(
+std::vector<RealParameterWrapper> ParameterPool::getMatchedParameters(
         const std::string& wildcards) const
 {
-    std::vector<ParameterPool::parameter_t > selected_parameters;
+    std::vector<RealParameterWrapper > selected_parameters;
     // loop over all parameters in the pool
     for(parametermap_t::const_iterator it=m_map.begin(); it!= m_map.end(); ++it) {
         // (*it).first - parameter key, (*it).second - parameter itself
@@ -100,32 +117,32 @@ std::vector<ParameterPool::parameter_t> ParameterPool::getMatchedParameters(
 
 //! Sets parameter value.
 
-bool ParameterPool::setParameterValue(const std::string& name, double value)
+void ParameterPool::setParameterValue(const std::string& name, double value)
 {
-    parameter_t x = getParameter(name);
+    RealParameterWrapper x = getParameter(name);
     if( x.isNull() ) {
         throw LogicErrorException("ParameterPool::setParameterValue() ->"
                                   " Error! Unitialized parameter '"+name+"'.");
     }
-
-    if(!x.setValue(value)) report_set_value_error(name, value);
-
-    return true;
+    try {
+        x.setValue(value);
+    } catch(RuntimeErrorException) {
+        report_set_value_error(name, value);
+    }
 }
 
 //! Sets parameter value.
 
-int ParameterPool::setMatchedParametersValue(const std::string& wildcards,
-                                             double value)
+int ParameterPool::setMatchedParametersValue(const std::string& wildcards, double value)
 {
     int npars(0);
     for(parametermap_t::iterator it=m_map.begin(); it!= m_map.end(); ++it) {
         if( Utils::String::MatchPattern( (*it).first, wildcards ) ) {
-            bool success = (*it).second.setValue(value);
-            if(!success) {
-                report_set_value_error((*it).first, value);
-            } else {
+            try {
+                (*it).second.setValue(value);
                 npars++;
+            } catch(RuntimeErrorException) {
+                report_set_value_error((*it).first, value);
             }
         }
     }
@@ -156,16 +173,14 @@ void ParameterPool::print(std::ostream& ostr) const
             ostr << "(";
             for(parametermap_t::const_iterator it=m_map.begin();
                 it!= m_map.end(); ++it) {
-                ostr << "'" << (*it).first << "'" << ":"
-                     << it->second.getValue() << " " ;
+                ostr << "'" << (*it).first << "'" << ":" << it->second.getValue() << " " ;
             }
             ostr << ")";
         // printing in several lines
         } else {
             for(parametermap_t::const_iterator it=m_map.begin();
                 it!= m_map.end(); ++it) {
-                ostr << "'" << (*it).first << "'" << ":"
-                     << it->second.getValue() << std::endl;
+                ostr << "'" << (*it).first << "'" << ":" << it->second.getValue() << std::endl;
             }
         }
     } else {

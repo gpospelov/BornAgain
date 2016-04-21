@@ -18,25 +18,36 @@
 
 #include <cmath>
 
-FormFactorCone6::FormFactorCone6(double radius, double height, double alpha)
-    : FormFactorPolyhedron( polyhedral_faces( radius, height, alpha ), 0. )
-    , m_radius(radius)
+FormFactorCone6::FormFactorCone6(double base_edge, double height, double alpha)
+    : FormFactorPolyhedron()
+    , m_base_edge(base_edge)
     , m_height(height)
     , m_alpha(alpha)
 {
     setName(BornAgain::FFCone6Type);
-    check_initialization();
-    init_parameters();
+    registerParameter(BornAgain::BaseEdge, &m_base_edge, AttLimits::n_positive());
+    registerParameter(BornAgain::Height, &m_height, AttLimits::n_positive());
+    registerParameter(BornAgain::Alpha, &m_alpha, AttLimits::n_positive());
+    onChange();
 }
 
-std::vector<PolyhedralFace> FormFactorCone6::polyhedral_faces(
-    double radius, double height, double alpha)
+void FormFactorCone6::onChange()
 {
-    std::vector<PolyhedralFace> faces;
-    double a = radius;
+    if(m_height > m_base_edge*std::tan(m_alpha)) {
+        std::ostringstream ostr;
+        ostr << "FormFactorCone6() -> Error in class initialization with parameters";
+        ostr << " base_edge:" << m_base_edge;
+        ostr << " height:" << m_height;
+        ostr << " alpha[rad]:" << m_alpha << "\n\n";
+        ostr << "Check for 'height <= base_edge*tan(alpha)' failed.";
+        throw Exceptions::ClassInitializationException(ostr.str());
+    }
+
+    m_faces.clear();
+    double a = m_base_edge;
     double as = a/2;
     double ac = a*sqrt(3)/2;
-    double b = radius - 2*height/sqrt(3)/std::tan(alpha);
+    double b = m_base_edge - 2*m_height/sqrt(3)/std::tan(m_alpha);
 
     if( std::abs(b)<1e-14*a ) {
         // true pyramid
@@ -49,14 +60,14 @@ std::vector<PolyhedralFace> FormFactorCone6::polyhedral_faces(
             { -as, -ac, 0. },
             {  as, -ac, 0. },
             // top:
-            {  0.,  0., height } };
-        faces.push_back( PolyhedralFace( { V[ 5], V[ 4], V[ 3], V[ 2], V[ 1], V[ 0] }, true ) );
-        faces.push_back( PolyhedralFace( { V[ 0], V[ 1], V[ 6] } ) );
-        faces.push_back( PolyhedralFace( { V[ 1], V[ 2], V[ 6] } ) );
-        faces.push_back( PolyhedralFace( { V[ 2], V[ 3], V[ 6] } ) );
-        faces.push_back( PolyhedralFace( { V[ 3], V[ 4], V[ 6] } ) );
-        faces.push_back( PolyhedralFace( { V[ 4], V[ 5], V[ 6] } ) );
-        faces.push_back( PolyhedralFace( { V[ 5], V[ 0], V[ 6] } ) );
+            {  0.,  0., m_height } };
+        m_faces.push_back( PolyhedralFace( { V[ 5], V[ 4], V[ 3], V[ 2], V[ 1], V[ 0] }, true ) );
+        m_faces.push_back( PolyhedralFace( { V[ 0], V[ 1], V[ 6] } ) );
+        m_faces.push_back( PolyhedralFace( { V[ 1], V[ 2], V[ 6] } ) );
+        m_faces.push_back( PolyhedralFace( { V[ 2], V[ 3], V[ 6] } ) );
+        m_faces.push_back( PolyhedralFace( { V[ 3], V[ 4], V[ 6] } ) );
+        m_faces.push_back( PolyhedralFace( { V[ 4], V[ 5], V[ 6] } ) );
+        m_faces.push_back( PolyhedralFace( { V[ 5], V[ 0], V[ 6] } ) );
 
     } else {
         // frustum
@@ -72,51 +83,31 @@ std::vector<PolyhedralFace> FormFactorCone6::polyhedral_faces(
             { -as, -ac, 0. },
             {  as, -ac, 0. },
             // top:
-            {  b,   0., height },
-            {  bs,  bc, height },
-            { -bs,  bc, height },
-            { -b,   0., height },
-            { -bs, -bc, height },
-            {  bs, -bc, height } };
-        faces.push_back( PolyhedralFace( { V[ 5], V[ 4], V[ 3], V[ 2], V[ 1], V[ 0] }, true ) );
-        faces.push_back( PolyhedralFace( { V[ 0], V[ 1], V[ 7], V[ 6] } ) );
-        faces.push_back( PolyhedralFace( { V[ 1], V[ 2], V[ 8], V[ 7] } ) );
-        faces.push_back( PolyhedralFace( { V[ 2], V[ 3], V[ 9], V[ 8] } ) );
-        faces.push_back( PolyhedralFace( { V[ 3], V[ 4], V[10], V[ 9] } ) );
-        faces.push_back( PolyhedralFace( { V[ 4], V[ 5], V[11], V[10] } ) );
-        faces.push_back( PolyhedralFace( { V[ 5], V[ 0], V[ 6], V[11] } ) );
-        faces.push_back( PolyhedralFace( { V[ 6], V[ 7], V[ 8], V[ 9], V[10], V[11] }, true ) );
+            {  b,   0., m_height },
+            {  bs,  bc, m_height },
+            { -bs,  bc, m_height },
+            { -b,   0., m_height },
+            { -bs, -bc, m_height },
+            {  bs, -bc, m_height } };
+        m_faces.push_back( PolyhedralFace( { V[ 5], V[ 4], V[ 3], V[ 2], V[ 1], V[ 0] }, true ) );
+        m_faces.push_back( PolyhedralFace( { V[ 0], V[ 1], V[ 7], V[ 6] } ) );
+        m_faces.push_back( PolyhedralFace( { V[ 1], V[ 2], V[ 8], V[ 7] } ) );
+        m_faces.push_back( PolyhedralFace( { V[ 2], V[ 3], V[ 9], V[ 8] } ) );
+        m_faces.push_back( PolyhedralFace( { V[ 3], V[ 4], V[10], V[ 9] } ) );
+        m_faces.push_back( PolyhedralFace( { V[ 4], V[ 5], V[11], V[10] } ) );
+        m_faces.push_back( PolyhedralFace( { V[ 5], V[ 0], V[ 6], V[11] } ) );
+        m_faces.push_back( PolyhedralFace( { V[ 6], V[ 7], V[ 8], V[ 9], V[10], V[11] }, true ) );
 
     }
-    return faces;
-}
+    m_z_origin = 0;
+    m_sym_Ci = false;
 
-bool FormFactorCone6::check_initialization() const
-{
-    bool result(true);
-    if(m_height > m_radius*std::tan(m_alpha)) {
-        std::ostringstream ostr;
-        ostr << "FormFactorCone6() -> Error in class initialization with parameters";
-        ostr << " radius:" << m_radius;
-        ostr << " height:" << m_height;
-        ostr << " alpha[rad]:" << m_alpha << "\n\n";
-        ostr << "Check for 'height <= radius*tan(alpha)' failed.";
-        throw Exceptions::ClassInitializationException(ostr.str());
-    }
-    return result;
-}
-
-void FormFactorCone6::init_parameters()
-{
-    clearParameterPool();
-    registerParameter(BornAgain::Radius, &m_radius, AttLimits::n_positive());
-    registerParameter(BornAgain::Height, &m_height, AttLimits::n_positive());
-    registerParameter(BornAgain::Alpha, &m_alpha, AttLimits::n_positive());
+    FormFactorPolyhedron::precompute();
 }
 
 FormFactorCone6* FormFactorCone6::clone() const
 {
-   return new FormFactorCone6(m_radius, m_height, m_alpha);
+   return new FormFactorCone6(m_base_edge, m_height, m_alpha);
 }
 
 void FormFactorCone6::accept(ISampleVisitor *visitor) const

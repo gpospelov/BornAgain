@@ -36,7 +36,7 @@ class BA_CORE_API_ Simulation : public ICloneable, public IParameterized
 public:
     Simulation();
     Simulation(const ISample& p_sample);
-    Simulation(SampleBuilder_t p_sample_builder);
+    Simulation(std::shared_ptr<class ISampleBuilder> p_sample_builder);
     virtual ~Simulation() { }
 
     virtual Simulation *clone() const=0;
@@ -57,10 +57,10 @@ public:
     ISample *getSample() const { return mP_sample.get(); }
 
     //! Sets the sample builder
-    void setSampleBuilder(SampleBuilder_t sample_builder);
+    void setSampleBuilder(std::shared_ptr<class ISampleBuilder> sample_builder);
 
     //! return sample builder
-    SampleBuilder_t getSampleBuilder() const { return mp_sample_builder; }
+    std::shared_ptr<class ISampleBuilder> getSampleBuilder() const { return mp_sample_builder; }
 
     //! Gets the number of elements this simulation needs to calculate
     virtual int getNumberOfSimulationElements() const=0;
@@ -136,7 +136,7 @@ protected:
     std::vector<SimulationElement>::iterator getBatchEnd(int n_batches, int current_batch);
 
     std::unique_ptr<ISample> mP_sample;
-    SampleBuilder_t mp_sample_builder;
+    std::shared_ptr<class ISampleBuilder> mp_sample_builder;
     SimulationOptions m_options;
     DistributionHandler m_distribution_handler;
     ProgressHandler_t m_progress;

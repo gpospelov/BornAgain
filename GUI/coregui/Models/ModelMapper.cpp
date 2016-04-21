@@ -37,43 +37,43 @@ void ModelMapper::setItem(SessionItem *item)
     }
 }
 
-void ModelMapper::setOnValueChange(std::function<void(void)> f, void *caller)
+void ModelMapper::setOnValueChange(std::function<void(void)> f, const void *caller)
 {
     m_onValueChange.push_back(call_t(f, caller));
 }
 
-void ModelMapper::setOnPropertyChange(std::function<void(QString)> f, void *caller)
+void ModelMapper::setOnPropertyChange(std::function<void(QString)> f, const void *caller)
 {
     m_onPropertyChange.push_back(call_str_t(f, caller));
 }
 
-void ModelMapper::setOnChildPropertyChange(std::function<void (SessionItem *, QString)> f, void *caller)
+void ModelMapper::setOnChildPropertyChange(std::function<void (SessionItem *, QString)> f, const void *caller)
 {
     m_onChildPropertyChange.push_back(call_item_str_t(f, caller));
 }
 
-void ModelMapper::setOnParentChange(std::function<void (SessionItem *)> f, void *caller)
+void ModelMapper::setOnParentChange(std::function<void (SessionItem *)> f, const void *caller)
 {
     m_onParentChange.push_back(call_item_t(f, caller));
 }
 
-void ModelMapper::setOnChildrenChange(std::function<void(SessionItem *)> f, void *caller)
+void ModelMapper::setOnChildrenChange(std::function<void(SessionItem *)> f, const void *caller)
 {
     m_onChildrenChange.push_back(call_item_t(f, caller));
 }
 
-void ModelMapper::setOnSiblingsChange(std::function<void ()> f, void *caller)
+void ModelMapper::setOnSiblingsChange(std::function<void ()> f, const void *caller)
 {
     m_onSiblingsChange.push_back(call_t(f, caller));
 }
 
-void ModelMapper::setOnAnyChildChange(std::function<void (SessionItem *)> f, void *caller)
+void ModelMapper::setOnAnyChildChange(std::function<void (SessionItem *)> f, const void *caller)
 {
     m_onAnyChildChange.push_back(call_item_t(f, caller));
 }
 
 //! Cancells all subscribtion of given caller
-void ModelMapper::unsubscribe(void *caller)
+void ModelMapper::unsubscribe(const void *caller)
 {
     clean_container(m_onValueChange, caller);
     clean_container(m_onPropertyChange, caller);

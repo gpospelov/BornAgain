@@ -38,23 +38,23 @@ public:
 
     void setItem(SessionItem* item);
 
-    void setOnValueChange(std::function<void(void)> f, void *caller=0);
+    void setOnValueChange(std::function<void(void)> f, const void *caller=0);
 
-    void setOnPropertyChange(std::function<void(QString)> f, void *caller=0);
+    void setOnPropertyChange(std::function<void(QString)> f, const void *caller=0);
 
-    void setOnChildPropertyChange(std::function<void(SessionItem*,QString)> f, void *caller=0);
+    void setOnChildPropertyChange(std::function<void(SessionItem*,QString)> f, const void *caller=0);
 
-    void setOnParentChange(std::function<void(SessionItem*)> f, void *caller=0);
+    void setOnParentChange(std::function<void(SessionItem*)> f, const void *caller=0);
 
-    void setOnChildrenChange(std::function<void(SessionItem*)> f, void *caller=0);
+    void setOnChildrenChange(std::function<void(SessionItem*)> f, const void *caller=0);
 
-    void setOnSiblingsChange(std::function<void(void)> f, void *caller=0);
+    void setOnSiblingsChange(std::function<void(void)> f, const void *caller=0);
 
-    void setOnAnyChildChange(std::function<void(SessionItem*)> f, void *caller=0);
+    void setOnAnyChildChange(std::function<void(SessionItem*)> f, const void *caller=0);
 
     void setActive(bool state) {m_active = state;}
 
-    void unsubscribe(void *caller);
+    void unsubscribe(const void *caller);
 
 signals:
     void valueChange();
@@ -77,7 +77,7 @@ public slots:
 
 private:
     //! removes all callbacks related to given caller
-    template<class U> void clean_container(U& v, void *caller);
+    template<class U> void clean_container(U& v, const void *caller);
 
     void setModel(SessionModel *model);
     int nestlingDepth(SessionItem* item, int level = 0);
@@ -96,10 +96,10 @@ private:
     SessionModel *m_model;
     SessionItem *m_item;
 
-    using call_t = std::pair<std::function<void(void)>, void *>;
-    using call_str_t = std::pair<std::function<void(QString)>, void *>;
-    using call_item_t = std::pair<std::function<void(SessionItem *)>, void *>;
-    using call_item_str_t = std::pair<std::function<void(SessionItem*,QString)>, void *>;
+    using call_t = std::pair<std::function<void(void)>, const void *>;
+    using call_str_t = std::pair<std::function<void(QString)>, const void *>;
+    using call_item_t = std::pair<std::function<void(SessionItem *)>, const void *>;
+    using call_item_str_t = std::pair<std::function<void(SessionItem*,QString)>, const void *>;
 
     std::vector<call_t> m_onValueChange;
     std::vector<call_str_t> m_onPropertyChange;
@@ -113,7 +113,7 @@ private:
 
 
 template<class U>
-inline void ModelMapper::clean_container(U& v, void *caller) {
+inline void ModelMapper::clean_container(U& v, const void *caller) {
     v.erase(std::remove_if(v.begin(), v.end(),
         [caller](typename U::value_type const &x) -> bool { return (x.second == caller ? true : false); }),
             v.end());

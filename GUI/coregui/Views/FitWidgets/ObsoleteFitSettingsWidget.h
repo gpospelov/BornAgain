@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/FitWidgets/FitSettingsWidget.h
-//! @brief     Declares class FitSettingsWidget
+//! @file      coregui/Views/FitWidgets/ObsoleteFitSettingsWidget.h
+//! @brief     Declares class ObsoleteFitSettingsWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FITSETTINGSWIDGET_H
-#define FITSETTINGSWIDGET_H
+#ifndef OBSOLETEFITSETTINGSWIDGET_H
+#define OBSOLETEFITSETTINGSWIDGET_H
 
 #include "WinDllMacros.h"
 #include <QWidget>
@@ -25,12 +25,12 @@ class FitParameterWidget;
 class QComboBox;
 
 
-class BA_CORE_API_ FitSettingsWidget : public QWidget
+class BA_CORE_API_ ObsoleteFitSettingsWidget : public QWidget
 {
     Q_OBJECT
 
 public:
-    FitSettingsWidget(ObsoleteFitModel *fitModel, QWidget *parent);
+    ObsoleteFitSettingsWidget(ObsoleteFitModel *fitModel, QWidget *parent);
 
     //! we update GUI when widget is shown
     void showEvent(QShowEvent *);

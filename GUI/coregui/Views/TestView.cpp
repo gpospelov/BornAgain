@@ -15,8 +15,8 @@
 // ************************************************************************** //
 #include "TestView.h"
 #include "MaskEditor.h"
-#include "RunFitWidget.h"
-#include "FitView.h"
+#include "ObsoleteRunFitWidget.h"
+#include "ObsoleteFitView.h"
 #include "mainwindow.h"
 #include "FitParameterWidget.h"
 #include "JobModel.h"

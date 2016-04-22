@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/FitWidgets/RunFitWidget.cpp
-//! @brief     Implements class RunFitWidget
+//! @file      coregui/Views/FitWidgets/ObsoleteRunFitWidget.cpp
+//! @brief     Implements class ObsoleteRunFitWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -31,7 +31,7 @@
 #include "SessionModel.h"
 #include "IntensityDataIOFactory.h"
 
-#include "RunFitWidget.h"
+#include "ObsoleteRunFitWidget.h"
 
 #include <QWidget>
 #include <QPushButton>
@@ -42,7 +42,7 @@
 #include <QFileInfo>
 #include <QDebug>
 
-RunFitWidget::RunFitWidget(ObsoleteFitModel *fitModel, QWidget *parent)
+ObsoleteRunFitWidget::ObsoleteRunFitWidget(ObsoleteFitModel *fitModel, QWidget *parent)
     : QWidget(parent)
     , m_start_button(new QPushButton())
     , m_stop_button(new QPushButton())
@@ -88,12 +88,12 @@ RunFitWidget::RunFitWidget(ObsoleteFitModel *fitModel, QWidget *parent)
     m_interval_slider->setValue(10);
 }
 
-void RunFitWidget::onIntervalChanged(int value)
+void ObsoleteRunFitWidget::onIntervalChanged(int value)
 {
     m_interval_label->setText(QString("Update every %1th iteration").arg(value));
 }
 
-void RunFitWidget::onStartClicked()
+void ObsoleteRunFitWidget::onStartClicked()
 {
     // used for test purposes
     std::shared_ptr<FitSuite> suite = init_test_fitsuite();
@@ -103,18 +103,18 @@ void RunFitWidget::onStartClicked()
     m_runfitmanager->runFitting();
 }
 
-void RunFitWidget::onStopClicked()
+void ObsoleteRunFitWidget::onStopClicked()
 {
     m_runfitmanager->interruptFitting();
 }
 
-void RunFitWidget::onFittingStarted()
+void ObsoleteRunFitWidget::onFittingStarted()
 {
     m_start_button->setEnabled(false);
     m_stop_button->setEnabled(true);
 }
 
-void RunFitWidget::onFittingFinished()
+void ObsoleteRunFitWidget::onFittingFinished()
 {
     m_stop_button->setEnabled(false);
     m_start_button->setEnabled(true);
@@ -123,7 +123,7 @@ void RunFitWidget::onFittingFinished()
 
 
 // test only
-std::shared_ptr<FitSuite> RunFitWidget::init_test_fitsuite()
+std::shared_ptr<FitSuite> ObsoleteRunFitWidget::init_test_fitsuite()
 {
     SessionItem *multilayer = m_fitModel->getSelectedMultiLayerItem();
     SessionItem *instrument = m_fitModel->getSelectedInstrumentItem();

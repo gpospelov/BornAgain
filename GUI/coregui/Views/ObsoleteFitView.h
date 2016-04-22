@@ -22,9 +22,9 @@
 
 class MainWindow;
 class QTabWidget;
-class ImportDataWidget;
-class FitSettingsWidget;
-class RunFitWidget;
+class ObsoleteImportDataWidget;
+class ObsoleteFitSettingsWidget;
+class ObsoleteRunFitWidget;
 
 class BA_CORE_API_ ObsoleteFitView : public QWidget
 {
@@ -36,9 +36,9 @@ public:
 
 private:
     QTabWidget *m_tabs;
-    ImportDataWidget *m_importDataWidget;
-    FitSettingsWidget *m_fitSettingsWidget;
-    RunFitWidget *m_runFitWidget;
+    ObsoleteImportDataWidget *m_importDataWidget;
+    ObsoleteFitSettingsWidget *m_fitSettingsWidget;
+    ObsoleteRunFitWidget *m_runFitWidget;
 
 };
 

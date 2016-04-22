@@ -34,7 +34,7 @@
 #include "mainwindow_constants.h"
 #include "JobView.h"
 #include "aboutapplicationdialog.h"
-#include "FitView.h"
+#include "ObsoleteFitView.h"
 #include "TestView.h"
 #include "GUIHelpers.h"
 #include "UpdateNotifier.h"

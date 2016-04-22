@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/FitWidgets/FitSettingsWidget.h
-//! @brief     Defines class FitSettingsWidget
+//! @file      coregui/Views/FitWidgets/ObsoleteFitSettingsWidget.h
+//! @brief     Defines class ObsoleteFitSettingsWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,7 +14,7 @@
 //
 // ************************************************************************** //
 
-#include "FitSettingsWidget.h"
+#include "ObsoleteFitSettingsWidget.h"
 #include "FitParameterWidget.h"
 #include "ObsoleteFitModel.h"
 
@@ -24,7 +24,7 @@
 #include <QLabel>
 
 
-FitSettingsWidget::FitSettingsWidget(ObsoleteFitModel *fitModel, QWidget *parent)
+ObsoleteFitSettingsWidget::ObsoleteFitSettingsWidget(ObsoleteFitModel *fitModel, QWidget *parent)
     : QWidget(parent)
     , m_fitModel(fitModel)
     , m_fitParameter(new FitParameterWidget(m_fitModel, this))
@@ -54,12 +54,12 @@ FitSettingsWidget::FitSettingsWidget(ObsoleteFitModel *fitModel, QWidget *parent
     setLayout(mainLayout);
 }
 
-void FitSettingsWidget::showEvent(QShowEvent *)
+void ObsoleteFitSettingsWidget::showEvent(QShowEvent *)
 {
     onUpdateGUI();
 }
 
-void FitSettingsWidget::onUpdateGUI()
+void ObsoleteFitSettingsWidget::onUpdateGUI()
 {
     m_fitParameter->updateSelector();
 
@@ -85,7 +85,7 @@ void FitSettingsWidget::onUpdateGUI()
     m_sampleCombo->setCurrentIndex(m_sampleCombo->findData(m_fitModel->getSelectedSampleName()));
 }
 
-void FitSettingsWidget::onSampleChanged(int index)
+void ObsoleteFitSettingsWidget::onSampleChanged(int index)
 {
     QString data = m_sampleCombo->itemData(index).toString();
     if (data != m_fitModel->getSelectedSampleName()) {
@@ -96,7 +96,7 @@ void FitSettingsWidget::onSampleChanged(int index)
     }
 }
 
-void FitSettingsWidget::onInstrumentChanged(int index)
+void ObsoleteFitSettingsWidget::onInstrumentChanged(int index)
 {
     QString data = m_instrumentCombo->itemData(index).toString();
     if (data != m_fitModel->getSelectedInstrumentName()) {
@@ -107,13 +107,13 @@ void FitSettingsWidget::onInstrumentChanged(int index)
     }
 }
 
-void FitSettingsWidget::connectCombos() {
+void ObsoleteFitSettingsWidget::connectCombos() {
     connect(m_sampleCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(onSampleChanged(int)));
     connect(m_instrumentCombo, SIGNAL(currentIndexChanged(int)),
             this, SLOT(onInstrumentChanged(int)));
 }
 
-void FitSettingsWidget::disconnectCombos() {
+void ObsoleteFitSettingsWidget::disconnectCombos() {
     disconnect(m_sampleCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(onSampleChanged(int)));
     disconnect(m_instrumentCombo, SIGNAL(currentIndexChanged(int)),
                this, SLOT(onInstrumentChanged(int)));

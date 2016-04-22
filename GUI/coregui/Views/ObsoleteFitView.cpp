@@ -14,12 +14,12 @@
 //
 // ************************************************************************** //
 
-#include "FitView.h"
-#include "RunFitWidget.h"
+#include "ObsoleteFitView.h"
+#include "ObsoleteRunFitWidget.h"
 #include "mainwindow.h"
-#include "FitSettingsWidget.h"
+#include "ObsoleteFitSettingsWidget.h"
 #include "ObsoleteFitModel.h"
-#include "ImportDataWidget.h"
+#include "ObsoleteImportDataWidget.h"
 #include "projectmanager.h"
 #include <QVBoxLayout>
 #include <QTabWidget>
@@ -129,9 +129,9 @@
 ObsoleteFitView::ObsoleteFitView(MainWindow *mainWindow)
     : QWidget(mainWindow)
     , m_tabs(new QTabWidget)
-    , m_importDataWidget(new ImportDataWidget(mainWindow->fitModel(), this))
-    , m_fitSettingsWidget(new FitSettingsWidget(mainWindow->fitModel(), this))
-    , m_runFitWidget(new RunFitWidget(mainWindow->fitModel(), this))
+    , m_importDataWidget(new ObsoleteImportDataWidget(mainWindow->fitModel(), this))
+    , m_fitSettingsWidget(new ObsoleteFitSettingsWidget(mainWindow->fitModel(), this))
+    , m_runFitWidget(new ObsoleteRunFitWidget(mainWindow->fitModel(), this))
 {
     QVBoxLayout *layout = new QVBoxLayout;
     m_tabs->setStyleSheet("QTabBar::tab { height: 40px; }");

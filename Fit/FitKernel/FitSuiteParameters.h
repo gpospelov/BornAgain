@@ -90,7 +90,7 @@ class BA_CORE_API_ FitSuiteParameters
     size_t getNfreeParameters() const;
 
     //! Returns true if parameters already have the given values.
-    bool valuesAreDifferrent(const double *pars_valuers, double tolerance_factor=1.0) const;
+    bool valuesAreDifferent(const double *pars_valuers, double tolerance_factor=1.0) const;
 
     //! Print defined parameters.
     void printParameters() const;
@@ -140,5 +140,3 @@ inline FitSuiteParameters::const_iterator FitSuiteParameters::end() const
 }
 
 #endif // FITSUITEPARAMETERS_H
-
-

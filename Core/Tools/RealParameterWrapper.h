@@ -30,8 +30,9 @@ class IParameterized;
 
 class BA_CORE_API_ RealParameterWrapper {
 public:
+    // TODO? RealParameterWrapper() = delete;
     explicit RealParameterWrapper(
-        IParameterized* parent, double *par, const AttLimits &limits = AttLimits::limitless());
+        IParameterized* parent, double* par, const AttLimits& limits=AttLimits::limitless());
     RealParameterWrapper(const RealParameterWrapper& other );
     RealParameterWrapper& operator=(const RealParameterWrapper& other);
 

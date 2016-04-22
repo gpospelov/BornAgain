@@ -18,7 +18,7 @@
 #include <sstream>
 
 RealParameterWrapper::RealParameterWrapper(
-    IParameterized* parent, double *par, const AttLimits &limits)
+    IParameterized* parent, double* par, const AttLimits& limits)
     : m_parent(parent)
     , m_data(par)
     , m_limits(limits)

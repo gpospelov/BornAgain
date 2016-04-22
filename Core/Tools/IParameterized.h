@@ -50,6 +50,10 @@ public:
     //! Sets the value of the parameter with the given name.
     void setParameterValue(const std::string &name, double value);
 
+    //! Returns parameter wrapper named _name_.
+    RealParameterWrapper getParameter(const std::string& name) const
+    { return getParameterPool()->getParameter(name); }
+
     //! Clears the parameter pool.
     void clearParameterPool();
 

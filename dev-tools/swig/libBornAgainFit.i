@@ -49,7 +49,6 @@
 import_array();
 %}
 
-#define GCCXML_SKIP_THIS 1
 #define GCC_DIAG_OFF(x)
 #define GCC_DIAG_ON(x)
 

@@ -59,7 +59,7 @@ public:
         m_refractive_index = refractive_index;
     }
 
-#ifndef GCCXML_SKIP_THIS
+#ifndef SWIG
     //! Get the scattering matrix (~potential V) from the material.
     //! This matrix appears in the full three-dimensional Schroedinger equation.
     virtual Eigen::Matrix2cd getScatteringMatrix(double k_mag2) const;
@@ -83,7 +83,7 @@ inline HomogeneousMaterial *HomogeneousMaterial::clone() const
     return new HomogeneousMaterial(getName(), getRefractiveIndex());
 }
 
-#ifndef GCCXML_SKIP_THIS
+#ifndef SWIG
 inline Eigen::Matrix2cd HomogeneousMaterial::getScatteringMatrix(double k_mag2) const
 {
     (void)k_mag2;

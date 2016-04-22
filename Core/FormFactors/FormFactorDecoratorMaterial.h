@@ -46,7 +46,7 @@ public:
     //! Retrieves the refractive index of the ambient material
     virtual complex_t getAmbientRefractiveIndex() const;
 
-#ifndef GCCXML_SKIP_THIS
+#ifndef SWIG
     //! Returns scattering amplitude for matrix interactions
     virtual Eigen::Matrix2cd evaluatePol(const WavevectorInfo& wavevectors) const;
 #endif

@@ -32,7 +32,7 @@ public:
     virtual ~IDetectorResolution() {}
     //! Apply the resolution function to the intensity data
     virtual void applyDetectorResolution(OutputData<double> *p_intensity_map) const=0;
-#ifndef GCCXML_SKIP_THIS
+#ifndef SWIG
     //! Applies the detector resolution to the matrix-valued intensity data
     void applyDetectorResolutionPol(
             OutputData<Eigen::Matrix2d> *p_matrix_intensity) const;

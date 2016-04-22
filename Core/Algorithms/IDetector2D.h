@@ -78,7 +78,7 @@ public:
     void setAnalyzerProperties(const kvector_t direction, double efficiency,
                                double total_transmission=1.0);
 
-#ifndef GCCXML_SKIP_THIS
+#ifndef SWIG
     //! Gets the polarization density matrix (in spin basis along z-axis)
     Eigen::Matrix2cd getAnalyzerOperator() const;
 #endif
@@ -106,7 +106,7 @@ public:
     //! return true if has masks
     bool hasMasks() const;
 
-#ifndef GCCXML_SKIP_THIS
+#ifndef SWIG
     //! Create a vector of SimulationElement objects according to the detector and its mask
     std::vector<SimulationElement> createSimulationElements(const Beam& beam);
     SimulationElement getSimulationElement(size_t index, const Beam& beam) const;
@@ -154,7 +154,7 @@ protected:
 
     SafePointerVector<IAxis> m_axes;
     std::unique_ptr<IDetectorResolution> mP_detector_resolution;
-#ifndef GCCXML_SKIP_THIS
+#ifndef SWIG
     Eigen::Matrix2cd m_analyzer_operator; //!< polarization analyzer operator
 #endif
     DetectorMask m_detector_mask;
@@ -163,7 +163,7 @@ private:
     bool checkAnalyzerProperties(const kvector_t direction, double efficiency,
                                  double total_transmission) const;
 
-#ifndef GCCXML_SKIP_THIS
+#ifndef SWIG
     Eigen::Matrix2cd calculateAnalyzerOperator(const kvector_t direction, double efficiency,
                                                double total_transmission = 1.0) const;
 #endif
@@ -196,7 +196,7 @@ inline const IDetectorResolution *IDetector2D::getDetectorResolutionFunction() c
     return mP_detector_resolution.get();
 }
 
-#ifndef GCCXML_SKIP_THIS
+#ifndef SWIG
 inline Eigen::Matrix2cd IDetector2D::getAnalyzerOperator() const
 {
     return m_analyzer_operator;

@@ -92,7 +92,7 @@ public:
     OutputData<double> *getDetectorIntensity(const OutputData<double> &data,
                                              IDetector2D::EAxesUnits units_type=IDetector2D::DEFAULT) const;
 
-#ifndef GCCXML_SKIP_THIS
+#ifndef SWIG
     //! Create a vector of SimulationElement objects according to the beam, detector and its mask
     std::vector<SimulationElement> createSimulationElements();
 #endif

@@ -64,7 +64,7 @@ private:
     double m_length;
     mutable cvector_t m_q;
 
-#ifndef GCCXML_SKIP_THIS
+#ifndef SWIG
     std::unique_ptr<IntegratorComplex<FormFactorLongRipple1Lorentz>> mP_integrator;
 #endif
 };

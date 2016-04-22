@@ -85,7 +85,7 @@ public:
 
     const DistributionHandler& getDistributionHandler() const;
 
-#ifndef GCCXML_SKIP_THIS
+#ifndef SWIG
     //! sets progress handler (used by GUI)
     void setProgressHandler(ProgressHandler_t progress) { m_progress = progress; }
 
@@ -120,7 +120,7 @@ protected:
     //! Run a single simulation with the current parameter settings
     void runSingleSimulation();
 
-#ifndef GCCXML_SKIP_THIS
+#ifndef SWIG
     //! Normalize the detector counts
     void normalize(std::vector<SimulationElement>::iterator begin_it,
                    std::vector<SimulationElement>::iterator end_it) const;

@@ -1430,9 +1430,6 @@ class vector_string_t(_object):
 vector_string_t_swigregister = _libBornAgainCore.vector_string_t_swigregister
 vector_string_t_swigregister(vector_string_t)
 
-
-_libBornAgainCore.GCCXML_SKIP_THIS_swigconstant(_libBornAgainCore)
-GCCXML_SKIP_THIS = _libBornAgainCore.GCCXML_SKIP_THIS
 class AttLimits(_object):
     """
 
@@ -1912,6 +1909,11 @@ class IParameterized(INamed):
 
         """
         return _libBornAgainCore.IParameterized_setParameterValue(self, name, value)
+
+
+    def getParameter(self, name):
+        """getParameter(IParameterized self, std::string const & name) -> RealParameterWrapper"""
+        return _libBornAgainCore.IParameterized_getParameter(self, name)
 
 
     def clearParameterPool(self):

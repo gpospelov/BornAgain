@@ -47,7 +47,7 @@ namespace OutputDataFunctions
     BA_CORE_API_ OutputData<double> *getModulusPart(
             const OutputData<complex_t>& source);
 
-#ifndef GCCXML_SKIP_THIS
+#ifndef SWIG
     //! Selects an element-wise component of the matrix-valued OutputData
     //! structure and returns a new double-valued one
     BA_CORE_API_ OutputData<double> *getComponentData(

@@ -106,7 +106,7 @@ private:
     //! cached polarized form factors
     mutable MatrixFFVector m_ff_pol;
 
-#ifndef GCCXML_SKIP_THIS
+#ifndef SWIG
     std::unique_ptr<IntegratorMCMiser<IInterferenceFunctionStrategy>> mP_integrator;
     std::unique_ptr<IntegratorMCMiser<IInterferenceFunctionStrategy>> mP_integrator_pol;
 #endif

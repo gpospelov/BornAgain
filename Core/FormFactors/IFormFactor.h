@@ -50,7 +50,7 @@ public:
     //! @param k_f_bin   outgoing wavevector bin
     virtual complex_t evaluate(const WavevectorInfo& wavevectors) const=0;
 
-#ifndef GCCXML_SKIP_THIS
+#ifndef SWIG
     //! Returns scattering amplitude for matrix interactions
     //! @param k_i   incoming wavevector
     //! @param k_f_bin   outgoing wavevector bin
@@ -74,7 +74,7 @@ inline void IFormFactor::accept(ISampleVisitor *visitor) const
     visitor->visit(this);
 }
 
-#ifndef GCCXML_SKIP_THIS
+#ifndef SWIG
 inline Eigen::Matrix2cd IFormFactor::evaluatePol(const WavevectorInfo&) const
 {
     // Throws to prevent unanticipated behaviour

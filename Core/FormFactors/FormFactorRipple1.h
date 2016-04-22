@@ -62,7 +62,7 @@ private:
     mutable complex_t m_ay;
     mutable complex_t m_az;
 
-#ifndef GCCXML_SKIP_THIS
+#ifndef SWIG
     std::unique_ptr<IntegratorComplex<FormFactorRipple1>> mP_integrator;
 #endif
 };

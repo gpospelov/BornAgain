@@ -41,7 +41,7 @@ public:
 
     ~SimulationElement() {}
 
-#ifndef GCCXML_SKIP_THIS
+#ifndef SWIG
     //! Sets the polarization density matrix (in spin basis along z-axis)
     void setPolarization(const Eigen::Matrix2cd& polarization);
 
@@ -89,14 +89,14 @@ private:
 
     double m_wavelength, m_alpha_i, m_phi_i;             //!< wavelength and angles of beam
     double m_intensity;  //!< simulated intensity for detector cell
-#ifndef GCCXML_SKIP_THIS
+#ifndef SWIG
     Eigen::Matrix2cd m_polarization;      //!< polarization density matrix
     Eigen::Matrix2cd m_analyzer_operator; //!< polarization analyzer operator
 #endif
     std::unique_ptr<IPixelMap> mP_pixel_map;
 };
 
-#ifndef GCCXML_SKIP_THIS
+#ifndef SWIG
 inline void SimulationElement::setPolarization(const Eigen::Matrix2cd &polarization)
 {
     m_polarization = polarization;

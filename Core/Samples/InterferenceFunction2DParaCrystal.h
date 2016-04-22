@@ -110,7 +110,7 @@ private:
 
     complex_t FTPDF(double qx, double qy, double xi, size_t index) const;
 
-#ifndef GCCXML_SKIP_THIS
+#ifndef SWIG
     std::unique_ptr<IntegratorReal<InterferenceFunction2DParaCrystal>> mP_integrator;
 #endif
     mutable double m_qx;

@@ -60,7 +60,7 @@ private:
     double m_height;
     mutable cvector_t m_q;
 
-#ifndef GCCXML_SKIP_THIS
+#ifndef SWIG
     std::unique_ptr<IntegratorComplex<FormFactorFullSpheroid>> mP_integrator;
 #endif
 };

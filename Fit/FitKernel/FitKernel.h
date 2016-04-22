@@ -27,7 +27,7 @@
 #include <string>
 #include <memory>
 #include <boost/date_time/posix_time/posix_time.hpp>
-#ifndef GCCXML_SKIP_THIS
+#ifndef SWIG
 #include <atomic>
 #endif
 
@@ -123,7 +123,7 @@ private:
     FitSuiteChiSquaredFunction m_function_chi2;
     FitSuiteGradientFunction m_function_gradient;
     bool m_is_last_iteration;
-#ifndef GCCXML_SKIP_THIS
+#ifndef SWIG
     std::atomic<bool> m_is_interrupted;
 #endif
     boost::posix_time::ptime m_start_time;

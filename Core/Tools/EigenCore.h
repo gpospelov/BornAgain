@@ -19,7 +19,7 @@
 // This include file is introduced to deal with Eigen alignment
 // see http://eigen.tuxfamily.org/dox-devel/group__TopicStructHavingEigenMembers.html
 
-#ifndef GCCXML_SKIP_THIS
+#ifndef SWIG
 #ifndef _WIN32
 #include <unistd.h>
 #endif

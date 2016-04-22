@@ -97,7 +97,7 @@ public:
     void print(std::ostream& ostr) const;
 
 private:
-#ifndef GCCXML_SKIP_THIS
+#ifndef SWIG
     Transform3D(const Eigen::Matrix3d &matrix);
     Eigen::Matrix3d m_matrix;
     Eigen::Matrix3d m_inverse_matrix;

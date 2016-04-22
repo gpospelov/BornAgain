@@ -19,7 +19,7 @@
 //#include "MultiLayerRTCoefficients.h"
 #include "OutputData.h"
 
-#ifndef GCCXML_SKIP_THIS
+#ifndef SWIG
 #include "SpecularMatrix.h"
 #endif
 #include <vector>
@@ -116,7 +116,7 @@ protected:
     IAxis *m_z_axis;
     double m_lambda;
 
-#ifndef GCCXML_SKIP_THIS
+#ifndef SWIG
 //    OutputData<SpecularMatrix::MultiLayerCoeff_t> *m_scalar_data;
 
     OutputData<MultiLayerRTCoefficients_t> m_data;

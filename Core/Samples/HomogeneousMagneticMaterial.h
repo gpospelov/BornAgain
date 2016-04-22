@@ -19,7 +19,7 @@
 #include "HomogeneousMaterial.h"
 #include "EigenCore.h"
 
-#ifndef GCCXML_SKIP_THIS
+#ifndef SWIG
 #include <Eigen/StdVector>
 #endif
 
@@ -30,7 +30,7 @@
 class BA_CORE_API_ HomogeneousMagneticMaterial : public HomogeneousMaterial
 {
 public:
-#ifndef GCCXML_SKIP_THIS
+#ifndef SWIG
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 #endif
     //! Constructs a material with _name_, _refractive_index_ and
@@ -65,7 +65,7 @@ public:
         return false;
     }
 
-#ifndef GCCXML_SKIP_THIS
+#ifndef SWIG
     //! Get the scattering matrix (~potential V) from the material.
     //! This matrix appears in the full three-dimensional Schroedinger equation.
     virtual Eigen::Matrix2cd getScatteringMatrix(double k_mag2) const;
@@ -90,7 +90,7 @@ private:
     static const double m_magnetic_prefactor;
 
 //! The unit matrix
-#ifndef GCCXML_SKIP_THIS
+#ifndef SWIG
     Eigen::Matrix2cd m_unit_matrix;
     std::vector<Eigen::Matrix2cd, Eigen::aligned_allocator<Eigen::Matrix2cd> > m_pauli_operator;
 #endif

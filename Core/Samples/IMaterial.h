@@ -63,7 +63,7 @@ public:
         return 1.0;
     }
 
-#ifndef GCCXML_SKIP_THIS
+#ifndef SWIG
     //! Get the effective scattering matrix from the refractive index
     //! and a given wavevector used for the specular calculation.
     //! This matrix appears in the one-dimensional Schroedinger equation
@@ -91,7 +91,7 @@ inline IMaterial *IMaterial::clone() const
                                               "should not be cloned!");
 }
 
-#ifndef GCCXML_SKIP_THIS
+#ifndef SWIG
 inline Eigen::Matrix2cd IMaterial::getSpecularScatteringMatrix(const kvector_t k) const
 {
     Eigen::Matrix2cd result;
@@ -101,7 +101,7 @@ inline Eigen::Matrix2cd IMaterial::getSpecularScatteringMatrix(const kvector_t k
     return result;
 }
 
-#endif // GCCXML_SKIP_THIS
+#endif // SWIG
 
 inline const IMaterial *IMaterial::createTransformedMaterial(const IRotation &rotation) const
 {

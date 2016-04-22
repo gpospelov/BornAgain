@@ -31,7 +31,7 @@ public:
 
     virtual ILayerRTCoefficients* clone() const=0;
 
-#ifndef GCCXML_SKIP_THIS
+#ifndef SWIG
     //! The following functions return the transmitted and reflected amplitudes
     //! for different incoming beam polarizations and eigenmodes
     virtual Eigen::Vector2cd T1plus() const=0;

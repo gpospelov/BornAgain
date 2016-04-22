@@ -41,7 +41,7 @@ public:
 
     virtual complex_t evaluate(const WavevectorInfo& wavevectors) const;
 
-#ifndef GCCXML_SKIP_THIS
+#ifndef SWIG
     //! Calculates and returns a polarized form factor calculation in DWBA
     virtual Eigen::Matrix2cd evaluatePol(const WavevectorInfo& wavevectors) const;
 #endif

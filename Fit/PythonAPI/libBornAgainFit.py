@@ -1430,9 +1430,6 @@ class vector_string_t(_object):
 vector_string_t_swigregister = _libBornAgainFit.vector_string_t_swigregister
 vector_string_t_swigregister(vector_string_t)
 
-
-_libBornAgainFit.GCCXML_SKIP_THIS_swigconstant(_libBornAgainFit)
-GCCXML_SKIP_THIS = _libBornAgainFit.GCCXML_SKIP_THIS
 import libBornAgainCore
 class IMinimizer(_object):
     """
@@ -3544,17 +3541,12 @@ class FitSuiteParameters(_object):
         return _libBornAgainFit.FitSuiteParameters_getNfreeParameters(self)
 
 
-    def valuesAreDifferrent(self, pars_valuers, tolerance_factor=1.0):
+    def valuesAreDifferent(self, pars_valuers, tolerance_factor=1.0):
         """
-        valuesAreDifferrent(FitSuiteParameters self, double const * pars_valuers, double tolerance_factor=1.0) -> bool
-        valuesAreDifferrent(FitSuiteParameters self, double const * pars_valuers) -> bool
-
-        bool FitSuiteParameters::valuesAreDifferrent(const double *pars_valuers, double tolerance_factor=1.0) const
-
-        Returns true if parameters already have the given values. 
-
+        valuesAreDifferent(FitSuiteParameters self, double const * pars_valuers, double tolerance_factor=1.0) -> bool
+        valuesAreDifferent(FitSuiteParameters self, double const * pars_valuers) -> bool
         """
-        return _libBornAgainFit.FitSuiteParameters_valuesAreDifferrent(self, pars_valuers, tolerance_factor)
+        return _libBornAgainFit.FitSuiteParameters_valuesAreDifferent(self, pars_valuers, tolerance_factor)
 
 
     def printParameters(self):

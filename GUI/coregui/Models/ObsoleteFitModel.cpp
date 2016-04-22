@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/FitModel.cpp
-//! @brief     Implements class FitModel
+//! @file      coregui/Models/ObsoleteFitModel.cpp
+//! @brief     Implements class ObsoleteFitModel
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,7 +14,7 @@
 //
 // ************************************************************************** //
 
-#include "FitModel.h"
+#include "ObsoleteFitModel.h"
 #include "SampleModel.h"
 #include "InstrumentModel.h"
 #include "FitParameterItems.h"
@@ -24,7 +24,7 @@
 #include <QStringList>
 
 
-FitModel::FitModel(SampleModel *samples, InstrumentModel *instruments, QObject *parent)
+ObsoleteFitModel::ObsoleteFitModel(SampleModel *samples, InstrumentModel *instruments, QObject *parent)
     : SessionModel(SessionXML::FitModelTag, parent)
     , m_sampleModel(samples)
     , m_instrumentModel(instruments)
@@ -32,38 +32,38 @@ FitModel::FitModel(SampleModel *samples, InstrumentModel *instruments, QObject *
 
 }
 
-FitParameterContainer *FitModel::getFitParameterContainer() {
+FitParameterContainer *ObsoleteFitModel::getFitParameterContainer() {
     return dynamic_cast<FitParameterContainer *>
             (itemForIndex(QModelIndex())->getChildOfType(Constants::FitParameterContainerType));
 }
 
-FitSelectionItem *FitModel::getFitSelection() {
+FitSelectionItem *ObsoleteFitModel::getFitSelection() {
     return dynamic_cast<FitSelectionItem *>
             (itemForIndex(QModelIndex())->getChildOfType(Constants::FitSelectionType));
 }
 
-InputDataItem *FitModel::getInputData() {
+InputDataItem *ObsoleteFitModel::getInputData() {
     return dynamic_cast<InputDataItem *>
             (itemForIndex(QModelIndex())->getChildOfType(Constants::InputDataType));
 }
 
-QString FitModel::getSelectedSampleName () {
+QString ObsoleteFitModel::getSelectedSampleName () {
     return getFitSelection()->getItemValue(FitSelectionItem::P_SAMPLE).toString();
 }
 
-QString FitModel::getSelectedInstrumentName(){
+QString ObsoleteFitModel::getSelectedInstrumentName(){
     return getFitSelection()->getItemValue(FitSelectionItem::P_INSTRUMENT).toString();
 }
 
-QStringList FitModel::getSampleNames() {
+QStringList ObsoleteFitModel::getSampleNames() {
     return retrieveDisplayNames(m_sampleModel, Constants::MultiLayerType);
 }
 
-QStringList FitModel::getInstrumentNames() {
+QStringList ObsoleteFitModel::getInstrumentNames() {
     return retrieveDisplayNames(m_instrumentModel, Constants::InstrumentType);
 }
 
-QStringList FitModel::retrieveDisplayNames(SessionModel *model, const QString &type) {
+QStringList ObsoleteFitModel::retrieveDisplayNames(SessionModel *model, const QString &type) {
     QStringList list;
     for (int i_row = 0; i_row < model->rowCount(QModelIndex()); ++i_row) {
         QModelIndex itemIndex = model->index(i_row, 0, QModelIndex());
@@ -76,46 +76,46 @@ QStringList FitModel::retrieveDisplayNames(SessionModel *model, const QString &t
     return list;
 }
 
-QString FitModel::getSampleItemNameForDisplayName(const QString &displayName) {
+QString ObsoleteFitModel::getSampleItemNameForDisplayName(const QString &displayName) {
     if (auto *item = m_sampleModel->itemForIndex(QModelIndex())->getChildByName(displayName)) {
         return item->itemName();
     }
     return "";
 }
 
-QString FitModel::getInstrumentItemNameForDisplayName(const QString &displayName) {
+QString ObsoleteFitModel::getInstrumentItemNameForDisplayName(const QString &displayName) {
     if (auto *item = m_instrumentModel->itemForIndex(QModelIndex())->getChildByName(displayName)) {
         return item->itemName();
     }
     return "";
 }
 
-SessionItem *FitModel::getSelectedMultiLayerItem() {
+SessionItem *ObsoleteFitModel::getSelectedMultiLayerItem() {
     SessionItem *samplesRoot = m_sampleModel->itemForIndex(QModelIndex());
     return samplesRoot->getChildByName(getSelectedSampleName());
 }
 
-SessionItem *FitModel::getSelectedInstrumentItem() {
+SessionItem *ObsoleteFitModel::getSelectedInstrumentItem() {
     SessionItem *instrumentRoot = m_instrumentModel->itemForIndex(QModelIndex());
     return instrumentRoot->getChildByName(getSelectedInstrumentName());
 }
 
-void FitModel::setSelectedSample(const QString &displayName) {
+void ObsoleteFitModel::setSelectedSample(const QString &displayName) {
     SessionItem *selection = getFitSelection();
     selection->setItemValue(FitSelectionItem::P_SAMPLE, displayName);
 }
 
-void FitModel::setSelectedInstrument(const QString &displayName) {
+void ObsoleteFitModel::setSelectedInstrument(const QString &displayName) {
     SessionItem *selection = getFitSelection();
     selection->setItemValue(FitSelectionItem::P_INSTRUMENT, displayName);
 }
 
-MinimizerSettingsItem *FitModel::getMinimizerSettings() {
+MinimizerSettingsItem *ObsoleteFitModel::getMinimizerSettings() {
     return dynamic_cast<MinimizerSettingsItem *>
             (itemForIndex(QModelIndex())->getChildOfType(Constants::MinimizerSettingsType));
 }
 
-QString FitModel::getMinimizerAlgorithm() {
+QString ObsoleteFitModel::getMinimizerAlgorithm() {
     if (auto *item = getMinimizerSettings()) {
         return item->getItemValue(MinimizerSettingsItem::P_ALGO).value<ComboProperty>()
                 .getValue();
@@ -123,20 +123,20 @@ QString FitModel::getMinimizerAlgorithm() {
     return QString();
 }
 
-QString FitModel::getInputDataPath() {
+QString ObsoleteFitModel::getInputDataPath() {
     if (auto *item = getInputData()) {
         return item->getItemValue(InputDataItem::P_PATH).toString();
     }
     return "";
 }
 
-void FitModel::setInputDataPath(const QString &path) {
+void ObsoleteFitModel::setInputDataPath(const QString &path) {
     if (auto *item = getInputData()) {
         item->setItemValue(InputDataItem::P_PATH, path);
     }
 }
 
-void FitModel::dataChangedProxy(const QModelIndex & topLeft, const QModelIndex & bottomRight,
+void ObsoleteFitModel::dataChangedProxy(const QModelIndex & topLeft, const QModelIndex & bottomRight,
                            const QVector<int> & roles)
 {
     emit dataChanged(topLeft, bottomRight, roles);

@@ -20,11 +20,11 @@
 #include "IntensityDataIOFactory.h"
 #include "IntensityDataItem.h"
 #include "FitParameterItems.h"
-#include "FitModel.h"
+#include "ObsoleteFitModel.h"
 #include <QLineEdit>
 #include <QVBoxLayout>
 
-ImportDataWidget::ImportDataWidget(FitModel *fitModel, QWidget *parent)
+ImportDataWidget::ImportDataWidget(ObsoleteFitModel *fitModel, QWidget *parent)
     : QWidget(parent)
     , m_line(new QLineEdit())
     , m_plot(new ColorMapPlot(this))

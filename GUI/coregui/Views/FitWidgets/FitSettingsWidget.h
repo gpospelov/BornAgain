@@ -20,7 +20,7 @@
 #include "WinDllMacros.h"
 #include <QWidget>
 
-class FitModel;
+class ObsoleteFitModel;
 class FitParameterWidget;
 class QComboBox;
 
@@ -30,7 +30,7 @@ class BA_CORE_API_ FitSettingsWidget : public QWidget
     Q_OBJECT
 
 public:
-    FitSettingsWidget(FitModel *fitModel, QWidget *parent);
+    FitSettingsWidget(ObsoleteFitModel *fitModel, QWidget *parent);
 
     //! we update GUI when widget is shown
     void showEvent(QShowEvent *);
@@ -48,7 +48,7 @@ public slots:
     void onInstrumentChanged(int index);
 
 private:
-    FitModel *m_fitModel;
+    ObsoleteFitModel *m_fitModel;
     FitParameterWidget *m_fitParameter;
     QComboBox *m_sampleCombo;
     QComboBox *m_instrumentCombo;

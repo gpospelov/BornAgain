@@ -38,9 +38,8 @@ class MaterialSvc;
 class SampleModel;
 class InstrumentModel;
 class JobModel;
-class FitModel;
+class ObsoleteFitModel;
 class ApplicationModels;
-
 class ProjectManager;
 class ActionManager;
 class QSettings;
@@ -61,7 +60,7 @@ public:
     InstrumentModel *instrumentModel();
     SampleModel *sampleModel();
     JobModel *jobModel();
-    FitModel *fitModel();
+    ObsoleteFitModel *fitModel();
     ApplicationModels *models();
 
     Manhattan::ProgressBar *getProgressBar() { return m_progressBar; }

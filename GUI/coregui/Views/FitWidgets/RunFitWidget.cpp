@@ -22,7 +22,7 @@
 #include "FitProgressWidget.h"
 #include "SampleModel.h"
 #include "InstrumentModel.h"
-#include "FitModel.h"
+#include "ObsoleteFitModel.h"
 #include "DomainSimulationBuilder.h"
 #include "FitParameterItems.h"
 #include "SessionItem.h"
@@ -42,7 +42,7 @@
 #include <QFileInfo>
 #include <QDebug>
 
-RunFitWidget::RunFitWidget(FitModel *fitModel, QWidget *parent)
+RunFitWidget::RunFitWidget(ObsoleteFitModel *fitModel, QWidget *parent)
     : QWidget(parent)
     , m_start_button(new QPushButton())
     , m_stop_button(new QPushButton())

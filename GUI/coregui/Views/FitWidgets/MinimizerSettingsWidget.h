@@ -20,14 +20,14 @@
 #include "WinDllMacros.h"
 #include <QWidget>
 
-class FitModel;
+class ObsoleteFitModel;
 
 class BA_CORE_API_ MinimizerSettingsWidget : public QWidget
 {
     Q_OBJECT
 
 public:
-    MinimizerSettingsWidget(FitModel *fitModel, QWidget *parent = 0);
+    MinimizerSettingsWidget(ObsoleteFitModel *fitModel, QWidget *parent = 0);
 };
 
 

@@ -18,7 +18,7 @@
 #include "RunFitWidget.h"
 #include "mainwindow.h"
 #include "FitSettingsWidget.h"
-#include "FitModel.h"
+#include "ObsoleteFitModel.h"
 #include "ImportDataWidget.h"
 #include "projectmanager.h"
 #include <QVBoxLayout>

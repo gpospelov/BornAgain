@@ -27,7 +27,7 @@ class QPushButton;
 class RunFitManager;
 class FitSuite;
 class FitProgressWidget;
-class FitModel;
+class ObsoleteFitModel;
 class SampleModel;
 class InstrumentModel;
 class SessionItem;
@@ -38,7 +38,7 @@ class BA_CORE_API_ RunFitWidget : public QWidget
     Q_OBJECT
 
 public:
-    RunFitWidget(FitModel *fitModel, QWidget *parent = 0);
+    RunFitWidget(ObsoleteFitModel *fitModel, QWidget *parent = 0);
 
     std::shared_ptr<FitSuite> init_test_fitsuite(); // test only
 
@@ -56,7 +56,7 @@ private:
     QSlider *m_interval_slider;
     RunFitManager *m_runfitmanager;
     FitProgressWidget *m_fitprogress;
-    FitModel *m_fitModel;
+    ObsoleteFitModel *m_fitModel;
 
     SessionItem *getTopItemFromSelection(
         SessionModel *model, const QString &itemType, const QString &selectionType);

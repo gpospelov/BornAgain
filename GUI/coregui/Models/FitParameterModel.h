@@ -21,7 +21,7 @@
 #include "SessionModel.h"
 #include <QMap>
 
-class FitModel;
+class ObsoleteFitModel;
 class QModelIndex;
 class QParameterizedItem;
 
@@ -31,7 +31,7 @@ class BA_CORE_API_ FitParameterModel : public SessionModel
     Q_OBJECT
 
 public:
-    explicit FitParameterModel(FitModel *fitmodel, QWidget *parent);
+    explicit FitParameterModel(ObsoleteFitModel *fitmodel, QWidget *parent);
     ~FitParameterModel();
     QModelIndex itemForLink(const QString &link) const;
 

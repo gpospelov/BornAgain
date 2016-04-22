@@ -22,7 +22,7 @@
 
 class QLineEdit;
 class ColorMapPlot;
-class FitModel;
+class ObsoleteFitModel;
 
 class BA_CORE_API_ ImportDataWidget : public QWidget
 {
@@ -30,7 +30,7 @@ class BA_CORE_API_ ImportDataWidget : public QWidget
 
 public:
     //! TOY: loads file from path and plot data
-    ImportDataWidget(FitModel *fitModel, QWidget *parent = 0);
+    ImportDataWidget(ObsoleteFitModel *fitModel, QWidget *parent = 0);
 
     void showEvent(QShowEvent *);
 
@@ -44,7 +44,7 @@ public slots:
 private:
     QLineEdit *m_line;
     ColorMapPlot *m_plot;
-    FitModel *m_fitModel;
+    ObsoleteFitModel *m_fitModel;
 };
 
 #endif

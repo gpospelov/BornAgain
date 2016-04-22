@@ -29,7 +29,7 @@ class FitSelectorModel;
 class QMenu;
 class SampleModel;
 class InstrumentModel;
-class FitModel;
+class ObsoleteFitModel;
 class SessionItem;
 class FitParameterModel;
 class QItemSelection;
@@ -42,7 +42,7 @@ class BA_CORE_API_ FitParameterWidget : public QWidget
 
 public:
     static const QString MIME_TYPE;
-    FitParameterWidget(FitModel *fitModel, QWidget *parent = 0);
+    FitParameterWidget(ObsoleteFitModel *fitModel, QWidget *parent = 0);
 
     void clearParameter();
 public slots:
@@ -65,7 +65,7 @@ private:
     void buildTree(QStandardItem *root, SessionItem *top);
     void removeEmptyParameter();
 
-    FitModel *m_fitModel;
+    ObsoleteFitModel *m_fitModel;
     QTreeView *m_selectorTreeView;
     QTreeView *m_parameterTreeview;
     FitSelectorModel *m_selectorModel;

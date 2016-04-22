@@ -16,7 +16,7 @@
 
 #include "FitSettingsWidget.h"
 #include "FitParameterWidget.h"
-#include "FitModel.h"
+#include "ObsoleteFitModel.h"
 
 #include <QVBoxLayout>
 #include <QHBoxLayout>
@@ -24,7 +24,7 @@
 #include <QLabel>
 
 
-FitSettingsWidget::FitSettingsWidget(FitModel *fitModel, QWidget *parent)
+FitSettingsWidget::FitSettingsWidget(ObsoleteFitModel *fitModel, QWidget *parent)
     : QWidget(parent)
     , m_fitModel(fitModel)
     , m_fitParameter(new FitParameterWidget(m_fitModel, this))

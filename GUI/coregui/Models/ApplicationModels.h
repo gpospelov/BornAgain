@@ -27,7 +27,7 @@ class MaterialSvc;
 class InstrumentModel;
 class SampleModel;
 class JobModel;
-class FitModel;
+class ObsoleteFitModel;
 
 class BA_CORE_API_ ApplicationModels : public QObject
 {
@@ -41,7 +41,7 @@ public:
     InstrumentModel *instrumentModel();
     SampleModel *sampleModel();
     JobModel *jobModel();
-    FitModel *fitModel();
+    ObsoleteFitModel *fitModel();
 
     void resetModels();
 
@@ -55,7 +55,6 @@ private:
     void createInstrumentModel();
     void createSampleModel();
     void createJobModel();
-    void createFitModel();
     void testGUIObjectBuilder();
 
     void disconnectModel(SessionModel *model);
@@ -67,7 +66,6 @@ private:
     InstrumentModel *m_instrumentModel;
     SampleModel *m_sampleModel;
     JobModel *m_jobModel;
-    FitModel *m_fitModel;
 };
 
 #endif

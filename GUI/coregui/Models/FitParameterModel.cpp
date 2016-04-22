@@ -16,7 +16,7 @@
 
 #include "FitParameterModel.h"
 #include "SessionModel.h"
-#include "FitModel.h"
+#include "ObsoleteFitModel.h"
 #include "FitParameterItems.h"
 #include "FitParameterWidget.h"
 
@@ -24,7 +24,7 @@
 
 
 
-FitParameterModel::FitParameterModel(FitModel *fitmodel, QWidget *parent)
+FitParameterModel::FitParameterModel(ObsoleteFitModel *fitmodel, QWidget *parent)
     : SessionModel("FitParameterModel", parent)
     , m_columnNames(new QMap<int, QString>())
 {

@@ -15,13 +15,13 @@
 // ************************************************************************** //
 
 #include "MinimizerSettingsWidget.h"
-#include "FitModel.h"
+#include "ObsoleteFitModel.h"
 #include "ComponentEditor.h"
 #include "FitParameterItems.h"
 #include <QHBoxLayout>
 #include <QSplitter>
 
-MinimizerSettingsWidget::MinimizerSettingsWidget(FitModel *fitModel, QWidget *parent)
+MinimizerSettingsWidget::MinimizerSettingsWidget(ObsoleteFitModel *fitModel, QWidget *parent)
     : QWidget(parent)
 {
     QHBoxLayout *layout = new QHBoxLayout;

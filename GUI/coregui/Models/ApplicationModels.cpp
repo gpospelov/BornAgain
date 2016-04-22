@@ -21,7 +21,6 @@
 #include "InstrumentModel.h"
 #include "SampleModel.h"
 #include "JobModel.h"
-#include "FitModel.h"
 #include "IconProvider.h"
 #include "SampleBuilderFactory.h"
 
@@ -33,7 +32,6 @@ ApplicationModels::ApplicationModels(QObject *parent)
     , m_instrumentModel(0)
     , m_sampleModel(0)
     , m_jobModel(0)
-    , m_fitModel(0)
 {
     createModels();
     testGUIObjectBuilder();
@@ -75,9 +73,9 @@ JobModel *ApplicationModels::jobModel()
     return m_jobModel;
 }
 
-FitModel *ApplicationModels::fitModel()
+ObsoleteFitModel *ApplicationModels::fitModel()
 {
-    return m_fitModel;
+    return 0;
 }
 
 //! reset all models to initial state
@@ -101,15 +99,6 @@ void ApplicationModels::resetModels()
     instrument->setItemName("Default GISAS");
     m_instrumentModel->insertNewItem(Constants::DetectorType, m_instrumentModel->indexOfItem(instrument));
     m_instrumentModel->insertNewItem(Constants::BeamType, m_instrumentModel->indexOfItem(instrument));
-
-    /*m_fitModel->clear();
-    m_fitModel->insertNewItem(Constants::FitParameterContainerType, QModelIndex());
-    SessionItem *selection = m_fitModel->insertNewItem(Constants::FitSelectionType, QModelIndex());
-    selection->setRegisteredProperty(FitSelectionItem::P_SAMPLE, "MultiLayer");
-    selection->setRegisteredProperty(FitSelectionItem::P_INSTRUMENT, "Instrument0");
-    m_fitModel->insertNewItem(Constants::MinimizerSettingsType, QModelIndex());
-    m_fitModel->insertNewItem(Constants::InputDataType, QModelIndex());*/
-
 }
 
 //! creates and initializes models, order is important
@@ -124,8 +113,6 @@ void ApplicationModels::createModels()
     createInstrumentModel();
 
     createJobModel();
-
-    //createFitModel();
 
     resetModels();
 }
@@ -168,13 +155,6 @@ void ApplicationModels::createInstrumentModel()
     m_instrumentModel = new InstrumentModel(this);
     connectModel(m_instrumentModel);
     m_instrumentModel->setIconProvider(new IconProvider());
-}
-
-void ApplicationModels::createFitModel()
-{
-    delete m_fitModel;
-    m_fitModel = new FitModel(m_sampleModel, m_instrumentModel, this);
-    connectModel(m_fitModel);
 }
 
 void ApplicationModels::testGUIObjectBuilder()

@@ -21,7 +21,6 @@
 #include "InstrumentModel.h"
 #include "JobQueueData.h"
 #include "JobModel.h"
-#include "FitModel.h"
 #include "JobItem.h"
 #include "IntensityDataItem.h"
 #include "SampleModel.h"

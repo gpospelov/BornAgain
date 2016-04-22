@@ -48,7 +48,7 @@ GISASSimulation *DomainSimulationBuilder::getSimulation(const MultiLayerItem *sa
                                                         const InstrumentItem *instrumentItem,
                                                         const SimulationOptionsItem *optionsItem)
 {
-    if(sampleItem == nullptr || instrumentItem==nullptr || optionsItem == nullptr) {
+    if(sampleItem == nullptr || instrumentItem==nullptr) {
         QString message("DomainSimulationBuilder::getSimulation() -> Error. Either MultiLayerItem "
                         " or InstrumentItem is not defined.");
         throw GUIHelpers::Error(message);

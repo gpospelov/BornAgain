@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/FitModel.h
-//! @brief     Declares class FitModel
+//! @file      coregui/Models/ObsoleteFitModel.h
+//! @brief     Declares class ObsoleteFitModel
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,8 +13,8 @@
 //! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
-#ifndef FITMODEL_H
-#define FITMODEL_H
+#ifndef OBSOLETEFITMODEL_H
+#define OBSOLETEFITMODEL_H
 
 #include "SessionModel.h"
 #include <QVector>
@@ -29,13 +29,13 @@ class MinimizerSettingsItem;
 class InputDataItem;
 
 
-class BA_CORE_API_ FitModel : public SessionModel
+class BA_CORE_API_ ObsoleteFitModel : public SessionModel
 {
     Q_OBJECT
 
 public:
     //! constructs model with pointers to Sample- und InstrumentModels (read-only access)
-    explicit FitModel(SampleModel *samples, InstrumentModel *instruments, QObject *parent = 0);
+    explicit ObsoleteFitModel(SampleModel *samples, InstrumentModel *instruments, QObject *parent = 0);
 
     //! returns child of type FitParameterContainer
     FitParameterContainer *getFitParameterContainer();

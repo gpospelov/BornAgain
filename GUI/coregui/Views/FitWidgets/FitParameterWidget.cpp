@@ -15,7 +15,7 @@
 // ************************************************************************** //
 
 #include "FitParameterWidget.h"
-#include "FitModel.h"
+#include "ObsoleteFitModel.h"
 #include "FitParameterItems.h"
 #include "FitParameterModel.h"
 #include "FitSelectorModel.h"
@@ -40,7 +40,7 @@
 
 const QString FitParameterWidget::MIME_TYPE = "application/org.bornagainproject.fittinglink";
 
-FitParameterWidget::FitParameterWidget(FitModel *fitModel, QWidget *parent)
+FitParameterWidget::FitParameterWidget(ObsoleteFitModel *fitModel, QWidget *parent)
     : QWidget(parent)
     , m_fitModel(fitModel)
     , m_selectorTreeView(new QTreeView())

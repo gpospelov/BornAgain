@@ -141,9 +141,10 @@ JobModel *MainWindow::jobModel()
     return models()->jobModel();
 }
 
-FitModel *MainWindow::fitModel()
+ObsoleteFitModel *MainWindow::fitModel()
 {
-    return models()->fitModel();
+    Q_ASSERT(0);
+    return 0;
 }
 
 ApplicationModels *MainWindow::models()

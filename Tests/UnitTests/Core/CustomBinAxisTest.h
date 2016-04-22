@@ -4,7 +4,6 @@
 #include "CustomBinAxis.h"
 #include "OutputDataIOHelper.h"
 #include "Units.h"
-#include "gtest/gtest.h"
 #include <vector>
 
 class CusomBinAxisTest: public ::testing::Test

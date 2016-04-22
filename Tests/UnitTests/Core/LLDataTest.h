@@ -6,7 +6,6 @@
 #include "IMaterial.h"
 #include "Types.h"
 
-#include "gtest/gtest.h"
 
 class LLDataTest : public ::testing::Test
 {

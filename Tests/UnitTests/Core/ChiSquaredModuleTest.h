@@ -5,7 +5,6 @@
 #include "ISquaredFunction.h"
 #include "BornAgainNamespace.h"
 
-#include "gtest/gtest.h"
 
 
 class ChiSquaredModuleTest : public ::testing::Test

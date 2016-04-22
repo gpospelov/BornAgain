@@ -5,7 +5,6 @@
 #include "GISASSimulation.h"
 #include "SimulationElement.h"
 #include "Numeric.h"
-#include "gtest/gtest.h"
 #include <memory>
 #include <iostream>
 

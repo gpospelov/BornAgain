@@ -18,7 +18,6 @@
 
 #include "ThreadInfo.h"
 
-#include "gtest/gtest.h"
 
 class ThreadInfoTest : public ::testing::Test
 {

@@ -3,7 +3,6 @@
 
 #include "Utils.h"
 #include "INamed.h"
-#include "gtest/gtest.h"
 #include <map>
 #include <iostream>
 #include <memory>

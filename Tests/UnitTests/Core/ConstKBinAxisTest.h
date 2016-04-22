@@ -4,7 +4,6 @@
 #include "ConstKBinAxis.h"
 #include "OutputDataIOHelper.h"
 #include "Units.h"
-#include "gtest/gtest.h"
 #include <vector>
 
 class ConstKBinAxisTest: public ::testing::Test

@@ -4,7 +4,6 @@
 #include "AttLimits.h"
 #include <limits>
 
-#include "gtest/gtest.h"
 
 
 class AttLimitsTest : public ::testing::Test

@@ -5,9 +5,6 @@
 #include "DWBASimulation.h"
 #include "MultiLayer.h"
 #include "OutputDataFunctions.h"
-#include "gtest/gtest.h"
-
-
 class DWBASimulationTest : public ::testing::Test
 {
  protected:

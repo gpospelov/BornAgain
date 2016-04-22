@@ -3,7 +3,7 @@
 
 #include "DetectorMask.h"
 #include "SphericalDetector.h"
-#include "gtest/gtest.h"
+#include "Polygon.h"
 #include <memory>
 
 class DetectorMaskTest : public ::testing::Test

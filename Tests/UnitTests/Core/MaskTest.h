@@ -4,7 +4,6 @@
 #include "Mask.h"
 #include "OutputData.h"
 
-#include "gtest/gtest.h"
 
 class MaskTest : public ::testing::Test
 {

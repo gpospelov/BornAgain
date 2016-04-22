@@ -3,7 +3,6 @@
 
 #include "CumulativeValue.h"
 
-#include "gtest/gtest.h"
 
 class CumulativeValueTest : public ::testing::Test
 {

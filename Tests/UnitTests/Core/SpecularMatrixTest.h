@@ -2,7 +2,6 @@
 #define SPECULARMATRIXTEST_H
 
 #include "SpecularMatrix.h"
-#include "gtest/gtest.h"
 
 class SpecularMatrixTest : public ::testing :: Test
 {

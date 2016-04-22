@@ -3,7 +3,6 @@
 
 #include "FixedBinAxis.h"
 #include "OutputDataIOHelper.h"
-#include "gtest/gtest.h"
 #include <iostream>
 
 class FixedBinAxisTest: public ::testing::Test

@@ -3,7 +3,6 @@
 
 #include "Histogram2D.h"
 #include <memory>
-#include "gtest/gtest.h"
 
 class Histogram2DTest : public ::testing::Test
 {

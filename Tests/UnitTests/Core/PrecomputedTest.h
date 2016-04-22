@@ -2,7 +2,6 @@
 #define PRECOMPUTEDTEST_H
 
 #include "Precomputed.h"
-#include "gtest/gtest.h"
 #include <memory>
 
 class PrecomputedTest : public ::testing::Test

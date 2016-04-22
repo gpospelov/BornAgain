@@ -20,12 +20,11 @@
 #include "BornAgainNamespace.h"
 #include "IFormFactorBorn.h"
 #include "ParticleShapes.h"
-#include "gtest/gtest.h"
 
 class FormFactorTest : public ::testing::Test
 {
 protected:
-    FormFactorTest(){}
+    FormFactorTest() {}
     void clone_test( const IFormFactorBorn* ff )
     {
         IFormFactorBorn* clone = ff->clone();
@@ -148,8 +147,7 @@ TEST_F(FormFactorTest, Cuboctahedron)
     double H2divLtga = height*2./length/tga;
     double ratioH2divLtga = height_ratio*height*2./length/tga;
     double volume = 1./6.*tga*length*length*length*( 2.
-         - (1. - H2divLtga)*(1. - H2divLtga)*(1. - H2divLtga)
-           - (1. - ratioH2divLtga)*(1. - ratioH2divLtga)*(1. - ratioH2divLtga));
+         - (1. - H2divLtga)*(1. - H2divLtga)*(1. - H2divLtga)           - (1. - ratioH2divLtga)*(1. - ratioH2divLtga)*(1. - ratioH2divLtga));
 
     FormFactorCuboctahedron cuboctahedron(length, height, height_ratio, alpha);
 

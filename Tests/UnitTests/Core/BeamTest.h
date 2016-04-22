@@ -5,7 +5,6 @@
 #include "BornAgainNamespace.h"
 #include "Units.h"
 #include "ParameterPool.h"
-#include "gtest/gtest.h"
 
 #include <memory>
 

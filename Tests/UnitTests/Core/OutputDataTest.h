@@ -10,7 +10,6 @@
 #include "ThreadInfo.h"
 
 
-#include "gtest/gtest.h"
 
 class OutputDataTest : public ::testing::Test
 {

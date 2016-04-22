@@ -1,7 +1,6 @@
 #ifndef SPECULARSIMULATIONTEST_H
 #define SPECULARSIMULATIONTEST_H
 
-#include "gtest/gtest.h"
 #include "SpecularSimulation.h"
 #include "Exceptions.h"
 #include "FixedBinAxis.h"

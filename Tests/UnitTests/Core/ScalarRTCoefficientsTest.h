@@ -2,7 +2,6 @@
 #define SCALARRTCOEFFICIENTS_H
 
 #include "ScalarRTCoefficients.h"
-#include "gtest/gtest.h"
 
 class ScalarRTCoefficientsTest : public ::testing :: Test
 {

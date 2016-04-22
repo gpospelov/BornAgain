@@ -3,7 +3,6 @@
 
 
 
-#include "gtest/gtest.h"
 #include "IntensityDataFunctions.h"
 #include "VariableBinAxis.h"
 

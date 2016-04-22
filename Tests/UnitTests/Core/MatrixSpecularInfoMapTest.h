@@ -4,7 +4,6 @@
 #include "Units.h"
 #include "MatrixRTCoefficients.h"
 #include "MatrixSpecularInfoMap.h"
-#include "gtest/gtest.h"
 
 #include <memory>
 

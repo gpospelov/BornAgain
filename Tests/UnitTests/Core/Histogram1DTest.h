@@ -4,7 +4,6 @@
 #include "Histogram1D.h"
 #include "Exceptions.h"
 #include <memory>
-#include "gtest/gtest.h"
 
 class Histogram1DTest : public ::testing::Test
 {

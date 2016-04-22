@@ -2,7 +2,6 @@
 #define MATRIXRTCOEFFICIENTSTEST_H
 
 #include "MatrixRTCoefficients.h"
-#include "gtest/gtest.h"
 
 
 class MatrixRTCoefficientsTest : public ::testing :: Test

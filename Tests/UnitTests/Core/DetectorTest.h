@@ -11,7 +11,6 @@
 #include "Polygon.h"
 #include <memory>
 
-#include "gtest/gtest.h"
 
 
 class DetectorTest : public ::testing::Test

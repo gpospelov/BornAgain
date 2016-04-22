@@ -5,7 +5,6 @@
 #include "Ellipse.h"
 #include "Line.h"
 #include "Units.h"
-#include "gtest/gtest.h"
 #include <memory>
 
 class Shape2DTest : public ::testing::Test

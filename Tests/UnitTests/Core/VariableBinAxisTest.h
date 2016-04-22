@@ -3,7 +3,6 @@
 
 #include "VariableBinAxis.h"
 #include "OutputDataIOHelper.h"
-#include "gtest/gtest.h"
 
 class VariableBinAxisTest: public ::testing::Test
 {

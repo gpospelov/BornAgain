@@ -2,7 +2,6 @@
 #define HOMOGENEOUSMAGNETICMATERIALTEST_H
 
 #include "HomogeneousMagneticMaterial.h"
-#include "gtest/gtest.h"
 
 class HomogeneousMagneticMaterialTest : public ::testing::Test
 {

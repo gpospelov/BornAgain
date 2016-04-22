@@ -3,7 +3,6 @@
 
 #include "OutputDataIterator.h"
 
-#include "gtest/gtest.h"
 
 class OutputDataIteratorTest : public ::testing::Test
 {

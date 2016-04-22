@@ -10,7 +10,6 @@
 
 #include <memory>
 #include <cmath>
-#include "gtest/gtest.h"
 
 
 class GISASSimulationTest : public ::testing::Test

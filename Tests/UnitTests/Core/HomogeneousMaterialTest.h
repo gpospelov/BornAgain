@@ -2,7 +2,6 @@
 #define HOMOGENEOUSMATERIALTEST_H
 
 #include "HomogeneousMaterial.h"
-#include "gtest/gtest.h"
 
 class HomogeneousMaterialTest : public ::testing :: Test
 {

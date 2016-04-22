@@ -4,7 +4,6 @@
 #include "Units.h"
 #include "ScalarRTCoefficients.h"
 #include "ScalarSpecularInfoMap.h"
-#include "gtest/gtest.h"
 
 #include <memory>
 

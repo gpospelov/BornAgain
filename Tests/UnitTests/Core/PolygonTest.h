@@ -2,7 +2,6 @@
 #define POLYGONTEST_H
 
 #include "Polygon.h"
-#include "gtest/gtest.h"
 #include <memory>
 
 class PolygonTest : public ::testing::Test

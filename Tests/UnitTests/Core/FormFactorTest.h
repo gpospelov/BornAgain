@@ -18,13 +18,22 @@
 
 #include "Units.h"
 #include "BornAgainNamespace.h"
-#include "FormFactors.h"
+#include "IFormFactorBorn.h"
+#include "ParticleShapes.h"
 #include "gtest/gtest.h"
 
 class FormFactorTest : public ::testing::Test
 {
 protected:
     FormFactorTest(){}
+    void clone_test( const IFormFactorBorn* ff )
+    {
+        IFormFactorBorn* clone = ff->clone();
+        EXPECT_EQ(clone->getName(), ff->getName());
+        EXPECT_EQ(clone->getVolume(), ff->getVolume());
+        cvector_t q(.1, .2, complex_t(.3, .004));
+        EXPECT_EQ(clone->evaluate_for_q(q), ff->evaluate_for_q(q));
+    }
 };
 
 TEST_F(FormFactorTest, AnisoPyramid)
@@ -34,9 +43,8 @@ TEST_F(FormFactorTest, AnisoPyramid)
     double width = 14.;
     double alpha = 0.8;
     double tga = std::tan(alpha);
-    double volume = height*(length*width
-                            - (length + width)*height/tga
-                            + 4.0/3.0*height*height/(tga*tga));
+    double volume = height*
+        (length*width - (length + width)*height/tga + 4.0/3.0*height*height/(tga*tga));
 
     FormFactorAnisoPyramid anisopyramid(length, width, height, alpha);
 
@@ -47,13 +55,7 @@ TEST_F(FormFactorTest, AnisoPyramid)
     EXPECT_EQ(5., anisopyramid.getHeight());
     EXPECT_EQ(0.8, anisopyramid.getAlpha());
 
-    FormFactorAnisoPyramid *anisopyramidclone = anisopyramid.clone();
-    EXPECT_EQ(BornAgain::FFAnisoPyramidType, anisopyramidclone->getName());
-    EXPECT_DOUBLE_EQ(volume, anisopyramidclone->getVolume());
-    EXPECT_EQ(12., anisopyramidclone->getLength());
-    EXPECT_EQ(14., anisopyramidclone->getWidth());
-    EXPECT_EQ(5., anisopyramidclone->getHeight());
-    EXPECT_EQ(0.8, anisopyramidclone->getAlpha());
+    clone_test( &anisopyramid );
 }
 
 TEST_F(FormFactorTest, HemiEllipsoid)
@@ -72,12 +74,7 @@ TEST_F(FormFactorTest, HemiEllipsoid)
     EXPECT_EQ(5., hemiellipsoid.getHeight());
     EXPECT_DOUBLE_EQ(volume, hemiellipsoid.getVolume());
 
-    FormFactorHemiEllipsoid *hemiellipsoidclone = hemiellipsoid.clone();
-    EXPECT_EQ(BornAgain::FFHemiEllipsoidType, hemiellipsoidclone->getName());
-    EXPECT_EQ(6., hemiellipsoidclone->getRadiusX());
-    EXPECT_EQ(7., hemiellipsoidclone->getRadiusY());
-    EXPECT_EQ(5., hemiellipsoidclone->getHeight());
-    EXPECT_DOUBLE_EQ(volume, hemiellipsoidclone->getVolume());
+    clone_test( &hemiellipsoid );
 }
 
 TEST_F(FormFactorTest, Box)
@@ -95,12 +92,7 @@ TEST_F(FormFactorTest, Box)
     EXPECT_EQ(3., box.getRadius());
     EXPECT_DOUBLE_EQ(volume, box.getVolume());
 
-    FormFactorBox *boxclone = box.clone();
-    EXPECT_EQ(BornAgain::FFBoxType, boxclone->getName());
-    EXPECT_EQ(7., boxclone->getWidth());
-    EXPECT_EQ(5., boxclone->getHeight());
-    EXPECT_EQ(3., boxclone->getRadius());
-    EXPECT_DOUBLE_EQ(volume, boxclone->getVolume());
+    clone_test( &box );
 }
 
 TEST_F(FormFactorTest, Cone)
@@ -121,12 +113,7 @@ TEST_F(FormFactorTest, Cone)
     EXPECT_EQ(0.8, cone.getAlpha());
     EXPECT_DOUBLE_EQ(volume, cone.getVolume());
 
-    FormFactorCone *coneclone = cone.clone();
-    EXPECT_EQ(BornAgain::FFConeType, coneclone->getName());
-    EXPECT_EQ(6., coneclone->getRadius());
-    EXPECT_EQ(5., coneclone->getHeight());
-    EXPECT_EQ(0.8, coneclone->getAlpha());
-    EXPECT_DOUBLE_EQ(volume, coneclone->getVolume());
+    clone_test( &cone );
 }
 
 TEST_F(FormFactorTest, Cone6)
@@ -147,12 +134,7 @@ TEST_F(FormFactorTest, Cone6)
     EXPECT_EQ(0.8, cone6.getAlpha());
     EXPECT_DOUBLE_EQ(volume, cone6.getVolume());
 
-    FormFactorCone6 *cone6clone = cone6.clone();
-    EXPECT_EQ(BornAgain::FFCone6Type, cone6clone->getName());
-    EXPECT_EQ(6., cone6clone->getBaseEdge());
-    EXPECT_EQ(5., cone6clone->getHeight());
-    EXPECT_EQ(0.8, cone6clone->getAlpha());
-    EXPECT_DOUBLE_EQ(volume, cone6clone->getVolume());
+    clone_test( &cone6 );
 }
 
 TEST_F(FormFactorTest, Cuboctahedron)
@@ -169,8 +151,7 @@ TEST_F(FormFactorTest, Cuboctahedron)
          - (1. - H2divLtga)*(1. - H2divLtga)*(1. - H2divLtga)
            - (1. - ratioH2divLtga)*(1. - ratioH2divLtga)*(1. - ratioH2divLtga));
 
-    FormFactorCuboctahedron cuboctahedron(length, height,
-                                          height_ratio, alpha);
+    FormFactorCuboctahedron cuboctahedron(length, height, height_ratio, alpha);
 
     EXPECT_EQ(BornAgain::FFCuboctahedronType, cuboctahedron.getName());
     EXPECT_EQ(4., cuboctahedron.getHeight());
@@ -179,13 +160,7 @@ TEST_F(FormFactorTest, Cuboctahedron)
     EXPECT_EQ(0.8, cuboctahedron.getAlpha());
     EXPECT_DOUBLE_EQ(volume, cuboctahedron.getVolume());
 
-    FormFactorCuboctahedron *cuboctahedronclone = cuboctahedron.clone();
-    EXPECT_EQ(BornAgain::FFCuboctahedronType, cuboctahedronclone->getName());
-    EXPECT_EQ(4., cuboctahedronclone->getHeight());
-    EXPECT_EQ(10., cuboctahedronclone->getLength());
-    EXPECT_EQ(1., cuboctahedronclone->getHeightRatio());
-    EXPECT_EQ(0.8, cuboctahedronclone->getAlpha());
-    EXPECT_DOUBLE_EQ(volume, cuboctahedron.getVolume());
+    clone_test( &cuboctahedron );
 }
 
 TEST_F(FormFactorTest, Cylinder)
@@ -195,16 +170,13 @@ TEST_F(FormFactorTest, Cylinder)
     double volume = Units::PI*radius*radius*height;
 
     FormFactorCylinder cylinder(radius,height);
+
     EXPECT_EQ(BornAgain::FFCylinderType, cylinder.getName());
     EXPECT_EQ(5., cylinder.getHeight());
     EXPECT_EQ(3., cylinder.getRadius());
     EXPECT_DOUBLE_EQ(volume, cylinder.getVolume());
 
-    FormFactorCylinder *cylinderclone = cylinder.clone();
-    EXPECT_EQ(BornAgain::FFCylinderType, cylinderclone->getName());
-    EXPECT_EQ(5., cylinderclone->getHeight());
-    EXPECT_EQ(3., cylinderclone-> getRadius());
-    EXPECT_DOUBLE_EQ(volume, cylinderclone-> getVolume());
+    clone_test( &cylinder );
 }
 
 TEST_F(FormFactorTest, Dodecahedron)
@@ -217,10 +189,7 @@ TEST_F(FormFactorTest, Dodecahedron)
     EXPECT_EQ(edge, dodecahedron.getEdge());
     EXPECT_DOUBLE_EQ(volume, dodecahedron.getVolume());
 
-    FormFactorDodecahedron *dodecahedronclone = dodecahedron.clone();
-    EXPECT_EQ(BornAgain::FFDodecahedronType, dodecahedronclone->getName());
-    EXPECT_EQ(edge, dodecahedronclone->getEdge());
-    EXPECT_DOUBLE_EQ(volume, dodecahedronclone-> getVolume());
+    clone_test( &dodecahedron );
 }
 
 TEST_F(FormFactorTest, EllipsoidalCylinder)
@@ -238,12 +207,7 @@ TEST_F(FormFactorTest, EllipsoidalCylinder)
     EXPECT_EQ(5., ellipscyl.getRadiusY());
     EXPECT_DOUBLE_EQ(volume, ellipscyl.getVolume());
 
-    FormFactorEllipsoidalCylinder *ellipscylclone = ellipscyl.clone();
-    EXPECT_EQ(BornAgain::FFEllipsoidalCylinderType, ellipscylclone->getName());
-    EXPECT_EQ(4., ellipscylclone->getHeight());
-    EXPECT_EQ(3., ellipscylclone->getRadiusX());
-    EXPECT_EQ(5., ellipscylclone->getRadiusY());
-    EXPECT_DOUBLE_EQ(volume, ellipscylclone->getVolume());
+    clone_test( &ellipscyl );
 }
 
 TEST_F(FormFactorTest, FullSphere)
@@ -252,15 +216,11 @@ TEST_F(FormFactorTest, FullSphere)
     double volume = 4./3.*Units::PI*radius*radius*radius;
 
     FormFactorFullSphere fullsphere(radius);
-
     EXPECT_EQ(BornAgain::FFFullSphereType, fullsphere.getName());
     EXPECT_EQ(5., fullsphere.getRadius());
     EXPECT_DOUBLE_EQ(volume, fullsphere.getVolume());
 
-    FormFactorFullSphere *fullsphereclone = fullsphere.clone();
-    EXPECT_EQ(BornAgain::FFFullSphereType, fullsphereclone->getName());
-    EXPECT_EQ(5., fullsphereclone->getRadius());
-    EXPECT_DOUBLE_EQ(volume, fullsphereclone->getVolume());
+    clone_test( &fullsphere );
 }
 
 TEST_F(FormFactorTest, FullSpheroid)
@@ -276,11 +236,7 @@ TEST_F(FormFactorTest, FullSpheroid)
     EXPECT_EQ(5., fullspheroid.getHeight());
     EXPECT_DOUBLE_EQ(volume, fullspheroid.getVolume());
 
-    FormFactorFullSpheroid *fullspheroidclone = fullspheroid.clone();
-    EXPECT_EQ(BornAgain::FFFullSpheroidType, fullspheroidclone->getName());
-    EXPECT_EQ(3., fullspheroidclone->getRadius());
-    EXPECT_EQ(5, fullspheroidclone->getHeight());
-    EXPECT_DOUBLE_EQ(volume, fullspheroidclone->getVolume());
+    clone_test( &fullspheroid );
 }
 
 TEST_F(FormFactorTest, Icosahedron)
@@ -289,14 +245,12 @@ TEST_F(FormFactorTest, Icosahedron)
     double volume = 5*(3+sqrt(5))/12*pow(edge,3);
 
     FormFactorIcosahedron icosahedron(edge);
+
     EXPECT_EQ(BornAgain::FFIcosahedronType, icosahedron.getName());
     EXPECT_EQ(edge, icosahedron.getEdge());
     EXPECT_DOUBLE_EQ(volume, icosahedron.getVolume());
 
-    FormFactorIcosahedron *icosahedronclone = icosahedron.clone();
-    EXPECT_EQ(BornAgain::FFIcosahedronType, icosahedronclone->getName());
-    EXPECT_EQ(edge, icosahedronclone->getEdge());
-    EXPECT_DOUBLE_EQ(volume, icosahedronclone-> getVolume());
+    clone_test( &icosahedron );
 }
 
 TEST_F(FormFactorTest, Prism3)
@@ -312,12 +266,7 @@ TEST_F(FormFactorTest, Prism3)
     EXPECT_EQ(6., prism3.getBaseEdge());
     EXPECT_DOUBLE_EQ(volume, prism3.getVolume());
 
-    FormFactorPrism3 *prism3clone = prism3.clone();
-
-    EXPECT_EQ(BornAgain::FFPrism3Type, prism3clone->getName());
-    EXPECT_EQ(4., prism3clone->getHeight());
-    EXPECT_EQ(6., prism3clone->getBaseEdge());
-    EXPECT_DOUBLE_EQ(volume, prism3clone->getVolume());
+    clone_test( &prism3 );
 }
 
 TEST_F(FormFactorTest, Prism6)
@@ -333,12 +282,7 @@ TEST_F(FormFactorTest, Prism6)
     EXPECT_EQ(3., prism6.getBaseEdge());
     EXPECT_DOUBLE_EQ(volume, prism6.getVolume());
 
-    FormFactorPrism6 *prism6clone = prism6.clone();
-
-    EXPECT_EQ(BornAgain::FFPrism6Type, prism6clone->getName());
-    EXPECT_EQ(4., prism6clone->getHeight());
-    EXPECT_EQ(3., prism6clone->getBaseEdge());
-    EXPECT_DOUBLE_EQ(volume, prism6clone->getVolume());
+    clone_test( &prism6 );
 }
 
 TEST_F(FormFactorTest, Pyramid)
@@ -348,8 +292,8 @@ TEST_F(FormFactorTest, Pyramid)
     double alpha = 0.8;
     double tga = std::tan(alpha);
     double H2divLtga = height*2./length/tga;
-    double volume = 1./6.*tga*length* length*length*( 1.
-             - (1. - H2divLtga)*(1. - H2divLtga)*(1. - H2divLtga));
+    double volume = 1./6.*tga*length* length*length*
+        ( 1. - (1. - H2divLtga)*(1. - H2divLtga)*(1. - H2divLtga));
 
     FormFactorPyramid pyramid(length, height, alpha);
 
@@ -359,12 +303,7 @@ TEST_F(FormFactorTest, Pyramid)
     EXPECT_EQ(0.8, pyramid.getAlpha());
     EXPECT_DOUBLE_EQ(volume, pyramid.getVolume());
 
-    FormFactorPyramid *pyramidclone = pyramid.clone();
-    EXPECT_EQ(BornAgain::FFPyramidType, pyramidclone->getName());
-    EXPECT_EQ(4., pyramidclone->getHeight());
-    EXPECT_EQ(10., pyramidclone->getBaseEdge());
-    EXPECT_EQ(0.8, pyramidclone->getAlpha());
-    EXPECT_DOUBLE_EQ(volume, pyramidclone->getVolume());
+    clone_test( &pyramid );
 }
 
 TEST_F(FormFactorTest, TruncatedSphere)
@@ -372,8 +311,8 @@ TEST_F(FormFactorTest, TruncatedSphere)
     double radius = 5.;
     double height = 3.;
     double HdivR = height/radius;
-    double volume = Units::PI/3.*radius*radius*radius
-            *(3.*HdivR -1. - (HdivR - 1.)*(HdivR - 1.)*(HdivR - 1.));
+    double volume = Units::PI/3.*radius*radius*radius*
+            (3.*HdivR -1. - (HdivR - 1.)*(HdivR - 1.)*(HdivR - 1.));
 
     FormFactorTruncatedSphere trsphere(radius, height);
 
@@ -381,9 +320,7 @@ TEST_F(FormFactorTest, TruncatedSphere)
     EXPECT_EQ(3., trsphere.getHeight());
     EXPECT_DOUBLE_EQ(volume, trsphere.getVolume());
 
-    FormFactorTruncatedSphere *trsphereclone = trsphere.clone();
-    EXPECT_EQ(BornAgain::FFTruncatedSphereType, trsphereclone->getName());
-    EXPECT_DOUBLE_EQ(3., trsphereclone->getHeight());
+    clone_test( &trsphere );
 }
 
 TEST_F(FormFactorTest, TruncatedSpheroid)
@@ -391,8 +328,8 @@ TEST_F(FormFactorTest, TruncatedSpheroid)
     double height = 5.;
     double radius = 3.;
     double flattening = 1.5;
-    double volume = Units::PI*radius*height*height/flattening
-            *(1.-height/(3.*flattening*radius));
+    double volume = Units::PI*radius*height*height/flattening*
+            (1.-height/(3.*flattening*radius));
 
     FormFactorTruncatedSpheroid trspheroid(radius, height,flattening);
 
@@ -401,11 +338,7 @@ TEST_F(FormFactorTest, TruncatedSpheroid)
     EXPECT_EQ(3., trspheroid.getRadius());
     EXPECT_DOUBLE_EQ(volume, trspheroid.getVolume());
 
-    FormFactorTruncatedSpheroid *trspheroidclone = trspheroid.clone();
-    EXPECT_EQ(BornAgain::FFTruncatedSpheroidType, trspheroidclone->getName());
-    EXPECT_EQ(5., trspheroidclone->getHeight());
-    EXPECT_EQ(3., trspheroidclone->getRadius());
-    EXPECT_DOUBLE_EQ(volume, trspheroidclone->getVolume());
+    clone_test( &trspheroid );
 }
 
 TEST_F(FormFactorTest, Tetrahedron)
@@ -426,12 +359,7 @@ TEST_F(FormFactorTest, Tetrahedron)
     EXPECT_EQ(0.8, tetrahedron.getAlpha());
     EXPECT_DOUBLE_EQ(volume, tetrahedron.getVolume());
 
-    FormFactorTetrahedron *tetrahedronclone = tetrahedron.clone();
-    EXPECT_EQ(BornAgain::FFTetrahedronType, tetrahedronclone->getName());
-    EXPECT_EQ(4., tetrahedronclone->getHeight());
-    EXPECT_EQ(16., tetrahedronclone->getBaseEdge());
-    EXPECT_EQ(0.8, tetrahedronclone->getAlpha());
-    EXPECT_DOUBLE_EQ(volume, tetrahedronclone->getVolume());
+    clone_test( &tetrahedron );
 }
 
 TEST_F(FormFactorTest, Ripple1)
@@ -449,12 +377,7 @@ TEST_F(FormFactorTest, Ripple1)
     EXPECT_EQ(100., ripple1.getLength());
     EXPECT_DOUBLE_EQ(volume, ripple1.getVolume());
 
-    FormFactorRipple1 *ripple1clone = ripple1.clone();
-    EXPECT_EQ(BornAgain::FFRipple1Type, ripple1clone->getName());
-    EXPECT_DOUBLE_EQ(4., ripple1clone->getHeight());
-    EXPECT_EQ(20., ripple1clone->getWidth());
-    EXPECT_EQ(100., ripple1clone->getLength());
-    EXPECT_DOUBLE_EQ(volume, ripple1clone->getVolume());
+    clone_test( &ripple1 );
 }
 
 TEST_F(FormFactorTest, Ripple2)
@@ -471,9 +394,7 @@ TEST_F(FormFactorTest, Ripple2)
     EXPECT_EQ(4., ripple2.getHeight());
     EXPECT_DOUBLE_EQ(volume, ripple2.getVolume());
 
-    FormFactorRipple2 *ripple2clone = ripple2.clone();
-    EXPECT_EQ(BornAgain::FFRipple2Type, ripple2clone->getName());
-    EXPECT_DOUBLE_EQ(4., ripple2clone->getHeight());
+    clone_test( &ripple2 );
 }
 
 TEST_F(FormFactorTest, TruncatedCube)
@@ -487,14 +408,9 @@ TEST_F(FormFactorTest, TruncatedCube)
     EXPECT_EQ(BornAgain::FFTruncatedCubeType,trcube.getName());
     EXPECT_EQ(length, trcube.getLength());
     EXPECT_DOUBLE_EQ(t, trcube.getRemovedLength());
-    // length or length -2t
     EXPECT_DOUBLE_EQ(trcube.getVolume(), volume);
 
-    FormFactorTruncatedCube *trcubeclone = trcube.clone();
-    EXPECT_EQ(BornAgain::FFTruncatedCubeType, trcubeclone->getName());
-    EXPECT_EQ(length, trcubeclone->getLength());
-    EXPECT_EQ(t, trcubeclone->getRemovedLength());
-    EXPECT_EQ(trcubeclone->getVolume(), volume);
+    clone_test( &trcube );
 }
 
 #endif // FORMFACTORTEST_H

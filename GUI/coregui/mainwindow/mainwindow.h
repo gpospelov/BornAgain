@@ -31,7 +31,7 @@ class InstrumentView;
 class SampleView;
 class SimulationView;
 class JobView;
-class FitView;
+class ObsoleteFitView;
 
 class MaterialModel;
 class MaterialSvc;
@@ -93,7 +93,7 @@ private:
     SampleView *m_sampleView;
     SimulationView *m_simulationView;
     JobView *m_jobView;
-    FitView *m_fitView;
+    ObsoleteFitView *m_fitView;
     Manhattan::ProgressBar *m_progressBar;
     ToolTipDataBase *m_toolTipDataBase;
     UpdateNotifier *m_updateNotifier;

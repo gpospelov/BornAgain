@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/FitView.cpp
-//! @brief     Implements class FitView
+//! @file      coregui/Views/ObsoleteFitView.cpp
+//! @brief     Implements class ObsoleteFitView
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -126,7 +126,7 @@
 // ------------------------------------------------------------------------------------------------
 
 
-FitView::FitView(MainWindow *mainWindow)
+ObsoleteFitView::ObsoleteFitView(MainWindow *mainWindow)
     : QWidget(mainWindow)
     , m_tabs(new QTabWidget)
     , m_importDataWidget(new ImportDataWidget(mainWindow->fitModel(), this))

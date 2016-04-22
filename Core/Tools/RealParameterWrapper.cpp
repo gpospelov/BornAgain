@@ -52,8 +52,6 @@ void RealParameterWrapper::setValue(double value)
 {
     checkNull();
     if(value != *m_data) {
-        std::cout << "DEBUG "<<value<<" was "<<*m_data<<" inrange="<<m_limits.isInRange(value)<<"\n";
-        std::cout << "RANGE "<<m_limits<<"\n";
         if(m_limits.isInRange(value) && !m_limits.isFixed()) {
             *m_data = value;
             m_parent->onChange();

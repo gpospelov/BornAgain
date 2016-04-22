@@ -42,7 +42,8 @@ double FitSuiteGradientFunction::evaluate(const double *pars, unsigned int index
     assert(m_kernel != nullptr);
 
     bool parameters_changed(true);
-    if(m_ncalls_total != 0) parameters_changed = m_kernel->getFitParameters()->valuesAreDifferrent(pars, 2);
+    if(m_ncalls_total != 0)
+        parameters_changed = m_kernel->getFitParameters()->valuesAreDifferent(pars, 2);
 
     verify_arrays();
     verify_minimizer_logic(parameters_changed, (int)index);
@@ -144,5 +145,3 @@ void FitSuiteGradientFunction::runSimulation(const double *pars){
     m_kernel->getFitParameters()->setValues(pars);
     m_kernel->getFitObjects()->runSimulations();
 }
-
-

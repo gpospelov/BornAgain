@@ -29,11 +29,14 @@ TEST_F(RealParameterWrapperTest, ParameterAccess)
     ParametrizedObject obj1;
 
     EXPECT_EQ( obj1.m_par1, 17. );
-    RealParameterWrapper par11 = obj1.getParameterPool()->getParameter("par1");
+    RealParameterWrapper par11 = obj1.getParameter("par1");
     EXPECT_EQ( obj1.m_par1, par11.getValue() );
 
     RealParameterWrapper par12 = par11;
     EXPECT_EQ( obj1.m_par1, par12.getValue() );
+
+    RealParameterWrapper par13 = obj1.getParameterPool()->getParameter("par1");
+    EXPECT_EQ( obj1.m_par1, par13.getValue() );
 
     obj1.m_par1 = 2;
     EXPECT_EQ( par11.getValue(), 2. );

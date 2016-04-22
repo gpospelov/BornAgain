@@ -21,7 +21,6 @@
 
 FitSuiteParameters::FitSuiteParameters()
 {
-
 }
 
 FitSuiteParameters::~FitSuiteParameters()
@@ -73,7 +72,7 @@ FitParameter *FitSuiteParameters::getParameter(const std::string& name)
 //! Sets values for all defined parameters
 void FitSuiteParameters::setValues(const double *pars_values)
 {
-    if( !valuesAreDifferrent(pars_values) ) {
+    if( !valuesAreDifferent(pars_values) ) {
         msglog(MSG::WARNING) << "FitSuiteParameters::setValues() -> Warning! "
                                 "Small or absent change in parameter values.";
         for(size_t i_par=0; i_par<m_parameters.size(); ++i_par) {
@@ -189,14 +188,13 @@ void FitSuiteParameters::link_to_pool(const ParameterPool *pool)
     }
 }
 
-bool FitSuiteParameters::valuesAreDifferrent(const double *pars_values,
+bool FitSuiteParameters::valuesAreDifferent(const double *pars_values,
                                              double tolerance_factor) const
 {
     size_t index(0);
     for(parameters_t::const_iterator it=m_parameters.begin(); it!=m_parameters.end(); ++it) {
-        if( !Numeric::areAlmostEqual(pars_values[index++],
-                                     (*it)->getValue(),
-                                     tolerance_factor )) return true;
+        if( !Numeric::areAlmostEqual(pars_values[index++], (*it)->getValue(), tolerance_factor ))
+            return true;
     }
     return false;
 }

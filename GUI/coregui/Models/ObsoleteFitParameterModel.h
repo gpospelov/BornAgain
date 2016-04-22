@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/FitParameterModel.h
-//! @brief     Declares class FitParameterModel
+//! @file      coregui/Models/ObsoleteFitParameterModel.h
+//! @brief     Declares class ObsoleteFitParameterModel
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FITPARAMETERMODEL_H
-#define FITPARAMETERMODEL_H
+#ifndef OBSOLETEFITPARAMETERMODEL_H
+#define OBSOLETEFITPARAMETERMODEL_H
 
 #include "WinDllMacros.h"
 #include "SessionModel.h"
@@ -26,13 +26,13 @@ class QModelIndex;
 class QParameterizedItem;
 
 
-class BA_CORE_API_ FitParameterModel : public SessionModel
+class BA_CORE_API_ ObsoleteFitParameterModel : public SessionModel
 {
     Q_OBJECT
 
 public:
-    explicit FitParameterModel(ObsoleteFitModel *fitmodel, QWidget *parent);
-    ~FitParameterModel();
+    explicit ObsoleteFitParameterModel(ObsoleteFitModel *fitmodel, QWidget *parent);
+    ~ObsoleteFitParameterModel();
     QModelIndex itemForLink(const QString &link) const;
 
     Qt::ItemFlags flags(const QModelIndex & index) const Q_DECL_OVERRIDE;

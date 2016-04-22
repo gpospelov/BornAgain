@@ -29,7 +29,7 @@ class QPushButton;
 class RunFitManager;
 class GUIFitObserver;
 class QSlider;
-class RealDataWindow;
+class ObsoleteRealDataWindow;
 
 class FitTools : public QWidget
 {
@@ -60,7 +60,7 @@ private:
     QPushButton *m_realData;
     RunFitManager *m_manager;
     std::shared_ptr<GUIFitObserver> m_observer;
-    RealDataWindow *m_realDataWindow;
+    ObsoleteRealDataWindow *m_realDataWindow;
 };
 
 #endif

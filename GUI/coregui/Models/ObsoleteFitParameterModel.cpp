@@ -14,48 +14,48 @@
 //
 // ************************************************************************** //
 
-#include "FitParameterModel.h"
+#include "ObsoleteFitParameterModel.h"
 #include "SessionModel.h"
 #include "ObsoleteFitModel.h"
-#include "FitParameterItems.h"
-#include "FitParameterWidget.h"
+#include "ObsoleteFitParameterItems.h"
+#include "ObsoleteFitParameterWidget.h"
 
 #include <QMimeData>
 
 
 
-FitParameterModel::FitParameterModel(ObsoleteFitModel *fitmodel, QWidget *parent)
+ObsoleteFitParameterModel::ObsoleteFitParameterModel(ObsoleteFitModel *fitmodel, QWidget *parent)
     : SessionModel("FitParameterModel", parent)
     , m_columnNames(new QMap<int, QString>())
 {
     setRootItem(fitmodel->itemForIndex(QModelIndex())->
-            getChildOfType(Constants::FitParameterContainerType));
+            getChildOfType(Constants::ObsoleteFitParameterContainerType));
     m_columnNames->insert(0, "FitParameterItem::OBSOLETE_P_NAME");
-    m_columnNames->insert(1, FitParameterItem::P_USE);
-    m_columnNames->insert(3, FitParameterItem::P_MIN);
-    m_columnNames->insert(2, FitParameterItem::P_INIT);
-    m_columnNames->insert(4, FitParameterItem::P_MAX);
+    m_columnNames->insert(1, ObsoleteFitParameterItem::P_USE);
+    m_columnNames->insert(3, ObsoleteFitParameterItem::P_MIN);
+    m_columnNames->insert(2, ObsoleteFitParameterItem::P_INIT);
+    m_columnNames->insert(4, ObsoleteFitParameterItem::P_MAX);
 }
 
-FitParameterModel::~FitParameterModel()
+ObsoleteFitParameterModel::~ObsoleteFitParameterModel()
 {
     setRootItem(0);
     delete m_columnNames;
 }
 
-SessionItem *FitParameterModel::addParameter()
+SessionItem *ObsoleteFitParameterModel::addParameter()
 {
-    return insertNewItem(Constants::FitParameterType, indexOfItem(itemForIndex(QModelIndex())));
+    return insertNewItem(Constants::ObsoleteFitParameterType, indexOfItem(itemForIndex(QModelIndex())));
 }
 
-QModelIndex FitParameterModel::itemForLink(const QString &link) const
+QModelIndex ObsoleteFitParameterModel::itemForLink(const QString &link) const
 {
     for (int i=0; i<rowCount(QModelIndex()); i++){
         int rowcount = rowCount(index(i,0,QModelIndex()));
         for (int j = 0; j < rowcount; j++) {
             QModelIndex curIndex = index(j,0,index(i,0,QModelIndex()));
             QString value = itemForIndex(curIndex)
-                    ->getItemValue(FitParameterLinkItem::P_LINK).toString();
+                    ->getItemValue(ObsoleteFitParameterLinkItem::P_LINK).toString();
             if (value == link)
                 return curIndex;
         }
@@ -63,7 +63,7 @@ QModelIndex FitParameterModel::itemForLink(const QString &link) const
     return QModelIndex();
 }
 
-Qt::ItemFlags FitParameterModel::flags(const QModelIndex & index) const
+Qt::ItemFlags ObsoleteFitParameterModel::flags(const QModelIndex & index) const
 {
     Qt::ItemFlags returnVal = Qt::ItemIsEnabled | Qt::ItemIsSelectable;
     if (index.isValid() && index.parent() == QModelIndex()) {
@@ -77,14 +77,14 @@ Qt::ItemFlags FitParameterModel::flags(const QModelIndex & index) const
     return returnVal;
 }
 
-QStringList FitParameterModel::mimeTypes() const
+QStringList ObsoleteFitParameterModel::mimeTypes() const
 {
     QStringList types;
-    types << FitParameterWidget::MIME_TYPE;
+    types << ObsoleteFitParameterWidget::MIME_TYPE;
     return types;
 }
 
-bool FitParameterModel::canDropMimeData(const QMimeData *data, Qt::DropAction action,
+bool ObsoleteFitParameterModel::canDropMimeData(const QMimeData *data, Qt::DropAction action,
                                         int row, int column, const QModelIndex &parent) const
 {
     Q_UNUSED(action);
@@ -92,38 +92,38 @@ bool FitParameterModel::canDropMimeData(const QMimeData *data, Qt::DropAction ac
     Q_UNUSED(parent);
     if (column > 0)
         return false;
-    QString link = QString::fromLatin1(data->data(FitParameterWidget::MIME_TYPE)).split("#")[0];
+    QString link = QString::fromLatin1(data->data(ObsoleteFitParameterWidget::MIME_TYPE)).split("#")[0];
     QModelIndex cur = itemForLink(link);
     return !cur.isValid();
 }
 
-Qt::DropActions FitParameterModel::supportedDropActions() const
+Qt::DropActions ObsoleteFitParameterModel::supportedDropActions() const
 {
     return Qt::CopyAction | Qt::MoveAction;
 }
 
-bool FitParameterModel::dropMimeData(const QMimeData *data, Qt::DropAction action, int row,
+bool ObsoleteFitParameterModel::dropMimeData(const QMimeData *data, Qt::DropAction action, int row,
                                      int column, const QModelIndex &parent)
 {
     if (action == Qt::IgnoreAction) return true;
     if (column > 0) return true;
-    QStringList parts = QString::fromLatin1(data->data(FitParameterWidget::MIME_TYPE))
+    QStringList parts = QString::fromLatin1(data->data(ObsoleteFitParameterWidget::MIME_TYPE))
             .split("#");
     if (parts.size() != 2) return true;
     QModelIndex cur = parent;
     if (!parent.isValid()) {
         auto newlink = addParameter();
         double value = parts[1].toDouble();
-        newlink->setItemValue(FitParameterItem::P_INIT, value);
+        newlink->setItemValue(ObsoleteFitParameterItem::P_INIT, value);
         cur = indexOfItem(newlink);
     }
-    auto link = insertNewItem(Constants::FitParameterLinkType, cur, row);
-    if (link) link->setItemValue(FitParameterLinkItem::P_LINK, parts[0]);
+    auto link = insertNewItem(Constants::ObsoleteFitParameterLinkType, cur, row);
+    if (link) link->setItemValue(ObsoleteFitParameterLinkItem::P_LINK, parts[0]);
     emit dataChanged(cur, cur);
     return true;
 }
 
-QVariant FitParameterModel::data(const QModelIndex & index, int role) const
+QVariant ObsoleteFitParameterModel::data(const QModelIndex & index, int role) const
 {
     if ( !index.isValid() || index.column() < 0 || index.column() >= 5) {
         return QVariant();
@@ -133,7 +133,7 @@ QVariant FitParameterModel::data(const QModelIndex & index, int role) const
             if (item->parent() != itemForIndex(QModelIndex()))
             {
                 if (index.column() == 0)
-                    return item->getItemValue(FitParameterLinkItem::P_LINK);
+                    return item->getItemValue(ObsoleteFitParameterLinkItem::P_LINK);
                 else
                     return QVariant();
             }
@@ -146,7 +146,7 @@ QVariant FitParameterModel::data(const QModelIndex & index, int role) const
     return QVariant();
 }
 
-bool FitParameterModel::setData(const QModelIndex &index, const QVariant &value, int role)
+bool ObsoleteFitParameterModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
     if (!index.isValid())
         return false;
@@ -160,7 +160,7 @@ bool FitParameterModel::setData(const QModelIndex &index, const QVariant &value,
     return false;
 }
 
-QVariant FitParameterModel::headerData(int section, Qt::Orientation orientation, int role) const
+QVariant ObsoleteFitParameterModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
     if (role == Qt::DisplayRole && orientation == Qt::Horizontal) {
         return m_columnNames->value(section);

@@ -22,11 +22,11 @@
 class QModelIndex;
 class SampleModel;
 class InstrumentModel;
-class FitParameterContainer;
-class FitSelectionItem;
+class ObsoleteFitParameterContainer;
+class ObsoleteFitSelectionItem;
 class SessionModel;
-class MinimizerSettingsItem;
-class InputDataItem;
+class ObsoleteMinimizerSettingsItem;
+class ObsoleteInputDataItem;
 
 
 class BA_CORE_API_ ObsoleteFitModel : public SessionModel
@@ -38,12 +38,12 @@ public:
     explicit ObsoleteFitModel(SampleModel *samples, InstrumentModel *instruments, QObject *parent = 0);
 
     //! returns child of type FitParameterContainer
-    FitParameterContainer *getFitParameterContainer();
+    ObsoleteFitParameterContainer *getFitParameterContainer();
 
     //! returns child fo type FitSelectionItem
-    FitSelectionItem *getFitSelection();
+    ObsoleteFitSelectionItem *getFitSelection();
 
-    InputDataItem *getInputData();
+    ObsoleteInputDataItem *getInputData();
 
     //! returns displayName of currently selected sample, "" when nothing selected
     QString getSelectedSampleName();
@@ -74,7 +74,7 @@ public:
     QString getInstrumentItemNameForDisplayName(const QString &displayName);
 
     //! return minimizer settings item
-    MinimizerSettingsItem *getMinimizerSettings();
+    ObsoleteMinimizerSettingsItem *getMinimizerSettings();
 
     QString getMinimizerAlgorithm();
 

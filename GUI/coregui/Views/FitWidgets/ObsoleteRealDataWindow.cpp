@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/FitWidgets/RealDataWindow.h
-//! @brief     Declares class RealDataWindow
+//! @file      coregui/Views/JobWidgets/ObsoleteRealDataWindow.cpp
+//! @brief     Implements class ObsoleteRealDataWindow
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,25 +14,21 @@
 //
 // ************************************************************************** //
 
-#ifndef REALDATAWINDOW_H
-#define REALDATAWINDOW_H
+#include "ObsoleteRealDataWindow.h"
+#include "JobItem.h"
+#include "ColorMapPlot.h"
+#include "IntensityDataItem.h"
 
-#include <QMainWindow>
 
-class IntensityDataItem;
-class ColorMapPlot;
-
-class RealDataWindow : public QMainWindow
+ObsoleteRealDataWindow::ObsoleteRealDataWindow(QWidget *parent)
+    : QMainWindow(parent)
+    , m_plot(new ColorMapPlot(this))
 {
-    Q_OBJECT
+    setCentralWidget(m_plot);
+    setWindowTitle("Real Data");
+}
 
-public:
-    RealDataWindow(QWidget *parent = 0);
-
-    void setItem(IntensityDataItem *item);
-
-private:
-    ColorMapPlot *m_plot;
-};
-
-#endif
+void ObsoleteRealDataWindow::setItem(IntensityDataItem *item)
+{
+    m_plot->setItem(item);
+}

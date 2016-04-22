@@ -26,7 +26,7 @@ class QLabel;
 class QPushButton;
 class RunFitManager;
 class FitSuite;
-class FitProgressWidget;
+class ObsoleteFitProgressWidget;
 class ObsoleteFitModel;
 class SampleModel;
 class InstrumentModel;
@@ -55,7 +55,7 @@ private:
     QLabel *m_interval_label;
     QSlider *m_interval_slider;
     RunFitManager *m_runfitmanager;
-    FitProgressWidget *m_fitprogress;
+    ObsoleteFitProgressWidget *m_fitprogress;
     ObsoleteFitModel *m_fitModel;
 
     SessionItem *getTopItemFromSelection(

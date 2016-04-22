@@ -19,7 +19,7 @@
 #include "IHistogram.h"
 #include "IntensityDataIOFactory.h"
 #include "IntensityDataItem.h"
-#include "FitParameterItems.h"
+#include "ObsoleteFitParameterItems.h"
 #include "ObsoleteFitModel.h"
 #include <QLineEdit>
 #include <QVBoxLayout>

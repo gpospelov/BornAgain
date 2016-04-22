@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/FitWidgets/MinimizerSettingsWidget.h
-//! @brief     Declares class MinimizerSettingsWidget
+//! @file      coregui/Views/FitWidgets/ObsoleteMinimizerSettingsWidget.h
+//! @brief     Declares class ObsoleteMinimizerSettingsWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,20 +14,20 @@
 //
 // ************************************************************************** //
 
-#ifndef MINIMIZERSETTTINGSWIDGET_H
-#define MINIMIZERSETTTINGSWIDGET_H
+#ifndef OBSOLETEMINIMIZERSETTTINGSWIDGET_H
+#define OBSOLETEMINIMIZERSETTTINGSWIDGET_H
 
 #include "WinDllMacros.h"
 #include <QWidget>
 
 class ObsoleteFitModel;
 
-class BA_CORE_API_ MinimizerSettingsWidget : public QWidget
+class BA_CORE_API_ ObsoleteMinimizerSettingsWidget : public QWidget
 {
     Q_OBJECT
 
 public:
-    MinimizerSettingsWidget(ObsoleteFitModel *fitModel, QWidget *parent = 0);
+    ObsoleteMinimizerSettingsWidget(ObsoleteFitModel *fitModel, QWidget *parent = 0);
 };
 
 

@@ -15,7 +15,7 @@
 // ************************************************************************** //
 
 #include "ObsoleteFitSettingsWidget.h"
-#include "FitParameterWidget.h"
+#include "ObsoleteFitParameterWidget.h"
 #include "ObsoleteFitModel.h"
 
 #include <QVBoxLayout>
@@ -27,7 +27,7 @@
 ObsoleteFitSettingsWidget::ObsoleteFitSettingsWidget(ObsoleteFitModel *fitModel, QWidget *parent)
     : QWidget(parent)
     , m_fitModel(fitModel)
-    , m_fitParameter(new FitParameterWidget(m_fitModel, this))
+    , m_fitParameter(new ObsoleteFitParameterWidget(m_fitModel, this))
     , m_sampleCombo(new QComboBox())
     , m_instrumentCombo(new QComboBox())
 {

@@ -29,7 +29,7 @@
 #include "MultiLayerItem.h"
 #include "ParameterTreeItems.h"
 #include "SessionItem.h"
-#include "RealDataWindow.h"
+#include "ObsoleteRealDataWindow.h"
 
 #include "FitTools.h"
 
@@ -56,7 +56,7 @@ FitTools::FitTools(JobModel *jobModel, QWidget *parent)
     , m_realData(new QPushButton)
     , m_manager(new RunFitManager(parent))
     , m_observer(0)
-    , m_realDataWindow(new RealDataWindow(this))
+    , m_realDataWindow(new ObsoleteRealDataWindow(this))
 {
     m_observer = std::shared_ptr<GUIFitObserver>(new GUIFitObserver());
     this->hide();

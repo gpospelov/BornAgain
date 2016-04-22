@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/FitSelectorModel.cpp
-//! @brief     Implements class FitSelectorModel
+//! @file      coregui/Models/ObsoleteFitSelectorModel.cpp
+//! @brief     Implements class ObsoleteFitSelectorModel
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,13 +14,13 @@
 //
 // ************************************************************************** //
 
-#include "FitSelectorModel.h"
-#include "FitParameterWidget.h"
+#include "ObsoleteFitSelectorModel.h"
+#include "ObsoleteFitParameterWidget.h"
 #include <QStandardItem>
 #include <QMimeData>
 #include <QModelIndexList>
 
-QMimeData *FitSelectorModel::mimeData(const QModelIndexList &indexes) const
+QMimeData *ObsoleteFitSelectorModel::mimeData(const QModelIndexList &indexes) const
 {
     QMimeData *mimeData = new QMimeData();
     QModelIndex index = indexes.first();
@@ -28,12 +28,12 @@ QMimeData *FitSelectorModel::mimeData(const QModelIndexList &indexes) const
         QString path = getPathFromIndex(index);
         path = path.append("#%1").arg(itemFromIndex(index.sibling(index.row(), 1))
                                       ->data(Qt::EditRole).toDouble());
-        mimeData->setData(FitParameterWidget::MIME_TYPE, path.toLatin1());
+        mimeData->setData(ObsoleteFitParameterWidget::MIME_TYPE, path.toLatin1());
     }
     return mimeData;
 }
 
-QString FitSelectorModel::getPathFromIndex(const QModelIndex &index) const
+QString ObsoleteFitSelectorModel::getPathFromIndex(const QModelIndex &index) const
 {
     if (index.isValid()) {
         QStringList namePath;
@@ -48,7 +48,7 @@ QString FitSelectorModel::getPathFromIndex(const QModelIndex &index) const
     return QString();
 }
 
-QStandardItem *FitSelectorModel::getItemFromPath(const QString &path)
+QStandardItem *ObsoleteFitSelectorModel::getItemFromPath(const QString &path)
 {
     QStringList parts = path.split("/");
     QStandardItem *t = invisibleRootItem();

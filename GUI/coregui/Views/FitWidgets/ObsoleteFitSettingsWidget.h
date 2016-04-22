@@ -21,7 +21,7 @@
 #include <QWidget>
 
 class ObsoleteFitModel;
-class FitParameterWidget;
+class ObsoleteFitParameterWidget;
 class QComboBox;
 
 
@@ -49,7 +49,7 @@ public slots:
 
 private:
     ObsoleteFitModel *m_fitModel;
-    FitParameterWidget *m_fitParameter;
+    ObsoleteFitParameterWidget *m_fitParameter;
     QComboBox *m_sampleCombo;
     QComboBox *m_instrumentCombo;
 };

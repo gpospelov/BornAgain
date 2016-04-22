@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/FitParameterItems.h
-//! @brief     Declares class FitParameterItems
+//! @file      coregui/Models/ObsoleteFitParameterItems.h
+//! @brief     Declares class ObsoleteFitParameterItems
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,19 +13,19 @@
 //! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
-#ifndef FITPARAMETERITEMS_H
-#define FITPARAMETERITEMS_H
+#ifndef OBSOLETEFITPARAMETERITEMS_H
+#define OBSOLETEFITPARAMETERITEMS_H
 
 #include "SessionItem.h"
 
-class BA_CORE_API_ FitParameterContainer : public SessionItem
+class BA_CORE_API_ ObsoleteFitParameterContainer : public SessionItem
 {
 
 public:
-    explicit FitParameterContainer();
+    explicit ObsoleteFitParameterContainer();
 };
 
-class BA_CORE_API_ FitParameterItem : public SessionItem
+class BA_CORE_API_ ObsoleteFitParameterItem : public SessionItem
 {
 
 public:
@@ -33,42 +33,42 @@ public:
     static const QString P_INIT;
     static const QString P_MIN;
     static const QString P_MAX;
-    explicit FitParameterItem();
+    explicit ObsoleteFitParameterItem();
 };
 
 
-class BA_CORE_API_ FitParameterLinkItem : public SessionItem
+class BA_CORE_API_ ObsoleteFitParameterLinkItem : public SessionItem
 {
 
 public:
     static const QString P_LINK;
-    explicit FitParameterLinkItem();
+    explicit ObsoleteFitParameterLinkItem();
 };
 
 
-class BA_CORE_API_ FitSelectionItem : public SessionItem
+class BA_CORE_API_ ObsoleteFitSelectionItem : public SessionItem
 {
 
 public:
     static const QString P_SAMPLE;
     static const QString P_INSTRUMENT;
-    explicit FitSelectionItem();
+    explicit ObsoleteFitSelectionItem();
 };
 
-class BA_CORE_API_ MinimizerSettingsItem : public SessionItem
+class BA_CORE_API_ ObsoleteMinimizerSettingsItem : public SessionItem
 {
 
 public:
     static const QString P_ALGO;
-    explicit MinimizerSettingsItem();
+    explicit ObsoleteMinimizerSettingsItem();
 };
 
-class BA_CORE_API_ InputDataItem : public SessionItem
+class BA_CORE_API_ ObsoleteInputDataItem : public SessionItem
 {
 
 public:
     static const QString P_PATH;
-    explicit InputDataItem();
+    explicit ObsoleteInputDataItem();
 };
 
 #endif

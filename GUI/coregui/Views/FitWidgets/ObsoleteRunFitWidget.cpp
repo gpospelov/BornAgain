@@ -19,12 +19,12 @@
 #include "SimulationRegistry.h"
 #include "FitSuite.h"
 #include "GUIFitObserver.h"
-#include "FitProgressWidget.h"
+#include "ObsoleteFitProgressWidget.h"
 #include "SampleModel.h"
 #include "InstrumentModel.h"
 #include "ObsoleteFitModel.h"
 #include "DomainSimulationBuilder.h"
-#include "FitParameterItems.h"
+#include "ObsoleteFitParameterItems.h"
 #include "SessionItem.h"
 #include "MultiLayerItem.h"
 #include "InstrumentItem.h"
@@ -49,7 +49,7 @@ ObsoleteRunFitWidget::ObsoleteRunFitWidget(ObsoleteFitModel *fitModel, QWidget *
     , m_interval_label(new QLabel())
     , m_interval_slider(new QSlider())
     , m_runfitmanager(new RunFitManager(this))
-    , m_fitprogress(new FitProgressWidget(this))
+    , m_fitprogress(new ObsoleteFitProgressWidget(this))
     , m_fitModel(fitModel)
 {
     // setup ui
@@ -172,7 +172,7 @@ std::shared_ptr<FitSuite> ObsoleteRunFitWidget::init_test_fitsuite()
         SessionItem *parameter = m_fitModel->itemForIndex(child);
         for (int j = 0; j < m_fitModel->rowCount(child); j++) {
             SessionItem *link = m_fitModel->itemForIndex(m_fitModel->index(j,0,child));
-            QString value = link->getItemValue(FitParameterLinkItem::P_LINK).toString();
+            QString value = link->getItemValue(ObsoleteFitParameterLinkItem::P_LINK).toString();
             value = value.replace("Position Offset/X", "PositionX");
             value = value.replace("Position Offset/Y", "PositionY");
             value = value.replace("Position Offset/Z", "PositionZ");
@@ -184,9 +184,9 @@ std::shared_ptr<FitSuite> ObsoleteRunFitWidget::init_test_fitsuite()
             std::string translated = "*" + value.toStdString();
             std::cout << translated;
             std::cout.flush();
-            double min = parameter->getItemValue(FitParameterItem::P_MIN).toDouble();
-            double max = parameter->getItemValue(FitParameterItem::P_MAX).toDouble();
-            double init = parameter->getItemValue(FitParameterItem::P_INIT).toDouble();
+            double min = parameter->getItemValue(ObsoleteFitParameterItem::P_MIN).toDouble();
+            double max = parameter->getItemValue(ObsoleteFitParameterItem::P_MAX).toDouble();
+            double init = parameter->getItemValue(ObsoleteFitParameterItem::P_INIT).toDouble();
             AttLimits limits;
             if (min==max && min < init) {
                 limits = AttLimits::lowerLimited(min);

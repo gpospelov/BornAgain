@@ -17,7 +17,7 @@
 #include "ObsoleteFitModel.h"
 #include "SampleModel.h"
 #include "InstrumentModel.h"
-#include "FitParameterItems.h"
+#include "ObsoleteFitParameterItems.h"
 #include "SessionItem.h"
 #include "SessionModel.h"
 #include "ComboProperty.h"
@@ -32,27 +32,27 @@ ObsoleteFitModel::ObsoleteFitModel(SampleModel *samples, InstrumentModel *instru
 
 }
 
-FitParameterContainer *ObsoleteFitModel::getFitParameterContainer() {
-    return dynamic_cast<FitParameterContainer *>
-            (itemForIndex(QModelIndex())->getChildOfType(Constants::FitParameterContainerType));
+ObsoleteFitParameterContainer *ObsoleteFitModel::getFitParameterContainer() {
+    return dynamic_cast<ObsoleteFitParameterContainer *>
+            (itemForIndex(QModelIndex())->getChildOfType(Constants::ObsoleteFitParameterContainerType));
 }
 
-FitSelectionItem *ObsoleteFitModel::getFitSelection() {
-    return dynamic_cast<FitSelectionItem *>
-            (itemForIndex(QModelIndex())->getChildOfType(Constants::FitSelectionType));
+ObsoleteFitSelectionItem *ObsoleteFitModel::getFitSelection() {
+    return dynamic_cast<ObsoleteFitSelectionItem *>
+            (itemForIndex(QModelIndex())->getChildOfType(Constants::ObsoleteFitSelectionType));
 }
 
-InputDataItem *ObsoleteFitModel::getInputData() {
-    return dynamic_cast<InputDataItem *>
-            (itemForIndex(QModelIndex())->getChildOfType(Constants::InputDataType));
+ObsoleteInputDataItem *ObsoleteFitModel::getInputData() {
+    return dynamic_cast<ObsoleteInputDataItem *>
+            (itemForIndex(QModelIndex())->getChildOfType(Constants::ObsoleteInputDataType));
 }
 
 QString ObsoleteFitModel::getSelectedSampleName () {
-    return getFitSelection()->getItemValue(FitSelectionItem::P_SAMPLE).toString();
+    return getFitSelection()->getItemValue(ObsoleteFitSelectionItem::P_SAMPLE).toString();
 }
 
 QString ObsoleteFitModel::getSelectedInstrumentName(){
-    return getFitSelection()->getItemValue(FitSelectionItem::P_INSTRUMENT).toString();
+    return getFitSelection()->getItemValue(ObsoleteFitSelectionItem::P_INSTRUMENT).toString();
 }
 
 QStringList ObsoleteFitModel::getSampleNames() {
@@ -102,22 +102,22 @@ SessionItem *ObsoleteFitModel::getSelectedInstrumentItem() {
 
 void ObsoleteFitModel::setSelectedSample(const QString &displayName) {
     SessionItem *selection = getFitSelection();
-    selection->setItemValue(FitSelectionItem::P_SAMPLE, displayName);
+    selection->setItemValue(ObsoleteFitSelectionItem::P_SAMPLE, displayName);
 }
 
 void ObsoleteFitModel::setSelectedInstrument(const QString &displayName) {
     SessionItem *selection = getFitSelection();
-    selection->setItemValue(FitSelectionItem::P_INSTRUMENT, displayName);
+    selection->setItemValue(ObsoleteFitSelectionItem::P_INSTRUMENT, displayName);
 }
 
-MinimizerSettingsItem *ObsoleteFitModel::getMinimizerSettings() {
-    return dynamic_cast<MinimizerSettingsItem *>
-            (itemForIndex(QModelIndex())->getChildOfType(Constants::MinimizerSettingsType));
+ObsoleteMinimizerSettingsItem *ObsoleteFitModel::getMinimizerSettings() {
+    return dynamic_cast<ObsoleteMinimizerSettingsItem *>
+            (itemForIndex(QModelIndex())->getChildOfType(Constants::ObsoleteMinimizerSettingsType));
 }
 
 QString ObsoleteFitModel::getMinimizerAlgorithm() {
     if (auto *item = getMinimizerSettings()) {
-        return item->getItemValue(MinimizerSettingsItem::P_ALGO).value<ComboProperty>()
+        return item->getItemValue(ObsoleteMinimizerSettingsItem::P_ALGO).value<ComboProperty>()
                 .getValue();
     }
     return QString();
@@ -125,14 +125,14 @@ QString ObsoleteFitModel::getMinimizerAlgorithm() {
 
 QString ObsoleteFitModel::getInputDataPath() {
     if (auto *item = getInputData()) {
-        return item->getItemValue(InputDataItem::P_PATH).toString();
+        return item->getItemValue(ObsoleteInputDataItem::P_PATH).toString();
     }
     return "";
 }
 
 void ObsoleteFitModel::setInputDataPath(const QString &path) {
     if (auto *item = getInputData()) {
-        item->setItemValue(InputDataItem::P_PATH, path);
+        item->setItemValue(ObsoleteInputDataItem::P_PATH, path);
     }
 }
 

@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/FitSelectorModel.h
-//! @brief     Declares class FitSelectorModel
+//! @file      coregui/Views/FitWidgets/ObsoleteRealDataWindow.h
+//! @brief     Declares class ObsoleteRealDataWindow
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,23 +13,26 @@
 //! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
-#ifndef FITSELECTORMODEL_H
-#define FITSELECTORMODEL_H
 
-#include "WinDllMacros.h"
-#include <QStandardItemModel>
+#ifndef OBSOLETEREALDATAWINDOW_H
+#define OBSOLETEREALDATAWINDOW_H
 
-class QMimeData;
-class QStandardItem;
+#include <QMainWindow>
 
-class BA_CORE_API_ FitSelectorModel : public QStandardItemModel
+class IntensityDataItem;
+class ColorMapPlot;
+
+class ObsoleteRealDataWindow : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    QMimeData *mimeData(const QModelIndexList &indexes) const;
-    QString getPathFromIndex(const QModelIndex &index) const;
-    QStandardItem *getItemFromPath(const QString &path);
+    ObsoleteRealDataWindow(QWidget *parent = 0);
+
+    void setItem(IntensityDataItem *item);
+
+private:
+    ColorMapPlot *m_plot;
 };
 
 #endif

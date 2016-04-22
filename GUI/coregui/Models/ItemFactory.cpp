@@ -49,7 +49,7 @@
 #include "BeamWavelengthItem.h"
 #include "BeamAngleItems.h"
 #include "MaskItems.h"
-#include "FitParameterItems.h"
+#include "ObsoleteFitParameterItems.h"
 #include "ParameterTreeItems.h"
 #include "SimulationOptionsItem.h"
 #include <QDebug>
@@ -175,12 +175,12 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::EllipseMaskType] = &createInstance<EllipseItem>;
     result[Constants::MaskAllType] = &createInstance<MaskAllItem>;
 
-    result[Constants::FitParameterContainerType] = &createInstance<FitParameterContainer>;
-    result[Constants::FitParameterType] = &createInstance<FitParameterItem>;
-    result[Constants::FitParameterLinkType] = &createInstance<FitParameterLinkItem>;
-    result[Constants::FitSelectionType] = &createInstance<FitSelectionItem>;
-    result[Constants::MinimizerSettingsType] = &createInstance<MinimizerSettingsItem>;
-    result[Constants::InputDataType] = &createInstance<InputDataItem>;
+    result[Constants::ObsoleteFitParameterContainerType] = &createInstance<ObsoleteFitParameterContainer>;
+    result[Constants::ObsoleteFitParameterType] = &createInstance<ObsoleteFitParameterItem>;
+    result[Constants::ObsoleteFitParameterLinkType] = &createInstance<ObsoleteFitParameterLinkItem>;
+    result[Constants::ObsoleteFitSelectionType] = &createInstance<ObsoleteFitSelectionItem>;
+    result[Constants::ObsoleteMinimizerSettingsType] = &createInstance<ObsoleteMinimizerSettingsItem>;
+    result[Constants::ObsoleteInputDataType] = &createInstance<ObsoleteInputDataItem>;
     result[Constants::GroupItemType] = &createInstance<GroupItem>;
     result[Constants::ParameterLabelType] = &createInstance<ParameterLabelItem>;
     result[Constants::ParameterType] = &createInstance<ParameterItem>;

@@ -1,6 +1,7 @@
 #ifndef RECTANGULARDETECTORTEST_H
 #define RECTANGULARDETECTORTEST_H
 
+#include "Units.h"
 #include "RectangularDetector.h"
 #include "GISASSimulation.h"
 #include "SimulationElement.h"

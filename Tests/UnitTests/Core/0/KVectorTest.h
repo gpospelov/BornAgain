@@ -1,8 +1,8 @@
 #ifndef KVECTORTEST_H
 #define KVECTORTEST_H
 
-#include "Units.h"
-#include "Types.h"
+#include "Vectors3D.h"
+#include "Transform3D.h"
 
 class KVectorTest : public ::testing::Test
 {
@@ -129,4 +129,3 @@ TEST_F(KVectorTest, BasicTransformation)
 }
 
 #endif // KVECTORTEST_H
-

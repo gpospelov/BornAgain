@@ -1,6 +1,7 @@
 #ifndef PARTICLECORESHELLTEST_H
 #define PARTICLECORESHELLTEST_H
 
+#include "IFormFactorBorn.h"
 #include "ParticleCoreShell.h"
 #include "BornAgainNamespace.h"
 #include "Units.h"

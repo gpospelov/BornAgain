@@ -1,11 +1,10 @@
-############################################################################
-# CMakeLists.txt file for building and running unit tests
-############################################################################
+# Here we use QtTest, not gtest ...
+
 if(POLICY CMP0020)
-cmake_policy(SET CMP0020 NEW)
+    cmake_policy(SET CMP0020 NEW)
 endif()
 if(POLICY CMP0043)
-cmake_policy(SET CMP0043 NEW)
+    cmake_policy(SET CMP0043 NEW)
 endif()
 
 enable_testing()
@@ -25,15 +24,11 @@ include_directories(
 )
 
 
-# to build executable right in lib directory to not to have problems with finding libBornAgainCore.dll under Windows
-#set_property(TARGET TestGUI PROPERTY RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
-
 set(CMAKE_AUTOMOC ON)
 
 add_executable(TestGUI ${source_files} ${include_files})
 
 target_link_libraries(TestGUI
-    ${BornAgainCore_LIBRARY}
     ${BornAgainGUI_LIBRARY}
 )
 
@@ -43,4 +38,3 @@ add_test( TestGUI TestGUI) # TestName ExeName
 
 # add execution of TestCore just after compilation
 add_custom_command(TARGET TestGUI POST_BUILD COMMAND TestGUI)
-

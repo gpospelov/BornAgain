@@ -97,7 +97,6 @@ TEST_F(Histogram2DTest, VariableHist)
     EXPECT_EQ(hist->findGlobalBin(-0.75, 0.5), size_t(0));
     EXPECT_EQ(hist->findGlobalBin(0.0, 1.5), size_t(4));
     EXPECT_EQ(hist->findGlobalBin(1.5, 3.0), size_t(11));
-
 }
 
 // y
@@ -141,7 +140,6 @@ TEST_F(Histogram2DTest, VariableHistFill)
             EXPECT_EQ(1.0, hist->getBinNumberOfEntries(binx, biny));
         }
     }
-
 }
 
 // y
@@ -222,8 +220,6 @@ TEST_F(Histogram2DTest, projectionX)
         EXPECT_EQ(3.0, h1->getBinContent(binx));
         EXPECT_DOUBLE_EQ(std::sqrt(0.25), h1->getBinError(binx));
     }
-
-
 }
 
 // y
@@ -271,8 +267,8 @@ TEST_F(Histogram2DTest, projectionY)
         EXPECT_EQ(4, h1->getBinNumberOfEntries(binx));
         EXPECT_DOUBLE_EQ(0.0, h1->getBinError(binx));
     }
-    EXPECT_EQ(4.0, h1->getBinContent(0));
-    EXPECT_EQ(8.0, h1->getBinContent(1));
+    EXPECT_EQ( 4.0, h1->getBinContent(0));
+    EXPECT_EQ( 8.0, h1->getBinContent(1));
     EXPECT_EQ(12.0, h1->getBinContent(2));
 
     // b) create projection along Y axis at given x(slice)
@@ -422,7 +418,6 @@ TEST_F(Histogram2DTest, CreateOutputData)
     for(size_t i=0; i<data->getAllocatedSize(); ++i) {
         EXPECT_EQ(1.0, (*data)[i]);
     }
-
 }
 
 
@@ -440,9 +435,6 @@ TEST_F(Histogram2DTest, GetMaximumGetMinimum)
     EXPECT_EQ(size_t(0), hist.getMinimumBinIndex());
     EXPECT_EQ(59.0, hist.getMaximum());
     EXPECT_EQ(size_t(49), hist.getMaximumBinIndex());
-
 }
-
-
 
 #endif

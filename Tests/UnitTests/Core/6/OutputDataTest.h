@@ -9,13 +9,10 @@
 #include "FixedBinAxis.h"
 #include "ThreadInfo.h"
 
-
-
 class OutputDataTest : public ::testing::Test
 {
  protected:
     OutputDataTest();
-    virtual ~OutputDataTest();
 
     OutputData<int> int_data_0d;
     OutputData<float> fl_data_1d;
@@ -51,11 +48,6 @@ OutputDataTest::OutputDataTest()
 }
 
 
-OutputDataTest::~OutputDataTest()
-{
-}
-
-
 TEST_F(OutputDataTest, SingleElementAfterConstruction)
 {
     EXPECT_EQ((size_t)1, int_data_0d.getAllocatedSize());
@@ -80,11 +72,11 @@ TEST_F(OutputDataTest, DataInitialization)
     coordinates.push_back(3);
     EXPECT_DOUBLE_EQ((double)1143, db_data_3d[db_data_3d.toGlobalIndex(coordinates)]);
 
-
     std::vector<int> coordinates2;
     coordinates2.push_back(10);
     coordinates2.push_back(5);
-    EXPECT_EQ(Eigen::Matrix2d::Identity(), matrix_data_2d[matrix_data_2d.toGlobalIndex(coordinates2)]);
+    EXPECT_EQ(Eigen::Matrix2d::Identity(),
+              matrix_data_2d[matrix_data_2d.toGlobalIndex(coordinates2)]);
 }
 
 TEST_F(OutputDataTest, isInitialized)
@@ -442,7 +434,6 @@ TEST_F(OutputDataTest, GetAxisBin)
 //}
 
 
-
 TEST_F(OutputDataTest, SetCleared)
 {
     db_data_3d.clear();
@@ -477,6 +468,5 @@ TEST_F(OutputDataTest, MixedTypeOperations)
 // 0 | 0   5   10  15  20  25  30  35  40  45 |
 // --------------------------------------------
 //   | 0   1   2   3   4   5   6   7   8   9  | x
-
 
 #endif // OUTPUTDATATEST_H

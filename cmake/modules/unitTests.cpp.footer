@@ -1,3 +1,5 @@
+/* From unitTests.cpp.footer: */
+
 struct ErrorStreamRedirect {
     ErrorStreamRedirect( std::streambuf * new_buffer )
         : old( std::cerr.rdbuf( new_buffer ) )

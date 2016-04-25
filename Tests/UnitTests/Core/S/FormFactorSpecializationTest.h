@@ -68,7 +68,7 @@ protected:
 
 // ****** TODO: the following tests pass only after the q range has been reduced *********
 
-TEST_F(FormFactorSpecializationTest, Sphere)
+TEST_F(FormFactorSpecializationTest, TruncatedSphere)
 {
     double R=1.;
     FormFactorTruncatedSphere p0(R, 2*R);
@@ -76,7 +76,7 @@ TEST_F(FormFactorSpecializationTest, Sphere)
     test_ff_eq( &p0, &p1, .025, 1e2 );
 }
 
-TEST_F(FormFactorSpecializationTest, Pyramid4)
+TEST_F(FormFactorSpecializationTest, AnisoPyramid)
 {
     double L=1.5, H=.24, alpha=.6;
     FormFactorAnisoPyramid p0(L, L, H, alpha);
@@ -84,9 +84,42 @@ TEST_F(FormFactorSpecializationTest, Pyramid4)
     test_ff_eq( &p0, &p1, .4, 6e2 );
 }
 
+
+TEST_F(FormFactorSpecializationTest, Pyramid3)
+{
+    double L=1.8, H=.3;
+    FormFactorTetrahedron p0(L, H, Units::PI/2);
+    FormFactorPrism3 p1(L, H);
+    test_ff_eq( &p0, &p1, .04, 5e3 );
+}
+
+TEST_F(FormFactorSpecializationTest, Pyramid)
+{
+    double L=1.8, H=.3;
+    FormFactorPyramid p0(L, H, Units::PI/2);
+    FormFactorBox p1(L, L, H);
+    test_ff_eq( &p0, &p1, .04, 2e2 );
+}
+
 //*********** satisfactory tests ***************
 
-TEST_F(FormFactorSpecializationTest, Cube)
+TEST_F(FormFactorSpecializationTest, HemiEllipsoid)
+{
+    double R=1.07;
+    FormFactorHemiEllipsoid p0(R, R, R);
+    FormFactorTruncatedSphere p1(R, R);
+    test_ff_eq( &p0, &p1, 1e-17, 1e2 );
+}
+
+TEST_F(FormFactorSpecializationTest, EllipsoidalCylinder)
+{
+    double R=.8, H=1.2;
+    FormFactorEllipsoidalCylinder p0(R, R, H);
+    FormFactorCylinder p1(R, H);
+    test_ff_eq( &p0, &p1, 1e-17, 3e3 );
+}
+
+TEST_F(FormFactorSpecializationTest, TruncatedCube)
 {
     double L=.5;
     FormFactorTruncatedCube p0(L, 0);

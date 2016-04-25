@@ -21,7 +21,7 @@
 static complex_t I(0,1);
 
 // different directions of q
-static const int nqdir = 13; 
+static const int nqdir = 13;
 static const cvector_t qdirs[nqdir] = {
     { 1., 0., 0 },
     { 1.+0.1*I, 0., 0 },
@@ -44,7 +44,7 @@ class FormFactorSpecializationTest : public ::testing::Test
 {
 protected:
     FormFactorSpecializationTest() {}
-    
+
     void test_ff_eq( IFormFactorBorn* p0, IFormFactorBorn* p1,
                      double qmag_beg=1e-16, double qmag_end=1e4 )
     {
@@ -62,7 +62,7 @@ protected:
                 EXPECT_NEAR( imag(f0), imag(f1), 1e-12*avge );
             }
         }
-            
+
     }
 };
 
@@ -74,10 +74,10 @@ TEST_F(FormFactorSpecializationTest, TruncatedSphere)
     test_ff_eq( &p0, &p1, .03, 1e2 );
 }
 
-//TEST_F(FormFactorSpecializationTest, TruncatedCube)
-//{
-//    double L=7.;
-//    FormFactorTruncatedCube p0(L, 0);
-//    FormFactorBox p1(L, L, L);
-//    test_ff_eq( &p0, &p1 );
-//}
+TEST_F(FormFactorSpecializationTest, TruncatedCube)
+{
+    double L=.5;
+    FormFactorTruncatedCube p0(L, 0);
+    FormFactorBox p1(L, L, L);
+    test_ff_eq( &p0, &p1 );
+}

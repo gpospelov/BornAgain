@@ -17,6 +17,7 @@
 #define FORMFACTORPOLYHEDRON_H
 
 #include<complex>
+#include<memory>
 #include "BasicVector3D.h"
 typedef std::complex<double> complex_t;
 typedef Geometry::BasicVector3D<complex_t> cvector_t;
@@ -90,9 +91,9 @@ public:
     virtual complex_t evaluate_for_q(const cvector_t q ) const final;
     double getVolume() const;
     double getHeight() const { return m_height; }
-    virtual double getRadius() const final { return std::sqrt(m_base.getArea()); }
+    virtual double getRadius() const final { return std::sqrt(m_base->getArea()); }
 protected:
-    PolyhedralFace m_base;
+    std::unique_ptr<PolyhedralFace> m_base;
     double m_height;
 };
 

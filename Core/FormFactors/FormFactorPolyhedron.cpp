@@ -95,7 +95,9 @@ PolyhedralFace::PolyhedralFace( const std::vector<kvector_t>& V, bool _sym_S2 )
 {
     size_t N = V.size();
     if( !N )
-        return; // we would forbid these calls altogether, but swig requires constructor()
+        throw NotImplementedException( "Face with no edges" );
+    // compute diameter
+    // TODO
     // compute edges
     for ( size_t j=0; j<N; ++j ) {
         size_t jj = (j+1)%N;
@@ -419,7 +421,7 @@ FormFactorPolygonalPrism::FormFactorPolygonalPrism(double height)
 }
 
 //! Returns the volume of this prism.
-double FormFactorPolygonalPrism::getVolume() const { return m_height * m_base.getArea(); }
+double FormFactorPolygonalPrism::getVolume() const { return m_height * m_base->getArea(); }
 
 //! Returns the form factor F(q) of this polyhedron, respecting the offset height/2.
 
@@ -429,5 +431,6 @@ complex_t FormFactorPolygonalPrism::evaluate_for_q( const cvector_t q ) const
     diagnosis = { 0, 0 };
 #endif
     const cvector_t qxy( q.x(), q.y(), 0. );
-    return m_height * exp(I*(m_height/2)*q.z()) * MathFunctions::sinc(m_height/2*q.z()) * m_base.ff_2D( qxy );
+    return m_height * exp(I*(m_height/2)*q.z()) * MathFunctions::sinc(m_height/2*q.z()) *
+        m_base->ff_2D( qxy );
 }

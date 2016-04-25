@@ -22,7 +22,7 @@
 //! @param height of Prism3
 FormFactorPrism3::FormFactorPrism3(const double base_edge, const double height)
     : FormFactorPolygonalPrism( height )
-    , m_base_edge(base_edge)
+    , m_base_edge( base_edge )
 {
     setName(BornAgain::FFPrism3Type);
     registerParameter(BornAgain::BaseEdge, &m_base_edge, AttLimits::n_positive());
@@ -39,7 +39,7 @@ void FormFactorPrism3::onChange()
         { -as, -ac, 0. },
         {  as, -ac, 0. },
         {  0.,  ah, 0. } };
-    m_base = PolyhedralFace( { V[0], V[1], V[2] }, false );
+    m_base = std::unique_ptr<PolyhedralFace>( new PolyhedralFace( { V[0], V[1], V[2] }, false ) );
 }
 
 FormFactorPrism3* FormFactorPrism3::clone() const

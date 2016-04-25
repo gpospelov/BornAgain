@@ -28,19 +28,17 @@ protected:
     QLoopedTest() {}
     virtual void SetUp()
     {
-        qmag = std::get<0>(GetParam());
-        qdir = std::get<1>(GetParam());
+        double    qmag = std::get<0>(GetParam());
+        cvector_t qdir = std::get<1>(GetParam());
         q = qmag * qdir;
     }
-    double qmag;
-    cvector_t qdir;
     cvector_t q;
 
-    void test_ff_eq( IFormFactorBorn* p0, IFormFactorBorn* p1,
-                     double qmag_begin=1e-16, double qmag_end=1e4 )
-    {
-        if( q.mag()<qmag_begin || q.mag()>qmag_end )
-            return;
+    bool skip_q( double qmag_begin=1e-16, double qmag_end=1e4 ) {
+        return q.mag()<qmag_begin || q.mag()>qmag_end;
+    }
+
+    void test_ff_eq( IFormFactorBorn* p0, IFormFactorBorn* p1) {
         complex_t f0 = p0->evaluate_for_q(q);
         complex_t f1 = p1->evaluate_for_q(q);
         double avge = (std::abs(f0) + std::abs(f1))/2;
@@ -78,58 +76,72 @@ INSTANTIATE_TEST_CASE_P(
 
 TEST_P(QLoopedTest, TruncatedSphereAsSphere)
 {
+    if( skip_q( .025, 1e2 ) )
+        return;
     double R=1.;
     FormFactorTruncatedSphere p0(R, 2*R);
     FormFactorFullSphere p1(R);
-    test_ff_eq( &p0, &p1, .025, 1e2 );
+    test_ff_eq( &p0, &p1 );
 }
 
 TEST_P(QLoopedTest, AnisoPyramidAsPyramid)
 {
+    if( skip_q( .4, 6e2 ) )
+        return;
     double L=1.5, H=.24, alpha=.6;
     FormFactorAnisoPyramid p0(L, L, H, alpha);
     FormFactorPyramid p1(L, H, alpha);
-    test_ff_eq( &p0, &p1, .4, 6e2 );
+    test_ff_eq( &p0, &p1 );
 }
 
 TEST_P(QLoopedTest, Pyramid3AsPrism)
 {
+    if( skip_q( .04, 5e3 ) )
+        return;
     double L=1.8, H=.3;
     FormFactorTetrahedron p0(L, H, Units::PI/2);
     FormFactorPrism3 p1(L, H);
-    test_ff_eq( &p0, &p1, .04, 5e3 );
+    test_ff_eq( &p0, &p1 );
 }
 
 TEST_P(QLoopedTest, PyramidAsBox)
 {
+    if( skip_q( .04, 2e2 ) )
+        return;
     double L=1.8, H=.3;
     FormFactorPyramid p0(L, H, Units::PI/2);
     FormFactorBox p1(L, L, H);
-    test_ff_eq( &p0, &p1, .04, 2e2 );
+    test_ff_eq( &p0, &p1 );
 }
 
 //*********** satisfactory tests ***************
 
 TEST_P(QLoopedTest, HemiEllipsoidAsTruncatedSphere)
 {
+    if( skip_q( 1e-17, 1e2 ) )
+        return;
     double R=1.07;
     FormFactorHemiEllipsoid p0(R, R, R);
     FormFactorTruncatedSphere p1(R, R);
-    test_ff_eq( &p0, &p1, 1e-17, 1e2 );
+    test_ff_eq( &p0, &p1 );
 }
 
 TEST_P(QLoopedTest, EllipsoidalCylinderAsCylinder)
 {
+    if( skip_q( 1e-17, 3e3 ) )
+        return;
     double R=.8, H=1.2;
     FormFactorEllipsoidalCylinder p0(R, R, H);
     FormFactorCylinder p1(R, H);
-    test_ff_eq( &p0, &p1, 1e-17, 3e3 );
+    test_ff_eq( &p0, &p1 );
 }
 
 TEST_P(QLoopedTest, TruncatedCubeAsBox)
 {
+    if( skip_q( 1e-17, 1e4 ) )
+        return;
     double L=.5;
     FormFactorTruncatedCube p0(L, 0);
     FormFactorBox p1(L, L, L);
-    test_ff_eq( &p0, &p1, 1e-17, 1e4 );
+    test_ff_eq( &p0, &p1 );
 }

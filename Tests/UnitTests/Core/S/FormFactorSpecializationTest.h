@@ -66,20 +66,14 @@ protected:
     }
 };
 
+// ****** TODO: the following tests pass only after the q range has been reduced *********
+
 TEST_F(FormFactorSpecializationTest, Sphere)
 {
     double R=1.;
     FormFactorTruncatedSphere p0(R, 2*R);
     FormFactorFullSphere p1(R);
-    test_ff_eq( &p0, &p1, .03, 1e2 );
-}
-
-TEST_F(FormFactorSpecializationTest, Cube)
-{
-    double L=.5;
-    FormFactorTruncatedCube p0(L, 0);
-    FormFactorBox p1(L, L, L);
-    test_ff_eq( &p0, &p1, .3, 1e2 );
+    test_ff_eq( &p0, &p1, .025, 1e2 );
 }
 
 TEST_F(FormFactorSpecializationTest, Pyramid4)
@@ -88,4 +82,14 @@ TEST_F(FormFactorSpecializationTest, Pyramid4)
     FormFactorAnisoPyramid p0(L, L, H, alpha);
     FormFactorPyramid p1(L, H, alpha);
     test_ff_eq( &p0, &p1, .4, 6e2 );
+}
+
+//*********** satisfactory tests ***************
+
+TEST_F(FormFactorSpecializationTest, Cube)
+{
+    double L=.5;
+    FormFactorTruncatedCube p0(L, 0);
+    FormFactorBox p1(L, L, L);
+    test_ff_eq( &p0, &p1, 1e-17, 1e4 );
 }

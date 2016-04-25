@@ -55,7 +55,9 @@ private:
     void createInstrumentModel();
     void createSampleModel();
     void createJobModel();
-    void testGUIObjectBuilder();
+
+    void createTestSample();
+    void createTestJob();
 
     void disconnectModel(SessionModel *model);
     void connectModel(SessionModel *model);

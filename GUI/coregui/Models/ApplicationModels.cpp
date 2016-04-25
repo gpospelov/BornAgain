@@ -23,6 +23,8 @@
 #include "JobModel.h"
 #include "IconProvider.h"
 #include "SampleBuilderFactory.h"
+#include "JobItem.h"
+#include "SimulationOptionsItem.h"
 
 ApplicationModels::ApplicationModels(QObject *parent)
     : QObject(parent)
@@ -34,7 +36,8 @@ ApplicationModels::ApplicationModels(QObject *parent)
     , m_jobModel(0)
 {
     createModels();
-    testGUIObjectBuilder();
+    createTestSample();
+    createTestJob();
 
 //    SessionItem *multilayer = m_sampleModel->insertNewItem(Constants::MultiLayerType);
 //    SessionItem *layer = m_sampleModel->insertNewItem(Constants::LayerType, multilayer->index());
@@ -157,7 +160,7 @@ void ApplicationModels::createInstrumentModel()
     m_instrumentModel->setIconProvider(new IconProvider());
 }
 
-void ApplicationModels::testGUIObjectBuilder()
+void ApplicationModels::createTestSample()
 {
     SampleBuilderFactory factory;
     const std::unique_ptr<ISample> P_sample(factory.createSample("CylindersAndPrismsBuilder"));
@@ -167,7 +170,21 @@ void ApplicationModels::testGUIObjectBuilder()
 
 //    SimulationRegistry simRegistry;
 //    const std::unique_ptr<GISASSimulation> simulation(simRegistry.createSimulation("RectDetectorPerpToReflectedBeamDpos"));
-//    guiBuilder.populateInstrumentModel(m_instrumentModel, *simulation);
+    //    guiBuilder.populateInstrumentModel(m_instrumentModel, *simulation);
+}
+
+void ApplicationModels::createTestJob()
+{
+    SimulationOptionsItem *optionsItem = m_documentModel->getSimulationOptionsItem();
+    optionsItem->setRunPolicy(Constants::JOB_RUN_IN_BACKGROUND);
+
+    JobItem *jobItem = m_jobModel->addJob(
+                m_sampleModel->getMultiLayerItem(),
+                m_instrumentModel->getInstrumentItem(),
+                optionsItem);
+
+    m_jobModel->runJob(jobItem->index());
+
 }
 
 void ApplicationModels::disconnectModel(SessionModel *model)

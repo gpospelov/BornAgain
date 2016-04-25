@@ -178,7 +178,9 @@ public:
     //! Returns result of rotation around y-axis.
     BasicVector3D<T> rotatedY(double a) const;
     //! Returns result of rotation around z-axis.
-    BasicVector3D<T> rotatedZ(double a) const;
+    BasicVector3D<T> rotatedZ(double a) const {
+        return BasicVector3D<T>( cos(a)*x()+sin(a)*y(), -sin(a)*x()+cos(a)*y(), z() );
+    }
     //! Returns result of rotation around the axis specified by another vector.
     BasicVector3D<T> rotated(double a, const BasicVector3D<T>& v) const;
 };

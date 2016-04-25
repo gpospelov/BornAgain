@@ -26,7 +26,7 @@ protected:
     {
         double    qmag = std::get<0>(GetParam());
         cvector_t qdir = std::get<1>(GetParam());
-        q = qmag * qdir;
+        q = qmag * qdir.unit();
     }
     cvector_t q;
 

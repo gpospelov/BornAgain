@@ -23,13 +23,14 @@
 class FFSymmetryTest : public QLoopedTest
 {
 public:
-    void test_ff_eq( IFormFactorBorn* p0, IFormFactorBorn* p1) {
-        complex_t f0 = p0->evaluate_for_q(q);
-        complex_t f1 = p1->evaluate_for_q(q);
+    void test_qq_eq( IFormFactorBorn* p, cvector_t q0, cvector_t q1 ) {
+        complex_t f0 = p->evaluate_for_q(q0);
+        complex_t f1 = p->evaluate_for_q(q1);
         double avge = (std::abs(f0) + std::abs(f1))/2;
-        EXPECT_NEAR( real(f0), real(f1), 1e-12*avge );
-        EXPECT_NEAR( imag(f0), imag(f1), 1e-12*avge );
+        EXPECT_NEAR( real(f0), real(f1), 1e-9*avge );
+        EXPECT_NEAR( imag(f0), imag(f1), 1e-9*avge );
     }
+    cvector_t qt;
 };
 
 INSTANTIATE_TEST_CASE_P(
@@ -59,74 +60,31 @@ INSTANTIATE_TEST_CASE_P(
 
 // ****** TODO: the following tests pass only after the q range has been reduced *********
 
-TEST_P(FFSymmetryTest, TruncatedSphereAsSphere)
-{
-    if( skip_q( .025, 1e2 ) )
-        return;
-    double R=1.;
-    FormFactorTruncatedSphere p0(R, 2*R);
-    FormFactorFullSphere p1(R);
-    test_ff_eq( &p0, &p1 );
-}
 
-TEST_P(FFSymmetryTest, AnisoPyramidAsPyramid)
+TEST_P(FFSymmetryTest, Tetrahedron)
 {
-    if( skip_q( .4, 6e2 ) )
+    if( skip_q( 2e-17, 2e2 ) )
         return;
-    double L=1.5, H=.24, alpha=.6;
-    FormFactorAnisoPyramid p0(L, L, H, alpha);
-    FormFactorPyramid p1(L, H, alpha);
-    test_ff_eq( &p0, &p1 );
-}
-
-TEST_P(FFSymmetryTest, Pyramid3AsPrism)
-{
-    if( skip_q( .04, 5e3 ) )
-        return;
-    double L=1.8, H=.3;
-    FormFactorTetrahedron p0(L, H, Units::PI/2);
-    FormFactorPrism3 p1(L, H);
-    test_ff_eq( &p0, &p1 );
-}
-
-TEST_P(FFSymmetryTest, PyramidAsBox)
-{
-    if( skip_q( .04, 2e2 ) )
-        return;
-    double L=1.8, H=.3;
-    FormFactorPyramid p0(L, H, Units::PI/2);
-    FormFactorBox p1(L, L, H);
-    test_ff_eq( &p0, &p1 );
+    FormFactorTetrahedron p(8.43, .25, .53);
+    test_qq_eq( &p, q, q.rotatedZ(Units::PI*2/3) );
 }
 
 //*********** satisfactory tests ***************
 
-TEST_P(FFSymmetryTest, HemiEllipsoidAsTruncatedSphere)
+TEST_P(FFSymmetryTest, HemiEllipsoid)
 {
-    if( skip_q( 1e-17, 1e2 ) )
+    if( skip_q( 1e-99, 1e2 ) )
         return;
-    double R=1.07;
-    FormFactorHemiEllipsoid p0(R, R, R);
-    FormFactorTruncatedSphere p1(R, R);
-    test_ff_eq( &p0, &p1 );
+    FormFactorHemiEllipsoid p(.53, .78, 1.3);
+    test_qq_eq( &p, q, cvector_t(-q.x(), q.y(), q.z()) );
+    test_qq_eq( &p, q, cvector_t(q.x(), -q.y(), q.z()) );
 }
 
-TEST_P(FFSymmetryTest, EllipsoidalCylinderAsCylinder)
+TEST_P(FFSymmetryTest, Prism3)
 {
-    if( skip_q( 1e-17, 3e3 ) )
+    if( skip_q( 1e-99, 1e2 ) )
         return;
-    double R=.8, H=1.2;
-    FormFactorEllipsoidalCylinder p0(R, R, H);
-    FormFactorCylinder p1(R, H);
-    test_ff_eq( &p0, &p1 );
+    FormFactorPrism3 p(.83, .45);
+    test_qq_eq( &p, q, q.rotatedZ(Units::PI*2/3) );
 }
 
-TEST_P(FFSymmetryTest, TruncatedCubeAsBox)
-{
-    if( skip_q( 1e-17, 1e4 ) )
-        return;
-    double L=.5;
-    FormFactorTruncatedCube p0(L, 0);
-    FormFactorBox p1(L, L, L);
-    test_ff_eq( &p0, &p1 );
-}

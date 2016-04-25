@@ -40,6 +40,7 @@ public:
 
 class PolyhedralFace {
 public:
+    static double diameter( const std::vector<kvector_t>& V );
     PolyhedralFace( const std::vector<kvector_t>& _V=std::vector<kvector_t>(), bool _sym_S2=false );
     double m_radius_3d; //!< radius of enclosing sphere
     double getArea() const;
@@ -52,9 +53,9 @@ private:
     static const double qpa_limit_series; //!< determines when use power series
     bool sym_S2; //!< if true, then edges obtainable by inversion are not provided
     std::vector<PolyhedralEdge> edges;
-    double area;
-    kvector_t normal; //!< normal vector of this polygon's plane
-    double rperp; //!< distance of this polygon's plane from the origin, along 'normal'
+    double m_area;
+    kvector_t m_normal; //!< normal vector of this polygon's plane
+    double m_rperp; //!< distance of this polygon's plane from the origin, along 'm_normal'
     double m_radius_2d; //!< radius of enclosing cylinder
     void decompose_q( const cvector_t q, complex_t& qperp, cvector_t& qpa ) const;
     complex_t ff_n_core( int m, const cvector_t qpa ) const;

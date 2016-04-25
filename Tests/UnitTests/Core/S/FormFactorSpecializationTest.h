@@ -74,15 +74,13 @@ TEST_F(FormFactorSpecializationTest, Sphere)
     test_ff_eq( &p0, &p1, .03, 1e2 );
 }
 
-/*
 TEST_F(FormFactorSpecializationTest, Cube)
 {
     double L=.5;
     FormFactorTruncatedCube p0(L, 0);
     FormFactorBox p1(L, L, L);
-    test_ff_eq( &p0, &p1 );
+    test_ff_eq( &p0, &p1, .3, 1e2 );
 }
-*/
 
 TEST_F(FormFactorSpecializationTest, Pyramid4)
 {

@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      FormFactorSpecializationTest.h
-//! @brief     Unit tests for special cases of particle-shape form factors.
+//! @file      FormFactorSymmetryTest.h
+//! @brief     Unit tests for symmetry of particle-shape form factors.
 //!
 //! @homepage  http://bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -20,7 +20,7 @@
 #include "qLoopedTest.h"
 #include <tuple>
 
-class FFSpecializationTest : public QLoopedTest
+class FFSymmetryTest : public QLoopedTest
 {
 public:
     void test_ff_eq( IFormFactorBorn* p0, IFormFactorBorn* p1) {
@@ -33,8 +33,8 @@ public:
 };
 
 INSTANTIATE_TEST_CASE_P(
-    FFSpecializationTests,
-    FFSpecializationTest,
+    FFSymmetryTests,
+    FFSymmetryTest,
     testing::Combine(
         testing::Values(
             1e-19, 1e-17, 1e-15, 1e-13, 1e-11, 1e-9, 1e-7, 1e-5, 1e-4, 1e-3, 1e-2, .1,
@@ -59,7 +59,7 @@ INSTANTIATE_TEST_CASE_P(
 
 // ****** TODO: the following tests pass only after the q range has been reduced *********
 
-TEST_P(FFSpecializationTest, TruncatedSphereAsSphere)
+TEST_P(FFSymmetryTest, TruncatedSphereAsSphere)
 {
     if( skip_q( .025, 1e2 ) )
         return;
@@ -69,7 +69,7 @@ TEST_P(FFSpecializationTest, TruncatedSphereAsSphere)
     test_ff_eq( &p0, &p1 );
 }
 
-TEST_P(FFSpecializationTest, AnisoPyramidAsPyramid)
+TEST_P(FFSymmetryTest, AnisoPyramidAsPyramid)
 {
     if( skip_q( .4, 6e2 ) )
         return;
@@ -79,7 +79,7 @@ TEST_P(FFSpecializationTest, AnisoPyramidAsPyramid)
     test_ff_eq( &p0, &p1 );
 }
 
-TEST_P(FFSpecializationTest, Pyramid3AsPrism)
+TEST_P(FFSymmetryTest, Pyramid3AsPrism)
 {
     if( skip_q( .04, 5e3 ) )
         return;
@@ -89,7 +89,7 @@ TEST_P(FFSpecializationTest, Pyramid3AsPrism)
     test_ff_eq( &p0, &p1 );
 }
 
-TEST_P(FFSpecializationTest, PyramidAsBox)
+TEST_P(FFSymmetryTest, PyramidAsBox)
 {
     if( skip_q( .04, 2e2 ) )
         return;
@@ -101,7 +101,7 @@ TEST_P(FFSpecializationTest, PyramidAsBox)
 
 //*********** satisfactory tests ***************
 
-TEST_P(FFSpecializationTest, HemiEllipsoidAsTruncatedSphere)
+TEST_P(FFSymmetryTest, HemiEllipsoidAsTruncatedSphere)
 {
     if( skip_q( 1e-17, 1e2 ) )
         return;
@@ -111,7 +111,7 @@ TEST_P(FFSpecializationTest, HemiEllipsoidAsTruncatedSphere)
     test_ff_eq( &p0, &p1 );
 }
 
-TEST_P(FFSpecializationTest, EllipsoidalCylinderAsCylinder)
+TEST_P(FFSymmetryTest, EllipsoidalCylinderAsCylinder)
 {
     if( skip_q( 1e-17, 3e3 ) )
         return;
@@ -121,7 +121,7 @@ TEST_P(FFSpecializationTest, EllipsoidalCylinderAsCylinder)
     test_ff_eq( &p0, &p1 );
 }
 
-TEST_P(FFSpecializationTest, TruncatedCubeAsBox)
+TEST_P(FFSymmetryTest, TruncatedCubeAsBox)
 {
     if( skip_q( 1e-17, 1e4 ) )
         return;

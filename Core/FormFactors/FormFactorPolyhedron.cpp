@@ -356,6 +356,20 @@ void FormFactorPolyhedron::precompute()
     }
 }
 
+//! Takes vertices, and resets internal state.
+
+void FormFactorPolyhedron::setVertices( const std::vector<kvector_t>& vertices )
+{
+    m_faces.clear();
+    for( const TopologyFace& tf: getTopology() ) {
+        std::vector<kvector_t> V;
+        for( int i: tf.vertexIndices )
+            V.push_back( vertices[i] );
+        PolyhedralFace Gk( V, tf.symmetry_S2 );
+        m_faces.push_back( std::move( Gk ) );
+    }
+}
+
 //! Returns the form factor F(q) of this polyhedron, respecting the offset z_origin.
 
 complex_t FormFactorPolyhedron::evaluate_for_q( const cvector_t q ) const

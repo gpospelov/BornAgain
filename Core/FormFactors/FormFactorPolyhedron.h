@@ -65,17 +65,26 @@ private:
 
 class FormFactorPolyhedron : public IFormFactorBorn {
 public:
+    class TopologyFace {
+    public:
+        std::vector<int> vertexIndices;
+        bool symmetry_S2;
+    };
+    typedef std::vector<TopologyFace> Topology;
+    virtual const Topology& getTopology() const = 0;
     FormFactorPolyhedron() {}
     virtual complex_t evaluate_for_q(const cvector_t q ) const final;
     virtual double getVolume() const final { return m_volume; }
     virtual double getRadius() const final { return m_radius; }
     void assert_platonic() const;
 protected:
-    std::vector<PolyhedralFace> m_faces;
+
     double m_z_origin;
     bool m_sym_Ci; //!< if true, then faces obtainable by inversion are not provided
+    void setVertices( const std::vector<kvector_t>& vertices );
     void precompute();
 private:
+    std::vector<PolyhedralFace> m_faces;
     double m_radius;
     double m_volume;
     static const double q_limit_series;

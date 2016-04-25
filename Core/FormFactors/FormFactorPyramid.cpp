@@ -16,6 +16,24 @@
 #include "FormFactorPyramid.h"
 #include "BornAgainNamespace.h"
 
+const FormFactorPolyhedron::Topology FormFactorPyramid::topology = {
+    { { 3, 2, 1, 0 }, true },
+    { { 0, 1, 5, 4 }, false },
+    { { 1, 2, 6, 5 }, false },
+    { { 2, 3, 7, 6 }, false },
+    { { 3, 0, 4, 7 }, false },
+    { { 4, 5, 6, 7 }, true }
+};
+
+/*
+    m_faces.push_back( PolyhedralFace( { V[3], V[2], V[1], V[0] }, true ) );
+    m_faces.push_back( PolyhedralFace( { V[0], V[1], V[5], V[4] } ) );
+    m_faces.push_back( PolyhedralFace( { V[1], V[2], V[6], V[5] } ) );
+    m_faces.push_back( PolyhedralFace( { V[2], V[3], V[7], V[6] } ) );
+    m_faces.push_back( PolyhedralFace( { V[3], V[0], V[4], V[7] } ) );
+    m_faces.push_back( PolyhedralFace( { V[4], V[5], V[6], V[7] }, true ) );
+*/
+
 //! @brief Pyramid constructor
 //! @param base_edge of one side of Pyramid's square base
 //! @param height of Pyramid
@@ -46,11 +64,10 @@ void FormFactorPyramid::onChange()
         throw Exceptions::ClassInitializationException(ostr.str());
     }
 
-    m_faces.clear();
     double a = m_base_edge/2;
     double b = m_base_edge/2 - m_height/std::tan(m_alpha);
 
-    kvector_t V[8] = {
+    setVertices( {
         // base:
         { -a, -a, 0. },
         {  a, -a, 0. },
@@ -60,14 +77,7 @@ void FormFactorPyramid::onChange()
         { -b, -b, m_height },
         {  b, -b, m_height },
         {  b,  b, m_height },
-        { -b,  b, m_height } };
-    m_faces.push_back( PolyhedralFace( { V[3], V[2], V[1], V[0] }, true ) );
-    m_faces.push_back( PolyhedralFace( { V[0], V[1], V[5], V[4] } ) );
-    m_faces.push_back( PolyhedralFace( { V[1], V[2], V[6], V[5] } ) );
-    m_faces.push_back( PolyhedralFace( { V[2], V[3], V[7], V[6] } ) );
-    m_faces.push_back( PolyhedralFace( { V[3], V[0], V[4], V[7] } ) );
-    m_faces.push_back( PolyhedralFace( { V[4], V[5], V[6], V[7] }, true ) );
-
+        { -b,  b, m_height } } );
     m_z_origin = 0;
     m_sym_Ci = false;
 

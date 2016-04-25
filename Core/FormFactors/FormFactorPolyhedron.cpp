@@ -90,14 +90,24 @@ const double PolyhedralFace::qpa_limit_series = 1e-3;
 
 //! Sets internal variables for given vertex chain.
 
+//! @param V oriented vertex list
+//! @param _sym_S2 true if face has a perpedicular two-fold symmetry axis
+
 PolyhedralFace::PolyhedralFace( const std::vector<kvector_t>& V, bool _sym_S2 )
     : sym_S2( _sym_S2 )
 {
     size_t N = V.size();
     if( !N )
         throw NotImplementedException( "Face with no edges" );
+    if( N<3 )
+        throw NotImplementedException( "Face with less than three edges" );
     // compute diameter
-    // TODO
+    double diameter = 0;
+    for ( size_t j=0; j<N; ++j )
+        for ( size_t jj=j+1; jj<N; ++jj )
+            diameter = std::max( diameter, (V[j]-V[jj]).mag() );
+    // internal vertex list
+
     // compute edges
     for ( size_t j=0; j<N; ++j ) {
         size_t jj = (j+1)%N;

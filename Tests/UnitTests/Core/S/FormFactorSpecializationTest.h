@@ -17,31 +17,66 @@
 #include "BornAgainNamespace.h"
 #include "IFormFactorBorn.h"
 #include "ParticleShapes.h"
-#include "qGenerator.h"
+// #include "qGenerator.h"
+#include <tuple>
 
-class FormFactorSpecializationTest : public ::testing::Test
+const complex_t I(0,1);
+
+class QLoopedTest: public ::testing::TestWithParam<std::tuple<double, cvector_t>>
 {
 protected:
-    FormFactorSpecializationTest() {}
+    QLoopedTest() {}
+    virtual void SetUp()
+    {
+        qmag = std::get<0>(GetParam());
+        qdir = std::get<1>(GetParam());
+        q = qmag * qdir;
+    }
+    double qmag;
+    cvector_t qdir;
+    cvector_t q;
 
     void test_ff_eq( IFormFactorBorn* p0, IFormFactorBorn* p1,
                      double qmag_begin=1e-16, double qmag_end=1e4 )
     {
-        for( size_t idx=0; idx<qGenerator::nq(); ++idx ){
-            cvector_t q = qGenerator::q( idx, qmag_begin, qmag_end );
-            complex_t f0 = p0->evaluate_for_q(q);
-            complex_t f1 = p1->evaluate_for_q(q);
-            double avge = (std::abs(f0) + std::abs(f1))/2;
-            EXPECT_NEAR( real(f0), real(f1), 1e-12*avge );
-            EXPECT_NEAR( imag(f0), imag(f1), 1e-12*avge );
-        }
-
+        if( q.mag()<qmag_begin || q.mag()>qmag_end )
+            return;
+        complex_t f0 = p0->evaluate_for_q(q);
+        complex_t f1 = p1->evaluate_for_q(q);
+        double avge = (std::abs(f0) + std::abs(f1))/2;
+        EXPECT_NEAR( real(f0), real(f1), 1e-12*avge );
+        EXPECT_NEAR( imag(f0), imag(f1), 1e-12*avge );
     }
 };
 
+INSTANTIATE_TEST_CASE_P(
+    QLoopedTests,
+    QLoopedTest,
+    testing::Combine(
+        testing::Values(
+            1e-19, 1e-17, 1e-15, 1e-13, 1e-11, 1e-9, 1e-7, 1e-5, 1e-4, 1e-3, 1e-2, .1,
+            1., 1e1, 1e2, 1e3, 1e4 ),
+        testing::Values(
+        cvector_t({ 1., 0., 0 }),
+        cvector_t({ 1.+0.1*I, 0., 0 }),
+        cvector_t({ 0., 1., 0 }),
+        cvector_t({ 0., 0., 1.-.1*I }),
+        cvector_t({ 1., 1., 0 }),
+        cvector_t({ 1.+0.1*I, 1.+0.1*I, 0 }),
+        cvector_t({ 0., 1., 1. }),
+        cvector_t({ 1.-.1*I, 0., 1.-.1*I }),
+        cvector_t({ 1., 2., 0. }),
+        cvector_t({ 1.+0.01*I, 2.+0.4*I, 0. }),
+        cvector_t({ 1., 1., 1 }),
+        cvector_t({ 1.+0.1*I, 1.+0.1*I, 1.+0.1*I }),
+        cvector_t({ 2.17+.03*I, 3.49-.04*I, .752+.01*I })
+            )
+        )
+    );
+
 // ****** TODO: the following tests pass only after the q range has been reduced *********
 
-TEST_F(FormFactorSpecializationTest, TruncatedSphere)
+TEST_P(QLoopedTest, TruncatedSphereAsSphere)
 {
     double R=1.;
     FormFactorTruncatedSphere p0(R, 2*R);
@@ -49,7 +84,7 @@ TEST_F(FormFactorSpecializationTest, TruncatedSphere)
     test_ff_eq( &p0, &p1, .025, 1e2 );
 }
 
-TEST_F(FormFactorSpecializationTest, AnisoPyramid)
+TEST_P(QLoopedTest, AnisoPyramidAsPyramid)
 {
     double L=1.5, H=.24, alpha=.6;
     FormFactorAnisoPyramid p0(L, L, H, alpha);
@@ -57,8 +92,7 @@ TEST_F(FormFactorSpecializationTest, AnisoPyramid)
     test_ff_eq( &p0, &p1, .4, 6e2 );
 }
 
-
-TEST_F(FormFactorSpecializationTest, Pyramid3)
+TEST_P(QLoopedTest, Pyramid3AsPrism)
 {
     double L=1.8, H=.3;
     FormFactorTetrahedron p0(L, H, Units::PI/2);
@@ -66,7 +100,7 @@ TEST_F(FormFactorSpecializationTest, Pyramid3)
     test_ff_eq( &p0, &p1, .04, 5e3 );
 }
 
-TEST_F(FormFactorSpecializationTest, Pyramid)
+TEST_P(QLoopedTest, PyramidAsBox)
 {
     double L=1.8, H=.3;
     FormFactorPyramid p0(L, H, Units::PI/2);
@@ -76,7 +110,7 @@ TEST_F(FormFactorSpecializationTest, Pyramid)
 
 //*********** satisfactory tests ***************
 
-TEST_F(FormFactorSpecializationTest, HemiEllipsoid)
+TEST_P(QLoopedTest, HemiEllipsoidAsTruncatedSphere)
 {
     double R=1.07;
     FormFactorHemiEllipsoid p0(R, R, R);
@@ -84,7 +118,7 @@ TEST_F(FormFactorSpecializationTest, HemiEllipsoid)
     test_ff_eq( &p0, &p1, 1e-17, 1e2 );
 }
 
-TEST_F(FormFactorSpecializationTest, EllipsoidalCylinder)
+TEST_P(QLoopedTest, EllipsoidalCylinderAsCylinder)
 {
     double R=.8, H=1.2;
     FormFactorEllipsoidalCylinder p0(R, R, H);
@@ -92,7 +126,7 @@ TEST_F(FormFactorSpecializationTest, EllipsoidalCylinder)
     test_ff_eq( &p0, &p1, 1e-17, 3e3 );
 }
 
-TEST_F(FormFactorSpecializationTest, TruncatedCube)
+TEST_P(QLoopedTest, TruncatedCubeAsBox)
 {
     double L=.5;
     FormFactorTruncatedCube p0(L, 0);

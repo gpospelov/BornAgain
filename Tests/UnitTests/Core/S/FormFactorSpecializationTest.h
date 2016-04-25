@@ -17,27 +17,12 @@
 #include "BornAgainNamespace.h"
 #include "IFormFactorBorn.h"
 #include "ParticleShapes.h"
-// #include "qGenerator.h"
+#include "qLoopedTest.h"
 #include <tuple>
 
-const complex_t I(0,1);
-
-class QLoopedTest: public ::testing::TestWithParam<std::tuple<double, cvector_t>>
+class SpecialFormFactorTest : public QLoopedTest
 {
-protected:
-    QLoopedTest() {}
-    virtual void SetUp()
-    {
-        double    qmag = std::get<0>(GetParam());
-        cvector_t qdir = std::get<1>(GetParam());
-        q = qmag * qdir;
-    }
-    cvector_t q;
-
-    bool skip_q( double qmag_begin=1e-16, double qmag_end=1e4 ) {
-        return q.mag()<qmag_begin || q.mag()>qmag_end;
-    }
-
+public:
     void test_ff_eq( IFormFactorBorn* p0, IFormFactorBorn* p1) {
         complex_t f0 = p0->evaluate_for_q(q);
         complex_t f1 = p1->evaluate_for_q(q);
@@ -48,8 +33,8 @@ protected:
 };
 
 INSTANTIATE_TEST_CASE_P(
-    QLoopedTests,
-    QLoopedTest,
+    SpecialFormFactorTests,
+    SpecialFormFactorTest,
     testing::Combine(
         testing::Values(
             1e-19, 1e-17, 1e-15, 1e-13, 1e-11, 1e-9, 1e-7, 1e-5, 1e-4, 1e-3, 1e-2, .1,
@@ -74,7 +59,7 @@ INSTANTIATE_TEST_CASE_P(
 
 // ****** TODO: the following tests pass only after the q range has been reduced *********
 
-TEST_P(QLoopedTest, TruncatedSphereAsSphere)
+TEST_P(SpecialFormFactorTest, TruncatedSphereAsSphere)
 {
     if( skip_q( .025, 1e2 ) )
         return;
@@ -84,7 +69,7 @@ TEST_P(QLoopedTest, TruncatedSphereAsSphere)
     test_ff_eq( &p0, &p1 );
 }
 
-TEST_P(QLoopedTest, AnisoPyramidAsPyramid)
+TEST_P(SpecialFormFactorTest, AnisoPyramidAsPyramid)
 {
     if( skip_q( .4, 6e2 ) )
         return;
@@ -94,7 +79,7 @@ TEST_P(QLoopedTest, AnisoPyramidAsPyramid)
     test_ff_eq( &p0, &p1 );
 }
 
-TEST_P(QLoopedTest, Pyramid3AsPrism)
+TEST_P(SpecialFormFactorTest, Pyramid3AsPrism)
 {
     if( skip_q( .04, 5e3 ) )
         return;
@@ -104,7 +89,7 @@ TEST_P(QLoopedTest, Pyramid3AsPrism)
     test_ff_eq( &p0, &p1 );
 }
 
-TEST_P(QLoopedTest, PyramidAsBox)
+TEST_P(SpecialFormFactorTest, PyramidAsBox)
 {
     if( skip_q( .04, 2e2 ) )
         return;
@@ -116,7 +101,7 @@ TEST_P(QLoopedTest, PyramidAsBox)
 
 //*********** satisfactory tests ***************
 
-TEST_P(QLoopedTest, HemiEllipsoidAsTruncatedSphere)
+TEST_P(SpecialFormFactorTest, HemiEllipsoidAsTruncatedSphere)
 {
     if( skip_q( 1e-17, 1e2 ) )
         return;
@@ -126,7 +111,7 @@ TEST_P(QLoopedTest, HemiEllipsoidAsTruncatedSphere)
     test_ff_eq( &p0, &p1 );
 }
 
-TEST_P(QLoopedTest, EllipsoidalCylinderAsCylinder)
+TEST_P(SpecialFormFactorTest, EllipsoidalCylinderAsCylinder)
 {
     if( skip_q( 1e-17, 3e3 ) )
         return;
@@ -136,7 +121,7 @@ TEST_P(QLoopedTest, EllipsoidalCylinderAsCylinder)
     test_ff_eq( &p0, &p1 );
 }
 
-TEST_P(QLoopedTest, TruncatedCubeAsBox)
+TEST_P(SpecialFormFactorTest, TruncatedCubeAsBox)
 {
     if( skip_q( 1e-17, 1e4 ) )
         return;

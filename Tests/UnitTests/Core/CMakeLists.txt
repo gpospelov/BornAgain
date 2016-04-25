@@ -7,6 +7,7 @@ include_directories(
     ${Boost_INCLUDE_DIRS}
     ${EIGEN3_INCLUDE_DIR}
     ${GSL_INCLUDE_DIR}
+    ../utilities/
     )
 if(BORNAGAIN_OPENMPI)
     include_directories(${MPI_INCLUDE_PATH})

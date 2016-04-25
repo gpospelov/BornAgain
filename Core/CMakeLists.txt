@@ -18,7 +18,7 @@ set(include_dirs
     ${CMAKE_CURRENT_SOURCE_DIR}/InputOutput
     )
 
-  set(bornagain_swig_dir  ${CMAKE_CURRENT_SOURCE_DIR}/../dev-tools/swig)
+set(bornagain_swig_dir ${CMAKE_CURRENT_SOURCE_DIR}/../dev-tools/swig)
 
 
 include_directories(${include_dirs})
@@ -60,7 +60,7 @@ if(BORNAGAIN_PYTHON)
     set(SWIG_FLAGS "")
     list(APPEND SWIG_FLAGS "-c++")
     list(APPEND SWIG_FLAGS "-python")
-    
+
     foreach(dir ${include_dirs})
       list(APPEND SWIG_FLAGS "-I${dir}")
     endforeach(dir)
@@ -74,11 +74,11 @@ if(BORNAGAIN_PYTHON)
       ${bornagain_swig_dir}/shared_pointers.i
       ${bornagain_swig_dir}/warnings.i
       )
-    
+
     add_custom_command (
       OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainCore.py ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainCore_wrap.h ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainCore_wrap.cxx
       COMMAND ${SWIG_EXECUTABLE} ${SWIG_FLAGS} ${bornagain_swig_dir}/libBornAgainCore.i
-      COMMAND ${PYTHON_EXECUTABLE} ${bornagain_swig_dir}/tweaks.py ${bornagain_swig_dir}/libBornAgainCore.py ${bornagain_swig_dir}/libBornAgainCore.py 	
+      COMMAND ${PYTHON_EXECUTABLE} ${bornagain_swig_dir}/tweaks.py ${bornagain_swig_dir}/libBornAgainCore.py ${bornagain_swig_dir}/libBornAgainCore.py
       COMMAND ${CMAKE_COMMAND} -E copy ${bornagain_swig_dir}/libBornAgainCore.py ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainCore.py
       COMMAND ${CMAKE_COMMAND} -E copy ${bornagain_swig_dir}/libBornAgainCore_wrap.cxx ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainCore_wrap.cxx
       COMMAND ${CMAKE_COMMAND} -E copy ${bornagain_swig_dir}/libBornAgainCore_wrap.h ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainCore_wrap.h
@@ -91,16 +91,16 @@ if(BORNAGAIN_PYTHON)
     # autogenerate doxygen.i from doxygen comments
     if(BORNAGAIN_GENERATE_PYTHON_DOCS)
       configure_file(${CMAKE_SOURCE_DIR}/Doc/Doxygen/DoxyfileSwig.in ${CMAKE_CURRENT_BINARY_DIR}/PythonAPI/Doxyfile @ONLY)
-      
+
       add_custom_command(
         OUTPUT ${bornagain_swig_dir}/doxygen_core.i
         COMMAND ${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/PythonAPI/Doxyfile
         COMMAND ${PYTHON_EXECUTABLE} ${bornagain_swig_dir}/doxy2swig.py ${CMAKE_CURRENT_BINARY_DIR}/Doc/xml/index.xml ${bornagain_swig_dir}/doxygen_core.i
         DEPENDS ${include_files}
         )
-      
+
     endif(BORNAGAIN_GENERATE_PYTHON_DOCS)
-    
+
   endif(BORNAGAIN_GENERATE_BINDINGS)
 
   add_custom_target (
@@ -112,14 +112,14 @@ if(BORNAGAIN_PYTHON)
   # manually add: if does not exist, will be created by swig
   list(APPEND source_files "PythonAPI/libBornAgainCore_wrap.cxx")
   #list(APPEND include_files "PythonAPI/libBornAgainCore_wrap.h")
-  
+
 
   # add_custom_target(
   #   ${library_name}_python
   #   COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainCore.py ${CMAKE_BINARY_DIR}/lib/libBornAgainCore.py
   #   )
   configure_file(../dev-tools/python-setup/bornagain/plot_utils.py ${CMAKE_BINARY_DIR}/lib/plot_utils/__init__.py COPYONLY)
-  
+
 endif()
 
 
@@ -211,7 +211,7 @@ if(WIN32)
             ${CMAKE_BINARY_DIR}/bin/${libprefix}${library_name}${libsuffix}
             ${CMAKE_BINARY_DIR}/lib/${libprefix}${library_name}${libsuffix}
         )
-        
+
     endif()
 
     # system libraries
@@ -278,4 +278,3 @@ else()
     install (DIRECTORY ${CMAKE_SOURCE_DIR}/dev-tools/python-setup/bornagain DESTINATION ${destination_libexec} COMPONENT Libraries)
     install (FILES "${destination_runtime_configs}/__init__.py" DESTINATION ${destination_libexec}/bornagain COMPONENT Libraries)
 endif()
-

@@ -1,8 +1,6 @@
 set(BORNAGAIN_ARCHITECTURE linux)
 set(BORNAGAIN_PLATFORM linux)
 
-
-
 execute_process(COMMAND uname -m OUTPUT_VARIABLE SYSCTL_OUTPUT)
 if(${SYSCTL_OUTPUT} MATCHES x86_64)
     message(STATUS "Found a 64bit system")

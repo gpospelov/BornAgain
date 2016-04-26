@@ -22,14 +22,53 @@ class FormFactorBasicTest : public ::testing::Test
 {
 protected:
     FormFactorBasicTest() {}
-    void clone_test( const IFormFactorBorn* ff )
+    void test_small_q( const IFormFactorBorn* p, complex_t x, complex_t y, complex_t z )
     {
-        IFormFactorBorn* clone = ff->clone();
-        EXPECT_EQ(clone->getName(), ff->getName());
-        EXPECT_EQ(clone->getVolume(), ff->getVolume());
-        cvector_t q(.1, .2, complex_t(.3, .004));
-        EXPECT_EQ(clone->evaluate_for_q(q), ff->evaluate_for_q(q));
+        double eps=1e-14;
+        cvector_t q = eps*cvector_t( x, y, z );
+        complex_t ff = p->evaluate_for_q( cvector_t(0.,eps,0.) );
+        std::cout<<"q="<<q<<"\n"<<std::setprecision(16)<<"  ff0="<<V<<"\n  ff ="<<ff<<"\n";
+        EXPECT_LE( real(ff), V*(1+1e-15) );
+        if ( R*R*R<V/20 || R*R*R>20*V )
+            return;
+        EXPECT_GT( real(ff), V*(1-2*eps*R) );
+        EXPECT_LT( std::abs(imag(ff)), 10*eps*eps*V*R*R );
     }
+    void clone_test( const IFormFactorBorn* p )
+    {
+        complex_t ff0 = p->evaluate_for_q( cvector_t(0.,0.,0.) );
+        EXPECT_EQ( imag(ff0), 0. );
+        V = real(ff0);
+        EXPECT_NEAR( p->getVolume(), V, 1e-15*V );
+        
+        R = p->getRadius();
+        if ( R*R*R<V/20 || R*R*R>20*V ) {
+            std::cerr<<"WARNING: very elongated particle, or wrong radius; some tests disabled\n";
+            std::cerr<<std::setprecision(16)<<"  V  ="<<V<<"\n  R^3="<<R*R*R<<"\n";
+        }
+
+        test_small_q( p,  1, 0, 0 );
+        test_small_q( p, -1, 0, 0 );
+        test_small_q( p,  0, 1, 0 );
+        test_small_q( p,  0,-1, 0 );
+        test_small_q( p,  0, 0, 1 );
+        test_small_q( p,  0, 0,-1 );
+        test_small_q( p,  1, 1, 0 );
+        test_small_q( p,  0, 1, 1 );
+        test_small_q( p,  1, 0, 1 );
+        test_small_q( p,  1,-1, 0 );
+        test_small_q( p,  0, 1,-1 );
+        test_small_q( p, -1, 0, 1 );
+        test_small_q( p,  1, 1, 1 );
+        test_small_q( p, .7,.8,.9 );
+
+        IFormFactorBorn* clone = p->clone();
+        EXPECT_EQ(clone->getName(), p->getName());
+        EXPECT_EQ(clone->getVolume(), V);
+        cvector_t q(.1, .2, complex_t(.3, .004));
+        EXPECT_EQ(clone->evaluate_for_q(q), p->evaluate_for_q(q));
+    }
+    double V, R;
 };
 
 TEST_F(FormFactorBasicTest, AnisoPyramid)

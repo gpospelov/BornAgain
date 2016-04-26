@@ -42,7 +42,7 @@ void FormFactorPrism6::onChange()
         { -ac, -as, 0. },
         {  ac, -as, 0. } };
     m_base = std::unique_ptr<PolyhedralFace>(
-        new PolyhedralFace( { V[0], V[1], V[2], V[3], V[4], V[5] }, false ) );
+        new PolyhedralFace( { V[0], V[1], V[2], V[3], V[4], V[5] }, false ) ); // TODO restore sym
 }
 
 FormFactorPrism6* FormFactorPrism6::clone() const

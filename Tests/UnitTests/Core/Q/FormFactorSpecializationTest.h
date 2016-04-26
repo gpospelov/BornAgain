@@ -133,7 +133,7 @@ TEST_P(FFSpecializationTest, TruncatedCubeAsBox)
 
 TEST_P(FFSpecializationTest, Cone6AsPrism)
 {
-    if( skip_q( .04, 5e3 ) )
+    if( skip_q( .04, 5e2 ) )
         return;
     double L=.8, H=1.13;
     FormFactorCone6 p0(L, H, Units::PI/2);

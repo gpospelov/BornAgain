@@ -117,7 +117,7 @@ PolyhedralFace::PolyhedralFace( const std::vector<kvector_t>& V, bool _sym_S2 )
     for( const kvector_t v: V )
         m_radius_3d = std::max( m_radius_3d, v.mag() );
 
-    // compute edges
+    // compute edges @TODO rework: do not leave gaps
     for ( size_t j=0; j<NV; ++j ) {
         size_t jj = (j+1)%NV;
         if( (V[j]-V[jj]).mag() < 1e-14*m_radius_2d )

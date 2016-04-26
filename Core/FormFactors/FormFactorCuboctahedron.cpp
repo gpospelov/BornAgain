@@ -18,6 +18,19 @@
 #include "FormFactorPyramid.h"
 #include "MathFunctions.h"
 
+const FormFactorPolyhedron::Topology FormFactorCuboctahedron::topology = {
+    { {  3,  2,  1,  0 }, true  },
+    { {  0,  1,  5,  4 }, false },
+    { {  1,  2,  6,  5 }, false },
+    { {  2,  3,  7,  6 }, false },
+    { {  3,  0,  4,  7 }, false },
+    { {  4,  5,  9,  8 }, false },
+    { {  5,  6, 10,  9 }, false },
+    { {  6,  7, 11, 10 }, false },
+    { {  7,  4,  8, 11 }, false },
+    { {  8,  9, 10, 11 }, true  }
+};
+
 //! @brief Cuboctahedron constructor
 //! @param length of one side of Cuboctahedron's square base
 //! @param height of bottom of Cuboctahedron
@@ -56,7 +69,7 @@ void FormFactorCuboctahedron::onChange()
     double b = m_length/2;
     double c = m_length/2 - m_height*m_height_ratio/std::tan(m_alpha);
 
-    kvector_t V[12] = {
+    setVertices( {
         // base:
         { -a, -a, 0. },
         {  a, -a, 0. },
@@ -71,19 +84,7 @@ void FormFactorCuboctahedron::onChange()
         { -c, -c, m_height*(1+m_height_ratio) },
         {  c, -c, m_height*(1+m_height_ratio) },
         {  c,  c, m_height*(1+m_height_ratio) },
-        { -c,  c, m_height*(1+m_height_ratio) } };
-    m_faces.clear();
-    m_faces.push_back( PolyhedralFace( { V[ 3], V[ 2], V[ 1], V[ 0] }, true ) );
-    m_faces.push_back( PolyhedralFace( { V[ 0], V[ 1], V[ 5], V[ 4] } ) );
-    m_faces.push_back( PolyhedralFace( { V[ 1], V[ 2], V[ 6], V[ 5] } ) );
-    m_faces.push_back( PolyhedralFace( { V[ 2], V[ 3], V[ 7], V[ 6] } ) );
-    m_faces.push_back( PolyhedralFace( { V[ 3], V[ 0], V[ 4], V[ 7] } ) );
-    m_faces.push_back( PolyhedralFace( { V[ 4], V[ 5], V[ 9], V[ 8] } ) );
-    m_faces.push_back( PolyhedralFace( { V[ 5], V[ 6], V[10], V[ 9] } ) );
-    m_faces.push_back( PolyhedralFace( { V[ 6], V[ 7], V[11], V[10] } ) );
-    m_faces.push_back( PolyhedralFace( { V[ 7], V[ 4], V[ 8], V[11] } ) );
-    m_faces.push_back( PolyhedralFace( { V[ 8], V[ 9], V[10], V[11] }, true ) );
-
+        { -c,  c, m_height*(1+m_height_ratio) } } );
     m_z_origin = 0;
     m_sym_Ci = false;
 

@@ -88,86 +88,101 @@ complex_t PolyhedralEdge::contrib(int m, cvector_t prevec, cvector_t q) const
 
 const double PolyhedralFace::qpa_limit_series = 1e-3;
 
+double PolyhedralFace::diameter( const std::vector<kvector_t>& V )
+{
+    double diameterFace = 0;
+    for ( size_t j=0; j<V.size(); ++j )
+        for ( size_t jj=j+1; jj<V.size(); ++jj )
+            diameterFace = std::max( diameterFace, (V[j]-V[jj]).mag() );
+    return diameterFace;
+}
+
 //! Sets internal variables for given vertex chain.
+
+//! @param V oriented vertex list
+//! @param _sym_S2 true if face has a perpedicular two-fold symmetry axis
 
 PolyhedralFace::PolyhedralFace( const std::vector<kvector_t>& V, bool _sym_S2 )
     : sym_S2( _sym_S2 )
 {
-    size_t N = V.size();
-    if( !N )
-        return; // we would forbid these calls altogether, but swig requires constructor()
-    // compute edges
-    for ( size_t j=0; j<N; ++j ) {
-        size_t jj = (j+1)%N;
-        edges.push_back( PolyhedralEdge(V[j], V[jj]) );
-    }
-    // compute n_k, rperp
-    normal = kvector_t();
-    for( size_t j=0; j<N; ++j ){
-        size_t jj = (j+1)%N;
-        kvector_t ee = edges[j].E.cross( edges[jj].E );
-        if( ee.mag2()==0 ) {
-            std::ostringstream msg;
-            size_t jjj = (j+2)%N;
-            msg<<"parallel edges between V["<<j<<"]="<<V[j]<<
-                " and V["<<jj<<"]="<<V[jj]<<
-                " and  V["<<jjj<<"]="<<V[jjj];
-            throw std::runtime_error(msg.str());
-        }
-        normal += ee.unit();
-    }
-    normal /= N;
-    rperp = 0;
-    for( size_t j=0; j<N; ++j )
-        rperp += V[j].dot(normal);
-    rperp /= N;
-    // compute radius in 3d
+    size_t NV = V.size();
+    if( !NV )
+        throw NotImplementedException( "Face with no edges" );
+    if( NV<3 )
+        throw NotImplementedException( "Face with less than three edges" );
+
+    // compute radius in 2d and 3d
+    m_radius_2d = diameter( V )/2;
     m_radius_3d = 0;
     for( const kvector_t v: V )
         m_radius_3d = std::max( m_radius_3d, v.mag() );
-    // assert that the vertices lay in a plane
-    for ( size_t j=1; j<N; ++j )
-        if( std::abs(V[j].dot(normal) - rperp) > 1e-14*m_radius_3d )
-            throw std::runtime_error("Face is not planar");
-    // compute area
-    area = 0;
-    for ( size_t j=0; j<N; ++j ) {
-        size_t jj = (j+1)%N;
-        area += normal.dot( V[j].cross( V[jj] ) ) / 2;
-    }
-    // compute radius in 2d
-    m_radius_2d = 0;
-    for( const kvector_t v: V )
-        m_radius_2d = std::max( m_radius_2d, (v-rperp*normal).mag() );
 
+    // compute edges @TODO rework: do not leave gaps
+    for ( size_t j=0; j<NV; ++j ) {
+        size_t jj = (j+1)%NV;
+        if( (V[j]-V[jj]).mag() < 1e-14*m_radius_2d )
+            continue; // neglect ridiculously short edges
+        edges.push_back( PolyhedralEdge(V[j], V[jj]) );
+    }
+    size_t NE = edges.size();
+    if( NE<3 )
+        throw RuntimeErrorException( "Face has less than three non-vanishing edges" );
+
+    // compute n_k, rperp
+    m_normal = kvector_t();
+    for( size_t j=0; j<NE; ++j ){
+        size_t jj = (j+1)%NE;
+        kvector_t ee = edges[j].E.cross( edges[jj].E );
+        if( ee.mag2()==0 ) {
+            throw RuntimeErrorException( "Two adjacent edges are parallel" );
+        }
+        m_normal += ee.unit();
+    }
+    m_normal /= NE;
+    m_rperp = 0;
+    for( size_t j=0; j<NV; ++j )
+        m_rperp += V[j].dot(m_normal);
+    m_rperp /= NV;
+    // assert that the vertices lay in a plane
+    for ( size_t j=1; j<NV; ++j )
+        if( std::abs(V[j].dot(m_normal) - m_rperp) > 1e-14*m_radius_3d )
+            throw std::runtime_error("Face is not planar");
+    // compute m_area
+    m_area = 0;
+    for ( size_t j=0; j<NV; ++j ) {
+        size_t jj = (j+1)%NV;
+        m_area += m_normal.dot( V[j].cross( V[jj] ) ) / 2;
+    }
     // only now deal with inversion symmetry
     if( sym_S2 ) {
-        if( N&1 )
+        if( NE&1 )
             throw std::runtime_error("Odd #edges violates symmetry S2");
-        N /= 2;
-        for( size_t j=0; j<N; ++j ){
-            if( ((V[j]-rperp*normal)+(V[j+N]-rperp*normal)).mag2()>1e-24*m_radius_2d*m_radius_2d )
-                throw std::runtime_error("Given points violate symmetry S2");
+        NE /= 2;
+        for( size_t j=0; j<NE; ++j ){
+            if( ((edges[j].R-m_rperp*m_normal)+(edges[j+NE].R-m_rperp*m_normal)).mag() > 1e-12*m_radius_2d )
+                throw std::runtime_error("Edge centers violate symmetry S2");
+            if( (edges[j].E+edges[j+NE].E).mag() > 1e-12*m_radius_2d )
+                throw std::runtime_error("Edge vectors violate symmetry S2");
         }
         // keep only half of the egdes
-        edges.erase( edges.begin()+N, edges.end() );
+        edges.erase( edges.begin()+NE, edges.end() );
     }
 }
 
 //! Returns area of this polygon
-double PolyhedralFace::getArea() const { return area; }
+double PolyhedralFace::getArea() const { return m_area; }
 
 //! Returns volume of pyramid spanned by the origin and this polygon
-double PolyhedralFace::getPyramidalVolume() const { return rperp*area/3; }
+double PolyhedralFace::getPyramidalVolume() const { return m_rperp*m_area/3; }
 
 //! Sets qperp and qpa according to argument q and to this polygon's normal.
 
 void PolyhedralFace::decompose_q( const cvector_t q, complex_t& qperp, cvector_t& qpa ) const
 {
-    qperp = normal.dot(q);
-    qpa = q - qperp*normal;
+    qperp = m_normal.dot(q);
+    qpa = q - qperp*m_normal;
     // improve numeric accuracy:
-    qpa -= normal.dot(qpa)*normal;
+    qpa -= m_normal.dot(qpa)*m_normal;
     if( qpa.mag()<eps*std::abs(qperp) )
         qpa = cvector_t(0.,0.,0.);
 }
@@ -176,7 +191,7 @@ void PolyhedralFace::decompose_q( const cvector_t q, complex_t& qperp, cvector_t
 
 complex_t PolyhedralFace::ff_n_core( int m, const cvector_t q ) const
 {
-    cvector_t prevec = 2.*normal.cross( q ); // complex conjugation will take place in .dot
+    cvector_t prevec = 2.*m_normal.cross( q ); // complex conjugation will take place in .dot
     complex_t ret = 0;
     for( const PolyhedralEdge& e: edges )
         ret += e.contrib(m, prevec, q);
@@ -187,7 +202,7 @@ complex_t PolyhedralFace::ff_n_core( int m, const cvector_t q ) const
 
 complex_t PolyhedralFace::ff_n( int n, const cvector_t q ) const
 {
-    complex_t qn = q.dot(normal); // conj(q)*normal (BasicVector3D::dot is antilinear in 'this' argument)
+    complex_t qn = q.dot(m_normal); // conj(q)*normal (BasicVector3D::dot is antilinear in 'this' argument)
     if ( std::abs(qn)<eps*q.mag() )
         return 0.;
     complex_t qperp;
@@ -196,9 +211,9 @@ complex_t PolyhedralFace::ff_n( int n, const cvector_t q ) const
     double qpa_mag2 = qpa.mag2();
     static auto& precomputed = IPrecomputed::instance();
     if ( qpa_mag2==0. ) {
-        return qn * pow(qperp*rperp, n) * area / precomputed.factorial[n];
+        return qn * pow(qperp*m_rperp, n) * m_area / precomputed.factorial[n];
     } else if ( sym_S2 ) {
-        return qn * ( ff_n_core( n, q ) + ff_n_core( n, qperp*normal-qpa ) ) / qpa_mag2;
+        return qn * ( ff_n_core( n, q ) + ff_n_core( n, qperp*m_normal-qpa ) ) / qpa_mag2;
     } else {
         return qn * ff_n_core( n, q ) / qpa_mag2;
     }
@@ -208,16 +223,16 @@ complex_t PolyhedralFace::ff_n( int n, const cvector_t q ) const
 
 complex_t PolyhedralFace::ff( const cvector_t q, const bool sym_Ci ) const
 {
-    complex_t qn = q.dot(normal); // conj(q)*normal (BasicVector3D::dot is antilinear in 'this' argument)
+    complex_t qn = q.dot(m_normal); // conj(q)*normal (BasicVector3D::dot is antilinear in 'this' argument)
     if ( std::abs(qn)<eps*q.mag() )
         return 0;
     complex_t qperp;
     cvector_t qpa;
     decompose_q( q, qperp, qpa );
     double qpa_red = m_radius_2d * qpa.mag();
-    complex_t qr_perp = qperp*rperp;
+    complex_t qr_perp = qperp*m_rperp;
     if ( qpa_red==0 ) {
-        return qn * (sym_Ci ? 2.*I*sin(qr_perp) : exp(I*qr_perp)) * area;
+        return qn * (sym_Ci ? 2.*I*sin(qr_perp) : exp(I*qr_perp)) * m_area;
     } else if ( qpa_red < qpa_limit_series && !sym_S2 ) {
         // summation of power series
 #ifdef POLYHEDRAL_DIAGNOSTIC
@@ -232,7 +247,7 @@ complex_t PolyhedralFace::ff( const cvector_t q, const bool sym_Ci ) const
             fac_even = qn * exp( I*qr_perp );
             fac_odd = fac_even;
         }
-        complex_t sum = fac_even * area;
+        complex_t sum = fac_even * m_area;
         complex_t n_fac = I;
         for( int n=1; n<20; ++n ) {
 #ifdef POLYHEDRAL_DIAGNOSTIC
@@ -247,7 +262,7 @@ complex_t PolyhedralFace::ff( const cvector_t q, const bool sym_Ci ) const
         throw std::runtime_error("Bug in formfactor computation: series f(q_pa) not converged");
     } else {
         // direct evaluation of analytic formula
-        cvector_t prevec = 2.*normal.cross( qpa ); // complex conjugation will take place in .dot
+        cvector_t prevec = 2.*m_normal.cross( qpa ); // complex conjugation will take place in .dot
         complex_t prefac = qn;
         if( sym_S2 )
             prefac *= sym_Ci ? -4.*sin(qr_perp) : 2.*I*exp(I*qr_perp);
@@ -267,17 +282,17 @@ complex_t PolyhedralFace::ff( const cvector_t q, const bool sym_Ci ) const
 
 complex_t PolyhedralFace::ff_2D( const cvector_t qpa ) const
 {
-    if ( std::abs(qpa.dot(normal))>eps*qpa.mag() )
+    if ( std::abs(qpa.dot(m_normal))>eps*qpa.mag() )
         throw std::runtime_error("ff_2D called with perpendicular q component");
     double qpa_red = m_radius_2d * qpa.mag();
     if ( qpa_red==0 ) {
-        return area;
+        return m_area;
     } else if ( qpa_red < qpa_limit_series ) {
         // summation of power series
 #ifdef POLYHEDRAL_DIAGNOSTIC
         diagnosis.nExpandedFaces += 1;
 #endif
-        complex_t sum = area;
+        complex_t sum = m_area;
         complex_t n_fac = I;
         for( int n=1; n<20; ++n ) {
 #ifdef POLYHEDRAL_DIAGNOSTIC
@@ -292,7 +307,7 @@ complex_t PolyhedralFace::ff_2D( const cvector_t qpa ) const
         throw std::runtime_error("Bug in formfactor computation: series f(q_pa) not converged");
     } else {
         // direct evaluation of analytic formula
-        cvector_t prevec = 2.*normal.cross( qpa ); // complex conjugation will take place in .dot
+        cvector_t prevec = 2.*m_normal.cross( qpa ); // complex conjugation will take place in .dot
         complex_t sum = 0;
         for( const PolyhedralEdge& e: edges ) {
             complex_t qE = e.E.dot(qpa);
@@ -309,11 +324,11 @@ complex_t PolyhedralFace::ff_2D( const cvector_t qpa ) const
 
 void PolyhedralFace::assert_Ci( const PolyhedralFace& other ) const
 {
-    if( std::abs(rperp-other.rperp)>1e-15*(rperp+other.rperp) )
+    if( std::abs(m_rperp-other.m_rperp)>1e-15*(m_rperp+other.m_rperp) )
         throw std::runtime_error("Faces with different distance from origin violate symmetry Ci");
-    if( std::abs(area-other.area)>1e-15*(area+other.area) )
+    if( std::abs(m_area-other.m_area)>1e-15*(m_area+other.m_area) )
         throw std::runtime_error("Faces with different areas violate symmetry Ci");
-    if( (normal+other.normal).mag()>1e-14 )
+    if( (m_normal+other.m_normal).mag()>1e-14 )
         throw std::runtime_error("Faces do not have opposite orientation, violating symmetry Ci");
 }
 
@@ -322,6 +337,29 @@ void PolyhedralFace::assert_Ci( const PolyhedralFace& other ) const
 //***************************************************************************************************
 
 const double FormFactorPolyhedron::q_limit_series = 1e-6;
+
+//! Takes vertices, and resets internal state.
+
+void FormFactorPolyhedron::setVertices( const std::vector<kvector_t>& vertices )
+{
+    // compute diameter
+    double diameter3d = 0;
+    for ( size_t j=0; j<vertices.size(); ++j )
+        for ( size_t jj=j+1; jj<vertices.size(); ++jj )
+            diameter3d = std::max( diameter3d, (vertices[j]-vertices[jj]).mag() );
+    // construct faces
+    m_faces.clear();
+    for( const TopologyFace& tf: getTopology() ) {
+        std::vector<kvector_t> V;
+        for( int i: tf.vertexIndices )
+            V.push_back( vertices[i] );
+        if( PolyhedralFace::diameter( V )<= 1e-14*diameter3d )
+            continue; // neglect ridiculously small face
+        m_faces.push_back( PolyhedralFace( V, tf.symmetry_S2 ) );
+    }
+    if( m_faces.size() < 4 )
+        throw RuntimeErrorException( "less than four non-vanishing faces" );
+}
 
 void FormFactorPolyhedron::precompute()
 {
@@ -419,7 +457,7 @@ FormFactorPolygonalPrism::FormFactorPolygonalPrism(double height)
 }
 
 //! Returns the volume of this prism.
-double FormFactorPolygonalPrism::getVolume() const { return m_height * m_base.getArea(); }
+double FormFactorPolygonalPrism::getVolume() const { return m_height * m_base->getArea(); }
 
 //! Returns the form factor F(q) of this polyhedron, respecting the offset height/2.
 
@@ -429,5 +467,6 @@ complex_t FormFactorPolygonalPrism::evaluate_for_q( const cvector_t q ) const
     diagnosis = { 0, 0 };
 #endif
     const cvector_t qxy( q.x(), q.y(), 0. );
-    return m_height * exp(I*(m_height/2)*q.z()) * MathFunctions::sinc(m_height/2*q.z()) * m_base.ff_2D( qxy );
+    return m_height * exp(I*(m_height/2)*q.z()) * MathFunctions::sinc(m_height/2*q.z()) *
+        m_base->ff_2D( qxy );
 }

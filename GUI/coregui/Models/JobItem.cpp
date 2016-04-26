@@ -43,6 +43,7 @@ const QString JobItem::T_OUTPUT = "Output Tag";
 const QString JobItem::T_REALDATA = "Real Data Tag";
 const QString JobItem::T_PARAMETER_TREE = "Parameter Tree";
 const QString JobItem::T_SIMULATION_OPTIONS = "Simulation Options";
+const QString JobItem::T_FIT_SUITE = "Fit Suite";
 
 JobItem::JobItem()
     : SessionItem(Constants::JobItemType)
@@ -76,6 +77,7 @@ JobItem::JobItem()
                 << Constants::ParameterType);
     registerTag(T_SIMULATION_OPTIONS, 1, 1, QStringList() << Constants::SimulationOptionsType);
 
+    registerTag(T_FIT_SUITE, 1, 1, QStringList() << Constants::FitSuiteType);
 
     mapper()->setOnChildPropertyChange(
                 [this](SessionItem* item, const QString &name)

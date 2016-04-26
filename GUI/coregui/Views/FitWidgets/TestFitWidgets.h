@@ -23,6 +23,7 @@
 class MainWindow;
 class ModelTuningWidget;
 class FitParametersWidget;
+class JobItem;
 
 //! TestFitWidgets is a temporary widget (created by mainwindow)
 //! for testing fitting related widgets.
@@ -33,10 +34,13 @@ class BA_CORE_API_ TestFitWidgets : public QWidget
 public:
     TestFitWidgets(MainWindow *mainWindow);
 
+    void showEvent(QShowEvent *);
+
 private:
     MainWindow *m_mainWindow;
     ModelTuningWidget *m_tuningWidget;
     FitParametersWidget *m_fitParametersWidget;
+    JobItem *m_jobItem;
 };
 
 #endif

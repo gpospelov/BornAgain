@@ -52,6 +52,8 @@
 #include "ObsoleteFitParameterItems.h"
 #include "ParameterTreeItems.h"
 #include "SimulationOptionsItem.h"
+#include "FitParameterItems.h"
+#include "FitSuiteItem.h"
 #include <QDebug>
 
 namespace {
@@ -182,8 +184,13 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::ObsoleteMinimizerSettingsType] = &createInstance<ObsoleteMinimizerSettingsItem>;
     result[Constants::ObsoleteInputDataType] = &createInstance<ObsoleteInputDataItem>;
     result[Constants::GroupItemType] = &createInstance<GroupItem>;
+
     result[Constants::ParameterLabelType] = &createInstance<ParameterLabelItem>;
     result[Constants::ParameterType] = &createInstance<ParameterItem>;
+    result[Constants::FitParameterContainerType] = &createInstance<FitParameterContainerItem>;
+    result[Constants::FitParameterType] = &createInstance<FitParameterItem>;
+    result[Constants::FitParameterLinkType] = &createInstance<FitParameterLinkItem>;
+    result[Constants::FitSuiteType] = &createInstance<FitSuiteItem>;
 
     result[Constants::SimulationOptionsType] = &createInstance<SimulationOptionsItem>;
 

@@ -107,7 +107,7 @@ void JobRealTimeWidget::setItem(JobItem * item)
         //qDebug() << "JobOutputDataWidget::itemClicked() -> creating";
 //        widget = new ModelTuningWidget(m_jobModel->getJobQueueData());
         widget = new ModelTuningWidget(m_jobModel);
-        widget->setCurrentItem(item);
+        widget->setItem(item);
         m_stack->addWidget(widget);
         m_jobItemToTuningWidget[item] = widget;
 

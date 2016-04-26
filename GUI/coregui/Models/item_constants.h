@@ -126,8 +126,13 @@ const ModelType ObsoleteFitParameterLinkType = "ObsoleteFitParameterLink";
 const ModelType ObsoleteFitSelectionType = "ObsoleteFitSelection";
 const ModelType ObsoleteMinimizerSettingsType = "ObsoleteMinimizer Settings";
 const ModelType ObsoleteInputDataType = "Obsolete Input Data";
+
 const ModelType ParameterType = "Parameter";
 const ModelType ParameterLabelType = "Parameter Label";
+const ModelType FitParameterContainerType = "FitParameterContainer";
+const ModelType FitParameterType = "FitParameter";
+const ModelType FitParameterLinkType = "FitParameterLink";
+const ModelType FitSuiteType = "FitSuite";
 
 const ModelType JobItemType = "JobItem";
 const ModelType IntensityDataType = "IntensityData";

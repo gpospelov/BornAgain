@@ -39,7 +39,7 @@ public:
     ModelTuningWidget(JobModel *jobModel, QWidget *parent = 0);
     virtual ~ModelTuningWidget();
 
-    void setCurrentItem(JobItem *item);
+    void setItem(JobItem *item);
 
 public slots:
     void onCurrentLinkChanged(SessionItem* item);

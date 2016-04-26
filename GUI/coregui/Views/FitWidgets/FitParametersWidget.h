@@ -20,6 +20,7 @@
 #include "WinDllMacros.h"
 #include <QWidget>
 
+class JobItem;
 class QTreeView;
 
 //! The FitParametersWidget class contains a tree view to set fit parameters (fix/release,
@@ -30,9 +31,14 @@ class BA_CORE_API_ FitParametersWidget : public QWidget
     Q_OBJECT
 public:
     FitParametersWidget(QWidget *parent = 0);
+    void setItem(JobItem *jobItem);
 
 private:
+    void stop_tracking_job_item();
+    void init_job_item();
+
     QTreeView *m_treeView;
+    JobItem *m_jobItem;
 };
 
 #endif

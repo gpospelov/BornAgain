@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/ParameterModelBuilder.h
-//! @brief     Declares class ParameterModelBuilder
+//! @file      coregui/Models/FitSuiteItem.h
+//! @brief     Declares class FitSuiteItem
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,22 +14,17 @@
 //
 // ************************************************************************** //
 
-#ifndef PARAMETERMODELBUILDER_H
-#define PARAMETERMODELBUILDER_H
+#ifndef FITSUITEITEM_H
+#define FITSUITEITEM_H
 
-#include <QString>
+#include "SessionItem.h"
 
-class JobItem;
-class SessionItem;
-
-class ParameterModelBuilder
+class BA_CORE_API_ FitSuiteItem : public SessionItem
 {
+
 public:
-    static void createParameterTree(JobItem *item, const QString &tag = QString());
-private:
-    static void handleItem(SessionItem *tree, SessionItem *source);
+    static const QString T_FIT_PARAMETERS;
+    explicit FitSuiteItem();
 };
 
-
 #endif
-

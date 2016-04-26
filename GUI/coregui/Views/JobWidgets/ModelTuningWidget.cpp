@@ -93,7 +93,7 @@ ModelTuningWidget::~ModelTuningWidget()
 {
 }
 
-void ModelTuningWidget::setCurrentItem(JobItem *item)
+void ModelTuningWidget::setItem(JobItem *item)
 {
     if (m_currentJobItem == item) {
         return;

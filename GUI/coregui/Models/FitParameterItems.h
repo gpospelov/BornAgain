@@ -33,6 +33,7 @@ public:
     static const QString P_INIT;
     static const QString P_MIN;
     static const QString P_MAX;
+    static const QString T_LINK;
     explicit FitParameterItem();
 };
 

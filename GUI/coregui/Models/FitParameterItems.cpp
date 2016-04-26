@@ -30,6 +30,7 @@ const QString FitParameterItem::P_USE = "Use";
 const QString FitParameterItem::P_INIT = "Starting Value";
 const QString FitParameterItem::P_MIN = "Min";
 const QString FitParameterItem::P_MAX = "Max";
+const QString FitParameterItem::T_LINK = "Link tag";
 
 FitParameterItem::FitParameterItem()
     : SessionItem(Constants::FitParameterType)
@@ -38,7 +39,6 @@ FitParameterItem::FitParameterItem()
     addProperty(P_INIT, 0.0);
     addProperty(P_MIN, 0.0);
     addProperty(P_MAX, 0.0);
-    const QString T_LINK = "Link tag";
     registerTag(T_LINK, 0, -1, QStringList() << Constants::FitParameterLinkType);
     setDefaultTag(T_LINK);
 }
@@ -48,6 +48,6 @@ const QString FitParameterLinkItem::P_LINK = "Link";
 FitParameterLinkItem::FitParameterLinkItem()
     : SessionItem(Constants::FitParameterLinkType)
 {
-    addProperty(P_LINK, "");
+    addProperty(P_LINK, "XYZ");
 }
 

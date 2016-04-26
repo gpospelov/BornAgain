@@ -19,6 +19,7 @@
 #include "JobModel.h"
 #include "FitSuiteItem.h"
 #include "FitParameterItems.h"
+#include "FitParameterModel.h"
 #include <QTreeView>
 #include <QVBoxLayout>
 
@@ -74,7 +75,21 @@ void FitParametersWidget::init_job_item()
             FitSuiteItem::T_FIT_PARAMETERS);
     }
 
-    SessionItem *fitPar = parsContainerItem->model()->insertNewItem(Constants::FitParameterType, parsContainerItem->index());
-    m_treeView->setModel(parsContainerItem->model());
-    m_treeView->setRootIndex(parsContainerItem->index());
+    SessionItem *fitPar = parsContainerItem->model()->insertNewItem(Constants::FitParameterType,
+                                                                    parsContainerItem->index());
+
+    Q_ASSERT(fitPar);
+    SessionItem *link1 = fitPar->model()->insertNewItem(Constants::FitParameterLinkType, fitPar->index());
+    link1->setItemValue(FitParameterLinkItem::P_LINK, "abc1");
+    SessionItem *link2 = fitPar->model()->insertNewItem(Constants::FitParameterLinkType, fitPar->index());
+    link2->setItemValue(FitParameterLinkItem::P_LINK, "xyz1");
+
+
+    FitParameterModel *model = new FitParameterModel(parsContainerItem, this);
+    m_treeView->setModel(model);
+
+
+//        m_treeView->setModel(parsContainerItem->model());
+//        m_treeView->setRootIndex(parsContainerItem->index());
+
 }

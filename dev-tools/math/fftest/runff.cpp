@@ -26,9 +26,9 @@ Diagnosis diagnosis;
 
 int nshape = 11;
 
-//! Returns a polyhedron, according to given code
+//! Returns a pointer to a particle, according to given code
 
-IFormFactorBorn* make_polyhedron( int ishape )
+IFormFactorBorn* make_particle( int ishape )
 {
     if       ( ishape==0 ) {
         return new FormFactorDodecahedron(3.);
@@ -57,6 +57,8 @@ IFormFactorBorn* make_polyhedron( int ishape )
     } else if( ishape==10 ) {
         double alpha = 72 * Units::degree;
         return new FormFactorCuboctahedron(1., 1., .8, alpha);
+    } else if( ishape==11 ) {
+        return new FormFactorFullSphere(1.);
     } else
         throw "Shape not implemented";
 }
@@ -168,7 +170,7 @@ void test_loop( int outfilter )
         { -200.+I, 30000.-I, 1. } };
     for( int ishape=0; ishape<nshape; ++ishape ){
         double maxrelstep = 0;
-        IFormFactorBorn* polyh( make_polyhedron( ishape ) );
+        IFormFactorBorn* polyh( make_particle( ishape ) );
         // For different directions ...
         for( int idx_qdir=0; idx_qdir<n_qdir; ++idx_qdir ){
             for( int irot=0; irot<3; ++irot ){
@@ -212,7 +214,6 @@ void help_and_exit()
     cerr << "Usage: fftest inmode outfilter [shape qxr qxi qyr qyi qzr qzi q]\n";
     cerr << "inmode: q from 0 stdin, 1 cmdline, 2 loop\n";
     cerr << "outfilter: return 0 all, 1 real, 2 imag, 6 cont_test, 7 plot_tab, 8 ref_tab, 9 nil\n";
-    cerr << "shape: 0 dodeka, 1 icosa\n";
     exit(0);
 }
 
@@ -232,7 +233,7 @@ int main (int argc, char *argv[])
         if( argc!=11 )
             help_and_exit();
         int ishape = atoi( argv[3] );
-        IFormFactorBorn* polyh( make_polyhedron( ishape ) );
+        IFormFactorBorn* P( make_particle( ishape ) );
         cvector_t uq( complex_t(atof(argv[4]),atof(argv[5])),
                       complex_t(atof(argv[6]),atof(argv[7])),
                       complex_t(atof(argv[8]),atof(argv[9])) );
@@ -240,12 +241,12 @@ int main (int argc, char *argv[])
         double dummy;
         if( inmode==1 ) {
             qmag = atof(argv[10]);
-            run( polyh, 1., ishape, qmag*uq, cvector_t(), outfilter, dummy );
+            run( P, 1., ishape, qmag*uq, cvector_t(), outfilter, dummy );
         } else if( inmode==0 ) {
             int nop;
             std::cin >> nop;
             while( std::cin >> qmag )
-                run( polyh, 1., ishape, qmag*uq, cvector_t(), outfilter, dummy );
+                run( P, 1., ishape, qmag*uq, cvector_t(), outfilter, dummy );
         } else
             throw "invalid inmode";
     } catch( const char* ex ) {

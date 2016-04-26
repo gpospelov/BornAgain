@@ -76,6 +76,10 @@ ModelTuningWidget::ModelTuningWidget(JobModel *jobModel, QWidget *parent)
     m_treeView->setItemDelegate(m_delegate);
     m_treeView->setSelectionMode(QAbstractItemView::ExtendedSelection);
     connect(m_delegate, SIGNAL(currentLinkChanged(SessionItem*)), this, SLOT(onCurrentLinkChanged(SessionItem*)));
+    m_treeView->setContextMenuPolicy(Qt::CustomContextMenu);
+    connect(m_treeView, SIGNAL(customContextMenuRequested(const QPoint &)),
+            this, SLOT(onCustomContextMenuRequested(const QPoint &)));
+
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->setMargin(0);
@@ -166,6 +170,11 @@ void ModelTuningWidget::updateParameterModel()
     m_treeView->expandAll();
 }
 
+void ModelTuningWidget::onCustomContextMenuRequested(const QPoint &point)
+{
+    emit itemContextMenuRequest(m_treeView->mapToGlobal(point));
+}
+
 void ModelTuningWidget::restoreModelsOfCurrentJobItem()
 {
     Q_ASSERT(m_currentJobItem);
@@ -187,6 +196,12 @@ void ModelTuningWidget::resizeEvent(QResizeEvent *event)
         QPoint pos = getPositionForWarningSign();
         m_warningSign->setPosition(pos.x(),pos.y());
     }
+}
+
+//! Context menu reimplemented to suppress default
+void ModelTuningWidget::contextMenuEvent(QContextMenuEvent *event)
+{
+    Q_UNUSED(event);
 }
 
 void ModelTuningWidget::onPropertyChanged(const QString &property_name)

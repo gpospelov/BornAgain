@@ -21,7 +21,9 @@
 #include <QWidget>
 
 class JobItem;
+class ModelTuningWidget;
 class QTreeView;
+class QMenu;
 
 //! The FitParametersWidget class contains a tree view to set fit parameters (fix/release,
 //! starting value, min/max bounds). It occupies buttom right corner of JobView.
@@ -31,14 +33,21 @@ class BA_CORE_API_ FitParametersWidget : public QWidget
     Q_OBJECT
 public:
     FitParametersWidget(QWidget *parent = 0);
+
     void setItem(JobItem *jobItem);
+    void setModelTuningWidget(ModelTuningWidget *tuningWidget);
+
+public slots:
+    void onTuningWidgetContextMenu(const QPoint &point);
 
 private:
+    void initTuningWidgetContextMenu(QMenu &menu);
     void stop_tracking_job_item();
     void init_job_item();
 
     QTreeView *m_treeView;
     JobItem *m_jobItem;
+    ModelTuningWidget *m_tuningWidget;
 };
 
 #endif

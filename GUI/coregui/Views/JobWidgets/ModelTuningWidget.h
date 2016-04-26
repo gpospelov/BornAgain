@@ -41,6 +41,9 @@ public:
 
     void setItem(JobItem *item);
 
+signals:
+    void itemContextMenuRequest(const QPoint &point);
+
 public slots:
     void onCurrentLinkChanged(SessionItem* item);
     void onSliderValueChanged(double value);
@@ -49,10 +52,12 @@ public slots:
 
 protected:
     void resizeEvent(QResizeEvent *event);
+    void contextMenuEvent(QContextMenuEvent *event);
 
 private slots:
     void onPropertyChanged(const QString &property_name);
     void updateParameterModel();
+    void onCustomContextMenuRequested(const QPoint &point);
 
 private:
     QPoint getPositionForWarningSign();

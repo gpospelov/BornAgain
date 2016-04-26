@@ -43,6 +43,7 @@ void TestFitWidgets::showEvent(QShowEvent *)
         m_jobItem = jobItem;
         m_tuningWidget->setItem(jobItem);
         m_fitParametersWidget->setItem(jobItem);
+        m_fitParametersWidget->setModelTuningWidget(m_tuningWidget);
     }
 
 }

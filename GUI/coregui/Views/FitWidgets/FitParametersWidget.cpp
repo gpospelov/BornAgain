@@ -20,6 +20,8 @@
 #include "FitSuiteItem.h"
 #include "FitParameterItems.h"
 #include "FitParameterModel.h"
+#include "ModelTuningWidget.h"
+#include <QMenu>
 #include <QTreeView>
 #include <QVBoxLayout>
 
@@ -27,6 +29,7 @@ FitParametersWidget::FitParametersWidget(QWidget *parent)
     : QWidget(parent)
     , m_treeView(new QTreeView)
     , m_jobItem(0)
+    , m_tuningWidget(0)
 {
     QVBoxLayout *layout = new QVBoxLayout;
     layout->addWidget(m_treeView);
@@ -49,6 +52,48 @@ void FitParametersWidget::setItem(JobItem *jobItem)
         init_job_item();
 
     }
+}
+
+//! Our FitParametersWidget will provide model tuning widget with context menu.
+//! It also will take care of cross-item-selection between parameterTuningTree
+//! and fitParametersTree
+void FitParametersWidget::setModelTuningWidget(ModelTuningWidget *tuningWidget)
+{
+    if(tuningWidget == m_tuningWidget) {
+        return;
+    }
+
+    else {
+        if(m_tuningWidget) {
+            disconnect(m_tuningWidget,
+                SIGNAL(itemContextMenuRequest(QPoint)),
+                this,
+                SLOT(onTuningWidgetContextMenu(QPoint)));
+        }
+
+        m_tuningWidget = tuningWidget;
+        if(!m_tuningWidget) return;
+
+        connect(m_tuningWidget,
+            SIGNAL(itemContextMenuRequest(QPoint)),
+            this,
+            SLOT(onTuningWidgetContextMenu(QPoint)), Qt::UniqueConnection);
+
+    }
+
+}
+
+void FitParametersWidget::onTuningWidgetContextMenu(const QPoint &point)
+{
+    QMenu menu;
+    initTuningWidgetContextMenu(menu);
+    menu.exec(point);
+}
+
+void FitParametersWidget::initTuningWidgetContextMenu(QMenu &menu)
+{
+    Q_ASSERT(m_jobItem);
+
 }
 
 //! stop tracking job item

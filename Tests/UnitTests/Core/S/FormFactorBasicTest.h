@@ -245,6 +245,19 @@ TEST_F(FormFactorBasicTest, EllipsoidalCylinder)
     test_ff( &ellipscyl );
 }
 
+TEST_F(FormFactorBasicTest, FullSphere)
+{
+    double radius = 5.;
+    double volume = 4./3.*Units::PI*radius*radius*radius;
+
+    FormFactorFullSphere fullsphere(radius);
+    EXPECT_EQ(BornAgain::FFFullSphereType, fullsphere.getName());
+    EXPECT_EQ(5., fullsphere.getRadius());
+    EXPECT_DOUBLE_EQ(volume, fullsphere.getVolume());
+
+    test_ff( &fullsphere );
+}
+
 TEST_F(FormFactorBasicTest, FullSpheroid)
 {
     double radius = 3.;
@@ -419,19 +432,6 @@ TEST_F(FormFactorBasicTest, TruncatedCube)
 }
 
 /* TODO restore these tests and put them back in abc order
-TEST_F(FormFactorBasicTest, FullSphere)
-{
-    double radius = 5.;
-    double volume = 4./3.*Units::PI*radius*radius*radius;
-
-    FormFactorFullSphere fullsphere(radius);
-    EXPECT_EQ(BornAgain::FFFullSphereType, fullsphere.getName());
-    EXPECT_EQ(5., fullsphere.getRadius());
-    EXPECT_DOUBLE_EQ(volume, fullsphere.getVolume());
-
-    test_ff( &fullsphere );
-}
-
 TEST_F(FormFactorBasicTest, Ripple2)
 {
     double width = 20.;

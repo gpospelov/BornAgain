@@ -61,7 +61,7 @@ INSTANTIATE_TEST_CASE_P(
 
 TEST_P(FFSpecializationTest, TruncatedSphereAsSphere)
 {
-    if( skip_q( .025, 1e2 ) )
+    if( skip_q( .025, 2e2 ) )
         return;
     double R=1.;
     FormFactorTruncatedSphere p0(R, 2*R);

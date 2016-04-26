@@ -24,7 +24,7 @@ static double eps(2e-16);
 
 Diagnosis diagnosis;
 
-int nshape = 11;
+int nshape = 12;
 
 //! Returns a pointer to a particle, according to given code
 

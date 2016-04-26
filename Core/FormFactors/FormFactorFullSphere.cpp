@@ -17,27 +17,19 @@
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
 
+#ifdef POLYHEDRAL_DIAGNOSTIC
+extern Diagnosis diagnosis;
+#endif
+
 using namespace  BornAgain;
 
 FormFactorFullSphere::FormFactorFullSphere(double radius)
 : m_radius(radius)
 {
     setName(FFFullSphereType);
-    check_initialization();
-    init_parameters();
-}
-
-bool FormFactorFullSphere::check_initialization() const
-{
-    return true;
-}
-
-void FormFactorFullSphere::init_parameters()
-{
     clearParameterPool();
     registerParameter(Radius, &m_radius, AttLimits::n_positive());
 }
-
 
 FormFactorFullSphere* FormFactorFullSphere::clone() const
 {
@@ -51,21 +43,23 @@ void FormFactorFullSphere::accept(ISampleVisitor *visitor) const
 
 complex_t FormFactorFullSphere::evaluate_for_q(const cvector_t q) const
 {
-    complex_t qz = q.z();
     double R = m_radius;
+    complex_t q1 = sqrt( q.x()*q.x() + q.y()*q.y() + q.z()*q.z() ); // NO sesquilinear dot product!
+    complex_t qR = q1*R;
 
-    complex_t iqzR = complex_t(0.0, 1.0)*qz*R;
-    complex_t z_part = std::exp(iqzR);
-
-    complex_t qR = std::sqrt( q.x()*q.x() + q.y()*q.y() + qz*qz )*R;
-    double volume = 4*Units::PI*R*R*R/3;
-    complex_t radial;
-    if (std::abs(qR) < Numeric::double_epsilon) {
-        radial = volume;
+    complex_t ret;
+    if (std::abs(qR) < 5e-5) {
+#ifdef POLYHEDRAL_DIAGNOSTIC
+        diagnosis = { 0, 1 };
+#endif
+        ret = 4*Units::PI/3*pow(R,3) * ( 1. - 0.1*pow(qR,2) );
     }
     else {
-        radial = 3*volume*(sin(qR) - qR*cos(qR))/(qR*qR*qR);
+#ifdef POLYHEDRAL_DIAGNOSTIC
+        diagnosis = { 0, 0 };
+#endif
+        ret = 4*Units::PI*pow(q1,-3)*(sin(qR) - qR*cos(qR));
     }
 
-    return radial*z_part;
+    return std::exp(complex_t(0.0, 1.0)*q.z()*R) * ret;
 }

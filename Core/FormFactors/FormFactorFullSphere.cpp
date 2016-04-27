@@ -24,7 +24,7 @@ extern Diagnosis diagnosis;
 using namespace  BornAgain;
 
 FormFactorFullSphere::FormFactorFullSphere(double radius)
-: m_radius(radius)
+    : m_radius(radius)
 {
     setName(FFFullSphereType);
     clearParameterPool();
@@ -48,7 +48,7 @@ complex_t FormFactorFullSphere::evaluate_for_q(const cvector_t q) const
     complex_t qR = q1*R;
 
     complex_t ret;
-    if (std::abs(qR) < 5e-5) {
+    if (std::abs(qR) < 1e-4) { // relative error is O(qR^4) with small prefactor
 #ifdef POLYHEDRAL_DIAGNOSTIC
         diagnosis = { 0, 1 };
 #endif

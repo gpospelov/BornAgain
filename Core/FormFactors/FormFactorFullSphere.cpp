@@ -24,7 +24,7 @@ extern Diagnosis diagnosis;
 using namespace  BornAgain;
 
 FormFactorFullSphere::FormFactorFullSphere(double radius)
-: m_radius(radius)
+    : m_radius(radius)
 {
     setName(FFFullSphereType);
     clearParameterPool();

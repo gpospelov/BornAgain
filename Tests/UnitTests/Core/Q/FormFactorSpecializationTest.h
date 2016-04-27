@@ -104,7 +104,7 @@ TEST_P(FFSpecializationTest, AnisoPyramidAsPyramid)
 
 TEST_P(FFSpecializationTest, TruncatedSphereAsSphere)
 {
-    if( skip_q( .02, 5e2 ) )
+    if( skip_q( .02, 5e2 ) ) // WAITING #1416 improve/replace numeric integration
         return;
     double R=1.;
     FormFactorTruncatedSphere p0(R, 2*R);
@@ -114,7 +114,7 @@ TEST_P(FFSpecializationTest, TruncatedSphereAsSphere)
 
 TEST_P(FFSpecializationTest, Pyramid3AsPrism)
 {
-    if( skip_q( .02, 5e3 ) )
+    if( skip_q( .02, 5e3 ) ) // WAITING #1418 replace 1/tan(alpha)
         return;
     double L=1.8, H=.3;
     FormFactorTetrahedron p0(L, H, Units::PI/2);
@@ -124,7 +124,7 @@ TEST_P(FFSpecializationTest, Pyramid3AsPrism)
 
 TEST_P(FFSpecializationTest, PyramidAsBox)
 {
-    if( skip_q( .02, 5e2 ) )
+    if( skip_q( .02, 5e2 ) ) // WAITING #1418 replace 1/tan(alpha)
         return;
     double L=1.8, H=.3;
     FormFactorPyramid p0(L, H, Units::PI/2);
@@ -134,7 +134,7 @@ TEST_P(FFSpecializationTest, PyramidAsBox)
 
 TEST_P(FFSpecializationTest, Cone6AsPrism)
 {
-    if( skip_q( .2, 5e2 ) )
+    if( skip_q( .2, 5e2 ) ) // WAITING #1418 replace 1/tan(alpha)
         return;
     double L=.8, H=1.13;
     FormFactorCone6 p0(L, H, Units::PI/2);

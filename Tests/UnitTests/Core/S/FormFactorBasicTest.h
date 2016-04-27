@@ -438,7 +438,6 @@ TEST_F(FormFactorBasicTest, TruncatedCube)
     test_ff( &trcube );
 }
 
-/*
 TEST_F(FormFactorBasicTest, Ripple2)
 {
     double width = 20.;
@@ -453,6 +452,5 @@ TEST_F(FormFactorBasicTest, Ripple2)
     EXPECT_EQ(4., ripple2.getHeight());
     EXPECT_DOUBLE_EQ(volume, ripple2.getVolume());
 
-    test_ff( &ripple2 );
+    // test_ff( &ripple2 ); WAITING: restore once getRadius returns the umkreis radius
 }
-*/

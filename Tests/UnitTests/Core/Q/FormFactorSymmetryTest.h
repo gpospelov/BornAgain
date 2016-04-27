@@ -58,21 +58,11 @@ INSTANTIATE_TEST_CASE_P(
         )
     );
 
-// ****** TODO: the following tests pass only after the q range has been reduced *********
-
-TEST_P(FFSymmetryTest, Prism6)
-{
-    if( skip_q( 2e-3, 1e2 ) )
-        return;
-    FormFactorPrism6 p(1.33, .42);
-    test_qq_eq( &p, q, q.rotatedZ(Units::PI/3) );
-}
-
 //*********** satisfactory tests ***************
 
 TEST_P(FFSymmetryTest, HemiEllipsoid)
 {
-    if( skip_q( 1e-99, 1e2 ) )
+    if( skip_q( 1e-99, 2e2 ) )
         return;
     FormFactorHemiEllipsoid p(.53, .78, 1.3);
     test_qq_eq( &p, q, cvector_t(-q.x(), q.y(), q.z()) );
@@ -81,7 +71,7 @@ TEST_P(FFSymmetryTest, HemiEllipsoid)
 
 TEST_P(FFSymmetryTest, Prism3)
 {
-    if( skip_q( 1e-99, 1e2 ) )
+    if( skip_q( 1e-99, 2e2 ) )
         return;
     FormFactorPrism3 p(.83, .45);
     test_qq_eq( &p, q, q.rotatedZ(Units::PI2/3) );
@@ -89,7 +79,7 @@ TEST_P(FFSymmetryTest, Prism3)
 
 TEST_P(FFSymmetryTest, Tetrahedron)
 {
-    if( skip_q( 2e-17, 2e2 ) )
+    if( skip_q( 1e-99, 2e2 ) )
         return;
     FormFactorTetrahedron p(8.43, .25, .53);
     test_qq_eq( &p, q, q.rotatedZ(Units::PI2/3) );
@@ -97,7 +87,7 @@ TEST_P(FFSymmetryTest, Tetrahedron)
 
 TEST_P(FFSymmetryTest, Cone6)
 {
-    if( skip_q( 2e-17, 2e2 ) )
+    if( skip_q( 1e-99, 2e2) ) // TODO for larger q, imag(ff) is nan
         return;
     FormFactorCone6 p(7.43, .25, .57);
     test_qq_eq( &p, q, q.rotatedZ(-Units::PI/3) );
@@ -105,9 +95,18 @@ TEST_P(FFSymmetryTest, Cone6)
 
 TEST_P(FFSymmetryTest, TruncatedSphere)
 {
-    if( skip_q( 2e-17, 2e2 ) )
+    if( skip_q( 1e-99, 2e2 ) )
         return;
     FormFactorTruncatedSphere p(.79, .34);
     test_qq_eq( &p, q, q.rotatedZ(Units::PI/3.13698) );
 }
 
+TEST_P(FFSymmetryTest, Prism6)
+{
+    if( skip_q( 1e-99, 2e3 ) )
+        return;
+    FormFactorPrism6 p(1.33, .42);
+    test_qq_eq( &p, q, q.rotatedZ(Units::PI/3) );
+}
+
+// ****** TODO: tests that do not pass for the full q range *********

@@ -154,8 +154,23 @@ void FitParameterModel::removeFromFitParameters(ParameterItem *parameterItem)
                 break;
             }
         }
+        emit layoutChanged();
     }
-    emit layoutChanged();
+}
+
+//! Adds given parameterItem to the existing fit parameter with display name fitParName.
+//! If parameterItem is already linked with another fitParameter, it will be relinked
+void FitParameterModel::addToFitParameter(ParameterItem *parameterItem, const QString &fitParName)
+{
+    removeFromFitParameters(parameterItem);
+    foreach(SessionItem *fitPar, getFitParContainer()->getItems(FitParameterContainerItem::T_FIT_PARAMETERS)) {
+        if(fitPar->displayName() == fitParName) {
+            SessionItem *link = fitPar->model()->insertNewItem(Constants::FitParameterLinkType, fitPar->index());
+            link->setItemValue(FitParameterLinkItem::P_LINK, parameterItem->getItemValue(ParameterItem::P_LINK));
+            emit layoutChanged();
+            break;
+        }
+    }
 }
 
 //! Returns fFitParameterItem corresponding to given ParameterItem
@@ -168,5 +183,17 @@ FitParameterContainerItem *FitParameterModel::getFitParContainer()
 {
     FitParameterContainerItem *result = dynamic_cast<FitParameterContainerItem *>(rootItem());
     Q_ASSERT(result);
+    return result;
+}
+
+//! Returns list of fit parameter display names
+QStringList FitParameterModel::getFitParameterNames()
+{
+    QStringList result;
+
+    foreach(SessionItem *item, getFitParContainer()->getItems(FitParameterContainerItem::T_FIT_PARAMETERS)) {
+        result.append(item->displayName());
+    }
+
     return result;
 }

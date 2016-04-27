@@ -49,6 +49,7 @@ public slots:
 private slots:
     void onCreateFitParAction();
     void onRemoveFromFitParAction();
+    void onAddToFitParAction(int ipar);
 
 private:
     void init_actions();

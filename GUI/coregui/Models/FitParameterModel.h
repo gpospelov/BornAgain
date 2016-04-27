@@ -48,10 +48,13 @@ public:
 
     void createFitParameter(ParameterItem *parameterItem = 0);
     void removeFromFitParameters(ParameterItem *parameterItem);
+    void addToFitParameter(ParameterItem *parameterItem, const QString &fitParName);
 
     FitParameterItem *getFitParameterItem(ParameterItem *parameterItem);
 
     FitParameterContainerItem *getFitParContainer();
+
+    QStringList getFitParameterNames();
 
 private:
     QMap<int, QString> m_columnNames;

@@ -24,6 +24,7 @@
 #include "FilterPropertyProxy.h"
 #include "ParameterTreeItems.h"
 #include <QMenu>
+#include <QSignalMapper>
 #include <QTreeView>
 #include <QVBoxLayout>
 #include <QAction>
@@ -119,9 +120,19 @@ void FitParametersWidget::onRemoveFromFitParAction()
     foreach(ParameterItem *item, getSelectedParameters()) {
         if(m_fitParameterModel->getFitParameterItem(item)) {
             m_fitParameterModel->removeFromFitParameters(item);
-            break;
         }
     }
+}
+
+//! Add all selected parameters to fitParameter with given index
+void FitParametersWidget::onAddToFitParAction(int ipar)
+{
+    qDebug() << "AAAAAAAAAAAa" << ipar;
+    QStringList fitParNames = m_fitParameterModel->getFitParameterNames();
+    foreach(ParameterItem *item, getSelectedParameters()) {
+        m_fitParameterModel->addToFitParameter(item, fitParNames.at(ipar));
+    }
+    spanParameters();
 }
 
 void FitParametersWidget::init_actions()
@@ -131,6 +142,10 @@ void FitParametersWidget::init_actions()
 
     m_removeFromFitParAction = new QAction(QStringLiteral("Remove from fit parameters"), this);
     connect(m_removeFromFitParAction, SIGNAL(triggered()), this, SLOT(onRemoveFromFitParAction()));
+
+    m_signalMapper = new QSignalMapper(this);
+    connect(m_signalMapper, SIGNAL(mapped(int)), this, SLOT(onAddToFitParAction(int)));
+
 }
 
 void FitParametersWidget::initTuningWidgetContextMenu(QMenu &menu)
@@ -144,7 +159,20 @@ void FitParametersWidget::initTuningWidgetContextMenu(QMenu &menu)
     }
 
     menu.addAction(m_createFitParAction);
-    QMenu *addToFitPar = menu.addMenu("Add to existing fit parameter");
+    QMenu *addToFitParMenu = menu.addMenu("Add to existing fit parameter");
+
+    QStringList fitParNames = m_fitParameterModel->getFitParameterNames();
+    if(fitParNames.isEmpty() || isCreateFitParameterPossible()==false) {
+        addToFitParMenu->setEnabled(false);
+    }
+
+    for(int i =0; i<fitParNames.count(); ++i) {
+        QAction *action = new QAction(QString("to ").append(fitParNames.at(i)), addToFitParMenu);
+        connect(action, SIGNAL(triggered()), m_signalMapper, SLOT(map()));
+        m_signalMapper->setMapping(action, i);
+        addToFitParMenu->addAction(action);
+    }
+
     menu.addSeparator();
     menu.addAction(m_removeFromFitParAction);
 }

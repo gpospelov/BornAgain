@@ -885,6 +885,13 @@ with the parameter
 \end{itemize}
 
 \paragraph{Form factor, volume, horizontal section}\strut\\
+Notation:
+\begin{equation*}
+  q \coloneqq \sqrt{q_x^2+q_y^2+q_z^2}.
+\end{equation*}
+Note that this does \E{not} involve the sesquilinear product
+$|q_x|^2=q_x^* q_x$ but the plain product $q_xq_x$ of complex numbers
+(and analogous for~$q_y$, $q_z$).
 \begin{equation*}
 F = \frac{4\pi}{q^3} \exp(iq_z R)\left[\sin(qR) - qR \cos(qR)\right],
 \end{equation*}
@@ -908,11 +915,74 @@ computed with $R=3.9$~nm.}
 \paragraph{History and Derivation}\strut\\
 For real wave vectors, this form factor is well known;
 it goes back at least to Lord Rayleigh.
-Exactly the same expression also holds for complex wavevectors.
 In \IsGISAXS, it has been implemented as form factor \E{Full sphere}
-\cite[Eq.~2.36]{Laz08} \cite[Eq.~226]{ReLL09}.
+\cite[Eq.~2.36]{Laz08} \cite[Eq.~226]{ReLL09},
+allowing for complex wavevectors.
+Since it is not obvious that Rayleigh's formula also holds for complex~$\q$,
+let us outline a derivation
+(if you know a more elegant one, we would like to hear).
 
-
+If the origin is at the center of the sphere, then the form factor is
+\begin{equation}
+I(\q,R)
+ = \int_0^R\d r\, r^2\int_0^{\pi}\d\theta\,\sin\theta\int_0^{2\pi}\d\varphi
+  \:\e^{i\q\r}
+\end{equation}
+with $\q\r
+= q_x r\sin\theta\cos\varphi + q_y r\sin\theta\sin\varphi + q_z r\cos\theta$.
+For the integration over $\varphi$,
+see Sect.~\ref{SCylinder} on the form factor of a cylinder:
+\begin{equation}
+  I(\q,R)
+  = 2\pi \int_0^R \d r\,r^2 \int_0^{\pi} \d\theta\, \sin\theta
+   \exp\left(i q_z \cos \theta\right) J_0\left(q_\parallel r\sin \theta\right)
+\end{equation}
+with $q_{\parallel}=\sqrt{q_x^2+q_y^2}$.
+By symmetry, the imaginary part is zero,
+so that the exponential reduces to a cosine:
+\begin{equation}
+  I(\q,R)
+  = 2\pi \int_0^R \d r\,r^2 \int_0^{\pi} \d\theta\, \sin\theta
+   \cos\left(q_z \cos \theta\right) J_0\left(q_\parallel r\sin \theta\right).
+\end{equation}
+Expand the cosine and the Bessel function:
+\begin{equation}
+  I(\q,R)
+  = 2\pi \int_0^R \d r\,r^2 \int_0^{\pi} \d\theta\, \sin\theta
+    \sum_{j=0}^\infty (-)^j \frac{(q_zr\cos\theta)^{2j}}{(2j)!}\,
+    \sum_{k=0}^{\infty} (-)^k \frac{(q_\parallel r \sin\theta)^{2k}}{4^k k!^2}.
+\end{equation}
+Sort by powers of $r$, and integrate:
+\begin{equation}
+  I(\q,R)
+  = 2\pi \sum_{n=0}^\infty (-)^n \frac{R^{2n+3}}{2n+3} \sum_{k=0}^n
+    \frac{{q_z}^{2n-2k}}{(2n-2k)!}\,\frac{{q_\parallel}^{2k}}{4^k k!^2} \zeta(k,n)
+\end{equation}
+with
+\begin{equation}
+  \zeta(k,n)
+  \coloneqq \int_0^{\pi} \d\theta\, \sin\theta
+  (\cos\theta)^{2n-2k}(\sin\theta)^{2k}.
+\end{equation}
+This integral \cite[no.\ 2.512.4]{GrRy07} yields
+\begin{equation}
+  \zeta(k,n)
+  = \frac{2^{2k+1}(2n-2k)! n! k!}{(2n+1)!(n-k)!}.
+\end{equation}
+Hence
+\begin{equation}\label{ESphereU}
+  I(\q,R)
+  = 4\pi \sum_{n=0}^\infty (-)^n \frac{R^{2n+3}}{(2n+3)(2n+1)!}
+    \sum_{k=0}^n \frac{n!}{(n-k)!k!}{q_z}^{2n-2k}{q_\parallel}^{2k}.
+\end{equation}
+The inner sum happens to be the binomial expansion of
+$q^{2n}=\left({q_z}^2+{q_\parallel}^2\right)^n$.
+Therefore (\ref{ESphereU}) coincides with the series expansion of
+\begin{equation}
+  I(\q,R)
+  = 4\pi q^{-3} \left( \sin(qR) - qR\cos(qR) \right),
+\end{equation}
+which is what we wanted to prove.
 
 %===============================================================================
 \ffsection{FullSpheroid} \label{SFullSpheroid}

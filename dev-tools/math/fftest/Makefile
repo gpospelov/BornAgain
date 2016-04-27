@@ -7,7 +7,7 @@ BIND = ./
 all: $(BIND)runff
 
 # source from BornAgain overwrites -lBornAgainCore, cf http://stackoverflow.com/questions/36667429
-SRC = runff.cpp # /G/ba/Core/FormFactors/FormFactorPolyhedron.cpp
+SRC = runff.cpp /G/ba/Core/FormFactors/FormFactorPolyhedron.cpp /G/ba/Core/FormFactors/FormFactorFullSphere.cpp
 
 DIAG = -D POLYHEDRAL_DIAGNOSTIC=ON
 

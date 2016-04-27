@@ -47,6 +47,19 @@ protected:
     virtual bool check_initialization() const;
 };
 
+#ifdef POLYHEDRAL_DIAGNOSTIC
+//! Information about the latest form factor evaluation. Not thread-safe.
+//! Used only by external test program.
+class Diagnosis {
+public:
+    int maxOrder;
+    int nExpandedFaces;
+    bool operator!=( const Diagnosis& other ) const {
+        return maxOrder!=other.maxOrder || nExpandedFaces!=other.nExpandedFaces; }
+    friend std::ostream& operator<< (std::ostream& stream, const Diagnosis& diag) {
+        return stream<<" ["<<diag.nExpandedFaces<<":"<<diag.maxOrder<<"]";
+    }
+};
+#endif
+
 #endif /* IFORMFACTORBORN_H_ */
-
-

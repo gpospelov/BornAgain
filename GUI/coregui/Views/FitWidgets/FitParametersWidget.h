@@ -24,9 +24,11 @@
 class JobItem;
 class ModelTuningWidget;
 class QTreeView;
-class QMenu;
+class QSignalMapper;
 class QAction;
+class QMenu;
 class FitParameterModel;
+class ParameterItem;
 
 //! The FitParametersWidget class contains a tree view to set fit parameters (fix/release,
 //! starting value, min/max bounds). It occupies buttom right corner of JobView.
@@ -46,6 +48,7 @@ public slots:
 
 private slots:
     void onCreateFitParAction();
+    void onRemoveFromFitParAction();
 
 private:
     void init_actions();
@@ -53,11 +56,21 @@ private:
     void stop_tracking_job_item();
     void init_job_item();
     void spanParameters();
+    bool isSelectionValidForFit();
+
+    bool isCreateFitParameterPossible();
+
+    void setActionsEnabled(bool value);
+
+
+    QVector<ParameterItem *> getSelectedParameters();
 
     QTreeView *m_treeView;
     JobItem *m_jobItem;
     ModelTuningWidget *m_tuningWidget;
     QAction *m_createFitParAction;
+    QAction *m_removeFromFitParAction;
+    QSignalMapper *m_signalMapper;
     std::unique_ptr<FitParameterModel> m_fitParameterModel;
 };
 

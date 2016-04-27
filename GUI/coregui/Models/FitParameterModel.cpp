@@ -24,10 +24,10 @@ FitParameterModel::FitParameterModel(SessionItem *fitParContainer, QObject *pare
     : SessionModel(QString("FitParameterModel"), parent)
 {
     setRootItem(fitParContainer);
-    m_columnNames.insert(0, "FitParameterItem::OBSOLETE_P_NAME");
+    m_columnNames.insert(0, "Name");
     m_columnNames.insert(1, FitParameterItem::P_USE);
     m_columnNames.insert(3, FitParameterItem::P_MIN);
-    m_columnNames.insert(2, FitParameterItem::P_INIT);
+    m_columnNames.insert(2, FitParameterItem::P_START_VALUE);
     m_columnNames.insert(4, FitParameterItem::P_MAX);
 }
 
@@ -125,14 +125,31 @@ int FitParameterModel::columnCount(const QModelIndex &parent) const
 
 }
 
+//! Creates fit parameter from given ParameterItem, sets starting value to the value
+//! of ParameterItem, copy link.
 void FitParameterModel::createFitParameter(ParameterItem *parameterItem)
 {
-    SessionItem *fitPar = rootItem()->model()->insertNewItem(Constants::FitParameterType, rootItem()->index());
+    SessionItem *fitPar = getFitParContainer()->model()->insertNewItem(Constants::FitParameterType, getFitParContainer()->index());
+    fitPar->setDisplayName(QStringLiteral("par"));
     Q_ASSERT(fitPar);
     if(parameterItem) {
+        fitPar->setItemValue(FitParameterItem::P_START_VALUE, parameterItem->value());
         SessionItem *link = fitPar->model()->insertNewItem(Constants::FitParameterLinkType, fitPar->index());
         link->setItemValue(FitParameterLinkItem::P_LINK, parameterItem->getItemValue(ParameterItem::P_LINK));
     }
     emit layoutChanged();
 
+}
+
+//! Returns fFitParameterItem corresponding to given ParameterItem
+FitParameterItem *FitParameterModel::getFitParameterItem(ParameterItem *parameterItem)
+{
+    return getFitParContainer()->getFitParameterItem(parameterItem->getItemValue(ParameterItem::P_LINK).toString());
+}
+
+FitParameterContainerItem *FitParameterModel::getFitParContainer()
+{
+    FitParameterContainerItem *result = dynamic_cast<FitParameterContainerItem *>(rootItem());
+    Q_ASSERT(result);
+    return result;
 }

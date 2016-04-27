@@ -35,6 +35,8 @@ FitParametersWidget::FitParametersWidget(QWidget *parent)
     , m_jobItem(0)
     , m_tuningWidget(0)
     , m_createFitParAction(0)
+    , m_removeFromFitParAction(0)
+    , m_signalMapper(0)
 {
     QVBoxLayout *layout = new QVBoxLayout;
     layout->addWidget(m_treeView);
@@ -99,6 +101,7 @@ void FitParametersWidget::onTuningWidgetContextMenu(const QPoint &point)
     QMenu menu;
     initTuningWidgetContextMenu(menu);
     menu.exec(point);
+    setActionsEnabled(true);
 }
 
 void FitParametersWidget::onCreateFitParAction()
@@ -133,17 +136,32 @@ void FitParametersWidget::onCreateFitParAction()
 
 }
 
+void FitParametersWidget::onRemoveFromFitParAction()
+{
+
+}
+
 void FitParametersWidget::init_actions()
 {
     m_createFitParAction = new QAction(QStringLiteral("Create fit parameter"), this);
     connect(m_createFitParAction, SIGNAL(triggered()), this, SLOT(onCreateFitParAction()));
 
+    m_removeFromFitParAction = new QAction(QStringLiteral("Remove from fit parameters"), this);
+    connect(m_removeFromFitParAction, SIGNAL(triggered()), this, SLOT(onRemoveFromFitParAction()));
 }
 
 void FitParametersWidget::initTuningWidgetContextMenu(QMenu &menu)
 {
     Q_ASSERT(m_jobItem);
+
+    if(!isCreateFitParameterPossible()) {
+        m_createFitParAction->setEnabled(false);
+    }
+
     menu.addAction(m_createFitParAction);
+//    QMenu *addToFitPar = menu.addMenu("Add to existing fit parameter");
+//    menu.addSeparator();
+//    menu.addAction(m_removeFromFitParAction);
 }
 
 //! stop tracking job item
@@ -208,4 +226,48 @@ void FitParametersWidget::spanParameters()
         }
     }
 
+}
+
+//! Returns true, if current selection in model tuning widget suitable for fit parameter creation
+bool FitParametersWidget::isSelectionValidForFit()
+{
+    QVector<ParameterItem *> selected = getSelectedParameters();
+
+    return true;
+}
+
+//! Returns true if it is possible to create fit parameter. There should be some ParameterItem's
+//! selected in model tuning widget and they should not be in FitParameterContainer already
+bool FitParametersWidget::isCreateFitParameterPossible()
+{
+    QVector<ParameterItem *> selected = getSelectedParameters();
+    foreach(ParameterItem *item, selected) {
+        if(m_fitParameterModel->getFitParameterItem(item) == nullptr)
+            return true;
+    }
+    return false;
+}
+
+void FitParametersWidget::setActionsEnabled(bool value)
+{
+    m_createFitParAction->setEnabled(value);
+    m_removeFromFitParAction->setEnabled(value);
+}
+
+//! Returns list of ParameterItem's currently selected in ModelTuningWidget
+QVector<ParameterItem *> FitParametersWidget::getSelectedParameters()
+{
+    QVector<ParameterItem *> result;
+    QModelIndexList proxyIndexes = m_tuningWidget->selectionModel()->selectedIndexes();
+    foreach(QModelIndex proxyIndex, proxyIndexes) {
+        QModelIndex index = FilterPropertyProxy::toSourceIndex(proxyIndex);
+        if(index.column() != 0)
+            continue;
+
+        if (ParameterItem *parameterItem
+            = dynamic_cast<ParameterItem *>(m_jobItem->model()->itemForIndex(index))) {
+            result.push_back(parameterItem);
+        }
+    }
+    return result;
 }

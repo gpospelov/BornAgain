@@ -17,31 +17,7 @@
 #include "FitParameterItems.h"
 #include "ComboProperty.h"
 
-FitParameterContainerItem::FitParameterContainerItem()
-    : SessionItem(Constants::FitParameterContainerType)
-{
-    const QString T_DATA = "Data tag";
-    registerTag(T_DATA, 0, -1, QStringList() << Constants::FitParameterType);
-    setDefaultTag(T_DATA);
-}
-
-
-const QString FitParameterItem::P_USE = "Use";
-const QString FitParameterItem::P_INIT = "Starting Value";
-const QString FitParameterItem::P_MIN = "Min";
-const QString FitParameterItem::P_MAX = "Max";
-const QString FitParameterItem::T_LINK = "Link tag";
-
-FitParameterItem::FitParameterItem()
-    : SessionItem(Constants::FitParameterType)
-{
-    addProperty(P_USE, true);
-    addProperty(P_INIT, 0.0);
-    addProperty(P_MIN, 0.0);
-    addProperty(P_MAX, 0.0);
-    registerTag(T_LINK, 0, -1, QStringList() << Constants::FitParameterLinkType);
-    setDefaultTag(T_LINK);
-}
+// ----------------------------------------------------------------------------
 
 const QString FitParameterLinkItem::P_LINK = "Link";
 
@@ -51,3 +27,45 @@ FitParameterLinkItem::FitParameterLinkItem()
     addProperty(P_LINK, "XYZ");
 }
 
+// ----------------------------------------------------------------------------
+
+const QString FitParameterItem::P_USE = "Use";
+const QString FitParameterItem::P_START_VALUE = "Starting Value";
+const QString FitParameterItem::P_MIN = "Min";
+const QString FitParameterItem::P_MAX = "Max";
+const QString FitParameterItem::T_LINK = "Link tag";
+
+FitParameterItem::FitParameterItem()
+    : SessionItem(Constants::FitParameterType)
+{
+    addProperty(P_USE, true);
+    addProperty(P_START_VALUE, 0.0);
+    addProperty(P_MIN, 0.0);
+    addProperty(P_MAX, 0.0);
+    registerTag(T_LINK, 0, -1, QStringList() << Constants::FitParameterLinkType);
+    setDefaultTag(T_LINK);
+}
+
+// ----------------------------------------------------------------------------
+
+const QString FitParameterContainerItem::T_FIT_PARAMETERS = "Data tag";
+
+FitParameterContainerItem::FitParameterContainerItem()
+    : SessionItem(Constants::FitParameterContainerType)
+{
+    registerTag(T_FIT_PARAMETERS, 0, -1, QStringList() << Constants::FitParameterType);
+    setDefaultTag(T_FIT_PARAMETERS);
+}
+
+//! returns FitParameterItem for given link (path in model)
+FitParameterItem *FitParameterContainerItem::getFitParameterItem(const QString &link)
+{
+    foreach(SessionItem *item, getItems(T_FIT_PARAMETERS)) {
+        foreach(SessionItem *linkItem, item->getItems(FitParameterItem::T_LINK)) {
+            if(link == linkItem->getItemValue(FitParameterLinkItem::P_LINK)) {
+                return dynamic_cast<FitParameterItem *>(item);
+            }
+        }
+    }
+    return nullptr;
+}

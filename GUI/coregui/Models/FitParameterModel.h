@@ -22,6 +22,8 @@
 #include <QMap>
 
 class ParameterItem;
+class FitParameterItem;
+class FitParameterContainerItem;
 
 //! The FitParameterModel adopt fit parameters from FitParameterContainer to be shown
 //! in 5 column tree view. It doesn't own its root item (it still belongs to the original JobModel)
@@ -44,6 +46,10 @@ public:
     virtual int columnCount(const QModelIndex &parent) const;
 
     void createFitParameter(ParameterItem *parameterItem = 0);
+
+    FitParameterItem *getFitParameterItem(ParameterItem *parameterItem);
+
+    FitParameterContainerItem *getFitParContainer();
 
 private:
     QMap<int, QString> m_columnNames;

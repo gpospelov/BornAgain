@@ -921,7 +921,7 @@ linking fit parameters with pool parameters
 Returns number of free parameters. 
 ";
 
-%feature("docstring")  FitSuiteParameters::valuesAreDifferrent "bool FitSuiteParameters::valuesAreDifferrent(const double *pars_valuers, double tolerance_factor=1.0) const
+%feature("docstring")  FitSuiteParameters::valuesAreDifferent "bool FitSuiteParameters::valuesAreDifferent(const double *pars_valuers, double tolerance_factor=1.0) const
 
 Returns true if parameters already have the given values. 
 ";

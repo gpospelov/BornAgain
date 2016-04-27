@@ -1771,50 +1771,36 @@ Creates a new clipped axis.
 // File: classFormFactorAnisoPyramid.xml
 %feature("docstring") FormFactorAnisoPyramid "
 
-The formfactor of an anisotropic pyramid.
+The formfactor of a quadratic pyramid.
 
 C++ includes: FormFactorAnisoPyramid.h
 ";
 
 %feature("docstring")  FormFactorAnisoPyramid::FormFactorAnisoPyramid "FormFactorAnisoPyramid::FormFactorAnisoPyramid(double length, double width, double height, double alpha)
 
-Anisotropic Pyramid constructor.
+Pyramid constructor.
 
 Parameters:
 -----------
 
-length: 
-of Anisotropic Pyramid's base
-
-width: 
-of Anisotropic Pyramid's base
+base_edge: 
+of one side of Pyramid's square base
 
 height: 
-of Anisotropic Pyramid
+of Pyramid
 
-alpha: 
-angle in radians between base and facet 
+angle: 
+in radians between base and facet 
 ";
 
-%feature("docstring")  FormFactorAnisoPyramid::~FormFactorAnisoPyramid "virtual FormFactorAnisoPyramid::~FormFactorAnisoPyramid()
-";
-
-%feature("docstring")  FormFactorAnisoPyramid::clone "FormFactorAnisoPyramid * FormFactorAnisoPyramid::clone() const
+%feature("docstring")  FormFactorAnisoPyramid::clone "FormFactorAnisoPyramid * FormFactorAnisoPyramid::clone() const final
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  FormFactorAnisoPyramid::accept "void FormFactorAnisoPyramid::accept(ISampleVisitor *visitor) const
+%feature("docstring")  FormFactorAnisoPyramid::accept "void FormFactorAnisoPyramid::accept(ISampleVisitor *visitor) const final
 
 Calls the  ISampleVisitor's visit method. 
-";
-
-%feature("docstring")  FormFactorAnisoPyramid::getRadius "double FormFactorAnisoPyramid::getRadius() const
-
-Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-";
-
-%feature("docstring")  FormFactorAnisoPyramid::getHeight "double FormFactorAnisoPyramid::getHeight() const 
 ";
 
 %feature("docstring")  FormFactorAnisoPyramid::getLength "double FormFactorAnisoPyramid::getLength() const 
@@ -1823,18 +1809,10 @@ Returns the (approximate in some cases) radial size of the particle of this form
 %feature("docstring")  FormFactorAnisoPyramid::getWidth "double FormFactorAnisoPyramid::getWidth() const 
 ";
 
-%feature("docstring")  FormFactorAnisoPyramid::getAlpha "double FormFactorAnisoPyramid::getAlpha() const 
+%feature("docstring")  FormFactorAnisoPyramid::getHeight "double FormFactorAnisoPyramid::getHeight() const 
 ";
 
-%feature("docstring")  FormFactorAnisoPyramid::evaluate_for_q "complex_t FormFactorAnisoPyramid::evaluate_for_q(const cvector_t q) const
-
-evaluate scattering amplitude for complex wavevector
-
-Parameters:
------------
-
-q: 
-wavevector transfer q=k_i-k_f 
+%feature("docstring")  FormFactorAnisoPyramid::getAlpha "double FormFactorAnisoPyramid::getAlpha() const 
 ";
 
 
@@ -1976,14 +1954,14 @@ The formfactor of a cone6.
 C++ includes: FormFactorCone6.h
 ";
 
-%feature("docstring")  FormFactorCone6::FormFactorCone6 "FormFactorCone6::FormFactorCone6(double radius, double height, double alpha)
+%feature("docstring")  FormFactorCone6::FormFactorCone6 "FormFactorCone6::FormFactorCone6(double base_edge, double height, double alpha)
 
 Cone6 constructor.
 
 Parameters:
 -----------
 
-radius: 
+base_edge: 
 of hexagonal base (different from R in IsGisaxs)
 
 height: 
@@ -2003,12 +1981,10 @@ Returns a clone of this  ISample object.
 Calls the  ISampleVisitor's visit method. 
 ";
 
-%feature("docstring")  FormFactorCone6::getHeight "double FormFactorCone6::getHeight() const 
+%feature("docstring")  FormFactorCone6::getBaseEdge "double FormFactorCone6::getBaseEdge() const 
 ";
 
-%feature("docstring")  FormFactorCone6::getRadius "double FormFactorCone6::getRadius() const final
-
-Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+%feature("docstring")  FormFactorCone6::getHeight "double FormFactorCone6::getHeight() const 
 ";
 
 %feature("docstring")  FormFactorCone6::getAlpha "double FormFactorCone6::getAlpha() const 
@@ -2111,13 +2087,10 @@ height:
 of bottom of Cuboctahedron
 
 height_ratio: 
-: height top part/height bottom part
+height top part/height bottom part
 
-angle: 
-in radians between base and facet 
-";
-
-%feature("docstring")  FormFactorCuboctahedron::~FormFactorCuboctahedron "virtual FormFactorCuboctahedron::~FormFactorCuboctahedron()
+alpha: 
+angle in radians between base and facet 
 ";
 
 %feature("docstring")  FormFactorCuboctahedron::clone "FormFactorCuboctahedron * FormFactorCuboctahedron::clone() const final
@@ -2130,18 +2103,13 @@ Returns a clone of this  ISample object.
 Calls the  ISampleVisitor's visit method. 
 ";
 
-%feature("docstring")  FormFactorCuboctahedron::getRadius "double FormFactorCuboctahedron::getRadius() const final
-
-Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+%feature("docstring")  FormFactorCuboctahedron::getLength "double FormFactorCuboctahedron::getLength() const 
 ";
 
 %feature("docstring")  FormFactorCuboctahedron::getHeight "double FormFactorCuboctahedron::getHeight() const 
 ";
 
 %feature("docstring")  FormFactorCuboctahedron::getHeightRatio "double FormFactorCuboctahedron::getHeightRatio() const 
-";
-
-%feature("docstring")  FormFactorCuboctahedron::getLength "double FormFactorCuboctahedron::getLength() const 
 ";
 
 %feature("docstring")  FormFactorCuboctahedron::getAlpha "double FormFactorCuboctahedron::getAlpha() const 
@@ -2499,11 +2467,6 @@ Returns a clone of this  ISample object.
 %feature("docstring")  FormFactorDodecahedron::accept "void FormFactorDodecahedron::accept(ISampleVisitor *visitor) const final
 
 Calls the  ISampleVisitor's visit method. 
-";
-
-%feature("docstring")  FormFactorDodecahedron::getRadius "double FormFactorDodecahedron::getRadius() const final
-
-Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
 
 %feature("docstring")  FormFactorDodecahedron::getEdge "double FormFactorDodecahedron::getEdge() const 
@@ -2888,14 +2851,6 @@ C++ includes: FormFactorIcosahedron.h
 ";
 
 %feature("docstring")  FormFactorIcosahedron::FormFactorIcosahedron "FormFactorIcosahedron::FormFactorIcosahedron(double edge)
-
-Constructs a regular icosahedron.
-
-Parameters:
------------
-
-edge: 
-length 
 ";
 
 %feature("docstring")  FormFactorIcosahedron::clone "FormFactorIcosahedron * FormFactorIcosahedron::clone() const final
@@ -2906,11 +2861,6 @@ Returns a clone of this  ISample object.
 %feature("docstring")  FormFactorIcosahedron::accept "void FormFactorIcosahedron::accept(ISampleVisitor *visitor) const final
 
 Calls the  ISampleVisitor's visit method. 
-";
-
-%feature("docstring")  FormFactorIcosahedron::getRadius "double FormFactorIcosahedron::getRadius() const final
-
-Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
 
 %feature("docstring")  FormFactorIcosahedron::getEdge "double FormFactorIcosahedron::getEdge() const 
@@ -3362,12 +3312,12 @@ A prism with a polygonal base, for form factor computation.
 C++ includes: FormFactorPolyhedron.h
 ";
 
-%feature("docstring")  FormFactorPolygonalPrism::FormFactorPolygonalPrism "FormFactorPolygonalPrism::FormFactorPolygonalPrism(const PolyhedralFace &_base, const double _height)
+%feature("docstring")  FormFactorPolygonalPrism::FormFactorPolygonalPrism "FormFactorPolygonalPrism::FormFactorPolygonalPrism(const double height)
 ";
 
 %feature("docstring")  FormFactorPolygonalPrism::evaluate_for_q "complex_t FormFactorPolygonalPrism::evaluate_for_q(const cvector_t q) const final
 
-Returns the form factor F(q) of this polyhedron, respecting the offset z_origin. 
+Returns the form factor F(q) of this polyhedron, respecting the offset height/2. 
 ";
 
 %feature("docstring")  FormFactorPolygonalPrism::getVolume "double FormFactorPolygonalPrism::getVolume() const
@@ -3375,9 +3325,12 @@ Returns the form factor F(q) of this polyhedron, respecting the offset z_origin.
 Returns the volume of this prism. 
 ";
 
-%feature("docstring")  FormFactorPolygonalPrism::getHeight "double FormFactorPolygonalPrism::getHeight() const
+%feature("docstring")  FormFactorPolygonalPrism::getHeight "double FormFactorPolygonalPrism::getHeight() const 
+";
 
-Returns the height of this prism. 
+%feature("docstring")  FormFactorPolygonalPrism::getRadius "virtual double FormFactorPolygonalPrism::getRadius() const final
+
+Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
 
 
@@ -3389,7 +3342,10 @@ A polyhedron, for form factor computation.
 C++ includes: FormFactorPolyhedron.h
 ";
 
-%feature("docstring")  FormFactorPolyhedron::FormFactorPolyhedron "FormFactorPolyhedron::FormFactorPolyhedron(const std::vector< PolyhedralFace > &_faces, const double _z_origin, const bool _sym_Ci=false)
+%feature("docstring")  FormFactorPolyhedron::getTopology "virtual const Topology& FormFactorPolyhedron::getTopology() const =0
+";
+
+%feature("docstring")  FormFactorPolyhedron::FormFactorPolyhedron "FormFactorPolyhedron::FormFactorPolyhedron()
 ";
 
 %feature("docstring")  FormFactorPolyhedron::evaluate_for_q "complex_t FormFactorPolyhedron::evaluate_for_q(const cvector_t q) const final
@@ -3397,9 +3353,14 @@ C++ includes: FormFactorPolyhedron.h
 Returns the form factor F(q) of this polyhedron, respecting the offset z_origin. 
 ";
 
-%feature("docstring")  FormFactorPolyhedron::getVolume "double FormFactorPolyhedron::getVolume() const
+%feature("docstring")  FormFactorPolyhedron::getVolume "virtual double FormFactorPolyhedron::getVolume() const final
 
 Returns the total volume of the particle of this form factor's shape. 
+";
+
+%feature("docstring")  FormFactorPolyhedron::getRadius "virtual double FormFactorPolyhedron::getRadius() const final
+
+Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
 
 %feature("docstring")  FormFactorPolyhedron::assert_platonic "void FormFactorPolyhedron::assert_platonic() const
@@ -3416,15 +3377,15 @@ The formfactor of a prism based on an equilateral triangle.
 C++ includes: FormFactorPrism3.h
 ";
 
-%feature("docstring")  FormFactorPrism3::FormFactorPrism3 "FormFactorPrism3::FormFactorPrism3(const double length, const double height)
+%feature("docstring")  FormFactorPrism3::FormFactorPrism3 "FormFactorPrism3::FormFactorPrism3(const double base_edge, const double height)
 
 Prism3 constructor.
 
 Parameters:
 -----------
 
-length: 
-of hexagonal base (different from R in IsGisaxs)
+base_edge: 
+of hexagonal base
 
 height: 
 of Prism3 
@@ -3440,12 +3401,7 @@ Returns a clone of this  ISample object.
 Calls the  ISampleVisitor's visit method. 
 ";
 
-%feature("docstring")  FormFactorPrism3::getRadius "double FormFactorPrism3::getRadius() const
-
-Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-";
-
-%feature("docstring")  FormFactorPrism3::getLength "double FormFactorPrism3::getLength() const 
+%feature("docstring")  FormFactorPrism3::getBaseEdge "double FormFactorPrism3::getBaseEdge() const 
 ";
 
 
@@ -3457,15 +3413,15 @@ The formfactor of a prism based on a regular hexagonal.
 C++ includes: FormFactorPrism6.h
 ";
 
-%feature("docstring")  FormFactorPrism6::FormFactorPrism6 "FormFactorPrism6::FormFactorPrism6(const double radius, const double height)
+%feature("docstring")  FormFactorPrism6::FormFactorPrism6 "FormFactorPrism6::FormFactorPrism6(const double base_edge, const double height)
 
 Prism6 constructor.
 
 Parameters:
 -----------
 
-radius: 
-of hexagonal base (different from R in IsGisaxs)
+base_edge: 
+of hexagonal base
 
 height: 
 of Prism6 
@@ -3481,28 +3437,26 @@ Returns a clone of this  ISample object.
 Calls the  ISampleVisitor's visit method. 
 ";
 
-%feature("docstring")  FormFactorPrism6::getRadius "double FormFactorPrism6::getRadius() const
-
-Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+%feature("docstring")  FormFactorPrism6::getBaseEdge "virtual double FormFactorPrism6::getBaseEdge() const 
 ";
 
 
 // File: classFormFactorPyramid.xml
 %feature("docstring") FormFactorPyramid "
 
-The formfactor of a cone6.
+The formfactor of a quadratic pyramid.
 
 C++ includes: FormFactorPyramid.h
 ";
 
-%feature("docstring")  FormFactorPyramid::FormFactorPyramid "FormFactorPyramid::FormFactorPyramid(double length, double height, double alpha)
+%feature("docstring")  FormFactorPyramid::FormFactorPyramid "FormFactorPyramid::FormFactorPyramid(double base_edge, double height, double alpha)
 
 Pyramid constructor.
 
 Parameters:
 -----------
 
-length: 
+base_edge: 
 of one side of Pyramid's square base
 
 height: 
@@ -3522,15 +3476,10 @@ Returns a clone of this  ISample object.
 Calls the  ISampleVisitor's visit method. 
 ";
 
-%feature("docstring")  FormFactorPyramid::getRadius "double FormFactorPyramid::getRadius() const final
-
-Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-";
-
 %feature("docstring")  FormFactorPyramid::getHeight "double FormFactorPyramid::getHeight() const 
 ";
 
-%feature("docstring")  FormFactorPyramid::getLength "double FormFactorPyramid::getLength() const 
+%feature("docstring")  FormFactorPyramid::getBaseEdge "double FormFactorPyramid::getBaseEdge() const 
 ";
 
 %feature("docstring")  FormFactorPyramid::getAlpha "double FormFactorPyramid::getAlpha() const 
@@ -3790,14 +3739,14 @@ The formfactor of tetrahedron.
 C++ includes: FormFactorTetrahedron.h
 ";
 
-%feature("docstring")  FormFactorTetrahedron::FormFactorTetrahedron "FormFactorTetrahedron::FormFactorTetrahedron(double length, double height, double alpha)
+%feature("docstring")  FormFactorTetrahedron::FormFactorTetrahedron "FormFactorTetrahedron::FormFactorTetrahedron(double base_edge, double height, double alpha)
 
 Tetrahedron constructor.
 
 Parameters:
 -----------
 
-length: 
+base_edge: 
 of a side of Tetrahedron's base
 
 height: 
@@ -3805,9 +3754,6 @@ of Tetrahedron
 
 angle: 
 in radians between base and facet 
-";
-
-%feature("docstring")  FormFactorTetrahedron::~FormFactorTetrahedron "FormFactorTetrahedron::~FormFactorTetrahedron()
 ";
 
 %feature("docstring")  FormFactorTetrahedron::clone "FormFactorTetrahedron * FormFactorTetrahedron::clone() const
@@ -3820,15 +3766,10 @@ Returns a clone of this  ISample object.
 Calls the  ISampleVisitor's visit method. 
 ";
 
-%feature("docstring")  FormFactorTetrahedron::getRadius "double FormFactorTetrahedron::getRadius() const
-
-Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+%feature("docstring")  FormFactorTetrahedron::getBaseEdge "double FormFactorTetrahedron::getBaseEdge() const 
 ";
 
 %feature("docstring")  FormFactorTetrahedron::getHeight "double FormFactorTetrahedron::getHeight() const 
-";
-
-%feature("docstring")  FormFactorTetrahedron::getLength "double FormFactorTetrahedron::getLength() const 
 ";
 
 %feature("docstring")  FormFactorTetrahedron::getAlpha "double FormFactorTetrahedron::getAlpha() const 
@@ -3889,8 +3830,6 @@ C++ includes: FormFactorTruncatedCube.h
 
 %feature("docstring")  FormFactorTruncatedCube::FormFactorTruncatedCube "FormFactorTruncatedCube::FormFactorTruncatedCube(double length, double removed_length)
 
-Truncated cube constructor.
-
 Parameters:
 -----------
 
@@ -3909,11 +3848,6 @@ Returns a clone of this  ISample object.
 %feature("docstring")  FormFactorTruncatedCube::accept "void FormFactorTruncatedCube::accept(ISampleVisitor *visitor) const final
 
 Calls the  ISampleVisitor's visit method. 
-";
-
-%feature("docstring")  FormFactorTruncatedCube::getRadius "double FormFactorTruncatedCube::getRadius() const final
-
-Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
 
 %feature("docstring")  FormFactorTruncatedCube::getLength "double FormFactorTruncatedCube::getLength() const 
@@ -3958,7 +3892,7 @@ Returns a clone of this  ISample object.
 Calls the  ISampleVisitor's visit method. 
 ";
 
-%feature("docstring")  FormFactorTruncatedSphere::getRadius "double FormFactorTruncatedSphere::getRadius() const
+%feature("docstring")  FormFactorTruncatedSphere::getRadius "virtual double FormFactorTruncatedSphere::getRadius() const
 
 Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
@@ -7555,12 +7489,12 @@ C++ includes: IParameterized.h
 Returns pointer to the parameter pool. 
 ";
 
-%feature("docstring")  IParameterized::createParameterTree "ParameterPool * IParameterized::createParameterTree() const
+%feature("docstring")  IParameterized::createParameterTree "ParameterPool * IParameterized::createParameterTree()
 
 Creates new parameter pool, with all local parameters and those of its children. 
 ";
 
-%feature("docstring")  IParameterized::printParameters "void IParameterized::printParameters() const 
+%feature("docstring")  IParameterized::printParameters "void IParameterized::printParameters()
 ";
 
 %feature("docstring")  IParameterized::registerParameter "void IParameterized::registerParameter(const std::string &name, double *parpointer, const AttLimits &limits=AttLimits::limitless())
@@ -7571,6 +7505,11 @@ Register parameter address in the parameter pool.
 %feature("docstring")  IParameterized::setParameterValue "void IParameterized::setParameterValue(const std::string &name, double value)
 
 Sets the value of the parameter with the given name. 
+";
+
+%feature("docstring")  IParameterized::getParameter "RealParameterWrapper IParameterized::getParameter(const std::string &name) const
+
+Returns parameter wrapper named  name. 
 ";
 
 %feature("docstring")  IParameterized::clearParameterPool "void IParameterized::clearParameterPool()
@@ -10242,7 +10181,7 @@ Holds a map of pointers to parameters (which must have different names).
 C++ includes: ParameterPool.h
 ";
 
-%feature("docstring")  ParameterPool::ParameterPool "ParameterPool::ParameterPool(const IParameterized *parent)
+%feature("docstring")  ParameterPool::ParameterPool "ParameterPool::ParameterPool(IParameterized *const parent)
 
 Constructs an empty parameter pool. 
 ";
@@ -10856,7 +10795,16 @@ C++ includes: FormFactorPolyhedron.h
 
 %feature("docstring")  PolyhedralFace::PolyhedralFace "PolyhedralFace::PolyhedralFace(const std::vector< kvector_t > &_V=std::vector< kvector_t >(), bool _sym_S2=false)
 
-Sets internal variables for given vertex chain. 
+Sets internal variables for given vertex chain.
+
+Parameters:
+-----------
+
+V: 
+oriented vertex list
+
+_sym_S2: 
+true if face has a perpedicular two-fold symmetry axis 
 ";
 
 %feature("docstring")  PolyhedralFace::getArea "double PolyhedralFace::getArea() const
@@ -11192,7 +11140,7 @@ Wrapper to real parameter for remote access to its value and callback abilities
 C++ includes: RealParameterWrapper.h
 ";
 
-%feature("docstring")  RealParameterWrapper::RealParameterWrapper "RealParameterWrapper::RealParameterWrapper(double *par, const AttLimits &limits=AttLimits::limitless())
+%feature("docstring")  RealParameterWrapper::RealParameterWrapper "RealParameterWrapper::RealParameterWrapper(IParameterized *parent, double *par, const AttLimits &limits=AttLimits::limitless())
 ";
 
 %feature("docstring")  RealParameterWrapper::RealParameterWrapper "RealParameterWrapper::RealParameterWrapper(const RealParameterWrapper &other)
@@ -13220,6 +13168,10 @@ C++ includes: ThreadInfo.h
 
 %feature("docstring")  ThreadInfo::ThreadInfo "ThreadInfo::ThreadInfo()
 ";
+
+
+// File: classFormFactorPolyhedron_1_1TopologyFace.xml
+%feature("docstring") FormFactorPolyhedron::TopologyFace "";
 
 
 // File: classTRange.xml

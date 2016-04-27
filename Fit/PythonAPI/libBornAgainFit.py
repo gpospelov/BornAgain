@@ -3545,6 +3545,11 @@ class FitSuiteParameters(_object):
         """
         valuesAreDifferent(FitSuiteParameters self, double const * pars_valuers, double tolerance_factor=1.0) -> bool
         valuesAreDifferent(FitSuiteParameters self, double const * pars_valuers) -> bool
+
+        bool FitSuiteParameters::valuesAreDifferent(const double *pars_valuers, double tolerance_factor=1.0) const
+
+        Returns true if parameters already have the given values. 
+
         """
         return _libBornAgainFit.FitSuiteParameters_valuesAreDifferent(self, pars_valuers, tolerance_factor)
 

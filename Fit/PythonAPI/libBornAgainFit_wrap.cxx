@@ -31524,6 +31524,11 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"FitSuiteParameters_valuesAreDifferent", _wrap_FitSuiteParameters_valuesAreDifferent, METH_VARARGS, (char *)"\n"
 		"valuesAreDifferent(double const * pars_valuers, double tolerance_factor=1.0) -> bool\n"
 		"FitSuiteParameters_valuesAreDifferent(FitSuiteParameters self, double const * pars_valuers) -> bool\n"
+		"\n"
+		"bool FitSuiteParameters::valuesAreDifferent(const double *pars_valuers, double tolerance_factor=1.0) const\n"
+		"\n"
+		"Returns true if parameters already have the given values. \n"
+		"\n"
 		""},
 	 { (char *)"FitSuiteParameters_printParameters", _wrap_FitSuiteParameters_printParameters, METH_VARARGS, (char *)"\n"
 		"FitSuiteParameters_printParameters(FitSuiteParameters self)\n"

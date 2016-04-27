@@ -1881,7 +1881,7 @@ class IParameterized(INamed):
         """
         createParameterTree(IParameterized self) -> ParameterPool
 
-        ParameterPool * IParameterized::createParameterTree() const
+        ParameterPool * IParameterized::createParameterTree()
 
         Creates new parameter pool, with all local parameters and those of its children. 
 
@@ -1893,7 +1893,7 @@ class IParameterized(INamed):
         """
         printParameters(IParameterized self)
 
-        void IParameterized::printParameters() const 
+        void IParameterized::printParameters()
 
         """
         return _libBornAgainCore.IParameterized_printParameters(self)
@@ -1912,7 +1912,14 @@ class IParameterized(INamed):
 
 
     def getParameter(self, name):
-        """getParameter(IParameterized self, std::string const & name) -> RealParameterWrapper"""
+        """
+        getParameter(IParameterized self, std::string const & name) -> RealParameterWrapper
+
+        RealParameterWrapper IParameterized::getParameter(const std::string &name) const
+
+        Returns parameter wrapper named  name. 
+
+        """
         return _libBornAgainCore.IParameterized_getParameter(self, name)
 
 
@@ -8184,6 +8191,14 @@ class PolyhedralFace(_object):
     __getattr__ = lambda self, name: _swig_getattr(self, PolyhedralFace, name)
     __repr__ = _swig_repr
 
+    def diameter(V):
+        """diameter(vector_kvector_t V) -> double"""
+        return _libBornAgainCore.PolyhedralFace_diameter(V)
+
+    if _newclass:
+        diameter = staticmethod(diameter)
+    __swig_getmethods__["diameter"] = lambda x: diameter
+
     def __init__(self, *args):
         """
         __init__(PolyhedralFace self, vector_kvector_t _V, bool _sym_S2=False) -> PolyhedralFace
@@ -8192,7 +8207,16 @@ class PolyhedralFace(_object):
 
         PolyhedralFace::PolyhedralFace(const std::vector< kvector_t > &_V=std::vector< kvector_t >(), bool _sym_S2=false)
 
-        Sets internal variables for given vertex chain. 
+        Sets internal variables for given vertex chain.
+
+        Parameters:
+        -----------
+
+        V: 
+        oriented vertex list
+
+        _sym_S2: 
+        true if face has a perpedicular two-fold symmetry axis 
 
         """
         this = _libBornAgainCore.new_PolyhedralFace(*args)
@@ -8281,6 +8305,10 @@ class PolyhedralFace(_object):
 PolyhedralFace_swigregister = _libBornAgainCore.PolyhedralFace_swigregister
 PolyhedralFace_swigregister(PolyhedralFace)
 
+def PolyhedralFace_diameter(V):
+    """PolyhedralFace_diameter(vector_kvector_t V) -> double"""
+    return _libBornAgainCore.PolyhedralFace_diameter(V)
+
 class FormFactorPolyhedron(IFormFactorBorn):
     """
 
@@ -8303,6 +8331,16 @@ class FormFactorPolyhedron(IFormFactorBorn):
         raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
 
+    def getTopology(self):
+        """
+        getTopology(FormFactorPolyhedron self) -> FormFactorPolyhedron::Topology const &
+
+        virtual const Topology& FormFactorPolyhedron::getTopology() const =0
+
+        """
+        return _libBornAgainCore.FormFactorPolyhedron_getTopology(self)
+
+
     def evaluate_for_q(self, q):
         """
         evaluate_for_q(FormFactorPolyhedron self, cvector_t q) -> complex_t
@@ -8319,7 +8357,7 @@ class FormFactorPolyhedron(IFormFactorBorn):
         """
         getVolume(FormFactorPolyhedron self) -> double
 
-        double FormFactorPolyhedron::getVolume() const
+        virtual double FormFactorPolyhedron::getVolume() const final
 
         Returns the total volume of the particle of this form factor's shape. 
 
@@ -8331,7 +8369,7 @@ class FormFactorPolyhedron(IFormFactorBorn):
         """
         getRadius(FormFactorPolyhedron self) -> double
 
-        virtual double IFormFactor::getRadius() const =0
+        virtual double FormFactorPolyhedron::getRadius() const final
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -8383,7 +8421,7 @@ class FormFactorPolygonalPrism(IFormFactorBorn):
 
         complex_t FormFactorPolygonalPrism::evaluate_for_q(const cvector_t q) const final
 
-        Returns the form factor F(q) of this polyhedron, respecting the offset z_origin. 
+        Returns the form factor F(q) of this polyhedron, respecting the offset height/2. 
 
         """
         return _libBornAgainCore.FormFactorPolygonalPrism_evaluate_for_q(self, q)
@@ -8405,9 +8443,7 @@ class FormFactorPolygonalPrism(IFormFactorBorn):
         """
         getHeight(FormFactorPolygonalPrism self) -> double
 
-        double FormFactorPolygonalPrism::getHeight() const
-
-        Returns the height of this prism. 
+        double FormFactorPolygonalPrism::getHeight() const 
 
         """
         return _libBornAgainCore.FormFactorPolygonalPrism_getHeight(self)
@@ -8417,7 +8453,7 @@ class FormFactorPolygonalPrism(IFormFactorBorn):
         """
         getRadius(FormFactorPolygonalPrism self) -> double
 
-        virtual double IFormFactor::getRadius() const =0
+        virtual double FormFactorPolygonalPrism::getRadius() const final
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -8429,21 +8465,21 @@ class FormFactorPolygonalPrism(IFormFactorBorn):
 FormFactorPolygonalPrism_swigregister = _libBornAgainCore.FormFactorPolygonalPrism_swigregister
 FormFactorPolygonalPrism_swigregister(FormFactorPolygonalPrism)
 
-class FormFactorAnisoPyramid(IFormFactorBorn):
+class FormFactorAnisoPyramid(FormFactorPolyhedron):
     """
 
 
-    The formfactor of an anisotropic pyramid.
+    The formfactor of a quadratic pyramid.
 
     C++ includes: FormFactorAnisoPyramid.h
 
     """
     __swig_setmethods__ = {}
-    for _s in [IFormFactorBorn]:
+    for _s in [FormFactorPolyhedron]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, FormFactorAnisoPyramid, name, value)
     __swig_getmethods__ = {}
-    for _s in [IFormFactorBorn]:
+    for _s in [FormFactorPolyhedron]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, FormFactorAnisoPyramid, name)
     __repr__ = _swig_repr
@@ -8454,22 +8490,19 @@ class FormFactorAnisoPyramid(IFormFactorBorn):
 
         FormFactorAnisoPyramid::FormFactorAnisoPyramid(double length, double width, double height, double alpha)
 
-        Anisotropic Pyramid constructor.
+        Pyramid constructor.
 
         Parameters:
         -----------
 
-        length: 
-        of Anisotropic Pyramid's base
-
-        width: 
-        of Anisotropic Pyramid's base
+        base_edge: 
+        of one side of Pyramid's square base
 
         height: 
-        of Anisotropic Pyramid
+        of Pyramid
 
-        alpha: 
-        angle in radians between base and facet 
+        angle: 
+        in radians between base and facet 
 
         """
         this = _libBornAgainCore.new_FormFactorAnisoPyramid(length, width, height, alpha)
@@ -8477,14 +8510,12 @@ class FormFactorAnisoPyramid(IFormFactorBorn):
             self.this.append(this)
         except:
             self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_FormFactorAnisoPyramid
-    __del__ = lambda self: None
 
     def clone(self):
         """
         clone(FormFactorAnisoPyramid self) -> FormFactorAnisoPyramid
 
-        FormFactorAnisoPyramid * FormFactorAnisoPyramid::clone() const
+        FormFactorAnisoPyramid * FormFactorAnisoPyramid::clone() const final
 
         Returns a clone of this  ISample object. 
 
@@ -8496,34 +8527,12 @@ class FormFactorAnisoPyramid(IFormFactorBorn):
         """
         accept(FormFactorAnisoPyramid self, ISampleVisitor visitor)
 
-        void FormFactorAnisoPyramid::accept(ISampleVisitor *visitor) const
+        void FormFactorAnisoPyramid::accept(ISampleVisitor *visitor) const final
 
         Calls the  ISampleVisitor's visit method. 
 
         """
         return _libBornAgainCore.FormFactorAnisoPyramid_accept(self, visitor)
-
-
-    def getRadius(self):
-        """
-        getRadius(FormFactorAnisoPyramid self) -> double
-
-        double FormFactorAnisoPyramid::getRadius() const
-
-        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-
-        """
-        return _libBornAgainCore.FormFactorAnisoPyramid_getRadius(self)
-
-
-    def getHeight(self):
-        """
-        getHeight(FormFactorAnisoPyramid self) -> double
-
-        double FormFactorAnisoPyramid::getHeight() const 
-
-        """
-        return _libBornAgainCore.FormFactorAnisoPyramid_getHeight(self)
 
 
     def getLength(self):
@@ -8546,6 +8555,16 @@ class FormFactorAnisoPyramid(IFormFactorBorn):
         return _libBornAgainCore.FormFactorAnisoPyramid_getWidth(self)
 
 
+    def getHeight(self):
+        """
+        getHeight(FormFactorAnisoPyramid self) -> double
+
+        double FormFactorAnisoPyramid::getHeight() const 
+
+        """
+        return _libBornAgainCore.FormFactorAnisoPyramid_getHeight(self)
+
+
     def getAlpha(self):
         """
         getAlpha(FormFactorAnisoPyramid self) -> double
@@ -8555,24 +8574,8 @@ class FormFactorAnisoPyramid(IFormFactorBorn):
         """
         return _libBornAgainCore.FormFactorAnisoPyramid_getAlpha(self)
 
-
-    def evaluate_for_q(self, q):
-        """
-        evaluate_for_q(FormFactorAnisoPyramid self, cvector_t q) -> complex_t
-
-        complex_t FormFactorAnisoPyramid::evaluate_for_q(const cvector_t q) const
-
-        evaluate scattering amplitude for complex wavevector
-
-        Parameters:
-        -----------
-
-        q: 
-        wavevector transfer q=k_i-k_f 
-
-        """
-        return _libBornAgainCore.FormFactorAnisoPyramid_evaluate_for_q(self, q)
-
+    __swig_destroy__ = _libBornAgainCore.delete_FormFactorAnisoPyramid
+    __del__ = lambda self: None
 FormFactorAnisoPyramid_swigregister = _libBornAgainCore.FormFactorAnisoPyramid_swigregister
 FormFactorAnisoPyramid_swigregister(FormFactorAnisoPyramid)
 
@@ -8865,14 +8868,14 @@ class FormFactorCone6(FormFactorPolyhedron):
         """
         __init__(FormFactorCone6 self, double base_edge, double height, double alpha) -> FormFactorCone6
 
-        FormFactorCone6::FormFactorCone6(double radius, double height, double alpha)
+        FormFactorCone6::FormFactorCone6(double base_edge, double height, double alpha)
 
         Cone6 constructor.
 
         Parameters:
         -----------
 
-        radius: 
+        base_edge: 
         of hexagonal base (different from R in IsGisaxs)
 
         height: 
@@ -8913,7 +8916,12 @@ class FormFactorCone6(FormFactorPolyhedron):
 
 
     def getBaseEdge(self):
-        """getBaseEdge(FormFactorCone6 self) -> double"""
+        """
+        getBaseEdge(FormFactorCone6 self) -> double
+
+        double FormFactorCone6::getBaseEdge() const 
+
+        """
         return _libBornAgainCore.FormFactorCone6_getBaseEdge(self)
 
 
@@ -9101,10 +9109,10 @@ class FormFactorCuboctahedron(FormFactorPolyhedron):
         of bottom of Cuboctahedron
 
         height_ratio: 
-        : height top part/height bottom part
+        height top part/height bottom part
 
-        angle: 
-        in radians between base and facet 
+        alpha: 
+        angle in radians between base and facet 
 
         """
         this = _libBornAgainCore.new_FormFactorCuboctahedron(length, height, height_ratio, alpha)
@@ -10058,14 +10066,6 @@ class FormFactorIcosahedron(FormFactorPolyhedron):
         __init__(FormFactorIcosahedron self, double edge) -> FormFactorIcosahedron
 
         FormFactorIcosahedron::FormFactorIcosahedron(double edge)
-
-        Constructs a regular icosahedron.
-
-        Parameters:
-        -----------
-
-        edge: 
-        length 
 
         """
         this = _libBornAgainCore.new_FormFactorIcosahedron(edge)
@@ -11054,15 +11054,15 @@ class FormFactorPrism3(FormFactorPolygonalPrism):
         """
         __init__(FormFactorPrism3 self, double const base_edge, double const height) -> FormFactorPrism3
 
-        FormFactorPrism3::FormFactorPrism3(const double length, const double height)
+        FormFactorPrism3::FormFactorPrism3(const double base_edge, const double height)
 
         Prism3 constructor.
 
         Parameters:
         -----------
 
-        length: 
-        of hexagonal base (different from R in IsGisaxs)
+        base_edge: 
+        of hexagonal base
 
         height: 
         of Prism3 
@@ -11099,7 +11099,12 @@ class FormFactorPrism3(FormFactorPolygonalPrism):
 
 
     def getBaseEdge(self):
-        """getBaseEdge(FormFactorPrism3 self) -> double"""
+        """
+        getBaseEdge(FormFactorPrism3 self) -> double
+
+        double FormFactorPrism3::getBaseEdge() const 
+
+        """
         return _libBornAgainCore.FormFactorPrism3_getBaseEdge(self)
 
     __swig_destroy__ = _libBornAgainCore.delete_FormFactorPrism3
@@ -11130,15 +11135,15 @@ class FormFactorPrism6(FormFactorPolygonalPrism):
         """
         __init__(FormFactorPrism6 self, double const base_edge, double const height) -> FormFactorPrism6
 
-        FormFactorPrism6::FormFactorPrism6(const double radius, const double height)
+        FormFactorPrism6::FormFactorPrism6(const double base_edge, const double height)
 
         Prism6 constructor.
 
         Parameters:
         -----------
 
-        radius: 
-        of hexagonal base (different from R in IsGisaxs)
+        base_edge: 
+        of hexagonal base
 
         height: 
         of Prism6 
@@ -11175,7 +11180,12 @@ class FormFactorPrism6(FormFactorPolygonalPrism):
 
 
     def getBaseEdge(self):
-        """getBaseEdge(FormFactorPrism6 self) -> double"""
+        """
+        getBaseEdge(FormFactorPrism6 self) -> double
+
+        virtual double FormFactorPrism6::getBaseEdge() const 
+
+        """
         return _libBornAgainCore.FormFactorPrism6_getBaseEdge(self)
 
     __swig_destroy__ = _libBornAgainCore.delete_FormFactorPrism6
@@ -11187,7 +11197,7 @@ class FormFactorPyramid(FormFactorPolyhedron):
     """
 
 
-    The formfactor of a cone6.
+    The formfactor of a quadratic pyramid.
 
     C++ includes: FormFactorPyramid.h
 
@@ -11206,14 +11216,14 @@ class FormFactorPyramid(FormFactorPolyhedron):
         """
         __init__(FormFactorPyramid self, double base_edge, double height, double alpha) -> FormFactorPyramid
 
-        FormFactorPyramid::FormFactorPyramid(double length, double height, double alpha)
+        FormFactorPyramid::FormFactorPyramid(double base_edge, double height, double alpha)
 
         Pyramid constructor.
 
         Parameters:
         -----------
 
-        length: 
+        base_edge: 
         of one side of Pyramid's square base
 
         height: 
@@ -11264,7 +11274,12 @@ class FormFactorPyramid(FormFactorPolyhedron):
 
 
     def getBaseEdge(self):
-        """getBaseEdge(FormFactorPyramid self) -> double"""
+        """
+        getBaseEdge(FormFactorPyramid self) -> double
+
+        double FormFactorPyramid::getBaseEdge() const 
+
+        """
         return _libBornAgainCore.FormFactorPyramid_getBaseEdge(self)
 
 
@@ -11844,14 +11859,14 @@ class FormFactorTetrahedron(FormFactorPolyhedron):
         """
         __init__(FormFactorTetrahedron self, double base_edge, double height, double alpha) -> FormFactorTetrahedron
 
-        FormFactorTetrahedron::FormFactorTetrahedron(double length, double height, double alpha)
+        FormFactorTetrahedron::FormFactorTetrahedron(double base_edge, double height, double alpha)
 
         Tetrahedron constructor.
 
         Parameters:
         -----------
 
-        length: 
+        base_edge: 
         of a side of Tetrahedron's base
 
         height: 
@@ -11892,7 +11907,12 @@ class FormFactorTetrahedron(FormFactorPolyhedron):
 
 
     def getBaseEdge(self):
-        """getBaseEdge(FormFactorTetrahedron self) -> double"""
+        """
+        getBaseEdge(FormFactorTetrahedron self) -> double
+
+        double FormFactorTetrahedron::getBaseEdge() const 
+
+        """
         return _libBornAgainCore.FormFactorTetrahedron_getBaseEdge(self)
 
 
@@ -12039,8 +12059,6 @@ class FormFactorTruncatedCube(FormFactorPolyhedron):
 
         FormFactorTruncatedCube::FormFactorTruncatedCube(double length, double removed_length)
 
-        Truncated cube constructor.
-
         Parameters:
         -----------
 
@@ -12178,7 +12196,7 @@ class FormFactorTruncatedSphere(IFormFactorBorn):
         """
         getRadius(FormFactorTruncatedSphere self) -> double
 
-        double FormFactorTruncatedSphere::getRadius() const
+        virtual double FormFactorTruncatedSphere::getRadius() const
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 

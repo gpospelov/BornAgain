@@ -179,7 +179,7 @@ void ModelTuningWidget::updateParameterModel()
 
 void ModelTuningWidget::onCustomContextMenuRequested(const QPoint &point)
 {
-    emit itemContextMenuRequest(m_treeView->mapToGlobal(point));
+    emit itemContextMenuRequest(m_treeView->mapToGlobal(point+ QPoint(2, 22)));
 }
 
 void ModelTuningWidget::restoreModelsOfCurrentJobItem()

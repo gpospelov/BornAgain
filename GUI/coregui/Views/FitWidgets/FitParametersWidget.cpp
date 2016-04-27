@@ -105,6 +105,38 @@ void FitParametersWidget::onTuningWidgetContextMenu(const QPoint &point)
     setActionsEnabled(true);
 }
 
+void FitParametersWidget::onTuningWidgetSelectionChanged(const QItemSelection &selection)
+{
+
+}
+
+void FitParametersWidget::onFitParametersSelectionChanged(const QItemSelection &selection)
+{
+    qDebug() << "onFitParametersSelectionChanged ->";
+    if (selection.indexes().isEmpty())
+        return;
+    QModelIndex index = selection.indexes().last();
+    qDebug() << "XXX index" << selection.indexes() << index;
+    QModelIndex newSelection = QModelIndex();
+    if (index.isValid() && index.parent().isValid()) {
+        SessionItem *val = m_fitParameterModel->itemForIndex(index);
+//        QString link = val->getItemValue(FitParameterLinkItem::P_LINK).toString();
+        qDebug() << "XXX val" << val->modelType() << val->displayName() << val->value();
+//        QStandardItem *t = m_selectorModel->getItemFromPath(link);
+//        newSelection = m_selectorModel->indexFromItem(t);
+    }
+//    connectSelectorView(false);
+//    m_selectorTreeView->selectionModel()
+//            ->select(newSelection, QItemSelectionModel::ClearAndSelect);
+//    if (newSelection.isValid()) {
+//        newSelection = newSelection.sibling(newSelection.row(), 1);
+//        m_selectorTreeView->selectionModel()
+//                ->select(newSelection, QItemSelectionModel::Select);
+//    }
+//    connectSelectorView();
+
+}
+
 void FitParametersWidget::onCreateFitParAction()
 {
     foreach(ParameterItem *item, getSelectedParameters()) {
@@ -127,7 +159,6 @@ void FitParametersWidget::onRemoveFromFitParAction()
 //! Add all selected parameters to fitParameter with given index
 void FitParametersWidget::onAddToFitParAction(int ipar)
 {
-    qDebug() << "AAAAAAAAAAAa" << ipar;
     QStringList fitParNames = m_fitParameterModel->getFitParameterNames();
     foreach(ParameterItem *item, getSelectedParameters()) {
         m_fitParameterModel->addToFitParameter(item, fitParNames.at(ipar));
@@ -212,6 +243,7 @@ void FitParametersWidget::init_job_item()
 
     m_fitParameterModel.reset(new FitParameterModel(parsContainerItem));
     m_treeView->setModel(m_fitParameterModel.get());
+    connectFitParametersSelection(true);
 
     m_fitParameterModel->createFitParameter();
     m_fitParameterModel->createFitParameter();
@@ -220,6 +252,7 @@ void FitParametersWidget::init_job_item()
 
 //        m_treeView->setModel(parsContainerItem->model());
 //        m_treeView->setRootIndex(parsContainerItem->index());
+//    spanParameters();
 
 }
 
@@ -275,4 +308,33 @@ QVector<ParameterItem *> FitParametersWidget::getSelectedParameters()
         }
     }
     return result;
+}
+
+
+void FitParametersWidget::connectTuningWidgetSelection(bool active)
+{
+    Q_ASSERT(m_tuningWidget);
+
+    if (active) {
+        connect(m_tuningWidget->selectionModel(),
+                SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
+                this, SLOT(onTuningWidgetSelectionChanged(QItemSelection)), Qt::UniqueConnection);
+    } else {
+        disconnect(m_tuningWidget->selectionModel(),
+                SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
+                this, SLOT(onTuningWidgetSelectionChanged(QItemSelection)));
+    }
+}
+
+void FitParametersWidget::connectFitParametersSelection(bool active) {
+    if (active) {
+        connect(m_treeView->selectionModel(),
+                SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
+                this, SLOT(onFitParametersSelectionChanged(QItemSelection)), Qt::UniqueConnection);
+    } else {
+        disconnect(m_treeView->selectionModel(),
+                SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
+                this, SLOT(onFitParametersSelectionChanged(QItemSelection)));
+
+    }
 }

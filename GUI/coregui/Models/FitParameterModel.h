@@ -27,7 +27,8 @@ class FitParameterContainerItem;
 
 //! The FitParameterModel adopt fit parameters from FitParameterContainer to be shown
 //! in 5 column tree view. It doesn't own its root item (it still belongs to the original JobModel)
-//! and serves merely as a proxy model.
+//! and serves merely as a proxy model. Any changes should be done via original model
+//! accessible via rootItem->model()
 
 class BA_CORE_API_ FitParameterModel : public SessionModel
 {
@@ -46,6 +47,7 @@ public:
     virtual int columnCount(const QModelIndex &parent) const;
 
     void createFitParameter(ParameterItem *parameterItem = 0);
+    void removeFromFitParameters(ParameterItem *parameterItem);
 
     FitParameterItem *getFitParameterItem(ParameterItem *parameterItem);
 

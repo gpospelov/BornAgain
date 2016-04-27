@@ -106,39 +106,22 @@ void FitParametersWidget::onTuningWidgetContextMenu(const QPoint &point)
 
 void FitParametersWidget::onCreateFitParAction()
 {
-    Q_ASSERT(m_jobItem);
-    Q_ASSERT(m_tuningWidget);
-    Q_ASSERT(m_tuningWidget->selectionModel());
-    QModelIndexList proxyIndexes = m_tuningWidget->selectionModel()->selectedIndexes();
-    foreach(QModelIndex proxyIndex, proxyIndexes) {
-        QModelIndex index = FilterPropertyProxy::toSourceIndex(proxyIndex);
-        qDebug() << proxyIndex << index << index.column();
-        if(index.column() != 0) continue;
-
-        if(SessionItem *item = m_jobItem->model()->itemForIndex(index)) {
-            if(ParameterItem *parameterItem = dynamic_cast<ParameterItem *>(item)) {
-                qDebug() << item->modelType() << item->displayName() << item->parent()->modelType() << item->getItemValue(ParameterItem::P_LINK);
-                m_fitParameterModel->createFitParameter(parameterItem);
-//                if(FitParameterItem *fitPar = dynamic_cast<FitParameterItem *>(item->parent())) {
-//                    qDebug() << item->modelType() << item->displayName() << fitPar->modelType();
-//                }
-            }
+    foreach(ParameterItem *item, getSelectedParameters()) {
+        if(!m_fitParameterModel->getFitParameterItem(item)) {
+            m_fitParameterModel->createFitParameter(item);
         }
-
     }
     spanParameters();
-
-
-//    QModelIndex index = indexes.front();
-//    if(SessionItem *item = m_jobItem->model()->itemForIndex(index)) {
-//        qDebug() << item->modelType();
-//    }
-
 }
 
 void FitParametersWidget::onRemoveFromFitParAction()
 {
-
+    foreach(ParameterItem *item, getSelectedParameters()) {
+        if(m_fitParameterModel->getFitParameterItem(item)) {
+            m_fitParameterModel->removeFromFitParameters(item);
+            break;
+        }
+    }
 }
 
 void FitParametersWidget::init_actions()
@@ -154,14 +137,16 @@ void FitParametersWidget::initTuningWidgetContextMenu(QMenu &menu)
 {
     Q_ASSERT(m_jobItem);
 
-    if(!isCreateFitParameterPossible()) {
+    if(isCreateFitParameterPossible()) {
+        m_removeFromFitParAction->setEnabled(false);
+    } else {
         m_createFitParAction->setEnabled(false);
     }
 
     menu.addAction(m_createFitParAction);
-//    QMenu *addToFitPar = menu.addMenu("Add to existing fit parameter");
-//    menu.addSeparator();
-//    menu.addAction(m_removeFromFitParAction);
+    QMenu *addToFitPar = menu.addMenu("Add to existing fit parameter");
+    menu.addSeparator();
+    menu.addAction(m_removeFromFitParAction);
 }
 
 //! stop tracking job item
@@ -226,14 +211,6 @@ void FitParametersWidget::spanParameters()
         }
     }
 
-}
-
-//! Returns true, if current selection in model tuning widget suitable for fit parameter creation
-bool FitParametersWidget::isSelectionValidForFit()
-{
-    QVector<ParameterItem *> selected = getSelectedParameters();
-
-    return true;
 }
 
 //! Returns true if it is possible to create fit parameter. There should be some ParameterItem's

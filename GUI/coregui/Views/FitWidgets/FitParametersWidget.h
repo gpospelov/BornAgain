@@ -56,7 +56,6 @@ private:
     void stop_tracking_job_item();
     void init_job_item();
     void spanParameters();
-    bool isSelectionValidForFit();
 
     bool isCreateFitParameterPossible();
 

@@ -63,8 +63,10 @@ QVariant FitParameterModel::data(const QModelIndex & index, int role) const
                 if (index.column() == 0) {
                     QVector<SessionItem *> links = item->parent()->getItems(FitParameterItem::T_LINK);
 
-                    if(SessionItem *linkItem = links.at(index.row())) {
-                        return linkItem->getItemValue(FitParameterLinkItem::P_LINK);
+                    if(links.size()) {
+                        if(SessionItem *linkItem = links.at(index.row())) {
+                            return linkItem->getItemValue(FitParameterLinkItem::P_LINK);
+                        }
                     }
                 } else {
                     return QVariant();
@@ -139,6 +141,21 @@ void FitParameterModel::createFitParameter(ParameterItem *parameterItem)
     }
     emit layoutChanged();
 
+}
+
+//! Removes link to given parameterItem from fit parameters
+void FitParameterModel::removeFromFitParameters(ParameterItem *parameterItem)
+{
+    FitParameterItem *fitParItem = getFitParameterItem(parameterItem);
+    if(fitParItem) {
+        foreach(SessionItem *linkItem, fitParItem->getItems(FitParameterItem::T_LINK)) {
+            if(parameterItem->getItemValue(ParameterItem::P_LINK) == linkItem->getItemValue(FitParameterLinkItem::P_LINK)) {
+                fitParItem->model()->removeRow(linkItem->index().row(), linkItem->index().parent());
+                break;
+            }
+        }
+    }
+    emit layoutChanged();
 }
 
 //! Returns fFitParameterItem corresponding to given ParameterItem

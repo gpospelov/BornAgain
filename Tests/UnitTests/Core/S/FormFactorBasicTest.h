@@ -438,6 +438,7 @@ TEST_F(FormFactorBasicTest, TruncatedCube)
     test_ff( &trcube );
 }
 
+/*
 TEST_F(FormFactorBasicTest, Ripple2)
 {
     double width = 20.;
@@ -454,3 +455,4 @@ TEST_F(FormFactorBasicTest, Ripple2)
 
     test_ff( &ripple2 );
 }
+*/

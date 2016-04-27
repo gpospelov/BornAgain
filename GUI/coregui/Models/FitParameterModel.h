@@ -21,12 +21,18 @@
 #include "SessionModel.h"
 #include <QMap>
 
+class ParameterItem;
+
+//! The FitParameterModel adopt fit parameters from FitParameterContainer to be shown
+//! in 5 column tree view. It doesn't own its root item (it still belongs to the original JobModel)
+//! and serves merely as a proxy model.
+
 class BA_CORE_API_ FitParameterModel : public SessionModel
 {
     Q_OBJECT
 
 public:
-    explicit FitParameterModel(SessionItem *fitParContainer, QObject *parent);
+    explicit FitParameterModel(SessionItem *fitParContainer, QObject *parent = 0);
     ~FitParameterModel();
 
     Qt::ItemFlags flags(const QModelIndex & index) const Q_DECL_OVERRIDE;
@@ -36,6 +42,8 @@ public:
 
     virtual int rowCount(const QModelIndex &parent) const;
     virtual int columnCount(const QModelIndex &parent) const;
+
+    void createFitParameter(ParameterItem *parameterItem = 0);
 
 private:
     QMap<int, QString> m_columnNames;

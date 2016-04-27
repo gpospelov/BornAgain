@@ -21,19 +21,30 @@
 #include "FitParameterItems.h"
 #include "FitParameterModel.h"
 #include "ModelTuningWidget.h"
+#include "FilterPropertyProxy.h"
+#include "ParameterTreeItems.h"
 #include <QMenu>
 #include <QTreeView>
 #include <QVBoxLayout>
+#include <QAction>
+#include <QDebug>
 
 FitParametersWidget::FitParametersWidget(QWidget *parent)
     : QWidget(parent)
     , m_treeView(new QTreeView)
     , m_jobItem(0)
     , m_tuningWidget(0)
+    , m_createFitParAction(0)
 {
     QVBoxLayout *layout = new QVBoxLayout;
     layout->addWidget(m_treeView);
     setLayout(layout);
+    init_actions();
+}
+
+FitParametersWidget::~FitParametersWidget()
+{
+
 }
 
 void FitParametersWidget::setItem(JobItem *jobItem)
@@ -90,10 +101,49 @@ void FitParametersWidget::onTuningWidgetContextMenu(const QPoint &point)
     menu.exec(point);
 }
 
+void FitParametersWidget::onCreateFitParAction()
+{
+    Q_ASSERT(m_jobItem);
+    Q_ASSERT(m_tuningWidget);
+    Q_ASSERT(m_tuningWidget->selectionModel());
+    QModelIndexList proxyIndexes = m_tuningWidget->selectionModel()->selectedIndexes();
+    foreach(QModelIndex proxyIndex, proxyIndexes) {
+        QModelIndex index = FilterPropertyProxy::toSourceIndex(proxyIndex);
+        qDebug() << proxyIndex << index << index.column();
+        if(index.column() != 0) continue;
+
+        if(SessionItem *item = m_jobItem->model()->itemForIndex(index)) {
+            if(ParameterItem *parameterItem = dynamic_cast<ParameterItem *>(item)) {
+                qDebug() << item->modelType() << item->displayName() << item->parent()->modelType() << item->getItemValue(ParameterItem::P_LINK);
+                m_fitParameterModel->createFitParameter(parameterItem);
+//                if(FitParameterItem *fitPar = dynamic_cast<FitParameterItem *>(item->parent())) {
+//                    qDebug() << item->modelType() << item->displayName() << fitPar->modelType();
+//                }
+            }
+        }
+
+    }
+    spanParameters();
+
+
+//    QModelIndex index = indexes.front();
+//    if(SessionItem *item = m_jobItem->model()->itemForIndex(index)) {
+//        qDebug() << item->modelType();
+//    }
+
+}
+
+void FitParametersWidget::init_actions()
+{
+    m_createFitParAction = new QAction(QStringLiteral("Create fit parameter"), this);
+    connect(m_createFitParAction, SIGNAL(triggered()), this, SLOT(onCreateFitParAction()));
+
+}
+
 void FitParametersWidget::initTuningWidgetContextMenu(QMenu &menu)
 {
     Q_ASSERT(m_jobItem);
-
+    menu.addAction(m_createFitParAction);
 }
 
 //! stop tracking job item
@@ -120,21 +170,42 @@ void FitParametersWidget::init_job_item()
             FitSuiteItem::T_FIT_PARAMETERS);
     }
 
-    SessionItem *fitPar = parsContainerItem->model()->insertNewItem(Constants::FitParameterType,
-                                                                    parsContainerItem->index());
+//    SessionItem *fitPar = parsContainerItem->model()->insertNewItem(Constants::FitParameterType,
+//                                                                    parsContainerItem->index());
 
-    Q_ASSERT(fitPar);
-    SessionItem *link1 = fitPar->model()->insertNewItem(Constants::FitParameterLinkType, fitPar->index());
-    link1->setItemValue(FitParameterLinkItem::P_LINK, "abc1");
-    SessionItem *link2 = fitPar->model()->insertNewItem(Constants::FitParameterLinkType, fitPar->index());
-    link2->setItemValue(FitParameterLinkItem::P_LINK, "xyz1");
+//    Q_ASSERT(fitPar);
+//    SessionItem *link1 = fitPar->model()->insertNewItem(Constants::FitParameterLinkType, fitPar->index());
+//    link1->setItemValue(FitParameterLinkItem::P_LINK, "abc1");
+//    SessionItem *link2 = fitPar->model()->insertNewItem(Constants::FitParameterLinkType, fitPar->index());
+//    link2->setItemValue(FitParameterLinkItem::P_LINK, "xyz1");
 
+    m_fitParameterModel.reset(new FitParameterModel(parsContainerItem));
+    m_treeView->setModel(m_fitParameterModel.get());
 
-    FitParameterModel *model = new FitParameterModel(parsContainerItem, this);
-    m_treeView->setModel(model);
+    m_fitParameterModel->createFitParameter();
+    m_fitParameterModel->createFitParameter();
+//    spanParameters();
 
 
 //        m_treeView->setModel(parsContainerItem->model());
 //        m_treeView->setRootIndex(parsContainerItem->index());
+
+}
+
+//! Make first column in FitParameterItem's link occupy whole space
+void FitParametersWidget::spanParameters()
+{
+    m_treeView->expandAll();
+    for (int i = 0; i < m_fitParameterModel->rowCount(QModelIndex()); i++){
+        QModelIndex parameter = m_fitParameterModel->index(i,0,QModelIndex());
+        if (!parameter.isValid())
+            break;
+        int childRowCount = m_fitParameterModel->rowCount(parameter);
+        if (childRowCount > 0){
+            for (int j = 0; j < childRowCount; j++) {
+                m_treeView->setFirstColumnSpanned(j, parameter, true);
+            }
+        }
+    }
 
 }

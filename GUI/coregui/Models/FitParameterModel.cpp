@@ -17,6 +17,7 @@
 #include "FitParameterModel.h"
 #include "JobModel.h"
 #include "FitParameterItems.h"
+#include "ParameterTreeItems.h"
 #include <QDebug>
 
 FitParameterModel::FitParameterModel(SessionItem *fitParContainer, QObject *parent)
@@ -93,20 +94,6 @@ bool FitParameterModel::setData(const QModelIndex &index, const QVariant &value,
 
 }
 
-//bool FitParameterModel::setData(const QModelIndex &index, const QVariant &value, int role)
-//{
-//    if (!index.isValid())
-//        return false;
-//    if (SessionItem *item = itemForIndex(index)) {
-//        if (role == Qt::EditRole && index.column() > 0 && index.column() < 5) {
-//            item->setItemValue(m_columnNames->value(index.column()), value);
-//            emit dataChanged(index, index);
-//            return true;
-//        }
-//    }
-//    return false;
-//}
-
 QVariant FitParameterModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
     if (role == Qt::DisplayRole && orientation == Qt::Horizontal) {
@@ -135,5 +122,17 @@ int FitParameterModel::columnCount(const QModelIndex &parent) const
     if (parent.isValid() && parent.column() != 0)
         return 0;
     return 5;
+
+}
+
+void FitParameterModel::createFitParameter(ParameterItem *parameterItem)
+{
+    SessionItem *fitPar = rootItem()->model()->insertNewItem(Constants::FitParameterType, rootItem()->index());
+    Q_ASSERT(fitPar);
+    if(parameterItem) {
+        SessionItem *link = fitPar->model()->insertNewItem(Constants::FitParameterLinkType, fitPar->index());
+        link->setItemValue(FitParameterLinkItem::P_LINK, parameterItem->getItemValue(ParameterItem::P_LINK));
+    }
+    emit layoutChanged();
 
 }

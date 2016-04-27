@@ -30,6 +30,7 @@ class InstrumentModel;
 class WarningSignWidget;
 class SessionItem;
 class FitTools;
+class QItemSelectionModel;
 
 class ModelTuningWidget : public QWidget
 {
@@ -40,6 +41,8 @@ public:
     virtual ~ModelTuningWidget();
 
     void setItem(JobItem *item);
+
+    QItemSelectionModel* selectionModel();
 
 signals:
     void itemContextMenuRequest(const QPoint &point);

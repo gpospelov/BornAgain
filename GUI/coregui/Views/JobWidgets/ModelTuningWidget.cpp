@@ -38,6 +38,7 @@
 #include <QScrollBar>
 #include <QApplication>
 #include <QKeyEvent>
+#include <QItemSelectionModel>
 
 namespace {
 const int warning_sign_xpos = 38;
@@ -119,6 +120,12 @@ void ModelTuningWidget::setItem(JobItem *item)
 
         m_fitTools->setCurrentItem(m_currentJobItem, m_treeView->selectionModel());
     }
+}
+
+QItemSelectionModel *ModelTuningWidget::selectionModel()
+{
+    Q_ASSERT(m_treeView);
+    return m_treeView->selectionModel();
 }
 
 void ModelTuningWidget::onCurrentLinkChanged(SessionItem *item)

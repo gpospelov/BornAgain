@@ -19,11 +19,14 @@
 
 #include "WinDllMacros.h"
 #include <QWidget>
+#include <memory>
 
 class JobItem;
 class ModelTuningWidget;
 class QTreeView;
 class QMenu;
+class QAction;
+class FitParameterModel;
 
 //! The FitParametersWidget class contains a tree view to set fit parameters (fix/release,
 //! starting value, min/max bounds). It occupies buttom right corner of JobView.
@@ -33,6 +36,7 @@ class BA_CORE_API_ FitParametersWidget : public QWidget
     Q_OBJECT
 public:
     FitParametersWidget(QWidget *parent = 0);
+    ~FitParametersWidget();
 
     void setItem(JobItem *jobItem);
     void setModelTuningWidget(ModelTuningWidget *tuningWidget);
@@ -40,14 +44,21 @@ public:
 public slots:
     void onTuningWidgetContextMenu(const QPoint &point);
 
+private slots:
+    void onCreateFitParAction();
+
 private:
+    void init_actions();
     void initTuningWidgetContextMenu(QMenu &menu);
     void stop_tracking_job_item();
     void init_job_item();
+    void spanParameters();
 
     QTreeView *m_treeView;
     JobItem *m_jobItem;
     ModelTuningWidget *m_tuningWidget;
+    QAction *m_createFitParAction;
+    std::unique_ptr<FitParameterModel> m_fitParameterModel;
 };
 
 #endif

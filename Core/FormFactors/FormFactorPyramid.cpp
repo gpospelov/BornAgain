@@ -17,22 +17,13 @@
 #include "BornAgainNamespace.h"
 
 const FormFactorPolyhedron::Topology FormFactorPyramid::topology = {
-    { { 3, 2, 1, 0 }, true },
+    { { 3, 2, 1, 0 }, false }, // TODO -> true
     { { 0, 1, 5, 4 }, false },
     { { 1, 2, 6, 5 }, false },
     { { 2, 3, 7, 6 }, false },
     { { 3, 0, 4, 7 }, false },
-    { { 4, 5, 6, 7 }, true }
+    { { 4, 5, 6, 7 }, false }  // TODO -> true
 };
-
-/*
-    m_faces.push_back( PolyhedralFace( { V[3], V[2], V[1], V[0] }, true ) );
-    m_faces.push_back( PolyhedralFace( { V[0], V[1], V[5], V[4] } ) );
-    m_faces.push_back( PolyhedralFace( { V[1], V[2], V[6], V[5] } ) );
-    m_faces.push_back( PolyhedralFace( { V[2], V[3], V[7], V[6] } ) );
-    m_faces.push_back( PolyhedralFace( { V[3], V[0], V[4], V[7] } ) );
-    m_faces.push_back( PolyhedralFace( { V[4], V[5], V[6], V[7] }, true ) );
-*/
 
 //! @brief Pyramid constructor
 //! @param base_edge of one side of Pyramid's square base

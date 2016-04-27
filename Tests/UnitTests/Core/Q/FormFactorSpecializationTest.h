@@ -57,53 +57,12 @@ INSTANTIATE_TEST_CASE_P(
         )
     );
 
-// ****** TODO: the following tests pass only after the q range has been reduced *********
-
-TEST_P(FFSpecializationTest, TruncatedSphereAsSphere)
-{
-    if( skip_q( .025, 2e2 ) )
-        return;
-    double R=1.;
-    FormFactorTruncatedSphere p0(R, 2*R);
-    FormFactorFullSphere p1(R);
-    test_ff_eq( &p0, &p1 );
-}
-
-TEST_P(FFSpecializationTest, AnisoPyramidAsPyramid)
-{
-    if( skip_q( .4, 6e2 ) )
-        return;
-    double L=1.5, H=.24, alpha=.6;
-    FormFactorAnisoPyramid p0(L, L, H, alpha);
-    FormFactorPyramid p1(L, H, alpha);
-    test_ff_eq( &p0, &p1 );
-}
-
-TEST_P(FFSpecializationTest, Pyramid3AsPrism)
-{
-    if( skip_q( .04, 5e3 ) )
-        return;
-    double L=1.8, H=.3;
-    FormFactorTetrahedron p0(L, H, Units::PI/2);
-    FormFactorPrism3 p1(L, H);
-    test_ff_eq( &p0, &p1 );
-}
-
-TEST_P(FFSpecializationTest, PyramidAsBox)
-{
-    if( skip_q( .04, 2e2 ) )
-        return;
-    double L=1.8, H=.3;
-    FormFactorPyramid p0(L, H, Units::PI/2);
-    FormFactorBox p1(L, L, H);
-    test_ff_eq( &p0, &p1 );
-}
 
 //*********** satisfactory tests ***************
 
 TEST_P(FFSpecializationTest, HemiEllipsoidAsTruncatedSphere)
 {
-    if( skip_q( 1e-17, 1e2 ) )
+    if( skip_q( 1e-99, 5e2 ) )
         return;
     double R=1.07;
     FormFactorHemiEllipsoid p0(R, R, R);
@@ -113,7 +72,7 @@ TEST_P(FFSpecializationTest, HemiEllipsoidAsTruncatedSphere)
 
 TEST_P(FFSpecializationTest, EllipsoidalCylinderAsCylinder)
 {
-    if( skip_q( 1e-17, 3e3 ) )
+    if( skip_q( 1e-99, 5e3 ) )
         return;
     double R=.8, H=1.2;
     FormFactorEllipsoidalCylinder p0(R, R, H);
@@ -123,7 +82,7 @@ TEST_P(FFSpecializationTest, EllipsoidalCylinderAsCylinder)
 
 TEST_P(FFSpecializationTest, TruncatedCubeAsBox)
 {
-    if( skip_q( 1e-17, 1e4 ) )
+    if( skip_q( 1e-99, 1e11 ) )
         return;
     double L=.5;
     FormFactorTruncatedCube p0(L, 0);
@@ -131,9 +90,51 @@ TEST_P(FFSpecializationTest, TruncatedCubeAsBox)
     test_ff_eq( &p0, &p1 );
 }
 
+TEST_P(FFSpecializationTest, AnisoPyramidAsPyramid)
+{
+    if( skip_q( 1e-99, 5e2 ) )
+        return;
+    double L=1.5, H=.24, alpha=.6;
+    FormFactorAnisoPyramid p0(L, L, H, alpha);
+    FormFactorPyramid p1(L, H, alpha);
+    test_ff_eq( &p0, &p1 );
+}
+
+// ****** TODO: the following tests pass only after the q range has been reduced *********
+
+TEST_P(FFSpecializationTest, TruncatedSphereAsSphere)
+{
+    if( skip_q( .02, 5e2 ) )
+        return;
+    double R=1.;
+    FormFactorTruncatedSphere p0(R, 2*R);
+    FormFactorFullSphere p1(R);
+    test_ff_eq( &p0, &p1 );
+}
+
+TEST_P(FFSpecializationTest, Pyramid3AsPrism)
+{
+    if( skip_q( .02, 5e3 ) )
+        return;
+    double L=1.8, H=.3;
+    FormFactorTetrahedron p0(L, H, Units::PI/2);
+    FormFactorPrism3 p1(L, H);
+    test_ff_eq( &p0, &p1 );
+}
+
+TEST_P(FFSpecializationTest, PyramidAsBox)
+{
+    if( skip_q( .02, 5e2 ) )
+        return;
+    double L=1.8, H=.3;
+    FormFactorPyramid p0(L, H, Units::PI/2);
+    FormFactorBox p1(L, L, H);
+    test_ff_eq( &p0, &p1 );
+}
+
 TEST_P(FFSpecializationTest, Cone6AsPrism)
 {
-    if( skip_q( .04, 5e2 ) )
+    if( skip_q( .2, 5e2 ) )
         return;
     double L=.8, H=1.13;
     FormFactorCone6 p0(L, H, Units::PI/2);

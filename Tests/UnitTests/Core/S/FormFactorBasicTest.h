@@ -22,17 +22,24 @@ class FormFactorBasicTest : public ::testing::Test
 {
 protected:
     FormFactorBasicTest() {}
-    void test_small_q( const IFormFactorBorn* p, complex_t x, complex_t y, complex_t z )
+    void test_eps_q( const IFormFactorBorn* p, const cvector_t qdir, double eps )
     {
-        double eps=1e-14;
-        cvector_t q = eps*cvector_t( x, y, z );
+        cvector_t q = eps*qdir;
         complex_t ff = p->evaluate_for_q( cvector_t(0.,eps,0.) );
-        std::cout<<"q="<<q<<"\n"<<std::setprecision(16)<<"  ff0="<<V<<"\n  ff ="<<ff<<"\n";
+        std::cout<<"q="<<q<<" -> "<<std::setprecision(16)<<" ff0="<<V<<", ff ="<<ff<<"\n";
         EXPECT_LE( real(ff), V*(1+1e-15) );
         if ( R*R*R<V/20 || R*R*R>20*V )
             return;
         EXPECT_GT( real(ff), V*(1-2*eps*R) );
         EXPECT_LT( std::abs(imag(ff)), 10*eps*eps*V*R*R );
+    }
+    void test_small_q( const IFormFactorBorn* p, complex_t x, complex_t y, complex_t z )
+    {
+        cvector_t q(x, y, z);
+        test_eps_q( p, q, 1e-14 );
+        test_eps_q( p, q, 1e-11 );
+        test_eps_q( p, q, 1e-8 );
+        test_eps_q( p, q, 1e-5 );
     }
     void test_ff( const IFormFactorBorn* p )
     {
@@ -431,13 +438,12 @@ TEST_F(FormFactorBasicTest, TruncatedCube)
     test_ff( &trcube );
 }
 
-/* TODO restore these tests and put them back in abc order
 TEST_F(FormFactorBasicTest, Ripple2)
 {
     double width = 20.;
     double height = 4.;
     double length = 100.0;
-    double d = 0.3; // asymetry
+    double d = 0.3; // asymmetry
     double volume = 0.5*height*width*length;
 
     FormFactorRipple2 ripple2(length, width, height, d);
@@ -448,4 +454,3 @@ TEST_F(FormFactorBasicTest, Ripple2)
 
     test_ff( &ripple2 );
 }
-*/

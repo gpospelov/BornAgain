@@ -25,23 +25,29 @@ class MainWindow;
 class JobViewPrivate;
 class JobItem;
 
-namespace Manhattan {
-    class ProgressBar;
-}
-
 //! Main class to represent list of jobs, show job results and run real time simulation
+
 class BA_CORE_API_ JobView : public Manhattan::FancyMainWindow
 {
     Q_OBJECT
 
 public:
-    enum ESubWindows { JOB_LIST_DOCK, REAL_TIME_DOCK, NUMBER_OF_DOCKS };
-    enum EActivities { JOB_VIEW_ACTIVITY, REAL_TIME_ACTIVITY };
+    enum ESubWindows {
+        JOB_LIST_DOCK,
+        REAL_TIME_DOCK,
+        FIT_PANEL_DOCK,
+        JOB_MESSAGE_DOCK,
+        NUMBER_OF_DOCKS
+    };
+
+    enum EActivities {
+        JOB_VIEW_ACTIVITY,
+        REAL_TIME_ACTIVITY,
+        FITTING_ACTIVITY,
+    };
 
     JobView(MainWindow *mainWindow);
     virtual ~JobView();
-
-//    void setProgressBar(Manhattan::ProgressBar *progressBar);
 
 signals:
     void focusRequest(int);

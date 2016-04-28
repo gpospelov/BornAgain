@@ -50,19 +50,19 @@
 
 MainWindow::MainWindow(QWidget *parent)
     : Manhattan::FancyMainWindow(parent)
+    , m_tabWidget(new Manhattan::FancyTabWidget(this))
+    , m_progressBar(new Manhattan::ProgressBar(this))
     , m_applicationModels(new ApplicationModels(this))
     , m_projectManager(new ProjectManager(this))
     , m_actionManager(new ActionManager(this))
-    , m_tabWidget(new Manhattan::FancyTabWidget(this))
-    , m_progressBar(new Manhattan::ProgressBar(this))
+    , m_toolTipDataBase(new ToolTipDataBase(this))
+    , m_updateNotifier(new UpdateNotifier(this))
     , m_welcomeView(0)
     , m_instrumentView(0)
     , m_sampleView(0)
     , m_simulationView(0)
     , m_jobView(0)
     , m_fitView(0)
-    , m_toolTipDataBase(new ToolTipDataBase(this))
-    , m_updateNotifier(new UpdateNotifier(this))
 {
     initApplication();
     readSettings();

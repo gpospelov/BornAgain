@@ -25,6 +25,9 @@
 #include "projectmanager.h"
 #include "mainwindow.h"
 #include "progressbar.h"
+#include "GUIHelpers.h"
+#include "FitActivityPanel.h"
+#include "JobMessagePanel.h"
 #include <QFrame>
 #include <QDockWidget>
 #include <QAbstractItemView>
@@ -38,8 +41,9 @@ public:
     JobModel *jobModel() { return m_mainWindow->jobModel(); }
     ProjectManager *projectManager() { return m_mainWindow->projectManager(); }
 
-    QWidget *m_subWindows[JobView::NUMBER_OF_DOCKS];
-    QDockWidget *m_dockWidgets[JobView::NUMBER_OF_DOCKS];
+    QVector<QWidget *> m_subWindows;
+    QVector<QDockWidget *> m_dockWidgets;
+
     JobSelectorWidget *m_jobSelector;
     JobOutputDataWidget *m_jobOutputDataWidget;
     JobRealTimeWidget *m_jobRealTimeWidget;
@@ -53,10 +57,6 @@ JobViewPrivate::JobViewPrivate(MainWindow *mainWindow)
     , m_jobRealTimeWidget(0)
     , m_mainWindow(mainWindow)
 {
-    qFill(m_subWindows, m_subWindows + JobView::NUMBER_OF_DOCKS,
-          static_cast<QWidget*>(0));
-    qFill(m_dockWidgets, m_dockWidgets + JobView::NUMBER_OF_DOCKS,
-          static_cast<QDockWidget*>(0));
 }
 
 
@@ -95,15 +95,6 @@ JobView::~JobView()
 
 }
 
-//void JobView::setProgressBar(Manhattan::ProgressBar *progressBar)
-//{
-//    if(m_d->progressBar() != progressBar) {
-//        m_d->m_progressBar = progressBar;
-//        m_d->m_progressBar->hide();
-//        connect(m_d->m_progressBar, SIGNAL(clicked()), m_d->m_jobModel->getJobQueueData(), SLOT(onCancelAllJobs()));
-//    }
-//}
-
 void JobView::updateGlobalProgressBar(int progress)
 {
     Q_ASSERT(m_d->progressBar());
@@ -132,10 +123,10 @@ void JobView::resetToDefaultLayout()
         removeDockWidget(dockWidget);
     }
 
-    addDockWidget(Qt::LeftDockWidgetArea,
-                  m_d->m_dockWidgets[JOB_LIST_DOCK]);
-    addDockWidget(Qt::RightDockWidgetArea,
-                  m_d->m_dockWidgets[REAL_TIME_DOCK]);
+    addDockWidget(Qt::LeftDockWidgetArea, m_d->m_dockWidgets[JOB_LIST_DOCK]);
+    addDockWidget(Qt::RightDockWidgetArea, m_d->m_dockWidgets[REAL_TIME_DOCK]);
+    addDockWidget(Qt::RightDockWidgetArea, m_d->m_dockWidgets[FIT_PANEL_DOCK]);
+    addDockWidget(Qt::BottomDockWidgetArea, m_d->m_dockWidgets[JOB_MESSAGE_DOCK]);
 
     foreach (QDockWidget *dockWidget, dockWidgetList)
         dockWidget->show();
@@ -150,17 +141,38 @@ void JobView::setActivity(int activity)
     if(activity == JOB_VIEW_ACTIVITY) {
         m_d->m_dockWidgets[JOB_LIST_DOCK]->show();
         m_d->m_dockWidgets[REAL_TIME_DOCK]->hide();
-        emit activityChanged(activity);
-    } else if(activity == REAL_TIME_ACTIVITY) {
+        m_d->m_dockWidgets[FIT_PANEL_DOCK]->hide();
+        m_d->m_dockWidgets[JOB_MESSAGE_DOCK]->hide();
+    }
+
+    else if(activity == REAL_TIME_ACTIVITY) {
         m_d->m_dockWidgets[JOB_LIST_DOCK]->hide();
         m_d->m_dockWidgets[REAL_TIME_DOCK]->show();
+        m_d->m_dockWidgets[FIT_PANEL_DOCK]->hide();
+        m_d->m_dockWidgets[JOB_MESSAGE_DOCK]->hide();
         m_d->m_jobRealTimeWidget->updateCurrentItem();
-        emit activityChanged(activity);
     }
+
+    else if(activity == FITTING_ACTIVITY) {
+        m_d->m_dockWidgets[JOB_LIST_DOCK]->hide();
+        m_d->m_dockWidgets[REAL_TIME_DOCK]->show();
+        m_d->m_dockWidgets[FIT_PANEL_DOCK]->show();
+        m_d->m_dockWidgets[JOB_MESSAGE_DOCK]->show();
+    }
+
+    else {
+        throw GUIHelpers::Error("JobView::setActivity -> Error. Unknown activity");
+    }
+
+    emit activityChanged(activity);
+
 }
 
 void JobView::initWindows()
 {
+    m_d->m_subWindows.resize(NUMBER_OF_DOCKS);
+    m_d->m_dockWidgets.resize(NUMBER_OF_DOCKS);
+
     // central widget
     m_d->m_jobOutputDataWidget = new JobOutputDataWidget(m_d->jobModel(), m_d->projectManager(), this);
     setCentralWidget(m_d->m_jobOutputDataWidget);
@@ -170,17 +182,20 @@ void JobView::initWindows()
 
     m_d->m_jobRealTimeWidget = new JobRealTimeWidget(m_d->jobModel(), this);
     m_d->m_subWindows[REAL_TIME_DOCK] = m_d->m_jobRealTimeWidget;
+
+    m_d->m_subWindows[FIT_PANEL_DOCK] = new FitActivityPanel(this);
+    m_d->m_subWindows[JOB_MESSAGE_DOCK] = new JobMessagePanel(this);
+
 }
 
 void JobView::connectSignals()
 {
+    Q_ASSERT(m_d->progressBar());
+    Q_ASSERT(m_d->jobModel());
     connect(this, SIGNAL(resetLayout()), this, SLOT(resetToDefaultLayout()));
     connect(m_d->jobModel(), SIGNAL(globalProgress(int)), this, SLOT(updateGlobalProgressBar(int)));
     connect(m_d->jobModel(), SIGNAL(focusRequest(JobItem*)), this, SLOT(onFocusRequest(JobItem*)));
     connect(m_d->m_jobOutputDataWidget, SIGNAL(jobViewActivityRequest(int)), this, SLOT(setActivity(int)));
     connect(this, SIGNAL(activityChanged(int)),  m_d->m_jobOutputDataWidget, SLOT(onActivityChanged(int)));
-
-    Q_ASSERT(m_d->progressBar());
     connect(m_d->progressBar(), SIGNAL(clicked()), m_d->jobModel()->getJobQueueData(), SLOT(onCancelAllJobs()));
-
 }

@@ -29,6 +29,7 @@ namespace
 {
 const QString JobViewActivityName = "Job View Activity";
 const QString RealTimeActivityName = "Real Time Activity";
+const QString FittingActivityName = "Fitting Activity";
 }
 
 //! main tool bar on top of SampleView window
@@ -115,6 +116,7 @@ JobOutputDataToolBar::JobOutputDataToolBar(QWidget *parent)
     m_activityCombo->setToolTip("Main Activity Selector");
     m_activityCombo->addItem(JobViewActivityName);
     m_activityCombo->addItem(RealTimeActivityName);
+    m_activityCombo->addItem(FittingActivityName);
     connect(m_activityCombo, SIGNAL(currentIndexChanged(QString)), this, SLOT(onActivityChangeRequest(QString)));
 
     // attempts to tune style of activity combo
@@ -146,6 +148,8 @@ void JobOutputDataToolBar::onActivityChangeRequest(const QString &name)
         emit jobViewActivityRequest(JobView::JOB_VIEW_ACTIVITY);
     } else if(name == RealTimeActivityName) {
         emit jobViewActivityRequest(JobView::REAL_TIME_ACTIVITY);
+    } else if(name == FittingActivityName) {
+        emit jobViewActivityRequest(JobView::FITTING_ACTIVITY);
     }
 }
 

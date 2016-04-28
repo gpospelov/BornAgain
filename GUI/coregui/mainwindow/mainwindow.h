@@ -87,12 +87,14 @@ private:
     void writeSettings();
     void initConnections();
 
+    Manhattan::FancyTabWidget  *m_tabWidget;
+    Manhattan::ProgressBar *m_progressBar;
+
     ApplicationModels *m_applicationModels;
     ProjectManager *m_projectManager;
     ActionManager *m_actionManager;
-
-    Manhattan::FancyTabWidget  *m_tabWidget;
-    Manhattan::ProgressBar *m_progressBar;
+    ToolTipDataBase *m_toolTipDataBase;
+    UpdateNotifier *m_updateNotifier;
 
     WelcomeView *m_welcomeView;
     InstrumentView *m_instrumentView;
@@ -100,8 +102,6 @@ private:
     SimulationView *m_simulationView;
     JobView *m_jobView;
     ObsoleteFitView *m_fitView;
-    ToolTipDataBase *m_toolTipDataBase;
-    UpdateNotifier *m_updateNotifier;
 };
 
 #endif // MAINWINDOW_H

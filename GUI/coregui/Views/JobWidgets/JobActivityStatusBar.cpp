@@ -40,11 +40,6 @@ JobActivityStatusBar::JobActivityStatusBar(QWidget *parent)
     m_activityCombo = new QComboBox();
     m_activityCombo->setToolTip("Main Activity Selector");
     m_activityCombo->addItems(JobView::getActivityStringList());
-//    m_activityCombo->addItem(JobViewActivityName);
-//    m_activityCombo->addItem(RealTimeActivityName);
-//    m_activityCombo->addItem(FittingActivityName);
-//    connect(m_activityCombo, SIGNAL(currentIndexChanged(QString)),
-//            this, SLOT(onActivityChangeRequest(QString)));
     connect(m_activityCombo, SIGNAL(currentIndexChanged(int)),
             this, SIGNAL(changeActivityRequest(int)));
 
@@ -57,17 +52,11 @@ JobActivityStatusBar::JobActivityStatusBar(QWidget *parent)
 
 void JobActivityStatusBar::onActivityChanged(int activity)
 {
-//    disconnect(m_activityCombo, SIGNAL(currentIndexChanged(QString)),
-//               this, SLOT(onActivityChangeRequest(QString)));
     disconnect(m_activityCombo, SIGNAL(currentIndexChanged(int)),
             this, SIGNAL(changeActivityRequest(int)));
 
     m_activityCombo->setCurrentIndex(activity);
 
-//    connect(m_activityCombo, SIGNAL(currentIndexChanged(QString)),
-//            this, SLOT(onActivityChangeRequest(QString)));
-
     connect(m_activityCombo, SIGNAL(currentIndexChanged(int)),
             this, SIGNAL(changeActivityRequest(int)));
-
 }

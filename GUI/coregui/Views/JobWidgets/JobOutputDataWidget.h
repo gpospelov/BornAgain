@@ -32,14 +32,10 @@ class BA_CORE_API_ JobOutputDataWidget : public QWidget
 {
     Q_OBJECT
 public:
-    explicit JobOutputDataWidget(JobModel *jobModel, ProjectManager *projectManager, QWidget *parent = 0);
+    explicit JobOutputDataWidget(JobModel *jobModel, ProjectManager *projectManager,
+                                 QWidget *parent = 0);
 
     void setJobModel(JobModel *jobModel);
-
-//    JobOutputDataToolBar *getToolBar() { return m_toolBar; }
-
-//signals:
-//    void jobViewActivityRequest(int activity);
 
 public slots:
     void setItem(JobItem *item);

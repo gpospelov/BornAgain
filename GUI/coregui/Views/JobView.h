@@ -60,6 +60,7 @@ public slots:
     void onFocusRequest(JobItem *);
     void resetToDefaultLayout();
     void setActivity(int activity);
+    void onToggleJobListRequest();
 
 protected:
     virtual void showEvent(QShowEvent *);

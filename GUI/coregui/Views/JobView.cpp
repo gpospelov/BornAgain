@@ -107,12 +107,7 @@ JobView::~JobView()
 QStringList JobView::getActivityStringList()
 {
     QStringList result = QStringList() << QStringLiteral("Job View Activity")
-                                       << QStringLiteral("Real Time Activity")
-                                       << QStringLiteral("Fitting Activity");
-//    const QString JobViewActivityName = "Job View Activity";
-//    const QString RealTimeActivityName = "Real Time Activity";
-//    const QString FittingActivityName = "Fitting Activity";
-
+        << QStringLiteral("Real Time Activity") << QStringLiteral("Fitting Activity");
     return result;
 }
 
@@ -188,6 +183,11 @@ void JobView::setActivity(int activity)
     emit activityChanged(activity);
 }
 
+void JobView::onToggleJobListRequest()
+{
+    m_d->m_dockWidgets[JOB_LIST_DOCK]->setHidden(!m_d->m_dockWidgets[JOB_LIST_DOCK]->isHidden());
+}
+
 void JobView::showEvent(QShowEvent *)
 {
     if(isVisible())
@@ -238,8 +238,9 @@ void JobView::connectSignals()
 
     connect(m_d->m_jobActivityStatusBar, SIGNAL(changeActivityRequest(int)),
             this, SLOT(setActivity(int)));
-
     connect(this, SIGNAL(activityChanged(int)),
             m_d->m_jobActivityStatusBar, SLOT(onActivityChanged(int)));
+    connect(m_d->m_jobActivityStatusBar, SIGNAL(toggleJobListRequest()),
+            this, SLOT(onToggleJobListRequest()));
 
 }

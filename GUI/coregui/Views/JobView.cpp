@@ -20,6 +20,7 @@
 #include "JobSelectorWidget.h"
 #include "JobOutputDataWidget.h"
 #include "JobModel.h"
+#include "projectmanager.h"
 #include "JobRealTimeWidget.h"
 #include "projectmanager.h"
 #include "mainwindow.h"
@@ -28,27 +29,29 @@
 #include <QDockWidget>
 #include <QAbstractItemView>
 
-struct JobViewPrivate
+class JobViewPrivate
 {
-    JobViewPrivate(JobModel *jobModel, ProjectManager *projectManager);
+public:
+    JobViewPrivate(MainWindow *mainWindow);
+
+    Manhattan::ProgressBar *progressBar() { return m_mainWindow->progressBar(); }
+    JobModel *jobModel() { return m_mainWindow->jobModel(); }
+    ProjectManager *projectManager() { return m_mainWindow->projectManager(); }
+
     QWidget *m_subWindows[JobView::NUMBER_OF_DOCKS];
     QDockWidget *m_dockWidgets[JobView::NUMBER_OF_DOCKS];
-    JobModel *m_jobModel;
     JobSelectorWidget *m_jobSelector;
     JobOutputDataWidget *m_jobOutputDataWidget;
     JobRealTimeWidget *m_jobRealTimeWidget;
-    Manhattan::ProgressBar *m_progressBar; //!< general progress bar
-    ProjectManager *m_projectManager;
+    MainWindow *m_mainWindow;
 };
 
 
-JobViewPrivate::JobViewPrivate(JobModel *jobModel, ProjectManager *projectManager)
-    : m_jobModel(jobModel)
-    , m_jobSelector(0)
+JobViewPrivate::JobViewPrivate(MainWindow *mainWindow)
+    : m_jobSelector(0)
     , m_jobOutputDataWidget(0)
     , m_jobRealTimeWidget(0)
-    , m_progressBar(0)
-    , m_projectManager(projectManager)
+    , m_mainWindow(mainWindow)
 {
     qFill(m_subWindows, m_subWindows + JobView::NUMBER_OF_DOCKS,
           static_cast<QWidget*>(0));
@@ -57,9 +60,8 @@ JobViewPrivate::JobViewPrivate(JobModel *jobModel, ProjectManager *projectManage
 }
 
 
-JobView::JobView(JobModel *jobModel, ProjectManager *projectManager, QWidget *parent)
-    : Manhattan::FancyMainWindow(parent)
-    , m_d(new JobViewPrivate(jobModel, projectManager))
+JobView::JobView(MainWindow *mainWindow)
+    : m_d(new JobViewPrivate(mainWindow))
 {
     setObjectName("JobView");
 
@@ -90,28 +92,28 @@ JobView::JobView(JobModel *jobModel, ProjectManager *projectManager, QWidget *pa
 
 JobView::~JobView()
 {
-    delete m_d;
+
 }
 
-void JobView::setProgressBar(Manhattan::ProgressBar *progressBar)
-{
-    if(m_d->m_progressBar != progressBar) {
-        m_d->m_progressBar = progressBar;
-        m_d->m_progressBar->hide();
-        connect(m_d->m_progressBar, SIGNAL(clicked()), m_d->m_jobModel->getJobQueueData(), SLOT(onCancelAllJobs()));
-    }
-}
+//void JobView::setProgressBar(Manhattan::ProgressBar *progressBar)
+//{
+//    if(m_d->progressBar() != progressBar) {
+//        m_d->m_progressBar = progressBar;
+//        m_d->m_progressBar->hide();
+//        connect(m_d->m_progressBar, SIGNAL(clicked()), m_d->m_jobModel->getJobQueueData(), SLOT(onCancelAllJobs()));
+//    }
+//}
 
 void JobView::updateGlobalProgressBar(int progress)
 {
-    Q_ASSERT(m_d->m_progressBar);
+    Q_ASSERT(m_d->progressBar());
     if(progress<0 || progress >= 100) {
-        m_d->m_progressBar->setFinished(true);
-        m_d->m_progressBar->hide();
+        m_d->progressBar()->setFinished(true);
+        m_d->progressBar()->hide();
     } else {
-        m_d->m_progressBar->show();
-        m_d->m_progressBar->setFinished(false);
-        m_d->m_progressBar->setValue(progress);
+        m_d->progressBar()->show();
+        m_d->progressBar()->setFinished(false);
+        m_d->progressBar()->setValue(progress);
     }
 }
 
@@ -160,21 +162,25 @@ void JobView::setActivity(int activity)
 void JobView::initWindows()
 {
     // central widget
-    m_d->m_jobOutputDataWidget = new JobOutputDataWidget(m_d->m_jobModel, m_d->m_projectManager, this);
+    m_d->m_jobOutputDataWidget = new JobOutputDataWidget(m_d->jobModel(), m_d->projectManager(), this);
     setCentralWidget(m_d->m_jobOutputDataWidget);
 
-    m_d->m_jobSelector = new JobSelectorWidget(m_d->m_jobModel, this);
+    m_d->m_jobSelector = new JobSelectorWidget(m_d->jobModel(), this);
     m_d->m_subWindows[JOB_LIST_DOCK] = m_d->m_jobSelector;
 
-    m_d->m_jobRealTimeWidget = new JobRealTimeWidget(m_d->m_jobModel, this);
+    m_d->m_jobRealTimeWidget = new JobRealTimeWidget(m_d->jobModel(), this);
     m_d->m_subWindows[REAL_TIME_DOCK] = m_d->m_jobRealTimeWidget;
 }
 
 void JobView::connectSignals()
 {
     connect(this, SIGNAL(resetLayout()), this, SLOT(resetToDefaultLayout()));
-    connect(m_d->m_jobModel, SIGNAL(globalProgress(int)), this, SLOT(updateGlobalProgressBar(int)));
-    connect(m_d->m_jobModel, SIGNAL(focusRequest(JobItem*)), this, SLOT(onFocusRequest(JobItem*)));
+    connect(m_d->jobModel(), SIGNAL(globalProgress(int)), this, SLOT(updateGlobalProgressBar(int)));
+    connect(m_d->jobModel(), SIGNAL(focusRequest(JobItem*)), this, SLOT(onFocusRequest(JobItem*)));
     connect(m_d->m_jobOutputDataWidget, SIGNAL(jobViewActivityRequest(int)), this, SLOT(setActivity(int)));
     connect(this, SIGNAL(activityChanged(int)),  m_d->m_jobOutputDataWidget, SLOT(onActivityChanged(int)));
+
+    Q_ASSERT(m_d->progressBar());
+    connect(m_d->progressBar(), SIGNAL(clicked()), m_d->jobModel()->getJobQueueData(), SLOT(onCancelAllJobs()));
+
 }

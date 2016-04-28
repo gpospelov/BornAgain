@@ -19,11 +19,11 @@
 
 #include "WinDllMacros.h"
 #include "fancymainwindow.h"
+#include <memory>
 
-struct JobViewPrivate;
-class JobModel;
+class MainWindow;
+class JobViewPrivate;
 class JobItem;
-class ProjectManager;
 
 namespace Manhattan {
     class ProgressBar;
@@ -38,10 +38,10 @@ public:
     enum ESubWindows { JOB_LIST_DOCK, REAL_TIME_DOCK, NUMBER_OF_DOCKS };
     enum EActivities { JOB_VIEW_ACTIVITY, REAL_TIME_ACTIVITY };
 
-    JobView(JobModel *jobModel, ProjectManager *projectManager, QWidget *parent = 0);
+    JobView(MainWindow *mainWindow);
     virtual ~JobView();
 
-    void setProgressBar(Manhattan::ProgressBar *progressBar);
+//    void setProgressBar(Manhattan::ProgressBar *progressBar);
 
 signals:
     void focusRequest(int);
@@ -57,7 +57,7 @@ private:
     void initWindows();
     void connectSignals();
 
-    JobViewPrivate *m_d;
+    std::unique_ptr<JobViewPrivate> m_d;
 };
 
 #endif

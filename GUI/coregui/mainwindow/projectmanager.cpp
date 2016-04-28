@@ -39,7 +39,7 @@ ProjectManager::ProjectManager(MainWindow *parent)
     , m_messageService(new WarningMessageService)
 
 {
-    setParent(parent);
+    createNewProject();
 }
 
 

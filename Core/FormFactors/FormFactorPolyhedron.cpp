@@ -270,9 +270,8 @@ complex_t PolyhedralFace::ff( const cvector_t q, const bool sym_Ci ) const
         for( const PolyhedralEdge& e: edges ) {
             complex_t qE = e.E.dot(q);
             complex_t qR = e.R.dot(q);
-            complex_t sinc_qE = MathFunctions::sinc(qE);
             complex_t Rfac = sym_S2 ? sin(e.R.dot(qpa)) : ( sym_Ci ? 2.*cos(qR) : exp(I*qR) );
-            sum += prevec.dot(e.E) * (sinc_qE*Rfac);
+            sum += prevec.dot(e.E) * MathFunctions::sinc(qE) * Rfac;
         }
         return prefac * sum / ( I*qpa.mag2() );
     }
@@ -287,7 +286,7 @@ complex_t PolyhedralFace::ff_2D( const cvector_t qpa ) const
     double qpa_red = m_radius_2d * qpa.mag();
     if ( qpa_red==0 ) {
         return m_area;
-    } else if ( qpa_red < qpa_limit_series ) {
+    } else if ( qpa_red < qpa_limit_series && !sym_S2 ) {
         // summation of power series
 #ifdef POLYHEDRAL_DIAGNOSTIC
         diagnosis.nExpandedFaces += 1;
@@ -307,16 +306,15 @@ complex_t PolyhedralFace::ff_2D( const cvector_t qpa ) const
         throw std::runtime_error("Bug in formfactor computation: series f(q_pa) not converged");
     } else {
         // direct evaluation of analytic formula
-        cvector_t prevec = 2.*m_normal.cross( qpa ); // complex conjugation will take place in .dot
+        cvector_t prevec = m_normal.cross( qpa );  // complex conjugation will take place in .dot
         complex_t sum = 0;
         for( const PolyhedralEdge& e: edges ) {
             complex_t qE = e.E.dot(qpa);
             complex_t qR = e.R.dot(qpa);
-            complex_t sinc_qE = MathFunctions::sinc(qE);
-            complex_t Rfac = sym_S2 ? 2.*sin(e.R.dot(qpa)) : exp(I*qR);
-            sum += prevec.dot(e.E) * (sinc_qE*Rfac);
+            complex_t Rfac = sym_S2 ? sin(e.R.dot(qpa)) : exp(I*qR);
+            sum += prevec.dot(e.E) * MathFunctions::sinc(qE) * Rfac;
         }
-        return sum / ( I*qpa.mag2() );
+        return sum * (sym_S2 ? 4. : 2./I ) / qpa.mag2();
     }
 }
 

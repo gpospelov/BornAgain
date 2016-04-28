@@ -160,7 +160,7 @@ void JobOutputDataWidget::onSavePlot()
 
 void JobOutputDataWidget::onActivityChanged(int activity)
 {
-    m_toolBar->onActivityChanged(activity);
+//    m_toolBar->onActivityChanged(activity);
     if(activity == JobView::REAL_TIME_ACTIVITY) {
         IntensityDataWidget *widget = getCurrentOutputDataWidget();
         if(widget) {
@@ -171,7 +171,7 @@ void JobOutputDataWidget::onActivityChanged(int activity)
 
 void JobOutputDataWidget::connectSignals()
 {
-    connect(m_toolBar, SIGNAL(jobViewActivityRequest(int)), this, SIGNAL(jobViewActivityRequest(int)));
+//    connect(m_toolBar, SIGNAL(jobViewActivityRequest(int)), this, SIGNAL(jobViewActivityRequest(int)));
     connect(m_toolBar, SIGNAL(togglePropertyPanel()), this, SLOT(togglePropertyPanel()));
     connect(m_toolBar, SIGNAL(toggleProjections()), this, SLOT(toggleProjections()));
     connect(m_toolBar, SIGNAL(resetView()), this, SLOT(onResetView()));

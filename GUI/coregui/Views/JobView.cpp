@@ -28,9 +28,12 @@
 #include "GUIHelpers.h"
 #include "FitActivityPanel.h"
 #include "JobMessagePanel.h"
+#include "JobActivityStatusBar.h"
 #include <QFrame>
 #include <QDockWidget>
 #include <QAbstractItemView>
+#include <QStatusBar>
+#include <QDebug>
 
 class JobViewPrivate
 {
@@ -47,6 +50,7 @@ public:
     JobSelectorWidget *m_jobSelector;
     JobOutputDataWidget *m_jobOutputDataWidget;
     JobRealTimeWidget *m_jobRealTimeWidget;
+    JobActivityStatusBar *m_jobActivityStatusBar;
     MainWindow *m_mainWindow;
 };
 
@@ -55,6 +59,7 @@ JobViewPrivate::JobViewPrivate(MainWindow *mainWindow)
     : m_jobSelector(0)
     , m_jobOutputDataWidget(0)
     , m_jobRealTimeWidget(0)
+    , m_jobActivityStatusBar(0)
     , m_mainWindow(mainWindow)
 {
 }
@@ -87,12 +92,28 @@ JobView::JobView(MainWindow *mainWindow)
 
     resetToDefaultLayout();
 
+    m_d->m_jobActivityStatusBar = new JobActivityStatusBar;
+    m_d->m_mainWindow->statusBar()->addWidget(m_d->m_jobActivityStatusBar);
+    m_d->m_jobActivityStatusBar->hide();
+
     connectSignals();
 }
 
 JobView::~JobView()
 {
 
+}
+
+QStringList JobView::getActivityStringList()
+{
+    QStringList result = QStringList() << QStringLiteral("Job View Activity")
+                                       << QStringLiteral("Real Time Activity")
+                                       << QStringLiteral("Fitting Activity");
+//    const QString JobViewActivityName = "Job View Activity";
+//    const QString RealTimeActivityName = "Real Time Activity";
+//    const QString FittingActivityName = "Fitting Activity";
+
+    return result;
 }
 
 void JobView::updateGlobalProgressBar(int progress)
@@ -165,7 +186,18 @@ void JobView::setActivity(int activity)
     }
 
     emit activityChanged(activity);
+}
 
+void JobView::showEvent(QShowEvent *)
+{
+    if(isVisible())
+        m_d->m_jobActivityStatusBar->show();
+}
+
+void JobView::hideEvent(QHideEvent *)
+{
+    if(isHidden())
+        m_d->m_jobActivityStatusBar->hide();
 }
 
 void JobView::initWindows()
@@ -174,7 +206,8 @@ void JobView::initWindows()
     m_d->m_dockWidgets.resize(NUMBER_OF_DOCKS);
 
     // central widget
-    m_d->m_jobOutputDataWidget = new JobOutputDataWidget(m_d->jobModel(), m_d->projectManager(), this);
+    m_d->m_jobOutputDataWidget
+        = new JobOutputDataWidget(m_d->jobModel(), m_d->projectManager(), this);
     setCentralWidget(m_d->m_jobOutputDataWidget);
 
     m_d->m_jobSelector = new JobSelectorWidget(m_d->jobModel(), this);
@@ -185,7 +218,6 @@ void JobView::initWindows()
 
     m_d->m_subWindows[FIT_PANEL_DOCK] = new FitActivityPanel(this);
     m_d->m_subWindows[JOB_MESSAGE_DOCK] = new JobMessagePanel(this);
-
 }
 
 void JobView::connectSignals()
@@ -193,9 +225,21 @@ void JobView::connectSignals()
     Q_ASSERT(m_d->progressBar());
     Q_ASSERT(m_d->jobModel());
     connect(this, SIGNAL(resetLayout()), this, SLOT(resetToDefaultLayout()));
-    connect(m_d->jobModel(), SIGNAL(globalProgress(int)), this, SLOT(updateGlobalProgressBar(int)));
-    connect(m_d->jobModel(), SIGNAL(focusRequest(JobItem*)), this, SLOT(onFocusRequest(JobItem*)));
-    connect(m_d->m_jobOutputDataWidget, SIGNAL(jobViewActivityRequest(int)), this, SLOT(setActivity(int)));
-    connect(this, SIGNAL(activityChanged(int)),  m_d->m_jobOutputDataWidget, SLOT(onActivityChanged(int)));
-    connect(m_d->progressBar(), SIGNAL(clicked()), m_d->jobModel()->getJobQueueData(), SLOT(onCancelAllJobs()));
+    connect(m_d->jobModel(), SIGNAL(globalProgress(int)),
+            this, SLOT(updateGlobalProgressBar(int)));
+    connect(m_d->jobModel(), SIGNAL(focusRequest(JobItem *)),
+            this, SLOT(onFocusRequest(JobItem *)));
+//    connect(m_d->m_jobOutputDataWidget, SIGNAL(jobViewActivityRequest(int)),
+//            this, SLOT(setActivity(int)));
+    connect(this, SIGNAL(activityChanged(int)),
+            m_d->m_jobOutputDataWidget, SLOT(onActivityChanged(int)));
+    connect(m_d->progressBar(), SIGNAL(clicked()),
+            m_d->jobModel()->getJobQueueData(), SLOT(onCancelAllJobs()));
+
+    connect(m_d->m_jobActivityStatusBar, SIGNAL(changeActivityRequest(int)),
+            this, SLOT(setActivity(int)));
+
+    connect(this, SIGNAL(activityChanged(int)),
+            m_d->m_jobActivityStatusBar, SLOT(onActivityChanged(int)));
+
 }

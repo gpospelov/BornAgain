@@ -49,6 +49,8 @@ public:
     JobView(MainWindow *mainWindow);
     virtual ~JobView();
 
+    static QStringList getActivityStringList();
+
 signals:
     void focusRequest(int);
     void activityChanged(int activity);
@@ -58,6 +60,10 @@ public slots:
     void onFocusRequest(JobItem *);
     void resetToDefaultLayout();
     void setActivity(int activity);
+
+protected:
+    virtual void showEvent(QShowEvent *);
+    virtual void hideEvent(QHideEvent *);
 
 private:
     void initWindows();

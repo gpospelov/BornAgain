@@ -64,6 +64,8 @@ public:
     ApplicationModels *models();
 
     Manhattan::ProgressBar *progressBar();
+    QStatusBar *statusBar();
+
     ActionManager *getActionManager();
     ProjectManager *projectManager();
     UpdateNotifier *getUpdateNotifier();

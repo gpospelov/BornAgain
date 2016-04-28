@@ -25,17 +25,17 @@
 #include <QDebug>
 #include "styledbar.h"
 
-namespace
-{
-const QString JobViewActivityName = "Job View Activity";
-const QString RealTimeActivityName = "Real Time Activity";
-const QString FittingActivityName = "Fitting Activity";
-}
+//namespace
+//{
+//const QString JobViewActivityName = "Job View Activity";
+//const QString RealTimeActivityName = "Real Time Activity";
+//const QString FittingActivityName = "Fitting Activity";
+//}
 
 //! main tool bar on top of SampleView window
 JobOutputDataToolBar::JobOutputDataToolBar(QWidget *parent)
     : QToolBar(parent)
-    , m_activityCombo(0)
+//    , m_activityCombo(0)
     , m_toggleProjectionsButton(0)
     , m_togglePropertyPanelButton(0)
     , m_resetViewButton(0)
@@ -112,12 +112,12 @@ JobOutputDataToolBar::JobOutputDataToolBar(QWidget *parent)
     empty->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     addWidget(empty);
 
-    m_activityCombo = new QComboBox();
-    m_activityCombo->setToolTip("Main Activity Selector");
-    m_activityCombo->addItem(JobViewActivityName);
-    m_activityCombo->addItem(RealTimeActivityName);
-    m_activityCombo->addItem(FittingActivityName);
-    connect(m_activityCombo, SIGNAL(currentIndexChanged(QString)), this, SLOT(onActivityChangeRequest(QString)));
+//    m_activityCombo = new QComboBox();
+//    m_activityCombo->setToolTip("Main Activity Selector");
+//    m_activityCombo->addItem(JobViewActivityName);
+//    m_activityCombo->addItem(RealTimeActivityName);
+//    m_activityCombo->addItem(FittingActivityName);
+//    connect(m_activityCombo, SIGNAL(currentIndexChanged(QString)), this, SLOT(onActivityChangeRequest(QString)));
 
     // attempts to tune style of activity combo
 //    QString stylesheet = QString::fromUtf8(
@@ -138,26 +138,26 @@ JobOutputDataToolBar::JobOutputDataToolBar(QWidget *parent)
 //        );
 //    m_activityCombo->setStyleSheet(stylesheet);
 
-    addWidget(m_activityCombo);
+//    addWidget(m_activityCombo);
 
 }
 
-void JobOutputDataToolBar::onActivityChangeRequest(const QString &name)
-{
-    if(name == JobViewActivityName) {
-        emit jobViewActivityRequest(JobView::JOB_VIEW_ACTIVITY);
-    } else if(name == RealTimeActivityName) {
-        emit jobViewActivityRequest(JobView::REAL_TIME_ACTIVITY);
-    } else if(name == FittingActivityName) {
-        emit jobViewActivityRequest(JobView::FITTING_ACTIVITY);
-    }
-}
+//void JobOutputDataToolBar::onActivityChangeRequest(const QString &name)
+//{
+//    if(name == JobViewActivityName) {
+//        emit jobViewActivityRequest(JobView::JOB_VIEW_ACTIVITY);
+//    } else if(name == RealTimeActivityName) {
+//        emit jobViewActivityRequest(JobView::REAL_TIME_ACTIVITY);
+//    } else if(name == FittingActivityName) {
+//        emit jobViewActivityRequest(JobView::FITTING_ACTIVITY);
+//    }
+//}
 
-void JobOutputDataToolBar::onActivityChanged(int activity)
-{
-    disconnect(m_activityCombo, SIGNAL(currentIndexChanged(QString)), this, SLOT(onActivityChangeRequest(QString)));
+//void JobOutputDataToolBar::onActivityChanged(int activity)
+//{
+//    disconnect(m_activityCombo, SIGNAL(currentIndexChanged(QString)), this, SLOT(onActivityChangeRequest(QString)));
 
-    m_activityCombo->setCurrentIndex(activity);
+//    m_activityCombo->setCurrentIndex(activity);
 
-    connect(m_activityCombo, SIGNAL(currentIndexChanged(QString)), this, SLOT(onActivityChangeRequest(QString)));
-}
+//    connect(m_activityCombo, SIGNAL(currentIndexChanged(QString)), this, SLOT(onActivityChangeRequest(QString)));
+//}

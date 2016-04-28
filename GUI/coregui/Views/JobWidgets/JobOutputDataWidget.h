@@ -36,10 +36,10 @@ public:
 
     void setJobModel(JobModel *jobModel);
 
-    JobOutputDataToolBar *getToolBar() { return m_toolBar; }
+//    JobOutputDataToolBar *getToolBar() { return m_toolBar; }
 
-signals:
-    void jobViewActivityRequest(int activity);
+//signals:
+//    void jobViewActivityRequest(int activity);
 
 public slots:
     void setItem(JobItem *item);

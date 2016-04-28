@@ -107,6 +107,11 @@ Manhattan::ProgressBar *MainWindow::progressBar()
     return m_progressBar;
 }
 
+QStatusBar *MainWindow::statusBar()
+{
+    return m_tabWidget->statusBar();
+}
+
 ActionManager *MainWindow::getActionManager()
 {
     return m_actionManager;
@@ -237,7 +242,7 @@ void MainWindow::initViews()
     m_tabWidget->insertTab(FIT, testView, QIcon(":/images/main_jobqueue.png"), "Test");
     m_tabWidget->insertTab(TESTVIEW, testFitWidgets, QIcon(":/images/main_jobqueue.png"), "TestView");
 
-    m_tabWidget->setCurrentIndex(JOB);
+    m_tabWidget->setCurrentIndex(WELCOME);
 
     setCentralWidget(m_tabWidget);
 }

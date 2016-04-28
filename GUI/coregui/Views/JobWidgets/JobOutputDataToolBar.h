@@ -38,14 +38,14 @@ signals:
     void savePlot();
     void jobViewActivityRequest(int);
 
-public slots:
-    void onActivityChanged(int);
+//public slots:
+//    void onActivityChanged(int);
 
-private slots:
-    void onActivityChangeRequest(const QString &name);
+//private slots:
+//    void onActivityChangeRequest(const QString &name);
 
 private:
-    QComboBox *m_activityCombo;
+//    QComboBox *m_activityCombo;
     QToolButton *m_toggleProjectionsButton;
     QToolButton *m_togglePropertyPanelButton;
     QToolButton *m_resetViewButton;

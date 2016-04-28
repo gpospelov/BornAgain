@@ -45,12 +45,11 @@ IFormFactorBorn* make_particle( int ishape )
         double alpha = 72 * Units::degree;
         return new FormFactorCone6(10., 10., alpha);
     } else if( ishape==6 ) {
-        double alpha = 72 * Units::degree;
-        return new FormFactorPyramid(10., 10., alpha);
+        return new FormFactorPyramid(1.5, .24, .6);
     } else if( ishape==7 ) {
-        return new FormFactorPrism3(1., 10.);
+        return new FormFactorAnisoPyramid(1.5, 1.5, .24, .6);
     } else if( ishape==8 ) {
-        return new FormFactorPrism3(10., 1.);
+        return new FormFactorPrism3(1.2, 1.);
     } else if( ishape==9 ) {
         return new FormFactorPrism6(1., 1.);
     } else if( ishape==10) {

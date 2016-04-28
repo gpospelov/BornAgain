@@ -353,7 +353,7 @@ void FormFactorPolyhedron::setVertices( const std::vector<kvector_t>& vertices )
             V.push_back( vertices[i] );
         if( PolyhedralFace::diameter( V )<= 1e-14*diameter3d )
             continue; // neglect ridiculously small face
-        m_faces.push_back( PolyhedralFace( V, tf.symmetry_S2 ) );
+        m_faces.push_back( PolyhedralFace( V, 0 ? false : tf.symmetry_S2 ) ); // TODO: rm DEBUG aid
     }
     if( m_faces.size() < 4 )
         throw RuntimeErrorException( "less than four non-vanishing faces" );

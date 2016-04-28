@@ -17,12 +17,12 @@
 #include "BornAgainNamespace.h"
 
 const FormFactorPolyhedron::Topology FormFactorPyramid::topology = {
-    { { 3, 2, 1, 0 }, false }, // TODO -> true
+    { { 3, 2, 1, 0 }, true  }, // TODO -> true
     { { 0, 1, 5, 4 }, false },
     { { 1, 2, 6, 5 }, false },
     { { 2, 3, 7, 6 }, false },
     { { 3, 0, 4, 7 }, false },
-    { { 4, 5, 6, 7 }, false }  // TODO -> true
+    { { 4, 5, 6, 7 }, true  }  // TODO -> true
 };
 
 //! @brief Pyramid constructor

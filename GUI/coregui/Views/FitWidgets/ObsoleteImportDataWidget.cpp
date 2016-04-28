@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/FitWidgets/ImportDataWidget.cpp
-//! @brief     Implements class ImportDataWidget
+//! @file      coregui/Views/FitWidgets/ObsoleteImportDataWidget.cpp
+//! @brief     Implements class ObsoleteImportDataWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,17 +14,17 @@
 //
 // ************************************************************************** //
 
-#include "ImportDataWidget.h"
+#include "ObsoleteImportDataWidget.h"
 #include "ColorMapPlot.h"
 #include "IHistogram.h"
 #include "IntensityDataIOFactory.h"
 #include "IntensityDataItem.h"
-#include "FitParameterItems.h"
-#include "FitModel.h"
+#include "ObsoleteFitParameterItems.h"
+#include "ObsoleteFitModel.h"
 #include <QLineEdit>
 #include <QVBoxLayout>
 
-ImportDataWidget::ImportDataWidget(FitModel *fitModel, QWidget *parent)
+ObsoleteImportDataWidget::ObsoleteImportDataWidget(ObsoleteFitModel *fitModel, QWidget *parent)
     : QWidget(parent)
     , m_line(new QLineEdit())
     , m_plot(new ColorMapPlot(this))
@@ -37,7 +37,7 @@ ImportDataWidget::ImportDataWidget(FitModel *fitModel, QWidget *parent)
     setLayout(mainLayout);
 }
 
-void ImportDataWidget::onTextUpdate() {
+void ObsoleteImportDataWidget::onTextUpdate() {
     QFileInfo chk(m_line->text());
     if (chk.exists() && chk.isFile()) {
         try {
@@ -50,12 +50,12 @@ void ImportDataWidget::onTextUpdate() {
     }
 }
 
-void ImportDataWidget::showEvent(QShowEvent *)
+void ObsoleteImportDataWidget::showEvent(QShowEvent *)
 {
     onUpdateGUI();
 }
 
-void ImportDataWidget::onUpdateGUI()
+void ObsoleteImportDataWidget::onUpdateGUI()
 {
 
     m_line->setText(m_fitModel->getInputDataPath());

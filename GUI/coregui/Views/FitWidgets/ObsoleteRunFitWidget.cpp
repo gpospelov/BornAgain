@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/FitWidgets/RunFitWidget.cpp
-//! @brief     Implements class RunFitWidget
+//! @file      coregui/Views/FitWidgets/ObsoleteRunFitWidget.cpp
+//! @brief     Implements class ObsoleteRunFitWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -19,19 +19,19 @@
 #include "SimulationRegistry.h"
 #include "FitSuite.h"
 #include "GUIFitObserver.h"
-#include "FitProgressWidget.h"
+#include "ObsoleteFitProgressWidget.h"
 #include "SampleModel.h"
 #include "InstrumentModel.h"
-#include "FitModel.h"
+#include "ObsoleteFitModel.h"
 #include "DomainSimulationBuilder.h"
-#include "FitParameterItems.h"
+#include "ObsoleteFitParameterItems.h"
 #include "SessionItem.h"
 #include "MultiLayerItem.h"
 #include "InstrumentItem.h"
 #include "SessionModel.h"
 #include "IntensityDataIOFactory.h"
 
-#include "RunFitWidget.h"
+#include "ObsoleteRunFitWidget.h"
 
 #include <QWidget>
 #include <QPushButton>
@@ -42,14 +42,14 @@
 #include <QFileInfo>
 #include <QDebug>
 
-RunFitWidget::RunFitWidget(FitModel *fitModel, QWidget *parent)
+ObsoleteRunFitWidget::ObsoleteRunFitWidget(ObsoleteFitModel *fitModel, QWidget *parent)
     : QWidget(parent)
     , m_start_button(new QPushButton())
     , m_stop_button(new QPushButton())
     , m_interval_label(new QLabel())
     , m_interval_slider(new QSlider())
     , m_runfitmanager(new RunFitManager(this))
-    , m_fitprogress(new FitProgressWidget(this))
+    , m_fitprogress(new ObsoleteFitProgressWidget(this))
     , m_fitModel(fitModel)
 {
     // setup ui
@@ -88,12 +88,12 @@ RunFitWidget::RunFitWidget(FitModel *fitModel, QWidget *parent)
     m_interval_slider->setValue(10);
 }
 
-void RunFitWidget::onIntervalChanged(int value)
+void ObsoleteRunFitWidget::onIntervalChanged(int value)
 {
     m_interval_label->setText(QString("Update every %1th iteration").arg(value));
 }
 
-void RunFitWidget::onStartClicked()
+void ObsoleteRunFitWidget::onStartClicked()
 {
     // used for test purposes
     std::shared_ptr<FitSuite> suite = init_test_fitsuite();
@@ -103,18 +103,18 @@ void RunFitWidget::onStartClicked()
     m_runfitmanager->runFitting();
 }
 
-void RunFitWidget::onStopClicked()
+void ObsoleteRunFitWidget::onStopClicked()
 {
     m_runfitmanager->interruptFitting();
 }
 
-void RunFitWidget::onFittingStarted()
+void ObsoleteRunFitWidget::onFittingStarted()
 {
     m_start_button->setEnabled(false);
     m_stop_button->setEnabled(true);
 }
 
-void RunFitWidget::onFittingFinished()
+void ObsoleteRunFitWidget::onFittingFinished()
 {
     m_stop_button->setEnabled(false);
     m_start_button->setEnabled(true);
@@ -123,7 +123,7 @@ void RunFitWidget::onFittingFinished()
 
 
 // test only
-std::shared_ptr<FitSuite> RunFitWidget::init_test_fitsuite()
+std::shared_ptr<FitSuite> ObsoleteRunFitWidget::init_test_fitsuite()
 {
     SessionItem *multilayer = m_fitModel->getSelectedMultiLayerItem();
     SessionItem *instrument = m_fitModel->getSelectedInstrumentItem();
@@ -172,7 +172,7 @@ std::shared_ptr<FitSuite> RunFitWidget::init_test_fitsuite()
         SessionItem *parameter = m_fitModel->itemForIndex(child);
         for (int j = 0; j < m_fitModel->rowCount(child); j++) {
             SessionItem *link = m_fitModel->itemForIndex(m_fitModel->index(j,0,child));
-            QString value = link->getItemValue(FitParameterLinkItem::P_LINK).toString();
+            QString value = link->getItemValue(ObsoleteFitParameterLinkItem::P_LINK).toString();
             value = value.replace("Position Offset/X", "PositionX");
             value = value.replace("Position Offset/Y", "PositionY");
             value = value.replace("Position Offset/Z", "PositionZ");
@@ -184,9 +184,9 @@ std::shared_ptr<FitSuite> RunFitWidget::init_test_fitsuite()
             std::string translated = "*" + value.toStdString();
             std::cout << translated;
             std::cout.flush();
-            double min = parameter->getItemValue(FitParameterItem::P_MIN).toDouble();
-            double max = parameter->getItemValue(FitParameterItem::P_MAX).toDouble();
-            double init = parameter->getItemValue(FitParameterItem::P_INIT).toDouble();
+            double min = parameter->getItemValue(ObsoleteFitParameterItem::P_MIN).toDouble();
+            double max = parameter->getItemValue(ObsoleteFitParameterItem::P_MAX).toDouble();
+            double init = parameter->getItemValue(ObsoleteFitParameterItem::P_INIT).toDouble();
             AttLimits limits;
             if (min==max && min < init) {
                 limits = AttLimits::lowerLimited(min);

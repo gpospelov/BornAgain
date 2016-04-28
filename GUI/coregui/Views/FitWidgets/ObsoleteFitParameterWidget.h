@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/FitWidgets/FitParameterWidget.h
-//! @brief     Declares class FitParameterWidget
+//! @file      coregui/Views/FitWidgets/ObsoleteFitParameterWidget.h
+//! @brief     Declares class ObsoleteFitParameterWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FITPARAMETERWIDGET_H
-#define FITPARAMETERWIDGET_H
+#ifndef OBSOLETEFITPARAMETERWIDGET_H
+#define OBSOLETEFITPARAMETERWIDGET_H
 
 #include "WinDllMacros.h"
 #include "SessionModel.h"
@@ -25,24 +25,24 @@
 
 class QTreeView;
 class MainWindow;
-class FitSelectorModel;
+class ObsoleteFitSelectorModel;
 class QMenu;
 class SampleModel;
 class InstrumentModel;
-class FitModel;
+class ObsoleteFitModel;
 class SessionItem;
-class FitParameterModel;
+class ObsoleteFitParameterModel;
 class QItemSelection;
 class QSplitter;
 class DeleteEventFilter;
 
-class BA_CORE_API_ FitParameterWidget : public QWidget
+class BA_CORE_API_ ObsoleteFitParameterWidget : public QWidget
 {
     Q_OBJECT
 
 public:
     static const QString MIME_TYPE;
-    FitParameterWidget(FitModel *fitModel, QWidget *parent = 0);
+    ObsoleteFitParameterWidget(ObsoleteFitModel *fitModel, QWidget *parent = 0);
 
     void clearParameter();
 public slots:
@@ -65,11 +65,11 @@ private:
     void buildTree(QStandardItem *root, SessionItem *top);
     void removeEmptyParameter();
 
-    FitModel *m_fitModel;
+    ObsoleteFitModel *m_fitModel;
     QTreeView *m_selectorTreeView;
     QTreeView *m_parameterTreeview;
-    FitSelectorModel *m_selectorModel;
-    FitParameterModel *m_parameterModel;
+    ObsoleteFitSelectorModel *m_selectorModel;
+    ObsoleteFitParameterModel *m_parameterModel;
     QMenu *m_contextMenu;
     QAction *m_removeAction;
     QAction *m_addAction;

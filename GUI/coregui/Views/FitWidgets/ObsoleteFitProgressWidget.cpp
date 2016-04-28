@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/FitWidgets/FitProgressWidget.h
-//! @brief     Defines class FitProgressWidget
+//! @file      coregui/Views/FitWidgets/ObsoleteFitProgressWidget.h
+//! @brief     Defines class ObsoleteFitProgressWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,7 +14,7 @@
 //
 // ************************************************************************** //
 
-#include "FitProgressWidget.h"
+#include "ObsoleteFitProgressWidget.h"
 #include "ColorMapPlot.h"
 #include "IntensityDataItem.h"
 #include "GUIFitObserver.h"
@@ -29,7 +29,7 @@
 #include <QFont>
 #include <QSlider>
 
-FitProgressWidget::FitProgressWidget(QWidget *parent)
+ObsoleteFitProgressWidget::ObsoleteFitProgressWidget(QWidget *parent)
     : QWidget(parent)
     , m_status(new QLabel(this))
     , m_realdataplot(new ColorMapPlot(this))
@@ -84,7 +84,7 @@ FitProgressWidget::FitProgressWidget(QWidget *parent)
     setLayout(layout);
 }
 
-void FitProgressWidget::startFitting(OutputData<double> *real)
+void ObsoleteFitProgressWidget::startFitting(OutputData<double> *real)
 {
     m_realdata->setOutputData(real);
     m_simulated->setOutputData(real->clone());
@@ -93,23 +93,23 @@ void FitProgressWidget::startFitting(OutputData<double> *real)
     m_log->clear();
 }
 
-void FitProgressWidget::connectSlider(QSlider *slider)
+void ObsoleteFitProgressWidget::connectSlider(QSlider *slider)
 {
     connect(slider, SIGNAL(valueChanged(int)),
                 m_guifitobserver.get(), SLOT(setInterval(int)));
 }
 
-void FitProgressWidget::setObserverToSuite(FitSuite *suite)
+void ObsoleteFitProgressWidget::setObserverToSuite(FitSuite *suite)
 {
     suite->attachObserver(m_guifitobserver);
 }
 
-void FitProgressWidget::updateStatus(const QString &text)
+void ObsoleteFitProgressWidget::updateStatus(const QString &text)
 {
     m_status->setText(text);
 }
 
-void FitProgressWidget::updateLog(const QString &msg)
+void ObsoleteFitProgressWidget::updateLog(const QString &msg)
 {
     QScrollBar *scrollbar = m_log->verticalScrollBar();
     bool autoscroll = scrollbar->value() == scrollbar->maximum();
@@ -121,7 +121,7 @@ void FitProgressWidget::updateLog(const QString &msg)
     }
 }
 
-void FitProgressWidget::updatePlots(OutputData<double> *sim, OutputData<double> *chi)
+void ObsoleteFitProgressWidget::updatePlots(OutputData<double> *sim, OutputData<double> *chi)
 {
     m_simulated->setOutputData(sim);
     m_simulated->setLowerAndUpperZ(m_realdata->getLowerZ(), m_realdata->getUpperZ());
@@ -129,12 +129,12 @@ void FitProgressWidget::updatePlots(OutputData<double> *sim, OutputData<double> 
     disableInteractions();
 }
 
-void FitProgressWidget::afterReplot()
+void ObsoleteFitProgressWidget::afterReplot()
 {
     m_guifitobserver->finishedPlotting();
 }
 
-void FitProgressWidget::disableInteractions()
+void ObsoleteFitProgressWidget::disableInteractions()
 {
     // as ColorMapPlot enables Interactions every time, we must disenable them as well
     m_realdataplot->getCustomPlot()->setInteraction(QCP::iRangeDrag, false);

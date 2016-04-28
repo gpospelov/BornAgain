@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/FitWidgets/ImportDataWidget.h
-//! @brief     Declares class ImportDataWidget
+//! @file      coregui/Views/FitWidgets/ObsoleteImportDataWidget.h
+//! @brief     Declares class ObsoleteImportDataWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,23 +14,23 @@
 //
 // ************************************************************************** //
 
-#ifndef IMPORTDATAWIDGET_H
-#define IMPORTDATAWIDGET_H
+#ifndef OBSOLETEIMPORTDATAWIDGET_H
+#define OBSOLETEIMPORTDATAWIDGET_H
 
 #include "WinDllMacros.h"
 #include <QWidget>
 
 class QLineEdit;
 class ColorMapPlot;
-class FitModel;
+class ObsoleteFitModel;
 
-class BA_CORE_API_ ImportDataWidget : public QWidget
+class BA_CORE_API_ ObsoleteImportDataWidget : public QWidget
 {
     Q_OBJECT
 
 public:
     //! TOY: loads file from path and plot data
-    ImportDataWidget(FitModel *fitModel, QWidget *parent = 0);
+    ObsoleteImportDataWidget(ObsoleteFitModel *fitModel, QWidget *parent = 0);
 
     void showEvent(QShowEvent *);
 
@@ -44,7 +44,7 @@ public slots:
 private:
     QLineEdit *m_line;
     ColorMapPlot *m_plot;
-    FitModel *m_fitModel;
+    ObsoleteFitModel *m_fitModel;
 };
 
 #endif

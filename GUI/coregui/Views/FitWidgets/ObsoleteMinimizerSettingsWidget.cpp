@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/FitWidgets/MinimizerSettingsWidget.cpp
-//! @brief     Implements class MinimizerSettingsWidget
+//! @file      coregui/Views/FitWidgets/ObsoleteMinimizerSettingsWidget.cpp
+//! @brief     Implements class ObsoleteMinimizerSettingsWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,14 +14,14 @@
 //
 // ************************************************************************** //
 
-#include "MinimizerSettingsWidget.h"
-#include "FitModel.h"
+#include "ObsoleteMinimizerSettingsWidget.h"
+#include "ObsoleteFitModel.h"
 #include "ComponentEditor.h"
-#include "FitParameterItems.h"
+#include "ObsoleteFitParameterItems.h"
 #include <QHBoxLayout>
 #include <QSplitter>
 
-MinimizerSettingsWidget::MinimizerSettingsWidget(FitModel *fitModel, QWidget *parent)
+ObsoleteMinimizerSettingsWidget::ObsoleteMinimizerSettingsWidget(ObsoleteFitModel *fitModel, QWidget *parent)
     : QWidget(parent)
 {
     QHBoxLayout *layout = new QHBoxLayout;

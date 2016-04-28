@@ -18,25 +18,6 @@
 
 #include "SessionItem.h"
 
-class BA_CORE_API_ FitParameterContainer : public SessionItem
-{
-
-public:
-    explicit FitParameterContainer();
-};
-
-class BA_CORE_API_ FitParameterItem : public SessionItem
-{
-
-public:
-    static const QString P_USE;
-    static const QString P_INIT;
-    static const QString P_MIN;
-    static const QString P_MAX;
-    explicit FitParameterItem();
-};
-
-
 class BA_CORE_API_ FitParameterLinkItem : public SessionItem
 {
 
@@ -45,30 +26,25 @@ public:
     explicit FitParameterLinkItem();
 };
 
-
-class BA_CORE_API_ FitSelectionItem : public SessionItem
+class BA_CORE_API_ FitParameterItem : public SessionItem
 {
 
 public:
-    static const QString P_SAMPLE;
-    static const QString P_INSTRUMENT;
-    explicit FitSelectionItem();
+    static const QString P_USE;
+    static const QString P_START_VALUE;
+    static const QString P_MIN;
+    static const QString P_MAX;
+    static const QString T_LINK;
+    explicit FitParameterItem();
 };
 
-class BA_CORE_API_ MinimizerSettingsItem : public SessionItem
+class BA_CORE_API_ FitParameterContainerItem : public SessionItem
 {
 
 public:
-    static const QString P_ALGO;
-    explicit MinimizerSettingsItem();
-};
-
-class BA_CORE_API_ InputDataItem : public SessionItem
-{
-
-public:
-    static const QString P_PATH;
-    explicit InputDataItem();
+    static const QString T_FIT_PARAMETERS;
+    explicit FitParameterContainerItem();
+    FitParameterItem *getFitParameterItem(const QString &link);
 };
 
 #endif

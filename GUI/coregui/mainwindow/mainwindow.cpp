@@ -34,11 +34,11 @@
 #include "mainwindow_constants.h"
 #include "JobView.h"
 #include "aboutapplicationdialog.h"
-#include "FitView.h"
+#include "ObsoleteFitView.h"
 #include "TestView.h"
 #include "GUIHelpers.h"
 #include "UpdateNotifier.h"
-#include "TestComponentView.h"
+#include "TestFitWidgets.h"
 
 #include <QApplication>
 #include <QStatusBar>
@@ -91,7 +91,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     m_jobView = new JobView(jobModel(), projectManager());
     TestView *testView = new TestView(this);
-//    TestComponentView *testComponentView = new TestComponentView(this);
+    TestFitWidgets *testFitWidgets = new TestFitWidgets(this);
     //m_fitView = new FitView(this);
 
     m_tabWidget->insertTab(WELCOME, m_welcomeView, QIcon(":/images/main_home.png"), "Welcome");
@@ -101,7 +101,7 @@ MainWindow::MainWindow(QWidget *parent)
     m_tabWidget->insertTab(JOB, m_jobView, QIcon(":/images/main_jobqueue.png"), "Jobs");
     //m_tabWidget->insertTab(FIT, m_fitView, QIcon(":/images/main_jobqueue.png"), "Fit");
     m_tabWidget->insertTab(FIT, testView, QIcon(":/images/main_jobqueue.png"), "Test");
-//    m_tabWidget->insertTab(TESTVIEW, testComponentView, QIcon(":/images/main_jobqueue.png"), "TestView");
+    m_tabWidget->insertTab(TESTVIEW, testFitWidgets, QIcon(":/images/main_jobqueue.png"), "TestView");
 
     m_tabWidget->setCurrentIndex(WELCOME);
 
@@ -141,9 +141,10 @@ JobModel *MainWindow::jobModel()
     return models()->jobModel();
 }
 
-FitModel *MainWindow::fitModel()
+ObsoleteFitModel *MainWindow::fitModel()
 {
-    return models()->fitModel();
+    Q_ASSERT(0);
+    return 0;
 }
 
 ApplicationModels *MainWindow::models()

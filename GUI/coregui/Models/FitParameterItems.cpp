@@ -17,69 +17,55 @@
 #include "FitParameterItems.h"
 #include "ComboProperty.h"
 
-FitParameterContainer::FitParameterContainer()
-    : SessionItem(Constants::FitParameterContainerType)
-{
-    const QString T_DATA = "Data tag";
-    registerTag(T_DATA, 0, -1, QStringList() << Constants::FitParameterType);
-    setDefaultTag(T_DATA);
-}
-
-
-const QString FitParameterItem::P_USE = "Use";
-const QString FitParameterItem::P_INIT = "Starting Value";
-const QString FitParameterItem::P_MIN = "Min";
-const QString FitParameterItem::P_MAX = "Max";
-
-FitParameterItem::FitParameterItem()
-    : SessionItem(Constants::FitParameterType)
-{
-    addProperty(P_USE, true);
-    addProperty(P_INIT, 0.0);
-    addProperty(P_MIN, 0.0);
-    addProperty(P_MAX, 0.0);
-    const QString T_LINK = "Link tag";
-    registerTag(T_LINK, 0, -1, QStringList() << Constants::FitParameterLinkType);
-    setDefaultTag(T_LINK);
-}
-
-
+// ----------------------------------------------------------------------------
 
 const QString FitParameterLinkItem::P_LINK = "Link";
 
 FitParameterLinkItem::FitParameterLinkItem()
     : SessionItem(Constants::FitParameterLinkType)
 {
-    addProperty(P_LINK, "");
+    addProperty(P_LINK, "XYZ");
 }
 
+// ----------------------------------------------------------------------------
 
-const QString FitSelectionItem::P_SAMPLE = "Sample";
-const QString FitSelectionItem::P_INSTRUMENT = "Instrument";
+const QString FitParameterItem::P_USE = "Use";
+const QString FitParameterItem::P_START_VALUE = "Starting Value";
+const QString FitParameterItem::P_MIN = "Min";
+const QString FitParameterItem::P_MAX = "Max";
+const QString FitParameterItem::T_LINK = "Link tag";
 
-FitSelectionItem::FitSelectionItem()
-    : SessionItem(Constants::FitSelectionType)
+FitParameterItem::FitParameterItem()
+    : SessionItem(Constants::FitParameterType)
 {
-    addProperty(P_SAMPLE, "");
-    addProperty(P_INSTRUMENT, "");
+    addProperty(P_USE, true);
+    addProperty(P_START_VALUE, 0.0);
+    addProperty(P_MIN, 0.0);
+    addProperty(P_MAX, 0.0);
+    registerTag(T_LINK, 0, -1, QStringList() << Constants::FitParameterLinkType);
+    setDefaultTag(T_LINK);
 }
 
-const QString MinimizerSettingsItem::P_ALGO = "Algorithm";
+// ----------------------------------------------------------------------------
 
-MinimizerSettingsItem::MinimizerSettingsItem()
-    : SessionItem(Constants::MinimizerSettingsType)
+const QString FitParameterContainerItem::T_FIT_PARAMETERS = "Data tag";
+
+FitParameterContainerItem::FitParameterContainerItem()
+    : SessionItem(Constants::FitParameterContainerType)
 {
-    ComboProperty algo;
-    algo << "Migrad" << "Simplex" << "Combined" << "Scan" << "Fumili";
-    addProperty(P_ALGO, algo.getVariant());
+    registerTag(T_FIT_PARAMETERS, 0, -1, QStringList() << Constants::FitParameterType);
+    setDefaultTag(T_FIT_PARAMETERS);
 }
 
-const QString InputDataItem::P_PATH = "Path";
-
-InputDataItem::InputDataItem()
-    : SessionItem(Constants::InputDataType)
+//! returns FitParameterItem for given link (path in model)
+FitParameterItem *FitParameterContainerItem::getFitParameterItem(const QString &link)
 {
-    addProperty(P_PATH, "");
+    foreach(SessionItem *item, getItems(T_FIT_PARAMETERS)) {
+        foreach(SessionItem *linkItem, item->getItems(FitParameterItem::T_LINK)) {
+            if(link == linkItem->getItemValue(FitParameterLinkItem::P_LINK)) {
+                return dynamic_cast<FitParameterItem *>(item);
+            }
+        }
+    }
+    return nullptr;
 }
-
-

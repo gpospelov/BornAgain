@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/FitSelectorModel.h
-//! @brief     Declares class FitSelectorModel
+//! @file      coregui/Views/FitWidgets/ObsoleteMinimizerSettingsWidget.h
+//! @brief     Declares class ObsoleteMinimizerSettingsWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,23 +13,24 @@
 //! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
-#ifndef FITSELECTORMODEL_H
-#define FITSELECTORMODEL_H
+
+#ifndef OBSOLETEMINIMIZERSETTTINGSWIDGET_H
+#define OBSOLETEMINIMIZERSETTTINGSWIDGET_H
 
 #include "WinDllMacros.h"
-#include <QStandardItemModel>
+#include <QWidget>
 
-class QMimeData;
-class QStandardItem;
+class ObsoleteFitModel;
 
-class BA_CORE_API_ FitSelectorModel : public QStandardItemModel
+class BA_CORE_API_ ObsoleteMinimizerSettingsWidget : public QWidget
 {
     Q_OBJECT
 
 public:
-    QMimeData *mimeData(const QModelIndexList &indexes) const;
-    QString getPathFromIndex(const QModelIndex &index) const;
-    QStandardItem *getItemFromPath(const QString &path);
+    ObsoleteMinimizerSettingsWidget(ObsoleteFitModel *fitModel, QWidget *parent = 0);
 };
+
+
+
 
 #endif

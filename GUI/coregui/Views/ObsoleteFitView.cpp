@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/FitView.cpp
-//! @brief     Implements class FitView
+//! @file      coregui/Views/ObsoleteFitView.cpp
+//! @brief     Implements class ObsoleteFitView
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,12 +14,12 @@
 //
 // ************************************************************************** //
 
-#include "FitView.h"
-#include "RunFitWidget.h"
+#include "ObsoleteFitView.h"
+#include "ObsoleteRunFitWidget.h"
 #include "mainwindow.h"
-#include "FitSettingsWidget.h"
-#include "FitModel.h"
-#include "ImportDataWidget.h"
+#include "ObsoleteFitSettingsWidget.h"
+#include "ObsoleteFitModel.h"
+#include "ObsoleteImportDataWidget.h"
 #include "projectmanager.h"
 #include <QVBoxLayout>
 #include <QTabWidget>
@@ -126,12 +126,12 @@
 // ------------------------------------------------------------------------------------------------
 
 
-FitView::FitView(MainWindow *mainWindow)
+ObsoleteFitView::ObsoleteFitView(MainWindow *mainWindow)
     : QWidget(mainWindow)
     , m_tabs(new QTabWidget)
-    , m_importDataWidget(new ImportDataWidget(mainWindow->fitModel(), this))
-    , m_fitSettingsWidget(new FitSettingsWidget(mainWindow->fitModel(), this))
-    , m_runFitWidget(new RunFitWidget(mainWindow->fitModel(), this))
+    , m_importDataWidget(new ObsoleteImportDataWidget(mainWindow->fitModel(), this))
+    , m_fitSettingsWidget(new ObsoleteFitSettingsWidget(mainWindow->fitModel(), this))
+    , m_runFitWidget(new ObsoleteRunFitWidget(mainWindow->fitModel(), this))
 {
     QVBoxLayout *layout = new QVBoxLayout;
     m_tabs->setStyleSheet("QTabBar::tab { height: 40px; }");

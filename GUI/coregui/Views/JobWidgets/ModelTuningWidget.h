@@ -30,6 +30,7 @@ class InstrumentModel;
 class WarningSignWidget;
 class SessionItem;
 class FitTools;
+class QItemSelectionModel;
 
 class ModelTuningWidget : public QWidget
 {
@@ -39,7 +40,12 @@ public:
     ModelTuningWidget(JobModel *jobModel, QWidget *parent = 0);
     virtual ~ModelTuningWidget();
 
-    void setCurrentItem(JobItem *item);
+    void setItem(JobItem *item);
+
+    QItemSelectionModel* selectionModel();
+
+signals:
+    void itemContextMenuRequest(const QPoint &point);
 
 public slots:
     void onCurrentLinkChanged(SessionItem* item);
@@ -49,10 +55,12 @@ public slots:
 
 protected:
     void resizeEvent(QResizeEvent *event);
+    void contextMenuEvent(QContextMenuEvent *event);
 
 private slots:
     void onPropertyChanged(const QString &property_name);
     void updateParameterModel();
+    void onCustomContextMenuRequested(const QPoint &point);
 
 private:
     QPoint getPositionForWarningSign();

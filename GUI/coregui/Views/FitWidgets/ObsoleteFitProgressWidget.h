@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/FitWidgets/FitProgressWidget.h
-//! @brief     Declares class FitProgressWidget
+//! @file      coregui/Views/FitWidgets/ObsoleteFitProgressWidget.h
+//! @brief     Declares class ObsoleteFitProgressWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FITPROGRESSWIDGET_H
-#define FITPROGRESSWIDGET_H
+#ifndef OBSOLETEFITPROGRESSWIDGET_H
+#define OBSOLETEFITPROGRESSWIDGET_H
 
 #include "WinDllMacros.h"
 #include "OutputData.h"
@@ -31,13 +31,13 @@ class GUIFitObserver;
 class QSlider;
 class FitSuite;
 
-class BA_CORE_API_ FitProgressWidget : public QWidget
+class BA_CORE_API_ ObsoleteFitProgressWidget : public QWidget
 {
     Q_OBJECT
 
 public:
 
-    FitProgressWidget(QWidget *parent = 0);
+    ObsoleteFitProgressWidget(QWidget *parent = 0);
 
     void connectSlider(QSlider *slider);
 

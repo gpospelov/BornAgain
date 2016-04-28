@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/ParameterModelBuilder.h
-//! @brief     Declares class ParameterModelBuilder
+//! @file      coregui/Views/JobWidgets/ObsoleteRealDataWindow.cpp
+//! @brief     Implements class ObsoleteRealDataWindow
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,22 +14,21 @@
 //
 // ************************************************************************** //
 
-#ifndef PARAMETERMODELBUILDER_H
-#define PARAMETERMODELBUILDER_H
+#include "ObsoleteRealDataWindow.h"
+#include "JobItem.h"
+#include "ColorMapPlot.h"
+#include "IntensityDataItem.h"
 
-#include <QString>
 
-class JobItem;
-class SessionItem;
-
-class ParameterModelBuilder
+ObsoleteRealDataWindow::ObsoleteRealDataWindow(QWidget *parent)
+    : QMainWindow(parent)
+    , m_plot(new ColorMapPlot(this))
 {
-public:
-    static void createParameterTree(JobItem *item, const QString &tag = QString());
-private:
-    static void handleItem(SessionItem *tree, SessionItem *source);
-};
+    setCentralWidget(m_plot);
+    setWindowTitle("Real Data");
+}
 
-
-#endif
-
+void ObsoleteRealDataWindow::setItem(IntensityDataItem *item)
+{
+    m_plot->setItem(item);
+}

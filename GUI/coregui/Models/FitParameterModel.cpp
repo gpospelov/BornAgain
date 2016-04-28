@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/FitParameterModel.cpp
-//! @brief     Implements class FitParameterModel
+//! @file      coregui/Models/FitParameterModel.h
+//! @brief     Declares class FitParameterModel
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -15,55 +15,28 @@
 // ************************************************************************** //
 
 #include "FitParameterModel.h"
-#include "SessionModel.h"
-#include "FitModel.h"
+#include "JobModel.h"
 #include "FitParameterItems.h"
-#include "FitParameterWidget.h"
+#include "ParameterTreeItems.h"
+#include <QDebug>
 
-#include <QMimeData>
-
-
-
-FitParameterModel::FitParameterModel(FitModel *fitmodel, QWidget *parent)
-    : SessionModel("FitParameterModel", parent)
-    , m_columnNames(new QMap<int, QString>())
+FitParameterModel::FitParameterModel(SessionItem *fitParContainer, QObject *parent)
+    : SessionModel(QString("FitParameterModel"), parent)
 {
-    setRootItem(fitmodel->itemForIndex(QModelIndex())->
-            getChildOfType(Constants::FitParameterContainerType));
-    m_columnNames->insert(0, "FitParameterItem::OBSOLETE_P_NAME");
-    m_columnNames->insert(1, FitParameterItem::P_USE);
-    m_columnNames->insert(3, FitParameterItem::P_MIN);
-    m_columnNames->insert(2, FitParameterItem::P_INIT);
-    m_columnNames->insert(4, FitParameterItem::P_MAX);
+    setRootItem(fitParContainer);
+    m_columnNames.insert(0, "Name");
+    m_columnNames.insert(1, FitParameterItem::P_USE);
+    m_columnNames.insert(3, FitParameterItem::P_MIN);
+    m_columnNames.insert(2, FitParameterItem::P_START_VALUE);
+    m_columnNames.insert(4, FitParameterItem::P_MAX);
 }
 
 FitParameterModel::~FitParameterModel()
 {
     setRootItem(0);
-    delete m_columnNames;
 }
 
-SessionItem *FitParameterModel::addParameter()
-{
-    return insertNewItem(Constants::FitParameterType, indexOfItem(itemForIndex(QModelIndex())));
-}
-
-QModelIndex FitParameterModel::itemForLink(const QString &link) const
-{
-    for (int i=0; i<rowCount(QModelIndex()); i++){
-        int rowcount = rowCount(index(i,0,QModelIndex()));
-        for (int j = 0; j < rowcount; j++) {
-            QModelIndex curIndex = index(j,0,index(i,0,QModelIndex()));
-            QString value = itemForIndex(curIndex)
-                    ->getItemValue(FitParameterLinkItem::P_LINK).toString();
-            if (value == link)
-                return curIndex;
-        }
-    }
-    return QModelIndex();
-}
-
-Qt::ItemFlags FitParameterModel::flags(const QModelIndex & index) const
+Qt::ItemFlags FitParameterModel::flags(const QModelIndex &index) const
 {
     Qt::ItemFlags returnVal = Qt::ItemIsEnabled | Qt::ItemIsSelectable;
     if (index.isValid() && index.parent() == QModelIndex()) {
@@ -77,51 +50,6 @@ Qt::ItemFlags FitParameterModel::flags(const QModelIndex & index) const
     return returnVal;
 }
 
-QStringList FitParameterModel::mimeTypes() const
-{
-    QStringList types;
-    types << FitParameterWidget::MIME_TYPE;
-    return types;
-}
-
-bool FitParameterModel::canDropMimeData(const QMimeData *data, Qt::DropAction action,
-                                        int row, int column, const QModelIndex &parent) const
-{
-    Q_UNUSED(action);
-    Q_UNUSED(row);
-    Q_UNUSED(parent);
-    if (column > 0)
-        return false;
-    QString link = QString::fromLatin1(data->data(FitParameterWidget::MIME_TYPE)).split("#")[0];
-    QModelIndex cur = itemForLink(link);
-    return !cur.isValid();
-}
-
-Qt::DropActions FitParameterModel::supportedDropActions() const
-{
-    return Qt::CopyAction | Qt::MoveAction;
-}
-
-bool FitParameterModel::dropMimeData(const QMimeData *data, Qt::DropAction action, int row,
-                                     int column, const QModelIndex &parent)
-{
-    if (action == Qt::IgnoreAction) return true;
-    if (column > 0) return true;
-    QStringList parts = QString::fromLatin1(data->data(FitParameterWidget::MIME_TYPE))
-            .split("#");
-    if (parts.size() != 2) return true;
-    QModelIndex cur = parent;
-    if (!parent.isValid()) {
-        auto newlink = addParameter();
-        double value = parts[1].toDouble();
-        newlink->setItemValue(FitParameterItem::P_INIT, value);
-        cur = indexOfItem(newlink);
-    }
-    auto link = insertNewItem(Constants::FitParameterLinkType, cur, row);
-    if (link) link->setItemValue(FitParameterLinkItem::P_LINK, parts[0]);
-    emit dataChanged(cur, cur);
-    return true;
-}
 
 QVariant FitParameterModel::data(const QModelIndex & index, int role) const
 {
@@ -132,15 +60,22 @@ QVariant FitParameterModel::data(const QModelIndex & index, int role) const
         if (role == Qt::DisplayRole || role == Qt::EditRole) {
             if (item->parent() != itemForIndex(QModelIndex()))
             {
-                if (index.column() == 0)
-                    return item->getItemValue(FitParameterLinkItem::P_LINK);
-                else
+                if (index.column() == 0) {
+                    QVector<SessionItem *> links = item->parent()->getItems(FitParameterItem::T_LINK);
+
+                    if(links.size()) {
+                        if(SessionItem *linkItem = links.at(index.row())) {
+                            return linkItem->getItemValue(FitParameterLinkItem::P_LINK);
+                        }
+                    }
+                } else {
                     return QVariant();
+                }
             }
             if (index.column() == 0)
                 return item->itemName();
             else
-                return item->getItemValue(m_columnNames->value(index.column()));
+                return item->getItemValue(m_columnNames.value(index.column()));
         }
     }
     return QVariant();
@@ -152,18 +87,113 @@ bool FitParameterModel::setData(const QModelIndex &index, const QVariant &value,
         return false;
     if (SessionItem *item = itemForIndex(index)) {
         if (role == Qt::EditRole && index.column() > 0 && index.column() < 5) {
-            item->setItemValue(m_columnNames->value(index.column()), value);
+            item->setItemValue(m_columnNames.value(index.column()), value);
             emit dataChanged(index, index);
             return true;
         }
     }
     return false;
+
 }
 
 QVariant FitParameterModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
     if (role == Qt::DisplayRole && orientation == Qt::Horizontal) {
-        return m_columnNames->value(section);
+        return m_columnNames.value(section);
     }
     return QVariant();
+}
+
+int FitParameterModel::rowCount(const QModelIndex &parent) const
+{
+//    if (parent.isValid() && parent.column() != 0)
+//        return 0;
+//    SessionItem *parent_item = itemForIndex(parent);
+//    return parent_item ? parent_item->rowCount() : 0;
+    if(SessionItem *parentItem = itemForIndex(parent)) {
+        if(parentItem->modelType() == Constants::FitParameterType) {
+
+            return parentItem->getItems(FitParameterItem::T_LINK).size();
+        }
+    }
+    return SessionModel::rowCount(parent);
+}
+
+int FitParameterModel::columnCount(const QModelIndex &parent) const
+{
+    if (parent.isValid() && parent.column() != 0)
+        return 0;
+    return 5;
+
+}
+
+//! Creates fit parameter from given ParameterItem, sets starting value to the value
+//! of ParameterItem, copy link.
+void FitParameterModel::createFitParameter(ParameterItem *parameterItem)
+{
+    SessionItem *fitPar = getFitParContainer()->model()->insertNewItem(Constants::FitParameterType, getFitParContainer()->index());
+    fitPar->setDisplayName(QStringLiteral("par"));
+    Q_ASSERT(fitPar);
+    if(parameterItem) {
+        fitPar->setItemValue(FitParameterItem::P_START_VALUE, parameterItem->value());
+        SessionItem *link = fitPar->model()->insertNewItem(Constants::FitParameterLinkType, fitPar->index());
+        link->setItemValue(FitParameterLinkItem::P_LINK, parameterItem->getItemValue(ParameterItem::P_LINK));
+    }
+    emit layoutChanged();
+
+}
+
+//! Removes link to given parameterItem from fit parameters
+void FitParameterModel::removeFromFitParameters(ParameterItem *parameterItem)
+{
+    FitParameterItem *fitParItem = getFitParameterItem(parameterItem);
+    if(fitParItem) {
+        foreach(SessionItem *linkItem, fitParItem->getItems(FitParameterItem::T_LINK)) {
+            if(parameterItem->getItemValue(ParameterItem::P_LINK) == linkItem->getItemValue(FitParameterLinkItem::P_LINK)) {
+                fitParItem->model()->removeRow(linkItem->index().row(), linkItem->index().parent());
+                break;
+            }
+        }
+        emit layoutChanged();
+    }
+}
+
+//! Adds given parameterItem to the existing fit parameter with display name fitParName.
+//! If parameterItem is already linked with another fitParameter, it will be relinked
+void FitParameterModel::addToFitParameter(ParameterItem *parameterItem, const QString &fitParName)
+{
+    removeFromFitParameters(parameterItem);
+    foreach(SessionItem *fitPar, getFitParContainer()->getItems(FitParameterContainerItem::T_FIT_PARAMETERS)) {
+        if(fitPar->displayName() == fitParName) {
+            SessionItem *link = fitPar->model()->insertNewItem(Constants::FitParameterLinkType, fitPar->index());
+            link->setItemValue(FitParameterLinkItem::P_LINK, parameterItem->getItemValue(ParameterItem::P_LINK));
+            emit layoutChanged();
+            break;
+        }
+    }
+}
+
+//! Returns fFitParameterItem corresponding to given ParameterItem
+FitParameterItem *FitParameterModel::getFitParameterItem(ParameterItem *parameterItem)
+{
+    return getFitParContainer()->getFitParameterItem(parameterItem->getItemValue(ParameterItem::P_LINK).toString());
+}
+
+FitParameterContainerItem *FitParameterModel::getFitParContainer()
+{
+    FitParameterContainerItem *result = dynamic_cast<FitParameterContainerItem *>(rootItem());
+    Q_ASSERT(result);
+    return result;
+}
+
+//! Returns list of fit parameter display names
+QStringList FitParameterModel::getFitParameterNames()
+{
+    QStringList result;
+
+    foreach(SessionItem *item, getFitParContainer()->getItems(FitParameterContainerItem::T_FIT_PARAMETERS)) {
+        result.append(item->displayName());
+    }
+
+    return result;
 }

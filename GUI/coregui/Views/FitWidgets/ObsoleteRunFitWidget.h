@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/FitWidgets/RunFitWidget.h
-//! @brief     Declares class RunFitWidget
+//! @file      coregui/Views/FitWidgets/ObsoleteRunFitWidget.h
+//! @brief     Declares class ObsoleteRunFitWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#ifndef RUNFITWIDGET_H
-#define RUNFITWIDGET_H
+#ifndef OBSOLETERUNFITWIDGET_H
+#define OBSOLETERUNFITWIDGET_H
 
 #include "WinDllMacros.h"
 #include <QWidget>
@@ -26,19 +26,19 @@ class QLabel;
 class QPushButton;
 class RunFitManager;
 class FitSuite;
-class FitProgressWidget;
-class FitModel;
+class ObsoleteFitProgressWidget;
+class ObsoleteFitModel;
 class SampleModel;
 class InstrumentModel;
 class SessionItem;
 class SessionModel;
 
-class BA_CORE_API_ RunFitWidget : public QWidget
+class BA_CORE_API_ ObsoleteRunFitWidget : public QWidget
 {
     Q_OBJECT
 
 public:
-    RunFitWidget(FitModel *fitModel, QWidget *parent = 0);
+    ObsoleteRunFitWidget(ObsoleteFitModel *fitModel, QWidget *parent = 0);
 
     std::shared_ptr<FitSuite> init_test_fitsuite(); // test only
 
@@ -55,8 +55,8 @@ private:
     QLabel *m_interval_label;
     QSlider *m_interval_slider;
     RunFitManager *m_runfitmanager;
-    FitProgressWidget *m_fitprogress;
-    FitModel *m_fitModel;
+    ObsoleteFitProgressWidget *m_fitprogress;
+    ObsoleteFitModel *m_fitModel;
 
     SessionItem *getTopItemFromSelection(
         SessionModel *model, const QString &itemType, const QString &selectionType);

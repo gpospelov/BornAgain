@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/FitWidgets/MinimizerSettingsWidget.h
-//! @brief     Declares class MinimizerSettingsWidget
+//! @file      coregui/Views/FitWidgets/ObsoleteRealDataWindow.h
+//! @brief     Declares class ObsoleteRealDataWindow
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,23 +14,25 @@
 //
 // ************************************************************************** //
 
-#ifndef MINIMIZERSETTTINGSWIDGET_H
-#define MINIMIZERSETTTINGSWIDGET_H
+#ifndef OBSOLETEREALDATAWINDOW_H
+#define OBSOLETEREALDATAWINDOW_H
 
-#include "WinDllMacros.h"
-#include <QWidget>
+#include <QMainWindow>
 
-class FitModel;
+class IntensityDataItem;
+class ColorMapPlot;
 
-class BA_CORE_API_ MinimizerSettingsWidget : public QWidget
+class ObsoleteRealDataWindow : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    MinimizerSettingsWidget(FitModel *fitModel, QWidget *parent = 0);
+    ObsoleteRealDataWindow(QWidget *parent = 0);
+
+    void setItem(IntensityDataItem *item);
+
+private:
+    ColorMapPlot *m_plot;
 };
-
-
-
 
 #endif

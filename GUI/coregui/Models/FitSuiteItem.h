@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/FitView.h
-//! @brief     Declares class FitView
+//! @file      coregui/Models/FitSuiteItem.h
+//! @brief     Declares class FitSuiteItem
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,32 +14,17 @@
 //
 // ************************************************************************** //
 
-#ifndef FITVIEW_H
-#define FITVIEW_H
+#ifndef FITSUITEITEM_H
+#define FITSUITEITEM_H
 
-#include <WinDllMacros.h>
-#include <QWidget>
+#include "SessionItem.h"
 
-class MainWindow;
-class QTabWidget;
-class ImportDataWidget;
-class FitSettingsWidget;
-class RunFitWidget;
-
-class BA_CORE_API_ FitView : public QWidget
+class BA_CORE_API_ FitSuiteItem : public SessionItem
 {
-    Q_OBJECT
 
 public:
-    //! View containing tabs for fitting
-    FitView(MainWindow *window);
-
-private:
-    QTabWidget *m_tabs;
-    ImportDataWidget *m_importDataWidget;
-    FitSettingsWidget *m_fitSettingsWidget;
-    RunFitWidget *m_runFitWidget;
-
+    static const QString T_FIT_PARAMETERS;
+    explicit FitSuiteItem();
 };
 
 #endif

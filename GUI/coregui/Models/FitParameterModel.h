@@ -21,35 +21,43 @@
 #include "SessionModel.h"
 #include <QMap>
 
-class FitModel;
-class QModelIndex;
-class QParameterizedItem;
+class ParameterItem;
+class FitParameterItem;
+class FitParameterContainerItem;
 
+//! The FitParameterModel adopt fit parameters from FitParameterContainer to be shown
+//! in 5 column tree view. It doesn't own its root item (it still belongs to the original JobModel)
+//! and serves merely as a proxy model. Any changes should be done via original model
+//! accessible via rootItem->model()
 
 class BA_CORE_API_ FitParameterModel : public SessionModel
 {
     Q_OBJECT
 
 public:
-    explicit FitParameterModel(FitModel *fitmodel, QWidget *parent);
+    explicit FitParameterModel(SessionItem *fitParContainer, QObject *parent = 0);
     ~FitParameterModel();
-    QModelIndex itemForLink(const QString &link) const;
 
     Qt::ItemFlags flags(const QModelIndex & index) const Q_DECL_OVERRIDE;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const Q_DECL_OVERRIDE;
     bool setData(const QModelIndex &index, const QVariant &value, int role) Q_DECL_OVERRIDE;
-    QStringList mimeTypes() const Q_DECL_OVERRIDE;
     QVariant headerData(int section, Qt::Orientation orientation, int role) const Q_DECL_OVERRIDE;
-    bool canDropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column,
-                             const QModelIndex &parent) const Q_DECL_OVERRIDE;
-    bool dropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column, const QModelIndex &parent)  Q_DECL_OVERRIDE;
-    Qt::DropActions supportedDropActions() const Q_DECL_OVERRIDE;
 
-public slots:
-    SessionItem *addParameter();
+    virtual int rowCount(const QModelIndex &parent) const;
+    virtual int columnCount(const QModelIndex &parent) const;
+
+    void createFitParameter(ParameterItem *parameterItem = 0);
+    void removeFromFitParameters(ParameterItem *parameterItem);
+    void addToFitParameter(ParameterItem *parameterItem, const QString &fitParName);
+
+    FitParameterItem *getFitParameterItem(ParameterItem *parameterItem);
+
+    FitParameterContainerItem *getFitParContainer();
+
+    QStringList getFitParameterNames();
 
 private:
-    QMap<int, QString> *m_columnNames;
+    QMap<int, QString> m_columnNames;
 };
 
 

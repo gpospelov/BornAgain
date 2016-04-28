@@ -31,16 +31,15 @@ class InstrumentView;
 class SampleView;
 class SimulationView;
 class JobView;
-class FitView;
+class ObsoleteFitView;
 
 class MaterialModel;
 class MaterialSvc;
 class SampleModel;
 class InstrumentModel;
 class JobModel;
-class FitModel;
+class ObsoleteFitModel;
 class ApplicationModels;
-
 class ProjectManager;
 class ActionManager;
 class QSettings;
@@ -61,7 +60,7 @@ public:
     InstrumentModel *instrumentModel();
     SampleModel *sampleModel();
     JobModel *jobModel();
-    FitModel *fitModel();
+    ObsoleteFitModel *fitModel();
     ApplicationModels *models();
 
     Manhattan::ProgressBar *getProgressBar() { return m_progressBar; }
@@ -94,7 +93,7 @@ private:
     SampleView *m_sampleView;
     SimulationView *m_simulationView;
     JobView *m_jobView;
-    FitView *m_fitView;
+    ObsoleteFitView *m_fitView;
     Manhattan::ProgressBar *m_progressBar;
     ToolTipDataBase *m_toolTipDataBase;
     UpdateNotifier *m_updateNotifier;

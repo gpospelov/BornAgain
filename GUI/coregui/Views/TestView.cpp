@@ -15,10 +15,10 @@
 // ************************************************************************** //
 #include "TestView.h"
 #include "MaskEditor.h"
-#include "RunFitWidget.h"
-#include "FitView.h"
+#include "ObsoleteRunFitWidget.h"
+#include "ObsoleteFitView.h"
 #include "mainwindow.h"
-#include "FitParameterWidget.h"
+#include "ObsoleteFitParameterWidget.h"
 #include "JobModel.h"
 #include "MaterialEditor.h"
 #include <QMimeData>

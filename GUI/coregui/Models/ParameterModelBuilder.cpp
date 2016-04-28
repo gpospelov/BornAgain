@@ -37,7 +37,7 @@
 #include <QDebug>
 
 
-void ParameterModelBuilder::createParameterTree(JobItem *item, const QString tag)
+void ParameterModelBuilder::createParameterTree(JobItem *item, const QString &tag)
 {
     SessionItem *container = item->model()->insertNewItem(Constants::ParameterLabelType, item->index(), -1, tag);
     container->setDisplayName("Parameter Tree Container");

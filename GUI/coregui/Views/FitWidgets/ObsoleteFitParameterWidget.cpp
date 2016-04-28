@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/FitWidgets/FitParameterWidget.cpp
-//! @brief     Implements class FitParameterWidget
+//! @file      coregui/Views/FitWidgets/ObsoleteFitParameterWidget.cpp
+//! @brief     Implements class ObsoleteFitParameterWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,13 +14,13 @@
 //
 // ************************************************************************** //
 
-#include "FitParameterWidget.h"
-#include "FitModel.h"
-#include "FitParameterItems.h"
-#include "FitParameterModel.h"
-#include "FitSelectorModel.h"
+#include "ObsoleteFitParameterWidget.h"
+#include "ObsoleteFitModel.h"
+#include "ObsoleteFitParameterItems.h"
+#include "ObsoleteFitParameterModel.h"
+#include "ObsoleteFitSelectorModel.h"
 #include "DeleteEventFilter.h"
-#include "MinimizerSettingsWidget.h"
+#include "ObsoleteMinimizerSettingsWidget.h"
 #include "minisplitter.h"
 #include "ModelPath.h"
 #include <QVBoxLayout>
@@ -38,9 +38,9 @@
 #include <QMimeData>
 #include <QDragEnterEvent>
 
-const QString FitParameterWidget::MIME_TYPE = "application/org.bornagainproject.fittinglink";
+const QString ObsoleteFitParameterWidget::MIME_TYPE = "application/org.bornagainproject.fittinglink";
 
-FitParameterWidget::FitParameterWidget(FitModel *fitModel, QWidget *parent)
+ObsoleteFitParameterWidget::ObsoleteFitParameterWidget(ObsoleteFitModel *fitModel, QWidget *parent)
     : QWidget(parent)
     , m_fitModel(fitModel)
     , m_selectorTreeView(new QTreeView())
@@ -52,7 +52,7 @@ FitParameterWidget::FitParameterWidget(FitModel *fitModel, QWidget *parent)
     , m_keyboardFilter(new DeleteEventFilter(this))
 {
 
-    m_parameterModel = new FitParameterModel(m_fitModel, this);
+    m_parameterModel = new ObsoleteFitParameterModel(m_fitModel, this);
 
     QString style(
     "QTreeView::branch {background: palette(base);}QTreeView::branch:has-siblings:!adjoins-item "
@@ -126,9 +126,9 @@ FitParameterWidget::FitParameterWidget(FitModel *fitModel, QWidget *parent)
 
 }
 
-void FitParameterWidget::updateSelector()
+void ObsoleteFitParameterWidget::updateSelector()
 {
-    m_parameterModel = new FitParameterModel(m_fitModel, this);
+    m_parameterModel = new ObsoleteFitParameterModel(m_fitModel, this);
     m_parameterTreeview->setModel(m_parameterModel);
     connect(m_parameterModel, SIGNAL(dataChanged(QModelIndex,QModelIndex,QVector<int>)),
             m_fitModel, SLOT(dataChangedProxy(QModelIndex,QModelIndex,QVector<int>)));
@@ -147,13 +147,13 @@ void FitParameterWidget::updateSelector()
     connectSelectorView();
 }
 
-void FitParameterWidget::clearParameter() {
+void ObsoleteFitParameterWidget::clearParameter() {
     while (m_parameterModel->rowCount(QModelIndex())) {
         m_parameterModel->removeRow(0, QModelIndex());
     }
 }
 
-void FitParameterWidget::buildTree(QStandardItem *root, SessionItem *top)
+void ObsoleteFitParameterWidget::buildTree(QStandardItem *root, SessionItem *top)
 {
     QStringList parameterTree = ModelPath::getParameterTreeList(top);
 
@@ -190,9 +190,9 @@ void FitParameterWidget::buildTree(QStandardItem *root, SessionItem *top)
     }
 }
 
-void FitParameterWidget::buildSelectorModel() {
+void ObsoleteFitParameterWidget::buildSelectorModel() {
 
-    m_selectorModel = new FitSelectorModel();
+    m_selectorModel = new ObsoleteFitSelectorModel();
     m_selectorModel->setHorizontalHeaderItem(0, new QStandardItem("Property"));
     m_selectorModel->setHorizontalHeaderItem(1, new QStandardItem("Value"));
     QStandardItem *root = m_selectorModel->invisibleRootItem();
@@ -210,7 +210,7 @@ void FitParameterWidget::buildSelectorModel() {
     }
 }
 
-void FitParameterWidget::spanParameters()
+void ObsoleteFitParameterWidget::spanParameters()
 {
     m_parameterTreeview->expandAll();
     for (int i = 0; i < m_parameterModel->rowCount(QModelIndex()); i++){
@@ -226,7 +226,7 @@ void FitParameterWidget::spanParameters()
     }
 }
 
-void FitParameterWidget::onCustomContextMenu(const QPoint &point) {
+void ObsoleteFitParameterWidget::onCustomContextMenu(const QPoint &point) {
     m_removeAction->setEnabled(false);
     QModelIndex index = m_parameterTreeview->indexAt(point);
     if (index.isValid()) {
@@ -239,14 +239,14 @@ void FitParameterWidget::onCustomContextMenu(const QPoint &point) {
     m_contextMenu->exec(m_parameterTreeview->mapToGlobal(point + QPoint(2, 22)));
 }
 
-void FitParameterWidget::onRemoveParameter() {
+void ObsoleteFitParameterWidget::onRemoveParameter() {
     QModelIndex index = m_parameterTreeview->currentIndex();
     if (index.isValid()) {
         m_parameterModel->removeRow(index.row(), index.parent());
     }
 }
 
-void FitParameterWidget::onParameterSelectionChanged(const QItemSelection &selection)
+void ObsoleteFitParameterWidget::onParameterSelectionChanged(const QItemSelection &selection)
 {
     if (selection.indexes().isEmpty())
         return;
@@ -254,7 +254,7 @@ void FitParameterWidget::onParameterSelectionChanged(const QItemSelection &selec
     QModelIndex newSelection = QModelIndex();
     if (index.isValid() && index.parent().isValid()) {
         SessionItem *val = m_fitModel->itemForIndex(index);
-        QString link = val->getItemValue(FitParameterLinkItem::P_LINK).toString();
+        QString link = val->getItemValue(ObsoleteFitParameterLinkItem::P_LINK).toString();
         QStandardItem *t = m_selectorModel->getItemFromPath(link);
         newSelection = m_selectorModel->indexFromItem(t);
     }
@@ -269,7 +269,7 @@ void FitParameterWidget::onParameterSelectionChanged(const QItemSelection &selec
     connectSelectorView();
 }
 
-void FitParameterWidget::onSelectorSelectionChanged(const QItemSelection &selection)
+void ObsoleteFitParameterWidget::onSelectorSelectionChanged(const QItemSelection &selection)
 {
     if (selection.indexes().isEmpty())
         return;
@@ -286,7 +286,7 @@ void FitParameterWidget::onSelectorSelectionChanged(const QItemSelection &select
     connectParameterView();
 }
 
-void FitParameterWidget::connectSelectorView(bool active) {
+void ObsoleteFitParameterWidget::connectSelectorView(bool active) {
     if (active) {
         connect(m_selectorTreeView->selectionModel(),
                 SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
@@ -298,7 +298,7 @@ void FitParameterWidget::connectSelectorView(bool active) {
     }
 }
 
-void FitParameterWidget::connectParameterView(bool active) {
+void ObsoleteFitParameterWidget::connectParameterView(bool active) {
     if (active) {
         connect(m_parameterTreeview->selectionModel(),
                 SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
@@ -310,7 +310,7 @@ void FitParameterWidget::connectParameterView(bool active) {
     }
 }
 
-void FitParameterWidget::removeEmptyParameter() {
+void ObsoleteFitParameterWidget::removeEmptyParameter() {
     bool finished = false;
     while (!finished) {
         int rowCount = m_parameterModel->rowCount(QModelIndex());
@@ -329,7 +329,7 @@ void FitParameterWidget::removeEmptyParameter() {
     }
 }
 
-void FitParameterWidget::removeSelectedItem() {
+void ObsoleteFitParameterWidget::removeSelectedItem() {
     QModelIndex selection = m_parameterTreeview->currentIndex();
     if (selection.isValid()) {
         m_parameterModel->removeRow(selection.row(), selection.parent());
@@ -337,7 +337,7 @@ void FitParameterWidget::removeSelectedItem() {
     removeEmptyParameter();
 }
 
-void FitParameterWidget::onDoubleclick(const QModelIndex index) {
+void ObsoleteFitParameterWidget::onDoubleclick(const QModelIndex index) {
     QModelIndex entryIndex = index.sibling(index.row(), 0);
     if (m_selectorModel->itemFromIndex(entryIndex)->isDragEnabled()) {
         QMimeData *data = m_selectorModel->mimeData(QModelIndexList() << entryIndex);

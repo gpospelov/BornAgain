@@ -38,6 +38,7 @@
 #include <QScrollBar>
 #include <QApplication>
 #include <QKeyEvent>
+#include <QItemSelectionModel>
 
 namespace {
 const int warning_sign_xpos = 38;
@@ -76,6 +77,10 @@ ModelTuningWidget::ModelTuningWidget(JobModel *jobModel, QWidget *parent)
     m_treeView->setItemDelegate(m_delegate);
     m_treeView->setSelectionMode(QAbstractItemView::ExtendedSelection);
     connect(m_delegate, SIGNAL(currentLinkChanged(SessionItem*)), this, SLOT(onCurrentLinkChanged(SessionItem*)));
+    m_treeView->setContextMenuPolicy(Qt::CustomContextMenu);
+    connect(m_treeView, SIGNAL(customContextMenuRequested(const QPoint &)),
+            this, SLOT(onCustomContextMenuRequested(const QPoint &)));
+
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->setMargin(0);
@@ -93,7 +98,7 @@ ModelTuningWidget::~ModelTuningWidget()
 {
 }
 
-void ModelTuningWidget::setCurrentItem(JobItem *item)
+void ModelTuningWidget::setItem(JobItem *item)
 {
     if (m_currentJobItem == item) {
         return;
@@ -115,6 +120,12 @@ void ModelTuningWidget::setCurrentItem(JobItem *item)
 
         m_fitTools->setCurrentItem(m_currentJobItem, m_treeView->selectionModel());
     }
+}
+
+QItemSelectionModel *ModelTuningWidget::selectionModel()
+{
+    Q_ASSERT(m_treeView);
+    return m_treeView->selectionModel();
 }
 
 void ModelTuningWidget::onCurrentLinkChanged(SessionItem *item)
@@ -166,6 +177,11 @@ void ModelTuningWidget::updateParameterModel()
     m_treeView->expandAll();
 }
 
+void ModelTuningWidget::onCustomContextMenuRequested(const QPoint &point)
+{
+    emit itemContextMenuRequest(m_treeView->mapToGlobal(point+ QPoint(2, 22)));
+}
+
 void ModelTuningWidget::restoreModelsOfCurrentJobItem()
 {
     Q_ASSERT(m_currentJobItem);
@@ -187,6 +203,12 @@ void ModelTuningWidget::resizeEvent(QResizeEvent *event)
         QPoint pos = getPositionForWarningSign();
         m_warningSign->setPosition(pos.x(),pos.y());
     }
+}
+
+//! Context menu reimplemented to suppress default
+void ModelTuningWidget::contextMenuEvent(QContextMenuEvent *event)
+{
+    Q_UNUSED(event);
 }
 
 void ModelTuningWidget::onPropertyChanged(const QString &property_name)

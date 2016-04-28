@@ -283,31 +283,8 @@ They must fulfill
 \end{displaymath}
 
 \paragraph{Form factor, volume, horizontal section}\strut\\
-Notation:
-\begin{displaymath}
-  \ell\coloneqq L/2,\quad
-  w\coloneqq W/2,\quad
-  h\coloneqq H/2,\quad
-  f_\pm(z)\coloneqq \exp(\pm i z)\sinc(z).
-\end{displaymath}
-Results:
 \begin{equation*}
-\begin{array}{@{}l@{}l@{}}
-\DS F=
-\frac{H}{q_xq_y} \Big\{
-   &+\DS  f_+\left(\left(\frac{q_x-q_y}{\tan\alpha} +q_z\right)h\right)
-        \exp(-i(q_x\ell-q_y w))
-\\[3.6ex]
-   &\DS+ f_-\left(\left(\frac{q_x-q_y}{\tan\alpha} -q_z\right)h\right)
-        \exp(+i(q_x\ell-q_y w))
-\\[3.6ex]
-   &\DS- f_+\left(\left(\frac{q_x+q_y}{\tan\alpha} +q_z\right)h\right)
-        \exp(-i(q_x\ell+q_y w))
-\\[3.6ex]
-   &\DS- f_-\left(\left(\frac{q_x+q_y}{\tan\alpha} -q_z\right)h\right)
-        \exp(+i(q_x\ell+q_y w))
-\Big\},
-\end{array}
+  F \text{~: computed using the generic polyhedron form factor~\cite{ba:ffp},}
 \end{equation*}
 \begin{equation*}
   V= H \Big[LW - \dfrac{(L + W)H}{\tan\alpha} + \dfrac{4}{3} \dfrac{H^2}{\tan^2\alpha}\Big].
@@ -316,8 +293,7 @@ Results:
   S=LW.
 \end{equation*}
 
-\paragraph{Examples}\strut
-
+\paragraph{Examples}\strut\\
 \begin{figure}[H]
 \begin{center}
 \includegraphics[width=\textwidth]{fig/ff2/ff_AnisoPyramid.pdf}
@@ -331,11 +307,12 @@ for four different angles~$\omega$ of rotation around the $z$ axis.}
 \paragraph{History}\strut\\
 Agrees with the \E{In-plane anisotropic pyramid} form factor of \IsGISAXS\
 \cite[Eq.~2.40]{Laz08} \cite[Eq.~217]{ReLL09},
-except for different parametrization and
-for a refactoring of the analytical expression for $F(\q)$.
+except for different parametrization.
 This is \E{not} the \E{anisotropic pyramid} of \FitGISAXS,
 which is a true pyramid with an off-center apex \cite{Bab13}.
 
+Formfactors~$F(\q)$ have been checked against the different computation of \IsGISAXS,
+and were found to fully agree.
 
 %===============================================================================
 \ffsection{Box (cuboid)} \label{SBox}
@@ -517,8 +494,7 @@ The parameters must fulfill
 
 \paragraph{Form factor, volume, horizontal section}\strut\\
 \begin{equation*}
-  F \text{~: computed algebraically,
-          using the generic polyhedron form factor~\cite{ba:ffp},}
+  F \text{~: computed using the generic polyhedron form factor~\cite{ba:ffp},}
 \end{equation*}
 \begin{equation*}
   V = \tan\beta  \left( R^3- \left(R-\frac{H}{\tan\beta}\right)^3 \right),
@@ -543,7 +519,7 @@ Our parametrization deviates from the form factor \E{Cone6} of \IsGISAXS
 \cite[Eq.~2.32]{Laz08} \cite[Eq.~222]{ReLL09}.
 
 Up to \BornAgain-1.5 computed by numeric integration, as in \IsGISAXS.
-Since \BornAgain-1.6 higher speed and accuracy are achieved
+Since \BornAgain-1.6 higher speed and better accuracy are achieved
 by using the generic polyhedron form factor \cite{ba:ffp},
 with series expansions near singularities.
 
@@ -590,8 +566,7 @@ They must fulfill
 
 \paragraph{Form factor, volume, horizontal section}\strut\\
 \begin{equation*}
-  F \text{~: computed algebraically,
-          using the generic polyhedron form factor~\cite{ba:ffp},}
+  F \text{~: computed using the generic polyhedron form factor~\cite{ba:ffp},}
 \end{equation*}
 \begin{equation*}
   V= \dfrac{1}{6} \tan(\alpha)L^3 \Big[ 2
@@ -747,9 +722,10 @@ with the parameter
 \end{itemize}
 
 \paragraph{Form factor, volume, horizontal section}\strut\\
-$F$ is computed algebraically,
-using the generic form factor of a polyhedron
-with inversion symmetry~\cite{ba:ffp},
+\begin{equation*}
+  F \text{~: computed using the generic form factor of a polyhedron
+             with inversion symmetry~\cite{ba:ffp},}
+\end{equation*}
 \begin{equation*}
   V= \frac{1}{4} (15+7\sqrt{5}) a^3 \approx 7.663\,a^3,
 \end{equation*}
@@ -1154,9 +1130,10 @@ with the parameter
 \end{itemize}
 
 \paragraph{Form factor, volume, horizontal section}\strut\\
-$F$ is computed algebraically,
-using the generic form factor of a polyhedron
-with inversion symmetry~\cite{ba:ffp},
+\begin{equation*}
+  F \text{~: computed using the generic form factor of a polyhedron
+             with inversion symmetry~\cite{ba:ffp},}
+\end{equation*}
 \begin{equation*}
   V= \frac{5}{12} (3+\sqrt5)a^3 \approx 2.182\,a^3
 \end{equation*}
@@ -1370,8 +1347,7 @@ They must fulfill
 
 \paragraph{Form factor, volume, horizontal section}\strut\\
 \begin{equation*}
-  F \text{~: computed algebraically,
-          using the generic polyhedron form factor~\cite{ba:ffp},}
+  F \text{~: computed using the generic polyhedron form factor~\cite{ba:ffp},}
 \end{equation*}
 \begin{equation*}
   V = \dfrac{1}{6}  L^3 \tan\alpha\left[ 1
@@ -1594,8 +1570,7 @@ They are related through $\tan \alpha = 2 \tan \beta$.
 
 \paragraph{Form factor, volume, horizontal section}\strut\\
 \begin{equation*}
-  F\text{~: computed algebraically,
-          using the generic polyhedron form factor~\cite{ba:ffp},}
+  F\text{~: computed using the generic polyhedron form factor~\cite{ba:ffp},}
 \end{equation*}
 \begin{equation*}
   V= \dfrac{\tan(\alpha) L^3}{24} \left[1- \left(1 -
@@ -1665,8 +1640,8 @@ They must fulfill
 
 \paragraph{Form factor, volume, horizontal section}\strut\\
 \begin{equation*}
-  F\text{~: computed algebraically,
-          using the generic polyhedron form factor~\cite{ba:ffp},}
+  F \text{~: computed using the generic form factor of a polyhedron
+             with inversion symmetry~\cite{ba:ffp},}
 \end{equation*}
 \begin{equation*}
   V = L^3 - \dfrac{4}{3}t^3,
@@ -1687,9 +1662,9 @@ for four different angles~$\omega$ of rotation around the $z$ axis.}
 \end{figure}
 
 \paragraph{History}\strut\\
-Moitvated by \cite{HeSS74}.
+Motivated by \cite{HeSS74}.
 Reimplemented in \BornAgain-1.6 using the generic form factor
-of a polygonal prism \cite{ba:ffp},
+of a polygonal prism \cite{ba:ffp}.
 
 
 %===============================================================================

@@ -182,6 +182,18 @@ The first two terms describe the exponential intensity decrease
 due to absorption, while
 the oscillatory term in square brackets
 is responsible for waveguide effects in layers with finite thickness.
+
+The flux can also be written in terms of the one-dimensional wavefunctions $\phi^{\pm}(z)$:
+\begin{equation}
+  \begin{array}{@{}l@{\;}l}
+  \v{J}(\r) =& \left|\phi^+(z)+\phi^-(z)\right|^2\cdot\k_\plll \\
+  &+ \left[ \left|\phi^+(z)\right|^2 k_\perp' - \left|\phi^-(z)\right|^2 k_\perp' +
+  2\Im(\phi^-(z){\phi^+}^*(z))k_\perp'' \right]\cdot \v{\hat z}.
+  \end{array}
+\end{equation}
+The first term denotes the horizontal component of the flux and can be seen to consist of the product 
+of the particle density at position $z$ and the wavector $\k_\plll$. The $z$-component consists of the difference between the up- and downward travelling wave components and an extra term that encodes the interference between them.
+
 In the special case of a purely imaginary~$k_{\perp \il}$,
 the flux becomes:
 \begin{equation}
@@ -313,11 +325,11 @@ the continuity conditions~(\ref{Econtcond}) take the form
   \begin{array}{@{}l@{}lcl@{}l}
   +A^-_{\il} &+A^+_{\il}
   &=&
-  +A^-_{\il-1}\delta_{\il-1} &+A^+_{\il-1}\delta_{\il-1}^*,
+  +A^-_{\il-1}\delta_{\il-1} &+A^+_{\il-1}\delta_{\il-1}^{-1},
   \\
   -A^-_{\il} f_{\il}  &+A^+_{\il} f_{\il}
   &=&
-  -A^-_{\il-1}\delta_{\il-1} f_{\il-1} &+A^+_{\il-1}\delta_{\il-1}^* f_{\il-1}.
+  -A^-_{\il-1}\delta_{\il-1} f_{\il-1} &+A^+_{\il-1}\delta_{\il-1}^{-1} f_{\il-1}.
   \end{array}
 \end{equation}
 After some lines of linear algebra,
@@ -331,7 +343,7 @@ with the transfer matrix
   M_\il
    \coloneqq
    \left(\begin{array}{cc}
-       \delta_{\il-1}^*&0\\
+     \delta_{\il-1}^{-1}&0\\
        0 & \delta_{\il-1}
    \end{array}\right)
    \frac{1}{2f_{\il-1}}
@@ -368,7 +380,7 @@ yielding unnormalized amplitudes
   \coloneqq M_{\il+1}\cdots M_{N} \left( \begin{array}{c}1\\0\end{array} \right).
 \end{equation}
 When the top layer is reached,
-the obtained values are renormalized
+the obtained values are normalized
 so that the boundary condition $A^-_{0}=1$ be satisfied,
 \begin{equation}
   A^\pm_{\il} = \frac{\tilde A^\pm_l}{\tilde A^-_0}.
@@ -388,7 +400,8 @@ it may be an interesting exercise to make
  a connection with a well known textbook result.
 Consider a system
 with a single interface between two semi-infinite,
-non-absorbing media.
+non-absorbing media. The incoming wave is assumed to be above the 
+critical angle, ensuring all $f_l$ are real.
 The reflected flux,
 normalized to the incident vertical flux $J_{0\perp}^-=-Kf_0$,
 is
@@ -403,23 +416,31 @@ and the transmitted flux
   \frac{J_{1\perp}^-}{J_{0\perp}^-}
   = \frac{4f_0 f_1}{(f_0+f_1)^2}.
 \end{equation}
-This satisfies mass conservation, $J_{0\perp}^-+J_{0\perp}^+=J_{1\perp}^-$,
+This satisfies particle number conservation, $J_{0\perp}^-+J_{0\perp}^+=J_{1\perp}^-$,
 and agrees with Fresnel's result for $s$-polarized light.\footnote
 {See any optics textbook, e.g.\ Born~\&~Wolf \cite[ch.~1.5.2]{BoWo99}
   or Hecht \cite[ch.~4.6.2]{Hec02}.}
 
 The above algorithm fails if $f_{\il}\to0$
 because $M_{\il+1}$ becomes singular.
-A layer with $f_{\il}=0$ only sustains horizontal wave propagation;
-radiation from below or above is totally reflected at its boundaries.
-In \BornAgain,
-such total reflection is imposed if $|f_{\il}|$ falls below a very small value
-(currently $10^{-20}$).
-However, except for the top vacuum layer
-this ought to be inconsequential
-because the index of refraction should always
-have an absorptive component that prevents $f_{\il}$ from becoming zero.
-
+The general solution of (\ref{Ewavez}) will be a linear function of $z$:
+\begin{equation}
+  \phi_{\il}(z) = A^0_{\il} + A^1_{\il}z.
+\end{equation}
+In \BornAgain, such a linear wavefunction amplitude can not be handled by the form factors,
+which are only defined in terms of plane waves with complex wavevector components.
+The following cases are treated seperately:
+\begin{itemize}
+  \item There is only one layer: this is a trivial case whithout any need to calculate wave coefficients.
+    The solution in the single layer is just the incoming/outgoing plane wave.
+  \item The top layer of a multilayer has $f_0=0$: the limit $f_0\to0$ is well-defined and the
+    solution is given by $A^+_0 = -A^-_0$ and $A^{\pm}_{\il}=0$ for $\il>0$.
+    % The boundary condition in the substrate imposes a linear relation between the two coefficients
+    % of the linear wavefunction amplitude in the top layer. Since the first order term has to vanish, all amplitudes vanish.
+  \item $f_{\il}=0$ for a layer with $\il>0$: In this case $f_{\il}$ will be given a very small imaginary value,
+    representing a slight absorption. However, this should be inconsequential because the index of refraction
+    of non-vacuum layer always contains an absorptive component.
+\end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % \newpage % TEMPORARY

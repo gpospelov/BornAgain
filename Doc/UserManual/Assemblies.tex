@@ -40,7 +40,7 @@ In the following, all such inhomogeneities will be described as
 \BornAgain\ currently offers the same choice of models as \IsGISAXS.
 Therefore, for the moment we refer to the \IsGISAXS\ manual \cite{Laz08}.}
 
-\iffalse
+%\iffalse
 Our derivation of the DWBA (Sec.~\ref{Sdwba}) has shown
 that the distinction between refraction and reflection on the one hand
 and scattering on the other hand is not a fundamental one,
@@ -60,8 +60,8 @@ when computing the average refractive index,
 which then leads to refraction and reflection caused conjointly
 by embedding material (``matrix'') and embedded particles.
 \index{Matrix!embedding}%
-The downside is that one has then scattering contribution
-from both the matrix and the particles.
+In this case, one has to consider the scattering contributions of
+the matrix to the specular and direct peak.
 
 In general, therefore, the average squared refractive index~$\nz(z)$
 used in~(\ref{EHelmholtzGraded})
@@ -74,7 +74,8 @@ then
 \begin{equation}\label{Enzx}
   \nz(z) = [1-x_\text{p}(z)]\,n_\text{m}^2(z) + x_\text{p}(z)\, n_\text{p}^2,
 \end{equation}
-where $x_\text{p}(z)$ is the volume fraction occupied by the particles.
+where $x_\text{p}(z)$ is the surface fraction occupied by the particles at
+the vertical position $z$.
 This equation can be generalized in obvious ways
 when there are different types of particles,
 or when the refractive index is not constant within the particles.
@@ -121,13 +122,13 @@ can be rearranged as
   \tilde\chi_\text{p}(\r)&\text{~if $\r$ in particle,}\\[.2ex]
   0 &\text{~otherwise,} \end{array}\right.
 \end{equation}
-with the renormalized particle potential
+with the normalized particle potential
 \begin{equation}
   \tilde\chi_\text{p}(\r)
   \coloneqq  \chi_\text{p}(\r)-\chi_\text{m}(z)
   = \frac{K^2}{4\pi}\left(n_\text{m}^2(z)-n_\text{p}^2(\r)\right),
 \end{equation}
-\nomenclature[1χ033 2p010]{$\tilde\chi_\text{p}(\r)$}{Renormalized perturbative potential of embedded particles of type~$p$}%
+\nomenclature[1χ033 2p010]{$\tilde\chi_\text{p}(\r)$}{Normalized perturbative potential of embedded particles of type~$p$}%
 which vanishes unless $\r$ lies within a particle.
 
 Writing the potential as~(\ref{Echi0p}) is a convenient starting point
@@ -146,13 +147,12 @@ it has two contributions,
 The first one is the shape transform of the entire layer,
 \begin{equation}
   \chi_\text{m}(\q)
-  = \chi_\text{m} \int_{z_\il}^{z_{\il-1}}\!\d z \int\!\d^2r_\plll\, \e^{i\v{q}\,\r}
-  = \chi_\text{m} \delta(\q_\plll) \sinc\left( q_\perp z \right).
+  = \chi_\text{m} \int_{z_{\il+1}}^{z_{\il}}\!\d z \int\!\d^2r_\plll\, \e^{i\v{q}\,\r}
+  = (2\pi)^2 \chi_\text{m} d_\il \e^{i q_\perp \overline{z}}  \delta(\q_\plll) \sinc\left( q_\perp d_\il /2 \right),
 \end{equation}
+with $\overline{z} \coloneqq \frac{z_\il + z_{\il+1}}{2}$ and $d_\il \coloneqq z_\il - z_{\il+1}$.
 Thanks to the delta function,
-this term only contributes to the off-specular scattering.
-\Work{But what about the mixed terms
-  $\chi_\text{p}^*\chi_\text{m} + \text{c.c.}$?}
+this term only contributes to the direct beam and specular peak.
 \Warn{Since $\chi_\text{m}=0$ in BornAgain,
   $\chi_\text{m}(\q)$ is not considered any further.}
 
@@ -171,20 +171,20 @@ We further introduce the \E{form factor}
 \index{Form factor}%
 of a particle,
 made of a material
-with average renormalized perturbation potential~$\tilde\chi$,
+with average normalized perturbation potential~$\tilde\chi(\v{T}_i)$,
 \begin{equation}\label{EFFdef}
-  F(\q,\v{T}_i) \coloneqq  \int\!\d^3r\,\e^{i\q\r}\chi(\r,\v{T}_i)/\tilde\chi,
+  F(\q,\v{T}_i) \coloneqq  \int\!\d^3r\,\e^{i\q\r}\chi(\r,\v{T}_i)/\tilde\chi(\v{T}_i),
 \end{equation}
 and obtain
 \begin{equation}
-  \chi_\text{p}(\q) = \sum_i \e^{i\q\R_i} \tilde\chi F(\q,\v{T}_i).
+  \chi_\text{p}(\q) = \sum_i \e^{i\q\R_i} \tilde\chi(\v{T}_i) F(\q,\v{T}_i).
 \end{equation}
 With (\ref{Exsection}) and (\ref{Edwba_ml}),
 the differential cross section due to scattering from embedded particles is
 given by double sums over layers, DWBA terms, and particles:
 \begin{equation}\label{Eass6}
   \frac{\partial\sigma}{\partial\Omega}
-  = \sum_{lm} \sum_{uv} C^{u*}_l C^v_m \sum_{ij} \tilde\chi^2
+  = \sum_{lm} \sum_{uv} C^{u*}_l C^v_m \sum_{ij} \tilde\chi^*(\v{T}_i) \tilde\chi(\v{T}_j)
     \e^{-i\q^u \R_i +i \q^v \R_j} F^*(\q^u,\v{T}_i) F(\q^v,\v{T}_j).
 \end{equation}
 Motivated by the $\q$ decomposition (\ref{Eqpp}),
@@ -197,7 +197,7 @@ We then collect several terms into the \E{DWBA form factor}\footnote
 which does not include a depth factor.}
 \begin{equation}
   \FD_l(\k_\ti,\k_\tf;\v{T}_i)
-  \coloneqq  \sum_u C^u_l\tilde\chi \e^{iq^u_\perp R_{i\perp}} F(\q^u,\v{T}_i).
+  \coloneqq  \sum_u C^u_l\tilde\chi(\v{T}_i) \e^{iq^u_\perp R_{i\perp}} F(\q^u,\v{T}_i).
 \end{equation}
 In the following, the dependence on the external parameters
 $\k_\ti$ and $\k_\tf$ shall be understood implicitly.
@@ -248,8 +248,8 @@ Instead, \BornAgain\ provides various physical models
 for the distribution of $\R_i$ and $\v{T}_i$.
 Except if uniform particles form a perfect two-dimensional crystal,
 some degrees of freedom will be more or less disordered.
-Therefore models need to be formulated in statistical language.
-That formalism is versatile enough to also cover any degree of order.
+Therefore the models need to be formulated in a statistical language.
+That formalism is then versatile enough to also cover any degree of order.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Decoupling approximations}\label{Spartidis}
@@ -262,7 +262,7 @@ we encode the particle coordinates in a distribution function
 \index{Statistics!particle distribution}%
 \begin{equation}\label{EPDdeltas}
   \PD_{l}(\r,\v\tau,\v\tau')
-  = \sum_{ij} \delta(\r-(\R_{i\plll}-\R_{j\plll}))
+  = \sum_{ij} \delta(\r-(\R_{j\plll}-\R_{i\plll}))
   \delta(\v\tau-\v{T}_i)\delta(\v\tau'-\v{T}_j).
 \end{equation}
 Since in the following we are concerned with only one layer,
@@ -279,31 +279,38 @@ The differential cross section~(\ref{Eass3}) becomes
 \end{equation}
 where the integration over $\r$ is restricted to the horizontal plane.
 
+The normalization of the distribution function $\PD$ is such that it's total
+integral equals the square of the number of particles that contribute to the scattering:
+\begin{equation}
+  \int\!\d^2r\, \int\! \d^{d_T}\tau\, \d^{d_T}\tau' \PD(\r,\v\tau,\v\tau')
+  = N_p^2,
+\end{equation}
+with $N_p$ the number of scattering centers.
+\nomenclature{$N_p$}{Number of scattering centers}
+ 
+
 In the following, we will present different physical models
 that provide computable approximations
 for the formally exact distribution~(\ref{EPDdeltas}).
-All these models are based on the following assumptions
+All these models are based on the following assumption
 about the particle \E{properties} like shape, size, and orientation
 (but \E{not} position) that are  encoded in the vector~$\v T_i$:
 \Note{\textbf{T-T decoupling approximation:}
 Properties of different particles are not correlated.}
 \index{T-T decoupling approximation}%
-\Note{\textbf{T-R decoupling approximation:}
-Particle properties do not depend on position.}
-\index{T-R decoupling approximation}%
 In consequence, the $\v T_i$
 are independent and identically distributed (\E{i.i.d.}) random variables.
 They all have the same distribution~$p(\v\tau)$.
 For $\r\ne0$, the distribution $\PD$ factorizes as
 \begin{equation}
-  \PD(\r,\v\tau,\v\tau')\eqqcolon\GD(\r|\v\tau,\v\tau')p(\v\tau)p(\v\tau'),
+  \PD(\r,\v\tau,\v\tau')\eqqcolon N_p \rho_S \GD(\r|\v\tau,\v\tau')p(\v\tau)p(\v\tau'),
 \end{equation}
-which defines the conditional position correlation function~$\GD$.
+which defines the conditional position correlation function~$\GD$ (defined to exclude self-correlation).
 The case $\r=0$ (equivalent with $i=j$) needs special consideration,
-which leads the decomposition
+which leads to the decomposition
 \Emph
 {\begin{equation}
-  \left.\frac{\partial\sigma}{\partial\Omega}\right|_l
+  \frac{1}{N_p}\left.\frac{\partial\sigma}{\partial\Omega}\right|_l
   = I_\text{d}+I_\text{c}.
 \end{equation}\vskip -5pt}
 We denote averages under~$p(\v\tau)$ as
@@ -315,15 +322,15 @@ so that the \E{diffuse} scattering intensity assumes the simple form
 \index{Scattering!diffuse}%
 \Emph
 {\begin{equation}
-  I_\text{d} = \bra\FD^2\ket-{\bra\FD\ket}^2.
+  I_\text{d} = \bra\left|\FD\right|^2\ket-\left|\bra\FD\ket\right|^2.
 \end{equation}\vskip -5pt}
 The \E{coherent} scattering intensity is given by
 \Emph
-{\begin{equation}
+{\begin{equation}\label{EICoherent}
   I_\text{c} =
   \int\!\d^2r\,   \e^{i\q_{\plll}\r}\!
   \int\! \d^{d_T}\tau\, \d^{d_T}\tau'
-    \GD(\r|\v\tau,\v\tau')p(\v\tau)\FD(\tau)
+  \left[\delta(\r)+\rho_S \GD(\r|\v\tau,\v\tau')\right]p(\v\tau)p(\v\tau')
     \FD^*(\v\tau) \FD(\v\tau').
 \end{equation}\vskip -5pt}
 
@@ -339,9 +346,9 @@ To distinguish $\GD(\r)$ from the standard \E{pair correlation function}
 at atomic level, we will call it the
 \E{particle position correlation function}.
 \index{Particle position correlation function}%
-Its Fourier transform
+The Fourier transform
 \begin{equation}
-  \SD(\q)\coloneqq   \int\!\d^2r\,   \e^{i\q_{\plll}\r}\!   \GD(\r)
+  \SD(\q)\coloneqq 1 + \rho_S \int\!\d^2r\,   \e^{i\q_{\plll}\r}\!   \GD(\r)
 \end{equation}
 shall be called the \E{interference function}.
 \index{Interference function}%.
@@ -351,10 +358,9 @@ the atomic \E{static structure factor}
 (in crystallography also called \E{lattice factor}).
 \index{Lattice factor}%
 The coherent scattering intensity then takes the simple form
-and therefore
 \Emph
 {\begin{equation}
-  I_\text{c} = \SD(\q) {\bra\FD\ket}^2.
+  I_\text{c} = \SD(\q) \left|\bra\FD\ket\right|^2.
 \end{equation}\vskip -5pt}
 
 Altogether, the approximations introduced so far
@@ -364,7 +370,7 @@ make up the \E{decoupling approximation}
 \index{IsGISAXS@\IsGISAXS!decoupling approximation}
 of \IsGISAXS.\footnote
 {In the \IsGISAXS\ manual \cite[Sec.~2.2]{Laz08},
-the \E{decoupling approximation} (DA),
+the \E{decoupling approximation} (DA)
 \index{Decoupling approximation}%
 \index{DA|see {Decoupling approximation}}%
 is opposed to the
@@ -390,7 +396,7 @@ it is only available for paracrystals
 (to be documented later).
 % and will therefore be discussed later (Sec.~\ref{}).
 }
-\fi
+%\fi
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Form factors}
@@ -520,6 +526,262 @@ as for other numeric parameters.
 
 
 \index{Form factor|)}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Interference functions}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+The starting point for describing the interference of the scattering from different
+particles is the coherent scattering intensity of~(\ref{EICoherent}).
+
+The conditional interference function is defined as
+\begin{equation}
+  \SD(\q |\v\tau,\v\tau') \coloneqq 1 + \rho_S \int\! d^2r\, e^{i\q_\plll\r}\! \GD(\r|\v\tau,\v\tau').
+\end{equation}
+With the chosen normalization, $\rho_S \GD(\r|\v\tau,\v\tau') d^2r$ gives the probability of
+finding a particle of type $\v\tau'$ in the infinitesimal area $d^2r$ at the relative position $\r$ from
+a given (different) particle of type $\v\tau$.
+
+In the following subsections, the supported interference functions in \BornAgain\ will be discussed.
+With one exception, they all assume the R-T decoupling approximation, making the interference function
+independent of the particle types ($\v\tau$ and $\v\tau'$).
+
+%===============================================================================
+\subsection{One-dimensional lattice} \label{sec:sect:1dlattice}
+%===============================================================================
+For a perfect one-dimensional lattice along the x-axis with period $a$, the position
+correlation function is given by:
+\begin{equation}
+  \rho_S\GD(\r) = \sum_{n\neq 0} \delta(x-na)\delta(y).
+\end{equation}
+The corresponding interference function then becomes
+\begin{equation}
+  \SD(\q) = \frac{2\pi}{a}\sum_k \delta(q_x - \frac{2\pi k}{a}),
+\end{equation}
+where $2\pi /a$ is a basis vector for the reciprocal lattice.
+
+For computational reasons in \BornAgain, the delta functions appearing in the interference function
+are replaced by distributions of a finite width $H(q_x-2\pi k/a)$. This ammounts to convoluting the
+previously given interference function with $H(q_x)$ or, equivalently, multiplying
+the position correlation function by the inverse Fourier image of $H(q_x)$, called the
+\index{Decay function}
+\E{decay function} $h(x)$.
+
+The interference function can then be written as:
+\begin{equation}
+  \SD(q_x) = \frac{1}{a}\sum_k H(q_x - \frac{2\pi k}{a}).
+\end{equation}
+
+\BornAgain\ currently supports the following types of one-dimensional decay functions
+(parameterized by a decay length $\lambda$):
+\begin{equation}
+  \begin{array}{|l|c|c|}
+    \hline
+    \text{Name} & h(x) & H(q_x) \\
+    \hline
+    \text{Cauchy} & e^{-|x|/\lambda} & \frac{2\lambda}{1+q_x^2\lambda^2} \\
+    \hline
+    \text{Gauss} & e^{-x^2/2\lambda^2} & \sqrt{2\pi}\lambda e^{-q_x^2\lambda^2/2} \\
+    \hline
+    \text{Triangle} & 1-|x|/\lambda \quad \text{for} \quad |x|<\lambda & \lambda \sinc^2(q_x\lambda/2) \\
+    \hline
+  \end{array}
+\end{equation}
+
+In addition, a pseudo-Voigt decay function is available, which is a convex combination of the Cauchy and Gauss decay functions.
+\Emph{
+The decay functions are all normalized such that $\int\!dq_x H(q_x)=2\pi$, which is equivalent to $h(0)=1$.
+}
+\Emph{
+If the one-dimensional lattice is rotated with respect to the x-axis by an angle $\xi$, the corresponding interference function is calculated
+by using the correct projection of the in-plane reciprocal vector instead of $q_x$:
+\begin{equation}
+  q_\xi = q_x \cos\xi + q_y \sin\xi.
+\end{equation}
+}
+
+%===============================================================================
+\subsection{Two-dimensional lattice} \label{sec:sect:2dlattice}
+%===============================================================================
+For a perfect two-dimensional lattice with lattice basis $(\v a,\v b)$, the position
+correlation function is given by:
+\begin{equation}
+  \rho_S\GD(\r) = \sum_{m,n} \delta(\r-m\v a - n\v b) - \delta(\r).
+\end{equation}
+The corresponding interference function then becomes
+\begin{equation}
+  \SD(\q) = 4\pi^2 \rho_S \sum_{\q_i\in\Lambda^*} \delta(\q - \q_i),
+\end{equation}
+where $\Lambda^*$ denotes the reciprocal lattice of $(\v a,\v b)$.
+
+In \BornAgain, the two-dimensional delta functions need to be replaced again with
+distributions of finite width $H(\q - \q_i)$. Currently, \BornAgain\ only allows for two-dimensional
+decay functions that are defined in the radial variable
+\begin{equation}
+  \phi \coloneqq \sqrt{X^2/\lambda_X^2 + Y^2/\lambda_Y^2},
+\end{equation}
+where $(X,Y)$ are the coordinates in an orthonormal coordinate system, where the $X$-axis is rotated
+by an angle $\gamma$ with respect to the first lattice vector $\v a$.
+This ammounts to convoluting the
+previously given interference function with $H(\q)$ or, equivalently, multiplying
+the position correlation function by the inverse Fourier image of $H(\q)$, called the
+\index{Decay function}
+\E{decay function} $h(\phi)$.
+
+The interference function can then be written as:
+\begin{equation}
+  \SD(\q) = \rho_S \sum_{\q_i\in\Lambda^*} H(\q - \q_i).
+\end{equation}
+
+\BornAgain\ currently supports the following types of two-dimensional decay functions
+(parameterized by two decay lengths $\lambda_X, \lambda_Y$):
+\begin{equation}
+  \begin{array}{|l|c|c|}
+    \hline
+    \text{Name} & h(\phi) & H(Q) \\
+    \hline
+    \text{Cauchy} & e^{-\phi} & \frac{2\pi\lambda_X\lambda_Y}{(1+Q^2)^{3/2}} \\
+    \hline
+    \text{Gauss} & e^{-\phi^2/2} & 2\pi\lambda_X\lambda_Y e^{-Q^2/2} \\
+    \hline
+  \end{array}
+\end{equation}
+with $Q \coloneqq \sqrt{q_X^2\lambda_X^2 + q_Y^2\lambda_Y^2}$.
+
+In addition, a pseudo-Voigt decay function is available, which is a convex combination of the Cauchy and Gauss decay functions.
+\Emph{
+The decay functions are all normalized such that $\int\!d\q_\plll H(\q)= 4\pi^2$, which is equivalent to $h(0)=1$.
+}
+
+%===============================================================================
+\subsection{The one-dimensional paracrystal} \label{sec:sect:1dparacrystal}
+%===============================================================================
+A paracrystal, originally developed by Hosemann\cite{Hos51}, models the cumulative disorder of
+the interparticle distances. Although the paracrystal in one dimension is not directly implemented in \BornAgain, it forms the
+basis for the paracrystal models in \BornAgain\ and will thus be discussed first.
+
+In one dimension, the paracrystal is parameterized by the
+position distribution of the nearest neighbour $p(x)$, centered at a peak distance $D$. The probablility
+distribution of the position of the nearest neighbour to the right of the particle at the origin then becomes
+\begin{equation}
+  p_1(x) = p(x-D).
+\end{equation}
+The position distribution function for the next to nearest neighbour is then the convolution of this distribution with itself
+(probability of finding the nearest neighbour at $x'$ times the probability of finding the next particle at distance $x-x'$ from the first and
+then integrate over $x'$):
+\begin{equation}
+  p_2(x) = p(x-D) \otimes p(x-D).
+\end{equation}
+The probability distribution of finding a particle to the right of the particle at the origin then becomes:
+\begin{equation}
+  \rho_S \GD^+(x) = \sum_{n>0} \otimes^n p(x-D).
+\end{equation}
+The probability at the left side is just the mirror image: $\GD^-(x) = \GD^+(-x)$.
+After taking the Fourier transform, the interference function is
+\begin{equation}
+  \SD(q_x) = 1 + 2\Re\left(\frac{P(q_x)}{1-P(q_x)}\right) = \Re\left(\frac{1+P(q_x)}{1-P(q_x)}\right),
+\end{equation}
+where $P(q_x)$ is the Fourier transform of $p(x-D)$.
+
+Since the Fourier transformed distribution $P(q_x)$ will always be $1$ at $q_x=0$, there is a singularity at the origin of $\SD(q_x)$.
+This singularity is caused by the forward scattering contribution of an infinitely long lattice and can be removed in two ways in \BornAgain.
+The simplest way is to multiply $P(q_x)$ by a fixed factor that is very close, but not equal to, one:
+\begin{equation}
+  P'(q_x) \coloneqq P(q_x) e^{-D/\Lambda},
+\end{equation}
+where $\Lambda$ has dimension of length and is called the damping length.
+
+A second possibility for removing the singularity at $q_x=0$ consists of considering only a finite portion of the one-dimensional
+paracrystal. Caution has to be taken here, since the probability distributions at either side of the particle will depend on which particle
+of the finite lattice is considered. The calculations can still be carried out exactly and lead to the following expression for the
+interference function:
+\begin{equation}
+   \SD(q_x) = 1 + 2\Re\left( \frac{P(q_x)}{1-P(q_x)} - \frac{P(q_x)\left[1-P^{N_p}(q_x)\right]}{N_p\left( 1 - P(q_x) \right)^2} \right),
+\end{equation}
+with $N_p$ the number of particles making up the finite lattice.
+
+\Emph{
+Before embarking on the paracrystal models, implemented in \BornAgain, it has to be stressed that there is no such thing as a
+paracrystal in more than one dimension. The following models are consequently only to be seen as ad hoc approximations of lattices with
+cumulative disorder.
+}
+
+%===============================================================================
+\subsection{The radial paracrystal} \label{sec:sect:radialparacrystal}
+%===============================================================================
+In the radial paracrystal model, the interference function of the one-dimensional paracrystal is used directly, but applied to
+the radial component of $\q_\plll$. The resulting interference function, which is radially symmetric, is then given by
+\begin{equation}
+  \SD(\q_\plll) =  \Re\left(\frac{1+P(q_\plll)}{1-P(q_\plll)}\right),
+\end{equation}
+or one of the versions with the singularity removed.
+
+In \BornAgain, the following one-dimensional distribution functions for $p(x)$ are implemented:
+\begin{equation}
+  \begin{array}{|l|c|c|}
+    \hline
+    \text{Name} & p(x) & P(q_x) \\
+    \hline
+    \text{Cauchy} & \frac{1}{2\omega} \exp(-|x|/2\omega) & \frac{1}{1+q_x^2\omega^2} \\
+    \hline
+    \text{Gauss} & \frac{1}{\omega\sqrt{2\pi}} \exp(-x^2/2\omega^2) & \exp(-q_x^2\omega^2/2) \\
+    \hline
+    \text{Gate} & \frac{1}{2\omega}  \quad \text{for} \quad |x|<\omega & \sinc(q_x\omega) \\
+    \hline
+    \text{Triangle} & \frac{1}{\omega}\left(1 - |x|/\omega\right)  \quad \text{for} \quad |x|<\omega & \sinc^2(q_x \omega/2) \\
+    \hline
+    \text{Cosine} &  \frac{1}{2\omega}\left(1 + \cos(\pi x/\omega) \right)  \quad \text{for} \quad |x|<\omega & \frac{\sinc(q_x \omega)}{1-(q_x\omega/\pi)^2} \\
+    \hline
+  \end{array}
+\end{equation}
+In addition, a pseudo-Voigt distribution function is available, which is a convex combination of the Cauchy and Gauss distribution functions.
+
+For the radial paracrystal, there is also an extension available in \BornAgain\ that takes into account a coupling between the size of the particles and
+the inter-particle distance. This approximation is discussed in more detail in \ref{sec:sect:sscaparacrystal}.
+
+%===============================================================================
+\subsection{The two-dimensional paracrystal} \label{sec:sect:2dparacrystal}
+%===============================================================================
+The two-dimensional paracrystal model in \BornAgain\ is implemented as a simple convolution of the two one-dimensional paracrystals along the
+lattice basis vectors. The calculation of the interference function results in a simple product of two one-dimensional interference functions:
+\begin{equation}
+  \SD(\q) =  \Re\left(\frac{1+P_1(\q)}{1-P_1(\q)}\right) \Re\left(\frac{1+P_2(\q)}{1-P_2(\q)}\right),
+\end{equation}
+where $P_1(\q)$ and $P_2(\q)$ denote the Fourier transforms of the two independent particle distributions (which are now both two-dimensional
+distribution functions).
+
+Again, \BornAgain\ provides for removing the singularity by either using a damping length or by indicating finite domain sizes.
+
+The two-dimensional distributions supported in \BornAgain\ are parameterized by
+\begin{equation}
+  \phi \coloneqq \sqrt{X^2/\omega_X^2 + Y^2/\omega_Y^2},
+\end{equation}
+where $(X,Y)$ are the coordinates in an orthonormal coordinate system, where the $X$-axis is rotated
+by an angle $\gamma$ with respect to the first lattice vector $\v a$.
+
+The following distributions are currently supported:
+\begin{equation}
+  \begin{array}{|l|c|c|}
+    \hline
+    \text{Name} & p(\phi) & P(Q) \\
+    \hline
+    \text{Cauchy} & \frac{1}{2\pi\omega_X\omega_Y} \exp(-\phi) & \frac{1}{(1+Q^2)^{3/2}} \\
+    \hline
+    \text{Gauss} & \frac{1}{2\pi\omega_X\omega_Y} \exp(-\phi^2/2)  & \exp(-Q^2/2) \\
+    \hline
+    \text{Gate} & \frac{1}{\pi\omega_X\omega_Y}  \quad \text{for} \quad \phi < 1 & \frac{2J_1(Q)}{Q} \\
+    \hline
+    \text{Cone} & \frac{3}{\pi\omega_X\omega_Y}\left(1 - \phi \right)  \quad \text{for} \quad \phi < 1 & 6\left[ \frac{J_1(Q)}{Q} - \frac{1}{Q^3}\int_0^Q\!du u^2 J_0(u) \right] \\
+    \hline
+  \end{array}
+\end{equation}
+with $Q \coloneqq \sqrt{q_X^2\omega_X^2 + q_Y^2\omega_Y^2}$.
+
+Again, a convex combination of the Cauchy and Gauss distributions in two dimensions is available (pseudo-Voigt).
+
+%===============================================================================
+\subsection{The radial paracrystal with size-position coupling} \label{sec:sect:sscaparacrystal}
+%===============================================================================
 
 \iffalse
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -763,7 +1025,7 @@ This expression has a well-defined limit for $\Omega_\kappa(\q ) \rightarrow 1$ 
 \section{Vertical location of particles}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
- \ImportantPoint{Remark:}{The particles cannot sit in between layers. At most they can be sitting on any inner interfaces.}
+ \Note{The particles cannot sit in between layers. At most they can be sitting on any inner interfaces.}
 
 %===============================================================================
 \subsection{Particles deposited on a substrate}
@@ -776,7 +1038,7 @@ F_{\rm{DWBA}}(q_{\plll}, k_{i,z}, k_{f,z}) &= F_{\rm{BA}}(q_{\plll}, k_{i,z}-k_{
 \end{align}
 where $q_{\plll}$ is the component of the scattering beam in the plane of the interface ($\q=\k_i-\k_\text{f}$), $k_{i,z}$ and $k_{f,z}$ are the z-component of the incident and scattered beam, respectively. $R_i$, $R_f$ are the reflection coefficients in incidence and reflection. They are defined as\\ $R=\dfrac{k_z+\sqrt{n_s^2k_0^2-|k_{\plll}|^2}}{k_z-\sqrt{n_s^2 k_0^2-|k_{\plll}|^2}}$, where $n_s=1-\delta_s +i \beta_s$ is the refractive index of the substrate, $k_0$ is the wavelength in vacuum ($2\pi /\lambda$), $k_z$ and $k_{\plll}$ are the $z$-component and the in-plane component of $\k_\text{i}$ or $\k_\text{f}$. \\
 
-\ImportantPoint{Remark:}{If the particles are sitting on a multilayered system, the expression of the form factor in the DWBA is obtained by replacing the Fresnel coefficient by the corresponding coefficients of the underlying layers \cite{Par54,BoWo99}.}
+\Note{If the particles are sitting on a multilayered system, the expression of the form factor in the DWBA is obtained by replacing the Fresnel coefficient by the corresponding coefficients of the underlying layers \cite{Par54,BoWo99}.}
 
 \vspace{18pt}
 
@@ -849,7 +1111,7 @@ def get_sample():
 
 \FloatBarrier
 
-\ImportantPoint{Remark:}{In \BornAgain, the DWBA is implemented automatically when assembling the sample with more layers than only the air layer (for example, for particles are sitting on a substrate).}
+\Note{In \BornAgain, the DWBA is implemented automatically when assembling the sample with more layers than only the air layer (for example, for particles are sitting on a substrate).}
 
 %===============================================================================
 \subsection{Buried particles}
@@ -930,7 +1192,7 @@ def get_sample():
 
 \newpage
 
-\ImportantPoint{Remark:}{For layers different from the air layer, the top interface is considered as the reference level to position the encapsulated particles. For example, spheres positioned at depth $d$ (positive) are located at a distance $d$ from the top of the layer up to the bottom of these particles. This convention is different for the top air layer, where particles sitting at the interface with an underlying layer (\idest the bottom of the air layer) are located at depth 0 (see fig.~\ref{fig:depthpartBA}).}
+\Note{For layers different from the air layer, the top interface is considered as the reference level to position the encapsulated particles. For example, spheres positioned at depth $d$ (positive) are located at a distance $d$ from the top of the layer up to the bottom of these particles. This convention is different for the top air layer, where particles sitting at the interface with an underlying layer (\idest the bottom of the air layer) are located at depth 0 (see fig.~\ref{fig:depthpartBA}).}
 
 
 \begin{figure}[tb]
@@ -950,7 +1212,7 @@ For an implementation of all the components of a simulation,
 the use is referred, for example, to Sec.~\ref{sec:Example1Python}.\\
 
 
-\ImportantPoint{Remark:}{In \BornAgain\ the particles are positioned in the same vertical layer.}
+\Note{In \BornAgain\ the particles are positioned in the same vertical layer.}
 
 \subsection{Size-distribution models}
 \index{Size-distribution models}
@@ -1038,7 +1300,7 @@ The interference function is specified when building the sample. It is linked wi
 \item \Code{InterferenceFunction2DParaCrystal(length\_1, length\_2, $\alpha$\_lattice, $\xi$, \\ damping\_length)}
 \end{itemize}
 
-\ImportantPoint{Remark:}{\Code{InterferenceFunction1DLattice} can only be used for particles which are infinitely long in one direction of the sample's surface like for example a rectangular grating.}
+\Note{\Code{InterferenceFunction1DLattice} can only be used for particles which are infinitely long in one direction of the sample's surface like for example a rectangular grating.}
 
 \newpage
 %-------------------------------------------------------------------------------
@@ -1102,7 +1364,7 @@ where lattice\_length is the lattice constant and $\xi$ the angle in radian betw
 \label{fig:1dgrating}
 \end{figure}
 
-\ImportantPoint{Remark:}{By default the long axis of the particles in this 1D lattice is along the beam axis. That is the reason why in the example below the particles are rotated by  $90^{\circ}$ in the $(x,y)$ plane: the main axis of the lattice is therefore parallel to the y-axis, perpendicular to the long axis of the particles.}
+\Note{By default the long axis of the particles in this 1D lattice is along the beam axis. That is the reason why in the example below the particles are rotated by  $90^{\circ}$ in the $(x,y)$ plane: the main axis of the lattice is therefore parallel to the y-axis, perpendicular to the long axis of the particles.}
 
 \vspace{12pt}
 A probability distribution function \Code{pdf} has to be chosen from the list in section~\ref{baftd} in order to apply some modifications to the scattering peaks. This function is implemented using \Code{setProbabilityDistribution(pdf)}.
@@ -1158,7 +1420,7 @@ def get_sample():
 A probability distribution function \Code{pdf} has to be chosen from the list in section~\ref{baftd} in order to apply some modifications to the scattering peaks. This function is implemented using \Code{setProbabilityDistribution(pdf)}.
 
 
-\MakeRemark{Remark}{
+\Note{
 This interference function is not one-dimensional.  It takes into account the radial component of the scattering vector.
 }
 

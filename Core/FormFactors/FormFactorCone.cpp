@@ -19,30 +19,16 @@
 #include "MathFunctions.h"
 #include "IntegratorComplex.h"
 
-#include <cmath>
-
-using namespace  BornAgain;
-
 FormFactorCone::FormFactorCone(double radius, double height, double alpha)
 {
-    setName(FFConeType);
+    setName(BornAgain::FFConeType);
     m_radius = radius;
     m_height = height;
     m_alpha = alpha;
-    check_initialization();
-    init_parameters();
-
-    mP_integrator = make_integrator_complex(this, &FormFactorCone::Integrand);
-}
-
-FormFactorCone::~FormFactorCone()
-{
-}
-
-bool FormFactorCone::check_initialization() const
-{
-    bool result(true);
-    if(m_height > m_radius*std::tan(m_alpha)) {
+    m_cot_alpha = MathFunctions::cot(m_alpha);
+    if( !std::isfinite(m_cot_alpha) || m_cot_alpha<0 )
+        throw Exceptions::OutOfBoundsException("pyramid angle alpha out of bounds");
+    if(m_cot_alpha*m_height > m_radius) {
         std::ostringstream ostr;
         ostr << "FormFactorCone() -> Error in class initialization ";
         ostr << "with parameters radius:" << m_radius;
@@ -51,16 +37,15 @@ bool FormFactorCone::check_initialization() const
         ostr << "Check for 'height <= radius*tan(alpha)' failed.";
         throw Exceptions::ClassInitializationException(ostr.str());
     }
-    return result;
+    clearParameterPool();
+    registerParameter(BornAgain::Radius, &m_radius, AttLimits::n_positive());
+    registerParameter(BornAgain::Height, &m_height, AttLimits::n_positive());
+    registerParameter(BornAgain::Alpha, & m_alpha, AttLimits::n_positive());
+
+    mP_integrator = make_integrator_complex(this, &FormFactorCone::Integrand);
 }
 
-void FormFactorCone::init_parameters()
-{
-    clearParameterPool();
-    registerParameter(Radius, &m_radius, AttLimits::n_positive());
-    registerParameter(Height, &m_height, AttLimits::n_positive());
-    registerParameter(Alpha, & m_alpha, AttLimits::n_positive());
-}
+FormFactorCone::~FormFactorCone() {}
 
 FormFactorCone* FormFactorCone::clone() const
 {
@@ -70,11 +55,9 @@ FormFactorCone* FormFactorCone::clone() const
 //! Integrand for complex formfactor.
 complex_t FormFactorCone::Integrand(double Z) const
 {
-    double Rz = m_radius -Z/std::tan(m_alpha);
+    double Rz = m_radius - Z*m_cot_alpha;
     complex_t q_p = std::sqrt(m_q.x()*m_q.x()+m_q.y()*m_q.y()); // sqrt(x*x + y*y)
-
-    return Rz*Rz*MathFunctions::Bessel_J1c(q_p*Rz) *
-            std::exp(complex_t(0.0, 1.0)*m_q.z()*Z);
+    return Rz*Rz*MathFunctions::Bessel_J1c(q_p*Rz) * std::exp(complex_t(0.0, 1.0)*m_q.z()*Z);
 }
 
 complex_t FormFactorCone::evaluate_for_q(const cvector_t q) const
@@ -84,7 +67,7 @@ complex_t FormFactorCone::evaluate_for_q(const cvector_t q) const
         double R = m_radius;
         double H = m_height;
         double tga = std::tan(m_alpha);
-        double HdivRtga = H/tga/R;
+        double HdivRtga = H/tga/R; // TODO preclude division by zero WAITING fuller refactoring
 
         return  Units::PI/3.0*tga*R*R*R*
                 (1.0 - (1.0 - HdivRtga)*(1.0 - HdivRtga)*(1.0 - HdivRtga));

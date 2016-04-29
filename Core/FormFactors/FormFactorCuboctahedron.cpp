@@ -55,7 +55,10 @@ FormFactorCuboctahedron::FormFactorCuboctahedron(
 
 void FormFactorCuboctahedron::onChange()
 {
-    if(2.*m_height > m_length*std::tan(m_alpha)*std::min(1.,1.0/m_height_ratio)) {
+    double cot_alpha = MathFunctions::cot(m_alpha);
+    if( !std::isfinite(cot_alpha) || cot_alpha<0 )
+        throw Exceptions::OutOfBoundsException("pyramid angle alpha out of bounds");
+    if(cot_alpha*2.*m_height > m_length*std::min(1.,1.0/m_height_ratio)) {
         std::ostringstream ostr;
         ostr << "FormFactorCuboctahedron() -> Error in class initialization with parameters";
         ostr << " height:" << m_height;
@@ -65,9 +68,9 @@ void FormFactorCuboctahedron::onChange()
         ostr << "Check for '2.*height <= length*tan(alpha)*min(1.,1.0/height_ratio)' failed.";
         throw Exceptions::ClassInitializationException(ostr.str());
     }
-    double a = m_length/2 - m_height/std::tan(m_alpha);
+    double a = m_length/2 - m_height*cot_alpha;
     double b = m_length/2;
-    double c = m_length/2 - m_height*m_height_ratio/std::tan(m_alpha);
+    double c = m_length/2 - m_height*m_height_ratio*cot_alpha;
 
     setVertices( {
         // base:

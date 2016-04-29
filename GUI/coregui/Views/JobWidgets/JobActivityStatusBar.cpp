@@ -34,7 +34,7 @@ JobActivityStatusBar::JobActivityStatusBar(QWidget *parent)
 
     m_toggleJobListButton = new QToolButton;
     m_toggleJobListButton->setText("Job List");
-    m_toggleJobListButton->setIcon(QIcon(":/images/toolbar_projections.png"));
+    m_toggleJobListButton->setIcon(QIcon(":/images/statusbar_joblist.svg"));
     m_toggleJobListButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     m_toggleJobListButton->setToolTip("Toggle job list view");
     connect(m_toggleJobListButton, SIGNAL(clicked()), this, SIGNAL(toggleJobListRequest()));
@@ -46,9 +46,8 @@ JobActivityStatusBar::JobActivityStatusBar(QWidget *parent)
             this, SIGNAL(changeActivityRequest(int)));
 
     m_dockMenuButton = new QToolButton;
-    m_dockMenuButton->setIcon(QIcon(":/images/toolbar_projections.png"));
-    m_dockMenuButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
-    m_dockMenuButton->setToolTip("Toggle job list view");
+    m_dockMenuButton->setIcon(QIcon(":/images/statusbar_dockmenu.svg"));
+    m_dockMenuButton->setToolTip("Docks layout menu");
     connect(m_dockMenuButton, SIGNAL(clicked()), this, SIGNAL(dockMenuRequest()));
 
     layout->addWidget(m_toggleJobListButton);

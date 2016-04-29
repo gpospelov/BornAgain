@@ -37,5 +37,7 @@
         <file>images/toolbar32dark_cloneitem.svg</file>
         <file>images/toolbar32dark_newitem.svg</file>
         <file>images/toolbar32dark_remove.svg</file>
+        <file>images/statusbar_dockmenu.svg</file>
+        <file>images/statusbar_joblist.svg</file>
     </qresource>
 </RCC>

@@ -19,12 +19,41 @@
 
 #include "WinDllMacros.h"
 #include <QWidget>
+#include <QMap>
+
+class QPushButton;
+class QSlider;
+class JobModel;
+class JobItem;
+class QStackedWidget;
+class FitSuiteWidget;
+
+//! Main widget to run fitting. Occupies bottom right corner of JobView.
+//! Contains stack of FitSuiteWidgets for JobItem's suitable for fitting.
 
 class BA_CORE_API_ FitActivityPanel : public QWidget
 {
     Q_OBJECT
 public:
-    FitActivityPanel(QWidget *parent = 0);
+    FitActivityPanel(JobModel *jobModel, QWidget *parent = 0);
+
+public slots:
+    void setItem(JobItem *item);
+    void onJobItemDelete(JobItem *item);
+    void onJobItemFinished(const QString &identifier);
+
+private:
+    void setJobModel(JobModel *jobModel);
+    QWidget *createRunControlWidget();
+    bool isValidJobItem(JobItem *item);
+
+    QPushButton *m_startButton;
+    QPushButton *m_stopButton;
+    QSlider *m_intervalSlider;
+    JobModel *m_jobModel;
+    JobItem *m_currentItem;
+    QStackedWidget *m_stack;
+    QMap<JobItem *, FitSuiteWidget *> m_jobItemToFitWidget;
 };
 
 #endif

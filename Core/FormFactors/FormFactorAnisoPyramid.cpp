@@ -15,6 +15,7 @@
 
 #include "FormFactorAnisoPyramid.h"
 #include "BornAgainNamespace.h"
+#include "MathFunctions.h"
 
 const FormFactorPolyhedron::Topology FormFactorAnisoPyramid::topology = {
     { { 3, 2, 1, 0 }, false },
@@ -48,7 +49,10 @@ FormFactorAnisoPyramid::FormFactorAnisoPyramid(
 
 void FormFactorAnisoPyramid::onChange()
 {
-    if(m_height > m_length*std::tan(m_alpha) || m_height > m_width*std::tan(m_alpha)) {
+    double cot_alpha = MathFunctions::cot(m_alpha);
+    if( !std::isfinite(cot_alpha) || cot_alpha<0 )
+        throw Exceptions::OutOfBoundsException("pyramid angle alpha out of bounds");
+    if(cot_alpha*m_height > m_length || cot_alpha*m_height > m_width) {
         std::ostringstream ostr;
         ostr << "FormFactorAnisoPyramid() -> Error in class initialization with parameters";
         ostr << " length:" << m_length;
@@ -60,9 +64,9 @@ void FormFactorAnisoPyramid::onChange()
     }
 
     double D = m_length/2;
-    double d = m_length/2 - m_height/std::tan(m_alpha);
+    double d = m_length/2 - m_height*cot_alpha;
     double W = m_width/2;
-    double w = m_width/2 - m_height/std::tan(m_alpha);
+    double w = m_width/2 - m_height*cot_alpha;
 
     setVertices( {
         // base:

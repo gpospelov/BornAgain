@@ -3625,6 +3625,10 @@ def IntegratedGaussian(x, average, std_dev):
     """IntegratedGaussian(double x, double average, double std_dev) -> double"""
     return _libBornAgainFit.IntegratedGaussian(x, average, std_dev)
 
+def cot(x):
+    """cot(double x) -> double"""
+    return _libBornAgainFit.cot(x)
+
 def Si(x):
     """Si(double x) -> double"""
     return _libBornAgainFit.Si(x)

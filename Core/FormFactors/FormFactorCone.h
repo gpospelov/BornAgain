@@ -16,7 +16,7 @@
 #ifndef FORMFACTORCONE_H
 #define FORMFACTORCONE_H
 
-#include "IFormFactorBorn.h"
+#include "FormFactorPolyhedron.h"
 
 #include <memory>
 
@@ -48,16 +48,13 @@ public:
 
     virtual complex_t evaluate_for_q (const cvector_t q) const;
 
-protected:
-    virtual bool check_initialization() const;
-    virtual void init_parameters();
-
 private:
     complex_t Integrand(double Z) const;
 
     double m_radius;
     double m_height;
     double m_alpha;
+    double m_cot_alpha;
     mutable cvector_t m_q;
 
 #ifndef SWIG
@@ -86,5 +83,3 @@ inline double FormFactorCone::getAlpha() const
 }
 
 #endif // FORMFACTORCONE_H
-
-

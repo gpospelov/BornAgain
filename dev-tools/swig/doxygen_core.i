@@ -1910,7 +1910,7 @@ angle:
 in radians between base and facet 
 ";
 
-%feature("docstring")  FormFactorCone::~FormFactorCone "FormFactorCone::~FormFactorCone()
+%feature("docstring")  FormFactorCone::~FormFactorCone "virtual FormFactorCone::~FormFactorCone()
 ";
 
 %feature("docstring")  FormFactorCone::clone "FormFactorCone * FormFactorCone::clone() const
@@ -13608,6 +13608,11 @@ Forked from same source as for Bessel_J0_PowSer
 ";
 
 %feature("docstring")  MathFunctions::IntegratedGaussian "double MathFunctions::IntegratedGaussian(double x, double average, double std_dev)
+";
+
+%feature("docstring")  MathFunctions::cot "double MathFunctions::cot(double x)
+
+cotangent function:  $cot(x)\\\\equiv\\\\1/tan(x)$
 ";
 
 %feature("docstring")  MathFunctions::Si "double MathFunctions::Si(double x)

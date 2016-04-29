@@ -15,8 +15,7 @@
 
 #include "FormFactorCone6.h"
 #include "BornAgainNamespace.h"
-
-#include <cmath>
+#include "MathFunctions.h"
 
 const FormFactorPolyhedron::Topology FormFactorCone6::topology = {
     { {  5,  4,  3,  2,  1,  0 }, true },
@@ -45,7 +44,10 @@ FormFactorCone6::FormFactorCone6(double base_edge, double height, double alpha)
 
 void FormFactorCone6::onChange()
 {
-    if(m_height > m_base_edge*std::tan(m_alpha)) {
+    double cot_alpha = MathFunctions::cot(m_alpha);
+    if( !std::isfinite(cot_alpha) || cot_alpha<0 )
+        throw Exceptions::OutOfBoundsException("pyramid angle alpha out of bounds");
+    if(cot_alpha*m_height > m_base_edge) {
         std::ostringstream ostr;
         ostr << "FormFactorCone6() -> Error in class initialization with parameters";
         ostr << " base_edge:" << m_base_edge;
@@ -58,7 +60,7 @@ void FormFactorCone6::onChange()
     double a = m_base_edge;
     double as = a/2;
     double ac = a*sqrt(3)/2;
-    double b = m_base_edge - 2*m_height/sqrt(3)/std::tan(m_alpha);
+    double b = m_base_edge - 2*m_height/sqrt(3)*cot_alpha;
     double bs = b/2;
     double bc = b*sqrt(3)/2;
 

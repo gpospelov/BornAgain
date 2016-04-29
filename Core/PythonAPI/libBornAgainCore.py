@@ -18392,6 +18392,17 @@ def IntegratedGaussian(x, average, std_dev):
     """
     return _libBornAgainCore.IntegratedGaussian(x, average, std_dev)
 
+def cot(x):
+    """
+    cot(double x) -> double
+
+    double MathFunctions::cot(double x)
+
+    cotangent function:  $cot(x)\\equiv\\1/tan(x)$
+
+    """
+    return _libBornAgainCore.cot(x)
+
 def Si(x):
     """
     Si(double x) -> double

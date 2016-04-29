@@ -50,6 +50,11 @@ double MathFunctions::IntegratedGaussian(double x, double average, double std_de
     return (gsl_sf_erf(normalized_x / root2) + 1.0) / 2.0;
 }
 
+double MathFunctions::cot(double x)
+{
+    return tan(Units::PID2-x);
+}
+
 double MathFunctions::Si(double x)  // int_0^x du Sin(u)/u
 {
     return gsl_sf_Si(x);

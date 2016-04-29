@@ -37,6 +37,9 @@ namespace MathFunctions
     BA_CORE_API_ double Gaussian(double x, double average, double std_dev);
     BA_CORE_API_ double IntegratedGaussian(double x, double average, double std_dev);
 
+//! cotangent function: \f$cot(x)\equiv\1/tan(x)\f$
+    BA_CORE_API_ double cot(double x);
+
 //! Sine integral function: \f$Si(x)\equiv\int_0^x du \sin(u)/u\f$
     BA_CORE_API_ double Si(double x);
 

@@ -14,6 +14,7 @@ if(BORNAGAIN_OPENMPI)
 endif()
 
 UNIT_TESTS(TestCoreQ "Q" ${BornAgainCore_LIBRARY}) # q loops, lengthy output
+UNIT_TESTS(TestCoreP "P" ${BornAgainCore_LIBRARY}) # q loops, lengthy output
 UNIT_TESTS(TestCore0 "0" ${BornAgainCore_LIBRARY})
 UNIT_TESTS(TestCore1 "1" ${BornAgainCore_LIBRARY})
 UNIT_TESTS(TestCore2 "2" ${BornAgainCore_LIBRARY})

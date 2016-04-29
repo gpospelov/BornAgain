@@ -27327,6 +27327,28 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_cot(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  double arg1 ;
+  double val1 ;
+  int ecode1 = 0 ;
+  PyObject * obj0 = 0 ;
+  double result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:cot",&obj0)) SWIG_fail;
+  ecode1 = SWIG_AsVal_double(obj0, &val1);
+  if (!SWIG_IsOK(ecode1)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "cot" "', argument " "1"" of type '" "double""'");
+  } 
+  arg1 = static_cast< double >(val1);
+  result = (double)MathFunctions::cot(arg1);
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_Si(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   double arg1 ;
@@ -31570,6 +31592,7 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"StandardNormal", _wrap_StandardNormal, METH_VARARGS, (char *)"StandardNormal(double x) -> double"},
 	 { (char *)"Gaussian", _wrap_Gaussian, METH_VARARGS, (char *)"Gaussian(double x, double average, double std_dev) -> double"},
 	 { (char *)"IntegratedGaussian", _wrap_IntegratedGaussian, METH_VARARGS, (char *)"IntegratedGaussian(double x, double average, double std_dev) -> double"},
+	 { (char *)"cot", _wrap_cot, METH_VARARGS, (char *)"cot(double x) -> double"},
 	 { (char *)"Si", _wrap_Si, METH_VARARGS, (char *)"Si(double x) -> double"},
 	 { (char *)"sinc", _wrap_sinc, METH_VARARGS, (char *)"\n"
 		"sinc(double x) -> double\n"

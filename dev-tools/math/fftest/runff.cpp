@@ -158,7 +158,7 @@ void test_loop( int outfilter, int ishapepar )
     else if( outfilter==8 )
         nsteps = 17;
     else
-        nsteps = 3001;
+        nsteps = 2001;
     if( !(nsteps&1) )
         throw "nsteps must be odd";
     vector<double> steps(nsteps);
@@ -167,7 +167,7 @@ void test_loop( int outfilter, int ishapepar )
     int n2 = (nsteps-1)/2;
     steps[n2] = .5;
     for( int i=1; i<n2; ++i ){
-        steps[i] = pow(.5, (i-1)/((double)(n2-1))) * pow(1e-12, (n2-i)/((double)(n2-1)));
+        steps[i] = pow(.5, (i-1)/((double)(n2-1))) * pow(1e-10, (n2-i)/((double)(n2-1)));
         steps[nsteps-1-i] = 1-steps[i];
     }
     double steps_short[3] = { 0., 1e-12, 1e-6 };
@@ -182,7 +182,7 @@ void test_loop( int outfilter, int ishapepar )
         { 1., 2., 0. },
         { 0., 2., 3. },
         { 1., 2.71813+0.1*I, 3.14158-0.2*I, },
-        { -200.+I, 30000.-I, 1. } };
+        { -2.+.02*I, .03-.0004*I, .0005 } };
 
     vector<vector<cvector_t>> q_collection;
     // For different directions ...
@@ -194,7 +194,7 @@ void test_loop( int outfilter, int ishapepar )
             vector<cvector_t> q;
             q.push_back( cvector_t() ); // q=0 to start with
             for( int idx_qmag=0; idx_qmag<(nsteps-1); ++idx_qmag ) {
-                double qmag = pow(10.,-12+15.*idx_qmag/(nsteps-2));
+                double qmag = pow(10.,-10+14.*idx_qmag/(nsteps-2));
                 q.push_back( qmag * uq );
             }
             q_collection.push_back( q );

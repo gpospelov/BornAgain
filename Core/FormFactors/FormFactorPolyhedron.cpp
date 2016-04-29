@@ -39,6 +39,9 @@ typedef Geometry::BasicVector3D<double> kvector_t;
 static complex_t I(0.,1.);
 static double eps(2e-16);
 
+const double FormFactorPolyhedron::q_limit_series = 1e-5;
+const double PolyhedralFace::qpa_limit_series = 1e-3;
+
 #ifdef POLYHEDRAL_DIAGNOSTIC
 extern Diagnosis diagnosis;
 #endif
@@ -86,8 +89,6 @@ complex_t PolyhedralEdge::contrib(int m, cvector_t prevec, cvector_t q) const
 //  PolyhedralFace implementation
 //***************************************************************************************************
 
-const double PolyhedralFace::qpa_limit_series = 1e-3;
-
 double PolyhedralFace::diameter( const std::vector<kvector_t>& V )
 {
     double diameterFace = 0;
@@ -117,11 +118,15 @@ PolyhedralFace::PolyhedralFace( const std::vector<kvector_t>& V, bool _sym_S2 )
     for( const kvector_t v: V )
         m_radius_3d = std::max( m_radius_3d, v.mag() );
 
-    // compute edges @TODO rework: do not leave gaps
+    // Initialize list of 'edges'.
+    // Do not create an edge if two vertices are too close to each other.
+    // TODO This is implemented in a somewhat sloppy way: we just skip an edge if it would
+    //      be too short. This leaves tiny open edges. In a clean implementation, we
+    //      rather should merge adjacent vertices before generating edges.
     for ( size_t j=0; j<NV; ++j ) {
         size_t jj = (j+1)%NV;
         if( (V[j]-V[jj]).mag() < 1e-14*m_radius_2d )
-            continue; // neglect ridiculously short edges
+            continue; // distance too short -> skip this edge
         edges.push_back( PolyhedralEdge(V[j], V[jj]) );
     }
     size_t NE = edges.size();
@@ -223,6 +228,7 @@ complex_t PolyhedralFace::ff_n( int n, const cvector_t q ) const
 
 complex_t PolyhedralFace::ff( const cvector_t q, const bool sym_Ci ) const
 {
+    //std::cout<<"Face "<<m_normal<<":\n";
     complex_t qn = q.dot(m_normal); // conj(q)*normal (BasicVector3D::dot is antilinear in 'this' argument)
     if ( std::abs(qn)<eps*q.mag() )
         return 0;
@@ -254,6 +260,7 @@ complex_t PolyhedralFace::ff( const cvector_t q, const bool sym_Ci ) const
             diagnosis.maxOrder = std::max( diagnosis.maxOrder, n );
 #endif
             complex_t term = n_fac * ( n&1 ? fac_odd : fac_even ) * ff_n_core(n, qpa) / qpa.mag2();
+            //std::cout<<std::setprecision(16)<<"  sum="<<sum<<" term="<<term<<"\n";
             sum += term;
             if( !(n&1) && std::abs(term)<=eps*std::abs(sum) )
                 return sum;
@@ -273,6 +280,7 @@ complex_t PolyhedralFace::ff( const cvector_t q, const bool sym_Ci ) const
             complex_t Rfac = sym_S2 ? sin(e.R.dot(qpa)) : ( sym_Ci ? 2.*cos(qR) : exp(I*qR) );
             sum += prevec.dot(e.E) * MathFunctions::sinc(qE) * Rfac;
         }
+        //std::cout<<std::setprecision(16)<<"  ret="<<prefac * sum / ( I*qpa.mag2() )<<"\n";
         return prefac * sum / ( I*qpa.mag2() );
     }
 }
@@ -334,8 +342,6 @@ void PolyhedralFace::assert_Ci( const PolyhedralFace& other ) const
 //  FormFactorPolyhedron implementation
 //***************************************************************************************************
 
-const double FormFactorPolyhedron::q_limit_series = 1e-6;
-
 //! Takes vertices, and resets internal state.
 
 void FormFactorPolyhedron::setVertices( const std::vector<kvector_t>& vertices )
@@ -353,7 +359,7 @@ void FormFactorPolyhedron::setVertices( const std::vector<kvector_t>& vertices )
             V.push_back( vertices[i] );
         if( PolyhedralFace::diameter( V )<= 1e-14*diameter3d )
             continue; // neglect ridiculously small face
-        m_faces.push_back( PolyhedralFace( V, 0 ? false : tf.symmetry_S2 ) ); // TODO: rm DEBUG aid
+        m_faces.push_back( PolyhedralFace( V, tf.symmetry_S2 ) );
     }
     if( m_faces.size() < 4 )
         throw RuntimeErrorException( "less than four non-vanishing faces" );
@@ -412,7 +418,7 @@ complex_t FormFactorPolyhedron::evaluate_centered( const cvector_t q ) const
                 term += Gk.ff_n( n+1, q );
             term *= n_fac;
             ret += term;
-            if( !(n&1) && std::abs(term)<=eps*std::abs(ret) )
+            if( !(n&1) && std::abs(term)<eps*std::abs(ret) )
                 return ret;
             n_fac *= ( m_sym_Ci ? -1 : I );
         }

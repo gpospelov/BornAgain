@@ -24,7 +24,10 @@ JobActivityStatusBar::JobActivityStatusBar(QWidget *parent)
     : QWidget(parent)
     , m_toggleJobListButton(0)
     , m_activityCombo(0)
+    , m_dockMenuButton(0)
 {
+    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
     QHBoxLayout *layout = new QHBoxLayout;
     layout->setSpacing(0);
     layout->setMargin(0);
@@ -34,8 +37,7 @@ JobActivityStatusBar::JobActivityStatusBar(QWidget *parent)
     m_toggleJobListButton->setIcon(QIcon(":/images/toolbar_projections.png"));
     m_toggleJobListButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     m_toggleJobListButton->setToolTip("Toggle job list view");
-    connect(m_toggleJobListButton, SIGNAL(clicked()),
-            this, SIGNAL(toggleJobListRequest()));
+    connect(m_toggleJobListButton, SIGNAL(clicked()), this, SIGNAL(toggleJobListRequest()));
 
     m_activityCombo = new QComboBox();
     m_activityCombo->setToolTip("Main Activity Selector");
@@ -43,11 +45,18 @@ JobActivityStatusBar::JobActivityStatusBar(QWidget *parent)
     connect(m_activityCombo, SIGNAL(currentIndexChanged(int)),
             this, SIGNAL(changeActivityRequest(int)));
 
+    m_dockMenuButton = new QToolButton;
+    m_dockMenuButton->setIcon(QIcon(":/images/toolbar_projections.png"));
+    m_dockMenuButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+    m_dockMenuButton->setToolTip("Toggle job list view");
+    connect(m_dockMenuButton, SIGNAL(clicked()), this, SIGNAL(dockMenuRequest()));
+
     layout->addWidget(m_toggleJobListButton);
+    layout->addStretch();
     layout->addWidget(m_activityCombo);
+    layout->addWidget(m_dockMenuButton);
 
     setLayout(layout);
-
 }
 
 void JobActivityStatusBar::onActivityChanged(int activity)

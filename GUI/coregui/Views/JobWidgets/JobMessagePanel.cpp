@@ -19,5 +19,6 @@
 JobMessagePanel::JobMessagePanel(QWidget *parent)
     : QWidget(parent)
 {
-
+    setWindowTitle(QLatin1String("Message Panel"));
+    setObjectName(QLatin1String("Message Panel"));
 }

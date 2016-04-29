@@ -19,5 +19,6 @@
 FitActivityPanel::FitActivityPanel(QWidget *parent)
     : QWidget(parent)
 {
-
+    setWindowTitle(QLatin1String("Fit Panel"));
+    setObjectName(QLatin1String("Fit Panel"));
 }

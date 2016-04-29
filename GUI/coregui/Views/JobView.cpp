@@ -33,6 +33,8 @@
 #include <QDockWidget>
 #include <QAbstractItemView>
 #include <QStatusBar>
+#include <QMenu>
+#include <QCursor>
 #include <QDebug>
 
 class JobViewPrivate
@@ -93,7 +95,7 @@ JobView::JobView(MainWindow *mainWindow)
     resetToDefaultLayout();
 
     m_d->m_jobActivityStatusBar = new JobActivityStatusBar;
-    m_d->m_mainWindow->statusBar()->addWidget(m_d->m_jobActivityStatusBar);
+    m_d->m_mainWindow->statusBar()->addWidget(m_d->m_jobActivityStatusBar, 1);
     m_d->m_jobActivityStatusBar->hide();
 
     connectSignals();
@@ -188,6 +190,14 @@ void JobView::onToggleJobListRequest()
     m_d->m_dockWidgets[JOB_LIST_DOCK]->setHidden(!m_d->m_dockWidgets[JOB_LIST_DOCK]->isHidden());
 }
 
+//! creates global dock menu
+void JobView::onDockMenuRequest()
+{
+    QMenu *menu = createPopupMenu();
+    menu->exec(QCursor::pos());
+    delete menu;
+}
+
 void JobView::showEvent(QShowEvent *)
 {
     if(isVisible())
@@ -229,18 +239,20 @@ void JobView::connectSignals()
             this, SLOT(updateGlobalProgressBar(int)));
     connect(m_d->jobModel(), SIGNAL(focusRequest(JobItem *)),
             this, SLOT(onFocusRequest(JobItem *)));
-//    connect(m_d->m_jobOutputDataWidget, SIGNAL(jobViewActivityRequest(int)),
-//            this, SLOT(setActivity(int)));
-    connect(this, SIGNAL(activityChanged(int)),
-            m_d->m_jobOutputDataWidget, SLOT(onActivityChanged(int)));
     connect(m_d->progressBar(), SIGNAL(clicked()),
             m_d->jobModel()->getJobQueueData(), SLOT(onCancelAllJobs()));
 
+    // global statusBar notifies JobView about changes in the activity
     connect(m_d->m_jobActivityStatusBar, SIGNAL(changeActivityRequest(int)),
             this, SLOT(setActivity(int)));
-    connect(this, SIGNAL(activityChanged(int)),
-            m_d->m_jobActivityStatusBar, SLOT(onActivityChanged(int)));
     connect(m_d->m_jobActivityStatusBar, SIGNAL(toggleJobListRequest()),
             this, SLOT(onToggleJobListRequest()));
+    connect(m_d->m_jobActivityStatusBar, SIGNAL(dockMenuRequest()),
+            this, SLOT(onDockMenuRequest()));
 
+    // JobView notifies others about changes in the activity
+    connect(this, SIGNAL(activityChanged(int)),
+            m_d->m_jobActivityStatusBar, SLOT(onActivityChanged(int)));
+    connect(this, SIGNAL(activityChanged(int)),
+            m_d->m_jobOutputDataWidget, SLOT(onActivityChanged(int)));
 }

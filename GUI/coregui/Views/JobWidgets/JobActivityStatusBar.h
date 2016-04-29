@@ -34,6 +34,7 @@ public:
 signals:
     void toggleJobListRequest();
     void changeActivityRequest(int);
+    void dockMenuRequest();
 
 public slots:
     void onActivityChanged(int activity);
@@ -41,6 +42,7 @@ public slots:
 private:
     QToolButton *m_toggleJobListButton;
     QComboBox *m_activityCombo;
+    QToolButton *m_dockMenuButton;
 };
 
 #endif

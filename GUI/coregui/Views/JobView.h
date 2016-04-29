@@ -61,6 +61,7 @@ public slots:
     void resetToDefaultLayout();
     void setActivity(int activity);
     void onToggleJobListRequest();
+    void onDockMenuRequest();
 
 protected:
     virtual void showEvent(QShowEvent *);

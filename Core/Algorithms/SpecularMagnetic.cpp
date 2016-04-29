@@ -17,6 +17,8 @@
 
 #include <Eigen/LU>
 
+static complex_t I(0.,1.);
+
 void SpecularMagnetic::execute(const MultiLayer& sample, const kvector_t k,
         MultiLayerCoeff_t& coeff)
 {
@@ -46,8 +48,8 @@ void SpecularMagnetic::calculateEigenvalues(const MultiLayer& sample,
         complex_t rad1 = coeff[i].m_a + coeff[i].m_b_mag;
         // use small absorptive component for layers with i>0 if radicand becomes very small:
         if (i>0) {
-            if (std::abs(rad0)<1e-40) rad0 = imag_unit*1e-40;
-            if (std::abs(rad1)<1e-40) rad1 = imag_unit*1e-40;
+            if (std::abs(rad0)<1e-40) rad0 = I*1e-40;
+            if (std::abs(rad1)<1e-40) rad1 = I*1e-40;
         }
         coeff[i].lambda(0) = sqrt(rad0);
         coeff[i].lambda(1) = sqrt(rad1);
@@ -132,8 +134,7 @@ void SpecularMagnetic::setForNoTransmission(MultiLayerCoeff_t& coeff)
 
 complex_t SpecularMagnetic::getImExponential(complex_t exponent)
 {
-    if (exponent.imag() > -std::log(std::numeric_limits<double>::min()) ) {
+    if (exponent.imag() > -std::log(std::numeric_limits<double>::min()) )
         return 0.0;
-    }
-    return std::exp(complex_t(0.0, 1.0)*exponent);
+    return std::exp(I*exponent);
 }

@@ -17,8 +17,7 @@
 #ifndef JOBREALTIMEWIDGET_H
 #define JOBREALTIMEWIDGET_H
 
-#include "WinDllMacros.h"
-#include <QWidget>
+#include "JobPresenter.h"
 #include <QMap>
 
 class JobModel;
@@ -27,15 +26,14 @@ class QStackedWidget;
 class ModelTuningWidget;
 class JobRealTimeToolBar;
 
-//! The JobRealTimeWidget provides tuning of sample parameters and run of the simulation in real time.
+//! The JobRealTimeWidget provides tuning of sample parameters in real time.
 //! Located on the right side of JobView and is visible when realtime activity is selected.
-class BA_CORE_API_ JobRealTimeWidget : public QWidget
+
+class BA_CORE_API_ JobRealTimeWidget : public JobPresenter
 {
     Q_OBJECT
 public:
     explicit JobRealTimeWidget(JobModel *jobModel, QWidget *parent = 0);
-
-    void setJobModel(JobModel *jobModel);
 
 public slots:
     void setItem(JobItem *item);
@@ -49,8 +47,6 @@ private:
     ModelTuningWidget *getCurrentModelTuningWidget();
     bool isValidJobItem(JobItem *item);
 
-    JobModel *m_jobModel;
-    JobItem *m_currentJobItem;
     QStackedWidget *m_stack;
     QMap<JobItem *, ModelTuningWidget *> m_jobItemToTuningWidget;
     JobRealTimeToolBar *m_toolBar;

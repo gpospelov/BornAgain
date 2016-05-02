@@ -26,18 +26,13 @@
 #include <QSlider>
 
 FitActivityPanel::FitActivityPanel(JobModel *jobModel, QWidget *parent)
-    : QWidget(parent)
+    : JobPresenter(jobModel, parent)
     , m_startButton(new QPushButton)
     , m_stopButton(new QPushButton)
     , m_intervalSlider(new QSlider)
-    , m_jobModel(0)
-    , m_currentItem(0)
     , m_stack(new QStackedWidget(this))
 {
-    setJobModel(jobModel);
-
     setWindowTitle(QLatin1String("Fit Panel"));
-    setObjectName(QLatin1String("Fit Panel"));
 
     setMinimumSize(100, 120);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -53,40 +48,6 @@ FitActivityPanel::FitActivityPanel(JobModel *jobModel, QWidget *parent)
     mainLayout->addWidget(createRunControlWidget());
 
     setLayout(mainLayout);
-}
-
-void FitActivityPanel::setJobModel(JobModel *jobModel)
-{
-    Q_ASSERT(jobModel);
-    if(jobModel != m_jobModel) {
-        if(m_jobModel) {
-            disconnect(m_jobModel,
-                SIGNAL( selectionChanged(JobItem *) ),
-                this,
-                SLOT( setItem(JobItem *) )
-                );
-
-            disconnect(m_jobModel->getJobQueueData(), SIGNAL(jobIsFinished(QString))
-                    , this, SLOT(onJobItemFinished(QString)));
-
-            disconnect(m_jobModel, SIGNAL(aboutToDeleteJobItem(JobItem*))
-                    , this, SLOT(onJobItemDelete(JobItem*)));
-        }
-
-        m_jobModel = jobModel;
-
-        connect(m_jobModel,
-            SIGNAL( selectionChanged(JobItem *) ),
-            this,
-            SLOT( setItem(JobItem *) )
-            );
-
-        connect(m_jobModel->getJobQueueData(), SIGNAL(jobIsFinished(QString))
-                , this, SLOT(onJobItemFinished(QString)));
-
-        connect(m_jobModel, SIGNAL(aboutToDeleteJobItem(JobItem*))
-                , this, SLOT(onJobItemDelete(JobItem*)));
-    }
 }
 
 QWidget *FitActivityPanel::createRunControlWidget()

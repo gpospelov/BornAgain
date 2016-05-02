@@ -17,8 +17,7 @@
 #ifndef JOBOUTPUTDATAWIDGET_H
 #define JOBOUTPUTDATAWIDGET_H
 
-#include "WinDllMacros.h"
-#include <QWidget>
+#include "JobPresenter.h"
 #include <QMap>
 
 class IntensityDataWidget;
@@ -28,14 +27,12 @@ class ProjectManager;
 class JobModel;
 class JobItem;
 
-class BA_CORE_API_ JobOutputDataWidget : public QWidget
+class BA_CORE_API_ JobOutputDataWidget : public JobPresenter
 {
     Q_OBJECT
 public:
     explicit JobOutputDataWidget(JobModel *jobModel, ProjectManager *projectManager,
                                  QWidget *parent = 0);
-
-    void setJobModel(JobModel *jobModel);
 
 public slots:
     void setItem(JobItem *item);
@@ -50,9 +47,7 @@ private:
     void connectSignals();
     IntensityDataWidget *getCurrentOutputDataWidget();
 
-    JobModel *m_jobModel;
     ProjectManager *m_projectManager;
-    JobItem *m_currentJobItem;
     QStackedWidget *m_stack;
     QMap<JobItem *, IntensityDataWidget *> m_jobItemToPlotWidget;
     JobOutputDataToolBar *m_toolBar;

@@ -30,20 +30,17 @@
 #include <QDebug>
 #include "GUIHelpers.h"
 
-JobOutputDataWidget::JobOutputDataWidget(JobModel *jobModel, ProjectManager *projectManager, QWidget *parent)
-    : QWidget(parent)
-    , m_jobModel(0)
+JobOutputDataWidget::JobOutputDataWidget(JobModel *jobModel, ProjectManager *projectManager,
+                                         QWidget *parent)
+    : JobPresenter(jobModel, parent)
     , m_projectManager(projectManager)
     , m_stack(new QStackedWidget(this))
     , m_toolBar(new JobOutputDataToolBar())
 {
-    setJobModel(jobModel);
+    setWindowTitle(QLatin1String("Job OutputData"));
 
     setMinimumSize(400, 400);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-
-    setWindowTitle(QLatin1String("Job OutputData"));
-    setObjectName(QLatin1String("Job OutputData"));
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->setMargin(0);
@@ -59,35 +56,35 @@ JobOutputDataWidget::JobOutputDataWidget(JobModel *jobModel, ProjectManager *pro
     connectSignals();
 }
 
-void JobOutputDataWidget::setJobModel(JobModel *jobModel)
-{
-    Q_ASSERT(jobModel);
+//void JobOutputDataWidget::setJobModel(JobModel *jobModel)
+//{
+//    Q_ASSERT(jobModel);
 
-    if(jobModel != m_jobModel) {
+//    if(jobModel != m_jobModel) {
 
-        if(m_jobModel) {
-            disconnect(m_jobModel,
-                SIGNAL( selectionChanged(JobItem *) ),
-                this,
-                SLOT( setItem(JobItem *) )
-                );
+//        if(m_jobModel) {
+//            disconnect(m_jobModel,
+//                SIGNAL( selectionChanged(JobItem *) ),
+//                this,
+//                SLOT( setItem(JobItem *) )
+//                );
 
-            disconnect(m_jobModel, SIGNAL(focusRequest(JobItem*)), this, SLOT(setItem(JobItem*)));
-        }
+//            disconnect(m_jobModel, SIGNAL(focusRequest(JobItem*)), this, SLOT(setItem(JobItem*)));
+//        }
 
-        m_jobModel = jobModel;
+//        m_jobModel = jobModel;
 
-        connect(m_jobModel,
-            SIGNAL( selectionChanged(JobItem *) ),
-            this,
-            SLOT( setItem(JobItem *) )
-            );
+//        connect(m_jobModel,
+//            SIGNAL( selectionChanged(JobItem *) ),
+//            this,
+//            SLOT( setItem(JobItem *) )
+//            );
 
-        connect(m_jobModel, SIGNAL(aboutToDeleteJobItem(JobItem*))
-                , this, SLOT(onJobItemDelete(JobItem*)));
-        connect(m_jobModel, SIGNAL(focusRequest(JobItem*)), this, SLOT(setItem(JobItem*)));
-    }
-}
+//        connect(m_jobModel, SIGNAL(aboutToDeleteJobItem(JobItem*))
+//                , this, SLOT(onJobItemDelete(JobItem*)));
+//        connect(m_jobModel, SIGNAL(focusRequest(JobItem*)), this, SLOT(setItem(JobItem*)));
+//    }
+//}
 
 
 void JobOutputDataWidget::setItem(JobItem * item)
@@ -95,7 +92,7 @@ void JobOutputDataWidget::setItem(JobItem * item)
     //qDebug() << "JobOutputDataWidget::setItem()" << item;
     if(!item) return;
 
-    m_currentJobItem = item;
+    m_currentItem = item;
 
     IntensityDataWidget *widget = m_jobItemToPlotWidget[item];
     if( !widget && (item->isCompleted() || item->isCanceled())) {

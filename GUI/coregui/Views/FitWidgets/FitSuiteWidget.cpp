@@ -21,6 +21,7 @@
 #include "RunFitManager.h"
 #include "GUIFitObserver.h"
 #include "DomainFittingBuilder.h"
+#include "IntensityDataItem.h"
 #include "FitSuite.h"
 #include <QVBoxLayout>
 #include <QTabWidget>
@@ -74,6 +75,10 @@ void FitSuiteWidget::onUpdatePlots(OutputData<double> *sim, OutputData<double> *
     Q_UNUSED(sim);
     Q_UNUSED(chi2);
     qDebug() << "FitSuiteWidget::onUpdatePlots";
+//    OutputData<double> *data = m_currentItem->getIntensityDataItem()->getOutputData();
+//    data->setRawDataVector(sim->getRawDataVector());
+//    m_currentItem->getIntensityDataItem()->emitDataChanged();
+    m_observer->finishedPlotting();
 }
 
 void FitSuiteWidget::onUpdateParameters(const QStringList &parameters, QVector<double> values)
@@ -90,10 +95,13 @@ void FitSuiteWidget::startFitting()
     qDebug() << "FitSuiteWidget::startFitting()";
 
     try {
+        qDebug() << " try run fitting";
         std::shared_ptr<FitSuite> fitSuite(DomainFittingBuilder::getFitSuite(m_currentItem));
+        fitSuite->attachObserver(m_observer);
         m_manager->setFitSuite(fitSuite);
         m_observer->finishedPlotting();
         m_manager->runFitting();
+        qDebug() << " done";
     } catch(std::exception& e) {
         QMessageBox box;
         box.setText(e.what());

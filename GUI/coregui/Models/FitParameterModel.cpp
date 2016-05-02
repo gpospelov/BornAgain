@@ -18,6 +18,7 @@
 #include "JobModel.h"
 #include "FitParameterItems.h"
 #include "ParameterTreeItems.h"
+#include "ModelPath.h"
 #include <QDebug>
 
 FitParameterModel::FitParameterModel(SessionItem *fitParContainer, QObject *parent)
@@ -137,7 +138,7 @@ void FitParameterModel::createFitParameter(ParameterItem *parameterItem)
     if(parameterItem) {
         fitPar->setItemValue(FitParameterItem::P_START_VALUE, parameterItem->value());
         SessionItem *link = fitPar->model()->insertNewItem(Constants::FitParameterLinkType, fitPar->index());
-        link->setItemValue(FitParameterLinkItem::P_LINK, parameterItem->getItemValue(ParameterItem::P_LINK));
+        link->setItemValue(FitParameterLinkItem::P_LINK, getParameterItemPath(parameterItem));
     }
     emit layoutChanged();
 
@@ -149,7 +150,7 @@ void FitParameterModel::removeFromFitParameters(ParameterItem *parameterItem)
     FitParameterItem *fitParItem = getFitParameterItem(parameterItem);
     if(fitParItem) {
         foreach(SessionItem *linkItem, fitParItem->getItems(FitParameterItem::T_LINK)) {
-            if(parameterItem->getItemValue(ParameterItem::P_LINK) == linkItem->getItemValue(FitParameterLinkItem::P_LINK)) {
+            if(getParameterItemPath(parameterItem) == linkItem->getItemValue(FitParameterLinkItem::P_LINK)) {
                 fitParItem->model()->removeRow(linkItem->index().row(), linkItem->index().parent());
                 break;
             }
@@ -166,7 +167,7 @@ void FitParameterModel::addToFitParameter(ParameterItem *parameterItem, const QS
     foreach(SessionItem *fitPar, getFitParContainer()->getItems(FitParameterContainerItem::T_FIT_PARAMETERS)) {
         if(fitPar->displayName() == fitParName) {
             SessionItem *link = fitPar->model()->insertNewItem(Constants::FitParameterLinkType, fitPar->index());
-            link->setItemValue(FitParameterLinkItem::P_LINK, parameterItem->getItemValue(ParameterItem::P_LINK));
+            link->setItemValue(FitParameterLinkItem::P_LINK, getParameterItemPath(parameterItem));
             emit layoutChanged();
             break;
         }
@@ -176,7 +177,7 @@ void FitParameterModel::addToFitParameter(ParameterItem *parameterItem, const QS
 //! Returns fFitParameterItem corresponding to given ParameterItem
 FitParameterItem *FitParameterModel::getFitParameterItem(ParameterItem *parameterItem)
 {
-    return getFitParContainer()->getFitParameterItem(parameterItem->getItemValue(ParameterItem::P_LINK).toString());
+    return getFitParContainer()->getFitParameterItem(getParameterItemPath(parameterItem));
 }
 
 FitParameterContainerItem *FitParameterModel::getFitParContainer()
@@ -195,5 +196,14 @@ QStringList FitParameterModel::getFitParameterNames()
         result.append(item->displayName());
     }
 
+    return result;
+}
+
+//! return path to given item in the ParameterTreeContainer
+QString FitParameterModel::getParameterItemPath(ParameterItem *parameterItem)
+{
+    QString result = ModelPath::getPathFromIndex(parameterItem->index());
+    int containerEnd = result.indexOf(QStringLiteral("Container/")) + 10;
+    result = result.mid(containerEnd);
     return result;
 }

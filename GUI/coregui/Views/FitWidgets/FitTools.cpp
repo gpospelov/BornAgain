@@ -126,9 +126,13 @@ void FitTools::onStartClick()
                 SessionItem *item = m_jobModel->itemForIndex(sourceIndex);
                 if (item && item->modelType() == Constants::ParameterType) {
                     QString path = ModelPath::getPathFromIndex(item->index());
+                    qDebug() << "QQQ 1.1" << path;
                     int containerEnd = path.indexOf("Container/") + 10;
                     path = path.mid(containerEnd);
+                    qDebug() << "QQQ 1.2" << path;
                     std::string outpath = "*" + ModelPath::translateParameterName(m_currentJobItem->getMultiLayerItem()->parent(), path);
+                    qDebug() << "QQQ 1.3" << QString::fromStdString(outpath);
+
                     item->setItemValue(ParameterItem::P_DOMAIN, QString::fromStdString(outpath));
                     m_fitsuite->addFitParameter(outpath, item->value().toDouble(), dynamic_cast<ParameterItem*>(item)->getLinkedItem()->limits());
                 }

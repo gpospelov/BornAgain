@@ -56,6 +56,8 @@ public:
 
     QStringList getFitParameterNames();
 
+    static QString getParameterItemPath(ParameterItem *parameterItem);
+
 private:
     QMap<int, QString> m_columnNames;
 };

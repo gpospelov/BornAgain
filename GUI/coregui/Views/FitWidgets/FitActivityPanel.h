@@ -41,6 +41,7 @@ public slots:
     void setItem(JobItem *item);
     void onJobItemDelete(JobItem *item);
     void onJobItemFinished(const QString &identifier);
+    void updateCurrentItem();
 
 private:
     void setJobModel(JobModel *jobModel);

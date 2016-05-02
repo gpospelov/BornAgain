@@ -155,8 +155,15 @@ void FitActivityPanel::onJobItemFinished(const QString &identifier)
     return;
 }
 
+void FitActivityPanel::updateCurrentItem()
+{
+    if(!m_currentItem) return;
+    setItem(m_currentItem);
+}
+
 bool FitActivityPanel::isValidJobItem(JobItem *item)
 {
+    Q_UNUSED(item);
     return true;
 //    return (item->isCompleted() || item->isCanceled()) && item->getMultiLayerItem() && item->getInstrumentItem();
 }

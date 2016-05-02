@@ -102,8 +102,7 @@ void JobOutputDataWidget::setItem(JobItem * item)
 
         widget = new IntensityDataWidget(this);
         connect(widget, SIGNAL(savePlotRequest()), this, SLOT(onSavePlot()));
-        widget->setItem(item->getIntensityDataItem
-                        ());
+        widget->setItem(item->getIntensityDataItem());
         m_stack->addWidget(widget);
         m_jobItemToPlotWidget[item] = widget;
 

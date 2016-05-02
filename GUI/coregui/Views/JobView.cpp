@@ -53,6 +53,7 @@ public:
     JobOutputDataWidget *m_jobOutputDataWidget;
     JobRealTimeWidget *m_jobRealTimeWidget;
     JobActivityStatusBar *m_jobActivityStatusBar;
+    FitActivityPanel *m_fitActivityPanel;
     MainWindow *m_mainWindow;
 };
 
@@ -62,6 +63,7 @@ JobViewPrivate::JobViewPrivate(MainWindow *mainWindow)
     , m_jobOutputDataWidget(0)
     , m_jobRealTimeWidget(0)
     , m_jobActivityStatusBar(0)
+    , m_fitActivityPanel(0)
     , m_mainWindow(mainWindow)
 {
 }
@@ -176,6 +178,8 @@ void JobView::setActivity(int activity)
         m_d->m_dockWidgets[REAL_TIME_DOCK]->show();
         m_d->m_dockWidgets[FIT_PANEL_DOCK]->show();
         m_d->m_dockWidgets[JOB_MESSAGE_DOCK]->show();
+        m_d->m_jobRealTimeWidget->updateCurrentItem();
+        m_d->m_fitActivityPanel->updateCurrentItem();
     }
 
     else {
@@ -226,7 +230,9 @@ void JobView::initWindows()
     m_d->m_jobRealTimeWidget = new JobRealTimeWidget(m_d->jobModel(), this);
     m_d->m_subWindows[REAL_TIME_DOCK] = m_d->m_jobRealTimeWidget;
 
-    m_d->m_subWindows[FIT_PANEL_DOCK] = new FitActivityPanel(m_d->jobModel(), this);
+    m_d->m_fitActivityPanel = new FitActivityPanel(m_d->jobModel(), this);
+    m_d->m_subWindows[FIT_PANEL_DOCK] = m_d->m_fitActivityPanel;
+
     m_d->m_subWindows[JOB_MESSAGE_DOCK] = new JobMessagePanel(this);
 }
 

@@ -19,30 +19,53 @@
 
 #include "WinDllMacros.h"
 #include <QWidget>
+#include <memory>
 
 class QTabWidget;
 class JobModel;
 class JobItem;
 class FitParametersWidget;
 class ModelTuningWidget;
+class RunFitManager;
+class GUIFitObserver;
+template <class T> class OutputData;
+
 
 //! The FitSuiteWidget contains all fit settings for given JobItem (fit parameters,
-//! minimizer settings). Controlled by FitActivityPanel
+//! minimizer settings) and all logic to start/stop fitting. Controlled by FitActivityPanel
 
 class BA_CORE_API_ FitSuiteWidget : public QWidget
 {
     Q_OBJECT
+
 public:
     FitSuiteWidget(JobModel *jobModel, QWidget *parent = 0);
+    ~FitSuiteWidget();
 
     void setItem(JobItem *jobItem);
     void setModelTuningWidget(ModelTuningWidget *tuningWidget);
 
+signals:
+    void fittingStarted();
+    void fittingFinished();
+
+public slots:
+    void onError(const QString &text);
+    void onUpdatePlots(OutputData<double>*sim, OutputData<double>*chi2);
+    void onUpdateParameters(const QStringList &parameters, QVector<double> values);
+
+    void startFitting();
+    void stopFitting();
+
 private:
+    void connectSignals();
+
     QTabWidget *m_tabWidget;
     FitParametersWidget *m_fitParametersWidget;
     JobModel *m_jobModel;
     JobItem *m_currentItem;
+    RunFitManager *m_manager;
+    std::shared_ptr<GUIFitObserver> m_observer;
 };
 
 #endif

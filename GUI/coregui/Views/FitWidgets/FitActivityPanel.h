@@ -45,9 +45,18 @@ public slots:
     void onJobItemFinished(const QString &identifier);
     void updateCurrentItem();
 
+private slots:
+    void onStartClick();
+    void onStopClicked();
+    void onFittingStarted();
+    void onFittingFinished();
+
 private:
+//    void connectFitSuiteWidget(FitSuiteWidget *fitSuiteWidget);
     QWidget *createRunControlWidget();
     bool isValidJobItem(JobItem *item);
+    FitSuiteWidget *getCurrentFitSuiteWidget();
+
 
     QPushButton *m_startButton;
     QPushButton *m_stopButton;

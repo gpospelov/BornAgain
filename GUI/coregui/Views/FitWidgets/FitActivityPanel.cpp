@@ -76,6 +76,9 @@ QWidget *FitActivityPanel::createRunControlWidget()
     layout->addWidget(m_intervalSlider);
     result->setLayout(layout);
 
+    connect(m_startButton, SIGNAL(clicked(bool)), this, SLOT(onStartClick()));
+    connect(m_stopButton, SIGNAL(clicked(bool)), this, SLOT(onStopClicked()));
+
     return result;
 }
 
@@ -91,7 +94,12 @@ void FitActivityPanel::setItem(JobItem *item)
     if( !widget && isValidJobItem(item)) {
         widget = new FitSuiteWidget(m_jobModel);
         widget->setItem(item);
-        widget->setModelTuningWidget(m_realTimeWidget->getItemModelTuningWidget(item));
+        widget->setModelTuningWidget(m_realTimeWidget->getTuningWidgetForItem(item));
+
+        connect(widget, SIGNAL(fittingStarted()), this, SLOT(onFittingStarted()));
+        connect(widget, SIGNAL(fittingFinished()), this, SLOT(onFittingFinished()));
+
+
         m_stack->addWidget(widget);
         m_jobItemToFitWidget[item] = widget;
 
@@ -130,9 +138,42 @@ void FitActivityPanel::updateCurrentItem()
     setItem(m_currentItem);
 }
 
+void FitActivityPanel::onStartClick()
+{
+    if(FitSuiteWidget *widget = getCurrentFitSuiteWidget()) {
+        widget->startFitting();
+    }
+}
+
+void FitActivityPanel::onStopClicked()
+{
+    if(FitSuiteWidget *widget = getCurrentFitSuiteWidget()) {
+        widget->stopFitting();
+    }
+}
+
+void FitActivityPanel::onFittingStarted()
+{
+    m_startButton->setEnabled(false);
+    m_stopButton->setEnabled(true);
+}
+
+void FitActivityPanel::onFittingFinished()
+{
+    m_startButton->setEnabled(true);
+    m_stopButton->setEnabled(false);
+}
+
 bool FitActivityPanel::isValidJobItem(JobItem *item)
 {
     Q_UNUSED(item);
     return true;
-//    return (item->isCompleted() || item->isCanceled()) && item->getMultiLayerItem() && item->getInstrumentItem();
+    //    return (item->isCompleted() || item->isCanceled()) && item->getMultiLayerItem() && item->getInstrumentItem();
+}
+
+FitSuiteWidget *FitActivityPanel::getCurrentFitSuiteWidget()
+{
+    FitSuiteWidget *result = dynamic_cast<FitSuiteWidget *>(m_stack->currentWidget());
+    if(result && result->isHidden()) result = 0;
+    return result;
 }

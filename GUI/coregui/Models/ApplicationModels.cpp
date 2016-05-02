@@ -25,6 +25,10 @@
 #include "SampleBuilderFactory.h"
 #include "JobItem.h"
 #include "SimulationOptionsItem.h"
+#include "IntensityDataIOFactory.h"
+#include "Histogram2D.h"
+#include "IntensityDataItem.h"
+#include <QMessageBox>
 
 ApplicationModels::ApplicationModels(QObject *parent)
     : QObject(parent)
@@ -182,6 +186,12 @@ void ApplicationModels::createTestJob()
                 m_sampleModel->getMultiLayerItem(),
                 m_instrumentModel->getInstrumentItem(),
                 optionsItem);
+
+    IHistogram *data = IntensityDataIOFactory::readIntensityData("/home/pospelov/development/BornAgain/temp/Untitled12/data_job1_0.int");
+    dynamic_cast<IntensityDataItem*>(jobItem->getItem(JobItem::T_REALDATA))
+            ->setOutputData(data->createOutputData());
+    jobItem->setItemValue(JobItem::P_WITH_FITTING, true);
+
 
     m_jobModel->runJob(jobItem->index());
 

@@ -245,8 +245,8 @@ void FitParametersWidget::init_job_item()
     m_treeView->setModel(m_fitParameterModel.get());
     connectFitParametersSelection(true);
 
-    m_fitParameterModel->createFitParameter();
-    m_fitParameterModel->createFitParameter();
+//    m_fitParameterModel->createFitParameter();
+//    m_fitParameterModel->createFitParameter();
 //    spanParameters();
 
 

@@ -20,8 +20,11 @@
 #include "FitParametersWidget.h"
 #include "RunFitManager.h"
 #include "GUIFitObserver.h"
+#include "DomainFittingBuilder.h"
+#include "FitSuite.h"
 #include <QVBoxLayout>
 #include <QTabWidget>
+#include <QMessageBox>
 #include <QDebug>
 
 FitSuiteWidget::FitSuiteWidget(JobModel *jobModel, QWidget *parent)
@@ -77,7 +80,7 @@ void FitSuiteWidget::onUpdateParameters(const QStringList &parameters, QVector<d
 {
     Q_UNUSED(parameters);
     Q_UNUSED(values);
-    qDebug() << "FitSuiteWidget::onUpdateParameters";
+    qDebug() << "FitSuiteWidget::onUpdateParameters" << parameters << values;
 }
 
 void FitSuiteWidget::startFitting()
@@ -85,6 +88,19 @@ void FitSuiteWidget::startFitting()
     if(!m_currentItem)
         return;
     qDebug() << "FitSuiteWidget::startFitting()";
+
+    try {
+        std::shared_ptr<FitSuite> fitSuite(DomainFittingBuilder::getFitSuite(m_currentItem));
+        m_manager->setFitSuite(fitSuite);
+        m_observer->finishedPlotting();
+        m_manager->runFitting();
+    } catch(std::exception& e) {
+        QMessageBox box;
+        box.setText(e.what());
+        box.exec();
+    }
+
+
 }
 
 void FitSuiteWidget::stopFitting()

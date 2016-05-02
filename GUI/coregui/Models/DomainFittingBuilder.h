@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/FitSuiteItem.h
-//! @brief     Declares class FitSuiteItem
+//! @file      coregui/Models/DomainFittingBuilder.h
+//! @brief     Declares class DomainFittingBuilder
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,21 +14,21 @@
 //
 // ************************************************************************** //
 
-#ifndef FITSUITEITEM_H
-#define FITSUITEITEM_H
+#ifndef DOMAINFITTINGBUILDER_H
+#define DOMAINFITTINGBUILDER_H
 
-#include "SessionItem.h"
+#include <QString>
+#include <memory>
 
+class JobItem;
 class FitSuite;
 
-class BA_CORE_API_ FitSuiteItem : public SessionItem
+//! The DomainFittingBuilder class builds the domain FitSuite using JobItem
+
+class DomainFittingBuilder
 {
-
 public:
-    static const QString T_FIT_PARAMETERS;
-    explicit FitSuiteItem();
-
-//    std::unique_ptr<FitSuite> createFitSuite();
+    static std::shared_ptr<FitSuite> getFitSuite(JobItem *jobItem);
 };
 
 #endif

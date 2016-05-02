@@ -15,6 +15,7 @@
 // ************************************************************************** //
 
 #include "FitSuiteItem.h"
+#include "FitSuite.h"
 
 const QString FitSuiteItem::T_FIT_PARAMETERS = "Fit parameters container";
 
@@ -23,3 +24,17 @@ FitSuiteItem::FitSuiteItem()
 {
     registerTag(T_FIT_PARAMETERS, 1, 1, QStringList() << Constants::FitParameterContainerType);
 }
+
+//std::unique_ptr<FitSuite> FitSuiteItem::createFitSuite()
+//{
+//    std::unique_ptr<FitSuite> result(new FitSuite);
+
+////    SessionItem *container = getItem(T_FIT_PARAMETERS);
+////    Q_ASSERT(container);
+
+////    foreach(SessionItem *parItem, container->getItems(T_FIT_PARAMETERS)) {
+
+////    }
+
+//    return std::move(result);
+//}

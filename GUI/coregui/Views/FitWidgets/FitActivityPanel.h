@@ -26,6 +26,7 @@ class JobModel;
 class JobItem;
 class QStackedWidget;
 class FitSuiteWidget;
+class JobRealTimeWidget;
 
 //! Main widget to run fitting. Occupies bottom right corner of JobView.
 //! Contains stack of FitSuiteWidgets for JobItem's suitable for fitting.
@@ -35,6 +36,8 @@ class BA_CORE_API_ FitActivityPanel : public JobPresenter
     Q_OBJECT
 public:
     FitActivityPanel(JobModel *jobModel, QWidget *parent = 0);
+
+    void setRealTimeWidget(JobRealTimeWidget *realTimeWidget);
 
 public slots:
     void setItem(JobItem *item);
@@ -51,6 +54,7 @@ private:
     QSlider *m_intervalSlider;
     QStackedWidget *m_stack;
     QMap<JobItem *, FitSuiteWidget *> m_jobItemToFitWidget;
+    JobRealTimeWidget *m_realTimeWidget;
 };
 
 #endif

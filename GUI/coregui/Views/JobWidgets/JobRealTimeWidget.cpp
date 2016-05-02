@@ -53,6 +53,11 @@ JobRealTimeWidget::JobRealTimeWidget(JobModel *jobModel, QWidget *parent)
     connect(m_toolBar, SIGNAL(resetParameters()), this, SLOT(onResetParameters()));
 }
 
+ModelTuningWidget *JobRealTimeWidget::getItemModelTuningWidget(JobItem *jobItem)
+{
+    return m_jobItemToTuningWidget[jobItem];
+}
+
 void JobRealTimeWidget::setItem(JobItem * item)
 {
     //qDebug() << "JobOutputDataWidget::setItem()";

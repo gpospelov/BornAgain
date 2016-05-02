@@ -19,6 +19,7 @@
 #include "JobItem.h"
 #include "JobQueueData.h"
 #include "FitSuiteWidget.h"
+#include "JobRealTimeWidget.h"
 #include <QStackedWidget>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
@@ -31,6 +32,7 @@ FitActivityPanel::FitActivityPanel(JobModel *jobModel, QWidget *parent)
     , m_stopButton(new QPushButton)
     , m_intervalSlider(new QSlider)
     , m_stack(new QStackedWidget(this))
+    , m_realTimeWidget(0)
 {
     setWindowTitle(QLatin1String("Fit Panel"));
 
@@ -48,6 +50,11 @@ FitActivityPanel::FitActivityPanel(JobModel *jobModel, QWidget *parent)
     mainLayout->addWidget(createRunControlWidget());
 
     setLayout(mainLayout);
+}
+
+void FitActivityPanel::setRealTimeWidget(JobRealTimeWidget *realTimeWidget)
+{
+    m_realTimeWidget = realTimeWidget;
 }
 
 QWidget *FitActivityPanel::createRunControlWidget()
@@ -84,6 +91,7 @@ void FitActivityPanel::setItem(JobItem *item)
     if( !widget && isValidJobItem(item)) {
         widget = new FitSuiteWidget(m_jobModel);
         widget->setItem(item);
+        widget->setModelTuningWidget(m_realTimeWidget->getItemModelTuningWidget(item));
         m_stack->addWidget(widget);
         m_jobItemToFitWidget[item] = widget;
 

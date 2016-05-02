@@ -231,6 +231,7 @@ void JobView::initWindows()
     m_d->m_subWindows[REAL_TIME_DOCK] = m_d->m_jobRealTimeWidget;
 
     m_d->m_fitActivityPanel = new FitActivityPanel(m_d->jobModel(), this);
+    m_d->m_fitActivityPanel->setRealTimeWidget(m_d->m_jobRealTimeWidget);
     m_d->m_subWindows[FIT_PANEL_DOCK] = m_d->m_fitActivityPanel;
 
     m_d->m_subWindows[JOB_MESSAGE_DOCK] = new JobMessagePanel(this);

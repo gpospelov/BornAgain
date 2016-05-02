@@ -24,6 +24,7 @@ class QTabWidget;
 class JobModel;
 class JobItem;
 class FitParametersWidget;
+class ModelTuningWidget;
 
 //! The FitSuiteWidget contains all fit settings for given JobItem (fit parameters,
 //! minimizer settings). Controlled by FitActivityPanel
@@ -35,6 +36,7 @@ public:
     FitSuiteWidget(JobModel *jobModel, QWidget *parent = 0);
 
     void setItem(JobItem *jobItem);
+    void setModelTuningWidget(ModelTuningWidget *tuningWidget);
 
 private:
     QTabWidget *m_tabWidget;

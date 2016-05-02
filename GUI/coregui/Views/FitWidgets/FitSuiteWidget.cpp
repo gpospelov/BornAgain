@@ -40,6 +40,14 @@ FitSuiteWidget::FitSuiteWidget(JobModel *jobModel, QWidget *parent)
 void FitSuiteWidget::setItem(JobItem *jobItem)
 {
     m_currentItem = jobItem;
+    m_fitParametersWidget->setItem(jobItem);
 
+}
+
+void FitSuiteWidget::setModelTuningWidget(ModelTuningWidget *tuningWidget)
+{
+    Q_ASSERT(m_fitParametersWidget);
+    Q_ASSERT(tuningWidget);
+    m_fitParametersWidget->setModelTuningWidget(tuningWidget);
 }
 

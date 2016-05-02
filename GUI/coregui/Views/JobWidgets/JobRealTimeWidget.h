@@ -35,6 +35,8 @@ class BA_CORE_API_ JobRealTimeWidget : public JobPresenter
 public:
     explicit JobRealTimeWidget(JobModel *jobModel, QWidget *parent = 0);
 
+    ModelTuningWidget *getItemModelTuningWidget(JobItem *jobItem);
+
 public slots:
     void setItem(JobItem *item);
     void onJobItemDelete(JobItem *item);

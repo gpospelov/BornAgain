@@ -49,8 +49,13 @@ public:
     complex_t ff( const cvector_t q, const bool sym_Ci ) const;
     complex_t ff_2D( const cvector_t qpa ) const;
     void assert_Ci( const PolyhedralFace& other ) const;
+    static double qpa_limit_series; //!< determines when use power series
+    static int n_limit_series;
+#ifdef POLYHEDRAL_DIAGNOSTIC
+    static void setLimits( double _qpa, int _n ) { qpa_limit_series=_qpa; n_limit_series=_n; }
+#endif
+
 private:
-    static const double qpa_limit_series; //!< determines when use power series
     bool sym_S2; //!< if true, then edges obtainable by inversion are not provided
     std::vector<PolyhedralEdge> edges;
     double m_area;
@@ -78,17 +83,22 @@ public:
     virtual double getVolume() const final { return m_volume; }
     virtual double getRadius() const final { return m_radius; }
     void assert_platonic() const;
-protected:
+    static double q_limit_series; //!< determines when to use power series
+    static int n_limit_series;
+#ifdef POLYHEDRAL_DIAGNOSTIC
+    static void setLimits( double _q, int _n ) { q_limit_series=_q; n_limit_series=_n; }
+#endif
 
+protected:
     double m_z_origin;
     bool m_sym_Ci; //!< if true, then faces obtainable by inversion are not provided
     void setVertices( const std::vector<kvector_t>& vertices );
     void precompute();
+
 private:
     std::vector<PolyhedralFace> m_faces;
     double m_radius;
     double m_volume;
-    static const double q_limit_series;
     complex_t evaluate_centered( const cvector_t q ) const;
 };
 

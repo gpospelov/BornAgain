@@ -27,6 +27,10 @@ Diagnosis diagnosis;
 
 int nshape = 12;
 
+extern int n_limit;
+extern double q_limit_series;
+extern double qpa_limit_series;
+
 //! Returns a pointer to a particle, according to given code
 
 IFormFactorBorn* make_particle( int ishape )
@@ -45,9 +49,9 @@ IFormFactorBorn* make_particle( int ishape )
         double alpha = 72 * Units::degree;
         return new FormFactorCone6(10., 10., alpha);
     } else if( ishape==6 ) {
-        return new FormFactorPyramid(1.5, .24, .6);
+        return new FormFactorPyramid(1.5, .24, 1.);
     } else if( ishape==7 ) {
-        return new FormFactorAnisoPyramid(1.5, 1.5, .24, .6);
+        return new FormFactorAnisoPyramid(1.5, 1.5, .24, 1.);
     } else if( ishape==8 ) {
         return new FormFactorPrism3(1.2, 1.);
     } else if( ishape==9 ) {
@@ -99,10 +103,15 @@ void run(const IFormFactorBorn* polyh, const int ishape, const cvector_t q, cons
 
     if( outfilter==9 )
         return;
-    cout << std::setprecision(16) << ishape << " " << std::setprecision(12) <<
+    cout <<
+        std::setprecision(16) <<
+        ishape << " " <<
+        std::setprecision(12) <<
         q[0].real() << " " << q[0].imag() << " " <<
         q[1].real() << " " << q[1].imag() << " " <<
-        q[2].real() << " " << q[2].imag() << " " << std::setprecision(12);
+        q[2].real() << " " << q[2].imag() << " " <<
+        std::setprecision(18) <<
+        q.mag() << " ";
     if     ( outfilter==0 )
         cout << ret;
     else if( outfilter==1 )
@@ -110,7 +119,7 @@ void run(const IFormFactorBorn* polyh, const int ishape, const cvector_t q, cons
     else if( outfilter==2 )
         cout << ret.imag();
     else if( outfilter==7 || outfilter==8 )
-        cout << ret.real() << " " << ret.imag();
+        cout << ret.real() << " " << ret.imag() << " " << std::abs(ret);
     else
         throw "invalid outfilter";
 #ifdef POLYHEDRAL_DIAGNOSTIC
@@ -119,14 +128,14 @@ void run(const IFormFactorBorn* polyh, const int ishape, const cvector_t q, cons
 }
 
 void loop_one_shape(
-    int outfilter, int ishape, const vector<vector<cvector_t>>& q_collection,
+    int outfilter, int ishape, const vector<vector<cvector_t>>& scans,
     double& totmaxrelstep )
 {
     IFormFactorBorn* polyh( make_particle( ishape ) );
 
     if( outfilter==6 ) {
         double maxrelstep = 0;
-        for( const vector<cvector_t>& q_scan: q_collection ) {
+        for( const vector<cvector_t>& q_scan: scans ) {
             for( size_t i=1; i<q_scan.size(); ++i ) {
                 complex_t last_ret = polyh->evaluate_for_q(q_scan[i-1]);
                 Diagnosis last_diag = diagnosis;
@@ -141,7 +150,7 @@ void loop_one_shape(
         totmaxrelstep = std::max( maxrelstep, totmaxrelstep );
 
     } else {
-        for( const vector<cvector_t>& q_scan: q_collection ) {
+        for( const vector<cvector_t>& q_scan: scans ) {
             for( const cvector_t q: q_scan )
                 run( polyh, ishape, q, outfilter );
         }
@@ -154,7 +163,7 @@ void test_loop( int outfilter, int ishapepar )
     static int n_qdir = 10;
     int nsteps;
     if( outfilter==7 )
-        nsteps = 201;
+        nsteps = 2001;
     else if( outfilter==8 )
         nsteps = 17;
     else
@@ -184,20 +193,20 @@ void test_loop( int outfilter, int ishapepar )
         { 1., 2.71813+0.1*I, 3.14158-0.2*I, },
         { -2.+.02*I, .03-.0004*I, .0005 } };
 
-    vector<vector<cvector_t>> q_collection;
+    vector<vector<cvector_t>> scans;
     // For different directions ...
     for( int idx_qdir=0; idx_qdir<n_qdir; ++idx_qdir ){
         for( int irot=0; irot<3; ++irot ){
             double rot = steps_short[irot];
             cvector_t uq = ((1-rot)*qdirs[idx_qdir] + rot*qdirs[idx_qdir+1]).unit();
             // ... sweep |q|
-            vector<cvector_t> q;
-            q.push_back( cvector_t() ); // q=0 to start with
+            vector<cvector_t> scan;
+            scan.push_back( cvector_t() ); // q=0 to start with
             for( int idx_qmag=0; idx_qmag<(nsteps-1); ++idx_qmag ) {
-                double qmag = pow(10.,-10+14.*idx_qmag/(nsteps-2));
-                q.push_back( qmag * uq );
+                double qmag = pow(10.,-10+13.*idx_qmag/(nsteps-2));
+                scan.push_back( qmag * uq );
             }
-            q_collection.push_back( q );
+            scans.push_back( scan );
         }
     }
     // For different |q| ...
@@ -205,30 +214,30 @@ void test_loop( int outfilter, int ishapepar )
         double qmag = pow(10.,-9+12.*idx_qmag/(7-1));
         // ... sweep direction
         for( int idx_qdir=0; idx_qdir<n_qdir; ++idx_qdir ){
-            vector<cvector_t> q;
+            vector<cvector_t> scan;
             for( int irot=0; irot<nsteps; ++irot ){
                 double rot = steps[irot];
                 cvector_t uq = ((1-rot)*qdirs[idx_qdir] + rot*qdirs[idx_qdir+1]).unit();
-                q.push_back( qmag * uq );
+                scan.push_back( qmag * uq );
             }
-            q_collection.push_back( q );
+            scans.push_back( scan );
         }
     }
 
     if( ishapepar==0 ) {
         for( int ishape=1; ishape<=nshape; ++ishape ){
-            loop_one_shape( outfilter, ishape, q_collection, totmaxrelstep );
+            loop_one_shape( outfilter, ishape, scans, totmaxrelstep );
         }
         if( outfilter==6 )
             cout << "grand total max rel step = " << totmaxrelstep << "\n";
     } else {
-        loop_one_shape( outfilter, ishapepar, q_collection, totmaxrelstep );
+        loop_one_shape( outfilter, ishapepar, scans, totmaxrelstep );
     }
 }
 
 void help_and_exit()
 {
-    cerr << "Usage: fftest inmode outfilter shape|0=all qxr qxi qyr qyi qzr qzi q]\n";
+    cerr << "Usage: fftest inmode outfilter shape|0=all [qxr qxi qyr qyi qzr qzi q] [qlim qpalim nlim]\n";
     cerr << "inmode: q from 0 stdin, 1 cmdline, 2 loop\n";
     cerr << "outfilter: return 0 all, 1 real, 2 imag, 6 cont_test, 7 plot_tab, 8 ref_tab, 9 nil\n";
     exit(0);
@@ -243,8 +252,13 @@ int main (int argc, char *argv[])
         int outfilter = atoi( argv[2] );
         int ishape = atoi( argv[3] );
         if( inmode==2 ) {
-            if( argc!=4 )
+            if( argc!=7 )
                 help_and_exit();
+            double q_limit = atof( argv[4] );
+            double qpa_limit = atof( argv[5] );
+            int n_limit = atoi( argv[6] );
+            FormFactorPolyhedron::setLimits( q_limit, n_limit );
+            PolyhedralFace::setLimits( qpa_limit, n_limit );
             test_loop( outfilter, ishape );
             exit(0);
         }

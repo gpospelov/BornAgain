@@ -39,12 +39,15 @@ typedef Geometry::BasicVector3D<double> kvector_t;
 static complex_t I(0.,1.);
 static double eps(2e-16);
 
-const double FormFactorPolyhedron::q_limit_series = 1e-5;
-const double PolyhedralFace::qpa_limit_series = 1e-3;
-
 #ifdef POLYHEDRAL_DIAGNOSTIC
 extern Diagnosis diagnosis;
 #endif
+
+double PolyhedralFace::qpa_limit_series = 1e-3;
+int PolyhedralFace::n_limit_series = 20;
+
+double FormFactorPolyhedron::q_limit_series = 1e-5;
+int FormFactorPolyhedron::n_limit_series = 20;
 
 //***************************************************************************************************
 //  PolyhedralEdge implementation
@@ -255,18 +258,22 @@ complex_t PolyhedralFace::ff( const cvector_t q, const bool sym_Ci ) const
         }
         complex_t sum = fac_even * m_area;
         complex_t n_fac = I;
-        for( int n=1; n<20; ++n ) {
+        for( int n=1; n<n_limit_series; ++n ) {
 #ifdef POLYHEDRAL_DIAGNOSTIC
             diagnosis.maxOrder = std::max( diagnosis.maxOrder, n );
 #endif
             complex_t term = n_fac * ( n&1 ? fac_odd : fac_even ) * ff_n_core(n, qpa) / qpa.mag2();
-            //std::cout<<std::setprecision(16)<<"  sum="<<sum<<" term="<<term<<"\n";
             sum += term;
+            // std::cout<<std::setprecision(16)<<"  sum="<<sum<<" term="<<term<<"\n";
             if( !(n&1) && std::abs(term)<=eps*std::abs(sum) )
                 return sum;
             n_fac *= I;
         }
+#ifdef POLYHEDRAL_DIAGNOSTIC
+        return sum;
+#else
         throw std::runtime_error("Bug in formfactor computation: series f(q_pa) not converged");
+#endif
     } else {
         // direct evaluation of analytic formula
         cvector_t prevec = 2.*m_normal.cross( qpa ); // complex conjugation will take place in .dot
@@ -301,7 +308,7 @@ complex_t PolyhedralFace::ff_2D( const cvector_t qpa ) const
 #endif
         complex_t sum = m_area;
         complex_t n_fac = I;
-        for( int n=1; n<20; ++n ) {
+        for( int n=1; n<n_limit_series; ++n ) {
 #ifdef POLYHEDRAL_DIAGNOSTIC
             diagnosis.maxOrder = std::max( diagnosis.maxOrder, n );
 #endif
@@ -311,7 +318,11 @@ complex_t PolyhedralFace::ff_2D( const cvector_t qpa ) const
                 return sum;
             n_fac *= I;
         }
+#ifdef POLYHEDRAL_DIAGNOSTIC
+        return sum;
+#else
         throw std::runtime_error("Bug in formfactor computation: series f(q_pa) not converged");
+#endif
     } else {
         // direct evaluation of analytic formula
         cvector_t prevec = m_normal.cross( qpa );  // complex conjugation will take place in .dot
@@ -405,9 +416,9 @@ complex_t FormFactorPolyhedron::evaluate_centered( const cvector_t q ) const
         return m_volume;
     } else if ( q_red < q_limit_series ) {
         // summation of power series
-        complex_t ret = m_volume;
+        complex_t sum = m_volume;
         complex_t n_fac = ( m_sym_Ci ? -2 : I ) / q.mag2();
-        for( int n=1; n<20; ++n ) {
+        for( int n=1; n<n_limit_series; ++n ) {
             if( m_sym_Ci && n&1 )
                 continue;
 #ifdef POLYHEDRAL_DIAGNOSTIC
@@ -417,18 +428,23 @@ complex_t FormFactorPolyhedron::evaluate_centered( const cvector_t q ) const
             for( const PolyhedralFace& Gk: m_faces )
                 term += Gk.ff_n( n+1, q );
             term *= n_fac;
-            ret += term;
-            if( !(n&1) && std::abs(term)<eps*std::abs(ret) )
-                return ret;
+            sum += term;
+            // std::cout<<std::setprecision(16)<<"  sum="<<sum<<" term="<<term<<"\n";
+            if( !(n&1) && std::abs(term)<eps*std::abs(sum) )
+                return sum;
             n_fac *= ( m_sym_Ci ? -1 : I );
         }
+#ifdef POLYHEDRAL_DIAGNOSTIC
+        return sum;
+#else
         throw std::runtime_error("Bug in formfactor computation: series F(q) not converged");
+#endif
     } else {
         // direct evaluation of analytic formula (coefficients may involve series)
-        complex_t ret = 0;
+        complex_t sum = 0;
         for( const PolyhedralFace& Gk: m_faces )
-            ret += Gk.ff(q, m_sym_Ci );
-        return ret / (I * q.mag2());
+            sum += Gk.ff(q, m_sym_Ci );
+        return sum / (I * q.mag2());
     }
 }
 

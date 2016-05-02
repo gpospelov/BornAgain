@@ -1,0 +1,11 @@
+runff 2 7 4 1e-99 1e-99 0 > h0
+runff 2 7 4 1e99  1e-99 1 > h1
+runff 2 7 4 1e99  1e-99 2 > h2
+runff 2 7 4 1e99  1e-99 3 > h3
+runff 2 7 4 1e99  1e-99 4 > h4
+runff 2 7 4 1e99  1e-99 5 > h5
+runff 2 7 4 1e99  1e-99 6 > h6
+runff 2 7 4 1e99  1e-99 7 > h7
+runff 2 7 4 1e99  1e-99 8 > h8
+runff 2 7 4 1e99  1e-99 9 > h9
+runff 2 7 4 1e99  1e-99 20 > hs

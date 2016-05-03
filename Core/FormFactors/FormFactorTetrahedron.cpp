@@ -70,14 +70,14 @@ void FormFactorTetrahedron::onChange()
     double bh = b/sqrt(3);
 
     setPolyhedron( topology, 0, false, {
-        // base:
-        { -as, -ac, 0. },
-        {  as, -ac, 0. },
-        {  0.,  ah, 0. },
-        // top:
-        { -bs, -bc, m_height },
-        {  bs, -bc, m_height },
-        {  0.,  bh, m_height } } );
+            // base:
+            { -as, -ac, 0. },
+            {  as, -ac, 0. },
+            {  0.,  ah, 0. },
+            // top:
+            { -bs, -bc, m_height },
+            {  bs, -bc, m_height },
+            {  0.,  bh, m_height } } );
 }
 
 FormFactorTetrahedron* FormFactorTetrahedron::clone() const

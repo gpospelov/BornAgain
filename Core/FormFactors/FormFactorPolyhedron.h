@@ -86,7 +86,7 @@ private:
 class FormFactorPolyhedron : public IFormFactorBorn {
 public:
 #ifdef POLYHEDRAL_DIAGNOSTIC
-    static void setLimits( double _q, int _n ) { q_limit_series=_q; n_limit_series=_n; }
+    static void setLimits( double _q, int _n );
 #endif
 
     class TopologyFace {

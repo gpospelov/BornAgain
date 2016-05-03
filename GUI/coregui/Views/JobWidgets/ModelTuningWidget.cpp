@@ -203,6 +203,9 @@ void ModelTuningWidget::resizeEvent(QResizeEvent *event)
         QPoint pos = getPositionForWarningSign();
         m_warningSign->setPosition(pos.x(),pos.y());
     }
+    if(m_treeView) {
+        m_treeView->setColumnWidth(0, width()*0.5);
+    }
 }
 
 //! Context menu reimplemented to suppress default

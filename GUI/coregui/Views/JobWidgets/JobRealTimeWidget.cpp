@@ -20,13 +20,14 @@
 #include "JobQueueData.h"
 #include "ModelTuningWidget.h"
 #include "JobRealTimeToolBar.h"
+#include "GUIHelpers.h"
+#include "mainwindow_constants.h"
 #include <QVBoxLayout>
 #include <QPushButton>
 #include <QStackedWidget>
 #include <QAction>
 #include <QLabel>
 #include <QDebug>
-#include "GUIHelpers.h"
 
 JobRealTimeWidget::JobRealTimeWidget(JobModel *jobModel, QWidget *parent)
     : JobPresenter(jobModel, parent)
@@ -35,11 +36,6 @@ JobRealTimeWidget::JobRealTimeWidget(JobModel *jobModel, QWidget *parent)
 {
     setWindowTitle(QLatin1String("Job Real Time"));
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
-
-//    setMinimumSize(100, 400);
-
-//    m_stack->setMinimumSize(100, 400);
-//    m_stack->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->setMargin(0);
@@ -56,6 +52,16 @@ JobRealTimeWidget::JobRealTimeWidget(JobModel *jobModel, QWidget *parent)
 ModelTuningWidget *JobRealTimeWidget::getTuningWidgetForItem(JobItem *jobItem)
 {
     return m_jobItemToTuningWidget[jobItem];
+}
+
+QSize JobRealTimeWidget::sizeHint() const
+{
+    return QSize(Constants::REALTIME_WIDGET_WIDTH_HINT, 480);
+}
+
+QSize JobRealTimeWidget::minimumSizeHint() const
+{
+    return QSize(100, 100);
 }
 
 void JobRealTimeWidget::setItem(JobItem * item)

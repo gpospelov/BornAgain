@@ -20,35 +20,32 @@
 #include "JobQueueData.h"
 #include "FitSuiteWidget.h"
 #include "JobRealTimeWidget.h"
+#include "mainwindow_constants.h"
+#include "RunFitControlWidget.h"
 #include <QStackedWidget>
 #include <QVBoxLayout>
-#include <QHBoxLayout>
-#include <QPushButton>
-#include <QSlider>
 
 FitActivityPanel::FitActivityPanel(JobModel *jobModel, QWidget *parent)
     : JobPresenter(jobModel, parent)
-    , m_startButton(new QPushButton)
-    , m_stopButton(new QPushButton)
-    , m_intervalSlider(new QSlider)
     , m_stack(new QStackedWidget(this))
+    , m_controlWidget(new RunFitControlWidget(this))
     , m_realTimeWidget(0)
 {
     setWindowTitle(QLatin1String("Fit Panel"));
-
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
-
-//    m_stack->setMinimumSize(100, 100);
-//    m_stack->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->setMargin(0);
     mainLayout->setSpacing(0);
 
     mainLayout->addWidget(m_stack);
-    mainLayout->addWidget(createRunControlWidget());
+    mainLayout->addWidget(m_controlWidget);
 
     setLayout(mainLayout);
+
+    connect(m_controlWidget, SIGNAL(startFitting()), this, SLOT(onStartFitting()));
+    connect(m_controlWidget, SIGNAL(stopFitting()), this, SLOT(onStopFitting()));
+
 }
 
 void FitActivityPanel::setRealTimeWidget(JobRealTimeWidget *realTimeWidget)
@@ -56,36 +53,12 @@ void FitActivityPanel::setRealTimeWidget(JobRealTimeWidget *realTimeWidget)
     m_realTimeWidget = realTimeWidget;
 }
 
-QWidget *FitActivityPanel::createRunControlWidget()
-{
-    QWidget *result = new QWidget;
-    QHBoxLayout *layout = new QHBoxLayout;
+QSize FitActivityPanel::sizeHint() const {
+    return QSize(Constants::REALTIME_WIDGET_WIDTH_HINT, 240);
+}
 
-    m_startButton->setText("Run");
-    m_startButton->setToolTip("Run fitting");
-    m_startButton->setMaximumWidth(70);
-//    m_startButton->setMinimumHeight(50);
-
-    m_stopButton->setText("Stop");
-    m_stopButton->setToolTip("Interrupt fitting");
-
-    m_intervalSlider->setOrientation(Qt::Horizontal);
-    m_intervalSlider->setRange(1,20);
-    m_intervalSlider->setMaximumWidth(150);
-    m_intervalSlider->setMinimumWidth(150);
-    m_intervalSlider->setFocusPolicy(Qt::NoFocus);
-    m_intervalSlider->setValue(10);
-
-    layout->addWidget(m_startButton);
-    layout->addWidget(m_stopButton);
-    layout->addWidget(m_intervalSlider);
-    layout->addStretch();
-    result->setLayout(layout);
-
-    connect(m_startButton, SIGNAL(clicked(bool)), this, SLOT(onStartClick()));
-    connect(m_stopButton, SIGNAL(clicked(bool)), this, SLOT(onStopClicked()));
-
-    return result;
+QSize FitActivityPanel::minimumSizeHint() const {
+    return QSize(100, 100);
 }
 
 void FitActivityPanel::setItem(JobItem *item)
@@ -102,9 +75,8 @@ void FitActivityPanel::setItem(JobItem *item)
         widget->setItem(item);
         widget->setModelTuningWidget(m_realTimeWidget->getTuningWidgetForItem(item));
 
-        connect(widget, SIGNAL(fittingStarted()), this, SLOT(onFittingStarted()));
-        connect(widget, SIGNAL(fittingFinished()), this, SLOT(onFittingFinished()));
-
+        connect(widget, SIGNAL(fittingStarted()), m_controlWidget, SLOT(onFittingStarted()));
+        connect(widget, SIGNAL(fittingFinished()), m_controlWidget, SLOT(onFittingFinished()));
 
         m_stack->addWidget(widget);
         m_jobItemToFitWidget[item] = widget;
@@ -144,30 +116,18 @@ void FitActivityPanel::updateCurrentItem()
     setItem(m_currentItem);
 }
 
-void FitActivityPanel::onStartClick()
+void FitActivityPanel::onStartFitting()
 {
     if(FitSuiteWidget *widget = getCurrentFitSuiteWidget()) {
         widget->startFitting();
     }
 }
 
-void FitActivityPanel::onStopClicked()
+void FitActivityPanel::onStopFitting()
 {
     if(FitSuiteWidget *widget = getCurrentFitSuiteWidget()) {
         widget->stopFitting();
     }
-}
-
-void FitActivityPanel::onFittingStarted()
-{
-    m_startButton->setEnabled(false);
-    m_stopButton->setEnabled(true);
-}
-
-void FitActivityPanel::onFittingFinished()
-{
-    m_startButton->setEnabled(true);
-    m_stopButton->setEnabled(false);
 }
 
 bool FitActivityPanel::isValidJobItem(JobItem *item)

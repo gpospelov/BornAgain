@@ -20,13 +20,12 @@
 #include "JobPresenter.h"
 #include <QMap>
 
-class QPushButton;
-class QSlider;
 class JobModel;
 class JobItem;
 class QStackedWidget;
 class FitSuiteWidget;
 class JobRealTimeWidget;
+class RunFitControlWidget;
 
 //! Main widget to run fitting. Occupies bottom right corner of JobView.
 //! Contains stack of FitSuiteWidgets for JobItem's suitable for fitting.
@@ -39,8 +38,8 @@ public:
 
     void setRealTimeWidget(JobRealTimeWidget *realTimeWidget);
 
-    QSize sizeHint() const { return QSize(480, 240); }
-    QSize minimumSizeHint() const { return QSize(100, 100); }
+    QSize sizeHint() const;
+    QSize minimumSizeHint() const;
 
 public slots:
     void setItem(JobItem *item);
@@ -49,22 +48,15 @@ public slots:
     void updateCurrentItem();
 
 private slots:
-    void onStartClick();
-    void onStopClicked();
-    void onFittingStarted();
-    void onFittingFinished();
+    void onStartFitting();
+    void onStopFitting();
 
 private:
-//    void connectFitSuiteWidget(FitSuiteWidget *fitSuiteWidget);
-    QWidget *createRunControlWidget();
     bool isValidJobItem(JobItem *item);
     FitSuiteWidget *getCurrentFitSuiteWidget();
 
-
-    QPushButton *m_startButton;
-    QPushButton *m_stopButton;
-    QSlider *m_intervalSlider;
     QStackedWidget *m_stack;
+    RunFitControlWidget *m_controlWidget;
     QMap<JobItem *, FitSuiteWidget *> m_jobItemToFitWidget;
     JobRealTimeWidget *m_realTimeWidget;
 };

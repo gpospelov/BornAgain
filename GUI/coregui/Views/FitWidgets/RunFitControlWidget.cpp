@@ -45,6 +45,7 @@ RunFitControlWidget::RunFitControlWidget(QWidget *parent)
     m_stopButton->setMaximumWidth(80);
     m_stopButton->setEnabled(false);
 
+    m_intervalSlider->setToolTip("Updates fit progress every nth iteration");
     m_intervalSlider->setOrientation(Qt::Horizontal);
     m_intervalSlider->setRange(1,20);
     m_intervalSlider->setMaximumWidth(150);

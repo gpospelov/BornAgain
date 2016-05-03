@@ -16,13 +16,20 @@
 
 #include "RunFitControlWidget.h"
 #include "WarningSignWidget.h"
+#include "DesignerHelper.h"
 #include <QPushButton>
 #include <QSlider>
+#include <QLabel>
 #include <QHBoxLayout>
+#include <QDebug>
+#include <QFont>
 
 namespace {
-const int warning_sign_xpos = 38;
-const int warning_sign_ypos = 38;
+const int warning_sign_xpos = 42;
+const int warning_sign_ypos = 42;
+const int default_update_interval = 10;
+const std::vector<int> slider_to_interval = {1,2,3,4,5,10,15,20,25,30,50,100,200,500,1000};
+const QString slider_tooltip = "Updates fit progress every Nth iteration";
 }
 
 RunFitControlWidget::RunFitControlWidget(QWidget *parent)
@@ -30,10 +37,12 @@ RunFitControlWidget::RunFitControlWidget(QWidget *parent)
     , m_startButton(new QPushButton)
     , m_stopButton(new QPushButton)
     , m_intervalSlider(new QSlider)
+    , m_updateIntervalLabel(new QLabel("25"))
     , m_currentItem(0)
     , m_warningSign(0)
 {
     QHBoxLayout *layout = new QHBoxLayout;
+    layout->setSpacing(0);
 
     m_startButton->setText("Run");
     m_startButton->setToolTip("Run fitting");
@@ -45,22 +54,35 @@ RunFitControlWidget::RunFitControlWidget(QWidget *parent)
     m_stopButton->setMaximumWidth(80);
     m_stopButton->setEnabled(false);
 
-    m_intervalSlider->setToolTip("Updates fit progress every nth iteration");
+    m_intervalSlider->setToolTip(slider_tooltip);
     m_intervalSlider->setOrientation(Qt::Horizontal);
-    m_intervalSlider->setRange(1,20);
-    m_intervalSlider->setMaximumWidth(150);
-    m_intervalSlider->setMinimumWidth(150);
+    m_intervalSlider->setRange(0, slider_to_interval.size()-1);
+    m_intervalSlider->setMaximumWidth(120);
+    m_intervalSlider->setMinimumWidth(120);
     m_intervalSlider->setFocusPolicy(Qt::NoFocus);
-    m_intervalSlider->setValue(10);
+    m_intervalSlider->setValue(5);
+
+    QFont font("Monospace", DesignerHelper::getLabelFontSize(), QFont::Normal);
+    font.setPointSize(DesignerHelper::getPortFontSize());
+    m_updateIntervalLabel->setToolTip(slider_tooltip);
+    m_updateIntervalLabel->setFont(font);
+    m_updateIntervalLabel->setText(QString::number(sliderValueToUpdateInterval(m_intervalSlider->value())));
 
     layout->addWidget(m_startButton);
+    layout->addSpacing(5);
     layout->addWidget(m_stopButton);
+    layout->addSpacing(5);
     layout->addWidget(m_intervalSlider);
+    layout->addSpacing(2);
+    layout->addWidget(m_updateIntervalLabel);
+    layout->addSpacing(5);
     layout->addStretch();
     setLayout(layout);
 
     connect(m_startButton, SIGNAL(clicked(bool)), this, SIGNAL(startFitting()));
     connect(m_stopButton, SIGNAL(clicked(bool)), this, SIGNAL(stopFitting()));
+    connect(m_intervalSlider, SIGNAL(valueChanged(int)), this, SLOT(onSliderValueChanged(int)));
+
 }
 
 void RunFitControlWidget::onFittingStarted()
@@ -97,6 +119,11 @@ void RunFitControlWidget::setItem(JobItem *item)
     m_currentItem = item;
 }
 
+void RunFitControlWidget::onSliderValueChanged(int value)
+{
+    m_updateIntervalLabel->setText(QString::number(sliderValueToUpdateInterval(value)));
+}
+
 void RunFitControlWidget::resizeEvent(QResizeEvent *event)
 {
     Q_UNUSED(event);
@@ -117,4 +144,13 @@ void RunFitControlWidget::clearWarningSign()
 {
     delete m_warningSign;
     m_warningSign = 0;
+}
+
+//! converts slider value (1-15) to update interval to be propagated to FitSuiteWidget
+int RunFitControlWidget::sliderValueToUpdateInterval(int value)
+{
+    if(value < (int)slider_to_interval.size())
+        return slider_to_interval[value];
+
+    return default_update_interval;
 }

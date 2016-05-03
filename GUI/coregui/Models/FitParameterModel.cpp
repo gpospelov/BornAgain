@@ -107,8 +107,8 @@ QVariant FitParameterModel::headerData(int section, Qt::Orientation orientation,
 
 int FitParameterModel::rowCount(const QModelIndex &parent) const
 {
-    if(!parent.isValid())
-        return 0;
+//    if(!parent.isValid())
+//        return 0;
 
 //    if (parent.isValid() && parent.column() != 0)
 //        return 0;
@@ -125,8 +125,8 @@ int FitParameterModel::rowCount(const QModelIndex &parent) const
 
 int FitParameterModel::columnCount(const QModelIndex &parent) const
 {
-    if(!parent.isValid())
-        return 0;
+//    if(!parent.isValid())
+//        return 0;
 
     if (parent.isValid() && parent.column() != 0)
         return 0;

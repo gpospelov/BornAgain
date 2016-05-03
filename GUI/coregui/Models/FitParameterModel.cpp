@@ -207,3 +207,4 @@ QString FitParameterModel::getParameterItemPath(ParameterItem *parameterItem)
     result = result.mid(containerEnd);
     return result;
 }
+

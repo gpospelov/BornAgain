@@ -32,8 +32,10 @@
 #include "JobItem.h"
 #include "ModelPath.h"
 #include "ParameterTreeItems.h"
+#include "FitParameterModel.h"
 #include <QStandardItem>
 #include <QStandardItemModel>
+#include <QStack>
 #include <QDebug>
 
 
@@ -46,6 +48,13 @@ void ParameterModelBuilder::createParameterTree(JobItem *item, const QString &ta
 
     SessionItem *instrument = container->model()->insertNewItem(Constants::ParameterLabelType, container->index());
     handleItem(instrument, item->getItem(JobItem::T_INSTRUMENT));
+
+#ifndef NDEBUG
+    // Provides all items in "JobItem/Parameter Tree Container" with domain links already
+    // at the stage of ParameterTree creation. It is necessary for validation, in Release mode
+    // it will lead for unnecessary larde project files.
+    populateDomainLinks(item, tag);
+#endif
 }
 
 void ParameterModelBuilder::handleItem(SessionItem *tree, SessionItem *source)
@@ -89,4 +98,27 @@ void ParameterModelBuilder::handleItem(SessionItem *tree, SessionItem *source)
             }
         }
     }
+}
+
+//! For every ParameterItem in JobItem's ParameterTree container creates a link to domain.
+void ParameterModelBuilder::populateDomainLinks(JobItem *jobItem, const QString &tag)
+{
+    SessionItem *current = jobItem->getItem(tag); //this is container
+    QStack<SessionItem*> stack;
+    stack.push(current);
+    while(!stack.empty()) {
+        current = stack.pop();
+        if (current->modelType() == Constants::ParameterLabelType) {
+            for (SessionItem *child : current->getItems()) {
+                stack.push(child);
+            }
+        } else {
+            if(ParameterItem *parItem = dynamic_cast<ParameterItem *>(current)) {
+                QString parItemPath = FitParameterModel::getParameterItemPath(parItem);
+                std::string domainPath = ModelPath::translateParameterName(jobItem->getMultiLayerItem()->parent(), parItemPath);
+                parItem->setItemValue(ParameterItem::P_DOMAIN, QString::fromStdString(domainPath));
+            }
+        }
+    }
+
 }

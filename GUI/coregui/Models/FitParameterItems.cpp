@@ -20,11 +20,13 @@
 // ----------------------------------------------------------------------------
 
 const QString FitParameterLinkItem::P_LINK = "Link";
+const QString FitParameterLinkItem::P_DOMAIN = "Domain";
 
 FitParameterLinkItem::FitParameterLinkItem()
     : SessionItem(Constants::FitParameterLinkType)
 {
-    addProperty(P_LINK, "XYZ");
+    addProperty(P_LINK, "");
+    addProperty(P_DOMAIN, "");
 }
 
 // ----------------------------------------------------------------------------

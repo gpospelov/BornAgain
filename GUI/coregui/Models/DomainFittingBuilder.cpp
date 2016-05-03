@@ -41,9 +41,10 @@ std::shared_ptr<FitSuite> DomainFittingBuilder::getFitSuite(JobItem *jobItem)
 
         foreach(SessionItem *linkItem, parItem->getItems(FitParameterItem::T_LINK)) {
             QString link = linkItem->getItemValue(FitParameterLinkItem::P_LINK).toString();
-            std::string outpath = "*" + ModelPath::translateParameterName(jobItem->getMultiLayerItem()->parent(), link);
-            qDebug() << "FFF link" << link << QString::fromStdString(outpath);
-            result->addFitParameter(outpath, value);
+            std::string domainPath = ModelPath::translateParameterName(jobItem->getMultiLayerItem()->parent(), link);
+            linkItem->setItemValue(FitParameterLinkItem::P_DOMAIN, QString::fromStdString(domainPath));
+            qDebug() << "FFF link" << link << QString::fromStdString(domainPath);
+            result->addFitParameter("*" + domainPath, value);
         }
 
     }

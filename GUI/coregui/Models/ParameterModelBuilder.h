@@ -28,6 +28,7 @@ public:
     static void createParameterTree(JobItem *item, const QString &tag = QString());
 private:
     static void handleItem(SessionItem *tree, SessionItem *source);
+    static void populateDomainLinks(JobItem *jobItem,  const QString &tag);
 };
 
 

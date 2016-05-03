@@ -49,6 +49,8 @@ public:
 
     static QModelIndex getIndexFromPath(const SessionModel *model, const QString &path);
 
+    static SessionItem *getItemFromPath(const QString &relPath, SessionItem *parent);
+
 private:
 
     static QStringList splitParameterName(const QString& par_name);

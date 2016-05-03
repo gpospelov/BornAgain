@@ -25,6 +25,8 @@
 #include "DomainFittingBuilder.h"
 #include "IntensityDataItem.h"
 #include "FitSuite.h"
+#include "ModelPath.h"
+#include "ParameterTreeItems.h"
 #include <QVBoxLayout>
 #include <QTabWidget>
 #include <QMessageBox>
@@ -87,17 +89,37 @@ void FitSuiteWidget::onUpdateParameters(const QStringList &parameters, QVector<d
 {
     qDebug() << "FitSuiteWidget::onUpdateParameters" << parameters << values;
 
+    ParameterContainerItem *parContainer = dynamic_cast<ParameterContainerItem *>(m_currentItem->getItem(JobItem::T_PARAMETER_TREE));
+    Q_ASSERT(parContainer);
+
     SessionItem *fitSuiteItem = m_currentItem->getItem(JobItem::T_FIT_SUITE);
     Q_ASSERT(fitSuiteItem);
 
     SessionItem *container = fitSuiteItem->getItem(FitSuiteItem::T_FIT_PARAMETERS);
     Q_ASSERT(container);
 
-    foreach(SessionItem *parItem, container->getItems(FitParameterContainerItem::T_FIT_PARAMETERS)) {
-        foreach(SessionItem *linkItem, parItem->getItems(FitParameterItem::T_LINK)) {
+    foreach(SessionItem *fitParItem, container->getItems(FitParameterContainerItem::T_FIT_PARAMETERS)) {
+        foreach(SessionItem *linkItem, fitParItem->getItems(FitParameterItem::T_LINK)) {
+            QString parPath = linkItem->getItemValue(FitParameterLinkItem::P_LINK).toString();
             QString domainPath = linkItem->getItemValue(FitParameterLinkItem::P_DOMAIN).toString();
+
             if (parameters.contains(domainPath)) {
                 int index = parameters.indexOf(domainPath);
+
+                SessionItem *parItem = ModelPath::getItemFromPath(parPath, parContainer);
+                Q_ASSERT(parItem);
+                parItem->setValue(values[index]);
+
+
+//                FitParameterLinkItem *llItem = dynamic_cast<FitParameterLinkItem *>(linkItem);
+//                Q_ASSERT(llItem);
+
+//                SessionItem *parItem = llItem->getLinkedItem();
+//                qDebug() << "XX" << domainPath;
+//                qDebug() << "XXX" << parItem << parItem->modelType() << parItem->value();
+//                parItem->setValue(values[index]);
+//                Q_ASSERT(0);
+
 
 
 //                current->setValue(values[index]);

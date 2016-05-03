@@ -17,6 +17,8 @@
 #include "FitParameterItems.h"
 #include "ComboProperty.h"
 #include "ModelPath.h"
+#include "SessionModel.h"
+#include <QDebug>
 
 // ----------------------------------------------------------------------------
 
@@ -32,14 +34,14 @@ FitParameterLinkItem::FitParameterLinkItem()
 
 SessionItem *FitParameterLinkItem::getLinkedItem()
 {
-//    QString link = getItemValue(P_LINK).toString();
-//    SessionItem *cur = this;
-//    while (cur && cur->modelType() != Constants::JobItemType) {
-//        cur = cur->parent();
-//    }
-//    link = cur->itemName() + "/" + link;
-//    return model()->itemForIndex(ModelPath::getIndexFromPath(model(), link));
-    return 0;
+    QString link = getItemValue(P_LINK).toString();
+    SessionItem *cur = this;
+    while (cur && cur->modelType() != Constants::JobItemType) {
+        cur = cur->parent();
+    }
+    link = cur->itemName() + "/" + link;
+    qDebug() << "AAAA" << "orig link" << getItemValue(P_LINK).toString() << "parent link" << link << ModelPath::getIndexFromPath(model(), link);
+    return model()->itemForIndex(ModelPath::getIndexFromPath(model(), link));
 }
 
 // ----------------------------------------------------------------------------

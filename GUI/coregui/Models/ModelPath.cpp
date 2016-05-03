@@ -22,6 +22,7 @@
 #include "SessionModel.h"
 #include <QModelIndex>
 #include <QStringList>
+#include <QDebug>
 #include <sstream>
 
 
@@ -139,6 +140,14 @@ QModelIndex ModelPath::getIndexFromPath(const SessionModel *model, const QString
         return t->index();
     }
     return QModelIndex();
+}
+
+//! returns an item from relative path wrt to given parent
+SessionItem *ModelPath::getItemFromPath(const QString &relPath, SessionItem *parent)
+{
+    Q_ASSERT(parent);
+    QString fullPath = getPathFromIndex(parent->index()) + "/" + relPath;
+    return parent->model()->itemForIndex(ModelPath::getIndexFromPath(parent->model(), fullPath));
 }
 
 QStringList ModelPath::splitParameterName(const QString &par_name)

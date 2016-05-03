@@ -55,7 +55,7 @@ ModelTuningWidget::ModelTuningWidget(JobModel *jobModel, QWidget *parent)
 //    , m_mapper(0)
     , m_fitTools(new FitTools(jobModel, parent))
 {
-    setMinimumSize(128, 128);
+//    setMinimumSize(128, 128);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     m_sliderSettingsWidget = new SliderSettingsWidget();

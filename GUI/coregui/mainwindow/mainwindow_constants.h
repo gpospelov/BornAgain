@@ -55,6 +55,7 @@ const char MIME_JOBQUEUE[] = "application/org.bornagainproject.jobqueue";
 const unsigned int MAIN_THEME_COLOR    = 0x086FA1;
 const unsigned int BUTTON_COLOR        = 0x044362;
 const unsigned int BUTTON_TEXT_COLOR   = 0xFFFFFF;
+
 //
 }
 

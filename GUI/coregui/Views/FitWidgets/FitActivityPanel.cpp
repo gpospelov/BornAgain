@@ -36,11 +36,10 @@ FitActivityPanel::FitActivityPanel(JobModel *jobModel, QWidget *parent)
 {
     setWindowTitle(QLatin1String("Fit Panel"));
 
-    setMinimumSize(100, 120);
-    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
 
-    m_stack->setMinimumSize(100, 100);
-    m_stack->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+//    m_stack->setMinimumSize(100, 100);
+//    m_stack->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->setMargin(0);
@@ -62,8 +61,14 @@ QWidget *FitActivityPanel::createRunControlWidget()
     QWidget *result = new QWidget;
     QHBoxLayout *layout = new QHBoxLayout;
 
-    m_startButton->setText("Run Fit");
+    m_startButton->setText("Run");
+    m_startButton->setToolTip("Run fitting");
+    m_startButton->setMaximumWidth(70);
+//    m_startButton->setMinimumHeight(50);
+
     m_stopButton->setText("Stop");
+    m_stopButton->setToolTip("Interrupt fitting");
+
     m_intervalSlider->setOrientation(Qt::Horizontal);
     m_intervalSlider->setRange(1,20);
     m_intervalSlider->setMaximumWidth(150);
@@ -74,6 +79,7 @@ QWidget *FitActivityPanel::createRunControlWidget()
     layout->addWidget(m_startButton);
     layout->addWidget(m_stopButton);
     layout->addWidget(m_intervalSlider);
+    layout->addStretch();
     result->setLayout(layout);
 
     connect(m_startButton, SIGNAL(clicked(bool)), this, SLOT(onStartClick()));

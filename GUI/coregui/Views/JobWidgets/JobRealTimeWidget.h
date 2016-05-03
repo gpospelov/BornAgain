@@ -37,6 +37,9 @@ public:
 
     ModelTuningWidget *getTuningWidgetForItem(JobItem *jobItem);
 
+    QSize sizeHint() const { return QSize(480, 480); }
+    QSize minimumSizeHint() const { return QSize(100, 100); }
+
 public slots:
     void setItem(JobItem *item);
     void onJobItemDelete(JobItem *item);

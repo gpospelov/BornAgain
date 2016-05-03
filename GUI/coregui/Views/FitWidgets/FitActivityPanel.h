@@ -39,6 +39,9 @@ public:
 
     void setRealTimeWidget(JobRealTimeWidget *realTimeWidget);
 
+    QSize sizeHint() const { return QSize(480, 240); }
+    QSize minimumSizeHint() const { return QSize(100, 100); }
+
 public slots:
     void setItem(JobItem *item);
     void onJobItemDelete(JobItem *item);

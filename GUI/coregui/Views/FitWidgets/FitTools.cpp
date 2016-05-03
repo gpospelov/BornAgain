@@ -93,11 +93,12 @@ void FitTools::setCurrentItem(JobItem *item, QItemSelectionModel *selection)
 {
     m_currentJobItem = item;
     m_selectionModel = selection;
-    if (m_currentJobItem->getItemValue(JobItem::P_WITH_FITTING).toBool()) {
-        this->show();
-    } else {
-        this->hide();
-    }
+//    if (m_currentJobItem->getItemValue(JobItem::P_WITH_FITTING).toBool()) {
+//        this->show();
+//    } else {
+//        this->hide();
+//    }
+    this->hide();
     m_realDataWindow->setItem(dynamic_cast<IntensityDataItem*>(item->getItem(JobItem::T_REALDATA)));
 }
 

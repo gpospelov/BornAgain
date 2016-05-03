@@ -34,12 +34,12 @@ JobRealTimeWidget::JobRealTimeWidget(JobModel *jobModel, QWidget *parent)
     , m_toolBar(new JobRealTimeToolBar)
 {
     setWindowTitle(QLatin1String("Job Real Time"));
+    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
 
-    setMinimumSize(100, 400);
-    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+//    setMinimumSize(100, 400);
 
-    m_stack->setMinimumSize(100, 400);
-    m_stack->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+//    m_stack->setMinimumSize(100, 400);
+//    m_stack->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->setMargin(0);

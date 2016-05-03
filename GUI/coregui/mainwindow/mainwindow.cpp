@@ -69,6 +69,8 @@ MainWindow::MainWindow(QWidget *parent)
     initProgressBar();
     initViews();
     initConnections();
+
+    m_applicationModels->createTestJob();
 }
 
 MaterialModel *MainWindow::materialModel()
@@ -242,7 +244,7 @@ void MainWindow::initViews()
     m_tabWidget->insertTab(FIT, testView, QIcon(":/images/main_jobqueue.png"), "Test");
     m_tabWidget->insertTab(TESTVIEW, testFitWidgets, QIcon(":/images/main_jobqueue.png"), "TestView");
 
-    m_tabWidget->setCurrentIndex(WELCOME);
+    m_tabWidget->setCurrentIndex(JOB);
 
     setCentralWidget(m_tabWidget);
 }

@@ -79,9 +79,9 @@ void FitSuiteWidget::onUpdatePlots(OutputData<double> *sim, OutputData<double> *
     Q_UNUSED(sim);
     Q_UNUSED(chi2);
     qDebug() << "FitSuiteWidget::onUpdatePlots";
-//    OutputData<double> *data = m_currentItem->getIntensityDataItem()->getOutputData();
-//    data->setRawDataVector(sim->getRawDataVector());
-//    m_currentItem->getIntensityDataItem()->emitDataChanged();
+    OutputData<double> *data = m_currentItem->getIntensityDataItem()->getOutputData();
+    data->setRawDataVector(sim->getRawDataVector());
+    m_currentItem->getIntensityDataItem()->emitDataChanged();
     m_observer->finishedPlotting();
 }
 
@@ -100,35 +100,18 @@ void FitSuiteWidget::onUpdateParameters(const QStringList &parameters, QVector<d
 
     foreach(SessionItem *fitParItem, container->getItems(FitParameterContainerItem::T_FIT_PARAMETERS)) {
         foreach(SessionItem *linkItem, fitParItem->getItems(FitParameterItem::T_LINK)) {
-            QString parPath = linkItem->getItemValue(FitParameterLinkItem::P_LINK).toString();
             QString domainPath = linkItem->getItemValue(FitParameterLinkItem::P_DOMAIN).toString();
 
             if (parameters.contains(domainPath)) {
+                QString parPath = linkItem->getItemValue(FitParameterLinkItem::P_LINK).toString();
                 int index = parameters.indexOf(domainPath);
-
                 SessionItem *parItem = ModelPath::getItemFromPath(parPath, parContainer);
                 Q_ASSERT(parItem);
                 parItem->setValue(values[index]);
-
-
-//                FitParameterLinkItem *llItem = dynamic_cast<FitParameterLinkItem *>(linkItem);
-//                Q_ASSERT(llItem);
-
-//                SessionItem *parItem = llItem->getLinkedItem();
-//                qDebug() << "XX" << domainPath;
-//                qDebug() << "XXX" << parItem << parItem->modelType() << parItem->value();
-//                parItem->setValue(values[index]);
-//                Q_ASSERT(0);
-
-
-
-//                current->setValue(values[index]);
             }
-
 
         }
     }
-
 
 }
 

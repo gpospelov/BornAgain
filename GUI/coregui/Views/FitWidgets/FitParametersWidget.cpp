@@ -107,33 +107,34 @@ void FitParametersWidget::onTuningWidgetContextMenu(const QPoint &point)
 
 void FitParametersWidget::onTuningWidgetSelectionChanged(const QItemSelection &selection)
 {
-
+    Q_UNUSED(selection);
 }
 
 void FitParametersWidget::onFitParametersSelectionChanged(const QItemSelection &selection)
 {
+    Q_UNUSED(selection);
     qDebug() << "onFitParametersSelectionChanged ->";
-    if (selection.indexes().isEmpty())
-        return;
-    QModelIndex index = selection.indexes().last();
-    qDebug() << "XXX index" << selection.indexes() << index;
-    QModelIndex newSelection = QModelIndex();
-    if (index.isValid() && index.parent().isValid()) {
-        SessionItem *val = m_fitParameterModel->itemForIndex(index);
-//        QString link = val->getItemValue(FitParameterLinkItem::P_LINK).toString();
-        qDebug() << "XXX val" << val->modelType() << val->displayName() << val->value();
-//        QStandardItem *t = m_selectorModel->getItemFromPath(link);
-//        newSelection = m_selectorModel->indexFromItem(t);
-    }
-//    connectSelectorView(false);
-//    m_selectorTreeView->selectionModel()
-//            ->select(newSelection, QItemSelectionModel::ClearAndSelect);
-//    if (newSelection.isValid()) {
-//        newSelection = newSelection.sibling(newSelection.row(), 1);
-//        m_selectorTreeView->selectionModel()
-//                ->select(newSelection, QItemSelectionModel::Select);
+//    if (selection.indexes().isEmpty())
+//        return;
+//    QModelIndex index = selection.indexes().last();
+//    qDebug() << "XXX index" << selection.indexes() << index;
+//    QModelIndex newSelection = QModelIndex();
+//    if (index.isValid() && index.parent().isValid()) {
+//        SessionItem *val = m_fitParameterModel->itemForIndex(index);
+////        QString link = val->getItemValue(FitParameterLinkItem::P_LINK).toString();
+//        qDebug() << "XXX val" << val->modelType() << val->displayName() << val->value();
+////        QStandardItem *t = m_selectorModel->getItemFromPath(link);
+////        newSelection = m_selectorModel->indexFromItem(t);
 //    }
-//    connectSelectorView();
+////    connectSelectorView(false);
+////    m_selectorTreeView->selectionModel()
+////            ->select(newSelection, QItemSelectionModel::ClearAndSelect);
+////    if (newSelection.isValid()) {
+////        newSelection = newSelection.sibling(newSelection.row(), 1);
+////        m_selectorTreeView->selectionModel()
+////                ->select(newSelection, QItemSelectionModel::Select);
+////    }
+////    connectSelectorView();
 
 }
 

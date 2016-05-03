@@ -32,18 +32,6 @@ FitParameterLinkItem::FitParameterLinkItem()
     addProperty(P_DOMAIN, "");
 }
 
-SessionItem *FitParameterLinkItem::getLinkedItem()
-{
-    QString link = getItemValue(P_LINK).toString();
-    SessionItem *cur = this;
-    while (cur && cur->modelType() != Constants::JobItemType) {
-        cur = cur->parent();
-    }
-    link = cur->itemName() + "/" + link;
-    qDebug() << "AAAA" << "orig link" << getItemValue(P_LINK).toString() << "parent link" << link << ModelPath::getIndexFromPath(model(), link);
-    return model()->itemForIndex(ModelPath::getIndexFromPath(model(), link));
-}
-
 // ----------------------------------------------------------------------------
 
 const QString FitParameterItem::P_USE = "Use";

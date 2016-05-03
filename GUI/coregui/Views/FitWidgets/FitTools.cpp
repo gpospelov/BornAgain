@@ -126,12 +126,13 @@ void FitTools::onStartClick()
                 SessionItem *item = m_jobModel->itemForIndex(sourceIndex);
                 if (item && item->modelType() == Constants::ParameterType) {
                     QString path = ModelPath::getPathFromIndex(item->index());
-                    qDebug() << "QQQ 1.1" << path;
-                    int containerEnd = path.indexOf("Container/") + 10;
+//                    int containerEnd = path.indexOf("Container/") + 10;
+
+                    QString containerPrefix = Constants::ParameterContainerType+"/";
+                    int containerEnd = path.indexOf(containerPrefix) + containerPrefix.size();
+
                     path = path.mid(containerEnd);
-                    qDebug() << "QQQ 1.2" << path;
                     std::string outpath = "*" + ModelPath::translateParameterName(m_currentJobItem->getMultiLayerItem()->parent(), path);
-                    qDebug() << "QQQ 1.3" << QString::fromStdString(outpath);
 
                     item->setItemValue(ParameterItem::P_DOMAIN, QString::fromStdString(outpath));
                     m_fitsuite->addFitParameter(outpath, item->value().toDouble(), dynamic_cast<ParameterItem*>(item)->getLinkedItem()->limits());
@@ -197,7 +198,7 @@ void FitTools::onUpdateParameters(const QStringList &parameters, QVector<double>
     stack.push(current);
     while(!stack.empty()) {
         current = stack.pop();
-        if (current->modelType() == Constants::ParameterLabelType) {
+        if (current->modelType() == Constants::ParameterLabelType || current->modelType() == Constants::ParameterContainerType) {
             for (SessionItem *child : current->getItems()) {
                 stack.push(child);
             }

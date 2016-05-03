@@ -41,8 +41,11 @@
 
 void ParameterModelBuilder::createParameterTree(JobItem *item, const QString &tag)
 {
-    SessionItem *container = item->model()->insertNewItem(Constants::ParameterLabelType, item->index(), -1, tag);
-    container->setDisplayName("Parameter Tree Container");
+//    SessionItem *container = item->model()->insertNewItem(Constants::ParameterLabelType, item->index(), -1, tag);
+//    container->setDisplayName("Parameter Tree Container");
+
+    SessionItem *container = item->model()->insertNewItem(Constants::ParameterContainerType, item->index(), -1, tag);
+
     SessionItem *multiLayer = container->model()->insertNewItem(Constants::ParameterLabelType, container->index());
     handleItem(multiLayer, item->getItem(JobItem::T_SAMPLE));
 

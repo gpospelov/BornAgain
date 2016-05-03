@@ -185,8 +185,10 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::ObsoleteInputDataType] = &createInstance<ObsoleteInputDataItem>;
     result[Constants::GroupItemType] = &createInstance<GroupItem>;
 
+    result[Constants::ParameterContainerType] = &createInstance<ParameterContainerItem>;
     result[Constants::ParameterLabelType] = &createInstance<ParameterLabelItem>;
     result[Constants::ParameterType] = &createInstance<ParameterItem>;
+
     result[Constants::FitParameterContainerType] = &createInstance<FitParameterContainerItem>;
     result[Constants::FitParameterType] = &createInstance<FitParameterItem>;
     result[Constants::FitParameterLinkType] = &createInstance<FitParameterLinkItem>;

@@ -203,7 +203,9 @@ QStringList FitParameterModel::getFitParameterNames()
 QString FitParameterModel::getParameterItemPath(ParameterItem *parameterItem)
 {
     QString result = ModelPath::getPathFromIndex(parameterItem->index());
-    int containerEnd = result.indexOf(QStringLiteral("Container/")) + 10;
+//    int containerEnd = result.indexOf(QStringLiteral("Container/")) + 10;
+    QString containerPrefix = Constants::ParameterContainerType+"/";
+    int containerEnd = result.indexOf(containerPrefix) + containerPrefix.size();
     result = result.mid(containerEnd);
     return result;
 }

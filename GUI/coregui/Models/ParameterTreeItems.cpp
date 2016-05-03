@@ -18,6 +18,16 @@
 #include "ModelPath.h"
 #include "SessionModel.h"
 
+ParameterContainerItem::ParameterContainerItem()
+    : SessionItem(Constants::ParameterContainerType)
+{
+    const QString T_CHILDREN = "children tag";
+    registerTag(T_CHILDREN, 0, -1, QStringList() << Constants::ParameterLabelType);
+    setDefaultTag(T_CHILDREN);
+}
+
+// ----------------------------------------------------------------------------
+
 ParameterLabelItem::ParameterLabelItem()
     : SessionItem(Constants::ParameterLabelType)
 {
@@ -36,6 +46,8 @@ ParameterItem::ParameterItem()
     addProperty(P_BACKUP, 0.0);
     addProperty(P_DOMAIN, "");
 }
+
+// ----------------------------------------------------------------------------
 
 void ParameterItem::propagateValueLink(bool backup)
 {
@@ -56,3 +68,4 @@ SessionItem *ParameterItem::getLinkedItem()
     link = cur->itemName() + "/" + link;
     return model()->itemForIndex(ModelPath::getIndexFromPath(model(), link));
 }
+

@@ -19,6 +19,13 @@
 
 #include "SessionItem.h"
 
+class BA_CORE_API_ ParameterContainerItem : public SessionItem
+{
+public:
+    ParameterContainerItem();
+};
+
+
 class BA_CORE_API_ ParameterLabelItem : public SessionItem
 {
 public:

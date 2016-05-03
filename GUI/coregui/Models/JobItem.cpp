@@ -73,8 +73,10 @@ JobItem::JobItem()
     registerTag(T_INSTRUMENT, 1, 1, QStringList() << Constants::InstrumentType);
     registerTag(T_OUTPUT, 1, 1, QStringList() << Constants::IntensityDataType);
     registerTag(T_REALDATA, 1, 1, QStringList() << Constants::IntensityDataType);
-    registerTag(T_PARAMETER_TREE, 0, -1, QStringList() << Constants::ParameterLabelType
-                << Constants::ParameterType);
+//    registerTag(T_PARAMETER_TREE, 0, -1, QStringList() << Constants::ParameterLabelType
+//                << Constants::ParameterType);
+    registerTag(T_PARAMETER_TREE, 0, -1, QStringList() << Constants::ParameterContainerType);
+
     registerTag(T_SIMULATION_OPTIONS, 1, 1, QStringList() << Constants::SimulationOptionsType);
 
     registerTag(T_FIT_SUITE, 1, 1, QStringList() << Constants::FitSuiteType);

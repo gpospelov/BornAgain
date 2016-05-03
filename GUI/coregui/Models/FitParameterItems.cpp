@@ -16,6 +16,7 @@
 
 #include "FitParameterItems.h"
 #include "ComboProperty.h"
+#include "ModelPath.h"
 
 // ----------------------------------------------------------------------------
 
@@ -27,6 +28,18 @@ FitParameterLinkItem::FitParameterLinkItem()
 {
     addProperty(P_LINK, "");
     addProperty(P_DOMAIN, "");
+}
+
+SessionItem *FitParameterLinkItem::getLinkedItem()
+{
+//    QString link = getItemValue(P_LINK).toString();
+//    SessionItem *cur = this;
+//    while (cur && cur->modelType() != Constants::JobItemType) {
+//        cur = cur->parent();
+//    }
+//    link = cur->itemName() + "/" + link;
+//    return model()->itemForIndex(ModelPath::getIndexFromPath(model(), link));
+    return 0;
 }
 
 // ----------------------------------------------------------------------------

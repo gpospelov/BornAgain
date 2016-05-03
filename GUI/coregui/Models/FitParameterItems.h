@@ -25,6 +25,7 @@ public:
     static const QString P_LINK;
     static const QString P_DOMAIN;
     explicit FitParameterLinkItem();
+    SessionItem *getLinkedItem();
 };
 
 class BA_CORE_API_ FitParameterItem : public SessionItem

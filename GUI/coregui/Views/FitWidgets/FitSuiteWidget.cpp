@@ -17,6 +17,8 @@
 #include "FitSuiteWidget.h"
 #include "JobModel.h"
 #include "JobItem.h"
+#include "FitSuiteItem.h"
+#include "FitParameterItems.h"
 #include "FitParametersWidget.h"
 #include "RunFitManager.h"
 #include "GUIFitObserver.h"
@@ -83,9 +85,29 @@ void FitSuiteWidget::onUpdatePlots(OutputData<double> *sim, OutputData<double> *
 
 void FitSuiteWidget::onUpdateParameters(const QStringList &parameters, QVector<double> values)
 {
-    Q_UNUSED(parameters);
-    Q_UNUSED(values);
     qDebug() << "FitSuiteWidget::onUpdateParameters" << parameters << values;
+
+    SessionItem *fitSuiteItem = m_currentItem->getItem(JobItem::T_FIT_SUITE);
+    Q_ASSERT(fitSuiteItem);
+
+    SessionItem *container = fitSuiteItem->getItem(FitSuiteItem::T_FIT_PARAMETERS);
+    Q_ASSERT(container);
+
+    foreach(SessionItem *parItem, container->getItems(FitParameterContainerItem::T_FIT_PARAMETERS)) {
+        foreach(SessionItem *linkItem, parItem->getItems(FitParameterItem::T_LINK)) {
+            QString domainPath = linkItem->getItemValue(FitParameterLinkItem::P_DOMAIN).toString();
+            if (parameters.contains(domainPath)) {
+                int index = parameters.indexOf(domainPath);
+
+
+//                current->setValue(values[index]);
+            }
+
+
+        }
+    }
+
+
 }
 
 void FitSuiteWidget::startFitting()

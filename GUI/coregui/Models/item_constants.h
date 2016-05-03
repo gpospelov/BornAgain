@@ -127,8 +127,10 @@ const ModelType ObsoleteFitSelectionType = "ObsoleteFitSelection";
 const ModelType ObsoleteMinimizerSettingsType = "ObsoleteMinimizer Settings";
 const ModelType ObsoleteInputDataType = "Obsolete Input Data";
 
+const ModelType ParameterContainerType = "Parameter Container";
 const ModelType ParameterType = "Parameter";
 const ModelType ParameterLabelType = "Parameter Label";
+
 const ModelType FitParameterContainerType = "FitParameterContainer";
 const ModelType FitParameterType = "FitParameter";
 const ModelType FitParameterLinkType = "FitParameterLink";

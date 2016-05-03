@@ -82,7 +82,7 @@ class MySampleBuilder(ISampleBuilder):
         alpha_start = - (n_alpha_rotation_steps/2.0)*alpha_step
 
         phi_step = 2*numpy.pi/3.0/n_max_phi_rotation_steps
-        phi_start = 0.0;
+        phi_start = 0.0
         for i in range(0, n_max_phi_rotation_steps):
             for j in range(0, n_alpha_rotation_steps):
 

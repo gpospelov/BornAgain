@@ -17,6 +17,7 @@
 #include "MultiLayer.h"
 #include "DWBADiffuseReflection.h"
 #include "BornAgainNamespace.h"
+#include "Faddeeva.hh"
 
 #include <memory>
 
@@ -77,7 +78,7 @@ double MultiLayerRoughnessDWBASimulation::evaluate(const SimulationElement& sim_
 
     for(size_t i=0; i<mp_multi_layer->getNumberOfLayers()-1; i++){
         rterm[i] = get_refractive_term(i);
-        sterm[i] = get_sum4terms(i, sim_element);
+        sterm[i] = get_sum8terms(i, sim_element);
     }
 
     for(size_t i=0; i<mp_multi_layer->getNumberOfLayers()-1; i++){
@@ -146,4 +147,73 @@ complex_t MultiLayerRoughnessDWBASimulation::get_sum4terms(size_t ilayer,
                       * std::exp(sigma2 * qz4 * qz4);
 
     return term1 + term2 + term3 + term4;
+}
+
+complex_t MultiLayerRoughnessDWBASimulation::get_sum8terms(size_t ilayer,
+                                                           const SimulationElement& sim_element)
+{
+    static const complex_t im(0.0, 1.0);
+    double wavelength = sim_element.getWavelength();
+    double alpha_i = sim_element.getAlphaI();
+    double alpha_f = sim_element.getAlphaMean();
+
+    const std::unique_ptr<const ILayerRTCoefficients> P_in_plus(
+        mp_specular_info_vector[ilayer]->getInCoefficients(alpha_i, 0.0, wavelength));
+    const std::unique_ptr<const ILayerRTCoefficients> P_out_plus(
+        mp_specular_info_vector[ilayer]->getOutCoefficients(alpha_f, 0.0, wavelength));
+
+    const std::unique_ptr<const ILayerRTCoefficients> P_in_minus(
+        mp_specular_info_vector[ilayer + 1]->getInCoefficients(alpha_i, 0.0, wavelength));
+    const std::unique_ptr<const ILayerRTCoefficients> P_out_minus(
+        mp_specular_info_vector[ilayer + 1]->getOutCoefficients(alpha_f, 0.0, wavelength));
+
+    complex_t kiz_plus = P_in_plus->getScalarKz();
+    complex_t kfz_plus = P_out_plus->getScalarKz();
+    complex_t qz1_plus = kiz_plus + kfz_plus;
+    complex_t qz2_plus = kiz_plus - kfz_plus;
+    complex_t qz3_plus = -qz2_plus;
+    complex_t qz4_plus = -qz1_plus;
+    double thickness = mp_multi_layer->getLayerThickness(ilayer);
+    complex_t T_in_plus = P_in_plus->getScalarT()*std::exp(im*kiz_plus*thickness);
+    complex_t R_in_plus = P_in_plus->getScalarR()*std::exp(-im*kiz_plus*thickness);
+    complex_t T_out_plus = P_out_plus->getScalarT()*std::exp(im*kfz_plus*thickness);
+    complex_t R_out_plus = P_out_plus->getScalarR()*std::exp(-im*kfz_plus*thickness);
+
+
+    complex_t kiz_minus = P_in_minus->getScalarKz();
+    complex_t kfz_minus = P_out_minus->getScalarKz();
+    complex_t qz1_minus = kiz_minus + kfz_minus;
+    complex_t qz2_minus = kiz_minus - kfz_minus;
+    complex_t qz3_minus = -qz2_minus;
+    complex_t qz4_minus = -qz1_minus;
+
+    double sigma(0.0);
+    if (const LayerRoughness *roughness
+        = mp_multi_layer->getLayerBottomInterface(ilayer)->getRoughness()) {
+        sigma = roughness->getSigma();
+    }
+    complex_t term1 = T_in_plus * T_out_plus * h_plus(im*qz1_plus*sigma);
+    complex_t term2 = T_in_plus * R_out_plus * h_plus(im*qz2_plus*sigma);
+    complex_t term3 = R_in_plus * T_out_plus * h_plus(im*qz3_plus*sigma);
+    complex_t term4 = R_in_plus * R_out_plus * h_plus(im*qz4_plus*sigma);
+    complex_t term5 = P_in_minus->getScalarT() * P_out_minus->getScalarT()
+                      * h_min(im*qz1_minus*sigma);
+    complex_t term6 = P_in_minus->getScalarT() * P_out_minus->getScalarR()
+                      * h_min(im*qz2_minus*sigma);
+    complex_t term7 = P_in_minus->getScalarR() * P_out_minus->getScalarT()
+                      * h_min(im*qz3_minus*sigma);
+    complex_t term8 = P_in_minus->getScalarR() * P_out_minus->getScalarR()
+                      * h_min(im*qz4_minus*sigma);
+
+    return term1 + term2 + term3 + term4 + term5 + term6 + term7 + term8;
+}
+
+complex_t MultiLayerRoughnessDWBASimulation::h_plus(complex_t x) const
+{
+    return 0.5*Faddeeva::erfcx(x/std::sqrt(2.0));
+}
+
+complex_t MultiLayerRoughnessDWBASimulation::h_min(complex_t x) const
+{
+    return 0.5*Faddeeva::erfcx(-x/std::sqrt(2.0));
 }

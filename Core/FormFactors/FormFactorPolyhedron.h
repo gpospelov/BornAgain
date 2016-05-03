@@ -19,6 +19,7 @@
 #include<complex>
 #include<memory>
 #include "BasicVector3D.h"
+
 typedef std::complex<double> complex_t;
 typedef Geometry::BasicVector3D<complex_t> cvector_t;
 typedef Geometry::BasicVector3D<double> kvector_t;
@@ -30,8 +31,10 @@ typedef Geometry::BasicVector3D<double> kvector_t;
 class PolyhedralEdge {
 public:
     PolyhedralEdge( const kvector_t _Vlow, const kvector_t _Vhig );
+
     kvector_t E; //!< vector pointing from mid of edge to upper vertex
     kvector_t R; //!< position vector of edge midpoint
+
     complex_t contrib(int m, cvector_t prevec, cvector_t qpa) const;
 };
 
@@ -41,27 +44,32 @@ public:
 class PolyhedralFace {
 public:
     static double diameter( const std::vector<kvector_t>& V );
+#ifdef POLYHEDRAL_DIAGNOSTIC
+    static void setLimits( double _qpa, int _n );
+#endif
+
     PolyhedralFace( const std::vector<kvector_t>& _V=std::vector<kvector_t>(), bool _sym_S2=false );
-    double m_radius_3d; //!< radius of enclosing sphere
-    double getArea() const;
-    double getPyramidalVolume() const;
+
+    double area() const { return m_area; }
+    double pyramidalVolume() const { return m_rperp*m_area/3; }
+    double radius3d() const { return m_radius_3d; }
     complex_t ff_n( int m, const cvector_t q ) const;
     complex_t ff( const cvector_t q, const bool sym_Ci ) const;
     complex_t ff_2D( const cvector_t qpa ) const;
     void assert_Ci( const PolyhedralFace& other ) const;
-    static double qpa_limit_series; //!< determines when use power series
-    static int n_limit_series;
-#ifdef POLYHEDRAL_DIAGNOSTIC
-    static void setLimits( double _qpa, int _n ) { qpa_limit_series=_qpa; n_limit_series=_n; }
-#endif
 
 private:
+    static double qpa_limit_series; //!< determines when use power series
+    static int n_limit_series;
+
     bool sym_S2; //!< if true, then edges obtainable by inversion are not provided
     std::vector<PolyhedralEdge> edges;
     double m_area;
     kvector_t m_normal; //!< normal vector of this polygon's plane
     double m_rperp; //!< distance of this polygon's plane from the origin, along 'm_normal'
     double m_radius_2d; //!< radius of enclosing cylinder
+    double m_radius_3d; //!< radius of enclosing sphere
+
     void decompose_q( const cvector_t q, complex_t& qperp, cvector_t& qpa ) const;
     complex_t ff_n_core( int m, const cvector_t qpa ) const;
 };
@@ -71,34 +79,39 @@ private:
 
 class FormFactorPolyhedron : public IFormFactorBorn {
 public:
+#ifdef POLYHEDRAL_DIAGNOSTIC
+    static void setLimits( double _q, int _n ) { q_limit_series=_q; n_limit_series=_n; }
+#endif
+
     class TopologyFace {
     public:
         std::vector<int> vertexIndices;
         bool symmetry_S2;
     };
     typedef std::vector<TopologyFace> Topology;
-    virtual const Topology& getTopology() const = 0;
+
     FormFactorPolyhedron() {}
+
     virtual complex_t evaluate_for_q(const cvector_t q ) const final;
     virtual double getVolume() const final { return m_volume; }
     virtual double getRadius() const final { return m_radius; }
     void assert_platonic() const;
-    static double q_limit_series; //!< determines when to use power series
-    static int n_limit_series;
-#ifdef POLYHEDRAL_DIAGNOSTIC
-    static void setLimits( double _q, int _n ) { q_limit_series=_q; n_limit_series=_n; }
-#endif
 
 protected:
     double m_z_origin;
     bool m_sym_Ci; //!< if true, then faces obtainable by inversion are not provided
-    void setVertices( const std::vector<kvector_t>& vertices );
+
+    void setVertices( const Topology& topology, const std::vector<kvector_t>& vertices );
     void precompute();
 
 private:
+    static double q_limit_series; //!< determines when to use power series
+    static int n_limit_series;
+
     std::vector<PolyhedralFace> m_faces;
     double m_radius;
     double m_volume;
+
     complex_t evaluate_centered( const cvector_t q ) const;
 };
 
@@ -108,10 +121,12 @@ private:
 class FormFactorPolygonalPrism : public IFormFactorBorn {
 public:
     FormFactorPolygonalPrism( const double height );
+
     virtual complex_t evaluate_for_q(const cvector_t q ) const final;
     double getVolume() const;
     double getHeight() const { return m_height; }
-    virtual double getRadius() const final { return std::sqrt(m_base->getArea()); }
+    virtual double getRadius() const final { return std::sqrt(m_base->area()); }
+
 protected:
     std::unique_ptr<PolyhedralFace> m_base;
     double m_height;

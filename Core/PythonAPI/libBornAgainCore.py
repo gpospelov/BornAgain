@@ -8224,33 +8224,20 @@ class PolyhedralFace(_object):
             self.this.append(this)
         except:
             self.this = this
-    __swig_setmethods__["m_radius_3d"] = _libBornAgainCore.PolyhedralFace_m_radius_3d_set
-    __swig_getmethods__["m_radius_3d"] = _libBornAgainCore.PolyhedralFace_m_radius_3d_get
-    if _newclass:
-        m_radius_3d = _swig_property(_libBornAgainCore.PolyhedralFace_m_radius_3d_get, _libBornAgainCore.PolyhedralFace_m_radius_3d_set)
 
-    def getArea(self):
-        """
-        getArea(PolyhedralFace self) -> double
-
-        double PolyhedralFace::getArea() const
-
-        Returns area of this polygon. 
-
-        """
-        return _libBornAgainCore.PolyhedralFace_getArea(self)
+    def area(self):
+        """area(PolyhedralFace self) -> double"""
+        return _libBornAgainCore.PolyhedralFace_area(self)
 
 
-    def getPyramidalVolume(self):
-        """
-        getPyramidalVolume(PolyhedralFace self) -> double
+    def pyramidalVolume(self):
+        """pyramidalVolume(PolyhedralFace self) -> double"""
+        return _libBornAgainCore.PolyhedralFace_pyramidalVolume(self)
 
-        double PolyhedralFace::getPyramidalVolume() const
 
-        Returns volume of pyramid spanned by the origin and this polygon. 
-
-        """
-        return _libBornAgainCore.PolyhedralFace_getPyramidalVolume(self)
+    def radius3d(self):
+        """radius3d(PolyhedralFace self) -> double"""
+        return _libBornAgainCore.PolyhedralFace_radius3d(self)
 
 
     def ff_n(self, m, q):
@@ -8330,16 +8317,6 @@ class FormFactorPolyhedron(IFormFactorBorn):
     def __init__(self, *args, **kwargs):
         raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
-
-    def getTopology(self):
-        """
-        getTopology(FormFactorPolyhedron self) -> FormFactorPolyhedron::Topology const &
-
-        virtual const Topology& FormFactorPolyhedron::getTopology() const =0
-
-        """
-        return _libBornAgainCore.FormFactorPolyhedron_getTopology(self)
-
 
     def evaluate_for_q(self, q):
         """

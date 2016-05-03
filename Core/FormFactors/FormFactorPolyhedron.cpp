@@ -101,6 +101,10 @@ double PolyhedralFace::diameter( const std::vector<kvector_t>& V )
     return diameterFace;
 }
 
+#ifdef POLYHEDRAL_DIAGNOSTIC
+void PolyhedralFace::setLimits( double _qpa, int _n ) { qpa_limit_series=_qpa; n_limit_series=_n; }
+#endif
+
 //! Sets internal variables for given vertex chain.
 
 //! @param V oriented vertex list
@@ -176,12 +180,6 @@ PolyhedralFace::PolyhedralFace( const std::vector<kvector_t>& V, bool _sym_S2 )
         edges.erase( edges.begin()+NE, edges.end() );
     }
 }
-
-//! Returns area of this polygon
-double PolyhedralFace::getArea() const { return m_area; }
-
-//! Returns volume of pyramid spanned by the origin and this polygon
-double PolyhedralFace::getPyramidalVolume() const { return m_rperp*m_area/3; }
 
 //! Sets qperp and qpa according to argument q and to this polygon's normal.
 
@@ -353,9 +351,14 @@ void PolyhedralFace::assert_Ci( const PolyhedralFace& other ) const
 //  FormFactorPolyhedron implementation
 //***************************************************************************************************
 
-//! Takes vertices, and resets internal state.
+#ifdef POLYHEDRAL_DIAGNOSTIC
+void FormFactorPolyhedron::setLimits( double _q, int _n ) { q_limit_series=_q; n_limit_series=_n; }
+#endif
 
-void FormFactorPolyhedron::setVertices( const std::vector<kvector_t>& vertices )
+//! Called by child classes to set faces and other internal variables.
+
+void FormFactorPolyhedron::setVertices(
+    const Topology& topology, const std::vector<kvector_t>& vertices )
 {
     // compute diameter
     double diameter3d = 0;
@@ -364,7 +367,7 @@ void FormFactorPolyhedron::setVertices( const std::vector<kvector_t>& vertices )
             diameter3d = std::max( diameter3d, (vertices[j]-vertices[jj]).mag() );
     // construct faces
     m_faces.clear();
-    for( const TopologyFace& tf: getTopology() ) {
+    for( const TopologyFace& tf: topology ) {
         std::vector<kvector_t> V;
         for( int i: tf.vertexIndices )
             V.push_back( vertices[i] );
@@ -381,8 +384,8 @@ void FormFactorPolyhedron::precompute()
     m_radius = 0;
     m_volume = 0;
     for( const PolyhedralFace& Gk: m_faces ) {
-        m_radius = std::max( m_radius, Gk.m_radius_3d );
-        m_volume += Gk.getPyramidalVolume();
+        m_radius = std::max( m_radius, Gk.radius3d() );
+        m_volume += Gk.pyramidalVolume();
     }
 
     if( m_sym_Ci ) {
@@ -455,12 +458,12 @@ void FormFactorPolyhedron::assert_platonic() const
     // just one test; one could do much more ...
     double pyramidal_volume = 0;
     for( const auto& Gk: m_faces )
-        pyramidal_volume += Gk.getPyramidalVolume();
+        pyramidal_volume += Gk.pyramidalVolume();
     pyramidal_volume /= m_faces.size();
     for( const auto& Gk: m_faces )
-        if (std::abs(Gk.getPyramidalVolume()-pyramidal_volume) > 160*eps*pyramidal_volume) {
+        if (std::abs(Gk.pyramidalVolume()-pyramidal_volume) > 160*eps*pyramidal_volume) {
             std::cout<<std::setprecision(16)<<"BUG: pyr_volume(this face)="<<
-                Gk.getPyramidalVolume()<<" vs pyr_volume(avge)="<<pyramidal_volume<<"\n";
+                Gk.pyramidalVolume()<<" vs pyr_volume(avge)="<<pyramidal_volume<<"\n";
             throw std::runtime_error("Deviant pyramidal volume");
         }
 }
@@ -477,7 +480,7 @@ FormFactorPolygonalPrism::FormFactorPolygonalPrism(double height)
 }
 
 //! Returns the volume of this prism.
-double FormFactorPolygonalPrism::getVolume() const { return m_height * m_base->getArea(); }
+double FormFactorPolygonalPrism::getVolume() const { return m_height * m_base->area(); }
 
 //! Returns the form factor F(q) of this polyhedron, respecting the offset height/2.
 

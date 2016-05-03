@@ -72,7 +72,7 @@ void FormFactorCuboctahedron::onChange()
     double b = m_length/2;
     double c = m_length/2 - m_height*m_height_ratio*cot_alpha;
 
-    setVertices( {
+    setVertices( topology, {
         // base:
         { -a, -a, 0. },
         {  a, -a, 0. },

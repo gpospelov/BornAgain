@@ -37,7 +37,6 @@ public:
 
 private:
     static const Topology topology;
-    virtual const Topology& getTopology() const final { return topology; }
     virtual void onChange() final;
 
     double m_length;

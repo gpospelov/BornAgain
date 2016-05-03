@@ -69,7 +69,7 @@ void FormFactorTetrahedron::onChange()
     double bc = b/sqrt(3)/2;
     double bh = b/sqrt(3);
 
-    setVertices( {
+    setVertices( topology, {
         // base:
         { -as, -ac, 0. },
         {  as, -ac, 0. },

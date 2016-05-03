@@ -62,7 +62,7 @@ void FormFactorPyramid::onChange()
     double a = m_base_edge/2;
     double b = m_base_edge/2 - m_height*cot_alpha;
 
-    setVertices( {
+    setVertices( topology, {
         // base:
         { -a, -a, 0. },
         {  a, -a, 0. },

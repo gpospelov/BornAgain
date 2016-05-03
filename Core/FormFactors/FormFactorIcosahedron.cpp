@@ -60,7 +60,7 @@ FormFactorIcosahedron::FormFactorIcosahedron(double edge)
 void FormFactorIcosahedron::onChange()
 {
     double a = m_edge;
-    setVertices( {
+    setVertices( topology, {
         {  0.5773502691896258*a,                   0*a, -0.7557613140761708*a},
         {  -0.288675134594813*a,                 0.5*a, -0.7557613140761708*a},
         {  -0.288675134594813*a,                -0.5*a, -0.7557613140761708*a},

@@ -64,7 +64,7 @@ void FormFactorTruncatedCube::onChange()
     double a = m_length/2;
     double b = m_removed_length;
 
-    setVertices( {
+    setVertices( topology, {
         { -a+b, -a  , -a   },
         { -a  , -a+b, -a   },
         { -a  , -a  , -a+b },

@@ -64,7 +64,7 @@ void FormFactorCone6::onChange()
     double bs = b/2;
     double bc = b*sqrt(3)/2;
 
-    setVertices( {
+    setVertices( topology, {
         // base:
         {  a,   0., 0. },
         {  as,  ac, 0. },

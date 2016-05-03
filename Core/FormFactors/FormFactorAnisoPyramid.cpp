@@ -68,7 +68,7 @@ void FormFactorAnisoPyramid::onChange()
     double W = m_width/2;
     double w = m_width/2 - m_height*cot_alpha;
 
-    setVertices( {
+    setVertices( topology, {
         // base:
         { -D, -W, 0. },
         {  D, -W, 0. },

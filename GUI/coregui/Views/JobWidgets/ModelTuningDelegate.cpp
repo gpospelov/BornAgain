@@ -187,8 +187,8 @@ QWidget *ModelTuningDelegate::createEditor(QWidget *parent,
         // This mapping seems to be necessary only in the case when ModelTuningDelegate is active,
         // when item changes its value from outside. It never happens it seems, so mapper
         // is not necessary.
-        // If one ourcomment code below, the time life of ModelTuningDelegate will make application
-        // crash. Check this again and remove commented.
+        // If one outcomment code below, the time life of ModelTuningDelegate will make application
+        // crash during the fitting. Check this again and remove commented.
 //        m_currentItem->mapper()->setOnValueChange(
 //                      [this](){
 //              m_valueBox->setValue(m_currentItem->value().toDouble());

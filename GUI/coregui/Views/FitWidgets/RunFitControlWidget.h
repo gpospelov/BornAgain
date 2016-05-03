@@ -23,6 +23,7 @@
 class JobItem;
 class QPushButton;
 class QSlider;
+class WarningSignWidget;
 
 //! The RunFitControlWidget contains elements to start/stop fitting and to provide minimal
 //! diagnostic. Part of FitActivityPanel.
@@ -40,12 +41,21 @@ signals:
 public slots:
     void onFittingStarted();
     void onFittingFinished();
+    void onFittingError(const QString &what);
     void setItem(JobItem *item);
 
+protected:
+    void resizeEvent(QResizeEvent *event);
+
 private:
+    QPoint getPositionForWarningSign();
+    void clearWarningSign();
+
     QPushButton *m_startButton;
     QPushButton *m_stopButton;
     QSlider *m_intervalSlider;
+    JobItem *m_currentItem;
+    WarningSignWidget *m_warningSign;
 };
 
 #endif

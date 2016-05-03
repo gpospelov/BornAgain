@@ -77,6 +77,7 @@ void FitActivityPanel::setItem(JobItem *item)
 
         connect(widget, SIGNAL(fittingStarted()), m_controlWidget, SLOT(onFittingStarted()));
         connect(widget, SIGNAL(fittingFinished()), m_controlWidget, SLOT(onFittingFinished()));
+        connect(widget, SIGNAL(fittingError(QString)), m_controlWidget, SLOT(onFittingError(QString)));
 
         m_stack->addWidget(widget);
         m_jobItemToFitWidget[item] = widget;

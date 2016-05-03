@@ -15,15 +15,23 @@
 // ************************************************************************** //
 
 #include "RunFitControlWidget.h"
+#include "WarningSignWidget.h"
 #include <QPushButton>
 #include <QSlider>
 #include <QHBoxLayout>
+
+namespace {
+const int warning_sign_xpos = 38;
+const int warning_sign_ypos = 38;
+}
 
 RunFitControlWidget::RunFitControlWidget(QWidget *parent)
     : QWidget(parent)
     , m_startButton(new QPushButton)
     , m_stopButton(new QPushButton)
     , m_intervalSlider(new QSlider)
+    , m_currentItem(0)
+    , m_warningSign(0)
 {
     QHBoxLayout *layout = new QHBoxLayout;
 
@@ -56,6 +64,7 @@ RunFitControlWidget::RunFitControlWidget(QWidget *parent)
 
 void RunFitControlWidget::onFittingStarted()
 {
+    clearWarningSign();
     m_startButton->setEnabled(false);
     m_stopButton->setEnabled(true);
 }
@@ -66,7 +75,45 @@ void RunFitControlWidget::onFittingFinished()
     m_stopButton->setEnabled(false);
 }
 
+void RunFitControlWidget::onFittingError(const QString &what)
+{
+    clearWarningSign();
+
+    QString message;
+    message.append("Current settings cause fitting failure.\n\n");
+    message.append(what);
+
+    m_warningSign = new WarningSignWidget(this);
+    m_warningSign->setWarningMessage(message);
+    QPoint pos = getPositionForWarningSign();
+    m_warningSign->setPosition(pos.x(), pos.y());
+    m_warningSign->show();
+}
+
 void RunFitControlWidget::setItem(JobItem *item)
 {
     Q_UNUSED(item);
+    m_currentItem = item;
+}
+
+void RunFitControlWidget::resizeEvent(QResizeEvent *event)
+{
+    Q_UNUSED(event);
+    if(m_warningSign) {
+        QPoint pos = getPositionForWarningSign();
+        m_warningSign->setPosition(pos.x(),pos.y());
+    }
+}
+
+QPoint RunFitControlWidget::getPositionForWarningSign()
+{
+    int x = width()-warning_sign_xpos;
+    int y = height()-warning_sign_ypos;
+    return QPoint(x, y);
+}
+
+void RunFitControlWidget::clearWarningSign()
+{
+    delete m_warningSign;
+    m_warningSign = 0;
 }

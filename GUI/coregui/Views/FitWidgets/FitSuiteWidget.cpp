@@ -130,9 +130,10 @@ void FitSuiteWidget::startFitting()
         m_manager->runFitting();
         qDebug() << " done";
     } catch(std::exception& e) {
-        QMessageBox box;
-        box.setText(e.what());
-        box.exec();
+//        QMessageBox box;
+//        box.setText(e.what());
+//        box.exec();
+        emit fittingError(QString::fromStdString(e.what()));
     }
 
 
@@ -150,7 +151,9 @@ void FitSuiteWidget::connectSignals()
     connect(m_manager, SIGNAL(startedFitting()), this, SIGNAL(fittingStarted()));
     connect(m_manager, SIGNAL(finishedFitting()), this, SIGNAL(fittingFinished()));
 
-    connect(m_manager, SIGNAL(error(QString)), this, SLOT(onError(QString)));
+//    connect(m_manager, SIGNAL(error(QString)), this, SLOT(onError(QString)));
+    connect(m_manager, SIGNAL(error(QString)), this, SIGNAL(fittingError(QString)));
+
     connect(m_observer.get(), SIGNAL(updatePlots(OutputData<double>*,OutputData<double>*)),
             this, SLOT(onUpdatePlots(OutputData<double>*,OutputData<double>*)));
     connect(m_observer.get(), SIGNAL(updateParameters(QStringList,QVector<double>)),

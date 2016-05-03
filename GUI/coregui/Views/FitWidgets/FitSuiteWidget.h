@@ -48,6 +48,7 @@ public:
 signals:
     void fittingStarted();
     void fittingFinished();
+    void fittingError(const QString &what);
 
 public slots:
     void onError(const QString &text);

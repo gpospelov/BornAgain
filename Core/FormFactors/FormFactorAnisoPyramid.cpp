@@ -68,7 +68,7 @@ void FormFactorAnisoPyramid::onChange()
     double W = m_width/2;
     double w = m_width/2 - m_height*cot_alpha;
 
-    setVertices( topology, {
+    setPolyhedron( topology, 0, false, {
         // base:
         { -D, -W, 0. },
         {  D, -W, 0. },
@@ -79,10 +79,6 @@ void FormFactorAnisoPyramid::onChange()
         {  d, -w, m_height },
         {  d,  w, m_height },
         { -d,  w, m_height } } );
-    m_z_origin = 0;
-    m_sym_Ci = false;
-
-    FormFactorPolyhedron::precompute();
 }
 
 FormFactorAnisoPyramid* FormFactorAnisoPyramid::clone() const

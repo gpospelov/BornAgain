@@ -8151,14 +8151,26 @@ class PolyhedralEdge(_object):
             self.this.append(this)
         except:
             self.this = this
-    __swig_setmethods__["E"] = _libBornAgainCore.PolyhedralEdge_E_set
-    __swig_getmethods__["E"] = _libBornAgainCore.PolyhedralEdge_E_get
-    if _newclass:
-        E = _swig_property(_libBornAgainCore.PolyhedralEdge_E_get, _libBornAgainCore.PolyhedralEdge_E_set)
-    __swig_setmethods__["R"] = _libBornAgainCore.PolyhedralEdge_R_set
-    __swig_getmethods__["R"] = _libBornAgainCore.PolyhedralEdge_R_get
-    if _newclass:
-        R = _swig_property(_libBornAgainCore.PolyhedralEdge_R_get, _libBornAgainCore.PolyhedralEdge_R_set)
+
+    def E(self):
+        """E(PolyhedralEdge self) -> kvector_t"""
+        return _libBornAgainCore.PolyhedralEdge_E(self)
+
+
+    def R(self):
+        """R(PolyhedralEdge self) -> kvector_t"""
+        return _libBornAgainCore.PolyhedralEdge_R(self)
+
+
+    def qE(self, q):
+        """qE(PolyhedralEdge self, cvector_t q) -> complex_t"""
+        return _libBornAgainCore.PolyhedralEdge_qE(self, q)
+
+
+    def qR(self, q):
+        """qR(PolyhedralEdge self, cvector_t q) -> complex_t"""
+        return _libBornAgainCore.PolyhedralEdge_qR(self, q)
+
 
     def contrib(self, m, prevec, qpa):
         """

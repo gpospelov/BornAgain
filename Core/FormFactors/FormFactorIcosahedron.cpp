@@ -60,7 +60,7 @@ FormFactorIcosahedron::FormFactorIcosahedron(double edge)
 void FormFactorIcosahedron::onChange()
 {
     double a = m_edge;
-    setVertices( topology, {
+    setPolyhedron( topology, -0.7557613140761708*a, true, {
         {  0.5773502691896258*a,                   0*a, -0.7557613140761708*a},
         {  -0.288675134594813*a,                 0.5*a, -0.7557613140761708*a},
         {  -0.288675134594813*a,                -0.5*a, -0.7557613140761708*a},
@@ -74,10 +74,6 @@ void FormFactorIcosahedron::onChange()
         {   0.288675134594813*a,                 0.5*a,  0.7557613140761708*a},
         {   0.288675134594813*a,                -0.5*a,  0.7557613140761708*a} } );
     assert_platonic();
-    m_z_origin = -0.7557613140761708*a;
-    m_sym_Ci = true;
-
-    FormFactorPolyhedron::precompute();
 }
 
 FormFactorIcosahedron* FormFactorIcosahedron::clone() const

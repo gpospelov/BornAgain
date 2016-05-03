@@ -64,7 +64,7 @@ void FormFactorTruncatedCube::onChange()
     double a = m_length/2;
     double b = m_removed_length;
 
-    setVertices( topology, {
+    setPolyhedron( topology, -m_length/2, true, {
         { -a+b, -a  , -a   },
         { -a  , -a+b, -a   },
         { -a  , -a  , -a+b },
@@ -89,10 +89,6 @@ void FormFactorTruncatedCube::onChange()
         {  a-b,  a  ,  a   },
         {  a  ,  a-b,  a   },
         {  a  ,  a  ,  a-b } } );
-    m_z_origin = -m_length/2;
-    m_sym_Ci = true;
-
-    FormFactorPolyhedron::precompute();
 }
 
 FormFactorTruncatedCube* FormFactorTruncatedCube::clone() const

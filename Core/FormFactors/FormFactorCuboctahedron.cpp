@@ -72,7 +72,7 @@ void FormFactorCuboctahedron::onChange()
     double b = m_length/2;
     double c = m_length/2 - m_height*m_height_ratio*cot_alpha;
 
-    setVertices( topology, {
+    setPolyhedron( topology, 0, false, {
         // base:
         { -a, -a, 0. },
         {  a, -a, 0. },
@@ -88,10 +88,6 @@ void FormFactorCuboctahedron::onChange()
         {  c, -c, m_height*(1+m_height_ratio) },
         {  c,  c, m_height*(1+m_height_ratio) },
         { -c,  c, m_height*(1+m_height_ratio) } } );
-    m_z_origin = 0;
-    m_sym_Ci = false;
-
-    FormFactorPolyhedron::precompute();
 }
 
 FormFactorCuboctahedron* FormFactorCuboctahedron::clone() const

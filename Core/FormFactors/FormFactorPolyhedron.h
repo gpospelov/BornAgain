@@ -32,10 +32,16 @@ class PolyhedralEdge {
 public:
     PolyhedralEdge( const kvector_t _Vlow, const kvector_t _Vhig );
 
-    kvector_t E; //!< vector pointing from mid of edge to upper vertex
-    kvector_t R; //!< position vector of edge midpoint
+    kvector_t E() const { return m_E; }
+    kvector_t R() const { return m_R; }
+    complex_t qE( cvector_t q ) const { return m_E.dot(q); }
+    complex_t qR( cvector_t q ) const { return m_R.dot(q); }
 
     complex_t contrib(int m, cvector_t prevec, cvector_t qpa) const;
+
+private:
+    kvector_t m_E; //!< vector pointing from mid of edge to upper vertex
+    kvector_t m_R; //!< position vector of edge midpoint
 };
 
 
@@ -101,8 +107,8 @@ protected:
     double m_z_origin;
     bool m_sym_Ci; //!< if true, then faces obtainable by inversion are not provided
 
-    void setVertices( const Topology& topology, const std::vector<kvector_t>& vertices );
-    void precompute();
+    void setPolyhedron( const Topology& topology, double z_origin, bool sym_Ci,
+                        const std::vector<kvector_t>& vertices );
 
 private:
     static double q_limit_series; //!< determines when to use power series

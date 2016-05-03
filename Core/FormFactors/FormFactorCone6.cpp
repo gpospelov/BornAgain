@@ -64,7 +64,7 @@ void FormFactorCone6::onChange()
     double bs = b/2;
     double bc = b*sqrt(3)/2;
 
-    setVertices( topology, {
+    setPolyhedron( topology, 0, false, {
         // base:
         {  a,   0., 0. },
         {  as,  ac, 0. },
@@ -79,10 +79,6 @@ void FormFactorCone6::onChange()
         { -b,   0., m_height },
         { -bs, -bc, m_height },
         {  bs, -bc, m_height } } );
-    m_z_origin = 0;
-    m_sym_Ci = false;
-
-    FormFactorPolyhedron::precompute();
 }
 
 FormFactorCone6* FormFactorCone6::clone() const

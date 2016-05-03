@@ -69,7 +69,7 @@ void FormFactorTetrahedron::onChange()
     double bc = b/sqrt(3)/2;
     double bh = b/sqrt(3);
 
-    setVertices( topology, {
+    setPolyhedron( topology, 0, false, {
         // base:
         { -as, -ac, 0. },
         {  as, -ac, 0. },
@@ -78,9 +78,6 @@ void FormFactorTetrahedron::onChange()
         { -bs, -bc, m_height },
         {  bs, -bc, m_height },
         {  0.,  bh, m_height } } );
-    m_z_origin = 0;
-    m_sym_Ci = false;
-    FormFactorPolyhedron::precompute();
 }
 
 FormFactorTetrahedron* FormFactorTetrahedron::clone() const

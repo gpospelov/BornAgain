@@ -62,7 +62,7 @@ void FormFactorPyramid::onChange()
     double a = m_base_edge/2;
     double b = m_base_edge/2 - m_height*cot_alpha;
 
-    setVertices( topology, {
+    setPolyhedron( topology, 0, false, {
         // base:
         { -a, -a, 0. },
         {  a, -a, 0. },
@@ -73,10 +73,6 @@ void FormFactorPyramid::onChange()
         {  b, -b, m_height },
         {  b,  b, m_height },
         { -b,  b, m_height } } );
-    m_z_origin = 0;
-    m_sym_Ci = false;
-
-    FormFactorPolyhedron::precompute();
 }
 
 FormFactorPyramid* FormFactorPyramid::clone() const

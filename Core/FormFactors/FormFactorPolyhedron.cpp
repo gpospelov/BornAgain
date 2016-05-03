@@ -54,10 +54,10 @@ int FormFactorPolyhedron::n_limit_series = 20;
 //***************************************************************************************************
 
 PolyhedralEdge::PolyhedralEdge( const kvector_t _Vlow, const kvector_t _Vhig )
-    : E((_Vhig-_Vlow)/2)
-    , R((_Vhig+_Vlow)/2)
+    : m_E((_Vhig-_Vlow)/2)
+    , m_R((_Vhig+_Vlow)/2)
 {
-    if( E.mag2()==0 ) {
+    if( m_E.mag2()==0 ) {
         std::ostringstream msg;
         msg<<"zero-length edge between "<<_Vlow<<" and "<<_Vhig;
         throw std::runtime_error(msg.str());
@@ -68,9 +68,9 @@ PolyhedralEdge::PolyhedralEdge( const kvector_t _Vlow, const kvector_t _Vhig )
 
 complex_t PolyhedralEdge::contrib(int m, cvector_t prevec, cvector_t q) const
 {
-    complex_t prefac = prevec.dot(E); // conj(prevec)*E [BasicVector3D::dot is antilinear in 'this']
-    complex_t u = E.dot(q);
-    complex_t v = R.dot(q);
+    complex_t prefac = prevec.dot(E()); // conj(prevec)*E [BasicVector3D::dot is antilinear in *this]
+    complex_t u = qE(q);
+    complex_t v = qR(q);
     static auto& precomputed = IPrecomputed::instance();
     if( u==0. ) { // only l=0 contributes
         return prefac * pow(v, m+1) / precomputed.factorial[m+1];
@@ -91,6 +91,8 @@ complex_t PolyhedralEdge::contrib(int m, cvector_t prevec, cvector_t q) const
 //***************************************************************************************************
 //  PolyhedralFace implementation
 //***************************************************************************************************
+
+//! Static method, returns diameter of circle that contains all vertices.
 
 double PolyhedralFace::diameter( const std::vector<kvector_t>& V )
 {
@@ -144,7 +146,7 @@ PolyhedralFace::PolyhedralFace( const std::vector<kvector_t>& V, bool _sym_S2 )
     m_normal = kvector_t();
     for( size_t j=0; j<NE; ++j ){
         size_t jj = (j+1)%NE;
-        kvector_t ee = edges[j].E.cross( edges[jj].E );
+        kvector_t ee = edges[j].E().cross( edges[jj].E() );
         if( ee.mag2()==0 ) {
             throw RuntimeErrorException( "Two adjacent edges are parallel" );
         }
@@ -171,9 +173,10 @@ PolyhedralFace::PolyhedralFace( const std::vector<kvector_t>& V, bool _sym_S2 )
             throw std::runtime_error("Odd #edges violates symmetry S2");
         NE /= 2;
         for( size_t j=0; j<NE; ++j ){
-            if( ((edges[j].R-m_rperp*m_normal)+(edges[j+NE].R-m_rperp*m_normal)).mag() > 1e-12*m_radius_2d )
+            if( ((edges[j].R()-m_rperp*m_normal)+
+                 (edges[j+NE].R()-m_rperp*m_normal)).mag() > 1e-12*m_radius_2d )
                 throw std::runtime_error("Edge centers violate symmetry S2");
-            if( (edges[j].E+edges[j+NE].E).mag() > 1e-12*m_radius_2d )
+            if( (edges[j].E()+edges[j+NE].E()).mag() > 1e-12*m_radius_2d )
                 throw std::runtime_error("Edge vectors violate symmetry S2");
         }
         // keep only half of the egdes
@@ -280,10 +283,10 @@ complex_t PolyhedralFace::ff( const cvector_t q, const bool sym_Ci ) const
             prefac *= sym_Ci ? -4.*sin(qr_perp) : 2.*I*exp(I*qr_perp);
         complex_t sum = 0;
         for( const PolyhedralEdge& e: edges ) {
-            complex_t qE = e.E.dot(q);
-            complex_t qR = e.R.dot(q);
-            complex_t Rfac = sym_S2 ? sin(e.R.dot(qpa)) : ( sym_Ci ? 2.*cos(qR) : exp(I*qR) );
-            sum += prevec.dot(e.E) * MathFunctions::sinc(qE) * Rfac;
+            complex_t qE = e.qE(q);
+            complex_t qR = e.qR(q);
+            complex_t Rfac = sym_S2 ? sin(e.qR(qpa)) : ( sym_Ci ? 2.*cos(qR) : exp(I*qR) );
+            sum += prevec.dot(e.E()) * MathFunctions::sinc(qE) * Rfac;
         }
         //std::cout<<std::setprecision(16)<<"  ret="<<prefac * sum / ( I*qpa.mag2() )<<"\n";
         return prefac * sum / ( I*qpa.mag2() );
@@ -326,10 +329,10 @@ complex_t PolyhedralFace::ff_2D( const cvector_t qpa ) const
         cvector_t prevec = m_normal.cross( qpa );  // complex conjugation will take place in .dot
         complex_t sum = 0;
         for( const PolyhedralEdge& e: edges ) {
-            complex_t qE = e.E.dot(qpa);
-            complex_t qR = e.R.dot(qpa);
-            complex_t Rfac = sym_S2 ? sin(e.R.dot(qpa)) : exp(I*qR);
-            sum += prevec.dot(e.E) * MathFunctions::sinc(qE) * Rfac;
+            complex_t qE = e.qE(qpa);
+            complex_t qR = e.qR(qpa);
+            complex_t Rfac = sym_S2 ? sin(e.qR(qpa)) : exp(I*qR);
+            sum += prevec.dot(e.E()) * MathFunctions::sinc(qE) * Rfac;
         }
         return sum * (sym_S2 ? 4. : 2./I ) / qpa.mag2();
     }
@@ -357,30 +360,29 @@ void FormFactorPolyhedron::setLimits( double _q, int _n ) { q_limit_series=_q; n
 
 //! Called by child classes to set faces and other internal variables.
 
-void FormFactorPolyhedron::setVertices(
-    const Topology& topology, const std::vector<kvector_t>& vertices )
+void FormFactorPolyhedron::setPolyhedron(
+    const Topology& topology, double z_origin, bool sym_Ci, const std::vector<kvector_t>& vertices )
 {
-    // compute diameter
-    double diameter3d = 0;
+    m_z_origin = z_origin;
+    m_sym_Ci = sym_Ci;
+
+    double diameter = 0;
     for ( size_t j=0; j<vertices.size(); ++j )
         for ( size_t jj=j+1; jj<vertices.size(); ++jj )
-            diameter3d = std::max( diameter3d, (vertices[j]-vertices[jj]).mag() );
-    // construct faces
+            diameter = std::max( diameter, (vertices[j]-vertices[jj]).mag() );
+
     m_faces.clear();
     for( const TopologyFace& tf: topology ) {
-        std::vector<kvector_t> V;
+        std::vector<kvector_t> corners; // of one face
         for( int i: tf.vertexIndices )
-            V.push_back( vertices[i] );
-        if( PolyhedralFace::diameter( V )<= 1e-14*diameter3d )
-            continue; // neglect ridiculously small face
-        m_faces.push_back( PolyhedralFace( V, tf.symmetry_S2 ) );
+            corners.push_back( vertices[i] );
+        if( PolyhedralFace::diameter( corners )<= 1e-14*diameter )
+            continue; // skip ridiculously small face
+        m_faces.push_back( PolyhedralFace( corners, tf.symmetry_S2 ) );
     }
     if( m_faces.size() < 4 )
         throw RuntimeErrorException( "less than four non-vanishing faces" );
-}
 
-void FormFactorPolyhedron::precompute()
-{
     m_radius = 0;
     m_volume = 0;
     for( const PolyhedralFace& Gk: m_faces ) {

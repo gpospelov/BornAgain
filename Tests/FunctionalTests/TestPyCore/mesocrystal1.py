@@ -82,7 +82,7 @@ class MySampleBuilder(ISampleBuilder):
         alpha_start = - (n_alpha_rotation_steps/2.0)*alpha_step
 
         phi_step = 2*numpy.pi/3.0/n_max_phi_rotation_steps
-        phi_start = 0.0;
+        phi_start = 0.0
         for i in range(0, n_max_phi_rotation_steps):
             for j in range(0, n_alpha_rotation_steps):
 
@@ -157,14 +157,16 @@ def runTest():
     # setting detector axis as in reference data
     simulation.setDetectorParameters(reference)
 
-    #running simulation
+    # running simulation
     simulation.runSimulation()
     result = simulation.getIntensityData()
+
+    # IntensityDataIOFactory.writeIntensityData(result, "mesocrystal01_reference.int.gz")
 
     diff = IntensityDataFunctions.getRelativeDifference(result, reference)
 
     status = "OK"
-    if(diff > 1e-10 or numpy.isnan(diff)):
+    if diff > 1e-10 or numpy.isnan(diff):
         status = "FAILED"
     return "MesoCrystal1", "Mesocrystal simulation", diff, status
 
@@ -174,12 +176,12 @@ def createSimulation():
     simulation = GISASSimulation()
     simulation.setBeamParameters(1.77*angstrom, 0.4*degree, 0.0*degree)
     simulation.setBeamIntensity(5.0090e+12)
-    #simulation.setDetectorResolutionFunction(ResolutionFunction2DGaussian(0.0002, 0.0002))
+    # simulation.setDetectorResolutionFunction(ResolutionFunction2DGaussian(0.0002, 0.0002))
     return simulation
 
 
 if __name__ == '__main__':
     name, description, diff, status = runTest()
     print(name, description, diff, status)
-    if("FAILED" in status):
+    if "FAILED" in status:
         exit(1)

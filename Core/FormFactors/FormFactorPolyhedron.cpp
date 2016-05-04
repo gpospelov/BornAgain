@@ -422,8 +422,8 @@ complex_t FormFactorPolyhedron::evaluate_centered( const cvector_t q ) const
     } else if ( q_red < q_limit_series ) {
         // summation of power series
         complex_t sum = m_volume;
-        complex_t n_fac = ( m_sym_Ci ? -2 : I ) / q.mag2();
-        for( int n=1; n<n_limit_series; ++n ) {
+        complex_t n_fac = ( m_sym_Ci ? -2 : -1 ) / q.mag2();
+        for( int n=2; n<n_limit_series; ++n ) {
             if( m_sym_Ci && n&1 )
                 continue;
 #ifdef POLYHEDRAL_DIAGNOSTIC

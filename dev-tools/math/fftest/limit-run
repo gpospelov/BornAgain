@@ -26,13 +26,13 @@ runff 2 7 4 1e99   1e-99  9 > h9
 runff 2 7 4 1e99   1e-99 20 > hs
 
 # q expansion, allow qpa expansion (should equal series h?)
-runff 2 7 4 1e-99  1e-99  1 > g1
-runff 2 7 4 1e-99  1e-99  2 > g2
-runff 2 7 4 1e-99  1e-99  3 > g3
-runff 2 7 4 1e-99  1e-99  4 > g4
-runff 2 7 4 1e-99  1e-99  5 > g5
-runff 2 7 4 1e-99  1e-99  6 > g6
-runff 2 7 4 1e-99  1e-99  7 > g7
-runff 2 7 4 1e-99  1e-99  8 > g8
-runff 2 7 4 1e-99  1e-99  9 > g9
-runff 2 7 4 1e-99  1e-99 20 > gs
+runff 2 7 4 1e99  1e99  1 > g1
+runff 2 7 4 1e99  1e99  2 > g2
+runff 2 7 4 1e99  1e99  3 > g3
+runff 2 7 4 1e99  1e99  4 > g4
+runff 2 7 4 1e99  1e99  5 > g5
+runff 2 7 4 1e99  1e99  6 > g6
+runff 2 7 4 1e99  1e99  7 > g7
+runff 2 7 4 1e99  1e99  8 > g8
+runff 2 7 4 1e99  1e99  9 > g9
+runff 2 7 4 1e99  1e99 20 > gs

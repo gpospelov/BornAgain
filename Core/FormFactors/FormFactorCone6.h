@@ -24,10 +24,6 @@
 class BA_CORE_API_ FormFactorCone6 : public FormFactorPolyhedron
 {
 public:
-    //! @brief Cone6 constructor
-    //! @param base_edge of hexagonal base (different from R in IsGisaxs)
-    //! @param height of Cone6
-    //! @param angle in radians between base and facet
     FormFactorCone6(double base_edge, double height,  double alpha);
 
     virtual FormFactorCone6* clone() const;

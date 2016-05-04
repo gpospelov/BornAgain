@@ -101,6 +101,8 @@ public:
     FormFactorPolyhedron() {}
 
     virtual complex_t evaluate_for_q(const cvector_t q ) const final;
+    complex_t evaluate_centered( const cvector_t q ) const;
+
     virtual double getVolume() const final { return m_volume; }
     virtual double getRadius() const final { return m_radius; }
     void assert_platonic() const;
@@ -120,7 +122,6 @@ private:
     double m_radius;
     double m_volume;
 
-    complex_t evaluate_centered( const cvector_t q ) const;
 };
 
 

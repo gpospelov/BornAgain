@@ -27,8 +27,8 @@ public:
         complex_t f0 = p->evaluate_for_q(q0);
         complex_t f1 = p->evaluate_for_q(q1);
         double avge = (std::abs(f0) + std::abs(f1))/2;
-        EXPECT_NEAR( real(f0), real(f1), 1e-9*avge );
-        EXPECT_NEAR( imag(f0), imag(f1), 1e-9*avge );
+        EXPECT_NEAR( real(f0), real(f1), 5e-10*avge );
+        EXPECT_NEAR( imag(f0), imag(f1), 5e-10*avge );
     }
     cvector_t qt;
 };

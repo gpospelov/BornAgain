@@ -2,37 +2,25 @@
 runff 2 7 4 1e-99  1e-99 0 > x0
 
 # no q expansion, hence sum over faces, then expand in qpa
-runff 2 7 4 1e-99  1e99   1 > a1
-runff 2 7 4 1e-99  1e99   2 > a2
-runff 2 7 4 1e-99  1e99   3 > a3
-runff 2 7 4 1e-99  1e99   4 > a4
-runff 2 7 4 1e-99  1e99   5 > a5
-runff 2 7 4 1e-99  1e99   6 > a6
-runff 2 7 4 1e-99  1e99   7 > a7
-runff 2 7 4 1e-99  1e99   8 > a8
-runff 2 7 4 1e-99  1e99   9 > a9
+runff 2 7 4 1e-99  1e99   2 > a1
+runff 2 7 4 1e-99  1e99   4 > a2
+runff 2 7 4 1e-99  1e99   6 > a3
+runff 2 7 4 1e-99  1e99   8 > a4
+runff 2 7 4 1e-99  1e99  10 > a5
+runff 2 7 4 1e-99  1e99  12 > a6
+runff 2 7 4 1e-99  1e99  14 > a7
+runff 2 7 4 1e-99  1e99  16 > a8
+runff 2 7 4 1e-99  1e99  18 > a9
 runff 2 7 4 1e-99  1e99  20 > as
 
 # q expansion (no need for qpa expansion)
-runff 2 7 4 1e99   1e-99  1 > h1
-runff 2 7 4 1e99   1e-99  2 > h2
-runff 2 7 4 1e99   1e-99  3 > h3
-runff 2 7 4 1e99   1e-99  4 > h4
-runff 2 7 4 1e99   1e-99  5 > h5
-runff 2 7 4 1e99   1e-99  6 > h6
-runff 2 7 4 1e99   1e-99  7 > h7
-runff 2 7 4 1e99   1e-99  8 > h8
-runff 2 7 4 1e99   1e-99  9 > h9
+runff 2 7 4 1e99   1e-99  2 > h1
+runff 2 7 4 1e99   1e-99  4 > h2
+runff 2 7 4 1e99   1e-99  6 > h3
+runff 2 7 4 1e99   1e-99  8 > h4
+runff 2 7 4 1e99   1e-99 10 > h5
+runff 2 7 4 1e99   1e-99 12 > h6
+runff 2 7 4 1e99   1e-99 14 > h7
+runff 2 7 4 1e99   1e-99 16 > h8
+runff 2 7 4 1e99   1e-99 18 > h9
 runff 2 7 4 1e99   1e-99 20 > hs
-
-# q expansion, allow qpa expansion (should equal series h?)
-runff 2 7 4 1e99  1e99  1 > g1
-runff 2 7 4 1e99  1e99  2 > g2
-runff 2 7 4 1e99  1e99  3 > g3
-runff 2 7 4 1e99  1e99  4 > g4
-runff 2 7 4 1e99  1e99  5 > g5
-runff 2 7 4 1e99  1e99  6 > g6
-runff 2 7 4 1e99  1e99  7 > g7
-runff 2 7 4 1e99  1e99  8 > g8
-runff 2 7 4 1e99  1e99  9 > g9
-runff 2 7 4 1e99  1e99 20 > gs

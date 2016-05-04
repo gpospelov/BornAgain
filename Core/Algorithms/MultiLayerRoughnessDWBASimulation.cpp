@@ -24,6 +24,17 @@
 // Diffuse scattering from rough interfaces is modelled after
 // Phys. Rev. B, vol. 51 (4), p. 2311 (1995)
 
+namespace {
+    complex_t h_plus(complex_t x)
+    {
+        return 0.5*Faddeeva::erfcx(x/std::sqrt(2.0));
+    }
+    complex_t h_min(complex_t x)
+    {
+        return 0.5*Faddeeva::erfcx(-x/std::sqrt(2.0));
+    }
+}
+
 MultiLayerRoughnessDWBASimulation::MultiLayerRoughnessDWBASimulation(
     const MultiLayer *p_multi_layer)
 {
@@ -206,14 +217,4 @@ complex_t MultiLayerRoughnessDWBASimulation::get_sum8terms(size_t ilayer,
                       * h_min(im*qz4_minus*sigma);
 
     return term1 + term2 + term3 + term4 + term5 + term6 + term7 + term8;
-}
-
-complex_t MultiLayerRoughnessDWBASimulation::h_plus(complex_t x) const
-{
-    return 0.5*Faddeeva::erfcx(x/std::sqrt(2.0));
-}
-
-complex_t MultiLayerRoughnessDWBASimulation::h_min(complex_t x) const
-{
-    return 0.5*Faddeeva::erfcx(-x/std::sqrt(2.0));
 }

@@ -23,12 +23,12 @@
 class FFSymmetryTest : public QLoopedTest
 {
 public:
-    void test_qq_eq( IFormFactorBorn* p, cvector_t q0, cvector_t q1 ) {
+    void test_qq_eq( IFormFactorBorn* p, cvector_t q0, cvector_t q1, double eps=1e-12 ) {
         complex_t f0 = p->evaluate_for_q(q0);
         complex_t f1 = p->evaluate_for_q(q1);
         double avge = (std::abs(f0) + std::abs(f1))/2;
-        EXPECT_NEAR( real(f0), real(f1), 5e-10*avge );
-        EXPECT_NEAR( imag(f0), imag(f1), 5e-10*avge );
+        EXPECT_NEAR( real(f0), real(f1), eps*avge );
+        EXPECT_NEAR( imag(f0), imag(f1), eps*avge );
     }
     cvector_t qt;
 };
@@ -38,23 +38,32 @@ INSTANTIATE_TEST_CASE_P(
     FFSymmetryTest,
     testing::Combine(
         testing::Values(
+            cvector_t({ 1, 0, 0 }),
+            cvector_t({ 0, 1, 0 }),
+            cvector_t({ 0, 0, 1 }),
+            cvector_t({ 1, 1, 0 }),
+            cvector_t({ 1, 0, 1 }),
+            cvector_t({ 1, 0, 1 }),
+            cvector_t({ 1, 1, 1 })
+            ),
+        testing::Values(
+            cvector_t({ 1, 0, 0 }),
+            cvector_t({ 0, 1, 0 }),
+            cvector_t({ 0, 0, 1 }),
+            cvector_t({ 1, 1, 0 }),
+            cvector_t({ 1, 0, 1 }),
+            cvector_t({ 1, 0, 1 }),
+            cvector_t({ 1, 1, 1 })
+            ),
+        testing::Values(
             1e-19, 1e-17, 1e-15, 1e-13, 1e-11, 1e-9, 1e-7, 1e-5, 1e-4, 1e-3, 1e-2, .1,
             1., 1e1, 1e2, 1e3, 1e4 ),
         testing::Values(
-        cvector_t({ 1., 0., 0 }),
-        cvector_t({ 1.+0.1*I, 0., 0 }),
-        cvector_t({ 0., 1., 0 }),
-        cvector_t({ 0., 0., 1.-.1*I }),
-        cvector_t({ 1., 1., 0 }),
-        cvector_t({ 1.+0.1*I, 1.+0.1*I, 0 }),
-        cvector_t({ 0., 1., 1. }),
-        cvector_t({ 1.-.1*I, 0., 1.-.1*I }),
-        cvector_t({ 1., 2., 0. }),
-        cvector_t({ 1.+0.01*I, 2.+0.4*I, 0. }),
-        cvector_t({ 1., 1., 1 }),
-        cvector_t({ 1.+0.1*I, 1.+0.1*I, 1.+0.1*I }),
-        cvector_t({ 2.17+.03*I, 3.49-.04*I, .752+.01*I })
-            )
+            -1e-15, +1e-14, -1e-13*I, +1e-12*I,
+            -1e-11, +1e-10, -1e-9*I, +1e-8*I,
+            -1e-7, +1e-6, -1e-5*I, +1e-4*I,
+            -1e-3, +1e-2, -1e-1*I, +1e-1*I,
+            .9, -.99, .999, -.9999 )
         )
     );
 
@@ -82,7 +91,7 @@ TEST_P(FFSymmetryTest, Tetrahedron)
     if( skip_q( 1e-99, 2e2 ) )
         return;
     FormFactorTetrahedron p(8.43, .25, .53);
-    test_qq_eq( &p, q, q.rotatedZ(Units::PI2/3) );
+    test_qq_eq( &p, q, q.rotatedZ(Units::PI2/3), 1e-8 );
 }
 
 TEST_P(FFSymmetryTest, Cone6)
@@ -90,7 +99,7 @@ TEST_P(FFSymmetryTest, Cone6)
     if( skip_q( 1e-99, 2e2) ) // TODO for larger q, imag(ff) is nan
         return;
     FormFactorCone6 p(7.43, .25, .57);
-    test_qq_eq( &p, q, q.rotatedZ(-Units::PI/3) );
+    test_qq_eq( &p, q, q.rotatedZ(-Units::PI/3), 1e-8 );
 }
 
 TEST_P(FFSymmetryTest, TruncatedSphere)
@@ -106,7 +115,7 @@ TEST_P(FFSymmetryTest, Prism6)
     if( skip_q( 1e-99, 2e3 ) )
         return;
     FormFactorPrism6 p(1.33, .42);
-    test_qq_eq( &p, q, q.rotatedZ(Units::PI/3) );
+    test_qq_eq( &p, q, q.rotatedZ(Units::PI/3), 1e-10 );
 }
 
 // ****** TODO: tests that do not pass for the full q range *********

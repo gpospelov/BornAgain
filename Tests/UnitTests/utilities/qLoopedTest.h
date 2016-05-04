@@ -18,15 +18,18 @@
 
 const complex_t I(0,1);
 
-class QLoopedTest: public ::testing::TestWithParam<std::tuple<double, cvector_t>>
+class QLoopedTest:
+public ::testing::TestWithParam<std::tuple<cvector_t, cvector_t, double, complex_t>>
 {
 protected:
     QLoopedTest() {}
     virtual void SetUp()
     {
-        double    qmag = std::get<0>(GetParam());
-        cvector_t qdir = std::get<1>(GetParam());
-        q = qmag * qdir.unit();
+        cvector_t qdir = std::get<0>(GetParam());
+        cvector_t qdev = std::get<1>(GetParam());
+        double    qmag = std::get<2>(GetParam());
+        complex_t qeps = std::get<3>(GetParam());
+        q = qmag * qdir.unit() + qeps*qdev;
     }
     cvector_t q;
 

@@ -38,23 +38,32 @@ INSTANTIATE_TEST_CASE_P(
     FFSpecializationTest,
     testing::Combine(
         testing::Values(
+            cvector_t({ 1, 0, 0 }),
+            cvector_t({ 0, 1, 0 }),
+            cvector_t({ 0, 0, 1 }),
+            cvector_t({ 1, 1, 0 }),
+            cvector_t({ 1, 0, 1 }),
+            cvector_t({ 1, 0, 1 }),
+            cvector_t({ 1, 1, 1 })
+            ),
+        testing::Values(
+            cvector_t({ 1, 0, 0 }),
+            cvector_t({ 0, 1, 0 }),
+            cvector_t({ 0, 0, 1 }),
+            cvector_t({ 1, 1, 0 }),
+            cvector_t({ 1, 0, 1 }),
+            cvector_t({ 1, 0, 1 }),
+            cvector_t({ 1, 1, 1 })
+            ),
+        testing::Values(
             1e-19, 1e-17, 1e-15, 1e-13, 1e-11, 1e-9, 1e-7, 1e-5, 1e-4, 1e-3, 1e-2, .1,
             1., 1e1, 1e2, 1e3, 1e4 ),
         testing::Values(
-        cvector_t({ 1., 0., 0 }),
-        cvector_t({ 1.+0.1*I, 0., 0 }),
-        cvector_t({ 0., 1., 0 }),
-        cvector_t({ 0., 0., 1.-.1*I }),
-        cvector_t({ 1., 1., 0 }),
-        cvector_t({ 1.+0.1*I, 1.+0.1*I, 0 }),
-        cvector_t({ 0., 1., 1. }),
-        cvector_t({ 1.-.1*I, 0., 1.-.1*I }),
-        cvector_t({ 1., 2., 0. }),
-        cvector_t({ 1.+0.01*I, 2.+0.4*I, 0. }),
-        cvector_t({ 1., 1., 1 }),
-        cvector_t({ 1.+0.1*I, 1.+0.1*I, 1.+0.1*I }),
-        cvector_t({ 2.17+.03*I, 3.49-.04*I, .752+.01*I })
-            )
+            -1e-15, +1e-14, -1e-13*I, +1e-12*I,
+            -1e-11, +1e-10, -1e-9*I, +1e-8*I,
+            -1e-7, +1e-6, -1e-5*I, +1e-4*I,
+            -1e-3, +1e-2, -1e-1*I, +1e-1*I,
+            .9, -.99, .999, -.9999 )
         )
     );
 
@@ -76,7 +85,7 @@ TEST_P(FFSpecializationTest, EllipsoidalCylinderAsCylinder)
     double R=.8, H=1.2;
     FormFactorEllipsoidalCylinder p0(R, R, H);
     FormFactorCylinder p1(R, H);
-    test_ff_eq( &p0, &p1 );
+    test_ff_eq( &p0, &p1, 1e-11 );
 }
 
 TEST_P(FFSpecializationTest, TruncatedCubeAsBox)
@@ -96,12 +105,12 @@ TEST_P(FFSpecializationTest, AnisoPyramidAsPyramid)
     double L=1.5, H=.24, alpha=.6;
     FormFactorAnisoPyramid p0(L, L, H, alpha);
     FormFactorPyramid p1(L, H, alpha);
-    test_ff_eq( &p0, &p1, 3e-10 );
+    test_ff_eq( &p0, &p1, 1e-9 );
 }
 
 TEST_P(FFSpecializationTest, TruncatedSphereAsSphere)
 {
-    if( skip_q( .02, 5e2 ) ) // WAITING #1416 improve/replace numeric integration
+    if( skip_q( .02, 5e1 ) ) // WAITING #1416 improve/replace numeric integration
         return;
     double R=1.;
     FormFactorTruncatedSphere p0(R, 2*R);
@@ -116,7 +125,7 @@ TEST_P(FFSpecializationTest, Pyramid3AsPrism)
     double L=1.8, H=.3;
     FormFactorTetrahedron p0(L, H, Units::PI/2);
     FormFactorPrism3 p1(L, H);
-    test_ff_eq( &p0, &p1, 2e-10 );
+    test_ff_eq( &p0, &p1, 2e-9 );
 }
 
 TEST_P(FFSpecializationTest, PyramidAsBox)
@@ -126,7 +135,7 @@ TEST_P(FFSpecializationTest, PyramidAsBox)
     double L=1.8, H=.3;
     FormFactorPyramid p0(L, H, Units::PI/2);
     FormFactorBox p1(L, L, H);
-    test_ff_eq( &p0, &p1, 2e-10 );
+    test_ff_eq( &p0, &p1, 5e-10 );
 }
 
 TEST_P(FFSpecializationTest, Cone6AsPrism)

@@ -57,6 +57,7 @@ public:
     PolyhedralFace( const std::vector<kvector_t>& _V=std::vector<kvector_t>(), bool _sym_S2=false );
 
     double area() const { return m_area; }
+    kvector_t center() const { return m_center; }
     double pyramidalVolume() const { return m_rperp*m_area/3; }
     double radius3d() const { return m_radius_3d; }
     complex_t ff_n( int m, const cvector_t q ) const;
@@ -75,6 +76,7 @@ private:
     double m_rperp; //!< distance of this polygon's plane from the origin, along 'm_normal'
     double m_radius_2d; //!< radius of enclosing cylinder
     double m_radius_3d; //!< radius of enclosing sphere
+    kvector_t m_center; //!< center of mass
 
     void decompose_q( const cvector_t q, complex_t& qperp, cvector_t& qpa ) const;
     complex_t ff_n_core( int m, const cvector_t qpa ) const;
@@ -86,7 +88,7 @@ private:
 class FormFactorPolyhedron : public IFormFactorBorn {
 public:
 #ifdef POLYHEDRAL_DIAGNOSTIC
-    static void setLimits( double _q, int _n ) { q_limit_series=_q; n_limit_series=_n; }
+    static void setLimits( double _q, int _n );
 #endif
 
     class TopologyFace {

@@ -163,7 +163,7 @@ void test_loop( int outfilter, int ishapepar )
     static int n_qdir = 10;
     int nsteps;
     if( outfilter==7 )
-        nsteps = 2001;
+        nsteps = 201;
     else if( outfilter==8 )
         nsteps = 17;
     else

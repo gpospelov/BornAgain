@@ -433,7 +433,7 @@ std::string PyGenVisitor::defineFormFactors() const
 
         else if (const FormFactorCone6 *cone6 = dynamic_cast<const FormFactorCone6 *>(p_ff)) {
             result << " = FormFactorCone6("
-                   << PyGenTools::printNm(cone6->getRadius()) << ", "
+                   << PyGenTools::printNm(cone6->getBaseEdge()) << ", "
                    << PyGenTools::printNm(cone6->getHeight()) << ", "
                    << PyGenTools::printDegrees(cone6->getAlpha()) << ")\n";
         }

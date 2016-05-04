@@ -50,7 +50,8 @@ void FormFactorTetrahedron::onChange()
     double cot_alpha = MathFunctions::cot(m_alpha);
     if( !std::isfinite(cot_alpha) || cot_alpha<0 )
         throw Exceptions::OutOfBoundsException("pyramid angle alpha out of bounds");
-    if (cot_alpha * 2*std::sqrt(3.) * m_height > m_base_edge) {
+    double r = cot_alpha * 2*std::sqrt(3.) * m_height / m_base_edge; // L(top)/L(base)
+    if ( r > 1 ) {
         std::ostringstream ostr;
         ostr << "FormFactorTetrahedron() -> Error in class initialization with parameters ";
         ostr << " height:" << m_height;
@@ -64,20 +65,22 @@ void FormFactorTetrahedron::onChange()
     double as = a/2;
     double ac = a/sqrt(3)/2;
     double ah = a/sqrt(3);
-    double b = a - 2*sqrt(3)*m_height*cot_alpha;
+    double b = a * (1-r);
     double bs = b/2;
     double bc = b/sqrt(3)/2;
     double bh = b/sqrt(3);
 
-    setPolyhedron( topology, 0, false, {
-        // base:
-        { -as, -ac, 0. },
-        {  as, -ac, 0. },
-        {  0.,  ah, 0. },
-        // top:
-        { -bs, -bc, m_height },
-        {  bs, -bc, m_height },
-        {  0.,  bh, m_height } } );
+    double zcom = m_height * ( .5 - 2*r/3 + r*r/4 ) / ( 1 - r + r*r/3 ); // center of mass
+
+    setPolyhedron( topology, -zcom, false, {
+            // base:
+            { -as, -ac, -zcom },
+            {  as, -ac, -zcom },
+            {  0.,  ah, -zcom },
+            // top:
+            { -bs, -bc, m_height-zcom },
+            {  bs, -bc, m_height-zcom },
+            {  0.,  bh, m_height-zcom } } );
 }
 
 FormFactorTetrahedron* FormFactorTetrahedron::clone() const

@@ -54,7 +54,7 @@ protected:
     virtual void runProtected();
 
     complex_t get_refractive_term(size_t ilayer) const;
-    complex_t get_sum4terms(size_t ilayer, const SimulationElement& sim_element);
+    complex_t get_sum8terms(size_t ilayer, const SimulationElement& sim_element);
 
     MultiLayer *mp_multi_layer;
     std::vector<LayerSpecularInfo *> mp_specular_info_vector;

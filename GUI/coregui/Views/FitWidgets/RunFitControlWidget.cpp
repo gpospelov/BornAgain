@@ -138,8 +138,9 @@ void RunFitControlWidget::setItem(JobItem *item)
 void RunFitControlWidget::onSliderValueChanged(int value)
 {
     qDebug() << "RunFitControlWidget::onSliderValueChanged(int value)";
-    m_updateIntervalLabel->setText(QString::number(sliderValueToUpdateInterval(value)));
-    fitSuiteItem()->setItemValue(FitSuiteItem::P_UPDATE_INTERVAL, sliderUpdateInterval());
+    int interval = sliderValueToUpdateInterval(value);
+    m_updateIntervalLabel->setText(QString::number(interval));
+    fitSuiteItem()->setItemValue(FitSuiteItem::P_UPDATE_INTERVAL, interval);
 }
 
 void RunFitControlWidget::onFitSuitePropertyChange(const QString &name)

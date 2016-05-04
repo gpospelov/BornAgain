@@ -98,6 +98,7 @@ JobView::JobView(MainWindow *mainWindow)
 
     m_d->m_jobActivityStatusBar = new JobActivityStatusBar;
     m_d->m_mainWindow->statusBar()->addWidget(m_d->m_jobActivityStatusBar, 1);
+    m_d->m_mainWindow->statusBar()->setSizeGripEnabled(false);
     m_d->m_jobActivityStatusBar->hide();
 
     connectSignals();

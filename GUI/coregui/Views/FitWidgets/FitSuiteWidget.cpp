@@ -81,9 +81,9 @@ void FitSuiteWidget::onUpdatePlots(OutputData<double> *sim, OutputData<double> *
     // FIXME Ownership sim,chi2 - shouldn't they be deleted here?
 
     qDebug() << "FitSuiteWidget::onUpdatePlots";
-//    OutputData<double> *data = m_currentItem->getIntensityDataItem()->getOutputData();
-//    data->setRawDataVector(sim->getRawDataVector());
-//    m_currentItem->getIntensityDataItem()->emitDataChanged();
+    OutputData<double> *data = m_currentItem->getIntensityDataItem()->getOutputData();
+    data->setRawDataVector(sim->getRawDataVector());
+    m_currentItem->getIntensityDataItem()->emitDataChanged();
     m_observer->finishedPlotting();
 }
 

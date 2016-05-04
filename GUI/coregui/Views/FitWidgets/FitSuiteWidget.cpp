@@ -27,6 +27,8 @@
 #include "FitSuite.h"
 #include "ModelPath.h"
 #include "ParameterTreeItems.h"
+#include "MinimizerSettingsWidget.h"
+#include "FitResultsWidget.h"
 #include <QVBoxLayout>
 #include <QTabWidget>
 #include <QMessageBox>
@@ -36,6 +38,8 @@ FitSuiteWidget::FitSuiteWidget(JobModel *jobModel, QWidget *parent)
     : QWidget(parent)
     , m_tabWidget(new QTabWidget)
     , m_fitParametersWidget(new FitParametersWidget(this))
+    , m_minimizerSettingsWidget(new MinimizerSettingsWidget(this))
+    , m_fitResultsWidget(new FitResultsWidget(this))
     , m_jobModel(jobModel)
     , m_currentItem(0)
     , m_manager(new RunFitManager(parent))
@@ -44,6 +48,8 @@ FitSuiteWidget::FitSuiteWidget(JobModel *jobModel, QWidget *parent)
     QVBoxLayout *layout = new QVBoxLayout;
 
     m_tabWidget->addTab(m_fitParametersWidget, "Fit Parameters");
+    m_tabWidget->addTab(m_minimizerSettingsWidget, "Minimizer");
+    m_tabWidget->addTab(m_fitResultsWidget, "Fit Results");
 
     layout->addWidget(m_tabWidget);
 

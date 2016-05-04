@@ -25,6 +25,8 @@ class QTabWidget;
 class JobModel;
 class JobItem;
 class FitParametersWidget;
+class MinimizerSettingsWidget;
+class FitResultsWidget;
 class ModelTuningWidget;
 class RunFitManager;
 class GUIFitObserver;
@@ -71,6 +73,8 @@ private:
 
     QTabWidget *m_tabWidget;
     FitParametersWidget *m_fitParametersWidget;
+    MinimizerSettingsWidget *m_minimizerSettingsWidget;
+    FitResultsWidget *m_fitResultsWidget;
     JobModel *m_jobModel;
     JobItem *m_currentItem;
     RunFitManager *m_manager;

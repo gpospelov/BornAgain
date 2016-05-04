@@ -47,38 +47,41 @@ void FormFactorCone6::onChange()
     double cot_alpha = MathFunctions::cot(m_alpha);
     if( !std::isfinite(cot_alpha) || cot_alpha<0 )
         throw Exceptions::OutOfBoundsException("pyramid angle alpha out of bounds");
-    if(cot_alpha*m_height > m_base_edge) {
+    double r = cot_alpha*2/sqrt(3) * m_height / m_base_edge; // L(top)/L(base)
+    if ( r > 1 ) {
         std::ostringstream ostr;
         ostr << "FormFactorCone6() -> Error in class initialization with parameters";
         ostr << " base_edge:" << m_base_edge;
         ostr << " height:" << m_height;
         ostr << " alpha[rad]:" << m_alpha << "\n\n";
-        ostr << "Check for 'height <= base_edge*tan(alpha)' failed.";
+        ostr << "Incompatible parameters\n";
         throw Exceptions::ClassInitializationException(ostr.str());
     }
 
     double a = m_base_edge;
     double as = a/2;
     double ac = a*sqrt(3)/2;
-    double b = m_base_edge - 2*m_height/sqrt(3)*cot_alpha;
+    double b = a * (1-r);
     double bs = b/2;
     double bc = b*sqrt(3)/2;
 
-    setPolyhedron( topology, 0, false, {
+    double zcom = m_height * ( .5 - 2*r/3 + r*r/4 ) / ( 1 - r + r*r/3 ); // center of mass
+
+    setPolyhedron( topology, -zcom, false, {
         // base:
-        {  a,   0., 0. },
-        {  as,  ac, 0. },
-        { -as,  ac, 0. },
-        { -a,   0., 0. },
-        { -as, -ac, 0. },
-        {  as, -ac, 0. },
+        {  a,   0., -zcom },
+        {  as,  ac, -zcom },
+        { -as,  ac, -zcom },
+        { -a,   0., -zcom },
+        { -as, -ac, -zcom },
+        {  as, -ac, -zcom },
         // top:
-        {  b,   0., m_height },
-        {  bs,  bc, m_height },
-        { -bs,  bc, m_height },
-        { -b,   0., m_height },
-        { -bs, -bc, m_height },
-        {  bs, -bc, m_height } } );
+        {  b,   0., m_height-zcom },
+        {  bs,  bc, m_height-zcom },
+        { -bs,  bc, m_height-zcom },
+        { -b,   0., m_height-zcom },
+        { -bs, -bc, m_height-zcom },
+        {  bs, -bc, m_height-zcom } } );
 }
 
 FormFactorCone6* FormFactorCone6::clone() const

@@ -152,7 +152,7 @@ PolyhedralFace::PolyhedralFace( const std::vector<kvector_t>& V, bool _sym_S2 )
         }
         m_normal += ee.unit();
     }
-    m_normal /= NE;
+    m_normal = m_normal.unit();
     m_rperp = 0;
     for( size_t j=0; j<NV; ++j )
         m_rperp += V[j].dot(m_normal);
@@ -161,12 +161,16 @@ PolyhedralFace::PolyhedralFace( const std::vector<kvector_t>& V, bool _sym_S2 )
     for ( size_t j=1; j<NV; ++j )
         if( std::abs(V[j].dot(m_normal) - m_rperp) > 1e-14*m_radius_3d )
             throw std::runtime_error("Face is not planar");
-    // compute m_area
+    // compute area and center of gravity
     m_area = 0;
+    m_center = kvector_t();
     for ( size_t j=0; j<NV; ++j ) {
         size_t jj = (j+1)%NV;
-        m_area += m_normal.dot( V[j].cross( V[jj] ) ) / 2;
+        double wgt = m_normal.dot( V[j].cross( V[jj] ) ) / 2;
+        m_area += wgt;
+        m_center += wgt * ( m_rperp*m_normal+V[j]+V[jj] )/3;
     }
+    m_center /= 4*m_area;
     // only now deal with inversion symmetry
     if( sym_S2 ) {
         if( NE&1 )
@@ -385,9 +389,16 @@ void FormFactorPolyhedron::setPolyhedron(
 
     m_radius = 0;
     m_volume = 0;
+    kvector_t center;
     for( const PolyhedralFace& Gk: m_faces ) {
         m_radius = std::max( m_radius, Gk.radius3d() );
         m_volume += Gk.pyramidalVolume();
+        center += Gk.center() * Gk.pyramidalVolume();
+    }
+    center /= m_volume;
+    if( center.mag() > 1e-14*m_radius ) {
+        std::cerr << "center of mass: " << center << "\n";
+        throw std::runtime_error("Center of mass is not at origin");
     }
 
     if( m_sym_Ci ) {

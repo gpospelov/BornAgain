@@ -52,7 +52,9 @@ void FormFactorAnisoPyramid::onChange()
     double cot_alpha = MathFunctions::cot(m_alpha);
     if( !std::isfinite(cot_alpha) || cot_alpha<0 )
         throw Exceptions::OutOfBoundsException("pyramid angle alpha out of bounds");
-    if(cot_alpha*m_height > m_length || cot_alpha*m_height > m_width) {
+    double r = cot_alpha*2 * m_height / m_length;
+    double s = cot_alpha*2 * m_height / m_width;
+    if( r>1 || s>1 ) {
         std::ostringstream ostr;
         ostr << "FormFactorAnisoPyramid() -> Error in class initialization with parameters";
         ostr << " length:" << m_length;
@@ -64,21 +66,23 @@ void FormFactorAnisoPyramid::onChange()
     }
 
     double D = m_length/2;
-    double d = m_length/2 - m_height*cot_alpha;
+    double d = m_length/2 * (1-r);
     double W = m_width/2;
-    double w = m_width/2 - m_height*cot_alpha;
+    double w = m_width/2 * (1-s);
 
-    setPolyhedron( topology, 0, false, {
+    double zcom = m_height * ( .5 - 2*r/3 + r*r/4 ) / ( 1 - r + r*r/3 ); // center of mass
+
+    setPolyhedron( topology, -zcom, false, {
         // base:
-        { -D, -W, 0. },
-        {  D, -W, 0. },
-        {  D,  W, 0. },
-        { -D,  W, 0. },
+        { -D, -W, -zcom },
+        {  D, -W, -zcom },
+        {  D,  W, -zcom },
+        { -D,  W, -zcom },
         // top:
-        { -d, -w, m_height },
-        {  d, -w, m_height },
-        {  d,  w, m_height },
-        { -d,  w, m_height } } );
+        { -d, -w, m_height-zcom },
+        {  d, -w, m_height-zcom },
+        {  d,  w, m_height-zcom },
+        { -d,  w, m_height-zcom } } );
 }
 
 FormFactorAnisoPyramid* FormFactorAnisoPyramid::clone() const

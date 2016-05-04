@@ -49,7 +49,8 @@ void FormFactorPyramid::onChange()
     double cot_alpha = MathFunctions::cot(m_alpha);
     if( !std::isfinite(cot_alpha) || cot_alpha<0 )
         throw Exceptions::OutOfBoundsException("pyramid angle alpha out of bounds");
-    if(cot_alpha*m_height > m_base_edge) {
+    double r = cot_alpha * m_height / m_base_edge; // L(top)/L(base)
+    if ( r > 1 ) {
         std::ostringstream ostr;
         ostr << "FormFactorPyramid() -> Error in class initialization with parameters";
         ostr << " base_edge:" << m_base_edge;
@@ -60,19 +61,21 @@ void FormFactorPyramid::onChange()
     }
 
     double a = m_base_edge/2;
-    double b = m_base_edge/2 - m_height*cot_alpha;
+    double b = a * (1-r);
 
-    setPolyhedron( topology, 0, false, {
-        // base:
-        { -a, -a, 0. },
-        {  a, -a, 0. },
-        {  a,  a, 0. },
-        { -a,  a, 0. },
-        // top:
-        { -b, -b, m_height },
-        {  b, -b, m_height },
-        {  b,  b, m_height },
-        { -b,  b, m_height } } );
+    double zcom = m_height * ( .5 - 2*r/3 + r*r/4 ) / ( 1 - r + r*r/3 ); // center of mass
+
+    setPolyhedron( topology, -zcom, false, {
+            // base:
+            { -a, -a, -zcom },
+            {  a, -a, -zcom },
+            {  a,  a, -zcom },
+            { -a,  a, -zcom },
+            // top:
+            { -b, -b, m_height-zcom },
+            {  b, -b, m_height-zcom },
+            {  b,  b, m_height-zcom },
+            { -b,  b, m_height-zcom } } );
 }
 
 FormFactorPyramid* FormFactorPyramid::clone() const

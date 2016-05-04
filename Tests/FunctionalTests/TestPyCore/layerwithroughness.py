@@ -47,14 +47,14 @@ def RunSimulation():
     my_sample.addLayerWithTopRoughness(l_substrate, roughness)
     my_sample.setCrossCorrLength(1e-4)
 
-
     # build and run experiment
     simulation = GISASSimulation()
     simulation.setDetectorParameters(100, -0.5*degree, 0.5*degree, 100, 0.0*degree, 1.0*degree)
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
     simulation.setSample(my_sample)
     simulation.runSimulation()
-    ## intensity data
+    
+    # intensity data
     return simulation.getIntensityData()
 
 
@@ -65,18 +65,20 @@ def runTest():
     result = RunSimulation()
     reference = get_reference_data("roughness01_reference.int.gz")
 
+    # IntensityDataIOFactory.writeIntensityData(result, "roughness01_reference.int.gz")
+
     diff = IntensityDataFunctions.getRelativeDifference(result, reference)
 
     status = "OK"
-    if(diff > 2e-10 or numpy.isnan(diff)): status = "FAILED"
+    if diff > 2e-10 or numpy.isnan(diff): status = "FAILED"
     return "LayerWithRoughness", "Layers with correlated roughness", diff, status
 
 
-#-------------------------------------------------------------
+# -------------------------------------------------------------
 # main()
-#-------------------------------------------------------------
+# -------------------------------------------------------------
 if __name__ == '__main__':
     name, description, diff, status = runTest()
     print(name, description, diff, status)
-    if("FAILED" in status):
+    if "FAILED" in status:
         exit(1)

@@ -71,7 +71,8 @@ void GUIFitObserver::update(FitSuite *subject)
     if (curIteration % m_update_interval == 0 && !m_block_update_plots) {
         m_block_update_plots = true;
 
-        emit updateStatus(QString("Iteration: %1").arg(subject->getNumberOfIterations()));
+//        emit updateStatus(QString("Iteration: %1").arg(subject->getNumberOfIterations()));
+        emit updateStatus(QString::number(subject->getNumberOfIterations()));
 
         emit updatePlots(subject->getSimulationOutputData()->clone(),
                          subject->getChiSquaredOutputData()->clone());

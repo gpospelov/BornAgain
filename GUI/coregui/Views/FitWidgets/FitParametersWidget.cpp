@@ -47,6 +47,7 @@ FitParametersWidget::FitParametersWidget(QWidget *parent)
 
 FitParametersWidget::~FitParametersWidget()
 {
+    qDebug() << "FitParametersWidget::~FitParametersWidget()";
 
 }
 

@@ -65,6 +65,8 @@ void FitActivityPanel::setItem(JobItem *item)
 {
     if(!item) return;
 
+    m_controlWidget->setItem(item);
+
     m_currentItem = item;
 
     if(!isVisible()) return;

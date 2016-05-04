@@ -17,6 +17,8 @@
 #include "RunFitControlWidget.h"
 #include "WarningSignWidget.h"
 #include "DesignerHelper.h"
+#include "JobItem.h"
+#include "FitSuiteItem.h"
 #include <QPushButton>
 #include <QSlider>
 #include <QLabel>
@@ -38,6 +40,7 @@ RunFitControlWidget::RunFitControlWidget(QWidget *parent)
     , m_stopButton(new QPushButton)
     , m_intervalSlider(new QSlider)
     , m_updateIntervalLabel(new QLabel("25"))
+    , m_iterationsCountLabel(new QLabel())
     , m_currentItem(0)
     , m_warningSign(0)
 {
@@ -77,6 +80,7 @@ RunFitControlWidget::RunFitControlWidget(QWidget *parent)
     layout->addWidget(m_updateIntervalLabel);
     layout->addSpacing(5);
     layout->addStretch();
+    layout->addWidget(m_iterationsCountLabel);
     setLayout(layout);
 
     connect(m_startButton, SIGNAL(clicked(bool)), this, SIGNAL(startFitting()));
@@ -90,12 +94,20 @@ void RunFitControlWidget::onFittingStarted()
     clearWarningSign();
     m_startButton->setEnabled(false);
     m_stopButton->setEnabled(true);
+
+    fitSuiteItem()->mapper()->setOnPropertyChange(
+                [this](const QString &name)
+    {
+        onFitSuitePropertyChange(name);
+    }, this);
+
 }
 
 void RunFitControlWidget::onFittingFinished()
 {
     m_startButton->setEnabled(true);
     m_stopButton->setEnabled(false);
+    fitSuiteItem()->mapper()->unsubscribe(this);
 }
 
 void RunFitControlWidget::onFittingError(const QString &what)
@@ -122,6 +134,16 @@ void RunFitControlWidget::setItem(JobItem *item)
 void RunFitControlWidget::onSliderValueChanged(int value)
 {
     m_updateIntervalLabel->setText(QString::number(sliderValueToUpdateInterval(value)));
+}
+
+void RunFitControlWidget::onFitSuitePropertyChange(const QString &name)
+{
+    if(name == FitSuiteItem::P_ITERATION_COUNT) {
+        int niter = fitSuiteItem()->getItemValue(FitSuiteItem::P_ITERATION_COUNT).toInt();
+        qDebug() << "QQQ" << name << niter;
+        m_iterationsCountLabel->setText(QString::number(niter));
+    }
+
 }
 
 void RunFitControlWidget::resizeEvent(QResizeEvent *event)
@@ -153,4 +175,12 @@ int RunFitControlWidget::sliderValueToUpdateInterval(int value)
         return slider_to_interval[value];
 
     return default_update_interval;
+}
+
+FitSuiteItem *RunFitControlWidget::fitSuiteItem()
+{
+    Q_ASSERT(m_currentItem);
+    FitSuiteItem *result = m_currentItem->fitSuiteItem();
+    Q_ASSERT(result);
+    return result;
 }

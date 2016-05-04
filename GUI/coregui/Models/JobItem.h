@@ -25,6 +25,9 @@ class GISASSimulation;
 class MultiLayerItem;
 class InstrumentItem;
 class SimulationOptionsItem;
+class FitSuiteItem;
+class ParameterContainerItem;
+class FitParameterContainerItem;
 
 class BA_CORE_API_ JobItem : public SessionItem
 {
@@ -90,6 +93,10 @@ public:
     SimulationOptionsItem *getSimulationOptionsItem();
 
     void setResults(const GISASSimulation *simulation);
+
+    FitSuiteItem *fitSuiteItem();
+    ParameterContainerItem *parameterContainerItem();
+    FitParameterContainerItem *fitParameterContainerItem();
 
 private:
     const SimulationOptionsItem *getSimulationOptionsItem() const;

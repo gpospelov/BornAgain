@@ -25,6 +25,7 @@ class QPushButton;
 class QSlider;
 class WarningSignWidget;
 class QLabel;
+class FitSuiteItem;
 
 //! The RunFitControlWidget contains elements to start/stop fitting and to provide minimal
 //! diagnostic. Part of FitActivityPanel.
@@ -47,6 +48,7 @@ public slots:
 
 private slots:
     void onSliderValueChanged(int value);
+    void onFitSuitePropertyChange(const QString &name);
 
 protected:
     void resizeEvent(QResizeEvent *event);
@@ -55,11 +57,13 @@ private:
     QPoint getPositionForWarningSign();
     void clearWarningSign();
     int sliderValueToUpdateInterval(int value);
+    FitSuiteItem *fitSuiteItem();
 
     QPushButton *m_startButton;
     QPushButton *m_stopButton;
     QSlider *m_intervalSlider;
     QLabel *m_updateIntervalLabel;
+    QLabel *m_iterationsCountLabel;
     JobItem *m_currentItem;
     WarningSignWidget *m_warningSign;
 };

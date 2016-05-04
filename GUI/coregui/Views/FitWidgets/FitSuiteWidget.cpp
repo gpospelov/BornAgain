@@ -78,10 +78,12 @@ void FitSuiteWidget::onUpdatePlots(OutputData<double> *sim, OutputData<double> *
 {
     Q_UNUSED(sim);
     Q_UNUSED(chi2);
+    // FIXME Ownership sim,chi2 - shouldn't they be deleted here?
+
     qDebug() << "FitSuiteWidget::onUpdatePlots";
-    OutputData<double> *data = m_currentItem->getIntensityDataItem()->getOutputData();
-    data->setRawDataVector(sim->getRawDataVector());
-    m_currentItem->getIntensityDataItem()->emitDataChanged();
+//    OutputData<double> *data = m_currentItem->getIntensityDataItem()->getOutputData();
+//    data->setRawDataVector(sim->getRawDataVector());
+//    m_currentItem->getIntensityDataItem()->emitDataChanged();
     m_observer->finishedPlotting();
 }
 
@@ -89,16 +91,13 @@ void FitSuiteWidget::onUpdateParameters(const QStringList &parameters, QVector<d
 {
     qDebug() << "FitSuiteWidget::onUpdateParameters" << parameters << values;
 
-    ParameterContainerItem *parContainer = dynamic_cast<ParameterContainerItem *>(m_currentItem->getItem(JobItem::T_PARAMETER_TREE));
+    ParameterContainerItem *parContainer = m_currentItem->parameterContainerItem();
     Q_ASSERT(parContainer);
 
-    SessionItem *fitSuiteItem = m_currentItem->getItem(JobItem::T_FIT_SUITE);
-    Q_ASSERT(fitSuiteItem);
+    SessionItem *fitParContainer = m_currentItem->fitParameterContainerItem();
+    Q_ASSERT(fitParContainer);
 
-    SessionItem *container = fitSuiteItem->getItem(FitSuiteItem::T_FIT_PARAMETERS);
-    Q_ASSERT(container);
-
-    foreach(SessionItem *fitParItem, container->getItems(FitParameterContainerItem::T_FIT_PARAMETERS)) {
+    foreach(SessionItem *fitParItem, fitParContainer->getItems(FitParameterContainerItem::T_FIT_PARAMETERS)) {
         foreach(SessionItem *linkItem, fitParItem->getItems(FitParameterItem::T_LINK)) {
             QString domainPath = linkItem->getItemValue(FitParameterLinkItem::P_DOMAIN).toString();
 
@@ -113,6 +112,17 @@ void FitSuiteWidget::onUpdateParameters(const QStringList &parameters, QVector<d
         }
     }
 
+}
+
+void FitSuiteWidget::onUpdateStatus(const QString &text)
+{
+    Q_ASSERT(m_currentItem);
+    qDebug() << "FitSuiteWidget::onUpdateStatus(const QString &text)" << text;
+    FitSuiteItem *fitSuiteItem = m_currentItem->fitSuiteItem();
+    Q_ASSERT(fitSuiteItem);
+    bool ok;
+    int niter = text.toInt(&ok);
+    fitSuiteItem->setItemValue(FitSuiteItem::P_ITERATION_COUNT, niter);
 }
 
 void FitSuiteWidget::startFitting()
@@ -158,5 +168,7 @@ void FitSuiteWidget::connectSignals()
             this, SLOT(onUpdatePlots(OutputData<double>*,OutputData<double>*)));
     connect(m_observer.get(), SIGNAL(updateParameters(QStringList,QVector<double>)),
             this, SLOT(onUpdateParameters(QStringList,QVector<double>)));
+    connect(m_observer.get(), SIGNAL(updateStatus(QString)),
+            this, SLOT(onUpdateStatus(QString)));
 }
 

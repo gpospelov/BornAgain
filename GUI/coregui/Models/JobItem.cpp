@@ -24,6 +24,9 @@
 #include "JobResultsPresenter.h"
 #include "SimulationOptionsItem.h"
 #include "GUIHelpers.h"
+#include "FitSuiteItem.h"
+#include "ParameterTreeItems.h"
+#include "FitParameterItems.h"
 #include <QDateTime>
 #include <QDebug>
 
@@ -241,6 +244,24 @@ void JobItem::setResults(const GISASSimulation *simulation)
     Q_ASSERT(intensityItem);
 
     JobResultsPresenter::setResults(intensityItem, simulation);
+}
+
+FitSuiteItem *JobItem::fitSuiteItem()
+{
+    return dynamic_cast<FitSuiteItem *>(getItem(JobItem::T_FIT_SUITE));
+}
+
+ParameterContainerItem *JobItem::parameterContainerItem()
+{
+    return dynamic_cast<ParameterContainerItem *>(getItem(JobItem::T_PARAMETER_TREE));
+}
+
+FitParameterContainerItem *JobItem::fitParameterContainerItem()
+{
+    if(FitSuiteItem *item = fitSuiteItem())
+        return item->fitParameterContainerItem();
+
+    return nullptr;
 }
 
 SimulationOptionsItem *JobItem::getSimulationOptionsItem()

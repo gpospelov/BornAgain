@@ -32,7 +32,8 @@ template <class T> class OutputData;
 
 
 //! The FitSuiteWidget contains all fit settings for given JobItem (fit parameters,
-//! minimizer settings) and all logic to start/stop fitting. Controlled by FitActivityPanel
+//! minimizer settings) and all logic to communicate with fit observers.
+//! Controlled by FitActivityPanel.
 
 class BA_CORE_API_ FitSuiteWidget : public QWidget
 {
@@ -54,6 +55,7 @@ public slots:
     void onError(const QString &text);
     void onUpdatePlots(OutputData<double>*sim, OutputData<double>*chi2);
     void onUpdateParameters(const QStringList &parameters, QVector<double> values);
+    void onUpdateStatus(const QString &text);
 
     void startFitting();
     void stopFitting();

@@ -35,6 +35,7 @@ FitParameterModel::FitParameterModel(SessionItem *fitParContainer, QObject *pare
 FitParameterModel::~FitParameterModel()
 {
     setRootItem(0);
+    qDebug() << "FitParameterModel::~FitParameterModel()";
 }
 
 Qt::ItemFlags FitParameterModel::flags(const QModelIndex &index) const

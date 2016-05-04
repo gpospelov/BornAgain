@@ -20,14 +20,19 @@
 #include "SessionItem.h"
 
 class FitSuite;
+class FitParameterContainerItem;
 
 class BA_CORE_API_ FitSuiteItem : public SessionItem
 {
 
 public:
+    static const QString P_UPDATE_INTERVAL;
+    static const QString P_ITERATION_COUNT;
+    static const QString P_CHI2;
     static const QString T_FIT_PARAMETERS;
     explicit FitSuiteItem();
 
+    FitParameterContainerItem *fitParameterContainerItem();
 //    std::unique_ptr<FitSuite> createFitSuite();
 };
 

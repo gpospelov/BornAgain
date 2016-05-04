@@ -16,13 +16,27 @@
 
 #include "FitSuiteItem.h"
 #include "FitSuite.h"
+#include "FitParameterItems.h"
 
+const QString FitSuiteItem::P_UPDATE_INTERVAL = "Update interval";
+const QString FitSuiteItem::P_ITERATION_COUNT = "Number of iterations";
+const QString FitSuiteItem::P_CHI2 = "Chi2";
 const QString FitSuiteItem::T_FIT_PARAMETERS = "Fit parameters container";
+
 
 FitSuiteItem::FitSuiteItem()
     : SessionItem(Constants::FitSuiteType)
 {
+    addProperty(P_UPDATE_INTERVAL, 10);
+    addProperty(P_ITERATION_COUNT, 0);
+    addProperty(P_CHI2, 0.0);
+
     registerTag(T_FIT_PARAMETERS, 1, 1, QStringList() << Constants::FitParameterContainerType);
+}
+
+FitParameterContainerItem *FitSuiteItem::fitParameterContainerItem()
+{
+    return dynamic_cast<FitParameterContainerItem *>(getItem(FitSuiteItem::T_FIT_PARAMETERS));
 }
 
 //std::unique_ptr<FitSuite> FitSuiteItem::createFitSuite()

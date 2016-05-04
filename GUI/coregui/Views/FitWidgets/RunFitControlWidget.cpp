@@ -69,7 +69,7 @@ RunFitControlWidget::RunFitControlWidget(QWidget *parent)
     font.setPointSize(DesignerHelper::getPortFontSize());
     m_updateIntervalLabel->setToolTip(slider_tooltip);
     m_updateIntervalLabel->setFont(font);
-    m_updateIntervalLabel->setText(QString::number(sliderValueToUpdateInterval(m_intervalSlider->value())));
+    m_updateIntervalLabel->setText(QString::number(sliderUpdateInterval()));
 
     layout->addWidget(m_startButton);
     layout->addSpacing(5);
@@ -86,7 +86,6 @@ RunFitControlWidget::RunFitControlWidget(QWidget *parent)
     connect(m_startButton, SIGNAL(clicked(bool)), this, SIGNAL(startFitting()));
     connect(m_stopButton, SIGNAL(clicked(bool)), this, SIGNAL(stopFitting()));
     connect(m_intervalSlider, SIGNAL(valueChanged(int)), this, SLOT(onSliderValueChanged(int)));
-
 }
 
 void RunFitControlWidget::onFittingStarted()
@@ -95,11 +94,15 @@ void RunFitControlWidget::onFittingStarted()
     m_startButton->setEnabled(false);
     m_stopButton->setEnabled(true);
 
+    fitSuiteItem()->setItemValue(FitSuiteItem::P_UPDATE_INTERVAL, sliderUpdateInterval());
+
     fitSuiteItem()->mapper()->setOnPropertyChange(
                 [this](const QString &name)
     {
         onFitSuitePropertyChange(name);
     }, this);
+
+    onFitSuitePropertyChange(FitSuiteItem::P_ITERATION_COUNT);
 
 }
 
@@ -113,6 +116,7 @@ void RunFitControlWidget::onFittingFinished()
 void RunFitControlWidget::onFittingError(const QString &what)
 {
     clearWarningSign();
+    m_iterationsCountLabel->setText("");
 
     QString message;
     message.append("Current settings cause fitting failure.\n\n");
@@ -133,14 +137,15 @@ void RunFitControlWidget::setItem(JobItem *item)
 
 void RunFitControlWidget::onSliderValueChanged(int value)
 {
+    qDebug() << "RunFitControlWidget::onSliderValueChanged(int value)";
     m_updateIntervalLabel->setText(QString::number(sliderValueToUpdateInterval(value)));
+    fitSuiteItem()->setItemValue(FitSuiteItem::P_UPDATE_INTERVAL, sliderUpdateInterval());
 }
 
 void RunFitControlWidget::onFitSuitePropertyChange(const QString &name)
 {
     if(name == FitSuiteItem::P_ITERATION_COUNT) {
         int niter = fitSuiteItem()->getItemValue(FitSuiteItem::P_ITERATION_COUNT).toInt();
-        qDebug() << "QQQ" << name << niter;
         m_iterationsCountLabel->setText(QString::number(niter));
     }
 
@@ -166,6 +171,11 @@ void RunFitControlWidget::clearWarningSign()
 {
     delete m_warningSign;
     m_warningSign = 0;
+}
+
+int RunFitControlWidget::sliderUpdateInterval()
+{
+    return sliderValueToUpdateInterval(m_intervalSlider->value());
 }
 
 //! converts slider value (1-15) to update interval to be propagated to FitSuiteWidget

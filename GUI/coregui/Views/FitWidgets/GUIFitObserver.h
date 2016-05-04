@@ -35,6 +35,7 @@ public:
     GUIFitObserver(QObject *parent = 0)
         : QObject(parent)
         , IFitObserver(1)
+        , m_block_update_plots(false)
         , m_update_interval(1)
     {}
 
@@ -59,6 +60,9 @@ signals:
     void updateParameters(const QStringList &, QVector<double>);
 
 private:
+    bool isToUpdatePlots(FitSuite *fitSuite);
+    bool isToUpdateStatus(FitSuite *fitSuite);
+
     std::atomic<bool> m_block_update_plots;
     int m_update_interval;
 };

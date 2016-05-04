@@ -56,6 +56,7 @@ protected:
 private:
     QPoint getPositionForWarningSign();
     void clearWarningSign();
+    int sliderUpdateInterval();
     int sliderValueToUpdateInterval(int value);
     FitSuiteItem *fitSuiteItem();
 

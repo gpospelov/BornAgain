@@ -27,7 +27,8 @@
 
 std::shared_ptr<FitSuite> DomainFittingBuilder::getFitSuite(JobItem *jobItem)
 {
-    std::shared_ptr<FitSuite> result(new FitSuite);
+    std::shared_ptr<FitSuite> result(new FitSuite());
+    result->setMinimizer("Genetic");
 
     SessionItem *fitSuiteItem = jobItem->getItem(JobItem::T_FIT_SUITE);
     Q_ASSERT(fitSuiteItem);
@@ -43,7 +44,7 @@ std::shared_ptr<FitSuite> DomainFittingBuilder::getFitSuite(JobItem *jobItem)
             QString link = linkItem->getItemValue(FitParameterLinkItem::P_LINK).toString();
             std::string domainPath = "*" + ModelPath::translateParameterName(jobItem->getMultiLayerItem()->parent(), link);
             linkItem->setItemValue(FitParameterLinkItem::P_DOMAIN, QString::fromStdString(domainPath));
-            result->addFitParameter(domainPath, value);
+            result->addFitParameter(domainPath, value, AttLimits::limited(2., 10.));
         }
 
     }

@@ -60,6 +60,12 @@ public slots:
     void startFitting();
     void stopFitting();
 
+private slots:
+    void onFittingStarted();
+    void onFittingFinished();
+
+    void onFitSuitePropertyChange(const QString &name);
+
 private:
     void connectSignals();
 

@@ -87,6 +87,7 @@ void FitSuiteWidget::onUpdatePlots(OutputData<double> *sim, OutputData<double> *
     m_observer->finishedPlotting();
 }
 
+//! Propagates current values of fit parameters back to FitParameterItem and ParameterItem
 void FitSuiteWidget::onUpdateParameters(const QStringList &parameters, QVector<double> values)
 {
     qDebug() << "FitSuiteWidget::onUpdateParameters" << parameters << values;
@@ -131,8 +132,16 @@ void FitSuiteWidget::startFitting()
         return;
     qDebug() << "FitSuiteWidget::startFitting()";
 
+    m_currentItem->fitSuiteItem()->mapper()->setOnPropertyChange(
+                [this](const QString &name)
+    {
+        onFitSuitePropertyChange(name);
+    }, this);
+
+
     try {
         qDebug() << " try run fitting";
+        m_observer->setInterval(m_currentItem->fitSuiteItem()->getItemValue(FitSuiteItem::P_UPDATE_INTERVAL).toInt());
         std::shared_ptr<FitSuite> fitSuite(DomainFittingBuilder::getFitSuite(m_currentItem));
         fitSuite->attachObserver(m_observer);
         m_manager->setFitSuite(fitSuite);
@@ -151,15 +160,40 @@ void FitSuiteWidget::startFitting()
 
 void FitSuiteWidget::stopFitting()
 {
-    if(!m_currentItem)
-        return;
+//    if(!m_currentItem)
+//        return;
     qDebug() << "FitSuiteWidget::stopFitting()";
+    m_manager->interruptFitting();
+}
+
+void FitSuiteWidget::onFittingStarted()
+{
+    qDebug() << "FitSuiteWidget::onFittingStarted()";
+    emit fittingStarted();
+}
+
+void FitSuiteWidget::onFittingFinished()
+{
+    qDebug() << "FitSuiteWidget::onFittingFinished()";
+    m_currentItem->fitSuiteItem()->mapper()->unsubscribe(this);
+    emit fittingFinished();
+}
+
+//! Propagates update interval from FitSuiteItem to fit observer.
+void FitSuiteWidget::onFitSuitePropertyChange(const QString &name)
+{
+    qDebug() << "FitSuiteWidget::onFitSuitePropertyChange(const QString &name)" << name;
+    if(name == FitSuiteItem::P_UPDATE_INTERVAL) {
+        m_observer->setInterval(m_currentItem->fitSuiteItem()->getItemValue(FitSuiteItem::P_UPDATE_INTERVAL).toInt());
+
+    }
+
 }
 
 void FitSuiteWidget::connectSignals()
 {
-    connect(m_manager, SIGNAL(startedFitting()), this, SIGNAL(fittingStarted()));
-    connect(m_manager, SIGNAL(finishedFitting()), this, SIGNAL(fittingFinished()));
+    connect(m_manager, SIGNAL(startedFitting()), this, SLOT(onFittingStarted()));
+    connect(m_manager, SIGNAL(finishedFitting()), this, SLOT(onFittingFinished()));
 
 //    connect(m_manager, SIGNAL(error(QString)), this, SLOT(onError(QString)));
     connect(m_manager, SIGNAL(error(QString)), this, SIGNAL(fittingError(QString)));

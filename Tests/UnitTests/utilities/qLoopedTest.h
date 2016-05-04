@@ -16,6 +16,8 @@
 #ifndef QLOOPEDTEST_H
 #define QLOOPEDTEST_H
 
+#include <tuple>
+
 const complex_t I(0,1);
 
 class QLoopedTest:
@@ -29,7 +31,7 @@ protected:
         cvector_t qdev = std::get<1>(GetParam());
         double    qmag = std::get<2>(GetParam());
         complex_t qeps = std::get<3>(GetParam());
-        q = qmag * qdir.unit() + qeps*qdev;
+        q = qmag * (qdir + qeps*qdev).unit();
     }
     cvector_t q;
 
@@ -38,5 +40,34 @@ protected:
     }
 };
 
+auto qlist = testing::Combine(
+    testing::Values(
+        cvector_t({ 1, 0, 0 }),
+        cvector_t({ 0, 1, 0 }),
+        cvector_t({ 0, 0, 1 }),
+        cvector_t({ 1, 1, 0 }),
+        cvector_t({ 1, 0, 1 }),
+        cvector_t({ 1, 0, 1 }),
+        cvector_t({ 1, 1, 1 })
+        ),
+    testing::Values(
+        cvector_t({ 1, 0, 0 }),
+        cvector_t({ 0, 1, 0 }),
+        cvector_t({ 0, 0, 1 }),
+        cvector_t({ 1, 1, 0 }),
+        cvector_t({ 1, 0, 1 }),
+        cvector_t({ 1, 0, 1 }),
+        cvector_t({ 1, 1, 1 })
+        ),
+    testing::Values(
+        1e-19, 1e-17, 1e-15, 1e-13, 1e-11, 1e-9, 1e-7, 1e-5, 1e-4, 1e-3, 1e-2, .1,
+        1., 1e1, 1e2, 1e3, 1e4 ),
+    testing::Values(
+        -1e-15, +1e-14, -1e-13*I, +1e-12*I,
+        -1e-11, +1e-10, -1e-9*I, +1e-8*I,
+        -1e-7, +1e-6, -1e-5*I, +1e-4*I,
+        -1e-3, +1e-2, -1e-1*I, +1e-1*I,
+        .9, -.99, .999, -.9999 )
+    );
 
 #endif // QLOOPEDTEST_H

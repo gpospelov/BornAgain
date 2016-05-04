@@ -18,7 +18,6 @@
 #include "IFormFactorBorn.h"
 #include "ParticleShapes.h"
 #include "qLoopedTest.h"
-#include <tuple>
 
 class FFSpecializationTest : public QLoopedTest
 {
@@ -36,37 +35,7 @@ public:
 INSTANTIATE_TEST_CASE_P(
     FFSpecializationTests,
     FFSpecializationTest,
-    testing::Combine(
-        testing::Values(
-            cvector_t({ 1, 0, 0 }),
-            cvector_t({ 0, 1, 0 }),
-            cvector_t({ 0, 0, 1 }),
-            cvector_t({ 1, 1, 0 }),
-            cvector_t({ 1, 0, 1 }),
-            cvector_t({ 1, 0, 1 }),
-            cvector_t({ 1, 1, 1 })
-            ),
-        testing::Values(
-            cvector_t({ 1, 0, 0 }),
-            cvector_t({ 0, 1, 0 }),
-            cvector_t({ 0, 0, 1 }),
-            cvector_t({ 1, 1, 0 }),
-            cvector_t({ 1, 0, 1 }),
-            cvector_t({ 1, 0, 1 }),
-            cvector_t({ 1, 1, 1 })
-            ),
-        testing::Values(
-            1e-19, 1e-17, 1e-15, 1e-13, 1e-11, 1e-9, 1e-7, 1e-5, 1e-4, 1e-3, 1e-2, .1,
-            1., 1e1, 1e2, 1e3, 1e4 ),
-        testing::Values(
-            -1e-15, +1e-14, -1e-13*I, +1e-12*I,
-            -1e-11, +1e-10, -1e-9*I, +1e-8*I,
-            -1e-7, +1e-6, -1e-5*I, +1e-4*I,
-            -1e-3, +1e-2, -1e-1*I, +1e-1*I,
-            .9, -.99, .999, -.9999 )
-        )
-    );
-
+    qlist);
 
 TEST_P(FFSpecializationTest, HemiEllipsoidAsTruncatedSphere)
 {
@@ -75,7 +44,7 @@ TEST_P(FFSpecializationTest, HemiEllipsoidAsTruncatedSphere)
     double R=1.07;
     FormFactorHemiEllipsoid p0(R, R, R);
     FormFactorTruncatedSphere p1(R, R);
-    test_ff_eq( &p0, &p1 );
+    test_ff_eq( &p0, &p1, 1e-10 );
 }
 
 TEST_P(FFSpecializationTest, EllipsoidalCylinderAsCylinder)
@@ -90,12 +59,12 @@ TEST_P(FFSpecializationTest, EllipsoidalCylinderAsCylinder)
 
 TEST_P(FFSpecializationTest, TruncatedCubeAsBox)
 {
-    if( skip_q( 1e-99, 1e11 ) )
+    if( skip_q( 1e-99, 5e3 ) )
         return;
     double L=.5;
     FormFactorTruncatedCube p0(L, 0);
     FormFactorBox p1(L, L, L);
-    test_ff_eq( &p0, &p1 );
+    test_ff_eq( &p0, &p1, 1e-11 );
 }
 
 TEST_P(FFSpecializationTest, AnisoPyramidAsPyramid)

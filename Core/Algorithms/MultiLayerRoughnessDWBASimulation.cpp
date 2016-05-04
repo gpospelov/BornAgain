@@ -27,11 +27,11 @@
 namespace {
     complex_t h_plus(complex_t x)
     {
-        return 0.5*Faddeeva::erfcx(x/std::sqrt(2.0));
+        return 0.5*Faddeeva::erfcx(-x/std::sqrt(2.0));
     }
     complex_t h_min(complex_t x)
     {
-        return 0.5*Faddeeva::erfcx(-x/std::sqrt(2.0));
+        return 0.5*Faddeeva::erfcx(x/std::sqrt(2.0));
     }
 }
 
@@ -180,23 +180,22 @@ complex_t MultiLayerRoughnessDWBASimulation::get_sum8terms(size_t ilayer,
 
     complex_t kiz_plus = P_in_plus->getScalarKz();
     complex_t kfz_plus = P_out_plus->getScalarKz();
-    complex_t qz1_plus = kiz_plus + kfz_plus;
-    complex_t qz2_plus = kiz_plus - kfz_plus;
-    complex_t qz3_plus = -qz2_plus;
-    complex_t qz4_plus = -qz1_plus;
+    complex_t qz1_plus = - kiz_plus - kfz_plus;
+    complex_t qz2_plus = - kiz_plus + kfz_plus;
+    complex_t qz3_plus = - qz2_plus;
+    complex_t qz4_plus = - qz1_plus;
     double thickness = mp_multi_layer->getLayerThickness(ilayer);
     complex_t T_in_plus = P_in_plus->getScalarT()*std::exp(im*kiz_plus*thickness);
     complex_t R_in_plus = P_in_plus->getScalarR()*std::exp(-im*kiz_plus*thickness);
     complex_t T_out_plus = P_out_plus->getScalarT()*std::exp(im*kfz_plus*thickness);
     complex_t R_out_plus = P_out_plus->getScalarR()*std::exp(-im*kfz_plus*thickness);
 
-
     complex_t kiz_minus = P_in_minus->getScalarKz();
     complex_t kfz_minus = P_out_minus->getScalarKz();
-    complex_t qz1_minus = kiz_minus + kfz_minus;
-    complex_t qz2_minus = kiz_minus - kfz_minus;
-    complex_t qz3_minus = -qz2_minus;
-    complex_t qz4_minus = -qz1_minus;
+    complex_t qz1_minus = - kiz_minus - kfz_minus;
+    complex_t qz2_minus = - kiz_minus + kfz_minus;
+    complex_t qz3_minus = - qz2_minus;
+    complex_t qz4_minus = - qz1_minus;
 
     double sigma(0.0);
     if (const LayerRoughness *roughness

@@ -8242,6 +8242,11 @@ class PolyhedralFace(_object):
         return _libBornAgainCore.PolyhedralFace_area(self)
 
 
+    def center(self):
+        """center(PolyhedralFace self) -> kvector_t"""
+        return _libBornAgainCore.PolyhedralFace_center(self)
+
+
     def pyramidalVolume(self):
         """pyramidalVolume(PolyhedralFace self) -> double"""
         return _libBornAgainCore.PolyhedralFace_pyramidalVolume(self)

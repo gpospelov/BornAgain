@@ -49,7 +49,7 @@ void FormFactorPyramid::onChange()
     double cot_alpha = MathFunctions::cot(m_alpha);
     if( !std::isfinite(cot_alpha) || cot_alpha<0 )
         throw Exceptions::OutOfBoundsException("pyramid angle alpha out of bounds");
-    double r = cot_alpha * m_height / m_base_edge; // L(top)/L(base)
+    double r = cot_alpha*2 * m_height / m_base_edge; // L(top)/L(base)
     if ( r > 1 ) {
         std::ostringstream ostr;
         ostr << "FormFactorPyramid() -> Error in class initialization with parameters";

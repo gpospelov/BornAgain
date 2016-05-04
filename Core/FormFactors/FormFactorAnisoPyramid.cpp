@@ -70,7 +70,7 @@ void FormFactorAnisoPyramid::onChange()
     double W = m_width/2;
     double w = m_width/2 * (1-s);
 
-    double zcom = m_height * ( .5 - 2*r/3 + r*r/4 ) / ( 1 - r + r*r/3 ); // center of mass
+    double zcom = m_height * ( .5 - (r+s)/3 + r*s/4 ) / ( 1 - (r+s)/2 + r*s/3 ); // center of mass
 
     setPolyhedron( topology, -zcom, false, {
         // base:

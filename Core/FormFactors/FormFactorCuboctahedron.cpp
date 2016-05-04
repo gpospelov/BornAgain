@@ -58,7 +58,9 @@ void FormFactorCuboctahedron::onChange()
     double cot_alpha = MathFunctions::cot(m_alpha);
     if( !std::isfinite(cot_alpha) || cot_alpha<0 )
         throw Exceptions::OutOfBoundsException("pyramid angle alpha out of bounds");
-    if(cot_alpha*2.*m_height > m_length*std::min(1.,1.0/m_height_ratio)) {
+    double x = m_height_ratio;
+    double r = cot_alpha*2 * m_height / m_length;
+    if ( std::max(1.,x)*r > 1 ) {
         std::ostringstream ostr;
         ostr << "FormFactorCuboctahedron() -> Error in class initialization with parameters";
         ostr << " height:" << m_height;
@@ -68,26 +70,33 @@ void FormFactorCuboctahedron::onChange()
         ostr << "Check for '2.*height <= length*tan(alpha)*min(1.,1.0/height_ratio)' failed.";
         throw Exceptions::ClassInitializationException(ostr.str());
     }
-    double a = m_length/2 - m_height*cot_alpha;
+    double a = m_length/2 * (1-r);
     double b = m_length/2;
-    double c = m_length/2 - m_height*m_height_ratio*cot_alpha;
+    double c = m_length/2 * (1-r*x);
 
-    setPolyhedron( topology, 0, false, {
-        // base:
-        { -a, -a, 0. },
-        {  a, -a, 0. },
-        {  a,  a, 0. },
-        { -a,  a, 0. },
-        // middle
-        { -b, -b, m_height },
-        {  b, -b, m_height },
-        {  b,  b, m_height },
-        { -b,  b, m_height },
-        // top
-        { -c, -c, m_height*(1+m_height_ratio) },
-        {  c, -c, m_height*(1+m_height_ratio) },
-        {  c,  c, m_height*(1+m_height_ratio) },
-        { -c,  c, m_height*(1+m_height_ratio) } } );
+    double dzcom = m_height *
+        ( (x*x-1)/2 - 2*r*(x*x*x-1)/3 + r*r*(x*x*x*x-1)/4 ) /
+        ( (x  +1)   -   r*(x*x  +1)   + r*r*(x*x*x  +1)/3 );
+    double za = -dzcom-m_height;
+    double zb = -dzcom;
+    double zc = -dzcom+x*m_height;
+
+    setPolyhedron( topology, za, false, {
+            // base:
+            { -a, -a, za },
+            {  a, -a, za },
+            {  a,  a, za },
+            { -a,  a, za },
+            // middle
+            { -b, -b, zb },
+            {  b, -b, zb },
+            {  b,  b, zb },
+            { -b,  b, zb },
+            // top
+            { -c, -c, zc },
+            {  c, -c, zc },
+            {  c,  c, zc },
+            { -c,  c, zc } } );
 }
 
 FormFactorCuboctahedron* FormFactorCuboctahedron::clone() const

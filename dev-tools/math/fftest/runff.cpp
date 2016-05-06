@@ -25,7 +25,7 @@ static double eps(2e-16);
 
 Diagnosis diagnosis;
 
-int nshape = 12;
+int nshape = 11;
 
 extern int n_limit;
 extern double q_limit_series;
@@ -61,8 +61,6 @@ IFormFactorBorn* make_particle( int ishape )
     } else if( ishape==11 ) {
         double alpha = 72 * Units::degree;
         return new FormFactorCuboctahedron(1., 1., .8, alpha);
-    } else if( ishape==12 ) {
-        return new FormFactorFullSphere(1.);
     } else
         throw "Shape not implemented";
 }
@@ -104,13 +102,12 @@ void run(const IFormFactorBorn* polyh, const int ishape, const cvector_t q, cons
     if( outfilter==9 )
         return;
     cout <<
-        std::setprecision(16) <<
         ishape << " " <<
-        std::setprecision(12) <<
+        std::setprecision(16) <<
         q[0].real() << " " << q[0].imag() << " " <<
         q[1].real() << " " << q[1].imag() << " " <<
         q[2].real() << " " << q[2].imag() << " " <<
-        std::setprecision(18) <<
+        std::setprecision(17) <<
         q.mag() << " ";
     if     ( outfilter==0 )
         cout << ret;
@@ -237,48 +234,70 @@ void test_loop( int outfilter, int ishapepar )
 
 void help_and_exit()
 {
-    cerr << "Usage: fftest inmode outfilter shape|0=all [qxr qxi qyr qyi qzr qzi q] [qlim qpalim nlim]\n";
-    cerr << "inmode: q from 0 stdin, 1 cmdline, 2 loop\n";
-    cerr << "outfilter: return 0 all, 1 real, 2 imag, 6 cont_test, 7 plot_tab, 8 ref_tab, 9 nil\n";
+    cerr << "fftest limits inmode outfilter shape qxr qxi qyr qyi qzr qzi [q]\n";
+    cerr << "  limits:    \"def\" | qlim qpalim nlim\n";
+    cerr << "  inmode:    get q from 0:stdin | 1:cmdline\n";
+    cerr << "  outfilter: return 0:all | 1:real | 2:imag\n";
+    cerr << "fftest limits loop shape\n";
+    cerr << "  limits:    \"def\" | qlim qpalim nlim\n";
+    cerr << "  loop:      2[cont_test] |\n";
+    cerr << "  shape:     0[all] | 1..[specific]\n";
     exit(0);
 }
 
-int main (int argc, char *argv[])
+#define NEXTARG if( (++arg)-argv >= argc ) help_and_exit()
+#define MULTIARG(n) if( (arg+=n)-argv >= argc ) help_and_exit()
+
+int main (int argc, const char *argv[])
 {
     try {
-        if( argc< 4 )
-            help_and_exit();
-        int inmode = atoi( argv[1] );
-        int outfilter = atoi( argv[2] );
-        int ishape = atoi( argv[3] );
-        if( inmode==2 ) {
-            if( argc!=7 )
-                help_and_exit();
-            double q_limit = atof( argv[4] );
-            double qpa_limit = atof( argv[5] );
-            int n_limit = atoi( argv[6] );
+        const char** arg = argv;
+        NEXTARG;
+        if ( !strncmp( *arg, "def", 3 ) ) {
+            // do nothing
+        } else {
+            double q_limit = atof( *arg );
+            NEXTARG;
+            double qpa_limit = atof( *arg );
+            NEXTARG;
+            int n_limit = atoi( *arg );
             FormFactorPolyhedron::setLimits( q_limit, n_limit );
             PolyhedralFace::setLimits( qpa_limit, n_limit );
-            test_loop( outfilter, ishape );
-            exit(0);
         }
-        if( argc!=11 )
-            help_and_exit();
-        IFormFactorBorn* P( make_particle( ishape ) );
-        cvector_t uq( complex_t(atof(argv[4]),atof(argv[5])),
-                      complex_t(atof(argv[6]),atof(argv[7])),
-                      complex_t(atof(argv[8]),atof(argv[9])) );
-        double qmag;
-        if( inmode==1 ) {
-            qmag = atof(argv[10]);
-            run( P, ishape, qmag*uq, outfilter );
-        } else if( inmode==0 ) {
-            int nop;
-            std::cin >> nop;
-            while( std::cin >> qmag )
+        NEXTARG;
+        int inmode = atoi( *arg );
+        if( inmode==0 || inmode==1 ) {
+            NEXTARG;
+            int outfilter = atoi( *arg );
+            NEXTARG;
+            int ishape = atoi( *arg );
+            IFormFactorBorn* P( make_particle( ishape ) );
+            MULTIARG(6);
+            cvector_t uq(
+                complex_t( atof(*(arg-5)), atof(*(arg-4)) ),
+                complex_t( atof(*(arg-3)), atof(*(arg-2)) ),
+                complex_t( atof(*(arg-1)), atof(*(arg-0)) ) );
+            double qmag;
+            if( inmode==1 ) {
+                NEXTARG;
+                qmag = atof(argv[10]);
                 run( P, ishape, qmag*uq, outfilter );
+            } else if( inmode==0 ) {
+                // for use through Frida
+                int nop;
+                std::cin >> nop;
+                while( std::cin >> qmag )
+                    run( P, ishape, qmag*uq, outfilter );
+            }
+        } else if( inmode==2 ) {
+            NEXTARG;
+            int ishape = atoi( *arg );
+            test_loop( 0, ishape );
+            exit(0);
         } else
             throw "invalid inmode";
+
+
     } catch( const char* ex ) {
         cerr << "F(q) failed: " << ex << "\n";
         exit(0);

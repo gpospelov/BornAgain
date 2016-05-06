@@ -77,10 +77,11 @@ void bisect(
     if( (qi-qf).mag()<4*eps*q0mag ) {
         // narrowed down to minimal step, now check for continuity
         double aval = (std::abs(ri) + std::abs(rf))/2;
-        double relstep = std::abs(ri-rf)/aval;
+        double step = std::abs(ri-rf);
+        double relstep = step/aval;
         maxrelstep = std::max( maxrelstep, relstep );
-        if( relstep>1e-9 ){
-            cerr<<"ishape="<<ishape<<": step "<<std::setprecision(8)<<relstep<<" @ "<<std::setprecision(16)<<aval<<" for "<<di<<"->"<<df<<" at q between "<< std::setprecision(16)<<qi<<" and "<<qf<<"\n";
+        if( relstep>2e-9 ){
+            cout<<"ishape="<<ishape<<": relstep "<<std::setprecision(8)<<relstep<<"="<<step<<"/"<<std::setprecision(16)<<aval<<" for "<<di<<"->"<<df<<" at q between "<< std::setprecision(16)<<qi<<" and "<<qf<<"\n";
         }
         return;
     }

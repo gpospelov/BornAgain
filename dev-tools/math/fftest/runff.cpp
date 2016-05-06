@@ -128,7 +128,10 @@ double test_continuity( int ishape, const vector<vector<cvector_t>>& scans )
 {
     IFormFactorBorn* polyh( make_particle( ishape ) );
     double maxrelstep = 0;
-    for( const vector<cvector_t>& q_scan: scans ) {
+    for( size_t j=0; j<scans.size(); ++j ) {
+        if( !(j%100) )
+            fprintf( stderr, "%2i: %8li/%li\r", ishape, j, scans.size() );
+        const vector<cvector_t>& q_scan = scans[j];
         for( size_t i=1; i<q_scan.size(); ++i ) {
             complex_t last_ret = polyh->evaluate_for_q(q_scan[i-1]);
             Diagnosis last_diag = diagnosis;
@@ -139,6 +142,7 @@ double test_continuity( int ishape, const vector<vector<cvector_t>>& scans )
                         last_ret, last_diag, maxrelstep );
         }
     }
+    fprintf( stderr, "\n" );
     cout << "shape " << ishape << " => max rel step = " << maxrelstep << "\n";
     return maxrelstep;
 }
@@ -216,64 +220,64 @@ vector<vector<cvector_t>> scans_for_blabla()
 
 vector<vector<cvector_t>> scans_for_cont_test()
 {
-    static int n_qdir = 10;
-    int nsteps = 2001;
-    if( !(nsteps&1) )
-        throw "nsteps must be odd";
-    vector<double> steps(nsteps);
-    steps[0] = 0;
-    steps[nsteps-1] = 1;
-    int n2 = (nsteps-1)/2;
-    steps[n2] = .5;
-    for( int i=1; i<n2; ++i ){
-        steps[i] = pow(.5, (i-1)/((double)(n2-1))) * pow(1e-10, (n2-i)/((double)(n2-1)));
-        steps[nsteps-1-i] = 1-steps[i];
-    }
-    double steps_short[3] = { 0., 1e-12, 1e-6 };
-    cvector_t qdirs[n_qdir+1] = {
+    static int n_dir = 7;
+    cvector_t dir[n_dir] = {
         { 1., 0., 0. },
-        { 0., 1.+.01*I, 0. },
-        { .001*I, 1., 1. },
-        { 1.+.01*I, 1.-.01*I, 0. },
+        { 0., 1., 0. },
         { 0., 0., 1. },
-        { 1., 1., 1. },
+
+        { 0., 1., 1. },
         { 1., 0., 1. },
-        { 1., 2., 0. },
-        { 0., 2., 3. },
-        { 1., 2.71813+0.1*I, 3.14158-0.2*I, },
-        { -2.+.02*I, .03-.0004*I, .0005 } };
+        { 1., 1., 0. },
+
+        { 1., 1., 1. }
+    };
+
+    static int n_difdir = 7;
+    cvector_t difdir[n_difdir] = {
+        { 1., 0., 0. },
+        { 0., 1., 0. },
+        { 0., 0., 1. },
+
+        { 0., 1., 1. },
+        { 1., 0., 1. },
+        { 1., 1., 0. },
+
+        { 1., 1., 1. }
+    };
+
+    static int n_absdir = 7; // absorption component
+    cvector_t absdir[n_absdir] = {
+        { 1e-15*I, 0., 0. },
+        { 0., 1e-10*I, 0. },
+        { 0., 0., 1e-5*I },
+        { .1*I, 0., 0. },
+        { 0., .1*I, 0. },
+        { 0., 0., .1*I },
+        { .1*I, .1*I, .1*I }
+    };
+
+    static const int n_mag = 20;
+    static double mag[n_mag] = { 0, 1e-12, 1e-10, 1e-8, 1e-7, 1e-6, 1e-5, 1e-4, 1e-3,
+                          .01, .06, .2, .5, 1, 2, 5, 10, 20, 50, 100 };
+    static const int n_difmag = 16;
+    static double difmag[n_difmag] = { 3e-16, 1e-15, 3e-15, 1e-14, 1e-13, 1e-12, 1e-11, 1e-9, 1e-7,
+                             1e-5, 1e-3, .01, .03, .1, .2, .3 };
 
     vector<vector<cvector_t>> scans;
-    // For different directions ...
-    for( int idx_qdir=0; idx_qdir<n_qdir; ++idx_qdir ){
-        for( int irot=0; irot<3; ++irot ){
-            double rot = steps_short[irot];
-            cvector_t uq = ((1-rot)*qdirs[idx_qdir] + rot*qdirs[idx_qdir+1]).unit();
-            // ... sweep |q|
-            vector<cvector_t> scan;
-            scan.push_back( cvector_t() ); // q=0 to start with
-            for( int idx_qmag=0; idx_qmag<(nsteps-1); ++idx_qmag ) {
-                double qmag = pow(10.,-10+13.*idx_qmag/(nsteps-2));
-                scan.push_back( qmag * uq );
+    for( int i=0; i<n_dir; ++i ) {
+        for( int j=0; j<n_difdir; ++j ) {
+            for( int k=0; k<n_difmag; ++k ) {
+                for( int l=0; l<n_absdir; ++l ) {
+                    cvector_t uq = ( dir[i].unit() + difmag[k]*difdir[j] + absdir[l] ).unit();
+                    vector<cvector_t> scan;
+                    for( int m=0; m<n_mag; ++m )
+                        scan.push_back( mag[m] * uq );
+                    scans.push_back( scan );
+                }
             }
-            scans.push_back( scan );
         }
     }
-    // For different |q| ...
-    for( int idx_qmag=0; idx_qmag<7; ++idx_qmag ) {
-        double qmag = pow(10.,-9+12.*idx_qmag/(7-1));
-        // ... sweep direction
-        for( int idx_qdir=0; idx_qdir<n_qdir; ++idx_qdir ){
-            vector<cvector_t> scan;
-            for( int irot=0; irot<nsteps; ++irot ){
-                double rot = steps[irot];
-                cvector_t uq = ((1-rot)*qdirs[idx_qdir] + rot*qdirs[idx_qdir+1]).unit();
-                scan.push_back( qmag * uq );
-            }
-            scans.push_back( scan );
-        }
-    }
-
     return scans;
 }
 

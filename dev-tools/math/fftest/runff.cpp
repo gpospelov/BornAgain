@@ -15,6 +15,7 @@
 #include <vector>
 
 #include "ParticleShapes.h"
+#include "FormFactorTriangle.h"
 
 using std::cout;
 using std::cerr;
@@ -61,6 +62,8 @@ IFormFactorBorn* make_particle( int ishape )
     } else if( ishape==11 ) {
         double alpha = 72 * Units::degree;
         return new FormFactorCuboctahedron(1., 1., .8, alpha);
+    } else if( ishape==90 ) {
+        return new FormFactorTriangle(1.);
     } else
         throw "Shape not implemented";
 }
@@ -315,10 +318,10 @@ int main (int argc, const char *argv[])
                     run( P, ishape, mag*uq, outfilter );
             } else if( inmode==1 ) {
                 NEXTARG;
-                mag = atof(argv[10]);
+                mag = atof( *arg );
                 run( P, ishape, mag*uq, outfilter );
             } else if( inmode==2 ) {
-                int n_mag = 2001;
+                int n_mag = 301;
                 double mag_i = 1e-9;
                 double mag_f = 1e2;
                 for( int i=1; i<n_mag; ++i ) {

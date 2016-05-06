@@ -157,69 +157,8 @@ void loop_one_shape( int outfilter, int ishape, const vector<vector<cvector_t>>&
     }
 }
 
-vector<vector<cvector_t>> scans_for_blabla()
-{
-    static int n_qdir = 10;
-    int nsteps = 2001;
-    if( !(nsteps&1) )
-        throw "nsteps must be odd";
-    vector<double> steps(nsteps);
-    steps[0] = 0;
-    steps[nsteps-1] = 1;
-    int n2 = (nsteps-1)/2;
-    steps[n2] = .5;
-    for( int i=1; i<n2; ++i ){
-        steps[i] = pow(.5, (i-1)/((double)(n2-1))) * pow(1e-10, (n2-i)/((double)(n2-1)));
-        steps[nsteps-1-i] = 1-steps[i];
-    }
-    double steps_short[3] = { 0., 1e-12, 1e-6 };
-    cvector_t qdirs[n_qdir+1] = {
-        { 1., 0., 0. },
-        { 0., 1.+.01*I, 0. },
-        { .001*I, 1., 1. },
-        { 1.+.01*I, 1.-.01*I, 0. },
-        { 0., 0., 1. },
-        { 1., 1., 1. },
-        { 1., 0., 1. },
-        { 1., 2., 0. },
-        { 0., 2., 3. },
-        { 1., 2.71813+0.1*I, 3.14158-0.2*I, },
-        { -2.+.02*I, .03-.0004*I, .0005 } };
 
-    vector<vector<cvector_t>> scans;
-    // For different directions ...
-    for( int idx_qdir=0; idx_qdir<n_qdir; ++idx_qdir ){
-        for( int irot=0; irot<3; ++irot ){
-            double rot = steps_short[irot];
-            cvector_t uq = ((1-rot)*qdirs[idx_qdir] + rot*qdirs[idx_qdir+1]).unit();
-            // ... sweep |q|
-            vector<cvector_t> scan;
-            scan.push_back( cvector_t() ); // q=0 to start with
-            for( int idx_qmag=0; idx_qmag<(nsteps-1); ++idx_qmag ) {
-                double qmag = pow(10.,-10+13.*idx_qmag/(nsteps-2));
-                scan.push_back( qmag * uq );
-            }
-            scans.push_back( scan );
-        }
-    }
-    // For different |q| ...
-    for( int idx_qmag=0; idx_qmag<7; ++idx_qmag ) {
-        double qmag = pow(10.,-9+12.*idx_qmag/(7-1));
-        // ... sweep direction
-        for( int idx_qdir=0; idx_qdir<n_qdir; ++idx_qdir ){
-            vector<cvector_t> scan;
-            for( int irot=0; irot<nsteps; ++irot ){
-                double rot = steps[irot];
-                cvector_t uq = ((1-rot)*qdirs[idx_qdir] + rot*qdirs[idx_qdir+1]).unit();
-                scan.push_back( qmag * uq );
-            }
-            scans.push_back( scan );
-        }
-    }
-    return scans;
-}
-
-vector<vector<cvector_t>> scans_for_cont_test()
+vector<vector<cvector_t>> create_scans( int mode )
 {
     static int n_dir = 7;
     cvector_t dir[n_dir] = {
@@ -258,9 +197,17 @@ vector<vector<cvector_t>> scans_for_cont_test()
         { .1*I, .1*I, .1*I }
     };
 
-    static const int n_mag = 20;
-    static double mag[n_mag] = { 0, 1e-12, 1e-10, 1e-8, 1e-7, 1e-6, 1e-5, 1e-4, 1e-3,
-                          .01, .06, .2, .5, 1, 2, 5, 10, 20, 50, 100 };
+    vector<double> mag;
+    if ( mode==1 ) {
+        mag = vector<double>( { 0, 1e-12, 1e-10, 1e-8, 1e-7, 1e-6, 1e-5, 1e-4, 1e-3,
+                    .01, .06, .2, .5, 1, 2, 5, 10, 20, 50, 100 } );
+    } else if (mode==2 ) {
+        mag.resize(2001);
+        mag[0] = 0.;
+        for( size_t i=1; i<mag.size(); ++i )
+            mag[i] = 1e-10*pow(1e13,(i-1.)/(mag.size()-2));
+    }
+
     static const int n_difmag = 16;
     static double difmag[n_difmag] = { 3e-16, 1e-15, 3e-15, 1e-14, 1e-13, 1e-12, 1e-11, 1e-9, 1e-7,
                              1e-5, 1e-3, .01, .03, .1, .2, .3 };
@@ -272,7 +219,7 @@ vector<vector<cvector_t>> scans_for_cont_test()
                 for( int l=0; l<n_absdir; ++l ) {
                     cvector_t uq = ( dir[i].unit() + difmag[k]*difdir[j] + absdir[l] ).unit();
                     vector<cvector_t> scan;
-                    for( int m=0; m<n_mag; ++m )
+                    for( size_t m=0; m<mag.size(); ++m )
                         scan.push_back( mag[m] * uq );
                     scans.push_back( scan );
                 }
@@ -290,7 +237,7 @@ void help_and_exit()
     cerr << "  outfilter: return 0:all | 1:real | 2:imag\n";
     cerr << "fftest limits loop shape [outfilter]\n";
     cerr << "  limits:    \"def\" | qlim qpalim nlim\n";
-    cerr << "  loop:      2[cont_test] |\n";
+    cerr << "  loop:      2[cont_test] | 3[for_plot]\n";
     cerr << "  shape:     0[all] | 1..[specific]\n";
     exit(0);
 }
@@ -346,7 +293,7 @@ int main (int argc, const char *argv[])
         int ishapepar = atoi( *arg );
 
         if( inmode==2 ) { // continuity test
-            vector<vector<cvector_t>> scans = scans_for_cont_test();
+            vector<vector<cvector_t>> scans = create_scans( 1 );
             double totmaxrelstep = 0;
             if( ishapepar==0 ) {
                 for( int ishape=1; ishape<=nshape; ++ishape )
@@ -358,7 +305,7 @@ int main (int argc, const char *argv[])
             exit (0);
         }
         // it's a straight loop over q
-        vector<vector<cvector_t>> scans = scans_for_blabla();
+        vector<vector<cvector_t>> scans = create_scans( 2 );
         NEXTARG;
         int outfilter = atoi( *arg );
         if( ishapepar==0 ) {

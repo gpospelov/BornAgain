@@ -284,8 +284,6 @@ complex_t PolyhedralFace::ff( const cvector_t q, const bool sym_Ci ) const
             complex_t Rfac = sym_S2 ? sin(e.qR(qpa)) : ( sym_Ci ? 2.*cos(qR) : exp(I*qR) );
             sum += prevec.dot(e.E()) * MathFunctions::sinc(qE) * Rfac;
         }
-        std::cerr<<std::setprecision(12)<<"DEBUG "<<qpa<<" "<<prevec.mag()<<"  "<<sum.real()<<" "<<sum.imag()<<"\n";
-        //std::cout<<std::setprecision(16)<<"  ret="<<prefac * sum / ( I*qpa.mag2() )<<"\n";
         return prefac * sum / ( I*qpa.mag2() );
     }
 }

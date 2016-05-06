@@ -102,7 +102,7 @@ void bisect(
 void run(const IFormFactorBorn* polyh, const int ishape, const cvector_t q, int outfilter )
 {
     complex_t ret = polyh->evaluate_for_q(q);
-    cout<<std::fixed<<std::setprecision(16)<<std::setfill('0');
+    cout<<std::scientific<<std::setprecision(16)<<std::setfill('0');
     if     ( outfilter==0 )
         cout<<q.mag()<<" "<<std::abs(ret)<<" "<<ret.real()<<" "<<ret.imag()<<
             diagnosis.nExpandedFaces<<" "<<diagnosis.maxOrder;
@@ -321,10 +321,11 @@ int main (int argc, const char *argv[])
                 mag = atof( *arg );
                 run( P, ishape, mag*uq, outfilter );
             } else if( inmode==2 ) {
-                int n_mag = 301;
-                double mag_i = 1e-9;
+                int n_mag = 6201;
+                double mag_i = 1e-24;
                 double mag_f = 1e2;
                 for( int i=1; i<n_mag; ++i ) {
+                    // mag = 180.*i/(n_mag-1);
                     mag = mag_i*pow(mag_f/mag_i,i/(n_mag-1.));
                     run( P, ishape, mag*uq, outfilter );
                 }

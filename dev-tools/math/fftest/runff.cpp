@@ -325,8 +325,8 @@ int main (int argc, const char *argv[])
                 double mag_i = 1e-24;
                 double mag_f = 1e2;
                 for( int i=1; i<n_mag; ++i ) {
-                    // mag = 180.*i/(n_mag-1);
-                    mag = mag_i*pow(mag_f/mag_i,i/(n_mag-1.));
+                    mag = 180.*i/(n_mag-1);
+                    //mag = mag_i*pow(mag_f/mag_i,i/(n_mag-1.));
                     run( P, ishape, mag*uq, outfilter );
                 }
             }

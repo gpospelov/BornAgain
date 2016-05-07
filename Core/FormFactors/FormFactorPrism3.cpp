@@ -36,9 +36,9 @@ void FormFactorPrism3::onChange()
     double ac = a/sqrt(3)/2;
     double ah = a/sqrt(3);
     kvector_t V[3] = {
-        { -as, -ac, 0. },
-        {  as, -ac, 0. },
-        {  0.,  ah, 0. } };
+        { -ac,  as, 0. },
+        { -ac, -as, 0. },
+        {  ah,  0., 0. } };
     m_base = std::unique_ptr<PolyhedralFace>( new PolyhedralFace( { V[0], V[1], V[2] }, false ) );
 }
 

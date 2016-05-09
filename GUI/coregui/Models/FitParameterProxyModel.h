@@ -20,8 +20,11 @@
 #include "WinDllMacros.h"
 #include <QAbstractProxyModel>
 
-class SessionItem;
+//class SessionItem;
+//class JobModel;
 class JobModel;
+class FitParameterContainerItem;
+class SessionItem;
 
 //! The FitParameterProxyModel adopt original JobModel to show items from FitParameterContainer
 //! in 5 column tree view.
@@ -31,7 +34,8 @@ class BA_CORE_API_ FitParameterProxyModel : public QAbstractProxyModel
     Q_OBJECT
 
 public:
-    explicit FitParameterProxyModel(JobModel *jobModel, QObject *parent = 0);
+//    explicit FitParameterProxyModel(JobModel *jobModel, FitParameterContainerItem *fitParContainer, QObject *parent = 0);
+    explicit FitParameterProxyModel(FitParameterContainerItem *fitParContainer, QObject *parent = 0);
 
     QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const;
     QModelIndex parent(const QModelIndex &child) const;
@@ -44,7 +48,11 @@ public:
     SessionItem *itemForIndex(const QModelIndex &index) const;
 
 private:
-    JobModel *m_jobModel;
+    JobModel *jobModel() const;
+
+//    JobModel *m_jobModel;
+    FitParameterContainerItem *m_parContainer;
+//    JobItem *m_jobItem;
 };
 
 

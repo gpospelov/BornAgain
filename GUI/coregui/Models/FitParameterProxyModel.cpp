@@ -16,14 +16,26 @@
 
 #include "FitParameterProxyModel.h"
 #include "SessionItem.h"
+#include "FitParameterItems.h"
 #include "JobModel.h"
 
-FitParameterProxyModel::FitParameterProxyModel(JobModel *jobModel, QObject *parent)
+//FitParameterProxyModel::FitParameterProxyModel(JobModel *jobModel, FitParameterContainerItem *fitParContainer, QObject *parent)
+//    : QAbstractProxyModel(parent)
+//    , m_jobModel(jobModel)
+//    , m_parContainer(fitParContainer)
+//{
+//    Q_ASSERT(m_jobModel);
+//    Q_ASSERT(m_parContainer);
+//    setSourceModel(m_jobModel);
+//}
+
+FitParameterProxyModel::FitParameterProxyModel(FitParameterContainerItem *fitParContainer, QObject *parent)
     : QAbstractProxyModel(parent)
-    , m_jobModel(jobModel)
+    , m_parContainer(fitParContainer)
 {
-    Q_ASSERT(m_jobModel);
-    setSourceModel(m_jobModel);
+    Q_ASSERT(m_parContainer);
+    setSourceModel(fitParContainer->model());
+
 }
 
 QModelIndex FitParameterProxyModel::index(int row, int column, const QModelIndex &parent) const
@@ -69,6 +81,21 @@ int FitParameterProxyModel::rowCount(const QModelIndex &parent) const
 {
     Q_ASSERT(parent.isValid() ? parent.model() == this : true);
     return sourceModel()->rowCount(mapToSource(parent));
+
+    if(!parent.isValid()) {
+        return m_parContainer->rowCount();
+    }
+
+//    QModelIndex sourceIndex = mapToSource(parent);
+    if (SessionItem *item = this->itemForIndex(parent)) {
+        if(item->modelType() == Constants::FitParameterContainerType ||
+           item->modelType() == Constants::FitParameterType ) {
+            return item->rowCount();
+        }
+    }
+
+    return 0;
+//    return sourceModel()->rowCount(mapToSource(parent));
 }
 
 int FitParameterProxyModel::columnCount(const QModelIndex &parent) const
@@ -85,10 +112,22 @@ QModelIndex FitParameterProxyModel::mapToSource(const QModelIndex &proxyIndex) c
 //    return QModelIndex(proxyIndex.row(), proxyIndex.column(), proxyIndex.internalPointer(), sourceModel());
 //    return sourceModel()->createIndex(proxyIndex.row(), proxyIndex.column(), proxyIndex.internalPointer());
 
-    if (SessionItem *item = this->itemForIndex(proxyIndex))
-        return item->index();
-
+    if (SessionItem *item = this->itemForIndex(proxyIndex)) {
+        QModelIndex sourceParent;
+        if(item->parent()) sourceParent = item->parent()->index();
+        return jobModel()->index(proxyIndex.row(), proxyIndex.column(), sourceParent);
+//        return item->index();
+    }
     return QModelIndex();
+
+//    if(proxyIndex.isValid()) {
+//        const QModelIndex sourceIndex = mapToSource(proxyIndex);
+//        const QModelIndex sourceParent = sourceIndex.parent();
+
+//        return m_jobModel->index(proxyIndex.row(), proxyIndex.column(), sourceParent);
+//    }
+
+//    return QModelIndex();
 
 }
 
@@ -96,6 +135,11 @@ QModelIndex FitParameterProxyModel::mapFromSource(const QModelIndex &sourceIndex
 {
     if (!sourceModel() || !sourceIndex.isValid())
         return QModelIndex();
+
+//    if (SessionItem *item = m_jobModel->itemForIndex(sourceIndex)) {
+
+//    }
+
 
     Q_ASSERT(sourceIndex.model() == sourceModel());
     return createIndex(sourceIndex.row(), sourceIndex.column(), sourceIndex.internalPointer());
@@ -108,4 +152,9 @@ SessionItem *FitParameterProxyModel::itemForIndex(const QModelIndex &index) cons
             return item;
     }
     return 0;
+}
+
+JobModel *FitParameterProxyModel::jobModel() const
+{
+    return dynamic_cast<JobModel *>(m_parContainer->model());
 }

@@ -252,7 +252,8 @@ void FitParametersWidget::init_job_item()
     m_fitParameterModel->createFitParameter();
     spanParameters();
 
-    FitParameterProxyModel *proxy = new FitParameterProxyModel(dynamic_cast<JobModel *>(m_jobItem->model()));
+//    FitParameterProxyModel *proxy = new FitParameterProxyModel(dynamic_cast<JobModel *>(m_jobItem->model()), parsContainerItem);
+    FitParameterProxyModel *proxy = new FitParameterProxyModel(m_jobItem->fitParameterContainerItem());
     m_treeView->setModel(proxy);
 
 

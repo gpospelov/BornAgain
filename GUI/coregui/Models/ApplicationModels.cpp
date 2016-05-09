@@ -40,7 +40,7 @@ ApplicationModels::ApplicationModels(QObject *parent)
     , m_jobModel(0)
 {
     createModels();
-//    createTestSample();
+    createTestSample();
 //    createTestJob();
 
 //    SessionItem *multilayer = m_sampleModel->insertNewItem(Constants::MultiLayerType);
@@ -180,7 +180,7 @@ void ApplicationModels::createTestSample()
 void ApplicationModels::createTestJob()
 {
     SimulationOptionsItem *optionsItem = m_documentModel->getSimulationOptionsItem();
-//    optionsItem->setRunPolicy(Constants::JOB_RUN_IN_BACKGROUND);
+    optionsItem->setRunPolicy(Constants::JOB_RUN_IN_BACKGROUND);
 
     JobItem *jobItem = m_jobModel->addJob(
                 m_sampleModel->getMultiLayerItem(),

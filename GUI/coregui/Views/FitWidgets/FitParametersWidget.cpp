@@ -23,6 +23,7 @@
 #include "ModelTuningWidget.h"
 #include "FilterPropertyProxy.h"
 #include "ParameterTreeItems.h"
+#include "FitParameterProxyModel.h"
 #include <QMenu>
 #include <QSignalMapper>
 #include <QTreeView>
@@ -244,12 +245,15 @@ void FitParametersWidget::init_job_item()
 //    link2->setItemValue(FitParameterLinkItem::P_LINK, "xyz1");
 
     m_fitParameterModel.reset(new FitParameterModel(parsContainerItem));
-    m_treeView->setModel(m_fitParameterModel.get());
+//    m_treeView->setModel(m_fitParameterModel.get());
     connectFitParametersSelection(true);
 
-//    m_fitParameterModel->createFitParameter();
-//    m_fitParameterModel->createFitParameter();
-//    spanParameters();
+    m_fitParameterModel->createFitParameter();
+    m_fitParameterModel->createFitParameter();
+    spanParameters();
+
+    FitParameterProxyModel *proxy = new FitParameterProxyModel(dynamic_cast<JobModel *>(m_jobItem->model()));
+    m_treeView->setModel(proxy);
 
 
 //        m_treeView->setModel(parsContainerItem->model());

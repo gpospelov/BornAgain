@@ -144,8 +144,8 @@ QModelIndex SessionModel::parent(const QModelIndex &child) const
         if (SessionItem *parent_item = child_item->parent()) {
             if (parent_item == m_root_item)
                 return QModelIndex();
-                return createIndex(parent_item->parentRow(), 0, parent_item);
-//            }
+
+            return createIndex(parent_item->parentRow(), 0, parent_item);
         }
     }
     return QModelIndex();

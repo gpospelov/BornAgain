@@ -1,0 +1,111 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      coregui/Models/FitParameterProxyModel.cpp
+//! @brief     Implements class FitParameterProxyModel
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2016
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
+//
+// ************************************************************************** //
+
+#include "FitParameterProxyModel.h"
+#include "SessionItem.h"
+#include "JobModel.h"
+
+FitParameterProxyModel::FitParameterProxyModel(JobModel *jobModel, QObject *parent)
+    : QAbstractProxyModel(parent)
+    , m_jobModel(jobModel)
+{
+    Q_ASSERT(m_jobModel);
+    setSourceModel(m_jobModel);
+}
+
+QModelIndex FitParameterProxyModel::index(int row, int column, const QModelIndex &parent) const
+{
+//    if (row < 0 || column < 0 || column >= 1
+//        || (parent.isValid() && parent.column() != 0))
+//        return QModelIndex();
+
+//    SessionItem *parent_item = m_jobModel->itemForIndex(mapToSource(parent));
+//    if (SessionItem *item = parent_item->childAt(row)) {
+//        return createIndex(row, column, item);
+//    }
+
+//    return QModelIndex();
+
+    Q_ASSERT(parent.isValid() ? parent.model() == this : true);
+    const QModelIndex sourceParent = mapToSource(parent);
+    const QModelIndex sourceIndex = sourceModel()->index(row, column, sourceParent);
+    return mapFromSource(sourceIndex);
+}
+
+QModelIndex FitParameterProxyModel::parent(const QModelIndex &child) const
+{
+//    if (!child.isValid())
+//        return QModelIndex();
+//    if (SessionItem *child_item = itemForIndex(child)) {
+//        if (SessionItem *parent_item = child_item->parent()) {
+//            if (parent_item == m_root_item)
+//                return QModelIndex();
+
+//            return createIndex(parent_item->parentRow(), 0, parent_item);
+//        }
+//    }
+//    return QModelIndex();
+
+    Q_ASSERT(child.isValid() ? child.model() == this : true);
+    const QModelIndex sourceIndex = mapToSource(child);
+    const QModelIndex sourceParent = sourceIndex.parent();
+    return mapFromSource(sourceParent);
+}
+
+int FitParameterProxyModel::rowCount(const QModelIndex &parent) const
+{
+    Q_ASSERT(parent.isValid() ? parent.model() == this : true);
+    return sourceModel()->rowCount(mapToSource(parent));
+}
+
+int FitParameterProxyModel::columnCount(const QModelIndex &parent) const
+{
+    Q_ASSERT(parent.isValid() ? parent.model() == this : true);
+    return sourceModel()->columnCount(mapToSource(parent));
+}
+
+QModelIndex FitParameterProxyModel::mapToSource(const QModelIndex &proxyIndex) const
+{
+    if (!sourceModel() || !proxyIndex.isValid())
+        return QModelIndex();
+    Q_ASSERT(proxyIndex.model() == this);
+//    return QModelIndex(proxyIndex.row(), proxyIndex.column(), proxyIndex.internalPointer(), sourceModel());
+//    return sourceModel()->createIndex(proxyIndex.row(), proxyIndex.column(), proxyIndex.internalPointer());
+
+    if (SessionItem *item = this->itemForIndex(proxyIndex))
+        return item->index();
+
+    return QModelIndex();
+
+}
+
+QModelIndex FitParameterProxyModel::mapFromSource(const QModelIndex &sourceIndex) const
+{
+    if (!sourceModel() || !sourceIndex.isValid())
+        return QModelIndex();
+
+    Q_ASSERT(sourceIndex.model() == sourceModel());
+    return createIndex(sourceIndex.row(), sourceIndex.column(), sourceIndex.internalPointer());
+}
+
+SessionItem *FitParameterProxyModel::itemForIndex(const QModelIndex &index) const
+{
+    if (index.isValid()) {
+        if (SessionItem *item = static_cast<SessionItem *>(index.internalPointer()))
+            return item;
+    }
+    return 0;
+}

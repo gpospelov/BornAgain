@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/JobWidgets/JobOutputDataToolBar.h
-//! @brief     Declares class JobOutputDataToolBar
+//! @file      coregui/Views/JobWidgets/JobActivityStatusBar.h
+//! @brief     Declares class JobActivityStatusBar
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,34 +14,35 @@
 //
 // ************************************************************************** //
 
-#ifndef JOBOUTPUTDATATOOLBAR_H
-#define JOBOUTPUTDATATOOLBAR_H
+#ifndef JOBACTIVITYSTATUSBAR_H
+#define JOBACTIVITYSTATUSBAR_H
 
-#include <QToolBar>
 #include "WinDllMacros.h"
+#include <QWidget>
 
-class QComboBox;
 class QToolButton;
+class QComboBox;
 
-//! Main tool bar of JobView widget. Belongs to JobOutputDataWidget.
-class BA_CORE_API_ JobOutputDataToolBar : public QToolBar
+//! Narrow status bar at very bottom of JobView to switch between activities
+
+class BA_CORE_API_ JobActivityStatusBar : public QWidget
 {
     Q_OBJECT
-
 public:
-    explicit JobOutputDataToolBar(QWidget *parent = 0);
+    JobActivityStatusBar(QWidget *parent = 0);
 
 signals:
-    void togglePropertyPanel();
-    void toggleProjections();
-    void resetView();
-    void savePlot();
+    void toggleJobListRequest();
+    void changeActivityRequest(int);
+    void dockMenuRequest();
+
+public slots:
+    void onActivityChanged(int activity);
 
 private:
-    QToolButton *m_toggleProjectionsButton;
-    QToolButton *m_togglePropertyPanelButton;
-    QToolButton *m_resetViewButton;
-    QToolButton *m_savePlotButton;
+    QToolButton *m_toggleJobListButton;
+    QComboBox *m_activityCombo;
+    QToolButton *m_dockMenuButton;
 };
 
 #endif

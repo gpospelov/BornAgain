@@ -154,7 +154,7 @@ def run_fitting():
     fit_suite.addFitParameter("*Cylinder/Height", 4.*nanometer, AttLimits.lowerLimited(0.01))
     fit_suite.addFitParameter("*Cylinder/Radius", 6.*nanometer, AttLimits.lowerLimited(0.01))
     fit_suite.addFitParameter("*Prism3/Height", 4.*nanometer, AttLimits.lowerLimited(0.01))
-    fit_suite.addFitParameter("*Prism3/Length", 12.*nanometer, AttLimits.lowerLimited(0.01))
+    fit_suite.addFitParameter("*Prism3/BaseEdge", 12.*nanometer, AttLimits.lowerLimited(0.01))
 
     # running fit
     fit_suite.runFit()

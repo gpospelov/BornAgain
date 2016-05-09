@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/ParameterModelBuilder.h
-//! @brief     Declares class ParameterModelBuilder
+//! @file      coregui/Views/JobWidgets/JobMessagePanel.h
+//! @brief     Declares class JobMessagePanel
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,23 +14,16 @@
 //
 // ************************************************************************** //
 
-#ifndef PARAMETERMODELBUILDER_H
-#define PARAMETERMODELBUILDER_H
+#ifndef JOBMESSAGEPANEL_H
+#define JOBMESSAGEPANEL_H
 
-#include <QString>
+#include "JobPresenter.h"
 
-class JobItem;
-class SessionItem;
-
-class ParameterModelBuilder
+class BA_CORE_API_ JobMessagePanel : public JobPresenter
 {
+    Q_OBJECT
 public:
-    static void createParameterTree(JobItem *item, const QString &tag = QString());
-private:
-    static void handleItem(SessionItem *tree, SessionItem *source);
-    static void populateDomainLinks(JobItem *jobItem,  const QString &tag);
+    JobMessagePanel(QWidget *parent = 0);
 };
 
-
 #endif
-

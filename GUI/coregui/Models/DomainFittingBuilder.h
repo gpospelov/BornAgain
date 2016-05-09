@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/ParameterModelBuilder.h
-//! @brief     Declares class ParameterModelBuilder
+//! @file      coregui/Models/DomainFittingBuilder.h
+//! @brief     Declares class DomainFittingBuilder
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,23 +14,21 @@
 //
 // ************************************************************************** //
 
-#ifndef PARAMETERMODELBUILDER_H
-#define PARAMETERMODELBUILDER_H
+#ifndef DOMAINFITTINGBUILDER_H
+#define DOMAINFITTINGBUILDER_H
 
 #include <QString>
+#include <memory>
 
 class JobItem;
-class SessionItem;
+class FitSuite;
 
-class ParameterModelBuilder
+//! The DomainFittingBuilder class builds the domain FitSuite using JobItem
+
+class DomainFittingBuilder
 {
 public:
-    static void createParameterTree(JobItem *item, const QString &tag = QString());
-private:
-    static void handleItem(SessionItem *tree, SessionItem *source);
-    static void populateDomainLinks(JobItem *jobItem,  const QString &tag);
+    static std::shared_ptr<FitSuite> getFitSuite(JobItem *jobItem);
 };
 
-
 #endif
-

@@ -93,11 +93,12 @@ void FitTools::setCurrentItem(JobItem *item, QItemSelectionModel *selection)
 {
     m_currentJobItem = item;
     m_selectionModel = selection;
-    if (m_currentJobItem->getItemValue(JobItem::P_WITH_FITTING).toBool()) {
-        this->show();
-    } else {
-        this->hide();
-    }
+//    if (m_currentJobItem->getItemValue(JobItem::P_WITH_FITTING).toBool()) {
+//        this->show();
+//    } else {
+//        this->hide();
+//    }
+    this->hide();
     m_realDataWindow->setItem(dynamic_cast<IntensityDataItem*>(item->getItem(JobItem::T_REALDATA)));
 }
 
@@ -126,9 +127,14 @@ void FitTools::onStartClick()
                 SessionItem *item = m_jobModel->itemForIndex(sourceIndex);
                 if (item && item->modelType() == Constants::ParameterType) {
                     QString path = ModelPath::getPathFromIndex(item->index());
-                    int containerEnd = path.indexOf("Container/") + 10;
+//                    int containerEnd = path.indexOf("Container/") + 10;
+
+                    QString containerPrefix = Constants::ParameterContainerType+"/";
+                    int containerEnd = path.indexOf(containerPrefix) + containerPrefix.size();
+
                     path = path.mid(containerEnd);
                     std::string outpath = "*" + ModelPath::translateParameterName(m_currentJobItem->getMultiLayerItem()->parent(), path);
+
                     item->setItemValue(ParameterItem::P_DOMAIN, QString::fromStdString(outpath));
                     m_fitsuite->addFitParameter(outpath, item->value().toDouble(), dynamic_cast<ParameterItem*>(item)->getLinkedItem()->limits());
                 }
@@ -193,7 +199,7 @@ void FitTools::onUpdateParameters(const QStringList &parameters, QVector<double>
     stack.push(current);
     while(!stack.empty()) {
         current = stack.pop();
-        if (current->modelType() == Constants::ParameterLabelType) {
+        if (current->modelType() == Constants::ParameterLabelType || current->modelType() == Constants::ParameterContainerType) {
             for (SessionItem *child : current->getItems()) {
                 stack.push(child);
             }

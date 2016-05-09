@@ -25,16 +25,9 @@
 #include <QDebug>
 #include "styledbar.h"
 
-namespace
-{
-const QString JobViewActivityName = "Job View Activity";
-const QString RealTimeActivityName = "Real Time Activity";
-}
-
 //! main tool bar on top of SampleView window
 JobOutputDataToolBar::JobOutputDataToolBar(QWidget *parent)
     : QToolBar(parent)
-    , m_activityCombo(0)
     , m_toggleProjectionsButton(0)
     , m_togglePropertyPanelButton(0)
     , m_resetViewButton(0)
@@ -110,50 +103,4 @@ JobOutputDataToolBar::JobOutputDataToolBar(QWidget *parent)
     QWidget* empty = new QWidget();
     empty->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     addWidget(empty);
-
-    m_activityCombo = new QComboBox();
-    m_activityCombo->setToolTip("Main Activity Selector");
-    m_activityCombo->addItem(JobViewActivityName);
-    m_activityCombo->addItem(RealTimeActivityName);
-    connect(m_activityCombo, SIGNAL(currentIndexChanged(QString)), this, SLOT(onActivityChangeRequest(QString)));
-
-    // attempts to tune style of activity combo
-//    QString stylesheet = QString::fromUtf8(
-//                "QComboBox:!on\n"
-//                "{\n"
-//                "   color: rgba(201,218,255,255); \n"
-//                "   padding: 0px 0px 0px 0px;\n" // Qt bug we need padding to make color work
-//                "}\n\n"
-//                "QComboBox:on\n"
-//                "{\n"
-//                "   color: black; \n"
-//                "}\n\n"
-//        "QComboBox QListView\n"
-//        "{\n"
-//                "   color: black;\n"
-//                "   selection-color: black;\n"
-//        "}\n"
-//        );
-//    m_activityCombo->setStyleSheet(stylesheet);
-
-    addWidget(m_activityCombo);
-
-}
-
-void JobOutputDataToolBar::onActivityChangeRequest(const QString &name)
-{
-    if(name == JobViewActivityName) {
-        emit jobViewActivityRequest(JobView::JOB_VIEW_ACTIVITY);
-    } else if(name == RealTimeActivityName) {
-        emit jobViewActivityRequest(JobView::REAL_TIME_ACTIVITY);
-    }
-}
-
-void JobOutputDataToolBar::onActivityChanged(int activity)
-{
-    disconnect(m_activityCombo, SIGNAL(currentIndexChanged(QString)), this, SLOT(onActivityChangeRequest(QString)));
-
-    m_activityCombo->setCurrentIndex(activity);
-
-    connect(m_activityCombo, SIGNAL(currentIndexChanged(QString)), this, SLOT(onActivityChangeRequest(QString)));
 }

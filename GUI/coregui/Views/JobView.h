@@ -19,29 +19,37 @@
 
 #include "WinDllMacros.h"
 #include "fancymainwindow.h"
+#include <memory>
 
-struct JobViewPrivate;
-class JobModel;
+class MainWindow;
+class JobViewPrivate;
 class JobItem;
-class ProjectManager;
-
-namespace Manhattan {
-    class ProgressBar;
-}
 
 //! Main class to represent list of jobs, show job results and run real time simulation
+
 class BA_CORE_API_ JobView : public Manhattan::FancyMainWindow
 {
     Q_OBJECT
 
 public:
-    enum ESubWindows { JOB_LIST_DOCK, REAL_TIME_DOCK, NUMBER_OF_DOCKS };
-    enum EActivities { JOB_VIEW_ACTIVITY, REAL_TIME_ACTIVITY };
+    enum ESubWindows {
+        JOB_LIST_DOCK,
+        REAL_TIME_DOCK,
+        FIT_PANEL_DOCK,
+        JOB_MESSAGE_DOCK,
+        NUMBER_OF_DOCKS
+    };
 
-    JobView(JobModel *jobModel, ProjectManager *projectManager, QWidget *parent = 0);
+    enum EActivities {
+        JOB_VIEW_ACTIVITY,
+        REAL_TIME_ACTIVITY,
+        FITTING_ACTIVITY,
+    };
+
+    JobView(MainWindow *mainWindow);
     virtual ~JobView();
 
-    void setProgressBar(Manhattan::ProgressBar *progressBar);
+    static QStringList getActivityStringList();
 
 signals:
     void focusRequest(int);
@@ -52,12 +60,18 @@ public slots:
     void onFocusRequest(JobItem *);
     void resetToDefaultLayout();
     void setActivity(int activity);
+    void onToggleJobListRequest();
+    void onDockMenuRequest();
+
+protected:
+    virtual void showEvent(QShowEvent *);
+    virtual void hideEvent(QHideEvent *);
 
 private:
     void initWindows();
     void connectSignals();
 
-    JobViewPrivate *m_d;
+    std::unique_ptr<JobViewPrivate> m_d;
 };
 
 #endif

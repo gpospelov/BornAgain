@@ -16,6 +16,7 @@
 #include "FitSuiteFunctions.h"
 #include "FitKernel.h"
 #include "MessageService.h"
+#include "Exceptions.h"
 #include <iomanip>
 
 //! evaluate chi squared value
@@ -24,7 +25,7 @@ double FitSuiteChiSquaredFunction::evaluate(const double *pars)
     assert(m_kernel != nullptr);
 
     if (m_kernel->isInterrupted())
-        throw 0;
+        throw RuntimeErrorException("Fitting was interrupted by the user.");
 
     m_kernel->getFitParameters()->setValues(pars);
     m_kernel->getFitObjects()->runSimulations();
@@ -40,6 +41,9 @@ double FitSuiteChiSquaredFunction::evaluate(const double *pars)
 double FitSuiteGradientFunction::evaluate(const double *pars, unsigned int index, double *gradients)
 {
     assert(m_kernel != nullptr);
+
+    if (m_kernel->isInterrupted())
+        throw RuntimeErrorException("Fitting was interrupted by the user.");
 
     bool parameters_changed(true);
     if(m_ncalls_total != 0)

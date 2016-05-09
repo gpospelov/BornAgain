@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/ParameterModelBuilder.h
-//! @brief     Declares class ParameterModelBuilder
+//! @file      coregui/Views/FitWidgets/FitResultsWidget.h
+//! @brief     Declares class FitResultsWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,23 +14,22 @@
 //
 // ************************************************************************** //
 
-#ifndef PARAMETERMODELBUILDER_H
-#define PARAMETERMODELBUILDER_H
+#ifndef FITRESULTSWIDGET_H
+#define FITRESULTSWIDGET_H
 
-#include <QString>
+#include "WinDllMacros.h"
+#include <QWidget>
 
-class JobItem;
-class SessionItem;
+//! The FitResultsWidget contains fitting summary. Part of FitSuiteWidget.
 
-class ParameterModelBuilder
+class BA_CORE_API_ FitResultsWidget : public QWidget
 {
+    Q_OBJECT
+
 public:
-    static void createParameterTree(JobItem *item, const QString &tag = QString());
-private:
-    static void handleItem(SessionItem *tree, SessionItem *source);
-    static void populateDomainLinks(JobItem *jobItem,  const QString &tag);
+    FitResultsWidget(QWidget *parent = 0);
+
+
 };
 
-
 #endif
-

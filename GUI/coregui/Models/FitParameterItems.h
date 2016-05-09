@@ -23,6 +23,7 @@ class BA_CORE_API_ FitParameterLinkItem : public SessionItem
 
 public:
     static const QString P_LINK;
+    static const QString P_DOMAIN;
     explicit FitParameterLinkItem();
 };
 

@@ -55,7 +55,7 @@ ModelTuningWidget::ModelTuningWidget(JobModel *jobModel, QWidget *parent)
 //    , m_mapper(0)
     , m_fitTools(new FitTools(jobModel, parent))
 {
-    setMinimumSize(128, 128);
+//    setMinimumSize(128, 128);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     m_sliderSettingsWidget = new SliderSettingsWidget();
@@ -202,6 +202,9 @@ void ModelTuningWidget::resizeEvent(QResizeEvent *event)
     if(m_warningSign) {
         QPoint pos = getPositionForWarningSign();
         m_warningSign->setPosition(pos.x(),pos.y());
+    }
+    if(m_treeView) {
+        m_treeView->setColumnWidth(0, width()*0.5);
     }
 }
 

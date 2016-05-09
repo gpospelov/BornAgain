@@ -24,6 +24,9 @@
 #include "JobResultsPresenter.h"
 #include "SimulationOptionsItem.h"
 #include "GUIHelpers.h"
+#include "FitSuiteItem.h"
+#include "ParameterTreeItems.h"
+#include "FitParameterItems.h"
 #include <QDateTime>
 #include <QDebug>
 
@@ -73,8 +76,10 @@ JobItem::JobItem()
     registerTag(T_INSTRUMENT, 1, 1, QStringList() << Constants::InstrumentType);
     registerTag(T_OUTPUT, 1, 1, QStringList() << Constants::IntensityDataType);
     registerTag(T_REALDATA, 1, 1, QStringList() << Constants::IntensityDataType);
-    registerTag(T_PARAMETER_TREE, 0, -1, QStringList() << Constants::ParameterLabelType
-                << Constants::ParameterType);
+//    registerTag(T_PARAMETER_TREE, 0, -1, QStringList() << Constants::ParameterLabelType
+//                << Constants::ParameterType);
+    registerTag(T_PARAMETER_TREE, 0, -1, QStringList() << Constants::ParameterContainerType);
+
     registerTag(T_SIMULATION_OPTIONS, 1, 1, QStringList() << Constants::SimulationOptionsType);
 
     registerTag(T_FIT_SUITE, 1, 1, QStringList() << Constants::FitSuiteType);
@@ -239,6 +244,24 @@ void JobItem::setResults(const GISASSimulation *simulation)
     Q_ASSERT(intensityItem);
 
     JobResultsPresenter::setResults(intensityItem, simulation);
+}
+
+FitSuiteItem *JobItem::fitSuiteItem()
+{
+    return dynamic_cast<FitSuiteItem *>(getItem(JobItem::T_FIT_SUITE));
+}
+
+ParameterContainerItem *JobItem::parameterContainerItem()
+{
+    return dynamic_cast<ParameterContainerItem *>(getItem(JobItem::T_PARAMETER_TREE));
+}
+
+FitParameterContainerItem *JobItem::fitParameterContainerItem()
+{
+    if(FitSuiteItem *item = fitSuiteItem())
+        return item->fitParameterContainerItem();
+
+    return nullptr;
 }
 
 SimulationOptionsItem *JobItem::getSimulationOptionsItem()

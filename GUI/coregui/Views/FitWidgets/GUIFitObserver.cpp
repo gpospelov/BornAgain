@@ -68,14 +68,28 @@ void GUIFitObserver::update(FitSuite *subject)
     if (curIteration == 0) {
         emit startFitting(subject->getRealOutputData()->clone());
     }
-    if (curIteration % m_update_interval == 0 && !m_block_update_plots) {
+
+
+//    if (curIteration % m_update_interval == 0 && !m_block_update_plots) {
+//        m_block_update_plots = true;
+
+////        emit updateStatus(QString("Iteration: %1").arg(subject->getNumberOfIterations()));
+//        emit updateStatus(QString::number(subject->getNumberOfIterations()));
+
+//        emit updatePlots(subject->getSimulationOutputData()->clone(),
+//                         subject->getChiSquaredOutputData()->clone());
+//    }
+
+    if(isToUpdateStatus(subject)) {
+        emit updateStatus(QString::number(subject->getNumberOfIterations()));
+    }
+
+    if(isToUpdatePlots(subject)) {
         m_block_update_plots = true;
-
-        emit updateStatus(QString("Iteration: %1").arg(subject->getNumberOfIterations()));
-
         emit updatePlots(subject->getSimulationOutputData()->clone(),
                          subject->getChiSquaredOutputData()->clone());
     }
+
 }
 
 void GUIFitObserver::setInterval(int val)
@@ -83,6 +97,25 @@ void GUIFitObserver::setInterval(int val)
     m_update_interval = val;
 }
 
+//! Returns true if it is time to update plots
+bool GUIFitObserver::isToUpdatePlots(FitSuite *fitSuite)
+{
+    if(m_block_update_plots) return false;
+    if(fitSuite->getNumberOfIterations() % m_update_interval != 0) return false;
+    return true;
+}
+
+//! Returns true if it is time to send status message. Follow same rules as for plots update,
+//! or in the case of last iteration
+bool GUIFitObserver::isToUpdateStatus(FitSuite *fitSuite)
+{
+    if(fitSuite->getNumberOfIterations() == 0) return true;
+    if(fitSuite->getNumberOfIterations() % m_update_interval == 0) return true;
+    if(fitSuite->isLastIteration()) return true;
+    return isToUpdatePlots(fitSuite);
+}
+
+//! Informs observer that FitSuiteWidget has finished plotting and is ready for next plot
 void GUIFitObserver::finishedPlotting()
 {
     m_block_update_plots = false;

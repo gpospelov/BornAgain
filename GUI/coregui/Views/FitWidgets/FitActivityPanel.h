@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/JobWidgets/JobRealTimeWidget.h
-//! @brief     Declares class JobRealTimeWidget
+//! @file      coregui/Views/FitWidgets/FitActivityPanel.h
+//! @brief     Declares class FitActivityPanel
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#ifndef JOBREALTIMEWIDGET_H
-#define JOBREALTIMEWIDGET_H
+#ifndef FITACTIVITYPANEL_H
+#define FITACTIVITYPANEL_H
 
 #include "JobPresenter.h"
 #include <QMap>
@@ -23,19 +23,20 @@
 class JobModel;
 class JobItem;
 class QStackedWidget;
-class ModelTuningWidget;
-class JobRealTimeToolBar;
+class FitSuiteWidget;
+class JobRealTimeWidget;
+class RunFitControlWidget;
 
-//! The JobRealTimeWidget provides tuning of sample parameters in real time.
-//! Located on the right side of JobView and is visible when realtime activity is selected.
+//! Main widget to run fitting. Occupies bottom right corner of JobView.
+//! Contains stack of FitSuiteWidgets for JobItem's suitable for fitting.
 
-class BA_CORE_API_ JobRealTimeWidget : public JobPresenter
+class BA_CORE_API_ FitActivityPanel : public JobPresenter
 {
     Q_OBJECT
 public:
-    explicit JobRealTimeWidget(JobModel *jobModel, QWidget *parent = 0);
+    FitActivityPanel(JobModel *jobModel, QWidget *parent = 0);
 
-    ModelTuningWidget *getTuningWidgetForItem(JobItem *jobItem);
+    void setRealTimeWidget(JobRealTimeWidget *realTimeWidget);
 
     QSize sizeHint() const;
     QSize minimumSizeHint() const;
@@ -44,17 +45,20 @@ public slots:
     void setItem(JobItem *item);
     void onJobItemDelete(JobItem *item);
     void onJobItemFinished(const QString &identifier);
-    void onResetParameters();
     void updateCurrentItem();
-    void onModelLoaded();
+
+private slots:
+    void onStartFitting();
+    void onStopFitting();
 
 private:
-    ModelTuningWidget *getCurrentModelTuningWidget();
     bool isValidJobItem(JobItem *item);
+    FitSuiteWidget *getCurrentFitSuiteWidget();
 
     QStackedWidget *m_stack;
-    QMap<JobItem *, ModelTuningWidget *> m_jobItemToTuningWidget;
-    JobRealTimeToolBar *m_toolBar;
+    RunFitControlWidget *m_controlWidget;
+    QMap<JobItem *, FitSuiteWidget *> m_jobItemToFitWidget;
+    JobRealTimeWidget *m_realTimeWidget;
 };
 
 #endif

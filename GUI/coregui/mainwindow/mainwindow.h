@@ -63,18 +63,17 @@ public:
     ObsoleteFitModel *fitModel();
     ApplicationModels *models();
 
-    Manhattan::ProgressBar *getProgressBar() { return m_progressBar; }
-    ActionManager *getActionManager() { return m_actionManager; }
-    ProjectManager *projectManager() { return m_projectManager; }
-    UpdateNotifier *getUpdateNotifier() { return m_updateNotifier; }
+    Manhattan::ProgressBar *progressBar();
+    QStatusBar *statusBar();
 
+    ActionManager *getActionManager();
+    ProjectManager *projectManager();
+    UpdateNotifier *getUpdateNotifier();
 
 public slots:
     void onChangeTabWidget(int index);
     void onFocusRequest(int index);
     void openRecentProject();
-    void readSettings();
-    void writeSettings();
     void onRunSimulationShortcut();
     void onAboutApplication();
 
@@ -83,20 +82,28 @@ protected:
     virtual void showEvent(QShowEvent *event);
 
 private:
+    void initApplication();
+    void initProgressBar();
+    void initViews();
+    void readSettings();
+    void writeSettings();
+    void initConnections();
+
+    Manhattan::FancyTabWidget  *m_tabWidget;
+    Manhattan::ProgressBar *m_progressBar;
+
     ApplicationModels *m_applicationModels;
     ProjectManager *m_projectManager;
     ActionManager *m_actionManager;
+    ToolTipDataBase *m_toolTipDataBase;
+    UpdateNotifier *m_updateNotifier;
 
-    Manhattan::FancyTabWidget  *m_tabWidget;
     WelcomeView *m_welcomeView;
     InstrumentView *m_instrumentView;
     SampleView *m_sampleView;
     SimulationView *m_simulationView;
     JobView *m_jobView;
     ObsoleteFitView *m_fitView;
-    Manhattan::ProgressBar *m_progressBar;
-    ToolTipDataBase *m_toolTipDataBase;
-    UpdateNotifier *m_updateNotifier;
 };
 
 #endif // MAINWINDOW_H

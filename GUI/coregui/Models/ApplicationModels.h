@@ -45,6 +45,9 @@ public:
 
     void resetModels();
 
+    void createTestSample();
+    void createTestJob();
+
 signals:
     void modelChanged();
 
@@ -55,9 +58,6 @@ private:
     void createInstrumentModel();
     void createSampleModel();
     void createJobModel();
-
-    void createTestSample();
-    void createTestJob();
 
     void disconnectModel(SessionModel *model);
     void connectModel(SessionModel *model);

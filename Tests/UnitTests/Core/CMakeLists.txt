@@ -9,9 +9,12 @@ include_directories(
     ${GSL_INCLUDE_DIR}
     ../utilities/
     )
+
 if(BORNAGAIN_OPENMPI)
     include_directories(${MPI_INCLUDE_PATH})
 endif()
+
+# function UNIT_TESTS defined in cmake/modules/UnitTests.cmake
 
 UNIT_TESTS(TestCoreQ "Q" ${BornAgainCore_LIBRARY}) # q loops, lengthy output
 UNIT_TESTS(TestCoreP "P" ${BornAgainCore_LIBRARY}) # q loops, lengthy output

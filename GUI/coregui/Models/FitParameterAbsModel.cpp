@@ -25,19 +25,29 @@ FitParameterAbsModel::FitParameterAbsModel(FitParameterContainerItem *fitParCont
     : QAbstractItemModel(parent)
     , m_root_item(fitParContainer)
 {
-    m_columnNames.insert(0, "Name");
-    m_columnNames.insert(1, FitParameterItem::P_USE);
-    m_columnNames.insert(3, FitParameterItem::P_MIN);
-    m_columnNames.insert(2, FitParameterItem::P_START_VALUE);
-    m_columnNames.insert(4, FitParameterItem::P_MAX);
+    m_columnNames.insert(ITEM_NAME, "Name");
+    m_columnNames.insert(ITEM_USE, FitParameterItem::P_USE);
+    m_columnNames.insert(ITEM_MIN, FitParameterItem::P_MIN);
+    m_columnNames.insert(ITEM_START, FitParameterItem::P_START_VALUE);
+    m_columnNames.insert(ITEM_MAX, FitParameterItem::P_MAX);
 
-    connectModel(fitParContainer->model());
+//    connectModel(fitParContainer->model());
 }
 
-//Qt::ItemFlags FitParameterAbsModel::flags(const QModelIndex &index) const
-//{
+Qt::ItemFlags FitParameterAbsModel::flags(const QModelIndex &index) const
+{
+    Qt::ItemFlags returnVal = Qt::ItemIsEnabled | Qt::ItemIsSelectable;
+    if (index.isValid() && index.parent() == QModelIndex()) {
+        if (index.column() == 0)
+            returnVal |= Qt::ItemIsDropEnabled;
+        else
+            returnVal |= Qt::ItemIsEditable;
+    } else if (!index.isValid()) {
+        returnVal |= Qt::ItemIsDropEnabled;
+    }
+    return returnVal;
 
-//}
+}
 
 QModelIndex FitParameterAbsModel::index(int row, int column, const QModelIndex &parent) const
 {
@@ -189,7 +199,8 @@ void FitParameterAbsModel::onSourceDataChanged(const QModelIndex &topLeft, const
     QModelIndex itemIndex = indexOfItem(sourceItem);
     qDebug() << "FitParameterAbsModel::onSourceDataChanged" << sourceItem->modelType() << itemIndex;
 
-    emit dataChanged(itemIndex, itemIndex, roles);
+    if(itemIndex.isValid())
+        emit dataChanged(itemIndex, itemIndex, roles);
 }
 
 void FitParameterAbsModel::connectModel(QAbstractItemModel *sourceModel, bool isConnect)
@@ -208,17 +219,69 @@ void FitParameterAbsModel::connectModel(QAbstractItemModel *sourceModel, bool is
 
 QModelIndex FitParameterAbsModel::indexOfItem(SessionItem *item, const QModelIndex &parentIndex) const
 {
-    for (int i_row = 0; i_row < rowCount(parentIndex); ++i_row) {
-        for(int i_col = 0; i_col< columnCount(parentIndex); ++i_col) {
-            QModelIndex itemIndex = index(i_row, i_col, parentIndex);
-            if(SessionItem *curr = itemForIndex(itemIndex)) {
-                if(curr == item) return itemIndex;
+//    for (int i_row = 0; i_row < rowCount(parentIndex); ++i_row) {
+//        for(int i_col = 0; i_col< columnCount(parentIndex); ++i_col) {
+//            QModelIndex itemIndex = index(i_row, i_col, parentIndex);
+//            if(SessionItem *curr = itemForIndex(itemIndex)) {
+//                if(curr == item) return itemIndex;
+//            }
+//            QModelIndex result = indexOfItem(item, itemIndex);
+//            if(result.isValid()) return result;
+//        }
+//    }
+//    return QModelIndex();
+
+    if(SessionItem *parent_item = item->parent()) {
+        if(parent_item->modelType() == Constants::FitParameterContainerType) {
+            if(item->modelType() == Constants::FitParameterType) {
+                return createIndex(item->parentRow(), 0, item);
             }
-            QModelIndex result = indexOfItem(item, itemIndex);
-            if(result.isValid()) return result;
         }
+
+        else if(parent_item->modelType() == Constants::FitParameterType) {
+
+            QString tag = parent_item->tagFromItem(item);
+            int col = m_columnNames.key(tag, -1);
+            if(col > 0) {
+                return createIndex(parent_item->parentRow(), col, item);
+            }
+        }
+
+        else if(parent_item->modelType() == Constants::FitParameterLinkType) {
+            QVector<SessionItem *> links = parent_item->parent()->getItems(FitParameterItem::T_LINK);
+            return createIndex(links.indexOf(parent_item), 0, item);
+        }
+
+
     }
+
     return QModelIndex();
+
+//    SessionItem *parent_item = itemForIndex(parent);
+//    Q_ASSERT(parent_item);
+
+//    if(parent_item->modelType() == Constants::FitParameterContainerType) {
+//        if (SessionItem *fitParItem = parent_item->childAt(row)) {
+//            SessionItem *itemToPack = fitParItem;
+//            if(column != 0) {
+//                itemToPack = fitParItem->getItem(m_columnNames.value(column));
+//            }
+//            return createIndex(row, column, itemToPack);
+//        }
+//    }
+
+//    else if(parent_item->modelType() == Constants::FitParameterType && column == 0) {
+//        QVector<SessionItem *> links = parent_item->getItems(FitParameterItem::T_LINK);
+
+//        if(row < links.size()) {
+//            if(SessionItem *linkItem = links.at(row)) {
+//                return createIndex(row, column, linkItem->getItem(FitParameterLinkItem::P_LINK));
+//            }
+//        }
+
+//    }
+
+
 }
 
 SessionItem *FitParameterAbsModel::itemForIndex(const QModelIndex &index) const

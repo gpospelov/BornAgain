@@ -46,6 +46,8 @@ FitParametersWidget::FitParametersWidget(QWidget *parent)
     layout->addWidget(m_treeView);
     setLayout(layout);
     init_actions();
+
+    m_treeView->setSelectionMode(QAbstractItemView::ExtendedSelection);
 }
 
 FitParametersWidget::~FitParametersWidget()
@@ -121,8 +123,11 @@ void FitParametersWidget::onFitParametersSelectionChanged(const QItemSelection &
     if (selection.indexes().isEmpty())
         return;
 
-//    qDebug() << "XXX index" << selection.indexes() << index;
+    foreach(QModelIndex index, selection.indexes()) {
+        SessionItem *item = m_fitParameterModel->itemForIndex(index);
+        qDebug() << "XXX index" << index << item->modelType();
 
+    }
 
 //    QModelIndex index = selection.indexes().last();
 //    qDebug() << "XXX index" << selection.indexes() << index;
@@ -257,6 +262,7 @@ void FitParametersWidget::init_job_item()
 //    link2->setItemValue(FitParameterLinkItem::P_LINK, "xyz1");
 
     FitModelHelper::createFitParameter(m_jobItem->fitParameterContainerItem());
+//    FitModelHelper::createFitParameter(m_jobItem->fitParameterContainerItem());
 
 //    m_fitParameterModel.reset(new FitParameterModel(parsContainerItem));
     m_fitParameterModel.reset(new FitParameterAbsModel(m_jobItem->fitParameterContainerItem()));
@@ -281,6 +287,7 @@ void FitParametersWidget::init_job_item()
 //! Make first column in FitParameterItem's link occupy whole space
 void FitParametersWidget::spanParameters()
 {
+    return;
     m_treeView->expandAll();
     for (int i = 0; i < m_fitParameterModel->rowCount(QModelIndex()); i++){
         QModelIndex parameter = m_fitParameterModel->index(i,0,QModelIndex());

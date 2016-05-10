@@ -19,6 +19,7 @@
 #include "FitParameterItems.h"
 #include "ParameterTreeItems.h"
 #include "ModelPath.h"
+#include "FitModelHelper.h"
 #include <QDebug>
 
 FitParameterModel::FitParameterModel(SessionItem *fitParContainer, QObject *parent)
@@ -145,7 +146,7 @@ QModelIndex FitParameterModel::index(int row, int column, const QModelIndex &par
 
     SessionItem *parent_item = itemForIndex(parent);
     Q_ASSERT(parent_item);
-    qDebug() << "AAA" << parent_item->modelType();
+//    qDebug() << "AAA" << parent_item->modelType();
     if(parent_item->modelType() == Constants::FitParameterContainerType) {
         if (SessionItem *fitParItem = parent_item->childAt(row)) {
             SessionItem *propItem = fitParItem->getItem(m_columnNames.value(column));
@@ -171,55 +172,62 @@ QModelIndex FitParameterModel::index(int row, int column, const QModelIndex &par
 
 //! Creates fit parameter from given ParameterItem, sets starting value to the value
 //! of ParameterItem, copy link.
-void FitParameterModel::createFitParameter(ParameterItem *parameterItem)
-{
-    SessionItem *fitPar = getFitParContainer()->model()->insertNewItem(Constants::FitParameterType, getFitParContainer()->index());
-    fitPar->setDisplayName(QStringLiteral("par"));
-    Q_ASSERT(fitPar);
-    if(parameterItem) {
-        fitPar->setItemValue(FitParameterItem::P_START_VALUE, parameterItem->value());
-        SessionItem *link = fitPar->model()->insertNewItem(Constants::FitParameterLinkType, fitPar->index());
-        link->setItemValue(FitParameterLinkItem::P_LINK, getParameterItemPath(parameterItem));
-    }
-    emit layoutChanged();
-
-}
+//void FitParameterModel::createFitParameter(ParameterItem *parameterItem)
+//{
+////    SessionItem *fitPar = getFitParContainer()->model()->insertNewItem(Constants::FitParameterType, getFitParContainer()->index());
+////    fitPar->setDisplayName(QStringLiteral("par"));
+////    Q_ASSERT(fitPar);
+////    SessionItem *link = fitPar->model()->insertNewItem(Constants::FitParameterLinkType, fitPar->index());
+////    link->setItemValue(FitParameterLinkItem::P_LINK, "xxx");
+////    if(parameterItem) {
+////        fitPar->setItemValue(FitParameterItem::P_START_VALUE, parameterItem->value());
+////        SessionItem *link = fitPar->model()->insertNewItem(Constants::FitParameterLinkType, fitPar->index());
+////        link->setItemValue(FitParameterLinkItem::P_LINK, getParameterItemPath(parameterItem));
+////    }
+////    emit layoutChanged();
+//    FitModelHelper::createFitParameter(getFitParContainer(), parameterItem);
+//    emit layoutChanged();
+//}
 
 //! Removes link to given parameterItem from fit parameters
-void FitParameterModel::removeFromFitParameters(ParameterItem *parameterItem)
-{
-    FitParameterItem *fitParItem = getFitParameterItem(parameterItem);
-    if(fitParItem) {
-        foreach(SessionItem *linkItem, fitParItem->getItems(FitParameterItem::T_LINK)) {
-            if(getParameterItemPath(parameterItem) == linkItem->getItemValue(FitParameterLinkItem::P_LINK)) {
-                fitParItem->model()->removeRow(linkItem->index().row(), linkItem->index().parent());
-                break;
-            }
-        }
-        emit layoutChanged();
-    }
-}
+//void FitParameterModel::removeFromFitParameters(ParameterItem *parameterItem)
+//{
+////    FitParameterItem *fitParItem = getFitParameterItem(parameterItem);
+////    if(fitParItem) {
+////        foreach(SessionItem *linkItem, fitParItem->getItems(FitParameterItem::T_LINK)) {
+////            if(getParameterItemPath(parameterItem) == linkItem->getItemValue(FitParameterLinkItem::P_LINK)) {
+////                fitParItem->model()->removeRow(linkItem->index().row(), linkItem->index().parent());
+////                break;
+////            }
+////        }
+////        emit layoutChanged();
+////    }
+//    FitModelHelper::removeFromFitParameters(getFitParContainer(), parameterItem);
+//    emit layoutChanged();
+//}
 
 //! Adds given parameterItem to the existing fit parameter with display name fitParName.
 //! If parameterItem is already linked with another fitParameter, it will be relinked
-void FitParameterModel::addToFitParameter(ParameterItem *parameterItem, const QString &fitParName)
-{
-    removeFromFitParameters(parameterItem);
-    foreach(SessionItem *fitPar, getFitParContainer()->getItems(FitParameterContainerItem::T_FIT_PARAMETERS)) {
-        if(fitPar->displayName() == fitParName) {
-            SessionItem *link = fitPar->model()->insertNewItem(Constants::FitParameterLinkType, fitPar->index());
-            link->setItemValue(FitParameterLinkItem::P_LINK, getParameterItemPath(parameterItem));
-            emit layoutChanged();
-            break;
-        }
-    }
-}
+//void FitParameterModel::addToFitParameter(ParameterItem *parameterItem, const QString &fitParName)
+//{
+////    removeFromFitParameters(parameterItem);
+////    foreach(SessionItem *fitPar, getFitParContainer()->getItems(FitParameterContainerItem::T_FIT_PARAMETERS)) {
+////        if(fitPar->displayName() == fitParName) {
+////            SessionItem *link = fitPar->model()->insertNewItem(Constants::FitParameterLinkType, fitPar->index());
+////            link->setItemValue(FitParameterLinkItem::P_LINK, getParameterItemPath(parameterItem));
+////            emit layoutChanged();
+////            break;
+////        }
+////    }
+//    FitModelHelper::addToFitParameter(getFitParContainer(), parameterItem, fitParName);
+//    emit layoutChanged();
+//}
 
 //! Returns fFitParameterItem corresponding to given ParameterItem
-FitParameterItem *FitParameterModel::getFitParameterItem(ParameterItem *parameterItem)
-{
-    return getFitParContainer()->getFitParameterItem(getParameterItemPath(parameterItem));
-}
+//FitParameterItem *FitParameterModel::getFitParameterItem(ParameterItem *parameterItem)
+//{
+//    return getFitParContainer()->getFitParameterItem(getParameterItemPath(parameterItem));
+//}
 
 FitParameterContainerItem *FitParameterModel::getFitParContainer()
 {
@@ -229,25 +237,27 @@ FitParameterContainerItem *FitParameterModel::getFitParContainer()
 }
 
 //! Returns list of fit parameter display names
-QStringList FitParameterModel::getFitParameterNames()
-{
-    QStringList result;
+//QStringList FitParameterModel::getFitParameterNames()
+//{
+////    QStringList result;
 
-    foreach(SessionItem *item, getFitParContainer()->getItems(FitParameterContainerItem::T_FIT_PARAMETERS)) {
-        result.append(item->displayName());
-    }
+////    foreach(SessionItem *item, getFitParContainer()->getItems(FitParameterContainerItem::T_FIT_PARAMETERS)) {
+////        result.append(item->displayName());
+////    }
 
-    return result;
-}
+////    return result;
+//    return FitModelHelper::getFitParameterNames(getFitParContainer());
+//}
 
 //! return path to given item in the ParameterTreeContainer
-QString FitParameterModel::getParameterItemPath(ParameterItem *parameterItem)
-{
-    QString result = ModelPath::getPathFromIndex(parameterItem->index());
-//    int containerEnd = result.indexOf(QStringLiteral("Container/")) + 10;
-    QString containerPrefix = Constants::ParameterContainerType+"/";
-    int containerEnd = result.indexOf(containerPrefix) + containerPrefix.size();
-    result = result.mid(containerEnd);
-    return result;
-}
+//QString FitParameterModel::getParameterItemPath(ParameterItem *parameterItem)
+//{
+////    QString result = ModelPath::getPathFromIndex(parameterItem->index());
+//////    int containerEnd = result.indexOf(QStringLiteral("Container/")) + 10;
+////    QString containerPrefix = Constants::ParameterContainerType+"/";
+////    int containerEnd = result.indexOf(containerPrefix) + containerPrefix.size();
+////    result = result.mid(containerEnd);
+////    return result;
+//    return FitModelHelper::getParameterItemPath(parameterItem);
+//}
 

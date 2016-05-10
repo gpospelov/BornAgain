@@ -47,17 +47,17 @@ public:
     virtual int columnCount(const QModelIndex &parent) const;
     QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const;
 
-    void createFitParameter(ParameterItem *parameterItem = 0);
-    void removeFromFitParameters(ParameterItem *parameterItem);
-    void addToFitParameter(ParameterItem *parameterItem, const QString &fitParName);
+//    void createFitParameter(ParameterItem *parameterItem = 0);
+//    void removeFromFitParameters(ParameterItem *parameterItem);
+//    void addToFitParameter(ParameterItem *parameterItem, const QString &fitParName);
 
-    FitParameterItem *getFitParameterItem(ParameterItem *parameterItem);
+//    FitParameterItem *getFitParameterItem(ParameterItem *parameterItem);
 
     FitParameterContainerItem *getFitParContainer();
 
-    QStringList getFitParameterNames();
+//    QStringList getFitParameterNames();
 
-    static QString getParameterItemPath(ParameterItem *parameterItem);
+//    static QString getParameterItemPath(ParameterItem *parameterItem);
 
 private:
     QMap<int, QString> m_columnNames;

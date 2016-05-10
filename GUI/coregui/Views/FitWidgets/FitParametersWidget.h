@@ -28,6 +28,7 @@ class QSignalMapper;
 class QAction;
 class QMenu;
 class FitParameterModel;
+class FitParameterAbsModel;
 class ParameterItem;
 class QItemSelection;
 
@@ -74,6 +75,7 @@ private:
     QAction *m_removeFromFitParAction;
     QSignalMapper *m_signalMapper;
     std::unique_ptr<FitParameterModel> m_fitParameterModel;
+//    std::unique_ptr<FitParameterAbsModel> m_fitParameterAbsModel;
 };
 
 #endif

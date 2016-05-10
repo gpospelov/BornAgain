@@ -24,6 +24,8 @@
 #include "FilterPropertyProxy.h"
 #include "ParameterTreeItems.h"
 #include "FitParameterProxyModel.h"
+#include "FitParameterAbsModel.h"
+#include "FitModelHelper.h"
 #include <QMenu>
 #include <QSignalMapper>
 #include <QTreeView>
@@ -118,6 +120,10 @@ void FitParametersWidget::onFitParametersSelectionChanged(const QItemSelection &
     qDebug() << "onFitParametersSelectionChanged ->";
     if (selection.indexes().isEmpty())
         return;
+
+//    qDebug() << "XXX index" << selection.indexes() << index;
+
+
 //    QModelIndex index = selection.indexes().last();
 //    qDebug() << "XXX index" << selection.indexes() << index;
 //    QModelIndex newSelection = QModelIndex();
@@ -143,8 +149,10 @@ void FitParametersWidget::onFitParametersSelectionChanged(const QItemSelection &
 void FitParametersWidget::onCreateFitParAction()
 {
     foreach(ParameterItem *item, getSelectedParameters()) {
-        if(!m_fitParameterModel->getFitParameterItem(item)) {
-            m_fitParameterModel->createFitParameter(item);
+        if(!FitModelHelper::getFitParameterItem(m_jobItem->fitParameterContainerItem(), item)) {
+            FitModelHelper::createFitParameter(m_jobItem->fitParameterContainerItem(), item);
+//            m_fitParameterModel->createFitParameter(item);
+            emit m_fitParameterModel->layoutChanged();
         }
     }
     spanParameters();
@@ -153,8 +161,10 @@ void FitParametersWidget::onCreateFitParAction()
 void FitParametersWidget::onRemoveFromFitParAction()
 {
     foreach(ParameterItem *item, getSelectedParameters()) {
-        if(m_fitParameterModel->getFitParameterItem(item)) {
-            m_fitParameterModel->removeFromFitParameters(item);
+        if(FitModelHelper::getFitParameterItem(m_jobItem->fitParameterContainerItem(), item)) {
+            FitModelHelper::removeFromFitParameters(m_jobItem->fitParameterContainerItem(), item);
+//            m_fitParameterModel->removeFromFitParameters(item);
+            emit m_fitParameterModel->layoutChanged();
         }
     }
 }
@@ -162,9 +172,11 @@ void FitParametersWidget::onRemoveFromFitParAction()
 //! Add all selected parameters to fitParameter with given index
 void FitParametersWidget::onAddToFitParAction(int ipar)
 {
-    QStringList fitParNames = m_fitParameterModel->getFitParameterNames();
+    QStringList fitParNames = FitModelHelper::getFitParameterNames(m_jobItem->fitParameterContainerItem());
     foreach(ParameterItem *item, getSelectedParameters()) {
-        m_fitParameterModel->addToFitParameter(item, fitParNames.at(ipar));
+        //m_fitParameterModel->addToFitParameter(item, fitParNames.at(ipar));
+        FitModelHelper::addToFitParameter(m_jobItem->fitParameterContainerItem(), item, fitParNames.at(ipar));
+        emit m_fitParameterModel->layoutChanged();
     }
     spanParameters();
 }
@@ -195,7 +207,7 @@ void FitParametersWidget::initTuningWidgetContextMenu(QMenu &menu)
     menu.addAction(m_createFitParAction);
     QMenu *addToFitParMenu = menu.addMenu("Add to existing fit parameter");
 
-    QStringList fitParNames = m_fitParameterModel->getFitParameterNames();
+    QStringList fitParNames = FitModelHelper::getFitParameterNames(m_jobItem->fitParameterContainerItem());
     if(fitParNames.isEmpty() || isCreateFitParameterPossible()==false) {
         addToFitParMenu->setEnabled(false);
     }
@@ -246,9 +258,9 @@ void FitParametersWidget::init_job_item()
 
     m_fitParameterModel.reset(new FitParameterModel(parsContainerItem));
     m_treeView->setModel(m_fitParameterModel.get());
-    connectFitParametersSelection(true);
 
-    m_fitParameterModel->createFitParameter();
+    FitModelHelper::createFitParameter(m_jobItem->fitParameterContainerItem());
+
 //    m_fitParameterModel->createFitParameter();
     spanParameters();
 
@@ -257,10 +269,10 @@ void FitParametersWidget::init_job_item()
 //    m_treeView->setModel(proxy);
 //    m_treeView->setRootIndex(proxy->mapFromSource(m_jobItem->fitParameterContainerItem()->index()));
 
+//    m_fitParameterAbsModel.reset(new FitParameterAbsModel(m_jobItem->fitParameterContainerItem()));
+//    m_treeView->setModel(m_fitParameterAbsModel.get());
 
-//        m_treeView->setModel(parsContainerItem->model());
-//        m_treeView->setRootIndex(parsContainerItem->index());
-//    spanParameters();
+    connectFitParametersSelection(true);
 
 }
 
@@ -288,7 +300,7 @@ bool FitParametersWidget::isCreateFitParameterPossible()
 {
     QVector<ParameterItem *> selected = getSelectedParameters();
     foreach(ParameterItem *item, selected) {
-        if(m_fitParameterModel->getFitParameterItem(item) == nullptr)
+        if(FitModelHelper::getFitParameterItem(m_jobItem->fitParameterContainerItem(), item) == nullptr)
             return true;
     }
     return false;

@@ -74,13 +74,13 @@ void FormFactorTetrahedron::onChange()
 
     setPolyhedron( topology, -zcom, false, {
             // base:
-            { -as, -ac, -zcom },
-            {  as, -ac, -zcom },
-            {  0.,  ah, -zcom },
+            { -ac,  as, -zcom },
+            { -ac, -as, -zcom },
+            {  ah,  0., -zcom },
             // top:
-            { -bs, -bc, m_height-zcom },
-            {  bs, -bc, m_height-zcom },
-            {  0.,  bh, m_height-zcom } } );
+            { -bc,  bs, m_height-zcom },
+            { -bc, -bs, m_height-zcom },
+            {  bh,  0., m_height-zcom } } );
 }
 
 FormFactorTetrahedron* FormFactorTetrahedron::clone() const

@@ -228,21 +228,17 @@ complex_t PolyhedralFace::ff_n( int n, const cvector_t q ) const
     }
 }
 
-//! Returns the contribution of this face to the polyhedral form factor.
+//! Returns the contribution ff(q) of this face to the polyhedral form factor.
 
 complex_t PolyhedralFace::ff( const cvector_t q, const bool sym_Ci ) const
 {
-    //std::cout<<"Face "<<m_normal<<":\n";
-    complex_t qn = q.dot(m_normal); // conj(q)*normal (BasicVector3D::dot is antilinear in 'this' argument)
-    if ( std::abs(qn)<eps*q.mag() )
-        return 0;
     complex_t qperp;
     cvector_t qpa;
     decompose_q( q, qperp, qpa );
     double qpa_red = m_radius_2d * qpa.mag();
     complex_t qr_perp = qperp*m_rperp;
     if ( qpa_red==0 ) {
-        return qn * (sym_Ci ? 2.*I*sin(qr_perp) : exp(I*qr_perp)) * m_area;
+        return (sym_Ci ? 2.*I*sin(qr_perp) : exp(I*qr_perp)) * m_area;
     } else if ( qpa_red < qpa_limit_series && !sym_S2 ) {
         // summation of power series
 #ifdef POLYHEDRAL_DIAGNOSTIC
@@ -251,10 +247,10 @@ complex_t PolyhedralFace::ff( const cvector_t q, const bool sym_Ci ) const
         complex_t fac_even;
         complex_t fac_odd;
         if( sym_Ci ) {
-            fac_even = qn * 2. * I * sin(qr_perp);
-            fac_odd = qn * 2. * cos(qr_perp);
+            fac_even = 2. * I * sin(qr_perp);
+            fac_odd = 2. * cos(qr_perp);
         } else {
-            fac_even = qn * exp( I*qr_perp );
+            fac_even = exp( I*qr_perp );
             fac_odd = fac_even;
         }
         complex_t sum = fac_even * m_area;
@@ -277,8 +273,8 @@ complex_t PolyhedralFace::ff( const cvector_t q, const bool sym_Ci ) const
 #endif
     } else {
         // direct evaluation of analytic formula
-        cvector_t prevec = 2.*m_normal.cross( qpa ); // complex conjugation will take place in .dot
-        complex_t prefac = qn;
+        cvector_t prevec = m_normal.cross( qpa ); // complex conjugation will take place in .dot
+        complex_t prefac = 2.;
         if( sym_S2 )
             prefac *= sym_Ci ? -4.*sin(qr_perp) : 2.*I*exp(I*qr_perp);
         complex_t sum = 0;
@@ -288,7 +284,6 @@ complex_t PolyhedralFace::ff( const cvector_t q, const bool sym_Ci ) const
             complex_t Rfac = sym_S2 ? sin(e.qR(qpa)) : ( sym_Ci ? 2.*cos(qR) : exp(I*qR) );
             sum += prevec.dot(e.E()) * MathFunctions::sinc(qE) * Rfac;
         }
-        //std::cout<<std::setprecision(16)<<"  ret="<<prefac * sum / ( I*qpa.mag2() )<<"\n";
         return prefac * sum / ( I*qpa.mag2() );
     }
 }
@@ -447,8 +442,12 @@ complex_t FormFactorPolyhedron::evaluate_centered( const cvector_t q ) const
     } else {
         // direct evaluation of analytic formula (coefficients may involve series)
         complex_t sum = 0;
-        for( const PolyhedralFace& Gk: m_faces )
-            sum += Gk.ff(q, m_sym_Ci );
+        for( const PolyhedralFace& Gk: m_faces ) {
+            complex_t qn = Gk.normalProjectionConj( q ); // conj(q)*normal
+            if ( std::abs(qn)<eps*q.mag() )
+                continue;
+            sum += qn * Gk.ff(q, m_sym_Ci );
+        }
         return sum / (I * q.mag2());
     }
 }
@@ -494,4 +493,17 @@ complex_t FormFactorPolygonalPrism::evaluate_for_q( const cvector_t q ) const
     const cvector_t qxy( q.x(), q.y(), 0. );
     return m_height * exp(I*(m_height/2)*q.z()) * MathFunctions::sinc(m_height/2*q.z()) *
         m_base->ff_2D( qxy );
+}
+
+
+//***************************************************************************************************
+//  FormFactorPolygonalSurface implementation
+//***************************************************************************************************
+
+complex_t FormFactorPolygonalSurface::evaluate_for_q( const cvector_t q ) const
+{
+#ifdef POLYHEDRAL_DIAGNOSTIC
+    diagnosis = { 0, 0 };
+#endif
+    return m_base->ff( q, false );
 }

@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      FormFactors/FormFactorPrism3.cpp
-//! @brief     Implements class FormFactorPrism3.
+//! @file      FormFactors/FormFactorTriangle.cpp
+//! @brief     Implements class FormFactorTriangle.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,23 +13,22 @@
 //
 // ************************************************************************** //
 
-#include "FormFactorPrism3.h"
+#include "FormFactorTriangle.h"
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
 
-//! @brief Prism3 constructor
+//! @brief Triangle constructor
 //! @param base_edge of hexagonal base
-//! @param height of Prism3
-FormFactorPrism3::FormFactorPrism3(const double base_edge, const double height)
-    : FormFactorPolygonalPrism( height )
-    , m_base_edge( base_edge )
+//! @param height of Triangle
+FormFactorTriangle::FormFactorTriangle(const double base_edge)
+    : m_base_edge( base_edge )
 {
-    setName(BornAgain::FFPrism3Type);
+    setName("Triangle");
     registerParameter(BornAgain::BaseEdge, &m_base_edge, AttLimits::n_positive());
     onChange();
 }
 
-void FormFactorPrism3::onChange()
+void FormFactorTriangle::onChange()
 {
     double a = m_base_edge;
     double as = a/2;
@@ -42,12 +41,12 @@ void FormFactorPrism3::onChange()
     m_base = std::unique_ptr<PolyhedralFace>( new PolyhedralFace( { V[0], V[1], V[2] }, false ) );
 }
 
-FormFactorPrism3* FormFactorPrism3::clone() const
+FormFactorTriangle* FormFactorTriangle::clone() const
 {
-    return new FormFactorPrism3(m_base_edge, m_height);
+    return new FormFactorTriangle(m_base_edge);
 }
 
-void FormFactorPrism3::accept(ISampleVisitor *visitor) const
+void FormFactorTriangle::accept(ISampleVisitor *visitor) const
 {
     visitor->visit(this);
 }

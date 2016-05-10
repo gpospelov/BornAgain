@@ -1180,15 +1180,13 @@ based on the generic form factor of the polyhedron~\cite{ba:ffp}.
 
 \paragraph{Real-space geometry}\strut\\
 
-\Work{will soon be rotated by 30$^\circ$}
-
 \begin{figure}[H]
 \hfill
 \subfigure[Perspective]{\includegraphics[width=.24\textwidth]{fig/blue/Prism33d.png}}
 \hfill
-\subfigure[Top view]{\includegraphics[width=.30\textwidth]{fig/cuts/Prism32dxy.pdf}}
+\subfigure[Top view]{\includegraphics[width=.30\textwidth]{fig/cuts/Prism32dxy.ps}}
 \hfill
-\subfigure[Side view]{\raisebox{2mm}{\includegraphics[width=.30\textwidth]{fig/cuts/Prism32dxz.pdf}}}
+\subfigure[Side view]{\includegraphics[width=.30\textwidth]{fig/cuts/Prism32dxz.ps}}
 \hfill
 \caption{A prism based on an equilateral triangle.}
 \end{figure}
@@ -1235,6 +1233,9 @@ Has been validated against the \E{Prism3} form factor of \IsGISAXS\
 \cite[Eq.~2.29]{Laz08} \cite[Eq.~219]{ReLL09}.
 Note the different parameterization $L= 2 R_{\rm{\Code{IsGISAXS}}}$.
 In \FitGISAXS\ just called \E{Prism} \cite{Bab13}.
+In \BornAgain-1.6,
+redefined to let the $x$ axis point along a symmetry axis
+(rotated by $30^\circ$ with respect to the previous version).
 
 Reimplemented in \BornAgain-1.6 using the generic form factor
 of a polygonal prism \cite{ba:ffp},
@@ -1535,15 +1536,13 @@ Agrees with the \E{Ripple2} form factor of \FitGISAXS\ \cite{Bab13}.
 \noindent
 Incorrectly named so, since it actually has five, not four surfaces.
 
-\Work{will soon be rotated by 30$^\circ$}
-
 \begin{figure}[H]
 \hfill
 \subfigure[Perspective]{\includegraphics[width=.24\textwidth]{fig/blue/Tetrahedron3d.png}}
 \hfill
-\subfigure[Top view]{\includegraphics[width=.30\textwidth]{fig/cuts/Tetrahedron2dxy.pdf}}
+\subfigure[Top view]{\includegraphics[width=.30\textwidth]{fig/cuts/Tetrahedron2dxy.ps}}
 \hfill
-\subfigure[Side view]{\raisebox{5mm}{\includegraphics[width=.30\textwidth]{fig/cuts/Tetrahedron2dxz.pdf}}}
+\subfigure[Side view]{\includegraphics[width=.30\textwidth]{fig/cuts/Tetrahedron2dxz.ps}}
 \hfill
 \caption{A truncated pyramid, based on an equilateral triangle.}
 \end{figure}
@@ -1558,15 +1557,14 @@ with the parameters
 \begin{itemize}
 \item \texttt{length} of one edge of the equilateral triangular base, $L$,
 \item \texttt{height}, $H$,
-\item \texttt{alpha}, angle between the base and a side face, $\alpha$.
+\item \texttt{alpha}, dihedral angle between the base and a side face, $\alpha$.
 \end{itemize}
 They must fulfill
 \begin{displaymath}
   H\le \frac{\tan{\alpha}}{2\sqrt{3}} L.
 \end{displaymath}
-Note that the orthographic projection does not show~$\alpha$,
-but the angle~$\beta$ between the base and a side edge.
-They are related through $\tan \alpha = 2 \tan \beta$.
+The orthographic projection also shows the angle~$\beta$ between the base and a side edge.
+It is related to the dihedral angle through $\tan \alpha = 2 \tan \beta$.
 
 \paragraph{Form factor, volume, horizontal section}\strut\\
 \begin{equation*}
@@ -1596,7 +1594,11 @@ The low symmetry requires other angular ranges than used in most other figures.}
 Previous implementations as \E{Tetrahedron} in \IsGISAXS\
 \cite[Eq.~2.30]{Laz08} \cite[Eq.~220]{ReLL09},
 and as  \E{Truncated tetrahedron} in \FitGISAXS\ \cite{Bab13}.
-Up to \BornAgain-1.5, we computed it by numeric integration, as in \IsGISAXS.
+In \BornAgain-1.6,
+redefined to let the $x$ axis lay in a mirror plane
+(rotated by $30^\circ$ with respect to the previous version).
+
+Up to \BornAgain-1.5, we computed the form factor by numeric integration, as in \IsGISAXS.
 Since \BornAgain-1.6 higher speed and accuracy are achieved
 by using the generic polyhedron form factor \cite{ba:ffp},
 with series expansions near singularities.

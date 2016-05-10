@@ -60,6 +60,8 @@ public:
     kvector_t center() const { return m_center; }
     double pyramidalVolume() const { return m_rperp*m_area/3; }
     double radius3d() const { return m_radius_3d; }
+    //! Returns conj(q)*normal [BasicVector3D::dot is antilinear in 'this' argument]
+    complex_t normalProjectionConj( cvector_t q ) const { return q.dot(m_normal); } 
     complex_t ff_n( int m, const cvector_t q ) const;
     complex_t ff( const cvector_t q, const bool sym_Ci ) const;
     complex_t ff_2D( const cvector_t qpa ) const;
@@ -139,6 +141,21 @@ public:
 protected:
     std::unique_ptr<PolyhedralFace> m_base;
     double m_height;
+};
+
+
+//! A polygonal surface, for testing form factor computations.
+
+class FormFactorPolygonalSurface : public IFormFactorBorn {
+public:
+    FormFactorPolygonalSurface() {}
+
+    virtual complex_t evaluate_for_q(const cvector_t q ) const final;
+    double getVolume() const { return 0; }
+    virtual double getRadius() const final { return std::sqrt(m_base->area()); }
+
+protected:
+    std::unique_ptr<PolyhedralFace> m_base;
 };
 
 #endif // FORMFACTORPOLYHEDRON_H

@@ -34,15 +34,19 @@ class BA_CORE_API_ FitParameterAbsModel : public QAbstractItemModel
 public:
     explicit FitParameterAbsModel(FitParameterContainerItem *fitParContainer, QObject *parent = 0);
 
+//    Qt::ItemFlags flags(const QModelIndex & index) const Q_DECL_OVERRIDE;
     virtual QModelIndex index(int row, int column, const QModelIndex &parent) const;
     virtual QModelIndex parent(const QModelIndex &child) const;
     virtual int rowCount(const QModelIndex &parent) const;
     virtual int columnCount(const QModelIndex &parent) const;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const Q_DECL_OVERRIDE;
 
+private slots:
+    void onSourceDataChanged(const QModelIndex & topLeft, const QModelIndex & bottomRight, const QVector<int> & roles);
 
 private:
-//    QModelIndex indexOfItem(SessionItem *item) const;
+    QModelIndex indexOfItem(SessionItem *item, const QModelIndex &parentIndex = QModelIndex()) const;
+    void connectModel(QAbstractItemModel *sourceModel, bool isConnect = true);
     SessionItem *itemForIndex(const QModelIndex &index) const;
 
     FitParameterContainerItem *m_root_item;

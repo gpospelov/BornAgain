@@ -256,10 +256,12 @@ void FitParametersWidget::init_job_item()
 //    SessionItem *link2 = fitPar->model()->insertNewItem(Constants::FitParameterLinkType, fitPar->index());
 //    link2->setItemValue(FitParameterLinkItem::P_LINK, "xyz1");
 
-    m_fitParameterModel.reset(new FitParameterModel(parsContainerItem));
+    FitModelHelper::createFitParameter(m_jobItem->fitParameterContainerItem());
+
+//    m_fitParameterModel.reset(new FitParameterModel(parsContainerItem));
+    m_fitParameterModel.reset(new FitParameterAbsModel(m_jobItem->fitParameterContainerItem()));
     m_treeView->setModel(m_fitParameterModel.get());
 
-    FitModelHelper::createFitParameter(m_jobItem->fitParameterContainerItem());
 
 //    m_fitParameterModel->createFitParameter();
     spanParameters();

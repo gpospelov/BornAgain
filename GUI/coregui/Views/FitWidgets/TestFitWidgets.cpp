@@ -21,18 +21,28 @@
 #include "item_constants.h"
 #include "JobModel.h"
 #include "JobItem.h"
+#include "FitParameterItems.h"
+#include "FitSuiteItem.h"
 #include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QTreeView>
 
 TestFitWidgets::TestFitWidgets(MainWindow *mainWindow)
     : QWidget(mainWindow)
     , m_mainWindow(mainWindow)
     , m_tuningWidget(new ModelTuningWidget(mainWindow->jobModel()))
     , m_fitParametersWidget(new FitParametersWidget(this))
+    , m_jobTreeView(new QTreeView)
     , m_jobItem(0)
 {
     QHBoxLayout *hlayout = new QHBoxLayout;
     hlayout->addWidget(m_tuningWidget);
-    hlayout->addWidget(m_fitParametersWidget);
+
+    QVBoxLayout *vlayout = new QVBoxLayout;
+    vlayout->addWidget(m_fitParametersWidget);
+    vlayout->addWidget(m_jobTreeView);
+
+    hlayout->addLayout(vlayout);
     setLayout(hlayout);
 }
 
@@ -44,6 +54,8 @@ void TestFitWidgets::showEvent(QShowEvent *)
         m_tuningWidget->setItem(jobItem);
         m_fitParametersWidget->setItem(jobItem);
         m_fitParametersWidget->setModelTuningWidget(m_tuningWidget);
+        m_jobTreeView->setModel(m_mainWindow->jobModel());
+        m_jobTreeView->setRootIndex(jobItem->fitSuiteItem()->index());
     }
 
 }

@@ -24,6 +24,7 @@ class MainWindow;
 class ModelTuningWidget;
 class FitParametersWidget;
 class JobItem;
+class QTreeView;
 
 //! TestFitWidgets is a temporary widget (created by mainwindow)
 //! for testing fitting related widgets.
@@ -40,6 +41,7 @@ private:
     MainWindow *m_mainWindow;
     ModelTuningWidget *m_tuningWidget;
     FitParametersWidget *m_fitParametersWidget;
+    QTreeView *m_jobTreeView;
     JobItem *m_jobItem;
 };
 

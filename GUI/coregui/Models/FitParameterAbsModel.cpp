@@ -17,6 +17,8 @@
 #include "FitParameterAbsModel.h"
 #include "SessionItem.h"
 #include "FitParameterItems.h"
+#include "SessionModel.h"
+#include "JobModel.h"
 #include <QDebug>
 
 FitParameterAbsModel::FitParameterAbsModel(FitParameterContainerItem *fitParContainer, QObject *parent)
@@ -29,7 +31,13 @@ FitParameterAbsModel::FitParameterAbsModel(FitParameterContainerItem *fitParCont
     m_columnNames.insert(2, FitParameterItem::P_START_VALUE);
     m_columnNames.insert(4, FitParameterItem::P_MAX);
 
+    connectModel(fitParContainer->model());
 }
+
+//Qt::ItemFlags FitParameterAbsModel::flags(const QModelIndex &index) const
+//{
+
+//}
 
 QModelIndex FitParameterAbsModel::index(int row, int column, const QModelIndex &parent) const
 {
@@ -53,7 +61,7 @@ QModelIndex FitParameterAbsModel::index(int row, int column, const QModelIndex &
     else if(parent_item->modelType() == Constants::FitParameterType && column == 0) {
         QVector<SessionItem *> links = parent_item->getItems(FitParameterItem::T_LINK);
 
-        if(links.size()) {
+        if(row < links.size()) {
             if(SessionItem *linkItem = links.at(row)) {
                 return createIndex(row, column, linkItem->getItem(FitParameterLinkItem::P_LINK));
             }
@@ -169,10 +177,49 @@ QVariant FitParameterAbsModel::data(const QModelIndex &index, int role) const
     return QVariant();
 }
 
-//QModelIndex FitParameterAbsModel::indexOfItem(SessionItem *item) const
-//{
 
-//}
+void FitParameterAbsModel::onSourceDataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles)
+{
+    Q_UNUSED(bottomRight);
+
+    JobModel *sourceModel = qobject_cast<JobModel *>(sender());
+    Q_ASSERT(sourceModel);
+    SessionItem *sourceItem = sourceModel->itemForIndex(topLeft);
+
+    QModelIndex itemIndex = indexOfItem(sourceItem);
+    qDebug() << "FitParameterAbsModel::onSourceDataChanged" << sourceItem->modelType() << itemIndex;
+
+    emit dataChanged(itemIndex, itemIndex, roles);
+}
+
+void FitParameterAbsModel::connectModel(QAbstractItemModel *sourceModel, bool isConnect)
+{
+    Q_ASSERT(sourceModel);
+    if(isConnect) {
+        connect(sourceModel, SIGNAL(dataChanged(QModelIndex,QModelIndex,QVector<int>)),
+                this, SLOT(onSourceDataChanged(QModelIndex,QModelIndex,QVector<int>)));
+    }
+
+    else {
+        disconnect(sourceModel, SIGNAL(dataChanged(QModelIndex,QModelIndex,QVector<int>)),
+                this, SLOT(onSourceDataChanged(QModelIndex,QModelIndex,QVector<int>)));
+    }
+}
+
+QModelIndex FitParameterAbsModel::indexOfItem(SessionItem *item, const QModelIndex &parentIndex) const
+{
+    for (int i_row = 0; i_row < rowCount(parentIndex); ++i_row) {
+        for(int i_col = 0; i_col< columnCount(parentIndex); ++i_col) {
+            QModelIndex itemIndex = index(i_row, i_col, parentIndex);
+            if(SessionItem *curr = itemForIndex(itemIndex)) {
+                if(curr == item) return itemIndex;
+            }
+            QModelIndex result = indexOfItem(item, itemIndex);
+            if(result.isValid()) return result;
+        }
+    }
+    return QModelIndex();
+}
 
 SessionItem *FitParameterAbsModel::itemForIndex(const QModelIndex &index) const
 {

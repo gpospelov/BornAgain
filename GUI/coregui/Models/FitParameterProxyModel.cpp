@@ -18,6 +18,7 @@
 #include "SessionItem.h"
 #include "FitParameterItems.h"
 #include "JobModel.h"
+#include <QDebug>
 
 //FitParameterProxyModel::FitParameterProxyModel(JobModel *jobModel, FitParameterContainerItem *fitParContainer, QObject *parent)
 //    : QAbstractProxyModel(parent)
@@ -35,7 +36,11 @@ FitParameterProxyModel::FitParameterProxyModel(FitParameterContainerItem *fitPar
 {
     Q_ASSERT(m_parContainer);
     setSourceModel(fitParContainer->model());
-
+    m_columnNames.insert(0, "Name");
+    m_columnNames.insert(1, FitParameterItem::P_USE);
+    m_columnNames.insert(3, FitParameterItem::P_MIN);
+    m_columnNames.insert(2, FitParameterItem::P_START_VALUE);
+    m_columnNames.insert(4, FitParameterItem::P_MAX);
 }
 
 QModelIndex FitParameterProxyModel::index(int row, int column, const QModelIndex &parent) const
@@ -82,26 +87,54 @@ int FitParameterProxyModel::rowCount(const QModelIndex &parent) const
     Q_ASSERT(parent.isValid() ? parent.model() == this : true);
     return sourceModel()->rowCount(mapToSource(parent));
 
-    if(!parent.isValid()) {
-        return m_parContainer->rowCount();
-    }
+
+//    if(!parent.isValid()) {
+//        return m_parContainer->rowCount();
+//    }
 
 //    QModelIndex sourceIndex = mapToSource(parent);
     if (SessionItem *item = this->itemForIndex(parent)) {
-        if(item->modelType() == Constants::FitParameterContainerType ||
-           item->modelType() == Constants::FitParameterType ) {
-            return item->rowCount();
+//        if(item->modelType() == Constants::FitParameterContainerType ||
+//           item->modelType() == Constants::FitParameterType ) {
+//            return item->rowCount();
+//        }
+        if(item->modelType() == Constants::FitParameterType) {
+            return 0;
         }
     }
 
-    return 0;
-//    return sourceModel()->rowCount(mapToSource(parent));
+//    return 0;
+    return sourceModel()->rowCount(mapToSource(parent));
 }
 
 int FitParameterProxyModel::columnCount(const QModelIndex &parent) const
 {
     Q_ASSERT(parent.isValid() ? parent.model() == this : true);
     return sourceModel()->columnCount(mapToSource(parent));
+
+
+    return 5;
+
+    if (SessionItem *item = this->itemForIndex(parent)) {
+//        if(item->modelType() == Constants::FitParameterContainerType ||
+//           item->modelType() == Constants::FitParameterType ) {
+//            return item->rowCount();
+//        }
+        if(item->modelType() == Constants::FitParameterType) {
+            return 5;
+        }
+    }
+
+    return sourceModel()->columnCount(mapToSource(parent));
+}
+
+QVariant FitParameterProxyModel::headerData(int section, Qt::Orientation orientation, int role) const
+{
+    if (role == Qt::DisplayRole && orientation == Qt::Horizontal) {
+        return m_columnNames.value(section);
+    }
+    return QVariant();
+
 }
 
 QModelIndex FitParameterProxyModel::mapToSource(const QModelIndex &proxyIndex) const
@@ -133,16 +166,38 @@ QModelIndex FitParameterProxyModel::mapToSource(const QModelIndex &proxyIndex) c
 
 QModelIndex FitParameterProxyModel::mapFromSource(const QModelIndex &sourceIndex) const
 {
+//    if (!sourceModel() || !sourceIndex.isValid())
+//        return QModelIndex();
+//    Q_ASSERT(sourceIndex.model() == sourceModel());
+//    return createIndex(sourceIndex.row(), sourceIndex.column(), sourceIndex.internalPointer());
+
+
     if (!sourceModel() || !sourceIndex.isValid())
         return QModelIndex();
 
-//    if (SessionItem *item = m_jobModel->itemForIndex(sourceIndex)) {
+    int irow = sourceIndex.row();
+    int icol = sourceIndex.column();
 
-//    }
+    if (SessionItem *item = jobModel()->itemForIndex(sourceIndex)) {
+        if(SessionItem *parent = item->parent()) {
+//            if(parent->modelType() == Constants::JobItemType || parent->modelType() == Constants::FitSuiteType) {
+//                return QModelIndex();
+//            }
 
+
+
+//            qDebug() << "AAA" << item->modelType() << parent->modelType();
+//            Q_ASSERT(0);
+//            if(parent->modelType() == Constants::FitParameterContainerType) {
+//                icol = m_columnNames.key(parent->tagFromItem(item));
+//                qDebug() << "AAAAA" << icol << parent->tagFromItem(item);
+//                Q_ASSERT(0);
+//            }
+        }
+    }
 
     Q_ASSERT(sourceIndex.model() == sourceModel());
-    return createIndex(sourceIndex.row(), sourceIndex.column(), sourceIndex.internalPointer());
+    return createIndex(irow, icol, sourceIndex.internalPointer());
 }
 
 SessionItem *FitParameterProxyModel::itemForIndex(const QModelIndex &index) const

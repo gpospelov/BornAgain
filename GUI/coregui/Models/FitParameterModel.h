@@ -45,6 +45,7 @@ public:
 
     virtual int rowCount(const QModelIndex &parent) const;
     virtual int columnCount(const QModelIndex &parent) const;
+    QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const;
 
     void createFitParameter(ParameterItem *parameterItem = 0);
     void removeFromFitParameters(ParameterItem *parameterItem);

@@ -135,6 +135,40 @@ int FitParameterModel::columnCount(const QModelIndex &parent) const
 
 }
 
+QModelIndex FitParameterModel::index(int row, int column, const QModelIndex &parent) const
+{
+//    return SessionModel::index(row, column, parent);
+
+
+    if (!rootItem() || row < 0 || column < 0 || column >= columnCount(QModelIndex()))
+        return QModelIndex();
+
+    SessionItem *parent_item = itemForIndex(parent);
+    Q_ASSERT(parent_item);
+    qDebug() << "AAA" << parent_item->modelType();
+    if(parent_item->modelType() == Constants::FitParameterContainerType) {
+        if (SessionItem *fitParItem = parent_item->childAt(row)) {
+            SessionItem *propItem = fitParItem->getItem(m_columnNames.value(column));
+            if(propItem) {
+                return createIndex(row, column, propItem);
+            } else {
+                return createIndex(row, column, fitParItem);
+            }
+        }
+    }
+
+//    else if(parent_item->modelType() == Constants::FitParameterType) {
+//        if(SessionItem *linkItem = parent_item->getItem(FitParameterItem::T_LINK, row)) {
+//            return createIndex(row, column, linkItem);
+//        }
+//    }
+
+
+    return SessionModel::index(row, column, parent);
+
+//    return QModelIndex();
+}
+
 //! Creates fit parameter from given ParameterItem, sets starting value to the value
 //! of ParameterItem, copy link.
 void FitParameterModel::createFitParameter(ParameterItem *parameterItem)

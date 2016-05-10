@@ -41,6 +41,7 @@ public:
     QModelIndex parent(const QModelIndex &child) const;
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
     int columnCount(const QModelIndex &parent = QModelIndex()) const ;
+    QVariant headerData(int section, Qt::Orientation orientation, int role) const Q_DECL_OVERRIDE;
 
     QModelIndex mapToSource(const QModelIndex &proxyIndex) const;
     QModelIndex mapFromSource(const QModelIndex &sourceIndex) const;
@@ -53,6 +54,7 @@ private:
 //    JobModel *m_jobModel;
     FitParameterContainerItem *m_parContainer;
 //    JobItem *m_jobItem;
+    QMap<int, QString> m_columnNames;
 };
 
 

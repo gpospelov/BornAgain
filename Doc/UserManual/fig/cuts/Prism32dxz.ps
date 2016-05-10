@@ -1,7 +1,8 @@
 %!PS-Adobe-1.0 EPSF-1.0
-%%BoundingBox:    55   461   344   740
+%%BoundingBox:    71   566   315   740
 %%Comment: Bounding box extracted by bboxx
 %%+:       A program by Dov Grobgeld 2003
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%  FRIDA: fast reliable interactive data analysis                           %%
 %%  wups11a.ps: graphic macros                                               %%
@@ -1647,22 +1648,24 @@ WuGdict11a begin
 24 setown
 
 1 [] lset
-/a 8 def
-/as a 2 div def
+/a 6 def
+/b 4 def
 /ac a 3 sqrt div 2 div def
 /ah a 3 sqrt div def
-ah 0 np mv
-ac neg as li
-ac neg as neg li cp { .8 setgray fill } G st
+ac neg 0 np mv
+ah     0 li
+ah     b li
+ac neg b li
+cp { .8 setgray fill } G st
 
 .4 [] lset
+0 0  0 .5 4.6 pfeiL
 0 0 90 .5 5 pfeiL
-0 0  0 .5 5.6 pfeiL
-6.3 0 {(x)} textCM
-0 5.7 {(y)} textCM
+5.3 0 {(x)} textCM
+0 5.7 {(z)} textCM
 
 1 [] lset
 /pfeilangle 90 def
-ac neg 1 sub 0 a -90 {(L)} bemasz % x y L ang text | -
+ac neg 1 sub b .5 mul b -90 {(H)} bemasz % x y L ang text | -
 
 EndFrame

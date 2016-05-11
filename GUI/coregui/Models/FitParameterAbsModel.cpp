@@ -140,15 +140,34 @@ int FitParameterAbsModel::columnCount(const QModelIndex &parent) const
     if (parent.isValid() && parent.column() != 0)
         return 0;
 
+    if(!parent.isValid())
+        return MAX_COLUMNS;
+
     if(parent.isValid()) {
         if(SessionItem *parentItem = itemForIndex(parent)) {
             if(parentItem->modelType() == Constants::FitParameterType) {
-                return 1; // linkItem
+                return (parentItem->getItems(FitParameterItem::T_LINK).size() ? 1 : 0);
             }
         }
 
     }
-    return MAX_COLUMNS;
+
+    return 0;
+
+
+
+//    if(parent.isValid()) {
+//        if(SessionItem *parentItem = itemForIndex(parent)) {
+//            if(parentItem->modelType() == Constants::FitParameterType) {
+//                return 1; // linkItem
+//            }
+//        }
+
+//    }
+//    return MAX_COLUMNS;
+
+    return 1;
+
 }
 
 QVariant FitParameterAbsModel::data(const QModelIndex &index, int role) const

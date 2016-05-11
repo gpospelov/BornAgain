@@ -263,7 +263,7 @@ void FitParametersWidget::init_job_item()
 //    link2->setItemValue(FitParameterLinkItem::P_LINK, "xyz1");
 
     FitModelHelper::createFitParameter(m_jobItem->fitParameterContainerItem());
-//    FitModelHelper::createFitParameter(m_jobItem->fitParameterContainerItem());
+    FitModelHelper::createFitParameter(m_jobItem->fitParameterContainerItem());
 
 //    m_fitParameterModel.reset(new FitParameterModel(parsContainerItem));
     m_fitParameterModel.reset(new FitParameterAbsModel(m_jobItem->fitParameterContainerItem()));

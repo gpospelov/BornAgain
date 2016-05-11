@@ -150,6 +150,9 @@ set(${library_name}_LIBRARY ${library_name} PARENT_SCOPE)
 
 
 # --- external dependencies ---------
+
+target_link_libraries(${library_name} ${CMAKE_THREAD_LIBS_INIT})
+
 if(BORNAGAIN_TIFF_SUPPORT)
     add_definitions(-DBORNAGAIN_TIFF_SUPPORT)
     include_directories(${TIFF_INCLUDE_DIR})

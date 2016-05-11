@@ -2,6 +2,8 @@
 
 # === obligatory packages ===
 
+find_package(Threads REQUIRED)
+
 # --- math packages ---
 find_package(Eigen3 REQUIRED)
 find_package(FFTW REQUIRED)
@@ -14,11 +16,11 @@ set(Boost_USE_MULTITHREADED ON)
 set(Boost_USE_STATIC_RUNTIME OFF)
 add_definitions(-DBOOST_ALL_DYN_LINK) # line is needed for MSVC
 #add_definitions(-DBOOST_LIB_DIAGNOSTIC) # shows during compilation auto-linked libraries
+set(boost_libraries_required date_time chrono program_options iostreams system filesystem)
 if(WIN32)
-    set(boost_libraries_required date_time chrono program_options zlib bzip2 iostreams system filesystem regex thread)
-else()
-    set(boost_libraries_required date_time chrono program_options iostreams system filesystem regex thread)
+    set(boost_libraries_required ${boost_libraries_required} zlib bzip2)
 endif()
+
 find_package(Boost 1.48.0 COMPONENTS ${boost_libraries_required} REQUIRED)
 message(STATUS "--> Boost_INCLUDE_DIRS: ${Boost_INCLUDE_DIRS}")
 message(STATUS "    Boost_LIBRARY_DIRS: ${Boost_LIBRARY_DIRS}")

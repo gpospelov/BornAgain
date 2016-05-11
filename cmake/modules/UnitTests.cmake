@@ -48,4 +48,6 @@ function(UNIT_TESTS TEST_NAME SUBDIR LINK_LIB)
     # Add execution of TestCore just after compilation
     add_custom_command(TARGET ${TEST_NAME} POST_BUILD COMMAND ${EXE})
 
+    # To make the .h files appear in QtCreator's project tree
+    add_custom_target("${TEST_NAME}_sources" SOURCES ${INCLUDE_FILES})
 endfunction()

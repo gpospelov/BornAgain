@@ -37,16 +37,17 @@ ParameterPool* IParameterized::createParameterTree()
     return P_new_pool.release();
 }
 
+//! Copies local parameters to external_pool, under name "path/<name>copy_number/"
+
 std::string IParameterized::addParametersToExternalPool(
     std::string path, ParameterPool *external_pool, int copy_number) const
 {
-    // adding trailing slash, if it is not already there
-    if( path[path.length()-1] != '/' ) path += "/";
-
-    // constructing new path, using object name and copy number
+    if( path[path.length()-1] != '/' )
+        path += "/";
     std::ostringstream osCopyNumber;
-    if(copy_number >=0) osCopyNumber << copy_number;
-    path =  path + getName() + osCopyNumber.str() + "/";
+    if(copy_number >=0)
+        osCopyNumber << copy_number;
+    path += getName() + osCopyNumber.str() + "/";
 
     // copy local parameter to external pool
     m_parameters.copyToExternalPool(path, external_pool);
@@ -82,7 +83,6 @@ void IParameterized::print(std::ostream& ostr) const
 
 
 ParameterPattern::ParameterPattern()
-    : m_pattern { }
 {
 }
 

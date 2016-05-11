@@ -208,7 +208,7 @@ void ModelTuningWidget::resizeEvent(QResizeEvent *event)
     }
 }
 
-//! Context menu reimplemented to suppress default
+//! Context menu reimplemented to suppress the default one
 void ModelTuningWidget::contextMenuEvent(QContextMenuEvent *event)
 {
     Q_UNUSED(event);

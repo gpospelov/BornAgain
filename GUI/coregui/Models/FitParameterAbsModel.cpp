@@ -189,17 +189,35 @@ void FitParameterAbsModel::onSourceDataChanged(const QModelIndex &topLeft, const
         emit dataChanged(itemIndex, itemIndex, roles);
 }
 
+void FitParameterAbsModel::onSourceRowsInserted(const QModelIndex &parent, int first, int last)
+{
+    Q_UNUSED(parent);
+    Q_UNUSED(first);
+    Q_UNUSED(last);
+//    qDebug() << "FitParameterAbsModel::onSourceRowsInserted" << parent << first << last;
+//    JobModel *sourceModel = qobject_cast<JobModel *>(sender());
+//    Q_ASSERT(sourceModel);
+
+//    if(SessionItem *sourceItem = sourceModel->itemForIndex(parent))
+
+}
+
 void FitParameterAbsModel::connectModel(QAbstractItemModel *sourceModel, bool isConnect)
 {
     Q_ASSERT(sourceModel);
     if(isConnect) {
         connect(sourceModel, SIGNAL(dataChanged(QModelIndex,QModelIndex,QVector<int>)),
                 this, SLOT(onSourceDataChanged(QModelIndex,QModelIndex,QVector<int>)));
+        connect(sourceModel, SIGNAL(rowsInserted(QModelIndex,int,int)),
+                   this, SLOT(onSourceRowsInserted(QModelIndex,int,int)));
+
     }
 
     else {
         disconnect(sourceModel, SIGNAL(dataChanged(QModelIndex,QModelIndex,QVector<int>)),
                 this, SLOT(onSourceDataChanged(QModelIndex,QModelIndex,QVector<int>)));
+        disconnect(sourceModel, SIGNAL(rowsInserted(QModelIndex,int,int)),
+                   this, SLOT(onSourceRowsInserted(QModelIndex,int,int)));
     }
 }
 

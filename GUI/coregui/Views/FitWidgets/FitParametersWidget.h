@@ -30,6 +30,7 @@ class QMenu;
 class FitParameterModel;
 class FitParameterAbsModel;
 class ParameterItem;
+class FitParameterItem;
 class QItemSelection;
 
 //! The FitParametersWidget class contains a tree view to set fit parameters (fix/release,
@@ -47,17 +48,24 @@ public:
 
 public slots:
     void onTuningWidgetContextMenu(const QPoint &point);
+    void onFitParameterTreeContextMenu(const QPoint &point);
     void onTuningWidgetSelectionChanged(const QItemSelection&selection);
     void onFitParametersSelectionChanged(const QItemSelection &selection);
 
 private slots:
     void onCreateFitParAction();
     void onRemoveFromFitParAction();
+    void onRemoveFitParAction();
     void onAddToFitParAction(int ipar);
+
+protected:
+    void contextMenuEvent(QContextMenuEvent *event);
 
 private:
     void init_actions();
     void initTuningWidgetContextMenu(QMenu &menu);
+    void initFitParameterTreeContextMenu(QMenu &menu);
+
     void stop_tracking_job_item();
     void init_job_item();
     void spanParameters();
@@ -67,12 +75,14 @@ private:
     void connectFitParametersSelection(bool active);
 
     QVector<ParameterItem *> getSelectedParameters();
+    QVector<FitParameterItem *> getSelectedFitParameters();
 
     QTreeView *m_treeView;
     JobItem *m_jobItem;
     ModelTuningWidget *m_tuningWidget;
     QAction *m_createFitParAction;
     QAction *m_removeFromFitParAction;
+    QAction *m_removeFitParAction;
     QSignalMapper *m_signalMapper;
 //    std::unique_ptr<FitParameterModel> m_fitParameterModel;
     std::unique_ptr<FitParameterAbsModel> m_fitParameterModel;

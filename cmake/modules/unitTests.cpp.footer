@@ -13,29 +13,6 @@ private:
     std::streambuf * old;
 };
 
-/*
-class MinimalistPrinter : public ::testing::EmptyTestEventListener {
-    // Called before a test starts.
-    virtual void OnTestStart(const ::testing::TestInfo& test_info) {
-        (void) test_info; }
-
-    // Called after a failed assertion or a SUCCEED() invocation.
-    virtual void OnTestPartResult(const ::testing::TestPartResult& test_part_result) {
-        if ( !test_part_result.failed() )
-            return;
-        printf("%s in %s:%d\n%s\n",
-             test_part_result.failed() ? "*** Failure" : "Success",
-             test_part_result.file_name(),
-             test_part_result.line_number(),
-             test_part_result.summary());
-    }
-
-    // Called after a test ends.
-    virtual void OnTestEnd(const ::testing::TestInfo& test_info) {
-        (void) test_info; }
-  };
-*/
-
 int main(int argc, char** argv)
 {
     std::cout << "UnitTest::main ...\n";
@@ -46,15 +23,6 @@ int main(int argc, char** argv)
     ErrorStreamRedirect redirecter( oss.rdbuf() );
     (void)redirecter;
 
-    /*
-    // Gets hold of the event listener list.
-    ::testing::TestEventListeners& listeners =
-        ::testing::UnitTest::GetInstance()->listeners();
-    delete listeners.Release(listeners.default_result_printer());
-    // Adds a listener to the end.  Google Test takes the ownership.
-    listeners.Append(new MinimalistPrinter);
-    */
-    
     // run all google tests
     return RUN_ALL_TESTS();
 }

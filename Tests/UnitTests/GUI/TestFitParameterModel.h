@@ -14,6 +14,7 @@ private slots:
     void test_InitialState();
     void test_addFitParameter();
     void test_addFitParameterAndLink();
+    void test_addTwoFitParameterAndLinks();
 };
 
 inline void TestFitParameterModel::test_InitialState()
@@ -186,6 +187,53 @@ inline void TestFitParameterModel::test_addFitParameterAndLink()
 
     QCOMPARE(proxy.parent(linkIndex), index);
     QCOMPARE(proxy.itemForIndex(linkIndex), link1->getItem(FitParameterLinkItem::P_LINK));
+
+}
+
+inline void TestFitParameterModel::test_addTwoFitParameterAndLinks()
+{
+    JobModel source;
+    SessionItem *fitSuiteItem = source.insertNewItem(Constants::FitSuiteType);
+    SessionItem *container = source.insertNewItem(Constants::FitParameterContainerType, fitSuiteItem->index(), -1, FitSuiteItem::T_FIT_PARAMETERS);
+    FitParameterAbsModel proxy(dynamic_cast<FitParameterContainerItem *>(container));
+
+    // adding fit parameters
+    SessionItem *fitPar0 = source.insertNewItem(Constants::FitParameterType, container->index());
+    SessionItem *link0 = source.insertNewItem(Constants::FitParameterLinkType, fitPar0->index());
+
+    SessionItem *fitPar1 = source.insertNewItem(Constants::FitParameterType, container->index());
+    SessionItem *link1 = source.insertNewItem(Constants::FitParameterLinkType, fitPar1->index());
+
+    // checking index of root
+    QCOMPARE(2, proxy.rowCount(QModelIndex()));
+    QCOMPARE((int)FitParameterAbsModel::MAX_COLUMNS, proxy.columnCount(QModelIndex()));
+
+    // accessing fitPar1
+    QModelIndex index1 = proxy.index(1, 0, QModelIndex());
+    QCOMPARE(index1.row(), 1);
+    QCOMPARE(index1.column(), 0);
+    QCOMPARE(index1.parent(), QModelIndex());
+    QCOMPARE(proxy.rowCount(index1), 1);
+    QCOMPARE(proxy.columnCount(index1), 1);
+
+    QCOMPARE(fitPar1, proxy.itemForIndex(index1));
+    QCOMPARE(fitPar1->displayName(), proxy.data(index1).toString());
+    QCOMPARE(index1, proxy.indexOfItem(fitPar1));
+
+    // accessing link1
+    QModelIndex linkIndex1 = proxy.index(0, 0, index1);
+    QCOMPARE(linkIndex1.row(), 0);
+    QCOMPARE(linkIndex1.column(), 0);
+    qDebug() << "AAA" << index1 << linkIndex1;
+    QCOMPARE(linkIndex1.parent(), index1);
+    QCOMPARE(proxy.rowCount(linkIndex1), 0);
+    QCOMPARE(proxy.columnCount(linkIndex1),  0);
+
+//    QCOMPARE(proxy.parent(linkIndex), index);
+//    QCOMPARE(proxy.itemForIndex(linkIndex), link0->getItem(FitParameterLinkItem::P_LINK));
+
+
+//    QModelIndex linkIndex1 = proxy.index(0, 0, index1);
 
 }
 

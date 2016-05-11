@@ -95,8 +95,8 @@ QModelIndex FitParameterAbsModel::parent(const QModelIndex &child) const
         if (SessionItem *parent_item = child_item->parent()) {
             if(parent_item->modelType()==Constants::FitParameterLinkType) {
 //                qDebug() << "FitParameterAbsModel::parent" << child_item->modelType() << parent_item->modelType();
-
-                return createIndex(0, 0, parent_item->parent());
+                SessionItem *fitPar = parent_item->parent();
+                return createIndex(fitPar->parentRow(), 0, fitPar);
             }
         }
 

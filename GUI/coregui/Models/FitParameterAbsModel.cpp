@@ -191,14 +191,34 @@ void FitParameterAbsModel::onSourceDataChanged(const QModelIndex &topLeft, const
 
 void FitParameterAbsModel::onSourceRowsInserted(const QModelIndex &parent, int first, int last)
 {
-    Q_UNUSED(parent);
-    Q_UNUSED(first);
-    Q_UNUSED(last);
-//    qDebug() << "FitParameterAbsModel::onSourceRowsInserted" << parent << first << last;
-//    JobModel *sourceModel = qobject_cast<JobModel *>(sender());
-//    Q_ASSERT(sourceModel);
+//    Q_UNUSED(parent);
+//    Q_UNUSED(first);
+//    Q_UNUSED(last);
+    qDebug() << "FitParameterAbsModel::onSourceRowsInserted" << parent << first << last;
+    JobModel *sourceModel = qobject_cast<JobModel *>(sender());
+    Q_ASSERT(sourceModel);
 
-//    if(SessionItem *sourceItem = sourceModel->itemForIndex(parent))
+    if(SessionItem *sourceItem = sourceModel->itemForIndex(parent)) {
+        if(sourceItem->modelType() == Constants::FitParameterContainerType) {
+            beginInsertRows(QModelIndex(), first, first);
+            endInsertRows();
+        }
+
+    }
+
+}
+
+void FitParameterAbsModel::onSourceBeginRemoveRows(const QModelIndex &parent, int first, int last)
+{
+    qDebug() << "FitParameterAbsModel::onSourceBeginRemoveRows" << parent << first << last;
+    JobModel *sourceModel = qobject_cast<JobModel *>(sender());
+    Q_ASSERT(sourceModel);
+
+    if(SessionItem *sourceItem = sourceModel->itemForIndex(parent)) {
+        qDebug() << sourceItem->modelType();
+        beginRemoveRows(QModelIndex(), first, first);
+        endRemoveRows();
+    }
 
 }
 
@@ -210,6 +230,8 @@ void FitParameterAbsModel::connectModel(QAbstractItemModel *sourceModel, bool is
                 this, SLOT(onSourceDataChanged(QModelIndex,QModelIndex,QVector<int>)));
         connect(sourceModel, SIGNAL(rowsInserted(QModelIndex,int,int)),
                    this, SLOT(onSourceRowsInserted(QModelIndex,int,int)));
+        connect(sourceModel, SIGNAL(rowsAboutToBeRemoved(QModelIndex,int,int)),
+                   this, SLOT(onSourceBeginRemoveRows(QModelIndex,int,int)));
 
     }
 
@@ -218,6 +240,8 @@ void FitParameterAbsModel::connectModel(QAbstractItemModel *sourceModel, bool is
                 this, SLOT(onSourceDataChanged(QModelIndex,QModelIndex,QVector<int>)));
         disconnect(sourceModel, SIGNAL(rowsInserted(QModelIndex,int,int)),
                    this, SLOT(onSourceRowsInserted(QModelIndex,int,int)));
+        disconnect(sourceModel, SIGNAL(rowsAboutToBeRemoved(QModelIndex,int,int)),
+                   this, SLOT(onSourceBeginRemoveRows(QModelIndex,int,int)));
     }
 }
 

@@ -172,7 +172,7 @@ void FitParametersWidget::onCreateFitParAction()
         if(!FitModelHelper::getFitParameterItem(m_jobItem->fitParameterContainerItem(), item)) {
             FitModelHelper::createFitParameter(m_jobItem->fitParameterContainerItem(), item);
 //            m_fitParameterModel->createFitParameter(item);
-            emit m_fitParameterModel->layoutChanged();
+//            emit m_fitParameterModel->layoutChanged();
         }
     }
     spanParameters();
@@ -186,7 +186,7 @@ void FitParametersWidget::onRemoveFromFitParAction()
         if(FitModelHelper::getFitParameterItem(m_jobItem->fitParameterContainerItem(), item)) {
             FitModelHelper::removeFromFitParameters(m_jobItem->fitParameterContainerItem(), item);
 //            m_fitParameterModel->removeFromFitParameters(item);
-            emit m_fitParameterModel->layoutChanged();
+//            emit m_fitParameterModel->layoutChanged();
         }
     }
 }
@@ -195,11 +195,11 @@ void FitParametersWidget::onRemoveFromFitParAction()
 void FitParametersWidget::onRemoveFitParAction()
 {
     FitParameterContainerItem *container = m_jobItem->fitParameterContainerItem();
-    m_treeView->setModel(0);
+//    m_treeView->setModel(0);
     foreach(FitParameterItem *item, getSelectedFitParameters()) {
         container->model()->removeRow(item->index().row(), item->index().parent());
     }
-    emit m_fitParameterModel->layoutChanged();
+//    emit m_fitParameterModel->layoutChanged();
 }
 
 //! Add all selected parameters to fitParameter with given index
@@ -209,7 +209,7 @@ void FitParametersWidget::onAddToFitParAction(int ipar)
     foreach(ParameterItem *item, getSelectedParameters()) {
         //m_fitParameterModel->addToFitParameter(item, fitParNames.at(ipar));
         FitModelHelper::addToFitParameter(m_jobItem->fitParameterContainerItem(), item, fitParNames.at(ipar));
-        emit m_fitParameterModel->layoutChanged();
+//        emit m_fitParameterModel->layoutChanged();
     }
     spanParameters();
 }

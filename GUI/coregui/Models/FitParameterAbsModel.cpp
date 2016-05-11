@@ -46,7 +46,6 @@ Qt::ItemFlags FitParameterAbsModel::flags(const QModelIndex &index) const
         returnVal |= Qt::ItemIsDropEnabled;
     }
     return returnVal;
-
 }
 
 QModelIndex FitParameterAbsModel::index(int row, int column, const QModelIndex &parent) const
@@ -69,6 +68,7 @@ QModelIndex FitParameterAbsModel::index(int row, int column, const QModelIndex &
     }
 
     else if(parent_item->modelType() == Constants::FitParameterType && column == 0) {
+//    else if(parent_item->modelType() == Constants::FitParameterType) {
         QVector<SessionItem *> links = parent_item->getItems(FitParameterItem::T_LINK);
 
         if(row < links.size()) {
@@ -139,15 +139,26 @@ int FitParameterAbsModel::columnCount(const QModelIndex &parent) const
 {
     if (parent.isValid() && parent.column() != 0)
         return 0;
-    return 5;
 
+    if(parent.isValid()) {
+        if(SessionItem *parentItem = itemForIndex(parent)) {
+            if(parentItem->modelType() == Constants::FitParameterType) {
+                return 1; // linkItem
+            }
+        }
+
+    }
+    return MAX_COLUMNS;
 }
 
 QVariant FitParameterAbsModel::data(const QModelIndex &index, int role) const
 {
-    if ( !index.isValid() || index.column() < 0 || index.column() >= 5) {
+    if ( !index.isValid() || index.column() < 0 || index.column() >= MAX_COLUMNS) {
         return QVariant();
     }
+//    if (role == Qt::DisplayRole || role == Qt::EditRole) {
+//    return QVariant("aaa");
+//    }
     if (SessionItem *item = itemForIndex(index)) {
         if (role == Qt::DisplayRole || role == Qt::EditRole) {
 //            qDebug() << "BBB" << index << role << item->modelType();

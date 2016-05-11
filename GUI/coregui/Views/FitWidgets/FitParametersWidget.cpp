@@ -48,6 +48,7 @@ FitParametersWidget::FitParametersWidget(QWidget *parent)
     init_actions();
 
     m_treeView->setSelectionMode(QAbstractItemView::ExtendedSelection);
+    m_treeView->setSelectionBehavior(QAbstractItemView::SelectRows);
 }
 
 FitParametersWidget::~FitParametersWidget()

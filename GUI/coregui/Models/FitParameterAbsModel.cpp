@@ -152,6 +152,28 @@ QVariant FitParameterAbsModel::data(const QModelIndex &index, int role) const
     return QVariant();
 }
 
+bool FitParameterAbsModel::setData(const QModelIndex &index, const QVariant &value, int role)
+{
+    if (!index.isValid())
+        return false;
+    if (SessionItem *item = itemForIndex(index)) {
+        if (role == Qt::EditRole) {
+            item->setValue(value);
+            emit dataChanged(index, index);
+            return true;
+        }
+    }
+    return false;
+}
+
+QVariant FitParameterAbsModel::headerData(int section, Qt::Orientation orientation, int role) const
+{
+    if (role == Qt::DisplayRole && orientation == Qt::Horizontal) {
+        return m_columnNames.value(section);
+    }
+    return QVariant();
+}
+
 
 void FitParameterAbsModel::onSourceDataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles)
 {
@@ -181,7 +203,7 @@ void FitParameterAbsModel::connectModel(QAbstractItemModel *sourceModel, bool is
     }
 }
 
-QModelIndex FitParameterAbsModel::indexOfItem(SessionItem *item, const QModelIndex &parentIndex) const
+QModelIndex FitParameterAbsModel::indexOfItem(SessionItem *item) const
 {
 
     if(SessionItem *parent_item = item->parent()) {
@@ -204,7 +226,6 @@ QModelIndex FitParameterAbsModel::indexOfItem(SessionItem *item, const QModelInd
             QVector<SessionItem *> links = parent_item->parent()->getItems(FitParameterItem::T_LINK);
             return createIndex(links.indexOf(parent_item), 0, item);
         }
-
 
     }
 

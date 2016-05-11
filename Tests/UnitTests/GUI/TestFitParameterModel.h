@@ -200,9 +200,11 @@ inline void TestFitParameterModel::test_addTwoFitParameterAndLinks()
     // adding fit parameters
     SessionItem *fitPar0 = source.insertNewItem(Constants::FitParameterType, container->index());
     SessionItem *link0 = source.insertNewItem(Constants::FitParameterLinkType, fitPar0->index());
+    Q_UNUSED(link0);
 
     SessionItem *fitPar1 = source.insertNewItem(Constants::FitParameterType, container->index());
     SessionItem *link1 = source.insertNewItem(Constants::FitParameterLinkType, fitPar1->index());
+    Q_UNUSED(link1);
 
     // checking index of root
     QCOMPARE(2, proxy.rowCount(QModelIndex()));

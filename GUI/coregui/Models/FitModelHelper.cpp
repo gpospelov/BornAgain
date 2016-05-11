@@ -31,9 +31,9 @@ void FitModelHelper::createFitParameter(FitParameterContainerItem *container, Pa
     fitPar->setDisplayName(QStringLiteral("par"));
     Q_ASSERT(fitPar);
 
-    SessionItem *link = fitPar->model()->insertNewItem(Constants::FitParameterLinkType, fitPar->index());
-    Q_ASSERT(link);
-    link->setItemValue(FitParameterLinkItem::P_LINK, "xxx");
+//    SessionItem *link = fitPar->model()->insertNewItem(Constants::FitParameterLinkType, fitPar->index());
+//    Q_ASSERT(link);
+//    link->setItemValue(FitParameterLinkItem::P_LINK, "xxx");
 //    SessionItem *link2 = fitPar->model()->insertNewItem(Constants::FitParameterLinkType, fitPar->index());
 //    link2->setItemValue(FitParameterLinkItem::P_LINK, "yyy");
 

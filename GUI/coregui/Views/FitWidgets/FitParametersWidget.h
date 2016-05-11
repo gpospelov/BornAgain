@@ -85,7 +85,9 @@ private:
     QAction *m_removeFitParAction;
     QSignalMapper *m_signalMapper;
 //    std::unique_ptr<FitParameterModel> m_fitParameterModel;
-    std::unique_ptr<FitParameterAbsModel> m_fitParameterModel;
+//    std::unique_ptr<FitParameterAbsModel> m_fitParameterModel;
+    FitParameterAbsModel* m_fitParameterModel;
+
 //    std::unique_ptr<FitParameterAbsModel> m_fitParameterAbsModel;
 };
 

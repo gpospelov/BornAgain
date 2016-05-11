@@ -53,6 +53,7 @@ private slots:
     void onSourceDataChanged(const QModelIndex & topLeft, const QModelIndex & bottomRight, const QVector<int> & roles);
     void onSourceRowsInserted(const QModelIndex & parent, int first, int last);
     void onSourceBeginRemoveRows(const QModelIndex & parent, int first, int last);
+    void onSourceAboutToBeReset();
 
 private:
     void connectModel(QAbstractItemModel *sourceModel, bool isConnect = true);

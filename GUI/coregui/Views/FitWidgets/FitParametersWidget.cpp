@@ -42,6 +42,7 @@ FitParametersWidget::FitParametersWidget(QWidget *parent)
     , m_removeFromFitParAction(0)
     , m_removeFitParAction(0)
     , m_signalMapper(0)
+    , m_fitParameterModel(0)
 {
     QVBoxLayout *layout = new QVBoxLayout;
     layout->addWidget(m_treeView);
@@ -195,11 +196,19 @@ void FitParametersWidget::onRemoveFromFitParAction()
 void FitParametersWidget::onRemoveFitParAction()
 {
     FitParameterContainerItem *container = m_jobItem->fitParameterContainerItem();
+
+    QVector<FitParameterItem *> itemsToRemove = getSelectedFitParameters();
 //    m_treeView->setModel(0);
-    foreach(FitParameterItem *item, getSelectedFitParameters()) {
+//    m_fitParameterModel.reset();
+
+    foreach(FitParameterItem *item, itemsToRemove) {
         container->model()->removeRow(item->index().row(), item->index().parent());
     }
+
+//    m_treeView->setModel(m_fitParameterModel.get());
 //    emit m_fitParameterModel->layoutChanged();
+    spanParameters();
+
 }
 
 //! Add all selected parameters to fitParameter with given index
@@ -307,8 +316,9 @@ void FitParametersWidget::init_job_item()
     FitModelHelper::createFitParameter(m_jobItem->fitParameterContainerItem());
 
 //    m_fitParameterModel.reset(new FitParameterModel(parsContainerItem));
-    m_fitParameterModel.reset(new FitParameterAbsModel(m_jobItem->fitParameterContainerItem()));
-    m_treeView->setModel(m_fitParameterModel.get());
+//    m_fitParameterModel.reset(new FitParameterAbsModel(m_jobItem->fitParameterContainerItem()));
+    m_fitParameterModel = new FitParameterAbsModel(m_jobItem->fitParameterContainerItem(), m_jobItem->fitParameterContainerItem()->model());
+    m_treeView->setModel(m_fitParameterModel);
 
 
 //    m_fitParameterModel->createFitParameter();
@@ -360,6 +370,7 @@ void FitParametersWidget::setActionsEnabled(bool value)
 {
     m_createFitParAction->setEnabled(value);
     m_removeFromFitParAction->setEnabled(value);
+    m_removeFitParAction->setEnabled(value);
 }
 
 //! Returns list of ParameterItem's currently selected in ModelTuningWidget

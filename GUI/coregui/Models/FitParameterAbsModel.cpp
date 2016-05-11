@@ -99,6 +99,8 @@ QModelIndex FitParameterAbsModel::parent(const QModelIndex &child) const
 
 int FitParameterAbsModel::rowCount(const QModelIndex &parent) const
 {
+    if(!m_root_item) return 0;
+
     if (parent.isValid() && parent.column() != 0)
         return 0;
     SessionItem *parent_item = itemForIndex(parent);
@@ -116,6 +118,8 @@ int FitParameterAbsModel::rowCount(const QModelIndex &parent) const
 
 int FitParameterAbsModel::columnCount(const QModelIndex &parent) const
 {
+    if(!m_root_item) return 0;
+
     if (parent.isValid() && parent.column() != 0)
         return 0;
 
@@ -198,6 +202,7 @@ void FitParameterAbsModel::onSourceRowsInserted(const QModelIndex &parent, int f
     JobModel *sourceModel = qobject_cast<JobModel *>(sender());
     Q_ASSERT(sourceModel);
 
+    return;
     if(SessionItem *sourceItem = sourceModel->itemForIndex(parent)) {
         if(sourceItem->modelType() == Constants::FitParameterContainerType) {
             beginInsertRows(QModelIndex(), first, first);
@@ -214,12 +219,37 @@ void FitParameterAbsModel::onSourceBeginRemoveRows(const QModelIndex &parent, in
     JobModel *sourceModel = qobject_cast<JobModel *>(sender());
     Q_ASSERT(sourceModel);
 
-    if(SessionItem *sourceItem = sourceModel->itemForIndex(parent)) {
-        qDebug() << sourceItem->modelType();
-        beginRemoveRows(QModelIndex(), first, first);
-        endRemoveRows();
-    }
+// Two alternative ways which seems to be working
+    // way #1
+    beginResetModel();
 
+    QModelIndex itemIndex = sourceModel->index(first, 0, parent);
+    if(sourceModel->itemForIndex(itemIndex) == m_root_item)
+        m_root_item = 0;
+
+
+    endResetModel();
+
+
+    return;
+
+    // way #2
+    if(SessionItem *sourceItem = sourceModel->itemForIndex(parent)) {
+        QModelIndex localIndex = indexOfItem(sourceItem);
+        beginRemoveRows(localIndex, 0, rowCount(localIndex));
+        endRemoveRows();
+
+        QModelIndex itemIndex = sourceModel->index(first, 0, parent);
+        if(sourceModel->itemForIndex(itemIndex) == m_root_item)
+            m_root_item = 0;
+
+    }
+}
+
+void FitParameterAbsModel::onSourceAboutToBeReset()
+{
+    beginResetModel();
+    endResetModel();
 }
 
 void FitParameterAbsModel::connectModel(QAbstractItemModel *sourceModel, bool isConnect)
@@ -228,20 +258,23 @@ void FitParameterAbsModel::connectModel(QAbstractItemModel *sourceModel, bool is
     if(isConnect) {
         connect(sourceModel, SIGNAL(dataChanged(QModelIndex,QModelIndex,QVector<int>)),
                 this, SLOT(onSourceDataChanged(QModelIndex,QModelIndex,QVector<int>)));
-        connect(sourceModel, SIGNAL(rowsInserted(QModelIndex,int,int)),
-                   this, SLOT(onSourceRowsInserted(QModelIndex,int,int)));
+//        connect(sourceModel, SIGNAL(rowsInserted(QModelIndex,int,int)),
+//                   this, SLOT(onSourceRowsInserted(QModelIndex,int,int)));
         connect(sourceModel, SIGNAL(rowsAboutToBeRemoved(QModelIndex,int,int)),
                    this, SLOT(onSourceBeginRemoveRows(QModelIndex,int,int)));
+        connect(sourceModel, SIGNAL(modelAboutToBeReset()), this, SLOT(onSourceAboutToBeReset()));
+
 
     }
 
     else {
         disconnect(sourceModel, SIGNAL(dataChanged(QModelIndex,QModelIndex,QVector<int>)),
                 this, SLOT(onSourceDataChanged(QModelIndex,QModelIndex,QVector<int>)));
-        disconnect(sourceModel, SIGNAL(rowsInserted(QModelIndex,int,int)),
-                   this, SLOT(onSourceRowsInserted(QModelIndex,int,int)));
+//        disconnect(sourceModel, SIGNAL(rowsInserted(QModelIndex,int,int)),
+//                   this, SLOT(onSourceRowsInserted(QModelIndex,int,int)));
         disconnect(sourceModel, SIGNAL(rowsAboutToBeRemoved(QModelIndex,int,int)),
                    this, SLOT(onSourceBeginRemoveRows(QModelIndex,int,int)));
+        disconnect(sourceModel, SIGNAL(modelAboutToBeReset()), this, SLOT(onSourceAboutToBeReset()));
     }
 }
 

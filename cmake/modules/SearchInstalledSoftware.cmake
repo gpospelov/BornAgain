@@ -16,7 +16,7 @@ set(Boost_USE_MULTITHREADED ON)
 set(Boost_USE_STATIC_RUNTIME OFF)
 add_definitions(-DBOOST_ALL_DYN_LINK) # line is needed for MSVC
 #add_definitions(-DBOOST_LIB_DIAGNOSTIC) # shows during compilation auto-linked libraries
-set(boost_libraries_required date_time chrono program_options iostreams system filesystem)
+set(boost_libraries_required date_time chrono program_options iostreams system filesystem regex)
 if(WIN32)
     set(boost_libraries_required ${boost_libraries_required} zlib bzip2)
 endif()

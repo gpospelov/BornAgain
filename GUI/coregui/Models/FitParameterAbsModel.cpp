@@ -32,6 +32,13 @@ FitParameterAbsModel::FitParameterAbsModel(FitParameterContainerItem *fitParCont
     m_columnNames.insert(ITEM_MAX, FitParameterItem::P_MAX);
 
     connectModel(fitParContainer->model());
+
+    m_root_item->mapper()->setOnItemDestroy(
+                [this](SessionItem *parent) {
+        Q_ASSERT(parent == m_root_item);
+        m_root_item = 0;
+    });
+
 }
 
 Qt::ItemFlags FitParameterAbsModel::flags(const QModelIndex &index) const
@@ -81,6 +88,8 @@ QModelIndex FitParameterAbsModel::index(int row, int column, const QModelIndex &
 
 QModelIndex FitParameterAbsModel::parent(const QModelIndex &child) const
 {
+    if(!m_root_item) return QModelIndex();
+
     if (!child.isValid())
         return QModelIndex();
 
@@ -140,6 +149,8 @@ int FitParameterAbsModel::columnCount(const QModelIndex &parent) const
 
 QVariant FitParameterAbsModel::data(const QModelIndex &index, int role) const
 {
+    if(!m_root_item) return QVariant();
+
     if ( !index.isValid() || index.column() < 0 || index.column() >= MAX_COLUMNS)
         return QVariant();
 
@@ -158,6 +169,8 @@ QVariant FitParameterAbsModel::data(const QModelIndex &index, int role) const
 
 bool FitParameterAbsModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
+    if(!m_root_item) return false;
+
     if (!index.isValid())
         return false;
     if (SessionItem *item = itemForIndex(index)) {
@@ -263,6 +276,7 @@ void FitParameterAbsModel::connectModel(QAbstractItemModel *sourceModel, bool is
         connect(sourceModel, SIGNAL(rowsAboutToBeRemoved(QModelIndex,int,int)),
                    this, SLOT(onSourceBeginRemoveRows(QModelIndex,int,int)));
         connect(sourceModel, SIGNAL(modelAboutToBeReset()), this, SLOT(onSourceAboutToBeReset()));
+
 
 
     }

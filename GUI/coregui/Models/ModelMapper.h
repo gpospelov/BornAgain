@@ -54,7 +54,11 @@ public:
 
     void setActive(bool state) {m_active = state;}
 
+    void setOnItemDestroy(std::function<void(SessionItem*)> f, const void *caller=0);
+
     void unsubscribe(const void *caller);
+
+    void callOnItemDestroy();
 
 signals:
     void valueChange();
@@ -64,6 +68,7 @@ signals:
     void childrenChange(SessionItem *item);
     void siblingsChange();
     void anyChildChange(SessionItem *item);
+    void itemDestroy(SessionItem *item);
 
 public slots:
     void onDataChanged(const QModelIndex & topLeft, const QModelIndex & bottomRight,
@@ -108,6 +113,7 @@ private:
     std::vector<call_item_t> m_onChildrenChange;
     std::vector<call_t> m_onSiblingsChange;
     std::vector<call_item_t> m_onAnyChildChange;
+    std::vector<call_item_t> m_onItemDestroy;
     QModelIndex m_aboutToDelete;
 };
 

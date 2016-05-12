@@ -72,6 +72,11 @@ void ModelMapper::setOnAnyChildChange(std::function<void (SessionItem *)> f, con
     m_onAnyChildChange.push_back(call_item_t(f, caller));
 }
 
+void ModelMapper::setOnItemDestroy(std::function<void (SessionItem *)> f, const void *caller)
+{
+    m_onItemDestroy.push_back(call_item_t(f, caller));
+}
+
 //! Cancells all subscribtion of given caller
 void ModelMapper::unsubscribe(const void *caller)
 {
@@ -82,6 +87,7 @@ void ModelMapper::unsubscribe(const void *caller)
     clean_container(m_onChildrenChange, caller);
     clean_container(m_onSiblingsChange, caller);
     clean_container(m_onAnyChildChange, caller);
+    clean_container(m_onItemDestroy, caller);
 }
 
 void ModelMapper::setModel(SessionModel *model)
@@ -128,7 +134,7 @@ void ModelMapper::callOnValueChange()
             f.first();
         }
     }
-    if(m_active) emit valueChange();
+//    if(m_active) emit valueChange();
 }
 
 void ModelMapper::callOnPropertyChange(const QString &name)
@@ -138,7 +144,7 @@ void ModelMapper::callOnPropertyChange(const QString &name)
             f.first(name);
         }
     }
-    if(m_active) emit propertyChange(name);
+//    if(m_active) emit propertyChange(name);
 }
 
 void ModelMapper::callOnChildPropertyChange(SessionItem *item, const QString &name)
@@ -148,7 +154,7 @@ void ModelMapper::callOnChildPropertyChange(SessionItem *item, const QString &na
             f.first(item, name);
         }
     }
-    if(m_active) emit childPropertyChange(item, name);
+//    if(m_active) emit childPropertyChange(item, name);
 }
 
 void ModelMapper::callOnParentChange(SessionItem *new_parent)
@@ -158,7 +164,7 @@ void ModelMapper::callOnParentChange(SessionItem *new_parent)
             f.first(new_parent);
         }
     }
-    if(m_active) emit parentChange(new_parent);
+//    if(m_active) emit parentChange(new_parent);
 }
 
 void ModelMapper::callOnChildrenChange(SessionItem *item)
@@ -168,7 +174,7 @@ void ModelMapper::callOnChildrenChange(SessionItem *item)
             f.first(item);
         }
     }
-    if(m_active) emit childrenChange(item);
+//    if(m_active) emit childrenChange(item);
 }
 
 void ModelMapper::callOnSiblingsChange()
@@ -178,7 +184,7 @@ void ModelMapper::callOnSiblingsChange()
             f.first();
         }
     }
-    if(m_active) emit siblingsChange();
+//    if(m_active) emit siblingsChange();
 }
 
 void ModelMapper::callOnAnyChildChange(SessionItem *item)
@@ -188,7 +194,18 @@ void ModelMapper::callOnAnyChildChange(SessionItem *item)
             f.first(item);
         }
     }
-    if(m_active) emit anyChildChange(item);
+//    if(m_active) emit anyChildChange(item);
+}
+
+//! Notifies subscribers if an item owning given mapper is about to be destroyed
+void ModelMapper::callOnItemDestroy()
+{
+    if (m_active && m_onItemDestroy.size() > 0) {
+        for (auto f : m_onItemDestroy) {
+            f.first(m_item);
+        }
+    }
+//    if(m_active) emit itemDestroy(new_parent);
 }
 
 void ModelMapper::clearMapper()
@@ -202,6 +219,7 @@ void ModelMapper::clearMapper()
     m_onChildrenChange.clear();
     m_onSiblingsChange.clear();
     m_onAnyChildChange.clear();
+    m_onItemDestroy.clear();
 }
 
 void ModelMapper::onDataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight,

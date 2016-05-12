@@ -37,6 +37,7 @@
 #include <QPersistentModelIndex>
 #include "ModelMapper.h"
 #include "DetectorItems.h"
+#include "SessionModelDelegate.h"
 
 TestView::TestView(MainWindow *mainWindow)
     : QWidget(mainWindow)
@@ -54,9 +55,9 @@ void TestView::test_sessionModel()
     QVBoxLayout *layout = new QVBoxLayout;
     QTabWidget *tabs = new QTabWidget;
 
-    addModelToTabs(tabs, m_mainWindow->instrumentModel());
-    addModelToTabs(tabs, m_mainWindow->sampleModel());
-    addModelToTabs(tabs, m_mainWindow->materialModel());
+//    addModelToTabs(tabs, m_mainWindow->instrumentModel());
+//    addModelToTabs(tabs, m_mainWindow->sampleModel());
+//    addModelToTabs(tabs, m_mainWindow->materialModel());
     addModelToTabs(tabs, m_mainWindow->jobModel());
 
     TestProxyModel *testModel = new TestProxyModel(this);
@@ -91,7 +92,11 @@ void TestView::test_MaterialEditor()
 void TestView::addModelToTabs(QTabWidget *tabs, QAbstractItemModel *model)
 {
     QTreeView *view = new QTreeView;
+    SessionModelDelegate *delegate = new SessionModelDelegate(this);
+
     view->setModel(model);
+    view->setItemDelegate(delegate);
+
     view->expandAll();
     view->resizeColumnToContents(0);
     view->resizeColumnToContents(1);

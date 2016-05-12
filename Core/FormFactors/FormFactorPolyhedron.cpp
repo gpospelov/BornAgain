@@ -43,7 +43,7 @@ static double eps(2e-16);
 extern Diagnosis diagnosis;
 #endif
 
-double PolyhedralFace::qpa_limit_series = 1e-3;
+double PolyhedralFace::qpa_limit_series = 1e-30;
 int PolyhedralFace::n_limit_series = 20;
 
 double FormFactorPolyhedron::q_limit_series = 1e-5;
@@ -278,11 +278,20 @@ complex_t PolyhedralFace::ff( const cvector_t q, const bool sym_Ci ) const
         if( sym_S2 )
             prefac *= sym_Ci ? -4.*sin(qr_perp) : 2.*I*exp(I*qr_perp);
         complex_t sum = 0;
-        for( const PolyhedralEdge& e: edges ) {
+        complex_t vfacsum = 0;
+        for( size_t i=0; i<edges.size(); ++i ) {
+            const PolyhedralEdge& e = edges[i];
             complex_t qE = e.qE(q);
             complex_t qR = e.qR(q);
             complex_t Rfac = sym_S2 ? sin(e.qR(qpa)) : ( sym_Ci ? 2.*cos(qR) : exp(I*qR) );
-            sum += prevec.dot(e.E()) * MathFunctions::sinc(qE) * Rfac;
+            complex_t vfac;
+            if( sym_S2 || i<edges.size()-1 ) {
+                vfac = prevec.dot(e.E());
+                vfacsum += vfac;
+            } else {
+                vfac = - vfacsum; // to improve numeric accuracy: qcE_J = - sum_{j=0}^{J-1} qcE_j
+            }
+            sum += vfac * MathFunctions::sinc(qE) * Rfac;
         }
         return prefac * sum / ( I*qpa.mag2() );
     }

@@ -26,7 +26,7 @@ protected:
     {
         cvector_t q = eps*qdir;
         complex_t ff = p->evaluate_for_q( q );
-        //std::cout<<"q="<<q<<" -> "<<std::setprecision(16)<<" ff0="<<V<<", ff ="<<ff<<"\n";
+        std::cout<<"q="<<q<<" -> "<<std::setprecision(16)<<" ff0="<<V<<", ff ="<<ff<<"\n";
         EXPECT_LE( real(ff), V*(1+1e-15) );
         if ( R*R*R<V/20 || R*R*R>20*V )
             return;

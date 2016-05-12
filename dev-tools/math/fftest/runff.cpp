@@ -26,7 +26,7 @@ static double eps(2e-16);
 
 Diagnosis diagnosis;
 
-int nshape = 12;
+int nshape = 13;
 
 extern int n_limit;
 extern double q_limit_series;
@@ -49,21 +49,23 @@ IFormFactorBorn* make_particle( int ishape )
     } else if( ishape==5 ) { // tetrahedral frustum, flat one
         double alpha = 80 * Units::degree;
         return new FormFactorTetrahedron(1., 0.1*tan(alpha)/2/sqrt(3), alpha);
-    } else if( ishape==6 ) {
+    } else if( ishape==6 ) { // tetrahedral frustum as in BasicTest
+        return new FormFactorTetrahedron(16., 4., .8);
+    } else if( ishape==7 ) {
         double alpha = 72 * Units::degree;
         return new FormFactorCone6(10., 10., alpha);
-    } else if( ishape==7 ) {
-        return new FormFactorPyramid(1.5, .24, 1.);
     } else if( ishape==8 ) {
-        return new FormFactorAnisoPyramid(1.5, 1.5, .24, 1.);
+        return new FormFactorPyramid(1.5, .24, 1.);
     } else if( ishape==9 ) {
-        return new FormFactorPrism3(1.2, 1.);
+        return new FormFactorAnisoPyramid(1.5, 1.5, .24, 1.);
     } else if( ishape==10) {
-        return new FormFactorPrism6(1., 1.);
+        return new FormFactorPrism3(1.2, 1.);
     } else if( ishape==11) {
+        return new FormFactorPrism6(1., 1.);
+    } else if( ishape==12) {
         return new FormFactorTruncatedCube(4., 1.);
     } else if( ishape==12 ) {
-        double alpha = 72 * Units::degree;
+        double alpha = 73 * Units::degree;
         return new FormFactorCuboctahedron(1., 1., .8, alpha);
     } else if( ishape==90 ) {
         return new FormFactorTriangle(1.);

@@ -27,7 +27,7 @@ protected:
         cvector_t q = eps*qdir;
         complex_t ff = p->evaluate_for_q( q );
         std::cout<<"q="<<q<<" -> "<<std::setprecision(16)<<" ff0="<<V<<", ff ="<<ff<<"\n";
-        EXPECT_LE( real(ff), V*(1+1e-15) );
+        EXPECT_LE( real(ff), V*(1+1e-7) );
         if ( R*R*R<V/20 || R*R*R>20*V )
             return;
         EXPECT_GT( real(ff), V*(1-2*eps*R) );
@@ -367,13 +367,13 @@ TEST_F(FormFactorBasicTest, TruncatedSphere)
 
 TEST_F(FormFactorBasicTest, TruncatedSpheroid)
 {
-    double height = 5.;
     double radius = 3.;
+    double height = 5.;
     double flattening = 1.5;
     double volume = Units::PI*radius*height*height/flattening*
             (1.-height/(3.*flattening*radius));
 
-    FormFactorTruncatedSpheroid trspheroid(radius, height,flattening);
+    FormFactorTruncatedSpheroid trspheroid(radius, height, flattening);
 
     EXPECT_EQ(BornAgain::FFTruncatedSpheroidType, trspheroid.getName());
     EXPECT_EQ(5., trspheroid.getHeight());
@@ -385,8 +385,8 @@ TEST_F(FormFactorBasicTest, TruncatedSpheroid)
 
 TEST_F(FormFactorBasicTest, Tetrahedron)
 {
-    double height = 4.;
     double base_edge = 16.;
+    double height = 4.;
     double alpha = 0.8;
     double tga = std::tan(alpha);
     double sqrt3H2divLtga = std::sqrt(3.)*2.*height/base_edge/tga;

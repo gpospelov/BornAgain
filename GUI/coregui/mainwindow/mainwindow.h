@@ -31,6 +31,7 @@ class InstrumentView;
 class SampleView;
 class SimulationView;
 class JobView;
+class SessionModelView;
 class ObsoleteFitView;
 
 class MaterialModel;
@@ -52,7 +53,7 @@ class BA_CORE_API_ MainWindow : public Manhattan::FancyMainWindow
     Q_OBJECT
 
 public:
-    enum ETabViewId {WELCOME, INSTRUMENT, SAMPLE, SIMULATION, JOB, FIT, TESTVIEW};
+    enum ETabViewId {WELCOME, INSTRUMENT, SAMPLE, SIMULATION, JOB, MODELVIEW, TESTVIEW};
 
     explicit MainWindow(QWidget *parent = 0);
 
@@ -103,6 +104,7 @@ private:
     SampleView *m_sampleView;
     SimulationView *m_simulationView;
     JobView *m_jobView;
+    SessionModelView *m_sessionModelView;
     ObsoleteFitView *m_fitView;
 };
 

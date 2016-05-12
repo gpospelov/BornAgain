@@ -39,5 +39,6 @@
         <file>images/toolbar32dark_remove.svg</file>
         <file>images/statusbar_dockmenu.svg</file>
         <file>images/statusbar_joblist.svg</file>
+        <file>images/main_sessionmodel.svg</file>
     </qresource>
 </RCC>

@@ -39,6 +39,7 @@
 #include "GUIHelpers.h"
 #include "UpdateNotifier.h"
 #include "TestFitWidgets.h"
+#include "SessionModelView.h"
 
 #include <QApplication>
 #include <QStatusBar>
@@ -62,6 +63,7 @@ MainWindow::MainWindow(QWidget *parent)
     , m_sampleView(0)
     , m_simulationView(0)
     , m_jobView(0)
+    , m_sessionModelView(0)
     , m_fitView(0)
 {
     initApplication();
@@ -231,7 +233,8 @@ void MainWindow::initViews()
     m_simulationView = new SimulationView(this);
 
     m_jobView = new JobView(this);
-    TestView *testView = new TestView(this);
+//    TestView *testView = new TestView(this);
+    m_sessionModelView = new SessionModelView(this);
     TestFitWidgets *testFitWidgets = new TestFitWidgets(this);
     //m_fitView = new FitView(this);
 
@@ -241,7 +244,7 @@ void MainWindow::initViews()
     m_tabWidget->insertTab(SIMULATION, m_simulationView, QIcon(":/images/main_simulation.png"), "Simulation");
     m_tabWidget->insertTab(JOB, m_jobView, QIcon(":/images/main_jobqueue.png"), "Jobs");
     //m_tabWidget->insertTab(FIT, m_fitView, QIcon(":/images/main_jobqueue.png"), "Fit");
-    m_tabWidget->insertTab(FIT, testView, QIcon(":/images/main_jobqueue.png"), "Test");
+    m_tabWidget->insertTab(MODELVIEW, m_sessionModelView, QIcon(":/images/main_sessionmodel.svg"), "Models");
     m_tabWidget->insertTab(TESTVIEW, testFitWidgets, QIcon(":/images/main_jobqueue.png"), "TestView");
 
     m_tabWidget->setCurrentIndex(TESTVIEW);

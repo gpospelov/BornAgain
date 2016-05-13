@@ -285,7 +285,7 @@ complex_t PolyhedralFace::ff( const cvector_t q, const bool sym_Ci ) const
             complex_t qR = e.qR(q);
             complex_t Rfac = sym_S2 ? sin(e.qR(qpa)) : ( sym_Ci ? 2.*cos(qR) : exp(I*qR) );
             complex_t vfac;
-            if( 0/*DEBUG*/||sym_S2 || i<edges.size()-1 ) {
+            if( sym_S2 || i<edges.size()-1 ) {
                 vfac = prevec.dot(e.E());
                 vfacsum += vfac;
             } else {
@@ -456,9 +456,7 @@ complex_t FormFactorPolyhedron::evaluate_centered( const cvector_t q ) const
             if ( std::abs(qn)<eps*q.mag() )
                 continue;
             sum += qn * Gk.ff(q, m_sym_Ci );
-            std::cout<<std::setprecision(16)<<"DEBUG "<<qn<<" "<<Gk.ff(q, m_sym_Ci )<<"\n";
         }
-        std::cout<<std::setprecision(16)<<"=>SUM "<<sum<<" "<<sum / (I * q.mag2())<<"\n";
         return sum / (I * q.mag2());
     }
 }

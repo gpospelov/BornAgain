@@ -18,12 +18,12 @@
 #include "MathFunctions.h"
 
 const FormFactorPolyhedron::Topology FormFactorAnisoPyramid::topology = {
-    { { 3, 2, 1, 0 }, false },
+    { { 3, 2, 1, 0 }, true },
     { { 0, 1, 5, 4 }, false },
     { { 1, 2, 6, 5 }, false },
     { { 2, 3, 7, 6 }, false },
     { { 3, 0, 4, 7 }, false },
-    { { 4, 5, 6, 7 }, false }
+    { { 4, 5, 6, 7 }, true }
 };
 
 //! @brief Pyramid constructor

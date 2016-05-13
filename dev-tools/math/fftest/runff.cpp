@@ -64,7 +64,7 @@ IFormFactorBorn* make_particle( int ishape )
         return new FormFactorPrism6(1., 1.);
     } else if( ishape==12) {
         return new FormFactorTruncatedCube(4., 1.);
-    } else if( ishape==12 ) {
+    } else if( ishape==13 ) {
         double alpha = 73 * Units::degree;
         return new FormFactorCuboctahedron(1., 1., .8, alpha);
     } else if( ishape==90 ) {
@@ -104,7 +104,7 @@ void bisect(
 
 //! Computes form factor, and prints result according to outfilter.
 
-void run(const IFormFactorBorn* polyh, const int ishape, const cvector_t q, int outfilter )
+void run( const IFormFactorBorn* polyh, int ishape, cvector_t q, int outfilter )
 {
     complex_t ret = polyh->evaluate_for_q(q);
     cout<<std::scientific<<std::setprecision(16)<<std::setfill('0');
@@ -118,44 +118,43 @@ void run(const IFormFactorBorn* polyh, const int ishape, const cvector_t q, int 
     cout<<"\n";
 }
 
+//! Compute a form factor with modified control parameter settings
+
+complex_t ff_modified( cvector_t q, const IFormFactorBorn* polyh, bool expand_qpa, bool expand_q )
+{
+    PolyhedralFace::setLimits( expand_qpa ? 1e99 : 1e-99, 20 );
+    FormFactorPolyhedron::setLimits( expand_q ? 1e99 : 1e-99, 20 );
+    return polyh->evaluate_for_q( q );
+}
 
 void test_matching( int ishape, const vector<vector<cvector_t>>& scans )
 {
+    cout<<ishape<<"\n";
+    cerr<<"shape "<<ishape<<" ...\n";
     IFormFactorBorn* polyh( make_particle( ishape ) );
-    int n_mag = 11;
-    double mag_i = 1e-4;
+    int n_mag = 81;
+    double mag_i = 1e-7;
     double mag_f = 1e-2;
     for( int i=1; i<n_mag; ++i ) {
         double mag = mag_i*pow(mag_f/mag_i,i/(n_mag-1.));
-        double res[3];
-        res[0] = res[1] = res[2] = 0;
+        double res = 0;
         for( const vector<cvector_t>& q_scan: scans ) {
-            complex_t ff[3];
             assert( q_scan.size()== 1 );
             const cvector_t q = mag * q_scan[0];
-            FormFactorPolyhedron::setLimits( 1e99, 20 );
-            PolyhedralFace::setLimits( 1e99, 20 );
-            ff[0] = polyh->evaluate_for_q( q );
-            FormFactorPolyhedron::setLimits( 1e-99, 20 );
-            PolyhedralFace::setLimits( 1e99, 20 );
-            ff[1] = polyh->evaluate_for_q( q );
-            FormFactorPolyhedron::setLimits( 1e-99, 20 );
-            PolyhedralFace::setLimits( 1e-99, 20 );
-            ff[2] = polyh->evaluate_for_q( q );
-            double dev[3];
-            dev[2] = std::abs(ff[0]-ff[1])*2/(std::abs(ff[0])+std::abs(ff[1]));
-            dev[1] = std::abs(ff[0]-ff[2])*2/(std::abs(ff[0])+std::abs(ff[2]));
-            dev[0] = std::abs(ff[1]-ff[2])*2/(std::abs(ff[1])+std::abs(ff[2]));
-            for( int m=0; m<3; ++m ) {
-                res[m] = std::max(res[m], dev[m] );
-                if( dev[m]>1e-4 )
-                    cout<<ishape<<" "<<mag<<" "<<std::setprecision(8)<<
-                        dev[0]<<" "<<dev[1]<<" "<<dev[2]<<" "<<
-                        ff[0]<<" "<<ff[1]<<" "<<ff[2]<<" @ "<<q<<"\n";
-            }
+            complex_t ff[2];
+
+            ff[0] = ff_modified( q, polyh, false, false );
+            ff[1] = ff_modified( q, polyh, true, false );
+
+            double dev = std::abs(ff[0]-ff[1])*2/(std::abs(ff[0])+std::abs(ff[1]));
+            res = std::max(res, dev );
+            if( 0 && dev>1e-4 )
+                cerr<<ishape<<" "<<mag<<" "<<std::setprecision(16)<<
+                    dev<<" "<<ff[0]<<" "<<ff[1]<<" "<<ff[2]<<" @ "<<q<<"\n";
         }
-        cout<<ishape<<" "<<mag<<" "<<std::setprecision(8)<<res[0]<<" "<<res[1]<<" "<<res[2]<<"\n";
+        cout<<" "<<mag<<" "<<std::setprecision(8)<<res<<"\n";
     }
+    cout<<"\n";
 }
 
 double test_continuity( int ishape, const vector<vector<cvector_t>>& scans )

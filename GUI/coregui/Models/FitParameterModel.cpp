@@ -27,7 +27,7 @@ FitParameterModel::FitParameterModel(SessionItem *fitParContainer, QObject *pare
 {
     setRootItem(fitParContainer);
     m_columnNames.insert(0, "Name");
-    m_columnNames.insert(1, FitParameterItem::P_USE);
+    m_columnNames.insert(1, FitParameterItem::P_TYPE);
     m_columnNames.insert(3, FitParameterItem::P_MIN);
     m_columnNames.insert(2, FitParameterItem::P_START_VALUE);
     m_columnNames.insert(4, FitParameterItem::P_MAX);

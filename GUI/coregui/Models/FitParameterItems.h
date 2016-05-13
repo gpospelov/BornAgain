@@ -31,7 +31,7 @@ class BA_CORE_API_ FitParameterItem : public SessionItem
 {
 
 public:
-    static const QString P_USE;
+    static const QString P_TYPE;
     static const QString P_START_VALUE;
     static const QString P_MIN;
     static const QString P_MAX;

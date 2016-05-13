@@ -20,6 +20,23 @@
 #include "SessionModel.h"
 #include <QDebug>
 
+namespace
+{
+
+QStringList getFitParTypeTooltips()
+{
+    QStringList result;
+    result.append(QStringLiteral("Fixed at given value"));
+    result.append(QStringLiteral("Limited in the range [min,max]"));
+    result.append(QStringLiteral("Limited at lower bound [min, inf]"));
+    result.append(QStringLiteral("Limited at upper bound [-inf, max]"));
+    result.append(QStringLiteral("No limits to parameter value"));
+    return result;
+}
+
+}
+
+
 // ----------------------------------------------------------------------------
 
 const QString FitParameterLinkItem::P_LINK = "Link";
@@ -34,8 +51,8 @@ FitParameterLinkItem::FitParameterLinkItem()
 
 // ----------------------------------------------------------------------------
 
-const QString FitParameterItem::P_USE = "Use";
-const QString FitParameterItem::P_START_VALUE = "Starting Value";
+const QString FitParameterItem::P_TYPE = "Type";
+const QString FitParameterItem::P_START_VALUE = "Value";
 const QString FitParameterItem::P_MIN = "Min";
 const QString FitParameterItem::P_MAX = "Max";
 const QString FitParameterItem::T_LINK = "Link tag";
@@ -43,7 +60,13 @@ const QString FitParameterItem::T_LINK = "Link tag";
 FitParameterItem::FitParameterItem()
     : SessionItem(Constants::FitParameterType)
 {
-    addProperty(P_USE, true);
+    ComboProperty partype;
+    partype << Constants::FITPAR_FIXED << Constants::FITPAR_LIMITED
+            << Constants::FITPAR_LOWERLIMITED
+            << Constants::FITPAR_UPPERLIMITED << Constants::FITPAR_FREE;
+    partype.setToolTips(getFitParTypeTooltips());
+
+    addProperty(P_TYPE, partype.getVariant());
     addProperty(P_START_VALUE, 0.0);
     addProperty(P_MIN, 0.0);
     addProperty(P_MAX, 0.0);

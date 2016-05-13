@@ -26,7 +26,7 @@ FitParameterAbsModel::FitParameterAbsModel(FitParameterContainerItem *fitParCont
     , m_root_item(fitParContainer)
 {
     m_columnNames.insert(ITEM_NAME, "Name");
-    m_columnNames.insert(ITEM_USE, FitParameterItem::P_USE);
+    m_columnNames.insert(ITEM_USE, FitParameterItem::P_TYPE);
     m_columnNames.insert(ITEM_MIN, FitParameterItem::P_MIN);
     m_columnNames.insert(ITEM_START, FitParameterItem::P_START_VALUE);
     m_columnNames.insert(ITEM_MAX, FitParameterItem::P_MAX);

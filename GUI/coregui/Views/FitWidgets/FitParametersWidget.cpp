@@ -26,6 +26,7 @@
 #include "FitParameterProxyModel.h"
 #include "FitParameterAbsModel.h"
 #include "FitModelHelper.h"
+#include "SessionModelDelegate.h"
 #include <QMenu>
 #include <QSignalMapper>
 #include <QTreeView>
@@ -43,6 +44,7 @@ FitParametersWidget::FitParametersWidget(QWidget *parent)
     , m_removeFitParAction(0)
     , m_signalMapper(0)
     , m_fitParameterModel(0)
+    , m_delegate(new SessionModelDelegate(this))
 {
     QVBoxLayout *layout = new QVBoxLayout;
     layout->addWidget(m_treeView);
@@ -52,6 +54,7 @@ FitParametersWidget::FitParametersWidget(QWidget *parent)
     m_treeView->setSelectionMode(QAbstractItemView::ExtendedSelection);
     m_treeView->setSelectionBehavior(QAbstractItemView::SelectRows);
     m_treeView->setContextMenuPolicy(Qt::CustomContextMenu);
+    m_treeView->setItemDelegate(m_delegate);
     connect(m_treeView, SIGNAL(customContextMenuRequested(const QPoint &)),
             this, SLOT(onFitParameterTreeContextMenu(const QPoint &)));
 

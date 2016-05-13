@@ -217,6 +217,12 @@ const ModelType ALIGNMENT_TO_DIRECT_BEAM = "Perpendicular to direct beam";
 const ModelType ALIGNMENT_TO_REFLECTED_BEAM = "Perpendicular to reflected beam";
 const ModelType ALIGNMENT_TO_REFLECTED_BEAM_DPOS = "Perpendicular to reflected beam (dpos)";
 
+const ModelType FITPAR_FIXED = "fixed";
+const ModelType FITPAR_LIMITED = "limited";
+const ModelType FITPAR_LOWERLIMITED = "lower limited";
+const ModelType FITPAR_UPPERLIMITED = "upper limited";
+const ModelType FITPAR_FREE = "free";
+
 }
 
 #endif

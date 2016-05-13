@@ -172,13 +172,22 @@ void ActionManager::aboutToShowRecentProjects()
 
 void ActionManager::aboutToShowSettings()
 {
-    m_settingsMenu->clear();
+    m_settingsMenu->clear();    
     QSettings settings;
+
     settings.beginGroup(Constants::S_UPDATES);
     QAction *action = m_settingsMenu->addAction(tr("Check for Updates"));
     action->setCheckable(true);
     action->setChecked(settings.value(Constants::S_CHECKFORUPDATES, false).toBool());
     connect(action, SIGNAL(toggled(bool)), this, SLOT(toggleCheckForUpdates(bool)));
+    settings.endGroup();
+
+    settings.beginGroup(Constants::S_SESSIONMODELVIEW);
+    action = m_settingsMenu->addAction(tr("Model tech view"));
+    action->setToolTip("Additional developer's view will appear in left control tab bar");
+    action->setCheckable(true);
+    action->setChecked(settings.value(Constants::S_VIEWISACTIVE, false).toBool());
+    connect(action, SIGNAL(toggled(bool)), this, SLOT(setSessionModelViewActive(bool)));
     settings.endGroup();
 }
 
@@ -189,6 +198,15 @@ void ActionManager::toggleCheckForUpdates(bool status)
     settings.setValue(Constants::S_CHECKFORUPDATES, status);
     settings.endGroup();
     m_mainWindow->getUpdateNotifier()->checkForUpdates();
+}
+
+void ActionManager::setSessionModelViewActive(bool status)
+{
+    QSettings settings;
+    settings.beginGroup(Constants::S_SESSIONMODELVIEW);
+    settings.setValue(Constants::S_VIEWISACTIVE, status);
+    settings.endGroup();
+    m_mainWindow->onSessionModelViewActive(status);
 }
 
 

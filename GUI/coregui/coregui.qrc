@@ -40,5 +40,6 @@
         <file>images/statusbar_dockmenu.svg</file>
         <file>images/statusbar_joblist.svg</file>
         <file>images/main_sessionmodel.svg</file>
+        <file>images/toolbar_expand_collapse_tree.svg</file>
     </qresource>
 </RCC>

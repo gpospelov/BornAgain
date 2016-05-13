@@ -33,7 +33,7 @@ InfoToolBar::InfoToolBar(QWidget *parent)
     setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
     setMinimumSize(25, 25);
 
-    m_expandButton->setIcon(QIcon(":/images/darkarrowup.png"));
+    m_expandButton->setIcon(QIcon(":/images/toolbar_expand_collapse_tree.svg"));
     m_expandButton->setToolTip("Collapse/expand of Python script viewer");
     connect(m_expandButton, SIGNAL(clicked()), this, SLOT(onExpandButtonClicked()));
 

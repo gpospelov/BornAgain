@@ -53,7 +53,7 @@ class BA_CORE_API_ MainWindow : public Manhattan::FancyMainWindow
     Q_OBJECT
 
 public:
-    enum ETabViewId {WELCOME, INSTRUMENT, SAMPLE, SIMULATION, JOB, MODELVIEW, TESTVIEW};
+    enum ETabViewId {WELCOME, INSTRUMENT, SAMPLE, SIMULATION, JOB, TESTVIEW, MAXVIEWCOUNT};
 
     explicit MainWindow(QWidget *parent = 0);
 
@@ -77,6 +77,7 @@ public slots:
     void openRecentProject();
     void onRunSimulationShortcut();
     void onAboutApplication();
+    void onSessionModelViewActive(bool isActive);
 
 protected:
     virtual void closeEvent(QCloseEvent *event);

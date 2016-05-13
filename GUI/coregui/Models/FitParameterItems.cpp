@@ -69,9 +69,47 @@ FitParameterItem::FitParameterItem()
     addProperty(P_TYPE, partype.getVariant());
     addProperty(P_START_VALUE, 0.0);
     addProperty(P_MIN, 0.0);
-    addProperty(P_MAX, 0.0);
+    addProperty(P_MAX, 0.0)->setEnabled(false);
     registerTag(T_LINK, 0, -1, QStringList() << Constants::FitParameterLinkType);
     setDefaultTag(T_LINK);
+
+
+    mapper()->setOnPropertyChange(
+                [this](const QString &name) {
+        if(name == P_TYPE) {
+            ComboProperty partype = getItemValue(P_TYPE).value<ComboProperty>();
+            if(partype.getValue() == Constants::FITPAR_FIXED) {
+                if(isTag(P_MIN)) {
+                    getItem(P_MIN)->setEditable(false);
+                }
+            } else if(partype.getValue() == Constants::FITPAR_LIMITED) {
+                if(isTag(P_MIN)) {
+                    getItem(P_MIN)->setEditable(true);
+                }
+            }
+
+            else if(partype.getValue() == Constants::FITPAR_LIMITED) {
+                if(isTag(P_MIN)) {
+                    getItem(P_MIN)->setEditable(true);
+                }
+            }
+
+            else if(partype.getValue() == Constants::FITPAR_LOWERLIMITED) {
+                if(isTag(P_MIN)) {
+                    getItem(P_MIN)->setEditable(true);
+                }
+            }
+
+            else if(partype.getValue() == Constants::FITPAR_UPPERLIMITED) {
+                if(isTag(P_MIN)) {
+                    getItem(P_MIN)->setEditable(false);
+                }
+            }
+        }
+
+
+    });
+
 }
 
 // ----------------------------------------------------------------------------

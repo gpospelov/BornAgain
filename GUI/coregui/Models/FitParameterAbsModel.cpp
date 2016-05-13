@@ -28,8 +28,8 @@ FitParameterAbsModel::FitParameterAbsModel(FitParameterContainerItem *fitParCont
     m_columnNames.insert(ITEM_NAME, "Name");
     m_columnNames.insert(ITEM_USE, FitParameterItem::P_TYPE);
     m_columnNames.insert(ITEM_MIN, FitParameterItem::P_MIN);
-    m_columnNames.insert(ITEM_START, FitParameterItem::P_START_VALUE);
     m_columnNames.insert(ITEM_MAX, FitParameterItem::P_MAX);
+    m_columnNames.insert(ITEM_START, FitParameterItem::P_START_VALUE);
 
     connectModel(fitParContainer->model());
 
@@ -43,16 +43,25 @@ FitParameterAbsModel::FitParameterAbsModel(FitParameterContainerItem *fitParCont
 
 Qt::ItemFlags FitParameterAbsModel::flags(const QModelIndex &index) const
 {
+    if(!m_root_item) return Qt::NoItemFlags;
+
     Qt::ItemFlags returnVal = Qt::ItemIsEnabled | Qt::ItemIsSelectable;
-    if (index.isValid() && index.parent() == QModelIndex()) {
-        if (index.column() == 0)
-            returnVal |= Qt::ItemIsDropEnabled;
-        else
-            returnVal |= Qt::ItemIsEditable;
-    } else if (!index.isValid()) {
-        returnVal |= Qt::ItemIsDropEnabled;
+    if(SessionItem *item = itemForIndex(index)) {
+//        if(item->isEnabled()) returnVal |= Qt::ItemIsEnabled;
+        if(item->isEditable()) returnVal |= Qt::ItemIsEditable;
     }
     return returnVal;
+
+//    Qt::ItemFlags returnVal = Qt::ItemIsEnabled | Qt::ItemIsSelectable;
+//    if (index.isValid() && index.parent() == QModelIndex()) {
+//        if (index.column() == 0)
+//            returnVal |= Qt::ItemIsDropEnabled;
+//        else
+//            returnVal |= Qt::ItemIsEditable;
+//    } else if (!index.isValid()) {
+//        returnVal |= Qt::ItemIsDropEnabled;
+//    }
+//    return returnVal;
 }
 
 QModelIndex FitParameterAbsModel::index(int row, int column, const QModelIndex &parent) const

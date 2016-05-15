@@ -27,11 +27,12 @@ protected:
         cvector_t q = eps*qdir;
         complex_t ff = p->evaluate_for_q( q );
         //std::cout<<"q="<<q<<" -> "<<std::setprecision(16)<<" ff0="<<V<<", ff ="<<ff<<"\n";
-        EXPECT_LE( real(ff), V*(1+1e-15) );
+        EXPECT_LE( real(ff), V*(1+3e-16) );
         if ( R*R*R<V/20 || R*R*R>20*V )
+            // very excentric shape, the following tests cannot be expected to pass
             return;
-        EXPECT_GT( real(ff), V*(1-2*eps*R) );
-        //EXPECT_LT( std::abs(imag(ff)), 10*eps*eps*V*R*R );
+        EXPECT_GT( real(ff), V*(1-std::max(3e-16,2*eps*R*eps*R)) );
+        EXPECT_LT( std::abs(imag(ff)), 2*eps*V*R );
     }
     void test_small_q( const IFormFactorBorn* p, complex_t x, complex_t y, complex_t z )
     {
@@ -46,7 +47,7 @@ protected:
         complex_t ff0 = p->evaluate_for_q( cvector_t(0.,0.,0.) );
         EXPECT_EQ( imag(ff0), 0. );
         V = real(ff0);
-        EXPECT_NEAR( p->getVolume(), V, 1e-15*V );
+        EXPECT_NEAR( p->getVolume(), V, 3e-16*V );
 
         R = p->getRadius();
         if ( R*R*R<V/20 || R*R*R>20*V ) {

@@ -273,28 +273,38 @@ complex_t PolyhedralFace::ff( const cvector_t q, const bool sym_Ci ) const
 #endif
     } else {
         // direct evaluation of analytic formula
-        cvector_t prevec = m_normal.cross( qpa ); // complex conjugation will take place in .dot
-        complex_t prefac = 2.;
+        complex_t prefac;
         if( sym_S2 )
-            prefac *= sym_Ci ? -4.*sin(qr_perp) : 2.*I*exp(I*qr_perp);
-        complex_t sum = 0;
-        complex_t vfacsum = 0;
-        for( size_t i=0; i<edges.size(); ++i ) {
-            const PolyhedralEdge& e = edges[i];
-            complex_t qE = e.qE(q);
-            complex_t qR = e.qR(q);
-            complex_t Rfac = sym_S2 ? sin(e.qR(qpa)) : ( sym_Ci ? 2.*cos(qR) : exp(I*qR) );
-            complex_t vfac;
-            if( sym_S2 || i<edges.size()-1 ) {
-                vfac = prevec.dot(e.E());
-                vfacsum += vfac;
-            } else {
-                vfac = - vfacsum; // to improve numeric accuracy: qcE_J = - sum_{j=0}^{J-1} qcE_j
-            }
-            sum += vfac * MathFunctions::sinc(qE) * Rfac;
-        }
-        return prefac * sum / ( I*qpa.mag2() );
+            prefac = sym_Ci ? -8.*sin(qr_perp) : 4.*I*exp(I*qr_perp);
+        else
+            prefac = sym_Ci ? 4. : 2.*exp(I*qr_perp);
+        return prefac * edge_sum_ff( q, qpa, sym_Ci ) / ( I*qpa.mag2() );
     }
+}
+
+complex_t PolyhedralFace::edge_sum_ff( cvector_t q, cvector_t qpa, bool sym_Ci ) const
+{
+// direct evaluation of analytic formula
+    cvector_t prevec = m_normal.cross( qpa ); // complex conjugation will take place in .dot
+    complex_t sum = 0;
+    complex_t vfacsum = 0;
+    for( size_t i=0; i<edges.size(); ++i ) {
+        const PolyhedralEdge& e = edges[i];
+        complex_t qE = e.qE(qpa);
+        complex_t qR = e.qR(qpa);
+        complex_t Rfac = sym_S2 ? sin(qR) : ( sym_Ci ? cos(e.qR(q)) : exp(I*qR) );
+        complex_t vfac;
+        if( sym_S2 || i<edges.size()-1 ) {
+            vfac = prevec.dot(e.E());
+            vfacsum += vfac;
+        } else {
+            vfac = - vfacsum; // to improve numeric accuracy: qcE_J = - sum_{j=0}^{J-1} qcE_j
+        }
+        complex_t term = vfac * MathFunctions::sinc(qE) * Rfac;
+        sum += term;
+        // std::cout<<std::scientific<<std::showpos<<std::setprecision(16)<<"    sum="<<sum<<" term="<<term<<" vf="<<vfac.real()<<" qE="<<qE.real()<<" qR="<<qR.real()<<" sinc="<<MathFunctions::sinc(qE).real()<<" Rfac="<<Rfac<<"\n";
+    }
+    return sum;
 }
 
 //! Returns the two-dimensional form factor of this face, for use in a prism.
@@ -455,7 +465,9 @@ complex_t FormFactorPolyhedron::evaluate_centered( const cvector_t q ) const
             complex_t qn = Gk.normalProjectionConj( q ); // conj(q)*normal
             if ( std::abs(qn)<eps*q.mag() )
                 continue;
-            sum += qn * Gk.ff(q, m_sym_Ci );
+            complex_t ff = Gk.ff(q, m_sym_Ci );
+            sum += qn * ff;
+            // std::cout<<std::showpos<<std::setprecision(16)<<"  sum="<<sum<<" term="<<qn*ff<<" qn="<<qn.real()<<" ff="<<ff<<"\n";
         }
         return sum / (I * q.mag2());
     }

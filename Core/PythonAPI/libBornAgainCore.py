@@ -8257,6 +8257,11 @@ class PolyhedralFace(_object):
         return _libBornAgainCore.PolyhedralFace_radius3d(self)
 
 
+    def normalProjectionConj(self, q):
+        """normalProjectionConj(PolyhedralFace self, cvector_t q) -> complex_t"""
+        return _libBornAgainCore.PolyhedralFace_normalProjectionConj(self, q)
+
+
     def ff_n(self, m, q):
         """
         ff_n(PolyhedralFace self, int m, cvector_t q) -> complex_t
@@ -8463,6 +8468,67 @@ class FormFactorPolygonalPrism(IFormFactorBorn):
     __del__ = lambda self: None
 FormFactorPolygonalPrism_swigregister = _libBornAgainCore.FormFactorPolygonalPrism_swigregister
 FormFactorPolygonalPrism_swigregister(FormFactorPolygonalPrism)
+
+class FormFactorPolygonalSurface(IFormFactorBorn):
+    """Proxy of C++ FormFactorPolygonalSurface class"""
+    __swig_setmethods__ = {}
+    for _s in [IFormFactorBorn]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, FormFactorPolygonalSurface, name, value)
+    __swig_getmethods__ = {}
+    for _s in [IFormFactorBorn]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, FormFactorPolygonalSurface, name)
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+
+    def evaluate_for_q(self, q):
+        """
+        evaluate_for_q(FormFactorPolygonalSurface self, cvector_t q) -> complex_t
+
+        virtual complex_t IFormFactorBorn::evaluate_for_q(const cvector_t q) const =0
+
+        evaluate scattering amplitude for complex wavevector
+
+        Parameters:
+        -----------
+
+        q: 
+        wavevector transfer q=k_i-k_f 
+
+        """
+        return _libBornAgainCore.FormFactorPolygonalSurface_evaluate_for_q(self, q)
+
+
+    def getVolume(self):
+        """
+        getVolume(FormFactorPolygonalSurface self) -> double
+
+        double IFormFactor::getVolume() const
+
+        Returns the total volume of the particle of this form factor's shape. 
+
+        """
+        return _libBornAgainCore.FormFactorPolygonalSurface_getVolume(self)
+
+
+    def getRadius(self):
+        """
+        getRadius(FormFactorPolygonalSurface self) -> double
+
+        virtual double IFormFactor::getRadius() const =0
+
+        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+
+        """
+        return _libBornAgainCore.FormFactorPolygonalSurface_getRadius(self)
+
+    __swig_destroy__ = _libBornAgainCore.delete_FormFactorPolygonalSurface
+    __del__ = lambda self: None
+FormFactorPolygonalSurface_swigregister = _libBornAgainCore.FormFactorPolygonalSurface_swigregister
+FormFactorPolygonalSurface_swigregister(FormFactorPolygonalSurface)
 
 class FormFactorAnisoPyramid(FormFactorPolyhedron):
     """

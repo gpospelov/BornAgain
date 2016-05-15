@@ -61,7 +61,7 @@ public:
     double pyramidalVolume() const { return m_rperp*m_area/3; }
     double radius3d() const { return m_radius_3d; }
     //! Returns conj(q)*normal [BasicVector3D::dot is antilinear in 'this' argument]
-    complex_t normalProjectionConj( cvector_t q ) const { return q.dot(m_normal); } 
+    complex_t normalProjectionConj( cvector_t q ) const { return q.dot(m_normal); }
     complex_t ff_n( int m, const cvector_t q ) const;
     complex_t ff( const cvector_t q, const bool sym_Ci ) const;
     complex_t ff_2D( const cvector_t qpa ) const;
@@ -82,6 +82,7 @@ private:
 
     void decompose_q( const cvector_t q, complex_t& qperp, cvector_t& qpa ) const;
     complex_t ff_n_core( int m, const cvector_t qpa ) const;
+    complex_t edge_sum_ff( cvector_t q, cvector_t qpa, bool sym_Ci ) const;
 };
 
 

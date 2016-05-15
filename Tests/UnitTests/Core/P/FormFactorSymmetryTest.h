@@ -69,7 +69,7 @@ TEST_P(FFSymmetryTest, Cone6)
     if( skip_q( 1e-99, 2e2) ) // TODO for larger q, imag(ff) is nan
         return;
     FormFactorCone6 p(7.43, .25, .57);
-    test_qq_eq( &p, q, q.rotatedZ(-Units::PI/3), 1e-8 );
+    test_qq_eq( &p, q, q.rotatedZ(-Units::PI/3), 1e-9 );
 }
 
 TEST_P(FFSymmetryTest, TruncatedSphere)

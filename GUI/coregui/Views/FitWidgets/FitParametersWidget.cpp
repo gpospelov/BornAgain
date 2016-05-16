@@ -176,7 +176,7 @@ void FitParametersWidget::onFitParametersSelectionChanged(const QItemSelection &
 
 void FitParametersWidget::onCreateFitParAction()
 {
-    foreach(ParameterItem *item, getSelectedParameters()) {
+    foreach(ParameterItem *item, m_tuningWidget->getSelectedParameters()) {
         if(!FitModelHelper::getFitParameterItem(m_jobItem->fitParameterContainerItem(), item)) {
             FitModelHelper::createFitParameter(m_jobItem->fitParameterContainerItem(), item);
 //            m_fitParameterModel->createFitParameter(item);
@@ -190,7 +190,7 @@ void FitParametersWidget::onCreateFitParAction()
 //! fitParameterItem.
 void FitParametersWidget::onRemoveFromFitParAction()
 {
-    foreach(ParameterItem *item, getSelectedParameters()) {
+    foreach(ParameterItem *item, m_tuningWidget->getSelectedParameters()) {
         if(FitModelHelper::getFitParameterItem(m_jobItem->fitParameterContainerItem(), item)) {
             FitModelHelper::removeFromFitParameters(m_jobItem->fitParameterContainerItem(), item);
 //            m_fitParameterModel->removeFromFitParameters(item);
@@ -222,7 +222,7 @@ void FitParametersWidget::onRemoveFitParAction()
 void FitParametersWidget::onAddToFitParAction(int ipar)
 {
     QStringList fitParNames = FitModelHelper::getFitParameterNames(m_jobItem->fitParameterContainerItem());
-    foreach(ParameterItem *item, getSelectedParameters()) {
+    foreach(ParameterItem *item, m_tuningWidget->getSelectedParameters()) {
         //m_fitParameterModel->addToFitParameter(item, fitParNames.at(ipar));
         FitModelHelper::addToFitParameter(m_jobItem->fitParameterContainerItem(), item, fitParNames.at(ipar));
 //        emit m_fitParameterModel->layoutChanged();
@@ -368,7 +368,7 @@ void FitParametersWidget::spanParameters()
 //! selected in model tuning widget and they should not be in FitParameterContainer already
 bool FitParametersWidget::isCreateFitParameterPossible()
 {
-    QVector<ParameterItem *> selected = getSelectedParameters();
+    QVector<ParameterItem *> selected = m_tuningWidget->getSelectedParameters();
     foreach(ParameterItem *item, selected) {
         if(FitModelHelper::getFitParameterItem(m_jobItem->fitParameterContainerItem(), item) == nullptr)
             return true;
@@ -381,24 +381,6 @@ void FitParametersWidget::setActionsEnabled(bool value)
     m_createFitParAction->setEnabled(value);
     m_removeFromFitParAction->setEnabled(value);
     m_removeFitParAction->setEnabled(value);
-}
-
-//! Returns list of ParameterItem's currently selected in ModelTuningWidget
-QVector<ParameterItem *> FitParametersWidget::getSelectedParameters()
-{
-    QVector<ParameterItem *> result;
-    QModelIndexList proxyIndexes = m_tuningWidget->selectionModel()->selectedIndexes();
-    foreach(QModelIndex proxyIndex, proxyIndexes) {
-        QModelIndex index = FilterPropertyProxy::toSourceIndex(proxyIndex);
-        if(index.column() != 0)
-            continue;
-
-        if (ParameterItem *parameterItem
-            = dynamic_cast<ParameterItem *>(m_jobItem->model()->itemForIndex(index))) {
-            result.push_back(parameterItem);
-        }
-    }
-    return result;
 }
 
 //! Returns list of FitParameterItem's currently selected in corresponding tree

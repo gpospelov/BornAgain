@@ -76,7 +76,6 @@ private:
     void connectTuningWidgetSelection(bool active);
     void connectFitParametersSelection(bool active);
 
-    QVector<ParameterItem *> getSelectedParameters();
     QVector<FitParameterItem *> getSelectedFitParameters();
 
     QTreeView *m_treeView;

@@ -31,6 +31,7 @@ class WarningSignWidget;
 class SessionItem;
 class FitTools;
 class QItemSelectionModel;
+class ParameterItem;
 
 class ModelTuningWidget : public QWidget
 {
@@ -43,6 +44,8 @@ public:
     void setItem(JobItem *item);
 
     QItemSelectionModel* selectionModel();
+
+    QVector<ParameterItem *> getSelectedParameters();
 
 signals:
     void itemContextMenuRequest(const QPoint &point);

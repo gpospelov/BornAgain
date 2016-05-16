@@ -29,6 +29,7 @@
 #include "WarningSignWidget.h"
 #include "FilterPropertyProxy.h"
 #include "FitTools.h"
+#include "ParameterTreeItems.h"
 #include <QLabel>
 #include <QVBoxLayout>
 #include <QTreeView>
@@ -126,6 +127,25 @@ QItemSelectionModel *ModelTuningWidget::selectionModel()
 {
     Q_ASSERT(m_treeView);
     return m_treeView->selectionModel();
+}
+
+//! Returns list of ParameterItem's currently selected in parameter tree
+
+QVector<ParameterItem *> ModelTuningWidget::getSelectedParameters()
+{
+    QVector<ParameterItem *> result;
+    QModelIndexList proxyIndexes = selectionModel()->selectedIndexes();
+    foreach(QModelIndex proxyIndex, proxyIndexes) {
+        QModelIndex index = FilterPropertyProxy::toSourceIndex(proxyIndex);
+        if(index.column() != 0)
+            continue;
+
+        if (ParameterItem *parameterItem
+            = dynamic_cast<ParameterItem *>(m_currentJobItem->model()->itemForIndex(index))) {
+            result.push_back(parameterItem);
+        }
+    }
+    return result;
 }
 
 void ModelTuningWidget::onCurrentLinkChanged(SessionItem *item)

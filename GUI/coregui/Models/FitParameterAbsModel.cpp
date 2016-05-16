@@ -25,11 +25,11 @@ FitParameterAbsModel::FitParameterAbsModel(FitParameterContainerItem *fitParCont
     : QAbstractItemModel(parent)
     , m_root_item(fitParContainer)
 {
-    m_columnNames.insert(ITEM_NAME, "Name");
-    m_columnNames.insert(ITEM_USE, FitParameterItem::P_TYPE);
-    m_columnNames.insert(ITEM_MIN, FitParameterItem::P_MIN);
-    m_columnNames.insert(ITEM_MAX, FitParameterItem::P_MAX);
-    m_columnNames.insert(ITEM_START, FitParameterItem::P_START_VALUE);
+    m_columnNames.insert(PAR_NAME, "Name");
+    m_columnNames.insert(PAR_TYPE, FitParameterItem::P_TYPE);
+    m_columnNames.insert(PAR_MIN, FitParameterItem::P_MIN);
+    m_columnNames.insert(PAR_MAX, FitParameterItem::P_MAX);
+    m_columnNames.insert(PAR_VALUE, FitParameterItem::P_START_VALUE);
 
     connectModel(fitParContainer->model());
 
@@ -208,6 +208,8 @@ void FitParameterAbsModel::onSourceDataChanged(const QModelIndex &topLeft, const
     JobModel *sourceModel = qobject_cast<JobModel *>(sender());
     Q_ASSERT(sourceModel);
     SessionItem *sourceItem = sourceModel->itemForIndex(topLeft);
+
+    qDebug() << "FitParameterAbsModel::onSourceDataChanged" << topLeft << roles << sourceItem->displayName() << SessionModel::FlagRole;
 
     QModelIndex itemIndex = indexOfItem(sourceItem);
 

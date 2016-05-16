@@ -59,9 +59,9 @@ inline void TestFitParameterModel::test_addFitParameter()
     QCOMPARE(index, proxy.indexOfItem(fitPar0));
 
     // accessing item at col=2
-    index = proxy.index(0, (int)FitParameterAbsModel::ITEM_MIN, QModelIndex());
+    index = proxy.index(0, (int)FitParameterAbsModel::PAR_MIN, QModelIndex());
     QCOMPARE(index.row(), 0);
-    QCOMPARE(index.column(), (int)FitParameterAbsModel::ITEM_MIN);
+    QCOMPARE(index.column(), (int)FitParameterAbsModel::PAR_MIN);
     QCOMPARE(proxy.rowCount(index), 0);
     QCOMPARE(proxy.columnCount(index), 0);
 
@@ -70,9 +70,9 @@ inline void TestFitParameterModel::test_addFitParameter()
     QCOMPARE(index, proxy.indexOfItem(fitPar0->getItem(FitParameterItem::P_MIN)));
 
     // accessing item at col=3
-    index = proxy.index(0, (int)FitParameterAbsModel::ITEM_START, QModelIndex());
+    index = proxy.index(0, (int)FitParameterAbsModel::PAR_VALUE, QModelIndex());
     QCOMPARE(index.row(), 0);
-    QCOMPARE(index.column(), (int)FitParameterAbsModel::ITEM_START);
+    QCOMPARE(index.column(), (int)FitParameterAbsModel::PAR_VALUE);
     QCOMPARE(proxy.rowCount(index), 0);
     QCOMPARE(proxy.columnCount(index), 0);
 
@@ -81,9 +81,9 @@ inline void TestFitParameterModel::test_addFitParameter()
     QCOMPARE(index, proxy.indexOfItem(fitPar0->getItem(FitParameterItem::P_START_VALUE)));
 
     // accessing item at col=4
-    index = proxy.index(0, (int)FitParameterAbsModel::ITEM_MAX, QModelIndex());
+    index = proxy.index(0, (int)FitParameterAbsModel::PAR_MAX, QModelIndex());
     QCOMPARE(index.row(), 0);
-    QCOMPARE(index.column(), (int)FitParameterAbsModel::ITEM_MAX);
+    QCOMPARE(index.column(), (int)FitParameterAbsModel::PAR_MAX);
     QCOMPARE(proxy.rowCount(index), 0);
     QCOMPARE(proxy.columnCount(index), 0);
 
@@ -105,9 +105,9 @@ inline void TestFitParameterModel::test_addFitParameter()
     QCOMPARE((int)FitParameterAbsModel::MAX_COLUMNS, proxy.columnCount(QModelIndex()));
 
     // accessing item at col=3 for fitPar0
-    index = proxy.index(0, (int)FitParameterAbsModel::ITEM_START, QModelIndex());
+    index = proxy.index(0, (int)FitParameterAbsModel::PAR_VALUE, QModelIndex());
     QCOMPARE(index.row(), 0);
-    QCOMPARE(index.column(), (int)FitParameterAbsModel::ITEM_START);
+    QCOMPARE(index.column(), (int)FitParameterAbsModel::PAR_VALUE);
     QCOMPARE(proxy.rowCount(index), 0);
     QCOMPARE(proxy.columnCount(index), 0);
 
@@ -116,9 +116,9 @@ inline void TestFitParameterModel::test_addFitParameter()
     QCOMPARE(index, proxy.indexOfItem(fitPar0->getItem(FitParameterItem::P_START_VALUE)));
 
     // accessing item at col=3 for fitPar1
-    index = proxy.index(1, (int)FitParameterAbsModel::ITEM_START, QModelIndex());
+    index = proxy.index(1, (int)FitParameterAbsModel::PAR_VALUE, QModelIndex());
     QCOMPARE(index.row(), 1);
-    QCOMPARE(index.column(), (int)FitParameterAbsModel::ITEM_START);
+    QCOMPARE(index.column(), (int)FitParameterAbsModel::PAR_VALUE);
     QCOMPARE(proxy.rowCount(index), 0);
     QCOMPARE(proxy.columnCount(index), 0);
 

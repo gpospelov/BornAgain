@@ -37,6 +37,10 @@ public:
     static const QString P_MAX;
     static const QString T_LINK;
     explicit FitParameterItem();
+
+private:
+    void onTypeChange();
+    void setLimitEnabled(const QString &name, bool enabled);
 };
 
 class BA_CORE_API_ FitParameterContainerItem : public SessionItem

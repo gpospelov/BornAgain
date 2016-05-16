@@ -34,7 +34,7 @@ class BA_CORE_API_ FitParameterAbsModel : public QAbstractItemModel
 public:
     explicit FitParameterAbsModel(FitParameterContainerItem *fitParContainer, QObject *parent = 0);
 
-    enum EColumn {ITEM_NAME, ITEM_USE, ITEM_MIN, ITEM_START, ITEM_MAX, MAX_COLUMNS}; // NEW column usage
+    enum EColumn {PAR_NAME, PAR_TYPE, PAR_VALUE, PAR_MIN, PAR_MAX, MAX_COLUMNS}; // NEW column usage
 
 
     Qt::ItemFlags flags(const QModelIndex & index) const Q_DECL_OVERRIDE;

@@ -27,10 +27,10 @@ QStringList getFitParTypeTooltips()
 {
     QStringList result;
     result.append(QStringLiteral("Fixed at given value"));
-    result.append(QStringLiteral("Limited in the range [min,max]"));
+    result.append(QStringLiteral("Limited in the range [min, max]"));
     result.append(QStringLiteral("Limited at lower bound [min, inf]"));
     result.append(QStringLiteral("Limited at upper bound [-inf, max]"));
-    result.append(QStringLiteral("No limits to parameter value"));
+    result.append(QStringLiteral("No limits imposed to parameter value"));
     return result;
 }
 
@@ -64,6 +64,7 @@ FitParameterItem::FitParameterItem()
     partype << Constants::FITPAR_FIXED << Constants::FITPAR_LIMITED
             << Constants::FITPAR_LOWERLIMITED
             << Constants::FITPAR_UPPERLIMITED << Constants::FITPAR_FREE;
+    partype.setValue(Constants::FITPAR_LIMITED);
     partype.setToolTips(getFitParTypeTooltips());
 
     addProperty(P_TYPE, partype.getVariant());
@@ -76,40 +77,54 @@ FitParameterItem::FitParameterItem()
 
     mapper()->setOnPropertyChange(
                 [this](const QString &name) {
-        if(name == P_TYPE) {
-            ComboProperty partype = getItemValue(P_TYPE).value<ComboProperty>();
-            if(partype.getValue() == Constants::FITPAR_FIXED) {
-                if(isTag(P_MIN)) {
-                    getItem(P_MIN)->setEditable(false);
-                }
-            } else if(partype.getValue() == Constants::FITPAR_LIMITED) {
-                if(isTag(P_MIN)) {
-                    getItem(P_MIN)->setEditable(true);
-                }
-            }
-
-            else if(partype.getValue() == Constants::FITPAR_LIMITED) {
-                if(isTag(P_MIN)) {
-                    getItem(P_MIN)->setEditable(true);
-                }
-            }
-
-            else if(partype.getValue() == Constants::FITPAR_LOWERLIMITED) {
-                if(isTag(P_MIN)) {
-                    getItem(P_MIN)->setEditable(true);
-                }
-            }
-
-            else if(partype.getValue() == Constants::FITPAR_UPPERLIMITED) {
-                if(isTag(P_MIN)) {
-                    getItem(P_MIN)->setEditable(false);
-                }
-            }
-        }
-
-
+        if(name == P_TYPE)
+            onTypeChange();
     });
 
+    onTypeChange();
+}
+
+//! Enables/disables min, max properties on FitParameterItem's type
+
+void FitParameterItem::onTypeChange()
+{
+    ComboProperty partype = getItemValue(P_TYPE).value<ComboProperty>();
+    if(partype.getValue() == Constants::FITPAR_FIXED) {
+        setLimitEnabled(P_MIN, false);
+        setLimitEnabled(P_MAX, false);
+    }
+
+    else if(partype.getValue() == Constants::FITPAR_LIMITED) {
+        setLimitEnabled(P_MIN, true);
+        setLimitEnabled(P_MAX, true);
+    }
+
+    else if(partype.getValue() == Constants::FITPAR_LOWERLIMITED) {
+        setLimitEnabled(P_MIN, true);
+        setLimitEnabled(P_MAX, false);
+    }
+
+    else if(partype.getValue() == Constants::FITPAR_UPPERLIMITED) {
+        setLimitEnabled(P_MIN, false);
+        setLimitEnabled(P_MAX, true);
+    }
+
+    else if(partype.getValue() == Constants::FITPAR_FREE) {
+        setLimitEnabled(P_MIN, false);
+        setLimitEnabled(P_MAX, false);
+    }
+}
+
+//! Set limt property with given name to the enabled state
+
+void FitParameterItem::setLimitEnabled(const QString &name, bool enabled)
+{
+    if(isTag(name)) {
+        SessionItem *propertyItem = getItem(name);
+        Q_ASSERT(propertyItem);
+        propertyItem->setEnabled(enabled);
+        propertyItem->setEditable(enabled);
+    }
 }
 
 // ----------------------------------------------------------------------------

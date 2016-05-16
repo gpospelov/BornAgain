@@ -379,10 +379,10 @@ void FormFactorPolyhedron::setLimits( double _q, int _n ) { q_limit_series=_q; n
 //! Called by child classes to set faces and other internal variables.
 
 void FormFactorPolyhedron::setPolyhedron(
-    const Topology& topology, double z_origin, bool sym_Ci, const std::vector<kvector_t>& vertices )
+    const Topology& topology, double z_origin, const std::vector<kvector_t>& vertices )
 {
     m_z_origin = z_origin;
-    m_sym_Ci = sym_Ci;
+    m_sym_Ci = topology.symmetry_Ci;
 
     double diameter = 0;
     for ( size_t j=0; j<vertices.size(); ++j )
@@ -390,7 +390,7 @@ void FormFactorPolyhedron::setPolyhedron(
             diameter = std::max( diameter, (vertices[j]-vertices[jj]).mag() );
 
     m_faces.clear();
-    for( const TopologyFace& tf: topology ) {
+    for( const TopologyFace& tf: topology.faces ) {
         std::vector<kvector_t> corners; // of one face
         for( int i: tf.vertexIndices )
             corners.push_back( vertices[i] );

@@ -101,7 +101,11 @@ public:
         std::vector<int> vertexIndices;
         bool symmetry_S2;
     };
-    typedef std::vector<TopologyFace> Topology;
+    class Topology {
+    public:
+        std::vector<TopologyFace> faces;
+        bool symmetry_Ci;
+    };
 
     FormFactorPolyhedron() {}
 
@@ -116,7 +120,7 @@ protected:
     double m_z_origin;
     bool m_sym_Ci; //!< if true, then faces obtainable by inversion are not provided
 
-    void setPolyhedron( const Topology& topology, double z_origin, bool sym_Ci,
+    void setPolyhedron( const Topology& topology, double z_origin,
                         const std::vector<kvector_t>& vertices );
 
 private:

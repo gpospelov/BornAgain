@@ -19,21 +19,22 @@
 #include "MathFunctions.h"
 
 const FormFactorPolyhedron::Topology FormFactorTruncatedCube::topology = {
-    { {  0, 1, 7, 6,  9,10, 4, 3 }, true },
-    { {  0, 2, 1 }, false },
-    { {  3, 4, 5 }, false },
-    { {  9,11,10 }, false },
-    { {  6, 7, 8 }, false },
-    { {  0, 3, 5,17, 15,12,14, 2 }, true },
-    { {  4,10,11,23, 22,16,17, 5 }, true },
-    { {  1, 2,14,13, 19,20, 8, 7 }, true },
-    { {  6, 8,20,18, 21,23,11, 9 }, true },
-    { { 15,17,16 }, false },
-    { { 12,13,14 }, false },
-    { { 18,20,19 }, false },
-    { { 21,22,23 }, false },
-    { { 12,15,16,22, 21,18,19,13 }, true }
-};
+    {
+        { {  0, 1, 7, 6,  9,10, 4, 3 }, true },
+        { {  0, 2, 1 }, false },
+        { {  3, 4, 5 }, false },
+        { {  9,11,10 }, false },
+        { {  6, 7, 8 }, false },
+        { {  0, 3, 5,17, 15,12,14, 2 }, true },
+        { {  4,10,11,23, 22,16,17, 5 }, true },
+        { {  1, 2,14,13, 19,20, 8, 7 }, true },
+        { {  6, 8,20,18, 21,23,11, 9 }, true },
+        { { 15,17,16 }, false },
+        { { 12,13,14 }, false },
+        { { 18,20,19 }, false },
+        { { 21,22,23 }, false },
+        { { 12,15,16,22, 21,18,19,13 }, true }
+    }, true };
 
 //! @param side length of the full cube
 //! @param side length of the trirectangular tetrahedron removed from each vertex of the cube
@@ -64,7 +65,7 @@ void FormFactorTruncatedCube::onChange()
     double a = m_length/2;
     double b = m_removed_length;
 
-    setPolyhedron( topology, -a, true, {
+    setPolyhedron( topology, -a, {
         { -a+b, -a  , -a   },
         { -a  , -a+b, -a   },
         { -a  , -a  , -a+b },

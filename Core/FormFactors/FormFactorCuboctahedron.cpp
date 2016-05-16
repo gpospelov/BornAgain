@@ -19,17 +19,18 @@
 #include "MathFunctions.h"
 
 const FormFactorPolyhedron::Topology FormFactorCuboctahedron::topology = {
-    { {  3,  2,  1,  0 }, true  },
-    { {  0,  1,  5,  4 }, false },
-    { {  1,  2,  6,  5 }, false },
-    { {  2,  3,  7,  6 }, false },
-    { {  3,  0,  4,  7 }, false },
-    { {  4,  5,  9,  8 }, false },
-    { {  5,  6, 10,  9 }, false },
-    { {  6,  7, 11, 10 }, false },
-    { {  7,  4,  8, 11 }, false },
-    { {  8,  9, 10, 11 }, true  }
-};
+    {
+        { {  3,  2,  1,  0 }, true  },
+        { {  0,  1,  5,  4 }, false },
+        { {  1,  2,  6,  5 }, false },
+        { {  2,  3,  7,  6 }, false },
+        { {  3,  0,  4,  7 }, false },
+        { {  4,  5,  9,  8 }, false },
+        { {  5,  6, 10,  9 }, false },
+        { {  6,  7, 11, 10 }, false },
+        { {  7,  4,  8, 11 }, false },
+        { {  8,  9, 10, 11 }, true  }
+    }, false };
 
 //! @brief Cuboctahedron constructor
 //! @param length of one side of Cuboctahedron's square base
@@ -81,7 +82,7 @@ void FormFactorCuboctahedron::onChange()
     double zb = -dzcom;
     double zc = -dzcom+x*m_height;
 
-    setPolyhedron( topology, za, false, {
+    setPolyhedron( topology, za, {
             // base:
             { -a, -a, za },
             {  a, -a, za },

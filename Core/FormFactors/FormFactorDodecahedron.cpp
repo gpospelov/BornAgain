@@ -19,23 +19,24 @@
 #include "MathFunctions.h"
 
 const FormFactorPolyhedron::Topology FormFactorDodecahedron::topology = {
-    // bottom:
-    { {  0,  4,  3,  2,  1 }, false },
-    // lower ring:
-    { {  0,  5, 12,  9,  4 }, false },
-    { {  4,  9, 11,  8,  3 }, false },
-    { {  3,  8, 10,  7,  2 }, false },
-    { {  2,  7, 14,  6,  1 }, false },
-    { {  1,  6, 13,  5,  0 }, false },
-     // upper ring:
-    { {  8, 11, 16, 15, 10 }, false },
-    { {  9, 12, 17, 16, 11 }, false },
-    { {  5, 13, 18, 17, 12 }, false },
-    { {  6, 14, 19, 18, 13 }, false },
-    { {  7, 10, 15, 19, 14 }, false },
-    // top:
-    { { 15, 16, 17, 18, 19 }, false }
-};
+    {
+        // bottom:
+        { {  0,  4,  3,  2,  1 }, false },
+        // lower ring:
+        { {  0,  5, 12,  9,  4 }, false },
+        { {  4,  9, 11,  8,  3 }, false },
+        { {  3,  8, 10,  7,  2 }, false },
+        { {  2,  7, 14,  6,  1 }, false },
+        { {  1,  6, 13,  5,  0 }, false },
+        // upper ring:
+        { {  8, 11, 16, 15, 10 }, false },
+        { {  9, 12, 17, 16, 11 }, false },
+        { {  5, 13, 18, 17, 12 }, false },
+        { {  6, 14, 19, 18, 13 }, false },
+        { {  7, 10, 15, 19, 14 }, false },
+        // top:
+        { { 15, 16, 17, 18, 19 }, false }
+    }, true };
 
 
 FormFactorDodecahedron::FormFactorDodecahedron(double edge)
@@ -50,7 +51,7 @@ FormFactorDodecahedron::FormFactorDodecahedron(double edge)
 void FormFactorDodecahedron::onChange()
 {
     double a = m_edge;
-    setPolyhedron( topology, -1.113516364411607*a, true, {
+    setPolyhedron( topology, -1.113516364411607*a, {
         {  0.8506508083520399*a,                   0*a,  -1.113516364411607*a},
         {  0.2628655560595668*a,  0.8090169943749473*a,  -1.113516364411607*a},
         { -0.6881909602355868*a,                 0.5*a,  -1.113516364411607*a},

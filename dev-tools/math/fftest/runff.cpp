@@ -109,8 +109,8 @@ void run( const IFormFactorBorn* polyh, int ishape, cvector_t q, int outfilter )
     complex_t ret = polyh->evaluate_for_q(q);
     cout<<std::scientific<<std::setprecision(16)<<std::setfill('0');
     if     ( outfilter==0 )
-        cout<<q.mag()<<" "<<std::abs(ret)<<" "<<ret.real()<<" "<<ret.imag()<<
-            diagnosis.nExpandedFaces<<" "<<diagnosis.maxOrder;
+        cout<<q.mag()<<" "<<std::abs(ret)<<" "<<ret.real()<<" "<<ret.imag()<<" "<<
+            diagnosis.nExpandedFaces<<std::noshowpos<<" "<<diagnosis.maxOrder;
     else if( outfilter==1 )
         cout<<ret.real();
     else if( outfilter==2 )
@@ -122,8 +122,8 @@ void run( const IFormFactorBorn* polyh, int ishape, cvector_t q, int outfilter )
 
 complex_t ff_modified( cvector_t q, const IFormFactorBorn* polyh, bool expand_qpa, bool expand_q )
 {
-    PolyhedralFace::setLimits( expand_qpa ? 1e99 : 1e-99, 20 );
-    FormFactorPolyhedron::setLimits( expand_q ? 1e99 : 1e-99, 20 );
+    PolyhedralFace::setLimits( expand_qpa ? 1e99 : 1e-99, 80 );
+    FormFactorPolyhedron::setLimits( expand_q ? 1e99 : 1e-99, 80 );
     return polyh->evaluate_for_q( q );
 }
 
@@ -132,9 +132,9 @@ void test_matching( int ishape, const vector<vector<cvector_t>>& scans )
     cout<<ishape<<"\n";
     cerr<<"shape "<<ishape<<" ...\n";
     IFormFactorBorn* polyh( make_particle( ishape ) );
-    int n_mag = 81;
-    double mag_i = 1e-7;
-    double mag_f = 1e-2;
+    int n_mag = 25;
+    double mag_i = 1e-3;
+    double mag_f = 1e1;
     for( int i=1; i<n_mag; ++i ) {
         double mag = mag_i*pow(mag_f/mag_i,i/(n_mag-1.));
         double res = 0;
@@ -148,11 +148,11 @@ void test_matching( int ishape, const vector<vector<cvector_t>>& scans )
 
             double dev = std::abs(ff[0]-ff[1])*2/(std::abs(ff[0])+std::abs(ff[1]));
             res = std::max(res, dev );
-            if( 0 && dev>1e-4 )
+            if( 0 && dev>.1 )
                 cerr<<ishape<<" "<<mag<<" "<<std::setprecision(16)<<
-                    dev<<" "<<ff[0]<<" "<<ff[1]<<" "<<ff[2]<<" @ "<<q<<"\n";
+                    dev<<" "<<ff[0]<<" "<<ff[1]<<" @ "<<q<<"\n";
         }
-        cout<<" "<<mag<<" "<<std::setprecision(8)<<res<<"\n";
+        cout<<" "<<mag*polyh->getRadius()<<" "<<std::setprecision(8)<<res<<"\n";
     }
     cout<<"\n";
 }
@@ -287,6 +287,8 @@ void help_and_exit()
 int main (int argc, const char *argv[])
 {
     try {
+        diagnosis.debmsg = 0;
+        diagnosis.request_convergence = false;
         const char** arg = argv;
         NEXTARG;
         if ( !strncmp( *arg, "def", 3 ) ) {
@@ -321,13 +323,14 @@ int main (int argc, const char *argv[])
                 while( std::cin >> mag )
                     run( P, ishape, mag*uq, outfilter );
             } else if( inmode==1 ) {
+                diagnosis.debmsg = 2;
                 NEXTARG;
                 mag = atof( *arg );
                 run( P, ishape, mag*uq, outfilter );
             } else if( inmode==2 ) {
-                int n_mag = 6201;
-                double mag_i = 1e-24;
-                double mag_f = 1e2;
+                int n_mag = 2001;
+                double mag_i = 1e-20;
+                double mag_f = 1e4;
                 for( int i=1; i<n_mag; ++i ) {
                     //mag = 180.*i/(n_mag-1);
                     mag = mag_i*pow(mag_f/mag_i,i/(n_mag-1.));
@@ -341,6 +344,7 @@ int main (int argc, const char *argv[])
         int ishapepar = atoi( *arg );
 
         if( inmode==3 ) { // continuity test
+            diagnosis.request_convergence = true;
             vector<vector<cvector_t>> scans = create_scans( 1 );
             double totmaxrelstep = 0;
             if( ishapepar==0 ) {

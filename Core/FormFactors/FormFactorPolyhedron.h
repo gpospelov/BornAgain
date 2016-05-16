@@ -83,6 +83,8 @@ private:
     void decompose_q( const cvector_t q, complex_t& qperp, cvector_t& qpa ) const;
     complex_t ff_n_core( int m, const cvector_t qpa ) const;
     complex_t edge_sum_ff( cvector_t q, cvector_t qpa, bool sym_Ci ) const;
+    complex_t expansion(
+        complex_t fac_even, complex_t fac_odd, cvector_t qpa, double abslevel ) const;
 };
 
 

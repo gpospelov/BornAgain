@@ -43,7 +43,7 @@ static double eps(2e-16);
 extern Diagnosis diagnosis;
 #endif
 
-double PolyhedralFace::qpa_limit_series = 5e-3;
+double PolyhedralFace::qpa_limit_series = 1e-1;
 int PolyhedralFace::n_limit_series = 20;
 
 double FormFactorPolyhedron::q_limit_series = 1e-5;
@@ -228,11 +228,46 @@ complex_t PolyhedralFace::ff_n( int n, const cvector_t q ) const
     }
 }
 
-//! Returns core contribution to analytic from factor.
+//! Returns sum of n>=1 terms of qpa expansion of 2d form factor
+
+complex_t PolyhedralFace::expansion(
+    complex_t fac_even, complex_t fac_odd, cvector_t qpa, double abslevel ) const
+{
+#ifdef POLYHEDRAL_DIAGNOSTIC
+    diagnosis.nExpandedFaces += 1;
+#endif
+    complex_t sum = 0;
+    complex_t n_fac = I;
+    int count_return_condition = 0;
+    for( int n=1; n<n_limit_series; ++n ) {
+#ifdef POLYHEDRAL_DIAGNOSTIC
+        diagnosis.maxOrder = std::max( diagnosis.maxOrder, n );
+#endif
+        complex_t term = n_fac * ( n&1 ? fac_odd : fac_even ) * ff_n_core(n, qpa) / qpa.mag2();
+#ifdef POLYHEDRAL_DIAGNOSTIC
+        if( diagnosis.debmsg>=2 )
+            std::cout<<std::setprecision(16)<<"    sum="<<sum<<" +term="<<term<<"\n";
+#endif
+        sum += term;
+        if( std::abs(term)<=eps*std::abs(sum) || std::abs(sum)<eps*abslevel )
+            ++count_return_condition;
+        else
+            count_return_condition = 0;
+        if( count_return_condition>2 )
+            return sum; // regular exit
+        n_fac *= I;
+    }
+#ifdef POLYHEDRAL_DIAGNOSTIC
+    if( !diagnosis.request_convergence )
+        return sum;
+#endif
+    throw std::runtime_error("Bug in formfactor computation: series f(q_pa) not converged");
+}
+
+//! Returns core contribution to analytic 2d form factor.
 
 complex_t PolyhedralFace::edge_sum_ff( cvector_t q, cvector_t qpa, bool sym_Ci ) const
 {
-// direct evaluation of analytic formula
     cvector_t prevec = m_normal.cross( qpa ); // complex conjugation will take place in .dot
     complex_t sum = 0;
     complex_t vfacsum = 0;
@@ -272,9 +307,6 @@ complex_t PolyhedralFace::ff( const cvector_t q, const bool sym_Ci ) const
         return ff0;
     } else if ( qpa_red < qpa_limit_series && !sym_S2 ) {
         // summation of power series
-#ifdef POLYHEDRAL_DIAGNOSTIC
-        diagnosis.nExpandedFaces += 1;
-#endif
         complex_t fac_even;
         complex_t fac_odd;
         if( sym_Ci ) {
@@ -284,32 +316,7 @@ complex_t PolyhedralFace::ff( const cvector_t q, const bool sym_Ci ) const
             fac_even = exp( I*qr_perp );
             fac_odd = fac_even;
         }
-        complex_t sum = 0;
-        complex_t n_fac = I;
-        int count_return_condition = 0;
-        for( int n=1; n<n_limit_series; ++n ) {
-#ifdef POLYHEDRAL_DIAGNOSTIC
-            diagnosis.maxOrder = std::max( diagnosis.maxOrder, n );
-#endif
-            complex_t term = n_fac * ( n&1 ? fac_odd : fac_even ) * ff_n_core(n, qpa) / qpa.mag2();
-#ifdef POLYHEDRAL_DIAGNOSTIC
-            if( diagnosis.debmsg>=2 )
-                std::cout<<std::setprecision(16)<<"    sum="<<sum<<" +term="<<term<<"\n";
-#endif
-            sum += term;
-            if( std::abs(term)<=eps*std::abs(sum) || std::abs(sum)<eps*std::abs(ff0) )
-                ++count_return_condition;
-            else
-                count_return_condition = 0;
-            if( count_return_condition>2 )
-                return sum + ff0;
-            n_fac *= I;
-        }
-#ifdef POLYHEDRAL_DIAGNOSTIC
-        if( !diagnosis.request_convergence )
-            return sum;
-#endif
-        throw std::runtime_error("Bug in formfactor computation: series f(q_pa) not converged");
+        return ff0 + expansion( fac_even, fac_odd, qpa, std::abs(ff0) );
     } else {
         // direct evaluation of analytic formula
         complex_t prefac;
@@ -336,30 +343,7 @@ complex_t PolyhedralFace::ff_2D( const cvector_t qpa ) const
         return m_area;
     } else if ( qpa_red < qpa_limit_series && !sym_S2 ) {
         // summation of power series
-#ifdef POLYHEDRAL_DIAGNOSTIC
-        diagnosis.nExpandedFaces += 1;
-#endif
-        complex_t sum = m_area;
-        complex_t n_fac = I;
-        for( int n=1; n<n_limit_series; ++n ) {
-#ifdef POLYHEDRAL_DIAGNOSTIC
-            diagnosis.maxOrder = std::max( diagnosis.maxOrder, n );
-#endif
-            complex_t term = n_fac * ff_n_core(n, qpa) / qpa.mag2();
-            sum += term;
-#ifdef POLYHEDRAL_DIAGNOSTIC
-            if( diagnosis.debmsg>=2 )
-                std::cout<<std::setprecision(16)<<"    sum="<<sum<<" term="<<term<<"\n";
-#endif
-            if( !(n&1) && std::abs(term)<=eps*std::abs(sum) )
-                return sum;
-            n_fac *= I;
-        }
-#ifdef POLYHEDRAL_DIAGNOSTIC
-        if( !diagnosis.request_convergence )
-            return sum;
-#endif
-        throw std::runtime_error("Bug in formfactor computation: series f(q_pa) not converged");
+        return m_area + expansion( 1., 1., qpa, std::abs(m_area) );
     } else {
         // direct evaluation of analytic formula
         complex_t ff = edge_sum_ff( qpa, qpa, false );

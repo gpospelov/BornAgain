@@ -73,6 +73,21 @@ IFormFactorBorn* make_particle( int ishape )
         throw "Shape not implemented";
 }
 
+//! Print q in a form that can be easily pasted to the command line for further investigation
+
+std::string nice_q( cvector_t q )
+{
+    std::ostringstream ret;
+    double qmax = 0;
+    ret << std::setprecision(16);
+    for( int i=0; i<3; ++i )
+        qmax = std::max( qmax, q[i].real() );
+    for( int i=0; i<3; ++i )
+        ret << q[i].real()/qmax << " " << q[i].imag()/qmax << " ";
+    ret << qmax;
+    return ret.str();
+}
+
 //! Bisect between two q's to find possible discontinuities
 
 void bisect(
@@ -89,7 +104,7 @@ void bisect(
         double relstep = step/aval;
         maxrelstep = std::max( maxrelstep, relstep );
         if( relstep>2e-9 ){
-            cout<<"ishape="<<ishape<<": relstep "<<std::setprecision(8)<<relstep<<"="<<step<<"/"<<std::setprecision(16)<<aval<<" for "<<di<<"->"<<df<<" at q between "<< std::setprecision(16)<<qi<<" and "<<qf<<"\n";
+            cout<<"ishape="<<ishape<<": relstep "<<std::setprecision(8)<<relstep<<"="<<step<<"/"<<std::setprecision(16)<<aval<<" for "<<di<<"->"<<df<<" at q between "<<nice_q(qi)<<" and "<<nice_q(qf)<<"\n";
         }
         return;
     }
@@ -140,7 +155,8 @@ void test_matching( int ishape, const vector<vector<cvector_t>>& scans )
         double res = 0;
         for( const vector<cvector_t>& q_scan: scans ) {
             assert( q_scan.size()== 1 );
-            const cvector_t q = mag * q_scan[0];
+            cvector_t uq = q_scan[0];
+            const cvector_t q = mag * uq;
             complex_t ff[2];
 
             ff[0] = ff_modified( q, polyh, false, false );

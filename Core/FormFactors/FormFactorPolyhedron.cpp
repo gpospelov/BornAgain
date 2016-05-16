@@ -43,7 +43,7 @@ static double eps(2e-16);
 extern Diagnosis diagnosis;
 #endif
 
-double PolyhedralFace::qpa_limit_series = 3e-1;
+double PolyhedralFace::qpa_limit_series = 5e-3;
 int PolyhedralFace::n_limit_series = 20;
 
 double FormFactorPolyhedron::q_limit_series = 1e-5;
@@ -267,8 +267,9 @@ complex_t PolyhedralFace::ff( const cvector_t q, const bool sym_Ci ) const
     decompose_q( q, qperp, qpa );
     double qpa_red = m_radius_2d * qpa.mag();
     complex_t qr_perp = qperp*m_rperp;
+    complex_t ff0 = (sym_Ci ? 2.*I*sin(qr_perp) : exp(I*qr_perp)) * m_area;
     if ( qpa_red==0 ) {
-        return (sym_Ci ? 2.*I*sin(qr_perp) : exp(I*qr_perp)) * m_area;
+        return ff0;
     } else if ( qpa_red < qpa_limit_series && !sym_S2 ) {
         // summation of power series
 #ifdef POLYHEDRAL_DIAGNOSTIC
@@ -283,8 +284,9 @@ complex_t PolyhedralFace::ff( const cvector_t q, const bool sym_Ci ) const
             fac_even = exp( I*qr_perp );
             fac_odd = fac_even;
         }
-        complex_t sum = fac_even * m_area;
+        complex_t sum = 0;
         complex_t n_fac = I;
+        int count_return_condition = 0;
         for( int n=1; n<n_limit_series; ++n ) {
 #ifdef POLYHEDRAL_DIAGNOSTIC
             diagnosis.maxOrder = std::max( diagnosis.maxOrder, n );
@@ -295,8 +297,12 @@ complex_t PolyhedralFace::ff( const cvector_t q, const bool sym_Ci ) const
                 std::cout<<std::setprecision(16)<<"    sum="<<sum<<" +term="<<term<<"\n";
 #endif
             sum += term;
-            if( !(n&1) && std::abs(term)<=eps*std::abs(sum) )
-                return sum;
+            if( std::abs(term)<=eps*std::abs(sum) || std::abs(sum)<eps*std::abs(ff0) )
+                ++count_return_condition;
+            else
+                count_return_condition = 0;
+            if( count_return_condition>2 )
+                return sum + ff0;
             n_fac *= I;
         }
 #ifdef POLYHEDRAL_DIAGNOSTIC

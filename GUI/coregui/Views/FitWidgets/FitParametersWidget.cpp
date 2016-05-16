@@ -53,7 +53,7 @@ FitParametersWidget::FitParametersWidget(QWidget *parent)
     setLayout(layout);
     init_actions();
 
-//    m_treeView->setSelectionMode(QAbstractItemView::SingleSelection);
+    m_treeView->setSelectionMode(QAbstractItemView::ExtendedSelection);
     m_treeView->setSelectionBehavior(QAbstractItemView::SelectRows);
     m_treeView->setContextMenuPolicy(Qt::CustomContextMenu);
     m_treeView->setItemDelegate(m_delegate);

@@ -31,6 +31,10 @@ public:
 
     static QModelIndex toSourceIndex(QModelIndex index);
 
+    QMimeData *mimeData(const QModelIndexList &indexes) const;
+
+//    QStringList mimeTypes() const Q_DECL_OVERRIDE;
+
 protected:
     bool filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const;
 

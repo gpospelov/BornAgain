@@ -82,6 +82,9 @@ ModelTuningWidget::ModelTuningWidget(JobModel *jobModel, QWidget *parent)
     connect(m_treeView, SIGNAL(customContextMenuRequested(const QPoint &)),
             this, SLOT(onCustomContextMenuRequested(const QPoint &)));
 
+    m_treeView->setDragEnabled(true);
+    m_treeView->setDragDropMode(QAbstractItemView::DragOnly);
+
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->setMargin(0);

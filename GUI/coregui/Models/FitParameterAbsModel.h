@@ -48,8 +48,8 @@ public:
     bool setData(const QModelIndex &index, const QVariant &value, int role) Q_DECL_OVERRIDE;
 
     QStringList mimeTypes() const Q_DECL_OVERRIDE;
-//    Qt::DropActions supportedDragActions() const;
-//    Qt::DropActions supportedDropActions() const;
+    Qt::DropActions supportedDragActions() const;
+    Qt::DropActions supportedDropActions() const;
     QMimeData *mimeData(const QModelIndexList &indexes) const;
     bool canDropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column,
                              const QModelIndex &parent) const Q_DECL_OVERRIDE;
@@ -75,15 +75,15 @@ private:
     QMap<int, QString> m_columnNames;
 };
 
-//inline Qt::DropActions FitParameterAbsModel::supportedDragActions() const
-//{
-//    return Qt::MoveAction;
-//}
+inline Qt::DropActions FitParameterAbsModel::supportedDragActions() const
+{
+    return Qt::MoveAction | Qt::CopyAction;
+}
 
-//inline Qt::DropActions FitParameterAbsModel::supportedDropActions() const
-//{
-//    return Qt::MoveAction;
-//}
+inline Qt::DropActions FitParameterAbsModel::supportedDropActions() const
+{
+    return Qt::MoveAction | Qt::CopyAction;
+}
 
 
 #endif

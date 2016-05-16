@@ -187,8 +187,10 @@ double test_continuity( int ishape, const vector<vector<cvector_t>>& scans )
             complex_t ret = polyh->evaluate_for_q(q_scan[i]);
             Diagnosis diag = diagnosis;
             if( diag!=last_diag )
-                bisect( polyh, ishape, q_scan[i].mag(), q_scan[i], ret, diag, q_scan[i-1],
-                        last_ret, last_diag, maxrelstep );
+                bisect( polyh, ishape, q_scan[i].mag(),
+                        q_scan[i-1], last_ret, last_diag,
+                        q_scan[i], ret, diag,
+                        maxrelstep );
         }
     }
     fprintf( stderr, "\n" );

@@ -61,7 +61,7 @@ TEST_P(FFSymmetryTest, Tetrahedron)
     if( skip_q( 1e-99, 2e2 ) )
         return;
     FormFactorTetrahedron p(8.43, .25, .53);
-    test_qq_eq( &p, q, q.rotatedZ(Units::PI2/3), 1.2e-11 );
+    test_qq_eq( &p, q, q.rotatedZ(Units::PI2/3), 1.5e-10 );
 }
 
 TEST_P(FFSymmetryTest, Cone6)
@@ -69,7 +69,7 @@ TEST_P(FFSymmetryTest, Cone6)
     if( skip_q( 1e-99, 2e2) ) // TODO for larger q, imag(ff) is nan
         return;
     FormFactorCone6 p(7.43, .25, .57);
-    test_qq_eq( &p, q, q.rotatedZ(-Units::PI/3), 2.6e-11 );
+    test_qq_eq( &p, q, q.rotatedZ(-Units::PI/3), 3e-10 );
 }
 
 //*********** spheroids ***************

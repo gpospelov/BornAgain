@@ -74,7 +74,6 @@ FitParameterItem::FitParameterItem()
     registerTag(T_LINK, 0, -1, QStringList() << Constants::FitParameterLinkType);
     setDefaultTag(T_LINK);
 
-
     mapper()->setOnPropertyChange(
                 [this](const QString &name) {
         if(name == P_TYPE)
@@ -115,7 +114,7 @@ void FitParameterItem::onTypeChange()
     }
 }
 
-//! Set limt property with given name to the enabled state
+//! Set limit property with given name to the enabled state
 
 void FitParameterItem::setLimitEnabled(const QString &name, bool enabled)
 {

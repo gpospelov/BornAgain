@@ -31,6 +31,7 @@ class FitParameterModel;
 class FitParameterAbsModel;
 class ParameterItem;
 class FitParameterItem;
+class FitParameterLinkItem;
 class QItemSelection;
 class SessionModelDelegate;
 class DeleteEventFilter;
@@ -77,6 +78,7 @@ private:
     void connectFitParametersSelection(bool active);
 
     QVector<FitParameterItem *> getSelectedFitParameters();
+    QVector<FitParameterLinkItem *> getSelectedFitParameterLinks();
 
     QTreeView *m_treeView;
     JobItem *m_jobItem;

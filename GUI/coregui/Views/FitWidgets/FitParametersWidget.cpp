@@ -204,18 +204,22 @@ void FitParametersWidget::onRemoveFitParAction()
 {
     FitParameterContainerItem *container = m_jobItem->fitParameterContainerItem();
 
+    // retrieve both, selected FitParameterItem and FitParameterItemLink
+    QVector<FitParameterLinkItem *> linksToRemove = getSelectedFitParameterLinks();
     QVector<FitParameterItem *> itemsToRemove = getSelectedFitParameters();
-//    m_treeView->setModel(0);
-//    m_fitParameterModel.reset();
+
+    // deleting first links
+    foreach(FitParameterLinkItem *item, linksToRemove) {
+        container->model()->removeRow(item->index().row(), item->index().parent());
+    }
+
+    // at this point selection in the tree was already reset, but we have already our list of itemsToRemove
 
     foreach(FitParameterItem *item, itemsToRemove) {
         container->model()->removeRow(item->index().row(), item->index().parent());
     }
 
-//    m_treeView->setModel(m_fitParameterModel.get());
-//    emit m_fitParameterModel->layoutChanged();
     spanParameters();
-
 }
 
 //! Add all selected parameters to fitParameter with given index
@@ -383,7 +387,8 @@ void FitParametersWidget::setActionsEnabled(bool value)
     m_removeFitParAction->setEnabled(value);
 }
 
-//! Returns list of FitParameterItem's currently selected in corresponding tree
+//! Returns list of FitParameterItem's currently selected in FitParameterItem tree
+
 QVector<FitParameterItem *> FitParametersWidget::getSelectedFitParameters()
 {
     QVector<FitParameterItem *> result;
@@ -392,6 +397,23 @@ QVector<FitParameterItem *> FitParametersWidget::getSelectedFitParameters()
         if(SessionItem *item = m_fitParameterModel->itemForIndex(index)) {
             if(item->modelType() == Constants::FitParameterType) {
                 FitParameterItem *fitParItem = dynamic_cast<FitParameterItem *>(item);
+                Q_ASSERT(fitParItem);
+                result.push_back(fitParItem);
+            }
+        }
+    }
+    return result;
+}
+
+//! Returns links of FitParameterLink's item selected in FitParameterItem tree
+QVector<FitParameterLinkItem *> FitParametersWidget::getSelectedFitParameterLinks()
+{
+    QVector<FitParameterLinkItem *> result;
+    QModelIndexList indexes = m_treeView->selectionModel()->selectedIndexes();
+    foreach(QModelIndex index, indexes) {
+        if(SessionItem *item = m_fitParameterModel->itemForIndex(index)) {
+            if(item->parent()->modelType() == Constants::FitParameterLinkType) {
+                FitParameterLinkItem *fitParItem = dynamic_cast<FitParameterLinkItem *>(item->parent());
                 Q_ASSERT(fitParItem);
                 result.push_back(fitParItem);
             }

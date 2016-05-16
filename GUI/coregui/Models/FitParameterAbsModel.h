@@ -32,19 +32,32 @@ class BA_CORE_API_ FitParameterAbsModel : public QAbstractItemModel
     Q_OBJECT
 
 public:
+    static const QString MIME_TYPE;
+
     explicit FitParameterAbsModel(FitParameterContainerItem *fitParContainer, QObject *parent = 0);
 
     enum EColumn {PAR_NAME, PAR_TYPE, PAR_VALUE, PAR_MIN, PAR_MAX, MAX_COLUMNS}; // NEW column usage
 
 
     Qt::ItemFlags flags(const QModelIndex & index) const Q_DECL_OVERRIDE;
-    virtual QModelIndex index(int row, int column, const QModelIndex &parent) const;
-    virtual QModelIndex parent(const QModelIndex &child) const;
-    virtual int rowCount(const QModelIndex &parent) const;
-    virtual int columnCount(const QModelIndex &parent) const;
+    QModelIndex index(int row, int column, const QModelIndex &parent) const;
+    QModelIndex parent(const QModelIndex &child) const;
+    int rowCount(const QModelIndex &parent) const;
+    int columnCount(const QModelIndex &parent) const;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const Q_DECL_OVERRIDE;
     bool setData(const QModelIndex &index, const QVariant &value, int role) Q_DECL_OVERRIDE;
+
+    QStringList mimeTypes() const Q_DECL_OVERRIDE;
+//    Qt::DropActions supportedDragActions() const;
+//    Qt::DropActions supportedDropActions() const;
+    QMimeData *mimeData(const QModelIndexList &indexes) const;
+    bool canDropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column,
+                             const QModelIndex &parent) const Q_DECL_OVERRIDE;
+    bool dropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column, const QModelIndex &parent)  Q_DECL_OVERRIDE;
+
+
     QVariant headerData(int section, Qt::Orientation orientation, int role) const Q_DECL_OVERRIDE;
+
 
     QModelIndex indexOfItem(SessionItem *item) const;
     SessionItem *itemForIndex(const QModelIndex &index) const;
@@ -61,6 +74,16 @@ private:
     FitParameterContainerItem *m_root_item;
     QMap<int, QString> m_columnNames;
 };
+
+//inline Qt::DropActions FitParameterAbsModel::supportedDragActions() const
+//{
+//    return Qt::MoveAction;
+//}
+
+//inline Qt::DropActions FitParameterAbsModel::supportedDropActions() const
+//{
+//    return Qt::MoveAction;
+//}
 
 
 #endif

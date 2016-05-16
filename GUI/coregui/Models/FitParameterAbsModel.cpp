@@ -20,7 +20,11 @@
 #include "SessionModel.h"
 #include "JobModel.h"
 #include <QColor>
+#include <QMimeData>
 #include <QDebug>
+
+const QString FitParameterAbsModel::MIME_TYPE = "application/org.bornagainproject.fittinglink";
+
 
 FitParameterAbsModel::FitParameterAbsModel(FitParameterContainerItem *fitParContainer, QObject *parent)
     : QAbstractItemModel(parent)
@@ -50,7 +54,15 @@ Qt::ItemFlags FitParameterAbsModel::flags(const QModelIndex &index) const
     if(SessionItem *item = itemForIndex(index)) {
 //        if(item->isEnabled()) returnVal |= Qt::ItemIsEnabled;
         if(item->isEditable()) returnVal |= Qt::ItemIsEditable;
+        if(item->parent()->modelType() == Constants::FitParameterLinkType && index.column() == 0) {
+            returnVal |= Qt::ItemIsDragEnabled;
+        }
+        if(item->modelType() == Constants::FitParameterType) {
+            returnVal |= Qt::ItemIsDropEnabled;
+        }
+
     }
+
     return returnVal;
 
 //    Qt::ItemFlags returnVal = Qt::ItemIsEnabled | Qt::ItemIsSelectable;
@@ -194,6 +206,65 @@ bool FitParameterAbsModel::setData(const QModelIndex &index, const QVariant &val
         }
     }
     return false;
+}
+
+QStringList FitParameterAbsModel::mimeTypes() const
+{
+    QStringList types;
+    types << FitParameterAbsModel::MIME_TYPE;
+    return types;
+}
+
+QMimeData *FitParameterAbsModel::mimeData(const QModelIndexList &indexes) const
+{
+    qDebug() << "FitParameterAbsModel::mimeData" << indexes;
+    QMimeData *mimeData = new QMimeData();
+    QModelIndex index = indexes.first();
+    if (index.isValid()) {
+        if(SessionItem *item = itemForIndex(index)) {
+            QString path = item->value().toString();
+            mimeData->setData(MIME_TYPE, path.toLatin1());
+            qDebug() << "       FitParameterAbsModel::mimeData" << path;
+
+        }
+//        QString path = getPathFromIndex(index);
+//        path = path.append("#%1").arg(itemFromIndex(index.sibling(index.row(), 1))
+//                                      ->data(Qt::EditRole).toDouble());
+    }
+    return mimeData;
+}
+
+bool FitParameterAbsModel::canDropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column, const QModelIndex &parent) const
+{
+    Q_UNUSED(action);
+    Q_UNUSED(row);
+    Q_UNUSED(parent);
+//    if (column > 0)
+//        return false;
+    QString link = QString::fromLatin1(data->data(MIME_TYPE)).split("#")[0];
+    qDebug() << "FitParameterAbsModel::canDropMimeData" << "row:" << row << "column:" << column << "parent:" << parent << link;
+
+    if(parent.isValid()) {
+
+    qDebug() << "!!! true";
+    return true;
+
+    }
+    return false;
+//    QString link = QString::fromLatin1(data->data(ObsoleteFitParameterWidget::MIME_TYPE)).split("#")[0];
+//    QModelIndex cur = itemForLink(link);
+//    return !cur.isValid();
+
+}
+
+bool FitParameterAbsModel::dropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column, const QModelIndex &parent)
+{
+//    if (action == Qt::IgnoreAction) return true;
+//    if (column > 0) return true;
+
+    qDebug() << "FitParameterAbsModel::dropMimeData row:" << row << "column:" << column << "parent:" << parent << "mime:" <<  QString::fromLatin1(data->data(MIME_TYPE));
+
+    return true;
 }
 
 QVariant FitParameterAbsModel::headerData(int section, Qt::Orientation orientation, int role) const

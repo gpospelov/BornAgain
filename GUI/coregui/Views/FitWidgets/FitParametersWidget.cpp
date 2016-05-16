@@ -53,12 +53,15 @@ FitParametersWidget::FitParametersWidget(QWidget *parent)
     setLayout(layout);
     init_actions();
 
-    m_treeView->setSelectionMode(QAbstractItemView::ExtendedSelection);
+//    m_treeView->setSelectionMode(QAbstractItemView::SingleSelection);
     m_treeView->setSelectionBehavior(QAbstractItemView::SelectRows);
     m_treeView->setContextMenuPolicy(Qt::CustomContextMenu);
     m_treeView->setItemDelegate(m_delegate);
     connect(m_treeView, SIGNAL(customContextMenuRequested(const QPoint &)),
             this, SLOT(onFitParameterTreeContextMenu(const QPoint &)));
+
+    m_treeView->setDragEnabled(true);
+    m_treeView->setDragDropMode(QAbstractItemView::DragDrop);
 
     m_treeView->installEventFilter(m_keyboardFilter);
 

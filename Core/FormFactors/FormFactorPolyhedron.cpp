@@ -43,10 +43,10 @@ static double eps(2e-16);
 extern Diagnosis diagnosis;
 #endif
 
-double PolyhedralFace::qpa_limit_series = 1e-1;
+double PolyhedralFace::qpa_limit_series = 5e-3;
 int PolyhedralFace::n_limit_series = 20;
 
-double FormFactorPolyhedron::q_limit_series = 1e-5;
+double FormFactorPolyhedron::q_limit_series = 1e-6;
 int FormFactorPolyhedron::n_limit_series = 20;
 
 //***************************************************************************************************
@@ -440,8 +440,9 @@ complex_t FormFactorPolyhedron::evaluate_centered( const cvector_t q ) const
         return m_volume;
     } else if ( q_red < q_limit_series ) {
         // summation of power series
-        complex_t sum = m_volume;
+        complex_t sum = 0;
         complex_t n_fac = ( m_sym_Ci ? -2 : -1 ) / q.mag2();
+        int count_return_condition = 0;
         for( int n=2; n<n_limit_series; ++n ) {
             if( m_sym_Ci && n&1 )
                 continue;
@@ -457,8 +458,12 @@ complex_t FormFactorPolyhedron::evaluate_centered( const cvector_t q ) const
                 std::cout<<std::setprecision(16)<<"  SUM="<<sum<<" +TERM="<<term<<"\n";
 #endif
             sum += term;
-            if( !(n&1) && std::abs(term)<eps*std::abs(sum) )
-                return sum;
+            if( std::abs(term)<=eps*std::abs(sum) || std::abs(sum)<eps*m_volume )
+                ++count_return_condition;
+            else
+                count_return_condition = 0;
+            if( count_return_condition>2 )
+                return m_volume + sum; // regular exit
             n_fac *= ( m_sym_Ci ? -1 : I );
         }
 #ifdef POLYHEDRAL_DIAGNOSTIC

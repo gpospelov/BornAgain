@@ -37,25 +37,7 @@ INSTANTIATE_TEST_CASE_P(
     FFSpecializationTest,
     qlist);
 
-TEST_P(FFSpecializationTest, HemiEllipsoidAsTruncatedSphere)
-{
-    if( skip_q( 1e-99, 5e2 ) )
-        return;
-    double R=1.07;
-    FormFactorHemiEllipsoid p0(R, R, R);
-    FormFactorTruncatedSphere p1(R, R);
-    test_ff_eq( &p0, &p1, 1e-10 );
-}
-
-TEST_P(FFSpecializationTest, EllipsoidalCylinderAsCylinder)
-{
-    if( skip_q( 1e-99, 5e3 ) )
-        return;
-    double R=.8, H=1.2;
-    FormFactorEllipsoidalCylinder p0(R, R, H);
-    FormFactorCylinder p1(R, H);
-    test_ff_eq( &p0, &p1, 1e-11 );
-}
+//*********** polyhedra ***************
 
 TEST_P(FFSpecializationTest, TruncatedCubeAsBox)
 {
@@ -64,7 +46,7 @@ TEST_P(FFSpecializationTest, TruncatedCubeAsBox)
     double L=.5;
     FormFactorTruncatedCube p0(L, 0);
     FormFactorBox p1(L, L, L);
-    test_ff_eq( &p0, &p1, 1e-11 );
+    test_ff_eq( &p0, &p1, 5e-12 );
 }
 
 TEST_P(FFSpecializationTest, AnisoPyramidAsPyramid)
@@ -74,17 +56,7 @@ TEST_P(FFSpecializationTest, AnisoPyramidAsPyramid)
     double L=1.5, H=.24, alpha=.6;
     FormFactorAnisoPyramid p0(L, L, H, alpha);
     FormFactorPyramid p1(L, H, alpha);
-    test_ff_eq( &p0, &p1, 1e-11 );
-}
-
-TEST_P(FFSpecializationTest, TruncatedSphereAsSphere)
-{
-    if( skip_q( .02, 5e1 ) ) // WAITING #1416 improve/replace numeric integration
-        return;
-    double R=1.;
-    FormFactorTruncatedSphere p0(R, 2*R);
-    FormFactorFullSphere p1(R);
-    test_ff_eq( &p0, &p1 );
+    test_ff_eq( &p0, &p1, 2e-12 );
 }
 
 TEST_P(FFSpecializationTest, Pyramid3AsPrism)
@@ -115,4 +87,36 @@ TEST_P(FFSpecializationTest, Cone6AsPrism)
     FormFactorCone6 p0(L, H, Units::PI/2);
     FormFactorPrism6 p1(L, H);
     test_ff_eq( &p0, &p1, 2e-11 );
+}
+
+//*********** spheroids ***************
+
+TEST_P(FFSpecializationTest, HemiEllipsoidAsTruncatedSphere)
+{
+    if( skip_q( 1e-99, 5e2 ) )
+        return;
+    double R=1.07;
+    FormFactorHemiEllipsoid p0(R, R, R);
+    FormFactorTruncatedSphere p1(R, R);
+    test_ff_eq( &p0, &p1, 1e-10 );
+}
+
+TEST_P(FFSpecializationTest, EllipsoidalCylinderAsCylinder)
+{
+    if( skip_q( 1e-99, 5e3 ) )
+        return;
+    double R=.8, H=1.2;
+    FormFactorEllipsoidalCylinder p0(R, R, H);
+    FormFactorCylinder p1(R, H);
+    test_ff_eq( &p0, &p1, 1e-11 );
+}
+
+TEST_P(FFSpecializationTest, TruncatedSphereAsSphere)
+{
+    if( skip_q( .02, 5e1 ) ) // WAITING #1416 improve/replace numeric integration
+        return;
+    double R=1.;
+    FormFactorTruncatedSphere p0(R, 2*R);
+    FormFactorFullSphere p1(R);
+    test_ff_eq( &p0, &p1 );
 }

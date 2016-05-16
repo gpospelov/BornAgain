@@ -37,16 +37,7 @@ INSTANTIATE_TEST_CASE_P(
     FFSymmetryTest,
     qlist);
 
-//*********** satisfactory tests ***************
-
-TEST_P(FFSymmetryTest, HemiEllipsoid)
-{
-    if( skip_q( 1e-99, 2e2 ) )
-        return;
-    FormFactorHemiEllipsoid p(.53, .78, 1.3);
-    test_qq_eq( &p, q, cvector_t(-q.x(), q.y(), q.z()) );
-    test_qq_eq( &p, q, cvector_t(q.x(), -q.y(), q.z()) );
-}
+//*********** polyhedra ***************
 
 TEST_P(FFSymmetryTest, Prism3)
 {
@@ -70,7 +61,7 @@ TEST_P(FFSymmetryTest, Tetrahedron)
     if( skip_q( 1e-99, 2e2 ) )
         return;
     FormFactorTetrahedron p(8.43, .25, .53);
-    test_qq_eq( &p, q, q.rotatedZ(Units::PI2/3), 1.4e-10 );
+    test_qq_eq( &p, q, q.rotatedZ(Units::PI2/3), 1.2e-11 );
 }
 
 TEST_P(FFSymmetryTest, Cone6)
@@ -78,7 +69,18 @@ TEST_P(FFSymmetryTest, Cone6)
     if( skip_q( 1e-99, 2e2) ) // TODO for larger q, imag(ff) is nan
         return;
     FormFactorCone6 p(7.43, .25, .57);
-    test_qq_eq( &p, q, q.rotatedZ(-Units::PI/3), 2.7e-10 );
+    test_qq_eq( &p, q, q.rotatedZ(-Units::PI/3), 2.6e-11 );
+}
+
+//*********** spheroids ***************
+
+TEST_P(FFSymmetryTest, HemiEllipsoid)
+{
+    if( skip_q( 1e-99, 2e2 ) )
+        return;
+    FormFactorHemiEllipsoid p(.53, .78, 1.3);
+    test_qq_eq( &p, q, cvector_t(-q.x(), q.y(), q.z()) );
+    test_qq_eq( &p, q, cvector_t(q.x(), -q.y(), q.z()) );
 }
 
 TEST_P(FFSymmetryTest, TruncatedSphere)

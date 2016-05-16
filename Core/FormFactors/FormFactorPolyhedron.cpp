@@ -46,7 +46,7 @@ extern Diagnosis diagnosis;
 double PolyhedralFace::qpa_limit_series = 1e-2;
 int PolyhedralFace::n_limit_series = 20;
 
-double FormFactorPolyhedron::q_limit_series = 1e-5;
+double FormFactorPolyhedron::q_limit_series = 1e-4;
 int FormFactorPolyhedron::n_limit_series = 20;
 
 //***************************************************************************************************

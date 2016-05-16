@@ -50,6 +50,20 @@ protected:
     bool eventFilter(QObject *obj, QEvent *event);
 };
 
+//! Filter out space bar key events, which is special case for dialog windows
+
+class DeleteEventFilter : public QObject
+{
+    Q_OBJECT
+public:
+  DeleteEventFilter( QObject *parent = 0 ) : QObject( parent ) {}
+
+protected:
+  bool eventFilter( QObject *dist, QEvent *event );
+
+signals:
+  void removeItem();
+};
 
 
 

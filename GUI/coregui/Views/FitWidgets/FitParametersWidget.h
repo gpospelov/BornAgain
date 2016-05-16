@@ -33,6 +33,7 @@ class ParameterItem;
 class FitParameterItem;
 class QItemSelection;
 class SessionModelDelegate;
+class DeleteEventFilter;
 
 //! The FitParametersWidget class contains a tree view to set fit parameters (fix/release,
 //! starting value, min/max bounds). It occupies buttom right corner of JobView.
@@ -85,12 +86,9 @@ private:
     QAction *m_removeFromFitParAction;
     QAction *m_removeFitParAction;
     QSignalMapper *m_signalMapper;
-//    std::unique_ptr<FitParameterModel> m_fitParameterModel;
-//    std::unique_ptr<FitParameterAbsModel> m_fitParameterModel;
     FitParameterAbsModel* m_fitParameterModel;
     SessionModelDelegate *m_delegate;
-
-//    std::unique_ptr<FitParameterAbsModel> m_fitParameterAbsModel;
+    DeleteEventFilter *m_keyboardFilter;
 };
 
 #endif

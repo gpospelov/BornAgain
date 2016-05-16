@@ -27,6 +27,7 @@
 #include "FitParameterAbsModel.h"
 #include "FitModelHelper.h"
 #include "SessionModelDelegate.h"
+#include "CustomEventFilters.h"
 #include <QMenu>
 #include <QSignalMapper>
 #include <QTreeView>
@@ -45,6 +46,7 @@ FitParametersWidget::FitParametersWidget(QWidget *parent)
     , m_signalMapper(0)
     , m_fitParameterModel(0)
     , m_delegate(new SessionModelDelegate(this))
+    , m_keyboardFilter(new DeleteEventFilter(this))
 {
     QVBoxLayout *layout = new QVBoxLayout;
     layout->addWidget(m_treeView);
@@ -57,6 +59,8 @@ FitParametersWidget::FitParametersWidget(QWidget *parent)
     m_treeView->setItemDelegate(m_delegate);
     connect(m_treeView, SIGNAL(customContextMenuRequested(const QPoint &)),
             this, SLOT(onFitParameterTreeContextMenu(const QPoint &)));
+
+    m_treeView->installEventFilter(m_keyboardFilter);
 
 }
 
@@ -245,6 +249,9 @@ void FitParametersWidget::init_actions()
 
     m_signalMapper = new QSignalMapper(this);
     connect(m_signalMapper, SIGNAL(mapped(int)), this, SLOT(onAddToFitParAction(int)));
+
+    connect(m_keyboardFilter, SIGNAL(removeItem()), this, SLOT(onRemoveFitParAction()));
+
 
 }
 

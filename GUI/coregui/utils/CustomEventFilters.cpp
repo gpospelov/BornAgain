@@ -43,6 +43,8 @@ bool SpaceKeyEater::eventFilter(QObject *obj, QEvent *event)
     }
 }
 
+// ----------------------------------------------------------------------------
+
 WheelEventEater::WheelEventEater(QObject *parent)
     : QObject(parent)
 {
@@ -80,3 +82,19 @@ bool WheelEventEater::eventFilter(QObject *obj, QEvent *event)
     }
     return QObject::eventFilter(obj, event);
 }
+
+// ----------------------------------------------------------------------------
+
+bool DeleteEventFilter::eventFilter( QObject *dist, QEvent *event )
+{
+    Q_UNUSED(dist);
+    if( event->type() == QEvent::KeyPress )
+    {
+        QKeyEvent *keyEvent = static_cast<QKeyEvent*>( event );
+        if( keyEvent->key() == Qt::Key_Delete ) {
+            emit removeItem();
+        }
+    }
+    return QObject::eventFilter(dist, event);
+}
+

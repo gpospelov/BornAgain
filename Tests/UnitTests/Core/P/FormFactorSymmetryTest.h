@@ -56,12 +56,21 @@ TEST_P(FFSymmetryTest, Prism3)
     test_qq_eq( &p, q, q.rotatedZ(Units::PI2/3) );
 }
 
+TEST_P(FFSymmetryTest, Prism6)
+{
+    if( skip_q( 1e-99, 2e3 ) )
+        return;
+    FormFactorPrism6 p(1.33, .42);
+    test_qq_eq( &p, q, q.rotatedZ( Units::PI/3),  1e-11 );
+    test_qq_eq( &p, q, q.rotatedZ(-Units::PI2/3), 1e-11 );
+}
+
 TEST_P(FFSymmetryTest, Tetrahedron)
 {
     if( skip_q( 1e-99, 2e2 ) )
         return;
     FormFactorTetrahedron p(8.43, .25, .53);
-    test_qq_eq( &p, q, q.rotatedZ(Units::PI2/3), 1e-8 );
+    test_qq_eq( &p, q, q.rotatedZ(Units::PI2/3), 1.4e-10 );
 }
 
 TEST_P(FFSymmetryTest, Cone6)
@@ -69,7 +78,7 @@ TEST_P(FFSymmetryTest, Cone6)
     if( skip_q( 1e-99, 2e2) ) // TODO for larger q, imag(ff) is nan
         return;
     FormFactorCone6 p(7.43, .25, .57);
-    test_qq_eq( &p, q, q.rotatedZ(-Units::PI/3), 1e-9 );
+    test_qq_eq( &p, q, q.rotatedZ(-Units::PI/3), 2.7e-10 );
 }
 
 TEST_P(FFSymmetryTest, TruncatedSphere)
@@ -78,14 +87,6 @@ TEST_P(FFSymmetryTest, TruncatedSphere)
         return;
     FormFactorTruncatedSphere p(.79, .34);
     test_qq_eq( &p, q, q.rotatedZ(Units::PI/3.13698), 1e-10 );
-}
-
-TEST_P(FFSymmetryTest, Prism6)
-{
-    if( skip_q( 1e-99, 2e3 ) )
-        return;
-    FormFactorPrism6 p(1.33, .42);
-    test_qq_eq( &p, q, q.rotatedZ(Units::PI/3), 1e-10 );
 }
 
 // ****** TODO: tests that do not pass for the full q range *********

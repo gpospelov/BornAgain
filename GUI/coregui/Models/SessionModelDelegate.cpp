@@ -36,7 +36,8 @@ void SessionModelDelegate::paint(QPainter *painter, const QStyleOptionViewItem &
     if(prop_value.canConvert<ComboProperty>()) {
         ComboProperty property = prop_value.value<ComboProperty>();
         QStyleOptionViewItem opt = option;
-        opt.text = displayText(property.getValue(), option.locale);
+        initStyleOption(&opt, index); // calling original method to take into accounts colors etc
+        opt.text = displayText(property.getValue(), option.locale); // by overriding text with ours
         const QWidget *widget = opt.widget;
         QStyle *style = widget ? widget->style() : QApplication::style();
         style->drawControl(QStyle::CE_ItemViewItem, &opt, painter, widget);
@@ -55,8 +56,8 @@ QWidget *SessionModelDelegate::createEditor(QWidget *parent, const QStyleOptionV
         editor->setComboProperty(combo);
         connect(editor, SIGNAL(comboPropertyChanged(const ComboProperty &)),
                 this, SLOT(onComboPropertyChanged(const ComboProperty &)));
-
         return editor;
+
     } else {
         return QStyledItemDelegate::createEditor(parent, option, index);
     }
@@ -89,5 +90,5 @@ void SessionModelDelegate::onComboPropertyChanged(const ComboProperty &property)
     ComboPropertyEdit *editor = qobject_cast<ComboPropertyEdit *>(sender());
     Q_ASSERT(editor);
     emit commitData(editor);
-    //emit closeEditor(editor);
+    //emit closeEditor(editor); // Qt by default leaves editor alive after editing finished
 }

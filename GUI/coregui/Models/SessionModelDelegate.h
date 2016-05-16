@@ -48,6 +48,4 @@ private slots:
 
 };
 
-
-
 #endif

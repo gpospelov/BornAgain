@@ -19,6 +19,7 @@
 #include "FitParameterItems.h"
 #include "SessionModel.h"
 #include "JobModel.h"
+#include <QColor>
 #include <QDebug>
 
 FitParameterAbsModel::FitParameterAbsModel(FitParameterContainerItem *fitParContainer, QObject *parent)
@@ -170,6 +171,9 @@ QVariant FitParameterAbsModel::data(const QModelIndex &index, int role) const
             } else {
                 return item->value();
             }
+        }
+        if(role == Qt::TextColorRole && !item->isEditable()) {
+            return QVariant(QColor(Qt::gray));
         }
     }
 

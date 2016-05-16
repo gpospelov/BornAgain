@@ -43,7 +43,7 @@ static double eps(2e-16);
 extern Diagnosis diagnosis;
 #endif
 
-double PolyhedralFace::qpa_limit_series = 1e-3;
+double PolyhedralFace::qpa_limit_series = 3e-1;
 int PolyhedralFace::n_limit_series = 20;
 
 double FormFactorPolyhedron::q_limit_series = 1e-5;
@@ -235,7 +235,6 @@ complex_t PolyhedralFace::edge_sum_ff( cvector_t q, cvector_t qpa, bool sym_Ci )
 // direct evaluation of analytic formula
     cvector_t prevec = m_normal.cross( qpa ); // complex conjugation will take place in .dot
     complex_t sum = 0;
-    complex_t aux = 0; // for use in Kahan algorithm
     complex_t vfacsum = 0;
     for( size_t i=0; i<edges.size(); ++i ) {
         const PolyhedralEdge& e = edges[i];
@@ -250,10 +249,7 @@ complex_t PolyhedralFace::edge_sum_ff( cvector_t q, cvector_t qpa, bool sym_Ci )
             vfac = - vfacsum; // to improve numeric accuracy: qcE_J = - sum_{j=0}^{J-1} qcE_j
         }
         complex_t term = vfac * MathFunctions::sinc(qE) * Rfac;
-        complex_t yk = term - aux;
-        complex_t sum_old = sum;
-        sum += yk;
-        aux = (sum-sum_old)-yk;
+        sum += term;
 #ifdef POLYHEDRAL_DIAGNOSTIC
         if( diagnosis.debmsg>=2 )
             std::cout<<std::scientific<<std::showpos<<std::setprecision(16)<<"    sum="<<sum<<" term="<<term<<" vf="<<vfac<<" qE="<<qE<<" qR="<<qR<<" sinc="<<MathFunctions::sinc(qE)<<" Rfac="<<Rfac<<"\n";
@@ -294,11 +290,11 @@ complex_t PolyhedralFace::ff( const cvector_t q, const bool sym_Ci ) const
             diagnosis.maxOrder = std::max( diagnosis.maxOrder, n );
 #endif
             complex_t term = n_fac * ( n&1 ? fac_odd : fac_even ) * ff_n_core(n, qpa) / qpa.mag2();
-            sum += term;
 #ifdef POLYHEDRAL_DIAGNOSTIC
             if( diagnosis.debmsg>=2 )
-                std::cout<<std::setprecision(16)<<"    sum="<<sum<<" term="<<term<<"\n";
+                std::cout<<std::setprecision(16)<<"    sum="<<sum<<" +term="<<term<<"\n";
 #endif
+            sum += term;
             if( !(n&1) && std::abs(term)<=eps*std::abs(sum) )
                 return sum;
             n_fac *= I;
@@ -466,11 +462,11 @@ complex_t FormFactorPolyhedron::evaluate_centered( const cvector_t q ) const
             for( const PolyhedralFace& Gk: m_faces )
                 term += Gk.ff_n( n+1, q );
             term *= n_fac;
-            sum += term;
 #ifdef POLYHEDRAL_DIAGNOSTIC
             if( diagnosis.debmsg>=1 )
-                std::cout<<std::setprecision(16)<<"  SUM="<<sum<<" TERM="<<term<<"\n";
+                std::cout<<std::setprecision(16)<<"  SUM="<<sum<<" +TERM="<<term<<"\n";
 #endif
+            sum += term;
             if( !(n&1) && std::abs(term)<eps*std::abs(sum) )
                 return sum;
             n_fac *= ( m_sym_Ci ? -1 : I );

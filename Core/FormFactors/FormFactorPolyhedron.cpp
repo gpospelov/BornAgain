@@ -202,7 +202,7 @@ complex_t PolyhedralFace::ff_n_core( int m, const cvector_t q ) const
 {
     cvector_t prevec = 2.*m_normal.cross( q ); // complex conjugation will take place in .dot
     complex_t ret = 0;
-    for( const PolyhedralEdge& e: edges )
+    for( const PolyhedralEdge& e: edges ) // TODO improve accuracy as in qpa expansion
         ret += e.contrib(m, prevec, q);
     return ret;
 }

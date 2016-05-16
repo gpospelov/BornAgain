@@ -60,6 +60,7 @@ private slots:
     void onRemoveFromFitParAction();
     void onRemoveFitParAction();
     void onAddToFitParAction(int ipar);
+    void spanParameters();
 
 protected:
     void contextMenuEvent(QContextMenuEvent *event);
@@ -71,7 +72,6 @@ private:
 
     void stop_tracking_job_item();
     void init_job_item();
-    void spanParameters();
     bool isCreateFitParameterPossible();
     void setActionsEnabled(bool value);
     void connectTuningWidgetSelection(bool active);

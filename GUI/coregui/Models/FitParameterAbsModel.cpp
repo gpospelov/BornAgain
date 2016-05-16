@@ -19,6 +19,8 @@
 #include "FitParameterItems.h"
 #include "SessionModel.h"
 #include "JobModel.h"
+#include "FitModelHelper.h"
+#include "ParameterTreeItems.h"
 #include <QColor>
 #include <QMimeData>
 #include <QDebug>
@@ -263,6 +265,17 @@ bool FitParameterAbsModel::dropMimeData(const QMimeData *data, Qt::DropAction ac
 //    if (column > 0) return true;
 
     qDebug() << "FitParameterAbsModel::dropMimeData row:" << row << "column:" << column << "parent:" << parent << "mime:" <<  QString::fromLatin1(data->data(MIME_TYPE));
+
+    if(parent.isValid()) {
+        if(SessionItem *fitParItem = itemForIndex(parent)) {
+            Q_ASSERT(fitParItem->modelType() == Constants::FitParameterType);
+            ParameterItem *parItem = FitModelHelper::getParameterItem(m_root_item, QString::fromLatin1(data->data(MIME_TYPE)));
+            Q_ASSERT(parItem);
+            FitModelHelper::addToFitParameter(m_root_item, parItem, fitParItem->displayName());
+            qDebug() << "AAAA" << parItem->getItemValue(ParameterItem::P_LINK);
+        }
+    }
+
 
     return true;
 }

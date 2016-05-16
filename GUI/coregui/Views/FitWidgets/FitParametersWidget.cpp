@@ -334,8 +334,15 @@ void FitParametersWidget::init_job_item()
 
 //    m_fitParameterModel.reset(new FitParameterModel(parsContainerItem));
 //    m_fitParameterModel.reset(new FitParameterAbsModel(m_jobItem->fitParameterContainerItem()));
+    delete m_fitParameterModel;
     m_fitParameterModel = new FitParameterAbsModel(m_jobItem->fitParameterContainerItem(), m_jobItem->fitParameterContainerItem()->model());
     m_treeView->setModel(m_fitParameterModel);
+
+    connect(m_fitParameterModel, SIGNAL(dataChanged(QModelIndex,QModelIndex,QVector<int>)),
+            this, SLOT(spanParameters()));
+
+//            connect(m_fitParameterModel, SIGNAL(rowsInserted(QModelIndex,int,int)),
+//                       this, SLOT(spanParameters()));
 
 
 //    m_fitParameterModel->createFitParameter();

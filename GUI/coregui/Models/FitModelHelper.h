@@ -39,7 +39,7 @@ public:
     static FitParameterItem *getFitParameterItem(FitParameterContainerItem *container, ParameterItem *parameterItem);
     static QStringList getFitParameterNames(FitParameterContainerItem *container);
     static QString getParameterItemPath(ParameterItem *parameterItem);
-
+    static ParameterItem *getParameterItem(FitParameterContainerItem *container, const QString &link);
 
 };
 

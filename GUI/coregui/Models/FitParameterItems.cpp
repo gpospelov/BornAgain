@@ -18,6 +18,9 @@
 #include "ComboProperty.h"
 #include "ModelPath.h"
 #include "SessionModel.h"
+#include "FitModelHelper.h"
+#include "ParameterTreeItems.h"
+#include "AttLimits.h"
 #include <QDebug>
 
 namespace
@@ -33,6 +36,8 @@ QStringList getFitParTypeTooltips()
     result.append(QStringLiteral("No limits imposed to parameter value"));
     return result;
 }
+
+const double range_factor = 0.5;
 
 }
 
@@ -83,13 +88,29 @@ FitParameterItem::FitParameterItem()
     onTypeChange();
 }
 
-//! init value, min, max from given ParameterItem
+//! Inits P_MIN and P_MAX taking into account current value and external limits
 
-//void FitParameterItem::initFromParameterItem(ParameterItem *parItem)
-//{
+void FitParameterItem::initMinMaxValues(const AttLimits &limits)
+{
+    double value = getItemValue(P_START_VALUE).toDouble();
 
+    double dr(0);
+    if(value == 0.0) {
+        dr = 1.0*range_factor;
+    } else {
+        dr = std::abs(value)*range_factor;
+    }
 
-//}
+    ComboProperty partype = getItemValue(P_TYPE).value<ComboProperty>();
+    if(partype.getValue() == Constants::FITPAR_LIMITED) {
+        double min = value - dr;
+        double max = value + dr;
+        if(limits.hasLowerLimit() && min <limits.getLowerLimit()) min = limits.getLowerLimit();
+        if(limits.hasUpperLimit() && max >limits.getUpperLimit()) max = limits.getUpperLimit();
+        setItemValue(P_MIN, min);
+        setItemValue(P_MAX, max);
+    }
+}
 
 //! Enables/disables min, max properties on FitParameterItem's type
 

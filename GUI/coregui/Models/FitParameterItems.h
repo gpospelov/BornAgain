@@ -18,7 +18,7 @@
 
 #include "SessionItem.h"
 
-class ParameterItem;
+class AttLimits;
 
 class BA_CORE_API_ FitParameterLinkItem : public SessionItem
 {
@@ -40,7 +40,7 @@ public:
     static const QString T_LINK;
     explicit FitParameterItem();
 
-//    void initFromParameterItem(ParameterItem *parItem);
+    void initMinMaxValues(const AttLimits &limits);
 
 private:
     void onTypeChange();

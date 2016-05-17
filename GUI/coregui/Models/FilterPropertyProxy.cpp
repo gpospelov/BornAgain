@@ -36,42 +36,42 @@ QModelIndex FilterPropertyProxy::toSourceIndex(QModelIndex index)
     return index;
 }
 
-QMimeData *FilterPropertyProxy::mimeData(const QModelIndexList &indexes) const
-{
-    qDebug() << "FitParameterAbsModel::mimeData" << indexes;
-    QMimeData *mimeData = new QMimeData();
+//QMimeData *FilterPropertyProxy::mimeData(const QModelIndexList &indexes) const
+//{
+//    qDebug() << "FitParameterAbsModel::mimeData" << indexes;
+//    QMimeData *mimeData = new QMimeData();
 
-    foreach(QModelIndex proxyIndex, indexes) {
-        QModelIndex index = FilterPropertyProxy::toSourceIndex(proxyIndex);
-        if(index.column() != 0)
-            continue;
+//    foreach(QModelIndex proxyIndex, indexes) {
+//        QModelIndex index = FilterPropertyProxy::toSourceIndex(proxyIndex);
+//        if(index.column() != 0)
+//            continue;
 
-        SessionModel *sessionModel = dynamic_cast<SessionModel *>(sourceModel());
-        Q_ASSERT(sessionModel);
-        if (ParameterItem *parameterItem
-            = dynamic_cast<ParameterItem *>(sessionModel->itemForIndex(index))) {
-            QString path = FitModelHelper::getParameterItemPath(parameterItem);
-            mimeData->setData(FitParameterAbsModel::MIME_TYPE, path.toLatin1());
-            qDebug() << "       FilterPropertyProxy::mimeData" << path;
-            break;
-        }
-    }
-
-//    QModelIndex index = toSourceIndex(indexes.first());
-//    if (index.isValid()) {
-//        if(SessionItem *item = static_cast<SessionItem *>(index.internalPointer())) {
-//            QString path = item->value().toString();
+//        SessionModel *sessionModel = dynamic_cast<SessionModel *>(sourceModel());
+//        Q_ASSERT(sessionModel);
+//        if (ParameterItem *parameterItem
+//            = dynamic_cast<ParameterItem *>(sessionModel->itemForIndex(index))) {
+//            QString path = FitModelHelper::getParameterItemPath(parameterItem);
 //            mimeData->setData(FitParameterAbsModel::MIME_TYPE, path.toLatin1());
 //            qDebug() << "       FilterPropertyProxy::mimeData" << path;
-
+//            break;
 //        }
-////        QString path = getPathFromIndex(index);
-////        path = path.append("#%1").arg(itemFromIndex(index.sibling(index.row(), 1))
-////                                      ->data(Qt::EditRole).toDouble());
 //    }
-    return mimeData;
 
-}
+////    QModelIndex index = toSourceIndex(indexes.first());
+////    if (index.isValid()) {
+////        if(SessionItem *item = static_cast<SessionItem *>(index.internalPointer())) {
+////            QString path = item->value().toString();
+////            mimeData->setData(FitParameterAbsModel::MIME_TYPE, path.toLatin1());
+////            qDebug() << "       FilterPropertyProxy::mimeData" << path;
+
+////        }
+//////        QString path = getPathFromIndex(index);
+//////        path = path.append("#%1").arg(itemFromIndex(index.sibling(index.row(), 1))
+//////                                      ->data(Qt::EditRole).toDouble());
+////    }
+//    return mimeData;
+
+//}
 
 //QStringList FilterPropertyProxy::mimeTypes() const
 //{

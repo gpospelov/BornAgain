@@ -31,7 +31,7 @@ public:
 
     static QModelIndex toSourceIndex(QModelIndex index);
 
-    QMimeData *mimeData(const QModelIndexList &indexes) const;
+//    QMimeData *mimeData(const QModelIndexList &indexes) const;
 
 //    QStringList mimeTypes() const Q_DECL_OVERRIDE;
 

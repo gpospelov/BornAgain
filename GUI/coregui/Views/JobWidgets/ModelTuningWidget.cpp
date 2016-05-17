@@ -27,7 +27,7 @@
 #include "IntensityDataItem.h"
 #include "DesignerHelper.h"
 #include "WarningSignWidget.h"
-#include "FilterPropertyProxy.h"
+#include "ParameterTuningModel.h"
 #include "FitTools.h"
 #include "ParameterTreeItems.h"
 #include <QLabel>
@@ -139,7 +139,7 @@ QVector<ParameterItem *> ModelTuningWidget::getSelectedParameters()
     QVector<ParameterItem *> result;
     QModelIndexList proxyIndexes = selectionModel()->selectedIndexes();
     foreach(QModelIndex proxyIndex, proxyIndexes) {
-        QModelIndex index = FilterPropertyProxy::toSourceIndex(proxyIndex);
+        QModelIndex index = ParameterTuningModel::toSourceIndex(proxyIndex);
         if(index.column() != 0)
             continue;
 
@@ -191,7 +191,7 @@ void ModelTuningWidget::updateParameterModel()
         throw GUIHelpers::Error("ModelTuningWidget::updateParameterModel() -> Error."
                                 "JobItem doesn't have sample or instrument model.");
 
-    FilterPropertyProxy *proxy = new FilterPropertyProxy(2, this);
+    ParameterTuningModel *proxy = new ParameterTuningModel(this);
     proxy->setSourceModel(m_jobModel);
     m_treeView->setModel(proxy);
     m_treeView->setRootIndex(proxy->mapFromSource(m_currentJobItem->getItem(JobItem::T_PARAMETER_TREE)->index()));

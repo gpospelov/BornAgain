@@ -129,12 +129,12 @@ inline bool SessionModel::setHeaderData(int, Qt::Orientation, const QVariant &, 
 
 inline Qt::DropActions SessionModel::supportedDragActions() const
 {
-    return Qt::CopyAction | Qt::MoveAction;
+    return Qt::MoveAction;
 }
 
 inline Qt::DropActions SessionModel::supportedDropActions() const
 {
-    return Qt::CopyAction | Qt::MoveAction;
+    return Qt::MoveAction;
 }
 
 inline QString SessionModel::getModelTag() const

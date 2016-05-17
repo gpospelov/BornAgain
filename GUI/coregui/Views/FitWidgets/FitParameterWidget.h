@@ -44,10 +44,9 @@ class BA_CORE_API_ FitParameterWidget : public QWidget
     Q_OBJECT
 public:
     FitParameterWidget(QWidget *parent = 0);
-    ~FitParameterWidget();
 
     void setItem(JobItem *jobItem);
-    void setModelTuningWidget(ParameterTuningWidget *tuningWidget);
+    void setParameterTuningWidget(ParameterTuningWidget *tuningWidget);
 
 public slots:
     void onTuningWidgetContextMenu(const QPoint &point);
@@ -70,15 +69,18 @@ private:
     void initTuningWidgetContextMenu(QMenu &menu);
     void initFitParameterTreeContextMenu(QMenu &menu);
 
-    void stop_tracking_job_item();
-    void init_job_item();
-    bool isCreateFitParameterPossible();
+    void init_fit_model();
+    void init_fit_containers();
+
+    bool canCreateFitParameter();
+    bool canRemoveFromFitParameters();
+
     void setActionsEnabled(bool value);
     void connectTuningWidgetSelection(bool active);
     void connectFitParametersSelection(bool active);
 
-    QVector<FitParameterItem *> getSelectedFitParameters();
-    QVector<FitParameterLinkItem *> getSelectedFitParameterLinks();
+    QVector<FitParameterItem *> selectedFitParameters();
+    QVector<FitParameterLinkItem *> selectedFitParameterLinks();
 
     QTreeView *m_treeView;
     JobItem *m_jobItem;

@@ -26,12 +26,11 @@
 #include <QDebug>
 
 
-
 FitParameterAbsModel::FitParameterAbsModel(FitParameterContainerItem *fitParContainer, QObject *parent)
     : QAbstractItemModel(parent)
     , m_root_item(fitParContainer)
 {
-    m_columnNames.insert(PAR_NAME, "Name");
+    m_columnNames.insert(PAR_NAME, QStringLiteral("Name"));
     m_columnNames.insert(PAR_TYPE, FitParameterItem::P_TYPE);
     m_columnNames.insert(PAR_MIN, FitParameterItem::P_MIN);
     m_columnNames.insert(PAR_MAX, FitParameterItem::P_MAX);
@@ -44,7 +43,6 @@ FitParameterAbsModel::FitParameterAbsModel(FitParameterContainerItem *fitParCont
         Q_ASSERT(parent == m_root_item);
         m_root_item = 0;
     });
-
 }
 
 Qt::ItemFlags FitParameterAbsModel::flags(const QModelIndex &index) const
@@ -53,29 +51,17 @@ Qt::ItemFlags FitParameterAbsModel::flags(const QModelIndex &index) const
 
     Qt::ItemFlags returnVal = Qt::ItemIsEnabled | Qt::ItemIsSelectable;
     if(SessionItem *item = itemForIndex(index)) {
-//        if(item->isEnabled()) returnVal |= Qt::ItemIsEnabled;
         if(item->isEditable()) returnVal |= Qt::ItemIsEditable;
         if(item->parent()->modelType() == Constants::FitParameterLinkType && index.column() == 0) {
             returnVal |= Qt::ItemIsDragEnabled;
         }
-        if(item->modelType() == Constants::FitParameterType) {
+        if(item->modelType() == Constants::FitParameterType || item->modelType() == Constants::FitParameterContainerType) {
             returnVal |= Qt::ItemIsDropEnabled;
         }
 
     }
 
     return returnVal;
-
-//    Qt::ItemFlags returnVal = Qt::ItemIsEnabled | Qt::ItemIsSelectable;
-//    if (index.isValid() && index.parent() == QModelIndex()) {
-//        if (index.column() == 0)
-//            returnVal |= Qt::ItemIsDropEnabled;
-//        else
-//            returnVal |= Qt::ItemIsEditable;
-//    } else if (!index.isValid()) {
-//        returnVal |= Qt::ItemIsDropEnabled;
-//    }
-//    return returnVal;
 }
 
 QModelIndex FitParameterAbsModel::index(int row, int column, const QModelIndex &parent) const
@@ -243,19 +229,16 @@ bool FitParameterAbsModel::canDropMimeData(const QMimeData *data, Qt::DropAction
 //    if (column > 0)
 //        return false;
     QString link = QString::fromLatin1(data->data(SessionXML::LinkMimeType)).split("#")[0];
-    qDebug() << "FitParameterAbsModel::canDropMimeData" << "row:" << row << "column:" << column << "parent:" << parent << link;
+    qDebug() << "FitParameterAbsModel::canDropMimeData" << "row:" << row << "column:" << column << "parent:" << parent << link << action;
 
-    if(parent.isValid()) {
+    bool drop_is_possible(false);
 
-    qDebug() << "!!! true";
-    return true;
+    if(parent.isValid()) drop_is_possible = true;
+    if(!parent.isValid() && row==-1 && column == -1) drop_is_possible = true;
 
-    }
-    return false;
-//    QString link = QString::fromLatin1(data->data(ObsoleteFitParameterWidget::MIME_TYPE)).split("#")[0];
-//    QModelIndex cur = itemForLink(link);
-//    return !cur.isValid();
+    qDebug() << "       FitParameterAbsModel::canDropMimeData" << drop_is_possible;
 
+    return drop_is_possible;
 }
 
 bool FitParameterAbsModel::dropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column, const QModelIndex &parent)
@@ -275,6 +258,11 @@ bool FitParameterAbsModel::dropMimeData(const QMimeData *data, Qt::DropAction ac
         }
     }
 
+    if(!parent.isValid()) {
+        ParameterItem *parItem = FitModelHelper::getParameterItem(m_root_item, QString::fromLatin1(data->data(SessionXML::LinkMimeType)));
+        Q_ASSERT(parItem);
+        FitModelHelper::createFitParameter(m_root_item, parItem);
+    }
 
     return true;
 }
@@ -330,7 +318,9 @@ void FitParameterAbsModel::onSourceBeginRemoveRows(const QModelIndex &parent, in
     JobModel *sourceModel = qobject_cast<JobModel *>(sender());
     Q_ASSERT(sourceModel);
 
-// Two alternative ways which seems to be working
+    // Two alternative ways which seems to be working
+    // FIXME Choose one method and cleanup
+
     // way #1
     beginResetModel();
 

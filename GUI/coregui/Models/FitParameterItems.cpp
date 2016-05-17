@@ -83,6 +83,14 @@ FitParameterItem::FitParameterItem()
     onTypeChange();
 }
 
+//! init value, min, max from given ParameterItem
+
+//void FitParameterItem::initFromParameterItem(ParameterItem *parItem)
+//{
+
+
+//}
+
 //! Enables/disables min, max properties on FitParameterItem's type
 
 void FitParameterItem::onTypeChange()

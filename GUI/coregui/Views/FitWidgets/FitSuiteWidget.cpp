@@ -72,7 +72,7 @@ void FitSuiteWidget::setModelTuningWidget(ParameterTuningWidget *tuningWidget)
 {
     Q_ASSERT(m_fitParametersWidget);
     Q_ASSERT(tuningWidget);
-    m_fitParametersWidget->setModelTuningWidget(tuningWidget);
+    m_fitParametersWidget->setParameterTuningWidget(tuningWidget);
 }
 
 void FitSuiteWidget::onError(const QString &text)

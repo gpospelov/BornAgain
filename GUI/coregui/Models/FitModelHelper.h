@@ -32,11 +32,13 @@ class JobItem;
 class BA_CORE_API_ FitModelHelper : public SessionModel
 {
 public:
+    static void createFitParameter(FitParameterContainerItem *container, ParameterItem *parameterItem);
 
-    static void createFitParameter(FitParameterContainerItem *container, ParameterItem *parameterItem = 0);
     static void removeFromFitParameters(FitParameterContainerItem *container, ParameterItem *parameterItem);
     static void addToFitParameter(FitParameterContainerItem *container, ParameterItem *parameterItem, const QString &fitParName);
+
     static FitParameterItem *getFitParameterItem(FitParameterContainerItem *container, ParameterItem *parameterItem);
+
     static QStringList getFitParameterNames(FitParameterContainerItem *container);
     static QString getParameterItemPath(ParameterItem *parameterItem);
     static ParameterItem *getParameterItem(FitParameterContainerItem *container, const QString &link);

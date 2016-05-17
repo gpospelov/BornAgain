@@ -53,7 +53,7 @@ void TestFitWidgets::showEvent(QShowEvent *)
         m_jobItem = jobItem;
         m_tuningWidget->setItem(jobItem);
         m_fitParametersWidget->setItem(jobItem);
-        m_fitParametersWidget->setModelTuningWidget(m_tuningWidget);
+        m_fitParametersWidget->setParameterTuningWidget(m_tuningWidget);
         m_jobTreeView->setModel(m_mainWindow->jobModel());
         m_jobTreeView->setRootIndex(jobItem->fitSuiteItem()->index());
     }

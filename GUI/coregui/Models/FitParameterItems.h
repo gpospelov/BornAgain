@@ -18,6 +18,8 @@
 
 #include "SessionItem.h"
 
+class ParameterItem;
+
 class BA_CORE_API_ FitParameterLinkItem : public SessionItem
 {
 
@@ -37,6 +39,8 @@ public:
     static const QString P_MAX;
     static const QString T_LINK;
     explicit FitParameterItem();
+
+//    void initFromParameterItem(ParameterItem *parItem);
 
 private:
     void onTypeChange();

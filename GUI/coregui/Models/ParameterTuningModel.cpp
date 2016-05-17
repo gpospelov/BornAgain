@@ -35,6 +35,8 @@ Qt::ItemFlags ParameterTuningModel::flags(const QModelIndex &proxyIndex) const
 
     QModelIndex sourceIndex = toSourceIndex(proxyIndex);
     if(sourceIndex.isValid()) {
+        if (sourceIndex.column() == SessionModel::ITEM_VALUE) result |= Qt::ItemIsEditable;
+
         const QString modelType = sourceIndex.data(SessionModel::ModelTypeRole).toString();
         if(modelType == Constants::ParameterType) {
             result |= Qt::ItemIsDragEnabled;

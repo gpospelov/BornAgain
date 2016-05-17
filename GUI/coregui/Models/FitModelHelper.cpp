@@ -27,24 +27,15 @@
 void FitModelHelper::createFitParameter(FitParameterContainerItem *container, ParameterItem *parameterItem)
 {
     Q_ASSERT(container);
+    Q_ASSERT(parameterItem);
+
+    removeFromFitParameters(container, parameterItem);
 
     SessionItem *fitPar = container->model()->insertNewItem(Constants::FitParameterType, container->index());
     fitPar->setDisplayName(QStringLiteral("par"));
-    Q_ASSERT(fitPar);
-
-//    SessionItem *link = fitPar->model()->insertNewItem(Constants::FitParameterLinkType, fitPar->index());
-//    Q_ASSERT(link);
-//    link->setItemValue(FitParameterLinkItem::P_LINK, "xxx");
-//    SessionItem *link2 = fitPar->model()->insertNewItem(Constants::FitParameterLinkType, fitPar->index());
-//    link2->setItemValue(FitParameterLinkItem::P_LINK, "yyy");
-
-
-    if(parameterItem) {
-        fitPar->setItemValue(FitParameterItem::P_START_VALUE, parameterItem->value());
-        SessionItem *link = fitPar->model()->insertNewItem(Constants::FitParameterLinkType, fitPar->index());
-        link->setItemValue(FitParameterLinkItem::P_LINK, getParameterItemPath(parameterItem));
-    }
-
+    SessionItem *link = fitPar->model()->insertNewItem(Constants::FitParameterLinkType, fitPar->index());
+    fitPar->setItemValue(FitParameterItem::P_START_VALUE, parameterItem->value());
+    link->setItemValue(FitParameterLinkItem::P_LINK, getParameterItemPath(parameterItem));
 }
 
 //! Removes link to given parameterItem from fit parameters

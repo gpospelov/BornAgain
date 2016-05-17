@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/InfoWidgets/WarningSignWidget.h
-//! @brief     Declares class WarningSignWidget
+//! @file      coregui/Views/InfoWidgets/InfoLabelWidget.h
+//! @brief     Declares class InfoLabelWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,32 +14,32 @@
 //
 // ************************************************************************** //
 
-#ifndef WARNINGSIGNWIDGET_H
-#define WARNINGSIGNWIDGET_H
+#ifndef INFOLABELWIDGET_H
+#define INFOLABELWIDGET_H
 
 #include "WinDllMacros.h"
 #include <QWidget>
-#include <QPixmap>
 #include <QString>
+#include <QRect>
 
-//! The WarningSignWidget is an transparent widget with warning sign pixmap intended to be
-//! overlayed onto other widget at some arbitrary position.
-class WarningSignWidget : public QWidget
+//! The InfoLabelWidget is a semi-transparent overlay label to palce on top of other
+//! widgets outside of any layout context.
+
+class InfoLabelWidget : public QWidget
 {
 public:
-    WarningSignWidget(QWidget *parent = 0);
+    InfoLabelWidget(QWidget *parent = 0);
 
     void setPosition(int x, int y);
 
-    void setWarningMessage(const QString &message) {m_warning_message = message;}
+    void setWarningMessage(const QString &text) {m_text = text;}
 
 protected:
     void paintEvent(QPaintEvent *event);
-    void mousePressEvent(QMouseEvent *event);
 
 private:
-    QPixmap m_pixmap;
-    QString m_warning_message;
+    QString m_text;
+    QRect m_bounding_rect;
 };
 
 #endif

@@ -28,6 +28,7 @@
 #include "FitModelHelper.h"
 #include "SessionModelDelegate.h"
 #include "CustomEventFilters.h"
+#include "InfoLabelWidget.h"
 #include <QMenu>
 #include <QSignalMapper>
 #include <QTreeView>
@@ -271,6 +272,10 @@ void FitParameterWidget::init_fit_model()
 
     spanParameters();
     connectFitParametersSelection(true);
+
+    InfoLabelWidget *label = new InfoLabelWidget(this);
+    label->setPosition(0, 0);
+
 }
 
 //! Adds to JobItem all fit containers, if necessary.

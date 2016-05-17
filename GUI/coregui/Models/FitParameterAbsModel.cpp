@@ -51,7 +51,7 @@ Qt::ItemFlags FitParameterAbsModel::flags(const QModelIndex &index) const
 
     Qt::ItemFlags returnVal = Qt::ItemIsEnabled | Qt::ItemIsSelectable;
     if(SessionItem *item = itemForIndex(index)) {
-        if(item->isEditable()) returnVal |= Qt::ItemIsEditable;
+        if(item->isEditable() && index.column() != 0) returnVal |= Qt::ItemIsEditable;
         if(item->parent()->modelType() == Constants::FitParameterLinkType && index.column() == 0) {
             returnVal |= Qt::ItemIsDragEnabled;
         }

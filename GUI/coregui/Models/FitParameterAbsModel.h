@@ -69,9 +69,11 @@ private slots:
 
 private:
     void connectModel(QAbstractItemModel *sourceModel, bool isConnect = true);
+    void addColumn(EColumn id, const QString &name, const QString &tooltip);
 
     FitParameterContainerItem *m_root_item;
     QMap<int, QString> m_columnNames;
+    QMap<int, QString> m_columnToolTips;
 };
 
 inline Qt::DropActions FitParameterAbsModel::supportedDragActions() const

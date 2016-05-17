@@ -189,9 +189,11 @@ void FitParameterWidget::onRemoveFitParAction()
 
 void FitParameterWidget::onAddToFitParAction(int ipar)
 {
-    QStringList fitParNames = FitModelHelper::getFitParameterNames(m_jobItem->fitParameterContainerItem());
-    foreach(ParameterItem *item, m_tuningWidget->getSelectedParameters()) {
-        FitModelHelper::addToFitParameter(m_jobItem->fitParameterContainerItem(), item, fitParNames.at(ipar));
+    QStringList fitParNames
+        = FitModelHelper::getFitParameterNames(m_jobItem->fitParameterContainerItem());
+    foreach (ParameterItem *item, m_tuningWidget->getSelectedParameters()) {
+        FitModelHelper::addToFitParameter(m_jobItem->fitParameterContainerItem(), item,
+                                          fitParNames.at(ipar));
     }
 }
 

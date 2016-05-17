@@ -30,11 +30,11 @@ FitParameterAbsModel::FitParameterAbsModel(FitParameterContainerItem *fitParCont
     : QAbstractItemModel(parent)
     , m_root_item(fitParContainer)
 {
-    m_columnNames.insert(PAR_NAME, QStringLiteral("Name"));
-    m_columnNames.insert(PAR_TYPE, FitParameterItem::P_TYPE);
-    m_columnNames.insert(PAR_MIN, FitParameterItem::P_MIN);
-    m_columnNames.insert(PAR_MAX, FitParameterItem::P_MAX);
-    m_columnNames.insert(PAR_VALUE, FitParameterItem::P_START_VALUE);
+    addColumn(PAR_NAME, QStringLiteral("Name"), QStringLiteral("Name of fit parameter"));
+    addColumn(PAR_TYPE, FitParameterItem::P_TYPE, QStringLiteral("Fit parameter limits type"));
+    addColumn(PAR_VALUE, FitParameterItem::P_START_VALUE, QStringLiteral("Starting value of fit parameter"));
+    addColumn(PAR_MIN, FitParameterItem::P_MIN, QStringLiteral("Lower bound on fit parameter value"));
+    addColumn(PAR_MAX, FitParameterItem::P_MAX, QStringLiteral("Upper bound on fit parameter value"));
 
     connectModel(fitParContainer->model());
 
@@ -272,6 +272,9 @@ QVariant FitParameterAbsModel::headerData(int section, Qt::Orientation orientati
     if (role == Qt::DisplayRole && orientation == Qt::Horizontal) {
         return m_columnNames.value(section);
     }
+    else if(role == Qt::ToolTipRole) {
+        return m_columnToolTips.value(section);
+    }
     return QVariant();
 }
 
@@ -378,6 +381,12 @@ void FitParameterAbsModel::connectModel(QAbstractItemModel *sourceModel, bool is
                    this, SLOT(onSourceBeginRemoveRows(QModelIndex,int,int)));
         disconnect(sourceModel, SIGNAL(modelAboutToBeReset()), this, SLOT(onSourceAboutToBeReset()));
     }
+}
+
+void FitParameterAbsModel::addColumn(FitParameterAbsModel::EColumn id, const QString &name, const QString &tooltip)
+{
+    m_columnNames[id] = name;
+    m_columnToolTips[id] = tooltip;
 }
 
 QModelIndex FitParameterAbsModel::indexOfItem(SessionItem *item) const

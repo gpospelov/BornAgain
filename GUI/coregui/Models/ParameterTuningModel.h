@@ -19,6 +19,8 @@
 
 #include "FilterPropertyProxy.h"
 
+class ParameterItem;
+
 //!
 //! \brief The ParameterTuningModel class represents parameters which can be tuned in real time
 //! in ParameterTuningWidget. In the fitting activity context handles dragging of ParameterItem's
@@ -32,10 +34,11 @@ class BA_CORE_API_ ParameterTuningModel : public FilterPropertyProxy
 public:
     ParameterTuningModel(QObject *parent = 0);
 
-    QMimeData *mimeData(const QModelIndexList &indexes) const;
-
+    QMimeData *mimeData(const QModelIndexList &proxyIndexes) const;
     Qt::DropActions supportedDragActions() const;
     Qt::DropActions supportedDropActions() const;
+
+    ParameterItem *getParameterItem(const QModelIndex &proxyIndex) const;
 
 };
 

@@ -20,17 +20,15 @@
 #include <QWidget>
 #include <memory>
 
-class JobItem;
-class SliderSettingsWidget;
-class ParameterTuningDelegate;
 class JobModel;
-class QTreeView;
-class SampleModel;
-class InstrumentModel;
-class WarningSignWidget;
+class JobItem;
 class SessionItem;
-class FitTools;
 class QItemSelectionModel;
+class ParameterTuningDelegate;
+class ParameterTuningModel;
+class SliderSettingsWidget;
+class QTreeView;
+class WarningSignWidget;
 class ParameterItem;
 
 class ParameterTuningWidget : public QWidget
@@ -39,7 +37,6 @@ class ParameterTuningWidget : public QWidget
 
 public:
     ParameterTuningWidget(JobModel *jobModel, QWidget *parent = 0);
-    virtual ~ParameterTuningWidget();
 
     void setItem(JobItem *item);
 
@@ -70,11 +67,11 @@ private:
 
     JobModel *m_jobModel;
     JobItem *m_currentJobItem;
+    ParameterTuningModel *m_parameterTuningModel;
     SliderSettingsWidget *m_sliderSettingsWidget;
     QTreeView *m_treeView;
     ParameterTuningDelegate *m_delegate;
     WarningSignWidget *m_warningSign;
-    FitTools *m_fitTools;
 };
 
 #endif

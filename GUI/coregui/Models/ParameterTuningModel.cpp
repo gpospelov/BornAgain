@@ -29,39 +29,32 @@ ParameterTuningModel::ParameterTuningModel(QObject *parent)
 
 }
 
-QMimeData *ParameterTuningModel::mimeData(const QModelIndexList &indexes) const
+QMimeData *ParameterTuningModel::mimeData(const QModelIndexList &proxyIndexes) const
 {
-    qDebug() << "ParameterTuningModel::mimeData" << indexes;
+    qDebug() << "ParameterTuningModel::mimeData" << proxyIndexes;
     QMimeData *mimeData = new QMimeData();
 
-    foreach(QModelIndex proxyIndex, indexes) {
-        QModelIndex index = FilterPropertyProxy::toSourceIndex(proxyIndex);
-        if(index.column() != 0)
-            continue;
-
-        SessionModel *sessionModel = dynamic_cast<SessionModel *>(sourceModel());
-        Q_ASSERT(sessionModel);
-        if (ParameterItem *parameterItem
-            = dynamic_cast<ParameterItem *>(sessionModel->itemForIndex(index))) {
+    foreach(QModelIndex proxyIndex, proxyIndexes) {
+        if(ParameterItem *parameterItem = getParameterItem(proxyIndex)) {
             QString path = FitModelHelper::getParameterItemPath(parameterItem);
             mimeData->setData(FitParameterAbsModel::MIME_TYPE, path.toLatin1());
             qDebug() << "       FilterPropertyProxy::mimeData" << path;
             break;
         }
     }
-
-//    QModelIndex index = toSourceIndex(indexes.first());
-//    if (index.isValid()) {
-//        if(SessionItem *item = static_cast<SessionItem *>(index.internalPointer())) {
-//            QString path = item->value().toString();
-//            mimeData->setData(FitParameterAbsModel::MIME_TYPE, path.toLatin1());
-//            qDebug() << "       FilterPropertyProxy::mimeData" << path;
-
-//        }
-////        QString path = getPathFromIndex(index);
-////        path = path.append("#%1").arg(itemFromIndex(index.sibling(index.row(), 1))
-////                                      ->data(Qt::EditRole).toDouble());
-//    }
     return mimeData;
+}
 
+//! Returns ParameterItem from given proxy index
+
+ParameterItem *ParameterTuningModel::getParameterItem(const QModelIndex &proxyIndex) const
+{
+    SessionModel *sessionModel = dynamic_cast<SessionModel *>(sourceModel());
+    Q_ASSERT(sessionModel);
+
+    QModelIndex sourceIndex = toSourceIndex(proxyIndex);
+    if(sourceIndex.column() == 0) {
+        return dynamic_cast<ParameterItem *>(sessionModel->itemForIndex(sourceIndex));
+    }
+    return nullptr;
 }

@@ -28,7 +28,6 @@
 #include "DesignerHelper.h"
 #include "WarningSignWidget.h"
 #include "ParameterTuningModel.h"
-#include "FitTools.h"
 #include "ParameterTreeItems.h"
 #include <QLabel>
 #include <QVBoxLayout>
@@ -50,18 +49,12 @@ ParameterTuningWidget::ParameterTuningWidget(JobModel *jobModel, QWidget *parent
     : QWidget(parent)
     , m_jobModel(jobModel)
     , m_currentJobItem(0)
-    , m_sliderSettingsWidget(0)
+    , m_parameterTuningModel(0)
+    , m_sliderSettingsWidget(new SliderSettingsWidget(this))
     , m_delegate(new ParameterTuningDelegate)
     , m_warningSign(0)
-//    , m_mapper(0)
-    , m_fitTools(new FitTools(jobModel, parent))
 {
-//    setMinimumSize(128, 128);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-
-    m_sliderSettingsWidget = new SliderSettingsWidget();
-    connect(m_sliderSettingsWidget, SIGNAL(sliderRangeFactorChanged(double)), this, SLOT(onSliderValueChanged(double)));
-    connect(m_sliderSettingsWidget, SIGNAL(lockzChanged(bool)), this, SLOT(onLockZValueChanged(bool)));
 
     m_treeView = new QTreeView();
     m_treeView->setStyleSheet(
@@ -77,29 +70,25 @@ ParameterTuningWidget::ParameterTuningWidget(JobModel *jobModel, QWidget *parent
 
     m_treeView->setItemDelegate(m_delegate);
     m_treeView->setSelectionMode(QAbstractItemView::ExtendedSelection);
-    connect(m_delegate, SIGNAL(currentLinkChanged(SessionItem*)), this, SLOT(onCurrentLinkChanged(SessionItem*)));
     m_treeView->setContextMenuPolicy(Qt::CustomContextMenu);
-    connect(m_treeView, SIGNAL(customContextMenuRequested(const QPoint &)),
-            this, SLOT(onCustomContextMenuRequested(const QPoint &)));
-
     m_treeView->setDragEnabled(true);
     m_treeView->setDragDropMode(QAbstractItemView::DragOnly);
-
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->setMargin(0);
     mainLayout->setSpacing(0);
-
-    // assembling all together
     mainLayout->addWidget(m_sliderSettingsWidget);
     mainLayout->addWidget(m_treeView);
-    mainLayout->addWidget(m_fitTools);
-
     setLayout(mainLayout);
-}
 
-ParameterTuningWidget::~ParameterTuningWidget()
-{
+    connect(m_sliderSettingsWidget, SIGNAL(sliderRangeFactorChanged(double)),
+            this, SLOT(onSliderValueChanged(double)));
+    connect(m_sliderSettingsWidget, SIGNAL(lockzChanged(bool)),
+            this, SLOT(onLockZValueChanged(bool)));
+    connect(m_delegate, SIGNAL(currentLinkChanged(SessionItem*)),
+            this, SLOT(onCurrentLinkChanged(SessionItem*)));
+    connect(m_treeView, SIGNAL(customContextMenuRequested(const QPoint &)),
+            this, SLOT(onCustomContextMenuRequested(const QPoint &)));
 }
 
 void ParameterTuningWidget::setItem(JobItem *item)
@@ -122,7 +111,6 @@ void ParameterTuningWidget::setItem(JobItem *item)
             onPropertyChanged(name);
         }, this);
 
-        m_fitTools->setCurrentItem(m_currentJobItem, m_treeView->selectionModel());
     }
 }
 
@@ -139,14 +127,8 @@ QVector<ParameterItem *> ParameterTuningWidget::getSelectedParameters()
     QVector<ParameterItem *> result;
     QModelIndexList proxyIndexes = selectionModel()->selectedIndexes();
     foreach(QModelIndex proxyIndex, proxyIndexes) {
-        QModelIndex index = ParameterTuningModel::toSourceIndex(proxyIndex);
-        if(index.column() != 0)
-            continue;
-
-        if (ParameterItem *parameterItem
-            = dynamic_cast<ParameterItem *>(m_currentJobItem->model()->itemForIndex(index))) {
-            result.push_back(parameterItem);
-        }
+        if(ParameterItem *parItem = m_parameterTuningModel->getParameterItem(proxyIndex))
+            result.push_back(parItem);
     }
     return result;
 }
@@ -191,10 +173,13 @@ void ParameterTuningWidget::updateParameterModel()
         throw GUIHelpers::Error("ModelTuningWidget::updateParameterModel() -> Error."
                                 "JobItem doesn't have sample or instrument model.");
 
-    ParameterTuningModel *parameterModel = new ParameterTuningModel(this);
-    parameterModel->setSourceModel(m_jobModel);
-    m_treeView->setModel(parameterModel);
-    m_treeView->setRootIndex(parameterModel->mapFromSource(m_currentJobItem->getItem(JobItem::T_PARAMETER_TREE)->index()));
+    delete m_parameterTuningModel;
+    m_parameterTuningModel = new ParameterTuningModel(this);
+    m_parameterTuningModel->setSourceModel(m_jobModel);
+
+    m_treeView->setModel(m_parameterTuningModel);
+    m_treeView->setRootIndex(
+        m_parameterTuningModel->mapFromSource(m_currentJobItem->parameterContainerItem()->index()));
     if (m_treeView->columnWidth(0) < 170)
         m_treeView->setColumnWidth(0, 170);
     m_treeView->expandAll();
@@ -213,9 +198,6 @@ void ParameterTuningWidget::restoreModelsOfCurrentJobItem()
         return;
 
     m_jobModel->restore(m_currentJobItem);
-
-//    updateParameterModel();
-
     m_jobModel->getJobQueueData()->runJob(m_currentJobItem);
 }
 

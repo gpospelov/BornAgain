@@ -17,7 +17,7 @@
 #include "ParameterTuningDelegate.h"
 #include "GUIHelpers.h"
 #include "ParameterTreeItems.h"
-#include "FilterPropertyProxy.h"
+#include "ParameterTuningModel.h"
 #include "ModelPath.h"
 #include "SessionModel.h"
 #include <QDebug>
@@ -137,9 +137,7 @@ QWidget *ParameterTuningDelegate::createEditor(QWidget *parent,
 
         double value = index.model()->data(index, Qt::EditRole).toDouble();
 
-        m_currentItem = static_cast<ParameterItem*>(FilterPropertyProxy::toSourceIndex(index).internalPointer());
-
-
+        m_currentItem = static_cast<ParameterItem*>(ParameterTuningModel::toSourceIndex(index).internalPointer());
 
         AttLimits limits = m_currentItem->getLinkedItem()->limits();
 

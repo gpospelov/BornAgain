@@ -42,7 +42,7 @@ void ItemTreeView::dragMoveEvent(QDragMoveEvent *event)
     SessionModel *model = static_cast<SessionModel *>(this->model());
     model->setDraggedItemType(QString());
     QByteArray xml_data = qUncompress(
-                event->mimeData()->data(SessionXML::MimeType));
+                event->mimeData()->data(SessionXML::ItemMimeType));
     QXmlStreamReader reader(xml_data);
     while (!reader.atEnd()) {
         reader.readNext();

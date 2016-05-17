@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/FitWidgets/FitParametersWidget.cpp
-//! @brief     Implements class FitParametersWidget
+//! @file      coregui/Views/FitWidgets/FitParameterWidget.cpp
+//! @brief     Implements class FitParameterWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,7 +14,7 @@
 //
 // ************************************************************************** //
 
-#include "FitParametersWidget.h"
+#include "FitParameterWidget.h"
 #include "JobItem.h"
 #include "JobModel.h"
 #include "FitSuiteItem.h"
@@ -35,7 +35,7 @@
 #include <QAction>
 #include <QDebug>
 
-FitParametersWidget::FitParametersWidget(QWidget *parent)
+FitParameterWidget::FitParameterWidget(QWidget *parent)
     : QWidget(parent)
     , m_treeView(new QTreeView)
     , m_jobItem(0)
@@ -67,13 +67,13 @@ FitParametersWidget::FitParametersWidget(QWidget *parent)
 
 }
 
-FitParametersWidget::~FitParametersWidget()
+FitParameterWidget::~FitParameterWidget()
 {
     qDebug() << "FitParametersWidget::~FitParametersWidget()";
 
 }
 
-void FitParametersWidget::setItem(JobItem *jobItem)
+void FitParameterWidget::setItem(JobItem *jobItem)
 {
     if(jobItem == m_jobItem) {
         return;
@@ -94,7 +94,7 @@ void FitParametersWidget::setItem(JobItem *jobItem)
 //! Our FitParametersWidget will provide model tuning widget with context menu.
 //! It also will take care of cross-item-selection between parameterTuningTree
 //! and fitParametersTree
-void FitParametersWidget::setModelTuningWidget(ParameterTuningWidget *tuningWidget)
+void FitParameterWidget::setModelTuningWidget(ParameterTuningWidget *tuningWidget)
 {
     if(tuningWidget == m_tuningWidget) {
         return;
@@ -120,7 +120,7 @@ void FitParametersWidget::setModelTuningWidget(ParameterTuningWidget *tuningWidg
 
 }
 
-void FitParametersWidget::onTuningWidgetContextMenu(const QPoint &point)
+void FitParameterWidget::onTuningWidgetContextMenu(const QPoint &point)
 {
     QMenu menu;
     initTuningWidgetContextMenu(menu);
@@ -128,7 +128,7 @@ void FitParametersWidget::onTuningWidgetContextMenu(const QPoint &point)
     setActionsEnabled(true);
 }
 
-void FitParametersWidget::onFitParameterTreeContextMenu(const QPoint &point)
+void FitParameterWidget::onFitParameterTreeContextMenu(const QPoint &point)
 {
     qDebug() << "FitParametersWidget::onFitParameterTreeContextMenu";
     QMenu menu;
@@ -137,12 +137,12 @@ void FitParametersWidget::onFitParameterTreeContextMenu(const QPoint &point)
     setActionsEnabled(true);
 }
 
-void FitParametersWidget::onTuningWidgetSelectionChanged(const QItemSelection &selection)
+void FitParameterWidget::onTuningWidgetSelectionChanged(const QItemSelection &selection)
 {
     Q_UNUSED(selection);
 }
 
-void FitParametersWidget::onFitParametersSelectionChanged(const QItemSelection &selection)
+void FitParameterWidget::onFitParametersSelectionChanged(const QItemSelection &selection)
 {
     Q_UNUSED(selection);
     qDebug() << "onFitParametersSelectionChanged ->";
@@ -177,7 +177,7 @@ void FitParametersWidget::onFitParametersSelectionChanged(const QItemSelection &
 
 }
 
-void FitParametersWidget::onCreateFitParAction()
+void FitParameterWidget::onCreateFitParAction()
 {
     foreach(ParameterItem *item, m_tuningWidget->getSelectedParameters()) {
         if(!FitModelHelper::getFitParameterItem(m_jobItem->fitParameterContainerItem(), item)) {
@@ -191,7 +191,7 @@ void FitParametersWidget::onCreateFitParAction()
 
 //! All ParameterItem's selected in tuned widget will be removed from link section of corresponding
 //! fitParameterItem.
-void FitParametersWidget::onRemoveFromFitParAction()
+void FitParameterWidget::onRemoveFromFitParAction()
 {
     foreach(ParameterItem *item, m_tuningWidget->getSelectedParameters()) {
         if(FitModelHelper::getFitParameterItem(m_jobItem->fitParameterContainerItem(), item)) {
@@ -203,7 +203,7 @@ void FitParametersWidget::onRemoveFromFitParAction()
 }
 
 //! All selected FitParameterItems will be removed
-void FitParametersWidget::onRemoveFitParAction()
+void FitParameterWidget::onRemoveFitParAction()
 {
     FitParameterContainerItem *container = m_jobItem->fitParameterContainerItem();
 
@@ -226,7 +226,7 @@ void FitParametersWidget::onRemoveFitParAction()
 }
 
 //! Add all selected parameters to fitParameter with given index
-void FitParametersWidget::onAddToFitParAction(int ipar)
+void FitParameterWidget::onAddToFitParAction(int ipar)
 {
     QStringList fitParNames = FitModelHelper::getFitParameterNames(m_jobItem->fitParameterContainerItem());
     foreach(ParameterItem *item, m_tuningWidget->getSelectedParameters()) {
@@ -238,12 +238,12 @@ void FitParametersWidget::onAddToFitParAction(int ipar)
 }
 
 //! Context menu reimplemented to suppress the default one
-void FitParametersWidget::contextMenuEvent(QContextMenuEvent *event)
+void FitParameterWidget::contextMenuEvent(QContextMenuEvent *event)
 {
     Q_UNUSED(event);
 }
 
-void FitParametersWidget::init_actions()
+void FitParameterWidget::init_actions()
 {
     m_createFitParAction = new QAction(QStringLiteral("Create fit parameter"), this);
     connect(m_createFitParAction, SIGNAL(triggered()), this, SLOT(onCreateFitParAction()));
@@ -262,7 +262,7 @@ void FitParametersWidget::init_actions()
 
 }
 
-void FitParametersWidget::initTuningWidgetContextMenu(QMenu &menu)
+void FitParameterWidget::initTuningWidgetContextMenu(QMenu &menu)
 {
     Q_ASSERT(m_jobItem);
 
@@ -291,20 +291,20 @@ void FitParametersWidget::initTuningWidgetContextMenu(QMenu &menu)
     menu.addAction(m_removeFromFitParAction);
 }
 
-void FitParametersWidget::initFitParameterTreeContextMenu(QMenu &menu)
+void FitParameterWidget::initFitParameterTreeContextMenu(QMenu &menu)
 {
     menu.addAction(m_removeFitParAction);
 }
 
 //! stop tracking job item
-void FitParametersWidget::stop_tracking_job_item()
+void FitParameterWidget::stop_tracking_job_item()
 {
     Q_ASSERT(m_jobItem);
 
 }
 
 //! init job item: create fit containers if necessary, subscribes for item changing
-void FitParametersWidget::init_job_item()
+void FitParameterWidget::init_job_item()
 {
     SessionItem *fitSuiteItem = m_jobItem->getItem(JobItem::T_FIT_SUITE);
     if (!fitSuiteItem) {
@@ -361,7 +361,7 @@ void FitParametersWidget::init_job_item()
 }
 
 //! Make first column in FitParameterItem's link occupy whole space
-void FitParametersWidget::spanParameters()
+void FitParameterWidget::spanParameters()
 {
     m_treeView->expandAll();
     for (int i = 0; i < m_fitParameterModel->rowCount(QModelIndex()); i++){
@@ -380,7 +380,7 @@ void FitParametersWidget::spanParameters()
 
 //! Returns true if it is possible to create fit parameter. There should be some ParameterItem's
 //! selected in model tuning widget and they should not be in FitParameterContainer already
-bool FitParametersWidget::isCreateFitParameterPossible()
+bool FitParameterWidget::isCreateFitParameterPossible()
 {
     QVector<ParameterItem *> selected = m_tuningWidget->getSelectedParameters();
     foreach(ParameterItem *item, selected) {
@@ -390,7 +390,7 @@ bool FitParametersWidget::isCreateFitParameterPossible()
     return false;
 }
 
-void FitParametersWidget::setActionsEnabled(bool value)
+void FitParameterWidget::setActionsEnabled(bool value)
 {
     m_createFitParAction->setEnabled(value);
     m_removeFromFitParAction->setEnabled(value);
@@ -399,7 +399,7 @@ void FitParametersWidget::setActionsEnabled(bool value)
 
 //! Returns list of FitParameterItem's currently selected in FitParameterItem tree
 
-QVector<FitParameterItem *> FitParametersWidget::getSelectedFitParameters()
+QVector<FitParameterItem *> FitParameterWidget::getSelectedFitParameters()
 {
     QVector<FitParameterItem *> result;
     QModelIndexList indexes = m_treeView->selectionModel()->selectedIndexes();
@@ -416,7 +416,7 @@ QVector<FitParameterItem *> FitParametersWidget::getSelectedFitParameters()
 }
 
 //! Returns links of FitParameterLink's item selected in FitParameterItem tree
-QVector<FitParameterLinkItem *> FitParametersWidget::getSelectedFitParameterLinks()
+QVector<FitParameterLinkItem *> FitParameterWidget::getSelectedFitParameterLinks()
 {
     QVector<FitParameterLinkItem *> result;
     QModelIndexList indexes = m_treeView->selectionModel()->selectedIndexes();
@@ -433,7 +433,7 @@ QVector<FitParameterLinkItem *> FitParametersWidget::getSelectedFitParameterLink
 }
 
 
-void FitParametersWidget::connectTuningWidgetSelection(bool active)
+void FitParameterWidget::connectTuningWidgetSelection(bool active)
 {
     Q_ASSERT(m_tuningWidget);
 
@@ -448,7 +448,7 @@ void FitParametersWidget::connectTuningWidgetSelection(bool active)
     }
 }
 
-void FitParametersWidget::connectFitParametersSelection(bool active) {
+void FitParameterWidget::connectFitParametersSelection(bool active) {
     if (active) {
         connect(m_treeView->selectionModel(),
                 SIGNAL(selectionChanged(QItemSelection,QItemSelection)),

@@ -16,7 +16,7 @@
 
 #include "ParameterTuningModel.h"
 #include "FitParameterItems.h"
-#include "FitParameterAbsModel.h"
+#include "SessionXML.h"
 #include "FitModelHelper.h"
 #include "SessionModel.h"
 #include "ParameterTreeItems.h"
@@ -52,7 +52,7 @@ QMimeData *ParameterTuningModel::mimeData(const QModelIndexList &proxyIndexes) c
     foreach(QModelIndex proxyIndex, proxyIndexes) {
         if(ParameterItem *parameterItem = getParameterItem(proxyIndex)) {
             QString path = FitModelHelper::getParameterItemPath(parameterItem);
-            mimeData->setData(FitParameterAbsModel::MIME_TYPE, path.toLatin1());
+            mimeData->setData(SessionXML::LinkMimeType, path.toLatin1());
             qDebug() << "       FilterPropertyProxy::mimeData" << path;
             break;
         }

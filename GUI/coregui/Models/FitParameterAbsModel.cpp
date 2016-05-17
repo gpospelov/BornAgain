@@ -25,7 +25,6 @@
 #include <QMimeData>
 #include <QDebug>
 
-const QString FitParameterAbsModel::MIME_TYPE = "application/org.bornagainproject.fittinglink";
 
 
 FitParameterAbsModel::FitParameterAbsModel(FitParameterContainerItem *fitParContainer, QObject *parent)
@@ -213,7 +212,7 @@ bool FitParameterAbsModel::setData(const QModelIndex &index, const QVariant &val
 QStringList FitParameterAbsModel::mimeTypes() const
 {
     QStringList types;
-    types << FitParameterAbsModel::MIME_TYPE;
+    types << SessionXML::LinkMimeType;
     return types;
 }
 
@@ -225,7 +224,7 @@ QMimeData *FitParameterAbsModel::mimeData(const QModelIndexList &indexes) const
     if (index.isValid()) {
         if(SessionItem *item = itemForIndex(index)) {
             QString path = item->value().toString();
-            mimeData->setData(MIME_TYPE, path.toLatin1());
+            mimeData->setData(SessionXML::LinkMimeType, path.toLatin1());
             qDebug() << "       FitParameterAbsModel::mimeData" << path;
 
         }
@@ -243,7 +242,7 @@ bool FitParameterAbsModel::canDropMimeData(const QMimeData *data, Qt::DropAction
     Q_UNUSED(parent);
 //    if (column > 0)
 //        return false;
-    QString link = QString::fromLatin1(data->data(MIME_TYPE)).split("#")[0];
+    QString link = QString::fromLatin1(data->data(SessionXML::LinkMimeType)).split("#")[0];
     qDebug() << "FitParameterAbsModel::canDropMimeData" << "row:" << row << "column:" << column << "parent:" << parent << link;
 
     if(parent.isValid()) {
@@ -264,12 +263,12 @@ bool FitParameterAbsModel::dropMimeData(const QMimeData *data, Qt::DropAction ac
 //    if (action == Qt::IgnoreAction) return true;
 //    if (column > 0) return true;
 
-    qDebug() << "FitParameterAbsModel::dropMimeData row:" << row << "column:" << column << "parent:" << parent << "mime:" <<  QString::fromLatin1(data->data(MIME_TYPE));
+    qDebug() << "FitParameterAbsModel::dropMimeData row:" << row << "column:" << column << "parent:" << parent << "mime:" <<  QString::fromLatin1(data->data(SessionXML::LinkMimeType));
 
     if(parent.isValid()) {
         if(SessionItem *fitParItem = itemForIndex(parent)) {
             Q_ASSERT(fitParItem->modelType() == Constants::FitParameterType);
-            ParameterItem *parItem = FitModelHelper::getParameterItem(m_root_item, QString::fromLatin1(data->data(MIME_TYPE)));
+            ParameterItem *parItem = FitModelHelper::getParameterItem(m_root_item, QString::fromLatin1(data->data(SessionXML::LinkMimeType)));
             Q_ASSERT(parItem);
             FitModelHelper::addToFitParameter(m_root_item, parItem, fitParItem->displayName());
             qDebug() << "AAAA" << parItem->getItemValue(ParameterItem::P_LINK);

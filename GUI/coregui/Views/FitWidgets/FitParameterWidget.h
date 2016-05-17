@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/FitWidgets/FitParametersWidget.h
-//! @brief     Declares class FitParametersWidget
+//! @file      coregui/Views/FitWidgets/FitParameterWidget.h
+//! @brief     Declares class FitParameterWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FITPARAMETERSWIDGET_H
-#define FITPARAMETERSWIDGET_H
+#ifndef FITPARAMETERWIDGET_H
+#define FITPARAMETERWIDGET_H
 
 #include "WinDllMacros.h"
 #include <QWidget>
@@ -39,12 +39,12 @@ class DeleteEventFilter;
 //! The FitParametersWidget class contains a tree view to set fit parameters (fix/release,
 //! starting value, min/max bounds). It occupies buttom right corner of JobView.
 
-class BA_CORE_API_ FitParametersWidget : public QWidget
+class BA_CORE_API_ FitParameterWidget : public QWidget
 {
     Q_OBJECT
 public:
-    FitParametersWidget(QWidget *parent = 0);
-    ~FitParametersWidget();
+    FitParameterWidget(QWidget *parent = 0);
+    ~FitParameterWidget();
 
     void setItem(JobItem *jobItem);
     void setModelTuningWidget(ParameterTuningWidget *tuningWidget);

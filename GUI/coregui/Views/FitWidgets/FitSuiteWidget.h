@@ -24,7 +24,7 @@
 class QTabWidget;
 class JobModel;
 class JobItem;
-class FitParametersWidget;
+class FitParameterWidget;
 class MinimizerSettingsWidget;
 class FitResultsWidget;
 class ParameterTuningWidget;
@@ -72,7 +72,7 @@ private:
     void connectSignals();
 
     QTabWidget *m_tabWidget;
-    FitParametersWidget *m_fitParametersWidget;
+    FitParameterWidget *m_fitParametersWidget;
     MinimizerSettingsWidget *m_minimizerSettingsWidget;
     FitResultsWidget *m_fitResultsWidget;
     JobModel *m_jobModel;

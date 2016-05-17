@@ -27,7 +27,9 @@ class SessionItem;
 class WarningMessageService;
 
 namespace SessionXML {
-const QString MimeType = "application/org.bornagainproject.xml.item.z";
+const QString ItemMimeType = "application/org.bornagainproject.xml.item.z";
+const QString LinkMimeType = "application/org.bornagainproject.fittinglink";
+
 const QString ModelTag("SessionModel");
 const QString InstrumentModelTag("InstrumentModel");
 const QString SampleModelTag("SampleModel");

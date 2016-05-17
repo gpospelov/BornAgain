@@ -22,7 +22,7 @@
 
 class MainWindow;
 class ParameterTuningWidget;
-class FitParametersWidget;
+class FitParameterWidget;
 class JobItem;
 class QTreeView;
 
@@ -40,7 +40,7 @@ public:
 private:
     MainWindow *m_mainWindow;
     ParameterTuningWidget *m_tuningWidget;
-    FitParametersWidget *m_fitParametersWidget;
+    FitParameterWidget *m_fitParametersWidget;
     QTreeView *m_jobTreeView;
     JobItem *m_jobItem;
 };

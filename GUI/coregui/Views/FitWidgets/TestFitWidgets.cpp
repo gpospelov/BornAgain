@@ -17,7 +17,7 @@
 #include "TestFitWidgets.h"
 #include "mainwindow.h"
 #include "ParameterTuningWidget.h"
-#include "FitParametersWidget.h"
+#include "FitParameterWidget.h"
 #include "item_constants.h"
 #include "JobModel.h"
 #include "JobItem.h"
@@ -31,7 +31,7 @@ TestFitWidgets::TestFitWidgets(MainWindow *mainWindow)
     : QWidget(mainWindow)
     , m_mainWindow(mainWindow)
     , m_tuningWidget(new ParameterTuningWidget(mainWindow->jobModel()))
-    , m_fitParametersWidget(new FitParametersWidget(this))
+    , m_fitParametersWidget(new FitParameterWidget(this))
     , m_jobTreeView(new QTreeView)
     , m_jobItem(0)
 {

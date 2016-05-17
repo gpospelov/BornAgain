@@ -19,7 +19,7 @@
 #include "JobItem.h"
 #include "FitSuiteItem.h"
 #include "FitParameterItems.h"
-#include "FitParametersWidget.h"
+#include "FitParameterWidget.h"
 #include "RunFitManager.h"
 #include "GUIFitObserver.h"
 #include "DomainFittingBuilder.h"
@@ -37,7 +37,7 @@
 FitSuiteWidget::FitSuiteWidget(JobModel *jobModel, QWidget *parent)
     : QWidget(parent)
     , m_tabWidget(new QTabWidget)
-    , m_fitParametersWidget(new FitParametersWidget(this))
+    , m_fitParametersWidget(new FitParameterWidget(this))
     , m_minimizerSettingsWidget(new MinimizerSettingsWidget(this))
     , m_fitResultsWidget(new FitResultsWidget(this))
     , m_jobModel(jobModel)

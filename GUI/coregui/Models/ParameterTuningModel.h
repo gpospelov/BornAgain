@@ -34,6 +34,7 @@ class BA_CORE_API_ ParameterTuningModel : public FilterPropertyProxy
 public:
     ParameterTuningModel(QObject *parent = 0);
 
+    Qt::ItemFlags flags(const QModelIndex &proxyIndex) const;
     QMimeData *mimeData(const QModelIndexList &proxyIndexes) const;
     Qt::DropActions supportedDragActions() const;
     Qt::DropActions supportedDropActions() const;

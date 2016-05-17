@@ -29,6 +29,21 @@ ParameterTuningModel::ParameterTuningModel(QObject *parent)
 
 }
 
+Qt::ItemFlags ParameterTuningModel::flags(const QModelIndex &proxyIndex) const
+{
+    Qt::ItemFlags result = Qt::ItemIsSelectable | Qt::ItemIsEnabled;
+
+    QModelIndex sourceIndex = toSourceIndex(proxyIndex);
+    if(sourceIndex.isValid()) {
+        const QString modelType = sourceIndex.data(SessionModel::ModelTypeRole).toString();
+        if(modelType == Constants::ParameterType) {
+            result |= Qt::ItemIsDragEnabled;
+        }
+    }
+
+    return result;
+}
+
 QMimeData *ParameterTuningModel::mimeData(const QModelIndexList &proxyIndexes) const
 {
     qDebug() << "ParameterTuningModel::mimeData" << proxyIndexes;

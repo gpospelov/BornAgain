@@ -109,6 +109,7 @@ public:
 
     FormFactorPolyhedron() {}
 
+    virtual void onChange() = 0;
     virtual complex_t evaluate_for_q(const cvector_t q ) const final;
     complex_t evaluate_centered( const cvector_t q ) const;
 

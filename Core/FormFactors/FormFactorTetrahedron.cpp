@@ -19,12 +19,13 @@
 #include "IntegratorComplex.h"
 
 const FormFactorPolyhedron::Topology FormFactorTetrahedron::topology = {
-    { { 2, 1, 0 }, false },
-    { { 0, 1, 4, 3 }, false },
-    { { 1, 2, 5, 4 }, false },
-    { { 2, 0, 3, 5 }, false },
-    { { 3, 4, 5 }, false }
-};
+    {
+        { { 2, 1, 0 }, false },
+        { { 0, 1, 4, 3 }, false },
+        { { 1, 2, 5, 4 }, false },
+        { { 2, 0, 3, 5 }, false },
+        { { 3, 4, 5 }, false }
+    }, false };
 
 
 //! @brief Tetrahedron constructor
@@ -72,7 +73,7 @@ void FormFactorTetrahedron::onChange()
 
     double zcom = m_height * ( .5 - 2*r/3 + r*r/4 ) / ( 1 - r + r*r/3 ); // center of mass
 
-    setPolyhedron( topology, -zcom, false, {
+    setPolyhedron( topology, -zcom, {
             // base:
             { -ac,  as, -zcom },
             { -ac, -as, -zcom },

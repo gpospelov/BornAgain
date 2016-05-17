@@ -18,13 +18,14 @@
 #include "MathFunctions.h"
 
 const FormFactorPolyhedron::Topology FormFactorAnisoPyramid::topology = {
-    { { 3, 2, 1, 0 }, false },
-    { { 0, 1, 5, 4 }, false },
-    { { 1, 2, 6, 5 }, false },
-    { { 2, 3, 7, 6 }, false },
-    { { 3, 0, 4, 7 }, false },
-    { { 4, 5, 6, 7 }, false }
-};
+    {
+        { { 3, 2, 1, 0 }, true },
+        { { 0, 1, 5, 4 }, false },
+        { { 1, 2, 6, 5 }, false },
+        { { 2, 3, 7, 6 }, false },
+        { { 3, 0, 4, 7 }, false },
+        { { 4, 5, 6, 7 }, true }
+    }, false };
 
 //! @brief Pyramid constructor
 //! @param base_edge of one side of Pyramid's square base
@@ -72,7 +73,7 @@ void FormFactorAnisoPyramid::onChange()
 
     double zcom = m_height * ( .5 - (r+s)/3 + r*s/4 ) / ( 1 - (r+s)/2 + r*s/3 ); // center of mass
 
-    setPolyhedron( topology, -zcom, false, {
+    setPolyhedron( topology, -zcom, {
         // base:
         { -D, -W, -zcom },
         {  D, -W, -zcom },

@@ -26,7 +26,7 @@ static double eps(2e-16);
 
 Diagnosis diagnosis;
 
-int nshape = 12;
+int nshape = 13;
 
 extern int n_limit;
 extern double q_limit_series;
@@ -49,26 +49,43 @@ IFormFactorBorn* make_particle( int ishape )
     } else if( ishape==5 ) { // tetrahedral frustum, flat one
         double alpha = 80 * Units::degree;
         return new FormFactorTetrahedron(1., 0.1*tan(alpha)/2/sqrt(3), alpha);
-    } else if( ishape==6 ) {
+    } else if( ishape==6 ) { // tetrahedral frustum as in BasicTest
+        return new FormFactorTetrahedron(16., 4., .8);
+    } else if( ishape==7 ) {
         double alpha = 72 * Units::degree;
         return new FormFactorCone6(10., 10., alpha);
-    } else if( ishape==7 ) {
-        return new FormFactorPyramid(1.5, .24, 1.);
     } else if( ishape==8 ) {
-        return new FormFactorAnisoPyramid(1.5, 1.5, .24, 1.);
+        return new FormFactorPyramid(1.5, .24, 1.);
     } else if( ishape==9 ) {
-        return new FormFactorPrism3(1.2, 1.);
+        return new FormFactorAnisoPyramid(1.5, 1.5, .24, 1.);
     } else if( ishape==10) {
-        return new FormFactorPrism6(1., 1.);
+        return new FormFactorPrism3(1.2, 1.);
     } else if( ishape==11) {
+        return new FormFactorPrism6(1., 1.);
+    } else if( ishape==12) {
         return new FormFactorTruncatedCube(4., 1.);
-    } else if( ishape==12 ) {
-        double alpha = 72 * Units::degree;
+    } else if( ishape==13 ) {
+        double alpha = 73 * Units::degree;
         return new FormFactorCuboctahedron(1., 1., .8, alpha);
     } else if( ishape==90 ) {
         return new FormFactorTriangle(1.);
     } else
         throw "Shape not implemented";
+}
+
+//! Print q in a form that can be easily pasted to the command line for further investigation
+
+std::string nice_q( cvector_t q )
+{
+    std::ostringstream ret;
+    double qmax = 0;
+    ret << std::setprecision(16);
+    for( int i=0; i<3; ++i )
+        qmax = std::max( qmax, q[i].real() );
+    for( int i=0; i<3; ++i )
+        ret << q[i].real()/qmax << " " << q[i].imag()/qmax << " ";
+    ret << qmax;
+    return ret.str();
 }
 
 //! Bisect between two q's to find possible discontinuities
@@ -87,7 +104,7 @@ void bisect(
         double relstep = step/aval;
         maxrelstep = std::max( maxrelstep, relstep );
         if( relstep>2e-9 ){
-            cout<<"ishape="<<ishape<<": relstep "<<std::setprecision(8)<<relstep<<"="<<step<<"/"<<std::setprecision(16)<<aval<<" for "<<di<<"->"<<df<<" at q between "<< std::setprecision(16)<<qi<<" and "<<qf<<"\n";
+            cout<<"ishape="<<ishape<<": relstep "<<std::setprecision(8)<<relstep<<"="<<step<<"/"<<std::setprecision(16)<<aval<<" for "<<di<<"->"<<df<<" at q between "<<nice_q(qi)<<" and "<<nice_q(qf)<<"\n";
         }
         return;
     }
@@ -102,13 +119,13 @@ void bisect(
 
 //! Computes form factor, and prints result according to outfilter.
 
-void run(const IFormFactorBorn* polyh, const int ishape, const cvector_t q, int outfilter )
+void run( const IFormFactorBorn* polyh, int ishape, cvector_t q, int outfilter )
 {
     complex_t ret = polyh->evaluate_for_q(q);
     cout<<std::scientific<<std::setprecision(16)<<std::setfill('0');
     if     ( outfilter==0 )
-        cout<<q.mag()<<" "<<std::abs(ret)<<" "<<ret.real()<<" "<<ret.imag()<<
-            diagnosis.nExpandedFaces<<" "<<diagnosis.maxOrder;
+        cout<<q.mag()<<" "<<std::abs(ret)<<" "<<ret.real()<<" "<<ret.imag()<<" "<<
+            diagnosis.nExpandedFaces<<std::noshowpos<<" "<<diagnosis.maxOrder;
     else if( outfilter==1 )
         cout<<ret.real();
     else if( outfilter==2 )
@@ -116,44 +133,44 @@ void run(const IFormFactorBorn* polyh, const int ishape, const cvector_t q, int 
     cout<<"\n";
 }
 
+//! Compute a form factor with modified control parameter settings
+
+complex_t ff_modified( cvector_t q, const IFormFactorBorn* polyh, bool expand_qpa, bool expand_q )
+{
+    PolyhedralFace::setLimits( expand_qpa ? 1e99 : 1e-99, 80 );
+    FormFactorPolyhedron::setLimits( expand_q ? 1e99 : 1e-99, 80 );
+    return polyh->evaluate_for_q( q );
+}
 
 void test_matching( int ishape, const vector<vector<cvector_t>>& scans )
 {
+    cout<<ishape<<"\n";
+    cerr<<"shape "<<ishape<<" ...\n";
     IFormFactorBorn* polyh( make_particle( ishape ) );
-    int n_mag = 11;
-    double mag_i = 1e-4;
-    double mag_f = 1e-2;
+    int n_mag = 25;
+    double mag_i = 1e-3;
+    double mag_f = 1e1;
     for( int i=1; i<n_mag; ++i ) {
         double mag = mag_i*pow(mag_f/mag_i,i/(n_mag-1.));
-        double res[3];
-        res[0] = res[1] = res[2] = 0;
+        double res = 0;
         for( const vector<cvector_t>& q_scan: scans ) {
-            complex_t ff[3];
             assert( q_scan.size()== 1 );
-            const cvector_t q = mag * q_scan[0];
-            FormFactorPolyhedron::setLimits( 1e99, 20 );
-            PolyhedralFace::setLimits( 1e99, 20 );
-            ff[0] = polyh->evaluate_for_q( q );
-            FormFactorPolyhedron::setLimits( 1e-99, 20 );
-            PolyhedralFace::setLimits( 1e99, 20 );
-            ff[1] = polyh->evaluate_for_q( q );
-            FormFactorPolyhedron::setLimits( 1e-99, 20 );
-            PolyhedralFace::setLimits( 1e-99, 20 );
-            ff[2] = polyh->evaluate_for_q( q );
-            double dev[3];
-            dev[2] = std::abs(ff[0]-ff[1])*2/(std::abs(ff[0])+std::abs(ff[1]));
-            dev[1] = std::abs(ff[0]-ff[2])*2/(std::abs(ff[0])+std::abs(ff[2]));
-            dev[0] = std::abs(ff[1]-ff[2])*2/(std::abs(ff[1])+std::abs(ff[2]));
-            for( int m=0; m<3; ++m ) {
-                res[m] = std::max(res[m], dev[m] );
-                if( dev[m]>1e-4 )
-                    cout<<ishape<<" "<<mag<<" "<<std::setprecision(8)<<
-                        dev[0]<<" "<<dev[1]<<" "<<dev[2]<<" "<<
-                        ff[0]<<" "<<ff[1]<<" "<<ff[2]<<" @ "<<q<<"\n";
-            }
+            cvector_t uq = q_scan[0];
+            const cvector_t q = mag * uq;
+            complex_t ff[2];
+
+            ff[0] = ff_modified( q, polyh, false, false );
+            ff[1] = ff_modified( q, polyh, true, false );
+
+            double dev = std::abs(ff[0]-ff[1])*2/(std::abs(ff[0])+std::abs(ff[1]));
+            res = std::max(res, dev );
+            if( 0 && dev>.1 )
+                cerr<<ishape<<" "<<mag<<" "<<std::setprecision(16)<<
+                    dev<<" "<<ff[0]<<" "<<ff[1]<<" @ "<<q<<"\n";
         }
-        cout<<ishape<<" "<<mag<<" "<<std::setprecision(8)<<res[0]<<" "<<res[1]<<" "<<res[2]<<"\n";
+        cout<<" "<<mag*polyh->getRadius()<<" "<<std::setprecision(8)<<res<<"\n";
     }
+    cout<<"\n";
 }
 
 double test_continuity( int ishape, const vector<vector<cvector_t>>& scans )
@@ -170,8 +187,10 @@ double test_continuity( int ishape, const vector<vector<cvector_t>>& scans )
             complex_t ret = polyh->evaluate_for_q(q_scan[i]);
             Diagnosis diag = diagnosis;
             if( diag!=last_diag )
-                bisect( polyh, ishape, q_scan[i].mag(), q_scan[i], ret, diag, q_scan[i-1],
-                        last_ret, last_diag, maxrelstep );
+                bisect( polyh, ishape, q_scan[i].mag(),
+                        q_scan[i-1], last_ret, last_diag,
+                        q_scan[i], ret, diag,
+                        maxrelstep );
         }
     }
     fprintf( stderr, "\n" );
@@ -286,6 +305,8 @@ void help_and_exit()
 int main (int argc, const char *argv[])
 {
     try {
+        diagnosis.debmsg = 0;
+        diagnosis.request_convergence = false;
         const char** arg = argv;
         NEXTARG;
         if ( !strncmp( *arg, "def", 3 ) ) {
@@ -320,13 +341,14 @@ int main (int argc, const char *argv[])
                 while( std::cin >> mag )
                     run( P, ishape, mag*uq, outfilter );
             } else if( inmode==1 ) {
+                diagnosis.debmsg = 2;
                 NEXTARG;
                 mag = atof( *arg );
                 run( P, ishape, mag*uq, outfilter );
             } else if( inmode==2 ) {
-                int n_mag = 6201;
-                double mag_i = 1e-24;
-                double mag_f = 1e2;
+                int n_mag = 2001;
+                double mag_i = 1e-20;
+                double mag_f = 1e4;
                 for( int i=1; i<n_mag; ++i ) {
                     //mag = 180.*i/(n_mag-1);
                     mag = mag_i*pow(mag_f/mag_i,i/(n_mag-1.));
@@ -340,6 +362,7 @@ int main (int argc, const char *argv[])
         int ishapepar = atoi( *arg );
 
         if( inmode==3 ) { // continuity test
+            diagnosis.request_convergence = true;
             vector<vector<cvector_t>> scans = create_scans( 1 );
             double totmaxrelstep = 0;
             if( ishapepar==0 ) {

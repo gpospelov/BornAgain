@@ -54,6 +54,8 @@ class Diagnosis {
 public:
     int maxOrder;
     int nExpandedFaces;
+    int debmsg;
+    bool request_convergence;
     bool operator!=( const Diagnosis& other ) const {
         return maxOrder!=other.maxOrder || nExpandedFaces!=other.nExpandedFaces; }
     friend std::ostream& operator<< (std::ostream& stream, const Diagnosis& diag) {

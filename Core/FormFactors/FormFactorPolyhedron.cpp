@@ -43,7 +43,7 @@ static double eps(2e-16);
 extern Diagnosis diagnosis;
 #endif
 
-double PolyhedralFace::qpa_limit_series = 1e-3;
+double PolyhedralFace::qpa_limit_series = 1e-2;
 int PolyhedralFace::n_limit_series = 20;
 
 double FormFactorPolyhedron::q_limit_series = 1e-5;
@@ -202,7 +202,7 @@ complex_t PolyhedralFace::ff_n_core( int m, const cvector_t q ) const
 {
     cvector_t prevec = 2.*m_normal.cross( q ); // complex conjugation will take place in .dot
     complex_t ret = 0;
-    for( const PolyhedralEdge& e: edges )
+    for( const PolyhedralEdge& e: edges ) // TODO improve accuracy as in qpa expansion
         ret += e.contrib(m, prevec, q);
     return ret;
 }
@@ -228,6 +228,71 @@ complex_t PolyhedralFace::ff_n( int n, const cvector_t q ) const
     }
 }
 
+//! Returns sum of n>=1 terms of qpa expansion of 2d form factor
+
+complex_t PolyhedralFace::expansion(
+    complex_t fac_even, complex_t fac_odd, cvector_t qpa, double abslevel ) const
+{
+#ifdef POLYHEDRAL_DIAGNOSTIC
+    diagnosis.nExpandedFaces += 1;
+#endif
+    complex_t sum = 0;
+    complex_t n_fac = I;
+    int count_return_condition = 0;
+    for( int n=1; n<n_limit_series; ++n ) {
+#ifdef POLYHEDRAL_DIAGNOSTIC
+        diagnosis.maxOrder = std::max( diagnosis.maxOrder, n );
+#endif
+        complex_t term = n_fac * ( n&1 ? fac_odd : fac_even ) * ff_n_core(n, qpa) / qpa.mag2();
+#ifdef POLYHEDRAL_DIAGNOSTIC
+        if( diagnosis.debmsg>=2 )
+            std::cout<<std::setprecision(16)<<"    sum="<<sum<<" +term="<<term<<"\n";
+#endif
+        sum += term;
+        if( std::abs(term)<=eps*std::abs(sum) || std::abs(sum)<eps*abslevel )
+            ++count_return_condition;
+        else
+            count_return_condition = 0;
+        if( count_return_condition>2 )
+            return sum; // regular exit
+        n_fac *= I;
+    }
+#ifdef POLYHEDRAL_DIAGNOSTIC
+    if( !diagnosis.request_convergence )
+        return sum;
+#endif
+    throw std::runtime_error("Bug in formfactor computation: series f(q_pa) not converged");
+}
+
+//! Returns core contribution to analytic 2d form factor.
+
+complex_t PolyhedralFace::edge_sum_ff( cvector_t q, cvector_t qpa, bool sym_Ci ) const
+{
+    cvector_t prevec = m_normal.cross( qpa ); // complex conjugation will take place in .dot
+    complex_t sum = 0;
+    complex_t vfacsum = 0;
+    for( size_t i=0; i<edges.size(); ++i ) {
+        const PolyhedralEdge& e = edges[i];
+        complex_t qE = e.qE(qpa);
+        complex_t qR = e.qR(qpa);
+        complex_t Rfac = sym_S2 ? sin(qR) : ( sym_Ci ? cos(e.qR(q)) : exp(I*qR) );
+        complex_t vfac;
+        if( sym_S2 || i<edges.size()-1 ) {
+            vfac = prevec.dot(e.E());
+            vfacsum += vfac;
+        } else {
+            vfac = - vfacsum; // to improve numeric accuracy: qcE_J = - sum_{j=0}^{J-1} qcE_j
+        }
+        complex_t term = vfac * MathFunctions::sinc(qE) * Rfac;
+        sum += term;
+#ifdef POLYHEDRAL_DIAGNOSTIC
+        if( diagnosis.debmsg>=2 )
+            std::cout<<std::scientific<<std::showpos<<std::setprecision(16)<<"    sum="<<sum<<" term="<<term<<" vf="<<vfac<<" qE="<<qE<<" qR="<<qR<<" sinc="<<MathFunctions::sinc(qE)<<" Rfac="<<Rfac<<"\n";
+#endif
+    }
+    return sum;
+}
+
 //! Returns the contribution ff(q) of this face to the polyhedral form factor.
 
 complex_t PolyhedralFace::ff( const cvector_t q, const bool sym_Ci ) const
@@ -237,13 +302,11 @@ complex_t PolyhedralFace::ff( const cvector_t q, const bool sym_Ci ) const
     decompose_q( q, qperp, qpa );
     double qpa_red = m_radius_2d * qpa.mag();
     complex_t qr_perp = qperp*m_rperp;
+    complex_t ff0 = (sym_Ci ? 2.*I*sin(qr_perp) : exp(I*qr_perp)) * m_area;
     if ( qpa_red==0 ) {
-        return (sym_Ci ? 2.*I*sin(qr_perp) : exp(I*qr_perp)) * m_area;
+        return ff0;
     } else if ( qpa_red < qpa_limit_series && !sym_S2 ) {
         // summation of power series
-#ifdef POLYHEDRAL_DIAGNOSTIC
-        diagnosis.nExpandedFaces += 1;
-#endif
         complex_t fac_even;
         complex_t fac_odd;
         if( sym_Ci ) {
@@ -253,38 +316,19 @@ complex_t PolyhedralFace::ff( const cvector_t q, const bool sym_Ci ) const
             fac_even = exp( I*qr_perp );
             fac_odd = fac_even;
         }
-        complex_t sum = fac_even * m_area;
-        complex_t n_fac = I;
-        for( int n=1; n<n_limit_series; ++n ) {
-#ifdef POLYHEDRAL_DIAGNOSTIC
-            diagnosis.maxOrder = std::max( diagnosis.maxOrder, n );
-#endif
-            complex_t term = n_fac * ( n&1 ? fac_odd : fac_even ) * ff_n_core(n, qpa) / qpa.mag2();
-            sum += term;
-            // std::cout<<std::setprecision(16)<<"  sum="<<sum<<" term="<<term<<"\n";
-            if( !(n&1) && std::abs(term)<=eps*std::abs(sum) )
-                return sum;
-            n_fac *= I;
-        }
-#ifdef POLYHEDRAL_DIAGNOSTIC
-        return sum;
-#else
-        throw std::runtime_error("Bug in formfactor computation: series f(q_pa) not converged");
-#endif
+        return ff0 + expansion( fac_even, fac_odd, qpa, std::abs(ff0) );
     } else {
         // direct evaluation of analytic formula
-        cvector_t prevec = m_normal.cross( qpa ); // complex conjugation will take place in .dot
-        complex_t prefac = 2.;
+        complex_t prefac;
         if( sym_S2 )
-            prefac *= sym_Ci ? -4.*sin(qr_perp) : 2.*I*exp(I*qr_perp);
-        complex_t sum = 0;
-        for( const PolyhedralEdge& e: edges ) {
-            complex_t qE = e.qE(q);
-            complex_t qR = e.qR(q);
-            complex_t Rfac = sym_S2 ? sin(e.qR(qpa)) : ( sym_Ci ? 2.*cos(qR) : exp(I*qR) );
-            sum += prevec.dot(e.E()) * MathFunctions::sinc(qE) * Rfac;
-        }
-        return prefac * sum / ( I*qpa.mag2() );
+            prefac = sym_Ci ? -8.*sin(qr_perp) : 4.*I*exp(I*qr_perp);
+        else
+            prefac = sym_Ci ? 4. : 2.*exp(I*qr_perp);
+#ifdef POLYHEDRAL_DIAGNOSTIC
+        if( diagnosis.debmsg>=2 )
+            std::cout<<"       qrperp="<<qr_perp<<" => prefac="<<prefac<<"\n";
+#endif
+        return prefac * edge_sum_ff( q, qpa, sym_Ci ) / ( I*qpa.mag2() );
     }
 }
 
@@ -299,37 +343,16 @@ complex_t PolyhedralFace::ff_2D( const cvector_t qpa ) const
         return m_area;
     } else if ( qpa_red < qpa_limit_series && !sym_S2 ) {
         // summation of power series
-#ifdef POLYHEDRAL_DIAGNOSTIC
-        diagnosis.nExpandedFaces += 1;
-#endif
-        complex_t sum = m_area;
-        complex_t n_fac = I;
-        for( int n=1; n<n_limit_series; ++n ) {
-#ifdef POLYHEDRAL_DIAGNOSTIC
-            diagnosis.maxOrder = std::max( diagnosis.maxOrder, n );
-#endif
-            complex_t term = n_fac * ff_n_core(n, qpa) / qpa.mag2();
-            sum += term;
-            if( !(n&1) && std::abs(term)<=eps*std::abs(sum) )
-                return sum;
-            n_fac *= I;
-        }
-#ifdef POLYHEDRAL_DIAGNOSTIC
-        return sum;
-#else
-        throw std::runtime_error("Bug in formfactor computation: series f(q_pa) not converged");
-#endif
+        return m_area + expansion( 1., 1., qpa, std::abs(m_area) );
     } else {
         // direct evaluation of analytic formula
-        cvector_t prevec = m_normal.cross( qpa );  // complex conjugation will take place in .dot
-        complex_t sum = 0;
-        for( const PolyhedralEdge& e: edges ) {
-            complex_t qE = e.qE(qpa);
-            complex_t qR = e.qR(qpa);
-            complex_t Rfac = sym_S2 ? sin(e.qR(qpa)) : exp(I*qR);
-            sum += prevec.dot(e.E()) * MathFunctions::sinc(qE) * Rfac;
-        }
-        return sum * (sym_S2 ? 4. : 2./I ) / qpa.mag2();
+        complex_t ff = edge_sum_ff( qpa, qpa, false );
+        complex_t ret = (sym_S2 ? 4. : 2./I ) * ff / qpa.mag2();
+#ifdef POLYHEDRAL_DIAGNOSTIC
+        if( diagnosis.debmsg>=2 )
+            std::cout<<std::setprecision(16)<<"    ret="<<ret<<" ff="<<ff<<"\n";
+#endif
+        return ret;
     }
 }
 
@@ -356,10 +379,10 @@ void FormFactorPolyhedron::setLimits( double _q, int _n ) { q_limit_series=_q; n
 //! Called by child classes to set faces and other internal variables.
 
 void FormFactorPolyhedron::setPolyhedron(
-    const Topology& topology, double z_origin, bool sym_Ci, const std::vector<kvector_t>& vertices )
+    const Topology& topology, double z_origin, const std::vector<kvector_t>& vertices )
 {
     m_z_origin = z_origin;
-    m_sym_Ci = sym_Ci;
+    m_sym_Ci = topology.symmetry_Ci;
 
     double diameter = 0;
     for ( size_t j=0; j<vertices.size(); ++j )
@@ -367,7 +390,7 @@ void FormFactorPolyhedron::setPolyhedron(
             diameter = std::max( diameter, (vertices[j]-vertices[jj]).mag() );
 
     m_faces.clear();
-    for( const TopologyFace& tf: topology ) {
+    for( const TopologyFace& tf: topology.faces ) {
         std::vector<kvector_t> corners; // of one face
         for( int i: tf.vertexIndices )
             corners.push_back( vertices[i] );
@@ -410,14 +433,16 @@ complex_t FormFactorPolyhedron::evaluate_centered( const cvector_t q ) const
 {
     double q_red = m_radius * q.mag();
 #ifdef POLYHEDRAL_DIAGNOSTIC
-    diagnosis = { 0, 0 };
+    diagnosis.maxOrder = 0;
+    diagnosis.nExpandedFaces = 0;
 #endif
     if( q_red==0 ) {
         return m_volume;
     } else if ( q_red < q_limit_series ) {
         // summation of power series
-        complex_t sum = m_volume;
+        complex_t sum = 0;
         complex_t n_fac = ( m_sym_Ci ? -2 : -1 ) / q.mag2();
+        int count_return_condition = 0;
         for( int n=2; n<n_limit_series; ++n ) {
             if( m_sym_Ci && n&1 )
                 continue;
@@ -428,17 +453,24 @@ complex_t FormFactorPolyhedron::evaluate_centered( const cvector_t q ) const
             for( const PolyhedralFace& Gk: m_faces )
                 term += Gk.ff_n( n+1, q );
             term *= n_fac;
+#ifdef POLYHEDRAL_DIAGNOSTIC
+            if( diagnosis.debmsg>=1 )
+                std::cout<<std::setprecision(16)<<"  SUM="<<sum<<" +TERM="<<term<<"\n";
+#endif
             sum += term;
-            // std::cout<<std::setprecision(16)<<"  sum="<<sum<<" term="<<term<<"\n";
-            if( !(n&1) && std::abs(term)<eps*std::abs(sum) )
-                return sum;
+            if( std::abs(term)<=eps*std::abs(sum) || std::abs(sum)<eps*m_volume )
+                ++count_return_condition;
+            else
+                count_return_condition = 0;
+            if( count_return_condition>2 )
+                return m_volume + sum; // regular exit
             n_fac *= ( m_sym_Ci ? -1 : I );
         }
 #ifdef POLYHEDRAL_DIAGNOSTIC
-        return sum;
-#else
-        throw std::runtime_error("Bug in formfactor computation: series F(q) not converged");
+        if( !diagnosis.request_convergence )
+            return sum;
 #endif
+        throw std::runtime_error("Bug in formfactor computation: series F(q) not converged");
     } else {
         // direct evaluation of analytic formula (coefficients may involve series)
         complex_t sum = 0;
@@ -446,7 +478,12 @@ complex_t FormFactorPolyhedron::evaluate_centered( const cvector_t q ) const
             complex_t qn = Gk.normalProjectionConj( q ); // conj(q)*normal
             if ( std::abs(qn)<eps*q.mag() )
                 continue;
-            sum += qn * Gk.ff(q, m_sym_Ci );
+            complex_t ff = Gk.ff(q, m_sym_Ci );
+            sum += qn * ff;
+#ifdef POLYHEDRAL_DIAGNOSTIC
+            if( diagnosis.debmsg>=1 )
+                std::cout<<std::scientific<<std::showpos<<std::setprecision(16)<<"  SUM="<<sum<<" TERM="<<qn*ff<<" qn="<<qn.real()<<" ff="<<ff<<"\n";
+#endif
         }
         return sum / (I * q.mag2());
     }
@@ -463,7 +500,7 @@ void FormFactorPolyhedron::assert_platonic() const
     pyramidal_volume /= m_faces.size();
     for( const auto& Gk: m_faces )
         if (std::abs(Gk.pyramidalVolume()-pyramidal_volume) > 160*eps*pyramidal_volume) {
-            std::cout<<std::setprecision(16)<<"BUG: pyr_volume(this face)="<<
+            std::cerr<<std::setprecision(16)<<"BUG: pyr_volume(this face)="<<
                 Gk.pyramidalVolume()<<" vs pyr_volume(avge)="<<pyramidal_volume<<"\n";
             throw std::runtime_error("Deviant pyramidal volume");
         }
@@ -488,7 +525,8 @@ double FormFactorPolygonalPrism::getVolume() const { return m_height * m_base->a
 complex_t FormFactorPolygonalPrism::evaluate_for_q( const cvector_t q ) const
 {
 #ifdef POLYHEDRAL_DIAGNOSTIC
-    diagnosis = { 0, 0 };
+    diagnosis.maxOrder = 0;
+    diagnosis.nExpandedFaces = 0;
 #endif
     const cvector_t qxy( q.x(), q.y(), 0. );
     return m_height * exp(I*(m_height/2)*q.z()) * MathFunctions::sinc(m_height/2*q.z()) *
@@ -503,7 +541,8 @@ complex_t FormFactorPolygonalPrism::evaluate_for_q( const cvector_t q ) const
 complex_t FormFactorPolygonalSurface::evaluate_for_q( const cvector_t q ) const
 {
 #ifdef POLYHEDRAL_DIAGNOSTIC
-    diagnosis = { 0, 0 };
+    diagnosis.maxOrder = 0;
+    diagnosis.nExpandedFaces = 0;
 #endif
     return m_base->ff( q, false );
 }

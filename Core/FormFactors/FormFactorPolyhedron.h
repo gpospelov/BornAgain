@@ -61,7 +61,7 @@ public:
     double pyramidalVolume() const { return m_rperp*m_area/3; }
     double radius3d() const { return m_radius_3d; }
     //! Returns conj(q)*normal [BasicVector3D::dot is antilinear in 'this' argument]
-    complex_t normalProjectionConj( cvector_t q ) const { return q.dot(m_normal); } 
+    complex_t normalProjectionConj( cvector_t q ) const { return q.dot(m_normal); }
     complex_t ff_n( int m, const cvector_t q ) const;
     complex_t ff( const cvector_t q, const bool sym_Ci ) const;
     complex_t ff_2D( const cvector_t qpa ) const;
@@ -82,6 +82,9 @@ private:
 
     void decompose_q( const cvector_t q, complex_t& qperp, cvector_t& qpa ) const;
     complex_t ff_n_core( int m, const cvector_t qpa ) const;
+    complex_t edge_sum_ff( cvector_t q, cvector_t qpa, bool sym_Ci ) const;
+    complex_t expansion(
+        complex_t fac_even, complex_t fac_odd, cvector_t qpa, double abslevel ) const;
 };
 
 
@@ -98,10 +101,15 @@ public:
         std::vector<int> vertexIndices;
         bool symmetry_S2;
     };
-    typedef std::vector<TopologyFace> Topology;
+    class Topology {
+    public:
+        std::vector<TopologyFace> faces;
+        bool symmetry_Ci;
+    };
 
     FormFactorPolyhedron() {}
 
+    virtual void onChange() = 0;
     virtual complex_t evaluate_for_q(const cvector_t q ) const final;
     complex_t evaluate_centered( const cvector_t q ) const;
 
@@ -113,7 +121,7 @@ protected:
     double m_z_origin;
     bool m_sym_Ci; //!< if true, then faces obtainable by inversion are not provided
 
-    void setPolyhedron( const Topology& topology, double z_origin, bool sym_Ci,
+    void setPolyhedron( const Topology& topology, double z_origin,
                         const std::vector<kvector_t>& vertices );
 
 private:

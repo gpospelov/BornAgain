@@ -18,15 +18,16 @@
 #include "MathFunctions.h"
 
 const FormFactorPolyhedron::Topology FormFactorCone6::topology = {
-    { {  5,  4,  3,  2,  1,  0 }, true },
-    { {  0,  1,  7,  6 }, false },
-    { {  1,  2,  8,  7 }, false },
-    { {  2,  3,  9,  8 }, false },
-    { {  3,  4, 10,  9 }, false },
-    { {  4,  5, 11, 10 }, false },
-    { {  5,  0,  6, 11 }, false },
-    { {  6,  7,  8,  9, 10, 11 }, true }
-};
+    {
+        { {  5,  4,  3,  2,  1,  0 }, true },
+        { {  0,  1,  7,  6 }, false },
+        { {  1,  2,  8,  7 }, false },
+        { {  2,  3,  9,  8 }, false },
+        { {  3,  4, 10,  9 }, false },
+        { {  4,  5, 11, 10 }, false },
+        { {  5,  0,  6, 11 }, false },
+        { {  6,  7,  8,  9, 10, 11 }, true }
+    }, false };
 
 //! Cone6 constructor
 //! @param base_edge of hexagonal base (different from R in IsGisaxs)
@@ -70,7 +71,7 @@ void FormFactorCone6::onChange()
 
     double zcom = m_height * ( .5 - 2*r/3 + r*r/4 ) / ( 1 - r + r*r/3 ); // center of mass
 
-    setPolyhedron( topology, -zcom, false, {
+    setPolyhedron( topology, -zcom, {
         // base:
         {  a,   0., -zcom },
         {  as,  ac, -zcom },

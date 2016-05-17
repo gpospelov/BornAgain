@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/JobWidgets/ModelTuningDelegate.cpp
-//! @brief     Implements class ModelTuningDelegate
+//! @file      coregui/Views/JobWidgets/ParameterTuningDelegate.cpp
+//! @brief     Implements class ParameterTuningDelegate
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,7 +14,7 @@
 //
 // ************************************************************************** //
 
-#include "ModelTuningDelegate.h"
+#include "ParameterTuningDelegate.h"
 #include "GUIHelpers.h"
 #include "ParameterTreeItems.h"
 #include "FilterPropertyProxy.h"
@@ -43,7 +43,7 @@ const double maximum_doublespin_value(20000.0);
 //const double minimum_doublespin_value(0.0);
 }
 
-ModelTuningDelegate::SliderData::SliderData()
+ParameterTuningDelegate::SliderData::SliderData()
     : m_smin(0)
     , m_smax(100)
     , m_rmin(0.0)
@@ -53,17 +53,17 @@ ModelTuningDelegate::SliderData::SliderData()
 
 }
 
-void ModelTuningDelegate::SliderData::setRangeFactor(double range_factor)
+void ParameterTuningDelegate::SliderData::setRangeFactor(double range_factor)
 {
     m_range_factor = range_factor;
 }
 
-void ModelTuningDelegate::SliderData::setItemLimits(const AttLimits &item_limits)
+void ParameterTuningDelegate::SliderData::setItemLimits(const AttLimits &item_limits)
 {
     m_item_limits = item_limits;
 }
 
-int ModelTuningDelegate::SliderData::value_to_slider(double value)
+int ParameterTuningDelegate::SliderData::value_to_slider(double value)
 {
     double dr(0);
     if(value == 0.0) {
@@ -83,13 +83,13 @@ int ModelTuningDelegate::SliderData::value_to_slider(double value)
     return m_smin + (value - m_rmin)*(m_smax-m_smin)/(m_rmax-m_rmin);
 }
 
-double ModelTuningDelegate::SliderData::slider_to_value(int slider)
+double ParameterTuningDelegate::SliderData::slider_to_value(int slider)
 {
     return m_rmin + (slider - m_smin)*(m_rmax-m_rmin)/(m_smax - m_smin);
 }
 
 
-ModelTuningDelegate::ModelTuningDelegate(QObject *parent)
+ParameterTuningDelegate::ParameterTuningDelegate(QObject *parent)
     : QItemDelegate(parent)
     , m_valueColumn(1)
     , m_slider(0)
@@ -100,7 +100,7 @@ ModelTuningDelegate::ModelTuningDelegate(QObject *parent)
 
 }
 
-void ModelTuningDelegate::paint(QPainter *painter,
+void ParameterTuningDelegate::paint(QPainter *painter,
                                 const QStyleOptionViewItem &option,
                                 const QModelIndex &index) const
 {
@@ -128,7 +128,7 @@ void ModelTuningDelegate::paint(QPainter *painter,
 }
 
 
-QWidget *ModelTuningDelegate::createEditor(QWidget *parent,
+QWidget *ParameterTuningDelegate::createEditor(QWidget *parent,
                                            const QStyleOptionViewItem &option,
                                            const QModelIndex &index) const
 {
@@ -203,7 +203,7 @@ QWidget *ModelTuningDelegate::createEditor(QWidget *parent,
 }
 
 
-void ModelTuningDelegate::updateSlider(double value) const
+void ParameterTuningDelegate::updateSlider(double value) const
 {
     disconnect(m_slider, SIGNAL(valueChanged(int)),this, SLOT(sliderValueChanged(int)));
 
@@ -213,7 +213,7 @@ void ModelTuningDelegate::updateSlider(double value) const
 }
 
 
-void ModelTuningDelegate::sliderValueChanged(int position)
+void ParameterTuningDelegate::sliderValueChanged(int position)
 {
     disconnect(m_valueBox, SIGNAL(valueChanged(double)),this, SLOT(editorValueChanged(double)));
 
@@ -225,7 +225,7 @@ void ModelTuningDelegate::sliderValueChanged(int position)
 }
 
 
-void ModelTuningDelegate::editorValueChanged(double value)
+void ParameterTuningDelegate::editorValueChanged(double value)
 {
     qDebug() << "ModelTuningDelegate::editorValueChanged " << value;
     disconnect(m_slider, SIGNAL(valueChanged(int)),this, SLOT(sliderValueChanged(int)));
@@ -237,7 +237,7 @@ void ModelTuningDelegate::editorValueChanged(double value)
 }
 
 
-void ModelTuningDelegate::setEditorData(QWidget *editor,
+void ParameterTuningDelegate::setEditorData(QWidget *editor,
                                         const QModelIndex &index) const
 {
     if (index.column() == m_valueColumn) {
@@ -248,7 +248,7 @@ void ModelTuningDelegate::setEditorData(QWidget *editor,
 }
 
 
-void ModelTuningDelegate::setModelData(QWidget *editor,
+void ParameterTuningDelegate::setModelData(QWidget *editor,
                                        QAbstractItemModel *model,
                                        const QModelIndex &index) const
 {
@@ -262,7 +262,7 @@ void ModelTuningDelegate::setModelData(QWidget *editor,
 }
 
 
-void ModelTuningDelegate::emitSignals(double value)
+void ParameterTuningDelegate::emitSignals(double value)
 {
     if(m_currentItem) {
         m_currentItem->setValue(value);
@@ -271,7 +271,7 @@ void ModelTuningDelegate::emitSignals(double value)
     }
 }
 
-void ModelTuningDelegate::setSliderRangeFactor(double value)
+void ParameterTuningDelegate::setSliderRangeFactor(double value)
 {
     m_slider_data.setRangeFactor(value);
 }

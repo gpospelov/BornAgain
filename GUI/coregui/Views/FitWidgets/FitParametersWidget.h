@@ -22,7 +22,7 @@
 #include <memory>
 
 class JobItem;
-class ModelTuningWidget;
+class ParameterTuningWidget;
 class QTreeView;
 class QSignalMapper;
 class QAction;
@@ -47,7 +47,7 @@ public:
     ~FitParametersWidget();
 
     void setItem(JobItem *jobItem);
-    void setModelTuningWidget(ModelTuningWidget *tuningWidget);
+    void setModelTuningWidget(ParameterTuningWidget *tuningWidget);
 
 public slots:
     void onTuningWidgetContextMenu(const QPoint &point);
@@ -82,7 +82,7 @@ private:
 
     QTreeView *m_treeView;
     JobItem *m_jobItem;
-    ModelTuningWidget *m_tuningWidget;
+    ParameterTuningWidget *m_tuningWidget;
     QAction *m_createFitParAction;
     QAction *m_removeFromFitParAction;
     QAction *m_removeFitParAction;

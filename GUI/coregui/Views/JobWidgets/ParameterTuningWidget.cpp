@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/JobWidgets/ModelTuningWidget.cpp
-//! @brief     Implements class ModelTuningWidget
+//! @file      coregui/Views/JobWidgets/ParameterTuningWidget.cpp
+//! @brief     Implements class ParameterTuningWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,13 +14,13 @@
 //
 // ************************************************************************** //
 
-#include "ModelTuningWidget.h"
+#include "ParameterTuningWidget.h"
 #include "JobQueueData.h"
 #include "JobItem.h"
 #include "SliderSettingsWidget.h"
 #include "ParameterModelBuilder.h"
 #include "GUIHelpers.h"
-#include "ModelTuningDelegate.h"
+#include "ParameterTuningDelegate.h"
 #include "JobModel.h"
 #include "SampleModel.h"
 #include "InstrumentModel.h"
@@ -46,12 +46,12 @@ const int warning_sign_xpos = 38;
 const int warning_sign_ypos = 38;
 }
 
-ModelTuningWidget::ModelTuningWidget(JobModel *jobModel, QWidget *parent)
+ParameterTuningWidget::ParameterTuningWidget(JobModel *jobModel, QWidget *parent)
     : QWidget(parent)
     , m_jobModel(jobModel)
     , m_currentJobItem(0)
     , m_sliderSettingsWidget(0)
-    , m_delegate(new ModelTuningDelegate)
+    , m_delegate(new ParameterTuningDelegate)
     , m_warningSign(0)
 //    , m_mapper(0)
     , m_fitTools(new FitTools(jobModel, parent))
@@ -98,11 +98,11 @@ ModelTuningWidget::ModelTuningWidget(JobModel *jobModel, QWidget *parent)
     setLayout(mainLayout);
 }
 
-ModelTuningWidget::~ModelTuningWidget()
+ParameterTuningWidget::~ParameterTuningWidget()
 {
 }
 
-void ModelTuningWidget::setItem(JobItem *item)
+void ParameterTuningWidget::setItem(JobItem *item)
 {
     if (m_currentJobItem == item) {
         return;
@@ -126,7 +126,7 @@ void ModelTuningWidget::setItem(JobItem *item)
     }
 }
 
-QItemSelectionModel *ModelTuningWidget::selectionModel()
+QItemSelectionModel *ParameterTuningWidget::selectionModel()
 {
     Q_ASSERT(m_treeView);
     return m_treeView->selectionModel();
@@ -134,7 +134,7 @@ QItemSelectionModel *ModelTuningWidget::selectionModel()
 
 //! Returns list of ParameterItem's currently selected in parameter tree
 
-QVector<ParameterItem *> ModelTuningWidget::getSelectedParameters()
+QVector<ParameterItem *> ParameterTuningWidget::getSelectedParameters()
 {
     QVector<ParameterItem *> result;
     QModelIndexList proxyIndexes = selectionModel()->selectedIndexes();
@@ -151,7 +151,7 @@ QVector<ParameterItem *> ModelTuningWidget::getSelectedParameters()
     return result;
 }
 
-void ModelTuningWidget::onCurrentLinkChanged(SessionItem *item)
+void ParameterTuningWidget::onCurrentLinkChanged(SessionItem *item)
 {
     qDebug() << "ModelTuningWidget::onCurrentLinkChanged";
     Q_ASSERT(m_currentJobItem);
@@ -167,12 +167,12 @@ void ModelTuningWidget::onCurrentLinkChanged(SessionItem *item)
     }
 }
 
-void ModelTuningWidget::onSliderValueChanged(double value)
+void ParameterTuningWidget::onSliderValueChanged(double value)
 {
     m_delegate->setSliderRangeFactor(value);
 }
 
-void ModelTuningWidget::onLockZValueChanged(bool value)
+void ParameterTuningWidget::onLockZValueChanged(bool value)
 {
     if(!m_currentJobItem) return;
     if(IntensityDataItem *intensityDataItem = m_currentJobItem->getIntensityDataItem()) {
@@ -181,7 +181,7 @@ void ModelTuningWidget::onLockZValueChanged(bool value)
     }
 }
 
-void ModelTuningWidget::updateParameterModel()
+void ParameterTuningWidget::updateParameterModel()
 {
     qDebug() << "ModelTuningWidget::updateParameterModel()";
 
@@ -191,21 +191,21 @@ void ModelTuningWidget::updateParameterModel()
         throw GUIHelpers::Error("ModelTuningWidget::updateParameterModel() -> Error."
                                 "JobItem doesn't have sample or instrument model.");
 
-    ParameterTuningModel *proxy = new ParameterTuningModel(this);
-    proxy->setSourceModel(m_jobModel);
-    m_treeView->setModel(proxy);
-    m_treeView->setRootIndex(proxy->mapFromSource(m_currentJobItem->getItem(JobItem::T_PARAMETER_TREE)->index()));
+    ParameterTuningModel *parameterModel = new ParameterTuningModel(this);
+    parameterModel->setSourceModel(m_jobModel);
+    m_treeView->setModel(parameterModel);
+    m_treeView->setRootIndex(parameterModel->mapFromSource(m_currentJobItem->getItem(JobItem::T_PARAMETER_TREE)->index()));
     if (m_treeView->columnWidth(0) < 170)
         m_treeView->setColumnWidth(0, 170);
     m_treeView->expandAll();
 }
 
-void ModelTuningWidget::onCustomContextMenuRequested(const QPoint &point)
+void ParameterTuningWidget::onCustomContextMenuRequested(const QPoint &point)
 {
     emit itemContextMenuRequest(m_treeView->mapToGlobal(point+ QPoint(2, 22)));
 }
 
-void ModelTuningWidget::restoreModelsOfCurrentJobItem()
+void ParameterTuningWidget::restoreModelsOfCurrentJobItem()
 {
     Q_ASSERT(m_currentJobItem);
 
@@ -219,7 +219,7 @@ void ModelTuningWidget::restoreModelsOfCurrentJobItem()
     m_jobModel->getJobQueueData()->runJob(m_currentJobItem);
 }
 
-void ModelTuningWidget::resizeEvent(QResizeEvent *event)
+void ParameterTuningWidget::resizeEvent(QResizeEvent *event)
 {
     Q_UNUSED(event);
     if(m_warningSign) {
@@ -232,12 +232,12 @@ void ModelTuningWidget::resizeEvent(QResizeEvent *event)
 }
 
 //! Context menu reimplemented to suppress the default one
-void ModelTuningWidget::contextMenuEvent(QContextMenuEvent *event)
+void ParameterTuningWidget::contextMenuEvent(QContextMenuEvent *event)
 {
     Q_UNUSED(event);
 }
 
-void ModelTuningWidget::onPropertyChanged(const QString &property_name)
+void ParameterTuningWidget::onPropertyChanged(const QString &property_name)
 {
     if(property_name == JobItem::P_STATUS) {
         delete m_warningSign;
@@ -259,7 +259,7 @@ void ModelTuningWidget::onPropertyChanged(const QString &property_name)
 
 //! Returns position for warning sign at the bottom right corner of the tree view.
 //! The position will be adjusted according to the visibility of scroll bars
-QPoint ModelTuningWidget::getPositionForWarningSign()
+QPoint ParameterTuningWidget::getPositionForWarningSign()
 {
     int x = width()-warning_sign_xpos;
     int y = height()-warning_sign_ypos;

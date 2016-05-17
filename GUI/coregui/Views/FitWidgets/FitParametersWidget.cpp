@@ -20,7 +20,7 @@
 #include "FitSuiteItem.h"
 #include "FitParameterItems.h"
 #include "FitParameterModel.h"
-#include "ModelTuningWidget.h"
+#include "ParameterTuningWidget.h"
 #include "FilterPropertyProxy.h"
 #include "ParameterTreeItems.h"
 #include "FitParameterProxyModel.h"
@@ -94,7 +94,7 @@ void FitParametersWidget::setItem(JobItem *jobItem)
 //! Our FitParametersWidget will provide model tuning widget with context menu.
 //! It also will take care of cross-item-selection between parameterTuningTree
 //! and fitParametersTree
-void FitParametersWidget::setModelTuningWidget(ModelTuningWidget *tuningWidget)
+void FitParametersWidget::setModelTuningWidget(ParameterTuningWidget *tuningWidget)
 {
     if(tuningWidget == m_tuningWidget) {
         return;

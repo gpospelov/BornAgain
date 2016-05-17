@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/JobWidgets/ModelTuningWidget.h
-//! @brief     Declares class ModelTuningWidget
+//! @file      coregui/Views/JobWidgets/ParameterTuningWidget.h
+//! @brief     Declares class ParameterTuningWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,15 +14,15 @@
 //
 // ************************************************************************** //
 
-#ifndef MODELTUNINGWIDGET_H
-#define MODELTUNINGWIDGET_H
+#ifndef PARAMETERTUNIGWIDGET_H
+#define PARAMETERTUNIGWIDGET_H
 
 #include <QWidget>
 #include <memory>
 
 class JobItem;
 class SliderSettingsWidget;
-class ModelTuningDelegate;
+class ParameterTuningDelegate;
 class JobModel;
 class QTreeView;
 class SampleModel;
@@ -33,13 +33,13 @@ class FitTools;
 class QItemSelectionModel;
 class ParameterItem;
 
-class ModelTuningWidget : public QWidget
+class ParameterTuningWidget : public QWidget
 {
     Q_OBJECT
 
 public:
-    ModelTuningWidget(JobModel *jobModel, QWidget *parent = 0);
-    virtual ~ModelTuningWidget();
+    ParameterTuningWidget(JobModel *jobModel, QWidget *parent = 0);
+    virtual ~ParameterTuningWidget();
 
     void setItem(JobItem *item);
 
@@ -72,7 +72,7 @@ private:
     JobItem *m_currentJobItem;
     SliderSettingsWidget *m_sliderSettingsWidget;
     QTreeView *m_treeView;
-    ModelTuningDelegate *m_delegate;
+    ParameterTuningDelegate *m_delegate;
     WarningSignWidget *m_warningSign;
     FitTools *m_fitTools;
 };

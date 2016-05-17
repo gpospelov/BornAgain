@@ -20,6 +20,11 @@
 
 #include <QSortFilterProxyModel>
 
+//!
+//! \brief The FilterPropertyProxy class filters out all PropertyItem's and similar from
+//! SessionModel to have only top level items
+//!
+
 class BA_CORE_API_ FilterPropertyProxy : public QSortFilterProxyModel
 {
     Q_OBJECT
@@ -30,10 +35,6 @@ public:
     int columnCount(const QModelIndex &parent) const;
 
     static QModelIndex toSourceIndex(QModelIndex index);
-
-//    QMimeData *mimeData(const QModelIndexList &indexes) const;
-
-//    QStringList mimeTypes() const Q_DECL_OVERRIDE;
 
 protected:
     bool filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const;

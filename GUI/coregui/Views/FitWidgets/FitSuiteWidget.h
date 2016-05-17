@@ -27,7 +27,7 @@ class JobItem;
 class FitParametersWidget;
 class MinimizerSettingsWidget;
 class FitResultsWidget;
-class ModelTuningWidget;
+class ParameterTuningWidget;
 class RunFitManager;
 class GUIFitObserver;
 template <class T> class OutputData;
@@ -46,7 +46,7 @@ public:
     ~FitSuiteWidget();
 
     void setItem(JobItem *jobItem);
-    void setModelTuningWidget(ModelTuningWidget *tuningWidget);
+    void setModelTuningWidget(ParameterTuningWidget *tuningWidget);
 
 signals:
     void fittingStarted();

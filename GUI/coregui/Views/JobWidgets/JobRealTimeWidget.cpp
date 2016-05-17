@@ -18,7 +18,7 @@
 #include "JobModel.h"
 #include "JobItem.h"
 #include "JobQueueData.h"
-#include "ModelTuningWidget.h"
+#include "ParameterTuningWidget.h"
 #include "JobRealTimeToolBar.h"
 #include "GUIHelpers.h"
 #include "mainwindow_constants.h"
@@ -49,7 +49,7 @@ JobRealTimeWidget::JobRealTimeWidget(JobModel *jobModel, QWidget *parent)
     connect(m_toolBar, SIGNAL(resetParameters()), this, SLOT(onResetParameters()));
 }
 
-ModelTuningWidget *JobRealTimeWidget::getTuningWidgetForItem(JobItem *jobItem)
+ParameterTuningWidget *JobRealTimeWidget::getTuningWidgetForItem(JobItem *jobItem)
 {
     return m_jobItemToTuningWidget[jobItem];
 }
@@ -73,9 +73,9 @@ void JobRealTimeWidget::setItem(JobItem * item)
 
     if(!isVisible()) return;
 
-    ModelTuningWidget *widget = m_jobItemToTuningWidget[item];
+    ParameterTuningWidget *widget = m_jobItemToTuningWidget[item];
     if( !widget && isValidJobItem(item)) {
-        widget = new ModelTuningWidget(m_jobModel);
+        widget = new ParameterTuningWidget(m_jobModel);
         widget->setItem(item);
         m_stack->addWidget(widget);
         m_jobItemToTuningWidget[item] = widget;
@@ -110,7 +110,7 @@ void JobRealTimeWidget::onJobItemFinished(const QString &identifier)
 
 void JobRealTimeWidget::onResetParameters()
 {
-    ModelTuningWidget *widget = getCurrentModelTuningWidget();
+    ParameterTuningWidget *widget = getCurrentModelTuningWidget();
     if(widget)
         widget->restoreModelsOfCurrentJobItem();
 }
@@ -131,9 +131,9 @@ void JobRealTimeWidget::onModelLoaded()
     }
 }
 
-ModelTuningWidget *JobRealTimeWidget::getCurrentModelTuningWidget()
+ParameterTuningWidget *JobRealTimeWidget::getCurrentModelTuningWidget()
 {
-    ModelTuningWidget *result = dynamic_cast<ModelTuningWidget *>(m_stack->currentWidget());
+    ParameterTuningWidget *result = dynamic_cast<ParameterTuningWidget *>(m_stack->currentWidget());
     if(result && result->isHidden()) result = 0;
     return result;
 }
@@ -150,13 +150,13 @@ void JobRealTimeWidget::onJobItemDelete(JobItem *item)
     //qDebug() << "JobOutputDataWidget::onJobItemDelete()";
     if(item == m_currentItem) m_currentItem=0;
 
-    ModelTuningWidget *widget = m_jobItemToTuningWidget[item];
+    ParameterTuningWidget *widget = m_jobItemToTuningWidget[item];
     if( !widget ) {
         // this is the case when user removes failed job which doesn't have propper widget
         return;
     }
 
-    QMap<JobItem *, ModelTuningWidget *>::iterator it = m_jobItemToTuningWidget.begin();
+    QMap<JobItem *, ParameterTuningWidget *>::iterator it = m_jobItemToTuningWidget.begin();
     while(it!=m_jobItemToTuningWidget.end()) {
         if(it.value() == widget) {
             it = m_jobItemToTuningWidget.erase(it);

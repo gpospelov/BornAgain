@@ -21,7 +21,7 @@
 #include <QWidget>
 
 class MainWindow;
-class ModelTuningWidget;
+class ParameterTuningWidget;
 class FitParametersWidget;
 class JobItem;
 class QTreeView;
@@ -39,7 +39,7 @@ public:
 
 private:
     MainWindow *m_mainWindow;
-    ModelTuningWidget *m_tuningWidget;
+    ParameterTuningWidget *m_tuningWidget;
     FitParametersWidget *m_fitParametersWidget;
     QTreeView *m_jobTreeView;
     JobItem *m_jobItem;

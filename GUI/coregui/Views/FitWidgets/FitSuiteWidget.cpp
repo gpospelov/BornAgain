@@ -68,7 +68,7 @@ void FitSuiteWidget::setItem(JobItem *jobItem)
     m_fitParametersWidget->setItem(jobItem);
 }
 
-void FitSuiteWidget::setModelTuningWidget(ModelTuningWidget *tuningWidget)
+void FitSuiteWidget::setModelTuningWidget(ParameterTuningWidget *tuningWidget)
 {
     Q_ASSERT(m_fitParametersWidget);
     Q_ASSERT(tuningWidget);

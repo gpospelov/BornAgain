@@ -28,7 +28,7 @@
 #include "FitModelHelper.h"
 #include "SessionModelDelegate.h"
 #include "CustomEventFilters.h"
-#include "InfoLabelController.h"
+#include "OverlayLabelController.h"
 #include <QMenu>
 #include <QSignalMapper>
 #include <QTreeView>
@@ -48,7 +48,7 @@ FitParameterWidget::FitParameterWidget(QWidget *parent)
     , m_fitParameterModel(0)
     , m_delegate(new SessionModelDelegate(this))
     , m_keyboardFilter(new DeleteEventFilter(this))
-    , m_infoLabel(new InfoLabelController(this))
+    , m_infoLabel(new OverlayLabelController(this))
 {
     QVBoxLayout *layout = new QVBoxLayout;
     layout->addWidget(m_treeView);
@@ -67,7 +67,7 @@ FitParameterWidget::FitParameterWidget(QWidget *parent)
             this, SLOT(onFitParameterTreeContextMenu(const QPoint &)));
 
     m_infoLabel->setArea(m_treeView);
-    m_infoLabel->setText(QStringLiteral("Drop sample parameter to fit here"));
+    m_infoLabel->setText(QStringLiteral("Drop parameter to fit here"));
 }
 
 void FitParameterWidget::setItem(JobItem *jobItem)

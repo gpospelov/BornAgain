@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/InfoWidgets/InfoLabelController.h
-//! @brief     Declares class InfoLabelController
+//! @file      coregui/Views/InfoWidgets/OverlayLabelController.h
+//! @brief     Declares class OverlayLabelController
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,24 +14,24 @@
 //
 // ************************************************************************** //
 
-#ifndef INFOLABELCONTROLLER_H
-#define INFOLABELCONTROLLER_H
+#ifndef OVERLAYLABELCONTROLLER_H
+#define OVERLAYLABELCONTROLLER_H
 
 #include "WinDllMacros.h"
 #include <QObject>
 #include <QString>
 
-class InfoLabelWidget;
+class OverlayLabelWidget;
 class QAbstractScrollArea;
 
-//! The InfoLabelController class controlls appearance of InfoLabelWidget (position, show/hide)
+//! The OverlayLabelController class controlls appearance of InfoLabelWidget (position, show/hide)
 //! on top of some scroll area.
 
-class BA_CORE_API_ InfoLabelController : public QObject
+class BA_CORE_API_ OverlayLabelController : public QObject
 {
     Q_OBJECT
 public:
-    InfoLabelController(QObject *parent = 0);
+    OverlayLabelController(QObject *parent = 0);
 
     void setText(const QString &text);
 
@@ -45,7 +45,7 @@ protected:
 private:
     void updateLabelGeometry();
 
-    InfoLabelWidget *m_label;
+    OverlayLabelWidget *m_label;
     QAbstractScrollArea *m_area;
     QString m_text;
 };

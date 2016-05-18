@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/InfoWidgets/InfoLabelController.cpp
-//! @brief     Implements class InfoLabelController
+//! @file      coregui/Views/InfoWidgets/OverlayLabelController.cpp
+//! @brief     Implements class OverlayLabelController
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,14 +14,14 @@
 //
 // ************************************************************************** //
 
-#include "InfoLabelController.h"
-#include "InfoLabelWidget.h"
+#include "OverlayLabelController.h"
+#include "OverlayLabelWidget.h"
 #include <QAbstractScrollArea>
 #include <QEvent>
 #include <QRect>
 #include <QDebug>
 
-InfoLabelController::InfoLabelController(QObject *parent)
+OverlayLabelController::OverlayLabelController(QObject *parent)
     : QObject(parent)
     , m_label(0)
     , m_area(0)
@@ -29,12 +29,12 @@ InfoLabelController::InfoLabelController(QObject *parent)
 
 }
 
-void InfoLabelController::setText(const QString &text)
+void OverlayLabelController::setText(const QString &text)
 {
     m_text = text;
 }
 
-void InfoLabelController::setArea(QAbstractScrollArea *area)
+void OverlayLabelController::setArea(QAbstractScrollArea *area)
 {
     m_area = area;
     m_area->installEventFilter(this);
@@ -42,14 +42,15 @@ void InfoLabelController::setArea(QAbstractScrollArea *area)
 
 //! Shows/removes a label from the controlled widget
 
-void InfoLabelController::setShown(bool shown)
+void OverlayLabelController::setShown(bool shown)
 {
     if(shown) {
         Q_ASSERT(m_area);
         if(!m_label) {
-            m_label = new InfoLabelWidget(m_area);
+            m_label = new OverlayLabelWidget(m_area);
             m_label->setText(m_text);
             updateLabelGeometry();
+            m_label->show();
         }
 
     } else {
@@ -58,23 +59,17 @@ void InfoLabelController::setShown(bool shown)
     }
 }
 
-bool InfoLabelController::eventFilter(QObject *obj, QEvent *event)
+bool OverlayLabelController::eventFilter(QObject *obj, QEvent *event)
 {
-    if (event->type() == QEvent::Resize) {
-        qDebug() << "InfoLabelController::eventFilter" << m_area->viewport()->width() << m_area->viewport()->height();
-//        widget()->setMaximumWidth(viewport()->width());
-//        setMaximumHeight(height() - viewport()->height() + widget()->height());
+    if (event->type() == QEvent::Resize)
         updateLabelGeometry();
-    }
 
     return QObject::eventFilter(obj, event);
 }
 
-void InfoLabelController::updateLabelGeometry()
+void OverlayLabelController::updateLabelGeometry()
 {
     if(!m_label || !m_area) return;
-    qDebug() << "InfoLabelController::updateLabelGeometry()" << m_area->width() << m_area->height() << m_area << m_text;
     m_label->setRectangle(QRect(0, 0, m_area->width(), m_area->height()));
     m_label->setPosition(0, 0);
-    m_label->show();
 }

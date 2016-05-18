@@ -35,6 +35,7 @@ class FitParameterLinkItem;
 class QItemSelection;
 class SessionModelDelegate;
 class DeleteEventFilter;
+class InfoLabelController;
 
 //! The FitParametersWidget class contains a tree view to set fit parameters (fix/release,
 //! starting value, min/max bounds). It occupies buttom right corner of JobView.
@@ -92,6 +93,7 @@ private:
     FitParameterAbsModel* m_fitParameterModel;
     SessionModelDelegate *m_delegate;
     DeleteEventFilter *m_keyboardFilter;
+    InfoLabelController *m_infoLabel;
 };
 
 #endif

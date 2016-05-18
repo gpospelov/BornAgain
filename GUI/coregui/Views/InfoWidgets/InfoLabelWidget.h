@@ -22,17 +22,19 @@
 #include <QString>
 #include <QRect>
 
-//! The InfoLabelWidget is a semi-transparent overlay label to palce on top of other
+//! The InfoLabelWidget is a semi-transparent overlay label to place on top of other
 //! widgets outside of any layout context.
 
-class InfoLabelWidget : public QWidget
+class BA_CORE_API_ InfoLabelWidget : public QWidget
 {
+    Q_OBJECT
 public:
     InfoLabelWidget(QWidget *parent = 0);
 
+    void setRectangle(const QRect &rect);
     void setPosition(int x, int y);
 
-    void setWarningMessage(const QString &text) {m_text = text;}
+    void setText(const QString &text) {m_text = text;}
 
 protected:
     void paintEvent(QPaintEvent *event);

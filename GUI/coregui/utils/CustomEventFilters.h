@@ -22,7 +22,7 @@
 
 class QEvent;
 
-//! Filter out space bar key events, which is special case for dialog windows
+//! Filter out space bar key events, which is special case for dialog windows.
 
 class BA_CORE_API_ SpaceKeyEater : public QObject
 {
@@ -36,8 +36,8 @@ protected:
 };
 
 
-//! event filter to install on combo boxes and spin boxes to not
-//! to react on wheel events during scrolling of InstrumentComponentWidget
+//! Event filter to install on combo boxes and spin boxes to not
+//! to react on wheel events during scrolling of InstrumentComponentWidget.
 
 class BA_CORE_API_ WheelEventEater : public QObject
 {
@@ -50,7 +50,7 @@ protected:
     bool eventFilter(QObject *obj, QEvent *event);
 };
 
-//! Filter out space bar key events, which is special case for dialog windows
+//! Lisens for press-del-key events
 
 class DeleteEventFilter : public QObject
 {

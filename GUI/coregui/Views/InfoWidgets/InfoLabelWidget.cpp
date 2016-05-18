@@ -15,14 +15,21 @@
 // ************************************************************************** //
 
 #include "InfoLabelWidget.h"
+#include "DesignerHelper.h"
 #include <QPainter>
+#include <QColor>
+#include <QFont>
 
 InfoLabelWidget::InfoLabelWidget(QWidget *parent)
     : QWidget(parent)
-    , m_text("xxx")
+    , m_bounding_rect(QRect(0,0,10,10))
 {
-    m_bounding_rect.setWidth(200);
-    m_bounding_rect.setHeight(30);
+    setAttribute(Qt::WA_TransparentForMouseEvents);
+}
+
+void InfoLabelWidget::setRectangle(const QRect &rect)
+{
+    m_bounding_rect = rect;
 }
 
 void InfoLabelWidget::setPosition(int x, int y)
@@ -32,6 +39,12 @@ void InfoLabelWidget::setPosition(int x, int y)
 
 void InfoLabelWidget::paintEvent(QPaintEvent *event)
 {
+    Q_UNUSED(event);
     QPainter painter(this);
-    painter.drawText(m_bounding_rect, Qt::AlignCenter, tr("Qt\nProject"));
+    painter.setBrush(QColor(Qt::lightGray));
+    QFont serifFont("Monospace", DesignerHelper::getHeaderFontSize(),
+                    QFont::Normal, true);
+    painter.setFont(serifFont);
+//    painter.drawRect(m_bounding_rect);
+    painter.drawText(m_bounding_rect, Qt::AlignCenter, m_text);
 }

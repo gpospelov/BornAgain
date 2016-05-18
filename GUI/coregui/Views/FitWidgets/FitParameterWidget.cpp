@@ -139,7 +139,12 @@ void FitParameterWidget::onFitParametersSelectionChanged(const QItemSelection &s
         return;
 
     foreach(QModelIndex index, selection.indexes()) {
+        m_tuningWidget->selectionModel()->clearSelection();
         SessionItem *item = m_fitParameterModel->itemForIndex(index);
+        if(item->parent()->modelType() == Constants::FitParameterLinkType) {
+            QString link = item->parent()->getItemValue(FitParameterLinkItem::P_LINK).toString();
+            m_tuningWidget->makeSelected(FitModelHelper::getParameterItem(m_jobItem->fitParameterContainerItem(), link));
+        }
         qDebug() << "XXX index" << index << item->modelType();
 
     }
@@ -400,7 +405,6 @@ void FitParameterWidget::updateInfoLabel()
 {
     Q_ASSERT(m_jobItem);
     bool is_to_show_label = m_jobItem->fitParameterContainerItem()->isEmpty();
-    qDebug() << "FitParameterWidget::updateInfoLabel()" << m_jobItem->fitParameterContainerItem()->getItems(FitParameterContainerItem::T_FIT_PARAMETERS).size() << is_to_show_label << m_treeView;
     m_infoLabel->setShown(is_to_show_label);
 }
 

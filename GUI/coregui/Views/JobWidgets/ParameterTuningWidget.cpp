@@ -201,6 +201,14 @@ void ParameterTuningWidget::restoreModelsOfCurrentJobItem()
     m_jobModel->getJobQueueData()->runJob(m_currentJobItem);
 }
 
+void ParameterTuningWidget::makeSelected(ParameterItem *item)
+{
+    QModelIndex proxyIndex = m_parameterTuningModel->mapFromSource(item->index());
+    if(proxyIndex.isValid()) {
+       selectionModel()->select(proxyIndex, QItemSelectionModel::Select);
+    }
+}
+
 void ParameterTuningWidget::resizeEvent(QResizeEvent *event)
 {
     Q_UNUSED(event);

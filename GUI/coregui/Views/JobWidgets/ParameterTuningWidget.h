@@ -42,7 +42,7 @@ public:
 
     QItemSelectionModel* selectionModel();
 
-    QVector<ParameterItem *> getSelectedParameters();
+    QVector<ParameterItem *> getSelectedParameters();    
 
 signals:
     void itemContextMenuRequest(const QPoint &point);
@@ -52,6 +52,7 @@ public slots:
     void onSliderValueChanged(double value);
     void onLockZValueChanged(bool value);
     void restoreModelsOfCurrentJobItem();
+    void makeSelected(ParameterItem *item);
 
 protected:
     void resizeEvent(QResizeEvent *event);

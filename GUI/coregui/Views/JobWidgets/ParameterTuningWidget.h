@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/JobWidgets/ModelTuningWidget.h
-//! @brief     Declares class ModelTuningWidget
+//! @file      coregui/Views/JobWidgets/ParameterTuningWidget.h
+//! @brief     Declares class ParameterTuningWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,35 +14,35 @@
 //
 // ************************************************************************** //
 
-#ifndef MODELTUNINGWIDGET_H
-#define MODELTUNINGWIDGET_H
+#ifndef PARAMETERTUNIGWIDGET_H
+#define PARAMETERTUNIGWIDGET_H
 
 #include <QWidget>
 #include <memory>
 
-class JobItem;
-class SliderSettingsWidget;
-class ModelTuningDelegate;
 class JobModel;
-class QTreeView;
-class SampleModel;
-class InstrumentModel;
-class WarningSignWidget;
+class JobItem;
 class SessionItem;
-class FitTools;
 class QItemSelectionModel;
+class ParameterTuningDelegate;
+class ParameterTuningModel;
+class SliderSettingsWidget;
+class QTreeView;
+class WarningSignWidget;
+class ParameterItem;
 
-class ModelTuningWidget : public QWidget
+class ParameterTuningWidget : public QWidget
 {
     Q_OBJECT
 
 public:
-    ModelTuningWidget(JobModel *jobModel, QWidget *parent = 0);
-    virtual ~ModelTuningWidget();
+    ParameterTuningWidget(JobModel *jobModel, QWidget *parent = 0);
 
     void setItem(JobItem *item);
 
     QItemSelectionModel* selectionModel();
+
+    QVector<ParameterItem *> getSelectedParameters();    
 
 signals:
     void itemContextMenuRequest(const QPoint &point);
@@ -52,6 +52,7 @@ public slots:
     void onSliderValueChanged(double value);
     void onLockZValueChanged(bool value);
     void restoreModelsOfCurrentJobItem();
+    void makeSelected(ParameterItem *item);
 
 protected:
     void resizeEvent(QResizeEvent *event);
@@ -67,11 +68,11 @@ private:
 
     JobModel *m_jobModel;
     JobItem *m_currentJobItem;
+    ParameterTuningModel *m_parameterTuningModel;
     SliderSettingsWidget *m_sliderSettingsWidget;
     QTreeView *m_treeView;
-    ModelTuningDelegate *m_delegate;
+    ParameterTuningDelegate *m_delegate;
     WarningSignWidget *m_warningSign;
-    FitTools *m_fitTools;
 };
 
 #endif

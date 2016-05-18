@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/JobWidgets/ModelTuningDelegate.h
-//! @brief     Declares class ModelTuningDelegate
+//! @file      coregui/Views/JobWidgets/ParameterTuningDelegate.h
+//! @brief     Declares class ParameterTuningDelegate
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MODELTUNINGDELEGATE_H
-#define MODELTUNINGDELEGATE_H
+#ifndef PARAMETERTUNINGDELEGATE_H
+#define PARAMETERTUNINGDELEGATE_H
 
 #include <QItemDelegate>
 #include "AttLimits.h"
@@ -26,7 +26,7 @@ class QHBoxLayout;
 class ParameterItem;
 class SessionItem;
 
-class BA_CORE_API_ ModelTuningDelegate : public QItemDelegate
+class BA_CORE_API_ ParameterTuningDelegate : public QItemDelegate
 {
     Q_OBJECT
 
@@ -47,7 +47,7 @@ public:
     };
 
 
-    ModelTuningDelegate(QObject *parent = 0);
+    ParameterTuningDelegate(QObject *parent = 0);
 
     QSize sizeHint ( const QStyleOptionViewItem & option, const QModelIndex & /* index */) const
     {

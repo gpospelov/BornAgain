@@ -22,8 +22,6 @@
 #include <QPixmap>
 #include <QString>
 
-class QAbstractScrollArea;
-
 //! The WarningSignWidget is an transparent widget with warning sign pixmap intended to be
 //! overlayed onto other widget at some arbitrary position.
 class WarningSignWidget : public QWidget

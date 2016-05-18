@@ -24,10 +24,10 @@
 class QTabWidget;
 class JobModel;
 class JobItem;
-class FitParametersWidget;
+class FitParameterWidget;
 class MinimizerSettingsWidget;
 class FitResultsWidget;
-class ModelTuningWidget;
+class ParameterTuningWidget;
 class RunFitManager;
 class GUIFitObserver;
 template <class T> class OutputData;
@@ -46,7 +46,7 @@ public:
     ~FitSuiteWidget();
 
     void setItem(JobItem *jobItem);
-    void setModelTuningWidget(ModelTuningWidget *tuningWidget);
+    void setModelTuningWidget(ParameterTuningWidget *tuningWidget);
 
 signals:
     void fittingStarted();
@@ -72,7 +72,7 @@ private:
     void connectSignals();
 
     QTabWidget *m_tabWidget;
-    FitParametersWidget *m_fitParametersWidget;
+    FitParameterWidget *m_fitParametersWidget;
     MinimizerSettingsWidget *m_minimizerSettingsWidget;
     FitResultsWidget *m_fitResultsWidget;
     JobModel *m_jobModel;

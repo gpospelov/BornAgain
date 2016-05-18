@@ -19,10 +19,10 @@
 #include "ObsoleteFitParameterItems.h"
 #include "ObsoleteFitParameterModel.h"
 #include "ObsoleteFitSelectorModel.h"
-#include "DeleteEventFilter.h"
 #include "ObsoleteMinimizerSettingsWidget.h"
 #include "minisplitter.h"
 #include "ModelPath.h"
+#include "CustomEventFilters.h"
 #include <QVBoxLayout>
 #include <QTreeView>
 #include <QSplitter>

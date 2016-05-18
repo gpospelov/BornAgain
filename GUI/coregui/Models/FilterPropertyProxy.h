@@ -20,6 +20,11 @@
 
 #include <QSortFilterProxyModel>
 
+//!
+//! \brief The FilterPropertyProxy class filters out all PropertyItem's and similar from
+//! SessionModel to have only top level items
+//!
+
 class BA_CORE_API_ FilterPropertyProxy : public QSortFilterProxyModel
 {
     Q_OBJECT

@@ -40,6 +40,7 @@ public slots:
     void aboutToShowRecentProjects();
     void aboutToShowSettings();
     void toggleCheckForUpdates(bool status);
+    void setSessionModelViewActive(bool status);
 
 private:
     MainWindow *m_mainWindow;

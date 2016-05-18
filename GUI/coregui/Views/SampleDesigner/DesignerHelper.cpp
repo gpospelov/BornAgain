@@ -213,6 +213,15 @@ QPixmap DesignerHelper::getMimePixmap(const QString &name)
     return pixmap;
 }
 
+int DesignerHelper::getHeaderFontSize()
+{
+#ifdef Q_OS_MAC
+    return 14;
+#else
+    return 12;
+#endif
+}
+
 QRectF DesignerHelper::getDefaultMultiLayerRect()
 {
     return QRectF(0, 0, DesignerHelper::getDefaultMultiLayerWidth(),

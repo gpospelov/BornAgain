@@ -103,6 +103,7 @@ public:
     static QPixmap getMimePixmap(const QString &name);
 
     //! returns system dependent font size
+    static int getHeaderFontSize();
     static int getSectionFontSize();
     static int getLabelFontSize();
     static int getPortFontSize();

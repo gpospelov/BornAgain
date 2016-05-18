@@ -14,6 +14,7 @@
 //
 // ************************************************************************** //
 
+#include "ObsoleteFitTools.h"
 #include "JobItem.h"
 #include "FilterPropertyProxy.h"
 #include "JobModel.h"
@@ -31,8 +32,6 @@
 #include "SessionItem.h"
 #include "ObsoleteRealDataWindow.h"
 
-#include "FitTools.h"
-
 #include <boost/scoped_ptr.hpp>
 #include <QHBoxLayout>
 #include <QLabel>
@@ -45,7 +44,7 @@
 #include <QStack>
 
 
-FitTools::FitTools(JobModel *jobModel, QWidget *parent)
+ObsoleteFitTools::ObsoleteFitTools(JobModel *jobModel, QWidget *parent)
     : QWidget(parent)
     , m_jobModel(jobModel)
     , m_currentJobItem(0)
@@ -89,7 +88,7 @@ FitTools::FitTools(JobModel *jobModel, QWidget *parent)
     this->setLayout(layout);
 }
 
-void FitTools::setCurrentItem(JobItem *item, QItemSelectionModel *selection)
+void ObsoleteFitTools::setCurrentItem(JobItem *item, QItemSelectionModel *selection)
 {
     m_currentJobItem = item;
     m_selectionModel = selection;
@@ -102,7 +101,7 @@ void FitTools::setCurrentItem(JobItem *item, QItemSelectionModel *selection)
     m_realDataWindow->setItem(dynamic_cast<IntensityDataItem*>(item->getItem(JobItem::T_REALDATA)));
 }
 
-void FitTools::onStartClick()
+void ObsoleteFitTools::onStartClick()
 {
     if (!m_currentJobItem)
         return;
@@ -158,31 +157,31 @@ void FitTools::onStartClick()
     }
 }
 
-void FitTools::onFittingStarted()
+void ObsoleteFitTools::onFittingStarted()
 {
     m_startButton->setEnabled(false);
     m_stopButton->setEnabled(true);
 }
 
-void FitTools::onFittingFinished()
+void ObsoleteFitTools::onFittingFinished()
 {
     m_startButton->setEnabled(true);
     m_stopButton->setEnabled(false);
 }
 
-void FitTools::onStopClicked()
+void ObsoleteFitTools::onStopClicked()
 {
     m_manager->interruptFitting();
 }
 
-void FitTools::onError(const QString &text)
+void ObsoleteFitTools::onError(const QString &text)
 {
     QMessageBox box;
     box.setText(text);
     box.exec();
 }
 
-void FitTools::onUpdatePlots(OutputData<double> *sim, OutputData<double> *)
+void ObsoleteFitTools::onUpdatePlots(OutputData<double> *sim, OutputData<double> *)
 {
     // hack to preserve axis information
     auto data = m_currentJobItem->getIntensityDataItem()->getOutputData()->clone();
@@ -191,7 +190,7 @@ void FitTools::onUpdatePlots(OutputData<double> *sim, OutputData<double> *)
     m_observer->finishedPlotting();
 }
 
-void FitTools::onUpdateParameters(const QStringList &parameters, QVector<double> values)
+void ObsoleteFitTools::onUpdateParameters(const QStringList &parameters, QVector<double> values)
 {
     // TODO update parameters
     SessionItem *current = m_currentJobItem->getItem(JobItem::T_PARAMETER_TREE); //this is container
@@ -213,7 +212,7 @@ void FitTools::onUpdateParameters(const QStringList &parameters, QVector<double>
     }
 }
 
-void FitTools::onRealData()
+void ObsoleteFitTools::onRealData()
 {
     m_realDataWindow->show();
 }

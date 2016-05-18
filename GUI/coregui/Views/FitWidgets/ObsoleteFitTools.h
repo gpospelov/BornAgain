@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/FitWidgets/FitTools.h
-//! @brief     Declares class FitTools
+//! @file      coregui/Views/FitWidgets/ObsoleteFitTools.h
+//! @brief     Declares class ObsoleteFitTools
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FITTOOLS_H
-#define FITTOOLS_H
+#ifndef OBSOLETEFITTOOLS_H
+#define OBSOLETEFITTOOLS_H
 
 #include <QWidget>
 #include "OutputData.h"
@@ -31,12 +31,12 @@ class GUIFitObserver;
 class QSlider;
 class ObsoleteRealDataWindow;
 
-class FitTools : public QWidget
+class ObsoleteFitTools : public QWidget
 {
     Q_OBJECT
 
 public:
-    FitTools(JobModel *jobModel, QWidget *parent = 0);
+    ObsoleteFitTools(JobModel *jobModel, QWidget *parent = 0);
 
     void setCurrentItem(JobItem *item, QItemSelectionModel *selection);
 

@@ -18,7 +18,29 @@
 #include "ComboProperty.h"
 #include "ModelPath.h"
 #include "SessionModel.h"
+#include "FitModelHelper.h"
+#include "ParameterTreeItems.h"
+#include "AttLimits.h"
 #include <QDebug>
+
+namespace
+{
+
+QStringList getFitParTypeTooltips()
+{
+    QStringList result;
+    result.append(QStringLiteral("Fixed at given value"));
+    result.append(QStringLiteral("Limited in the range [min, max]"));
+    result.append(QStringLiteral("Limited at lower bound [min, inf]"));
+    result.append(QStringLiteral("Limited at upper bound [-inf, max]"));
+    result.append(QStringLiteral("No limits imposed to parameter value"));
+    return result;
+}
+
+const double range_factor = 0.5;
+
+}
+
 
 // ----------------------------------------------------------------------------
 
@@ -34,8 +56,8 @@ FitParameterLinkItem::FitParameterLinkItem()
 
 // ----------------------------------------------------------------------------
 
-const QString FitParameterItem::P_USE = "Use";
-const QString FitParameterItem::P_START_VALUE = "Starting Value";
+const QString FitParameterItem::P_TYPE = "Type";
+const QString FitParameterItem::P_START_VALUE = "Value";
 const QString FitParameterItem::P_MIN = "Min";
 const QString FitParameterItem::P_MAX = "Max";
 const QString FitParameterItem::T_LINK = "Link tag";
@@ -43,12 +65,94 @@ const QString FitParameterItem::T_LINK = "Link tag";
 FitParameterItem::FitParameterItem()
     : SessionItem(Constants::FitParameterType)
 {
-    addProperty(P_USE, true);
+    ComboProperty partype;
+    partype << Constants::FITPAR_FIXED << Constants::FITPAR_LIMITED
+            << Constants::FITPAR_LOWERLIMITED
+            << Constants::FITPAR_UPPERLIMITED << Constants::FITPAR_FREE;
+    partype.setValue(Constants::FITPAR_LIMITED);
+    partype.setToolTips(getFitParTypeTooltips());
+
+    addProperty(P_TYPE, partype.getVariant());
     addProperty(P_START_VALUE, 0.0);
     addProperty(P_MIN, 0.0);
-    addProperty(P_MAX, 0.0);
+    addProperty(P_MAX, 0.0)->setEnabled(false);
     registerTag(T_LINK, 0, -1, QStringList() << Constants::FitParameterLinkType);
     setDefaultTag(T_LINK);
+
+    mapper()->setOnPropertyChange(
+                [this](const QString &name) {
+        if(name == P_TYPE)
+            onTypeChange();
+    });
+
+    onTypeChange();
+}
+
+//! Inits P_MIN and P_MAX taking into account current value and external limits
+
+void FitParameterItem::initMinMaxValues(const AttLimits &limits)
+{
+    double value = getItemValue(P_START_VALUE).toDouble();
+
+    double dr(0);
+    if(value == 0.0) {
+        dr = 1.0*range_factor;
+    } else {
+        dr = std::abs(value)*range_factor;
+    }
+
+    ComboProperty partype = getItemValue(P_TYPE).value<ComboProperty>();
+    if(partype.getValue() == Constants::FITPAR_LIMITED) {
+        double min = value - dr;
+        double max = value + dr;
+        if(limits.hasLowerLimit() && min <limits.getLowerLimit()) min = limits.getLowerLimit();
+        if(limits.hasUpperLimit() && max >limits.getUpperLimit()) max = limits.getUpperLimit();
+        setItemValue(P_MIN, min);
+        setItemValue(P_MAX, max);
+    }
+}
+
+//! Enables/disables min, max properties on FitParameterItem's type
+
+void FitParameterItem::onTypeChange()
+{
+    ComboProperty partype = getItemValue(P_TYPE).value<ComboProperty>();
+    if(partype.getValue() == Constants::FITPAR_FIXED) {
+        setLimitEnabled(P_MIN, false);
+        setLimitEnabled(P_MAX, false);
+    }
+
+    else if(partype.getValue() == Constants::FITPAR_LIMITED) {
+        setLimitEnabled(P_MIN, true);
+        setLimitEnabled(P_MAX, true);
+    }
+
+    else if(partype.getValue() == Constants::FITPAR_LOWERLIMITED) {
+        setLimitEnabled(P_MIN, true);
+        setLimitEnabled(P_MAX, false);
+    }
+
+    else if(partype.getValue() == Constants::FITPAR_UPPERLIMITED) {
+        setLimitEnabled(P_MIN, false);
+        setLimitEnabled(P_MAX, true);
+    }
+
+    else if(partype.getValue() == Constants::FITPAR_FREE) {
+        setLimitEnabled(P_MIN, false);
+        setLimitEnabled(P_MAX, false);
+    }
+}
+
+//! Set limit property with given name to the enabled state
+
+void FitParameterItem::setLimitEnabled(const QString &name, bool enabled)
+{
+    if(isTag(name)) {
+        SessionItem *propertyItem = getItem(name);
+        Q_ASSERT(propertyItem);
+        propertyItem->setEnabled(enabled);
+        propertyItem->setEditable(enabled);
+    }
 }
 
 // ----------------------------------------------------------------------------
@@ -73,4 +177,9 @@ FitParameterItem *FitParameterContainerItem::getFitParameterItem(const QString &
         }
     }
     return nullptr;
+}
+
+bool FitParameterContainerItem::isEmpty()
+{
+    return getItems(T_FIT_PARAMETERS).isEmpty() ? true : false;
 }

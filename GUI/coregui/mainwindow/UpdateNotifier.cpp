@@ -81,7 +81,7 @@ void UpdateNotifier::askForUpdates()
         QMessageBox msgBox;
         msgBox.setWindowTitle("Updates");
         msgBox.setText("Should BornAgain check for updates automatically?\n"
-                       "This setting can be changed later.");
+                       "This setting can be changed later in the main window Settings menu.");
         msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
         msgBox.setDefaultButton(QMessageBox::Yes);
         int ret = msgBox.exec();

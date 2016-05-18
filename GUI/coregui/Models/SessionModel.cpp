@@ -144,8 +144,8 @@ QModelIndex SessionModel::parent(const QModelIndex &child) const
         if (SessionItem *parent_item = child_item->parent()) {
             if (parent_item == m_root_item)
                 return QModelIndex();
-                return createIndex(parent_item->parentRow(), 0, parent_item);
-//            }
+
+            return createIndex(parent_item->parentRow(), 0, parent_item);
         }
     }
     return QModelIndex();
@@ -177,7 +177,7 @@ bool SessionModel::removeRows(int row, int count, const QModelIndex &parent)
 
 QStringList SessionModel::mimeTypes() const
 {
-    return QStringList() << SessionXML::MimeType;
+    return QStringList() << SessionXML::ItemMimeType;
 }
 
 QMimeData *SessionModel::mimeData(const QModelIndexList &indices) const
@@ -189,7 +189,7 @@ QMimeData *SessionModel::mimeData(const QModelIndexList &indices) const
         QByteArray xml_data;
         QXmlStreamWriter writer(&xml_data);
         SessionWriter::writeItemAndChildItems(&writer, item);
-        mime_data->setData(SessionXML::MimeType, qCompress(xml_data, MaxCompression));
+        mime_data->setData(SessionXML::ItemMimeType, qCompress(xml_data, MaxCompression));
         return mime_data;
     }
     return 0;
@@ -201,12 +201,12 @@ bool SessionModel::canDropMimeData(const QMimeData *data, Qt::DropAction action,
     (void)row;
     if (action == Qt::IgnoreAction)
         return true;
-    if (action != Qt::MoveAction || column > 0 || !data || !data->hasFormat(SessionXML::MimeType))
+    if (action != Qt::MoveAction || column > 0 || !data || !data->hasFormat(SessionXML::ItemMimeType))
         return false;
     if (!parent.isValid())
         return true;
     QVector<QString> acceptable_child_items = getAcceptableDefaultItemTypes(parent);
-    QByteArray xml_data = qUncompress(data->data(SessionXML::MimeType));
+    QByteArray xml_data = qUncompress(data->data(SessionXML::ItemMimeType));
     QXmlStreamReader reader(xml_data);
     while (!reader.atEnd()) {
         reader.readNext();
@@ -226,12 +226,12 @@ bool SessionModel::dropMimeData(const QMimeData *data, Qt::DropAction action, in
 {
     if (action == Qt::IgnoreAction)
         return true;
-    if (action != Qt::MoveAction || column > 0 || !data || !data->hasFormat(SessionXML::MimeType))
+    if (action != Qt::MoveAction || column > 0 || !data || !data->hasFormat(SessionXML::ItemMimeType))
         return false;
     if (!canDropMimeData(data, action, row, column, parent))
         return false;
     if (SessionItem *item = itemForIndex(parent)) {
-        QByteArray xml_data = qUncompress(data->data(SessionXML::MimeType));
+        QByteArray xml_data = qUncompress(data->data(SessionXML::ItemMimeType));
         QXmlStreamReader reader(xml_data);
         if (row == -1)
             row = item->rowCount();

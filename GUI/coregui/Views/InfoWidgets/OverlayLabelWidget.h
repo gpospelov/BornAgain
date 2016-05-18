@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/FitWidgets/TestFitWidgets.h
-//! @brief     Declares class TestFitWidgets
+//! @file      coregui/Views/InfoWidgets/OverlayLabelWidget.h
+//! @brief     Declares class OverlayLabelWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,35 +14,34 @@
 //
 // ************************************************************************** //
 
-#ifndef TESTFITWIDGETS_H
-#define TESTFITWIDGETS_H
+#ifndef OVERLAYLABELWIDGET
+#define OVERLAYLABELWIDGET
 
 #include "WinDllMacros.h"
 #include <QWidget>
+#include <QString>
+#include <QRect>
 
-class MainWindow;
-class ParameterTuningWidget;
-class FitParameterWidget;
-class JobItem;
-class QTreeView;
+//! The OverlayLabelWidget is a semi-transparent overlay label to place on top of other
+//! widgets outside of any layout context.
 
-//! TestFitWidgets is a temporary widget (created by mainwindow)
-//! for testing fitting related widgets.
-
-class BA_CORE_API_ TestFitWidgets : public QWidget
+class BA_CORE_API_ OverlayLabelWidget : public QWidget
 {
     Q_OBJECT
 public:
-    TestFitWidgets(MainWindow *mainWindow);
+    OverlayLabelWidget(QWidget *parent = 0);
 
-    void showEvent(QShowEvent *);
+    void setRectangle(const QRect &rect);
+    void setPosition(int x, int y);
+
+    void setText(const QString &text) {m_text = text;}
+
+protected:
+    void paintEvent(QPaintEvent *event);
 
 private:
-    MainWindow *m_mainWindow;
-    ParameterTuningWidget *m_tuningWidget;
-    FitParameterWidget *m_fitParametersWidget;
-    QTreeView *m_jobTreeView;
-    JobItem *m_jobItem;
+    QString m_text;
+    QRect m_bounding_rect;
 };
 
 #endif

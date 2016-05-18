@@ -150,6 +150,21 @@ SessionItem *ModelPath::getItemFromPath(const QString &relPath, SessionItem *par
     return parent->model()->itemForIndex(ModelPath::getIndexFromPath(parent->model(), fullPath));
 }
 
+//! Iterates through all the model and returns true if item is found. This is to
+
+bool ModelPath::isValidItem(SessionModel *model, SessionItem *item, const QModelIndex &parent)
+{
+    for(int i_row=0; i_row<model->rowCount(parent); ++i_row) {
+        QModelIndex index = model->index(i_row, 0, parent);
+        SessionItem *curr = model->itemForIndex(index);
+        if(curr == item) return true;
+
+        bool isvalid = isValidItem(model, item, index);
+        if(isvalid) return isvalid;
+    }
+    return false;
+}
+
 QStringList ModelPath::splitParameterName(const QString &par_name)
 {
     QStringList result;

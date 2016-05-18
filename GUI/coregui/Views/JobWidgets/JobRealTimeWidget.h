@@ -23,7 +23,7 @@
 class JobModel;
 class JobItem;
 class QStackedWidget;
-class ModelTuningWidget;
+class ParameterTuningWidget;
 class JobRealTimeToolBar;
 
 //! The JobRealTimeWidget provides tuning of sample parameters in real time.
@@ -35,7 +35,7 @@ class BA_CORE_API_ JobRealTimeWidget : public JobPresenter
 public:
     explicit JobRealTimeWidget(JobModel *jobModel, QWidget *parent = 0);
 
-    ModelTuningWidget *getTuningWidgetForItem(JobItem *jobItem);
+    ParameterTuningWidget *getTuningWidgetForItem(JobItem *jobItem);
 
     QSize sizeHint() const;
     QSize minimumSizeHint() const;
@@ -49,11 +49,11 @@ public slots:
     void onModelLoaded();
 
 private:
-    ModelTuningWidget *getCurrentModelTuningWidget();
+    ParameterTuningWidget *getCurrentModelTuningWidget();
     bool isValidJobItem(JobItem *item);
 
     QStackedWidget *m_stack;
-    QMap<JobItem *, ModelTuningWidget *> m_jobItemToTuningWidget;
+    QMap<JobItem *, ParameterTuningWidget *> m_jobItemToTuningWidget;
     JobRealTimeToolBar *m_toolBar;
 };
 

@@ -57,6 +57,9 @@ SessionItem::SessionItem(const QString &modelType)
 
 SessionItem::~SessionItem()
 {
+    if(m_mapper)
+        m_mapper->callOnItemDestroy();
+
     QVector<SessionItem*>::const_iterator it;
     for (it = m_children.constBegin(); it != m_children.constEnd(); ++it) {
         SessionItem *child = *it;

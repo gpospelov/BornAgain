@@ -32,7 +32,7 @@
 #include "JobItem.h"
 #include "ModelPath.h"
 #include "ParameterTreeItems.h"
-#include "FitParameterModel.h"
+#include "FitModelHelper.h"
 #include <QStandardItem>
 #include <QStandardItemModel>
 #include <QStack>
@@ -55,7 +55,7 @@ void ParameterModelBuilder::createParameterTree(JobItem *item, const QString &ta
 #ifndef NDEBUG
     // Provides all items in "JobItem/Parameter Tree Container" with domain links already
     // at the stage of ParameterTree creation. It is necessary for validation, in Release mode
-    // it will lead for unnecessary larde project files.
+    // it will lead for unnecessary large project files.
     populateDomainLinks(item, tag);
 #endif
 }
@@ -117,7 +117,7 @@ void ParameterModelBuilder::populateDomainLinks(JobItem *jobItem, const QString 
             }
         } else {
             if(ParameterItem *parItem = dynamic_cast<ParameterItem *>(current)) {
-                QString parItemPath = FitParameterModel::getParameterItemPath(parItem);
+                QString parItemPath = FitModelHelper::getParameterItemPath(parItem);
                 std::string domainPath = ModelPath::translateParameterName(jobItem->getMultiLayerItem()->parent(), parItemPath);
                 parItem->setItemValue(ParameterItem::P_DOMAIN, QString::fromStdString(domainPath));
             }

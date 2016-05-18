@@ -18,6 +18,8 @@
 
 #include "SessionItem.h"
 
+class AttLimits;
+
 class BA_CORE_API_ FitParameterLinkItem : public SessionItem
 {
 
@@ -31,12 +33,18 @@ class BA_CORE_API_ FitParameterItem : public SessionItem
 {
 
 public:
-    static const QString P_USE;
+    static const QString P_TYPE;
     static const QString P_START_VALUE;
     static const QString P_MIN;
     static const QString P_MAX;
     static const QString T_LINK;
     explicit FitParameterItem();
+
+    void initMinMaxValues(const AttLimits &limits);
+
+private:
+    void onTypeChange();
+    void setLimitEnabled(const QString &name, bool enabled);
 };
 
 class BA_CORE_API_ FitParameterContainerItem : public SessionItem
@@ -46,6 +54,7 @@ public:
     static const QString T_FIT_PARAMETERS;
     explicit FitParameterContainerItem();
     FitParameterItem *getFitParameterItem(const QString &link);
+    bool isEmpty();
 };
 
 #endif

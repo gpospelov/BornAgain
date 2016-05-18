@@ -51,6 +51,8 @@ public:
 
     static SessionItem *getItemFromPath(const QString &relPath, SessionItem *parent);
 
+    static bool isValidItem(SessionModel *model, SessionItem *item, const QModelIndex &parent);
+
 private:
 
     static QStringList splitParameterName(const QString& par_name);

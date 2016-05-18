@@ -19,11 +19,9 @@
 #include "JobModel.h"
 #include "FitSuiteItem.h"
 #include "FitParameterItems.h"
-#include "FitParameterModel.h"
 #include "ParameterTuningWidget.h"
 #include "FilterPropertyProxy.h"
 #include "ParameterTreeItems.h"
-#include "FitParameterProxyModel.h"
 #include "FitParameterAbsModel.h"
 #include "FitModelHelper.h"
 #include "SessionModelDelegate.h"
@@ -67,7 +65,7 @@ FitParameterWidget::FitParameterWidget(QWidget *parent)
             this, SLOT(onFitParameterTreeContextMenu(const QPoint &)));
 
     m_infoLabel->setArea(m_treeView);
-    m_infoLabel->setText(QStringLiteral("Drop parameter to fit here"));
+    m_infoLabel->setText(QStringLiteral("Drop parameter(s) to fit here"));
 }
 
 void FitParameterWidget::setItem(JobItem *jobItem)
@@ -275,22 +273,15 @@ void FitParameterWidget::init_fit_model()
     m_treeView->setModel(0);
 
     delete m_fitParameterModel;
-    m_fitParameterModel = new FitParameterAbsModel(m_jobItem->fitParameterContainerItem(),
+    m_fitParameterModel = new FitParameterProxyModel(m_jobItem->fitParameterContainerItem(),
                                                    m_jobItem->fitParameterContainerItem()->model());
     m_treeView->setModel(m_fitParameterModel);
 
     connect(m_fitParameterModel, SIGNAL(dataChanged(QModelIndex,QModelIndex,QVector<int>)),
             this, SLOT(onFitParameterModelChange()));
-
-//    connect(m_fitParameterModel, SIGNAL(rowsInserted(QModelIndex,int,int)),
-//               this, SLOT(onFitParameterModelChange()));
     connect(m_fitParameterModel, SIGNAL(modelReset()), this, SLOT(onFitParameterModelChange()));
 
-//    connect(m_fitParameterModel, SIGNAL(rowsRemoved(QModelIndex,int,int)),
-//               this, SLOT(onFitParameterModelChange()));
-
     onFitParameterModelChange();
-
     connectFitParametersSelection(true);
 }
 

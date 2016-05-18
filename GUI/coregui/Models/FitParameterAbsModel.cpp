@@ -28,7 +28,7 @@
 #include <QDebug>
 
 
-FitParameterAbsModel::FitParameterAbsModel(FitParameterContainerItem *fitParContainer, QObject *parent)
+FitParameterProxyModel::FitParameterProxyModel(FitParameterContainerItem *fitParContainer, QObject *parent)
     : QAbstractItemModel(parent)
     , m_root_item(fitParContainer)
 {
@@ -47,7 +47,7 @@ FitParameterAbsModel::FitParameterAbsModel(FitParameterContainerItem *fitParCont
     });
 }
 
-Qt::ItemFlags FitParameterAbsModel::flags(const QModelIndex &index) const
+Qt::ItemFlags FitParameterProxyModel::flags(const QModelIndex &index) const
 {
     if(!m_root_item) return Qt::NoItemFlags;
 
@@ -66,7 +66,7 @@ Qt::ItemFlags FitParameterAbsModel::flags(const QModelIndex &index) const
     return returnVal;
 }
 
-QModelIndex FitParameterAbsModel::index(int row, int column, const QModelIndex &parent) const
+QModelIndex FitParameterProxyModel::index(int row, int column, const QModelIndex &parent) const
 {
     if (!m_root_item || row < 0 || column < 0 || column >= columnCount(QModelIndex())
         || (parent.isValid() && parent.column() != 0))
@@ -98,7 +98,7 @@ QModelIndex FitParameterAbsModel::index(int row, int column, const QModelIndex &
     return QModelIndex();
 }
 
-QModelIndex FitParameterAbsModel::parent(const QModelIndex &child) const
+QModelIndex FitParameterProxyModel::parent(const QModelIndex &child) const
 {
     if(!m_root_item)
         return QModelIndex();
@@ -125,7 +125,7 @@ QModelIndex FitParameterAbsModel::parent(const QModelIndex &child) const
     return QModelIndex();
 }
 
-int FitParameterAbsModel::rowCount(const QModelIndex &parent) const
+int FitParameterProxyModel::rowCount(const QModelIndex &parent) const
 {
     if(!m_root_item) return 0;
 
@@ -146,7 +146,7 @@ int FitParameterAbsModel::rowCount(const QModelIndex &parent) const
     return 0;
 }
 
-int FitParameterAbsModel::columnCount(const QModelIndex &parent) const
+int FitParameterProxyModel::columnCount(const QModelIndex &parent) const
 {
     if(!m_root_item) return 0;
 
@@ -168,7 +168,7 @@ int FitParameterAbsModel::columnCount(const QModelIndex &parent) const
     return 0;
 }
 
-QVariant FitParameterAbsModel::data(const QModelIndex &index, int role) const
+QVariant FitParameterProxyModel::data(const QModelIndex &index, int role) const
 {
     if(!m_root_item) return QVariant();
 
@@ -191,7 +191,7 @@ QVariant FitParameterAbsModel::data(const QModelIndex &index, int role) const
     return QVariant();
 }
 
-bool FitParameterAbsModel::setData(const QModelIndex &index, const QVariant &value, int role)
+bool FitParameterProxyModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
     if(!m_root_item) return false;
 
@@ -207,71 +207,56 @@ bool FitParameterAbsModel::setData(const QModelIndex &index, const QVariant &val
     return false;
 }
 
-QStringList FitParameterAbsModel::mimeTypes() const
+QStringList FitParameterProxyModel::mimeTypes() const
 {
     QStringList types;
     types << SessionXML::LinkMimeType;
     return types;
 }
 
-QMimeData *FitParameterAbsModel::mimeData(const QModelIndexList &indexes) const
+QMimeData *FitParameterProxyModel::mimeData(const QModelIndexList &indexes) const
 {
-    qDebug() << "FitParameterAbsModel::mimeData" << indexes;
     QMimeData *mimeData = new QMimeData();
     QModelIndex index = indexes.first();
     if (index.isValid()) {
         if(SessionItem *item = itemForIndex(index)) {
             QString path = item->value().toString();
             mimeData->setData(SessionXML::LinkMimeType, path.toLatin1());
-            qDebug() << "       FitParameterAbsModel::mimeData" << path;
-
         }
-//        QString path = getPathFromIndex(index);
-//        path = path.append("#%1").arg(itemFromIndex(index.sibling(index.row(), 1))
-//                                      ->data(Qt::EditRole).toDouble());
     }
     return mimeData;
 }
 
-bool FitParameterAbsModel::canDropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column, const QModelIndex &parent) const
+bool FitParameterProxyModel::canDropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column, const QModelIndex &parent) const
 {
+    Q_UNUSED(data);
     Q_UNUSED(action);
     Q_UNUSED(row);
-    Q_UNUSED(parent);
-//    if (column > 0)
-//        return false;
-    QString link = QString::fromLatin1(data->data(SessionXML::LinkMimeType)).split("#")[0];
-    qDebug() << "FitParameterAbsModel::canDropMimeData" << "row:" << row << "column:" << column << "parent:" << parent << link << action;
-
     bool drop_is_possible(false);
-
     if(parent.isValid()) drop_is_possible = true;
     if(!parent.isValid() && row==-1 && column == -1) drop_is_possible = true;
-
-    qDebug() << "       FitParameterAbsModel::canDropMimeData" << drop_is_possible;
-
     return drop_is_possible;
 }
 
-bool FitParameterAbsModel::dropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column, const QModelIndex &parent)
+bool FitParameterProxyModel::dropMimeData(const QMimeData *data, Qt::DropAction action, int row,
+                                        int column, const QModelIndex &parent)
 {
-//    if (action == Qt::IgnoreAction) return true;
-//    if (column > 0) return true;
+    Q_UNUSED(action);
+    Q_UNUSED(row);
+    Q_UNUSED(column);
 
-    qDebug() << "FitParameterAbsModel::dropMimeData row:" << row << "column:" << column << "parent:" << parent << "mime:" <<  QString::fromLatin1(data->data(SessionXML::LinkMimeType));
-
-    if(parent.isValid()) {
-        if(SessionItem *fitParItem = itemForIndex(parent)) {
+    if (parent.isValid()) {
+        if (SessionItem *fitParItem = itemForIndex(parent)) {
             Q_ASSERT(fitParItem->modelType() == Constants::FitParameterType);
-            ParameterItem *parItem = FitModelHelper::getParameterItem(m_root_item, QString::fromLatin1(data->data(SessionXML::LinkMimeType)));
+            ParameterItem *parItem = FitModelHelper::getParameterItem(
+                m_root_item, QString::fromLatin1(data->data(SessionXML::LinkMimeType)));
             Q_ASSERT(parItem);
             FitModelHelper::addToFitParameter(m_root_item, parItem, fitParItem->displayName());
-            qDebug() << "AAAA" << parItem->getItemValue(ParameterItem::P_LINK);
         }
-    }
 
-    if(!parent.isValid()) {
-        ParameterItem *parItem = FitModelHelper::getParameterItem(m_root_item, QString::fromLatin1(data->data(SessionXML::LinkMimeType)));
+    } else {
+        ParameterItem *parItem = FitModelHelper::getParameterItem(
+            m_root_item, QString::fromLatin1(data->data(SessionXML::LinkMimeType)));
         Q_ASSERT(parItem);
         FitModelHelper::createFitParameter(m_root_item, parItem);
     }
@@ -279,7 +264,7 @@ bool FitParameterAbsModel::dropMimeData(const QMimeData *data, Qt::DropAction ac
     return true;
 }
 
-QVariant FitParameterAbsModel::headerData(int section, Qt::Orientation orientation, int role) const
+QVariant FitParameterProxyModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
     if (role == Qt::DisplayRole && orientation == Qt::Horizontal) {
         return m_columnNames.value(section);
@@ -290,8 +275,9 @@ QVariant FitParameterAbsModel::headerData(int section, Qt::Orientation orientati
     return QVariant();
 }
 
-
-void FitParameterAbsModel::onSourceDataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles)
+void FitParameterProxyModel::onSourceDataChanged(const QModelIndex &topLeft,
+                                               const QModelIndex &bottomRight,
+                                               const QVector<int> &roles)
 {
     Q_UNUSED(bottomRight);
 
@@ -299,72 +285,14 @@ void FitParameterAbsModel::onSourceDataChanged(const QModelIndex &topLeft, const
     Q_ASSERT(sourceModel);
     SessionItem *sourceItem = sourceModel->itemForIndex(topLeft);
 
-    qDebug() << "FitParameterAbsModel::onSourceDataChanged" << topLeft << roles << sourceItem->displayName() << SessionModel::FlagRole;
-
     QModelIndex itemIndex = indexOfItem(sourceItem);
 
-    if(itemIndex.isValid())
+    if (itemIndex.isValid())
         emit dataChanged(itemIndex, itemIndex, roles);
 }
 
-void FitParameterAbsModel::onSourceRowsInserted(const QModelIndex &parent, int first, int last)
+void FitParameterProxyModel::onSourceRowsRemoved(const QModelIndex &parent, int first, int last)
 {
-    if(!m_root_item) return;
-//    Q_UNUSED(parent);
-//    Q_UNUSED(first);
-//    Q_UNUSED(last);
-    qDebug() << "FitParameterAbsModel::onSourceRowsInserted" << parent << first << last;
-    JobModel *sourceModel = qobject_cast<JobModel *>(sender());
-    Q_ASSERT(sourceModel);
-
-    return;
-    if(SessionItem *sourceItem = sourceModel->itemForIndex(parent)) {
-        if(sourceItem->modelType() == Constants::FitParameterContainerType) {
-            beginInsertRows(QModelIndex(), first, first);
-            endInsertRows();
-        }
-
-    }
-
-}
-
-void FitParameterAbsModel::onSourceBeginRemoveRows(const QModelIndex &parent, int first, int last)
-{
-    if(!m_root_item) return;
-
-    qDebug() << "FitParameterAbsModel::onSourceBeginRemoveRows" << parent << first << last;
-    JobModel *sourceModel = qobject_cast<JobModel *>(sender());
-    Q_ASSERT(sourceModel);
-
-    // Two alternative ways which seems to be working
-    // FIXME Choose one method and cleanup
-
-    // way #1
-    beginResetModel();
-
-////    QModelIndex itemIndex = sourceModel->index(first, 0, parent);
-////    if(sourceModel->itemForIndex(itemIndex) == m_root_item)
-////        m_root_item = 0;
-
-
-    endResetModel();
-
-
-//    return;
-
-    // way #2
-//    if(SessionItem *sourceItem = sourceModel->itemForIndex(parent)) {
-//        QModelIndex localIndex = indexOfItem(sourceItem);
-//        if(localIndex.isValid()) {
-//            beginRemoveRows(localIndex, 0, rowCount(localIndex));
-//            endRemoveRows();
-//        }
-//    }
-}
-
-void FitParameterAbsModel::onSourceRowsRemoved(const QModelIndex &parent, int first, int last)
-{
-    qDebug() << "FitParameterAbsModel::onSourceRowsRemoved" << parent << first << last;
     Q_UNUSED(parent);
     Q_UNUSED(first);
     Q_UNUSED(last);
@@ -372,52 +300,42 @@ void FitParameterAbsModel::onSourceRowsRemoved(const QModelIndex &parent, int fi
     endResetModel();
 }
 
-void FitParameterAbsModel::onSourceAboutToBeReset()
+void FitParameterProxyModel::onSourceAboutToBeReset()
 {
     if(!m_root_item) return;
     beginResetModel();
     endResetModel();
 }
 
-void FitParameterAbsModel::connectModel(QAbstractItemModel *sourceModel, bool isConnect)
+void FitParameterProxyModel::connectModel(QAbstractItemModel *sourceModel, bool isConnect)
 {
     Q_ASSERT(sourceModel);
     if(isConnect) {
         connect(sourceModel, SIGNAL(dataChanged(QModelIndex,QModelIndex,QVector<int>)),
                 this, SLOT(onSourceDataChanged(QModelIndex,QModelIndex,QVector<int>)));
-//        connect(sourceModel, SIGNAL(rowsInserted(QModelIndex,int,int)),
-//                   this, SLOT(onSourceRowsInserted(QModelIndex,int,int)));
-//        connect(sourceModel, SIGNAL(rowsAboutToBeRemoved(QModelIndex,int,int)),
-//                   this, SLOT(onSourceBeginRemoveRows(QModelIndex,int,int)));
         connect(sourceModel, SIGNAL(rowsRemoved(QModelIndex,int,int)),
                    this, SLOT(onSourceRowsRemoved(QModelIndex,int,int)));
         connect(sourceModel, SIGNAL(modelAboutToBeReset()), this, SLOT(onSourceAboutToBeReset()));
-
-
 
     }
 
     else {
         disconnect(sourceModel, SIGNAL(dataChanged(QModelIndex,QModelIndex,QVector<int>)),
                 this, SLOT(onSourceDataChanged(QModelIndex,QModelIndex,QVector<int>)));
-//        disconnect(sourceModel, SIGNAL(rowsInserted(QModelIndex,int,int)),
-//                   this, SLOT(onSourceRowsInserted(QModelIndex,int,int)));
-//        disconnect(sourceModel, SIGNAL(rowsAboutToBeRemoved(QModelIndex,int,int)),
-//                   this, SLOT(onSourceBeginRemoveRows(QModelIndex,int,int)));
         disconnect(sourceModel, SIGNAL(rowsRemoved(QModelIndex,int,int)),
                    this, SLOT(onSourceRowsRemoved(QModelIndex,int,int)));
         disconnect(sourceModel, SIGNAL(modelAboutToBeReset()), this, SLOT(onSourceAboutToBeReset()));
     }
 }
 
-void FitParameterAbsModel::addColumn(FitParameterAbsModel::EColumn id, const QString &name,
+void FitParameterProxyModel::addColumn(FitParameterProxyModel::EColumn id, const QString &name,
                                      const QString &tooltip)
 {
     m_columnNames[id] = name;
     m_columnToolTips[id] = tooltip;
 }
 
-QModelIndex FitParameterAbsModel::indexOfItem(SessionItem *item) const
+QModelIndex FitParameterProxyModel::indexOfItem(SessionItem *item) const
 {
     if(!m_root_item) return QModelIndex();
 
@@ -447,7 +365,7 @@ QModelIndex FitParameterAbsModel::indexOfItem(SessionItem *item) const
     return QModelIndex();
 }
 
-SessionItem *FitParameterAbsModel::itemForIndex(const QModelIndex &index) const
+SessionItem *FitParameterProxyModel::itemForIndex(const QModelIndex &index) const
 {
     if(!m_root_item) return 0;
 
@@ -466,16 +384,17 @@ SessionItem *FitParameterAbsModel::itemForIndex(const QModelIndex &index) const
     return m_root_item;
 }
 
-SessionModel *FitParameterAbsModel::sourceModel() const
+SessionModel *FitParameterProxyModel::sourceModel() const
 {
     Q_ASSERT(m_root_item);
     return m_root_item->model();
 }
 
 //! Returns true if given item still exists in source model
-bool FitParameterAbsModel::isValidSourceItem(SessionItem *item) const
+bool FitParameterProxyModel::isValidSourceItem(SessionItem *item) const
 {
     if(item == m_root_item) return true;
-    if(sourceModel() && ModelPath::isValidItem(sourceModel(), item, m_root_item->index())) return true;
+    if(sourceModel() && ModelPath::isValidItem(sourceModel(), item, m_root_item->index()))
+        return true;
     return false;
 }

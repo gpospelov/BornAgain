@@ -27,8 +27,7 @@ class QTreeView;
 class QSignalMapper;
 class QAction;
 class QMenu;
-class FitParameterModel;
-class FitParameterAbsModel;
+class FitParameterProxyModel;
 class ParameterItem;
 class FitParameterItem;
 class FitParameterLinkItem;
@@ -93,7 +92,7 @@ private:
     QAction *m_removeFromFitParAction;
     QAction *m_removeFitParAction;
     QSignalMapper *m_signalMapper;
-    FitParameterAbsModel* m_fitParameterModel;
+    FitParameterProxyModel* m_fitParameterModel;
     SessionModelDelegate *m_delegate;
     DeleteEventFilter *m_keyboardFilter;
     OverlayLabelController *m_infoLabel;

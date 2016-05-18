@@ -22,10 +22,10 @@ inline void TestFitParameterModel::test_InitialState()
     JobModel source;
     SessionItem *fitSuiteItem = source.insertNewItem(Constants::FitSuiteType);
     SessionItem *container = source.insertNewItem(Constants::FitParameterContainerType, fitSuiteItem->index(), -1, FitSuiteItem::T_FIT_PARAMETERS);
-    FitParameterAbsModel proxy(dynamic_cast<FitParameterContainerItem *>(container));
+    FitParameterProxyModel proxy(dynamic_cast<FitParameterContainerItem *>(container));
 
     QCOMPARE(0, proxy.rowCount(QModelIndex()));
-    QCOMPARE((int)FitParameterAbsModel::MAX_COLUMNS, proxy.columnCount(QModelIndex()));
+    QCOMPARE((int)FitParameterProxyModel::MAX_COLUMNS, proxy.columnCount(QModelIndex()));
     QCOMPARE(container, proxy.itemForIndex(QModelIndex()));
 }
 
@@ -34,7 +34,7 @@ inline void TestFitParameterModel::test_addFitParameter()
     JobModel source;
     SessionItem *fitSuiteItem = source.insertNewItem(Constants::FitSuiteType);
     SessionItem *container = source.insertNewItem(Constants::FitParameterContainerType, fitSuiteItem->index(), -1, FitSuiteItem::T_FIT_PARAMETERS);
-    FitParameterAbsModel proxy(dynamic_cast<FitParameterContainerItem *>(container));
+    FitParameterProxyModel proxy(dynamic_cast<FitParameterContainerItem *>(container));
 
     // adding fit parameter
     SessionItem *fitPar0 = source.insertNewItem(Constants::FitParameterType, container->index());
@@ -45,7 +45,7 @@ inline void TestFitParameterModel::test_addFitParameter()
 
     // checking index of root
     QCOMPARE(1, proxy.rowCount(QModelIndex()));
-    QCOMPARE((int)FitParameterAbsModel::MAX_COLUMNS, proxy.columnCount(QModelIndex()));
+    QCOMPARE((int)FitParameterProxyModel::MAX_COLUMNS, proxy.columnCount(QModelIndex()));
 
     // accessing item at col=0 (original FitParameterItem)
     QModelIndex index = proxy.index(0, 0, QModelIndex());
@@ -59,9 +59,9 @@ inline void TestFitParameterModel::test_addFitParameter()
     QCOMPARE(index, proxy.indexOfItem(fitPar0));
 
     // accessing item at col=2
-    index = proxy.index(0, (int)FitParameterAbsModel::PAR_MIN, QModelIndex());
+    index = proxy.index(0, (int)FitParameterProxyModel::PAR_MIN, QModelIndex());
     QCOMPARE(index.row(), 0);
-    QCOMPARE(index.column(), (int)FitParameterAbsModel::PAR_MIN);
+    QCOMPARE(index.column(), (int)FitParameterProxyModel::PAR_MIN);
     QCOMPARE(proxy.rowCount(index), 0);
     QCOMPARE(proxy.columnCount(index), 0);
 
@@ -70,9 +70,9 @@ inline void TestFitParameterModel::test_addFitParameter()
     QCOMPARE(index, proxy.indexOfItem(fitPar0->getItem(FitParameterItem::P_MIN)));
 
     // accessing item at col=3
-    index = proxy.index(0, (int)FitParameterAbsModel::PAR_VALUE, QModelIndex());
+    index = proxy.index(0, (int)FitParameterProxyModel::PAR_VALUE, QModelIndex());
     QCOMPARE(index.row(), 0);
-    QCOMPARE(index.column(), (int)FitParameterAbsModel::PAR_VALUE);
+    QCOMPARE(index.column(), (int)FitParameterProxyModel::PAR_VALUE);
     QCOMPARE(proxy.rowCount(index), 0);
     QCOMPARE(proxy.columnCount(index), 0);
 
@@ -81,9 +81,9 @@ inline void TestFitParameterModel::test_addFitParameter()
     QCOMPARE(index, proxy.indexOfItem(fitPar0->getItem(FitParameterItem::P_START_VALUE)));
 
     // accessing item at col=4
-    index = proxy.index(0, (int)FitParameterAbsModel::PAR_MAX, QModelIndex());
+    index = proxy.index(0, (int)FitParameterProxyModel::PAR_MAX, QModelIndex());
     QCOMPARE(index.row(), 0);
-    QCOMPARE(index.column(), (int)FitParameterAbsModel::PAR_MAX);
+    QCOMPARE(index.column(), (int)FitParameterProxyModel::PAR_MAX);
     QCOMPARE(proxy.rowCount(index), 0);
     QCOMPARE(proxy.columnCount(index), 0);
 
@@ -102,12 +102,12 @@ inline void TestFitParameterModel::test_addFitParameter()
 
     // checking index of root
     QCOMPARE(2, proxy.rowCount(QModelIndex()));
-    QCOMPARE((int)FitParameterAbsModel::MAX_COLUMNS, proxy.columnCount(QModelIndex()));
+    QCOMPARE((int)FitParameterProxyModel::MAX_COLUMNS, proxy.columnCount(QModelIndex()));
 
     // accessing item at col=3 for fitPar0
-    index = proxy.index(0, (int)FitParameterAbsModel::PAR_VALUE, QModelIndex());
+    index = proxy.index(0, (int)FitParameterProxyModel::PAR_VALUE, QModelIndex());
     QCOMPARE(index.row(), 0);
-    QCOMPARE(index.column(), (int)FitParameterAbsModel::PAR_VALUE);
+    QCOMPARE(index.column(), (int)FitParameterProxyModel::PAR_VALUE);
     QCOMPARE(proxy.rowCount(index), 0);
     QCOMPARE(proxy.columnCount(index), 0);
 
@@ -116,9 +116,9 @@ inline void TestFitParameterModel::test_addFitParameter()
     QCOMPARE(index, proxy.indexOfItem(fitPar0->getItem(FitParameterItem::P_START_VALUE)));
 
     // accessing item at col=3 for fitPar1
-    index = proxy.index(1, (int)FitParameterAbsModel::PAR_VALUE, QModelIndex());
+    index = proxy.index(1, (int)FitParameterProxyModel::PAR_VALUE, QModelIndex());
     QCOMPARE(index.row(), 1);
-    QCOMPARE(index.column(), (int)FitParameterAbsModel::PAR_VALUE);
+    QCOMPARE(index.column(), (int)FitParameterProxyModel::PAR_VALUE);
     QCOMPARE(proxy.rowCount(index), 0);
     QCOMPARE(proxy.columnCount(index), 0);
 
@@ -132,7 +132,7 @@ inline void TestFitParameterModel::test_addFitParameterAndLink()
     JobModel source;
     SessionItem *fitSuiteItem = source.insertNewItem(Constants::FitSuiteType);
     SessionItem *container = source.insertNewItem(Constants::FitParameterContainerType, fitSuiteItem->index(), -1, FitSuiteItem::T_FIT_PARAMETERS);
-    FitParameterAbsModel proxy(dynamic_cast<FitParameterContainerItem *>(container));
+    FitParameterProxyModel proxy(dynamic_cast<FitParameterContainerItem *>(container));
 
     // adding fit parameter
     SessionItem *fitPar0 = source.insertNewItem(Constants::FitParameterType, container->index());
@@ -147,7 +147,7 @@ inline void TestFitParameterModel::test_addFitParameterAndLink()
 
     // checking index of root
     QCOMPARE(1, proxy.rowCount(QModelIndex()));
-    QCOMPARE((int)FitParameterAbsModel::MAX_COLUMNS, proxy.columnCount(QModelIndex()));
+    QCOMPARE((int)FitParameterProxyModel::MAX_COLUMNS, proxy.columnCount(QModelIndex()));
 
     // accessing item at col=0 (original FitParameterItem)
     QModelIndex index = proxy.index(0, 0, QModelIndex());
@@ -195,7 +195,7 @@ inline void TestFitParameterModel::test_addTwoFitParameterAndLinks()
     JobModel source;
     SessionItem *fitSuiteItem = source.insertNewItem(Constants::FitSuiteType);
     SessionItem *container = source.insertNewItem(Constants::FitParameterContainerType, fitSuiteItem->index(), -1, FitSuiteItem::T_FIT_PARAMETERS);
-    FitParameterAbsModel proxy(dynamic_cast<FitParameterContainerItem *>(container));
+    FitParameterProxyModel proxy(dynamic_cast<FitParameterContainerItem *>(container));
 
     // adding fit parameters
     SessionItem *fitPar0 = source.insertNewItem(Constants::FitParameterType, container->index());
@@ -208,7 +208,7 @@ inline void TestFitParameterModel::test_addTwoFitParameterAndLinks()
 
     // checking index of root
     QCOMPARE(2, proxy.rowCount(QModelIndex()));
-    QCOMPARE((int)FitParameterAbsModel::MAX_COLUMNS, proxy.columnCount(QModelIndex()));
+    QCOMPARE((int)FitParameterProxyModel::MAX_COLUMNS, proxy.columnCount(QModelIndex()));
 
     // accessing fitPar1
     QModelIndex index1 = proxy.index(1, 0, QModelIndex());

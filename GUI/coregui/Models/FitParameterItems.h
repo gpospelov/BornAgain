@@ -54,6 +54,7 @@ public:
     static const QString T_FIT_PARAMETERS;
     explicit FitParameterContainerItem();
     FitParameterItem *getFitParameterItem(const QString &link);
+    bool isEmpty();
 };
 
 #endif

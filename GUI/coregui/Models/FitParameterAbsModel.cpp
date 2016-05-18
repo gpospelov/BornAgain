@@ -21,6 +21,8 @@
 #include "JobModel.h"
 #include "FitModelHelper.h"
 #include "ParameterTreeItems.h"
+#include "GUIHelpers.h"
+#include "ModelPath.h"
 #include <QColor>
 #include <QMimeData>
 #include <QDebug>
@@ -71,6 +73,7 @@ QModelIndex FitParameterAbsModel::index(int row, int column, const QModelIndex &
         return QModelIndex();
 
     SessionItem *parent_item = itemForIndex(parent);
+//    if(!isValidSourceItem(parent_item)) return QModelIndex();
     Q_ASSERT(parent_item);
 
     if(parent_item->modelType() == Constants::FitParameterContainerType) {
@@ -97,15 +100,22 @@ QModelIndex FitParameterAbsModel::index(int row, int column, const QModelIndex &
 
 QModelIndex FitParameterAbsModel::parent(const QModelIndex &child) const
 {
-    if(!m_root_item) return QModelIndex();
+    if(!m_root_item)
+        return QModelIndex();
 
     if (!child.isValid())
         return QModelIndex();
 
     if (SessionItem *child_item = itemForIndex(child)) {
         if (SessionItem *parent_item = child_item->parent()) {
+
+            if(!isValidSourceItem(parent_item)) return QModelIndex();
+
             if(parent_item->modelType()==Constants::FitParameterLinkType) {
                 SessionItem *fitPar = parent_item->parent();
+
+                if(!isValidSourceItem(fitPar)) return QModelIndex();
+
                 return createIndex(fitPar->parentRow(), 0, fitPar);
             }
         }
@@ -121,7 +131,9 @@ int FitParameterAbsModel::rowCount(const QModelIndex &parent) const
 
     if (parent.isValid() && parent.column() != 0)
         return 0;
+
     SessionItem *parent_item = itemForIndex(parent);
+    if(parent_item!=m_root_item && !isValidSourceItem(parent_item)) return 0;
 
     if(parent_item->modelType() == Constants::FitParameterContainerType) {
         return parent_item->rowCount();
@@ -297,6 +309,7 @@ void FitParameterAbsModel::onSourceDataChanged(const QModelIndex &topLeft, const
 
 void FitParameterAbsModel::onSourceRowsInserted(const QModelIndex &parent, int first, int last)
 {
+    if(!m_root_item) return;
 //    Q_UNUSED(parent);
 //    Q_UNUSED(first);
 //    Q_UNUSED(last);
@@ -317,6 +330,8 @@ void FitParameterAbsModel::onSourceRowsInserted(const QModelIndex &parent, int f
 
 void FitParameterAbsModel::onSourceBeginRemoveRows(const QModelIndex &parent, int first, int last)
 {
+    if(!m_root_item) return;
+
     qDebug() << "FitParameterAbsModel::onSourceBeginRemoveRows" << parent << first << last;
     JobModel *sourceModel = qobject_cast<JobModel *>(sender());
     Q_ASSERT(sourceModel);
@@ -327,31 +342,39 @@ void FitParameterAbsModel::onSourceBeginRemoveRows(const QModelIndex &parent, in
     // way #1
     beginResetModel();
 
-    QModelIndex itemIndex = sourceModel->index(first, 0, parent);
-    if(sourceModel->itemForIndex(itemIndex) == m_root_item)
-        m_root_item = 0;
+////    QModelIndex itemIndex = sourceModel->index(first, 0, parent);
+////    if(sourceModel->itemForIndex(itemIndex) == m_root_item)
+////        m_root_item = 0;
 
 
     endResetModel();
 
 
-    return;
+//    return;
 
     // way #2
-    if(SessionItem *sourceItem = sourceModel->itemForIndex(parent)) {
-        QModelIndex localIndex = indexOfItem(sourceItem);
-        beginRemoveRows(localIndex, 0, rowCount(localIndex));
-        endRemoveRows();
+//    if(SessionItem *sourceItem = sourceModel->itemForIndex(parent)) {
+//        QModelIndex localIndex = indexOfItem(sourceItem);
+//        if(localIndex.isValid()) {
+//            beginRemoveRows(localIndex, 0, rowCount(localIndex));
+//            endRemoveRows();
+//        }
+//    }
+}
 
-        QModelIndex itemIndex = sourceModel->index(first, 0, parent);
-        if(sourceModel->itemForIndex(itemIndex) == m_root_item)
-            m_root_item = 0;
-
-    }
+void FitParameterAbsModel::onSourceRowsRemoved(const QModelIndex &parent, int first, int last)
+{
+    qDebug() << "FitParameterAbsModel::onSourceRowsRemoved" << parent << first << last;
+    Q_UNUSED(parent);
+    Q_UNUSED(first);
+    Q_UNUSED(last);
+    beginResetModel();
+    endResetModel();
 }
 
 void FitParameterAbsModel::onSourceAboutToBeReset()
 {
+    if(!m_root_item) return;
     beginResetModel();
     endResetModel();
 }
@@ -364,8 +387,10 @@ void FitParameterAbsModel::connectModel(QAbstractItemModel *sourceModel, bool is
                 this, SLOT(onSourceDataChanged(QModelIndex,QModelIndex,QVector<int>)));
 //        connect(sourceModel, SIGNAL(rowsInserted(QModelIndex,int,int)),
 //                   this, SLOT(onSourceRowsInserted(QModelIndex,int,int)));
-        connect(sourceModel, SIGNAL(rowsAboutToBeRemoved(QModelIndex,int,int)),
-                   this, SLOT(onSourceBeginRemoveRows(QModelIndex,int,int)));
+//        connect(sourceModel, SIGNAL(rowsAboutToBeRemoved(QModelIndex,int,int)),
+//                   this, SLOT(onSourceBeginRemoveRows(QModelIndex,int,int)));
+        connect(sourceModel, SIGNAL(rowsRemoved(QModelIndex,int,int)),
+                   this, SLOT(onSourceRowsRemoved(QModelIndex,int,int)));
         connect(sourceModel, SIGNAL(modelAboutToBeReset()), this, SLOT(onSourceAboutToBeReset()));
 
 
@@ -377,13 +402,16 @@ void FitParameterAbsModel::connectModel(QAbstractItemModel *sourceModel, bool is
                 this, SLOT(onSourceDataChanged(QModelIndex,QModelIndex,QVector<int>)));
 //        disconnect(sourceModel, SIGNAL(rowsInserted(QModelIndex,int,int)),
 //                   this, SLOT(onSourceRowsInserted(QModelIndex,int,int)));
-        disconnect(sourceModel, SIGNAL(rowsAboutToBeRemoved(QModelIndex,int,int)),
-                   this, SLOT(onSourceBeginRemoveRows(QModelIndex,int,int)));
+//        disconnect(sourceModel, SIGNAL(rowsAboutToBeRemoved(QModelIndex,int,int)),
+//                   this, SLOT(onSourceBeginRemoveRows(QModelIndex,int,int)));
+        disconnect(sourceModel, SIGNAL(rowsRemoved(QModelIndex,int,int)),
+                   this, SLOT(onSourceRowsRemoved(QModelIndex,int,int)));
         disconnect(sourceModel, SIGNAL(modelAboutToBeReset()), this, SLOT(onSourceAboutToBeReset()));
     }
 }
 
-void FitParameterAbsModel::addColumn(FitParameterAbsModel::EColumn id, const QString &name, const QString &tooltip)
+void FitParameterAbsModel::addColumn(FitParameterAbsModel::EColumn id, const QString &name,
+                                     const QString &tooltip)
 {
     m_columnNames[id] = name;
     m_columnToolTips[id] = tooltip;
@@ -391,6 +419,7 @@ void FitParameterAbsModel::addColumn(FitParameterAbsModel::EColumn id, const QSt
 
 QModelIndex FitParameterAbsModel::indexOfItem(SessionItem *item) const
 {
+    if(!m_root_item) return QModelIndex();
 
     if(SessionItem *parent_item = item->parent()) {
         if(parent_item->modelType() == Constants::FitParameterContainerType) {
@@ -420,9 +449,33 @@ QModelIndex FitParameterAbsModel::indexOfItem(SessionItem *item) const
 
 SessionItem *FitParameterAbsModel::itemForIndex(const QModelIndex &index) const
 {
+    if(!m_root_item) return 0;
+
     if (index.isValid()) {
-        if (SessionItem *item = static_cast<SessionItem *>(index.internalPointer()))
+        SessionItem *item = static_cast<SessionItem *>(index.internalPointer());
+        if(item) {
+            if(!isValidSourceItem(item)) {
+                return 0;
+//                throw GUIHelpers::Error("FitParameterAbsModel::itemForIndex -> Error! Attempt to "
+//                                    "use destroyed item.");
+            }
+
             return item;
+        }
     }
     return m_root_item;
+}
+
+SessionModel *FitParameterAbsModel::sourceModel() const
+{
+    Q_ASSERT(m_root_item);
+    return m_root_item->model();
+}
+
+//! Returns true if given item still exists in source model
+bool FitParameterAbsModel::isValidSourceItem(SessionItem *item) const
+{
+    if(item == m_root_item) return true;
+    if(sourceModel() && ModelPath::isValidItem(sourceModel(), item, m_root_item->index())) return true;
+    return false;
 }

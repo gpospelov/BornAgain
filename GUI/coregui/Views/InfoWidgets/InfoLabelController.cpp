@@ -45,6 +45,7 @@ void InfoLabelController::setArea(QAbstractScrollArea *area)
 void InfoLabelController::setShown(bool shown)
 {
     if(shown) {
+        Q_ASSERT(m_area);
         if(!m_label) {
             m_label = new InfoLabelWidget(m_area);
             m_label->setText(m_text);
@@ -72,7 +73,8 @@ bool InfoLabelController::eventFilter(QObject *obj, QEvent *event)
 void InfoLabelController::updateLabelGeometry()
 {
     if(!m_label || !m_area) return;
-    qDebug() << "InfoLabelController::updateLabelGeometry()" << m_area->width(), m_area->height();
+    qDebug() << "InfoLabelController::updateLabelGeometry()" << m_area->width() << m_area->height() << m_area << m_text;
     m_label->setRectangle(QRect(0, 0, m_area->width(), m_area->height()));
     m_label->setPosition(0, 0);
+    m_label->show();
 }

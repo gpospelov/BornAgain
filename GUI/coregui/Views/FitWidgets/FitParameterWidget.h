@@ -60,7 +60,7 @@ private slots:
     void onRemoveFromFitParAction();
     void onRemoveFitParAction();
     void onAddToFitParAction(int ipar);
-    void spanParameters();
+    void onFitParameterModelChange();
 
 protected:
     void contextMenuEvent(QContextMenuEvent *event);
@@ -82,6 +82,9 @@ private:
 
     QVector<FitParameterItem *> selectedFitParameters();
     QVector<FitParameterLinkItem *> selectedFitParameterLinks();
+
+    void spanParameters();
+    void updateInfoLabel();
 
     QTreeView *m_treeView;
     JobItem *m_jobItem;

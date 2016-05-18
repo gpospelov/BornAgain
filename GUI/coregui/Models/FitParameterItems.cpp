@@ -178,3 +178,8 @@ FitParameterItem *FitParameterContainerItem::getFitParameterItem(const QString &
     }
     return nullptr;
 }
+
+bool FitParameterContainerItem::isEmpty()
+{
+    return getItems(T_FIT_PARAMETERS).isEmpty() ? true : false;
+}

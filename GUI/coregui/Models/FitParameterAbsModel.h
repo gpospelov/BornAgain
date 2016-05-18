@@ -20,7 +20,7 @@
 #include "WinDllMacros.h"
 #include <QAbstractItemModel>
 
-class JobModel;
+class SessionModel;
 class FitParameterContainerItem;
 class SessionItem;
 
@@ -61,10 +61,15 @@ public:
     QModelIndex indexOfItem(SessionItem *item) const;
     SessionItem *itemForIndex(const QModelIndex &index) const;
 
+    SessionModel *sourceModel() const;
+
+    bool isValidSourceItem(SessionItem *item) const;
+
 private slots:
     void onSourceDataChanged(const QModelIndex & topLeft, const QModelIndex & bottomRight, const QVector<int> & roles);
     void onSourceRowsInserted(const QModelIndex & parent, int first, int last);
     void onSourceBeginRemoveRows(const QModelIndex & parent, int first, int last);
+    void onSourceRowsRemoved(const QModelIndex & parent, int first, int last);
     void onSourceAboutToBeReset();
 
 private:

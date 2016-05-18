@@ -202,6 +202,14 @@ void FitParameterWidget::onAddToFitParAction(int ipar)
     }
 }
 
+void FitParameterWidget::onFitParameterModelChange()
+{
+    qDebug() << "FitParameterWidget::onFitParameterModelChange()";
+    spanParameters();
+    updateInfoLabel();
+}
+
+
 //! Context menu reimplemented to suppress the default one
 
 void FitParameterWidget::contextMenuEvent(QContextMenuEvent *event)
@@ -272,15 +280,18 @@ void FitParameterWidget::init_fit_model()
     m_treeView->setModel(m_fitParameterModel);
 
     connect(m_fitParameterModel, SIGNAL(dataChanged(QModelIndex,QModelIndex,QVector<int>)),
-            this, SLOT(spanParameters()));
+            this, SLOT(onFitParameterModelChange()));
 
-    spanParameters();
+//    connect(m_fitParameterModel, SIGNAL(rowsInserted(QModelIndex,int,int)),
+//               this, SLOT(onFitParameterModelChange()));
+    connect(m_fitParameterModel, SIGNAL(modelReset()), this, SLOT(onFitParameterModelChange()));
+
+//    connect(m_fitParameterModel, SIGNAL(rowsRemoved(QModelIndex,int,int)),
+//               this, SLOT(onFitParameterModelChange()));
+
+    onFitParameterModelChange();
+
     connectFitParametersSelection(true);
-
-//    InfoLabelWidget *label = new InfoLabelWidget(this);
-//    label->setPosition(0, 0);
-
-    m_infoLabel->setShown(true);
 }
 
 //! Adds to JobItem all fit containers, if necessary.
@@ -299,24 +310,6 @@ void FitParameterWidget::init_fit_containers()
         parsContainerItem = fitSuiteItem->model()->insertNewItem(
             Constants::FitParameterContainerType, fitSuiteItem->index(), -1,
             FitSuiteItem::T_FIT_PARAMETERS);
-    }
-}
-
-//! Makes first column in FitParameterItem's tree related to ParameterItem link occupy whole space.
-
-void FitParameterWidget::spanParameters()
-{
-    m_treeView->expandAll();
-    for (int i = 0; i < m_fitParameterModel->rowCount(QModelIndex()); i++){
-        QModelIndex parameter = m_fitParameterModel->index(i,0,QModelIndex());
-        if (!parameter.isValid())
-            break;
-        int childRowCount = m_fitParameterModel->rowCount(parameter);
-        if (childRowCount > 0){
-            for (int j = 0; j < childRowCount; j++) {
-                m_treeView->setFirstColumnSpanned(j, parameter, true);
-            }
-        }
     }
 }
 
@@ -391,6 +384,33 @@ QVector<FitParameterLinkItem *> FitParameterWidget::selectedFitParameterLinks()
         }
     }
     return result;
+}
+
+//! Makes first column in FitParameterItem's tree related to ParameterItem link occupy whole space.
+
+void FitParameterWidget::spanParameters()
+{
+    m_treeView->expandAll();
+    for (int i = 0; i < m_fitParameterModel->rowCount(QModelIndex()); i++){
+        QModelIndex parameter = m_fitParameterModel->index(i,0,QModelIndex());
+        if (!parameter.isValid())
+            break;
+        int childRowCount = m_fitParameterModel->rowCount(parameter);
+        if (childRowCount > 0){
+            for (int j = 0; j < childRowCount; j++) {
+                m_treeView->setFirstColumnSpanned(j, parameter, true);
+            }
+        }
+    }
+}
+
+//! Places overlay label on top of tree view, if there is no fit parameters
+void FitParameterWidget::updateInfoLabel()
+{
+    Q_ASSERT(m_jobItem);
+    bool is_to_show_label = m_jobItem->fitParameterContainerItem()->isEmpty();
+    qDebug() << "FitParameterWidget::updateInfoLabel()" << m_jobItem->fitParameterContainerItem()->getItems(FitParameterContainerItem::T_FIT_PARAMETERS).size() << is_to_show_label << m_treeView;
+    m_infoLabel->setShown(is_to_show_label);
 }
 
 

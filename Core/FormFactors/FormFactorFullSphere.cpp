@@ -61,5 +61,5 @@ complex_t FormFactorFullSphere::evaluate_for_q(const cvector_t q) const
         ret = 4*Units::PI*pow(q1,-3)*(sin(qR) - qR*cos(qR));
     }
 
-    return std::exp(complex_t(0.0, 1.0)*q.z()*R) * ret;
+    return exp_I(q.z()*R) * ret;
 }

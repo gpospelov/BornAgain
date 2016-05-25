@@ -49,10 +49,9 @@ complex_t FormFactorEllipsoidalCylinder::evaluate_for_q(const cvector_t q) const
 {
     complex_t qxRa = q.x()*m_radius_x;
     complex_t qyRb = q.y()*m_radius_y;
-    complex_t qzHdiv2 = q.z()*m_height/2.0;
+    complex_t qzHdiv2 = m_height/2*q.z();
 
-    complex_t Fz = std::exp(complex_t(0.0, 1.0)*qzHdiv2)
-                   *MathFunctions::sinc(qzHdiv2);
+    complex_t Fz = exp_I(qzHdiv2) * MathFunctions::sinc(qzHdiv2);
     complex_t gamma  = std::sqrt((qxRa)*(qxRa) + (qyRb)*(qyRb));
     complex_t J1_gamma_div_gamma = MathFunctions::Bessel_J1c(gamma);
 

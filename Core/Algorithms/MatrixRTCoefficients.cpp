@@ -28,7 +28,7 @@ void MatrixRTCoefficients::calculateTRMatrices()
     }
 
     if (lambda(0)==0.0) {
-        complex_t ikt = complex_t(0.0, 1.0) * m_kt;
+        complex_t ikt = mul_I( m_kt );
         // Lambda1 component contained only in T1m (R1m=0)
         // row 0:
         T1m(0,0) = (1.0 - m_bz/m_b_mag)/2.0;
@@ -94,7 +94,7 @@ void MatrixRTCoefficients::calculateTRMatrices()
     }
 
     if (lambda(1)==0.0) {
-        complex_t ikt = complex_t(0.0, 1.0) * m_kt;
+        complex_t ikt = mul_I(m_kt);
         // Lambda2 component contained only in T2m (R2m=0)
         // row 0:
         T2m(0,0) = (1.0 + m_bz/m_b_mag)/2.0;
@@ -206,12 +206,12 @@ void MatrixRTCoefficients::calculateTRWithoutMagnetization()
     if (m_a==0.0) {
         // Spin down component contained only in T1 (R1=0)
         T1m(1,1) = 1.0;
-        T1m(3,1) = complex_t(0.0, 1.0)*m_kt;
+        T1m(3,1) = mul_I(m_kt);
         T1m(3,3) = 1.0;
 
         // Spin up component contained only in T2 (R2=0)
         T2m(0,0) = 1.0;
-        T2m(2,0) = complex_t(0.0, 1.0)*m_kt;
+        T2m(2,0) = mul_I(m_kt);
         T2m(2,2) = 1.0;
         return;
     }

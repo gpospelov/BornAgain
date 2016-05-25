@@ -57,13 +57,13 @@ complex_t FormFactorCone::Integrand(double Z) const
 {
     double Rz = m_radius - Z*m_cot_alpha;
     complex_t q_p = std::sqrt(m_q.x()*m_q.x()+m_q.y()*m_q.y()); // sqrt(x*x + y*y)
-    return Rz*Rz*MathFunctions::Bessel_J1c(q_p*Rz) * std::exp(complex_t(0.0, 1.0)*m_q.z()*Z);
+    return Rz*Rz*MathFunctions::Bessel_J1c(q_p*Rz) * exp_I(m_q.z()*Z);
 }
 
 complex_t FormFactorCone::evaluate_for_q(const cvector_t q) const
-{   m_q = q;
-
-  if ( std::abs(m_q.mag()) < Numeric::double_epsilon) {
+{
+    m_q = q;
+    if ( std::abs(m_q.mag()) < Numeric::double_epsilon) {
         double R = m_radius;
         double H = m_height;
         double tga = std::tan(m_alpha);

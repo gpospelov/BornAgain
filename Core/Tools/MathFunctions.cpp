@@ -89,7 +89,7 @@ complex_t MathFunctions::Laue(const complex_t z, size_t N) // Exp(iNx/2)*Sin((N+
         return 1.0;
     if(std::abs(z)<Numeric::double_epsilon)
         return N+1.0;
-    return std::exp(complex_t(0.0, 1.0)*z*(double)N/2.0)*std::sin(z*(N+1.0)/2.0)/std::sin(z/2.0);
+    return exp_I(N/2.0*z)*std::sin(z*(N+1.0)/2.0)/std::sin(z/2.0);
 }
 
 // ************************************************************************** //
@@ -168,14 +168,14 @@ complex_t MathFunctions::Bessel_J0_PowSer(const complex_t z)
     double a0 = std::abs(z);
     complex_t z1 = z;
     if (a0 == 0.0)
-        return cone;
+        return 1.0;
     if (std::real(z) < 0.0)
         z1 = -z;
     if (a0 <= 12.0) {
         // standard power series [http://dlmf.nist.gov/10.2 (10.2.2)]
         complex_t z2 = 0.25 * z * z;
-        cj0 = cone;
-        complex_t cr = cone;
+        cj0 = 1.0;
+        complex_t cr = 1.0;
         for (size_t k = 1; k <= 40; ++k) {
             cr *= -z2 / (double)(k * k);
             cj0 += cr;
@@ -192,7 +192,7 @@ complex_t MathFunctions::Bessel_J0_PowSer(const complex_t z)
         else
             kz = 12; //   "      "     "  14
         complex_t ct1 = z1 - Units::PID4;
-        complex_t cp0 = cone;
+        complex_t cp0 = 1.0;
         complex_t cq0 = -0.125;
         const complex_t z1m2 = 1. / (z1*z1); // faster than std::pow(z1, -2.0) ??
         complex_t ptmp = z1m2;
@@ -213,8 +213,6 @@ complex_t MathFunctions::Bessel_J0_PowSer(const complex_t z)
 complex_t MathFunctions::Bessel_J1_PowSer(const complex_t z)
 {
     complex_t cj1;
-    static const complex_t cone(1.0, 0.0);
-    static const complex_t czero(0.0, 0.0);
     static const double eps = 1e-15;
 
     static double a1[] = { 0.1171875,             -0.1441955566406250,  0.6765925884246826,
@@ -230,7 +228,7 @@ complex_t MathFunctions::Bessel_J1_PowSer(const complex_t z)
 
     double a0 = std::abs(z);
     if (a0 == 0.0)
-        return czero;
+        return 0.0;
 
     complex_t z1 = z;
     if (std::real(z) < 0.0)
@@ -238,8 +236,8 @@ complex_t MathFunctions::Bessel_J1_PowSer(const complex_t z)
     if (a0 <= 12.0) {
         // standard power series [http://dlmf.nist.gov/10.2 (10.2.2)]
         const complex_t z2 = 0.25 * z * z;
-        cj1 = cone;
-        complex_t cr = cone; // powers will be computed recursively
+        cj1 = 1.0;
+        complex_t cr = 1.0; // powers will be computed recursively
         for (int k = 1; k <= 40; ++k) {
             cr *= -z2 / (double)(k * (k + 1));
             cj1 += cr;
@@ -256,7 +254,7 @@ complex_t MathFunctions::Bessel_J1_PowSer(const complex_t z)
             kz = 10; //   "      "     "  12
         else
             kz = 12; //   "      "     "  14
-        complex_t cp1 = cone;
+        complex_t cp1 = 1.0;
         complex_t cq1 = 0.375; // division by z1 postponed to final sum
         const complex_t z1m2 = 1. / (z1*z1); // faster than std::pow(z1, -2.0) ??
         complex_t ptmp = z1m2; // powers will be computed recursively

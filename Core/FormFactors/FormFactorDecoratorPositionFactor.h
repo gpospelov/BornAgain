@@ -82,8 +82,7 @@ inline Eigen::Matrix2cd FormFactorDecoratorPositionFactor::evaluatePol(
 inline complex_t FormFactorDecoratorPositionFactor::getPositionFactor(const cvector_t q) const
 {
     complex_t qr = q.x() * m_position.x() + q.y() * m_position.y() + q.z() * m_position.z();
-    complex_t pos_factor = std::exp(complex_t(0.0, 1.0) * qr);
-    return pos_factor;
+    return exp_I(qr);
 }
 
 #endif /* FORMFACTORDECORATORPOSITIONFACTOR_H_ */

@@ -20,10 +20,9 @@
 using namespace  BornAgain;
 
 FormFactorBox::FormFactorBox(double length, double width, double height)
-    : m_length(length), m_width(width), m_height(height) {
-
+    : m_length(length), m_width(width), m_height(height)
+{
     setName(FFBoxType);
-    check_initialization();
     init_parameters();
 }
 
@@ -39,20 +38,10 @@ void FormFactorBox::accept(ISampleVisitor *visitor) const
 
 complex_t FormFactorBox::evaluate_for_q(const cvector_t q) const
 {
-    complex_t qxRdiv2 = m_length*q.x()/2.0;
-    complex_t qyWdiv2 = m_width*q.y()/2.0;
-    complex_t qzHdiv2 = m_height*q.z()/2.0;
-
-    return m_height*m_length*m_width*
-        std::exp(complex_t(0.,1.)*qzHdiv2) *
-        MathFunctions::sinc(qxRdiv2) *
-        MathFunctions::sinc(qyWdiv2) *
-            MathFunctions::sinc(qzHdiv2);
-}
-
-bool FormFactorBox::check_initialization() const
-{
-    return true;
+    complex_t qzHdiv2 = m_height/2*q.z();
+    return m_height*m_length*m_width *
+        MathFunctions::sinc(m_length/2*q.x()) *  MathFunctions::sinc(m_width/2*q.y()) *
+        MathFunctions::sinc(qzHdiv2) * exp_I(qzHdiv2);
 }
 
 void FormFactorBox::init_parameters()

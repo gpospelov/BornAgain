@@ -75,17 +75,16 @@ complex_t FormFactorHemiEllipsoid::Integrand(double Z) const
     double W = m_radius_y;
     double H = m_height;
 
-    double Rz = R* std::sqrt(1.0 - Z*Z/(H*H));
-    double Wz = W* std::sqrt(1.0 - Z*Z/(H*H));
+    double Rz = R * std::sqrt(1.0 - Z*Z/(H*H));
+    double Wz = W * std::sqrt(1.0 - Z*Z/(H*H));
 
     complex_t qxRz = m_q.x()*Rz;
     complex_t qyWz = m_q.y()*Wz;
 
-    complex_t gamma = std::sqrt (qxRz*qxRz + qyWz*qyWz);
+    complex_t gamma = std::sqrt(qxRz*qxRz + qyWz*qyWz);
     complex_t J1_gamma_div_gamma = MathFunctions::Bessel_J1c(gamma);
-    complex_t exp_imag = std::exp(complex_t(0.0,1.0)*m_q.z()*Z);
 
-    return Rz * Wz * J1_gamma_div_gamma *exp_imag;
+    return Rz * Wz * J1_gamma_div_gamma * exp_I(m_q.z()*Z);
 }
 
 complex_t FormFactorHemiEllipsoid::evaluate_for_q(const cvector_t q) const

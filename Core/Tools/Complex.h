@@ -20,6 +20,10 @@
 
 typedef std::complex<double> complex_t;
 
-inline complex_t I_mul( complex_t z ) { return complex_t( -z.imag(), z.real() ); }
+//! Returns product I*z, where I is the imaginary unit.
+inline complex_t mul_I( complex_t z ) { return complex_t( -z.imag(), z.real() ); }
+
+//! Returns exp(I*z), where I is the imaginary unit.
+inline complex_t exp_I( complex_t z ) { return std::exp( complex_t( -z.imag(), z.real() ) ); }
 
 #endif // BA_COMPLEX_H

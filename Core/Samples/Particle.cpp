@@ -148,8 +148,7 @@ const IMaterial *Particle::getMaterial() const
 
 complex_t Particle::getRefractiveIndex() const
 {
-    return (mP_material.get() ? mP_material->getRefractiveIndex()
-                              : complex_t(0,0));
+    return mP_material.get() ? mP_material->getRefractiveIndex() : 0.0;
 }
 
 void Particle::setFormFactor(const IFormFactor &form_factor)

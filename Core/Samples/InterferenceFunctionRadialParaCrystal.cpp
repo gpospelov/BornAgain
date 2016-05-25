@@ -110,7 +110,7 @@ double InterferenceFunctionRadialParaCrystal::evaluate(const kvector_t q) const
             complex_t tmp;
             if (std::abs(fp)==0.0
              || std::log(std::abs(fp))*nd < std::log(std::numeric_limits<double>::min())) {
-                            tmp = complex_t(0.0, 0.0);
+                            tmp = 0.0;
                         } else {
                             tmp = std::pow(fp,n);
                         }
@@ -121,10 +121,9 @@ double InterferenceFunctionRadialParaCrystal::evaluate(const kvector_t q) const
     return result;
 }
 
-complex_t InterferenceFunctionRadialParaCrystal::FTPDF(
-    double qpar) const
+complex_t InterferenceFunctionRadialParaCrystal::FTPDF(double qpar) const
 {
-    complex_t phase = std::exp(complex_t(0.0, 1.0)*qpar*m_peak_distance);
+    complex_t phase = exp_I(qpar*m_peak_distance);
     double amplitude = mP_pdf->evaluate(qpar);
     complex_t result = phase*amplitude;
     if (m_use_damping_length) {

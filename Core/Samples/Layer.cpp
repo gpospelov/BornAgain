@@ -107,8 +107,7 @@ const IMaterial *Layer::getMaterial() const
 
 complex_t Layer::getRefractiveIndex() const
 {
-    return (mp_material ? mp_material->getRefractiveIndex()
-                        : complex_t(1.0,0.0));
+    return mp_material ? mp_material->getRefractiveIndex() : 1.0;
 }
 
 complex_t Layer::getRefractiveIndex2() const

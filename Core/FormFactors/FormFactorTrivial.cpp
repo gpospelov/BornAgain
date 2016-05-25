@@ -42,7 +42,7 @@ double FormFactorTrivial::getRadius() const
 complex_t FormFactorTrivial::evaluate_for_q(const cvector_t q) const
 {
     (void)q;
-    return complex_t(1.0, 0.0);
+    return 1.0;
 }
 
 bool FormFactorTrivial::check_initialization() const

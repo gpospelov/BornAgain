@@ -79,12 +79,12 @@ private:
 };
 
 inline ScalarRTCoefficients::ScalarRTCoefficients()
-: lambda(0), kz(0)
+    : lambda(0), kz(0)
 {
-    m_plus(0) = complex_t(1.0, 0.0);
+    m_plus(0) = 1.0;
     m_plus(1) = 0.0;
     m_min(0) = 0.0;
-    m_min(1) = complex_t(1.0, 0.0);
+    m_min(1) = 1.0;
     t_r << complex_t(1.0, 0.0), complex_t(0.0, 0.0);
 }
 

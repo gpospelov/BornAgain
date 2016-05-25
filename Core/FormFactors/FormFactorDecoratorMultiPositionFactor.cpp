@@ -64,7 +64,7 @@ complex_t FormFactorDecoratorMultiPositionFactor::getPositionsFactor(const cvect
     for (size_t i = 0; i < m_positions.size(); ++i) {
         complex_t qr = q.x() * m_positions[i].x() + q.y() * m_positions[i].y()
                        + q.z() * m_positions[i].z();
-        result += std::exp(complex_t(0.0, 1.0) * qr);
+        result += exp_I(qr);
     }
     return result;
 }

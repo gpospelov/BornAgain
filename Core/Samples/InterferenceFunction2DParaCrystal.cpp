@@ -212,7 +212,7 @@ double InterferenceFunction2DParaCrystal::interference1D(
             complex_t tmp;
             if (std::abs(fp)==0.0
              || std::log(std::abs(fp))*nd < std::log(std::numeric_limits<double>::min())) {
-                            tmp = complex_t(0.0, 0.0);
+                            tmp = 0.0;
                         } else {
                             tmp = std::pow(fp,n);
                         }
@@ -228,7 +228,7 @@ complex_t InterferenceFunction2DParaCrystal::FTPDF(
 {
     double length = (index ? m_lattice_params.m_length_2 : m_lattice_params.m_length_1);
     double qa = qx*length*std::cos(xi) + qy*length*std::sin(xi);
-    complex_t phase = std::exp(complex_t(0.0, 1.0)*qa);
+    complex_t phase = exp_I(qa);
     // transform q to principal axes:
     double qp1, qp2;
     double gamma = xi + m_pdfs[index]->getGamma();

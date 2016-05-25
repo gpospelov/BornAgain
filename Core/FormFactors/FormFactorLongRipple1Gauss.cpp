@@ -80,9 +80,8 @@ double FormFactorLongRipple1Gauss::getRadius() const
 //! Integrand for complex formfactor.
 complex_t FormFactorLongRipple1Gauss::Integrand(double Z) const
 {
-    complex_t iqZ = complex_t(0.0, 1.0)*m_q.z()*Z;
     complex_t aa = std::acos(2.0*Z/m_height - 1.0);
-    return std::exp(iqZ)*aa*MathFunctions::sinc(aa*m_q.y()*m_width/(Units::PI2));
+    return exp_I(m_q.z()*Z)*aa*MathFunctions::sinc(aa*m_q.y()*m_width/(Units::PI2));
 }
 
 //! Complex formfactor.

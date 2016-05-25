@@ -11,6 +11,7 @@ There are several ways of code profiling:
 ----------------------------------------------------------
 Profiling with valgrind
 ----------------------------------------------------------
+
 1) Compile BornAgain as usuall and simply run
 ./run_valgrind.sh
 
@@ -49,3 +50,14 @@ run_gperftools.sh
 ----------------------------------------------------------
 Profiling with perf
 ----------------------------------------------------------
+
+Under Linux.
+
+Install Debian package linux-perf.
+
+echo "-1" >/proc/sys/kernel/perf_event_paranoid
+
+perf stat <any performance test>
+
+perf record -o /tmp/perf.out <any performance test>
+perf report -i /tmp/perf.out

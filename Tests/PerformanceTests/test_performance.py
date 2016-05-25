@@ -39,7 +39,7 @@ try:
 except:
     record_cpu_time = False
     get_cpu_time = lambda: None
-      
+
 
 # globals used in custom form factor
 phi_min, phi_max = -1.0, 1.0
@@ -108,7 +108,7 @@ class FactoryTest:
     def run(self):
 
         self.prepare()
-        
+
         logfile.write("Running test: %-30s " % self.m_test_name)
         logfile.flush()
 
@@ -123,7 +123,7 @@ class FactoryTest:
 
         # note that on multi-core system, cpu time can be higher than wall time
         self.m_wall_time = end_wall_time - start_wall_time
-        
+
         if record_cpu_time:
             self.m_cpu_time = end_cpu_time - start_cpu_time
             logfile.write("OK: %-6.3f (wall sec), %-6.3f (cpu sec) \n" % (self.m_wall_time, self.m_cpu_time))
@@ -131,7 +131,7 @@ class FactoryTest:
             logfile.write("OK: %-6.3f (wall sec)\n" % (self.m_wall_time))
 
 
-            
+
 # special performance test case: custom form factor
 class CustomTest(FactoryTest):
     def __init__(self, name, nrepetitions):
@@ -146,9 +146,9 @@ class CustomTest(FactoryTest):
     # do the actual work
     def run_loop(self):
         for i in range(self.m_nrepetitions):
-            self.m_simulation.setSample(self.m_sample)              
+            self.m_simulation.setSample(self.m_sample)
             self.m_simulation.runSimulation()
-            
+
     def get_sample(self):
         """
         Build and return the sample to calculate custom form factor in Distorted Wave Born Approximation.
@@ -157,7 +157,7 @@ class CustomTest(FactoryTest):
         m_ambience = HomogeneousMaterial("Air", 0.0, 0.0)
         m_substrate = HomogeneousMaterial("Substrate", 6e-6, 2e-8)
         m_particle = HomogeneousMaterial("Particle", 6e-4, 2e-8)
-        
+
         # collection of particles
         ff = CustomFormFactor(343.0*nanometer, 7.0*nanometer)
         particle = Particle(m_particle, ff)
@@ -180,9 +180,7 @@ class CustomTest(FactoryTest):
         Multithreading should be deactivated by putting ThreadInfo.n_threads to -1
         """
         simulation = GISASSimulation()
-        thread_info = ThreadInfo()
-        thread_info.n_threads = -1
-        simulation.setThreadInfo(thread_info)
+        simulation.getOptions().setNumberOfThreads(-1)
         simulation.setDetectorParameters(100, phi_min*degree, phi_max*degree, 100, alpha_min*degree, alpha_max*degree)
         simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
         return simulation
@@ -210,8 +208,8 @@ class PerformanceTests:
         self.add("PolMagCyl",          "MaxiGISAS00",  "MagneticCylindersBuilder", 10);
 
         # custom form factor is a special case since it's not in the registry
-        self.m_tests.append(CustomTest("Custom FF", 10))     
-        
+        self.m_tests.append(CustomTest("Custom FF", 10))
+
         logfile.write("\nPreparing to run %d performance tests.\n\n" % len(self.m_tests))
 
     def add(self, name, simulation_name, sample_builder, nrepetitions):
@@ -223,7 +221,7 @@ class PerformanceTests:
         for test in self.m_tests: test.run()
         self.write_results()
 
-    
+
     # write out system information and test results to file
     def write_results(self):
 
@@ -250,7 +248,7 @@ class PerformanceTests:
 
         sum_wall = 0.0
         sum_cpu = 0.0
-        
+
         for test in self.m_tests:
             sum_wall += test.m_wall_time;
             sum_cpu += test.m_cpu_time;
@@ -267,13 +265,13 @@ class PerformanceTests:
         write_file.flush()
 
         if ( self.m_filename != None ):
-            write_file.close()  
+            write_file.close()
 
     # determine platform, architecture, python version, etc.
     def init_sysinfo(self):
         system, node, release, version, machine, processor = platform.uname()
         self.m_datime = datetime.datetime.strftime(datetime.datetime.now(), '%Y-%m-%d %H:%M:%S')
-        self.m_hostname = node        
+        self.m_hostname = node
         self.m_sysinfo = "%s %s" % (system, machine)
         self.m_pyversion = "%d.%d" % (sys.version_info[:2])
 
@@ -302,6 +300,6 @@ if __name__ == '__main__':
         filename = sys.argv[1]
     else:
         filename = None
-        
+
     tests = PerformanceTests(filename)
     tests.execute()

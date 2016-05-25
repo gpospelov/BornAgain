@@ -95,9 +95,9 @@ public:
 
     friend class OMPISimulation;
 
-    void setOptions(const SimulationOptions &options);
-    const SimulationOptions &getOptions() const;
-    SimulationOptions &getOptions();
+    void setOptions(const SimulationOptions &options) { m_options = options; }
+    const SimulationOptions &getOptions() const { return m_options; }
+    SimulationOptions &getOptions() { return m_options; }
 
 protected:
     Simulation(const Simulation& other);

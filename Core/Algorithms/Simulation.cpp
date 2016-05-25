@@ -287,21 +287,6 @@ void Simulation::initProgressHandlerDWBA(ProgressHandlerDWBA *dwba_progress)
     }
 }
 
-void Simulation::setOptions(const SimulationOptions &options)
-{
-    m_options = options;
-}
-
-const SimulationOptions &Simulation::getOptions() const
-{
-    return m_options;
-}
-
-SimulationOptions &Simulation::getOptions()
-{
-    return const_cast<SimulationOptions&>(static_cast<const Simulation*>(this)->getOptions());
-}
-
 void Simulation::verifyDWBASimulation(DWBASimulation *dwbaSimulation)
 {
     if (!dwbaSimulation)

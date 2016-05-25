@@ -17,7 +17,7 @@
 #define OUTPUTDATAFUNCTIONS_H
 
 #include "WinDllMacros.h"
-#include "Types.h"
+#include "Complex.h"
 #include "OutputData.h"
 #include "IIntensityFunction.h"
 #include "Mask.h"

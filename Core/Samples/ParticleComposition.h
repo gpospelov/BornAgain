@@ -17,7 +17,7 @@
 #define PARTICLECOMPOSITION_H_
 
 #include "IParticle.h"
-#include "Types.h"
+#include "Complex.h"
 #include <vector>
 
 //! @class ParticleComposition

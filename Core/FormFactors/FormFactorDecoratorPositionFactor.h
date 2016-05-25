@@ -18,7 +18,7 @@
 
 #include "IFormFactorDecorator.h"
 #include "BornAgainNamespace.h"
-#include "Types.h"
+#include "Complex.h"
 
 //! @class FormFactorDecoratorPositionFactor
 //! @ingroup formfactors_internal

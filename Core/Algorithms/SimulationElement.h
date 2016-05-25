@@ -16,7 +16,7 @@
 #ifndef SIMULATIONELEMENT_H_
 #define SIMULATIONELEMENT_H_
 
-#include "Types.h"
+#include "Complex.h"
 #include "IParameterized.h"
 #include "EigenCore.h"
 #include "IPixelMap.h"

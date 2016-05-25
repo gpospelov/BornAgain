@@ -1,4 +1,4 @@
-// @(#)root/tmva $Id$ 
+// @(#)root/tmva $Id$
 // Author: Andreas Hoecker, Peter Speckmayer
 
 /**********************************************************************************
@@ -15,8 +15,8 @@
  *      Peter Speckmayer <speckmay@mail.cern.ch>  - CERN, Switzerland             *
  *                                                                                *
  * Copyright (c) 2005:                                                            *
- *      CERN, Switzerland                                                         * 
- *      MPI-K Heidelberg, Germany                                                 * 
+ *      CERN, Switzerland                                                         *
+ *      MPI-K Heidelberg, Germany                                                 *
  *                                                                                *
  * Redistribution and use in source and binary forms, with or without             *
  * modification, are permitted according to the terms listed in LICENSE           *

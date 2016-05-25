@@ -17,7 +17,7 @@
 #include "BornAgainNamespace.h"
 #include "Exceptions.h"
 #include "Numeric.h"
-#include "Types.h"
+#include "Complex.h"
 #include <Eigen/LU>
 
 using namespace BornAgain;

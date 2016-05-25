@@ -20,7 +20,7 @@
 #include "GISASSimulation.h"
 #include "OutputData.h"
 #include "ThreadInfo.h"
-#include "Types.h"
+#include "Complex.h"
 #include "EigenCore.h"
 #include "ProgressHandlerDWBA.h"
 #include "SimulationElement.h"

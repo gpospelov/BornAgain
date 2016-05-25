@@ -17,7 +17,7 @@
 #define HISTOGRAM2D_H
 
 #include "IHistogram.h"
-#include "Types.h"
+#include "Complex.h"
 class Histogram1D;
 
 #ifdef BORNAGAIN_PYTHON

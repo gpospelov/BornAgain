@@ -17,7 +17,7 @@
 #define SCALARRTCOEFFICIENTS_H_
 
 #include "ILayerRTCoefficients.h"
-#include "Types.h"
+#include "Complex.h"
 
 
 //! @class ScalarRTCoefficients

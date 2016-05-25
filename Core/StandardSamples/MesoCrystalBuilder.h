@@ -17,7 +17,7 @@
 #define MESOCRYSTALBUILDER_H
 
 #include "ISampleBuilder.h"
-#include "Types.h"
+#include "Complex.h"
 
 class Lattice;
 class MesoCrystal;

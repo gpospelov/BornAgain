@@ -16,7 +16,7 @@
 #ifndef ILAYERRTCOEFFICIENTS_H_
 #define ILAYERRTCOEFFICIENTS_H_
 
-#include "Types.h"
+#include "Complex.h"
 #include "EigenCore.h"
 #include "Exceptions.h"
 

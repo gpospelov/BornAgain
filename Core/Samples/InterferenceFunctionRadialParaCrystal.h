@@ -18,7 +18,7 @@
 
 #include "IInterferenceFunction.h"
 #include "FTDistributions.h"
-#include "Types.h"
+#include "Complex.h"
 
 #include <memory>
 

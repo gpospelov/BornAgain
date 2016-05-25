@@ -1,7 +1,7 @@
 #ifndef PYTHONFITEXPOSER_H
 #define PYTHONFITEXPOSER_H
 
-#include "Types.h"
+#include "Complex.h"
 
 
 //! this is special namespace to help Py++ generate correct names

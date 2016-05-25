@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "OutputDataReadStrategy.h"
-#include "Types.h"
+#include "Complex.h"
 #include "Exceptions.h"
 #include "Utils.h"
 #include "BornAgainNamespace.h"

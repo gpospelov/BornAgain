@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tools/Types.h
-//! @brief     Declares complex_t, and the array types vdouble1d_t, vdouble2d_t.
+//! @file      Tools/Complex.h
+//! @brief     Declares complex_t, and a few elementary functions
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,11 +13,13 @@
 //
 // ************************************************************************** //
 
-#ifndef TYPES_H
-#define TYPES_H
+#ifndef BA_COMPLEX_H
+#define BA_COMPLEX_H
 
 #include <complex>
 
 typedef std::complex<double> complex_t;
 
-#endif // TYPES_H
+inline complex_t I_mul( complex_t z ) { return complex_t( -z.imag(), z.real() ); }
+
+#endif // BA_COMPLEX_H

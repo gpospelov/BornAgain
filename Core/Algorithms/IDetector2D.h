@@ -16,7 +16,7 @@
 #ifndef IDETECTOR2D_H_
 #define IDETECTOR2D_H_
 
-#include "Types.h"
+#include "Complex.h"
 #include "IParameterized.h"
 #include "EigenCore.h"
 #include "IPixelMap.h"

@@ -16,7 +16,6 @@
 #ifndef TYPES_H
 #define TYPES_H
 
-#include <cstddef>
 #include <complex>
 #include <vector>
 
@@ -28,5 +27,3 @@ typedef std::vector<double> vdouble1d_t;
 typedef std::vector<vdouble1d_t> vdouble2d_t;
 
 #endif // TYPES_H
-
-

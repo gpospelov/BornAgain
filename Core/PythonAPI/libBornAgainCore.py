@@ -8340,6 +8340,11 @@ class FormFactorPolyhedron(IFormFactorBorn):
         raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
 
+    def onChange(self):
+        """onChange(FormFactorPolyhedron self)"""
+        return _libBornAgainCore.FormFactorPolyhedron_onChange(self)
+
+
     def evaluate_for_q(self, q):
         """
         evaluate_for_q(FormFactorPolyhedron self, cvector_t q) -> complex_t

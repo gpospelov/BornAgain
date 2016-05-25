@@ -48,6 +48,6 @@ void FormFactorBox::init_parameters()
 {
     clearParameterPool();
     registerParameter(Length, &m_length, AttLimits::n_positive());
-    registerParameter(Width, &m_width, AttLimits::n_positive());
+    registerParameter(Width,  &m_width,  AttLimits::n_positive());
     registerParameter(Height, &m_height, AttLimits::n_positive());
 }

@@ -36,8 +36,8 @@ typedef Geometry::BasicVector3D<double> kvector_t;
 #include "IFormFactorBorn.h"
 #include "FormFactorPolyhedron.h"
 
-static complex_t I(0.,1.);
-static double eps(2e-16);
+static const complex_t I(0.,1.);
+static const double eps(2e-16);
 
 #ifdef POLYHEDRAL_DIAGNOSTIC
 extern Diagnosis diagnosis;
@@ -255,7 +255,7 @@ complex_t PolyhedralFace::expansion(
             count_return_condition = 0;
         if( count_return_condition>2 )
             return sum; // regular exit
-        n_fac *= I;
+        n_fac = mul_I(n_fac);
     }
 #ifdef POLYHEDRAL_DIAGNOSTIC
     if( !diagnosis.request_convergence )
@@ -275,7 +275,7 @@ complex_t PolyhedralFace::edge_sum_ff( cvector_t q, cvector_t qpa, bool sym_Ci )
         const PolyhedralEdge& e = edges[i];
         complex_t qE = e.qE(qpa);
         complex_t qR = e.qR(qpa);
-        complex_t Rfac = sym_S2 ? sin(qR) : ( sym_Ci ? cos(e.qR(q)) : exp(I*qR) );
+        complex_t Rfac = sym_S2 ? sin(qR) : ( sym_Ci ? cos(e.qR(q)) : exp_I(qR) );
         complex_t vfac;
         if( sym_S2 || i<edges.size()-1 ) {
             vfac = prevec.dot(e.E());
@@ -302,7 +302,7 @@ complex_t PolyhedralFace::ff( const cvector_t q, const bool sym_Ci ) const
     decompose_q( q, qperp, qpa );
     double qpa_red = m_radius_2d * qpa.mag();
     complex_t qr_perp = qperp*m_rperp;
-    complex_t ff0 = (sym_Ci ? 2.*I*sin(qr_perp) : exp(I*qr_perp)) * m_area;
+    complex_t ff0 = (sym_Ci ? 2.*I*sin(qr_perp) : exp_I(qr_perp)) * m_area;
     if ( qpa_red==0 ) {
         return ff0;
     } else if ( qpa_red < qpa_limit_series && !sym_S2 ) {
@@ -310,10 +310,10 @@ complex_t PolyhedralFace::ff( const cvector_t q, const bool sym_Ci ) const
         complex_t fac_even;
         complex_t fac_odd;
         if( sym_Ci ) {
-            fac_even = 2. * I * sin(qr_perp);
+            fac_even = 2. * mul_I( sin(qr_perp) );
             fac_odd = 2. * cos(qr_perp);
         } else {
-            fac_even = exp( I*qr_perp );
+            fac_even = exp_I(qr_perp);
             fac_odd = fac_even;
         }
         return ff0 + expansion( fac_even, fac_odd, qpa, std::abs(ff0) );
@@ -321,14 +321,14 @@ complex_t PolyhedralFace::ff( const cvector_t q, const bool sym_Ci ) const
         // direct evaluation of analytic formula
         complex_t prefac;
         if( sym_S2 )
-            prefac = sym_Ci ? -8.*sin(qr_perp) : 4.*I*exp(I*qr_perp);
+            prefac = sym_Ci ? -8.*sin(qr_perp) : 4.*mul_I( exp_I(qr_perp) );
         else
-            prefac = sym_Ci ? 4. : 2.*exp(I*qr_perp);
+            prefac = sym_Ci ? 4. : 2.*exp_I(qr_perp);
 #ifdef POLYHEDRAL_DIAGNOSTIC
         if( diagnosis.debmsg>=2 )
             std::cout<<"       qrperp="<<qr_perp<<" => prefac="<<prefac<<"\n";
 #endif
-        return prefac * edge_sum_ff( q, qpa, sym_Ci ) / ( I*qpa.mag2() );
+        return prefac * edge_sum_ff( q, qpa, sym_Ci ) / mul_I( qpa.mag2() );
     }
 }
 
@@ -424,7 +424,7 @@ void FormFactorPolyhedron::setPolyhedron(
 
 complex_t FormFactorPolyhedron::evaluate_for_q( const cvector_t q ) const
 {
-    return exp(-I*m_z_origin*q.z()) * evaluate_centered(q);
+    return exp_I(-m_z_origin*q.z()) * evaluate_centered(q);
 }
 
 //! Returns the form factor F(q) of this polyhedron, with origin at z=0.
@@ -464,7 +464,7 @@ complex_t FormFactorPolyhedron::evaluate_centered( const cvector_t q ) const
                 count_return_condition = 0;
             if( count_return_condition>2 )
                 return m_volume + sum; // regular exit
-            n_fac *= ( m_sym_Ci ? -1 : I );
+            n_fac = m_sym_Ci ? -n_fac : mul_I(n_fac);
         }
 #ifdef POLYHEDRAL_DIAGNOSTIC
         if( !diagnosis.request_convergence )
@@ -529,7 +529,7 @@ complex_t FormFactorPolygonalPrism::evaluate_for_q( const cvector_t q ) const
     diagnosis.nExpandedFaces = 0;
 #endif
     const cvector_t qxy( q.x(), q.y(), 0. );
-    return m_height * exp(I*(m_height/2)*q.z()) * MathFunctions::sinc(m_height/2*q.z()) *
+    return m_height * exp_I(m_height/2*q.z()) * MathFunctions::sinc(m_height/2*q.z()) *
         m_base->ff_2D( qxy );
 }
 

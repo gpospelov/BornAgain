@@ -7,6 +7,7 @@
 ##
 ##! @file      test_performance.py
 ##! @brief     Defines class TestPerformance for logging performance changes
+##!            For explanations, see the README file
 ##!
 ##! @homepage  http:##www.bornagainproject.org
 ##! @license   GNU General Public License v3 or higher (see COPYING)

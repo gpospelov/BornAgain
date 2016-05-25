@@ -17,6 +17,7 @@
 #include "BornAgainNamespace.h"
 #include "Exceptions.h"
 #include "Numeric.h"
+#include "Types.h"
 #include <Eigen/LU>
 
 using namespace BornAgain;
@@ -81,10 +82,9 @@ Eigen::Matrix2cd Beam::calculatePolarization(const kvector_t bloch_vector) const
     double x = bloch_vector.x();
     double y = bloch_vector.y();
     double z = bloch_vector.z();
-    complex_t im(0.0, 1.0);
     result(0, 0) = (1.0 + z) / 2.0;
-    result(0, 1) = (x - im * y) / 2.0;
-    result(1, 0) = (x + im * y) / 2.0;
+    result(0, 1) = complex_t(x, -y) / 2.0;
+    result(1, 0) = complex_t(x,  y) / 2.0;
     result(1, 1) = (1.0 - z) / 2.0;
     return result;
 }

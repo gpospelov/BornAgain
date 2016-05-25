@@ -3,6 +3,7 @@
 
 #include "Vectors3D.h"
 #include "EigenCore.h"
+#include "Types.h"
 
 class CVectorTest : public ::testing::Test
 {

@@ -19,6 +19,7 @@
 #include "IInterferenceFunction.h"
 #include "Lattice2DParameters.h"
 #include "FTDistributions.h"
+#include "Types.h"
 
 #include <iostream>
 #include <memory>

@@ -17,7 +17,7 @@
 #define UTILS_H
 
 #include "WinDllMacros.h"
-#include "Types.h"
+#include "VDouble.h"
 #include "Exceptions.h"
 #include <boost/unordered_map.hpp>
 #include <map>

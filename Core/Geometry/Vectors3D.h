@@ -18,9 +18,7 @@
 
 #include "BasicVector3D.h"
 
-typedef std::complex<double> complex_t;
-
 typedef Geometry::BasicVector3D<double> kvector_t;
-typedef Geometry::BasicVector3D<complex_t> cvector_t;
+typedef Geometry::BasicVector3D<std::complex<double>> cvector_t;
 
 #endif // VECTORS3D_H

@@ -23,7 +23,6 @@ typedef _object PyObject;
 #endif
 #endif
 
-#include "Types.h"
 #include "FixedBinAxis.h"
 #include "LLData.h"
 #include "OutputDataIterator.h"
@@ -32,6 +31,7 @@ typedef _object PyObject;
 #include <sstream>
 #include <cassert>
 
+using std::size_t;
 
 //! @class OutputData
 //! @ingroup tools
@@ -730,5 +730,3 @@ template<> PyObject *OutputData<double>::getArray() const;
 #endif
 
 #endif // OUTPUTDATA_H
-
-

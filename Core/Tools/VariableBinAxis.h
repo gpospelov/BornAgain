@@ -16,8 +16,9 @@
 #ifndef VARIABLEBINAXIS_H
 #define VARIABLEBINAXIS_H
 
-
 #include "IAxis.h"
+
+using std::size_t;
 
 //! @class VariableBinAxis
 //! @ingroup tools
@@ -50,9 +51,9 @@ public:
 
     size_t findClosestIndex(double value) const;
 
-    std::vector<double > getBinCenters() const;
+    std::vector<double> getBinCenters() const;
 
-    std::vector<double > getBinBoundaries() const;
+    std::vector<double> getBinBoundaries() const;
 
     VariableBinAxis *createClippedAxis(double left, double right) const;
 

@@ -20,6 +20,8 @@
 #include "Exceptions.h"
 #include <vector>
 
+using std::size_t;
+
 //! @class IAxis
 //! @ingroup tools_internal
 //! @brief Interface for one-dimensional axes

@@ -18,6 +18,7 @@
 
 #include "IInterferenceFunction.h"
 #include "FTDistributions.h"
+#include "Types.h"
 
 #include <memory>
 
@@ -87,5 +88,3 @@ private:
 };
 
 #endif /* INTERFERENCEFUNCTIONRADIALPARACRYSTAL_H_ */
-
-

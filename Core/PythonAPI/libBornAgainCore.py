@@ -3018,6 +3018,14 @@ vector_cvector_t_swigregister = _libBornAgainCore.vector_cvector_t_swigregister
 vector_cvector_t_swigregister(vector_cvector_t)
 
 
+def mul_I(z):
+    """mul_I(complex_t z) -> complex_t"""
+    return _libBornAgainCore.mul_I(z)
+
+def exp_I(z):
+    """exp_I(complex_t z) -> complex_t"""
+    return _libBornAgainCore.exp_I(z)
+
 def rad2deg(angle):
     """
     rad2deg(double angle) -> double
@@ -8172,16 +8180,16 @@ class PolyhedralEdge(_object):
         return _libBornAgainCore.PolyhedralEdge_qR(self, q)
 
 
-    def contrib(self, m, prevec, qpa):
+    def contrib(self, m, qpa):
         """
-        contrib(PolyhedralEdge self, int m, cvector_t prevec, cvector_t qpa) -> complex_t
+        contrib(PolyhedralEdge self, int m, cvector_t qpa) -> complex_t
 
         complex_t PolyhedralEdge::contrib(int m, cvector_t prevec, cvector_t qpa) const
 
         Returns the contribution of this edge to the form factor. 
 
         """
-        return _libBornAgainCore.PolyhedralEdge_contrib(self, m, prevec, qpa)
+        return _libBornAgainCore.PolyhedralEdge_contrib(self, m, qpa)
 
     __swig_destroy__ = _libBornAgainCore.delete_PolyhedralEdge
     __del__ = lambda self: None

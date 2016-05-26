@@ -66,25 +66,25 @@ PolyhedralEdge::PolyhedralEdge( const kvector_t _Vlow, const kvector_t _Vhig )
 
 //! Returns the contribution of this edge to the form factor.
 
-complex_t PolyhedralEdge::contrib(int m, cvector_t prevec, cvector_t q) const
+complex_t PolyhedralEdge::contrib(int m, cvector_t q) const
 {
-    complex_t prefac = prevec.dot(E()); // conj(prevec)*E [BasicVector3D::dot is antilinear in *this]
     complex_t u = qE(q);
     complex_t v = qR(q);
     static auto& precomputed = IPrecomputed::instance();
     if( u==0. ) { // only l=0 contributes
-        return prefac * pow(v, m+1) / precomputed.factorial[m+1];
+        return precomputed.reciprocal_factorial[m+1] * pow(v, m+1);
     } else if( v==0. ) { // only 2l=m+1 contributes
         if( m&1 ) // m is odd
-            return prefac * pow(u, m+1) / precomputed.factorial[m+2];
+            return precomputed.reciprocal_factorial[m+2] * pow(u, m+1);
         else
             return 0.;
     } else {
         complex_t ret = 0;
         for( int l=0; l<=(m+1)/2; ++l )
-            ret += pow(u, 2*l) * pow(v, m+1-2*l) /
-                precomputed.factorial[m+1-2*l] / precomputed.factorial[2*l+1];
-        return prefac * ret;
+            ret += precomputed.reciprocal_factorial[m+1-2*l] *
+                precomputed.reciprocal_factorial[2*l+1] *
+                pow(u, 2*l) * pow(v, m+1-2*l);
+        return ret;
     }
 }
 
@@ -202,8 +202,18 @@ complex_t PolyhedralFace::ff_n_core( int m, const cvector_t q ) const
 {
     cvector_t prevec = 2.*m_normal.cross( q ); // complex conjugation will take place in .dot
     complex_t ret = 0;
-    for( const PolyhedralEdge& e: edges ) // TODO improve accuracy as in qpa expansion
-        ret += e.contrib(m, prevec, q);
+    complex_t vfacsum = 0;
+    for( size_t i=0; i<edges.size(); ++i ) {
+        const PolyhedralEdge& e = edges[i];
+        complex_t vfac;
+        if( sym_S2 || i<edges.size()-1 ) {
+            vfac = prevec.dot(e.E());
+            vfacsum += vfac;
+        } else {
+            vfac = - vfacsum; // to improve numeric accuracy: qcE_J = - sum_{j=0}^{J-1} qcE_j
+        }
+        ret += vfac * e.contrib(m, q);
+    }
     return ret;
 }
 
@@ -224,6 +234,7 @@ complex_t PolyhedralFace::ff_n( int n, const cvector_t q ) const
     } else if ( sym_S2 ) {
         return qn * ( ff_n_core( n, q ) + ff_n_core( n, qperp*m_normal-qpa ) ) / qpa_mag2;
     } else {
+        //DBXstd::cout<<"ff_n "<<n<<" "<<qn<<ff_n_core( n, q )<<" "<<qpa_mag2<<"\n";
         return qn * ff_n_core( n, q ) / qpa_mag2;
     }
 }
@@ -450,12 +461,15 @@ complex_t FormFactorPolyhedron::evaluate_centered( const cvector_t q ) const
             diagnosis.maxOrder = std::max( diagnosis.maxOrder, n );
 #endif
             complex_t term = 0;
-            for( const PolyhedralFace& Gk: m_faces )
-                term += Gk.ff_n( n+1, q );
+            for( const PolyhedralFace& Gk: m_faces ) {
+                complex_t tmp = Gk.ff_n( n+1, q );
+                term += tmp;
+                //DBXstd::cout<<"                                                          "<<"Gkff="<<tmp<<" term="<<term<<"\n";
+            }
             term *= n_fac;
 #ifdef POLYHEDRAL_DIAGNOSTIC
             if( diagnosis.debmsg>=1 )
-                std::cout<<std::setprecision(16)<<"  SUM="<<sum<<" +TERM="<<term<<"\n";
+                std::cout<<std::scientific<<std::showpos<<std::setprecision(16)<<"  SUM="<<m_volume+sum<<" +TERM="<<term<<"\n";
 #endif
             sum += term;
             if( std::abs(term)<=eps*std::abs(sum) || std::abs(sum)<eps*m_volume )
@@ -467,8 +481,10 @@ complex_t FormFactorPolyhedron::evaluate_centered( const cvector_t q ) const
             n_fac = m_sym_Ci ? -n_fac : mul_I(n_fac);
         }
 #ifdef POLYHEDRAL_DIAGNOSTIC
-        if( !diagnosis.request_convergence )
-            return sum;
+        if( !diagnosis.request_convergence ) {
+            std::cout<<"series F(q) not converged\n";
+            return m_volume+sum;
+        }
 #endif
         throw std::runtime_error("Bug in formfactor computation: series F(q) not converged");
     } else {

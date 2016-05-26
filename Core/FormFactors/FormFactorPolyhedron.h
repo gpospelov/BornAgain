@@ -37,7 +37,7 @@ public:
     complex_t qE( cvector_t q ) const { return m_E.dot(q); }
     complex_t qR( cvector_t q ) const { return m_R.dot(q); }
 
-    complex_t contrib(int m, const cvector_t qpa, complex_t qperp, const kvector_t normal) const;
+    complex_t contrib(int m, const cvector_t qpa, complex_t qrperp) const;
 
 private:
     kvector_t m_E; //!< vector pointing from mid of edge to upper vertex

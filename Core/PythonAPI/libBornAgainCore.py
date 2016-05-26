@@ -8180,16 +8180,16 @@ class PolyhedralEdge(_object):
         return _libBornAgainCore.PolyhedralEdge_qR(self, q)
 
 
-    def contrib(self, m, qpa, qperp, normal):
+    def contrib(self, m, qpa, qrperp):
         """
-        contrib(PolyhedralEdge self, int m, cvector_t qpa, complex_t qperp, kvector_t normal) -> complex_t
+        contrib(PolyhedralEdge self, int m, cvector_t qpa, complex_t qrperp) -> complex_t
 
         complex_t PolyhedralEdge::contrib(int m, cvector_t prevec, cvector_t qpa) const
 
         Returns the contribution of this edge to the form factor. 
 
         """
-        return _libBornAgainCore.PolyhedralEdge_contrib(self, m, qpa, qperp, normal)
+        return _libBornAgainCore.PolyhedralEdge_contrib(self, m, qpa, qrperp)
 
     __swig_destroy__ = _libBornAgainCore.delete_PolyhedralEdge
     __del__ = lambda self: None

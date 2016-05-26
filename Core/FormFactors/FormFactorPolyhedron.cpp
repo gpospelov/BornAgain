@@ -46,7 +46,7 @@ extern Diagnosis diagnosis;
 double PolyhedralFace::qpa_limit_series = 1e-2;
 int PolyhedralFace::n_limit_series = 20;
 
-double FormFactorPolyhedron::q_limit_series = 1e-5;
+double FormFactorPolyhedron::q_limit_series = 8e-5;
 int FormFactorPolyhedron::n_limit_series = 20;
 
 //***************************************************************************************************
@@ -66,12 +66,11 @@ PolyhedralEdge::PolyhedralEdge( const kvector_t _Vlow, const kvector_t _Vhig )
 
 //! Returns the contribution of this edge to the form factor.
 
-complex_t PolyhedralEdge::contrib(
-    int m, const cvector_t qpa, complex_t qperp, const kvector_t normal) const
+complex_t PolyhedralEdge::contrib(int m, const cvector_t qpa, complex_t qrperp) const
 {
     complex_t u = qE(qpa);
     complex_t v2 = m_R.dot(qpa);
-    complex_t v1 = qperp * m_R.dot(normal);
+    complex_t v1 = qrperp;
     complex_t v = v2 + v1;
     static auto& precomputed = IPrecomputed::instance();
     if( u==0. ) { // only l=0 contributes
@@ -222,6 +221,7 @@ complex_t PolyhedralFace::ff_n_core( int m, const cvector_t qpa, complex_t qperp
     cvector_t prevec = 2.*m_normal.cross( qpa ); // complex conjugation will take place in .dot
     complex_t ret = 0;
     complex_t vfacsum = 0;
+    complex_t qrperp = qperp * m_rperp;
     for( size_t i=0; i<edges.size(); ++i ) {
         const PolyhedralEdge& e = edges[i];
         complex_t vfac;
@@ -231,7 +231,7 @@ complex_t PolyhedralFace::ff_n_core( int m, const cvector_t qpa, complex_t qperp
         } else {
             vfac = - vfacsum; // to improve numeric accuracy: qcE_J = - sum_{j=0}^{J-1} qcE_j
         }
-        complex_t tmp = e.contrib(m, qpa, qperp, m_normal);
+        complex_t tmp = e.contrib(m, qpa, qrperp);
         ret += vfac * tmp;
         //std::cout<<std::scientific<<std::showpos<<std::setprecision(16)<<"DBX ff_n_core "<<m<<" "<<vfac<<" "<<tmp<<" term="<<vfac*tmp<<" sum="<<ret<<"\n";
     }

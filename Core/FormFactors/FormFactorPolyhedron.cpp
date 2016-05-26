@@ -66,13 +66,23 @@ PolyhedralEdge::PolyhedralEdge( const kvector_t _Vlow, const kvector_t _Vhig )
 
 //! Returns the contribution of this edge to the form factor.
 
-complex_t PolyhedralEdge::contrib(int m, cvector_t q) const
+complex_t PolyhedralEdge::contrib(
+    int m, const cvector_t qpa, complex_t qperp, const kvector_t normal) const
 {
-    complex_t u = qE(q);
-    complex_t v = qR(q);
+    complex_t u = qE(qpa);
+    complex_t v2 = m_R.dot(qpa);
+    complex_t v1 = qperp * m_R.dot(normal);
+    complex_t v = v2 + v1;
     static auto& precomputed = IPrecomputed::instance();
     if( u==0. ) { // only l=0 contributes
-        return precomputed.reciprocal_factorial[m+1] * pow(v, m+1);
+        complex_t ret = 0;
+        // expand (q.R)^(m+1), omitting (qperp.R)^(m+1), which contributes nothing
+        // under the sum over E*contrib()
+        for( int mm=1; mm<=(m+1); ++mm ) {
+            ret += precomputed.reciprocal_factorial[mm] * precomputed.reciprocal_factorial[m+1-mm] *
+                pow(v2, mm) * pow(v1, m+1-mm);
+        }
+        return ret;
     } else if( v==0. ) { // only 2l=m+1 contributes
         if( m&1 ) // m is odd
             return precomputed.reciprocal_factorial[m+2] * pow(u, m+1);
@@ -80,10 +90,19 @@ complex_t PolyhedralEdge::contrib(int m, cvector_t q) const
             return 0.;
     } else {
         complex_t ret = 0;
-        for( int l=0; l<=(m+1)/2; ++l )
-            ret += precomputed.reciprocal_factorial[m+1-2*l] *
+        // expand the l=0 term (q.R)^(m+1), omitting (qperp.R)^(m+1), which contributes nothing
+        // under the sum over E*contrib()
+        for( int mm=1; mm<=(m+1); ++mm ) {
+            ret += precomputed.reciprocal_factorial[mm] * precomputed.reciprocal_factorial[m+1-mm] *
+                pow(v2, mm) * pow(v1, m+1-mm);
+        }
+        for( int l=1; l<=(m+1)/2; ++l ) {
+            complex_t term = precomputed.reciprocal_factorial[m+1-2*l] *
                 precomputed.reciprocal_factorial[2*l+1] *
                 pow(u, 2*l) * pow(v, m+1-2*l);
+            ret += term;
+            //std::cout<<std::scientific<<std::showpos<<std::setprecision(16)<<"DBX C "<<l<<" "<<term<<" sum="<<ret<<"\n";
+        }
         return ret;
     }
 }
@@ -198,9 +217,9 @@ void PolyhedralFace::decompose_q( const cvector_t q, complex_t& qperp, cvector_t
 
 //! Returns core contribution to f_n
 
-complex_t PolyhedralFace::ff_n_core( int m, const cvector_t q ) const
+complex_t PolyhedralFace::ff_n_core( int m, const cvector_t qpa, complex_t qperp ) const
 {
-    cvector_t prevec = 2.*m_normal.cross( q ); // complex conjugation will take place in .dot
+    cvector_t prevec = 2.*m_normal.cross( qpa ); // complex conjugation will take place in .dot
     complex_t ret = 0;
     complex_t vfacsum = 0;
     for( size_t i=0; i<edges.size(); ++i ) {
@@ -212,7 +231,9 @@ complex_t PolyhedralFace::ff_n_core( int m, const cvector_t q ) const
         } else {
             vfac = - vfacsum; // to improve numeric accuracy: qcE_J = - sum_{j=0}^{J-1} qcE_j
         }
-        ret += vfac * e.contrib(m, q);
+        complex_t tmp = e.contrib(m, qpa, qperp, m_normal);
+        ret += vfac * tmp;
+        //std::cout<<std::scientific<<std::showpos<<std::setprecision(16)<<"DBX ff_n_core "<<m<<" "<<vfac<<" "<<tmp<<" term="<<vfac*tmp<<" sum="<<ret<<"\n";
     }
     return ret;
 }
@@ -221,7 +242,7 @@ complex_t PolyhedralFace::ff_n_core( int m, const cvector_t q ) const
 
 complex_t PolyhedralFace::ff_n( int n, const cvector_t q ) const
 {
-    complex_t qn = q.dot(m_normal); // conj(q)*normal (BasicVector3D::dot is antilinear in 'this' argument)
+    complex_t qn = q.dot(m_normal); // conj(q)*normal (dot is antilinear in 'this' argument)
     if ( std::abs(qn)<eps*q.mag() )
         return 0.;
     complex_t qperp;
@@ -232,10 +253,11 @@ complex_t PolyhedralFace::ff_n( int n, const cvector_t q ) const
     if ( qpa_mag2==0. ) {
         return qn * pow(qperp*m_rperp, n) * m_area / precomputed.factorial[n];
     } else if ( sym_S2 ) {
-        return qn * ( ff_n_core( n, q ) + ff_n_core( n, qperp*m_normal-qpa ) ) / qpa_mag2;
+        return qn * ( ff_n_core( n, qpa, qperp ) + ff_n_core( n, -qpa, qperp ) ) / qpa_mag2;
     } else {
-        //DBXstd::cout<<"ff_n "<<n<<" "<<qn<<ff_n_core( n, q )<<" "<<qpa_mag2<<"\n";
-        return qn * ff_n_core( n, q ) / qpa_mag2;
+        complex_t tmp = ff_n_core( n, qpa, qperp );
+        //std::cout<<"DBX ff_n "<<n<<" "<<qn<<" "<<tmp<<" "<<qpa_mag2<<"\n";
+        return qn * tmp / qpa_mag2;
     }
 }
 
@@ -254,7 +276,7 @@ complex_t PolyhedralFace::expansion(
 #ifdef POLYHEDRAL_DIAGNOSTIC
         diagnosis.maxOrder = std::max( diagnosis.maxOrder, n );
 #endif
-        complex_t term = n_fac * ( n&1 ? fac_odd : fac_even ) * ff_n_core(n, qpa) / qpa.mag2();
+        complex_t term = n_fac * ( n&1 ? fac_odd : fac_even ) * ff_n_core(n, qpa, 0) / qpa.mag2();
 #ifdef POLYHEDRAL_DIAGNOSTIC
         if( diagnosis.debmsg>=2 )
             std::cout<<std::setprecision(16)<<"    sum="<<sum<<" +term="<<term<<"\n";
@@ -464,7 +486,7 @@ complex_t FormFactorPolyhedron::evaluate_centered( const cvector_t q ) const
             for( const PolyhedralFace& Gk: m_faces ) {
                 complex_t tmp = Gk.ff_n( n+1, q );
                 term += tmp;
-                //DBXstd::cout<<"                                                          "<<"Gkff="<<tmp<<" term="<<term<<"\n";
+                //std::cout<<"DBX                                                      "<<"Gkffn sum="<<term<<" incr="<<tmp<<"\n";
             }
             term *= n_fac;
 #ifdef POLYHEDRAL_DIAGNOSTIC

@@ -100,7 +100,10 @@ complex_t PolyhedralEdge::contrib(int m, const cvector_t qpa, complex_t qrperp) 
                 precomputed.reciprocal_factorial[2*l+1] *
                 pow(u, 2*l) * pow(v, m+1-2*l);
             ret += term;
-            //std::cout<<std::scientific<<std::showpos<<std::setprecision(16)<<"DBX C "<<l<<" "<<term<<" sum="<<ret<<"\n";
+#ifdef POLYHEDRAL_DIAGNOSTIC
+            if( diagnosis.debmsg>=3 )
+                std::cout<<std::scientific<<std::showpos<<std::setprecision(16)<<"DBX C "<<l<<" "<<term<<" sum="<<ret<<"\n";
+#endif
         }
         return ret;
     }
@@ -233,7 +236,10 @@ complex_t PolyhedralFace::ff_n_core( int m, const cvector_t qpa, complex_t qperp
         }
         complex_t tmp = e.contrib(m, qpa, qrperp);
         ret += vfac * tmp;
-        //std::cout<<std::scientific<<std::showpos<<std::setprecision(16)<<"DBX ff_n_core "<<m<<" "<<vfac<<" "<<tmp<<" term="<<vfac*tmp<<" sum="<<ret<<"\n";
+#ifdef POLYHEDRAL_DIAGNOSTIC
+        if( diagnosis.debmsg>=3 )
+            std::cout<<std::scientific<<std::showpos<<std::setprecision(16)<<"DBX ff_n_core "<<m<<" "<<vfac<<" "<<tmp<<" term="<<vfac*tmp<<" sum="<<ret<<"\n";
+#endif
     }
     return ret;
 }
@@ -256,7 +262,10 @@ complex_t PolyhedralFace::ff_n( int n, const cvector_t q ) const
         return qn * ( ff_n_core( n, qpa, qperp ) + ff_n_core( n, -qpa, qperp ) ) / qpa_mag2;
     } else {
         complex_t tmp = ff_n_core( n, qpa, qperp );
-        //std::cout<<"DBX ff_n "<<n<<" "<<qn<<" "<<tmp<<" "<<qpa_mag2<<"\n";
+#ifdef POLYHEDRAL_DIAGNOSTIC
+        if( diagnosis.debmsg>=3 )
+            std::cout<<"DBX ff_n "<<n<<" "<<qn<<" "<<tmp<<" "<<qpa_mag2<<"\n";
+#endif
         return qn * tmp / qpa_mag2;
     }
 }
@@ -486,7 +495,10 @@ complex_t FormFactorPolyhedron::evaluate_centered( const cvector_t q ) const
             for( const PolyhedralFace& Gk: m_faces ) {
                 complex_t tmp = Gk.ff_n( n+1, q );
                 term += tmp;
-                //std::cout<<"DBX                                                      "<<"Gkffn sum="<<term<<" incr="<<tmp<<"\n";
+#ifdef POLYHEDRAL_DIAGNOSTIC
+                if( diagnosis.debmsg>=3 )
+                    std::cout<<"DBX                                                      "<<"Gkffn sum="<<term<<" incr="<<tmp<<"\n";
+#endif
             }
             term *= n_fac;
 #ifdef POLYHEDRAL_DIAGNOSTIC

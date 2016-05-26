@@ -57,7 +57,7 @@ IFormFactorBorn* make_particle( int ishape )
     } else if( ishape==8 ) {
         return new FormFactorPyramid(1.5, .24, 1.);
     } else if( ishape==9 ) {
-        return new FormFactorAnisoPyramid(1.5, 1.5, .24, 1.);
+        return new FormFactorAnisoPyramid(2, .4, .24, 1.);
     } else if( ishape==10) {
         return new FormFactorPrism3(1.2, 1.);
     } else if( ishape==11) {
@@ -341,7 +341,7 @@ int main (int argc, const char *argv[])
                 while( std::cin >> mag )
                     run( P, ishape, mag*uq, outfilter );
             } else if( inmode==1 ) {
-                diagnosis.debmsg = 2;
+                diagnosis.debmsg = 3;
                 NEXTARG;
                 mag = atof( *arg );
                 run( P, ishape, mag*uq, outfilter );

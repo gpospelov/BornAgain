@@ -103,7 +103,7 @@ void bisect(
         double step = std::abs(ri-rf);
         double relstep = step/aval;
         maxrelstep = std::max( maxrelstep, relstep );
-        if( relstep>3e-5 ){
+        if( relstep>5e-5 ){
             cout<<"ishape="<<ishape<<": relstep "<<std::setprecision(8)<<relstep<<"="<<step<<"/"<<std::setprecision(16)<<aval<<" for "<<di<<"->"<<df<<" at q between "<<nice_q(qi)<<" and "<<nice_q(qf)<<"\n";
         }
         return;

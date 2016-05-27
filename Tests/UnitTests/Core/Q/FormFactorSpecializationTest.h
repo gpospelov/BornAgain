@@ -66,7 +66,7 @@ TEST_P(FFSpecializationTest, Pyramid3AsPrism)
     double L=1.8, H=.3;
     FormFactorTetrahedron p0(L, H, Units::PI/2);
     FormFactorPrism3 p1(L, H);
-    test_ff_eq( &p0, &p1, 1.7e-11 );
+    test_ff_eq( &p0, &p1, 1.8e-11 );
 }
 
 TEST_P(FFSpecializationTest, PyramidAsBox)

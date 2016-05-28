@@ -46,7 +46,7 @@ extern Diagnosis diagnosis;
 double PolyhedralFace::qpa_limit_series = 1.2e-2;
 int PolyhedralFace::n_limit_series = 20;
 
-double FormFactorPolyhedron::q_limit_series = 8e-5;
+double FormFactorPolyhedron::q_limit_series = 1e-2;
 int FormFactorPolyhedron::n_limit_series = 20;
 
 //***************************************************************************************************
@@ -72,28 +72,43 @@ complex_t PolyhedralEdge::contrib(int m, const cvector_t qpa, complex_t qrperp) 
     complex_t v2 = m_R.dot(qpa);
     complex_t v1 = qrperp;
     complex_t v = v2 + v1;
+#ifdef POLYHEDRAL_DIAGNOSTIC
+    if( diagnosis.debmsg>=5 )
+        std::cout<<std::scientific<<std::showpos<<std::setprecision(16)<<"contrib: u="<<u<<" v1="<<v1<<" v2="<<v2<<"\n";
+#endif
     static auto& precomputed = IPrecomputed::instance();
     if( u==0. ) { // only l=0 contributes
         complex_t ret = 0;
         // expand (q.R)^(m+1), omitting (qperp.R)^(m+1), which contributes nothing
         // under the sum over E*contrib()
         for( int mm=1; mm<=(m+1); ++mm ) {
-            ret += precomputed.reciprocal_factorial[mm] * precomputed.reciprocal_factorial[m+1-mm] *
+            complex_t term = precomputed.reciprocal_factorial[mm] * precomputed.reciprocal_factorial[m+1-mm] *
                 pow(v2, mm) * pow(v1, m+1-mm);
+            ret += term;
+#ifdef POLYHEDRAL_DIAGNOSTIC
+            if( diagnosis.debmsg>=6 )
+                std::cout<<std::scientific<<std::showpos<<std::setprecision(16)<<"contrib mm="<<mm<<" t="<<term<<" s="<<ret<<"\n";
+#endif
         }
         return ret;
-    } else if( v==0. ) { // only 2l=m+1 contributes
+/* TODO RESTORE   } else if( v==0. ) { // only 2l=m+1 contributes
         if( m&1 ) // m is odd
             return precomputed.reciprocal_factorial[m+2] * pow(u, m+1);
         else
             return 0.;
+*/
     } else {
         complex_t ret = 0;
         // expand the l=0 term (q.R)^(m+1), omitting (qperp.R)^(m+1), which contributes nothing
         // under the sum over E*contrib()
         for( int mm=1; mm<=(m+1); ++mm ) {
-            ret += precomputed.reciprocal_factorial[mm] * precomputed.reciprocal_factorial[m+1-mm] *
+            complex_t term = precomputed.reciprocal_factorial[mm] * precomputed.reciprocal_factorial[m+1-mm] *
                 pow(v2, mm) * pow(v1, m+1-mm);
+            ret += term;
+#ifdef POLYHEDRAL_DIAGNOSTIC
+            if( diagnosis.debmsg>=6 )
+                std::cout<<std::scientific<<std::showpos<<std::setprecision(16)<<"contrib mm="<<mm<<" t="<<term<<" s="<<ret<<"\n";
+#endif
         }
         for( int l=1; l<=(m+1)/2; ++l ) {
             complex_t term = precomputed.reciprocal_factorial[m+1-2*l] *
@@ -101,8 +116,8 @@ complex_t PolyhedralEdge::contrib(int m, const cvector_t qpa, complex_t qrperp) 
                 pow(u, 2*l) * pow(v, m+1-2*l);
             ret += term;
 #ifdef POLYHEDRAL_DIAGNOSTIC
-            if( diagnosis.debmsg>=3 )
-                std::cout<<std::scientific<<std::showpos<<std::setprecision(16)<<"DBX C "<<l<<" "<<term<<" sum="<<ret<<"\n";
+            if( diagnosis.debmsg>=6 )
+                std::cout<<std::scientific<<std::showpos<<std::setprecision(16)<<"contrib l="<<l<<" t="<<term<<" s="<<ret<<"\n";
 #endif
         }
         return ret;
@@ -237,7 +252,7 @@ complex_t PolyhedralFace::ff_n_core( int m, const cvector_t qpa, complex_t qperp
         complex_t tmp = e.contrib(m, qpa, qrperp);
         ret += vfac * tmp;
 #ifdef POLYHEDRAL_DIAGNOSTIC
-        if( diagnosis.debmsg>=3 )
+        if( diagnosis.debmsg>=4 )
             std::cout<<std::scientific<<std::showpos<<std::setprecision(16)<<"DBX ff_n_core "<<m<<" "<<vfac<<" "<<tmp<<" term="<<vfac*tmp<<" sum="<<ret<<"\n";
 #endif
     }
@@ -496,7 +511,7 @@ complex_t FormFactorPolyhedron::evaluate_centered( const cvector_t q ) const
                 complex_t tmp = Gk.ff_n( n+1, q );
                 term += tmp;
 #ifdef POLYHEDRAL_DIAGNOSTIC
-                if( diagnosis.debmsg>=3 )
+                if( diagnosis.debmsg>=2 )
                     std::cout<<"DBX                                                      "<<"Gkffn sum="<<term<<" incr="<<tmp<<"\n";
 #endif
             }

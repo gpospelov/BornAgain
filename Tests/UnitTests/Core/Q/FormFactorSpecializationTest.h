@@ -43,7 +43,7 @@ double eps_polyh = 7.5e-13;
 
 TEST_P(FFSpecializationTest, TruncatedCubeAsBox)
 {
-    if( skip_q( 1e-99, 5e3 ) )
+    if( skip_q( 1e-99, 5e2 ) )
         return;
     double L=.5;
     FormFactorTruncatedCube p0(L, 0);

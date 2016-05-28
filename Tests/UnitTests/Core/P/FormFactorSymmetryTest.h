@@ -53,7 +53,7 @@ TEST_P(FFSymmetryTest, Prism6)
         return;
     FormFactorPrism6 p(1.33, .42);
     test_qq_eq( &p, q, q.rotatedZ( Units::PI/3),  1e-12 );
-    test_qq_eq( &p, q, q.rotatedZ(-Units::PI2/3), 4e-12 );
+    test_qq_eq( &p, q, q.rotatedZ(-Units::PI2/3), 3.8e-12 );
 }
 
 TEST_P(FFSymmetryTest, Tetrahedron)
@@ -61,7 +61,7 @@ TEST_P(FFSymmetryTest, Tetrahedron)
     if( skip_q( 1e-99, 2e2 ) )
         return;
     FormFactorTetrahedron p(8.43, .25, .53);
-    test_qq_eq( &p, q, q.rotatedZ(Units::PI2/3), 2e-12 );
+    test_qq_eq( &p, q, q.rotatedZ(Units::PI2/3), 3e-12 );
 }
 
 TEST_P(FFSymmetryTest, Cone6_flat)
@@ -69,7 +69,7 @@ TEST_P(FFSymmetryTest, Cone6_flat)
     if( skip_q( 1e-99, 2e2) ) // TODO for larger q, imag(ff) is nan
         return;
     FormFactorCone6 p(4.3, .09, .1);
-    test_qq_eq( &p, q, q.rotatedZ(-Units::PI/3), 4e-12 );
+    test_qq_eq( &p, q, q.rotatedZ(-Units::PI/3), 3.8e-12 );
 }
 
 TEST_P(FFSymmetryTest, Cone6_steep)

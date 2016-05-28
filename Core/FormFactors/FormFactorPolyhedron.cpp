@@ -43,7 +43,7 @@ static const double eps(2e-16);
 extern Diagnosis diagnosis;
 #endif
 
-double PolyhedralFace::qpa_limit_series = 1e-1;
+double PolyhedralFace::qpa_limit_series = 3e-2;
 int PolyhedralFace::n_limit_series = 20;
 
 double FormFactorPolyhedron::q_limit_series = 1e-2;

@@ -39,7 +39,7 @@ INSTANTIATE_TEST_CASE_P(
 
 //*********** polyhedra ***************
 
-double eps_polyh = 8e-13;
+double eps_polyh = 7.5e-13;
 
 TEST_P(FFSpecializationTest, TruncatedCubeAsBox)
 {

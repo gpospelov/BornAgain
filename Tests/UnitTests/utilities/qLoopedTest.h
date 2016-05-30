@@ -36,7 +36,7 @@ protected:
     cvector_t q;
 
     bool skip_q( double qmag_begin=1e-99, double qmag_end=1e99 ) {
-        return q.mag()<qmag_begin || q.mag()>qmag_end;
+        return q.mag()<=qmag_begin || q.mag()>=qmag_end;
     }
 };
 

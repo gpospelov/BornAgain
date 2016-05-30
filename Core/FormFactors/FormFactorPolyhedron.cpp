@@ -43,10 +43,10 @@ static const double eps(2e-16);
 extern Diagnosis diagnosis;
 #endif
 
-double PolyhedralFace::qpa_limit_series = 1e-2;
+double PolyhedralFace::qpa_limit_series = 3e-2;
 int PolyhedralFace::n_limit_series = 20;
 
-double FormFactorPolyhedron::q_limit_series = 1e-5;
+double FormFactorPolyhedron::q_limit_series = 1e-2;
 int FormFactorPolyhedron::n_limit_series = 20;
 
 //***************************************************************************************************
@@ -66,25 +66,61 @@ PolyhedralEdge::PolyhedralEdge( const kvector_t _Vlow, const kvector_t _Vhig )
 
 //! Returns the contribution of this edge to the form factor.
 
-complex_t PolyhedralEdge::contrib(int m, cvector_t prevec, cvector_t q) const
+complex_t PolyhedralEdge::contrib(int m, const cvector_t qpa, complex_t qrperp) const
 {
-    complex_t prefac = prevec.dot(E()); // conj(prevec)*E [BasicVector3D::dot is antilinear in *this]
-    complex_t u = qE(q);
-    complex_t v = qR(q);
+    complex_t u = qE(qpa);
+    complex_t v2 = m_R.dot(qpa);
+    complex_t v1 = qrperp;
+    complex_t v = v2 + v1;
+#ifdef POLYHEDRAL_DIAGNOSTIC
+    if( diagnosis.debmsg>=5 )
+        std::cout<<std::scientific<<std::showpos<<std::setprecision(16)<<"contrib: u="<<u<<" v1="<<v1<<" v2="<<v2<<"\n";
+#endif
     static auto& precomputed = IPrecomputed::instance();
     if( u==0. ) { // only l=0 contributes
-        return prefac * pow(v, m+1) / precomputed.factorial[m+1];
-    } else if( v==0. ) { // only 2l=m+1 contributes
+        complex_t ret = 0;
+        // expand (q.R)^(m+1), omitting (qperp.R)^(m+1), which contributes nothing
+        // under the sum over E*contrib()
+        for( int mm=1; mm<=(m+1); ++mm ) {
+            complex_t term = precomputed.reciprocal_factorial[mm] * precomputed.reciprocal_factorial[m+1-mm] *
+                pow(v2, mm) * pow(v1, m+1-mm);
+            ret += term;
+#ifdef POLYHEDRAL_DIAGNOSTIC
+            if( diagnosis.debmsg>=6 )
+                std::cout<<std::scientific<<std::showpos<<std::setprecision(16)<<"contrib mm="<<mm<<" t="<<term<<" s="<<ret<<"\n";
+#endif
+        }
+        return ret;
+/* TODO RESTORE   } else if( v==0. ) { // only 2l=m+1 contributes
         if( m&1 ) // m is odd
-            return prefac * pow(u, m+1) / precomputed.factorial[m+2];
+            return precomputed.reciprocal_factorial[m+2] * pow(u, m+1);
         else
             return 0.;
+*/
     } else {
         complex_t ret = 0;
-        for( int l=0; l<=(m+1)/2; ++l )
-            ret += pow(u, 2*l) * pow(v, m+1-2*l) /
-                precomputed.factorial[m+1-2*l] / precomputed.factorial[2*l+1];
-        return prefac * ret;
+        // expand the l=0 term (q.R)^(m+1), omitting (qperp.R)^(m+1), which contributes nothing
+        // under the sum over E*contrib()
+        for( int mm=1; mm<=(m+1); ++mm ) {
+            complex_t term = precomputed.reciprocal_factorial[mm] * precomputed.reciprocal_factorial[m+1-mm] *
+                pow(v2, mm) * pow(v1, m+1-mm);
+            ret += term;
+#ifdef POLYHEDRAL_DIAGNOSTIC
+            if( diagnosis.debmsg>=6 )
+                std::cout<<std::scientific<<std::showpos<<std::setprecision(16)<<"contrib mm="<<mm<<" t="<<term<<" s="<<ret<<"\n";
+#endif
+        }
+        for( int l=1; l<=(m+1)/2; ++l ) {
+            complex_t term = precomputed.reciprocal_factorial[m+1-2*l] *
+                precomputed.reciprocal_factorial[2*l+1] *
+                pow(u, 2*l) * pow(v, m+1-2*l);
+            ret += term;
+#ifdef POLYHEDRAL_DIAGNOSTIC
+            if( diagnosis.debmsg>=6 )
+                std::cout<<std::scientific<<std::showpos<<std::setprecision(16)<<"contrib l="<<l<<" t="<<term<<" s="<<ret<<"\n";
+#endif
+        }
+        return ret;
     }
 }
 
@@ -198,12 +234,28 @@ void PolyhedralFace::decompose_q( const cvector_t q, complex_t& qperp, cvector_t
 
 //! Returns core contribution to f_n
 
-complex_t PolyhedralFace::ff_n_core( int m, const cvector_t q ) const
+complex_t PolyhedralFace::ff_n_core( int m, const cvector_t qpa, complex_t qperp ) const
 {
-    cvector_t prevec = 2.*m_normal.cross( q ); // complex conjugation will take place in .dot
+    cvector_t prevec = 2.*m_normal.cross( qpa ); // complex conjugation will take place in .dot
     complex_t ret = 0;
-    for( const PolyhedralEdge& e: edges ) // TODO improve accuracy as in qpa expansion
-        ret += e.contrib(m, prevec, q);
+    complex_t vfacsum = 0;
+    complex_t qrperp = qperp * m_rperp;
+    for( size_t i=0; i<edges.size(); ++i ) {
+        const PolyhedralEdge& e = edges[i];
+        complex_t vfac;
+        if( sym_S2 || i<edges.size()-1 ) {
+            vfac = prevec.dot(e.E());
+            vfacsum += vfac;
+        } else {
+            vfac = - vfacsum; // to improve numeric accuracy: qcE_J = - sum_{j=0}^{J-1} qcE_j
+        }
+        complex_t tmp = e.contrib(m, qpa, qrperp);
+        ret += vfac * tmp;
+#ifdef POLYHEDRAL_DIAGNOSTIC
+        if( diagnosis.debmsg>=4 )
+            std::cout<<std::scientific<<std::showpos<<std::setprecision(16)<<"DBX ff_n_core "<<m<<" "<<vfac<<" "<<tmp<<" term="<<vfac*tmp<<" sum="<<ret<<"\n";
+#endif
+    }
     return ret;
 }
 
@@ -211,7 +263,7 @@ complex_t PolyhedralFace::ff_n_core( int m, const cvector_t q ) const
 
 complex_t PolyhedralFace::ff_n( int n, const cvector_t q ) const
 {
-    complex_t qn = q.dot(m_normal); // conj(q)*normal (BasicVector3D::dot is antilinear in 'this' argument)
+    complex_t qn = q.dot(m_normal); // conj(q)*normal (dot is antilinear in 'this' argument)
     if ( std::abs(qn)<eps*q.mag() )
         return 0.;
     complex_t qperp;
@@ -222,9 +274,14 @@ complex_t PolyhedralFace::ff_n( int n, const cvector_t q ) const
     if ( qpa_mag2==0. ) {
         return qn * pow(qperp*m_rperp, n) * m_area / precomputed.factorial[n];
     } else if ( sym_S2 ) {
-        return qn * ( ff_n_core( n, q ) + ff_n_core( n, qperp*m_normal-qpa ) ) / qpa_mag2;
+        return qn * ( ff_n_core( n, qpa, qperp ) + ff_n_core( n, -qpa, qperp ) ) / qpa_mag2;
     } else {
-        return qn * ff_n_core( n, q ) / qpa_mag2;
+        complex_t tmp = ff_n_core( n, qpa, qperp );
+#ifdef POLYHEDRAL_DIAGNOSTIC
+        if( diagnosis.debmsg>=3 )
+            std::cout<<"DBX ff_n "<<n<<" "<<qn<<" "<<tmp<<" "<<qpa_mag2<<"\n";
+#endif
+        return qn * tmp / qpa_mag2;
     }
 }
 
@@ -243,7 +300,7 @@ complex_t PolyhedralFace::expansion(
 #ifdef POLYHEDRAL_DIAGNOSTIC
         diagnosis.maxOrder = std::max( diagnosis.maxOrder, n );
 #endif
-        complex_t term = n_fac * ( n&1 ? fac_odd : fac_even ) * ff_n_core(n, qpa) / qpa.mag2();
+        complex_t term = n_fac * ( n&1 ? fac_odd : fac_even ) * ff_n_core(n, qpa, 0) / qpa.mag2();
 #ifdef POLYHEDRAL_DIAGNOSTIC
         if( diagnosis.debmsg>=2 )
             std::cout<<std::setprecision(16)<<"    sum="<<sum<<" +term="<<term<<"\n";
@@ -450,12 +507,18 @@ complex_t FormFactorPolyhedron::evaluate_centered( const cvector_t q ) const
             diagnosis.maxOrder = std::max( diagnosis.maxOrder, n );
 #endif
             complex_t term = 0;
-            for( const PolyhedralFace& Gk: m_faces )
-                term += Gk.ff_n( n+1, q );
+            for( const PolyhedralFace& Gk: m_faces ) {
+                complex_t tmp = Gk.ff_n( n+1, q );
+                term += tmp;
+#ifdef POLYHEDRAL_DIAGNOSTIC
+                if( diagnosis.debmsg>=2 )
+                    std::cout<<"DBX                                                      "<<"Gkffn sum="<<term<<" incr="<<tmp<<"\n";
+#endif
+            }
             term *= n_fac;
 #ifdef POLYHEDRAL_DIAGNOSTIC
             if( diagnosis.debmsg>=1 )
-                std::cout<<std::setprecision(16)<<"  SUM="<<sum<<" +TERM="<<term<<"\n";
+                std::cout<<std::scientific<<std::showpos<<std::setprecision(16)<<"  SUM="<<m_volume+sum<<" +TERM="<<term<<"\n";
 #endif
             sum += term;
             if( std::abs(term)<=eps*std::abs(sum) || std::abs(sum)<eps*m_volume )
@@ -467,8 +530,10 @@ complex_t FormFactorPolyhedron::evaluate_centered( const cvector_t q ) const
             n_fac = m_sym_Ci ? -n_fac : mul_I(n_fac);
         }
 #ifdef POLYHEDRAL_DIAGNOSTIC
-        if( !diagnosis.request_convergence )
-            return sum;
+        if( !diagnosis.request_convergence ) {
+            std::cout<<"series F(q) not converged\n";
+            return m_volume+sum;
+        }
 #endif
         throw std::runtime_error("Bug in formfactor computation: series F(q) not converged");
     } else {

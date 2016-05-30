@@ -26,4 +26,8 @@ Precomputed::Precomputed()
         factorial.push_back( fac );
         fac *= k;
     }
+    // Precompute the reciprocal factorial: reciprocal_factorial[k] = 1/k!
+    for( size_t k=0; k<factorial.size(); ++k ){
+        reciprocal_factorial.push_back( 1/factorial[k] );
+    }
 }

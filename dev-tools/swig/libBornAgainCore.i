@@ -71,6 +71,7 @@
 #include "BasicVector3D.h"
 #include "Beam.h"
 #include "Bin.h"
+#include "Complex.h"
 #include "ConstKBinAxis.h"
 #include "Crystal.h"
 #include "CustomBinAxis.h"
@@ -196,7 +197,7 @@
 #include "SpecularSimulation.h"
 #include "SphericalDetector.h"
 #include "ThreadInfo.h"
-#include "Types.h"
+#include "VDouble.h"
 #include "Vectors3D.h"
 #include "Units.h"
 #include "VariableBinAxis.h"
@@ -220,8 +221,9 @@
 %template(cvector_t) Geometry::BasicVector3D<std::complex<double> >;
 %template(vector_cvector_t) std::vector< Geometry::BasicVector3D<std::complex<double> > >;
 
-%include "Types.h"
+%include "Complex.h"
 %include "Units.h"
+%include "VDouble.h"
 %include "Vectors3D.h"
 %include "WavevectorInfo.h"
 

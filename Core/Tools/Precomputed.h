@@ -18,13 +18,12 @@
 
 //! This class contains precomputed constants.
 
-//! So far, the only contents is factorial, used in the polyhedral form factor.
-
 class Precomputed
 {
 public:
     Precomputed(); //!< Constructor, precomputes everything.
     std::vector<double> factorial; //!< factorial[k] = k! for k=0,1,...,170 (for IEEE double).
+    std::vector<double> reciprocal_factorial; //!< 1/k!
 };
 
 //! This singleton interface class gives access to the precomputed constants.

@@ -8,7 +8,8 @@ from matplotlib import pyplot as plt
 import matplotlib.gridspec as gridspec
 import math
 import random
-from bornagain import *
+import bornagain as ba
+from bornagain import degree, angstrom, nanometer
 
 
 def get_sample(radius_a=4.0*nanometer, radius_b=4.0*nanometer, height=4.0*nanometer):
@@ -16,21 +17,21 @@ def get_sample(radius_a=4.0*nanometer, radius_b=4.0*nanometer, height=4.0*nanome
     Build the sample representing cylinders and pyramids on top of
     substrate without interference.
     """
-    m_air = HomogeneousMaterial("Air", 0.0, 0.0)
-    m_substrate = HomogeneousMaterial("Substrate", 6e-6, 2e-8)
-    m_particle = HomogeneousMaterial("Particle", 6e-4, 2e-8)
+    m_air = ba.HomogeneousMaterial("Air", 0.0, 0.0)
+    m_substrate = ba.HomogeneousMaterial("Substrate", 6e-6, 2e-8)
+    m_particle = ba.HomogeneousMaterial("Particle", 6e-4, 2e-8)
 
-    formFactor = FormFactorHemiEllipsoid(radius_a, radius_b, height)
-    hemiEllipsoid = Particle(m_particle, formFactor)
+    formFactor = ba.FormFactorHemiEllipsoid(radius_a, radius_b, height)
+    hemiEllipsoid = ba.Particle(m_particle, formFactor)
 
-    particle_layout = ParticleLayout()
+    particle_layout = ba.ParticleLayout()
     particle_layout.addParticle(hemiEllipsoid)
 
-    air_layer = Layer(m_air)
+    air_layer = ba.Layer(m_air)
     air_layer.addLayout(particle_layout)
 
-    substrate_layer = Layer(m_substrate, 0)
-    multi_layer = MultiLayer()
+    substrate_layer = ba.Layer(m_substrate, 0)
+    multi_layer = ba.MultiLayer()
     multi_layer.addLayer(air_layer)
     multi_layer.addLayer(substrate_layer)
     return multi_layer
@@ -40,7 +41,7 @@ def get_simulation(incident_alpha=0.2):
     """
     Create and return GISAXS simulation with beam and detector defined
     """
-    simulation = GISASSimulation()
+    simulation = ba.GISASSimulation()
     simulation.setDetectorParameters(50, -1.5*degree, 1.5*degree, 50, 0.0*degree, 2.0*degree)
     simulation.setBeamParameters(1.0*angstrom, incident_alpha, 0.0*degree)
     return simulation
@@ -70,12 +71,12 @@ def create_real_data(incident_alpha):
     return real_data
 
 
-class DrawObserver(IFitObserver):
+class DrawObserver(ba.IFitObserver):
     """
     Draws fit progress every nth iteration. Real data, simulated data and chi2 map will be shown for both datasets.
     """
     def __init__(self, draw_every_nth=10):
-        IFitObserver.__init__(self, draw_every_nth)
+        ba.IFitObserver.__init__(self, draw_every_nth)
         self.fig = plt.figure(figsize=(12.8, 10.24))
         self.fig.canvas.draw()
         plt.ion()
@@ -83,7 +84,7 @@ class DrawObserver(IFitObserver):
     def plot_colormap(self, data, title, min=1, max=1e6):
         im = plt.imshow(data.getArray(),
                         norm=matplotlib.colors.LogNorm(min, max),
-                        extent=[data.getXmin()/deg, data.getXmax()/deg, data.getYmin()/deg, data.getYmax()/deg],
+                        extent=[data.getXmin()/degree, data.getXmax()/degree, data.getYmin()/degree, data.getYmax()/degree],
                         aspect='auto')
         plt.colorbar(im)
         plt.title(title)
@@ -135,7 +136,7 @@ def run_fitting():
     """
 
     incident_alpha_angles = [0.1*degree, 0.4*degree]
-    fit_suite = FitSuite()
+    fit_suite = ba.FitSuite()
     sample = get_sample()
 
     for alpha in incident_alpha_angles:
@@ -149,9 +150,9 @@ def run_fitting():
     fit_suite.attachObserver(draw_observer)
 
     # setting fitting parameters with starting values
-    fit_suite.addFitParameter("*/HemiEllipsoid/RadiusX", 4.*nanometer, AttLimits.limited(2., 10.))
-    fit_suite.addFitParameter("*/HemiEllipsoid/RadiusY", 6.*nanometer, AttLimits.fixed())
-    fit_suite.addFitParameter("*/HemiEllipsoid/Height", 4.*nanometer, AttLimits.limited(2., 10.))
+    fit_suite.addFitParameter("*/HemiEllipsoid/RadiusX", 4.*nanometer, ba.AttLimits.limited(2., 10.))
+    fit_suite.addFitParameter("*/HemiEllipsoid/RadiusY", 6.*nanometer, ba.AttLimits.fixed())
+    fit_suite.addFitParameter("*/HemiEllipsoid/Height", 4.*nanometer, ba.AttLimits.limited(2., 10.))
 
     # running fit
     fit_suite.runFit()

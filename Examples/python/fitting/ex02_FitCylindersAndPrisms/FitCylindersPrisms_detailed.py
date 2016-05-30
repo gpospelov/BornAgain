@@ -1,6 +1,6 @@
 """
 Fitting example: 4 parameters fit with simple output
-This is more detailed version of FitCylindersPrisms.py. We show how to generate "real" data and how to draw fit progress.
+This is more detailed version of ba.FitCylindersPrisms.py. We show how to generate "real" data and how to draw fit progress.
 Please take a note, that performance here is determined by poor performance of matplotlib drawing routines.
 """
 
@@ -8,7 +8,8 @@ import matplotlib
 from matplotlib import pyplot as plt
 import math
 import random
-from bornagain import *
+import bornagain as ba
+from bornagain import degree, angstrom, nanometer
 
 
 def get_sample(cylinder_height=1.0*nanometer, cylinder_radius=1.0*nanometer,
@@ -18,26 +19,26 @@ def get_sample(cylinder_height=1.0*nanometer, cylinder_radius=1.0*nanometer,
     substrate without interference.
     """
     # defining materials
-    m_air = HomogeneousMaterial("Air", 0.0, 0.0)
-    m_substrate = HomogeneousMaterial("Substrate", 6e-6, 2e-8)
-    m_particle = HomogeneousMaterial("Particle", 6e-4, 2e-8)
+    m_air = ba.HomogeneousMaterial("Air", 0.0, 0.0)
+    m_substrate = ba.HomogeneousMaterial("Substrate", 6e-6, 2e-8)
+    m_particle = ba.HomogeneousMaterial("Particle", 6e-4, 2e-8)
 
     # collection of particles
-    cylinder_ff = FormFactorCylinder(cylinder_radius, cylinder_height)
-    cylinder = Particle(m_particle, cylinder_ff)
-    prism_ff = FormFactorPrism3(prism_length, prism_height)
-    prism = Particle(m_particle, prism_ff)
-    particle_layout = ParticleLayout()
+    cylinder_ff = ba.FormFactorCylinder(cylinder_radius, cylinder_height)
+    cylinder = ba.Particle(m_particle, cylinder_ff)
+    prism_ff = ba.FormFactorPrism3(prism_length, prism_height)
+    prism = ba.Particle(m_particle, prism_ff)
+    particle_layout = ba.ParticleLayout()
     particle_layout.addParticle(cylinder, 0.5)
     particle_layout.addParticle(prism, 0.5)
-    interference = InterferenceFunctionNone()
+    interference = ba.InterferenceFunctionNone()
     particle_layout.addInterferenceFunction(interference)
 
     # air layer with particles and substrate form multi layer
-    air_layer = Layer(m_air)
+    air_layer = ba.Layer(m_air)
     air_layer.addLayout(particle_layout)
-    substrate_layer = Layer(m_substrate, 0)
-    multi_layer = MultiLayer()
+    substrate_layer = ba.Layer(m_substrate, 0)
+    multi_layer = ba.MultiLayer()
     multi_layer.addLayer(air_layer)
     multi_layer.addLayer(substrate_layer)
     return multi_layer
@@ -75,21 +76,21 @@ def get_simulation():
     """
     Create GISAXS simulation with beam and detector defined
     """
-    simulation = GISASSimulation()
+    simulation = ba.GISASSimulation()
     simulation.setDetectorParameters(100, -1.0*degree, 1.0*degree, 100, 0.0*degree, 2.0*degree)
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
     return simulation
 
 
-class DrawObserver(IFitObserver):
+class DrawObserver(ba.IFitObserver):
     """
-    Draws fit progress every nth iteration. This class  has to be attached to FitSuite via attachObserver method.
-    FitSuite kernel will call DrawObserver's update() method every n'th iteration.
+    Draws fit progress every nth iteration. This class  has to be attached to ba.FitSuite via attachObserver method.
+    ba.FitSuite kernel will call DrawObserver's update() method every n'th iteration.
     It is up to the user what to do here.
     """
 
     def __init__(self, draw_every_nth=10):
-        IFitObserver.__init__(self, draw_every_nth)
+        ba.IFitObserver.__init__(self, draw_every_nth)
         self.fig = plt.figure(figsize=(10.25, 7.69))
         self.fig.canvas.draw()
         plt.ion()
@@ -99,7 +100,7 @@ class DrawObserver(IFitObserver):
         plt.subplots_adjust(wspace=0.2, hspace=0.2)
         im = plt.imshow(data.getArray(),
                         norm=matplotlib.colors.LogNorm(min, max),
-                        extent=[data.getXmin()/deg, data.getXmax()/deg, data.getYmin()/deg, data.getYmax()/deg])
+                        extent=[data.getXmin()/degree, data.getXmax()/degree, data.getYmin()/degree, data.getYmax()/degree])
         plt.colorbar(im)
         plt.title(title)
 
@@ -138,10 +139,10 @@ def run_fitting():
 
     real_data = create_real_data()
 
-    fit_suite = FitSuite()
+    fit_suite = ba.FitSuite()
     fit_suite.addSimulationAndRealData(simulation, real_data)
 
-    # fit_suite.setMinimizer("Minuit2", "Migrad")  # Default
+    # fit_suite.setMinimizer("Minuit2", "Migrad")  # ba.Default
     # fit_suite.setMinimizer("Minuit2", "Fumili")
     # fit_suite.setMinimizer("GSLLMA")
 
@@ -151,10 +152,10 @@ def run_fitting():
     fit_suite.attachObserver(draw_observer)
 
     # setting fitting parameters with starting values
-    fit_suite.addFitParameter("*Cylinder/Height", 4.*nanometer, AttLimits.lowerLimited(0.01))
-    fit_suite.addFitParameter("*Cylinder/Radius", 6.*nanometer, AttLimits.lowerLimited(0.01))
-    fit_suite.addFitParameter("*Prism3/Height", 4.*nanometer, AttLimits.lowerLimited(0.01))
-    fit_suite.addFitParameter("*Prism3/BaseEdge", 12.*nanometer, AttLimits.lowerLimited(0.01))
+    fit_suite.addFitParameter("*Cylinder/Height", 4.*nanometer, ba.AttLimits.lowerLimited(0.01))
+    fit_suite.addFitParameter("*Cylinder/Radius", 6.*nanometer, ba.AttLimits.lowerLimited(0.01))
+    fit_suite.addFitParameter("*Prism3/Height", 4.*nanometer, ba.AttLimits.lowerLimited(0.01))
+    fit_suite.addFitParameter("*Prism3/BaseEdge", 12.*nanometer, ba.AttLimits.lowerLimited(0.01))
 
     # running fit
     fit_suite.runFit()

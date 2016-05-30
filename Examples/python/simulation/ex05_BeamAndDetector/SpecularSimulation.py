@@ -1,10 +1,11 @@
 """
-R and T coefficients in multilayer, Specular simulation.
+R and T coefficients in multilayer, ba.Specular simulation.
 """
 import numpy
 import matplotlib
 from matplotlib import pyplot as plt
-from bornagain import *
+import bornagain as ba
+from bornagain import degree, angstrom, nanometer
 
 alpha_i_min, alpha_i_max = 0.0, 2.0  # incoming beam
 
@@ -13,22 +14,22 @@ def get_sample():
     """
     Build and return the sample representing the layers with correlated roughness.
     """
-    m_ambience = HomogeneousMaterial("ambience", 0.0, 0.0)
-    m_part_a = HomogeneousMaterial("PartA", 5e-6, 0.0)
-    m_part_b = HomogeneousMaterial("PartB", 10e-6, 0.0)
-    m_substrate = HomogeneousMaterial("substrate", 15e-6, 0.0)
+    m_ambience = ba.HomogeneousMaterial("ambience", 0.0, 0.0)
+    m_part_a = ba.HomogeneousMaterial("PartA", 5e-6, 0.0)
+    m_part_b = ba.HomogeneousMaterial("PartB", 10e-6, 0.0)
+    m_substrate = ba.HomogeneousMaterial("substrate", 15e-6, 0.0)
 
-    l_ambience = Layer(m_ambience)
-    l_part_a = Layer(m_part_a, 5.0*nanometer)
-    l_part_b = Layer(m_part_b, 10.0*nanometer)
-    l_substrate = Layer(m_substrate)
+    l_ambience = ba.Layer(m_ambience)
+    l_part_a = ba.Layer(m_part_a, 5.0*nanometer)
+    l_part_b = ba.Layer(m_part_b, 10.0*nanometer)
+    l_substrate = ba.Layer(m_substrate)
 
-    roughness = LayerRoughness()
+    roughness = ba.LayerRoughness()
     roughness.setSigma(1.0*nanometer)
     roughness.setHurstParameter(0.3)
     roughness.setLatteralCorrLength(500.0*nanometer)
 
-    my_sample = MultiLayer()
+    my_sample = ba.MultiLayer()
 
     # adding layers
     my_sample.addLayer(l_ambience)
@@ -48,7 +49,7 @@ def get_simulation():
     """
     Create and return specular simulation with beam and detector defined
     """
-    simulation = SpecularSimulation()
+    simulation = ba.SpecularSimulation()
     simulation.setBeamParameters(1.54*angstrom, 1000, alpha_i_min*degree, alpha_i_max*degree)
     return simulation
 

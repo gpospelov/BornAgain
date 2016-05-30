@@ -30,9 +30,6 @@
 #include "MathFunctions.h"
 #include "BornAgainNamespace.h"
 
-typedef std::complex<double> complex_t;
-typedef Geometry::BasicVector3D<complex_t> cvector_t;
-typedef Geometry::BasicVector3D<double> kvector_t;
 #include "IFormFactorBorn.h"
 #include "FormFactorPolyhedron.h"
 

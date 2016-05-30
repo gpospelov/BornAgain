@@ -11,7 +11,7 @@ phi_min, phi_max = -1.0, 1.0
 alpha_min, alpha_max = 0.0, 2.0
 
 
-def get_sample(lattice_rotation_angle=45.0*deg):
+def get_sample(lattice_rotation_angle=45.0*degree):
     """
     Build and return the sample representing 1D grating made out from a very long boxes
     """

@@ -5,6 +5,7 @@ import numpy
 import matplotlib
 from matplotlib import pyplot as plt
 from bornagain import *
+from bornagain import micrometer
 
 phi_min, phi_max = -2.0, 2.0
 alpha_min, alpha_max = 0.0, 2.0

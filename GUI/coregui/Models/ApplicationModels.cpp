@@ -20,6 +20,7 @@
 #include "MaterialSvc.h"
 #include "InstrumentModel.h"
 #include "SampleModel.h"
+#include "RealDataModel.h"
 #include "JobModel.h"
 #include "IconProvider.h"
 #include "SampleBuilderFactory.h"
@@ -37,6 +38,7 @@ ApplicationModels::ApplicationModels(QObject *parent)
     , m_materialSvc(0)
     , m_instrumentModel(0)
     , m_sampleModel(0)
+    , m_realDataModel(0)
     , m_jobModel(0)
 {
     createModels();
@@ -75,6 +77,11 @@ SampleModel *ApplicationModels::sampleModel()
     return m_sampleModel;
 }
 
+RealDataModel *ApplicationModels::realDataModel()
+{
+    return m_realDataModel;
+}
+
 JobModel *ApplicationModels::jobModel()
 {
     return m_jobModel;
@@ -99,6 +106,8 @@ void ApplicationModels::resetModels()
 
     m_sampleModel->clear();
 
+    m_realDataModel->clear();
+
     m_jobModel->clear();
 
     m_instrumentModel->clear();
@@ -118,6 +127,8 @@ void ApplicationModels::createModels()
     createSampleModel();
 
     createInstrumentModel();
+
+    createRealDataModel();
 
     createJobModel();
 
@@ -147,6 +158,13 @@ void ApplicationModels::createSampleModel()
     connectModel(m_sampleModel);
     connect(m_materialModel, SIGNAL(dataChanged(QModelIndex,QModelIndex)),
             m_sampleModel, SLOT(onMaterialModelChanged(QModelIndex,QModelIndex)));
+}
+
+void ApplicationModels::createRealDataModel()
+{
+    delete m_realDataModel;
+    m_realDataModel = new RealDataModel(this);
+    connectModel(m_realDataModel);
 }
 
 void ApplicationModels::createJobModel()

@@ -28,6 +28,7 @@ ImportDataView::ImportDataView(MainWindow *mainWindow)
     , m_splitter(new QSplitter(this))
     , m_selectorWidget(new RealDataSelectorWidget(this))
     , m_stackedWidget(new QStackedWidget(this))
+    , m_realDataModel(mainWindow->realDataModel())
 {
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->setMargin(0);
@@ -43,4 +44,28 @@ ImportDataView::ImportDataView(MainWindow *mainWindow)
     mainLayout->addWidget(m_splitter);
 
     setLayout(mainLayout);
+
+    setupConnections();
+}
+
+void ImportDataView::setupConnections()
+{
+//    connect(m_selectorWidget,
+//        SIGNAL(selectionChanged(const QItemSelection&, const QItemSelection&)),
+//        this,
+//        SLOT(onSelectionChanged(const QItemSelection&, const QItemSelection&))
+//        );
+
+//    connect(m_realDataModel,
+//            SIGNAL(modelAboutToBeReset()),
+//            this,
+//            SLOT(resetView())
+//            );
+
+//    connect(m_instrumentModel,
+//            SIGNAL(rowsAboutToBeRemoved(QModelIndex, int,int)),
+//            this,
+//            SLOT(onRowsAboutToBeRemoved(QModelIndex,int,int))
+//            );
+
 }

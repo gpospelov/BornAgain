@@ -39,6 +39,7 @@ class MaterialModel;
 class MaterialSvc;
 class SampleModel;
 class InstrumentModel;
+class RealDataModel;
 class JobModel;
 class ObsoleteFitModel;
 class ApplicationModels;
@@ -61,6 +62,7 @@ public:
     MaterialModel *materialModel();
     InstrumentModel *instrumentModel();
     SampleModel *sampleModel();
+    RealDataModel *realDataModel();
     JobModel *jobModel();
     ObsoleteFitModel *fitModel();
     ApplicationModels *models();

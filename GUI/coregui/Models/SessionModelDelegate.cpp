@@ -87,6 +87,7 @@ void SessionModelDelegate::setEditorData(QWidget *editor, const QModelIndex &ind
 
 void SessionModelDelegate::onComboPropertyChanged(const ComboProperty &property)
 {
+    Q_UNUSED(property);
     ComboPropertyEdit *editor = qobject_cast<ComboPropertyEdit *>(sender());
     Q_ASSERT(editor);
     emit commitData(editor);

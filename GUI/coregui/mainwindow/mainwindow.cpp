@@ -94,6 +94,11 @@ SampleModel *MainWindow::sampleModel()
     return models()->sampleModel();
 }
 
+RealDataModel *MainWindow::realDataModel()
+{
+    return models()->realDataModel();
+}
+
 JobModel *MainWindow::jobModel()
 {
     return models()->jobModel();

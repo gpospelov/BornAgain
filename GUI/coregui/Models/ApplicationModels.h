@@ -25,6 +25,7 @@ class DocumentModel;
 class MaterialModel;
 class MaterialSvc;
 class InstrumentModel;
+class RealDataModel;
 class SampleModel;
 class JobModel;
 class ObsoleteFitModel;
@@ -40,6 +41,7 @@ public:
     MaterialModel *materialModel();
     InstrumentModel *instrumentModel();
     SampleModel *sampleModel();
+    RealDataModel *realDataModel();
     JobModel *jobModel();
     ObsoleteFitModel *fitModel();
 
@@ -57,6 +59,7 @@ private:
     void createMaterialModel();
     void createInstrumentModel();
     void createSampleModel();
+    void createRealDataModel();
     void createJobModel();
 
     void disconnectModel(SessionModel *model);
@@ -67,6 +70,7 @@ private:
     MaterialSvc *m_materialSvc;
     InstrumentModel *m_instrumentModel;
     SampleModel *m_sampleModel;
+    RealDataModel *m_realDataModel;
     JobModel *m_jobModel;
 };
 

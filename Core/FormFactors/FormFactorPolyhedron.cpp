@@ -88,13 +88,12 @@ complex_t PolyhedralEdge::contrib(int m, const cvector_t qpa, complex_t qrperp) 
 #endif
         }
         return ret;
-/* TODO RESTORE   } else if( v==0. ) { // only 2l=m+1 contributes
+/*    } else if( v==0. ) { // only 2l=m+1 contributes
         if( m&1 ) // m is odd
-            return precomputed.reciprocal_factorial[m+2] * pow(u, m+1);
+            return precomputed.reciprocal_factorial[m+1] * ( pow(u, m+1) - pow(v1, m+1) );
         else
             return 0.;
-*/
-    } else {
+*/    } else {
         complex_t ret = 0;
         // expand the l=0 term (q.R)^(m+1), omitting (qperp.R)^(m+1), which contributes nothing
         // under the sum over E*contrib()

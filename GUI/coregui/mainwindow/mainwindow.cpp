@@ -18,11 +18,18 @@
 #include "fancytabwidget.h"
 #include "manhattanstyle.h"
 #include "actionmanager.h"
+
 #include "WelcomeView.h"
-#include "SampleView.h"
-#include "JobQueueData.h"
 #include "InstrumentView.h"
+#include "SampleView.h"
+#include "ImportDataView.h"
 #include "SimulationView.h"
+#include "JobView.h"
+#include "TestView.h"
+#include "SessionModelView.h"
+#include "TestFitWidgets.h"
+
+#include "JobQueueData.h"
 #include "stylehelper.h"
 #include "JobModel.h"
 #include "ApplicationModels.h"
@@ -32,14 +39,10 @@
 #include "progressbar.h"
 #include "tooltipdatabase.h"
 #include "mainwindow_constants.h"
-#include "JobView.h"
 #include "aboutapplicationdialog.h"
 #include "ObsoleteFitView.h"
-#include "TestView.h"
 #include "GUIHelpers.h"
 #include "UpdateNotifier.h"
-#include "TestFitWidgets.h"
-#include "SessionModelView.h"
 
 #include <QApplication>
 #include <QStatusBar>
@@ -61,6 +64,7 @@ MainWindow::MainWindow(QWidget *parent)
     , m_welcomeView(0)
     , m_instrumentView(0)
     , m_sampleView(0)
+    , m_importDataView(0)
     , m_simulationView(0)
     , m_jobView(0)
     , m_sessionModelView(0)
@@ -172,7 +176,7 @@ void MainWindow::onAboutApplication()
 }
 
 //! Inserts/removes developers SessionModelView on the left fancy tabbar.
-//! This SessionModelView will be known for the tab under MAXVIEWCOUNT id (so it is last one)
+//! This SessionModelView will be known for the tab under MAXVIEWCOUNT id (so it is the last one)
 void MainWindow::onSessionModelViewActive(bool isActive)
 {
     qDebug() << "MainWindow::onSessionModelViewActive" << isActive;
@@ -209,13 +213,10 @@ void MainWindow::closeEvent(QCloseEvent *event)
         return;
     }
 
-    if(m_projectManager->closeCurrentProject())
-    {
+    if(m_projectManager->closeCurrentProject()) {
         writeSettings();
         event->accept();
-    }
-    else
-    {
+    } else {
         event->ignore();
     }
 }
@@ -258,6 +259,7 @@ void MainWindow::initViews()
     m_welcomeView = new WelcomeView(this);
     m_instrumentView = new InstrumentView(instrumentModel());
     m_sampleView = new SampleView(sampleModel(), instrumentModel());
+    m_importDataView = new ImportDataView(this);
     m_simulationView = new SimulationView(this);
 
     m_jobView = new JobView(this);
@@ -269,6 +271,8 @@ void MainWindow::initViews()
     m_tabWidget->insertTab(WELCOME, m_welcomeView, QIcon(":/images/main_home.png"), "Welcome");
     m_tabWidget->insertTab(INSTRUMENT, m_instrumentView, QIcon(":/images/main_instrument.png"), "Instrument");
     m_tabWidget->insertTab(SAMPLE, m_sampleView, QIcon(":/images/main_sample.png"), "Sample");
+    m_tabWidget->insertTab(IMPORT, m_importDataView, QIcon(":/images/main_sample.png"), "Import");
+
     m_tabWidget->insertTab(SIMULATION, m_simulationView, QIcon(":/images/main_simulation.png"), "Simulation");
     m_tabWidget->insertTab(JOB, m_jobView, QIcon(":/images/main_jobqueue.png"), "Jobs");
     //m_tabWidget->insertTab(FIT, m_fitView, QIcon(":/images/main_jobqueue.png"), "Fit");

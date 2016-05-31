@@ -29,6 +29,7 @@ namespace Manhattan {
 class WelcomeView;
 class InstrumentView;
 class SampleView;
+class ImportDataView;
 class SimulationView;
 class JobView;
 class SessionModelView;
@@ -53,7 +54,7 @@ class BA_CORE_API_ MainWindow : public Manhattan::FancyMainWindow
     Q_OBJECT
 
 public:
-    enum ETabViewId {WELCOME, INSTRUMENT, SAMPLE, SIMULATION, JOB, TESTVIEW, MAXVIEWCOUNT};
+    enum ETabViewId {WELCOME, INSTRUMENT, SAMPLE, IMPORT, SIMULATION, JOB, TESTVIEW, MAXVIEWCOUNT};
 
     explicit MainWindow(QWidget *parent = 0);
 
@@ -87,6 +88,10 @@ private:
     void initApplication();
     void initProgressBar();
     void initViews();
+    void initWelcomeView();
+    void initInstrumentView();
+    void initSampleView();
+
     void readSettings();
     void writeSettings();
     void initConnections();
@@ -103,6 +108,7 @@ private:
     WelcomeView *m_welcomeView;
     InstrumentView *m_instrumentView;
     SampleView *m_sampleView;
+    ImportDataView *m_importDataView;
     SimulationView *m_simulationView;
     JobView *m_jobView;
     SessionModelView *m_sessionModelView;

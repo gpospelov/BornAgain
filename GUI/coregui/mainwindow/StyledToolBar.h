@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/mainwindow/StyledToolBar.cpp
-//! @brief     Implements class StyledToolBar
+//! @file      coregui/mainwindow/StyledToolBar.h
+//! @brief     Declares class StyledToolBar
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,21 +14,26 @@
 //
 // ************************************************************************** //
 
-#include "styledtoolbar.h"
-#include <QIcon>
-#include <QStyle>
+#ifndef STYLEDTOOLBAR_H
+#define STYLEDTOOLBAR_H
 
+#include "WinDllMacros.h"
+#include <QToolBar>
 
-StyledToolBar::StyledToolBar(QWidget *parent)
-    : QToolBar(parent)
+class QAction;
+class QToolButton;
+class QToolBar;
+
+//! The StyledToolBar class represents our standard narrow toolbar with the height 24 pixels.
+
+class BA_CORE_API_ StyledToolBar : public QToolBar
 {
-    setMovable(false);
-    setMinimumSize(128, 25);
+    Q_OBJECT
 
-    const int size = style()->pixelMetric(QStyle::PM_SmallIconSize);
-    setIconSize(QSize(size, size));
-    setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
+public:
+    explicit StyledToolBar(QWidget *parent = 0);
+    void addStyledSeparator();
+    void addStyledExpand();
+};
 
-    setContentsMargins(0,0,0,0);
-
-}
+#endif

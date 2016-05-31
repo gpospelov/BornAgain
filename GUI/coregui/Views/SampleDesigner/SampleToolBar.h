@@ -17,8 +17,7 @@
 #ifndef SAMPLETOOLBAR_H
 #define SAMPLETOOLBAR_H
 
-#include "WinDllMacros.h"
-#include <QToolBar>
+#include "StyledToolBar.h"
 
 class QAction;
 class QToolButton;
@@ -27,8 +26,9 @@ class QComboBox;
 class QString;
 class QButtonGroup;
 
-//! main tool bar on top of SampleView window
-class BA_CORE_API_ SampleToolBar : public QToolBar
+//! The SampleToolBar class represents a main toolbar on top of SampleView window
+
+class BA_CORE_API_ SampleToolBar : public StyledToolBar
 {
     Q_OBJECT
 
@@ -60,5 +60,4 @@ private:
     QAction *m_zoomOutAction;
 };
 
-
-#endif // SAMPLETOOLBAR_H
+#endif

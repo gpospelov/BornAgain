@@ -257,8 +257,8 @@ void MainWindow::initProgressBar()
 void MainWindow::initViews()
 {
     m_welcomeView = new WelcomeView(this);
-    m_instrumentView = new InstrumentView(instrumentModel());
-    m_sampleView = new SampleView(sampleModel(), instrumentModel());
+    m_instrumentView = new InstrumentView(this);
+    m_sampleView = new SampleView(this);
     m_importDataView = new ImportDataView(this);
     m_simulationView = new SimulationView(this);
 

@@ -15,25 +15,13 @@
 // ************************************************************************** //
 
 #include "JobRealTimeToolBar.h"
-#include <QStyle>
 #include <QToolButton>
-#include <QLabel>
 
 //! main tool bar on top of SampleView window
 JobRealTimeToolBar::JobRealTimeToolBar(QWidget *parent)
-    : QToolBar(parent)
+    : StyledToolBar(parent)
     , m_resetParametersButton(0)
-    , m_exportParametersButton(0)
 {
-    setMovable(false);
-
-    const int size = style()->pixelMetric(QStyle::PM_SmallIconSize);
-    setIconSize(QSize(size, size));
-    setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
-    setMinimumSize(25, 25);
-
-    setContentsMargins(0,0,0,0);
-
     m_resetParametersButton = new QToolButton;
     m_resetParametersButton->setText("Reset Values");
     m_resetParametersButton->setIcon(QIcon(":/images/toolbar_refresh.png"));

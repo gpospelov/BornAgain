@@ -17,13 +17,14 @@
 #ifndef JOBLISTTOOLBAR_H
 #define JOBLISTTOOLBAR_H
 
-#include <QToolBar>
-#include "WinDllMacros.h"
+#include "StyledToolBar.h"
 
 class QToolButton;
 
-//! The JobListToolBar contains buttons (add, remove jobs) needed for JobListView
-class BA_CORE_API_ JobListToolBar : public QToolBar
+//! The JobListToolBar class represents a toolbar with buttons (add, remove jobs) needed
+//! for JobListView.
+
+class BA_CORE_API_ JobListToolBar : public StyledToolBar
 {
     Q_OBJECT
 

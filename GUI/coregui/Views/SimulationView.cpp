@@ -16,7 +16,7 @@
 
 #include "SimulationView.h"
 #include "SimulationSetupWidget.h"
-#include "styledtoolbar.h"
+#include "StyledToolBar.h"
 #include "mainwindow.h"
 #include <QTabWidget>
 #include <QVBoxLayout>
@@ -27,6 +27,8 @@ SimulationView::SimulationView(MainWindow *mainWindow)
     , m_simulationSetupWidget(new SimulationSetupWidget)
     , m_toolBar(new StyledToolBar)
 {
+    m_toolBar->setMinimumSize(24, 24);
+
     m_simulationSetupWidget->setApplicationModels(mainWindow->models());
     m_simulationSetupWidget->setProjectManager(mainWindow->projectManager());
 

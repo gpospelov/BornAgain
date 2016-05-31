@@ -20,8 +20,6 @@
 #include "WinDllMacros.h"
 #include <QWidget>
 
-class MainWindow;
-
 //! The ImportDataView class is a main view for importing experimental data.
 
 class BA_CORE_API_ ImportDataView : public QWidget
@@ -29,8 +27,10 @@ class BA_CORE_API_ ImportDataView : public QWidget
     Q_OBJECT
 
 public:
-    ImportDataView(MainWindow *mainWindow);
+    ImportDataView(class MainWindow *mainWindow);
 
+private:
+    class ImportDataToolBar *m_toolBar;
 };
 
 #endif

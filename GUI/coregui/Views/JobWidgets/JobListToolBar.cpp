@@ -15,24 +15,13 @@
 // ************************************************************************** //
 
 #include "JobListToolBar.h"
-#include <QStyle>
 #include <QToolButton>
-#include <QLabel>
 
 JobListToolBar::JobListToolBar(QWidget *parent)
-    : QToolBar(parent)
+    : StyledToolBar(parent)
     , m_runJobButton(0)
     , m_removeJobButton(0)
 {
-    setMovable(false);
-
-    const int size = style()->pixelMetric(QStyle::PM_SmallIconSize);
-    setIconSize(QSize(size, size));
-    setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
-    setMinimumSize(25, 25);
-
-    setContentsMargins(0,0,0,0);
-
     // projections button
     m_runJobButton = new QToolButton;
     m_runJobButton->setText("Run Job");
@@ -51,4 +40,3 @@ JobListToolBar::JobListToolBar(QWidget *parent)
     connect(m_removeJobButton, SIGNAL(clicked()), this, SIGNAL(removeJob()));
     addWidget(m_removeJobButton);
 }
-

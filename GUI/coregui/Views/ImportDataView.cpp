@@ -16,9 +16,18 @@
 
 #include "ImportDataView.h"
 #include "mainwindow.h"
+#include "ImportDataToolBar.h"
+#include <QVBoxLayout>
 
 ImportDataView::ImportDataView(MainWindow *mainWindow)
     : QWidget(mainWindow)
+    , m_toolBar(new ImportDataToolBar(this))
 {
+    QVBoxLayout *mainLayout = new QVBoxLayout;
+    mainLayout->setMargin(0);
+    mainLayout->setSpacing(0);
+
+    mainLayout->addWidget(m_toolBar);
+    setLayout(mainLayout);
 
 }

@@ -17,20 +17,13 @@
 #include "InfoToolBar.h"
 #include <QHBoxLayout>
 #include <QToolButton>
-#include <QStyle>
-#include <QDebug>
 
 InfoToolBar::InfoToolBar(QWidget *parent)
-    : QToolBar(parent)
+    : StyledToolBar(parent)
     , m_expandButton(new QToolButton)
     , m_closeButton(new QToolButton)
     , m_expanded(false)
 {
-    setMovable(false);
-
-    const int size = style()->pixelMetric(QStyle::PM_SmallIconSize);
-    setIconSize(QSize(size, size));
-    setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
     setMinimumSize(25, 25);
 
     m_expandButton->setIcon(QIcon(":/images/darkarrowup.png"));

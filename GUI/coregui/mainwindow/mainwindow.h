@@ -88,9 +88,6 @@ private:
     void initApplication();
     void initProgressBar();
     void initViews();
-    void initWelcomeView();
-    void initInstrumentView();
-    void initSampleView();
 
     void readSettings();
     void writeSettings();

@@ -17,14 +17,13 @@
 #ifndef JOBOUTPUTDATATOOLBAR_H
 #define JOBOUTPUTDATATOOLBAR_H
 
-#include <QToolBar>
-#include "WinDllMacros.h"
+#include "StyledToolBar.h"
 
-class QComboBox;
 class QToolButton;
 
-//! Main tool bar of JobView widget. Belongs to JobOutputDataWidget.
-class BA_CORE_API_ JobOutputDataToolBar : public QToolBar
+//! The JobOutputDataToolBar class represents main toolbar of JobOutputDataWidget.
+
+class BA_CORE_API_ JobOutputDataToolBar : public StyledToolBar
 {
     Q_OBJECT
 

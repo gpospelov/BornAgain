@@ -28,6 +28,7 @@
 #include <QItemSelectionModel>
 
 
+class MainWindow;
 class SampleModel;
 class InstrumentModel;
 class SampleDesignerInterface;
@@ -50,7 +51,7 @@ public:
         NUMBER_OF_SUB_WINDOWS
     };
 
-    SampleView(SampleModel *sampleModel, InstrumentModel *instrumentModel, QWidget *parent = 0);
+    SampleView(MainWindow *mainWindow);
     virtual ~SampleView();
 
 public slots:

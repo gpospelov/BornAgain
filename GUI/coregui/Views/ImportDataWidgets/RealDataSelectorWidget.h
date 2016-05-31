@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/ImportDataView.h
-//! @brief     Declares class ImportDataView
+//! @file      coregui/Views/ImportDataWidgets/RealDataSelectorWidget.h
+//! @brief     Declares class RealDataSelectorWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,26 +14,27 @@
 //
 // ************************************************************************** //
 
-#ifndef IMPORTDATAVIEW_H
-#define IMPORTDATAVIEW_H
+#ifndef REALDATASELECTORWIDGET_H
+#define REALDATASELECTORWIDGET_H
 
 #include "WinDllMacros.h"
 #include <QWidget>
 
-//! The ImportDataView class is a main view for importing experimental data.
+//! The RealDataSelectorWidget class holds QListView on the left side of ImportDataView to
+//! switch between different RealDataItem's
 
-class BA_CORE_API_ ImportDataView : public QWidget
+class BA_CORE_API_ RealDataSelectorWidget : public QWidget
 {
     Q_OBJECT
 
 public:
-    ImportDataView(class MainWindow *mainWindow);
+    RealDataSelectorWidget(QWidget *parent = 0);
+
+    QSize sizeHint() const { return QSize(200, 400); }
+    QSize minimumSizeHint() const { return QSize(128, 200); }
 
 private:
-    class ImportDataToolBar *m_toolBar;
-    class QSplitter *m_splitter;
-    class RealDataSelectorWidget *m_selectorWidget;
-    class QStackedWidget *m_stackedWidget;
+    class QListView *m_listView;
 };
 
 #endif

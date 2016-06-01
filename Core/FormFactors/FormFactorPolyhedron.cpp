@@ -61,9 +61,9 @@ PolyhedralEdge::PolyhedralEdge( const kvector_t _Vlow, const kvector_t _Vhig )
     }
 };
 
-//! Returns the contribution of this edge to the form factor.
+//! Returns sum_l=0^M/2 u^2l v^(M-2l) / (2l+1)!(M-2l)! - vperp^M/M!
 
-complex_t PolyhedralEdge::contrib(int m, const cvector_t qpa, complex_t qrperp) const
+complex_t PolyhedralEdge::contrib(int M, const cvector_t qpa, complex_t qrperp) const
 {
     complex_t u = qE(qpa);
     complex_t v2 = m_R.dot(qpa);
@@ -74,50 +74,46 @@ complex_t PolyhedralEdge::contrib(int m, const cvector_t qpa, complex_t qrperp) 
         std::cout<<std::scientific<<std::showpos<<std::setprecision(16)<<"contrib: u="<<u<<" v1="<<v1<<" v2="<<v2<<"\n";
 #endif
     static auto& precomputed = IPrecomputed::instance();
-    if( u==0. ) { // only l=0 contributes
-        complex_t ret = 0;
-        // expand (q.R)^(m+1), omitting (qperp.R)^(m+1), which contributes nothing
-        // under the sum over E*contrib()
-        for( int mm=1; mm<=(m+1); ++mm ) {
-            complex_t term = precomputed.reciprocal_factorial[mm] * precomputed.reciprocal_factorial[m+1-mm] *
-                pow(v2, mm) * pow(v1, m+1-mm);
-            ret += term;
-#ifdef POLYHEDRAL_DIAGNOSTIC
-            if( diagnosis.debmsg>=6 )
-                std::cout<<std::scientific<<std::showpos<<std::setprecision(16)<<"contrib mm="<<mm<<" t="<<term<<" s="<<ret<<"\n";
-#endif
-        }
-        return ret;
-/*    } else if( v==0. ) { // only 2l=m+1 contributes
-        if( m&1 ) // m is odd
-            return precomputed.reciprocal_factorial[m+1] * ( pow(u, m+1) - pow(v1, m+1) );
-        else
+    if( v==0. ) { // only 2l=M contributes
+        if( M&1 ) // M is odd
             return 0.;
-*/    } else {
-        complex_t ret = 0;
-        // expand the l=0 term (q.R)^(m+1), omitting (qperp.R)^(m+1), which contributes nothing
-        // under the sum over E*contrib()
-        for( int mm=1; mm<=(m+1); ++mm ) {
-            complex_t term = precomputed.reciprocal_factorial[mm] * precomputed.reciprocal_factorial[m+1-mm] *
-                pow(v2, mm) * pow(v1, m+1-mm);
-            ret += term;
-#ifdef POLYHEDRAL_DIAGNOSTIC
-            if( diagnosis.debmsg>=6 )
-                std::cout<<std::scientific<<std::showpos<<std::setprecision(16)<<"contrib mm="<<mm<<" t="<<term<<" s="<<ret<<"\n";
-#endif
-        }
-        for( int l=1; l<=(m+1)/2; ++l ) {
-            complex_t term = precomputed.reciprocal_factorial[m+1-2*l] *
-                precomputed.reciprocal_factorial[2*l+1] *
-                pow(u, 2*l) * pow(v, m+1-2*l);
-            ret += term;
-#ifdef POLYHEDRAL_DIAGNOSTIC
-            if( diagnosis.debmsg>=6 )
-                std::cout<<std::scientific<<std::showpos<<std::setprecision(16)<<"contrib l="<<l<<" t="<<term<<" s="<<ret<<"\n";
-#endif
-        }
-        return ret;
+        else
+            return precomputed.reciprocal_factorial[M] * ( pow(u, M)/(M+1.) - pow(v1, M) );
     }
+    complex_t ret = 0;
+    // the l=0 term, minus (qperp.R)^M, which cancels under the sum over E*contrib()
+    if        ( v1==0. ) {
+        ret = precomputed.reciprocal_factorial[M] * pow(v2, M);
+    } else if ( v2==0. ) {
+        ; // leave ret=0
+    } else {
+        // binomial expansion
+        for( int mm=1; mm<=M; ++mm ) {
+            complex_t term =
+                precomputed.reciprocal_factorial[mm] *
+                precomputed.reciprocal_factorial[M-mm] *
+                pow(v2, mm) * pow(v1, M-mm);
+            ret += term;
+#ifdef POLYHEDRAL_DIAGNOSTIC
+            if( diagnosis.debmsg>=6 )
+                std::cout<<"contrib mm="<<mm<<" t="<<term<<" s="<<ret<<"\n";
+#endif
+        }
+    }
+    if( u==0. )
+        return ret;
+    for( int l=1; l<=M/2; ++l ) {
+        complex_t term =
+            precomputed.reciprocal_factorial[M-2*l] *
+            precomputed.reciprocal_factorial[2*l+1] *
+            pow(u, 2*l) * pow(v, M-2*l);
+        ret += term;
+#ifdef POLYHEDRAL_DIAGNOSTIC
+        if( diagnosis.debmsg>=6 )
+            std::cout<<"contrib l="<<l<<" t="<<term<<" s="<<ret<<"\n";
+#endif
+    }
+    return ret;
 }
 
 //***************************************************************************************************
@@ -245,7 +241,7 @@ complex_t PolyhedralFace::ff_n_core( int m, const cvector_t qpa, complex_t qperp
         } else {
             vfac = - vfacsum; // to improve numeric accuracy: qcE_J = - sum_{j=0}^{J-1} qcE_j
         }
-        complex_t tmp = e.contrib(m, qpa, qrperp);
+        complex_t tmp = e.contrib(m+1, qpa, qrperp);
         ret += vfac * tmp;
 #ifdef POLYHEDRAL_DIAGNOSTIC
         if( diagnosis.debmsg>=4 )

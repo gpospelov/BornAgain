@@ -76,9 +76,13 @@ if(BORNAGAIN_PYTHON)
         endforeach()
 
         add_custom_command (
-            OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainCore.py ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainCore_wrap.h ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainCore_wrap.cxx
+            OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainCore.py
+                   ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainCore_wrap.h
+                   ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainCore_wrap.cxx
             COMMAND ${SWIG_EXECUTABLE} ${SWIG_FLAGS} ${bornagain_swig_dir}/libBornAgainCore.i
-            COMMAND ${PYTHON_EXECUTABLE} ${bornagain_swig_dir}/tweaks.py ${bornagain_swig_dir}/libBornAgainCore.py ${bornagain_swig_dir}/libBornAgainCore.py
+            COMMAND ${PYTHON_EXECUTABLE} ${bornagain_swig_dir}/tweaks.py
+                   ${bornagain_swig_dir}/libBornAgainCore.py
+                   ${bornagain_swig_dir}/libBornAgainCore.py
             COMMAND ${CMAKE_COMMAND} -E copy ${bornagain_swig_dir}/libBornAgainCore.py ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainCore.py
             COMMAND ${CMAKE_COMMAND} -E copy ${bornagain_swig_dir}/libBornAgainCore_wrap.cxx ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainCore_wrap.cxx
             COMMAND ${CMAKE_COMMAND} -E copy ${bornagain_swig_dir}/libBornAgainCore_wrap.h ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainCore_wrap.h
@@ -117,7 +121,7 @@ if(BORNAGAIN_PYTHON)
     #   ${library_name}_python
     #   COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainCore.py ${CMAKE_BINARY_DIR}/lib/libBornAgainCore.py
     #   )
-    configure_file(../dev-tools/python-setup/bornagain/plot_utils.py ${CMAKE_BINARY_DIR}/lib/plot_utils/__init__.py COPYONLY)
+    configure_file(../Wrap/python-setup/bornagain/plot_utils.py ${CMAKE_BINARY_DIR}/lib/plot_utils/__init__.py COPYONLY)
 
 endif()
 
@@ -266,7 +270,7 @@ else()
         " COMPONENT Runtime)
     else()
 
-        install(FILES ${CMAKE_SOURCE_DIR}/dev-tools/python-setup/bornagain_python_install.py
+        install(FILES ${CMAKE_SOURCE_DIR}/Wrap/python-setup/bornagain_python_install.py
             DESTINATION ${destination_libexec})
 
     endif()
@@ -275,9 +279,9 @@ endif()
 
 if(NOT BORNAGAIN_APPLE_BUNDLE)
     # installing bornagain/__init__.py and utilites
-    install (DIRECTORY ${CMAKE_SOURCE_DIR}/dev-tools/python-setup/bornagain DESTINATION ${destination_lib} COMPONENT Libraries)
+    install (DIRECTORY ${CMAKE_SOURCE_DIR}/Wrap/python-setup/bornagain DESTINATION ${destination_lib} COMPONENT Libraries)
     install (FILES "${destination_runtime_configs}/__init__.py" DESTINATION ${destination_lib}/bornagain COMPONENT Libraries)
 else()
-    install (DIRECTORY ${CMAKE_SOURCE_DIR}/dev-tools/python-setup/bornagain DESTINATION ${destination_libexec} COMPONENT Libraries)
+    install (DIRECTORY ${CMAKE_SOURCE_DIR}/Wrap/python-setup/bornagain DESTINATION ${destination_libexec} COMPONENT Libraries)
     install (FILES "${destination_runtime_configs}/__init__.py" DESTINATION ${destination_libexec}/bornagain COMPONENT Libraries)
 endif()

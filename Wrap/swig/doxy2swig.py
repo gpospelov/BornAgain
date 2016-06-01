@@ -34,7 +34,6 @@ import types
 import os.path
 
 
-
 def my_open_read(source):
     if hasattr(source, "read"):
         return source

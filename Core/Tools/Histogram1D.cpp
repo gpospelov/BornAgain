@@ -32,9 +32,7 @@ Histogram1D::Histogram1D(int nbinsx, const std::vector<double> &xbins)
 
 Histogram1D::Histogram1D(const IAxis &axis)
     : IHistogram(axis)
-{
-
-}
+{}
 
 Histogram1D::Histogram1D(const OutputData<double> &data)
 {
@@ -105,5 +103,4 @@ Histogram1D *Histogram1D::crop(double xmin, double xmax)
         ++it_origin;
     }
     return result;
-
 }

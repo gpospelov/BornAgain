@@ -1,6 +1,0 @@
-This directory mostly contains automatically generated wrapper code.
-
-For info on the wrapper-generating machinery, see
-  ../../dev-tools/python-bindings/README
-and
-  http://apps.jcns.fz-juelich.de/redmine/projects/bornagain/wiki/Python_bindings

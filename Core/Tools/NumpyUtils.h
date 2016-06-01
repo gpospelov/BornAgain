@@ -13,28 +13,21 @@
 //
 // ************************************************************************** //
 
+#ifdef BORNAGAIN_PYTHON
+
 #ifndef NUMPYUTILS_H
 #define NUMPYUTILS_H
 
-#ifdef BORNAGAIN_PYTHON
-#ifndef PyObject_HEAD
-struct _object;
-typedef _object PyObject;
-#endif
-#endif
+#define NPY_NO_DEPRECATED_API NPY_1_7_API_VERSION
+#include "Python.h"
 
 #include <vector>
 
 namespace Utils
 {
+    PyObject* createNumpyArray(const std::vector<double>& data);
+}
 
+#endif // NUMPYUTILS_H
 
-#ifdef BORNAGAIN_PYTHON
-    PyObject *createNumpyArray(const std::vector<double> &data);
-#endif
-
-
-} // namespace Utils
-
-#endif
-
+#endif // BORNAGAIN_PYTHON

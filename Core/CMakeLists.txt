@@ -1,11 +1,12 @@
 ############################################################################
 # CMakeLists.txt file for building libBornAgainCore library
 ############################################################################
+
 set(library_name BornAgainCore)
+
 if(POLICY CMP0042)
     cmake_policy(SET CMP0042 NEW)
 endif()
-
 
 # --- source and include files ---------
 set(include_dirs
@@ -18,107 +19,92 @@ set(include_dirs
     ${CMAKE_CURRENT_SOURCE_DIR}/InputOutput
     )
 
-set(bornagain_swig_dir ${CMAKE_CURRENT_SOURCE_DIR}/../dev-tools/swig)
-
-
 include_directories(${include_dirs})
 
-file(GLOB core_source_files
-    "Algorithms/*.cpp"
-    "FormFactors/*.cpp"
-    "Geometry/*.cpp"
-    "Samples/*.cpp"
-    "StandardSamples/*.cpp"
-    "Tools/*.cpp"
-    "InputOutput/*.cpp"
-)
-
-file(GLOB core_include_files
-    "Algorithms/*.h"
-    "FormFactors/*.h"
-    "Geometry/*.h"
-    "Samples/*.h"
-    "StandardSamples/*.h"
-    "Tools/*.h"
-    "InputOutput/*.h"
-)
+file(GLOB core_source_files "*/*.cpp")
+file(GLOB core_include_files "*/*.h")
 
 set(source_files ${core_source_files})
 set(include_files ${core_include_files})
 
 if(BORNAGAIN_PYTHON)
 
-  file(GLOB pythonapi_source "PythonAPI/*.cpp")
-  list(APPEND source_files ${pythonapi_source})
-  file(GLOB pythonapi_include "PythonAPI/*.hpp")
-  list(APPEND include_files ${pythonapi_include})
-  include_directories(${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/)
+    set(AUTO_DIR ${CMAKE_SOURCE_DIR}/auto/Wrap)
+    file(MAKE_DIRECTORY ${AUTO_DIR})
+    include_directories(${AUTO_DIR})
 
+    if(BORNAGAIN_GENERATE_BINDINGS)
 
-  if(BORNAGAIN_GENERATE_BINDINGS)
+        set(WRAP_DIR ${CMAKE_SOURCE_DIR}/Wrap)
+        set(TMP_DIR ${CMAKE_CURRENT_BINARY_DIR}/Wrap)
 
-    set(SWIG_FLAGS "")
-    list(APPEND SWIG_FLAGS "-c++")
-    list(APPEND SWIG_FLAGS "-python")
+        if(BORNAGAIN_GENERATE_PYTHON_DOCS) # autogenerate doxygen.i from doxygen comments
 
-    foreach(dir ${include_dirs})
-      list(APPEND SWIG_FLAGS "-I${dir}")
-    endforeach(dir)
+            configure_file(${WRAP_DIR}/swig/DoxyfileSwig.in ${TMP_DIR}/Doxyfile @ONLY)
 
-    set(swig_dependencies
-      ${bornagain_swig_dir}/libBornAgainCore.i
-      ${bornagain_swig_dir}/directors.i
-      ${bornagain_swig_dir}/doxygen_core.i
-      ${bornagain_swig_dir}/extends.i
-      ${bornagain_swig_dir}/ignores.i
-      ${bornagain_swig_dir}/shared_pointers.i
-      ${bornagain_swig_dir}/warnings.i
-      )
+            add_custom_command(
+                OUTPUT ${TMP_DIR}/xml/index.xml
+                COMMAND ${DOXYGEN_EXECUTABLE} ${TMP_DIR}/Doxyfile
+                DEPENDS ${include_files}
+                )
+            add_custom_command(
+                OUTPUT ${AUTO_DIR}/doxygen_core.i
+                COMMAND ${PYTHON_EXECUTABLE} ${WRAP_DIR}/swig/doxy2swig.py
+                        ${TMP_DIR}/xml/index.xml ${AUTO_DIR}/doxygen_core.i
+                        DEPENDS ${TMP_DIR}/xml/index.xml
+                )
 
-    add_custom_command (
-      OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainCore.py ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainCore_wrap.h ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainCore_wrap.cxx
-      COMMAND ${SWIG_EXECUTABLE} ${SWIG_FLAGS} ${bornagain_swig_dir}/libBornAgainCore.i
-      COMMAND ${PYTHON_EXECUTABLE} ${bornagain_swig_dir}/tweaks.py ${bornagain_swig_dir}/libBornAgainCore.py ${bornagain_swig_dir}/libBornAgainCore.py
-      COMMAND ${CMAKE_COMMAND} -E copy ${bornagain_swig_dir}/libBornAgainCore.py ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainCore.py
-      COMMAND ${CMAKE_COMMAND} -E copy ${bornagain_swig_dir}/libBornAgainCore_wrap.cxx ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainCore_wrap.cxx
-      COMMAND ${CMAKE_COMMAND} -E copy ${bornagain_swig_dir}/libBornAgainCore_wrap.h ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainCore_wrap.h
-      COMMAND ${CMAKE_COMMAND} -E remove ${bornagain_swig_dir}/libBornAgainCore.py
-      COMMAND ${CMAKE_COMMAND} -E remove ${bornagain_swig_dir}/libBornAgainCore_wrap.cxx
-      COMMAND ${CMAKE_COMMAND} -E remove ${bornagain_swig_dir}/libBornAgainCore_wrap.h
-      DEPENDS ${swig_dependencies}
-      )
+        endif(BORNAGAIN_GENERATE_PYTHON_DOCS)
 
-    # autogenerate doxygen.i from doxygen comments
-    if(BORNAGAIN_GENERATE_PYTHON_DOCS)
-      configure_file(${CMAKE_SOURCE_DIR}/Doc/Doxygen/DoxyfileSwig.in ${CMAKE_CURRENT_BINARY_DIR}/PythonAPI/Doxyfile @ONLY)
+        set(swig_dependencies
+            ${WRAP_DIR}/swig/libBornAgainCore.i
+            ${WRAP_DIR}/swig/directors.i
+            ${WRAP_DIR}/swig/extends.i
+            ${WRAP_DIR}/swig/ignores.i
+            ${WRAP_DIR}/swig/shared_pointers.i
+            ${WRAP_DIR}/swig/warnings.i
+            )
+        foreach(FNAM ${swig_dependencies})
+            if(NOT EXISTS ${FNAM})
+                message(FATAL_ERROR "Could NOT find SWIG input ${FNAM}")
+            endif()
+        endforeach()
+        set(swig_dependencies ${swig_dependencies}
+            ${AUTO_DIR}/doxygen_core.i)
 
-      add_custom_command(
-        OUTPUT ${bornagain_swig_dir}/doxygen_core.i
-        COMMAND ${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/PythonAPI/Doxyfile
-        COMMAND ${PYTHON_EXECUTABLE} ${bornagain_swig_dir}/doxy2swig.py ${CMAKE_CURRENT_BINARY_DIR}/Doc/xml/index.xml ${bornagain_swig_dir}/doxygen_core.i
-        DEPENDS ${include_files}
+        set(SWIG_FLAGS "-c++;-python;-o;${AUTO_DIR}/libBornAgainCore_wrap.cpp;-outdir;${TMP_DIR}")
+        foreach(dir ${include_dirs})
+            list(APPEND SWIG_FLAGS "-I${dir}")
+        endforeach(dir)
+
+        add_custom_command (
+            OUTPUT ${AUTO_DIR}/libBornAgainCore.py
+            COMMAND ${PYTHON_EXECUTABLE} ${WRAP_DIR}/swig/tweaks.py
+                   ${TMP_DIR}/libBornAgainCore.py
+                   ${AUTO_DIR}/libBornAgainCore.py
+            DEPENDS ${TMP_DIR}/libBornAgainCore.py
+            )
+        add_custom_command (
+            OUTPUT ${TMP_DIR}/libBornAgainCore.py
+                   ${AUTO_DIR}/libBornAgainCore_wrap.h
+                   ${AUTO_DIR}/libBornAgainCore_wrap.cpp
+            COMMAND ${SWIG_EXECUTABLE} ${SWIG_FLAGS} ${WRAP_DIR}/swig/libBornAgainCore.i
+            DEPENDS ${swig_dependencies} ${include_files}
+            )
+
+    endif(BORNAGAIN_GENERATE_BINDINGS)
+
+    add_custom_target (
+        ${library_name}_python
+        COMMAND ${CMAKE_COMMAND} -E copy ${AUTO_DIR}/libBornAgainCore.py ${CMAKE_BINARY_DIR}/lib/libBornAgainCore.py
+        DEPENDS ${AUTO_DIR}/libBornAgainCore.py
         )
 
-    endif(BORNAGAIN_GENERATE_PYTHON_DOCS)
+    # manually add: if does not exist, will be created by swig
+    list(APPEND source_files "${AUTO_DIR}/libBornAgainCore_wrap.cpp")
+    #list(APPEND include_files "${AUTO_DIR}/libBornAgainCore_wrap.h")
 
-  endif(BORNAGAIN_GENERATE_BINDINGS)
-
-  add_custom_target (
-    ${library_name}_python
-    COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainCore.py ${CMAKE_BINARY_DIR}/lib/libBornAgainCore.py
-    DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainCore.py
-    )
-
-  # manually add: if does not exist, will be created by swig
-  list(APPEND source_files "PythonAPI/libBornAgainCore_wrap.cxx")
-  #list(APPEND include_files "PythonAPI/libBornAgainCore_wrap.h")
-
-
-  # add_custom_target(
-  #   ${library_name}_python
-  #   COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainCore.py ${CMAKE_BINARY_DIR}/lib/libBornAgainCore.py
-  #   )
-  configure_file(../dev-tools/python-setup/bornagain/plot_utils.py ${CMAKE_BINARY_DIR}/lib/plot_utils/__init__.py COPYONLY)
+    configure_file(${WRAP_DIR}/python-setup/bornagain/plot_utils.py ${CMAKE_BINARY_DIR}/lib/plot_utils/__init__.py COPYONLY)
 
 endif()
 
@@ -131,17 +117,17 @@ endif()
 
 # --- making library ---------
 add_library(
-  ${library_name}
-  SHARED
-  ${source_files} ${include_files}
-  )
+    ${library_name}
+    SHARED
+    ${source_files} ${include_files}
+    )
 
 set_Target_properties(${library_name} PROPERTIES PREFIX ${libprefix} SUFFIX ${libsuffix})
 set(${library_name}_LIBRARY_TYPE SHARED)
 
 
 if(BORNAGAIN_PYTHON)
-  add_dependencies(${library_name} ${library_name}_python)
+    add_dependencies(${library_name} ${library_name}_python)
 endif()
 
 # exposing library name and list of include directories outside
@@ -181,7 +167,7 @@ if(APPLE AND BORNAGAIN_APPLE_BUNDLE)
     set_target_properties(${library_name}
         PROPERTIES
         LINK_FLAGS ${link_flags}
-    )
+        )
 endif()
 
 
@@ -204,7 +190,7 @@ if(WIN32)
             COMMAND ${CMAKE_COMMAND} -E copy
             ${CMAKE_BINARY_DIR}/bin/${libprefix}${library_name}${libsuffix}
             ${CMAKE_BINARY_DIR}/lib/${libprefix}${library_name}".pyd"
-        )
+            )
         install(FILES ${CMAKE_BINARY_DIR}/lib/${libprefix}${library_name}.pyd DESTINATION ${destination_lib} COMPONENT Libraries)
         install(FILES ${CMAKE_BINARY_DIR}/lib/${libprefix}${library_name}.pyd DESTINATION ${destination_bin} COMPONENT Libraries)
         # for functional tests
@@ -215,37 +201,37 @@ if(WIN32)
             COMMAND ${CMAKE_COMMAND} -E copy
             ${CMAKE_BINARY_DIR}/bin/${libprefix}${library_name}${libsuffix}
             ${CMAKE_BINARY_DIR}/lib/${libprefix}${library_name}${libsuffix}
-        )
+            )
 
     endif()
 
     # system libraries
     FOREACH(Boost_lib ${Boost_LIBRARIES})
-       get_filename_component(UTF_BASE_NAME ${Boost_lib} NAME_WE)
-       get_filename_component(UTF_PATH ${Boost_lib} PATH)
-       message(STATUS "Boost dll: ${UTF_PATH}/${UTF_BASE_NAME}.dll")
-       install(FILES ${UTF_PATH}/${UTF_BASE_NAME}.dll
-               DESTINATION ${destination_lib} COMPONENT Libraries)
+        get_filename_component(UTF_BASE_NAME ${Boost_lib} NAME_WE)
+        get_filename_component(UTF_PATH ${Boost_lib} PATH)
+        message(STATUS "Boost dll: ${UTF_PATH}/${UTF_BASE_NAME}.dll")
+        install(FILES ${UTF_PATH}/${UTF_BASE_NAME}.dll
+            DESTINATION ${destination_lib} COMPONENT Libraries)
     ENDFOREACH()
 
     get_filename_component(UTF_BASE_NAME ${PYTHON_LIBRARIES} NAME_WE)
     get_filename_component(UTF_PATH ${PYTHON_EXECUTABLE} PATH)
     message(STATUS "Python dll: ${UTF_PATH}/${UTF_BASE_NAME}.dll")
     install(FILES ${UTF_PATH}/${UTF_BASE_NAME}.dll
-            DESTINATION ${destination_lib} COMPONENT Libraries)
+        DESTINATION ${destination_lib} COMPONENT Libraries)
 
     install(FILES
-    ${CMAKE_LIBRARY_PATH}/libfftw3-3.dll
-    ${CMAKE_LIBRARY_PATH}/libtiff.dll
-    DESTINATION ${destination_lib} COMPONENT Libraries)
+        ${CMAKE_LIBRARY_PATH}/libfftw3-3.dll
+        ${CMAKE_LIBRARY_PATH}/libtiff.dll
+        DESTINATION ${destination_lib} COMPONENT Libraries)
 
 else()
     # installing thisbornagain.sh
     install(FILES ${destination_runtime_configs}/frombin_setup_paths.sh
-            ${destination_runtime_configs}/frombin_setup_paths.csh
-            PERMISSIONS OWNER_EXECUTE OWNER_WRITE OWNER_READ
-            GROUP_EXECUTE GROUP_READ WORLD_EXECUTE WORLD_READ
-            DESTINATION ${destination_libexec})
+        ${destination_runtime_configs}/frombin_setup_paths.csh
+        PERMISSIONS OWNER_EXECUTE OWNER_WRITE OWNER_READ
+        GROUP_EXECUTE GROUP_READ WORLD_EXECUTE WORLD_READ
+        DESTINATION ${destination_libexec})
 
     # creating bin directory for links
     if(NOT BORNAGAIN_APPLE_BUNDLE AND NOT BUILD_DEBIAN)
@@ -267,19 +253,18 @@ else()
         " COMPONENT Runtime)
     else()
 
-    install(FILES ${CMAKE_SOURCE_DIR}/dev-tools/python-setup/bornagain_python_install.py
+        install(FILES ${WRAP_DIR}/python-setup/bornagain_python_install.py
             DESTINATION ${destination_libexec})
 
     endif()
-
 
 endif()
 
 if(NOT BORNAGAIN_APPLE_BUNDLE)
     # installing bornagain/__init__.py and utilites
-    install (DIRECTORY ${CMAKE_SOURCE_DIR}/dev-tools/python-setup/bornagain DESTINATION ${destination_lib} COMPONENT Libraries)
+    install (DIRECTORY ${WRAP_DIR}/python-setup/bornagain DESTINATION ${destination_lib} COMPONENT Libraries)
     install (FILES "${destination_runtime_configs}/__init__.py" DESTINATION ${destination_lib}/bornagain COMPONENT Libraries)
 else()
-    install (DIRECTORY ${CMAKE_SOURCE_DIR}/dev-tools/python-setup/bornagain DESTINATION ${destination_libexec} COMPONENT Libraries)
+    install (DIRECTORY ${WRAP_DIR}/python-setup/bornagain DESTINATION ${destination_libexec} COMPONENT Libraries)
     install (FILES "${destination_runtime_configs}/__init__.py" DESTINATION ${destination_libexec}/bornagain COMPONENT Libraries)
 endif()

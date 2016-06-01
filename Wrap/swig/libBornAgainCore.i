@@ -26,7 +26,7 @@
 %include "std_shared_ptr.i"
 
  // TODO CLARIFY WHY THIS IS INCLUDED
-%include "doxygen_core.i"
+%include "../../auto/Wrap/doxygen_core.i"
 
 %include "warnings.i"
 %include "ignores.i"

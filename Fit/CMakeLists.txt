@@ -52,26 +52,25 @@ if(BORNAGAIN_PYTHON)
     if(BORNAGAIN_GENERATE_BINDINGS)
 
         set(WRAP_DIR ${CMAKE_SOURCE_DIR}/Wrap)
-        set(TMP_DIR ${CMAKE_CURRENT_BINARY_DIR}/Wrap/Fit)
+        set(TMP_DIR ${CMAKE_CURRENT_BINARY_DIR}/Wrap)
 
-        if(BORNAGAIN_GENERATE_PYTHON_DOCS)
-            # autogenerate doxygen.i from doxygen comments
+        if(BORNAGAIN_GENERATE_PYTHON_DOCS) # autogenerate doxygen.i from doxygen comments
+
             configure_file(${WRAP_DIR}/swig/DoxyfileSwig.in ${TMP_DIR}/Doxyfile @ONLY)
 
             add_custom_command(
-                OUTPUT ${AUTO_DIR}/doxygen_fit.i
+                OUTPUT ${TMP_DIR}/xml/index.xml
                 COMMAND ${DOXYGEN_EXECUTABLE} ${TMP_DIR}/Doxyfile
-                COMMAND ${PYTHON_EXECUTABLE} ${WRAP_DIR}/swig/doxy2swig.py
-                        ${TMP_DIR}/index.xml ${AUTO_DIR}/doxygen_fit.i
                 DEPENDS ${include_files}
+                )
+            add_custom_command(
+                OUTPUT ${AUTO_DIR}/doxygen_fit.i
+                COMMAND ${PYTHON_EXECUTABLE} ${WRAP_DIR}/swig/doxy2swig.py
+                        ${TMP_DIR}/xml/index.xml ${AUTO_DIR}/doxygen_fit.i
+                        DEPENDS ${TMP_DIR}/xml/index.xml
                 )
 
         endif(BORNAGAIN_GENERATE_PYTHON_DOCS)
-
-        set(SWIG_FLAGS "-c++;-python;-o;${AUTO_DIR}/libBornAgainFit_wrap.cpp;-outdir;${AUTO_DIR}")
-        foreach(dir ${include_dirs})
-            list(APPEND SWIG_FLAGS "-I${dir}")
-        endforeach(dir)
 
         set(swig_dependencies
             ${WRAP_DIR}/swig/libBornAgainFit.i
@@ -89,14 +88,24 @@ if(BORNAGAIN_PYTHON)
         set(swig_dependencies ${swig_dependencies}
             ${AUTO_DIR}/doxygen_fit.i)
 
+        set(SWIG_FLAGS "-c++;-python;-o;${AUTO_DIR}/libBornAgainFit_wrap.cpp;-outdir;${TMP_DIR}")
+        foreach(dir ${include_dirs})
+            list(APPEND SWIG_FLAGS "-I${dir}")
+        endforeach(dir)
+
+
         add_custom_command (
-            OUTPUT ${AUTO_DIR}/libBornAgainFit_wrap.cpp
-                   ${AUTO_DIR}/libBornAgainFit_wrap.h
-                   ${AUTO_DIR}/libBornAgainFit.py
-            COMMAND ${SWIG_EXECUTABLE} ${SWIG_FLAGS} ${WRAP_DIR}/swig/libBornAgainFit.i
+            OUTPUT ${AUTO_DIR}/libBornAgainFit.py
             COMMAND ${PYTHON_EXECUTABLE} ${WRAP_DIR}/swig/tweaks.py
-                ${AUTO_DIR}/libBornAgainFit.py
-                ${AUTO_DIR}/libBornAgainFit.py
+                   ${TMP_DIR}/libBornAgainFit.py
+                   ${AUTO_DIR}/libBornAgainFit.py
+            DEPENDS ${TMP_DIR}/libBornAgainFit.py
+            )
+        add_custom_command (
+            OUTPUT ${TMP_DIR}/libBornAgainFit.py
+                   ${AUTO_DIR}/libBornAgainFit_wrap.h
+                   ${AUTO_DIR}/libBornAgainFit_wrap.cpp
+            COMMAND ${SWIG_EXECUTABLE} ${SWIG_FLAGS} ${WRAP_DIR}/swig/libBornAgainFit.i
             DEPENDS ${swig_dependencies} ${include_files}
             )
 

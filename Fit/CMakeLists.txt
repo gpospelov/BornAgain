@@ -30,6 +30,10 @@ set(include_files ${fitkernel_include_files})
 
 if(BORNAGAIN_PYTHON)
 
+    set(AUTO_DIR ${CMAKE_SOURCE_DIR}/auto/Wrap)
+    file(MAKE_DIRECTORY ${AUTO_DIR})
+    include_directories(${AUTO_DIR})
+
     set(include_dirs
         ${CMAKE_CURRENT_SOURCE_DIR}/FitKernel/
         ${CMAKE_CURRENT_SOURCE_DIR}/StandardFits
@@ -47,63 +51,67 @@ if(BORNAGAIN_PYTHON)
 
     if(BORNAGAIN_GENERATE_BINDINGS)
 
-        set(bornagain_swig_dir ${CMAKE_SOURCE_DIR}/Wrap/swig)
+        set(WRAP_DIR ${CMAKE_SOURCE_DIR}/Wrap)
+        set(TMP_DIR ${CMAKE_CURRENT_BINARY_DIR}/Wrap/Fit)
 
-        set(SWIG_FLAGS "-c++;-python")
-        foreach(dir ${include_dirs})
-            list(APPEND SWIG_FLAGS "-I${dir}")
-        endforeach(dir)
-
-        set(swig_dependencies
-            ${bornagain_swig_dir}/libBornAgainFit.i
-            ${bornagain_swig_dir}/directors.i
-            ${bornagain_swig_dir}/doxygen_fit.i
-            ${bornagain_swig_dir}/extends.i
-            ${bornagain_swig_dir}/ignores.i
-            ${bornagain_swig_dir}/shared_pointers.i
-            ${bornagain_swig_dir}/warnings.i
-            )
-
-        add_custom_command (
-            OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainFit_wrap.cxx
-                   ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainFit_wrap.h
-                   ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainFit.py
-            COMMAND ${SWIG_EXECUTABLE} ${SWIG_FLAGS} ${bornagain_swig_dir}/libBornAgainFit.i
-            COMMAND ${PYTHON_EXECUTABLE} ${bornagain_swig_dir}/tweaks.py ${bornagain_swig_dir}/libBornAgainFit.py ${bornagain_swig_dir}/libBornAgainFit.py
-            COMMAND ${CMAKE_COMMAND} -E copy ${bornagain_swig_dir}/libBornAgainFit.py ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainFit.py
-            COMMAND ${CMAKE_COMMAND} -E copy ${bornagain_swig_dir}/libBornAgainFit_wrap.cxx ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainFit_wrap.cxx
-            COMMAND ${CMAKE_COMMAND} -E copy ${bornagain_swig_dir}/libBornAgainFit_wrap.h ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainFit_wrap.h
-	    COMMAND ${CMAKE_COMMAND} -E remove ${bornagain_swig_dir}/libBornAgainFit.py
-            COMMAND ${CMAKE_COMMAND} -E remove ${bornagain_swig_dir}/libBornAgainFit_wrap.cxx
-            COMMAND ${CMAKE_COMMAND} -E remove ${bornagain_swig_dir}/libBornAgainFit_wrap.h
-            DEPENDS ${swig_dependencies}
-            )
-
-        # autogenerate doxygen.i from doxygen comments
         if(BORNAGAIN_GENERATE_PYTHON_DOCS)
-            configure_file(${CMAKE_SOURCE_DIR}/Doc/Doxygen/DoxyfileSwig.in ${CMAKE_CURRENT_BINARY_DIR}/PythonAPI/Doxyfile @ONLY)
+            # autogenerate doxygen.i from doxygen comments
+            configure_file(${WRAP_DIR}/swig/DoxyfileSwig.in ${TMP_DIR}/Doxyfile @ONLY)
 
             add_custom_command(
-                OUTPUT ${bornagain_swig_dir}/doxygen_fit.i
-                COMMAND ${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/PythonAPI/Doxyfile
-                COMMAND ${PYTHON_EXECUTABLE} ${bornagain_swig_dir}/doxy2swig.py ${CMAKE_CURRENT_BINARY_DIR}/Doc/xml/index.xml ${bornagain_swig_dir}/doxygen_fit.i
+                OUTPUT ${AUTO_DIR}/doxygen_fit.i
+                COMMAND ${DOXYGEN_EXECUTABLE} ${TMP_DIR}/Doxyfile
+                COMMAND ${PYTHON_EXECUTABLE} ${WRAP_DIR}/swig/doxy2swig.py
+                        ${TMP_DIR}/index.xml ${AUTO_DIR}/doxygen_fit.i
                 DEPENDS ${include_files}
                 )
 
         endif(BORNAGAIN_GENERATE_PYTHON_DOCS)
 
+        set(SWIG_FLAGS "-c++;-python;-o;${AUTO_DIR}/libBornAgainFit_wrap.cpp;-outdir;${AUTO_DIR}")
+        foreach(dir ${include_dirs})
+            list(APPEND SWIG_FLAGS "-I${dir}")
+        endforeach(dir)
+
+        set(swig_dependencies
+            ${WRAP_DIR}/swig/libBornAgainFit.i
+            ${WRAP_DIR}/swig/directors.i
+            ${WRAP_DIR}/swig/extends.i
+            ${WRAP_DIR}/swig/ignores.i
+            ${WRAP_DIR}/swig/shared_pointers.i
+            ${WRAP_DIR}/swig/warnings.i
+            )
+        foreach(FNAM ${swig_dependencies})
+            if(NOT EXISTS ${FNAM})
+                message(FATAL_ERROR "Could NOT find SWIG input ${FNAM}")
+            endif()
+        endforeach()
+        set(swig_dependencies ${swig_dependencies}
+            ${AUTO_DIR}/doxygen_fit.i)
+
+        add_custom_command (
+            OUTPUT ${AUTO_DIR}/libBornAgainFit_wrap.cpp
+                   ${AUTO_DIR}/libBornAgainFit_wrap.h
+                   ${AUTO_DIR}/libBornAgainFit.py
+            COMMAND ${SWIG_EXECUTABLE} ${SWIG_FLAGS} ${WRAP_DIR}/swig/libBornAgainFit.i
+            COMMAND ${PYTHON_EXECUTABLE} ${WRAP_DIR}/swig/tweaks.py
+                ${AUTO_DIR}/libBornAgainFit.py
+                ${AUTO_DIR}/libBornAgainFit.py
+            DEPENDS ${swig_dependencies} ${include_files}
+            )
+
     endif(BORNAGAIN_GENERATE_BINDINGS)
 
     add_custom_target (
         ${library_name}_python
-        COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainFit.py ${CMAKE_BINARY_DIR}/lib/libBornAgainFit.py
-        DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainFit.py
+        COMMAND ${CMAKE_COMMAND} -E copy ${AUTO_DIR}/libBornAgainFit.py
+             ${CMAKE_BINARY_DIR}/lib/libBornAgainFit.py
+        DEPENDS ${AUTO_DIR}/libBornAgainFit.py
         )
 
-    list(APPEND source_files "PythonAPI/libBornAgainFit_wrap.cxx")
-    #list(APPEND include_files "PythonAPI/libBornAgainFit_wrap.h")
+    list(APPEND source_files "${AUTO_DIR}/libBornAgainFit_wrap.cpp")
+    #list(APPEND include_files "${AUTO_DIR}/libBornAgainFit_wrap.h")
 
-    # configure_file(../dev-tools/python-bindings/swig/libBornAgainFit.py ../lib/libBornAgainFit.py COPYONLY)
 endif()
 
 # --- definitions ---------

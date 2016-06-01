@@ -36,6 +36,21 @@ if(BORNAGAIN_PYTHON)
     if(BORNAGAIN_GENERATE_BINDINGS)
 
         set(WRAP_DIR ${CMAKE_SOURCE_DIR}/Wrap)
+        set(TMP_DIR ${CMAKE_CURRENT_BINARY_DIR}/Wrap/Core)
+
+        if(BORNAGAIN_GENERATE_PYTHON_DOCS)
+            # autogenerate doxygen.i from doxygen comments
+            configure_file(${WRAP_DIR}/swig/DoxyfileSwig.in ${TMP_DIR}/Doxyfile @ONLY)
+
+            add_custom_command(
+                OUTPUT ${AUTO_DIR}/doxygen_core.i
+                COMMAND ${DOXYGEN_EXECUTABLE} ${TMP_DIR}/Doxyfile
+                COMMAND ${PYTHON_EXECUTABLE} ${WRAP_DIR}/swig/doxy2swig.py
+                        ${TMP_DIR}/index.xml ${AUTO_DIR}/doxygen_core.i
+                DEPENDS ${include_files}
+                )
+
+        endif(BORNAGAIN_GENERATE_PYTHON_DOCS)
 
         set(SWIG_FLAGS "-c++;-python;-o;${AUTO_DIR}/libBornAgainCore_wrap.cpp;-outdir;${AUTO_DIR}")
         foreach(dir ${include_dirs})
@@ -45,7 +60,6 @@ if(BORNAGAIN_PYTHON)
         set(swig_dependencies
             ${WRAP_DIR}/swig/libBornAgainCore.i
             ${WRAP_DIR}/swig/directors.i
-            ${WRAP_DIR}/swig/doxygen_core.i
             ${WRAP_DIR}/swig/extends.i
             ${WRAP_DIR}/swig/ignores.i
             ${WRAP_DIR}/swig/shared_pointers.i
@@ -56,6 +70,8 @@ if(BORNAGAIN_PYTHON)
                 message(FATAL_ERROR "Could NOT find SWIG input ${FNAM}")
             endif()
         endforeach()
+        set(swig_dependencies ${swig_dependencies}
+            ${AUTO_DIR}/doxygen_core.i)
 
         add_custom_command (
             OUTPUT ${AUTO_DIR}/libBornAgainCore.py
@@ -67,19 +83,6 @@ if(BORNAGAIN_PYTHON)
                    ${AUTO_DIR}/libBornAgainCore.py
             DEPENDS ${swig_dependencies} ${include_files}
             )
-
-        # autogenerate doxygen.i from doxygen comments
-        if(BORNAGAIN_GENERATE_PYTHON_DOCS)
-            configure_file(${CMAKE_SOURCE_DIR}/Doc/Doxygen/DoxyfileSwig.in ${CMAKE_CURRENT_BINARY_DIR}/PythonAPI/Doxyfile @ONLY)
-
-            add_custom_command(
-                OUTPUT ${WRAP_DIR}/swig/doxygen_core.i
-                COMMAND ${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/PythonAPI/Doxyfile
-                COMMAND ${PYTHON_EXECUTABLE} ${WRAP_DIR}/swig/doxy2swig.py ${CMAKE_CURRENT_BINARY_DIR}/Doc/xml/index.xml ${WRAP_DIR}/swig/doxygen_core.i
-                DEPENDS ${include_files}
-                )
-
-        endif(BORNAGAIN_GENERATE_PYTHON_DOCS)
 
     endif(BORNAGAIN_GENERATE_BINDINGS)
 

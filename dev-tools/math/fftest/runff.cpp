@@ -57,7 +57,7 @@ IFormFactorBorn* make_particle( int ishape )
     } else if( ishape==8 ) {
         return new FormFactorPyramid(1.5, .24, 1.);
     } else if( ishape==9 ) {
-        return new FormFactorAnisoPyramid(1.5, 1.5, .24, 1.);
+        return new FormFactorAnisoPyramid(2, .4, .24, 1.);
     } else if( ishape==10) {
         return new FormFactorPrism3(1.2, 1.);
     } else if( ishape==11) {
@@ -102,9 +102,9 @@ void bisect(
         double aval = (std::abs(ri) + std::abs(rf))/2;
         double step = std::abs(ri-rf);
         double relstep = step/aval;
-        maxrelstep = std::max( maxrelstep, relstep );
-        if( relstep>3e-5 ){
+        if( relstep>maxrelstep){
             cout<<"ishape="<<ishape<<": relstep "<<std::setprecision(8)<<relstep<<"="<<step<<"/"<<std::setprecision(16)<<aval<<" for "<<di<<"->"<<df<<" at q between "<<nice_q(qi)<<" and "<<nice_q(qf)<<"\n";
+            maxrelstep = relstep;
         }
         return;
     }
@@ -288,9 +288,10 @@ vector<vector<cvector_t>> create_scans( int mode )
 
 void help_and_exit()
 {
-    cerr<<"fftest limits inmode outfilter shape qxr qxi qyr qyi qzr qzi [q]\n";
+    cerr<<"fftest limits inmode debmsg outfilter shape qxr qxi qyr qyi qzr qzi [q]\n";
     cerr<<"  limits:    \"def\" | qlim qpalim nlim\n";
     cerr<<"  inmode:    get q from 0:stdin | 1:cmdline | 2:loop\n";
+    cerr<<"  debmsg:    0..6 (only if inmode=1)\n";
     cerr<<"  outfilter: return 0:all | 1:real | 2:imag\n";
     cerr<<"fftest limits loop shape\n";
     cerr<<"  limits:    \"def\" | qlim qpalim nlim\n";
@@ -322,6 +323,10 @@ int main (int argc, const char *argv[])
         }
         NEXTARG;
         int inmode = atoi( *arg );
+        if( inmode==1 ) {
+            NEXTARG;
+            diagnosis.debmsg = atoi( *arg );
+        }
         if( inmode<=2 ) {
             NEXTARG;
             int outfilter = atoi( *arg );
@@ -341,7 +346,6 @@ int main (int argc, const char *argv[])
                 while( std::cin >> mag )
                     run( P, ishape, mag*uq, outfilter );
             } else if( inmode==1 ) {
-                diagnosis.debmsg = 2;
                 NEXTARG;
                 mag = atof( *arg );
                 run( P, ishape, mag*uq, outfilter );

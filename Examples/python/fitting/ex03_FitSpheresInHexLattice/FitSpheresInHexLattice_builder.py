@@ -6,7 +6,8 @@ Sample builder approach is used.
 import math
 import random
 import ctypes
-from bornagain import *
+import bornagain as ba
+from bornagain import degree, angstrom, nanometer
 
 
 class MySampleBuilder(ISampleBuilder):
@@ -28,25 +29,25 @@ class MySampleBuilder(ISampleBuilder):
 
     # constructs the sample for current values of parameters
     def buildSample(self):
-        m_air = HomogeneousMaterial("Air", 0.0, 0.0)
-        m_substrate = HomogeneousMaterial("Substrate", 6e-6, 2e-8)
-        m_particle = HomogeneousMaterial("Particle", 6e-4, 2e-8)
+        m_air = ba.HomogeneousMaterial("Air", 0.0, 0.0)
+        m_substrate = ba.HomogeneousMaterial("Substrate", 6e-6, 2e-8)
+        m_particle = ba.HomogeneousMaterial("Particle", 6e-4, 2e-8)
 
-        sphere_ff = FormFactorFullSphere(self.radius.value)
-        sphere = Particle(m_particle, sphere_ff)
-        particle_layout = ParticleLayout()
+        sphere_ff = ba.FormFactorFullSphere(self.radius.value)
+        sphere = ba.Particle(m_particle, sphere_ff)
+        particle_layout = ba.ParticleLayout()
         particle_layout.addParticle(sphere)
 
-        interference = InterferenceFunction2DLattice.createHexagonal(self.lattice_constant.value)
-        pdf = FTDecayFunction2DCauchy(10*nanometer, 10*nanometer)
+        interference = ba.InterferenceFunction2DLattice.createHexagonal(self.lattice_constant.value)
+        pdf = ba.FTDecayFunction2DCauchy(10*nanometer, 10*nanometer)
         interference.setDecayFunction(pdf)
 
         particle_layout.addInterferenceFunction(interference)
 
-        air_layer = Layer(m_air)
+        air_layer = ba.Layer(m_air)
         air_layer.addLayout(particle_layout)
-        substrate_layer = Layer(m_substrate, 0)
-        multi_layer = MultiLayer()
+        substrate_layer = ba.Layer(m_substrate, 0)
+        multi_layer = ba.MultiLayer()
         multi_layer.addLayer(air_layer)
         multi_layer.addLayer(substrate_layer)
         self.sample = multi_layer
@@ -57,7 +58,7 @@ def get_simulation():
     """
     Create and return GISAXS simulation with beam and detector defined
     """
-    simulation = GISASSimulation()
+    simulation = ba.GISASSimulation()
     simulation.setDetectorParameters(100, -1.0*degree, 1.0*degree, 100, 0.0*degree, 2.0*degree)
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
 
@@ -101,16 +102,16 @@ def run_fitting():
 
     real_data = create_real_data()
 
-    fit_suite = FitSuite()
+    fit_suite = ba.FitSuite()
     fit_suite.addSimulationAndRealData(simulation, real_data)
     fit_suite.initPrint(1)
 
-    draw_observer = DefaultFitObserver(draw_every_nth=10)
+    draw_observer = ba.DefaultFitObserver(draw_every_nth=10)
     fit_suite.attachObserver(draw_observer)
 
     # setting fitting parameters with starting values
-    fit_suite.addFitParameter("*radius", 8.*nanometer, AttLimits.limited(4., 12.))
-    fit_suite.addFitParameter("*lattice_constant", 8.*nanometer, AttLimits.limited(4., 12.))
+    fit_suite.addFitParameter("*radius", 8.*nanometer, ba.AttLimits.limited(4., 12.))
+    fit_suite.addFitParameter("*lattice_constant", 8.*nanometer, ba.AttLimits.limited(4., 12.))
 
     # running fit
     fit_suite.runFit()

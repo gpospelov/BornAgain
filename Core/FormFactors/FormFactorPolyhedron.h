@@ -18,11 +18,7 @@
 
 #include<complex>
 #include<memory>
-#include "BasicVector3D.h"
-
-typedef std::complex<double> complex_t;
-typedef Geometry::BasicVector3D<complex_t> cvector_t;
-typedef Geometry::BasicVector3D<double> kvector_t;
+#include "Vectors3D.h"
 
 #include "IFormFactorBorn.h"
 
@@ -37,7 +33,7 @@ public:
     complex_t qE( cvector_t q ) const { return m_E.dot(q); }
     complex_t qR( cvector_t q ) const { return m_R.dot(q); }
 
-    complex_t contrib(int m, cvector_t qpa) const;
+    complex_t contrib(int m, const cvector_t qpa, complex_t qrperp) const;
 
 private:
     kvector_t m_E; //!< vector pointing from mid of edge to upper vertex
@@ -81,7 +77,7 @@ private:
     kvector_t m_center; //!< center of mass
 
     void decompose_q( const cvector_t q, complex_t& qperp, cvector_t& qpa ) const;
-    complex_t ff_n_core( int m, const cvector_t qpa ) const;
+    complex_t ff_n_core( int m, const cvector_t qpa, complex_t qperp ) const;
     complex_t edge_sum_ff( cvector_t q, cvector_t qpa, bool sym_Ci ) const;
     complex_t expansion(
         complex_t fac_even, complex_t fac_odd, cvector_t qpa, double abslevel ) const;

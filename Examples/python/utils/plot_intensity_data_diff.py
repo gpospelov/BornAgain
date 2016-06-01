@@ -5,13 +5,14 @@
 import numpy
 import matplotlib
 from matplotlib import pyplot as plt
-from bornagain import *
+import bornagain as ba
+from bornagain import degree, angstrom, nanometer
 
 
 def plot_intensity_data(ref, data):
     im = plt.imshow(data,
                     norm=matplotlib.colors.LogNorm(),
-                    extent=[ref.getXmin()/deg, ref.getXmax()/deg, ref.getYmin()/deg, ref.getYmax()/deg],
+                    extent=[ref.getXmin()/degree, ref.getXmax()/degree, ref.getYmin()/degree, ref.getYmax()/degree],
                     aspect='auto')
 
     cb = plt.colorbar(im)
@@ -25,7 +26,7 @@ if __name__ == '__main__':
     if len(sys.argv)!=3:
         exit("Usage: python plot_intensity_data_diff.py intensity_reference.int.gz intensity_other.int.gz")
 
-    intensity_ref = IntensityDataIOFactory.readIntensityData(sys.argv[1])
-    intensity_other = IntensityDataIOFactory.readIntensityData(sys.argv[2])
+    intensity_ref = ba.IntensityDataIOFactory.readIntensityData(sys.argv[1])
+    intensity_other = ba.IntensityDataIOFactory.readIntensityData(sys.argv[2])
     data = 2*numpy.abs(intensity_ref.getArray() - intensity_other.getArray())/(numpy.abs(intensity_ref.getArray())+numpy.abs(intensity_other.getArray()))
     plot_intensity_data(intensity_ref, data)

@@ -2,9 +2,9 @@
 # FindTIFF
 # --------
 #
-# Find TIFF library
+# Find TIFF and TIFF/C++libraries
 #
-# Find the native TIFF includes and library This module defines
+# This module defines
 #
 # ::
 #
@@ -18,18 +18,10 @@
 #
 #   TIFF_LIBRARY, where to find the TIFF library.
 
-#=============================================================================
+# This is a heavily patched version of the CMake module FindTIFF.cmake
 # Copyright 2002-2009 Kitware, Inc.
-#
-# Distributed under the OSI-approved BSD License (the "License");
-# see accompanying file Copyright.txt for details.
-#
-# This software is distributed WITHOUT ANY WARRANTY; without even the
-# implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-# See the License for more information.
-#=============================================================================
-# (To distribute this file outside of CMake, substitute the full
-#  License text for the above reference.)
+# Copyright 2013- BornAgain team
+# Distributed under the OSI-approved BSD License
 
 if(WIN32)
     find_path(TIFF_INCLUDE_DIR tiff.h PATHS ${CMAKE_INCLUDE_PATH}/libtiff NO_SYSTEM_ENVIRONMENT_PATH)
@@ -71,12 +63,11 @@ if(TIFF_FOUND)
             get_filename_component(tiff_path ${TIFF_LIBRARIES} DIRECTORY )
             get_filename_component(tiff_ext ${TIFF_LIBRARIES} EXT )
             set(cpp_tiff_library "${tiff_path}/${tiff_library_name}xx${tiff_ext}")
-            if(EXISTS ${cpp_tiff_library})
-                message(STATUS "Found TIFF C++ library ${cpp_tiff_library}")
-                set(TIFF_LIBRARIES ${TIFF_LIBRARIES};${cpp_tiff_library})
-            else()
-                message(STATUS "--> Can't find C++ version ${cpp_tiff_library}. Compilation may fail.")
+            if(NOT EXISTS ${cpp_tiff_library})
+                message(FATAL_ERROR "Could NOT find TIFF/C++ library ${cpp_tiff_library}.")
             endif()
+            message(STATUS "Found TIFF C++ library ${cpp_tiff_library}")
+            set(TIFF_LIBRARIES ${TIFF_LIBRARIES};${cpp_tiff_library})
         endif()
     endif()
 endif()

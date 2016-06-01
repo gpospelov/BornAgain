@@ -34,11 +34,8 @@ endif()
 
 # --- Tiff ---
 if(BORNAGAIN_TIFF_SUPPORT)
-    find_package(TIFF 4.0.2)
-    if(NOT TIFF_FOUND)
-        set(BORNAGAIN_TIFF_SUPPORT OFF)
-        message(STATUS "--> LibTIFF was not found on the system , disabling tiff support.")
-    endif()
+    message(STATUS "Looking for libtiff (use -DBORNAGAIN_TIFF_SUPPORT=OFF to disable)")
+    find_package(TIFF 4.0.2 REQUIRED)
 endif()
 
 # --- Python ---

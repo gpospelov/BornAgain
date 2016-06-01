@@ -61,8 +61,7 @@ if(TIFF_FOUND)
 endif()
 
 if(TIFF_FOUND)
-    #message(STATUS "Found Tiff version ${TIFF_VERSION_STRING}")
-    message(STATUS "--> TIFF_INCLUDE_DIR: ${TIFF_INCLUDE_DIR} TIFF_LIBRARIES: ${TIFF_LIBRARIES}")
+    message(STATUS "Found TIFF version ${TIFF_VERSION_STRING}, includes at ${TIFF_INCLUDE_DIR}, libraries at ${TIFF_LIBRARIES}")
 
     if(NOT WIN32)
         # looking for C++ version of library libtiffxx.so
@@ -73,14 +72,13 @@ if(TIFF_FOUND)
             get_filename_component(tiff_ext ${TIFF_LIBRARIES} EXT )
             set(cpp_tiff_library "${tiff_path}/${tiff_library_name}xx${tiff_ext}")
             if(EXISTS ${cpp_tiff_library})
+                message(STATUS "Found TIFF C++ library ${cpp_tiff_library}")
                 set(TIFF_LIBRARIES ${TIFF_LIBRARIES};${cpp_tiff_library})
-                message(STATUS "--> Adding to the path also C++ version TIFF_LIBRARIES:${TIFF_LIBRARIES}")
             else()
                 message(STATUS "--> Can't find C++ version ${cpp_tiff_library}. Compilation may fail.")
             endif()
         endif()
     endif()
 endif()
-
 
 mark_as_advanced(TIFF_INCLUDE_DIR TIFF_LIBRARY)

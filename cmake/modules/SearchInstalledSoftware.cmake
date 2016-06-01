@@ -22,9 +22,7 @@ if(WIN32)
 endif()
 
 find_package(Boost 1.48.0 COMPONENTS ${boost_libraries_required} REQUIRED)
-message(STATUS "--> Boost_INCLUDE_DIRS: ${Boost_INCLUDE_DIRS}")
-message(STATUS "    Boost_LIBRARY_DIRS: ${Boost_LIBRARY_DIRS}")
-message(STATUS "    Boost_LIBRARIES: ${Boost_LIBRARIES}")
+message(STATUS "Found Boost includes at ${Boost_INCLUDE_DIRS}, libraries at ${Boost_LIBRARY_DIRS}")
 
 # === optional packages ===
 
@@ -56,13 +54,12 @@ endif()
 
 if(BORNAGAIN_PYTHON OR BORNAGAIN_GUI)
     find_package(PythonInterp REQUIRED)
-    message(STATUS "--> PYTHON_VERSION_STRING: ${PYTHON_VERSION_STRING}, PYTHON_EXECUTABLE:${PYTHON_EXECUTABLE}")
+    message(STATUS "Found Python interpreter version ${PYTHON_VERSION_STRING} at ${PYTHON_EXECUTABLE}")
     find_package(PythonLibs REQUIRED)
-    # ValidatePythonInstallation()
-    message(STATUS "--> PYTHON_LIBRARIES: ${PYTHON_LIBRARIES}, PYTHON_INCLUDE_DIRS:${PYTHON_INCLUDE_DIRS} PYTHONLIBS_VERSION_STRING:${PYTHONLIBS_VERSION_STRING}")
     if(NOT PYTHONLIBS_FOUND)
         message(FATAL_ERROR "No Python library has been found")
     endif()
+    message(STATUS "Found Python libraries version ${PYTHONLIBS_VERSION_STRING} at ${PYTHON_LIBRARIES}; includes at ${PYTHON_INCLUDE_DIRS}")
     find_package(Numpy REQUIRED)
 endif()
 
@@ -70,7 +67,7 @@ endif()
 if(BORNAGAIN_PYTHON AND BORNAGAIN_GENERATE_BINDINGS)
     find_package(SWIG 3.0 REQUIRED)
     include(${SWIG_USE_FILE})
-    message(STATUS "--> SWIG EXECUTABLE: ${SWIG_EXECUTABLE}, SWIG_VERSION: ${SWIG_VERSION}")
+    message(STATUS "Found SWIG version ${SWIG_VERSION} at ${SWIG_EXECUTABLE}; CMake definitions in ${SWIG_USE_FILE}")
 endif()
 
 # --- man page generation ---

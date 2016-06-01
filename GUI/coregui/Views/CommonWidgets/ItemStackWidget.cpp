@@ -45,6 +45,7 @@ void ItemStackWidget::setModel(SessionModel *model)
 void ItemStackWidget::onModelAboutToBeReset()
 {
     qDebug() << "ItemStackWidget::onModelAboutToBeReset()";
+    removeWidgets();
 }
 
 void ItemStackWidget::onRowsAboutToBeRemoved(const QModelIndex &parent, int first, int)
@@ -56,7 +57,7 @@ void ItemStackWidget::onRowsAboutToBeRemoved(const QModelIndex &parent, int firs
 
 void ItemStackWidget::onSelectionChanged(SessionItem *item)
 {
-    qDebug() << "ItemStackWidget::onSelectionChanged(SessionItem *item)" << item->displayName();
+    if(item) qDebug() << "ItemStackWidget::onSelectionChanged(SessionItem *item)" << item->displayName();
     setItem(item);
 }
 

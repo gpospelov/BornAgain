@@ -47,6 +47,7 @@ protected:
     void connectModel();
     void disconnectModel();
     virtual void removeWidgetForItem(SessionItem *item) = 0;
+    virtual void removeWidgets() = 0;
 
     class QStackedWidget *m_stackedWidget;
     SessionModel *m_model;

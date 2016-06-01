@@ -32,6 +32,8 @@ class BA_CORE_API_ ItemStackPresenter : public ItemStackWidget
 {
 public:
     virtual void setItem(SessionItem *item) {
+        if(!item) return;
+
         T *widget = m_itemToWidget[item];
 
         if(!widget) {
@@ -44,7 +46,7 @@ public:
     }
 
 protected:
-    virtual void removeWidgetForItem(SessionItem *item) {
+    void removeWidgetForItem(SessionItem *item) {
         Q_ASSERT(item);
 
         T *widget = m_itemToWidget[item];
@@ -63,6 +65,17 @@ protected:
 
         m_stackedWidget->removeWidget(widget);
         delete widget;
+    }
+
+    void removeWidgets() {
+        qDebug() << "ItemStackPresenter::removeWidgets";
+        typename QMap<SessionItem *, T *>::iterator it = m_itemToWidget.begin();
+        while(it!=m_itemToWidget.end()) {
+            m_stackedWidget->removeWidget(it.value());
+            delete it.value();
+            ++it;
+        }
+        m_itemToWidget.clear();
     }
 
 private:

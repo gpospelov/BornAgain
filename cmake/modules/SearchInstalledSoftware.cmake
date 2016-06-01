@@ -45,13 +45,13 @@ endif()
 
 # --- Python ---
 if (BORNAGAIN_GENERATE_BINDINGS AND BORNAGAIN_GENERATE_PYTHON_DOCS)
-  find_package(Doxygen REQUIRED)
+    find_package(Doxygen REQUIRED)
 endif()
 
 if (BORNAGAIN_USE_PYTHON3)
-  set(Python_ADDITIONAL_VERSIONS 3.5 3.4 3.3)
+    set(Python_ADDITIONAL_VERSIONS 3.5 3.4 3.3)
 else()
-  set(Python_ADDITIONAL_VERSIONS 2.7)
+    set(Python_ADDITIONAL_VERSIONS 2.7)
 endif()
 
 if(BORNAGAIN_PYTHON OR BORNAGAIN_GUI)
@@ -68,7 +68,16 @@ endif()
 
 # --- Swig ---
 if(BORNAGAIN_PYTHON AND BORNAGAIN_GENERATE_BINDINGS)
-  find_package(SWIG 3.0 REQUIRED)
-  include(${SWIG_USE_FILE})
-  message(STATUS "--> SWIG EXECUTABLE: ${SWIG_EXECUTABLE}, SWIG_VERSION: ${SWIG_VERSION}")
+    find_package(SWIG 3.0 REQUIRED)
+    include(${SWIG_USE_FILE})
+    message(STATUS "--> SWIG EXECUTABLE: ${SWIG_EXECUTABLE}, SWIG_VERSION: ${SWIG_VERSION}")
+endif()
+
+# --- man page generation ---
+if(BORNAGAIN_MANPAGE)
+    find_program(POD2MAN pod2man)
+    message(STATUS "pod2man+ '${POD2MAN}'")
+    if(NOT ${POD2MAN})
+        message(FATAL_ERROR "FATAL: cannot satisfy BORNAGAIN_MANPAGE: pod2man not found")
+    endif()
 endif()

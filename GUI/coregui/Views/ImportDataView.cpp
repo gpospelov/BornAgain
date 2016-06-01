@@ -51,6 +51,9 @@ ImportDataView::ImportDataView(MainWindow *mainWindow)
 
     m_selectorWidget->setModel(mainWindow->realDataModel());
     m_stackedWidget->setModel(mainWindow->realDataModel());
+    m_toolBar->setModel(mainWindow->realDataModel());
+    m_toolBar->setSelectionModel(m_selectorWidget->selectionModel());
+
 }
 
 void ImportDataView::setupConnections()

@@ -23,6 +23,7 @@
 class SessionModel;
 class SessionItem;
 class QItemSelection;
+class QItemSelectionModel;
 
 //! The ItemSelectorWidget class holds QListView to show top level items of SessionModel.
 //! Used in InstrumentView and ImportDataView to switch between items.
@@ -38,6 +39,8 @@ public:
     QSize minimumSizeHint() const { return QSize(128, 200); }
 
     void setModel(SessionModel *model);
+
+    QItemSelectionModel *selectionModel();
 
 signals:
     void selectionChanged(SessionItem *item);

@@ -20,6 +20,8 @@
 #include "StyledToolBar.h"
 
 class QAction;
+class SessionModel;
+class QItemSelectionModel;
 
 //! The ImportDataToolBar class represents a narrow toolbar on top of ImportDataView
 
@@ -28,6 +30,9 @@ class BA_CORE_API_ ImportDataToolBar : public StyledToolBar
     Q_OBJECT
 public:
     ImportDataToolBar(QWidget *parent = 0);
+
+    void setModel(SessionModel *model);
+    void setSelectionModel(QItemSelectionModel *selectionModel);
 
 private slots:
     void onImportDataAction();
@@ -38,6 +43,9 @@ private:
     QAction *m_importDataAction;
     QAction *m_cloneDataAction;
     QAction *m_removeDataAction;
+
+    SessionModel *m_model;
+    QItemSelectionModel *m_selectionModel;
 };
 
 #endif

@@ -44,10 +44,19 @@ void ItemSelectorWidget::setModel(SessionModel *model)
     connectModel();
 }
 
+QItemSelectionModel *ItemSelectorWidget::selectionModel()
+{
+    return m_listView->selectionModel();
+}
+
 void ItemSelectorWidget::onSelectionChanged(const QItemSelection &selected, const QItemSelection &)
 {
-    SessionItem *selectedItem = m_model->itemForIndex(selected.indexes().back());
-    qDebug() << "ItemSelectorWidget::onSelectionChanged" << selectedItem->displayName();
+    QModelIndexList indexes = selected.indexes();
+    SessionItem *selectedItem(0);
+    if(indexes.size()) {
+        selectedItem = m_model->itemForIndex(indexes.back());
+        qDebug() << "ItemSelectorWidget::onSelectionChanged" << selectedItem->displayName();
+    }
     emit selectionChanged(selectedItem);
 }
 

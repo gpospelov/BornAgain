@@ -47,9 +47,11 @@ void ItemStackWidget::onModelAboutToBeReset()
     qDebug() << "ItemStackWidget::onModelAboutToBeReset()";
 }
 
-void ItemStackWidget::onRowsAboutToBeRemoved(QModelIndex, int, int)
+void ItemStackWidget::onRowsAboutToBeRemoved(const QModelIndex &parent, int first, int)
 {
     qDebug() << "ItemStackWidget::onRowsAboutToBeRemoved()";
+    SessionItem *item = m_model->itemForIndex(m_model->index(first, 0, parent));
+    removeWidgetForItem(item);
 }
 
 void ItemStackWidget::onSelectionChanged(SessionItem *item)

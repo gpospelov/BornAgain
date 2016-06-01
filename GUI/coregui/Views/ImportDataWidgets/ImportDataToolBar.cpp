@@ -15,13 +15,18 @@
 // ************************************************************************** //
 
 #include "ImportDataToolBar.h"
+#include "SessionModel.h"
+#include <QItemSelectionModel>
 #include <QAction>
+#include <QDebug>
 
 ImportDataToolBar::ImportDataToolBar(QWidget *parent)
     : StyledToolBar(parent)
     , m_importDataAction(0)
     , m_cloneDataAction(0)
     , m_removeDataAction(0)
+    , m_model(0)
+    , m_selectionModel(0)
 {
     setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
 
@@ -49,17 +54,43 @@ ImportDataToolBar::ImportDataToolBar(QWidget *parent)
 
 }
 
+void ImportDataToolBar::setModel(SessionModel *model)
+{
+    m_model = model;
+}
+
+void ImportDataToolBar::setSelectionModel(QItemSelectionModel *selectionModel)
+{
+    m_selectionModel = selectionModel;
+}
+
 void ImportDataToolBar::onImportDataAction()
 {
-
+    qDebug() << "ImportDataToolBar::onImportDataAction()";
+    Q_ASSERT(m_model);
+    m_model->insertNewItem(Constants::RealDataType);
 }
 
 void ImportDataToolBar::onCloneDataAction()
 {
+    qDebug() << "ImportDataToolBar::onCloneDataAction()";
 
 }
 
 void ImportDataToolBar::onRemoveDataAction()
 {
+    qDebug() << "ImportDataToolBar::onRemoveDataAction()";
+    Q_ASSERT(m_model);
+    Q_ASSERT(m_selectionModel);
 
+    QModelIndex currentIndex = m_selectionModel->currentIndex();
+    qDebug() << "InstrumentView::onRemoveInstrument()" <<  currentIndex;
+    if(currentIndex.isValid())
+        m_model->removeRows(currentIndex.row(), 1, currentIndex.parent());
+
+//    QModelIndexList indexes = m_selectionModel->selectedIndexes();
+//    while (indexes.size()) {
+//        m_model->removeRows(indexes.back().row(), 1, indexes.back().parent());
+//        indexes = m_selectionModel->selectedIndexes();
+//    }
 }

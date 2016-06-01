@@ -22,6 +22,8 @@
 #include <QMap>
 #include <QDebug>
 
+class SessionItem;
+
 //! The ItemStackPresenter templated class extends ItemStackWidget so it could operate with
 //! SesionItem editor's of specified type, while still keeping signal/slots alive.
 
@@ -41,8 +43,30 @@ public:
         m_stackedWidget->setCurrentWidget(widget);
     }
 
+protected:
+    virtual void removeWidgetForItem(SessionItem *item) {
+        Q_ASSERT(item);
+
+        T *widget = m_itemToWidget[item];
+        if(!widget) return;
+
+        qDebug() << "ItemStackPresenter::removeWidgetForItem";
+
+        typename QMap<SessionItem *, T *>::iterator it = m_itemToWidget.begin();
+        while(it!=m_itemToWidget.end()) {
+            if(it.value() == widget) {
+                it = m_itemToWidget.erase(it);
+            } else {
+                ++it;
+            }
+        }
+
+        m_stackedWidget->removeWidget(widget);
+        delete widget;
+    }
+
 private:
-    QMap<class SessionItem *, T *> m_itemToWidget;
+    QMap<SessionItem *, T *> m_itemToWidget;
 };
 
 

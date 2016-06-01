@@ -40,12 +40,13 @@ public:
 
 public slots:
     virtual void onModelAboutToBeReset();
-    virtual void onRowsAboutToBeRemoved(QModelIndex,int,int);
+    virtual void onRowsAboutToBeRemoved(const QModelIndex &parent,int first,int);
     virtual void onSelectionChanged(SessionItem *item);
 
 protected:
     void connectModel();
     void disconnectModel();
+    virtual void removeWidgetForItem(SessionItem *item) = 0;
 
     class QStackedWidget *m_stackedWidget;
     SessionModel *m_model;

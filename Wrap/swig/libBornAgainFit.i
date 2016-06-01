@@ -80,9 +80,6 @@ import_array();
 #include "MinimizerFactory.h"
 #include "MinimizerOptions.h"
 #include "FitStrategyAdjustMinimizer.h"
-
-//! file containig additional exposers
-#include "PythonFitExposer.h"
 %}
 
 %import(module="libBornAgainCore") "AttLimits.h"

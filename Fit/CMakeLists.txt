@@ -17,7 +17,6 @@ include_directories(${include_dirs})
 
 file(GLOB fitkernel_source_files
     "FitKernel/*.cpp"
-    "FitKernel/*.cxx"
     "StandardFits/*.cpp"
     )
 
@@ -30,10 +29,6 @@ set(source_files ${fitkernel_source_files})
 set(include_files ${fitkernel_include_files})
 
 if(BORNAGAIN_PYTHON)
-    file(GLOB source_pythonapi "PythonAPI/*.cpp")
-    list(APPEND source_files ${source_pythonapi})
-    file(GLOB include_pythonapi "PythonAPI/*.h")
-    list(APPEND include_files ${include_pythonapi})
 
     set(include_dirs
         ${CMAKE_CURRENT_SOURCE_DIR}/FitKernel/
@@ -54,12 +49,7 @@ if(BORNAGAIN_PYTHON)
 
         set(bornagain_swig_dir ${CMAKE_SOURCE_DIR}/Wrap/swig)
 
-        #set_source_files_properties(${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainFit.i PROPERTIES CPLUSPLUS ON)
-        #set_source_files_properties(${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainFit.i PROPERTIES SWIG_FLAGS "-includeall")
-        set(SWIG_FLAGS "")
-        list(APPEND SWIG_FLAGS "-c++")
-        list(APPEND SWIG_FLAGS "-python")
-
+        set(SWIG_FLAGS "-c++;-python")
         foreach(dir ${include_dirs})
             list(APPEND SWIG_FLAGS "-I${dir}")
         endforeach(dir)
@@ -75,7 +65,9 @@ if(BORNAGAIN_PYTHON)
             )
 
         add_custom_command (
-            OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainFit_wrap.cxx ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainFit_wrap.h ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainFit.py
+            OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainFit_wrap.cxx
+                   ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainFit_wrap.h
+                   ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainFit.py
             COMMAND ${SWIG_EXECUTABLE} ${SWIG_FLAGS} ${bornagain_swig_dir}/libBornAgainFit.i
             COMMAND ${PYTHON_EXECUTABLE} ${bornagain_swig_dir}/tweaks.py ${bornagain_swig_dir}/libBornAgainFit.py ${bornagain_swig_dir}/libBornAgainFit.py
             COMMAND ${CMAKE_COMMAND} -E copy ${bornagain_swig_dir}/libBornAgainFit.py ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainFit.py

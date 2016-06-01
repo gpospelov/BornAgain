@@ -64,7 +64,7 @@ endif()
 if(BORNAGAIN_PYTHON AND BORNAGAIN_GENERATE_BINDINGS)
     find_package(SWIG 3.0 REQUIRED)
     include(${SWIG_USE_FILE})
-    message(STATUS "Found SWIG version ${SWIG_VERSION} at ${SWIG_EXECUTABLE}; CMake definitions in ${SWIG_USE_FILE}")
+    message(STATUS "Found SWIG version ${SWIG_VERSION} at ${SWIG_EXECUTABLE} with flags '${SWIG_FLAGS}'; CMake definitions in ${SWIG_USE_FILE}")
 endif()
 
 # --- man page generation ---

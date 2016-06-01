@@ -13,17 +13,16 @@
 //
 // ************************************************************************** //
 
-#include "NumpyUtils.h"
-#include "Exceptions.h"
-
 #ifdef BORNAGAIN_PYTHON
-#define NPY_NO_DEPRECATED_API NPY_1_7_API_VERSION
-#include "Python.h"
+
 #define PY_ARRAY_UNIQUE_SYMBOL BORNAGAIN_PYTHONAPI_ARRAY
 #define NO_IMPORT_ARRAY
 #include "numpy/arrayobject.h"
 
-PyObject *Utils::createNumpyArray(const std::vector<double> &data)
+#include "NumpyUtils.h"
+#include "Exceptions.h"
+
+PyObject* Utils::createNumpyArray(const std::vector<double>& data)
 {
     const size_t ndim(1);
     npy_int ndim_numpy = ndim;
@@ -34,20 +33,17 @@ PyObject *Utils::createNumpyArray(const std::vector<double> &data)
     PyObject *pyarray = PyArray_SimpleNew(ndim_numpy, ndimsizes_numpy, NPY_DOUBLE);
     delete [] ndimsizes_numpy;
     if(pyarray == nullptr ) {
-        throw RuntimeErrorException(
-                "ExportOutputData() -> Panic in PyArray_SimpleNew");
+        throw RuntimeErrorException("ExportOutputData() -> Panic in PyArray_SimpleNew");
     }
     Py_INCREF(pyarray);
 
     // getting pointer to data buffer of numpy array
     double *array_buffer = (double *)PyArray_DATA((PyArrayObject*)pyarray);
 
-    for(size_t index=0; index<data.size(); ++index) {
+    for(size_t index=0; index<data.size(); ++index)
         *array_buffer++ = data[index];
-    }
 
     return pyarray;
 }
 
-#endif
-
+#endif // BORNAGAIN_PYTHON

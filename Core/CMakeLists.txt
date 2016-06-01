@@ -1,11 +1,12 @@
 ############################################################################
 # CMakeLists.txt file for building libBornAgainCore library
 ############################################################################
+
 set(library_name BornAgainCore)
+
 if(POLICY CMP0042)
     cmake_policy(SET CMP0042 NEW)
 endif()
-
 
 # --- source and include files ---------
 set(include_dirs
@@ -17,9 +18,6 @@ set(include_dirs
     ${CMAKE_CURRENT_SOURCE_DIR}/Tools/
     ${CMAKE_CURRENT_SOURCE_DIR}/InputOutput
     )
-
-set(bornagain_swig_dir ${CMAKE_CURRENT_SOURCE_DIR}/../dev-tools/swig)
-
 
 include_directories(${include_dirs})
 
@@ -54,17 +52,14 @@ if(BORNAGAIN_PYTHON)
     list(APPEND include_files ${pythonapi_include})
     include_directories(${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/)
 
-
     if(BORNAGAIN_GENERATE_BINDINGS)
 
-        set(SWIG_FLAGS "")
-        list(APPEND SWIG_FLAGS "-c++")
-        list(APPEND SWIG_FLAGS "-python")
-
+        set(SWIG_FLAGS "-c++;-python")
         foreach(dir ${include_dirs})
             list(APPEND SWIG_FLAGS "-I${dir}")
         endforeach(dir)
 
+        set(bornagain_swig_dir ${CMAKE_SOURCE_DIR}/Wrap/swig)
         set(swig_dependencies
             ${bornagain_swig_dir}/libBornAgainCore.i
             ${bornagain_swig_dir}/directors.i
@@ -74,6 +69,11 @@ if(BORNAGAIN_PYTHON)
             ${bornagain_swig_dir}/shared_pointers.i
             ${bornagain_swig_dir}/warnings.i
             )
+        foreach(FNAM ${swig_dependencies})
+            if(NOT EXISTS ${FNAM})
+                message(FATAL_ERROR "Could NOT find SWIG input ${FNAM}")
+            endif()
+        endforeach()
 
         add_custom_command (
             OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainCore.py ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainCore_wrap.h ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/libBornAgainCore_wrap.cxx
@@ -112,7 +112,6 @@ if(BORNAGAIN_PYTHON)
     # manually add: if does not exist, will be created by swig
     list(APPEND source_files "PythonAPI/libBornAgainCore_wrap.cxx")
     #list(APPEND include_files "PythonAPI/libBornAgainCore_wrap.h")
-
 
     # add_custom_target(
     #   ${library_name}_python
@@ -271,7 +270,6 @@ else()
             DESTINATION ${destination_libexec})
 
     endif()
-
 
 endif()
 

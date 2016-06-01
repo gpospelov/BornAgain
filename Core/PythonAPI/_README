@@ -1,4 +1,4 @@
-This directory only contains automatically generated wrapper code.
+This directory mostly contains automatically generated wrapper code.
 
 For info on the wrapper-generating machinery, see
   ../../dev-tools/python-bindings/README

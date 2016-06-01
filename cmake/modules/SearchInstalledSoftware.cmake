@@ -72,8 +72,3 @@ if(BORNAGAIN_PYTHON AND BORNAGAIN_GENERATE_BINDINGS)
   include(${SWIG_USE_FILE})
   message(STATUS "--> SWIG EXECUTABLE: ${SWIG_EXECUTABLE}, SWIG_VERSION: ${SWIG_VERSION}")
 endif()
-
-# --- Root ---
-if(BORNAGAIN_APP)
-    find_package(ROOT)
-endif()

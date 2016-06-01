@@ -74,34 +74,43 @@ complex_t PolyhedralEdge::contrib(int M, const cvector_t qpa, complex_t qrperp) 
         std::cout<<std::scientific<<std::showpos<<std::setprecision(16)<<"contrib: u="<<u<<" v1="<<v1<<" v2="<<v2<<"\n";
 #endif
     static auto& precomputed = IPrecomputed::instance();
-    /*if( v==0. ) { // only 2l=M contributes
+    if( v==0. ) { // only 2l=M contributes
         if( M&1 ) // M is odd
             return 0.;
         else
-            return precomputed.reciprocal_factorial[M] * ( pow(u, M) - (M.)*pow(v1, M) );
-            }*/
+            return precomputed.reciprocal_factorial[M] * ( pow(u, M)/(M+1.) - pow(v1, M) );
+    }
     complex_t ret = 0;
-    // expand the l=0 term (q.R)^M, omitting (qperp.R)^M, which contributes nothing
-    // under the sum over E*contrib()
-    for( int mm=1; mm<=M; ++mm ) {
-        complex_t term = precomputed.reciprocal_factorial[mm] * precomputed.reciprocal_factorial[M-mm] *
-            pow(v2, mm) * pow(v1, M-mm);
-        ret += term;
+    // the l=0 term, minus (qperp.R)^M, which cancels under the sum over E*contrib()
+    if        ( v1==0. ) {
+        ret = precomputed.reciprocal_factorial[M] * pow(v2, M);
+    } else if ( v2==0. ) {
+        ; // leave ret=0
+    } else {
+        // binomial expansion
+        for( int mm=1; mm<=M; ++mm ) {
+            complex_t term =
+                precomputed.reciprocal_factorial[mm] *
+                precomputed.reciprocal_factorial[M-mm] *
+                pow(v2, mm) * pow(v1, M-mm);
+            ret += term;
 #ifdef POLYHEDRAL_DIAGNOSTIC
-        if( diagnosis.debmsg>=6 )
-            std::cout<<std::scientific<<std::showpos<<std::setprecision(16)<<"contrib mm="<<mm<<" t="<<term<<" s="<<ret<<"\n";
+            if( diagnosis.debmsg>=6 )
+                std::cout<<"contrib mm="<<mm<<" t="<<term<<" s="<<ret<<"\n";
 #endif
+        }
     }
     if( u==0. )
         return ret;
     for( int l=1; l<=M/2; ++l ) {
-        complex_t term = precomputed.reciprocal_factorial[M-2*l] *
+        complex_t term =
+            precomputed.reciprocal_factorial[M-2*l] *
             precomputed.reciprocal_factorial[2*l+1] *
             pow(u, 2*l) * pow(v, M-2*l);
         ret += term;
 #ifdef POLYHEDRAL_DIAGNOSTIC
         if( diagnosis.debmsg>=6 )
-            std::cout<<std::scientific<<std::showpos<<std::setprecision(16)<<"contrib l="<<l<<" t="<<term<<" s="<<ret<<"\n";
+            std::cout<<"contrib l="<<l<<" t="<<term<<" s="<<ret<<"\n";
 #endif
     }
     return ret;

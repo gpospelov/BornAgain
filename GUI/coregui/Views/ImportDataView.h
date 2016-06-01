@@ -37,9 +37,7 @@ private:
     class ImportDataToolBar *m_toolBar;
     class QSplitter *m_splitter;
     class ItemSelectorWidget *m_selectorWidget;
-    //class QStackedWidget *m_stackedWidget;
     ItemStackPresenter<RealDataEditorWidget> *m_stackedWidget;
-
     class RealDataModel *m_realDataModel;
 };
 

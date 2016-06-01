@@ -8,7 +8,7 @@ add_custom_target(
 
 add_custom_command(
     OUTPUT "${AUTODIR}/bornagain.1"
-    COMMAND pod2man -s 1 -c "BornAgain manual" ${CMAKE_CURRENT_SOURCE_DIR}/bornagain.pod ${AUTODIR}/bornagain.1
+    COMMAND ${POD2MAN} -s 1 -c "BornAgain manual" ${CMAKE_CURRENT_SOURCE_DIR}/bornagain.pod ${AUTODIR}/bornagain.1
     DEPENDS bornagain.pod
 )
 

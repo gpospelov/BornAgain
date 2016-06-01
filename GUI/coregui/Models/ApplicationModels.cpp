@@ -29,7 +29,7 @@
 #include "IntensityDataIOFactory.h"
 #include "Histogram2D.h"
 #include "IntensityDataItem.h"
-#include <QMessageBox>
+#include <QDebug>
 
 ApplicationModels::ApplicationModels(QObject *parent)
     : QObject(parent)
@@ -115,6 +115,11 @@ void ApplicationModels::resetModels()
     instrument->setItemName("Default GISAS");
     m_instrumentModel->insertNewItem(Constants::DetectorType, m_instrumentModel->indexOfItem(instrument));
     m_instrumentModel->insertNewItem(Constants::BeamType, m_instrumentModel->indexOfItem(instrument));
+
+    m_realDataModel->insertNewItem(Constants::RealDataType);
+    m_realDataModel->insertNewItem(Constants::RealDataType);
+    m_realDataModel->insertNewItem(Constants::RealDataType);
+
 }
 
 //! creates and initializes models, order is important

@@ -18,6 +18,7 @@
 #include "mainwindow.h"
 #include "ApplicationModels.h"
 #include "InstrumentModel.h"
+#include "RealDataModel.h"
 #include "SampleModel.h"
 #include "MaterialModel.h"
 #include "JobModel.h"
@@ -120,6 +121,7 @@ void SessionModelView::init_tabs()
     m_content.clear();
     m_content.push_back(ModelTree(m_mainWindow->instrumentModel(), new QTreeView(this)));
     m_content.push_back(ModelTree(m_mainWindow->sampleModel(), new QTreeView(this)));
+    m_content.push_back(ModelTree(m_mainWindow->realDataModel(), new QTreeView(this)));
     m_content.push_back(ModelTree(m_mainWindow->materialModel(), new QTreeView(this)));
     m_content.push_back(ModelTree(m_mainWindow->jobModel(), new QTreeView(this)));
     for(int i=0; i<m_content.size(); ++i) {

@@ -17,17 +17,19 @@
 #include "ImportDataView.h"
 #include "mainwindow.h"
 #include "ImportDataToolBar.h"
-#include "RealDataSelectorWidget.h"
+#include "ItemSelectorWidget.h"
+#include "RealDataModel.h"
 #include <QVBoxLayout>
 #include <QSplitter>
 #include <QStackedWidget>
+#include <QDebug>
 
 ImportDataView::ImportDataView(MainWindow *mainWindow)
     : QWidget(mainWindow)
     , m_toolBar(new ImportDataToolBar(this))
     , m_splitter(new QSplitter(this))
-    , m_selectorWidget(new RealDataSelectorWidget(this))
-    , m_stackedWidget(new QStackedWidget(this))
+    , m_selectorWidget(new ItemSelectorWidget(this))
+    , m_stackedWidget(new ItemStackPresenter<RealDataEditorWidget>)
     , m_realDataModel(mainWindow->realDataModel())
 {
     QVBoxLayout *mainLayout = new QVBoxLayout;
@@ -46,15 +48,15 @@ ImportDataView::ImportDataView(MainWindow *mainWindow)
     setLayout(mainLayout);
 
     setupConnections();
+
+    m_selectorWidget->setModel(mainWindow->realDataModel());
+    m_stackedWidget->setModel(mainWindow->realDataModel());
 }
 
 void ImportDataView::setupConnections()
 {
-//    connect(m_selectorWidget,
-//        SIGNAL(selectionChanged(const QItemSelection&, const QItemSelection&)),
-//        this,
-//        SLOT(onSelectionChanged(const QItemSelection&, const QItemSelection&))
-//        );
+    connect(m_selectorWidget, SIGNAL(selectionChanged(SessionItem *)),
+        m_stackedWidget, SLOT(onSelectionChanged(SessionItem *)));
 
 //    connect(m_realDataModel,
 //            SIGNAL(modelAboutToBeReset()),

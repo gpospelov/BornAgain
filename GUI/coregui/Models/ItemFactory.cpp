@@ -54,6 +54,7 @@
 #include "SimulationOptionsItem.h"
 #include "FitParameterItems.h"
 #include "FitSuiteItem.h"
+#include "RealDataItem.h"
 #include <QDebug>
 
 namespace {
@@ -196,6 +197,8 @@ ItemFactory::ItemMap_t initializeItemMap() {
 
     result[Constants::SimulationOptionsType] = &createInstance<SimulationOptionsItem>;
 
+    result[Constants::RealDataType] = &createInstance<RealDataItem>;
+
     return result;
 }
 }
@@ -233,7 +236,7 @@ SessionItem *ItemFactory::createItem(const QString &model_name,
 
 SessionItem *ItemFactory::createEmptyItem()
 {
-    SessionItem *result = new SessionItem("ROOT_ITEM");
+    SessionItem *result = new SessionItem(QStringLiteral("ROOT_ITEM"));
     return result;
 }
 

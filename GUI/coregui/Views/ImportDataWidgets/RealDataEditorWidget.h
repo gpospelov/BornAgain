@@ -32,6 +32,11 @@ public:
     QSize sizeHint() const { return QSize(200, 400); }
     QSize minimumSizeHint() const { return QSize(128, 200); }
 
+    void setItem(class SessionItem *item);
+
+private:
+    class QLabel *m_label;
+
 };
 
 #endif

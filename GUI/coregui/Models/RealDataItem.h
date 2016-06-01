@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/ImportDataWidgets/RealDataEditorWidget.cpp
-//! @brief     Declares class RealDataEditorWidget
+//! @file      coregui/Models/RealDataItem.h
+//! @brief     Declares class RealDataItem
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,24 +14,19 @@
 //
 // ************************************************************************** //
 
-#include "RealDataEditorWidget.h"
+#ifndef REALDATAITEM_H
+#define REALDATAITEM_H
+
 #include "SessionItem.h"
-#include <QVBoxLayout>
-#include <QLabel>
 
-RealDataEditorWidget::RealDataEditorWidget(QWidget *parent)
-    : QWidget(parent)
-    , m_label(new QLabel("xxx"))
+//! The RealDataItem class represents intensity data imported from file and intended for fitting.
+
+class BA_CORE_API_ RealDataItem : public SessionItem
 {
-    setMinimumSize(400, 400);
-    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+public:
+    explicit RealDataItem();
+};
 
-    QVBoxLayout *layout = new QVBoxLayout;
-    layout->addWidget(m_label);
-    setLayout(layout);
-}
+#endif
 
-void RealDataEditorWidget::setItem(SessionItem *item)
-{
-    m_label->setText(item->displayName());
-}
+

@@ -18,6 +18,8 @@
 #define IMPORTDATAVIEW_H
 
 #include "WinDllMacros.h"
+#include "ItemStackPresenter.h"
+#include "RealDataEditorWidget.h"
 #include <QWidget>
 
 //! The ImportDataView class is a main view for importing experimental data.
@@ -34,8 +36,10 @@ private:
 
     class ImportDataToolBar *m_toolBar;
     class QSplitter *m_splitter;
-    class RealDataSelectorWidget *m_selectorWidget;
-    class QStackedWidget *m_stackedWidget;
+    class ItemSelectorWidget *m_selectorWidget;
+    //class QStackedWidget *m_stackedWidget;
+    ItemStackPresenter<RealDataEditorWidget> *m_stackedWidget;
+
     class RealDataModel *m_realDataModel;
 };
 

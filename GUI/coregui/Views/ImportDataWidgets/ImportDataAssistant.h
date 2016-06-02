@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/DocumentModel.h
-//! @brief     Declares class DocumentModel
+//! @file      coregui/Views/ImportDataWidgets/ImportDataAssistant.h
+//! @brief     Declares class ImportDataAssistant
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,24 +14,19 @@
 //
 // ************************************************************************** //
 
-#ifndef DOCUMENTMODEL_H
-#define DOCUMENTMODEL_H
+#ifndef IMPORTDATAASSISTANT_H
+#define IMPORTDATAASSISTANT_H
 
-#include "SessionModel.h"
+#include "WinDllMacros.h"
 
-class SimulationOptionsItem;
+template <class T> class OutputData;
 
-//! The DocumentModel class is a model with GUI settings related to the opened project.
-//! Can be the place to store splitter position, etc.
+//! The ImportDataAssistant class provides utility methods to import data files.
 
-class BA_CORE_API_ DocumentModel : public SessionModel
-{
-    Q_OBJECT
-
+class BA_CORE_API_ ImportDataAssistant {
 public:
-    explicit DocumentModel(QObject *parent = 0);
 
-    SimulationOptionsItem *getSimulationOptionsItem();
+    OutputData<double> *importData();
 
 };
 

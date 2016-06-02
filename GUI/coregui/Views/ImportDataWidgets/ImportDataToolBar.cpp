@@ -16,6 +16,7 @@
 
 #include "ImportDataToolBar.h"
 #include "SessionModel.h"
+#include "ImportDataAssistant.h"
 #include <QItemSelectionModel>
 #include <QAction>
 #include <QDebug>

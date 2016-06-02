@@ -20,9 +20,8 @@
 #include "IntensityDataWidget.h"
 #include "JobOutputDataToolBar.h"
 #include "JobView.h"
+#include "AppSvc.h"
 #include "projectmanager.h"
-#include "projectdocument.h"
-#include "styledbar.h"
 #include <QVBoxLayout>
 #include <QPushButton>
 #include <QStackedWidget>
@@ -30,10 +29,8 @@
 #include <QDebug>
 #include "GUIHelpers.h"
 
-JobOutputDataWidget::JobOutputDataWidget(JobModel *jobModel, ProjectManager *projectManager,
-                                         QWidget *parent)
+JobOutputDataWidget::JobOutputDataWidget(JobModel *jobModel, QWidget *parent)
     : JobPresenter(jobModel, parent)
-    , m_projectManager(projectManager)
     , m_stack(new QStackedWidget(this))
     , m_toolBar(new JobOutputDataToolBar())
 {
@@ -140,17 +137,8 @@ void JobOutputDataWidget::onResetView()
 
 void JobOutputDataWidget::onSavePlot()
 {
-    QString dirname = QStandardPaths::writableLocation(QStandardPaths::HomeLocation);
-
-    if(m_projectManager) {
-        ProjectDocument *document  = m_projectManager->getDocument();
-        if(document->hasValidNameAndPath()) {
-            dirname = document->getProjectDir();
-        }
-    }
-
     IntensityDataWidget *widget = getCurrentOutputDataWidget();
-    if(widget) widget->savePlot(dirname);
+    if(widget) widget->savePlot(AppSvc::projectManager()->userExportDir());
 }
 
 void JobOutputDataWidget::onActivityChanged(int activity)

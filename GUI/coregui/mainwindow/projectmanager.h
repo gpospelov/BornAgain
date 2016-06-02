@@ -47,6 +47,9 @@ public:
 
     QString getProjectDir() const;
 
+    QString userExportDir() const;
+    QString userImportDir() const;
+
 signals:
     void modified();
     void projectOpened();

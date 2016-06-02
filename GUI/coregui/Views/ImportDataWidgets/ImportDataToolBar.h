@@ -23,7 +23,8 @@ class QAction;
 class SessionModel;
 class QItemSelectionModel;
 
-//! The ImportDataToolBar class represents a narrow toolbar on top of ImportDataView
+//! The ImportDataToolBar class represents a narrow toolbar on top of ImportDataView. Contains
+//! all action's logic to import, clone and remove data set.
 
 class BA_CORE_API_ ImportDataToolBar : public StyledToolBar
 {

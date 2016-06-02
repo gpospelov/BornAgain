@@ -26,11 +26,13 @@
 #include "MessageContainer.h"
 #include "GUIMessage.h"
 #include "ApplicationModels.h"
+#include "AppSvc.h"
 #include <QDir>
 #include <QFileDialog>
 #include <QSettings>
 #include <QDebug>
 #include <QMessageBox>
+#include <QStandardPaths>
 #include <iostream>
 
 ProjectManager::ProjectManager(MainWindow *parent)
@@ -40,11 +42,13 @@ ProjectManager::ProjectManager(MainWindow *parent)
 
 {
     createNewProject();
+    AppSvc::subscribe(this);
 }
 
 
 ProjectManager::~ProjectManager()
 {
+    AppSvc::unsubscribe(this);
     delete m_project_document;
     delete m_messageService;
 }
@@ -262,6 +266,22 @@ QString ProjectManager::getProjectDir() const
     if(m_project_document && m_project_document->hasValidNameAndPath()) {
         return m_project_document->getProjectDir();
     }
+    return QString();
+}
+
+//! Returns directory name suitable for saving plots
+QString ProjectManager::userExportDir() const
+{
+    QString result = getProjectDir();
+    if(result.isEmpty()) {
+        result = QStandardPaths::writableLocation(QStandardPaths::HomeLocation);
+    }
+    return result;
+}
+
+//! Returns directory name which was used by the user to import files.
+QString ProjectManager::userImportDir() const
+{
     return QString();
 }
 

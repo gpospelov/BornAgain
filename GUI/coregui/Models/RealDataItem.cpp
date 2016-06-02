@@ -16,9 +16,13 @@
 
 #include "RealDataItem.h"
 
+const QString RealDataItem::T_INTENSITY_DATA = "Intensity data";
+
 RealDataItem::RealDataItem()
     : SessionItem(Constants::RealDataType)
 {
 //    setItemName(Constants::RealDataType);
+    registerTag(T_INTENSITY_DATA, 1, 1, QStringList() << Constants::IntensityDataType);
+    setDefaultTag(T_INTENSITY_DATA);
 
 }

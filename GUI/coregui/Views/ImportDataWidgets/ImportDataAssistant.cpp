@@ -42,22 +42,16 @@ OutputData<double> *ImportDataAssistant::importData()
     if(newImportDir != dirname)
         AppSvc::projectManager()->setImportDir(newImportDir);
 
-
-
     OutputData<double> *result(0);
 
-//    try {
-//        result = IntensityDataIOFactory::readOutputData(fileName.toStdString());
-//    } catch (std::exception& ex) {
-//        QString message(QStringLiteral("Real data can not be loaded\n\n"));
-//        message += QString::fromStdString(std::string(ex.what()));
-//        QMessageBox::warning(0, "IO Problem", message);
-//    }
-
-    qDebug() << "AAA importData  fileName:" << fileName;
-    qDebug() << "AAA importData  dirname:" << dirname;
-    qDebug() << "AAA importData  newImportDir:" << newImportDir;
-
+    try {
+        result = IntensityDataIOFactory::readOutputData(fileName.toStdString());
+    } catch (std::exception &ex) {
+        QString message = QString("Error while trying to read file\n\n'%1'\n\n%2")
+                              .arg(fileName)
+                              .arg(QString::fromStdString(std::string(ex.what())));
+        QMessageBox::warning(0, "IO Problem", message);
+    }
     return result;
 }
 

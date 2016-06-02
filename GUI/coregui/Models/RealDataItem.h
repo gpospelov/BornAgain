@@ -24,6 +24,7 @@
 class BA_CORE_API_ RealDataItem : public SessionItem
 {
 public:
+    static const QString T_INTENSITY_DATA;
     explicit RealDataItem();
 };
 

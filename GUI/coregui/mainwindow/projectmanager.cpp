@@ -303,7 +303,6 @@ void ProjectManager::setImportDir(const QString &dirname)
         settings.beginGroup(Constants::S_PROJECTMANAGER);
         settings.setValue(Constants::S_LASTUSEDIMPORTDIR, dirname);
         settings.endGroup();
-        qDebug() << "OOOOO" << dirname;
     }
 }
 

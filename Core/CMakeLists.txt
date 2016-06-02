@@ -260,8 +260,8 @@ else()
 
 endif()
 
+# Install bornagain/__init__.py and utilites
 if(NOT BORNAGAIN_APPLE_BUNDLE)
-    # installing bornagain/__init__.py and utilites
     install (DIRECTORY ${WRAP_DIR}/python-setup/bornagain DESTINATION ${destination_lib} COMPONENT Libraries)
     install (FILES "${destination_runtime_configs}/__init__.py" DESTINATION ${destination_lib}/bornagain COMPONENT Libraries)
 else()

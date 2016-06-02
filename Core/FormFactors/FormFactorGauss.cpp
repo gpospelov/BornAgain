@@ -81,5 +81,5 @@ void FormFactorGauss::initialize()
     setName(FFGaussType);
     check_initialization();
     init_parameters();
-    m_max_ql = std::sqrt(-4 * Units::PI * std::log(Numeric::double_epsilon) / 3.0);
+    m_max_ql = std::sqrt(-4 * Units::PI * std::log(Numeric::double_min) / 3.0);
 }

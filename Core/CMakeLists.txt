@@ -104,7 +104,7 @@ if(BORNAGAIN_PYTHON)
     list(APPEND source_files "${AUTO_DIR}/libBornAgainCore_wrap.cpp")
     #list(APPEND include_files "${AUTO_DIR}/libBornAgainCore_wrap.h")
 
-    configure_file(${WRAP_DIR}/python-setup/bornagain/plot_utils.py ${CMAKE_BINARY_DIR}/lib/plot_utils/__init__.py COPYONLY)
+    configure_file(${WRAP_DIR}/python/bornagain/plot_utils.py ${CMAKE_BINARY_DIR}/lib/plot_utils/__init__.py COPYONLY)
     configure_file("${CMAKE_SOURCE_DIR}/cmake/scripts/__init__.py.in" "${destination_runtime_configs}/__init__.py" @ONLY)
     execute_process(COMMAND ${CMAKE_COMMAND} -E copy "${destination_runtime_configs}/__init__.py" ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/bornagain)
 
@@ -255,7 +255,7 @@ else()
         " COMPONENT Runtime)
     else()
 
-        install(FILES ${WRAP_DIR}/python-setup/bornagain_python_install.py
+        install(FILES ${WRAP_DIR}/python/bornagain_python_install.py
             DESTINATION ${destination_libexec})
 
     endif()
@@ -264,9 +264,9 @@ endif()
 
 # Install bornagain/__init__.py and utilites
 if(NOT BORNAGAIN_APPLE_BUNDLE)
-    install (DIRECTORY ${WRAP_DIR}/python-setup/bornagain DESTINATION ${destination_lib} COMPONENT Libraries)
+    install (DIRECTORY ${WRAP_DIR}/python/bornagain DESTINATION ${destination_lib} COMPONENT Libraries)
     install (FILES "${destination_runtime_configs}/__init__.py" DESTINATION ${destination_lib}/bornagain COMPONENT Libraries)
 else()
-    install (DIRECTORY ${WRAP_DIR}/python-setup/bornagain DESTINATION ${destination_libexec} COMPONENT Libraries)
+    install (DIRECTORY ${WRAP_DIR}/python/bornagain DESTINATION ${destination_libexec} COMPONENT Libraries)
     install (FILES "${destination_runtime_configs}/__init__.py" DESTINATION ${destination_libexec}/bornagain COMPONENT Libraries)
 endif()

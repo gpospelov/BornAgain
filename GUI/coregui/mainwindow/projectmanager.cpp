@@ -282,7 +282,29 @@ QString ProjectManager::userExportDir() const
 //! Returns directory name which was used by the user to import files.
 QString ProjectManager::userImportDir() const
 {
-    return QString();
+    QString result;
+    QSettings settings;
+    if(settings.childGroups().contains(Constants::S_PROJECTMANAGER)) {
+        settings.beginGroup(Constants::S_PROJECTMANAGER);
+        result = settings.value(Constants::S_LASTUSEDIMPORTDIR, QString()).toString();
+        settings.endGroup();
+    }
+    if(result.isEmpty())
+        result = userExportDir();
+
+    return result;
+}
+
+//! Set user import directory in system settings
+void ProjectManager::setImportDir(const QString &dirname)
+{
+    QSettings settings;
+    if(settings.childGroups().contains(Constants::S_PROJECTMANAGER)) {
+        settings.beginGroup(Constants::S_PROJECTMANAGER);
+        settings.setValue(Constants::S_LASTUSEDIMPORTDIR, dirname);
+        settings.endGroup();
+        qDebug() << "OOOOO" << dirname;
+    }
 }
 
 //! clear list of recent projects

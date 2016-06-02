@@ -24,10 +24,6 @@ namespace Constants {
 const char APPLICATION_NAME[]     = "BornAgain";
 const char ORGANIZATION_NAME[]    = "Scientific Computing at MLZ";
 
-const char ICON_NEWFILE[]          = ":/core/images/filenew.png";
-const char ICON_OPENFILE[]         = ":/core/images/fileopen.png";
-const char ICON_SAVEFILE[]         = ":/core/images/filesave.png";
-
 // Settings groups
 const char S_PROJECTMANAGER[]      = "ProjectManager";
 const char S_MAINWINDOW[]          = "MainWindow";
@@ -39,6 +35,7 @@ const char S_SESSIONMODELVIEW[]    = "SessionModelView";
 // Settings keys
 const char S_DEFAULTPROJECTPATH[]  = "DefaultProjectPath";
 const char S_RECENTPROJECTS[]      = "RecentProjects";
+const char S_LASTUSEDIMPORTDIR[]   = "LastUsedImportDir";
 const char S_WINDOWSIZE[]          = "size";
 const char S_WINDOWPOSITION[]      = "pos";
 const char S_SPLITTERSIZE[]        = "SplitterSize";

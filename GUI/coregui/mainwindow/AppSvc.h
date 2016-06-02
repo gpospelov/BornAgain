@@ -22,7 +22,7 @@
 
 class ProjectManager;
 
-//! The AppSvc class provides common access for key components of GUI.
+//! The AppSvc class provides common access for key components of the GUI.
 
 class BA_CORE_API_ AppSvc : public ISingleton<AppSvc>
 {

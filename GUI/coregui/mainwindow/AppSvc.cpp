@@ -36,7 +36,7 @@ ProjectManager *AppSvc::this_projectManager()
 {
     if(!m_projectManager) {
         throw GUIHelpers::Error("AppSvc::projectManager() -> Error. Attempt to access "
-                                "non existing ProjectManager");
+                                "non existing ProjectManager.");
     }
     return m_projectManager;
 }

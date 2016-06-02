@@ -18,9 +18,11 @@
 #include "BAVersion.h"
 #include <QApplication>
 #include <QFile>
+#include <QDir>
 #include <QRegExp>
 #include <QMessageBox>
 #include <QPushButton>
+#include <QFileInfo>
 #include <QDebug>
 
 namespace GUIHelpers {
@@ -181,6 +183,16 @@ bool isVersionMatchMinimal(const QString &version, const QString &minimal_versio
     int ba = ba_major*10000 + ba_minor*100 + ba_patch;
     int minv = minv_major*10000 + minv_minor*100 + minv_patch;
     return ba >= minv;
+}
+
+//! Returns file directory from the full file path
+QString fileDir(const QString &fileName)
+{
+    QFileInfo info(fileName);
+    if(info.exists()) {
+        return info.dir().path();
+    }
+    return QString();
 }
 
 } // namespace GUIHelpers

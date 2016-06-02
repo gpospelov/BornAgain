@@ -17,6 +17,7 @@
 #include "ImportDataToolBar.h"
 #include "SessionModel.h"
 #include "ImportDataAssistant.h"
+#include "ImportDataToolBar.h"
 #include <QItemSelectionModel>
 #include <QAction>
 #include <QDebug>
@@ -69,7 +70,9 @@ void ImportDataToolBar::onImportDataAction()
 {
     qDebug() << "ImportDataToolBar::onImportDataAction()";
     Q_ASSERT(m_model);
-    m_model->insertNewItem(Constants::RealDataType);
+//    m_model->insertNewItem(Constants::RealDataType);
+    ImportDataAssistant assistant;
+    OutputData<double> *data = assistant.importData();
 }
 
 void ImportDataToolBar::onCloneDataAction()

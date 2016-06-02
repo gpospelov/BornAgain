@@ -105,6 +105,8 @@ if(BORNAGAIN_PYTHON)
     #list(APPEND include_files "${AUTO_DIR}/libBornAgainCore_wrap.h")
 
     configure_file(${WRAP_DIR}/python-setup/bornagain/plot_utils.py ${CMAKE_BINARY_DIR}/lib/plot_utils/__init__.py COPYONLY)
+    configure_file("${CMAKE_SOURCE_DIR}/cmake/scripts/__init__.py.in" "${destination_runtime_configs}/__init__.py" @ONLY)
+    execute_process(COMMAND ${CMAKE_COMMAND} -E copy "${destination_runtime_configs}/__init__.py" ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/bornagain)
 
 endif()
 

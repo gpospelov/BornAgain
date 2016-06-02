@@ -113,13 +113,6 @@ configure_file("${CMAKE_SOURCE_DIR}/cmake/scripts/thisbornagain.sh.in" "${destin
 configure_file("${CMAKE_SOURCE_DIR}/cmake/scripts/thisbornagain.csh.in" "${destination_runtime_configs}/frombin_setup_paths.csh" @ONLY)
 
 # -----------------------------------------------------------------------------
-# configure BornAgain's Python init module
-# -----------------------------------------------------------------------------
-
-configure_file("${CMAKE_SOURCE_DIR}/cmake/scripts/__init__.py.in" "${destination_runtime_configs}/__init__.py" @ONLY)
-execute_process(COMMAND ${CMAKE_COMMAND} -E copy "${destination_runtime_configs}/__init__.py" ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/bornagain)
-
-# -----------------------------------------------------------------------------
 # configure C++ source code
 # -----------------------------------------------------------------------------
 

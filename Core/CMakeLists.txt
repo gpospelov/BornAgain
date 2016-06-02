@@ -29,13 +29,13 @@ set(include_files ${core_include_files})
 
 if(BORNAGAIN_PYTHON)
 
+    set(WRAP_DIR ${CMAKE_SOURCE_DIR}/Wrap)
     set(AUTO_DIR ${CMAKE_SOURCE_DIR}/auto/Wrap)
     file(MAKE_DIRECTORY ${AUTO_DIR})
     include_directories(${AUTO_DIR})
 
     if(BORNAGAIN_GENERATE_BINDINGS)
 
-        set(WRAP_DIR ${CMAKE_SOURCE_DIR}/Wrap)
         set(TMP_DIR ${CMAKE_CURRENT_BINARY_DIR}/Wrap)
 
         if(BORNAGAIN_GENERATE_PYTHON_DOCS) # autogenerate doxygen.i from doxygen comments

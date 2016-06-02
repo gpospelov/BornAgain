@@ -104,9 +104,8 @@ if(BORNAGAIN_PYTHON)
     list(APPEND source_files "${AUTO_DIR}/libBornAgainCore_wrap.cpp")
     #list(APPEND include_files "${AUTO_DIR}/libBornAgainCore_wrap.h")
 
-    configure_file(${WRAP_DIR}/python-setup/bornagain/plot_utils.py ${CMAKE_BINARY_DIR}/lib/plot_utils/__init__.py COPYONLY)
-    configure_file("${CMAKE_SOURCE_DIR}/cmake/scripts/__init__.py.in" "${destination_runtime_configs}/__init__.py" @ONLY)
-    execute_process(COMMAND ${CMAKE_COMMAND} -E copy "${destination_runtime_configs}/__init__.py" ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/bornagain)
+    configure_file(${WRAP_DIR}/python/plot_utils/__init__.py ${CMAKE_BINARY_DIR}/lib/plot_utils/__init__.py COPYONLY)
+    configure_file("${WRAP_DIR}/python/__init__.py.in" "${CMAKE_BINARY_DIR}/lib/__init__.py" @ONLY)
 
 endif()
 
@@ -229,8 +228,9 @@ if(WIN32)
 
 else()
     # installing thisbornagain.sh
-    install(FILES ${destination_runtime_configs}/frombin_setup_paths.sh
-        ${destination_runtime_configs}/frombin_setup_paths.csh
+    install(FILES
+                ${destination_runtime_configs}/thisbornagain.sh
+                ${destination_runtime_configs}/thisbornagain.csh
         PERMISSIONS OWNER_EXECUTE OWNER_WRITE OWNER_READ
         GROUP_EXECUTE GROUP_READ WORLD_EXECUTE WORLD_READ
         DESTINATION ${destination_libexec})
@@ -244,18 +244,18 @@ else()
         # making links
         install(CODE "
         execute_process(COMMAND \${CMAKE_COMMAND} -E create_symlink
-        \"../libexec/${destination_suffix}/frombin_setup_paths.sh\" \"thisbornagain.sh\"
+        \"../${destination_libexec}/thisbornagain.sh\" \"thisbornagain.sh\"
         WORKING_DIRECTORY \"${CMAKE_INSTALL_PREFIX}/${destination_bin}\")
         " COMPONENT Runtime)
 
         install(CODE "
         execute_process(COMMAND \${CMAKE_COMMAND} -E create_symlink
-        \"../libexec/${destination_suffix}/frombin_setup_paths.csh\" \"thisbornagain.csh\"
+        \"../${destination_libexec}/thisbornagain.csh\" \"thisbornagain.csh\"
         WORKING_DIRECTORY \"${CMAKE_INSTALL_PREFIX}/${destination_bin}\")
         " COMPONENT Runtime)
     else()
 
-        install(FILES ${WRAP_DIR}/python-setup/bornagain_python_install.py
+        install(FILES ${WRAP_DIR}/python/bornagain_python_install.py
             DESTINATION ${destination_libexec})
 
     endif()
@@ -263,10 +263,5 @@ else()
 endif()
 
 # Install bornagain/__init__.py and utilites
-if(NOT BORNAGAIN_APPLE_BUNDLE)
-    install (DIRECTORY ${WRAP_DIR}/python-setup/bornagain DESTINATION ${destination_lib} COMPONENT Libraries)
-    install (FILES "${destination_runtime_configs}/__init__.py" DESTINATION ${destination_lib}/bornagain COMPONENT Libraries)
-else()
-    install (DIRECTORY ${WRAP_DIR}/python-setup/bornagain DESTINATION ${destination_libexec} COMPONENT Libraries)
-    install (FILES "${destination_runtime_configs}/__init__.py" DESTINATION ${destination_libexec}/bornagain COMPONENT Libraries)
-endif()
+install (FILES "${CMAKE_BINARY_DIR}/lib/__init__.py" DESTINATION ${destination_libexec}/bornagain/ COMPONENT Libraries)
+install (FILES "${CMAKE_BINARY_DIR}/lib/plot_utils/__init__.py" DESTINATION ${destination_libexec}/bornagain/plot_utils/ COMPONENT Libraries)

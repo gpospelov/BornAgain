@@ -20,11 +20,9 @@
 #    cmake_policy(SET CMP0028 NEW)
 #endif()
 
-
 # -----------------------------------------------------------------------------
 # Common definitions
 # -----------------------------------------------------------------------------
-
 
 # suppress qDebug() output for release build
 if(CMAKE_BUILD_TYPE STREQUAL Release)
@@ -75,11 +73,12 @@ else()
     if(APPLE AND BORNAGAIN_APPLE_BUNDLE)
         set(destination_bundle BornAgain.app)
         set(destination_prefix ${destination_bundle}/Contents/)
+        set(destination_libexec ${destination_prefix}libexec/${destination_suffix})
     else()
         set(destination_prefix "")
+        set(destination_libexec ${destination_prefix}lib/${destination_suffix})
     endif()
     set(destination_bin ${destination_prefix}bin)
-    set(destination_libexec ${destination_prefix}libexec/${destination_suffix})
     set(destination_gui ${destination_libexec})
     set(destination_lib ${destination_prefix}lib/${destination_suffix})
     set(destination_include ${destination_prefix}include/${destination_suffix})
@@ -87,6 +86,8 @@ else()
     set(destination_examples ${destination_share}Examples)
     set(destination_images ${destination_share}Images)
 endif()
+
+message(STATUS "Destination directories: bin->${destination_bin}, lib->${destination_lib}, gui&libexec->${destination_libexec}, include->${destination_include}, share->${destination_share}")
 
 # -----------------------------------------------------------------------------
 # configure files
@@ -109,8 +110,8 @@ endif()
 
 set(this_bindir $BORNAGAINSYS/bin)
 set(this_libdir $BORNAGAINSYS/lib/${destination_suffix})
-configure_file("${CMAKE_SOURCE_DIR}/cmake/scripts/thisbornagain.sh.in" "${destination_runtime_configs}/frombin_setup_paths.sh" @ONLY)
-configure_file("${CMAKE_SOURCE_DIR}/cmake/scripts/thisbornagain.csh.in" "${destination_runtime_configs}/frombin_setup_paths.csh" @ONLY)
+configure_file("${CMAKE_SOURCE_DIR}/cmake/scripts/thisbornagain.sh.in" "${destination_runtime_configs}/thisbornagain.sh" @ONLY)
+configure_file("${CMAKE_SOURCE_DIR}/cmake/scripts/thisbornagain.csh.in" "${destination_runtime_configs}/thisbornagain.csh" @ONLY)
 
 # -----------------------------------------------------------------------------
 # configure C++ source code

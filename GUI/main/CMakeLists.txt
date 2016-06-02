@@ -118,11 +118,9 @@ if(UNIX)
         # creating link to BornAgain gui in bin directory
         install(CODE "
         execute_process(COMMAND \${CMAKE_COMMAND} -E create_symlink
-        \"../libexec/${destination_suffix}/BornAgain\" \"bornagain\"
+        \"../${destination_libexec}/BornAgain\" \"bornagain\"
         WORKING_DIRECTORY \"${CMAKE_INSTALL_PREFIX}/${destination_bin}\")
         " COMPONENT Runtime)
 
     endif()
 endif()
-
-

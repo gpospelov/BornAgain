@@ -35,10 +35,8 @@ endif()
 # cmake runtime output configuration
 # -----------------------------------------------------------------------------
 
-set (CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
-set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 execute_process(COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
 execute_process(COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
 set(destination_runtime_configs ${CMAKE_BINARY_DIR}/runtime_configs)
@@ -156,5 +154,3 @@ if(BUILD_DEBIAN)
     configure_file("${CMAKE_SOURCE_DIR}/cmake/scripts/prerm.in" "${destination_runtime_configs}/prerm" @ONLY)
     set(CMAKE_INSTALL_RPATH "\$ORIGIN/../../lib/${destination_suffix}")
 endif(BUILD_DEBIAN)
-
-

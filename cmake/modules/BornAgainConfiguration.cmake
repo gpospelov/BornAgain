@@ -28,7 +28,7 @@
 
 # suppress qDebug() output for release build
 if(CMAKE_BUILD_TYPE STREQUAL Release)
-  add_definitions(-DQT_NO_DEBUG_OUTPUT)
+    add_definitions(-DQT_NO_DEBUG_OUTPUT)
 endif()
 
 # -----------------------------------------------------------------------------
@@ -37,10 +37,11 @@ endif()
 
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
-execute_process(COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
-execute_process(COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
 set(destination_runtime_configs ${CMAKE_BINARY_DIR}/runtime_configs)
-execute_process(COMMAND ${CMAKE_COMMAND} -E make_directory ${destination_runtime_configs})
+
+file(MAKE_DIRECTORY ${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
+file(MAKE_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
+file(MAKE_DIRECTORY ${destination_runtime_configs})
 
 # creating bornagain/__init__.py in runtime lib directory
 execute_process(COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/bornagain)
@@ -49,21 +50,22 @@ execute_process(COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/d
 # -----------------------------------------------------------------------------
 # file extensions
 # -----------------------------------------------------------------------------
-if(WIN32)
-  set(libprefix _lib)
-  set(libsuffix .dll)
-elseif(APPLE)
-  set(libprefix _lib)
-  set(libsuffix .so)
-else()
-  set(libprefix _lib)
-  set(libsuffix .so)
-endif()
 
+if(WIN32)
+    set(libprefix _lib)
+    set(libsuffix .dll)
+elseif(APPLE)
+    set(libprefix _lib)
+    set(libsuffix .so)
+else()
+    set(libprefix _lib)
+    set(libsuffix .so)
+endif()
 
 # -----------------------------------------------------------------------------
 # destinations
 # -----------------------------------------------------------------------------
+
 if(WIN32)
     set(destination_bin bin)
     set(destination_lib bin)
@@ -94,37 +96,34 @@ else()
     endif()
 endif()
 
-
 # -----------------------------------------------------------------------------
 # configure files
 # -----------------------------------------------------------------------------
 
-
 if(BORNAGAIN_RELEASE)
     # configure a header file to pass CMake settings to the source code
-    configure_file("${CMAKE_SOURCE_DIR}/cmake/scripts/BAVersion.h.in"  "${CMAKE_SOURCE_DIR}/Core/Samples/inc/BAVersion.h")
+    configure_file("${CMAKE_SOURCE_DIR}/cmake/scripts/BAVersion.h.in" "${CMAKE_SOURCE_DIR}/Core/Samples/inc/BAVersion.h")
 
     # configure Doxyfile
     configure_file("${CMAKE_SOURCE_DIR}/Doc/Doxygen/Doxyfile.in" "${CMAKE_SOURCE_DIR}/Doc/Doxygen/Doxyfile" @ONLY)
 
     # configure FindBornagain script
-    configure_file("${CMAKE_SOURCE_DIR}/cmake/scripts/FindBornAgain.cmake.in"  "${CMAKE_SOURCE_DIR}/Examples/cpp/CylindersAndPrisms/modules/FindBornAgain.cmake" @ONLY)
-
+    configure_file("${CMAKE_SOURCE_DIR}/cmake/scripts/FindBornAgain.cmake.in" "${CMAKE_SOURCE_DIR}/Examples/cpp/CylindersAndPrisms/modules/FindBornAgain.cmake" @ONLY)
 endif()
-
 
 # -----------------------------------------------------------------------------
 # configure BornAgain launch scripts
 # -----------------------------------------------------------------------------
+
 set(this_bindir $BORNAGAINSYS/bin)
 set(this_libdir $BORNAGAINSYS/lib/${destination_suffix})
 configure_file("${CMAKE_SOURCE_DIR}/cmake/scripts/thisbornagain.sh.in" "${destination_runtime_configs}/frombin_setup_paths.sh" @ONLY)
 configure_file("${CMAKE_SOURCE_DIR}/cmake/scripts/thisbornagain.csh.in" "${destination_runtime_configs}/frombin_setup_paths.csh" @ONLY)
 
-
 # -----------------------------------------------------------------------------
 # configure BornAgain's Python init module
 # -----------------------------------------------------------------------------
+
 set(BA_MODULES_IMPORT_PATH "..")
 if(BORNAGAIN_APPLE_BUNDLE)
     set(BA_MODULES_IMPORT_PATH lib/BornAgain-${BornAgain_VERSION_MAJOR}.${BornAgain_VERSION_MINOR})
@@ -132,24 +131,24 @@ endif()
 configure_file("${CMAKE_SOURCE_DIR}/cmake/scripts/__init__.py.in" "${destination_runtime_configs}/__init__.py" @ONLY)
 execute_process(COMMAND ${CMAKE_COMMAND} -E copy "${destination_runtime_configs}/__init__.py" ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/bornagain)
 
-
 # -----------------------------------------------------------------------------
 # configure C++ source code
 # -----------------------------------------------------------------------------
+
 configure_file("${CMAKE_SOURCE_DIR}/cmake/scripts/BAConfigure.h.in" "${destination_runtime_configs}/BAConfigure.h" @ONLY)
 configure_file("${CMAKE_SOURCE_DIR}/cmake/scripts/BAPython.h.in" "${destination_runtime_configs}/BAPython.h" @ONLY)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -I${destination_runtime_configs}")
 
-
 # -----------------------------------------------------------------------------
 # configure postinst and prerm for the debian package
 # -----------------------------------------------------------------------------
+
 if(BUILD_DEBIAN)
     set(CMAKE_INSTALL_PREFIX "/usr")
     execute_process(COMMAND "${PYTHON_EXECUTABLE}" -c "from distutils import sysconfig; print sysconfig.get_python_lib(1,0,prefix=None)"
         OUTPUT_VARIABLE PYTHON_SITE_PACKAGES
         OUTPUT_STRIP_TRAILING_WHITESPACE
-    )
+        )
     configure_file("${CMAKE_SOURCE_DIR}/cmake/scripts/postinst.in" "${destination_runtime_configs}/postinst" @ONLY)
     configure_file("${CMAKE_SOURCE_DIR}/cmake/scripts/prerm.in" "${destination_runtime_configs}/prerm" @ONLY)
     set(CMAKE_INSTALL_RPATH "\$ORIGIN/../../lib/${destination_suffix}")

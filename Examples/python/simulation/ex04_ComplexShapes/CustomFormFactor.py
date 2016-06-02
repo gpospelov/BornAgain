@@ -24,20 +24,20 @@ class CustomFormFactor(ba.IFormFactorBorn):
     with a side length L.
     H is the height of particle
     """
-    def __init__(self, L, H): 
+    def __init__(self, L, H):
         ba.IFormFactorBorn.__init__(self)
         # parameters describing the form factor
         self.L = L
         self.H = H
 
-  
+
     def clone(self):
         """
         IMPORTANT NOTE:
         The clone method needs to call transferToCPP() on the cloned object
         to transfer the ownership of the clone to the cpp code
         """
-        cloned_ff = CustomFormFactor(self.L, self.H) 
+        cloned_ff = CustomFormFactor(self.L, self.H)
         cloned_ff.transferToCPP()
         return cloned_ff
 
@@ -45,7 +45,8 @@ class CustomFormFactor(ba.IFormFactorBorn):
         qzhH = 0.5*q.z()*self.H
         qxhL = 0.5*q.x()*self.L
         qyhL = 0.5*q.y()*self.L
-        return 0.5*self.H*self.L**2*cmath.exp(complex(0.,1.)*qzhH)*sinc(qzhH)*(sinc(0.5*qyhL)*(sinc(qxhL) - 0.5*sinc(0.5*qxhL)) + sinc(0.5*qxhL)*sinc(qyhL))
+        return 0.5*self.H*self.L**2*cmath.exp(complex(0.,1.)*qzhH)*sinc(qzhH)*
+            (sinc(0.5*qyhL)*(sinc(qxhL)-0.5*sinc(0.5*qxhL))+sinc(0.5*qxhL)*sinc(qyhL))
 
 
 
@@ -111,5 +112,3 @@ def run_simulation():
 
 if __name__ == '__main__':
     run_simulation()
-
-

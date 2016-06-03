@@ -43,7 +43,7 @@ function(WRAP_GTEST TEST_NAME SUBDIR LINK_LIB STAGE)
 
     # Build executable in lib directory,
     # to prevent problems with finding libBornAgainCore.dll under Windows
-    set_property(TARGET ${EXE} PROPERTY RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+    # set_property(TARGET ${EXE} PROPERTY RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 
     if    (${STAGE} EQUAL 0)
         # Add execution of TestCore just after compilation

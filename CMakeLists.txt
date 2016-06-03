@@ -31,6 +31,7 @@ include(SearchInstalledSoftware)
 include(CheckCompiler)
 include(BornAgainConfiguration)
 include(UnitTests)
+include(GeneratePythonDocs)
 
 #--- Recurse into the given subdirectories ---
 if(BORNAGAIN_USERMANUAL)

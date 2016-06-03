@@ -38,23 +38,7 @@ if(BORNAGAIN_PYTHON)
 
         set(TMP_DIR ${CMAKE_CURRENT_BINARY_DIR}/Wrap)
 
-        if(BORNAGAIN_GENERATE_PYTHON_DOCS) # autogenerate doxygen.i from doxygen comments
-
-            configure_file(${WRAP_DIR}/swig/DoxyfileSwig.in ${TMP_DIR}/Doxyfile @ONLY)
-
-            add_custom_command(
-                OUTPUT ${TMP_DIR}/xml/index.xml
-                COMMAND ${DOXYGEN_EXECUTABLE} ${TMP_DIR}/Doxyfile
-                DEPENDS ${include_files}
-                )
-            add_custom_command(
-                OUTPUT ${AUTO_DIR}/doxygen_core.i
-                COMMAND ${PYTHON_EXECUTABLE} ${WRAP_DIR}/swig/doxy2swig.py
-                        ${TMP_DIR}/xml/index.xml ${AUTO_DIR}/doxygen_core.i
-                        DEPENDS ${TMP_DIR}/xml/index.xml
-                )
-
-        endif(BORNAGAIN_GENERATE_PYTHON_DOCS)
+        GeneratePythonDocs(${AUTO_DIR}/doxygen_core.i ${WRAP_DIR}/swig)
 
         set(swig_dependencies
             ${WRAP_DIR}/swig/libBornAgainCore.i
@@ -69,8 +53,7 @@ if(BORNAGAIN_PYTHON)
                 message(FATAL_ERROR "Could NOT find SWIG input ${FNAM}")
             endif()
         endforeach()
-        set(swig_dependencies ${swig_dependencies}
-            ${AUTO_DIR}/doxygen_core.i)
+        set(swig_dependencies ${swig_dependencies} ${AUTO_DIR}/doxygen_core.i)
 
         set(SWIG_FLAGS "-c++;-python;-o;${AUTO_DIR}/libBornAgainCore_wrap.cpp;-outdir;${TMP_DIR}")
         foreach(dir ${include_dirs})

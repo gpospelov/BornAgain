@@ -50,7 +50,7 @@ if(BORNAGAIN_GUI)
 endif()
 add_subdirectory(Tests/FunctionalTests)  # functional tests (make check)
 
-add_subdirectory(cmake) # trick to print the message
+add_subdirectory(cmake) # trick to print an after-install message
 
 # packaging
 include(BornAgainCPack)

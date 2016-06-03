@@ -26,7 +26,7 @@ template <class T> class OutputData;
 class BA_CORE_API_ ImportDataAssistant {
 public:
 
-    OutputData<double> *importData();
+    OutputData<double> *importData(class QString &baseNameOfLoadedFile);
 
 
 };

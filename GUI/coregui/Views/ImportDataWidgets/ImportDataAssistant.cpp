@@ -29,7 +29,7 @@ const QString filter_string = "Intensity File (*.int *.int.gz *.tif *.tif.gz *.t
         "Other (*)";
 }
 
-OutputData<double> *ImportDataAssistant::importData()
+OutputData<double> *ImportDataAssistant::importData(QString &baseNameOfLoadedFile)
 {
     QString dirname = AppSvc::projectManager()->userImportDir();
     QString fileName = QFileDialog::getOpenFileName(0,
@@ -37,6 +37,9 @@ OutputData<double> *ImportDataAssistant::importData()
 
     if(fileName.isEmpty())
         return nullptr;
+
+    QFileInfo info(fileName);
+    baseNameOfLoadedFile = info.baseName();
 
     QString newImportDir = GUIHelpers::fileDir(fileName);
     if(newImportDir != dirname)

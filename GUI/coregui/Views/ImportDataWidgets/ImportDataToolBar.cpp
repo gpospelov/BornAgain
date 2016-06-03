@@ -72,12 +72,16 @@ void ImportDataToolBar::onImportDataAction()
     qDebug() << "ImportDataToolBar::onImportDataAction()";
     Q_ASSERT(m_model);
     ImportDataAssistant assistant;
-    if(OutputData<double> *data = assistant.importData()) {
+    QString baseNameOfImportedFile;
+    if(OutputData<double> *data = assistant.importData(baseNameOfImportedFile)) {
         SessionItem *realDataItem = m_model->insertNewItem(Constants::RealDataType);
-        IntensityDataItem *intensityDataItem = dynamic_cast<IntensityDataItem *>(m_model->insertNewItem(Constants::IntensityDataType, realDataItem->index()));
+        realDataItem->setItemName(baseNameOfImportedFile);
+        IntensityDataItem *intensityDataItem = dynamic_cast<IntensityDataItem *>(
+                    m_model->insertNewItem(Constants::IntensityDataType, realDataItem->index()));
         intensityDataItem->setOutputData(data);
         m_selectionModel->clearSelection();
         m_selectionModel->select(realDataItem->index(), QItemSelectionModel::Select);
+        qDebug() << "baseNameOfImportedFile" << baseNameOfImportedFile;
     }
 
 }

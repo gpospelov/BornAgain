@@ -152,6 +152,12 @@ QString getValidFileName(const QString &proposed_name)
     return result;
 }
 
+QString getIntensityFileName(const QString &proposed_name)
+{
+    QString valid_name = GUIHelpers::getValidFileName(proposed_name);
+    return QString("%1_%2.int.gz").arg(valid_name, QString::number(0));
+}
+
 //! parses version string into 3 numbers, returns true in the case of success
 bool parseVersion(const QString &version, int &major_num, int &minor_num, int &patch_num)
 {
@@ -194,5 +200,6 @@ QString fileDir(const QString &fileName)
     }
     return QString();
 }
+
 
 } // namespace GUIHelpers

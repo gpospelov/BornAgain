@@ -103,8 +103,11 @@ void JobResultsPresenter::updateDataAxes(IntensityDataItem *intensityItem,
 void JobResultsPresenter::saveIntensityData(JobItem *jobItem, const QString &projectDir)
 {
     IntensityDataItem *dataItem = jobItem->getIntensityDataItem();
-    if (dataItem && dataItem->getOutputData()) {
-        QString filename = projectDir + QStringLiteral("/") + dataItem->itemName();
+
+    if(dataItem && dataItem->getOutputData()) {
+
+        QString filename = projectDir + QStringLiteral("/")
+                + dataItem->getItemValue(IntensityDataItem::P_FILE_NAME).toString();
 
         std::unique_ptr<OutputData<double>> dataToSave(
             createDetectorMap(jobItem->getInstrumentItem(), IDetector2D::DEFAULT));

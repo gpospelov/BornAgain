@@ -19,12 +19,18 @@
 
 #include "SessionModel.h"
 
+//! The RealDataModel class is a model to store all imported RealDataItem's.
+
 class BA_CORE_API_ RealDataModel : public SessionModel
 {
     Q_OBJECT
 
 public:
     explicit RealDataModel(QObject *parent = 0);
+//    Qt::ItemFlags flags(const QModelIndex &index) const;
+
+    void loadNonXMLData(const QString &projectDir);
+    void saveNonXMLData(const QString &projectDir);
 
 };
 

@@ -30,6 +30,7 @@
 #include "MessageContainer.h"
 #include "GUIHelpers.h"
 #include "JobResultsPresenter.h"
+#include "GUIHelpers.h"
 #include <QFile>
 #include <QTextStream>
 #include <QFileInfo>
@@ -282,14 +283,16 @@ void ProjectDocument::reviseOutputData()
         if (dataItem) {
             // handling case when user has renamed jobItem and we have to clean previous
             // *.int file
-            QString filename = getProjectDir() + "/" + dataItem->itemName();
+            QString filename = getProjectDir() + QStringLiteral("/")
+                    + dataItem->getItemValue(IntensityDataItem::P_FILE_NAME).toString();
             QFile fin(filename);
             if (fin.exists()) {
                 fin.remove();
             }
 
             // making new name of *.int file from jobItem name
-            dataItem->setNameFromProposed(jobItem->itemName());
+            QString newFileName = GUIHelpers::getIntensityFileName(QString("data_%1").arg(jobItem->itemName()));
+            dataItem->setItemValue(IntensityDataItem::P_FILE_NAME, newFileName);
         }
     }
 }

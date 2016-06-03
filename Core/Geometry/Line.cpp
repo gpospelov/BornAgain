@@ -91,15 +91,13 @@ VerticalLine *VerticalLine::clone() const
     return new VerticalLine(*this);
 }
 
-bool VerticalLine::contains(double x, double y) const
+bool VerticalLine::contains(double x, double /*y*/) const
 {
-    (void)y;
     return Numeric::areAlmostEqual(x, m_x);
 }
 
-bool VerticalLine::contains(const Bin1D &binx, const Bin1D &biny) const
+bool VerticalLine::contains(const Bin1D& binx, const Bin1D& /*biny*/) const
 {
-    (void)biny;
     if(m_x>=binx.m_lower && m_x <= binx.m_upper) return true;
     return false;
 }
@@ -126,15 +124,13 @@ HorizontalLine *HorizontalLine::clone() const
     return new HorizontalLine(*this);
 }
 
-bool HorizontalLine::contains(double x, double y) const
+bool HorizontalLine::contains(double /*x*/, double y) const
 {
-    (void)x;
     return Numeric::areAlmostEqual(y, m_y);
 }
 
-bool HorizontalLine::contains(const Bin1D &binx, const Bin1D &biny) const
+bool HorizontalLine::contains(const Bin1D& /*binx*/, const Bin1D& biny) const
 {
-    (void)binx;
     if(m_y>=biny.m_lower && m_y <= biny.m_upper) return true;
     return false;
 }
@@ -152,4 +148,3 @@ HorizontalLine::HorizontalLine(const HorizontalLine &other)
 
 
 } // namespace Geometry
-

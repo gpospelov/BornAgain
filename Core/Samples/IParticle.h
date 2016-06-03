@@ -119,9 +119,8 @@ inline void IAbstractParticle::accept(ISampleVisitor *visitor) const
     visitor->visit(this);
 }
 
-inline void IAbstractParticle::setAmbientMaterial(const IMaterial &material)
+inline void IAbstractParticle::setAmbientMaterial(const IMaterial& /*material*/)
 {
-    (void)material;
 }
 
 inline double IAbstractParticle::getAbundance() const

@@ -26,8 +26,7 @@ ItemSelectorWidget::ItemSelectorWidget(QWidget *parent)
     , m_listView(new QListView(this))
     , m_model(0)
 {
-    setMinimumSize(128, 400);
-    setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
+    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     QVBoxLayout *verticalLayout = new QVBoxLayout;
     verticalLayout->addWidget(m_listView);

@@ -16,22 +16,30 @@
 
 #include "RealDataEditorWidget.h"
 #include "SessionItem.h"
+#include "ColorMapPlot.h"
+#include "RealDataItem.h"
+#include "IntensityDataItem.h"
 #include <QVBoxLayout>
 #include <QLabel>
 
 RealDataEditorWidget::RealDataEditorWidget(QWidget *parent)
     : QWidget(parent)
-    , m_label(new QLabel("xxx"))
+    , m_colorMap(new ColorMapPlot(this))
+//    , m_label(new QLabel("xxx"))
 {
-    setMinimumSize(400, 400);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     QVBoxLayout *layout = new QVBoxLayout;
-    layout->addWidget(m_label);
+    layout->addWidget(m_colorMap);
     setLayout(layout);
 }
 
 void RealDataEditorWidget::setItem(SessionItem *item)
 {
-    m_label->setText(item->displayName());
+//    m_label->setText(item->displayName());
+
+    IntensityDataItem *intensityData = dynamic_cast<IntensityDataItem *>(item->getItem(RealDataItem::T_INTENSITY_DATA));
+    Q_ASSERT(intensityData);
+    Q_ASSERT(intensityData->getOutputData());
+    m_colorMap->setItem(intensityData);
 }

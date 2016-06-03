@@ -29,13 +29,14 @@ class BA_CORE_API_ RealDataEditorWidget : public QWidget
 public:
     RealDataEditorWidget(QWidget *parent = 0);
 
-    QSize sizeHint() const { return QSize(200, 400); }
-    QSize minimumSizeHint() const { return QSize(128, 200); }
+//    QSize sizeHint() const { return QSize(200, 400); }
+    QSize minimumSizeHint() const { return QSize(200, 200); }
 
     void setItem(class SessionItem *item);
 
 private:
-    class QLabel *m_label;
+    class ColorMapPlot *m_colorMap;
+
 
 };
 

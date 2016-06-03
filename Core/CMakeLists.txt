@@ -87,8 +87,10 @@ if(BORNAGAIN_PYTHON)
     list(APPEND source_files "${AUTO_DIR}/libBornAgainCore_wrap.cpp")
     #list(APPEND include_files "${AUTO_DIR}/libBornAgainCore_wrap.h")
 
-    configure_file(${WRAP_DIR}/python/plot_utils.py ${CMAKE_BINARY_DIR}/lib/plot_utils.py COPYONLY)
-    configure_file("${WRAP_DIR}/python/__init__.py.in" "${CMAKE_BINARY_DIR}/lib/__init__.py" @ONLY)
+    configure_file(${WRAP_DIR}/python/plot_utils.py
+                   ${CMAKE_BINARY_DIR}/lib/bornagain/plot_utils.py COPYONLY)
+    configure_file("${WRAP_DIR}/python/__init__.py.in"
+                   "${CMAKE_BINARY_DIR}/lib/bornagain/__init__.py" @ONLY)
 endif()
 
 
@@ -243,5 +245,7 @@ else()
 endif()
 
 # Install bornagain/__init__.py and utilites
-install (FILES "${CMAKE_BINARY_DIR}/lib/__init__.py" DESTINATION ${destination_libexec}/bornagain/ COMPONENT Libraries)
-install (FILES "${CMAKE_BINARY_DIR}/lib/plot_utils.py" DESTINATION ${destination_libexec}/bornagain/ COMPONENT Libraries)
+install(FILES "${CMAKE_BINARY_DIR}/lib/bornagain/__init__.py"
+        DESTINATION ${destination_libexec}/bornagain/ COMPONENT Libraries)
+install(FILES "${CMAKE_BINARY_DIR}/lib/bornagain/plot_utils.py"
+        DESTINATION ${destination_libexec}/bornagain/ COMPONENT Libraries)

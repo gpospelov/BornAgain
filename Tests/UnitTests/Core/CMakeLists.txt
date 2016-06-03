@@ -14,8 +14,6 @@ if(BORNAGAIN_OPENMPI)
     include_directories(${MPI_INCLUDE_PATH})
 endif()
 
-# function UNIT_TESTS defined in cmake/modules/UnitTests.cmake
-
 WRAP_GTEST(TestCore0 "0" ${BornAgainCore_LIBRARY} 0)
 WRAP_GTEST(TestCore1 "1" ${BornAgainCore_LIBRARY} 0)
 WRAP_GTEST(TestCore2 "2" ${BornAgainCore_LIBRARY} 0)

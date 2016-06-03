@@ -29,6 +29,7 @@
 #include "IntensityDataIOFactory.h"
 #include "Histogram2D.h"
 #include "IntensityDataItem.h"
+#include "WarningMessageService.h"
 #include <QDebug>
 
 ApplicationModels::ApplicationModels(QObject *parent)
@@ -218,6 +219,42 @@ void ApplicationModels::createTestJob()
 
     m_jobModel->runJob(jobItem->index());
 
+}
+
+//! Writes all model in file one by one
+
+void ApplicationModels::writeTo(QXmlStreamWriter *writer)
+{
+    foreach(SessionModel *model, modelList()) {
+        model->writeTo(writer);
+    }
+}
+
+void ApplicationModels::readFrom(QXmlStreamReader *reader, WarningMessageService *messageService)
+{
+    foreach(SessionModel *model, modelList()) {
+        if(model->getModelTag() == reader->name()) {
+            model->readFrom(reader, messageService);
+            if(messageService->hasWarnings(model)) {
+                messageService->send_message(this, "MODEL_READ_WARNING", model->getModelTag());
+            }
+            break;
+        }
+    }
+
+}
+
+//! Returns the list of all GUI models
+
+QList<SessionModel *> ApplicationModels::modelList()
+{
+    QList<SessionModel *> result;
+    result.append(m_documentModel);
+    result.append(m_materialModel);
+    result.append(m_instrumentModel);
+    result.append(m_sampleModel);
+    result.append(m_jobModel);
+    return result;
 }
 
 void ApplicationModels::disconnectModel(SessionModel *model)

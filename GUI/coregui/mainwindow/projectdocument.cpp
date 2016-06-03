@@ -235,27 +235,34 @@ void ProjectDocument::readFrom(QIODevice *device)
 
             else if (reader.name() == ProjectDocumentXML::InfoTag) {
                 //
+            } else {
+                m_applicationModels->readFrom(&reader, m_messageService);
+                if(m_messageService->hasWarnings(m_applicationModels)) {
+                    m_documentStatus = EDocumentStatus(m_documentStatus|STATUS_WARNING);
+                }
             }
 
-            else if (reader.name() == SessionXML::DocumentModelTag) {
-                readModel(m_applicationModels->documentModel(), &reader);
-            }
 
-            else if (reader.name() == SessionXML::MaterialModelTag) {
-                readModel(m_applicationModels->materialModel(), &reader);
-            }
 
-            else if (reader.name() == SessionXML::InstrumentModelTag) {
-                readModel(m_applicationModels->instrumentModel(), &reader);
-            }
+//            else if (reader.name() == SessionXML::DocumentModelTag) {
+//                readModel(m_applicationModels->documentModel(), &reader);
+//            }
 
-            else if (reader.name() == SessionXML::SampleModelTag) {
-                readModel(m_applicationModels->sampleModel(), &reader);
-            }
+//            else if (reader.name() == SessionXML::MaterialModelTag) {
+//                readModel(m_applicationModels->materialModel(), &reader);
+//            }
 
-            else if (reader.name() == SessionXML::JobModelTag) {
-                readModel(m_applicationModels->jobModel(), &reader);
-            }
+//            else if (reader.name() == SessionXML::InstrumentModelTag) {
+//                readModel(m_applicationModels->instrumentModel(), &reader);
+//            }
+
+//            else if (reader.name() == SessionXML::SampleModelTag) {
+//                readModel(m_applicationModels->sampleModel(), &reader);
+//            }
+
+//            else if (reader.name() == SessionXML::JobModelTag) {
+//                readModel(m_applicationModels->jobModel(), &reader);
+//            }
 
             /*else if (reader.name() == SessionXML::FitModelTag) {
                 readModel(m_fitModel, &reader);
@@ -285,24 +292,10 @@ void ProjectDocument::writeTo(QIODevice *device)
     writer.writeAttribute(ProjectDocumentXML::InfoNameAttribute, getProjectName());
     writer.writeEndElement(); // InfoTag
 
-    m_applicationModels->documentModel()->writeTo(&writer);
-    m_applicationModels->materialModel()->writeTo(&writer);
-    m_applicationModels->instrumentModel()->writeTo(&writer);
-    m_applicationModels->sampleModel()->writeTo(&writer);
-    m_applicationModels->jobModel()->writeTo(&writer);
+    m_applicationModels->writeTo(&writer);
 
     writer.writeEndElement(); // BornAgain tag
     writer.writeEndDocument();
-}
-
-void ProjectDocument::readModel(SessionModel *model, QXmlStreamReader *reader)
-{
-//    model->setMessageService(m_messageService);
-
-    model->readFrom(reader, m_messageService);
-    if(m_messageService->hasWarnings(model)) {
-        m_documentStatus = EDocumentStatus(m_documentStatus|STATUS_WARNING);
-    }
 }
 
 //! Adjusts name of IntensityData item to possibly changed name of JobItem. Take care of old

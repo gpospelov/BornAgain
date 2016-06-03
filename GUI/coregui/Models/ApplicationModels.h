@@ -50,6 +50,11 @@ public:
     void createTestSample();
     void createTestJob();
 
+    void writeTo(class QXmlStreamWriter *writer);
+    void readFrom(class QXmlStreamReader *reader, class WarningMessageService *messageService);
+
+    QList<SessionModel *> modelList();
+
 signals:
     void modelChanged();
 

@@ -133,6 +133,8 @@ void ConvolutionDetectorResolution::apply1dConvolution(OutputData<double>* p_int
     std::vector<double> result;
     MathFunctions::Convolve cv;
     cv.fftconvolve(source_vector, kernel, result);
+    // Truncate negative values that can arise because of finite precision of Fourier Transform
+    std::for_each(result.begin(), result.end(), [](double &val){ val = std::max(0.0, val); });
     // Populate intensity map with results
     p_intensity_map->setRawDataVector(result);
 }
@@ -193,10 +195,12 @@ void ConvolutionDetectorResolution::apply2dConvolution(OutputData<double>* p_int
             result_vector.push_back(value);
         }
     }
+    // Truncate negative values that can arise because of finite precision of Fourier Transform
+    std::for_each(result_vector.begin(), result_vector.end(),
+                  [](double &val){ val = std::max(0.0, val); });
     for(OutputData<double>::iterator it=p_intensity_map->begin(); it!=p_intensity_map->end(); ++it) {
         (*it) = result_vector[it.getIndex()];
     }
-//    p_intensity_map->setRawDataVector(result_vector);
 }
 
 double ConvolutionDetectorResolution::getIntegratedPDF1d(double x,
@@ -218,7 +222,9 @@ double ConvolutionDetectorResolution::getIntegratedPDF2d(double x,
     double xmax = x + halfstepx;
     double ymin = y - halfstepy;
     double ymax = y + halfstepy;
-    double result = mp_res_function_2d->evaluateCDF(xmax, ymax) - mp_res_function_2d->evaluateCDF(xmax, ymin)
-            - mp_res_function_2d->evaluateCDF(xmin, ymax) + mp_res_function_2d->evaluateCDF(xmin, ymin);
+    double result = mp_res_function_2d->evaluateCDF(xmax, ymax)
+            - mp_res_function_2d->evaluateCDF(xmax, ymin)
+            - mp_res_function_2d->evaluateCDF(xmin, ymax)
+            + mp_res_function_2d->evaluateCDF(xmin, ymin);
     return result;
 }

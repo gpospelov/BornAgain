@@ -285,13 +285,11 @@ void MathFunctions::Convolve::fftw_circular_convolution(const double2d_t& src, c
     for(int i = 0 ; i < ws.h_src ; ++i)
         for(int j = 0 ; j < ws.w_src ; ++j, ++ptr)
             ws.in_src[(i%ws.h_fftw)*ws.w_fftw+(j%ws.w_fftw)] += src[i][j];
-            //ws.in_src[(i%ws.h_fftw)*ws.w_fftw+(j%ws.w_fftw)] += src[i*ws.w_src + j];
 
     //ptr = kernel;
     for(int i = 0 ; i < ws.h_kernel ; ++i)
         for(int j = 0 ; j < ws.w_kernel ; ++j, ++ptr)
             ws.in_kernel[(i%ws.h_fftw)*ws.w_fftw+(j%ws.w_fftw)] += kernel[i][j];
-            //ws.in_kernel[(i%ws.h_fftw)*ws.w_fftw+(j%ws.w_fftw)] += kernel[i*ws.w_kernel + j];
 
     // And we compute their packed FFT
     fftw_execute(ws.p_forw_src);

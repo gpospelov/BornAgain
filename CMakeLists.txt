@@ -27,16 +27,17 @@ option(BORNAGAIN_TIFF_SUPPORT "Tiff files read/write support" ON)
 
 #--- Include CMake macros and functions ---
 set(CMAKE_MODULE_PATH
-    ${CMAKE_SOURCE_DIR}/cmake/generic/modules ${CMAKE_SOURCE_DIR}/cmake/bornagain/modules)
+    ${CMAKE_SOURCE_DIR}/cmake/generic/modules
+    ${CMAKE_SOURCE_DIR}/cmake/bornagain/modules)
 set(TEMPLATE_DIR ${CMAKE_SOURCE_DIR}/cmake/bornagain/scripts)
 
 include(GetFilenameComponent) # overwrite CMake command
-include(BornAgainMacros)
 include(SearchInstalledSoftware)
 include(CheckCompiler)
 include(BornAgainConfiguration)
-include(UnitTests)
 include(GeneratePythonDocs)
+include(FuTestMacros)
+include(UnitTests)
 
 #--- Recurse into the given subdirectories ---
 if(BORNAGAIN_USERMANUAL)

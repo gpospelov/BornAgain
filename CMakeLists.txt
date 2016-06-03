@@ -7,6 +7,8 @@ cmake_minimum_required(VERSION 2.8.12 FATAL_ERROR)
 project(BornAgain)
 
 enable_testing()
+# TODO CHECK RESTORE
+add_custom_target(check COMMAND ${CMAKE_CTEST_COMMAND}) # => 'make check' is an alias for 'ctest'
 
 include(VERSION.cmake)
 
@@ -59,6 +61,5 @@ add_subdirectory(Tests/FunctionalTests)  # functional tests (make check)
 
 add_subdirectory(cmake/bornagain) # trick to print an after-install message
 
-#--- Make test and package targets ---
-add_custom_target(check COMMAND ${CMAKE_CTEST_COMMAND}) # => 'make check' is an alias for 'ctest'
+#--- Make package targets ---
 include(BornAgainCPack)

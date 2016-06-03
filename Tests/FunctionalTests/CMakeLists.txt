@@ -2,9 +2,6 @@
 # FunctionalTests/CMakeLists.txt (called from top-level CMakeLists.txt)
 ############################################################################
 
-add_custom_target(check ${CMAKE_CTEST_COMMAND})
-# export CTEST_OUTPUT_ON_FAILURE=ON will give some output on failure
-
 execute_process( COMMAND ${CMAKE_COMMAND} -E copy_directory
     ${CMAKE_SOURCE_DIR}/Tests/ReferenceData/BornAgain
     ${CMAKE_BINARY_DIR}/Tests/ReferenceData/BornAgain )

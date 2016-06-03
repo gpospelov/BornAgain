@@ -14,6 +14,4 @@ if(BORNAGAIN_OPENMPI)
     include_directories(${MPI_INCLUDE_PATH})
 endif()
 
-# function UNIT_TESTS defined in cmake/modules/UnitTests.cmake
-
-UNIT_TESTS(TestFit0 "." ${BornAgainFit_LIBRARY})
+WRAP_GTEST(TestFit0 "." ${BornAgainFit_LIBRARY} 0)

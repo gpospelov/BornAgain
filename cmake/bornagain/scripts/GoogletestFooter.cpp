@@ -1,4 +1,4 @@
-/* From unitTests.cpp.footer: */
+/* From GoogletestFooter.cpp: */
 
 struct ErrorStreamRedirect {
     ErrorStreamRedirect( std::streambuf * new_buffer )
@@ -15,7 +15,7 @@ private:
 
 int main(int argc, char** argv)
 {
-    std::cout << "UnitTest::main ...\n";
+    std::cout << "GoogleTest::main ...\n";
     ::testing::InitGoogleTest(&argc, argv);
 
     // redirect std::cerr stream

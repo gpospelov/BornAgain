@@ -31,7 +31,7 @@ set(CPACK_PACKAGE_FILE_NAME "${CPACK_DEBIAN_PACKAGE_NAME}-${CPACK_PACKAGE_VERSIO
 set(CPACK_DEBIAN_PACKAGE_CONFLICTS "${CPACK_DEBIAN_PACKAGE_NAME}(<=${BORNAGAIN_VERSION})")
 
 # set postinstall and preremove scripts for the debian package
-set(CPACK_DEBIAN_PACKAGE_CONTROL_EXTRA "${destination_runtime_configs}/postinst;${destination_runtime_configs}/prerm;")
+set(CPACK_DEBIAN_PACKAGE_CONTROL_EXTRA "${BUILD_AUTO_DIR}/postinst;${BUILD_AUTO_DIR}/prerm;")
 
 # write copyrite file
 file(GENERATE OUTPUT "${CMAKE_BINARY_DIR}/copyright" INPUT "${CMAKE_SOURCE_DIR}/COPYING")

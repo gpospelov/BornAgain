@@ -49,7 +49,7 @@ function(WRAP_GTEST TEST_NAME SUBDIR LINK_LIB STAGE)
         # Add execution of TestCore just after compilation
         add_custom_command(TARGET ${TEST_NAME} POST_BUILD COMMAND ${EXE})
     elseif(${STAGE} EQUAL 1)
-        add_test(${TEST_NAME} ${EXE})
+        add_test(${TEST_NAME} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${EXE})
     else()
         message(FATAL_ERROR "invalid parameter STAGE=${STAGE} in WRAP_GTEST")
     endif()

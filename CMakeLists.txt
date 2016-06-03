@@ -26,7 +26,8 @@ option(BORNAGAIN_CRASHHANDLER "Additional machinery to send crash reports" OFF)
 option(BORNAGAIN_TIFF_SUPPORT "Tiff files read/write support" ON)
 
 #--- Include CMake macros and functions ---
-set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/modules)
+set(CMAKE_MODULE_PATH
+    ${CMAKE_SOURCE_DIR}/cmake/generic-modules ${CMAKE_SOURCE_DIR}/cmake/bornagain-modules)
 include(GetFilenameComponent) # overwrite CMake command
 include(BornAgainMacros)
 include(SearchInstalledSoftware)

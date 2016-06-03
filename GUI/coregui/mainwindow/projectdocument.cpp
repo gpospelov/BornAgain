@@ -121,9 +121,7 @@ bool ProjectDocument::save()
     }
     writeTo(&file);
     file.close();
-
-    // saving of non-xml data
-    saveOutputData();
+    m_applicationModels->saveNonXMLData(getProjectDir());
 
     m_modified = false;
     emit modified();
@@ -149,9 +147,7 @@ bool ProjectDocument::load(const QString &project_file_name)
         disconnectModels();
         readFrom(&file);
         file.close();
-
-        // loading accompanying non-xml data
-        loadOutputData();
+        m_applicationModels->loadNonXMLData(getProjectDir());
         connectModels();
 
     } catch (const std::exception &ex) {
@@ -242,31 +238,6 @@ void ProjectDocument::readFrom(QIODevice *device)
                 }
             }
 
-
-
-//            else if (reader.name() == SessionXML::DocumentModelTag) {
-//                readModel(m_applicationModels->documentModel(), &reader);
-//            }
-
-//            else if (reader.name() == SessionXML::MaterialModelTag) {
-//                readModel(m_applicationModels->materialModel(), &reader);
-//            }
-
-//            else if (reader.name() == SessionXML::InstrumentModelTag) {
-//                readModel(m_applicationModels->instrumentModel(), &reader);
-//            }
-
-//            else if (reader.name() == SessionXML::SampleModelTag) {
-//                readModel(m_applicationModels->sampleModel(), &reader);
-//            }
-
-//            else if (reader.name() == SessionXML::JobModelTag) {
-//                readModel(m_applicationModels->jobModel(), &reader);
-//            }
-
-            /*else if (reader.name() == SessionXML::FitModelTag) {
-                readModel(m_fitModel, &reader);
-            }*/
         }
     }
 
@@ -320,30 +291,6 @@ void ProjectDocument::reviseOutputData()
             // making new name of *.int file from jobItem name
             dataItem->setNameFromProposed(jobItem->itemName());
         }
-    }
-}
-
-//! saves OutputData into project directory
-void ProjectDocument::saveOutputData()
-{
-    JobModel *jobModel = m_applicationModels->jobModel();
-    Q_ASSERT(jobModel);
-
-    for (int i = 0; i < jobModel->rowCount(QModelIndex()); ++i) {
-        JobItem *jobItem = jobModel->getJobItemForIndex(jobModel->index(i, 0, QModelIndex()));
-        JobResultsPresenter::saveIntensityData(jobItem, getProjectDir());
-    }
-}
-
-//! load OutputData from project directory
-void ProjectDocument::loadOutputData()
-{
-    JobModel *jobModel = m_applicationModels->jobModel();
-    Q_ASSERT(jobModel);
-
-    for (int i = 0; i < jobModel->rowCount(QModelIndex()); ++i) {
-        JobItem *jobItem = jobModel->getJobItemForIndex(jobModel->index(i, 0, QModelIndex()));
-        JobResultsPresenter::loadIntensityData(jobItem, getProjectDir());
     }
 }
 

@@ -503,6 +503,20 @@ SessionItem* SessionModel::rootItem() const{
     return m_root_item;
 }
 
+//! Loads non-XML data of the model from the projectDir
+
+void SessionModel::loadNonXMLData(const QString &projectDir)
+{
+    Q_UNUSED(projectDir);
+}
+
+//! Saves non-XML data of the model to the projectDir
+
+void SessionModel::saveNonXMLData(const QString &projectDir)
+{
+    Q_UNUSED(projectDir);
+}
+
 void SessionModel::setIconProvider(IconProvider *icon_provider)
 {
     m_iconProvider.reset(icon_provider);

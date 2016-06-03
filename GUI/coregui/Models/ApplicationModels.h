@@ -55,6 +55,9 @@ public:
 
     QList<SessionModel *> modelList();
 
+    void loadNonXMLData(const QString &projectDir);
+    void saveNonXMLData(const QString &projectDir);
+
 signals:
     void modelChanged();
 

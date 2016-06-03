@@ -253,8 +253,27 @@ QList<SessionModel *> ApplicationModels::modelList()
     result.append(m_materialModel);
     result.append(m_instrumentModel);
     result.append(m_sampleModel);
+    result.append(m_realDataModel);
     result.append(m_jobModel);
     return result;
+}
+
+//! Loads model's non-XML data  from the projectDir
+
+void ApplicationModels::loadNonXMLData(const QString &projectDir)
+{
+    foreach(SessionModel *model, modelList()) {
+        model->loadNonXMLData(projectDir);
+    }
+}
+
+//! Saves model's non-XML data  to the projectDir
+
+void ApplicationModels::saveNonXMLData(const QString &projectDir)
+{
+    foreach(SessionModel *model, modelList()) {
+        model->saveNonXMLData(projectDir);
+    }
 }
 
 void ApplicationModels::disconnectModel(SessionModel *model)

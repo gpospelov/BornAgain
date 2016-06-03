@@ -26,6 +26,7 @@
 #include "ParameterModelBuilder.h"
 #include "ParameterTreeItems.h"
 #include "SimulationOptionsItem.h"
+#include "JobResultsPresenter.h"
 #include <QUuid>
 #include <QDebug>
 #include <QItemSelection>
@@ -119,6 +120,27 @@ void JobModel::clear()
     }
 
     SessionModel::clear();
+}
+
+//! Loads OutputData from the projectDir to JobItem
+
+void JobModel::loadNonXMLData(const QString &projectDir)
+{
+    for (int i = 0; i < rowCount(QModelIndex()); ++i) {
+        JobItem *jobItem = getJobItemForIndex(index(i, 0, QModelIndex()));
+        JobResultsPresenter::loadIntensityData(jobItem, projectDir);
+    }
+
+}
+
+//! Saves JobItem's OutputData to the projectDir
+
+void JobModel::saveNonXMLData(const QString &projectDir)
+{
+    for (int i = 0; i < rowCount(QModelIndex()); ++i) {
+        JobItem *jobItem = getJobItemForIndex(index(i, 0, QModelIndex()));
+        JobResultsPresenter::saveIntensityData(jobItem, projectDir);
+    }
 }
 
 void JobModel::runJob(const QModelIndex &index)

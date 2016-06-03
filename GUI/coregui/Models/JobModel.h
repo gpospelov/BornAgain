@@ -50,6 +50,9 @@ public:
 
     void clear();
 
+    void loadNonXMLData(const QString &projectDir);
+    void saveNonXMLData(const QString &projectDir);
+
 signals:
     void selectionChanged(JobItem *item);
     void aboutToDeleteJobItem(JobItem *item);

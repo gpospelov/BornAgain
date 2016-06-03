@@ -101,8 +101,6 @@ private:
     void writeTo(QIODevice *device);
 
     void reviseOutputData();
-    void saveOutputData();
-    void loadOutputData();
 
     void disconnectModels();
     void connectModels();

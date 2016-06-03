@@ -105,7 +105,7 @@ private:
         double *in_kernel;
         //! result of Fourier transformation of kernel
         double *out_kernel;
-        //! result of production of FFT(source) and FFT(kernel)
+        //! result of product of FFT(source) and FFT(kernel)
         double *dst_fft;
         int h_dst, w_dst;                 // size of resulting array
         int h_offset, w_offset;           // offsets to copy result into output arrays

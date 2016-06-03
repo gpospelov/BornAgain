@@ -85,7 +85,8 @@ void MathFunctions::Convolve::Workspace::clear()
 /* ************************************************************************* */
 // convolution in 2d
 /* ************************************************************************* */
-void MathFunctions::Convolve::fftconvolve(const double2d_t& source, const double2d_t& kernel, double2d_t& result)
+void MathFunctions::Convolve::fftconvolve(const double2d_t& source, const double2d_t& kernel,
+                                          double2d_t& result)
 {
     // set default convolution mode, if not defined
     if(m_mode == FFTW_UNDEFINED) {

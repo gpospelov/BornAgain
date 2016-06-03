@@ -218,7 +218,9 @@ double ConvolutionDetectorResolution::getIntegratedPDF2d(double x,
     double xmax = x + halfstepx;
     double ymin = y - halfstepy;
     double ymax = y + halfstepy;
-    double result = mp_res_function_2d->evaluateCDF(xmax, ymax) - mp_res_function_2d->evaluateCDF(xmax, ymin)
-            - mp_res_function_2d->evaluateCDF(xmin, ymax) + mp_res_function_2d->evaluateCDF(xmin, ymin);
+    double result = mp_res_function_2d->evaluateCDF(xmax, ymax)
+            - mp_res_function_2d->evaluateCDF(xmax, ymin)
+            - mp_res_function_2d->evaluateCDF(xmin, ymax)
+            + mp_res_function_2d->evaluateCDF(xmin, ymin);
     return result;
 }

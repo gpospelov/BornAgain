@@ -27,6 +27,7 @@ option(BORNAGAIN_TIFF_SUPPORT "Tiff files read/write support" ON)
 
 #--- Include CMake macros and functions ---
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/modules)
+include(GetFilenameComponent) # overwrite CMake command
 include(BornAgainMacros)
 include(SearchInstalledSoftware)
 include(CheckCompiler)

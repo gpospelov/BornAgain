@@ -31,7 +31,7 @@ function(UNIT_TESTS TEST_NAME SUBDIR LINK_LIB)
     file(READ "${CMAKE_MODULE_PATH}/unitTests.cpp.footer" TMPTMP)
     set(TMP "${TMP}\n${TMPTMP}")
 
-    set(TEST_SRC "${CMAKE_BINARY_DIR}/${TEST_NAME}.cpp")
+    set(TEST_SRC "${BUILD_AUTO_DIR}/${TEST_NAME}.cpp")
     file(WRITE ${TEST_SRC} "${TMP}")
 
     set(EXE ${TEST_NAME})

@@ -33,6 +33,8 @@ include(BornAgainConfiguration)
 include(UnitTests)
 include(GeneratePythonDocs)
 
+enable_testing()
+
 #--- Recurse into the given subdirectories ---
 if(BORNAGAIN_USERMANUAL)
     add_subdirectory(Doc/UserManual)

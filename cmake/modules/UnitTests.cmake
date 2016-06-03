@@ -16,7 +16,6 @@
 #  @brief Compile tests given as .h files in SUBDIR, link with LINK_LIB, and execute
 
 function(UNIT_TESTS TEST_NAME SUBDIR LINK_LIB)
-    enable_testing()
     include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
 
     file(GLOB INCLUDE_FILES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "${SUBDIR}/*.h")

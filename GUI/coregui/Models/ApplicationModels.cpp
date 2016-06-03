@@ -116,9 +116,9 @@ void ApplicationModels::resetModels()
     m_instrumentModel->insertNewItem(Constants::DetectorType, m_instrumentModel->indexOfItem(instrument));
     m_instrumentModel->insertNewItem(Constants::BeamType, m_instrumentModel->indexOfItem(instrument));
 
-    m_realDataModel->insertNewItem(Constants::RealDataType);
-    m_realDataModel->insertNewItem(Constants::RealDataType);
-    m_realDataModel->insertNewItem(Constants::RealDataType);
+//    m_realDataModel->insertNewItem(Constants::RealDataType);
+//    m_realDataModel->insertNewItem(Constants::RealDataType);
+//    m_realDataModel->insertNewItem(Constants::RealDataType);
 
 }
 

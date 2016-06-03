@@ -21,6 +21,7 @@
 #include "IntensityDataItem.h"
 #include <QVBoxLayout>
 #include <QLabel>
+#include <QDebug>
 
 RealDataEditorWidget::RealDataEditorWidget(QWidget *parent)
     : QWidget(parent)
@@ -36,10 +37,11 @@ RealDataEditorWidget::RealDataEditorWidget(QWidget *parent)
 
 void RealDataEditorWidget::setItem(SessionItem *item)
 {
-//    m_label->setText(item->displayName());
-
+    //    m_label->setText(item->displayName());
+    qDebug() << "AAAAA ->setItem";
     IntensityDataItem *intensityData = dynamic_cast<IntensityDataItem *>(item->getItem(RealDataItem::T_INTENSITY_DATA));
     Q_ASSERT(intensityData);
     Q_ASSERT(intensityData->getOutputData());
     m_colorMap->setItem(intensityData);
+    qDebug() << "AAAAA -> done!";
 }

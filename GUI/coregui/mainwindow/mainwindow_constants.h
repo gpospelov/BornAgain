@@ -55,7 +55,7 @@ const unsigned int MAIN_THEME_COLOR    = 0x086FA1;
 const unsigned int BUTTON_COLOR        = 0x044362;
 const unsigned int BUTTON_TEXT_COLOR   = 0xFFFFFF;
 
-const unsigned int REALTIME_WIDGET_WIDTH_HINT = 480 ;
+const unsigned int REALTIME_WIDGET_WIDTH_HINT = 480;
 
 //
 }

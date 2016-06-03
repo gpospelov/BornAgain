@@ -35,8 +35,8 @@ class BA_CORE_API_ ItemSelectorWidget : public QWidget
 public:
     ItemSelectorWidget(QWidget *parent = 0);
 
-    QSize sizeHint() const { return QSize(200, 400); }
-    QSize minimumSizeHint() const { return QSize(128, 200); }
+    QSize sizeHint() const;
+    QSize minimumSizeHint() const;
 
     void setModel(SessionModel *model);
 

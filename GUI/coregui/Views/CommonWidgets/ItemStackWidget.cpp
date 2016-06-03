@@ -20,11 +20,21 @@
 #include <QVBoxLayout>
 #include <QDebug>
 
+namespace {
+const int widget_size_hint = 1024;
+const int widget_minimum_size_hint = 256;
+}
+
 ItemStackWidget::ItemStackWidget(QWidget *parent)
     : QWidget(parent)
     , m_stackedWidget(new QStackedWidget)
     , m_model(0)
 {
+    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    setMinimumSize(widget_minimum_size_hint, widget_minimum_size_hint);
+
+    m_stackedWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
     QVBoxLayout *layout = new QVBoxLayout;
     layout->setMargin(0);
     layout->setSpacing(0);
@@ -40,6 +50,16 @@ void ItemStackWidget::setModel(SessionModel *model)
     disconnectModel();
     m_model = model;
     connectModel();
+}
+
+QSize ItemStackWidget::sizeHint() const
+{
+    return QSize(widget_size_hint, widget_size_hint);
+}
+
+QSize ItemStackWidget::minimumSizeHint() const
+{
+    return QSize(widget_minimum_size_hint, widget_minimum_size_hint);
 }
 
 void ItemStackWidget::onModelAboutToBeReset()

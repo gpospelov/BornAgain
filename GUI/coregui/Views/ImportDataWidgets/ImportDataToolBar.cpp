@@ -76,6 +76,8 @@ void ImportDataToolBar::onImportDataAction()
         SessionItem *realDataItem = m_model->insertNewItem(Constants::RealDataType);
         IntensityDataItem *intensityDataItem = dynamic_cast<IntensityDataItem *>(m_model->insertNewItem(Constants::IntensityDataType, realDataItem->index()));
         intensityDataItem->setOutputData(data);
+        m_selectionModel->clearSelection();
+        m_selectionModel->select(realDataItem->index(), QItemSelectionModel::Select);
     }
 
 }

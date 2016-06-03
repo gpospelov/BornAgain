@@ -21,16 +21,31 @@
 #include <QVBoxLayout>
 #include <QDebug>
 
+namespace {
+const int widget_minimum_size_hint = 64;
+const int widget_size_hint = 128;
+}
+
 ItemSelectorWidget::ItemSelectorWidget(QWidget *parent)
     : QWidget(parent)
     , m_listView(new QListView(this))
     , m_model(0)
 {
-    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
 
     QVBoxLayout *verticalLayout = new QVBoxLayout;
     verticalLayout->addWidget(m_listView);
     setLayout(verticalLayout);
+}
+
+QSize ItemSelectorWidget::sizeHint() const
+{
+    return QSize(widget_size_hint, widget_size_hint*4);
+}
+
+QSize ItemSelectorWidget::minimumSizeHint() const
+{
+    return QSize(widget_minimum_size_hint, widget_minimum_size_hint);
 }
 
 void ItemSelectorWidget::setModel(SessionModel *model)

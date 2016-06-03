@@ -30,7 +30,7 @@ public:
     RealDataEditorWidget(QWidget *parent = 0);
 
 //    QSize sizeHint() const { return QSize(200, 400); }
-    QSize minimumSizeHint() const { return QSize(200, 200); }
+//    QSize minimumSizeHint() const { return QSize(200, 200); }
 
     void setItem(class SessionItem *item);
 

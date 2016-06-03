@@ -38,6 +38,9 @@ public:
     void setModel(SessionModel *model);
     virtual void setItem(SessionItem *item) = 0;
 
+    QSize sizeHint() const;
+    QSize minimumSizeHint() const;
+
 public slots:
     virtual void onModelAboutToBeReset();
     virtual void onRowsAboutToBeRemoved(const QModelIndex &parent,int first,int);

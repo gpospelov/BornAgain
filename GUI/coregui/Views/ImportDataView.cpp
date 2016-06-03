@@ -42,6 +42,7 @@ ImportDataView::ImportDataView(MainWindow *mainWindow)
     m_splitter->setCollapsible(0, false);
     m_splitter->setCollapsible(1, false);
 
+
     mainLayout->addWidget(m_toolBar);
     mainLayout->addWidget(m_splitter);
 

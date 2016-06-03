@@ -51,7 +51,6 @@ function(BORNAGAIN_EXECUTABLE executable)
 
     # making executable
     if(${ARG_EXCLUDE_FROM_ALL})
-        message(STATUS "DEBUG [[${executable}]]")
         add_executable(${executable} ${source_files} )
         # add_executable("${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${executable}" EXCLUDE_FROM_ALL ${source_files} )
     else()
@@ -75,6 +74,7 @@ endfunction()
 # -----------------------------------------------------------------------------
 function(BORNAGAIN_ADD_TEST test_name test_exe)
     cmake_parse_arguments(ARG "" "TEST_ARGUMENTS" "" "" ${ARGN})
-    add_test(${test_name} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${test_exe} "${ARG_TEST_ARGUMENTS}")
-    # add_dependencies(check ${test_exe}) # TODO CHECK REMOVE
+    if(BUILD_TESTING)
+        add_test(${test_name} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${test_exe} "${ARG_TEST_ARGUMENTS}")
+    endif()
 endfunction()

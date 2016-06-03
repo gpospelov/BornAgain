@@ -46,10 +46,13 @@ function(WRAP_GTEST TEST_NAME SUBDIR LINK_LIB STAGE)
     # set_property(TARGET ${EXE} PROPERTY RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 
     if    (${STAGE} EQUAL 0)
-        # Add execution of TestCore just after compilation
+        # Execute test just after compilation
         add_custom_command(TARGET ${TEST_NAME} POST_BUILD COMMAND ${EXE})
     elseif(${STAGE} EQUAL 1)
-        add_test(${TEST_NAME} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${EXE})
+        # Put test under control of CTest
+        if(BUILD_TESTING)
+            add_test(${TEST_NAME} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${EXE})
+        endif()
     else()
         message(FATAL_ERROR "invalid parameter STAGE=${STAGE} in WRAP_GTEST")
     endif()

@@ -6,8 +6,8 @@ cmake_minimum_required(VERSION 2.8.12 FATAL_ERROR)
 
 project(BornAgain)
 
-enable_testing()
-# TODO CHECK RESTORE
+#enable_testing()
+include(CTest)
 add_custom_target(check COMMAND ${CMAKE_CTEST_COMMAND}) # => 'make check' is an alias for 'ctest'
 
 include(VERSION.cmake)

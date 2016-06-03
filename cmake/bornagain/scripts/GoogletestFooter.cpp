@@ -15,7 +15,6 @@ private:
 
 int main(int argc, char** argv)
 {
-    std::cout << "GoogleTest::main ...\n";
     ::testing::InitGoogleTest(&argc, argv);
 
     // redirect std::cerr stream

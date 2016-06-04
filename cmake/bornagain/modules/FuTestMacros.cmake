@@ -74,7 +74,5 @@ endfunction()
 # -----------------------------------------------------------------------------
 function(BORNAGAIN_ADD_TEST test_name test_exe)
     cmake_parse_arguments(ARG "" "TEST_ARGUMENTS" "" "" ${ARGN})
-    if(BUILD_TESTING)
-        add_test(${test_name} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${test_exe} "${ARG_TEST_ARGUMENTS}")
-    endif()
+    add_test(${test_name} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${test_exe} "${ARG_TEST_ARGUMENTS}")
 endfunction()

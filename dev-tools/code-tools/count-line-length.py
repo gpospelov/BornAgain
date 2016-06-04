@@ -9,7 +9,8 @@ totbad = 0
 nftot = 0
 nfbad = 0
 
-flist = sys.argv[1:]
+limit = int(sys.argv[1])
+flist = sys.argv[2:]
 for fn in flist:
     # read in
     fd = open( fn, 'r' )
@@ -25,7 +26,7 @@ for fn in flist:
         if l>maxlen:
             maxlen = l
             maxwhere = i
-        if l>85:
+        if l>limit:
             nbadlin += 1
 
     if nbadlin>0:

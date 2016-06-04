@@ -245,7 +245,8 @@ complex_t PolyhedralFace::ff_n_core( int m, const cvector_t qpa, complex_t qperp
         ret += vfac * tmp;
 #ifdef POLYHEDRAL_DIAGNOSTIC
         if( diagnosis.debmsg>=4 )
-            std::cout<<std::scientific<<std::showpos<<std::setprecision(16)<<"DBX ff_n_core "<<m<<" "<<vfac<<" "<<tmp<<" term="<<vfac*tmp<<" sum="<<ret<<"\n";
+            std::cout<<std::scientific<<std::showpos<<std::setprecision(16)<<"DBX ff_n_core "<<m<<
+                " "<<vfac<<" "<<tmp<<" term="<<vfac*tmp<<" sum="<<ret<<"\n";
 #endif
     }
     return ret;
@@ -336,7 +337,9 @@ complex_t PolyhedralFace::edge_sum_ff( cvector_t q, cvector_t qpa, bool sym_Ci )
         sum += term;
 #ifdef POLYHEDRAL_DIAGNOSTIC
         if( diagnosis.debmsg>=2 )
-            std::cout<<std::scientific<<std::showpos<<std::setprecision(16)<<"    sum="<<sum<<" term="<<term<<" vf="<<vfac<<" qE="<<qE<<" qR="<<qR<<" sinc="<<MathFunctions::sinc(qE)<<" Rfac="<<Rfac<<"\n";
+            std::cout<<std::scientific<<std::showpos<<std::setprecision(16)<<"    sum="<<sum<<
+                " term="<<term<<" vf="<<vfac<<" qE="<<qE<<" qR="<<qR<<
+                " sinc="<<MathFunctions::sinc(qE)<<" Rfac="<<Rfac<<"\n";
 #endif
     }
     return sum;
@@ -504,13 +507,14 @@ complex_t FormFactorPolyhedron::evaluate_centered( const cvector_t q ) const
                 term += tmp;
 #ifdef POLYHEDRAL_DIAGNOSTIC
                 if( diagnosis.debmsg>=2 )
-                    std::cout<<"DBX                                                      "<<"Gkffn sum="<<term<<" incr="<<tmp<<"\n";
+                    std::cout<<"Gkffn sum="<<term<<" incr="<<tmp<<"\n";
 #endif
             }
             term *= n_fac;
 #ifdef POLYHEDRAL_DIAGNOSTIC
             if( diagnosis.debmsg>=1 )
-                std::cout<<std::scientific<<std::showpos<<std::setprecision(16)<<"  SUM="<<m_volume+sum<<" +TERM="<<term<<"\n";
+                std::cout<<std::scientific<<std::showpos<<std::setprecision(16)<<
+                    "  SUM="<<m_volume+sum<<" +TERM="<<term<<"\n";
 #endif
             sum += term;
             if( std::abs(term)<=eps*std::abs(sum) || std::abs(sum)<eps*m_volume )
@@ -539,7 +543,8 @@ complex_t FormFactorPolyhedron::evaluate_centered( const cvector_t q ) const
             sum += qn * ff;
 #ifdef POLYHEDRAL_DIAGNOSTIC
             if( diagnosis.debmsg>=1 )
-                std::cout<<std::scientific<<std::showpos<<std::setprecision(16)<<"  SUM="<<sum<<" TERM="<<qn*ff<<" qn="<<qn.real()<<" ff="<<ff<<"\n";
+                std::cout<<std::scientific<<std::showpos<<std::setprecision(16)<<"  SUM="<<sum<<
+                    " TERM="<<qn*ff<<" qn="<<qn.real()<<" ff="<<ff<<"\n";
 #endif
         }
         return sum / (I * q.mag2());

@@ -48,7 +48,6 @@ public:
     typedef std::vector<double1d_t > double2d_t;
 
     Convolve();
-    ~Convolve();
 
     //! convolution  modes
     //! use LINEAR_SAME or CIRCULAR_SAME_SHIFTED for maximum performance
@@ -125,5 +124,3 @@ private:
 }  // namespace MathFunctions
 
 #endif // CONVOLVE_H
-
-

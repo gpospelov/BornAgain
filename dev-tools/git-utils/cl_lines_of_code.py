@@ -19,34 +19,50 @@ import datetime, optparse, os, re, sys, time
 # categorize files
 # ------------------------------------------------------------------------------
 
-descr=["Core", # 0
-       "Functional Tests", # 1
-       "Unit Tests", # 2
-       "GUI", # 3
-       "PythonAPI", #4
-       "Third", #5
-       "other C++", #6
-       "Undef", #7
+descr=[
+    "non-source",
+    "auto",
+    "conf",
+    "core",
+    "futest",
+    "utest",
+    "GUI",
+    "examples",
+    "third-party",
+    "other C++",
+    "other Py",
+    "undef",
 ]
 
 def filetype(x):
-    file_type=7 # undef
-    if dirSkip(x):
-        pass
-    if fileCpp(x) and dirCore(x):
-        file_type = 0 # core C++ code
+    if  re.search( r'(dev-tools|build|qbuild|html)/', x ):
+        file_type = 0 # skip
+    elif( re.search( r'doxygen_\w+\.i', x ) or
+          re.search( r'lib\w+\.py', x ) or
+          re.search( r'lib\w+_wrap\.', x ) or
+          re.search( r'bornagain\.1$', x ) or
+          re.match( r'(Core|Fit)/PythonAPI', x ) ):
+        file_type = 1 # auto-generated
+    elif re.search( r'\w+\.(in|txt|cmake)$', x ):
+        file_type = 2 # configuration scripts
+    elif fileCpp(x) and dirCore(x):
+        file_type = 3 # core C++ code
     elif (fileCpp(x) or filePython(x)) and dirFuncTest(x):
-        file_type = 1 # functional tests
-    elif dirUnitTests(x):
-        file_type = 2 # unit tests
+        file_type = 4 # functional tests
+    elif fileCpp(x) and dirUnitTests(x):
+        file_type = 5 # unit tests
     elif dirGUI(x):
-        file_type = 3 # GUI
-    elif dirPyAPI(x):
-        file_type = 4 # auto-generated Python code
+        file_type = 6 # GUI
+    elif re.match( r'Examples/', x ):
+        file_type = 7 # Examples
     elif dirThirdParty(x):
-        file_type = 5 # other third-party code
+        file_type = 8 # other third-party code
     elif fileCpp(x):
-        file_type = 6 # other C++ code
+        file_type = 9 # other C++ code
+    elif filePython(x):
+        file_type = 10 # other Py code
+    else:
+        file_type = 11 # unknown type
     return file_type
 
 def filePython(x):
@@ -73,11 +89,6 @@ def dirCore(x):
     if "Core/Fitting" in x: return True
     if "Core/inc" in x: return True
     if "Core/src" in x: return True
-    return False
-
-def dirPyAPI(x):
-    if "Core/PythonAPI" in x: return True
-    if "Fit/PythonAPI" in x: return True
     return False
 
 def dirFuncTest(x):
@@ -115,14 +126,13 @@ def dirUnitTests(x):
     return False
 
 # ------------------------------------------------------------------------------
-# 
+#
 # ------------------------------------------------------------------------------
 
 def append_to_history():
     if adds is None:
         return
-    # print( "%s %8u %5s %5s %7s %s \t%s"%(d,locs,'+'+str(adds),'-'+str(dels),hsh,who,cmt.strip()) )
-    history.append((d,locs,list(locs_type),adds,dels,hsh,who,cmt))
+    history.append((d,list(locs_type),adds,dels,hsh,who,cmt))
 
 def save_history_as_table(fname):
     f = open(fname, 'w')
@@ -130,12 +140,12 @@ def save_history_as_table(fname):
         d = entry[0]
         tim = 2012 +  (d - datetime.datetime(2012,1,1)).total_seconds()/366.0/24/3600
         f.write( "%9.4f" % ( tim ) )
-        for i in entry[2]+[entry[1]]:
+        for i in entry[1]:
             f.write( " %6i" % ( i ) )
-        f.write( " # %s %s\n" % (entry[5], entry[7][0:28] ) )
+        f.write( " # %s %s\n" % (entry[4], entry[6][0:28] ) )
     f.close()
     print( "Table with one line per commit written to "+fname )
-    
+
 # ------------------------------------------------------------------------------
 # MAIN
 # ------------------------------------------------------------------------------
@@ -146,7 +156,6 @@ parser.add_option('-i', '--input-dir', type="string", action="store", dest="gitd
 (options, args) = parser.parse_args()
 
 fc=0
-locs=0
 locs_type=[0 for cat in descr]
 
 adds = None
@@ -173,7 +182,7 @@ for x in os.popen('git log develop --reverse --pretty=format:"A: %ae%nD: %ct%nS:
             adds=0
             dels=0
             continue
-            
+
     if pos==0:
         m = re.match(r'D: (.+)$', x )
         if m is None:
@@ -217,10 +226,6 @@ for x in os.popen('git log develop --reverse --pretty=format:"A: %ae%nD: %ct%nS:
         fnam = m.group(3)
         ftyp = filetype(fnam)
         locs_type[ftyp] += lines_inserted - lines_deleted
-        if ftyp <= 3:
-            adds += lines_inserted
-            dels += lines_deleted
-            locs += lines_inserted - lines_deleted
 append_to_history() # once more upon leaving the loop
 
 save_history_as_table("lines_of_code.tab")
@@ -265,7 +270,7 @@ for i in range(0, len(selected_hist) ):
     i_hist = selected_hist[i]
     #hist = TH1D(descr[i_hist],descr[i_hist],len(xtmp)-1,xtmp)
     hist = TH1D(descr[i_hist],descr[i_hist], ntimebins, td_first.Convert() - time_offset, td_last.Convert() - time_offset )
-    
+
     hist.GetXaxis().SetTimeDisplay(1)
     hist.GetXaxis().SetTimeFormat("%d/%m")
     hist.GetYaxis().SetLabelSize(0.030)
@@ -305,7 +310,7 @@ for h in a_histograms:
         if h.GetBinContent(i_bin) == 0:
             h.SetBinContent(i_bin, prev_content)
         prev_content = h.GetBinContent(i_bin)
-        
+
 #preparing canvas
 c1 = TCanvas( 'gisasfw_loc', 'Number of lines of code in BornAgain project', 800, 800)
 c1.cd()

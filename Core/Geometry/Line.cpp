@@ -56,8 +56,7 @@ bool Line::contains(double x, double y) const
 }
 
 // Calculates if line crosses the box made out of our bins.
-// Ugly implementation, see discussion at
-// http://stackoverflow.com/questions/21408977/boostgeometryintersects-doesnt-work-for-different-geometry-types
+// Ugly implementation, see discussion at http://stackoverflow.com/questions/21408977
 bool Line::contains(const Bin1D &binx, const Bin1D &biny) const
 {
     std::vector<point_t> box_points;
@@ -71,7 +70,8 @@ bool Line::contains(const Bin1D &binx, const Bin1D &biny) const
     line_points.push_back(point_t(m_x1, m_y1));
     line_points.push_back(point_t(m_x2, m_y2));
 
-    return intersects(line_t(box_points.begin(),box_points.end()), line_t(line_points.begin(),line_points.end()));
+    return intersects(line_t(box_points.begin(),box_points.end()),
+                      line_t(line_points.begin(),line_points.end()));
 }
 
 Line::Line(const Line &other)

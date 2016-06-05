@@ -24,8 +24,7 @@
 using namespace BornAgain;
 
 InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal(
-        double length_1, double length_2, double alpha_lattice, double xi,
-        double damping_length)
+        double length_1, double length_2, double alpha_lattice, double xi, double damping_length)
     : m_integrate_xi(false)
     , m_damping_length(damping_length)
     , m_use_damping_length(true)
@@ -43,7 +42,8 @@ InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal(
         m_use_damping_length = false;
     }
     init_parameters();
-    mP_integrator = make_integrator_real(this, &InterferenceFunction2DParaCrystal::interferenceForXi);
+    mP_integrator = make_integrator_real(
+        this, &InterferenceFunction2DParaCrystal::interferenceForXi);
 }
 
 InterferenceFunction2DParaCrystal::~InterferenceFunction2DParaCrystal()
@@ -51,9 +51,9 @@ InterferenceFunction2DParaCrystal::~InterferenceFunction2DParaCrystal()
     for (size_t i=0; i<2; ++i) delete m_pdfs[i];
 }
 
-InterferenceFunction2DParaCrystal *InterferenceFunction2DParaCrystal::clone() const
+InterferenceFunction2DParaCrystal* InterferenceFunction2DParaCrystal::clone() const
 {
-    InterferenceFunction2DParaCrystal *result = new InterferenceFunction2DParaCrystal(
+    InterferenceFunction2DParaCrystal* result = new InterferenceFunction2DParaCrystal(
         m_lattice_params.m_length_1, m_lattice_params.m_length_2, m_lattice_params.m_angle,
         m_lattice_params.m_xi, m_damping_length);
     result->setDomainSizes(m_domain_sizes[0], m_domain_sizes[1]);
@@ -63,7 +63,7 @@ InterferenceFunction2DParaCrystal *InterferenceFunction2DParaCrystal::clone() co
     return result;
 }
 
-void InterferenceFunction2DParaCrystal::accept(ISampleVisitor *visitor) const
+void InterferenceFunction2DParaCrystal::accept(ISampleVisitor* visitor) const
 {
     visitor->visit(this);
 }
@@ -126,7 +126,7 @@ InterferenceFunction2DParaCrystal* InterferenceFunction2DParaCrystal::
     createSquare(double peak_distance, double damping_length, double domain_size_1,
         double domain_size_2)
 {
-    InterferenceFunction2DParaCrystal *p_new =
+    InterferenceFunction2DParaCrystal* p_new =
             new InterferenceFunction2DParaCrystal(peak_distance, peak_distance,
                     Units::PID2, 0.0, damping_length);
     p_new->setDomainSizes(domain_size_1, domain_size_2);
@@ -138,7 +138,7 @@ InterferenceFunction2DParaCrystal* InterferenceFunction2DParaCrystal::
     createHexagonal(double peak_distance, double damping_length,
             double domain_size_1, double domain_size_2)
 {
-    InterferenceFunction2DParaCrystal *p_new =
+    InterferenceFunction2DParaCrystal* p_new =
             new InterferenceFunction2DParaCrystal(peak_distance, peak_distance,
                     2.0*Units::PI/3.0, 0.0, damping_length);
     p_new->setDomainSizes(domain_size_1, domain_size_2);
@@ -251,10 +251,10 @@ std::vector<double> InterferenceFunction2DParaCrystal::getDomainSizes() const
     return result;
 }
 
-std::vector<const IFTDistribution2D *>
+std::vector<const IFTDistribution2D*>
 InterferenceFunction2DParaCrystal::getProbabilityDistributions() const
 {
-    std::vector<const IFTDistribution2D *>  result;
+    std::vector<const IFTDistribution2D*>  result;
     result.resize(2);
     result[0] = m_pdfs[0];
     result[1] = m_pdfs[1];

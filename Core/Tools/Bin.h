@@ -55,7 +55,7 @@ struct BA_CORE_API_ Bin1DKVector
 };
 
 //! creation on Bin1DKVector from alpha and phi bins
-inline Bin1DKVector::Bin1DKVector(double wavelength, const Bin1D &alpha_bin, const Bin1D &phi_bin)
+inline Bin1DKVector::Bin1DKVector(double wavelength, const Bin1D& alpha_bin, const Bin1D& phi_bin)
     : m_q_lower(), m_q_upper()
 {
     m_q_lower = Geometry::vecOfLambdaAlphaPhi(wavelength, alpha_bin.m_lower, phi_bin.m_lower);
@@ -82,8 +82,10 @@ struct BA_CORE_API_ Bin1DCVector
 inline Bin1DCVector::Bin1DCVector(double wavelength, const Bin1D& alpha_bin, const Bin1D& phi_bin)
     : m_q_lower(), m_q_upper()
 {
-    m_q_lower = Geometry::vecOfLambdaAlphaPhi(wavelength, alpha_bin.m_lower, phi_bin.m_lower).complex();
-    m_q_upper = Geometry::vecOfLambdaAlphaPhi(wavelength, alpha_bin.m_upper, phi_bin.m_upper).complex();
+    m_q_lower = Geometry::vecOfLambdaAlphaPhi(
+        wavelength, alpha_bin.m_lower, phi_bin.m_lower).complex();
+    m_q_upper = Geometry::vecOfLambdaAlphaPhi(
+        wavelength, alpha_bin.m_upper, phi_bin.m_upper).complex();
 }
 
 #endif /* BIN_H_ */

@@ -23,7 +23,8 @@
 
 using namespace  BornAgain;
 
-FormFactorLongRipple1Lorentz::FormFactorLongRipple1Lorentz(double length, double width, double height)
+FormFactorLongRipple1Lorentz::FormFactorLongRipple1Lorentz(
+    double length, double width, double height)
     : m_width(width)
     , m_height(height)
     , m_length(length)
@@ -60,12 +61,12 @@ void FormFactorLongRipple1Lorentz::init_parameters()
     registerParameter(Length, &m_length, AttLimits::n_positive());
 }
 
-FormFactorLongRipple1Lorentz *FormFactorLongRipple1Lorentz::clone() const
+FormFactorLongRipple1Lorentz* FormFactorLongRipple1Lorentz::clone() const
 {
     return new FormFactorLongRipple1Lorentz(m_length, m_width, m_height);
 }
 
-void FormFactorLongRipple1Lorentz::accept(ISampleVisitor *visitor) const
+void FormFactorLongRipple1Lorentz::accept(ISampleVisitor* visitor) const
 {
     visitor->visit(this);
 }

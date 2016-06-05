@@ -36,7 +36,8 @@ int PYSCRIPT_FUNCTIONAL_TEST(const std::string &test_name)
 
     FunctionalTestInfo info = catalogue.getTestInfo(test_name);
 
-    PyScriptFunctionalTestComponentService *service = new PyScriptFunctionalTestComponentService(info);
+    PyScriptFunctionalTestComponentService *service =
+        new PyScriptFunctionalTestComponentService(info);
     FunctionalMultiTest test(test_name, service);
     test.runTest();
     return test.analyseResults();

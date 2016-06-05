@@ -70,13 +70,13 @@ public:
     //! returns alpha_i axis
     const IAxis *getAlphaAxis() const;
 
-    //! returns vector containing reflection coefficients for all alpha_i angles for given layer index
+    //! returns vector of reflection coefficients for all alpha_i angles for given layer index
     std::vector<complex_t > getScalarR(size_t i_layer) const;
 
-    //! returns vector containing transmission coefficients for all alpha_i angles for given layer index
+    //! returns vector of transmission coefficients for all alpha_i angles for given layer index
     std::vector<complex_t > getScalarT(size_t i_layer) const;
 
-    //! returns vector containing Kz coefficients for all alpha_i angles for given layer index
+    //! returns vector of Kz coefficients for all alpha_i angles for given layer index
     std::vector<complex_t > getScalarKz(size_t i_layer) const;
 
     LayerRTCoefficients_t getLayerRTCoefficients(size_t i_alpha, size_t i_layer) const;

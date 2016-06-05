@@ -103,21 +103,18 @@ size_t FunctionalTestComponentService::getNumberOfComponents() const
 
 void FunctionalTestComponentService::initComponent(size_t component_index)
 {
-    if(component_index >= getNumberOfComponents()) {
-        throw OutOfBoundsException("FunctionalTestComponentService::setComponent() -> Error. Out of bounds");
-    }
+    if(component_index >= getNumberOfComponents())
+        throw OutOfBoundsException(
+            "FunctionalTestComponentService::setComponent() -> Error. Out of bounds");
     m_current_component = component_index;
-
     if(m_ff_registry) {
         delete m_form_factor;
         m_form_factor = m_ff_registry->createItem(m_component_names[component_index]);
     }
-
     if(m_ft2d_registry) {
         delete m_ft_distribution_2d;
         m_ft_distribution_2d = m_ft2d_registry->createItem(m_component_names[component_index]);
     }
-
 }
 
 std::string FunctionalTestComponentService::getCurrentComponentName() const
@@ -151,22 +148,20 @@ void FunctionalTestComponentService::init_registry(const std::string &registry_n
 
     }else if(registry_name == FormFactorsRegistryName) {
         m_ff_registry = new TestFormFactorsRegistry;
-        for(TestFormFactorsRegistry::iterator it = m_ff_registry->begin(); it!= m_ff_registry->end(); ++it) {
+        for(auto it = m_ff_registry->begin(); it!= m_ff_registry->end(); ++it) {
             m_component_names.push_back(it->first);
         }
 
     }else if(registry_name == FTDistributions2DName) {
         m_ft2d_registry= new TestFTDistribution2DRegistry;
-        for(TestFTDistribution2DRegistry::iterator it = m_ft2d_registry->begin(); it!= m_ft2d_registry->end(); ++it) {
+        for(auto it = m_ft2d_registry->begin(); it!= m_ft2d_registry->end(); ++it) {
             m_component_names.push_back(it->first);
         }
-
 
     } else {
         throw RuntimeErrorException("FunctionalTestComponentService::init_factory -> Error. "
                                     "Unknown factory '"+registry_name+"'.");
     }
-
 }
 
 //! Constructs functional test name corresponding to the current component. The goal is to have

@@ -87,18 +87,15 @@ std::string Logger::NowTime()
 void Logger::SetLevel(const std::string& levelname)
 {
     int index(0);
-    for(std::vector<std::string >::iterator it = m_level_names.begin(); it!=m_level_names.end(); ++it) {
+    for(auto it = m_level_names.begin(); it!=m_level_names.end(); ++it) {
         if( (*it) == levelname ) {
             SetLevel(EMessageLevel(index));
             return;
         }
         ++index;
     }
-    throw LogicErrorException("Logger::SetLevel() -> Error! There is no message level '"+levelname+"'");
+    throw LogicErrorException(
+        "Logger::SetLevel() -> Error! There is no message level '"+levelname+"'");
 }
 
 }
-
-
-
-

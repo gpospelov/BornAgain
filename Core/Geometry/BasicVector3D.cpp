@@ -150,7 +150,8 @@ BasicVector3D<std::complex<double> > toComplexVector(const BasicVector3D<double>
 // Quasi constructor
 // -----------------------------------------------------------------------------
 
-BasicVector3D<double> vecOfLambdaAlphaPhi(const double _lambda, const double _alpha, const double _phi)
+BasicVector3D<double> vecOfLambdaAlphaPhi(
+    const double _lambda, const double _alpha, const double _phi)
 {
     double k = PI2/_lambda;
     return BasicVector3D<double>(

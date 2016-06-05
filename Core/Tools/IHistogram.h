@@ -108,7 +108,7 @@ public:
     //! @return The center of corresponding bin of the axis
     double getXaxisValue(size_t globalbin);
 
-    //! @brief Returns the value on y-axis corresponding to the global bin index (for 2D histograms).
+    //! @brief Returns the value on y-axis corresponding to the 2D histogram global bin index.
     //! @param globalbin The global bin index
     //! @return The center of corresponding bin of the axis
     double getYaxisValue(size_t globalbin);
@@ -118,7 +118,7 @@ public:
     //! @return The value accumulated by the bin (integral)
     double getBinContent(size_t globalbin) const;
 
-    //! @brief Returns content (accumulated value) of the bin with given indices (for 2D histograms).
+    //! @brief Returns content (accumulated value) of the 2D histogram bin with given indices.
     //! @param binx x-axis bin index
     //! @param biny y-axis bin index
     //! @return The value accumulated by the bin (integral)
@@ -183,7 +183,7 @@ public:
     //! create new histogram from file content
     static IHistogram *createFrom(const std::string &filename);
 
-    //! creates new OutputData with histogram's shape and put there values corresponding to DataType
+    //! creates new OutputData with histogram's shape and values corresponding to DataType
     OutputData<double> *createOutputData(DataType dataType = DataType::INTEGRAL) const;
 
     //! Returns true if objects a) have same dimensions b) bin boundaries of axes coincide
@@ -218,4 +218,3 @@ protected:
 };
 
 #endif
-

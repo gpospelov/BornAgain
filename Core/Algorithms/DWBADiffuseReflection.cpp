@@ -17,14 +17,15 @@
 #include "LayerRoughness.h"
 
 DWBADiffuseReflection::DWBADiffuseReflection()
-: m_sample(0)
-, m_diffuse_autocorr(0)
-, m_diffuse_crosscorr(0)
-, m_qz1(0), m_qz2(0), m_qz3(0), m_qz4(0)
+    : m_sample(0)
+    , m_diffuse_autocorr(0)
+    , m_diffuse_crosscorr(0)
+    , m_qz1(0), m_qz2(0), m_qz3(0), m_qz4(0)
 {
 }
 
-void DWBADiffuseReflection::execute(const MultiLayer& sample, const kvector_t ki, const kvector_t kf)
+void DWBADiffuseReflection::execute(
+    const MultiLayer& sample, const kvector_t ki, const kvector_t kf)
 {
     setSample(sample);
     setKvectors(ki, kf);
@@ -36,7 +37,6 @@ void DWBADiffuseReflection::execute(const MultiLayer& sample, const kvector_t ki
     } else {
         m_diffuse_crosscorr = 0;
     }
-
 }
 
 void DWBADiffuseReflection::setKvectors(const kvector_t ki, const kvector_t kf)

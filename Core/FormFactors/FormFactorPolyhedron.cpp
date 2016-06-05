@@ -46,9 +46,9 @@ int PolyhedralFace::n_limit_series = 20;
 double FormFactorPolyhedron::q_limit_series = 1e-2;
 int FormFactorPolyhedron::n_limit_series = 20;
 
-//***************************************************************************************************
+//**************************************************************************************************
 //  PolyhedralEdge implementation
-//***************************************************************************************************
+//**************************************************************************************************
 
 PolyhedralEdge::PolyhedralEdge( const kvector_t _Vlow, const kvector_t _Vhig )
     : m_E((_Vhig-_Vlow)/2)
@@ -71,7 +71,8 @@ complex_t PolyhedralEdge::contrib(int M, const cvector_t qpa, complex_t qrperp) 
     complex_t v = v2 + v1;
 #ifdef POLYHEDRAL_DIAGNOSTIC
     if( diagnosis.debmsg>=5 )
-        std::cout<<std::scientific<<std::showpos<<std::setprecision(16)<<"contrib: u="<<u<<" v1="<<v1<<" v2="<<v2<<"\n";
+        std::cout<<std::scientific<<std::showpos<<std::setprecision(16)<<"contrib: u="<<u<<
+            " v1="<<v1<<" v2="<<v2<<"\n";
 #endif
     static auto& precomputed = IPrecomputed::instance();
     if( v==0. ) { // only 2l=M contributes
@@ -116,9 +117,9 @@ complex_t PolyhedralEdge::contrib(int M, const cvector_t qpa, complex_t qrperp) 
     return ret;
 }
 
-//***************************************************************************************************
+//**************************************************************************************************
 //  PolyhedralFace implementation
-//***************************************************************************************************
+//**************************************************************************************************
 
 //! Static method, returns diameter of circle that contains all vertices.
 
@@ -420,9 +421,9 @@ void PolyhedralFace::assert_Ci( const PolyhedralFace& other ) const
         throw std::runtime_error("Faces do not have opposite orientation, violating symmetry Ci");
 }
 
-//***************************************************************************************************
+//**************************************************************************************************
 //  FormFactorPolyhedron implementation
-//***************************************************************************************************
+//**************************************************************************************************
 
 #ifdef POLYHEDRAL_DIAGNOSTIC
 void FormFactorPolyhedron::setLimits( double _q, int _n ) { q_limit_series=_q; n_limit_series=_n; }
@@ -569,9 +570,9 @@ void FormFactorPolyhedron::assert_platonic() const
 }
 
 
-//***************************************************************************************************
+//**************************************************************************************************
 //  FormFactorPolygonalPrism implementation
-//***************************************************************************************************
+//**************************************************************************************************
 
 FormFactorPolygonalPrism::FormFactorPolygonalPrism(double height)
     : m_height(height)
@@ -596,9 +597,9 @@ complex_t FormFactorPolygonalPrism::evaluate_for_q( const cvector_t q ) const
 }
 
 
-//***************************************************************************************************
+//**************************************************************************************************
 //  FormFactorPolygonalSurface implementation
-//***************************************************************************************************
+//**************************************************************************************************
 
 complex_t FormFactorPolygonalSurface::evaluate_for_q( const cvector_t q ) const
 {

@@ -20,38 +20,34 @@
 
 using namespace BornAgain;
 
-std::vector<ParameterSample> IDistribution1D::generateSamples(size_t nbr_samples,
-        double sigma_factor, const AttLimits &limits) const {
-    if (nbr_samples == 0) {
+std::vector<ParameterSample> IDistribution1D::generateSamples(
+    size_t nbr_samples, double sigma_factor, const AttLimits &limits) const
+{
+    if (nbr_samples == 0)
         throw OutOfBoundsException("IDistribution1D::generateSamples: number "
-                "of generated samples must be bigger than zero");
-    }
-    std::vector<double> sample_values = generateValueList(
-            nbr_samples, sigma_factor, limits);
-
+                                   "of generated samples must be bigger than zero");
+    std::vector<double> sample_values = generateValueList( nbr_samples, sigma_factor, limits);
     return generateSamplesFromValues(sample_values);
 }
 
-std::vector<ParameterSample> IDistribution1D::generateSamples(size_t nbr_samples, double xmin, double xmax) const
+std::vector<ParameterSample> IDistribution1D::generateSamples(
+    size_t nbr_samples, double xmin, double xmax) const
 {
-    if (nbr_samples == 0) {
+    if (nbr_samples == 0)
         throw OutOfBoundsException("IDistribution1D::generateSamples: number "
-                "of generated samples must be bigger than zero");
-    }
+                                   "of generated samples must be bigger than zero");
     std::vector<double> sample_values = generateValues(nbr_samples, xmin, xmax);
-
     return generateSamplesFromValues(sample_values);
-
 }
 
 //! Interface
 void IDistribution1D::SignalBadInitialization(std::string distribution_name)
 {
-    throw ClassInitializationException(distribution_name +
-                                       ": not correctly initialized");
+    throw ClassInitializationException(distribution_name +": not correctly initialized");
 }
 
-void IDistribution1D::adjustMinMaxForLimits(double &xmin, double &xmax, const AttLimits &limits) const
+void IDistribution1D::adjustMinMaxForLimits(
+    double &xmin, double &xmax, const AttLimits &limits) const
 {
     if(limits.hasLowerLimit() && xmin < limits.getLowerLimit()) xmin = limits.getLowerLimit();
     if(limits.hasUpperLimit() && xmax > limits.getUpperLimit()) xmax = limits.getUpperLimit();
@@ -63,7 +59,8 @@ void IDistribution1D::adjustMinMaxForLimits(double &xmin, double &xmax, const At
     }
 }
 
-std::vector<ParameterSample> IDistribution1D::generateSamplesFromValues(const std::vector<double> &sample_values) const
+std::vector<ParameterSample> IDistribution1D::generateSamplesFromValues(
+    const std::vector<double> &sample_values) const
 {
     std::vector<ParameterSample> result;
     result.resize(sample_values.size());
@@ -74,25 +71,22 @@ std::vector<ParameterSample> IDistribution1D::generateSamplesFromValues(const st
         result[i].weight = pdf;
         norm_factor += pdf;
     }
-    if (norm_factor <= 0.0) {
+    if (norm_factor <= 0.0)
         throw RuntimeErrorException("IDistribution1D::generateSamples: "
-                "total probability must be bigger than zero");
-    }
+                                    "total probability must be bigger than zero");
     for (size_t i=0; i<sample_values.size(); ++i) {
         result[i].weight /= norm_factor;
     }
     return result;
-
 }
 
-std::vector<double> IDistribution1D::generateValues(size_t nbr_samples,
-        double xmin, double xmax) const
+std::vector<double> IDistribution1D::generateValues(
+    size_t nbr_samples, double xmin, double xmax) const
 {
     std::vector<double> result;
     if (nbr_samples < 2 || xmin == xmax) {
         result.push_back(getMean());
-    }
-    else {
+    } else {
         result.resize(nbr_samples);
         for (size_t i=0; i<nbr_samples; ++i) {
             result[i] = xmin + i*(xmax-xmin)/(nbr_samples-1.0);

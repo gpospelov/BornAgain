@@ -18,25 +18,26 @@
 
 #include <memory>
 
-FormFactorDecoratorRotation::FormFactorDecoratorRotation(const IFormFactor &form_factor, const IRotation &transform)
+FormFactorDecoratorRotation::FormFactorDecoratorRotation(
+    const IFormFactor& form_factor, const IRotation& transform)
     : IFormFactorDecorator(form_factor)
 {
     setName(BornAgain::FormFactorDecoratorRotationType);
     m_transform = transform.getTransform3D();
 }
 
-FormFactorDecoratorRotation *FormFactorDecoratorRotation::clone() const
+FormFactorDecoratorRotation* FormFactorDecoratorRotation::clone() const
 {
     std::unique_ptr<IRotation> P_rotation(IRotation::createRotation(m_transform));
     return new FormFactorDecoratorRotation(*mp_form_factor, *P_rotation);
 }
 
-void FormFactorDecoratorRotation::accept(ISampleVisitor *visitor) const
+void FormFactorDecoratorRotation::accept(ISampleVisitor* visitor) const
 {
     visitor->visit(this);
 }
 
-complex_t FormFactorDecoratorRotation::evaluate(const WavevectorInfo &wavevectors) const
+complex_t FormFactorDecoratorRotation::evaluate(const WavevectorInfo& wavevectors) const
 {
     cvector_t rotated_ki = m_transform.transformedInverse(wavevectors.getKi());
     cvector_t rotated_kf = m_transform.transformedInverse(wavevectors.getKf());

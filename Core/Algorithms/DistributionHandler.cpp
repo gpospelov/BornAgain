@@ -25,17 +25,18 @@ DistributionHandler::~DistributionHandler()
 {
 }
 
-void DistributionHandler::addParameterDistribution(const std::string &param_name, const IDistribution1D &distribution,
-        size_t nbr_samples, double sigma_factor, const AttLimits &limits)
+void DistributionHandler::addParameterDistribution(
+    const std::string& param_name, const IDistribution1D& distribution,
+    size_t nbr_samples, double sigma_factor, const AttLimits& limits)
 {
     if (nbr_samples > 0) {
-        ParameterDistribution par_distr(param_name, distribution,
-                                        nbr_samples, sigma_factor, limits);
+        ParameterDistribution par_distr(
+            param_name, distribution, nbr_samples, sigma_factor, limits);
         addParameterDistribution(par_distr);
     }
 }
 
-void DistributionHandler::addParameterDistribution(const ParameterDistribution &par_distr)
+void DistributionHandler::addParameterDistribution(const ParameterDistribution& par_distr)
 {
     if(par_distr.getNbrSamples() > 0) {
         m_distributions.push_back(par_distr);
@@ -49,15 +50,12 @@ size_t DistributionHandler::getTotalNumberOfSamples() const
     return m_nbr_combinations;
 }
 
-double DistributionHandler::setParameterValues(ParameterPool *p_parameter_pool,
-        size_t index)
+double DistributionHandler::setParameterValues(ParameterPool* p_parameter_pool, size_t index)
 {
-    if (index >= m_nbr_combinations) {
+    if (index >= m_nbr_combinations)
         throw Exceptions::RuntimeErrorException(
                 "DistributionWeighter::setParameterValues: "
-                "index must be smaller than the total number of parameter "
-                "combinations");
-    }
+                "index must be smaller than the total number of parameter combinations");
     size_t n_distr = m_distributions.size();
     double weight = 1.0;
     if (n_distr == 0) return weight;

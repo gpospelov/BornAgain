@@ -37,13 +37,12 @@ VariableBinAxis::VariableBinAxis(const std::string &name, int nbins)
     : IAxis(name)
     , m_nbins(nbins)
 {
-
 }
 
 
-VariableBinAxis *VariableBinAxis::clone() const
+VariableBinAxis* VariableBinAxis::clone() const
 {
-    VariableBinAxis *result = new VariableBinAxis(getName(), m_nbins, m_bin_boundaries);
+    VariableBinAxis* result = new VariableBinAxis(getName(), m_nbins, m_bin_boundaries);
     return result;
 }
 
@@ -93,13 +92,6 @@ size_t VariableBinAxis::findClosestIndex(double value) const
         throw ClassInitializationException(
             "VariableBinAxis::findClosestIndex() -> Error! "
             "VariableBinAxis not  correctly initialized" );
-
-//    if (value < getMin() || value >= getMax()) {
-//        std::ostringstream ostr;
-//        ostr << "VariableBinAxis::findClosestIndex() -> Error! Given value not in any bin. ";
-//        ostr << "value:" << value << " name:" << getName() << " min:" << getMin() << " max:" << getMax();
-//        throw OutOfBoundsException(ostr.str());
-//    }
     if( value < getMin()) {
         return 0;
     } else if(value >= getMax()) {
@@ -128,7 +120,7 @@ std::vector<double> VariableBinAxis::getBinBoundaries() const
     return m_bin_boundaries;
 }
 
-VariableBinAxis *VariableBinAxis::createClippedAxis(double left, double right) const
+VariableBinAxis* VariableBinAxis::createClippedAxis(double left, double right) const
 {
 
     if(left >= right)
@@ -165,7 +157,7 @@ void VariableBinAxis::print(std::ostream& ostr) const
 bool VariableBinAxis::equals(const IAxis& other) const
 {
     if (!IAxis::equals(other)) return false;
-    if (const VariableBinAxis *p_other_cast = dynamic_cast<const VariableBinAxis *>(&other)) {
+    if (const VariableBinAxis* p_other_cast = dynamic_cast<const VariableBinAxis*>(&other)) {
         if (getSize() != p_other_cast->getSize()) return false;
         for(size_t i=0; i<m_bin_boundaries.size(); ++i) {
             if( !Numeric::areAlmostEqual(m_bin_boundaries[i], p_other_cast->m_bin_boundaries[i])) {
@@ -178,7 +170,7 @@ bool VariableBinAxis::equals(const IAxis& other) const
 }
 
 
-void VariableBinAxis::setBinBoundaries(const std::vector<double> &bin_boundaries)
+void VariableBinAxis::setBinBoundaries(const std::vector<double>& bin_boundaries)
 {
     // checking that values are sorted
     std::vector<double> vec_sorted = bin_boundaries;

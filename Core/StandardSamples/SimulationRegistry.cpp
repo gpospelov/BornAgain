@@ -94,7 +94,8 @@ SimulationRegistry::SimulationRegistry()
     // Monte-Carlo
     registerItem("MiniGISASMonteCarlo",
                  StandardSimulations::MiniGISASMonteCarlo,
-                 "GISAS simulation with small 25x25 detector and phi[-2,2], theta[0,2], in Monte-Carlo mode");
+                 "GISAS simulation with small 25x25 detector and phi[-2,2], theta[0,2], "
+                 "in Monte-Carlo mode");
 
 }
 
@@ -104,5 +105,3 @@ GISASSimulation *SimulationRegistry::createSimulation(const std::string& name)
     GISASSimulation *result = createItem(name);
     return result;
 }
-
-

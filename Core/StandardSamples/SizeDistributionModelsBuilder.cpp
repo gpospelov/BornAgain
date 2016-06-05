@@ -26,9 +26,9 @@
 
 using namespace BornAgain;
 
-ISample *SizeDistributionDAModelBuilder::buildSample() const
+ISample* SizeDistributionDAModelBuilder::buildSample() const
 {
-        MultiLayer *multi_layer = new MultiLayer();
+        MultiLayer* multi_layer = new MultiLayer();
 
         HomogeneousMaterial m_ambience("Air", 0.0, 0.0);
         HomogeneousMaterial m_substrate("Substrate", 6e-6, 2e-8);
@@ -47,8 +47,8 @@ ISample *SizeDistributionDAModelBuilder::buildSample() const
         Particle cylinder2(m_particle, cylinder_ff2);
 
         // interference function
-        InterferenceFunctionRadialParaCrystal interference(18.0 * Units::nanometer,
-                                                           1e3 * Units::nanometer);
+        InterferenceFunctionRadialParaCrystal interference(
+            18.0 * Units::nanometer, 1e3 * Units::nanometer);
         FTDistribution1DGauss pdf(3*Units::nanometer);
         interference.setProbabilityDistribution(pdf);
 
@@ -69,9 +69,9 @@ ISample *SizeDistributionDAModelBuilder::buildSample() const
 
 // ----------------------------------------------------------------------------
 
-ISample *SizeDistributionLMAModelBuilder::buildSample() const
+ISample* SizeDistributionLMAModelBuilder::buildSample() const
 {
-    MultiLayer *multi_layer = new MultiLayer();
+    MultiLayer* multi_layer = new MultiLayer();
 
     HomogeneousMaterial m_ambience("Air", 0.0, 0.0);
     HomogeneousMaterial m_substrate("Substrate", 6e-6, 2e-8);
@@ -90,12 +90,14 @@ ISample *SizeDistributionLMAModelBuilder::buildSample() const
     Particle cylinder2(m_particle, cylinder_ff2);
 
     // interference function1
-    InterferenceFunctionRadialParaCrystal interference1(16.8*Units::nanometer, 1e3*Units::nanometer);
+    InterferenceFunctionRadialParaCrystal interference1(
+        16.8*Units::nanometer, 1e3*Units::nanometer);
     FTDistribution1DGauss pdf(3 * Units::nanometer);
     interference1.setProbabilityDistribution(pdf);
 
     // interference function2
-    InterferenceFunctionRadialParaCrystal interference2(22.8*Units::nanometer, 1e3*Units::nanometer);
+    InterferenceFunctionRadialParaCrystal interference2(
+        22.8*Units::nanometer, 1e3*Units::nanometer);
     interference2.setProbabilityDistribution(pdf);
 
     // assembling the sample
@@ -120,7 +122,7 @@ ISample *SizeDistributionLMAModelBuilder::buildSample() const
 
 // ----------------------------------------------------------------------------
 
-ISample *SizeDistributionSSCAModelBuilder::buildSample() const
+ISample* SizeDistributionSSCAModelBuilder::buildSample() const
 {
     MultiLayer *multi_layer = new MultiLayer();
 
@@ -141,7 +143,8 @@ ISample *SizeDistributionSSCAModelBuilder::buildSample() const
     Particle cylinder2(m_particle, cylinder_ff2);
 
     // interference function
-    InterferenceFunctionRadialParaCrystal interference(18.0*Units::nanometer, 1e3*Units::nanometer);
+    InterferenceFunctionRadialParaCrystal interference(
+        18.0*Units::nanometer, 1e3*Units::nanometer);
     FTDistribution1DGauss pdf(3*Units::nanometer);
     interference.setProbabilityDistribution(pdf);
     interference.setKappa(1.0);
@@ -165,17 +168,17 @@ ISample *SizeDistributionSSCAModelBuilder::buildSample() const
 
 // ----------------------------------------------------------------------------
 
-ISample *CylindersInSSCABuilder::buildSample() const
+ISample* CylindersInSSCABuilder::buildSample() const
 {
-    MultiLayer *multi_layer = new MultiLayer();
+    MultiLayer* multi_layer = new MultiLayer();
 
     HomogeneousMaterial air_material("Air", 0.0, 0.0);
     HomogeneousMaterial particle_material("Particle", 6e-4, 2e-8);
 
     Layer air_layer(air_material);
 
-    InterferenceFunctionRadialParaCrystal interference_function(15.0 * Units::nanometer,
-                                                                1e3 * Units::nanometer);
+    InterferenceFunctionRadialParaCrystal interference_function(
+        15.0 * Units::nanometer, 1e3 * Units::nanometer);
     FTDistribution1DGauss pdf(5*Units::nanometer);
     interference_function.setProbabilityDistribution(pdf);
     interference_function.setKappa(4.02698);

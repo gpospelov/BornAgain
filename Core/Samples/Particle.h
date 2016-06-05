@@ -31,17 +31,18 @@ class BA_CORE_API_ Particle : public IParticle
 {
 public:
     Particle();
-    Particle(const IMaterial &p_material);
-    Particle(const IMaterial &p_material, const IFormFactor &form_factor);
-    Particle(const IMaterial &p_material, const IFormFactor &form_factor, const IRotation &rotation);
+    Particle(const IMaterial& p_material);
+    Particle(const IMaterial& p_material, const IFormFactor& form_factor);
+    Particle(const IMaterial& p_material, const IFormFactor& form_factor,
+             const IRotation& rotation);
 
-    virtual Particle *clone() const;
+    virtual Particle* clone() const;
 
     //! Returns a clone with inverted magnetic fields
-    virtual Particle *cloneInvertB() const;
+    virtual Particle* cloneInvertB() const;
 
     //! calls the ISampleVisitor's visit method
-    virtual void accept(ISampleVisitor *visitor) const;
+    virtual void accept(ISampleVisitor* visitor) const;
 
     //! Sets the refractive index of the ambient material (which influences its scattering power)
     virtual void setAmbientMaterial(const IMaterial& material);
@@ -50,7 +51,7 @@ public:
     virtual const IMaterial* getAmbientMaterial() const;
 
     //! Create a form factor for this particle with an extra scattering factor
-    virtual IFormFactor *createTransformedFormFactor(const IRotation* p_rotation,
+    virtual IFormFactor* createTransformedFormFactor(const IRotation* p_rotation,
                                                      kvector_t translation) const;
 
     //! Sets _material_.

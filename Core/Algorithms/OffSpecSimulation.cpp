@@ -58,7 +58,8 @@ int OffSpecSimulation::getNumberOfSimulationElements() const
     return phi_axis.getSize()*alpha_axis.getSize()*mp_alpha_i_axis->getSize();
 }
 
-OutputData<double> *OffSpecSimulation::getDetectorIntensity(IDetector2D::EAxesUnits /* units_type */) const
+OutputData<double> *OffSpecSimulation::getDetectorIntensity(
+    IDetector2D::EAxesUnits /* units_type */) const
 {
     OutputData<double> *result = m_intensity_map.clone();
     return result;
@@ -124,8 +125,8 @@ void OffSpecSimulation::removeDetectorResolutionFunction()
     m_instrument.setDetectorResolutionFunction(0);
 }
 
-void OffSpecSimulation::setAnalyzerProperties(const kvector_t direction, double efficiency,
-                                              double total_transmission)
+void OffSpecSimulation::setAnalyzerProperties(
+    const kvector_t direction, double efficiency, double total_transmission)
 {
     m_instrument.setAnalyzerProperties(direction, efficiency, total_transmission);
 }
@@ -134,8 +135,7 @@ std::string OffSpecSimulation::addParametersToExternalPool(std::string path,
         ParameterPool* external_pool, int copy_number) const
 {
     // add own parameters
-    std::string  new_path =
-        IParameterized::addParametersToExternalPool(
+    std::string new_path = IParameterized::addParametersToExternalPool(
             path, external_pool, copy_number);
 
     // add parameters of the instrument

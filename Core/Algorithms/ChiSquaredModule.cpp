@@ -113,8 +113,10 @@
 ////    OutputData<double>::const_iterator it_real = mp_real_data->begin();
 
 ////    while (it_diff != p_difference->end()) {
-////        if( (it_sim.getIndex() != it_real.getIndex()) || (it_sim.getIndex() != it_diff.getIndex()) ) {
-////            throw DomainErrorException("ChiSquaredModule::calculateChiSquared() -> Iterator inconsistency");
+////        if( (it_sim.getIndex() != it_real.getIndex()) ||
+////            (it_sim.getIndex() != it_diff.getIndex()) ) {
+////            throw DomainErrorException(
+////                "ChiSquaredModule::calculateChiSquared() -> Iterator inconsistency");
 ////        }
 ////        double value_simu = *it_sim++;
 ////        double value_real = *it_real++;

@@ -36,12 +36,9 @@ public:
 
     FunctionalTestRegistry();
 
-    void add(const std::string &test_name,
-             const std::string &test_description,
-             const std::string &simulation_name,
-             const std::string &sample_builder_name,
-             const std::string &component_registry_name,
-             double threshold);
+    void add(const std::string &test_name, const std::string &test_description,
+             const std::string &simulation_name, const std::string &sample_builder_name,
+             const std::string &component_registry_name, double threshold);
 
     FunctionalTestInfo getTestInfo(const std::string &test_name);
 

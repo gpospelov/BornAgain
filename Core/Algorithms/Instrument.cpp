@@ -65,12 +65,12 @@ void Instrument::setDetectorAxes(const IAxis &axis0, const IAxis &axis1)
     mP_detector->setDetectorAxes(axis0, axis1);
 }
 
-std::string Instrument::addParametersToExternalPool(std::string path, ParameterPool *external_pool,
-                                                    int copy_number) const
+std::string Instrument::addParametersToExternalPool(
+    std::string path, ParameterPool* external_pool, int copy_number) const
 {
     // add own parameters
-    std::string new_path
-        = IParameterized::addParametersToExternalPool(path, external_pool, copy_number);
+    std::string new_path = IParameterized::addParametersToExternalPool(
+        path, external_pool, copy_number);
 
     // add parameters of the beam
     m_beam.addParametersToExternalPool(new_path, external_pool, -1);
@@ -83,9 +83,9 @@ std::string Instrument::addParametersToExternalPool(std::string path, ParameterP
 
 void Instrument::initDetector()
 {
-    if(!mP_detector) {
-        throw RuntimeErrorException("Instrument::initDetector() -> Error. Detector is not initialized.");
-    }
+    if(!mP_detector)
+        throw RuntimeErrorException(
+            "Instrument::initDetector() -> Error. Detector is not initialized.");
     getDetector()->init(getBeam());
 }
 
@@ -95,7 +95,7 @@ std::vector<SimulationElement> Instrument::createSimulationElements()
     return mP_detector->createSimulationElements(m_beam);
 }
 
-void Instrument::setDetectorResolutionFunction(IResolutionFunction2D *p_resolution_function)
+void Instrument::setDetectorResolutionFunction(IResolutionFunction2D* p_resolution_function)
 {
     if (p_resolution_function) {
         mP_detector->setDetectorResolution(
@@ -105,18 +105,18 @@ void Instrument::setDetectorResolutionFunction(IResolutionFunction2D *p_resoluti
     }
 }
 
-void Instrument::setDetectorResolutionFunction(const IResolutionFunction2D &p_resolution_function)
+void Instrument::setDetectorResolutionFunction(const IResolutionFunction2D& p_resolution_function)
 {
     mP_detector->setDetectorResolution(new ConvolutionDetectorResolution(p_resolution_function));
 }
 
-void Instrument::applyDetectorResolution(OutputData<double> *p_intensity_map) const
+void Instrument::applyDetectorResolution(OutputData<double>* p_intensity_map) const
 {
     mP_detector->applyDetectorResolution(p_intensity_map);
 }
 
-OutputData<double> *Instrument::getDetectorIntensity(const OutputData<double> &data,
-                                                     IDetector2D::EAxesUnits units_type) const
+OutputData<double>* Instrument::getDetectorIntensity(
+    const OutputData<double> &data, IDetector2D::EAxesUnits units_type) const
 {
     std::unique_ptr<OutputData<double> > result (data.clone());
     applyDetectorResolution(result.get());
@@ -124,7 +124,7 @@ OutputData<double> *Instrument::getDetectorIntensity(const OutputData<double> &d
     if(units_type == IDetector2D::DEFAULT) {
         return result.release();
     } else {
-        OutputData<double> *detectorMap = mP_detector->createDetectorMap(m_beam, units_type);
+        OutputData<double>* detectorMap = mP_detector->createDetectorMap(m_beam, units_type);
         if(!detectorMap) {
             throw RuntimeErrorException("Instrument::getDetectorIntensity() -> Error."
                                         "Can't create detector map.");
@@ -138,7 +138,7 @@ void Instrument::init_parameters()
 {
 }
 
-void Instrument::print(std::ostream &ostr) const
+void Instrument::print(std::ostream& ostr) const
 {
     ostr << "Instrument: '" << getName() << "' " << m_parameters << std::endl;
     ostr << "    " << m_beam << std::endl;

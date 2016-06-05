@@ -93,9 +93,10 @@ private:
     IAxis& operator=(const IAxis& );
 };
 
-inline IAxis *IAxis::createDoubleBinSize() const
+inline IAxis* IAxis::createDoubleBinSize() const
 {
-    throw Exceptions::NotImplementedException("IAxis::createDoubleBinSize() -> Error. Not implemented.");
+    throw Exceptions::NotImplementedException(
+        "IAxis::createDoubleBinSize() -> Error. Not implemented.");
 }
 
 inline bool IAxis::equals(const IAxis& other) const
@@ -118,17 +119,19 @@ inline std::vector<double> IAxis::getBinCenters() const
 
 inline std::vector<double> IAxis::getBinBoundaries() const
 {
-    throw Exceptions::NotImplementedException("IAxis::getBinBoundaries() -> Error. Not implemented.");
+    throw Exceptions::NotImplementedException(
+        "IAxis::getBinBoundaries() -> Error. Not implemented.");
 }
 
 inline IAxis *IAxis::createClippedAxis(double /* left */, double /* right */) const
 {
-    throw Exceptions::NotImplementedException("IAxis::createClippedAxis() -> Error. Not implemented.");
+    throw Exceptions::NotImplementedException(
+        "IAxis::createClippedAxis() -> Error. Not implemented.");
 }
 
 inline bool IAxis::contains(double value) const
 {
-    return (value >= getMin() && value < getMax());
+    return value >= getMin() && value < getMax();
 }
 
 

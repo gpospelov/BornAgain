@@ -27,7 +27,7 @@ const std::string directory_name_for_failed_tests = "00_failed_tests";
 }
 
 CoreFunctionalTest::CoreFunctionalTest(const std::string &name, const std::string &description,
-                                       GISASSimulation *simulation, OutputData<double> *reference,
+                                       GISASSimulation* simulation, OutputData<double>* reference,
                                        double threshold)
     : IFunctionalTest(name, description), m_simulation(simulation), m_reference(reference),
       m_threshold(threshold), m_difference(0)
@@ -55,12 +55,14 @@ int CoreFunctionalTest::analyseResults()
         m_result = FAILED_NOREF;
     } else {
         try {
-            const std::unique_ptr<OutputData<double> > result_data(m_simulation->getDetectorIntensity());
-            m_difference = IntensityDataFunctions::getRelativeDifference(*result_data.get(),
-                                                                     *m_reference);
+            const std::unique_ptr<OutputData<double> >
+                result_data(m_simulation->getDetectorIntensity());
+            m_difference = IntensityDataFunctions::getRelativeDifference(
+                *result_data.get(), *m_reference);
             m_result = (m_difference > m_threshold ? FAILED_DIFF : SUCCESS);
         } catch(const std::exception &ex) {
-            std::cout << "CoreFunctionalTest::analyseResults() -> Intensity data comparison failed " << std::endl;
+            std::cout << "CoreFunctionalTest::analyseResults() -> "
+                "Intensity data comparison failed\n";
             std::cout << ex.what() << std::endl;
             m_result = FAILED_DIFF;
         }
@@ -92,19 +94,19 @@ void CoreFunctionalTest::setSimulationResultsFileName(const std::string &file_na
 void CoreFunctionalTest::saveSimulationResults() const
 {
     Utils::FileSystem::CreateDirectory(directory_name_for_failed_tests);
-    IntensityDataIOFactory::writeOutputData(*(getIntensityData()),
-                                            getSimulationResultsFileNameAndPath());
+    IntensityDataIOFactory::writeOutputData(
+        *(getIntensityData()), getSimulationResultsFileNameAndPath());
 }
 
 //! Constructs file name to save results. Strip gzip extention if necessary.
 std::string CoreFunctionalTest::getSimulationResultsFileNameAndPath() const
 {
-    std::string result = Utils::FileSystem::GetJoinPath(directory_name_for_failed_tests,
-                                            m_simulation_results_file_name);
+    std::string result = Utils::FileSystem::GetJoinPath(
+        directory_name_for_failed_tests, m_simulation_results_file_name);
     return result;
 }
 
-OutputData<double> *CoreFunctionalTest::getIntensityData() const
+OutputData<double>* CoreFunctionalTest::getIntensityData() const
 {
     if (m_simulation) {
         return m_simulation->getDetectorIntensity();

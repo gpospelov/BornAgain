@@ -54,8 +54,8 @@ public:
     double getBeamIntensity() const;
 
     //! Returns the detector data
-    const IDetector2D *getDetector() const;
-    IDetector2D *getDetector();
+    const IDetector2D* getDetector() const;
+    IDetector2D* getDetector();
 
     //! Returns a detector axis
     const IAxis &getDetectorAxis(size_t index) const;
@@ -74,23 +74,24 @@ public:
                                size_t n_y, double y_min, double y_max);
 
     //! Sets detector parameters using axes
-    void setDetectorAxes(const IAxis &axis0, const IAxis &axis1);
+    void setDetectorAxes(const IAxis& axis0, const IAxis& axis1);
 
     //! Sets detector resolution function
-    void setDetectorResolutionFunction(IResolutionFunction2D *p_resolution_function);
-    void setDetectorResolutionFunction(const IResolutionFunction2D &p_resolution_function);
+    void setDetectorResolutionFunction(IResolutionFunction2D* p_resolution_function);
+    void setDetectorResolutionFunction(const IResolutionFunction2D& p_resolution_function);
 
     //! Sets the polarization analyzer characteristics of the detector
     void setAnalyzerProperties(const kvector_t direction, double efficiency,
                                double total_transmission=1.0);
 
     //! apply the detector resolution to the given intensity map
-    void applyDetectorResolution(OutputData<double> *p_intensity_map) const;
+    void applyDetectorResolution(OutputData<double>* p_intensity_map) const;
 
     //! Returns clone of the intensity map with detector resolution applied,
     //! axes of map will be in requested units
-    OutputData<double> *getDetectorIntensity(const OutputData<double> &data,
-                                             IDetector2D::EAxesUnits units_type=IDetector2D::DEFAULT) const;
+    OutputData<double>* getDetectorIntensity(
+        const OutputData<double>& data,
+        IDetector2D::EAxesUnits units_type=IDetector2D::DEFAULT) const;
 
 #ifndef SWIG
     //! Create a vector of SimulationElement objects according to the beam, detector and its mask
@@ -98,7 +99,7 @@ public:
 #endif
 
     //! Adds parameters from local pool to external pool and recursively calls its direct children.
-    virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool,
+    virtual std::string addParametersToExternalPool(std::string path, ParameterPool* external_pool,
                                                     int copy_number = -1) const;
 
     //! init detector with beam settings
@@ -138,12 +139,12 @@ inline double Instrument::getBeamIntensity() const
     return m_beam.getIntensity();
 }
 
-inline const IDetector2D *Instrument::getDetector() const
+inline const IDetector2D* Instrument::getDetector() const
 {
     return mP_detector.get();
 }
 
-inline IDetector2D *Instrument::getDetector()
+inline IDetector2D* Instrument::getDetector()
 {
     return mP_detector.get();
 }

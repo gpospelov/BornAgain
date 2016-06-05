@@ -64,16 +64,13 @@ protected:
 
 private:
     ISingleton(const ISingleton<T>& ) {}
-    ISingleton& operator=(const ISingleton<T>& ) { throw std::runtime_error("ISingleton::operator=()"); }
-
+    ISingleton& operator=(const ISingleton<T>& ) {
+        throw std::runtime_error("ISingleton::operator=()"); }
     static T_Pointer m_instance;
     static bool m_destroyed;
-
 };
 
 template<class T> typename ISingleton<T>::T_Pointer ISingleton<T>::m_instance = 0;
 template<class T> bool ISingleton<T>::m_destroyed = false;
 
 #endif // ISINGLETON_H
-
-

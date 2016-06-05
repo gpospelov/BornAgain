@@ -33,7 +33,8 @@ void OutputDataWriter::writeOutputData(const OutputData<double >& data)
     }
     std::ofstream fout;
     std::ios_base::openmode openmode = std::ios::out;
-    if(OutputDataIOHelper::isBinaryFile(m_file_name)) openmode = std::ios::out | std::ios_base::binary;
+    if(OutputDataIOHelper::isBinaryFile(m_file_name))
+        openmode = std::ios::out | std::ios_base::binary;
 
     fout.open(m_file_name.c_str(), openmode );
     if(!fout.is_open()) {

@@ -16,7 +16,7 @@ alpha_min, alpha_max = 0.0, 2.0
 
 def get_sample():
     """
-    Returns tha sample with uncorrelated cylinders on a substrate.
+    Returns a sample with uncorrelated cylinders on a substrate.
     """
     # defining materials
     m_ambience = ba.HomogeneousMaterial("Air", 0.0, 0.0)

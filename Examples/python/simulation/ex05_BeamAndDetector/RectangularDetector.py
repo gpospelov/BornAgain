@@ -16,7 +16,7 @@ pilatus_npx, pilatus_npy = 981, 1043  # number of pixels
 
 def get_sample():
     """
-    Returns a sample with cylinderical particles on a substrate.
+    Returns a sample with cylindrical particles on a substrate.
     """
     # defining materials
     m_ambience = ba.HomogeneousMaterial("Air", 0.0, 0.0)

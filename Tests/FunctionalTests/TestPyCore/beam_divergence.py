@@ -75,6 +75,3 @@ if __name__ == '__main__':
     print(name, description, diff, status)
     if("FAILED" in status):
         exit(1)
-
-
-

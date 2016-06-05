@@ -60,7 +60,8 @@ PyObject *OutputData<double>::getArray() const
     if(getRank() == 2) {
         for(size_t index=0; index<getAllocatedSize(); ++index) {
             std::vector<int> axes_indices = getAxesBinIndices(index);
-            size_t offset = axes_indices[0] + m_value_axes[0]->getSize()*(m_value_axes[1]->getSize() - 1 - axes_indices[1]);
+            size_t offset = axes_indices[0] +
+                m_value_axes[0]->getSize()*(m_value_axes[1]->getSize() - 1 - axes_indices[1]);
             array_buffer[offset] = (*this)[index];
         }
 
@@ -74,4 +75,3 @@ PyObject *OutputData<double>::getArray() const
 }
 
 #endif
-

@@ -95,7 +95,8 @@ private:
     private:
         int h_src, w_src;                 // size of original 'source' array in 2 dimensions
         int h_kernel, w_kernel;           // size of original 'kernel' array in 2 dimensions
-        int w_fftw, h_fftw;               // size of adjusted source and kernel arrays (in_src, out_src, in_kernel, out_kernel)
+        // size of adjusted source and kernel arrays (in_src, out_src, in_kernel, out_kernel)
+        int w_fftw, h_fftw;
         //! adjusted input 'source' array
         double *in_src;
         //! result of Fourier transformation of source

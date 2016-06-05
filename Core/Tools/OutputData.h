@@ -597,7 +597,8 @@ template <class T>
 void OutputData<T>::setAllTo(const T& value)
 {
     if(!mp_ll_data)
-        throw ClassInitializationException("OutputData::setAllTo() -> Error! Low-level data object was not yet initialized.");
+        throw ClassInitializationException(
+            "OutputData::setAllTo() -> Error! Low-level data object was not yet initialized.");
     mp_ll_data->setAll(value);
 }
 
@@ -605,7 +606,8 @@ template <class T>
 void OutputData<T>::scaleAll(const T& factor)
 {
     if(!mp_ll_data)
-        throw ClassInitializationException("OutputData::scaleAll() -> Error! Low-level data object was not yet initialized.");
+        throw ClassInitializationException(
+            "OutputData::scaleAll() -> Error! Low-level data object was not yet initialized.");
     mp_ll_data->scaleAll(factor);
 }
 
@@ -680,20 +682,19 @@ void OutputData<T>::allocate()
 template<class T>
 inline void OutputData<T>::setRawDataVector(const std::vector<T>& data_vector)
 {
-    if (data_vector.size() != getAllocatedSize()) {
-        throw RuntimeErrorException("OutputData<T>::setRawDataVector() -> Error! setRawDataVector can only be called with a data vector of the correct size.");
-    }
-    for (size_t i=0; i<getAllocatedSize(); ++i) {
+    if (data_vector.size() != getAllocatedSize())
+        throw RuntimeErrorException(
+            "OutputData<T>::setRawDataVector() -> Error! "
+            "setRawDataVector can only be called with a data vector of the correct size." );
+    for (size_t i=0; i<getAllocatedSize(); ++i)
         (*mp_ll_data)[i] = data_vector[i];
-    }
 }
 
 template<class T>
 inline void OutputData<T>::setRawDataArray(const T *source)
 {
-    for (size_t i=0; i<getAllocatedSize(); ++i) {
+    for (size_t i=0; i<getAllocatedSize(); ++i)
         (*mp_ll_data)[i] = source[i];
-    }
 }
 
 //! Returns true if object have same dimensions

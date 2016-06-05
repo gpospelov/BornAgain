@@ -43,7 +43,8 @@ void LayerInterface::accept(ISampleVisitor *visitor) const
     visitor->visit(this);
 }
 
-LayerInterface *LayerInterface::createSmoothInterface(const Layer *p_layer_top, const Layer *p_layer_bottom)
+LayerInterface *LayerInterface::createSmoothInterface(
+    const Layer *p_layer_top, const Layer *p_layer_bottom)
 {
     LayerInterface *lr = new LayerInterface();
     lr->setLayerTop(p_layer_top);
@@ -51,7 +52,8 @@ LayerInterface *LayerInterface::createSmoothInterface(const Layer *p_layer_top, 
     return lr;
 }
 
-LayerInterface *LayerInterface::createRoughInterface(const Layer *p_layer_top, const Layer *p_layer_bottom, const LayerRoughness& roughness)
+LayerInterface *LayerInterface::createRoughInterface(
+    const Layer *p_layer_top, const Layer *p_layer_bottom, const LayerRoughness& roughness)
 {
     LayerInterface *lr = new LayerInterface();
     lr->setLayerTop(p_layer_top);
@@ -73,7 +75,8 @@ void LayerInterface::setLayerBottom(const Layer *p_layer_bottom)
 void LayerInterface::setRoughness(const LayerRoughness& roughness)
 {
     if(m_roughness) {
-        msglog(MSG::WARNING) << "LayerInterface::setRoughness() -> Info. Roughness already assigned to given interface, removing it ";
+        msglog(MSG::WARNING) << "LayerInterface::setRoughness() -> "
+            "Info. Roughness already assigned to given interface, removing it ";
         deregisterChild(m_roughness);
         delete m_roughness;
         m_roughness=0;
@@ -101,8 +104,5 @@ const Layer *LayerInterface::getLayerBottom() const
 void LayerInterface::print(std::ostream& ostr) const
 {
     ICompositeSample::print(ostr);
-    ostr << "-->LayerI'face{top=" << getLayerTop() <<
-            ", bottom=" << getLayerBottom() << "}";
+    ostr << "-->LayerI'face{top=" << getLayerTop() << ", bottom=" << getLayerBottom() << "}";
 }
-
-

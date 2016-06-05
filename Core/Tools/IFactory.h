@@ -48,7 +48,8 @@ public:
         typename CallbackMap_t::const_iterator it = m_callbacks.find(itemId);
         if( it == m_callbacks.end() ) {
             // item with such itemId have not been registered in the database
-            throw UnknownClassRegistrationException("IFactory::createItem() -> Panic. Unknown itemId '"+std::string(itemId)+"'");
+            throw UnknownClassRegistrationException(
+                "IFactory::createItem() -> Panic. Unknown itemId '"+std::string(itemId)+"'" );
         }
         // invoke the creation function
         AbstractProduct *x = (it->second)();
@@ -60,21 +61,22 @@ public:
     bool registerItem(const IdentifierType& itemId, CreateItemCallback CreateFn)
     {
         typename CallbackMap_t::const_iterator it = m_callbacks.find(itemId);
-        if( it != m_callbacks.end() ) {
-            throw ExistingClassRegistrationException("IFactory::registerItem() -> Panic! Already registered itemId '"+std::string(itemId)+"'");
-        }
-        //std::cout << "IFactory::registerItem() -> Info. Registering item '" << itemId << "'." << std::endl;
+        if( it != m_callbacks.end() )
+            throw ExistingClassRegistrationException(
+                "IFactory::registerItem() -> Panic! "
+                "Already registered itemId '"+std::string(itemId)+"'" );
         return m_callbacks.insert( typename CallbackMap_t::value_type(itemId, CreateFn)).second;
     }
 
     //! Registers object's creation function and store object description
-    bool registerItem(const IdentifierType& itemId, CreateItemCallback CreateFn, const IdentifierType& itemDescription)
+    bool registerItem(const IdentifierType& itemId, CreateItemCallback CreateFn,
+                      const IdentifierType& itemDescription)
     {
         typename CallbackMap_t::const_iterator it = m_callbacks.find(itemId);
-        if( it != m_callbacks.end() ) {
-            throw ExistingClassRegistrationException("IFactory::registerItem() -> Panic! Already registered itemId '"+std::string(itemId)+"'");
-        }
-        //std::cout << "IFactory::registerItem() -> Info. Registering item '" << itemId << "'." << std::endl;
+        if( it != m_callbacks.end() )
+            throw ExistingClassRegistrationException(
+                "IFactory::registerItem() -> Panic! "
+                "Already registered itemId '"+std::string(itemId)+"'" );
         m_descriptions.insert( typename DescriptionMap_t::value_type(itemId, itemDescription));
         return m_callbacks.insert( typename CallbackMap_t::value_type(itemId, CreateFn)).second;
     }
@@ -110,10 +112,12 @@ public:
     const_iterator end() const { return m_descriptions.end(); }
 
 protected:
-    bool m_own_objects;         //!< will store created objects in the list and then delete them on exit then true
+    //! will store created objects in the list and then delete them on exit then true
+    bool m_own_objects;
     CallbackMap_t m_callbacks;     //!< map of correspondance of objectsId and creation functions
     DescriptionMap_t m_descriptions;     //!< map of correspondance of objectsId and description
-    std::vector<AbstractProduct *> m_objects; //! vector of all created objects (if m_store_objects==true)
+    //! vector of all created objects (if m_store_objects==true)
+    std::vector<AbstractProduct *> m_objects;
 };
 
 //! creation function
@@ -124,5 +128,3 @@ Base *IFactoryCreateFunction()
 }
 
 #endif // IFACTORY_H
-
-

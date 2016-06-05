@@ -56,7 +56,8 @@ void DWBADiffuseReflection::diffuse_autocorr()
 {
     double autocorr(0);
     for(size_t i=0; i<m_sample->getNumberOfLayers()-1; i++){
-        autocorr += std::norm( get_refractive_term(i)) * std::norm(get_sum4terms(i) ) * m_sample->getLayerBottomInterface(i)->getRoughness()->getSpectralFun(m_q);
+        autocorr += std::norm( get_refractive_term(i)) * std::norm(get_sum4terms(i) ) *
+            m_sample->getLayerBottomInterface(i)->getRoughness()->getSpectralFun(m_q);
     }
     m_diffuse_autocorr = autocorr*m_ki.mag2()/16./Units::PI;
 }
@@ -78,7 +79,8 @@ void DWBADiffuseReflection::diffuse_crosscorr()
     for(size_t j=0; j<m_sample->getNumberOfLayers()-1; j++){
         for(size_t k=0; k<m_sample->getNumberOfLayers()-1; k++) {
             if(j==k) continue;
-            crosscorr += rterm[j]*sterm[j]*rterm[k]*m_sample->getCrossCorrSpectralFun(m_q,j,k)*std::conj(sterm[k]);
+            crosscorr += rterm[j]*sterm[j]*rterm[k]*m_sample->getCrossCorrSpectralFun(m_q,j,k)*
+                std::conj(sterm[k]);
         }
     }
     m_diffuse_crosscorr = crosscorr.real()*m_ki.mag2()/16./Units::PI;
@@ -92,7 +94,8 @@ complex_t DWBADiffuseReflection::get_refractive_term(size_t ilayer) const
 
 complex_t DWBADiffuseReflection::get_sum4terms(size_t ilayer)
 {
-    double sigma2 = -0.5*std::pow(m_sample->getLayerBottomInterface(ilayer)->getRoughness()->getSigma(), 2);
+    double sigma2 = -0.5*std::pow(m_sample->getLayerBottomInterface(ilayer)->
+                                  getRoughness()->getSigma(), 2);
     complex_t term1 = m_fcoeff_i[ilayer+1].getScalarT()
             * m_fcoeff_f[ilayer+1].getScalarT()
             * std::exp( sigma2*m_qz1 );

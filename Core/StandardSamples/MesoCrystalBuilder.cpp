@@ -63,16 +63,17 @@ void MesoCrystalBuilder::init_parameters()
 }
 
 
-
 // create mesocrystal
 ISample* MesoCrystalBuilder::buildSample() const
 {
     // create mesocrystal
     double surface_density = m_surface_filling_ratio/Units::PI/m_meso_radius/m_meso_radius;
 //    complex_t n_particle(1.0-1.55e-5, 1.37e-6); // data from Artur
-    complex_t n_particle(1.0-2.84e-5, 4.7e-7); // data from http://henke.lbl.gov/optical_constants/getdb2.html
+    // data from http://henke.lbl.gov/optical_constants/getdb2.html
+    complex_t n_particle(1.0-2.84e-5, 4.7e-7);
     complex_t avg_n_squared_meso = 0.7886*n_particle*n_particle + 0.2114;
-    complex_t n_avg = std::sqrt(m_surface_filling_ratio*avg_n_squared_meso + 1.0 - m_surface_filling_ratio);
+    complex_t n_avg = std::sqrt(m_surface_filling_ratio*avg_n_squared_meso + 1.0 -
+                                m_surface_filling_ratio);
     complex_t n_particle_adapted = std::sqrt(n_avg*n_avg + n_particle*n_particle - 1.0);
     FormFactorCylinder ff_cyl(m_meso_radius, m_meso_height);
     FormFactorDecoratorDebyeWaller ff_meso(ff_cyl, m_sigma_meso_height*m_sigma_meso_height/2.0,
@@ -132,8 +133,9 @@ ISample* MesoCrystalBuilder::buildSample() const
 
 
 
-MesoCrystal* MesoCrystalBuilder::createMesoCrystal(double stacking_radius_a, double stacking_radius_c, complex_t n_particle,
-        const IFormFactor* p_meso_form_factor) const
+MesoCrystal* MesoCrystalBuilder::createMesoCrystal(
+    double stacking_radius_a, double stacking_radius_c, complex_t n_particle,
+    const IFormFactor* p_meso_form_factor) const
 {
     const Lattice *p_lat = createLattice(stacking_radius_a, stacking_radius_c);
     kvector_t bas_a = p_lat->getBasisVectorA();
@@ -161,14 +163,11 @@ MesoCrystal* MesoCrystalBuilder::createMesoCrystal(double stacking_radius_a, dou
 
 }
 
-const Lattice *MesoCrystalBuilder::createLattice(double stacking_radius_a, double stacking_radius_c) const
+const Lattice *MesoCrystalBuilder::createLattice(
+    double stacking_radius_a, double stacking_radius_c) const
 {
-    Lattice *p_result = new Lattice(Lattice::createTrigonalLattice(stacking_radius_a*2.0, stacking_radius_c*2.0*2.3));
+    Lattice *p_result = new Lattice(Lattice::createTrigonalLattice(
+                                        stacking_radius_a*2.0, stacking_radius_c*2.0*2.3));
     p_result->setSelectionRule(SimpleSelectionRule(-1, 1, 1, 3));
     return p_result;
 }
-
-
-
-
-

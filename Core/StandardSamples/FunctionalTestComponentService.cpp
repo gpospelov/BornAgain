@@ -51,8 +51,9 @@ IFormFactor *FunctionalTestComponentService::getFormFactor() const
 IFTDistribution2D *FunctionalTestComponentService::getFTDistribution2D() const
 {
     if(!m_ft_distribution_2d) {
-        throw NullPointerException("FunctionalTestComponentService::getFTDistribution2D() -> Error. "
-                                   " No FT distribution defined.");
+        throw NullPointerException(
+            "FunctionalTestComponentService::getFTDistribution2D() -> Error. "
+            " No FT distribution defined.");
     }
     return m_ft_distribution_2d->clone();
 }
@@ -69,7 +70,8 @@ GISASSimulation *FunctionalTestComponentService::getSimulation() const
 std::shared_ptr<class ISampleBuilder> FunctionalTestComponentService::getSampleBuilder() const
 {
     SampleBuilderFactory sample_factory;
-    std::shared_ptr<class ISampleBuilder> sample_builder = sample_factory.createBuilder(m_testInfo.m_sample_builder_name);
+    std::shared_ptr<class ISampleBuilder> sample_builder =
+        sample_factory.createBuilder(m_testInfo.m_sample_builder_name);
     sample_builder->init_from(this);
     return sample_builder;
 }
@@ -172,7 +174,8 @@ void FunctionalTestComponentService::init_registry(const std::string &registry_n
 std::string FunctionalTestComponentService::getTestName() const
 {
     std::string result = getTestInfo().m_test_name;
-    if(getCurrentComponentName() != DefaultComponentName) result.clear(); // i.e. no name for sub-test just for printing purpose
+    if(getCurrentComponentName() != DefaultComponentName)
+        result.clear(); // i.e. no name for sub-test just for printing purpose
     return result;
 }
 
@@ -188,6 +191,3 @@ double FunctionalTestComponentService::getTestThreshold() const
 {
     return getTestInfo().m_threshold;
 }
-
-
-

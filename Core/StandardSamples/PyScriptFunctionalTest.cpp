@@ -30,8 +30,9 @@ const std::string temp_intensity_data_file_name = "output.int";
 const std::string directory_name_for_failed_tests = "00_failed_tests";
 }
 
-PyScriptFunctionalTest::PyScriptFunctionalTest(const std::string &name, const std::string &description,
-                                     GISASSimulation *reference_simulation, double threshold)
+PyScriptFunctionalTest::PyScriptFunctionalTest(
+    const std::string &name, const std::string &description,
+    GISASSimulation *reference_simulation, double threshold)
     : IFunctionalTest(name, description)
     , m_reference_simulation(reference_simulation)
     , m_domain_simulation(0)
@@ -60,7 +61,8 @@ void PyScriptFunctionalTest::runTest()
 
 int PyScriptFunctionalTest::analyseResults()
 {
-    const std::unique_ptr<OutputData<double> > P_domain_data(IntensityDataIOFactory::readOutputData(temp_intensity_data_file_name));
+    const std::unique_ptr<OutputData<double> > P_domain_data(
+        IntensityDataIOFactory::readOutputData(temp_intensity_data_file_name));
 
     const std::unique_ptr<OutputData<double> > P_reference_data(
         m_reference_simulation->getDetectorIntensity());
@@ -130,5 +132,3 @@ std::string PyScriptFunctionalTest::getPyScriptFileNameAndPath() const
         = Utils::FileSystem::GetJoinPath(directory_name_for_failed_tests, m_pyscript_file_name);
     return result;
 }
-
-

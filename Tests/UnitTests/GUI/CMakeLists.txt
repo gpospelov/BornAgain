@@ -31,7 +31,5 @@ target_link_libraries(TestGUI
 
 qt5_use_modules(TestGUI Widgets Core Gui Designer PrintSupport Network Test)
 
-add_test(TestGUI TestGUI) # TestName ExeName
-
 # add execution of TestCore just after compilation
 add_custom_command(TARGET TestGUI POST_BUILD COMMAND TestGUI)

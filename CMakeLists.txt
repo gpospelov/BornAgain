@@ -7,6 +7,7 @@ cmake_minimum_required(VERSION 2.8.12 FATAL_ERROR)
 project(BornAgain)
 
 enable_testing()
+add_custom_target(check COMMAND ${CMAKE_CTEST_COMMAND}) # => 'make check' is an alias for 'ctest'
 
 include(VERSION.cmake)
 
@@ -37,7 +38,7 @@ include(CheckCompiler)
 include(BornAgainConfiguration)
 include(GeneratePythonDocs)
 include(FuTestMacros)
-include(UnitTests)
+include(GoogletestWrapper)
 
 #--- Recurse into the given subdirectories ---
 if(BORNAGAIN_USERMANUAL)
@@ -59,5 +60,5 @@ add_subdirectory(Tests/FunctionalTests)  # functional tests (make check)
 
 add_subdirectory(cmake/bornagain) # trick to print an after-install message
 
-# packaging
+#--- Make package targets ---
 include(BornAgainCPack)

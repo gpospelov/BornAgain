@@ -1,4 +1,4 @@
-/* From unitTests.cpp.header: */
+/* From GoogletestHeader.cpp: */
 
 #ifdef _MSC_VER
 #define _VARIADIC_MAX 10

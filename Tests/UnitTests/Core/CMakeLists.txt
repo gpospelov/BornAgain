@@ -14,15 +14,14 @@ if(BORNAGAIN_OPENMPI)
     include_directories(${MPI_INCLUDE_PATH})
 endif()
 
-# function UNIT_TESTS defined in cmake/modules/UnitTests.cmake
+WRAP_GTEST(TestCore0 "0" ${BornAgainCore_LIBRARY} 0)
+WRAP_GTEST(TestCore1 "1" ${BornAgainCore_LIBRARY} 0)
+WRAP_GTEST(TestCore2 "2" ${BornAgainCore_LIBRARY} 0)
+WRAP_GTEST(TestCore3 "3" ${BornAgainCore_LIBRARY} 0)
+WRAP_GTEST(TestCore4 "4" ${BornAgainCore_LIBRARY} 0)
+WRAP_GTEST(TestCore5 "5" ${BornAgainCore_LIBRARY} 0)
+WRAP_GTEST(TestCore6 "6" ${BornAgainCore_LIBRARY} 0)
 
-UNIT_TESTS(TestCoreQ "Q" ${BornAgainCore_LIBRARY}) # q loops, lengthy output
-UNIT_TESTS(TestCoreP "P" ${BornAgainCore_LIBRARY}) # q loops, lengthy output
-UNIT_TESTS(TestCore0 "0" ${BornAgainCore_LIBRARY})
-UNIT_TESTS(TestCore1 "1" ${BornAgainCore_LIBRARY})
-UNIT_TESTS(TestCore2 "2" ${BornAgainCore_LIBRARY})
-UNIT_TESTS(TestCore3 "3" ${BornAgainCore_LIBRARY})
-UNIT_TESTS(TestCore4 "4" ${BornAgainCore_LIBRARY})
-UNIT_TESTS(TestCore5 "5" ${BornAgainCore_LIBRARY})
-UNIT_TESTS(TestCore6 "6" ${BornAgainCore_LIBRARY})
-UNIT_TESTS(TestCoreS "S" ${BornAgainCore_LIBRARY})
+WRAP_GTEST(TestCoreS "S" ${BornAgainCore_LIBRARY} 1)
+WRAP_GTEST(TestCoreQ "Q" ${BornAgainCore_LIBRARY} 1) # q loops, lengthy output
+WRAP_GTEST(TestCoreP "P" ${BornAgainCore_LIBRARY} 1) # q loops, lengthy output

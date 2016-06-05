@@ -13,7 +13,7 @@ alpha_min, alpha_max = 0.0, 1.0
 
 def get_sample():
     """
-    Build and return the sample representing the layers with correlated roughness.
+    Returns a sample with two layers on a substrate, with correlated roughnesses.
     """
     # defining materials
     m_ambience = ba.HomogeneousMaterial("ambience", 0.0, 0.0)
@@ -53,7 +53,8 @@ def get_simulation():
     Characterizing the input beam and output detector
     """
     simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(200, phi_min*degree, phi_max*degree, 200, alpha_min*degree, alpha_max*degree)
+    simulation.setDetectorParameters(200, phi_min*degree, phi_max*degree,
+                                     200, alpha_min*degree, alpha_max*degree)
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
     return simulation
 
@@ -69,10 +70,13 @@ def run_simulation():
     result = simulation.getIntensityData()
 
     # showing the result
-    im = plt.imshow(result.getArray(),
-                    norm=matplotlib.colors.LogNorm(result.getMaximum()/1000., result.getMaximum()),
-                    extent=[result.getXmin()/degree, result.getXmax()/degree, result.getYmin()/degree, result.getYmax()/degree],
-                    aspect='auto')
+    im = plt.imshow(
+        result.getArray(),
+        norm=matplotlib.colors.LogNorm(result.getMaximum()/1000.,
+                                       result.getMaximum()),
+        extent=[result.getXmin()/degree, result.getXmax()/degree,
+                result.getYmin()/degree, result.getYmax()/degree],
+        aspect='auto')
     cb = plt.colorbar(im)
     cb.set_label(r'Intensity (arb. u.)', size=16)
     plt.xlabel(r'$\phi_f (^{\circ})$', fontsize=16)
@@ -82,4 +86,3 @@ def run_simulation():
 
 if __name__ == '__main__':
     run_simulation()
-

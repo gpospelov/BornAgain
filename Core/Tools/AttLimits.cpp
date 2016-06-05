@@ -28,7 +28,8 @@ void AttLimits::print(std::ostream& ostr) const
     }else if(hasUpperLimit() && !hasLowerLimit()) {
         ostr << "lim(," << std::fixed <<std::setprecision(2) << m_upper_limit << ",)";
     }else if(hasLowerAndUpperLimits()) {
-        ostr << "lim(" << std::fixed <<std::setprecision(2) << m_lower_limit << "," << std::fixed <<std::setprecision(2) << m_upper_limit << ")";
+        ostr << "lim(" << std::fixed <<std::setprecision(2) << m_lower_limit << "," <<
+            std::fixed <<std::setprecision(2) << m_upper_limit << ")";
 
     }
 }

@@ -101,7 +101,8 @@ bool Utils::String::MatchPattern(
 
     // constructing regexp pattern
     wildcardPattern = "^" + wildcardPattern + "$";
-    boost::regex pattern(wildcardPattern, caseSensitive ? boost::regex::normal : boost::regex::icase);
+    boost::regex pattern(wildcardPattern,
+                         caseSensitive ? boost::regex::normal : boost::regex::icase);
 
     // applaying match
     return boost::regex_match(text, pattern);
@@ -118,7 +119,8 @@ std::vector<std::string> Utils::String::Split(
 }
 
 
-void Utils::String::replaceItemsFromString(std::string &text, const std::vector<std::string> &items, const std::string &replacement)
+void Utils::String::replaceItemsFromString(
+    std::string &text, const std::vector<std::string> &items, const std::string &replacement)
 {
     for(size_t i=0; i<items.size(); ++i) {
         boost::replace_all(text, items[i], replacement);
@@ -157,15 +159,13 @@ void Utils::EnableFloatingPointExceptions()
 {
 #ifdef DEBUG_FPE
 #ifndef _WIN32
-    std::cout << "Utils::EnableFloatingPointExceptions()  -> Enabling floating point exception debugging"
-              << std::endl;
+    std::cout << "Utils::EnableFloatingPointExceptions() -> "
+        "Enabling floating point exception debugging\n";
     feenableexcept(FE_DIVBYZERO | FE_INVALID | FE_OVERFLOW);
 //    feenableexcept(-1);
 #endif // _WIN32
 #else
-    std::cout << "Utils::EnableFloatingPointExceptions()  -> Can't enable floating point exceptions. Available in debug mode only."
-              << std::endl;
+    std::cout << "Utils::EnableFloatingPointExceptions() -> "
+        "Can't enable floating point exceptions. Available in debug mode only.\n";
 #endif
 }
-
-

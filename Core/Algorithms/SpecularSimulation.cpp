@@ -301,7 +301,8 @@ void SpecularSimulation::collectRTCoefficientsMatrix(const MultiLayer * /*multil
 ///rtcoeff->getScalarR()*std::exp(std::imag(rtcoeff->getScalarKz())*depth);
 ////        *it = std::abs(cvalue);
 //        double value = 1.0 +
-//        std::abs(rtcoeff->getScalarT())*std::exp(std::imag(rtcoeff->getScalarKz())*depth*Units::angstrom);
+//            std::abs(rtcoeff->getScalarT())*
+//            std::exp(std::imag(rtcoeff->getScalarKz())*depth*Units::angstrom);
 //        *it = value;
 //        ++it;
 //    }
@@ -311,10 +312,10 @@ void SpecularSimulation::collectRTCoefficientsMatrix(const MultiLayer * /*multil
 void SpecularSimulation::checkCoefficients(size_t i_layer) const
 {
     if (m_data.getAllocatedSize() == 1 || m_data[0].size() == 0)
-        throw ClassInitializationException("SpecularSimulation::checkCoefficients() "
-                                           "-> Error. No coefficients found, check that (1) you "
-                                           "have set beam parameters (2) you have run your "
-                                           "simulation.");
+        throw ClassInitializationException(
+            "SpecularSimulation::checkCoefficients() -> Error. "
+            "No coefficients found, check that (1) you have set beam parameters "
+            "(2) you have run your simulation.");
 
     if (i_layer >= m_data[0].size()) {
         std::ostringstream message;

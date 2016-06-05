@@ -27,11 +27,12 @@ IInterferenceFunctionStrategy::IInterferenceFunctionStrategy(SimulationOptions s
                 this, &IInterferenceFunctionStrategy::evaluate_for_fixed_angles_pol, 2);
 }
 
-// destructor should be defined and it should be in *.cpp, otherwise forward declaration of IntegratorMCMiser doesn't work
+// destructor should be defined and it should be in *.cpp,
+// otherwise forward declaration of IntegratorMCMiser doesn't work
 IInterferenceFunctionStrategy::~IInterferenceFunctionStrategy(){}
 
-void IInterferenceFunctionStrategy::init(const SafePointerVector<FormFactorInfo> &form_factor_infos,
-                                         const IInterferenceFunction& iff)
+void IInterferenceFunctionStrategy::init(
+    const SafePointerVector<FormFactorInfo> &form_factor_infos, const IInterferenceFunction& iff)
 {
     m_ff_infos = form_factor_infos;
     mP_iff.reset(iff.clone());
@@ -115,7 +116,8 @@ void IInterferenceFunctionStrategy::clearFormFactorLists() const
     m_ff_pol.clear();
 }
 
-double IInterferenceFunctionStrategy::MCIntegratedEvaluate(const SimulationElement& sim_element) const
+double IInterferenceFunctionStrategy::MCIntegratedEvaluate(
+    const SimulationElement& sim_element) const
 {
     double min_array[] = {0.0, 0.0};
     double max_array[] = {1.0, 1.0};
@@ -132,10 +134,9 @@ double IInterferenceFunctionStrategy::MCIntegratedEvaluatePol(
         min_array, max_array, (void *)&sim_element, m_options.getMcPoints());
 }
 
-double IInterferenceFunctionStrategy::evaluate_for_fixed_angles(double *fractions, size_t dim,
-                                                                void *params) const
+double IInterferenceFunctionStrategy::evaluate_for_fixed_angles(
+    double *fractions, size_t /* dim */, void *params) const
 {
-    (void)dim;
     double par0 = fractions[0];
     double par1 = fractions[1];
 
@@ -146,10 +147,9 @@ double IInterferenceFunctionStrategy::evaluate_for_fixed_angles(double *fraction
     return pars->getIntegrationFactor(par0, par1) * evaluateForList(sim_element, m_ff);
 }
 
-double IInterferenceFunctionStrategy::evaluate_for_fixed_angles_pol(double *fractions, size_t dim,
-                                                                    void *params) const
+double IInterferenceFunctionStrategy::evaluate_for_fixed_angles_pol(
+    double *fractions, size_t /* dim */, void *params) const
 {
-    (void)dim;
     double par0 = fractions[0];
     double par1 = fractions[1];
 

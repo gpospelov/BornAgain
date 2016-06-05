@@ -16,7 +16,7 @@ alpha_min, alpha_max = 0.0, 2.0
 
 def get_sample():
     """
-    Build and return the sample to calculate cylinder formfactor in Distorted Wave Born Approximation.
+    Returns a sample with uncorrelated cylinders on a substrate.
     """
     # defining materials
     m_ambience = ba.HomogeneousMaterial("Air", 0.0, 0.0)
@@ -41,10 +41,11 @@ def get_sample():
 
 def get_simulation():
     """
-    Create and return GISAXS simulation with beam and detector defined
+    Returns a GISAXS simulation with beam and detector defined.
     """
     simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(200, phi_min*degree, phi_max*degree, 200, alpha_min*degree, alpha_max*degree)
+    simulation.setDetectorParameters(200, phi_min*degree, phi_max*degree,
+                                     200, alpha_min*degree, alpha_max*degree)
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
     return simulation
 
@@ -59,10 +60,12 @@ def plot_as_colormap(hist, zmin=None, zmax=None):
     if not zmax:
         zmax = hist.getMaximum()
 
-    im = plt.imshow(hist.getArray(),
-                    norm=matplotlib.colors.LogNorm(zmin, zmax),
-                    extent=[hist.getXmin()/degree, hist.getXmax()/degree, hist.getYmin()/degree, hist.getYmax()/degree],
-                    aspect='auto')
+    im = plt.imshow(
+        hist.getArray(),
+        norm=matplotlib.colors.LogNorm(zmin, zmax),
+        extent=[hist.getXmin()/degree, hist.getXmax()/degree,
+                hist.getYmin()/degree, hist.getYmax()/degree],
+        aspect='auto')
     cb = plt.colorbar(im, pad=0.025)
     plt.xlabel(r'$\phi_f ^{\circ}$', fontsize=16)
     plt.ylabel(r'$\alpha_f ^{\circ}$', fontsize=16)
@@ -108,15 +111,21 @@ def plot_slices(hist):
 
     # projection along Y, slice at fixed x-value
     proj1 = noisy.projectionY(0.0*degree)
-    plt.semilogy(proj1.getBinCenters()/degree, proj1.getBinValues(), label=r'$\phi=0.0^{\circ}$')
+    plt.semilogy(proj1.getBinCenters()/degree,
+                 proj1.getBinValues(),
+                 label=r'$\phi=0.0^{\circ}$')
 
     # projection along Y, slice at fixed x-value
     proj2 = noisy.projectionY(0.5*degree)  # slice at fixed value
-    plt.semilogy(proj2.getBinCenters()/degree, proj2.getBinValues(), label=r'$\phi=0.5^{\circ}$')
+    plt.semilogy(proj2.getBinCenters()/degree,
+                 proj2.getBinValues(),
+                 label=r'$\phi=0.5^{\circ}$')
 
     # projection along Y for all X values between [xlow, xup], averaged
     proj3 = noisy.projectionY(0.4*degree, 0.6*degree)
-    plt.semilogy(proj3.getBinCenters()/degree, proj3.getArray(ba.IHistogram.AVERAGE), label=r'$<\phi>=0.5^{\circ}$')
+    plt.semilogy(proj3.getBinCenters()/degree,
+                 proj3.getArray(ba.IHistogram.AVERAGE),
+                 label=r'$<\phi>=0.5^{\circ}$')
 
     plt.xlim(proj1.getXmin()/degree, proj1.getXmax()/degree)
     plt.ylim(1.0, proj1.getMaximum()*10.0)
@@ -141,7 +150,8 @@ def save_to_file(result):
 
 def plot_results(result):
     """
-    Runs different plotting functions one by one to demonstrate trivial data presentation tasks
+    Runs different plotting functions one by one
+    to demonstrate trivial data presentation tasks.
     """
 
     fig = plt.figure(figsize=(12.80, 10.24))
@@ -183,5 +193,3 @@ def run_simulation():
 
 if __name__ == '__main__':
     run_simulation()
-
-

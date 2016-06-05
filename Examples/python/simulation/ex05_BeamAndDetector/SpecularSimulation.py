@@ -12,7 +12,7 @@ alpha_i_min, alpha_i_max = 0.0, 2.0  # incoming beam
 
 def get_sample():
     """
-    Build and return the sample representing the layers with correlated roughness.
+    Returns a sample with two layers on a substrate, with correlated roughnesses.
     """
     m_ambience = ba.HomogeneousMaterial("ambience", 0.0, 0.0)
     m_part_a = ba.HomogeneousMaterial("PartA", 5e-6, 0.0)
@@ -47,10 +47,11 @@ def get_sample():
 
 def get_simulation():
     """
-    Create and return specular simulation with beam and detector defined
+    Returns a specular simulation with beam and detector defined.
     """
     simulation = ba.SpecularSimulation()
-    simulation.setBeamParameters(1.54*angstrom, 1000, alpha_i_min*degree, alpha_i_max*degree)
+    simulation.setBeamParameters(
+        1.54*angstrom, 1000, alpha_i_min*degree, alpha_i_max*degree)
     return simulation
 
 
@@ -71,11 +72,9 @@ def run_simulation():
 
     nplot = 1
     for layer_index in selected_layers:
-
         R = []
         for coeff in simulation.getScalarR(layer_index):
             R.append(numpy.abs(coeff))
-
         T = []
         for coeff in simulation.getScalarT(layer_index):
             T.append(numpy.abs(coeff))
@@ -85,9 +84,10 @@ def run_simulation():
         plt.xlabel(r'$\alpha_f$ (rad)', fontsize=16)
         plt.semilogy(alpha_angles, R)
         plt.semilogy(alpha_angles, T)
-        plt.legend(['|R| layer #'+str(layer_index), '|T| layer #'+str(layer_index)], loc='upper right')
+        plt.legend(['|R| layer #'+str(layer_index),
+                    '|T| layer #'+str(layer_index)],
+                   loc='upper right')
         nplot = nplot + 1
-
 
     plt.show()
 

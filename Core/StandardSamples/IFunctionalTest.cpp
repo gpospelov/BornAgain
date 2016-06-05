@@ -18,7 +18,8 @@
 
 namespace {
 
-std::map<IFunctionalTest::ETestResult, std::string>  InitTestResultToString() {
+std::map<IFunctionalTest::ETestResult, std::string> InitTestResultToString()
+{
     std::map<IFunctionalTest::ETestResult, std::string> result;
     result[IFunctionalTest::SUCCESS] = "[SUCCESS]";
     result[IFunctionalTest::FAILED_DIFF] = "[FAILED_DIFF]";
@@ -31,9 +32,10 @@ const size_t width_name = 25;
 const size_t width_description = 40;
 const size_t width_result = 15;
 
-}
+} // namespace
 
-std::map<IFunctionalTest::ETestResult, std::string> IFunctionalTest::m_result_to_string = InitTestResultToString();
+std::map<IFunctionalTest::ETestResult, std::string> IFunctionalTest::m_result_to_string =
+    InitTestResultToString();
 
 IFunctionalTest::IFunctionalTest() : m_result(SUCCESS)
 {

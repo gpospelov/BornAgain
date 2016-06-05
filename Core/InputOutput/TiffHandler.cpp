@@ -184,9 +184,9 @@ void TiffHandler::write_data()
         }
         memcpy(buf, &line_buf[0], buf_size);
 
-        if(TIFFWriteScanline(m_tiff, buf, row) < 0) {
-            throw FormatErrorException("TiffHandler::write_data() -> Error. Error in TIFFWriteScanline.");
-        }
+        if(TIFFWriteScanline(m_tiff, buf, row) < 0)
+            throw FormatErrorException(
+                "TiffHandler::write_data() -> Error. Error in TIFFWriteScanline.");
     }
     _TIFFfree(buf);
     TIFFFlush(m_tiff);

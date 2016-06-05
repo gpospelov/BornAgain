@@ -89,7 +89,7 @@ public:
     inline BasicVector3D<T>& operator-=(const BasicVector3D<T>& v)
     { v_[0] -= v.v_[0]; v_[1] -= v.v_[1]; v_[2] -= v.v_[2]; return *this; }
 
-    
+
     //! Multiplies this with a scalar, and returns result.
 #ifndef SWIG
     template<class U>
@@ -274,7 +274,8 @@ inline bool operator!=(const BasicVector3D<T>& a, const BasicVector3D<T>& b)
 
 //! Creates a vector<double> as a wavevector with given wavelength and angles.
 //! Specifically needed for grazing-incidence scattering.
-BA_CORE_API_ BasicVector3D<double> vecOfLambdaAlphaPhi(const double _lambda, const double _alpha, const double _phi);
+BA_CORE_API_ BasicVector3D<double> vecOfLambdaAlphaPhi(
+    const double _lambda, const double _alpha, const double _phi);
 
 
 // =============================================================================

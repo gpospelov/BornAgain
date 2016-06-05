@@ -41,7 +41,8 @@ public:
     bool isEnd() const { return m_position>=m_samples.size(); }
     void next() { ++m_position; }
 
-    friend std::ostream& operator<<(std::ostream& output_stream, IteratorState const& iterator_state)
+    friend std::ostream& operator<<(
+        std::ostream& output_stream, IteratorState const& iterator_state)
     {
         return  output_stream << "memento state " << iterator_state.m_position << " "
                               << iterator_state.m_samples.size();
@@ -144,5 +145,3 @@ inline size_t SampleTreeIterator<Strategy>::getLevel() const
 }
 
 #endif // ISAMPLETREEITERATOR_H
-
-

@@ -87,12 +87,14 @@ private:
             const kvector_t rec1, const kvector_t rec2, const kvector_t rec3) const;
 
     void computeReciprocalVectors() const;
-    static void computeInverseVectors(const kvector_t v1, const kvector_t v2, const kvector_t v3, kvector_t o1, kvector_t o2, kvector_t o3);
+    static void computeInverseVectors(
+        const kvector_t v1, const kvector_t v2, const kvector_t v3,
+        kvector_t o1, kvector_t o2, kvector_t o3);
     ISelectionRule *mp_selection_rule;
     kvector_t m_a1, m_a2, m_a3; //!< Basis vectors in real space
     mutable kvector_t m_b1, m_b2, m_b3; //!< Cache of basis vectors in reciprocal space
-    mutable bool m_cache_ok, m_is_zero; //!< Boolean indicating if the reciprocal vectors are already initialized in the cache
-
+    //! Boolean indicating if the reciprocal vectors are already initialized in the cache
+    mutable bool m_cache_ok, m_is_zero;
     mutable KVectorContainer m_kvector_container;
 };
 

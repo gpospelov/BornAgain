@@ -99,16 +99,15 @@ void IDetector2D::applyDetectorResolution(OutputData<double> *p_intensity_map) c
 void IDetector2D::setAnalyzerProperties(const kvector_t direction, double efficiency,
                                      double total_transmission)
 {
-    if (!checkAnalyzerProperties(direction, efficiency, total_transmission)) {
+    if (!checkAnalyzerProperties(direction, efficiency, total_transmission))
         throw Exceptions::ClassInitializationException(
             "IDetector2D::setAnalyzerProperties: the given properties are not physical");
-    }
     m_analyzer_operator = calculateAnalyzerOperator(direction, efficiency, total_transmission);
 }
 
 
-std::string IDetector2D::addParametersToExternalPool(std::string path, ParameterPool *external_pool,
-                                                  int copy_number) const
+std::string IDetector2D::addParametersToExternalPool(
+    std::string path, ParameterPool *external_pool, int copy_number) const
 {
     // add own parameters
     std::string new_path
@@ -121,7 +120,8 @@ std::string IDetector2D::addParametersToExternalPool(std::string path, Parameter
     return new_path;
 }
 
-OutputData<double> *IDetector2D::createDetectorMap(const Beam& /* beam */, EAxesUnits /* units_type */) const
+OutputData<double> *IDetector2D::createDetectorMap(
+    const Beam& /* beam */, EAxesUnits /* units_type */) const
 {
     return 0;
 }
@@ -151,10 +151,7 @@ void IDetector2D::addMask(const Geometry::IShape2D &shape, bool mask_value)
 void IDetector2D::maskAll()
 {
     if(m_axes.size() != 2) return;
-
     m_detector_mask.removeMasks();
-
-//    Geometry::Rectangle rect(m_axes[0]->getMin(), m_axes[1]->getMin(), m_axes[0]->getMax(), m_axes[1]->getMax());
     addMask(Geometry::InfinitePlane(), true);
 }
 
@@ -192,10 +189,9 @@ std::vector<SimulationElement> IDetector2D::createSimulationElements(const Beam 
     Eigen::Matrix2cd beam_polarization = beam.getPolarization();
     Eigen::Matrix2cd analyzer_operator = getAnalyzerOperator();
 
-    if (getDimension()!=2) {
+    if (getDimension()!=2)
         throw RuntimeErrorException("IDetector2D::createSimulationElements: "
                                     "detector is not two-dimensional");
-    }
     if (!hasMasks()) m_detector_mask.initMaskData(*this);
     const OutputData<bool>* mask_data = m_detector_mask.getMaskData();
     for (size_t index=0; index<mask_data->getAllocatedSize(); ++index) {
@@ -259,8 +255,8 @@ void IDetector2D::swapContent(IDetector2D &other)
     std::swap(this->m_detector_mask, other.m_detector_mask);
 }
 
-bool IDetector2D::checkAnalyzerProperties(const kvector_t direction, double efficiency,
-                                       double total_transmission) const
+bool IDetector2D::checkAnalyzerProperties(
+    const kvector_t direction, double efficiency, double total_transmission) const
 {
     if (direction.mag() == 0.0)
         return false;
@@ -273,8 +269,8 @@ bool IDetector2D::checkAnalyzerProperties(const kvector_t direction, double effi
     return true;
 }
 
-Eigen::Matrix2cd IDetector2D::calculateAnalyzerOperator(const kvector_t direction, double efficiency,
-                                                     double total_transmission) const
+Eigen::Matrix2cd IDetector2D::calculateAnalyzerOperator(
+    const kvector_t direction, double efficiency, double total_transmission) const
 {
     Eigen::Matrix2cd result;
     double x = direction.x()/direction.mag();
@@ -289,4 +285,3 @@ Eigen::Matrix2cd IDetector2D::calculateAnalyzerOperator(const kvector_t directio
     result(1, 1) = (sum - diff*z) / 2.0;
     return result;
 }
-

@@ -46,9 +46,9 @@ int PolyhedralFace::n_limit_series = 20;
 double FormFactorPolyhedron::q_limit_series = 1e-2;
 int FormFactorPolyhedron::n_limit_series = 20;
 
-//***************************************************************************************************
+//**************************************************************************************************
 //  PolyhedralEdge implementation
-//***************************************************************************************************
+//**************************************************************************************************
 
 PolyhedralEdge::PolyhedralEdge( const kvector_t _Vlow, const kvector_t _Vhig )
     : m_E((_Vhig-_Vlow)/2)
@@ -71,7 +71,8 @@ complex_t PolyhedralEdge::contrib(int M, const cvector_t qpa, complex_t qrperp) 
     complex_t v = v2 + v1;
 #ifdef POLYHEDRAL_DIAGNOSTIC
     if( diagnosis.debmsg>=5 )
-        std::cout<<std::scientific<<std::showpos<<std::setprecision(16)<<"contrib: u="<<u<<" v1="<<v1<<" v2="<<v2<<"\n";
+        std::cout<<std::scientific<<std::showpos<<std::setprecision(16)<<"contrib: u="<<u<<
+            " v1="<<v1<<" v2="<<v2<<"\n";
 #endif
     static auto& precomputed = IPrecomputed::instance();
     if( v==0. ) { // only 2l=M contributes
@@ -116,9 +117,9 @@ complex_t PolyhedralEdge::contrib(int M, const cvector_t qpa, complex_t qrperp) 
     return ret;
 }
 
-//***************************************************************************************************
+//**************************************************************************************************
 //  PolyhedralFace implementation
-//***************************************************************************************************
+//**************************************************************************************************
 
 //! Static method, returns diameter of circle that contains all vertices.
 
@@ -245,7 +246,8 @@ complex_t PolyhedralFace::ff_n_core( int m, const cvector_t qpa, complex_t qperp
         ret += vfac * tmp;
 #ifdef POLYHEDRAL_DIAGNOSTIC
         if( diagnosis.debmsg>=4 )
-            std::cout<<std::scientific<<std::showpos<<std::setprecision(16)<<"DBX ff_n_core "<<m<<" "<<vfac<<" "<<tmp<<" term="<<vfac*tmp<<" sum="<<ret<<"\n";
+            std::cout<<std::scientific<<std::showpos<<std::setprecision(16)<<"DBX ff_n_core "<<m<<
+                " "<<vfac<<" "<<tmp<<" term="<<vfac*tmp<<" sum="<<ret<<"\n";
 #endif
     }
     return ret;
@@ -336,7 +338,9 @@ complex_t PolyhedralFace::edge_sum_ff( cvector_t q, cvector_t qpa, bool sym_Ci )
         sum += term;
 #ifdef POLYHEDRAL_DIAGNOSTIC
         if( diagnosis.debmsg>=2 )
-            std::cout<<std::scientific<<std::showpos<<std::setprecision(16)<<"    sum="<<sum<<" term="<<term<<" vf="<<vfac<<" qE="<<qE<<" qR="<<qR<<" sinc="<<MathFunctions::sinc(qE)<<" Rfac="<<Rfac<<"\n";
+            std::cout<<std::scientific<<std::showpos<<std::setprecision(16)<<"    sum="<<sum<<
+                " term="<<term<<" vf="<<vfac<<" qE="<<qE<<" qR="<<qR<<
+                " sinc="<<MathFunctions::sinc(qE)<<" Rfac="<<Rfac<<"\n";
 #endif
     }
     return sum;
@@ -417,9 +421,9 @@ void PolyhedralFace::assert_Ci( const PolyhedralFace& other ) const
         throw std::runtime_error("Faces do not have opposite orientation, violating symmetry Ci");
 }
 
-//***************************************************************************************************
+//**************************************************************************************************
 //  FormFactorPolyhedron implementation
-//***************************************************************************************************
+//**************************************************************************************************
 
 #ifdef POLYHEDRAL_DIAGNOSTIC
 void FormFactorPolyhedron::setLimits( double _q, int _n ) { q_limit_series=_q; n_limit_series=_n; }
@@ -504,13 +508,14 @@ complex_t FormFactorPolyhedron::evaluate_centered( const cvector_t q ) const
                 term += tmp;
 #ifdef POLYHEDRAL_DIAGNOSTIC
                 if( diagnosis.debmsg>=2 )
-                    std::cout<<"DBX                                                      "<<"Gkffn sum="<<term<<" incr="<<tmp<<"\n";
+                    std::cout<<"Gkffn sum="<<term<<" incr="<<tmp<<"\n";
 #endif
             }
             term *= n_fac;
 #ifdef POLYHEDRAL_DIAGNOSTIC
             if( diagnosis.debmsg>=1 )
-                std::cout<<std::scientific<<std::showpos<<std::setprecision(16)<<"  SUM="<<m_volume+sum<<" +TERM="<<term<<"\n";
+                std::cout<<std::scientific<<std::showpos<<std::setprecision(16)<<
+                    "  SUM="<<m_volume+sum<<" +TERM="<<term<<"\n";
 #endif
             sum += term;
             if( std::abs(term)<=eps*std::abs(sum) || std::abs(sum)<eps*m_volume )
@@ -539,7 +544,8 @@ complex_t FormFactorPolyhedron::evaluate_centered( const cvector_t q ) const
             sum += qn * ff;
 #ifdef POLYHEDRAL_DIAGNOSTIC
             if( diagnosis.debmsg>=1 )
-                std::cout<<std::scientific<<std::showpos<<std::setprecision(16)<<"  SUM="<<sum<<" TERM="<<qn*ff<<" qn="<<qn.real()<<" ff="<<ff<<"\n";
+                std::cout<<std::scientific<<std::showpos<<std::setprecision(16)<<"  SUM="<<sum<<
+                    " TERM="<<qn*ff<<" qn="<<qn.real()<<" ff="<<ff<<"\n";
 #endif
         }
         return sum / (I * q.mag2());
@@ -564,9 +570,9 @@ void FormFactorPolyhedron::assert_platonic() const
 }
 
 
-//***************************************************************************************************
+//**************************************************************************************************
 //  FormFactorPolygonalPrism implementation
-//***************************************************************************************************
+//**************************************************************************************************
 
 FormFactorPolygonalPrism::FormFactorPolygonalPrism(double height)
     : m_height(height)
@@ -591,9 +597,9 @@ complex_t FormFactorPolygonalPrism::evaluate_for_q( const cvector_t q ) const
 }
 
 
-//***************************************************************************************************
+//**************************************************************************************************
 //  FormFactorPolygonalSurface implementation
-//***************************************************************************************************
+//**************************************************************************************************
 
 complex_t FormFactorPolygonalSurface::evaluate_for_q( const cvector_t q ) const
 {

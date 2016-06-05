@@ -19,11 +19,12 @@ beam_xpos, beam_ypos = 597.1, 323.4  # in pixels
 
 def create_detector():
     """
-    Creates and returns GALAXY detector
+    Returns a model of the GALAXY detector
     """
     u0 = beam_xpos*pilatus_pixel_size  # in mm
     v0 = beam_ypos*pilatus_pixel_size  # in mm
-    detector = ba.RectangularDetector(pilatus_npx, pilatus_npx*pilatus_pixel_size, pilatus_npy, pilatus_npy*pilatus_pixel_size)
+    detector = ba.RectangularDetector(pilatus_npx, pilatus_npx*pilatus_pixel_size,
+                                      pilatus_npy, pilatus_npy*pilatus_pixel_size)
     detector.setPerpendicularToDirectBeam(detector_distance, u0, v0)
     return detector
 
@@ -39,7 +40,9 @@ def create_simulation():
     # mask on reflected beam
     simulation.addMask(ba.Rectangle(101.9, 82.1, 103.7, 85.2), True)
     # detector resolution function
-    # simulation.setDetectorResolutionFunction(ba.ResolutionFunction2DGaussian(0.5*pilatus_pixel_size, 0.5*pilatus_pixel_size))
+    # simulation.setDetectorResolutionFunction(
+    #   ba.ResolutionFunction2DGaussian(0.5*pilatus_pixel_size,
+    #      0.5*pilatus_pixel_size))
     # beam divergence
     # alpha_distr = ba.DistributionGaussian(alpha_i, 0.02*ba.degree)
     # simulation.addParameterDistribution("*/Beam/Alpha", alpha_distr, 5)
@@ -69,9 +72,14 @@ def run_fitting():
     fit_suite.addSimulationAndRealData(simulation, real_data)
 
     # setting fitting parameters with starting values
-    fit_suite.addFitParameter("*radius", 5.0*ba.nanometer, ba.AttLimits.limited(4.0, 6.0), 0.1*ba.nanometer)
-    fit_suite.addFitParameter("*sigma", 0.55, ba.AttLimits.limited(0.2, 0.8), 0.01*ba.nanometer)
-    fit_suite.addFitParameter("*distance", 27.*ba.nanometer, ba.AttLimits.limited(20, 70), 0.1*ba.nanometer)
+    fit_suite.addFitParameter(
+        "*radius", 5.0*ba.nanometer, ba.AttLimits.limited(4.0, 6.0),
+        0.1*ba.nanometer)
+    fit_suite.addFitParameter(
+        "*sigma", 0.55, ba.AttLimits.limited(0.2, 0.8), 0.01*ba.nanometer)
+    fit_suite.addFitParameter(
+        "*distance", 27.*ba.nanometer, ba.AttLimits.limited(20, 70),
+        0.1*ba.nanometer)
 
     use_two_minimizers_strategy = False
     if use_two_minimizers_strategy:
@@ -79,7 +87,8 @@ def run_fitting():
         strategy1.getMinimizerOptions().setMaxIterations(3)
         fit_suite.addFitStrategy(strategy1)
 
-        # Second fit strategy will use another algorithm. It will use best parameters found from previous minimization round.
+        # Second fit strategy will use another algorithm.
+        # It will use best parameters found from previous minimization round.
         strategy2 = ba.FitStrategyAdjustMinimizer("Minuit2", "Migrad")
         fit_suite.addFitStrategy(strategy2)
 

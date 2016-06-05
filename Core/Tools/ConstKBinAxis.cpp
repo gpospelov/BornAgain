@@ -23,7 +23,6 @@ ConstKBinAxis::ConstKBinAxis(const std::string &name, size_t nbins)
     , m_start(0)
     , m_end(0)
 {
-
 }
 
 ConstKBinAxis::ConstKBinAxis(const std::string &name, size_t nbins, double start, double end)
@@ -32,7 +31,8 @@ ConstKBinAxis::ConstKBinAxis(const std::string &name, size_t nbins, double start
     , m_end(end)
 {
     if(m_start >= m_end)
-        throw Exceptions::LogicErrorException("ConstKBinAxis::ConstKBinAxis() -> Error. start >= end is not allowed.");
+        throw Exceptions::LogicErrorException(
+            "ConstKBinAxis::ConstKBinAxis() -> Error. start >= end is not allowed.");
 
     double start_sin = std::sin(m_start);
     double end_sin = std::sin(m_end);
@@ -44,7 +44,6 @@ ConstKBinAxis::ConstKBinAxis(const std::string &name, size_t nbins, double start
         bin_boundaries[i] = std::asin(start_sin + step*i);
     }
     setBinBoundaries(bin_boundaries);
-
 }
 
 ConstKBinAxis *ConstKBinAxis::clone() const
@@ -96,4 +95,3 @@ void ConstKBinAxis::print(std::ostream &ostr) const
          << std::setprecision(std::numeric_limits<double>::digits10+2)
          << m_start << ", " << m_end << ")";
 }
-

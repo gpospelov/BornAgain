@@ -51,8 +51,9 @@ IFormFactor *FunctionalTestComponentService::getFormFactor() const
 IFTDistribution2D *FunctionalTestComponentService::getFTDistribution2D() const
 {
     if(!m_ft_distribution_2d) {
-        throw NullPointerException("FunctionalTestComponentService::getFTDistribution2D() -> Error. "
-                                   " No FT distribution defined.");
+        throw NullPointerException(
+            "FunctionalTestComponentService::getFTDistribution2D() -> Error. "
+            " No FT distribution defined.");
     }
     return m_ft_distribution_2d->clone();
 }
@@ -69,7 +70,8 @@ GISASSimulation *FunctionalTestComponentService::getSimulation() const
 std::shared_ptr<class ISampleBuilder> FunctionalTestComponentService::getSampleBuilder() const
 {
     SampleBuilderFactory sample_factory;
-    std::shared_ptr<class ISampleBuilder> sample_builder = sample_factory.createBuilder(m_testInfo.m_sample_builder_name);
+    std::shared_ptr<class ISampleBuilder> sample_builder =
+        sample_factory.createBuilder(m_testInfo.m_sample_builder_name);
     sample_builder->init_from(this);
     return sample_builder;
 }
@@ -101,21 +103,18 @@ size_t FunctionalTestComponentService::getNumberOfComponents() const
 
 void FunctionalTestComponentService::initComponent(size_t component_index)
 {
-    if(component_index >= getNumberOfComponents()) {
-        throw OutOfBoundsException("FunctionalTestComponentService::setComponent() -> Error. Out of bounds");
-    }
+    if(component_index >= getNumberOfComponents())
+        throw OutOfBoundsException(
+            "FunctionalTestComponentService::setComponent() -> Error. Out of bounds");
     m_current_component = component_index;
-
     if(m_ff_registry) {
         delete m_form_factor;
         m_form_factor = m_ff_registry->createItem(m_component_names[component_index]);
     }
-
     if(m_ft2d_registry) {
         delete m_ft_distribution_2d;
         m_ft_distribution_2d = m_ft2d_registry->createItem(m_component_names[component_index]);
     }
-
 }
 
 std::string FunctionalTestComponentService::getCurrentComponentName() const
@@ -149,22 +148,20 @@ void FunctionalTestComponentService::init_registry(const std::string &registry_n
 
     }else if(registry_name == FormFactorsRegistryName) {
         m_ff_registry = new TestFormFactorsRegistry;
-        for(TestFormFactorsRegistry::iterator it = m_ff_registry->begin(); it!= m_ff_registry->end(); ++it) {
+        for(auto it = m_ff_registry->begin(); it!= m_ff_registry->end(); ++it) {
             m_component_names.push_back(it->first);
         }
 
     }else if(registry_name == FTDistributions2DName) {
         m_ft2d_registry= new TestFTDistribution2DRegistry;
-        for(TestFTDistribution2DRegistry::iterator it = m_ft2d_registry->begin(); it!= m_ft2d_registry->end(); ++it) {
+        for(auto it = m_ft2d_registry->begin(); it!= m_ft2d_registry->end(); ++it) {
             m_component_names.push_back(it->first);
         }
-
 
     } else {
         throw RuntimeErrorException("FunctionalTestComponentService::init_factory -> Error. "
                                     "Unknown factory '"+registry_name+"'.");
     }
-
 }
 
 //! Constructs functional test name corresponding to the current component. The goal is to have
@@ -172,7 +169,8 @@ void FunctionalTestComponentService::init_registry(const std::string &registry_n
 std::string FunctionalTestComponentService::getTestName() const
 {
     std::string result = getTestInfo().m_test_name;
-    if(getCurrentComponentName() != DefaultComponentName) result.clear(); // i.e. no name for sub-test just for printing purpose
+    if(getCurrentComponentName() != DefaultComponentName)
+        result.clear(); // i.e. no name for sub-test just for printing purpose
     return result;
 }
 
@@ -188,6 +186,3 @@ double FunctionalTestComponentService::getTestThreshold() const
 {
     return getTestInfo().m_threshold;
 }
-
-
-

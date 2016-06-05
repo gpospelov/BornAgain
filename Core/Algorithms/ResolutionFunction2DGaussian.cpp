@@ -17,8 +17,7 @@
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
 
-ResolutionFunction2DGaussian::ResolutionFunction2DGaussian(double sigma_x,
-        double sigma_y)
+ResolutionFunction2DGaussian::ResolutionFunction2DGaussian(double sigma_x, double sigma_y)
 : m_sigma_x(sigma_x)
 , m_sigma_y(sigma_y)
 {
@@ -26,7 +25,8 @@ ResolutionFunction2DGaussian::ResolutionFunction2DGaussian(double sigma_x,
     init_parameters();
 }
 
-ResolutionFunction2DGaussian::ResolutionFunction2DGaussian(const ResolutionFunction2DGaussian& other) : IResolutionFunction2D(other)
+ResolutionFunction2DGaussian::ResolutionFunction2DGaussian(
+    const ResolutionFunction2DGaussian& other) : IResolutionFunction2D(other)
 {
     m_sigma_x = other.m_sigma_x;
     m_sigma_y = other.m_sigma_y;

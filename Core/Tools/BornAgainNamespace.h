@@ -104,7 +104,8 @@ const std::string FormFactorPolarizedDWBAType = "FormFactorDWBAPol";
 
 const std::string FormFactorDecoratorFactorType = "FormFactorDecoratorFactor";
 const std::string FormFactorDecoratorPositionFactorType = "FormFactorDecoratorPositionFactor";
-const std::string FormFactorDecoratorMultiPositionFactorType = "FormFactorDecoratorMultiPositionFactor";
+const std::string FormFactorDecoratorMultiPositionFactorType =
+    "FormFactorDecoratorMultiPositionFactor";
 const std::string FormFactorDecoratorRotationType = "FormFactorDecoratorRotation";
 const std::string FormFactorDecoratorDebyeWallerType = "FormFactorDecoratorDebyeWaller";
 const std::string FormFactorDecoratorMaterialType = "FormFactorDecoratorMaterial";

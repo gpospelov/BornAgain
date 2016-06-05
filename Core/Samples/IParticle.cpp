@@ -20,7 +20,7 @@
 
 using namespace BornAgain;
 
-IFormFactor *IParticle::createFormFactor() const
+IFormFactor* IParticle::createFormFactor() const
 {
     return createTransformedFormFactor(nullptr, kvector_t());
 }
@@ -54,7 +54,7 @@ void IParticle::applyTranslation(kvector_t displacement)
     m_position += displacement;
 }
 
-IRotation *IParticle::createComposedRotation(const IRotation *p_rotation) const
+IRotation* IParticle::createComposedRotation(const IRotation* p_rotation) const
 {
     if (p_rotation) {
         if (mP_rotation.get()) {
@@ -71,7 +71,8 @@ IRotation *IParticle::createComposedRotation(const IRotation *p_rotation) const
     }
 }
 
-kvector_t IParticle::getComposedTranslation(const IRotation *p_rotation, kvector_t translation) const
+kvector_t IParticle::getComposedTranslation(
+    const IRotation* p_rotation, kvector_t translation) const
 {
     if (p_rotation) {
         Geometry::Transform3D transform = p_rotation->getTransform3D();

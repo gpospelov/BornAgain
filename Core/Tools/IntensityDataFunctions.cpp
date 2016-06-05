@@ -35,7 +35,8 @@ double IntensityDataFunctions::getRelativeDifference(
     return diff;
 }
 
-double IntensityDataFunctions::getRelativeDifference(const IHistogram &result, const IHistogram &reference)
+double IntensityDataFunctions::getRelativeDifference(
+    const IHistogram &result, const IHistogram &reference)
 {
     if(!result.hasSameDimensions(reference)) {
         throw LogicErrorException("IntensityDataFunctions::getRelativeDifference() -> Error. "
@@ -44,20 +45,19 @@ double IntensityDataFunctions::getRelativeDifference(const IHistogram &result, c
 
     double summ(0.0);
     for(size_t i=0; i<result.getTotalNumberOfBins(); ++i) {
-        summ += Numeric::get_relative_difference(result.getBinContent(i), reference.getBinContent(i));
+        summ += Numeric::get_relative_difference(result.getBinContent(i),
+                                                 reference.getBinContent(i));
     }
     return summ/result.getTotalNumberOfBins();
 }
 
 
 OutputData<double> *IntensityDataFunctions::createClippedDataSet(
-        const OutputData<double> &origin, double x1, double y1,
-        double x2, double y2)
+        const OutputData<double> &origin, double x1, double y1, double x2, double y2)
 {
-    if (origin.getRank() != 2) {
+    if (origin.getRank() != 2)
         throw LogicErrorException("IntensityDataFunctions::createClippedData()"
                 " -> Error! Works only on two-dimensional data");
-    }
 
     OutputData<double > *result = new OutputData<double >;
     for(size_t i_axis=0; i_axis<origin.getRank(); i_axis++) {
@@ -90,16 +90,15 @@ OutputData<double> *IntensityDataFunctions::createClippedDataSet(
     return result;
 }
 
-OutputData<double> *IntensityDataFunctions::applyDetectorResolution(const OutputData<double> &origin, const IResolutionFunction2D &resolution_function)
+OutputData<double> *IntensityDataFunctions::applyDetectorResolution(
+    const OutputData<double> &origin, const IResolutionFunction2D &resolution_function)
 {
-    if (origin.getRank() != 2) {
+    if (origin.getRank() != 2)
         throw LogicErrorException("IntensityDataFunctions::applyDetectorResolution()"
                 " -> Error! Works only on two-dimensional data");
-    }
     OutputData<double > *result = origin.clone();
-    const std::unique_ptr<ConvolutionDetectorResolution> P_resolution(new ConvolutionDetectorResolution(resolution_function));
+    const std::unique_ptr<ConvolutionDetectorResolution> P_resolution(
+        new ConvolutionDetectorResolution(resolution_function));
     P_resolution->applyDetectorResolution(result);
     return result;
 }
-
-

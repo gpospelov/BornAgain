@@ -188,27 +188,32 @@ std::string PyGenTools::getRepresentation(const IDistribution1D *distribution)
      std::ostringstream result;
      result << std::setprecision(12);
 
-     if(const DistributionGate *d = dynamic_cast<const DistributionGate *>(distribution)) {
+     if     (const DistributionGate *d =
+             dynamic_cast<const DistributionGate *>(distribution)) {
         result << "DistributionGate("
                << PyGenTools::printDouble(d->getMin()) << ", "
                << PyGenTools::printDouble(d->getMax()) << ")";
      }
-     else if(const DistributionLorentz *d = dynamic_cast<const DistributionLorentz *>(distribution)) {
+     else if(const DistributionLorentz *d =
+             dynamic_cast<const DistributionLorentz *>(distribution)) {
          result << "DistributionLorentz("
                 << PyGenTools::printDouble(d->getMean()) << ", "
                 << PyGenTools::printDouble(d->getHWHM()) << ")";
      }
-     else if(const DistributionGaussian *d = dynamic_cast<const DistributionGaussian *>(distribution)) {
+     else if(const DistributionGaussian *d =
+             dynamic_cast<const DistributionGaussian *>(distribution)) {
          result << "DistributionGaussian("
                 << PyGenTools::printDouble(d->getMean()) << ", "
                 << PyGenTools::printDouble(d->getStdDev()) << ")";
      }
-     else if(const DistributionLogNormal *d = dynamic_cast<const DistributionLogNormal *>(distribution)) {
+     else if(const DistributionLogNormal *d =
+             dynamic_cast<const DistributionLogNormal *>(distribution)) {
          result << "DistributionLogNormal("
                 << PyGenTools::printDouble(d->getMedian()) << ", "
                 << PyGenTools::printDouble(d->getScalePar()) << ")";
      }
-     else if(const DistributionCosine *d = dynamic_cast<const DistributionCosine *>(distribution)) {
+     else if(const DistributionCosine *d =
+             dynamic_cast<const DistributionCosine *>(distribution)) {
          result << "DistributionCosine("
                 << PyGenTools::printDouble(d->getMean()) << ", "
                 << PyGenTools::printDouble(d->getSigma()) << ")";
@@ -223,11 +228,12 @@ std::string PyGenTools::getRepresentation(const IDistribution1D *distribution)
 
 
 
-std::string PyGenTools::getRepresentation(const std::string &indent, const Geometry::IShape2D *ishape, bool mask_value)
+std::string PyGenTools::getRepresentation(
+    const std::string &indent, const Geometry::IShape2D *ishape, bool mask_value)
 {     std::ostringstream result;
       result << std::setprecision(12);
 
-    if(const Geometry::Ellipse *shape = dynamic_cast<const Geometry::Ellipse *>(ishape)) {
+    if(const Geometry::Ellipse *shape = dynamic_cast<const Geometry::Ellipse*>(ishape)) {
         result << indent << "simulation.addMask(";
         result << "Ellipse("
                << PyGenTools::printDegrees(shape->getCenterX()) << ", "
@@ -238,7 +244,7 @@ std::string PyGenTools::getRepresentation(const std::string &indent, const Geome
         result << "), " << PyGenTools::printBool(mask_value) << ")\n";
     }
 
-    else if(const Geometry::Rectangle *shape = dynamic_cast<const Geometry::Rectangle *>(ishape)) {
+    else if(const Geometry::Rectangle *shape = dynamic_cast<const Geometry::Rectangle*>(ishape)) {
         result << indent << "simulation.addMask(";
         result << "Rectangle("
                << PyGenTools::printDegrees(shape->getXlow()) << ", "
@@ -248,35 +254,38 @@ std::string PyGenTools::getRepresentation(const std::string &indent, const Geome
                << PyGenTools::printBool(mask_value) << ")\n";
     }
 
-    else if(const Geometry::Polygon *shape = dynamic_cast<const Geometry::Polygon *>(ishape)) {
+    else if(const Geometry::Polygon *shape = dynamic_cast<const Geometry::Polygon*>(ishape)) {
         std::vector<double> xpos, ypos;
         shape->getPoints(xpos, ypos);
         result << indent << "points = [";
         for(size_t i=0; i<xpos.size(); ++i) {
-            result << "[" << PyGenTools::printDegrees(xpos[i]) << ", " << PyGenTools::printDegrees(ypos[i]) << "]";
+            result << "[" << PyGenTools::printDegrees(xpos[i]) << ", " <<
+                PyGenTools::printDegrees(ypos[i]) << "]";
             if(i!= xpos.size()-1) result << ", ";
         }
         result << "]\n";
-
-        result << indent << "simulation.addMask(";
-        result << "Polygon(points), " << PyGenTools::printBool(mask_value) << ")\n";
+        result << indent << "simulation.addMask(" <<
+            "Polygon(points), " << PyGenTools::printBool(mask_value) << ")\n";
     }
 
-    else if(const Geometry::VerticalLine *shape = dynamic_cast<const Geometry::VerticalLine *>(ishape)) {
+    else if(const Geometry::VerticalLine *shape =
+            dynamic_cast<const Geometry::VerticalLine*>(ishape)) {
         result << indent << "simulation.addMask(";
         result << "VerticalLine("
                << PyGenTools::printDegrees(shape->getXpos()) << "), "
                << PyGenTools::printBool(mask_value) << ")\n";
     }
 
-    else if(const Geometry::HorizontalLine *shape = dynamic_cast<const Geometry::HorizontalLine *>(ishape)) {
+    else if(const Geometry::HorizontalLine *shape =
+            dynamic_cast<const Geometry::HorizontalLine *>(ishape)) {
         result << indent << "simulation.addMask(";
         result << "HorizontalLine("
                << PyGenTools::printDegrees(shape->getYpos()) << "), "
                << PyGenTools::printBool(mask_value) << ")\n";
     }
 
-    else if(const Geometry::InfinitePlane *shape = dynamic_cast<const Geometry::InfinitePlane *>(ishape)) {
+    else if(const Geometry::InfinitePlane *shape =
+            dynamic_cast<const Geometry::InfinitePlane *>(ishape)) {
         (void)shape;
         result << indent << "simulation.maskAll()\n";
     }

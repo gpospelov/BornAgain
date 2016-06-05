@@ -13,7 +13,8 @@ from bornagain import degree, angstrom, nanometer
 class MySampleBuilder(ISampleBuilder):
     """
     Sample builder is used to build complex samples from set of parameters.
-    Given builder produces the sample representing spheres at hex lattice using two parameters as an input:
+    Given builder produces the sample representing spheres at hex lattice
+    using two parameters as an input:
     radius - radius of spheres
     lattice_constant - hexagonal lattice constant
     """
@@ -25,7 +26,8 @@ class MySampleBuilder(ISampleBuilder):
         self.lattice_constant = ctypes.c_double(10.0*nanometer)
         # register parameters
         self.registerParameter("radius", ctypes.addressof(self.radius))
-        self.registerParameter("lattice_constant", ctypes.addressof(self.lattice_constant))
+        self.registerParameter("lattice_constant",
+                               ctypes.addressof(self.lattice_constant))
 
     # constructs the sample for current values of parameters
     def buildSample(self):
@@ -38,7 +40,8 @@ class MySampleBuilder(ISampleBuilder):
         particle_layout = ba.ParticleLayout()
         particle_layout.addParticle(sphere)
 
-        interference = ba.InterferenceFunction2DLattice.createHexagonal(self.lattice_constant.value)
+        interference = ba.InterferenceFunction2DLattice.createHexagonal(
+            self.lattice_constant.value)
         pdf = ba.FTDecayFunction2DCauchy(10*nanometer, 10*nanometer)
         interference.setDecayFunction(pdf)
 
@@ -56,10 +59,11 @@ class MySampleBuilder(ISampleBuilder):
 
 def get_simulation():
     """
-    Create and return GISAXS simulation with beam and detector defined
+    Returns a GISAXS simulation with beam and detector defined.
     """
     simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(100, -1.0*degree, 1.0*degree, 100, 0.0*degree, 2.0*degree)
+    simulation.setDetectorParameters(100, -1.0*degree, 1.0*degree,
+                                     100, 0.0*degree, 2.0*degree)
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
 
     return simulation
@@ -111,7 +115,8 @@ def run_fitting():
 
     # setting fitting parameters with starting values
     fit_suite.addFitParameter("*radius", 8.*nanometer, ba.AttLimits.limited(4., 12.))
-    fit_suite.addFitParameter("*lattice_constant", 8.*nanometer, ba.AttLimits.limited(4., 12.))
+    fit_suite.addFitParameter("*lattice_constant",
+                              8.*nanometer, ba.AttLimits.limited(4., 12.))
 
     # running fit
     fit_suite.runFit()
@@ -126,4 +131,3 @@ def run_fitting():
 if __name__ == '__main__':
     run_fitting()
     plt.show()
-

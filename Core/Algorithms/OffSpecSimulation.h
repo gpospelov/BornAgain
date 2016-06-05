@@ -32,7 +32,7 @@ public:
     OffSpecSimulation(std::shared_ptr<class ISampleBuilder> p_sample_builder);
     virtual ~OffSpecSimulation() {}
 
-    OffSpecSimulation *clone() const;
+    OffSpecSimulation* clone() const;
 
     //! Put into a clean state for running a simulation
     virtual void prepareSimulation();
@@ -41,10 +41,11 @@ public:
     virtual int getNumberOfSimulationElements() const;
 
     //! Returns detector intensity map
-    const OutputData<double> *getOutputData() const { return &m_intensity_map; }
+    const OutputData<double>* getOutputData() const { return &m_intensity_map; }
 
     //! Returns clone of the detector intensity map
-    OutputData<double> *getDetectorIntensity(IDetector2D::EAxesUnits units_type = IDetector2D::DEFAULT) const;
+    OutputData<double>* getDetectorIntensity(
+        IDetector2D::EAxesUnits units_type = IDetector2D::DEFAULT) const;
 
     //! Returns clone of the detector intensity map in the form of 2D histogram.
     Histogram2D *getIntensityData() const;

@@ -13,8 +13,8 @@ alpha_min, alpha_max = 0.0, 2.0
 
 def get_sample():
     """
-    Build and return the sample to calculate cylinder formfactor in Born approximation.
-    Cylinders have size distribution.
+    Return a sample with cylinders on a substrate.
+    The cylinders have a Gaussian size distribution.
     """
     m_ambience = ba.HomogeneousMaterial("Air", 0.0, 0.0)
     m_particle = ba.HomogeneousMaterial("Particle", 6e-4, 2e-8)
@@ -31,9 +31,11 @@ def get_sample():
     sigma = 0.2*radius
 
     gauss_distr = ba.DistributionGaussian(radius, sigma)
-    par_distr = ba.ParameterDistribution("/Particle/Cylinder/Radius", gauss_distr, nparticles, nfwhm)
-    # by uncommenting the line below the height of cylinders can be scaled proportionally to the radius
-    #par_distr.linkParameter("/Particle/Cylinder/Height")
+    par_distr = ba.ParameterDistribution(
+        "/Particle/Cylinder/Radius", gauss_distr, nparticles, nfwhm)
+    # by uncommenting the line below, the height of the cylinders
+    #   can be scaled proportionally to the radius:
+    # par_distr.linkParameter("/Particle/Cylinder/Height")
     part_coll = ba.ParticleDistribution(cylinder, par_distr)
 
     # assembling the sample
@@ -52,7 +54,8 @@ def get_simulation():
     Create and return GISAXS simulation with beam and detector defined
     """
     simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(200, phi_min*degree, phi_max*degree, 200, alpha_min*degree, alpha_max*degree)
+    simulation.setDetectorParameters(200, phi_min*degree, phi_max*degree,
+                                     200, alpha_min*degree, alpha_max*degree)
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
     return simulation
 
@@ -69,10 +72,12 @@ def run_simulation():
     result = simulation.getIntensityData()
 
     # showing the result
-    im = plt.imshow(result.getArray(),
-                    norm=matplotlib.colors.LogNorm(1.0, result.getMaximum()),
-                    extent=[result.getXmin()/degree, result.getXmax()/degree, result.getYmin()/degree, result.getYmax()/degree],
-                    aspect='auto')
+    im = plt.imshow(
+        result.getArray(),
+        norm=matplotlib.colors.LogNorm(1.0, result.getMaximum()),
+        extent=[result.getXmin()/degree, result.getXmax()/degree,
+                result.getYmin()/degree, result.getYmax()/degree],
+        aspect='auto')
     cb = plt.colorbar(im)
     cb.set_label(r'Intensity (arb. u.)', size=16)
     plt.xlabel(r'$\phi_f (^{\circ})$', fontsize=16)
@@ -82,5 +87,3 @@ def run_simulation():
 
 if __name__ == '__main__':
     run_simulation()
-
-

@@ -27,8 +27,9 @@ Ellipse::Ellipse(double xcenter, double ycenter, double xradius, double yradius,
 {
     if(xradius <= 0.0 || yradius <= 0.0) {
         std::ostringstream message;
-        message << "Ellipse::Ellipse(double xcenter, double ycenter, double xradius, double yradius) ";
-        message << "Error. Radius can't be negative" << std::endl;
+        message <<
+            "Ellipse::Ellipse(double xcenter, double ycenter, double xradius, double yradius) "
+            "-> Error. Radius can't be negative\n";
         throw LogicErrorException(message.str());
     }
 }
@@ -54,7 +55,6 @@ bool Ellipse::contains(const Bin1D &binx, const Bin1D &biny) const
 double Ellipse::getCenterX() const
 {
     return m_xc;
-
 }
 
 double Ellipse::getCenterY() const
@@ -84,7 +84,6 @@ Ellipse::Ellipse(const Ellipse &other)
     , m_yr(other.m_yr)
     , m_theta(other.m_theta)
 {
-
 }
 
 } // namespace Geometry

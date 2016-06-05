@@ -759,9 +759,6 @@ C++ includes: Convolve.h
 %feature("docstring")  MathFunctions::Convolve::Convolve "MathFunctions::Convolve::Convolve()
 ";
 
-%feature("docstring")  MathFunctions::Convolve::~Convolve "MathFunctions::Convolve::~Convolve()
-";
-
 %feature("docstring")  MathFunctions::Convolve::fftconvolve "void MathFunctions::Convolve::fftconvolve(const double1d_t &source, const double1d_t &kernel, double1d_t &result)
 
 convolution in 1D 

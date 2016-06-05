@@ -22,7 +22,8 @@
 
 using namespace  BornAgain;
 
-FormFactorLongRipple2Lorentz::FormFactorLongRipple2Lorentz(double length, double width, double height, double asymetry)
+FormFactorLongRipple2Lorentz::FormFactorLongRipple2Lorentz(
+    double length, double width, double height, double asymetry)
     : m_width(width)
     , m_height(height)
     , m_length(length)
@@ -72,12 +73,12 @@ void FormFactorLongRipple2Lorentz::init_parameters()
     registerParameter(AsymmetryLength, &m_d);
 }
 
-FormFactorLongRipple2Lorentz *FormFactorLongRipple2Lorentz::clone() const
+FormFactorLongRipple2Lorentz* FormFactorLongRipple2Lorentz::clone() const
 {
     return new FormFactorLongRipple2Lorentz(m_length, m_width, m_height, m_d);
 }
 
-void FormFactorLongRipple2Lorentz::accept(ISampleVisitor *visitor) const
+void FormFactorLongRipple2Lorentz::accept(ISampleVisitor* visitor) const
 {
     visitor->visit(this);
 }

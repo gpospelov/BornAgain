@@ -11,8 +11,8 @@ from bornagain import degree, angstrom, nanometer
 
 def get_sample(radius=5*nanometer, lattice_constant=10*nanometer):
     """
-    Build the sample representing cylinders and pyramids on top of
-    substrate without interference.
+    Returns a sample with cylinders and pyramids on a substrate,
+    forming a hexagonal lattice.
     """
     m_air = ba.HomogeneousMaterial("Air", 0.0, 0.0)
     m_substrate = ba.HomogeneousMaterial("Substrate", 6e-6, 2e-8)
@@ -43,7 +43,8 @@ def get_simulation():
     Create and return GISAXS simulation with beam and detector defined
     """
     simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(100, -1.0*degree, 1.0*degree, 100, 0.0*degree, 2.0*degree)
+    simulation.setDetectorParameters(100, -1.0*degree, 1.0*degree,
+                                     100, 0.0*degree, 2.0*degree)
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
     return simulation
 
@@ -92,8 +93,10 @@ def run_fitting():
     fit_suite.attachObserver(draw_observer)
 
     # this fit parameter will change both length_1 and length_2 simultaneously
-    fit_suite.addFitParameter("*2DLattice/LatticeLength*", 8.*nanometer, ba.AttLimits.limited(4., 12.))
-    fit_suite.addFitParameter("*/FullSphere/Radius", 8.*nanometer, ba.AttLimits.limited(4., 12.))
+    fit_suite.addFitParameter(
+        "*2DLattice/LatticeLength*", 8.*nanometer, ba.AttLimits.limited(4., 12.))
+    fit_suite.addFitParameter(
+        "*/FullSphere/Radius", 8.*nanometer, ba.AttLimits.limited(4., 12.))
 
     # running fit
     fit_suite.runFit()
@@ -108,4 +111,3 @@ def run_fitting():
 if __name__ == '__main__':
     run_fitting()
     plt.show()
-

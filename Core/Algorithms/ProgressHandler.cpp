@@ -28,7 +28,6 @@ ProgressHandler::ProgressHandler()
     , m_nitems_max(0)
     , m_current_progress(0)
 {
-
 }
 
 void ProgressHandler::reset()
@@ -55,7 +54,8 @@ bool ProgressHandler::update(int n)
     m_nitems += n;
 
     int progress = int(double(100*m_nitems)/double(m_nitems_max)); // in percents
-    //std::cout << "ProgressHandler::update n:" << n << " m_nitems:" << m_nitems << " m_nitems_max:" << m_nitems_max << " progress:" << progress << std::endl;
+    //std::cout << "ProgressHandler::update n:" << n << " m_nitems:" << m_nitems <<
+    //         " m_nitems_max:" << m_nitems_max << " progress:" << progress << std::endl;
     if(progress != m_current_progress) {
         m_current_progress = progress;
     }
@@ -96,5 +96,6 @@ void ProgressHandler::init(Simulation *simulation, int param_combinations)
     if(nroughness>0) number_of_rounds_factor += 1.0;
 
     // Simplified estimation of total number of items in DWBA simulation
-    m_nitems_max = number_of_rounds_factor*param_combinations*simulation->getNumberOfSimulationElements();
+    m_nitems_max = number_of_rounds_factor*param_combinations*
+        simulation->getNumberOfSimulationElements();
 }

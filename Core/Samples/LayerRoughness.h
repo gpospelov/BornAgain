@@ -72,7 +72,7 @@ protected:
     void print(std::ostream& ostr) const;
 
     double m_sigma;                //!< rms of roughness
-    double m_hurstParameter;       //!< Hurst parameter which describes how jagged the interface, 0<H<=1
+    double m_hurstParameter;   //!< Hurst parameter which describes how jagged the interface, 0<H<=1
     double m_latteralCorrLength;   //!< latteral correlation length of the roughness
 private:
     void initialize();

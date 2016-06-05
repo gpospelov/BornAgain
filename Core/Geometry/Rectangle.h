@@ -20,10 +20,9 @@
 
 namespace Geometry {
 
-
 //! @class Rectangle
 //! @ingroup tools
-//! @brief The rectangle shape having its axis aligned to the coordinate system (non-rotated so far).
+//! @brief The rectangle shape having its axis aligned to the (non-rotated) coordinate system.
 
 class BA_CORE_API_  Rectangle : public IShape2D {
 public:
@@ -34,7 +33,7 @@ public:
     //! @param yup y-coordinate of upper right corner
     Rectangle(double xlow, double ylow, double xup, double yup);
 
-    Rectangle *clone() const;
+    Rectangle* clone() const;
 
     //! Returns true if given point is inside or on border of rectangle
     bool contains(double x, double y) const;

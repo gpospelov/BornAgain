@@ -36,12 +36,13 @@ public:
                          const IHistogram &reference);
 
     //! Returns new IntensityData objects which axes clipped to represent the specified rectangle
-    static OutputData<double> *createClippedDataSet(const OutputData<double> &origin, double x1, double y1, double x2, double y2);
+    static OutputData<double> *createClippedDataSet(
+        const OutputData<double> &origin, double x1, double y1, double x2, double y2);
 
     //! Applies detector resolution function and returns new IntensityData object
-    static OutputData<double> *applyDetectorResolution(const OutputData<double> &origin, const IResolutionFunction2D &resolution_function);
+    static OutputData<double> *applyDetectorResolution(
+        const OutputData<double> &origin, const IResolutionFunction2D &resolution_function);
 
 };
-
 
 #endif // INTENSITYDATAHELPER_H

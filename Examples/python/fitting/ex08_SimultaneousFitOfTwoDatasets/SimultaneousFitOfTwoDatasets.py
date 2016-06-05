@@ -14,8 +14,7 @@ from bornagain import degree, angstrom, nanometer
 
 def get_sample(radius_a=4.0*nanometer, radius_b=4.0*nanometer, height=4.0*nanometer):
     """
-    Build the sample representing cylinders and pyramids on top of
-    substrate without interference.
+    Returns a sample with uncorrelated cylinders and pyramids.
     """
     m_air = ba.HomogeneousMaterial("Air", 0.0, 0.0)
     m_substrate = ba.HomogeneousMaterial("Substrate", 6e-6, 2e-8)
@@ -39,10 +38,11 @@ def get_sample(radius_a=4.0*nanometer, radius_b=4.0*nanometer, height=4.0*nanome
 
 def get_simulation(incident_alpha=0.2):
     """
-    Create and return GISAXS simulation with beam and detector defined
+    Returns a GISAXS simulation with beam and detector defined.
     """
     simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(50, -1.5*degree, 1.5*degree, 50, 0.0*degree, 2.0*degree)
+    simulation.setDetectorParameters(50, -1.5*degree, 1.5*degree,
+                                     50, 0.0*degree, 2.0*degree)
     simulation.setBeamParameters(1.0*angstrom, incident_alpha, 0.0*degree)
     return simulation
 
@@ -51,7 +51,8 @@ def create_real_data(incident_alpha):
     """
     Generating "real" data by adding noise to the simulated data.
     """
-    sample = get_sample(radius_a=5.0*nanometer, radius_b=6.0*nanometer, height=8.0*nanometer)
+    sample = get_sample(
+        radius_a=5.0*nanometer, radius_b=6.0*nanometer, height=8.0*nanometer)
 
     simulation = get_simulation(incident_alpha)
     simulation.setSample(sample)
@@ -73,7 +74,8 @@ def create_real_data(incident_alpha):
 
 class DrawObserver(ba.IFitObserver):
     """
-    Draws fit progress every nth iteration. Real data, simulated data and chi2 map will be shown for both datasets.
+    Draws fit progress every nth iteration. Real data, simulated data
+    and chi2 map will be shown for both datasets.
     """
     def __init__(self, draw_every_nth=10):
         ba.IFitObserver.__init__(self, draw_every_nth)
@@ -82,10 +84,12 @@ class DrawObserver(ba.IFitObserver):
         plt.ion()
 
     def plot_colormap(self, data, title, min=1, max=1e6):
-        im = plt.imshow(data.getArray(),
-                        norm=matplotlib.colors.LogNorm(min, max),
-                        extent=[data.getXmin()/degree, data.getXmax()/degree, data.getYmin()/degree, data.getYmax()/degree],
-                        aspect='auto')
+        im = plt.imshow(
+            data.getArray(),
+            norm=matplotlib.colors.LogNorm(min, max),
+            extent=[data.getXmin()/degree, data.getXmax()/degree,
+                    data.getYmin()/degree, data.getYmax()/degree],
+            aspect='auto')
         plt.colorbar(im)
         plt.title(title)
 
@@ -96,28 +100,36 @@ class DrawObserver(ba.IFitObserver):
             chi2_map = fit_suite.getChiSquaredMap(i_dataset)
 
             plt.subplot(canvas[i_dataset*3])
-            self.plot_colormap(real_data, "\"Real\" data - #"+str(i_dataset+1), min=1.0, max=real_data.getMaximum())
+            self.plot_colormap(real_data, "\"Real\" data - #"+str(i_dataset+1),
+                               min=1.0, max=real_data.getMaximum())
             plt.subplot(canvas[1+i_dataset*3])
-            self.plot_colormap(simul_data, "Simulated data - #"+str(i_dataset+1), min=1.0, max=real_data.getMaximum())
+            self.plot_colormap(simul_data, "Simulated data - #"+str(i_dataset+1),
+                               min=1.0, max=real_data.getMaximum())
             plt.subplot(canvas[2+i_dataset*3])
-            self.plot_colormap(chi2_map, "Chi2 map - #"+str(i_dataset+1), min=0.001, max=10.0)
+            self.plot_colormap(chi2_map, "Chi2 map - #"+str(i_dataset+1),
+                               min=0.001, max=10.0)
 
     def plot_fit_parameters(self, fit_suite, canvas):
         # fit parameters
         plt.subplot(canvas[6:])
         plt.axis('off')
         plt.text(0.01, 0.95, "Iterations  " + '{:d}     {:s}'.
-                 format(fit_suite.getNumberOfIterations(), fit_suite.getMinimizer().getMinimizerName()))
+                 format(fit_suite.getNumberOfIterations(),
+                        fit_suite.getMinimizer().getMinimizerName()))
         plt.text(0.01, 0.70, "Chi2       " + '{:8.4f}'.format(fit_suite.getChi2()))
         fitpars = fit_suite.getFitParameters()
         for i in range(0, fitpars.size()):
-            plt.text(0.01, 0.30 - i*0.3,  '{:40.40s}: {:6.3f}'.format(fitpars[i].getName(), fitpars[i].getValue()))
+            plt.text(0.01, 0.30 - i*0.3,
+                     '{:40.40s}: {:6.3f}'.format(fitpars[i].getName(),
+                                                 fitpars[i].getValue()))
 
     def update(self, fit_suite):
         self.fig.clf()
 
-        # we divide figure to have 3x3 subplots, with two first rows occupying most of the space
-        canvas = matplotlib.gridspec.GridSpec(3, 3, width_ratios=[1, 1, 1], height_ratios=[4, 4, 1])
+        # we divide figure to have 3x3 subplots, with two first rows occupying
+        # most of the space
+        canvas = matplotlib.gridspec.GridSpec(
+            3, 3, width_ratios=[1, 1, 1], height_ratios=[4, 4, 1])
         canvas.update(left=0.05, right=0.95, hspace=0.4, wspace=0.2)
 
         self.plot_datasets(fit_suite, canvas)
@@ -150,9 +162,12 @@ def run_fitting():
     fit_suite.attachObserver(draw_observer)
 
     # setting fitting parameters with starting values
-    fit_suite.addFitParameter("*/HemiEllipsoid/RadiusX", 4.*nanometer, ba.AttLimits.limited(2., 10.))
-    fit_suite.addFitParameter("*/HemiEllipsoid/RadiusY", 6.*nanometer, ba.AttLimits.fixed())
-    fit_suite.addFitParameter("*/HemiEllipsoid/Height", 4.*nanometer, ba.AttLimits.limited(2., 10.))
+    fit_suite.addFitParameter(
+        "*/HemiEllipsoid/RadiusX", 4.*nanometer, ba.AttLimits.limited(2., 10.))
+    fit_suite.addFitParameter(
+        "*/HemiEllipsoid/RadiusY", 6.*nanometer, ba.AttLimits.fixed())
+    fit_suite.addFitParameter(
+        "*/HemiEllipsoid/Height", 4.*nanometer, ba.AttLimits.limited(2., 10.))
 
     # running fit
     fit_suite.runFit()

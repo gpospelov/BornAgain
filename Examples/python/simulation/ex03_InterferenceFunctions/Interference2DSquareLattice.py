@@ -13,7 +13,7 @@ alpha_min, alpha_max = 0.0, 2.0
 
 def get_sample():
     """
-    Build and return the sample representing a 2D square lattice of cylinders
+    Returns a sample with cylinders on a substrate, forming a 2D square lattice.
     """
     # defining materials
     m_ambience = ba.HomogeneousMaterial("Air", 0.0, 0.0)
@@ -22,7 +22,8 @@ def get_sample():
 
     # collection of particles
     interference = ba.InterferenceFunction2DLattice.createSquare(25.0*nanometer)
-    pdf = ba.FTDecayFunction2DCauchy(300.0*nanometer/2.0/numpy.pi, 100.0*nanometer/2.0/numpy.pi)
+    pdf = ba.FTDecayFunction2DCauchy(300.0*nanometer/2.0/numpy.pi,
+                                     100.0*nanometer/2.0/numpy.pi)
     interference.setDecayFunction(pdf)
 
     cylinder_ff = ba.FormFactorCylinder(3.*nanometer, 3.*nanometer)
@@ -47,7 +48,8 @@ def get_simulation():
     Create and return GISAXS simulation with beam and detector defined
     """
     simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(200, phi_min*degree, phi_max*degree, 200, alpha_min*degree, alpha_max*degree)
+    simulation.setDetectorParameters(200, phi_min*degree, phi_max*degree,
+                                     200, alpha_min*degree, alpha_max*degree)
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
     return simulation
 
@@ -63,10 +65,12 @@ def run_simulation():
     result = simulation.getIntensityData()
 
     # showing the result
-    im = plt.imshow(result.getArray(),
-                    norm=matplotlib.colors.LogNorm(1.0, result.getMaximum()),
-                    extent=[result.getXmin()/degree, result.getXmax()/degree, result.getYmin()/degree, result.getYmax()/degree],
-                    aspect='auto')
+    im = plt.imshow(
+        result.getArray(),
+        norm=matplotlib.colors.LogNorm(1.0, result.getMaximum()),
+        extent=[result.getXmin()/degree, result.getXmax()/degree,
+                result.getYmin()/degree, result.getYmax()/degree],
+        aspect='auto')
     cb = plt.colorbar(im)
     cb.set_label(r'Intensity (arb. u.)', size=16)
     plt.xlabel(r'$\phi_f (^{\circ})$', fontsize=16)

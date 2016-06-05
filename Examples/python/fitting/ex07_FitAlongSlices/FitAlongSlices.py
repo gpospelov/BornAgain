@@ -17,7 +17,7 @@ alpha_slice_value = 0.2*degree  # position of horizontal slice
 
 def get_sample(radius=5*nanometer, height=10*nanometer):
     """
-    Build the sample representing cylinders on top of substrate without interference.
+    Returns a sample with uncorrelated cylinders on a substrate.
     """
     m_air = ba.HomogeneousMaterial("Air", 0.0, 0.0)
     m_substrate = ba.HomogeneousMaterial("Substrate", 6e-6, 2e-8)
@@ -44,7 +44,8 @@ def get_simulation():
     Create and return GISAXS simulation with beam and detector defined
     """
     simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(100, -1.0*degree, 1.0*degree, 100, 0.0*degree, 2.0*degree)
+    simulation.setDetectorParameters(100, -1.0*degree, 1.0*degree,
+                                     100, 0.0*degree, 2.0*degree)
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
     return simulation
 
@@ -58,7 +59,7 @@ def create_real_data():
     simulation = get_simulation()
     simulation.setSample(sample)
 
-    simulation.runSimulation() 
+    simulation.runSimulation()
     real_data = simulation.getIntensityData()
 
     # spoiling simulated data with the noise to produce "real" data
@@ -75,7 +76,8 @@ def create_real_data():
 
 class DrawObserver(ba.IFitObserver):
     """
-    Draws fit progress every nth iteration. Here we plot slices along real and simulated images to see fit progress.
+    Draws fit progress every nth iteration. Here we plot slices along real
+    and simulated images to see fit progress.
     """
 
     def __init__(self, draw_every_nth=10):
@@ -87,25 +89,30 @@ class DrawObserver(ba.IFitObserver):
     def plot_real_data(self, data, nplot):
         plt.subplot(2, 2, nplot)
         plt.subplots_adjust(wspace=0.2, hspace=0.2)
-        im = plt.imshow(data.getArray(),
-                        norm=matplotlib.colors.LogNorm(1.0, data.getMaximum()),
-                        extent=[data.getXmin()/degree, data.getXmax()/degree, data.getYmin()/degree, data.getYmax()/degree])
+        im = plt.imshow(
+            data.getArray(),
+            norm=matplotlib.colors.LogNorm(1.0, data.getMaximum()),
+            extent=[data.getXmin()/degree, data.getXmax()/degree,
+                    data.getYmin()/degree, data.getYmax()/degree])
         plt.colorbar(im)
         plt.title("\"Real\" data")
         plt.xlabel(r'$\phi_f$', fontsize=12)
         plt.ylabel(r'$\alpha_f$', fontsize=12)
         # line representing vertical slice
-        plt.plot([phi_slice_value / deg, phi_slice_value / deg], [data.getYmin() / deg, data.getYmax() / deg],
+        plt.plot([phi_slice_value / deg, phi_slice_value / deg],
+                 [data.getYmin() / deg, data.getYmax() / deg],
                  color='gray', linestyle='-', linewidth=1)
         # line representing horizontal slice
-        plt.plot([data.getXmin() / deg, data.getXmax() / deg], [alpha_slice_value / deg, alpha_slice_value / deg],
+        plt.plot([data.getXmin() / deg, data.getXmax() / deg],
+                 [alpha_slice_value / deg, alpha_slice_value / deg],
                  color='gray', linestyle='-', linewidth=1)
 
     def plot_slices(self, slices, title, nplot):
         plt.subplot(2, 2, nplot)
         plt.subplots_adjust(wspace=0.2, hspace=0.3)
         for label, slice in slices:
-            plt.semilogy(slice.getBinCenters()/degree, slice.getBinValues(), label=label)
+            plt.semilogy(slice.getBinCenters()/degree,
+                         slice.getBinValues(), label=label)
             plt.xlim(slice.getXmin()/degree, slice.getXmax()/degree)
             plt.ylim(1.0, slice.getMaximum()*10.0)
         plt.legend(loc='upper right')
@@ -116,11 +123,14 @@ class DrawObserver(ba.IFitObserver):
         plt.title('Parameters')
         plt.axis('off')
         plt.text(0.01, 0.85, "Iteration  " + '{:d}     {:s}'.
-                 format(fit_suite.getNumberOfIterations(), fit_suite.getMinimizer().getMinimizerName()))
+                 format(fit_suite.getNumberOfIterations(),
+                        fit_suite.getMinimizer().getMinimizerName()))
         plt.text(0.01, 0.75, "Chi2       " + '{:8.4f}'.format(fit_suite.getChi2()))
         fitpars = fit_suite.getFitParameters()
         for i in range(0, fitpars.size()):
-            plt.text(0.01, 0.55 - i*0.1,  '{:30.30s}: {:6.3f}'.format(fitpars[i].getName(), fitpars[i].getValue()))
+            plt.text(0.01, 0.55 - i*0.1,
+                     '{:30.30s}: {:6.3f}'.format(fitpars[i].getName(),
+                                                 fitpars[i].getValue()))
 
         plt.draw()
         plt.pause(0.01)
@@ -143,7 +153,8 @@ class DrawObserver(ba.IFitObserver):
             ("real", real_data.projectionX(alpha_slice_value)),
             ("simul", simul_data.projectionX(alpha_slice_value))
             ]
-        title = "Horizontal slice at alpha =" + '{:3.1f}'.format(alpha_slice_value/degree)
+        title = ( "Horizontal slice at alpha =" +
+                  '{:3.1f}'.format(alpha_slice_value/degree) )
         self.plot_slices(slices, title, nplot=2)
 
         # vertical slices
@@ -172,8 +183,9 @@ def run_fitting():
     simulation = get_simulation()
     simulation.setSample(sample)
 
-    # At this point we mask all the detector and then unmask two areas corresponding to the vertical
-    # and horizontal lines. This will make simulation/fitting to be performed along slices only.
+    # At this point we mask all the detector and then unmask two areas
+    # corresponding to the vertical and horizontal lines. This will make
+    # simulation/fitting to be performed along slices only.
     simulation.maskAll()
     simulation.addMask(ba.HorizontalLine(alpha_slice_value), False)
     simulation.addMask(ba.VerticalLine(phi_slice_value), False)
@@ -185,8 +197,10 @@ def run_fitting():
     fit_suite.attachObserver(draw_observer)
 
     # setting fitting parameters with starting values
-    fit_suite.addFitParameter("*/Cylinder/Radius", 6.*nanometer, ba.AttLimits.limited(4., 8.))
-    fit_suite.addFitParameter("*/Cylinder/Height", 9.*nanometer, ba.AttLimits.limited(8., 12.))
+    fit_suite.addFitParameter(
+        "*/Cylinder/Radius", 6.*nanometer, ba.AttLimits.limited(4., 8.))
+    fit_suite.addFitParameter(
+        "*/Cylinder/Height", 9.*nanometer, ba.AttLimits.limited(8., 12.))
 
     # running fit
     fit_suite.runFit()

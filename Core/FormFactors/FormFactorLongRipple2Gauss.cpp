@@ -22,7 +22,8 @@
 
 using namespace  BornAgain;
 
-FormFactorLongRipple2Gauss::FormFactorLongRipple2Gauss(double length, double width, double height, double asymetry)
+FormFactorLongRipple2Gauss::FormFactorLongRipple2Gauss(
+    double length, double width, double height, double asymetry)
     : m_width(width)
     , m_height(height)
     , m_length(length)

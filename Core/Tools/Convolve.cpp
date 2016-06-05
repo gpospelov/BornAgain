@@ -23,22 +23,17 @@ MathFunctions::Convolve::Convolve() : m_mode(FFTW_UNDEFINED)
 {
     // storing favorite fftw3 prime factors
     const size_t FFTW_FACTORS[] = {13,11,7,5,3,2};
-    m_implemented_factors.assign(FFTW_FACTORS, FFTW_FACTORS + sizeof(FFTW_FACTORS)/sizeof(FFTW_FACTORS[0]));
-}
-
-MathFunctions::Convolve::~Convolve()
-{
-
+    m_implemented_factors.assign(
+        FFTW_FACTORS, FFTW_FACTORS + sizeof(FFTW_FACTORS)/sizeof(FFTW_FACTORS[0]));
 }
 
 MathFunctions::Convolve::Workspace::Workspace() :
-    h_src(0), w_src(0), h_kernel(0), w_kernel(0),
-    w_fftw(0), h_fftw(0), in_src(0), out_src(0), in_kernel(0), out_kernel(0), dst_fft(0), h_dst(0), w_dst(0),
+    h_src(0), w_src(0), h_kernel(0), w_kernel(0), w_fftw(0), h_fftw(0),
+    in_src(0), out_src(0), in_kernel(0), out_kernel(0), dst_fft(0), h_dst(0), w_dst(0),
     //dst(0),
     h_offset(0), w_offset(0),
     p_forw_src(nullptr), p_forw_kernel(nullptr), p_back(nullptr)
 {
-
 }
 
 MathFunctions::Convolve::Workspace::~Workspace()
@@ -85,14 +80,12 @@ void MathFunctions::Convolve::Workspace::clear()
 /* ************************************************************************* */
 // convolution in 2d
 /* ************************************************************************* */
-void MathFunctions::Convolve::fftconvolve(const double2d_t& source, const double2d_t& kernel,
-                                          double2d_t& result)
+void MathFunctions::Convolve::fftconvolve(
+    const double2d_t& source, const double2d_t& kernel, double2d_t& result)
 {
     // set default convolution mode, if not defined
-    if(m_mode == FFTW_UNDEFINED) {
-        //std::cout << "MathFunctions::Convolve::fftconvolve() -> Info. Setting FFTW_LINEAR_SAME convolution mode." << std::endl;
+    if(m_mode == FFTW_UNDEFINED)
         setMode(FFTW_LINEAR_SAME);
-    }
 
     int h_src = (int)source.size();
     int w_src = (int)(source.size() ? source[0].size() : 0);
@@ -112,7 +105,9 @@ void MathFunctions::Convolve::fftconvolve(const double2d_t& source, const double
         for(int j=0; j<ws.w_dst; j++) {
             //result[i][j]=ws.dst[i*ws.w_dst+j];
             if(m_mode == FFTW_CIRCULAR_SAME_SHIFTED) {
-                result[i][j] = ws.dst_fft[((i+int(ws.h_kernel/2.0))%ws.h_fftw)*ws.w_fftw+(j+int(ws.w_kernel/2.0))%ws.w_fftw];
+                result[i][j] = ws.dst_fft[
+                    ((i+int(ws.h_kernel/2.0))%ws.h_fftw)*ws.w_fftw+
+                    (j+int(ws.w_kernel/2.0))%ws.w_fftw];
             } else {
                 result[i][j] = ws.dst_fft[(i+ws.h_offset)*ws.w_fftw+j+ws.w_offset];
             }
@@ -125,7 +120,8 @@ void MathFunctions::Convolve::fftconvolve(const double2d_t& source, const double
 /* ************************************************************************* */
 // convolution in 1d
 /* ************************************************************************* */
-void MathFunctions::Convolve::fftconvolve(const double1d_t& source, const double1d_t& kernel, double1d_t& result)
+void MathFunctions::Convolve::fftconvolve(
+    const double1d_t& source, const double1d_t& kernel, double1d_t& result)
 {
     // we simply create 2d arrays with length of first dimension equal to 1, and call 2d convolution
     double2d_t source2d, kernel2d;
@@ -148,7 +144,8 @@ void MathFunctions::Convolve::init(int h_src, int w_src, int h_kernel, int w_ker
 {
     if(!h_src || !w_src || !h_kernel || !w_kernel) {
         std::ostringstream os;
-        os << "MathFunctions::Convolve::init() -> Panic! Wrong dimensions " << h_src << " " << w_src << " " << h_kernel << " " << w_kernel << std::endl;
+        os << "MathFunctions::Convolve::init() -> Panic! Wrong dimensions " <<
+            h_src << " " << w_src << " " << h_kernel << " " << w_kernel << std::endl;
         throw RuntimeErrorException(os.str());
     }
 
@@ -175,7 +172,8 @@ void MathFunctions::Convolve::init(int h_src, int w_src, int h_kernel, int w_ker
         ws.w_fftw = w_src + int(w_kernel/2.0);
         ws.h_dst = h_src;
         ws.w_dst = w_src;
-        // Here we just keep the first [h_filt/2:h_filt/2+h_dst-1 ; w_filt/2:w_filt/2+w_dst-1] real part elements of out_src
+        // Here we just keep the first [h_filt/2:h_filt/2+h_dst-1 ; w_filt/2:w_filt/2+w_dst-1]
+        // real part elements of out_src
         ws.h_offset = int(ws.h_kernel/2.0);
         ws.w_offset = int(ws.w_kernel/2.0);
         break;
@@ -185,7 +183,8 @@ void MathFunctions::Convolve::init(int h_src, int w_src, int h_kernel, int w_ker
         ws.w_fftw = find_closest_factor(w_src + int(w_kernel/2.0));
         ws.h_dst = h_src;
         ws.w_dst = w_src;
-        // Here we just keep the first [h_filt/2:h_filt/2+h_dst-1 ; w_filt/2:w_filt/2+w_dst-1] real part elements of out_src
+        // Here we just keep the first [h_filt/2:h_filt/2+h_dst-1 ; w_filt/2:w_filt/2+w_dst-1]
+        // real part elements of out_src
         ws.h_offset = int(ws.h_kernel/2.0);
         ws.w_offset = int(ws.w_kernel/2.0);
         break;
@@ -211,9 +210,9 @@ void MathFunctions::Convolve::init(int h_src, int w_src, int h_kernel, int w_ker
         break;
     case FFTW_CIRCULAR_SAME:
         // Circular convolution, modulo N
-        // We don't padd with zeros because if we do, we need to padd with at least h_kernel/2; w_kernel/2 elements
-        // plus the wrapp around
-        // which in facts leads to too much computations compared to the gain obtained with the optimal size
+        // We don't padd with zeros because if we do, we need to padd with at least h_kernel/2;
+        // w_kernel/2 elements plus the wrapp around, which in facts leads to too much
+        // computations compared to the gain obtained with the optimal size
         ws.h_fftw = h_src;
         ws.w_fftw = w_src;
         ws.h_dst = h_src;
@@ -224,19 +223,22 @@ void MathFunctions::Convolve::init(int h_src, int w_src, int h_kernel, int w_ker
         break;
     case FFTW_CIRCULAR_SAME_SHIFTED:
         // Circular convolution, modulo N, shifted by M/2
-        // We don't padd with zeros because if we do, we need to padd with at least h_kernel/2; w_kernel/2 elements
-        // plus the wrapp around
-        // which in facts leads to too much computations compared to the gain obtained with the optimal size
+        // We don't padd with zeros because if we do, we need to padd with at least h_kernel/2;
+        // w_kernel/2 elements plus the wrapp around, which in facts leads to too much
+        // computations compared to the gain obtained with the optimal size
         ws.h_fftw = h_src;
         ws.w_fftw = w_src;
         ws.h_dst = h_src;
         ws.w_dst = w_src;
-        // We copy the [h_kernel/2:h_kernel/2+h_dst-1 ; w_kernel/2:w_kernel/2+w_dst-1] real part elements of out_src
+        // We copy the [h_kernel/2:h_kernel/2+h_dst-1 ; w_kernel/2:w_kernel/2+w_dst-1]
+        // real part elements of out_src
         ws.h_offset = 0;
         ws.w_offset = 0;
         break;
     default:
-        std::cout << "Unrecognized convolution mode, possible modes are FFTW_LINEAR_FULL, FFTW_LINEAR_SAME, FFTW_LINEAR_SAME_UNPADDED, FFTW_LINEAR_VALID, FFTW_CIRCULAR_SAME, FFTW_CIRCULAR_SHIFTED " << std::endl;
+        std::cout << "Unrecognized convolution mode, possible modes are " <<
+            "FFTW_LINEAR_FULL, FFTW_LINEAR_SAME, FFTW_LINEAR_SAME_UNPADDED, FFTW_LINEAR_VALID, " <<
+            "FFTW_CIRCULAR_SAME, FFTW_CIRCULAR_SHIFTED " << std::endl;
         break;
     }
 
@@ -249,29 +251,37 @@ void MathFunctions::Convolve::init(int h_src, int w_src, int h_kernel, int w_ker
     //ws.dst = new double[ws.h_dst * ws.w_dst];
 
     // Initialization of the plans
-    ws.p_forw_src = fftw_plan_dft_r2c_2d(ws.h_fftw, ws.w_fftw, ws.in_src, (fftw_complex*)ws.out_src, FFTW_ESTIMATE);
-    if( ws.p_forw_src == nullptr ) throw RuntimeErrorException("MathFunctions::Convolve::init() -> Error! Can't initialise p_forw_src plan.");
+    ws.p_forw_src = fftw_plan_dft_r2c_2d(ws.h_fftw, ws.w_fftw, ws.in_src,
+                                         (fftw_complex*)ws.out_src, FFTW_ESTIMATE);
+    if( ws.p_forw_src == nullptr )
+        throw RuntimeErrorException(
+            "MathFunctions::Convolve::init() -> Error! Can't initialise p_forw_src plan.");
 
-    ws.p_forw_kernel = fftw_plan_dft_r2c_2d(ws.h_fftw, ws.w_fftw, ws.in_kernel, (fftw_complex*)ws.out_kernel, FFTW_ESTIMATE);
-    if( ws.p_forw_kernel == nullptr ) throw RuntimeErrorException("MathFunctions::Convolve::init() -> Error! Can't initialise p_forw_kernel plan.");
+    ws.p_forw_kernel = fftw_plan_dft_r2c_2d(ws.h_fftw, ws.w_fftw, ws.in_kernel,
+                                            (fftw_complex*)ws.out_kernel, FFTW_ESTIMATE);
+    if( ws.p_forw_kernel == nullptr )
+        throw RuntimeErrorException(
+            "MathFunctions::Convolve::init() -> Error! Can't initialise p_forw_kernel plan.");
 
     // The backward FFT takes ws.out_kernel as input
-    ws.p_back = fftw_plan_dft_c2r_2d(ws.h_fftw, ws.w_fftw, (fftw_complex*)ws.out_kernel, ws.dst_fft, FFTW_ESTIMATE);
-    if( ws.p_back == nullptr ) throw RuntimeErrorException("MathFunctions::Convolve::init() -> Error! Can't initialise p_back plan.");
-
-
+    ws.p_back = fftw_plan_dft_c2r_2d(
+        ws.h_fftw, ws.w_fftw, (fftw_complex*)ws.out_kernel, ws.dst_fft, FFTW_ESTIMATE);
+    if( ws.p_back == nullptr )
+        throw RuntimeErrorException(
+            "MathFunctions::Convolve::init() -> Error! Can't initialise p_back plan.");
 }
 
 
 /* ************************************************************************* */
 // initialise input and output arrays for fast Fourier transformation
 /* ************************************************************************* */
-void MathFunctions::Convolve::fftw_circular_convolution(const double2d_t& src, const double2d_t& kernel)
+
+void MathFunctions::Convolve::fftw_circular_convolution(
+    const double2d_t& src, const double2d_t& kernel)
 {
     if(ws.h_fftw <= 0 || ws.w_fftw <= 0)
-    {
-        throw RuntimeErrorException("MathFunctions::Convolve::fftw_convolve() -> Panic! Initialisation is missed.");
-    }
+        throw RuntimeErrorException(
+            "MathFunctions::Convolve::fftw_convolve() -> Panic! Initialisation is missed.");
 
     double * ptr, *ptr_end, *ptr2;
 
@@ -299,7 +309,9 @@ void MathFunctions::Convolve::fftw_circular_convolution(const double2d_t& src, c
     // Compute the element-wise product on the packed terms
     // Let's put the element wise products in ws.in_kernel
     double re_s, im_s, re_k, im_k;
-    for(ptr = ws.out_src, ptr2 = ws.out_kernel, ptr_end = ws.out_src+2*ws.h_fftw * (ws.w_fftw/2+1); ptr != ptr_end ; ++ptr, ++ptr2)
+    for(ptr = ws.out_src,
+            ptr2 = ws.out_kernel,
+            ptr_end = ws.out_src+2*ws.h_fftw * (ws.w_fftw/2+1); ptr != ptr_end ; ++ptr, ++ptr2)
     {
         re_s = *ptr;
         im_s = *(++ptr);
@@ -323,6 +335,7 @@ void MathFunctions::Convolve::fftw_circular_convolution(const double2d_t& src, c
 // find a number closest to the given one, which  can be factorised according
 // to fftw3 favorite factorisation
 /* ************************************************************************* */
+
 int MathFunctions::Convolve::find_closest_factor(int n)
 {
     if(is_optimal(n) ) {
@@ -350,5 +363,3 @@ bool MathFunctions::Convolve::is_optimal(int n)
     if(ntest==1) return true;
     return false;
 }
-
-

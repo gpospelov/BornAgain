@@ -11,8 +11,8 @@ from bornagain import degree, angstrom, nanometer
 
 def get_sample():
     """
-    Build and return the sample representing cylinders and prisms on top of
-    substrate without interference. Sample is made for fixed set of parameters.
+    Returns a sample with uncorrelated cylinders and prisms on a substrate.
+    Parameter set is fixed.
     """
     # defining materials
     m_air = ba.HomogeneousMaterial("Air", 0.0, 0.0)
@@ -45,7 +45,8 @@ def get_simulation():
     Create and return GISAXS simulation with beam and detector defined
     """
     simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(100, -1.0*degree, 1.0*degree, 100, 0.0*degree, 2.0*degree)
+    simulation.setDetectorParameters(100, -1.0*degree, 1.0*degree,
+                                     100, 0.0*degree, 2.0*degree)
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
     return simulation
 
@@ -73,16 +74,17 @@ def run_simulations():
     results.append(simulation.getIntensityData())
 
     # simulation #2
-    # one sample parameter (height of the cylinder) is changed using exact parameter name
+    # one sample parameter (cylinder height) is changed using exact parameter name
     sample.setParameterValue(
-        "/MultiLayer/Layer0/ParticleLayout/Particle0/Cylinder/Height", 10.0*nanometer)
+        "/MultiLayer/Layer0/ParticleLayout/Particle0/Cylinder/Height",
+        10.0*nanometer)
 
     simulation.setSample(sample)
     simulation.runSimulation()
     results.append(simulation.getIntensityData())
 
     # simulation #3
-    # all parameters matching criteria will be changed (height of the cylinder in this case)
+    # all parameters matching criteria will be changed (cylinder height in this case)
     sample.setParameterValue("*/Cylinder/Height", 100.0*nanometer)
     simulation.setSample(sample)
     simulation.runSimulation()
@@ -91,7 +93,7 @@ def run_simulations():
     # simulation #4
     # all parameters which are matching criteria will be changed
     sample.setParameterValue("*/Cylinder/Height", 10.0*nanometer)
-    # both ba.FormFactorPrism3/half_side and ba.FormFactorPrism3/height will be set to 10 nanometer
+    # set ba.FormFactorPrism3/half_side and ba.FormFactorPrism3/height to 10 nm
     sample.setParameterValue("*/Prism3/*", 10.0*nanometer)
     simulation.setSample(sample)
     simulation.runSimulation()
@@ -107,8 +109,11 @@ def draw_results(results):
     plt.figure(1)
     for nplot, hist in enumerate(results):
         plt.subplot(2, 2, nplot+1)
-        plt.imshow(hist.getArray(), norm=matplotlib.colors.LogNorm(1, hist.getMaximum()),
-                   extent=[hist.getXmin()/degree, hist.getXmax()/degree, hist.getYmin()/degree, hist.getYmax()/degree])
+        plt.imshow(
+            hist.getArray(),
+            norm=matplotlib.colors.LogNorm(1, hist.getMaximum()),
+            extent=[hist.getXmin()/degree, hist.getXmax()/degree,
+                    hist.getYmin()/degree, hist.getYmax()/degree])
 
     plt.show()
 
@@ -116,5 +121,3 @@ def draw_results(results):
 if __name__ == '__main__':
     results = run_simulations()
     draw_results(results)
-
-

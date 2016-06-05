@@ -19,41 +19,39 @@
 #include <algorithm>
 
 MaskCoordinateFunction::MaskCoordinateFunction(size_t rank)
-: m_rank(rank)
-, m_invert(false)
+    : m_rank(rank)
+    , m_invert(false)
 {
 }
 
 MaskCoordinateFunction* MaskCoordinateFunction::clone() const
 {
-    MaskCoordinateFunction *p_clone = new MaskCoordinateFunction(m_rank);
+    MaskCoordinateFunction* p_clone = new MaskCoordinateFunction(m_rank);
     p_clone->setInvertFlag(m_invert);
     return p_clone;
 }
 
 bool MaskCoordinateFunction::isMasked(size_t rank, const int* coordinates) const
 {
-    if (rank != m_rank) {
+    if (rank != m_rank)
         throw LogicErrorException("Mask function must have same rank as data structure");
-    }
     if (m_invert) {
         return !isInStandardMaskedArea(coordinates);
-    }
-    else {
+    } else {
         return isInStandardMaskedArea(coordinates);
     }
 }
 
-bool MaskCoordinateFunction::isInStandardMaskedArea(const int* coordinates) const
+bool MaskCoordinateFunction::isInStandardMaskedArea(const int* /* coordinates */) const
 {
-    (void)coordinates;
     return false;
 }
 
-MaskCoordinateRectangleFunction::MaskCoordinateRectangleFunction(size_t rank, const int* minima, const int* maxima)
-: MaskCoordinateFunction(rank)
-, m_minima(0)
-, m_maxima(0)
+MaskCoordinateRectangleFunction::MaskCoordinateRectangleFunction(
+    size_t rank, const int* minima, const int* maxima)
+    : MaskCoordinateFunction(rank)
+    , m_minima(0)
+    , m_maxima(0)
 {
     m_minima = new int[m_rank];
     m_maxima = new int[m_rank];
@@ -63,7 +61,8 @@ MaskCoordinateRectangleFunction::MaskCoordinateRectangleFunction(size_t rank, co
 
 MaskCoordinateRectangleFunction* MaskCoordinateRectangleFunction::clone() const
 {
-    MaskCoordinateRectangleFunction *p_clone = new MaskCoordinateRectangleFunction(m_rank, m_minima, m_maxima);
+    MaskCoordinateRectangleFunction *p_clone =
+        new MaskCoordinateRectangleFunction(m_rank, m_minima, m_maxima);
     p_clone->setInvertFlag(m_invert);
     return p_clone;
 }
@@ -83,10 +82,11 @@ bool MaskCoordinateRectangleFunction::isInStandardMaskedArea(const int* coordina
     return true;
 }
 
-MaskCoordinateEllipseFunction::MaskCoordinateEllipseFunction(size_t rank, const int* center, const int* radii)
-: MaskCoordinateFunction(rank)
-, m_center(0)
-, m_radii(0)
+MaskCoordinateEllipseFunction::MaskCoordinateEllipseFunction(
+    size_t rank, const int* center, const int* radii)
+    : MaskCoordinateFunction(rank)
+    , m_center(0)
+    , m_radii(0)
 {
     m_center = new int[m_rank];
     m_radii = new int[m_rank];
@@ -96,7 +96,8 @@ MaskCoordinateEllipseFunction::MaskCoordinateEllipseFunction(size_t rank, const 
 
 MaskCoordinateEllipseFunction* MaskCoordinateEllipseFunction::clone() const
 {
-    MaskCoordinateEllipseFunction *p_clone = new MaskCoordinateEllipseFunction(m_rank, m_center, m_radii);
+    MaskCoordinateEllipseFunction *p_clone =
+        new MaskCoordinateEllipseFunction(m_rank, m_center, m_radii);
     p_clone->setInvertFlag(m_invert);
     return p_clone;
 }

@@ -1,10 +1,12 @@
 """
 Two parameter fit of cylinders.
-In this example we are trying to find cylinder's height and radius using chain of minimizers.
+In this example we are trying to find cylinder's height and radius
+using chain of minimizers.
 
-During the first fit round Genetic minimizer will be used. It will roughly look for possible local minimas.
-After it is done, the second Minuit2 minimizer will continue to find the precise location of best minima
-found on previous step.
+During the first fit round Genetic minimizer will be used.
+It will roughly look for possible local minimas.
+After it is done, the second Minuit2 minimizer will continue
+to find the precise location of best minima found on previous step.
 """
 
 from __future__ import print_function
@@ -18,8 +20,7 @@ from bornagain import degree, angstrom, nanometer
 
 def get_sample(radius=5*nanometer, height=5*nanometer):
     """
-    Build the sample representing cylinders and pyramids on top of
-    substrate without interference.
+    Returns a sample with uncorrelated cylinders and pyramids on a substrate.
     """
     m_air = ba.HomogeneousMaterial("Air", 0.0, 0.0)
     m_substrate = ba.HomogeneousMaterial("Substrate", 6e-6, 2e-8)
@@ -41,13 +42,13 @@ def get_sample(radius=5*nanometer, height=5*nanometer):
     return multi_layer
 
 
-
 def get_simulation():
     """
-    Create and return GISAXS simulation with beam and detector defined
+    Returns a GISAXS simulation with beam and detector defined.
     """
     simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(100, 0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree)
+    simulation.setDetectorParameters(100, 0.0*degree, 2.0*degree,
+                                     100, 0.0*degree, 2.0*degree)
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
     return simulation
 
@@ -94,17 +95,23 @@ def run_fitting():
     fit_suite.attachObserver(draw_observer)
 
     # setting fitting parameters with starting values
-    # Here we select starting values being quite far from true values to puzzle our minimizer's as much as possible
-    fit_suite.addFitParameter("*Height", 1.*nanometer, ba.AttLimits.limited(0.01, 30.), 0.04*nanometer)
-    fit_suite.addFitParameter("*Radius", 20.*nanometer, ba.AttLimits.limited(0.01, 30.), 0.06*nanometer)
+    # Here we select starting values being quite far from true values
+    # to puzzle our minimizer's as much as possible
+    fit_suite.addFitParameter(
+        "*Height", 1.*nanometer, ba.AttLimits.limited(0.01, 30.), 0.04*nanometer)
+    fit_suite.addFitParameter(
+        "*Radius", 20.*nanometer, ba.AttLimits.limited(0.01, 30.), 0.06*nanometer)
 
-    # Now we create first fig strategy which will run first minimization round using Genetic minimizer.
-    # Genetic minimizer is able to explore large parameter space without being trapped by some local minima.
+    # Now we create first fig strategy which will run first minimization round
+    # using the Genetic minimizer.
+    # The Genetic minimizer is able to explore large parameter space
+    # without being trapped by some local minima.
     strategy1 = ba.FitStrategyAdjustMinimizer("Genetic")
     strategy1.getMinimizerOptions().setMaxIterations(3)
     fit_suite.addFitStrategy(strategy1)
 
-    # Second fit strategy will use another minimizer. It starts from best parameters found in previous minimization
+    # Second fit strategy will use another minimizer.
+    # It starts from best parameters found in previous minimization
     # and then continues until fit converges.
     strategy2 = ba.FitStrategyAdjustMinimizer("Minuit2", "Migrad")
     fit_suite.addFitStrategy(strategy2)
@@ -122,4 +129,3 @@ def run_fitting():
 if __name__ == '__main__':
     run_fitting()
     plt.show()
-

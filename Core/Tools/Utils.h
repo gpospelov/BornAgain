@@ -36,7 +36,8 @@ public:
     //! Parse double values from string to vector of double.
     static vdouble1d_t parse_doubles(const std::string& str);
 
-    //! assuming that string consist of doubles return new string where doubles are rounded according to the precision
+    //! assuming that string consist of doubles return new string
+    //! where doubles are rounded according to the precision
     static std::string round_doubles(const std::string& str, int precision);
 
     //! Returns true if text matches pattern with wildcards '*' and '?'.
@@ -48,7 +49,8 @@ public:
                                           const std::string& delimeter);
 
     //! replace all occurences of items from string text with delimeter
-    static void replaceItemsFromString(std::string &text, const std::vector<std::string> &items, const std::string &replacement=std::string(""));
+    static void replaceItemsFromString(std::string &text, const std::vector<std::string> &items,
+                                       const std::string &replacement=std::string(""));
 
     //! return string representing scientific double with given precision
     static std::string getScientificDoubleString(double value, size_t precision = 4);

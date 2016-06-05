@@ -58,7 +58,8 @@ public:
     const OutputData<double>* getOutputData() const;
 
     //! Returns clone of the detector intensity map with detector resolution applied
-    OutputData<double>* getDetectorIntensity(IDetector2D::EAxesUnits units_type = IDetector2D::DEFAULT) const;
+    OutputData<double>* getDetectorIntensity(
+        IDetector2D::EAxesUnits units_type = IDetector2D::DEFAULT) const;
 
     //! Returns clone of the detector intensity map with detector resolution applied in the form
     //! of 2D histogram.

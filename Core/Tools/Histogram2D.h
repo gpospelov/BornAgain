@@ -50,16 +50,17 @@ public:
     //! @param nbinsy number of bins on Y-axis
     //! @param ybins Array of size nbins+1 containing low-edges for each
     //! bin and upper edge of last bin.
-    Histogram2D(int nbinsx, const std::vector<double> &xbins, int nbinsy, const std::vector<double> &ybins);
+    Histogram2D(int nbinsx, const std::vector<double>& xbins,
+                int nbinsy, const std::vector<double>& ybins);
 
     //! Constructor for 2D histogram with custom axes
-    Histogram2D(const IAxis &axis_x, const IAxis &axis_y);
+    Histogram2D(const IAxis& axis_x, const IAxis& axis_y);
 
     //! Constructor for 2D histograms from basic OutputData object
-    Histogram2D(const OutputData<double> &data);
+    Histogram2D(const OutputData<double>& data);
 
     //! Returns clone of other histogram
-    Histogram2D *clone() const;
+    Histogram2D* clone() const;
 
     //! Returns the number of histogram dimensions
     size_t getRank() const { return 2;}
@@ -69,45 +70,45 @@ public:
 
     //! Project a 2D histogram into 1D histogram along X. The projection is made
     //! from all bins along y-axis.
-    Histogram1D *projectionX();
+    Histogram1D* projectionX();
 
     //! @brief Project a 2D histogram into 1D histogram along X. The projection is made
     //! from the y-bin closest to given ordinate yvalue.
     //! @param yvalue the value on y-axis at which projection is taken
-    Histogram1D *projectionX(double yvalue);
+    Histogram1D* projectionX(double yvalue);
 
     //! @brief Project a 2D histogram into 1D histogram along X. The projection is made from
     //! all y-bins corresponding to ordinate between ylow and yup.
     //! @param ylow lower edje on y-axis
     //! @param yup upper edje on y-axis
-    Histogram1D *projectionX(double ylow, double yup);
+    Histogram1D* projectionX(double ylow, double yup);
 
     //! Project a 2D histogram into 1D histogram along Y. The projection is made
     //! from all bins along x-axis.
-    Histogram1D *projectionY();
+    Histogram1D* projectionY();
 
     //! @brief Project a 2D histogram into 1D histogram along Y. The projection is made
     //! from the x-bin closest to given abscissa xvalue.
     //! @param xvalue the value on x-axis at which projection is taken
-    Histogram1D *projectionY(double xvalue);
+    Histogram1D* projectionY(double xvalue);
 
     //! @brief Project a 2D histogram into 1D histogram along Y. The projection is made from
     //! all x-bins corresponding to abscissa between xlow and xup.
     //! @param xlow lower edje on x-axis
     //! @param xup upper edje on x-axis
-    Histogram1D *projectionY(double xlow, double xup);
+    Histogram1D* projectionY(double xlow, double xup);
 
     //! Create new histogram by applying rectangular clip.
-    Histogram2D *crop(double xmin, double ymin, double xmax, double ymax);
+    Histogram2D* crop(double xmin, double ymin, double xmax, double ymax);
 
 protected:
     //! Creates projection along X. The projections is made by collecting the data in the range
     //! between [ybinlow, ybinup].
-    Histogram1D *create_projectionX(int ybinlow, int ybinup);
+    Histogram1D* create_projectionX(int ybinlow, int ybinup);
 
     //! Creates projection along Y. The projections is made by collecting the data in the range
     //! between [xbinlow, xbinup].
-    Histogram1D *create_projectionY(int xbinlow, int xbinup);
+    Histogram1D* create_projectionY(int xbinlow, int xbinup);
 };
 
 #endif

@@ -60,8 +60,8 @@ SphericalDetector *SphericalDetector::clone() const
     return new SphericalDetector(*this);
 }
 
-std::string SphericalDetector::addParametersToExternalPool(std::string path, ParameterPool *external_pool,
-                                                  int copy_number) const
+std::string SphericalDetector::addParametersToExternalPool(
+    std::string path, ParameterPool *external_pool, int copy_number) const
 {
     // add own parameters
     std::string new_path
@@ -142,7 +142,8 @@ OutputData<double> *SphericalDetector::createDetectorMap(const Beam &beam,
 std::vector<IDetector2D::EAxesUnits> SphericalDetector::getValidAxesUnits() const
 {
     std::vector<IDetector2D::EAxesUnits> result = IDetector2D::getValidAxesUnits();
-    std::vector<IDetector2D::EAxesUnits> addon = {IDetector2D::RADIANS, IDetector2D::DEGREES, IDetector2D::QYQZ};
+    std::vector<IDetector2D::EAxesUnits> addon =
+        { IDetector2D::RADIANS, IDetector2D::DEGREES, IDetector2D::QYQZ };
     result.insert(result.end(), addon.begin(), addon.end());
     return result;
 }
@@ -152,7 +153,7 @@ IDetector2D::EAxesUnits SphericalDetector::getDefaultAxesUnits() const
     return IDetector2D::RADIANS;
 }
 
-IPixelMap *SphericalDetector::createPixelMap(size_t index) const
+IPixelMap* SphericalDetector::createPixelMap(size_t index) const
 {
     const IAxis &phi_axis = getAxis(BornAgain::X_AXIS_INDEX);
     const IAxis &alpha_axis = getAxis(BornAgain::Y_AXIS_INDEX);
@@ -172,7 +173,7 @@ void SphericalDetector::print(std::ostream &ostr) const
     }
 }
 
-IAxis *SphericalDetector::createAxis(size_t index, size_t n_bins, double min, double max) const
+IAxis* SphericalDetector::createAxis(size_t index, size_t n_bins, double min, double max) const
 {
     if (max <= min) {
         throw LogicErrorException(
@@ -229,9 +230,8 @@ kvector_t AngularPixelMap::getK(double x, double y, double wavelength) const
     return Geometry::vecOfLambdaAlphaPhi(wavelength, alpha, phi);
 }
 
-double AngularPixelMap::getIntegrationFactor(double x, double y) const
+double AngularPixelMap::getIntegrationFactor(double /* x */, double y) const
 {
-    (void)x;
     if (m_dalpha==0.0) return 1.0;
     double alpha = m_alpha + y*m_dalpha;
     return std::cos(alpha)*m_dalpha/(std::sin(m_alpha+m_dalpha)-std::sin(m_alpha));

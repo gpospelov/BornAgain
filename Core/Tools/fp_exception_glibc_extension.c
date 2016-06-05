@@ -33,9 +33,10 @@ Numerics", 2004:
 
 http://lists.apple.com/archives/unix-porting/2003/May/msg00026.html
 
-Another version of the ppc legacy code is here: 
+Another version of the ppc legacy code is here:
 
-http://developer.apple.com/documentation/Performance/Conceptual/Mac_OSX_Numerics/Mac_OSX_Numerics.pdf
+http://developer.apple.com/
+documentation/Performance/Conceptual/Mac_OSX_Numerics/Mac_OSX_Numerics.pdf
 
 Terry Lambert pointed out that our naive update of the legacy
 example to Mac OS X Leopard made egregious unsupported use of
@@ -49,7 +50,7 @@ rather aborts with a diagnostic message.
 
 To compile it under Mac OS X, execute:
 
-  cc -o fe-handling fe-handling-example.c  
+  cc -o fe-handling fe-handling-example.c
 
 To compile it under Linux, execute:
 
@@ -87,7 +88,7 @@ http://graphviz.sourcearchive.com/documentation/2.16/gvrender__pango_8c-source.h
 #if DEFINED_PPC
 
 #define FE_EXCEPT_SHIFT 22  // shift flags right to get masks
-#define FM_ALL_EXCEPT    FE_ALL_EXCEPT >> FE_EXCEPT_SHIFT 
+#define FM_ALL_EXCEPT    FE_ALL_EXCEPT >> FE_EXCEPT_SHIFT
 
 /* GNU C Library:
 http://www.gnu.org/software/libc/manual/html_node/Control-Functions.html
@@ -96,7 +97,7 @@ http://www.gnu.org/software/libc/manual/html_node/Control-Functions.html
 
        The function returns a bitmask of all currently enabled
        exceptions.  It returns -1 in case of failure.
-   
+
    The excepts argument appears in other functions in fenv.h,
    and corresponds to the FE_xxx exception flag constants.  It
    is unclear whether the bitmask is for the flags or the masks.
@@ -305,19 +306,19 @@ int main (int argc, char **argv)
 {
      double s;
 //     struct sigaction act;
-// 
+//
 //     //act.sa_sigaction = (void(*))fhdl;
 //     act.sa_sigaction = reinterpret_cast<void *>(fhdl);
 //     sigemptyset (&act.sa_mask);
 //     act.sa_flags = SA_SIGINFO;
-    
+
 
 //  printf ("Old divByZero exception: 0x%08X\n", feenableexcept (FE_DIVBYZERO));
 //    printf ("Old invalid exception:   0x%08X\n", feenableexcept (FE_INVALID));
 //    printf ("New fp exception:        0x%08X\n", fegetexcept ());
 
     feenableexcept(FE_DIVBYZERO | FE_INVALID | FE_OVERFLOW);
-    
+
     // set handler
 //     if (sigaction(SIGFPE, &act, (struct sigaction *)0) != 0)
 //     {

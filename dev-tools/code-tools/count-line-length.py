@@ -9,7 +9,12 @@ totbad = 0
 nftot = 0
 nfbad = 0
 
-flist = sys.argv[1:]
+if len(sys.argv)<3:
+    print( "Usage: count-line-length <max_mum_chars_per_line> <files>" )
+    sys.exit(-1)
+
+limit = int(sys.argv[1])
+flist = sys.argv[2:]
 for fn in flist:
     # read in
     fd = open( fn, 'r' )
@@ -25,7 +30,7 @@ for fn in flist:
         if l>maxlen:
             maxlen = l
             maxwhere = i
-        if l>85:
+        if l>limit:
             nbadlin += 1
 
     if nbadlin>0:
@@ -40,7 +45,7 @@ for fn in flist:
         lworst = maxlen
         fworst = fn
 
-if nftot>0:
+if nfbad>0:
     print( "total: %i/%i lines too long, in %i/%i files, longest in %s with %i chars" %
            (totbad, totlin, nfbad, nftot, fworst, lworst) )
     sys.exit(1)

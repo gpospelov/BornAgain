@@ -143,7 +143,7 @@ complex_t MathFunctions::Bessel_J1c(const complex_t z)
     return z==0. ? 0.5 : MathFunctions::Bessel_J1_PowSer(z)/z;
 }
 
-//! Computes the complex Bessel function J0(z), using standard power series and asymptotic expansion.
+//! Computes the complex Bessel function J0(z), using power series and asymptotic expansion.
 //!
 //! Forked from unoptimized code at http://www.crbond.com/math.htm,
 //! who refers to "Computation of Special Functions", Zhang and Jin, John Wiley and Sons, 1996.
@@ -206,7 +206,7 @@ complex_t MathFunctions::Bessel_J0_PowSer(const complex_t z)
     return cj0;
 }
 
-//! Computes the complex Bessel function J1(z), using standard power series and asymptotic expansion.
+//! Computes the complex Bessel function J1(z), using power series and asymptotic expansion.
 //!
 //! Forked from same source as for Bessel_J0_PowSer
 

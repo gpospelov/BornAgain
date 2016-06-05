@@ -39,6 +39,8 @@ include(BornAgainConfiguration)
 include(GeneratePythonDocs)
 include(FuTestMacros)
 include(GoogletestWrapper)
+include(CheckExamples)
+include(CheckCode)
 
 #--- Recurse into the given subdirectories ---
 if(BORNAGAIN_USERMANUAL)

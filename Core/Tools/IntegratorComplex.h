@@ -30,7 +30,8 @@ using complex_integrand = complex_t (T::*)(double) const;
 //! Wraps an two integrators from the GNU Scientific Library.
 //! Since this class holds a persistent workspace, we need at least one instance per thread.
 //! Standard usage for integration inside a class T:
-//! - Create a handle to an integrator: 'auto integrator = make_integrator_complex(this, mem_function)'
+//! - Create a handle to an integrator:
+//!      'auto integrator = make_integrator_complex(this, mem_function)'
 //! - Call: 'integrator.integrate(lmin, lmax)'
 template <class T> class IntegratorComplex
 {
@@ -93,4 +94,3 @@ template<class T> double IntegratorComplex<T>::imag(double value) const
 }
 
 #endif // INTEGRATORCOMPLEX_H
-

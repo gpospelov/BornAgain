@@ -15,7 +15,7 @@ pilatus_npx, pilatus_npy = 981, 1043  # number of pixels
 
 def get_sample():
     """
-    Build and return the sample to calculate cylinder formfactor in Distorted Wave Born Approximation.
+    Returns a sample with uncorrelated cylinders on a substrate.
     """
     # defining materials
     m_ambience = ba.HomogeneousMaterial("Air", 0.0, 0.0)
@@ -51,7 +51,7 @@ def get_rectangular_detector():
 
 def get_simulation():
     """
-    Create and return GISAXS simulation with beam defined
+    Returns a GISAXS simulation with beam defined
     """
     simulation = ba.GISASSimulation()
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
@@ -64,10 +64,12 @@ def plot_as_colormap(hist, Title, xLabel, yLabel):
     Simple plot of intensity data as color map
     """
 
-    im = plt.imshow(hist.getArray(),
-                    norm=matplotlib.colors.LogNorm(1.0, hist.getMaximum()),
-                    extent=[hist.getXmin(), hist.getXmax(), hist.getYmin(), hist.getYmax()],
-                    aspect='auto')
+    im = plt.imshow(
+        hist.getArray(),
+        norm=matplotlib.colors.LogNorm(1.0, hist.getMaximum()),
+        extent=[hist.getXmin(), hist.getXmax(),
+                hist.getYmin(), hist.getYmax()],
+        aspect='auto')
     cb = plt.colorbar(im, pad=0.025)
     plt.xlabel(xLabel, fontsize=16)
     plt.ylabel(yLabel, fontsize=16)
@@ -88,19 +90,23 @@ def run_simulation():
     plt.subplot(2, 2, 1)
     # default units for rectangular detector are millimeters
     result = simulation.getIntensityData()
-    plot_as_colormap(result, "In default units", r'$X_{mm}$', r'$Y_{mm}$')
+    plot_as_colormap(result, "In default units",
+                     r'$X_{mm}$', r'$Y_{mm}$')
 
     plt.subplot(2, 2, 2)
     result = simulation.getIntensityData(ba.IDetector2D.NBINS)
-    plot_as_colormap(result, "In number of bins", r'$X_{nbins}$', r'$Y_{nbins}$')
+    plot_as_colormap(result, "In number of bins",
+                     r'$X_{nbins}$', r'$Y_{nbins}$')
 
     plt.subplot(2, 2, 3)
     result = simulation.getIntensityData(ba.IDetector2D.DEGREES)
-    plot_as_colormap(result, "In degrees", r'$\phi_f ^{\circ}$', r'$\alpha_f ^{\circ}$')
+    plot_as_colormap(result, "In degrees",
+                     r'$\phi_f ^{\circ}$', r'$\alpha_f ^{\circ}$')
 
     plt.subplot(2, 2, 4)
     result = simulation.getIntensityData(ba.IDetector2D.QYQZ)
-    plot_as_colormap(result, "Q-space", r'$Q_{y} [1/nm]$', r'$Q_{z} [1/nm]$')
+    plot_as_colormap(result, "Q-space",
+                     r'$Q_{y} [1/nm]$', r'$Q_{z} [1/nm]$')
 
     plt.subplots_adjust(left=0.07, right=0.97, top=0.9, bottom=0.1, hspace=0.25)
     plt.show()
@@ -108,5 +114,3 @@ def run_simulation():
 
 if __name__ == '__main__':
     run_simulation()
-
-

@@ -7,8 +7,7 @@ from bornagain import degree, angstrom, nanometer
 
 def get_sample():
     """
-    Build the sample representing cylinders and pyramids on top of
-    substrate without interference.
+    Returns a sample with uncorrelated cylinders and prisms on a substrate.
     """
     # defining materials
     m_air = ba.HomogeneousMaterial("Air", 0.0, 0.0)
@@ -38,10 +37,11 @@ def get_sample():
 
 def get_simulation():
     """
-    Create GISAXS simulation with beam and detector defined
+    Returns a GISAXS simulation with beam and detector defined
     """
     simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(100, -1.0*degree, 1.0*degree, 100, 0.0*degree, 2.0*degree)
+    simulation.setDetectorParameters(100, -1.0*degree, 1.0*degree,
+                                     100, 0.0*degree, 2.0*degree)
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
     return simulation
 
@@ -54,17 +54,22 @@ def run_fitting():
     simulation = get_simulation()
     simulation.setSample(sample)
 
-    real_data = IntensityDataIOFactory.readIntensityData('refdata_fitcylinderprisms.int.gz')
+    real_data = IntensityDataIOFactory.readIntensityData(
+        'refdata_fitcylinderprisms.int.gz')
 
     fit_suite = ba.FitSuite()
     fit_suite.addSimulationAndRealData(simulation, real_data)
     fit_suite.initPrint(10)
 
     # setting fitting parameters with starting values
-    fit_suite.addFitParameter("*Cylinder/Height", 4.*nanometer, ba.AttLimits.lowerLimited(0.01))
-    fit_suite.addFitParameter("*Cylinder/Radius", 6.*nanometer, ba.AttLimits.lowerLimited(0.01))
-    fit_suite.addFitParameter("*Prism3/Height", 4.*nanometer, ba.AttLimits.lowerLimited(0.01))
-    fit_suite.addFitParameter("*Prism3/Length", 12.*nanometer, ba.AttLimits.lowerLimited(0.01))
+    fit_suite.addFitParameter("*Cylinder/Height", 4.*nanometer,
+                              ba.AttLimits.lowerLimited(0.01))
+    fit_suite.addFitParameter("*Cylinder/Radius", 6.*nanometer,
+                              ba.AttLimits.lowerLimited(0.01))
+    fit_suite.addFitParameter("*Prism3/Height", 4.*nanometer,
+                              ba.AttLimits.lowerLimited(0.01))
+    fit_suite.addFitParameter("*Prism3/Length", 12.*nanometer,
+                              ba.AttLimits.lowerLimited(0.01))
 
     # running fit
     fit_suite.runFit()

@@ -40,7 +40,8 @@ def get_simulation():
     Create and return GISAXS simulation with beam and detector defined
     """
     simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(100, -1.0*degree, 1.0*degree, 100, 0.0*degree, 2.0*degree)
+    simulation.setDetectorParameters(100, -1.0*degree, 1.0*degree,
+                                     100, 0.0*degree, 2.0*degree)
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
     return simulation
 
@@ -74,8 +75,9 @@ def add_mask_to_simulation(simulation):
     Here we demonstrate how to add masks to the simulation.
     Only unmasked areas will be simulated and then used during the fit.
 
-    Masks can have different geometrical shapes (ba.Rectangle, ba.Ellipse, Line) with the mask value either
-    "True" (detector bin is excluded from the simulation) or False (will be simulated).
+    Masks can have different geometrical shapes (ba.Rectangle, ba.Ellipse, Line)
+    with the mask value either "True" (detector bin is excluded from the simulation)
+    or False (will be simulated).
 
     Every subsequent mask override previously defined masks in this area.
 
@@ -86,23 +88,31 @@ def add_mask_to_simulation(simulation):
     simulation.maskAll()
 
     # set mask to simulate pacman's head
-    simulation.addMask(ba.Ellipse(0.0*degree, 1.0*degree, 0.5*degree, 0.5*degree), False)
+    simulation.addMask(
+        ba.Ellipse(0.0*degree, 1.0*degree, 0.5*degree, 0.5*degree), False)
 
     # set mask for pacman's eye
-    simulation.addMask(ba.Ellipse(0.11*degree, 1.25*degree, 0.05*degree, 0.05*degree), True)
+    simulation.addMask(
+        ba.Ellipse(0.11*degree, 1.25*degree, 0.05*degree, 0.05*degree), True)
 
     # set mask for pacman's mouth
-    points = [[0.0*degree, 1.0*degree], [0.5*degree, 1.2*degree], [0.5*degree, 0.8*degree], [0.0*degree, 1.0*degree]]
+    points = [[0.0*degree, 1.0*degree], [0.5*degree, 1.2*degree],
+              [0.5*degree, 0.8*degree], [0.0*degree, 1.0*degree]]
     simulation.addMask(ba.Polygon(points), True)
 
     # giving pacman something to eat
-    simulation.addMask(ba.Rectangle(0.45*degree, 0.95*degree, 0.55*degree, 1.05*degree), False)
-    simulation.addMask(ba.Rectangle(0.61*degree, 0.95*degree, 0.71*degree, 1.05*degree), False)
-    simulation.addMask(ba.Rectangle(0.75*degree, 0.95*degree, 0.85*degree, 1.05*degree), False)
+    simulation.addMask(
+        ba.Rectangle(0.45*degree, 0.95*degree, 0.55*degree, 1.05*degree), False)
+    simulation.addMask(
+        ba.Rectangle(0.61*degree, 0.95*degree, 0.71*degree, 1.05*degree), False)
+    simulation.addMask(
+        ba.Rectangle(0.75*degree, 0.95*degree, 0.85*degree, 1.05*degree), False)
 
     # other mask's shapes are possible too
     # simulation.removeMasks()
-    # simulation.addMask(ba.Ellipse(0.11*degree, 1.25*degree, 1.0*degree, 0.5*degree, 45.0*degree), True) # rotated ellipse
+    # # rotated ellipse:
+    # simulation.addMask(ba.Ellipse(0.11*degree, 1.25*degree,
+    #                    1.0*degree, 0.5*degree, 45.0*degree), True)
     # simulation.addMask(Line(-1.0*degree, 0.0*degree, 1.0*degree, 2.0*degree), True)
     # simulation.addMask(ba.HorizontalLine(1.0*degree), False)
     # simulation.addMask(ba.VerticalLine(0.0*degree), False)
@@ -128,8 +138,10 @@ def run_fitting():
     fit_suite.attachObserver(draw_observer)
 
     # setting fitting parameters with starting values
-    fit_suite.addFitParameter("*/Cylinder/Radius", 6.*nanometer, ba.AttLimits.limited(4., 8.))
-    fit_suite.addFitParameter("*/Cylinder/Height", 9.*nanometer, ba.AttLimits.limited(8., 12.))
+    fit_suite.addFitParameter(
+        "*/Cylinder/Radius", 6.*nanometer, ba.AttLimits.limited(4., 8.))
+    fit_suite.addFitParameter(
+        "*/Cylinder/Height", 9.*nanometer, ba.AttLimits.limited(8., 12.))
 
     # running fit
     fit_suite.runFit()
@@ -145,4 +157,3 @@ def run_fitting():
 if __name__ == '__main__':
     run_fitting()
     plt.show()
-

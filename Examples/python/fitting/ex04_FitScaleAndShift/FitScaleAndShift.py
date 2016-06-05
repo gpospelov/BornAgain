@@ -2,7 +2,8 @@
 Fitting example: looking for background and scale factors.
 
 Real data contains some "unknown" background and scale factors.
-In the fit we are trying to find cylinder radius and height, scale and background factors.
+In the fit we are trying to find cylinder radius and height,
+scale and background factors.
 """
 
 from __future__ import print_function
@@ -43,7 +44,8 @@ def get_simulation():
     Create and return GISAXS simulation with beam and detector defined
     """
     simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(100, -1.0*degree, 1.0*degree, 100, 0.0*degree, 2.0*degree)
+    simulation.setDetectorParameters(100, -1.0*degree, 1.0*degree,
+                                     100, 0.0*degree, 2.0*degree)
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
     simulation.setBeamIntensity(1e12)
     return simulation
@@ -51,9 +53,11 @@ def get_simulation():
 
 def create_real_data():
     """
-    Generating "real" data by adding noise, background  and scale to the simulated data.
+    Generating "real" data by adding noise, background and scale
+    to the simulated data.
     Cylinder radius is set to 5nm, cylinder height to 10nm.
-    During the fit we will try to find cylinder height and radius and scale, background factors.
+    During the fit we will try to find cylinder height and radius and
+    scale, background factors.
     """
     sample = get_sample(5.0*nanometer, 10.0*nanometer)
 
@@ -67,7 +71,7 @@ def create_real_data():
     background = 100
     real_data.scale(scale)
 
-    # spoiling simulated data with the noise and adding background to produce "real" data
+    # spoil simulated data with the noise, and add background to produce "real" data
     noise_factor = 1.0
     for i in range(0, real_data.getTotalNumberOfBins()):
         amplitude = real_data.getBinContent(i)
@@ -102,13 +106,18 @@ def run_fitting():
     draw_observer = ba.DefaultFitObserver(draw_every_nth=10)
     fit_suite.attachObserver(draw_observer)
 
-    fit_suite.getFitObjects().printParameters()  # prints all defined parameters for sample and simulation
+    # print all defined parameters for sample and simulation
+    fit_suite.getFitObjects().printParameters()
 
     # setting fitting parameters with starting values
-    fit_suite.addFitParameter("*/Cylinder/Radius", 6.*nanometer, ba.AttLimits.limited(4., 8.))
-    fit_suite.addFitParameter("*/Cylinder/Height", 9.*nanometer, ba.AttLimits.limited(8., 12.))
-    fit_suite.addFitParameter("*/Normalizer/scale", 1.5, ba.AttLimits.limited(1.0, 3.0))
-    fit_suite.addFitParameter("*/Normalizer/shift", 50., ba.AttLimits.limited(1, 500.))
+    fit_suite.addFitParameter("*/Cylinder/Radius", 6.*nanometer,
+                              ba.AttLimits.limited(4., 8.))
+    fit_suite.addFitParameter("*/Cylinder/Height", 9.*nanometer,
+                              ba.AttLimits.limited(8., 12.))
+    fit_suite.addFitParameter("*/Normalizer/scale", 1.5,
+                              ba.AttLimits.limited(1.0, 3.0))
+    fit_suite.addFitParameter("*/Normalizer/shift", 50.,
+                              ba.AttLimits.limited(1, 500.))
 
     # running fit
     fit_suite.runFit()
@@ -123,4 +132,3 @@ def run_fitting():
 if __name__ == '__main__':
     run_fitting()
     plt.show()
-

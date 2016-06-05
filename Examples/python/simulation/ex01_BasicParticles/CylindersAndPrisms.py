@@ -13,8 +13,7 @@ alpha_min, alpha_max = 0.0, 2.0
 
 def get_sample():
     """
-    Build and return the sample representing cylinders and prisms on top of
-    substrate without interference.
+    Returns a sample with uncorrelated cylinders and prisms on a substrate.
     """
     # defining materials
     m_air = ba.HomogeneousMaterial("Air", 0.0, 0.0)
@@ -45,10 +44,11 @@ def get_sample():
 
 def get_simulation():
     """
-    Create and return GISAXS simulation with beam and detector defined
+    Returns a GISAXS simulation with beam and detector defined.
     """
     simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(100, phi_min*degree, phi_max*degree, 100, alpha_min*degree, alpha_max*degree)
+    simulation.setDetectorParameters(100, phi_min*degree, phi_max*degree,
+                                     100, alpha_min*degree, alpha_max*degree)
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
     return simulation
 
@@ -63,10 +63,12 @@ def run_simulation():
     simulation.runSimulation()
     result = simulation.getIntensityData()
 
-    im = plt.imshow(result.getArray(),
-                    norm=matplotlib.colors.LogNorm(1.0, result.getMaximum()),
-                    extent=[result.getXmin()/degree, result.getXmax()/degree, result.getYmin()/degree, result.getYmax()/degree],
-                    aspect='auto')
+    im = plt.imshow(
+        result.getArray(),
+        norm=matplotlib.colors.LogNorm(1.0, result.getMaximum()),
+        extent=[result.getXmin()/degree, result.getXmax()/degree,
+                result.getYmin()/degree, result.getYmax()/degree],
+        aspect='auto')
     cb = plt.colorbar(im)
     cb.set_label(r'Intensity (arb. u.)', size=16)
     plt.xlabel(r'$\phi_f (^{\circ})$', fontsize=16)
@@ -76,6 +78,3 @@ def run_simulation():
 
 if __name__ == '__main__':
     run_simulation()
-
-
-

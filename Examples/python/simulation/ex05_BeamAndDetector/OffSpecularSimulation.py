@@ -15,7 +15,8 @@ alpha_i_min, alpha_i_max = 0.0, 10.0  # incoming beam
 
 def get_sample():
     """
-    Build and return the sample infinitely long boxes at 1D lattice
+    Returns a sample with a grating on a substrate,
+    modelled by infinitely long boxes forming a 1D lattice.
     """
     # defining materials
     m_ambience = ba.HomogeneousMaterial("Air", 0.0, 0.0)
@@ -25,7 +26,8 @@ def get_sample():
     # collection of particles
     lattice_length = 100.0*nanometer
     lattice_rotation_angle = 0.0*degree
-    interference = ba.InterferenceFunction1DLattice(lattice_length, lattice_rotation_angle)
+    interference = ba.InterferenceFunction1DLattice(
+        lattice_length, lattice_rotation_angle)
     pdf = ba.FTDecayFunction1DCauchy(1e+6)
     interference.setDecayFunction(pdf)
 
@@ -49,12 +51,14 @@ def get_sample():
 
 def get_simulation():
     """
-    Create and return off-specular simulation with beam and detector defined
+    Returns an off-specular simulation with beam and detector defined.
     """
     simulation = ba.OffSpecSimulation()
-    simulation.setDetectorParameters(20, phi_f_min*degree, phi_f_max*degree, 200, alpha_f_min*degree, alpha_f_max*degree)
-    # defining the beam  with incidence alpha_i varied between alpha_i_min and alpha_i_max
-    alpha_i_axis = ba.FixedBinAxis("alpha_i", 200, alpha_i_min*degree, alpha_i_max*degree)
+    simulation.setDetectorParameters(20, phi_f_min*degree, phi_f_max*degree,
+                                     200, alpha_f_min*degree, alpha_f_max*degree)
+    # define the beam with alpha_i varied between alpha_i_min and alpha_i_max
+    alpha_i_axis = ba.FixedBinAxis(
+        "alpha_i", 200, alpha_i_min*degree, alpha_i_max*degree)
     simulation.setBeamParameters(1.0*angstrom, alpha_i_axis, 0.0*degree)
     simulation.setBeamIntensity(1e9)
     return simulation
@@ -71,10 +75,12 @@ def run_simulation():
     result = simulation.getIntensityData()
 
     # showing the result
-    im = plt.imshow(result.getArray(),
-                    norm=matplotlib.colors.LogNorm(1.0, result.getMaximum()),
-                    extent=[result.getXmin()/degree, result.getXmax()/degree, result.getYmin()/degree, result.getYmax()/degree],
-                    aspect='auto')
+    im = plt.imshow(
+        result.getArray(),
+        norm=matplotlib.colors.LogNorm(1.0, result.getMaximum()),
+        extent=[result.getXmin()/degree, result.getXmax()/degree,
+                result.getYmin()/degree, result.getYmax()/degree],
+        aspect='auto')
     cb = plt.colorbar(im)
     cb.set_label(r'Intensity (arb. u.)', size=16)
     plt.xlabel(r'$\phi_f (^{\circ})$', fontsize=16)

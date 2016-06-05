@@ -13,7 +13,8 @@ alpha_min, alpha_max = 0.0, 2.5
 
 def get_sample():
     """
-    Build and return the sample representing the cosine ripple in the framework of the 2D Lattice.
+    Returns a sample with cosine ripples on a substrate.
+    The structure is modelled as a 2D Lattice.
     """
     # defining materials
     m_ambience = ba.HomogeneousMaterial("Air", 0.0, 0.0)
@@ -27,8 +28,10 @@ def get_sample():
     particle_layout = ba.ParticleLayout()
     particle_layout.addParticle(ripple, 1.0)
 
-    interference = ba.InterferenceFunction2DLattice(200.0*nanometer, 50.0*nanometer, 90.0*degree, 0.0*degree)
-    pdf = ba.FTDecayFunction2DCauchy(1000.*nanometer/2./numpy.pi, 100.*nanometer/2./numpy.pi)
+    interference = ba.InterferenceFunction2DLattice(
+        200.0*nanometer, 50.0*nanometer, 90.0*degree, 0.0*degree)
+    pdf = ba.FTDecayFunction2DCauchy(
+        1000.*nanometer/2./numpy.pi, 100.*nanometer/2./numpy.pi)
     interference.setDecayFunction(pdf)
     particle_layout.addInterferenceFunction(interference)
 
@@ -48,7 +51,8 @@ def get_simulation():
     characterizing the input beam and output detector
     """
     simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(100, phi_min*degree, phi_max*degree, 100, alpha_min*degree, alpha_max*degree)
+    simulation.setDetectorParameters(100, phi_min*degree, phi_max*degree,
+                                     100, alpha_min*degree, alpha_max*degree)
     simulation.setBeamParameters(1.6*angstrom, 0.3*degree, 0.0*degree)
     return simulation
 
@@ -64,10 +68,12 @@ def run_simulation():
     result = simulation.getIntensityData()
 
     # showing the result
-    im = plt.imshow(result.getArray(),
-                    norm=matplotlib.colors.LogNorm(1.0, result.getMaximum()),
-                    extent=[result.getXmin()/degree, result.getXmax()/degree, result.getYmin()/degree, result.getYmax()/degree],
-                    aspect='auto')
+    im = plt.imshow(
+        result.getArray(),
+        norm=matplotlib.colors.LogNorm(1.0, result.getMaximum()),
+        extent=[result.getXmin()/degree, result.getXmax()/degree,
+                result.getYmin()/degree, result.getYmax()/degree],
+        aspect='auto')
     cb = plt.colorbar(im)
     cb.set_label(r'Intensity (arb. u.)', size=16)
     plt.xlabel(r'$\phi_f (^{\circ})$', fontsize=16)
@@ -77,4 +83,3 @@ def run_simulation():
 
 if __name__ == '__main__':
     run_simulation()
-

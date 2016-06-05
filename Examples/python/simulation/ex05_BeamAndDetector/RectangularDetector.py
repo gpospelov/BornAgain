@@ -1,6 +1,6 @@
 """
 Simulation with rectangular detector. Pilatus3-1M detector is used as an example.
-Results will be compared against simulation  with spherical detector.
+Results will be compared against simulation with spherical detector.
 """
 import numpy
 import matplotlib
@@ -16,7 +16,7 @@ pilatus_npx, pilatus_npy = 981, 1043  # number of pixels
 
 def get_sample():
     """
-    Build and return the sample to calculate cylinder formfactor in Distorted Wave Born Approximation.
+    Returns a sample with cylinderical particles on a substrate.
     """
     # defining materials
     m_ambience = ba.HomogeneousMaterial("Air", 0.0, 0.0)
@@ -41,7 +41,7 @@ def get_sample():
 
 def get_spherical_detector():
     """
-    Returns spherical detector roughly representing our PILATUS detector
+    Returns a spherical detector roughly approximating our PILATUS detector
     """
     n_phi = pilatus_npx
     n_alpha = pilatus_npy
@@ -51,12 +51,13 @@ def get_spherical_detector():
     phi_max = numpy.arctan(width/2./detector_distance)
     alpha_min = 0.0
     alpha_max = numpy.arctan(height/detector_distance)
-    return ba.SphericalDetector(n_phi, phi_min, phi_max, n_alpha, alpha_min, alpha_max)
+    return ba.SphericalDetector(
+        n_phi, phi_min, phi_max, n_alpha, alpha_min, alpha_max)
 
 
 def get_rectangular_detector():
     """
-    Returns rectangular detector representing our PILATUS detector
+    Returns a rectangular detector representing our PILATUS detector
     """
     width = pilatus_npx*pilatus_pixel_size
     height = pilatus_npy*pilatus_pixel_size
@@ -67,7 +68,7 @@ def get_rectangular_detector():
 
 def get_simulation():
     """
-    Create and return GISAXS simulation with beam defined
+    Return a GISAXS simulation with defined beam
     """
     simulation = ba.GISASSimulation()
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
@@ -82,10 +83,12 @@ def plot_results(result_sph, result_rect):
 
     # showing  result of spherical detector simulation
     plt.subplot(1, 3, 1)
-    im = plt.imshow(result_sph.getArray(),
-                    norm=matplotlib.colors.LogNorm(1.0, result_sph.getMaximum()),
-                    extent=[result_sph.getXmin()/degree, result_sph.getXmax()/degree, result_sph.getYmin()/degree, result_sph.getYmax()/degree],
-                    aspect='auto')
+    im = plt.imshow(
+        result_sph.getArray(),
+        norm=matplotlib.colors.LogNorm(1.0, result_sph.getMaximum()),
+        extent=[result_sph.getXmin()/degree, result_sph.getXmax()/degree,
+                result_sph.getYmin()/degree, result_sph.getYmax()/degree],
+        aspect='auto')
     cb = plt.colorbar(im, pad=0.025)
     plt.xlabel(r'$\phi_f ^{\circ}$', fontsize=16)
     plt.ylabel(r'$\alpha_f ^{\circ}$', fontsize=16)
@@ -93,22 +96,26 @@ def plot_results(result_sph, result_rect):
 
     # showing  result of rectangular detector simulation
     plt.subplot(1, 3, 2)
-    im = plt.imshow(result_rect.getArray(),
-                    norm=matplotlib.colors.LogNorm(1.0, result_rect.getMaximum()),
-                    extent=[result_rect.getXmin(), result_rect.getXmax(), result_rect.getYmin(), result_rect.getYmax()],
-                    aspect='auto')
+    im = plt.imshow(
+        result_rect.getArray(),
+        norm=matplotlib.colors.LogNorm(1.0, result_rect.getMaximum()),
+        extent=[result_rect.getXmin(), result_rect.getXmax(),
+                result_rect.getYmin(), result_rect.getYmax()],
+        aspect='auto')
     cb = plt.colorbar(im, pad = 0.025)
     plt.xlabel('X, mm', fontsize=12)
     plt.ylabel('Y, mm', fontsize=12)
     plt.title("Rectangular detector")
 
-    # showing relative difference between two plots (sph[i]-rect[i])/rect[i] for every detector pixel
+    # show relative difference between two plots (sph[i]-rect[i])/rect[i]
+    # for every detector pixel
     diff = result_sph.relativeDifferenceHistogram(result_rect)
     plt.subplot(1, 3, 3)
-    im = plt.imshow(diff.getArray(),
-                    norm=matplotlib.colors.LogNorm(1e-06, 1.0),
-                    extent=[diff.getXmin(), diff.getXmax(), diff.getYmin(), diff.getYmax()],
-                    aspect='auto')
+    im = plt.imshow(
+        diff.getArray(),
+        norm=matplotlib.colors.LogNorm(1e-06, 1.0),
+        extent=[diff.getXmin(), diff.getXmax(), diff.getYmin(), diff.getYmax()],
+        aspect='auto')
     cb = plt.colorbar(im, pad=0.025)
     plt.xlabel('X, mm', fontsize=12)
     plt.ylabel('Y, mm', fontsize=12)
@@ -140,5 +147,3 @@ def run_simulation():
 
 if __name__ == '__main__':
     run_simulation()
-
-

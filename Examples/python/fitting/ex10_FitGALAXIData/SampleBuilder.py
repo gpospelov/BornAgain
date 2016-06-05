@@ -1,5 +1,6 @@
 """
-3 layers system (substrate, teflon, air). Air layer is populated with spheres with some size distribution.
+3 layers system (substrate, teflon, air).
+Air layer is populated with spheres with some size distribution.
 """
 import bornagain as ba
 import ctypes
@@ -44,19 +45,24 @@ class MySampleBuilder(ba.ISampleBuilder):
         nparticles = 20
         nfwhm = 2.0
         sphere_ff = ba.FormFactorFullSphere(self.radius.value)
-        # sphere_ff = ba.FormFactorTruncatedSphere(self.radius.value, self.radius.value*1.5)
+        # sphere_ff = ba.FormFactorTruncatedSphere(
+        #    self.radius.value, self.radius.value*1.5)
 
         sphere = ba.Particle(m_Ag, sphere_ff)
-        position = ba.kvector_t(0*ba.nanometer, 0*ba.nanometer, -1.0*self.hmdso_thickness.value)
+        position = ba.kvector_t(0*ba.nanometer, 0*ba.nanometer,
+                                -1.0*self.hmdso_thickness.value)
         sphere.setPosition(position)
         ln_distr = ba.DistributionLogNormal(self.radius.value, self.sigma.value)
-        par_distr = ba.ParameterDistribution("/Particle/FullSphere/Radius", ln_distr, nparticles, nfwhm)
-        # par_distr = ba.ParameterDistribution("/Particle/TruncatedSphere/Radius", ln_distr, nparticles, nfwhm)
+        par_distr = ba.ParameterDistribution(
+            "/Particle/FullSphere/Radius", ln_distr, nparticles, nfwhm)
+        # par_distr = ba.ParameterDistribution(
+        #    "/Particle/TruncatedSphere/Radius", ln_distr, nparticles, nfwhm)
         # par_distr.linkParameter("/Particle/TruncatedSphere/Height")
         part_coll = ba.ParticleDistribution(sphere, par_distr)
 
         # interference function
-        interference = ba.InterferenceFunctionRadialParaCrystal(self.distance.value, 1e6*ba.nanometer)
+        interference = ba.InterferenceFunctionRadialParaCrystal(
+            self.distance.value, 1e6*ba.nanometer)
         interference.setKappa(self.kappa.value)
         interference.setDomainSize(20000.0)
         pdf = ba.FTDistribution1DGauss(self.disorder.value)

@@ -46,13 +46,14 @@ class CustomFormFactor(ba.IFormFactorBorn):
         qxhL = 0.5*q.x()*self.L
         qyhL = 0.5*q.y()*self.L
         return 0.5*self.H*self.L**2*cmath.exp(complex(0.,1.)*qzhH)*sinc(qzhH)*
-            (sinc(0.5*qyhL)*(sinc(qxhL)-0.5*sinc(0.5*qxhL))+sinc(0.5*qxhL)*sinc(qyhL))
+            (sinc(0.5*qyhL)*(sinc(qxhL)-0.5*sinc(0.5*qxhL))+
+             sinc(0.5*qxhL)*sinc(qyhL))
 
 
 
 def get_sample():
     """
-    Build and return the sample to calculate custom form factor in Distorted Wave Born Approximation.
+    Returns a sample with particles, having a custom form factor, on a substrate.
     """
     # defining materials
     m_ambience = ba.HomogeneousMaterial("Air", 0.0, 0.0)
@@ -77,13 +78,14 @@ def get_sample():
 
 def get_simulation():
     """
-    Create and return GISAXS simulation with beam and detector defined
+    Returns a GISAXS simulation with beam and detector defined.
     IMPORTANT NOTE:
     Multithreading should be deactivated by putting ThreadInfo.n_threads to -1
     """
     simulation = ba.GISASSimulation()
     simulation.getOptions().setNumberOfThreads(-1)
-    simulation.setDetectorParameters(100, phi_min*degree, phi_max*degree, 100, alpha_min*degree, alpha_max*degree)
+    simulation.setDetectorParameters(100, phi_min*degree, phi_max*degree,
+                                     100, alpha_min*degree, alpha_max*degree)
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
     return simulation
 
@@ -99,10 +101,12 @@ def run_simulation():
     result = simulation.getIntensityData()
 
     # showing the result
-    im = plt.imshow(result.getArray(),
-                    norm=matplotlib.colors.LogNorm(1.0, result.getMaximum()),
-                    extent=[result.getXmin()/degree, result.getXmax()/degree, result.getYmin()/degree, result.getYmax()/degree],
-                    aspect='auto')
+    im = plt.imshow(
+        result.getArray(),
+        norm=matplotlib.colors.LogNorm(1.0, result.getMaximum()),
+        extent=[result.getXmin()/degree, result.getXmax()/degree,
+                result.getYmin()/degree, result.getYmax()/degree],
+        aspect='auto')
     cb = plt.colorbar(im)
     cb.set_label(r'Intensity (arb. u.)', size=16)
     plt.xlabel(r'$\phi_f (^{\circ})$', fontsize=16)

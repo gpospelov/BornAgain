@@ -71,10 +71,10 @@ endif()
 if(APPLE)
     set(MACOSX_BUNDLE_IDENTIFIER "org.bornagainproject.BornAgain")
     configure_file("${CMAKE_SOURCE_DIR}/cmake/scripts/MacOSXBundleInfo.plist.in"
-        "${destination_runtime_configs}/Info.plist" @ONLY)
+        "${BUILD_AUTO_DIR}/Info.plist" @ONLY)
 
     set_target_properties(${executable_name}
-        PROPERTIES MACOSX_BUNDLE_INFO_PLIST ${destination_runtime_configs}/Info.plist)
+        PROPERTIES MACOSX_BUNDLE_INFO_PLIST ${BUILD_AUTO_DIR}/Info.plist)
 
     set(link_flags "-Wl,-rpath,@loader_path/../Frameworks/ -Wl,-rpath,@loader_path/../lib/BornAgain-${BornAgain_VERSION_MAJOR}.${BornAgain_VERSION_MINOR}/")
     set_target_properties(${executable_name} PROPERTIES LINK_FLAGS ${link_flags})
@@ -111,8 +111,8 @@ if(UNIX)
             DESTINATION ${destination_bundle}/Contents/Resources/
         )
         configure_file(${CMAKE_SOURCE_DIR}/cmake/modules/FixAppleBundle.cmake.in
-                       ${destination_runtime_configs}/FixAppleBundle.cmake @ONLY)
-        install(SCRIPT ${destination_runtime_configs}/FixAppleBundle.cmake COMPONENT Runtime)
+                       ${BUILD_AUTO_DIR}/FixAppleBundle.cmake @ONLY)
+        install(SCRIPT ${BUILD_AUTO_DIR}/FixAppleBundle.cmake COMPONENT Runtime)
 
     elseif(NOT BUILD_DEBIAN)
         # creating link to BornAgain gui in bin directory

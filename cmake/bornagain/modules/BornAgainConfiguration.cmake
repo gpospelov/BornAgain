@@ -35,12 +35,12 @@ endif()
 
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
-set(destination_runtime_configs ${CMAKE_BINARY_DIR}/runtime_configs)
+set(BUILD_AUTO_DIR ${CMAKE_BINARY_DIR}/auto)
 
 file(MAKE_DIRECTORY ${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
 file(MAKE_DIRECTORY ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/bornagain)
 file(MAKE_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
-file(MAKE_DIRECTORY ${destination_runtime_configs})
+file(MAKE_DIRECTORY ${BUILD_AUTO_DIR})
 
 # -----------------------------------------------------------------------------
 # file extensions
@@ -95,13 +95,13 @@ message(STATUS "Destination directories: bin->${destination_bin}, lib->${destina
 
 if(BORNAGAIN_RELEASE)
     # configure a header file to pass CMake settings to the source code
-    configure_file("${CMAKE_SOURCE_DIR}/cmake/scripts/BAVersion.h.in" "${CMAKE_SOURCE_DIR}/Core/Samples/inc/BAVersion.h")
+    configure_file("${TEMPLATE_DIR}/BAVersion.h.in" "${CMAKE_SOURCE_DIR}/Core/Samples/inc/BAVersion.h")
 
     # configure Doxyfile
     configure_file("${CMAKE_SOURCE_DIR}/Doc/Doxygen/Doxyfile.in" "${CMAKE_SOURCE_DIR}/Doc/Doxygen/Doxyfile" @ONLY)
 
     # configure FindBornagain script
-    configure_file("${CMAKE_SOURCE_DIR}/cmake/scripts/FindBornAgain.cmake.in" "${CMAKE_SOURCE_DIR}/Examples/cpp/CylindersAndPrisms/modules/FindBornAgain.cmake" @ONLY)
+    configure_file("${TEMPLATE_DIR}/FindBornAgain.cmake.in" "${CMAKE_SOURCE_DIR}/Examples/cpp/CylindersAndPrisms/modules/FindBornAgain.cmake" @ONLY)
 endif()
 
 # -----------------------------------------------------------------------------
@@ -110,16 +110,16 @@ endif()
 
 set(this_bindir $BORNAGAINSYS/bin)
 set(this_libdir $BORNAGAINSYS/lib/${destination_suffix})
-configure_file("${CMAKE_SOURCE_DIR}/cmake/scripts/thisbornagain.sh.in" "${destination_runtime_configs}/thisbornagain.sh" @ONLY)
-configure_file("${CMAKE_SOURCE_DIR}/cmake/scripts/thisbornagain.csh.in" "${destination_runtime_configs}/thisbornagain.csh" @ONLY)
+configure_file("${TEMPLATE_DIR}/thisbornagain.sh.in" "${BUILD_AUTO_DIR}/thisbornagain.sh" @ONLY)
+configure_file("${TEMPLATE_DIR}/thisbornagain.csh.in" "${BUILD_AUTO_DIR}/thisbornagain.csh" @ONLY)
 
 # -----------------------------------------------------------------------------
 # configure C++ source code
 # -----------------------------------------------------------------------------
 
-configure_file("${CMAKE_SOURCE_DIR}/cmake/scripts/BAConfigure.h.in" "${destination_runtime_configs}/BAConfigure.h" @ONLY)
-configure_file("${CMAKE_SOURCE_DIR}/cmake/scripts/BAPython.h.in" "${destination_runtime_configs}/BAPython.h" @ONLY)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -I${destination_runtime_configs}")
+configure_file("${TEMPLATE_DIR}/BAConfigure.h.in" "${BUILD_AUTO_DIR}/BAConfigure.h" @ONLY)
+configure_file("${TEMPLATE_DIR}/BAPython.h.in" "${BUILD_AUTO_DIR}/BAPython.h" @ONLY)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -I${BUILD_AUTO_DIR}")
 
 # -----------------------------------------------------------------------------
 # configure postinst and prerm for the debian package
@@ -131,7 +131,7 @@ if(BUILD_DEBIAN)
         OUTPUT_VARIABLE PYTHON_SITE_PACKAGES
         OUTPUT_STRIP_TRAILING_WHITESPACE
         )
-    configure_file("${CMAKE_SOURCE_DIR}/cmake/scripts/postinst.in" "${destination_runtime_configs}/postinst" @ONLY)
-    configure_file("${CMAKE_SOURCE_DIR}/cmake/scripts/prerm.in" "${destination_runtime_configs}/prerm" @ONLY)
+    configure_file("${TEMPLATE_DIR}/postinst.in" "${BUILD_AUTO_DIR}/postinst" @ONLY)
+    configure_file("${TEMPLATE_DIR}/prerm.in" "${BUILD_AUTO_DIR}/prerm" @ONLY)
     set(CMAKE_INSTALL_RPATH "\$ORIGIN/../../lib/${destination_suffix}")
 endif(BUILD_DEBIAN)

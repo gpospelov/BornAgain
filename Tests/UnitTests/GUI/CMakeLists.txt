@@ -7,8 +7,6 @@ if(POLICY CMP0043)
     cmake_policy(SET CMP0043 NEW)
 endif()
 
-enable_testing()
-
 file(GLOB source_files "*.cpp")
 file(GLOB include_files "*.h")
 
@@ -23,7 +21,6 @@ include_directories(
     ${BornAgainFit_INCLUDE_DIRS}
 )
 
-
 set(CMAKE_AUTOMOC ON)
 
 add_executable(TestGUI ${source_files} ${include_files})
@@ -34,7 +31,7 @@ target_link_libraries(TestGUI
 
 qt5_use_modules(TestGUI Widgets Core Gui Designer PrintSupport Network Test)
 
-add_test( TestGUI TestGUI) # TestName ExeName
+add_test(TestGUI TestGUI) # TestName ExeName
 
 # add execution of TestCore just after compilation
 add_custom_command(TARGET TestGUI POST_BUILD COMMAND TestGUI)

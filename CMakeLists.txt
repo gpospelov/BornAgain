@@ -6,10 +6,11 @@ cmake_minimum_required(VERSION 2.8.12 FATAL_ERROR)
 
 project(BornAgain)
 
-# --- The version number ---
+enable_testing()
+
 include(VERSION.cmake)
 
-# --- General project settings ---
+# --- Declare project-wide user flags, and set default values ---
 option(BORNAGAIN_PYTHON "Build with python support" ON)
 option(BORNAGAIN_USE_PYTHON3 "Build against python 3.5 instead of 2.7" OFF)
 option(BORNAGAIN_GENERATE_BINDINGS "Generate python bindings during build (requires swig)" OFF)
@@ -24,14 +25,19 @@ option(BORNAGAIN_RELEASE "Special option for making release" OFF)
 option(BORNAGAIN_CRASHHANDLER "Additional machinery to send crash reports" OFF)
 option(BORNAGAIN_TIFF_SUPPORT "Tiff files read/write support" ON)
 
-#--- Including macros ---
-set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/modules)
-include(BornAgainMacros)
+#--- Include CMake macros and functions ---
+set(CMAKE_MODULE_PATH
+    ${CMAKE_SOURCE_DIR}/cmake/generic/modules
+    ${CMAKE_SOURCE_DIR}/cmake/bornagain/modules)
+set(TEMPLATE_DIR ${CMAKE_SOURCE_DIR}/cmake/bornagain/scripts)
+
+include(GetFilenameComponent) # overwrite CMake command
 include(SearchInstalledSoftware)
 include(CheckCompiler)
 include(BornAgainConfiguration)
-include(UnitTests)
 include(GeneratePythonDocs)
+include(FuTestMacros)
+include(UnitTests)
 
 #--- Recurse into the given subdirectories ---
 if(BORNAGAIN_USERMANUAL)
@@ -51,7 +57,7 @@ if(BORNAGAIN_GUI)
 endif()
 add_subdirectory(Tests/FunctionalTests)  # functional tests (make check)
 
-add_subdirectory(cmake) # trick to print an after-install message
+add_subdirectory(cmake/bornagain) # trick to print an after-install message
 
 # packaging
 include(BornAgainCPack)

@@ -96,6 +96,6 @@ void GUIFunctionalTest::createDomainSimulation()
     guiBuilder.populateInstrumentModel(instrumentModel.get(), *m_reference_simulation);
     guiBuilder.populateDocumentModel(documentModel.get(), *m_reference_simulation);
 
-    m_domain_simulation = DomainSimulationBuilder::getSimulation(
-            sampleModel.get(), instrumentModel.get(), documentModel.get());
+    m_domain_simulation = DomainSimulationBuilder::getSimulation(sampleModel->multiLayerItem(),
+            instrumentModel->instrumentItem(), documentModel->getSimulationOptionsItem());
 }

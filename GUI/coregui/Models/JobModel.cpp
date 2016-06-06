@@ -114,11 +114,9 @@ bool JobModel::hasUnfinishedJobs()
 
 void JobModel::clear()
 {
-    QMap<QString, SessionItem *> jobs = getTopItemMap(Constants::JobItemType);
-    for(auto it = jobs.begin(); it!=jobs.end(); ++it) {
-        removeJob(it.value()->index());
+    foreach (SessionItem *item, topItems(Constants::JobItemType)) {
+        removeJob(item->index());
     }
-
     SessionModel::clear();
 }
 

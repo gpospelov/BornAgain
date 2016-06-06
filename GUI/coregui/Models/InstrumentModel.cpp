@@ -31,16 +31,8 @@ InstrumentModel *InstrumentModel::createCopy(SessionItem *parent)
     return result;
 }
 
-
-//! returns list of Instruments defined in the model
-QMap<QString, SessionItem *> InstrumentModel::getInstrumentMap() const
+InstrumentItem *InstrumentModel::instrumentItem(const QString &instrument_name)
 {
-    return getTopItemMap(Constants::InstrumentType);
-}
-
-
-InstrumentItem *InstrumentModel::getInstrumentItem(const QString &instrument_name)
-{
-    return dynamic_cast<InstrumentItem *>(getTopItem(Constants::InstrumentType, instrument_name));
+    return dynamic_cast<InstrumentItem *>(topItem(Constants::InstrumentType, instrument_name));
 }
 

@@ -110,7 +110,7 @@ void TestComponentView::init_editors()
 //    m_editor2->setPresentationType(ComponentEditorFlags::SHOW_CONDENSED | ComponentEditorFlags::BROWSER_TABLE);
 //    m_editor3->setPresentationType(ComponentEditorFlags::SHOW_CONDENSED | ComponentEditorFlags::BROWSER_GROUPBOX);
 
-    m_editor1->setItem(m_model->getTopItem());
+    m_editor1->setItem(m_model->topItem());
 
 //    InstrumentModel *model = m_mainWindow->getInstrumentModel();
 //    InstrumentItem *instrument = model->getInstrumentItem();

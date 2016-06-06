@@ -104,12 +104,12 @@ public:
 
     virtual SessionModel *createCopy(SessionItem *parent = 0);
 
-    QMap<QString, SessionItem *> getTopItemMap(const QString &model_type = QString()) const;
-    SessionItem *getTopItem(const QString &model_type = QString(),
-                                  const QString &item_name = QString()) const;
-
-    QList<SessionItem *> topItems(const QString &model_type = QString(), const QModelIndex &parentIndex = QModelIndex());
-    QStringList topItemNames(const QString &model_type = QString(), const QModelIndex &parentIndex = QModelIndex());
+    SessionItem *topItem(const QString &model_type = QString(),
+                         const QString &item_name = QString()) const;
+    QList<SessionItem *> topItems(const QString &model_type = QString(),
+                                  const QModelIndex &parentIndex = QModelIndex()) const;
+    QStringList topItemNames(const QString &model_type = QString(),
+                             const QModelIndex &parentIndex = QModelIndex()) const;
 
     virtual void initFrom(SessionModel *model, SessionItem *parent);
     SessionItem* rootItem() const;

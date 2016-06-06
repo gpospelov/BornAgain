@@ -32,17 +32,6 @@
 #include <memory>
 
 
-//! Creates domain simulation from sample and instrument models. First sample and first instrument
-//! in the model will be used, if there are more than one.
-GISASSimulation *DomainSimulationBuilder::getSimulation(SampleModel *sampleModel,
-        InstrumentModel *instrumentModel, DocumentModel *documentModel)
-{
-    MultiLayerItem *sampleItem = sampleModel->getMultiLayerItem();
-    InstrumentItem *instrumentItem = instrumentModel->getInstrumentItem();
-    SimulationOptionsItem *optionsItem = documentModel->getSimulationOptionsItem();
-    return getSimulation(sampleItem, instrumentItem, optionsItem);
-}
-
 //! Creates domain simulation from sample and instrument items.
 GISASSimulation *DomainSimulationBuilder::getSimulation(const MultiLayerItem *sampleItem,
                                                         const InstrumentItem *instrumentItem,

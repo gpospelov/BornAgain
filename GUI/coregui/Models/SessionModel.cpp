@@ -444,45 +444,26 @@ SessionModel *SessionModel::createCopy(SessionItem *parent)
     throw GUIHelpers::Error("SessionModel::createCopy() -> Error. Not implemented.");
 }
 
-//! returns map of item name to SessionItem for all top level items in the model
-QMap<QString, SessionItem *> SessionModel::getTopItemMap(const QString &model_type) const
-{
-    QMap<QString, SessionItem *> result;
-    QModelIndex parentIndex;
-    for (int i_row = 0; i_row < rowCount(parentIndex); ++i_row) {
-        QModelIndex itemIndex = index(i_row, 0, parentIndex);
-        if (SessionItem *item = itemForIndex(itemIndex)) {
-            if (model_type.isEmpty()) {
-                result.insertMulti(item->itemName(), item);
-            } else {
-                if (item->modelType() == model_type) {
-                    result.insertMulti(item->itemName(), item);
-                }
-            }
-        }
-    }
-    return result;
-}
-
 //! returns top level item with given name and model type
-SessionItem *SessionModel::getTopItem(const QString &model_type,
+SessionItem *SessionModel::topItem(const QString &model_type,
                                             const QString &item_name) const
 {
-    SessionItem *result(0);
-    QMap<QString, SessionItem *> item_map = getTopItemMap(model_type);
-    if (item_map.size()) {
-        if (item_name.isEmpty()) {
-            result = item_map.first();
-        } else {
-            result = item_map[item_name];
-        }
+    QList<SessionItem *> items = topItems(model_type);
+
+    if(item_name.isEmpty())
+        return items.front();
+
+    foreach(SessionItem *item, items) {
+        if(item_name == item->itemName())
+            return item;
     }
-    return result;
+
+    return nullptr;
 }
 
 //! Returns top items which are children of parentIndex and have given model_type
 
-QList<SessionItem *> SessionModel::topItems(const QString &model_type, const QModelIndex &parentIndex)
+QList<SessionItem *> SessionModel::topItems(const QString &model_type, const QModelIndex &parentIndex) const
 {
     QList<SessionItem *> result;
     for (int i_row = 0; i_row < rowCount(parentIndex); ++i_row) {
@@ -500,7 +481,7 @@ QList<SessionItem *> SessionModel::topItems(const QString &model_type, const QMo
     return result;
 }
 
-QStringList SessionModel::topItemNames(const QString &model_type, const QModelIndex &parentIndex)
+QStringList SessionModel::topItemNames(const QString &model_type, const QModelIndex &parentIndex) const
 {
     QList<SessionItem *> items = topItems(model_type, parentIndex);
     QStringList result;

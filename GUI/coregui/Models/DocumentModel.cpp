@@ -25,6 +25,6 @@ DocumentModel::DocumentModel(QObject *parent)
 
 SimulationOptionsItem *DocumentModel::getSimulationOptionsItem()
 {
-    return dynamic_cast<SimulationOptionsItem *>(getTopItem(Constants::SimulationOptionsType));
+    return dynamic_cast<SimulationOptionsItem *>(topItem(Constants::SimulationOptionsType));
 
 }

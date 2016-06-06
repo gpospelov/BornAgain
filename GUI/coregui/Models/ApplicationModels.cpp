@@ -207,8 +207,8 @@ void ApplicationModels::createTestJob()
     optionsItem->setRunPolicy(Constants::JOB_RUN_IN_BACKGROUND);
 
     JobItem *jobItem = m_jobModel->addJob(
-                m_sampleModel->getMultiLayerItem(),
-                m_instrumentModel->getInstrumentItem(),
+                m_sampleModel->multiLayerItem(),
+                m_instrumentModel->instrumentItem(),
                 optionsItem);
 
     IHistogram *data = IntensityDataIOFactory::readIntensityData("/home/pospelov/development/BornAgain/temp/Untitled12/data_job1_0.int");

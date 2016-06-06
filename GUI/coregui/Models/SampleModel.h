@@ -32,9 +32,7 @@ public:
 
     virtual SampleModel *createCopy(SessionItem *parent = 0);
 
-    QMap<QString, SessionItem *> getSampleMap() const;
-
-    MultiLayerItem *getMultiLayerItem(const QString &item_name=QString());
+    MultiLayerItem *multiLayerItem(const QString &item_name=QString());
 
 public slots:
     void onMaterialModelChanged(const QModelIndex &first, const QModelIndex &second);

@@ -32,9 +32,7 @@ public:
 
     virtual InstrumentModel *createCopy(SessionItem *parent=0);
 
-    QMap<QString, SessionItem *> getInstrumentMap() const;
-
-    InstrumentItem *getInstrumentItem(const QString &instrument_name = QString());
+    InstrumentItem *instrumentItem(const QString &instrument_name = QString());
 };
 
 #endif

@@ -34,15 +34,9 @@ SampleModel *SampleModel::createCopy(SessionItem *parent)
     return result;
 }
 
-//! returns list of MultiLayers defined in the model
-QMap<QString, SessionItem *> SampleModel::getSampleMap() const
+MultiLayerItem *SampleModel::multiLayerItem(const QString &item_name)
 {
-    return getTopItemMap(Constants::MultiLayerType);
-}
-
-MultiLayerItem *SampleModel::getMultiLayerItem(const QString &item_name)
-{
-    return dynamic_cast<MultiLayerItem *>(getTopItem(Constants::MultiLayerType, item_name));
+    return dynamic_cast<MultiLayerItem *>(topItem(Constants::MultiLayerType, item_name));
 }
 
 void SampleModel::onMaterialModelChanged(const QModelIndex &first, const QModelIndex & /* second */)

@@ -100,7 +100,7 @@ private:
     void readFrom(QIODevice *device);
     void writeTo(QIODevice *device);
 
-    void reviseOutputData();
+    void cleanProjectDir();
 
     void disconnectModels();
     void connectModels();

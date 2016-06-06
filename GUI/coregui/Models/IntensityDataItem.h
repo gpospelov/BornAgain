@@ -83,6 +83,8 @@ public:
 
     virtual QString getSelectedAxesUnits() const;
 
+    QString fileName(const QString &projectDir);
+
 public slots:
     void setLowerX(double xmin);
     void setUpperX(double xmax);

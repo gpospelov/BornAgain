@@ -95,6 +95,14 @@ JobItem::JobItem()
 
         }
     });
+
+    mapper()->setOnPropertyChange(
+        [this](const QString &name){
+        if(name == P_NAME)
+            updateIntensityDataFileName();
+        }
+    );
+
 }
 
 JobItem::~JobItem()
@@ -244,6 +252,7 @@ void JobItem::setResults(const GISASSimulation *simulation)
     Q_ASSERT(intensityItem);
 
     JobResultsPresenter::setResults(intensityItem, simulation);
+    updateIntensityDataFileName();
 }
 
 FitSuiteItem *JobItem::fitSuiteItem()
@@ -262,6 +271,16 @@ FitParameterContainerItem *JobItem::fitParameterContainerItem()
         return item->fitParameterContainerItem();
 
     return nullptr;
+}
+
+//! Updates the name of file to store intensity data.
+
+void JobItem::updateIntensityDataFileName()
+{
+    if(IntensityDataItem *item = getIntensityDataItem()) {
+        QString newFileName = GUIHelpers::intensityDataFileName(this);
+        item->setItemValue(IntensityDataItem::P_FILE_NAME, newFileName);
+    }
 }
 
 SimulationOptionsItem *JobItem::getSimulationOptionsItem()

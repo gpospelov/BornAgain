@@ -15,10 +15,8 @@
 // ************************************************************************** //
 
 #include "RealDataModel.h"
-#include "JobResultsPresenter.h"
 #include "RealDataItem.h"
-#include "IntensityDataItem.h"
-#include "IntensityDataIOFactory.h"
+#include "ImportDataAssistant.h"
 
 RealDataModel::RealDataModel(QObject *parent)
     : SessionModel(SessionXML::RealDataModelTag, parent)
@@ -38,11 +36,11 @@ RealDataModel::RealDataModel(QObject *parent)
 
 void RealDataModel::loadNonXMLData(const QString &projectDir)
 {
-//    for (int i = 0; i < rowCount(QModelIndex()); ++i) {
-//        JobItem *jobItem = getJobItemForIndex(index(i, 0, QModelIndex()));
-//        JobResultsPresenter::loadIntensityData(jobItem, projectDir);
-//    }
-
+    for (int i = 0; i < rowCount(QModelIndex()); ++i) {
+        RealDataItem *realDataItem
+            = dynamic_cast<RealDataItem *>(itemForIndex(index(i, 0, QModelIndex())));
+        ImportDataAssistant::loadIntensityData(realDataItem, projectDir);
+    }
 }
 
 //! Saves JobItem's OutputData to the projectDir
@@ -50,14 +48,8 @@ void RealDataModel::loadNonXMLData(const QString &projectDir)
 void RealDataModel::saveNonXMLData(const QString &projectDir)
 {
     for (int i = 0; i < rowCount(QModelIndex()); ++i) {
-        SessionItem *realDataItem = itemForIndex(index(i, 0, QModelIndex()));
-        Q_ASSERT(realDataItem);
-        if(IntensityDataItem *intensityItem = dynamic_cast<IntensityDataItem *>(
-                    realDataItem->getItem(RealDataItem::T_INTENSITY_DATA))) {
-            QString filename = projectDir + QStringLiteral("/")
-                    + intensityItem->getItemValue(IntensityDataItem::P_FILE_NAME).toString();
-            IntensityDataIOFactory::writeOutputData(
-                        *intensityItem->getOutputData(), filename.toStdString());
-        }
+        RealDataItem *realDataItem
+            = dynamic_cast<RealDataItem *>(itemForIndex(index(i, 0, QModelIndex())));
+        ImportDataAssistant::saveIntensityData(realDataItem, projectDir);
     }
 }

@@ -112,7 +112,8 @@ void ProjectDocument::setApplicationModels(ApplicationModels *applicationModels)
 
 bool ProjectDocument::save()
 {
-    reviseOutputData();
+    cleanProjectDir();
+//    reviseOutputData();
     QString filename = getProjectFileName();
 
     QFile file(filename);
@@ -270,30 +271,18 @@ void ProjectDocument::writeTo(QIODevice *device)
     writer.writeEndDocument();
 }
 
-//! Adjusts name of IntensityData item to possibly changed name of JobItem. Take care of old
-//! *.int files in project directory by removing them.
-void ProjectDocument::reviseOutputData()
+//! Cleans projectDir from *.int.gz files. Done on project save.
+
+void ProjectDocument::cleanProjectDir()
 {
-    JobModel *jobModel = m_applicationModels->jobModel();
-    Q_ASSERT(jobModel);
-
-    for (int i = 0; i < jobModel->rowCount(QModelIndex()); ++i) {
-        JobItem *jobItem = jobModel->getJobItemForIndex(jobModel->index(i, 0, QModelIndex()));
-        IntensityDataItem *dataItem = jobItem->getIntensityDataItem();
-        if (dataItem) {
-            // handling case when user has renamed jobItem and we have to clean previous
-            // *.int file
-            QString filename = getProjectDir() + QStringLiteral("/")
-                    + dataItem->getItemValue(IntensityDataItem::P_FILE_NAME).toString();
-            QFile fin(filename);
-            if (fin.exists()) {
-                fin.remove();
-            }
-
-            // making new name of *.int file from jobItem name
-            QString newFileName = GUIHelpers::getIntensityFileName(QString("data_%1").arg(jobItem->itemName()));
-            dataItem->setItemValue(IntensityDataItem::P_FILE_NAME, newFileName);
-        }
+    QDir dir(getProjectDir());
+    QStringList filters("*.int.gz");
+    QStringList intensityFiles = dir.entryList(filters);
+    foreach(QString fileName, intensityFiles) {
+        QString filename = getProjectDir() + QStringLiteral("/") + fileName;
+        QFile fin(filename);
+        if (fin.exists())
+            fin.remove();
     }
 }
 

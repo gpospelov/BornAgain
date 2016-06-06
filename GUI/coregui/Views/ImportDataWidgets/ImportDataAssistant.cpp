@@ -18,6 +18,8 @@
 #include "AppSvc.h"
 #include "projectmanager.h"
 #include "IntensityDataIOFactory.h"
+#include "RealDataItem.h"
+#include "IntensityDataItem.h"
 #include <QFileDialog>
 #include <QFileInfo>
 #include "GUIHelpers.h"
@@ -56,6 +58,28 @@ OutputData<double> *ImportDataAssistant::importData(QString &baseNameOfLoadedFil
         QMessageBox::warning(0, "IO Problem", message);
     }
     return result;
+}
+
+//! Loads corresponding intensityDataItem from projectDir.
+
+void ImportDataAssistant::loadIntensityData(RealDataItem *realDataItem, const QString &projectDir)
+{
+    if(IntensityDataItem *intensityItem = realDataItem->getIntensityDataItem()) {
+        QString filename = intensityItem->fileName(projectDir);
+        auto data = IntensityDataIOFactory::readOutputData(filename.toStdString());
+        intensityItem->setOutputData(data);
+    }
+}
+
+//! Saves corresponding intensityDataItem to projectDir.
+
+void ImportDataAssistant::saveIntensityData(RealDataItem *realDataItem, const QString &projectDir)
+{
+    if(IntensityDataItem *intensityItem = realDataItem->getIntensityDataItem()) {
+        QString filename = intensityItem->fileName(projectDir);
+        IntensityDataIOFactory::writeOutputData(
+                    *intensityItem->getOutputData(), filename.toStdString());
+    }
 }
 
 

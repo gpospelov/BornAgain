@@ -99,6 +99,7 @@ public:
     FitParameterContainerItem *fitParameterContainerItem();
 
 private:
+    void updateIntensityDataFileName();
     const SimulationOptionsItem *getSimulationOptionsItem() const;
 };
 

@@ -16,6 +16,8 @@
 
 #include "GUIHelpers.h"
 #include "BAVersion.h"
+#include "JobItem.h"
+#include "RealDataItem.h"
 #include <QApplication>
 #include <QFile>
 #include <QDir>
@@ -146,16 +148,26 @@ QString getBornAgainVersionString()
 QString getValidFileName(const QString &proposed_name)
 {
     QString result = proposed_name;
-    for(QMap<QString, QString>::const_iterator it=invalidCharacterMap.begin(); it!=invalidCharacterMap.end(); ++it) {
+    for(auto it=invalidCharacterMap.begin(); it!=invalidCharacterMap.end(); ++it) {
         result.replace(it.key(), it.value());
     }
     return result;
 }
 
-QString getIntensityFileName(const QString &proposed_name)
+//! Constructs file name there intensity data should be stored in the case of JobItem.
+
+QString intensityDataFileName(JobItem *jobItem)
 {
-    QString valid_name = GUIHelpers::getValidFileName(proposed_name);
-    return QString("%1_%2.int.gz").arg(valid_name, QString::number(0));
+    QString bodyName = GUIHelpers::getValidFileName(jobItem->itemName());
+    return QString("jobdata_%1_0.int.gz").arg(bodyName);
+}
+
+//! Constructs file name there intensity data should be stored in the case of RealDataItem.
+
+QString intensityDataFileName(RealDataItem *realDataItem)
+{
+    QString bodyName = GUIHelpers::getValidFileName(realDataItem->itemName());
+    return QString("realdata_%1_0.int.gz").arg(bodyName);
 }
 
 //! parses version string into 3 numbers, returns true in the case of success

@@ -208,6 +208,12 @@ QString IntensityDataItem::getSelectedAxesUnits() const
     return combo.getValue();
 }
 
+QString IntensityDataItem::fileName(const QString &projectDir)
+{
+    return projectDir + QStringLiteral("/")
+           + getItemValue(IntensityDataItem::P_FILE_NAME).toString();
+}
+
 void IntensityDataItem::setLowerX(double xmin)
 {
     getItem(P_XAXIS)->setItemValue(BasicAxisItem::P_MIN, xmin);

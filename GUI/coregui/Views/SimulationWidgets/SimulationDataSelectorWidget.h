@@ -22,10 +22,9 @@
 
 class ApplicationModels;
 class QComboBox;
-class QPushButton;
-class QLabel;
 class MultiLayerItem;
 class InstrumentItem;
+class RealDataItem;
 
 //! The SimulationDataSelectorWidget class represents widget to select instrument, sample and
 //! real data. Located at the top of SimulationView.
@@ -39,28 +38,21 @@ public:
 
     void setApplicationModels(ApplicationModels *applicationModels);
 
-    QString getSelectedInstrumentName() const;
-    int getSelectedInstrumentIndex() const;
-
-    QString getSelectedSampleName() const;
-    int getSelectedSampleIndex() const;
+    const MultiLayerItem *selectedMultiLayerItem() const;
+    const InstrumentItem *selectedInstrumentItem() const;
+    const RealDataItem *selectedRealDataItem() const;
 
     void updateViewElements();
 
-    const MultiLayerItem *getSelectedMultiLayerItem() const;
-    const InstrumentItem *getSelectedInstrumentItem() const;
-
-
-public slots:
-    void onOpenFile();
-
 private:
-    void updateSelectionBox(QComboBox *comboBox, QStringList itemList);
+    int selectedInstrumentIndex() const;
+    int selectedSampleIndex() const;
+    int selectedRealDataIndex() const;
+    void updateSelection(QComboBox *comboBox, QStringList itemList, bool allow_none = false);
 
-    QComboBox *instrumentSelectionBox;
-    QComboBox *sampleSelectionBox;
-    QPushButton *selectRealData;
-    QLabel *pathLabel;
+    QComboBox *m_instrumentCombo;
+    QComboBox *m_sampleCombo;
+    QComboBox *m_realDataCombo;
     ApplicationModels *m_applicationModels;
 };
 

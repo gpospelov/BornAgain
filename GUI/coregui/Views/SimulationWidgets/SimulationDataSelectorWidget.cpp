@@ -18,21 +18,32 @@
 #include "ApplicationModels.h"
 #include "InstrumentModel.h"
 #include "SampleModel.h"
+#include "RealDataModel.h"
 #include "InstrumentItem.h"
 #include "MultiLayerItem.h"
+#include "RealDataItem.h"
 #include <QComboBox>
 #include <QFileDialog>
 #include <QGroupBox>
 #include <QVBoxLayout>
 #include <QLabel>
-#include <QPushButton>
+
+namespace
+{
+const QString select_instrument_tooltip
+    = "Select Instrument to simulate from those defined in Instrument View";
+const QString select_sample_tooltip
+    = "Select Sample to simulate from those defined in Sample View";
+const QString select_realdata_tooltip
+    = "Select real data to use during the fitting. \n"
+      "If None is selected, the standard simulation will be run.";
+}
 
 SimulationDataSelectorWidget::SimulationDataSelectorWidget(QWidget *parent)
     : QWidget(parent)
-    , instrumentSelectionBox(0)
-    , sampleSelectionBox(0)
-    , selectRealData(0)
-    , pathLabel(0)
+    , m_instrumentCombo(new QComboBox)
+    , m_sampleCombo(new QComboBox)
+    , m_realDataCombo(new QComboBox)
     , m_applicationModels(0)
 {
     QVBoxLayout *mainLayout = new QVBoxLayout;
@@ -42,34 +53,33 @@ SimulationDataSelectorWidget::SimulationDataSelectorWidget(QWidget *parent)
     // selection of input parameters
     QGroupBox *groupBox = new QGroupBox(tr("Data selection"));
 
-    // instrument selection
-    QLabel *instrumentSelectionLabel = new QLabel(tr("Select Instrument:"));
-    instrumentSelectionBox = new QComboBox;
-    // sample selection
-    QLabel *sampleSelectionLabel = new QLabel(tr("Select Sample:"));
-    sampleSelectionBox = new QComboBox;
-    // real data
-    QLabel *readDataSelectionLabel = new QLabel(tr("Select Real Data:"));
-    selectRealData = new QPushButton;
-    selectRealData->setText("Load file ...");
-    pathLabel = new QLabel(tr(""));
-    QHBoxLayout *realDataSelection = new QHBoxLayout;
-    realDataSelection->addWidget(selectRealData);
-    realDataSelection->addWidget(pathLabel);
+    QLabel *instrumentSelectionLabel = new QLabel(QStringLiteral("Select Instrument:"));
+    instrumentSelectionLabel->setToolTip(select_instrument_tooltip);
+    m_instrumentCombo->setToolTip(select_instrument_tooltip);
+
+    QLabel *sampleSelectionLabel = new QLabel(QStringLiteral("Select Sample:"));
+    sampleSelectionLabel->setToolTip(select_sample_tooltip);
+    m_sampleCombo->setToolTip(select_sample_tooltip);
+
+    QLabel *readDataSelectionLabel = new QLabel(QStringLiteral("Select Real Data:"));
+    readDataSelectionLabel->setToolTip(select_realdata_tooltip);
+    m_realDataCombo->setToolTip(select_realdata_tooltip);
+
     // layout
     QGridLayout *dataSelectionLayout = new QGridLayout;
+    dataSelectionLayout->setMargin(12); // to match margin in SimulationOptionsWidget
+
     dataSelectionLayout->addWidget(instrumentSelectionLabel, 0, 0);
-    dataSelectionLayout->addWidget(instrumentSelectionBox, 0, 1);
+    dataSelectionLayout->addWidget(m_instrumentCombo, 0, 1);
     dataSelectionLayout->addWidget(sampleSelectionLabel, 1, 0);
-    dataSelectionLayout->addWidget(sampleSelectionBox, 1, 1);
+    dataSelectionLayout->addWidget(m_sampleCombo, 1, 1);
     dataSelectionLayout->addWidget(readDataSelectionLabel, 2, 0);
-    dataSelectionLayout->addLayout(realDataSelection, 2, 1);
+    dataSelectionLayout->addWidget(m_realDataCombo, 2, 1);
     groupBox->setLayout(dataSelectionLayout);
 
     mainLayout->addWidget(groupBox);
     setLayout(mainLayout);
 
-    connect(selectRealData, SIGNAL(clicked(bool)), this, SLOT(onOpenFile()));
 }
 
 void SimulationDataSelectorWidget::setApplicationModels(ApplicationModels *applicationModels)
@@ -78,86 +88,74 @@ void SimulationDataSelectorWidget::setApplicationModels(ApplicationModels *appli
     updateViewElements();
 }
 
+//! Returns selected MultiLayerItem taking into account that there might be several
+//! multilayers with same name.
 
-QString SimulationDataSelectorWidget::getSelectedInstrumentName() const
+const MultiLayerItem *SimulationDataSelectorWidget::selectedMultiLayerItem() const
 {
-    return instrumentSelectionBox->currentText();
+    auto items = m_applicationModels->sampleModel()->topItems();
+    return dynamic_cast<const MultiLayerItem *>(items.at(selectedSampleIndex()));
 }
 
-int SimulationDataSelectorWidget::getSelectedInstrumentIndex() const
+//! Returns selected InstrumentItem taking into account that there might be several
+//! instruments with same name.
+
+const InstrumentItem *SimulationDataSelectorWidget::selectedInstrumentItem() const
 {
-    return instrumentSelectionBox->currentIndex();
+    auto items = m_applicationModels->instrumentModel()->topItems();
+    return dynamic_cast<const InstrumentItem *>(items.at(selectedInstrumentIndex()));
 }
 
-QString SimulationDataSelectorWidget::getSelectedSampleName() const
-{
-    return sampleSelectionBox->currentText();
-}
+//! Returns selected InstrumentItem taking into account that there might be several
+//! instruments with same name.
 
-int SimulationDataSelectorWidget::getSelectedSampleIndex() const
+const RealDataItem *SimulationDataSelectorWidget::selectedRealDataItem() const
 {
-    return sampleSelectionBox->currentIndex();
+    auto items = m_applicationModels->instrumentModel()->topItems();
+    return dynamic_cast<const RealDataItem *>(items.at(selectedRealDataIndex()));
 }
 
 void SimulationDataSelectorWidget::updateViewElements()
 {
     Q_ASSERT(m_applicationModels);
-    updateSelectionBox(instrumentSelectionBox,
-                       m_applicationModels->instrumentModel()->getInstrumentMap().keys());
-    updateSelectionBox(sampleSelectionBox,
-                       m_applicationModels->sampleModel()->getSampleMap().keys());
+    updateSelection(m_instrumentCombo, m_applicationModels->instrumentModel()->topItemNames());
+    updateSelection(m_sampleCombo, m_applicationModels->sampleModel()->topItemNames());
+    updateSelection(m_realDataCombo, m_applicationModels->realDataModel()->topItemNames(), true);
 }
 
-//! Returns selected MultiLayerItem taking into account that there might be several
-//! multilayers with same name
-
-const MultiLayerItem *SimulationDataSelectorWidget::getSelectedMultiLayerItem() const
+int SimulationDataSelectorWidget::selectedInstrumentIndex() const
 {
-    const MultiLayerItem *result(0);
-    QMap<QString, SessionItem *> samples = m_applicationModels->sampleModel()->getSampleMap();
-    if(samples[getSelectedSampleName()]) {
-        int index = getSelectedSampleIndex();
-        QMap<QString, SessionItem *>::const_iterator it = samples.begin()+index;
-        result = dynamic_cast<MultiLayerItem *>(it.value());
-    }
-    return result;
-
+    return m_instrumentCombo->currentIndex();
 }
 
-//! Returns selected InstrumentItem taking into account that there might be several
-//! insturments with same name
-
-const InstrumentItem *SimulationDataSelectorWidget::getSelectedInstrumentItem() const
+int SimulationDataSelectorWidget::selectedSampleIndex() const
 {
-    const InstrumentItem *result(0);
-    QMap<QString, SessionItem *> instruments =m_applicationModels->instrumentModel()->getInstrumentMap();
-    if(instruments[getSelectedInstrumentName()]) {
-        int index = getSelectedInstrumentIndex();
-        QMap<QString, SessionItem *>::const_iterator it = instruments.begin()+index;
-        result = dynamic_cast<InstrumentItem *>(it.value());
-    }
-    return result;
-
+    return m_sampleCombo->currentIndex();
 }
 
-void SimulationDataSelectorWidget::onOpenFile()
+int SimulationDataSelectorWidget::selectedRealDataIndex() const
 {
-    QString fileName = QFileDialog::getOpenFileName(this,
-            tr("Open Intensity File"), "", tr("Intensity File (*.int *.tif *.tiff *.tif.gz);;Other (*)"));
-    pathLabel->setText(fileName);
+    // -1 because combo always contains "None" as a first entry
+    return m_realDataCombo->currentIndex() - 1;
 }
 
-void SimulationDataSelectorWidget::updateSelectionBox(QComboBox *comboBox, QStringList itemList)
+//! Updates selection combo with string list while preserving previous selection.
+//! If allow_none == true, additional "None" item will be added to the combo.
+
+void SimulationDataSelectorWidget::updateSelection(QComboBox *comboBox,
+                                                        QStringList itemList, bool allow_none)
 {
     QString previousItem = comboBox->currentText();
 
     comboBox->clear();
     if(itemList.isEmpty()) {
         comboBox->setEnabled(false);
-        comboBox->addItem("Not yet defined");
+        comboBox->addItem(QStringLiteral("Not yet defined"));
     } else {
         comboBox->setEnabled(true);
         qSort(itemList.begin(), itemList.end());
+        if(allow_none)
+            comboBox->addItem("None");
         comboBox->addItems(itemList);
         if(itemList.contains(previousItem))
             comboBox->setCurrentIndex(itemList.indexOf(previousItem));

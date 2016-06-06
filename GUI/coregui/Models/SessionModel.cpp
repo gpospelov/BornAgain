@@ -480,6 +480,36 @@ SessionItem *SessionModel::getTopItem(const QString &model_type,
     return result;
 }
 
+//! Returns top items which are children of parentIndex and have given model_type
+
+QList<SessionItem *> SessionModel::topItems(const QString &model_type, const QModelIndex &parentIndex)
+{
+    QList<SessionItem *> result;
+    for (int i_row = 0; i_row < rowCount(parentIndex); ++i_row) {
+        QModelIndex itemIndex = index(i_row, 0, parentIndex);
+        if (SessionItem *item = itemForIndex(itemIndex)) {
+            if (model_type.isEmpty()) {
+                result.append(item);
+            } else {
+                if (item->modelType() == model_type) {
+                    result.append(item);
+                }
+            }
+        }
+    }
+    return result;
+}
+
+QStringList SessionModel::topItemNames(const QString &model_type, const QModelIndex &parentIndex)
+{
+    QList<SessionItem *> items = topItems(model_type, parentIndex);
+    QStringList result;
+    foreach(SessionItem *item, items) {
+        result.append(item->itemName());
+    }
+    return result;
+}
+
 void SessionModel::initFrom(SessionModel *model, SessionItem *parent)
 {
     qDebug() << "SessionModel::initFrom() -> " << model->getModelTag() << parent;

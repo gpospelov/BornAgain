@@ -28,6 +28,7 @@
 #include <QPushButton>
 #include <QVBoxLayout>
 #include <QMessageBox>
+#include <QDebug>
 
 SimulationSetupWidget::SimulationSetupWidget(QWidget *parent)
     : QWidget(parent)
@@ -67,28 +68,19 @@ void SimulationSetupWidget::updateViewElements()
 
 void SimulationSetupWidget::onRunSimulation()
 {
-    const MultiLayerItem *jobMultiLayerItem = m_simDataSelectorWidget->getSelectedMultiLayerItem();
-    const InstrumentItem *jobInstrumentItem = m_simDataSelectorWidget->getSelectedInstrumentItem();
+    const MultiLayerItem *multiLayerItem = m_simDataSelectorWidget->selectedMultiLayerItem();
+    const InstrumentItem *instrumentItem = m_simDataSelectorWidget->selectedInstrumentItem();
+    const RealDataItem *realDataItem = m_simDataSelectorWidget->selectedRealDataItem();
 
-    if(!isValidSetup(jobMultiLayerItem, jobInstrumentItem))
+    qDebug() << multiLayerItem << instrumentItem << realDataItem;
+
+    if(!isValidSetup(multiLayerItem, instrumentItem))
         return;
 
     JobItem *jobItem = m_applicationModels->jobModel()->addJob(
-                jobMultiLayerItem,
-                jobInstrumentItem,
+                multiLayerItem,
+                instrumentItem,
                 m_applicationModels->documentModel()->getSimulationOptionsItem());
-
-    // load real data
-//    if (!pathLabel->text().isEmpty()) {
-//        try {
-//            IHistogram *data = IntensityDataIOFactory::readIntensityData(pathLabel->text().toStdString());
-//            dynamic_cast<IntensityDataItem*>(jobItem->getItem(JobItem::T_REALDATA))
-//                    ->setOutputData(data->createOutputData());
-//            jobItem->setItemValue(JobItem::P_WITH_FITTING, true);
-//        } catch (...) {
-//            QMessageBox::warning(this, "IO Problem", "Real data can not be loaded.");
-//        }
-//    }
 
     if (jobItem->runImmediately() || jobItem->runInBackground())
         m_applicationModels->jobModel()->runJob(jobItem->index());
@@ -96,17 +88,17 @@ void SimulationSetupWidget::onRunSimulation()
 
 void SimulationSetupWidget::onExportToPythonScript()
 {
-    const MultiLayerItem *jobMultiLayerItem = m_simDataSelectorWidget->getSelectedMultiLayerItem();
-    const InstrumentItem *jobInstrumentItem = m_simDataSelectorWidget->getSelectedInstrumentItem();
+    const MultiLayerItem *multiLayerItem = m_simDataSelectorWidget->selectedMultiLayerItem();
+    const InstrumentItem *instrumentItem = m_simDataSelectorWidget->selectedInstrumentItem();
 
-    if(!isValidSetup(jobMultiLayerItem, jobInstrumentItem))
+    if(!isValidSetup(multiLayerItem, instrumentItem))
         return;
 
     PythonScriptWidget *pythonWidget = new PythonScriptWidget(this);
     pythonWidget->show();
     pythonWidget->raise();
     pythonWidget->generatePythonScript(
-        jobMultiLayerItem, jobInstrumentItem,
+        multiLayerItem, instrumentItem,
         m_applicationModels->documentModel()->getSimulationOptionsItem(),
         AppSvc::projectManager()->getProjectDir());
 }

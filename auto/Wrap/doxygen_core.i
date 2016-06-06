@@ -1240,12 +1240,12 @@ get the probability density for value x
 
 %feature("docstring")  DistributionCosine::getMean "virtual double DistributionCosine::getMean() const
 
-get the mean of the distribution 
+Returns the mean of the distribution. 
 ";
 
 %feature("docstring")  DistributionCosine::getSigma "double DistributionCosine::getSigma() const
 
-get the sigma parameter of the distribution 
+Returns the sigma parameter of the distribution. 
 ";
 
 %feature("docstring")  DistributionCosine::generateValueList "std::vector< double > DistributionCosine::generateValueList(size_t nbr_samples, double sigma_factor, const AttLimits &limits=AttLimits()) const
@@ -1288,17 +1288,17 @@ get the mean of the distribution
 
 %feature("docstring")  DistributionGate::getMin "double DistributionGate::getMin() const
 
-get the minimum value of the distribution 
+Returns the minimum value of the distribution. 
 ";
 
 %feature("docstring")  DistributionGate::getMax "double DistributionGate::getMax() const
 
-get the maximum value of the distribution 
+Returns the maximum value of the distribution. 
 ";
 
 %feature("docstring")  DistributionGate::generateValueList "std::vector< double > DistributionGate::generateValueList(size_t nbr_samples, double sigma_factor, const AttLimits &limits=AttLimits()) const
 
-generate list of sample values 
+Returns list of sample values. 
 ";
 
 
@@ -1331,12 +1331,12 @@ get the probability density for value x
 
 %feature("docstring")  DistributionGaussian::getMean "virtual double DistributionGaussian::getMean() const
 
-get the mean of the distribution 
+Returns the mean of the distribution. 
 ";
 
 %feature("docstring")  DistributionGaussian::getStdDev "double DistributionGaussian::getStdDev() const
 
-get the standard deviation 
+Returns the standard deviation. 
 ";
 
 %feature("docstring")  DistributionGaussian::generateValueList "std::vector< double > DistributionGaussian::generateValueList(size_t nbr_samples, double sigma_factor, const AttLimits &limits=AttLimits()) const
@@ -1415,12 +1415,12 @@ get the mean of the distribution
 
 %feature("docstring")  DistributionLogNormal::getMedian "double DistributionLogNormal::getMedian() const
 
-get the median of the distribution 
+Returns the median of the distribution. 
 ";
 
 %feature("docstring")  DistributionLogNormal::getScalePar "double DistributionLogNormal::getScalePar() const
 
-get the scale parameter of the distribution 
+Returns the scale parameter of the distribution. 
 ";
 
 %feature("docstring")  DistributionLogNormal::generateValueList "std::vector< double > DistributionLogNormal::generateValueList(size_t nbr_samples, double sigma_factor, const AttLimits &limits=AttLimits()) const
@@ -1458,12 +1458,12 @@ get the probability density for value x
 
 %feature("docstring")  DistributionLorentz::getMean "virtual double DistributionLorentz::getMean() const
 
-get the mean of the distribution 
+Returns the mean of the distribution. 
 ";
 
 %feature("docstring")  DistributionLorentz::getHWHM "double DistributionLorentz::getHWHM() const
 
-get the half width at half maximum 
+Returns the half width at half maximum. 
 ";
 
 %feature("docstring")  DistributionLorentz::generateValueList "std::vector< double > DistributionLorentz::generateValueList(size_t nbr_samples, double sigma_factor, const AttLimits &limits=AttLimits()) const
@@ -6315,7 +6315,7 @@ The center of corresponding bin of the axis
 
 %feature("docstring")  IHistogram::getYaxisValue "double IHistogram::getYaxisValue(size_t globalbin)
 
-Returns the value on y-axis corresponding to the global bin index (for 2D histograms).
+Returns the value on y-axis corresponding to the 2D histogram global bin index.
 
 Parameters:
 -----------
@@ -6341,7 +6341,7 @@ The value accumulated by the bin (integral)
 
 %feature("docstring")  IHistogram::getBinContent "double IHistogram::getBinContent(size_t binx, size_t biny) const
 
-Returns content (accumulated value) of the bin with given indices (for 2D histograms).
+Returns content (accumulated value) of the 2D histogram bin with given indices.
 
 Parameters:
 -----------
@@ -6431,6 +6431,8 @@ Reset histogram content (axes remains)
 ";
 
 %feature("docstring")  IHistogram::createOutputData "OutputData< double > * IHistogram::createOutputData(DataType dataType=DataType::INTEGRAL) const
+
+creates new  OutputData with histogram's shape and values corresponding to DataType
 
 creates new  OutputData with histogram's shape and put there values corresponding to DataType 
 ";
@@ -11265,7 +11267,7 @@ throw exception if parameter was not initialized with proper value
 // File: classGeometry_1_1Rectangle.xml
 %feature("docstring") Geometry::Rectangle "
 
-The rectangle shape having its axis aligned to the coordinate system (non-rotated so far).
+The rectangle shape having its axis aligned to the (non-rotated) coordinate system.
 
 C++ includes: Rectangle.h
 ";
@@ -12946,17 +12948,17 @@ returns alpha_i axis
 
 %feature("docstring")  SpecularSimulation::getScalarR "std::vector< complex_t > SpecularSimulation::getScalarR(size_t i_layer) const
 
-returns vector containing reflection coefficients for all alpha_i angles for given layer index 
+returns vector of reflection coefficients for all alpha_i angles for given layer index 
 ";
 
 %feature("docstring")  SpecularSimulation::getScalarT "std::vector< complex_t > SpecularSimulation::getScalarT(size_t i_layer) const
 
-returns vector containing transmission coefficients for all alpha_i angles for given layer index 
+returns vector of transmission coefficients for all alpha_i angles for given layer index 
 ";
 
 %feature("docstring")  SpecularSimulation::getScalarKz "std::vector< complex_t > SpecularSimulation::getScalarKz(size_t i_layer) const
 
-returns vector containing Kz coefficients for all alpha_i angles for given layer index 
+returns vector of Kz coefficients for all alpha_i angles for given layer index 
 ";
 
 %feature("docstring")  SpecularSimulation::getLayerRTCoefficients "SpecularSimulation::LayerRTCoefficients_t SpecularSimulation::getLayerRTCoefficients(size_t i_alpha, size_t i_layer) const 
@@ -13135,7 +13137,7 @@ C++ includes: ISquaredFunction.h
 %feature("docstring")  SquaredFunctionSimError::calculateSquaredDifference "virtual double SquaredFunctionSimError::calculateSquaredDifference(double real_value, double simulated_value) const 
 ";
 
-%feature("docstring")  SquaredFunctionSimError::calculateSquaredError "virtual double SquaredFunctionSimError::calculateSquaredError(double real_value, double simulated_value) const 
+%feature("docstring")  SquaredFunctionSimError::calculateSquaredError "virtual double SquaredFunctionSimError::calculateSquaredError(double, double simulated_value) const 
 ";
 
 
@@ -13161,7 +13163,7 @@ C++ includes: ISquaredFunction.h
 %feature("docstring")  SquaredFunctionSystematicError::calculateSquaredDifference "virtual double SquaredFunctionSystematicError::calculateSquaredDifference(double real_value, double simulated_value) const 
 ";
 
-%feature("docstring")  SquaredFunctionSystematicError::calculateSquaredError "virtual double SquaredFunctionSystematicError::calculateSquaredError(double real_value, double simulated_value) const 
+%feature("docstring")  SquaredFunctionSystematicError::calculateSquaredError "virtual double SquaredFunctionSystematicError::calculateSquaredError(double real_value, double) const 
 ";
 
 
@@ -13686,7 +13688,7 @@ Creates a vector<double> as a wavevector with given wavelength and angles. Speci
 
 Computes complex Bessel function J0(z), using power series and asymptotic expansion.
 
-Computes the complex Bessel function J0(z), using standard power series and asymptotic expansion.
+Computes the complex Bessel function J0(z), using power series and asymptotic expansion.
 
 Forked from unoptimized code at http://www.crbond.com/math.htm, who refers to \"Computation of Special Functions\", Zhang and Jin, John Wiley and Sons, 1996. 
 ";
@@ -13695,7 +13697,7 @@ Forked from unoptimized code at http://www.crbond.com/math.htm, who refers to \"
 
 Computes complex Bessel function J0(z), using power series and asymptotic expansion.
 
-Computes the complex Bessel function J1(z), using standard power series and asymptotic expansion.
+Computes the complex Bessel function J1(z), using power series and asymptotic expansion.
 
 Forked from same source as for Bessel_J0_PowSer 
 ";

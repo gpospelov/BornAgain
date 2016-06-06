@@ -5434,7 +5434,7 @@ class DistributionGate(IDistribution1D):
 
         double DistributionGate::getMin() const
 
-        get the minimum value of the distribution 
+        Returns the minimum value of the distribution. 
 
         """
         return _libBornAgainCore.DistributionGate_getMin(self)
@@ -5446,7 +5446,7 @@ class DistributionGate(IDistribution1D):
 
         double DistributionGate::getMax() const
 
-        get the maximum value of the distribution 
+        Returns the maximum value of the distribution. 
 
         """
         return _libBornAgainCore.DistributionGate_getMax(self)
@@ -5459,7 +5459,7 @@ class DistributionGate(IDistribution1D):
 
         std::vector< double > DistributionGate::generateValueList(size_t nbr_samples, double sigma_factor, const AttLimits &limits=AttLimits()) const
 
-        generate list of sample values 
+        Returns list of sample values. 
 
         """
         return _libBornAgainCore.DistributionGate_generateValueList(self, *args)
@@ -5532,7 +5532,7 @@ class DistributionLorentz(IDistribution1D):
 
         virtual double DistributionLorentz::getMean() const
 
-        get the mean of the distribution 
+        Returns the mean of the distribution. 
 
         """
         return _libBornAgainCore.DistributionLorentz_getMean(self)
@@ -5544,7 +5544,7 @@ class DistributionLorentz(IDistribution1D):
 
         double DistributionLorentz::getHWHM() const
 
-        get the half width at half maximum 
+        Returns the half width at half maximum. 
 
         """
         return _libBornAgainCore.DistributionLorentz_getHWHM(self)
@@ -5630,7 +5630,7 @@ class DistributionGaussian(IDistribution1D):
 
         virtual double DistributionGaussian::getMean() const
 
-        get the mean of the distribution 
+        Returns the mean of the distribution. 
 
         """
         return _libBornAgainCore.DistributionGaussian_getMean(self)
@@ -5642,7 +5642,7 @@ class DistributionGaussian(IDistribution1D):
 
         double DistributionGaussian::getStdDev() const
 
-        get the standard deviation 
+        Returns the standard deviation. 
 
         """
         return _libBornAgainCore.DistributionGaussian_getStdDev(self)
@@ -5740,7 +5740,7 @@ class DistributionLogNormal(IDistribution1D):
 
         double DistributionLogNormal::getMedian() const
 
-        get the median of the distribution 
+        Returns the median of the distribution. 
 
         """
         return _libBornAgainCore.DistributionLogNormal_getMedian(self)
@@ -5752,7 +5752,7 @@ class DistributionLogNormal(IDistribution1D):
 
         double DistributionLogNormal::getScalePar() const
 
-        get the scale parameter of the distribution 
+        Returns the scale parameter of the distribution. 
 
         """
         return _libBornAgainCore.DistributionLogNormal_getScalePar(self)
@@ -5838,7 +5838,7 @@ class DistributionCosine(IDistribution1D):
 
         virtual double DistributionCosine::getMean() const
 
-        get the mean of the distribution 
+        Returns the mean of the distribution. 
 
         """
         return _libBornAgainCore.DistributionCosine_getMean(self)
@@ -5850,7 +5850,7 @@ class DistributionCosine(IDistribution1D):
 
         double DistributionCosine::getSigma() const
 
-        get the sigma parameter of the distribution 
+        Returns the sigma parameter of the distribution. 
 
         """
         return _libBornAgainCore.DistributionCosine_getSigma(self)
@@ -13505,7 +13505,7 @@ class IHistogram(_object):
 
         double IHistogram::getYaxisValue(size_t globalbin)
 
-        Returns the value on y-axis corresponding to the global bin index (for 2D histograms).
+        Returns the value on y-axis corresponding to the 2D histogram global bin index.
 
         Parameters:
         -----------
@@ -13526,7 +13526,7 @@ class IHistogram(_object):
 
         double IHistogram::getBinContent(size_t binx, size_t biny) const
 
-        Returns content (accumulated value) of the bin with given indices (for 2D histograms).
+        Returns content (accumulated value) of the 2D histogram bin with given indices.
 
         Parameters:
         -----------
@@ -13720,6 +13720,8 @@ class IHistogram(_object):
         createOutputData(IHistogram self) -> IntensityData
 
         OutputData< double > * IHistogram::createOutputData(DataType dataType=DataType::INTEGRAL) const
+
+        creates new  OutputData with histogram's shape and values corresponding to DataType
 
         creates new  OutputData with histogram's shape and put there values corresponding to DataType 
 
@@ -21436,7 +21438,7 @@ class Rectangle(IShape2D):
     """
 
 
-    The rectangle shape having its axis aligned to the coordinate system (non-rotated so far).
+    The rectangle shape having its axis aligned to the (non-rotated) coordinate system.
 
     C++ includes: Rectangle.h
 
@@ -22132,7 +22134,7 @@ class SpecularSimulation(ICloneable, IParameterized):
 
         std::vector< complex_t > SpecularSimulation::getScalarR(size_t i_layer) const
 
-        returns vector containing reflection coefficients for all alpha_i angles for given layer index 
+        returns vector of reflection coefficients for all alpha_i angles for given layer index 
 
         """
         return _libBornAgainCore.SpecularSimulation_getScalarR(self, i_layer)
@@ -22144,7 +22146,7 @@ class SpecularSimulation(ICloneable, IParameterized):
 
         std::vector< complex_t > SpecularSimulation::getScalarT(size_t i_layer) const
 
-        returns vector containing transmission coefficients for all alpha_i angles for given layer index 
+        returns vector of transmission coefficients for all alpha_i angles for given layer index 
 
         """
         return _libBornAgainCore.SpecularSimulation_getScalarT(self, i_layer)
@@ -22156,7 +22158,7 @@ class SpecularSimulation(ICloneable, IParameterized):
 
         std::vector< complex_t > SpecularSimulation::getScalarKz(size_t i_layer) const
 
-        returns vector containing Kz coefficients for all alpha_i angles for given layer index 
+        returns vector of Kz coefficients for all alpha_i angles for given layer index 
 
         """
         return _libBornAgainCore.SpecularSimulation_getScalarKz(self, i_layer)

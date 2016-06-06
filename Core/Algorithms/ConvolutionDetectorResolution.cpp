@@ -205,16 +205,11 @@ void ConvolutionDetectorResolution::apply2dConvolution(OutputData<double>* p_int
             result_vector.push_back(value);
         }
     }
-<<<<<<< HEAD
     // Truncate negative values that can arise because of finite precision of Fourier Transform
     std::for_each(result_vector.begin(), result_vector.end(),
                   [](double &val){ val = std::max(0.0, val); });
-    for(OutputData<double>::iterator it=p_intensity_map->begin(); it!=p_intensity_map->end(); ++it) {
-=======
-    for(auto it=p_intensity_map->begin(); it!=p_intensity_map->end(); ++it) {
->>>>>>> thisandthat
+    for(auto it=p_intensity_map->begin(); it!=p_intensity_map->end(); ++it)
         (*it) = result_vector[it.getIndex()];
-    }
 }
 
 double ConvolutionDetectorResolution::getIntegratedPDF1d(double x, double step) const

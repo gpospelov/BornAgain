@@ -2259,9 +2259,9 @@ class SquaredFunctionSimError(ISquaredFunction):
         return _libBornAgainFit.SquaredFunctionSimError_calculateSquaredDifference(self, real_value, simulated_value)
 
 
-    def calculateSquaredError(self, real_value, simulated_value):
-        """calculateSquaredError(SquaredFunctionSimError self, double real_value, double simulated_value) -> double"""
-        return _libBornAgainFit.SquaredFunctionSimError_calculateSquaredError(self, real_value, simulated_value)
+    def calculateSquaredError(self, arg2, simulated_value):
+        """calculateSquaredError(SquaredFunctionSimError self, double arg2, double simulated_value) -> double"""
+        return _libBornAgainFit.SquaredFunctionSimError_calculateSquaredError(self, arg2, simulated_value)
 
 SquaredFunctionSimError_swigregister = _libBornAgainFit.SquaredFunctionSimError_swigregister
 SquaredFunctionSimError_swigregister(SquaredFunctionSimError)
@@ -2327,9 +2327,9 @@ class SquaredFunctionSystematicError(ISquaredFunction):
         return _libBornAgainFit.SquaredFunctionSystematicError_calculateSquaredDifference(self, real_value, simulated_value)
 
 
-    def calculateSquaredError(self, real_value, simulated_value):
-        """calculateSquaredError(SquaredFunctionSystematicError self, double real_value, double simulated_value) -> double"""
-        return _libBornAgainFit.SquaredFunctionSystematicError_calculateSquaredError(self, real_value, simulated_value)
+    def calculateSquaredError(self, real_value, arg3):
+        """calculateSquaredError(SquaredFunctionSystematicError self, double real_value, double arg3) -> double"""
+        return _libBornAgainFit.SquaredFunctionSystematicError_calculateSquaredError(self, real_value, arg3)
 
 SquaredFunctionSystematicError_swigregister = _libBornAgainFit.SquaredFunctionSystematicError_swigregister
 SquaredFunctionSystematicError_swigregister(SquaredFunctionSystematicError)

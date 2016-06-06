@@ -19,21 +19,17 @@
 
 #include "WinDllMacros.h"
 #include <QWidget>
-#include <QString>
 
-class QComboBox;
 class QPushButton;
-class QLabel;
 class ProjectManager;
 class MultiLayerItem;
 class InstrumentItem;
+class SimulationDataSelectorWidget;
 class SimulationOptionsWidget;
 class ApplicationModels;
 
-class TestItem {
-public:
-    int x;
-};
+//! The SimulationSetupWidget class represents a main widget to define simulation settings
+//! and run the simulation. Belongs to the SimulationView.
 
 class BA_CORE_API_ SimulationSetupWidget : public QWidget
 {
@@ -46,42 +42,24 @@ public:
     void setProjectManager(ProjectManager *projectManager);
     void updateViewElements();
 
-    QString getSelectedInstrumentName() const;
-    int getSelectedInstrumentIndex() const;
-
-    QString getSelectedSampleName() const;
-    int getSelectedSampleIndex() const;
-
 public slots:
     void onRunSimulation();
     void onExportToPythonScript();
-    void onOpenFile();
 
 private:
-    void updateSelectionBox(QComboBox *comboBox, QStringList itemList);
-
-    const MultiLayerItem *getSelectedMultiLayerItem() const;
-    const InstrumentItem *getSelectedInstrumentItem() const;
-
     bool isValidSetup(const MultiLayerItem *multiLayerItem, const InstrumentItem *instrumentItem);
 
-    QWidget *createDataSelectorWidget();
     QWidget *createButtonWidget();
 
     ApplicationModels *m_applicationModels;
     ProjectManager *m_projectManager;
 
-    QComboBox *instrumentSelectionBox;
-    QComboBox *sampleSelectionBox;
     QPushButton *runSimulationButton;
-    QPushButton *selectRealData;
-    QLabel *pathLabel;
     QPushButton *exportToPyScriptButton;
 
+    SimulationDataSelectorWidget *m_simDataSelectorWidget;
     SimulationOptionsWidget *m_simOptionsWidget;
-
-    QVector<TestItem *> testitems;
 
 };
 
-#endif // SIMULATIONSETUPWIDGET_H
+#endif

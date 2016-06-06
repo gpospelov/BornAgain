@@ -19,6 +19,8 @@
 
 #include "SessionItem.h"
 
+class IntensityDataItem;
+
 //! The RealDataItem class represents intensity data imported from file and intended for fitting.
 
 class BA_CORE_API_ RealDataItem : public SessionItem
@@ -27,7 +29,8 @@ public:
     static const QString T_INTENSITY_DATA;
     explicit RealDataItem();
 
-    class IntensityDataItem *getIntensityDataItem();
+    IntensityDataItem *intensityDataItem();
+    const IntensityDataItem *intensityDataItem() const;
 
 private:
     void updateIntensityDataFileName();

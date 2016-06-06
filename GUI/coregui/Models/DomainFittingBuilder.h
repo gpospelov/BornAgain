@@ -28,7 +28,7 @@ class FitSuite;
 class DomainFittingBuilder
 {
 public:
-    static std::shared_ptr<FitSuite> getFitSuite(JobItem *jobItem);
+    static std::shared_ptr<FitSuite> createFitSuite(JobItem *jobItem);
 };
 
 #endif

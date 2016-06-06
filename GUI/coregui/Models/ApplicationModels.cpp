@@ -30,6 +30,7 @@
 #include "Histogram2D.h"
 #include "IntensityDataItem.h"
 #include "WarningMessageService.h"
+#include "RealDataItem.h"
 #include <QDebug>
 
 ApplicationModels::ApplicationModels(QObject *parent)
@@ -209,12 +210,16 @@ void ApplicationModels::createTestJob()
     JobItem *jobItem = m_jobModel->addJob(
                 m_sampleModel->multiLayerItem(),
                 m_instrumentModel->instrumentItem(),
+                0,
                 optionsItem);
 
     IHistogram *data = IntensityDataIOFactory::readIntensityData("/home/pospelov/development/BornAgain/temp/Untitled12/data_job1_0.int");
-    dynamic_cast<IntensityDataItem*>(jobItem->getItem(JobItem::T_REALDATA))
-            ->setOutputData(data->createOutputData());
-    jobItem->setItemValue(JobItem::P_WITH_FITTING, true);
+
+    RealDataItem *realDataItem = dynamic_cast<RealDataItem *>(jobItem->getItem(JobItem::T_REALDATA));
+    Q_ASSERT(realDataItem);
+
+    realDataItem->intensityDataItem()->setOutputData(data->createOutputData());
+//    jobItem->setItemValue(JobItem::P_WITH_FITTING, true);
 
 
     m_jobModel->runJob(jobItem->index());

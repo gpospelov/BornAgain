@@ -24,6 +24,7 @@ class InstrumentModel;
 class QItemSelection;
 class MultiLayerItem;
 class InstrumentItem;
+class RealDataItem;
 class SimulationOptionsItem;
 
 class BA_CORE_API_ JobModel : public SessionModel
@@ -41,8 +42,10 @@ public:
 
     JobItem *getJobItemForIdentifier(const QString &identifier);
 
-    JobItem *addJob(const MultiLayerItem *multiLayerItem, const InstrumentItem *instrumentItem,
-            const SimulationOptionsItem *optionItem);
+    JobItem *addJob(const MultiLayerItem *multiLayerItem,
+                    const InstrumentItem *instrumentItem,
+                    const RealDataItem *realDataItem,
+                    const SimulationOptionsItem *optionItem);
 
     void restore(JobItem *jobItem);
 

@@ -27,6 +27,7 @@
 #include <QGroupBox>
 #include <QVBoxLayout>
 #include <QLabel>
+#include <QDebug>
 
 namespace
 {
@@ -111,8 +112,11 @@ const InstrumentItem *SimulationDataSelectorWidget::selectedInstrumentItem() con
 
 const RealDataItem *SimulationDataSelectorWidget::selectedRealDataItem() const
 {
-    auto items = m_applicationModels->instrumentModel()->topItems();
-    return dynamic_cast<const RealDataItem *>(items.at(selectedRealDataIndex()));
+    auto items = m_applicationModels->realDataModel()->topItems();
+    if(selectedRealDataIndex() >=0 && selectedRealDataIndex()<items.size()) {
+        return dynamic_cast<const RealDataItem *>(items.at(selectedRealDataIndex()));
+    }
+    return nullptr;
 }
 
 void SimulationDataSelectorWidget::updateViewElements()
@@ -135,7 +139,7 @@ int SimulationDataSelectorWidget::selectedSampleIndex() const
 
 int SimulationDataSelectorWidget::selectedRealDataIndex() const
 {
-    // -1 because combo always contains "None" as a first entry
+    // -1 because m_realDataCombo always contains "None" as a first entry
     return m_realDataCombo->currentIndex() - 1;
 }
 

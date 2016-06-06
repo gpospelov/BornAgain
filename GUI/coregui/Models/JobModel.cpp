@@ -23,10 +23,12 @@
 #include "InstrumentModel.h"
 #include "MultiLayerItem.h"
 #include "InstrumentItem.h"
+#include "RealDataItem.h"
 #include "ParameterModelBuilder.h"
 #include "ParameterTreeItems.h"
 #include "SimulationOptionsItem.h"
 #include "JobResultsPresenter.h"
+#include "IntensityDataItem.h"
 #include <QUuid>
 #include <QDebug>
 #include <QItemSelection>
@@ -74,8 +76,10 @@ JobItem *JobModel::getJobItemForIdentifier(const QString &identifier)
 
 
 //! Main method to add a job
-JobItem *JobModel::addJob(const MultiLayerItem *multiLayerItem, const InstrumentItem *instrumentItem,
-        const SimulationOptionsItem *optionItem)
+JobItem *JobModel::addJob(const MultiLayerItem *multiLayerItem,
+                          const InstrumentItem *instrumentItem,
+                          const RealDataItem *realDataItem,
+                          const SimulationOptionsItem *optionItem)
 {
     Q_ASSERT(multiLayerItem);
     Q_ASSERT(instrumentItem);
@@ -96,7 +100,13 @@ JobItem *JobModel::addJob(const MultiLayerItem *multiLayerItem, const Instrument
     ParameterModelBuilder::createParameterTree(jobItem, JobItem::T_PARAMETER_TREE);
 
     insertNewItem(Constants::IntensityDataType, indexOfItem(jobItem), -1, JobItem::T_OUTPUT);
-    insertNewItem(Constants::IntensityDataType, indexOfItem(jobItem), -1, JobItem::T_REALDATA);
+    //insertNewItem(Constants::IntensityDataType, indexOfItem(jobItem), -1, JobItem::T_REALDATA);
+
+    if(realDataItem) {
+        RealDataItem *realDataItemCopy = dynamic_cast<RealDataItem *>(copyParameterizedItem(realDataItem, jobItem, JobItem::T_REALDATA));
+        Q_ASSERT(realDataItemCopy);
+        realDataItemCopy->intensityDataItem()->setOutputData(realDataItem->intensityDataItem()->getOutputData()->clone());
+    }
 
     return jobItem;
 }

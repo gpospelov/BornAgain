@@ -64,7 +64,7 @@ OutputData<double> *ImportDataAssistant::importData(QString &baseNameOfLoadedFil
 
 void ImportDataAssistant::loadIntensityData(RealDataItem *realDataItem, const QString &projectDir)
 {
-    if(IntensityDataItem *intensityItem = realDataItem->getIntensityDataItem()) {
+    if(IntensityDataItem *intensityItem = realDataItem->intensityDataItem()) {
         QString filename = intensityItem->fileName(projectDir);
         auto data = IntensityDataIOFactory::readOutputData(filename.toStdString());
         intensityItem->setOutputData(data);
@@ -75,7 +75,7 @@ void ImportDataAssistant::loadIntensityData(RealDataItem *realDataItem, const QS
 
 void ImportDataAssistant::saveIntensityData(RealDataItem *realDataItem, const QString &projectDir)
 {
-    if(IntensityDataItem *intensityItem = realDataItem->getIntensityDataItem()) {
+    if(IntensityDataItem *intensityItem = realDataItem->intensityDataItem()) {
         QString filename = intensityItem->fileName(projectDir);
         IntensityDataIOFactory::writeOutputData(
                     *intensityItem->getOutputData(), filename.toStdString());

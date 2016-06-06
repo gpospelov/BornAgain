@@ -29,7 +29,7 @@ RealDataItem::RealDataItem()
 
     mapper()->setOnPropertyChange(
         [this](const QString &name){
-        if(name == P_NAME)
+        if(name == P_NAME && isTag(T_INTENSITY_DATA))
             updateIntensityDataFileName();
         }
     );
@@ -43,16 +43,22 @@ RealDataItem::RealDataItem()
 
 }
 
-IntensityDataItem *RealDataItem::getIntensityDataItem()
+IntensityDataItem *RealDataItem::intensityDataItem()
 {
-    return dynamic_cast<IntensityDataItem*>(getItem(T_INTENSITY_DATA));
+    return const_cast<IntensityDataItem *>(static_cast<const RealDataItem*>(this)->intensityDataItem());
+}
+
+const IntensityDataItem *RealDataItem::intensityDataItem() const
+{
+    const IntensityDataItem *result = dynamic_cast<const IntensityDataItem *>(getItem(T_INTENSITY_DATA));
+    return result;
 }
 
 //! Updates the name of file to store intensity data.
 
 void RealDataItem::updateIntensityDataFileName()
 {
-    if(IntensityDataItem *item = getIntensityDataItem()) {
+    if(IntensityDataItem *item = intensityDataItem()) {
         QString newFileName = GUIHelpers::intensityDataFileName(this);
         item->setItemValue(IntensityDataItem::P_FILE_NAME, newFileName);
     }

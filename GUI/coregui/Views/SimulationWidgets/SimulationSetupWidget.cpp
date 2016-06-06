@@ -72,14 +72,13 @@ void SimulationSetupWidget::onRunSimulation()
     const InstrumentItem *instrumentItem = m_simDataSelectorWidget->selectedInstrumentItem();
     const RealDataItem *realDataItem = m_simDataSelectorWidget->selectedRealDataItem();
 
-    qDebug() << multiLayerItem << instrumentItem << realDataItem;
-
     if(!isValidSetup(multiLayerItem, instrumentItem))
         return;
 
     JobItem *jobItem = m_applicationModels->jobModel()->addJob(
                 multiLayerItem,
                 instrumentItem,
+                realDataItem,
                 m_applicationModels->documentModel()->getSimulationOptionsItem());
 
     if (jobItem->runImmediately() || jobItem->runInBackground())

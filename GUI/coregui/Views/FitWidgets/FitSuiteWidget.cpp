@@ -148,7 +148,7 @@ void FitSuiteWidget::startFitting()
     try {
         qDebug() << " try run fitting";
         m_observer->setInterval(m_currentItem->fitSuiteItem()->getItemValue(FitSuiteItem::P_UPDATE_INTERVAL).toInt());
-        std::shared_ptr<FitSuite> fitSuite(DomainFittingBuilder::getFitSuite(m_currentItem));
+        std::shared_ptr<FitSuite> fitSuite(DomainFittingBuilder::createFitSuite(m_currentItem));
         fitSuite->attachObserver(m_observer);
         m_manager->setFitSuite(fitSuite);
         m_observer->finishedPlotting();

@@ -22,6 +22,7 @@
 #include "projectmanager.h"
 #include "SimulationOptionsWidget.h"
 #include "ApplicationModels.h"
+#include "AppSvc.h"
 #include "DocumentModel.h"
 #include "SimulationDataSelectorWidget.h"
 #include <QPushButton>
@@ -31,7 +32,6 @@
 SimulationSetupWidget::SimulationSetupWidget(QWidget *parent)
     : QWidget(parent)
     , m_applicationModels(0)
-    , m_projectManager(0)
     , runSimulationButton(0)
     , exportToPyScriptButton(0)
     , m_simDataSelectorWidget(new SimulationDataSelectorWidget(this))
@@ -57,11 +57,6 @@ void SimulationSetupWidget::setApplicationModels(ApplicationModels *model)
         m_simDataSelectorWidget->setApplicationModels(model);
         updateViewElements();
     }
-}
-
-void SimulationSetupWidget::setProjectManager(ProjectManager *projectManager)
-{
-    m_projectManager = projectManager;
 }
 
 void SimulationSetupWidget::updateViewElements()
@@ -110,9 +105,10 @@ void SimulationSetupWidget::onExportToPythonScript()
     PythonScriptWidget *pythonWidget = new PythonScriptWidget(this);
     pythonWidget->show();
     pythonWidget->raise();
-    pythonWidget->generatePythonScript(jobMultiLayerItem, jobInstrumentItem,
-            m_applicationModels->documentModel()->getSimulationOptionsItem(),
-                                       m_projectManager->getProjectDir());
+    pythonWidget->generatePythonScript(
+        jobMultiLayerItem, jobInstrumentItem,
+        m_applicationModels->documentModel()->getSimulationOptionsItem(),
+        AppSvc::projectManager()->getProjectDir());
 }
 
 //! Returns true, if sample and instrument are suitable for the simulation.

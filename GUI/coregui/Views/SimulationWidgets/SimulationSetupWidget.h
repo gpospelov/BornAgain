@@ -21,7 +21,6 @@
 #include <QWidget>
 
 class QPushButton;
-class ProjectManager;
 class MultiLayerItem;
 class InstrumentItem;
 class SimulationDataSelectorWidget;
@@ -39,7 +38,6 @@ public:
     SimulationSetupWidget(QWidget *parent = 0);
 
     void setApplicationModels(ApplicationModels *model);
-    void setProjectManager(ProjectManager *projectManager);
     void updateViewElements();
 
 public slots:
@@ -52,7 +50,6 @@ private:
     QWidget *createButtonWidget();
 
     ApplicationModels *m_applicationModels;
-    ProjectManager *m_projectManager;
 
     QPushButton *runSimulationButton;
     QPushButton *exportToPyScriptButton;

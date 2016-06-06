@@ -30,7 +30,6 @@ SimulationView::SimulationView(MainWindow *mainWindow)
     m_toolBar->setMinimumSize(24, 24);
 
     m_simulationSetupWidget->setApplicationModels(mainWindow->models());
-    m_simulationSetupWidget->setProjectManager(mainWindow->projectManager());
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->setSizeConstraint(QLayout::SetNoConstraint);

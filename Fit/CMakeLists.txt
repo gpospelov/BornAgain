@@ -37,8 +37,6 @@ if(BORNAGAIN_PYTHON)
     set(include_dirs
         ${CMAKE_CURRENT_SOURCE_DIR}/FitKernel/
         ${CMAKE_CURRENT_SOURCE_DIR}/StandardFits
-        ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/
-        ${CMAKE_SOURCE_DIR}/Core/PythonAPI/
         ${CMAKE_SOURCE_DIR}/Core/Algorithms/
         ${CMAKE_SOURCE_DIR}/Core/FormFactors/
         ${CMAKE_SOURCE_DIR}/Core/Geometry/
@@ -53,6 +51,7 @@ if(BORNAGAIN_PYTHON)
 
         set(WRAP_DIR ${CMAKE_SOURCE_DIR}/Wrap)
         set(TMP_DIR ${CMAKE_CURRENT_BINARY_DIR}/Wrap)
+        file(MAKE_DIRECTORY ${TMP_DIR})
 
         GeneratePythonDocs(${AUTO_DIR}/doxygen_fit.i ${WRAP_DIR}/swig)
 

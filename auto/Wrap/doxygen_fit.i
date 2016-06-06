@@ -1003,66 +1003,6 @@ C++ includes: FitSuiteStrategies.h
 ";
 
 
-// File: classGeneticTest.xml
-%feature("docstring") GeneticTest "
-
-basic test of Genetic minimizer
-
-C++ includes: MinimizerFunctionalTests.h
-";
-
-%feature("docstring")  GeneticTest::GeneticTest "GeneticTest::GeneticTest()
-";
-
-
-// File: classGSLLevenbergMarquardtTest.xml
-%feature("docstring") GSLLevenbergMarquardtTest "
-
-basic test of GSL/LMA minimizer
-
-C++ includes: MinimizerFunctionalTests.h
-";
-
-%feature("docstring")  GSLLevenbergMarquardtTest::GSLLevenbergMarquardtTest "GSLLevenbergMarquardtTest::GSLLevenbergMarquardtTest()
-";
-
-
-// File: classGSLMultiMinBFGSTest.xml
-%feature("docstring") GSLMultiMinBFGSTest "
-
-basic test of GSL/BFGS minimizer
-
-C++ includes: MinimizerFunctionalTests.h
-";
-
-%feature("docstring")  GSLMultiMinBFGSTest::GSLMultiMinBFGSTest "GSLMultiMinBFGSTest::GSLMultiMinBFGSTest()
-";
-
-
-// File: classGSLMultiMinSteepestDescentTest.xml
-%feature("docstring") GSLMultiMinSteepestDescentTest "
-
-basic test of GSL/SteepestDescent minimizer
-
-C++ includes: MinimizerFunctionalTests.h
-";
-
-%feature("docstring")  GSLMultiMinSteepestDescentTest::GSLMultiMinSteepestDescentTest "GSLMultiMinSteepestDescentTest::GSLMultiMinSteepestDescentTest()
-";
-
-
-// File: classGSLSimulatedAnnealingTest.xml
-%feature("docstring") GSLSimulatedAnnealingTest "
-
-basic test of GSL/SimulatedAnnealing minimizer
-
-C++ includes: MinimizerFunctionalTests.h
-";
-
-%feature("docstring")  GSLSimulatedAnnealingTest::GSLSimulatedAnnealingTest "GSLSimulatedAnnealingTest::GSLSimulatedAnnealingTest()
-";
-
-
 // File: classIFitObserver.xml
 %feature("docstring") IFitObserver "
 
@@ -1250,30 +1190,6 @@ return name of the minimizer
 %feature("docstring")  IMinimizer::getAlgorithmName "std::string IMinimizer::getAlgorithmName() const
 
 return name of the minimization algorithm 
-";
-
-
-// File: classIMinimizerFunctionalTest.xml
-%feature("docstring") IMinimizerFunctionalTest "
-
-Basic class for all minimizer functional tests.
-
-C++ includes: IMinimizerFunctionalTest.h
-";
-
-%feature("docstring")  IMinimizerFunctionalTest::IMinimizerFunctionalTest "IMinimizerFunctionalTest::IMinimizerFunctionalTest(const std::string &minimizer_name, const std::string &minimizer_algorithm=std::string())
-";
-
-%feature("docstring")  IMinimizerFunctionalTest::~IMinimizerFunctionalTest "virtual IMinimizerFunctionalTest::~IMinimizerFunctionalTest()
-";
-
-%feature("docstring")  IMinimizerFunctionalTest::runTest "void IMinimizerFunctionalTest::runTest()
-";
-
-%feature("docstring")  IMinimizerFunctionalTest::analyseResults "int IMinimizerFunctionalTest::analyseResults()
-";
-
-%feature("docstring")  IMinimizerFunctionalTest::setParameterTolerance "void IMinimizerFunctionalTest::setParameterTolerance(double value)
 ";
 
 
@@ -1541,42 +1457,6 @@ Prints fit results.
 ";
 
 
-// File: classMinuit2FumiliTest.xml
-%feature("docstring") Minuit2FumiliTest "
-
-basic test of Minuit2/Fumili minimizer
-
-C++ includes: MinimizerFunctionalTests.h
-";
-
-%feature("docstring")  Minuit2FumiliTest::Minuit2FumiliTest "Minuit2FumiliTest::Minuit2FumiliTest()
-";
-
-
-// File: classMinuit2MigradTest.xml
-%feature("docstring") Minuit2MigradTest "
-
-basic test of Minuit2/Migrad minimizer
-
-C++ includes: MinimizerFunctionalTests.h
-";
-
-%feature("docstring")  Minuit2MigradTest::Minuit2MigradTest "Minuit2MigradTest::Minuit2MigradTest()
-";
-
-
-// File: classRectDetectorFitTest.xml
-%feature("docstring") RectDetectorFitTest "
-
-Fit of simulation with rectangular detector. The detector is cropped, masks are applied.
-
-C++ includes: RectDetectorFitTest.h
-";
-
-%feature("docstring")  RectDetectorFitTest::RectDetectorFitTest "RectDetectorFitTest::RectDetectorFitTest()
-";
-
-
 // File: classROOTGeneticMinimizer.xml
 %feature("docstring") ROOTGeneticMinimizer "
 
@@ -1841,34 +1721,6 @@ C++ includes: ROOTSimAnMinimizer.h
 ";
 
 
-// File: classStandardFitsFactory.xml
-%feature("docstring") StandardFitsFactory "
-
-Factory to create predefined functional fit tests.
-
-C++ includes: StandardFitsFactory.h
-";
-
-%feature("docstring")  StandardFitsFactory::StandardFitsFactory "StandardFitsFactory::StandardFitsFactory()
-";
-
-%feature("docstring")  StandardFitsFactory::createTest "IFunctionalTest * StandardFitsFactory::createTest(const std::string &test_name)
-";
-
-%feature("docstring")  StandardFitsFactory::isValidTest "bool StandardFitsFactory::isValidTest(const std::string &test_name)
-";
-
-%feature("docstring")  StandardFitsFactory::printCatalogue "void StandardFitsFactory::printCatalogue(std::ostream &ostr)
-";
-
-
-// File: classIMinimizerFunctionalTest_1_1TestParameter.xml
-%feature("docstring") IMinimizerFunctionalTest::TestParameter "";
-
-%feature("docstring")  IMinimizerFunctionalTest::TestParameter::TestParameter "IMinimizerFunctionalTest::TestParameter::TestParameter(const std::string &name, double real_value, double start_value)
-";
-
-
 // File: namespaceBA__ROOT.xml
 
 
@@ -2034,49 +1886,8 @@ C++ includes: StandardFitsFactory.h
 // File: ROOTSimAnMinimizer_8h.xml
 
 
-// File: fit__functional__tests_8cpp.xml
-%feature("docstring")  fit_functional_test "int fit_functional_test(const std::string &test_name)
-
-run core functional tests with given name 
-";
-
-
-// File: fit__functional__tests_8h.xml
-%feature("docstring")  fit_functional_test "BA_CORE_API_ int fit_functional_test(const std::string &test_name)
-
-run core functional tests with given name 
-";
-
-
-// File: IMinimizerFunctionalTest_8cpp.xml
-
-
-// File: IMinimizerFunctionalTest_8h.xml
-
-
-// File: MinimizerFunctionalTests_8cpp.xml
-
-
-// File: MinimizerFunctionalTests_8h.xml
-
-
-// File: RectDetectorFitTest_8cpp.xml
-
-
-// File: RectDetectorFitTest_8h.xml
-
-
-// File: StandardFitsFactory_8cpp.xml
-
-
-// File: StandardFitsFactory_8h.xml
-
-
 // File: dir_892d84e8d1420bf45a9053cf0eede900.xml
 
 
 // File: dir_4e6c9d4e290828461655ecdd2f34719c.xml
-
-
-// File: dir_f0d58a7b25b35daab22ce6e2bfb078e9.xml
 

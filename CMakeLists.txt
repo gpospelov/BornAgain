@@ -58,7 +58,7 @@ if(BORNAGAIN_GUI)
     add_subdirectory(GUI)
     add_subdirectory(Tests/UnitTests/GUI)
 endif()
-add_subdirectory(Tests/FunctionalTests)  # functional tests (make check)
+add_subdirectory(Tests/FunctionalTests)  # functional tests (ctest)
 
 add_subdirectory(cmake/bornagain) # trick to print an after-install message
 

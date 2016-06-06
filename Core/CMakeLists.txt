@@ -14,18 +14,16 @@ set(include_dirs
     ${CMAKE_CURRENT_SOURCE_DIR}/FormFactors/
     ${CMAKE_CURRENT_SOURCE_DIR}/Geometry/
     ${CMAKE_CURRENT_SOURCE_DIR}/Samples/
-    ${CMAKE_CURRENT_SOURCE_DIR}/StandardSamples
+    ${CMAKE_CURRENT_SOURCE_DIR}/StandardSamples/
+    ${CMAKE_CURRENT_SOURCE_DIR}/TestMachinery/
     ${CMAKE_CURRENT_SOURCE_DIR}/Tools/
     ${CMAKE_CURRENT_SOURCE_DIR}/InputOutput
     )
 
 include_directories(${include_dirs})
 
-file(GLOB core_source_files "*/*.cpp")
-file(GLOB core_include_files "*/*.h")
-
-set(source_files ${core_source_files})
-set(include_files ${core_include_files})
+file(GLOB source_files "*/*.cpp")
+file(GLOB include_files "*/*.h")
 
 if(BORNAGAIN_PYTHON)
 
@@ -37,6 +35,7 @@ if(BORNAGAIN_PYTHON)
     if(BORNAGAIN_GENERATE_BINDINGS)
 
         set(TMP_DIR ${CMAKE_CURRENT_BINARY_DIR}/Wrap)
+        file(MAKE_DIRECTORY ${TMP_DIR})
 
         GeneratePythonDocs(${AUTO_DIR}/doxygen_core.i ${WRAP_DIR}/swig)
 
@@ -164,7 +163,7 @@ install (DIRECTORY ${CMAKE_SOURCE_DIR}/Examples/ DESTINATION ${destination_examp
 install (DIRECTORY ${CMAKE_SOURCE_DIR}/Examples/cpp DESTINATION ${destination_examples} COMPONENT Examples)
 install (TARGETS ${library_name} DESTINATION ${destination_lib} COMPONENT Libraries)
 install (FILES ${CMAKE_BINARY_DIR}/lib/lib${library_name}.py DESTINATION ${destination_lib} COMPONENT Libraries) # required by swig
-install (FILES ${core_include_files} DESTINATION ${destination_include} COMPONENT Headers)
+install (FILES ${include_files} DESTINATION ${destination_include} COMPONENT Headers)
 
 if(WIN32)
     # python in windows required .pyd extention for the library name

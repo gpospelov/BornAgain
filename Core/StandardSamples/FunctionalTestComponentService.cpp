@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      StandardSamples/FunctionalTestComponentService.cpp
+//! @brief     Implements class FunctionalTestComponentService.
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "FunctionalTestComponentService.h"
 #include "SimulationRegistry.h"
 #include "SampleBuilderFactory.h"
@@ -19,7 +34,7 @@ const std::string NoneRegistryName = "None";
 const std::string DefaultComponentName = "Default";
 }
 
-FunctionalTestComponentService::FunctionalTestComponentService(const FunctionalTestInfo &info)
+FunctionalTestComponentService::FunctionalTestComponentService(const FunctionalTestInfo& info)
     : m_testInfo(info)
     , m_form_factor(0)
     , m_ft_distribution_2d(0)
@@ -39,30 +54,28 @@ FunctionalTestComponentService::~FunctionalTestComponentService()
     delete m_ft2d_registry;
 }
 
-IFormFactor *FunctionalTestComponentService::getFormFactor() const
+IFormFactor* FunctionalTestComponentService::getFormFactor() const
 {
-    if(!m_form_factor) {
-        throw NullPointerException("FunctionalTestComponentService::getFormFactor() -> Error. "
-                                   " No form factor defined.");
-    }
+    if(!m_form_factor)
+        throw NullPointerException(
+            "FunctionalTestComponentService::getFormFactor() -> Error. No form factor defined.");
     return m_form_factor->clone();
 }
 
-IFTDistribution2D *FunctionalTestComponentService::getFTDistribution2D() const
+IFTDistribution2D* FunctionalTestComponentService::getFTDistribution2D() const
 {
-    if(!m_ft_distribution_2d) {
+    if(!m_ft_distribution_2d)
         throw NullPointerException(
             "FunctionalTestComponentService::getFTDistribution2D() -> Error. "
-            " No FT distribution defined.");
-    }
+            "No FT distribution defined.");
     return m_ft_distribution_2d->clone();
 }
 
 
-GISASSimulation *FunctionalTestComponentService::getSimulation() const
+GISASSimulation* FunctionalTestComponentService::getSimulation() const
 {
     SimulationRegistry sim_registry;
-    GISASSimulation *result = sim_registry.createSimulation(m_testInfo.m_simulation_name);
+    GISASSimulation* result = sim_registry.createSimulation(m_testInfo.m_simulation_name);
     result->setSampleBuilder(getSampleBuilder());
     return result;
 }
@@ -76,14 +89,14 @@ std::shared_ptr<class ISampleBuilder> FunctionalTestComponentService::getSampleB
     return sample_builder;
 }
 
-OutputData<double> *FunctionalTestComponentService::getReferenceData() const
+OutputData<double>* FunctionalTestComponentService::getReferenceData() const
 {
-    OutputData<double> *result(0);
+    OutputData<double>* result(0);
     std::string filename = Utils::FileSystem::GetReferenceDataDir() + getReferenceFileName();
 
     try {
         result = IntensityDataIOFactory::readOutputData(filename);
-    } catch(const std::exception &ex) {
+    } catch(const std::exception& ex) {
         std::cout << "FunctionalTestComponentService::getReferenceData() -> Exception caught."
                   << ex.what() << std::endl;
     }
@@ -91,7 +104,7 @@ OutputData<double> *FunctionalTestComponentService::getReferenceData() const
     return result;
 }
 
-IFunctionalTest *FunctionalTestComponentService::getFunctionalTest() const
+IFunctionalTest* FunctionalTestComponentService::getFunctionalTest() const
 {
     return 0;
 }
@@ -137,7 +150,7 @@ FunctionalTestInfo FunctionalTestComponentService::getTestInfo() const
     return m_testInfo;
 }
 
-void FunctionalTestComponentService::init_registry(const std::string &registry_name)
+void FunctionalTestComponentService::init_registry(const std::string& registry_name)
 {
     m_component_names.clear();
     m_current_component = 0;

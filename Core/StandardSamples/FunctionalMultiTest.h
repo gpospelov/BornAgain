@@ -23,13 +23,13 @@ class FunctionalTestComponentService;
 
 //! @class FunctionalMultiTest
 //! @ingroup standard_samples
-//! @brief Functional multi test constructs the collection of standard functional
-//! tests using component service, runs them one-by-one, and then reports results in a single table.
+//! @brief Functional multi test constructs the collection of standard functional tests
+//! using component service, runs them one-by-one, and then reports results in a single table.
 
 class BA_CORE_API_ FunctionalMultiTest : public IFunctionalTest
 {
 public:
-    FunctionalMultiTest(const std::string &name, FunctionalTestComponentService *service);
+    FunctionalMultiTest(const std::string &name, FunctionalTestComponentService* service);
     virtual ~FunctionalMultiTest();
 
     virtual void runTest();
@@ -38,7 +38,7 @@ public:
 
 private:
     FunctionalTestComponentService *m_componentService;
-    std::vector<IFunctionalTest *> m_tests;
+    std::vector<IFunctionalTest*> m_tests;
 };
 
 #endif

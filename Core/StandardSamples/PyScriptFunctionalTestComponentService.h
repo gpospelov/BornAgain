@@ -29,8 +29,7 @@ class PyScriptFunctionalTestComponentService : public FunctionalTestComponentSer
 public:
     PyScriptFunctionalTestComponentService(const FunctionalTestInfo &info);
 
-    IFunctionalTest *getFunctionalTest() const;
+    IFunctionalTest* getFunctionalTest() const;
 };
 
 #endif
-

@@ -34,15 +34,15 @@ class IFunctionalTest;
 class BA_CORE_API_ FunctionalTestComponentService : public IComponentService
 {
 public:
-    FunctionalTestComponentService(const FunctionalTestInfo &info);
+    FunctionalTestComponentService(const FunctionalTestInfo& info);
     virtual ~FunctionalTestComponentService();
 
-    virtual IFormFactor *getFormFactor() const;
-    virtual IFTDistribution2D *getFTDistribution2D() const;
-    virtual GISASSimulation *getSimulation() const;
+    virtual IFormFactor* getFormFactor() const;
+    virtual IFTDistribution2D* getFTDistribution2D() const;
+    virtual GISASSimulation* getSimulation() const;
     virtual std::shared_ptr<class ISampleBuilder> getSampleBuilder() const;
-    virtual OutputData<double> *getReferenceData() const;
-    virtual IFunctionalTest *getFunctionalTest() const;
+    virtual OutputData<double>* getReferenceData() const;
+    virtual IFunctionalTest* getFunctionalTest() const;
 
     size_t getNumberOfComponents() const;
     void initComponent(size_t component_index);
@@ -52,17 +52,17 @@ public:
     FunctionalTestInfo getTestInfo() const;
 
 protected:
-    void init_registry(const std::string &registry_name);
+    void init_registry(const std::string& registry_name);
     std::string getTestName() const;
     std::string getTestDescription() const;
     double getTestThreshold() const;
 
     FunctionalTestInfo m_testInfo;
-    IFormFactor *m_form_factor;
-    IFTDistribution2D *m_ft_distribution_2d;
+    IFormFactor* m_form_factor;
+    IFTDistribution2D* m_ft_distribution_2d;
 
-    TestFormFactorsRegistry *m_ff_registry;
-    TestFTDistribution2DRegistry *m_ft2d_registry;
+    TestFormFactorsRegistry* m_ff_registry;
+    TestFTDistribution2DRegistry* m_ft2d_registry;
     std::vector<std::string> m_component_names;
     size_t m_current_component;
 };

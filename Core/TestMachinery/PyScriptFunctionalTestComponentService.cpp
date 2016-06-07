@@ -24,8 +24,8 @@ PyScriptFunctionalTestComponentService::PyScriptFunctionalTestComponentService(
 
 IFunctionalTest* PyScriptFunctionalTestComponentService::getFunctionalTest() const
 {
-    PyScriptFunctionalTest* result = new PyScriptFunctionalTest(getTestName(),
-        getTestDescription(), getSimulation(), getTestThreshold());
+    PyScriptFunctionalTest* result = new PyScriptFunctionalTest(
+        getTestName(), getTestDescription(), getSimulation(), getTestThreshold());
 
     std::string file_name("pyscript_");
     file_name += m_testInfo->m_test_name;

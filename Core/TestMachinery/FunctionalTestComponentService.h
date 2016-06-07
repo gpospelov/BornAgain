@@ -42,7 +42,7 @@ public:
     virtual GISASSimulation* getSimulation() const;
     virtual std::shared_ptr<class ISampleBuilder> getSampleBuilder() const;
     virtual OutputData<double>* getReferenceData() const;
-    virtual IFunctionalTest* getFunctionalTest() const;
+    virtual IFunctionalTest* getFunctionalTest() const = 0;
 
     size_t getNumberOfComponents() const;
     void initComponent(size_t component_index);

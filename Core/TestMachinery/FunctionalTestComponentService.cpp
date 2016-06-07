@@ -104,11 +104,6 @@ OutputData<double>* FunctionalTestComponentService::getReferenceData() const
     return result;
 }
 
-IFunctionalTest* FunctionalTestComponentService::getFunctionalTest() const
-{
-    return 0;
-}
-
 size_t FunctionalTestComponentService::getNumberOfComponents() const
 {
     return m_component_names.size();

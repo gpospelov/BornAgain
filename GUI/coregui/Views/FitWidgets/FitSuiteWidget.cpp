@@ -34,13 +34,12 @@
 #include <QMessageBox>
 #include <QDebug>
 
-FitSuiteWidget::FitSuiteWidget(JobModel *jobModel, QWidget *parent)
+FitSuiteWidget::FitSuiteWidget(QWidget *parent)
     : QWidget(parent)
     , m_tabWidget(new QTabWidget)
     , m_fitParametersWidget(new FitParameterWidget(this))
     , m_minimizerSettingsWidget(new MinimizerSettingsWidget(this))
     , m_fitResultsWidget(new FitResultsWidget(this))
-    , m_jobModel(jobModel)
     , m_currentItem(0)
     , m_manager(new RunFitManager(parent))
     , m_observer(new GUIFitObserver())
@@ -62,8 +61,10 @@ FitSuiteWidget::~FitSuiteWidget()
 
 }
 
-void FitSuiteWidget::setItem(JobItem *jobItem)
+void FitSuiteWidget::setItem(SessionItem *item)
 {
+    JobItem *jobItem = dynamic_cast<JobItem *>(item);
+    Q_ASSERT(jobItem);
     m_currentItem = jobItem;
     m_fitParametersWidget->setItem(jobItem);
 }

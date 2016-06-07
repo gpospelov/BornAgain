@@ -27,7 +27,8 @@
 
 FitActivityPanel::FitActivityPanel(JobModel *jobModel, QWidget *parent)
     : JobPresenter(jobModel, parent)
-    , m_stack(new QStackedWidget(this))
+    , m_stackedWidget(new ItemStackPresenter<FitSuiteWidget>)
+//    , m_stack(new QStackedWidget(this))
     , m_controlWidget(new RunFitControlWidget(this))
     , m_realTimeWidget(0)
 {
@@ -38,14 +39,13 @@ FitActivityPanel::FitActivityPanel(JobModel *jobModel, QWidget *parent)
     mainLayout->setMargin(0);
     mainLayout->setSpacing(0);
 
-    mainLayout->addWidget(m_stack);
+    mainLayout->addWidget(m_stackedWidget);
     mainLayout->addWidget(m_controlWidget);
 
     setLayout(mainLayout);
 
     connect(m_controlWidget, SIGNAL(startFitting()), this, SLOT(onStartFitting()));
     connect(m_controlWidget, SIGNAL(stopFitting()), this, SLOT(onStopFitting()));
-
 }
 
 void FitActivityPanel::setRealTimeWidget(JobRealTimeWidget *realTimeWidget)
@@ -71,34 +71,16 @@ void FitActivityPanel::setItem(JobItem *item)
 
     if(!isVisible()) return;
 
-    FitSuiteWidget *widget = m_jobItemToFitWidget[item];
-    if( !widget && isValidJobItem(item)) {
-        widget = new FitSuiteWidget(m_jobModel);
-        widget->setItem(item);
+    m_stackedWidget->setItem(item);
+    if(FitSuiteWidget *widget = m_stackedWidget->currentWidget()) {
         widget->setModelTuningWidget(m_realTimeWidget->getTuningWidgetForItem(item));
-
-        connect(widget, SIGNAL(fittingStarted()), m_controlWidget, SLOT(onFittingStarted()));
-        connect(widget, SIGNAL(fittingFinished()), m_controlWidget, SLOT(onFittingFinished()));
-        connect(widget, SIGNAL(fittingError(QString)), m_controlWidget, SLOT(onFittingError(QString)));
-
-        m_stack->addWidget(widget);
-        m_jobItemToFitWidget[item] = widget;
-
-    } else {
-        if( m_stack->currentWidget()) {
-            m_stack->currentWidget()->hide();
-        }
+        connect(widget, SIGNAL(fittingStarted()), m_controlWidget,
+                SLOT(onFittingStarted()), Qt::UniqueConnection);
+        connect(widget, SIGNAL(fittingFinished()), m_controlWidget,
+                SLOT(onFittingFinished()), Qt::UniqueConnection);
+        connect(widget, SIGNAL(fittingError(QString)), m_controlWidget,
+                SLOT(onFittingError(QString)), Qt::UniqueConnection);
     }
-
-    if(widget) {
-        if(widget->isHidden()) {
-            widget->show();
-        }
-
-        m_stack->setCurrentWidget(widget);
-    }
-
-
 }
 
 void FitActivityPanel::onJobItemDelete(JobItem *item)
@@ -121,14 +103,14 @@ void FitActivityPanel::updateCurrentItem()
 
 void FitActivityPanel::onStartFitting()
 {
-    if(FitSuiteWidget *widget = getCurrentFitSuiteWidget()) {
+    if(FitSuiteWidget *widget = currentFitSuiteWidget()) {
         widget->startFitting();
     }
 }
 
 void FitActivityPanel::onStopFitting()
 {
-    if(FitSuiteWidget *widget = getCurrentFitSuiteWidget()) {
+    if(FitSuiteWidget *widget = currentFitSuiteWidget()) {
         widget->stopFitting();
     }
 }
@@ -140,9 +122,7 @@ bool FitActivityPanel::isValidJobItem(JobItem *item)
     //    return (item->isCompleted() || item->isCanceled()) && item->getMultiLayerItem() && item->getInstrumentItem();
 }
 
-FitSuiteWidget *FitActivityPanel::getCurrentFitSuiteWidget()
+FitSuiteWidget *FitActivityPanel::currentFitSuiteWidget()
 {
-    FitSuiteWidget *result = dynamic_cast<FitSuiteWidget *>(m_stack->currentWidget());
-    if(result && result->isHidden()) result = 0;
-    return result;
+    return m_stackedWidget->currentWidget();
 }

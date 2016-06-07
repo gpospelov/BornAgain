@@ -18,6 +18,7 @@
 #define FITACTIVITYPANEL_H
 
 #include "JobPresenter.h"
+#include "ItemStackPresenter.h"
 #include <QMap>
 
 class JobModel;
@@ -53,11 +54,10 @@ private slots:
 
 private:
     bool isValidJobItem(JobItem *item);
-    FitSuiteWidget *getCurrentFitSuiteWidget();
+    FitSuiteWidget *currentFitSuiteWidget();
 
-    QStackedWidget *m_stack;
+    ItemStackPresenter<FitSuiteWidget> *m_stackedWidget;
     RunFitControlWidget *m_controlWidget;
-    QMap<JobItem *, FitSuiteWidget *> m_jobItemToFitWidget;
     JobRealTimeWidget *m_realTimeWidget;
 };
 

@@ -174,6 +174,15 @@ bool JobItem::isFailed() const
     return combo_property.getValue() == Constants::STATUS_FAILED;
 }
 
+bool JobItem::isValidForFitting()
+{
+    if(getItem(T_REALDATA)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 void JobItem::setBeginTime(const QString &begin_time)
 {
     setItemValue(P_BEGIN_TIME, begin_time);

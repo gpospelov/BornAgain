@@ -24,6 +24,7 @@
 class QTabWidget;
 class JobModel;
 class JobItem;
+class SessionItem;
 class FitParameterWidget;
 class MinimizerSettingsWidget;
 class FitResultsWidget;
@@ -42,10 +43,10 @@ class BA_CORE_API_ FitSuiteWidget : public QWidget
     Q_OBJECT
 
 public:
-    FitSuiteWidget(JobModel *jobModel, QWidget *parent = 0);
+    FitSuiteWidget(QWidget *parent = 0);
     ~FitSuiteWidget();
 
-    void setItem(JobItem *jobItem);
+    void setItem(SessionItem *item);
     void setModelTuningWidget(ParameterTuningWidget *tuningWidget);
 
 signals:
@@ -75,7 +76,6 @@ private:
     FitParameterWidget *m_fitParametersWidget;
     MinimizerSettingsWidget *m_minimizerSettingsWidget;
     FitResultsWidget *m_fitResultsWidget;
-    JobModel *m_jobModel;
     JobItem *m_currentItem;
     RunFitManager *m_manager;
     std::shared_ptr<GUIFitObserver> m_observer;

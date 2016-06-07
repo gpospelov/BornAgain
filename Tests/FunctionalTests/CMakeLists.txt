@@ -17,6 +17,7 @@ add_subdirectory(TestFit)
 
 if(BORNAGAIN_PYTHON)
     add_subdirectory(TestPyCore)
+    add_subdirectory(TestPyDump)
     add_subdirectory(TestPyFit)
 endif()
 

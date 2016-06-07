@@ -16,7 +16,6 @@
 #include "FunctionalTestRegistry.h"
 #include "FunctionalMultiTest.h"
 #include "CoreFunctionalTestComponentService.h"
-#include <iostream>
 
 //! Program CoreSuite, to run core functional tests.
 int main(int argc, char** argv)
@@ -26,18 +25,11 @@ int main(int argc, char** argv)
         test_name = std::string(argv[1]);
 
     FunctionalTestRegistry catalogue;
-    if (!catalogue.isValidTest(test_name)) {
-        if(test_name!="")
-            std::cout<<"There is no test named '"<< test_name << "'" << std::endl;
-        std::cout << "Usage: CoreSuite <test_name>" << std::endl;
-        std::cout << "Available tests:" << std::endl;
-        catalogue.printCatalogue(std::cout);
+    FunctionalTestInfo* info = catalogue.getTestInfo(test_name, "CoreSuite");
+    if( !info )
         return 1;
-    }
 
-    FunctionalTestInfo info = catalogue.getTestInfo(test_name);
-
-    CoreFunctionalTestComponentService* service = new CoreFunctionalTestComponentService(info);
+    auto* service = new CoreFunctionalTestComponentService(info);
     FunctionalMultiTest test(test_name, service);
     test.runTest();
     return test.analyseResults();

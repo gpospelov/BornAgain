@@ -18,7 +18,7 @@
 
 FunctionalMultiTest::FunctionalMultiTest(const std::string& name,
                                          FunctionalTestComponentService* service)
-    : IFunctionalTest(name, service->getTestInfo().m_test_description)
+    : IFunctionalTest(name, service->getTestInfo()->m_test_description)
     , m_componentService(service)
 {
 }
@@ -27,7 +27,7 @@ FunctionalMultiTest::~FunctionalMultiTest()
 {
     delete m_componentService;
     for (auto it = m_tests.begin(); it != m_tests.end(); ++it)
-        delete (*it);
+        delete *it;
 }
 
 void FunctionalMultiTest::runTest()

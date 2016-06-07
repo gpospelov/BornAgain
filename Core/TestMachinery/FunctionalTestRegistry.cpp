@@ -16,6 +16,7 @@
 #include "FunctionalTestRegistry.h"
 #include "Exceptions.h"
 #include "Utils.h"
+#include <iostream>
 
 
 FunctionalTestRegistry::FunctionalTestRegistry()
@@ -342,21 +343,25 @@ void FunctionalTestRegistry::add(
 {
     if( m_catalogue.find(test_name) != m_catalogue.end() )
         throw ExistingClassRegistrationException(
-            "AdvancedFunctionalTestRegistry::register_test_info() -> "
-            "Error. Existing item " + test_name);
+            "FunctionalTestRegistry::add() -> Error. Existing item " + test_name);
     m_catalogue[test_name] = FunctionalTestInfo(
         test_name, test_description, simulation_name,
         sample_builder_name,component_registry_name, threshold);
 }
 
-FunctionalTestInfo FunctionalTestRegistry::getTestInfo(const std::string &test_name)
+FunctionalTestInfo* FunctionalTestRegistry::getTestInfo(
+    const std::string &test_name, const std::string &suite_name)
 {
     auto it = m_catalogue.find(test_name);
-    if( it == m_catalogue.end() )
-        throw ExistingClassRegistrationException(
-            "AdvancedFunctionalTestRegistry::getTestInfo() -> "
-            "Error. Item not found " + test_name);
-    return it->second;
+    if( it == m_catalogue.end() ) {
+        if(test_name!="")
+            std::cout<<"There is no test named '"<< test_name << "'\n";
+        std::cout << "Usage: "<< suite_name << " <test_name>\n";
+        std::cout << "Available tests:\n";
+        printCatalogue(std::cout);
+        return nullptr;
+    }
+    return &(it->second);
 }
 
 void FunctionalTestRegistry::printCatalogue(std::ostream &ostr)
@@ -370,9 +375,4 @@ void FunctionalTestRegistry::printCatalogue(std::ostream &ostr)
         ostr << info.m_component_registry_name;
         ostr << "\n";
     }
-}
-
-bool FunctionalTestRegistry::isValidTest(const std::string &test_name)
-{
-    return find(test_name) != end();
 }

@@ -17,12 +17,12 @@
 #include "CoreFunctionalTest.h"
 
 CoreFunctionalTestComponentService::CoreFunctionalTestComponentService(
-    const FunctionalTestInfo &info)
+    const FunctionalTestInfo* info)
     : FunctionalTestComponentService(info)
 {
 }
 
-IFunctionalTest *CoreFunctionalTestComponentService::getFunctionalTest() const
+IFunctionalTest* CoreFunctionalTestComponentService::getFunctionalTest() const
 {
     CoreFunctionalTest *result
         = new CoreFunctionalTest(getTestName(), getTestDescription(),

@@ -29,7 +29,6 @@
 class BA_CORE_API_ FunctionalTestRegistry
 {
 public:
-
     typedef std::map<std::string, FunctionalTestInfo> catalogue_t;
     typedef catalogue_t::iterator iterator;
     typedef catalogue_t::const_iterator const_iterator;
@@ -40,16 +39,13 @@ public:
              const std::string &simulation_name, const std::string &sample_builder_name,
              const std::string &component_registry_name, double threshold);
 
-    FunctionalTestInfo getTestInfo(const std::string &test_name);
+    FunctionalTestInfo* getTestInfo(const std::string &test_name, const std::string &suite_name);
 
     iterator begin() { return m_catalogue.begin(); }
     iterator end() { return m_catalogue.end(); }
     iterator find(const std::string &key) { return m_catalogue.find(key); }
 
     void printCatalogue(std::ostream &ostr);
-
-    bool isValidTest(const std::string &test_name);
-
 private:
     catalogue_t m_catalogue;
 };

@@ -34,7 +34,7 @@ const std::string NoneRegistryName = "None";
 const std::string DefaultComponentName = "Default";
 }
 
-FunctionalTestComponentService::FunctionalTestComponentService(const FunctionalTestInfo& info)
+FunctionalTestComponentService::FunctionalTestComponentService(const FunctionalTestInfo* info)
     : m_testInfo(info)
     , m_form_factor(0)
     , m_ft_distribution_2d(0)
@@ -42,7 +42,7 @@ FunctionalTestComponentService::FunctionalTestComponentService(const FunctionalT
     , m_ft2d_registry(0)
     , m_current_component(0)
 {
-    init_registry(m_testInfo.m_component_registry_name);
+    init_registry(m_testInfo->m_component_registry_name);
 }
 
 FunctionalTestComponentService::~FunctionalTestComponentService()
@@ -75,7 +75,7 @@ IFTDistribution2D* FunctionalTestComponentService::getFTDistribution2D() const
 GISASSimulation* FunctionalTestComponentService::getSimulation() const
 {
     SimulationRegistry sim_registry;
-    GISASSimulation* result = sim_registry.createSimulation(m_testInfo.m_simulation_name);
+    GISASSimulation* result = sim_registry.createSimulation(m_testInfo->m_simulation_name);
     result->setSampleBuilder(getSampleBuilder());
     return result;
 }
@@ -84,7 +84,7 @@ std::shared_ptr<class ISampleBuilder> FunctionalTestComponentService::getSampleB
 {
     SampleBuilderFactory sample_factory;
     std::shared_ptr<class ISampleBuilder> sample_builder =
-        sample_factory.createBuilder(m_testInfo.m_sample_builder_name);
+        sample_factory.createBuilder(m_testInfo->m_sample_builder_name);
     sample_builder->init_from(this);
     return sample_builder;
 }
@@ -138,14 +138,14 @@ std::string FunctionalTestComponentService::getCurrentComponentName() const
 std::string FunctionalTestComponentService::getReferenceFileName() const
 {
     std::string result("ref_");
-    result += m_testInfo.m_test_name;
+    result += m_testInfo->m_test_name;
     if(m_component_names[m_current_component] != DefaultComponentName)
         result += std::string("_")+m_component_names[m_current_component];
     result += std::string(".int.gz");
     return result;
 }
 
-FunctionalTestInfo FunctionalTestComponentService::getTestInfo() const
+const FunctionalTestInfo* FunctionalTestComponentService::getTestInfo() const
 {
     return m_testInfo;
 }
@@ -181,7 +181,7 @@ void FunctionalTestComponentService::init_registry(const std::string& registry_n
 //! different names of test depending from the context (single test, or multi test).
 std::string FunctionalTestComponentService::getTestName() const
 {
-    std::string result = getTestInfo().m_test_name;
+    std::string result = m_testInfo->m_test_name;
     if(getCurrentComponentName() != DefaultComponentName)
         result.clear(); // i.e. no name for sub-test just for printing purpose
     return result;
@@ -190,12 +190,12 @@ std::string FunctionalTestComponentService::getTestName() const
 //! Constructs functional test description corresponding to the current component.
 std::string FunctionalTestComponentService::getTestDescription() const
 {
-    std::string result = getTestInfo().m_test_description;
+    std::string result = m_testInfo->m_test_description;
     if(getCurrentComponentName() != DefaultComponentName) result = getCurrentComponentName();
     return result;
 }
 
 double FunctionalTestComponentService::getTestThreshold() const
 {
-    return getTestInfo().m_threshold;
+    return m_testInfo->m_threshold;
 }

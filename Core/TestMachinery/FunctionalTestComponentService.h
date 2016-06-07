@@ -34,7 +34,7 @@ class IFunctionalTest;
 class BA_CORE_API_ FunctionalTestComponentService : public IComponentService
 {
 public:
-    FunctionalTestComponentService(const FunctionalTestInfo& info);
+    FunctionalTestComponentService(const FunctionalTestInfo* info);
     virtual ~FunctionalTestComponentService();
 
     virtual IFormFactor* getFormFactor() const;
@@ -49,7 +49,7 @@ public:
     std::string getCurrentComponentName() const;
 
     std::string getReferenceFileName() const;
-    FunctionalTestInfo getTestInfo() const;
+    const FunctionalTestInfo* getTestInfo() const;
 
 protected:
     void init_registry(const std::string& registry_name);
@@ -57,7 +57,7 @@ protected:
     std::string getTestDescription() const;
     double getTestThreshold() const;
 
-    FunctionalTestInfo m_testInfo;
+    const FunctionalTestInfo* m_testInfo;
     IFormFactor* m_form_factor;
     IFTDistribution2D* m_ft_distribution_2d;
 

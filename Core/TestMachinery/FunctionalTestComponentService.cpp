@@ -149,15 +149,11 @@ void FunctionalTestComponentService::init_registry(const std::string& registry_n
 
     } else if(registry_name == "FormFactorsRegistry") {
         m_ff_registry = new TestFormFactorsRegistry;
-        for(auto it = m_ff_registry->begin(); it!= m_ff_registry->end(); ++it) {
-            m_component_names.push_back(it->first);
-        }
+        m_component_names = m_ff_registry->getNames();
 
     } else if(registry_name == "FTDistributions2DRegistry") {
         m_ft2d_registry= new TestFTDistribution2DRegistry;
-        for(auto it = m_ft2d_registry->begin(); it!= m_ft2d_registry->end(); ++it) {
-            m_component_names.push_back(it->first);
-        }
+        m_component_names = m_ft2d_registry->getNames();
 
     } else {
         throw RuntimeErrorException("FunctionalTestComponentService::init_factory -> Error. "

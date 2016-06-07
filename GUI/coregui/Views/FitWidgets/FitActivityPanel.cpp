@@ -32,7 +32,7 @@ FitActivityPanel::FitActivityPanel(JobModel *jobModel, QWidget *parent)
     , m_controlWidget(new RunFitControlWidget(this))
     , m_realTimeWidget(0)
 {
-    setWindowTitle(QLatin1String("Fit Panel"));
+    setWindowTitle(Constants::JobFitPanelName);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
 
     QVBoxLayout *mainLayout = new QVBoxLayout;

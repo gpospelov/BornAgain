@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      coregui/Views/JobWidgets/JobViewDocks.h
-//! @brief     Implements class JobViewDocks
+//! @brief     Declares class JobViewDocks
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -18,6 +18,7 @@
 #define JOBVIEWDOCKS_H
 
 #include "WinDllMacros.h"
+#include "JobViewFlags.h"
 #include <QObject>
 #include <QVector>
 
@@ -29,26 +30,16 @@ class JobView;
 //! Provides Job Activities switch logic for all of (JobSelectorWidget, JobOutputDataWidget,
 //! JobRealTimeWidget and FitPanelWidget).
 
-class JobViewDocks : public QObject {
+class BA_CORE_API_ JobViewDocks : public QObject {
     Q_OBJECT
 
 public:
-
-    enum EDocksId {
-        JOB_LIST_DOCK,
-        REAL_TIME_DOCK,
-        FIT_PANEL_DOCK,
-        JOB_MESSAGE_DOCK,
-        NUMBER_OF_DOCKS
-    };
-
     JobViewDocks(JobView *parent = 0);
 
     void initViews(class JobModel *jobModel);
 
-    QWidget *jobWidget(EDocksId dockId);
-    QDockWidget *dock(EDocksId dockId);
-    QWidget *centralWidget();
+    QWidget *jobWidget(JobViewFlags::Dock dockId);
+    QDockWidget *dock(JobViewFlags::Dock dockId);
 
 
     class JobRealTimeWidget *jobRealTimeWidget() { return m_jobRealTimeWidget;}
@@ -57,6 +48,7 @@ public:
     class JobOutputDataWidget *jobOutputDataWidget() { return m_jobOutputDataWidget; }
 
 private:
+    QWidget *centralWidget();
     void initJobWidgets(class JobModel *jobModel);
     void initDocks();
 

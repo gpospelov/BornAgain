@@ -41,7 +41,6 @@ JobSelectorWidget::JobSelectorWidget(JobModel *model, QWidget *parent)
     setMinimumSize(128, 600);
     setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
     setWindowTitle(QLatin1String("Job Selector"));
-    setObjectName(QLatin1String("Job Selector"));
 
     m_splitter->setOrientation(Qt::Vertical);
     m_splitter->addWidget(m_jobListWidget);

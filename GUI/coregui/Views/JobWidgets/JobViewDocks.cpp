@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/JobWidgets/JobViewDocks.h
+//! @file      coregui/Views/JobWidgets/JobViewDocks.cpp
 //! @brief     Implements class JobViewDocks
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -44,7 +44,7 @@ void JobViewDocks::initViews(class JobModel *jobModel)
 
 //! Returns job widget with given Id.
 
-QWidget *JobViewDocks::jobWidget(JobViewDocks::EDocksId dockId)
+QWidget *JobViewDocks::jobWidget(JobViewFlags::Dock dockId)
 {
     Q_ASSERT(dockId >=0 && dockId<m_jobWidgets.size());
     return m_jobWidgets[dockId];
@@ -52,7 +52,7 @@ QWidget *JobViewDocks::jobWidget(JobViewDocks::EDocksId dockId)
 
 //! Returns dock with given id.
 
-QDockWidget *JobViewDocks::dock(JobViewDocks::EDocksId dockId)
+QDockWidget *JobViewDocks::dock(JobViewFlags::Dock dockId)
 {
     Q_ASSERT(dockId >=0 && dockId<m_dockWidgets.size());
     return m_dockWidgets[dockId];
@@ -68,22 +68,22 @@ QWidget *JobViewDocks::centralWidget()
 
 void JobViewDocks::initJobWidgets(JobModel *jobModel)
 {
-    m_jobWidgets.resize(NUMBER_OF_DOCKS);
-    m_dockWidgets.resize(NUMBER_OF_DOCKS);
+    m_jobWidgets.resize(JobViewFlags::NUMBER_OF_DOCKS);
+    m_dockWidgets.resize(JobViewFlags::NUMBER_OF_DOCKS);
 
     m_jobOutputDataWidget = new JobOutputDataWidget(jobModel, m_jobView);
 
     m_jobSelector = new JobSelectorWidget(jobModel, m_jobView);
-    m_jobWidgets[JOB_LIST_DOCK] = m_jobSelector;
+    m_jobWidgets[JobViewFlags::JOB_LIST_DOCK] = m_jobSelector;
 
     m_jobRealTimeWidget = new JobRealTimeWidget(jobModel, m_jobView);
-    m_jobWidgets[REAL_TIME_DOCK] = m_jobRealTimeWidget;
+    m_jobWidgets[JobViewFlags::REAL_TIME_DOCK] = m_jobRealTimeWidget;
 
     m_fitActivityPanel = new FitActivityPanel(jobModel, m_jobView);
     m_fitActivityPanel->setRealTimeWidget(m_jobRealTimeWidget);
-    m_jobWidgets[FIT_PANEL_DOCK] = m_fitActivityPanel;
+    m_jobWidgets[JobViewFlags::FIT_PANEL_DOCK] = m_fitActivityPanel;
 
-    m_jobWidgets[JOB_MESSAGE_DOCK] = new JobMessagePanel(m_jobView);
+    m_jobWidgets[JobViewFlags::JOB_MESSAGE_DOCK] = new JobMessagePanel(m_jobView);
 
     m_jobView->setCentralWidget(centralWidget());
 }
@@ -97,8 +97,8 @@ void JobViewDocks::initDocks()
     m_jobView->setCorner(Qt::BottomLeftCorner, Qt::LeftDockWidgetArea);
     m_jobView->setCorner(Qt::BottomRightCorner, Qt::RightDockWidgetArea);
 
-    for (int i = 0; i < NUMBER_OF_DOCKS; i++) {
-        QWidget *subWindow = jobWidget(EDocksId(i));
+    for (int i = 0; i < JobViewFlags::NUMBER_OF_DOCKS; i++) {
+        QWidget *subWindow = jobWidget(JobViewFlags::Dock(i));
         m_dockWidgets[i] = m_jobView->addDockForWidget(subWindow);
 
         // Since we have 1-pixel splitters, we generally want to remove

@@ -20,8 +20,10 @@
 #include "IntensityDataWidget.h"
 #include "JobOutputDataToolBar.h"
 #include "JobView.h"
+#include "JobViewActivities.h"
 #include "AppSvc.h"
 #include "projectmanager.h"
+#include "JobViewFlags.h"
 #include <QVBoxLayout>
 #include <QPushButton>
 #include <QStackedWidget>
@@ -143,7 +145,7 @@ void JobOutputDataWidget::onSavePlot()
 
 void JobOutputDataWidget::onActivityChanged(int activity)
 {
-    if(activity == JobView::REAL_TIME_ACTIVITY) {
+    if(activity == JobViewFlags::REAL_TIME_ACTIVITY) {
         IntensityDataWidget *widget = getCurrentOutputDataWidget();
         if(widget) {
             widget->setPropertyPanelVisible(false);

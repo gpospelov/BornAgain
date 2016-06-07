@@ -33,11 +33,6 @@ class BA_CORE_API_ JobView : public Manhattan::FancyMainWindow
 
 public:
 
-    enum EActivities {
-        JOB_VIEW_ACTIVITY,
-        REAL_TIME_ACTIVITY,
-        FITTING_ACTIVITY,
-    };
 
     JobView(MainWindow *mainWindow);
 

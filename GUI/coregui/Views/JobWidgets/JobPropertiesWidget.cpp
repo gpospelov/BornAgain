@@ -18,6 +18,7 @@
 #include "ComponentEditor.h"
 #include "JobModel.h"
 #include "JobItem.h"
+#include "mainwindow_constants.h"
 #include <QVBoxLayout>
 #include <QTabBar>
 #include <QTextEdit>
@@ -34,8 +35,7 @@ JobPropertiesWidget::JobPropertiesWidget(QWidget *parent)
     , m_block_update(false)
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
-    setWindowTitle(QLatin1String("Job Properties"));
-    setObjectName(QLatin1String("Job Properties"));
+    setWindowTitle(Constants::JobPropertiesWidgetName);
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->setMargin(0);

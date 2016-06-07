@@ -34,7 +34,7 @@ JobRealTimeWidget::JobRealTimeWidget(JobModel *jobModel, QWidget *parent)
     , m_stack(new QStackedWidget(this))
     , m_toolBar(new JobRealTimeToolBar)
 {
-    setWindowTitle(QLatin1String("Job Real Time"));
+    setWindowTitle(Constants::JobRealTimeWidgetName);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
 
     QVBoxLayout *mainLayout = new QVBoxLayout;

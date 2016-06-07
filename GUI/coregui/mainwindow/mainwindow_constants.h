@@ -17,6 +17,7 @@
 #ifndef MAINWINDOWCONSTANTS_H
 #define MAINWINDOWCONSTANTS_H
 
+#include <QString>
 
 namespace Constants {
 
@@ -57,7 +58,18 @@ const unsigned int BUTTON_TEXT_COLOR   = 0xFFFFFF;
 
 const unsigned int REALTIME_WIDGET_WIDTH_HINT = 480;
 
-//
+// JobView
+
+const QString JobRealTimeWidgetName = "Job Real Time";
+const QString JobPropertiesWidgetName = "Job Properties";
+const QString JobFitPanelName = "Fit Panel";
+const QString JobSelectorWidgetName = "Job Selector";
+const QString JobMessagePanelName = "Message Panel";
+
+const QString JobViewActivityName = "Job View Activity";
+const QString JobRealTimeActivityName = "Real Time Activity";
+const QString JobFittingActivityName = "Fitting Activity";
+
 }
 
 #endif

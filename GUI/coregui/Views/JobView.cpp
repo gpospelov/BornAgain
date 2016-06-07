@@ -76,13 +76,6 @@ void JobView::setActivity(int activity)
     emit activityChanged(activity);
 }
 
-void JobView::onToggleJobListRequest()
-{
-    qDebug() << "JobView::onToggleJobListRequest()";
-    //m_d->m_dockWidgets[JOB_LIST_DOCK]->setHidden(!m_d->m_dockWidgets[JOB_LIST_DOCK]->isHidden());
-    m_docks->jobWidget(JobViewFlags::JOB_LIST_DOCK)->setHidden(!m_docks->jobWidget(JobViewFlags::JOB_LIST_DOCK)->isHidden());
-}
-
 //! creates global dock menu
 void JobView::onDockMenuRequest()
 {
@@ -110,6 +103,8 @@ void JobView::connectSignals()
     Q_ASSERT(m_mainWindow->jobModel());
 
     connect(this, SIGNAL(resetLayout()), m_docks, SLOT(onResetLayout()));
+    connect(m_jobActivityStatusBar, SIGNAL(toggleJobSelectorRequest()),
+            m_docks, SLOT(onToggleJobSelector()));
 
     connect(m_mainWindow->jobModel(), SIGNAL(globalProgress(int)),
             this, SLOT(updateGlobalProgressBar(int)));
@@ -122,8 +117,6 @@ void JobView::connectSignals()
     connect(m_jobActivityStatusBar, SIGNAL(changeActivityRequest(int)),
             this, SLOT(setActivity(int)));
 
-    connect(m_jobActivityStatusBar, SIGNAL(toggleJobListRequest()),
-            this, SLOT(onToggleJobListRequest()));
     connect(m_jobActivityStatusBar, SIGNAL(dockMenuRequest()),
             this, SLOT(onDockMenuRequest()));
 

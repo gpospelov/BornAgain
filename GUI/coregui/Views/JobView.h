@@ -40,7 +40,6 @@ public slots:
     void updateGlobalProgressBar(int);
     void onFocusRequest(class JobItem *);
     void setActivity(int activity);
-    void onToggleJobListRequest();
     void onDockMenuRequest();
 
 protected:

@@ -51,6 +51,7 @@ public:
 
 public slots:
     void onResetLayout();
+    void onToggleJobSelector();
 
 private:
     QWidget *centralWidget();

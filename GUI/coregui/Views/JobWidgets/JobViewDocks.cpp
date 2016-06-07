@@ -80,6 +80,7 @@ void JobViewDocks::setActivity(int activity)
         }
     }
 
+    // FIXME makes staff below automatic
     if(activity == JobViewFlags::REAL_TIME_ACTIVITY) {
         m_jobRealTimeWidget->updateCurrentItem();
     }
@@ -113,6 +114,13 @@ void JobViewDocks::onResetLayout()
     m_jobView->setTrackingEnabled(true);
 
     setActivity(default_activity);
+}
+
+//! Shows/hides JobSelectorWidget.
+
+void JobViewDocks::onToggleJobSelector()
+{
+    m_jobSelector->setHidden(!m_jobSelector->isHidden());
 }
 
 QWidget *JobViewDocks::centralWidget()

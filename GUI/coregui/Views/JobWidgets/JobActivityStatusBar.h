@@ -34,7 +34,7 @@ public:
     JobActivityStatusBar(MainWindow *mainWindow = 0);
 
 signals:
-    void toggleJobListRequest();
+    void toggleJobSelectorRequest();
     void changeActivityRequest(int);
     void dockMenuRequest();
 

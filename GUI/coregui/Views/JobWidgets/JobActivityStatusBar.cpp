@@ -40,7 +40,7 @@ JobActivityStatusBar::JobActivityStatusBar(MainWindow *mainWindow)
     m_toggleJobListButton->setIcon(QIcon(":/images/statusbar_joblist.svg"));
     m_toggleJobListButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     m_toggleJobListButton->setToolTip("Toggle job list view");
-    connect(m_toggleJobListButton, SIGNAL(clicked()), this, SIGNAL(toggleJobListRequest()));
+    connect(m_toggleJobListButton, SIGNAL(clicked()), this, SIGNAL(toggleJobSelectorRequest()));
 
     m_activityCombo = new QComboBox();
     m_activityCombo->setToolTip("Main Activity Selector");

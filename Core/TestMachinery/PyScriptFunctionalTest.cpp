@@ -55,7 +55,24 @@ void PyScriptFunctionalTest::runTest()
 
     m_reference_simulation->runSimulation();
 
-    runPyScriptSimulation();
+    // Generate Python script
+    m_pyscript_text.clear();
+    std::ostringstream ostr;
+    ostr << "import sys\n";
+    ostr << "import os\n";
+    ostr << "sys.path.append(os.path.abspath("
+               << "os.path.join(os.path.split(os.path.realpath(__file__))[0],"
+               << "'..', '..', '..', 'lib')))\n\n";
+    ostr << PyGenTools::genPyScript(m_reference_simulation);
+    m_pyscript_text = ostr.str();
+
+    // Run Python script
+    std::ofstream pythonFile(temp_python_script_file_name);
+    pythonFile << m_pyscript_text;
+    pythonFile.close();
+
+    std::string command = std::string(BORNAGAIN_PYTHON_EXE ) + " " + temp_python_script_file_name;
+    std::system(command.c_str()); // ignore return value
 }
 
 int PyScriptFunctionalTest::analyseResults()
@@ -68,8 +85,13 @@ int PyScriptFunctionalTest::analyseResults()
     m_difference = IntensityDataFunctions::getRelativeDifference(*P_domain_data, *P_reference_data);
     m_result = m_difference > m_threshold ? FAILED_DIFF : SUCCESS;
 
-    if (getTestResult() != SUCCESS)
-        savePyScript();
+    if (getTestResult() != SUCCESS) {
+        // Save failed Python script
+        Utils::FileSystem::CreateDirectory(directory_name_for_failed_tests);
+        std::ofstream pythonFile(getPyScriptFileNameAndPath());
+        pythonFile << m_pyscript_text;
+        pythonFile.close();
+    }
 
     return m_result;
 }
@@ -80,47 +102,6 @@ void PyScriptFunctionalTest::printResults(std::ostream& ostr) const
     ostr << Utils::String::getScientificDoubleString(m_difference);
     if (getTestResult() != SUCCESS)
         ostr << "--> " << getPyScriptFileNameAndPath();
-}
-
-void PyScriptFunctionalTest::setPyScriptFileName(const std::string& file_name)
-{
-    m_pyscript_file_name = file_name;
-}
-
-void PyScriptFunctionalTest::runPyScriptSimulation()
-{
-    generatePythonScript();
-
-    std::ofstream pythonFile;
-    pythonFile.open(temp_python_script_file_name.c_str());
-    pythonFile << m_pyscript_text;
-    pythonFile.close();
-
-    std::string command = std::string(BORNAGAIN_PYTHON_EXE ) + " " + temp_python_script_file_name;
-    std::system(command.c_str()); // ignore return value
-}
-
-void PyScriptFunctionalTest::generatePythonScript()
-{
-    m_pyscript_text.clear();
-
-    std::ostringstream ostr;
-    ostr << "import sys\n";
-    ostr << "import os\n";
-    ostr << "sys.path.append(os.path.abspath("
-               << "os.path.join(os.path.split(os.path.realpath(__file__))[0],"
-               << "'..', '..', '..', 'lib')))\n\n";
-    ostr << PyGenTools::genPyScript(m_reference_simulation);
-    m_pyscript_text = ostr.str();
-}
-
-void PyScriptFunctionalTest::savePyScript() const
-{
-    Utils::FileSystem::CreateDirectory(directory_name_for_failed_tests);
-    std::ofstream pythonFile;
-    pythonFile.open(getPyScriptFileNameAndPath().c_str());
-    pythonFile << m_pyscript_text;
-    pythonFile.close();
 }
 
 std::string PyScriptFunctionalTest::getPyScriptFileNameAndPath() const

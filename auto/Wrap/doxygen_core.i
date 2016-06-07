@@ -780,6 +780,50 @@ Sets convolution mode.
 ";
 
 
+// File: classCoreFunctionalTest.xml
+%feature("docstring") CoreFunctionalTest "
+
+Core functional test compares results of the standard simulation with reference intensity data. Normally invoked by  FunctionalMultiTest.
+
+C++ includes: CoreFunctionalTest.h
+";
+
+%feature("docstring")  CoreFunctionalTest::CoreFunctionalTest "CoreFunctionalTest::CoreFunctionalTest(const std::string &name, const std::string &description, GISASSimulation *simulation, OutputData< double > *reference, double threshold)
+";
+
+%feature("docstring")  CoreFunctionalTest::~CoreFunctionalTest "CoreFunctionalTest::~CoreFunctionalTest()
+";
+
+%feature("docstring")  CoreFunctionalTest::runTest "void CoreFunctionalTest::runTest()
+";
+
+%feature("docstring")  CoreFunctionalTest::analyseResults "int CoreFunctionalTest::analyseResults()
+";
+
+%feature("docstring")  CoreFunctionalTest::printResults "void CoreFunctionalTest::printResults(std::ostream &ostr) const 
+";
+
+%feature("docstring")  CoreFunctionalTest::setSimulationResultsFileName "void CoreFunctionalTest::setSimulationResultsFileName(const std::string &file_name)
+
+Sets the name of the file to use to save the simulation results in the case of failed simulation. 
+";
+
+
+// File: classCoreFunctionalTestComponentService.xml
+%feature("docstring") CoreFunctionalTestComponentService "
+
+Contains all necessary information to compose core functional test.
+
+C++ includes: CoreFunctionalTestComponentService.h
+";
+
+%feature("docstring")  CoreFunctionalTestComponentService::CoreFunctionalTestComponentService "CoreFunctionalTestComponentService::CoreFunctionalTestComponentService(const FunctionalTestInfo *info)
+";
+
+%feature("docstring")  CoreFunctionalTestComponentService::getFunctionalTest "IFunctionalTest * CoreFunctionalTestComponentService::getFunctionalTest() const 
+";
+
+
 // File: classCoreShellBoxRotateZandYBuilder.xml
 %feature("docstring") CoreShellBoxRotateZandYBuilder "
 
@@ -4454,6 +4498,114 @@ evaluate Fourier transformed distribution for q in X,Y coordinates the original 
 ";
 
 
+// File: classFunctionalMultiTest.xml
+%feature("docstring") FunctionalMultiTest "
+
+Functional multi test constructs the collection of standard functional tests using component service, runs them one-by-one, and then reports results in a single table.
+
+C++ includes: FunctionalMultiTest.h
+";
+
+%feature("docstring")  FunctionalMultiTest::FunctionalMultiTest "FunctionalMultiTest::FunctionalMultiTest(const std::string &name, FunctionalTestComponentService *service)
+";
+
+%feature("docstring")  FunctionalMultiTest::~FunctionalMultiTest "FunctionalMultiTest::~FunctionalMultiTest()
+";
+
+%feature("docstring")  FunctionalMultiTest::runTest "void FunctionalMultiTest::runTest()
+";
+
+%feature("docstring")  FunctionalMultiTest::analyseResults "int FunctionalMultiTest::analyseResults()
+";
+
+%feature("docstring")  FunctionalMultiTest::printResults "void FunctionalMultiTest::printResults(std::ostream &ostr) const 
+";
+
+
+// File: classFunctionalTestComponentService.xml
+%feature("docstring") FunctionalTestComponentService "
+
+Contains all necessary information to compose functional test.
+
+C++ includes: FunctionalTestComponentService.h
+";
+
+%feature("docstring")  FunctionalTestComponentService::FunctionalTestComponentService "FunctionalTestComponentService::FunctionalTestComponentService(const FunctionalTestInfo *info)
+";
+
+%feature("docstring")  FunctionalTestComponentService::~FunctionalTestComponentService "FunctionalTestComponentService::~FunctionalTestComponentService()
+";
+
+%feature("docstring")  FunctionalTestComponentService::getFormFactor "IFormFactor * FunctionalTestComponentService::getFormFactor() const 
+";
+
+%feature("docstring")  FunctionalTestComponentService::getFTDistribution2D "IFTDistribution2D * FunctionalTestComponentService::getFTDistribution2D() const 
+";
+
+%feature("docstring")  FunctionalTestComponentService::getSimulation "GISASSimulation * FunctionalTestComponentService::getSimulation() const 
+";
+
+%feature("docstring")  FunctionalTestComponentService::getSampleBuilder "std::shared_ptr< class ISampleBuilder > FunctionalTestComponentService::getSampleBuilder() const 
+";
+
+%feature("docstring")  FunctionalTestComponentService::getReferenceData "OutputData< double > * FunctionalTestComponentService::getReferenceData() const 
+";
+
+%feature("docstring")  FunctionalTestComponentService::getFunctionalTest "virtual IFunctionalTest* FunctionalTestComponentService::getFunctionalTest() const =0
+";
+
+%feature("docstring")  FunctionalTestComponentService::getNumberOfComponents "size_t FunctionalTestComponentService::getNumberOfComponents() const 
+";
+
+%feature("docstring")  FunctionalTestComponentService::initComponent "void FunctionalTestComponentService::initComponent(size_t component_index)
+";
+
+%feature("docstring")  FunctionalTestComponentService::getCurrentComponentName "std::string FunctionalTestComponentService::getCurrentComponentName() const 
+";
+
+%feature("docstring")  FunctionalTestComponentService::getReferenceFileName "std::string FunctionalTestComponentService::getReferenceFileName() const 
+";
+
+%feature("docstring")  FunctionalTestComponentService::getTestInfo "const FunctionalTestInfo * FunctionalTestComponentService::getTestInfo() const 
+";
+
+
+// File: classFunctionalTestInfo.xml
+%feature("docstring") FunctionalTestInfo "
+
+Contains all necessary information to compose functional test.
+
+C++ includes: FunctionalTestInfo.h
+";
+
+%feature("docstring")  FunctionalTestInfo::FunctionalTestInfo "FunctionalTestInfo::FunctionalTestInfo()
+";
+
+%feature("docstring")  FunctionalTestInfo::FunctionalTestInfo "FunctionalTestInfo::FunctionalTestInfo(const std::string &test_name, const std::string &test_description, const std::string &simulation_name, const std::string &sample_builder_name, const std::string &component_registry_name, double threshold)
+";
+
+
+// File: classFunctionalTestRegistry.xml
+%feature("docstring") FunctionalTestRegistry "
+
+The registry which holds information about available functional tests.
+
+C++ includes: FunctionalTestRegistry.h
+";
+
+%feature("docstring")  FunctionalTestRegistry::FunctionalTestRegistry "FunctionalTestRegistry::FunctionalTestRegistry()
+";
+
+%feature("docstring")  FunctionalTestRegistry::add "void FunctionalTestRegistry::add(const std::string &test_name, const std::string &test_description, const std::string &simulation_name, const std::string &sample_builder_name, const std::string &component_registry_name, double threshold)
+";
+
+%feature("docstring")  FunctionalTestRegistry::getTestInfo "FunctionalTestInfo * FunctionalTestRegistry::getTestInfo(const std::string &test_name, const std::string &suite_name)
+";
+
+%feature("docstring")  FunctionalTestRegistry::printCatalogue "void FunctionalTestRegistry::printCatalogue(std::ostream &ostr)
+";
+
+
 // File: classGISASSimulation.xml
 %feature("docstring") GISASSimulation "";
 
@@ -5970,6 +6122,51 @@ C++ includes: FTDistributions.h
 %feature("docstring")  IFTDistribution2D::evaluate "virtual double IFTDistribution2D::evaluate(double qx, double qy) const =0
 
 evaluate Fourier transformed distribution for q in X,Y coordinates the original distribution (in real space) is assumed to be normalized: total integral is equal to 1 
+";
+
+
+// File: classIFunctionalTest.xml
+%feature("docstring") IFunctionalTest "
+
+Basic class for all functional tests.
+
+C++ includes: IFunctionalTest.h
+";
+
+%feature("docstring")  IFunctionalTest::IFunctionalTest "IFunctionalTest::IFunctionalTest()
+";
+
+%feature("docstring")  IFunctionalTest::IFunctionalTest "IFunctionalTest::IFunctionalTest(const std::string &name, const std::string &description)
+";
+
+%feature("docstring")  IFunctionalTest::~IFunctionalTest "virtual IFunctionalTest::~IFunctionalTest()
+";
+
+%feature("docstring")  IFunctionalTest::runTest "virtual void IFunctionalTest::runTest()=0
+";
+
+%feature("docstring")  IFunctionalTest::analyseResults "virtual int IFunctionalTest::analyseResults()=0
+";
+
+%feature("docstring")  IFunctionalTest::getName "std::string IFunctionalTest::getName() const 
+";
+
+%feature("docstring")  IFunctionalTest::setName "void IFunctionalTest::setName(const std::string &name)
+";
+
+%feature("docstring")  IFunctionalTest::getDescription "std::string IFunctionalTest::getDescription() const 
+";
+
+%feature("docstring")  IFunctionalTest::setDescription "void IFunctionalTest::setDescription(const std::string &description)
+";
+
+%feature("docstring")  IFunctionalTest::getTestResult "IFunctionalTest::ETestResult IFunctionalTest::getTestResult() const 
+";
+
+%feature("docstring")  IFunctionalTest::getTestResultString "std::string IFunctionalTest::getTestResultString() const 
+";
+
+%feature("docstring")  IFunctionalTest::getFormattedInfoString "std::string IFunctionalTest::getFormattedInfoString() const 
 ";
 
 
@@ -10954,6 +11151,54 @@ finalize report to the simulation
 ";
 
 
+// File: classPyScriptFunctionalTest.xml
+%feature("docstring") PyScriptFunctionalTest "
+
+GUI functional test compares results of the reference simulation with the one obtained through domain->GUI->domain convertion. Normally invoked by  FunctionalMultiTest.
+
+C++ includes: PyScriptFunctionalTest.h
+";
+
+%feature("docstring")  PyScriptFunctionalTest::PyScriptFunctionalTest "PyScriptFunctionalTest::PyScriptFunctionalTest(const std::string &name, const std::string &description, GISASSimulation *reference_simulation, double threshold)
+";
+
+%feature("docstring")  PyScriptFunctionalTest::~PyScriptFunctionalTest "PyScriptFunctionalTest::~PyScriptFunctionalTest()
+";
+
+%feature("docstring")  PyScriptFunctionalTest::runTest "void PyScriptFunctionalTest::runTest()
+";
+
+%feature("docstring")  PyScriptFunctionalTest::analyseResults "int PyScriptFunctionalTest::analyseResults()
+";
+
+%feature("docstring")  PyScriptFunctionalTest::getOutputData "const OutputData<double>* PyScriptFunctionalTest::getOutputData() const 
+";
+
+%feature("docstring")  PyScriptFunctionalTest::getDifference "double PyScriptFunctionalTest::getDifference() const 
+";
+
+%feature("docstring")  PyScriptFunctionalTest::printResults "void PyScriptFunctionalTest::printResults(std::ostream &ostr) const 
+";
+
+%feature("docstring")  PyScriptFunctionalTest::setPyScriptFileName "void PyScriptFunctionalTest::setPyScriptFileName(const std::string &file_name)
+";
+
+
+// File: classPyScriptFunctionalTestComponentService.xml
+%feature("docstring") PyScriptFunctionalTestComponentService "
+
+Contains all necessary information to compose pyscript functional test.
+
+C++ includes: PyScriptFunctionalTestComponentService.h
+";
+
+%feature("docstring")  PyScriptFunctionalTestComponentService::PyScriptFunctionalTestComponentService "PyScriptFunctionalTestComponentService::PyScriptFunctionalTestComponentService(const FunctionalTestInfo *info)
+";
+
+%feature("docstring")  PyScriptFunctionalTestComponentService::getFunctionalTest "IFunctionalTest * PyScriptFunctionalTestComponentService::getFunctionalTest() const 
+";
+
+
 // File: classRadialParaCrystalBuilder.xml
 %feature("docstring") RadialParaCrystalBuilder "
 
@@ -12971,6 +13216,30 @@ Returns current string.
 %feature("docstring") Utils::System "";
 
 
+// File: classTestFormFactorsRegistry.xml
+%feature("docstring") TestFormFactorsRegistry "
+
+Registry with predifined form factors for functional tests purpose.
+
+C++ includes: TestComponentsRegistry.h
+";
+
+%feature("docstring")  TestFormFactorsRegistry::TestFormFactorsRegistry "TestFormFactorsRegistry::TestFormFactorsRegistry()
+";
+
+
+// File: classTestFTDistribution2DRegistry.xml
+%feature("docstring") TestFTDistribution2DRegistry "
+
+Registry with predifined fourier transformed distributions for functional tests purpose.
+
+C++ includes: TestComponentsRegistry.h
+";
+
+%feature("docstring")  TestFTDistribution2DRegistry::TestFTDistribution2DRegistry "TestFTDistribution2DRegistry::TestFTDistribution2DRegistry()
+";
+
+
 // File: structThreadInfo.xml
 %feature("docstring") ThreadInfo "
 
@@ -13327,6 +13596,18 @@ C++ includes: WavevectorInfo.h
 
 
 // File: namespace_0D339.xml
+
+
+// File: namespace_0D345.xml
+
+
+// File: namespace_0D351.xml
+
+
+// File: namespace_0D357.xml
+
+
+// File: namespace_0D359.xml
 
 
 // File: namespace_0D67.xml
@@ -14889,6 +15170,66 @@ Returns concatenated rotation (first right, then left).
 // File: TwoDimLatticeBuilder_8h.xml
 
 
+// File: CoreFunctionalTest_8cpp.xml
+
+
+// File: CoreFunctionalTest_8h.xml
+
+
+// File: CoreFunctionalTestComponentService_8cpp.xml
+
+
+// File: CoreFunctionalTestComponentService_8h.xml
+
+
+// File: FunctionalMultiTest_8cpp.xml
+
+
+// File: FunctionalMultiTest_8h.xml
+
+
+// File: FunctionalTestComponentService_8cpp.xml
+
+
+// File: FunctionalTestComponentService_8h.xml
+
+
+// File: FunctionalTestInfo_8cpp.xml
+
+
+// File: FunctionalTestInfo_8h.xml
+
+
+// File: FunctionalTestRegistry_8cpp.xml
+
+
+// File: FunctionalTestRegistry_8h.xml
+
+
+// File: IFunctionalTest_8cpp.xml
+
+
+// File: IFunctionalTest_8h.xml
+
+
+// File: PyScriptFunctionalTest_8cpp.xml
+
+
+// File: PyScriptFunctionalTest_8h.xml
+
+
+// File: PyScriptFunctionalTestComponentService_8cpp.xml
+
+
+// File: PyScriptFunctionalTestComponentService_8h.xml
+
+
+// File: TestComponentsRegistry_8cpp.xml
+
+
+// File: TestComponentsRegistry_8h.xml
+
+
 // File: AttLimits_8cpp.xml
 
 
@@ -15225,6 +15566,9 @@ creation function
 
 
 // File: dir_5d2259b43612a5a0ff7512df653d7370.xml
+
+
+// File: dir_3699ff1c9496be3df876d73b8d75bc3c.xml
 
 
 // File: dir_e120110860f9b345e7b3217e8b15cbb8.xml

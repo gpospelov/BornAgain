@@ -45,12 +45,9 @@ public:
 
     virtual void printResults(std::ostream& ostr) const;
 
-    void setPyScriptFileName(const std::string& file_name);
+    void setPyScriptFileName(const std::string& file_name) { m_pyscript_file_name = file_name; }
 
 private:
-    void runPyScriptSimulation();
-    void generatePythonScript();
-    void savePyScript() const;
     std::string getPyScriptFileNameAndPath() const;
 
     GISASSimulation* m_reference_simulation;

@@ -361,7 +361,7 @@ FunctionalTestInfo* FunctionalTestRegistry::getTestInfo(
         printCatalogue(std::cout);
         return nullptr;
     }
-    return& (it->second);
+    return &(it->second);
 }
 
 void FunctionalTestRegistry::printCatalogue(std::ostream& ostr)

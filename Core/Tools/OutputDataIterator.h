@@ -31,7 +31,7 @@ public:
     OutputDataIterator();
 
     //! constructor
-    OutputDataIterator(TContainer *p_output_data, size_t start_at_index=0);
+    OutputDataIterator(TContainer* p_output_data, size_t start_at_index=0);
 
     //! templated copy construction
     template<class TValue2, class TContainer2> OutputDataIterator(
@@ -67,10 +67,10 @@ public:
     size_t getIndex() const { return m_current_index; }
 
     //! Returns container pointer
-    TContainer *getContainer() const { return mp_output_data; }
+    TContainer* getContainer() const { return mp_output_data; }
 
     //! Returns mask
-    Mask *getMask() const { return mp_mask; }
+    Mask* getMask() const { return mp_mask; }
 
     //! Sets mask (or a stack of masks)
     void setMask(const Mask& mask);
@@ -85,31 +85,31 @@ public:
     typedef TValue* pointer_type;
     typedef TValue& reference_type;
 //#ifdef _MSC_VER
-	typedef TValue* pointer;
+    typedef TValue* pointer;
     typedef TValue& reference;
 //#endif
 
 protected:
     virtual void swapContents(OutputDataIterator<TValue, TContainer>& other);
     size_t m_current_index;
-    TContainer *mp_output_data;
-    Mask *mp_mask;
+    TContainer* mp_output_data;
+    Mask* mp_mask;
 };
 
 template<class TValue, class TContainer>
     OutputDataIterator<TValue, TContainer>::OutputDataIterator()
-: m_current_index(0)
-, mp_output_data(0)
-, mp_mask(0)
+    : m_current_index(0)
+    , mp_output_data(0)
+    , mp_mask(0)
 {
 }
 
 template<class TValue, class TContainer>
     OutputDataIterator<TValue, TContainer>::OutputDataIterator(
         TContainer *p_output_data, size_t start_at_index)
-: m_current_index(start_at_index)
-, mp_output_data(p_output_data)
-, mp_mask(0)
+    : m_current_index(start_at_index)
+    , mp_output_data(p_output_data)
+    , mp_mask(0)
 {
 }
 
@@ -117,9 +117,9 @@ template<class TValue, class TContainer>
 template<class TValue2, class TContainer2>
     OutputDataIterator<TValue, TContainer>::OutputDataIterator(
         const OutputDataIterator<TValue2, TContainer2>& other)
-: m_current_index(0)
-, mp_output_data(0)
-, mp_mask(0)
+    : m_current_index(0)
+    , mp_output_data(0)
+    , mp_mask(0)
 {
     mp_output_data = static_cast<TContainer *>(other.getContainer());
     m_current_index = other.getIndex();
@@ -131,9 +131,9 @@ template<class TValue2, class TContainer2>
 template<class TValue, class TContainer>
     OutputDataIterator<TValue, TContainer>::OutputDataIterator(
         const OutputDataIterator<TValue, TContainer>& other)
-: m_current_index(0)
-, mp_output_data(0)
-, mp_mask(0)
+    : m_current_index(0)
+    , mp_output_data(0)
+    , mp_mask(0)
 {
     mp_output_data = other.getContainer();
     m_current_index = other.getIndex();
@@ -204,9 +204,8 @@ template<class TValue, class TContainer>
 
 template<class TValue, class TContainer>
     OutputDataIterator<TValue, TContainer>
-    OutputDataIterator<TValue, TContainer>::operator++(int dummy)
+    OutputDataIterator<TValue, TContainer>::operator++(int /**/)
 {
-    (void)dummy;
     OutputDataIterator<TValue, TContainer> result(*this);
     this->operator++();
     return result;
@@ -221,7 +220,7 @@ template<class TValue, class TContainer> TValue&
 template<class TValue, class TContainer> TValue*
     OutputDataIterator<TValue, TContainer>::operator->() const
 {
-    return& ((*mp_output_data)[m_current_index]);
+    return &((*mp_output_data)[m_current_index]);
 }
 
 template<class TValue, class TContainer>
@@ -240,10 +239,9 @@ template<class TValue, class TContainer>
 {
     if (mask.mp_submask) {
         throw RuntimeErrorException("OutputDataIterator<>::addMask()"
-            " -> Error! One can only add single masks to OutputDataIterator"
-            " at a time");
+            " -> Error! One can only add single masks to OutputDataIterator at a time");
     }
-    Mask *p_old_mask = getMask();
+    Mask* p_old_mask = getMask();
     mp_mask = mask.clone();
     mp_mask->mp_submask = p_old_mask;
     mp_mask->setMaxIndex(mp_output_data->getAllocatedSize());
@@ -260,5 +258,3 @@ template<class TValue, class TContainer>
 }
 
 #endif /* OUTPUTDATAITERATOR_H_ */
-
-

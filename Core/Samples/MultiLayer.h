@@ -184,8 +184,8 @@ inline double MultiLayer::getLayerThickness(size_t i_layer) const
 
 inline void MultiLayer::setCrossCorrLength(double crossCorrLength)
 {
-    if(!crossCorrLength)
-        throw LogicErrorException("Attempt to set crossCorrLength to zero");
+    if(crossCorrLength<0.0)
+        throw LogicErrorException("Attempt to set crossCorrLength to negative value");
     m_crossCorrLength = crossCorrLength;
 }
 

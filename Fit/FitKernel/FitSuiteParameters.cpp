@@ -89,7 +89,7 @@ void FitSuiteParameters::setValues(const double *pars_values)
             throw LogicErrorException("FitSuiteParameters::setValues() -> Error."
                                       " Attempt to set nan '"+(*it)->getName() + std::string("'."));
         }
-        if( MathFunctions::isinf(pars_values[index]) ) {
+        if( std::isinf(pars_values[index]) ) {
             throw LogicErrorException("FitSuiteParameters::setValues() -> Error. "
                                       "Attempt to set inf '" +
                                       (*it)->getName()  + std::string("'."));

@@ -102,20 +102,6 @@ namespace MathFunctions
     BA_CORE_API_ double GenerateStandardNormalRandom();
     BA_CORE_API_ double GenerateNormalRandom(double average, double std_dev);
 
-
-// ************************************************************************** //
-//  Workarounds for std functions
-// ************************************************************************** //
-
-    BA_CORE_API_ inline bool isinf(double x)
-    {
-#ifdef _MSC_VER
-        return !_finite(x);
-#else
-        return std::isinf(x);
-#endif
-    }
-
 } // Namespace MathFunctions
 
 

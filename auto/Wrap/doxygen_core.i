@@ -13765,9 +13765,6 @@ convolution of two real vectors of equal size
 %feature("docstring")  MathFunctions::GenerateNormalRandom "double MathFunctions::GenerateNormalRandom(double average, double std_dev)
 ";
 
-%feature("docstring")  MathFunctions::isinf "BA_CORE_API_ bool MathFunctions::isinf(double x)
-";
-
 
 // File: namespaceMSG.xml
 %feature("docstring")  MSG::SetLevel "BA_CORE_API_ void MSG::SetLevel(EMessageLevel level)

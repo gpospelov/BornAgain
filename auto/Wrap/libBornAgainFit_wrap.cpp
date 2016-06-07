@@ -28150,28 +28150,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_isinf(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  double arg1 ;
-  double val1 ;
-  int ecode1 = 0 ;
-  PyObject * obj0 = 0 ;
-  bool result;
-  
-  if (!PyArg_ParseTuple(args,(char *)"O:isinf",&obj0)) SWIG_fail;
-  ecode1 = SWIG_AsVal_double(obj0, &val1);
-  if (!SWIG_IsOK(ecode1)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "isinf" "', argument " "1"" of type '" "double""'");
-  } 
-  arg1 = static_cast< double >(val1);
-  result = (bool)MathFunctions::isinf(arg1);
-  resultobj = SWIG_From_bool(static_cast< bool >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_new_MinimizerOptions(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   MinimizerOptions *result = 0 ;
@@ -31696,7 +31674,6 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"GenerateUniformRandom", _wrap_GenerateUniformRandom, METH_VARARGS, (char *)"GenerateUniformRandom() -> double"},
 	 { (char *)"GenerateStandardNormalRandom", _wrap_GenerateStandardNormalRandom, METH_VARARGS, (char *)"GenerateStandardNormalRandom() -> double"},
 	 { (char *)"GenerateNormalRandom", _wrap_GenerateNormalRandom, METH_VARARGS, (char *)"GenerateNormalRandom(double average, double std_dev) -> double"},
-	 { (char *)"isinf", _wrap_isinf, METH_VARARGS, (char *)"isinf(double x) -> bool"},
 	 { (char *)"new_MinimizerOptions", _wrap_new_MinimizerOptions, METH_VARARGS, (char *)"\n"
 		"new_MinimizerOptions() -> MinimizerOptions\n"
 		"\n"

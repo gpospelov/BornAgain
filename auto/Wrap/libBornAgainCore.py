@@ -18844,15 +18844,6 @@ def GenerateNormalRandom(average, std_dev):
 
     """
     return _libBornAgainCore.GenerateNormalRandom(average, std_dev)
-
-def isinf(x):
-    """
-    isinf(double x) -> bool
-
-    BA_CORE_API_ bool MathFunctions::isinf(double x)
-
-    """
-    return _libBornAgainCore.isinf(x)
 class MesoCrystal(IParticle):
     """
 

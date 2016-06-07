@@ -3728,10 +3728,6 @@ def GenerateStandardNormalRandom():
 def GenerateNormalRandom(average, std_dev):
     """GenerateNormalRandom(double average, double std_dev) -> double"""
     return _libBornAgainFit.GenerateNormalRandom(average, std_dev)
-
-def isinf(x):
-    """isinf(double x) -> bool"""
-    return _libBornAgainFit.isinf(x)
 class MinimizerOptions(_object):
     """
 

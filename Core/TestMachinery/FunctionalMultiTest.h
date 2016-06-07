@@ -37,7 +37,7 @@ public:
     virtual void printResults(std::ostream &ostr) const;
 
 private:
-    FunctionalTestComponentService *m_componentService;
+    FunctionalTestComponentService* m_componentService;
     std::vector<IFunctionalTest*> m_tests;
 };
 

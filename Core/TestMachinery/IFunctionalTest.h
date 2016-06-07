@@ -36,14 +36,14 @@ public:
     virtual void runTest() = 0;
     virtual int analyseResults() = 0;
 
-    std::string getName() const;
-    void setName(const std::string &name);
+    std::string getName() const { return m_name; }
+    void setName(const std::string &name) { m_name = name; }
 
-    std::string getDescription() const;
-    void setDescription(const std::string &description);
+    std::string getDescription() const { return m_description; }
+    void setDescription(const std::string &description) { m_description = description; }
 
-    ETestResult getTestResult() const;
-    std::string getTestResultString() const;
+    ETestResult getTestResult() const { return m_result; }
+    std::string getTestResultString() const { return m_result_to_string[m_result]; }
 
     std::string getFormattedInfoString() const;
 
@@ -54,7 +54,7 @@ public:
     }
 
 protected:
-    virtual void printResults(std::ostream &ostr) const;
+    virtual void printResults(std::ostream &ostr) const { ostr << getFormattedInfoString(); }
 
     std::string m_name;
     std::string m_description;

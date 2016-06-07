@@ -37,56 +37,23 @@ const size_t width_result = 15;
 std::map<IFunctionalTest::ETestResult, std::string> IFunctionalTest::m_result_to_string =
     InitTestResultToString();
 
-IFunctionalTest::IFunctionalTest() : m_result(SUCCESS)
+IFunctionalTest::IFunctionalTest()
+    : m_result(SUCCESS)
 {
 }
 
-IFunctionalTest::IFunctionalTest(const std::string &name, const std::string &description)
+IFunctionalTest::IFunctionalTest(const std::string& name, const std::string& description)
     : m_name(name)
     , m_description(description)
     , m_result(SUCCESS)
 {
 }
 
-std::string IFunctionalTest::getName() const
-{
-    return m_name;
-}
-
-void IFunctionalTest::setName(const std::string &name)
-{
-    m_name = name;
-}
-
-std::string IFunctionalTest::getDescription() const {
-    return m_description;
-}
-
-void IFunctionalTest::setDescription(const std::string &description)
-{
-    m_description = description;
-}
-
-IFunctionalTest::ETestResult IFunctionalTest::getTestResult() const
-{
-    return m_result;
-}
-
-std::string IFunctionalTest::getTestResultString() const
-{
-    return m_result_to_string[m_result];
-}
-
 std::string IFunctionalTest::getFormattedInfoString() const
 {
     std::ostringstream ostr;
-    ostr <<  Utils::AdjustStringLength(getName(), width_name);
-    ostr <<  Utils::AdjustStringLength(getDescription(), width_description);
+    ostr << Utils::AdjustStringLength(getName(), width_name);
+    ostr << Utils::AdjustStringLength(getDescription(), width_description);
     ostr << Utils::AdjustStringLength(getTestResultString(), width_result);
     return ostr.str();
-}
-
-void IFunctionalTest::printResults(std::ostream &ostr) const
-{
-    ostr << getFormattedInfoString();
 }

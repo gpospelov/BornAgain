@@ -25,11 +25,11 @@
 //! @ingroup tools_internal
 //! @brief Templated registry for cloneable objects
 
-template<class IdentifierType, class AbstractProduct>
+template<class IdentifierType, class ValueType>
 class ICloneableRegistry
 {
 public:
-    AbstractProduct* createItem(const IdentifierType& key) const {
+    ValueType* createItem(const IdentifierType& key) const {
         auto it = m_data.find(key);
         if(it == m_data.end()) {
             std::ostringstream message;
@@ -48,7 +48,7 @@ public:
     }
 
 protected:
-    void add(const IdentifierType& key, AbstractProduct* item) {
+    void add(const IdentifierType& key, ValueType* item) {
         if(m_data.find(key) != m_data.end()) {
             std::ostringstream message;
             message << "ICloneableRegistry::createItem() -> Error. Already existing item with key "
@@ -59,7 +59,7 @@ protected:
     }
 
 private:
-    std::map<IdentifierType, AbstractProduct*> m_data;
+    std::map<IdentifierType, ValueType*> m_data;
 };
 
 #endif

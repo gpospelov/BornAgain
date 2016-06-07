@@ -93,13 +93,7 @@ OutputData<double>* FunctionalTestComponentService::getReferenceData() const
         std::cout << "FunctionalTestComponentService::getReferenceData() -> Exception caught."
                   << ex.what() << std::endl;
     }
-
     return result;
-}
-
-size_t FunctionalTestComponentService::getNumberOfComponents() const
-{
-    return m_component_names.size();
 }
 
 void FunctionalTestComponentService::initComponent(size_t component_index)
@@ -133,11 +127,6 @@ std::string FunctionalTestComponentService::getReferenceFileName() const
     return result;
 }
 
-const FunctionalTestInfo* FunctionalTestComponentService::getTestInfo() const
-{
-    return m_testInfo;
-}
-
 void FunctionalTestComponentService::init_registry(const std::string& registry_name)
 {
     m_component_names.clear();
@@ -155,10 +144,9 @@ void FunctionalTestComponentService::init_registry(const std::string& registry_n
         m_ft2d_registry= new TestFTDistribution2DRegistry;
         m_component_names = m_ft2d_registry->getNames();
 
-    } else {
+    } else
         throw RuntimeErrorException("FunctionalTestComponentService::init_factory -> Error. "
                                     "Unknown factory '"+registry_name+"'.");
-    }
 }
 
 //! Constructs functional test name corresponding to the current component. The goal is to have
@@ -167,16 +155,14 @@ std::string FunctionalTestComponentService::getTestName() const
 {
     std::string result = m_testInfo->m_test_name;
     if(getCurrentComponentName() != "Default")
-        result.clear(); // i.e. no name for sub-test just for printing purpose
+        result += "_" + getCurrentComponentName();
     return result;
 }
 
 //! Constructs functional test description corresponding to the current component.
 std::string FunctionalTestComponentService::getTestDescription() const
 {
-    std::string result = m_testInfo->m_test_description;
-    if(getCurrentComponentName() != "Default") result = getCurrentComponentName();
-    return result;
+    return m_testInfo->m_test_description;
 }
 
 double FunctionalTestComponentService::getTestThreshold() const

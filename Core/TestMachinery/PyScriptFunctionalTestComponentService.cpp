@@ -24,7 +24,6 @@ PyScriptFunctionalTestComponentService::PyScriptFunctionalTestComponentService(
 
 IFunctionalTest* PyScriptFunctionalTestComponentService::getFunctionalTest() const
 {
-    PyScriptFunctionalTest* result = new PyScriptFunctionalTest(
+    return new PyScriptFunctionalTest(
         getTestName(), getTestDescription(), getSimulation(), getTestThreshold());
-    return result;
 }

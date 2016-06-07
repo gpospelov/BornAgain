@@ -44,12 +44,12 @@ public:
     virtual OutputData<double>* getReferenceData() const;
     virtual IFunctionalTest* getFunctionalTest() const = 0;
 
-    size_t getNumberOfComponents() const;
+    size_t getNumberOfComponents() const { return m_component_names.size(); }
     void initComponent(size_t component_index);
     std::string getCurrentComponentName() const;
 
     std::string getReferenceFileName() const;
-    const FunctionalTestInfo* getTestInfo() const;
+    const FunctionalTestInfo* getTestInfo() const { return m_testInfo; }
 
 protected:
     void init_registry(const std::string& registry_name);

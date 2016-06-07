@@ -102,7 +102,8 @@ void PythonScriptWidget::generatePythonScript(const MultiLayerItem *sampleItem,
         const std::unique_ptr<GISASSimulation> P_simulation(
             DomainSimulationBuilder::getSimulation(sampleItem, instrumentItem, optionItem));
 
-        QString code = QString::fromStdString(PyGenTools::genPyScript(P_simulation.get()));
+        QString code = QString::fromStdString(
+            PyGenTools::genPyScript(P_simulation.get(), "output"));
         m_textEdit->clear();
         m_textEdit->setText(code);
 
@@ -181,4 +182,3 @@ QPoint PythonScriptWidget::getPositionForWarningSign()
 
     return QPoint(x, y);
 }
-

@@ -26,11 +26,15 @@ namespace
 const std::string directory_name_for_failed_tests = "00_failed_tests";
 }
 
-CoreFunctionalTest::CoreFunctionalTest(const std::string &name, const std::string &description,
-                                       GISASSimulation* simulation, OutputData<double>* reference,
-                                       double threshold)
-    : IFunctionalTest(name, description), m_simulation(simulation), m_reference(reference),
-      m_threshold(threshold), m_difference(0)
+CoreFunctionalTest::CoreFunctionalTest(
+    const std::string& name, const std::string& description, GISASSimulation* simulation,
+    OutputData<double>* reference, double threshold, const std::string&file_name)
+    : IFunctionalTest(name, description)
+    , m_simulation(simulation)
+    , m_reference(reference)
+    , m_threshold(threshold)
+    , m_difference(0)
+    , m_simulation_results_file_name( file_name )
 {
 }
 
@@ -60,7 +64,7 @@ int CoreFunctionalTest::analyseResults()
             m_difference = IntensityDataFunctions::getRelativeDifference(
                 *result_data.get(), *m_reference);
             m_result = (m_difference > m_threshold ? FAILED_DIFF : SUCCESS);
-        } catch(const std::exception &ex) {
+        } catch(const std::exception& ex) {
             std::cout << "CoreFunctionalTest::analyseResults() -> "
                 "Intensity data comparison failed\n";
             std::cout << ex.what() << std::endl;
@@ -74,20 +78,13 @@ int CoreFunctionalTest::analyseResults()
     return m_result;
 }
 
-void CoreFunctionalTest::printResults(std::ostream &ostr) const
+void CoreFunctionalTest::printResults(std::ostream& ostr) const
 {
     ostr << getFormattedInfoString();
     ostr << Utils::String::getScientificDoubleString(m_difference);
 
     if (getTestResult() != SUCCESS)
         ostr << "--> " << getSimulationResultsFileNameAndPath();
-}
-
-//! Sets the name of the file to use to save the simulation results in the case of
-//! failed simulation.
-void CoreFunctionalTest::setSimulationResultsFileName(const std::string &file_name)
-{
-    m_simulation_results_file_name = file_name;
 }
 
 //! Saves simulation results into the file. Called if test has failed.

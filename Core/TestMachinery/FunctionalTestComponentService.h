@@ -17,7 +17,6 @@
 #define FUNCTIONALTESTCOMPONENTSERVICE_H
 
 #include "IComponentService.h"
-#include "FunctionalTestRegistry.h"
 #include <vector>
 #include <string>
 
@@ -25,6 +24,7 @@ class IFormFactor;
 class GISASSimulation;
 class TestFormFactorsRegistry;
 class TestFTDistribution2DRegistry;
+class FunctionalTestInfo;
 class IFunctionalTest;
 
 //! @class FunctionalTestComponentService
@@ -34,35 +34,35 @@ class IFunctionalTest;
 class BA_CORE_API_ FunctionalTestComponentService : public IComponentService
 {
 public:
-    FunctionalTestComponentService(const FunctionalTestInfo &info);
+    FunctionalTestComponentService(const FunctionalTestInfo* info);
     virtual ~FunctionalTestComponentService();
 
-    virtual IFormFactor *getFormFactor() const;
-    virtual IFTDistribution2D *getFTDistribution2D() const;
-    virtual GISASSimulation *getSimulation() const;
+    virtual IFormFactor* getFormFactor() const;
+    virtual IFTDistribution2D* getFTDistribution2D() const;
+    virtual GISASSimulation* getSimulation() const;
     virtual std::shared_ptr<class ISampleBuilder> getSampleBuilder() const;
-    virtual OutputData<double> *getReferenceData() const;
-    virtual IFunctionalTest *getFunctionalTest() const;
+    virtual OutputData<double>* getReferenceData() const;
+    virtual IFunctionalTest* getFunctionalTest() const = 0;
 
-    size_t getNumberOfComponents() const;
+    size_t getNumberOfComponents() const { return m_component_names.size(); }
     void initComponent(size_t component_index);
     std::string getCurrentComponentName() const;
 
     std::string getReferenceFileName() const;
-    FunctionalTestInfo getTestInfo() const;
+    const FunctionalTestInfo* getTestInfo() const { return m_testInfo; }
 
 protected:
-    void init_registry(const std::string &registry_name);
+    void init_registry(const std::string& registry_name);
     std::string getTestName() const;
     std::string getTestDescription() const;
     double getTestThreshold() const;
 
-    FunctionalTestInfo m_testInfo;
-    IFormFactor *m_form_factor;
-    IFTDistribution2D *m_ft_distribution_2d;
+    const FunctionalTestInfo* m_testInfo;
+    IFormFactor* m_form_factor;
+    IFTDistribution2D* m_ft_distribution_2d;
 
-    TestFormFactorsRegistry *m_ff_registry;
-    TestFTDistribution2DRegistry *m_ft2d_registry;
+    TestFormFactorsRegistry* m_ff_registry;
+    TestFTDistribution2DRegistry* m_ft2d_registry;
     std::vector<std::string> m_component_names;
     size_t m_current_component;
 };

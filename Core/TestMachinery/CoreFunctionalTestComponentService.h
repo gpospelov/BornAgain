@@ -27,9 +27,9 @@ class FunctionalTestInfo;
 class CoreFunctionalTestComponentService : public FunctionalTestComponentService
 {
 public:
-    CoreFunctionalTestComponentService(const FunctionalTestInfo &info);
+    CoreFunctionalTestComponentService(const FunctionalTestInfo* info);
 
-    IFunctionalTest *getFunctionalTest() const;
+    IFunctionalTest* getFunctionalTest() const;
 };
 
 #endif

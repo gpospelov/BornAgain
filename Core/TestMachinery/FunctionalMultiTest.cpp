@@ -14,11 +14,12 @@
 // ************************************************************************** //
 
 #include "FunctionalMultiTest.h"
+#include "FunctionalTestInfo.h"
 #include "FunctionalTestComponentService.h"
 
-FunctionalMultiTest::FunctionalMultiTest(const std::string &name,
-                                         FunctionalTestComponentService *service)
-    : IFunctionalTest(name, service->getTestInfo().m_test_description)
+FunctionalMultiTest::FunctionalMultiTest(const std::string& name,
+                                         FunctionalTestComponentService* service)
+    : IFunctionalTest(name, service->getTestInfo()->m_test_description)
     , m_componentService(service)
 {
 }
@@ -26,9 +27,8 @@ FunctionalMultiTest::FunctionalMultiTest(const std::string &name,
 FunctionalMultiTest::~FunctionalMultiTest()
 {
     delete m_componentService;
-    for (auto it = m_tests.begin(); it != m_tests.end(); ++it) {
-        delete (*it);
-    }
+    for (auto it = m_tests.begin(); it != m_tests.end(); ++it)
+        delete *it;
 }
 
 void FunctionalMultiTest::runTest()
@@ -41,7 +41,7 @@ void FunctionalMultiTest::runTest()
 
         m_componentService->initComponent(i);
 
-        IFunctionalTest *test = m_componentService->getFunctionalTest();
+        IFunctionalTest* test = m_componentService->getFunctionalTest();
 
         test->runTest();
         test->analyseResults();
@@ -61,7 +61,7 @@ int FunctionalMultiTest::analyseResults()
     return m_result;
 }
 
-void FunctionalMultiTest::printResults(std::ostream &ostr) const
+void FunctionalMultiTest::printResults(std::ostream& ostr) const
 {
     // if single test, use his own printout
     if (m_tests.size() == 1) {

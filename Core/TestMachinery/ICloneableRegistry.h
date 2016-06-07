@@ -25,17 +25,12 @@
 //! @ingroup tools_internal
 //! @brief Templated registry for cloneable objects
 
-template<class IdentifierType, class AbstractProduct >
+template<class IdentifierType, class ValueType>
 class ICloneableRegistry
 {
 public:
-    typedef std::map<IdentifierType, AbstractProduct *> map_t;
-    typedef typename map_t::iterator iterator;
-    typedef typename map_t::const_iterator const_iterator;
-
-    AbstractProduct *createItem(const IdentifierType &key) const
-    {
-        const_iterator it = m_data.find(key);
+    ValueType* createItem(const IdentifierType& key) const {
+        auto it = m_data.find(key);
         if(it == m_data.end()) {
             std::ostringstream message;
             message << "ICloneableRegistry::createItem() -> Error. Not existing item key "
@@ -45,16 +40,16 @@ public:
         return it->second->clone();
     }
 
-    iterator begin() { return m_data.begin(); }
-    const_iterator begin() const { return m_data.begin(); }
-    iterator end() { return m_data.end(); }
-    const_iterator end() const { return m_data.end(); }
+    std::vector<std::string> getNames() {
+        std::vector<std::string> result;
+        for( auto it=m_data.begin(); it!=m_data.end(); ++it )
+            result.push_back( it->first );
+        return result;
+    }
 
 protected:
-    void add(const IdentifierType &key, AbstractProduct *item)
-    {
-        const_iterator it = m_data.find(key);
-        if(it != m_data.end()) {
+    void add(const IdentifierType& key, ValueType* item) {
+        if(m_data.find(key) != m_data.end()) {
             std::ostringstream message;
             message << "ICloneableRegistry::createItem() -> Error. Already existing item with key "
                     << "'" << key << "'";
@@ -64,8 +59,7 @@ protected:
     }
 
 private:
-    map_t m_data;
+    std::map<IdentifierType, ValueType*> m_data;
 };
-
 
 #endif

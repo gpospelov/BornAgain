@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      StandardSamples/pyscript_functional_test.cpp
-//! @brief     Implements function to run all pyscript functional tests
+//! @file      Tests/FunctionalTests/TestPyCore/PySuite.cpp
+//! @brief     Implements program PySuite, to run pyscript functional tests
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,31 +13,25 @@
 //
 // ************************************************************************** //
 
-#include "pyscript_functional_tests.h"
 #include "FunctionalTestRegistry.h"
 #include "FunctionalMultiTest.h"
 #include "PyScriptFunctionalTestComponentService.h"
 #include <iostream>
 
-//! Runs a functional test and returns error code.
-//! Note the analogy with CORE_FUNCTIONAL_TEST.
+//! Program PySuite, to run pyscript functional tests.
 
-int PYSCRIPT_FUNCTIONAL_TEST(const std::string &test_name)
+int main(int argc, char** argv)
 {
+    std::string test_name;
+    if(argc > 1)
+        test_name = std::string(argv[1]);
+
     FunctionalTestRegistry catalogue;
-    if (!catalogue.isValidTest(test_name)) {
-        if(test_name!="")
-            std::cout<<"There is no test named '"<< test_name << "'" << std::endl;
-        std::cout << "Usage: PySuite <test_name>" << std::endl;
-        std::cout << "Available tests:" << std::endl;
-        catalogue.printCatalogue(std::cout);
+    FunctionalTestInfo* info = catalogue.getTestInfo(test_name, "PySuite");
+    if( !info )
         return 1;
-    }
 
-    FunctionalTestInfo info = catalogue.getTestInfo(test_name);
-
-    PyScriptFunctionalTestComponentService *service =
-        new PyScriptFunctionalTestComponentService(info);
+    auto* service = new PyScriptFunctionalTestComponentService(info);
     FunctionalMultiTest test(test_name, service);
     test.runTest();
     return test.analyseResults();

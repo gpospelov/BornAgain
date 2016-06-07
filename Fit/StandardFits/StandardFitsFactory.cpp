@@ -45,18 +45,17 @@ StandardFitsFactory::StandardFitsFactory()
         "RectDetectorFit",
         IFactoryCreateFunction<RectDetectorFitTest, IFunctionalTest>,
         "Fit of rectangular detector, with crop and masks applied");
-
 }
 
-IFunctionalTest *StandardFitsFactory::createTest(const std::string &test_name)
+IFunctionalTest* StandardFitsFactory::createTest(const std::string& test_name)
 {
-    IFunctionalTest *result = createItem(test_name);
+    IFunctionalTest* result = createItem(test_name);
     result->setName(test_name);
     result->setDescription(m_descriptions[test_name]);
     return result;
 }
 
-bool StandardFitsFactory::isValidTest(const std::string &test_name)
+bool StandardFitsFactory::isValidTest(const std::string& test_name)
 {
     CallbackMap_t::const_iterator it = m_callbacks.find(test_name);
     if( it != m_callbacks.end() ) {
@@ -66,7 +65,7 @@ bool StandardFitsFactory::isValidTest(const std::string &test_name)
     }
 }
 
-void StandardFitsFactory::printCatalogue(std::ostream &ostr)
+void StandardFitsFactory::printCatalogue(std::ostream& ostr)
 {
     for(DescriptionMap_t::iterator it=m_descriptions.begin(); it!=m_descriptions.end(); ++it) {
         ostr << boost::format("%-35s | %-50s\n") % it->first % it->second;

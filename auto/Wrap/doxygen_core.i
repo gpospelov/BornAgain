@@ -281,45 +281,73 @@ Returns result of rotation around the axis specified by another vector.
 ";
 
 %feature("docstring")  Geometry::BasicVector3D::conj "BasicVector3D< double > Geometry::BasicVector3D< double >::conj() const
+
+Returns complex conjugate vector. 
 ";
 
 %feature("docstring")  Geometry::BasicVector3D::conj "BasicVector3D< complex_t > Geometry::BasicVector3D< complex_t >::conj() const
+
+Returns complex conjugate vector. 
 ";
 
 %feature("docstring")  Geometry::BasicVector3D::phi "double Geometry::BasicVector3D< double >::phi() const
+
+Returns azimuth angle. 
 ";
 
 %feature("docstring")  Geometry::BasicVector3D::theta "double Geometry::BasicVector3D< double >::theta() const
+
+Returns polar angle. 
 ";
 
 %feature("docstring")  Geometry::BasicVector3D::cosTheta "double Geometry::BasicVector3D< double >::cosTheta() const
+
+Returns cosine of polar angle. 
 ";
 
 %feature("docstring")  Geometry::BasicVector3D::sin2Theta "double Geometry::BasicVector3D< double >::sin2Theta() const
+
+Returns squared sine of polar angle. 
 ";
 
 %feature("docstring")  Geometry::BasicVector3D::complex "BasicVector3D< std::complex< double > > Geometry::BasicVector3D< double >::complex() const
+
+Returns this, trivially converted to complex type. 
 ";
 
 %feature("docstring")  Geometry::BasicVector3D::dot "complex_t Geometry::BasicVector3D< complex_t >::dot(const BasicVector3D< complex_t > &v) const
+
+Returns dot product of complex vectors (antilinear in the first [=self] argument). 
 ";
 
 %feature("docstring")  Geometry::BasicVector3D::dot "complex_t Geometry::BasicVector3D< complex_t >::dot(const BasicVector3D< double > &v) const
+
+Returns mixed dot product of complex and double vectors (antilinear in the complex argument). 
 ";
 
 %feature("docstring")  Geometry::BasicVector3D::dot "complex_t Geometry::BasicVector3D< double >::dot(const BasicVector3D< complex_t > &v) const
+
+Returns mixed dot product of double and complex vectors (linear in the complex argument). 
 ";
 
 %feature("docstring")  Geometry::BasicVector3D::dot "double Geometry::BasicVector3D< double >::dot(const BasicVector3D< double > &v) const
+
+Returns dot product of double-typed vectors. 
 ";
 
 %feature("docstring")  Geometry::BasicVector3D::cross "BasicVector3D< double > Geometry::BasicVector3D< double >::cross(const BasicVector3D< double > &v) const
+
+Returns cross product of double-typed vectors. 
 ";
 
 %feature("docstring")  Geometry::BasicVector3D::cross "BasicVector3D< complex_t > Geometry::BasicVector3D< double >::cross(const BasicVector3D< complex_t > &v) const
+
+Returns mixed cross product of double and complex vectors. 
 ";
 
 %feature("docstring")  Geometry::BasicVector3D::angle "double Geometry::BasicVector3D< double >::angle(const BasicVector3D< double > &v) const
+
+Returns angle with respect to another vector. 
 ";
 
 %feature("docstring")  Geometry::BasicVector3D::dot "BA_CORE_API_ std::complex< double > Geometry::BasicVector3D< std::complex< double > >::dot(const BasicVector3D< std::complex< double > > &v) const
@@ -760,7 +788,7 @@ Core functional test compares results of the standard simulation with reference 
 C++ includes: CoreFunctionalTest.h
 ";
 
-%feature("docstring")  CoreFunctionalTest::CoreFunctionalTest "CoreFunctionalTest::CoreFunctionalTest(const std::string &name, const std::string &description, GISASSimulation *simulation, OutputData< double > *reference, double threshold)
+%feature("docstring")  CoreFunctionalTest::CoreFunctionalTest "CoreFunctionalTest::CoreFunctionalTest(const std::string &name, const std::string &description, GISASSimulation *simulation, OutputData< double > *reference, double threshold, const std::string &file_name)
 ";
 
 %feature("docstring")  CoreFunctionalTest::~CoreFunctionalTest "CoreFunctionalTest::~CoreFunctionalTest()
@@ -775,11 +803,6 @@ C++ includes: CoreFunctionalTest.h
 %feature("docstring")  CoreFunctionalTest::printResults "void CoreFunctionalTest::printResults(std::ostream &ostr) const 
 ";
 
-%feature("docstring")  CoreFunctionalTest::setSimulationResultsFileName "void CoreFunctionalTest::setSimulationResultsFileName(const std::string &file_name)
-
-Sets the name of the file to use to save the simulation results in the case of failed simulation. 
-";
-
 
 // File: classCoreFunctionalTestComponentService.xml
 %feature("docstring") CoreFunctionalTestComponentService "
@@ -789,7 +812,7 @@ Contains all necessary information to compose core functional test.
 C++ includes: CoreFunctionalTestComponentService.h
 ";
 
-%feature("docstring")  CoreFunctionalTestComponentService::CoreFunctionalTestComponentService "CoreFunctionalTestComponentService::CoreFunctionalTestComponentService(const FunctionalTestInfo &info)
+%feature("docstring")  CoreFunctionalTestComponentService::CoreFunctionalTestComponentService "CoreFunctionalTestComponentService::CoreFunctionalTestComponentService(const FunctionalTestInfo *info)
 ";
 
 %feature("docstring")  CoreFunctionalTestComponentService::getFunctionalTest "IFunctionalTest * CoreFunctionalTestComponentService::getFunctionalTest() const 
@@ -4502,7 +4525,7 @@ Contains all necessary information to compose functional test.
 C++ includes: FunctionalTestComponentService.h
 ";
 
-%feature("docstring")  FunctionalTestComponentService::FunctionalTestComponentService "FunctionalTestComponentService::FunctionalTestComponentService(const FunctionalTestInfo &info)
+%feature("docstring")  FunctionalTestComponentService::FunctionalTestComponentService "FunctionalTestComponentService::FunctionalTestComponentService(const FunctionalTestInfo *info)
 ";
 
 %feature("docstring")  FunctionalTestComponentService::~FunctionalTestComponentService "FunctionalTestComponentService::~FunctionalTestComponentService()
@@ -4523,7 +4546,7 @@ C++ includes: FunctionalTestComponentService.h
 %feature("docstring")  FunctionalTestComponentService::getReferenceData "OutputData< double > * FunctionalTestComponentService::getReferenceData() const 
 ";
 
-%feature("docstring")  FunctionalTestComponentService::getFunctionalTest "IFunctionalTest * FunctionalTestComponentService::getFunctionalTest() const 
+%feature("docstring")  FunctionalTestComponentService::getFunctionalTest "virtual IFunctionalTest* FunctionalTestComponentService::getFunctionalTest() const =0
 ";
 
 %feature("docstring")  FunctionalTestComponentService::getNumberOfComponents "size_t FunctionalTestComponentService::getNumberOfComponents() const 
@@ -4538,7 +4561,7 @@ C++ includes: FunctionalTestComponentService.h
 %feature("docstring")  FunctionalTestComponentService::getReferenceFileName "std::string FunctionalTestComponentService::getReferenceFileName() const 
 ";
 
-%feature("docstring")  FunctionalTestComponentService::getTestInfo "FunctionalTestInfo FunctionalTestComponentService::getTestInfo() const 
+%feature("docstring")  FunctionalTestComponentService::getTestInfo "const FunctionalTestInfo* FunctionalTestComponentService::getTestInfo() const 
 ";
 
 
@@ -4571,22 +4594,10 @@ C++ includes: FunctionalTestRegistry.h
 %feature("docstring")  FunctionalTestRegistry::add "void FunctionalTestRegistry::add(const std::string &test_name, const std::string &test_description, const std::string &simulation_name, const std::string &sample_builder_name, const std::string &component_registry_name, double threshold)
 ";
 
-%feature("docstring")  FunctionalTestRegistry::getTestInfo "FunctionalTestInfo FunctionalTestRegistry::getTestInfo(const std::string &test_name)
-";
-
-%feature("docstring")  FunctionalTestRegistry::begin "iterator FunctionalTestRegistry::begin()
-";
-
-%feature("docstring")  FunctionalTestRegistry::end "iterator FunctionalTestRegistry::end()
-";
-
-%feature("docstring")  FunctionalTestRegistry::find "iterator FunctionalTestRegistry::find(const std::string &key)
+%feature("docstring")  FunctionalTestRegistry::getTestInfo "FunctionalTestInfo * FunctionalTestRegistry::getTestInfo(const std::string &test_name, const std::string &suite_name)
 ";
 
 %feature("docstring")  FunctionalTestRegistry::printCatalogue "void FunctionalTestRegistry::printCatalogue(std::ostream &ostr)
-";
-
-%feature("docstring")  FunctionalTestRegistry::isValidTest "bool FunctionalTestRegistry::isValidTest(const std::string &test_name)
 ";
 
 
@@ -5339,19 +5350,10 @@ Templated registry for cloneable objects.
 C++ includes: ICloneableRegistry.h
 ";
 
-%feature("docstring")  ICloneableRegistry::createItem "AbstractProduct* ICloneableRegistry< IdentifierType, AbstractProduct >::createItem(const IdentifierType &key) const 
+%feature("docstring")  ICloneableRegistry::createItem "ValueType* ICloneableRegistry< IdentifierType, ValueType >::createItem(const IdentifierType &key) const 
 ";
 
-%feature("docstring")  ICloneableRegistry::begin "iterator ICloneableRegistry< IdentifierType, AbstractProduct >::begin()
-";
-
-%feature("docstring")  ICloneableRegistry::begin "const_iterator ICloneableRegistry< IdentifierType, AbstractProduct >::begin() const 
-";
-
-%feature("docstring")  ICloneableRegistry::end "iterator ICloneableRegistry< IdentifierType, AbstractProduct >::end()
-";
-
-%feature("docstring")  ICloneableRegistry::end "const_iterator ICloneableRegistry< IdentifierType, AbstractProduct >::end() const 
+%feature("docstring")  ICloneableRegistry::getNames "std::vector<std::string> ICloneableRegistry< IdentifierType, ValueType >::getNames()
 ";
 
 
@@ -6144,7 +6146,7 @@ C++ includes: IFunctionalTest.h
 %feature("docstring")  IFunctionalTest::setDescription "void IFunctionalTest::setDescription(const std::string &description)
 ";
 
-%feature("docstring")  IFunctionalTest::getTestResult "IFunctionalTest::ETestResult IFunctionalTest::getTestResult() const 
+%feature("docstring")  IFunctionalTest::getTestResult "ETestResult IFunctionalTest::getTestResult() const 
 ";
 
 %feature("docstring")  IFunctionalTest::getTestResultString "std::string IFunctionalTest::getTestResultString() const 
@@ -10993,7 +10995,7 @@ finalize report to the simulation
 %feature("docstring")  PyGenVisitor::~PyGenVisitor "PyGenVisitor::~PyGenVisitor()
 ";
 
-%feature("docstring")  PyGenVisitor::writePyScript "std::string PyGenVisitor::writePyScript(const GISASSimulation *simulation)
+%feature("docstring")  PyGenVisitor::writePyScript "std::string PyGenVisitor::writePyScript(const GISASSimulation *simulation, const std::string &output_filename)
 ";
 
 %feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorAnisoPyramid *sample)
@@ -11164,9 +11166,6 @@ C++ includes: PyScriptFunctionalTest.h
 %feature("docstring")  PyScriptFunctionalTest::printResults "void PyScriptFunctionalTest::printResults(std::ostream &ostr) const 
 ";
 
-%feature("docstring")  PyScriptFunctionalTest::setPyScriptFileName "void PyScriptFunctionalTest::setPyScriptFileName(const std::string &file_name)
-";
-
 
 // File: classPyScriptFunctionalTestComponentService.xml
 %feature("docstring") PyScriptFunctionalTestComponentService "
@@ -11176,7 +11175,7 @@ Contains all necessary information to compose pyscript functional test.
 C++ includes: PyScriptFunctionalTestComponentService.h
 ";
 
-%feature("docstring")  PyScriptFunctionalTestComponentService::PyScriptFunctionalTestComponentService "PyScriptFunctionalTestComponentService::PyScriptFunctionalTestComponentService(const FunctionalTestInfo &info)
+%feature("docstring")  PyScriptFunctionalTestComponentService::PyScriptFunctionalTestComponentService "PyScriptFunctionalTestComponentService::PyScriptFunctionalTestComponentService(const FunctionalTestInfo *info)
 ";
 
 %feature("docstring")  PyScriptFunctionalTestComponentService::getFunctionalTest "IFunctionalTest * PyScriptFunctionalTestComponentService::getFunctionalTest() const 
@@ -13579,25 +13578,22 @@ C++ includes: WavevectorInfo.h
 // File: classMathFunctions_1_1Convolve_1_1Workspace.xml
 
 
-// File: namespace@303.xml
+// File: namespace_0D339.xml
 
 
-// File: namespace@317.xml
+// File: namespace_0D345.xml
 
 
-// File: namespace@323.xml
+// File: namespace_0D358.xml
 
 
-// File: namespace@347.xml
+// File: namespace_0D360.xml
 
 
-// File: namespace@361.xml
+// File: namespace_0D67.xml
 
 
-// File: namespace@67.xml
-
-
-// File: namespace@95.xml
+// File: namespace_0D95.xml
 
 
 // File: namespaceboost_1_1geometry.xml
@@ -13933,7 +13929,16 @@ Fills output data raw buffer from input stream.
 
 
 // File: namespacePyGenTools.xml
-%feature("docstring")  PyGenTools::genPyScript "std::string PyGenTools::genPyScript(class GISASSimulation *simulation)
+%feature("docstring")  PyGenTools::genPyScript "std::string PyGenTools::genPyScript(class GISASSimulation *simulation, const std::string &output_filename)
+";
+
+%feature("docstring")  PyGenTools::testPyScript "bool PyGenTools::testPyScript(class GISASSimulation *simulation, const std::string &output_filename)
+";
+
+%feature("docstring")  PyGenTools::getRepresentation "BA_CORE_API_ std::string PyGenTools::getRepresentation(const class IDistribution1D *distribution)
+";
+
+%feature("docstring")  PyGenTools::getRepresentation "BA_CORE_API_ std::string PyGenTools::getRepresentation(const std::string &indent, const class Geometry::IShape2D *ishape, bool mask_value)
 ";
 
 %feature("docstring")  PyGenTools::printBool "std::string PyGenTools::printBool(double value)
@@ -13955,15 +13960,6 @@ Fills output data raw buffer from input stream.
 ";
 
 %feature("docstring")  PyGenTools::isHexagonal "bool PyGenTools::isHexagonal(double length1, double length2, double angle)
-";
-
-%feature("docstring")  PyGenTools::testPyScript "bool PyGenTools::testPyScript(class GISASSimulation *simulation)
-";
-
-%feature("docstring")  PyGenTools::getRepresentation "BA_CORE_API_ std::string PyGenTools::getRepresentation(const class IDistribution1D *distribution)
-";
-
-%feature("docstring")  PyGenTools::getRepresentation "BA_CORE_API_ std::string PyGenTools::getRepresentation(const std::string &indent, const class Geometry::IShape2D *ishape, bool mask_value)
 ";
 
 %feature("docstring")  PyGenTools::printKvector "std::string PyGenTools::printKvector(const kvector_t value)
@@ -15022,36 +15018,6 @@ Returns concatenated rotation (first right, then left).
 // File: BoxCompositionBuilder_8h.xml
 
 
-// File: core__functional__tests_8cpp.xml
-%feature("docstring")  CORE_FUNCTIONAL_TEST "int CORE_FUNCTIONAL_TEST(const std::string &test_name)
-
-run core functional tests with given name
-
-Runs a functional test and returns error code. Note the analogy with PYSCRIPT_FUNCTIONAL_TEST and GUI_FUNCTIONAL_TEST. 
-";
-
-
-// File: core__functional__tests_8h.xml
-%feature("docstring")  CORE_FUNCTIONAL_TEST "BA_CORE_API_ int CORE_FUNCTIONAL_TEST(const std::string &test_name)
-
-run core functional tests with given name
-
-Runs a functional test and returns error code. Note the analogy with PYSCRIPT_FUNCTIONAL_TEST and GUI_FUNCTIONAL_TEST. 
-";
-
-
-// File: CoreFunctionalTest_8cpp.xml
-
-
-// File: CoreFunctionalTest_8h.xml
-
-
-// File: CoreFunctionalTestComponentService_8cpp.xml
-
-
-// File: CoreFunctionalTestComponentService_8h.xml
-
-
 // File: CoreShellParticleBuilder_8cpp.xml
 
 
@@ -15074,36 +15040,6 @@ Runs a functional test and returns error code. Note the analogy with PYSCRIPT_FU
 
 
 // File: CylindersBuilder_8h.xml
-
-
-// File: FunctionalMultiTest_8cpp.xml
-
-
-// File: FunctionalMultiTest_8h.xml
-
-
-// File: FunctionalTestComponentService_8cpp.xml
-
-
-// File: FunctionalTestComponentService_8h.xml
-
-
-// File: FunctionalTestInfo_8cpp.xml
-
-
-// File: FunctionalTestInfo_8h.xml
-
-
-// File: FunctionalTestRegistry_8cpp.xml
-
-
-// File: FunctionalTestRegistry_8h.xml
-
-
-// File: IFunctionalTest_8cpp.xml
-
-
-// File: IFunctionalTest_8h.xml
 
 
 // File: LatticeBuilder_8cpp.xml
@@ -15166,36 +15102,6 @@ Runs a functional test and returns error code. Note the analogy with PYSCRIPT_FU
 // File: ParticleInTheAirBuilder_8h.xml
 
 
-// File: pyscript__functional__tests_8cpp.xml
-%feature("docstring")  PYSCRIPT_FUNCTIONAL_TEST "int PYSCRIPT_FUNCTIONAL_TEST(const std::string &test_name)
-
-run pyscript functional tests with given name
-
-Runs a functional test and returns error code. Note the analogy with CORE_FUNCTIONAL_TEST. 
-";
-
-
-// File: pyscript__functional__tests_8h.xml
-%feature("docstring")  PYSCRIPT_FUNCTIONAL_TEST "BA_CORE_API_ int PYSCRIPT_FUNCTIONAL_TEST(const std::string &test_name)
-
-run pyscript functional tests with given name
-
-Runs a functional test and returns error code. Note the analogy with CORE_FUNCTIONAL_TEST. 
-";
-
-
-// File: PyScriptFunctionalTest_8cpp.xml
-
-
-// File: PyScriptFunctionalTest_8h.xml
-
-
-// File: PyScriptFunctionalTestComponentService_8cpp.xml
-
-
-// File: PyScriptFunctionalTestComponentService_8h.xml
-
-
 // File: RipplesBuilder_8cpp.xml
 
 
@@ -15232,12 +15138,6 @@ Runs a functional test and returns error code. Note the analogy with CORE_FUNCTI
 // File: StandardSimulations_8h.xml
 
 
-// File: TestComponentsRegistry_8cpp.xml
-
-
-// File: TestComponentsRegistry_8h.xml
-
-
 // File: TransformationsBuilder_8cpp.xml
 
 
@@ -15248,6 +15148,69 @@ Runs a functional test and returns error code. Note the analogy with CORE_FUNCTI
 
 
 // File: TwoDimLatticeBuilder_8h.xml
+
+
+// File: CoreFunctionalTest_8cpp.xml
+
+
+// File: CoreFunctionalTest_8h.xml
+
+
+// File: CoreFunctionalTestComponentService_8cpp.xml
+
+
+// File: CoreFunctionalTestComponentService_8h.xml
+
+
+// File: FunctionalMultiTest_8cpp.xml
+
+
+// File: FunctionalMultiTest_8h.xml
+
+
+// File: FunctionalTestComponentService_8cpp.xml
+
+
+// File: FunctionalTestComponentService_8h.xml
+
+
+// File: FunctionalTestInfo_8cpp.xml
+
+
+// File: FunctionalTestInfo_8h.xml
+
+
+// File: FunctionalTestRegistry_8cpp.xml
+
+
+// File: FunctionalTestRegistry_8h.xml
+
+
+// File: ICloneableRegistry_8h.xml
+
+
+// File: IFunctionalTest_8cpp.xml
+
+
+// File: IFunctionalTest_8h.xml
+
+
+// File: PyScriptFunctionalTest_8cpp.xml
+
+
+// File: PyScriptFunctionalTest_8h.xml
+
+
+// File: PyScriptFunctionalTestComponentService_8cpp.xml
+
+
+// File: PyScriptFunctionalTestComponentService_8h.xml
+
+
+// File: TestComponentsRegistry_8cpp.xml
+
+
+// File: TestComponentsRegistry_8h.xml
 
 
 // File: AttLimits_8cpp.xml
@@ -15358,9 +15321,6 @@ global helper function for comparison of axes
 // File: ICloneable_8h.xml
 
 
-// File: ICloneableRegistry_8h.xml
-
-
 // File: IComponentService_8h.xml
 
 
@@ -15384,9 +15344,6 @@ creation function
 
 
 // File: INamed_8h.xml
-
-
-// File: BAConfigure_8h.xml
 
 
 // File: IntegratorComplex_8h.xml
@@ -15570,32 +15527,29 @@ creation function
 // File: todo.xml
 
 
-// File: dir_2ae5eef177fdc4a2f78184a703e9ca35.xml
+// File: dir_e1ea50aa565d9a3ab2d030f355b28273.xml
 
 
-// File: dir_a5718f9cbd8869dfe6f67ea602e0c081.xml
+// File: dir_c6310732a22f63c0c2fc5595561e68f1.xml
 
 
-// File: dir_e8b91df279483b3e8e12615e228a1b30.xml
+// File: dir_a2ca5d2cdcaf135a87dcab85b198454f.xml
 
 
-// File: dir_0741ac6d11fd047643bf55f8f8c05919.xml
+// File: dir_41c864f8b362cbf9598de792bd07bfbb.xml
 
 
-// File: dir_f917e00ecc0731a03e57c18530cede59.xml
+// File: dir_d7044b5fc4daccc5700de9f07da81a11.xml
 
 
-// File: dir_9d78f3c2dc853fa89372782fc968f32a.xml
+// File: dir_3089b6128da5fa5b3826c81ab6bab5ef.xml
 
 
-// File: dir_7fb31f1b073eeae63423bbb2a3a2d187.xml
+// File: dir_5d2259b43612a5a0ff7512df653d7370.xml
 
 
-// File: dir_844b9b42d96eb52684a7ef26f932da03.xml
+// File: dir_3699ff1c9496be3df876d73b8d75bc3c.xml
 
 
-// File: dir_6239607a7bd3e9e52745ea8c4706e15f.xml
-
-
-// File: dir_0ae786ed4862dcefebd8dd89a60766dc.xml
+// File: dir_e120110860f9b345e7b3217e8b15cbb8.xml
 

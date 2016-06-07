@@ -28,10 +28,9 @@ class FunctionalTestInfo;
 class GUIFunctionalTestComponentService : public FunctionalTestComponentService
 {
 public:
-    GUIFunctionalTestComponentService(const FunctionalTestInfo &info);
+    GUIFunctionalTestComponentService(const FunctionalTestInfo* info);
 
-    IFunctionalTest *getFunctionalTest() const;
+    IFunctionalTest* getFunctionalTest() const;
 };
 
 #endif
-

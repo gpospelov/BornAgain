@@ -19,8 +19,6 @@ public:
     bool isValidTest(const std::string &test_name);
 
     void printCatalogue(std::ostream &ostr);
-
 };
-
 
 #endif

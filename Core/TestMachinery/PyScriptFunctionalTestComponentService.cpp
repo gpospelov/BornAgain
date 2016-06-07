@@ -17,21 +17,13 @@
 #include "PyScriptFunctionalTest.h"
 
 PyScriptFunctionalTestComponentService::PyScriptFunctionalTestComponentService(
-    const FunctionalTestInfo &info)
+    const FunctionalTestInfo* info)
     : FunctionalTestComponentService(info)
 {
 }
 
-IFunctionalTest *PyScriptFunctionalTestComponentService::getFunctionalTest() const
+IFunctionalTest* PyScriptFunctionalTestComponentService::getFunctionalTest() const
 {
-    PyScriptFunctionalTest *result = new PyScriptFunctionalTest(getTestName(),
-        getTestDescription(), getSimulation(), getTestThreshold());
-
-    std::string file_name("pyscript_");
-    file_name += m_testInfo.m_test_name;
-    file_name += getCurrentComponentName();
-    file_name += ".py";
-
-    result->setPyScriptFileName(file_name);
-    return result;
+    return new PyScriptFunctionalTest(
+        getTestName(), getTestDescription(), getSimulation(), getTestThreshold());
 }

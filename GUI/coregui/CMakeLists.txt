@@ -125,6 +125,7 @@ endif()
 
 
 # --- making library ---------
+
 add_library(
     ${library_name}
     SHARED
@@ -196,4 +197,3 @@ if(WIN32)
     DESTINATION bin/iconengines COMPONENT Libraries)
 
 endif()
-

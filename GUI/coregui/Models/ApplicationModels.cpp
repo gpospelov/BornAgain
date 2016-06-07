@@ -44,7 +44,7 @@ ApplicationModels::ApplicationModels(QObject *parent)
     , m_jobModel(0)
 {
     createModels();
-//    createTestSample();
+    createTestSample();
 //    createTestJob();
 
 //    SessionItem *multilayer = m_sampleModel->insertNewItem(Constants::MultiLayerType);

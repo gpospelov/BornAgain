@@ -31,8 +31,8 @@ const std::string directory_name_for_failed_tests = "00_failed_tests";
 }
 
 PyScriptFunctionalTest::PyScriptFunctionalTest(
-    const std::string &name, const std::string &description,
-    GISASSimulation *reference_simulation, double threshold)
+    const std::string& name, const std::string& description,
+    GISASSimulation* reference_simulation, double threshold)
     : IFunctionalTest(name, description)
     , m_reference_simulation(reference_simulation)
     , m_domain_simulation(0)
@@ -49,10 +49,9 @@ PyScriptFunctionalTest::~PyScriptFunctionalTest()
 
 void PyScriptFunctionalTest::runTest()
 {
-    if (!m_reference_simulation) {
+    if (!m_reference_simulation)
         throw NullPointerException(
             "AdvancedGUIFunctionalTest::runTest() -> Error. Uninitialized simulation object.");
-    }
 
     m_reference_simulation->runSimulation();
 
@@ -67,16 +66,15 @@ int PyScriptFunctionalTest::analyseResults()
     const std::unique_ptr<OutputData<double> > P_reference_data(
         m_reference_simulation->getDetectorIntensity());
     m_difference = IntensityDataFunctions::getRelativeDifference(*P_domain_data, *P_reference_data);
-    m_result = (m_difference > m_threshold ? FAILED_DIFF : SUCCESS);
+    m_result = m_difference > m_threshold ? FAILED_DIFF : SUCCESS;
 
     if (getTestResult() != SUCCESS)
         savePyScript();
 
-
     return m_result;
 }
 
-void PyScriptFunctionalTest::printResults(std::ostream &ostr) const
+void PyScriptFunctionalTest::printResults(std::ostream& ostr) const
 {
     ostr << getFormattedInfoString();
     ostr << Utils::String::getScientificDoubleString(m_difference);
@@ -84,7 +82,7 @@ void PyScriptFunctionalTest::printResults(std::ostream &ostr) const
         ostr << "--> " << getPyScriptFileNameAndPath();
 }
 
-void PyScriptFunctionalTest::setPyScriptFileName(const std::string &file_name)
+void PyScriptFunctionalTest::setPyScriptFileName(const std::string& file_name)
 {
     m_pyscript_file_name = file_name;
 }
@@ -99,8 +97,7 @@ void PyScriptFunctionalTest::runPyScriptSimulation()
     pythonFile.close();
 
     std::string command = std::string(BORNAGAIN_PYTHON_EXE ) + " " + temp_python_script_file_name;
-    int return_code = std::system(command.c_str());
-    (void)return_code;
+    std::system(command.c_str()); // ignore return value
 }
 
 void PyScriptFunctionalTest::generatePythonScript()

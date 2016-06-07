@@ -17,6 +17,7 @@
 #ifndef JOBQUEUEDATA_H
 #define JOBQUEUEDATA_H
 
+#include "WinDllMacros.h"
 #include <QObject>
 #include <QString>
 #include <QMap>

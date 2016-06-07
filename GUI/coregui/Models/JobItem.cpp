@@ -176,7 +176,7 @@ bool JobItem::isFailed() const
 
 bool JobItem::isValidForFitting()
 {
-    if(getItem(T_REALDATA)) {
+    if(isTag(T_REALDATA) && getItem(T_REALDATA)) {
         return true;
     } else {
         return false;

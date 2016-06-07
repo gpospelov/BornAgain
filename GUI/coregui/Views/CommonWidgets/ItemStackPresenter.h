@@ -33,8 +33,8 @@ class BA_CORE_API_ ItemStackPresenter : public ItemStackWidget
 public:
     virtual void setItem(SessionItem *item) {
 
-        if(!item && m_stackedWidget->currentWidget()) {
-            m_stackedWidget->currentWidget()->hide();
+        if(!item) {
+            hideWidgets();
             return;
         }
 
@@ -46,11 +46,21 @@ public:
             m_itemToWidget[item] = widget;
             widget->setItem(item);
         }
+        Q_ASSERT(widget);
         m_stackedWidget->setCurrentWidget(widget);
+        if(widget->isHidden())
+            widget->show();
+
     }
 
     T *currentWidget() {
         return dynamic_cast<T *>(m_stackedWidget->currentWidget());
+    }
+
+    void hideWidgets() {
+        if(m_stackedWidget->currentWidget()) {
+            m_stackedWidget->currentWidget()->hide();
+        }
     }
 
 protected:

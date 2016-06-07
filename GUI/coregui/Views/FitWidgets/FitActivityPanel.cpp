@@ -63,7 +63,12 @@ QSize FitActivityPanel::minimumSizeHint() const {
 
 void FitActivityPanel::setItem(JobItem *item)
 {
+    qDebug() << "FitActivityPanel::setItem(JobItem *item)" << item->isValidForFitting();
     if(!item) return;
+    if(!item->isValidForFitting()) {
+        m_stackedWidget->setItem(0);
+        return;
+    }
 
     m_controlWidget->setItem(item);
 
@@ -118,7 +123,7 @@ void FitActivityPanel::onStopFitting()
 bool FitActivityPanel::isValidJobItem(JobItem *item)
 {
     Q_UNUSED(item);
-    return true;
+    return item->isValidForFitting();
     //    return (item->isCompleted() || item->isCanceled()) && item->getMultiLayerItem() && item->getInstrumentItem();
 }
 

@@ -47,23 +47,6 @@ void JobViewDocks::initViews(class JobModel *jobModel)
     initDocks();
 }
 
-
-//! Returns job widget with given Id.
-
-QWidget *JobViewDocks::jobWidget(JobViewFlags::Dock dockId)
-{
-    Q_ASSERT(dockId >=0 && dockId<m_jobWidgets.size());
-    return m_jobWidgets[dockId];
-}
-
-//! Returns dock with given id.
-
-QDockWidget *JobViewDocks::dock(JobViewFlags::Dock dockId)
-{
-    Q_ASSERT(dockId >=0 && dockId<m_dockWidgets.size());
-    return m_dockWidgets[dockId];
-}
-
 //! Sets docks visibility so they match the activity flag.
 
 void JobViewDocks::setActivity(int activity)
@@ -121,6 +104,22 @@ void JobViewDocks::onResetLayout()
 void JobViewDocks::onToggleJobSelector()
 {
     m_jobSelector->setHidden(!m_jobSelector->isHidden());
+}
+
+//! Returns job widget with given Id.
+
+QWidget *JobViewDocks::jobWidget(JobViewFlags::Dock dockId)
+{
+    Q_ASSERT(dockId >=0 && dockId<m_jobWidgets.size());
+    return m_jobWidgets[dockId];
+}
+
+//! Returns dock with given id.
+
+QDockWidget *JobViewDocks::dock(JobViewFlags::Dock dockId)
+{
+    Q_ASSERT(dockId >=0 && dockId<m_dockWidgets.size());
+    return m_dockWidgets[dockId];
 }
 
 QWidget *JobViewDocks::centralWidget()

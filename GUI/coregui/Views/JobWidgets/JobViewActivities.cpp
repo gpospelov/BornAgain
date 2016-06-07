@@ -45,7 +45,7 @@ QStringList JobViewActivities::activityList()
     return result;
 }
 
-//! Returns vector of JobView's dockId which have to be shown for given activity
+//! Returns vector of JobView's dockId which have to be shown for given activity.
 
 QVector<JobViewFlags::Dock> JobViewActivities::activeDocks(JobViewFlags::Activity activity)
 {

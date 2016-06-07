@@ -38,10 +38,6 @@ public:
 
     void initViews(class JobModel *jobModel);
 
-    QWidget *jobWidget(JobViewFlags::Dock dockId);
-    QDockWidget *dock(JobViewFlags::Dock dockId);
-
-
     class JobRealTimeWidget *jobRealTimeWidget() { return m_jobRealTimeWidget;}
     class FitActivityPanel *fitActivityPanel() { return m_fitActivityPanel; }
     class JobSelectorWidget *jobSelector() { return m_jobSelector; }
@@ -54,10 +50,11 @@ public slots:
     void onToggleJobSelector();
 
 private:
+    QWidget *jobWidget(JobViewFlags::Dock dockId);
+    QDockWidget *dock(JobViewFlags::Dock dockId);
     QWidget *centralWidget();
     void initJobWidgets(class JobModel *jobModel);
     void initDocks();
-
 
     class JobSelectorWidget *m_jobSelector;
     class JobOutputDataWidget *m_jobOutputDataWidget;

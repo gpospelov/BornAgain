@@ -40,7 +40,7 @@ GCC_DIAG_OFF(unused-parameter)
 GCC_DIAG_ON(unused-parameter)
 GCC_DIAG_ON(missing-field-initializers)
 
-std::string PyGenTools::genPyScript(GISASSimulation* simulation)
+std::string PyGenTools::genPyScript(GISASSimulation* simulation, const std::string& output_filename)
 {
     simulation->prepareSimulation();
     std::unique_ptr<ISample> sample;
@@ -53,83 +53,11 @@ std::string PyGenTools::genPyScript(GISASSimulation* simulation)
     PyGenVisitor visitor;
     VisitSampleTreePostorder(*multiLayer, visitor);
     std::ostringstream result;
-    result << visitor.writePyScript(simulation);
+    result << visitor.writePyScript(simulation, output_filename);
     return result.str();
 }
 
-std::string PyGenTools::printBool(double value)
-{
-    return value ? "True" : "False";
-}
-
-std::string PyGenTools::printDouble(double input)
-{
-    std::ostringstream inter;
-    inter << std::setprecision(12);
-    if (std::abs(input) < std::numeric_limits<double>::epsilon()) {
-        inter << "0.0";
-        return inter.str();
-    }
-    inter << input;
-    if(inter.str().find('e') == std::string::npos && inter.str().find('.') == std::string::npos)
-        inter << ".0";
-    return inter.str();
-}
-
-std::string PyGenTools::printNm(double input)
-{
-    std::ostringstream inter;
-    inter << std::setprecision(12);
-    inter << PyGenTools::printDouble(input) << "*nm";
-    return inter.str();
-}
-
-
-// 1.000000e+07 -> 1.0e+07
-std::string PyGenTools::printScientificDouble(double input)
-{
-    std::ostringstream inter;
-    inter << std::scientific;
-    inter << input;
-
-    std::string::size_type pos = inter.str().find('e');
-    if(pos == std::string::npos) return inter.str();
-
-    std::string part1 = inter.str().substr(0, pos);
-    std::string part2 = inter.str().substr(pos, std::string::npos);
-
-    part1.erase(part1.find_last_not_of('0') + 1, std::string::npos);
-    if(part1.back() == '.') part1 += "0";
-
-    return part1+part2;
-}
-
-std::string PyGenTools::printDegrees(double input)
-{
-    std::ostringstream inter;
-    inter << std::setprecision(11);
-    double in_degrees = input*180.0/M_PI;
-    inter << in_degrees;
-    if(inter.str().find('e') == std::string::npos && inter.str().find('.') == std::string::npos)
-    {
-        inter << ".0";
-    }
-    inter << "*deg";
-    return inter.str();
-}
-
-bool PyGenTools::isSquare(double length1, double length2, double angle)
-{
-    return length1==length2 && Numeric::areAlmostEqual(angle, Units::PI/2.0);
-}
-
-
-bool PyGenTools::isHexagonal(double length1, double length2, double angle)
-{
-    return length1==length2 && Numeric::areAlmostEqual(angle, 2*Units::PI/3.0);
-}
-
-bool PyGenTools::testPyScript(GISASSimulation* simulation)
+bool PyGenTools::testPyScript(GISASSimulation* simulation, const std::string& output_filename)
 {
     std::ofstream pythonFile;
     pythonFile.open("PythonScript.py");
@@ -138,7 +66,7 @@ bool PyGenTools::testPyScript(GISASSimulation* simulation)
     pythonFile << "sys.path.append(os.path.abspath("
                << "os.path.join(os.path.split(os.path.realpath(__file__))[0],"
                << "'..', '..', '..', 'lib')))\n\n";
-    pythonFile << genPyScript(simulation);
+    pythonFile << genPyScript(simulation, output_filename);
     pythonFile.close();
 
     std::string command = std::string(BORNAGAIN_PYTHON_EXE) + " PythonScript.py";
@@ -166,7 +94,6 @@ bool PyGenTools::testPyScript(GISASSimulation* simulation)
     }
     return true;
 }
-
 
 std::string PyGenTools::getRepresentation(const IDistribution1D* distribution)
 {
@@ -271,6 +198,79 @@ std::string PyGenTools::getRepresentation(
         result << indent << "simulation.maskAll()\n";
     }
     return result.str();
+}
+
+
+std::string PyGenTools::printBool(double value)
+{
+    return value ? "True" : "False";
+}
+
+std::string PyGenTools::printDouble(double input)
+{
+    std::ostringstream inter;
+    inter << std::setprecision(12);
+    if (std::abs(input) < std::numeric_limits<double>::epsilon()) {
+        inter << "0.0";
+        return inter.str();
+    }
+    inter << input;
+    if(inter.str().find('e') == std::string::npos && inter.str().find('.') == std::string::npos)
+        inter << ".0";
+    return inter.str();
+}
+
+std::string PyGenTools::printNm(double input)
+{
+    std::ostringstream inter;
+    inter << std::setprecision(12);
+    inter << PyGenTools::printDouble(input) << "*nm";
+    return inter.str();
+}
+
+
+// 1.000000e+07 -> 1.0e+07
+std::string PyGenTools::printScientificDouble(double input)
+{
+    std::ostringstream inter;
+    inter << std::scientific;
+    inter << input;
+
+    std::string::size_type pos = inter.str().find('e');
+    if(pos == std::string::npos) return inter.str();
+
+    std::string part1 = inter.str().substr(0, pos);
+    std::string part2 = inter.str().substr(pos, std::string::npos);
+
+    part1.erase(part1.find_last_not_of('0') + 1, std::string::npos);
+    if(part1.back() == '.') part1 += "0";
+
+    return part1+part2;
+}
+
+std::string PyGenTools::printDegrees(double input)
+{
+    std::ostringstream inter;
+    inter << std::setprecision(11);
+    double in_degrees = input*180.0/M_PI;
+    inter << in_degrees;
+    if(inter.str().find('e') == std::string::npos && inter.str().find('.') == std::string::npos)
+    {
+        inter << ".0";
+    }
+    inter << "*deg";
+    return inter.str();
+}
+
+bool PyGenTools::isSquare(double length1, double length2, double angle)
+{
+    return length1==length2 && Numeric::areAlmostEqual(angle, Units::PI/2.0);
+}
+
+
+bool PyGenTools::isHexagonal(double length1, double length2, double angle)
+{
+    return length1==length2 && Numeric::areAlmostEqual(angle, 2*Units::PI/3.0);
 }
 
 std::string PyGenTools::printKvector(const kvector_t value)

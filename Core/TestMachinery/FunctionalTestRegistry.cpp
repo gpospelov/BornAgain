@@ -337,20 +337,20 @@ FunctionalTestRegistry::FunctionalTestRegistry()
 }
 
 void FunctionalTestRegistry::add(
-    const std::string &test_name, const std::string &test_description,
-    const std::string &simulation_name, const std::string &sample_builder_name,
-    const std::string &component_registry_name, double threshold )
+    const std::string& test_name, const std::string& test_description,
+    const std::string& simulation_name, const std::string& sample_builder_name,
+    const std::string& component_registry_name, double threshold )
 {
     if( m_catalogue.find(test_name) != m_catalogue.end() )
         throw ExistingClassRegistrationException(
             "FunctionalTestRegistry::add() -> Error. Existing item " + test_name);
     m_catalogue[test_name] = FunctionalTestInfo(
         test_name, test_description, simulation_name,
-        sample_builder_name,component_registry_name, threshold);
+        sample_builder_name, component_registry_name, threshold);
 }
 
 FunctionalTestInfo* FunctionalTestRegistry::getTestInfo(
-    const std::string &test_name, const std::string &suite_name)
+    const std::string& test_name, const std::string& suite_name)
 {
     auto it = m_catalogue.find(test_name);
     if( it == m_catalogue.end() ) {
@@ -361,10 +361,10 @@ FunctionalTestInfo* FunctionalTestRegistry::getTestInfo(
         printCatalogue(std::cout);
         return nullptr;
     }
-    return &(it->second);
+    return& (it->second);
 }
 
-void FunctionalTestRegistry::printCatalogue(std::ostream &ostr)
+void FunctionalTestRegistry::printCatalogue(std::ostream& ostr)
 {
     for(auto it = m_catalogue.begin(); it != m_catalogue.end(); ++it) {
         FunctionalTestInfo info = it->second;

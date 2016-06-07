@@ -17,7 +17,6 @@
 #define FUNCTIONALTESTCOMPONENTSERVICE_H
 
 #include "IComponentService.h"
-#include "FunctionalTestRegistry.h"
 #include <vector>
 #include <string>
 
@@ -25,6 +24,7 @@ class IFormFactor;
 class GISASSimulation;
 class TestFormFactorsRegistry;
 class TestFTDistribution2DRegistry;
+class FunctionalTestInfo;
 class IFunctionalTest;
 
 //! @class FunctionalTestComponentService

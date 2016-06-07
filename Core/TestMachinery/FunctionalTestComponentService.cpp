@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "FunctionalTestComponentService.h"
+#include "FunctionalTestRegistry.h"
 #include "SimulationRegistry.h"
 #include "SampleBuilderFactory.h"
 #include "TestComponentsRegistry.h"

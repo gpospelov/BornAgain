@@ -52,7 +52,8 @@ PyGenVisitor::~PyGenVisitor()
     delete m_label;
 }
 
-std::string PyGenVisitor::writePyScript(const GISASSimulation* simulation)
+std::string PyGenVisitor::writePyScript(
+    const GISASSimulation* simulation, const std::string& output_filename)
 {
     std::ostringstream result;
     result << definePreamble();
@@ -63,7 +64,7 @@ std::string PyGenVisitor::writePyScript(const GISASSimulation* simulation)
     result << defineRunSimulation();
 
     result << "if __name__ == '__main__': \n";
-    result << indent() << "runSimulation('output')";
+    result << indent() << "runSimulation('" << output_filename << "')";
     return result.str();
 }
 
@@ -1425,7 +1426,7 @@ std::string PyGenVisitor::defineSimulationOptions(const GISASSimulation* simulat
     std::ostringstream result;
     result << std::setprecision(12);
 
-    const SimulationOptions &options = simulation->getOptions();
+    const SimulationOptions& options = simulation->getOptions();
     if(options.getHardwareConcurrency() != options.getNumberOfThreads()) {
         result << indent() << "simulation.getOptions().setNumberOfThreads("
                << options.getNumberOfThreads() << ")\n";
@@ -1520,7 +1521,7 @@ void PyGenVisitor::setRotationInformation(
 }
 
 void PyGenVisitor::setPositionInformation(
-    const IParticle* p_particle, std::string name, std::ostringstream &result) const
+    const IParticle* p_particle, std::string name, std::ostringstream& result) const
 {
     kvector_t pos = p_particle->getPosition();
     bool has_position_info = (pos != kvector_t());

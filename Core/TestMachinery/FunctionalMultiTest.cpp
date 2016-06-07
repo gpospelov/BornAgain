@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "FunctionalMultiTest.h"
+#include "FunctionalTestInfo.h"
 #include "FunctionalTestComponentService.h"
 
 FunctionalMultiTest::FunctionalMultiTest(const std::string& name,

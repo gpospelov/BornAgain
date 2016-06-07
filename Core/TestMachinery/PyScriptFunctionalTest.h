@@ -53,6 +53,7 @@ private:
     double m_threshold;
     double m_difference;
     std::string m_pyscript_filename;
+    std::string m_output_filename;
 };
 
 #endif

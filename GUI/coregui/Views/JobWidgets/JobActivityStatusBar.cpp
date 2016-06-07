@@ -16,17 +16,20 @@
 
 #include "JobActivityStatusBar.h"
 #include "JobView.h"
+#include "mainwindow.h"
 #include <QHBoxLayout>
 #include <QToolButton>
 #include <QComboBox>
+#include <QStatusBar>
 
-JobActivityStatusBar::JobActivityStatusBar(QWidget *parent)
-    : QWidget(parent)
+JobActivityStatusBar::JobActivityStatusBar(MainWindow *mainWindow)
+    : QWidget(mainWindow)
     , m_toggleJobListButton(0)
     , m_activityCombo(0)
     , m_dockMenuButton(0)
+    , m_mainWindow(mainWindow)
 {
-    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);    
 
     QHBoxLayout *layout = new QHBoxLayout;
     layout->setSpacing(0);
@@ -56,6 +59,7 @@ JobActivityStatusBar::JobActivityStatusBar(QWidget *parent)
     layout->addWidget(m_dockMenuButton);
 
     setLayout(layout);
+    initAppearance();
 }
 
 void JobActivityStatusBar::onActivityChanged(int activity)
@@ -67,4 +71,14 @@ void JobActivityStatusBar::onActivityChanged(int activity)
 
     connect(m_activityCombo, SIGNAL(currentIndexChanged(int)),
             this, SIGNAL(changeActivityRequest(int)));
+}
+
+//! Init appearance of MainWindow's statusBar.
+
+void JobActivityStatusBar::initAppearance()
+{
+    Q_ASSERT(m_mainWindow);
+    m_mainWindow->statusBar()->addWidget(this, 1);
+    m_mainWindow->statusBar()->setSizeGripEnabled(false);
+    this->hide();
 }

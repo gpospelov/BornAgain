@@ -43,26 +43,16 @@ class JobViewPrivate
 public:
     JobViewPrivate(MainWindow *mainWindow);
 
-//    QVector<QWidget *> m_subWindows;
-//    QVector<QDockWidget *> m_dockWidgets;
     Manhattan::ProgressBar *progressBar() { return m_mainWindow->progressBar(); }
     JobModel *jobModel() { return m_mainWindow->jobModel(); }
 
-//    JobSelectorWidget *m_jobSelector;
-//    JobOutputDataWidget *m_jobOutputDataWidget;
-//    JobRealTimeWidget *m_jobRealTimeWidget;
     JobActivityStatusBar *m_jobActivityStatusBar;
-//    FitActivityPanel *m_fitActivityPanel;
     MainWindow *m_mainWindow;
 };
 
 
 JobViewPrivate::JobViewPrivate(MainWindow *mainWindow)
-//    : m_jobSelector(0)
-//    , m_jobOutputDataWidget(0)
-//    , m_jobRealTimeWidget(0)
     : m_jobActivityStatusBar(0)
-//    , m_fitActivityPanel(0)
     , m_mainWindow(mainWindow)
 {
 }
@@ -70,30 +60,13 @@ JobViewPrivate::JobViewPrivate(MainWindow *mainWindow)
 
 JobView::JobView(MainWindow *mainWindow)
     : m_docks(new JobViewDocks(this))
-    , m_d(new JobViewPrivate(mainWindow))
+    , m_jobActivityStatusBar(new JobActivityStatusBar(mainWindow))
+    , m_mainWindow(mainWindow)
 {
     setObjectName("JobView");
-
-    m_docks->initJobWidgets(mainWindow->jobModel());
-
-    setDocumentMode(true);
-    setTabPosition(Qt::AllDockWidgetAreas, QTabWidget::South);
-    setCorner(Qt::BottomLeftCorner, Qt::LeftDockWidgetArea);
-    setCorner(Qt::BottomRightCorner, Qt::RightDockWidgetArea);
-
-    m_docks->initDocks();
-
-    m_d->m_jobActivityStatusBar = new JobActivityStatusBar;
-    m_d->m_mainWindow->statusBar()->addWidget(m_d->m_jobActivityStatusBar, 1);
-    m_d->m_mainWindow->statusBar()->setSizeGripEnabled(false);
-    m_d->m_jobActivityStatusBar->hide();
+    m_docks->initViews(mainWindow->jobModel());
 
     connectSignals();
-}
-
-JobView::~JobView()
-{
-
 }
 
 QStringList JobView::getActivityStringList()
@@ -105,14 +78,14 @@ QStringList JobView::getActivityStringList()
 
 void JobView::updateGlobalProgressBar(int progress)
 {
-    Q_ASSERT(m_d->progressBar());
+    Q_ASSERT(m_mainWindow->progressBar());
     if(progress<0 || progress >= 100) {
-        m_d->progressBar()->setFinished(true);
-        m_d->progressBar()->hide();
+        m_mainWindow->progressBar()->setFinished(true);
+        m_mainWindow->progressBar()->hide();
     } else {
-        m_d->progressBar()->show();
-        m_d->progressBar()->setFinished(false);
-        m_d->progressBar()->setValue(progress);
+        m_mainWindow->progressBar()->show();
+        m_mainWindow->progressBar()->setFinished(false);
+        m_mainWindow->progressBar()->setValue(progress);
     }
 }
 
@@ -196,61 +169,39 @@ void JobView::onDockMenuRequest()
 void JobView::showEvent(QShowEvent *)
 {
     if(isVisible())
-        m_d->m_jobActivityStatusBar->show();
+        m_jobActivityStatusBar->show();
 }
 
 void JobView::hideEvent(QHideEvent *)
 {
     if(isHidden())
-        m_d->m_jobActivityStatusBar->hide();
+        m_jobActivityStatusBar->hide();
 }
 
-void JobView::initWindows()
-{
-//    m_d->m_subWindows.resize(NUMBER_OF_DOCKS);
-//    m_d->m_dockWidgets.resize(NUMBER_OF_DOCKS);
-
-//    // central widget
-//    m_d->m_jobOutputDataWidget
-//        = new JobOutputDataWidget(m_d->jobModel(), this);
-//    setCentralWidget(m_d->m_jobOutputDataWidget);
-
-//    m_d->m_jobSelector = new JobSelectorWidget(m_d->jobModel(), this);
-//    m_d->m_subWindows[JOB_LIST_DOCK] = m_d->m_jobSelector;
-
-//    m_d->m_jobRealTimeWidget = new JobRealTimeWidget(m_d->jobModel(), this);
-//    m_d->m_subWindows[REAL_TIME_DOCK] = m_d->m_jobRealTimeWidget;
-
-//    m_d->m_fitActivityPanel = new FitActivityPanel(m_d->jobModel(), this);
-//    m_d->m_fitActivityPanel->setRealTimeWidget(m_d->m_jobRealTimeWidget);
-//    m_d->m_subWindows[FIT_PANEL_DOCK] = m_d->m_fitActivityPanel;
-
-//    m_d->m_subWindows[JOB_MESSAGE_DOCK] = new JobMessagePanel(this);
-}
 
 void JobView::connectSignals()
 {
-    Q_ASSERT(m_d->progressBar());
-    Q_ASSERT(m_d->jobModel());
+    Q_ASSERT(m_mainWindow->progressBar());
+    Q_ASSERT(m_mainWindow->jobModel());
     connect(this, SIGNAL(resetLayout()), this, SLOT(resetToDefaultLayout()));
-    connect(m_d->jobModel(), SIGNAL(globalProgress(int)),
+    connect(m_mainWindow->jobModel(), SIGNAL(globalProgress(int)),
             this, SLOT(updateGlobalProgressBar(int)));
-    connect(m_d->jobModel(), SIGNAL(focusRequest(JobItem *)),
+    connect(m_mainWindow->jobModel(), SIGNAL(focusRequest(JobItem *)),
             this, SLOT(onFocusRequest(JobItem *)));
-    connect(m_d->progressBar(), SIGNAL(clicked()),
-            m_d->jobModel()->getJobQueueData(), SLOT(onCancelAllJobs()));
+    connect(m_mainWindow->progressBar(), SIGNAL(clicked()),
+            m_mainWindow->jobModel()->getJobQueueData(), SLOT(onCancelAllJobs()));
 
     // global statusBar notifies JobView about changes in the activity
-    connect(m_d->m_jobActivityStatusBar, SIGNAL(changeActivityRequest(int)),
+    connect(m_jobActivityStatusBar, SIGNAL(changeActivityRequest(int)),
             this, SLOT(setActivity(int)));
-    connect(m_d->m_jobActivityStatusBar, SIGNAL(toggleJobListRequest()),
+    connect(m_jobActivityStatusBar, SIGNAL(toggleJobListRequest()),
             this, SLOT(onToggleJobListRequest()));
-    connect(m_d->m_jobActivityStatusBar, SIGNAL(dockMenuRequest()),
+    connect(m_jobActivityStatusBar, SIGNAL(dockMenuRequest()),
             this, SLOT(onDockMenuRequest()));
 
     // JobView notifies others about changes in the activity
     connect(this, SIGNAL(activityChanged(int)),
-            m_d->m_jobActivityStatusBar, SLOT(onActivityChanged(int)));
+            m_jobActivityStatusBar, SLOT(onActivityChanged(int)));
     connect(this, SIGNAL(activityChanged(int)),
             m_docks->jobOutputDataWidget(), SLOT(onActivityChanged(int)));
 }

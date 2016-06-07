@@ -35,6 +35,12 @@ JobViewDocks::JobViewDocks(JobView *parent)
 
 }
 
+void JobViewDocks::initViews(class JobModel *jobModel)
+{
+    initJobWidgets(jobModel);
+    initDocks();
+}
+
 
 //! Returns job widget with given Id.
 
@@ -56,6 +62,7 @@ QWidget *JobViewDocks::centralWidget()
 {
     return m_jobOutputDataWidget;
 }
+
 
 //! Inits all main JobWidgets.
 
@@ -85,6 +92,11 @@ void JobViewDocks::initJobWidgets(JobModel *jobModel)
 
 void JobViewDocks::initDocks()
 {
+    m_jobView->setDocumentMode(true);
+    m_jobView->setTabPosition(Qt::AllDockWidgetAreas, QTabWidget::South);
+    m_jobView->setCorner(Qt::BottomLeftCorner, Qt::LeftDockWidgetArea);
+    m_jobView->setCorner(Qt::BottomRightCorner, Qt::RightDockWidgetArea);
+
     for (int i = 0; i < NUMBER_OF_DOCKS; i++) {
         QWidget *subWindow = jobWidget(EDocksId(i));
         m_dockWidgets[i] = m_jobView->addDockForWidget(subWindow);

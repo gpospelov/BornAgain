@@ -22,23 +22,16 @@
 #include <memory>
 
 class MainWindow;
-class JobViewPrivate;
 class JobItem;
 
-//! Main class to represent list of jobs, show job results and run real time simulation
+//! The JobView class is a main view to show list of jobs, their results and widgets for real time
+//! and fitting activities.
 
 class BA_CORE_API_ JobView : public Manhattan::FancyMainWindow
 {
     Q_OBJECT
 
 public:
-//    enum ESubWindows {
-//        JOB_LIST_DOCK,
-//        REAL_TIME_DOCK,
-//        FIT_PANEL_DOCK,
-//        JOB_MESSAGE_DOCK,
-//        NUMBER_OF_DOCKS
-//    };
 
     enum EActivities {
         JOB_VIEW_ACTIVITY,
@@ -47,7 +40,6 @@ public:
     };
 
     JobView(MainWindow *mainWindow);
-    virtual ~JobView();
 
     static QStringList getActivityStringList();
 
@@ -68,11 +60,11 @@ protected:
     virtual void hideEvent(QHideEvent *);
 
 private:
-    void initWindows();
     void connectSignals();
 
     class JobViewDocks *m_docks;
-    std::unique_ptr<JobViewPrivate> m_d;
+    class JobActivityStatusBar *m_jobActivityStatusBar;
+    MainWindow *m_mainWindow;
 };
 
 #endif

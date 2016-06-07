@@ -44,12 +44,12 @@ public:
 
     JobViewDocks(JobView *parent = 0);
 
+    void initViews(class JobModel *jobModel);
+
     QWidget *jobWidget(EDocksId dockId);
     QDockWidget *dock(EDocksId dockId);
     QWidget *centralWidget();
 
-    void initJobWidgets(class JobModel *jobModel);
-    void initDocks();
 
     class JobRealTimeWidget *jobRealTimeWidget() { return m_jobRealTimeWidget;}
     class FitActivityPanel *fitActivityPanel() { return m_fitActivityPanel; }
@@ -57,6 +57,8 @@ public:
     class JobOutputDataWidget *jobOutputDataWidget() { return m_jobOutputDataWidget; }
 
 private:
+    void initJobWidgets(class JobModel *jobModel);
+    void initDocks();
 
     class JobSelectorWidget *m_jobSelector;
     class JobOutputDataWidget *m_jobOutputDataWidget;

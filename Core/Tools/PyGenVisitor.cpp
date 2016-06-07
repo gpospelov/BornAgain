@@ -286,7 +286,7 @@ std::string PyGenVisitor::definePreamble() const
     result << "from bornagain import *\n\n\n";
     //    result << "#NOTE: All the ANGLES are displayed in RADIANS\n\n";
     //    result << "#NOTE: Running this Script by default will write output data"
-    //           << "to \"output.int\" file\n";
+    //           << "to <TODO: UPDATE THIS> file\n";
     //    result << "#NOTE: To avoid writing data to a file, delete the argument('output')"
     //           << "given to runSimulation in __main__\n";
     //    result << "#NOTE: To read data from a file use the command:"

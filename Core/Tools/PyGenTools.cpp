@@ -14,10 +14,6 @@
 // ************************************************************************** //
 
 #include "Macros.h"
-GCC_DIAG_OFF(missing-field-initializers)
-GCC_DIAG_OFF(unused-parameter)
-GCC_DIAG_ON(unused-parameter)
-GCC_DIAG_ON(missing-field-initializers)
 #include "IntensityDataFunctions.h"
 #include "IntensityDataIOFactory.h"
 #include "ISample.h"
@@ -39,8 +35,12 @@ GCC_DIAG_ON(missing-field-initializers)
 #include <cstdio>
 #include <cmath>
 #include <Python.h>
+GCC_DIAG_OFF(missing-field-initializers)
+GCC_DIAG_OFF(unused-parameter)
+GCC_DIAG_ON(unused-parameter)
+GCC_DIAG_ON(missing-field-initializers)
 
-std::string PyGenTools::genPyScript(GISASSimulation *simulation)
+std::string PyGenTools::genPyScript(GISASSimulation* simulation)
 {
     simulation->prepareSimulation();
     std::unique_ptr<ISample> sample;
@@ -49,7 +49,7 @@ std::string PyGenTools::genPyScript(GISASSimulation *simulation)
     } else {
         sample.reset(simulation->getSampleBuilder()->buildSample());
     }
-    MultiLayer *multiLayer = dynamic_cast<MultiLayer *>(sample.get());
+    MultiLayer* multiLayer = dynamic_cast<MultiLayer*>(sample.get());
     PyGenVisitor visitor;
     VisitSampleTreePostorder(*multiLayer, visitor);
     std::ostringstream result;
@@ -59,13 +59,7 @@ std::string PyGenTools::genPyScript(GISASSimulation *simulation)
 
 std::string PyGenTools::printBool(double value)
 {
-    std::ostringstream inter;
-    if(value) {
-        inter << "True";
-    } else {
-        inter << "False";
-    }
-    return inter.str();
+    return value ? "True" : "False";
 }
 
 std::string PyGenTools::printDouble(double input)
@@ -78,9 +72,7 @@ std::string PyGenTools::printDouble(double input)
     }
     inter << input;
     if(inter.str().find('e') == std::string::npos && inter.str().find('.') == std::string::npos)
-    {
         inter << ".0";
-    }
     return inter.str();
 }
 
@@ -128,22 +120,16 @@ std::string PyGenTools::printDegrees(double input)
 
 bool PyGenTools::isSquare(double length1, double length2, double angle)
 {
-    if(length1 == length2 && Numeric::areAlmostEqual(angle, Units::PI/2.0)) {
-        return true;
-    }
-    return false;
+    return length1==length2 && Numeric::areAlmostEqual(angle, Units::PI/2.0);
 }
 
 
 bool PyGenTools::isHexagonal(double length1, double length2, double angle)
 {
-    if(length1 == length2 && Numeric::areAlmostEqual(angle, 2*Units::PI/3.0)) {
-        return true;
-    }
-    return false;
+    return length1==length2 && Numeric::areAlmostEqual(angle, 2*Units::PI/3.0);
 }
 
-bool PyGenTools::testPyScript(GISASSimulation *simulation)
+bool PyGenTools::testPyScript(GISASSimulation* simulation)
 {
     std::ofstream pythonFile;
     pythonFile.open("PythonScript.py");
@@ -156,84 +142,81 @@ bool PyGenTools::testPyScript(GISASSimulation *simulation)
     pythonFile.close();
 
     std::string command = std::string(BORNAGAIN_PYTHON_EXE) + " PythonScript.py";
-    int return_code = std::system(command.c_str());
-    (void)return_code;
-    if (std::remove("PythonScript.py") != 0) {
+    std::system(command.c_str());
+
+    if (std::remove("PythonScript.py") != 0)
         throw RuntimeErrorException("PyGenTools::testPyScript: "
             "PythonScript.py could not be removed from filesystem");
-    }
 
     simulation->runSimulation();
     const std::unique_ptr<const OutputData<double> > P_reference_data(
                 simulation->getDetectorIntensity());
     const std::unique_ptr<const OutputData<double> > P_simulated_data(
                 IntensityDataIOFactory::readOutputData("output.int"));
-    if (std::remove("output.int") != 0) {
+    if (std::remove("output.int") != 0)
         throw RuntimeErrorException("PyGenTools::testPyScript: "
             "output.int could not be removed from filesystem");
-    }
+
     double diff = IntensityDataFunctions::getRelativeDifference(
                 *P_simulated_data,*P_reference_data);
-    if (diff < 5e-10)
-        return true;
-    else
+    if (diff >= 5e-10) {
         std::cout << "Relative Difference between python script and"
                      " reference sample: = " << diff << std::endl;
         return false;
+    }
+    return true;
 }
 
 
-std::string PyGenTools::getRepresentation(const IDistribution1D *distribution)
+std::string PyGenTools::getRepresentation(const IDistribution1D* distribution)
 {
      std::ostringstream result;
      result << std::setprecision(12);
 
-     if     (const DistributionGate *d =
-             dynamic_cast<const DistributionGate *>(distribution)) {
+     if     (const DistributionGate* d =
+             dynamic_cast<const DistributionGate*>(distribution)) {
         result << "DistributionGate("
                << PyGenTools::printDouble(d->getMin()) << ", "
                << PyGenTools::printDouble(d->getMax()) << ")";
      }
-     else if(const DistributionLorentz *d =
-             dynamic_cast<const DistributionLorentz *>(distribution)) {
+     else if(const DistributionLorentz* d =
+             dynamic_cast<const DistributionLorentz*>(distribution)) {
          result << "DistributionLorentz("
                 << PyGenTools::printDouble(d->getMean()) << ", "
                 << PyGenTools::printDouble(d->getHWHM()) << ")";
      }
-     else if(const DistributionGaussian *d =
-             dynamic_cast<const DistributionGaussian *>(distribution)) {
+     else if(const DistributionGaussian* d =
+             dynamic_cast<const DistributionGaussian*>(distribution)) {
          result << "DistributionGaussian("
                 << PyGenTools::printDouble(d->getMean()) << ", "
                 << PyGenTools::printDouble(d->getStdDev()) << ")";
      }
-     else if(const DistributionLogNormal *d =
-             dynamic_cast<const DistributionLogNormal *>(distribution)) {
+     else if(const DistributionLogNormal* d =
+             dynamic_cast<const DistributionLogNormal*>(distribution)) {
          result << "DistributionLogNormal("
                 << PyGenTools::printDouble(d->getMedian()) << ", "
                 << PyGenTools::printDouble(d->getScalePar()) << ")";
      }
-     else if(const DistributionCosine *d =
-             dynamic_cast<const DistributionCosine *>(distribution)) {
+     else if(const DistributionCosine* d =
+             dynamic_cast<const DistributionCosine*>(distribution)) {
          result << "DistributionCosine("
                 << PyGenTools::printDouble(d->getMean()) << ", "
                 << PyGenTools::printDouble(d->getSigma()) << ")";
      }
      else {
          throw RuntimeErrorException(
-            "PyGenTools::getRepresentation(const IDistribution1D *distribution) "
+            "PyGenTools::getRepresentation(const IDistribution1D* distribution) "
             "-> Error. Unknown distribution type");
      }
      return result.str();
 }
 
-
-
 std::string PyGenTools::getRepresentation(
-    const std::string &indent, const Geometry::IShape2D *ishape, bool mask_value)
+    const std::string& indent, const Geometry::IShape2D* ishape, bool mask_value)
 {     std::ostringstream result;
       result << std::setprecision(12);
 
-    if(const Geometry::Ellipse *shape = dynamic_cast<const Geometry::Ellipse*>(ishape)) {
+    if(const Geometry::Ellipse* shape = dynamic_cast<const Geometry::Ellipse*>(ishape)) {
         result << indent << "simulation.addMask(";
         result << "Ellipse("
                << PyGenTools::printDegrees(shape->getCenterX()) << ", "
@@ -244,7 +227,7 @@ std::string PyGenTools::getRepresentation(
         result << "), " << PyGenTools::printBool(mask_value) << ")\n";
     }
 
-    else if(const Geometry::Rectangle *shape = dynamic_cast<const Geometry::Rectangle*>(ishape)) {
+    else if(const Geometry::Rectangle* shape = dynamic_cast<const Geometry::Rectangle*>(ishape)) {
         result << indent << "simulation.addMask(";
         result << "Rectangle("
                << PyGenTools::printDegrees(shape->getXlow()) << ", "
@@ -254,7 +237,7 @@ std::string PyGenTools::getRepresentation(
                << PyGenTools::printBool(mask_value) << ")\n";
     }
 
-    else if(const Geometry::Polygon *shape = dynamic_cast<const Geometry::Polygon*>(ishape)) {
+    else if(const Geometry::Polygon* shape = dynamic_cast<const Geometry::Polygon*>(ishape)) {
         std::vector<double> xpos, ypos;
         shape->getPoints(xpos, ypos);
         result << indent << "points = [";
@@ -268,7 +251,7 @@ std::string PyGenTools::getRepresentation(
             "Polygon(points), " << PyGenTools::printBool(mask_value) << ")\n";
     }
 
-    else if(const Geometry::VerticalLine *shape =
+    else if(const Geometry::VerticalLine* shape =
             dynamic_cast<const Geometry::VerticalLine*>(ishape)) {
         result << indent << "simulation.addMask(";
         result << "VerticalLine("
@@ -276,23 +259,19 @@ std::string PyGenTools::getRepresentation(
                << PyGenTools::printBool(mask_value) << ")\n";
     }
 
-    else if(const Geometry::HorizontalLine *shape =
-            dynamic_cast<const Geometry::HorizontalLine *>(ishape)) {
+    else if(const Geometry::HorizontalLine* shape =
+            dynamic_cast<const Geometry::HorizontalLine*>(ishape)) {
         result << indent << "simulation.addMask(";
         result << "HorizontalLine("
                << PyGenTools::printDegrees(shape->getYpos()) << "), "
                << PyGenTools::printBool(mask_value) << ")\n";
     }
 
-    else if(const Geometry::InfinitePlane *shape =
-            dynamic_cast<const Geometry::InfinitePlane *>(ishape)) {
-        (void)shape;
+    else if(dynamic_cast<const Geometry::InfinitePlane*>(ishape)) {
         result << indent << "simulation.maskAll()\n";
     }
     return result.str();
 }
-
-
 
 std::string PyGenTools::printKvector(const kvector_t value)
 {
@@ -306,8 +285,9 @@ std::string PyGenTools::printKvector(const kvector_t value)
 //! returns true if it is (0, -1, 0) vector
 bool PyGenTools::isDefaultDirection(const kvector_t direction)
 {
-    if(Numeric::areAlmostEqual(0.0, direction.x()) &&
-       Numeric::areAlmostEqual(-1.0, direction.y()) &&
-       Numeric::areAlmostEqual(0.0, direction.z())) return true;
+    if( Numeric::areAlmostEqual(direction.x(),  0.0) &&
+        Numeric::areAlmostEqual(direction.y(), -1.0) &&
+        Numeric::areAlmostEqual(direction.z(),  0.0) )
+        return true;
     return false;
 }

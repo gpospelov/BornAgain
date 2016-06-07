@@ -107,15 +107,6 @@ namespace MathFunctions
 //  Workarounds for std functions
 // ************************************************************************** //
 
-    BA_CORE_API_ inline bool isnan(double x)
-    {
-#ifdef _MSC_VER
-        return _isnan(x);
-#else
-        return std::isnan(x);
-#endif
-    }
-
     BA_CORE_API_ inline bool isinf(double x)
     {
 #ifdef _MSC_VER

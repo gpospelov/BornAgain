@@ -281,73 +281,45 @@ Returns result of rotation around the axis specified by another vector.
 ";
 
 %feature("docstring")  Geometry::BasicVector3D::conj "BasicVector3D< double > Geometry::BasicVector3D< double >::conj() const
-
-Returns complex conjugate vector. 
 ";
 
 %feature("docstring")  Geometry::BasicVector3D::conj "BasicVector3D< complex_t > Geometry::BasicVector3D< complex_t >::conj() const
-
-Returns complex conjugate vector. 
 ";
 
 %feature("docstring")  Geometry::BasicVector3D::phi "double Geometry::BasicVector3D< double >::phi() const
-
-Returns azimuth angle. 
 ";
 
 %feature("docstring")  Geometry::BasicVector3D::theta "double Geometry::BasicVector3D< double >::theta() const
-
-Returns polar angle. 
 ";
 
 %feature("docstring")  Geometry::BasicVector3D::cosTheta "double Geometry::BasicVector3D< double >::cosTheta() const
-
-Returns cosine of polar angle. 
 ";
 
 %feature("docstring")  Geometry::BasicVector3D::sin2Theta "double Geometry::BasicVector3D< double >::sin2Theta() const
-
-Returns squared sine of polar angle. 
 ";
 
 %feature("docstring")  Geometry::BasicVector3D::complex "BasicVector3D< std::complex< double > > Geometry::BasicVector3D< double >::complex() const
-
-Returns this, trivially converted to complex type. 
 ";
 
 %feature("docstring")  Geometry::BasicVector3D::dot "complex_t Geometry::BasicVector3D< complex_t >::dot(const BasicVector3D< complex_t > &v) const
-
-Returns dot product of complex vectors (antilinear in the first [=self] argument). 
 ";
 
 %feature("docstring")  Geometry::BasicVector3D::dot "complex_t Geometry::BasicVector3D< complex_t >::dot(const BasicVector3D< double > &v) const
-
-Returns mixed dot product of complex and double vectors (antilinear in the complex argument). 
 ";
 
 %feature("docstring")  Geometry::BasicVector3D::dot "complex_t Geometry::BasicVector3D< double >::dot(const BasicVector3D< complex_t > &v) const
-
-Returns mixed dot product of double and complex vectors (linear in the complex argument). 
 ";
 
 %feature("docstring")  Geometry::BasicVector3D::dot "double Geometry::BasicVector3D< double >::dot(const BasicVector3D< double > &v) const
-
-Returns dot product of double-typed vectors. 
 ";
 
 %feature("docstring")  Geometry::BasicVector3D::cross "BasicVector3D< double > Geometry::BasicVector3D< double >::cross(const BasicVector3D< double > &v) const
-
-Returns cross product of double-typed vectors. 
 ";
 
 %feature("docstring")  Geometry::BasicVector3D::cross "BasicVector3D< complex_t > Geometry::BasicVector3D< double >::cross(const BasicVector3D< complex_t > &v) const
-
-Returns mixed cross product of double and complex vectors. 
 ";
 
 %feature("docstring")  Geometry::BasicVector3D::angle "double Geometry::BasicVector3D< double >::angle(const BasicVector3D< double > &v) const
-
-Returns angle with respect to another vector. 
 ";
 
 %feature("docstring")  Geometry::BasicVector3D::dot "BA_CORE_API_ std::complex< double > Geometry::BasicVector3D< std::complex< double > >::dot(const BasicVector3D< std::complex< double > > &v) const
@@ -13607,25 +13579,25 @@ C++ includes: WavevectorInfo.h
 // File: classMathFunctions_1_1Convolve_1_1Workspace.xml
 
 
-// File: namespace_0D303.xml
+// File: namespace@303.xml
 
 
-// File: namespace_0D317.xml
+// File: namespace@317.xml
 
 
-// File: namespace_0D323.xml
+// File: namespace@323.xml
 
 
-// File: namespace_0D347.xml
+// File: namespace@347.xml
 
 
-// File: namespace_0D361.xml
+// File: namespace@361.xml
 
 
-// File: namespace_0D67.xml
+// File: namespace@67.xml
 
 
-// File: namespace_0D95.xml
+// File: namespace@95.xml
 
 
 // File: namespaceboost_1_1geometry.xml
@@ -13791,9 +13763,6 @@ convolution of two real vectors of equal size
 ";
 
 %feature("docstring")  MathFunctions::GenerateNormalRandom "double MathFunctions::GenerateNormalRandom(double average, double std_dev)
-";
-
-%feature("docstring")  MathFunctions::isnan "BA_CORE_API_ bool MathFunctions::isnan(double x)
 ";
 
 %feature("docstring")  MathFunctions::isinf "BA_CORE_API_ bool MathFunctions::isinf(double x)
@@ -15414,6 +15383,9 @@ creation function
 // File: INamed_8h.xml
 
 
+// File: BAConfigure_8h.xml
+
+
 // File: IntegratorComplex_8h.xml
 %feature("docstring")  make_integrator_complex "P_integrator_complex<T> make_integrator_complex(const T *object, complex_integrand< T > mem_function)
 ";
@@ -15595,26 +15567,32 @@ creation function
 // File: todo.xml
 
 
-// File: dir_e1ea50aa565d9a3ab2d030f355b28273.xml
+// File: dir_2ae5eef177fdc4a2f78184a703e9ca35.xml
 
 
-// File: dir_c6310732a22f63c0c2fc5595561e68f1.xml
+// File: dir_a5718f9cbd8869dfe6f67ea602e0c081.xml
 
 
-// File: dir_a2ca5d2cdcaf135a87dcab85b198454f.xml
+// File: dir_e8b91df279483b3e8e12615e228a1b30.xml
 
 
-// File: dir_41c864f8b362cbf9598de792bd07bfbb.xml
+// File: dir_0741ac6d11fd047643bf55f8f8c05919.xml
 
 
-// File: dir_d7044b5fc4daccc5700de9f07da81a11.xml
+// File: dir_f917e00ecc0731a03e57c18530cede59.xml
 
 
-// File: dir_3089b6128da5fa5b3826c81ab6bab5ef.xml
+// File: dir_9d78f3c2dc853fa89372782fc968f32a.xml
 
 
-// File: dir_5d2259b43612a5a0ff7512df653d7370.xml
+// File: dir_7fb31f1b073eeae63423bbb2a3a2d187.xml
 
 
-// File: dir_e120110860f9b345e7b3217e8b15cbb8.xml
+// File: dir_844b9b42d96eb52684a7ef26f932da03.xml
+
+
+// File: dir_6239607a7bd3e9e52745ea8c4706e15f.xml
+
+
+// File: dir_0ae786ed4862dcefebd8dd89a60766dc.xml
 

@@ -85,7 +85,7 @@ void FitSuiteParameters::setValues(const double *pars_values)
 
     size_t index(0);
     for(parameters_t::iterator it=m_parameters.begin(); it!=m_parameters.end(); ++it) {
-        if( MathFunctions::isnan(pars_values[index]) ) {
+        if( std::isnan(pars_values[index]) ) {
             throw LogicErrorException("FitSuiteParameters::setValues() -> Error."
                                       " Attempt to set nan '"+(*it)->getName() + std::string("'."));
         }

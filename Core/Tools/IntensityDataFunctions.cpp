@@ -31,7 +31,7 @@ double IntensityDataFunctions::getRelativeDifference(
     }
     diff /= result.getAllocatedSize();
 
-    if (MathFunctions::isnan(diff)) throw RuntimeErrorException("diff=NaN!");
+    if (std::isnan(diff)) throw RuntimeErrorException("diff=NaN!");
     return diff;
 }
 

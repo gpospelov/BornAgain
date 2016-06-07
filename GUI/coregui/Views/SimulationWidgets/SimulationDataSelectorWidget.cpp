@@ -157,12 +157,11 @@ void SimulationDataSelectorWidget::updateSelection(QComboBox *comboBox,
         comboBox->addItem(QStringLiteral("Not yet defined"));
     } else {
         comboBox->setEnabled(true);
-        qSort(itemList.begin(), itemList.end());
+        //qSort(itemList.begin(), itemList.end()); // uncomment, if we want alphabetical order
         if(allow_none)
-            comboBox->addItem("None");
+            itemList.insert(-1, QStringLiteral("None"));
         comboBox->addItems(itemList);
         if(itemList.contains(previousItem))
             comboBox->setCurrentIndex(itemList.indexOf(previousItem));
     }
-
 }

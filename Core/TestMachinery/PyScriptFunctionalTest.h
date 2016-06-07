@@ -45,8 +45,6 @@ public:
 
     virtual void printResults(std::ostream& ostr) const;
 
-    void setPyScriptFileName(const std::string& file_name) { m_pyscript_file_name = file_name; }
-
 private:
     std::string getPyScriptFileNameAndPath() const;
 
@@ -54,8 +52,7 @@ private:
     GISASSimulation* m_domain_simulation;
     double m_threshold;
     double m_difference;
-    std::string m_pyscript_file_name;
-    std::string m_pyscript_text;
+    std::string m_pyscript_filename;
 };
 
 #endif

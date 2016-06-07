@@ -23,9 +23,9 @@
 #include "Utils.h"
 #include <memory>
 #include <fstream>
+#include <cstdio>
 
 namespace {
-const std::string temp_python_script_file_name = "PythonScript.py";
 const std::string temp_intensity_data_file_name = "output.int";
 const std::string directory_name_for_failed_tests = "00_failed_tests";
 }
@@ -38,6 +38,7 @@ PyScriptFunctionalTest::PyScriptFunctionalTest(
     , m_domain_simulation(0)
     , m_threshold(threshold)
     , m_difference(0)
+    , m_pyscript_filename( "pyscript_" + name + ".py" )
 {
 }
 
@@ -55,8 +56,7 @@ void PyScriptFunctionalTest::runTest()
 
     m_reference_simulation->runSimulation();
 
-    // Generate Python script
-    m_pyscript_text.clear();
+    // Generate contents of Python script
     std::ostringstream ostr;
     ostr << "import sys\n";
     ostr << "import os\n";
@@ -64,15 +64,14 @@ void PyScriptFunctionalTest::runTest()
                << "os.path.join(os.path.split(os.path.realpath(__file__))[0],"
                << "'..', '..', '..', 'lib')))\n\n";
     ostr << PyGenTools::genPyScript(m_reference_simulation);
-    m_pyscript_text = ostr.str();
 
-    // Run Python script
-    std::ofstream pythonFile(temp_python_script_file_name);
-    pythonFile << m_pyscript_text;
+    // Create and run Python script
+    std::ofstream pythonFile(m_pyscript_filename);
+    pythonFile << ostr.str();
     pythonFile.close();
 
-    std::string command = std::string(BORNAGAIN_PYTHON_EXE ) + " " + temp_python_script_file_name;
-    std::system(command.c_str()); // ignore return value
+    std::string command = std::string(BORNAGAIN_PYTHON_EXE ) + " " + m_pyscript_filename;
+    std::system(command.c_str()); // run python script, ignore return value
 }
 
 int PyScriptFunctionalTest::analyseResults()
@@ -86,11 +85,9 @@ int PyScriptFunctionalTest::analyseResults()
     m_result = m_difference > m_threshold ? FAILED_DIFF : SUCCESS;
 
     if (getTestResult() != SUCCESS) {
-        // Save failed Python script
+        // Move failed Python script to failed tests directory
         Utils::FileSystem::CreateDirectory(directory_name_for_failed_tests);
-        std::ofstream pythonFile(getPyScriptFileNameAndPath());
-        pythonFile << m_pyscript_text;
-        pythonFile.close();
+        std::rename( m_pyscript_filename.c_str(), getPyScriptFileNameAndPath().c_str());
     }
 
     return m_result;
@@ -107,6 +104,6 @@ void PyScriptFunctionalTest::printResults(std::ostream& ostr) const
 std::string PyScriptFunctionalTest::getPyScriptFileNameAndPath() const
 {
     std::string result
-        = Utils::FileSystem::GetJoinPath(directory_name_for_failed_tests, m_pyscript_file_name);
+        = Utils::FileSystem::GetJoinPath(directory_name_for_failed_tests, m_pyscript_filename);
     return result;
 }

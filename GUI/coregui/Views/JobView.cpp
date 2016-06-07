@@ -39,25 +39,6 @@
 #include <QCursor>
 #include <QDebug>
 
-class JobViewPrivate
-{
-public:
-    JobViewPrivate(MainWindow *mainWindow);
-
-    Manhattan::ProgressBar *progressBar() { return m_mainWindow->progressBar(); }
-    JobModel *jobModel() { return m_mainWindow->jobModel(); }
-
-    JobActivityStatusBar *m_jobActivityStatusBar;
-    MainWindow *m_mainWindow;
-};
-
-
-JobViewPrivate::JobViewPrivate(MainWindow *mainWindow)
-    : m_jobActivityStatusBar(0)
-    , m_mainWindow(mainWindow)
-{
-}
-
 
 JobView::JobView(MainWindow *mainWindow)
     : m_docks(new JobViewDocks(this))
@@ -68,13 +49,6 @@ JobView::JobView(MainWindow *mainWindow)
     m_docks->initViews(mainWindow->jobModel());
 
     connectSignals();
-}
-
-QStringList JobView::getActivityStringList()
-{
-    QStringList result = QStringList() << QStringLiteral("Job View Activity")
-        << QStringLiteral("Real Time Activity") << QStringLiteral("Fitting Activity");
-    return result;
 }
 
 void JobView::updateGlobalProgressBar(int progress)
@@ -121,34 +95,7 @@ void JobView::resetToDefaultLayout()
 
 void JobView::setActivity(int activity)
 {
-    if(activity == JobViewFlags::JOB_VIEW_ACTIVITY) {
-        m_docks->dock(JobViewFlags::JOB_LIST_DOCK)->show();
-        m_docks->dock(JobViewFlags::REAL_TIME_DOCK)->hide();
-        m_docks->dock(JobViewFlags::FIT_PANEL_DOCK)->hide();
-        m_docks->dock(JobViewFlags::JOB_MESSAGE_DOCK)->hide();
-    }
-
-    else if(activity == JobViewFlags::REAL_TIME_ACTIVITY) {
-        m_docks->dock(JobViewFlags::JOB_LIST_DOCK)->hide();
-        m_docks->dock(JobViewFlags::REAL_TIME_DOCK)->show();
-        m_docks->dock(JobViewFlags::FIT_PANEL_DOCK)->hide();
-        m_docks->dock(JobViewFlags::JOB_MESSAGE_DOCK)->hide();
-        m_docks->jobRealTimeWidget()->updateCurrentItem();
-    }
-
-    else if(activity == JobViewFlags::FITTING_ACTIVITY) {
-        m_docks->dock(JobViewFlags::JOB_LIST_DOCK)->hide();
-        m_docks->dock(JobViewFlags::REAL_TIME_DOCK)->show();
-        m_docks->dock(JobViewFlags::FIT_PANEL_DOCK)->show();
-        m_docks->dock(JobViewFlags::JOB_MESSAGE_DOCK)->show();
-        m_docks->jobRealTimeWidget()->updateCurrentItem();
-        m_docks->fitActivityPanel()->updateCurrentItem();
-    }
-
-    else {
-        throw GUIHelpers::Error("JobView::setActivity -> Error. Unknown activity");
-    }
-
+    m_docks->setActivity(activity);
     emit activityChanged(activity);
 }
 

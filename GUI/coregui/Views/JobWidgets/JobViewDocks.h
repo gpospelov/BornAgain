@@ -47,6 +47,8 @@ public:
     class JobSelectorWidget *jobSelector() { return m_jobSelector; }
     class JobOutputDataWidget *jobOutputDataWidget() { return m_jobOutputDataWidget; }
 
+    void setActivity(int activity);
+
 private:
     QWidget *centralWidget();
     void initJobWidgets(class JobModel *jobModel);
@@ -64,4 +66,3 @@ private:
 };
 
 #endif
-

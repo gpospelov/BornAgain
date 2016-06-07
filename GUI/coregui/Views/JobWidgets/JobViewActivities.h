@@ -18,22 +18,25 @@
 #define JOBVIEWACTIVITIES_H
 
 #include "WinDllMacros.h"
+#include "JobViewFlags.h"
 #include <QStringList>
 #include <QMap>
+#include <QVector>
 
 //! The JobViewActivities class is a helper static class to get list of activities,
-//! and names of widgets which should be shown/hidden during current activity.
+//! and JobView's dock Ids which should be shown/hidden during current activity.
 
 class BA_CORE_API_ JobViewActivities {
 
 public:
+    using activity_map_t = QMap<JobViewFlags::Activity, QVector<JobViewFlags::Dock>>;
+
     static QStringList activityList();
 
+    static QVector<JobViewFlags::Dock> activeDocks(JobViewFlags::Activity activity);
 
 private:
-//    static QMap<QString, QStringList> m_activityToWidgetNames;
-
+    static activity_map_t m_activityToDocks;
 };
-
 
 #endif

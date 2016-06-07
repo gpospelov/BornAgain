@@ -16,42 +16,42 @@
 
 #include "JobViewActivities.h"
 #include "mainwindow_constants.h"
+#include "GUIHelpers.h"
 
-//if(activity == JobViewActivities::JOB_VIEW_ACTIVITY) {
-//    m_docks->dock(JobViewDocks::JOB_LIST_DOCK)->show();
-//    m_docks->dock(JobViewDocks::REAL_TIME_DOCK)->hide();
-//    m_docks->dock(JobViewDocks::FIT_PANEL_DOCK)->hide();
-//    m_docks->dock(JobViewDocks::JOB_MESSAGE_DOCK)->hide();
-//}
+namespace {
+JobViewActivities::activity_map_t createActivityMap()
+{
+    JobViewActivities::activity_map_t result;
+    result[JobViewFlags::JOB_VIEW_ACTIVITY] = QVector<JobViewFlags::Dock>()
+                                            << JobViewFlags::JOB_LIST_DOCK;
+    result[JobViewFlags::REAL_TIME_ACTIVITY] = QVector<JobViewFlags::Dock>()
+                                             << JobViewFlags::REAL_TIME_DOCK;
+    result[JobViewFlags::FITTING_ACTIVITY] = QVector<JobViewFlags::Dock>()
+                                           << JobViewFlags::REAL_TIME_DOCK
+                                           << JobViewFlags::FIT_PANEL_DOCK
+                                           << JobViewFlags::JOB_MESSAGE_DOCK;
+    return result;
+}
+}
 
-//else if(activity == JobViewActivities::REAL_TIME_ACTIVITY) {
-//    m_docks->dock(JobViewDocks::JOB_LIST_DOCK)->hide();
-//    m_docks->dock(JobViewDocks::REAL_TIME_DOCK)->show();
-//    m_docks->dock(JobViewDocks::FIT_PANEL_DOCK)->hide();
-//    m_docks->dock(JobViewDocks::JOB_MESSAGE_DOCK)->hide();
-//    m_docks->jobRealTimeWidget()->updateCurrentItem();
-//}
+JobViewActivities::activity_map_t JobViewActivities::m_activityToDocks = createActivityMap();
 
-//else if(activity == JobViewActivities::FITTING_ACTIVITY) {
-//    m_docks->dock(JobViewDocks::JOB_LIST_DOCK)->hide();
-//    m_docks->dock(JobViewDocks::REAL_TIME_DOCK)->show();
-//    m_docks->dock(JobViewDocks::FIT_PANEL_DOCK)->show();
-//    m_docks->dock(JobViewDocks::JOB_MESSAGE_DOCK)->show();
-//    m_docks->jobRealTimeWidget()->updateCurrentItem();
-//    m_docks->fitActivityPanel()->updateCurrentItem();
-//}
-
-//namespace {
-//QMap<QString, QStringList> result;
-//result[Constants::JobViewActivityName] = QStringList() << Constants::
-//}
-
-//QMap<QString, QStringList> JobViewActivities::m_activityToWidgetNames = acitivyToWidgetMap();
-
+//! Returns list of available activity names.
 
 QStringList JobViewActivities::activityList()
 {
     QStringList result = QStringList() << Constants::JobViewActivityName
         << Constants::JobRealTimeActivityName << Constants::JobFittingActivityName;
     return result;
+}
+
+//! Returns vector of JobView's dockId which have to be shown for given activity
+
+QVector<JobViewFlags::Dock> JobViewActivities::activeDocks(JobViewFlags::Activity activity)
+{
+    activity_map_t::iterator it = m_activityToDocks.find(activity);
+    if(it == m_activityToDocks.end()) {
+        GUIHelpers::Error("JobViewActivities::activeDocks -> Error. Unknown activity");
+    }
+    return m_activityToDocks[activity];
 }

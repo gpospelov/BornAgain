@@ -15,8 +15,8 @@
 // ************************************************************************** //
 
 #include "JobActivityStatusBar.h"
-#include "JobView.h"
 #include "mainwindow.h"
+#include "JobViewActivities.h"
 #include <QHBoxLayout>
 #include <QToolButton>
 #include <QComboBox>
@@ -44,7 +44,7 @@ JobActivityStatusBar::JobActivityStatusBar(MainWindow *mainWindow)
 
     m_activityCombo = new QComboBox();
     m_activityCombo->setToolTip("Main Activity Selector");
-    m_activityCombo->addItems(JobView::getActivityStringList());
+    m_activityCombo->addItems(JobViewActivities::activityList());
     connect(m_activityCombo, SIGNAL(currentIndexChanged(int)),
             this, SIGNAL(changeActivityRequest(int)));
 

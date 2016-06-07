@@ -19,10 +19,8 @@
 
 #include "WinDllMacros.h"
 #include "fancymainwindow.h"
-#include <memory>
 
 class MainWindow;
-class JobItem;
 
 //! The JobView class is a main view to show list of jobs, their results and widgets for real time
 //! and fitting activities.
@@ -32,11 +30,7 @@ class BA_CORE_API_ JobView : public Manhattan::FancyMainWindow
     Q_OBJECT
 
 public:
-
-
     JobView(MainWindow *mainWindow);
-
-    static QStringList getActivityStringList();
 
 signals:
     void focusRequest(int);
@@ -44,7 +38,7 @@ signals:
 
 public slots:
     void updateGlobalProgressBar(int);
-    void onFocusRequest(JobItem *);
+    void onFocusRequest(class JobItem *);
     void resetToDefaultLayout();
     void setActivity(int activity);
     void onToggleJobListRequest();

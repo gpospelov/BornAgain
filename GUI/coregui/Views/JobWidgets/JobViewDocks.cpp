@@ -22,7 +22,9 @@
 #include "JobRealTimeWidget.h"
 #include "FitActivityPanel.h"
 #include "JobMessagePanel.h"
+#include "JobViewActivities.h"
 #include <QAbstractItemView>
+#include <QDockWidget>
 
 JobViewDocks::JobViewDocks(JobView *parent)
     : QObject(parent)
@@ -56,6 +58,33 @@ QDockWidget *JobViewDocks::dock(JobViewFlags::Dock dockId)
 {
     Q_ASSERT(dockId >=0 && dockId<m_dockWidgets.size());
     return m_dockWidgets[dockId];
+}
+
+//! Sets docks visibility so they match the activity flag.
+
+void JobViewDocks::setActivity(int activity)
+{
+    QVector<JobViewFlags::Dock> docksToShow
+            = JobViewActivities::activeDocks(JobViewFlags::Activity(activity));
+
+    for (int i = 0; i < JobViewFlags::NUMBER_OF_DOCKS; i++) {
+        JobViewFlags::Dock id = (JobViewFlags::Dock)i;
+        if(docksToShow.contains(id)) {
+            m_dockWidgets[id]->show();
+        } else {
+            m_dockWidgets[id]->hide();
+        }
+    }
+
+    if(activity == JobViewFlags::REAL_TIME_ACTIVITY) {
+        m_jobRealTimeWidget->updateCurrentItem();
+    }
+
+    else if(activity == JobViewFlags::FITTING_ACTIVITY) {
+        m_jobRealTimeWidget->updateCurrentItem();
+        m_fitActivityPanel->updateCurrentItem();
+    }
+
 }
 
 QWidget *JobViewDocks::centralWidget()

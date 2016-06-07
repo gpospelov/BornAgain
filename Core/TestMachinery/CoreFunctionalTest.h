@@ -30,16 +30,14 @@ class GISASSimulation;
 class BA_CORE_API_ CoreFunctionalTest : public IFunctionalTest
 {
 public:
-    CoreFunctionalTest(const std::string& name, const std::string& description,
-                       GISASSimulation* simulation, OutputData<double>* reference,
-                       double threshold);
+    CoreFunctionalTest(
+        const std::string& name, const std::string& description, GISASSimulation* simulation,
+        OutputData<double>* reference, double threshold, const std::string&file_name);
     virtual ~CoreFunctionalTest();
 
     virtual void runTest();
     virtual int analyseResults();
     virtual void printResults(std::ostream& ostr) const;
-
-    void setSimulationResultsFileName(const std::string& file_name);
 
 private:
     void saveSimulationResults() const;

@@ -21,12 +21,10 @@
 GUIFunctionalTestComponentService::GUIFunctionalTestComponentService(const FunctionalTestInfo* info)
     : FunctionalTestComponentService(info)
 {
-
 }
 
 IFunctionalTest* GUIFunctionalTestComponentService::getFunctionalTest() const
 {
-    GUIFunctionalTest* result = new GUIFunctionalTest(getTestName(),
-        getTestDescription(), getSimulation(), getTestThreshold());
-    return result;
+    return new GUIFunctionalTest(
+        getTestName(), getTestDescription(), getSimulation(), getTestThreshold());
 }

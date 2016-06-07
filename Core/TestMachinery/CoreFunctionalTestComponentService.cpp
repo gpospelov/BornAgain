@@ -24,9 +24,7 @@ CoreFunctionalTestComponentService::CoreFunctionalTestComponentService(
 
 IFunctionalTest* CoreFunctionalTestComponentService::getFunctionalTest() const
 {
-    CoreFunctionalTest *result
-        = new CoreFunctionalTest(getTestName(), getTestDescription(),
-                                 getSimulation(), getReferenceData(), getTestThreshold());
-    result->setSimulationResultsFileName(getReferenceFileName());
-    return result;
+    return new CoreFunctionalTest(
+        getTestName(), getTestDescription(), getSimulation(),
+        getReferenceData(), getTestThreshold(), getReferenceFileName());
 }

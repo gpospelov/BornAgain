@@ -39,7 +39,6 @@ signals:
 public slots:
     void updateGlobalProgressBar(int);
     void onFocusRequest(class JobItem *);
-    void resetToDefaultLayout();
     void setActivity(int activity);
     void onToggleJobListRequest();
     void onDockMenuRequest();

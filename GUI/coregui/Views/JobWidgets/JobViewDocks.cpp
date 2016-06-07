@@ -26,6 +26,10 @@
 #include <QAbstractItemView>
 #include <QDockWidget>
 
+namespace {
+const JobViewFlags::Activity default_activity = JobViewFlags::JOB_VIEW_ACTIVITY;
+}
+
 JobViewDocks::JobViewDocks(JobView *parent)
     : QObject(parent)
     , m_jobSelector(0)
@@ -87,6 +91,30 @@ void JobViewDocks::setActivity(int activity)
 
 }
 
+//! Sets the state of JobView to the default.
+
+void JobViewDocks::onResetLayout()
+{
+    m_jobView->setTrackingEnabled(false);
+    QList<QDockWidget *> dockWidgetList = m_jobView->dockWidgets();
+    foreach (QDockWidget *dockWidget, dockWidgetList) {
+        dockWidget->setFloating(false);
+        m_jobView->removeDockWidget(dockWidget);
+    }
+
+    m_jobView->addDockWidget(Qt::LeftDockWidgetArea, dock(JobViewFlags::JOB_LIST_DOCK));
+    m_jobView->addDockWidget(Qt::RightDockWidgetArea, dock(JobViewFlags::REAL_TIME_DOCK));
+    m_jobView->addDockWidget(Qt::RightDockWidgetArea, dock(JobViewFlags::FIT_PANEL_DOCK));
+    m_jobView->addDockWidget(Qt::BottomDockWidgetArea, dock(JobViewFlags::JOB_MESSAGE_DOCK));
+
+    foreach (QDockWidget *dockWidget, dockWidgetList)
+        dockWidget->show();
+
+    m_jobView->setTrackingEnabled(true);
+
+    setActivity(default_activity);
+}
+
 QWidget *JobViewDocks::centralWidget()
 {
     return m_jobOutputDataWidget;
@@ -139,5 +167,5 @@ void JobViewDocks::initDocks()
 
     }
 
-    m_jobView->resetToDefaultLayout();
+    onResetLayout();
 }

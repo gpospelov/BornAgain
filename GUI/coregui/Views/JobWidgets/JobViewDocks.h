@@ -49,10 +49,14 @@ public:
 
     void setActivity(int activity);
 
+public slots:
+    void onResetLayout();
+
 private:
     QWidget *centralWidget();
     void initJobWidgets(class JobModel *jobModel);
     void initDocks();
+
 
     class JobSelectorWidget *m_jobSelector;
     class JobOutputDataWidget *m_jobOutputDataWidget;

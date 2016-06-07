@@ -70,29 +70,6 @@ void JobView::onFocusRequest(JobItem *item)
     emit focusRequest(MainWindow::JOB);
 }
 
-void JobView::resetToDefaultLayout()
-{
-    setTrackingEnabled(false);
-    QList<QDockWidget *> dockWidgetList = dockWidgets();
-    foreach (QDockWidget *dockWidget, dockWidgetList) {
-        dockWidget->setFloating(false);
-        removeDockWidget(dockWidget);
-    }
-
-    addDockWidget(Qt::LeftDockWidgetArea, m_docks->dock(JobViewFlags::JOB_LIST_DOCK));
-    addDockWidget(Qt::RightDockWidgetArea, m_docks->dock(JobViewFlags::REAL_TIME_DOCK));
-    addDockWidget(Qt::RightDockWidgetArea, m_docks->dock(JobViewFlags::FIT_PANEL_DOCK));
-    addDockWidget(Qt::BottomDockWidgetArea, m_docks->dock(JobViewFlags::JOB_MESSAGE_DOCK));
-
-    foreach (QDockWidget *dockWidget, dockWidgetList)
-        dockWidget->show();
-
-    setTrackingEnabled(true);
-
-    setActivity(JobViewFlags::JOB_VIEW_ACTIVITY);
-//    setActivity(FITTING_ACTIVITY);
-}
-
 void JobView::setActivity(int activity)
 {
     m_docks->setActivity(activity);
@@ -131,7 +108,9 @@ void JobView::connectSignals()
 {
     Q_ASSERT(m_mainWindow->progressBar());
     Q_ASSERT(m_mainWindow->jobModel());
-    connect(this, SIGNAL(resetLayout()), this, SLOT(resetToDefaultLayout()));
+
+    connect(this, SIGNAL(resetLayout()), m_docks, SLOT(onResetLayout()));
+
     connect(m_mainWindow->jobModel(), SIGNAL(globalProgress(int)),
             this, SLOT(updateGlobalProgressBar(int)));
     connect(m_mainWindow->jobModel(), SIGNAL(focusRequest(JobItem *)),
@@ -142,6 +121,7 @@ void JobView::connectSignals()
     // global statusBar notifies JobView about changes in the activity
     connect(m_jobActivityStatusBar, SIGNAL(changeActivityRequest(int)),
             this, SLOT(setActivity(int)));
+
     connect(m_jobActivityStatusBar, SIGNAL(toggleJobListRequest()),
             this, SLOT(onToggleJobListRequest()));
     connect(m_jobActivityStatusBar, SIGNAL(dockMenuRequest()),

@@ -27,14 +27,6 @@
 #include "FTDistributions.h"
 #include <iostream>
 
-
-namespace {
-const std::string FormFactorsRegistryName = "FormFactorsRegistry";
-const std::string FTDistributions2DName = "FTDistributions2DRegistry";
-const std::string NoneRegistryName = "None";
-const std::string DefaultComponentName = "Default";
-}
-
 FunctionalTestComponentService::FunctionalTestComponentService(const FunctionalTestInfo* info)
     : m_testInfo(info)
     , m_form_factor(0)
@@ -135,7 +127,7 @@ std::string FunctionalTestComponentService::getReferenceFileName() const
 {
     std::string result("ref_");
     result += m_testInfo->m_test_name;
-    if(m_component_names[m_current_component] != DefaultComponentName)
+    if(m_component_names[m_current_component] != "Default")
         result += std::string("_")+m_component_names[m_current_component];
     result += std::string(".int.gz");
     return result;
@@ -152,16 +144,16 @@ void FunctionalTestComponentService::init_registry(const std::string& registry_n
     m_current_component = 0;
 
     std::cout << "FunctionalTestComponentService::init_registry() ->" << registry_name << std::endl;
-    if(registry_name == NoneRegistryName) {
-        m_component_names.push_back(DefaultComponentName);
+    if       (registry_name == "None") {
+        m_component_names.push_back("Default");
 
-    }else if(registry_name == FormFactorsRegistryName) {
+    } else if(registry_name == "FormFactorsRegistry") {
         m_ff_registry = new TestFormFactorsRegistry;
         for(auto it = m_ff_registry->begin(); it!= m_ff_registry->end(); ++it) {
             m_component_names.push_back(it->first);
         }
 
-    }else if(registry_name == FTDistributions2DName) {
+    } else if(registry_name == "FTDistributions2DRegistry") {
         m_ft2d_registry= new TestFTDistribution2DRegistry;
         for(auto it = m_ft2d_registry->begin(); it!= m_ft2d_registry->end(); ++it) {
             m_component_names.push_back(it->first);
@@ -178,7 +170,7 @@ void FunctionalTestComponentService::init_registry(const std::string& registry_n
 std::string FunctionalTestComponentService::getTestName() const
 {
     std::string result = m_testInfo->m_test_name;
-    if(getCurrentComponentName() != DefaultComponentName)
+    if(getCurrentComponentName() != "Default")
         result.clear(); // i.e. no name for sub-test just for printing purpose
     return result;
 }
@@ -187,7 +179,7 @@ std::string FunctionalTestComponentService::getTestName() const
 std::string FunctionalTestComponentService::getTestDescription() const
 {
     std::string result = m_testInfo->m_test_description;
-    if(getCurrentComponentName() != DefaultComponentName) result = getCurrentComponentName();
+    if(getCurrentComponentName() != "Default") result = getCurrentComponentName();
     return result;
 }
 

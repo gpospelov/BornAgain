@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      StandardSamples/TestComponentsRegistry.cpp
-//! @brief     Defines different registries for functional test component service.
+//! @brief     Implements different registries for functional test component service.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

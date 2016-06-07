@@ -29,11 +29,11 @@ template<class IdentifierType, class AbstractProduct >
 class ICloneableRegistry
 {
 public:
-    typedef std::map<IdentifierType, AbstractProduct *> map_t;
+    typedef std::map<IdentifierType, AbstractProduct*> map_t;
     typedef typename map_t::iterator iterator;
     typedef typename map_t::const_iterator const_iterator;
 
-    AbstractProduct *createItem(const IdentifierType &key) const
+    AbstractProduct* createItem(const IdentifierType& key) const
     {
         const_iterator it = m_data.find(key);
         if(it == m_data.end()) {
@@ -51,7 +51,7 @@ public:
     const_iterator end() const { return m_data.end(); }
 
 protected:
-    void add(const IdentifierType &key, AbstractProduct *item)
+    void add(const IdentifierType& key, AbstractProduct* item)
     {
         const_iterator it = m_data.find(key);
         if(it != m_data.end()) {

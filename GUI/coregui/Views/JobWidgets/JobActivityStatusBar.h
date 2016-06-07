@@ -23,7 +23,8 @@
 class QToolButton;
 class QComboBox;
 
-//! Narrow status bar at very bottom of JobView to switch between activities
+//! Narrow status bar at very bottom of JobView to switch between activities.
+//! Added to the status bar of MainWindow when JobView is shown.
 
 class BA_CORE_API_ JobActivityStatusBar : public QWidget
 {

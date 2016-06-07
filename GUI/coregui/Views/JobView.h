@@ -32,13 +32,13 @@ class BA_CORE_API_ JobView : public Manhattan::FancyMainWindow
     Q_OBJECT
 
 public:
-    enum ESubWindows {
-        JOB_LIST_DOCK,
-        REAL_TIME_DOCK,
-        FIT_PANEL_DOCK,
-        JOB_MESSAGE_DOCK,
-        NUMBER_OF_DOCKS
-    };
+//    enum ESubWindows {
+//        JOB_LIST_DOCK,
+//        REAL_TIME_DOCK,
+//        FIT_PANEL_DOCK,
+//        JOB_MESSAGE_DOCK,
+//        NUMBER_OF_DOCKS
+//    };
 
     enum EActivities {
         JOB_VIEW_ACTIVITY,
@@ -71,6 +71,7 @@ private:
     void initWindows();
     void connectSignals();
 
+    class JobViewDocks *m_docks;
     std::unique_ptr<JobViewPrivate> m_d;
 };
 

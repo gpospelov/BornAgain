@@ -15,6 +15,7 @@
 // ************************************************************************** //
 
 #include "JobView.h"
+#include "JobViewDocks.h"
 #include "JobQueueData.h"
 #include "TestView.h"
 #include "JobSelectorWidget.h"
@@ -42,58 +43,45 @@ class JobViewPrivate
 public:
     JobViewPrivate(MainWindow *mainWindow);
 
+//    QVector<QWidget *> m_subWindows;
+//    QVector<QDockWidget *> m_dockWidgets;
     Manhattan::ProgressBar *progressBar() { return m_mainWindow->progressBar(); }
     JobModel *jobModel() { return m_mainWindow->jobModel(); }
 
-    QVector<QWidget *> m_subWindows;
-    QVector<QDockWidget *> m_dockWidgets;
-
-    JobSelectorWidget *m_jobSelector;
-    JobOutputDataWidget *m_jobOutputDataWidget;
-    JobRealTimeWidget *m_jobRealTimeWidget;
+//    JobSelectorWidget *m_jobSelector;
+//    JobOutputDataWidget *m_jobOutputDataWidget;
+//    JobRealTimeWidget *m_jobRealTimeWidget;
     JobActivityStatusBar *m_jobActivityStatusBar;
-    FitActivityPanel *m_fitActivityPanel;
+//    FitActivityPanel *m_fitActivityPanel;
     MainWindow *m_mainWindow;
 };
 
 
 JobViewPrivate::JobViewPrivate(MainWindow *mainWindow)
-    : m_jobSelector(0)
-    , m_jobOutputDataWidget(0)
-    , m_jobRealTimeWidget(0)
-    , m_jobActivityStatusBar(0)
-    , m_fitActivityPanel(0)
+//    : m_jobSelector(0)
+//    , m_jobOutputDataWidget(0)
+//    , m_jobRealTimeWidget(0)
+    : m_jobActivityStatusBar(0)
+//    , m_fitActivityPanel(0)
     , m_mainWindow(mainWindow)
 {
 }
 
 
 JobView::JobView(MainWindow *mainWindow)
-    : m_d(new JobViewPrivate(mainWindow))
+    : m_docks(new JobViewDocks(this))
+    , m_d(new JobViewPrivate(mainWindow))
 {
     setObjectName("JobView");
 
-    initWindows();
+    m_docks->initJobWidgets(mainWindow->jobModel());
 
     setDocumentMode(true);
     setTabPosition(Qt::AllDockWidgetAreas, QTabWidget::South);
     setCorner(Qt::BottomLeftCorner, Qt::LeftDockWidgetArea);
     setCorner(Qt::BottomRightCorner, Qt::RightDockWidgetArea);
 
-    for (int i = 0; i < NUMBER_OF_DOCKS; i++) {
-        QWidget *subWindow = m_d->m_subWindows[i];
-        m_d->m_dockWidgets[i] = addDockForWidget(subWindow);
-
-        // Since we have 1-pixel splitters, we generally want to remove
-        // frames around item views. So we apply this hack for now.
-        QList<QAbstractItemView*> frames =
-                subWindow->findChildren<QAbstractItemView*>();
-        for (int i = 0 ; i< frames.count(); ++i)
-            frames[i]->setFrameStyle(QFrame::NoFrame);
-
-    }
-
-    resetToDefaultLayout();
+    m_docks->initDocks();
 
     m_d->m_jobActivityStatusBar = new JobActivityStatusBar;
     m_d->m_mainWindow->statusBar()->addWidget(m_d->m_jobActivityStatusBar, 1);
@@ -130,7 +118,7 @@ void JobView::updateGlobalProgressBar(int progress)
 
 void JobView::onFocusRequest(JobItem *item)
 {
-    m_d->m_jobSelector->makeJobItemSelected(item);
+    m_docks->jobSelector()->makeJobItemSelected(item);
     emit focusRequest(MainWindow::JOB);
 }
 
@@ -143,10 +131,10 @@ void JobView::resetToDefaultLayout()
         removeDockWidget(dockWidget);
     }
 
-    addDockWidget(Qt::LeftDockWidgetArea, m_d->m_dockWidgets[JOB_LIST_DOCK]);
-    addDockWidget(Qt::RightDockWidgetArea, m_d->m_dockWidgets[REAL_TIME_DOCK]);
-    addDockWidget(Qt::RightDockWidgetArea, m_d->m_dockWidgets[FIT_PANEL_DOCK]);
-    addDockWidget(Qt::BottomDockWidgetArea, m_d->m_dockWidgets[JOB_MESSAGE_DOCK]);
+    addDockWidget(Qt::LeftDockWidgetArea, m_docks->dock(JobViewDocks::JOB_LIST_DOCK));
+    addDockWidget(Qt::RightDockWidgetArea, m_docks->dock(JobViewDocks::REAL_TIME_DOCK));
+    addDockWidget(Qt::RightDockWidgetArea, m_docks->dock(JobViewDocks::FIT_PANEL_DOCK));
+    addDockWidget(Qt::BottomDockWidgetArea, m_docks->dock(JobViewDocks::JOB_MESSAGE_DOCK));
 
     foreach (QDockWidget *dockWidget, dockWidgetList)
         dockWidget->show();
@@ -160,27 +148,27 @@ void JobView::resetToDefaultLayout()
 void JobView::setActivity(int activity)
 {
     if(activity == JOB_VIEW_ACTIVITY) {
-        m_d->m_dockWidgets[JOB_LIST_DOCK]->show();
-        m_d->m_dockWidgets[REAL_TIME_DOCK]->hide();
-        m_d->m_dockWidgets[FIT_PANEL_DOCK]->hide();
-        m_d->m_dockWidgets[JOB_MESSAGE_DOCK]->hide();
+        m_docks->dock(JobViewDocks::JOB_LIST_DOCK)->show();
+        m_docks->dock(JobViewDocks::REAL_TIME_DOCK)->hide();
+        m_docks->dock(JobViewDocks::FIT_PANEL_DOCK)->hide();
+        m_docks->dock(JobViewDocks::JOB_MESSAGE_DOCK)->hide();
     }
 
     else if(activity == REAL_TIME_ACTIVITY) {
-        m_d->m_dockWidgets[JOB_LIST_DOCK]->hide();
-        m_d->m_dockWidgets[REAL_TIME_DOCK]->show();
-        m_d->m_dockWidgets[FIT_PANEL_DOCK]->hide();
-        m_d->m_dockWidgets[JOB_MESSAGE_DOCK]->hide();
-        m_d->m_jobRealTimeWidget->updateCurrentItem();
+        m_docks->dock(JobViewDocks::JOB_LIST_DOCK)->hide();
+        m_docks->dock(JobViewDocks::REAL_TIME_DOCK)->show();
+        m_docks->dock(JobViewDocks::FIT_PANEL_DOCK)->hide();
+        m_docks->dock(JobViewDocks::JOB_MESSAGE_DOCK)->hide();
+        m_docks->jobRealTimeWidget()->updateCurrentItem();
     }
 
     else if(activity == FITTING_ACTIVITY) {
-        m_d->m_dockWidgets[JOB_LIST_DOCK]->hide();
-        m_d->m_dockWidgets[REAL_TIME_DOCK]->show();
-        m_d->m_dockWidgets[FIT_PANEL_DOCK]->show();
-        m_d->m_dockWidgets[JOB_MESSAGE_DOCK]->show();
-        m_d->m_jobRealTimeWidget->updateCurrentItem();
-        m_d->m_fitActivityPanel->updateCurrentItem();
+        m_docks->dock(JobViewDocks::JOB_LIST_DOCK)->hide();
+        m_docks->dock(JobViewDocks::REAL_TIME_DOCK)->show();
+        m_docks->dock(JobViewDocks::FIT_PANEL_DOCK)->show();
+        m_docks->dock(JobViewDocks::JOB_MESSAGE_DOCK)->show();
+        m_docks->jobRealTimeWidget()->updateCurrentItem();
+        m_docks->fitActivityPanel()->updateCurrentItem();
     }
 
     else {
@@ -192,7 +180,9 @@ void JobView::setActivity(int activity)
 
 void JobView::onToggleJobListRequest()
 {
-    m_d->m_dockWidgets[JOB_LIST_DOCK]->setHidden(!m_d->m_dockWidgets[JOB_LIST_DOCK]->isHidden());
+    qDebug() << "JobView::onToggleJobListRequest()";
+    //m_d->m_dockWidgets[JOB_LIST_DOCK]->setHidden(!m_d->m_dockWidgets[JOB_LIST_DOCK]->isHidden());
+    m_docks->jobWidget(JobViewDocks::JOB_LIST_DOCK)->setHidden(!m_docks->jobWidget(JobViewDocks::JOB_LIST_DOCK)->isHidden());
 }
 
 //! creates global dock menu
@@ -217,25 +207,25 @@ void JobView::hideEvent(QHideEvent *)
 
 void JobView::initWindows()
 {
-    m_d->m_subWindows.resize(NUMBER_OF_DOCKS);
-    m_d->m_dockWidgets.resize(NUMBER_OF_DOCKS);
+//    m_d->m_subWindows.resize(NUMBER_OF_DOCKS);
+//    m_d->m_dockWidgets.resize(NUMBER_OF_DOCKS);
 
-    // central widget
-    m_d->m_jobOutputDataWidget
-        = new JobOutputDataWidget(m_d->jobModel(), this);
-    setCentralWidget(m_d->m_jobOutputDataWidget);
+//    // central widget
+//    m_d->m_jobOutputDataWidget
+//        = new JobOutputDataWidget(m_d->jobModel(), this);
+//    setCentralWidget(m_d->m_jobOutputDataWidget);
 
-    m_d->m_jobSelector = new JobSelectorWidget(m_d->jobModel(), this);
-    m_d->m_subWindows[JOB_LIST_DOCK] = m_d->m_jobSelector;
+//    m_d->m_jobSelector = new JobSelectorWidget(m_d->jobModel(), this);
+//    m_d->m_subWindows[JOB_LIST_DOCK] = m_d->m_jobSelector;
 
-    m_d->m_jobRealTimeWidget = new JobRealTimeWidget(m_d->jobModel(), this);
-    m_d->m_subWindows[REAL_TIME_DOCK] = m_d->m_jobRealTimeWidget;
+//    m_d->m_jobRealTimeWidget = new JobRealTimeWidget(m_d->jobModel(), this);
+//    m_d->m_subWindows[REAL_TIME_DOCK] = m_d->m_jobRealTimeWidget;
 
-    m_d->m_fitActivityPanel = new FitActivityPanel(m_d->jobModel(), this);
-    m_d->m_fitActivityPanel->setRealTimeWidget(m_d->m_jobRealTimeWidget);
-    m_d->m_subWindows[FIT_PANEL_DOCK] = m_d->m_fitActivityPanel;
+//    m_d->m_fitActivityPanel = new FitActivityPanel(m_d->jobModel(), this);
+//    m_d->m_fitActivityPanel->setRealTimeWidget(m_d->m_jobRealTimeWidget);
+//    m_d->m_subWindows[FIT_PANEL_DOCK] = m_d->m_fitActivityPanel;
 
-    m_d->m_subWindows[JOB_MESSAGE_DOCK] = new JobMessagePanel(this);
+//    m_d->m_subWindows[JOB_MESSAGE_DOCK] = new JobMessagePanel(this);
 }
 
 void JobView::connectSignals()
@@ -262,5 +252,5 @@ void JobView::connectSignals()
     connect(this, SIGNAL(activityChanged(int)),
             m_d->m_jobActivityStatusBar, SLOT(onActivityChanged(int)));
     connect(this, SIGNAL(activityChanged(int)),
-            m_d->m_jobOutputDataWidget, SLOT(onActivityChanged(int)));
+            m_docks->jobOutputDataWidget(), SLOT(onActivityChanged(int)));
 }

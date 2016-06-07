@@ -34,13 +34,12 @@
 #include <QMessageBox>
 #include <QDebug>
 
-FitSuiteWidget::FitSuiteWidget(JobModel *jobModel, QWidget *parent)
+FitSuiteWidget::FitSuiteWidget(QWidget *parent)
     : QWidget(parent)
     , m_tabWidget(new QTabWidget)
     , m_fitParametersWidget(new FitParameterWidget(this))
     , m_minimizerSettingsWidget(new MinimizerSettingsWidget(this))
     , m_fitResultsWidget(new FitResultsWidget(this))
-    , m_jobModel(jobModel)
     , m_currentItem(0)
     , m_manager(new RunFitManager(parent))
     , m_observer(new GUIFitObserver())
@@ -62,8 +61,10 @@ FitSuiteWidget::~FitSuiteWidget()
 
 }
 
-void FitSuiteWidget::setItem(JobItem *jobItem)
+void FitSuiteWidget::setItem(SessionItem *item)
 {
+    JobItem *jobItem = dynamic_cast<JobItem *>(item);
+    Q_ASSERT(jobItem);
     m_currentItem = jobItem;
     m_fitParametersWidget->setItem(jobItem);
 }
@@ -148,7 +149,7 @@ void FitSuiteWidget::startFitting()
     try {
         qDebug() << " try run fitting";
         m_observer->setInterval(m_currentItem->fitSuiteItem()->getItemValue(FitSuiteItem::P_UPDATE_INTERVAL).toInt());
-        std::shared_ptr<FitSuite> fitSuite(DomainFittingBuilder::getFitSuite(m_currentItem));
+        std::shared_ptr<FitSuite> fitSuite(DomainFittingBuilder::createFitSuite(m_currentItem));
         fitSuite->attachObserver(m_observer);
         m_manager->setFitSuite(fitSuite);
         m_observer->finishedPlotting();

@@ -44,7 +44,6 @@ public:
 
     Manhattan::ProgressBar *progressBar() { return m_mainWindow->progressBar(); }
     JobModel *jobModel() { return m_mainWindow->jobModel(); }
-    ProjectManager *projectManager() { return m_mainWindow->projectManager(); }
 
     QVector<QWidget *> m_subWindows;
     QVector<QDockWidget *> m_dockWidgets;
@@ -223,7 +222,7 @@ void JobView::initWindows()
 
     // central widget
     m_d->m_jobOutputDataWidget
-        = new JobOutputDataWidget(m_d->jobModel(), m_d->projectManager(), this);
+        = new JobOutputDataWidget(m_d->jobModel(), this);
     setCentralWidget(m_d->m_jobOutputDataWidget);
 
     m_d->m_jobSelector = new JobSelectorWidget(m_d->jobModel(), this);

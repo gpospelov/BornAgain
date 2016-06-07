@@ -20,6 +20,7 @@
 #include "MaterialSvc.h"
 #include "InstrumentModel.h"
 #include "SampleModel.h"
+#include "RealDataModel.h"
 #include "JobModel.h"
 #include "IconProvider.h"
 #include "SampleBuilderFactory.h"
@@ -28,7 +29,9 @@
 #include "IntensityDataIOFactory.h"
 #include "Histogram2D.h"
 #include "IntensityDataItem.h"
-#include <QMessageBox>
+#include "WarningMessageService.h"
+#include "RealDataItem.h"
+#include <QDebug>
 
 ApplicationModels::ApplicationModels(QObject *parent)
     : QObject(parent)
@@ -37,6 +40,7 @@ ApplicationModels::ApplicationModels(QObject *parent)
     , m_materialSvc(0)
     , m_instrumentModel(0)
     , m_sampleModel(0)
+    , m_realDataModel(0)
     , m_jobModel(0)
 {
     createModels();
@@ -75,6 +79,11 @@ SampleModel *ApplicationModels::sampleModel()
     return m_sampleModel;
 }
 
+RealDataModel *ApplicationModels::realDataModel()
+{
+    return m_realDataModel;
+}
+
 JobModel *ApplicationModels::jobModel()
 {
     return m_jobModel;
@@ -99,6 +108,8 @@ void ApplicationModels::resetModels()
 
     m_sampleModel->clear();
 
+    m_realDataModel->clear();
+
     m_jobModel->clear();
 
     m_instrumentModel->clear();
@@ -106,6 +117,11 @@ void ApplicationModels::resetModels()
     instrument->setItemName("Default GISAS");
     m_instrumentModel->insertNewItem(Constants::DetectorType, m_instrumentModel->indexOfItem(instrument));
     m_instrumentModel->insertNewItem(Constants::BeamType, m_instrumentModel->indexOfItem(instrument));
+
+//    m_realDataModel->insertNewItem(Constants::RealDataType);
+//    m_realDataModel->insertNewItem(Constants::RealDataType);
+//    m_realDataModel->insertNewItem(Constants::RealDataType);
+
 }
 
 //! creates and initializes models, order is important
@@ -118,6 +134,8 @@ void ApplicationModels::createModels()
     createSampleModel();
 
     createInstrumentModel();
+
+    createRealDataModel();
 
     createJobModel();
 
@@ -147,6 +165,13 @@ void ApplicationModels::createSampleModel()
     connectModel(m_sampleModel);
     connect(m_materialModel, SIGNAL(dataChanged(QModelIndex,QModelIndex)),
             m_sampleModel, SLOT(onMaterialModelChanged(QModelIndex,QModelIndex)));
+}
+
+void ApplicationModels::createRealDataModel()
+{
+    delete m_realDataModel;
+    m_realDataModel = new RealDataModel(this);
+    connectModel(m_realDataModel);
 }
 
 void ApplicationModels::createJobModel()
@@ -183,18 +208,77 @@ void ApplicationModels::createTestJob()
     optionsItem->setRunPolicy(Constants::JOB_RUN_IN_BACKGROUND);
 
     JobItem *jobItem = m_jobModel->addJob(
-                m_sampleModel->getMultiLayerItem(),
-                m_instrumentModel->getInstrumentItem(),
+                m_sampleModel->multiLayerItem(),
+                m_instrumentModel->instrumentItem(),
+                0,
                 optionsItem);
 
     IHistogram *data = IntensityDataIOFactory::readIntensityData("/home/pospelov/development/BornAgain/temp/Untitled12/data_job1_0.int");
-    dynamic_cast<IntensityDataItem*>(jobItem->getItem(JobItem::T_REALDATA))
-            ->setOutputData(data->createOutputData());
-    jobItem->setItemValue(JobItem::P_WITH_FITTING, true);
+
+    RealDataItem *realDataItem = dynamic_cast<RealDataItem *>(jobItem->getItem(JobItem::T_REALDATA));
+    Q_ASSERT(realDataItem);
+
+    realDataItem->intensityDataItem()->setOutputData(data->createOutputData());
+//    jobItem->setItemValue(JobItem::P_WITH_FITTING, true);
 
 
     m_jobModel->runJob(jobItem->index());
 
+}
+
+//! Writes all model in file one by one
+
+void ApplicationModels::writeTo(QXmlStreamWriter *writer)
+{
+    foreach(SessionModel *model, modelList()) {
+        model->writeTo(writer);
+    }
+}
+
+void ApplicationModels::readFrom(QXmlStreamReader *reader, WarningMessageService *messageService)
+{
+    foreach(SessionModel *model, modelList()) {
+        if(model->getModelTag() == reader->name()) {
+            model->readFrom(reader, messageService);
+            if(messageService->hasWarnings(model)) {
+                messageService->send_message(this, "MODEL_READ_WARNING", model->getModelTag());
+            }
+            break;
+        }
+    }
+
+}
+
+//! Returns the list of all GUI models
+
+QList<SessionModel *> ApplicationModels::modelList()
+{
+    QList<SessionModel *> result;
+    result.append(m_documentModel);
+    result.append(m_materialModel);
+    result.append(m_instrumentModel);
+    result.append(m_sampleModel);
+    result.append(m_realDataModel);
+    result.append(m_jobModel);
+    return result;
+}
+
+//! Loads model's non-XML data  from the projectDir
+
+void ApplicationModels::loadNonXMLData(const QString &projectDir)
+{
+    foreach(SessionModel *model, modelList()) {
+        model->loadNonXMLData(projectDir);
+    }
+}
+
+//! Saves model's non-XML data  to the projectDir
+
+void ApplicationModels::saveNonXMLData(const QString &projectDir)
+{
+    foreach(SessionModel *model, modelList()) {
+        model->saveNonXMLData(projectDir);
+    }
 }
 
 void ApplicationModels::disconnectModel(SessionModel *model)

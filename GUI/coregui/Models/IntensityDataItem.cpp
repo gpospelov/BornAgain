@@ -35,13 +35,14 @@ const QString IntensityDataItem::P_PROPERTY_PANEL_FLAG = "Property Panel Flag";
 const QString IntensityDataItem::P_XAXIS = "x-axis";
 const QString IntensityDataItem::P_YAXIS = "y-axis";
 const QString IntensityDataItem::P_ZAXIS = "color-axis";
+const QString IntensityDataItem::P_FILE_NAME = "FileName";
 const QString IntensityDataItem::T_MASKS = "Mask tag";
 
 
 IntensityDataItem::IntensityDataItem()
     : SessionItem(Constants::IntensityDataType)
 {
-    setItemName(Constants::IntensityDataType);
+//    setItemName(Constants::IntensityDataType);
 
     ComboProperty units;
     addProperty(P_AXES_UNITS, units.getVariant())->setVisible(false);
@@ -70,6 +71,9 @@ IntensityDataItem::IntensityDataItem()
 
     item = addGroupProperty(P_ZAXIS, Constants::AmplitudeAxisType);
     item->getItem(BasicAxisItem::P_NBINS)->setVisible(false);
+
+    // name of the file used to serialize given IntensityDataItem
+    addProperty(P_FILE_NAME, QStringLiteral("undefined"))->setVisible(false);
 
     registerTag(T_MASKS, 0, -1, QStringList() << Constants::MaskContainerType);
     setDefaultTag(T_MASKS);
@@ -197,19 +201,17 @@ void IntensityDataItem::setZAxisLocked(bool state)
     return getItem(P_ZAXIS)->setItemValue(AmplitudeAxisItem::P_LOCK_MIN_MAX, state);
 }
 
-//! Sets the name of intensity data item from proposed name. This name will be used to save file
-//! on disk, so special characters should be removed.
-void IntensityDataItem::setNameFromProposed(const QString &proposed_name)
-{
-    QString valid_name = GUIHelpers::getValidFileName(proposed_name);
-    setItemName(QString("data_%1_%2.int").arg(valid_name, QString::number(0)));
-}
-
 QString IntensityDataItem::getSelectedAxesUnits() const
 {
     ComboProperty combo= getItemValue(IntensityDataItem::P_AXES_UNITS)
               .value<ComboProperty>();
     return combo.getValue();
+}
+
+QString IntensityDataItem::fileName(const QString &projectDir)
+{
+    return projectDir + QStringLiteral("/")
+           + getItemValue(IntensityDataItem::P_FILE_NAME).toString();
 }
 
 void IntensityDataItem::setLowerX(double xmin)

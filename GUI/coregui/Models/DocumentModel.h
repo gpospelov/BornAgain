@@ -21,6 +21,9 @@
 
 class SimulationOptionsItem;
 
+//! The DocumentModel class is a model with GUI settings related to the opened project.
+//! Can be the place to store splitter position, etc.
+
 class BA_CORE_API_ DocumentModel : public SessionModel
 {
     Q_OBJECT

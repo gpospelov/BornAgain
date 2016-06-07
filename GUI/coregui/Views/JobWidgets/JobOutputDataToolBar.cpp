@@ -19,28 +19,15 @@
 #include <QIcon>
 #include <QComboBox>
 #include <QToolButton>
-#include <QToolBar>
-#include <QStyle>
-#include <QLabel>
-#include <QDebug>
-#include "styledbar.h"
 
 //! main tool bar on top of SampleView window
 JobOutputDataToolBar::JobOutputDataToolBar(QWidget *parent)
-    : QToolBar(parent)
+    : StyledToolBar(parent)
     , m_toggleProjectionsButton(0)
     , m_togglePropertyPanelButton(0)
     , m_resetViewButton(0)
     , m_savePlotButton(0)
 {
-    setMovable(false);
-
-    const int size = style()->pixelMetric(QStyle::PM_SmallIconSize);
-    setIconSize(QSize(size, size));
-    setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
-
-    setContentsMargins(0,0,0,0);
-
     // projections button
     m_toggleProjectionsButton = new QToolButton;
     m_toggleProjectionsButton->setText("Projections");
@@ -51,9 +38,7 @@ JobOutputDataToolBar::JobOutputDataToolBar(QWidget *parent)
     connect(m_toggleProjectionsButton, SIGNAL(clicked()), this, SIGNAL(toggleProjections()));
     addWidget(m_toggleProjectionsButton);
 
-    addWidget(new QLabel(" "));
-    addSeparator();
-    addWidget(new QLabel(" "));
+    addStyledSeparator();
 
     // plot properties button
     m_togglePropertyPanelButton = new QToolButton;
@@ -66,9 +51,7 @@ JobOutputDataToolBar::JobOutputDataToolBar(QWidget *parent)
     connect(m_togglePropertyPanelButton, SIGNAL(clicked()), this, SIGNAL(togglePropertyPanel()));
     addWidget(m_togglePropertyPanelButton);
 
-    addWidget(new QLabel(" "));
-    addSeparator();
-    addWidget(new QLabel(" "));
+    addStyledSeparator();
 
     // reset view button
     m_resetViewButton = new QToolButton;
@@ -80,9 +63,7 @@ JobOutputDataToolBar::JobOutputDataToolBar(QWidget *parent)
     connect(m_resetViewButton, SIGNAL(clicked()), this, SIGNAL(resetView()));
     addWidget(m_resetViewButton);
 
-    addWidget(new QLabel(" "));
-    addSeparator();
-    addWidget(new QLabel(" "));
+    addStyledSeparator();
 
     // save plot button
     m_savePlotButton = new QToolButton;
@@ -95,12 +76,5 @@ JobOutputDataToolBar::JobOutputDataToolBar(QWidget *parent)
     connect(m_savePlotButton, SIGNAL(clicked()), this, SIGNAL(savePlot()));
     addWidget(m_savePlotButton);
 
-    addWidget(new QLabel(" "));
-    addSeparator();
-    addWidget(new QLabel(" "));
-
-    // activity combo
-    QWidget* empty = new QWidget();
-    empty->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
-    addWidget(empty);
+    addStyledSeparator();
 }

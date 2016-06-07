@@ -23,9 +23,12 @@
 #include "InstrumentModel.h"
 #include "MultiLayerItem.h"
 #include "InstrumentItem.h"
+#include "RealDataItem.h"
 #include "ParameterModelBuilder.h"
 #include "ParameterTreeItems.h"
 #include "SimulationOptionsItem.h"
+#include "JobResultsPresenter.h"
+#include "IntensityDataItem.h"
 #include <QUuid>
 #include <QDebug>
 #include <QItemSelection>
@@ -73,8 +76,10 @@ JobItem *JobModel::getJobItemForIdentifier(const QString &identifier)
 
 
 //! Main method to add a job
-JobItem *JobModel::addJob(const MultiLayerItem *multiLayerItem, const InstrumentItem *instrumentItem,
-        const SimulationOptionsItem *optionItem)
+JobItem *JobModel::addJob(const MultiLayerItem *multiLayerItem,
+                          const InstrumentItem *instrumentItem,
+                          const RealDataItem *realDataItem,
+                          const SimulationOptionsItem *optionItem)
 {
     Q_ASSERT(multiLayerItem);
     Q_ASSERT(instrumentItem);
@@ -95,7 +100,13 @@ JobItem *JobModel::addJob(const MultiLayerItem *multiLayerItem, const Instrument
     ParameterModelBuilder::createParameterTree(jobItem, JobItem::T_PARAMETER_TREE);
 
     insertNewItem(Constants::IntensityDataType, indexOfItem(jobItem), -1, JobItem::T_OUTPUT);
-    insertNewItem(Constants::IntensityDataType, indexOfItem(jobItem), -1, JobItem::T_REALDATA);
+    //insertNewItem(Constants::IntensityDataType, indexOfItem(jobItem), -1, JobItem::T_REALDATA);
+
+    if(realDataItem) {
+        RealDataItem *realDataItemCopy = dynamic_cast<RealDataItem *>(copyParameterizedItem(realDataItem, jobItem, JobItem::T_REALDATA));
+        Q_ASSERT(realDataItemCopy);
+        realDataItemCopy->intensityDataItem()->setOutputData(realDataItem->intensityDataItem()->getOutputData()->clone());
+    }
 
     return jobItem;
 }
@@ -113,12 +124,31 @@ bool JobModel::hasUnfinishedJobs()
 
 void JobModel::clear()
 {
-    QMap<QString, SessionItem *> jobs = getTopItemMap(Constants::JobItemType);
-    for(auto it = jobs.begin(); it!=jobs.end(); ++it) {
-        removeJob(it.value()->index());
+    foreach (SessionItem *item, topItems(Constants::JobItemType)) {
+        removeJob(item->index());
+    }
+    SessionModel::clear();
+}
+
+//! Loads OutputData from the projectDir to JobItem
+
+void JobModel::loadNonXMLData(const QString &projectDir)
+{
+    for (int i = 0; i < rowCount(QModelIndex()); ++i) {
+        JobItem *jobItem = getJobItemForIndex(index(i, 0, QModelIndex()));
+        JobResultsPresenter::loadIntensityData(jobItem, projectDir);
     }
 
-    SessionModel::clear();
+}
+
+//! Saves JobItem's OutputData to the projectDir
+
+void JobModel::saveNonXMLData(const QString &projectDir)
+{
+    for (int i = 0; i < rowCount(QModelIndex()); ++i) {
+        JobItem *jobItem = getJobItemForIndex(index(i, 0, QModelIndex()));
+        JobResultsPresenter::saveIntensityData(jobItem, projectDir);
+    }
 }
 
 void JobModel::runJob(const QModelIndex &index)

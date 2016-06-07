@@ -17,13 +17,11 @@
 #ifndef JOBREALTIMETOOLBAR_H
 #define JOBREALTIMETOOLBAR_H
 
-#include <QToolBar>
-#include "WinDllMacros.h"
+#include "StyledToolBar.h"
 
-class QToolButton;
+//! The JobRealTimeToolBar class represents a toolbar with buttons for JobRealTimeWidget.
 
-//! The JobRealTimeToolBar contains buttons needed for JobRealTimeWidget
-class BA_CORE_API_ JobRealTimeToolBar : public QToolBar
+class BA_CORE_API_ JobRealTimeToolBar : public StyledToolBar
 {
     Q_OBJECT
 
@@ -34,10 +32,8 @@ signals:
     void resetParameters();
 
 private:
-    QToolButton *m_resetParametersButton;
-    QToolButton *m_exportParametersButton;
+    class QToolButton *m_resetParametersButton;
 };
-
 
 #endif
 

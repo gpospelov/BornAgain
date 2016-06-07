@@ -15,6 +15,7 @@
 // ************************************************************************** //
 
 #include "SampleView.h"
+#include "mainwindow.h"
 #include "SampleViewComponents.h"
 #include "SampleDesigner.h"
 #include "SampleToolBar.h"
@@ -32,12 +33,12 @@
 #include <QDebug>
 #include <QTimer>
 
-SampleView::SampleView(SampleModel *sampleModel, InstrumentModel *instrumentModel, QWidget *parent)
-    : Manhattan::FancyMainWindow(parent)
+SampleView::SampleView(MainWindow *mainWindow)
+    : Manhattan::FancyMainWindow(mainWindow)
     , m_sampleDesigner(new SampleDesigner(this))
     , m_toolBar(0)
-    , m_sampleModel(sampleModel)
-    , m_instrumentModel(instrumentModel)
+    , m_sampleModel(mainWindow->sampleModel())
+    , m_instrumentModel(mainWindow->instrumentModel())
 {
     setObjectName(tr("SampleView"));
 

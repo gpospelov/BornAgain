@@ -66,6 +66,7 @@ public:
     bool isCompleted() const;
     bool isCanceled() const;
     bool isFailed() const;
+    bool isValidForFitting();
 
     void setBeginTime(const QString &begin_time);
 
@@ -99,6 +100,7 @@ public:
     FitParameterContainerItem *fitParameterContainerItem();
 
 private:
+    void updateIntensityDataFileName();
     const SimulationOptionsItem *getSimulationOptionsItem() const;
 };
 

@@ -104,12 +104,19 @@ public:
 
     virtual SessionModel *createCopy(SessionItem *parent = 0);
 
-    QMap<QString, SessionItem *> getTopItemMap(const QString &model_type = QString()) const;
-    SessionItem *getTopItem(const QString &model_type = QString(),
-                                  const QString &item_name = QString()) const;
+    SessionItem *topItem(const QString &model_type = QString(),
+                         const QString &item_name = QString()) const;
+    QList<SessionItem *> topItems(const QString &model_type = QString(),
+                                  const QModelIndex &parentIndex = QModelIndex()) const;
+    QStringList topItemNames(const QString &model_type = QString(),
+                             const QModelIndex &parentIndex = QModelIndex()) const;
 
     virtual void initFrom(SessionModel *model, SessionItem *parent);
     SessionItem* rootItem() const;
+
+    virtual void loadNonXMLData(const QString &projectDir);
+    virtual void saveNonXMLData(const QString &projectDir);
+
 
 protected:
     void setRootItem(SessionItem *root) {m_root_item = root;}

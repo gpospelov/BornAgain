@@ -22,6 +22,7 @@
 #include <QString>
 #include <QMap>
 
+class MainWindow;
 class InstrumentSelectorWidget;
 class InstrumentEditorWidget;
 class InstrumentModel;
@@ -31,20 +32,16 @@ class QMenu;
 class QAction;
 class QItemSelection;
 class SessionItem;
-class QToolBar;
 class QToolButton;
 class DetectorItem;
 
-namespace Manhattan{
-    class StyledBar;
-}
 
 class BA_CORE_API_ InstrumentView : public QWidget
 {
     Q_OBJECT
 
 public:
-    InstrumentView(InstrumentModel *model, QWidget *parent = 0);
+    InstrumentView(MainWindow *mainWindow);
 
 public slots:
     void updateView();
@@ -62,7 +59,7 @@ private:
     void updateMapOfNames();
 
     InstrumentModel *m_instrumentModel;
-    QToolBar *m_toolBar;
+    class StyledToolBar *m_toolBar;
     InstrumentSelectorWidget *m_instrumentSelector;
     QStackedWidget *m_stackWidget;
     QMap<SessionItem *, InstrumentEditorWidget *> m_instrumentToEditor;

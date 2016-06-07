@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/mainwindow/StyledToolBar.h
-//! @brief     Declares class StyledToolBar
+//! @file      coregui/Views/ImportDataWidgets/ImportDataAssistant.h
+//! @brief     Declares class ImportDataAssistant
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,26 +14,24 @@
 //
 // ************************************************************************** //
 
-#ifndef STYLEDTOOLBAR_H
-#define STYLEDTOOLBAR_H
+#ifndef IMPORTDATAASSISTANT_H
+#define IMPORTDATAASSISTANT_H
 
 #include "WinDllMacros.h"
-#include <QToolBar>
 
-class QAction;
-class QToolButton;
-class QToolBar;
+template <class T> class OutputData;
+class QString;
 
-//! main tool bar on top of SampleView window
-class BA_CORE_API_ StyledToolBar : public QToolBar
-{
-    Q_OBJECT
+//! The ImportDataAssistant class provides utility methods to import data files.
 
+class BA_CORE_API_ ImportDataAssistant {
 public:
-    explicit StyledToolBar(QWidget *parent = 0);
+
+    OutputData<double> *importData(QString &baseNameOfLoadedFile);
+
+    static void loadIntensityData(class RealDataItem *realDataItem, const QString &projectDir);
+    static void saveIntensityData(class RealDataItem *realDataItem, const QString &projectDir);
 
 };
 
-
-#endif // STYLEDTOOLBAR_H
-
+#endif

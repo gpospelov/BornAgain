@@ -24,6 +24,8 @@
 #include <memory>
 
 class QVariant;
+class JobItem;
+class RealDataItem;
 
 namespace GUIHelpers
 {
@@ -56,6 +58,11 @@ BA_CORE_API_ int getVariantType(const QVariant &variant);
 BA_CORE_API_ QString getBornAgainVersionString();
 
 BA_CORE_API_ QString getValidFileName(const QString &proposed_name);
+
+BA_CORE_API_ QString intensityDataFileName(JobItem *jobItem);
+BA_CORE_API_ QString intensityDataFileName(RealDataItem *realDataItem);
+
+BA_CORE_API_ QString fileDir(const QString &fileName);
 
 BA_CORE_API_ bool parseVersion(const QString &version, int &major_num, int &minor_num, int &patch_num);
 

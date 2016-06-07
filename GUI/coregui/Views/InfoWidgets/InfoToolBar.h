@@ -17,14 +17,13 @@
 #ifndef INFOTOOLBAR_H
 #define INFOTOOLBAR_H
 
-#include "WinDllMacros.h"
-#include <QWidget>
-#include <QToolBar>
+#include "StyledToolBar.h"
 
 class QToolButton;
 
-//! The InfoToolBar is a tool bar for InfoWidget
-class BA_CORE_API_ InfoToolBar : public QToolBar
+//! The InfoToolBar class represents a toolbar for InfoWidget
+
+class BA_CORE_API_ InfoToolBar : public StyledToolBar
 {
     Q_OBJECT
 

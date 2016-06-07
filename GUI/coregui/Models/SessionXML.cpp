@@ -49,7 +49,6 @@ void SessionWriter::writeTo(QXmlStreamWriter *writer, SessionItem *parent)
 
 void SessionWriter::writeItemAndChildItems(QXmlStreamWriter *writer, const SessionItem *item)
 {
-    qDebug() << "SessionModel::writeItemAndChildItems " << item;
     Q_ASSERT(item);
     if (item->parent()) {
         writer->writeStartElement(SessionXML::ItemTag);

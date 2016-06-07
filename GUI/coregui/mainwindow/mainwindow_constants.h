@@ -24,10 +24,6 @@ namespace Constants {
 const char APPLICATION_NAME[]     = "BornAgain";
 const char ORGANIZATION_NAME[]    = "Scientific Computing at MLZ";
 
-const char ICON_NEWFILE[]          = ":/core/images/filenew.png";
-const char ICON_OPENFILE[]         = ":/core/images/fileopen.png";
-const char ICON_SAVEFILE[]         = ":/core/images/filesave.png";
-
 // Settings groups
 const char S_PROJECTMANAGER[]      = "ProjectManager";
 const char S_MAINWINDOW[]          = "MainWindow";
@@ -39,6 +35,7 @@ const char S_SESSIONMODELVIEW[]    = "SessionModelView";
 // Settings keys
 const char S_DEFAULTPROJECTPATH[]  = "DefaultProjectPath";
 const char S_RECENTPROJECTS[]      = "RecentProjects";
+const char S_LASTUSEDIMPORTDIR[]   = "LastUsedImportDir";
 const char S_WINDOWSIZE[]          = "size";
 const char S_WINDOWPOSITION[]      = "pos";
 const char S_SPLITTERSIZE[]        = "SplitterSize";
@@ -58,7 +55,7 @@ const unsigned int MAIN_THEME_COLOR    = 0x086FA1;
 const unsigned int BUTTON_COLOR        = 0x044362;
 const unsigned int BUTTON_TEXT_COLOR   = 0xFFFFFF;
 
-const unsigned int REALTIME_WIDGET_WIDTH_HINT = 480 ;
+const unsigned int REALTIME_WIDGET_WIDTH_HINT = 480;
 
 //
 }

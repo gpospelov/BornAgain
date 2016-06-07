@@ -34,6 +34,8 @@ set(include_dirs
     ${CMAKE_CURRENT_SOURCE_DIR}/Views/PropertyEditor
     ${CMAKE_CURRENT_SOURCE_DIR}/Views/MaskWidgets
     ${CMAKE_CURRENT_SOURCE_DIR}/Views/AccordionWidget
+    ${CMAKE_CURRENT_SOURCE_DIR}/Views/ImportDataWidgets
+    ${CMAKE_CURRENT_SOURCE_DIR}/Views/CommonWidgets
 )
 include_directories(${include_dirs})
 
@@ -53,6 +55,8 @@ file(GLOB source_files
     "Views/PropertyEditor/*.cpp"
     "Views/MaskWidgets/*.cpp"
     "Views/AccordionWidget/*.cpp"
+    "Views/ImportDataWidgets/*.cpp"
+    "Views/CommonWidgets/*.cpp"
 )
 
 set(source_widgetbox
@@ -79,6 +83,8 @@ file(GLOB include_files
     "Views/PropertyEditor/*.h"
     "Views/MaskWidgets/*.h"
     "Views/AccordionWidget/*.h"
+    "Views/ImportDataWidgets/*.h"
+    "Views/CommonWidgets/*.h"
 )
 
 set(include_widgetbox

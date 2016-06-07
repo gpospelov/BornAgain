@@ -21,8 +21,6 @@
 #include <QIcon>
 #include <QAction>
 #include <QToolButton>
-#include <QToolBar>
-#include <QStyle>
 #include <QComboBox>
 #include <QButtonGroup>
 #include <QLabel>
@@ -30,19 +28,10 @@
 #include <QPushButton>
 #include <QMenu>
 
-
-#include "styledbar.h"
-
 //! main tool bar on top of SampleView window
 SampleToolBar::SampleToolBar(QWidget *parent)
-    : QToolBar(parent)
+    : StyledToolBar(parent)
 {
-    setMovable(false);
-
-    const int size = style()->pixelMetric(QStyle::PM_SmallIconSize);
-    setIconSize(QSize(size, size));
-    setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
-
     // Select & Pan
     QToolButton *selectionPointerButton = new QToolButton;
     selectionPointerButton->setCheckable(true);
@@ -62,10 +51,9 @@ SampleToolBar::SampleToolBar(QWidget *parent)
     addWidget(selectionPointerButton);
     addWidget(handPointerButton);
 
+    addStyledSeparator();
+
     // unddo redo
-    addWidget(new QLabel(" "));
-    addSeparator();
-    addWidget(new QLabel(" "));
     QToolButton *unddoButton = new QToolButton;
     unddoButton->setIcon(QIcon(":/SampleDesigner/images/toolbar_unddo.png"));
     unddoButton->setToolTip("Unddo last action (not implemented yet).");
@@ -75,10 +63,9 @@ SampleToolBar::SampleToolBar(QWidget *parent)
     redoButton->setToolTip("Do again the last undone action (not implemented yet).");
     addWidget(redoButton);
 
+    addStyledSeparator();
+
     // Remove item
-    addWidget(new QLabel(" "));
-    addSeparator();
-    addWidget(new QLabel(" "));
     m_removeButton = new QToolButton;
     m_removeButton->setText("Remove item");
     m_removeButton->setIcon(QIcon(":/SampleDesigner/images/toolbar_recycle.png"));
@@ -87,10 +74,10 @@ SampleToolBar::SampleToolBar(QWidget *parent)
     connect(m_removeButton, SIGNAL(clicked()), this, SIGNAL(deleteItems()));
     addWidget(m_removeButton);
 
+    addStyledSeparator();
+
     // Center view
-    addWidget(new QLabel(" "));
-    addSeparator();
-    addWidget(new QLabel(" "));
+
     m_centerViewButton = new QToolButton;
     m_centerViewButton->setIcon(QIcon(":/SampleDesigner/images/toolbar_center.png"));
     m_centerViewButton->setToolTip("Center view.");
@@ -103,7 +90,6 @@ SampleToolBar::SampleToolBar(QWidget *parent)
     m_alignItemsButton->setToolTip("Try to align items.");
     connect(m_alignItemsButton, SIGNAL(clicked()), this, SIGNAL(smartAlign()));
     addWidget(m_alignItemsButton);
-
 
     // Zoom
     addWidget(new QLabel(" "));

@@ -48,7 +48,7 @@ TestFitWidgets::TestFitWidgets(MainWindow *mainWindow)
 
 void TestFitWidgets::showEvent(QShowEvent *)
 {
-    JobItem *jobItem = dynamic_cast<JobItem *>(m_mainWindow->jobModel()->getTopItem(Constants::JobItemType));
+    JobItem *jobItem = dynamic_cast<JobItem *>(m_mainWindow->jobModel()->topItem(Constants::JobItemType));
     if(jobItem) {
         m_jobItem = jobItem;
         m_tuningWidget->setItem(jobItem);

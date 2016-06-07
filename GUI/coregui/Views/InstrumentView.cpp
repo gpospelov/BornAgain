@@ -15,13 +15,14 @@
 // ************************************************************************** //
 
 #include "InstrumentView.h"
+#include "mainwindow.h"
 #include "InstrumentModel.h"
 #include "InstrumentSelectorWidget.h"
 #include "InstrumentEditorWidget.h"
 #include "InstrumentItem.h"
 #include "ExtendedDetectorDialog.h"
 #include "DetectorItems.h"
-#include "styledbar.h"
+#include "StyledToolBar.h"
 #include "minisplitter.h"
 #include <QBoxLayout>
 #include <QListView>
@@ -36,10 +37,10 @@
 #include <QRegExp>
 
 
-InstrumentView::InstrumentView(InstrumentModel *model, QWidget *parent)
-    : QWidget(parent)
-    , m_instrumentModel(model)
-    , m_toolBar(new QToolBar(this))
+InstrumentView::InstrumentView(MainWindow *mainWindow)
+    : QWidget(mainWindow)
+    , m_instrumentModel(mainWindow->instrumentModel())
+    , m_toolBar(new StyledToolBar(this))
     , m_instrumentSelector(new InstrumentSelectorWidget(m_instrumentModel, this))
     , m_stackWidget(new QStackedWidget)
     , m_addInstrumentAction(0)

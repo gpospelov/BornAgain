@@ -102,13 +102,15 @@ void JobResultsPresenter::updateDataAxes(IntensityDataItem *intensityItem,
 //! Axes of data will be reset to default
 void JobResultsPresenter::saveIntensityData(JobItem *jobItem, const QString &projectDir)
 {
-    IntensityDataItem *dataItem = jobItem->getIntensityDataItem();
-    if (dataItem && dataItem->getOutputData()) {
-        QString filename = projectDir + QStringLiteral("/") + dataItem->itemName();
+    IntensityDataItem *intensityItem = jobItem->getIntensityDataItem();
+
+    if(intensityItem && intensityItem->getOutputData()) {
+
+        QString filename = intensityItem->fileName(projectDir);
 
         std::unique_ptr<OutputData<double>> dataToSave(
             createDetectorMap(jobItem->getInstrumentItem(), IDetector2D::DEFAULT));
-        dataToSave->setRawDataVector(dataItem->getOutputData()->getRawDataVector());
+        dataToSave->setRawDataVector(intensityItem->getOutputData()->getRawDataVector());
         IntensityDataIOFactory::writeOutputData(*dataToSave, filename.toStdString());
     }
 }
@@ -119,7 +121,9 @@ void JobResultsPresenter::loadIntensityData(JobItem *jobItem, const QString &pro
 {
     IntensityDataItem *intensityItem = jobItem->getIntensityDataItem();
     if (intensityItem) {
-        QString filename = projectDir + "/" + intensityItem->itemName();
+
+        QString filename = intensityItem->fileName(projectDir);
+
         QFileInfo info(filename);
         if (info.exists()) {
             IntensityDataItem *intensityItem = jobItem->getIntensityDataItem();

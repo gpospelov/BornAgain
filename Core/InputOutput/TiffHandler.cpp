@@ -46,6 +46,9 @@ TiffHandler::~TiffHandler()
 void TiffHandler::read(std::istream &input_stream)
 {
     m_tiff = TIFFStreamOpen("MemTIFF", &input_stream);
+    if(!m_tiff) {
+        throw Exceptions::FormatErrorException("TiffHandler::read() -> Can't open the file.");
+    }
     read_header();
     read_data();
     close();

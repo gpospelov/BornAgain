@@ -23,9 +23,11 @@
 #include "GISASSimulation.h"
 #include "ModelPath.h"
 #include "MultiLayerItem.h"
+#include "RealDataItem.h"
+#include "GUIHelpers.h"
 #include <QDebug>
 
-std::shared_ptr<FitSuite> DomainFittingBuilder::getFitSuite(JobItem *jobItem)
+std::shared_ptr<FitSuite> DomainFittingBuilder::createFitSuite(JobItem *jobItem)
 {
     std::shared_ptr<FitSuite> result(new FitSuite());
     result->setMinimizer("Genetic");
@@ -54,9 +56,15 @@ std::shared_ptr<FitSuite> DomainFittingBuilder::getFitSuite(JobItem *jobItem)
                 builder.getSimulation(jobItem->getMultiLayerItem(),
                                         jobItem->getInstrumentItem()));
 
-    auto x = dynamic_cast<IntensityDataItem*>(jobItem->getItem(JobItem::T_REALDATA))->getOutputData();
-    if (x)
-        result->addSimulationAndRealData(*simulation.get(), *x);
+    RealDataItem *realDataItem = dynamic_cast<RealDataItem*>(jobItem->getItem(JobItem::T_REALDATA));
+    if(!realDataItem)
+        throw GUIHelpers::Error("DomainFittingBuilder::createFitSuite() -> No Real Data defined.");
+
+    const IntensityDataItem *intensityItem = realDataItem->intensityDataItem();
+    Q_ASSERT(intensityItem);
+    Q_ASSERT(intensityItem->getOutputData());
+
+    result->addSimulationAndRealData(*simulation.get(), *intensityItem->getOutputData());
 
 //    return std::move(result);
     return result;

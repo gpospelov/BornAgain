@@ -161,6 +161,8 @@ const ModelType MaskAllType = "MaskAllMask";
 
 const ModelType SimulationOptionsType = "SimulationOptions";
 
+const ModelType RealDataType = "RealData";
+
 // --- Groups ------------------------------------------------------------------
 
 const ModelType FormFactorGroup = "Form Factor";

@@ -75,7 +75,7 @@ JobItem::JobItem()
     registerTag(T_SAMPLE, 1, 1, QStringList() << Constants::MultiLayerType);
     registerTag(T_INSTRUMENT, 1, 1, QStringList() << Constants::InstrumentType);
     registerTag(T_OUTPUT, 1, 1, QStringList() << Constants::IntensityDataType);
-    registerTag(T_REALDATA, 1, 1, QStringList() << Constants::IntensityDataType);
+    registerTag(T_REALDATA, 1, 1, QStringList() << Constants::RealDataType);
 //    registerTag(T_PARAMETER_TREE, 0, -1, QStringList() << Constants::ParameterLabelType
 //                << Constants::ParameterType);
     registerTag(T_PARAMETER_TREE, 0, -1, QStringList() << Constants::ParameterContainerType);
@@ -95,6 +95,14 @@ JobItem::JobItem()
 
         }
     });
+
+    mapper()->setOnPropertyChange(
+        [this](const QString &name){
+        if(name == P_NAME)
+            updateIntensityDataFileName();
+        }
+    );
+
 }
 
 JobItem::~JobItem()
@@ -164,6 +172,15 @@ bool JobItem::isFailed() const
 {
     ComboProperty combo_property = getItemValue(P_STATUS).value<ComboProperty>();
     return combo_property.getValue() == Constants::STATUS_FAILED;
+}
+
+bool JobItem::isValidForFitting()
+{
+    if(isTag(T_REALDATA) && getItem(T_REALDATA)) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 void JobItem::setBeginTime(const QString &begin_time)
@@ -244,6 +261,7 @@ void JobItem::setResults(const GISASSimulation *simulation)
     Q_ASSERT(intensityItem);
 
     JobResultsPresenter::setResults(intensityItem, simulation);
+    updateIntensityDataFileName();
 }
 
 FitSuiteItem *JobItem::fitSuiteItem()
@@ -262,6 +280,16 @@ FitParameterContainerItem *JobItem::fitParameterContainerItem()
         return item->fitParameterContainerItem();
 
     return nullptr;
+}
+
+//! Updates the name of file to store intensity data.
+
+void JobItem::updateIntensityDataFileName()
+{
+    if(IntensityDataItem *item = getIntensityDataItem()) {
+        QString newFileName = GUIHelpers::intensityDataFileName(this);
+        item->setItemValue(IntensityDataItem::P_FILE_NAME, newFileName);
+    }
 }
 
 SimulationOptionsItem *JobItem::getSimulationOptionsItem()

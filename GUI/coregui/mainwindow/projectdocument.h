@@ -99,11 +99,8 @@ public slots:
 private:
     void readFrom(QIODevice *device);
     void writeTo(QIODevice *device);
-    void readModel(SessionModel *model, QXmlStreamReader *reader);
 
-    void reviseOutputData();
-    void saveOutputData();
-    void loadOutputData();
+    void cleanProjectDir();
 
     void disconnectModels();
     void connectModels();

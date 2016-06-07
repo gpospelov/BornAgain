@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/mainwindow/StyledToolBar.cpp
-//! @brief     Implements class StyledToolBar
+//! @file      coregui/Models/RealDataModel.h
+//! @brief     Declares class RealDataModel
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,21 +14,24 @@
 //
 // ************************************************************************** //
 
-#include "styledtoolbar.h"
-#include <QIcon>
-#include <QStyle>
+#ifndef REALDATAMODEL_H
+#define REALDATAMODEL_H
 
+#include "SessionModel.h"
 
-StyledToolBar::StyledToolBar(QWidget *parent)
-    : QToolBar(parent)
+//! The RealDataModel class is a model to store all imported RealDataItem's.
+
+class BA_CORE_API_ RealDataModel : public SessionModel
 {
-    setMovable(false);
-    setMinimumSize(128, 25);
+    Q_OBJECT
 
-    const int size = style()->pixelMetric(QStyle::PM_SmallIconSize);
-    setIconSize(QSize(size, size));
-    setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
+public:
+    explicit RealDataModel(QObject *parent = 0);
+//    Qt::ItemFlags flags(const QModelIndex &index) const;
 
-    setContentsMargins(0,0,0,0);
+    void loadNonXMLData(const QString &projectDir);
+    void saveNonXMLData(const QString &projectDir);
 
-}
+};
+
+#endif

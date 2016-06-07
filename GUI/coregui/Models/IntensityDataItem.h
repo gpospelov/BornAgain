@@ -38,7 +38,9 @@ public:
     static const QString P_XAXIS;
     static const QString P_YAXIS;
     static const QString P_ZAXIS;
+    static const QString P_FILE_NAME;
     static const QString T_MASKS;
+
 
     explicit IntensityDataItem();
     virtual ~IntensityDataItem();
@@ -77,9 +79,11 @@ public:
     bool isZAxisLocked() const;
     void setZAxisLocked(bool state);
 
-    void setNameFromProposed(const QString &proposed_name);
+//    void setNameFromProposed(const QString &proposed_name);
 
     virtual QString getSelectedAxesUnits() const;
+
+    QString fileName(const QString &projectDir);
 
 public slots:
     void setLowerX(double xmin);

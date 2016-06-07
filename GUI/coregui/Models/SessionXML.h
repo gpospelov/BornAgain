@@ -38,6 +38,7 @@ const QString FitModelTag("FitModel");
 const QString JobModelTag("JobModel");
 const QString MaskModelTag("MaskModel");
 const QString DocumentModelTag("DocumentModel");
+const QString RealDataModelTag("RealDataModel");
 
 const QString TagAttribute("Tag");
 

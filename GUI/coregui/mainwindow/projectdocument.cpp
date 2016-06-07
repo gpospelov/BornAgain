@@ -30,6 +30,7 @@
 #include "MessageContainer.h"
 #include "GUIHelpers.h"
 #include "JobResultsPresenter.h"
+#include "GUIHelpers.h"
 #include <QFile>
 #include <QTextStream>
 #include <QFileInfo>
@@ -111,7 +112,8 @@ void ProjectDocument::setApplicationModels(ApplicationModels *applicationModels)
 
 bool ProjectDocument::save()
 {
-    reviseOutputData();
+    cleanProjectDir();
+//    reviseOutputData();
     QString filename = getProjectFileName();
 
     QFile file(filename);
@@ -121,9 +123,7 @@ bool ProjectDocument::save()
     }
     writeTo(&file);
     file.close();
-
-    // saving of non-xml data
-    saveOutputData();
+    m_applicationModels->saveNonXMLData(getProjectDir());
 
     m_modified = false;
     emit modified();
@@ -149,9 +149,7 @@ bool ProjectDocument::load(const QString &project_file_name)
         disconnectModels();
         readFrom(&file);
         file.close();
-
-        // loading accompanying non-xml data
-        loadOutputData();
+        m_applicationModels->loadNonXMLData(getProjectDir());
         connectModels();
 
     } catch (const std::exception &ex) {
@@ -235,31 +233,13 @@ void ProjectDocument::readFrom(QIODevice *device)
 
             else if (reader.name() == ProjectDocumentXML::InfoTag) {
                 //
+            } else {
+                m_applicationModels->readFrom(&reader, m_messageService);
+                if(m_messageService->hasWarnings(m_applicationModels)) {
+                    m_documentStatus = EDocumentStatus(m_documentStatus|STATUS_WARNING);
+                }
             }
 
-            else if (reader.name() == SessionXML::DocumentModelTag) {
-                readModel(m_applicationModels->documentModel(), &reader);
-            }
-
-            else if (reader.name() == SessionXML::MaterialModelTag) {
-                readModel(m_applicationModels->materialModel(), &reader);
-            }
-
-            else if (reader.name() == SessionXML::InstrumentModelTag) {
-                readModel(m_applicationModels->instrumentModel(), &reader);
-            }
-
-            else if (reader.name() == SessionXML::SampleModelTag) {
-                readModel(m_applicationModels->sampleModel(), &reader);
-            }
-
-            else if (reader.name() == SessionXML::JobModelTag) {
-                readModel(m_applicationModels->jobModel(), &reader);
-            }
-
-            /*else if (reader.name() == SessionXML::FitModelTag) {
-                readModel(m_fitModel, &reader);
-            }*/
         }
     }
 
@@ -285,72 +265,24 @@ void ProjectDocument::writeTo(QIODevice *device)
     writer.writeAttribute(ProjectDocumentXML::InfoNameAttribute, getProjectName());
     writer.writeEndElement(); // InfoTag
 
-    m_applicationModels->documentModel()->writeTo(&writer);
-    m_applicationModels->materialModel()->writeTo(&writer);
-    m_applicationModels->instrumentModel()->writeTo(&writer);
-    m_applicationModels->sampleModel()->writeTo(&writer);
-    m_applicationModels->jobModel()->writeTo(&writer);
+    m_applicationModels->writeTo(&writer);
 
     writer.writeEndElement(); // BornAgain tag
     writer.writeEndDocument();
 }
 
-void ProjectDocument::readModel(SessionModel *model, QXmlStreamReader *reader)
+//! Cleans projectDir from *.int.gz files. Done on project save.
+
+void ProjectDocument::cleanProjectDir()
 {
-//    model->setMessageService(m_messageService);
-
-    model->readFrom(reader, m_messageService);
-    if(m_messageService->hasWarnings(model)) {
-        m_documentStatus = EDocumentStatus(m_documentStatus|STATUS_WARNING);
-    }
-}
-
-//! Adjusts name of IntensityData item to possibly changed name of JobItem. Take care of old
-//! *.int files in project directory by removing them.
-void ProjectDocument::reviseOutputData()
-{
-    JobModel *jobModel = m_applicationModels->jobModel();
-    Q_ASSERT(jobModel);
-
-    for (int i = 0; i < jobModel->rowCount(QModelIndex()); ++i) {
-        JobItem *jobItem = jobModel->getJobItemForIndex(jobModel->index(i, 0, QModelIndex()));
-        IntensityDataItem *dataItem = jobItem->getIntensityDataItem();
-        if (dataItem) {
-            // handling case when user has renamed jobItem and we have to clean previous
-            // *.int file
-            QString filename = getProjectDir() + "/" + dataItem->itemName();
-            QFile fin(filename);
-            if (fin.exists()) {
-                fin.remove();
-            }
-
-            // making new name of *.int file from jobItem name
-            dataItem->setNameFromProposed(jobItem->itemName());
-        }
-    }
-}
-
-//! saves OutputData into project directory
-void ProjectDocument::saveOutputData()
-{
-    JobModel *jobModel = m_applicationModels->jobModel();
-    Q_ASSERT(jobModel);
-
-    for (int i = 0; i < jobModel->rowCount(QModelIndex()); ++i) {
-        JobItem *jobItem = jobModel->getJobItemForIndex(jobModel->index(i, 0, QModelIndex()));
-        JobResultsPresenter::saveIntensityData(jobItem, getProjectDir());
-    }
-}
-
-//! load OutputData from project directory
-void ProjectDocument::loadOutputData()
-{
-    JobModel *jobModel = m_applicationModels->jobModel();
-    Q_ASSERT(jobModel);
-
-    for (int i = 0; i < jobModel->rowCount(QModelIndex()); ++i) {
-        JobItem *jobItem = jobModel->getJobItemForIndex(jobModel->index(i, 0, QModelIndex()));
-        JobResultsPresenter::loadIntensityData(jobItem, getProjectDir());
+    QDir dir(getProjectDir());
+    QStringList filters("*.int.gz");
+    QStringList intensityFiles = dir.entryList(filters);
+    foreach(QString fileName, intensityFiles) {
+        QString filename = getProjectDir() + QStringLiteral("/") + fileName;
+        QFile fin(filename);
+        if (fin.exists())
+            fin.remove();
     }
 }
 

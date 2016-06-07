@@ -23,7 +23,6 @@
 class IntensityDataWidget;
 class QStackedWidget;
 class JobOutputDataToolBar;
-class ProjectManager;
 class JobModel;
 class JobItem;
 
@@ -31,8 +30,7 @@ class BA_CORE_API_ JobOutputDataWidget : public JobPresenter
 {
     Q_OBJECT
 public:
-    explicit JobOutputDataWidget(JobModel *jobModel, ProjectManager *projectManager,
-                                 QWidget *parent = 0);
+    explicit JobOutputDataWidget(JobModel *jobModel, QWidget *parent = 0);
 
 public slots:
     void setItem(JobItem *item);
@@ -47,7 +45,6 @@ private:
     void connectSignals();
     IntensityDataWidget *getCurrentOutputDataWidget();
 
-    ProjectManager *m_projectManager;
     QStackedWidget *m_stack;
     QMap<JobItem *, IntensityDataWidget *> m_jobItemToPlotWidget;
     JobOutputDataToolBar *m_toolBar;

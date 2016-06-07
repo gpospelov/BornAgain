@@ -23,9 +23,8 @@
 int main(int argc, char** argv)
 {
     std::string test_name;
-    if(argc > 1) {
+    if(argc > 1)
         test_name = std::string(argv[1]);
-    }
 
     FunctionalTestRegistry catalogue;
     if (!catalogue.isValidTest(test_name)) {

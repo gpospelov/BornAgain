@@ -27,7 +27,8 @@ include_directories(
     ${GSL_INCLUDE_DIR}
 )
 
-BORNAGAIN_EXECUTABLE(FitSuite LOCATION FitSuite LIBRARIES BornAgainFit BornAgainCore)
+add_executable(FitSuite FitSuite.cpp)
+target_link_libraries(FitSuite BornAgainFit BornAgainCore)
 foreach(test_case ${test_cases})
     add_test(FitSuite/${test_case} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/FitSuite ${test_case})
 endforeach()

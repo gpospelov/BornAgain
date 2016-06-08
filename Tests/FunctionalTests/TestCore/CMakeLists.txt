@@ -50,7 +50,7 @@ set(test_cases
     )
 
 # Other tests:
-set(other_executables
+set(other_tests
     BatchSimulation
     PolDWBAMagCylinders2
     )
@@ -69,14 +69,16 @@ if(MSVC)
 endif()
 
 # Setup CoreSuite:
-BORNAGAIN_EXECUTABLE(CoreSuite LOCATION CoreSuite LIBRARIES BornAgainCore)
+add_executable(CoreSuite CoreSuite.cpp)
+target_link_libraries(CoreSuite BornAgainCore)
 foreach(test_case ${test_cases})
     add_test(CoreSuite/${test_case} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/CoreSuite ${test_case})
 endforeach()
 
 # Setup other tests:
-foreach(exe ${other_executables})
-    BORNAGAIN_EXECUTABLE(${exe} LOCATION ${exe} LIBRARIES BornAgainCore)
-    add_test(${exe} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${exe})
+foreach(test ${other_tests})
+    add_executable(${test} ${test}.cpp)
+    target_link_libraries(${test} BornAgainFit BornAgainCore)
+    add_test(${test} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${test})
 endforeach()
 

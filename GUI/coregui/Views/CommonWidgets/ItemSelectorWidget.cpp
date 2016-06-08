@@ -76,20 +76,23 @@ QItemSelectionModel *ItemSelectorWidget::selectionModel()
     return m_listView->selectionModel();
 }
 
+QListView *ItemSelectorWidget::listView()
+{
+    return m_listView;
+}
+
 void ItemSelectorWidget::onSelectionChanged(const QItemSelection &selected, const QItemSelection &)
 {
     QModelIndexList indexes = selected.indexes();
     SessionItem *selectedItem(0);
     if(indexes.size()) {
         selectedItem = m_model->itemForIndex(indexes.back());
-        qDebug() << "ItemSelectorWidget::onSelectionChanged" << selectedItem->displayName();
     }
     emit selectionChanged(selectedItem);
 }
 
 void ItemSelectorWidget::onCustomContextMenuRequested(const QPoint &point)
 {
-    qDebug() << "ItemSelectorWidget::onCustomContextMenuRequested(const QPoint &point)";
     emit contextMenuRequest(m_listView->mapToGlobal(point), m_listView->indexAt(point));
 }
 

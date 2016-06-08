@@ -38,8 +38,14 @@ public:
     QSize sizeHint() const { return QSize(210, 600); }
     QSize minimumSizeHint() const { return QSize(64, 300); }
 
+signals:
+    void selectionChanged(JobItem *);
+
 public slots:
     void makeJobItemSelected(JobItem *);
+
+private slots:
+    void onSelectionChanged(JobItem *jobItem);
 
 private:
     class QSplitter *m_splitter;

@@ -18,41 +18,26 @@
 #include "JobModel.h"
 #include "JobItem.h"
 #include "JobListViewDelegate.h"
-#include "JobListToolBar.h"
-#include "IntensityDataItem.h"
 #include "ItemSelectorWidget.h"
-#include <QPushButton>
-#include <QListView>
-#include <QMenu>
 #include <QVBoxLayout>
-#include <QDebug>
-#include <QAction>
-#include <QSignalMapper>
+#include <QListView>
+#include <QItemSelectionModel>
 
 
 JobListWidget::JobListWidget(QWidget *parent)
     : QWidget(parent)
-    , m_jobModel(0)
     , m_listViewDelegate(new JobListViewDelegate(this))
     , m_listView(new ItemSelectorWidget(this))
+    , m_jobModel(0)
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
-//    m_listView->setDragEnabled(true);
-//    m_listView->setAcceptDrops(true);
-//    m_listView->setDefaultDropAction(Qt::MoveAction);
-    m_listView->setItemDelegate(m_listViewDelegate);
-//    m_listView->setContextMenuPolicy(Qt::CustomContextMenu);
-//    m_listView->setSelectionMode(QAbstractItemView::ExtendedSelection);
-
-    // connect context menu for tree view
-//    connect(m_listView, SIGNAL(customContextMenuRequested(const QPoint &)),
-//            this, SLOT(showContextMenu(const QPoint &)));
+    m_listView->listView()->setItemDelegate(m_listViewDelegate);
+    m_listView->listView()->setSelectionMode(QAbstractItemView::ExtendedSelection);
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->setMargin(0);
     mainLayout->setSpacing(0);
-
 
     QVBoxLayout *vlayout = new QVBoxLayout;
     vlayout->setMargin(10);
@@ -63,10 +48,11 @@ JobListWidget::JobListWidget(QWidget *parent)
 
     setLayout(mainLayout);
 
-//    setupContextMenuActions();
-
     connect(m_listView, SIGNAL(contextMenuRequest(const QPoint &, const QModelIndex &)),
             this, SIGNAL(contextMenuRequest(const QPoint &, const QModelIndex &)));
+
+    connect(m_listView, SIGNAL(selectionChanged(SessionItem*)),
+            this, SLOT(onItemSelectionChanged(SessionItem*)));
 
 }
 
@@ -89,7 +75,7 @@ void JobListWidget::setModel(JobModel *model)
     }
 }
 
-QItemSelectionModel *JobListWidget::getSelectionModel()
+QItemSelectionModel *JobListWidget::selectionModel()
 {
     return m_listView->selectionModel();
 }
@@ -149,6 +135,16 @@ void JobListWidget::makeJobItemSelected(const QModelIndex &index)
 
     m_listView->selectionModel()->clearSelection();
     m_listView->selectionModel()->select(index, QItemSelectionModel::Select);
+}
+
+void JobListWidget::onItemSelectionChanged(SessionItem *item)
+{
+    JobItem *jobItem(0);
+    if(item) {
+        jobItem = dynamic_cast<JobItem *>(item);
+        Q_ASSERT(jobItem);
+    }
+    emit selectionChanged(jobItem);
 }
 
 //void JobListWidget::showContextMenu(const QPoint &pnt)

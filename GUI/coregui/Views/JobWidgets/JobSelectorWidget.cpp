@@ -52,13 +52,13 @@ JobSelectorWidget::JobSelectorWidget(JobModel *jobModel, QWidget *parent)
     mainLayout->addWidget(m_splitter);
     setLayout(mainLayout);
 
-    m_jobSelectorActions->setSelectionModel(m_jobListWidget->getSelectionModel());
+    m_jobSelectorActions->setSelectionModel(m_jobListWidget->selectionModel());
     m_jobSelectorActions->setToolBar(m_toolBar);
 
-    connect(m_jobListWidget,
-            SIGNAL(contextMenuRequest(const QPoint &, const QModelIndex &)),
-            m_jobSelectorActions,
-            SLOT(onContextMenuRequest(const QPoint &, const QModelIndex &)));
+    connect(m_jobListWidget, SIGNAL(contextMenuRequest(const QPoint &, const QModelIndex &)),
+            m_jobSelectorActions, SLOT(onContextMenuRequest(const QPoint &, const QModelIndex &)));
+    connect(m_jobListWidget, SIGNAL(selectionChanged(JobItem*)),
+            this, SLOT(onSelectionChanged(JobItem*)));
 }
 
 void JobSelectorWidget::setModel(JobModel *model)
@@ -76,4 +76,10 @@ void JobSelectorWidget::makeJobItemSelected(JobItem *item)
     QModelIndex index = m_jobModel->indexOfItem(item);
     Q_ASSERT(index.isValid());
     m_jobListWidget->makeJobItemSelected(index);
+}
+
+void JobSelectorWidget::onSelectionChanged(JobItem *jobItem)
+{
+    m_jobProperties->setItem(jobItem);
+    emit selectionChanged(jobItem);
 }

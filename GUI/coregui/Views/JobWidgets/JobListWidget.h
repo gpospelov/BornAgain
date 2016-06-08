@@ -19,22 +19,17 @@
 
 #include "WinDllMacros.h"
 #include <QWidget>
-#include <QModelIndex>
 
 class JobModel;
 class JobListViewDelegate;
-class QListView;
-class QPushButton;
-class QAction;
-class JobListToolBar;
 class QItemSelectionModel;
-class QSignalMapper;
-class JobItem;
 class ItemSelectorWidget;
+class QModelIndex;
+class JobItem;
+class SessionItem;
 
-//! Widget to select JobQueueItem in a list
-//! Top left corner of JobQueueView
-//! Part of JobSelectorWidget
+//! The JobListWidget class contains list view to select job items.
+
 class BA_CORE_API_ JobListWidget : public QWidget
 {
     Q_OBJECT
@@ -46,29 +41,22 @@ public:
     QSize sizeHint() const { return QSize(64, 768); }
     QSize minimumSizeHint() const { return QSize(64, 64); }
 
-    QItemSelectionModel *getSelectionModel();
+    QItemSelectionModel *selectionModel();
 
 signals:
     void contextMenuRequest(const QPoint &point, const QModelIndex &index);
+    void selectionChanged(JobItem *);
 
 public slots:
     void makeJobItemSelected(const QModelIndex &index);
 
-//protected slots:
-//    void showContextMenu(const QPoint &pnt);
-
-//private slots:
-//    void equalizeSelectedToJob(int selected_id);
+private slots:
+    void onItemSelectionChanged(SessionItem *item);
 
 private:
-//    void setupContextMenuActions();
-
-    JobModel *m_jobModel;
     JobListViewDelegate *m_listViewDelegate;
     ItemSelectorWidget *m_listView;
-    QSignalMapper *m_signalMapper;
+    JobModel *m_jobModel;
 };
-
-
 
 #endif

@@ -50,6 +50,7 @@ private:
 
     QAction *m_runJobAction;
     QAction *m_removeJobAction;
+    //QSignalMapper *m_signalMapper;
     QItemSelectionModel *m_selectionModel;
     JobModel *m_jobModel;
 };

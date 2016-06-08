@@ -57,10 +57,23 @@ ImportDataView::ImportDataView(MainWindow *mainWindow)
 
 }
 
+void ImportDataView::onSelectionChanged(SessionItem *item)
+{
+    Q_ASSERT(item);
+
+    bool isNew(false);
+    m_stackedWidget->setItem(item, isNew);
+    if(isNew) {
+        RealDataEditorWidget *widget = m_stackedWidget->currentWidget();
+        Q_ASSERT(widget);
+        widget->setItem(item);
+    }
+}
+
 void ImportDataView::setupConnections()
 {
     connect(m_selectorWidget, SIGNAL(selectionChanged(SessionItem *)),
-        m_stackedWidget, SLOT(onSelectionChanged(SessionItem *)));
+        this, SLOT(onSelectionChanged(SessionItem *)));
 
 //    connect(m_realDataModel,
 //            SIGNAL(modelAboutToBeReset()),

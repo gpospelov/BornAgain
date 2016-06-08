@@ -36,7 +36,10 @@ public:
     ItemStackWidget(QWidget *parent = 0);
 
     void setModel(SessionModel *model);
-    virtual void setItem(SessionItem *item) = 0;
+
+    //! Shows the widget for given item (and hides previous one).
+    //! If no widget yet exists, it will be created (flag isNew will become 'true' in this case).
+    virtual void setItem(SessionItem *item, bool &isNew) = 0;
 
     QSize sizeHint() const;
     QSize minimumSizeHint() const;
@@ -49,6 +52,7 @@ public slots:
 protected:
     void connectModel();
     void disconnectModel();
+    void validateItem(SessionItem *item);
     virtual void removeWidgetForItem(SessionItem *item) = 0;
     virtual void removeWidgets() = 0;
 

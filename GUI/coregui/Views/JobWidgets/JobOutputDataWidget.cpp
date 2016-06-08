@@ -32,9 +32,9 @@
 #include "GUIHelpers.h"
 
 JobOutputDataWidget::JobOutputDataWidget(JobModel *jobModel, QWidget *parent)
-    : JobPresenter(jobModel, parent)
-    , m_stack(new QStackedWidget(this))
-    , m_toolBar(new JobOutputDataToolBar())
+    : QWidget(parent)
+    , m_stackedWidget(new ItemStackPresenter<IntensityDataWidget>)
+    , m_toolBar(new JobOutputDataToolBar)
 {
     setWindowTitle(QLatin1String("Job OutputData"));
 
@@ -46,9 +46,10 @@ JobOutputDataWidget::JobOutputDataWidget(JobModel *jobModel, QWidget *parent)
     mainLayout->setSpacing(0);
 
     mainLayout->addWidget(m_toolBar);
-    mainLayout->addWidget(m_stack);
-    m_stack->setMinimumSize(600, 600);
-    m_stack->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    mainLayout->addWidget(m_stackedWidget);
+
+    m_stackedWidget->setMinimumSize(600, 600);
+    m_stackedWidget->setModel(jobModel);
 
     setLayout(mainLayout);
 
@@ -56,71 +57,64 @@ JobOutputDataWidget::JobOutputDataWidget(JobModel *jobModel, QWidget *parent)
 }
 
 
-void JobOutputDataWidget::setItem(JobItem * item)
+void JobOutputDataWidget::setItem(JobItem * jobItem)
 {
-    //qDebug() << "JobOutputDataWidget::setItem()" << item;
-    if(!item) return;
+    if(!isValidJobItem(jobItem)) {
+        m_stackedWidget->hideWidgets();
+        return;
+    }
 
-    m_currentItem = item;
+    bool isNew(false);
+    m_stackedWidget->setItem(jobItem, isNew);
 
-    IntensityDataWidget *widget = m_jobItemToPlotWidget[item];
-    if( !widget && (item->isCompleted() || item->isCanceled())) {
-
-        widget = new IntensityDataWidget(this);
+    if(isNew) {
+        IntensityDataWidget *widget = m_stackedWidget->currentWidget();
+        Q_ASSERT(widget);
+        widget->setItem(jobItem->getIntensityDataItem());
         connect(widget, SIGNAL(savePlotRequest()), this, SLOT(onSavePlot()));
-        widget->setItem(item->getIntensityDataItem());
-        m_stack->addWidget(widget);
-        m_jobItemToPlotWidget[item] = widget;
-
-    } else {
-        if( m_stack->currentWidget() && m_stack->currentWidget() != widget) {
-            m_stack->currentWidget()->hide();
-        }
     }
 
-    if(widget) {
-        qDebug() << "JobOutputDataWidget::itemClicked() -> setCurrentWidget";
-
-        if(widget->isHidden()) {
-            widget->show();
-        }
-
-        m_stack->setCurrentWidget(widget);
-    }
 }
 
 void JobOutputDataWidget::togglePropertyPanel()
 {
-    IntensityDataWidget *widget = getCurrentOutputDataWidget();
+    IntensityDataWidget *widget = currentOutputDataWidget();
     if(widget) widget->togglePropertyPanel();
 }
 
 void JobOutputDataWidget::toggleProjections()
 {
-    IntensityDataWidget *widget = getCurrentOutputDataWidget();
+    IntensityDataWidget *widget = currentOutputDataWidget();
     if(widget) widget->toggleProjections();
 }
 
 void JobOutputDataWidget::onResetView()
 {
-    IntensityDataWidget *widget = getCurrentOutputDataWidget();
+    IntensityDataWidget *widget = currentOutputDataWidget();
     if(widget) widget->onResetView();
 }
 
 void JobOutputDataWidget::onSavePlot()
 {
-    IntensityDataWidget *widget = getCurrentOutputDataWidget();
+    IntensityDataWidget *widget = currentOutputDataWidget();
     if(widget) widget->savePlot(AppSvc::projectManager()->userExportDir());
 }
 
 void JobOutputDataWidget::onActivityChanged(int activity)
 {
     if(activity == JobViewFlags::REAL_TIME_ACTIVITY) {
-        IntensityDataWidget *widget = getCurrentOutputDataWidget();
+        IntensityDataWidget *widget = currentOutputDataWidget();
         if(widget) {
             widget->setPropertyPanelVisible(false);
         }
     }
+}
+
+bool JobOutputDataWidget::isValidJobItem(JobItem *item)
+{
+    if(!item) return false;
+    if(item->isCompleted() || item->isCanceled()) return true;
+    return false;
 }
 
 void JobOutputDataWidget::connectSignals()
@@ -131,33 +125,8 @@ void JobOutputDataWidget::connectSignals()
     connect(m_toolBar, SIGNAL(savePlot()), this, SLOT(onSavePlot()));
 }
 
-IntensityDataWidget *JobOutputDataWidget::getCurrentOutputDataWidget()
+IntensityDataWidget *JobOutputDataWidget::currentOutputDataWidget()
 {
-    IntensityDataWidget *result = dynamic_cast<IntensityDataWidget *>(m_stack->currentWidget());
-    if(result && result->isHidden()) result = 0;
-    return result;
-}
-
-void JobOutputDataWidget::onJobItemDelete(JobItem *item)
-{
-    qDebug() << "JobOutputDataWidget::onJobItemDelete()";
-    IntensityDataWidget *widget = m_jobItemToPlotWidget[item];
-    if( !widget ) {
-        // this is the case when user removes failed job which doesn't have propper widget
-        //throw GUIHelpers::Error("JobOutputDataWidget::onJobItemDelete -> Can't find widget");
-        return;
-    }
-
-    QMap<JobItem *, IntensityDataWidget *>::iterator it = m_jobItemToPlotWidget.begin();
-    while(it!=m_jobItemToPlotWidget.end()) {
-        if(it.value() == widget) {
-            it = m_jobItemToPlotWidget.erase(it);
-        } else {
-            ++it;
-        }
-    }
-
-    m_stack->removeWidget(widget);
-    delete widget;
+    return m_stackedWidget->currentWidget();
 }
 

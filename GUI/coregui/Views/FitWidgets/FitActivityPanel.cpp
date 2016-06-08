@@ -64,9 +64,8 @@ QSize FitActivityPanel::minimumSizeHint() const {
 void FitActivityPanel::setItem(JobItem *item)
 {
     qDebug() << "FitActivityPanel::setItem(JobItem *item)" << item->isValidForFitting();
-    if(!item) return;
     if(!item->isValidForFitting()) {
-        m_stackedWidget->setItem(0);
+        m_stackedWidget->hideWidgets();
         return;
     }
 
@@ -76,8 +75,13 @@ void FitActivityPanel::setItem(JobItem *item)
 
     if(!isVisible()) return;
 
-    m_stackedWidget->setItem(item);
-    if(FitSuiteWidget *widget = m_stackedWidget->currentWidget()) {
+    bool isNew(false);
+    m_stackedWidget->setItem(item, isNew);
+
+    if(isNew) {
+        FitSuiteWidget *widget = m_stackedWidget->currentWidget();
+        Q_ASSERT(widget);
+        widget->setItem(item);
         widget->setModelTuningWidget(m_realTimeWidget->getTuningWidgetForItem(item));
         connect(widget, SIGNAL(fittingStarted()), m_controlWidget,
                 SLOT(onFittingStarted()), Qt::UniqueConnection);

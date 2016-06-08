@@ -46,7 +46,7 @@ public:
     FitSuiteWidget(QWidget *parent = 0);
     ~FitSuiteWidget();
 
-    void setItem(SessionItem *item);
+    void setItem(JobItem *jobItem);
     void setModelTuningWidget(ParameterTuningWidget *tuningWidget);
 
 signals:

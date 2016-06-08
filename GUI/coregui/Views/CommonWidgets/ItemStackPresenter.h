@@ -31,8 +31,11 @@ template<class T>
 class BA_CORE_API_ ItemStackPresenter : public ItemStackWidget
 {
 public:
-    virtual void setItem(SessionItem *item) {
 
+    virtual void setItem(SessionItem *item, bool &isNew) {
+        validateItem(item);
+
+        isNew = false;
         if(!item) {
             hideWidgets();
             return;
@@ -42,9 +45,9 @@ public:
 
         if(!widget) {
             widget = new T();
+            isNew = true;
             m_stackedWidget->addWidget(widget);
             m_itemToWidget[item] = widget;
-            widget->setItem(item);
         }
         Q_ASSERT(widget);
         m_stackedWidget->setCurrentWidget(widget);
@@ -83,6 +86,8 @@ protected:
 
         m_stackedWidget->removeWidget(widget);
         delete widget;
+
+
     }
 
     void removeWidgets() {

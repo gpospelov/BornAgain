@@ -61,9 +61,8 @@ FitSuiteWidget::~FitSuiteWidget()
 
 }
 
-void FitSuiteWidget::setItem(SessionItem *item)
+void FitSuiteWidget::setItem(JobItem *jobItem)
 {
-    JobItem *jobItem = dynamic_cast<JobItem *>(item);
     Q_ASSERT(jobItem);
     m_currentItem = jobItem;
     m_fitParametersWidget->setItem(jobItem);

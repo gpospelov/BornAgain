@@ -50,6 +50,7 @@ private:
     void connectSignals();
     void connectActivityRelated();
     void connectLayoutRelated();
+    void connectJobRelated();
 
     class JobViewDocks *m_docks;
     class JobActivityStatusBar *m_jobActivityStatusBar;

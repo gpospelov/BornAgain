@@ -88,13 +88,7 @@ void JobView::connectSignals()
 {    
     connectActivityRelated();
     connectLayoutRelated();
-
-    // Focus request: JobModel -> this
-    connect(m_mainWindow->jobModel(), SIGNAL(focusRequest(JobItem *)),
-            this, SLOT(onFocusRequest(JobItem *)));
-
-    connect(m_docks->jobSelector(), SIGNAL(selectionChanged(JobItem*)),
-            this, SLOT(onSelectionChanged(JobItem*)));
+    connectJobRelated();
 }
 
 //! Connects signal related to activity change.
@@ -127,4 +121,17 @@ void JobView::connectLayoutRelated()
     // Dock menu request: JobActivityStatusBar -> this
     connect(m_jobActivityStatusBar, SIGNAL(dockMenuRequest()),
             this, SLOT(onDockMenuRequest()));
+}
+
+//! Connects signals related to JobItem
+
+void JobView::connectJobRelated()
+{
+    // Focus request: JobModel -> this
+    connect(m_mainWindow->jobModel(), SIGNAL(focusRequest(JobItem *)),
+            this, SLOT(onFocusRequest(JobItem *)));
+
+    // JobItem selection: JobSelectorWidget -> this
+    connect(m_docks->jobSelector(), SIGNAL(selectionChanged(JobItem*)),
+            this, SLOT(onSelectionChanged(JobItem*)));
 }

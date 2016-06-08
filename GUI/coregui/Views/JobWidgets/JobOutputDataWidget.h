@@ -17,36 +17,39 @@
 #ifndef JOBOUTPUTDATAWIDGET_H
 #define JOBOUTPUTDATAWIDGET_H
 
-#include "JobPresenter.h"
+#include "ItemStackPresenter.h"
 #include <QMap>
 
 class IntensityDataWidget;
-class QStackedWidget;
 class JobOutputDataToolBar;
 class JobModel;
 class JobItem;
 
-class BA_CORE_API_ JobOutputDataWidget : public JobPresenter
+//! The JobOutputDataWidget class is a central widget of JobView, shows results of the simulation.
+
+class BA_CORE_API_ JobOutputDataWidget : public QWidget
 {
     Q_OBJECT
 public:
     JobOutputDataWidget(JobModel *jobModel, QWidget *parent = 0);
 
 public slots:
-    void setItem(JobItem *item);
-    void onJobItemDelete(JobItem *item);
+    void setItem(JobItem *jobItem);
+
     void togglePropertyPanel();
     void toggleProjections();
     void onResetView();
     void onSavePlot();
     void onActivityChanged(int);
 
+protected:
+    virtual bool isValidJobItem(JobItem *item);
+
 private:
     void connectSignals();
-    IntensityDataWidget *getCurrentOutputDataWidget();
+    IntensityDataWidget *currentOutputDataWidget();
 
-    QStackedWidget *m_stack;
-    QMap<JobItem *, IntensityDataWidget *> m_jobItemToPlotWidget;
+    ItemStackPresenter<IntensityDataWidget> *m_stackedWidget;
     JobOutputDataToolBar *m_toolBar;
 };
 

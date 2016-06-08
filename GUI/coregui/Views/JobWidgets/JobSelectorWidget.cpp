@@ -61,13 +61,10 @@ JobSelectorWidget::JobSelectorWidget(JobModel *jobModel, QWidget *parent)
             this, SLOT(onSelectionChanged(JobItem*)));
 }
 
-void JobSelectorWidget::setModel(JobModel *model)
+void JobSelectorWidget::setModel(JobModel *jobModel)
 {
-    if(model != m_jobModel) {
-        m_jobModel = model;
-        m_jobListWidget->setModel(m_jobModel);
-        m_jobProperties->setModel(m_jobModel);
-    }
+    m_jobModel = jobModel;
+    m_jobListWidget->setModel(m_jobModel);
 }
 
 void JobSelectorWidget::makeJobItemSelected(JobItem *item)

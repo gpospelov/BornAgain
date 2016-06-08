@@ -19,25 +19,21 @@
 
 #include "WinDllMacros.h"
 #include <QWidget>
-#include <QMap>
-#include <memory>
 
-class JobModel;
 class JobItem;
 class QTextEdit;
 class QTabWidget;
 class ComponentEditor;
 
-//! Widget to show and change properties of currently selected JobItem
-//! Left buttom corner of JobView
+//! The JobPropertiesWidget class holds component editor for JobItem. Part of JobSelectorWidget,
+//! resides at lower left corner of JobView.
+
 class BA_CORE_API_ JobPropertiesWidget : public QWidget
 {
     Q_OBJECT
 public:
     enum ETabId { JOB_PROPERTIES, JOB_COMMENTS };
     explicit JobPropertiesWidget(QWidget *parent = 0);
-
-    void setModel(JobModel *model);
 
     QSize sizeHint() const { return QSize(64, 256); }
     QSize minimumSizeHint() const { return QSize(64, 64); }
@@ -51,7 +47,6 @@ private slots:
 private:
     void updateItem(JobItem *item);
 
-    JobModel *m_jobModel;
     JobItem *m_currentItem;
     QTabWidget *m_tabWidget;
     ComponentEditor *m_propertyEditor;

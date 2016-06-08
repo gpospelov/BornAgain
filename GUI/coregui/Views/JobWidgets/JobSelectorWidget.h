@@ -33,7 +33,7 @@ class BA_CORE_API_ JobSelectorWidget : public QWidget
 public:
     explicit JobSelectorWidget(JobModel *jobModel, QWidget *parent = 0);
 
-    void setModel(JobModel *model);
+    void setModel(JobModel *jobModel);
 
     QSize sizeHint() const { return QSize(210, 600); }
     QSize minimumSizeHint() const { return QSize(64, 300); }

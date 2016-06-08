@@ -16,22 +16,19 @@
 
 #include "JobPropertiesWidget.h"
 #include "ComponentEditor.h"
-#include "JobModel.h"
 #include "JobItem.h"
 #include "mainwindow_constants.h"
 #include <QVBoxLayout>
 #include <QTabBar>
 #include <QTextEdit>
 #include <QTabWidget>
-#include <QDebug>
 
 JobPropertiesWidget::JobPropertiesWidget(QWidget *parent)
     : QWidget(parent)
-    , m_jobModel(0)
     , m_currentItem(0)
     , m_tabWidget(new QTabWidget)
-    , m_propertyEditor(0)
-    , m_commentsEditor(0)
+    , m_propertyEditor(new ComponentEditor)
+    , m_commentsEditor(new QTextEdit)
     , m_block_update(false)
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
@@ -41,44 +38,14 @@ JobPropertiesWidget::JobPropertiesWidget(QWidget *parent)
     mainLayout->setMargin(0);
     mainLayout->setSpacing(0);
 
-    m_propertyEditor = new ComponentEditor();
-
-    m_commentsEditor = new QTextEdit();
-    connect(m_commentsEditor, SIGNAL(textChanged()), this, SLOT(onTextChanged()));
-
-    QWidget *commentsWidget = new QWidget();
-    QVBoxLayout * vlayout = new QVBoxLayout;
-    vlayout->setMargin(8);
-    vlayout->addWidget(m_commentsEditor);
-    commentsWidget->setLayout(vlayout);
-
     m_tabWidget->setTabPosition(QTabWidget::South);
     m_tabWidget->insertTab(JOB_PROPERTIES, m_propertyEditor, "Job Properties");
-    m_tabWidget->insertTab(JOB_COMMENTS, commentsWidget, "Details");
+    m_tabWidget->insertTab(JOB_COMMENTS, m_commentsEditor, "Details");
 
     mainLayout->addWidget(m_tabWidget);
-
     setLayout(mainLayout);
-}
 
-void JobPropertiesWidget::setModel(JobModel *model)
-{
-    Q_ASSERT(model);
-    if(model != m_jobModel) {
-        if(m_jobModel)
-            disconnect(m_jobModel,
-                SIGNAL( selectionChanged(JobItem *) ),
-                this,
-                SLOT( setItem(JobItem *) )
-                );
-
-        m_jobModel = model;
-        connect(m_jobModel,
-            SIGNAL( selectionChanged(JobItem *) ),
-            this,
-            SLOT( setItem(JobItem *) )
-            );
-    }
+    connect(m_commentsEditor, SIGNAL(textChanged()), this, SLOT(onTextChanged()));
 }
 
 void JobPropertiesWidget::setItem(JobItem *jobItem)
@@ -105,7 +72,6 @@ void JobPropertiesWidget::setItem(JobItem *jobItem)
             }
         }, this);
     }
-
 }
 
 void JobPropertiesWidget::onTextChanged()

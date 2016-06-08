@@ -36,7 +36,7 @@ class ParameterTuningWidget : public QWidget
     Q_OBJECT
 
 public:
-    ParameterTuningWidget(JobModel *jobModel, QWidget *parent = 0);
+    explicit ParameterTuningWidget(QWidget *parent = 0);
 
     void setItem(JobItem *item);
 

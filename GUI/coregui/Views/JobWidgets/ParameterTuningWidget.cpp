@@ -45,9 +45,9 @@ const int warning_sign_xpos = 38;
 const int warning_sign_ypos = 38;
 }
 
-ParameterTuningWidget::ParameterTuningWidget(JobModel *jobModel, QWidget *parent)
+ParameterTuningWidget::ParameterTuningWidget(QWidget *parent)
     : QWidget(parent)
-    , m_jobModel(jobModel)
+    , m_jobModel(0)
     , m_currentJobItem(0)
     , m_parameterTuningModel(0)
     , m_sliderSettingsWidget(new SliderSettingsWidget(this))
@@ -102,6 +102,8 @@ void ParameterTuningWidget::setItem(JobItem *item)
 
         m_currentJobItem = item;
         if (!m_currentJobItem) return;
+
+        m_jobModel = dynamic_cast<JobModel *>(m_currentJobItem->model());
 
         updateParameterModel();
 
@@ -165,6 +167,7 @@ void ParameterTuningWidget::onLockZValueChanged(bool value)
 
 void ParameterTuningWidget::updateParameterModel()
 {
+    Q_ASSERT(m_jobModel);
     qDebug() << "ModelTuningWidget::updateParameterModel()";
 
     if(!m_currentJobItem) return;
@@ -192,6 +195,7 @@ void ParameterTuningWidget::onCustomContextMenuRequested(const QPoint &point)
 
 void ParameterTuningWidget::restoreModelsOfCurrentJobItem()
 {
+    Q_ASSERT(m_jobModel);
     Q_ASSERT(m_currentJobItem);
 
     if(m_currentJobItem->isRunning())

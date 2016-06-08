@@ -73,40 +73,37 @@ void JobOutputDataWidget::setItem(JobItem * jobItem)
         widget->setItem(jobItem->getIntensityDataItem());
         connect(widget, SIGNAL(savePlotRequest()), this, SLOT(onSavePlot()));
     }
-
 }
 
 void JobOutputDataWidget::togglePropertyPanel()
 {
-    IntensityDataWidget *widget = currentOutputDataWidget();
-    if(widget) widget->togglePropertyPanel();
+    if(auto widget = currentOutputDataWidget())
+        widget->togglePropertyPanel();
 }
 
 void JobOutputDataWidget::toggleProjections()
 {
-    IntensityDataWidget *widget = currentOutputDataWidget();
-    if(widget) widget->toggleProjections();
+    if(auto widget = currentOutputDataWidget())
+        widget->toggleProjections();
 }
 
 void JobOutputDataWidget::onResetView()
 {
-    IntensityDataWidget *widget = currentOutputDataWidget();
-    if(widget) widget->onResetView();
+    if(auto widget = currentOutputDataWidget())
+        widget->onResetView();
 }
 
 void JobOutputDataWidget::onSavePlot()
 {
-    IntensityDataWidget *widget = currentOutputDataWidget();
-    if(widget) widget->savePlot(AppSvc::projectManager()->userExportDir());
+    if(auto widget = currentOutputDataWidget())
+        widget->savePlot(AppSvc::projectManager()->userExportDir());
 }
 
 void JobOutputDataWidget::onActivityChanged(int activity)
 {
     if(activity == JobViewFlags::REAL_TIME_ACTIVITY) {
-        IntensityDataWidget *widget = currentOutputDataWidget();
-        if(widget) {
+        if(auto widget = currentOutputDataWidget())
             widget->setPropertyPanelVisible(false);
-        }
     }
 }
 

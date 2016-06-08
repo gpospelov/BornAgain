@@ -16,17 +16,15 @@
 
 #include "JobView.h"
 #include "JobViewDocks.h"
-#include "JobQueueData.h"
 #include "JobSelectorWidget.h"
 #include "JobOutputDataWidget.h"
+#include "JobRealTimeWidget.h"
 #include "JobProgressAssistant.h"
 #include "JobModel.h"
 #include "mainwindow.h"
 #include "JobActivityStatusBar.h"
 #include <QMenu>
 #include <QCursor>
-#include <QDebug>
-
 
 JobView::JobView(MainWindow *mainWindow)
     : m_docks(new JobViewDocks(this))
@@ -67,8 +65,8 @@ void JobView::onDockMenuRequest()
 
 void JobView::onSelectionChanged(JobItem *jobItem)
 {
-    qDebug() << "JobView::onSelectionChanged(JobItem *jobItem)";
     m_docks->jobOutputDataWidget()->setItem(jobItem);
+    m_docks->jobRealTimeWidget()->setItem(jobItem);
 }
 
 void JobView::showEvent(QShowEvent *)

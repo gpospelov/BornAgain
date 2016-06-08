@@ -22,7 +22,7 @@
 
 class MainWindow;
 
-//! The JobView class is a main view to show list of jobs, their results and widgets for real time
+//! The JobView class is a main view to show list of jobs, job results and widgets for real time
 //! and fitting activities.
 
 class BA_CORE_API_ JobView : public Manhattan::FancyMainWindow

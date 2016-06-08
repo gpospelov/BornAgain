@@ -82,7 +82,7 @@ void FitActivityPanel::setItem(JobItem *item)
         FitSuiteWidget *widget = m_stackedWidget->currentWidget();
         Q_ASSERT(widget);
         widget->setItem(item);
-        widget->setModelTuningWidget(m_realTimeWidget->getTuningWidgetForItem(item));
+        widget->setModelTuningWidget(m_realTimeWidget->parameterTuningWidget(item));
         connect(widget, SIGNAL(fittingStarted()), m_controlWidget,
                 SLOT(onFittingStarted()), Qt::UniqueConnection);
         connect(widget, SIGNAL(fittingFinished()), m_controlWidget,

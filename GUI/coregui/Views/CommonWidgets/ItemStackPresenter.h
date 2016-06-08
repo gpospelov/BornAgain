@@ -60,6 +60,10 @@ public:
         return dynamic_cast<T *>(m_stackedWidget->currentWidget());
     }
 
+    T *itemWidget(SessionItem *item) {
+        return m_itemToWidget[item];
+    }
+
     void hideWidgets() {
         if(m_stackedWidget->currentWidget()) {
             m_stackedWidget->currentWidget()->hide();

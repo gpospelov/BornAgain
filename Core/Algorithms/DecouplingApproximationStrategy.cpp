@@ -44,7 +44,7 @@ double DecouplingApproximationStrategy::evaluateForList(const SimulationElement&
     for (size_t i = 0; i < m_ff_infos.size(); ++i) {
         complex_t ff = ff_list[i];
 
-        if (MathFunctions::isnan(ff.real())) {
+        if (std::isnan(ff.real())) {
             throw RuntimeErrorException("DecouplingApproximationStrategy::evaluateForList() -> "
                                         "Error! Amplitude is NaN");
         }

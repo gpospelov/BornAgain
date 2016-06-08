@@ -281,73 +281,45 @@ Returns result of rotation around the axis specified by another vector.
 ";
 
 %feature("docstring")  Geometry::BasicVector3D::conj "BasicVector3D< double > Geometry::BasicVector3D< double >::conj() const
-
-Returns complex conjugate vector. 
 ";
 
 %feature("docstring")  Geometry::BasicVector3D::conj "BasicVector3D< complex_t > Geometry::BasicVector3D< complex_t >::conj() const
-
-Returns complex conjugate vector. 
 ";
 
 %feature("docstring")  Geometry::BasicVector3D::phi "double Geometry::BasicVector3D< double >::phi() const
-
-Returns azimuth angle. 
 ";
 
 %feature("docstring")  Geometry::BasicVector3D::theta "double Geometry::BasicVector3D< double >::theta() const
-
-Returns polar angle. 
 ";
 
 %feature("docstring")  Geometry::BasicVector3D::cosTheta "double Geometry::BasicVector3D< double >::cosTheta() const
-
-Returns cosine of polar angle. 
 ";
 
 %feature("docstring")  Geometry::BasicVector3D::sin2Theta "double Geometry::BasicVector3D< double >::sin2Theta() const
-
-Returns squared sine of polar angle. 
 ";
 
 %feature("docstring")  Geometry::BasicVector3D::complex "BasicVector3D< std::complex< double > > Geometry::BasicVector3D< double >::complex() const
-
-Returns this, trivially converted to complex type. 
 ";
 
 %feature("docstring")  Geometry::BasicVector3D::dot "complex_t Geometry::BasicVector3D< complex_t >::dot(const BasicVector3D< complex_t > &v) const
-
-Returns dot product of complex vectors (antilinear in the first [=self] argument). 
 ";
 
 %feature("docstring")  Geometry::BasicVector3D::dot "complex_t Geometry::BasicVector3D< complex_t >::dot(const BasicVector3D< double > &v) const
-
-Returns mixed dot product of complex and double vectors (antilinear in the complex argument). 
 ";
 
 %feature("docstring")  Geometry::BasicVector3D::dot "complex_t Geometry::BasicVector3D< double >::dot(const BasicVector3D< complex_t > &v) const
-
-Returns mixed dot product of double and complex vectors (linear in the complex argument). 
 ";
 
 %feature("docstring")  Geometry::BasicVector3D::dot "double Geometry::BasicVector3D< double >::dot(const BasicVector3D< double > &v) const
-
-Returns dot product of double-typed vectors. 
 ";
 
 %feature("docstring")  Geometry::BasicVector3D::cross "BasicVector3D< double > Geometry::BasicVector3D< double >::cross(const BasicVector3D< double > &v) const
-
-Returns cross product of double-typed vectors. 
 ";
 
 %feature("docstring")  Geometry::BasicVector3D::cross "BasicVector3D< complex_t > Geometry::BasicVector3D< double >::cross(const BasicVector3D< complex_t > &v) const
-
-Returns mixed cross product of double and complex vectors. 
 ";
 
 %feature("docstring")  Geometry::BasicVector3D::angle "double Geometry::BasicVector3D< double >::angle(const BasicVector3D< double > &v) const
-
-Returns angle with respect to another vector. 
 ";
 
 %feature("docstring")  Geometry::BasicVector3D::dot "BA_CORE_API_ std::complex< double > Geometry::BasicVector3D< std::complex< double > >::dot(const BasicVector3D< std::complex< double > > &v) const
@@ -13590,10 +13562,10 @@ C++ includes: WavevectorInfo.h
 // File: namespace_0D360.xml
 
 
-// File: namespace_0D67.xml
+// File: namespace@67.xml
 
 
-// File: namespace_0D95.xml
+// File: namespace@95.xml
 
 
 // File: namespaceboost_1_1geometry.xml
@@ -13759,12 +13731,6 @@ convolution of two real vectors of equal size
 ";
 
 %feature("docstring")  MathFunctions::GenerateNormalRandom "double MathFunctions::GenerateNormalRandom(double average, double std_dev)
-";
-
-%feature("docstring")  MathFunctions::isnan "BA_CORE_API_ bool MathFunctions::isnan(double x)
-";
-
-%feature("docstring")  MathFunctions::isinf "BA_CORE_API_ bool MathFunctions::isinf(double x)
 ";
 
 
@@ -15344,6 +15310,9 @@ creation function
 
 
 // File: INamed_8h.xml
+
+
+// File: BAConfigure_8h.xml
 
 
 // File: IntegratorComplex_8h.xml

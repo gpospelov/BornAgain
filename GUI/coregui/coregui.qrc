@@ -44,5 +44,6 @@
         <file>images/toolbar16light_recycle.svg</file>
         <file>images/toolbar16light_newitem.svg</file>
         <file>images/toolbar16light_cloneitem.svg</file>
+        <file>images/toolbar16light_run.svg</file>
     </qresource>
 </RCC>

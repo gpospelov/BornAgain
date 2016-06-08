@@ -23,8 +23,8 @@
 #include <QMap>
 #include <QVector>
 
-//! The JobViewActivities class is a helper static class to get list of activities,
-//! and JobView's dock Ids which should be shown/hidden during current activity.
+//! The JobViewActivities class is a helper static class to get info related to JobView activities
+//! (JobViewActivity, RealTimeActivity and FittingActivity).
 
 class BA_CORE_API_ JobViewActivities {
 

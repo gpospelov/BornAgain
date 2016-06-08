@@ -16,33 +16,32 @@
 
 #include "JobSelectorWidget.h"
 #include "JobModel.h"
+#include "JobSelectorActions.h"
+#include "mainwindow_constants.h"
 #include "JobItem.h"
 #include "JobPropertiesWidget.h"
 #include "JobListWidget.h"
-#include "styledbar.h"
+#include "StyledToolBar.h"
 #include "minisplitter.h"
-#include "progressbar.h"
-#include <QSplitter>
-#include <QListView>
-#include <QPushButton>
-#include <QVBoxLayout>
 #include <QHBoxLayout>
-#include <QDebug>
 
-JobSelectorWidget::JobSelectorWidget(JobModel *model, QWidget *parent)
+JobSelectorWidget::JobSelectorWidget(JobModel *jobModel, QWidget *parent)
     : QWidget(parent)
-    , m_jobModel(0)
     , m_splitter(new Manhattan::MiniSplitter(this))
+    , m_toolBar(new StyledToolBar(this))
+    , m_jobSelectorActions(new JobSelectorActions(jobModel, this))
     , m_jobListWidget(new JobListWidget(this))
     , m_jobProperties(new JobPropertiesWidget(this))
+    , m_jobModel(0)
 {
-    setModel(model);
+    setModel(jobModel);
 
     setMinimumSize(128, 600);
     setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
-    setWindowTitle(QLatin1String("Job Selector"));
+    setWindowTitle(Constants::JobSelectorWidgetName);
 
     m_splitter->setOrientation(Qt::Vertical);
+    m_splitter->addWidget(m_toolBar);
     m_splitter->addWidget(m_jobListWidget);
     m_splitter->addWidget(m_jobProperties);
     m_splitter->setChildrenCollapsible(true);
@@ -52,8 +51,10 @@ JobSelectorWidget::JobSelectorWidget(JobModel *model, QWidget *parent)
     mainLayout->setSpacing(0);
     mainLayout->addWidget(m_splitter);
     setLayout(mainLayout);
-}
 
+    m_jobSelectorActions->setSelectionModel(m_jobListWidget->getSelectionModel());
+    m_jobSelectorActions->setToolBar(m_toolBar);
+}
 
 void JobSelectorWidget::setModel(JobModel *model)
 {
@@ -67,7 +68,6 @@ void JobSelectorWidget::setModel(JobModel *model)
 void JobSelectorWidget::makeJobItemSelected(JobItem *item)
 {
     Q_ASSERT(item);
-    //qDebug() << "JobSelectorWidget::makeJobItemSelected(NJobItem *item)" << item;
     QModelIndex index = m_jobModel->indexOfItem(item);
     Q_ASSERT(index.isValid());
     m_jobListWidget->makeJobItemSelected(index);

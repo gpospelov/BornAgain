@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      coregui/Views/JobWidgets/JobSelectorWidget.h
-//! @brief     Implements class JobSelectorWidget
+//! @brief     Declares class JobSelectorWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -22,18 +22,16 @@
 
 class JobModel;
 class JobItem;
-class JobPropertiesWidget;
-class QSplitter;
-class QPushButton;
-class JobListWidget;
 
-//! Widget to select JobQueueItem in a list and display its properties
-//! Left side of JobQueueView
-//! Contains two widgets: JobListWidget (top) and JobQueueProperties(buttom)
+//! The JobSelectorWidget class represents left panel of JobView. Contains a tree to select jobs
+//! on the top and job property editor at the bottom.
+
 class BA_CORE_API_ JobSelectorWidget : public QWidget
 {
+    Q_OBJECT
+
 public:
-    explicit JobSelectorWidget(JobModel *model, QWidget *parent = 0);
+    explicit JobSelectorWidget(JobModel *jobModel, QWidget *parent = 0);
 
     void setModel(JobModel *model);
 
@@ -44,13 +42,12 @@ public slots:
     void makeJobItemSelected(JobItem *);
 
 private:
+    class QSplitter *m_splitter;
+    class StyledToolBar *m_toolBar;
+    class JobSelectorActions *m_jobSelectorActions;
+    class JobListWidget *m_jobListWidget;
+    class JobPropertiesWidget *m_jobProperties;
     JobModel *m_jobModel;
-    QSplitter *m_splitter;
-    JobListWidget *m_jobListWidget;
-    JobPropertiesWidget *m_jobProperties;
 };
-
-
-
 
 #endif

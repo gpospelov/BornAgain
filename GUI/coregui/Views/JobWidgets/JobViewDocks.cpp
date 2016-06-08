@@ -152,7 +152,7 @@ void JobViewDocks::initJobWidgets(JobModel *jobModel)
     m_jobView->setCentralWidget(centralWidget());
 }
 
-//! Init docks for JobView
+//! Init docks for JobView.
 
 void JobViewDocks::initDocks()
 {

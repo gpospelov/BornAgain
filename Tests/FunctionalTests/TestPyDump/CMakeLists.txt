@@ -2,6 +2,48 @@
 # FunctionalTests/TestPyDump/CMakeLists.txt
 ############################################################################
 
+set(test_cases
+    ApproximationDA
+    ApproximationLMA
+    ApproximationSSCA
+    Basic2DParaCrystal
+    BeamDivergence
+    BoxCompositionRotateX
+    BoxCompositionRotateY
+    BoxCompositionRotateZ
+    BoxCompositionRotateZandY
+    BoxStackComposition
+    CenteredSquareLattice
+    CoreShellBoxRotateZandY
+    CoreShellParticle
+    CosineRipple
+    CylindersAndPrisms
+    CylindersInSSCA
+    CylindersWithSizeDistribution
+    DetectorResolution
+    FormFactors
+    HexParaCrystal
+    LargeCylindersMonteCarlo
+    Lattice1D
+    MultiLayerWithRoughness
+    MultipleLayout
+    ParticleComposition
+    RadialParaCrystal
+    RectDetectorGeneric
+    RectDetectorPerpToDirectBeam
+    RectDetectorPerpToReflectedBeam
+    RectDetectorPerpToReflectedBeamDpos
+    RectDetectorPerpToSample
+    RectParaCrystal
+    RotatedPyramids
+    RotatedSquareLattice
+    SimulationWithMasks
+    SquareLattice
+    TransformBox
+    TriangularRipple
+    TwoTypesCylindersDistribution
+)
+
 # for some reason these flags doesn't propagated here by SetUpWindows.cmake
 if(MSVC)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /EHsc ")
@@ -15,57 +57,7 @@ include_directories(
     ${GSL_INCLUDE_DIR}
 )
 
-set(list_of_tests
-    "PySuite/FormFactors"
-    "PySuite/CylindersAndPrisms"
-    "PySuite/RadialParaCrystal"
-    "PySuite/Basic2DParaCrystal"
-    "PySuite/HexParaCrystal"
-    "PySuite/Lattice1D"
-    "PySuite/RectParaCrystal"
-    "PySuite/CoreShellParticle"
-    "PySuite/CoreShellBoxRotateZandY"
-    "PySuite/MultiLayerWithRoughness"
-    "PySuite/SquareLattice"
-    "PySuite/CenteredSquareLattice"
-    "PySuite/RotatedSquareLattice"
-    "PySuite/RotatedPyramids"
-    "PySuite/ParticleComposition"
-    "PySuite/CylindersWithSizeDistribution"
-    "PySuite/TwoTypesCylindersDistribution"
-    "PySuite/BeamDivergence"
-    "PySuite/DetectorResolution"
-    "PySuite/MultipleLayout"
-    "PySuite/ApproximationDA"
-    "PySuite/ApproximationLMA"
-    "PySuite/ApproximationSSCA"
-    "PySuite/CylindersInSSCA"
-    "PySuite/CosineRipple"
-    "PySuite/TriangularRipple"
-    "PySuite/TransformBox"
-    "PySuite/BoxCompositionRotateX"
-    "PySuite/BoxCompositionRotateY"
-    "PySuite/BoxCompositionRotateZ"
-    "PySuite/BoxCompositionRotateZandY"
-    "PySuite/BoxStackComposition"
-    "PySuite/SimulationWithMasks"
-    "PySuite/RectDetectorGeneric"
-    "PySuite/RectDetectorPerpToSample"
-    "PySuite/RectDetectorPerpToDirectBeam"
-    "PySuite/RectDetectorPerpToReflectedBeam"
-    "PySuite/RectDetectorPerpToReflectedBeamDpos"
-    "PySuite/LargeCylindersMonteCarlo"
-)
-
-# Adding executables.
-GET_LIST_OF_EXECUTABLES_FROM_LIST_OF_TESTS("${list_of_tests}" ${list_of_executables})
-foreach(test_exe_name ${list_of_executables})
-    BORNAGAIN_EXECUTABLE(${test_exe_name} LOCATION ${test_exe_name}
-        LIBRARIES ${BornAgainCore_LIBRARY})
-endforeach()
-
-# Adding tests
-foreach(_test ${list_of_tests})
-    GET_TEST_NAME_AND_ARGUMENT(${_test} ${test_exe_name} ${test_argument})
-    BORNAGAIN_ADD_TEST(${_test} ${test_exe_name} COMPONENT ${test_argument})
+BORNAGAIN_EXECUTABLE(PySuite LOCATION PySuite LIBRARIES BornAgainCore)
+foreach(test_case ${test_cases})
+    add_test(PySuite/${test_case} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/PySuite ${test_case})
 endforeach()

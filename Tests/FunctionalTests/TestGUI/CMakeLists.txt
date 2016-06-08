@@ -2,6 +2,49 @@
 # FunctionalTests/TestGUI/CMakeLists.txt
 ############################################################################
 
+set(test_cases
+    ApproximationDA
+    ApproximationLMA
+    ApproximationSSCA
+    Basic2DParaCrystal
+    BeamDivergence
+    BoxCompositionRotateX
+    BoxCompositionRotateY
+    BoxCompositionRotateZ
+    BoxCompositionRotateZandY
+    BoxStackComposition
+    CenteredSquareLattice
+    CoreShellBoxRotateZandY
+    CoreShellParticle
+    CosineRipple
+    CylindersAndPrisms
+#    CylindersInSSCA # no yet implemented (linked parameter)
+    CylindersWithSizeDistribution
+    DetectorResolution
+    FormFactors
+    HexParaCrystal
+    LargeCylindersMonteCarlo
+    Lattice1D
+    MultiLayerWithRoughness
+    MultipleLayout
+    ParticleComposition
+    RadialParaCrystal
+    RectDetectorGeneric
+    RectDetectorPerpToDirectBeam
+    RectDetectorPerpToReflectedBeam
+    RectDetectorPerpToReflectedBeamDpos
+    RectDetectorPerpToSample
+    RectParaCrystal
+    RotatedPyramids
+    RotatedSquareLattice
+    SimulationWithMasks
+    SquareLattice
+    TransformBox
+    TriangularRipple
+    TwoTypesCylindersDistribution
+)
+
+
 if(POLICY CMP0020)
     cmake_policy(SET CMP0020 NEW)
 endif()
@@ -25,58 +68,8 @@ include_directories(
     ${GSL_INCLUDE_DIR}
 )
 
-set(list_of_tests
-    "GUISuite/FormFactors"
-    "GUISuite/CylindersAndPrisms"
-    "GUISuite/RadialParaCrystal"
-    "GUISuite/Basic2DParaCrystal"
-    "GUISuite/HexParaCrystal"
-    "GUISuite/Lattice1D"
-    "GUISuite/RectParaCrystal"
-    "GUISuite/CoreShellParticle"
-    "GUISuite/CoreShellBoxRotateZandY"
-    "GUISuite/MultiLayerWithRoughness"
-    "GUISuite/SquareLattice"
-    "GUISuite/CenteredSquareLattice"
-    "GUISuite/RotatedSquareLattice"
-    "GUISuite/RotatedPyramids"
-    "GUISuite/ParticleComposition"
-    "GUISuite/CylindersWithSizeDistribution"
-    "GUISuite/TwoTypesCylindersDistribution"
-    "GUISuite/BeamDivergence"
-    "GUISuite/DetectorResolution"
-    "GUISuite/MultipleLayout"
-    "GUISuite/ApproximationDA"
-    "GUISuite/ApproximationLMA"
-    "GUISuite/ApproximationSSCA"
-#    "GUISuite/CylindersInSSCA" # no yet implemented (linked parameter)
-    "GUISuite/CosineRipple"
-    "GUISuite/TriangularRipple"
-    "GUISuite/TransformBox"
-    "GUISuite/BoxCompositionRotateX"
-    "GUISuite/BoxCompositionRotateY"
-    "GUISuite/BoxCompositionRotateZ"
-    "GUISuite/BoxCompositionRotateZandY"
-    "GUISuite/BoxStackComposition"
-    "GUISuite/SimulationWithMasks"
-    "GUISuite/RectDetectorGeneric"
-    "GUISuite/RectDetectorPerpToSample"
-    "GUISuite/RectDetectorPerpToDirectBeam"
-    "GUISuite/RectDetectorPerpToReflectedBeam"
-    "GUISuite/RectDetectorPerpToReflectedBeamDpos"
-    "GUISuite/LargeCylindersMonteCarlo"
-)
-
-# Adding executables.
-GET_LIST_OF_EXECUTABLES_FROM_LIST_OF_TESTS("${list_of_tests}" ${list_of_executables})
-foreach(test_exe_name ${list_of_executables})
-    BORNAGAIN_EXECUTABLE(${test_exe_name} LOCATION ${test_exe_name}
-        LIBRARIES ${BornAgainCore_LIBRARY} ${BornAgainGUI_LIBRARY})
-    qt5_use_modules(${test_exe_name} Widgets Core Gui Designer PrintSupport Network)
-endforeach()
-
-# Adding tests
-foreach(_test ${list_of_tests})
-    GET_TEST_NAME_AND_ARGUMENT(${_test} ${test_exe_name} ${test_argument})
-    BORNAGAIN_ADD_TEST(${_test} ${test_exe_name} COMPONENT ${test_argument})
+BORNAGAIN_EXECUTABLE(GUISuite LOCATION GUISuite LIBRARIES BornAgainCore BornAgainGUI)
+qt5_use_modules(GUISuite Widgets Core Gui Designer PrintSupport Network)
+foreach(test_case ${test_cases})
+    add_test(GUISuite/${test_case} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/GUISuite ${test_case})
 endforeach()

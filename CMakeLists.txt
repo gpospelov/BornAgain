@@ -28,9 +28,9 @@ option(BORNAGAIN_TIFF_SUPPORT "Tiff files read/write support" ON)
 option(AUTOGENERATE "Regenerate directory auto (Py docs, Py wrappers, man page)" OFF)
 
 if(AUTOGENERATE)
-    set(BORNAGAIN_MANPAGE=ON)
-    set(BORNAGAIN_GENERATE_PYTHON_DOCS=ON)
-    set(BORNAGAIN_GENERATE_BINDINGS=ON)
+    set(BORNAGAIN_MANPAGE ON)
+    set(BORNAGAIN_GENERATE_PYTHON_DOCS ON)
+    set(BORNAGAIN_GENERATE_BINDINGS ON)
 endif()
   
 #--- Include CMake macros and functions ---

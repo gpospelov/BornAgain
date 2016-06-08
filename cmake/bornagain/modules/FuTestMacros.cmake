@@ -52,23 +52,15 @@ function(BORNAGAIN_EXECUTABLE executable)
 
     add_executable(${executable} ${source_files} ) # don't EXCLUDE_FROM_ALL
 
-    foreach(_libname ${ARG_LIBRARIES})
-        include_directories(${${_libname}_INCLUDE_DIRS})
-        target_link_libraries(${executable} ${_libname})
-    endforeach()
+    target_link_libraries(${executable} ${ARG_LIBRARIES})
 endfunction()
 
 
 # -----------------------------------------------------------------------------
-# advanced add cmake test which allows to pass separately:
-# test_name - the name of the test as appears on ctest summary table
-# text_exe  - actual executable name
-#
-# together with additional command line arguments for the test executable
-# TEST_ARGUMENTS - any command line argument
+# BORNAGAIN_ADD_TEST( name executable [COMPONENT component] )
 # -----------------------------------------------------------------------------
 function(BORNAGAIN_ADD_TEST test_name test_exe)
     cmake_parse_arguments(ARG "" "COMPONENT" "" "" ${ARGN})
-    message(STATUS "ANAFU ADD [${ARGN}] -> [${test_name} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${test_exe} ${ARG_COMPONENT}]")
+    message(STATUS "ANAFU ADD [${test_name} ${test_exe} ${ARG_COMPONENT}]")
     add_test(${test_name} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${test_exe} ${ARG_COMPONENT})
 endfunction()

@@ -19,9 +19,9 @@
 #include "JobQueueData.h"
 #include "JobSelectorWidget.h"
 #include "JobOutputDataWidget.h"
+#include "JobProgressAssistant.h"
 #include "JobModel.h"
 #include "mainwindow.h"
-#include "progressbar.h"
 #include "JobActivityStatusBar.h"
 #include <QMenu>
 #include <QCursor>
@@ -31,25 +31,13 @@
 JobView::JobView(MainWindow *mainWindow)
     : m_docks(new JobViewDocks(this))
     , m_jobActivityStatusBar(new JobActivityStatusBar(mainWindow))
+    , m_progressAssistant(new JobProgressAssistant(mainWindow))
     , m_mainWindow(mainWindow)
 {
     setObjectName("JobView");
     m_docks->initViews(mainWindow->jobModel());
 
     connectSignals();
-}
-
-void JobView::updateGlobalProgressBar(int progress)
-{
-    Q_ASSERT(m_mainWindow->progressBar());
-    if(progress<0 || progress >= 100) {
-        m_mainWindow->progressBar()->setFinished(true);
-        m_mainWindow->progressBar()->hide();
-    } else {
-        m_mainWindow->progressBar()->show();
-        m_mainWindow->progressBar()->setFinished(false);
-        m_mainWindow->progressBar()->setValue(progress);
-    }
 }
 
 void JobView::onFocusRequest(JobItem *item)
@@ -86,31 +74,43 @@ void JobView::hideEvent(QHideEvent *)
 
 
 void JobView::connectSignals()
-{
-    Q_ASSERT(m_mainWindow->progressBar());
-    Q_ASSERT(m_mainWindow->jobModel());
+{    
+    connectActivityRelated();
+    connectLayoutRelated();
 
-    connect(this, SIGNAL(resetLayout()), m_docks, SLOT(onResetLayout()));
-    connect(m_jobActivityStatusBar, SIGNAL(toggleJobSelectorRequest()),
-            m_docks, SLOT(onToggleJobSelector()));
-
-    connect(m_mainWindow->jobModel(), SIGNAL(globalProgress(int)),
-            this, SLOT(updateGlobalProgressBar(int)));
+    // Focus request: JobModel -> this
     connect(m_mainWindow->jobModel(), SIGNAL(focusRequest(JobItem *)),
             this, SLOT(onFocusRequest(JobItem *)));
-    connect(m_mainWindow->progressBar(), SIGNAL(clicked()),
-            m_mainWindow->jobModel()->getJobQueueData(), SLOT(onCancelAllJobs()));
+}
 
-    // global statusBar notifies JobView about changes in the activity
+//! Connects signal related to activity change.
+
+void JobView::connectActivityRelated()
+{
+    // Change activity requests: JobActivityStatusBar -> this
     connect(m_jobActivityStatusBar, SIGNAL(changeActivityRequest(int)),
             this, SLOT(setActivity(int)));
 
-    connect(m_jobActivityStatusBar, SIGNAL(dockMenuRequest()),
-            this, SLOT(onDockMenuRequest()));
-
-    // JobView notifies others about changes in the activity
+    // Activity was changed: this -> JobActivityStatusBar
     connect(this, SIGNAL(activityChanged(int)),
             m_jobActivityStatusBar, SLOT(onActivityChanged(int)));
+
+    // Activity was changed: this -> JobOutputDataWidget
     connect(this, SIGNAL(activityChanged(int)),
             m_docks->jobOutputDataWidget(), SLOT(onActivityChanged(int)));
+}
+
+//! Connects signals related to dock layout.
+
+void JobView::connectLayoutRelated()
+{
+    connect(this, SIGNAL(resetLayout()), m_docks, SLOT(onResetLayout()));
+
+    // Toggling of JobSelector request: JobActivityStatusBar -> this
+    connect(m_jobActivityStatusBar, SIGNAL(toggleJobSelectorRequest()),
+            m_docks, SLOT(onToggleJobSelector()));
+
+    // Dock menu request: JobActivityStatusBar -> this
+    connect(m_jobActivityStatusBar, SIGNAL(dockMenuRequest()),
+            this, SLOT(onDockMenuRequest()));
 }

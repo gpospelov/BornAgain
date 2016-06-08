@@ -37,7 +37,6 @@ signals:
     void activityChanged(int activity);
 
 public slots:
-    void updateGlobalProgressBar(int);
     void onFocusRequest(class JobItem *);
     void setActivity(int activity);
     void onDockMenuRequest();
@@ -48,9 +47,12 @@ protected:
 
 private:
     void connectSignals();
+    void connectActivityRelated();
+    void connectLayoutRelated();
 
     class JobViewDocks *m_docks;
     class JobActivityStatusBar *m_jobActivityStatusBar;
+    class JobProgressAssistant *m_progressAssistant;
     MainWindow *m_mainWindow;
 };
 

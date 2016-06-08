@@ -137,6 +137,9 @@ void JobListWidget::makeJobItemSelected(const QModelIndex &index)
     m_listView->selectionModel()->select(index, QItemSelectionModel::Select);
 }
 
+//! Recieves SeesionItem from ItemSelectorWidget and emits it further as JobItem.
+//! Null item means the absence of selection.
+
 void JobListWidget::onItemSelectionChanged(SessionItem *item)
 {
     JobItem *jobItem(0);

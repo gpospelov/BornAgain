@@ -33,9 +33,17 @@ ItemSelectorWidget::ItemSelectorWidget(QWidget *parent)
 {
     setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
 
-    QVBoxLayout *verticalLayout = new QVBoxLayout;
-    verticalLayout->addWidget(m_listView);
-    setLayout(verticalLayout);
+    QVBoxLayout *layout = new QVBoxLayout;
+    layout->setMargin(0);
+
+    layout->addWidget(m_listView);
+    setLayout(layout);
+
+    m_listView->setContextMenuPolicy(Qt::CustomContextMenu);
+
+    connect(m_listView, SIGNAL(customContextMenuRequested(const QPoint &)),
+            this, SLOT(onCustomContextMenuRequested(const QPoint &)));
+
 }
 
 QSize ItemSelectorWidget::sizeHint() const
@@ -58,6 +66,11 @@ void ItemSelectorWidget::setModel(SessionModel *model)
     connectModel();
 }
 
+void ItemSelectorWidget::setItemDelegate(QAbstractItemDelegate *delegate)
+{
+    m_listView->setItemDelegate(delegate);
+}
+
 QItemSelectionModel *ItemSelectorWidget::selectionModel()
 {
     return m_listView->selectionModel();
@@ -72,6 +85,12 @@ void ItemSelectorWidget::onSelectionChanged(const QItemSelection &selected, cons
         qDebug() << "ItemSelectorWidget::onSelectionChanged" << selectedItem->displayName();
     }
     emit selectionChanged(selectedItem);
+}
+
+void ItemSelectorWidget::onCustomContextMenuRequested(const QPoint &point)
+{
+    qDebug() << "ItemSelectorWidget::onCustomContextMenuRequested(const QPoint &point)";
+    emit contextMenuRequest(m_listView->mapToGlobal(point), m_listView->indexAt(point));
 }
 
 void ItemSelectorWidget::connectModel()

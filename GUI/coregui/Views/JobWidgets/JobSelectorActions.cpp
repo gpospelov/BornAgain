@@ -20,6 +20,7 @@
 #include "JobItem.h"
 #include <QAction>
 #include <QItemSelectionModel>
+#include <QMenu>
 #include <QDebug>
 
 JobSelectorActions::JobSelectorActions(JobModel *jobModel, QObject *parent)
@@ -77,6 +78,39 @@ void JobSelectorActions::onRemoveJob()
         }
     }
 
+}
+
+//! Generates context menu at given point. If indexAtPoint is provided, the actions will be done
+//! for corresponding JobItem
+
+void JobSelectorActions::onContextMenuRequest(const QPoint &point, const QModelIndex &indexAtPoint)
+{
+    QMenu menu;
+    initItemContextMenu(menu, indexAtPoint);
+    menu.exec(point);
+    setAllActionsEnabled(true);
+}
+
+void JobSelectorActions::initItemContextMenu(QMenu &menu, const QModelIndex &indexAtPoint)
+{
+    menu.addAction(m_runJobAction);
+    menu.addAction(m_removeJobAction);
+
+    QModelIndex targetIndex = indexAtPoint;
+    if(!targetIndex.isValid()) {
+        QModelIndexList indexList = m_selectionModel->selectedIndexes();
+        if(indexList.size())
+            targetIndex = indexList.first();
+    }
+
+    m_runJobAction->setEnabled(canRunJob(targetIndex));
+    m_removeJobAction->setEnabled(canRemoveJob(targetIndex));
+}
+
+void JobSelectorActions::setAllActionsEnabled(bool value)
+{
+    m_runJobAction->setEnabled(value);
+    m_removeJobAction->setEnabled(value);
 }
 
 bool JobSelectorActions::canRunJob(const QModelIndex &index) const

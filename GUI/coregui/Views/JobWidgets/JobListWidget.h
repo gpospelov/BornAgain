@@ -30,6 +30,7 @@ class JobListToolBar;
 class QItemSelectionModel;
 class QSignalMapper;
 class JobItem;
+class ItemSelectorWidget;
 
 //! Widget to select JobQueueItem in a list
 //! Top left corner of JobQueueView
@@ -47,29 +48,24 @@ public:
 
     QItemSelectionModel *getSelectionModel();
 
+signals:
+    void contextMenuRequest(const QPoint &point, const QModelIndex &index);
+
 public slots:
     void makeJobItemSelected(const QModelIndex &index);
 
-protected slots:
-    void showContextMenu(const QPoint &pnt);
+//protected slots:
+//    void showContextMenu(const QPoint &pnt);
 
-private slots:
-    void save();
-    void runJob();
-    void removeJob();
-    void equalizeSelectedToJob(int selected_id);
+//private slots:
+//    void equalizeSelectedToJob(int selected_id);
 
 private:
-    void setupContextMenuActions();
-    bool jobItemCanBeRun(const QModelIndex &index);
-    bool jobItemCanBeRemoved(const QModelIndex &index);
+//    void setupContextMenuActions();
 
     JobModel *m_jobModel;
     JobListViewDelegate *m_listViewDelegate;
-    QListView *m_listView;
-    QAction *m_runJobAction;
-    QAction *m_removeJobAction;
-    JobListToolBar *m_toolBar;
+    ItemSelectorWidget *m_listView;
     QSignalMapper *m_signalMapper;
 };
 

@@ -54,6 +54,11 @@ JobSelectorWidget::JobSelectorWidget(JobModel *jobModel, QWidget *parent)
 
     m_jobSelectorActions->setSelectionModel(m_jobListWidget->getSelectionModel());
     m_jobSelectorActions->setToolBar(m_toolBar);
+
+    connect(m_jobListWidget,
+            SIGNAL(contextMenuRequest(const QPoint &, const QModelIndex &)),
+            m_jobSelectorActions,
+            SLOT(onContextMenuRequest(const QPoint &, const QModelIndex &)));
 }
 
 void JobSelectorWidget::setModel(JobModel *model)

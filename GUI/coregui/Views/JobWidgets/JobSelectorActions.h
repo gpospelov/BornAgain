@@ -19,6 +19,7 @@
 
 #include "WinDllMacros.h"
 #include <QObject>
+#include <QModelIndex>
 
 class QAction;
 class JobModel;
@@ -26,7 +27,7 @@ class QItemSelectionModel;
 class QModelIndex;
 
 //! The JobSelectorActions class contains actions to run/remove jobs. Actions are used by the
-//! toolbar and JobSelectorTree's context menu.
+//! toolbar and JobSelectorList's context menu.
 
 class BA_CORE_API_ JobSelectorActions : public QObject {
     Q_OBJECT
@@ -39,8 +40,11 @@ public:
 public slots:
     void onRunJob();
     void onRemoveJob();
+    void onContextMenuRequest(const QPoint &point, const QModelIndex &indexAtPoint = QModelIndex());
 
 private:
+    void initItemContextMenu(class QMenu &menu, const QModelIndex &indexAtPoint);
+    void setAllActionsEnabled(bool value);
     bool canRunJob(const QModelIndex &index) const;
     bool canRemoveJob(const QModelIndex &index) const;
 

@@ -103,7 +103,8 @@ void JobViewDocks::onResetLayout()
 
 void JobViewDocks::onToggleJobSelector()
 {
-    m_jobSelector->setHidden(!m_jobSelector->isHidden());
+    QDockWidget *selectorDock = dock(JobViewFlags::JOB_LIST_DOCK);
+    selectorDock->setHidden(!selectorDock->isHidden());
 }
 
 //! Returns job widget with given Id.

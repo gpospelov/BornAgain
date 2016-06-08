@@ -30,7 +30,7 @@ class BA_CORE_API_ JobOutputDataWidget : public JobPresenter
 {
     Q_OBJECT
 public:
-    explicit JobOutputDataWidget(JobModel *jobModel, QWidget *parent = 0);
+    JobOutputDataWidget(JobModel *jobModel, QWidget *parent = 0);
 
 public slots:
     void setItem(JobItem *item);

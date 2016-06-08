@@ -46,18 +46,29 @@ void JobView::onFocusRequest(JobItem *item)
     emit focusRequest(MainWindow::JOB);
 }
 
+//! Sets docks visibility in accordance with required activity.
+
 void JobView::setActivity(int activity)
 {
     m_docks->setActivity(activity);
     emit activityChanged(activity);
 }
 
-//! creates global dock menu
+//! Creates global dock menu at cursor position.
+
 void JobView::onDockMenuRequest()
 {
     QMenu *menu = createPopupMenu();
     menu->exec(QCursor::pos());
     delete menu;
+}
+
+//! Propagates change in JobItem's selection down into main widgets.
+
+void JobView::onSelectionChanged(JobItem *jobItem)
+{
+    qDebug() << "JobView::onSelectionChanged(JobItem *jobItem)";
+    m_docks->jobOutputDataWidget()->setItem(jobItem);
 }
 
 void JobView::showEvent(QShowEvent *)
@@ -81,6 +92,9 @@ void JobView::connectSignals()
     // Focus request: JobModel -> this
     connect(m_mainWindow->jobModel(), SIGNAL(focusRequest(JobItem *)),
             this, SLOT(onFocusRequest(JobItem *)));
+
+    connect(m_docks->jobSelector(), SIGNAL(selectionChanged(JobItem*)),
+            this, SLOT(onSelectionChanged(JobItem*)));
 }
 
 //! Connects signal related to activity change.

@@ -173,19 +173,6 @@ void JobModel::removeJob(const QModelIndex &index)
     removeRows(index.row(), 1, QModelIndex());
 }
 
-void JobModel::onSelectionChanged(const QItemSelection &selected, const QItemSelection &deselected)
-{
-    Q_UNUSED(deselected);
-    qDebug() << "NJobModel::onSelectionChanged" << selected;
-    QModelIndexList indices = selected.indexes();
-    if(indices.size()) {
-        qDebug() << "NJobModel::onSelectionChanged -> emiting selectionChanged(0)" << indices.back();
-        emit selectionChanged(getJobItemForIndex(indices.back()));
-    } else {
-        qDebug() << "NJobModel::onSelectionChanged -> emiting selectionChanged(0)";
-        emit selectionChanged(0);
-    }
-}
 
 // called when jobQueueData asks for focus
 void JobModel::onFocusRequest(const QString &identifier)

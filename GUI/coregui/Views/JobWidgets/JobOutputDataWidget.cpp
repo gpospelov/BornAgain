@@ -55,36 +55,6 @@ JobOutputDataWidget::JobOutputDataWidget(JobModel *jobModel, QWidget *parent)
     connectSignals();
 }
 
-//void JobOutputDataWidget::setJobModel(JobModel *jobModel)
-//{
-//    Q_ASSERT(jobModel);
-
-//    if(jobModel != m_jobModel) {
-
-//        if(m_jobModel) {
-//            disconnect(m_jobModel,
-//                SIGNAL( selectionChanged(JobItem *) ),
-//                this,
-//                SLOT( setItem(JobItem *) )
-//                );
-
-//            disconnect(m_jobModel, SIGNAL(focusRequest(JobItem*)), this, SLOT(setItem(JobItem*)));
-//        }
-
-//        m_jobModel = jobModel;
-
-//        connect(m_jobModel,
-//            SIGNAL( selectionChanged(JobItem *) ),
-//            this,
-//            SLOT( setItem(JobItem *) )
-//            );
-
-//        connect(m_jobModel, SIGNAL(aboutToDeleteJobItem(JobItem*))
-//                , this, SLOT(onJobItemDelete(JobItem*)));
-//        connect(m_jobModel, SIGNAL(focusRequest(JobItem*)), this, SLOT(setItem(JobItem*)));
-//    }
-//}
-
 
 void JobOutputDataWidget::setItem(JobItem * item)
 {

@@ -57,7 +57,6 @@ public:
     void saveNonXMLData(const QString &projectDir);
 
 signals:
-    void selectionChanged(JobItem *item);
     void aboutToDeleteJobItem(JobItem *item);
     void focusRequest(JobItem *item);
     void globalProgress(int);
@@ -67,7 +66,6 @@ public slots:
     void runJob(const QModelIndex &index);
     void cancelJob(const QModelIndex &index);
     void removeJob(const QModelIndex &index);
-    void onSelectionChanged( const QItemSelection &selected, const QItemSelection &deselected);
     void onFocusRequest(const QString &identifier);
 
 private:

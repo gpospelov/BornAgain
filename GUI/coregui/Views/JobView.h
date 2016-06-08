@@ -40,6 +40,7 @@ public slots:
     void onFocusRequest(class JobItem *);
     void setActivity(int activity);
     void onDockMenuRequest();
+    void onSelectionChanged(class JobItem *jobItem);
 
 protected:
     virtual void showEvent(QShowEvent *);

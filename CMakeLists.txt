@@ -25,7 +25,14 @@ option(BORNAGAIN_OPENMPI "Build with OpenMPI support" OFF)
 option(BORNAGAIN_RELEASE "Special option for making release" OFF)
 option(BORNAGAIN_CRASHHANDLER "Additional machinery to send crash reports" OFF)
 option(BORNAGAIN_TIFF_SUPPORT "Tiff files read/write support" ON)
+option(AUTOGENERATE "Regenerate directory auto (Py docs, Py wrappers, man page)" OFF)
 
+if(AUTOGENERATE)
+    set(BORNAGAIN_MANPAGE=ON)
+    set(BORNAGAIN_GENERATE_PYTHON_DOCS=ON)
+    set(BORNAGAIN_GENERATE_BINDINGS=ON)
+endif()
+  
 #--- Include CMake macros and functions ---
 set(CMAKE_MODULE_PATH
     ${CMAKE_SOURCE_DIR}/cmake/generic/modules
@@ -51,9 +58,9 @@ if(BORNAGAIN_MANPAGE)
 endif()
 add_subdirectory(ThirdParty)
 add_subdirectory(Core)
-#add_subdirectory(Tests/UnitTests/Core)
+add_subdirectory(Tests/UnitTests/Core)
 add_subdirectory(Fit)
-#add_subdirectory(Tests/UnitTests/Fit)
+add_subdirectory(Tests/UnitTests/Fit)
 if(BORNAGAIN_GUI)
     add_subdirectory(GUI)
     add_subdirectory(Tests/UnitTests/GUI)

@@ -42,21 +42,16 @@ endmacro()
 
 
 # -----------------------------------------------------------------------------
-# add executable (ARG, options, one_value_keyword, multi_value_keywoard arguments (aka ${ARG_UNPARSED_ARGUMENTS})
+# BORNAGAIN_EXECUTABLE( executable LOCATION location LIBRARIES libraries )
 # -----------------------------------------------------------------------------
 function(BORNAGAIN_EXECUTABLE executable)
-    cmake_parse_arguments(ARG "EXCLUDE_FROM_ALL" "" "LIBRARIES;LOCATIONS" "" ${ARGN})
-    # retrieving source list
-    file(GLOB source_files ${ARG_LOCATIONS}/*.cpp)
+    cmake_parse_arguments(ARG "" "LOCATION" "LIBRARIES" "" ${ARGN})
 
-    # making executable
-    if(${ARG_EXCLUDE_FROM_ALL})
-        add_executable(${executable} ${source_files} )
-        # add_executable("${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${executable}" EXCLUDE_FROM_ALL ${source_files} )
-    else()
-        add_executable(${executable} ${ARG_UNPARSED_ARGUMENTS} )
-    endif()
-    # linking libraries from the list
+    file(GLOB source_files ${ARG_LOCATION}/*.cpp)
+    message(STATUS "ANAFU BAE exe[${executable}] alo[${ARG_LOCATION}] lib[${ARG_LIBRARIES}] src[${source_files}]")
+
+    add_executable(${executable} ${source_files} ) # don't EXCLUDE_FROM_ALL
+
     foreach(_libname ${ARG_LIBRARIES})
         include_directories(${${_libname}_INCLUDE_DIRS})
         target_link_libraries(${executable} ${_libname})
@@ -73,6 +68,7 @@ endfunction()
 # TEST_ARGUMENTS - any command line argument
 # -----------------------------------------------------------------------------
 function(BORNAGAIN_ADD_TEST test_name test_exe)
-    cmake_parse_arguments(ARG "" "TEST_ARGUMENTS" "" "" ${ARGN})
-    add_test(${test_name} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${test_exe} "${ARG_TEST_ARGUMENTS}")
+    cmake_parse_arguments(ARG "" "COMPONENT" "" "" ${ARGN})
+    message(STATUS "ANAFU ADD [${ARGN}] -> [${test_name} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${test_exe} ${ARG_COMPONENT}]")
+    add_test(${test_name} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${test_exe} ${ARG_COMPONENT})
 endfunction()

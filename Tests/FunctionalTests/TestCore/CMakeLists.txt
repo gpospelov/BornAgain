@@ -69,15 +69,18 @@ set(list_of_tests
 
 # Adding executables (using macros defined in FuTestMacros.cmake):
 GET_LIST_OF_EXECUTABLES_FROM_LIST_OF_TESTS("${list_of_tests}" ${list_of_executables})
+message(STATUS "ANAFU lot[${list_of_tests}]")
+message(STATUS "ANAFU loe[${list_of_executables}]")
+
 foreach(test_exe_name ${list_of_executables})
-   BORNAGAIN_EXECUTABLE(
-       ${test_exe_name} LOCATIONS ${test_exe_name}
-       EXCLUDE_FROM_ALL LIBRARIES ${BornAgainCore_LIBRARY}
-       )
+    message(STATUS "ANAFU loop ten[${test_exe_name}]")
+    BORNAGAIN_EXECUTABLE(${test_exe_name} LOCATION ${test_exe_name}
+        LIBRARIES ${BornAgainCore_LIBRARY})
 endforeach()
 
 # Adding tests (using macros defined in FuTestMacros.cmake):
 foreach(_test ${list_of_tests})
     GET_TEST_NAME_AND_ARGUMENT(${_test} ${test_exe_name} ${test_argument})
-    BORNAGAIN_ADD_TEST(${_test} ${test_exe_name} TEST_ARGUMENTS ${test_argument})
+    # message(STATUS "ANAFU loop tes[${_test}] [${test_exe_name}] [${test_argument}]")
+    BORNAGAIN_ADD_TEST(${_test} ${test_exe_name} COMPONENT ${test_argument})
 endforeach()

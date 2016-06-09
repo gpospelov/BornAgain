@@ -8,7 +8,7 @@
 int TestBatchSimulation()
 {
     SimulationRegistry sim_registry;
-    const std::unique_ptr<GISASSimulation > simulation(sim_registry.createSimulation("MiniGISAS"));
+    const std::unique_ptr<GISASSimulation > simulation(sim_registry.createItem("MiniGISAS"));
 
     SampleBuilderFactory sampleFactory;
     std::shared_ptr<class ISampleBuilder> builder = sampleFactory.createBuilder("CylindersInBABuilder");
@@ -34,7 +34,7 @@ int TestBatchSimulation()
     }
 
 
-    double diff = IntensityDataFunctions::getRelativeDifference(*result,*reference);
+    double diff = IntensityDataFunctions::getRelativeDifference(*result, *reference);
 
     std::cout << "BatchSimulation" << " " << "Running simulations in batch mode" << " " << diff
               << " " << (diff>threshold ? "[FAILED]" : "[OK]") << std::endl;
@@ -45,9 +45,7 @@ int TestBatchSimulation()
 }
 
 
-int main(int, char **)
+int main(int, char**)
 {
     return TestBatchSimulation();
 }
-
-

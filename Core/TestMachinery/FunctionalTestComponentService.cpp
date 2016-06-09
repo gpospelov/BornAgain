@@ -68,7 +68,7 @@ IFTDistribution2D* FunctionalTestComponentService::getFTDistribution2D() const
 GISASSimulation* FunctionalTestComponentService::getSimulation() const
 {
     SimulationRegistry sim_registry;
-    GISASSimulation* result = sim_registry.createSimulation(m_testInfo->m_simulation_name);
+    GISASSimulation* result = sim_registry.createItem(m_testInfo->m_simulation_name);
     result->setSampleBuilder(getSampleBuilder());
     return result;
 }

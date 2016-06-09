@@ -29,7 +29,6 @@ class BA_CORE_API_ SimulationRegistry : public IFactory<std::string, GISASSimula
 {
 public:
     SimulationRegistry();
-    GISASSimulation *createSimulation(const std::string& name) { return createItem(name); }
 };
 
 

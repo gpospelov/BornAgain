@@ -22315,16 +22315,6 @@ class SimulationRegistry(_object):
             self.this.append(this)
         except:
             self.this = this
-
-    def createSimulation(self, name):
-        """
-        createSimulation(SimulationRegistry self, std::string const & name) -> GISASSimulation
-
-        GISASSimulation * SimulationRegistry::createSimulation(const std::string &name)
-
-        """
-        return _libBornAgainCore.SimulationRegistry_createSimulation(self, name)
-
     __swig_destroy__ = _libBornAgainCore.delete_SimulationRegistry
     __del__ = lambda self: None
 SimulationRegistry_swigregister = _libBornAgainCore.SimulationRegistry_swigregister

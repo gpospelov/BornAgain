@@ -63,21 +63,19 @@ void JobListWidget::setModel(JobModel *model)
         m_jobModel = model;
         m_listView->setModel(model);
 
-//        connect(m_listView->selectionModel(),
-//            SIGNAL( selectionChanged(const QItemSelection&, const QItemSelection&) ),
-//            m_jobModel,
-//            SLOT( onSelectionChanged(const QItemSelection&, const QItemSelection&) )
-//            );
-
         connect(m_listViewDelegate, SIGNAL(cancelButtonClicked(QModelIndex)),
         m_jobModel, SLOT(cancelJob(QModelIndex)), Qt::UniqueConnection);
-
     }
 }
 
 QItemSelectionModel *JobListWidget::selectionModel()
 {
     return m_listView->selectionModel();
+}
+
+QModelIndexList JobListWidget::selected()
+{
+    return m_listView->selectionModel()->selectedIndexes();
 }
 
 
@@ -139,6 +137,7 @@ QItemSelectionModel *JobListWidget::selectionModel()
 
 void JobListWidget::makeJobItemSelected(JobItem *jobItem)
 {
+    Q_ASSERT(jobItem);
     QModelIndexList selected = m_listView->selectionModel()->selectedIndexes();
 
     // Already selected, but we still will emit the signal to notify widgets.

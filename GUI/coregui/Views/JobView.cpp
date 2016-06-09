@@ -78,6 +78,8 @@ void JobView::showEvent(QShowEvent *)
 {
     if(isVisible())
         m_jobActivityStatusBar->show();
+
+    m_docks->jobSelector()->makeSelectionIfNoneSelected();
 }
 
 void JobView::hideEvent(QHideEvent *)

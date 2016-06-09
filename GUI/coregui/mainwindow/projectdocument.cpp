@@ -248,8 +248,6 @@ void ProjectDocument::readFrom(QIODevice *device)
         m_messageService->send_message(this, XML_FORMAT_ERROR, reader.errorString());
         return;
     }
-
-    m_applicationModels->jobModel()->modelLoaded();
 }
 
 void ProjectDocument::writeTo(QIODevice *device)

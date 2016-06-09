@@ -79,24 +79,6 @@ BasicVector3D<std::complex<double>> BasicVector3D<double>::complex() const
 // Combine two vectors
 // -----------------------------------------------------------------------------
 
-//! Returns cross product of double-typed vectors.
-template<> template<>
-BasicVector3D<double> BasicVector3D<double>::cross(const BasicVector3D<double>& v) const
-{
-    return BasicVector3D<double>(y()*v.z()-v.y()*z(),
-                                 z()*v.x()-v.z()*x(),
-                                 x()*v.y()-v.x()*y());
-}
-
-//! Returns mixed cross product of double and complex vectors.
-template<> template<>
-BasicVector3D<complex_t> BasicVector3D<double>::cross(const BasicVector3D<complex_t>& v) const
-{
-    return BasicVector3D<complex_t>(y()*v.z()-v.y()*z(),
-                                    z()*v.x()-v.z()*x(),
-                                    x()*v.y()-v.x()*y());
-}
-
 //! Returns angle with respect to another vector.
 template<>
 double BasicVector3D<double>::angle(const BasicVector3D<double>& v) const

@@ -292,8 +292,17 @@ inline auto BasicVector3D<T>::dot(const BasicVector3D<U> &v) const
 }
 #endif // SWIG
 
-template<> template<> BA_CORE_API_ BasicVector3D<double> BasicVector3D<double>::cross(
-        const BasicVector3D<double>& v) const;
+//! Returns cross product of (complex) vectors.
+#ifndef SWIG
+template<class T> template<class U>
+inline auto BasicVector3D<T>::cross(const BasicVector3D<U> &v) const
+-> BasicVector3D<decltype(this->x()*v.x())>
+{
+    return BasicVector3D<decltype(this->x()*v.x())>(y()*v.z()-v.y()*z(),
+                                                    z()*v.x()-v.z()*x(),
+                                                    x()*v.y()-v.x()*y());
+}
+#endif // SWIG
 
 template<> BA_CORE_API_ double BasicVector3D<double>::phi() const;
 

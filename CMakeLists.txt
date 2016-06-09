@@ -32,7 +32,7 @@ if(AUTOGENERATE)
     set(BORNAGAIN_GENERATE_PYTHON_DOCS ON)
     set(BORNAGAIN_GENERATE_BINDINGS ON)
 endif()
-  
+
 #--- Include CMake macros and functions ---
 set(CMAKE_MODULE_PATH
     ${CMAKE_SOURCE_DIR}/cmake/generic/modules
@@ -57,9 +57,9 @@ if(BORNAGAIN_MANPAGE)
 endif()
 add_subdirectory(ThirdParty)
 add_subdirectory(Core)
-#add_subdirectory(Tests/UnitTests/Core)
+add_subdirectory(Tests/UnitTests/Core)
 add_subdirectory(Fit)
-#add_subdirectory(Tests/UnitTests/Fit)
+add_subdirectory(Tests/UnitTests/Fit)
 if(BORNAGAIN_GUI)
     add_subdirectory(GUI)
     add_subdirectory(Tests/UnitTests/GUI)

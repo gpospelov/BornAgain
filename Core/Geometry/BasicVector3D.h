@@ -304,6 +304,11 @@ inline auto BasicVector3D<T>::cross(const BasicVector3D<U> &v) const
 }
 #endif // SWIG
 
+template<> BA_CORE_API_ BasicVector3D<double> BasicVector3D<double>::conj() const;
+
+template<> BA_CORE_API_ BasicVector3D<std::complex<double> >
+	BasicVector3D<std::complex<double> >::conj() const;
+
 template<> BA_CORE_API_ double BasicVector3D<double>::phi() const;
 
 template<> BA_CORE_API_ double BasicVector3D<double>::theta() const;

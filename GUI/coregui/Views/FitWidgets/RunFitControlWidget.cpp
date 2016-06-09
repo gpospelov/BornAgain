@@ -40,7 +40,7 @@ RunFitControlWidget::RunFitControlWidget(QWidget *parent)
     , m_stopButton(new QPushButton)
     , m_intervalSlider(new QSlider)
     , m_updateIntervalLabel(new QLabel("25"))
-    , m_iterationsCountLabel(new QLabel())
+    , m_iterationsCountLabel(new QLabel)
     , m_currentItem(0)
     , m_warningSign(0)
 {
@@ -86,6 +86,8 @@ RunFitControlWidget::RunFitControlWidget(QWidget *parent)
     connect(m_startButton, SIGNAL(clicked(bool)), this, SIGNAL(startFitting()));
     connect(m_stopButton, SIGNAL(clicked(bool)), this, SIGNAL(stopFitting()));
     connect(m_intervalSlider, SIGNAL(valueChanged(int)), this, SLOT(onSliderValueChanged(int)));
+
+
 }
 
 void RunFitControlWidget::onFittingStarted()
@@ -159,6 +161,7 @@ void RunFitControlWidget::resizeEvent(QResizeEvent *event)
         QPoint pos = getPositionForWarningSign();
         m_warningSign->setPosition(pos.x(),pos.y());
     }
+    QWidget::resizeEvent(event);
 }
 
 QPoint RunFitControlWidget::getPositionForWarningSign()

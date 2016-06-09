@@ -44,6 +44,7 @@ public:
     class JobOutputDataWidget *jobOutputDataWidget() { return m_jobOutputDataWidget; }
 
     void setActivity(int activity);
+    void setItem(class JobItem *jobItem);
 
 public slots:
     void onResetLayout();

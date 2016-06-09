@@ -21,13 +21,13 @@
 #include "JobRealTimeWidget.h"
 #include "mainwindow_constants.h"
 #include "RunFitControlWidget.h"
-#include <QStackedWidget>
 #include <QVBoxLayout>
+#include <QPushButton>
 
 FitActivityPanel::FitActivityPanel(JobModel *jobModel, QWidget *parent)
     : QWidget(parent)
     , m_stackedWidget(new ItemStackPresenter<FitSuiteWidget>)
-    , m_controlWidget(new RunFitControlWidget(this))
+    , m_controlWidget(new RunFitControlWidget)
     , m_realTimeWidget(0)
 {
     setWindowTitle(Constants::JobFitPanelName);
@@ -38,7 +38,6 @@ FitActivityPanel::FitActivityPanel(JobModel *jobModel, QWidget *parent)
     mainLayout->setSpacing(0);
 
     mainLayout->addWidget(m_stackedWidget);
-//    mainLayout->addWidget(new QPushButton)("xxx");
     mainLayout->addWidget(m_controlWidget);
 
     setLayout(mainLayout);
@@ -65,7 +64,6 @@ QSize FitActivityPanel::minimumSizeHint() const {
 
 void FitActivityPanel::setItem(JobItem *item)
 {
-    qDebug() << "FitActivityPanel::setItem(JobItem *item)" << item->isValidForFitting();
     if(!item->isValidForFitting()) {
         m_stackedWidget->hideWidgets();
         return;
@@ -89,7 +87,6 @@ void FitActivityPanel::setItem(JobItem *item)
                 SLOT(onFittingError(QString)), Qt::UniqueConnection);
     }
 }
-
 
 void FitActivityPanel::onStartFitting()
 {

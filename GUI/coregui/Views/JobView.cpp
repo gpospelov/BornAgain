@@ -71,8 +71,7 @@ void JobView::onDockMenuRequest()
 
 void JobView::onSelectionChanged(JobItem *jobItem)
 {
-    m_docks->jobOutputDataWidget()->setItem(jobItem);
-    m_docks->jobRealTimeWidget()->setItem(jobItem);
+    m_docks->setItem(jobItem);
 }
 
 void JobView::showEvent(QShowEvent *)

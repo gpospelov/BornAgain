@@ -64,6 +64,14 @@ void JobViewDocks::setActivity(int activity)
     }
 }
 
+void JobViewDocks::setItem(JobItem *jobItem)
+{
+    qDebug()  << "AAAA" << m_dockWidgets[JobViewFlags::FIT_PANEL_DOCK]->isHidden();
+    jobOutputDataWidget()->setItem(jobItem);
+    jobRealTimeWidget()->setItem(jobItem);
+    fitActivityPanel()->setItem(jobItem);
+}
+
 //! Sets the state of JobView to the default.
 
 void JobViewDocks::onResetLayout()
@@ -156,10 +164,10 @@ void JobViewDocks::initDocks()
 
         // Since we have 1-pixel splitters, we generally want to remove
         // frames around item views. So we apply this hack for now.
-        QList<QAbstractItemView*> frames =
-                subWindow->findChildren<QAbstractItemView*>();
-        for (int i = 0 ; i< frames.count(); ++i)
-            frames[i]->setFrameStyle(QFrame::NoFrame);
+//        QList<QAbstractItemView*> frames =
+//                subWindow->findChildren<QAbstractItemView*>();
+//        for (int i = 0 ; i< frames.count(); ++i)
+//            frames[i]->setFrameStyle(QFrame::NoFrame);
 
     }
 

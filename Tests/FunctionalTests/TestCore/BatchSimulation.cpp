@@ -8,11 +8,11 @@
 int TestBatchSimulation()
 {
     SimulationRegistry sim_registry;
-    const std::unique_ptr<GISASSimulation > simulation(sim_registry.createItem("MiniGISAS"));
+    const std::unique_ptr<GISASSimulation> simulation(sim_registry.createItem("MiniGISAS"));
 
     SampleBuilderFactory sampleFactory;
-    std::shared_ptr<class ISampleBuilder> builder = sampleFactory.createBuilder("CylindersInBABuilder");
-
+    std::shared_ptr<class ISampleBuilder> builder(
+        sampleFactory.createItem("CylindersInBABuilder") );
     simulation->setSampleBuilder(builder);
     simulation->runSimulation();
     const std::unique_ptr<OutputData<double > > reference(simulation->getDetectorIntensity());

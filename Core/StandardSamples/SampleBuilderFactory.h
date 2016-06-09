@@ -29,8 +29,6 @@ class BA_CORE_API_ SampleBuilderFactory : public IFactory<ISampleBuilder>
 public:
     SampleBuilderFactory();
     class ISample* createSample(const std::string& name);
-    std::shared_ptr<class ISampleBuilder> createBuilder(const std::string& name) {
-        return std::shared_ptr<class ISampleBuilder>( createItem(name) ); }
 };
 
 #endif // SAMPLEBUILDERFACTORY_H

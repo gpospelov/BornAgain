@@ -40,8 +40,7 @@ const double rdet_width(20.0), rdet_height(18.0), rdet_distance(1000.0);
 GISASSimulation* StandardSimulations::PolarizedDWBAMagCylinders2()
 {
     SampleBuilderFactory factory;
-    std::shared_ptr<class ISampleBuilder> builder =
-        factory.createBuilder("MagneticCylindersBuilder");
+    std::shared_ptr<class ISampleBuilder> builder(factory.createItem("MagneticCylindersBuilder"));
 
     GISASSimulation* result = new GISASSimulation();
 
@@ -76,7 +75,6 @@ GISASSimulation* StandardSimulations::BasicGISAS00()
     result->setAnalyzerProperties(zplus, 1.0, 0.5);
     return result;
 }
-
 
 //! GISAS simulation with small detector and phi[-2,2], theta[0,2]
 GISASSimulation* StandardSimulations::MiniGISAS()

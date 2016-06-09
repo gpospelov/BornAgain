@@ -22273,16 +22273,6 @@ class SampleBuilderFactory(_object):
         """
         return _libBornAgainCore.SampleBuilderFactory_createSample(self, name)
 
-
-    def createBuilder(self, name):
-        """
-        createBuilder(SampleBuilderFactory self, std::string const & name) -> std::shared_ptr< ISampleBuilder >
-
-        std::shared_ptr< class ISampleBuilder > SampleBuilderFactory::createBuilder(const std::string &name)
-
-        """
-        return _libBornAgainCore.SampleBuilderFactory_createBuilder(self, name)
-
     __swig_destroy__ = _libBornAgainCore.delete_SampleBuilderFactory
     __del__ = lambda self: None
 SampleBuilderFactory_swigregister = _libBornAgainCore.SampleBuilderFactory_swigregister

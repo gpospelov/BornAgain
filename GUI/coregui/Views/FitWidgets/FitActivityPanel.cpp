@@ -64,12 +64,12 @@ QSize FitActivityPanel::minimumSizeHint() const {
 
 void FitActivityPanel::setItem(JobItem *item)
 {
-    if(!item->isValidForFitting()) {
+    m_controlWidget->setItem(item);
+
+    if(!isValidJobItem(item)) {
         m_stackedWidget->hideWidgets();
         return;
     }
-
-    m_controlWidget->setItem(item);
 
     bool isNew(false);
     m_stackedWidget->setItem(item, isNew);
@@ -79,10 +79,10 @@ void FitActivityPanel::setItem(JobItem *item)
         Q_ASSERT(widget);
         widget->setItem(item);
         widget->setModelTuningWidget(m_realTimeWidget->parameterTuningWidget(item));
-        connect(widget, SIGNAL(fittingStarted()), m_controlWidget,
-                SLOT(onFittingStarted()), Qt::UniqueConnection);
-        connect(widget, SIGNAL(fittingFinished()), m_controlWidget,
-                SLOT(onFittingFinished()), Qt::UniqueConnection);
+        connect(widget, SIGNAL(fittingStarted(JobItem *)), m_controlWidget,
+                SLOT(onFittingStarted(JobItem *)), Qt::UniqueConnection);
+        connect(widget, SIGNAL(fittingFinished(JobItem *)), m_controlWidget,
+                SLOT(onFittingFinished(JobItem *)), Qt::UniqueConnection);
         connect(widget, SIGNAL(fittingError(QString)), m_controlWidget,
                 SLOT(onFittingError(QString)), Qt::UniqueConnection);
     }

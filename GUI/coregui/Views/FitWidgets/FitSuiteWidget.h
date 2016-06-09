@@ -50,8 +50,8 @@ public:
     void setModelTuningWidget(ParameterTuningWidget *tuningWidget);
 
 signals:
-    void fittingStarted();
-    void fittingFinished();
+    void fittingStarted(JobItem *jobItem);
+    void fittingFinished(JobItem *jobItem);
     void fittingError(const QString &what);
 
 public slots:

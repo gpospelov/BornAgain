@@ -175,14 +175,14 @@ void FitSuiteWidget::stopFitting()
 void FitSuiteWidget::onFittingStarted()
 {
     qDebug() << "FitSuiteWidget::onFittingStarted()";
-    emit fittingStarted();
+    emit fittingStarted(m_currentItem);
 }
 
 void FitSuiteWidget::onFittingFinished()
 {
     qDebug() << "FitSuiteWidget::onFittingFinished()";
     m_currentItem->fitSuiteItem()->mapper()->unsubscribe(this);
-    emit fittingFinished();
+    emit fittingFinished(m_currentItem);
 }
 
 //! Propagates update interval from FitSuiteItem to fit observer.

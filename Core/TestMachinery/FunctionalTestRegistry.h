@@ -16,17 +16,19 @@
 #ifndef FUNCTIONALTESTREGISTRY_H
 #define FUNCTIONALTESTREGISTRY_H
 
-#include "WinDllMacros.h"
-#include "FunctionalTestInfo.h"
 #include <vector>
 #include <string>
 #include <map>
+
+#include "WinDllMacros.h"
+#include "FunctionalTestInfo.h"
+#include "ISingleton.h"
 
 //! @class FunctionalTestRegistry
 //! @ingroup standard_samples
 //! @brief The registry which holds information about available functional tests.
 
-class BA_CORE_API_ FunctionalTestRegistry
+class BA_CORE_API_ FunctionalTestRegistry : public ISingleton<FunctionalTestRegistry>
 {
 public:
     FunctionalTestRegistry();

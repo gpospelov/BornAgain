@@ -16,36 +16,33 @@
 #ifndef STANDARDSIMULATIONS_H
 #define STANDARDSIMULATIONS_H
 
-
 class GISASSimulation;
 
 //! Standard pre-defined simulations.
 
 namespace StandardSimulations{
 
-GISASSimulation *PolarizedDWBAMagCylinders2();
+// Special tests:
+GISASSimulation* PolarizedDWBAMagCylinders2();
 
-// new functional test machinery
-GISASSimulation *BasicGISAS();
-GISASSimulation *BasicGISAS00();
-GISASSimulation *MiniGISAS();
-GISASSimulation *MiniGISAS_v2();
-GISASSimulation *MiniGISASBeamDivergence();
-GISASSimulation *MiniGISASDetectorResolution();
-GISASSimulation *GISASWithMasks();
-GISASSimulation *MaxiGISAS();
-GISASSimulation *MaxiGISAS00();
-GISASSimulation *IsGISAXSSimulation1();
-GISASSimulation *IsGISAXSSimulation2();
-GISASSimulation *RectDetectorGeneric();
-GISASSimulation *RectDetectorPerpToSample();
-GISASSimulation *RectDetectorPerpToDirectBeam();
-GISASSimulation *RectDetectorPerpToReflectedBeam();
-GISASSimulation *RectDetectorPerpToReflectedBeamDpos();
-GISASSimulation *MiniGISASMonteCarlo();
-
+// CoreSuite tests:
+GISASSimulation* BasicGISAS();
+GISASSimulation* BasicGISAS00();
+GISASSimulation* MiniGISAS();
+GISASSimulation* MiniGISAS_v2();
+GISASSimulation* MiniGISASBeamDivergence();
+GISASSimulation* MiniGISASDetectorResolution();
+GISASSimulation* GISASWithMasks();
+GISASSimulation* MaxiGISAS();
+GISASSimulation* MaxiGISAS00();
+GISASSimulation* IsGISAXSSimulation1();
+GISASSimulation* IsGISAXSSimulation2();
+GISASSimulation* RectDetectorGeneric();
+GISASSimulation* RectDetectorPerpToSample();
+GISASSimulation* RectDetectorPerpToDirectBeam();
+GISASSimulation* RectDetectorPerpToReflectedBeam();
+GISASSimulation* RectDetectorPerpToReflectedBeamDpos();
+GISASSimulation* MiniGISASMonteCarlo();
 }
 
-
 #endif
-

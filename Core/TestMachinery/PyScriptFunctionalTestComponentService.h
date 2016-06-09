@@ -24,7 +24,7 @@ class FunctionalTestInfo;
 //! @ingroup standard_samples
 //! @brief Contains all necessary information to compose pyscript functional test.
 
-class PyScriptFunctionalTestComponentService : public FunctionalTestComponentService
+class BA_CORE_API_ PyScriptFunctionalTestComponentService : public FunctionalTestComponentService
 {
 public:
     PyScriptFunctionalTestComponentService(const FunctionalTestInfo* info);

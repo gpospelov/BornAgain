@@ -17,9 +17,10 @@
 #ifndef JOBMESSAGEPANEL_H
 #define JOBMESSAGEPANEL_H
 
-#include "JobPresenter.h"
+#include "WinDllMacros.h"
+#include <QWidget>
 
-class BA_CORE_API_ JobMessagePanel : public JobPresenter
+class BA_CORE_API_ JobMessagePanel : public QWidget
 {
     Q_OBJECT
 public:

@@ -28,7 +28,7 @@ JobProgressAssistant::JobProgressAssistant(MainWindow *mainWindow)
             this, SLOT(onGlobalProgress(int)));
 
     connect(m_mainWindow->progressBar(), SIGNAL(clicked()),
-            m_mainWindow->jobModel()->getJobQueueData(), SLOT(onCancelAllJobs()));
+            m_mainWindow->jobModel(), SLOT(onCancelAllJobs()));
 }
 
 void JobProgressAssistant::onGlobalProgress(int progress)

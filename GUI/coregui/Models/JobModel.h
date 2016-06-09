@@ -35,8 +35,6 @@ public:
     explicit JobModel(QObject *parent = 0);
     virtual ~JobModel();
 
-    JobQueueData *getJobQueueData() { return m_queue_data; }
-
     const JobItem *getJobItemForIndex(const QModelIndex &index) const;
     JobItem *getJobItemForIndex(const QModelIndex &index);
 
@@ -63,6 +61,7 @@ signals:
     void modelLoaded();
 
 public slots:
+    void onCancelAllJobs();
     void runJob(const QModelIndex &index);
     void cancelJob(const QModelIndex &index);
     void removeJob(const QModelIndex &index);

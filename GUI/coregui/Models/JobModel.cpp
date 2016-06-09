@@ -151,6 +151,11 @@ void JobModel::saveNonXMLData(const QString &projectDir)
     }
 }
 
+void JobModel::onCancelAllJobs()
+{
+    m_queue_data->onCancelAllJobs();
+}
+
 void JobModel::runJob(const QModelIndex &index)
 {
     m_queue_data->runJob(getJobItemForIndex(index));

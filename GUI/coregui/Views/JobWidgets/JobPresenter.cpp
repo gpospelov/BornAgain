@@ -29,38 +29,39 @@ JobPresenter::JobPresenter(JobModel *jobModel, QWidget *parent)
 
 void JobPresenter::setJobModel(JobModel *jobModel)
 {
-    if(jobModel != m_jobModel) {
-        if(m_jobModel) {
-            disconnect(m_jobModel, SIGNAL(selectionChanged(JobItem *)),
-                       this, SLOT(setItem(JobItem *)));
+    Q_UNUSED(jobModel);
+//    if(jobModel != m_jobModel) {
+//        if(m_jobModel) {
+//            disconnect(m_jobModel, SIGNAL(selectionChanged(JobItem *)),
+//                       this, SLOT(setItem(JobItem *)));
 
-            disconnect(m_jobModel->getJobQueueData(), SIGNAL(jobIsFinished(QString)),
-                       this, SLOT(onJobItemFinished(QString)));
+//            disconnect(m_jobModel->getJobQueueData(), SIGNAL(jobIsFinished(QString)),
+//                       this, SLOT(onJobItemFinished(QString)));
 
-            disconnect(m_jobModel, SIGNAL(aboutToDeleteJobItem(JobItem*)),
-                       this, SLOT(onJobItemDelete(JobItem*)));
+//            disconnect(m_jobModel, SIGNAL(aboutToDeleteJobItem(JobItem*)),
+//                       this, SLOT(onJobItemDelete(JobItem*)));
 
-            disconnect(m_jobModel, SIGNAL(modelLoaded()),
-                       this, SLOT(onModelLoaded()));
-        }
+//            disconnect(m_jobModel, SIGNAL(modelLoaded()),
+//                       this, SLOT(onModelLoaded()));
+//        }
 
-        m_jobModel = jobModel;
+//        m_jobModel = jobModel;
 
-        if(m_jobModel) {
-            connect(m_jobModel, SIGNAL(selectionChanged(JobItem *)),
-                    this, SLOT(setItem(JobItem *)), Qt::UniqueConnection);
+//        if(m_jobModel) {
+//            connect(m_jobModel, SIGNAL(selectionChanged(JobItem *)),
+//                    this, SLOT(setItem(JobItem *)), Qt::UniqueConnection);
 
-            connect(m_jobModel->getJobQueueData(), SIGNAL(jobIsFinished(QString)),
-                    this, SLOT(onJobItemFinished(QString)), Qt::UniqueConnection);
+//            connect(m_jobModel->getJobQueueData(), SIGNAL(jobIsFinished(QString)),
+//                    this, SLOT(onJobItemFinished(QString)), Qt::UniqueConnection);
 
-            connect(m_jobModel, SIGNAL(aboutToDeleteJobItem(JobItem*)),
-                    this, SLOT(onJobItemDelete(JobItem*)), Qt::UniqueConnection);
+//            connect(m_jobModel, SIGNAL(aboutToDeleteJobItem(JobItem*)),
+//                    this, SLOT(onJobItemDelete(JobItem*)), Qt::UniqueConnection);
 
-            connect(m_jobModel, SIGNAL(modelLoaded()), this,
-                    SLOT(onModelLoaded()), Qt::UniqueConnection);
-        }
+//            connect(m_jobModel, SIGNAL(modelLoaded()), this,
+//                    SLOT(onModelLoaded()), Qt::UniqueConnection);
+//        }
 
-    }
+//    }
 }
 
 void JobPresenter::setItem(JobItem *item)

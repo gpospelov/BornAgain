@@ -147,7 +147,7 @@ void ParameterTuningWidget::onCurrentLinkChanged(SessionItem *item)
         qDebug() << "ModelTuningWidget::onCurrentLinkChanged() -> Starting to tune model";
 //                 << link.getItem()->modelType() << link.getPropertyName();
 //        link.updateItem();
-        m_jobModel->getJobQueueData()->runJob(m_currentJobItem);
+        m_jobModel->runJob(m_currentJobItem->index());
     }
 }
 
@@ -202,7 +202,7 @@ void ParameterTuningWidget::restoreModelsOfCurrentJobItem()
         return;
 
     m_jobModel->restore(m_currentJobItem);
-    m_jobModel->getJobQueueData()->runJob(m_currentJobItem);
+    m_jobModel->runJob(m_currentJobItem->index());
 }
 
 void ParameterTuningWidget::makeSelected(ParameterItem *item)

@@ -22,16 +22,14 @@
 #include <QString>
 #include <QMap>
 
-//class JobItem;
 class JobItem;
 class JobModel;
-//class JobQueueItem;
 class GISASSimulation;
 class JobRunner;
 class QThread;
 
+//! The JobQueueData class holds all objects/logic to run simulation in a thread.
 
-//! Main class to run jobs
 class BA_CORE_API_ JobQueueData : public QObject
 {
     Q_OBJECT
@@ -55,7 +53,6 @@ public slots:
     void onFinishedThread();
     void onCancelAllJobs();
 
-    void runJob(const QString &identifier);
     void runJob(JobItem *jobItem);
     void cancelJob(const QString &identifier);
     void removeJob(const QString &identifier);

@@ -65,7 +65,6 @@ IFTDistribution2D* FunctionalTestComponentService::getFTDistribution2D() const
     return m_ft_distribution_2d->clone();
 }
 
-
 GISASSimulation* FunctionalTestComponentService::getSimulation() const
 {
     SimulationRegistry sim_registry;
@@ -85,7 +84,7 @@ std::shared_ptr<class ISampleBuilder> FunctionalTestComponentService::getSampleB
 
 OutputData<double>* FunctionalTestComponentService::getReferenceData() const
 {
-    OutputData<double>* result(0);
+    OutputData<double>* result;
     std::string filename = Utils::FileSystem::GetReferenceDataDir() + getReferenceFileName();
 
     try {

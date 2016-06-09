@@ -60,7 +60,7 @@ TEST_F(GISASSimulationTest, SimulationConstruction)
     EXPECT_FALSE( constructedSimulation.getOutputData()->hasSameShape(test_data));
     constructedSimulation.setDetectorParameters(test_data);
     EXPECT_TRUE( constructedSimulation.getOutputData()->hasSameShape(test_data));
-    EXPECT_EQ( double(0), constructedSimulation.getOutputData()->totalSum());
+    EXPECT_EQ( constructedSimulation.getOutputData()->totalSum(), 0.);
 
     MultiLayer ml;
     Layer layer;
@@ -76,7 +76,7 @@ TEST_F(GISASSimulationTest, SimulationConstruction)
     EXPECT_TRUE( nullptr == constructedSimulation.getSample());
     std::unique_ptr<ISample> sample(constructedSimulation.getSampleBuilder()->buildSample());
     EXPECT_EQ( std::string("Layer"), sample->getName());
-    EXPECT_EQ( double(0), dynamic_cast<Layer *>(sample.get())->getThickness());
+    EXPECT_EQ( dynamic_cast<Layer *>(sample.get())->getThickness(), 0.);
 }
 
 TEST_F(GISASSimulationTest, SimulationInitialStateOfClone)
@@ -86,7 +86,7 @@ TEST_F(GISASSimulationTest, SimulationInitialStateOfClone)
     EXPECT_EQ( size_t(1), emptyClonedSimulation->getOutputData()->getAllocatedSize());
     EXPECT_EQ( size_t(0), emptyClonedSimulation->getOutputData()->getRank());
     EXPECT_TRUE(emptyClonedSimulation->getOutputData()->getRank() == emptyClonedSimulation->getInstrument().getDetector()->getDimension() );
-    EXPECT_EQ( 0.0, emptyClonedSimulation->getInstrument().getBeamIntensity());
+    EXPECT_EQ( emptyClonedSimulation->getInstrument().getBeamIntensity(), 0.);
     delete emptyClonedSimulation;
 }
 
@@ -101,7 +101,7 @@ TEST_F(GISASSimulationTest, SimulationClone)
     delete originalSimulation;
 
     EXPECT_TRUE( clonedSimulation->getOutputData()->hasSameShape(test_data));
-    EXPECT_EQ( double(10), clonedSimulation->getInstrument().getBeamIntensity());
+    EXPECT_EQ( clonedSimulation->getInstrument().getBeamIntensity(), 10.);
     EXPECT_TRUE( nullptr == clonedSimulation->getSample());
     clonedSimulation->prepareSimulation();
     EXPECT_TRUE( nullptr == clonedSimulation->getSample());

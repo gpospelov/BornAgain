@@ -34,8 +34,8 @@ const QString filter_string = "Intensity File (*.int *.int.gz *.tif *.tif.gz *.t
 OutputData<double> *ImportDataAssistant::importData(QString &baseNameOfLoadedFile)
 {
     QString dirname = AppSvc::projectManager()->userImportDir();
-    QString fileName = QFileDialog::getOpenFileName(0,
-            QStringLiteral("Open Intensity File"), dirname, filter_string);
+    QString fileName = QFileDialog::getOpenFileName(
+        0, QStringLiteral("Open Intensity File"), dirname, filter_string);
 
     if(fileName.isEmpty())
         return nullptr;
@@ -47,7 +47,7 @@ OutputData<double> *ImportDataAssistant::importData(QString &baseNameOfLoadedFil
     if(newImportDir != dirname)
         AppSvc::projectManager()->setImportDir(newImportDir);
 
-    OutputData<double> *result(0);
+    OutputData<double>* result;
 
     try {
         result = IntensityDataIOFactory::readOutputData(fileName.toStdString());
@@ -81,5 +81,3 @@ void ImportDataAssistant::saveIntensityData(RealDataItem *realDataItem, const QS
                     *intensityItem->getOutputData(), filename.toStdString());
     }
 }
-
-

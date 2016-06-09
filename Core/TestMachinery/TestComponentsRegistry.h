@@ -24,7 +24,7 @@
 //! @ingroup standard_samples
 //! @brief Registry with predifined fourier transformed distributions for functional tests purpose.
 
-class TestFTDistribution2DRegistry : public ICloneableRegistry<std::string, IFTDistribution2D>
+class TestFTDistribution2DRegistry : public ICloneableRegistry<IFTDistribution2D>
 {
 public:
     TestFTDistribution2DRegistry();
@@ -35,7 +35,7 @@ public:
 //! @ingroup standard_samples
 //! @brief Registry with predifined form factors for functional tests purpose.
 
-class TestFormFactorsRegistry : public ICloneableRegistry<std::string, IFormFactor>
+class TestFormFactorsRegistry : public ICloneableRegistry<IFormFactor>
 {
 public:
     TestFormFactorsRegistry();

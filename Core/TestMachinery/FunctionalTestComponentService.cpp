@@ -29,19 +29,19 @@
 #include "FunctionalTestComponentService.h"
 
 FunctionalTestComponentService::FunctionalTestComponentService(const FunctionalTestInfo* info)
-    : m_testInfo(info)
-    , m_form_factor(0)
+    : m_info(info)
+    , m_formfactor(0)
     , m_ft_distribution_2d(0)
     , m_ff_registry(0)
     , m_ft2d_registry(0)
     , m_current_component(0)
 {
-    init_registry(m_testInfo->m_component_registry_name);
+    init_registry(m_info->m_component_registry_name);
 }
 
 FunctionalTestComponentService::~FunctionalTestComponentService()
 {
-    delete m_form_factor;
+    delete m_formfactor;
     delete m_ff_registry;
 
     delete m_ft_distribution_2d;
@@ -50,10 +50,10 @@ FunctionalTestComponentService::~FunctionalTestComponentService()
 
 IFormFactor* FunctionalTestComponentService::getFormFactor() const
 {
-    if(!m_form_factor)
+    if(!m_formfactor)
         throw NullPointerException(
             "FunctionalTestComponentService::getFormFactor() -> Error. No form factor defined.");
-    return m_form_factor->clone();
+    return m_formfactor->clone();
 }
 
 IFTDistribution2D* FunctionalTestComponentService::getFTDistribution2D() const
@@ -68,7 +68,7 @@ IFTDistribution2D* FunctionalTestComponentService::getFTDistribution2D() const
 GISASSimulation* FunctionalTestComponentService::getSimulation() const
 {
     SimulationRegistry sim_registry;
-    GISASSimulation* result = sim_registry.createItem(m_testInfo->m_simulation_name);
+    GISASSimulation* result = sim_registry.createItem(m_info->m_simulation_name);
     result->setSampleBuilder(getSampleBuilder());
     return result;
 }
@@ -77,7 +77,7 @@ std::shared_ptr<class ISampleBuilder> FunctionalTestComponentService::getSampleB
 {
     SampleBuilderFactory sample_factory;
     std::shared_ptr<class ISampleBuilder> sample_builder(
-        sample_factory.createItem(m_testInfo->m_sample_builder_name) );
+        sample_factory.createItem(m_info->m_sample_builder_name) );
     sample_builder->init_from(this);
     return sample_builder;
 }
@@ -103,8 +103,8 @@ void FunctionalTestComponentService::initComponent(size_t component_index)
             "FunctionalTestComponentService::setComponent() -> Error. Out of bounds");
     m_current_component = component_index;
     if(m_ff_registry) {
-        delete m_form_factor;
-        m_form_factor = m_ff_registry->createItem(m_component_names[component_index]);
+        delete m_formfactor;
+        m_formfactor = m_ff_registry->createItem(m_component_names[component_index]);
     }
     if(m_ft2d_registry) {
         delete m_ft_distribution_2d;
@@ -120,7 +120,7 @@ std::string FunctionalTestComponentService::getCurrentComponentName() const
 std::string FunctionalTestComponentService::getReferenceFileName() const
 {
     std::string result("ref_");
-    result += m_testInfo->m_test_name;
+    result += m_info->m_test_name;
     if(m_component_names[m_current_component] != "Default")
         result += std::string("_")+m_component_names[m_current_component];
     result += std::string(".int.gz");
@@ -153,7 +153,7 @@ void FunctionalTestComponentService::init_registry(const std::string& registry_n
 //! different names of test depending from the context (single test, or multi test).
 std::string FunctionalTestComponentService::getTestName() const
 {
-    std::string result = m_testInfo->m_test_name;
+    std::string result = m_info->m_test_name;
     if(getCurrentComponentName() != "Default")
         result += "_" + getCurrentComponentName();
     return result;
@@ -162,10 +162,10 @@ std::string FunctionalTestComponentService::getTestName() const
 //! Constructs functional test description corresponding to the current component.
 std::string FunctionalTestComponentService::getTestDescription() const
 {
-    return m_testInfo->m_test_description;
+    return m_info->m_test_description;
 }
 
 double FunctionalTestComponentService::getTestThreshold() const
 {
-    return m_testInfo->m_threshold;
+    return m_info->m_threshold;
 }

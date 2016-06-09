@@ -45,7 +45,7 @@ public:
     std::string getCurrentComponentName() const;
 
     std::string getReferenceFileName() const;
-    const class FunctionalTestInfo* getTestInfo() const { return m_testInfo; }
+    const class FunctionalTestInfo* getTestInfo() const { return m_info; }
 
 protected:
     void init_registry(const std::string& registry_name);
@@ -53,8 +53,8 @@ protected:
     std::string getTestDescription() const;
     double getTestThreshold() const;
 
-    const class FunctionalTestInfo* m_testInfo;
-    class IFormFactor* m_form_factor;
+    const class FunctionalTestInfo* m_info;
+    class IFormFactor* m_formfactor;
     class IFTDistribution2D* m_ft_distribution_2d;
 
     class TestFormFactorsRegistry* m_ff_registry;

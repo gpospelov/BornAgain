@@ -18,10 +18,8 @@
 #include "Utils.h"
 #include <iostream>
 
-
 FunctionalTestRegistry::FunctionalTestRegistry()
 {
-
     add("FormFactors",
         "Test of all form factors defined",
         "MiniGISAS",

@@ -109,11 +109,4 @@ protected:
     std::vector<AbstractProduct*> m_objects;
 };
 
-//! creation function
-template<class Derived, class Base>
-Base* IFactoryCreateFunction()
-{
-    return new Derived;
-}
-
 #endif // IFACTORY_H

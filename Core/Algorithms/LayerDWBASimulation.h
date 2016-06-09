@@ -26,29 +26,24 @@
 class BA_CORE_API_ LayerDWBASimulation : public DWBASimulation
 {
 public:
-    LayerDWBASimulation(const Layer *p_layer);
+    LayerDWBASimulation(const class Layer* p_layer);
     virtual ~LayerDWBASimulation();
 
-    LayerDWBASimulation *clone() const
-    {
+    LayerDWBASimulation* clone() const {
         throw NotImplementedException(
-            "ISimulation::clone() -> Error: not implemented exception.");
-    }
+            "ISimulation::clone() -> Error: not implemented exception."); }
 
-    void setSpecularInfo(const LayerSpecularInfo &specular_info);
-
-protected:
-    Bin1DCVector getKfBin(double wavelength, const Bin1D& alpha_bin, const Bin1D& phi_bin) const;
-    Layer *mp_layer;
-    LayerSpecularInfo *mp_specular_info;
-};
-
-inline void LayerDWBASimulation::setSpecularInfo(
-        const LayerSpecularInfo &specular_info) {
+    void setSpecularInfo(const LayerSpecularInfo& specular_info) {
     if (mp_specular_info != &specular_info) {
         delete mp_specular_info;
         mp_specular_info = specular_info.clone();
     }
 }
 
-#endif /* LAYERDWBASIMULATION_H_ */
+protected:
+    Bin1DCVector getKfBin(double wavelength, const Bin1D& alpha_bin, const Bin1D& phi_bin) const;
+    class Layer* mp_layer;
+    class LayerSpecularInfo* mp_specular_info;
+};
+
+#endif // LAYERDWBASIMULATION_H_

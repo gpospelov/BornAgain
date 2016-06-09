@@ -16,16 +16,11 @@
 #ifndef ISAMPLEBUILDER_H_
 #define ISAMPLEBUILDER_H_
 
-#include "ISample.h"
-#include <memory>
 #include "IParameterized.h"
-
-class FunctionalTestComponentService;
 
 //! @class ISampleBuilder
 //! @ingroup simulation_internal
 //! @brief Interface to the class capable to build samples to simulate
-
 
 class BA_CORE_API_ ISampleBuilder : public IParameterized
 {
@@ -33,9 +28,9 @@ public:
     ISampleBuilder() : IParameterized("SampleBuilder") {}
     virtual ~ISampleBuilder() {}
 
-    virtual ISample* buildSample() const = 0;
+    virtual class ISample* buildSample() const = 0;
 
-    virtual void init_from(const FunctionalTestComponentService*) {}
+    virtual void init_from(const class FunctionalTestComponentService*) {}
 };
 
 #endif // ISAMPLEBUILDER_H_

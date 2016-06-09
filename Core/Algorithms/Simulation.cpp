@@ -13,8 +13,11 @@
 //
 // ************************************************************************** //
 
-#include "Simulation.h"
+#include <memory>
+#include <thread>
+#include <gsl/gsl_errno.h>
 
+#include "Macros.h"
 #include "MathFunctions.h"
 #include "DWBASimulation.h"
 #include "MessageService.h"
@@ -22,11 +25,9 @@
 #include "BornAgainNamespace.h"
 #include "ProgressHandlerDWBA.h"
 #include "OMPISimulation.h"
-#include "Macros.h"
+#include "ISample.h"
+#include "Simulation.h"
 
-#include <memory>
-#include <thread>
-#include <gsl/gsl_errno.h>
 
 Simulation::Simulation()
     : IParameterized("Simulation")
@@ -48,18 +49,16 @@ Simulation::Simulation(std::shared_ptr<class ISampleBuilder> p_sample_builder)
 }
 
 Simulation::Simulation(const Simulation &other)
-    : ICloneable(), IParameterized(other), mp_sample_builder(other.mp_sample_builder),
-      m_options(other.m_options),
-      m_distribution_handler(other.m_distribution_handler),
-      m_progress(other.m_progress)
+    : ICloneable()
+    , IParameterized(other)
+    , mp_sample_builder(other.mp_sample_builder)
+    , m_options(other.m_options)
+    , m_distribution_handler(other.m_distribution_handler)
+    , m_progress(other.m_progress)
 {
     if (other.mP_sample.get())
         mP_sample.reset(other.mP_sample->clone());
     init_parameters();
-}
-
-void Simulation::init_parameters()
-{
 }
 
 void Simulation::prepareSimulation()
@@ -74,7 +73,8 @@ void Simulation::runSimulation()
 
     size_t param_combinations = m_distribution_handler.getTotalNumberOfSamples();
 
-    if (m_progress) m_progress->init(this, param_combinations);
+    if (m_progress)
+        m_progress->init(this, param_combinations);
 
     // no averaging needed:
     if (param_combinations == 1) {
@@ -232,8 +232,7 @@ void Simulation::runSingleSimulation()
         }
 
         // Run simulations in n threads.
-        for (std::vector<DWBASimulation *>::iterator it = simulations.begin();
-             it != simulations.end(); ++it) {
+        for (auto it = simulations.begin(); it != simulations.end(); ++it) {
             threads.push_back(new std::thread([] (DWBASimulation* p_sim) {p_sim->run();} , *it));
         }
 
@@ -253,11 +252,10 @@ void Simulation::runSingleSimulation()
             delete simulations[i];
             delete threads[i];
         }
-        if (!isSuccess) {
+        if (!isSuccess)
             throw Exceptions::RuntimeErrorException(
                 "Simulation::runSingleSimulation() -> Simulation has terminated unexpectedly "
                 "with the following error message.\n" + failure_message);
-        }
     }
     normalize(batch_start, batch_end);
 }
@@ -268,7 +266,7 @@ void Simulation::normalize(std::vector<SimulationElement>::iterator begin_it,
     double beam_intensity = getBeamIntensity();
     // no normalization when beam intensity is zero:
     if (beam_intensity==0.0) return;
-    for(std::vector<SimulationElement>::iterator it=begin_it; it!=end_it; ++it) {
+    for(auto it=begin_it; it!=end_it; ++it) {
         double sin_alpha_i = std::abs(std::sin(it->getAlphaI()));
         if (sin_alpha_i==0.0) sin_alpha_i = 1.0;
         double solid_angle = it->getSolidAngle();
@@ -282,8 +280,7 @@ void Simulation::initProgressHandlerDWBA(ProgressHandlerDWBA *dwba_progress)
     // then we will create special callbacks for every DWBASimulation.
     // These callback will be used to report DWBASimulation progress to the Simulation.
     if (m_progress) {
-        ProgressHandler::Callback_t callback = [&] (int n) {return m_progress->update(n); };
-        dwba_progress->setCallback(callback);
+        dwba_progress->setCallback( [&] (int n) {return m_progress->update(n);} );
     }
 }
 
@@ -324,9 +321,8 @@ void Simulation::imposeConsistencyOfBatchNumbers(int &n_batches, int &current_ba
         n_batches = 1;
         current_batch = 0;
     }
-    if (current_batch >= n_batches) {
+    if (current_batch >= n_batches)
         throw ClassInitializationException(
             "Simulation::imposeConsistencyOfBatchNumbers(): Batch number must be smaller than "
             "number of batches.");
-    }
 }

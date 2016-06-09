@@ -13137,7 +13137,7 @@ class GISASSimulation(Simulation):
     def setDetectorParameters(self, *args):
         """
         setDetectorParameters(GISASSimulation self, IntensityData output_data)
-        setDetectorParameters(GISASSimulation self, IHistogram hisotgram)
+        setDetectorParameters(GISASSimulation self, IHistogram histogram)
         setDetectorParameters(GISASSimulation self, size_t n_phi, double phi_min, double phi_max, size_t n_alpha, double alpha_min, double alpha_max)
 
         void GISASSimulation::setDetectorParameters(size_t n_phi, double phi_min, double phi_max, size_t n_alpha, double alpha_min, double alpha_max)

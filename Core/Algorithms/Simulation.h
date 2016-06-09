@@ -16,16 +16,17 @@
 #ifndef SIMULATION_H_
 #define SIMULATION_H_
 
+#include "ISample.h"
 #include "ISampleBuilder.h"
-#include "Instrument.h"
 #include "SimulationOptions.h"
 #include "DistributionHandler.h"
 #include "ProgressHandler.h"
+#include "IDetector2D.h"
 
 #include "EigenCore.h"
 #include "SimulationElement.h"
 
-class ProgressHandlerDWBA;
+template <class T> class OutputData;
 
 //! @class Simulation
 //! @ingroup simulation
@@ -37,9 +38,9 @@ public:
     Simulation();
     Simulation(const ISample& p_sample);
     Simulation(std::shared_ptr<class ISampleBuilder> p_sample_builder);
-    virtual ~Simulation() { }
+    virtual ~Simulation() {}
 
-    virtual Simulation *clone() const=0;
+    virtual Simulation* clone() const=0;
 
     //! Put into a clean state for running a simulation
     virtual void prepareSimulation();
@@ -54,7 +55,7 @@ public:
     void setSample(const ISample& sample);
 
     //! Returns the sample
-    ISample *getSample() const { return mP_sample.get(); }
+    ISample* getSample() const { return mP_sample.get(); }
 
     //! Sets the sample builder
     void setSampleBuilder(std::shared_ptr<class ISampleBuilder> sample_builder);
@@ -71,18 +72,15 @@ public:
 
     //! Adds parameters from local to external pool, and call recursion over direct children
     std::string addParametersToExternalPool(
-        std::string path,
-        ParameterPool *external_pool,
-        int copy_number=-1) const;
+        std::string path, ParameterPool* external_pool, int copy_number=-1) const;
 
     //! add a sampled parameter distribution
-    void addParameterDistribution(const std::string &param_name,
-            const IDistribution1D &distribution, size_t nbr_samples,
-            double sigma_factor=0.0,
-            const AttLimits &limits = AttLimits());
+    void addParameterDistribution(
+        const std::string& param_name, const IDistribution1D& distribution, size_t nbr_samples,
+        double sigma_factor=0.0, const AttLimits& limits = AttLimits());
 
     //! add a sampled parameter distribution
-    void addParameterDistribution(const ParameterDistribution &par_distr);
+    void addParameterDistribution(const ParameterDistribution& par_distr);
 
     const DistributionHandler& getDistributionHandler() const;
 
@@ -91,19 +89,19 @@ public:
     void setProgressHandler(ProgressHandler_t progress) { m_progress = progress; }
 
     //! initializes DWBA progress handler
-    void initProgressHandlerDWBA(ProgressHandlerDWBA *dwba_progress);
+    void initProgressHandlerDWBA(class ProgressHandlerDWBA* dwba_progress);
 #endif
 
     friend class OMPISimulation;
 
-    void setOptions(const SimulationOptions &options) { m_options = options; }
-    const SimulationOptions &getOptions() const { return m_options; }
-    SimulationOptions &getOptions() { return m_options; }
+    void setOptions(const SimulationOptions& options) { m_options = options; }
+    const SimulationOptions& getOptions() const { return m_options; }
+    SimulationOptions& getOptions() { return m_options; }
 
 protected:
     Simulation(const Simulation& other);
     //! Registers some class members for later access via parameter pool
-    void init_parameters();
+    void init_parameters() {}
 
     //! Initializes the vector of Simulation elements
     virtual void initSimulationElementVector()=0;
@@ -128,7 +126,7 @@ protected:
 #endif
 
     //! Verify existence of the DWBASimulation object
-    void verifyDWBASimulation(DWBASimulation *dwbaSimulation);
+    void verifyDWBASimulation(class DWBASimulation* dwbaSimulation);
 
     //! Returns the start iterator of simulation elements for the current batch
     std::vector<SimulationElement>::iterator getBatchStart(int n_batches, int current_batch);
@@ -147,4 +145,4 @@ private:
     void imposeConsistencyOfBatchNumbers(int& n_batches, int& current_batch);
 };
 
-#endif /* SIMULATION_H_ */
+#endif // SIMULATION_H_

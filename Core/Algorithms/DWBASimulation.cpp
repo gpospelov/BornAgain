@@ -17,13 +17,13 @@
 
 
 DWBASimulation::DWBASimulation()
-: mp_simulation(nullptr)
+    : mp_simulation(nullptr)
 {
 }
 
 DWBASimulation::~DWBASimulation()
 {
-       delete mp_simulation;
+    delete mp_simulation;
 }
 
 void DWBASimulation::init(const Simulation& simulation,
@@ -42,11 +42,6 @@ void DWBASimulation::init(const Simulation& simulation,
     mp_simulation->initProgressHandlerDWBA(&m_progress);
 }
 
-const OutputData<double>& DWBASimulation::getDWBAIntensity() const
-{
-    return m_dwba_intensity;
-}
-
 DWBASimulation *DWBASimulation::clone() const
 {
     DWBASimulation *p_result = new DWBASimulation();
@@ -59,14 +54,12 @@ DWBASimulation *DWBASimulation::clone() const
 
 bool DWBASimulation::checkPolarizationPresent() const
 {
-    if (!mp_simulation) {
+    if (!mp_simulation)
         throw ClassInitializationException("DWBASimulation::"
                 "checkPolarizationPresent(): simulation not initialized");
-    }
     ISample *p_sample = mp_simulation->getSample();
-    if (!p_sample) {
+    if (!p_sample)
         throw ClassInitializationException("DWBASimulation::"
                 "checkPolarizationPresent(): sample not initialized");
-    }
     return p_sample->containsMagneticMaterial();
 }

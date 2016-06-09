@@ -13,9 +13,8 @@
 //
 // ************************************************************************** //
 
-#include "SimulationRegistry.h"
 #include "StandardSimulations.h"
-
+#include "SimulationRegistry.h"
 
 SimulationRegistry::SimulationRegistry()
 {
@@ -97,11 +96,4 @@ SimulationRegistry::SimulationRegistry()
                  "GISAS simulation with small 25x25 detector and phi[-2,2], theta[0,2], "
                  "in Monte-Carlo mode");
 
-}
-
-
-GISASSimulation *SimulationRegistry::createSimulation(const std::string& name)
-{
-    GISASSimulation *result = createItem(name);
-    return result;
 }

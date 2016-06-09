@@ -13,7 +13,8 @@
 //
 // ************************************************************************** //
 
-#include "SampleBuilderFactory.h"
+#include <memory>
+#include "ISample.h"
 #include "CylindersAndPrismsBuilder.h"
 #include "CylindersBuilder.h"
 #include "ParaCrystalBuilder.h"
@@ -34,6 +35,7 @@
 #include "TransformationsBuilder.h"
 #include "BoxCompositionBuilder.h"
 #include "LayersWithAbsorptionBuilder.h"
+#include "SampleBuilderFactory.h"
 
 SampleBuilderFactory::SampleBuilderFactory()
 {
@@ -229,15 +231,5 @@ SampleBuilderFactory::SampleBuilderFactory()
 
 ISample *SampleBuilderFactory::createSample(const std::string& name)
 {
-    std::shared_ptr<class ISampleBuilder> builder(createItem(name));
-    ISample *result = builder->buildSample();
-//    result->setName(name);
-    return result;
-}
-
-std::shared_ptr<class ISampleBuilder> SampleBuilderFactory::createBuilder(const std::string& name)
-{
-    std::shared_ptr<class ISampleBuilder> result(createItem(name));
-//    result->setName(name);
-    return result;
+    return createItem(name)->buildSample();
 }

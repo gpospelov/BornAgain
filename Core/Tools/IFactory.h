@@ -45,8 +45,7 @@ public:
     //! Creates object by calling creation function corresponded to given identifier
     AbstractProduct* createItem(const std::string& itemId) {
         auto it = m_callbacks.find(itemId);
-        if( it == m_callbacks.end() )
-            // item with such itemId have not been registered in the database
+        if( it == m_callbacks.end() ) // unexpectedly not found
             throw UnknownClassRegistrationException(
                 "IFactory::createItem() -> Panic. Unknown itemId '"+std::string(itemId)+"'" );
         // invoke the creation function
@@ -103,8 +102,8 @@ public:
 protected:
     //! will store created objects in the list and then delete them on exit then true
     bool m_own_objects;
-    CallbackMap_t m_callbacks;     //!< map of correspondance of objectsId and creation functions
-    DescriptionMap_t m_descriptions;     //!< map of correspondance of objectsId and description
+    CallbackMap_t m_callbacks;     //!< map of correspondence of objectsId and creation functions
+    DescriptionMap_t m_descriptions;     //!< map of correspondence of objectsId and description
     //! vector of all created objects (if m_store_objects==true)
     std::vector<AbstractProduct*> m_objects;
 };

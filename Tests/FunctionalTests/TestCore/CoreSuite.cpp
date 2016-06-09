@@ -24,8 +24,8 @@ int main(int argc, char** argv)
     if(argc > 1)
         test_name = std::string(argv[1]);
 
-    FunctionalTestRegistry catalogue;
-    FunctionalTestInfo* info = catalogue.getTestInfo(test_name, "CoreSuite");
+    const FunctionalTestRegistry catalogue;
+    const FunctionalTestInfo* info = catalogue.getItemOrExplain(test_name, "CoreSuite");
     if( !info )
         return 1;
 

@@ -349,8 +349,8 @@ void FunctionalTestRegistry::add(
         sample_builder_name, component_registry_name, threshold);
 }
 
-FunctionalTestInfo* FunctionalTestRegistry::getTestInfo(
-    const std::string& test_name, const std::string& suite_name)
+const FunctionalTestInfo* FunctionalTestRegistry::getItemOrExplain(
+    const std::string& test_name, const std::string& suite_name) const
 {
     auto it = m_catalogue.find(test_name);
     if( it == m_catalogue.end() ) {
@@ -364,7 +364,7 @@ FunctionalTestInfo* FunctionalTestRegistry::getTestInfo(
     return &(it->second);
 }
 
-void FunctionalTestRegistry::printCatalogue(std::ostream& ostr)
+void FunctionalTestRegistry::printCatalogue(std::ostream& ostr) const
 {
     for(auto it = m_catalogue.begin(); it != m_catalogue.end(); ++it) {
         FunctionalTestInfo info = it->second;

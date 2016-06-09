@@ -20,14 +20,14 @@
 #include <iostream>
 
 //! The main function of GUITestSuite to run functional tests
-int main(int argc, char **argv)
+int main(int argc, char** argv)
 {
     std::string test_name;
     if(argc > 1)
         test_name = std::string(argv[1]);
 
-    FunctionalTestRegistry catalogue;
-    FunctionalTestInfo* info = catalogue.getTestInfo(test_name, "GUISuite");
+    const FunctionalTestRegistry catalogue;
+    const FunctionalTestInfo* info = catalogue.getItemOrExplain(test_name, "GUISuite");
     if( !info )
         return 1;
 

@@ -242,7 +242,9 @@ Returns this, trivially converted to complex type.
 
 %feature("docstring")  Geometry::BasicVector3D::dot "auto Geometry::BasicVector3D< T >::dot(const BasicVector3D< U > &v) const -> decltype(this->x()*v.x())
 
-Returns dot product of vectors (antilinear in the first [=self] argument). 
+Returns dot product of vectors (antilinear in the first [=self] argument).
+
+Returns dot product of (complex) vectors (antilinear in the first [=self] argument). 
 ";
 
 %feature("docstring")  Geometry::BasicVector3D::cross "auto Geometry::BasicVector3D< T >::cross(const BasicVector3D< U > &v) const -> BasicVector3D< decltype(this->x()*v.x())>
@@ -301,18 +303,6 @@ Returns result of rotation around the axis specified by another vector.
 %feature("docstring")  Geometry::BasicVector3D::complex "BasicVector3D< std::complex< double > > Geometry::BasicVector3D< double >::complex() const
 ";
 
-%feature("docstring")  Geometry::BasicVector3D::dot "complex_t Geometry::BasicVector3D< complex_t >::dot(const BasicVector3D< complex_t > &v) const
-";
-
-%feature("docstring")  Geometry::BasicVector3D::dot "complex_t Geometry::BasicVector3D< complex_t >::dot(const BasicVector3D< double > &v) const
-";
-
-%feature("docstring")  Geometry::BasicVector3D::dot "complex_t Geometry::BasicVector3D< double >::dot(const BasicVector3D< complex_t > &v) const
-";
-
-%feature("docstring")  Geometry::BasicVector3D::dot "double Geometry::BasicVector3D< double >::dot(const BasicVector3D< double > &v) const
-";
-
 %feature("docstring")  Geometry::BasicVector3D::cross "BasicVector3D< double > Geometry::BasicVector3D< double >::cross(const BasicVector3D< double > &v) const
 ";
 
@@ -320,12 +310,6 @@ Returns result of rotation around the axis specified by another vector.
 ";
 
 %feature("docstring")  Geometry::BasicVector3D::angle "double Geometry::BasicVector3D< double >::angle(const BasicVector3D< double > &v) const
-";
-
-%feature("docstring")  Geometry::BasicVector3D::dot "BA_CORE_API_ std::complex< double > Geometry::BasicVector3D< std::complex< double > >::dot(const BasicVector3D< std::complex< double > > &v) const
-";
-
-%feature("docstring")  Geometry::BasicVector3D::dot "BA_CORE_API_ double Geometry::BasicVector3D< double >::dot(const BasicVector3D< double > &v) const
 ";
 
 %feature("docstring")  Geometry::BasicVector3D::cross "BA_CORE_API_ BasicVector3D< double > Geometry::BasicVector3D< double >::cross(const BasicVector3D< double > &v) const

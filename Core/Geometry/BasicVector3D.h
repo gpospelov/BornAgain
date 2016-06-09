@@ -185,7 +185,6 @@ public:
     BasicVector3D<T> rotated(double a, const BasicVector3D<T>& v) const;
 };
 
-
 // =============================================================================
 // Non-member functions
 // =============================================================================
@@ -282,11 +281,16 @@ BA_CORE_API_ BasicVector3D<double> vecOfLambdaAlphaPhi(
 // ?? for API generation ??
 // =============================================================================
 
-template<> template<> BA_CORE_API_ std::complex<double> BasicVector3D<std::complex<double> >::dot(
-        const BasicVector3D<std::complex<double> >& v) const;
-
-template<> template<> BA_CORE_API_ double BasicVector3D<double>::dot(
-        const BasicVector3D<double>& v) const;
+//! Returns dot product of (complex) vectors (antilinear in the first [=self] argument).
+#ifndef SWIG
+template<class T> template<class U>
+inline auto BasicVector3D<T>::dot(const BasicVector3D<U> &v) const
+-> decltype(this->x()*v.x())
+{
+    BasicVector3D<T> left_star = this->conj();
+    return left_star.x()*v.x() + left_star.y()*v.y() + left_star.z()*v.z();
+}
+#endif // SWIG
 
 template<> template<> BA_CORE_API_ BasicVector3D<double> BasicVector3D<double>::cross(
         const BasicVector3D<double>& v) const;

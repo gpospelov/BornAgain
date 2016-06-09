@@ -37,7 +37,7 @@ signals:
     void activityChanged(int activity);
 
 public slots:
-    void onFocusRequest(class JobItem *);
+    void onFocusRequest(class JobItem *jobItem);
     void setActivity(int activity);
     void onDockMenuRequest();
     void onSelectionChanged(class JobItem *jobItem);
@@ -55,6 +55,7 @@ private:
     class JobViewDocks *m_docks;
     class JobActivityStatusBar *m_jobActivityStatusBar;
     class JobProgressAssistant *m_progressAssistant;
+    class JobItem *m_currentItem;
     MainWindow *m_mainWindow;
 };
 

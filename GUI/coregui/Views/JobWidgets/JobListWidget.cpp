@@ -125,16 +125,32 @@ QItemSelectionModel *JobListWidget::selectionModel()
 //    }
 //}
 
-void JobListWidget::makeJobItemSelected(const QModelIndex &index)
+//void JobListWidget::makeJobItemSelected(const QModelIndex &index)
+//{
+//    QModelIndexList selected = m_listView->selectionModel()->selectedIndexes();
+
+//    // already selected
+//    if(selected.size() == 1 && selected.at(0) == index)
+//        return;
+
+//    m_listView->selectionModel()->clearSelection();
+//    m_listView->selectionModel()->select(index, QItemSelectionModel::Select);
+//}
+
+void JobListWidget::makeJobItemSelected(JobItem *jobItem)
 {
     QModelIndexList selected = m_listView->selectionModel()->selectedIndexes();
 
-    // already selected
-    if(selected.size() == 1 && selected.at(0) == index)
+    // Already selected, but we still will emit the signal to notify widgets.
+    // To handle the case, when the job was selected before it completed (and some stack widgets
+    // were refusing to show the content for non-complete job).
+    if(selected.size() == 1 && selected.at(0) == jobItem->index()) {
+        emit selectionChanged(jobItem);
         return;
+    }
 
     m_listView->selectionModel()->clearSelection();
-    m_listView->selectionModel()->select(index, QItemSelectionModel::Select);
+    m_listView->selectionModel()->select(jobItem->index(), QItemSelectionModel::Select);
 }
 
 //! Recieves SeesionItem from ItemSelectorWidget and emits it further as JobItem.

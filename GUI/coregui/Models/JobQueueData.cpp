@@ -108,8 +108,7 @@ void JobQueueData::runJob(JobItem *jobItem)
         jobItem->setComments(message);
         jobItem->setProgress(100);
         jobItem->setStatus(Constants::STATUS_FAILED);
-        emit focusRequest(identifier);
-        emit jobIsFinished(identifier);
+        emit focusRequest(jobItem);
         return;
     }
 
@@ -191,10 +190,10 @@ void JobQueueData::onFinishedJob()
     // I tell to the thread to exit here (instead of connecting JobRunner::finished to the QThread::quit because of strange behaviour)
     getThread(runner->getIdentifier())->quit();
 
-    if(!jobItem->runInBackground())
-        emit focusRequest(runner->getIdentifier());
+//    if(!jobItem->runInBackground())
+//        emit focusRequest(runner->getIdentifier());
 
-    emit jobIsFinished(runner->getIdentifier());
+    emit focusRequest(jobItem);
 
     clearSimulation(runner->getIdentifier());
     assignForDeletion(runner);

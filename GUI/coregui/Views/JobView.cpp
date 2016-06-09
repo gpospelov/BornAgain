@@ -23,6 +23,7 @@
 #include "JobModel.h"
 #include "mainwindow.h"
 #include "JobActivityStatusBar.h"
+#include "JobItem.h"
 #include <QMenu>
 #include <QCursor>
 
@@ -30,6 +31,7 @@ JobView::JobView(MainWindow *mainWindow)
     : m_docks(new JobViewDocks(this))
     , m_jobActivityStatusBar(new JobActivityStatusBar(mainWindow))
     , m_progressAssistant(new JobProgressAssistant(mainWindow))
+    , m_currentItem(0)
     , m_mainWindow(mainWindow)
 {
     setObjectName("JobView");
@@ -38,9 +40,13 @@ JobView::JobView(MainWindow *mainWindow)
     connectSignals();
 }
 
-void JobView::onFocusRequest(JobItem *item)
+void JobView::onFocusRequest(JobItem *jobItem)
 {
-    m_docks->jobSelector()->makeJobItemSelected(item);
+    if(jobItem->runInBackground())
+        return;
+
+    m_docks->jobSelector()->makeJobItemSelected(jobItem);
+
     emit focusRequest(MainWindow::JOB);
 }
 
@@ -132,4 +138,5 @@ void JobView::connectJobRelated()
     // JobItem selection: JobSelectorWidget -> this
     connect(m_docks->jobSelector(), SIGNAL(selectionChanged(JobItem*)),
             this, SLOT(onSelectionChanged(JobItem*)));
+
 }

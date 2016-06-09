@@ -70,9 +70,9 @@ void JobSelectorWidget::setModel(JobModel *jobModel)
 void JobSelectorWidget::makeJobItemSelected(JobItem *item)
 {
     Q_ASSERT(item);
-    QModelIndex index = m_jobModel->indexOfItem(item);
-    Q_ASSERT(index.isValid());
-    m_jobListWidget->makeJobItemSelected(index);
+//    QModelIndex index = m_jobModel->indexOfItem(item);
+//    Q_ASSERT(index.isValid());
+    m_jobListWidget->makeJobItemSelected(item);
 }
 
 void JobSelectorWidget::onSelectionChanged(JobItem *jobItem)

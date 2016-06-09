@@ -66,7 +66,6 @@ public slots:
     void runJob(const QModelIndex &index);
     void cancelJob(const QModelIndex &index);
     void removeJob(const QModelIndex &index);
-    void onFocusRequest(const QString &identifier);
 
 private:
     QString generateJobName();

@@ -21,4 +21,7 @@ JobMessagePanel::JobMessagePanel(QWidget *parent)
     : JobPresenter(0, parent)
 {
     setWindowTitle(Constants::JobMessagePanelName);
+//    mainLayout->setMargin(0);
+//    mainLayout->setSpacing(0);
+
 }

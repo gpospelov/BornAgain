@@ -46,8 +46,7 @@ public:
 
 signals:
     void globalProgress(int);
-    void focusRequest(const QString &identifier);
-    void jobIsFinished(const QString &identifier);
+    void focusRequest(JobItem *jobItem);
 
 public slots:
     void onStartedJob();

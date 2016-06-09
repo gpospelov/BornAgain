@@ -46,7 +46,8 @@ signals:
     void selectionChanged(class JobItem *);
 
 public slots:
-    void makeJobItemSelected(const QModelIndex &index);
+    void makeJobItemSelected(class JobItem *jobItem);
+//    void makeJobItemSelected(const QModelIndex &index);
 
 private slots:
     void onItemSelectionChanged(class SessionItem *item);

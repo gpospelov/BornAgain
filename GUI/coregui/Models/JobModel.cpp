@@ -39,7 +39,7 @@ JobModel::JobModel(QObject *parent)
     , m_queue_data(0)
 {
     m_queue_data = new JobQueueData(this);
-    connect(m_queue_data, SIGNAL(focusRequest(QString)), this, SLOT(onFocusRequest(QString)));
+    connect(m_queue_data, SIGNAL(focusRequest(JobItem *)), this, SIGNAL(focusRequest(JobItem *)));
     connect(m_queue_data, SIGNAL(globalProgress(int)), this, SIGNAL(globalProgress(int)));
     setObjectName(SessionXML::JobModelTag);
 }
@@ -171,13 +171,6 @@ void JobModel::removeJob(const QModelIndex &index)
 
     emit aboutToDeleteJobItem(jobItem);
     removeRows(index.row(), 1, QModelIndex());
-}
-
-
-// called when jobQueueData asks for focus
-void JobModel::onFocusRequest(const QString &identifier)
-{
-    emit focusRequest(getJobItemForIdentifier(identifier));
 }
 
 //! generates job name

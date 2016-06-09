@@ -26,9 +26,9 @@ ItemStackWidget::ItemStackWidget(QWidget *parent)
     : QWidget(parent)
     , m_stackedWidget(new QStackedWidget)
     , m_model(0)
-    , m_size_hint(QSize(512, 512))
+    , m_size_hint(QSize(1024, 1024))
 {
-    setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Expanding);
+    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     m_stackedWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     QVBoxLayout *layout = new QVBoxLayout;

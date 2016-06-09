@@ -4672,7 +4672,7 @@ class ISampleBuilder(IParameterized):
 
     def init_from(self, arg0):
         """
-        init_from(ISampleBuilder self, IComponentService const * arg0)
+        init_from(ISampleBuilder self, FunctionalTestComponentService const * arg0)
 
         virtual void ISampleBuilder::init_from(const IComponentService *)
 

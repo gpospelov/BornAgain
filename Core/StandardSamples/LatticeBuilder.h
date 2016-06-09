@@ -27,7 +27,7 @@ class BA_CORE_API_ Lattice1DBuilder : public ISampleBuilder
 {
 public:
     Lattice1DBuilder();
-    ISample *buildSample() const;
+    ISample* buildSample() const;
 
 protected:
     void init_parameters();

@@ -25,13 +25,13 @@ Particle::Particle()
     initialize();
 }
 
-Particle::Particle(const IMaterial &p_material)
+Particle::Particle(const IMaterial& p_material)
     : mP_material(p_material.clone())
 {
     initialize();
 }
 
-Particle::Particle(const IMaterial &p_material, const IFormFactor &form_factor)
+Particle::Particle(const IMaterial& p_material, const IFormFactor& form_factor)
     : mP_material(p_material.clone())
     , mP_form_factor(form_factor.clone())
 {
@@ -39,8 +39,8 @@ Particle::Particle(const IMaterial &p_material, const IFormFactor &form_factor)
     registerChild(mP_form_factor.get());
 }
 
-Particle::Particle(const IMaterial &p_material, const IFormFactor &form_factor,
-                   const IRotation &rotation)
+Particle::Particle(const IMaterial& p_material, const IFormFactor& form_factor,
+                   const IRotation& rotation)
     : mP_material(p_material.clone())
     , mP_form_factor(form_factor.clone())
 {
@@ -49,9 +49,9 @@ Particle::Particle(const IMaterial &p_material, const IFormFactor &form_factor,
     registerChild(mP_form_factor.get());
 }
 
-Particle *Particle::clone() const
+Particle* Particle::clone() const
 {
-    Particle *p_result = new Particle();
+    Particle* p_result = new Particle();
     p_result->setAbundance(m_abundance);
     if (mP_form_factor.get())
         p_result->setFormFactor(*mP_form_factor);
@@ -66,9 +66,9 @@ Particle *Particle::clone() const
     return p_result;
 }
 
-Particle *Particle::cloneInvertB() const
+Particle* Particle::cloneInvertB() const
 {
-    Particle *p_result = new Particle();
+    Particle* p_result = new Particle();
     p_result->setAbundance(m_abundance);
     if (mP_form_factor.get())
         p_result->setFormFactor(*mP_form_factor);
@@ -84,24 +84,23 @@ Particle *Particle::cloneInvertB() const
     return p_result;
 }
 
-void Particle::accept(ISampleVisitor *visitor) const
+void Particle::accept(ISampleVisitor* visitor) const
 {
     visitor->visit(this);
 }
 
-void Particle::setAmbientMaterial(const IMaterial &material)
+void Particle::setAmbientMaterial(const IMaterial& material)
 {
-    if(mP_ambient_material.get() != &material) {
+    if(mP_ambient_material.get() != &material)
         mP_ambient_material.reset(material.clone());
-    }
 }
 
-const IMaterial *Particle::getAmbientMaterial() const
+const IMaterial* Particle::getAmbientMaterial() const
 {
     return mP_ambient_material.get();
 }
 
-IFormFactor *Particle::createTransformedFormFactor(const IRotation *p_rotation,
+IFormFactor* Particle::createTransformedFormFactor(const IRotation* p_rotation,
                                                    kvector_t translation) const
 {
     if (!mP_form_factor.get()) return 0;
@@ -119,7 +118,7 @@ IFormFactor *Particle::createTransformedFormFactor(const IRotation *p_rotation,
     } else {
         P_temp_ff2.swap(P_temp_ff1);
     }
-    FormFactorDecoratorMaterial *p_ff
+    FormFactorDecoratorMaterial* p_ff
         = new FormFactorDecoratorMaterial(*P_temp_ff2);
     if (mP_material.get()) {
         if (mP_rotation.get()) {
@@ -130,18 +129,18 @@ IFormFactor *Particle::createTransformedFormFactor(const IRotation *p_rotation,
             p_ff->setMaterial(*mP_material);
         }
     }
-    if (mP_ambient_material.get()) p_ff->setAmbientMaterial(*mP_ambient_material);
+    if (mP_ambient_material.get())
+        p_ff->setAmbientMaterial(*mP_ambient_material);
     return p_ff;
 }
 
-void Particle::setMaterial(const IMaterial &material)
+void Particle::setMaterial(const IMaterial& material)
 {
-    if(mP_material.get() != &material) {
+    if(mP_material.get() != &material)
         mP_material.reset(material.clone());
-    }
 }
 
-const IMaterial *Particle::getMaterial() const
+const IMaterial* Particle::getMaterial() const
 {
     return mP_material.get();
 }
@@ -151,16 +150,17 @@ complex_t Particle::getRefractiveIndex() const
     return mP_material.get() ? mP_material->getRefractiveIndex() : 0.0;
 }
 
-void Particle::setFormFactor(const IFormFactor &form_factor)
+void Particle::setFormFactor(const IFormFactor& form_factor)
 {
     if (&form_factor != mP_form_factor.get()) {
-        if (mP_form_factor.get()) deregisterChild(mP_form_factor.get());
+        if (mP_form_factor.get())
+            deregisterChild(mP_form_factor.get());
         mP_form_factor.reset(form_factor.clone());
         registerChild(mP_form_factor.get());
     }
 }
 
-const IFormFactor *Particle::getFormFactor() const
+const IFormFactor* Particle::getFormFactor() const
 {
     return mP_form_factor.get();
 }

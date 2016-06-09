@@ -16,11 +16,15 @@
 #ifndef FUNCTIONALTESTCOMPONENTSERVICE_H
 #define FUNCTIONALTESTCOMPONENTSERVICE_H
 
-#include "IComponentService.h"
 #include <vector>
 #include <string>
 
+#include "WinDllMacros.h"
+#include "OutputData.h"
+#include "ISampleBuilder.h"
+
 class IFormFactor;
+class IFTDistribution2D;
 class GISASSimulation;
 class TestFormFactorsRegistry;
 class TestFTDistribution2DRegistry;
@@ -31,7 +35,7 @@ class IFunctionalTest;
 //! @ingroup standard_samples
 //! @brief Contains all necessary information to compose functional test.
 
-class BA_CORE_API_ FunctionalTestComponentService : public IComponentService
+class BA_CORE_API_ FunctionalTestComponentService
 {
 public:
     FunctionalTestComponentService(const FunctionalTestInfo* info);

@@ -162,7 +162,7 @@ public:
       IParameterized::print(ostr);
     }
     virtual ISample *buildSample() const;
-    virtual void init_from(IComponentService const *arg0);
+    virtual void init_from(FunctionalTestComponentService const *arg0);
 
 /* Internal director utilities */
 public:

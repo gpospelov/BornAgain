@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#include "CoreFunctionalTestComponentService.h"
 #include "CoreFunctionalTest.h"
+#include "CoreFunctionalTestComponentService.h"
 
 CoreFunctionalTestComponentService::CoreFunctionalTestComponentService(
     const FunctionalTestInfo* info)

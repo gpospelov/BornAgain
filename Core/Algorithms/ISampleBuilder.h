@@ -20,7 +20,7 @@
 #include <memory>
 #include "IParameterized.h"
 
-class IComponentService;
+class FunctionalTestComponentService;
 
 //! @class ISampleBuilder
 //! @ingroup simulation_internal
@@ -33,10 +33,10 @@ public:
     ISampleBuilder() : IParameterized("SampleBuilder") {}
     virtual ~ISampleBuilder() {}
 
-    virtual ISample *buildSample() const {
+    virtual ISample* buildSample() const {
         throw NotImplementedException("ISampleBuilder::buildSample() -> Not implemented"); }
 
-    virtual void init_from(const IComponentService *) {}
+    virtual void init_from(const FunctionalTestComponentService*) {}
 };
 
 

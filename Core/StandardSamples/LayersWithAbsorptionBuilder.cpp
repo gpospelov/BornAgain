@@ -13,18 +13,17 @@
 //
 // ************************************************************************** //
 
-#include "LayersWithAbsorptionBuilder.h"
 #include "MultiLayer.h"
 #include "HomogeneousMaterial.h"
 #include "Particle.h"
 #include "ParticleLayout.h"
-#include "IComponentService.h"
+#include "FunctionalTestComponentService.h"
 #include "Exceptions.h"
+#include "LayersWithAbsorptionBuilder.h"
 
 LayersWithAbsorptionBuilder::LayersWithAbsorptionBuilder()
     : m_form_factor(0)
 {
-
 }
 
 LayersWithAbsorptionBuilder::~LayersWithAbsorptionBuilder()
@@ -32,18 +31,17 @@ LayersWithAbsorptionBuilder::~LayersWithAbsorptionBuilder()
     delete m_form_factor;
 }
 
-void LayersWithAbsorptionBuilder::init_from(const IComponentService *service)
+void LayersWithAbsorptionBuilder::init_from(const FunctionalTestComponentService* service)
 {
     delete m_form_factor;
     m_form_factor = service->getFormFactor();
 }
 
-ISample *LayersWithAbsorptionBuilder::buildSample() const
+ISample* LayersWithAbsorptionBuilder::buildSample() const
 {
-    if(!m_form_factor) {
+    if(!m_form_factor)
         throw NullPointerException("LayersWithAbsorptionBuilder::buildSample() -> Error. "
                                    "Form factor is not initialized.");
-    }
 
     HomogeneousMaterial mAmbience("Air", 0.0, 0.0);
     HomogeneousMaterial mMiddle("Teflon", 2.900e-6, 6.019e-9);
@@ -67,10 +65,9 @@ ISample *LayersWithAbsorptionBuilder::buildSample() const
 
     middle_layer.addLayout(layout);
 
-    MultiLayer *multi_layer = new MultiLayer();
+    MultiLayer* multi_layer = new MultiLayer();
     multi_layer->addLayer(air_layer);
     multi_layer->addLayer(middle_layer);
     multi_layer->addLayer(substrate);
     return multi_layer;
 }
-

@@ -13,7 +13,8 @@
 //
 // ************************************************************************** //
 
-#include "FunctionalTestComponentService.h"
+#include <iostream>
+
 #include "FunctionalTestRegistry.h"
 #include "SimulationRegistry.h"
 #include "SampleBuilderFactory.h"
@@ -25,7 +26,7 @@
 #include "FunctionalMultiTest.h"
 #include "CoreFunctionalTest.h"
 #include "FTDistributions.h"
-#include <iostream>
+#include "FunctionalTestComponentService.h"
 
 FunctionalTestComponentService::FunctionalTestComponentService(const FunctionalTestInfo* info)
     : m_testInfo(info)

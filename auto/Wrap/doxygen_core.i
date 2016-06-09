@@ -5420,6 +5420,9 @@ Interface to the class which provides client with objects he needs.
 C++ includes: IComponentService.h
 ";
 
+%feature("docstring")  IComponentService::~IComponentService "virtual IComponentService::~IComponentService()
+";
+
 %feature("docstring")  IComponentService::getFormFactor "virtual IFormFactor* IComponentService::getFormFactor() const =0
 ";
 
@@ -5436,9 +5439,6 @@ C++ includes: IComponentService.h
 ";
 
 %feature("docstring")  IComponentService::getFunctionalTest "virtual IFunctionalTest* IComponentService::getFunctionalTest() const =0
-";
-
-%feature("docstring")  IComponentService::~IComponentService "virtual IComponentService::~IComponentService()
 ";
 
 
@@ -13584,10 +13584,10 @@ C++ includes: WavevectorInfo.h
 // File: namespace_0D345.xml
 
 
-// File: namespace_0D358.xml
+// File: namespace_0D359.xml
 
 
-// File: namespace_0D360.xml
+// File: namespace_0D361.xml
 
 
 // File: namespace_0D67.xml
@@ -15189,6 +15189,9 @@ Returns concatenated rotation (first right, then left).
 // File: ICloneableRegistry_8h.xml
 
 
+// File: IComponentService_8h.xml
+
+
 // File: IFunctionalTest_8cpp.xml
 
 
@@ -15319,9 +15322,6 @@ global helper function for comparison of axes
 
 
 // File: ICloneable_8h.xml
-
-
-// File: IComponentService_8h.xml
 
 
 // File: IFactory_8cpp.xml

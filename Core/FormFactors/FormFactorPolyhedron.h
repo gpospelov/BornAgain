@@ -133,7 +133,7 @@ private:
 
 //! A prism with a polygonal base, for form factor computation.
 
-class FormFactorPolygonalPrism : public IFormFactorBorn {
+class BA_CORE_API_ FormFactorPolygonalPrism : public IFormFactorBorn {
 public:
     FormFactorPolygonalPrism( const double height );
 

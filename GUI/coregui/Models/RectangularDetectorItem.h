@@ -25,7 +25,7 @@ class IDetector2D;
 class IResolutionFunction2D;
 
 
-class RectangularDetectorItem : public SessionItem
+class BA_CORE_API_ RectangularDetectorItem : public SessionItem
 {
 public:
     static const QString P_X_AXIS;

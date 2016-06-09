@@ -43,7 +43,7 @@ public:
     void setDescription(const std::string &description) { m_description = description; }
 
     ETestResult getTestResult() const { return m_result; }
-    std::string getTestResultString() const { return m_result_to_string[m_result]; }
+	std::string getTestResultString() const;
 
     std::string getFormattedInfoString() const;
 

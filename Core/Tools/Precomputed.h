@@ -18,7 +18,7 @@
 
 //! This class contains precomputed constants.
 
-class Precomputed
+class BA_CORE_API_ Precomputed
 {
 public:
     Precomputed(); //!< Constructor, precomputes everything.

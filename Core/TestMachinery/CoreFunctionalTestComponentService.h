@@ -24,7 +24,7 @@ class FunctionalTestInfo;
 //! @ingroup standard_samples
 //! @brief Contains all necessary information to compose core functional test.
 
-class CoreFunctionalTestComponentService : public FunctionalTestComponentService
+class BA_CORE_API_ CoreFunctionalTestComponentService : public FunctionalTestComponentService
 {
 public:
     CoreFunctionalTestComponentService(const FunctionalTestInfo* info);

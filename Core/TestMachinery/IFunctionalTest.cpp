@@ -15,6 +15,7 @@
 
 #include "IFunctionalTest.h"
 #include "Utils.h"
+#include <sstream>
 
 namespace {
 
@@ -47,6 +48,11 @@ IFunctionalTest::IFunctionalTest(const std::string& name, const std::string& des
     , m_description(description)
     , m_result(SUCCESS)
 {
+}
+
+std::string IFunctionalTest::getTestResultString() const
+{
+	return m_result_to_string[m_result];
 }
 
 std::string IFunctionalTest::getFormattedInfoString() const

@@ -25,7 +25,7 @@ class FunctionalTestInfo;
 //! @ingroup standard_samples
 //! @brief Contains all necessary information to compose GUI functional test.
 
-class GUIFunctionalTestComponentService : public FunctionalTestComponentService
+class BA_CORE_API_ GUIFunctionalTestComponentService : public FunctionalTestComponentService
 {
 public:
     GUIFunctionalTestComponentService(const FunctionalTestInfo* info);

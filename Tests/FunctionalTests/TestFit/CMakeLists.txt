@@ -2,15 +2,15 @@
 # FunctionalTests/TestFit/CMakeLists.txt
 ############################################################################
 
-set(list_of_tests
-    "FitSuite/Minuit2_Migrad"
-    "FitSuite/Minuit2_Fumili"
-    "FitSuite/GSLLevenbergMarquardt"
-    "FitSuite/GSLMultiMinBFGS"
-    "FitSuite/GSLMultiMinSteepestDescent"
-    "FitSuite/GSLSimulatedAnnealing"
-    "FitSuite/GeneticMinimizer"
-    "FitSuite/RectDetectorFit"
+set(test_cases
+    GSLLevenbergMarquardt
+    GSLMultiMinBFGS
+    GSLMultiMinSteepestDescent
+    GSLSimulatedAnnealing
+    GeneticMinimizer
+    Minuit2_Fumili
+    Minuit2_Migrad
+    RectDetectorFit
 )
 
 # for some reason these flags doesn't propagated here by SetUpWindows.cmake
@@ -27,15 +27,8 @@ include_directories(
     ${GSL_INCLUDE_DIR}
 )
 
-# Adding executables.
-GET_LIST_OF_EXECUTABLES_FROM_LIST_OF_TESTS("${list_of_tests}" ${list_of_executables})
-foreach(test_exe_name ${list_of_executables})
-    BORNAGAIN_EXECUTABLE(${test_exe_name} LOCATIONS ${test_exe_name} EXCLUDE_FROM_ALL
-        LIBRARIES ${BornAgainFit_LIBRARY} ${BornAgainCore_LIBRARY})
-endforeach()
-
-# Adding tests
-foreach(_test ${list_of_tests})
-    GET_TEST_NAME_AND_ARGUMENT(${_test} ${test_exe_name} ${test_argument})
-    BORNAGAIN_ADD_TEST(${_test} ${test_exe_name} TEST_ARGUMENTS ${test_argument})
+add_executable(FitSuite FitSuite.cpp)
+target_link_libraries(FitSuite BornAgainFit BornAgainCore)
+foreach(test_case ${test_cases})
+    add_test(FitSuite/${test_case} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/FitSuite ${test_case})
 endforeach()

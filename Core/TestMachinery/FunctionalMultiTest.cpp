@@ -35,9 +35,8 @@ void FunctionalMultiTest::runTest()
 {
     for (size_t i = 0; i < m_componentService->getNumberOfComponents(); ++i) {
         std::cout << "FunctionalMultiTest::runTest() -> " << getName()
-                  << " " << i
-                  << "/" << m_componentService->getNumberOfComponents()
-                  << " (" << m_componentService->getCurrentComponentName() << ")" << std::endl;
+                  << " " << i << "/" << m_componentService->getNumberOfComponents()
+                  << " (" << m_componentService->getCurrentComponentName() << ")\n";
 
         m_componentService->initComponent(i);
 
@@ -77,7 +76,7 @@ void FunctionalMultiTest::printResults(std::ostream& ostr) const
     }
 
     ostr << getFormattedInfoString();
-    ostr << "[" << number_of_failed_tests << " failed out of " << m_tests.size() << "]" << "\n";
+    ostr << "[" << number_of_failed_tests << " failed out of " << m_tests.size() << "]\n";
     for (size_t i = 0; i < m_tests.size(); ++i)
         ostr << *m_tests[i] << "\n";
 }

@@ -24,7 +24,6 @@
 #include "StyledToolBar.h"
 #include "minisplitter.h"
 #include <QHBoxLayout>
-#include <QItemSelectionModel>
 
 
 JobSelectorWidget::JobSelectorWidget(JobModel *jobModel, QWidget *parent)
@@ -75,16 +74,6 @@ void JobSelectorWidget::makeJobItemSelected(JobItem *item)
 //    QModelIndex index = m_jobModel->indexOfItem(item);
 //    Q_ASSERT(index.isValid());
     m_jobListWidget->makeJobItemSelected(item);
-}
-
-//! If no selection exist, select first item
-
-void JobSelectorWidget::makeSelectionIfNoneSelected()
-{
-    if(m_jobListWidget->selected().isEmpty()) {
-        if(SessionItem *item = m_jobModel->topItem())
-            m_jobListWidget->selectionModel()->select(item->index(), QItemSelectionModel::Select);
-    }
 }
 
 void JobSelectorWidget::onSelectionChanged(JobItem *jobItem)

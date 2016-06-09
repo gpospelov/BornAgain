@@ -43,7 +43,6 @@ signals:
 
 public slots:
     void makeJobItemSelected(JobItem *);
-    void makeSelectionIfNoneSelected();
 
 private slots:
     void onSelectionChanged(JobItem *jobItem);

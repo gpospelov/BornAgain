@@ -117,3 +117,16 @@ void ItemSelectorWidget::disconnectModel()
     m_listView->setModel(0);
     m_model = 0;
 }
+
+//! provide default selection when widget is shown
+void ItemSelectorWidget::showEvent(QShowEvent *)
+{
+    if(!m_model || !selectionModel()) return;
+
+    if(selectionModel()->selectedIndexes().isEmpty()) {
+        if(m_model->rowCount(QModelIndex()) != 0) {
+            selectionModel()->select(m_model->index(0, 0, QModelIndex()),
+                                     QItemSelectionModel::Select);
+        }
+    }
+}

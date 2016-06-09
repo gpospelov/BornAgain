@@ -42,17 +42,15 @@ public:
 
     QItemSelectionModel *selectionModel();
 
-    QModelIndexList selected();
-
 signals:
     void contextMenuRequest(const QPoint &point, const QModelIndex &index);
     void selectionChanged(class JobItem *);
 
 public slots:
     void makeJobItemSelected(class JobItem *jobItem);
-    void onItemSelectionChanged(class SessionItem *item);
 
 private slots:
+    void onItemSelectionChanged(class SessionItem *item);
 
 private:
     JobListViewDelegate *m_listViewDelegate;

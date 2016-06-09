@@ -73,11 +73,6 @@ QItemSelectionModel *JobListWidget::selectionModel()
     return m_listView->selectionModel();
 }
 
-QModelIndexList JobListWidget::selected()
-{
-    return m_listView->selectionModel()->selectedIndexes();
-}
-
 
 //! setup context menu for listView
 //void JobListWidget::setupContextMenuActions()

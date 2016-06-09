@@ -58,6 +58,7 @@ private slots:
 protected:
     void connectModel();
     void disconnectModel();
+    void showEvent(class QShowEvent *);
 
 private:
     class QListView *m_listView;

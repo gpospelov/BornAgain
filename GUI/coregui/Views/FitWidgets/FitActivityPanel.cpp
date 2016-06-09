@@ -55,11 +55,11 @@ void FitActivityPanel::setRealTimeWidget(JobRealTimeWidget *realTimeWidget)
 }
 
 QSize FitActivityPanel::sizeHint() const {
-    return QSize(Constants::REALTIME_WIDGET_WIDTH_HINT, 240);
+    return QSize(Constants::REALTIME_WIDGET_WIDTH_HINT, Constants::FIT_ACTIVITY_PANEL_HEIGHT);
 }
 
 QSize FitActivityPanel::minimumSizeHint() const {
-    return QSize(100, 100);
+    return QSize(80, 80);
 }
 
 void FitActivityPanel::setItem(JobItem *item)

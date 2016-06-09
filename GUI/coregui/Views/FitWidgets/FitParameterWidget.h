@@ -48,6 +48,9 @@ public:
     void setItem(JobItem *jobItem);
     void setParameterTuningWidget(ParameterTuningWidget *tuningWidget);
 
+//    QSize sizeHint() const;
+//    QSize minimumSizeHint() const;
+
 public slots:
     void onTuningWidgetContextMenu(const QPoint &point);
     void onFitParameterTreeContextMenu(const QPoint &point);

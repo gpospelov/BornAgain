@@ -44,6 +44,8 @@ public:
     QSize sizeHint() const;
     QSize minimumSizeHint() const;
 
+    void setSizeHint(const QSize &size_hint);
+
 public slots:
     virtual void onModelAboutToBeReset();
     virtual void onRowsAboutToBeRemoved(const QModelIndex &parent,int first,int);
@@ -58,6 +60,7 @@ protected:
 
     class QStackedWidget *m_stackedWidget;
     SessionModel *m_model;
+    QSize m_size_hint;
 };
 
 #endif

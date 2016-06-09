@@ -37,6 +37,7 @@ JobPropertiesWidget::JobPropertiesWidget(QWidget *parent)
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->setMargin(0);
     mainLayout->setSpacing(0);
+    mainLayout->setContentsMargins(0,0,0,0);
 
     m_tabWidget->setTabPosition(QTabWidget::South);
     m_tabWidget->insertTab(JOB_PROPERTIES, m_propertyEditor, "Job Properties");

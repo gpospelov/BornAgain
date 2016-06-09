@@ -19,6 +19,7 @@
 #include "DesignerHelper.h"
 #include "JobItem.h"
 #include "FitSuiteItem.h"
+#include "mainwindow_constants.h"
 #include <QPushButton>
 #include <QSlider>
 #include <QLabel>
@@ -44,6 +45,9 @@ RunFitControlWidget::RunFitControlWidget(QWidget *parent)
     , m_currentItem(0)
     , m_warningSign(0)
 {
+    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+    setFixedHeight(Constants::RUN_FIT_CONTROL_WIDGET_HEIGHT);
+
     QHBoxLayout *layout = new QHBoxLayout;
     layout->setSpacing(0);
 

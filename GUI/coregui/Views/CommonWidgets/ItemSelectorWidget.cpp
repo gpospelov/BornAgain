@@ -17,14 +17,11 @@
 #include "ItemSelectorWidget.h"
 #include "SessionModel.h"
 #include "SessionItem.h"
+#include "mainwindow_constants.h"
 #include <QListView>
 #include <QVBoxLayout>
 #include <QDebug>
 
-namespace {
-const int widget_minimum_size_hint = 64;
-const int widget_size_hint = 128;
-}
 
 ItemSelectorWidget::ItemSelectorWidget(QWidget *parent)
     : QWidget(parent)
@@ -48,12 +45,12 @@ ItemSelectorWidget::ItemSelectorWidget(QWidget *parent)
 
 QSize ItemSelectorWidget::sizeHint() const
 {
-    return QSize(widget_size_hint, widget_size_hint*4);
+    return QSize(Constants::ITEM_SELECTOR_WIDGET_WIDTH, Constants::ITEM_SELECTOR_WIDGET_HEIGHT);
 }
 
 QSize ItemSelectorWidget::minimumSizeHint() const
 {
-    return QSize(widget_minimum_size_hint, widget_minimum_size_hint);
+    return QSize(25, 25);
 }
 
 void ItemSelectorWidget::setModel(SessionModel *model)

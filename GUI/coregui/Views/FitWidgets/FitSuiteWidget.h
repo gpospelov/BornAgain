@@ -49,6 +49,9 @@ public:
     void setItem(JobItem *jobItem);
     void setModelTuningWidget(ParameterTuningWidget *tuningWidget);
 
+    QSize sizeHint() const;
+    QSize minimumSizeHint() const;
+
 signals:
     void fittingStarted(JobItem *jobItem);
     void fittingFinished(JobItem *jobItem);

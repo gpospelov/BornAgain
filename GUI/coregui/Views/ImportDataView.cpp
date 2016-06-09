@@ -37,11 +37,16 @@ ImportDataView::ImportDataView(MainWindow *mainWindow)
     mainLayout->setSpacing(0);
     mainLayout->setContentsMargins(0,0,0,0);
 
+    m_stackedWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    m_selectorWidget->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
+    m_stackedWidget->setSizeHint(QSize(1024, 1024));
+
     m_splitter->addWidget(m_selectorWidget);
     m_splitter->addWidget(m_stackedWidget);
     m_splitter->setCollapsible(0, false);
     m_splitter->setCollapsible(1, false);
 
+    m_splitter->setSizes(QList<int>() << 1 << 100);
 
     mainLayout->addWidget(m_toolBar);
     mainLayout->addWidget(m_splitter);

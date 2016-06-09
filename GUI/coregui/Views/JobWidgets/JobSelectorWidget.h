@@ -23,6 +23,10 @@
 class JobModel;
 class JobItem;
 
+namespace Manhattan {
+    class MiniSplitter;
+}
+
 //! The JobSelectorWidget class represents left panel of JobView. Contains a tree to select jobs
 //! on the top and job property editor at the bottom.
 
@@ -48,7 +52,7 @@ private slots:
     void onSelectionChanged(JobItem *jobItem);
 
 private:
-    class QSplitter *m_splitter;
+    class Manhattan::MiniSplitter *m_splitter;
     class StyledToolBar *m_toolBar;
     class JobSelectorActions *m_jobSelectorActions;
     class JobListWidget *m_jobListWidget;

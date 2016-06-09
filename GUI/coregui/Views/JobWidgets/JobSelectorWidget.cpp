@@ -28,11 +28,11 @@
 
 JobSelectorWidget::JobSelectorWidget(JobModel *jobModel, QWidget *parent)
     : QWidget(parent)
-    , m_splitter(new Manhattan::MiniSplitter(this))
-    , m_toolBar(new StyledToolBar(this))
+    , m_splitter(new Manhattan::MiniSplitter)
+    , m_toolBar(new StyledToolBar)
     , m_jobSelectorActions(new JobSelectorActions(jobModel, this))
-    , m_jobListWidget(new JobListWidget(this))
-    , m_jobProperties(new JobPropertiesWidget(this))
+    , m_jobListWidget(new JobListWidget)
+    , m_jobProperties(new JobPropertiesWidget)
     , m_jobModel(0)
 {
     setModel(jobModel);
@@ -50,6 +50,7 @@ JobSelectorWidget::JobSelectorWidget(JobModel *jobModel, QWidget *parent)
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->setMargin(0);
     mainLayout->setSpacing(0);
+    mainLayout->setContentsMargins(0,0,0,0);
     mainLayout->addWidget(m_splitter);
     setLayout(mainLayout);
 

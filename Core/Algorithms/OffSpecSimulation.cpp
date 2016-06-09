@@ -13,10 +13,10 @@
 //
 // ************************************************************************** //
 
-#include "OffSpecSimulation.h"
 #include "OutputDataFunctions.h"
 #include "BornAgainNamespace.h"
 #include "Histogram2D.h"
+#include "OffSpecSimulation.h"
 #include <memory>
 
 OffSpecSimulation::OffSpecSimulation()
@@ -39,11 +39,6 @@ OffSpecSimulation::OffSpecSimulation(std::shared_ptr<class ISampleBuilder> p_sam
     initialize();
 }
 
-OffSpecSimulation* OffSpecSimulation::clone() const
-{
-    return new OffSpecSimulation(*this);
-}
-
 void OffSpecSimulation::prepareSimulation()
 {
     checkInitialization();
@@ -56,13 +51,6 @@ int OffSpecSimulation::getNumberOfSimulationElements() const
     const IAxis &phi_axis = m_instrument.getDetectorAxis(0);
     const IAxis &alpha_axis = m_instrument.getDetectorAxis(1);
     return phi_axis.getSize()*alpha_axis.getSize()*mp_alpha_i_axis->getSize();
-}
-
-OutputData<double> *OffSpecSimulation::getDetectorIntensity(
-    IDetector2D::EAxesUnits /* units_type */) const
-{
-    OutputData<double> *result = m_intensity_map.clone();
-    return result;
 }
 
 Histogram2D *OffSpecSimulation::getIntensityData() const
@@ -153,20 +141,18 @@ std::string OffSpecSimulation::addParametersToExternalPool(std::string path,
     return new_path;
 }
 
+// *** protected ***
+
 OffSpecSimulation::OffSpecSimulation(const OffSpecSimulation& other)
-: Simulation(other)
-, m_instrument(other.m_instrument)
-, mp_alpha_i_axis(0)
-, m_intensity_map()
+    : Simulation(other)
+    , m_instrument(other.m_instrument)
+    , mp_alpha_i_axis(0)
+    , m_intensity_map()
 {
     if(other.mp_alpha_i_axis) mp_alpha_i_axis = other.mp_alpha_i_axis->clone();
     m_intensity_map.copyFrom(other.m_intensity_map);
 
     initialize();
-}
-
-void OffSpecSimulation::init_parameters()
-{
 }
 
 void OffSpecSimulation::initSimulationElementVector()

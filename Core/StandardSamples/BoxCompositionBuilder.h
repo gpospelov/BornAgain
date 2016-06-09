@@ -33,8 +33,8 @@ public:
     virtual ~BoxCompositionBuilder();
 
 protected:
-    MultiLayer *createMultiLayer(const ParticleComposition &composition) const;
-    const HomogeneousMaterial *m_particleMaterial;
+    class MultiLayer* createMultiLayer(const ParticleComposition &composition) const;
+    const class HomogeneousMaterial* m_particleMaterial;
     const double m_layer_thickness;
     const double m_length;
     const double m_width;
@@ -50,7 +50,7 @@ class BA_CORE_API_ BoxCompositionRotateXBuilder : public BoxCompositionBuilder
 {
 public:
     BoxCompositionRotateXBuilder(){}
-    ISample *buildSample() const;
+    class ISample* buildSample() const;
 
 };
 
@@ -62,7 +62,7 @@ class BA_CORE_API_ BoxCompositionRotateYBuilder : public BoxCompositionBuilder
 {
 public:
     BoxCompositionRotateYBuilder(){}
-    ISample *buildSample() const;
+    class ISample* buildSample() const;
 
 };
 
@@ -74,7 +74,7 @@ class BA_CORE_API_ BoxCompositionRotateZBuilder : public BoxCompositionBuilder
 {
 public:
     BoxCompositionRotateZBuilder(){}
-    ISample *buildSample() const;
+    class ISample* buildSample() const;
 
 };
 
@@ -86,7 +86,7 @@ class BA_CORE_API_ BoxCompositionRotateZandYBuilder : public BoxCompositionBuild
 {
 public:
     BoxCompositionRotateZandYBuilder(){}
-    ISample *buildSample() const;
+    class ISample* buildSample() const;
 
 };
 
@@ -98,7 +98,7 @@ class BA_CORE_API_ BoxStackCompositionBuilder : public BoxCompositionBuilder
 {
 public:
     BoxStackCompositionBuilder(){}
-    ISample *buildSample() const;
+    class ISample* buildSample() const;
 
 };
 

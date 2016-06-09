@@ -42,9 +42,9 @@ public:
                       std::vector<SimulationElement>::iterator end_it);
 
     //! Returns output data containing calculated intensity.
-    const OutputData<double> &getDWBAIntensity() const;
+    const OutputData<double>& getDWBAIntensity() const { return m_dwba_intensity; }
 
-    virtual DWBASimulation *clone() const;
+    virtual DWBASimulation* clone() const;
 
 protected:
     //! Returns true if the sample requires a polarized calculation
@@ -55,7 +55,7 @@ protected:
 
     mutable OutputData<double> m_dwba_intensity;
     SimulationOptions m_sim_options;
-    Simulation *mp_simulation;
+    Simulation* mp_simulation;
 
     ProgressHandlerDWBA m_progress;
 };

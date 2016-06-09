@@ -1,7 +1,6 @@
 #ifndef DETECTORTEST_H
 #define DETECTORTEST_H
 
-
 #include "SphericalDetector.h"
 #include "Exceptions.h"
 #include "OutputData.h"
@@ -10,8 +9,6 @@
 #include "ResolutionFunction2DGaussian.h"
 #include "Polygon.h"
 #include <memory>
-
-
 
 class DetectorTest : public ::testing::Test
 {
@@ -45,7 +42,7 @@ TEST_F(DetectorTest, InitialDetectorState)
 {
     EXPECT_EQ((size_t)0, emptyDetector.getDimension());
     ASSERT_THROW(emptyDetector.getAxis(0), OutOfBoundsException);
-    OutputData<double>* p_intensity_map(0);
+    OutputData<double>* p_intensity_map(nullptr);
     ASSERT_THROW(emptyDetector.applyDetectorResolution(p_intensity_map),
             NullPointerException);
 }
@@ -132,11 +129,6 @@ TEST_F(DetectorTest, MaskOfDetector)
             EXPECT_FALSE(detector.isMasked(index));
         }
     }
-
-
-
 }
-
-
 
 #endif // DETECTORTEST_H

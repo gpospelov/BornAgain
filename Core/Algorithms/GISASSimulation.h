@@ -20,18 +20,9 @@
 #include "Instrument.h"
 #include "SimulationOptions.h"
 #include "DistributionHandler.h"
-#include "ProgressHandler.h"
 #include "Simulation.h"
 
 #include "EigenCore.h"
-
-class ProgressHandlerDWBA;
-class IHistogram;
-class Histogram2D;
-
-namespace Geometry {
-class IShape2D;
-}
 
 //! @class Simulation
 //! @ingroup simulation
@@ -46,7 +37,7 @@ public:
 
     virtual ~GISASSimulation() {}
 
-    GISASSimulation *clone() const;
+    GISASSimulation* clone() const { return new GISASSimulation(*this); }
 
     //! Put into a clean state for running a simulation
     virtual void prepareSimulation();
@@ -55,7 +46,7 @@ public:
     virtual int getNumberOfSimulationElements() const;
 
     //! Returns detector intensity map (no detector resolution)
-    const OutputData<double>* getOutputData() const;
+    const OutputData<double>* getOutputData() const { return &m_intensity_map; }
 
     //! Returns clone of the detector intensity map with detector resolution applied
     OutputData<double>* getDetectorIntensity(
@@ -63,14 +54,15 @@ public:
 
     //! Returns clone of the detector intensity map with detector resolution applied in the form
     //! of 2D histogram.
-    Histogram2D *getIntensityData(IDetector2D::EAxesUnits units_type = IDetector2D::DEFAULT) const;
+    class Histogram2D* getIntensityData(
+        IDetector2D::EAxesUnits units_type = IDetector2D::DEFAULT) const;
 
     //! Sets the instrument containing beam and detector information
     void setInstrument(const Instrument& instrument);
 
     //! Returns the instrument containing beam and detector information
-    const Instrument& getInstrument() const;
-    Instrument& getInstrument();
+    const Instrument& getInstrument() const { return m_instrument; }
+    Instrument& getInstrument() { return m_instrument; }
 
     //! Sets beam parameters from here (forwarded to Instrument)
     void setBeamParameters(double wavelength, double alpha_i, double phi_i);
@@ -86,7 +78,7 @@ public:
 
     //! Sets detector parameters using axes of output data
     void setDetectorParameters(const OutputData<double> &output_data);
-    void setDetectorParameters(const IHistogram &hisotgram);
+    void setDetectorParameters(const class IHistogram& histogram);
 
     //! Sets spherical detector parameters using angle ranges
     //! @param n_phi number of phi-axis bins
@@ -116,7 +108,7 @@ public:
     //! has priority.
     //! @param shape The shape of mask (Rectangle, Polygon, Line, Ellipse)
     //! @param mask_value The value of mask
-    void addMask(const Geometry::IShape2D &shape, bool mask_value = true);
+    void addMask(const class Geometry::IShape2D& shape, bool mask_value = true);
 
     //! Put the mask for all detector channels (i.e. exclude whole detector from the analysis)
     void maskAll();
@@ -129,7 +121,7 @@ protected:
     GISASSimulation(const GISASSimulation& other);
 
     //! Registers some class members for later access via parameter pool
-    void init_parameters();
+    void init_parameters() {}
 
     //! Initializes the vector of Simulation elements
     virtual void initSimulationElementVector();
@@ -151,13 +143,4 @@ private:
     void initialize();
 };
 
-inline const OutputData<double> *GISASSimulation::getOutputData() const
-{
-    return &m_intensity_map;
-}
-
-inline const Instrument &GISASSimulation::getInstrument() const { return m_instrument; }
-
-inline Instrument &GISASSimulation::getInstrument() { return m_instrument; }
-
-#endif /* GISASSIMULATION_H_ */
+#endif // GISASSIMULATION_H_

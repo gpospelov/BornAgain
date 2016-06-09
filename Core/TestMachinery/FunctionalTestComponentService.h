@@ -16,40 +16,36 @@
 #ifndef FUNCTIONALTESTCOMPONENTSERVICE_H
 #define FUNCTIONALTESTCOMPONENTSERVICE_H
 
-#include "IComponentService.h"
 #include <vector>
 #include <string>
+#include <memory>
 
-class IFormFactor;
-class GISASSimulation;
-class TestFormFactorsRegistry;
-class TestFTDistribution2DRegistry;
-class FunctionalTestInfo;
-class IFunctionalTest;
-
+#include "WinDllMacros.h"
+#include "OutputData.h"
+#include "ISampleBuilder.h"
 //! @class FunctionalTestComponentService
 //! @ingroup standard_samples
 //! @brief Contains all necessary information to compose functional test.
 
-class BA_CORE_API_ FunctionalTestComponentService : public IComponentService
+class BA_CORE_API_ FunctionalTestComponentService
 {
 public:
-    FunctionalTestComponentService(const FunctionalTestInfo* info);
+    FunctionalTestComponentService(const class FunctionalTestInfo* info);
     virtual ~FunctionalTestComponentService();
 
-    virtual IFormFactor* getFormFactor() const;
-    virtual IFTDistribution2D* getFTDistribution2D() const;
-    virtual GISASSimulation* getSimulation() const;
+    virtual class IFormFactor* getFormFactor() const;
+    virtual class IFTDistribution2D* getFTDistribution2D() const;
+    virtual class GISASSimulation* getSimulation() const;
     virtual std::shared_ptr<class ISampleBuilder> getSampleBuilder() const;
     virtual OutputData<double>* getReferenceData() const;
-    virtual IFunctionalTest* getFunctionalTest() const = 0;
+    virtual class IFunctionalTest* getFunctionalTest() const = 0;
 
     size_t getNumberOfComponents() const { return m_component_names.size(); }
     void initComponent(size_t component_index);
     std::string getCurrentComponentName() const;
 
     std::string getReferenceFileName() const;
-    const FunctionalTestInfo* getTestInfo() const { return m_testInfo; }
+    const class FunctionalTestInfo* getTestInfo() const { return m_info; }
 
 protected:
     void init_registry(const std::string& registry_name);
@@ -57,12 +53,12 @@ protected:
     std::string getTestDescription() const;
     double getTestThreshold() const;
 
-    const FunctionalTestInfo* m_testInfo;
-    IFormFactor* m_form_factor;
-    IFTDistribution2D* m_ft_distribution_2d;
+    const class FunctionalTestInfo* m_info;
+    class IFormFactor* m_formfactor;
+    class IFTDistribution2D* m_ft_distribution_2d;
 
-    TestFormFactorsRegistry* m_ff_registry;
-    TestFTDistribution2DRegistry* m_ft2d_registry;
+    class TestFormFactorsRegistry* m_ff_registry;
+    class TestFTDistribution2DRegistry* m_ft2d_registry;
     std::vector<std::string> m_component_names;
     size_t m_current_component;
 };

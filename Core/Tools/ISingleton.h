@@ -35,11 +35,10 @@ public:
         static std::mutex single_mutex;
         std::unique_lock<std::mutex> single_lock( single_mutex );
         if( !m_instance) {
-            if( m_destroyed ) {
-                onDeadReference();
-            } else {
-                CreateSingleton();
-            }
+            if( m_destroyed )
+                throw std::runtime_error("ISingleton::onDeadReference()");
+            static T theInstance;
+            m_instance = &theInstance;
         }
         return *m_instance;
     }
@@ -48,29 +47,19 @@ protected:
     ISingleton(){}
     virtual ~ISingleton()
     {
-        m_instance = 0;
+        m_instance = nullptr;
         m_destroyed = true;
     }
 
-    static void CreateSingleton()
-    {
-        static T theInstance;
-        m_instance =& theInstance;
-    }
-
-    static void onDeadReference() { throw std::runtime_error("ISingleton::onDeadReference()"); }
-
-    typedef T* T_Pointer;
-
 private:
-    ISingleton(const ISingleton<T>& ) {}
-    ISingleton& operator=(const ISingleton<T>& ) {
-        throw std::runtime_error("ISingleton::operator=()"); }
-    static T_Pointer m_instance;
+    ISingleton(const ISingleton&) = delete;
+    ISingleton& operator=(const ISingleton&) = delete;
+    static T* m_instance;
     static bool m_destroyed;
 };
 
-template<class T> typename ISingleton<T>::T_Pointer ISingleton<T>::m_instance = 0;
+// for templated classes, initializations go into the .h file:
+template<class T> T* ISingleton<T>::m_instance = 0;
 template<class T> bool ISingleton<T>::m_destroyed = false;
 
 #endif // ISINGLETON_H

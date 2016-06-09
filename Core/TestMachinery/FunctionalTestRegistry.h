@@ -16,17 +16,19 @@
 #ifndef FUNCTIONALTESTREGISTRY_H
 #define FUNCTIONALTESTREGISTRY_H
 
-#include "WinDllMacros.h"
-#include "FunctionalTestInfo.h"
 #include <vector>
 #include <string>
 #include <map>
+
+#include "WinDllMacros.h"
+#include "FunctionalTestInfo.h"
+#include "ISingleton.h"
 
 //! @class FunctionalTestRegistry
 //! @ingroup standard_samples
 //! @brief The registry which holds information about available functional tests.
 
-class BA_CORE_API_ FunctionalTestRegistry
+class BA_CORE_API_ FunctionalTestRegistry : public ISingleton<FunctionalTestRegistry>
 {
 public:
     FunctionalTestRegistry();
@@ -34,8 +36,9 @@ public:
     void add(const std::string& test_name, const std::string& test_description,
              const std::string& simulation_name, const std::string& sample_builder_name,
              const std::string& component_registry_name, double threshold);
-    FunctionalTestInfo* getTestInfo(const std::string& test_name, const std::string& suite_name);
-    void printCatalogue(std::ostream& ostr);
+    const FunctionalTestInfo* getItemOrExplain(
+        const std::string& test_name, const std::string& suite_name) const;
+    void printCatalogue(std::ostream& ostr) const;
 
 private:
     std::map<std::string, FunctionalTestInfo> m_catalogue;

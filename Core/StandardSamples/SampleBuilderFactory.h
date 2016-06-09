@@ -16,23 +16,19 @@
 #ifndef SAMPLEBUILDERFACTORY_H
 #define SAMPLEBUILDERFACTORY_H
 
+#include <memory>
 #include "IFactory.h"
 #include "ISampleBuilder.h"
-
 
 //! @class SampleBuilderFactory
 //! @ingroup standard_samples
 //! @brief Factory to create standard pre-defined samples
 
-class BA_CORE_API_ SampleBuilderFactory : public IFactory<std::string, ISampleBuilder>
+class BA_CORE_API_ SampleBuilderFactory : public IFactory<ISampleBuilder>
 {
 public:
     SampleBuilderFactory();
-
-    ISample *createSample(const std::string& name);
-    std::shared_ptr<class ISampleBuilder> createBuilder(const std::string& name);
+    class ISample* createSample(const std::string& name);
 };
-
-
 
 #endif // SAMPLEBUILDERFACTORY_H

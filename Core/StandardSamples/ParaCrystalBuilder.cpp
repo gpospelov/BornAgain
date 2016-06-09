@@ -13,7 +13,6 @@
 //
 // ************************************************************************** //
 
-#include "ParaCrystalBuilder.h"
 #include "MultiLayer.h"
 #include "ParticleLayout.h"
 #include "Materials.h"
@@ -22,7 +21,8 @@
 #include "FormFactorCylinder.h"
 #include "Units.h"
 #include "FTDistributions.h"
-#include "IComponentService.h"
+#include "FunctionalTestComponentService.h"
+#include "ParaCrystalBuilder.h"
 
 RadialParaCrystalBuilder::RadialParaCrystalBuilder()
     : m_corr_peak_distance(20.0*Units::nanometer)
@@ -34,9 +34,9 @@ RadialParaCrystalBuilder::RadialParaCrystalBuilder()
     init_parameters();
 }
 
-ISample *RadialParaCrystalBuilder::buildSample() const
+ISample* RadialParaCrystalBuilder::buildSample() const
 {
-    MultiLayer *multi_layer = new MultiLayer();
+    MultiLayer* multi_layer = new MultiLayer();
 
     HomogeneousMaterial air_material("Air", 0.0, 0.0);
     HomogeneousMaterial substrate_material("Substrate", 6e-6, 2e-8);
@@ -88,16 +88,16 @@ Basic2DParaCrystalBuilder::~Basic2DParaCrystalBuilder()
     delete m_pdf2;
 }
 
-void Basic2DParaCrystalBuilder::init_from(const IComponentService *service)
+void Basic2DParaCrystalBuilder::init_from(const FunctionalTestComponentService* service)
 {
     // we will read only second function from component service
     delete m_pdf2;
     m_pdf2 = service->getFTDistribution2D();
 }
 
-ISample *Basic2DParaCrystalBuilder::buildSample() const
+ISample* Basic2DParaCrystalBuilder::buildSample() const
 {
-    MultiLayer *multi_layer = new MultiLayer();
+    MultiLayer* multi_layer = new MultiLayer();
 
     HomogeneousMaterial air_material("Air", 0.0, 0.0);
     HomogeneousMaterial substrate_material("Substrate", 6e-6, 2e-8);
@@ -146,9 +146,9 @@ HexParaCrystalBuilder::HexParaCrystalBuilder()
     init_parameters();
 }
 
-ISample *HexParaCrystalBuilder::buildSample() const
+ISample* HexParaCrystalBuilder::buildSample() const
 {
-    MultiLayer *multi_layer = new MultiLayer();
+    MultiLayer* multi_layer = new MultiLayer();
 
     HomogeneousMaterial particle_material("Particle", 6e-4, 2e-8);
     HomogeneousMaterial air_material("Air", 0.0, 0.0);
@@ -192,9 +192,9 @@ void HexParaCrystalBuilder::init_parameters()
 // RectParaCrystalBuilder
 // -----------------------------------------------------------------------------
 
-ISample *RectParaCrystalBuilder::buildSample() const
+ISample* RectParaCrystalBuilder::buildSample() const
 {
-    MultiLayer *multi_layer = new MultiLayer();
+    MultiLayer* multi_layer = new MultiLayer();
 
     HomogeneousMaterial air_material("Air", 0.0, 0.0);
     HomogeneousMaterial substrate_material("Substrate", 6e-6, 2e-8);
@@ -231,9 +231,9 @@ ISample *RectParaCrystalBuilder::buildSample() const
 // IsGISAXS08BBuilder
 // -----------------------------------------------------------------------------
 
-ISample *IsGISAXS08BBuilder::buildSample() const
+ISample* IsGISAXS08BBuilder::buildSample() const
 {
-    MultiLayer *multi_layer = new MultiLayer();
+    MultiLayer* multi_layer = new MultiLayer();
 
     HomogeneousMaterial air_material("Air", 0.0, 0.0);
     HomogeneousMaterial substrate_material("Substrate", 6e-6, 2e-8);

@@ -27,7 +27,7 @@ class BA_CORE_API_ RadialParaCrystalBuilder : public ISampleBuilder
 {
 public:
     RadialParaCrystalBuilder();
-    ISample *buildSample() const;
+    ISample* buildSample() const;
 
 protected:
     void init_parameters();
@@ -50,11 +50,11 @@ class BA_CORE_API_ Basic2DParaCrystalBuilder : public ISampleBuilder
 public:
     Basic2DParaCrystalBuilder();
     virtual ~Basic2DParaCrystalBuilder();
-    virtual void init_from(const IComponentService *service);
-    virtual ISample *buildSample() const;
+    virtual void init_from(const class FunctionalTestComponentService* service);
+    virtual ISample* buildSample() const;
 private:
-    IFTDistribution2D *m_pdf1;
-    IFTDistribution2D *m_pdf2;
+    IFTDistribution2D* m_pdf1;
+    IFTDistribution2D* m_pdf2;
 };
 
 //! @class HexParaCrystalBuilder
@@ -65,7 +65,7 @@ class BA_CORE_API_ HexParaCrystalBuilder : public ISampleBuilder
 {
 public:
     HexParaCrystalBuilder();
-    virtual ISample *buildSample() const;
+    virtual ISample* buildSample() const;
 
 protected:
     virtual void init_parameters();
@@ -87,7 +87,7 @@ class BA_CORE_API_ RectParaCrystalBuilder : public ISampleBuilder
 {
 public:
     RectParaCrystalBuilder(){}
-    virtual ISample *buildSample() const;
+    virtual ISample* buildSample() const;
 };
 
 
@@ -99,7 +99,7 @@ class BA_CORE_API_ IsGISAXS08BBuilder : public ISampleBuilder
 {
 public:
     IsGISAXS08BBuilder(){}
-    virtual ISample *buildSample() const;
+    virtual ISample* buildSample() const;
 };
 
 

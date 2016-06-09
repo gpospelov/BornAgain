@@ -25,7 +25,7 @@
 //! @ingroup tools_internal
 //! @brief Base class for all factories.
 
-template<class IdentifierType, class AbstractProduct >
+template<class AbstractProduct >
 class IFactory
 {
 public:
@@ -33,35 +33,31 @@ public:
     typedef AbstractProduct* (*CreateItemCallback) ();
 
     //! map for correspondance between object identifier and object creation function
-    typedef std::map<IdentifierType, CreateItemCallback> CallbackMap_t;
+    typedef std::map<std::string, CreateItemCallback> CallbackMap_t;
 
     //! map for correspondance between object identifier and object description
-    typedef std::map<IdentifierType, IdentifierType> DescriptionMap_t;
+    typedef std::map<std::string, std::string> DescriptionMap_t;
     typedef typename DescriptionMap_t::iterator iterator;
     typedef typename DescriptionMap_t::const_iterator const_iterator;
 
-    IFactory() : m_own_objects(false) { }
+    IFactory() : m_own_objects(false) {}
 
     //! Creates object by calling creation function corresponded to given identifier
-    AbstractProduct *createItem(const IdentifierType& itemId)
-    {
-        typename CallbackMap_t::const_iterator it = m_callbacks.find(itemId);
-        if( it == m_callbacks.end() ) {
-            // item with such itemId have not been registered in the database
+    AbstractProduct* createItem(const std::string& itemId) {
+        auto it = m_callbacks.find(itemId);
+        if( it == m_callbacks.end() ) // unexpectedly not found
             throw UnknownClassRegistrationException(
                 "IFactory::createItem() -> Panic. Unknown itemId '"+std::string(itemId)+"'" );
-        }
         // invoke the creation function
-        AbstractProduct *x = (it->second)();
-        if(m_own_objects) m_objects.push_back(x);
+        AbstractProduct* x = (it->second)();
+        if(m_own_objects)
+            m_objects.push_back(x);
         return x;
     }
 
     //! Registers object's creation function
-    bool registerItem(const IdentifierType& itemId, CreateItemCallback CreateFn)
-    {
-        typename CallbackMap_t::const_iterator it = m_callbacks.find(itemId);
-        if( it != m_callbacks.end() )
+    bool registerItem(const std::string& itemId, CreateItemCallback CreateFn) {
+        if( m_callbacks.find(itemId) != m_callbacks.end() )
             throw ExistingClassRegistrationException(
                 "IFactory::registerItem() -> Panic! "
                 "Already registered itemId '"+std::string(itemId)+"'" );
@@ -69,11 +65,9 @@ public:
     }
 
     //! Registers object's creation function and store object description
-    bool registerItem(const IdentifierType& itemId, CreateItemCallback CreateFn,
-                      const IdentifierType& itemDescription)
-    {
-        typename CallbackMap_t::const_iterator it = m_callbacks.find(itemId);
-        if( it != m_callbacks.end() )
+    bool registerItem(const std::string& itemId, CreateItemCallback CreateFn,
+                      const std::string& itemDescription) {
+        if( m_callbacks.find(itemId) != m_callbacks.end() )
             throw ExistingClassRegistrationException(
                 "IFactory::registerItem() -> Panic! "
                 "Already registered itemId '"+std::string(itemId)+"'" );
@@ -81,20 +75,14 @@ public:
         return m_callbacks.insert( typename CallbackMap_t::value_type(itemId, CreateFn)).second;
     }
 
-    ~IFactory()
-    {
-        clear();
-    }
+    ~IFactory() { clear(); }
 
     //! clear everything
-    void clear()
-    {
+    void clear() {
         m_callbacks.clear();
         if(m_own_objects) {
-            typename std::vector<AbstractProduct *>::iterator it;
-            for(it=m_objects.begin(); it!=m_objects.end(); ++it) {
-                delete (*it);
-            }
+            for(auto it: m_objects)
+                delete it;
         }
         m_objects.clear();
     }
@@ -114,17 +102,10 @@ public:
 protected:
     //! will store created objects in the list and then delete them on exit then true
     bool m_own_objects;
-    CallbackMap_t m_callbacks;     //!< map of correspondance of objectsId and creation functions
-    DescriptionMap_t m_descriptions;     //!< map of correspondance of objectsId and description
+    CallbackMap_t m_callbacks;     //!< map of correspondence of objectsId and creation functions
+    DescriptionMap_t m_descriptions;     //!< map of correspondence of objectsId and description
     //! vector of all created objects (if m_store_objects==true)
-    std::vector<AbstractProduct *> m_objects;
+    std::vector<AbstractProduct*> m_objects;
 };
-
-//! creation function
-template<class Derived, class Base >
-Base *IFactoryCreateFunction()
-{
-    return new Derived;
-}
 
 #endif // IFACTORY_H

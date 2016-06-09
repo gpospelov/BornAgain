@@ -18,33 +18,30 @@
 #include "HomogeneousMaterial.h"
 #include "Particle.h"
 #include "ParticleLayout.h"
-#include "IComponentService.h"
+#include "FunctionalTestComponentService.h"
 #include "Exceptions.h"
 
 ParticleInTheAirBuilder::ParticleInTheAirBuilder()
     : m_form_factor(0)
 {
-
 }
 
 ParticleInTheAirBuilder::~ParticleInTheAirBuilder()
 {
-
 }
 
-void ParticleInTheAirBuilder::init_from(const IComponentService *service)
+void ParticleInTheAirBuilder::init_from(const FunctionalTestComponentService* service)
 {
     delete m_form_factor;
     m_form_factor = service->getFormFactor();
 }
 
-ISample *ParticleInTheAirBuilder::buildSample() const
+ISample* ParticleInTheAirBuilder::buildSample() const
 {
-    if(!m_form_factor) {
+    if(!m_form_factor)
         throw NullPointerException("ParticleInTheAirBuilder::buildSample() -> Error. "
                                    "Form factor is not initialized.");
-    }
-    MultiLayer *result = new MultiLayer;
+    MultiLayer* result = new MultiLayer;
 
     HomogeneousMaterial air_material("Air", 0.0, 0.0);
     HomogeneousMaterial particle_material("Particle", 6e-4, 2e-8);
@@ -60,4 +57,3 @@ ISample *ParticleInTheAirBuilder::buildSample() const
 
     return result;
 }
-

@@ -19,10 +19,6 @@
 #include "ISampleBuilder.h"
 #include "Complex.h"
 
-class Lattice;
-class MesoCrystal;
-
-
 //! @class MesoCrystalBuilder
 //! @ingroup standard_samples
 //! @brief Builds sample: mesocrystals of cylindrical shape composed by
@@ -34,16 +30,16 @@ public:
     MesoCrystalBuilder();
 
     virtual ~MesoCrystalBuilder(){}
-    virtual ISample *buildSample() const;
+    virtual class ISample* buildSample() const;
 
 protected:
     virtual void init_parameters();
 
 private:
-    MesoCrystal *createMesoCrystal(
+    class MesoCrystal* createMesoCrystal(
         double stacking_radius_a, double stacking_radius_c,
-        complex_t n_particle, const IFormFactor *p_meso_form_factor) const;
-    const Lattice *createLattice(double stacking_radius_a, double stacking_radius_c) const;
+        complex_t n_particle, const class IFormFactor* p_meso_form_factor) const;
+    const class Lattice* createLattice(double stacking_radius_a, double stacking_radius_c) const;
     double m_lattice_length_a;
     double m_lattice_length_c;
     double m_nanoparticle_radius;

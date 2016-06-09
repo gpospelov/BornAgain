@@ -47,8 +47,7 @@ public:
 
     std::string getFormattedInfoString() const;
 
-    friend std::ostream &operator<<(std::ostream &ostr, const IFunctionalTest &m)
-    {
+    friend std::ostream &operator<<(std::ostream &ostr, const IFunctionalTest &m) {
         m.printResults(ostr);
         return ostr;
     }

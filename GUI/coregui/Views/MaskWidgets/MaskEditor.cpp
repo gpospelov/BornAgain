@@ -36,7 +36,7 @@
 #include "GUIHelpers.h"
 
 
-MaskEditor::MaskEditor(QWidget *parent)
+MaskEditor::MaskEditor(QWidget* parent)
     : QMainWindow(parent)
     , m_itemActions(new MaskEditorActions(this))
     , m_toolBar(new MaskEditorToolBar(m_itemActions, this))
@@ -59,8 +59,8 @@ MaskEditor::MaskEditor(QWidget *parent)
     m_editorPropertyPanel->setPanelHidden(true);
 }
 
-void MaskEditor::setMaskContext(SessionModel *model, const QModelIndex &maskContainerIndex,
-                                IntensityDataItem *intensityItem)
+void MaskEditor::setMaskContext(SessionModel* model, const QModelIndex &maskContainerIndex,
+                                IntensityDataItem* intensityItem)
 {
     m_editorPropertyPanel->setMaskContext(model, maskContainerIndex, intensityItem);
 
@@ -82,17 +82,17 @@ void MaskEditor::onPropertyPanelRequest()
 }
 
 //! Context menu reimplemented to supress default menu
-void MaskEditor::contextMenuEvent(QContextMenuEvent *event)
+void MaskEditor::contextMenuEvent(QContextMenuEvent* event)
 {
     Q_UNUSED(event);
 }
 
 void MaskEditor::init_test_model()
 {
-    SessionModel *maskModel = new SessionModel(SessionXML::MaskModelTag, this);
+    SessionModel* maskModel = new SessionModel(SessionXML::MaskModelTag, this);
 
     SimulationRegistry simRegistry;
-    const std::unique_ptr<GISASSimulation> simulation(simRegistry.createSimulation("BasicGISAS"));
+    const std::unique_ptr<GISASSimulation> simulation(simRegistry.createItem("BasicGISAS"));
 
     SampleBuilderFactory sampleFactory;
     const std::unique_ptr<ISample> sample(sampleFactory.createSample("CylindersAndPrismsBuilder"));
@@ -100,16 +100,18 @@ void MaskEditor::init_test_model()
     simulation->setSample(*sample.get());
     simulation->runSimulation();
 
-    IntensityDataItem *intensityItem = dynamic_cast<IntensityDataItem *>(maskModel->insertNewItem(Constants::IntensityDataType));
+    IntensityDataItem* intensityItem = dynamic_cast<IntensityDataItem*>(
+        maskModel->insertNewItem(Constants::IntensityDataType));
     Q_ASSERT(intensityItem);
     intensityItem->setOutputData(simulation->getOutputData()->clone());
 
     // Rectangle
 
-    SessionItem *container = maskModel->insertNewItem(Constants::MaskContainerType, maskModel->indexOfItem(intensityItem));
+    SessionItem* container = maskModel->insertNewItem(
+        Constants::MaskContainerType, maskModel->indexOfItem(intensityItem));
     Q_ASSERT(container);
 
-//    RectangleItem *rect = new RectangleItem();
+//    RectangleItem* rect = new RectangleItem();
 //    rect->setRegisteredProperty(RectangleItem::P_XLOW, 0.6);
 //    rect->setRegisteredProperty(RectangleItem::P_YLOW, 1.3);
 //    rect->setRegisteredProperty(RectangleItem::P_XUP, 0.9);
@@ -118,33 +120,33 @@ void MaskEditor::init_test_model()
 
 
     // Polygon
-//    SessionItem *poly = m_maskModel->insertNewItem(Constants::PolygonMaskType, m_maskModel->indexOfItem(item));
+//    SessionItem* poly = m_maskModel->insertNewItem(Constants::PolygonMaskType, m_maskModel->indexOfItem(item));
 
-//    SessionItem *p1 = m_maskModel->insertNewItem(Constants::PolygonPointType, m_maskModel->indexOfItem(poly));
+//    SessionItem* p1 = m_maskModel->insertNewItem(Constants::PolygonPointType, m_maskModel->indexOfItem(poly));
 //    p1->setRegisteredProperty(PolygonPointItem::P_POSX, 0.6);
 //    p1->setRegisteredProperty(PolygonPointItem::P_POSY, 1.5);
-//    SessionItem *p2 = m_maskModel->insertNewItem(Constants::PolygonPointType, m_maskModel->indexOfItem(poly));
+//    SessionItem* p2 = m_maskModel->insertNewItem(Constants::PolygonPointType, m_maskModel->indexOfItem(poly));
 //    p2->setRegisteredProperty(PolygonPointItem::P_POSX, 1.0);
 //    p2->setRegisteredProperty(PolygonPointItem::P_POSY, 1.5);
-//    SessionItem *p3 = m_maskModel->insertNewItem(Constants::PolygonPointType, m_maskModel->indexOfItem(poly));
+//    SessionItem* p3 = m_maskModel->insertNewItem(Constants::PolygonPointType, m_maskModel->indexOfItem(poly));
 //    p3->setRegisteredProperty(PolygonPointItem::P_POSX, 1.0);
 //    p3->setRegisteredProperty(PolygonPointItem::P_POSY, 0.6);
 
     // Lines
-//   VerticalLineItem *line = new VerticalLineItem();
+//   VerticalLineItem* line = new VerticalLineItem();
 //   line->setRegisteredProperty(VerticalLineItem::P_POSX, 0.6);
 //   container->insertChildItem(-1, line);
 
-//   HorizontalLineItem *hline = new HorizontalLineItem();
+//   HorizontalLineItem* hline = new HorizontalLineItem();
 //   hline->setRegisteredProperty(HorizontalLineItem::P_POSY, 0.5);
 //   container->insertChildItem(-1, hline);
 
 
-//   SessionItem *line = m_maskModel->insertNewItem(Constants::HorizontalLineMaskType, m_maskModel->indexOfItem(item));
+//   SessionItem* line = m_maskModel->insertNewItem(Constants::HorizontalLineMaskType, m_maskModel->indexOfItem(item));
 //   line->setRegisteredProperty(HorizontalLineItem::P_POSY, 1.0);
 
     // Ellipse
-//    EllipseItem *ellipse = new EllipseItem;
+//    EllipseItem* ellipse = new EllipseItem;
 //    ellipse->setRegisteredProperty(EllipseItem::P_XCENTER, 1.0);
 //    ellipse->setRegisteredProperty(EllipseItem::P_YCENTER, 1.0);
 //    ellipse->setRegisteredProperty(EllipseItem::P_XRADIUS, 0.15);
@@ -153,7 +155,8 @@ void MaskEditor::init_test_model()
 //    container->insertChildItem(-1, ellipse);
 
 
-//    MaskAllItem *rect = dynamic_cast<MaskAllItem *>(m_maskModel->insertNewItem(Constants::MaskAllType, m_maskModel->indexOfItem(item)));
+//    MaskAllItem* rect = dynamic_cast<MaskAllItem*>(
+//        m_maskModel->insertNewItem(Constants::MaskAllType, m_maskModel->indexOfItem(item)));
 
     setMaskContext(maskModel, maskModel->indexOfItem(container), intensityItem);
 }

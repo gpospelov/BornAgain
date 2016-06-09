@@ -42,9 +42,9 @@ void CylindersAndPrismsBuilder::init_parameters()
     registerParameter("cylinder_weight", &m_cylinder_weight);
 }
 
-ISample *CylindersAndPrismsBuilder::buildSample() const
+ISample* CylindersAndPrismsBuilder::buildSample() const
 {
-    MultiLayer *multi_layer = new MultiLayer();
+    MultiLayer* multi_layer = new MultiLayer();
 
     HomogeneousMaterial air_material("Air", 0., 0.);
     HomogeneousMaterial substrate_material("Substrate", 6e-6, 2e-8);

@@ -1,49 +1,52 @@
+
 #include "StandardFitsFactory.h"
 #include "MinimizerFunctionalTests.h"
 #include "RectDetectorFitTest.h"
 #include <boost/format.hpp>
 
+//! build<C> is a function void -> IFunctionalTest*. C must be a child of IFunctionalTest.
+template<class Builder> IFunctionalTest* build() { return new Builder(); }
 
 StandardFitsFactory::StandardFitsFactory()
 {
     registerItem(
         "Minuit2_Migrad",
-        IFactoryCreateFunction<Minuit2MigradTest, IFunctionalTest>,
+        build<Minuit2MigradTest>,
         "Functional test of Minuit2/Migrad minimizer");
 
     registerItem(
         "Minuit2_Fumili",
-        IFactoryCreateFunction<Minuit2FumiliTest, IFunctionalTest>,
+        build<Minuit2FumiliTest>,
         "Functional test of Minuit2/Fumili minimizer");
 
     registerItem(
         "GSLLevenbergMarquardt",
-        IFactoryCreateFunction<GSLLevenbergMarquardtTest, IFunctionalTest>,
+        build<GSLLevenbergMarquardtTest>,
         "Functional test of GSL's LevenbergMarquardt minimizer");
 
     registerItem(
         "GSLMultiMinBFGS",
-        IFactoryCreateFunction<GSLMultiMinBFGSTest, IFunctionalTest>,
+        build<GSLMultiMinBFGSTest>,
         "Functional test of GSL's MultiMin/BFGS minimizer");
 
     registerItem(
         "GSLMultiMinSteepestDescent",
-        IFactoryCreateFunction<GSLMultiMinSteepestDescentTest, IFunctionalTest>,
+        build<GSLMultiMinSteepestDescentTest>,
         "Functional test of GSL's MultiMin/SteepestDescent minimizer");
 
     registerItem(
         "GSLSimulatedAnnealing",
-        IFactoryCreateFunction<GSLSimulatedAnnealingTest, IFunctionalTest>,
+        build<GSLSimulatedAnnealingTest>,
         "Functional test of GSL's Simulated Annealing minimizer");
 
     registerItem(
         "GeneticMinimizer",
-        IFactoryCreateFunction<GeneticTest, IFunctionalTest>,
+        build<GeneticTest>,
         "Functional test of TMVA's Genetic minimizer");
 
     registerItem(
         "RectDetectorFit",
-        IFactoryCreateFunction<RectDetectorFitTest, IFunctionalTest>,
+        build<RectDetectorFitTest>,
         "Fit of rectangular detector, with crop and masks applied");
 }
 
@@ -57,12 +60,7 @@ IFunctionalTest* StandardFitsFactory::createTest(const std::string& test_name)
 
 bool StandardFitsFactory::isValidTest(const std::string& test_name)
 {
-    CallbackMap_t::const_iterator it = m_callbacks.find(test_name);
-    if( it != m_callbacks.end() ) {
-        return true;
-    } else {
-        return false;
-    }
+    return m_callbacks.find(test_name) != m_callbacks.end();
 }
 
 void StandardFitsFactory::printCatalogue(std::ostream& ostr)

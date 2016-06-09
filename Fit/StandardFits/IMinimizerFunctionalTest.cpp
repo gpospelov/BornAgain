@@ -95,12 +95,13 @@ std::unique_ptr<FitSuite> IMinimizerFunctionalTest::createFitSuite()
 {
     std::unique_ptr<FitSuite> result(new FitSuite());
     result->initPrint(10);
-    IMinimizer *minimizer = MinimizerFactory::createMinimizer(m_minimizer_name, m_minimizer_algorithm);
+    IMinimizer *minimizer = MinimizerFactory::createMinimizer(
+        m_minimizer_name, m_minimizer_algorithm);
     minimizer->getOptions()->setMaxIterations(200);
     result->setMinimizer(minimizer);
     for (size_t i = 0; i < m_parameters.size(); ++i) {
         result->addFitParameter(m_parameters[i].m_name, m_parameters[i].m_start_value,
-                                    AttLimits::lowerLimited(0.01), m_parameters[i].m_start_value / 100.);
+                                AttLimits::lowerLimited(0.01), m_parameters[i].m_start_value / 100.);
     }
 
     return std::move(result);
@@ -116,11 +117,12 @@ std::unique_ptr<ISample> IMinimizerFunctionalTest::createSample()
 std::unique_ptr<GISASSimulation> IMinimizerFunctionalTest::createSimulation()
 {
     SimulationRegistry simRegistry;
-    std::unique_ptr<GISASSimulation> result(simRegistry.createSimulation(m_simulation_name));
+    std::unique_ptr<GISASSimulation> result(simRegistry.createItem(m_simulation_name));
     return std::move(result);
 }
 
-std::unique_ptr<OutputData<double> > IMinimizerFunctionalTest::createOutputData(const GISASSimulation *simulation)
+std::unique_ptr<OutputData<double> > IMinimizerFunctionalTest::createOutputData(
+    const GISASSimulation *simulation)
 {
     std::unique_ptr<OutputData<double> > result(simulation->getDetectorIntensity());
     return std::move(result);

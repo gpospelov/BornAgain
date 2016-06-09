@@ -13,7 +13,6 @@
 //
 // ************************************************************************** //
 
-#include "LatticeBuilder.h"
 #include "InterferenceFunction1DLattice.h"
 #include "MultiLayer.h"
 #include "ParticleLayout.h"
@@ -21,7 +20,7 @@
 #include "FormFactorCylinder.h"
 #include "Units.h"
 #include "FTDistributions.h"
-#include "IComponentService.h"
+#include "LatticeBuilder.h"
 
 
 Lattice1DBuilder::Lattice1DBuilder()
@@ -34,9 +33,9 @@ Lattice1DBuilder::Lattice1DBuilder()
     init_parameters();
 }
 
-ISample *Lattice1DBuilder::buildSample() const
+ISample* Lattice1DBuilder::buildSample() const
 {
-    MultiLayer *multi_layer = new MultiLayer();
+    MultiLayer* multi_layer = new MultiLayer();
 
     HomogeneousMaterial particle_material("Particle", 6e-4, 2e-8);
     HomogeneousMaterial air_material("Air", 0.0, 0.0);

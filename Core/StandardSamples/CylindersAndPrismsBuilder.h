@@ -27,7 +27,7 @@ class BA_CORE_API_ CylindersAndPrismsBuilder : public ISampleBuilder
 {
 public:
     CylindersAndPrismsBuilder();
-    ISample *buildSample() const;
+    ISample* buildSample() const;
 
 protected:
     void init_parameters();

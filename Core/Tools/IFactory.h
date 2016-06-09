@@ -25,7 +25,7 @@
 //! @ingroup tools_internal
 //! @brief Base class for all factories.
 
-template<class IdentifierType, class AbstractProduct >
+template<class AbstractProduct >
 class IFactory
 {
 public:
@@ -33,18 +33,17 @@ public:
     typedef AbstractProduct* (*CreateItemCallback) ();
 
     //! map for correspondance between object identifier and object creation function
-    typedef std::map<IdentifierType, CreateItemCallback> CallbackMap_t;
+    typedef std::map<std::string, CreateItemCallback> CallbackMap_t;
 
     //! map for correspondance between object identifier and object description
-    typedef std::map<IdentifierType, IdentifierType> DescriptionMap_t;
+    typedef std::map<std::string, std::string> DescriptionMap_t;
     typedef typename DescriptionMap_t::iterator iterator;
     typedef typename DescriptionMap_t::const_iterator const_iterator;
 
     IFactory() : m_own_objects(false) {}
 
     //! Creates object by calling creation function corresponded to given identifier
-    AbstractProduct* createItem(const IdentifierType& itemId)
-    {
+    AbstractProduct* createItem(const std::string& itemId) {
         auto it = m_callbacks.find(itemId);
         if( it == m_callbacks.end() )
             // item with such itemId have not been registered in the database
@@ -52,13 +51,13 @@ public:
                 "IFactory::createItem() -> Panic. Unknown itemId '"+std::string(itemId)+"'" );
         // invoke the creation function
         AbstractProduct* x = (it->second)();
-        if(m_own_objects) m_objects.push_back(x);
+        if(m_own_objects)
+            m_objects.push_back(x);
         return x;
     }
 
     //! Registers object's creation function
-    bool registerItem(const IdentifierType& itemId, CreateItemCallback CreateFn)
-    {
+    bool registerItem(const std::string& itemId, CreateItemCallback CreateFn) {
         if( m_callbacks.find(itemId) != m_callbacks.end() )
             throw ExistingClassRegistrationException(
                 "IFactory::registerItem() -> Panic! "
@@ -67,9 +66,8 @@ public:
     }
 
     //! Registers object's creation function and store object description
-    bool registerItem(const IdentifierType& itemId, CreateItemCallback CreateFn,
-                      const IdentifierType& itemDescription)
-    {
+    bool registerItem(const std::string& itemId, CreateItemCallback CreateFn,
+                      const std::string& itemDescription) {
         if( m_callbacks.find(itemId) != m_callbacks.end() )
             throw ExistingClassRegistrationException(
                 "IFactory::registerItem() -> Panic! "
@@ -78,14 +76,10 @@ public:
         return m_callbacks.insert( typename CallbackMap_t::value_type(itemId, CreateFn)).second;
     }
 
-    ~IFactory()
-    {
-        clear();
-    }
+    ~IFactory() { clear(); }
 
     //! clear everything
-    void clear()
-    {
+    void clear() {
         m_callbacks.clear();
         if(m_own_objects) {
             for(auto it: m_objects)
@@ -116,7 +110,7 @@ protected:
 };
 
 //! creation function
-template<class Derived, class Base >
+template<class Derived, class Base>
 Base* IFactoryCreateFunction()
 {
     return new Derived;

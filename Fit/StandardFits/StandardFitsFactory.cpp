@@ -1,3 +1,4 @@
+
 #include "StandardFitsFactory.h"
 #include "MinimizerFunctionalTests.h"
 #include "RectDetectorFitTest.h"
@@ -57,12 +58,7 @@ IFunctionalTest* StandardFitsFactory::createTest(const std::string& test_name)
 
 bool StandardFitsFactory::isValidTest(const std::string& test_name)
 {
-    CallbackMap_t::const_iterator it = m_callbacks.find(test_name);
-    if( it != m_callbacks.end() ) {
-        return true;
-    } else {
-        return false;
-    }
+    return m_callbacks.find(test_name) != m_callbacks.end();
 }
 
 void StandardFitsFactory::printCatalogue(std::ostream& ostr)

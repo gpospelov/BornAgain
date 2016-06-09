@@ -62,17 +62,6 @@ void JobViewDocks::setActivity(int activity)
             m_dockWidgets[id]->hide();
         }
     }
-
-    // FIXME makes staff below automatic
-    if(activity == JobViewFlags::REAL_TIME_ACTIVITY) {
-        m_jobRealTimeWidget->updateCurrentItem();
-    }
-
-    else if(activity == JobViewFlags::FITTING_ACTIVITY) {
-        m_jobRealTimeWidget->updateCurrentItem();
-        m_fitActivityPanel->updateCurrentItem();
-    }
-
 }
 
 //! Sets the state of JobView to the default.
@@ -127,7 +116,6 @@ QWidget *JobViewDocks::centralWidget()
 {
     return m_jobOutputDataWidget;
 }
-
 
 //! Inits all main JobWidgets.
 

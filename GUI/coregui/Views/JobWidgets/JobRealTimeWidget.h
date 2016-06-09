@@ -17,19 +17,16 @@
 #ifndef JOBREALTIMEWIDGET_H
 #define JOBREALTIMEWIDGET_H
 
-#include "JobPresenter.h"
 #include "ItemStackPresenter.h"
-#include <QMap>
 
 class JobModel;
 class JobItem;
 class ParameterTuningWidget;
-class JobRealTimeToolBar;
 
 //! The JobRealTimeWidget class provides tuning of sample parameters in real time.
 //! Located on the right side of JobView and is visible when realtime activity is selected.
 
-class BA_CORE_API_ JobRealTimeWidget : public JobPresenter
+class BA_CORE_API_ JobRealTimeWidget : public QWidget
 {
     Q_OBJECT
 public:
@@ -43,14 +40,12 @@ public:
 public slots:
     void setItem(JobItem *jobItem);
     void onResetParameters();
-    void updateCurrentItem();
-//    void onModelLoaded();
 
 private:
     ParameterTuningWidget *currentParameterTuningWidget();
     bool isValidJobItem(JobItem *item);
 
-    JobRealTimeToolBar *m_toolBar;
+    class JobRealTimeToolBar *m_toolBar;
     ItemStackPresenter<ParameterTuningWidget> *m_stackedWidget;
 };
 

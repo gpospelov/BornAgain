@@ -17,24 +17,15 @@
 #include "JobRealTimeWidget.h"
 #include "JobModel.h"
 #include "JobItem.h"
-#include "JobQueueData.h"
 #include "ParameterTuningWidget.h"
 #include "JobRealTimeToolBar.h"
-#include "GUIHelpers.h"
 #include "mainwindow_constants.h"
 #include <QVBoxLayout>
-#include <QPushButton>
-#include <QStackedWidget>
-#include <QAction>
-#include <QLabel>
-#include <QDebug>
 
 JobRealTimeWidget::JobRealTimeWidget(JobModel *jobModel, QWidget *parent)
-    : JobPresenter(jobModel, parent)
-//    , m_stack(new QStackedWidget(this))
+    : QWidget(parent)
     , m_toolBar(new JobRealTimeToolBar)
     , m_stackedWidget(new ItemStackPresenter<ParameterTuningWidget>)
-
 {
     setWindowTitle(Constants::JobRealTimeWidgetName);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
@@ -82,75 +73,13 @@ void JobRealTimeWidget::setItem(JobItem * jobItem)
         Q_ASSERT(widget);
         widget->setItem(jobItem);
     }
-
-
-
-
-    //qDebug() << "JobOutputDataWidget::setItem()";
-//    if(!item) return;
-
-//    m_currentItem = item;
-
-//    if(!isVisible()) return;
-
-//    ParameterTuningWidget *widget = m_jobItemToTuningWidget[item];
-//    if( !widget && isValidJobItem(item)) {
-//        widget = new ParameterTuningWidget(m_jobModel);
-//        widget->setItem(item);
-//        m_stack->addWidget(widget);
-//        m_jobItemToTuningWidget[item] = widget;
-
-//    } else {
-//        if( m_stack->currentWidget()) {
-//            m_stack->currentWidget()->hide();
-//        }
-//    }
-
-//    if(widget) {
-//        if(widget->isHidden()) {
-//            widget->show();
-//        }
-
-//        m_stack->setCurrentWidget(widget);
-//    }
 }
-
-//void JobRealTimeWidget::onJobItemFinished(const QString &identifier)
-//{
-//    Q_UNUSED(identifier);
-////    Q_ASSERT(0);
-////    //qDebug() << "JobOutputDataWidget::onJobItemFinished()";
-////    JobItem *jobItem = m_jobModel->getJobItemForIdentifier(identifier);
-
-////    if(jobItem == m_currentItem) {
-////        if((jobItem->isCompleted() || jobItem->isCanceled()) && jobItem->getIntensityDataItem()) {
-////            qDebug() << "JobOutputDataWidget::dataChanged() JobItem::Completed";
-////            setItem(jobItem);
-////        }
-////    }
-//}
 
 void JobRealTimeWidget::onResetParameters()
 {
     if(auto widget = currentParameterTuningWidget())
         widget->restoreModelsOfCurrentJobItem();
 }
-
-void JobRealTimeWidget::updateCurrentItem()
-{
-    if(!m_currentItem) return;
-    setItem(m_currentItem);
-}
-
-//void JobRealTimeWidget::onModelLoaded()
-//{
-//    JobItem *item = dynamic_cast<JobItem*>(m_jobModel->rootItem()->getItem());
-//    if (item) {
-//        setItem(item);
-//    } else {
-//        onJobItemDelete(m_currentItem);
-//    }
-//}
 
 ParameterTuningWidget *JobRealTimeWidget::currentParameterTuningWidget()
 {

@@ -40,19 +40,18 @@ public:
     typedef typename DescriptionMap_t::iterator iterator;
     typedef typename DescriptionMap_t::const_iterator const_iterator;
 
-    IFactory() : m_own_objects(false) { }
+    IFactory() : m_own_objects(false) {}
 
     //! Creates object by calling creation function corresponded to given identifier
-    AbstractProduct *createItem(const IdentifierType& itemId)
+    AbstractProduct* createItem(const IdentifierType& itemId)
     {
-        typename CallbackMap_t::const_iterator it = m_callbacks.find(itemId);
-        if( it == m_callbacks.end() ) {
+        auto it = m_callbacks.find(itemId);
+        if( it == m_callbacks.end() )
             // item with such itemId have not been registered in the database
             throw UnknownClassRegistrationException(
                 "IFactory::createItem() -> Panic. Unknown itemId '"+std::string(itemId)+"'" );
-        }
         // invoke the creation function
-        AbstractProduct *x = (it->second)();
+        AbstractProduct* x = (it->second)();
         if(m_own_objects) m_objects.push_back(x);
         return x;
     }
@@ -60,8 +59,7 @@ public:
     //! Registers object's creation function
     bool registerItem(const IdentifierType& itemId, CreateItemCallback CreateFn)
     {
-        typename CallbackMap_t::const_iterator it = m_callbacks.find(itemId);
-        if( it != m_callbacks.end() )
+        if( m_callbacks.find(itemId) != m_callbacks.end() )
             throw ExistingClassRegistrationException(
                 "IFactory::registerItem() -> Panic! "
                 "Already registered itemId '"+std::string(itemId)+"'" );
@@ -72,8 +70,7 @@ public:
     bool registerItem(const IdentifierType& itemId, CreateItemCallback CreateFn,
                       const IdentifierType& itemDescription)
     {
-        typename CallbackMap_t::const_iterator it = m_callbacks.find(itemId);
-        if( it != m_callbacks.end() )
+        if( m_callbacks.find(itemId) != m_callbacks.end() )
             throw ExistingClassRegistrationException(
                 "IFactory::registerItem() -> Panic! "
                 "Already registered itemId '"+std::string(itemId)+"'" );
@@ -91,10 +88,8 @@ public:
     {
         m_callbacks.clear();
         if(m_own_objects) {
-            typename std::vector<AbstractProduct *>::iterator it;
-            for(it=m_objects.begin(); it!=m_objects.end(); ++it) {
-                delete (*it);
-            }
+            for(auto it: m_objects)
+                delete it;
         }
         m_objects.clear();
     }
@@ -117,12 +112,12 @@ protected:
     CallbackMap_t m_callbacks;     //!< map of correspondance of objectsId and creation functions
     DescriptionMap_t m_descriptions;     //!< map of correspondance of objectsId and description
     //! vector of all created objects (if m_store_objects==true)
-    std::vector<AbstractProduct *> m_objects;
+    std::vector<AbstractProduct*> m_objects;
 };
 
 //! creation function
 template<class Derived, class Base >
-Base *IFactoryCreateFunction()
+Base* IFactoryCreateFunction()
 {
     return new Derived;
 }

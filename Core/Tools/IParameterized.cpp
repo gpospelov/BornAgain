@@ -17,6 +17,7 @@
 
 #include "Utils.h"
 #include <iostream>
+#include <sstream>
 #include <memory>
 
 // Copies INamed, but not the parameters.

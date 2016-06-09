@@ -18,9 +18,9 @@
 #define JOBMESSAGEPANEL_H
 
 #include "WinDllMacros.h"
-#include <QWidget>
+#include <QFrame>
 
-class BA_CORE_API_ JobMessagePanel : public QWidget
+class BA_CORE_API_ JobMessagePanel : public QFrame
 {
     Q_OBJECT
 public:

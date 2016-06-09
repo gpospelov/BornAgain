@@ -61,7 +61,7 @@ const unsigned int FIT_ACTIVITY_PANEL_HEIGHT = 380;
 const unsigned int FIT_SUITE_WIDGET_HEIGHT= 330;
 const unsigned int RUN_FIT_CONTROL_WIDGET_HEIGHT = 50;
 //const unsigned int FIT_PARAMETER_WIDGET_HEIGHT = 100;
-const unsigned int ITEM_SELECTOR_WIDGET_WIDTH = 256;
+const unsigned int ITEM_SELECTOR_WIDGET_WIDTH = 128;
 const unsigned int ITEM_SELECTOR_WIDGET_HEIGHT = 765;
 
 // JobView

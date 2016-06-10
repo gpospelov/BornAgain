@@ -28,11 +28,11 @@ const std::string directory_name_for_failed_tests = "00_failed_tests";
 
 CoreFutest::CoreFutest(
     const std::string& name, const std::string& description, GISASSimulation* simulation,
-    OutputData<double>* reference, double threshold, const std::string&file_name)
+    double threshold, OutputData<double>* reference, const std::string&file_name)
     : IFutest(name, description)
     , m_simulation(simulation)
-    , m_reference(reference)
     , m_threshold(threshold)
+    , m_reference(reference)
     , m_difference(0)
     , m_simulation_results_file_name( file_name )
 {

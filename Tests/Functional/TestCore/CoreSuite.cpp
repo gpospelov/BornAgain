@@ -23,7 +23,7 @@ public:
     CoreSuite() { setName("CoreSuite"); }
     IFutest* getFutest() const { return new CoreFutest(
             getTestName(), getTestDescription(), getSimulation(),
-            getReferenceData(), getTestThreshold(), getReferenceFileName() ); }
+            getTestThreshold(), getReferenceData(), getReferenceFileName() ); }
 };
 
 //! The main function of CoreSuite, to run functional tests

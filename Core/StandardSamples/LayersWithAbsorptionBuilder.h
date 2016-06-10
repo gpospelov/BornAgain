@@ -32,7 +32,7 @@ public:
     LayersWithAbsorptionBuilder();
     virtual ~LayersWithAbsorptionBuilder();
 
-    virtual void init_from(const class FunctionalTestComponentService *service);
+    virtual void init_from(const class FutestSuite *service);
 
     virtual ISample *buildSample() const;
 

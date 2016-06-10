@@ -1008,7 +1008,7 @@ C++ includes: FitSuiteStrategies.h
 
 basic test of Genetic minimizer
 
-C++ includes: MinimizerFunctionalTests.h
+C++ includes: MinimizerFutests.h
 ";
 
 %feature("docstring")  GeneticTest::GeneticTest "GeneticTest::GeneticTest()
@@ -1020,7 +1020,7 @@ C++ includes: MinimizerFunctionalTests.h
 
 basic test of GSL/LMA minimizer
 
-C++ includes: MinimizerFunctionalTests.h
+C++ includes: MinimizerFutests.h
 ";
 
 %feature("docstring")  GSLLevenbergMarquardtTest::GSLLevenbergMarquardtTest "GSLLevenbergMarquardtTest::GSLLevenbergMarquardtTest()
@@ -1032,7 +1032,7 @@ C++ includes: MinimizerFunctionalTests.h
 
 basic test of GSL/BFGS minimizer
 
-C++ includes: MinimizerFunctionalTests.h
+C++ includes: MinimizerFutests.h
 ";
 
 %feature("docstring")  GSLMultiMinBFGSTest::GSLMultiMinBFGSTest "GSLMultiMinBFGSTest::GSLMultiMinBFGSTest()
@@ -1044,7 +1044,7 @@ C++ includes: MinimizerFunctionalTests.h
 
 basic test of GSL/SteepestDescent minimizer
 
-C++ includes: MinimizerFunctionalTests.h
+C++ includes: MinimizerFutests.h
 ";
 
 %feature("docstring")  GSLMultiMinSteepestDescentTest::GSLMultiMinSteepestDescentTest "GSLMultiMinSteepestDescentTest::GSLMultiMinSteepestDescentTest()
@@ -1056,7 +1056,7 @@ C++ includes: MinimizerFunctionalTests.h
 
 basic test of GSL/SimulatedAnnealing minimizer
 
-C++ includes: MinimizerFunctionalTests.h
+C++ includes: MinimizerFutests.h
 ";
 
 %feature("docstring")  GSLSimulatedAnnealingTest::GSLSimulatedAnnealingTest "GSLSimulatedAnnealingTest::GSLSimulatedAnnealingTest()
@@ -1253,27 +1253,27 @@ return name of the minimization algorithm
 ";
 
 
-// File: classIMinimizerFunctionalTest.xml
-%feature("docstring") IMinimizerFunctionalTest "
+// File: classIMinimizerFutest.xml
+%feature("docstring") IMinimizerFutest "
 
 Basic class for all minimizer functional tests.
 
-C++ includes: IMinimizerFunctionalTest.h
+C++ includes: IMinimizerFutest.h
 ";
 
-%feature("docstring")  IMinimizerFunctionalTest::IMinimizerFunctionalTest "IMinimizerFunctionalTest::IMinimizerFunctionalTest(const std::string &minimizer_name, const std::string &minimizer_algorithm=std::string())
+%feature("docstring")  IMinimizerFutest::IMinimizerFutest "IMinimizerFutest::IMinimizerFutest(const std::string &minimizer_name, const std::string &minimizer_algorithm=std::string())
 ";
 
-%feature("docstring")  IMinimizerFunctionalTest::~IMinimizerFunctionalTest "virtual IMinimizerFunctionalTest::~IMinimizerFunctionalTest()
+%feature("docstring")  IMinimizerFutest::~IMinimizerFutest "virtual IMinimizerFutest::~IMinimizerFutest()
 ";
 
-%feature("docstring")  IMinimizerFunctionalTest::runTest "void IMinimizerFunctionalTest::runTest()
+%feature("docstring")  IMinimizerFutest::runTest "void IMinimizerFutest::runTest()
 ";
 
-%feature("docstring")  IMinimizerFunctionalTest::analyseResults "int IMinimizerFunctionalTest::analyseResults()
+%feature("docstring")  IMinimizerFutest::analyseResults "int IMinimizerFutest::analyseResults()
 ";
 
-%feature("docstring")  IMinimizerFunctionalTest::setParameterTolerance "void IMinimizerFunctionalTest::setParameterTolerance(double value)
+%feature("docstring")  IMinimizerFutest::setParameterTolerance "void IMinimizerFutest::setParameterTolerance(double value)
 ";
 
 
@@ -1546,7 +1546,7 @@ Prints fit results.
 
 basic test of Minuit2/Fumili minimizer
 
-C++ includes: MinimizerFunctionalTests.h
+C++ includes: MinimizerFutests.h
 ";
 
 %feature("docstring")  Minuit2FumiliTest::Minuit2FumiliTest "Minuit2FumiliTest::Minuit2FumiliTest()
@@ -1558,7 +1558,7 @@ C++ includes: MinimizerFunctionalTests.h
 
 basic test of Minuit2/Migrad minimizer
 
-C++ includes: MinimizerFunctionalTests.h
+C++ includes: MinimizerFutests.h
 ";
 
 %feature("docstring")  Minuit2MigradTest::Minuit2MigradTest "Minuit2MigradTest::Minuit2MigradTest()
@@ -1852,7 +1852,7 @@ C++ includes: StandardFitsFactory.h
 %feature("docstring")  StandardFitsFactory::StandardFitsFactory "StandardFitsFactory::StandardFitsFactory()
 ";
 
-%feature("docstring")  StandardFitsFactory::createTest "IFunctionalTest * StandardFitsFactory::createTest(const std::string &test_name)
+%feature("docstring")  StandardFitsFactory::createTest "IFutest * StandardFitsFactory::createTest(const std::string &test_name)
 ";
 
 %feature("docstring")  StandardFitsFactory::isValidTest "bool StandardFitsFactory::isValidTest(const std::string &test_name)
@@ -1862,10 +1862,10 @@ C++ includes: StandardFitsFactory.h
 ";
 
 
-// File: classIMinimizerFunctionalTest_1_1TestParameter.xml
-%feature("docstring") IMinimizerFunctionalTest::TestParameter "";
+// File: classIMinimizerFutest_1_1TestParameter.xml
+%feature("docstring") IMinimizerFutest::TestParameter "";
 
-%feature("docstring")  IMinimizerFunctionalTest::TestParameter::TestParameter "IMinimizerFunctionalTest::TestParameter::TestParameter(const std::string &name, double real_value, double start_value)
+%feature("docstring")  IMinimizerFutest::TestParameter::TestParameter "IMinimizerFutest::TestParameter::TestParameter(const std::string &name, double real_value, double start_value)
 ";
 
 
@@ -2034,16 +2034,16 @@ C++ includes: StandardFitsFactory.h
 // File: ROOTSimAnMinimizer_8h.xml
 
 
-// File: IMinimizerFunctionalTest_8cpp.xml
+// File: IMinimizerFutest_8cpp.xml
 
 
-// File: IMinimizerFunctionalTest_8h.xml
+// File: IMinimizerFutest_8h.xml
 
 
-// File: MinimizerFunctionalTests_8cpp.xml
+// File: MinimizerFutests_8cpp.xml
 
 
-// File: MinimizerFunctionalTests_8h.xml
+// File: MinimizerFutests_8h.xml
 
 
 // File: RectDetectorFitTest_8cpp.xml
@@ -2053,23 +2053,20 @@ C++ includes: StandardFitsFactory.h
 
 
 // File: StandardFitsFactory_8cpp.xml
-%feature("docstring")  build "IFunctionalTest* build()
+%feature("docstring")  build "IFutest* build()
 
-build<C> is a function void -> IFunctionalTest*. C must be a child of IFunctionalTest. 
+build<C> is a function void -> IFutest*. C must be a child of IFutest. 
 ";
 
 
 // File: StandardFitsFactory_8h.xml
 
 
-// File: dir_d0c8f8fb9032c27878972645c4679f14.xml
+// File: dir_892d84e8d1420bf45a9053cf0eede900.xml
 
 
-// File: dir_befad91b6aded329d87ab1464acca32e.xml
+// File: dir_4e6c9d4e290828461655ecdd2f34719c.xml
 
 
-// File: dir_abb56b21da33f65f621bf551b5073624.xml
-
-
-// File: dir_8c00782886f69f4c4190b8932144dcd3.xml
+// File: dir_f0d58a7b25b35daab22ce6e2bfb078e9.xml
 

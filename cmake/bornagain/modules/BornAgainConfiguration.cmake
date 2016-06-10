@@ -108,6 +108,8 @@ if(BORNAGAIN_RELEASE)
     configure_file("${TEMPLATE_DIR}/FindBornAgain.cmake.in" "${CMAKE_SOURCE_DIR}/Examples/cpp/CylindersAndPrisms/modules/FindBornAgain.cmake" @ONLY)
 endif()
 
+configure_file("${TEMPLATE_DIR}/CTestCustom.cmake.in" "${CMAKE_BINARY_DIR}/CTestCustom.cmake")
+
 # -----------------------------------------------------------------------------
 # configure BornAgain launch scripts
 # -----------------------------------------------------------------------------

@@ -1,11 +1,11 @@
 
 #include "StandardFitsFactory.h"
-#include "MinimizerFunctionalTests.h"
+#include "MinimizerFutests.h"
 #include "RectDetectorFitTest.h"
 #include <boost/format.hpp>
 
-//! build<C> is a function void -> IFunctionalTest*. C must be a child of IFunctionalTest.
-template<class Builder> IFunctionalTest* build() { return new Builder(); }
+//! build<C> is a function void -> IFutest*. C must be a child of IFutest.
+template<class Builder> IFutest* build() { return new Builder(); }
 
 StandardFitsFactory::StandardFitsFactory()
 {
@@ -50,10 +50,9 @@ StandardFitsFactory::StandardFitsFactory()
         "Fit of rectangular detector, with crop and masks applied");
 }
 
-IFunctionalTest* StandardFitsFactory::createTest(const std::string& test_name)
+IFutest* StandardFitsFactory::createTest(const std::string& test_name)
 {
-    IFunctionalTest* result = createItem(test_name);
-    result->setName(test_name);
+    IFutest* result = createItem(test_name);
     result->setDescription(m_descriptions[test_name]);
     return result;
 }

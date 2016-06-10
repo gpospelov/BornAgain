@@ -16,7 +16,7 @@
 
 #include "RunFitManager.h"
 #include "SampleBuilderFactory.h"
-#include "SimulationRegistry.h"
+#include "SimulationFactory.h"
 #include "FitSuite.h"
 #include "GUIFitObserver.h"
 #include "ObsoleteFitProgressWidget.h"

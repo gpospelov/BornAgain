@@ -17,7 +17,7 @@
 #include "GUIExamplesFactory.h"
 #include "GUIObjectBuilder.h"
 #include "SampleBuilderFactory.h"
-#include "SimulationRegistry.h"
+#include "SimulationFactory.h"
 #include "InstrumentModel.h"
 #include "SampleModel.h"
 #include "GUIHelpers.h"
@@ -25,7 +25,7 @@
 #include <memory>
 #include <QDebug>
 
-//! Defines correspondance between example name and real name of simulation from SimulationRegistry
+//! Defines correspondance between example name and real name of simulation from SimulationFactory
 QMap<QString, QString > init_NameToRegistry()
 {
     QMap<QString, QString > result;
@@ -78,7 +78,7 @@ SessionItem *GUIExamplesFactory::createSampleItems(const QString &name, SampleMo
 //SessionItem *GUIExamplesFactory::createInstrumentItems(const QString &name, InstrumentModel *instrumentModel)
 //{
 //    QString exampleName = m_name_to_registry[name];
-//    SimulationRegistry registry;
+//    SimulationFactory registry;
 //    const std::unique_ptr<GISASSimulation> P_simulation(registry.createSimulation(exampleName.toStdString()));
 //    Q_ASSERT(P_simulation.get());
 

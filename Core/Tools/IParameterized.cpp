@@ -24,15 +24,14 @@
 
 IParameterized& IParameterized::operator=(const IParameterized& other)
 {
-    if( this != &other) {
+    if( this != &other)
         INamed::operator=(other);
-    }
     return *this;
 }
 
 ParameterPool* IParameterized::createParameterTree()
 {
-    std::unique_ptr<ParameterPool> P_new_pool { new ParameterPool(this) };
+    std::unique_ptr<ParameterPool> P_new_pool( new ParameterPool(this) );
     std::string path("/");
     addParametersToExternalPool(path, P_new_pool.get());
     return P_new_pool.release();
@@ -41,7 +40,7 @@ ParameterPool* IParameterized::createParameterTree()
 //! Copies local parameters to external_pool, under name "path/<name>copy_number/"
 
 std::string IParameterized::addParametersToExternalPool(
-    std::string path, ParameterPool *external_pool, int copy_number) const
+    std::string path, ParameterPool* external_pool, int copy_number) const
 {
     if( path[path.length()-1] != '/' )
         path += "/";
@@ -71,9 +70,9 @@ void IParameterized::setParameterValue(const std::string &name, double value)
     onChange();
 }
 
-void IParameterized::printParameters() /* TODO restore const */
+void IParameterized::printParameters()
 {
-    std::unique_ptr<ParameterPool> P_pool { createParameterTree() };
+    std::unique_ptr<ParameterPool> P_pool( createParameterTree() );
     std::cout << *P_pool << std::endl;
 }
 
@@ -82,29 +81,14 @@ void IParameterized::print(std::ostream& ostr) const
     ostr << "IParameterized:" << getName() << " " << m_parameters;
 }
 
-
-ParameterPattern::ParameterPattern()
-{
-}
-
-ParameterPattern::ParameterPattern(std::string root_object)
-    : m_pattern ( "/" + root_object )
-{
-}
-
-ParameterPattern &ParameterPattern::beginsWith(std::string start_type)
+ParameterPattern& ParameterPattern::beginsWith(std::string start_type)
 {
     m_pattern = start_type;
     return *this;
 }
 
-ParameterPattern &ParameterPattern::add(std::string object_type)
+ParameterPattern& ParameterPattern::add(std::string object_type)
 {
     m_pattern = m_pattern + "/" + object_type;
     return *this;
-}
-
-std::string ParameterPattern::toStdString() const
-{
-    return m_pattern;
 }

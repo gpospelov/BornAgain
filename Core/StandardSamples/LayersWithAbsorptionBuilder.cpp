@@ -17,7 +17,7 @@
 #include "HomogeneousMaterial.h"
 #include "Particle.h"
 #include "ParticleLayout.h"
-#include "FunctionalTestComponentService.h"
+#include "FutestSuite.h"
 #include "Exceptions.h"
 #include "LayersWithAbsorptionBuilder.h"
 
@@ -31,7 +31,7 @@ LayersWithAbsorptionBuilder::~LayersWithAbsorptionBuilder()
     delete m_form_factor;
 }
 
-void LayersWithAbsorptionBuilder::init_from(const FunctionalTestComponentService* service)
+void LayersWithAbsorptionBuilder::init_from(const FutestSuite* service)
 {
     delete m_form_factor;
     m_form_factor = service->getFormFactor();

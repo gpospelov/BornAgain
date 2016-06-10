@@ -125,7 +125,7 @@ C++ includes: ParaCrystalBuilder.h
 %feature("docstring")  Basic2DParaCrystalBuilder::~Basic2DParaCrystalBuilder "Basic2DParaCrystalBuilder::~Basic2DParaCrystalBuilder()
 ";
 
-%feature("docstring")  Basic2DParaCrystalBuilder::init_from "void Basic2DParaCrystalBuilder::init_from(const class FunctionalTestComponentService *service)
+%feature("docstring")  Basic2DParaCrystalBuilder::init_from "void Basic2DParaCrystalBuilder::init_from(const class FutestSuite *service)
 ";
 
 %feature("docstring")  Basic2DParaCrystalBuilder::buildSample "ISample * Basic2DParaCrystalBuilder::buildSample() const 
@@ -285,27 +285,43 @@ Returns result of rotation around the axis specified by another vector.
 ";
 
 %feature("docstring")  Geometry::BasicVector3D::conj "BasicVector3D< double > Geometry::BasicVector3D< double >::conj() const
+
+Returns complex conjugate vector. 
 ";
 
 %feature("docstring")  Geometry::BasicVector3D::conj "BasicVector3D< complex_t > Geometry::BasicVector3D< complex_t >::conj() const
+
+Returns complex conjugate vector. 
 ";
 
 %feature("docstring")  Geometry::BasicVector3D::phi "double Geometry::BasicVector3D< double >::phi() const
+
+Returns azimuth angle. 
 ";
 
 %feature("docstring")  Geometry::BasicVector3D::theta "double Geometry::BasicVector3D< double >::theta() const
+
+Returns polar angle. 
 ";
 
 %feature("docstring")  Geometry::BasicVector3D::cosTheta "double Geometry::BasicVector3D< double >::cosTheta() const
+
+Returns cosine of polar angle. 
 ";
 
 %feature("docstring")  Geometry::BasicVector3D::sin2Theta "double Geometry::BasicVector3D< double >::sin2Theta() const
+
+Returns squared sine of polar angle. 
 ";
 
 %feature("docstring")  Geometry::BasicVector3D::complex "BasicVector3D< std::complex< double > > Geometry::BasicVector3D< double >::complex() const
+
+Returns this, trivially converted to complex type. 
 ";
 
 %feature("docstring")  Geometry::BasicVector3D::angle "double Geometry::BasicVector3D< double >::angle(const BasicVector3D< double > &v) const
+
+Returns angle with respect to another vector. 
 ";
 
 %feature("docstring")  Geometry::BasicVector3D::conj "BA_CORE_API_ BasicVector3D< double > Geometry::BasicVector3D< double >::conj() const
@@ -735,42 +751,27 @@ Sets convolution mode.
 ";
 
 
-// File: classCoreFunctionalTest.xml
-%feature("docstring") CoreFunctionalTest "
+// File: classCoreFutest.xml
+%feature("docstring") CoreFutest "
 
-Core functional test compares results of the standard simulation with reference intensity data. Normally invoked by  FunctionalMultiTest.
+Core functional test compares results of the standard simulation with reference intensity data. Normally invoked by FunctionalMultiTest.
 
-C++ includes: CoreFunctionalTest.h
+C++ includes: CoreFutest.h
 ";
 
-%feature("docstring")  CoreFunctionalTest::CoreFunctionalTest "CoreFunctionalTest::CoreFunctionalTest(const std::string &name, const std::string &description, GISASSimulation *simulation, OutputData< double > *reference, double threshold, const std::string &file_name)
+%feature("docstring")  CoreFutest::CoreFutest "CoreFutest::CoreFutest(const std::string &name, const std::string &description, GISASSimulation *simulation, double threshold, OutputData< double > *reference, const std::string &file_name)
 ";
 
-%feature("docstring")  CoreFunctionalTest::~CoreFunctionalTest "CoreFunctionalTest::~CoreFunctionalTest()
+%feature("docstring")  CoreFutest::~CoreFutest "CoreFutest::~CoreFutest()
 ";
 
-%feature("docstring")  CoreFunctionalTest::runTest "void CoreFunctionalTest::runTest()
+%feature("docstring")  CoreFutest::runTest "void CoreFutest::runTest()
 ";
 
-%feature("docstring")  CoreFunctionalTest::analyseResults "int CoreFunctionalTest::analyseResults()
+%feature("docstring")  CoreFutest::analyseResults "int CoreFutest::analyseResults()
 ";
 
-%feature("docstring")  CoreFunctionalTest::printResults "void CoreFunctionalTest::printResults(std::ostream &ostr) const 
-";
-
-
-// File: classCoreFunctionalTestComponentService.xml
-%feature("docstring") CoreFunctionalTestComponentService "
-
-Contains all necessary information to compose core functional test.
-
-C++ includes: CoreFunctionalTestComponentService.h
-";
-
-%feature("docstring")  CoreFunctionalTestComponentService::CoreFunctionalTestComponentService "CoreFunctionalTestComponentService::CoreFunctionalTestComponentService(const FunctionalTestInfo *info)
-";
-
-%feature("docstring")  CoreFunctionalTestComponentService::getFunctionalTest "IFunctionalTest * CoreFunctionalTestComponentService::getFunctionalTest() const 
+%feature("docstring")  CoreFutest::printResults "void CoreFutest::printResults(std::ostream &ostr) const 
 ";
 
 
@@ -4448,108 +4449,76 @@ evaluate Fourier transformed distribution for q in X,Y coordinates the original 
 ";
 
 
-// File: classFunctionalMultiTest.xml
-%feature("docstring") FunctionalMultiTest "
-
-Functional multi test constructs the collection of standard functional tests using component service, runs them one-by-one, and then reports results in a single table.
-
-C++ includes: FunctionalMultiTest.h
-";
-
-%feature("docstring")  FunctionalMultiTest::FunctionalMultiTest "FunctionalMultiTest::FunctionalMultiTest(const std::string &name, FunctionalTestComponentService &service)
-";
-
-%feature("docstring")  FunctionalMultiTest::~FunctionalMultiTest "FunctionalMultiTest::~FunctionalMultiTest()
-";
-
-%feature("docstring")  FunctionalMultiTest::runTest "void FunctionalMultiTest::runTest()
-";
-
-%feature("docstring")  FunctionalMultiTest::analyseResults "int FunctionalMultiTest::analyseResults()
-";
-
-%feature("docstring")  FunctionalMultiTest::printResults "void FunctionalMultiTest::printResults(std::ostream &ostr) const 
-";
-
-
-// File: classFunctionalTestComponentService.xml
-%feature("docstring") FunctionalTestComponentService "
+// File: classFutestInfo.xml
+%feature("docstring") FutestInfo "
 
 Contains all necessary information to compose functional test.
 
-C++ includes: FunctionalTestComponentService.h
+C++ includes: FutestInfo.h
 ";
 
-%feature("docstring")  FunctionalTestComponentService::FunctionalTestComponentService "FunctionalTestComponentService::FunctionalTestComponentService(const class FunctionalTestInfo *info)
+%feature("docstring")  FutestInfo::FutestInfo "FutestInfo::FutestInfo()
 ";
 
-%feature("docstring")  FunctionalTestComponentService::~FunctionalTestComponentService "FunctionalTestComponentService::~FunctionalTestComponentService()
-";
-
-%feature("docstring")  FunctionalTestComponentService::getFormFactor "IFormFactor * FunctionalTestComponentService::getFormFactor() const 
-";
-
-%feature("docstring")  FunctionalTestComponentService::getFTDistribution2D "IFTDistribution2D * FunctionalTestComponentService::getFTDistribution2D() const 
-";
-
-%feature("docstring")  FunctionalTestComponentService::getSimulation "GISASSimulation * FunctionalTestComponentService::getSimulation() const 
-";
-
-%feature("docstring")  FunctionalTestComponentService::getSampleBuilder "std::shared_ptr< class ISampleBuilder > FunctionalTestComponentService::getSampleBuilder() const 
-";
-
-%feature("docstring")  FunctionalTestComponentService::getReferenceData "OutputData< double > * FunctionalTestComponentService::getReferenceData() const 
-";
-
-%feature("docstring")  FunctionalTestComponentService::getFunctionalTest "virtual class IFunctionalTest* FunctionalTestComponentService::getFunctionalTest() const =0
-";
-
-%feature("docstring")  FunctionalTestComponentService::getNumberOfComponents "size_t FunctionalTestComponentService::getNumberOfComponents() const 
-";
-
-%feature("docstring")  FunctionalTestComponentService::initComponent "void FunctionalTestComponentService::initComponent(size_t component_index)
-";
-
-%feature("docstring")  FunctionalTestComponentService::getCurrentComponentName "std::string FunctionalTestComponentService::getCurrentComponentName() const 
-";
-
-%feature("docstring")  FunctionalTestComponentService::getReferenceFileName "std::string FunctionalTestComponentService::getReferenceFileName() const 
-";
-
-%feature("docstring")  FunctionalTestComponentService::getTestInfo "const class FunctionalTestInfo* FunctionalTestComponentService::getTestInfo() const 
+%feature("docstring")  FutestInfo::FutestInfo "FutestInfo::FutestInfo(const std::string &test_name, const std::string &test_description, const std::string &simulation_name, const std::string &sample_builder_name, const std::string &subtest_type, double threshold)
 ";
 
 
-// File: classFunctionalTestInfo.xml
-%feature("docstring") FunctionalTestInfo "
-
-Contains all necessary information to compose functional test.
-
-C++ includes: FunctionalTestInfo.h
-";
-
-%feature("docstring")  FunctionalTestInfo::FunctionalTestInfo "FunctionalTestInfo::FunctionalTestInfo()
-";
-
-%feature("docstring")  FunctionalTestInfo::FunctionalTestInfo "FunctionalTestInfo::FunctionalTestInfo(const std::string &test_name, const std::string &test_description, const std::string &simulation_name, const std::string &sample_builder_name, const std::string &component_registry_name, double threshold)
-";
-
-
-// File: classFunctionalTestRegistry.xml
-%feature("docstring") FunctionalTestRegistry "
+// File: classFutestRegistry.xml
+%feature("docstring") FutestRegistry "
 
 The registry which holds information about available functional tests.
 
-C++ includes: FunctionalTestRegistry.h
+C++ includes: FutestRegistry.h
 ";
 
-%feature("docstring")  FunctionalTestRegistry::add "void FunctionalTestRegistry::add(const std::string &test_name, const std::string &test_description, const std::string &simulation_name, const std::string &sample_builder_name, const std::string &component_registry_name, double threshold)
+%feature("docstring")  FutestRegistry::FutestRegistry "FutestRegistry::FutestRegistry()
 ";
 
-%feature("docstring")  FunctionalTestRegistry::getItemOrExplain "const FunctionalTestInfo * FunctionalTestRegistry::getItemOrExplain(const std::string &test_name, const std::string &suite_name) const 
+%feature("docstring")  FutestRegistry::add "void FutestRegistry::add(const std::string &test_name, const std::string &test_description, const std::string &simulation_name, const std::string &sample_builder_name, const std::string &component_registry_name, double threshold)
 ";
 
-%feature("docstring")  FunctionalTestRegistry::printCatalogue "void FunctionalTestRegistry::printCatalogue(std::ostream &ostr) const 
+%feature("docstring")  FutestRegistry::getItemOrExplain "const FutestInfo * FutestRegistry::getItemOrExplain(const std::string &test_name, const std::string &suite_name) const 
+";
+
+%feature("docstring")  FutestRegistry::printCatalogue "void FutestRegistry::printCatalogue(std::ostream &ostr) const 
+";
+
+
+// File: classFutestSuite.xml
+%feature("docstring") FutestSuite "
+
+To execute one functional test of given name.
+
+Used in functional tests (Core|Pydump|GUI)Suite, where it is subclassed as a singleton, and called through instance().execute(argc, argv). When processing execute, dependent classes will call back  getFutest(). Certain tests have subtests; they will call back  getFormFactor() etc.
+
+C++ includes: FutestSuite.h
+";
+
+%feature("docstring")  FutestSuite::FutestSuite "FutestSuite::FutestSuite()
+";
+
+%feature("docstring")  FutestSuite::~FutestSuite "virtual FutestSuite::~FutestSuite()
+";
+
+%feature("docstring")  FutestSuite::execute "int FutestSuite::execute(int argc, char **argv)
+
+Runs test (name given as command-line argument), and returns 0 for SUCCESS, or error code. 
+";
+
+%feature("docstring")  FutestSuite::getFutest "virtual class IFutest* FutestSuite::getFutest() const =0
+
+overloaded in (Core|Pydump|GUI)Suite.cpp 
+";
+
+%feature("docstring")  FutestSuite::getFormFactor "IFormFactor * FutestSuite::getFormFactor() const
+
+Returns a form factor from the registry, for use in certain subtests. 
+";
+
+%feature("docstring")  FutestSuite::getFTDistribution2D "IFTDistribution2D * FutestSuite::getFTDistribution2D() const
+
+Returns a distribution from the registry, for use in certain subtests. 
 ";
 
 
@@ -5294,21 +5263,6 @@ Used for Python overriding of clone.
 ";
 
 
-// File: classICloneableRegistry.xml
-%feature("docstring") ICloneableRegistry "
-
-Templated registry for cloneable objects.
-
-C++ includes: ICloneableRegistry.h
-";
-
-%feature("docstring")  ICloneableRegistry::createItem "ValueType* ICloneableRegistry< ValueType >::createItem(const std::string &key) const 
-";
-
-%feature("docstring")  ICloneableRegistry::getNames "std::vector<std::string> ICloneableRegistry< ValueType >::getNames()
-";
-
-
 // File: classIClusteredParticles.xml
 %feature("docstring") IClusteredParticles "
 
@@ -6033,48 +5987,42 @@ evaluate Fourier transformed distribution for q in X,Y coordinates the original 
 ";
 
 
-// File: classIFunctionalTest.xml
-%feature("docstring") IFunctionalTest "
+// File: classIFutest.xml
+%feature("docstring") IFutest "
 
 Basic class for all functional tests.
 
-C++ includes: IFunctionalTest.h
+C++ includes: IFutest.h
 ";
 
-%feature("docstring")  IFunctionalTest::IFunctionalTest "IFunctionalTest::IFunctionalTest()
+%feature("docstring")  IFutest::IFutest "IFutest::IFutest()
 ";
 
-%feature("docstring")  IFunctionalTest::IFunctionalTest "IFunctionalTest::IFunctionalTest(const std::string &name, const std::string &description)
+%feature("docstring")  IFutest::IFutest "IFutest::IFutest(const std::string &name, const std::string &description)
 ";
 
-%feature("docstring")  IFunctionalTest::~IFunctionalTest "virtual IFunctionalTest::~IFunctionalTest()
+%feature("docstring")  IFutest::~IFutest "virtual IFutest::~IFutest()
 ";
 
-%feature("docstring")  IFunctionalTest::runTest "virtual void IFunctionalTest::runTest()=0
+%feature("docstring")  IFutest::runTest "virtual void IFutest::runTest()=0
 ";
 
-%feature("docstring")  IFunctionalTest::analyseResults "virtual int IFunctionalTest::analyseResults()=0
+%feature("docstring")  IFutest::analyseResults "virtual int IFutest::analyseResults()=0
 ";
 
-%feature("docstring")  IFunctionalTest::getName "std::string IFunctionalTest::getName() const 
+%feature("docstring")  IFutest::getDescription "std::string IFutest::getDescription() const 
 ";
 
-%feature("docstring")  IFunctionalTest::setName "void IFunctionalTest::setName(const std::string &name)
+%feature("docstring")  IFutest::setDescription "void IFutest::setDescription(const std::string &description)
 ";
 
-%feature("docstring")  IFunctionalTest::getDescription "std::string IFunctionalTest::getDescription() const 
+%feature("docstring")  IFutest::getTestResult "ETestResult IFutest::getTestResult() const 
 ";
 
-%feature("docstring")  IFunctionalTest::setDescription "void IFunctionalTest::setDescription(const std::string &description)
+%feature("docstring")  IFutest::getTestResultString "std::string IFutest::getTestResultString() const 
 ";
 
-%feature("docstring")  IFunctionalTest::getTestResult "ETestResult IFunctionalTest::getTestResult() const 
-";
-
-%feature("docstring")  IFunctionalTest::getTestResultString "std::string IFunctionalTest::getTestResultString() const 
-";
-
-%feature("docstring")  IFunctionalTest::getFormattedInfoString "std::string IFunctionalTest::getFormattedInfoString() const 
+%feature("docstring")  IFutest::getFormattedInfoString "std::string IFutest::getFormattedInfoString() const 
 ";
 
 
@@ -6668,23 +6616,15 @@ C++ includes: INamed.h
 ";
 
 %feature("docstring")  INamed::INamed "INamed::INamed()
-
-Default constructor, setting name=\"\". 
 ";
 
-%feature("docstring")  INamed::INamed "INamed::INamed(std::string name)
-
-Constructor that sets the  name. 
+%feature("docstring")  INamed::INamed "INamed::INamed(const std::string &name)
 ";
 
-%feature("docstring")  INamed::~INamed "INamed::~INamed()
-
-Destructor. 
+%feature("docstring")  INamed::~INamed "virtual INamed::~INamed()
 ";
 
-%feature("docstring")  INamed::getName "std::string INamed::getName() const
-
-Returns the name. 
+%feature("docstring")  INamed::getName "std::string INamed::getName() const 
 ";
 
 
@@ -7396,7 +7336,7 @@ C++ includes: IObserver.h
 %feature("docstring")  IObserver::~IObserver "virtual IObserver::~IObserver()
 ";
 
-%feature("docstring")  IObserver::notify "void IObserver::notify(IObservable *subject)
+%feature("docstring")  IObserver::notify "virtual void IObserver::notify(IObservable *subject)=0
 
 method which is used by observable subject to notify change in status 
 ";
@@ -7455,7 +7395,7 @@ C++ includes: IParameterized.h
 %feature("docstring")  IParameterized::~IParameterized "virtual IParameterized::~IParameterized()
 ";
 
-%feature("docstring")  IParameterized::getParameterPool "const ParameterPool * IParameterized::getParameterPool() const
+%feature("docstring")  IParameterized::getParameterPool "const ParameterPool* IParameterized::getParameterPool() const
 
 Returns pointer to the parameter pool. 
 ";
@@ -7592,6 +7532,21 @@ C++ includes: IPixelMap.h
 ";
 
 %feature("docstring")  IPixelMap::getSolidAngle "virtual double IPixelMap::getSolidAngle() const =0
+";
+
+
+// File: classIRegistry.xml
+%feature("docstring") IRegistry "
+
+Templated object registry.
+
+C++ includes: IRegistry.h
+";
+
+%feature("docstring")  IRegistry::getItem "ValueType* IRegistry< ValueType >::getItem(const std::string &key) const 
+";
+
+%feature("docstring")  IRegistry::keys "std::vector<std::string> IRegistry< ValueType >::keys()
 ";
 
 
@@ -7741,7 +7696,7 @@ C++ includes: ISampleBuilder.h
 %feature("docstring")  ISampleBuilder::buildSample "virtual class ISample* ISampleBuilder::buildSample() const =0
 ";
 
-%feature("docstring")  ISampleBuilder::init_from "virtual void ISampleBuilder::init_from(const class FunctionalTestComponentService *)
+%feature("docstring")  ISampleBuilder::init_from "virtual void ISampleBuilder::init_from(const class FutestSuite *)
 ";
 
 
@@ -8744,7 +8699,7 @@ C++ includes: LayersWithAbsorptionBuilder.h
 %feature("docstring")  LayersWithAbsorptionBuilder::~LayersWithAbsorptionBuilder "LayersWithAbsorptionBuilder::~LayersWithAbsorptionBuilder()
 ";
 
-%feature("docstring")  LayersWithAbsorptionBuilder::init_from "void LayersWithAbsorptionBuilder::init_from(const class FunctionalTestComponentService *service)
+%feature("docstring")  LayersWithAbsorptionBuilder::init_from "void LayersWithAbsorptionBuilder::init_from(const class FutestSuite *service)
 ";
 
 %feature("docstring")  LayersWithAbsorptionBuilder::buildSample "ISample * LayersWithAbsorptionBuilder::buildSample() const 
@@ -10145,7 +10100,7 @@ Holds a map of pointers to parameters (which must have different names).
 C++ includes: ParameterPool.h
 ";
 
-%feature("docstring")  ParameterPool::ParameterPool "ParameterPool::ParameterPool(IParameterized *const parent)
+%feature("docstring")  ParameterPool::ParameterPool "ParameterPool::ParameterPool(IParameterized *parent)
 
 Constructs an empty parameter pool. 
 ";
@@ -10529,7 +10484,7 @@ C++ includes: ParticleInTheAirBuilder.h
 %feature("docstring")  ParticleInTheAirBuilder::~ParticleInTheAirBuilder "ParticleInTheAirBuilder::~ParticleInTheAirBuilder()
 ";
 
-%feature("docstring")  ParticleInTheAirBuilder::init_from "void ParticleInTheAirBuilder::init_from(const class FunctionalTestComponentService *service)
+%feature("docstring")  ParticleInTheAirBuilder::init_from "void ParticleInTheAirBuilder::init_from(const class FutestSuite *service)
 ";
 
 %feature("docstring")  ParticleInTheAirBuilder::buildSample "ISample * ParticleInTheAirBuilder::buildSample() const 
@@ -11043,48 +10998,33 @@ finalize report to the simulation
 ";
 
 
-// File: classPyScriptFunctionalTest.xml
-%feature("docstring") PyScriptFunctionalTest "
+// File: classPyScriptFutest.xml
+%feature("docstring") PyScriptFutest "
 
-GUI functional test compares results of the reference simulation with the one obtained through domain->GUI->domain convertion. Normally invoked by  FunctionalMultiTest.
+GUI functional test compares results of the reference simulation with the one obtained through domain->GUI->domain convertion. Normally invoked by FunctionalMultiTest.
 
-C++ includes: PyScriptFunctionalTest.h
+C++ includes: PyScriptFutest.h
 ";
 
-%feature("docstring")  PyScriptFunctionalTest::PyScriptFunctionalTest "PyScriptFunctionalTest::PyScriptFunctionalTest(const std::string &name, const std::string &description, GISASSimulation *reference_simulation, double threshold)
+%feature("docstring")  PyScriptFutest::PyScriptFutest "PyScriptFutest::PyScriptFutest(const std::string &name, const std::string &description, GISASSimulation *reference_simulation, double threshold)
 ";
 
-%feature("docstring")  PyScriptFunctionalTest::~PyScriptFunctionalTest "PyScriptFunctionalTest::~PyScriptFunctionalTest()
+%feature("docstring")  PyScriptFutest::~PyScriptFutest "PyScriptFutest::~PyScriptFutest()
 ";
 
-%feature("docstring")  PyScriptFunctionalTest::runTest "void PyScriptFunctionalTest::runTest()
+%feature("docstring")  PyScriptFutest::runTest "void PyScriptFutest::runTest()
 ";
 
-%feature("docstring")  PyScriptFunctionalTest::analyseResults "int PyScriptFunctionalTest::analyseResults()
+%feature("docstring")  PyScriptFutest::analyseResults "int PyScriptFutest::analyseResults()
 ";
 
-%feature("docstring")  PyScriptFunctionalTest::getOutputData "const OutputData<double>* PyScriptFunctionalTest::getOutputData() const 
+%feature("docstring")  PyScriptFutest::getOutputData "const OutputData<double>* PyScriptFutest::getOutputData() const 
 ";
 
-%feature("docstring")  PyScriptFunctionalTest::getDifference "double PyScriptFunctionalTest::getDifference() const 
+%feature("docstring")  PyScriptFutest::getDifference "double PyScriptFutest::getDifference() const 
 ";
 
-%feature("docstring")  PyScriptFunctionalTest::printResults "void PyScriptFunctionalTest::printResults(std::ostream &ostr) const 
-";
-
-
-// File: classPyScriptFunctionalTestComponentService.xml
-%feature("docstring") PyScriptFunctionalTestComponentService "
-
-Contains all necessary information to compose pyscript functional test.
-
-C++ includes: PyScriptFunctionalTestComponentService.h
-";
-
-%feature("docstring")  PyScriptFunctionalTestComponentService::PyScriptFunctionalTestComponentService "PyScriptFunctionalTestComponentService::PyScriptFunctionalTestComponentService(const FunctionalTestInfo *info)
-";
-
-%feature("docstring")  PyScriptFunctionalTestComponentService::getFunctionalTest "IFunctionalTest * PyScriptFunctionalTestComponentService::getFunctionalTest() const 
+%feature("docstring")  PyScriptFutest::printResults "void PyScriptFutest::printResults(std::ostream &ostr) const 
 ";
 
 
@@ -12594,6 +12534,18 @@ get phi for given detector pixel coordinates
 ";
 
 
+// File: classSimulationFactory.xml
+%feature("docstring") SimulationFactory "
+
+Registry to create standard pre-defined simulations. Used in functional tests, performance measurements, etc.
+
+C++ includes: SimulationFactory.h
+";
+
+%feature("docstring")  SimulationFactory::SimulationFactory "SimulationFactory::SimulationFactory()
+";
+
+
 // File: classSimulationOptions.xml
 %feature("docstring") SimulationOptions "
 
@@ -12650,18 +12602,6 @@ Sets the batch and thread information to be used.
 ";
 
 %feature("docstring")  SimulationOptions::getHardwareConcurrency "int SimulationOptions::getHardwareConcurrency() const 
-";
-
-
-// File: classSimulationRegistry.xml
-%feature("docstring") SimulationRegistry "
-
-Registry to create standard pre-defined simulations. Used in functional tests, performance measurements, etc.
-
-C++ includes: SimulationRegistry.h
-";
-
-%feature("docstring")  SimulationRegistry::SimulationRegistry "SimulationRegistry::SimulationRegistry()
 ";
 
 
@@ -13102,9 +13042,9 @@ Returns current string.
 // File: classTestFormFactorsRegistry.xml
 %feature("docstring") TestFormFactorsRegistry "
 
-Registry with predifined form factors for functional tests purpose.
+Registry with predefined form factors, for functional tests.
 
-C++ includes: TestComponentsRegistry.h
+C++ includes: SubtestRegistry.h
 ";
 
 %feature("docstring")  TestFormFactorsRegistry::TestFormFactorsRegistry "TestFormFactorsRegistry::TestFormFactorsRegistry()
@@ -13114,9 +13054,9 @@ C++ includes: TestComponentsRegistry.h
 // File: classTestFTDistribution2DRegistry.xml
 %feature("docstring") TestFTDistribution2DRegistry "
 
-Registry with predifined fourier transformed distributions for functional tests purpose.
+Registry with predefined Fourier transformed distributions, for functional tests.
 
-C++ includes: TestComponentsRegistry.h
+C++ includes: SubtestRegistry.h
 ";
 
 %feature("docstring")  TestFTDistribution2DRegistry::TestFTDistribution2DRegistry "TestFTDistribution2DRegistry::TestFTDistribution2DRegistry()
@@ -13478,22 +13418,22 @@ C++ includes: WavevectorInfo.h
 // File: classMathFunctions_1_1Convolve_1_1Workspace.xml
 
 
-// File: namespace@339.xml
+// File: namespace_0D339.xml
 
 
-// File: namespace@345.xml
+// File: namespace_0D345.xml
 
 
-// File: namespace@358.xml
+// File: namespace_0D353.xml
 
 
-// File: namespace@360.xml
+// File: namespace_0D356.xml
 
 
-// File: namespace@67.xml
+// File: namespace_0D67.xml
 
 
-// File: namespace@95.xml
+// File: namespace_0D95.xml
 
 
 // File: namespaceboost_1_1geometry.xml
@@ -15018,10 +14958,10 @@ build<C> is a function void -> ISampleBuilder*. C must be a child of  ISampleBui
 // File: SampleBuilderFactory_8h.xml
 
 
-// File: SimulationRegistry_8cpp.xml
+// File: SimulationFactory_8cpp.xml
 
 
-// File: SimulationRegistry_8h.xml
+// File: SimulationFactory_8h.xml
 
 
 // File: SizeDistributionModelsBuilder_8cpp.xml
@@ -15048,67 +14988,49 @@ build<C> is a function void -> ISampleBuilder*. C must be a child of  ISampleBui
 // File: TwoDimLatticeBuilder_8h.xml
 
 
-// File: CoreFunctionalTest_8cpp.xml
+// File: CoreFutest_8cpp.xml
 
 
-// File: CoreFunctionalTest_8h.xml
+// File: CoreFutest_8h.xml
 
 
-// File: CoreFunctionalTestComponentService_8cpp.xml
+// File: FutestInfo_8cpp.xml
 
 
-// File: CoreFunctionalTestComponentService_8h.xml
+// File: FutestInfo_8h.xml
 
 
-// File: FunctionalMultiTest_8cpp.xml
+// File: FutestRegistry_8cpp.xml
 
 
-// File: FunctionalMultiTest_8h.xml
+// File: FutestRegistry_8h.xml
 
 
-// File: FunctionalTestComponentService_8cpp.xml
+// File: FutestSuite_8cpp.xml
 
 
-// File: FunctionalTestComponentService_8h.xml
+// File: FutestSuite_8h.xml
 
 
-// File: FunctionalTestInfo_8cpp.xml
+// File: IFutest_8cpp.xml
 
 
-// File: FunctionalTestInfo_8h.xml
+// File: IFutest_8h.xml
 
 
-// File: FunctionalTestRegistry_8cpp.xml
+// File: IRegistry_8h.xml
 
 
-// File: FunctionalTestRegistry_8h.xml
+// File: PyScriptFutest_8cpp.xml
 
 
-// File: ICloneableRegistry_8h.xml
+// File: PyScriptFutest_8h.xml
 
 
-// File: IFunctionalTest_8cpp.xml
+// File: SubtestRegistry_8cpp.xml
 
 
-// File: IFunctionalTest_8h.xml
-
-
-// File: PyScriptFunctionalTest_8cpp.xml
-
-
-// File: PyScriptFunctionalTest_8h.xml
-
-
-// File: PyScriptFunctionalTestComponentService_8cpp.xml
-
-
-// File: PyScriptFunctionalTestComponentService_8h.xml
-
-
-// File: TestComponentsRegistry_8cpp.xml
-
-
-// File: TestComponentsRegistry_8h.xml
+// File: SubtestRegistry_8h.xml
 
 
 // File: AttLimits_8cpp.xml
@@ -15219,9 +15141,6 @@ global helper function for comparison of axes
 // File: ICloneable_8h.xml
 
 
-// File: IFactory_8cpp.xml
-
-
 // File: IFactory_8h.xml
 
 
@@ -15231,13 +15150,7 @@ global helper function for comparison of axes
 // File: IHistogram_8h.xml
 
 
-// File: INamed_8cpp.xml
-
-
 // File: INamed_8h.xml
-
-
-// File: BAConfigure_8h.xml
 
 
 // File: IntegratorComplex_8h.xml
@@ -15421,35 +15334,29 @@ global helper function for comparison of axes
 // File: todo.xml
 
 
-// File: dir_2ae5eef177fdc4a2f78184a703e9ca35.xml
+// File: dir_e1ea50aa565d9a3ab2d030f355b28273.xml
 
 
-// File: dir_a5718f9cbd8869dfe6f67ea602e0c081.xml
+// File: dir_c6310732a22f63c0c2fc5595561e68f1.xml
 
 
-// File: dir_e8b91df279483b3e8e12615e228a1b30.xml
+// File: dir_a2ca5d2cdcaf135a87dcab85b198454f.xml
 
 
-// File: dir_0741ac6d11fd047643bf55f8f8c05919.xml
+// File: dir_41c864f8b362cbf9598de792bd07bfbb.xml
 
 
-// File: dir_f917e00ecc0731a03e57c18530cede59.xml
+// File: dir_d7044b5fc4daccc5700de9f07da81a11.xml
 
 
-// File: dir_9d78f3c2dc853fa89372782fc968f32a.xml
+// File: dir_3089b6128da5fa5b3826c81ab6bab5ef.xml
 
 
-// File: dir_7fb31f1b073eeae63423bbb2a3a2d187.xml
+// File: dir_5d2259b43612a5a0ff7512df653d7370.xml
 
 
-// File: dir_844b9b42d96eb52684a7ef26f932da03.xml
+// File: dir_3699ff1c9496be3df876d73b8d75bc3c.xml
 
 
-// File: dir_6239607a7bd3e9e52745ea8c4706e15f.xml
-
-
-// File: dir_66dafcc1787bb051f9038bca1a02d0ff.xml
-
-
-// File: dir_0ae786ed4862dcefebd8dd89a60766dc.xml
+// File: dir_e120110860f9b345e7b3217e8b15cbb8.xml
 

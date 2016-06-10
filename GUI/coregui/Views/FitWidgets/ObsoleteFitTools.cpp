@@ -21,7 +21,7 @@
 #include "ModelPath.h"
 #include "RunFitManager.h"
 #include "SampleBuilderFactory.h"
-#include "SimulationRegistry.h"
+#include "SimulationFactory.h"
 #include "FitSuite.h"
 #include "Units.h"
 #include "IntensityDataItem.h"

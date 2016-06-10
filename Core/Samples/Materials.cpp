@@ -15,19 +15,19 @@
 
 #include "Materials.h"
 
-
-IMaterial* Materials::createInvertedMaterial(const IMaterial *orig_material)
+IMaterial* Materials::createInvertedMaterial(const IMaterial* orig_material)
 {
-    if (!orig_material) return 0;
+    if (!orig_material)
+        return nullptr;
 
-    const HomogeneousMagneticMaterial *magn_material =
-            dynamic_cast<const HomogeneousMagneticMaterial *>(orig_material);
+    const HomogeneousMagneticMaterial* magn_material =
+            dynamic_cast<const HomogeneousMagneticMaterial*>(orig_material);
 
-    if (!magn_material) return orig_material->clone();
+    if (!magn_material)
+        return orig_material->clone();
 
     std::string new_name = orig_material->getName() + "_inv";
     return new HomogeneousMagneticMaterial(new_name,
                                            magn_material->getRefractiveIndex(),
                                           -magn_material->getMagneticField());
 }
-

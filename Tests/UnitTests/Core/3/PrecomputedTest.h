@@ -12,8 +12,8 @@ public:
 TEST_F(PrecomputedTest, Factorial)
 {
     const double eps = 2.3e-16; // about the machine precision
-    auto& precomputed = IPrecomputed::instance();
-    EXPECT_TRUE(precomputed.factorial.size()>150); 
+    auto& precomputed = Precomputed::instance();
+    EXPECT_TRUE(precomputed.factorial.size()>150);
     EXPECT_DOUBLE_EQ(precomputed.factorial[0], 1.);
     EXPECT_DOUBLE_EQ(precomputed.factorial[1], 1.);
     EXPECT_DOUBLE_EQ(precomputed.factorial[2], 2.);

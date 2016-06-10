@@ -74,7 +74,7 @@ complex_t PolyhedralEdge::contrib(int M, const cvector_t qpa, complex_t qrperp) 
         std::cout<<std::scientific<<std::showpos<<std::setprecision(16)<<"contrib: u="<<u<<
             " v1="<<v1<<" v2="<<v2<<"\n";
 #endif
-    static auto& precomputed = IPrecomputed::instance();
+    static auto& precomputed = Precomputed::instance();
     if( v==0. ) { // only 2l=M contributes
         if( M&1 ) // M is odd
             return 0.;
@@ -264,7 +264,7 @@ complex_t PolyhedralFace::ff_n( int n, const cvector_t q ) const
     cvector_t qpa;
     decompose_q( q, qperp, qpa );
     double qpa_mag2 = qpa.mag2();
-    static auto& precomputed = IPrecomputed::instance();
+    static auto& precomputed = Precomputed::instance();
     if ( qpa_mag2==0. ) {
         return qn * pow(qperp*m_rperp, n) * m_area / precomputed.factorial[n];
     } else if ( sym_S2 ) {

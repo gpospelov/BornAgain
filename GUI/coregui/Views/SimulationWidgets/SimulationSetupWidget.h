@@ -45,8 +45,6 @@ public slots:
     void onExportToPythonScript();
 
 private:
-    bool isValidSetup(const MultiLayerItem *multiLayerItem, const InstrumentItem *instrumentItem);
-
     QWidget *createButtonWidget();
 
     ApplicationModels *m_applicationModels;
@@ -56,7 +54,6 @@ private:
 
     SimulationDataSelectorWidget *m_simDataSelectorWidget;
     SimulationOptionsWidget *m_simOptionsWidget;
-
 };
 
 #endif

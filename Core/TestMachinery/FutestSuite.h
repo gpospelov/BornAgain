@@ -37,8 +37,8 @@
 class BA_CORE_API_ FutestSuite : public INamed
 {
 public:
-    FutestSuite();
-    virtual ~FutestSuite();
+    FutestSuite() {}
+    virtual ~FutestSuite() {}
 
     int execute(int argc, char** argv);
 
@@ -50,20 +50,20 @@ protected:
     virtual class GISASSimulation* getSimulation() const;
     virtual std::shared_ptr<class ISampleBuilder> getSampleBuilder() const;
     virtual OutputData<double>* getReferenceData() const;
-
     std::string getReferenceFileName() const;
     const class FutestInfo* getTestInfo() const { return m_info; }
-
-    std::string getTestName() const;
+    std::string getTestName() const { return m_test_name; }
     std::string getTestDescription() const;
     double getTestThreshold() const;
 
+private:
     const class FutestInfo* m_info;
-    class IFormFactor* m_formfactor;
-    class IFTDistribution2D* m_ft_distribution_2d;
-    class TestFormFactorsRegistry* m_ff_registry;
-    class TestFTDistribution2DRegistry* m_ft2d_registry;
+    std::string m_test_name;
     std::string m_subtest_name;
+    class IParameterized* m_subtest_item;
+
+    int execute_onetest();
+    int execute_subtests();
 };
 
 #endif

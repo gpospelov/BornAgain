@@ -16,7 +16,7 @@
 #ifndef TESTCOMPONENTSREGISTRY_H
 #define TESTCOMPONENTSREGISTRY_H
 
-#include "ICloneableRegistry.h"
+#include "IRegistry.h"
 #include "IFormFactor.h"
 #include "FTDistributions.h"
 
@@ -25,7 +25,7 @@
 //! @brief Registry with predefined Fourier transformed distributions, for functional tests.
 // ************************************************************************** //
 
-class TestFTDistribution2DRegistry : public ICloneableRegistry<IFTDistribution2D>
+class TestFTDistribution2DRegistry : public IRegistry<IParameterized>
 {
 public:
     TestFTDistribution2DRegistry();
@@ -36,7 +36,7 @@ public:
 //! @brief Registry with predefined form factors, for functional tests.
 // ************************************************************************** //
 
-class TestFormFactorsRegistry : public ICloneableRegistry<IFormFactor>
+class TestFormFactorsRegistry : public IRegistry<IParameterized>
 {
 public:
     TestFormFactorsRegistry();

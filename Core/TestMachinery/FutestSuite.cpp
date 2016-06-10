@@ -28,23 +28,6 @@
 #include "FTDistributions.h"
 #include "FutestSuite.h"
 
-FutestSuite::FutestSuite()
-    : m_formfactor(0)
-    , m_ft_distribution_2d(0)
-    , m_ff_registry(0)
-    , m_ft2d_registry(0)
-{
-}
-
-FutestSuite::~FutestSuite()
-{
-    delete m_formfactor;
-    delete m_ff_registry;
-
-    delete m_ft_distribution_2d;
-    delete m_ft2d_registry;
-}
-
 //! Runs test (name given as command-line argument), and returns 0 for SUCCESS, or error code.
 
 int FutestSuite::execute(int argc, char** argv) {
@@ -56,66 +39,77 @@ int FutestSuite::execute(int argc, char** argv) {
     if( !m_info )
         return 1;
 
+    if (m_info->m_subtest_type == "None")
+        return execute_onetest();
+    else
+        return execute_subtests();
+}
+
+//! Runs a single test, and returns 0 for SUCCESS, or error code.
+
+int FutestSuite::execute_onetest()
+{
+    m_test_name = m_info->m_test_name;
+    IFutest* test( getFutest() );
+    test->runTest();
+    test->analyseResults();
+    std::cout << *test << "\n";
+    return test->getTestResult();
+}
+
+//! Runs all available subtests, and returns 0 if all succeed, or 1 in case of any error.
+
+int FutestSuite::execute_subtests()
+{
     // initialize subtest registry
     std::vector<std::string> subtest_names;
-    if       (m_info->m_subtest_type == "None") {
-        subtest_names.push_back("Default");
-    } else if(m_info->m_subtest_type == "FormFactorsRegistry") {
-        m_ff_registry = new TestFormFactorsRegistry;
-        subtest_names = m_ff_registry->getNames();
+    IRegistry<IParameterized>* subtest_registry;
+    if       (m_info->m_subtest_type == "FormFactorsRegistry") {
+        subtest_registry = new TestFormFactorsRegistry;
     } else if(m_info->m_subtest_type == "FTDistributions2DRegistry") {
-        m_ft2d_registry = new TestFTDistribution2DRegistry;
-        subtest_names = m_ft2d_registry->getNames();
+        subtest_registry = new TestFTDistribution2DRegistry;
     } else
         throw RuntimeErrorException("FutestSuite -> Error. "
                                     "Unknown factory '"+m_info->m_subtest_type+"'.");
+    subtest_names = subtest_registry->keys();
     size_t n_subtests = subtest_names.size();
 
     // run and analyze subtests
     int number_of_failed_tests = 0;
     for (size_t i = 0; i < n_subtests; ++i) {
         m_subtest_name = subtest_names[i];
-        if(m_ff_registry) {
-            delete m_formfactor;
-            m_formfactor = m_ff_registry->createItem(m_subtest_name);
-        }
-        if(m_ft2d_registry) {
-            delete m_ft_distribution_2d;
-            m_ft_distribution_2d = m_ft2d_registry->createItem(m_subtest_name);
-        }
+        m_test_name = m_info->m_test_name + "_" + m_subtest_name;
+        m_subtest_item = subtest_registry->getItem(m_subtest_name);
 
         IFutest* subtest( getFutest() );
         std::cout << "FutestSuite::execute() -> " << getName()
                   << " " << i+1 << "/" << n_subtests << " (" << m_subtest_name << ")\n";
         subtest->runTest();
         subtest->analyseResults();
+        std::cout << *subtest << "\n";
         if (subtest->getTestResult())
             ++number_of_failed_tests;
-        std::cout << *subtest << "\n";
     }
+    delete subtest_registry;
 
     // report overall result
-    if (n_subtests > 1)
-        std::cout << "summary: " << number_of_failed_tests << " of " << n_subtests <<
-            " subtests failed\n";
+    std::cout << "summary: " << number_of_failed_tests << " of " << n_subtests <<
+        " subtests failed\n";
     return number_of_failed_tests>0;
 }
 
 IFormFactor* FutestSuite::getFormFactor() const
 {
-    if(!m_formfactor)
-        throw NullPointerException(
-            "FutestSuite::getFormFactor() -> Error. No form factor defined.");
-    return m_formfactor->clone();
+    auto result = dynamic_cast<IFormFactor*>(m_subtest_item);
+    assert(result);
+    return result->clone();
 }
 
 IFTDistribution2D* FutestSuite::getFTDistribution2D() const
 {
-    if(!m_ft_distribution_2d)
-        throw NullPointerException(
-            "FutestSuite::getFTDistribution2D() -> Error. "
-            "No FT distribution defined.");
-    return m_ft_distribution_2d->clone();
+    auto result = dynamic_cast<IFTDistribution2D*>(m_subtest_item);
+    assert(result);
+    return result->clone();
 }
 
 GISASSimulation* FutestSuite::getSimulation() const
@@ -152,20 +146,7 @@ OutputData<double>* FutestSuite::getReferenceData() const
 std::string FutestSuite::getReferenceFileName() const
 {
     std::string result("ref_");
-    result += m_info->m_test_name;
-    if(m_subtest_name != "Default")
-        result += std::string("_")+m_subtest_name;
-    result += std::string(".int.gz");
-    return result;
-}
-
-//! Constructs functional test name corresponding to the current component. The goal is to have
-//! different names of test depending from the context (single test, or multi test).
-std::string FutestSuite::getTestName() const
-{
-    std::string result = m_info->m_test_name;
-    if(m_subtest_name != "Default")
-        result += "_" + m_subtest_name;
+    result += m_test_name + ".int.gz";
     return result;
 }
 

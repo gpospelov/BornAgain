@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tools/ICloneableRegistry.h
+//! @file      Tools/IRegistry.h
 //! @brief     Declares templated registry for ICloneable objects
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -21,26 +21,26 @@
 #include <map>
 #include <sstream>
 
-//! @class ICloneableRegistry
+//! @class IRegistry
 //! @ingroup tools_internal
-//! @brief Templated registry for cloneable objects
+//! @brief Templated object registry
 
 template<class ValueType>
-class ICloneableRegistry
+class IRegistry
 {
 public:
-    ValueType* createItem(const std::string& key) const {
+    ValueType* getItem(const std::string& key) const {
         auto it = m_data.find(key);
         if(it == m_data.end()) {
             std::ostringstream message;
-            message << "ICloneableRegistry::createItem() -> Error. Not existing item key "
+            message << "IRegistry::createItem() -> Error. Not existing item key "
                     << "'" << key << "'";
             throw UnknownClassRegistrationException(message.str());
         }
-        return it->second->clone();
+        return it->second;
     }
 
-    std::vector<std::string> getNames() {
+    std::vector<std::string> keys() {
         std::vector<std::string> result;
         for( auto it=m_data.begin(); it!=m_data.end(); ++it )
             result.push_back( it->first );
@@ -51,7 +51,7 @@ protected:
     void add(const std::string& key, ValueType* item) {
         if(m_data.find(key) != m_data.end()) {
             std::ostringstream message;
-            message << "ICloneableRegistry::createItem() -> Error. Already existing item with key "
+            message << "IRegistry::createItem() -> Error. Already existing item with key "
                     << "'" << key << "'";
             throw ExistingClassRegistrationException(message.str());
         }

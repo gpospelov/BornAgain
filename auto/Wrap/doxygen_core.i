@@ -754,7 +754,7 @@ Sets convolution mode.
 // File: classCoreFutest.xml
 %feature("docstring") CoreFutest "
 
-Core functional test compares results of the standard simulation with reference intensity data. Normally invoked by  FunctionalMultiTest.
+Core functional test compares results of the standard simulation with reference intensity data. Normally invoked by FunctionalMultiTest.
 
 C++ includes: CoreFutest.h
 ";
@@ -4449,30 +4449,6 @@ evaluate Fourier transformed distribution for q in X,Y coordinates the original 
 ";
 
 
-// File: classFunctionalMultiTest.xml
-%feature("docstring") FunctionalMultiTest "
-
-Functional multi test constructs the collection of standard functional tests using component service, runs them one-by-one, and then reports results in a single table.
-
-C++ includes: FunctionalMultiTest.h
-";
-
-%feature("docstring")  FunctionalMultiTest::FunctionalMultiTest "FunctionalMultiTest::FunctionalMultiTest(const std::string &name, FutestSuite &service)
-";
-
-%feature("docstring")  FunctionalMultiTest::~FunctionalMultiTest "FunctionalMultiTest::~FunctionalMultiTest()
-";
-
-%feature("docstring")  FunctionalMultiTest::runTest "void FunctionalMultiTest::runTest()
-";
-
-%feature("docstring")  FunctionalMultiTest::analyseResults "int FunctionalMultiTest::analyseResults()
-";
-
-%feature("docstring")  FunctionalMultiTest::printResults "void FunctionalMultiTest::printResults(std::ostream &ostr) const 
-";
-
-
 // File: classFutestInfo.xml
 %feature("docstring") FutestInfo "
 
@@ -4524,6 +4500,8 @@ C++ includes: FutestSuite.h
 ";
 
 %feature("docstring")  FutestSuite::execute "int FutestSuite::execute(int argc, char **argv)
+
+Runs test (name given as command-line argument), and returns 0 for SUCCESS, or error code. 
 ";
 
 %feature("docstring")  FutestSuite::getFutest "class IFutest* FutestSuite::getFutest() const 
@@ -7405,7 +7383,7 @@ C++ includes: IObserver.h
 %feature("docstring")  IObserver::~IObserver "virtual IObserver::~IObserver()
 ";
 
-%feature("docstring")  IObserver::notify "virtual void IObserver::notify(IObservable *subject)=delete
+%feature("docstring")  IObserver::notify "virtual void IObserver::notify(IObservable *subject)=0
 
 method which is used by observable subject to notify change in status 
 ";
@@ -7464,7 +7442,7 @@ C++ includes: IParameterized.h
 %feature("docstring")  IParameterized::~IParameterized "virtual IParameterized::~IParameterized()
 ";
 
-%feature("docstring")  IParameterized::getParameterPool "const ParameterPool * IParameterized::getParameterPool() const
+%feature("docstring")  IParameterized::getParameterPool "const ParameterPool* IParameterized::getParameterPool() const
 
 Returns pointer to the parameter pool. 
 ";
@@ -10163,7 +10141,7 @@ Holds a map of pointers to parameters (which must have different names).
 C++ includes: ParameterPool.h
 ";
 
-%feature("docstring")  ParameterPool::ParameterPool "ParameterPool::ParameterPool(IParameterized *const parent)
+%feature("docstring")  ParameterPool::ParameterPool "ParameterPool::ParameterPool(IParameterized *parent)
 
 Constructs an empty parameter pool. 
 ";
@@ -11071,7 +11049,7 @@ finalize report to the simulation
 // File: classPyScriptFutest.xml
 %feature("docstring") PyScriptFutest "
 
-GUI functional test compares results of the reference simulation with the one obtained through domain->GUI->domain convertion. Normally invoked by  FunctionalMultiTest.
+GUI functional test compares results of the reference simulation with the one obtained through domain->GUI->domain convertion. Normally invoked by FunctionalMultiTest.
 
 C++ includes: PyScriptFutest.h
 ";
@@ -13494,10 +13472,10 @@ C++ includes: WavevectorInfo.h
 // File: namespace_0D345.xml
 
 
+// File: namespace_0D354.xml
+
+
 // File: namespace_0D356.xml
-
-
-// File: namespace_0D358.xml
 
 
 // File: namespace_0D67.xml
@@ -15062,12 +15040,6 @@ build<C> is a function void -> ISampleBuilder*. C must be a child of  ISampleBui
 
 
 // File: CoreFutest_8h.xml
-
-
-// File: FunctionalMultiTest_8cpp.xml
-
-
-// File: FunctionalMultiTest_8h.xml
 
 
 // File: FutestInfo_8cpp.xml

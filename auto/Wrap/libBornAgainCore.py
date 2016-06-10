@@ -1865,7 +1865,7 @@ class IParameterized(INamed):
         """
         getParameterPool(IParameterized self) -> ParameterPool
 
-        const ParameterPool * IParameterized::getParameterPool() const
+        const ParameterPool* IParameterized::getParameterPool() const
 
         Returns pointer to the parameter pool. 
 
@@ -14988,7 +14988,7 @@ class IObserver(_object):
         """
         notify(IObserver self, IObservable subject)
 
-        virtual void IObserver::notify(IObservable *subject)=delete
+        virtual void IObserver::notify(IObservable *subject)=0
 
         method which is used by observable subject to notify change in status 
 

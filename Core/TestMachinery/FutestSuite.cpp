@@ -23,7 +23,6 @@
 #include "IFormFactor.h"
 #include "IntensityDataIOFactory.h"
 #include "FileSystem.h"
-#include "FunctionalMultiTest.h"
 #include "CoreFutest.h"
 #include "FTDistributions.h"
 #include "FutestSuite.h"
@@ -49,17 +48,51 @@ FutestSuite::~FutestSuite()
     delete m_ft2d_registry;
 }
 
+//! Runs test (name given as command-line argument), and returns 0 for SUCCESS, or error code.
+
 int FutestSuite::execute(int argc, char** argv) {
+    // parse command-line arguments and retrieve test info from registry
     std::string test_name;
     if(argc > 1)
         test_name = std::string(argv[1]);
     m_info = FutestRegistry::instance().getItemOrExplain(test_name, getName());
     if( !m_info )
         return 1;
+
     init_subtest_registry(m_info->m_component_registry_name);
-    FunctionalMultiTest test(m_info->m_test_name, *this);
-    test.runTest();
-    return test.analyseResults();
+
+    std::vector<IFutest*> subtests;
+    for (size_t i = 0; i < getNumberOfComponents(); ++i) {
+        initComponent(i);
+        subtests.push_back( getFutest() );
+   }
+
+    for (size_t i = 0; i < subtests.size(); ++i) {
+        std::cout << "FutestSuite::execute() -> " << getName()
+                  << " " << i << "/" << getNumberOfComponents()
+                  << " (" << getCurrentComponentName() << ")\n";
+        subtests[i]->runTest();
+        subtests[i]->analyseResults();
+    }
+
+    int number_of_failed_tests = 0;
+    for (size_t i = 0; i < subtests.size(); ++i) {
+        if (subtests[i]->getTestResult())
+            ++number_of_failed_tests;
+    }
+
+    if (subtests.size() == 1) {
+        // if single test, use his own printout
+        std::cout << *subtests[0] << "\n";
+    } else {
+        // if multiple test, use extended print out
+        // std::cout << getFormattedInfoString(); // TODO restore?
+        std::cout << "[" << number_of_failed_tests << " failed out of " << subtests.size() << "]\n";
+        for (size_t i = 0; i < subtests.size(); ++i)
+            std::cout << *subtests[i] << "\n";
+    }
+
+    return number_of_failed_tests>0;
 }
 
 IFormFactor* FutestSuite::getFormFactor() const

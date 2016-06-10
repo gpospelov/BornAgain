@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/JobWidgets/JobListToolBar.cpp
-//! @brief     Implements class JobListToolBar
+//! @file      coregui/Views/JobWidgets/JobProgressAssistant.h
+//! @brief     Declares class JobProgressAssistant
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,30 +14,27 @@
 //
 // ************************************************************************** //
 
-#ifndef JOBLISTTOOLBAR_H
-#define JOBLISTTOOLBAR_H
+#ifndef JOBPROGRESSASSISTANT_H
+#define JOBPROGRESSASSISTANT_H
 
-#include "StyledToolBar.h"
+#include "WinDllMacros.h"
+#include <QObject>
 
-class QToolButton;
+class MainWindow;
 
-//! The JobListToolBar class represents a toolbar with buttons (add, remove jobs) needed
-//! for JobListView.
+//! The JobProgressAssistant class helps JobView to visualize current progress.
 
-class BA_CORE_API_ JobListToolBar : public StyledToolBar
+class BA_CORE_API_ JobProgressAssistant : public QObject
 {
     Q_OBJECT
-
 public:
-    explicit JobListToolBar(QWidget *parent = 0);
+    JobProgressAssistant(MainWindow *mainWindow);
 
-signals:
-    void runJob();
-    void removeJob();
+private slots:
+    void onGlobalProgress(int progress);
 
 private:
-    QToolButton *m_runJobButton;
-    QToolButton *m_removeJobButton;
+    MainWindow *m_mainWindow;
 };
 
 #endif

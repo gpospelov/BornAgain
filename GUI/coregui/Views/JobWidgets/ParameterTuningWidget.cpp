@@ -45,9 +45,9 @@ const int warning_sign_xpos = 38;
 const int warning_sign_ypos = 38;
 }
 
-ParameterTuningWidget::ParameterTuningWidget(JobModel *jobModel, QWidget *parent)
+ParameterTuningWidget::ParameterTuningWidget(QWidget *parent)
     : QWidget(parent)
-    , m_jobModel(jobModel)
+    , m_jobModel(0)
     , m_currentJobItem(0)
     , m_parameterTuningModel(0)
     , m_sliderSettingsWidget(new SliderSettingsWidget(this))
@@ -103,6 +103,8 @@ void ParameterTuningWidget::setItem(JobItem *item)
         m_currentJobItem = item;
         if (!m_currentJobItem) return;
 
+        m_jobModel = dynamic_cast<JobModel *>(m_currentJobItem->model());
+
         updateParameterModel();
 
         m_currentJobItem->mapper()->setOnPropertyChange(
@@ -145,7 +147,7 @@ void ParameterTuningWidget::onCurrentLinkChanged(SessionItem *item)
         qDebug() << "ModelTuningWidget::onCurrentLinkChanged() -> Starting to tune model";
 //                 << link.getItem()->modelType() << link.getPropertyName();
 //        link.updateItem();
-        m_jobModel->getJobQueueData()->runJob(m_currentJobItem);
+        m_jobModel->runJob(m_currentJobItem->index());
     }
 }
 
@@ -165,6 +167,7 @@ void ParameterTuningWidget::onLockZValueChanged(bool value)
 
 void ParameterTuningWidget::updateParameterModel()
 {
+    Q_ASSERT(m_jobModel);
     qDebug() << "ModelTuningWidget::updateParameterModel()";
 
     if(!m_currentJobItem) return;
@@ -192,13 +195,14 @@ void ParameterTuningWidget::onCustomContextMenuRequested(const QPoint &point)
 
 void ParameterTuningWidget::restoreModelsOfCurrentJobItem()
 {
+    Q_ASSERT(m_jobModel);
     Q_ASSERT(m_currentJobItem);
 
     if(m_currentJobItem->isRunning())
         return;
 
     m_jobModel->restore(m_currentJobItem);
-    m_jobModel->getJobQueueData()->runJob(m_currentJobItem);
+    m_jobModel->runJob(m_currentJobItem->index());
 }
 
 void ParameterTuningWidget::makeSelected(ParameterItem *item)

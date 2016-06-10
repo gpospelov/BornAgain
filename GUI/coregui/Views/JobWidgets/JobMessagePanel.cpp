@@ -15,9 +15,10 @@
 // ************************************************************************** //
 
 #include "JobMessagePanel.h"
+#include "mainwindow_constants.h"
 
 JobMessagePanel::JobMessagePanel(QWidget *parent)
-    : JobPresenter(0, parent)
+    : QFrame(parent)
 {
-    setWindowTitle(QLatin1String("Message Panel"));
+    setWindowTitle(Constants::JobMessagePanelName);
 }

@@ -17,21 +17,20 @@
 #ifndef FITACTIVITYPANEL_H
 #define FITACTIVITYPANEL_H
 
-#include "JobPresenter.h"
 #include "ItemStackPresenter.h"
-#include <QMap>
+#include <QWidget>
 
 class JobModel;
 class JobItem;
-class QStackedWidget;
 class FitSuiteWidget;
 class JobRealTimeWidget;
 class RunFitControlWidget;
 
-//! Main widget to run fitting. Occupies bottom right corner of JobView.
-//! Contains stack of FitSuiteWidgets for JobItem's suitable for fitting.
+//! The FitActivityPanel class is a main widget to run the fitting.
+//! Occupies bottom right corner of JobView, contains stack of FitSuiteWidgets for every
+//! JobItem which is suitable for fitting.
 
-class BA_CORE_API_ FitActivityPanel : public JobPresenter
+class BA_CORE_API_ FitActivityPanel : public QWidget
 {
     Q_OBJECT
 public:
@@ -44,9 +43,6 @@ public:
 
 public slots:
     void setItem(JobItem *item);
-    void onJobItemDelete(JobItem *item);
-    void onJobItemFinished(const QString &identifier);
-    void updateCurrentItem();
 
 private slots:
     void onStartFitting();

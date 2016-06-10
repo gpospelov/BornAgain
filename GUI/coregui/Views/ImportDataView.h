@@ -31,6 +31,9 @@ class BA_CORE_API_ ImportDataView : public QWidget
 public:
     ImportDataView(class MainWindow *mainWindow);
 
+public slots:
+    void onSelectionChanged(SessionItem *item);
+
 private:
     void setupConnections();
 

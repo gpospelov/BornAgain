@@ -24,9 +24,12 @@ class SessionModel;
 class SessionItem;
 class QItemSelection;
 class QItemSelectionModel;
+class QModelIndex;
+class QAbstractItemDelegate;
+class QListView;
 
 //! The ItemSelectorWidget class holds QListView to show top level items of SessionModel.
-//! Used in InstrumentView and ImportDataView to switch between items.
+//! Used in InstrumentView, ImportDataView, JobSelectorView to switch between items.
 
 class BA_CORE_API_ ItemSelectorWidget : public QWidget
 {
@@ -39,18 +42,23 @@ public:
     QSize minimumSizeHint() const;
 
     void setModel(SessionModel *model);
+    void setItemDelegate(QAbstractItemDelegate *delegate);
 
     QItemSelectionModel *selectionModel();
+    QListView *listView();
 
 signals:
     void selectionChanged(SessionItem *item);
+    void contextMenuRequest(const QPoint &point, const QModelIndex &index);
 
 private slots:
     void onSelectionChanged(const QItemSelection &selected, const QItemSelection&);
+    void onCustomContextMenuRequested(const QPoint &point);
 
 protected:
     void connectModel();
     void disconnectModel();
+    void showEvent(class QShowEvent *);
 
 private:
     class QListView *m_listView;

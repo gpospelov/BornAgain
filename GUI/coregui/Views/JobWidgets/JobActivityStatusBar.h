@@ -20,29 +20,34 @@
 #include "WinDllMacros.h"
 #include <QWidget>
 
+class MainWindow;
 class QToolButton;
 class QComboBox;
 
-//! Narrow status bar at very bottom of JobView to switch between activities
+//! The JobActivityStatusBar class is a narrow status bar at very bottom of JobView to switch
+//! between activities. Added to the status bar of MainWindow when JobView is shown.
 
 class BA_CORE_API_ JobActivityStatusBar : public QWidget
 {
     Q_OBJECT
 public:
-    JobActivityStatusBar(QWidget *parent = 0);
+    JobActivityStatusBar(MainWindow *mainWindow = 0);
 
 signals:
-    void toggleJobListRequest();
+    void toggleJobSelectorRequest();
     void changeActivityRequest(int);
     void dockMenuRequest();
 
 public slots:
     void onActivityChanged(int activity);
 
-private:
+private:    
+    void initAppearance();
+
     QToolButton *m_toggleJobListButton;
     QComboBox *m_activityCombo;
     QToolButton *m_dockMenuButton;
+    MainWindow *m_mainWindow;
 };
 
 #endif

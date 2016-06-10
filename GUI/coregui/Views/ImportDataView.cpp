@@ -19,16 +19,16 @@
 #include "ImportDataToolBar.h"
 #include "ItemSelectorWidget.h"
 #include "RealDataModel.h"
+#include "mainwindow_constants.h"
 #include <QVBoxLayout>
 #include <QSplitter>
-#include <QStackedWidget>
 #include <QDebug>
 
 ImportDataView::ImportDataView(MainWindow *mainWindow)
     : QWidget(mainWindow)
-    , m_toolBar(new ImportDataToolBar(this))
-    , m_splitter(new QSplitter(this))
-    , m_selectorWidget(new ItemSelectorWidget(this))
+    , m_toolBar(new ImportDataToolBar)
+    , m_splitter(new QSplitter)
+    , m_selectorWidget(new ItemSelectorWidget)
     , m_stackedWidget(new ItemStackPresenter<RealDataEditorWidget>)
     , m_realDataModel(mainWindow->realDataModel())
 {
@@ -37,11 +37,17 @@ ImportDataView::ImportDataView(MainWindow *mainWindow)
     mainLayout->setSpacing(0);
     mainLayout->setContentsMargins(0,0,0,0);
 
+    m_stackedWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    m_selectorWidget->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
+    m_stackedWidget->setSizeHint(QSize(1024, 1024));
+
     m_splitter->addWidget(m_selectorWidget);
     m_splitter->addWidget(m_stackedWidget);
     m_splitter->setCollapsible(0, false);
     m_splitter->setCollapsible(1, false);
 
+    m_splitter->setSizes(QList<int>() << Constants::ITEM_SELECTOR_WIDGET_WIDTH
+                         << Constants::ITEM_SELECTOR_WIDGET_WIDTH*8);
 
     mainLayout->addWidget(m_toolBar);
     mainLayout->addWidget(m_splitter);
@@ -57,10 +63,23 @@ ImportDataView::ImportDataView(MainWindow *mainWindow)
 
 }
 
+void ImportDataView::onSelectionChanged(SessionItem *item)
+{
+    if(!item) return;
+
+    bool isNew(false);
+    m_stackedWidget->setItem(item, isNew);
+    if(isNew) {
+        RealDataEditorWidget *widget = m_stackedWidget->currentWidget();
+        Q_ASSERT(widget);
+        widget->setItem(item);
+    }
+}
+
 void ImportDataView::setupConnections()
 {
     connect(m_selectorWidget, SIGNAL(selectionChanged(SessionItem *)),
-        m_stackedWidget, SLOT(onSelectionChanged(SessionItem *)));
+        this, SLOT(onSelectionChanged(SessionItem *)));
 
 //    connect(m_realDataModel,
 //            SIGNAL(modelAboutToBeReset()),

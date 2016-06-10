@@ -27,6 +27,7 @@
 #include "SessionModelDelegate.h"
 #include "CustomEventFilters.h"
 #include "OverlayLabelController.h"
+#include "mainwindow_constants.h"
 #include <QMenu>
 #include <QSignalMapper>
 #include <QTreeView>
@@ -103,6 +104,16 @@ void FitParameterWidget::setParameterTuningWidget(ParameterTuningWidget *tuningW
             this, SLOT(onTuningWidgetContextMenu(QPoint)), Qt::UniqueConnection);
     }
 }
+
+//QSize FitParameterWidget::sizeHint() const
+//{
+//    return QSize(Constants::REALTIME_WIDGET_WIDTH_HINT, Constants::FIT_PARAMETER_WIDGET_HEIGHT);
+//}
+
+//QSize FitParameterWidget::minimumSizeHint() const
+//{
+//    return QSize(25, 25);
+//}
 
 //! Creates context menu for ParameterTuningWidget
 

@@ -17,14 +17,11 @@
 #include "ItemSelectorWidget.h"
 #include "SessionModel.h"
 #include "SessionItem.h"
+#include "mainwindow_constants.h"
 #include <QListView>
 #include <QVBoxLayout>
 #include <QDebug>
 
-namespace {
-const int widget_minimum_size_hint = 64;
-const int widget_size_hint = 128;
-}
 
 ItemSelectorWidget::ItemSelectorWidget(QWidget *parent)
     : QWidget(parent)
@@ -33,19 +30,27 @@ ItemSelectorWidget::ItemSelectorWidget(QWidget *parent)
 {
     setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
 
-    QVBoxLayout *verticalLayout = new QVBoxLayout;
-    verticalLayout->addWidget(m_listView);
-    setLayout(verticalLayout);
+    QVBoxLayout *layout = new QVBoxLayout;
+    layout->setMargin(0);
+
+    layout->addWidget(m_listView);
+    setLayout(layout);
+
+    m_listView->setContextMenuPolicy(Qt::CustomContextMenu);
+
+    connect(m_listView, SIGNAL(customContextMenuRequested(const QPoint &)),
+            this, SLOT(onCustomContextMenuRequested(const QPoint &)));
+
 }
 
 QSize ItemSelectorWidget::sizeHint() const
 {
-    return QSize(widget_size_hint, widget_size_hint*4);
+    return QSize(Constants::ITEM_SELECTOR_WIDGET_WIDTH, Constants::ITEM_SELECTOR_WIDGET_HEIGHT);
 }
 
 QSize ItemSelectorWidget::minimumSizeHint() const
 {
-    return QSize(widget_minimum_size_hint, widget_minimum_size_hint);
+    return QSize(25, 25);
 }
 
 void ItemSelectorWidget::setModel(SessionModel *model)
@@ -58,9 +63,19 @@ void ItemSelectorWidget::setModel(SessionModel *model)
     connectModel();
 }
 
+void ItemSelectorWidget::setItemDelegate(QAbstractItemDelegate *delegate)
+{
+    m_listView->setItemDelegate(delegate);
+}
+
 QItemSelectionModel *ItemSelectorWidget::selectionModel()
 {
     return m_listView->selectionModel();
+}
+
+QListView *ItemSelectorWidget::listView()
+{
+    return m_listView;
 }
 
 void ItemSelectorWidget::onSelectionChanged(const QItemSelection &selected, const QItemSelection &)
@@ -69,9 +84,13 @@ void ItemSelectorWidget::onSelectionChanged(const QItemSelection &selected, cons
     SessionItem *selectedItem(0);
     if(indexes.size()) {
         selectedItem = m_model->itemForIndex(indexes.back());
-        qDebug() << "ItemSelectorWidget::onSelectionChanged" << selectedItem->displayName();
     }
     emit selectionChanged(selectedItem);
+}
+
+void ItemSelectorWidget::onCustomContextMenuRequested(const QPoint &point)
+{
+    emit contextMenuRequest(m_listView->mapToGlobal(point), m_listView->indexAt(point));
 }
 
 void ItemSelectorWidget::connectModel()
@@ -94,4 +113,17 @@ void ItemSelectorWidget::disconnectModel()
 {
     m_listView->setModel(0);
     m_model = 0;
+}
+
+//! provide default selection when widget is shown
+void ItemSelectorWidget::showEvent(QShowEvent *)
+{
+    if(!m_model || !selectionModel()) return;
+
+    if(selectionModel()->selectedIndexes().isEmpty()) {
+        if(m_model->rowCount(QModelIndex()) != 0) {
+            selectionModel()->select(m_model->index(0, 0, QModelIndex()),
+                                     QItemSelectionModel::Select);
+        }
+    }
 }

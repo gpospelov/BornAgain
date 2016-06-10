@@ -29,6 +29,7 @@
 #include "ParameterTreeItems.h"
 #include "MinimizerSettingsWidget.h"
 #include "FitResultsWidget.h"
+#include "mainwindow_constants.h"
 #include <QVBoxLayout>
 #include <QTabWidget>
 #include <QMessageBox>
@@ -37,14 +38,19 @@
 FitSuiteWidget::FitSuiteWidget(QWidget *parent)
     : QWidget(parent)
     , m_tabWidget(new QTabWidget)
-    , m_fitParametersWidget(new FitParameterWidget(this))
-    , m_minimizerSettingsWidget(new MinimizerSettingsWidget(this))
-    , m_fitResultsWidget(new FitResultsWidget(this))
+    , m_fitParametersWidget(new FitParameterWidget)
+    , m_minimizerSettingsWidget(new MinimizerSettingsWidget)
+    , m_fitResultsWidget(new FitResultsWidget)
     , m_currentItem(0)
     , m_manager(new RunFitManager(parent))
     , m_observer(new GUIFitObserver())
 {
     QVBoxLayout *layout = new QVBoxLayout;
+    layout->setContentsMargins(0, 0, 0, 0);
+//    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
+//    m_tabWidget->setMinimumSize(25, 25);
+//    m_tabWidget->setSizePolicy(QSizePolicy::Preferred,QSizePolicy::Preferred);
 
     m_tabWidget->addTab(m_fitParametersWidget, "Fit Parameters");
     m_tabWidget->addTab(m_minimizerSettingsWidget, "Minimizer");
@@ -61,9 +67,8 @@ FitSuiteWidget::~FitSuiteWidget()
 
 }
 
-void FitSuiteWidget::setItem(SessionItem *item)
+void FitSuiteWidget::setItem(JobItem *jobItem)
 {
-    JobItem *jobItem = dynamic_cast<JobItem *>(item);
     Q_ASSERT(jobItem);
     m_currentItem = jobItem;
     m_fitParametersWidget->setItem(jobItem);
@@ -74,6 +79,16 @@ void FitSuiteWidget::setModelTuningWidget(ParameterTuningWidget *tuningWidget)
     Q_ASSERT(m_fitParametersWidget);
     Q_ASSERT(tuningWidget);
     m_fitParametersWidget->setParameterTuningWidget(tuningWidget);
+}
+
+QSize FitSuiteWidget::sizeHint() const
+{
+    return QSize(Constants::REALTIME_WIDGET_WIDTH_HINT, Constants::FIT_SUITE_WIDGET_HEIGHT);
+}
+
+QSize FitSuiteWidget::minimumSizeHint() const
+{
+    return QSize(25, 25);
 }
 
 void FitSuiteWidget::onError(const QString &text)
@@ -176,14 +191,14 @@ void FitSuiteWidget::stopFitting()
 void FitSuiteWidget::onFittingStarted()
 {
     qDebug() << "FitSuiteWidget::onFittingStarted()";
-    emit fittingStarted();
+    emit fittingStarted(m_currentItem);
 }
 
 void FitSuiteWidget::onFittingFinished()
 {
     qDebug() << "FitSuiteWidget::onFittingFinished()";
     m_currentItem->fitSuiteItem()->mapper()->unsubscribe(this);
-    emit fittingFinished();
+    emit fittingFinished(m_currentItem);
 }
 
 //! Propagates update interval from FitSuiteItem to fit observer.

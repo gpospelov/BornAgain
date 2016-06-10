@@ -19,59 +19,44 @@
 
 #include "WinDllMacros.h"
 #include "fancymainwindow.h"
-#include <memory>
 
 class MainWindow;
-class JobViewPrivate;
-class JobItem;
 
-//! Main class to represent list of jobs, show job results and run real time simulation
+//! The JobView class is a main view to show list of jobs, job results and widgets for real time
+//! and fitting activities.
 
 class BA_CORE_API_ JobView : public Manhattan::FancyMainWindow
 {
     Q_OBJECT
 
 public:
-    enum ESubWindows {
-        JOB_LIST_DOCK,
-        REAL_TIME_DOCK,
-        FIT_PANEL_DOCK,
-        JOB_MESSAGE_DOCK,
-        NUMBER_OF_DOCKS
-    };
-
-    enum EActivities {
-        JOB_VIEW_ACTIVITY,
-        REAL_TIME_ACTIVITY,
-        FITTING_ACTIVITY,
-    };
-
     JobView(MainWindow *mainWindow);
-    virtual ~JobView();
-
-    static QStringList getActivityStringList();
 
 signals:
     void focusRequest(int);
     void activityChanged(int activity);
 
 public slots:
-    void updateGlobalProgressBar(int);
-    void onFocusRequest(JobItem *);
-    void resetToDefaultLayout();
+    void onFocusRequest(class JobItem *jobItem);
     void setActivity(int activity);
-    void onToggleJobListRequest();
     void onDockMenuRequest();
+    void onSelectionChanged(class JobItem *jobItem);
 
 protected:
     virtual void showEvent(QShowEvent *);
     virtual void hideEvent(QHideEvent *);
 
 private:
-    void initWindows();
     void connectSignals();
+    void connectActivityRelated();
+    void connectLayoutRelated();
+    void connectJobRelated();
 
-    std::unique_ptr<JobViewPrivate> m_d;
+    class JobViewDocks *m_docks;
+    class JobActivityStatusBar *m_jobActivityStatusBar;
+    class JobProgressAssistant *m_progressAssistant;
+    class JobItem *m_currentItem;
+    MainWindow *m_mainWindow;
 };
 
 #endif

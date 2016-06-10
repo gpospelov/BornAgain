@@ -17,24 +17,17 @@
 #include "JobRealTimeWidget.h"
 #include "JobModel.h"
 #include "JobItem.h"
-#include "JobQueueData.h"
 #include "ParameterTuningWidget.h"
 #include "JobRealTimeToolBar.h"
-#include "GUIHelpers.h"
 #include "mainwindow_constants.h"
 #include <QVBoxLayout>
-#include <QPushButton>
-#include <QStackedWidget>
-#include <QAction>
-#include <QLabel>
-#include <QDebug>
 
 JobRealTimeWidget::JobRealTimeWidget(JobModel *jobModel, QWidget *parent)
-    : JobPresenter(jobModel, parent)
-    , m_stack(new QStackedWidget(this))
+    : QWidget(parent)
     , m_toolBar(new JobRealTimeToolBar)
+    , m_stackedWidget(new ItemStackPresenter<ParameterTuningWidget>)
 {
-    setWindowTitle(QLatin1String("Job Real Time"));
+    setWindowTitle(Constants::JobRealTimeWidgetName);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
@@ -42,16 +35,17 @@ JobRealTimeWidget::JobRealTimeWidget(JobModel *jobModel, QWidget *parent)
     mainLayout->setSpacing(0);
 
     mainLayout->addWidget(m_toolBar);
-    mainLayout->addWidget(m_stack);
+    mainLayout->addWidget(m_stackedWidget);
 
     setLayout(mainLayout);
 
+    m_stackedWidget->setModel(jobModel);
     connect(m_toolBar, SIGNAL(resetParameters()), this, SLOT(onResetParameters()));
 }
 
-ParameterTuningWidget *JobRealTimeWidget::getTuningWidgetForItem(JobItem *jobItem)
+ParameterTuningWidget *JobRealTimeWidget::parameterTuningWidget(JobItem *jobItem)
 {
-    return m_jobItemToTuningWidget[jobItem];
+    return m_stackedWidget->itemWidget(jobItem);
 }
 
 QSize JobRealTimeWidget::sizeHint() const
@@ -64,108 +58,39 @@ QSize JobRealTimeWidget::minimumSizeHint() const
     return QSize(100, 100);
 }
 
-void JobRealTimeWidget::setItem(JobItem * item)
+void JobRealTimeWidget::setItem(JobItem * jobItem)
 {
-    //qDebug() << "JobOutputDataWidget::setItem()";
-    if(!item) return;
-
-    m_currentItem = item;
-
-    if(!isVisible()) return;
-
-    ParameterTuningWidget *widget = m_jobItemToTuningWidget[item];
-    if( !widget && isValidJobItem(item)) {
-        widget = new ParameterTuningWidget(m_jobModel);
-        widget->setItem(item);
-        m_stack->addWidget(widget);
-        m_jobItemToTuningWidget[item] = widget;
-
-    } else {
-        if( m_stack->currentWidget()) {
-            m_stack->currentWidget()->hide();
-        }
+    if(!isValidJobItem(jobItem)) {
+        m_stackedWidget->hideWidgets();
+        return;
     }
 
-    if(widget) {
-        if(widget->isHidden()) {
-            widget->show();
-        }
+    bool isNew(false);
+    m_stackedWidget->setItem(jobItem, isNew);
 
-        m_stack->setCurrentWidget(widget);
-    }
-}
-
-void JobRealTimeWidget::onJobItemFinished(const QString &identifier)
-{
-    //qDebug() << "JobOutputDataWidget::onJobItemFinished()";
-    JobItem *jobItem = m_jobModel->getJobItemForIdentifier(identifier);
-
-    if(jobItem == m_currentItem) {
-        if((jobItem->isCompleted() || jobItem->isCanceled()) && jobItem->getIntensityDataItem()) {
-            qDebug() << "JobOutputDataWidget::dataChanged() JobItem::Completed";
-            setItem(jobItem);
-        }
+    if(isNew) {
+        ParameterTuningWidget *widget = m_stackedWidget->currentWidget();
+        Q_ASSERT(widget);
+        widget->setItem(jobItem);
     }
 }
 
 void JobRealTimeWidget::onResetParameters()
 {
-    ParameterTuningWidget *widget = getCurrentModelTuningWidget();
-    if(widget)
+    if(auto widget = currentParameterTuningWidget())
         widget->restoreModelsOfCurrentJobItem();
 }
 
-void JobRealTimeWidget::updateCurrentItem()
+ParameterTuningWidget *JobRealTimeWidget::currentParameterTuningWidget()
 {
-    if(!m_currentItem) return;
-    setItem(m_currentItem);
+    return m_stackedWidget->currentWidget();
 }
 
-void JobRealTimeWidget::onModelLoaded()
-{
-    JobItem *item = dynamic_cast<JobItem*>(m_jobModel->rootItem()->getItem());
-    if (item) {
-        setItem(item);
-    } else {
-        onJobItemDelete(m_currentItem);
-    }
-}
+//! Returns true if JobItem is valid for real time simulation.
 
-ParameterTuningWidget *JobRealTimeWidget::getCurrentModelTuningWidget()
-{
-    ParameterTuningWidget *result = dynamic_cast<ParameterTuningWidget *>(m_stack->currentWidget());
-    if(result && result->isHidden()) result = 0;
-    return result;
-}
-
-//! Returns true if JobItem is valid for real time simulation, i.e.
-//! it is not already running and it has valid models
 bool JobRealTimeWidget::isValidJobItem(JobItem *item)
 {
-    return (item->isCompleted() || item->isCanceled()) && item->getMultiLayerItem() && item->getInstrumentItem();
+    if(!item) return false;
+    if(item->isCompleted() || item->isCanceled()) return true;
+    return false;
 }
-
-void JobRealTimeWidget::onJobItemDelete(JobItem *item)
-{
-    //qDebug() << "JobOutputDataWidget::onJobItemDelete()";
-    if(item == m_currentItem) m_currentItem=0;
-
-    ParameterTuningWidget *widget = m_jobItemToTuningWidget[item];
-    if( !widget ) {
-        // this is the case when user removes failed job which doesn't have propper widget
-        return;
-    }
-
-    QMap<JobItem *, ParameterTuningWidget *>::iterator it = m_jobItemToTuningWidget.begin();
-    while(it!=m_jobItemToTuningWidget.end()) {
-        if(it.value() == widget) {
-            it = m_jobItemToTuningWidget.erase(it);
-        } else {
-            ++it;
-        }
-    }
-
-    m_stack->removeWidget(widget);
-    delete widget;
-}
-

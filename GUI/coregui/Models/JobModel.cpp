@@ -39,7 +39,7 @@ JobModel::JobModel(QObject *parent)
     , m_queue_data(0)
 {
     m_queue_data = new JobQueueData(this);
-    connect(m_queue_data, SIGNAL(focusRequest(QString)), this, SLOT(onFocusRequest(QString)));
+    connect(m_queue_data, SIGNAL(focusRequest(JobItem *)), this, SIGNAL(focusRequest(JobItem *)));
     connect(m_queue_data, SIGNAL(globalProgress(int)), this, SIGNAL(globalProgress(int)));
     setObjectName(SessionXML::JobModelTag);
 }
@@ -151,6 +151,11 @@ void JobModel::saveNonXMLData(const QString &projectDir)
     }
 }
 
+void JobModel::onCancelAllJobs()
+{
+    m_queue_data->onCancelAllJobs();
+}
+
 void JobModel::runJob(const QModelIndex &index)
 {
     m_queue_data->runJob(getJobItemForIndex(index));
@@ -171,26 +176,6 @@ void JobModel::removeJob(const QModelIndex &index)
 
     emit aboutToDeleteJobItem(jobItem);
     removeRows(index.row(), 1, QModelIndex());
-}
-
-void JobModel::onSelectionChanged(const QItemSelection &selected, const QItemSelection &deselected)
-{
-    Q_UNUSED(deselected);
-    qDebug() << "NJobModel::onSelectionChanged" << selected;
-    QModelIndexList indices = selected.indexes();
-    if(indices.size()) {
-        qDebug() << "NJobModel::onSelectionChanged -> emiting selectionChanged(0)" << indices.back();
-        emit selectionChanged(getJobItemForIndex(indices.back()));
-    } else {
-        qDebug() << "NJobModel::onSelectionChanged -> emiting selectionChanged(0)";
-        emit selectionChanged(0);
-    }
-}
-
-// called when jobQueueData asks for focus
-void JobModel::onFocusRequest(const QString &identifier)
-{
-    emit focusRequest(getJobItemForIdentifier(identifier));
 }
 
 //! generates job name

@@ -41,8 +41,8 @@ signals:
     void stopFitting();
 
 public slots:
-    void onFittingStarted();
-    void onFittingFinished();
+    void onFittingStarted(JobItem *jobItem);
+    void onFittingFinished(JobItem *jobItem);
     void onFittingError(const QString &what);
     void setItem(JobItem *item);
 
@@ -59,6 +59,7 @@ private:
     int sliderUpdateInterval();
     int sliderValueToUpdateInterval(int value);
     FitSuiteItem *fitSuiteItem();
+    bool isValidJobItem(JobItem *jobItem);
 
     QPushButton *m_startButton;
     QPushButton *m_stopButton;

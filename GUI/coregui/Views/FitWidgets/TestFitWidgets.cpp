@@ -30,7 +30,7 @@
 TestFitWidgets::TestFitWidgets(MainWindow *mainWindow)
     : QWidget(mainWindow)
     , m_mainWindow(mainWindow)
-    , m_tuningWidget(new ParameterTuningWidget(mainWindow->jobModel()))
+    , m_tuningWidget(new ParameterTuningWidget)
     , m_fitParametersWidget(new FitParameterWidget(this))
     , m_jobTreeView(new QTreeView)
     , m_jobItem(0)

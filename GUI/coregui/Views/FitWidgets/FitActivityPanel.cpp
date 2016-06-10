@@ -17,22 +17,20 @@
 #include "FitActivityPanel.h"
 #include "JobModel.h"
 #include "JobItem.h"
-#include "JobQueueData.h"
 #include "FitSuiteWidget.h"
 #include "JobRealTimeWidget.h"
 #include "mainwindow_constants.h"
 #include "RunFitControlWidget.h"
-#include <QStackedWidget>
 #include <QVBoxLayout>
+#include <QPushButton>
 
 FitActivityPanel::FitActivityPanel(JobModel *jobModel, QWidget *parent)
-    : JobPresenter(jobModel, parent)
+    : QWidget(parent)
     , m_stackedWidget(new ItemStackPresenter<FitSuiteWidget>)
-//    , m_stack(new QStackedWidget(this))
-    , m_controlWidget(new RunFitControlWidget(this))
+    , m_controlWidget(new RunFitControlWidget)
     , m_realTimeWidget(0)
 {
-    setWindowTitle(QLatin1String("Fit Panel"));
+    setWindowTitle(Constants::JobFitPanelName);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
@@ -46,85 +44,66 @@ FitActivityPanel::FitActivityPanel(JobModel *jobModel, QWidget *parent)
 
     connect(m_controlWidget, SIGNAL(startFitting()), this, SLOT(onStartFitting()));
     connect(m_controlWidget, SIGNAL(stopFitting()), this, SLOT(onStopFitting()));
+
+    m_stackedWidget->setModel(jobModel);
 }
 
 void FitActivityPanel::setRealTimeWidget(JobRealTimeWidget *realTimeWidget)
 {
+    Q_ASSERT(realTimeWidget);
     m_realTimeWidget = realTimeWidget;
 }
 
 QSize FitActivityPanel::sizeHint() const {
-    return QSize(Constants::REALTIME_WIDGET_WIDTH_HINT, 240);
+    return QSize(Constants::REALTIME_WIDGET_WIDTH_HINT, Constants::FIT_ACTIVITY_PANEL_HEIGHT);
 }
 
 QSize FitActivityPanel::minimumSizeHint() const {
-    return QSize(100, 100);
+    return QSize(80, 80);
 }
 
 void FitActivityPanel::setItem(JobItem *item)
 {
-    qDebug() << "FitActivityPanel::setItem(JobItem *item)" << item->isValidForFitting();
-    if(!item) return;
-    if(!item->isValidForFitting()) {
-        m_stackedWidget->setItem(0);
+    m_controlWidget->setItem(item);
+
+    if(!isValidJobItem(item)) {
+        m_stackedWidget->hideWidgets();
         return;
     }
 
-    m_controlWidget->setItem(item);
+    bool isNew(false);
+    m_stackedWidget->setItem(item, isNew);
 
-    m_currentItem = item;
-
-    if(!isVisible()) return;
-
-    m_stackedWidget->setItem(item);
-    if(FitSuiteWidget *widget = m_stackedWidget->currentWidget()) {
-        widget->setModelTuningWidget(m_realTimeWidget->getTuningWidgetForItem(item));
-        connect(widget, SIGNAL(fittingStarted()), m_controlWidget,
-                SLOT(onFittingStarted()), Qt::UniqueConnection);
-        connect(widget, SIGNAL(fittingFinished()), m_controlWidget,
-                SLOT(onFittingFinished()), Qt::UniqueConnection);
+    if(isNew) {
+        FitSuiteWidget *widget = m_stackedWidget->currentWidget();
+        Q_ASSERT(widget);
+        widget->setItem(item);
+        widget->setModelTuningWidget(m_realTimeWidget->parameterTuningWidget(item));
+        connect(widget, SIGNAL(fittingStarted(JobItem *)), m_controlWidget,
+                SLOT(onFittingStarted(JobItem *)), Qt::UniqueConnection);
+        connect(widget, SIGNAL(fittingFinished(JobItem *)), m_controlWidget,
+                SLOT(onFittingFinished(JobItem *)), Qt::UniqueConnection);
         connect(widget, SIGNAL(fittingError(QString)), m_controlWidget,
                 SLOT(onFittingError(QString)), Qt::UniqueConnection);
     }
 }
 
-void FitActivityPanel::onJobItemDelete(JobItem *item)
-{
-    Q_UNUSED(item);
-    return;
-}
-
-void FitActivityPanel::onJobItemFinished(const QString &identifier)
-{
-    Q_UNUSED(identifier);
-    return;
-}
-
-void FitActivityPanel::updateCurrentItem()
-{
-    if(!m_currentItem) return;
-    setItem(m_currentItem);
-}
-
 void FitActivityPanel::onStartFitting()
 {
-    if(FitSuiteWidget *widget = currentFitSuiteWidget()) {
+    if(FitSuiteWidget *widget = currentFitSuiteWidget())
         widget->startFitting();
-    }
 }
 
 void FitActivityPanel::onStopFitting()
 {
-    if(FitSuiteWidget *widget = currentFitSuiteWidget()) {
+    if(FitSuiteWidget *widget = currentFitSuiteWidget())
         widget->stopFitting();
-    }
 }
 
 bool FitActivityPanel::isValidJobItem(JobItem *item)
 {
-    Q_UNUSED(item);
+    if(!item) return false;
     return item->isValidForFitting();
-    //    return (item->isCompleted() || item->isCanceled()) && item->getMultiLayerItem() && item->getInstrumentItem();
 }
 
 FitSuiteWidget *FitActivityPanel::currentFitSuiteWidget()

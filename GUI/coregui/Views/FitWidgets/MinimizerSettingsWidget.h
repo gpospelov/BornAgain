@@ -30,6 +30,7 @@ class BA_CORE_API_ MinimizerSettingsWidget : public QWidget
 public:
     MinimizerSettingsWidget(QWidget *parent = 0);
 
+    QSize minimumSizeHint() const;
 
 };
 

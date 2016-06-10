@@ -19,6 +19,7 @@
 #include "DesignerHelper.h"
 #include "JobItem.h"
 #include "FitSuiteItem.h"
+#include "mainwindow_constants.h"
 #include <QPushButton>
 #include <QSlider>
 #include <QLabel>
@@ -40,10 +41,13 @@ RunFitControlWidget::RunFitControlWidget(QWidget *parent)
     , m_stopButton(new QPushButton)
     , m_intervalSlider(new QSlider)
     , m_updateIntervalLabel(new QLabel("25"))
-    , m_iterationsCountLabel(new QLabel())
+    , m_iterationsCountLabel(new QLabel)
     , m_currentItem(0)
     , m_warningSign(0)
 {
+    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+    setFixedHeight(Constants::RUN_FIT_CONTROL_WIDGET_HEIGHT);
+
     QHBoxLayout *layout = new QHBoxLayout;
     layout->setSpacing(0);
 
@@ -55,7 +59,7 @@ RunFitControlWidget::RunFitControlWidget(QWidget *parent)
     m_stopButton->setText("Stop");
     m_stopButton->setToolTip("Interrupt fitting");
     m_stopButton->setMaximumWidth(80);
-    m_stopButton->setEnabled(false);
+//    m_stopButton->setEnabled(false);
 
     m_intervalSlider->setToolTip(slider_tooltip);
     m_intervalSlider->setOrientation(Qt::Horizontal);
@@ -86,10 +90,13 @@ RunFitControlWidget::RunFitControlWidget(QWidget *parent)
     connect(m_startButton, SIGNAL(clicked(bool)), this, SIGNAL(startFitting()));
     connect(m_stopButton, SIGNAL(clicked(bool)), this, SIGNAL(stopFitting()));
     connect(m_intervalSlider, SIGNAL(valueChanged(int)), this, SLOT(onSliderValueChanged(int)));
+
+    setEnabled(false);
 }
 
-void RunFitControlWidget::onFittingStarted()
+void RunFitControlWidget::onFittingStarted(JobItem *jobItem)
 {
+    m_currentItem = jobItem;
     clearWarningSign();
     m_startButton->setEnabled(false);
     m_stopButton->setEnabled(true);
@@ -106,11 +113,13 @@ void RunFitControlWidget::onFittingStarted()
 
 }
 
-void RunFitControlWidget::onFittingFinished()
+void RunFitControlWidget::onFittingFinished(JobItem *jobItem)
 {
+    Q_ASSERT(jobItem = m_currentItem);
     m_startButton->setEnabled(true);
     m_stopButton->setEnabled(false);
     fitSuiteItem()->mapper()->unsubscribe(this);
+    m_currentItem = 0;
 }
 
 void RunFitControlWidget::onFittingError(const QString &what)
@@ -132,7 +141,18 @@ void RunFitControlWidget::onFittingError(const QString &what)
 void RunFitControlWidget::setItem(JobItem *item)
 {
     Q_UNUSED(item);
-    m_currentItem = item;
+    if(!isValidJobItem(item)) {
+        setEnabled(false);
+        return;
+    }
+
+    if(m_currentItem == 0 || m_currentItem == item) {
+        setEnabled(true);
+        return;
+    }
+
+    // it's not possible to run new fitting if old is running
+    setEnabled(false);
 }
 
 void RunFitControlWidget::onSliderValueChanged(int value)
@@ -149,7 +169,6 @@ void RunFitControlWidget::onFitSuitePropertyChange(const QString &name)
         int niter = fitSuiteItem()->getItemValue(FitSuiteItem::P_ITERATION_COUNT).toInt();
         m_iterationsCountLabel->setText(QString::number(niter));
     }
-
 }
 
 void RunFitControlWidget::resizeEvent(QResizeEvent *event)
@@ -159,6 +178,7 @@ void RunFitControlWidget::resizeEvent(QResizeEvent *event)
         QPoint pos = getPositionForWarningSign();
         m_warningSign->setPosition(pos.x(),pos.y());
     }
+    QWidget::resizeEvent(event);
 }
 
 QPoint RunFitControlWidget::getPositionForWarningSign()
@@ -194,4 +214,10 @@ FitSuiteItem *RunFitControlWidget::fitSuiteItem()
     FitSuiteItem *result = m_currentItem->fitSuiteItem();
     Q_ASSERT(result);
     return result;
+}
+
+bool RunFitControlWidget::isValidJobItem(JobItem *jobItem)
+{
+    if(!jobItem) return false;
+    return jobItem->isValidForFitting();
 }

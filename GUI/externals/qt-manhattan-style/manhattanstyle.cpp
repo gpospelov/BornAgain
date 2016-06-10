@@ -283,12 +283,18 @@ QPalette panelPalette(const QPalette &oldPalette, bool lightColored = false)
     return pal;
 }
 
+#include <QDebug>
+
 void ManhattanStyle::polish(QWidget *widget)
 {
     QProxyStyle::polish(widget);
 
+    // g.p. added KDE 5 style to avoid one pixel frame
+    // see styles ./qtbase/src/platformsupport/themes/genericunix/qgenericunixthemes.cpp
+
     // OxygenStyle forces a rounded widget mask on toolbars and dock widgets
-    if (baseStyle()->inherits("OxygenStyle") || baseStyle()->inherits("Oxygen::Style")) {
+    if (baseStyle()->inherits("OxygenStyle") || baseStyle()->inherits("Oxygen::Style")
+            || baseStyle()->inherits("Breeze::Style")) {
         if (qobject_cast<QToolBar*>(widget) || qobject_cast<QDockWidget*>(widget)) {
             widget->removeEventFilter(baseStyle());
             widget->setContentsMargins(0, 0, 0, 0);

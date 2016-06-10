@@ -15,7 +15,6 @@
 
 #include "FutestSuite.h"
 #include "FunctionalTestRegistry.h"
-#include "FunctionalMultiTest.h"
 #include "PyScriptFunctionalTest.h"
 
 //! Program PySuite, to run pyscript functional tests.
@@ -31,11 +30,9 @@ int main(int argc, char** argv)
     if( !info )
         return 1;
 
-    FutestSuite service(info, [] (const FutestSuite* s) -> IFunctionalTest* {
+    FutestSuite suite(info, [] (const FutestSuite* s) -> IFunctionalTest* {
             return new PyScriptFunctionalTest(
                 s->getTestName(), s->getTestDescription(),
                 s->getSimulation(), s->getTestThreshold()); } );
-    FunctionalMultiTest test(test_name, service);
-    test.runTest();
-    return test.analyseResults();
+    return suite.execute();
 }

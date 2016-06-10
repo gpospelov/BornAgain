@@ -34,6 +34,7 @@ public:
     FutestSuite(const class FunctionalTestInfo* info, get_futest_t functionalTest);
     virtual ~FutestSuite();
 
+    int execute();
     class IFunctionalTest* getFunctionalTest() const { return (*m_functionalTest)(this); }
     virtual class IFormFactor* getFormFactor() const;
     virtual class IFTDistribution2D* getFTDistribution2D() const;

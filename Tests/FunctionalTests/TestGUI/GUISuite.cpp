@@ -17,7 +17,6 @@
 #include "FutestSuite.h"
 #include "FunctionalTestRegistry.h"
 #include "GUIFunctionalTest.h"
-#include "FunctionalMultiTest.h"
 
 //! The main function of GUITestSuite to run functional tests
 int main(int argc, char** argv)
@@ -31,11 +30,9 @@ int main(int argc, char** argv)
     if( !info )
         return 1;
 
-    FutestSuite service(info, [] (const FutestSuite* s) -> IFunctionalTest* {
+    FutestSuite suite(info, [] (const FutestSuite* s) -> IFunctionalTest* {
             return new GUIFunctionalTest(
                 s->getTestName(), s->getTestDescription(),
                 s->getSimulation(), s->getTestThreshold()); } );
-    FunctionalMultiTest test(test_name, service);
-    test.runTest();
-    return test.analyseResults();
+    return suite.execute();
 }

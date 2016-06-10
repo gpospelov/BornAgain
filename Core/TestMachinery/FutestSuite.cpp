@@ -50,6 +50,12 @@ FutestSuite::~FutestSuite()
     delete m_ft2d_registry;
 }
 
+int FutestSuite::execute() {
+    FunctionalMultiTest test(m_info->m_test_name, *this);
+    test.runTest();
+    return test.analyseResults();
+}
+
 IFormFactor* FutestSuite::getFormFactor() const
 {
     if(!m_formfactor)

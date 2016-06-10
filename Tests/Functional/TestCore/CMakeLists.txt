@@ -81,4 +81,3 @@ foreach(test ${other_tests})
     target_link_libraries(${test} BornAgainFit BornAgainCore)
     add_test(${test} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${test})
 endforeach()
-

@@ -13,6 +13,7 @@
 //
 // ************************************************************************** //
 
+#include <cassert>
 #include <iostream>
 
 #include "FutestRegistry.h"
@@ -61,36 +62,24 @@ int FutestSuite::execute(int argc, char** argv) {
 
     init_subtest_registry(m_info->m_component_registry_name);
 
-    std::vector<IFutest*> subtests;
-    for (size_t i = 0; i < getNumberOfComponents(); ++i) {
-        initComponent(i);
-        subtests.push_back( getFutest() );
-   }
-
-    for (size_t i = 0; i < subtests.size(); ++i) {
-        std::cout << "FutestSuite::execute() -> " << getName()
-                  << " " << i << "/" << getNumberOfComponents()
-                  << " (" << getCurrentComponentName() << ")\n";
-        subtests[i]->runTest();
-        subtests[i]->analyseResults();
-    }
-
+    size_t n_subtests = getNumberOfComponents();
     int number_of_failed_tests = 0;
-    for (size_t i = 0; i < subtests.size(); ++i) {
-        if (subtests[i]->getTestResult())
+    for (size_t i = 0; i < n_subtests; ++i) {
+        initComponent(i);
+        IFutest* subtest( getFutest() );
+        std::cout << "FutestSuite::execute() -> " << getName()
+                  << " " << i+1 << "/" << n_subtests
+                  << " (" << m_component_names[i] << ")\n";
+        subtest->runTest();
+        subtest->analyseResults();
+        if (subtest->getTestResult())
             ++number_of_failed_tests;
+        std::cout << *subtest << "\n";
     }
 
-    if (subtests.size() == 1) {
-        // if single test, use his own printout
-        std::cout << *subtests[0] << "\n";
-    } else {
-        // if multiple test, use extended print out
-        // std::cout << getFormattedInfoString(); // TODO restore?
-        std::cout << "[" << number_of_failed_tests << " failed out of " << subtests.size() << "]\n";
-        for (size_t i = 0; i < subtests.size(); ++i)
-            std::cout << *subtests[i] << "\n";
-    }
+    if (n_subtests > 1)
+        std::cout << "summary: " << number_of_failed_tests << " of " << n_subtests <<
+            " subtests failed\n";
 
     return number_of_failed_tests>0;
 }
@@ -145,9 +134,7 @@ OutputData<double>* FutestSuite::getReferenceData() const
 
 void FutestSuite::initComponent(size_t component_index)
 {
-    if(component_index >= getNumberOfComponents())
-        throw OutOfBoundsException(
-            "FutestSuite::setComponent() -> Error. Out of bounds");
+    assert(component_index < getNumberOfComponents());
     m_current_component = component_index;
     if(m_ff_registry) {
         delete m_formfactor;
@@ -157,11 +144,6 @@ void FutestSuite::initComponent(size_t component_index)
         delete m_ft_distribution_2d;
         m_ft_distribution_2d = m_ft2d_registry->createItem(m_component_names[component_index]);
     }
-}
-
-std::string FutestSuite::getCurrentComponentName() const
-{
-    return m_component_names[m_current_component];
 }
 
 std::string FutestSuite::getReferenceFileName() const
@@ -188,7 +170,7 @@ void FutestSuite::init_subtest_registry(const std::string& registry_name)
         m_component_names = m_ff_registry->getNames();
 
     } else if(registry_name == "FTDistributions2DRegistry") {
-        m_ft2d_registry= new TestFTDistribution2DRegistry;
+        m_ft2d_registry = new TestFTDistribution2DRegistry;
         m_component_names = m_ft2d_registry->getNames();
 
     } else
@@ -201,8 +183,8 @@ void FutestSuite::init_subtest_registry(const std::string& registry_name)
 std::string FutestSuite::getTestName() const
 {
     std::string result = m_info->m_test_name;
-    if(getCurrentComponentName() != "Default")
-        result += "_" + getCurrentComponentName();
+    if(m_component_names[m_current_component] != "Default")
+        result += "_" + m_component_names[m_current_component];
     return result;
 }
 

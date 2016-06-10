@@ -44,7 +44,6 @@ public:
 
     size_t getNumberOfComponents() const { return m_component_names.size(); }
     void initComponent(size_t component_index);
-    std::string getCurrentComponentName() const;
 
     std::string getReferenceFileName() const;
     const class FutestInfo* getTestInfo() const { return m_info; }

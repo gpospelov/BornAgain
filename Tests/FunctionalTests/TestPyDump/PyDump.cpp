@@ -21,18 +21,9 @@
 
 int main(int argc, char** argv)
 {
-    std::string test_name;
-    if(argc > 1)
-        test_name = std::string(argv[1]);
-
-    const FunctionalTestInfo* info =
-        FunctionalTestRegistry::instance().getItemOrExplain(test_name, "PySuite");
-    if( !info )
-        return 1;
-
-    FutestSuite suite(info, [] (const FutestSuite* s) -> IFunctionalTest* {
+    FutestSuite suite("PySuite", [] (const FutestSuite* s) -> IFunctionalTest* {
             return new PyScriptFunctionalTest(
                 s->getTestName(), s->getTestDescription(),
                 s->getSimulation(), s->getTestThreshold()); } );
-    return suite.execute();
+    return suite.execute(argc, argv);
 }

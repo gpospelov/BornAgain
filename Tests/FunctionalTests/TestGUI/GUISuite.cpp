@@ -21,18 +21,9 @@
 //! The main function of GUITestSuite to run functional tests
 int main(int argc, char** argv)
 {
-    std::string test_name;
-    if(argc > 1)
-        test_name = std::string(argv[1]);
-
-    const FunctionalTestInfo* info =
-        FunctionalTestRegistry::instance().getItemOrExplain(test_name, "GUISuite");
-    if( !info )
-        return 1;
-
-    FutestSuite suite(info, [] (const FutestSuite* s) -> IFunctionalTest* {
+    FutestSuite suite("GUISuite", [] (const FutestSuite* s) -> IFunctionalTest* {
             return new GUIFunctionalTest(
                 s->getTestName(), s->getTestDescription(),
                 s->getSimulation(), s->getTestThreshold()); } );
-    return suite.execute();
+    return suite.execute(argc, argv);
 }

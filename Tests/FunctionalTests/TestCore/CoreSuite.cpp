@@ -20,18 +20,9 @@
 //! Program CoreSuite, to run core functional tests.
 int main(int argc, char** argv)
 {
-    std::string test_name;
-    if(argc > 1)
-        test_name = std::string(argv[1]);
-
-    const FunctionalTestInfo* info =
-        FunctionalTestRegistry::instance().getItemOrExplain(test_name, "CoreSuite");
-    if( !info )
-        return 1;
-
-    FutestSuite suite(info, [] (const FutestSuite* s) -> IFunctionalTest* {
+    FutestSuite suite("CoreSuite", [] (const FutestSuite* s) -> IFunctionalTest* {
             return new CoreFunctionalTest(
         s->getTestName(), s->getTestDescription(), s->getSimulation(),
         s->getReferenceData(), s->getTestThreshold(), s->getReferenceFileName()); } );
-    return suite.execute();
+    return suite.execute(argc, argv);
 }

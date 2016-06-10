@@ -27,14 +27,14 @@
 //! @ingroup standard_samples
 //! @brief Contains all necessary information to compose functional test.
 
-class BA_CORE_API_ FutestSuite
+class BA_CORE_API_ FutestSuite : public INamed
 {
 public:
     typedef class IFunctionalTest* (*get_futest_t) (const FutestSuite*);
-    FutestSuite(const class FunctionalTestInfo* info, get_futest_t functionalTest);
+    FutestSuite(const std::string& name, get_futest_t functionalTest);
     virtual ~FutestSuite();
 
-    int execute();
+    int execute(int argc, char** argv);
     class IFunctionalTest* getFunctionalTest() const { return (*m_functionalTest)(this); }
     virtual class IFormFactor* getFormFactor() const;
     virtual class IFTDistribution2D* getFTDistribution2D() const;
@@ -49,7 +49,7 @@ public:
     std::string getReferenceFileName() const;
     const class FunctionalTestInfo* getTestInfo() const { return m_info; }
 
-    void init_registry(const std::string& registry_name);
+    void init_subtest_registry(const std::string& registry_name);
     std::string getTestName() const;
     std::string getTestDescription() const;
     double getTestThreshold() const;

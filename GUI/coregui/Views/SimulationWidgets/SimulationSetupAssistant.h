@@ -34,13 +34,15 @@ public:
     bool isValidSimulationSetup(const MultiLayerItem *multiLayerItem,
                                 const InstrumentItem *instrumentItem,
                                 const RealDataItem *realData = 0);
-
 private:
     void clear();
     void checkMultiLayerItem(const MultiLayerItem *multiLayerItem);
     void checkInstrumentItem(const InstrumentItem *instrumentItem);
     void checkFittingSetup(const InstrumentItem *instrumentItem, const RealDataItem *realData);
     QString composeMessage();
+
+    void realDataShape(const RealDataItem *realData, int &nx, int &ny);
+    void detectorShape(const InstrumentItem *instrumentItem, int &nx, int &ny);
 
     bool m_isValid;
     QStringList m_messages;

@@ -30,15 +30,16 @@
 class BA_CORE_API_ FutestSuite
 {
 public:
-    FutestSuite(const class FunctionalTestInfo* info);
+    typedef class IFunctionalTest* (*get_futest_t) (const FutestSuite*);
+    FutestSuite(const class FunctionalTestInfo* info, get_futest_t functionalTest);
     virtual ~FutestSuite();
 
+    class IFunctionalTest* getFunctionalTest() const { return (*m_functionalTest)(this); }
     virtual class IFormFactor* getFormFactor() const;
     virtual class IFTDistribution2D* getFTDistribution2D() const;
     virtual class GISASSimulation* getSimulation() const;
     virtual std::shared_ptr<class ISampleBuilder> getSampleBuilder() const;
     virtual OutputData<double>* getReferenceData() const;
-    virtual class IFunctionalTest* getFunctionalTest() const = 0;
 
     size_t getNumberOfComponents() const { return m_component_names.size(); }
     void initComponent(size_t component_index);
@@ -47,7 +48,6 @@ public:
     std::string getReferenceFileName() const;
     const class FunctionalTestInfo* getTestInfo() const { return m_info; }
 
-protected:
     void init_registry(const std::string& registry_name);
     std::string getTestName() const;
     std::string getTestDescription() const;
@@ -61,6 +61,7 @@ protected:
     class TestFTDistribution2DRegistry* m_ft2d_registry;
     std::vector<std::string> m_component_names;
     size_t m_current_component;
+    get_futest_t m_functionalTest;
 };
 
 #endif

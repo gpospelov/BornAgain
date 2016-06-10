@@ -13,9 +13,10 @@
 //
 // ************************************************************************** //
 
+#include "FutestSuite.h"
 #include "FunctionalTestRegistry.h"
 #include "FunctionalMultiTest.h"
-#include "CoreFutestSuite.h"
+#include "CoreFunctionalTest.h"
 
 //! Program CoreSuite, to run core functional tests.
 int main(int argc, char** argv)
@@ -29,7 +30,10 @@ int main(int argc, char** argv)
     if( !info )
         return 1;
 
-    CoreFutestSuite service(info);
+    FutestSuite service(info, [] (const FutestSuite* s) -> IFunctionalTest* {
+            return new CoreFunctionalTest(
+        s->getTestName(), s->getTestDescription(), s->getSimulation(),
+        s->getReferenceData(), s->getTestThreshold(), s->getReferenceFileName()); } );
     FunctionalMultiTest test(test_name, service);
     test.runTest();
     return test.analyseResults();

@@ -28,13 +28,15 @@
 #include "FTDistributions.h"
 #include "FutestSuite.h"
 
-FutestSuite::FutestSuite(const FunctionalTestInfo* info)
+FutestSuite::FutestSuite(const FunctionalTestInfo* info,
+                         class IFunctionalTest* functionalTest(const FutestSuite*))
     : m_info(info)
     , m_formfactor(0)
     , m_ft_distribution_2d(0)
     , m_ff_registry(0)
     , m_ft2d_registry(0)
     , m_current_component(0)
+    , m_functionalTest(functionalTest)
 {
     init_registry(m_info->m_component_registry_name);
 }

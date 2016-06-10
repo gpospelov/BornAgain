@@ -28,6 +28,10 @@
 #include "FTDistributions.h"
 #include "FutestSuite.h"
 
+// ************************************************************************** //
+//  Test execution
+// ************************************************************************** //
+
 //! Runs test (name given as command-line argument), and returns 0 for SUCCESS, or error code.
 
 int FutestSuite::execute(int argc, char** argv) {
@@ -98,6 +102,10 @@ int FutestSuite::execute_subtests()
     return number_of_failed_tests>0;
 }
 
+// ************************************************************************** //
+//  Callback functions, called from tests
+// ************************************************************************** //
+
 //! Returns a form factor from the registry, for use in certain subtests.
 
 IFormFactor* FutestSuite::getFormFactor() const
@@ -116,21 +124,20 @@ IFTDistribution2D* FutestSuite::getFTDistribution2D() const
     return result->clone();
 }
 
+// ************************************************************************** //
+//  Functions called by getFutest() in *Suite.cpp
+// ************************************************************************** //
+
 GISASSimulation* FutestSuite::getSimulation() const
 {
     SimulationFactory sim_registry;
     GISASSimulation* result = sim_registry.createItem(m_info->m_simulation_name);
-    result->setSampleBuilder(getSampleBuilder());
-    return result;
-}
-
-std::shared_ptr<class ISampleBuilder> FutestSuite::getSampleBuilder() const
-{
     SampleBuilderFactory sample_factory;
     std::shared_ptr<class ISampleBuilder> sample_builder(
         sample_factory.createItem(m_info->m_sample_builder_name) );
     sample_builder->init_from(this);
-    return sample_builder;
+    result->setSampleBuilder(sample_builder);
+    return result;
 }
 
 OutputData<double>* FutestSuite::getReferenceData() const

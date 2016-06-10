@@ -48,7 +48,6 @@ public:
 
 protected:
     virtual class GISASSimulation* getSimulation() const;
-    virtual std::shared_ptr<class ISampleBuilder> getSampleBuilder() const;
     virtual OutputData<double>* getReferenceData() const;
     std::string getReferenceFileName() const;
     const class FutestInfo* getTestInfo() const { return m_info; }

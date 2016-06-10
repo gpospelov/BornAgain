@@ -54,27 +54,27 @@ public:
     // -------------------------------------------------------------------------
 
     //! Returns components by index.
-    inline T operator[](int i) const { return v_[i]; }
+    T operator[](int i) const { return v_[i]; }
 
     //! Sets components by index.
-    inline T& operator[](int i) { return v_[i]; }
+    T& operator[](int i) { return v_[i]; }
 
     //! Returns x-component in cartesian coordinate system.
-    inline T x() const { return v_[0]; }
+    T x() const { return v_[0]; }
     //! Returns y-component in cartesian coordinate system.
-    inline T y() const { return v_[1]; }
+    T y() const { return v_[1]; }
     //! Returns z-component in cartesian coordinate system.
-    inline T z() const { return v_[2]; }
+    T z() const { return v_[2]; }
 
     //! Sets x-component in cartesian coordinate system.
-    inline void setX(const T&a) { v_[0] = a; }
+    void setX(const T&a) { v_[0] = a; }
     //! Sets y-component in cartesian coordinate system.
-    inline void setY(const T&a) { v_[1] = a; }
+    void setY(const T&a) { v_[1] = a; }
     //! Sets z-component in cartesian coordinate system.
-    inline void setZ(const T&a) { v_[2] = a; }
+    void setZ(const T&a) { v_[2] = a; }
 
     //! Sets components in cartesian coordinate system.
-    inline void setXYZ(const T&x1, const T&y1, const T&z1)
+    void setXYZ(const T&x1, const T&y1, const T&z1)
     { v_[0] = x1; v_[1] = y1; v_[2] = z1; }
 
     // -------------------------------------------------------------------------
@@ -82,25 +82,25 @@ public:
     // -------------------------------------------------------------------------
 
     //! Adds other vector to this, and returns result.
-    inline BasicVector3D<T>& operator+=(const BasicVector3D<T>& v)
+    BasicVector3D<T>& operator+=(const BasicVector3D<T>& v)
     { v_[0] += v.v_[0]; v_[1] += v.v_[1]; v_[2] += v.v_[2]; return *this; }
 
     //! Subtracts other vector from this, and returns result.
-    inline BasicVector3D<T>& operator-=(const BasicVector3D<T>& v)
+    BasicVector3D<T>& operator-=(const BasicVector3D<T>& v)
     { v_[0] -= v.v_[0]; v_[1] -= v.v_[1]; v_[2] -= v.v_[2]; return *this; }
 
 
     //! Multiplies this with a scalar, and returns result.
 #ifndef SWIG
     template<class U>
-    inline auto operator*=(U a) -> BasicVector3D<decltype(this->x()*a)>&
+    auto operator*=(U a) -> BasicVector3D<decltype(this->x()*a)>&
     { v_[0] *= a; v_[1] *= a; v_[2] *= a; return *this; }
 #endif // SWIG
 
     //! Divides this by a scalar, and returns result.
 #ifndef SWIG
     template<class U>
-    inline auto operator/=(U a) -> BasicVector3D<decltype(this->x()*a)>&
+    auto operator/=(U a) -> BasicVector3D<decltype(this->x()*a)>&
     { v_[0] /= a; v_[1] /= a; v_[2] /= a; return *this; }
 #endif // SWIG
 
@@ -112,16 +112,16 @@ public:
     BasicVector3D<T> conj() const;
 
     //! Returns squared magnitude squared of the vector.
-    inline double mag2() const { return std::norm(v_[0]) + std::norm(v_[1]) + std::norm(v_[2]); }
+    double mag2() const { return std::norm(v_[0]) + std::norm(v_[1]) + std::norm(v_[2]); }
 
     //! Returns magnitude of the vector.
-    inline double mag() const { return sqrt(mag2()); }
+    double mag() const { return sqrt(mag2()); }
 
     //! Returns squared distance from z axis.
-    inline double magxy2() const { return std::norm(v_[0]) + std::norm(v_[1]); }
+    double magxy2() const { return std::norm(v_[0]) + std::norm(v_[1]); }
 
     //! Returns distance from z axis.
-    inline double magxy() const { return sqrt(magxy2()); }
+    double magxy() const { return sqrt(magxy2()); }
 
     //! Returns azimuth angle.
     double phi() const;
@@ -136,7 +136,7 @@ public:
     double sin2Theta() const;
 
     //! Returns unit vector in direction of this. Throws for null vector.
-    inline BasicVector3D<T> unit() const {
+    BasicVector3D<T> unit() const {
         double len = mag();
         if ( len==0.0 )
             throw Exceptions::DivisionByZeroException("Cannot normalize zero vector");

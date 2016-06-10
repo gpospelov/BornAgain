@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      StandardSamples/CoreFunctionalTestComponentService.h
-//! @brief     Declares class CoreFunctionalTestComponentService.
+//! @file      StandardSamples/PyScriptFutestSuite.h
+//! @brief     Declares class PyScriptFutestSuite.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,21 +13,21 @@
 //
 // ************************************************************************** //
 
-#ifndef COREFUNCTIONALTESTCOMPONENTSERVICE_H
-#define COREFUNCTIONALTESTCOMPONENTSERVICE_H
+#ifndef PYSCRIPTFUNCTIONALTESTCOMPONENTSERVICE_H
+#define PYSCRIPTFUNCTIONALTESTCOMPONENTSERVICE_H
 
-#include "FunctionalTestComponentService.h"
+#include "FutestSuite.h"
 
 class FunctionalTestInfo;
 
-//! @class CoreFunctionalTestComponentService
+//! @class PyScriptFutestSuite
 //! @ingroup standard_samples
-//! @brief Contains all necessary information to compose core functional test.
+//! @brief Contains all necessary information to compose pyscript functional test.
 
-class BA_CORE_API_ CoreFunctionalTestComponentService : public FunctionalTestComponentService
+class BA_CORE_API_ PyScriptFutestSuite : public FutestSuite
 {
 public:
-    CoreFunctionalTestComponentService(const FunctionalTestInfo* info);
+    PyScriptFutestSuite(const FunctionalTestInfo* info);
 
     IFunctionalTest* getFunctionalTest() const;
 };

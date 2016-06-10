@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      StandardSamples/FunctionalTestComponentService.cpp
-//! @brief     Implements class FunctionalTestComponentService.
+//! @file      StandardSamples/FutestSuite.cpp
+//! @brief     Implements class FutestSuite.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -26,9 +26,9 @@
 #include "FunctionalMultiTest.h"
 #include "CoreFunctionalTest.h"
 #include "FTDistributions.h"
-#include "FunctionalTestComponentService.h"
+#include "FutestSuite.h"
 
-FunctionalTestComponentService::FunctionalTestComponentService(const FunctionalTestInfo* info)
+FutestSuite::FutestSuite(const FunctionalTestInfo* info)
     : m_info(info)
     , m_formfactor(0)
     , m_ft_distribution_2d(0)
@@ -39,7 +39,7 @@ FunctionalTestComponentService::FunctionalTestComponentService(const FunctionalT
     init_registry(m_info->m_component_registry_name);
 }
 
-FunctionalTestComponentService::~FunctionalTestComponentService()
+FutestSuite::~FutestSuite()
 {
     delete m_formfactor;
     delete m_ff_registry;
@@ -48,24 +48,24 @@ FunctionalTestComponentService::~FunctionalTestComponentService()
     delete m_ft2d_registry;
 }
 
-IFormFactor* FunctionalTestComponentService::getFormFactor() const
+IFormFactor* FutestSuite::getFormFactor() const
 {
     if(!m_formfactor)
         throw NullPointerException(
-            "FunctionalTestComponentService::getFormFactor() -> Error. No form factor defined.");
+            "FutestSuite::getFormFactor() -> Error. No form factor defined.");
     return m_formfactor->clone();
 }
 
-IFTDistribution2D* FunctionalTestComponentService::getFTDistribution2D() const
+IFTDistribution2D* FutestSuite::getFTDistribution2D() const
 {
     if(!m_ft_distribution_2d)
         throw NullPointerException(
-            "FunctionalTestComponentService::getFTDistribution2D() -> Error. "
+            "FutestSuite::getFTDistribution2D() -> Error. "
             "No FT distribution defined.");
     return m_ft_distribution_2d->clone();
 }
 
-GISASSimulation* FunctionalTestComponentService::getSimulation() const
+GISASSimulation* FutestSuite::getSimulation() const
 {
     SimulationRegistry sim_registry;
     GISASSimulation* result = sim_registry.createItem(m_info->m_simulation_name);
@@ -73,7 +73,7 @@ GISASSimulation* FunctionalTestComponentService::getSimulation() const
     return result;
 }
 
-std::shared_ptr<class ISampleBuilder> FunctionalTestComponentService::getSampleBuilder() const
+std::shared_ptr<class ISampleBuilder> FutestSuite::getSampleBuilder() const
 {
     SampleBuilderFactory sample_factory;
     std::shared_ptr<class ISampleBuilder> sample_builder(
@@ -82,7 +82,7 @@ std::shared_ptr<class ISampleBuilder> FunctionalTestComponentService::getSampleB
     return sample_builder;
 }
 
-OutputData<double>* FunctionalTestComponentService::getReferenceData() const
+OutputData<double>* FutestSuite::getReferenceData() const
 {
     OutputData<double>* result(nullptr);
     std::string filename = Utils::FileSystem::GetReferenceDataDir() + getReferenceFileName();
@@ -90,17 +90,17 @@ OutputData<double>* FunctionalTestComponentService::getReferenceData() const
     try {
         result = IntensityDataIOFactory::readOutputData(filename);
     } catch(const std::exception& ex) {
-        std::cout << "FunctionalTestComponentService::getReferenceData() -> Exception caught."
+        std::cout << "FutestSuite::getReferenceData() -> Exception caught."
                   << ex.what() << std::endl;
     }
     return result;
 }
 
-void FunctionalTestComponentService::initComponent(size_t component_index)
+void FutestSuite::initComponent(size_t component_index)
 {
     if(component_index >= getNumberOfComponents())
         throw OutOfBoundsException(
-            "FunctionalTestComponentService::setComponent() -> Error. Out of bounds");
+            "FutestSuite::setComponent() -> Error. Out of bounds");
     m_current_component = component_index;
     if(m_ff_registry) {
         delete m_formfactor;
@@ -112,12 +112,12 @@ void FunctionalTestComponentService::initComponent(size_t component_index)
     }
 }
 
-std::string FunctionalTestComponentService::getCurrentComponentName() const
+std::string FutestSuite::getCurrentComponentName() const
 {
     return m_component_names[m_current_component];
 }
 
-std::string FunctionalTestComponentService::getReferenceFileName() const
+std::string FutestSuite::getReferenceFileName() const
 {
     std::string result("ref_");
     result += m_info->m_test_name;
@@ -127,12 +127,12 @@ std::string FunctionalTestComponentService::getReferenceFileName() const
     return result;
 }
 
-void FunctionalTestComponentService::init_registry(const std::string& registry_name)
+void FutestSuite::init_registry(const std::string& registry_name)
 {
     m_component_names.clear();
     m_current_component = 0;
 
-    std::cout << "FunctionalTestComponentService::init_registry() ->" << registry_name << std::endl;
+    std::cout << "FutestSuite::init_registry() ->" << registry_name << std::endl;
     if       (registry_name == "None") {
         m_component_names.push_back("Default");
 
@@ -145,13 +145,13 @@ void FunctionalTestComponentService::init_registry(const std::string& registry_n
         m_component_names = m_ft2d_registry->getNames();
 
     } else
-        throw RuntimeErrorException("FunctionalTestComponentService::init_factory -> Error. "
+        throw RuntimeErrorException("FutestSuite::init_factory -> Error. "
                                     "Unknown factory '"+registry_name+"'.");
 }
 
 //! Constructs functional test name corresponding to the current component. The goal is to have
 //! different names of test depending from the context (single test, or multi test).
-std::string FunctionalTestComponentService::getTestName() const
+std::string FutestSuite::getTestName() const
 {
     std::string result = m_info->m_test_name;
     if(getCurrentComponentName() != "Default")
@@ -160,12 +160,12 @@ std::string FunctionalTestComponentService::getTestName() const
 }
 
 //! Constructs functional test description corresponding to the current component.
-std::string FunctionalTestComponentService::getTestDescription() const
+std::string FutestSuite::getTestDescription() const
 {
     return m_info->m_test_description;
 }
 
-double FunctionalTestComponentService::getTestThreshold() const
+double FutestSuite::getTestThreshold() const
 {
     return m_info->m_threshold;
 }

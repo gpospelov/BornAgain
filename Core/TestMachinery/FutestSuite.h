@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      StandardSamples/FunctionalTestComponentService.h
-//! @brief     Declares class FunctionalTestComponentService.
+//! @file      StandardSamples/FutestSuite.h
+//! @brief     Declares class FutestSuite.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -23,15 +23,15 @@
 #include "WinDllMacros.h"
 #include "OutputData.h"
 #include "ISampleBuilder.h"
-//! @class FunctionalTestComponentService
+//! @class FutestSuite
 //! @ingroup standard_samples
 //! @brief Contains all necessary information to compose functional test.
 
-class BA_CORE_API_ FunctionalTestComponentService
+class BA_CORE_API_ FutestSuite
 {
 public:
-    FunctionalTestComponentService(const class FunctionalTestInfo* info);
-    virtual ~FunctionalTestComponentService();
+    FutestSuite(const class FunctionalTestInfo* info);
+    virtual ~FutestSuite();
 
     virtual class IFormFactor* getFormFactor() const;
     virtual class IFTDistribution2D* getFTDistribution2D() const;

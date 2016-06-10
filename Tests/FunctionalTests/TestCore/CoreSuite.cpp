@@ -15,7 +15,7 @@
 
 #include "FunctionalTestRegistry.h"
 #include "FunctionalMultiTest.h"
-#include "CoreFunctionalTestComponentService.h"
+#include "CoreFutestSuite.h"
 
 //! Program CoreSuite, to run core functional tests.
 int main(int argc, char** argv)
@@ -29,7 +29,7 @@ int main(int argc, char** argv)
     if( !info )
         return 1;
 
-    CoreFunctionalTestComponentService service(info);
+    CoreFutestSuite service(info);
     FunctionalMultiTest test(test_name, service);
     test.runTest();
     return test.analyseResults();

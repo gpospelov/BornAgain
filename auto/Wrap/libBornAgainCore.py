@@ -4668,9 +4668,9 @@ class ISampleBuilder(IParameterized):
 
     def init_from(self, arg0):
         """
-        init_from(ISampleBuilder self, FunctionalTestComponentService const * arg0)
+        init_from(ISampleBuilder self, FutestSuite const * arg0)
 
-        virtual void ISampleBuilder::init_from(const class FunctionalTestComponentService *)
+        virtual void ISampleBuilder::init_from(const class FutestSuite *)
 
         """
         return _libBornAgainCore.ISampleBuilder_init_from(self, arg0)

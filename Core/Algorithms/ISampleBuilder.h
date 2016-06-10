@@ -30,7 +30,7 @@ public:
 
     virtual class ISample* buildSample() const = 0;
 
-    virtual void init_from(const class FunctionalTestComponentService*) {}
+    virtual void init_from(const class FutestSuite*) {}
 };
 
 #endif // ISAMPLEBUILDER_H_

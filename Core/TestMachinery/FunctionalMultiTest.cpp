@@ -15,10 +15,10 @@
 
 #include "FunctionalMultiTest.h"
 #include "FunctionalTestInfo.h"
-#include "FunctionalTestComponentService.h"
+#include "FutestSuite.h"
 
 FunctionalMultiTest::FunctionalMultiTest(const std::string& name,
-                                         FunctionalTestComponentService& service)
+                                         FutestSuite& service)
     : IFunctionalTest(name, service.getTestInfo()->m_test_description)
     , m_service(service)
 {

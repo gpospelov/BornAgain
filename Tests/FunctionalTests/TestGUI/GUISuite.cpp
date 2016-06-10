@@ -15,7 +15,7 @@
 // ************************************************************************** //
 
 #include "FunctionalTestRegistry.h"
-#include "GUIFunctionalTestComponentService.h"
+#include "GUIFutestSuite.h"
 #include "FunctionalMultiTest.h"
 #include <iostream>
 
@@ -31,7 +31,7 @@ int main(int argc, char** argv)
     if( !info )
         return 1;
 
-    GUIFunctionalTestComponentService service(info);
+    GUIFutestSuite service(info);
     FunctionalMultiTest test(test_name, service);
     test.runTest();
     return test.analyseResults();

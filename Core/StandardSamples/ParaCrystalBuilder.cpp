@@ -21,7 +21,7 @@
 #include "FormFactorCylinder.h"
 #include "Units.h"
 #include "FTDistributions.h"
-#include "FunctionalTestComponentService.h"
+#include "FutestSuite.h"
 #include "ParaCrystalBuilder.h"
 
 RadialParaCrystalBuilder::RadialParaCrystalBuilder()
@@ -88,7 +88,7 @@ Basic2DParaCrystalBuilder::~Basic2DParaCrystalBuilder()
     delete m_pdf2;
 }
 
-void Basic2DParaCrystalBuilder::init_from(const FunctionalTestComponentService* service)
+void Basic2DParaCrystalBuilder::init_from(const FutestSuite* service)
 {
     // we will read only second function from component service
     delete m_pdf2;

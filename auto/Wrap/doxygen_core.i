@@ -125,7 +125,7 @@ C++ includes: ParaCrystalBuilder.h
 %feature("docstring")  Basic2DParaCrystalBuilder::~Basic2DParaCrystalBuilder "Basic2DParaCrystalBuilder::~Basic2DParaCrystalBuilder()
 ";
 
-%feature("docstring")  Basic2DParaCrystalBuilder::init_from "void Basic2DParaCrystalBuilder::init_from(const class FunctionalTestComponentService *service)
+%feature("docstring")  Basic2DParaCrystalBuilder::init_from "void Basic2DParaCrystalBuilder::init_from(const class FutestSuite *service)
 ";
 
 %feature("docstring")  Basic2DParaCrystalBuilder::buildSample "ISample * Basic2DParaCrystalBuilder::buildSample() const 
@@ -775,18 +775,18 @@ C++ includes: CoreFunctionalTest.h
 ";
 
 
-// File: classCoreFunctionalTestComponentService.xml
-%feature("docstring") CoreFunctionalTestComponentService "
+// File: classCoreFutestSuite.xml
+%feature("docstring") CoreFutestSuite "
 
 Contains all necessary information to compose core functional test.
 
 C++ includes: CoreFunctionalTestComponentService.h
 ";
 
-%feature("docstring")  CoreFunctionalTestComponentService::CoreFunctionalTestComponentService "CoreFunctionalTestComponentService::CoreFunctionalTestComponentService(const FunctionalTestInfo *info)
+%feature("docstring")  CoreFutestSuite::CoreFutestSuite "CoreFutestSuite::CoreFutestSuite(const FunctionalTestInfo *info)
 ";
 
-%feature("docstring")  CoreFunctionalTestComponentService::getFunctionalTest "IFunctionalTest * CoreFunctionalTestComponentService::getFunctionalTest() const 
+%feature("docstring")  CoreFutestSuite::getFunctionalTest "IFunctionalTest * CoreFutestSuite::getFunctionalTest() const 
 ";
 
 
@@ -4472,7 +4472,7 @@ Functional multi test constructs the collection of standard functional tests usi
 C++ includes: FunctionalMultiTest.h
 ";
 
-%feature("docstring")  FunctionalMultiTest::FunctionalMultiTest "FunctionalMultiTest::FunctionalMultiTest(const std::string &name, FunctionalTestComponentService &service)
+%feature("docstring")  FunctionalMultiTest::FunctionalMultiTest "FunctionalMultiTest::FunctionalMultiTest(const std::string &name, FutestSuite &service)
 ";
 
 %feature("docstring")  FunctionalMultiTest::~FunctionalMultiTest "FunctionalMultiTest::~FunctionalMultiTest()
@@ -4485,54 +4485,6 @@ C++ includes: FunctionalMultiTest.h
 ";
 
 %feature("docstring")  FunctionalMultiTest::printResults "void FunctionalMultiTest::printResults(std::ostream &ostr) const 
-";
-
-
-// File: classFunctionalTestComponentService.xml
-%feature("docstring") FunctionalTestComponentService "
-
-Contains all necessary information to compose functional test.
-
-C++ includes: FunctionalTestComponentService.h
-";
-
-%feature("docstring")  FunctionalTestComponentService::FunctionalTestComponentService "FunctionalTestComponentService::FunctionalTestComponentService(const class FunctionalTestInfo *info)
-";
-
-%feature("docstring")  FunctionalTestComponentService::~FunctionalTestComponentService "FunctionalTestComponentService::~FunctionalTestComponentService()
-";
-
-%feature("docstring")  FunctionalTestComponentService::getFormFactor "IFormFactor * FunctionalTestComponentService::getFormFactor() const 
-";
-
-%feature("docstring")  FunctionalTestComponentService::getFTDistribution2D "IFTDistribution2D * FunctionalTestComponentService::getFTDistribution2D() const 
-";
-
-%feature("docstring")  FunctionalTestComponentService::getSimulation "GISASSimulation * FunctionalTestComponentService::getSimulation() const 
-";
-
-%feature("docstring")  FunctionalTestComponentService::getSampleBuilder "std::shared_ptr< class ISampleBuilder > FunctionalTestComponentService::getSampleBuilder() const 
-";
-
-%feature("docstring")  FunctionalTestComponentService::getReferenceData "OutputData< double > * FunctionalTestComponentService::getReferenceData() const 
-";
-
-%feature("docstring")  FunctionalTestComponentService::getFunctionalTest "virtual class IFunctionalTest* FunctionalTestComponentService::getFunctionalTest() const =0
-";
-
-%feature("docstring")  FunctionalTestComponentService::getNumberOfComponents "size_t FunctionalTestComponentService::getNumberOfComponents() const 
-";
-
-%feature("docstring")  FunctionalTestComponentService::initComponent "void FunctionalTestComponentService::initComponent(size_t component_index)
-";
-
-%feature("docstring")  FunctionalTestComponentService::getCurrentComponentName "std::string FunctionalTestComponentService::getCurrentComponentName() const 
-";
-
-%feature("docstring")  FunctionalTestComponentService::getReferenceFileName "std::string FunctionalTestComponentService::getReferenceFileName() const 
-";
-
-%feature("docstring")  FunctionalTestComponentService::getTestInfo "const class FunctionalTestInfo* FunctionalTestComponentService::getTestInfo() const 
 ";
 
 
@@ -4569,6 +4521,54 @@ C++ includes: FunctionalTestRegistry.h
 ";
 
 %feature("docstring")  FunctionalTestRegistry::printCatalogue "void FunctionalTestRegistry::printCatalogue(std::ostream &ostr) const 
+";
+
+
+// File: classFutestSuite.xml
+%feature("docstring") FutestSuite "
+
+Contains all necessary information to compose functional test.
+
+C++ includes: FutestSuite.h
+";
+
+%feature("docstring")  FutestSuite::FutestSuite "FutestSuite::FutestSuite(const class FunctionalTestInfo *info)
+";
+
+%feature("docstring")  FutestSuite::~FutestSuite "FutestSuite::~FutestSuite()
+";
+
+%feature("docstring")  FutestSuite::getFormFactor "IFormFactor * FutestSuite::getFormFactor() const 
+";
+
+%feature("docstring")  FutestSuite::getFTDistribution2D "IFTDistribution2D * FutestSuite::getFTDistribution2D() const 
+";
+
+%feature("docstring")  FutestSuite::getSimulation "GISASSimulation * FutestSuite::getSimulation() const 
+";
+
+%feature("docstring")  FutestSuite::getSampleBuilder "std::shared_ptr< class ISampleBuilder > FutestSuite::getSampleBuilder() const 
+";
+
+%feature("docstring")  FutestSuite::getReferenceData "OutputData< double > * FutestSuite::getReferenceData() const 
+";
+
+%feature("docstring")  FutestSuite::getFunctionalTest "virtual class IFunctionalTest* FutestSuite::getFunctionalTest() const =0
+";
+
+%feature("docstring")  FutestSuite::getNumberOfComponents "size_t FutestSuite::getNumberOfComponents() const 
+";
+
+%feature("docstring")  FutestSuite::initComponent "void FutestSuite::initComponent(size_t component_index)
+";
+
+%feature("docstring")  FutestSuite::getCurrentComponentName "std::string FutestSuite::getCurrentComponentName() const 
+";
+
+%feature("docstring")  FutestSuite::getReferenceFileName "std::string FutestSuite::getReferenceFileName() const 
+";
+
+%feature("docstring")  FutestSuite::getTestInfo "const class FunctionalTestInfo* FutestSuite::getTestInfo() const 
 ";
 
 
@@ -7769,7 +7769,7 @@ C++ includes: ISampleBuilder.h
 %feature("docstring")  ISampleBuilder::buildSample "virtual class ISample* ISampleBuilder::buildSample() const =0
 ";
 
-%feature("docstring")  ISampleBuilder::init_from "virtual void ISampleBuilder::init_from(const class FunctionalTestComponentService *)
+%feature("docstring")  ISampleBuilder::init_from "virtual void ISampleBuilder::init_from(const class FutestSuite *)
 ";
 
 
@@ -8772,7 +8772,7 @@ C++ includes: LayersWithAbsorptionBuilder.h
 %feature("docstring")  LayersWithAbsorptionBuilder::~LayersWithAbsorptionBuilder "LayersWithAbsorptionBuilder::~LayersWithAbsorptionBuilder()
 ";
 
-%feature("docstring")  LayersWithAbsorptionBuilder::init_from "void LayersWithAbsorptionBuilder::init_from(const class FunctionalTestComponentService *service)
+%feature("docstring")  LayersWithAbsorptionBuilder::init_from "void LayersWithAbsorptionBuilder::init_from(const class FutestSuite *service)
 ";
 
 %feature("docstring")  LayersWithAbsorptionBuilder::buildSample "ISample * LayersWithAbsorptionBuilder::buildSample() const 
@@ -10557,7 +10557,7 @@ C++ includes: ParticleInTheAirBuilder.h
 %feature("docstring")  ParticleInTheAirBuilder::~ParticleInTheAirBuilder "ParticleInTheAirBuilder::~ParticleInTheAirBuilder()
 ";
 
-%feature("docstring")  ParticleInTheAirBuilder::init_from "void ParticleInTheAirBuilder::init_from(const class FunctionalTestComponentService *service)
+%feature("docstring")  ParticleInTheAirBuilder::init_from "void ParticleInTheAirBuilder::init_from(const class FutestSuite *service)
 ";
 
 %feature("docstring")  ParticleInTheAirBuilder::buildSample "ISample * ParticleInTheAirBuilder::buildSample() const 
@@ -11108,18 +11108,18 @@ C++ includes: PyScriptFunctionalTest.h
 ";
 
 
-// File: classPyScriptFunctionalTestComponentService.xml
-%feature("docstring") PyScriptFunctionalTestComponentService "
+// File: classPyScriptFutestSuite.xml
+%feature("docstring") PyScriptFutestSuite "
 
 Contains all necessary information to compose pyscript functional test.
 
 C++ includes: PyScriptFunctionalTestComponentService.h
 ";
 
-%feature("docstring")  PyScriptFunctionalTestComponentService::PyScriptFunctionalTestComponentService "PyScriptFunctionalTestComponentService::PyScriptFunctionalTestComponentService(const FunctionalTestInfo *info)
+%feature("docstring")  PyScriptFutestSuite::PyScriptFutestSuite "PyScriptFutestSuite::PyScriptFutestSuite(const FunctionalTestInfo *info)
 ";
 
-%feature("docstring")  PyScriptFunctionalTestComponentService::getFunctionalTest "IFunctionalTest * PyScriptFunctionalTestComponentService::getFunctionalTest() const 
+%feature("docstring")  PyScriptFutestSuite::getFunctionalTest "IFunctionalTest * PyScriptFutestSuite::getFunctionalTest() const 
 ";
 
 
@@ -15101,12 +15101,6 @@ build<C> is a function void -> ISampleBuilder*. C must be a child of  ISampleBui
 // File: FunctionalMultiTest_8h.xml
 
 
-// File: FunctionalTestComponentService_8cpp.xml
-
-
-// File: FunctionalTestComponentService_8h.xml
-
-
 // File: FunctionalTestInfo_8cpp.xml
 
 
@@ -15117,6 +15111,12 @@ build<C> is a function void -> ISampleBuilder*. C must be a child of  ISampleBui
 
 
 // File: FunctionalTestRegistry_8h.xml
+
+
+// File: FutestSuite_8cpp.xml
+
+
+// File: FutestSuite_8h.xml
 
 
 // File: ICloneableRegistry_8h.xml

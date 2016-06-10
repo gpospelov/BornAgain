@@ -19,7 +19,7 @@
 #include "IFunctionalTest.h"
 #include <vector>
 
-class FunctionalTestComponentService;
+class FutestSuite;
 
 //! @class FunctionalMultiTest
 //! @ingroup standard_samples
@@ -29,7 +29,7 @@ class FunctionalTestComponentService;
 class BA_CORE_API_ FunctionalMultiTest : public IFunctionalTest
 {
 public:
-    FunctionalMultiTest(const std::string &name, FunctionalTestComponentService& service);
+    FunctionalMultiTest(const std::string &name, FutestSuite& service);
     virtual ~FunctionalMultiTest();
 
     virtual void runTest();
@@ -37,7 +37,7 @@ public:
     virtual void printResults(std::ostream &ostr) const;
 
 private:
-    FunctionalTestComponentService& m_service;
+    FutestSuite& m_service;
     std::vector<IFunctionalTest*> m_tests;
 };
 

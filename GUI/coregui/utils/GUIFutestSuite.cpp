@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/utils/GUIFunctionalTestComponentService.cpp
-//! @brief     Implements class GUIFunctionalTestComponentService.
+//! @file      coregui/utils/GUIFutestSuite.cpp
+//! @brief     Implements class GUIFutestSuite.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,16 +14,16 @@
 //
 // ************************************************************************** //
 
-#include "GUIFunctionalTestComponentService.h"
+#include "GUIFutestSuite.h"
 #include "GUIFunctionalTest.h"
 
 
-GUIFunctionalTestComponentService::GUIFunctionalTestComponentService(const FunctionalTestInfo* info)
-    : FunctionalTestComponentService(info)
+GUIFutestSuite::GUIFutestSuite(const FunctionalTestInfo* info)
+    : FutestSuite(info)
 {
 }
 
-IFunctionalTest* GUIFunctionalTestComponentService::getFunctionalTest() const
+IFunctionalTest* GUIFutestSuite::getFunctionalTest() const
 {
     return new GUIFunctionalTest(
         getTestName(), getTestDescription(), getSimulation(), getTestThreshold());

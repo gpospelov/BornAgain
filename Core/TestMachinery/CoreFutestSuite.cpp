@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      StandardSamples/CoreFunctionalTestComponentService.cpp
-//! @brief     Implements class CoreFunctionalTestComponentService.
+//! @file      StandardSamples/CoreFutestSuite.cpp
+//! @brief     Implements class CoreFutestSuite.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,15 +14,15 @@
 // ************************************************************************** //
 
 #include "CoreFunctionalTest.h"
-#include "CoreFunctionalTestComponentService.h"
+#include "CoreFutestSuite.h"
 
-CoreFunctionalTestComponentService::CoreFunctionalTestComponentService(
+CoreFutestSuite::CoreFutestSuite(
     const FunctionalTestInfo* info)
-    : FunctionalTestComponentService(info)
+    : FutestSuite(info)
 {
 }
 
-IFunctionalTest* CoreFunctionalTestComponentService::getFunctionalTest() const
+IFunctionalTest* CoreFutestSuite::getFunctionalTest() const
 {
     return new CoreFunctionalTest(
         getTestName(), getTestDescription(), getSimulation(),

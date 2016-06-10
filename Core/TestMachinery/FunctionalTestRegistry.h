@@ -30,9 +30,8 @@
 
 class BA_CORE_API_ FunctionalTestRegistry : public ISingleton<FunctionalTestRegistry>
 {
+    friend class ISingleton<FunctionalTestRegistry>;
 public:
-    FunctionalTestRegistry();
-
     void add(const std::string& test_name, const std::string& test_description,
              const std::string& simulation_name, const std::string& sample_builder_name,
              const std::string& component_registry_name, double threshold);
@@ -41,6 +40,7 @@ public:
     void printCatalogue(std::ostream& ostr) const;
 
 private:
+    FunctionalTestRegistry();
     std::map<std::string, FunctionalTestInfo> m_catalogue;
 };
 

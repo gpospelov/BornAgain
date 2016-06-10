@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Tools/Precomputed.h
-//! @brief     Declares classes Precomputed, IPrecomputed, providing precomputed constants
+//! @brief     Declares classes Precomputed, providing precomputed constants
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -18,16 +18,12 @@
 
 //! This class contains precomputed constants.
 
-class BA_CORE_API_ Precomputed
+class BA_CORE_API_ Precomputed : public ISingleton<Precomputed>
 {
+    friend class ISingleton<Precomputed>;
 public:
-    Precomputed(); //!< Constructor, precomputes everything.
     std::vector<double> factorial; //!< factorial[k] = k! for k=0,1,...,170 (for IEEE double).
     std::vector<double> reciprocal_factorial; //!< 1/k!
-};
-
-//! This singleton interface class gives access to the precomputed constants.
-
-class IPrecomputed: public ISingleton<Precomputed>
-{
+private:
+    Precomputed(); //!< Constructor, precomputes everything.
 };

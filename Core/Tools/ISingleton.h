@@ -36,7 +36,7 @@ public:
         std::unique_lock<std::mutex> single_lock( single_mutex );
         if( !m_instance) {
             if( m_destroyed )
-                throw std::runtime_error("ISingleton::onDeadReference()");
+                throw std::runtime_error("ISingleton: object was destructed!");
             static T theInstance;
             m_instance = &theInstance;
         }
@@ -59,7 +59,7 @@ private:
 };
 
 // for templated classes, initializations go into the .h file:
-template<class T> T* ISingleton<T>::m_instance = 0;
+template<class T> T* ISingleton<T>::m_instance = nullptr;
 template<class T> bool ISingleton<T>::m_destroyed = false;
 
 #endif // ISINGLETON_H

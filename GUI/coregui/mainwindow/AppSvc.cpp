@@ -50,5 +50,5 @@ void AppSvc::this_subscribe(ProjectManager *projectManager)
 void AppSvc::this_unsubscribe(ProjectManager *projectManager)
 {
     Q_ASSERT(m_projectManager == projectManager);
-    m_projectManager = 0;
+    m_projectManager = nullptr;
 }

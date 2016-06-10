@@ -26,13 +26,14 @@ class ProjectManager;
 
 class BA_CORE_API_ AppSvc : public ISingleton<AppSvc>
 {
+    friend class ISingleton<AppSvc>;
 public:
-
     static ProjectManager *projectManager();
     static void subscribe(ProjectManager *projectManager);
     static void unsubscribe(ProjectManager *projectManager);
 
 private:
+    AppSvc() {}
     ProjectManager *this_projectManager();
     void this_subscribe(ProjectManager *projectManager);
     void this_unsubscribe(ProjectManager *projectManager);
@@ -41,4 +42,3 @@ private:
 };
 
 #endif
-

@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      StandardSamples/IFutest.h
-//! @brief     Declares class IFutest.
+//! @brief     Declares pure virtual base class IFutest.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -23,7 +23,7 @@
 
 //! @class IFutest
 //! @ingroup standard_samples
-//! @brief Basic class for all functional tests
+//! @brief Base class for all functional tests
 
 class BA_CORE_API_ IFutest : public INamed
 {
@@ -31,27 +31,27 @@ public:
     enum ETestResult { SUCCESS, FAILED, FAILED_DIFF, FAILED_NOREF};
 
     IFutest();
-    IFutest(const std::string &name, const std::string &description);
+    IFutest(const std::string& name, const std::string& description);
     virtual ~IFutest() {}
 
     virtual void runTest() = 0;
     virtual int analyseResults() = 0;
 
     std::string getDescription() const { return m_description; }
-    void setDescription(const std::string &description) { m_description = description; }
+    void setDescription(const std::string& description) { m_description = description; }
 
     ETestResult getTestResult() const { return m_result; }
 	std::string getTestResultString() const;
 
     std::string getFormattedInfoString() const;
 
-    friend std::ostream &operator<<(std::ostream &ostr, const IFutest &m) {
+    friend std::ostream& operator<<(std::ostream& ostr, const IFutest& m) {
         m.printResults(ostr);
         return ostr;
     }
 
 protected:
-    virtual void printResults(std::ostream &ostr) const { ostr << getFormattedInfoString(); }
+    virtual void printResults(std::ostream& ostr) const { ostr << getFormattedInfoString(); }
 
     std::string m_description;
     ETestResult m_result;

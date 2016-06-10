@@ -1,1 +1,1 @@
-set(CTEST_CUSTOM_POST_TEST "echo AFTER_THE_TEST")
+set(CTEST_CUSTOM_POST_TEST "echo For details, see the log files in Testing/Temporary/.")

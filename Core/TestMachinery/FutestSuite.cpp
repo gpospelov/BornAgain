@@ -81,13 +81,13 @@ int FutestSuite::execute_subtests()
     // run and analyze subtests
     int number_of_failed_tests = 0;
     for (size_t i = 0; i < n_subtests; ++i) {
-        m_subtest_name = subtest_names[i];
-        m_test_name = m_info->m_test_name + "_" + m_subtest_name;
-        m_subtest_item = subtest_registry->getItem(m_subtest_name);
+        subtest_name = subtest_names[i];
+        m_test_name = m_info->m_test_name + "_" + subtest_name;
+        m_subtest_item = subtest_registry->getItem(subtest_name);
 
         IFutest* subtest( getFutest() );
         std::cout << "FutestSuite::execute() -> " << getName()
-                  << " " << i+1 << "/" << n_subtests << " (" << m_subtest_name << ")\n";
+                  << " " << i+1 << "/" << n_subtests << " (" << subtest_name << ")\n";
         subtest->runTest();
         subtest->analyseResults();
         std::cout << *subtest << "\n";
@@ -135,7 +135,7 @@ GISASSimulation* FutestSuite::getSimulation() const
     SampleBuilderFactory sample_factory;
     std::shared_ptr<class ISampleBuilder> sample_builder(
         sample_factory.createItem(m_info->m_sample_builder_name) );
-    sample_builder->init_from(this);
+    sample_builder->init_from(this); // passing 'this' enables callbacks like getFormFactor()
     result->setSampleBuilder(sample_builder);
     return result;
 }

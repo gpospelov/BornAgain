@@ -58,38 +58,38 @@ int FutestSuite::execute(int argc, char** argv) {
         return 1;
 
     // initialize subtest registry
-    m_component_names.clear();
+    std::vector<std::string> subtest_names;
     m_current_component = 0;
     if       (m_info->m_subtest_type == "None") {
-        m_component_names.push_back("Default");
+        subtest_names.push_back("Default");
     } else if(m_info->m_subtest_type == "FormFactorsRegistry") {
         m_ff_registry = new TestFormFactorsRegistry;
-        m_component_names = m_ff_registry->getNames();
+        subtest_names = m_ff_registry->getNames();
     } else if(m_info->m_subtest_type == "FTDistributions2DRegistry") {
         m_ft2d_registry = new TestFTDistribution2DRegistry;
-        m_component_names = m_ft2d_registry->getNames();
+        subtest_names = m_ft2d_registry->getNames();
     } else
         throw RuntimeErrorException("FutestSuite -> Error. "
                                     "Unknown factory '"+m_info->m_subtest_type+"'.");
+    size_t n_subtests = subtest_names.size();
 
     // run and analyze subtests
-    size_t n_subtests = getNumberOfComponents();
     int number_of_failed_tests = 0;
     for (size_t i = 0; i < n_subtests; ++i) {
         m_current_component = i;
+        m_subtest_name = subtest_names[i];
         if(m_ff_registry) {
             delete m_formfactor;
-            m_formfactor = m_ff_registry->createItem(m_component_names[i]);
+            m_formfactor = m_ff_registry->createItem(m_subtest_name);
         }
         if(m_ft2d_registry) {
             delete m_ft_distribution_2d;
-            m_ft_distribution_2d = m_ft2d_registry->createItem(m_component_names[i]);
+            m_ft_distribution_2d = m_ft2d_registry->createItem(m_subtest_name);
         }
 
         IFutest* subtest( getFutest() );
         std::cout << "FutestSuite::execute() -> " << getName()
-                  << " " << i+1 << "/" << n_subtests
-                  << " (" << m_component_names[i] << ")\n";
+                  << " " << i+1 << "/" << n_subtests << " (" << m_subtest_name << ")\n";
         subtest->runTest();
         subtest->analyseResults();
         if (subtest->getTestResult())
@@ -146,8 +146,8 @@ OutputData<double>* FutestSuite::getReferenceData() const
     try {
         result = IntensityDataIOFactory::readOutputData(filename);
     } catch(const std::exception& ex) {
-        std::cout << "FutestSuite::getReferenceData() -> Exception caught."
-                  << ex.what() << std::endl;
+        throw std::runtime_error(
+            std::string("FutestSuite::getReferenceData() -> Exception caught: ") + ex.what() );
     }
     return result;
 }
@@ -156,8 +156,8 @@ std::string FutestSuite::getReferenceFileName() const
 {
     std::string result("ref_");
     result += m_info->m_test_name;
-    if(m_component_names[m_current_component] != "Default")
-        result += std::string("_")+m_component_names[m_current_component];
+    if(m_subtest_name != "Default")
+        result += std::string("_")+m_subtest_name;
     result += std::string(".int.gz");
     return result;
 }
@@ -167,8 +167,8 @@ std::string FutestSuite::getReferenceFileName() const
 std::string FutestSuite::getTestName() const
 {
     std::string result = m_info->m_test_name;
-    if(m_component_names[m_current_component] != "Default")
-        result += "_" + m_component_names[m_current_component];
+    if(m_subtest_name != "Default")
+        result += "_" + m_subtest_name;
     return result;
 }
 

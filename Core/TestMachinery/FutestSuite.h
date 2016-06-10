@@ -51,8 +51,6 @@ protected:
     virtual std::shared_ptr<class ISampleBuilder> getSampleBuilder() const;
     virtual OutputData<double>* getReferenceData() const;
 
-    size_t getNumberOfComponents() const { return m_component_names.size(); }
-
     std::string getReferenceFileName() const;
     const class FutestInfo* getTestInfo() const { return m_info; }
 
@@ -66,8 +64,8 @@ protected:
 
     class TestFormFactorsRegistry* m_ff_registry;
     class TestFTDistribution2DRegistry* m_ft2d_registry;
-    std::vector<std::string> m_component_names;
     size_t m_current_component;
+    std::string m_subtest_name;
 };
 
 #endif

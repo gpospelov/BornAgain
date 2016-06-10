@@ -17,7 +17,7 @@
 #include <iostream>
 
 #include "FutestRegistry.h"
-#include "SimulationRegistry.h"
+#include "SimulationFactory.h"
 #include "SampleBuilderFactory.h"
 #include "SubtestRegistry.h"
 #include "Exceptions.h"
@@ -98,12 +98,16 @@ int FutestSuite::execute_subtests()
     return number_of_failed_tests>0;
 }
 
+//! Returns a form factor from the registry, for use in certain subtests.
+
 IFormFactor* FutestSuite::getFormFactor() const
 {
     auto result = dynamic_cast<IFormFactor*>(m_subtest_item);
     assert(result);
     return result->clone();
 }
+
+//! Returns a distribution from the registry, for use in certain subtests.
 
 IFTDistribution2D* FutestSuite::getFTDistribution2D() const
 {
@@ -114,7 +118,7 @@ IFTDistribution2D* FutestSuite::getFTDistribution2D() const
 
 GISASSimulation* FutestSuite::getSimulation() const
 {
-    SimulationRegistry sim_registry;
+    SimulationFactory sim_registry;
     GISASSimulation* result = sim_registry.createItem(m_info->m_simulation_name);
     result->setSampleBuilder(getSampleBuilder());
     return result;
@@ -145,9 +149,7 @@ OutputData<double>* FutestSuite::getReferenceData() const
 
 std::string FutestSuite::getReferenceFileName() const
 {
-    std::string result("ref_");
-    result += m_test_name + ".int.gz";
-    return result;
+    return "ref_" + m_test_name + ".int.gz";
 }
 
 //! Constructs functional test description corresponding to the current component.

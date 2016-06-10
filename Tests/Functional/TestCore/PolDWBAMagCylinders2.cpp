@@ -1,7 +1,7 @@
 #include "FileSystem.h"
 #include "IntensityDataFunctions.h"
 #include "IntensityDataIOFactory.h"
-#include "SimulationRegistry.h"
+#include "SimulationFactory.h"
 #include <memory>
 
 int main(int, char**)
@@ -15,7 +15,7 @@ int main(int, char**)
     const std::unique_ptr<OutputData<double> > P_reference11(IntensityDataIOFactory::readOutputData(
         Utils::FileSystem::GetReferenceDataDir()+ "polmagcylinders2_reference_11.int.gz"));
 
-    SimulationRegistry sim_registry;
+    SimulationFactory sim_registry;
     GISASSimulation* simulation = sim_registry.createItem("polmagcylinders2");
     kvector_t zplus(0.0, 0.0, 1.0);
     kvector_t zmin(0.0, 0.0, -1.0);

@@ -16,7 +16,7 @@
 #include "Units.h"
 #include "FitKernel.h"
 #include "SampleBuilderFactory.h"
-#include "SimulationRegistry.h"
+#include "SimulationFactory.h"
 #include "OutputData.h"
 #include "FitSuite.h"
 #include "IMinimizerFutest.h"
@@ -116,7 +116,7 @@ std::unique_ptr<ISample> IMinimizerFutest::createSample()
 
 std::unique_ptr<GISASSimulation> IMinimizerFutest::createSimulation()
 {
-    SimulationRegistry simRegistry;
+    SimulationFactory simRegistry;
     std::unique_ptr<GISASSimulation> result(simRegistry.createItem(m_simulation_name));
     return std::move(result);
 }

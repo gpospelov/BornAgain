@@ -759,7 +759,7 @@ Core functional test compares results of the standard simulation with reference 
 C++ includes: CoreFutest.h
 ";
 
-%feature("docstring")  CoreFutest::CoreFutest "CoreFutest::CoreFutest(const std::string &name, const std::string &description, GISASSimulation *simulation, OutputData< double > *reference, double threshold, const std::string &file_name)
+%feature("docstring")  CoreFutest::CoreFutest "CoreFutest::CoreFutest(const std::string &name, const std::string &description, GISASSimulation *simulation, double threshold, OutputData< double > *reference, const std::string &file_name)
 ";
 
 %feature("docstring")  CoreFutest::~CoreFutest "CoreFutest::~CoreFutest()
@@ -4460,7 +4460,7 @@ C++ includes: FutestInfo.h
 %feature("docstring")  FutestInfo::FutestInfo "FutestInfo::FutestInfo()
 ";
 
-%feature("docstring")  FutestInfo::FutestInfo "FutestInfo::FutestInfo(const std::string &test_name, const std::string &test_description, const std::string &simulation_name, const std::string &sample_builder_name, const std::string &component_registry_name, double threshold)
+%feature("docstring")  FutestInfo::FutestInfo "FutestInfo::FutestInfo(const std::string &test_name, const std::string &test_description, const std::string &simulation_name, const std::string &sample_builder_name, const std::string &subtest_type, double threshold)
 ";
 
 
@@ -4488,15 +4488,17 @@ C++ includes: FutestRegistry.h
 // File: classFutestSuite.xml
 %feature("docstring") FutestSuite "
 
-Contains all necessary information to compose functional test.
+To execute one functional test of given name.
+
+Used in functional tests (Core|Pydump|GUI)Suite, where it is subclassed as a singleton, and called through instance().execute(argc, argv). When processing execute, dependent classes will call back  getFutest(). Certain tests have subtests; they will call back  getFormFactor() etc.
 
 C++ includes: FutestSuite.h
 ";
 
-%feature("docstring")  FutestSuite::FutestSuite "FutestSuite::FutestSuite(const std::string &name, get_futest_t functionalTest)
+%feature("docstring")  FutestSuite::FutestSuite "FutestSuite::FutestSuite()
 ";
 
-%feature("docstring")  FutestSuite::~FutestSuite "FutestSuite::~FutestSuite()
+%feature("docstring")  FutestSuite::~FutestSuite "virtual FutestSuite::~FutestSuite()
 ";
 
 %feature("docstring")  FutestSuite::execute "int FutestSuite::execute(int argc, char **argv)
@@ -4504,53 +4506,19 @@ C++ includes: FutestSuite.h
 Runs test (name given as command-line argument), and returns 0 for SUCCESS, or error code. 
 ";
 
-%feature("docstring")  FutestSuite::getFutest "class IFutest* FutestSuite::getFutest() const 
+%feature("docstring")  FutestSuite::getFutest "virtual class IFutest* FutestSuite::getFutest() const =0
+
+overloaded in (Core|Pydump|GUI)Suite.cpp 
 ";
 
-%feature("docstring")  FutestSuite::getFormFactor "IFormFactor * FutestSuite::getFormFactor() const 
+%feature("docstring")  FutestSuite::getFormFactor "IFormFactor * FutestSuite::getFormFactor() const
+
+Returns a form factor from the registry, for use in certain subtests. 
 ";
 
-%feature("docstring")  FutestSuite::getFTDistribution2D "IFTDistribution2D * FutestSuite::getFTDistribution2D() const 
-";
+%feature("docstring")  FutestSuite::getFTDistribution2D "IFTDistribution2D * FutestSuite::getFTDistribution2D() const
 
-%feature("docstring")  FutestSuite::getSimulation "GISASSimulation * FutestSuite::getSimulation() const 
-";
-
-%feature("docstring")  FutestSuite::getSampleBuilder "std::shared_ptr< class ISampleBuilder > FutestSuite::getSampleBuilder() const 
-";
-
-%feature("docstring")  FutestSuite::getReferenceData "OutputData< double > * FutestSuite::getReferenceData() const 
-";
-
-%feature("docstring")  FutestSuite::getNumberOfComponents "size_t FutestSuite::getNumberOfComponents() const 
-";
-
-%feature("docstring")  FutestSuite::initComponent "void FutestSuite::initComponent(size_t component_index)
-";
-
-%feature("docstring")  FutestSuite::getCurrentComponentName "std::string FutestSuite::getCurrentComponentName() const 
-";
-
-%feature("docstring")  FutestSuite::getReferenceFileName "std::string FutestSuite::getReferenceFileName() const 
-";
-
-%feature("docstring")  FutestSuite::getTestInfo "const class FutestInfo* FutestSuite::getTestInfo() const 
-";
-
-%feature("docstring")  FutestSuite::init_subtest_registry "void FutestSuite::init_subtest_registry(const std::string &registry_name)
-";
-
-%feature("docstring")  FutestSuite::getTestName "std::string FutestSuite::getTestName() const
-
-Constructs functional test name corresponding to the current component. The goal is to have different names of test depending from the context (single test, or multi test). 
-";
-
-%feature("docstring")  FutestSuite::getTestDescription "std::string FutestSuite::getTestDescription() const
-
-Constructs functional test description corresponding to the current component. 
-";
-
-%feature("docstring")  FutestSuite::getTestThreshold "double FutestSuite::getTestThreshold() const 
+Returns a distribution from the registry, for use in certain subtests. 
 ";
 
 
@@ -5292,21 +5260,6 @@ C++ includes: ICloneable.h
 %feature("docstring")  ICloneable::transferToCPP "virtual void ICloneable::transferToCPP()
 
 Used for Python overriding of clone. 
-";
-
-
-// File: classICloneableRegistry.xml
-%feature("docstring") ICloneableRegistry "
-
-Templated registry for cloneable objects.
-
-C++ includes: ICloneableRegistry.h
-";
-
-%feature("docstring")  ICloneableRegistry::createItem "ValueType* ICloneableRegistry< ValueType >::createItem(const std::string &key) const 
-";
-
-%feature("docstring")  ICloneableRegistry::getNames "std::vector<std::string> ICloneableRegistry< ValueType >::getNames()
 ";
 
 
@@ -7588,6 +7541,21 @@ C++ includes: IPixelMap.h
 This singleton interface class gives access to the precomputed constants.
 
 C++ includes: Precomputed.h
+";
+
+
+// File: classIRegistry.xml
+%feature("docstring") IRegistry "
+
+Templated object registry.
+
+C++ includes: IRegistry.h
+";
+
+%feature("docstring")  IRegistry::getItem "ValueType* IRegistry< ValueType >::getItem(const std::string &key) const 
+";
+
+%feature("docstring")  IRegistry::keys "std::vector<std::string> IRegistry< ValueType >::keys()
 ";
 
 
@@ -12582,6 +12550,18 @@ get phi for given detector pixel coordinates
 ";
 
 
+// File: classSimulationFactory.xml
+%feature("docstring") SimulationFactory "
+
+Registry to create standard pre-defined simulations. Used in functional tests, performance measurements, etc.
+
+C++ includes: SimulationFactory.h
+";
+
+%feature("docstring")  SimulationFactory::SimulationFactory "SimulationFactory::SimulationFactory()
+";
+
+
 // File: classSimulationOptions.xml
 %feature("docstring") SimulationOptions "
 
@@ -12638,18 +12618,6 @@ Sets the batch and thread information to be used.
 ";
 
 %feature("docstring")  SimulationOptions::getHardwareConcurrency "int SimulationOptions::getHardwareConcurrency() const 
-";
-
-
-// File: classSimulationRegistry.xml
-%feature("docstring") SimulationRegistry "
-
-Registry to create standard pre-defined simulations. Used in functional tests, performance measurements, etc.
-
-C++ includes: SimulationRegistry.h
-";
-
-%feature("docstring")  SimulationRegistry::SimulationRegistry "SimulationRegistry::SimulationRegistry()
 ";
 
 
@@ -13090,9 +13058,9 @@ Returns current string.
 // File: classTestFormFactorsRegistry.xml
 %feature("docstring") TestFormFactorsRegistry "
 
-Registry with predifined form factors for functional tests purpose.
+Registry with predefined form factors, for functional tests.
 
-C++ includes: TestComponentsRegistry.h
+C++ includes: SubtestRegistry.h
 ";
 
 %feature("docstring")  TestFormFactorsRegistry::TestFormFactorsRegistry "TestFormFactorsRegistry::TestFormFactorsRegistry()
@@ -13102,9 +13070,9 @@ C++ includes: TestComponentsRegistry.h
 // File: classTestFTDistribution2DRegistry.xml
 %feature("docstring") TestFTDistribution2DRegistry "
 
-Registry with predifined fourier transformed distributions for functional tests purpose.
+Registry with predefined Fourier transformed distributions, for functional tests.
 
-C++ includes: TestComponentsRegistry.h
+C++ includes: SubtestRegistry.h
 ";
 
 %feature("docstring")  TestFTDistribution2DRegistry::TestFTDistribution2DRegistry "TestFTDistribution2DRegistry::TestFTDistribution2DRegistry()
@@ -13472,7 +13440,7 @@ C++ includes: WavevectorInfo.h
 // File: namespace_0D345.xml
 
 
-// File: namespace_0D354.xml
+// File: namespace_0D353.xml
 
 
 // File: namespace_0D356.xml
@@ -15006,10 +14974,10 @@ build<C> is a function void -> ISampleBuilder*. C must be a child of  ISampleBui
 // File: SampleBuilderFactory_8h.xml
 
 
-// File: SimulationRegistry_8cpp.xml
+// File: SimulationFactory_8cpp.xml
 
 
-// File: SimulationRegistry_8h.xml
+// File: SimulationFactory_8h.xml
 
 
 // File: SizeDistributionModelsBuilder_8cpp.xml
@@ -15060,13 +15028,13 @@ build<C> is a function void -> ISampleBuilder*. C must be a child of  ISampleBui
 // File: FutestSuite_8h.xml
 
 
-// File: ICloneableRegistry_8h.xml
-
-
 // File: IFutest_8cpp.xml
 
 
 // File: IFutest_8h.xml
+
+
+// File: IRegistry_8h.xml
 
 
 // File: PyScriptFutest_8cpp.xml
@@ -15075,10 +15043,10 @@ build<C> is a function void -> ISampleBuilder*. C must be a child of  ISampleBui
 // File: PyScriptFutest_8h.xml
 
 
-// File: TestComponentsRegistry_8cpp.xml
+// File: SubtestRegistry_8cpp.xml
 
 
-// File: TestComponentsRegistry_8h.xml
+// File: SubtestRegistry_8h.xml
 
 
 // File: AttLimits_8cpp.xml

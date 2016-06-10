@@ -1,4 +1,4 @@
-#include "SimulationRegistry.h"
+#include "SimulationFactory.h"
 #include "IFutest.h"
 #include "IntensityDataFunctions.h"
 #include "SampleBuilderFactory.h"
@@ -7,7 +7,7 @@
 
 int TestBatchSimulation()
 {
-    SimulationRegistry sim_registry;
+    SimulationFactory sim_registry;
     const std::unique_ptr<GISASSimulation> simulation(sim_registry.createItem("MiniGISAS"));
 
     SampleBuilderFactory sampleFactory;

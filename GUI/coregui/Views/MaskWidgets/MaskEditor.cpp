@@ -27,7 +27,7 @@
 #include <QMenu>
 #include <QDebug>
 
-#include "SimulationRegistry.h"
+#include "SimulationFactory.h"
 
 #include "SampleBuilderFactory.h"
 #include "IntensityDataItem.h"
@@ -91,7 +91,7 @@ void MaskEditor::init_test_model()
 {
     SessionModel* maskModel = new SessionModel(SessionXML::MaskModelTag, this);
 
-    SimulationRegistry simRegistry;
+    SimulationFactory simRegistry;
     const std::unique_ptr<GISASSimulation> simulation(simRegistry.createItem("BasicGISAS"));
 
     SampleBuilderFactory sampleFactory;

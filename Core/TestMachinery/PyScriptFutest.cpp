@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "PyScriptFutest.h"
-#include "SimulationRegistry.h"
+#include "SimulationFactory.h"
 #include "IntensityDataIOFactory.h"
 #include "IntensityDataFunctions.h"
 #include "PyGenTools.h"

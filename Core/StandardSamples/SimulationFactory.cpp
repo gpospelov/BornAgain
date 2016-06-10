@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      StandardSamples/SimulationRegistry.cpp
-//! @brief     Implement class SimulationRegistry.
+//! @file      StandardSamples/SimulationFactory.cpp
+//! @brief     Implement class SimulationFactory.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,9 +14,9 @@
 // ************************************************************************** //
 
 #include "StandardSimulations.h"
-#include "SimulationRegistry.h"
+#include "SimulationFactory.h"
 
-SimulationRegistry::SimulationRegistry()
+SimulationFactory::SimulationFactory()
 {
     registerItem("BasicGISAS",
                  StandardSimulations::BasicGISAS,

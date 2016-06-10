@@ -15,7 +15,7 @@
 // ************************************************************************** //
 
 #include "GUIFutest.h"
-#include "SimulationRegistry.h"
+#include "SimulationFactory.h"
 #include "GUIObjectBuilder.h"
 #include "InstrumentModel.h"
 #include "SampleModel.h"

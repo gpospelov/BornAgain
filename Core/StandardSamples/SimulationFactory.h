@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      StandardSamples/SimulationRegistry.h
-//! @brief     Declares class SimulationRegistry.
+//! @file      StandardSamples/SimulationFactory.h
+//! @brief     Declares class SimulationFactory.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -19,15 +19,15 @@
 #include "IFactory.h"
 #include "GISASSimulation.h"
 
-//! @class SimulationRegistry
+//! @class SimulationFactory
 //! @ingroup standard_samples
 //! @brief Registry to create standard pre-defined simulations.
 //! Used in functional tests, performance measurements, etc.
 
-class BA_CORE_API_ SimulationRegistry : public IFactory<GISASSimulation>
+class BA_CORE_API_ SimulationFactory : public IFactory<GISASSimulation>
 {
 public:
-    SimulationRegistry();
+    SimulationFactory();
 };
 
 #endif // SIMULATIONREGISTRY_H

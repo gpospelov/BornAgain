@@ -23,6 +23,7 @@
 #include "WinDllMacros.h"
 #include "OutputData.h"
 #include "ISampleBuilder.h"
+#include "ISingleton.h"
 //! @class FutestSuite
 //! @ingroup standard_samples
 //! @brief Contains all necessary information to compose functional test.
@@ -30,12 +31,11 @@
 class BA_CORE_API_ FutestSuite : public INamed
 {
 public:
-    typedef class IFutest* (*get_futest_t) (const FutestSuite*);
-    FutestSuite(const std::string& name, get_futest_t functionalTest);
+    FutestSuite();
     virtual ~FutestSuite();
 
     int execute(int argc, char** argv);
-    class IFutest* getFutest() const { return (*m_functionalTest)(this); }
+    virtual class IFutest* getFutest() const = 0;
     virtual class IFormFactor* getFormFactor() const;
     virtual class IFTDistribution2D* getFTDistribution2D() const;
     virtual class GISASSimulation* getSimulation() const;
@@ -59,7 +59,6 @@ public:
     class TestFTDistribution2DRegistry* m_ft2d_registry;
     std::vector<std::string> m_component_names;
     size_t m_current_component;
-    get_futest_t m_functionalTest;
 };
 
 #endif

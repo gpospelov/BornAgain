@@ -28,15 +28,12 @@
 #include "FTDistributions.h"
 #include "FutestSuite.h"
 
-FutestSuite::FutestSuite(const std::string& name,
-                         class IFutest* functionalTest(const FutestSuite*))
-    : INamed(name)
-    , m_formfactor(0)
+FutestSuite::FutestSuite()
+    : m_formfactor(0)
     , m_ft_distribution_2d(0)
     , m_ff_registry(0)
     , m_ft2d_registry(0)
     , m_current_component(0)
-    , m_functionalTest(functionalTest)
 {
 }
 

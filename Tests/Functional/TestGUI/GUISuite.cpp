@@ -18,12 +18,16 @@
 #include "FutestRegistry.h"
 #include "GUIFutest.h"
 
-//! The main function of GUITestSuite to run functional tests
+class GUISuite : public FutestSuite, public ISingleton<GUISuite>
+{
+public:
+    GUISuite() { setName("GUISuite"); }
+    IFutest* getFutest() const { return new GUIFutest(
+            getTestName(), getTestDescription(), getSimulation(), getTestThreshold()); }
+};
+
+//! The main function of GUITestSuite, to run functional tests
 int main(int argc, char** argv)
 {
-    FutestSuite suite("GUISuite", [] (const FutestSuite* s) -> IFutest* {
-            return new GUIFutest(
-                s->getTestName(), s->getTestDescription(),
-                s->getSimulation(), s->getTestThreshold()); } );
-    return suite.execute(argc, argv);
+    return GUISuite::instance().execute(argc, argv);
 }

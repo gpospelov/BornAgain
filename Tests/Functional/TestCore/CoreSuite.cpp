@@ -17,12 +17,17 @@
 #include "FutestRegistry.h"
 #include "CoreFutest.h"
 
-//! Program CoreSuite, to run core functional tests.
+class CoreSuite : public FutestSuite, public ISingleton<CoreSuite>
+{
+public:
+    CoreSuite() { setName("CoreSuite"); }
+    IFutest* getFutest() const { return new CoreFutest(
+            getTestName(), getTestDescription(), getSimulation(),
+            getReferenceData(), getTestThreshold(), getReferenceFileName() ); }
+};
+
+//! The main function of CoreSuite, to run functional tests
 int main(int argc, char** argv)
 {
-    FutestSuite suite("CoreSuite", [] (const FutestSuite* s) -> IFutest* {
-            return new CoreFutest(
-        s->getTestName(), s->getTestDescription(), s->getSimulation(),
-        s->getReferenceData(), s->getTestThreshold(), s->getReferenceFileName()); } );
-    return suite.execute(argc, argv);
+    return CoreSuite::instance().execute(argc, argv);
 }

@@ -22,7 +22,6 @@
 #include "mainwindow_constants.h"
 #include <QVBoxLayout>
 #include <QSplitter>
-#include <QStackedWidget>
 #include <QDebug>
 
 ImportDataView::ImportDataView(MainWindow *mainWindow)
@@ -66,7 +65,7 @@ ImportDataView::ImportDataView(MainWindow *mainWindow)
 
 void ImportDataView::onSelectionChanged(SessionItem *item)
 {
-    Q_ASSERT(item);
+    if(!item) return;
 
     bool isNew(false);
     m_stackedWidget->setItem(item, isNew);

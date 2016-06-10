@@ -19,7 +19,7 @@ class SwigDirector_INamed : public INamed, public Swig::Director {
 
 public:
     SwigDirector_INamed(PyObject *self);
-    SwigDirector_INamed(PyObject *self, std::string name);
+    SwigDirector_INamed(PyObject *self, std::string const &name);
     virtual ~SwigDirector_INamed();
 
 /* Internal director utilities */

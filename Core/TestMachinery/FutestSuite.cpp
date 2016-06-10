@@ -15,7 +15,7 @@
 
 #include <iostream>
 
-#include "FunctionalTestRegistry.h"
+#include "FutestRegistry.h"
 #include "SimulationRegistry.h"
 #include "SampleBuilderFactory.h"
 #include "TestComponentsRegistry.h"
@@ -24,12 +24,12 @@
 #include "IntensityDataIOFactory.h"
 #include "FileSystem.h"
 #include "FunctionalMultiTest.h"
-#include "CoreFunctionalTest.h"
+#include "CoreFutest.h"
 #include "FTDistributions.h"
 #include "FutestSuite.h"
 
 FutestSuite::FutestSuite(const std::string& name,
-                         class IFunctionalTest* functionalTest(const FutestSuite*))
+                         class IFutest* functionalTest(const FutestSuite*))
     : INamed(name)
     , m_formfactor(0)
     , m_ft_distribution_2d(0)
@@ -53,7 +53,7 @@ int FutestSuite::execute(int argc, char** argv) {
     std::string test_name;
     if(argc > 1)
         test_name = std::string(argv[1]);
-    m_info = FunctionalTestRegistry::instance().getItemOrExplain(test_name, getName());
+    m_info = FutestRegistry::instance().getItemOrExplain(test_name, getName());
     if( !m_info )
         return 1;
     init_subtest_registry(m_info->m_component_registry_name);

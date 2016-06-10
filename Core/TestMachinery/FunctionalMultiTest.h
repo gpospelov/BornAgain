@@ -16,7 +16,7 @@
 #ifndef FUNCTIONALMULTITEST_H
 #define FUNCTIONALMULTITEST_H
 
-#include "IFunctionalTest.h"
+#include "IFutest.h"
 #include <vector>
 
 class FutestSuite;
@@ -26,7 +26,7 @@ class FutestSuite;
 //! @brief Functional multi test constructs the collection of standard functional tests
 //! using component service, runs them one-by-one, and then reports results in a single table.
 
-class BA_CORE_API_ FunctionalMultiTest : public IFunctionalTest
+class BA_CORE_API_ FunctionalMultiTest : public IFutest
 {
 public:
     FunctionalMultiTest(const std::string &name, FutestSuite& service);
@@ -38,7 +38,7 @@ public:
 
 private:
     FutestSuite& m_service;
-    std::vector<IFunctionalTest*> m_tests;
+    std::vector<IFutest*> m_tests;
 };
 
 #endif

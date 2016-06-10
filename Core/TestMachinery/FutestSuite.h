@@ -30,12 +30,12 @@
 class BA_CORE_API_ FutestSuite : public INamed
 {
 public:
-    typedef class IFunctionalTest* (*get_futest_t) (const FutestSuite*);
+    typedef class IFutest* (*get_futest_t) (const FutestSuite*);
     FutestSuite(const std::string& name, get_futest_t functionalTest);
     virtual ~FutestSuite();
 
     int execute(int argc, char** argv);
-    class IFunctionalTest* getFunctionalTest() const { return (*m_functionalTest)(this); }
+    class IFutest* getFutest() const { return (*m_functionalTest)(this); }
     virtual class IFormFactor* getFormFactor() const;
     virtual class IFTDistribution2D* getFTDistribution2D() const;
     virtual class GISASSimulation* getSimulation() const;
@@ -47,14 +47,14 @@ public:
     std::string getCurrentComponentName() const;
 
     std::string getReferenceFileName() const;
-    const class FunctionalTestInfo* getTestInfo() const { return m_info; }
+    const class FutestInfo* getTestInfo() const { return m_info; }
 
     void init_subtest_registry(const std::string& registry_name);
     std::string getTestName() const;
     std::string getTestDescription() const;
     double getTestThreshold() const;
 
-    const class FunctionalTestInfo* m_info;
+    const class FutestInfo* m_info;
     class IFormFactor* m_formfactor;
     class IFTDistribution2D* m_ft_distribution_2d;
 

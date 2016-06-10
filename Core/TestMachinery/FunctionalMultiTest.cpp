@@ -14,17 +14,17 @@
 // ************************************************************************** //
 
 #include "FunctionalMultiTest.h"
-#include "FunctionalTestInfo.h"
+#include "FutestInfo.h"
 #include "FutestSuite.h"
 
 FunctionalMultiTest::FunctionalMultiTest(const std::string& name,
                                          FutestSuite& service)
-    : IFunctionalTest(name, service.getTestInfo()->m_test_description)
+    : IFutest(name, service.getTestInfo()->m_test_description)
     , m_service(service)
 {
    for (size_t i = 0; i < m_service.getNumberOfComponents(); ++i) {
         m_service.initComponent(i);
-        m_tests.push_back( m_service.getFunctionalTest() );
+        m_tests.push_back( m_service.getFutest() );
    }
 }
 

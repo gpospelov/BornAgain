@@ -1,0 +1,15 @@
+Collection of C++ and Python functional tests for BornAgain libraries
+
+Tests are compiled and executed automatically when the whole project
+is build with 'check' target:
+  cmake; make check
+
+Content:
+  ./TestCore    - C++ tests of libBornAgainCore library using variety of scattering geometries and experimental settings
+  ./TestPyCore  - same for Python
+  ./TestFit     - C++ tests of libBornAgainFit library using different fitting strategies
+  ./TestPyFit   - same for Python
+  ./TestGUI     - testing of GUI functionality on model side
+
+See also:
+  http://apps.jcns.fz-juelich.de/redmine/projects/bornagain/wiki/Creation_of_new_functional_test

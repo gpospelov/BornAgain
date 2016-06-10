@@ -1788,11 +1788,9 @@ class INamed(_object):
     def __init__(self, *args):
         """
         __init__(INamed self) -> INamed
-        __init__(INamed self, std::string name) -> INamed
+        __init__(INamed self, std::string const & name) -> INamed
 
-        INamed::INamed(std::string name)
-
-        Constructor that sets the  name. 
+        INamed::INamed(const std::string &name)
 
         """
         if self.__class__ == INamed:
@@ -1811,9 +1809,7 @@ class INamed(_object):
         """
         getName(INamed self) -> std::string
 
-        std::string INamed::getName() const
-
-        Returns the name. 
+        std::string INamed::getName() const 
 
         """
         return _libBornAgainCore.INamed_getName(self)

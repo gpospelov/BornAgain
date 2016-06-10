@@ -40,62 +40,34 @@ public:
     void setValue(double value);
 
     //! Returns value of wrapped parameter
-    double getValue() const;
+    double getValue() const { checkNull(); return *m_data; }
 
     //! Returns true if wrapped parameter was not initialized with proper real value
-    bool isNull() const;
+    bool isNull() const { return m_data ? false : true; }
 
     //! throw exception if parameter was not initialized with proper value
-    void checkNull() const;
+    void checkNull() const {
+        if(isNull())
+            throw NullPointerException(
+                "RealParameterWrapper::getValue() -> Attempt to access uninitialised pointer.");
+    }
 
     //! Prints the parameter's address to an output stream
-    friend std::ostream& operator<<(std::ostream& ostr, const RealParameterWrapper& p);
+    friend std::ostream& operator<<(std::ostream& ostr, const RealParameterWrapper& p) {
+        ostr << p.m_data; return ostr; }
 
     AttLimits getAttLimits() const { return m_limits; }
 
-    bool operator==(const RealParameterWrapper &other) const;
-    bool operator!=(const RealParameterWrapper &other) const;
+    bool operator==(const RealParameterWrapper &other) const {
+        return (m_limits == other.m_limits) && (m_data == other.m_data); }
+    bool operator!=(const RealParameterWrapper &other) const { return !(*this == other); }
 
 private:
-    //! swap function
     void swapContent(RealParameterWrapper& other);
 
     IParameterized* m_parent; //!< IParametrized object that "owns" this pool
-    volatile double *m_data;
+    volatile double* m_data;
     AttLimits m_limits;
 };
-
-inline double RealParameterWrapper::getValue() const
-{
-    checkNull();
-    return *m_data;
-}
-
-inline bool RealParameterWrapper::isNull() const
-{
-    return (m_data ? false : true);
-}
-
-inline void RealParameterWrapper::checkNull() const
-{
-    if(isNull())
-        throw NullPointerException(
-                "RealParameterWrapper::getValue() -> Attempt to access uninitialised pointer.");
-}
-
-inline std::ostream &operator<<(std::ostream &ostr, const RealParameterWrapper &p)
-{
-    ostr << p.m_data; return ostr;
-}
-
-inline bool RealParameterWrapper::operator==(const RealParameterWrapper &other) const
-{
-    return (m_limits == other.m_limits) && (m_data == other.m_data);
-}
-
-inline bool RealParameterWrapper::operator!=(const RealParameterWrapper &other) const
-{
-    return !(*this == other);
-}
 
 #endif // REALPARAMETERPROXY_H

@@ -7405,7 +7405,7 @@ C++ includes: IObserver.h
 %feature("docstring")  IObserver::~IObserver "virtual IObserver::~IObserver()
 ";
 
-%feature("docstring")  IObserver::notify "void IObserver::notify(IObservable *subject)
+%feature("docstring")  IObserver::notify "virtual void IObserver::notify(IObservable *subject)=delete
 
 method which is used by observable subject to notify change in status 
 ";
@@ -15215,9 +15215,6 @@ global helper function for comparison of axes
 
 
 // File: ICloneable_8h.xml
-
-
-// File: IFactory_8cpp.xml
 
 
 // File: IFactory_8h.xml

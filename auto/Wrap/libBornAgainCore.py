@@ -14977,6 +14977,9 @@ class IObserver(_object):
     __setattr__ = lambda self, name, value: _swig_setattr(self, IObserver, name, value)
     __swig_getmethods__ = {}
     __getattr__ = lambda self, name: _swig_getattr(self, IObserver, name)
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
     __swig_destroy__ = _libBornAgainCore.delete_IObserver
     __del__ = lambda self: None
@@ -14985,30 +14988,13 @@ class IObserver(_object):
         """
         notify(IObserver self, IObservable subject)
 
-        void IObserver::notify(IObservable *subject)
+        virtual void IObserver::notify(IObservable *subject)=delete
 
         method which is used by observable subject to notify change in status 
 
         """
         return _libBornAgainCore.IObserver_notify(self, subject)
 
-
-    def __init__(self):
-        """
-        __init__(IObserver self) -> IObserver
-
-
-
-        Observer interface from Observer pattern, for 1:n object dependencies.
-
-        C++ includes: IObserver.h
-
-        """
-        this = _libBornAgainCore.new_IObserver()
-        try:
-            self.this.append(this)
-        except:
-            self.this = this
 IObserver_swigregister = _libBornAgainCore.IObserver_swigregister
 IObserver_swigregister(IObserver)
 

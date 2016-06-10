@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef IPARAMETERIZED_H_
-#define IPARAMETERIZED_H_
+#ifndef IPARAMETERIZED_H
+#define IPARAMETERIZED_H
 
 #include "INamed.h"
 #include "ParameterPool.h"
@@ -29,38 +29,41 @@ class BA_CORE_API_ IParameterized : public INamed
 {
 public:
     IParameterized() : m_parameters(this) {}
-    IParameterized(const std::string &name) : INamed(name), m_parameters(this) {}
-    IParameterized(const IParameterized &other) : INamed(other), m_parameters(this) {}
-    IParameterized& operator=(const IParameterized &other);
+    IParameterized(const std::string& name) : INamed(name), m_parameters(this) {}
+    IParameterized(const IParameterized& other) : INamed(other), m_parameters(this) {}
+    IParameterized& operator=(const IParameterized& other);
 
     virtual ~IParameterized() {}
 
     //! Returns pointer to the parameter pool.
-    const ParameterPool* getParameterPool() const;
+    const ParameterPool* getParameterPool() const { return &m_parameters; }
 
     //! Creates new parameter pool, with all local parameters and those of its children.
     ParameterPool* createParameterTree();
 
-    void printParameters(); // const;
+    void printParameters();
 
     //! Register parameter address in the parameter pool
-    void registerParameter(const std::string &name, double *parpointer,
-                           const AttLimits &limits = AttLimits::limitless());
+    void registerParameter(const std::string& name, double* parpointer,
+                           const AttLimits& limits = AttLimits::limitless()) {
+        m_parameters.registerParameter(name, parpointer, limits); }
 
     //! Sets the value of the parameter with the given name.
-    void setParameterValue(const std::string &name, double value);
+    void setParameterValue(const std::string& name, double value);
 
     //! Returns parameter wrapper named _name_.
     RealParameterWrapper getParameter(const std::string& name) const
     { return getParameterPool()->getParameter(name); }
 
     //! Clears the parameter pool.
-    void clearParameterPool();
+    void clearParameterPool() { m_parameters.clear(); }
 
-    friend std::ostream& operator<<(std::ostream& ostr, const IParameterized& m);
+    friend std::ostream& operator<<(std::ostream& ostr, const IParameterized& m) {
+        m.print(ostr);
+        return ostr; }
 
     //! Adds parameters from local pool to external pool and recursively calls its direct children.
-    virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool,
+    virtual std::string addParametersToExternalPool(std::string path, ParameterPool* external_pool,
                                                     int copy_number = -1) const;
 
 protected:
@@ -83,37 +86,15 @@ protected:
 class BA_CORE_API_ ParameterPattern
 {
 public:
-    ParameterPattern();
-    ParameterPattern(std::string root_object);
+    ParameterPattern() {}
+    ParameterPattern(std::string root_object) : m_pattern ( "/" + root_object ) {}
 
     ParameterPattern& beginsWith(std::string start_type);
     ParameterPattern& add(std::string object_type);
 
-    std::string toStdString() const;
+    std::string toStdString() const { return m_pattern; }
 private:
     std::string m_pattern;
 };
 
-inline const ParameterPool* IParameterized::getParameterPool() const
-{
-    return &m_parameters;
-}
-
-inline void IParameterized::registerParameter(const std::string &name, double *parpointer,
-                                              const AttLimits &limits)
-{
-    m_parameters.registerParameter(name, parpointer, limits);
-}
-
-inline void IParameterized::clearParameterPool()
-{
-    m_parameters.clear();
-}
-
-inline std::ostream& operator<<(std::ostream &ostr, const IParameterized &m)
-{
-    m.print(ostr);
-    return ostr;
-}
-
-#endif /* IPARAMETERIZED_H_ */
+#endif // IPARAMETERIZED_H

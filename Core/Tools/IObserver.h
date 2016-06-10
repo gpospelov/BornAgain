@@ -20,7 +20,6 @@
 #include <list>
 #include <memory>
 
-
 class IObservable;
 
 //! @class IObserver
@@ -32,7 +31,7 @@ public:
     virtual ~IObserver() {}
 
     //! method which is used by observable subject to notify change in status
-    virtual void notify (IObservable* subject);
+    virtual void notify (IObservable* subject) = 0;
 };
 
 //! @class IObservable
@@ -42,8 +41,8 @@ public:
 class BA_CORE_API_ IObservable {
 public:
     // Shared pointer is used when passing these objects from python to c++
-    typedef std::shared_ptr<IObserver > observer_t;
-    typedef std::list<observer_t > observerlist_t;
+    typedef std::shared_ptr<IObserver> observer_t;
+    typedef std::list<observer_t> observerlist_t;
 
     virtual ~IObservable() {}
 
@@ -57,10 +56,4 @@ private:
     observerlist_t m_observers;
 };
 
-inline void IObserver::notify(IObservable *) {
-    throw NotImplementedException("IObserver::update() -> Not implemented");
-}
-
 #endif // IOBSERVER_H
-
-

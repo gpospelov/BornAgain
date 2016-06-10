@@ -28,8 +28,8 @@
 //! @class FutestSuite
 //! @brief To execute one functional test of given name.
 
-//! Used in functional tests CoreSuite, PydumpSuite, GUISuite, where it is
-//! subclassed as a singleton. The only call is instance().execute(argc, argv).
+//! Used in functional tests (Core|Pydump|GUI)Suite, where it is subclassed
+//! as a singleton, and called through instance().execute(argc, argv).
 
 //! When processing execute, dependent classes will call back getFutest().
 //! Certain tests have subtests; they will call back getFormFactor() etc.
@@ -41,8 +41,8 @@ public:
     virtual ~FutestSuite();
 
     int execute(int argc, char** argv);
-    virtual class IFutest* getFutest() const = 0;
 
+    virtual class IFutest* getFutest() const = 0; //!< overloaded in (Core|Pydump|GUI)Suite.cpp
     virtual class IFormFactor* getFormFactor() const;
     virtual class IFTDistribution2D* getFTDistribution2D() const;
 
@@ -64,7 +64,6 @@ protected:
 
     class TestFormFactorsRegistry* m_ff_registry;
     class TestFTDistribution2DRegistry* m_ft2d_registry;
-    size_t m_current_component;
     std::string m_subtest_name;
 };
 

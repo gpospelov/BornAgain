@@ -33,7 +33,6 @@ FutestSuite::FutestSuite()
     , m_ft_distribution_2d(0)
     , m_ff_registry(0)
     , m_ft2d_registry(0)
-    , m_current_component(0)
 {
 }
 
@@ -59,7 +58,6 @@ int FutestSuite::execute(int argc, char** argv) {
 
     // initialize subtest registry
     std::vector<std::string> subtest_names;
-    m_current_component = 0;
     if       (m_info->m_subtest_type == "None") {
         subtest_names.push_back("Default");
     } else if(m_info->m_subtest_type == "FormFactorsRegistry") {
@@ -76,7 +74,6 @@ int FutestSuite::execute(int argc, char** argv) {
     // run and analyze subtests
     int number_of_failed_tests = 0;
     for (size_t i = 0; i < n_subtests; ++i) {
-        m_current_component = i;
         m_subtest_name = subtest_names[i];
         if(m_ff_registry) {
             delete m_formfactor;

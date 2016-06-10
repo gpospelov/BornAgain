@@ -95,6 +95,7 @@ void SimulationDataSelectorWidget::setApplicationModels(ApplicationModels *appli
 const MultiLayerItem *SimulationDataSelectorWidget::selectedMultiLayerItem() const
 {
     auto items = m_applicationModels->sampleModel()->topItems();
+    if(items.isEmpty()) return nullptr;
     return dynamic_cast<const MultiLayerItem *>(items.at(selectedSampleIndex()));
 }
 
@@ -104,6 +105,7 @@ const MultiLayerItem *SimulationDataSelectorWidget::selectedMultiLayerItem() con
 const InstrumentItem *SimulationDataSelectorWidget::selectedInstrumentItem() const
 {
     auto items = m_applicationModels->instrumentModel()->topItems();
+    if(items.isEmpty()) return nullptr;
     return dynamic_cast<const InstrumentItem *>(items.at(selectedInstrumentIndex()));
 }
 
@@ -113,6 +115,7 @@ const InstrumentItem *SimulationDataSelectorWidget::selectedInstrumentItem() con
 const RealDataItem *SimulationDataSelectorWidget::selectedRealDataItem() const
 {
     auto items = m_applicationModels->realDataModel()->topItems();
+    if(items.isEmpty()) return nullptr;
     if(selectedRealDataIndex() >=0 && selectedRealDataIndex()<items.size()) {
         return dynamic_cast<const RealDataItem *>(items.at(selectedRealDataIndex()));
     }

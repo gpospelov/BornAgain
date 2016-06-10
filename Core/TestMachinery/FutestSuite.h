@@ -36,8 +36,11 @@ public:
 
     int execute(int argc, char** argv);
     virtual class IFutest* getFutest() const = 0;
+
     virtual class IFormFactor* getFormFactor() const;
     virtual class IFTDistribution2D* getFTDistribution2D() const;
+
+protected:
     virtual class GISASSimulation* getSimulation() const;
     virtual std::shared_ptr<class ISampleBuilder> getSampleBuilder() const;
     virtual OutputData<double>* getReferenceData() const;

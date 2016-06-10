@@ -22238,37 +22238,37 @@ class SampleBuilderFactory(_object):
 SampleBuilderFactory_swigregister = _libBornAgainCore.SampleBuilderFactory_swigregister
 SampleBuilderFactory_swigregister(SampleBuilderFactory)
 
-class SimulationRegistry(_object):
+class SimulationFactory(_object):
     """
 
 
     Registry to create standard pre-defined simulations. Used in functional tests, performance measurements, etc.
 
-    C++ includes: SimulationRegistry.h
+    C++ includes: SimulationFactory.h
 
     """
     __swig_setmethods__ = {}
-    __setattr__ = lambda self, name, value: _swig_setattr(self, SimulationRegistry, name, value)
+    __setattr__ = lambda self, name, value: _swig_setattr(self, SimulationFactory, name, value)
     __swig_getmethods__ = {}
-    __getattr__ = lambda self, name: _swig_getattr(self, SimulationRegistry, name)
+    __getattr__ = lambda self, name: _swig_getattr(self, SimulationFactory, name)
     __repr__ = _swig_repr
 
     def __init__(self):
         """
-        __init__(SimulationRegistry self) -> SimulationRegistry
+        __init__(SimulationFactory self) -> SimulationFactory
 
-        SimulationRegistry::SimulationRegistry()
+        SimulationFactory::SimulationFactory()
 
         """
-        this = _libBornAgainCore.new_SimulationRegistry()
+        this = _libBornAgainCore.new_SimulationFactory()
         try:
             self.this.append(this)
         except:
             self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_SimulationRegistry
+    __swig_destroy__ = _libBornAgainCore.delete_SimulationFactory
     __del__ = lambda self: None
-SimulationRegistry_swigregister = _libBornAgainCore.SimulationRegistry_swigregister
-SimulationRegistry_swigregister(SimulationRegistry)
+SimulationFactory_swigregister = _libBornAgainCore.SimulationFactory_swigregister
+SimulationFactory_swigregister(SimulationFactory)
 
 # This file is compatible with both classic and new-style classes.
 

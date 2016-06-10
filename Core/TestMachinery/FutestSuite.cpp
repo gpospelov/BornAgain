@@ -81,13 +81,12 @@ int FutestSuite::execute_subtests()
     // run and analyze subtests
     int number_of_failed_tests = 0;
     for (size_t i = 0; i < n_subtests; ++i) {
-        subtest_name = subtest_names[i];
-        m_test_name = m_info->m_test_name + "_" + subtest_name;
-        m_subtest_item = subtest_registry->getItem(subtest_name);
+        m_test_name = m_info->m_test_name + "_" + subtest_names[i];
+        m_subtest_item = subtest_registry->getItem(subtest_names[i]);
 
         IFutest* subtest( getFutest() );
         std::cout << "FutestSuite::execute() -> " << getName()
-                  << " " << i+1 << "/" << n_subtests << " (" << subtest_name << ")\n";
+                  << " " << i+1 << "/" << n_subtests << " (" << subtest_names[i] << ")\n";
         subtest->runTest();
         subtest->analyseResults();
         std::cout << *subtest << "\n";

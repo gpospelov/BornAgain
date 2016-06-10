@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      StandardSamples/TestComponentsRegistry.cpp
-//! @brief     Implements different registries for functional test component service.
+//! @file      StandardSamples/SubtestRegistry.cpp
+//! @brief     Implements different registries for subtests of functional tests.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -15,10 +15,12 @@
 
 #include "BornAgainNamespace.h"
 #include "FormFactors.h"
-#include "TestComponentsRegistry.h"
+#include "SubtestRegistry.h"
 
 
+// ************************************************************************** //
 TestFTDistribution2DRegistry::TestFTDistribution2DRegistry()
+// ************************************************************************** //
 {
     add(BornAgain::FTDistribution2DCauchyType, new FTDistribution2DCauchy(0.5, 1.0));
     add(BornAgain::FTDistribution2DGaussType, new FTDistribution2DGauss(0.5, 1.0));
@@ -27,9 +29,10 @@ TestFTDistribution2DRegistry::TestFTDistribution2DRegistry()
     add(BornAgain::FTDistribution2DVoigtType, new FTDistribution2DVoigt(0.5, 1.0, 0.2));
 }
 
-// ----------------------------------------------------------------------------
 
+// ************************************************************************** //
 TestFormFactorsRegistry::TestFormFactorsRegistry()
+// ************************************************************************** //
 {
     add(BornAgain::FFAnisoPyramidType,
         new FormFactorAnisoPyramid(10.0, 20.0, 5.0, Units::deg2rad(54.73 )));

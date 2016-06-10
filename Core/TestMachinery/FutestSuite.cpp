@@ -19,7 +19,7 @@
 #include "FutestRegistry.h"
 #include "SimulationRegistry.h"
 #include "SampleBuilderFactory.h"
-#include "TestComponentsRegistry.h"
+#include "SubtestRegistry.h"
 #include "Exceptions.h"
 #include "IFormFactor.h"
 #include "IntensityDataIOFactory.h"

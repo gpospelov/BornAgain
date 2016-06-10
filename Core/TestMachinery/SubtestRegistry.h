@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      StandardSamples/TestComponentsRegistry.h
-//! @brief     Declares different registries for functional test component service.
+//! @file      StandardSamples/SubtestRegistry.h
+//! @brief     Declares different registries for subtests of functional tests.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -20,9 +20,10 @@
 #include "IFormFactor.h"
 #include "FTDistributions.h"
 
+// ************************************************************************** //
 //! @class TestFTDistribution2DRegistry
-//! @ingroup standard_samples
-//! @brief Registry with predifined fourier transformed distributions for functional tests purpose.
+//! @brief Registry with predefined Fourier transformed distributions, for functional tests.
+// ************************************************************************** //
 
 class TestFTDistribution2DRegistry : public ICloneableRegistry<IFTDistribution2D>
 {
@@ -30,10 +31,10 @@ public:
     TestFTDistribution2DRegistry();
 };
 
-
+// ************************************************************************** //
 //! @class TestFormFactorsRegistry
-//! @ingroup standard_samples
-//! @brief Registry with predifined form factors for functional tests purpose.
+//! @brief Registry with predefined form factors, for functional tests.
+// ************************************************************************** //
 
 class TestFormFactorsRegistry : public ICloneableRegistry<IFormFactor>
 {

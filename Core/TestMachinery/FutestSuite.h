@@ -61,7 +61,6 @@ protected:
     const class FutestInfo* m_info;
     class IFormFactor* m_formfactor;
     class IFTDistribution2D* m_ft_distribution_2d;
-
     class TestFormFactorsRegistry* m_ff_registry;
     class TestFTDistribution2DRegistry* m_ft2d_registry;
     std::string m_subtest_name;

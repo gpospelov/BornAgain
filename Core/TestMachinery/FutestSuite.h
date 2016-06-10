@@ -43,12 +43,10 @@ public:
     virtual OutputData<double>* getReferenceData() const;
 
     size_t getNumberOfComponents() const { return m_component_names.size(); }
-    void initComponent(size_t component_index);
 
     std::string getReferenceFileName() const;
     const class FutestInfo* getTestInfo() const { return m_info; }
 
-    void init_subtest_registry(const std::string& registry_name);
     std::string getTestName() const;
     std::string getTestDescription() const;
     double getTestThreshold() const;

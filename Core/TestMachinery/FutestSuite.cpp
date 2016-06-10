@@ -60,12 +60,35 @@ int FutestSuite::execute(int argc, char** argv) {
     if( !m_info )
         return 1;
 
-    init_subtest_registry(m_info->m_component_registry_name);
+    // initialize subtest registry
+    m_component_names.clear();
+    m_current_component = 0;
+    if       (m_info->m_subtest_type == "None") {
+        m_component_names.push_back("Default");
+    } else if(m_info->m_subtest_type == "FormFactorsRegistry") {
+        m_ff_registry = new TestFormFactorsRegistry;
+        m_component_names = m_ff_registry->getNames();
+    } else if(m_info->m_subtest_type == "FTDistributions2DRegistry") {
+        m_ft2d_registry = new TestFTDistribution2DRegistry;
+        m_component_names = m_ft2d_registry->getNames();
+    } else
+        throw RuntimeErrorException("FutestSuite -> Error. "
+                                    "Unknown factory '"+m_info->m_subtest_type+"'.");
 
+    // run and analyze subtests
     size_t n_subtests = getNumberOfComponents();
     int number_of_failed_tests = 0;
     for (size_t i = 0; i < n_subtests; ++i) {
-        initComponent(i);
+        m_current_component = i;
+        if(m_ff_registry) {
+            delete m_formfactor;
+            m_formfactor = m_ff_registry->createItem(m_component_names[i]);
+        }
+        if(m_ft2d_registry) {
+            delete m_ft_distribution_2d;
+            m_ft_distribution_2d = m_ft2d_registry->createItem(m_component_names[i]);
+        }
+
         IFutest* subtest( getFutest() );
         std::cout << "FutestSuite::execute() -> " << getName()
                   << " " << i+1 << "/" << n_subtests
@@ -77,10 +100,10 @@ int FutestSuite::execute(int argc, char** argv) {
         std::cout << *subtest << "\n";
     }
 
+    // report overall result
     if (n_subtests > 1)
         std::cout << "summary: " << number_of_failed_tests << " of " << n_subtests <<
             " subtests failed\n";
-
     return number_of_failed_tests>0;
 }
 
@@ -132,20 +155,6 @@ OutputData<double>* FutestSuite::getReferenceData() const
     return result;
 }
 
-void FutestSuite::initComponent(size_t component_index)
-{
-    assert(component_index < getNumberOfComponents());
-    m_current_component = component_index;
-    if(m_ff_registry) {
-        delete m_formfactor;
-        m_formfactor = m_ff_registry->createItem(m_component_names[component_index]);
-    }
-    if(m_ft2d_registry) {
-        delete m_ft_distribution_2d;
-        m_ft_distribution_2d = m_ft2d_registry->createItem(m_component_names[component_index]);
-    }
-}
-
 std::string FutestSuite::getReferenceFileName() const
 {
     std::string result("ref_");
@@ -154,28 +163,6 @@ std::string FutestSuite::getReferenceFileName() const
         result += std::string("_")+m_component_names[m_current_component];
     result += std::string(".int.gz");
     return result;
-}
-
-void FutestSuite::init_subtest_registry(const std::string& registry_name)
-{
-    m_component_names.clear();
-    m_current_component = 0;
-
-    std::cout << "FutestSuite::init_registry() ->" << registry_name << std::endl;
-    if       (registry_name == "None") {
-        m_component_names.push_back("Default");
-
-    } else if(registry_name == "FormFactorsRegistry") {
-        m_ff_registry = new TestFormFactorsRegistry;
-        m_component_names = m_ff_registry->getNames();
-
-    } else if(registry_name == "FTDistributions2DRegistry") {
-        m_ft2d_registry = new TestFTDistribution2DRegistry;
-        m_component_names = m_ft2d_registry->getNames();
-
-    } else
-        throw RuntimeErrorException("FutestSuite::init_factory -> Error. "
-                                    "Unknown factory '"+registry_name+"'.");
 }
 
 //! Constructs functional test name corresponding to the current component. The goal is to have

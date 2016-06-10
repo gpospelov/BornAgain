@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      StandardSamples/FutestSuite.h
+//! @file      TestMachinery/FutestSuite.h
 //! @brief     Declares class FutestSuite.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -24,9 +24,15 @@
 #include "OutputData.h"
 #include "ISampleBuilder.h"
 #include "ISingleton.h"
+
 //! @class FutestSuite
-//! @ingroup standard_samples
-//! @brief Contains all necessary information to compose functional test.
+//! @brief To execute one functional test of given name.
+
+//! Used in functional tests CoreSuite, PydumpSuite, GUISuite, where it is
+//! subclassed as a singleton. The only call is instance().execute(argc, argv).
+
+//! When processing execute, dependent classes will call back getFutest().
+//! Certain tests have subtests; they will call back getFormFactor() etc.
 
 class BA_CORE_API_ FutestSuite : public INamed
 {

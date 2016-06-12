@@ -26,7 +26,7 @@ namespace PyGenTools {
         class GISASSimulation* simulation, const std::string& output_filename);
     BA_CORE_API_ std::string getRepresentation(const class IDistribution1D* distribution);
     BA_CORE_API_ std::string getRepresentation(
-        const std::string &indent, const class Geometry::IShape2D* ishape, bool mask_value);
+        const std::string& indent, const class Geometry::IShape2D* ishape, bool mask_value);
     BA_CORE_API_ std::string printBool(double value);
     BA_CORE_API_ std::string printDouble(double input);
     BA_CORE_API_ std::string printNm(double input);

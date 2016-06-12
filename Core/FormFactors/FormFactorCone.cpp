@@ -19,6 +19,10 @@
 #include "MathFunctions.h"
 #include "IntegratorComplex.h"
 
+//! @brief Cone constructor
+//! @param radius of Cone's base
+//! @param height of Cone
+//! @param alpha in radians between base and facet
 FormFactorCone::FormFactorCone(double radius, double height, double alpha)
 {
     setName(BornAgain::FFConeType);

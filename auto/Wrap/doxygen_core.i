@@ -855,18 +855,7 @@ calls the  ISampleVisitor's visit method
 %feature("docstring")  Crystal::getAmbientMaterial "virtual const IMaterial* Crystal::getAmbientMaterial() const 
 ";
 
-%feature("docstring")  Crystal::createTotalFormFactor "IFormFactor * Crystal::createTotalFormFactor(const IFormFactor &meso_crystal_form_factor, const IRotation *p_rotation, kvector_t translation) const
-
-create a total form factor for the mesocrystal with a specific shape and content
-
-Parameters:
------------
-
-meso_crystal_form_factor: 
-the form factor describing the shape of the mesocrystal
-
-ambient_refractive_index: 
-the refractive index of the ambient material The bulk content of the mesocrystal is encapsulated by the  IClusteredParticles object itself 
+%feature("docstring")  Crystal::createTotalFormFactor "IFormFactor * Crystal::createTotalFormFactor(const IFormFactor &meso_crystal_form_factor, const IRotation *p_rotation, kvector_t translation) const 
 ";
 
 %feature("docstring")  Crystal::getTransformedLattice "Lattice Crystal::getTransformedLattice(const IRotation *p_rotation) const 
@@ -1731,13 +1720,16 @@ Pyramid constructor.
 Parameters:
 -----------
 
-base_edge: 
-of one side of Pyramid's square base
+length: 
+of one side of Pyramid's rectangular base
+
+width: 
+of other side of Pyramid's rectangular base
 
 height: 
 of Pyramid
 
-angle: 
+dihedralangle: 
 in radians between base and facet 
 ";
 
@@ -1854,7 +1846,7 @@ of Cone's base
 height: 
 of Cone
 
-angle: 
+alpha: 
 in radians between base and facet 
 ";
 
@@ -5298,21 +5290,12 @@ calls the  ISampleVisitor's visit method
 %feature("docstring")  IClusteredParticles::getAmbientMaterial "virtual const IMaterial* IClusteredParticles::getAmbientMaterial() const =0
 ";
 
-%feature("docstring")  IClusteredParticles::createTotalFormFactor "virtual IFormFactor* IClusteredParticles::createTotalFormFactor(const IFormFactor &meso_crystal_form_factor, const IRotation *p_rotation, kvector_t translation) const
+%feature("docstring")  IClusteredParticles::createTotalFormFactor "virtual IFormFactor* IClusteredParticles::createTotalFormFactor(const IFormFactor &, const IRotation *, translation) const =delete
 
-create a total form factor for the mesocrystal with a specific shape and content
-
-Parameters:
------------
-
-meso_crystal_form_factor: 
-the form factor describing the shape of the mesocrystal
-
-ambient_refractive_index: 
-the refractive index of the ambient material The bulk content of the mesocrystal is encapsulated by the  IClusteredParticles object itself 
+Creates a total form factor for the mesocrystal with a specific shape and content The bulk content of the mesocrystal is encapsulated by the  IClusteredParticles object itself 
 ";
 
-%feature("docstring")  IClusteredParticles::applyRotation "virtual void IClusteredParticles::applyRotation(const IRotation &rotation)
+%feature("docstring")  IClusteredParticles::applyRotation "virtual void IClusteredParticles::applyRotation(const IRotation &)=delete
 
 Composes transformation with existing one. 
 ";
@@ -5732,7 +5715,7 @@ Returns the total volume of the particle of this form factor's shape.
 Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
 
-%feature("docstring")  IFormFactor::setSpecularInfo "void IFormFactor::setSpecularInfo(const ILayerRTCoefficients *p_in_coeffs, const ILayerRTCoefficients *p_out_coeffs)
+%feature("docstring")  IFormFactor::setSpecularInfo "virtual void IFormFactor::setSpecularInfo(const ILayerRTCoefficients *, const ILayerRTCoefficients *)
 
 Sets reflection/transmission info. 
 ";

@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef ICLUSTEREDPARTICLES_H_
-#define ICLUSTEREDPARTICLES_H_
+#ifndef ICLUSTEREDPARTICLES_H
+#define ICLUSTEREDPARTICLES_H
 
 #include "IFormFactor.h"
 #include "ICompositeSample.h"
@@ -31,45 +31,24 @@ public:
     virtual ~IClusteredParticles() {}
 
     //! clone method to allow for polymorphic copying
-    virtual IClusteredParticles *clone() const  = 0;
+    virtual IClusteredParticles* clone() const  = 0;
 
     //! Returns a clone with inverted magnetic fields
-    virtual IClusteredParticles *cloneInvertB() const = 0;
+    virtual IClusteredParticles* cloneInvertB() const = 0;
 
     //! calls the ISampleVisitor's visit method
-    virtual void accept(ISampleVisitor *visitor) const = 0;
+    virtual void accept(ISampleVisitor* visitor) const = 0;
 
     virtual void setAmbientMaterial(const IMaterial& material) = 0;
     virtual const IMaterial* getAmbientMaterial() const = 0;
 
-    //! @brief create a total form factor for the mesocrystal with a specific
-    //! shape and content
-    //! @param meso_crystal_form_factor  the form factor describing the shape
-    //! of the mesocrystal
-    //! @param ambient_refractive_index  the refractive index of the
-    //! ambient material
-    //! The bulk content of the mesocrystal is encapsulated by the
-    //! IClusteredParticles object itself
-    virtual IFormFactor *createTotalFormFactor(const IFormFactor &meso_crystal_form_factor,
-                                               const IRotation *p_rotation,
-                                               kvector_t translation) const
-    {
-        (void)meso_crystal_form_factor;
-        (void)p_rotation;
-        (void)translation;
-        throw NotImplementedException(
-                "IClusteredParticles::createTotalFormFactor() -> NotImplementedException");
-    }
+    //! Creates a total form factor for the mesocrystal with a specific shape and content
+    //! The bulk content of the mesocrystal is encapsulated by the IClusteredParticles object itself
+    virtual IFormFactor* createTotalFormFactor(
+        const IFormFactor&, const IRotation*, kvector_t /*translation*/) const = delete;
 
     //! Composes transformation with existing one
-    virtual void applyRotation(const IRotation& rotation)
-    {
-        (void)rotation;
-        throw NotImplementedException(
-                "IClusteredParticles::applyTransformation() -> NotImplementedException");
-    }
+    virtual void applyRotation(const IRotation&) = delete;
 };
 
-#endif /* ICLUSTEREDNANOPARTICLES_H_ */
-
-
+#endif // ICLUSTEREDNANOPARTICLES_H

@@ -28,9 +28,10 @@ const FormFactorPolyhedron::Topology FormFactorAnisoPyramid::topology = {
     }, false };
 
 //! @brief Pyramid constructor
-//! @param base_edge of one side of Pyramid's square base
+//! @param length of one side of Pyramid's rectangular base
+//! @param width of other side of Pyramid's rectangular base
 //! @param height of Pyramid
-//! @param angle in radians between base and facet
+//! @param dihedralangle in radians between base and facet
 
 FormFactorAnisoPyramid::FormFactorAnisoPyramid(
     double length, double width, double height, double alpha)

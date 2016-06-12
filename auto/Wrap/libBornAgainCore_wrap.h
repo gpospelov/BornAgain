@@ -226,7 +226,7 @@ public:
     virtual complex_t evaluate(WavevectorInfo const &wavevectors) const;
     virtual double getVolume() const;
     virtual double getRadius() const;
-    virtual void setSpecularInfo(ILayerRTCoefficients const *p_in_coeffs, ILayerRTCoefficients const *p_out_coeffs);
+    virtual void setSpecularInfo(ILayerRTCoefficients const *arg0, ILayerRTCoefficients const *arg1);
 
 /* Internal director utilities */
 public:
@@ -290,7 +290,7 @@ public:
     virtual complex_t evaluate(WavevectorInfo const &wavevectors) const;
     virtual double getVolume() const;
     virtual double getRadius() const;
-    virtual void setSpecularInfo(ILayerRTCoefficients const *p_in_coeffs, ILayerRTCoefficients const *p_out_coeffs);
+    virtual void setSpecularInfo(ILayerRTCoefficients const *arg0, ILayerRTCoefficients const *arg1);
     virtual complex_t evaluate_for_q(cvector_t const q) const;
     virtual bool check_initialization() const;
     virtual bool check_initializationSwigPublic() const {

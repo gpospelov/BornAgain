@@ -5055,39 +5055,6 @@ class IClusteredParticles(ICompositeSample):
         """
         return _libBornAgainCore.IClusteredParticles_getAmbientMaterial(self)
 
-
-    def createTotalFormFactor(self, meso_crystal_form_factor, p_rotation, translation):
-        """
-        createTotalFormFactor(IClusteredParticles self, IFormFactor meso_crystal_form_factor, IRotation p_rotation, kvector_t translation) -> IFormFactor
-
-        virtual IFormFactor* IClusteredParticles::createTotalFormFactor(const IFormFactor &meso_crystal_form_factor, const IRotation *p_rotation, kvector_t translation) const
-
-        create a total form factor for the mesocrystal with a specific shape and content
-
-        Parameters:
-        -----------
-
-        meso_crystal_form_factor: 
-        the form factor describing the shape of the mesocrystal
-
-        ambient_refractive_index: 
-        the refractive index of the ambient material The bulk content of the mesocrystal is encapsulated by the  IClusteredParticles object itself 
-
-        """
-        return _libBornAgainCore.IClusteredParticles_createTotalFormFactor(self, meso_crystal_form_factor, p_rotation, translation)
-
-
-    def applyRotation(self, rotation):
-        """
-        applyRotation(IClusteredParticles self, IRotation rotation)
-
-        virtual void IClusteredParticles::applyRotation(const IRotation &rotation)
-
-        Composes transformation with existing one. 
-
-        """
-        return _libBornAgainCore.IClusteredParticles_applyRotation(self, rotation)
-
 IClusteredParticles_swigregister = _libBornAgainCore.IClusteredParticles_swigregister
 IClusteredParticles_swigregister(IClusteredParticles)
 
@@ -5185,18 +5152,7 @@ class Crystal(IClusteredParticles):
         """
         createTotalFormFactor(Crystal self, IFormFactor meso_crystal_form_factor, IRotation p_rotation, kvector_t translation) -> IFormFactor
 
-        IFormFactor * Crystal::createTotalFormFactor(const IFormFactor &meso_crystal_form_factor, const IRotation *p_rotation, kvector_t translation) const
-
-        create a total form factor for the mesocrystal with a specific shape and content
-
-        Parameters:
-        -----------
-
-        meso_crystal_form_factor: 
-        the form factor describing the shape of the mesocrystal
-
-        ambient_refractive_index: 
-        the refractive index of the ambient material The bulk content of the mesocrystal is encapsulated by the  IClusteredParticles object itself 
+        IFormFactor * Crystal::createTotalFormFactor(const IFormFactor &meso_crystal_form_factor, const IRotation *p_rotation, kvector_t translation) const 
 
         """
         return _libBornAgainCore.Crystal_createTotalFormFactor(self, meso_crystal_form_factor, p_rotation, translation)
@@ -7698,16 +7654,16 @@ class IFormFactor(ISample):
         return _libBornAgainCore.IFormFactor_getRadius(self)
 
 
-    def setSpecularInfo(self, p_in_coeffs, p_out_coeffs):
+    def setSpecularInfo(self, arg0, arg1):
         """
-        setSpecularInfo(IFormFactor self, ILayerRTCoefficients const * p_in_coeffs, ILayerRTCoefficients const * p_out_coeffs)
+        setSpecularInfo(IFormFactor self, ILayerRTCoefficients const * arg0, ILayerRTCoefficients const * arg1)
 
-        void IFormFactor::setSpecularInfo(const ILayerRTCoefficients *p_in_coeffs, const ILayerRTCoefficients *p_out_coeffs)
+        virtual void IFormFactor::setSpecularInfo(const ILayerRTCoefficients *, const ILayerRTCoefficients *)
 
         Sets reflection/transmission info. 
 
         """
-        return _libBornAgainCore.IFormFactor_setSpecularInfo(self, p_in_coeffs, p_out_coeffs)
+        return _libBornAgainCore.IFormFactor_setSpecularInfo(self, arg0, arg1)
 
     def __disown__(self):
         self.this.disown()
@@ -8647,13 +8603,16 @@ class FormFactorAnisoPyramid(FormFactorPolyhedron):
         Parameters:
         -----------
 
-        base_edge: 
-        of one side of Pyramid's square base
+        length: 
+        of one side of Pyramid's rectangular base
+
+        width: 
+        of other side of Pyramid's rectangular base
 
         height: 
         of Pyramid
 
-        angle: 
+        dihedralangle: 
         in radians between base and facet 
 
         """
@@ -8909,7 +8868,7 @@ class FormFactorCone(IFormFactorBorn):
         height: 
         of Cone
 
-        angle: 
+        alpha: 
         in radians between base and facet 
 
         """

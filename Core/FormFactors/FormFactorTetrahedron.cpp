@@ -31,7 +31,7 @@ const FormFactorPolyhedron::Topology FormFactorTetrahedron::topology = {
 //! @brief Tetrahedron constructor
 //! @param base_edge of a side of Tetrahedron's base
 //! @param height of Tetrahedron
-//! @param angle in radians between base and facet
+//! @param alpha dihedral angle in radians between base and facet
 
 FormFactorTetrahedron::FormFactorTetrahedron(double base_edge, double height, double alpha)
     : FormFactorPolyhedron()

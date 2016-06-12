@@ -30,9 +30,9 @@ const FormFactorPolyhedron::Topology FormFactorCone6::topology = {
     }, false };
 
 //! Cone6 constructor
-//! @param base_edge of hexagonal base (different from R in IsGisaxs)
+//! @param base_edge of hexagonal base
 //! @param height of Cone6
-//! @param angle in radians between base and facet
+//! @param alpha dihedral angle in radians between base and facet
 FormFactorCone6::FormFactorCone6(double base_edge, double height, double alpha)
     : FormFactorPolyhedron()
     , m_base_edge(base_edge)

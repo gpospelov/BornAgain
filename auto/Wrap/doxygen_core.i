@@ -1731,8 +1731,8 @@ of other side of Pyramid's rectangular base
 height: 
 of Pyramid
 
-dihedralangle: 
-in radians between base and facet 
+alpha: 
+dihedral angle in radians between base and facet 
 ";
 
 %feature("docstring")  FormFactorAnisoPyramid::clone "FormFactorAnisoPyramid * FormFactorAnisoPyramid::clone() const final
@@ -1904,13 +1904,13 @@ Parameters:
 -----------
 
 base_edge: 
-of hexagonal base (different from R in IsGisaxs)
+of hexagonal base
 
 height: 
 of Cone6
 
-angle: 
-in radians between base and facet 
+alpha: 
+dihedral angle in radians between base and facet 
 ";
 
 %feature("docstring")  FormFactorCone6::clone "FormFactorCone6 * FormFactorCone6::clone() const
@@ -1969,30 +1969,12 @@ Returns the (approximate in some cases) radial size of the particle of this form
 
 %feature("docstring")  FormFactorCrystal::evaluate "complex_t FormFactorCrystal::evaluate(const WavevectorInfo &wavevectors) const
 
-Returns scattering amplitude for complex wavevector bin
-
-Parameters:
------------
-
-k_i: 
-incoming wavevector
-
-k_f_bin: 
-outgoing wavevector bin 
+Returns scattering amplitude for complex wavevector bin. 
 ";
 
 %feature("docstring")  FormFactorCrystal::evaluatePol "Eigen::Matrix2cd FormFactorCrystal::evaluatePol(const WavevectorInfo &wavevectors) const
 
-Returns scattering amplitude for matrix interactions
-
-Parameters:
------------
-
-k_i: 
-incoming wavevector
-
-k_f_bin: 
-outgoing wavevector bin 
+Returns scattering amplitude for matrix interactions. 
 ";
 
 %feature("docstring")  FormFactorCrystal::evaluate_for_q "complex_t FormFactorCrystal::evaluate_for_q(const cvector_t q) const
@@ -2146,16 +2128,7 @@ Calls the  ISampleVisitor's visit method.
 
 %feature("docstring")  FormFactorDecoratorDebyeWaller::evaluate "complex_t FormFactorDecoratorDebyeWaller::evaluate(const WavevectorInfo &wavevectors) const
 
-Returns scattering amplitude for complex wavevector bin
-
-Parameters:
------------
-
-k_i: 
-incoming wavevector
-
-k_f_bin: 
-outgoing wavevector bin 
+Returns scattering amplitude for complex wavevector bin. 
 ";
 
 
@@ -2264,30 +2237,12 @@ Returns the (approximate in some cases) radial size of the particle of this form
 
 %feature("docstring")  FormFactorDecoratorMultiPositionFactor::evaluate "complex_t FormFactorDecoratorMultiPositionFactor::evaluate(const WavevectorInfo &wavevectors) const
 
-Returns scattering amplitude for complex wavevector bin
-
-Parameters:
------------
-
-k_i: 
-incoming wavevector
-
-k_f_bin: 
-outgoing wavevector bin 
+Returns scattering amplitude for complex wavevector bin. 
 ";
 
 %feature("docstring")  FormFactorDecoratorMultiPositionFactor::evaluatePol "Eigen::Matrix2cd FormFactorDecoratorMultiPositionFactor::evaluatePol(const WavevectorInfo &wavevectors) const
 
-Returns scattering amplitude for matrix interactions
-
-Parameters:
------------
-
-k_i: 
-incoming wavevector
-
-k_f_bin: 
-outgoing wavevector bin 
+Returns scattering amplitude for matrix interactions. 
 ";
 
 
@@ -2317,30 +2272,12 @@ Calls the  ISampleVisitor's visit method.
 
 %feature("docstring")  FormFactorDecoratorPositionFactor::evaluate "complex_t FormFactorDecoratorPositionFactor::evaluate(const WavevectorInfo &wavevectors) const
 
-Returns scattering amplitude for complex wavevector bin
-
-Parameters:
------------
-
-k_i: 
-incoming wavevector
-
-k_f_bin: 
-outgoing wavevector bin 
+Returns scattering amplitude for complex wavevector bin. 
 ";
 
 %feature("docstring")  FormFactorDecoratorPositionFactor::evaluatePol "Eigen::Matrix2cd FormFactorDecoratorPositionFactor::evaluatePol(const WavevectorInfo &wavevectors) const
 
-Returns scattering amplitude for matrix interactions
-
-Parameters:
------------
-
-k_i: 
-incoming wavevector
-
-k_f_bin: 
-outgoing wavevector bin 
+Returns scattering amplitude for matrix interactions. 
 ";
 
 
@@ -2369,16 +2306,7 @@ Calls the  ISampleVisitor's visit method.
 
 %feature("docstring")  FormFactorDecoratorRotation::evaluate "complex_t FormFactorDecoratorRotation::evaluate(const WavevectorInfo &wavevectors) const
 
-Returns scattering amplitude for complex wavevector bin
-
-Parameters:
------------
-
-k_i: 
-incoming wavevector
-
-k_f_bin: 
-outgoing wavevector bin 
+Returns scattering amplitude for complex wavevector bin. 
 ";
 
 
@@ -2446,16 +2374,7 @@ Sets reflection/transmission info for scalar DWBA simulation.
 
 %feature("docstring")  FormFactorDWBA::evaluate "complex_t FormFactorDWBA::evaluate(const WavevectorInfo &wavevectors) const
 
-Returns scattering amplitude for complex wavevector bin
-
-Parameters:
------------
-
-k_i: 
-incoming wavevector
-
-k_f_bin: 
-outgoing wavevector bin 
+Returns scattering amplitude for complex wavevector bin. 
 ";
 
 
@@ -3075,7 +2994,7 @@ The formfactor for a triangular ripple.
 C++ includes: FormFactorLongRipple2Gauss.h
 ";
 
-%feature("docstring")  FormFactorLongRipple2Gauss::FormFactorLongRipple2Gauss "FormFactorLongRipple2Gauss::FormFactorLongRipple2Gauss(double length, double width, double height, double asymetry)
+%feature("docstring")  FormFactorLongRipple2Gauss::FormFactorLongRipple2Gauss "FormFactorLongRipple2Gauss::FormFactorLongRipple2Gauss(double length, double width, double height, double asymmetry)
 
 FormFactorLongRipple2Gauss constructor.
 
@@ -3139,7 +3058,7 @@ The formfactor for a triangular ripple.
 C++ includes: FormFactorLongRipple2Lorentz.h
 ";
 
-%feature("docstring")  FormFactorLongRipple2Lorentz::FormFactorLongRipple2Lorentz "FormFactorLongRipple2Lorentz::FormFactorLongRipple2Lorentz(double length, double width, double height, double asymetry)
+%feature("docstring")  FormFactorLongRipple2Lorentz::FormFactorLongRipple2Lorentz "FormFactorLongRipple2Lorentz::FormFactorLongRipple2Lorentz(double length, double width, double height, double asymmetry)
 
 FormFactorLongRipple2Lorentz constructor.
 
@@ -3534,7 +3453,7 @@ The formfactor for a triangular ripple.
 C++ includes: FormFactorRipple2.h
 ";
 
-%feature("docstring")  FormFactorRipple2::FormFactorRipple2 "FormFactorRipple2::FormFactorRipple2(double length, double width, double height, double asymetry)
+%feature("docstring")  FormFactorRipple2::FormFactorRipple2 "FormFactorRipple2::FormFactorRipple2(double length, double width, double height, double asymmetry)
 
 Ripple2 constructor.
 
@@ -3734,8 +3653,8 @@ of a side of Tetrahedron's base
 height: 
 of Tetrahedron
 
-angle: 
-in radians between base and facet 
+alpha: 
+dihedral angle in radians between base and facet 
 ";
 
 %feature("docstring")  FormFactorTetrahedron::clone "FormFactorTetrahedron * FormFactorTetrahedron::clone() const
@@ -3761,23 +3680,12 @@ Calls the  ISampleVisitor's visit method.
 // File: classFormFactorTriangle.xml
 %feature("docstring") FormFactorTriangle "
 
-The formfactor of an equilateral triangle, for testing purposes.
+The formfactor of a planar equilateral triangle, for testing purposes.
 
 C++ includes: FormFactorTriangle.h
 ";
 
 %feature("docstring")  FormFactorTriangle::FormFactorTriangle "FormFactorTriangle::FormFactorTriangle(const double base_edge)
-
-Triangle constructor.
-
-Parameters:
------------
-
-base_edge: 
-of hexagonal base
-
-height: 
-of Triangle 
 ";
 
 %feature("docstring")  FormFactorTriangle::clone "FormFactorTriangle * FormFactorTriangle::clone() const
@@ -3795,20 +3703,14 @@ Calls the  ISampleVisitor's visit method.
 
 
 // File: classFormFactorTrivial.xml
-%feature("docstring") FormFactorTrivial "";
+%feature("docstring") FormFactorTrivial "
+
+A uniform formfactor F(q)=1, for development purposes.
+
+C++ includes: FormFactorTrivial.h
+";
 
 %feature("docstring")  FormFactorTrivial::FormFactorTrivial "FormFactorTrivial::FormFactorTrivial()
-
-Cylinder constructor.
-
-Parameters:
------------
-
-radius: 
-of Cylinder's base
-
-height: 
-of Cylinder 
 ";
 
 %feature("docstring")  FormFactorTrivial::clone "FormFactorTrivial * FormFactorTrivial::clone() const
@@ -3851,11 +3753,11 @@ C++ includes: FormFactorTruncatedCube.h
 Parameters:
 -----------
 
-side: 
-length of the full cube
+length: 
+of the full cube
 
-side: 
-length of the trirectangular tetrahedron removed from each vertex of the cube 
+removed_length: 
+as removed from each edge of the cube 
 ";
 
 %feature("docstring")  FormFactorTruncatedCube::clone "FormFactorTruncatedCube * FormFactorTruncatedCube::clone() const final
@@ -3928,20 +3830,6 @@ C++ includes: FormFactorTruncatedSpheroid.h
 ";
 
 %feature("docstring")  FormFactorTruncatedSpheroid::FormFactorTruncatedSpheroid "FormFactorTruncatedSpheroid::FormFactorTruncatedSpheroid(double radius, double height, double height_flattening)
-
-TruncatedSpheroid constructor.
-
-Parameters:
------------
-
-radius: 
-of Truncated Spheroid
-
-height: 
-of Truncated Spheroid
-
-flattening: 
-parameter in vertical direction (full height: 2 x flattening x radius) 
 ";
 
 %feature("docstring")  FormFactorTruncatedSpheroid::~FormFactorTruncatedSpheroid "FormFactorTruncatedSpheroid::~FormFactorTruncatedSpheroid()
@@ -4019,16 +3907,7 @@ Passes the refractive index of the ambient material in which this particle is em
 
 %feature("docstring")  FormFactorWeighted::evaluate "complex_t FormFactorWeighted::evaluate(const WavevectorInfo &wavevectors) const
 
-Returns scattering amplitude for complex wavevector bin
-
-Parameters:
------------
-
-k_i: 
-incoming wavevector
-
-k_f_bin: 
-outgoing wavevector bin 
+Returns scattering amplitude for complex wavevector bin. 
 ";
 
 %feature("docstring")  FormFactorWeighted::evaluatePol "Eigen::Matrix2cd FormFactorWeighted::evaluatePol(const WavevectorInfo &wavevectors) const
@@ -5447,7 +5326,10 @@ Parameters:
 -----------
 
 shape: 
-The shape of mask (Rectangle, Polygon, Line, Ellipse)  The value of mask 
+The shape of mask (Rectangle, Polygon, Line, Ellipse)
+
+mask_value: 
+The value of mask 
 ";
 
 %feature("docstring")  IDetector2D::maskAll "void IDetector2D::maskAll()
@@ -5681,30 +5563,12 @@ Passes the refractive index of the ambient material in which this particle is em
 
 %feature("docstring")  IFormFactor::evaluate "virtual complex_t IFormFactor::evaluate(const WavevectorInfo &wavevectors) const =0
 
-Returns scattering amplitude for complex wavevector bin
-
-Parameters:
------------
-
-k_i: 
-incoming wavevector
-
-k_f_bin: 
-outgoing wavevector bin 
+Returns scattering amplitude for complex wavevector bin. 
 ";
 
 %feature("docstring")  IFormFactor::evaluatePol "Eigen::Matrix2cd IFormFactor::evaluatePol(const WavevectorInfo &wavevectors) const
 
-Returns scattering amplitude for matrix interactions
-
-Parameters:
------------
-
-k_i: 
-incoming wavevector
-
-k_f_bin: 
-outgoing wavevector bin 
+Returns scattering amplitude for matrix interactions. 
 ";
 
 %feature("docstring")  IFormFactor::getVolume "double IFormFactor::getVolume() const
@@ -5749,30 +5613,12 @@ Calls the  ISampleVisitor's visit method.
 
 %feature("docstring")  IFormFactorBorn::evaluate "complex_t IFormFactorBorn::evaluate(const WavevectorInfo &wavevectors) const
 
-Returns scattering amplitude for complex wavevector bin
-
-Parameters:
------------
-
-k_i: 
-incoming wavevector
-
-k_f_bin: 
-outgoing wavevector bin 
+Returns scattering amplitude for complex wavevector bin. 
 ";
 
 %feature("docstring")  IFormFactorBorn::evaluatePol "Eigen::Matrix2cd IFormFactorBorn::evaluatePol(const WavevectorInfo &wavevectors) const
 
-Returns scattering amplitude for matrix interactions
-
-Parameters:
------------
-
-k_i: 
-incoming wavevector
-
-k_f_bin: 
-outgoing wavevector bin 
+Returns scattering amplitude for matrix interactions. 
 ";
 
 %feature("docstring")  IFormFactorBorn::evaluate_for_q "virtual complex_t IFormFactorBorn::evaluate_for_q(const cvector_t q) const =0
@@ -7198,20 +7044,6 @@ C++ includes: InterferenceFunctionRadialParaCrystal.h
 ";
 
 %feature("docstring")  InterferenceFunctionRadialParaCrystal::InterferenceFunctionRadialParaCrystal "InterferenceFunctionRadialParaCrystal::InterferenceFunctionRadialParaCrystal(double peak_distance, double damping_length=0.0)
-
-constructor of radial paracrystal interference function
-
-Parameters:
------------
-
-peak_distance: 
-The distance to the first neighbor peak.
-
-width: 
-Width parameter in the pair correlation function.
-
-m_corr_length: 
-Correlation length of paracrystal. 
 ";
 
 %feature("docstring")  InterferenceFunctionRadialParaCrystal::~InterferenceFunctionRadialParaCrystal "virtual InterferenceFunctionRadialParaCrystal::~InterferenceFunctionRadialParaCrystal()
@@ -7273,12 +7105,12 @@ Evaluates the interference function for a given wavevector transfer (only the re
 
 %feature("docstring")  InterferenceFunctionRadialParaCrystal::setProbabilityDistribution "void InterferenceFunctionRadialParaCrystal::setProbabilityDistribution(const IFTDistribution1D &pdf)
 
-Sets the Fourier transformed probability distribution of the nearest particle 
+Sets the Fourier transformed probability distribution of the nearest particle. 
 ";
 
 %feature("docstring")  InterferenceFunctionRadialParaCrystal::getProbabilityDistribution "const IFTDistribution1D * InterferenceFunctionRadialParaCrystal::getProbabilityDistribution() const
 
-Gets the Fourier transformed probability distribution of the nearest particle 
+Gets the Fourier transformed probability distribution of the nearest particle. 
 ";
 
 %feature("docstring")  InterferenceFunctionRadialParaCrystal::getPeakDistance "double InterferenceFunctionRadialParaCrystal::getPeakDistance() const 
@@ -7970,7 +7802,7 @@ C++ includes: ISelectionRule.h
 
 Builds sample: 2D paracrystal lattice with isotropic pdfs (IsGISAXS example #8)
 
-it completely 
+C++ includes: ParaCrystalBuilder.h
 ";
 
 %feature("docstring")  IsGISAXS08BBuilder::IsGISAXS08BBuilder "IsGISAXS08BBuilder::IsGISAXS08BBuilder()
@@ -9795,7 +9627,7 @@ multiply every item of this output data by value
 
 %feature("docstring")  OutputData::setAxisSizes "void OutputData< T >::setAxisSizes(size_t rank, int *n_dims)
 
-Adds <rank> axes with indicated sizes. 
+Adds 'rank' axes with indicated sizes. 
 ";
 
 %feature("docstring")  OutputData::setRawDataVector "void OutputData< T >::setRawDataVector(const std::vector< T > &data_vector)

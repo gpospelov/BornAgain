@@ -30,7 +30,7 @@ public:
     //! @param width of triangular cross section
     //! @param height of triangular cross section
     //! @param asymmetry length of triangular cross section
-    FormFactorRipple2(double length, double width, double height, double asymetry);
+    FormFactorRipple2(double length, double width, double height, double asymmetry);
 
     virtual ~FormFactorRipple2() { }
 

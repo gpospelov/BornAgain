@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef INTERFERENCEFUNCTIONRADIALPARACRYSTAL_H_
-#define INTERFERENCEFUNCTIONRADIALPARACRYSTAL_H_
+#ifndef INTERFERENCEFUNCTIONRADIALPARACRYSTAL_H
+#define INTERFERENCEFUNCTIONRADIALPARACRYSTAL_H
 
 #include "IInterferenceFunction.h"
 #include "FTDistributions.h"
@@ -29,18 +29,11 @@
 class BA_CORE_API_ InterferenceFunctionRadialParaCrystal : public IInterferenceFunction
 {
 public:
-
-    //! @brief constructor of radial paracrystal interference function
-    //! @param peak_distance  The distance to the first neighbor peak.
-    //! @param width Width parameter in the pair correlation function.
-    //! @param m_corr_length Correlation length of paracrystal.
-    InterferenceFunctionRadialParaCrystal(
-        double peak_distance, double damping_length=0.0);
-
+    InterferenceFunctionRadialParaCrystal(double peak_distance, double damping_length=0.0);
     virtual ~InterferenceFunctionRadialParaCrystal() {}
-    virtual InterferenceFunctionRadialParaCrystal *clone() const;
+    virtual InterferenceFunctionRadialParaCrystal* clone() const;
 
-    virtual void accept(ISampleVisitor *visitor) const;
+    virtual void accept(ISampleVisitor* visitor) const;
 
     //! @brief Sets size of coherence domain
     //! @param size: size in lattice direction
@@ -62,13 +55,11 @@ public:
     //TODO: replace these with strategy pattern for different algorithms
     complex_t FTPDF(double qpar) const;
 
-    //! Sets the Fourier transformed probability distribution of the
-    //! nearest particle
+    //! Sets the Fourier transformed probability distribution of the nearest particle
     void setProbabilityDistribution(const IFTDistribution1D& pdf);
 
-    //! Gets the Fourier transformed probability distribution of the
-    //! nearest particle
-    const IFTDistribution1D *getProbabilityDistribution() const;
+    //! Gets the Fourier transformed probability distribution of the nearest particle
+    const IFTDistribution1D* getProbabilityDistribution() const;
 
     double getPeakDistance() const;
 
@@ -87,4 +78,4 @@ private:
     virtual void init_parameters();
 };
 
-#endif /* INTERFERENCEFUNCTIONRADIALPARACRYSTAL_H_ */
+#endif // INTERFERENCEFUNCTIONRADIALPARACRYSTAL_H

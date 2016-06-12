@@ -1188,5 +1188,7 @@ PERL_PATH              = /usr/bin/perl
 # Configuration options related to the dot tool
 #---------------------------------------------------------------------------
 
+DOT_GRAPH_MAX_NODES = 400
+
 # If the CLASS_DIAGRAMS tag is set to YES doxygen will generate a class diagram
 # (in HTML and LaTeX) for classes with base or super classes.

@@ -98,31 +98,18 @@ void SpecularSimulation::prepareSimulation()
 {
     updateSample();
 
-    if (!m_alpha_i_axis || m_alpha_i_axis->getSize() < 1) {
+    if (!m_alpha_i_axis || m_alpha_i_axis->getSize() < 1)
         throw ClassInitializationException("SpecularSimulation::checkSimulation() "
                                            "-> Error. Incoming alpha range not configured.");
-    }
-    if (m_lambda <= 0.0) {
+    if (m_lambda <= 0.0)
         throw ClassInitializationException("SpecularSimulation::checkSimulation() "
                                            "-> Error. Incoming wavelength <= 0.");
-    }
-
     if (!m_sample)
         throw ClassInitializationException(
             "SpecularSimulation::checkSimulation() -> Error. No sample set");
 
     updateCoefficientDataAxes();
 }
-
-// OutputData<double> *SpecularSimulation::getEvanescentWaveIntensity() const
-//{
-//    if(m_ewave_intensity.getAllocatedSize() == 1)
-//        throw ClassInitializationException("SpecularSimulation::getEvanescentWaveIntensity() ->
-//        Error. No evanescent wave calculations have been performed. Set corresponding axis with
-//        Simulation::setEvanescentWaveAxis.");
-
-//    return m_ewave_intensity.clone();
-//}
 
 void SpecularSimulation::runSimulation()
 {
@@ -264,50 +251,6 @@ void SpecularSimulation::collectRTCoefficientsMatrix(const MultiLayer * /*multil
     throw NotImplementedException(
         "SpecularSimulation::collectRTCoefficientsMatrix() -> Error. Not implemented.");
 }
-
-// void SpecularSimulation::calculateEvanescentWaveIntensity()
-//{
-//    if(!m_z_axis) return;
-
-//    MultiLayer *multilayer = dynamic_cast<MultiLayer *>(m_sample);
-//    const IAxis *alpha_axis = m_ewave_intensity.getAxis(0);
-//    const IAxis *z_axis = m_ewave_intensity.getAxis(1);
-
-//    OutputData<double>::iterator it = m_ewave_intensity.begin();
-//    while (it != m_ewave_intensity.end()) {
-//        std::vector<int> indices =
-//                m_ewave_intensity.toCoordinates(it.getIndex());
-
-//        size_t alpha_index = indices[0];
-//        size_t z_index =  indices[1];
-
-////        double alpha_axis_value = (*alpha_axis)[alpha_index];
-//        double z_axis_value = (*z_axis)[z_index];
-
-//        int i_layer = multilayer->zToLayerIndex(z_axis_value);
-
-//        double depth = multilayer->getLayerThickness(i_layer) -
-//        (z_axis_value-multilayer->getLayerBottomZ(i_layer));
-
-////        std::cout << "alpha_axis_value:" << alpha_axis_value << " z_axis_value:" << z_axis_value
-///<< " i_layer:" << i_layer  << " depth:" << depth<< std::endl;
-
-//        LayerRTCoefficients_t rtcoeff = getLayerRTCoefficients(alpha_index, i_layer);
-
-////        complex_t cvalue = rtcoeff->getScalarT()*std::exp(rtcoeff->getScalarKz()*depth) +
-///rtcoeff->getScalarR()*std::exp(rtcoeff->getScalarKz()*depth);
-////        complex_t cvalue =
-///rtcoeff->getScalarT()*std::exp(std::imag(rtcoeff->getScalarKz())*depth) +
-///rtcoeff->getScalarR()*std::exp(std::imag(rtcoeff->getScalarKz())*depth);
-////        *it = std::abs(cvalue);
-//        double value = 1.0 +
-//            std::abs(rtcoeff->getScalarT())*
-//            std::exp(std::imag(rtcoeff->getScalarKz())*depth*Units::angstrom);
-//        *it = value;
-//        ++it;
-//    }
-
-//}
 
 void SpecularSimulation::checkCoefficients(size_t i_layer) const
 {

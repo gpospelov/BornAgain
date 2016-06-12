@@ -90,10 +90,10 @@ public:
     virtual ISample* buildSample() const;
 };
 
-
-//! @class IsGISAXS08BBuilder TODO remove it completely
+//! @class IsGISAXS08BBuilder
 //! @ingroup standard_samples
 //! @brief Builds sample:  2D paracrystal lattice with isotropic pdfs (IsGISAXS example #8)
+//  TODO remove it completely (why? why not yet done?)
 
 class BA_CORE_API_ IsGISAXS08BBuilder : public ISampleBuilder
 {
@@ -101,8 +101,5 @@ public:
     IsGISAXS08BBuilder(){}
     virtual ISample* buildSample() const;
 };
-
-
-
 
 #endif // PARACRYSTALBUILDER_H

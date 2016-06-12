@@ -119,9 +119,9 @@ void GISASSimulation::setDetectorParameters(const OutputData<double >& output_da
     m_intensity_map.setAllTo(0.);
 }
 
-void GISASSimulation::setDetectorParameters(const IHistogram& hisotgram)
+void GISASSimulation::setDetectorParameters(const IHistogram& histogram)
 {
-    const std::unique_ptr<OutputData<double> > data(hisotgram.createOutputData());
+    const std::unique_ptr<OutputData<double> > data(histogram.createOutputData());
     setDetectorParameters(*data);
 }
 

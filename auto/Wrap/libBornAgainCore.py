@@ -7617,16 +7617,7 @@ class IFormFactor(ISample):
 
         virtual complex_t IFormFactor::evaluate(const WavevectorInfo &wavevectors) const =0
 
-        Returns scattering amplitude for complex wavevector bin
-
-        Parameters:
-        -----------
-
-        k_i: 
-        incoming wavevector
-
-        k_f_bin: 
-        outgoing wavevector bin 
+        Returns scattering amplitude for complex wavevector bin. 
 
         """
         return _libBornAgainCore.IFormFactor_evaluate(self, wavevectors)
@@ -7956,16 +7947,7 @@ class IFormFactorBorn(IFormFactor):
 
         complex_t IFormFactorBorn::evaluate(const WavevectorInfo &wavevectors) const
 
-        Returns scattering amplitude for complex wavevector bin
-
-        Parameters:
-        -----------
-
-        k_i: 
-        incoming wavevector
-
-        k_f_bin: 
-        outgoing wavevector bin 
+        Returns scattering amplitude for complex wavevector bin. 
 
         """
         return _libBornAgainCore.IFormFactorBorn_evaluate(self, wavevectors)
@@ -8614,8 +8596,8 @@ class FormFactorAnisoPyramid(FormFactorPolyhedron):
         height: 
         of Pyramid
 
-        dihedralangle: 
-        in radians between base and facet 
+        alpha: 
+        dihedral angle in radians between base and facet 
 
         """
         this = _libBornAgainCore.new_FormFactorAnisoPyramid(length, width, height, alpha)
@@ -8989,13 +8971,13 @@ class FormFactorCone6(FormFactorPolyhedron):
         -----------
 
         base_edge: 
-        of hexagonal base (different from R in IsGisaxs)
+        of hexagonal base
 
         height: 
         of Cone6
 
-        angle: 
-        in radians between base and facet 
+        alpha: 
+        dihedral angle in radians between base and facet 
 
         """
         this = _libBornAgainCore.new_FormFactorCone6(base_edge, height, alpha)
@@ -9150,16 +9132,7 @@ class FormFactorCrystal(IFormFactorBorn):
 
         complex_t FormFactorCrystal::evaluate(const WavevectorInfo &wavevectors) const
 
-        Returns scattering amplitude for complex wavevector bin
-
-        Parameters:
-        -----------
-
-        k_i: 
-        incoming wavevector
-
-        k_f_bin: 
-        outgoing wavevector bin 
+        Returns scattering amplitude for complex wavevector bin. 
 
         """
         return _libBornAgainCore.FormFactorCrystal_evaluate(self, wavevectors)
@@ -9480,16 +9453,7 @@ class FormFactorDecoratorDebyeWaller(IFormFactorDecorator):
 
         complex_t FormFactorDecoratorDebyeWaller::evaluate(const WavevectorInfo &wavevectors) const
 
-        Returns scattering amplitude for complex wavevector bin
-
-        Parameters:
-        -----------
-
-        k_i: 
-        incoming wavevector
-
-        k_f_bin: 
-        outgoing wavevector bin 
+        Returns scattering amplitude for complex wavevector bin. 
 
         """
         return _libBornAgainCore.FormFactorDecoratorDebyeWaller_evaluate(self, wavevectors)
@@ -10766,11 +10730,11 @@ class FormFactorLongRipple2Gauss(IFormFactorBorn):
     __getattr__ = lambda self, name: _swig_getattr(self, FormFactorLongRipple2Gauss, name)
     __repr__ = _swig_repr
 
-    def __init__(self, length, width, height, asymetry):
+    def __init__(self, length, width, height, asymmetry):
         """
-        __init__(FormFactorLongRipple2Gauss self, double length, double width, double height, double asymetry) -> FormFactorLongRipple2Gauss
+        __init__(FormFactorLongRipple2Gauss self, double length, double width, double height, double asymmetry) -> FormFactorLongRipple2Gauss
 
-        FormFactorLongRipple2Gauss::FormFactorLongRipple2Gauss(double length, double width, double height, double asymetry)
+        FormFactorLongRipple2Gauss::FormFactorLongRipple2Gauss(double length, double width, double height, double asymmetry)
 
         FormFactorLongRipple2Gauss constructor.
 
@@ -10790,7 +10754,7 @@ class FormFactorLongRipple2Gauss(IFormFactorBorn):
         length of triangular cross section 
 
         """
-        this = _libBornAgainCore.new_FormFactorLongRipple2Gauss(length, width, height, asymetry)
+        this = _libBornAgainCore.new_FormFactorLongRipple2Gauss(length, width, height, asymmetry)
         try:
             self.this.append(this)
         except:
@@ -10907,11 +10871,11 @@ class FormFactorLongRipple2Lorentz(IFormFactorBorn):
     __getattr__ = lambda self, name: _swig_getattr(self, FormFactorLongRipple2Lorentz, name)
     __repr__ = _swig_repr
 
-    def __init__(self, length, width, height, asymetry):
+    def __init__(self, length, width, height, asymmetry):
         """
-        __init__(FormFactorLongRipple2Lorentz self, double length, double width, double height, double asymetry) -> FormFactorLongRipple2Lorentz
+        __init__(FormFactorLongRipple2Lorentz self, double length, double width, double height, double asymmetry) -> FormFactorLongRipple2Lorentz
 
-        FormFactorLongRipple2Lorentz::FormFactorLongRipple2Lorentz(double length, double width, double height, double asymetry)
+        FormFactorLongRipple2Lorentz::FormFactorLongRipple2Lorentz(double length, double width, double height, double asymmetry)
 
         FormFactorLongRipple2Lorentz constructor.
 
@@ -10931,7 +10895,7 @@ class FormFactorLongRipple2Lorentz(IFormFactorBorn):
         length of triangular cross section 
 
         """
-        this = _libBornAgainCore.new_FormFactorLongRipple2Lorentz(length, width, height, asymetry)
+        this = _libBornAgainCore.new_FormFactorLongRipple2Lorentz(length, width, height, asymmetry)
         try:
             self.this.append(this)
         except:
@@ -11557,11 +11521,11 @@ class FormFactorRipple2(IFormFactorBorn):
     __getattr__ = lambda self, name: _swig_getattr(self, FormFactorRipple2, name)
     __repr__ = _swig_repr
 
-    def __init__(self, length, width, height, asymetry):
+    def __init__(self, length, width, height, asymmetry):
         """
-        __init__(FormFactorRipple2 self, double length, double width, double height, double asymetry) -> FormFactorRipple2
+        __init__(FormFactorRipple2 self, double length, double width, double height, double asymmetry) -> FormFactorRipple2
 
-        FormFactorRipple2::FormFactorRipple2(double length, double width, double height, double asymetry)
+        FormFactorRipple2::FormFactorRipple2(double length, double width, double height, double asymmetry)
 
         Ripple2 constructor.
 
@@ -11581,7 +11545,7 @@ class FormFactorRipple2(IFormFactorBorn):
         length of triangular cross section 
 
         """
-        this = _libBornAgainCore.new_FormFactorRipple2(length, width, height, asymetry)
+        this = _libBornAgainCore.new_FormFactorRipple2(length, width, height, asymmetry)
         try:
             self.this.append(this)
         except:
@@ -11985,8 +11949,8 @@ class FormFactorTetrahedron(FormFactorPolyhedron):
         height: 
         of Tetrahedron
 
-        angle: 
-        in radians between base and facet 
+        alpha: 
+        dihedral angle in radians between base and facet 
 
         """
         this = _libBornAgainCore.new_FormFactorTetrahedron(base_edge, height, alpha)
@@ -12054,7 +12018,14 @@ FormFactorTetrahedron_swigregister = _libBornAgainCore.FormFactorTetrahedron_swi
 FormFactorTetrahedron_swigregister(FormFactorTetrahedron)
 
 class FormFactorTrivial(IFormFactorBorn):
-    """Proxy of C++ FormFactorTrivial class"""
+    """
+
+
+    A uniform formfactor F(q)=1, for development purposes.
+
+    C++ includes: FormFactorTrivial.h
+
+    """
     __swig_setmethods__ = {}
     for _s in [IFormFactorBorn]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
@@ -12070,17 +12041,6 @@ class FormFactorTrivial(IFormFactorBorn):
         __init__(FormFactorTrivial self) -> FormFactorTrivial
 
         FormFactorTrivial::FormFactorTrivial()
-
-        Cylinder constructor.
-
-        Parameters:
-        -----------
-
-        radius: 
-        of Cylinder's base
-
-        height: 
-        of Cylinder 
 
         """
         this = _libBornAgainCore.new_FormFactorTrivial()
@@ -12175,11 +12135,11 @@ class FormFactorTruncatedCube(FormFactorPolyhedron):
         Parameters:
         -----------
 
-        side: 
-        length of the full cube
+        length: 
+        of the full cube
 
-        side: 
-        length of the trirectangular tetrahedron removed from each vertex of the cube 
+        removed_length: 
+        as removed from each edge of the cube 
 
         """
         this = _libBornAgainCore.new_FormFactorTruncatedCube(length, removed_length)
@@ -12353,20 +12313,6 @@ class FormFactorTruncatedSpheroid(IFormFactorBorn):
         __init__(FormFactorTruncatedSpheroid self, double radius, double height, double height_flattening) -> FormFactorTruncatedSpheroid
 
         FormFactorTruncatedSpheroid::FormFactorTruncatedSpheroid(double radius, double height, double height_flattening)
-
-        TruncatedSpheroid constructor.
-
-        Parameters:
-        -----------
-
-        radius: 
-        of Truncated Spheroid
-
-        height: 
-        of Truncated Spheroid
-
-        flattening: 
-        parameter in vertical direction (full height: 2 x flattening x radius) 
 
         """
         this = _libBornAgainCore.new_FormFactorTruncatedSpheroid(radius, height, height_flattening)
@@ -12552,16 +12498,7 @@ class FormFactorWeighted(IFormFactor):
 
         complex_t FormFactorWeighted::evaluate(const WavevectorInfo &wavevectors) const
 
-        Returns scattering amplitude for complex wavevector bin
-
-        Parameters:
-        -----------
-
-        k_i: 
-        incoming wavevector
-
-        k_f_bin: 
-        outgoing wavevector bin 
+        Returns scattering amplitude for complex wavevector bin. 
 
         """
         return _libBornAgainCore.FormFactorWeighted_evaluate(self, wavevectors)
@@ -14509,7 +14446,10 @@ class IDetector2D(IParameterized):
         -----------
 
         shape: 
-        The shape of mask (Rectangle, Polygon, Line, Ellipse)  The value of mask 
+        The shape of mask (Rectangle, Polygon, Line, Ellipse)
+
+        mask_value: 
+        The value of mask 
 
         """
         return _libBornAgainCore.IDetector2D_addMask(self, shape, mask_value)
@@ -16538,20 +16478,6 @@ class InterferenceFunctionRadialParaCrystal(IInterferenceFunction):
 
         InterferenceFunctionRadialParaCrystal::InterferenceFunctionRadialParaCrystal(double peak_distance, double damping_length=0.0)
 
-        constructor of radial paracrystal interference function
-
-        Parameters:
-        -----------
-
-        peak_distance: 
-        The distance to the first neighbor peak.
-
-        width: 
-        Width parameter in the pair correlation function.
-
-        m_corr_length: 
-        Correlation length of paracrystal. 
-
         """
         this = _libBornAgainCore.new_InterferenceFunctionRadialParaCrystal(peak_distance, damping_length)
         try:
@@ -16677,7 +16603,7 @@ class InterferenceFunctionRadialParaCrystal(IInterferenceFunction):
 
         void InterferenceFunctionRadialParaCrystal::setProbabilityDistribution(const IFTDistribution1D &pdf)
 
-        Sets the Fourier transformed probability distribution of the nearest particle 
+        Sets the Fourier transformed probability distribution of the nearest particle. 
 
         """
         return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_setProbabilityDistribution(self, pdf)
@@ -16689,7 +16615,7 @@ class InterferenceFunctionRadialParaCrystal(IInterferenceFunction):
 
         const IFTDistribution1D * InterferenceFunctionRadialParaCrystal::getProbabilityDistribution() const
 
-        Gets the Fourier transformed probability distribution of the nearest particle 
+        Gets the Fourier transformed probability distribution of the nearest particle. 
 
         """
         return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_getProbabilityDistribution(self)
@@ -19830,7 +19756,7 @@ class IntensityData(_object):
 
         void OutputData< T >::setAxisSizes(size_t rank, int *n_dims)
 
-        Adds <rank> axes with indicated sizes. 
+        Adds 'rank' axes with indicated sizes. 
 
         """
         return _libBornAgainCore.IntensityData_setAxisSizes(self, rank, n_dims)

@@ -25,7 +25,6 @@
 
 IHistogram::IHistogram()
 {
-
 }
 
 IHistogram::IHistogram(const IHistogram &other)
@@ -55,13 +54,13 @@ size_t IHistogram::getTotalNumberOfBins() const
     return m_data.getAllocatedSize();
 }
 
-const IAxis *IHistogram::getXaxis() const
+const IAxis* IHistogram::getXaxis() const
 {
     check_x_axis();
     return m_data.getAxis(0);
 }
 
-const IAxis *IHistogram::getYaxis() const
+const IAxis* IHistogram::getYaxis() const
 {
     check_y_axis();
     return m_data.getAxis(1);
@@ -208,9 +207,7 @@ double IHistogram::getMinimum() const
 
 size_t IHistogram::getMinimumBinIndex() const
 {
-    OutputData<CumulativeValue>::const_iterator it =
-         std::min_element(m_data.begin(), m_data.end());
-    return std::distance(m_data.begin(), it);
+    return std::distance(m_data.begin(), std::min_element(m_data.begin(), m_data.end()) );
 }
 
 void IHistogram::scale(double value)
@@ -229,18 +226,20 @@ double IHistogram::integral() const
     return result;
 }
 
-PyObject *IHistogram::getArray(DataType dataType) const
+#ifdef BORNAGAIN_PYTHON
+PyObject* IHistogram::getArray(DataType dataType) const
 {
     const std::unique_ptr<OutputData<double> > data(createOutputData(dataType));
     return data->getArray();
 }
+#endif // BORNAGAIN_PYTHON
 
 void IHistogram::reset()
 {
     m_data.setAllTo(CumulativeValue());
 }
 
-IHistogram *IHistogram::createHistogram(const OutputData<double> &source)
+IHistogram* IHistogram::createHistogram(const OutputData<double> &source)
 {
     if(source.getRank() == 1) {
         return new Histogram1D(source);
@@ -255,7 +254,7 @@ IHistogram *IHistogram::createHistogram(const OutputData<double> &source)
     }
 }
 
-IHistogram *IHistogram::createFrom(const std::string &filename)
+IHistogram* IHistogram::createFrom(const std::string &filename)
 {
     return IntensityDataIOFactory::readIntensityData(filename);
 }
@@ -340,9 +339,9 @@ void IHistogram::copyContentFrom(const IHistogram &other)
 }
 
 //! creates new OutputData with histogram's shape and put there values corresponding to DataType
-OutputData<double> *IHistogram::createOutputData(IHistogram::DataType dataType) const
+OutputData<double>* IHistogram::createOutputData(IHistogram::DataType dataType) const
 {
-    OutputData<double> *result = new OutputData<double>;
+    OutputData<double>* result = new OutputData<double>;
     result->copyShapeFrom(m_data);
     for(size_t i=0; i<getTotalNumberOfBins(); ++i) {
         (*result)[i] = getBinData(i, dataType);
@@ -373,14 +372,14 @@ const IHistogram &IHistogram::operator+=(const IHistogram &right)
     return *this;
 }
 
-IHistogram *IHistogram::relativeDifferenceHistogram(const IHistogram &rhs)
+IHistogram* IHistogram::relativeDifferenceHistogram(const IHistogram &rhs)
 {
     if(!hasSameDimensions(rhs)) {
         throw LogicErrorException("IHistogram::relativeDifferenceHistogram() -> Error. "
                                   "Histograms have different dimensions");
     }
 
-    IHistogram *result = this->clone();
+    IHistogram* result = this->clone();
     result->reset();
 
     for(size_t i=0; i<getTotalNumberOfBins(); ++i) {

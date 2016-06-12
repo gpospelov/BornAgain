@@ -17,7 +17,10 @@
 #define ROOTSIMANMINIMIZER_H
 
 #include "ROOTMinimizer.h"
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 #include "Math/PatchedGSLSimAnMinimizer.h"
+#pragma GCC diagnostic pop
 
 
 //! @class ROOTSimAnMinimizer

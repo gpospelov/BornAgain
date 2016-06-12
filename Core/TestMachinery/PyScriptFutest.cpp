@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/PyScriptFutest.cpp
+//! @file      Core/TestMachinery/PyScriptFutest.cpp
 //! @brief     Implements class PyScriptFutest
 //!
 //! @homepage  http://www.bornagainproject.org

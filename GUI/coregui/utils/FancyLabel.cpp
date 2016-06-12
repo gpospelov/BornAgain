@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/utils/FancyLabel.cpp
+//! @file      GUI/coregui/utils/FancyLabel.cpp
 //! @brief     Implements class FancyLabel
 //!
 //! @homepage  http://www.bornagainproject.org

@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/mainwindow/SplashScreen.cpp
+//! @file      GUI/coregui/mainwindow/SplashScreen.cpp
 //! @brief     Implements class SplashScreen
 //!
 //! @homepage  http://www.bornagainproject.org

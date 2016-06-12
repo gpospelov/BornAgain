@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      StandardSamples/LatticeBuilder.h
+//! @file      Core/StandardSamples/LatticeBuilder.h
 //! @brief     Declares classes of LatticeBuilder family.
 //!
 //! @homepage  http://www.bornagainproject.org

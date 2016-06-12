@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Algorithms/ParameterSample.h
+//! @file      Core/Algorithms/ParameterSample.h
 //! @brief     Declares class ParameterSample.
 //!
 //! @homepage  http://www.bornagainproject.org

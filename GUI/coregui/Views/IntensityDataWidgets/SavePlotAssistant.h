@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/IntensityDataWidgets/SavePlotAssistant.h
+//! @file      GUI/coregui/Views/IntensityDataWidgets/SavePlotAssistant.h
 //! @brief     Declares class SavePlotAssistant
 //!
 //! @homepage  http://www.bornagainproject.org

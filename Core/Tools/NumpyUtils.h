@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      PythonAPI/NumpyUtils.h
+//! @file      Core/Tools/NumpyUtils.h
 //! @brief     Declares various functions to interact from numpy on Python side
 //!
 //! @homepage  http://bornagainproject.org

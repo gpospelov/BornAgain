@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/ColorProperty.h
+//! @file      GUI/coregui/Models/ColorProperty.h
 //! @brief     Declares class ColorProperty
 //!
 //! @homepage  http://www.bornagainproject.org

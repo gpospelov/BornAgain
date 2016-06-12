@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/InfoWidgets/PySampleWidget.h
+//! @file      GUI/coregui/Views/InfoWidgets/PySampleWidget.h
 //! @brief     Declares class PySampleWidget
 //!
 //! @homepage  http://www.bornagainproject.org

@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tools/MessageService.cpp
+//! @file      Core/Tools/MessageService.cpp
 //! @brief     Implement Logger class.
 //!
 //! @homepage  http://www.bornagainproject.org

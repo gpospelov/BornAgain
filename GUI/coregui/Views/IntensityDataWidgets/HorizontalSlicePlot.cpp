@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/IntensityDataWidgets/HorizontalSlicePlot.cpp
+//! @file      GUI/coregui/Views/IntensityDataWidgets/HorizontalSlicePlot.cpp
 //! @brief     Implements class HorizontalSlicePlot
 //!
 //! @homepage  http://www.bornagainproject.org

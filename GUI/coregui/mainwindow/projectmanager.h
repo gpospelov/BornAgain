@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/mainwindow/projectmanager.h
+//! @file      GUI/coregui/mainwindow/projectmanager.h
 //! @brief     Declares class ProjectManager
 //!
 //! @homepage  http://www.bornagainproject.org

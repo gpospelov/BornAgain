@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      FitKernel/AttLimits.h
+//! @file      Core/Tools/AttLimits.h
 //! @brief     Declares class AttLimits.
 //!
 //! @homepage  http://www.bornagainproject.org

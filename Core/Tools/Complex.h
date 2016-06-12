@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tools/Complex.h
+//! @file      Core/Tools/Complex.h
 //! @brief     Declares complex_t, and a few elementary functions
 //!
 //! @homepage  http://www.bornagainproject.org

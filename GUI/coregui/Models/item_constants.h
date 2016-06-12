@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/item_constants.h
+//! @file      GUI/coregui/Models/item_constants.h
 //! @brief     Declares item constants
 //!
 //! @homepage  http://www.bornagainproject.org

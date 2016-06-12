@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/InfoWidgets/OverlayLabelController.cpp
+//! @file      GUI/coregui/Views/InfoWidgets/OverlayLabelController.cpp
 //! @brief     Implements class OverlayLabelController
 //!
 //! @homepage  http://www.bornagainproject.org

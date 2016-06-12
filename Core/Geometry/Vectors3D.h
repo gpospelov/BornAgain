@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Geometry/Vectors3D.h
+//! @file      Core/Geometry/Vectors3D.h
 //! @brief     Declares basic vectors in R^3 and C^3.
 //!
 //! @homepage  http://www.bornagainproject.org

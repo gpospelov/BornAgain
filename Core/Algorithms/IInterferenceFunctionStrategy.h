@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Algorithms/IInterferenceFunctionStrategy.h
+//! @file      Core/Algorithms/IInterferenceFunctionStrategy.h
 //! @brief     Declares class IInterferenceFunctionStrategy.
 //!
 //! @homepage  http://www.bornagainproject.org

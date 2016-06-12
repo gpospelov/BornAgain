@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/IconProvider.h
+//! @file      GUI/coregui/Models/IconProvider.h
 //! @brief     Declares class IconProvider
 //!
 //! @homepage  http://www.bornagainproject.org

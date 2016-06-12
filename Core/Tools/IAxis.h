@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tools/IAxis.h
+//! @file      Core/Tools/IAxis.h
 //! @brief     Declares class IAxis.
 //!
 //! @homepage  http://www.bornagainproject.org

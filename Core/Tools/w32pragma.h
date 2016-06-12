@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tools/w32pragma.h
+//! @file      Core/Tools/w32pragma.h
 //! @brief     Pragmas and defines for MSVC
 //
 // ************************************************************************** //

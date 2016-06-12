@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      FormFactors/FormFactorCone.h
+//! @file      Core/FormFactors/FormFactorCone.h
 //! @brief     Declares class FormFactorCone
 //!
 //! @homepage  http://www.bornagainproject.org

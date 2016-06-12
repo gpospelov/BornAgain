@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      FormFactors/FormFactorTrivial.cpp
+//! @file      Core/FormFactors/FormFactorTrivial.cpp
 //! @brief     Implements class FormFactorTrivial.
 //!
 //! @homepage  http://www.bornagainproject.org

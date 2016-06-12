@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/RealDataModel.h
+//! @file      GUI/coregui/Models/RealDataModel.h
 //! @brief     Declares class RealDataModel
 //!
 //! @homepage  http://www.bornagainproject.org

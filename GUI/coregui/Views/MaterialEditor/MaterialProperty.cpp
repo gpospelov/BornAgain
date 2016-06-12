@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/MaterialEditor/MaterialProperty.cpp
+//! @file      GUI/coregui/Views/MaterialEditor/MaterialProperty.cpp
 //! @brief     Implements class MaterialProperty
 //!
 //! @homepage  http://www.bornagainproject.org

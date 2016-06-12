@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/TestComponentView.cpp
+//! @file      GUI/coregui/Views/TestComponentView.cpp
 //! @brief     Implements class TestComponentView
 //!
 //! @homepage  http://www.bornagainproject.org

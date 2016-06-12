@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      StandardSamples/CylindersBuilder.h
+//! @file      Core/StandardSamples/CylindersBuilder.h
 //! @brief     Declares classes of CylindersBuilder family.
 //!
 //! @homepage  http://www.bornagainproject.org

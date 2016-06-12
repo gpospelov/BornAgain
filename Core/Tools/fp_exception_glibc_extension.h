@@ -1,6 +1,6 @@
 // ************************************************************************** //
 //                                                                         
-//! @file      Tools/fp_exception_glibc_extension.h
+//! @file      Core/Tools/fp_exception_glibc_extension.h
 //! @brief     glibc floating point extension replacement for OS X.
 //
 //! License:   Public Domain

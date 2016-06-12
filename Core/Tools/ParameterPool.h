@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tools/ParameterPool.h
+//! @file      Core/Tools/ParameterPool.h
 //! @brief     Declares class ParameterPool.
 //!
 //! @homepage  http://www.bornagainproject.org

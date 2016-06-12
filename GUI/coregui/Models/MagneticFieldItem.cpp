@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/MagneticFieldItem.cpp
+//! @file      GUI/coregui/Models/MagneticFieldItem.cpp
 //! @brief     Implements class MagneticFieldItem
 //!
 //! @homepage  http://www.bornagainproject.org

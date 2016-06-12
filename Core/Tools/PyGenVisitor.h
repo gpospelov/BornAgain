@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tools/PyGenVisitor.h
+//! @file      Core/Tools/PyGenVisitor.h
 //! @brief     Declares PyGenVisitor class.
 //!
 //! @homepage  http://www.bornagainproject.org

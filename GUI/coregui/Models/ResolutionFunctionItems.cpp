@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/ResolutionFunctionItems.cpp
+//! @file      GUI/coregui/Models/ResolutionFunctionItems.cpp
 //! @brief     Implements family of ResolutionFunctionItem
 //!
 //! @homepage  http://www.bornagainproject.org

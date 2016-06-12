@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/SampleDesigner/ILayerView.h
+//! @file      GUI/coregui/Views/SampleDesigner/ILayerView.h
 //! @brief     Declares class ILayerView
 //!
 //! @homepage  http://www.bornagainproject.org

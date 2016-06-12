@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Algorithms/CumulativeValue.h
+//! @file      Core/Tools/CumulativeValue.h
 //! @brief     Declares class CumulativeValue.
 //!
 //! @homepage  http://www.bornagainproject.org

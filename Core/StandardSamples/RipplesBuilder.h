@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      StandardSamples/RipplesBuilder.h
+//! @file      Core/StandardSamples/RipplesBuilder.h
 //! @brief     Declares classes to build various ripples.
 //!
 //! @homepage  http://www.bornagainproject.org

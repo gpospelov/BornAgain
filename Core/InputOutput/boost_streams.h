@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      InputOutput/boost_streams.h
+//! @file      Core/InputOutput/boost_streams.h
 //! @brief     Contains boost streams related headers
 //!
 //! @homepage  http://www.bornagainproject.org

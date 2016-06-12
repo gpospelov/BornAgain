@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/FitWidgets/GUIFitObserver.h
+//! @file      GUI/coregui/Views/FitWidgets/GUIFitObserver.h
 //! @brief     Implements class GUIFitObserver
 //!
 //! @homepage  http://www.bornagainproject.org

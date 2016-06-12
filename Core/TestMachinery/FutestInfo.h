@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      StandardSamples/FutestInfo.h
+//! @file      Core/TestMachinery/FutestInfo.h
 //! @brief     Declares class FutestInfo.
 //!
 //! @homepage  http://www.bornagainproject.org

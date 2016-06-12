@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tools/Materials.h
+//! @file      Core/Samples/Materials.h
 //! @brief     Declares namespace Materials
 //!
 //! @homepage  http://www.bornagainproject.org

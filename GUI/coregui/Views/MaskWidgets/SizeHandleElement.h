@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/MaskWidgets/SizeHandleElement.h
+//! @file      GUI/coregui/Views/MaskWidgets/SizeHandleElement.h
 //! @brief     Declares SizeHandleElement class
 //!
 //! @homepage  http://www.bornagainproject.org

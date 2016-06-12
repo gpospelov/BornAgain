@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/utils/CustomEventFilters.cpp
+//! @file      GUI/coregui/utils/CustomEventFilters.cpp
 //! @brief     Defines classes releted to event filtering
 //!
 //! @homepage  http://www.bornagainproject.org

@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      StandardSamples/RotatedPyramidsBuilder.cpp
+//! @file      Core/StandardSamples/RotatedPyramidsBuilder.cpp
 //! @brief     Implements classe RotatedPyramidsBuilder
 //!
 //! @homepage  http://www.bornagainproject.org

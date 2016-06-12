@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tools/EigenCore.h
+//! @file      Core/Tools/EigenCore.h
 //! @brief     Include to deal with Eigen alignment centrally
 //!
 //! @homepage  http://www.bornagainproject.org

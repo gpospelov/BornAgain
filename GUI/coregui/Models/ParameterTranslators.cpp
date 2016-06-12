@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/ParameterTranslators.cpp
+//! @file      GUI/coregui/Models/ParameterTranslators.cpp
 //! @brief     Implements subclasses of IParameterTranslator
 //!
 //! @homepage  http://www.bornagainproject.org

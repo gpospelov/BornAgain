@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Algorithms/FTDecayFunctions.h
+//! @file      Core/Algorithms/FTDecayFunctions.h
 //! @brief     Declares classes IFTDecayFunction1D, IFTDecayFunction2D,
 //!
 //! @homepage  http://www.bornagainproject.org

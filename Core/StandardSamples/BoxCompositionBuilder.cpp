@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      StandardSamples/BoxCompositionBuilder.cpp
+//! @file      Core/StandardSamples/BoxCompositionBuilder.cpp
 //! @brief     Implements class BoxCompositionBuilder.
 //!
 //! @homepage  http://www.bornagainproject.org

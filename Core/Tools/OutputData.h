@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tools/OutputData.h
+//! @file      Core/Tools/OutputData.h
 //! @brief     Declares and implements template class OutputData.
 //!
 //! @homepage  http://www.bornagainproject.org

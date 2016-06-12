@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Util/ItemIDFactory.h
+//! @file      GUI/coregui/utils/ItemIDFactory.h
 //! @brief     Declares class ItemIDFactory
 //!
 //! @homepage  http://www.bornagainproject.org

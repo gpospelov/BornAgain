@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      InputOutput/OutputDataIOFactory.cpp
+//! @file      Core/InputOutput/IntensityDataIOFactory.cpp
 //! @brief     Implements class OutputDataIOFactory.
 //!
 //! @homepage  http://www.bornagainproject.org

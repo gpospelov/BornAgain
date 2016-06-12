@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/LatticeTypeItems.cpp
+//! @file      GUI/coregui/Models/LatticeTypeItems.cpp
 //! @brief     Implements classes LatticeTypeItems
 //!
 //! @homepage  http://www.bornagainproject.org

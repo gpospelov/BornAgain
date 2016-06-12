@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/RefractiveIndexItem.cpp
+//! @file      GUI/coregui/Models/RefractiveIndexItem.cpp
 //! @brief     Implements class RefractiveIndexItem
 //!
 //! @homepage  http://www.bornagainproject.org

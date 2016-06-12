@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/utils/MessageContainer.cpp
+//! @file      GUI/coregui/utils/MessageContainer.cpp
 //! @brief     Implements class MessageContainer.
 //!
 //! @homepage  http://www.bornagainproject.org

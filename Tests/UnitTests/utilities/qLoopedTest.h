@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      qLoopedTest.h
+//! @file      Tests/UnitTests/utilities/qLoopedTest.h
 //! @brief     Auxiliary utility to loop over q vectors for tests.
 //!
 //! @homepage  http://bornagainproject.org

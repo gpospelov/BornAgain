@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/InstrumentModel.cpp
+//! @file      GUI/coregui/Models/InstrumentModel.cpp
 //! @brief     Implements class InstrumentModel
 //!
 //! @homepage  http://www.bornagainproject.org

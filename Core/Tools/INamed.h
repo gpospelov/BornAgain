@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tools/INamed.h
+//! @file      Core/Tools/INamed.h
 //! @brief     Declares and implements the standard mix-in INamed.
 //!
 //! @homepage  http://www.bornagainproject.org

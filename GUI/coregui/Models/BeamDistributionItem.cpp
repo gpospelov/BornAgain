@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/BeamDistributionItem.cpp
+//! @file      GUI/coregui/Models/BeamDistributionItem.cpp
 //! @brief     Implements class BeamDistributionItem
 //!
 //! @homepage  http://www.bornagainproject.org

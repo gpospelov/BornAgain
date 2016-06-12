@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/LayerRoughnessItems.cpp
+//! @file      GUI/coregui/Models/LayerRoughnessItems.cpp
 //! @brief     Implements classes LayerRoughnessItems
 //!
 //! @homepage  http://www.bornagainproject.org

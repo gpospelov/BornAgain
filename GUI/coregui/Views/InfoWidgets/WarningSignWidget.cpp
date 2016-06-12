@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/InfoWidgets/WarningSignWidget.cpp
+//! @file      GUI/coregui/Views/InfoWidgets/WarningSignWidget.cpp
 //! @brief     Implements class WarningSignWidget
 //!
 //! @homepage  http://www.bornagainproject.org

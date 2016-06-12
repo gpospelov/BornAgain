@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      FormFactors/FormFactorGauss.cpp
+//! @file      Core/FormFactors/FormFactorGauss.cpp
 //! @brief     Implements class FormFactorGauss.
 //!
 //! @homepage  http://www.bornagainproject.org

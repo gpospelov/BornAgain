@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      StandardSamples/IFutest.h
+//! @file      Core/TestMachinery/IFutest.h
 //! @brief     Declares pure virtual base class IFutest.
 //!
 //! @homepage  http://www.bornagainproject.org

@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      InputOutput/OutputDataWriter.h
+//! @file      Core/InputOutput/OutputDataWriter.h
 //! @brief     Declares class OutputDataWriter.
 //!
 //! @homepage  http://www.bornagainproject.org

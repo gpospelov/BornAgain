@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Algorithms/SpecularMagnetic.h
+//! @file      Core/Algorithms/SpecularMagnetic.h
 //! @brief     Declares class SpecularMagnetic.
 //!
 //! @homepage  http://www.bornagainproject.org

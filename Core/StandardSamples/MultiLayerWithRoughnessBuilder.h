@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      StandardSamples/MultiLayerWithRoughnessBuilder.h
+//! @file      Core/StandardSamples/MultiLayerWithRoughnessBuilder.h
 //! @brief     Declares class MultiLayerWithRoughnessBuilder.
 //!
 //! @homepage  http://www.bornagainproject.org

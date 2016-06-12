@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/JobWidgets/ObsoleteRealDataWindow.cpp
+//! @file      GUI/coregui/Views/FitWidgets/ObsoleteRealDataWindow.cpp
 //! @brief     Implements class ObsoleteRealDataWindow
 //!
 //! @homepage  http://www.bornagainproject.org

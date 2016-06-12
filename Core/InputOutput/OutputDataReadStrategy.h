@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      InputOutput/OutputDataReadStrategy.h
+//! @file      Core/InputOutput/OutputDataReadStrategy.h
 //! @brief     Declares IOutputDataReadStrategy and related classes.
 //!
 //! @homepage  http://www.bornagainproject.org

@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/MaskWidgets/RectangleView.cpp
+//! @file      GUI/coregui/Views/MaskWidgets/RectangleView.cpp
 //! @brief     Implements RectangleView class
 //!
 //! @homepage  http://www.bornagainproject.org

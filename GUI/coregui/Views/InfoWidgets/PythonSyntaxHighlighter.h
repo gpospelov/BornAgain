@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/InfoWidgets/PythonSyntaxHighlighter.h
+//! @file      GUI/coregui/Views/InfoWidgets/PythonSyntaxHighlighter.h
 //! @brief     Declares class PythonSyntaxHighlighter
 //!
 //! @homepage  http://www.bornagainproject.org

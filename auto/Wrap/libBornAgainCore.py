@@ -5275,6 +5275,8 @@ class IDistribution1D(IParameterized):
         sigma_factor: 
         parameter to derive min,max range for sample values
 
+        limits:
+
         vector of generated values 
 
         """
@@ -11306,8 +11308,8 @@ class FormFactorPyramid(FormFactorPolyhedron):
         height: 
         of Pyramid
 
-        angle: 
-        in radians between base and facet 
+        alpha: 
+        dihedral angle in radians between base and facet 
 
         """
         this = _libBornAgainCore.new_FormFactorPyramid(base_edge, height, alpha)
@@ -16366,9 +16368,6 @@ class InterferenceFunction1DLattice(IInterferenceFunction):
         Parameters:
         -----------
 
-        lattice_params: 
-         Lattice parameters
-
         length: 
          Lattice length
 
@@ -20975,6 +20974,9 @@ class ParticleLayout(ILayout):
 
         Parameters:
         -----------
+
+        particle: 
+        to be added
 
         abundance: 
          Particle abundance

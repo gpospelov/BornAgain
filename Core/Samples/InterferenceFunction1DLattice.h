@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef INTERFERENCEFUNCTION1DLATTICE_H_
-#define INTERFERENCEFUNCTION1DLATTICE_H_
+#ifndef INTERFERENCEFUNCTION1DLATTICE_H
+#define INTERFERENCEFUNCTION1DLATTICE_H
 
 #include "IInterferenceFunction.h"
 #include "Lattice1DParameters.h"
@@ -27,28 +27,24 @@
 class BA_CORE_API_ InterferenceFunction1DLattice : public IInterferenceFunction
 {
 public:
-    //! @brief constructor
-    //! @param lattice_params Lattice parameters
-    //! @param length Lattice length
-    //! @param xi rotation of lattice with respect to x-axis
     InterferenceFunction1DLattice(double length, double xi);
     virtual ~InterferenceFunction1DLattice();
 
-    virtual InterferenceFunction1DLattice *clone() const;
+    virtual InterferenceFunction1DLattice* clone() const;
 
-    virtual void accept(ISampleVisitor *visitor) const;
+    virtual void accept(ISampleVisitor* visitor) const;
 
     void setDecayFunction(const IFTDecayFunction1D& pdf);
 
     Lattice1DParameters getLatticeParameters() const;
 
-    const IFTDecayFunction1D *getDecayFunction() const;
+    const IFTDecayFunction1D* getDecayFunction() const;
 
     virtual double evaluate(const kvector_t q) const;
 
 protected:
     Lattice1DParameters m_lattice_params;
-    IFTDecayFunction1D *mp_pdf;
+    IFTDecayFunction1D* mp_pdf;
     static const int nmax = 20; //!< maximum value for qx*Lambdax and qy*lambday
 
 private:
@@ -64,9 +60,9 @@ inline Lattice1DParameters InterferenceFunction1DLattice::getLatticeParameters()
     return m_lattice_params;
 }
 
-inline const IFTDecayFunction1D *InterferenceFunction1DLattice::getDecayFunction() const
+inline const IFTDecayFunction1D* InterferenceFunction1DLattice::getDecayFunction() const
 {
     return mp_pdf;
 }
 
-#endif /* INTERFERENCEFUNCTION1DLATTICE_H_ */
+#endif // INTERFERENCEFUNCTION1DLATTICE_H

@@ -33,7 +33,7 @@ public:
     //! Sizes of arrays should coincide.  If polygon is unclosed (the last point
     //! doesn't repeat the first one), it will be closed automatically.
     //! @param x Vector of x-coordinates of polygon points.
-    //! @param x Vector of y-coordinates of polygon points.
+    //! @param y Vector of y-coordinates of polygon points.
     Polygon(std::vector<double > x, std::vector<double> y);
 
     //! Polygon defined by two  dimensional array with (x,y) coordinates of polygon points.
@@ -44,7 +44,7 @@ public:
 
     virtual ~Polygon();
 
-    virtual Polygon *clone() const;
+    virtual Polygon* clone() const;
 
     //! Returns true if given point is inside or on border of polygon
     virtual bool contains(double x, double y) const;
@@ -64,9 +64,9 @@ private:
     Polygon(const Polygon& other);
     const Polygon& operator=(const Polygon& );
 
-    PolygonPrivate *m_d;
+    PolygonPrivate* m_d;
 };
 
 } // namespace Geometry
 
-#endif
+#endif // POLYGON_H

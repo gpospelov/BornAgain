@@ -3363,8 +3363,8 @@ of one side of Pyramid's square base
 height: 
 of Pyramid
 
-angle: 
-in radians between base and facet 
+alpha: 
+dihedral angle in radians between base and facet 
 ";
 
 %feature("docstring")  FormFactorPyramid::clone "FormFactorPyramid * FormFactorPyramid::clone() const final
@@ -5459,6 +5459,8 @@ number of values to generate
 sigma_factor: 
 parameter to derive min,max range for sample values
 
+limits:
+
 vector of generated values 
 ";
 
@@ -6797,9 +6799,6 @@ constructor
 
 Parameters:
 -----------
-
-lattice_params: 
- Lattice parameters
 
 length: 
  Lattice length
@@ -10355,6 +10354,9 @@ Adds generic particle to the layout with only abundance defined.
 Parameters:
 -----------
 
+particle: 
+to be added
+
 abundance: 
  Particle abundance 
 ";
@@ -10365,6 +10367,9 @@ Adds particle to the layout with abundance and position defined.
 
 Parameters:
 -----------
+
+particle: 
+to be added
 
 abundance: 
  Particle abundance
@@ -10379,6 +10384,9 @@ Adds particle to the layout with abundance, position and the rotation defined.
 
 Parameters:
 -----------
+
+particle: 
+to be added
 
 abundance: 
  Particle abundance
@@ -10453,7 +10461,7 @@ Parameters:
 x: 
 Vector of x-coordinates of polygon points.
 
-x: 
+y: 
 Vector of y-coordinates of polygon points. 
 ";
 

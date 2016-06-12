@@ -71,6 +71,8 @@ std::vector<double> Histogram1D::getBinErrors() const
     return IHistogram::getDataVector(IHistogram::DataType::STANDARD_ERROR);
 }
 
+#ifdef BORNAGAIN_PYTHON
+
 PyObject* Histogram1D::getBinCentersNumpy() const
 {
     return Utils::createNumpyArray(getBinCenters());
@@ -85,6 +87,8 @@ PyObject* Histogram1D::getBinErrorsNumpy() const
 {
     return Utils::createNumpyArray(getBinErrors());
 }
+
+#endif // BORNAGAIN_PYTHON
 
 Histogram1D* Histogram1D::crop(double xmin, double xmax)
 {

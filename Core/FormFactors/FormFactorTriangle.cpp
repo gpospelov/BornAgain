@@ -17,9 +17,6 @@
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
 
-//! @brief Triangle constructor
-//! @param base_edge of hexagonal base
-//! @param height of Triangle
 FormFactorTriangle::FormFactorTriangle(const double base_edge)
     : m_base_edge( base_edge )
 {

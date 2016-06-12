@@ -56,7 +56,7 @@ private:
 template <class T>
 using P_integrator_complex = std::unique_ptr<IntegratorComplex<T>>;
 
-//! @fn make_integrator
+//! @fn make_integrator_comples
 //! @ingroup tools_internal
 //! @brief Template function to create an integrator object
 template <class T>

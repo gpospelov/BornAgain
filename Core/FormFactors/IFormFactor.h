@@ -41,19 +41,14 @@ public:
     virtual void accept(ISampleVisitor* visitor) const;
     //! @}
 
-    //! Passes the refractive index of the ambient material in which this
-    //! particle is embedded.
+    //! Passes the refractive index of the ambient material in which this particle is embedded.
     virtual void setAmbientMaterial(const IMaterial&) {}
 
     //! Returns scattering amplitude for complex wavevector bin
-    //! @param k_i   incoming wavevector
-    //! @param k_f_bin   outgoing wavevector bin
     virtual complex_t evaluate(const WavevectorInfo& wavevectors) const=0;
 
 #ifndef SWIG
     //! Returns scattering amplitude for matrix interactions
-    //! @param k_i   incoming wavevector
-    //! @param k_f_bin   outgoing wavevector bin
     virtual Eigen::Matrix2cd evaluatePol(const WavevectorInfo& wavevectors) const;
 #endif
 

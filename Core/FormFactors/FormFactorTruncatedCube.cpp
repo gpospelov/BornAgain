@@ -36,11 +36,10 @@ const FormFactorPolyhedron::Topology FormFactorTruncatedCube::topology = {
         { { 12,15,16,22, 21,18,19,13 }, true }
     }, true };
 
-//! @param side length of the full cube
-//! @param side length of the trirectangular tetrahedron removed from each vertex of the cube
+//! @param length of the full cube
+//! @param removed_length as removed from each edge of the cube
 
-FormFactorTruncatedCube::FormFactorTruncatedCube(
-   double length, double removed_length)
+FormFactorTruncatedCube::FormFactorTruncatedCube(double length, double removed_length)
     : FormFactorPolyhedron()
     , m_length(length)
     , m_removed_length(removed_length)
@@ -97,7 +96,7 @@ FormFactorTruncatedCube* FormFactorTruncatedCube::clone() const
     return new FormFactorTruncatedCube(m_length, m_removed_length);
 }
 
-void FormFactorTruncatedCube::accept(ISampleVisitor *visitor) const
+void FormFactorTruncatedCube::accept(ISampleVisitor* visitor) const
 {
     visitor->visit(this);
 }

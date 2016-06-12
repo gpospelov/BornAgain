@@ -198,7 +198,7 @@ public:
     //! multiply every item of this output data by value
     void scaleAll(const T& factor);
 
-    //! Adds <rank> axes with indicated sizes
+    //! Adds 'rank' axes with indicated sizes
     void setAxisSizes(size_t rank, int *n_dims);
 
     //! Sets new values to raw data vector

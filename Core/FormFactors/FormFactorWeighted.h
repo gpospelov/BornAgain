@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FORMFACTORWEIGHTED_H_
-#define FORMFACTORWEIGHTED_H_
+#ifndef FORMFACTORWEIGHTED_H
+#define FORMFACTORWEIGHTED_H
 
 #include "IFormFactor.h"
 
@@ -29,9 +29,9 @@ public:
     FormFactorWeighted();
     virtual ~FormFactorWeighted();
 
-    virtual FormFactorWeighted *clone() const;
+    virtual FormFactorWeighted* clone() const;
 
-    virtual void accept(ISampleVisitor *visitor) const;
+    virtual void accept(ISampleVisitor* visitor) const;
 
     virtual double getRadius() const;
 
@@ -47,10 +47,8 @@ public:
 #endif
 
 protected:
-    std::vector<IFormFactor *> m_form_factors;
+    std::vector<IFormFactor*> m_form_factors;
     std::vector<double> m_weights;
 };
 
-#endif /* FORMFACTORWEIGHTED_H_ */
-
-
+#endif // FORMFACTORWEIGHTED_H

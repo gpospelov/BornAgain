@@ -16,8 +16,11 @@
 #ifndef ROOTMULTIFITMINIMIZER_H
 #define ROOTMULTIFITMINIMIZER_H
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 #include "ROOTMinimizer.h"
 #include "Math/PatchedGSLNLSMinimizer.h"
+#pragma GCC diagnostic pop
 
 //! @class ROOTLMAMinimizer
 //! @ingroup fitting_internal
@@ -35,10 +38,6 @@ protected:
    virtual void propagateOptions();
 
     BA_ROOT::Math::GSLNLSMinimizer *m_lma_minimizer;
-
 };
 
 #endif // ROOTMULTIFITMINIMIZER_H
-
-
-

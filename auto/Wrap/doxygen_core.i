@@ -5990,7 +5990,7 @@ evaluate Fourier transformed distribution for q in X,Y coordinates the original 
 // File: classIFutest.xml
 %feature("docstring") IFutest "
 
-Basic class for all functional tests.
+Base class for all functional tests.
 
 C++ includes: IFutest.h
 ";
@@ -11001,7 +11001,7 @@ finalize report to the simulation
 // File: classPyScriptFutest.xml
 %feature("docstring") PyScriptFutest "
 
-GUI functional test compares results of the reference simulation with the one obtained through domain->GUI->domain convertion. Normally invoked by FunctionalMultiTest.
+Test whether Python dumps yields the same image as a direct computation.
 
 C++ includes: PyScriptFutest.h
 ";
@@ -11564,6 +11564,8 @@ C++ includes: SampleBuilderFactory.h
 ";
 
 %feature("docstring")  SampleBuilderFactory::createSample "ISample * SampleBuilderFactory::createSample(const std::string &name)
+
+Retrieves a SampleBuilder from the registry, does the build, and returns the result. 
 ";
 
 

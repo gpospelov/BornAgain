@@ -22230,6 +22230,8 @@ class SampleBuilderFactory(_object):
 
         ISample * SampleBuilderFactory::createSample(const std::string &name)
 
+        Retrieves a SampleBuilder from the registry, does the build, and returns the result. 
+
         """
         return _libBornAgainCore.SampleBuilderFactory_createSample(self, name)
 

@@ -73,7 +73,6 @@ private:
     void initFitParameterTreeContextMenu(QMenu &menu);
 
     void init_fit_model();
-    void init_fit_containers();
 
     bool canCreateFitParameter();
     bool canRemoveFromFitParameters();

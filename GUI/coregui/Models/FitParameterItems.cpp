@@ -18,7 +18,7 @@
 #include "ComboProperty.h"
 #include "ModelPath.h"
 #include "SessionModel.h"
-#include "FitModelHelper.h"
+#include "FitParameterHelper.h"
 #include "ParameterTreeItems.h"
 #include "AttLimits.h"
 #include <QDebug>

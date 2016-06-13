@@ -21,7 +21,7 @@
 #include "GroupItem.h"
 #include "ModelPath.h"
 #include "ParameterTreeItems.h"
-#include "FitModelHelper.h"
+#include "FitParameterHelper.h"
 #include <QStack>
 
 void ParameterTreeBuilder::createParameterTree(JobItem *item, const QString &tag)
@@ -106,7 +106,7 @@ void ParameterTreeBuilder::populateDomainLinks(JobItem *jobItem, const QString &
             }
         } else {
             if (ParameterItem *parItem = dynamic_cast<ParameterItem *>(current)) {
-                QString parItemPath = FitModelHelper::getParameterItemPath(parItem);
+                QString parItemPath = FitParameterHelper::getParameterItemPath(parItem);
                 std::string domainPath = ModelPath::translateParameterName(
                     jobItem->getMultiLayerItem()->parent(), parItemPath);
                 parItem->setItemValue(ParameterItem::P_DOMAIN, QString::fromStdString(domainPath));

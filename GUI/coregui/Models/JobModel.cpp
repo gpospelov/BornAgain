@@ -29,6 +29,7 @@
 #include "SimulationOptionsItem.h"
 #include "JobResultsPresenter.h"
 #include "IntensityDataItem.h"
+#include "FitSuiteItem.h"
 #include <QUuid>
 #include <QDebug>
 #include <QItemSelection>
@@ -100,12 +101,10 @@ JobItem *JobModel::addJob(const MultiLayerItem *multiLayerItem,
     ParameterTreeBuilder::createParameterTree(jobItem, JobItem::T_PARAMETER_TREE);
 
     insertNewItem(Constants::IntensityDataType, indexOfItem(jobItem), -1, JobItem::T_OUTPUT);
-    //insertNewItem(Constants::IntensityDataType, indexOfItem(jobItem), -1, JobItem::T_REALDATA);
 
     if(realDataItem) {
-        RealDataItem *realDataItemCopy = dynamic_cast<RealDataItem *>(copyParameterizedItem(realDataItem, jobItem, JobItem::T_REALDATA));
-        Q_ASSERT(realDataItemCopy);
-        realDataItemCopy->intensityDataItem()->setOutputData(realDataItem->intensityDataItem()->getOutputData()->clone());
+        copyRealDataItem(jobItem, realDataItem);
+        createFitContainers(jobItem);
     }
 
     return jobItem;
@@ -214,5 +213,37 @@ void JobModel::restoreItem(SessionItem *item)
     for (auto child : item->childItems()) {
         restoreItem(child);
     }
+}
+
+//! Copy RealDataItem to jobItem intended for fitting.
+
+void JobModel::copyRealDataItem(JobItem *jobItem, const RealDataItem *realDataItem)
+{
+    if(!realDataItem)
+        return;
+
+    RealDataItem *realDataItemCopy = dynamic_cast<RealDataItem *>(
+        copyParameterizedItem(realDataItem, jobItem, JobItem::T_REALDATA));
+    Q_ASSERT(realDataItemCopy);
+    realDataItemCopy->intensityDataItem()->setOutputData(
+                realDataItem->intensityDataItem()->getOutputData()->clone());
+}
+
+//! Creates necessary fit containers for jobItem intended for fitting.
+
+void JobModel::createFitContainers(JobItem *jobItem)
+{
+    SessionItem *fitSuiteItem = jobItem->getItem(JobItem::T_FIT_SUITE);
+    Q_ASSERT(fitSuiteItem == nullptr);
+
+    fitSuiteItem = insertNewItem(Constants::FitSuiteType,
+                                 jobItem->index(), -1, JobItem::T_FIT_SUITE);
+    Q_ASSERT(fitSuiteItem);
+
+    SessionItem *parsContainerItem = fitSuiteItem->getItem(FitSuiteItem::T_FIT_PARAMETERS);
+    Q_ASSERT(parsContainerItem == nullptr);
+
+    parsContainerItem = insertNewItem(Constants::FitParameterContainerType,
+                                      fitSuiteItem->index(), -1, FitSuiteItem::T_FIT_PARAMETERS);
 }
 

@@ -70,13 +70,13 @@ endif()
 
 if(APPLE)
     set(MACOSX_BUNDLE_IDENTIFIER "org.bornagainproject.BornAgain")
-    configure_file("${CMAKE_SOURCE_DIR}/cmake/scripts/MacOSXBundleInfo.plist.in"
-        "${BUILD_AUTO_DIR}/Info.plist" @ONLY)
+    configure_file("${TEMPLATE_DIR}/MacOSXBundleInfo.plist.in" "${BUILD_AUTO_DIR}/Info.plist" @ONLY)
 
     set_target_properties(${executable_name}
         PROPERTIES MACOSX_BUNDLE_INFO_PLIST ${BUILD_AUTO_DIR}/Info.plist)
 
-    set(link_flags "-Wl,-rpath,@loader_path/../Frameworks/ -Wl,-rpath,@loader_path/../lib/BornAgain-${BornAgain_VERSION_MAJOR}.${BornAgain_VERSION_MINOR}/")
+    set(link_flags "-Wl,-rpath,@loader_path/../Frameworks/ \
+  -Wl,-rpath,@loader_path/../lib/BornAgain-${BornAgain_VERSION_MAJOR}.${BornAgain_VERSION_MINOR}/")
     set_target_properties(${executable_name} PROPERTIES LINK_FLAGS ${link_flags})
 endif()
 

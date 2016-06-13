@@ -58,7 +58,7 @@ if(BORNAGAIN_PYTHON)
         set(swig_dependencies
             ${WRAP_DIR}/swig/libBornAgainFit.i
             ${WRAP_DIR}/swig/directors.i
-            ${WRAP_DIR}/swig/extends.i
+            ${WRAP_DIR}/swig/extendFit.i
             ${WRAP_DIR}/swig/ignores.i
             ${WRAP_DIR}/swig/shared_pointers.i
             ${WRAP_DIR}/swig/warnings.i

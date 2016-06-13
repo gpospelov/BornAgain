@@ -365,4 +365,4 @@
 %template(SimulationFactory) IFactory<GISASSimulation>;
 //%include "SimulationFactory.h"
 
-%include "extends.i"
+%include "extendCore.i"

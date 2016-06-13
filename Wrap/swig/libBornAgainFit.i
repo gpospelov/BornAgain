@@ -115,5 +115,4 @@ import_array();
  //%include "StandardFitsFactory.h"
  //%template(StandardFitsFactory) IFactory<IStandardFits>;
 
-// included at end because swig needs to know something about the extended classes beforehand
-%include "extends.i"
+%include "extendFit.i"

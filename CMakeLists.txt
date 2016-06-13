@@ -4,6 +4,13 @@
 
 cmake_minimum_required(VERSION 2.8.12 FATAL_ERROR)
 
+set(CMAKE_MODULE_PATH
+    ${CMAKE_SOURCE_DIR}/cmake/generic/modules
+    ${CMAKE_SOURCE_DIR}/cmake/bornagain/modules)
+set(TEMPLATE_DIR ${CMAKE_SOURCE_DIR}/cmake/bornagain/scripts)
+
+include(PreventInSourceBuilds)
+
 project(BornAgain)
 
 include(CTest) # equivalent to "enable_testing() ???
@@ -34,11 +41,6 @@ if(AUTOGENERATE)
 endif()
 
 #--- Include CMake macros and functions ---
-set(CMAKE_MODULE_PATH
-    ${CMAKE_SOURCE_DIR}/cmake/generic/modules
-    ${CMAKE_SOURCE_DIR}/cmake/bornagain/modules)
-set(TEMPLATE_DIR ${CMAKE_SOURCE_DIR}/cmake/bornagain/scripts)
-
 include(GetFilenameComponent) # overwrite CMake command
 include(SearchInstalledSoftware)
 include(CheckCompiler)

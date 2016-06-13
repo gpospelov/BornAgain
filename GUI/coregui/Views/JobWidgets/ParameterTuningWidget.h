@@ -65,6 +65,9 @@ private slots:
 
 private:
     QPoint getPositionForWarningSign();
+    void updateDragAndDropSettings();
+
+    void setTuningDelegateEnabled(bool enabled);
 
     JobModel *m_jobModel;
     JobItem *m_currentJobItem;

@@ -66,6 +66,8 @@ public:
 
     void setValueColumn(int valueColumn) { m_valueColumn = valueColumn; }
 
+    void setReadOnly(bool isReadOnly);
+
 signals:
     void currentLinkChanged(SessionItem *item);
 
@@ -84,6 +86,7 @@ private:
     mutable QHBoxLayout * m_contentLayout;
     mutable ParameterItem *m_currentItem;
     mutable SliderData m_slider_data;
+    bool m_isReadOnly;
 };
 
 #endif //SAMPLETUNINGDELEGATE_H

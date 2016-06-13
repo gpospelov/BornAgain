@@ -69,10 +69,9 @@ ParameterTuningWidget::ParameterTuningWidget(QWidget *parent)
         "url(:/images/treeview-branch-open.png);}");
 
     m_treeView->setItemDelegate(m_delegate);
-    m_treeView->setSelectionMode(QAbstractItemView::ExtendedSelection);
+    //m_treeView->setSelectionMode(QAbstractItemView::ExtendedSelection);
     m_treeView->setContextMenuPolicy(Qt::CustomContextMenu);
-    m_treeView->setDragEnabled(true);
-    m_treeView->setDragDropMode(QAbstractItemView::DragOnly);
+    m_treeView->setDragDropMode(QAbstractItemView::NoDragDrop);
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->setMargin(0);
@@ -106,6 +105,7 @@ void ParameterTuningWidget::setItem(JobItem *item)
         m_jobModel = dynamic_cast<JobModel *>(m_currentJobItem->model());
 
         updateParameterModel();
+        updateDragAndDropSettings();
 
         m_currentJobItem->mapper()->setOnPropertyChange(
                 [this](const QString &name)
@@ -248,6 +248,8 @@ void ParameterTuningWidget::onPropertyChanged(const QString &property_name)
             m_warningSign->setPosition(pos.x(), pos.y());
             m_warningSign->show();
         }
+
+        updateDragAndDropSettings();
     }
 }
 
@@ -269,5 +271,40 @@ QPoint ParameterTuningWidget::getPositionForWarningSign()
     }
 
     return QPoint(x, y);
+}
+
+//! Disable drag-and-drop abilities, if job is in fit running state.
+
+void ParameterTuningWidget::updateDragAndDropSettings()
+{
+    Q_ASSERT(m_currentJobItem);
+    if(m_currentJobItem->getStatus() == Constants::STATUS_FITTING) {
+        setTuningDelegateEnabled(false);
+        m_treeView->setDragDropMode(QAbstractItemView::NoDragDrop);
+    } else {
+        setTuningDelegateEnabled(true);
+        if(m_currentJobItem->isValidForFitting())
+            m_treeView->setDragDropMode(QAbstractItemView::DragOnly);
+    }
+}
+
+//! Sets delegate to enabled/disabled state.
+//! In 'disabled' state the delegate is in ReadOnlyMode, if it was containing already some
+//! editing widget, it will be forced to close.
+void ParameterTuningWidget::setTuningDelegateEnabled(bool enabled)
+{
+    if(enabled) {
+        m_delegate->setReadOnly(false);
+
+    } else {
+        m_delegate->setReadOnly(true);
+        QModelIndex index = m_treeView->currentIndex();
+        QWidget *editor = m_treeView->indexWidget(index);
+        if(editor) {
+            //m_delegate->commitData(editor);
+            m_delegate->closeEditor(editor, QAbstractItemDelegate::NoHint);
+        }
+        m_treeView->selectionModel()->clearSelection();
+    }
 }
 

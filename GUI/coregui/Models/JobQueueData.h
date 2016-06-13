@@ -50,6 +50,7 @@ public slots:
     void onStartedJob();
     void onProgressUpdate();
     void onFinishedJob();
+
     void onFinishedThread();
     void onCancelAllJobs();
 

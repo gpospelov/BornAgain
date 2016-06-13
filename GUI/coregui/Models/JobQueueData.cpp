@@ -22,7 +22,6 @@
 #include "DomainSimulationBuilder.h"
 #include "GUIHelpers.h"
 #include <QThread>
-#include <QDateTime>
 #include <QDebug>
 
 JobQueueData::JobQueueData(JobModel *jobModel)
@@ -154,9 +153,7 @@ void JobQueueData::onStartedJob()
     JobItem *jobItem = m_jobModel->getJobItemForIdentifier(runner->getIdentifier());
     jobItem->setProgress(0);
     jobItem->setStatus(Constants::STATUS_RUNNING);
-    QString begin_time
-            = QDateTime::currentDateTime().toString(QStringLiteral("yyyy.MM.dd hh:mm:ss"));
-    jobItem->setBeginTime(begin_time);
+    jobItem->setBeginTime(GUIHelpers::currentDateTime());
     jobItem->setEndTime(QString());
 }
 
@@ -275,8 +272,7 @@ void JobQueueData::clearSimulation(const QString &identifier)
 
 void JobQueueData::processFinishedJob(JobRunner *runner, JobItem *jobItem)
 {
-    QString end_time = QDateTime::currentDateTime().toString("yyyy.MM.dd hh:mm:ss");
-    jobItem->setEndTime(end_time);
+    jobItem->setEndTime(GUIHelpers::currentDateTime());
     jobItem->setDuration(runner->getSimulationDuration());
 
     // propagating status of runner

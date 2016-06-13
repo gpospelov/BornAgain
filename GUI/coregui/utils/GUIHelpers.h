@@ -68,6 +68,8 @@ BA_CORE_API_ bool parseVersion(const QString &version, int &major_num, int &mino
 
 BA_CORE_API_ bool isVersionMatchMinimal(const QString &version, const QString &minimal_version);
 
+BA_CORE_API_ QString currentDateTime();
+
 template<class T, class... Ts> std::unique_ptr<T> make_unique(Ts&&... params)
 {
     return std::unique_ptr<T>(new T(std::forward<Ts>(params)...));

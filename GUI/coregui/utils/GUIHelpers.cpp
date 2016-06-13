@@ -25,6 +25,7 @@
 #include <QMessageBox>
 #include <QPushButton>
 #include <QFileInfo>
+#include <QDateTime>
 #include <QDebug>
 
 namespace GUIHelpers {
@@ -211,6 +212,11 @@ QString fileDir(const QString &fileName)
         return info.dir().path();
     }
     return QString();
+}
+
+QString currentDateTime()
+{
+    return QDateTime::currentDateTime().toString("yyyy.MM.dd hh:mm:ss");;
 }
 
 

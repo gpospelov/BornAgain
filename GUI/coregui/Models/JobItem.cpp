@@ -30,6 +30,16 @@
 #include <QDateTime>
 #include <QDebug>
 
+namespace {
+    QVariant createStatusVariant() {
+        ComboProperty status;
+        status << Constants::STATUS_IDLE << Constants::STATUS_RUNNING
+               << Constants::STATUS_FITTING << Constants::STATUS_COMPLETED
+               << Constants::STATUS_CANCELED << Constants::STATUS_FAILED;
+        return status.getVariant();
+    }
+}
+
 const QString JobItem::P_IDENTIFIER = "Identifier";
 const QString JobItem::P_SAMPLE_NAME = "Sample";
 const QString JobItem::P_INSTRUMENT_NAME = "Instrument";
@@ -57,10 +67,10 @@ JobItem::JobItem()
     addProperty(P_INSTRUMENT_NAME, QString())->setEditable(false);
     addProperty(P_WITH_FITTING, false)->setVisible(false);
 
-    ComboProperty status;
-    status << Constants::STATUS_IDLE << Constants::STATUS_RUNNING << Constants::STATUS_COMPLETED
-           << Constants::STATUS_CANCELED << Constants::STATUS_FAILED;
-    addProperty(P_STATUS, status.getVariant())->setEditable(false);
+//    ComboProperty status;
+//    status << Constants::STATUS_IDLE << Constants::STATUS_RUNNING << Constants::STATUS_FITTING << Constants::STATUS_COMPLETED
+//           << Constants::STATUS_CANCELED << Constants::STATUS_FAILED;
+    addProperty(P_STATUS, createStatusVariant())->setEditable(false);
 
     addProperty(P_BEGIN_TIME, QString())->setEditable(false);
     addProperty(P_END_TIME, QString())->setEditable(false);
@@ -197,7 +207,8 @@ void JobItem::setEndTime(const QString &end_time)
 void JobItem::setDuration(int duration)
 {
     QString str;
-    str.sprintf("%7.3f", duration/1000.);
+    if(duration != 0)
+        str.sprintf("%7.3f", duration/1000.);
     setItemValue(P_DURATION, str.simplified());
 }
 

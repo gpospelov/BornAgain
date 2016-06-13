@@ -19,11 +19,13 @@
 #include "FitSuite.h"
 #include <QThread>
 #include <memory>
+#include <QDebug>
 
 RunFitManager::RunFitManager(QObject *parent)
     : QObject(parent)
     , m_fitSuite(nullptr)
     , m_is_fit_running{false}
+    , m_duration(0)
 {
 }
 
@@ -51,7 +53,7 @@ void RunFitManager::runFitting()
 
     connect(fw, SIGNAL(error(QString)), this, SLOT(intern_error(QString)));
 
-    connect(fw, SIGNAL(finished()), this, SLOT(intern_workerFinished()));
+    connect(fw, SIGNAL(finished(int)), this, SLOT(intern_workerFinished(int)));
 
     // delete fitting worker and thread when done
     connect(fw, SIGNAL(finished()), fw, SLOT(deleteLater()));
@@ -61,6 +63,13 @@ void RunFitManager::runFitting()
     thread->start();
 }
 
+//! Returns duration of fit in msec.
+
+int RunFitManager::getDuration()
+{
+    return m_duration;
+}
+
 void RunFitManager::interruptFitting()
 {
     if (m_is_fit_running) {
@@ -68,9 +77,10 @@ void RunFitManager::interruptFitting()
     }
 }
 
-void RunFitManager::intern_workerFinished()
+void RunFitManager::intern_workerFinished(int duration)
 {
     m_is_fit_running = false;
+    m_duration = duration;
     m_fitSuite.reset();
     emit finishedFitting();
 }

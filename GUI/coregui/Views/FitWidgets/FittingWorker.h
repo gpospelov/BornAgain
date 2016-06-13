@@ -41,12 +41,12 @@ signals:
 
     void started();
 
-    void finished();
+    void finished(int duration);
 
     void error(const QString &message);
 
 private:
-
+    int durationSince(const class QDateTime &since);
     std::shared_ptr<FitSuite> m_fitsuite;
 
 };

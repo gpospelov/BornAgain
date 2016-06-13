@@ -30,6 +30,7 @@
 #include "MinimizerSettingsWidget.h"
 #include "FitResultsWidget.h"
 #include "mainwindow_constants.h"
+#include "GUIHelpers.h"
 #include <QVBoxLayout>
 #include <QTabWidget>
 #include <QMessageBox>
@@ -190,14 +191,26 @@ void FitSuiteWidget::stopFitting()
 
 void FitSuiteWidget::onFittingStarted()
 {
+    m_currentItem->setStatus(Constants::STATUS_FITTING);
+    m_currentItem->setProgress(0);
+    m_currentItem->setStatus(Constants::STATUS_RUNNING);
+    m_currentItem->setBeginTime(GUIHelpers::currentDateTime());
+    m_currentItem->setEndTime(QString());
+    m_currentItem->setDuration(0);
+
     qDebug() << "FitSuiteWidget::onFittingStarted()";
     emit fittingStarted(m_currentItem);
 }
 
 void FitSuiteWidget::onFittingFinished()
 {
+    m_currentItem->setStatus(Constants::STATUS_COMPLETED);
+    m_currentItem->setEndTime(GUIHelpers::currentDateTime());
+    m_currentItem->setProgress(100);
+    m_currentItem->setDuration(m_manager->getDuration());
     qDebug() << "FitSuiteWidget::onFittingFinished()";
     m_currentItem->fitSuiteItem()->mapper()->unsubscribe(this);
+    Q_ASSERT(0);
     emit fittingFinished(m_currentItem);
 }
 

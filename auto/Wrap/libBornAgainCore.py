@@ -4676,12 +4676,24 @@ class ISampleBuilder(IParameterized):
         """
         registerParameter(ISampleBuilder self, std::string const & name, int64_t parpointer, AttLimits limits)
         registerParameter(ISampleBuilder self, std::string const & name, int64_t parpointer)
+
+        void IParameterized::registerParameter(const std::string &name, double *parpointer, const AttLimits &limits=AttLimits::limitless())
+
+        Register parameter address in the parameter pool. 
+
         """
         return _libBornAgainCore.ISampleBuilder_registerParameter(self, *args)
 
 
     def setParameterValue(self, name, value):
-        """setParameterValue(ISampleBuilder self, std::string const & name, double value)"""
+        """
+        setParameterValue(ISampleBuilder self, std::string const & name, double value)
+
+        void IParameterized::setParameterValue(const std::string &name, double value)
+
+        Sets the value of the parameter with the given name. 
+
+        """
         return _libBornAgainCore.ISampleBuilder_setParameterValue(self, name, value)
 
     def __disown__(self):
@@ -5054,6 +5066,18 @@ class IClusteredParticles(ICompositeSample):
 
         """
         return _libBornAgainCore.IClusteredParticles_getAmbientMaterial(self)
+
+
+    def createTotalFormFactor(self, arg2, arg3, arg4):
+        """
+        createTotalFormFactor(IClusteredParticles self, IFormFactor arg2, IRotation arg3, kvector_t arg4) -> IFormFactor
+
+        virtual IFormFactor* IClusteredParticles::createTotalFormFactor(const IFormFactor &, const IRotation *, kvector_t) const =0
+
+        Creates a total form factor for the mesocrystal with a specific shape and content The bulk content of the mesocrystal is encapsulated by the  IClusteredParticles object itself 
+
+        """
+        return _libBornAgainCore.IClusteredParticles_createTotalFormFactor(self, arg2, arg3, arg4)
 
 IClusteredParticles_swigregister = _libBornAgainCore.IClusteredParticles_swigregister
 IClusteredParticles_swigregister(IClusteredParticles)
@@ -8079,6 +8103,62 @@ class IFormFactorDecorator(IFormFactor):
 
 IFormFactorDecorator_swigregister = _libBornAgainCore.IFormFactorDecorator_swigregister
 IFormFactorDecorator_swigregister(IFormFactorDecorator)
+
+class PolygonalTopology(_object):
+    """Proxy of C++ PolygonalTopology class"""
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, PolygonalTopology, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, PolygonalTopology, name)
+    __repr__ = _swig_repr
+    __swig_setmethods__["vertexIndices"] = _libBornAgainCore.PolygonalTopology_vertexIndices_set
+    __swig_getmethods__["vertexIndices"] = _libBornAgainCore.PolygonalTopology_vertexIndices_get
+    if _newclass:
+        vertexIndices = _swig_property(_libBornAgainCore.PolygonalTopology_vertexIndices_get, _libBornAgainCore.PolygonalTopology_vertexIndices_set)
+    __swig_setmethods__["symmetry_S2"] = _libBornAgainCore.PolygonalTopology_symmetry_S2_set
+    __swig_getmethods__["symmetry_S2"] = _libBornAgainCore.PolygonalTopology_symmetry_S2_get
+    if _newclass:
+        symmetry_S2 = _swig_property(_libBornAgainCore.PolygonalTopology_symmetry_S2_get, _libBornAgainCore.PolygonalTopology_symmetry_S2_set)
+
+    def __init__(self):
+        """__init__(PolygonalTopology self) -> PolygonalTopology"""
+        this = _libBornAgainCore.new_PolygonalTopology()
+        try:
+            self.this.append(this)
+        except:
+            self.this = this
+    __swig_destroy__ = _libBornAgainCore.delete_PolygonalTopology
+    __del__ = lambda self: None
+PolygonalTopology_swigregister = _libBornAgainCore.PolygonalTopology_swigregister
+PolygonalTopology_swigregister(PolygonalTopology)
+
+class PolyhedralTopology(_object):
+    """Proxy of C++ PolyhedralTopology class"""
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, PolyhedralTopology, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, PolyhedralTopology, name)
+    __repr__ = _swig_repr
+    __swig_setmethods__["faces"] = _libBornAgainCore.PolyhedralTopology_faces_set
+    __swig_getmethods__["faces"] = _libBornAgainCore.PolyhedralTopology_faces_get
+    if _newclass:
+        faces = _swig_property(_libBornAgainCore.PolyhedralTopology_faces_get, _libBornAgainCore.PolyhedralTopology_faces_set)
+    __swig_setmethods__["symmetry_Ci"] = _libBornAgainCore.PolyhedralTopology_symmetry_Ci_set
+    __swig_getmethods__["symmetry_Ci"] = _libBornAgainCore.PolyhedralTopology_symmetry_Ci_get
+    if _newclass:
+        symmetry_Ci = _swig_property(_libBornAgainCore.PolyhedralTopology_symmetry_Ci_get, _libBornAgainCore.PolyhedralTopology_symmetry_Ci_set)
+
+    def __init__(self):
+        """__init__(PolyhedralTopology self) -> PolyhedralTopology"""
+        this = _libBornAgainCore.new_PolyhedralTopology()
+        try:
+            self.this.append(this)
+        except:
+            self.this = this
+    __swig_destroy__ = _libBornAgainCore.delete_PolyhedralTopology
+    __del__ = lambda self: None
+PolyhedralTopology_swigregister = _libBornAgainCore.PolyhedralTopology_swigregister
+PolyhedralTopology_swigregister(PolyhedralTopology)
 
 class PolyhedralEdge(_object):
     """
@@ -22089,9 +22169,9 @@ class SampleBuilderFactory(_object):
     """
 
 
-    Factory to create standard pre-defined samples.
+    Base class for all factories.
 
-    C++ includes: SampleBuilderFactory.h
+    C++ includes: IFactory.h
 
     """
     __swig_setmethods__ = {}
@@ -22102,9 +22182,9 @@ class SampleBuilderFactory(_object):
 
     def __init__(self):
         """
-        __init__(SampleBuilderFactory self) -> SampleBuilderFactory
+        __init__(IFactory<(ISampleBuilder)> self) -> SampleBuilderFactory
 
-        SampleBuilderFactory::SampleBuilderFactory()
+        IFactory< AbstractProduct >::IFactory()
 
         """
         this = _libBornAgainCore.new_SampleBuilderFactory()
@@ -22113,19 +22193,90 @@ class SampleBuilderFactory(_object):
         except:
             self.this = this
 
-    def createSample(self, name):
+    def createItem(self, itemId):
         """
-        createSample(SampleBuilderFactory self, std::string const & name) -> ISample
+        createItem(SampleBuilderFactory self, std::string const & itemId) -> ISampleBuilder
 
-        ISample * SampleBuilderFactory::createSample(const std::string &name)
+        AbstractProduct* IFactory< AbstractProduct >::createItem(const std::string &itemId)
 
-        Retrieves a SampleBuilder from the registry, does the build, and returns the result. 
+        Creates object by calling creation function corresponded to given identifier. 
 
         """
-        return _libBornAgainCore.SampleBuilderFactory_createSample(self, name)
+        return _libBornAgainCore.SampleBuilderFactory_createItem(self, itemId)
+
+
+    def registerItem(self, *args):
+        """
+        registerItem(SampleBuilderFactory self, std::string const & itemId, IFactory< ISampleBuilder >::CreateItemCallback CreateFn) -> bool
+        registerItem(SampleBuilderFactory self, std::string const & itemId, IFactory< ISampleBuilder >::CreateItemCallback CreateFn, std::string const & itemDescription) -> bool
+
+        bool IFactory< AbstractProduct >::registerItem(const std::string &itemId, CreateItemCallback CreateFn, const std::string &itemDescription)
+
+        Registers object's creation function and store object description. 
+
+        """
+        return _libBornAgainCore.SampleBuilderFactory_registerItem(self, *args)
 
     __swig_destroy__ = _libBornAgainCore.delete_SampleBuilderFactory
     __del__ = lambda self: None
+
+    def clear(self):
+        """
+        clear(SampleBuilderFactory self)
+
+        void IFactory< AbstractProduct >::clear()
+
+        clear everything 
+
+        """
+        return _libBornAgainCore.SampleBuilderFactory_clear(self)
+
+
+    def setOwnObjects(self, own_objects):
+        """
+        setOwnObjects(SampleBuilderFactory self, bool own_objects)
+
+        void IFactory< AbstractProduct >::setOwnObjects(bool own_objects)
+
+        Sets flag to delete objects on descruction. 
+
+        """
+        return _libBornAgainCore.SampleBuilderFactory_setOwnObjects(self, own_objects)
+
+
+    def getNumberOfRegistered(self):
+        """
+        getNumberOfRegistered(SampleBuilderFactory self) -> size_t
+
+        size_t IFactory< AbstractProduct >::getNumberOfRegistered() const
+
+        Returns number of registered objects. 
+
+        """
+        return _libBornAgainCore.SampleBuilderFactory_getNumberOfRegistered(self)
+
+
+    def begin(self, *args):
+        """
+        begin(SampleBuilderFactory self) -> IFactory< ISampleBuilder >::iterator
+        begin(SampleBuilderFactory self) -> IFactory< ISampleBuilder >::const_iterator
+
+        const_iterator IFactory< AbstractProduct >::begin() const 
+
+        """
+        return _libBornAgainCore.SampleBuilderFactory_begin(self, *args)
+
+
+    def end(self, *args):
+        """
+        end(SampleBuilderFactory self) -> IFactory< ISampleBuilder >::iterator
+        end(SampleBuilderFactory self) -> IFactory< ISampleBuilder >::const_iterator
+
+        const_iterator IFactory< AbstractProduct >::end() const 
+
+        """
+        return _libBornAgainCore.SampleBuilderFactory_end(self, *args)
+
 SampleBuilderFactory_swigregister = _libBornAgainCore.SampleBuilderFactory_swigregister
 SampleBuilderFactory_swigregister(SampleBuilderFactory)
 
@@ -22133,9 +22284,9 @@ class SimulationFactory(_object):
     """
 
 
-    Registry to create standard pre-defined simulations. Used in functional tests, performance measurements, etc.
+    Base class for all factories.
 
-    C++ includes: SimulationFactory.h
+    C++ includes: IFactory.h
 
     """
     __swig_setmethods__ = {}
@@ -22146,9 +22297,9 @@ class SimulationFactory(_object):
 
     def __init__(self):
         """
-        __init__(SimulationFactory self) -> SimulationFactory
+        __init__(IFactory<(GISASSimulation)> self) -> SimulationFactory
 
-        SimulationFactory::SimulationFactory()
+        IFactory< AbstractProduct >::IFactory()
 
         """
         this = _libBornAgainCore.new_SimulationFactory()
@@ -22156,8 +22307,91 @@ class SimulationFactory(_object):
             self.this.append(this)
         except:
             self.this = this
+
+    def createItem(self, itemId):
+        """
+        createItem(SimulationFactory self, std::string const & itemId) -> GISASSimulation
+
+        AbstractProduct* IFactory< AbstractProduct >::createItem(const std::string &itemId)
+
+        Creates object by calling creation function corresponded to given identifier. 
+
+        """
+        return _libBornAgainCore.SimulationFactory_createItem(self, itemId)
+
+
+    def registerItem(self, *args):
+        """
+        registerItem(SimulationFactory self, std::string const & itemId, IFactory< GISASSimulation >::CreateItemCallback CreateFn) -> bool
+        registerItem(SimulationFactory self, std::string const & itemId, IFactory< GISASSimulation >::CreateItemCallback CreateFn, std::string const & itemDescription) -> bool
+
+        bool IFactory< AbstractProduct >::registerItem(const std::string &itemId, CreateItemCallback CreateFn, const std::string &itemDescription)
+
+        Registers object's creation function and store object description. 
+
+        """
+        return _libBornAgainCore.SimulationFactory_registerItem(self, *args)
+
     __swig_destroy__ = _libBornAgainCore.delete_SimulationFactory
     __del__ = lambda self: None
+
+    def clear(self):
+        """
+        clear(SimulationFactory self)
+
+        void IFactory< AbstractProduct >::clear()
+
+        clear everything 
+
+        """
+        return _libBornAgainCore.SimulationFactory_clear(self)
+
+
+    def setOwnObjects(self, own_objects):
+        """
+        setOwnObjects(SimulationFactory self, bool own_objects)
+
+        void IFactory< AbstractProduct >::setOwnObjects(bool own_objects)
+
+        Sets flag to delete objects on descruction. 
+
+        """
+        return _libBornAgainCore.SimulationFactory_setOwnObjects(self, own_objects)
+
+
+    def getNumberOfRegistered(self):
+        """
+        getNumberOfRegistered(SimulationFactory self) -> size_t
+
+        size_t IFactory< AbstractProduct >::getNumberOfRegistered() const
+
+        Returns number of registered objects. 
+
+        """
+        return _libBornAgainCore.SimulationFactory_getNumberOfRegistered(self)
+
+
+    def begin(self, *args):
+        """
+        begin(SimulationFactory self) -> IFactory< GISASSimulation >::iterator
+        begin(SimulationFactory self) -> IFactory< GISASSimulation >::const_iterator
+
+        const_iterator IFactory< AbstractProduct >::begin() const 
+
+        """
+        return _libBornAgainCore.SimulationFactory_begin(self, *args)
+
+
+    def end(self, *args):
+        """
+        end(SimulationFactory self) -> IFactory< GISASSimulation >::iterator
+        end(SimulationFactory self) -> IFactory< GISASSimulation >::const_iterator
+
+        const_iterator IFactory< AbstractProduct >::end() const 
+
+        """
+        return _libBornAgainCore.SimulationFactory_end(self, *args)
+
 SimulationFactory_swigregister = _libBornAgainCore.SimulationFactory_swigregister
 SimulationFactory_swigregister(SimulationFactory)
 

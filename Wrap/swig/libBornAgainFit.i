@@ -80,6 +80,8 @@ import_array();
 #include "MinimizerFactory.h"
 #include "MinimizerOptions.h"
 #include "FitStrategyAdjustMinimizer.h"
+//#include "IFactory.h"
+//#include "StandardFitsFactory.h"
 %}
 
 %import(module="libBornAgainCore") "AttLimits.h"
@@ -91,6 +93,7 @@ import_array();
 // The following goes verbatim from libBornAgainFit.i to libBornAgainFit_wrap.cxx.
 // Note that the order matters, as base classes must be included before derived classes.
 
+%include "IFactory.h"
 %include "IMinimizer.h"
 %include "IChiSquaredModule.h"
 %include "IFitObserver.h"
@@ -109,6 +112,8 @@ import_array();
 %include "MinimizerOptions.h"
 %include "MinimizerFactory.h"
 %include "FitStrategyAdjustMinimizer.h"
+ //%include "StandardFitsFactory.h"
+ //%template(StandardFitsFactory) IFactory<IStandardFits>;
 
- // included at end because swig needs to know something about the extended classes beforehand
+// included at end because swig needs to know something about the extended classes beforehand
 %include "extends.i"

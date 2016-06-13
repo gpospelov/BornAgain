@@ -18,13 +18,11 @@ namespace Geometry {
 }
 
 
-
-
 %extend OutputData<double> {
     double __getitem__(unsigned int i) {
         return (*($self))[i];
     }
-  
+
     double __setitem__(unsigned int i, double value) {
         (*($self))[i] = value;
         return (*($self))[i];
@@ -35,7 +33,7 @@ namespace Geometry {
     double __getitem__(unsigned int i) {
         return (*($self))[i];
     }
-  
+
     /*  double __setitem__(unsigned int i, double value) {
         (*($self))[i] = value;
         return (*($self))[i];
@@ -47,7 +45,7 @@ namespace Geometry {
     double __getitem__(unsigned int i) {
         return (*($self))[i];
     }
-  
+
     /*  double __setitem__(unsigned int i, double value) {
         (*($self))[i] = value;
         return (*($self))[i];
@@ -55,26 +53,21 @@ namespace Geometry {
 };
 
 
-/*
-  %extend IAxis {
-  double __getitem__(unsigned int i) {
-  return (*($self))[i];
-  }
-  
-  double __setitem__(unsigned int i, double value) {
-  (*($self))[i] = value;
-  return (*($self))[i];
-  }
-  };
-*/
-
-//%ignore IAxis::operator==(const IAxis& rhs);
-
 %extend IAxis {
     bool __ne__(const IAxis& rhs)
     {
         return !(*$self == rhs);
     }
+/*
+    double __getitem__(unsigned int i) {
+      return (*($self))[i];
+    }
+
+    double __setitem__(unsigned int i, double value) {
+      (*($self))[i] = value;
+      return (*($self))[i];
+    }
+*/
 };
 
 
@@ -108,7 +101,7 @@ namespace Geometry {
     {
         return (*($self)).registerParameter(name, parpointer, limits);
     } /**/
-  
+
     virtual void registerParameter(const std::string &name, int64_t parpointer, const AttLimits& limits = AttLimits::limitless())
     {
       return (*($self)).registerParameter(name, (double*)parpointer, limits);
@@ -120,7 +113,7 @@ namespace Geometry {
     {
         return dynamic_cast<const IParameterized*>($self)->addParametersToExternalPool(path, external_pool, copy_number);
     }/**/
-    
+
     /*virtual void registerParameter(const std::string &name, int parpointer, const AttLimits& limits = AttLimits::limitless())
     {
         return (*($self)).registerParameter(name, (double*)parpointer, limits);
@@ -154,7 +147,7 @@ namespace Geometry {
   {
   ($self)->registerChild(sample.get());
   }
-  
+
   virtual void deregisterChild(boost::shared_ptr<ISample> sample)
   {
   ($self)->deregisterChild(sample.get());
@@ -167,7 +160,7 @@ namespace Geometry {
   ($self)->visit(sample.get());
   }
   };
-		       
+
 
   %extend ISampleIterator {
   virtual IteratorMemento first(boost::shared_ptr<ISample> p_root)
@@ -204,15 +197,13 @@ namespace Geometry {
     {
         return ($self)->getBinValuesNumpy();
     }
-    
+
     PyObject* getBinErrors() const
     {
         return ($self)->getBinErrorsNumpy();
     }
 }
 /**/
-
-
 
 
  /*
@@ -230,7 +221,7 @@ namespace Geometry {
     {
         return (*($self))[name];
     }
-    
+
     /* void __setitem__(std::string name, const FitParameter* val)
     {
         (*($self))[name] = *val_;
@@ -240,7 +231,7 @@ namespace Geometry {
     {
         return (*($self))[index];
     }
-    
+
     /*    void __setitem__(size_t index, const FitParameter* val)
     {
         (*($self))[index] = *val;

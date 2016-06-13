@@ -45,7 +45,7 @@ public:
     //! Creates a total form factor for the mesocrystal with a specific shape and content
     //! The bulk content of the mesocrystal is encapsulated by the IClusteredParticles object itself
     virtual IFormFactor* createTotalFormFactor(
-        const IFormFactor&, const IRotation*, kvector_t /*translation*/) const = delete;
+        const IFormFactor&, const IRotation*, kvector_t /*translation*/) const = 0;
 
     //! Composes transformation with existing one
     virtual void applyRotation(const IRotation&) = delete;

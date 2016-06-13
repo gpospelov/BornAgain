@@ -41,8 +41,6 @@ namespace Geometry {
     %ignore BasicVector3D<double>::rotatedX(double) const;
     %ignore BasicVector3D<double>::rotatedY(double) const;
     %ignore BasicVector3D<double>::rotatedZ(double) const;
-
-
 }
 
 
@@ -56,8 +54,6 @@ namespace Geometry {
 
 // ignored to avoid error (todo: check whether this is really necessary)
 %ignore Crystal::getTransformedLattice(const IRotation *) const;
-
-
 
 // taken from dev-tools/python-bindings/settings_fit.py
 %ignore FitSuite::setOptions(const FitOptions&);

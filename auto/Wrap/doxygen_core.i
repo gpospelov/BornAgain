@@ -5171,7 +5171,7 @@ calls the  ISampleVisitor's visit method
 %feature("docstring")  IClusteredParticles::getAmbientMaterial "virtual const IMaterial* IClusteredParticles::getAmbientMaterial() const =0
 ";
 
-%feature("docstring")  IClusteredParticles::createTotalFormFactor "virtual IFormFactor* IClusteredParticles::createTotalFormFactor(const IFormFactor &, const IRotation *, kvector_t) const =delete
+%feature("docstring")  IClusteredParticles::createTotalFormFactor "virtual IFormFactor* IClusteredParticles::createTotalFormFactor(const IFormFactor &, const IRotation *, kvector_t) const =0
 
 Creates a total form factor for the mesocrystal with a specific shape and content The bulk content of the mesocrystal is encapsulated by the  IClusteredParticles object itself 
 ";
@@ -10499,6 +10499,10 @@ Returns true if area defined by two bins is inside or on border of polygon. More
 ";
 
 
+// File: classPolygonalTopology.xml
+%feature("docstring") PolygonalTopology "";
+
+
 // File: classGeometry_1_1PolygonPrivate.xml
 %feature("docstring") Geometry::PolygonPrivate "
 
@@ -10599,6 +10603,10 @@ Returns the two-dimensional form factor of this face, for use in a prism.
 
 Throws if deviation from inversion symmetry is detected. Does not check vertices. 
 ";
+
+
+// File: classPolyhedralTopology.xml
+%feature("docstring") PolyhedralTopology "";
 
 
 // File: classPrecomputed.xml
@@ -12902,14 +12910,6 @@ C++ includes: ThreadInfo.h
 ";
 
 
-// File: classFormFactorPolyhedron_1_1Topology.xml
-%feature("docstring") FormFactorPolyhedron::Topology "";
-
-
-// File: classFormFactorPolyhedron_1_1TopologyFace.xml
-%feature("docstring") FormFactorPolyhedron::TopologyFace "";
-
-
 // File: classTRange.xml
 %feature("docstring") TRange "
 
@@ -13596,10 +13596,10 @@ Fills output data raw buffer from input stream.
 %feature("docstring")  PyGenTools::testPyScript "bool PyGenTools::testPyScript(class GISASSimulation *simulation, const std::string &output_filename)
 ";
 
-%feature("docstring")  PyGenTools::getRepresentation "BA_CORE_API_ std::string PyGenTools::getRepresentation(const class IDistribution1D *distribution)
+%feature("docstring")  PyGenTools::getRepresentation "std::string PyGenTools::getRepresentation(const class IDistribution1D *distribution)
 ";
 
-%feature("docstring")  PyGenTools::getRepresentation "BA_CORE_API_ std::string PyGenTools::getRepresentation(const std::string &indent, const class Geometry::IShape2D *ishape, bool mask_value)
+%feature("docstring")  PyGenTools::getRepresentation "std::string PyGenTools::getRepresentation(const std::string &indent, const class Geometry::IShape2D *ishape, bool mask_value)
 ";
 
 %feature("docstring")  PyGenTools::printBool "std::string PyGenTools::printBool(double value)

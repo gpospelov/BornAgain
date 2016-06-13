@@ -35,7 +35,7 @@ public:
     double getEdge() const;
 
 private:
-    static const Topology topology;
+    static const PolyhedralTopology topology;
     virtual void onChange() final;
     double m_edge;
 };

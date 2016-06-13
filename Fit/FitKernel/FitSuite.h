@@ -63,9 +63,9 @@ public:
                          const AttLimits& attlim=AttLimits::limitless(), double step = 0.0);
 
     //! Sets minimizer with given name and algorithm type
-    //! @param minimizer The name of the minimizer
-    //! @param algorithm Optional name of the minimizer's algorithm
-    //! @param options Optional string with additional minimizer settings
+    //! @param minimizer_name The name of the minimizer
+    //! @param algorithm_name Optional name of the minimizer's algorithm
+    //! @param minimizer_options Optional string with additional minimizer settings
     void setMinimizer(const std::string& minimizer_name,
                       const std::string& algorithm_name = std::string(),
                       const std::string& minimizer_options=std::string());

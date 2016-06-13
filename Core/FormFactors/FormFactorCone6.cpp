@@ -17,7 +17,7 @@
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
 
-const FormFactorPolyhedron::Topology FormFactorCone6::topology = {
+const PolyhedralTopology FormFactorCone6::topology = {
     {
         { {  5,  4,  3,  2,  1,  0 }, true },
         { {  0,  1,  7,  6 }, false },

@@ -18,7 +18,7 @@
 #include "FormFactorBox.h"
 #include "MathFunctions.h"
 
-const FormFactorPolyhedron::Topology FormFactorTruncatedCube::topology = {
+const PolyhedralTopology FormFactorTruncatedCube::topology = {
     {
         { {  0, 1, 7, 6,  9,10, 4, 3 }, true },
         { {  0, 2, 1 }, false },

@@ -18,7 +18,7 @@
 #include "FormFactorBox.h"
 #include "MathFunctions.h"
 
-const FormFactorPolyhedron::Topology FormFactorDodecahedron::topology = {
+const PolyhedralTopology FormFactorDodecahedron::topology = {
     {
         // bottom:
         { {  0,  4,  3,  2,  1 }, false },

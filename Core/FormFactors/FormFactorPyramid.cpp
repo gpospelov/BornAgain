@@ -17,7 +17,7 @@
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
 
-const FormFactorPolyhedron::Topology FormFactorPyramid::topology = {
+const PolyhedralTopology FormFactorPyramid::topology = {
     {
         { { 3, 2, 1, 0 }, true  }, // TODO -> true
         { { 0, 1, 5, 4 }, false },

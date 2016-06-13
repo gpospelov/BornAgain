@@ -2437,7 +2437,7 @@ class FitObject(libBornAgainCore.IParameterized):
         Parameters:
         -----------
 
-        simulaiton: 
+        simulation: 
         The simulation to eun
 
         real_data: 
@@ -3326,7 +3326,13 @@ class FitSuiteObjects(libBornAgainCore.IParameterized):
 
         double FitSuiteObjects::getResidualValue(size_t global_index)
 
-        Returns residuals for single data element  global_index index accross all element in FitElement vector 
+        Returns residuals for single data element
+
+        Parameters:
+        -----------
+
+        global_index: 
+        index accross all element in FitElement vector 
 
         """
         return _libBornAgainFit.FitSuiteObjects_getResidualValue(self, global_index)

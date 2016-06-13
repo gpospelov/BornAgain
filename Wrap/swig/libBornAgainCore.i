@@ -15,7 +15,6 @@
 
 %module(directors="1") "libBornAgainCore"
 
- //%feature("director");
 %feature("autodoc");
 
 /**/
@@ -25,16 +24,15 @@
 %include "std_vector.i"
 %include "std_shared_ptr.i"
 
- // TODO CLARIFY WHY THIS IS INCLUDED
+// TODO CLARIFY WHY THIS IS INCLUDED
 %include "../../auto/Wrap/doxygen_core.i"
-
-%include "warnings.i"
-%include "ignores.i"
-%include "extends.i"
-%include "directors.i"
 
  // include the list of smart pointers (common between Core and Fit)
 %include "shared_pointers.i"
+
+%include "warnings.i"
+%include "ignores.i"
+%include "directors.i"
 
 %template(vdouble1d_t) std::vector<double>;
 %template(vdouble2d_t) std::vector< std::vector<double> >;
@@ -123,7 +121,6 @@
 #include "Histogram2D.h"
 #include "HomogeneousMagneticMaterial.h"
 #include "HomogeneousMaterial.h"
-#include "IAxis.h"
 #include "ICloneable.h"
 #include "IClusteredParticles.h"
 #include "ICompositeSample.h"
@@ -131,8 +128,6 @@
 #include "IDetectorResolution.h"
 #include "Distributions.h"
 #include "FTDecayFunctions.h"
-#include "IFormFactor.h"
-#include "IFormFactorBorn.h"
 #include "IFormFactorDecorator.h"
 #include "IHistogram.h"
 #include "IInterferenceFunction.h"
@@ -242,6 +237,7 @@
 %template(swig_dummy_type_isample_vector) std::vector<ISample*>;
 %template(swig_dummy_type_const_isample_vector) std::vector<const ISample*>;
 
+%include "IFactory.h"
 %include "ISampleBuilder.h"
 %include "ISampleVisitor.h"
 %include "ICompositeSample.h"
@@ -346,7 +342,7 @@
 %include "MultiLayer.h"
 %include "OffSpecSimulation.h"
 %include "OutputData.h"
-%template(IntensityData) OutputData<double >;
+%template(IntensityData) OutputData<double>;
 %include "OutputDataFunctions.h"
 %include "ParameterDistribution.h"
 %include "ParameterPool.h"
@@ -364,5 +360,9 @@
 %include "ISelectionRule.h"
 %include "SpecularSimulation.h"
 %include "ThreadInfo.h"
-%include "SampleBuilderFactory.h"
-%include "SimulationFactory.h"
+%template(SampleBuilderFactory) IFactory<ISampleBuilder>;
+//%include "SampleBuilderFactory.h"
+%template(SimulationFactory) IFactory<GISASSimulation>;
+//%include "SimulationFactory.h"
+
+%include "extends.i"

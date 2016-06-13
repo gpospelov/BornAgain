@@ -18,7 +18,7 @@
 #include "BornAgainNamespace.h"
 #include "IntegratorComplex.h"
 
-const FormFactorPolyhedron::Topology FormFactorTetrahedron::topology = {
+const PolyhedralTopology FormFactorTetrahedron::topology = {
     {
         { { 2, 1, 0 }, false },
         { { 0, 1, 4, 3 }, false },

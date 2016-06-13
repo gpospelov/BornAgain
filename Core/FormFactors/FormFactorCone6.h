@@ -34,7 +34,7 @@ public:
     double getAlpha() const { return m_alpha; }
 
 private:
-    static const Topology topology;
+    static const PolyhedralTopology topology;
     virtual void onChange() final;
     double m_base_edge;
     double m_height;

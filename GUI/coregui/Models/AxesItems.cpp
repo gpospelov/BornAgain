@@ -22,6 +22,8 @@ const QString BasicAxisItem::P_MIN = "Min";
 const QString BasicAxisItem::P_MAX = "Max";
 const QString BasicAxisItem::P_TITLE = "title";
 
+static const int max_detector_pixels = 65536;
+
 BasicAxisItem::BasicAxisItem(const QString &type)
     : SessionItem(type)
 {
@@ -31,7 +33,7 @@ BasicAxisItem::BasicAxisItem(const QString &type)
 void BasicAxisItem::register_basic_properties()
 {
     addProperty(P_IS_VISIBLE, true)->setVisible(false);
-    addProperty(P_NBINS, 100)->setLimits(AttLimits::limited(1, 1024));
+    addProperty(P_NBINS, 100)->setLimits(AttLimits::limited(1, max_detector_pixels));
     addProperty(P_MIN, 0.0)->setDecimals(3);
     getItem(P_MIN)->setLimits(AttLimits::limitless());
     addProperty(P_MAX, -1.0)->setDecimals(3);

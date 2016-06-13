@@ -70,7 +70,8 @@ bool PyGenTools::testPyScript(GISASSimulation* simulation, const std::string& ou
     pythonFile.close();
 
     std::string command = std::string(BORNAGAIN_PYTHON_EXE) + " PythonScript.py";
-    std::system(command.c_str());
+    int script_result = std::system(command.c_str());
+    (void)script_result; // ignore return value
 
     if (std::remove("PythonScript.py") != 0)
         throw RuntimeErrorException("PyGenTools::testPyScript: "

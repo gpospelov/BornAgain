@@ -31,16 +31,16 @@ class BA_CORE_API_ ISample : public ICloneable, public IParameterized
 {
 public:
     //! Returns a clone of this ISample object.
-    virtual ISample *clone() const=0;
+    virtual ISample* clone() const=0;
 
     //! Returns a clone with inverted magnetic fields.
-    virtual ISample *cloneInvertB() const;
+    virtual ISample* cloneInvertB() const;
 
     //! Calls the ISampleVisitor's visit method.
-    virtual void accept(ISampleVisitor *p_visitor) const=0;
+    virtual void accept(ISampleVisitor* p_visitor) const=0;
 
     //! Returns an ISimulation if DWBA is required.
-    virtual DWBASimulation *createDWBASimulation() const;
+    virtual DWBASimulation* createDWBASimulation() const;
 
     //! Outputs the tree of parameters generated from this ISample object and its descendants.
     virtual void printSampleTree();
@@ -54,14 +54,7 @@ public:
 
     //! Returns number of children.
     //! Default implementation returns zero.
-    virtual size_t size() const;
+    virtual size_t size() const { return 0; }
 };
 
-inline size_t ISample::size() const
-{
-    return 0;
-}
-
 #endif // ISAMPLE_H
-
-

@@ -13489,7 +13489,7 @@ Selects an element-wise component of the matrix-valued  OutputData structure and
 
 %feature("docstring")  OutputDataFunctions::createFromComponents "OutputData< Eigen::Matrix2d > * OutputDataFunctions::createFromComponents(const OutputData< double > &component_00, const OutputData< double > &component_01, const OutputData< double > &component_10, const OutputData< double > &component_11)
 
-Assembles a matrix-valued OuputData structure from its component maps 
+Assembles a matrix-valued OuputData structure from its component maps. 
 ";
 
 %feature("docstring")  OutputDataFunctions::sliceAccrossOneAxis "OutputData< double > * OutputDataFunctions::sliceAccrossOneAxis(const OutputData< double > &data, const std::string &fixed_axis_name, double fixed_axis_value)

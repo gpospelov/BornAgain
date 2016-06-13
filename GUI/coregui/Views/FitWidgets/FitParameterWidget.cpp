@@ -251,6 +251,11 @@ void FitParameterWidget::init_actions()
 
 void FitParameterWidget::initTuningWidgetContextMenu(QMenu &menu)
 {
+    if(m_jobItem->getStatus() == Constants::STATUS_FITTING) {
+        setActionsEnabled(false);
+        return;
+    }
+
     m_removeFromFitParAction->setEnabled(canRemoveFromFitParameters());
     m_createFitParAction->setEnabled(canCreateFitParameter());
 
@@ -278,6 +283,10 @@ void FitParameterWidget::initTuningWidgetContextMenu(QMenu &menu)
 
 void FitParameterWidget::initFitParameterTreeContextMenu(QMenu &menu)
 {
+    if(m_jobItem->getStatus() == Constants::STATUS_FITTING) {
+        setActionsEnabled(false);
+        return;
+    }
     menu.addAction(m_removeFitParAction);
 }
 

@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      FormFactors/FormFactorTruncatedSpheroid.h
+//! @file      Core/FormFactors/FormFactorTruncatedSpheroid.h
 //! @brief     Declares class FormFactorTruncatedSpheroid.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -30,11 +30,6 @@ template <class T> class IntegratorComplex;
 class BA_CORE_API_ FormFactorTruncatedSpheroid : public IFormFactorBorn
 {
 public:
-    //! @brief TruncatedSpheroid constructor
-    //! @param radius of Truncated Spheroid
-    //! @param height of Truncated Spheroid
-    //! @param flattening parameter in vertical direction (full height: 2 x flattening x radius)
-
     FormFactorTruncatedSpheroid(double radius, double height, double height_flattening);
 
     virtual ~FormFactorTruncatedSpheroid();

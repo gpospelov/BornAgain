@@ -219,6 +219,8 @@ TAB_SIZE               = 4
 # newlines.
 
 ALIASES                =
+ALIASES                += homepage="@par Homepage:\n"
+ALIASES                += license="@par License:\n"
 
 # This tag can be used to specify a number of word-keyword mappings (TCL only).
 # A mapping has the form "name=value". For example adding "class=itcl::class"
@@ -596,7 +598,7 @@ GENERATE_DEPRECATEDLIST= YES
 # sections, marked by \if <section_label> ... \endif and \cond <section_label>
 # ... \endcond blocks.
 
-ENABLED_SECTIONS       = 
+ENABLED_SECTIONS       =
 
 # The MAX_INITIALIZER_LINES tag determines the maximum number of lines that the
 # initial value of a variable or macro / define can have for it to appear in the
@@ -1778,18 +1780,6 @@ GENERATE_XML           = NO
 # This tag requires that the tag GENERATE_XML is set to YES.
 
 XML_OUTPUT             = xml
-
-# The XML_SCHEMA tag can be used to specify a XML schema, which can be used by a
-# validating XML parser to check the syntax of the XML files.
-# This tag requires that the tag GENERATE_XML is set to YES.
-
-XML_SCHEMA             =
-
-# The XML_DTD tag can be used to specify a XML DTD, which can be used by a
-# validating XML parser to check the syntax of the XML files.
-# This tag requires that the tag GENERATE_XML is set to YES.
-
-XML_DTD                =
 
 # If the XML_PROGRAMLISTING tag is set to YES doxygen will dump the program
 # listings (including syntax highlighting and cross-referencing information) to

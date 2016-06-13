@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      FormFactors/FormFactorTrivial.h
+//! @file      Core/FormFactors/FormFactorTrivial.h
 //! @brief     Declares class FormFactorTrivial.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -18,21 +18,18 @@
 
 #include "IFormFactorBorn.h"
 
-//! @class FormFactorCylinder
+//! @class FormFactorTrivial
 //! @ingroup formfactors
-//! @brief The formfactor of a cylinder.
+//! @brief A uniform formfactor F(q)=1, for development purposes.
 
 class BA_CORE_API_ FormFactorTrivial : public IFormFactorBorn
 {
 public:
-    //! @brief Cylinder constructor
-    //! @param radius of Cylinder's base
-    //! @param height of Cylinder
     FormFactorTrivial();
 
-    virtual FormFactorTrivial *clone() const;
+    virtual FormFactorTrivial* clone() const;
 
-    virtual void accept(ISampleVisitor *visitor) const;
+    virtual void accept(ISampleVisitor* visitor) const;
 
     virtual double getRadius() const;
 
@@ -44,5 +41,3 @@ protected:
 };
 
 #endif // FORMFACTORTRIVIAL_H
-
-

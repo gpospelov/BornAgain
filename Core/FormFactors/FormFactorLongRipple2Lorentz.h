@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      FormFactors/FormFactorLongRipple2Lorentz.h
+//! @file      Core/FormFactors/FormFactorLongRipple2Lorentz.h
 //! @brief     Declares class FormFactorLongRipple2Lorentz.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -30,7 +30,7 @@ public:
     //! @param width of triangular cross section
     //! @param height of triangular cross section
     //! @param asymmetry length of triangular cross section
-    FormFactorLongRipple2Lorentz(double length, double width, double height, double asymetry);
+    FormFactorLongRipple2Lorentz(double length, double width, double height, double asymmetry);
 
     virtual ~FormFactorLongRipple2Lorentz() { }
 

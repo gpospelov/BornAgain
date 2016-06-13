@@ -140,7 +140,7 @@ FitObject constructor
 Parameters:
 -----------
 
-simulaiton: 
+simulation: 
 The simulation to eun
 
 real_data: 
@@ -510,13 +510,13 @@ Sets minimizer with given name and algorithm type
 Parameters:
 -----------
 
-minimizer: 
+minimizer_name: 
 The name of the minimizer
 
-algorithm: 
+algorithm_name: 
 Optional name of the minimizer's algorithm
 
-options: 
+minimizer_options: 
 Optional string with additional minimizer settings 
 ";
 
@@ -809,7 +809,13 @@ Returns chi2 calculated over whole dataset.
 
 %feature("docstring")  FitSuiteObjects::getResidualValue "double FitSuiteObjects::getResidualValue(size_t global_index)
 
-Returns residuals for single data element  global_index index accross all element in FitElement vector 
+Returns residuals for single data element
+
+Parameters:
+-----------
+
+global_index: 
+index accross all element in FitElement vector 
 ";
 
 %feature("docstring")  FitSuiteObjects::addParametersToExternalPool "std::string FitSuiteObjects::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const
@@ -1277,15 +1283,11 @@ C++ includes: IMinimizerFutest.h
 ";
 
 
-// File: classmap.xml
-%feature("docstring") map "
-
-names holding list of defined algorithms for every minimizer 
-";
-
-
 // File: classMinimizerCatalogue.xml
-%feature("docstring") MinimizerCatalogue "";
+%feature("docstring") MinimizerCatalogue "
+
+Map of minimizer names holding list of defined algorithms for every minimizer. 
+";
 
 %feature("docstring")  MinimizerCatalogue::MinimizerCatalogue "MinimizerCatalogue::MinimizerCatalogue()
 ";

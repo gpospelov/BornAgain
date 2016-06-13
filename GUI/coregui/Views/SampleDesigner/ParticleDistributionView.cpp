@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/SampleDesigner/ParticleDistributionView.cpp
+//! @file      GUI/coregui/Views/SampleDesigner/ParticleDistributionView.cpp
 //! @brief     Implements class ParticleDistributionView
 //!
 //! @homepage  http://www.bornagainproject.org

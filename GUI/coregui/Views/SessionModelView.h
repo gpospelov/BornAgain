@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/SessionModelView.h
+//! @file      GUI/coregui/Views/SessionModelView.h
 //! @brief     Declares class SessionModelView
 //!
 //! @homepage  http://www.bornagainproject.org

@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/MaterialModel.h
+//! @file      GUI/coregui/Models/MaterialModel.h
 //! @brief     Declares class MaterialModel
 //!
 //! @homepage  http://www.bornagainproject.org

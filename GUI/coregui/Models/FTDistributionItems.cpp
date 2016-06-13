@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/FTDistributionItems.cpp
+//! @file      GUI/coregui/Models/FTDistributionItems.cpp
 //! @brief     Implements FTDistribution1DItem's classes
 //!
 //! @homepage  http://www.bornagainproject.org

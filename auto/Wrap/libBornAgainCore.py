@@ -4676,12 +4676,24 @@ class ISampleBuilder(IParameterized):
         """
         registerParameter(ISampleBuilder self, std::string const & name, int64_t parpointer, AttLimits limits)
         registerParameter(ISampleBuilder self, std::string const & name, int64_t parpointer)
+
+        void IParameterized::registerParameter(const std::string &name, double *parpointer, const AttLimits &limits=AttLimits::limitless())
+
+        Register parameter address in the parameter pool. 
+
         """
         return _libBornAgainCore.ISampleBuilder_registerParameter(self, *args)
 
 
     def setParameterValue(self, name, value):
-        """setParameterValue(ISampleBuilder self, std::string const & name, double value)"""
+        """
+        setParameterValue(ISampleBuilder self, std::string const & name, double value)
+
+        void IParameterized::setParameterValue(const std::string &name, double value)
+
+        Sets the value of the parameter with the given name. 
+
+        """
         return _libBornAgainCore.ISampleBuilder_setParameterValue(self, name, value)
 
     def __disown__(self):
@@ -5056,37 +5068,16 @@ class IClusteredParticles(ICompositeSample):
         return _libBornAgainCore.IClusteredParticles_getAmbientMaterial(self)
 
 
-    def createTotalFormFactor(self, meso_crystal_form_factor, p_rotation, translation):
+    def createTotalFormFactor(self, arg2, arg3, arg4):
         """
-        createTotalFormFactor(IClusteredParticles self, IFormFactor meso_crystal_form_factor, IRotation p_rotation, kvector_t translation) -> IFormFactor
+        createTotalFormFactor(IClusteredParticles self, IFormFactor arg2, IRotation arg3, kvector_t arg4) -> IFormFactor
 
-        virtual IFormFactor* IClusteredParticles::createTotalFormFactor(const IFormFactor &meso_crystal_form_factor, const IRotation *p_rotation, kvector_t translation) const
+        virtual IFormFactor* IClusteredParticles::createTotalFormFactor(const IFormFactor &, const IRotation *, kvector_t) const =0
 
-        create a total form factor for the mesocrystal with a specific shape and content
-
-        Parameters:
-        -----------
-
-        meso_crystal_form_factor: 
-        the form factor describing the shape of the mesocrystal
-
-        ambient_refractive_index: 
-        the refractive index of the ambient material The bulk content of the mesocrystal is encapsulated by the  IClusteredParticles object itself 
+        Creates a total form factor for the mesocrystal with a specific shape and content The bulk content of the mesocrystal is encapsulated by the  IClusteredParticles object itself 
 
         """
-        return _libBornAgainCore.IClusteredParticles_createTotalFormFactor(self, meso_crystal_form_factor, p_rotation, translation)
-
-
-    def applyRotation(self, rotation):
-        """
-        applyRotation(IClusteredParticles self, IRotation rotation)
-
-        virtual void IClusteredParticles::applyRotation(const IRotation &rotation)
-
-        Composes transformation with existing one. 
-
-        """
-        return _libBornAgainCore.IClusteredParticles_applyRotation(self, rotation)
+        return _libBornAgainCore.IClusteredParticles_createTotalFormFactor(self, arg2, arg3, arg4)
 
 IClusteredParticles_swigregister = _libBornAgainCore.IClusteredParticles_swigregister
 IClusteredParticles_swigregister(IClusteredParticles)
@@ -5187,16 +5178,7 @@ class Crystal(IClusteredParticles):
 
         IFormFactor * Crystal::createTotalFormFactor(const IFormFactor &meso_crystal_form_factor, const IRotation *p_rotation, kvector_t translation) const
 
-        create a total form factor for the mesocrystal with a specific shape and content
-
-        Parameters:
-        -----------
-
-        meso_crystal_form_factor: 
-        the form factor describing the shape of the mesocrystal
-
-        ambient_refractive_index: 
-        the refractive index of the ambient material The bulk content of the mesocrystal is encapsulated by the  IClusteredParticles object itself 
+        Creates a total form factor for the mesocrystal with a specific shape and content The bulk content of the mesocrystal is encapsulated by the  IClusteredParticles object itself 
 
         """
         return _libBornAgainCore.Crystal_createTotalFormFactor(self, meso_crystal_form_factor, p_rotation, translation)
@@ -5316,6 +5298,8 @@ class IDistribution1D(IParameterized):
 
         sigma_factor: 
         parameter to derive min,max range for sample values
+
+        limits:
 
         vector of generated values 
 
@@ -7659,16 +7643,7 @@ class IFormFactor(ISample):
 
         virtual complex_t IFormFactor::evaluate(const WavevectorInfo &wavevectors) const =0
 
-        Returns scattering amplitude for complex wavevector bin
-
-        Parameters:
-        -----------
-
-        k_i: 
-        incoming wavevector
-
-        k_f_bin: 
-        outgoing wavevector bin 
+        Returns scattering amplitude for complex wavevector bin. 
 
         """
         return _libBornAgainCore.IFormFactor_evaluate(self, wavevectors)
@@ -7698,16 +7673,16 @@ class IFormFactor(ISample):
         return _libBornAgainCore.IFormFactor_getRadius(self)
 
 
-    def setSpecularInfo(self, p_in_coeffs, p_out_coeffs):
+    def setSpecularInfo(self, arg0, arg1):
         """
-        setSpecularInfo(IFormFactor self, ILayerRTCoefficients const * p_in_coeffs, ILayerRTCoefficients const * p_out_coeffs)
+        setSpecularInfo(IFormFactor self, ILayerRTCoefficients const * arg0, ILayerRTCoefficients const * arg1)
 
-        void IFormFactor::setSpecularInfo(const ILayerRTCoefficients *p_in_coeffs, const ILayerRTCoefficients *p_out_coeffs)
+        virtual void IFormFactor::setSpecularInfo(const ILayerRTCoefficients *, const ILayerRTCoefficients *)
 
         Sets reflection/transmission info. 
 
         """
-        return _libBornAgainCore.IFormFactor_setSpecularInfo(self, p_in_coeffs, p_out_coeffs)
+        return _libBornAgainCore.IFormFactor_setSpecularInfo(self, arg0, arg1)
 
     def __disown__(self):
         self.this.disown()
@@ -7998,16 +7973,7 @@ class IFormFactorBorn(IFormFactor):
 
         complex_t IFormFactorBorn::evaluate(const WavevectorInfo &wavevectors) const
 
-        Returns scattering amplitude for complex wavevector bin
-
-        Parameters:
-        -----------
-
-        k_i: 
-        incoming wavevector
-
-        k_f_bin: 
-        outgoing wavevector bin 
+        Returns scattering amplitude for complex wavevector bin. 
 
         """
         return _libBornAgainCore.IFormFactorBorn_evaluate(self, wavevectors)
@@ -8137,6 +8103,62 @@ class IFormFactorDecorator(IFormFactor):
 
 IFormFactorDecorator_swigregister = _libBornAgainCore.IFormFactorDecorator_swigregister
 IFormFactorDecorator_swigregister(IFormFactorDecorator)
+
+class PolygonalTopology(_object):
+    """Proxy of C++ PolygonalTopology class"""
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, PolygonalTopology, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, PolygonalTopology, name)
+    __repr__ = _swig_repr
+    __swig_setmethods__["vertexIndices"] = _libBornAgainCore.PolygonalTopology_vertexIndices_set
+    __swig_getmethods__["vertexIndices"] = _libBornAgainCore.PolygonalTopology_vertexIndices_get
+    if _newclass:
+        vertexIndices = _swig_property(_libBornAgainCore.PolygonalTopology_vertexIndices_get, _libBornAgainCore.PolygonalTopology_vertexIndices_set)
+    __swig_setmethods__["symmetry_S2"] = _libBornAgainCore.PolygonalTopology_symmetry_S2_set
+    __swig_getmethods__["symmetry_S2"] = _libBornAgainCore.PolygonalTopology_symmetry_S2_get
+    if _newclass:
+        symmetry_S2 = _swig_property(_libBornAgainCore.PolygonalTopology_symmetry_S2_get, _libBornAgainCore.PolygonalTopology_symmetry_S2_set)
+
+    def __init__(self):
+        """__init__(PolygonalTopology self) -> PolygonalTopology"""
+        this = _libBornAgainCore.new_PolygonalTopology()
+        try:
+            self.this.append(this)
+        except:
+            self.this = this
+    __swig_destroy__ = _libBornAgainCore.delete_PolygonalTopology
+    __del__ = lambda self: None
+PolygonalTopology_swigregister = _libBornAgainCore.PolygonalTopology_swigregister
+PolygonalTopology_swigregister(PolygonalTopology)
+
+class PolyhedralTopology(_object):
+    """Proxy of C++ PolyhedralTopology class"""
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, PolyhedralTopology, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, PolyhedralTopology, name)
+    __repr__ = _swig_repr
+    __swig_setmethods__["faces"] = _libBornAgainCore.PolyhedralTopology_faces_set
+    __swig_getmethods__["faces"] = _libBornAgainCore.PolyhedralTopology_faces_get
+    if _newclass:
+        faces = _swig_property(_libBornAgainCore.PolyhedralTopology_faces_get, _libBornAgainCore.PolyhedralTopology_faces_set)
+    __swig_setmethods__["symmetry_Ci"] = _libBornAgainCore.PolyhedralTopology_symmetry_Ci_set
+    __swig_getmethods__["symmetry_Ci"] = _libBornAgainCore.PolyhedralTopology_symmetry_Ci_get
+    if _newclass:
+        symmetry_Ci = _swig_property(_libBornAgainCore.PolyhedralTopology_symmetry_Ci_get, _libBornAgainCore.PolyhedralTopology_symmetry_Ci_set)
+
+    def __init__(self):
+        """__init__(PolyhedralTopology self) -> PolyhedralTopology"""
+        this = _libBornAgainCore.new_PolyhedralTopology()
+        try:
+            self.this.append(this)
+        except:
+            self.this = this
+    __swig_destroy__ = _libBornAgainCore.delete_PolyhedralTopology
+    __del__ = lambda self: None
+PolyhedralTopology_swigregister = _libBornAgainCore.PolyhedralTopology_swigregister
+PolyhedralTopology_swigregister(PolyhedralTopology)
 
 class PolyhedralEdge(_object):
     """
@@ -8647,14 +8669,17 @@ class FormFactorAnisoPyramid(FormFactorPolyhedron):
         Parameters:
         -----------
 
-        base_edge: 
-        of one side of Pyramid's square base
+        length: 
+        of one side of Pyramid's rectangular base
+
+        width: 
+        of other side of Pyramid's rectangular base
 
         height: 
         of Pyramid
 
-        angle: 
-        in radians between base and facet 
+        alpha: 
+        dihedral angle in radians between base and facet 
 
         """
         this = _libBornAgainCore.new_FormFactorAnisoPyramid(length, width, height, alpha)
@@ -8909,7 +8934,7 @@ class FormFactorCone(IFormFactorBorn):
         height: 
         of Cone
 
-        angle: 
+        alpha: 
         in radians between base and facet 
 
         """
@@ -9028,13 +9053,13 @@ class FormFactorCone6(FormFactorPolyhedron):
         -----------
 
         base_edge: 
-        of hexagonal base (different from R in IsGisaxs)
+        of hexagonal base
 
         height: 
         of Cone6
 
-        angle: 
-        in radians between base and facet 
+        alpha: 
+        dihedral angle in radians between base and facet 
 
         """
         this = _libBornAgainCore.new_FormFactorCone6(base_edge, height, alpha)
@@ -9189,16 +9214,7 @@ class FormFactorCrystal(IFormFactorBorn):
 
         complex_t FormFactorCrystal::evaluate(const WavevectorInfo &wavevectors) const
 
-        Returns scattering amplitude for complex wavevector bin
-
-        Parameters:
-        -----------
-
-        k_i: 
-        incoming wavevector
-
-        k_f_bin: 
-        outgoing wavevector bin 
+        Returns scattering amplitude for complex wavevector bin. 
 
         """
         return _libBornAgainCore.FormFactorCrystal_evaluate(self, wavevectors)
@@ -9519,16 +9535,7 @@ class FormFactorDecoratorDebyeWaller(IFormFactorDecorator):
 
         complex_t FormFactorDecoratorDebyeWaller::evaluate(const WavevectorInfo &wavevectors) const
 
-        Returns scattering amplitude for complex wavevector bin
-
-        Parameters:
-        -----------
-
-        k_i: 
-        incoming wavevector
-
-        k_f_bin: 
-        outgoing wavevector bin 
+        Returns scattering amplitude for complex wavevector bin. 
 
         """
         return _libBornAgainCore.FormFactorDecoratorDebyeWaller_evaluate(self, wavevectors)
@@ -10805,11 +10812,11 @@ class FormFactorLongRipple2Gauss(IFormFactorBorn):
     __getattr__ = lambda self, name: _swig_getattr(self, FormFactorLongRipple2Gauss, name)
     __repr__ = _swig_repr
 
-    def __init__(self, length, width, height, asymetry):
+    def __init__(self, length, width, height, asymmetry):
         """
-        __init__(FormFactorLongRipple2Gauss self, double length, double width, double height, double asymetry) -> FormFactorLongRipple2Gauss
+        __init__(FormFactorLongRipple2Gauss self, double length, double width, double height, double asymmetry) -> FormFactorLongRipple2Gauss
 
-        FormFactorLongRipple2Gauss::FormFactorLongRipple2Gauss(double length, double width, double height, double asymetry)
+        FormFactorLongRipple2Gauss::FormFactorLongRipple2Gauss(double length, double width, double height, double asymmetry)
 
         FormFactorLongRipple2Gauss constructor.
 
@@ -10829,7 +10836,7 @@ class FormFactorLongRipple2Gauss(IFormFactorBorn):
         length of triangular cross section 
 
         """
-        this = _libBornAgainCore.new_FormFactorLongRipple2Gauss(length, width, height, asymetry)
+        this = _libBornAgainCore.new_FormFactorLongRipple2Gauss(length, width, height, asymmetry)
         try:
             self.this.append(this)
         except:
@@ -10946,11 +10953,11 @@ class FormFactorLongRipple2Lorentz(IFormFactorBorn):
     __getattr__ = lambda self, name: _swig_getattr(self, FormFactorLongRipple2Lorentz, name)
     __repr__ = _swig_repr
 
-    def __init__(self, length, width, height, asymetry):
+    def __init__(self, length, width, height, asymmetry):
         """
-        __init__(FormFactorLongRipple2Lorentz self, double length, double width, double height, double asymetry) -> FormFactorLongRipple2Lorentz
+        __init__(FormFactorLongRipple2Lorentz self, double length, double width, double height, double asymmetry) -> FormFactorLongRipple2Lorentz
 
-        FormFactorLongRipple2Lorentz::FormFactorLongRipple2Lorentz(double length, double width, double height, double asymetry)
+        FormFactorLongRipple2Lorentz::FormFactorLongRipple2Lorentz(double length, double width, double height, double asymmetry)
 
         FormFactorLongRipple2Lorentz constructor.
 
@@ -10970,7 +10977,7 @@ class FormFactorLongRipple2Lorentz(IFormFactorBorn):
         length of triangular cross section 
 
         """
-        this = _libBornAgainCore.new_FormFactorLongRipple2Lorentz(length, width, height, asymetry)
+        this = _libBornAgainCore.new_FormFactorLongRipple2Lorentz(length, width, height, asymmetry)
         try:
             self.this.append(this)
         except:
@@ -11381,8 +11388,8 @@ class FormFactorPyramid(FormFactorPolyhedron):
         height: 
         of Pyramid
 
-        angle: 
-        in radians between base and facet 
+        alpha: 
+        dihedral angle in radians between base and facet 
 
         """
         this = _libBornAgainCore.new_FormFactorPyramid(base_edge, height, alpha)
@@ -11596,11 +11603,11 @@ class FormFactorRipple2(IFormFactorBorn):
     __getattr__ = lambda self, name: _swig_getattr(self, FormFactorRipple2, name)
     __repr__ = _swig_repr
 
-    def __init__(self, length, width, height, asymetry):
+    def __init__(self, length, width, height, asymmetry):
         """
-        __init__(FormFactorRipple2 self, double length, double width, double height, double asymetry) -> FormFactorRipple2
+        __init__(FormFactorRipple2 self, double length, double width, double height, double asymmetry) -> FormFactorRipple2
 
-        FormFactorRipple2::FormFactorRipple2(double length, double width, double height, double asymetry)
+        FormFactorRipple2::FormFactorRipple2(double length, double width, double height, double asymmetry)
 
         Ripple2 constructor.
 
@@ -11620,7 +11627,7 @@ class FormFactorRipple2(IFormFactorBorn):
         length of triangular cross section 
 
         """
-        this = _libBornAgainCore.new_FormFactorRipple2(length, width, height, asymetry)
+        this = _libBornAgainCore.new_FormFactorRipple2(length, width, height, asymmetry)
         try:
             self.this.append(this)
         except:
@@ -12024,8 +12031,8 @@ class FormFactorTetrahedron(FormFactorPolyhedron):
         height: 
         of Tetrahedron
 
-        angle: 
-        in radians between base and facet 
+        alpha: 
+        dihedral angle in radians between base and facet 
 
         """
         this = _libBornAgainCore.new_FormFactorTetrahedron(base_edge, height, alpha)
@@ -12093,7 +12100,14 @@ FormFactorTetrahedron_swigregister = _libBornAgainCore.FormFactorTetrahedron_swi
 FormFactorTetrahedron_swigregister(FormFactorTetrahedron)
 
 class FormFactorTrivial(IFormFactorBorn):
-    """Proxy of C++ FormFactorTrivial class"""
+    """
+
+
+    A uniform formfactor F(q)=1, for development purposes.
+
+    C++ includes: FormFactorTrivial.h
+
+    """
     __swig_setmethods__ = {}
     for _s in [IFormFactorBorn]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
@@ -12109,17 +12123,6 @@ class FormFactorTrivial(IFormFactorBorn):
         __init__(FormFactorTrivial self) -> FormFactorTrivial
 
         FormFactorTrivial::FormFactorTrivial()
-
-        Cylinder constructor.
-
-        Parameters:
-        -----------
-
-        radius: 
-        of Cylinder's base
-
-        height: 
-        of Cylinder 
 
         """
         this = _libBornAgainCore.new_FormFactorTrivial()
@@ -12214,11 +12217,11 @@ class FormFactorTruncatedCube(FormFactorPolyhedron):
         Parameters:
         -----------
 
-        side: 
-        length of the full cube
+        length: 
+        of the full cube
 
-        side: 
-        length of the trirectangular tetrahedron removed from each vertex of the cube 
+        removed_length: 
+        as removed from each edge of the cube 
 
         """
         this = _libBornAgainCore.new_FormFactorTruncatedCube(length, removed_length)
@@ -12392,20 +12395,6 @@ class FormFactorTruncatedSpheroid(IFormFactorBorn):
         __init__(FormFactorTruncatedSpheroid self, double radius, double height, double height_flattening) -> FormFactorTruncatedSpheroid
 
         FormFactorTruncatedSpheroid::FormFactorTruncatedSpheroid(double radius, double height, double height_flattening)
-
-        TruncatedSpheroid constructor.
-
-        Parameters:
-        -----------
-
-        radius: 
-        of Truncated Spheroid
-
-        height: 
-        of Truncated Spheroid
-
-        flattening: 
-        parameter in vertical direction (full height: 2 x flattening x radius) 
 
         """
         this = _libBornAgainCore.new_FormFactorTruncatedSpheroid(radius, height, height_flattening)
@@ -12591,16 +12580,7 @@ class FormFactorWeighted(IFormFactor):
 
         complex_t FormFactorWeighted::evaluate(const WavevectorInfo &wavevectors) const
 
-        Returns scattering amplitude for complex wavevector bin
-
-        Parameters:
-        -----------
-
-        k_i: 
-        incoming wavevector
-
-        k_f_bin: 
-        outgoing wavevector bin 
+        Returns scattering amplitude for complex wavevector bin. 
 
         """
         return _libBornAgainCore.FormFactorWeighted_evaluate(self, wavevectors)
@@ -14548,7 +14528,10 @@ class IDetector2D(IParameterized):
         -----------
 
         shape: 
-        The shape of mask (Rectangle, Polygon, Line, Ellipse)  The value of mask 
+        The shape of mask (Rectangle, Polygon, Line, Ellipse)
+
+        mask_value: 
+        The value of mask 
 
         """
         return _libBornAgainCore.IDetector2D_addMask(self, shape, mask_value)
@@ -16465,9 +16448,6 @@ class InterferenceFunction1DLattice(IInterferenceFunction):
         Parameters:
         -----------
 
-        lattice_params: 
-         Lattice parameters
-
         length: 
          Lattice length
 
@@ -16576,20 +16556,6 @@ class InterferenceFunctionRadialParaCrystal(IInterferenceFunction):
         __init__(InterferenceFunctionRadialParaCrystal self, double peak_distance) -> InterferenceFunctionRadialParaCrystal
 
         InterferenceFunctionRadialParaCrystal::InterferenceFunctionRadialParaCrystal(double peak_distance, double damping_length=0.0)
-
-        constructor of radial paracrystal interference function
-
-        Parameters:
-        -----------
-
-        peak_distance: 
-        The distance to the first neighbor peak.
-
-        width: 
-        Width parameter in the pair correlation function.
-
-        m_corr_length: 
-        Correlation length of paracrystal. 
 
         """
         this = _libBornAgainCore.new_InterferenceFunctionRadialParaCrystal(peak_distance, damping_length)
@@ -16716,7 +16682,7 @@ class InterferenceFunctionRadialParaCrystal(IInterferenceFunction):
 
         void InterferenceFunctionRadialParaCrystal::setProbabilityDistribution(const IFTDistribution1D &pdf)
 
-        Sets the Fourier transformed probability distribution of the nearest particle 
+        Sets the Fourier transformed probability distribution of the nearest particle. 
 
         """
         return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_setProbabilityDistribution(self, pdf)
@@ -16728,7 +16694,7 @@ class InterferenceFunctionRadialParaCrystal(IInterferenceFunction):
 
         const IFTDistribution1D * InterferenceFunctionRadialParaCrystal::getProbabilityDistribution() const
 
-        Gets the Fourier transformed probability distribution of the nearest particle 
+        Gets the Fourier transformed probability distribution of the nearest particle. 
 
         """
         return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_getProbabilityDistribution(self)
@@ -19869,7 +19835,7 @@ class IntensityData(_object):
 
         void OutputData< T >::setAxisSizes(size_t rank, int *n_dims)
 
-        Adds <rank> axes with indicated sizes. 
+        Adds 'rank' axes with indicated sizes. 
 
         """
         return _libBornAgainCore.IntensityData_setAxisSizes(self, rank, n_dims)
@@ -21089,6 +21055,9 @@ class ParticleLayout(ILayout):
         Parameters:
         -----------
 
+        particle: 
+        to be added
+
         abundance: 
          Particle abundance
 
@@ -22200,9 +22169,9 @@ class SampleBuilderFactory(_object):
     """
 
 
-    Factory to create standard pre-defined samples.
+    Base class for all factories.
 
-    C++ includes: SampleBuilderFactory.h
+    C++ includes: IFactory.h
 
     """
     __swig_setmethods__ = {}
@@ -22213,9 +22182,9 @@ class SampleBuilderFactory(_object):
 
     def __init__(self):
         """
-        __init__(SampleBuilderFactory self) -> SampleBuilderFactory
+        __init__(IFactory<(ISampleBuilder)> self) -> SampleBuilderFactory
 
-        SampleBuilderFactory::SampleBuilderFactory()
+        IFactory< AbstractProduct >::IFactory()
 
         """
         this = _libBornAgainCore.new_SampleBuilderFactory()
@@ -22224,17 +22193,90 @@ class SampleBuilderFactory(_object):
         except:
             self.this = this
 
-    def createSample(self, name):
+    def createItem(self, itemId):
         """
-        createSample(SampleBuilderFactory self, std::string const & name) -> ISample
+        createItem(SampleBuilderFactory self, std::string const & itemId) -> ISampleBuilder
 
-        ISample * SampleBuilderFactory::createSample(const std::string &name)
+        AbstractProduct* IFactory< AbstractProduct >::createItem(const std::string &itemId)
+
+        Creates object by calling creation function corresponded to given identifier. 
 
         """
-        return _libBornAgainCore.SampleBuilderFactory_createSample(self, name)
+        return _libBornAgainCore.SampleBuilderFactory_createItem(self, itemId)
+
+
+    def registerItem(self, *args):
+        """
+        registerItem(SampleBuilderFactory self, std::string const & itemId, IFactory< ISampleBuilder >::CreateItemCallback CreateFn) -> bool
+        registerItem(SampleBuilderFactory self, std::string const & itemId, IFactory< ISampleBuilder >::CreateItemCallback CreateFn, std::string const & itemDescription) -> bool
+
+        bool IFactory< AbstractProduct >::registerItem(const std::string &itemId, CreateItemCallback CreateFn, const std::string &itemDescription)
+
+        Registers object's creation function and store object description. 
+
+        """
+        return _libBornAgainCore.SampleBuilderFactory_registerItem(self, *args)
 
     __swig_destroy__ = _libBornAgainCore.delete_SampleBuilderFactory
     __del__ = lambda self: None
+
+    def clear(self):
+        """
+        clear(SampleBuilderFactory self)
+
+        void IFactory< AbstractProduct >::clear()
+
+        clear everything 
+
+        """
+        return _libBornAgainCore.SampleBuilderFactory_clear(self)
+
+
+    def setOwnObjects(self, own_objects):
+        """
+        setOwnObjects(SampleBuilderFactory self, bool own_objects)
+
+        void IFactory< AbstractProduct >::setOwnObjects(bool own_objects)
+
+        Sets flag to delete objects on descruction. 
+
+        """
+        return _libBornAgainCore.SampleBuilderFactory_setOwnObjects(self, own_objects)
+
+
+    def getNumberOfRegistered(self):
+        """
+        getNumberOfRegistered(SampleBuilderFactory self) -> size_t
+
+        size_t IFactory< AbstractProduct >::getNumberOfRegistered() const
+
+        Returns number of registered objects. 
+
+        """
+        return _libBornAgainCore.SampleBuilderFactory_getNumberOfRegistered(self)
+
+
+    def begin(self, *args):
+        """
+        begin(SampleBuilderFactory self) -> IFactory< ISampleBuilder >::iterator
+        begin(SampleBuilderFactory self) -> IFactory< ISampleBuilder >::const_iterator
+
+        const_iterator IFactory< AbstractProduct >::begin() const 
+
+        """
+        return _libBornAgainCore.SampleBuilderFactory_begin(self, *args)
+
+
+    def end(self, *args):
+        """
+        end(SampleBuilderFactory self) -> IFactory< ISampleBuilder >::iterator
+        end(SampleBuilderFactory self) -> IFactory< ISampleBuilder >::const_iterator
+
+        const_iterator IFactory< AbstractProduct >::end() const 
+
+        """
+        return _libBornAgainCore.SampleBuilderFactory_end(self, *args)
+
 SampleBuilderFactory_swigregister = _libBornAgainCore.SampleBuilderFactory_swigregister
 SampleBuilderFactory_swigregister(SampleBuilderFactory)
 
@@ -22242,9 +22284,9 @@ class SimulationFactory(_object):
     """
 
 
-    Registry to create standard pre-defined simulations. Used in functional tests, performance measurements, etc.
+    Base class for all factories.
 
-    C++ includes: SimulationFactory.h
+    C++ includes: IFactory.h
 
     """
     __swig_setmethods__ = {}
@@ -22255,9 +22297,9 @@ class SimulationFactory(_object):
 
     def __init__(self):
         """
-        __init__(SimulationFactory self) -> SimulationFactory
+        __init__(IFactory<(GISASSimulation)> self) -> SimulationFactory
 
-        SimulationFactory::SimulationFactory()
+        IFactory< AbstractProduct >::IFactory()
 
         """
         this = _libBornAgainCore.new_SimulationFactory()
@@ -22265,8 +22307,91 @@ class SimulationFactory(_object):
             self.this.append(this)
         except:
             self.this = this
+
+    def createItem(self, itemId):
+        """
+        createItem(SimulationFactory self, std::string const & itemId) -> GISASSimulation
+
+        AbstractProduct* IFactory< AbstractProduct >::createItem(const std::string &itemId)
+
+        Creates object by calling creation function corresponded to given identifier. 
+
+        """
+        return _libBornAgainCore.SimulationFactory_createItem(self, itemId)
+
+
+    def registerItem(self, *args):
+        """
+        registerItem(SimulationFactory self, std::string const & itemId, IFactory< GISASSimulation >::CreateItemCallback CreateFn) -> bool
+        registerItem(SimulationFactory self, std::string const & itemId, IFactory< GISASSimulation >::CreateItemCallback CreateFn, std::string const & itemDescription) -> bool
+
+        bool IFactory< AbstractProduct >::registerItem(const std::string &itemId, CreateItemCallback CreateFn, const std::string &itemDescription)
+
+        Registers object's creation function and store object description. 
+
+        """
+        return _libBornAgainCore.SimulationFactory_registerItem(self, *args)
+
     __swig_destroy__ = _libBornAgainCore.delete_SimulationFactory
     __del__ = lambda self: None
+
+    def clear(self):
+        """
+        clear(SimulationFactory self)
+
+        void IFactory< AbstractProduct >::clear()
+
+        clear everything 
+
+        """
+        return _libBornAgainCore.SimulationFactory_clear(self)
+
+
+    def setOwnObjects(self, own_objects):
+        """
+        setOwnObjects(SimulationFactory self, bool own_objects)
+
+        void IFactory< AbstractProduct >::setOwnObjects(bool own_objects)
+
+        Sets flag to delete objects on descruction. 
+
+        """
+        return _libBornAgainCore.SimulationFactory_setOwnObjects(self, own_objects)
+
+
+    def getNumberOfRegistered(self):
+        """
+        getNumberOfRegistered(SimulationFactory self) -> size_t
+
+        size_t IFactory< AbstractProduct >::getNumberOfRegistered() const
+
+        Returns number of registered objects. 
+
+        """
+        return _libBornAgainCore.SimulationFactory_getNumberOfRegistered(self)
+
+
+    def begin(self, *args):
+        """
+        begin(SimulationFactory self) -> IFactory< GISASSimulation >::iterator
+        begin(SimulationFactory self) -> IFactory< GISASSimulation >::const_iterator
+
+        const_iterator IFactory< AbstractProduct >::begin() const 
+
+        """
+        return _libBornAgainCore.SimulationFactory_begin(self, *args)
+
+
+    def end(self, *args):
+        """
+        end(SimulationFactory self) -> IFactory< GISASSimulation >::iterator
+        end(SimulationFactory self) -> IFactory< GISASSimulation >::const_iterator
+
+        const_iterator IFactory< AbstractProduct >::end() const 
+
+        """
+        return _libBornAgainCore.SimulationFactory_end(self, *args)
+
 SimulationFactory_swigregister = _libBornAgainCore.SimulationFactory_swigregister
 SimulationFactory_swigregister(SimulationFactory)
 

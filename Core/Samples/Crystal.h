@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Samples/Crystal.h
+//! @file      Core/Samples/Crystal.h
 //! @brief     Declares class Crystal.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef CRYSTAL_H_
-#define CRYSTAL_H_
+#ifndef CRYSTAL_H
+#define CRYSTAL_H
 
 #include "IClusteredParticles.h"
 #include "Particle.h"
@@ -32,39 +32,36 @@ public:
     Crystal(const ParticleComposition& lattice_basis, const Lattice& lattice);
     virtual ~Crystal();
 
-    virtual Crystal *clone() const;
+    virtual Crystal* clone() const;
 
     //! Returns a clone with inverted magnetic fields
-    virtual Crystal *cloneInvertB() const;
+    virtual Crystal* cloneInvertB() const;
 
-    virtual void accept(ISampleVisitor *visitor) const;
+    virtual void accept(ISampleVisitor* visitor) const;
 
     virtual void setAmbientMaterial(const IMaterial& material) {
-        mp_lattice_basis->setAmbientMaterial(material);
-    }
+        mp_lattice_basis->setAmbientMaterial(material); }
 
     virtual const IMaterial* getAmbientMaterial() const {
-        return mp_lattice_basis->getAmbientMaterial();
-    }
+        return mp_lattice_basis->getAmbientMaterial(); }
 
-    virtual IFormFactor *createTotalFormFactor(const IFormFactor &meso_crystal_form_factor,
-                                       const IRotation *p_rotation, kvector_t translation) const;
+    virtual IFormFactor* createTotalFormFactor(
+        const IFormFactor& meso_crystal_form_factor,
+        const IRotation* p_rotation, kvector_t translation) const;
 
-    Lattice getTransformedLattice(const IRotation *p_rotation) const;
+    Lattice getTransformedLattice(const IRotation* p_rotation) const;
 
-    const ParticleComposition *getLatticeBasis() const { return mp_lattice_basis; }
+    const ParticleComposition* getLatticeBasis() const { return mp_lattice_basis; }
 
     void setDWFactor(double dw_factor) { m_dw_factor = dw_factor; }
 
 private:
     //! Private constructor
-    Crystal(ParticleComposition *p_lattice_basis, const Lattice& lattice);
+    Crystal(ParticleComposition* p_lattice_basis, const Lattice& lattice);
 
     Lattice m_lattice;
-    ParticleComposition *mp_lattice_basis;
+    ParticleComposition* mp_lattice_basis;
     double m_dw_factor;
 };
 
-#endif /* CRYSTAL_H_ */
-
-
+#endif // CRYSTAL_H

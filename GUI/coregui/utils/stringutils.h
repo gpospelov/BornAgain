@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/utils/stringutils.h
+//! @file      GUI/coregui/utils/stringutils.h
 //! @brief     Declares functions from Utils namespace
 //!
 //! @homepage  http://www.bornagainproject.org

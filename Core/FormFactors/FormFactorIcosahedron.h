@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      FormFactors/FormFactorIcosahedron.h
+//! @file      Core/FormFactors/FormFactorIcosahedron.h
 //! @brief     Declares class FormFactorIcosahedron.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -33,7 +33,7 @@ public:
     double getEdge() const { return m_edge; }
 
 private:
-    static const Topology topology;
+    static const PolyhedralTopology topology;
     virtual void onChange() final;
     double m_edge;
 };

@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tools/IParameterized.h
+//! @file      Core/Tools/IParameterized.h
 //! @brief     Declares classes IParameterized and ParameterPattern
 //!
 //! @homepage  http://www.bornagainproject.org

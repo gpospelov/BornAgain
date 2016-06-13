@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/JobQueueData.h
+//! @file      GUI/coregui/Models/JobQueueData.h
 //! @brief     Declares class JobQueueData
 //!
 //! @homepage  http://www.bornagainproject.org

@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tools/MathFunctions.h
+//! @file      Core/Tools/MathFunctions.h
 //! @brief     Declares functions in namespace MathFunctions.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -84,14 +84,14 @@ namespace MathFunctions
 
     enum EFFTDirection { FORWARD_FFT, BACKWARD_FFT };
 
+    // TODO: name these two functions differently (SWIG warning 509)
     BA_CORE_API_ std::vector<complex_t >
-        FastFourierTransform(const std::vector<complex_t > &data, EFFTDirection tcase);
-
+        FastFourierTransform(const std::vector<complex_t>& data, EFFTDirection tcase);
     BA_CORE_API_ std::vector<complex_t >
-        FastFourierTransform(const std::vector<double > &data, EFFTDirection tcase);
+        FastFourierTransform(const std::vector<double>& data, EFFTDirection tcase);
 
     BA_CORE_API_ std::vector<complex_t>
-        ConvolveFFT(const std::vector<double> &signal, const std::vector<double> &resfunc);
+        ConvolveFFT(const std::vector<double>& signal, const std::vector<double>& resfunc);
 
 
 // ************************************************************************** //

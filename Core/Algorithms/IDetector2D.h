@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Algorithms/IDetector2D.h
+//! @file      Core/Algorithms/IDetector2D.h
 //! @brief     Declares interface IDetector2D.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef IDETECTOR2D_H_
-#define IDETECTOR2D_H_
+#ifndef IDETECTOR2D_H
+#define IDETECTOR2D_H
 
 #include "Complex.h"
 #include "IParameterized.h"
@@ -46,33 +46,33 @@ public:
     virtual ~IDetector2D() {}
 
     //! Inits detector with the beam settings
-    virtual void init(const Beam &beam);
+    virtual void init(const Beam& beam);
 
-    void addAxis(const IAxis &axis);
+    void addAxis(const IAxis& axis);
 
-    const IAxis &getAxis(size_t index) const;
+    const IAxis& getAxis(size_t index) const;
 
     size_t getDimension() const;
 
     void clear();
 
     //! Sets detector parameters using axes of output data
-    void matchDetectorAxes(const OutputData<double> &output_data);
+    void matchDetectorAxes(const OutputData<double>& output_data);
 
     //! Sets detector parameters using angle ranges
     void setDetectorParameters(size_t n_x, double x_min, double x_max,
                                size_t n_y, double y_min, double y_max);
 
     //! Sets detector parameters using axes
-    void setDetectorAxes(const IAxis &axis0, const IAxis &axis1);
+    void setDetectorAxes(const IAxis& axis0, const IAxis& axis1);
 
     //! Sets the detector resolution
-    void setDetectorResolution(IDetectorResolution *p_detector_resolution);
+    void setDetectorResolution(IDetectorResolution* p_detector_resolution);
 
     //! Applies the detector resolution to the given intensity maps
-    void applyDetectorResolution(OutputData<double> *p_intensity_map) const;
+    void applyDetectorResolution(OutputData<double>* p_intensity_map) const;
 
-    const IDetectorResolution *getDetectorResolutionFunction() const;
+    const IDetectorResolution* getDetectorResolutionFunction() const;
 
     //! Sets the polarization analyzer characteristics of the detector
     void setAnalyzerProperties(const kvector_t direction, double efficiency,
@@ -90,13 +90,13 @@ public:
     //! that the channel will be excluded from the simulation. The mask which is added last
     //! has priority.
     //! @param shape The shape of mask (Rectangle, Polygon, Line, Ellipse)
-    //! @mask_value The value of mask
-    void addMask(const Geometry::IShape2D &shape, bool mask_value = true);
+    //! @param mask_value The value of mask
+    void addMask(const Geometry::IShape2D& shape, bool mask_value = true);
 
     //! Put the mask for all detector channels (i.e. exclude whole detector from the analysis)
     void maskAll();
 
-    const DetectorMask *getDetectorMask() const;
+    const DetectorMask* getDetectorMask() const;
 
     int getNumberOfMaskedChannels() const;
 
@@ -113,11 +113,11 @@ public:
 #endif
 
     //! Adds parameters from local pool to external pool and recursively calls its direct children.
-    virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool,
+    virtual std::string addParametersToExternalPool(std::string path, ParameterPool* external_pool,
                                                     int copy_number = -1) const;
 
     //! Returns detector map in given axes units
-    virtual OutputData<double> *createDetectorMap(const Beam& beam, EAxesUnits units_type) const;
+    virtual OutputData<double>* createDetectorMap(const Beam& beam, EAxesUnits units_type) const;
 
     //! returns vector of valid axes units
     virtual std::vector<EAxesUnits> getValidAxesUnits() const;
@@ -141,7 +141,7 @@ protected:
     bool isCorrectAxisIndex(size_t index) const;
 
     //! Returns true if data has a compatible format with the detector.
-    bool dataShapeMatches(const OutputData<double> *p_data) const;
+    bool dataShapeMatches(const OutputData<double>* p_data) const;
 
     //! Initialize polarization (for constructors)
     void initPolarizationOperator();
@@ -150,7 +150,7 @@ protected:
     size_t getAxisBinIndex(size_t index, size_t selected_axis) const;
 
     //! swap function
-    void swapContent(IDetector2D &other);
+    void swapContent(IDetector2D& other);
 
     SafePointerVector<IAxis> m_axes;
     std::unique_ptr<IDetectorResolution> mP_detector_resolution;
@@ -164,12 +164,12 @@ private:
                                  double total_transmission) const;
 
 #ifndef SWIG
-    Eigen::Matrix2cd calculateAnalyzerOperator(const kvector_t direction, double efficiency,
-                                               double total_transmission = 1.0) const;
+    Eigen::Matrix2cd calculateAnalyzerOperator(
+        const kvector_t direction, double efficiency, double total_transmission = 1.0) const;
 #endif
 };
 
-inline void IDetector2D::addAxis(const IAxis &axis)
+inline void IDetector2D::addAxis(const IAxis& axis)
 {
     m_axes.push_back(axis.clone());
 }
@@ -184,14 +184,14 @@ inline void IDetector2D::clear()
     m_axes.clear();
 }
 
-inline void IDetector2D::setDetectorResolution(IDetectorResolution *p_detector_resolution)
+inline void IDetector2D::setDetectorResolution(IDetectorResolution* p_detector_resolution)
 {
     if (mP_detector_resolution.get()!=p_detector_resolution) {
         mP_detector_resolution.reset(p_detector_resolution);
     }
 }
 
-inline const IDetectorResolution *IDetector2D::getDetectorResolutionFunction() const
+inline const IDetectorResolution* IDetector2D::getDetectorResolutionFunction() const
 {
     return mP_detector_resolution.get();
 }
@@ -208,4 +208,4 @@ inline bool IDetector2D::isCorrectAxisIndex(size_t index) const
     return index < getDimension();
 }
 
-#endif /* IDETECTOR2D_H_ */
+#endif // IDETECTOR2D_H

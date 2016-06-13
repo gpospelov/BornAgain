@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Samples/BAVersion.h
+//! @file      Core/Samples/BAVersion.h
 //! @brief     Declares functions for access to the package version number.
 //!
 //! @homepage  http://bornagainproject.org

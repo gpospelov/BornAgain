@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Samples/InterferenceFunction1DLattice.cpp
+//! @file      Core/Samples/InterferenceFunction1DLattice.cpp
 //! @brief     Implements class InterferenceFunction1DLattice.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -18,6 +18,9 @@
 
 using namespace BornAgain;
 
+    //! @brief constructor
+    //! @param length Lattice length
+    //! @param xi rotation of lattice with respect to x-axis
 InterferenceFunction1DLattice::InterferenceFunction1DLattice(double length, double xi)
     : mp_pdf(0), m_na(0)
 {
@@ -32,20 +35,20 @@ InterferenceFunction1DLattice::~InterferenceFunction1DLattice()
     delete mp_pdf;
 }
 
-InterferenceFunction1DLattice *InterferenceFunction1DLattice::clone() const
+InterferenceFunction1DLattice* InterferenceFunction1DLattice::clone() const
 {
-    InterferenceFunction1DLattice *result = new InterferenceFunction1DLattice(m_lattice_params);
+    InterferenceFunction1DLattice* result = new InterferenceFunction1DLattice(m_lattice_params);
     if (mp_pdf)
         result->setDecayFunction(*mp_pdf);
     return result;
 }
 
-void InterferenceFunction1DLattice::accept(ISampleVisitor *visitor) const
+void InterferenceFunction1DLattice::accept(ISampleVisitor* visitor) const
 {
     visitor->visit(this);
 }
 
-void InterferenceFunction1DLattice::setDecayFunction(const IFTDecayFunction1D &pdf)
+void InterferenceFunction1DLattice::setDecayFunction(const IFTDecayFunction1D& pdf)
 {
     if (mp_pdf != &pdf)
         delete mp_pdf;
@@ -57,10 +60,9 @@ void InterferenceFunction1DLattice::setDecayFunction(const IFTDecayFunction1D &p
 
 double InterferenceFunction1DLattice::evaluate(const kvector_t q) const
 {
-    if (!mp_pdf) {
+    if (!mp_pdf)
         throw NullPointerException("InterferenceFunction1DLattice::evaluate"
                                    " -> Error! No probability distribution function defined.");
-    }
     double result = 0.0;
     double qxr = q.x();
     double qyr = q.y();
@@ -85,7 +87,7 @@ double InterferenceFunction1DLattice::evaluate(const kvector_t q) const
 }
 
 InterferenceFunction1DLattice::InterferenceFunction1DLattice(
-    const Lattice1DParameters &lattice_params)
+    const Lattice1DParameters& lattice_params)
     : m_lattice_params(lattice_params), mp_pdf(0), m_na(0)
 {
     setName(InterferenceFunction1DLatticeType);

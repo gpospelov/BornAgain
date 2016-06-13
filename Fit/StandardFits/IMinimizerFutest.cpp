@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      StandardFits/IMinimizerFutest.cpp
+//! @file      Fit/StandardFits/IMinimizerFutest.cpp
 //! @brief     Implements class IMinimizerFutest.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -80,7 +80,7 @@ int IMinimizerFutest::analyseResults()
                      % m_parameters[i].m_found_value % diff;
     }
 
-    std::cout << getName() << " | " << getDescription() << " | " << getTestResultString() << std::endl;
+    std::cout << getName() << " | " << getDescription() << " | " << getTestResultString() << "\n";
 
     return m_result;
 }
@@ -100,10 +100,10 @@ std::unique_ptr<FitSuite> IMinimizerFutest::createFitSuite()
     minimizer->getOptions()->setMaxIterations(200);
     result->setMinimizer(minimizer);
     for (size_t i = 0; i < m_parameters.size(); ++i) {
-        result->addFitParameter(m_parameters[i].m_name, m_parameters[i].m_start_value,
-                                AttLimits::lowerLimited(0.01), m_parameters[i].m_start_value / 100.);
+        result->addFitParameter(
+            m_parameters[i].m_name, m_parameters[i].m_start_value,
+            AttLimits::lowerLimited(0.01), m_parameters[i].m_start_value / 100.);
     }
-
     return std::move(result);
 }
 

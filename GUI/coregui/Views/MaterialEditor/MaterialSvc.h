@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/MaterialEditor/MaterialSvc.h
+//! @file      GUI/coregui/Views/MaterialEditor/MaterialSvc.h
 //! @brief     Declares class MaterialSvc
 //!
 //! @homepage  http://www.bornagainproject.org

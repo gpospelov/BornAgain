@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/MaskWidgets/PolygonView.h
+//! @file      GUI/coregui/Views/MaskWidgets/PolygonView.h
 //! @brief     Declares PolygonView class
 //!
 //! @homepage  http://www.bornagainproject.org

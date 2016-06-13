@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      StandardSamples/ParaCrystalBuilder.cpp
+//! @file      Core/StandardSamples/ParaCrystalBuilder.cpp
 //! @brief     Implements class ParaCrystalBuilder.
 //!
 //! @homepage  http://www.bornagainproject.org

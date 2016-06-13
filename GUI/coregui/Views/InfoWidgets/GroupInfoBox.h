@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/InfoWidgets/GroupInfoBox.h
+//! @file      GUI/coregui/Views/InfoWidgets/GroupInfoBox.h
 //! @brief     Declares class GroupInfoBox
 //!
 //! @homepage  http://www.bornagainproject.org

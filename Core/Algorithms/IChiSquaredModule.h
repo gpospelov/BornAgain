@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Algorithms/IChiSquaredModule.h
+//! @file      Core/Algorithms/IChiSquaredModule.h
 //! @brief     Declares class IChiSquaredModule.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef ICHISQUAREDMODULE_H_
-#define ICHISQUAREDMODULE_H_
+#ifndef ICHISQUAREDMODULE_H
+#define ICHISQUAREDMODULE_H
 
 #include "ISquaredFunction.h"
 #include "IIntensityNormalizer.h"
@@ -37,10 +37,9 @@ public:
     virtual IChiSquaredModule* clone() const = 0;
 
     //! Returns squared function
-    const ISquaredFunction* getSquaredFunction() const {
-        return mp_squared_function; }
+    const ISquaredFunction* getSquaredFunction() const { return mp_squared_function; }
 
-    //! Sets squared function
+    //! Sets squared function // TODO: merge these two functions (SWIG warning 509)
     void setChiSquaredFunction(ISquaredFunction *squared_function);
     void setChiSquaredFunction(const ISquaredFunction& squared_function);
 
@@ -53,16 +52,13 @@ public:
         return mp_data_normalizer; }
 
     //! Sets data normalizer
-    virtual void setIntensityNormalizer(
-        const IIntensityNormalizer& data_normalizer);
+    virtual void setIntensityNormalizer(const IIntensityNormalizer& data_normalizer);
 
     //! Returns data rescaler.
-    virtual const IIntensityFunction* getIntensityFunction() const {
-        return mp_intensity_function; }
+    virtual const IIntensityFunction* getIntensityFunction() const { return mp_intensity_function; }
 
     //! Sets data rescaler.
-    virtual void setIntensityFunction(
-        const IIntensityFunction& intensity_function);
+    virtual void setIntensityFunction(const IIntensityFunction& intensity_function);
 
     virtual void processFitElements(std::vector<FitElement>::iterator,
                                     std::vector<FitElement>::iterator){}
@@ -72,7 +68,7 @@ protected:
 
     ISquaredFunction* mp_squared_function;
     IIntensityNormalizer* mp_data_normalizer;
-    IIntensityFunction * mp_intensity_function;
+    IIntensityFunction* mp_intensity_function;
 };
 
-#endif /* ICHISQUAREDMODULE_H_ */
+#endif // ICHISQUAREDMODULE_H

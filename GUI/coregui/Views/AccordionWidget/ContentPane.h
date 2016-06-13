@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/AccordionWidget/ContentPane.h
+//! @file      GUI/coregui/Views/AccordionWidget/ContentPane.h
 //! @brief     Declares ContentPane class
 //!
 //! @homepage  http://www.bornagainproject.org

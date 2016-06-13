@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Samples/HomogeneousMaterial.h
+//! @file      Core/Samples/HomogeneousMaterial.h
 //! @brief     Declares and implements class HomogeneousMaterial.
 //!
 //! @homepage  http://www.bornagainproject.org

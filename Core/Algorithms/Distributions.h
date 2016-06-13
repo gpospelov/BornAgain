@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Algorithms/Distributions.h
+//! @file      Core/Algorithms/Distributions.h
 //! @brief     Declares classes representing distributions.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -53,6 +53,7 @@ public:
     //! generate list of sample values
     //! @param nbr_samples number of values to generate
     //! @param sigma_factor parameter to derive min,max range for sample values
+    //! @param limits
     //! @return vector of generated values
     virtual std::vector<double> generateValueList(size_t nbr_samples,
             double sigma_factor, const AttLimits &limits = AttLimits()) const=0;

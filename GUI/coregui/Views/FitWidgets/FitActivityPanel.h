@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/FitWidgets/FitActivityPanel.h
+//! @file      GUI/coregui/Views/FitWidgets/FitActivityPanel.h
 //! @brief     Declares class FitActivityPanel
 //!
 //! @homepage  http://www.bornagainproject.org

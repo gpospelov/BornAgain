@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      FormFactors/src/FormFactorPolyhedron.h
+//! @file      Core/FormFactors/FormFactorPolyhedron.h
 //! @brief     Declares class FormFactorPolyhedron, FormFactorPrism, and auxiliary classes.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -21,6 +21,17 @@
 #include "Vectors3D.h"
 
 #include "IFormFactorBorn.h"
+
+class PolygonalTopology {
+public:
+    std::vector<int> vertexIndices;
+    bool symmetry_S2;
+};
+class PolyhedralTopology {
+public:
+    std::vector<PolygonalTopology> faces;
+    bool symmetry_Ci;
+};
 
 //! One edge of a polygon, for form factor computation.
 
@@ -92,17 +103,6 @@ public:
     static void setLimits( double _q, int _n );
 #endif
 
-    class TopologyFace {
-    public:
-        std::vector<int> vertexIndices;
-        bool symmetry_S2;
-    };
-    class Topology {
-    public:
-        std::vector<TopologyFace> faces;
-        bool symmetry_Ci;
-    };
-
     FormFactorPolyhedron() {}
 
     virtual void onChange() = 0;
@@ -117,7 +117,7 @@ protected:
     double m_z_origin;
     bool m_sym_Ci; //!< if true, then faces obtainable by inversion are not provided
 
-    void setPolyhedron( const Topology& topology, double z_origin,
+    void setPolyhedron( const PolyhedralTopology& topology, double z_origin,
                         const std::vector<kvector_t>& vertices );
 
 private:

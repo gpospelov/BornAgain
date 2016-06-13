@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/mainwindow/AppSvc.h
+//! @file      GUI/coregui/mainwindow/AppSvc.h
 //! @brief     Declares class AppSvc
 //!
 //! @homepage  http://www.bornagainproject.org

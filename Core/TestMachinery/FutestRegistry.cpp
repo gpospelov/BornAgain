@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      StandardSamples/FutestRegistry.cpp
+//! @file      Core/TestMachinery/FutestRegistry.cpp
 //! @brief     Implements class FutestRegistry.
 //!
 //! @homepage  http://www.bornagainproject.org

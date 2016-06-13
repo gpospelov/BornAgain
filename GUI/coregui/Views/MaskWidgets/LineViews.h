@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/MaskWidgets/LineViews.h
+//! @file      GUI/coregui/Views/MaskWidgets/LineViews.h
 //! @brief     Declares classes VerticalLineView and HorizontalLineView
 //!
 //! @homepage  http://www.bornagainproject.org

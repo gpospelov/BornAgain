@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/JobRunner.h
+//! @file      GUI/coregui/Models/JobRunner.h
 //! @brief     Declares class JobRunner
 //!
 //! @homepage  http://www.bornagainproject.org

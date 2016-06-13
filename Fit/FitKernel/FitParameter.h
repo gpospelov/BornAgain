@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      FitKernel/FitParameter.h
+//! @file      Fit/FitKernel/FitParameter.h
 //! @brief     Declares class FitParameter.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -29,7 +29,8 @@ class BA_CORE_API_ FitParameter : public INamed, public AttLimits
 {
  public:
     FitParameter();
-    FitParameter(const std::string& name, double value, double step=0.0, const AttLimits& limits=AttLimits::limitless(), double error=0.0);
+    FitParameter(const std::string& name, double value, double step=0.0,
+                 const AttLimits& limits=AttLimits::limitless(), double error=0.0);
     virtual ~FitParameter(){}
 
     //! Sets value of parameter
@@ -48,7 +49,8 @@ class BA_CORE_API_ FitParameter : public INamed, public AttLimits
     virtual double getError() const { return m_error;}
 
     //! Prints class
-    friend std::ostream& operator<<(std::ostream& ostr, const FitParameter& m) { m.print(ostr); return ostr; }
+    friend std::ostream& operator<<(std::ostream& ostr, const FitParameter& m) {
+        m.print(ostr); return ostr; }
 
  protected:
     //! Prints class
@@ -60,5 +62,3 @@ class BA_CORE_API_ FitParameter : public INamed, public AttLimits
 };
 
 #endif // FITPARAMETER_H
-
-

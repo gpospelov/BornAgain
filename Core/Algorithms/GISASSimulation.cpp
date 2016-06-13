@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Algorithms/Simulation.cpp
+//! @file      Core/Algorithms/GISASSimulation.cpp
 //! @brief     Implements class Simulation.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -110,7 +110,7 @@ void GISASSimulation::setDetector(const IDetector2D& detector)
     updateIntensityMap();
 }
 
-void GISASSimulation::setDetectorParameters(const OutputData<double >& output_data)
+void GISASSimulation::setDetectorParameters(const OutputData<double>& output_data)
 {
     m_instrument.matchDetectorAxes(output_data);
 
@@ -119,9 +119,9 @@ void GISASSimulation::setDetectorParameters(const OutputData<double >& output_da
     m_intensity_map.setAllTo(0.);
 }
 
-void GISASSimulation::setDetectorParameters(const IHistogram& hisotgram)
+void GISASSimulation::setDetectorParameters(const class IHistogram& histogram)
 {
-    const std::unique_ptr<OutputData<double> > data(hisotgram.createOutputData());
+    const std::unique_ptr<OutputData<double> > data(histogram.createOutputData());
     setDetectorParameters(*data);
 }
 
@@ -143,8 +143,8 @@ void GISASSimulation::removeDetectorResolutionFunction()
     m_instrument.setDetectorResolutionFunction(0);
 }
 
-void GISASSimulation::setAnalyzerProperties(const kvector_t direction, double efficiency,
-                                       double total_transmission)
+void GISASSimulation::setAnalyzerProperties(
+    const kvector_t direction, double efficiency, double total_transmission)
 {
     m_instrument.setAnalyzerProperties(direction, efficiency, total_transmission);
 }

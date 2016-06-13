@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Samples/IRoughness.h
+//! @file      Core/Samples/IRoughness.h
 //! @brief     Declares interface class IRoughness.
 //!
 //! @homepage  http://www.bornagainproject.org

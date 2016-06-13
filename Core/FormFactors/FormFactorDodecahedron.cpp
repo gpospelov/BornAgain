@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      FormFactors/FormFactorzdodecahedron.cpp
+//! @file      Core/FormFactors/FormFactorDodecahedron.cpp
 //! @brief     Implements class FormFactorDodecahedron.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -18,7 +18,7 @@
 #include "FormFactorBox.h"
 #include "MathFunctions.h"
 
-const FormFactorPolyhedron::Topology FormFactorDodecahedron::topology = {
+const PolyhedralTopology FormFactorDodecahedron::topology = {
     {
         // bottom:
         { {  0,  4,  3,  2,  1 }, false },

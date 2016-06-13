@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Algorithms/ThreadInfo.h
+//! @file      Core/Algorithms/ThreadInfo.h
 //! @brief     Declares struct ThreadInfo.
 //!
 //! @homepage  http://www.bornagainproject.org

@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Samples/IParticle.cpp
+//! @file      Core/Samples/IParticle.cpp
 //! @brief     Implements generic member functions of IParticle.
 //!
 //! @homepage  http://www.bornagainproject.org

@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Algorithms/Beam.h
+//! @file      Core/Algorithms/Beam.h
 //! @brief     Declares class Beam.
 //!
 //! @homepage  http://www.bornagainproject.org

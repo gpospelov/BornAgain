@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/CommonWidgets/ItemStackWidget.h
+//! @file      GUI/coregui/Views/CommonWidgets/ItemStackWidget.h
 //! @brief     Declares class ItemStackWidget
 //!
 //! @homepage  http://www.bornagainproject.org

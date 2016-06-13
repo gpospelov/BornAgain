@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      FormFactors/FormFactorTetrahedron.cpp
+//! @file      Core/FormFactors/FormFactorTetrahedron.cpp
 //! @brief     Implements class FormFactorTetrahedron.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -18,7 +18,7 @@
 #include "BornAgainNamespace.h"
 #include "IntegratorComplex.h"
 
-const FormFactorPolyhedron::Topology FormFactorTetrahedron::topology = {
+const PolyhedralTopology FormFactorTetrahedron::topology = {
     {
         { { 2, 1, 0 }, false },
         { { 0, 1, 4, 3 }, false },
@@ -31,7 +31,7 @@ const FormFactorPolyhedron::Topology FormFactorTetrahedron::topology = {
 //! @brief Tetrahedron constructor
 //! @param base_edge of a side of Tetrahedron's base
 //! @param height of Tetrahedron
-//! @param angle in radians between base and facet
+//! @param alpha dihedral angle in radians between base and facet
 
 FormFactorTetrahedron::FormFactorTetrahedron(double base_edge, double height, double alpha)
     : FormFactorPolyhedron()

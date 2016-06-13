@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/JobWidgets/JobProgressAssistant.cpp
+//! @file      GUI/coregui/Views/JobWidgets/JobProgressAssistant.cpp
 //! @brief     Implements class JobProgressAssistant
 //!
 //! @homepage  http://www.bornagainproject.org

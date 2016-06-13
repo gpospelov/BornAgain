@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/FilterPropertyProxy.h
+//! @file      GUI/coregui/Models/FilterPropertyProxy.h
 //! @brief     Declares class FilterPropertyProxy
 //!
 //! @homepage  http://www.bornagainproject.org

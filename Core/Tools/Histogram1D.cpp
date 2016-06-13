@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tools/inc/Histogram1D.cpp
+//! @file      Core/Tools/Histogram1D.cpp
 //! @brief     Implements class Histogram1D.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -39,14 +39,14 @@ Histogram1D::Histogram1D(const OutputData<double> &data)
     init_from_data(data);
 }
 
-Histogram1D *Histogram1D::clone() const
+Histogram1D* Histogram1D::clone() const
 {
     return new Histogram1D(*this);
 }
 
 int Histogram1D::fill(double x, double weight)
 {
-    const IAxis *axis = getXaxis();
+    const IAxis* axis = getXaxis();
     if(x < axis->getMin() || x>=axis->getMax()) return -1;
 
     size_t index = axis->findClosestIndex(x);
@@ -71,26 +71,29 @@ std::vector<double> Histogram1D::getBinErrors() const
     return IHistogram::getDataVector(IHistogram::DataType::STANDARD_ERROR);
 }
 
-PyObject *Histogram1D::getBinCentersNumpy() const
+#ifdef BORNAGAIN_PYTHON
+
+PyObject* Histogram1D::getBinCentersNumpy() const
 {
     return Utils::createNumpyArray(getBinCenters());
 }
 
-PyObject *Histogram1D::getBinValuesNumpy() const
+PyObject* Histogram1D::getBinValuesNumpy() const
 {
     return Utils::createNumpyArray(getBinValues());
 }
 
-PyObject *Histogram1D::getBinErrorsNumpy() const
+PyObject* Histogram1D::getBinErrorsNumpy() const
 {
     return Utils::createNumpyArray(getBinErrors());
 }
 
-Histogram1D *Histogram1D::crop(double xmin, double xmax)
+#endif // BORNAGAIN_PYTHON
+
+Histogram1D* Histogram1D::crop(double xmin, double xmax)
 {
     const std::unique_ptr<IAxis > xaxis(getXaxis()->createClippedAxis(xmin, xmax));
-
-    Histogram1D *result = new Histogram1D(*xaxis);
+    Histogram1D* result = new Histogram1D(*xaxis);
     OutputData<CumulativeValue>::const_iterator it_origin = m_data.begin();
     OutputData<CumulativeValue>::iterator it_result = result->m_data.begin();
     while (it_origin != m_data.end())

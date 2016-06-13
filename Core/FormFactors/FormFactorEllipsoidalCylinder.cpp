@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      FormFactors/FormFactorEllipsoidalCylinder.cpp
+//! @file      Core/FormFactors/FormFactorEllipsoidalCylinder.cpp
 //! @brief     Implements class FormFactorEllipsoidalCylinder.
 //!
 //! @homepage  http://www.bornagainproject.org

@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Algorithms/ProgressHandler.cpp
+//! @file      Core/Algorithms/ProgressHandler.cpp
 //! @brief     Implements class ProgressHandler.
 //!
 //! @homepage  http://www.bornagainproject.org

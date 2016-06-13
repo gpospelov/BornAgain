@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/mainwindow/tooltipdatabase.h
+//! @file      GUI/coregui/mainwindow/tooltipdatabase.h
 //! @brief     Declares class ToolTipDataBase
 //!
 //! @homepage  http://www.bornagainproject.org

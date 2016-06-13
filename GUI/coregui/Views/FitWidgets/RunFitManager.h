@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/FitWidgets/RunFitManager.h
+//! @file      GUI/coregui/Views/FitWidgets/RunFitManager.h
 //! @brief     Implements class RunFitManager
 //!
 //! @homepage  http://www.bornagainproject.org

@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Samples/Crystal.cpp
+//! @file      Core/Samples/Crystal.cpp
 //! @brief     Implements class Crystal.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -20,7 +20,7 @@
 #include "Units.h"
 #include "MathFunctions.h"
 
-Crystal::Crystal(const ParticleComposition &lattice_basis, const Lattice &lattice)
+Crystal::Crystal(const ParticleComposition& lattice_basis, const Lattice& lattice)
     : m_lattice(lattice), m_dw_factor(0.0)
 {
     setName(BornAgain::CrystalType);
@@ -33,27 +33,27 @@ Crystal::~Crystal()
     delete mp_lattice_basis;
 }
 
-Crystal *Crystal::clone() const
+Crystal* Crystal::clone() const
 {
-    Crystal *p_new = new Crystal(*mp_lattice_basis, m_lattice);
+    Crystal* p_new = new Crystal(*mp_lattice_basis, m_lattice);
     p_new->setDWFactor(m_dw_factor);
     return p_new;
 }
 
-Crystal *Crystal::cloneInvertB() const
+Crystal* Crystal::cloneInvertB() const
 {
-    Crystal *p_new = new Crystal(mp_lattice_basis->cloneInvertB(), m_lattice);
+    Crystal* p_new = new Crystal(mp_lattice_basis->cloneInvertB(), m_lattice);
     p_new->setDWFactor(m_dw_factor);
     return p_new;
 }
 
-void Crystal::accept(ISampleVisitor *visitor) const
+void Crystal::accept(ISampleVisitor* visitor) const
 {
     visitor->visit(this);
 }
 
-IFormFactor *Crystal::createTotalFormFactor(const IFormFactor &meso_crystal_form_factor,
-                                            const IRotation *p_rotation,
+IFormFactor* Crystal::createTotalFormFactor(const IFormFactor& meso_crystal_form_factor,
+                                            const IRotation* p_rotation,
                                             kvector_t translation) const
 {
     Lattice transformed_lattice = getTransformedLattice(p_rotation);
@@ -67,7 +67,7 @@ IFormFactor *Crystal::createTotalFormFactor(const IFormFactor &meso_crystal_form
     return P_ff_crystal->clone();
 }
 
-Lattice Crystal::getTransformedLattice(const IRotation *p_rotation) const
+Lattice Crystal::getTransformedLattice(const IRotation* p_rotation) const
 {
     if (p_rotation) {
         return m_lattice.createTransformedLattice(*p_rotation);
@@ -76,7 +76,7 @@ Lattice Crystal::getTransformedLattice(const IRotation *p_rotation) const
     }
 }
 
-Crystal::Crystal(ParticleComposition *p_lattice_basis, const Lattice &lattice)
+Crystal::Crystal(ParticleComposition* p_lattice_basis, const Lattice& lattice)
     : m_lattice(lattice), m_dw_factor(0.0)
 {
     setName(BornAgain::CrystalType);

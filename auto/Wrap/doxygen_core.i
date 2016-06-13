@@ -857,16 +857,7 @@ calls the  ISampleVisitor's visit method
 
 %feature("docstring")  Crystal::createTotalFormFactor "IFormFactor * Crystal::createTotalFormFactor(const IFormFactor &meso_crystal_form_factor, const IRotation *p_rotation, kvector_t translation) const
 
-create a total form factor for the mesocrystal with a specific shape and content
-
-Parameters:
------------
-
-meso_crystal_form_factor: 
-the form factor describing the shape of the mesocrystal
-
-ambient_refractive_index: 
-the refractive index of the ambient material The bulk content of the mesocrystal is encapsulated by the  IClusteredParticles object itself 
+Creates a total form factor for the mesocrystal with a specific shape and content The bulk content of the mesocrystal is encapsulated by the  IClusteredParticles object itself 
 ";
 
 %feature("docstring")  Crystal::getTransformedLattice "Lattice Crystal::getTransformedLattice(const IRotation *p_rotation) const 
@@ -1731,14 +1722,17 @@ Pyramid constructor.
 Parameters:
 -----------
 
-base_edge: 
-of one side of Pyramid's square base
+length: 
+of one side of Pyramid's rectangular base
+
+width: 
+of other side of Pyramid's rectangular base
 
 height: 
 of Pyramid
 
-angle: 
-in radians between base and facet 
+alpha: 
+dihedral angle in radians between base and facet 
 ";
 
 %feature("docstring")  FormFactorAnisoPyramid::clone "FormFactorAnisoPyramid * FormFactorAnisoPyramid::clone() const final
@@ -1854,7 +1848,7 @@ of Cone's base
 height: 
 of Cone
 
-angle: 
+alpha: 
 in radians between base and facet 
 ";
 
@@ -1910,13 +1904,13 @@ Parameters:
 -----------
 
 base_edge: 
-of hexagonal base (different from R in IsGisaxs)
+of hexagonal base
 
 height: 
 of Cone6
 
-angle: 
-in radians between base and facet 
+alpha: 
+dihedral angle in radians between base and facet 
 ";
 
 %feature("docstring")  FormFactorCone6::clone "FormFactorCone6 * FormFactorCone6::clone() const
@@ -1975,30 +1969,12 @@ Returns the (approximate in some cases) radial size of the particle of this form
 
 %feature("docstring")  FormFactorCrystal::evaluate "complex_t FormFactorCrystal::evaluate(const WavevectorInfo &wavevectors) const
 
-Returns scattering amplitude for complex wavevector bin
-
-Parameters:
------------
-
-k_i: 
-incoming wavevector
-
-k_f_bin: 
-outgoing wavevector bin 
+Returns scattering amplitude for complex wavevector bin. 
 ";
 
 %feature("docstring")  FormFactorCrystal::evaluatePol "Eigen::Matrix2cd FormFactorCrystal::evaluatePol(const WavevectorInfo &wavevectors) const
 
-Returns scattering amplitude for matrix interactions
-
-Parameters:
------------
-
-k_i: 
-incoming wavevector
-
-k_f_bin: 
-outgoing wavevector bin 
+Returns scattering amplitude for matrix interactions. 
 ";
 
 %feature("docstring")  FormFactorCrystal::evaluate_for_q "complex_t FormFactorCrystal::evaluate_for_q(const cvector_t q) const
@@ -2152,16 +2128,7 @@ Calls the  ISampleVisitor's visit method.
 
 %feature("docstring")  FormFactorDecoratorDebyeWaller::evaluate "complex_t FormFactorDecoratorDebyeWaller::evaluate(const WavevectorInfo &wavevectors) const
 
-Returns scattering amplitude for complex wavevector bin
-
-Parameters:
------------
-
-k_i: 
-incoming wavevector
-
-k_f_bin: 
-outgoing wavevector bin 
+Returns scattering amplitude for complex wavevector bin. 
 ";
 
 
@@ -2270,30 +2237,12 @@ Returns the (approximate in some cases) radial size of the particle of this form
 
 %feature("docstring")  FormFactorDecoratorMultiPositionFactor::evaluate "complex_t FormFactorDecoratorMultiPositionFactor::evaluate(const WavevectorInfo &wavevectors) const
 
-Returns scattering amplitude for complex wavevector bin
-
-Parameters:
------------
-
-k_i: 
-incoming wavevector
-
-k_f_bin: 
-outgoing wavevector bin 
+Returns scattering amplitude for complex wavevector bin. 
 ";
 
 %feature("docstring")  FormFactorDecoratorMultiPositionFactor::evaluatePol "Eigen::Matrix2cd FormFactorDecoratorMultiPositionFactor::evaluatePol(const WavevectorInfo &wavevectors) const
 
-Returns scattering amplitude for matrix interactions
-
-Parameters:
------------
-
-k_i: 
-incoming wavevector
-
-k_f_bin: 
-outgoing wavevector bin 
+Returns scattering amplitude for matrix interactions. 
 ";
 
 
@@ -2323,30 +2272,12 @@ Calls the  ISampleVisitor's visit method.
 
 %feature("docstring")  FormFactorDecoratorPositionFactor::evaluate "complex_t FormFactorDecoratorPositionFactor::evaluate(const WavevectorInfo &wavevectors) const
 
-Returns scattering amplitude for complex wavevector bin
-
-Parameters:
------------
-
-k_i: 
-incoming wavevector
-
-k_f_bin: 
-outgoing wavevector bin 
+Returns scattering amplitude for complex wavevector bin. 
 ";
 
 %feature("docstring")  FormFactorDecoratorPositionFactor::evaluatePol "Eigen::Matrix2cd FormFactorDecoratorPositionFactor::evaluatePol(const WavevectorInfo &wavevectors) const
 
-Returns scattering amplitude for matrix interactions
-
-Parameters:
------------
-
-k_i: 
-incoming wavevector
-
-k_f_bin: 
-outgoing wavevector bin 
+Returns scattering amplitude for matrix interactions. 
 ";
 
 
@@ -2375,16 +2306,7 @@ Calls the  ISampleVisitor's visit method.
 
 %feature("docstring")  FormFactorDecoratorRotation::evaluate "complex_t FormFactorDecoratorRotation::evaluate(const WavevectorInfo &wavevectors) const
 
-Returns scattering amplitude for complex wavevector bin
-
-Parameters:
------------
-
-k_i: 
-incoming wavevector
-
-k_f_bin: 
-outgoing wavevector bin 
+Returns scattering amplitude for complex wavevector bin. 
 ";
 
 
@@ -2452,16 +2374,7 @@ Sets reflection/transmission info for scalar DWBA simulation.
 
 %feature("docstring")  FormFactorDWBA::evaluate "complex_t FormFactorDWBA::evaluate(const WavevectorInfo &wavevectors) const
 
-Returns scattering amplitude for complex wavevector bin
-
-Parameters:
------------
-
-k_i: 
-incoming wavevector
-
-k_f_bin: 
-outgoing wavevector bin 
+Returns scattering amplitude for complex wavevector bin. 
 ";
 
 
@@ -3081,7 +2994,7 @@ The formfactor for a triangular ripple.
 C++ includes: FormFactorLongRipple2Gauss.h
 ";
 
-%feature("docstring")  FormFactorLongRipple2Gauss::FormFactorLongRipple2Gauss "FormFactorLongRipple2Gauss::FormFactorLongRipple2Gauss(double length, double width, double height, double asymetry)
+%feature("docstring")  FormFactorLongRipple2Gauss::FormFactorLongRipple2Gauss "FormFactorLongRipple2Gauss::FormFactorLongRipple2Gauss(double length, double width, double height, double asymmetry)
 
 FormFactorLongRipple2Gauss constructor.
 
@@ -3145,7 +3058,7 @@ The formfactor for a triangular ripple.
 C++ includes: FormFactorLongRipple2Lorentz.h
 ";
 
-%feature("docstring")  FormFactorLongRipple2Lorentz::FormFactorLongRipple2Lorentz "FormFactorLongRipple2Lorentz::FormFactorLongRipple2Lorentz(double length, double width, double height, double asymetry)
+%feature("docstring")  FormFactorLongRipple2Lorentz::FormFactorLongRipple2Lorentz "FormFactorLongRipple2Lorentz::FormFactorLongRipple2Lorentz(double length, double width, double height, double asymmetry)
 
 FormFactorLongRipple2Lorentz constructor.
 
@@ -3450,8 +3363,8 @@ of one side of Pyramid's square base
 height: 
 of Pyramid
 
-angle: 
-in radians between base and facet 
+alpha: 
+dihedral angle in radians between base and facet 
 ";
 
 %feature("docstring")  FormFactorPyramid::clone "FormFactorPyramid * FormFactorPyramid::clone() const final
@@ -3540,7 +3453,7 @@ The formfactor for a triangular ripple.
 C++ includes: FormFactorRipple2.h
 ";
 
-%feature("docstring")  FormFactorRipple2::FormFactorRipple2 "FormFactorRipple2::FormFactorRipple2(double length, double width, double height, double asymetry)
+%feature("docstring")  FormFactorRipple2::FormFactorRipple2 "FormFactorRipple2::FormFactorRipple2(double length, double width, double height, double asymmetry)
 
 Ripple2 constructor.
 
@@ -3740,8 +3653,8 @@ of a side of Tetrahedron's base
 height: 
 of Tetrahedron
 
-angle: 
-in radians between base and facet 
+alpha: 
+dihedral angle in radians between base and facet 
 ";
 
 %feature("docstring")  FormFactorTetrahedron::clone "FormFactorTetrahedron * FormFactorTetrahedron::clone() const
@@ -3767,23 +3680,12 @@ Calls the  ISampleVisitor's visit method.
 // File: classFormFactorTriangle.xml
 %feature("docstring") FormFactorTriangle "
 
-The formfactor of an equilateral triangle, for testing purposes.
+The formfactor of a planar equilateral triangle, for testing purposes.
 
 C++ includes: FormFactorTriangle.h
 ";
 
 %feature("docstring")  FormFactorTriangle::FormFactorTriangle "FormFactorTriangle::FormFactorTriangle(const double base_edge)
-
-Triangle constructor.
-
-Parameters:
------------
-
-base_edge: 
-of hexagonal base
-
-height: 
-of Triangle 
 ";
 
 %feature("docstring")  FormFactorTriangle::clone "FormFactorTriangle * FormFactorTriangle::clone() const
@@ -3801,20 +3703,14 @@ Calls the  ISampleVisitor's visit method.
 
 
 // File: classFormFactorTrivial.xml
-%feature("docstring") FormFactorTrivial "";
+%feature("docstring") FormFactorTrivial "
+
+A uniform formfactor F(q)=1, for development purposes.
+
+C++ includes: FormFactorTrivial.h
+";
 
 %feature("docstring")  FormFactorTrivial::FormFactorTrivial "FormFactorTrivial::FormFactorTrivial()
-
-Cylinder constructor.
-
-Parameters:
------------
-
-radius: 
-of Cylinder's base
-
-height: 
-of Cylinder 
 ";
 
 %feature("docstring")  FormFactorTrivial::clone "FormFactorTrivial * FormFactorTrivial::clone() const
@@ -3857,11 +3753,11 @@ C++ includes: FormFactorTruncatedCube.h
 Parameters:
 -----------
 
-side: 
-length of the full cube
+length: 
+of the full cube
 
-side: 
-length of the trirectangular tetrahedron removed from each vertex of the cube 
+removed_length: 
+as removed from each edge of the cube 
 ";
 
 %feature("docstring")  FormFactorTruncatedCube::clone "FormFactorTruncatedCube * FormFactorTruncatedCube::clone() const final
@@ -3934,20 +3830,6 @@ C++ includes: FormFactorTruncatedSpheroid.h
 ";
 
 %feature("docstring")  FormFactorTruncatedSpheroid::FormFactorTruncatedSpheroid "FormFactorTruncatedSpheroid::FormFactorTruncatedSpheroid(double radius, double height, double height_flattening)
-
-TruncatedSpheroid constructor.
-
-Parameters:
------------
-
-radius: 
-of Truncated Spheroid
-
-height: 
-of Truncated Spheroid
-
-flattening: 
-parameter in vertical direction (full height: 2 x flattening x radius) 
 ";
 
 %feature("docstring")  FormFactorTruncatedSpheroid::~FormFactorTruncatedSpheroid "FormFactorTruncatedSpheroid::~FormFactorTruncatedSpheroid()
@@ -4025,16 +3907,7 @@ Passes the refractive index of the ambient material in which this particle is em
 
 %feature("docstring")  FormFactorWeighted::evaluate "complex_t FormFactorWeighted::evaluate(const WavevectorInfo &wavevectors) const
 
-Returns scattering amplitude for complex wavevector bin
-
-Parameters:
------------
-
-k_i: 
-incoming wavevector
-
-k_f_bin: 
-outgoing wavevector bin 
+Returns scattering amplitude for complex wavevector bin. 
 ";
 
 %feature("docstring")  FormFactorWeighted::evaluatePol "Eigen::Matrix2cd FormFactorWeighted::evaluatePol(const WavevectorInfo &wavevectors) const
@@ -5298,21 +5171,12 @@ calls the  ISampleVisitor's visit method
 %feature("docstring")  IClusteredParticles::getAmbientMaterial "virtual const IMaterial* IClusteredParticles::getAmbientMaterial() const =0
 ";
 
-%feature("docstring")  IClusteredParticles::createTotalFormFactor "virtual IFormFactor* IClusteredParticles::createTotalFormFactor(const IFormFactor &meso_crystal_form_factor, const IRotation *p_rotation, kvector_t translation) const
+%feature("docstring")  IClusteredParticles::createTotalFormFactor "virtual IFormFactor* IClusteredParticles::createTotalFormFactor(const IFormFactor &, const IRotation *, kvector_t) const =0
 
-create a total form factor for the mesocrystal with a specific shape and content
-
-Parameters:
------------
-
-meso_crystal_form_factor: 
-the form factor describing the shape of the mesocrystal
-
-ambient_refractive_index: 
-the refractive index of the ambient material The bulk content of the mesocrystal is encapsulated by the  IClusteredParticles object itself 
+Creates a total form factor for the mesocrystal with a specific shape and content The bulk content of the mesocrystal is encapsulated by the  IClusteredParticles object itself 
 ";
 
-%feature("docstring")  IClusteredParticles::applyRotation "virtual void IClusteredParticles::applyRotation(const IRotation &rotation)
+%feature("docstring")  IClusteredParticles::applyRotation "virtual void IClusteredParticles::applyRotation(const IRotation &)=delete
 
 Composes transformation with existing one. 
 ";
@@ -5462,7 +5326,10 @@ Parameters:
 -----------
 
 shape: 
-The shape of mask (Rectangle, Polygon, Line, Ellipse)  The value of mask 
+The shape of mask (Rectangle, Polygon, Line, Ellipse)
+
+mask_value: 
+The value of mask 
 ";
 
 %feature("docstring")  IDetector2D::maskAll "void IDetector2D::maskAll()
@@ -5592,6 +5459,8 @@ number of values to generate
 sigma_factor: 
 parameter to derive min,max range for sample values
 
+limits:
+
 vector of generated values 
 ";
 
@@ -5696,30 +5565,12 @@ Passes the refractive index of the ambient material in which this particle is em
 
 %feature("docstring")  IFormFactor::evaluate "virtual complex_t IFormFactor::evaluate(const WavevectorInfo &wavevectors) const =0
 
-Returns scattering amplitude for complex wavevector bin
-
-Parameters:
------------
-
-k_i: 
-incoming wavevector
-
-k_f_bin: 
-outgoing wavevector bin 
+Returns scattering amplitude for complex wavevector bin. 
 ";
 
 %feature("docstring")  IFormFactor::evaluatePol "Eigen::Matrix2cd IFormFactor::evaluatePol(const WavevectorInfo &wavevectors) const
 
-Returns scattering amplitude for matrix interactions
-
-Parameters:
------------
-
-k_i: 
-incoming wavevector
-
-k_f_bin: 
-outgoing wavevector bin 
+Returns scattering amplitude for matrix interactions. 
 ";
 
 %feature("docstring")  IFormFactor::getVolume "double IFormFactor::getVolume() const
@@ -5732,7 +5583,7 @@ Returns the total volume of the particle of this form factor's shape.
 Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
 
-%feature("docstring")  IFormFactor::setSpecularInfo "void IFormFactor::setSpecularInfo(const ILayerRTCoefficients *p_in_coeffs, const ILayerRTCoefficients *p_out_coeffs)
+%feature("docstring")  IFormFactor::setSpecularInfo "virtual void IFormFactor::setSpecularInfo(const ILayerRTCoefficients *, const ILayerRTCoefficients *)
 
 Sets reflection/transmission info. 
 ";
@@ -5764,30 +5615,12 @@ Calls the  ISampleVisitor's visit method.
 
 %feature("docstring")  IFormFactorBorn::evaluate "complex_t IFormFactorBorn::evaluate(const WavevectorInfo &wavevectors) const
 
-Returns scattering amplitude for complex wavevector bin
-
-Parameters:
------------
-
-k_i: 
-incoming wavevector
-
-k_f_bin: 
-outgoing wavevector bin 
+Returns scattering amplitude for complex wavevector bin. 
 ";
 
 %feature("docstring")  IFormFactorBorn::evaluatePol "Eigen::Matrix2cd IFormFactorBorn::evaluatePol(const WavevectorInfo &wavevectors) const
 
-Returns scattering amplitude for matrix interactions
-
-Parameters:
------------
-
-k_i: 
-incoming wavevector
-
-k_f_bin: 
-outgoing wavevector bin 
+Returns scattering amplitude for matrix interactions. 
 ";
 
 %feature("docstring")  IFormFactorBorn::evaluate_for_q "virtual complex_t IFormFactorBorn::evaluate_for_q(const cvector_t q) const =0
@@ -5990,7 +5823,7 @@ evaluate Fourier transformed distribution for q in X,Y coordinates the original 
 // File: classIFutest.xml
 %feature("docstring") IFutest "
 
-Basic class for all functional tests.
+Base class for all functional tests.
 
 C++ includes: IFutest.h
 ";
@@ -6967,9 +6800,6 @@ constructor
 Parameters:
 -----------
 
-lattice_params: 
- Lattice parameters
-
 length: 
  Lattice length
 
@@ -7213,20 +7043,6 @@ C++ includes: InterferenceFunctionRadialParaCrystal.h
 ";
 
 %feature("docstring")  InterferenceFunctionRadialParaCrystal::InterferenceFunctionRadialParaCrystal "InterferenceFunctionRadialParaCrystal::InterferenceFunctionRadialParaCrystal(double peak_distance, double damping_length=0.0)
-
-constructor of radial paracrystal interference function
-
-Parameters:
------------
-
-peak_distance: 
-The distance to the first neighbor peak.
-
-width: 
-Width parameter in the pair correlation function.
-
-m_corr_length: 
-Correlation length of paracrystal. 
 ";
 
 %feature("docstring")  InterferenceFunctionRadialParaCrystal::~InterferenceFunctionRadialParaCrystal "virtual InterferenceFunctionRadialParaCrystal::~InterferenceFunctionRadialParaCrystal()
@@ -7288,12 +7104,12 @@ Evaluates the interference function for a given wavevector transfer (only the re
 
 %feature("docstring")  InterferenceFunctionRadialParaCrystal::setProbabilityDistribution "void InterferenceFunctionRadialParaCrystal::setProbabilityDistribution(const IFTDistribution1D &pdf)
 
-Sets the Fourier transformed probability distribution of the nearest particle 
+Sets the Fourier transformed probability distribution of the nearest particle. 
 ";
 
 %feature("docstring")  InterferenceFunctionRadialParaCrystal::getProbabilityDistribution "const IFTDistribution1D * InterferenceFunctionRadialParaCrystal::getProbabilityDistribution() const
 
-Gets the Fourier transformed probability distribution of the nearest particle 
+Gets the Fourier transformed probability distribution of the nearest particle. 
 ";
 
 %feature("docstring")  InterferenceFunctionRadialParaCrystal::getPeakDistance "double InterferenceFunctionRadialParaCrystal::getPeakDistance() const 
@@ -7985,7 +7801,7 @@ C++ includes: ISelectionRule.h
 
 Builds sample: 2D paracrystal lattice with isotropic pdfs (IsGISAXS example #8)
 
-it completely 
+C++ includes: ParaCrystalBuilder.h
 ";
 
 %feature("docstring")  IsGISAXS08BBuilder::IsGISAXS08BBuilder "IsGISAXS08BBuilder::IsGISAXS08BBuilder()
@@ -9810,7 +9626,7 @@ multiply every item of this output data by value
 
 %feature("docstring")  OutputData::setAxisSizes "void OutputData< T >::setAxisSizes(size_t rank, int *n_dims)
 
-Adds <rank> axes with indicated sizes. 
+Adds 'rank' axes with indicated sizes. 
 ";
 
 %feature("docstring")  OutputData::setRawDataVector "void OutputData< T >::setRawDataVector(const std::vector< T > &data_vector)
@@ -10538,6 +10354,9 @@ Adds generic particle to the layout with only abundance defined.
 Parameters:
 -----------
 
+particle: 
+to be added
+
 abundance: 
  Particle abundance 
 ";
@@ -10548,6 +10367,9 @@ Adds particle to the layout with abundance and position defined.
 
 Parameters:
 -----------
+
+particle: 
+to be added
 
 abundance: 
  Particle abundance
@@ -10562,6 +10384,9 @@ Adds particle to the layout with abundance, position and the rotation defined.
 
 Parameters:
 -----------
+
+particle: 
+to be added
 
 abundance: 
  Particle abundance
@@ -10636,7 +10461,7 @@ Parameters:
 x: 
 Vector of x-coordinates of polygon points.
 
-x: 
+y: 
 Vector of y-coordinates of polygon points. 
 ";
 
@@ -10672,6 +10497,10 @@ Returns true if area defined by two bins is inside or on border of polygon. More
 
 %feature("docstring")  Geometry::Polygon::getPoints "void Geometry::Polygon::getPoints(std::vector< double > &xpos, std::vector< double > &ypos) const 
 ";
+
+
+// File: classPolygonalTopology.xml
+%feature("docstring") PolygonalTopology "";
 
 
 // File: classGeometry_1_1PolygonPrivate.xml
@@ -10774,6 +10603,10 @@ Returns the two-dimensional form factor of this face, for use in a prism.
 
 Throws if deviation from inversion symmetry is detected. Does not check vertices. 
 ";
+
+
+// File: classPolyhedralTopology.xml
+%feature("docstring") PolyhedralTopology "";
 
 
 // File: classPrecomputed.xml
@@ -11001,7 +10834,7 @@ finalize report to the simulation
 // File: classPyScriptFutest.xml
 %feature("docstring") PyScriptFutest "
 
-GUI functional test compares results of the reference simulation with the one obtained through domain->GUI->domain convertion. Normally invoked by FunctionalMultiTest.
+Test whether Python dumps yields the same image as a direct computation.
 
 C++ includes: PyScriptFutest.h
 ";
@@ -11564,6 +11397,8 @@ C++ includes: SampleBuilderFactory.h
 ";
 
 %feature("docstring")  SampleBuilderFactory::createSample "ISample * SampleBuilderFactory::createSample(const std::string &name)
+
+Retrieves a SampleBuilder from the registry, does the build, and returns the result. 
 ";
 
 
@@ -13075,14 +12910,6 @@ C++ includes: ThreadInfo.h
 ";
 
 
-// File: classFormFactorPolyhedron_1_1Topology.xml
-%feature("docstring") FormFactorPolyhedron::Topology "";
-
-
-// File: classFormFactorPolyhedron_1_1TopologyFace.xml
-%feature("docstring") FormFactorPolyhedron::TopologyFace "";
-
-
 // File: classTRange.xml
 %feature("docstring") TRange "
 
@@ -13662,7 +13489,7 @@ Selects an element-wise component of the matrix-valued  OutputData structure and
 
 %feature("docstring")  OutputDataFunctions::createFromComponents "OutputData< Eigen::Matrix2d > * OutputDataFunctions::createFromComponents(const OutputData< double > &component_00, const OutputData< double > &component_01, const OutputData< double > &component_10, const OutputData< double > &component_11)
 
-Assembles a matrix-valued OuputData structure from its component maps 
+Assembles a matrix-valued OuputData structure from its component maps. 
 ";
 
 %feature("docstring")  OutputDataFunctions::sliceAccrossOneAxis "OutputData< double > * OutputDataFunctions::sliceAccrossOneAxis(const OutputData< double > &data, const std::string &fixed_axis_name, double fixed_axis_value)
@@ -13769,10 +13596,10 @@ Fills output data raw buffer from input stream.
 %feature("docstring")  PyGenTools::testPyScript "bool PyGenTools::testPyScript(class GISASSimulation *simulation, const std::string &output_filename)
 ";
 
-%feature("docstring")  PyGenTools::getRepresentation "BA_CORE_API_ std::string PyGenTools::getRepresentation(const class IDistribution1D *distribution)
+%feature("docstring")  PyGenTools::getRepresentation "std::string PyGenTools::getRepresentation(const class IDistribution1D *distribution)
 ";
 
-%feature("docstring")  PyGenTools::getRepresentation "BA_CORE_API_ std::string PyGenTools::getRepresentation(const std::string &indent, const class Geometry::IShape2D *ishape, bool mask_value)
+%feature("docstring")  PyGenTools::getRepresentation "std::string PyGenTools::getRepresentation(const std::string &indent, const class Geometry::IShape2D *ishape, bool mask_value)
 ";
 
 %feature("docstring")  PyGenTools::printBool "std::string PyGenTools::printBool(double value)

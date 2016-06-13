@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      FormFactors/FormFactorRipple2.h
+//! @file      Core/FormFactors/FormFactorRipple2.h
 //! @brief     Declares class FormFactorRipple2.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -30,7 +30,7 @@ public:
     //! @param width of triangular cross section
     //! @param height of triangular cross section
     //! @param asymmetry length of triangular cross section
-    FormFactorRipple2(double length, double width, double height, double asymetry);
+    FormFactorRipple2(double length, double width, double height, double asymmetry);
 
     virtual ~FormFactorRipple2() { }
 

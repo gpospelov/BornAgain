@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/PropertyAttribute.h
+//! @file      GUI/coregui/Models/PropertyAttribute.h
 //! @brief     Declares class PropertyAttribute
 //!
 //! @homepage  http://www.bornagainproject.org

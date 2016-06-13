@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      FormFactors/FormFactorTriangle.h
+//! @file      Core/FormFactors/FormFactorTriangle.h
 //! @brief     Declares class FormFactorTriangle.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -19,15 +19,15 @@
 
 //! @class FormFactorTriangle
 //! @ingroup formfactors
-//! @brief The formfactor of an equilateral triangle, for testing purposes.
+//! @brief The formfactor of a planar equilateral triangle, for testing purposes.
 
 class BA_CORE_API_ FormFactorTriangle : public FormFactorPolygonalSurface
 {
 public:
     FormFactorTriangle(const double base_edge);
 
-    virtual FormFactorTriangle *clone() const;
-    virtual void accept(ISampleVisitor *visitor) const;
+    virtual FormFactorTriangle* clone() const;
+    virtual void accept(ISampleVisitor* visitor) const;
 
     double getBaseEdge() const { return m_base_edge; }
 

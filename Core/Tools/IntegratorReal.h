@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tools/IntegratorReal.h
+//! @file      Core/Tools/IntegratorReal.h
 //! @brief     Declares and implements class template IntegratorReal.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -63,7 +63,7 @@ private:
 template <class T>
 using P_integrator_real = std::unique_ptr<IntegratorReal<T>>;
 
-//! @fn make_integrator
+//! @fn make_integrator_real
 //! @ingroup tools_internal
 //! @brief Template function to create an integrator object
 template <class T>
@@ -100,4 +100,3 @@ template<class T> double IntegratorReal<T>::integrate(
     return result;
 }
 #endif // INTEGRATORREAL_H
-

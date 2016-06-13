@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/ParameterModelBuilder.cpp
+//! @file      GUI/coregui/Models/ParameterModelBuilder.cpp
 //! @brief     Implements class ParameterModelBuilder
 //!
 //! @homepage  http://www.bornagainproject.org

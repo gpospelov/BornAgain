@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/AngleProperty.cpp
+//! @file      GUI/coregui/Models/AngleProperty.cpp
 //! @brief     Implements class AngleProperty
 //!
 //! @homepage  http://www.bornagainproject.org

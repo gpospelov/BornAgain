@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/ScientificDoubleProperty.h
+//! @file      GUI/coregui/Models/ScientificDoubleProperty.h
 //! @brief     Declares class ScientificDoubleProperty
 //!
 //! @homepage  http://www.bornagainproject.org

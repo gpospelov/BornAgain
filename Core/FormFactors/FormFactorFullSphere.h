@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      FormFactors/FormFactorFullSphere.h
+//! @file      Core/FormFactors/FormFactorFullSphere.h
 //! @brief     Declares class FormFactorFullSphere.
 //!
 //! @homepage  http://www.bornagainproject.org

@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      FormFactors/FormFactorLongRipple2Gauss.cpp
+//! @file      Core/FormFactors/FormFactorLongRipple2Gauss.cpp
 //! @brief     Implements class FormFactorLongRipple2Gauss.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -23,11 +23,11 @@
 using namespace  BornAgain;
 
 FormFactorLongRipple2Gauss::FormFactorLongRipple2Gauss(
-    double length, double width, double height, double asymetry)
+    double length, double width, double height, double asymmetry)
     : m_width(width)
     , m_height(height)
     , m_length(length)
-    , m_d(asymetry)
+    , m_d(asymmetry)
 {
     setName(FFLongRipple2GaussType);
     check_initialization();

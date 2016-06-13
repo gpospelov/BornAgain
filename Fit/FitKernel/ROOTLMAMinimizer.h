@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      FitKernel/ROOTLMAMinimizer.h
+//! @file      Fit/FitKernel/ROOTLMAMinimizer.h
 //! @brief     Declares class ROOTLMAMinimizer.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -16,8 +16,11 @@
 #ifndef ROOTMULTIFITMINIMIZER_H
 #define ROOTMULTIFITMINIMIZER_H
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 #include "ROOTMinimizer.h"
 #include "Math/PatchedGSLNLSMinimizer.h"
+#pragma GCC diagnostic pop
 
 //! @class ROOTLMAMinimizer
 //! @ingroup fitting_internal
@@ -35,10 +38,6 @@ protected:
    virtual void propagateOptions();
 
     BA_ROOT::Math::GSLNLSMinimizer *m_lma_minimizer;
-
 };
 
 #endif // ROOTMULTIFITMINIMIZER_H
-
-
-

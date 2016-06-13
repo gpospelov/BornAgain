@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      FormFactors/FormFactorTriangle.cpp
+//! @file      Core/FormFactors/FormFactorTriangle.cpp
 //! @brief     Implements class FormFactorTriangle.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -17,9 +17,6 @@
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
 
-//! @brief Triangle constructor
-//! @param base_edge of hexagonal base
-//! @param height of Triangle
 FormFactorTriangle::FormFactorTriangle(const double base_edge)
     : m_base_edge( base_edge )
 {

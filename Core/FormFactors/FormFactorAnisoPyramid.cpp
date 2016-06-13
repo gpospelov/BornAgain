@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      FormFactors/FormFactorAnisoPyramid.cpp
+//! @file      Core/FormFactors/FormFactorAnisoPyramid.cpp
 //! @brief     Implements class FormFactorAnisoPyramid.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -17,7 +17,7 @@
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
 
-const FormFactorPolyhedron::Topology FormFactorAnisoPyramid::topology = {
+const PolyhedralTopology FormFactorAnisoPyramid::topology = {
     {
         { { 3, 2, 1, 0 }, true },
         { { 0, 1, 5, 4 }, false },
@@ -28,9 +28,10 @@ const FormFactorPolyhedron::Topology FormFactorAnisoPyramid::topology = {
     }, false };
 
 //! @brief Pyramid constructor
-//! @param base_edge of one side of Pyramid's square base
+//! @param length of one side of Pyramid's rectangular base
+//! @param width of other side of Pyramid's rectangular base
 //! @param height of Pyramid
-//! @param angle in radians between base and facet
+//! @param alpha dihedral angle in radians between base and facet
 
 FormFactorAnisoPyramid::FormFactorAnisoPyramid(
     double length, double width, double height, double alpha)

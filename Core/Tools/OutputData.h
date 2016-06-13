@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tools/OutputData.h
+//! @file      Core/Tools/OutputData.h
 //! @brief     Declares and implements template class OutputData.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -198,7 +198,7 @@ public:
     //! multiply every item of this output data by value
     void scaleAll(const T& factor);
 
-    //! Adds <rank> axes with indicated sizes
+    //! Adds 'rank' axes with indicated sizes
     void setAxisSizes(size_t rank, int *n_dims);
 
     //! Sets new values to raw data vector

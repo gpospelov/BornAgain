@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      FormFactors/FormFactorCone.h
+//! @file      Core/FormFactors/FormFactorCone.h
 //! @brief     Declares class FormFactorCone
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -29,10 +29,6 @@ template <class T> class IntegratorComplex;
 class BA_CORE_API_ FormFactorCone : public IFormFactorBorn
 {
 public:
-    //! @brief Cone constructor
-    //! @param radius of Cone's base
-    //! @param height of Cone
-    //! @param angle in radians between base and facet
     FormFactorCone(double radius, double height,  double alpha);
     virtual ~FormFactorCone();
 

@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/MaskWidgets/MaskEditorHelper.cpp
+//! @file      GUI/coregui/Views/MaskWidgets/MaskEditorHelper.cpp
 //! @brief     Implements class MaskEditorHelper
 //!
 //! @homepage  http://www.bornagainproject.org

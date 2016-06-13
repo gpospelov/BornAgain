@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      FormFactors/FormFactorPyramid.h
+//! @file      Core/FormFactors/FormFactorPyramid.h
 //! @brief     Declares class FormFactorPyramid
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -34,7 +34,7 @@ public:
     double getAlpha() const { return m_alpha; }
 
 private:
-    static const Topology topology;
+    static const PolyhedralTopology topology;
     virtual void onChange() final;
 
     double m_base_edge;

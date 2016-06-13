@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      FitKernel/ROOTMinimizerFunction.h
+//! @file      Fit/FitKernel/ROOTMinimizerFunction.h
 //! @brief     Declares classes ROOTMinimizerChiSquaredFunction and ROOTMinimizerGradientFunction
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -17,9 +17,11 @@
 #define ROOTMINIMIZERFUNCTION_H
 
 #include "IMinimizer.h"
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 #include "Math/Functor.h"
 #include "Math/FitMethodFunction.h"
-
+#pragma GCC diagnostic pop
 
 
 //! @class ROOTMinimizerChiSquaredFunction

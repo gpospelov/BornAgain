@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      StandardSamples/SampleBuilderFactory.cpp
+//! @file      Core/StandardSamples/SampleBuilderFactory.cpp
 //! @brief     Implement class SampleBuilderFactory.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -229,8 +229,9 @@ SampleBuilderFactory::SampleBuilderFactory()
         "LayersWithAbsorptionBuilder",
         build<LayersWithAbsorptionBuilder>,
         "3 layer system with absorption");
-
 }
+
+//! Retrieves a SampleBuilder from the registry, does the build, and returns the result.
 
 ISample *SampleBuilderFactory::createSample(const std::string& name)
 {

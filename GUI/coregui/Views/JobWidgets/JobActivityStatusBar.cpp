@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/JobWidgets/JobActivityStatusBar.cpp
+//! @file      GUI/coregui/Views/JobWidgets/JobActivityStatusBar.cpp
 //! @brief     Implements class JobActivityStatusBar
 //!
 //! @homepage  http://www.bornagainproject.org

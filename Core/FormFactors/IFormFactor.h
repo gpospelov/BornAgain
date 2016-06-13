@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      FormFactors/IFormFactor.h
+//! @file      Core/FormFactors/IFormFactor.h
 //! @brief     Declares and implements pure virtual interface IFormFactor.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -35,25 +35,20 @@ public:
     IFormFactor() {}
     virtual ~IFormFactor() {}
 
-    virtual IFormFactor *clone() const=0;
+    virtual IFormFactor* clone() const=0;
 
     //! @{ \internal
-    virtual void accept(ISampleVisitor *visitor) const;
+    virtual void accept(ISampleVisitor* visitor) const;
     //! @}
 
-    //! Passes the refractive index of the ambient material in which this
-    //! particle is embedded.
+    //! Passes the refractive index of the ambient material in which this particle is embedded.
     virtual void setAmbientMaterial(const IMaterial&) {}
 
     //! Returns scattering amplitude for complex wavevector bin
-    //! @param k_i   incoming wavevector
-    //! @param k_f_bin   outgoing wavevector bin
     virtual complex_t evaluate(const WavevectorInfo& wavevectors) const=0;
 
 #ifndef SWIG
     //! Returns scattering amplitude for matrix interactions
-    //! @param k_i   incoming wavevector
-    //! @param k_f_bin   outgoing wavevector bin
     virtual Eigen::Matrix2cd evaluatePol(const WavevectorInfo& wavevectors) const;
 #endif
 
@@ -65,11 +60,10 @@ public:
     virtual double getRadius() const=0;
 
     //! Sets reflection/transmission info
-    virtual void setSpecularInfo(const ILayerRTCoefficients *p_in_coeffs,
-                         const ILayerRTCoefficients *p_out_coeffs);
+    virtual void setSpecularInfo(const ILayerRTCoefficients*, const ILayerRTCoefficients*) {}
 };
 
-inline void IFormFactor::accept(ISampleVisitor *visitor) const
+inline void IFormFactor::accept(ISampleVisitor* visitor) const
 {
     visitor->visit(this);
 }
@@ -86,13 +80,6 @@ inline double IFormFactor::getVolume() const
 {
     WavevectorInfo zero_wavevectors;
     return std::abs(evaluate(zero_wavevectors));
-}
-
-inline void IFormFactor::setSpecularInfo(const ILayerRTCoefficients *p_in_coeffs,
-                                         const ILayerRTCoefficients *p_out_coeffs)
-{
-    (void)p_in_coeffs;
-    (void)p_out_coeffs;
 }
 
 #endif // IFORMFACTOR_H

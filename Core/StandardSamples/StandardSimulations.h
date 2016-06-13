@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      StandardSamples/StandardSimulations.h
+//! @file      Core/StandardSamples/StandardSimulations.h
 //! @brief     Declares namespace and functions for standard simulations.
 //!
 //! @homepage  http://www.bornagainproject.org

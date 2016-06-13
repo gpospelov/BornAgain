@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      FitKernel/FitObject.h
+//! @file      Fit/FitKernel/FitObject.h
 //! @brief     Declares class FitObject.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -32,7 +32,7 @@ class BA_CORE_API_ FitObject : public IParameterized
 {
 public:
     //! FitObject constructor
-    //! @param simulaiton The simulation to eun
+    //! @param simulation The simulation to eun
     //! @param real_data The real data
     //! @param weight Weight of dataset in chi2 calculations
     //! @param adjust_detector_to_data Detector axes will be adjusted to real data axes, if true

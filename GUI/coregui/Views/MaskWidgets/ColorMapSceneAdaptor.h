@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/MaskWidgets/ColorMapSceneAdaptor.h
+//! @file      GUI/coregui/Views/MaskWidgets/ColorMapSceneAdaptor.h
 //! @brief     Declares class ColorMapSceneAdaptor
 //!
 //! @homepage  http://www.bornagainproject.org

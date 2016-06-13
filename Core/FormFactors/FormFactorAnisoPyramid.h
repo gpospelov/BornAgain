@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      FormFactors/FormFactorAnisoPyramid.h
+//! @file      Core/FormFactors/FormFactorAnisoPyramid.h
 //! @brief     Declares class FormFactorAnisoPyramid
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -35,7 +35,7 @@ public:
     double getAlpha()  const { return m_alpha; }
 
 private:
-    static const Topology topology;
+    static const PolyhedralTopology topology;
     virtual void onChange() final;
 
     double m_length;

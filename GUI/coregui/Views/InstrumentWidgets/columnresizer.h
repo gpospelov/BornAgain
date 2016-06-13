@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/InstrumentWidgets/ColumnResizer.h
+//! @file      GUI/coregui/Views/InstrumentWidgets/columnresizer.h
 //! @brief     Declares class ColumnResizer
 //!
 //! @homepage  http://www.bornagainproject.org

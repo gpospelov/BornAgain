@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/RectangularDetectorItem.cpp
+//! @file      GUI/coregui/Models/RectangularDetectorItem.cpp
 //! @brief     Implements class RectangularDetectorItem
 //!
 //! @homepage  http://www.bornagainproject.org

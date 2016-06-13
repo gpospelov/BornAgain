@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      StandardSamples/LayersWithAbsorptionBuilder.h
+//! @file      Core/StandardSamples/LayersWithAbsorptionBuilder.h
 //! @brief     Declares class LayersWithAbsorptionBuilder.
 //!
 //! @homepage  http://www.bornagainproject.org

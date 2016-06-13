@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      StandardSamples/IFutest.cpp
+//! @file      Core/TestMachinery/IFutest.cpp
 //! @brief     Implements class IFutest.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -35,8 +35,7 @@ const size_t width_result = 15;
 
 } // namespace
 
-std::map<IFutest::ETestResult, std::string> IFutest::m_result_to_string =
-    InitTestResultToString();
+std::map<IFutest::ETestResult, std::string> IFutest::m_result_to_string = InitTestResultToString();
 
 IFutest::IFutest()
     : m_result(SUCCESS)

@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tools/BornAgainNamespace.h
+//! @file      Core/Tools/BornAgainNamespace.h
 //! @brief     Declares BornAgain namespace
 //!
 //! @homepage  http://www.bornagainproject.org

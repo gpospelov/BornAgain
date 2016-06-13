@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/PyScriptFutest.h
+//! @file      Core/TestMachinery/PyScriptFutest.h
 //! @brief     Declares class PyScriptFutest
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -25,15 +25,13 @@ class GISASSimulation;
 
 //! @class PyScriptFutest
 //! @ingroup standard_samples
-//! @brief GUI functional test  compares results of the reference simulation with
-//! the one obtained through domain->GUI->domain convertion. Normally invoked by
-//! FunctionalMultiTest.
+//! @brief Test whether Python dumps yields the same image as a direct computation.
 
 class BA_CORE_API_ PyScriptFutest : public IFutest
 {
 public:
     PyScriptFutest(const std::string& name, const std::string& description,
-                           GISASSimulation* reference_simulation, double threshold);
+                   GISASSimulation* reference_simulation, double threshold);
     virtual ~PyScriptFutest();
 
     virtual void runTest();

@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      FormFactors/FormFactorCone6.cpp
+//! @file      Core/FormFactors/FormFactorCone6.cpp
 //! @brief     Implements class FormFactorCone6.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -17,7 +17,7 @@
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
 
-const FormFactorPolyhedron::Topology FormFactorCone6::topology = {
+const PolyhedralTopology FormFactorCone6::topology = {
     {
         { {  5,  4,  3,  2,  1,  0 }, true },
         { {  0,  1,  7,  6 }, false },
@@ -30,9 +30,9 @@ const FormFactorPolyhedron::Topology FormFactorCone6::topology = {
     }, false };
 
 //! Cone6 constructor
-//! @param base_edge of hexagonal base (different from R in IsGisaxs)
+//! @param base_edge of hexagonal base
 //! @param height of Cone6
-//! @param angle in radians between base and facet
+//! @param alpha dihedral angle in radians between base and facet
 FormFactorCone6::FormFactorCone6(double base_edge, double height, double alpha)
     : FormFactorPolyhedron()
     , m_base_edge(base_edge)

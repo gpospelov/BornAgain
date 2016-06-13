@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      FormFactors/FormFactorTruncatedCube.h
+//! @file      Core/FormFactors/FormFactorTruncatedCube.h
 //! @brief     Declares class FormFactorTruncatedCube.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -34,7 +34,7 @@ public:
     double getRemovedLength() const { return m_removed_length; }
 
 private:
-    static const Topology topology;
+    static const PolyhedralTopology topology;
     virtual void onChange() final;
     double m_length;
     double m_removed_length;

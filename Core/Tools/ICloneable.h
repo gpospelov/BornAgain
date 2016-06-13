@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tools/ICloneable.h
+//! @file      Core/Tools/ICloneable.h
 //! @brief     Declares the standard mix-in ICloneable.
 //!
 //! @homepage  http://www.bornagainproject.org

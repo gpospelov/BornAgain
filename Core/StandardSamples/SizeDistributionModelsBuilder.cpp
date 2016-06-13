@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      StandardSamples/ParticlesInSSCABuilder.cpp
+//! @file      Core/StandardSamples/SizeDistributionModelsBuilder.cpp
 //! @brief     Implements class ParticlesInSSCABuilder.
 //!
 //! @homepage  http://www.bornagainproject.org

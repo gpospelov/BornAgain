@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/MaskWidgets/MaskDrawingContext.h
+//! @file      GUI/coregui/Views/MaskWidgets/MaskDrawingContext.h
 //! @brief     Declares class MaskDrawingContext
 //!
 //! @homepage  http://www.bornagainproject.org

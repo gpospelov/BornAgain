@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tools/ConstKBinAxis.h
+//! @file      Core/Tools/ConstKBinAxis.h
 //! @brief     Declares class ConstKBinAxis.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -15,7 +15,6 @@
 
 #ifndef CONSTKBINAXIS_H
 #define CONSTKBINAXIS_H
-
 
 #include "VariableBinAxis.h"
 
@@ -31,15 +30,15 @@ public:
     //! @param nbins number of bins
     //! @param start low edge of first bin
     //! @param end upper edge of last bin
-    ConstKBinAxis(const std::string &name, size_t nbins, double start, double end);
+    ConstKBinAxis(const std::string& name, size_t nbins, double start, double end);
     virtual ~ConstKBinAxis() {}
 
-    ConstKBinAxis *clone() const;
+    ConstKBinAxis* clone() const;
 
-    ConstKBinAxis *createClippedAxis(double left, double right) const;
+    ConstKBinAxis* createClippedAxis(double left, double right) const;
 
 protected:
-    ConstKBinAxis(const std::string &name, size_t nbins);
+    ConstKBinAxis(const std::string& name, size_t nbins);
 
     void print(std::ostream& ostr) const;
     bool equals(const IAxis& other) const;
@@ -48,5 +47,4 @@ protected:
     double m_end;
 };
 
-
-#endif
+#endif // CONSTKBINAXIS_H

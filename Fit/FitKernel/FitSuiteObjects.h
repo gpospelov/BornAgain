@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      FitKernel/FitSuiteObjects.h
+//! @file      Fit/FitKernel/FitSuiteObjects.h
 //! @brief     Declares class FitSuiteObjects.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -70,7 +70,7 @@ class BA_CORE_API_ FitSuiteObjects : public IParameterized
     double getChiSquaredValue() const;
 
     //! Returns residuals for single data element
-    //! @pars global_index index accross all element in FitElement vector
+    //! @param global_index index accross all element in FitElement vector
     double getResidualValue(size_t global_index);
 
     //! Adds parameters from local pool to external pool and call recursion over direct children

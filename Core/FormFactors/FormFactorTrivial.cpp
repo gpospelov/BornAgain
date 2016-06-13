@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      FormFactors/FormFactorTrivial.cpp
+//! @file      Core/FormFactors/FormFactorTrivial.cpp
 //! @brief     Implements class FormFactorTrivial.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -29,7 +29,7 @@ FormFactorTrivial* FormFactorTrivial::clone() const
     return new FormFactorTrivial();
 }
 
-void FormFactorTrivial::accept(ISampleVisitor *visitor) const
+void FormFactorTrivial::accept(ISampleVisitor* visitor) const
 {
     visitor->visit(this);
 }
@@ -39,9 +39,8 @@ double FormFactorTrivial::getRadius() const
     return 1.0;
 }
 
-complex_t FormFactorTrivial::evaluate_for_q(const cvector_t q) const
+complex_t FormFactorTrivial::evaluate_for_q(const cvector_t) const
 {
-    (void)q;
     return 1.0;
 }
 

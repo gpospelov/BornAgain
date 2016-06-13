@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Samples/InterferenceFunction2DLattice.h
+//! @file      Core/Samples/InterferenceFunction2DLattice.h
 //! @brief     Declares class InterferenceFunction2DLattice.
 //!
 //! @homepage  http://www.bornagainproject.org

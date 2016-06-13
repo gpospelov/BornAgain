@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      FitKernel/ROOTSimAnMinimizer.h
+//! @file      Fit/FitKernel/ROOTSimAnMinimizer.h
 //! @brief     Declares class ROOTSimAnMinimizer.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -17,7 +17,10 @@
 #define ROOTSIMANMINIMIZER_H
 
 #include "ROOTMinimizer.h"
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 #include "Math/PatchedGSLSimAnMinimizer.h"
+#pragma GCC diagnostic pop
 
 
 //! @class ROOTSimAnMinimizer

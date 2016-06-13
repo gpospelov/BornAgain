@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Algorithms/FTDistributions.cpp
+//! @file      Core/Algorithms/FTDistributions.cpp
 //! @brief     Implements class FTDistribution2DCauchy.
 //!
 //! @homepage  http://www.bornagainproject.org

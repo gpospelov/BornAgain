@@ -6069,6 +6069,8 @@ SWIGINTERN void std_vector_Sl_std_string_Sg__insert__SWIG_1(std::vector< std::st
 #include "MinimizerFactory.h"
 #include "MinimizerOptions.h"
 #include "FitStrategyAdjustMinimizer.h"
+//#include "IFactory.h"
+//#include "StandardFitsFactory.h"
 
 
 struct SWIG_null_deleter {
@@ -30785,7 +30787,7 @@ static PyMethodDef SwigMethods[] = {
 		"Parameters:\n"
 		"-----------\n"
 		"\n"
-		"simulaiton: \n"
+		"simulation: \n"
 		"The simulation to eun\n"
 		"\n"
 		"real_data: \n"
@@ -31363,7 +31365,13 @@ static PyMethodDef SwigMethods[] = {
 		"\n"
 		"double FitSuiteObjects::getResidualValue(size_t global_index)\n"
 		"\n"
-		"Returns residuals for single data element  global_index index accross all element in FitElement vector \n"
+		"Returns residuals for single data element\n"
+		"\n"
+		"Parameters:\n"
+		"-----------\n"
+		"\n"
+		"global_index: \n"
+		"index accross all element in FitElement vector \n"
 		"\n"
 		""},
 	 { (char *)"FitSuiteObjects_setNfreeParameters", _wrap_FitSuiteObjects_setNfreeParameters, METH_VARARGS, (char *)"\n"

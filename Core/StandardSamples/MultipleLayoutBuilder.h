@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      StandardSamples/MultipleLayoutBuilder.h
+//! @file      Core/StandardSamples/MultipleLayoutBuilder.h
 //! @brief     Declares class MultipleLayoutBuilder.
 //!
 //! @homepage  http://www.bornagainproject.org

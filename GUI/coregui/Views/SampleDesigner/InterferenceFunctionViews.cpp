@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/SampleDesigner/InterferenceFunctionViews.cpp
+//! @file      GUI/coregui/Views/SampleDesigner/InterferenceFunctionViews.cpp
 //! @brief     Implements classes InterferenceFunctionViews
 //!
 //! @homepage  http://www.bornagainproject.org

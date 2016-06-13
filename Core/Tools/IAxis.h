@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tools/IAxis.h
+//! @file      Core/Tools/IAxis.h
 //! @brief     Declares class IAxis.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef IAXIS_H_
-#define IAXIS_H_
+#ifndef IAXIS_H
+#define IAXIS_H
 
 #include "Bin.h"
 #include "Exceptions.h"
@@ -30,13 +30,13 @@ class BA_CORE_API_ IAxis
 {
 public:
     //! constructors
-    IAxis(const std::string &name) : m_name(name) {}
+    IAxis(const std::string& name) : m_name(name) {}
 
     //! clone function
-    virtual IAxis *clone() const=0;
+    virtual IAxis* clone() const=0;
 
     //! Creates a new axis with half the number of bins
-    virtual IAxis *createDoubleBinSize() const;
+    virtual IAxis* createDoubleBinSize() const;
 
     //! destructor
     virtual ~IAxis() {}
@@ -70,15 +70,15 @@ public:
     //! test for equality
     friend bool operator==(const IAxis& left, const IAxis& right);
 
-    friend std::ostream& operator<<(std::ostream& ostr, const IAxis& m)
-    { m.print(ostr); return ostr; }
+    friend std::ostream& operator<<(std::ostream& ostr, const IAxis& m) {
+        m.print(ostr); return ostr; }
 
     virtual std::vector<double > getBinCenters() const;
 
-    virtual  std::vector<double > getBinBoundaries() const;
+    virtual std::vector<double > getBinBoundaries() const;
 
     //! Creates a new clipped axis
-    virtual IAxis *createClippedAxis(double left, double right) const;
+    virtual IAxis* createClippedAxis(double left, double right) const;
 
     //! Returns true if axis contains given point
     virtual bool contains(double value) const;
@@ -92,6 +92,7 @@ private:
     IAxis(const IAxis& );
     IAxis& operator=(const IAxis& );
 };
+
 
 inline IAxis* IAxis::createDoubleBinSize() const
 {
@@ -123,7 +124,7 @@ inline std::vector<double> IAxis::getBinBoundaries() const
         "IAxis::getBinBoundaries() -> Error. Not implemented.");
 }
 
-inline IAxis *IAxis::createClippedAxis(double /* left */, double /* right */) const
+inline IAxis* IAxis::createClippedAxis(double /* left */, double /* right */) const
 {
     throw Exceptions::NotImplementedException(
         "IAxis::createClippedAxis() -> Error. Not implemented.");
@@ -141,4 +142,4 @@ inline bool HaveSameNameAndShape(const IAxis& left, const IAxis& right)
     return left == right;
 }
 
-#endif /* IAXIS_H_ */
+#endif // IAXIS_H

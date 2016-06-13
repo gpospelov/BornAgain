@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/GroupProperty.h
+//! @file      GUI/coregui/Models/GroupProperty.h
 //! @brief     Declares class GroupProperty
 //!
 //! @homepage  http://www.bornagainproject.org

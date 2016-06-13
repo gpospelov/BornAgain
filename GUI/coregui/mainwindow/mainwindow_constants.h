@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/mainwindow/mainwindow_constants.h
+//! @file      GUI/coregui/mainwindow/mainwindow_constants.h
 //! @brief     Declares namespace Constants
 //!
 //! @homepage  http://www.bornagainproject.org

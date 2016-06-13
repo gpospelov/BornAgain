@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/VectorItem.h
+//! @file      GUI/coregui/Models/VectorItem.h
 //! @brief     Declares class VectorItem
 //!
 //! @homepage  http://www.bornagainproject.org

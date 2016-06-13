@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Futests/TestPyCore/PySuite.cpp
+//! @file      Tests/Functional/TestPyDump/PyDump.cpp
 //! @brief     Implements program PySuite, to run pyscript functional tests
 //!
 //! @homepage  http://www.bornagainproject.org

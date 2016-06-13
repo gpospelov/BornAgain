@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      FitKernel/MinimizerFactory.cpp
+//! @file      Fit/FitKernel/MinimizerFactory.cpp
 //! @brief     Implements class MinimizerFactory.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -27,24 +27,23 @@
 // auxiliary class MinimizerCatalogue
 // ************************************************************************** //
 
-//! @class map of minimizer names holding list of defined algorithms for every minimizer
+//! Map of minimizer names holding list of defined algorithms for every minimizer.
 class MinimizerCatalogue {
 public:
-    typedef std::map<std::string, std::vector<std::string > > catalogue_t;
+    typedef std::map<std::string, std::vector<std::string>> catalogue_t;
     typedef catalogue_t::const_iterator const_iterator;
     MinimizerCatalogue();
     const_iterator begin() const { return m_data.begin(); }
     const_iterator end() const { return m_data.end(); }
     bool isValid(const std::string& minimizer, const std::string& algorithm) const;
-    friend std::ostream& operator<<(std::ostream& ostr, const MinimizerCatalogue& m)
-        { m.print(ostr); return ostr; }
+    friend std::ostream& operator<<(std::ostream& ostr, const MinimizerCatalogue& m) {
+        m.print(ostr); return ostr; }
 private:
     void print(std::ostream& ostr) const;
     catalogue_t m_data;
 };
 
-// constructing map of minimizer names holding list of defined algorithms
-// for every minimizer
+// Constructs map of minimizer names holding list of defined algorithms for every minimizer
 MinimizerCatalogue::MinimizerCatalogue()
 {
     // our minimizers
@@ -96,11 +95,13 @@ void MinimizerFactory::printCatalogue()
 }
 
 
-IMinimizer *MinimizerFactory::createMinimizer(const std::string& minimizer, const std::string& algorithm, const std::string& options)
+IMinimizer *MinimizerFactory::createMinimizer(
+    const std::string& minimizer, const std::string& algorithm, const std::string& options)
 {
     if( !catalogue.isValid(minimizer, algorithm) ) {
         std::ostringstream ostr;
-        ostr << "MinimizerFactory::MinimizerFactory() -> Error! Wrong minimizer name '" << minimizer << "' or algorithm '" << algorithm << "'" << std::endl;
+        ostr << "MinimizerFactory::MinimizerFactory() -> Error! Wrong minimizer name '" <<
+            minimizer << "' or algorithm '" << algorithm << "'" << std::endl;
         ostr << "Possible names are:" << std::endl;
         ostr << catalogue;
         throw LogicErrorException(ostr.str());
@@ -128,16 +129,16 @@ IMinimizer *MinimizerFactory::createMinimizer(const std::string& minimizer, cons
     } else if( minimizer == "Genetic" ) {
         result = new ROOTGeneticMinimizer(minimizer, algorithm);
 
-    } else  {
-        throw LogicErrorException("MinimizerFactory::createMinimizer() -> Error! Wrong minimizer name '"+minimizer+"'");
-        
-    }
+    } else
+        throw LogicErrorException("MinimizerFactory::createMinimizer() -> Error! "
+                                  "Wrong minimizer name '"+minimizer+"'" );
 
     if( !options.empty() ) {
         try {
             result->setOptionString(options);
         } catch (NotImplementedException& e) {
-            std::cout << "MinimizerFactory::createMinimizer() -> Warning! Minimizer doesn't have method implemented" << e.what() << std::endl;
+            std::cout << "MinimizerFactory::createMinimizer() -> Warning! " <<
+                "Minimizer doesn't have method implemented" << e.what() << std::endl;
         }
     }
 

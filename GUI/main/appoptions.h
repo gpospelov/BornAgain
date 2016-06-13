@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      appoptions.h
+//! @file      GUI/main/appoptions.h
 //! @brief     Collection of utilities to parse command line options
 //!
 //! @homepage  http://www.bornagainproject.org

@@ -22,7 +22,7 @@
 #include "ParameterTuningWidget.h"
 #include "FilterPropertyProxy.h"
 #include "ParameterTreeItems.h"
-#include "FitParameterAbsModel.h"
+#include "FitParameterProxyModel.h"
 #include "FitModelHelper.h"
 #include "SessionModelDelegate.h"
 #include "CustomEventFilters.h"

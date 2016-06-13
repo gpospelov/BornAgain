@@ -14,7 +14,7 @@
 //
 // ************************************************************************** //
 
-#include "FitParameterAbsModel.h"
+#include "FitParameterProxyModel.h"
 #include "SessionItem.h"
 #include "FitParameterItems.h"
 #include "SessionModel.h"

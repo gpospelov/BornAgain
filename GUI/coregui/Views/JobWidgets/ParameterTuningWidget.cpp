@@ -18,7 +18,7 @@
 #include "JobQueueData.h"
 #include "JobItem.h"
 #include "SliderSettingsWidget.h"
-#include "ParameterModelBuilder.h"
+#include "ParameterTreeBuilder.h"
 #include "GUIHelpers.h"
 #include "ParameterTuningDelegate.h"
 #include "JobModel.h"

@@ -18,7 +18,6 @@
 #define FITMODELHELPER_H
 
 #include "WinDllMacros.h"
-#include "SessionModel.h"
 #include <QMap>
 
 class ParameterItem;
@@ -27,22 +26,26 @@ class FitParameterContainerItem;
 class JobItem;
 
 //! The FitModelHelper class contains set of convenience static methods to handle various fitting
-//! items in given JobItem
+//! items in given JobItem.
 
-class BA_CORE_API_ FitModelHelper : public SessionModel
+class BA_CORE_API_ FitModelHelper
 {
 public:
-    static void createFitParameter(FitParameterContainerItem *container, ParameterItem *parameterItem);
+    static void createFitParameter(FitParameterContainerItem *container,
+                                   ParameterItem *parameterItem);
 
-    static void removeFromFitParameters(FitParameterContainerItem *container, ParameterItem *parameterItem);
-    static void addToFitParameter(FitParameterContainerItem *container, ParameterItem *parameterItem, const QString &fitParName);
+    static void removeFromFitParameters(FitParameterContainerItem *container,
+                                        ParameterItem *parameterItem);
+    static void addToFitParameter(FitParameterContainerItem *container,
+                                  ParameterItem *parameterItem, const QString &fitParName);
 
-    static FitParameterItem *getFitParameterItem(FitParameterContainerItem *container, ParameterItem *parameterItem);
+    static FitParameterItem *getFitParameterItem(FitParameterContainerItem *container,
+                                                 ParameterItem *parameterItem);
 
     static QStringList getFitParameterNames(FitParameterContainerItem *container);
     static QString getParameterItemPath(ParameterItem *parameterItem);
-    static ParameterItem *getParameterItem(FitParameterContainerItem *container, const QString &link);
-
+    static ParameterItem *getParameterItem(FitParameterContainerItem *container,
+                                           const QString &link);
 };
 
 #endif

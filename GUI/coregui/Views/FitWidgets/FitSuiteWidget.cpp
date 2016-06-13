@@ -109,7 +109,8 @@ void FitSuiteWidget::onUpdatePlots(OutputData<double> *sim, OutputData<double> *
     m_observer->finishedPlotting();
 }
 
-//! Propagates current values of fit parameters back to FitParameterItem and ParameterItem
+//! Propagates current values of fit parameters as reported by FitSuite observer back to JobItem.
+
 void FitSuiteWidget::onUpdateParameters(const QStringList &parameters, QVector<double> values)
 {
     qDebug() << "FitSuiteWidget::onUpdateParameters" << parameters << values;
@@ -134,7 +135,6 @@ void FitSuiteWidget::onUpdateParameters(const QStringList &parameters, QVector<d
 
         }
     }
-
 }
 
 void FitSuiteWidget::onUpdateStatus(const QString &text)

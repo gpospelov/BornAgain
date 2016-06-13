@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/ParameterModelBuilder.h
-//! @brief     Declares class ParameterModelBuilder
+//! @file      coregui/Models/ParameterTreeBuilder.h
+//! @brief     Declares class ParameterTreeBuilder
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,15 +14,19 @@
 //
 // ************************************************************************** //
 
-#ifndef PARAMETERMODELBUILDER_H
-#define PARAMETERMODELBUILDER_H
+#ifndef PARAMETERTREEBUILDER_H
+#define PARAMETERTREEBUILDER_H
 
 #include <QString>
 
 class JobItem;
 class SessionItem;
 
-class ParameterModelBuilder
+//! The ParameterTreeBuilder class helps JobModel to create a container with ParameterItem's.
+//! The ParameterItem appears in RealTimeView and provides real time tuning of MultiLayerItem
+//! and InstrumentItem.
+
+class ParameterTreeBuilder
 {
 public:
     static void createParameterTree(JobItem *item, const QString &tag = QString());
@@ -31,6 +35,4 @@ private:
     static void populateDomainLinks(JobItem *jobItem,  const QString &tag);
 };
 
-
 #endif
-

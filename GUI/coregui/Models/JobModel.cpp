@@ -24,7 +24,7 @@
 #include "MultiLayerItem.h"
 #include "InstrumentItem.h"
 #include "RealDataItem.h"
-#include "ParameterModelBuilder.h"
+#include "ParameterTreeBuilder.h"
 #include "ParameterTreeItems.h"
 #include "SimulationOptionsItem.h"
 #include "JobResultsPresenter.h"
@@ -97,7 +97,7 @@ JobItem *JobModel::addJob(const MultiLayerItem *multiLayerItem,
     jobItem->getItem(JobItem::P_SAMPLE_NAME)->setValue(multiLayerItem->itemName());
     jobItem->getItem(JobItem::P_INSTRUMENT_NAME)->setValue(instrumentItem->itemName());
 
-    ParameterModelBuilder::createParameterTree(jobItem, JobItem::T_PARAMETER_TREE);
+    ParameterTreeBuilder::createParameterTree(jobItem, JobItem::T_PARAMETER_TREE);
 
     insertNewItem(Constants::IntensityDataType, indexOfItem(jobItem), -1, JobItem::T_OUTPUT);
     //insertNewItem(Constants::IntensityDataType, indexOfItem(jobItem), -1, JobItem::T_REALDATA);

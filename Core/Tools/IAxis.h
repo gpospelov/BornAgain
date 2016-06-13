@@ -70,12 +70,12 @@ public:
     //! test for equality
     friend bool operator==(const IAxis& left, const IAxis& right);
 
-    friend std::ostream& operator<<(std::ostream& ostr, const IAxis& m)
-    { m.print(ostr); return ostr; }
+    friend std::ostream& operator<<(std::ostream& ostr, const IAxis& m) {
+        m.print(ostr); return ostr; }
 
     virtual std::vector<double > getBinCenters() const;
 
-    virtual  std::vector<double > getBinBoundaries() const;
+    virtual std::vector<double > getBinBoundaries() const;
 
     //! Creates a new clipped axis
     virtual IAxis* createClippedAxis(double left, double right) const;
@@ -92,6 +92,7 @@ private:
     IAxis(const IAxis& );
     IAxis& operator=(const IAxis& );
 };
+
 
 inline IAxis* IAxis::createDoubleBinSize() const
 {

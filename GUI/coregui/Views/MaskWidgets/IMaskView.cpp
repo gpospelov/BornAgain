@@ -32,7 +32,11 @@ IMaskView::IMaskView()
     connect(this, SIGNAL(yChanged()), this, SLOT(onChangedY()));
 }
 
-IMaskView::~IMaskView(){}
+IMaskView::~IMaskView()
+{
+    if(m_item)
+        m_item->mapper()->unsubscribe(this);
+}
 
 QRectF IMaskView::boundingRect() const
 {
@@ -57,7 +61,6 @@ void IMaskView::setParameterizedItem(SessionItem *item)
             onPropertyChange(name);
         }, this);
     }
-
 }
 
 SessionItem *IMaskView::getParameterizedItem()

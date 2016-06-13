@@ -17,7 +17,6 @@
 #include "SimulationSetupWidget.h"
 #include "JobModel.h"
 #include "JobItem.h"
-#include "SampleValidator.h"
 #include "PythonScriptWidget.h"
 #include "projectmanager.h"
 #include "SimulationOptionsWidget.h"
@@ -25,6 +24,7 @@
 #include "AppSvc.h"
 #include "DocumentModel.h"
 #include "SimulationDataSelectorWidget.h"
+#include "SimulationSetupAssistant.h"
 #include <QPushButton>
 #include <QVBoxLayout>
 #include <QMessageBox>
@@ -72,7 +72,8 @@ void SimulationSetupWidget::onRunSimulation()
     const InstrumentItem *instrumentItem = m_simDataSelectorWidget->selectedInstrumentItem();
     const RealDataItem *realDataItem = m_simDataSelectorWidget->selectedRealDataItem();
 
-    if(!isValidSetup(multiLayerItem, instrumentItem))
+    SimulationSetupAssistant assistant;
+    if(!assistant.isValidSimulationSetup(multiLayerItem, instrumentItem, realDataItem))
         return;
 
     JobItem *jobItem = m_applicationModels->jobModel()->addJob(
@@ -90,7 +91,8 @@ void SimulationSetupWidget::onExportToPythonScript()
     const MultiLayerItem *multiLayerItem = m_simDataSelectorWidget->selectedMultiLayerItem();
     const InstrumentItem *instrumentItem = m_simDataSelectorWidget->selectedInstrumentItem();
 
-    if(!isValidSetup(multiLayerItem, instrumentItem))
+    SimulationSetupAssistant assistant;
+    if(!assistant.isValidSimulationSetup(multiLayerItem, instrumentItem))
         return;
 
     PythonScriptWidget *pythonWidget = new PythonScriptWidget(this);
@@ -100,32 +102,6 @@ void SimulationSetupWidget::onExportToPythonScript()
         multiLayerItem, instrumentItem,
         m_applicationModels->documentModel()->getSimulationOptionsItem(),
         AppSvc::projectManager()->getProjectDir());
-}
-
-//! Returns true, if sample and instrument are suitable for the simulation.
-
-bool SimulationSetupWidget::isValidSetup(const MultiLayerItem *multiLayerItem,
-                                         const InstrumentItem *instrumentItem)
-{
-    if (!multiLayerItem) {
-        QMessageBox::warning(this, tr("No Sample Selected"), tr("You must select a sample first."));
-        return false;
-    }
-
-    SampleValidator sampleValidator;
-    if (!sampleValidator.isValidMultiLayer(multiLayerItem)) {
-        QMessageBox::warning(this, tr("Not suitable MultiLayer"),
-                             sampleValidator.getValidationMessage());
-        return false;
-    }
-
-    if (!instrumentItem) {
-        QMessageBox::warning(this, tr("No Instrument Selected"),
-                             tr("You must select an instrument first."));
-        return false;
-    }
-
-    return true;
 }
 
 QWidget *SimulationSetupWidget::createButtonWidget()

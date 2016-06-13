@@ -30,6 +30,7 @@
 #include "MinimizerSettingsWidget.h"
 #include "FitResultsWidget.h"
 #include "mainwindow_constants.h"
+#include "GUIHelpers.h"
 #include <QVBoxLayout>
 #include <QTabWidget>
 #include <QMessageBox>
@@ -109,7 +110,8 @@ void FitSuiteWidget::onUpdatePlots(OutputData<double> *sim, OutputData<double> *
     m_observer->finishedPlotting();
 }
 
-//! Propagates current values of fit parameters back to FitParameterItem and ParameterItem
+//! Propagates current values of fit parameters as reported by FitSuite observer back to JobItem.
+
 void FitSuiteWidget::onUpdateParameters(const QStringList &parameters, QVector<double> values)
 {
     qDebug() << "FitSuiteWidget::onUpdateParameters" << parameters << values;
@@ -134,7 +136,6 @@ void FitSuiteWidget::onUpdateParameters(const QStringList &parameters, QVector<d
 
         }
     }
-
 }
 
 void FitSuiteWidget::onUpdateStatus(const QString &text)
@@ -190,12 +191,22 @@ void FitSuiteWidget::stopFitting()
 
 void FitSuiteWidget::onFittingStarted()
 {
+    m_currentItem->setStatus(Constants::STATUS_FITTING);
+    m_currentItem->setProgress(0);
+    m_currentItem->setBeginTime(GUIHelpers::currentDateTime());
+    m_currentItem->setEndTime(QString());
+    m_currentItem->setDuration(0);
+
     qDebug() << "FitSuiteWidget::onFittingStarted()";
     emit fittingStarted(m_currentItem);
 }
 
 void FitSuiteWidget::onFittingFinished()
 {
+    m_currentItem->setStatus(Constants::STATUS_COMPLETED);
+    m_currentItem->setEndTime(GUIHelpers::currentDateTime());
+    m_currentItem->setProgress(100);
+    m_currentItem->setDuration(m_manager->getDuration());
     qDebug() << "FitSuiteWidget::onFittingFinished()";
     m_currentItem->fitSuiteItem()->mapper()->unsubscribe(this);
     emit fittingFinished(m_currentItem);

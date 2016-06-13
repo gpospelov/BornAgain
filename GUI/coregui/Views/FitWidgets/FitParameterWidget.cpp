@@ -22,8 +22,8 @@
 #include "ParameterTuningWidget.h"
 #include "FilterPropertyProxy.h"
 #include "ParameterTreeItems.h"
-#include "FitParameterAbsModel.h"
-#include "FitModelHelper.h"
+#include "FitParameterProxyModel.h"
+#include "FitParameterHelper.h"
 #include "SessionModelDelegate.h"
 #include "CustomEventFilters.h"
 #include "OverlayLabelController.h"
@@ -79,7 +79,6 @@ void FitParameterWidget::setItem(JobItem *jobItem)
         m_jobItem = jobItem;
         if (!m_jobItem) return;
 
-        init_fit_containers();
         init_fit_model();
     }
 }
@@ -154,7 +153,7 @@ void FitParameterWidget::onFitParametersSelectionChanged(const QItemSelection &s
         SessionItem *item = m_fitParameterModel->itemForIndex(index);
         if(item->parent()->modelType() == Constants::FitParameterLinkType) {
             QString link = item->parent()->getItemValue(FitParameterLinkItem::P_LINK).toString();
-            m_tuningWidget->makeSelected(FitModelHelper::getParameterItem(m_jobItem->fitParameterContainerItem(), link));
+            m_tuningWidget->makeSelected(FitParameterHelper::getParameterItem(m_jobItem->fitParameterContainerItem(), link));
         }
         qDebug() << "XXX index" << index << item->modelType();
 
@@ -167,8 +166,8 @@ void FitParameterWidget::onFitParametersSelectionChanged(const QItemSelection &s
 void FitParameterWidget::onCreateFitParAction()
 {
     foreach(ParameterItem *item, m_tuningWidget->getSelectedParameters()) {
-        if(!FitModelHelper::getFitParameterItem(m_jobItem->fitParameterContainerItem(), item)) {
-            FitModelHelper::createFitParameter(m_jobItem->fitParameterContainerItem(), item);
+        if(!FitParameterHelper::getFitParameterItem(m_jobItem->fitParameterContainerItem(), item)) {
+            FitParameterHelper::createFitParameter(m_jobItem->fitParameterContainerItem(), item);
         }
     }
 }
@@ -179,8 +178,8 @@ void FitParameterWidget::onCreateFitParAction()
 void FitParameterWidget::onRemoveFromFitParAction()
 {
     foreach(ParameterItem *item, m_tuningWidget->getSelectedParameters()) {
-        if(FitModelHelper::getFitParameterItem(m_jobItem->fitParameterContainerItem(), item)) {
-            FitModelHelper::removeFromFitParameters(m_jobItem->fitParameterContainerItem(), item);
+        if(FitParameterHelper::getFitParameterItem(m_jobItem->fitParameterContainerItem(), item)) {
+            FitParameterHelper::removeFromFitParameters(m_jobItem->fitParameterContainerItem(), item);
         }
     }
 }
@@ -209,9 +208,9 @@ void FitParameterWidget::onRemoveFitParAction()
 void FitParameterWidget::onAddToFitParAction(int ipar)
 {
     QStringList fitParNames
-        = FitModelHelper::getFitParameterNames(m_jobItem->fitParameterContainerItem());
+        = FitParameterHelper::getFitParameterNames(m_jobItem->fitParameterContainerItem());
     foreach (ParameterItem *item, m_tuningWidget->getSelectedParameters()) {
-        FitModelHelper::addToFitParameter(m_jobItem->fitParameterContainerItem(), item,
+        FitParameterHelper::addToFitParameter(m_jobItem->fitParameterContainerItem(), item,
                                           fitParNames.at(ipar));
     }
 }
@@ -252,6 +251,11 @@ void FitParameterWidget::init_actions()
 
 void FitParameterWidget::initTuningWidgetContextMenu(QMenu &menu)
 {
+    if(m_jobItem->getStatus() == Constants::STATUS_FITTING) {
+        setActionsEnabled(false);
+        return;
+    }
+
     m_removeFromFitParAction->setEnabled(canRemoveFromFitParameters());
     m_createFitParAction->setEnabled(canCreateFitParameter());
 
@@ -259,7 +263,7 @@ void FitParameterWidget::initTuningWidgetContextMenu(QMenu &menu)
     QMenu *addToFitParMenu = menu.addMenu("Add to existing fit parameter");
 
     QStringList fitParNames
-        = FitModelHelper::getFitParameterNames(m_jobItem->fitParameterContainerItem());
+        = FitParameterHelper::getFitParameterNames(m_jobItem->fitParameterContainerItem());
     if(fitParNames.isEmpty() || canCreateFitParameter()==false) {
         addToFitParMenu->setEnabled(false);
     }
@@ -279,6 +283,10 @@ void FitParameterWidget::initTuningWidgetContextMenu(QMenu &menu)
 
 void FitParameterWidget::initFitParameterTreeContextMenu(QMenu &menu)
 {
+    if(m_jobItem->getStatus() == Constants::STATUS_FITTING) {
+        setActionsEnabled(false);
+        return;
+    }
     menu.addAction(m_removeFitParAction);
 }
 
@@ -301,25 +309,6 @@ void FitParameterWidget::init_fit_model()
     connectFitParametersSelection(true);
 }
 
-//! Adds to JobItem all fit containers, if necessary.
-
-void FitParameterWidget::init_fit_containers()
-{
-    SessionItem *fitSuiteItem = m_jobItem->getItem(JobItem::T_FIT_SUITE);
-    if (!fitSuiteItem) {
-        fitSuiteItem = m_jobItem->model()->insertNewItem(
-            Constants::FitSuiteType, m_jobItem->index(), -1, JobItem::T_FIT_SUITE);
-    }
-    Q_ASSERT(fitSuiteItem);
-
-    SessionItem *parsContainerItem = fitSuiteItem->getItem(FitSuiteItem::T_FIT_PARAMETERS);
-    if (!parsContainerItem) {
-        parsContainerItem = fitSuiteItem->model()->insertNewItem(
-            Constants::FitParameterContainerType, fitSuiteItem->index(), -1,
-            FitSuiteItem::T_FIT_PARAMETERS);
-    }
-}
-
 //! Returns true if tuning widget contains selected ParameterItem's which can be used to create
 //! a fit parameter (i.e. it is not linked with some fit parameter already).
 
@@ -327,7 +316,7 @@ bool FitParameterWidget::canCreateFitParameter()
 {
     QVector<ParameterItem *> selected = m_tuningWidget->getSelectedParameters();
     foreach(ParameterItem *item, selected) {
-        if(FitModelHelper::getFitParameterItem(
+        if(FitParameterHelper::getFitParameterItem(
                     m_jobItem->fitParameterContainerItem(), item) == nullptr)
             return true;
     }
@@ -341,7 +330,7 @@ bool FitParameterWidget::canRemoveFromFitParameters()
 {
     QVector<ParameterItem *> selected = m_tuningWidget->getSelectedParameters();
     foreach(ParameterItem *item, selected) {
-        if(FitModelHelper::getFitParameterItem(m_jobItem->fitParameterContainerItem(), item))
+        if(FitParameterHelper::getFitParameterItem(m_jobItem->fitParameterContainerItem(), item))
             return true;
     }
     return false;

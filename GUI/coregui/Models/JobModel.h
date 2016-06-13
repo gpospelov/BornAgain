@@ -69,6 +69,8 @@ private:
     QString generateJobName();
     QString generateJobIdentifier();
     void restoreItem(SessionItem *item);
+    void copyRealDataItem(JobItem *jobItem, const RealDataItem *realDataItem);
+    void createFitContainers(JobItem *jobItem);
 
     JobQueueData *m_queue_data;
 };

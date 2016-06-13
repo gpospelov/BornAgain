@@ -14,12 +14,12 @@
 //
 // ************************************************************************** //
 
-#include "FitParameterAbsModel.h"
+#include "FitParameterProxyModel.h"
 #include "SessionItem.h"
 #include "FitParameterItems.h"
 #include "SessionModel.h"
 #include "JobModel.h"
-#include "FitModelHelper.h"
+#include "FitParameterHelper.h"
 #include "ParameterTreeItems.h"
 #include "GUIHelpers.h"
 #include "ModelPath.h"
@@ -248,17 +248,17 @@ bool FitParameterProxyModel::dropMimeData(const QMimeData *data, Qt::DropAction 
     if (parent.isValid()) {
         if (SessionItem *fitParItem = itemForIndex(parent)) {
             Q_ASSERT(fitParItem->modelType() == Constants::FitParameterType);
-            ParameterItem *parItem = FitModelHelper::getParameterItem(
+            ParameterItem *parItem = FitParameterHelper::getParameterItem(
                 m_root_item, QString::fromLatin1(data->data(SessionXML::LinkMimeType)));
             Q_ASSERT(parItem);
-            FitModelHelper::addToFitParameter(m_root_item, parItem, fitParItem->displayName());
+            FitParameterHelper::addToFitParameter(m_root_item, parItem, fitParItem->displayName());
         }
 
     } else {
-        ParameterItem *parItem = FitModelHelper::getParameterItem(
+        ParameterItem *parItem = FitParameterHelper::getParameterItem(
             m_root_item, QString::fromLatin1(data->data(SessionXML::LinkMimeType)));
         Q_ASSERT(parItem);
-        FitModelHelper::createFitParameter(m_root_item, parItem);
+        FitParameterHelper::createFitParameter(m_root_item, parItem);
     }
 
     return true;

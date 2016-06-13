@@ -96,6 +96,7 @@ ParameterTuningDelegate::ParameterTuningDelegate(QObject *parent)
     , m_valueBox(0)
     , m_contentWidget(0)
     , m_contentLayout(0)
+    , m_isReadOnly(false)
 {
 
 }
@@ -132,6 +133,9 @@ QWidget *ParameterTuningDelegate::createEditor(QWidget *parent,
                                            const QStyleOptionViewItem &option,
                                            const QModelIndex &index) const
 {
+    if(m_isReadOnly)
+        return nullptr;
+
     if (index.column() == m_valueColumn) {
         if(index.parent().isValid() == false) return nullptr;
 
@@ -272,4 +276,9 @@ void ParameterTuningDelegate::emitSignals(double value)
 void ParameterTuningDelegate::setSliderRangeFactor(double value)
 {
     m_slider_data.setRangeFactor(value);
+}
+
+void ParameterTuningDelegate::setReadOnly(bool isReadOnly)
+{
+    m_isReadOnly = isReadOnly;
 }

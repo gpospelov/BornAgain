@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Models/JobRunner.cpp
-//! @brief     Implements class JobRunner
+//! @file      coregui/Models/JobWorker.cpp
+//! @brief     Implements class JobWorker
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,7 +14,7 @@
 //
 // ************************************************************************** //
 
-#include "JobRunner.h"
+#include "JobWorker.h"
 #include "GISASSimulation.h"
 #include "ProgressHandler.h"
 #include "ThreadInfo.h"
@@ -24,8 +24,7 @@
 #include <QDateTime>
 #include <QDebug>
 
-
-JobRunner::JobRunner(QString identifier, GISASSimulation *simulation)
+JobWorker::JobWorker(QString identifier, GISASSimulation *simulation)
     : m_identifier(identifier)
     , m_simulation(simulation)
     , m_progress(0)
@@ -36,19 +35,14 @@ JobRunner::JobRunner(QString identifier, GISASSimulation *simulation)
 
 }
 
-JobRunner::~JobRunner()
-{
-    qDebug() << "JobRunner::~JobRunner()";
-}
-
-int JobRunner::getProgress() const
+int JobWorker::getProgress() const
 {
     // sometimes simulation underestimate the number of iterations required
     // and progress can be greater than 100
     return m_progress < 100 ? m_progress : 100;
 }
 
-void JobRunner::start()
+void JobWorker::start()
 {
     qDebug() << "JobRunner::start() " << m_simulation;
     m_terminate_request_flag = false;
@@ -57,7 +51,9 @@ void JobRunner::start()
 
     if(m_simulation) {
         ProgressHandler_t progressHandler(new ProgressHandler());
-        ProgressHandler::Callback_t callback = [this] (int n) {return simulationProgressCallback(n);};
+        ProgressHandler::Callback_t callback = [this] (int n) {
+            return simulationProgressCallback(n);
+        };
         progressHandler->setCallback(callback);
         m_simulation->setProgressHandler(progressHandler);
 
@@ -77,7 +73,8 @@ void JobRunner::start()
         {
             m_job_status = Constants::STATUS_FAILED;
             m_progress=100;
-            m_failure_message = QString("JobRunner::start() -> Simulation failed with exception throw:\n\n");
+            m_failure_message = QString(
+                        "JobRunner::start() -> Simulation failed with exception throw:\n\n");
 
             m_failure_message.append(QString(ex.what()));
         }
@@ -91,23 +88,8 @@ void JobRunner::start()
     emit finished();
 }
 
-//! Fake simulation function to mimic some hard work going on
-void JobRunner::runFakeSimulation()
-{
-    qDebug() << "JobItem::runFakeSimulation()" << m_progress;
-    if(m_progress < 100) {
-        m_progress++;
-        emit progressUpdate();
-        QTimer::singleShot(100, this, SLOT(runFakeSimulation()));
-    }
-    if(m_progress >=100 || m_terminate_request_flag) {
-        emit progressUpdate();
-        emit finished();
-    }
-}
-
 //! function which is called by the simulation to report its progress
-bool JobRunner::simulationProgressCallback(int progress)
+bool JobWorker::simulationProgressCallback(int progress)
 {
     if(progress >= m_progress) {
         m_progress = progress;
@@ -118,7 +100,7 @@ bool JobRunner::simulationProgressCallback(int progress)
 }
 
 //! set request for JobRunner to terminate underlying domain simulation
-void JobRunner::terminate()
+void JobWorker::terminate()
 {
     qDebug() << "JobRunner::terminate()";
     m_terminate_request_flag = true;

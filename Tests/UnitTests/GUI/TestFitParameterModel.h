@@ -3,7 +3,7 @@
 
 #include <QtTest>
 #include "JobModel.h"
-#include "FitParameterAbsModel.h"
+#include "FitParameterProxyModel.h"
 #include "FitParameterItems.h"
 #include "FitSuiteItem.h"
 

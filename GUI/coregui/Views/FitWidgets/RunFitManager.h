@@ -35,6 +35,8 @@ public:
 
     void runFitting();
 
+    int getDuration();
+
 public slots:
     void interruptFitting();
 
@@ -47,7 +49,7 @@ signals:
 
 // only used by manager for communication with FittingWorker
 private slots:
-    void intern_workerFinished();
+    void intern_workerFinished(int duration);
 
     void intern_workerStarted();
 
@@ -59,6 +61,7 @@ signals:
 private:
     std::shared_ptr<FitSuite> m_fitSuite;
     std::atomic<bool> m_is_fit_running;
+    int m_duration;
 };
 
 #endif

@@ -26,7 +26,7 @@ class SessionItem;
 
 //! The FitParameterProxyModel adopt original JobModel to show items from FitParameterContainer
 //! in 5 column tree view.
-//! (It's not a true proxy model, it
+//! It is derived from QAbstractItemModel (and not from QAbstractProxyModel).
 
 class BA_CORE_API_ FitParameterProxyModel : public QAbstractItemModel
 {

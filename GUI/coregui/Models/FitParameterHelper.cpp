@@ -14,7 +14,7 @@
 //
 // ************************************************************************** //
 
-#include "FitModelHelper.h"
+#include "FitParameterHelper.h"
 #include "JobItem.h"
 #include "FitParameterItems.h"
 #include "JobModel.h"
@@ -24,7 +24,7 @@
 //! Creates fit parameter from given ParameterItem, sets starting value to the value
 //! of ParameterItem, copies link.
 
-void FitModelHelper::createFitParameter(FitParameterContainerItem *container,
+void FitParameterHelper::createFitParameter(FitParameterContainerItem *container,
                                         ParameterItem *parameterItem)
 {
     Q_ASSERT(container);
@@ -46,7 +46,7 @@ void FitModelHelper::createFitParameter(FitParameterContainerItem *container,
 
 //! Removes link to given parameterItem from fit parameters
 
-void FitModelHelper::removeFromFitParameters(FitParameterContainerItem *container,
+void FitParameterHelper::removeFromFitParameters(FitParameterContainerItem *container,
                                              ParameterItem *parameterItem)
 {
     FitParameterItem *fitParItem = getFitParameterItem(container, parameterItem);
@@ -65,7 +65,7 @@ void FitModelHelper::removeFromFitParameters(FitParameterContainerItem *containe
 //! Adds given parameterItem to the existing fit parameter with display name fitParName.
 //! If parameterItem is already linked with another fitParameter, it will be relinked
 
-void FitModelHelper::addToFitParameter(FitParameterContainerItem *container,
+void FitParameterHelper::addToFitParameter(FitParameterContainerItem *container,
                                        ParameterItem *parameterItem, const QString &fitParName)
 {
     Q_ASSERT(container);
@@ -84,7 +84,7 @@ void FitModelHelper::addToFitParameter(FitParameterContainerItem *container,
 
 //! Returns fFitParameterItem corresponding to given ParameterItem
 
-FitParameterItem *FitModelHelper::getFitParameterItem(FitParameterContainerItem *container,
+FitParameterItem *FitParameterHelper::getFitParameterItem(FitParameterContainerItem *container,
                                                       ParameterItem *parameterItem)
 {
     Q_ASSERT(container);
@@ -93,7 +93,7 @@ FitParameterItem *FitModelHelper::getFitParameterItem(FitParameterContainerItem 
 
 //! Returns list of fit parameter display names
 
-QStringList FitModelHelper::getFitParameterNames(FitParameterContainerItem *container)
+QStringList FitParameterHelper::getFitParameterNames(FitParameterContainerItem *container)
 {
     Q_ASSERT(container);
     QStringList result;
@@ -105,7 +105,7 @@ QStringList FitModelHelper::getFitParameterNames(FitParameterContainerItem *cont
 
 //! return path to given item in the ParameterTreeContainer
 
-QString FitModelHelper::getParameterItemPath(ParameterItem *parameterItem)
+QString FitParameterHelper::getParameterItemPath(ParameterItem *parameterItem)
 {
     QString result = ModelPath::getPathFromIndex(parameterItem->index());
     QString containerPrefix = Constants::ParameterContainerType + "/";
@@ -117,7 +117,7 @@ QString FitModelHelper::getParameterItemPath(ParameterItem *parameterItem)
 //! Returns ParameterItem corresponding to given link.
 //! Link is relative to ParameterContainerItem, so first we have to find it
 
-ParameterItem *FitModelHelper::getParameterItem(FitParameterContainerItem *container,
+ParameterItem *FitParameterHelper::getParameterItem(FitParameterContainerItem *container,
                                                 const QString &link)
 {
     SessionItem *cur = container;

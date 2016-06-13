@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Models/JobRunner.h
-//! @brief     Declares class JobRunner
+//! @file      coregui/Models/JobWorker.h
+//! @brief     Declares class JobWorker
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#ifndef JOBRUNNER_H
-#define JOBRUNNER_H
+#ifndef JOBWORKER_H
+#define JOBWORKER_H
 
 #include "WinDllMacros.h"
 #include <QObject>
@@ -23,14 +23,14 @@
 
 class GISASSimulation;
 
-//! Class for running the simulation in a thread
-class BA_CORE_API_ JobRunner : public QObject
+//! The JobWorker class provides running the domain simulation in a thread.
+
+class BA_CORE_API_ JobWorker : public QObject
 {
     Q_OBJECT
 public:
 
-    JobRunner(QString identifier, GISASSimulation *simulation = 0);
-    virtual ~JobRunner();
+    JobWorker(QString identifier, GISASSimulation *simulation = 0);
 
     QString getIdentifier() const { return m_identifier; }
     void setIdentifier(QString identifier) { m_identifier = identifier; }
@@ -56,21 +56,14 @@ public slots:
     void start();
     void terminate();
 
-private slots:
-    void runFakeSimulation();
-
 private:
     QString m_identifier;
     GISASSimulation *m_simulation;
     int m_progress;
     QString m_job_status;
-
     bool m_terminate_request_flag;
     QString m_failure_message;
     int m_simulation_duration;
 };
 
-
-
-#endif // JOBRUNNER_H
-
+#endif

@@ -188,6 +188,7 @@ const ModelType UnitsQyQz = "Qy,Qz";
 
 const ModelType STATUS_IDLE = "Idle";
 const ModelType STATUS_RUNNING = "Running";
+const ModelType STATUS_FITTING = "Fitting";
 const ModelType STATUS_COMPLETED = "Completed";
 const ModelType STATUS_CANCELED = "Canceled";
 const ModelType STATUS_FAILED = "Failed";

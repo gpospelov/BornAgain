@@ -39,9 +39,8 @@ void FittingWorker::startFit()
 
 void FittingWorker::interruptFitting()
 {
-    if (m_fitsuite) {
+    if (m_fitsuite)
         m_fitsuite->interruptFitting();
-    }
 }
 
 int FittingWorker::durationSince(const QDateTime &since)

@@ -18,7 +18,7 @@
 #include "GISASSimulation.h"
 #include "JobItem.h"
 #include "JobModel.h"
-#include "JobRunner.h"
+#include "JobWorker.h"
 #include "DomainSimulationBuilder.h"
 #include "GUIHelpers.h"
 #include <QThread>
@@ -43,9 +43,9 @@ QThread *JobQueueData::getThread(QString identifier)
 
 //! Returns job runner for given identifier.
 
-JobRunner *JobQueueData::getRunner(QString identifier)
+JobWorker *JobQueueData::getRunner(QString identifier)
 {
-    QMap<QString, JobRunner *>::const_iterator it = m_runners.find(identifier);
+    QMap<QString, JobWorker *>::const_iterator it = m_runners.find(identifier);
     if(it != m_runners.end()) {
         return it.value();
     }
@@ -100,7 +100,7 @@ void JobQueueData::runJob(JobItem *jobItem)
 
     m_simulations[identifier] = simulation;
 
-    JobRunner *runner = new JobRunner(identifier, simulation);
+    JobWorker *runner = new JobWorker(identifier, simulation);
     m_runners[identifier] = runner;
 
     QThread *thread = new QThread();
@@ -131,7 +131,7 @@ void JobQueueData::runJob(JobItem *jobItem)
 void JobQueueData::cancelJob(const QString &identifier)
 {
     if(getThread(identifier)) {
-        JobRunner *runner = getRunner(identifier);
+        JobWorker *runner = getRunner(identifier);
         runner->terminate();
     }
 }
@@ -148,7 +148,7 @@ void JobQueueData::removeJob(const QString &identifier)
 
 void JobQueueData::onStartedJob()
 {
-    JobRunner *runner = qobject_cast<JobRunner *>(sender());
+    JobWorker *runner = qobject_cast<JobWorker *>(sender());
     Q_ASSERT(runner);
     JobItem *jobItem = m_jobModel->getJobItemForIdentifier(runner->getIdentifier());
     jobItem->setProgress(0);
@@ -161,7 +161,7 @@ void JobQueueData::onStartedJob()
 
 void JobQueueData::onFinishedJob()
 {
-    JobRunner *runner = qobject_cast<JobRunner *>(sender());
+    JobWorker *runner = qobject_cast<JobWorker *>(sender());
     Q_ASSERT(runner);
 
     JobItem *jobItem = m_jobModel->getJobItemForIdentifier(runner->getIdentifier());
@@ -189,7 +189,7 @@ void JobQueueData::onFinishedThread()
 
 void JobQueueData::onProgressUpdate()
 {
-    JobRunner *runner = qobject_cast<JobRunner *>(sender());
+    JobWorker *runner = qobject_cast<JobWorker *>(sender());
     Q_ASSERT(runner);
     JobItem *jobItem = m_jobModel->getJobItemForIdentifier(runner->getIdentifier());
     jobItem->setProgress(runner->getProgress());
@@ -247,7 +247,7 @@ void JobQueueData::assignForDeletion(QThread *thread)
 
 //! Removes JobRunner from the map of known runners, assigns it for deletion.
 
-void JobQueueData::assignForDeletion(JobRunner *runner)
+void JobQueueData::assignForDeletion(JobWorker *runner)
 {
     Q_ASSERT(runner);
     runner->disconnect();
@@ -270,7 +270,7 @@ void JobQueueData::clearSimulation(const QString &identifier)
 
 //! Set all data of finished job
 
-void JobQueueData::processFinishedJob(JobRunner *runner, JobItem *jobItem)
+void JobQueueData::processFinishedJob(JobWorker *runner, JobItem *jobItem)
 {
     jobItem->setEndTime(GUIHelpers::currentDateTime());
     jobItem->setDuration(runner->getSimulationDuration());

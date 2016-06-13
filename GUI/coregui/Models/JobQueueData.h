@@ -25,7 +25,7 @@
 class JobItem;
 class JobModel;
 class GISASSimulation;
-class JobRunner;
+class JobWorker;
 class QThread;
 
 //! The JobQueueData class holds all objects/logic to run simulation in a thread.
@@ -37,7 +37,7 @@ public:
     JobQueueData(JobModel *jobModel);
 
     QThread *getThread(QString identifier);
-    JobRunner *getRunner(QString identifier);
+    JobWorker *getRunner(QString identifier);
     GISASSimulation *getSimulation(QString identifier);
 
     bool hasUnfinishedJobs();
@@ -60,14 +60,14 @@ public slots:
 
 private:
     void assignForDeletion(QThread *thread);
-    void assignForDeletion(JobRunner *runner);
+    void assignForDeletion(JobWorker *runner);
     void clearSimulation(const QString &identifier);
-    void processFinishedJob(JobRunner *runner, JobItem *jobItem);
+    void processFinishedJob(JobWorker *runner, JobItem *jobItem);
 
     void updateGlobalProgress();
 
     QMap<QString, QThread *> m_threads; //! correspondance of JobIdentifier and running threads
-    QMap<QString, JobRunner *> m_runners; //! correspondance of JobIdentifier and JobRunner's
+    QMap<QString, JobWorker *> m_runners; //! correspondance of JobIdentifier and JobRunner's
     QMap<QString, GISASSimulation *> m_simulations; //! correspondance of JobIdentifier and simulation
 
     JobModel *m_jobModel;

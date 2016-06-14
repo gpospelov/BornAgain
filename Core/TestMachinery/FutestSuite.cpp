@@ -21,11 +21,9 @@
 #include "SampleBuilderFactory.h"
 #include "SubtestRegistry.h"
 #include "Exceptions.h"
-#include "IFormFactor.h"
 #include "IntensityDataIOFactory.h"
 #include "FileSystem.h"
 #include "CoreFutest.h"
-#include "FTDistributions.h"
 #include "FutestSuite.h"
 
 // ************************************************************************** //
@@ -102,28 +100,6 @@ int FutestSuite::execute_subtests()
 }
 
 // ************************************************************************** //
-//  Callback functions, called from tests
-// ************************************************************************** //
-
-//! Returns a form factor from the registry, for use in certain subtests.
-
-IFormFactor* FutestSuite::getFormFactor() const
-{
-    auto result = dynamic_cast<IFormFactor*>(m_subtest_item);
-    assert(result);
-    return result->clone();
-}
-
-//! Returns a distribution from the registry, for use in certain subtests.
-
-IFTDistribution2D* FutestSuite::getFTDistribution2D() const
-{
-    auto result = dynamic_cast<IFTDistribution2D*>(m_subtest_item);
-    assert(result);
-    return result->clone();
-}
-
-// ************************************************************************** //
 //  Functions called by getFutest() in *Suite.cpp
 // ************************************************************************** //
 
@@ -134,7 +110,8 @@ GISASSimulation* FutestSuite::getSimulation() const
     SampleBuilderFactory sample_factory;
     std::shared_ptr<class ISampleBuilder> sample_builder(
         sample_factory.createItem(m_info->m_sample_builder_name) );
-    sample_builder->init_from(this); // passing 'this' enables callbacks like getFormFactor()
+    if(m_subtest_item)
+        sample_builder->set_subtest(m_subtest_item);
     result->setSampleBuilder(sample_builder);
     return result;
 }

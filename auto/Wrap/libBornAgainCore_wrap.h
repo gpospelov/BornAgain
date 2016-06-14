@@ -162,7 +162,6 @@ public:
       IParameterized::print(ostr);
     }
     virtual ISample *buildSample() const;
-    virtual void init_from(FutestSuite const *arg0);
 
 /* Internal director utilities */
 public:
@@ -193,7 +192,7 @@ private:
       return method;
     }
 private:
-    mutable swig::SwigVar_PyObject vtable[4];
+    mutable swig::SwigVar_PyObject vtable[3];
 #endif
 
 };

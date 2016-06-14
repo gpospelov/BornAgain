@@ -17,6 +17,8 @@
 #define ISAMPLEBUILDER_H_
 
 #include "IParameterized.h"
+#include "FTDistributions.h"
+#include "IFormFactor.h"
 
 //! @class ISampleBuilder
 //! @ingroup simulation_internal
@@ -30,7 +32,14 @@ public:
 
     virtual class ISample* buildSample() const = 0;
 
-    virtual void init_from(const class FutestSuite*) {}
+    void set_subtest(class IParameterized* subtest_item) { m_subtest_item = subtest_item; }
+    class IParameterized* m_subtest_item;
+
+    IFormFactor* getFormFactor() const {
+        return dynamic_cast<IFormFactor*>(m_subtest_item)->clone(); }
+
+    IFTDistribution2D* getFTDistribution2D() const {
+        return dynamic_cast<IFTDistribution2D*>(m_subtest_item)->clone(); }
 };
 
 #endif // ISAMPLEBUILDER_H_

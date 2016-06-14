@@ -4662,14 +4662,23 @@ class ISampleBuilder(IParameterized):
         return _libBornAgainCore.ISampleBuilder_buildSample(self)
 
 
-    def init_from(self, arg0):
-        """
-        init_from(ISampleBuilder self, FutestSuite const * arg0)
+    def set_subtest(self, subtest_item):
+        """set_subtest(ISampleBuilder self, IParameterized subtest_item)"""
+        return _libBornAgainCore.ISampleBuilder_set_subtest(self, subtest_item)
 
-        virtual void ISampleBuilder::init_from(const class FutestSuite *)
+    __swig_setmethods__["m_subtest_item"] = _libBornAgainCore.ISampleBuilder_m_subtest_item_set
+    __swig_getmethods__["m_subtest_item"] = _libBornAgainCore.ISampleBuilder_m_subtest_item_get
+    if _newclass:
+        m_subtest_item = _swig_property(_libBornAgainCore.ISampleBuilder_m_subtest_item_get, _libBornAgainCore.ISampleBuilder_m_subtest_item_set)
 
-        """
-        return _libBornAgainCore.ISampleBuilder_init_from(self, arg0)
+    def getFormFactor(self):
+        """getFormFactor(ISampleBuilder self) -> IFormFactor"""
+        return _libBornAgainCore.ISampleBuilder_getFormFactor(self)
+
+
+    def getFTDistribution2D(self):
+        """getFTDistribution2D(ISampleBuilder self) -> IFTDistribution2D"""
+        return _libBornAgainCore.ISampleBuilder_getFTDistribution2D(self)
 
 
     def registerParameter(self, *args):

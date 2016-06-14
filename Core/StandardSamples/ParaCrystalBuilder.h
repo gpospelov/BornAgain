@@ -50,11 +50,9 @@ class BA_CORE_API_ Basic2DParaCrystalBuilder : public ISampleBuilder
 public:
     Basic2DParaCrystalBuilder();
     virtual ~Basic2DParaCrystalBuilder();
-    virtual void init_from(const class FutestSuite* service);
     virtual ISample* buildSample() const;
 private:
     IFTDistribution2D* m_pdf1;
-    IFTDistribution2D* m_pdf2;
 };
 
 //! @class HexParaCrystalBuilder

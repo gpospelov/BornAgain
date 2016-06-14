@@ -32,12 +32,7 @@ public:
     LayersWithAbsorptionBuilder();
     virtual ~LayersWithAbsorptionBuilder();
 
-    virtual void init_from(const class FutestSuite *service);
-
     virtual ISample *buildSample() const;
-
-private:
-    IFormFactor *m_form_factor;
 };
 
 #endif // FORMFACTORSBUILDER_H

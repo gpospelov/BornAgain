@@ -31,12 +31,7 @@ public:
     ParticleInTheAirBuilder();
     virtual ~ParticleInTheAirBuilder();
 
-    virtual void init_from(const class FutestSuite *service);
-
-    virtual ISample *buildSample() const;
-
-private:
-    IFormFactor *m_form_factor;
+    virtual ISample* buildSample() const;
 };
 
 #endif // FORMFACTORSBUILDER_H

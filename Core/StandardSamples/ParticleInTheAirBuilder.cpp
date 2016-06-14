@@ -22,7 +22,6 @@
 #include "Exceptions.h"
 
 ParticleInTheAirBuilder::ParticleInTheAirBuilder()
-    : m_form_factor(0)
 {
 }
 
@@ -30,15 +29,10 @@ ParticleInTheAirBuilder::~ParticleInTheAirBuilder()
 {
 }
 
-void ParticleInTheAirBuilder::init_from(const FutestSuite* service)
-{
-    delete m_form_factor;
-    m_form_factor = service->getFormFactor();
-}
-
 ISample* ParticleInTheAirBuilder::buildSample() const
 {
-    if(!m_form_factor)
+    IFormFactor* form_factor = getFormFactor();
+    if(!form_factor)
         throw NullPointerException("ParticleInTheAirBuilder::buildSample() -> Error. "
                                    "Form factor is not initialized.");
     MultiLayer* result = new MultiLayer;
@@ -49,7 +43,7 @@ ISample* ParticleInTheAirBuilder::buildSample() const
     Layer air_layer;
     air_layer.setMaterial(air_material);
 
-    Particle particle(particle_material, *m_form_factor);
+    Particle particle(particle_material, *form_factor);
     ParticleLayout particle_layout(particle);
     air_layer.addLayout(particle_layout);
 

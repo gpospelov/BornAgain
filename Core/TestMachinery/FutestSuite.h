@@ -43,8 +43,6 @@ public:
     int execute(int argc, char** argv);
 
     virtual class IFutest* getFutest() const = 0; //!< overloaded in (Core|Py|GUI)Suite.cpp
-    virtual class IFormFactor* getFormFactor() const;
-    virtual class IFTDistribution2D* getFTDistribution2D() const;
 
 protected:
     virtual class GISASSimulation* getSimulation() const;

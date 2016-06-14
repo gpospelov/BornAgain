@@ -287,7 +287,7 @@ integral equals the square of the number of particles that contribute to the sca
 \end{equation}
 with $N_p$ the number of scattering centers.
 \nomenclature{$N_p$}{Number of scattering centers}
- 
+
 
 In the following, we will present different physical models
 that provide computable approximations
@@ -451,9 +451,7 @@ They are available through constructors like
 \begin{lstlisting}
   FormFactorCone(radius, height, alpha)
 \end{lstlisting}
-These functions are documented in Appendix~\ref{SFF}.
-Some background information on how the form factors are computed
-is given in Appendix~\ref{SFFcomp}.
+These functions are documented in \cref{SFF}.
 
 \index{Form factor!tutorial}%
 \index{Form factor!examples}%
@@ -900,7 +898,7 @@ S(q) =\Re \left(\frac{1+\Phi(q) }{1 - \Phi(q)} \right), \quad \mathrm{where}\qua
 \end{align*}
 where $\Lambda$ is a damping length used in order to introduce some finite-size effects.
 
-Figure~\ref{fig:1dparas_q} shows the evolution of $S(q)$ for different values of $\omega /D$.
+\Cref{fig:1dparas_q} shows the evolution of $S(q)$ for different values of $\omega /D$.
 
 \begin{figure}[tb]
 \begin{center}
@@ -1042,7 +1040,7 @@ where $q_{\plll}$ is the component of the scattering beam in the plane of the in
 
 \vspace{18pt}
 
-Figure~\ref{fig:SchemDWBA} illustrates the four scattering processes for a supported particle, taken into account in the DWBA. The first term of eq.~\ref{Edwbaair}  corresponds to the Born approximation. Each term of $F_{\rm{DWBA}}$ is weighted by a Fresnel coefficient.
+\Cref{fig:SchemDWBA} illustrates the four scattering processes for a supported particle, taken into account in the DWBA. The first term of eq.~\ref{Edwbaair}  corresponds to the Born approximation. Each term of $F_{\rm{DWBA}}$ is weighted by a Fresnel coefficient.
 
 \begin{figure}[tb]
 \begin{center}
@@ -1061,7 +1059,7 @@ Script~\ref{lst:badwba} illustrates the difference between BA and DWBA in \BornA
 \item in the BA, a sample composed of the particles in air.
 \end{itemize}
 
-Figure~\ref{fig:spheroidbadwba} shows the intensity contour plot generated using this script with truncated spheroids as particles.
+\Cref{fig:spheroidbadwba} shows the intensity contour plot generated using this script with truncated spheroids as particles.
 
 \newpage
 
@@ -1145,7 +1143,7 @@ where index $n$ is related to the layers, $z$ to the vertical component, and $j$
 \end{figure}
 
 
-Figure~\ref{fig:dwbaburied} shows a typical example of the output intensity scattered from a sample made of 3 layers: air, substrate, and in between, spherical particles embedded in the middle of a 30~nm-thick layer. This figure had been generated using listing~\ref{lst:dwbaburied}.
+\Cref{fig:dwbaburied} shows a typical example of the output intensity scattered from a sample made of 3 layers: air, substrate, and in between, spherical particles embedded in the middle of a 30~nm-thick layer. This figure had been generated using listing~\ref{lst:dwbaburied}.
 
 \begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol,caption={\Code{Python} script to generate a sample where spherical particles are embedded in the middle of a layer on a substrate.},label={lst:dwbaburied}]
 def get_sample():
@@ -1309,7 +1307,7 @@ The interference function is specified when building the sample. It is linked wi
 
 The particles are placed randomly in the dilute limit and are considered as individual, non-interacting scatterers. The scattered intensity is function of the form factors only.
 
-\paragraph{Example} The sample is made of a substrate on which are deposited half-spheres. Script~\ref{lst:nointerf} details the commands necessary to generate such a sample. Figure~\ref{fig:nointerf} shows an example of output intensity: Script~\ref{lst:nointerf}  + detector's + input beam's characterizations.
+\paragraph{Example} The sample is made of a substrate on which are deposited half-spheres. Script~\ref{lst:nointerf} details the commands necessary to generate such a sample. \Cref{fig:nointerf} shows an example of output intensity: Script~\ref{lst:nointerf}  + detector's + input beam's characterizations.
 
 
 \begin{figure}[tb]

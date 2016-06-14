@@ -923,7 +923,7 @@ The scattering by an ordered lattice gives rise to a series of Bragg peaks situa
 \index{Size-spacing correlation approximation}
 
 TO MERGE IN:
-introduces correlations between polydisperse particles, more precisely between the size of the particles and their mutual spacing. A classical example would consist in particles whose closest-neighbor spacing depends linearly on the sum of their respective sizes \cite{LaLR07}, as illustrated in fig.~\ref{fig:ssca}.
+introduces correlations between polydisperse particles, more precisely between the size of the particles and their mutual spacing. A classical example would consist in particles whose closest-neighbor spacing depends linearly on the sum of their respective sizes \cite{LaLR07}, as illustrated in \cref{fig:ssca}.
 
 %For a sample where only the statistical properties of particle positions and size are known, the scattered intensity per scattering particle is expressed as the average over an ensemble of the Fourier transform of the Patterson function, which is the autocorrelation of the scattering length density $\curlp (\r ) \equiv \sum_{ij} S_i(-\r )\otimes S_j(\r )\otimes \delta (\r + \r_i - \r_j )$:
 %\begin{equation*}
@@ -1031,7 +1031,7 @@ This expression has a well-defined limit for $\Omega_\kappa(\q ) \rightarrow 1$ 
 \subsection{Particles deposited on a substrate}
 %===============================================================================
 %Substrate modified Born approximation
-In this configuration, the particles are sitting on top of a substrate layer, in the air as shown in fig.~\ref{fig:SchemDWBA}. In the DWBA the expression of a form factor becomes
+In this configuration, the particles are sitting on top of a substrate layer, in the air as shown in \cref{fig:SchemDWBA}. In the DWBA the expression of a form factor becomes
 \begin{align}
 F_{\rm{DWBA}}(q_{\plll}, k_{i,z}, k_{f,z}) &= F_{\rm{BA}}(q_{\plll}, k_{i,z}-k_{f,z})+ R_i F_{\rm{BA}}(q_{\plll}, -k_{i,z}-k_{f,z}) \nonumber \\
 &+ R_f F_{\rm{BA}}(q_{\plll}, k_{i,z}+k_{f,z}) + R_i R_f F_{\rm{BA}}(q_{\plll},-k_{i,z}+k_{f,z}), \label{Edwbaair}
@@ -1117,7 +1117,7 @@ def get_sample():
 \subsection{Buried particles}
 %===============================================================================
 
-The system considered in this section consists of particles encapsulated in a layer, which is sitting on a substrate (see fig.~\ref{fig:SchemDWBAburied}). In this case the form factor in the DWBA is given by
+The system considered in this section consists of particles encapsulated in a layer, which is sitting on a substrate (see \cref{fig:SchemDWBAburied}). In this case the form factor in the DWBA is given by
 
 \begin{align}
   F_{\rm{DWBA}}(q_{\plll}, k_{i,z}, k_{f,z})
@@ -1192,7 +1192,7 @@ def get_sample():
 
 \newpage
 
-\Note{For layers different from the air layer, the top interface is considered as the reference level to position the encapsulated particles. For example, spheres positioned at depth $d$ (positive) are located at a distance $d$ from the top of the layer up to the bottom of these particles. This convention is different for the top air layer, where particles sitting at the interface with an underlying layer (\idest the bottom of the air layer) are located at depth 0 (see fig.~\ref{fig:depthpartBA}).}
+\Note{For layers different from the air layer, the top interface is considered as the reference level to position the encapsulated particles. For example, spheres positioned at depth $d$ (positive) are located at a distance $d$ from the top of the layer up to the bottom of these particles. This convention is different for the top air layer, where particles sitting at the interface with an underlying layer (\idest the bottom of the air layer) are located at depth 0 (see \cref{fig:depthpartBA}).}
 
 
 \begin{figure}[tb]
@@ -1354,7 +1354,7 @@ def get_sample():
 %-------------------------------------------------------------------------------
 \subsection{\Code{InterferenceFunction1DLattice(lattice\_length, xi)}}
 %-------------------------------------------------------------------------------
-where lattice\_length is the lattice constant and $\xi$ the angle in radian between the lattice unit vector and the $\v{x}$-axis of the reference Cartesian frame as shown in fig.~\ref{fig:1dgrating}.
+where lattice\_length is the lattice constant and $\xi$ the angle in radian between the lattice unit vector and the $\v{x}$-axis of the reference Cartesian frame as shown in \cref{fig:1dgrating}.
 
 \begin{figure}[tb]
 \begin{center}
@@ -1541,7 +1541,7 @@ Probability distribution functions have to be defined. As the two-dimensional pa
 \end{figure}
 
 
-\paragraph{Example} The particles deposited on a substrate are half-spheres. The scattered beams interference via the 2DParacrystal distribution function. The paracrystal is based on a 2D hexagonal lattice with a Gaussian probability distribution function in reciprocal space.  Script~\ref{lst:2dparainterf} shows the implementation of the interference function and fig.~\ref{fig:2ddl} an example of output intensity using hemi-spherical particles.
+\paragraph{Example} The particles deposited on a substrate are half-spheres. The scattered beams interference via the 2DParacrystal distribution function. The paracrystal is based on a 2D hexagonal lattice with a Gaussian probability distribution function in reciprocal space.  Script~\ref{lst:2dparainterf} shows the implementation of the interference function and \cref{fig:2ddl} an example of output intensity using hemi-spherical particles.
 
 \begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol,caption={\Code{Python} script to define a "2DParacrystal" interference function between particles forming an hexagonal monolayer. },label={lst:2dparainterf}]
     interference = InterferenceFunction2DParaCrystal.createHexagonal(30.0*nanometer,0.0, 40.0*micrometer, 40.0*micrometer)|

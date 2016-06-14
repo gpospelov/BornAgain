@@ -1452,11 +1452,11 @@ To illustrate the radial paracrystal interference function, we use the same samp
 %-------------------------------------------------------------------------------
 \subsection{\Code{InterferenceFunction2DLattice(L\_1, L\_2, alpha, xi)}}
 %-------------------------------------------------------------------------------
-where ($L_1$, $L_2$, $\alpha$, $\xi$) are shown in figure~\ref{fig:2dlattice} with
+where ($L_1$, $L_2$, $\alpha$, $\xi$) are shown in \cref{fig:2dlattice} with
 \begin{itemize}
 \item[]$L_1$, $L_2$ the lengths of the lattice cell,
 \item[]$\alpha$ the angle between the lattice basis vectors $\v{a}, \v{b}$ in direct space,
-\item[] $\xi$ is the angle defining the lattice orientation (set to $0$ by default); it is taken as the angle between the $\v{a}$ vector of the lattice basis and the $\v{x}$ axis of the reference Cartesian frame (as shown in figure~\ref{fig:multil3d}).
+\item[] $\xi$ is the angle defining the lattice orientation (set to $0$ by default); it is taken as the angle between the $\v{a}$ vector of the lattice basis and the $\v{x}$ axis of the reference Cartesian frame (as shown in \cref{fig:multil3d}).
 \end{itemize}
 
 \begin{figure}[tb]
@@ -1529,7 +1529,7 @@ where the angle between the base vectors of the lattice is set to $2\pi/3$ ,
 where
 \Code{domain\_size1, 2} are the dimensions of coherent domains of the paracrystal along the main axes,\\ \Code{peak\_distance} is the same in both directions and $\v{a}\equiv \v{x}$.\\
 
-Probability distribution functions have to be defined. As the two-dimensional paracrystal is defined from two independent one-dimensional paracrystals, we need two of these functions, using\\ \Code{setProbabilityDistributions(pdf\_1, pdf\_2)}, with \Code{pdf\_{1,2}} related to each main axis of the paracrystal (see figure~\ref{fig:2dparaschematic}).
+Probability distribution functions have to be defined. As the two-dimensional paracrystal is defined from two independent one-dimensional paracrystals, we need two of these functions, using\\ \Code{setProbabilityDistributions(pdf\_1, pdf\_2)}, with \Code{pdf\_{1,2}} related to each main axis of the paracrystal (see \cref{fig:2dparaschematic}).
 
 
 \begin{figure}[tb]

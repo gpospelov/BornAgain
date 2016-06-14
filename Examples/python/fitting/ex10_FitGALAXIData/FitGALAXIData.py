@@ -8,7 +8,7 @@ import bornagain as ba
 from SampleBuilder import MySampleBuilder
 
 wavelength = 1.34*ba.angstrom
-alpha_i = 0.463*ba.degree
+alpha_i = 0.463*ba.deg
 
 # detector setup as given from instrument responsible
 pilatus_npx, pilatus_npy = 981, 1043
@@ -44,7 +44,7 @@ def create_simulation():
     #   ba.ResolutionFunction2DGaussian(0.5*pilatus_pixel_size,
     #      0.5*pilatus_pixel_size))
     # beam divergence
-    # alpha_distr = ba.DistributionGaussian(alpha_i, 0.02*ba.degree)
+    # alpha_distr = ba.DistributionGaussian(alpha_i, 0.02*ba.deg)
     # simulation.addParameterDistribution("*/Beam/Alpha", alpha_distr, 5)
     return simulation
 
@@ -73,13 +73,13 @@ def run_fitting():
 
     # setting fitting parameters with starting values
     fit_suite.addFitParameter(
-        "*radius", 5.0*ba.nanometer, ba.AttLimits.limited(4.0, 6.0),
-        0.1*ba.nanometer)
+        "*radius", 5.0*ba.nm, ba.AttLimits.limited(4.0, 6.0),
+        0.1*ba.nm)
     fit_suite.addFitParameter(
-        "*sigma", 0.55, ba.AttLimits.limited(0.2, 0.8), 0.01*ba.nanometer)
+        "*sigma", 0.55, ba.AttLimits.limited(0.2, 0.8), 0.01*ba.nm)
     fit_suite.addFitParameter(
-        "*distance", 27.*ba.nanometer, ba.AttLimits.limited(20, 70),
-        0.1*ba.nanometer)
+        "*distance", 27.*ba.nm, ba.AttLimits.limited(20, 70),
+        0.1*ba.nm)
 
     use_two_minimizers_strategy = False
     if use_two_minimizers_strategy:

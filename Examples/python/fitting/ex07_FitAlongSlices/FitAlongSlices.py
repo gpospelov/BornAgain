@@ -8,14 +8,14 @@ from matplotlib import pyplot as plt
 import math
 import random
 import bornagain as ba
-from bornagain import degree, angstrom, nanometer
+from bornagain import deg, angstrom, nm
 import numpy
 
-phi_slice_value = 0.0*degree  # position of vertical slice
-alpha_slice_value = 0.2*degree  # position of horizontal slice
+phi_slice_value = 0.0*deg  # position of vertical slice
+alpha_slice_value = 0.2*deg  # position of horizontal slice
 
 
-def get_sample(radius=5*nanometer, height=10*nanometer):
+def get_sample(radius=5*nm, height=10*nm):
     """
     Returns a sample with uncorrelated cylinders on a substrate.
     """
@@ -44,9 +44,9 @@ def get_simulation():
     Create and return GISAXS simulation with beam and detector defined
     """
     simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(100, -1.0*degree, 1.0*degree,
-                                     100, 0.0*degree, 2.0*degree)
-    simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
+    simulation.setDetectorParameters(100, -1.0*deg, 1.0*deg,
+                                     100, 0.0*deg, 2.0*deg)
+    simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
     return simulation
 
 
@@ -54,7 +54,7 @@ def create_real_data():
     """
     Generating "real" data by adding noise to the simulated data.
     """
-    sample = get_sample(5.0*nanometer, 10.0*nanometer)
+    sample = get_sample(5.0*nm, 10.0*nm)
 
     simulation = get_simulation()
     simulation.setSample(sample)
@@ -92,8 +92,8 @@ class DrawObserver(ba.IFitObserver):
         im = plt.imshow(
             data.getArray(),
             norm=matplotlib.colors.LogNorm(1.0, data.getMaximum()),
-            extent=[data.getXmin()/degree, data.getXmax()/degree,
-                    data.getYmin()/degree, data.getYmax()/degree])
+            extent=[data.getXmin()/deg, data.getXmax()/deg,
+                    data.getYmin()/deg, data.getYmax()/deg])
         plt.colorbar(im)
         plt.title("\"Real\" data")
         plt.xlabel(r'$\phi_f$', fontsize=12)
@@ -111,9 +111,9 @@ class DrawObserver(ba.IFitObserver):
         plt.subplot(2, 2, nplot)
         plt.subplots_adjust(wspace=0.2, hspace=0.3)
         for label, slice in slices:
-            plt.semilogy(slice.getBinCenters()/degree,
+            plt.semilogy(slice.getBinCenters()/deg,
                          slice.getBinValues(), label=label)
-            plt.xlim(slice.getXmin()/degree, slice.getXmax()/degree)
+            plt.xlim(slice.getXmin()/deg, slice.getXmax()/deg)
             plt.ylim(1.0, slice.getMaximum()*10.0)
         plt.legend(loc='upper right')
         plt.title(title)
@@ -154,7 +154,7 @@ class DrawObserver(ba.IFitObserver):
             ("simul", simul_data.projectionX(alpha_slice_value))
             ]
         title = ( "Horizontal slice at alpha =" +
-                  '{:3.1f}'.format(alpha_slice_value/degree) )
+                  '{:3.1f}'.format(alpha_slice_value/deg) )
         self.plot_slices(slices, title, nplot=2)
 
         # vertical slices
@@ -162,7 +162,7 @@ class DrawObserver(ba.IFitObserver):
             ("real", real_data.projectionY(phi_slice_value)),
             ("simul", simul_data.projectionY(phi_slice_value))
             ]
-        title = "Vertical slice at phi =" + '{:3.1f}'.format(phi_slice_value/degree)
+        title = "Vertical slice at phi =" + '{:3.1f}'.format(phi_slice_value/deg)
         self.plot_slices(slices, title, nplot=3)
 
         # display fit parameters
@@ -198,9 +198,9 @@ def run_fitting():
 
     # setting fitting parameters with starting values
     fit_suite.addFitParameter(
-        "*/Cylinder/Radius", 6.*nanometer, ba.AttLimits.limited(4., 8.))
+        "*/Cylinder/Radius", 6.*nm, ba.AttLimits.limited(4., 8.))
     fit_suite.addFitParameter(
-        "*/Cylinder/Height", 9.*nanometer, ba.AttLimits.limited(8., 12.))
+        "*/Cylinder/Height", 9.*nm, ba.AttLimits.limited(8., 12.))
 
     # running fit
     fit_suite.runFit()

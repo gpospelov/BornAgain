@@ -5,7 +5,7 @@ import numpy
 import matplotlib
 from matplotlib import pyplot as plt
 import bornagain as ba
-from bornagain import degree, angstrom, nanometer
+from bornagain import deg, angstrom, nm
 
 alpha_i_min, alpha_i_max = 0.0, 2.0  # incoming beam
 
@@ -20,14 +20,14 @@ def get_sample():
     m_substrate = ba.HomogeneousMaterial("substrate", 15e-6, 0.0)
 
     l_ambience = ba.Layer(m_ambience)
-    l_part_a = ba.Layer(m_part_a, 5.0*nanometer)
-    l_part_b = ba.Layer(m_part_b, 10.0*nanometer)
+    l_part_a = ba.Layer(m_part_a, 5.0*nm)
+    l_part_b = ba.Layer(m_part_b, 10.0*nm)
     l_substrate = ba.Layer(m_substrate)
 
     roughness = ba.LayerRoughness()
-    roughness.setSigma(1.0*nanometer)
+    roughness.setSigma(1.0*nm)
     roughness.setHurstParameter(0.3)
-    roughness.setLatteralCorrLength(500.0*nanometer)
+    roughness.setLatteralCorrLength(500.0*nm)
 
     my_sample = ba.MultiLayer()
 
@@ -51,7 +51,7 @@ def get_simulation():
     """
     simulation = ba.SpecularSimulation()
     simulation.setBeamParameters(
-        1.54*angstrom, 1000, alpha_i_min*degree, alpha_i_max*degree)
+        1.54*angstrom, 1000, alpha_i_min*deg, alpha_i_max*deg)
     return simulation
 
 

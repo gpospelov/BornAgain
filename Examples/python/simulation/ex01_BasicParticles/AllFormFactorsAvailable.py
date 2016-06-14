@@ -5,18 +5,18 @@ import numpy
 import matplotlib
 from matplotlib import pyplot as plt
 import bornagain as ba
-from bornagain import degree, angstrom
+from bornagain import deg, angstrom
 
 phi_min, phi_max = -2.0, 2.0
 alpha_min, alpha_max = 0.0, 2.0
 
 
 formfactors = [
-    ba.FormFactorAnisoPyramid(20.0, 16.0, 13.0, 60.0*degree),
+    ba.FormFactorAnisoPyramid(20.0, 16.0, 13.0, 60.0*deg),
     ba.FormFactorBox(20.0, 16.0, 13.0),
-    ba.FormFactorCone(10.0, 13.0, 60.0*degree),
-    ba.FormFactorCone6(10.0, 13.0, 60.0*degree),
-    ba.FormFactorCuboctahedron(20.0, 13.0, 0.7, 60.0*degree),
+    ba.FormFactorCone(10.0, 13.0, 60.0*deg),
+    ba.FormFactorCone6(10.0, 13.0, 60.0*deg),
+    ba.FormFactorCuboctahedron(20.0, 13.0, 0.7, 60.0*deg),
     ba.FormFactorCylinder(8.0, 16.0),
     ba.FormFactorDodecahedron(5.0),
     ba.FormFactorEllipsoidalCylinder(8.0, 13.0, 16.0),
@@ -26,10 +26,10 @@ formfactors = [
     ba.FormFactorIcosahedron(8.0),
     ba.FormFactorPrism3(10.0, 13.0),
     ba.FormFactorPrism6(5.0, 11.0),
-    ba.FormFactorPyramid(18.0, 13.0, 60.0*degree),
+    ba.FormFactorPyramid(18.0, 13.0, 60.0*deg),
     ba.FormFactorRipple1(27.0, 20.0, 14.0),
     ba.FormFactorRipple2(36.0, 25.0, 14.0, 3.0),
-    ba.FormFactorTetrahedron(15.0, 6.0, 60.0*degree),
+    ba.FormFactorTetrahedron(15.0, 6.0, 60.0*deg),
     ba.FormFactorTruncatedSphere(5.0, 7.0),
     ba.FormFactorTruncatedSpheroid(7.5, 9.0, 1.2),
     ba.FormFactorTruncatedCube(15.0, 6.0)
@@ -63,8 +63,8 @@ def get_simulation():
     """
     simulation = ba.GISASSimulation()
     simulation.setDetectorParameters(
-        100, phi_min*degree, phi_max*degree, 100, alpha_min*degree, alpha_max*degree)
-    simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
+        100, phi_min*deg, phi_max*deg, 100, alpha_min*deg, alpha_max*deg)
+    simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
     return simulation
 
 
@@ -95,8 +95,8 @@ def run_simulation():
         im = plt.imshow(
             result.getArray(),
             norm=matplotlib.colors.LogNorm(1.0, result.getMaximum()),
-            extent=[result.getXmin()/degree, result.getXmax()/degree,
-                    result.getYmin()/degree, result.getYmax()/degree],
+            extent=[result.getXmin()/deg, result.getXmax()/deg,
+                    result.getYmin()/deg, result.getYmax()/deg],
             aspect='auto')
         plt.tick_params(axis='both', which='major', labelsize=8)
         plt.tick_params(axis='both', which='minor', labelsize=6)

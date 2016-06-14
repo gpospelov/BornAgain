@@ -5,7 +5,7 @@ import numpy
 import matplotlib
 from matplotlib import pyplot as plt
 import bornagain as ba
-from bornagain import degree, angstrom, nanometer
+from bornagain import deg, angstrom, nm
 
 phi_min, phi_max = -1.0, 1.0
 alpha_min, alpha_max = 0.0, 2.0
@@ -21,8 +21,8 @@ def get_sample():
     m_core = ba.HomogeneousMaterial("Core", 6e-5, 2e-8 )
 
     # collection of particles
-    parallelepiped1_ff = ba.FormFactorBox(16*nanometer, 16*nanometer, 8*nanometer)
-    parallelepiped2_ff = ba.FormFactorBox(12*nanometer, 12*nanometer, 7*nanometer)
+    parallelepiped1_ff = ba.FormFactorBox(16*nm, 16*nm, 8*nm)
+    parallelepiped2_ff = ba.FormFactorBox(12*nm, 12*nm, 7*nm)
     shell_particle = ba.Particle(m_shell, parallelepiped1_ff)
     core_particle = ba.Particle(m_core, parallelepiped2_ff)
     core_position = ba.kvector_t(0.0, 0.0, 0.0)
@@ -47,9 +47,9 @@ def get_simulation():
     Returns a GISAXS simulation with beam and detector defined.
     """
     simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(200, phi_min*degree, phi_max*degree,
-                                     200, alpha_min*degree, alpha_max*degree)
-    simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
+    simulation.setDetectorParameters(200, phi_min*deg, phi_max*deg,
+                                     200, alpha_min*deg, alpha_max*deg)
+    simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
     return simulation
 
 
@@ -67,8 +67,8 @@ def run_simulation():
     im = plt.imshow(
         result.getArray(),
         norm=matplotlib.colors.LogNorm(1.0, result.getMaximum()),
-        extent=[result.getXmin()/degree, result.getXmax()/degree,
-                result.getYmin()/degree, result.getYmax()/degree],
+        extent=[result.getXmin()/deg, result.getXmax()/deg,
+                result.getYmin()/deg, result.getYmax()/deg],
         aspect='auto')
     cb = plt.colorbar(im)
     cb.set_label(r'Intensity (arb. u.)', size=16)

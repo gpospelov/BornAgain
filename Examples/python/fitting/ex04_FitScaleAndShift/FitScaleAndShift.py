@@ -12,10 +12,10 @@ import matplotlib
 import math
 import random
 import bornagain as ba
-from bornagain import degree, angstrom, nanometer
+from bornagain import deg, angstrom, nm
 
 
-def get_sample(radius=5*nanometer, height=10*nanometer):
+def get_sample(radius=5*nm, height=10*nm):
     """
     Build the sample representing cylinders on top of substrate without interference.
     """
@@ -44,9 +44,9 @@ def get_simulation():
     Create and return GISAXS simulation with beam and detector defined
     """
     simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(100, -1.0*degree, 1.0*degree,
-                                     100, 0.0*degree, 2.0*degree)
-    simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
+    simulation.setDetectorParameters(100, -1.0*deg, 1.0*deg,
+                                     100, 0.0*deg, 2.0*deg)
+    simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
     simulation.setBeamIntensity(1e12)
     return simulation
 
@@ -59,7 +59,7 @@ def create_real_data():
     During the fit we will try to find cylinder height and radius and
     scale, background factors.
     """
-    sample = get_sample(5.0*nanometer, 10.0*nanometer)
+    sample = get_sample(5.0*nm, 10.0*nm)
 
     simulation = get_simulation()
     simulation.setSample(sample)
@@ -110,9 +110,9 @@ def run_fitting():
     fit_suite.getFitObjects().printParameters()
 
     # setting fitting parameters with starting values
-    fit_suite.addFitParameter("*/Cylinder/Radius", 6.*nanometer,
+    fit_suite.addFitParameter("*/Cylinder/Radius", 6.*nm,
                               ba.AttLimits.limited(4., 8.))
-    fit_suite.addFitParameter("*/Cylinder/Height", 9.*nanometer,
+    fit_suite.addFitParameter("*/Cylinder/Height", 9.*nm,
                               ba.AttLimits.limited(8., 12.))
     fit_suite.addFitParameter("*/Normalizer/scale", 1.5,
                               ba.AttLimits.limited(1.0, 3.0))

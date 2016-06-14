@@ -5,7 +5,7 @@ import numpy
 import matplotlib
 from matplotlib import pyplot as plt
 import bornagain as ba
-from bornagain import degree, angstrom, nanometer
+from bornagain import deg, angstrom, nm
 
 phi_min, phi_max = -1.0, 1.0
 alpha_min, alpha_max = 0.0, 1.0
@@ -20,13 +20,13 @@ def get_sample():
     m_substrate = ba.HomogeneousMaterial("Substrate", 6e-6, 2e-8)
     m_particle = ba.HomogeneousMaterial("Particle", 6e-4, 2e-8)
 
-    sphere_ff = ba.FormFactorFullSphere(10.0*nanometer)
+    sphere_ff = ba.FormFactorFullSphere(10.0*nm)
     sphere = ba.Particle(m_particle, sphere_ff)
     particle_layout = ba.ParticleLayout()
     particle_layout.addParticle(sphere)
 
-    interference = ba.InterferenceFunction2DLattice.createHexagonal(20.0*nanometer)
-    pdf = ba.FTDecayFunction2DCauchy(10*nanometer, 10*nanometer)
+    interference = ba.InterferenceFunction2DLattice.createHexagonal(20.0*nm)
+    pdf = ba.FTDecayFunction2DCauchy(10*nm, 10*nm)
     interference.setDecayFunction(pdf)
 
     particle_layout.addInterferenceFunction(interference)
@@ -45,9 +45,9 @@ def get_simulation():
     Create and return GISAXS simulation with beam and detector defined
     """
     simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(200, phi_min*degree, phi_max*degree,
-                                     200, alpha_min*degree, alpha_max*degree)
-    simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
+    simulation.setDetectorParameters(200, phi_min*deg, phi_max*deg,
+                                     200, alpha_min*deg, alpha_max*deg)
+    simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
     return simulation
 
 
@@ -65,8 +65,8 @@ def run_simulation():
     im = plt.imshow(
         result.getArray(),
         norm=matplotlib.colors.LogNorm(1.0, result.getMaximum()),
-        extent=[result.getXmin()/degree, result.getXmax()/degree,
-                result.getYmin()/degree, result.getYmax()/degree],
+        extent=[result.getXmin()/deg, result.getXmax()/deg,
+                result.getYmin()/deg, result.getYmax()/deg],
         aspect='auto')
     cb = plt.colorbar(im)
     cb.set_label(r'Intensity (arb. u.)', size=16)

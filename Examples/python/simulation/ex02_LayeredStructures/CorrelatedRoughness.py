@@ -5,7 +5,7 @@ import numpy
 import matplotlib
 from matplotlib import pyplot as plt
 import bornagain as ba
-from bornagain import degree, angstrom, nanometer
+from bornagain import deg, angstrom, nm
 
 phi_min, phi_max = -0.5, 0.5
 alpha_min, alpha_max = 0.0, 1.0
@@ -23,14 +23,14 @@ def get_sample():
 
     # defining layers
     l_ambience = ba.Layer(m_ambience)
-    l_part_a = ba.Layer(m_part_a, 2.5*nanometer)
-    l_part_b = ba.Layer(m_part_b, 5.0*nanometer)
+    l_part_a = ba.Layer(m_part_a, 2.5*nm)
+    l_part_b = ba.Layer(m_part_b, 5.0*nm)
     l_substrate = ba.Layer(m_substrate)
 
     roughness = ba.LayerRoughness()
-    roughness.setSigma(1.0*nanometer)
+    roughness.setSigma(1.0*nm)
     roughness.setHurstParameter(0.3)
-    roughness.setLatteralCorrLength(5.0*nanometer)
+    roughness.setLatteralCorrLength(5.0*nm)
 
     my_sample = ba.MultiLayer()
 
@@ -53,9 +53,9 @@ def get_simulation():
     Characterizing the input beam and output detector
     """
     simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(200, phi_min*degree, phi_max*degree,
-                                     200, alpha_min*degree, alpha_max*degree)
-    simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
+    simulation.setDetectorParameters(200, phi_min*deg, phi_max*deg,
+                                     200, alpha_min*deg, alpha_max*deg)
+    simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
     return simulation
 
 
@@ -74,8 +74,8 @@ def run_simulation():
         result.getArray(),
         norm=matplotlib.colors.LogNorm(result.getMaximum()/1000.,
                                        result.getMaximum()),
-        extent=[result.getXmin()/degree, result.getXmax()/degree,
-                result.getYmin()/degree, result.getYmax()/degree],
+        extent=[result.getXmin()/deg, result.getXmax()/deg,
+                result.getYmin()/deg, result.getYmax()/deg],
         aspect='auto')
     cb = plt.colorbar(im)
     cb.set_label(r'Intensity (arb. u.)', size=16)

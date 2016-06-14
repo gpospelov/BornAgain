@@ -9,10 +9,10 @@ import matplotlib.gridspec as gridspec
 import math
 import random
 import bornagain as ba
-from bornagain import degree, angstrom, nanometer
+from bornagain import deg, angstrom, nm
 
 
-def get_sample(radius_a=4.0*nanometer, radius_b=4.0*nanometer, height=4.0*nanometer):
+def get_sample(radius_a=4.0*nm, radius_b=4.0*nm, height=4.0*nm):
     """
     Returns a sample with uncorrelated cylinders and pyramids.
     """
@@ -41,9 +41,9 @@ def get_simulation(incident_alpha=0.2):
     Returns a GISAXS simulation with beam and detector defined.
     """
     simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(50, -1.5*degree, 1.5*degree,
-                                     50, 0.0*degree, 2.0*degree)
-    simulation.setBeamParameters(1.0*angstrom, incident_alpha, 0.0*degree)
+    simulation.setDetectorParameters(50, -1.5*deg, 1.5*deg,
+                                     50, 0.0*deg, 2.0*deg)
+    simulation.setBeamParameters(1.0*angstrom, incident_alpha, 0.0*deg)
     return simulation
 
 
@@ -52,7 +52,7 @@ def create_real_data(incident_alpha):
     Generating "real" data by adding noise to the simulated data.
     """
     sample = get_sample(
-        radius_a=5.0*nanometer, radius_b=6.0*nanometer, height=8.0*nanometer)
+        radius_a=5.0*nm, radius_b=6.0*nm, height=8.0*nm)
 
     simulation = get_simulation(incident_alpha)
     simulation.setSample(sample)
@@ -87,8 +87,8 @@ class DrawObserver(ba.IFitObserver):
         im = plt.imshow(
             data.getArray(),
             norm=matplotlib.colors.LogNorm(min, max),
-            extent=[data.getXmin()/degree, data.getXmax()/degree,
-                    data.getYmin()/degree, data.getYmax()/degree],
+            extent=[data.getXmin()/deg, data.getXmax()/deg,
+                    data.getYmin()/deg, data.getYmax()/deg],
             aspect='auto')
         plt.colorbar(im)
         plt.title(title)
@@ -147,7 +147,7 @@ def run_fitting():
     main function to run fitting
     """
 
-    incident_alpha_angles = [0.1*degree, 0.4*degree]
+    incident_alpha_angles = [0.1*deg, 0.4*deg]
     fit_suite = ba.FitSuite()
     sample = get_sample()
 
@@ -163,11 +163,11 @@ def run_fitting():
 
     # setting fitting parameters with starting values
     fit_suite.addFitParameter(
-        "*/HemiEllipsoid/RadiusX", 4.*nanometer, ba.AttLimits.limited(2., 10.))
+        "*/HemiEllipsoid/RadiusX", 4.*nm, ba.AttLimits.limited(2., 10.))
     fit_suite.addFitParameter(
-        "*/HemiEllipsoid/RadiusY", 6.*nanometer, ba.AttLimits.fixed())
+        "*/HemiEllipsoid/RadiusY", 6.*nm, ba.AttLimits.fixed())
     fit_suite.addFitParameter(
-        "*/HemiEllipsoid/Height", 4.*nanometer, ba.AttLimits.limited(2., 10.))
+        "*/HemiEllipsoid/Height", 4.*nm, ba.AttLimits.limited(2., 10.))
 
     # running fit
     fit_suite.runFit()

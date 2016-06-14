@@ -6,13 +6,13 @@ import numpy
 import matplotlib
 from matplotlib import pyplot as plt
 import bornagain as ba
-from bornagain import degree, angstrom, nanometer
+from bornagain import deg, angstrom, nm
 
 
 def plot_intensity_data(ref, data):
     im = plt.imshow(data,
                     norm=matplotlib.colors.LogNorm(),
-                    extent=[ref.getXmin()/degree, ref.getXmax()/degree, ref.getYmin()/degree, ref.getYmax()/degree],
+                    extent=[ref.getXmin()/deg, ref.getXmax()/deg, ref.getYmin()/deg, ref.getYmax()/deg],
                     aspect='auto')
 
     cb = plt.colorbar(im)

@@ -6,10 +6,10 @@ from matplotlib import pyplot as plt
 import math
 import random
 import bornagain as ba
-from bornagain import degree, angstrom, nanometer
+from bornagain import deg, angstrom, nm
 
 
-def get_sample(radius=5*nanometer, lattice_constant=10*nanometer):
+def get_sample(radius=5*nm, lattice_constant=10*nm):
     """
     Returns a sample with cylinders and pyramids on a substrate,
     forming a hexagonal lattice.
@@ -24,7 +24,7 @@ def get_sample(radius=5*nanometer, lattice_constant=10*nanometer):
     particle_layout.addParticle(sphere)
 
     interference = ba.InterferenceFunction2DLattice.createHexagonal(lattice_constant)
-    pdf = ba.FTDecayFunction2DCauchy(10*nanometer, 10*nanometer)
+    pdf = ba.FTDecayFunction2DCauchy(10*nm, 10*nm)
     interference.setDecayFunction(pdf)
 
     particle_layout.addInterferenceFunction(interference)
@@ -43,9 +43,9 @@ def get_simulation():
     Create and return GISAXS simulation with beam and detector defined
     """
     simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(100, -1.0*degree, 1.0*degree,
-                                     100, 0.0*degree, 2.0*degree)
-    simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
+    simulation.setDetectorParameters(100, -1.0*deg, 1.0*deg,
+                                     100, 0.0*deg, 2.0*deg)
+    simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
     return simulation
 
 
@@ -53,7 +53,7 @@ def create_real_data():
     """
     Generating "real" data by adding noise to the simulated data.
     """
-    sample = get_sample(5.0*nanometer, 10.0*nanometer)
+    sample = get_sample(5.0*nm, 10.0*nm)
 
     simulation = get_simulation()
     simulation.setSample(sample)
@@ -94,9 +94,9 @@ def run_fitting():
 
     # this fit parameter will change both length_1 and length_2 simultaneously
     fit_suite.addFitParameter(
-        "*2DLattice/LatticeLength*", 8.*nanometer, ba.AttLimits.limited(4., 12.))
+        "*2DLattice/LatticeLength*", 8.*nm, ba.AttLimits.limited(4., 12.))
     fit_suite.addFitParameter(
-        "*/FullSphere/Radius", 8.*nanometer, ba.AttLimits.limited(4., 12.))
+        "*/FullSphere/Radius", 8.*nm, ba.AttLimits.limited(4., 12.))
 
     # running fit
     fit_suite.runFit()

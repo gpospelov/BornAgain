@@ -2302,6 +2302,8 @@ class kvector_t(_object):
 
         double Geometry::BasicVector3D< double >::cosTheta() const
 
+        Returns cosine of polar angle. 
+
         """
         return _libBornAgainCore.kvector_t_cosTheta(self)
 
@@ -2311,6 +2313,8 @@ class kvector_t(_object):
         sin2Theta(kvector_t self) -> double
 
         double Geometry::BasicVector3D< double >::sin2Theta() const
+
+        Returns squared sine of polar angle. 
 
         """
         return _libBornAgainCore.kvector_t_sin2Theta(self)
@@ -2343,6 +2347,8 @@ class kvector_t(_object):
         angle(kvector_t self, kvector_t v) -> double
 
         double Geometry::BasicVector3D< double >::angle(const BasicVector3D< double > &v) const
+
+        Returns angle with respect to another vector. 
 
         """
         return _libBornAgainCore.kvector_t_angle(self, v)

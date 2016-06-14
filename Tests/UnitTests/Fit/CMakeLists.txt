@@ -14,4 +14,4 @@ if(BORNAGAIN_OPENMPI)
     include_directories(${MPI_INCLUDE_PATH})
 endif()
 
-WRAP_GTEST(TestFit0 "." ${BornAgainFit_LIBRARY} 0)
+WRAP_GTEST(TestFit0 "*.h" ${BornAgainFit_LIBRARY} 0)

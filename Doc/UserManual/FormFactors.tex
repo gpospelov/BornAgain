@@ -73,7 +73,7 @@ that they also hold for complex scattering vectors,
 used to describe in order to take any material absorption into account.
 The implementation in \BornAgain\ allows all three components
 of~$\q$ to be complex.\footnote
-{According to Sec.~\ref{Smulayabs},
+{According to \cref{Smulayabs},
 only the vertical components of $\k_\ti$ and $\k_\tf$ can have imaginary parts.
 However,
 for tilted particles
@@ -81,7 +81,7 @@ $F(\v{\tilde{q}})$ needs to be computed with
 a rotated scattering vector~$\v{\tilde q}$
 that may be complex in all three components.}
 Some background information on the form factor computations is
-given in App.~\ref{SFFcomp}.
+given in \cref{SFFcomp}.
 
 The following tables summarize the implemented particle geometries,
  roughly ordered by decreasing symmetry.
@@ -93,7 +93,7 @@ Afterwards, the detailed documentation is in alphabetical order.
  \texttt{#1}& %\newline\textsl{#1} &
 #5 & % symmetry
 #4 & % parameters
-Page~\pageref{S#3}\\} % , Sec.~\ref{S#3}
+Page~\pageref{S#3}\\} % , \cref{S#3}
 \begin{center}
   \def\h{\text{h}}
   \def\v{\text{v}}
@@ -218,14 +218,14 @@ $I$ has horizontal and vertical mirror planes:
   = I(\alpha_\tf,-\phi_\tf).
 \end{equation}
 % TODO RESTORE TEMPORARILY REMOVED XREF
-% The physical origin this symmetry is discussed in Sec.~\ref{Ssym}.
+% The physical origin this symmetry is discussed in \cref{Ssym}.
 For these particles,
 plots of $I$ are restricted to the quadrant $\alpha_\tf\ge0$, $\phi_\tf\ge0$.
 However, it requires some experience to fully appreciate the
 information content of these plots.
 For a demonstration of this,
-try to capture the main features of Fig.~\ref{F1quadrants}.
-Then compare with Fig.~\ref{F4quadrants}.
+try to capture the main features of \cref{F1quadrants}.
+Then compare with \cref{F4quadrants}.
 
 \begin{figure}[t]
 \begin{center}
@@ -907,7 +907,7 @@ I(\q,R)
 with $\q\r
 = q_x r\sin\theta\cos\varphi + q_y r\sin\theta\sin\varphi + q_z r\cos\theta$.
 For the integration over $\varphi$,
-see Sect.~\ref{SCylinder} on the form factor of a cylinder:
+see \cref{SCylinder} on the form factor of a cylinder:
 \begin{equation}
   I(\q,R)
   = 2\pi \int_0^R \d r\,r^2 \int_0^{\pi} \d\theta\, \sin\theta
@@ -953,7 +953,7 @@ Hence
 \end{equation}
 The inner sum happens to be the binomial expansion of
 $q^{2n}=\left({q_z}^2+{q_\parallel}^2\right)^n$.
-Therefore (\ref{ESphereU}) coincides with the series expansion of
+Therefore \cref{ESphereU} coincides with the series expansion of
 \begin{equation}
   I(\q,R)
   = 4\pi q^{-3} \left( \sin(qR) - qR\cos(qR) \right),

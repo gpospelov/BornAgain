@@ -12,7 +12,7 @@
 To allow for polarization-dependent interactions,
 we replace the squared index of refraction $n^2$
 by $1+\uu\chi$, where $\uu\chi$ is a $2\times 2$ susceptibility matrix.
-The wave equation (\ref{Escalar_wave}) for layer~$\il$ becomes
+The wave equation \cref{Escalar_wave} for layer~$\il$ becomes
 \begin{equation}\label{Ewaveqp}  
 (\Delta +K^2 +K^2 \uu\chi_\il) \u\psi(\r)= 0,
 \end{equation}
@@ -22,13 +22,13 @@ At interfaces between layers,
 both spinor components of $\u\psi(\r)$ and $\Nabla\u\psi(\r)$
 must evolve continuously.
 
-The reasons for the factorization (\ref{Ewave3}) still apply,
+The reasons for the factorization \cref{Ewave3} still apply,
 and so we can write
 \begin{equation}\label{Ewave3p}
 \u\psi(\r) = \u\psi(z) \e^{i \k_\parallel\r_\parallel}.
 \end{equation}
 As before, $\k_\parallel$ is constant across layers.
-The wave equation~(\ref{Ewaveqp}) reduces to 
+The wave equation~\cref{Ewaveqp} reduces to 
 \begin{equation}\label{Ewavezp}
 \left(\partial_z^2 + K^2 + K^2\uu\chi_\il - k_\parallel^2 \right) \u\psi(z) = 0.
 \end{equation}
@@ -68,7 +68,7 @@ which includes in particular the case of scalar interactions.
 \subsection{Wave propagation across layers}
 %-------------------------------------------------------------------------------
 
-Generalizing (\ref{Evecc}),
+Generalizing \cref{Evecc},
 we introduce the coefficient vector
 \begin{equation}
   c_\il \coloneqq  {(\alpha_{\il1}, \alpha_{\il2}, \beta_{\il1}, \beta_{\il2})}^\text{T}.
@@ -76,7 +76,7 @@ we introduce the coefficient vector
 To match solutions for neighboring layers,
 continuity is requested for both spinorial components
 of $\u\psi$ and $\Nabla\u\psi$.
-As before (\ref{EFcFDc}), we have at the bottom of layer~$\il$
+As before \cref{EFcFDc}, we have at the bottom of layer~$\il$
 \begin{equation}\label{EFcFDcp}
   F_\il c_\il = F_{\il+1} D_{\il+1} c_{\il+1},
 \end{equation}
@@ -123,11 +123,11 @@ This facilitates the computation of the inverse
       \cdot\uu x_\il^{-1},
 \end{equation}
 which is needed for the transfer matrix $M_\il$,
-defined as in (\ref{Edef_M}).
+defined as in \cref{Edef_M}.
 With the new meaning of $c_\il$ and $M_\il$,
-the recursion (\ref{EcMc}) and the explicit solution~(\ref{Eci})
+the recursion \cref{EcMc} and the explicit solution~\cref{Eci}
 hold as derived above.
-To resolve~(\ref{Eci}) for the reflected amplitudes $\alpha_{0\il}$
+To resolve~\cref{Eci} for the reflected amplitudes $\alpha_{0\il}$
 as function of the incident amplitudes $\beta_{0\il}$,
 we choose the notations
 \begin{equation}
@@ -140,7 +140,7 @@ we choose the notations
                            \uu m_{21}&\uu m_{22}\end{array}\right),
 \end{equation}
 where the $\uu m_{\il k}$ are $2\times2$ matrices.
-Eq.~(\ref{Eci}) then takes the form
+Eq.~\cref{Eci} then takes the form
 \begin{equation}
   \left(\begin{array}{c}\u\alpha_{0}\\\u\beta_{0}\end{array}\right)
   = 

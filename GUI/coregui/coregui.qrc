@@ -45,5 +45,6 @@
         <file>images/toolbar16light_newitem.svg</file>
         <file>images/toolbar16light_cloneitem.svg</file>
         <file>images/toolbar16light_run.svg</file>
+        <file>images/main_importview.svg</file>
     </qresource>
 </RCC>

@@ -104,6 +104,6 @@ void ParticleView::updatePixmap()
               ->group();
     QString current_ff_type = group_property->getCurrentType();
     QString filename
-        = QString(":/SampleDesigner/images/ff_%1_32.png").arg(current_ff_type);
+        = QString(":/widgetbox/images/ff_%1_32.png").arg(current_ff_type);
     m_pixmap = QPixmap(filename);
 }

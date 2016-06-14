@@ -259,7 +259,7 @@ std::string PyGenTools::printDegrees(double input)
     {
         inter << ".0";
     }
-    inter << "*deg";
+    inter << "*degree";
     return inter.str();
 }
 

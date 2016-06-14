@@ -4,11 +4,6 @@
         <file>images/closebutton.png</file>
         <file>images/reset.png</file>
         <file>images/darkclosebutton.png</file>
-        <file>images/main_simulation.png</file>
-        <file>images/main_instrument.png</file>
-        <file>images/main_sample.png</file>
-        <file>images/main_jobqueue.png</file>
-        <file>images/main_home.png</file>
         <file>images/gisas_instrument.png</file>
         <file>images/gisas_instrument_bw.png</file>
         <file>mainwindow/tooltips.xml</file>
@@ -45,5 +40,11 @@
         <file>images/toolbar16light_newitem.svg</file>
         <file>images/toolbar16light_cloneitem.svg</file>
         <file>images/toolbar16light_run.svg</file>
+        <file>images/main_importview.svg</file>
+        <file>images/main_instrumentview.svg</file>
+        <file>images/main_jobview.svg</file>
+        <file>images/main_sampleview.svg</file>
+        <file>images/main_simulationview.svg</file>
+        <file>images/main_welcomeview.svg</file>
     </qresource>
 </RCC>

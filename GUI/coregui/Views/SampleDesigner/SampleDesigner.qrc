@@ -1,43 +1,5 @@
 <RCC>
     <qresource prefix="/SampleDesigner">
-        <file>images/background3.png</file>
-        <file>images/background4.png</file>
-        <file>images/prev.png</file>
-        <file>images/next.png</file>
-        <file>images/plus-white.png</file>
-        <file>images/minus-white.png</file>
-        <file>images/card--plus.png</file>
-        <file>images/card--minus.png</file>
-        <file>images/document-attribute-m.png</file>
-        <file>images/magnifier-zoom-in.png</file>
-        <file>images/magnifier-zoom-out.png</file>
-        <file>images/magnifier-zoom-fit.png</file>
-        <file>images/eraser.png</file>
-        <file>images/ff_AnisoPyramid_32.png</file>
-        <file>images/ff_Box_32.png</file>
-        <file>images/ff_Cone_32.png</file>
-        <file>images/ff_Cone6_32.png</file>
-        <file>images/ff_Cuboctahedron_32.png</file>
-        <file>images/ff_Cylinder_32.png</file>
-        <file>images/ff_dodecahedron_32.png</file>
-        <file>images/ff_EllipsoidalCylinder_32.png</file>
-        <file>images/ff_FullSphere_32.png</file>
-        <file>images/ff_FullSpheroid_32.png</file>
-        <file>images/ff_HemiEllipsoid_32.png</file>
-        <file>images/ff_icosahedron_32.png</file>
-        <file>images/ff_Prism3_32.png</file>
-        <file>images/ff_Prism6_32.png</file>
-        <file>images/ff_Pyramid_32.png</file>
-        <file>images/ff_Ripple1_32.png</file>
-        <file>images/ff_Ripple2_32.png</file>
-        <file>images/ff_Tetrahedron_32.png</file>
-        <file>images/ff_TruncatedCube_32.png</file>
-        <file>images/ff_TruncatedSphere_32.png</file>
-        <file>images/ff_TruncatedSpheroid_32.png</file>
-        <file>images/filesave.png</file>
-        <file>images/refresh.png</file>
-        <file>images/sidebar.png</file>
-        <file>images/application-resize-full.png</file>
         <file>images/toolbar_hand.png</file>
         <file>images/toolbar_pointer.png</file>
         <file>images/toolbar_materialeditor.png</file>

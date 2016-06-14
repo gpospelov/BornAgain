@@ -61,7 +61,8 @@ TEST_P(FFSymmetryTest, Tetrahedron)
     if( skip_q( 1e-99, 2e2 ) )
         return;
     FormFactorTetrahedron p(8.43, .25, .53);
-    test_qq_eq( &p, q, q.rotatedZ(Units::PI2/3), 3e-12 );
+    test_qq_eq( &p, q, q.rotatedZ(Units::PI2/3), 6e-12 );
+    // Linux: 3e-12, relaxed for Mac
 }
 
 TEST_P(FFSymmetryTest, Cone6_flat)

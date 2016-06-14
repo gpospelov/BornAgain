@@ -7,10 +7,10 @@ from matplotlib import pyplot as plt
 import math
 import random
 import bornagain as ba
-from bornagain import degree, angstrom, nanometer
+from bornagain import deg, angstrom, nm
 
 
-def get_sample(radius=5*nanometer, height=10*nanometer):
+def get_sample(radius=5*nm, height=10*nm):
     """
     Build the sample representing cylinders on top of
     substrate without interference.
@@ -40,9 +40,9 @@ def get_simulation():
     Create and return GISAXS simulation with beam and detector defined
     """
     simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(100, -1.0*degree, 1.0*degree,
-                                     100, 0.0*degree, 2.0*degree)
-    simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
+    simulation.setDetectorParameters(100, -1.0*deg, 1.0*deg,
+                                     100, 0.0*deg, 2.0*deg)
+    simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
     return simulation
 
 
@@ -50,7 +50,7 @@ def create_real_data():
     """
     Generating "real" data by adding noise to the simulated data.
     """
-    sample = get_sample(5.0*nanometer, 10.0*nanometer)
+    sample = get_sample(5.0*nm, 10.0*nm)
 
     simulation = get_simulation()
     simulation.setSample(sample)
@@ -89,33 +89,33 @@ def add_mask_to_simulation(simulation):
 
     # set mask to simulate pacman's head
     simulation.addMask(
-        ba.Ellipse(0.0*degree, 1.0*degree, 0.5*degree, 0.5*degree), False)
+        ba.Ellipse(0.0*deg, 1.0*deg, 0.5*deg, 0.5*deg), False)
 
     # set mask for pacman's eye
     simulation.addMask(
-        ba.Ellipse(0.11*degree, 1.25*degree, 0.05*degree, 0.05*degree), True)
+        ba.Ellipse(0.11*deg, 1.25*deg, 0.05*deg, 0.05*deg), True)
 
     # set mask for pacman's mouth
-    points = [[0.0*degree, 1.0*degree], [0.5*degree, 1.2*degree],
-              [0.5*degree, 0.8*degree], [0.0*degree, 1.0*degree]]
+    points = [[0.0*deg, 1.0*deg], [0.5*deg, 1.2*deg],
+              [0.5*deg, 0.8*deg], [0.0*deg, 1.0*deg]]
     simulation.addMask(ba.Polygon(points), True)
 
     # giving pacman something to eat
     simulation.addMask(
-        ba.Rectangle(0.45*degree, 0.95*degree, 0.55*degree, 1.05*degree), False)
+        ba.Rectangle(0.45*deg, 0.95*deg, 0.55*deg, 1.05*deg), False)
     simulation.addMask(
-        ba.Rectangle(0.61*degree, 0.95*degree, 0.71*degree, 1.05*degree), False)
+        ba.Rectangle(0.61*deg, 0.95*deg, 0.71*deg, 1.05*deg), False)
     simulation.addMask(
-        ba.Rectangle(0.75*degree, 0.95*degree, 0.85*degree, 1.05*degree), False)
+        ba.Rectangle(0.75*deg, 0.95*deg, 0.85*deg, 1.05*deg), False)
 
     # other mask's shapes are possible too
     # simulation.removeMasks()
     # # rotated ellipse:
-    # simulation.addMask(ba.Ellipse(0.11*degree, 1.25*degree,
-    #                    1.0*degree, 0.5*degree, 45.0*degree), True)
-    # simulation.addMask(Line(-1.0*degree, 0.0*degree, 1.0*degree, 2.0*degree), True)
-    # simulation.addMask(ba.HorizontalLine(1.0*degree), False)
-    # simulation.addMask(ba.VerticalLine(0.0*degree), False)
+    # simulation.addMask(ba.Ellipse(0.11*deg, 1.25*deg,
+    #                    1.0*deg, 0.5*deg, 45.0*deg), True)
+    # simulation.addMask(Line(-1.0*deg, 0.0*deg, 1.0*deg, 2.0*deg), True)
+    # simulation.addMask(ba.HorizontalLine(1.0*deg), False)
+    # simulation.addMask(ba.VerticalLine(0.0*deg), False)
 
 
 def run_fitting():
@@ -139,9 +139,9 @@ def run_fitting():
 
     # setting fitting parameters with starting values
     fit_suite.addFitParameter(
-        "*/Cylinder/Radius", 6.*nanometer, ba.AttLimits.limited(4., 8.))
+        "*/Cylinder/Radius", 6.*nm, ba.AttLimits.limited(4., 8.))
     fit_suite.addFitParameter(
-        "*/Cylinder/Height", 9.*nanometer, ba.AttLimits.limited(8., 12.))
+        "*/Cylinder/Height", 9.*nm, ba.AttLimits.limited(8., 12.))
 
     # running fit
     fit_suite.runFit()

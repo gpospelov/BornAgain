@@ -8,7 +8,7 @@ import matplotlib
 import random
 from matplotlib import pyplot as plt
 import bornagain as ba
-from bornagain import degree, angstrom, nanometer
+from bornagain import deg, angstrom, nm
 
 phi_min, phi_max = -2.0, 2.0
 alpha_min, alpha_max = 0.0, 2.0
@@ -24,7 +24,7 @@ def get_sample():
     m_particle = ba.HomogeneousMaterial("Particle", 6e-4, 2e-8)
 
     # collection of particles
-    cylinder_ff = ba.FormFactorCylinder(5*nanometer, 5*nanometer)
+    cylinder_ff = ba.FormFactorCylinder(5*nm, 5*nm)
     cylinder = ba.Particle(m_particle, cylinder_ff)
     particle_layout = ba.ParticleLayout()
     particle_layout.addParticle(cylinder, 1.0)
@@ -44,9 +44,9 @@ def get_simulation():
     Returns a GISAXS simulation with beam and detector defined.
     """
     simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(200, phi_min*degree, phi_max*degree,
-                                     200, alpha_min*degree, alpha_max*degree)
-    simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
+    simulation.setDetectorParameters(200, phi_min*deg, phi_max*deg,
+                                     200, alpha_min*deg, alpha_max*deg)
+    simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
     return simulation
 
 
@@ -63,8 +63,8 @@ def plot_as_colormap(hist, zmin=None, zmax=None):
     im = plt.imshow(
         hist.getArray(),
         norm=matplotlib.colors.LogNorm(zmin, zmax),
-        extent=[hist.getXmin()/degree, hist.getXmax()/degree,
-                hist.getYmin()/degree, hist.getYmax()/degree],
+        extent=[hist.getXmin()/deg, hist.getXmax()/deg,
+                hist.getYmin()/deg, hist.getYmax()/deg],
         aspect='auto')
     cb = plt.colorbar(im, pad=0.025)
     plt.xlabel(r'$\phi_f ^{\circ}$', fontsize=16)
@@ -75,7 +75,7 @@ def plot_cropped_map(hist):
     """
     Plot cropped version of intensity data
     """
-    crop = hist.crop(-1.0*degree, 0.5*degree, 1.0*degree, 1.0*degree)
+    crop = hist.crop(-1.0*deg, 0.5*deg, 1.0*deg, 1.0*deg)
     plot_as_colormap(crop)
 
 
@@ -110,24 +110,24 @@ def plot_slices(hist):
     noisy = get_noisy_image(hist)
 
     # projection along Y, slice at fixed x-value
-    proj1 = noisy.projectionY(0.0*degree)
-    plt.semilogy(proj1.getBinCenters()/degree,
+    proj1 = noisy.projectionY(0.0*deg)
+    plt.semilogy(proj1.getBinCenters()/deg,
                  proj1.getBinValues(),
                  label=r'$\phi=0.0^{\circ}$')
 
     # projection along Y, slice at fixed x-value
-    proj2 = noisy.projectionY(0.5*degree)  # slice at fixed value
-    plt.semilogy(proj2.getBinCenters()/degree,
+    proj2 = noisy.projectionY(0.5*deg)  # slice at fixed value
+    plt.semilogy(proj2.getBinCenters()/deg,
                  proj2.getBinValues(),
                  label=r'$\phi=0.5^{\circ}$')
 
     # projection along Y for all X values between [xlow, xup], averaged
-    proj3 = noisy.projectionY(0.4*degree, 0.6*degree)
-    plt.semilogy(proj3.getBinCenters()/degree,
+    proj3 = noisy.projectionY(0.4*deg, 0.6*deg)
+    plt.semilogy(proj3.getBinCenters()/deg,
                  proj3.getArray(ba.IHistogram.AVERAGE),
                  label=r'$<\phi>=0.5^{\circ}$')
 
-    plt.xlim(proj1.getXmin()/degree, proj1.getXmax()/degree)
+    plt.xlim(proj1.getXmin()/deg, proj1.getXmax()/deg)
     plt.ylim(1.0, proj1.getMaximum()*10.0)
     plt.xlabel(r'$\alpha_f ^{\circ}$', fontsize=16)
     plt.legend(loc='upper right')

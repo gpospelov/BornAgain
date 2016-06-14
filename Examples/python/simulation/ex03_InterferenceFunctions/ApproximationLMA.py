@@ -5,7 +5,7 @@ import numpy
 import matplotlib
 from matplotlib import pyplot as plt
 import bornagain as ba
-from bornagain import degree, angstrom, nanometer
+from bornagain import deg, angstrom, nm
 
 phi_min, phi_max = 0.0, 2.0
 alpha_min, alpha_max = 0.0, 2.0
@@ -21,26 +21,26 @@ def get_sample():
     m_particle = ba.HomogeneousMaterial("Particle", 6e-4, 2e-8)
 
     # cylindrical particle 1
-    radius1 = 5*nanometer
+    radius1 = 5*nm
     height1 = radius1
     cylinder_ff1 = ba.FormFactorCylinder(radius1, height1)
     cylinder1 = ba.Particle(m_particle, cylinder_ff1)
 
     # cylindrical particle 2
-    radius2 = 8*nanometer
+    radius2 = 8*nm
     height2 = radius2
     cylinder_ff2 = ba.FormFactorCylinder(radius2, height2)
     cylinder2 = ba.Particle(m_particle, cylinder_ff2)
 
     # interference function1
     interference1 = ba.InterferenceFunctionRadialParaCrystal(
-        16.8*nanometer, 1e3*nanometer)
-    pdf = ba.FTDistribution1DGauss(3 * nanometer)
+        16.8*nm, 1e3*nm)
+    pdf = ba.FTDistribution1DGauss(3 * nm)
     interference1.setProbabilityDistribution(pdf)
 
     # interference function2
     interference2 = ba.InterferenceFunctionRadialParaCrystal(
-        22.8*nanometer, 1e3*nanometer)
+        22.8*nm, 1e3*nm)
     interference2.setProbabilityDistribution(pdf)
 
      # assembling the sample
@@ -67,9 +67,9 @@ def get_simulation():
     Create and return GISAXS simulation with beam and detector defined
     """
     simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(200, phi_min*degree, phi_max*degree,
-                                     200, alpha_min*degree, alpha_max*degree)
-    simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
+    simulation.setDetectorParameters(200, phi_min*deg, phi_max*deg,
+                                     200, alpha_min*deg, alpha_max*deg)
+    simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
     return simulation
 
 
@@ -87,8 +87,8 @@ def run_simulation():
     im = plt.imshow(
         result.getArray(),
         norm=matplotlib.colors.LogNorm(1.0, result.getMaximum()),
-        extent=[result.getXmin()/degree, result.getXmax()/degree,
-                result.getYmin()/degree, result.getYmax()/degree],
+        extent=[result.getXmin()/deg, result.getXmax()/deg,
+                result.getYmin()/deg, result.getYmax()/deg],
         aspect='auto')
     cb = plt.colorbar(im)
     cb.set_label(r'Intensity (arb. u.)', size=16)

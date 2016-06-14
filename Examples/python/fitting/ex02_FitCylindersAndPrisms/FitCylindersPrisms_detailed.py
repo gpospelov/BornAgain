@@ -11,11 +11,11 @@ from matplotlib import pyplot as plt
 import math
 import random
 import bornagain as ba
-from bornagain import degree, angstrom, nanometer
+from bornagain import deg, angstrom, nm
 
 
-def get_sample(cylinder_height=1.0*nanometer, cylinder_radius=1.0*nanometer,
-               prism_length=2.0*nanometer, prism_height=1.0*nanometer):
+def get_sample(cylinder_height=1.0*nm, cylinder_radius=1.0*nm,
+               prism_length=2.0*nm, prism_height=1.0*nm):
     """
     Returns a sample with uncorrelated cylinders and prisms on a substrate.
     """
@@ -52,7 +52,7 @@ def create_real_data():
     located in same directory.
     """
     # creating sample with set of parameters we will later try to find during the fit
-    sample = get_sample(5.0*nanometer, 5.0*nanometer, 5.0*nanometer, 5.0*nanometer)
+    sample = get_sample(5.0*nm, 5.0*nm, 5.0*nm, 5.0*nm)
     simulation = get_simulation()
     simulation.setSample(sample)
 
@@ -80,9 +80,9 @@ def get_simulation():
     Returns a GISAXS simulation with beam and detector defined
     """
     simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(100, -1.0*degree, 1.0*degree,
-                                     100, 0.0*degree, 2.0*degree)
-    simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
+    simulation.setDetectorParameters(100, -1.0*deg, 1.0*deg,
+                                     100, 0.0*deg, 2.0*deg)
+    simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
     return simulation
 
 
@@ -106,8 +106,8 @@ class DrawObserver(ba.IFitObserver):
         im = plt.imshow(
             data.getArray(),
             norm=matplotlib.colors.LogNorm(min, max),
-            extent=[data.getXmin()/degree, data.getXmax()/degree,
-                    data.getYmin()/degree, data.getYmax()/degree])
+            extent=[data.getXmin()/deg, data.getXmax()/deg,
+                    data.getYmin()/deg, data.getYmax()/deg])
         plt.colorbar(im)
         plt.title(title)
 
@@ -165,13 +165,13 @@ def run_fitting():
     fit_suite.attachObserver(draw_observer)
 
     # setting fitting parameters with starting values
-    fit_suite.addFitParameter("*Cylinder/Height", 4.*nanometer,
+    fit_suite.addFitParameter("*Cylinder/Height", 4.*nm,
                               ba.AttLimits.lowerLimited(0.01))
-    fit_suite.addFitParameter("*Cylinder/Radius", 6.*nanometer,
+    fit_suite.addFitParameter("*Cylinder/Radius", 6.*nm,
                               ba.AttLimits.lowerLimited(0.01))
-    fit_suite.addFitParameter("*Prism3/Height", 4.*nanometer,
+    fit_suite.addFitParameter("*Prism3/Height", 4.*nm,
                               ba.AttLimits.lowerLimited(0.01))
-    fit_suite.addFitParameter("*Prism3/BaseEdge", 12.*nanometer,
+    fit_suite.addFitParameter("*Prism3/BaseEdge", 12.*nm,
                               ba.AttLimits.lowerLimited(0.01))
 
     # running fit

@@ -15,13 +15,13 @@ class MySampleBuilder(ba.ISampleBuilder):
         self.sample = None
 
         # parameters describing the sample
-        self.radius = ctypes.c_double(5.75*ba.nanometer)
+        self.radius = ctypes.c_double(5.75*ba.nm)
         self.sigma = ctypes.c_double(0.4)
-        self.distance = ctypes.c_double(53.6*ba.nanometer)
-        self.disorder = ctypes.c_double(10.5*ba.nanometer)
+        self.distance = ctypes.c_double(53.6*ba.nm)
+        self.disorder = ctypes.c_double(10.5*ba.nm)
         self.kappa = ctypes.c_double(17.5)
-        self.ptfe_thickness = ctypes.c_double(22.1*ba.nanometer)
-        self.hmdso_thickness = ctypes.c_double(18.5*ba.nanometer)
+        self.ptfe_thickness = ctypes.c_double(22.1*ba.nm)
+        self.hmdso_thickness = ctypes.c_double(18.5*ba.nm)
 
         # register parameters
         self.registerParameter("radius", ctypes.addressof(self.radius))
@@ -49,7 +49,7 @@ class MySampleBuilder(ba.ISampleBuilder):
         #    self.radius.value, self.radius.value*1.5)
 
         sphere = ba.Particle(m_Ag, sphere_ff)
-        position = ba.kvector_t(0*ba.nanometer, 0*ba.nanometer,
+        position = ba.kvector_t(0*ba.nm, 0*ba.nm,
                                 -1.0*self.hmdso_thickness.value)
         sphere.setPosition(position)
         ln_distr = ba.DistributionLogNormal(self.radius.value, self.sigma.value)
@@ -62,7 +62,7 @@ class MySampleBuilder(ba.ISampleBuilder):
 
         # interference function
         interference = ba.InterferenceFunctionRadialParaCrystal(
-            self.distance.value, 1e6*ba.nanometer)
+            self.distance.value, 1e6*ba.nm)
         interference.setKappa(self.kappa.value)
         interference.setDomainSize(20000.0)
         pdf = ba.FTDistribution1DGauss(self.disorder.value)
@@ -76,8 +76,8 @@ class MySampleBuilder(ba.ISampleBuilder):
         particle_layout.setTotalParticleSurfaceDensity(1)
 
         # roughness
-        r_ptfe = ba.LayerRoughness(2.3*ba.nanometer, 0.3, 5.0*ba.nanometer)
-        r_hmdso = ba.LayerRoughness(1.1*ba.nanometer, 0.3, 5.0*ba.nanometer)
+        r_ptfe = ba.LayerRoughness(2.3*ba.nm, 0.3, 5.0*ba.nm)
+        r_hmdso = ba.LayerRoughness(1.1*ba.nm, 0.3, 5.0*ba.nm)
 
         # layers
         air_layer = ba.Layer(m_air)

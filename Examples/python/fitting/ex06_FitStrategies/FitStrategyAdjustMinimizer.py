@@ -15,10 +15,10 @@ import matplotlib
 import math
 import random
 import bornagain as ba
-from bornagain import degree, angstrom, nanometer
+from bornagain import deg, angstrom, nm
 
 
-def get_sample(radius=5*nanometer, height=5*nanometer):
+def get_sample(radius=5*nm, height=5*nm):
     """
     Returns a sample with uncorrelated cylinders and pyramids on a substrate.
     """
@@ -47,9 +47,9 @@ def get_simulation():
     Returns a GISAXS simulation with beam and detector defined.
     """
     simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(100, 0.0*degree, 2.0*degree,
-                                     100, 0.0*degree, 2.0*degree)
-    simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
+    simulation.setDetectorParameters(100, 0.0*deg, 2.0*deg,
+                                     100, 0.0*deg, 2.0*deg)
+    simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
     return simulation
 
 
@@ -57,7 +57,7 @@ def create_real_data():
     """
     Generating "real" data by adding noise to the simulated data.
     """
-    sample = get_sample(5.0*nanometer, 5.0*nanometer)
+    sample = get_sample(5.0*nm, 5.0*nm)
 
     simulation = get_simulation()
     simulation.setSample(sample)
@@ -98,9 +98,9 @@ def run_fitting():
     # Here we select starting values being quite far from true values
     # to puzzle our minimizer's as much as possible
     fit_suite.addFitParameter(
-        "*Height", 1.*nanometer, ba.AttLimits.limited(0.01, 30.), 0.04*nanometer)
+        "*Height", 1.*nm, ba.AttLimits.limited(0.01, 30.), 0.04*nm)
     fit_suite.addFitParameter(
-        "*Radius", 20.*nanometer, ba.AttLimits.limited(0.01, 30.), 0.06*nanometer)
+        "*Radius", 20.*nm, ba.AttLimits.limited(0.01, 30.), 0.06*nm)
 
     # Now we create first fig strategy which will run first minimization round
     # using the Genetic minimizer.

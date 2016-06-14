@@ -1,12 +1,12 @@
 """
 In this example we demonstrate how to plot simulation results with
-axes in different units (nbins, mm, degrees and QyQz).
+axes in different units (nbins, mm, degs and QyQz).
 """
 import numpy
 import matplotlib
 from matplotlib import pyplot as plt
 import bornagain as ba
-from bornagain import degree, angstrom, nanometer
+from bornagain import deg, angstrom, nm
 
 detector_distance = 2000.0  # in mm
 pilatus_pixel_size = 0.172  # in mm
@@ -23,7 +23,7 @@ def get_sample():
     m_particle = ba.HomogeneousMaterial("Particle", 6e-4, 2e-8)
 
     # collection of particles
-    cylinder_ff = ba.FormFactorCylinder(5*nanometer, 5*nanometer)
+    cylinder_ff = ba.FormFactorCylinder(5*nm, 5*nm)
     cylinder = ba.Particle(m_particle, cylinder_ff)
     particle_layout = ba.ParticleLayout()
     particle_layout.addParticle(cylinder, 1.0)
@@ -54,7 +54,7 @@ def get_simulation():
     Returns a GISAXS simulation with beam defined
     """
     simulation = ba.GISASSimulation()
-    simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
+    simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
     simulation.setDetector(get_rectangular_detector())
     return simulation
 
@@ -100,7 +100,7 @@ def run_simulation():
 
     plt.subplot(2, 2, 3)
     result = simulation.getIntensityData(ba.IDetector2D.DEGREES)
-    plot_as_colormap(result, "In degrees",
+    plot_as_colormap(result, "In degs",
                      r'$\phi_f ^{\circ}$', r'$\alpha_f ^{\circ}$')
 
     plt.subplot(2, 2, 4)

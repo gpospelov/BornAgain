@@ -10,12 +10,12 @@ import numpy
 import matplotlib
 from matplotlib import pyplot as plt
 import bornagain as ba
-from bornagain import degree, angstrom, nanometer
+from bornagain import deg, angstrom, nm
 
 phi_min, phi_max = -2.0, 2.0
 alpha_min, alpha_max = 0.0, 2.0
-default_cylinder_radius = 10*nanometer
-default_cylinder_height = 20*nanometer
+default_cylinder_radius = 10*nm
+default_cylinder_height = 20*nm
 
 
 def get_sample(cylinder_radius, cylinder_height):
@@ -50,8 +50,8 @@ def get_simulation(integration_flag):
     """
     simulation = ba.GISASSimulation()
     simulation.setDetectorParameters(
-        200, phi_min*degree, phi_max*degree, 200, alpha_min*degree, alpha_max*degree)
-    simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
+        200, phi_min*deg, phi_max*deg, 200, alpha_min*deg, alpha_max*deg)
+    simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
     simulation.getOptions().setMonteCarloIntegration(integration_flag, 50)
 
     return simulation
@@ -95,8 +95,8 @@ for small and large cylinders, with and without integration
         im = plt.imshow(
             result.getArray(),
             norm=matplotlib.colors.LogNorm(1.0, result.getMaximum()),
-            extent=[result.getXmin()/degree, result.getXmax()/degree,
-                    result.getYmin()/degree, result.getYmax()/degree],
+            extent=[result.getXmin()/deg, result.getXmax()/deg,
+                    result.getYmin()/deg, result.getYmax()/deg],
             aspect='auto')
         cb = plt.colorbar(im)
         cb.set_label(r'Intensity (arb. u.)', size=16)

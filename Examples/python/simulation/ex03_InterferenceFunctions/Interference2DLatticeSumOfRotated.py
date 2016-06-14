@@ -3,7 +3,7 @@ import numpy
 import matplotlib
 from matplotlib import pyplot as plt
 import bornagain as ba
-from bornagain import degree, angstrom, nanometer
+from bornagain import deg, angstrom, nm
 
 phi_min, phi_max = 0.0, 2.0
 alpha_min, alpha_max = 0.0, 2.0
@@ -22,13 +22,13 @@ def get_sample(xi_value):
     substrate_layer = ba.Layer(m_substrate)
 
     p_interference_function = ba.InterferenceFunction2DLattice.createSquare(
-        25.0*nanometer, xi_value)
-    pdf = ba.FTDecayFunction2DCauchy(300.0*nanometer/2.0/numpy.pi,
-                                     100.0*nanometer/2.0/numpy.pi)
+        25.0*nm, xi_value)
+    pdf = ba.FTDecayFunction2DCauchy(300.0*nm/2.0/numpy.pi,
+                                     100.0*nm/2.0/numpy.pi)
     p_interference_function.setDecayFunction(pdf)
 
     particle_layout = ba.ParticleLayout()
-    ff_cyl = ba.FormFactorCylinder(3.0*nanometer, 3.0*nanometer)
+    ff_cyl = ba.FormFactorCylinder(3.0*nm, 3.0*nm)
     position = ba.kvector_t(0.0, 0.0, 0.0)
     cylinder = ba.Particle(m_particle, ff_cyl.clone())
     cylinder.setPosition(position)
@@ -48,9 +48,9 @@ def get_simulation():
     Returns a GISAXS simulation with beam and detector defined
     """
     simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(100, phi_min*degree, phi_max*degree,
-                                     100, alpha_min*degree, alpha_max*degree)
-    simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
+    simulation.setDetectorParameters(100, phi_min*deg, phi_max*deg,
+                                     100, alpha_min*deg, alpha_max*deg)
+    simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
     return simulation
 
 
@@ -65,8 +65,8 @@ def run_simulation():
 
     OutputData_total = simulation.getIntensityData()
     nbins = 3
-    xi_min = 0.0*degree
-    xi_max = 240.0*degree
+    xi_min = 0.0*deg
+    xi_max = 240.0*deg
     total_weight = 0.0
     xi_distr = ba.DistributionGate(xi_min, xi_max)
     xi_samples = xi_distr.generateValueList(nbins, 0.0)
@@ -89,8 +89,8 @@ def run_simulation():
     im = plt.imshow(
         result.getArray(),
         norm=matplotlib.colors.LogNorm(1.0, result.getMaximum()),
-        extent=[result.getXmin()/degree, result.getXmax()/degree,
-                result.getYmin()/degree, result.getYmax()/degree],
+        extent=[result.getXmin()/deg, result.getXmax()/deg,
+                result.getYmin()/deg, result.getYmax()/deg],
         aspect='auto')
     cb = plt.colorbar(im)
     cb.set_label(r'Intensity (arb. u.)', size=16)

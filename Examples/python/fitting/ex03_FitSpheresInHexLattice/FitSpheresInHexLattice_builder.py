@@ -7,7 +7,7 @@ import math
 import random
 import ctypes
 import bornagain as ba
-from bornagain import degree, angstrom, nanometer
+from bornagain import deg, angstrom, nm
 
 
 class MySampleBuilder(ISampleBuilder):
@@ -22,8 +22,8 @@ class MySampleBuilder(ISampleBuilder):
         ISampleBuilder.__init__(self)
         self.sample = None
         # parameters describing the sample
-        self.radius = ctypes.c_double(5.0*nanometer)
-        self.lattice_constant = ctypes.c_double(10.0*nanometer)
+        self.radius = ctypes.c_double(5.0*nm)
+        self.lattice_constant = ctypes.c_double(10.0*nm)
         # register parameters
         self.registerParameter("radius", ctypes.addressof(self.radius))
         self.registerParameter("lattice_constant",
@@ -42,7 +42,7 @@ class MySampleBuilder(ISampleBuilder):
 
         interference = ba.InterferenceFunction2DLattice.createHexagonal(
             self.lattice_constant.value)
-        pdf = ba.FTDecayFunction2DCauchy(10*nanometer, 10*nanometer)
+        pdf = ba.FTDecayFunction2DCauchy(10*nm, 10*nm)
         interference.setDecayFunction(pdf)
 
         particle_layout.addInterferenceFunction(interference)
@@ -62,9 +62,9 @@ def get_simulation():
     Returns a GISAXS simulation with beam and detector defined.
     """
     simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(100, -1.0*degree, 1.0*degree,
-                                     100, 0.0*degree, 2.0*degree)
-    simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
+    simulation.setDetectorParameters(100, -1.0*deg, 1.0*deg,
+                                     100, 0.0*deg, 2.0*deg)
+    simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
 
     return simulation
 
@@ -74,8 +74,8 @@ def create_real_data():
     Generating "real" data by adding noise to the simulated data.
     """
     sample_builder = MySampleBuilder()
-    sample_builder.setParameterValue("radius", 5.0*nanometer)
-    sample_builder.setParameterValue("lattice_constant", 10.0*nanometer)
+    sample_builder.setParameterValue("radius", 5.0*nm)
+    sample_builder.setParameterValue("lattice_constant", 10.0*nm)
 
     simulation = get_simulation()
     simulation.setSampleBuilder(sample_builder)
@@ -114,9 +114,9 @@ def run_fitting():
     fit_suite.attachObserver(draw_observer)
 
     # setting fitting parameters with starting values
-    fit_suite.addFitParameter("*radius", 8.*nanometer, ba.AttLimits.limited(4., 12.))
+    fit_suite.addFitParameter("*radius", 8.*nm, ba.AttLimits.limited(4., 12.))
     fit_suite.addFitParameter("*lattice_constant",
-                              8.*nanometer, ba.AttLimits.limited(4., 12.))
+                              8.*nm, ba.AttLimits.limited(4., 12.))
 
     # running fit
     fit_suite.runFit()

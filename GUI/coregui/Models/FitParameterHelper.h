@@ -19,6 +19,7 @@
 
 #include "WinDllMacros.h"
 #include <QMap>
+#include <QStringList>
 
 class ParameterItem;
 class FitParameterItem;

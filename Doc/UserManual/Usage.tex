@@ -41,7 +41,7 @@ In the following, we describe how to write a
 \Code{Python} script which runs a \BornAgain\ simulation. For tutorials about this programming language, the users are referred to \cite{Lut09}.
 
 
-% More information about the general software architecture and \BornAgain\ internal design are given in Sec.~\ref{sec:SoftwareArchitecture}.
+% More information about the general software architecture and \BornAgain\ internal design are given in \cref{sec:SoftwareArchitecture}.
 
 
 %===============================================================================
@@ -173,7 +173,7 @@ where $F_j$ is the form factor associated with the particle of type $j$.  The wa
 interfere imposes the horizontal distribution of
 the particles as
 the interference reflects the long or short-range order of the
-particles distribution (see  Sec.~\ref{sec:sect:interf}). On the contrary, the vertical position is
+particles distribution (see  \cref{sec:sect:interf}). On the contrary, the vertical position is
 imposed when we add the particles in a given layer by parameter \Code{depth}, as shown in lines~\ref{particlesdecor2} and \ref{particlesdecor3}.
 
 %-------------------------------------------------------------------------------
@@ -353,7 +353,7 @@ their optima.
 
 In \BornAgain\ this is done using the so-called sample parameter pool
 mechanism. We are going to briefly explain this approach using the example
-of Sec.~\ref{sec:Example1Python}.
+of \cref{sec:Example1Python}.
 
 In \BornAgain\ a sample is described by a hierarchical tree of objects.
 For the multilayer created in the previous section this tree can be graphically
@@ -526,18 +526,18 @@ fit the numerical model to reference data by modifying a selection of
 sample parameters from the numerical model.  This aspect
 of the software is discussed in the current chapter.
 
-%Sec.~\ref{sec:FittingGentleIntroducion} gives a short introduction to the
+%\cref{sec:FittingGentleIntroducion} gives a short introduction to the
 %basic concepts of data fitting. Users familiar with fitting can
-%directly proceed to Sec.~\ref{sec:FittingImplementation}, which details the
+%directly proceed to \cref{sec:FittingImplementation}, which details the
 %implementation of fittings in
 %\BornAgain\ .
-Sec.~\ref{sec:FittingImplementation} details the
+\cref{sec:FittingImplementation} details the
 implementation of fittings in \BornAgain\ .
 \Python\ fitting examples with detailed
-explanations of every fitting step are given in Sec.~\ref{sec:FittingExamples}. Advanced fitting techniques, including fine tuning of minimization
+explanations of every fitting step are given in \cref{sec:FittingExamples}. Advanced fitting techniques, including fine tuning of minimization
 algorithms, simultaneous fits of different data sets, parameters
 correlation, are covered in
-Sec.~\ref{sec:FittingAdvanced}. Sec.~\ref{sec:FittingRightAnswers} contains some practical advice, which might
+\cref{sec:FittingAdvanced}. \cref{sec:FittingRightAnswers} contains some practical advice, which might
 help the user to get right answers from \BornAgain\ fitting.
 
 
@@ -603,14 +603,14 @@ After the control is returned, fitting results can be retrieved.
 They consist in the best $\chi^2$ value found, the corresponding
 optimal sample parameters and the intensity map simulated with this set of parameters.
 
-%Details of \Code{FitSuite} class implementation and description of each interface are given in Sec.~\ref{sec:FitSuiteClass}.
+%Details of \Code{FitSuite} class implementation and description of each interface are given in \cref{sec:FitSuiteClass}.
 The following parts of this section will detail each of
 the main stages necessary to run a fitting procedure.
 
 
 \subsubsection{Preparing the sample and the simulation description}
 
-This step is similar for any simulation using \BornAgain\ (see Sec.~\ref{sec:Simulation}). It consists in first characterizing  the geometry of the system: the particles
+This step is similar for any simulation using \BornAgain\ (see \cref{sec:Simulation}). It consists in first characterizing  the geometry of the system: the particles
 (shapes, sizes, refractive
 indices), the different layers (thickness,
 order, refractive index, a possible roughness of the interface), the
@@ -631,7 +631,7 @@ heights, radii or the layer's roughness or thickness could be selected
 using the
 parameter pool mechanism.
 This mechanism is explained in detail in
-Sec.~\ref{sec:WorkingWithSampleParameters} and it is therefore recommended
+\cref{sec:WorkingWithSampleParameters} and it is therefore recommended
 to read it before proceeding any further.
 
 The user specifies selected sample parameters as fit parameters using \Code{FitSuite}
@@ -643,7 +643,7 @@ fit_suite.addFitParameter(<name>, <initial value>, <step>, <limits>)
 where \Code{<name>} corresponds to the parameter name in the sample's parameter pool.
 By using wildcards in the parameter name, a group of sample parameters, corresponding to the given
 pattern, can be associated with a single fitting parameter and
-fitted simultaneously to get a common optimal value (see Sec.~\ref{sec:WorkingWithSampleParameters}).
+fitted simultaneously to get a common optimal value (see \cref{sec:WorkingWithSampleParameters}).
 
 The second parameter \Code <initial value> correspond to the initial value of
 the fitting parameter, while the third one
@@ -701,7 +701,7 @@ some combined data sets are performed.
 
 By using the third parameter, \Code{<chi2\_module>}, different normalizations and weights
 can be applied to give user full control of the way $\chi^2$ is calculated.
-This feature will be explained in Sec.~\ref{sec:FittingAdvanced}.
+This feature will be explained in \cref{sec:FittingAdvanced}.
 
 
 %===============================================================================
@@ -798,7 +798,7 @@ namely the maximum number of times the minimizer is allowed to call the simulati
 
 There are also expert-level options common for all minimizers as well
 as a number of options to tune individual minimization algorithms.
-They will be explained in Sec.~\ref{sec:FittingAdvanced}.
+They will be explained in \cref{sec:FittingAdvanced}.
 
 
 %===============================================================================
@@ -817,7 +817,7 @@ be printed on the screen using the command
 \begin{lstlisting}[language=python, style=eclipseboxed, numbers = none]
 fit_suite.printResults()
 \end{lstlisting}
-Sec.~\ref{sec:FittingExamples} gives more details about how to access the fitting results.
+\cref{sec:FittingExamples} gives more details about how to access the fitting results.
 
 
 %===============================================================================
@@ -835,7 +835,7 @@ The script can also be found at
 \end{lstlisting}
 
 \noindent
-This example uses the same sample geometry as in Sec.~\ref{sec:Example1Python}.
+This example uses the same sample geometry as in \cref{sec:Example1Python}.
 Cylindrical and
 prismatic particles in equal proportion are deposited on a substrate layer, with no interference
 between the particles. We consider the following parameters to be unkown
@@ -906,7 +906,7 @@ def get_sample(): @\label{script2::get_sample}@
 \end{lstlisting}
 The function starting at line~\ref{script2::get_sample} creates a multilayered sample
 with cylinders and prisms using arbitrary $1\,{\rm nm}$ value for all size's of particles.
-The details about the generation of this multilayered sample are given in Sec.~\ref{sec:Example1Python}.
+The details about the generation of this multilayered sample are given in \cref{sec:Example1Python}.
 
 %-------------------------------------------------------------------------------
 \subsubsection*{Creating the simulation}
@@ -1026,7 +1026,7 @@ following detailed example
   \label{sec:FittingRightAnswers}
 %===============================================================================
 
-%As it has already been mentioned in Sec.~\ref{sec:FittingGentleIntroducion},
+%As it has already been mentioned in \cref{sec:FittingGentleIntroducion},
 One of the main difficulties in fitting the data with the model
 is the presence of multiple
 local minima in the objective function. Many problems can cause the

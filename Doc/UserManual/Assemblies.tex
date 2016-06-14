@@ -41,7 +41,7 @@ In the following, all such inhomogeneities will be described as
 Therefore, for the moment we refer to the \IsGISAXS\ manual \cite{Laz08}.}
 
 %\iffalse
-Our derivation of the DWBA (Sec.~\ref{Sdwba}) has shown
+Our derivation of the DWBA (\cref{Sdwba}) has shown
 that the distinction between refraction and reflection on the one hand
 and scattering on the other hand is not a fundamental one,
 but to a certain degree arbitrary:
@@ -387,14 +387,14 @@ it describes the incoherent average of
 scattering from different coherence domains.
 In \BornAgain,
 it can be emulated by averaging over different simulated GISAS images
-(as described in Sec.~\ref{Scoherlen}),
+(as described in \cref{Scoherlen}),
 or by attaching different \texttt{ParticleLayout}s to a \texttt{Layer}.
 The SSCA is an alternative to the R-T decoupling approximation.
 In \IsGISAXS, and similarly in \BornAgain,
 it is only available for paracrystals
 % TODO RESTORE TEMPORARILY REMOVED XREF
 (to be documented later).
-% and will therefore be discussed later (Sec.~\ref{}).
+% and will therefore be discussed later (\cref{}).
 }
 %\fi
 
@@ -1209,7 +1209,7 @@ def get_sample():
 
 This section describes the implementation of the interference functions in \BornAgain.
 For an implementation of all the components of a simulation,
-the use is referred, for example, to Sec.~\ref{sec:Example1Python}.\\
+the use is referred, for example, to \cref{sec:Example1Python}.\\
 
 
 \Note{In \BornAgain\ the particles are positioned in the same vertical layer.}
@@ -1467,7 +1467,7 @@ where ($L_1$, $L_2$, $\alpha$, $\xi$) are shown in figure~\ref{fig:2dlattice} wi
 \label{fig:2dlattice}
 \end{figure}
 
-Like for the one-dimensional case, a probability distribution function \Code{pdf} has to be defined. One can choose between those listed in Sec.~\ref{baftd} and implements it using \Code{setProbabilityDistribution(pdf)}.
+Like for the one-dimensional case, a probability distribution function \Code{pdf} has to be defined. One can choose between those listed in \cref{baftd} and implements it using \Code{setProbabilityDistribution(pdf)}.
 
 \paragraph{Example} The sample used to run the simulation is made of half-spheres deposited on a substrate. The interference function is "2Dlattice" and the particles are located at the nodes of a square lattice with $L_1=L_2=20$~nm, $\v{a}\equiv \v{b}$ and the probability distribution function is Gaussian. We also use the Decoupling Approximation.
 

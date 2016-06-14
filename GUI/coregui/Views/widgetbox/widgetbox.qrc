@@ -12,7 +12,6 @@
         <file>images/ff_fullsphere_32.png</file>
         <file>images/ff_fullspheroid_32.png</file>
         <file>images/ff_hemiellipsoid_32.png</file>
-        <file>images/ff_icosahedron_32.png</file>
         <file>images/ff_prism3_32.png</file>
         <file>images/ff_prism6_32.png</file>
         <file>images/ff_pyramid_32.png</file>
@@ -34,5 +33,6 @@
         <file>images/ff_trunccube_32.png</file>
         <file>images/Lattice1D.png</file>
         <file>images/sample_layers2.png</file>
+        <file>images/ff_icosahedron_32.png</file>
     </qresource>
 </RCC>

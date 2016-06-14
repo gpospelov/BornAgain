@@ -16,5 +16,5 @@ set(list_of_tests
 
 foreach(_test ${list_of_tests})
     #add_test(${_test} ${PYTHON_EXECUTABLE} "${CMAKE_CURRENT_SOURCE_DIR}/${_test}")
-    add_test(${_test} ${PYTHON_EXECUTABLE} "${CMAKE_BINARY_DIR}/Tests/Functional/TestPyFit/${_test}")
+    add_test(${_test} ${PYTHON_EXECUTABLE} "${CMAKE_BINARY_DIR}/Tests/Functional/PyFit/${_test}")
 endforeach()

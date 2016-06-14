@@ -6,11 +6,11 @@ execute_process( COMMAND ${CMAKE_COMMAND} -E copy_directory
     ${CMAKE_SOURCE_DIR}/Tests/ReferenceData/BornAgain
     ${CMAKE_BINARY_DIR}/Tests/ReferenceData/BornAgain )
 execute_process( COMMAND ${CMAKE_COMMAND} -E copy_directory
-    ${CMAKE_SOURCE_DIR}/Tests/Functional/TestPyCore
-    ${CMAKE_BINARY_DIR}/Tests/Functional/TestPyCore )
+    ${CMAKE_SOURCE_DIR}/Tests/Functional/PyCore/scripts
+    ${CMAKE_BINARY_DIR}/Tests/Functional/PyCore/scripts )
 execute_process( COMMAND ${CMAKE_COMMAND} -E copy_directory
-    ${CMAKE_SOURCE_DIR}/Tests/Functional/TestPyFit
-    ${CMAKE_BINARY_DIR}/Tests/Functional/TestPyFit )
+    ${CMAKE_SOURCE_DIR}/Tests/Functional/PyFit
+    ${CMAKE_BINARY_DIR}/Tests/Functional/PyFit )
 
 add_subdirectory(Core)
 add_subdirectory(Fit)

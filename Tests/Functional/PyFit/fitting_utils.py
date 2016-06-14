@@ -3,8 +3,7 @@ import os
 from __future__ import print_function
 
 sys.path.append(os.path.abspath(
-                os.path.join(os.path.split(__file__)[0],
-                '..', '..', '..', 'lib')))
+                os.path.join(os.path.split(__file__)[0], '..', '..', '..', 'lib')))
 
 from libBornAgainCore import *
 from libBornAgainFit import *
@@ -73,11 +72,13 @@ def print_fit_results(fit_suite):
     fitpars = fit_suite.getFitParameters()
     refpars = getReferenceParameters()
     print("-"*30)
-    print("RealTime  :", fit_suite.getMinimizer().getMinimizerName(), fit_suite.getMinimizer().getAlgorithmName())
+    print("RealTime  :", fit_suite.getMinimizer().getMinimizerName(),
+          fit_suite.getMinimizer().getAlgorithmName())
     print("RealTime  : {0:.3f} sec".format(fit_suite.getRunTime()))
     print("NCalls    : {0:<5d}".format(fit_suite.getNCalls()))
     for i in range(0, fitpars.size()):
-        print('par{0:2d}     : {1:.4f} ({2:.3g}) '.format(i, fitpars[0].getValue(), fitpars[i].getValue() - refpars[i]))
+        print('par{0:2d}     : {1:.4f} ({2:.3g}) '.format(
+            i, fitpars[0].getValue(), fitpars[i].getValue() - refpars[i]))
 
 
 def run_fit_suite(minimizer, algorithm=""):

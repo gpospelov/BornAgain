@@ -44,7 +44,8 @@ def get_reference_data(filename):
     path = os.path.split(__file__)[0]
     if path:
         path += "/"
-    return IntensityDataIOFactory.readIntensityData(path+'../../ReferenceData/BornAgain/'+filename)
+    return IntensityDataIOFactory.readIntensityData(
+        path+'../../../ReferenceData/BornAgain/'+filename)
 
 
 def get_simulation_MiniGISAS(sample = None):

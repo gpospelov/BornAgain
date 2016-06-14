@@ -57,8 +57,8 @@ include_directories(
     ${GSL_INCLUDE_DIR}
 )
 
-add_executable(PyDump PyDump.cpp)
-target_link_libraries(PyDump BornAgainCore)
+add_executable(PySuite PySuite.cpp)
+target_link_libraries(PySuite BornAgainCore)
 foreach(test_case ${test_cases})
-    add_test(PyDump/${test_case} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/PyDump ${test_case})
+    add_test(PySuite/${test_case} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/PySuite ${test_case})
 endforeach()

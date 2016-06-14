@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/TestPyDump/PyDump.cpp
-//! @brief     Implements program PySuite, to run pyscript functional tests
+//! @file      Tests/Functional/PyCore/suite/PySuite.cpp
+//! @brief     Implements program PySuite, to run functional tests
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -15,17 +15,17 @@
 
 #include "FutestSuite.h"
 #include "FutestRegistry.h"
-#include "PyScriptFutest.h"
+#include "PySuiteFutest.h"
 
 class PySuite : public FutestSuite, public ISingleton<PySuite>
 {
 public:
     PySuite() { setName("PySuite"); }
-    IFutest* getFutest() const { return new PyScriptFutest(
+    IFutest* getFutest() const { return new PySuiteFutest(
             getTestName(), getTestDescription(), getSimulation(), getTestThreshold()); }
 };
 
-//! The main function of PyTestSuite, to run functional tests
+//! The main function of PySuite, to run functional tests
 int main(int argc, char** argv)
 {
     return PySuite::instance().execute(argc, argv);

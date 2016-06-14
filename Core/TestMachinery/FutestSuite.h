@@ -28,7 +28,7 @@
 //! @class FutestSuite
 //! @brief To execute one functional test of given name.
 
-//! Used in functional tests (Core|Pydump|GUI)Suite, where it is subclassed
+//! Used in functional tests (Core|Py|GUI)Suite, where it is subclassed
 //! as a singleton, and called through instance().execute(argc, argv).
 
 //! When processing execute, dependent classes will call back getFutest().
@@ -42,7 +42,7 @@ public:
 
     int execute(int argc, char** argv);
 
-    virtual class IFutest* getFutest() const = 0; //!< overloaded in (Core|Pydump|GUI)Suite.cpp
+    virtual class IFutest* getFutest() const = 0; //!< overloaded in (Core|Py|GUI)Suite.cpp
     virtual class IFormFactor* getFormFactor() const;
     virtual class IFTDistribution2D* getFTDistribution2D() const;
 

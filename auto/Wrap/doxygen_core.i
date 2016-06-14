@@ -4363,7 +4363,7 @@ C++ includes: FutestRegistry.h
 
 To execute one functional test of given name.
 
-Used in functional tests (Core|Pydump|GUI)Suite, where it is subclassed as a singleton, and called through instance().execute(argc, argv). When processing execute, dependent classes will call back  getFutest(). Certain tests have subtests; they will call back  getFormFactor() etc.
+Used in functional tests (Core|Py|GUI)Suite, where it is subclassed as a singleton, and called through instance().execute(argc, argv). When processing execute, dependent classes will call back  getFutest(). Certain tests have subtests; they will call back  getFormFactor() etc.
 
 C++ includes: FutestSuite.h
 ";
@@ -4381,7 +4381,7 @@ Runs test (name given as command-line argument), and returns 0 for SUCCESS, or e
 
 %feature("docstring")  FutestSuite::getFutest "virtual class IFutest* FutestSuite::getFutest() const =0
 
-overloaded in (Core|Pydump|GUI)Suite.cpp 
+overloaded in (Core|Py|GUI)Suite.cpp 
 ";
 
 %feature("docstring")  FutestSuite::getFormFactor "IFormFactor * FutestSuite::getFormFactor() const
@@ -10831,33 +10831,33 @@ finalize report to the simulation
 ";
 
 
-// File: classPyScriptFutest.xml
-%feature("docstring") PyScriptFutest "
+// File: classPySuiteFutest.xml
+%feature("docstring") PySuiteFutest "
 
 Test whether Python dumps yields the same image as a direct computation.
 
-C++ includes: PyScriptFutest.h
+C++ includes: PySuiteFutest.h
 ";
 
-%feature("docstring")  PyScriptFutest::PyScriptFutest "PyScriptFutest::PyScriptFutest(const std::string &name, const std::string &description, GISASSimulation *reference_simulation, double threshold)
+%feature("docstring")  PySuiteFutest::PySuiteFutest "PySuiteFutest::PySuiteFutest(const std::string &name, const std::string &description, GISASSimulation *reference_simulation, double threshold)
 ";
 
-%feature("docstring")  PyScriptFutest::~PyScriptFutest "PyScriptFutest::~PyScriptFutest()
+%feature("docstring")  PySuiteFutest::~PySuiteFutest "PySuiteFutest::~PySuiteFutest()
 ";
 
-%feature("docstring")  PyScriptFutest::runTest "void PyScriptFutest::runTest()
+%feature("docstring")  PySuiteFutest::runTest "void PySuiteFutest::runTest()
 ";
 
-%feature("docstring")  PyScriptFutest::analyseResults "int PyScriptFutest::analyseResults()
+%feature("docstring")  PySuiteFutest::analyseResults "int PySuiteFutest::analyseResults()
 ";
 
-%feature("docstring")  PyScriptFutest::getOutputData "const OutputData<double>* PyScriptFutest::getOutputData() const 
+%feature("docstring")  PySuiteFutest::getOutputData "const OutputData<double>* PySuiteFutest::getOutputData() const 
 ";
 
-%feature("docstring")  PyScriptFutest::getDifference "double PyScriptFutest::getDifference() const 
+%feature("docstring")  PySuiteFutest::getDifference "double PySuiteFutest::getDifference() const 
 ";
 
-%feature("docstring")  PyScriptFutest::printResults "void PyScriptFutest::printResults(std::ostream &ostr) const 
+%feature("docstring")  PySuiteFutest::printResults "void PySuiteFutest::printResults(std::ostream &ostr) const 
 ";
 
 
@@ -14848,10 +14848,10 @@ build<C> is a function void -> ISampleBuilder*. C must be a child of  ISampleBui
 // File: IRegistry_8h.xml
 
 
-// File: PyScriptFutest_8cpp.xml
+// File: PySuiteFutest_8cpp.xml
 
 
-// File: PyScriptFutest_8h.xml
+// File: PySuiteFutest_8h.xml
 
 
 // File: SubtestRegistry_8cpp.xml

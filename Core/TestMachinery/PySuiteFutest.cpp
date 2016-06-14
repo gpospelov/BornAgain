@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/TestMachinery/PyScriptFutest.cpp
-//! @brief     Implements class PyScriptFutest
+//! @file      Core/TestMachinery/PySuiteFutest.cpp
+//! @brief     Implements class PySuiteFutest
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -25,13 +25,13 @@
 #include "BAPython.h"
 #include "FileSystem.h"
 #include "Utils.h"
-#include "PyScriptFutest.h"
+#include "PySuiteFutest.h"
 
 namespace {
 const std::string directory_name_for_failed_tests = "00_failed_tests";
 }
 
-PyScriptFutest::PyScriptFutest(
+PySuiteFutest::PySuiteFutest(
     const std::string& name, const std::string& description,
     GISASSimulation* reference_simulation, double threshold)
     : IFutest(name, description)
@@ -44,13 +44,13 @@ PyScriptFutest::PyScriptFutest(
 {
 }
 
-PyScriptFutest::~PyScriptFutest()
+PySuiteFutest::~PySuiteFutest()
 {
     delete m_reference_simulation;
     delete m_domain_simulation;
 }
 
-void PyScriptFutest::runTest()
+void PySuiteFutest::runTest()
 {
     assert(m_reference_simulation);
     m_reference_simulation->runSimulation();
@@ -76,7 +76,7 @@ void PyScriptFutest::runTest()
     (void)script_result; // ignore return value
 }
 
-int PyScriptFutest::analyseResults()
+int PySuiteFutest::analyseResults()
 {
     const std::unique_ptr<OutputData<double> > P_domain_data(
         IntensityDataIOFactory::readOutputData(m_output_filename+".int"));
@@ -87,20 +87,20 @@ int PyScriptFutest::analyseResults()
     if (m_result != SUCCESS) {
         // Move failed Python script to failed tests directory
         Utils::FileSystem::CreateDirectory(directory_name_for_failed_tests);
-        std::rename( m_pyscript_filename.c_str(), getPyScriptFileNameAndPath().c_str());
+        std::rename( m_pyscript_filename.c_str(), getPySuiteFileNameAndPath().c_str());
     }
     return m_result;
 }
 
-void PyScriptFutest::printResults(std::ostream& ostr) const
+void PySuiteFutest::printResults(std::ostream& ostr) const
 {
     ostr << getFormattedInfoString();
     ostr << Utils::String::getScientificDoubleString(m_difference);
     if (m_result != SUCCESS)
-        ostr << "--> " << getPyScriptFileNameAndPath();
+        ostr << "--> " << getPySuiteFileNameAndPath();
 }
 
-std::string PyScriptFutest::getPyScriptFileNameAndPath() const
+std::string PySuiteFutest::getPySuiteFileNameAndPath() const
 {
     std::string result
         = Utils::FileSystem::GetJoinPath(directory_name_for_failed_tests, m_pyscript_filename);

@@ -104,7 +104,7 @@ by perturbative scattering theory.
 Instead, we need to deal with refraction and reflection
 at the level of the wave propagation equation.
 We move the vertical variations of the squared refractive index
-to the left-hand side of the Schrödinger equation~(\ref{EnSchrodi}),
+to the left-hand side of the Schrödinger equation~\cref{EnSchrodi},
 \begin{equation}\label{EHelmholtzGraded}
   \left\{\Nabla^2+K^2\nz(z)\right\}\psi(\r)
   = 4\pi \chi(\r) \psi(\r),
@@ -112,7 +112,7 @@ to the left-hand side of the Schrödinger equation~(\ref{EnSchrodi}),
 \nomenclature[2z020]{$z$}{Vertical coordinate, along the sample normal}%
 \nomenclature[2n030 2z020]{$\nz(z)$}{Refractive index, horizontally averaged}%
 where the overline indicates an horizontal average.
-Deviating from (\ref{EChiDef}),
+Deviating from \cref{EChiDef},
 the perturbation has been redefined as
 \begin{equation}\label{EChiGraded}
   \chi(\r) \coloneqq  \frac{K^2}{4\pi}\left(\nz(z)-n^2(\r)\right),
@@ -160,7 +160,7 @@ and an upward travelling component $\phi^+(z)$.
 For a graded refractive index
 \index{Refractive index!graded}%
 $\nz$ that is a smooth function of~$z$,
-the differential equation~(\ref{Ewavez}) is best solved
+the differential equation~\cref{Ewavez} is best solved
 using the WKB method.\footnote
 {Also called \E{semiclassical approximation} or
 \E{phase integral method},
@@ -202,12 +202,12 @@ the quantum-mechanical sign convention;
 in the X-ray crystallography convention it would be a minus sign.
 \index{Sign convention}%
 
-The factorization ansatz (\ref{Ekpar}) leaves us some freedom
+The factorization ansatz \cref{Ekpar} leaves us some freedom
 how to deal with an imaginary part of~$n$.
 We \E{choose} that horizontal wavevectors~$\k_\parallel$
 shall always be real.
 The damping then appears in the vertical wavefunction~$\phi(z)$
-that is governed by the complex wave equation (\ref{Ewavez}).
+that is governed by the complex wave equation \cref{Ewavez}.
 
 \index{Absorption|)}%
 
@@ -221,7 +221,7 @@ that is governed by the complex wave equation (\ref{Ewavez}).
 The standard form of the Born approximation,
 as presented in \cref{SBornApprox},
 combines an approximation scheme
-(computing (\ref{EPsiFormal}) by iteration)
+(computing \cref{EPsiFormal} by iteration)
 with an assumption (the incident field is a plane wave)
 and an analytic result
 (in far-field approximation,
@@ -247,7 +247,7 @@ To carry out this idea, we need to determine the Green function~$G$.
 In \cref{SBornExpans} we did so quite specifically
 for a homogeneous material.
 Computing~$G$ in closed form for a more generic wave equation
-like~(\ref{EHelmholtzGradedHomog}) is far more difficult,
+like~\cref{EHelmholtzGradedHomog} is far more difficult,
 if not outright impossible.
 Fortunately, this computation is not necessary,
 and would be but wasted effort:
@@ -255,7 +255,7 @@ We do not need the full solution~$G(\r,\r')$,
 but only its asymptotic far-field value $G(\rD,\r')$
 at a detector position $\rD$.
 \nomenclature[2r041 2d100]{$\rD$}{Position of the detector}%
-Thanks to a \E{source-detector reciprocity theorem}~(\ref{Ereci})
+Thanks to a \E{source-detector reciprocity theorem}~\cref{Ereci}
 \index{Reciprocity}%
 proven in Appendix~\ref{Sreci1},
 we can compute this value
@@ -269,8 +269,8 @@ that describes backward propagation from $\rD$ into the sample.
 
 Outside the sample,
 $B$ obeys the Helmholtz equation
-with isolated inhomogeneity (\ref{EHelmholtzForGreen}),
-and therefore has the far-field expansion~(\ref{EGreenFar}),
+with isolated inhomogeneity \cref{EHelmholtzForGreen},
+and therefore has the far-field expansion~\cref{EGreenFar},
 \index{Far-field approximation}%
 \begin{equation}\label{EBFar}
   B_\text{far}(\r,\rD)
@@ -280,25 +280,25 @@ When this backward propagating plane waves impinges on the sample,
 it undergoes reflection and refraction in exactly the same way as
 the incident plane wave $\e^{i\k_\ti\r}$.
 Therefore,
- (\ref{EBFar}) admits a generalization that also holds inside the sample:
+ \cref{EBFar} admits a generalization that also holds inside the sample:
 \begin{equation}\label{EBFull}
   B_\text{far}(\r,\rD)
   = \frac{\e^{iKr_\text{D}}}{4\pi r_\text{D}}\psi^*_\tf(\r).
 \end{equation}
-Applying now the reciprocity theorem (\ref{EreciDup}),
+Applying now the reciprocity theorem \cref{EreciDup},
 we obtain
 \begin{equation}\label{EGreenFarDWBA}
   G_\text{far}(\r,\r')
   = \frac{\e^{iKr}}{4\pi r}\psi^*_\tf(\r')
 \end{equation}
-which agrees literally with (\ref{EGreenFar}),
+which agrees literally with \cref{EGreenFar},
 though $\psi_\tf$ is not any longer a plane wave.
 Accordingly,
-the scattered far-field is still given by (\ref{EsandwichC}),
-and the differential cross section by (\ref{Exsection}).
+the scattered far-field is still given by \cref{EsandwichC},
+and the differential cross section by \cref{Exsection}.
 We only need to redetermine the matrix element
 $\bra \psi_\ti|\chi|\psi_\tf\ket$,
-which no longer has the plane-wave form~(\ref{Echiq}).
+which no longer has the plane-wave form~\cref{Echiq}.
 
 Since both the incident
 and the scattered distorted wavefunction
@@ -335,8 +335,8 @@ for small-angle scattering under grazing incidence,
 and is the base for all scattering models implemented in \BornAgain.
 Since $\bra \psi_\ti|\chi|\psi_\tf\ket$
 appears as a squared modulus
-in the differential cross section~(\ref{Exsection}),
-the four terms of (\ref{Edwba}) can interfere with each other,
+in the differential cross section~\cref{Exsection},
+the four terms of \cref{Edwba} can interfere with each other,
 which adds to the complexity of GISAS patterns.
 
 \index{Distorted-wave Born approximation|)}%
@@ -349,7 +349,7 @@ which adds to the complexity of GISAS patterns.
 
 \index{Coherence length|(}%
 The matrix elements $\bra \psi^\pm_\ti|\chi|\psi^\pm_\tf\ket$
-are given by three-dimensional integrals~(\ref{Etrama}),
+are given by three-dimensional integrals~\cref{Etrama},
 \begin{equation}\label{Etrama3}
   \bra \psi_\ti^\pm|\chi|\psi_\tf^\pm\ket
   \coloneqq  \int\!\d^3r\, \psi^{\pm*}_\ti(\r)\chi(\r)\psi^\pm_\tf(\r).

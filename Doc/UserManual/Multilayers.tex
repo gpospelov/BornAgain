@@ -73,7 +73,7 @@ A vacuum plane wave, impinging on a layered structure,
 is at each interface partly reflected, partly refracted,
 so that the wavefunction inside a material layer
 has an upward and a downward propagating component,
-as per~(\ref{Epsipm}).
+as per~\cref{Epsipm}.
 Each component is a plane wave,
 with a wavevector
 \begin{equation}\label{Ekpmwj3}
@@ -81,10 +81,10 @@ with a wavevector
 \end{equation}
 \nomenclature[2z060]{$\v{\hat z}$}{Unit vector along the sample normal}%
 \nomenclature[2k043 2w010 2l010 \pm]{$\k^\pm_{w\il}$}{wavevector of the plane wave $\psi^\pm_{w\il}(\r)$}%
-As explained in connection with~(\ref{Ekpar}),
+As explained in connection with~\cref{Ekpar},
 the in-plane wavevector $\k_{\plll w}$ remains constant
 across layer interfaces.
-The vertical wavenumber is obtained from (\ref{Ewavez}),
+The vertical wavenumber is obtained from \cref{Ewavez},
 \begin{equation}\label{Ekperpwj}
   k_{\perp w\il} = \sqrt{K^2 \nzj - k_{\plll w}^2}.
 \end{equation}
@@ -103,7 +103,7 @@ with vertical propagation described by a one-dimensional wavefunction
 \end{equation}
 \nomenclature[2a123 2w010 2l010 \pm]{$A^\pm_{w\il}$}{Amplitude of the plane wave $\phi^\pm_{w\il}(\r)$}%
 For later convenience,
-the phase factor in (\ref{Ephizwj}) includes an offset~$z_\il$
+the phase factor in \cref{Ephizwj} includes an offset~$z_\il$
 as defined in \cref{Fdefz}.
 \nomenclature[2z020 2l010]{$z_l$}{Vertical coordinate at the top of layer~$l$ (at the bottom for $l=0$)}%
 \index{Multilayer!coordinates}%
@@ -135,14 +135,14 @@ which is Snell's refraction law.
 \index{Snell's law}
 
 In general, however, the vertical wavenumber $k_{\perp}$,
-given by (\ref{Ekperpwj}),
+given by \cref{Ekperpwj},
 can become imaginary or complex.
 This makes the above geometric interpretation untenable.
 Yet the algebraic formalism developed in \cref{Slayerprop}
 remains applicable.
 The horizontal wavevector $\k_\plll$ remains constant and real
 as initialized somewhere above the sample.
-However, the radicand in (\ref{Ekperpwj}) can become
+However, the radicand in \cref{Ekperpwj} can become
 negative (total reflection conditions) or complex
 (absorbing layer,
 with a positive imaginary part of $\overline{n^2}$).
@@ -154,9 +154,9 @@ We write
   k_\perp \eqqcolon k_\perp' + i k_\perp''
 \end{equation}
 for its decomposition into a real and an imaginary part.
-With (\ref{Endb1}), $\beta\ge0$ and $\delta<1$,
+With \cref{Endb1}, $\beta\ge0$ and $\delta<1$,
 we always have $k_\perp'\cdot k_\perp''\ge0$.
-In analogy with (\ref{decompkperp}),
+In analogy with \cref{decompkperp},
 full wavevectors have the decomposition
 \begin{equation}
   \k^\pm
@@ -164,7 +164,7 @@ full wavevectors have the decomposition
   = \k_\plll \pm (k_\perp' + i k_\perp'')\v{\hat z}.
 \end{equation}
 After these preparations,
-we can compute the flux~(\ref{EdefJ})
+we can compute the flux~\cref{EdefJ}
 associated with the plane-wave solution (\ref{Eplawafa},\ref{Ephizwj}):
 \begin{equation}
   \begin{array}{@{}l@{\;}l}
@@ -212,7 +212,7 @@ In the case of a semi-infinite layer, the vertical component becomes zero and
 %===============================================================================
 
 Since the $\psi^\pm_{w\il}$ are plane waves within layer~$\il$,
-we can at once write down the DWBA transition matrix element~(\ref{Edwba})
+we can at once write down the DWBA transition matrix element~\cref{Edwba}
 \index{Distorted-wave Born approximation!multilayer}%
 \begin{equation}\label{Edwba_ml0}
   \bra \psi_\ti|\chi|\psi_\tf\ket
@@ -227,7 +227,7 @@ where
 \end{equation}
 \nomenclature[1χ032 2l010 2q040]{$\chi_\il(\v{q})$}{Fourier transform of the perturbation potential $\chi(\r)$, evaluated in one sample layer}%
 is the Fourier transform
-of the perturbative potential~(\ref{EChiGraded}),
+of the perturbative potential~\cref{EChiGraded},
 restricted to one layer.
 
 To alleviate later calculations,
@@ -241,14 +241,14 @@ and define the corresponding wavenumbers and amplitude factors and as
     \q^4 \coloneqq  \k^+_\tf - \k^+_\ti,& C^4 \coloneqq  A^{+*}_\ti A^+_\tf.
   \end{array}
 \end{equation}
-Accordingly, we can write (\ref{Edwba_ml0}) as
+Accordingly, we can write \cref{Edwba_ml0} as
 \Emph{
 \begin{equation}\label{Edwba_ml}
   \bra \psi_\ti|\chi|\psi_\tf\ket
   = \sum_{\il} \sum_{u} C^u_\il \chi_\il(\q_\il^u).
 \end{equation}
 \vspace*{-5pt}}
-From~(\ref{Ekpmwj3}) we see that all four wavevectors $\q^u$
+From~\cref{Ekpmwj3} we see that all four wavevectors $\q^u$
 have the same horizontal component,
 \begin{equation}\label{Eqpp}
   \q^u = \q_\plll + q^u_\perp \v{\hat z}
@@ -293,7 +293,7 @@ $\Phi_l$, $\Phi_{l-1}$ in adjacent layers.}
 \label{Fboundary}
 \end{figure}
 
-To deal with the coordinate offsets introduced in (\ref{Ephizwj}),
+To deal with the coordinate offsets introduced in \cref{Ephizwj},
 we introduce the function%
 \begin{equation}
   d_\il\coloneqq z_{\il}-z_{\il+1},
@@ -319,8 +319,8 @@ and
 \begin{equation}
    \delta_\il \coloneqq  \e^{iKf_\il d_\il}.
 \end{equation}
-For the plane waves (\ref{Ephizwj}),
-the continuity conditions~(\ref{Econtcond}) take the form
+For the plane waves \cref{Ephizwj},
+the continuity conditions~\cref{Econtcond} take the form
 \begin{equation}\label{Econt2}
   \begin{array}{@{}l@{}lcl@{}l}
   +A^-_{\il} &+A^+_{\il}
@@ -372,7 +372,7 @@ to solve this as a matrix equation,
 the actual implementation in \BornAgain\
 %\footnote{SpectralMatrix.cpp: SpectralMatrix::execute()}
 starts with a unit vector in the substrate,
-and then carries out the propagation step (\ref{EcMc})
+and then carries out the propagation step \cref{EcMc}
 interface by interface,
 yielding unnormalized amplitudes
 \begin{equation}\label{EAtildel}
@@ -389,7 +389,7 @@ For GISAS detection in transmission geometry
 \index{Transmission geometry}%
 \index{Detector!transmission geometry}%
 (sink location $z<0$) all the development
-following (\ref{EMil}) holds with exchanged order of layers:
+following \cref{EMil} holds with exchanged order of layers:
 $(0,\ldots, N) \mapsto (N,\ldots,0)$.
 
 \Work{GISAS in transmission geometry is not yet implemented in \BornAgain,
@@ -423,7 +423,7 @@ and agrees with Fresnel's result for $s$-polarized light.\footnote
 
 The above algorithm fails if $f_{\il}\to0$
 because $M_{\il+1}$ becomes singular.
-The general solution of (\ref{Ewavez}) will be a linear function of $z$:
+The general solution of \cref{Ewavez} will be a linear function of $z$:
 \begin{equation}
   \phi_{\il}(z) = A^0_{\il} + A^1_{\il}z.
 \end{equation}

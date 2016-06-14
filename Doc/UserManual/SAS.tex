@@ -74,26 +74,26 @@ and is therefore called the \E{quantum-mechanical sign convention}.
 For electromagnetic radiation
 usage is less uniform.
 While most optics textbooks
-have adopted the quantum-mechanical convention~(\ref{Estationarywave}),
+have adopted the quantum-mechanical convention~\cref{Estationarywave},
 in X-ray crystallography
 the conjugate phase factor $\e^{+i\omega t}$ is prefered.
 This \E{crystallographic sign convention} has also been chosen
 in influential texts on GISAXS (e.g.\ \cite{ReLL09}).
 Here, however, we are concerned not only with X-rays,
 but also with neutrons,
-and therefore we need to leave the Schrödinger equation~(\ref{ESchrodi}) intact.
+and therefore we need to leave the Schrödinger equation~\cref{ESchrodi} intact.
 Thence:
 
 \Note
 {\indent In this manual, and in the program code of \BornAgain,
-the quantum-mechanical sign convention~(\ref{Estationarywave}) is chosen.
+the quantum-mechanical sign convention~\cref{Estationarywave} is chosen.
 This has implications for the sign of the imaginary part of the
 refractive index,
 \index{Index of refraction|see {Refractive index}}
 \index{Refractive index!sign convention}%
 as explained in \cref{Sabsorption}.}
 
-Inserting (\ref{Estationarywave}) in (\ref{ESchrodi}),
+Inserting \cref{Estationarywave} in \cref{ESchrodi},
 we obtain the stationary Schrödinger equation
 \begin{equation}\label{EstatSchrodi}
   \left\{-\frac{\hbar^2}{2m}\Nabla^2+V(\r)-\hbar\omega\right\} \psi(\r) = 0.
@@ -173,12 +173,12 @@ which is connected with the frequency~$\omega$ through the
 \begin{equation}
   \frac{\hbar^2 K^2}{2m} = \hbar\omega.
 \end{equation}
-Since we only consider stationary solutions~(\ref{Estationarywave}),
+Since we only consider stationary solutions~\cref{Estationarywave},
 $\omega$ will not appear any further in our derivations.
 Instead, we use~$K$ as the given parameter that characterizes the
 incoming radiation.
 In terms of $K$ and $n$,
-the macroscopic Schrödinger equation (\ref{EmacrSchrodi})
+the macroscopic Schrödinger equation \cref{EmacrSchrodi}
 can be rewritten as
 \Emph{
 \begin{equation}\label{EnSchrodi}
@@ -205,7 +205,7 @@ whether under grazing incidence (GISAS) or not (regular SAS).
 \index{Born approximation|(}%
 
 To describe an elastic scattering experiment,
-we need to solve the Schrödinger equation~(\ref{EnSchrodi})
+we need to solve the Schrödinger equation~\cref{EnSchrodi}
 under the asymptotic boundary condition
 \begin{equation}\label{Escabouco}
   \psi(\r)
@@ -246,7 +246,7 @@ with
   \chi(\r) \coloneqq  \frac{K^2}{4\pi}\left(1-n^2(\r)\right).
 \end{equation}
 \nomenclature[1χ030 2r040]{$\chi(\r)$}{Perturbative potential, for neutrons equal to the scattering-length density~$\rho_s$}%
-This definition just compensates (\ref{EnRefrIndx}) so that $\chi=\rho_s$.
+This definition just compensates \cref{EnRefrIndx} so that $\chi=\rho_s$.
 In the following, we prefer the notation~$\chi$
 and the appellation \E{perturbative potential}
 \index{Potential|see {Perturbation}}%
@@ -254,7 +254,7 @@ and the appellation \E{perturbative potential}
 over the scattering length density~$\rho_s$
 to prepare for the generalization to the electromagnetic case.
 
-Equation~(\ref{ESchrodiHelmholtz}) looks
+Equation~\cref{ESchrodiHelmholtz} looks
 like an inhomogeneous differential equation ---
 provided we neglect for a moment that the unknown function~$\psi$
 reappears on the right side.
@@ -291,10 +291,10 @@ we obtain what is known as the Lippmann-Schwinger equation,
   + \int\!\d^3r'\, G(\r,\r') 4\pi\chi(\r')\psi(\r').
 \end{equation}
 This integral equation for $\psi(\r)$ improves
-upon the original stationary Schrödinger equation (\ref{ESchrodiHelmholtz})
-in that it ensures the boundary condition~(\ref{Escabouco}).
+upon the original stationary Schrödinger equation \cref{ESchrodiHelmholtz}
+in that it ensures the boundary condition~\cref{Escabouco}.
 It can be resolved into an infinite series
-by iteratively substituting the full right-hand side of~(\ref{EPsiFormal})
+by iteratively substituting the full right-hand side of~\cref{EPsiFormal}
 into the integrand.
 Successive terms in this series contain rising powers of $\chi$.
 Since $\chi$ is assumed to be small, the series is likely to converge.
@@ -328,7 +328,7 @@ we are only interested in the scattered wave field
 
 \index{Far-field approximation|(}%
 
-We can further simplify (\ref{EBornS})
+We can further simplify \cref{EBornS}
 under the conditions of Fraunhofer diffraction:
 \index{Fraunhofer approximation}%
 the distance from the sample to the detector location~$\r$
@@ -338,7 +338,7 @@ only depends on $\r$ through the Green function~$G(\r,\r')$,
 we shall derive a far-field approximation for the latter.
 
 We choose the origin within the sample
-so that the integral in~(\ref{EBornS}) runs over $\r'$ with $r'\ll r$.
+so that the integral in~\cref{EBornS} runs over $\r'$ with $r'\ll r$.
 This allows us to expand
 \begin{equation}
   \left|\r-\r'\right|
@@ -352,7 +352,7 @@ where we have introduced the outgoing wavevector
 \begin{equation}
   \k_\tf\coloneqq K\frac{\r}{r}.
 \end{equation}
-We apply this to~(\ref{EGreens1}),
+We apply this to~\cref{EGreens1},
 \index{Green function!homogeneous material}%
 and obtain in leading order the far-field Green function
 \begin{equation}\label{EGreenFar}
@@ -369,7 +369,7 @@ is a plane wave propagating towards the detector,
 and $\psi^*$ designates the complex conjugate of $\psi$.
 With respect to $\r$, $G_\text{far}$ is an outgoing spherical wave.
 
-The scattered wave~(\ref{EBornS})
+The scattered wave~\cref{EBornS}
 becomes in the far-field approximation
 \begin{equation}\label{EsandwichC}
   \psi_\text{s,far}(\r)
@@ -415,7 +415,7 @@ it is highly desirable to express pixel coordinates
 \index{Coordinate system}
 and scattering vector components
 with respect to equally oriented coordinate axes,
-which can only be achieved by the convention~(\ref{Eq}).}
+which can only be achieved by the convention~\cref{Eq}.}
 \index{Scattering vector}%
 \begin{equation}\label{Eq}
   \q\coloneqq \k_\tf-\k_\ti
@@ -433,7 +433,7 @@ which is what small-angle neutron scattering basically measures.
 \subsection{Differential cross section}\label{SdiffCross}
 %===============================================================================
 
-In connection with (\ref{EBorn}) we mentioned
+In connection with \cref{EBorn} we mentioned
 that a scattering experiment measures intensities~${|\psi(\r)|}^2$.
 We shall now restate this in a more rigorous way.
 In the case of neutron scattering,
@@ -459,17 +459,17 @@ $r^2\d\Omega$ to the incident flux is expressed as a
 % convert $\d\sigma/\d\Omega$ into detector counts will be discussed
 % below in \cref{SdetImg}.
 
-With (\ref{EPsi0Plane}), the incident flux is
+With \cref{EPsi0Plane}, the incident flux is
 \begin{equation}\label{EJi}
   \v{J}_\ti = \k_\ti.
 \end{equation}
-With (\ref{EsandwichC}), the scattered flux at the detector is
+With \cref{EsandwichC}, the scattered flux at the detector is
 \begin{equation}\label{EJr}
   \v{J}(\r)
   = \v{\hat r}\frac{K}{r^2}
     {\left|\bra\psi_\ti|\chi|\psi_\tf\ket\right|}^2.
 \end{equation}
-From (\ref{Exsectiondef}) we obtain
+From \cref{Exsectiondef} we obtain
 the generic differential cross section of elastic scattering in first order Born approximation,
 \Emph{
 \begin{equation}\label{Exsection}
@@ -479,10 +479,10 @@ the generic differential cross section of elastic scattering in first order Born
 }
 As we shall see below,
 it holds not only for plane waves governed
-by the vacuum Helmholtz equation~(\ref{EHelmholtzHomog}),
+by the vacuum Helmholtz equation~\cref{EHelmholtzHomog},
 but also for distorted waves.
 
-In the plane-wave case (\ref{Echiq}) considered here,
+In the plane-wave case \cref{Echiq} considered here,
 the differential cross section is just the squared modulus
 of the Fourier transform of the perturbative potential,
 \begin{equation}\label{Ecross1}
@@ -537,7 +537,7 @@ Each pixel has a width~$\Delta y$ and a height~$\Delta z$.
 \index{Detector!pixel coordinate}%
 \index{Pixel|see {Detector}}%
 
-Since the differential scattering cross section (\ref{Exsectiondef})
+Since the differential scattering cross section \cref{Exsectiondef}
 is given with respect to a solid-angle element $\d\Omega$,
 we need to express scattered wavevector $\k_\tf$ in spherical coordinates,
 using the horizontal azimuth angle~$\phi_\tf$
@@ -571,7 +571,7 @@ the central incident beam ($\hat\k_\ti = \hat x$).}
 To determine the scattering vector $\q_{ij}$
 that corresponds to a pixel $(i,j)$,
 we need to express the outgoing wavevector~$\k_\tf$ as function of $y$ and~$z$.
-This can be done either by inverting (\ref{Eyzdet})
+This can be done either by inverting \cref{Eyzdet}
 and inserting the so obtained $\alpha_\tf(y,z)$ and $\phi_\tf(y)$ in
 \begin{equation}\label{Ekf_by_angle}
   \k_\tf=K\left(\begin{array}{c}
@@ -649,9 +649,9 @@ for a planar detector and a central incident beam as in Fig.~\protect\ref{Fconst
 \label{Fconstq}
 \end{figure}
 
-The transform (\ref{Eqalgo}) between pixel coordinates $y$,~$z$
+The transform \cref{Eqalgo} between pixel coordinates $y$,~$z$
 and physical scattering vector components $q_y$, $q_z$
-is nonlinear, due to the square-root term in the denominator of~(\ref{Ekf_by_pixel}).
+is nonlinear, due to the square-root term in the denominator of~\cref{Ekf_by_pixel}.
 For $y,z\ll L$, however, nonlinear terms loose importance.
 To emphasize nonlinearities,
 Figs.~\ref{Fconstalphi}--\ref{Fconstp}
@@ -675,7 +675,7 @@ The left detector frame in \cref{Fconstq}
 shows circles of constant values of $\pm q_x$.
 For given steps in $q_x$, the distance between adjacent circles
 increases towards the detector center.
-From (\ref{Eq}) and (\ref{Ekf_by_pixel}),
+From \cref{Eq} and \cref{Ekf_by_pixel},
 one finds asymptotically for $y,z\to L$
 that $q_x$ goes with the square of the two other components of the scattering vector,
 \begin{equation}\label{Eqxasy}
@@ -689,7 +689,7 @@ one basically measures $\chi(\q)\simeq \chi(0,q_y,q_z)$.
 
 \Work{Show consequences of $q_x$ for box example.}
 
-As anticipated in (\ref{Eqxasy}),
+As anticipated in \cref{Eqxasy},
 the other two components of $\q$ are in first order linear in the pixel coordinates,
 \begin{equation}
   \frac{q_y}{K}=\frac{y}{L}\left(1-\frac{y^2+z^2}{2L^2}+\ldots\right),
@@ -724,8 +724,8 @@ Corrections are applied to the simulated, not to the measured data.}
 %Tradition wants that raw data be \E{treated} or \E{reduced}
 %before they are \E{analyzed}.
 %In our case, raw data reduction would comprise
-%the transform (\ref{Eqalgo}) of pixel coordinates into scattering vectors,
-%and the accompanying renormalization (\ref{EItrafo}) of pixel counts.
+%the transform \cref{Eqalgo} of pixel coordinates into scattering vectors,
+%and the accompanying renormalization \cref{EItrafo} of pixel counts.
 
 %===============================================================================
 \subsection{Symmetry}

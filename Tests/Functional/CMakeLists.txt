@@ -12,15 +12,15 @@ execute_process( COMMAND ${CMAKE_COMMAND} -E copy_directory
     ${CMAKE_SOURCE_DIR}/Tests/Functional/TestPyFit
     ${CMAKE_BINARY_DIR}/Tests/Functional/TestPyFit )
 
-add_subdirectory(TestCore)
-add_subdirectory(TestFit)
+add_subdirectory(Core)
+add_subdirectory(Fit)
 
 if(BORNAGAIN_PYTHON)
-    add_subdirectory(TestPyCore)
-    add_subdirectory(TestPyDump)
-    add_subdirectory(TestPyFit)
+    add_subdirectory(PyCore/scripts)
+    add_subdirectory(PyCore/suite)
+    add_subdirectory(PyFit)
 endif()
 
 if(BORNAGAIN_GUI)
-    add_subdirectory(TestGUI)
+    add_subdirectory(GUI)
 endif()

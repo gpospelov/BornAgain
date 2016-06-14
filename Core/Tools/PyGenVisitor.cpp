@@ -285,7 +285,7 @@ std::string PyGenVisitor::definePreamble() const
            << "#import matplotlib\n"
            << "#from matplotlib import pyplot as plt\n"
            << "import bornagain as ba\n"
-           << "from bornagain import degree, angstrom, nm, kvector_t\n"
+           << "from bornagain import deg, angstrom, nm, kvector_t\n"
            << "\n\n";
 
     //    result << "#NOTE: All the ANGLES are displayed in RADIANS\n\n";

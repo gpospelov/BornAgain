@@ -257,7 +257,7 @@ std::string PyGenTools::printDegrees(double input)
     inter << in_degrees;
     if(inter.str().find('e') == std::string::npos && inter.str().find('.') == std::string::npos)
         inter << ".0";
-    inter << "*degree";
+    inter << "*deg";
     return inter.str();
 }
 

@@ -1127,7 +1127,7 @@ std::string PyGenVisitor::defineParticleLayouts() const
             case ILayout::DA:
                 break;
             case ILayout::SSCA:
-                result << indent() << it->second << ".setApproximation(ILayout.";
+                result << indent() << it->second << ".setApproximation(ba.ILayout.";
                 result << "SSCA)\n";
                 break;
             }
@@ -1315,7 +1315,7 @@ std::string PyGenVisitor::defineDetectorResolutionFunction(const GISASSimulation
                     p_convfunc->getResolutionFunction2D())) {
 
                 result << indent() << "simulation.setDetectorResolutionFunction(";
-                result << "ResolutionFunction2DGaussian(";
+                result << "ba.ResolutionFunction2DGaussian(";
                 if(detector->getDefaultAxesUnits() == IDetector2D::RADIANS) {
                     result << PyGenTools::printDegrees(resfunc->getSigmaX()) << ", ";
                     result << PyGenTools::printDegrees(resfunc->getSigmaY()) << "))\n";

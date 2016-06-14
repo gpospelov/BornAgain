@@ -146,7 +146,7 @@ std::string PyGenTools::getRepresentation(
 
     if(const Geometry::Ellipse* shape = dynamic_cast<const Geometry::Ellipse*>(ishape)) {
         result << indent << "simulation.addMask(";
-        result << "Ellipse("
+        result << "ba.Ellipse("
                << PyGenTools::printDegrees(shape->getCenterX()) << ", "
                << PyGenTools::printDegrees(shape->getCenterY()) << ", "
                << PyGenTools::printDegrees(shape->getRadiusX()) << ", "
@@ -157,7 +157,7 @@ std::string PyGenTools::getRepresentation(
 
     else if(const Geometry::Rectangle* shape = dynamic_cast<const Geometry::Rectangle*>(ishape)) {
         result << indent << "simulation.addMask(";
-        result << "Rectangle("
+        result << "ba.Rectangle("
                << PyGenTools::printDegrees(shape->getXlow()) << ", "
                << PyGenTools::printDegrees(shape->getYlow()) << ", "
                << PyGenTools::printDegrees(shape->getXup()) << ", "
@@ -176,13 +176,13 @@ std::string PyGenTools::getRepresentation(
         }
         result << "]\n";
         result << indent << "simulation.addMask(" <<
-            "Polygon(points), " << PyGenTools::printBool(mask_value) << ")\n";
+            "ba.Polygon(points), " << PyGenTools::printBool(mask_value) << ")\n";
     }
 
     else if(const Geometry::VerticalLine* shape =
             dynamic_cast<const Geometry::VerticalLine*>(ishape)) {
         result << indent << "simulation.addMask(";
-        result << "VerticalLine("
+        result << "ba.VerticalLine("
                << PyGenTools::printDegrees(shape->getXpos()) << "), "
                << PyGenTools::printBool(mask_value) << ")\n";
     }
@@ -190,7 +190,7 @@ std::string PyGenTools::getRepresentation(
     else if(const Geometry::HorizontalLine* shape =
             dynamic_cast<const Geometry::HorizontalLine*>(ishape)) {
         result << indent << "simulation.addMask(";
-        result << "HorizontalLine("
+        result << "ba.HorizontalLine("
                << PyGenTools::printDegrees(shape->getYpos()) << "), "
                << PyGenTools::printBool(mask_value) << ")\n";
     }
@@ -256,9 +256,7 @@ std::string PyGenTools::printDegrees(double input)
     double in_degrees = input*180.0/M_PI;
     inter << in_degrees;
     if(inter.str().find('e') == std::string::npos && inter.str().find('.') == std::string::npos)
-    {
         inter << ".0";
-    }
     inter << "*degree";
     return inter.str();
 }

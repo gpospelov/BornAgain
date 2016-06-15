@@ -163,6 +163,8 @@ const ModelType SimulationOptionsType = "SimulationOptions";
 
 const ModelType RealDataType = "RealData";
 
+const ModelType MinimizerType = "Minimizer";
+
 // --- Groups ------------------------------------------------------------------
 
 const ModelType FormFactorGroup = "Form Factor";

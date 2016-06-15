@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/TestView.h
-//! @brief     Declares class TestView
+//! @file      GUI/coregui/Models/MinimizerItem.cpp
+//! @brief     Implements MinimizerItem class
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,30 +14,13 @@
 //
 // ************************************************************************** //
 
-#ifndef TESTVIEW_H
-#define TESTVIEW_H
+#include "MinimizerItem.h"
 
-#include "WinDllMacros.h"
-#include <QWidget>
+const QString MinimizerItem::P_MINIMIZER_LIBRARY = "Library";
 
-class MainWindow;
-class QTabWidget;
-class QAbstractItemModel;
-
-class BA_CORE_API_ TestView : public QWidget
+MinimizerItem::MinimizerItem()
+    : SessionItem(Constants::MinimizerType)
 {
-    Q_OBJECT
-public:
-    TestView(MainWindow *mainWindow = 0);
+//    addGroupProperty(P_MINIMIZER_LIBRARY, Constants::DetectorGroup);
 
-private:
-    void test_MaskEditor();
-    void test_AccordionWidget();
-    void test_RunFitWidget();
-    void test_MaterialEditor();
-    void test_MinimizerSettings();
-
-    MainWindow *m_mainWindow;
-};
-
-#endif
+}

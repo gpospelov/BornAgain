@@ -13,16 +13,14 @@
 //
 // ************************************************************************** //
 
-#include <cassert>
 #include <iostream>
 
 #include "FutestRegistry.h"
 #include "SimulationFactory.h"
 #include "SampleBuilderFactory.h"
 #include "SubtestRegistry.h"
+#include "IFutest.h"
 #include "Exceptions.h"
-#include "IntensityDataIOFactory.h"
-#include "CoreFutest.h"
 #include "TestConfig.h"
 #include "FutestSuite.h"
 
@@ -116,23 +114,9 @@ GISASSimulation* FutestSuite::getSimulation() const
     return result;
 }
 
-OutputData<double>* FutestSuite::getReferenceData() const
-{
-    OutputData<double>* result(nullptr);
-    std::string filename = BA_REF_DATA_DIR + "/" + getReferenceFileName();
-
-    try {
-        result = IntensityDataIOFactory::readOutputData(filename);
-    } catch(const std::exception& ex) {
-        throw std::runtime_error(
-            std::string("FutestSuite::getReferenceData() -> Exception caught: ") + ex.what() );
-    }
-    return result;
-}
-
 std::string FutestSuite::getReferenceFileName() const
 {
-    return "ref_" + m_test_name + ".int.gz";
+    return BA_REF_DATA_DIR + "/ref_" + m_test_name + ".int.gz";
 }
 
 //! Constructs functional test description corresponding to the current component.

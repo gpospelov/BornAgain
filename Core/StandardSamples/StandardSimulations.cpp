@@ -77,7 +77,7 @@ GISASSimulation* StandardSimulations::MiniGISAS()
 {
     GISASSimulation* result = new GISASSimulation();
     result->setDetectorParameters(25, -2.0*Units::degree, 2.0*Units::degree,
-                                     25, 0.0*Units::degree, 2.0*Units::degree);
+                                  25, 0.0*Units::degree, 2.0*Units::degree);
     result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
     return result;
 }

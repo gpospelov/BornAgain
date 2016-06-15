@@ -28,11 +28,10 @@ const std::string directory_name_for_failed_tests = "00_failed_tests";
 
 CoreFutest::CoreFutest(
     const std::string& name, const std::string& description, GISASSimulation* simulation,
-    double threshold, OutputData<double>* reference, const std::string&file_name)
+    double threshold, const std::string&file_name)
     : IFutest(name, description)
     , m_simulation(simulation)
     , m_threshold(threshold)
-    , m_reference(reference)
     , m_difference(0)
     , m_simulation_results_file_name( file_name )
 {
@@ -46,11 +45,18 @@ CoreFutest::~CoreFutest()
 
 void CoreFutest::runTest()
 {
-    if (!m_simulation) {
+    if (!m_simulation)
         throw NullPointerException(
             "AdvancedFutest::runTest() -> Error. Uninitialized simulation object.");
-    }
     m_simulation->runSimulation();
+
+    m_reference = nullptr;
+    try {
+        m_reference = IntensityDataIOFactory::readOutputData( m_simulation_results_file_name );
+    } catch(const std::exception& ex) {
+        throw std::runtime_error(
+            std::string("FutestSuite::getReferenceData() -> Exception caught: ") + ex.what() );
+    }
 }
 
 int CoreFutest::analyseResults()

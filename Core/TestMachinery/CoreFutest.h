@@ -32,7 +32,7 @@ class BA_CORE_API_ CoreFutest : public IFutest
 public:
     CoreFutest(
         const std::string& name, const std::string& description, GISASSimulation* simulation,
-        double threshold, OutputData<double>* reference, const std::string&file_name);
+        double threshold, const std::string& file_name);
     virtual ~CoreFutest();
 
     virtual void runTest();

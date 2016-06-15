@@ -21,6 +21,32 @@ const QString MinimizerItem::P_MINIMIZER_LIBRARY = "Library";
 MinimizerItem::MinimizerItem()
     : SessionItem(Constants::MinimizerType)
 {
-//    addGroupProperty(P_MINIMIZER_LIBRARY, Constants::DetectorGroup);
+    addGroupProperty(P_MINIMIZER_LIBRARY, Constants::MinimizerLibraryGroup);
+    addProperty("test", 99.0);
+
+}
+
+// ----------------------------------------------------------------------------
+
+MinuitMinimizerItem::MinuitMinimizerItem()
+    : SessionItem(Constants::MinuitMinimizerType)
+{
+    addProperty("A", 1.0);
+
+}
+
+// ----------------------------------------------------------------------------
+
+GSLMinimizerItem::GSLMinimizerItem()
+    : SessionItem(Constants::GSLMinimizerType)
+{
+    addProperty("B", 2.0);
+
+}
+
+GeneticMinimizerItem::GeneticMinimizerItem()
+    : SessionItem(Constants::GeneticMinimizerType)
+{
+    addProperty("C", 3.0);
 
 }

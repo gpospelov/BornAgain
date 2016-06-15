@@ -19,8 +19,11 @@
 #include "mainwindow.h"
 #include "MaterialEditor.h"
 #include "MinimizerSettingsWidget.h"
-#include <QVBoxLayout>
 #include "AccordionWidget.h"
+#include "MinimizerItem.h"
+#include "item_constants.h"
+#include "SessionModel.h"
+#include <QVBoxLayout>
 #include <QLineEdit>
 #include <QCheckBox>
 
@@ -54,6 +57,13 @@ void TestView::test_MinimizerSettings()
     layout->setSpacing(0);
     layout->addWidget(widget);
     setLayout(layout);
+
+
+    SessionModel* model = new SessionModel("TempModel", this);
+    MinimizerItem *minimizerItem = dynamic_cast<MinimizerItem *>(
+                model->insertNewItem(Constants::MinimizerType));
+    widget->setItem(minimizerItem);
+
 }
 
 
@@ -145,11 +155,6 @@ void TestView::test_AccordionWidget()
 
 void TestView::test_RunFitWidget()
 {
-    // FIXME_DAVID Use consistent variable names: not 'maskEditor', but runFitWidget
-
-    //RunFitWidget *maskEditor = new RunFitWidget();
-    //FitView *fw = new FitView(m_mainWindow->getSampleModel(), m_mainWindow->getInstrumentModel());
-
     //FitParameterWidget *fitting = new FitParameterWidget(m_mainWindow);
     QVBoxLayout *layout = new QVBoxLayout;
     QTabWidget *tabs = new QTabWidget;

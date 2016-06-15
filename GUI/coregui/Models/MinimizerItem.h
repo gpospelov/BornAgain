@@ -28,5 +28,29 @@ public:
     explicit MinimizerItem();
 };
 
+//! The MinuitMinimizerItem class represents settings for ROOT Minuit2 minimizer.
+
+class BA_CORE_API_ MinuitMinimizerItem : public SessionItem
+{
+public:
+    explicit MinuitMinimizerItem();
+};
+
+//! The GSLMinimizerItem class represents settings for GSL minimizers family.
+
+class BA_CORE_API_ GSLMinimizerItem : public SessionItem
+{
+public:
+    explicit GSLMinimizerItem();
+};
+
+//! The GeneticMinimizerItem class represents settings for TMVA/Genetic minimizer.
+
+class BA_CORE_API_ GeneticMinimizerItem : public SessionItem
+{
+public:
+    explicit GeneticMinimizerItem();
+};
+
 #endif
 

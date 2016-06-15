@@ -15,22 +15,30 @@
 // ************************************************************************** //
 
 #include "MinimizerSettingsWidget.h"
+#include "MinimizerItem.h"
+#include "ComponentEditor.h"
 #include <QVBoxLayout>
 
 MinimizerSettingsWidget::MinimizerSettingsWidget(QWidget *parent)
     : QWidget(parent)
+    , m_currentItem(0)
+    , m_propertyEditor(new ComponentEditor)
 {
     setWindowTitle(QLatin1String("Minimizer Settings"));
 
     QVBoxLayout *layout = new QVBoxLayout;
-    QWidget *widget = new QWidget;
-    widget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    layout->addWidget(widget);
-
+    layout->addWidget(m_propertyEditor);
     setLayout(layout);
 }
 
 QSize MinimizerSettingsWidget::minimumSizeHint() const
 {
     return QSize(25, 25);
+}
+
+void MinimizerSettingsWidget::setItem(MinimizerItem *minimizerItem)
+{
+    Q_ASSERT(minimizerItem);
+    m_currentItem = minimizerItem;
+    m_propertyEditor->setItem(minimizerItem);
 }

@@ -127,6 +127,12 @@ GroupPropertyRegistry::SelectableGroupMap_t initializeSelectableGroupMap()
     resolution_functions[Constants::ResolutionFunction2DGaussianType] = "2D Gaussian";
     result[Constants::ResolutionFunctionGroup] = resolution_functions;
 
+    std::map<QString, QString> minimizers;
+    minimizers[Constants::MinuitMinimizerType] = "Minuit2";
+    minimizers[Constants::GSLMinimizerType] = "GSL";
+    minimizers[Constants::GeneticMinimizerType] = "Genetics";
+    result[Constants::MinimizerLibraryGroup] = minimizers;
+
     return result;
 }
 }

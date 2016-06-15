@@ -55,6 +55,7 @@
 #include "FitParameterItems.h"
 #include "FitSuiteItem.h"
 #include "RealDataItem.h"
+#include "MinimizerItem.h"
 #include <QDebug>
 
 namespace {
@@ -198,6 +199,11 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::SimulationOptionsType] = &createInstance<SimulationOptionsItem>;
 
     result[Constants::RealDataType] = &createInstance<RealDataItem>;
+
+    result[Constants::MinimizerType] = &createInstance<MinimizerItem>;
+    result[Constants::MinuitMinimizerType] = &createInstance<MinuitMinimizerItem>;
+    result[Constants::GSLMinimizerType] = &createInstance<GSLMinimizerItem>;
+    result[Constants::GeneticMinimizerType] = &createInstance<GeneticMinimizerItem>;
 
     return result;
 }

@@ -20,6 +20,9 @@
 #include "WinDllMacros.h"
 #include <QWidget>
 
+class ComponentEditor;
+class MinimizerItem;
+
 //! The MinimizerSettingsWidget contains editor for all minnimizer settings and related fit
 //! options. Part of FitSuiteWidget.
 
@@ -32,6 +35,12 @@ public:
 
     QSize minimumSizeHint() const;
 
+public slots:
+    void setItem(MinimizerItem *minimizerItem);
+
+private:
+    MinimizerItem *m_currentItem;
+    ComponentEditor *m_propertyEditor;
 };
 
 #endif

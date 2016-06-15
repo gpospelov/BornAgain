@@ -447,7 +447,7 @@ void SessionItem::setItemValue(const QString &tag, const QVariant &variant)
      getItem(tag)->setValue(variant);
 }
 
-//! Creates new group item and register new tag.
+//! Creates new group item and register new tag, returns GroupItem.
 
 SessionItem *SessionItem::addGroupProperty(const QString &groupName, const QString &groupType)
 {

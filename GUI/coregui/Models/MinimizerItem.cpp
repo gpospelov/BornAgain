@@ -15,13 +15,17 @@
 // ************************************************************************** //
 
 #include "MinimizerItem.h"
+#include "MinimizerItemCatalogue.h"
+#include "ComboProperty.h"
 
 const QString MinimizerItem::P_MINIMIZER_LIBRARY = "Library";
+const QString MinimizerItem::P_ALGORITHMS = "Algorithms";
 
 MinimizerItem::MinimizerItem()
     : SessionItem(Constants::MinimizerType)
 {
-    addGroupProperty(P_MINIMIZER_LIBRARY, Constants::MinimizerLibraryGroup);
+    addGroupProperty(P_MINIMIZER_LIBRARY, Constants::MinimizerLibraryGroup)
+        ->setToolTip(QStringLiteral("Minimizer library"));
     addProperty("test", 99.0);
 
 }
@@ -31,8 +35,8 @@ MinimizerItem::MinimizerItem()
 MinuitMinimizerItem::MinuitMinimizerItem()
     : SessionItem(Constants::MinuitMinimizerType)
 {
-    addProperty("A", 1.0);
-
+    addProperty(MinimizerItem::P_ALGORITHMS,
+        MinimizerItemCatalogue::getAlgorithmCombo(Constants::MinuitMinimizerType).getVariant());
 }
 
 // ----------------------------------------------------------------------------
@@ -40,13 +44,15 @@ MinuitMinimizerItem::MinuitMinimizerItem()
 GSLMinimizerItem::GSLMinimizerItem()
     : SessionItem(Constants::GSLMinimizerType)
 {
-    addProperty("B", 2.0);
+    addProperty(MinimizerItem::P_ALGORITHMS,
+        MinimizerItemCatalogue::getAlgorithmCombo(Constants::GSLMinimizerType).getVariant());
 
 }
 
 GeneticMinimizerItem::GeneticMinimizerItem()
     : SessionItem(Constants::GeneticMinimizerType)
 {
-    addProperty("C", 3.0);
+    addProperty(MinimizerItem::P_ALGORITHMS,
+        MinimizerItemCatalogue::getAlgorithmCombo(Constants::GeneticMinimizerType).getVariant());
 
 }

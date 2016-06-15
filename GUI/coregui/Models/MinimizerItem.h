@@ -25,6 +25,7 @@ class BA_CORE_API_ MinimizerItem : public SessionItem
 {
 public:
     static const QString P_MINIMIZER_LIBRARY;
+    static const QString P_ALGORITHMS;
     explicit MinimizerItem();
 };
 

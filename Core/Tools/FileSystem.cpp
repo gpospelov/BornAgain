@@ -78,15 +78,6 @@ std::string Utils::FileSystem::GetSourceDir()
 #endif
 }
 
-std::string Utils::FileSystem::GetInstallDir()
-{
-#ifdef BORNAGAIN_INSTALL_DIR
-    return std::string(BORNAGAIN_INSTALL_DIR);
-#else
-    throw LogicErrorException("Utils::FileSystem::GetInstallDir() -> Error. Not configured.");
-#endif
-}
-
 std::string Utils::FileSystem::GetReferenceDataDir()
 {
     if(m_reference_data_dir.empty()) {

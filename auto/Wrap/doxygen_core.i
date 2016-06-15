@@ -13580,9 +13580,6 @@ Fills output data raw buffer from input stream.
 %feature("docstring")  PyGenTools::genPyScript "std::string PyGenTools::genPyScript(class GISASSimulation *simulation, const std::string &output_filename)
 ";
 
-%feature("docstring")  PyGenTools::testPyScript "bool PyGenTools::testPyScript(class GISASSimulation *simulation, const std::string &output_filename)
-";
-
 %feature("docstring")  PyGenTools::getRepresentation "std::string PyGenTools::getRepresentation(const class IDistribution1D *distribution)
 ";
 

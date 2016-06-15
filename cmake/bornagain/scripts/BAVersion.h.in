@@ -13,9 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BAVERSION_H_
-#define BAVERSION_H_
-
+#ifndef BAVERSION_H
+#define BAVERSION_H
 
 #include <string>
 #include <sstream>
@@ -41,10 +40,6 @@ namespace BornAgain {
 
         return ostr.str();
     }
-
 }
 
-
-
-#endif /* BAVERSION_H_ */
-
+#endif // BAVERSION_H

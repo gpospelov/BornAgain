@@ -57,45 +57,6 @@ std::string PyGenTools::genPyScript(GISASSimulation* simulation, const std::stri
     return result.str();
 }
 
-bool PyGenTools::testPyScript(GISASSimulation* simulation, const std::string& output_filename)
-{
-    std::ofstream pythonFile;
-    pythonFile.open("PythonScript.py");
-    pythonFile << "import sys\n";
-    pythonFile << "import os\n";
-    pythonFile << "sys.path.append(os.path.abspath("
-               << "os.path.join(os.path.split(os.path.realpath(__file__))[0],"
-               << "'..', '..', '..', 'lib')))\n\n";
-    pythonFile << genPyScript(simulation, output_filename);
-    pythonFile.close();
-
-    std::string command = std::string(BORNAGAIN_PYTHON_EXE) + " PythonScript.py";
-    int script_result = std::system(command.c_str());
-    (void)script_result; // ignore return value
-
-    if (std::remove("PythonScript.py") != 0)
-        throw RuntimeErrorException("PyGenTools::testPyScript: "
-            "PythonScript.py could not be removed from filesystem");
-
-    simulation->runSimulation();
-    const std::unique_ptr<const OutputData<double> > P_reference_data(
-                simulation->getDetectorIntensity());
-    const std::unique_ptr<const OutputData<double> > P_simulated_data(
-                IntensityDataIOFactory::readOutputData("output.int"));
-    if (std::remove("output.int") != 0)
-        throw RuntimeErrorException("PyGenTools::testPyScript: "
-            "output.int could not be removed from filesystem");
-
-    double diff = IntensityDataFunctions::getRelativeDifference(
-                *P_simulated_data,*P_reference_data);
-    if (diff >= 5e-10) {
-        std::cout << "Relative Difference between python script and"
-                     " reference sample: = " << diff << std::endl;
-        return false;
-    }
-    return true;
-}
-
 std::string PyGenTools::getRepresentation(const class IDistribution1D* distribution)
 {
      std::ostringstream result;

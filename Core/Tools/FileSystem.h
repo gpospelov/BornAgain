@@ -54,9 +54,6 @@ public:
     //! return path to the code source directory
     static std::string GetSourceDir();
 
-    //! return path to the install directory
-    static std::string GetInstallDir();
-
     //! return path to the reference data
     static std::string GetReferenceDataDir();
     static void SetReferenceDataDir(const std::string &path) {m_reference_data_dir = path; }

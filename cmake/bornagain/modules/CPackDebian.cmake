@@ -1,8 +1,8 @@
-# BornAgain debian packaging 
+# BornAgain debian packaging
 set(CPACK_GENERATOR "DEB")
 
 # parameters to build a debian package
-set(CPACK_DEBIAN_PACKAGE_MAINTAINER "Marina Ganeva <m.ganeva@fz-juelich.de>") 
+set(CPACK_DEBIAN_PACKAGE_MAINTAINER "Marina Ganeva <m.ganeva@fz-juelich.de>")
 
 # Architecture: (mandatory)
 IF(NOT CPACK_DEBIAN_PACKAGE_ARCHITECTURE)
@@ -31,7 +31,7 @@ set(CPACK_PACKAGE_FILE_NAME "${CPACK_DEBIAN_PACKAGE_NAME}-${CPACK_PACKAGE_VERSIO
 set(CPACK_DEBIAN_PACKAGE_CONFLICTS "${CPACK_DEBIAN_PACKAGE_NAME}(<=${BORNAGAIN_VERSION})")
 
 # set postinstall and preremove scripts for the debian package
-set(CPACK_DEBIAN_PACKAGE_CONTROL_EXTRA "${BUILD_AUTO_DIR}/postinst;${BUILD_AUTO_DIR}/prerm;")
+set(CPACK_DEBIAN_PACKAGE_CONTROL_EXTRA "${BUILD_VAR_DIR}/postinst;${BUILD_VAR_DIR}/prerm;")
 
 # write copyrite file
 file(GENERATE OUTPUT "${CMAKE_BINARY_DIR}/copyright" INPUT "${CMAKE_SOURCE_DIR}/COPYING")
@@ -45,4 +45,3 @@ execute_process(COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_SOURCE_DIR}/CHANGELOG"
 # execute_process(COMMAND gzip -9 "${CMAKE_BINARY_DIR}/changelog" OUTPUT_FILE "${CMAKE_BINARY_DIR}/changelog.gz")
 execute_process(COMMAND gzip -9 "${CMAKE_BINARY_DIR}/changelog")
 install(FILES "${CMAKE_BINARY_DIR}/changelog.gz" DESTINATION "share/${destination_suffix}")
- 

@@ -1,19 +1,19 @@
-#include "FileSystem.h"
 #include "IntensityDataFunctions.h"
 #include "IntensityDataIOFactory.h"
 #include "SimulationFactory.h"
+#include "TestConfig.h"
 #include <memory>
 
 int main(int, char**)
 {
     const std::unique_ptr<OutputData<double> > P_reference00(IntensityDataIOFactory::readOutputData(
-        Utils::FileSystem::GetReferenceDataDir()+ "polmagcylinders2_reference_00.int.gz"));
+        BA_REF_DATA_DIR + "/polmagcylinders2_reference_00.int.gz"));
     const std::unique_ptr<OutputData<double> > P_reference01(IntensityDataIOFactory::readOutputData(
-        Utils::FileSystem::GetReferenceDataDir()+ "polmagcylinders2_reference_01.int.gz"));
+        BA_REF_DATA_DIR + "/polmagcylinders2_reference_01.int.gz"));
     const std::unique_ptr<OutputData<double> > P_reference10(IntensityDataIOFactory::readOutputData(
-        Utils::FileSystem::GetReferenceDataDir()+ "polmagcylinders2_reference_10.int.gz"));
+        BA_REF_DATA_DIR + "/polmagcylinders2_reference_10.int.gz"));
     const std::unique_ptr<OutputData<double> > P_reference11(IntensityDataIOFactory::readOutputData(
-        Utils::FileSystem::GetReferenceDataDir()+ "polmagcylinders2_reference_11.int.gz"));
+        BA_REF_DATA_DIR + "/polmagcylinders2_reference_11.int.gz"));
 
     SimulationFactory sim_registry;
     GISASSimulation* simulation = sim_registry.createItem("polmagcylinders2");
@@ -55,7 +55,7 @@ int main(int, char**)
     if( diff > threshold ) status_ok=false;
 
     std::cout << " diff " << diff << std::endl;
-    std::cout << "polmagcylinders2" << " " << "Magnetic cylinders with non-zero magnetic field" << " " <<
-            (status_ok ? "[OK]" : "[FAILED]") << std::endl;
-    return (status_ok ? 0 : 1);
+    std::cout << "polmagcylinders2" << " " << "Magnetic cylinders with non-zero magnetic field"
+              << " " << (status_ok ? "[OK]" : "[FAILED]") << std::endl;
+    return status_ok ? 0 : 1;
 }

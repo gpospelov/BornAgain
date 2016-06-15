@@ -51,18 +51,11 @@ public:
     static std::string GetPathToData(
         const std::string& rel_data_path, const std::string& argv0=GetArgvPath());
 
-    //! return path to the code source directory
-    static std::string GetSourceDir();
-
-    //! return path to the reference data
-    static std::string GetReferenceDataDir();
-    static void SetReferenceDataDir(const std::string &path) {m_reference_data_dir = path; }
-
     //! creates directory in current directory
-    static bool CreateDirectory(const std::string &dir_name);
+    static bool CreateDirectory(const std::string& dir_name);
 
     //! join paths together
-    static std::string GetJoinPath(const std::string &spath1, const std::string &spath2);
+    static std::string GetJoinPath(const std::string& spath1, const std::string& spath2);
 
 private:
     //! value of argv[0], i.e. the path from working directory to executable module
@@ -73,5 +66,4 @@ private:
 
 }
 
-
-#endif
+#endif // FILESYSTEM_H

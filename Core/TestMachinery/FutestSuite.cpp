@@ -22,8 +22,8 @@
 #include "SubtestRegistry.h"
 #include "Exceptions.h"
 #include "IntensityDataIOFactory.h"
-#include "FileSystem.h"
 #include "CoreFutest.h"
+#include "TestConfig.h"
 #include "FutestSuite.h"
 
 // ************************************************************************** //
@@ -119,7 +119,7 @@ GISASSimulation* FutestSuite::getSimulation() const
 OutputData<double>* FutestSuite::getReferenceData() const
 {
     OutputData<double>* result(nullptr);
-    std::string filename = Utils::FileSystem::GetReferenceDataDir() + getReferenceFileName();
+    std::string filename = BA_REF_DATA_DIR + "/" + getReferenceFileName();
 
     try {
         result = IntensityDataIOFactory::readOutputData(filename);

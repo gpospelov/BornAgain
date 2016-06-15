@@ -14,7 +14,6 @@
 // ************************************************************************** //
 
 #include "FileSystem.h"
-#include "BAConfigure.h"
 #include "Exceptions.h"
 #include <boost/filesystem.hpp>
 
@@ -66,25 +65,6 @@ std::string Utils::FileSystem::GetPathToData(
 std::string Utils::FileSystem::GetFileExtension(const std::string& name)
 {
     return boost::filesystem::extension(name.c_str());
-}
-
-
-std::string Utils::FileSystem::GetSourceDir()
-{
-#ifdef BORNAGAIN_SOURCE_DIR
-    return std::string(BORNAGAIN_SOURCE_DIR );
-#else
-    throw LogicErrorException("Utils::FileSystem::GetSourceDir() -> Error. Not configured.");
-#endif
-}
-
-std::string Utils::FileSystem::GetReferenceDataDir()
-{
-    if(m_reference_data_dir.empty()) {
-        return GetSourceDir() + std::string("/Tests/ReferenceData/BornAgain/");
-    } else {
-        return m_reference_data_dir;
-    }
 }
 
 

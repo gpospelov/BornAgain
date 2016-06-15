@@ -30,6 +30,12 @@ if(CMAKE_BUILD_TYPE STREQUAL Release)
 endif()
 
 # -----------------------------------------------------------------------------
+# source directories
+# -----------------------------------------------------------------------------
+
+set(BA_REF_DATA_DIR ${CMAKE_SOURCE_DIR}/Test/ReferenceData/BornAgain)
+
+# -----------------------------------------------------------------------------
 # cmake runtime output configuration
 # -----------------------------------------------------------------------------
 
@@ -37,13 +43,19 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
-set(BUILD_AUTO_DIR ${CMAKE_BINARY_DIR}/auto)
+set(BUILD_VAR_DIR ${CMAKE_BINARY_DIR}/var)
+set(BUILD_TMP_DIR ${CMAKE_BINARY_DIR}/tmp)
+set(BUILD_INC_DIR ${CMAKE_BINARY_DIR}/inc)
+set(BUILD_SRC_DIR ${CMAKE_BINARY_DIR}/src)
 configure_file("${TEMPLATE_DIR}/auto_README.in" "${CMAKE_SOURCE_DIR}/auto/README" @ONLY)
 
 file(MAKE_DIRECTORY ${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
 file(MAKE_DIRECTORY ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/bornagain)
 file(MAKE_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
-file(MAKE_DIRECTORY ${BUILD_AUTO_DIR})
+file(MAKE_DIRECTORY ${BUILD_VAR_DIR})
+file(MAKE_DIRECTORY ${BUILD_TMP_DIR})
+file(MAKE_DIRECTORY ${BUILD_INC_DIR})
+file(MAKE_DIRECTORY ${BUILD_SRC_DIR})
 
 # -----------------------------------------------------------------------------
 # file extensions
@@ -105,10 +117,15 @@ if(BORNAGAIN_RELEASE)
     configure_file("${CMAKE_SOURCE_DIR}/Doc/Doxygen/Doxyfile.in" "${CMAKE_SOURCE_DIR}/Doc/Doxygen/Doxyfile" @ONLY)
 
     # configure FindBornagain script
-    configure_file("${TEMPLATE_DIR}/FindBornAgain.cmake.in" "${CMAKE_SOURCE_DIR}/Examples/cpp/CylindersAndPrisms/modules/FindBornAgain.cmake" @ONLY)
+    configure_file(${TEMPLATE_DIR}/FindBornAgain.cmake.in
+        ${CMAKE_SOURCE_DIR}/Examples/cpp/CylindersAndPrisms/modules/FindBornAgain.cmake @ONLY)
 endif()
 
-configure_file("${TEMPLATE_DIR}/CTestCustom.cmake.in" "${CMAKE_BINARY_DIR}/CTestCustom.cmake")
+configure_file(${TEMPLATE_DIR}/CTestCustom.cmake.in ${CMAKE_BINARY_DIR}/CTestCustom.cmake)
+
+configure_file(${TEMPLATE_DIR}/TestConfig.h.in ${BUILD_INC_DIR}/TestConfig.h @ONLY)
+configure_file(${TEMPLATE_DIR}/BAPython.h.in ${BUILD_INC_DIR}/BAPython.h @ONLY)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -I${BUILD_INC_DIR}")
 
 # -----------------------------------------------------------------------------
 # configure BornAgain launch scripts
@@ -116,16 +133,10 @@ configure_file("${TEMPLATE_DIR}/CTestCustom.cmake.in" "${CMAKE_BINARY_DIR}/CTest
 
 set(this_bindir $BORNAGAINSYS/bin)
 set(this_libdir $BORNAGAINSYS/lib/${destination_suffix})
-configure_file("${TEMPLATE_DIR}/thisbornagain.sh.in" "${BUILD_AUTO_DIR}/thisbornagain.sh" @ONLY)
-configure_file("${TEMPLATE_DIR}/thisbornagain.csh.in" "${BUILD_AUTO_DIR}/thisbornagain.csh" @ONLY)
-
-# -----------------------------------------------------------------------------
-# configure C++ source code
-# -----------------------------------------------------------------------------
-
-configure_file("${TEMPLATE_DIR}/BAConfigure.h.in" "${BUILD_AUTO_DIR}/BAConfigure.h" @ONLY)
-configure_file("${TEMPLATE_DIR}/BAPython.h.in" "${BUILD_AUTO_DIR}/BAPython.h" @ONLY)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -I${BUILD_AUTO_DIR}")
+configure_file(${TEMPLATE_DIR}/thisbornagain.sh.in
+    ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/thisbornagain.sh @ONLY)
+configure_file(${TEMPLATE_DIR}/thisbornagain.csh.in
+    ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/thisbornagain.csh @ONLY)
 
 # -----------------------------------------------------------------------------
 # configure postinst and prerm for the debian package
@@ -133,11 +144,11 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -I${BUILD_AUTO_DIR}")
 
 if(BUILD_DEBIAN)
     set(CMAKE_INSTALL_PREFIX "/usr")
-    execute_process(COMMAND "${PYTHON_EXECUTABLE}" -c "from distutils import sysconfig; print sysconfig.get_python_lib(1,0,prefix=None)"
+    execute_process(COMMAND "${PYTHON_EXECUTABLE}" -c
+        "from distutils import sysconfig; print sysconfig.get_python_lib(1,0,prefix=None)"
         OUTPUT_VARIABLE PYTHON_SITE_PACKAGES
-        OUTPUT_STRIP_TRAILING_WHITESPACE
-        )
-    configure_file("${TEMPLATE_DIR}/postinst.in" "${BUILD_AUTO_DIR}/postinst" @ONLY)
-    configure_file("${TEMPLATE_DIR}/prerm.in" "${BUILD_AUTO_DIR}/prerm" @ONLY)
-    set(CMAKE_INSTALL_RPATH "\$ORIGIN/../../lib/${destination_suffix}")
+        OUTPUT_STRIP_TRAILING_WHITESPACE )
+    configure_file(${TEMPLATE_DIR}/postinst.in ${BUILD_VAR_DIR}/postinst @ONLY)
+    configure_file(${TEMPLATE_DIR}/prerm.in ${BUILD_VAR_DIR}/prerm @ONLY)
+    set(CMAKE_INSTALL_RPATH \$ORIGIN/../../lib/${destination_suffix})
 endif(BUILD_DEBIAN)

@@ -212,8 +212,8 @@ if(WIN32)
 else()
     # Install thisbornagain.sh.
     install(FILES
-                ${BUILD_AUTO_DIR}/thisbornagain.sh
-                ${BUILD_AUTO_DIR}/thisbornagain.csh
+                ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/thisbornagain.sh
+                ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/thisbornagain.csh
         PERMISSIONS OWNER_EXECUTE OWNER_WRITE OWNER_READ
         GROUP_EXECUTE GROUP_READ WORLD_EXECUTE WORLD_READ
         DESTINATION ${destination_libexec})

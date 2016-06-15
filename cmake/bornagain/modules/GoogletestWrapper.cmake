@@ -34,7 +34,7 @@ function(WRAP_GTEST TEST_NAME GLOBPATTERN LINK_LIB STAGE)
     file(READ "${TEMPLATE_DIR}/GoogletestFooter.cpp" TMPTMP)
     set(TMP "${TMP}\n${TMPTMP}")
 
-    set(TEST_SRC "${BUILD_AUTO_DIR}/${TEST_NAME}.cpp")
+    set(TEST_SRC "${BUILD_SRC_DIR}/${TEST_NAME}.cpp")
     file(WRITE ${TEST_SRC} "${TMP}")
 
     set(EXE ${TEST_NAME})

@@ -21,17 +21,16 @@
 #include "FileSystem.h"
 
 
-OutputDataReader *OutputDataReadFactory::getReader(const std::string &file_name)
+OutputDataReader* OutputDataReadFactory::getReader(const std::string &file_name)
 {
-    OutputDataReader *result = new OutputDataReader(file_name);
-
+    OutputDataReader* result = new OutputDataReader(file_name);
     result->setStrategy(getReadStrategy(file_name));
     return result;
 }
 
-IOutputDataReadStrategy *OutputDataReadFactory::getReadStrategy(const std::string &file_name)
+IOutputDataReadStrategy* OutputDataReadFactory::getReadStrategy(const std::string &file_name)
 {
-    IOutputDataReadStrategy *result(0);
+    IOutputDataReadStrategy* result(nullptr);
     if(OutputDataIOHelper::isIntFile(file_name)) {
         result = new OutputDataReadINTStrategy();
     }

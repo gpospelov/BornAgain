@@ -47,6 +47,7 @@ set(BUILD_VAR_DIR ${CMAKE_BINARY_DIR}/var)
 set(BUILD_TMP_DIR ${CMAKE_BINARY_DIR}/tmp)
 set(BUILD_INC_DIR ${CMAKE_BINARY_DIR}/inc)
 set(BUILD_SRC_DIR ${CMAKE_BINARY_DIR}/src)
+set(FAILED_TESTS_DIR ${CMAKE_BINARY_DIR}/tmp) # no longer 00_failed_tests
 configure_file("${TEMPLATE_DIR}/auto_README.in" "${CMAKE_SOURCE_DIR}/auto/README" @ONLY)
 
 file(MAKE_DIRECTORY ${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
@@ -56,6 +57,7 @@ file(MAKE_DIRECTORY ${BUILD_VAR_DIR})
 file(MAKE_DIRECTORY ${BUILD_TMP_DIR})
 file(MAKE_DIRECTORY ${BUILD_INC_DIR})
 file(MAKE_DIRECTORY ${BUILD_SRC_DIR})
+file(MAKE_DIRECTORY ${FAILED_TESTS_DIR})
 
 # -----------------------------------------------------------------------------
 # file extensions
@@ -111,10 +113,12 @@ message(STATUS "Destination directories: bin->${destination_bin}, lib->${destina
 
 if(BORNAGAIN_RELEASE)
     # configure a header file to pass CMake settings to the source code
-    configure_file("${TEMPLATE_DIR}/BAVersion.h.in" "${CMAKE_SOURCE_DIR}/Core/Samples/inc/BAVersion.h")
+    configure_file(${TEMPLATE_DIR}/BAVersion.h.in
+        ${CMAKE_SOURCE_DIR}/Core/Samples/inc/BAVersion.h)
 
     # configure Doxyfile
-    configure_file("${CMAKE_SOURCE_DIR}/Doc/Doxygen/Doxyfile.in" "${CMAKE_SOURCE_DIR}/Doc/Doxygen/Doxyfile" @ONLY)
+    configure_file(${CMAKE_SOURCE_DIR}/Doc/Doxygen/Doxyfile.in
+        ${CMAKE_SOURCE_DIR}/Doc/Doxygen/Doxyfile @ONLY)
 
     # configure FindBornagain script
     configure_file(${TEMPLATE_DIR}/FindBornAgain.cmake.in
@@ -126,6 +130,11 @@ configure_file(${TEMPLATE_DIR}/CTestCustom.cmake.in ${CMAKE_BINARY_DIR}/CTestCus
 configure_file(${TEMPLATE_DIR}/TestConfig.h.in ${BUILD_INC_DIR}/TestConfig.h @ONLY)
 configure_file(${TEMPLATE_DIR}/BAPython.h.in ${BUILD_INC_DIR}/BAPython.h @ONLY)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -I${BUILD_INC_DIR}")
+
+configure_file(${CMAKE_SOURCE_DIR}/Examples/python/utils/plot_intensity_data.py
+    ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/view1.py @ONLY)
+configure_file(${CMAKE_SOURCE_DIR}/Examples/python/utils/plot_intensity_data_diff.py
+    ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/view2.py @ONLY)
 
 # -----------------------------------------------------------------------------
 # configure BornAgain launch scripts

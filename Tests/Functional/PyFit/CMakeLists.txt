@@ -2,7 +2,13 @@
 # Futests/TestPyFi/CMakeLists.txt
 ############################################################################
 
-set(list_of_tests
+file(GLOB sources RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "*.py")
+foreach(_src ${sources})
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/${_src}
+        ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${_src} @ONLY)
+endforeach()
+
+set(tests
     "testfit_UsingBuilder.py"
 #    "testfit_GSLLMA.py"
 #    "testfit_GSLMultiMin.py"
@@ -10,11 +16,6 @@ set(list_of_tests
 #    "testfit_Minuit2.py"
 )
 
-#if(ROOT_FOUND)
-#    list(APPEND list_of_tests "testfit_Genetic.py")
-#endif()
-
-foreach(_test ${list_of_tests})
-    #add_test(${_test} ${PYTHON_EXECUTABLE} "${CMAKE_CURRENT_SOURCE_DIR}/${_test}")
-    add_test(${_test} ${PYTHON_EXECUTABLE} "${CMAKE_BINARY_DIR}/Tests/Functional/PyFit/${_test}")
+foreach(_test ${tests})
+    add_test(${_test} ${PYTHON_EXECUTABLE} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${_test})
 endforeach()

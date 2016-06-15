@@ -125,7 +125,7 @@ OutputData<double>* FutestSuite::getReferenceData() const
         result = IntensityDataIOFactory::readOutputData(filename);
     } catch(const std::exception& ex) {
         throw std::runtime_error(
-            "FutestSuite::getReferenceData() -> Exception caught: " + ex.what() );
+            std::string("FutestSuite::getReferenceData() -> Exception caught: ") + ex.what() );
     }
     return result;
 }

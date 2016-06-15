@@ -11,10 +11,7 @@ import time
 import ctypes
 import math
 
-sys.path.append(os.path.abspath(
-                os.path.join(os.path.split(__file__)[0],
-                '..', '..', '..', 'lib')))
-
+sys.path.append("@CMAKE_LIBRARY_OUTPUT_DIRECTORY@")
 from libBornAgainCore import *
 from libBornAgainFit import *
 
@@ -50,11 +47,16 @@ def runTest():
     fitSuite = FitSuite()
     fitSuite.setMinimizer("Minuit2", "Combined")
     fitSuite.initPrint(10)
-    fitSuite.addFitParameter("*SampleBuilder/cylinder_height",  4*nanometer,  AttLimits.lowerLimited(0.01) )
-    fitSuite.addFitParameter("*SampleBuilder/cylinder_radius",  6*nanometer,  AttLimits.lowerLimited(0.01) )
-    fitSuite.addFitParameter("*SampleBuilder/prism3_half_side", 4*nanometer,  AttLimits.lowerLimited(0.01) )
-    fitSuite.addFitParameter("*SampleBuilder/prism3_height",    6*nanometer,  AttLimits.lowerLimited(0.01) )
-    fitSuite.addFitParameter("*SampleBuilder/cylinder_ratio", 0.2, AttLimits.fixed())
+    fitSuite.addFitParameter(
+        "*SampleBuilder/cylinder_height",  4*nanometer,  AttLimits.lowerLimited(0.01) )
+    fitSuite.addFitParameter(
+        "*SampleBuilder/cylinder_radius",  6*nanometer,  AttLimits.lowerLimited(0.01) )
+    fitSuite.addFitParameter(
+        "*SampleBuilder/prism3_half_side", 4*nanometer,  AttLimits.lowerLimited(0.01) )
+    fitSuite.addFitParameter(
+        "*SampleBuilder/prism3_height",    6*nanometer,  AttLimits.lowerLimited(0.01) )
+    fitSuite.addFitParameter(
+        "*SampleBuilder/cylinder_ratio", 0.2, AttLimits.fixed())
 
     # chiModule = ChiSquaredModule()
     # chiModule.setChiSquaredFunction( SquaredFunctionMeanSquaredError() )
@@ -64,7 +66,8 @@ def runTest():
     fitSuite.runFit()
 
     # analysing fit results
-    initialParameters = [ cylinder_height, cylinder_radius, prism3_half_side, prism3_height, cylinder_ratio]
+    initialParameters = [ cylinder_height, cylinder_radius,
+                          prism3_half_side, prism3_height, cylinder_ratio]
     results = fitSuite.getFitParameters().getValues()
     threshold = 1.0e-02
     status = "OK"
@@ -154,4 +157,3 @@ if __name__ == '__main__':
     name,description,status = runTest()
     print(name,description,status)
     if("FAILED" in status) : exit(1)
-

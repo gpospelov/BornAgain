@@ -125,9 +125,6 @@ C++ includes: ParaCrystalBuilder.h
 %feature("docstring")  Basic2DParaCrystalBuilder::~Basic2DParaCrystalBuilder "Basic2DParaCrystalBuilder::~Basic2DParaCrystalBuilder()
 ";
 
-%feature("docstring")  Basic2DParaCrystalBuilder::init_from "void Basic2DParaCrystalBuilder::init_from(const class FutestSuite *service)
-";
-
 %feature("docstring")  Basic2DParaCrystalBuilder::buildSample "ISample * Basic2DParaCrystalBuilder::buildSample() const 
 ";
 
@@ -4363,7 +4360,7 @@ C++ includes: FutestRegistry.h
 
 To execute one functional test of given name.
 
-Used in functional tests (Core|Py|GUI)Suite, where it is subclassed as a singleton, and called through instance().execute(argc, argv). When processing execute, dependent classes will call back  getFutest(). Certain tests have subtests; they will call back  getFormFactor() etc.
+Used in functional tests (Core|Py|GUI)Suite, where it is subclassed as a singleton, and called through instance().execute(argc, argv). When processing execute, dependent classes will call back  getFutest(). Certain tests have subtests; they will call back getFormFactor() etc.
 
 C++ includes: FutestSuite.h
 ";
@@ -4382,16 +4379,6 @@ Runs test (name given as command-line argument), and returns 0 for SUCCESS, or e
 %feature("docstring")  FutestSuite::getFutest "virtual class IFutest* FutestSuite::getFutest() const =0
 
 overloaded in (Core|Py|GUI)Suite.cpp 
-";
-
-%feature("docstring")  FutestSuite::getFormFactor "IFormFactor * FutestSuite::getFormFactor() const
-
-Returns a form factor from the registry, for use in certain subtests. 
-";
-
-%feature("docstring")  FutestSuite::getFTDistribution2D "IFTDistribution2D * FutestSuite::getFTDistribution2D() const
-
-Returns a distribution from the registry, for use in certain subtests. 
 ";
 
 
@@ -7512,7 +7499,13 @@ C++ includes: ISampleBuilder.h
 %feature("docstring")  ISampleBuilder::buildSample "virtual class ISample* ISampleBuilder::buildSample() const =0
 ";
 
-%feature("docstring")  ISampleBuilder::init_from "virtual void ISampleBuilder::init_from(const class FutestSuite *)
+%feature("docstring")  ISampleBuilder::set_subtest "void ISampleBuilder::set_subtest(class IParameterized *subtest_item)
+";
+
+%feature("docstring")  ISampleBuilder::getFormFactor "IFormFactor* ISampleBuilder::getFormFactor() const 
+";
+
+%feature("docstring")  ISampleBuilder::getFTDistribution2D "IFTDistribution2D* ISampleBuilder::getFTDistribution2D() const 
 ";
 
 
@@ -8513,9 +8506,6 @@ C++ includes: LayersWithAbsorptionBuilder.h
 ";
 
 %feature("docstring")  LayersWithAbsorptionBuilder::~LayersWithAbsorptionBuilder "LayersWithAbsorptionBuilder::~LayersWithAbsorptionBuilder()
-";
-
-%feature("docstring")  LayersWithAbsorptionBuilder::init_from "void LayersWithAbsorptionBuilder::init_from(const class FutestSuite *service)
 ";
 
 %feature("docstring")  LayersWithAbsorptionBuilder::buildSample "ISample * LayersWithAbsorptionBuilder::buildSample() const 
@@ -10298,9 +10288,6 @@ C++ includes: ParticleInTheAirBuilder.h
 ";
 
 %feature("docstring")  ParticleInTheAirBuilder::~ParticleInTheAirBuilder "ParticleInTheAirBuilder::~ParticleInTheAirBuilder()
-";
-
-%feature("docstring")  ParticleInTheAirBuilder::init_from "void ParticleInTheAirBuilder::init_from(const class FutestSuite *service)
 ";
 
 %feature("docstring")  ParticleInTheAirBuilder::buildSample "ISample * ParticleInTheAirBuilder::buildSample() const 

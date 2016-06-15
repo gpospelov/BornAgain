@@ -1,14 +1,9 @@
 """
 Collection of utils for testing
 """
-import sys
-import numpy
-import gzip
-import os
+import gzip, numpy, sys, os
 
-sys.path.append(os.path.abspath(
-                os.path.join(os.path.split(__file__)[0],
-                '..', '..', '..', 'lib')))
+sys.path.append("@CMAKE_LIBRARY_OUTPUT_DIRECTORY@")
 
 from libBornAgainCore import *
 
@@ -41,11 +36,8 @@ def get_reference_data(filename):
     """
     read and return reference data from file
     """
-    path = os.path.split(__file__)[0]
-    if path:
-        path += "/"
     return IntensityDataIOFactory.readIntensityData(
-        path+'../../../ReferenceData/BornAgain/'+filename)
+        "@CMAKE_SOURCE_DIR@/Tests/ReferenceData/BornAgain/"+filename)
 
 
 def get_simulation_MiniGISAS(sample = None):

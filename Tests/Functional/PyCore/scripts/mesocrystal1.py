@@ -9,11 +9,6 @@ import ctypes
 import math
 from utils import get_reference_data
 
-
-sys.path.append(os.path.abspath(
-                os.path.join(os.path.split(__file__)[0],
-                '..', '..', '..', 'lib')))
-
 from libBornAgainCore import *
 
 
@@ -93,7 +88,7 @@ class MySampleBuilder(ISampleBuilder):
 
         particle_layout.setTotalParticleSurfaceDensity(surface_density)
         particle_layout.addInterferenceFunction(p_interference_funtion)
-        
+
         avg_layer.addLayout(particle_layout)
 
         roughness = LayerRoughness(self.roughness.value, 0.3, 500.0*nanometer)
@@ -104,14 +99,14 @@ class MySampleBuilder(ISampleBuilder):
 
         self.sample = p_multi_layer
         return self.sample
-    
+
     # -------------------------------------------------------------------------
     # building meso crystal
     # -------------------------------------------------------------------------
     def createMesoCrystal(self,stacking_radius_a, stacking_radius_c, n_particle, p_meso_form_factor):
-        
+
         mParticle = HomogeneousMaterial("Particle", n_particle )
-        
+
         p_lat = self.createLattice(stacking_radius_a, stacking_radius_c)
         bas_a = p_lat.getBasisVectorA()
         bas_b = p_lat.getBasisVectorB()
@@ -130,7 +125,7 @@ class MySampleBuilder(ISampleBuilder):
         npc.setDWFactor(dw_factor)
         meso = MesoCrystal(npc, p_meso_form_factor)
         return meso
-  
+
     # -------------------------------------------------------------------------
     # create lattice
     # -------------------------------------------------------------------------

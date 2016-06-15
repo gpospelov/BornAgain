@@ -6,11 +6,6 @@ import os
 import numpy
 from utils import get_reference_data
 
-sys.path.append(os.path.abspath(
-                os.path.join(os.path.split(__file__)[0],
-                '..', '..', '..', 'lib')))
-
-
 from libBornAgainCore import *
 
 phi_min, phi_max = -0.5, 0.5
@@ -90,4 +85,3 @@ if __name__ == '__main__':
     print(name, description, diff, status)
     if "FAILED" in status:
         exit(1)
-

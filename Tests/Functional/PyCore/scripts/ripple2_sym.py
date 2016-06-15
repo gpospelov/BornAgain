@@ -5,11 +5,6 @@ import os
 import numpy
 from utils import get_reference_data
 
-
-sys.path.append(os.path.abspath(
-    os.path.join(os.path.split(__file__)[0],
-                 '..', '..', '..', 'lib')))
-
 from libBornAgainCore import *
 
 

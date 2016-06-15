@@ -4663,7 +4663,12 @@ class ISampleBuilder(IParameterized):
 
 
     def set_subtest(self, subtest_item):
-        """set_subtest(ISampleBuilder self, IParameterized subtest_item)"""
+        """
+        set_subtest(ISampleBuilder self, IParameterized subtest_item)
+
+        void ISampleBuilder::set_subtest(class IParameterized *subtest_item)
+
+        """
         return _libBornAgainCore.ISampleBuilder_set_subtest(self, subtest_item)
 
     __swig_setmethods__["m_subtest_item"] = _libBornAgainCore.ISampleBuilder_m_subtest_item_set
@@ -4672,12 +4677,22 @@ class ISampleBuilder(IParameterized):
         m_subtest_item = _swig_property(_libBornAgainCore.ISampleBuilder_m_subtest_item_get, _libBornAgainCore.ISampleBuilder_m_subtest_item_set)
 
     def getFormFactor(self):
-        """getFormFactor(ISampleBuilder self) -> IFormFactor"""
+        """
+        getFormFactor(ISampleBuilder self) -> IFormFactor
+
+        IFormFactor* ISampleBuilder::getFormFactor() const 
+
+        """
         return _libBornAgainCore.ISampleBuilder_getFormFactor(self)
 
 
     def getFTDistribution2D(self):
-        """getFTDistribution2D(ISampleBuilder self) -> IFTDistribution2D"""
+        """
+        getFTDistribution2D(ISampleBuilder self) -> IFTDistribution2D
+
+        IFTDistribution2D* ISampleBuilder::getFTDistribution2D() const 
+
+        """
         return _libBornAgainCore.ISampleBuilder_getFTDistribution2D(self)
 
 

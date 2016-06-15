@@ -5,10 +5,7 @@ import os
 import unittest
 import numpy
 
-sys.path.append(os.path.abspath(
-                os.path.join(os.path.split(__file__)[0],
-                '..', '..', '..', 'lib')))
-
+sys.path.append("@CMAKE_LIBRARY_OUTPUT_DIRECTORY@")
 from libBornAgainCore import *
 
 def get_axis():

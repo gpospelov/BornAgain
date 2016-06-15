@@ -5,20 +5,16 @@ import os
 import numpy
 from utils import get_reference_data
 
-sys.path.append(os.path.abspath(
-                os.path.join(os.path.split(__file__)[0],
-                '..', '..', '..', 'lib')))
-
 from libBornAgainCore import *
 
 # ----------------------------------
 # describe sample and run simulation
 # ----------------------------------
 def RunSimulationDWBA():
-    
+
     # defining materials
     mAmbience = HomogeneousMaterial("Air", 0.0, 0.0 )
-    mSubstrate = HomogeneousMaterial("Substrate", 6e-6, 2e-8 )    
+    mSubstrate = HomogeneousMaterial("Substrate", 6e-6, 2e-8 )
     mParticle = HomogeneousMaterial("Particle", 6e-4, 2e-8 )
     # collection of particles
     cylinder_ff = FormFactorCylinder(5*nanometer, 5*nanometer)
@@ -31,11 +27,11 @@ def RunSimulationDWBA():
     air_layer = Layer(mAmbience)
     air_layer.addLayout(particle_layout)
     substrate_layer = Layer(mSubstrate, 0)
-    
+
     multi_layer = MultiLayer()
     multi_layer.addLayer(air_layer)
     multi_layer.addLayer(substrate_layer)
-    
+
     # build and run experiment
     simulation = GISASSimulation()
     detector = IsGISAXSDetector(100, 0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree)
@@ -55,7 +51,7 @@ def RunSimulationBA():
     mAmbience = HomogeneousMaterial("Air", 0.0, 0.0 )
     mSubstrate = HomogeneousMaterial("Substrate", 6e-6, 2e-8 )
     mParticle = HomogeneousMaterial("Particle", 6e-4, 2e-8 )
-    
+
     # collection of particles
     cylinder_ff = FormFactorCylinder(5*nanometer, 5*nanometer)
     cylinder = Particle(mParticle, cylinder_ff)
@@ -63,14 +59,14 @@ def RunSimulationBA():
     particle_layout.addParticle(cylinder, 1.0)
     interference = InterferenceFunctionNone()
     particle_layout.addInterferenceFunction(interference)
-    
+
     air_layer = Layer(mAmbience)
     air_layer.addLayout(particle_layout)
-    
+
     substrate_layer = Layer(mSubstrate, 0)
     multi_layer = MultiLayer()
     multi_layer.addLayer(air_layer)
-    
+
     # build and run experiment
     simulation = GISASSimulation()
     detector = IsGISAXSDetector(100, 0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree)
@@ -108,14 +104,14 @@ def RunSimulationBA_Size():
     particle_layout.addParticle(part_coll)
 
     interference = InterferenceFunctionNone()
-    particle_layout.addInterferenceFunction(interference)    
+    particle_layout.addInterferenceFunction(interference)
 
     air_layer = Layer(mAmbience)
     air_layer.addLayout(particle_layout)
-    
+
     multi_layer.addLayer(air_layer)
 
-    # build and run experiment  
+    # build and run experiment
     simulation = GISASSimulation()
     detector = IsGISAXSDetector(100, 0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree)
     simulation.setDetector(detector)
@@ -143,12 +139,9 @@ def runTest():
         status = "FAILED"
     return "Cylinders_BA_DWBA_SIZE", "Cylinder formfactor in BA and DWBA", diff, status
 
-   
+
 if __name__ == '__main__':
     name, description, diff, status = runTest()
     print(name, description, diff, status)
     if("FAILED" in status):
         exit(1)
-
-
-

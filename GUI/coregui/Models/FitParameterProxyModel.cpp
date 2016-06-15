@@ -63,7 +63,6 @@ Qt::ItemFlags FitParameterProxyModel::flags(const QModelIndex &index) const
         if(item->modelType() == Constants::FitParameterType || item->modelType() == Constants::FitParameterContainerType) {
             returnVal |= Qt::ItemIsDropEnabled;
         }
-
     }
 
     return returnVal;

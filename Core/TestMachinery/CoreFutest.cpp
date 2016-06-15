@@ -66,7 +66,7 @@ int CoreFutest::analyseResults()
     } else {
         m_difference = IntensityDataFunctions::getRelativeDifference(
             *result_data.get(), *m_reference);
-        m_result = m_difference > m_threshold/7 ? FAILED_DIFF : SUCCESS;
+        m_result = m_difference > m_threshold ? FAILED_DIFF : SUCCESS;
     }
     // Save simulation if different from reference.
     if (getTestResult() != SUCCESS) {

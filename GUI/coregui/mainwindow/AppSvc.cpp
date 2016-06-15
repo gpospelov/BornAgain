@@ -43,12 +43,18 @@ ProjectManager *AppSvc::this_projectManager()
 
 void AppSvc::this_subscribe(ProjectManager *projectManager)
 {
-    Q_ASSERT(m_projectManager == nullptr);
+    if(m_projectManager != nullptr) {
+        throw GUIHelpers::Error("AppSvc::projectManager() -> Error. Attempt to subscribe "
+                                "ProjectManager twice.");
+    }
     m_projectManager = projectManager;
 }
 
 void AppSvc::this_unsubscribe(ProjectManager *projectManager)
 {
-    Q_ASSERT(m_projectManager == projectManager);
+    if(m_projectManager != projectManager) {
+        throw GUIHelpers::Error("AppSvc::projectManager() -> Error. Attempt to unsubscribe "
+                                "ProjectManager before it was subscribed.");
+    }
     m_projectManager = nullptr;
 }

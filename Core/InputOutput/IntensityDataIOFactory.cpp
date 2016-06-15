@@ -21,27 +21,24 @@
 #include "IHistogram.h"
 
 
-OutputData<double > *IntensityDataIOFactory::readOutputData(const std::string& file_name)
+OutputData<double >* IntensityDataIOFactory::readOutputData(const std::string& file_name)
 {
-    std::unique_ptr<OutputDataReader> P_reader(OutputDataReadFactory::getReader(file_name));
-    return P_reader->getOutputData();
+    return OutputDataReadFactory::getReader(file_name)->getOutputData();
 }
 
-IHistogram *IntensityDataIOFactory::readIntensityData(const std::string &file_name)
+IHistogram* IntensityDataIOFactory::readIntensityData(const std::string& file_name)
 {
     return IHistogram::createHistogram(*(readOutputData(file_name)));
 }
 
-
-void IntensityDataIOFactory::writeOutputData(const OutputData<double>& data,
-        const std::string& file_name)
+void IntensityDataIOFactory::writeOutputData(
+    const OutputData<double>& data, const std::string& file_name)
 {
-    std::unique_ptr<OutputDataWriter> P_writer(OutputDataWriteFactory::getWriter(file_name));
-    return P_writer->writeOutputData(data);
+    return OutputDataWriteFactory::getWriter(file_name)->writeOutputData(data);
 }
 
-void IntensityDataIOFactory::writeIntensityData(const IHistogram &histogram,
-                                                const std::string &file_name)
+void IntensityDataIOFactory::writeIntensityData(
+    const IHistogram& histogram, const std::string& file_name)
 {
     writeOutputData(*(histogram.createOutputData()), file_name);
 }

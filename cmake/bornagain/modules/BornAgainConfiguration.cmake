@@ -33,7 +33,7 @@ endif()
 # source directories
 # -----------------------------------------------------------------------------
 
-set(BA_REF_DATA_DIR ${CMAKE_SOURCE_DIR}/Test/ReferenceData/BornAgain)
+set(BA_REF_DATA_DIR ${CMAKE_SOURCE_DIR}/Tests/ReferenceData/BornAgain)
 
 # -----------------------------------------------------------------------------
 # cmake runtime output configuration

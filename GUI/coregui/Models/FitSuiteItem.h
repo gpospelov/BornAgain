@@ -21,6 +21,7 @@
 
 class FitSuite;
 class FitParameterContainerItem;
+class MinimizerItem;
 
 class BA_CORE_API_ FitSuiteItem : public SessionItem
 {
@@ -30,9 +31,11 @@ public:
     static const QString P_ITERATION_COUNT;
     static const QString P_CHI2;
     static const QString T_FIT_PARAMETERS;
+    static const QString T_MINIMIZER;
     explicit FitSuiteItem();
 
     FitParameterContainerItem *fitParameterContainerItem();
+    MinimizerItem *minimizerItem();
 //    std::unique_ptr<FitSuite> createFitSuite();
 };
 

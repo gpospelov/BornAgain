@@ -21,6 +21,7 @@
 #include <QWidget>
 
 class ComponentEditor;
+class JobItem;
 class MinimizerItem;
 
 //! The MinimizerSettingsWidget contains editor for all minnimizer settings and related fit
@@ -36,6 +37,7 @@ public:
     QSize minimumSizeHint() const;
 
 public slots:
+    void setItem(JobItem *jobItem);
     void setItem(MinimizerItem *minimizerItem);
 
 private:

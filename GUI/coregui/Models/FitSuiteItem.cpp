@@ -17,11 +17,13 @@
 #include "FitSuiteItem.h"
 #include "FitSuite.h"
 #include "FitParameterItems.h"
+#include "MinimizerItem.h"
 
 const QString FitSuiteItem::P_UPDATE_INTERVAL = "Update interval";
 const QString FitSuiteItem::P_ITERATION_COUNT = "Number of iterations";
 const QString FitSuiteItem::P_CHI2 = "Chi2";
 const QString FitSuiteItem::T_FIT_PARAMETERS = "Fit parameters container";
+const QString FitSuiteItem::T_MINIMIZER = "Minimizer settings";
 
 
 FitSuiteItem::FitSuiteItem()
@@ -32,11 +34,17 @@ FitSuiteItem::FitSuiteItem()
     addProperty(P_CHI2, 0.0);
 
     registerTag(T_FIT_PARAMETERS, 1, 1, QStringList() << Constants::FitParameterContainerType);
+    registerTag(T_MINIMIZER, 1, 1, QStringList() << Constants::MinimizerType);
 }
 
 FitParameterContainerItem *FitSuiteItem::fitParameterContainerItem()
 {
     return dynamic_cast<FitParameterContainerItem *>(getItem(FitSuiteItem::T_FIT_PARAMETERS));
+}
+
+MinimizerItem *FitSuiteItem::minimizerItem()
+{
+    return dynamic_cast<MinimizerItem *>(getItem(FitSuiteItem::T_MINIMIZER));
 }
 
 //std::unique_ptr<FitSuite> FitSuiteItem::createFitSuite()

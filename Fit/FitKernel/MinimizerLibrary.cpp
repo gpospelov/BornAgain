@@ -90,7 +90,7 @@ Catalogue::Catalogue()
     gsl.addAlgorithm(BornAgain::BFGSAlgorithmType, "BFGS conjugate gradient");
     gsl.addAlgorithm(BornAgain::BFGS2AlgorithmType, "BFGS conjugate gradient (Version 2)");
     gsl.addAlgorithm(BornAgain::LMAAlgorithmType, "Levenberg-Marquardt, often works quite well.");
-    gsl.addAlgorithm(BornAgain::SimAnAlgorithmType, "Simulated Annealing");
+//    gsl.addAlgorithm(BornAgain::SimAnAlgorithmType, "Simulated Annealing");
     addMinimizer(gsl);
 
     MinimizerInfo genetic(BornAgain::GeneticMinimizerType, "TMVA Genetic Algorithm");

@@ -17,6 +17,8 @@
 #include "MinimizerSettingsWidget.h"
 #include "MinimizerItem.h"
 #include "ComponentEditor.h"
+#include "JobItem.h"
+#include "FitSuiteItem.h"
 #include <QVBoxLayout>
 
 MinimizerSettingsWidget::MinimizerSettingsWidget(QWidget *parent)
@@ -34,6 +36,12 @@ MinimizerSettingsWidget::MinimizerSettingsWidget(QWidget *parent)
 QSize MinimizerSettingsWidget::minimumSizeHint() const
 {
     return QSize(25, 25);
+}
+
+void MinimizerSettingsWidget::setItem(JobItem *jobItem)
+{
+    Q_ASSERT(jobItem);
+    setItem(jobItem->fitSuiteItem()->minimizerItem());
 }
 
 void MinimizerSettingsWidget::setItem(MinimizerItem *minimizerItem)

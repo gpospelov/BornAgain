@@ -73,6 +73,7 @@ void FitSuiteWidget::setItem(JobItem *jobItem)
     Q_ASSERT(jobItem);
     m_currentItem = jobItem;
     m_fitParametersWidget->setItem(jobItem);
+    m_minimizerSettingsWidget->setItem(jobItem);
 }
 
 void FitSuiteWidget::setModelTuningWidget(ParameterTuningWidget *tuningWidget)

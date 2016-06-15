@@ -239,9 +239,16 @@ void JobModel::createFitContainers(JobItem *jobItem)
     fitSuiteItem = insertNewItem(Constants::FitSuiteType,
                                  jobItem->index(), -1, JobItem::T_FIT_SUITE);
     Q_ASSERT(fitSuiteItem);
+    if(fitSuiteItem != nullptr) {
+        throw GUIHelpers::Error("JobModel::createFitContainers() -> Error. Attempt to create "
+                                "a second FitSuiteItem.");
+    }
 
     SessionItem *parsContainerItem = fitSuiteItem->getItem(FitSuiteItem::T_FIT_PARAMETERS);
-    Q_ASSERT(parsContainerItem == nullptr);
+    if(parsContainerItem != nullptr) {
+        throw GUIHelpers::Error("JobModel::createFitContainers() -> Error. Attempt to create "
+                                "a second FitParameterContainer.");
+    }
 
     parsContainerItem = insertNewItem(Constants::FitParameterContainerType,
                                       fitSuiteItem->index(), -1, FitSuiteItem::T_FIT_PARAMETERS);

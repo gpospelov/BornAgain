@@ -14,7 +14,6 @@
 // ************************************************************************** //
 
 #include "FutestSuite.h"
-#include "FutestRegistry.h"
 #include "PySuiteFutest.h"
 
 class PySuite : public FutestSuite, public ISingleton<PySuite>

@@ -15,7 +15,6 @@
 // ************************************************************************** //
 
 #include "FutestSuite.h"
-#include "FutestRegistry.h"
 #include "GUIFutest.h"
 
 class GUISuite : public FutestSuite, public ISingleton<GUISuite>

@@ -46,7 +46,6 @@ public:
 
 protected:
     virtual class GISASSimulation* getSimulation() const;
-    std::string getReferenceFileName() const;
     std::string getTestName() const { return m_test_name; }
     std::string getTestDescription() const;
     double getTestThreshold() const;

@@ -16,6 +16,7 @@
 #include "CoreFutest.h"
 #include "GISASSimulation.h"
 #include "IntensityDataFunctions.h"
+#include "TestConfig.h"
 #include "FileSystem.h"
 #include "IntensityDataIOFactory.h"
 #include "OutputDataIOHelper.h"
@@ -28,12 +29,11 @@ const std::string directory_name_for_failed_tests = "00_failed_tests";
 
 CoreFutest::CoreFutest(
     const std::string& name, const std::string& description, GISASSimulation* simulation,
-    double threshold, const std::string&file_name)
+    double threshold)
     : IFutest(name, description)
     , m_simulation(simulation)
     , m_threshold(threshold)
     , m_difference(0)
-    , m_simulation_results_file_name( file_name )
 {
 }
 
@@ -51,8 +51,9 @@ void CoreFutest::runTest()
     m_simulation->runSimulation();
 
     m_reference = nullptr;
+    std::string ref_filename = BA_REF_DATA_DIR + "/ref_" + getName() + ".int.gz";
     try {
-        m_reference = IntensityDataIOFactory::readOutputData( m_simulation_results_file_name );
+        m_reference = IntensityDataIOFactory::readOutputData( ref_filename );
     } catch(const std::exception& ex) {
         throw std::runtime_error(
             std::string("FutestSuite::getReferenceData() -> Exception caught: ") + ex.what() );
@@ -105,14 +106,13 @@ void CoreFutest::saveSimulationResults() const
 std::string CoreFutest::getSimulationResultsFileNameAndPath() const
 {
     std::string result = Utils::FileSystem::GetJoinPath(
-        directory_name_for_failed_tests, m_simulation_results_file_name);
+        directory_name_for_failed_tests, "ref_" + getName() + ".int.gz");
     return result;
 }
 
 OutputData<double>* CoreFutest::getIntensityData() const
 {
-    if (m_simulation) {
+    if (m_simulation)
         return m_simulation->getDetectorIntensity();
-    }
     return 0;
 }

@@ -14,7 +14,6 @@
 // ************************************************************************** //
 
 #include "FutestSuite.h"
-#include "FutestRegistry.h"
 #include "CoreFutest.h"
 
 class CoreSuite : public FutestSuite, public ISingleton<CoreSuite>
@@ -22,8 +21,7 @@ class CoreSuite : public FutestSuite, public ISingleton<CoreSuite>
 public:
     CoreSuite() { setName("CoreSuite"); }
     IFutest* getFutest() const { return new CoreFutest(
-            getTestName(), getTestDescription(), getSimulation(),
-            getTestThreshold(), getReferenceFileName() ); }
+            getTestName(), getTestDescription(), getSimulation(), getTestThreshold() ); }
 };
 
 //! The main function of CoreSuite, to run functional tests

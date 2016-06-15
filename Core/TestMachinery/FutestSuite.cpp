@@ -21,7 +21,6 @@
 #include "SubtestRegistry.h"
 #include "IFutest.h"
 #include "Exceptions.h"
-#include "TestConfig.h"
 #include "FutestSuite.h"
 
 // ************************************************************************** //
@@ -112,11 +111,6 @@ GISASSimulation* FutestSuite::getSimulation() const
         sample_builder->set_subtest(m_subtest_item);
     result->setSampleBuilder(sample_builder);
     return result;
-}
-
-std::string FutestSuite::getReferenceFileName() const
-{
-    return BA_REF_DATA_DIR + "/ref_" + m_test_name + ".int.gz";
 }
 
 //! Constructs functional test description corresponding to the current component.

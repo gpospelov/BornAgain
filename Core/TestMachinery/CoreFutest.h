@@ -40,7 +40,6 @@ public:
     virtual void printResults(std::ostream& ostr) const;
 
 private:
-    void saveSimulationResults() const;
     std::string getSimulationResultsFileNameAndPath() const;
     OutputData<double>* getIntensityData() const;
 
@@ -48,6 +47,7 @@ private:
     double m_threshold;
     OutputData<double>* m_reference;
     double m_difference;
-};
+    std::string m_ref_filename;
+    };
 
 #endif

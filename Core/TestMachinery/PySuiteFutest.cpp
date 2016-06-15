@@ -28,10 +28,6 @@
 #include "Utils.h"
 #include "PySuiteFutest.h"
 
-namespace {
-const std::string directory_name_for_failed_tests = "00_failed_tests";
-}
-
 PySuiteFutest::PySuiteFutest(
     const std::string& name, const std::string& description,
     GISASSimulation* reference_simulation, double threshold)
@@ -88,7 +84,7 @@ int PySuiteFutest::analyseResults()
     m_result = m_difference > m_threshold ? FAILED_DIFF : SUCCESS;
     if (m_result != SUCCESS) {
         // Move failed Python script to failed tests directory
-        Utils::FileSystem::CreateDirectory(directory_name_for_failed_tests);
+        Utils::FileSystem::CreateDirectory(FAILED_TESTS_DIR);
         std::rename( m_pyscript_filename.c_str(), getPySuiteFileNameAndPath().c_str());
     }
     return m_result;
@@ -105,6 +101,6 @@ void PySuiteFutest::printResults(std::ostream& ostr) const
 std::string PySuiteFutest::getPySuiteFileNameAndPath() const
 {
     std::string result
-        = Utils::FileSystem::GetJoinPath(directory_name_for_failed_tests, m_pyscript_filename);
+        = Utils::FileSystem::GetJoinPath(FAILED_TESTS_DIR, m_pyscript_filename);
     return result;
 }

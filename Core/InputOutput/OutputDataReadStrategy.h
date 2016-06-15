@@ -18,8 +18,8 @@
 
 #include <string>
 #include "WinDllMacros.h"
-template <class T> class OutputData;
 
+template <class T> class OutputData;
 
 //! @class IOutputDataReadStrategy
 //! @ingroup input_output_internal
@@ -28,8 +28,7 @@ class BA_CORE_API_ IOutputDataReadStrategy
 {
 public:
     virtual ~IOutputDataReadStrategy(){}
-    virtual OutputData<double > *readOutputData(std::istream& input_stream) = 0;
-private:
+    virtual OutputData<double>* readOutputData(std::istream& input_stream) = 0;
 };
 
 
@@ -39,7 +38,7 @@ private:
 class OutputDataReadINTStrategy : public IOutputDataReadStrategy
 {
 public:
-    OutputData<double > *readOutputData(std::istream& input_stream);
+    OutputData<double>* readOutputData(std::istream& input_stream);
 };
 
 //! @class OutputDataReadNumpyTXTStrategy
@@ -48,7 +47,7 @@ public:
 class OutputDataReadNumpyTXTStrategy : public IOutputDataReadStrategy
 {
 public:
-    OutputData<double > *readOutputData(std::istream& input_stream);
+    OutputData<double>* readOutputData(std::istream& input_stream);
 };
 
 
@@ -65,12 +64,10 @@ class BA_CORE_API_ OutputDataReadTiffStrategy : public IOutputDataReadStrategy
 public:
     OutputDataReadTiffStrategy();
     virtual ~OutputDataReadTiffStrategy();
-    virtual OutputData<double > *readOutputData(std::istream& input_stream);
+    virtual OutputData<double>* readOutputData(std::istream& input_stream);
 private:
     TiffHandler *m_d;
 };
 #endif // BORNAGAIN_TIFF_SUPPORT
 
 #endif // OUTPUTDATAREADSTRATEGY_H
-
-

@@ -23,15 +23,15 @@
 #include "TiffHandler.h"
 #include <fstream>
 
-OutputData<double > *OutputDataReadINTStrategy::readOutputData(std::istream &input_stream)
+OutputData<double>* OutputDataReadINTStrategy::readOutputData(std::istream& input_stream)
 {
-    OutputData<double > *result = new OutputData<double>;
+    OutputData<double>* result = new OutputData<double>;
     std::string line;
 
     while( std::getline(input_stream, line) )
     {
         if (line.find("axis") != std::string::npos) {
-            IAxis *axis = OutputDataIOHelper::createAxis(input_stream);
+            IAxis* axis = OutputDataIOHelper::createAxis(input_stream);
             result->addAxis(*axis);
             delete axis;
         }
@@ -45,7 +45,7 @@ OutputData<double > *OutputDataReadINTStrategy::readOutputData(std::istream &inp
 
 // ----------------------------------------------------------------------------
 
-OutputData<double> *OutputDataReadNumpyTXTStrategy::readOutputData(std::istream &input_stream)
+OutputData<double>* OutputDataReadNumpyTXTStrategy::readOutputData(std::istream& input_stream)
 {
     std::string line;
     std::vector<std::vector<double> > data;
@@ -67,7 +67,7 @@ OutputData<double> *OutputDataReadNumpyTXTStrategy::readOutputData(std::istream 
                                       "Number of elements is different from row to row.");
         }
     }
-    OutputData<double > *result = new OutputData<double>;
+    OutputData<double>* result = new OutputData<double>;
     result->addAxis("x", ncols, 0.0, double(ncols));
     result->addAxis("y", nrows, 0.0, double(nrows));
     std::vector<int> axes_indices(2);
@@ -96,12 +96,10 @@ OutputDataReadTiffStrategy::~OutputDataReadTiffStrategy()
     delete m_d;
 }
 
-OutputData<double> *OutputDataReadTiffStrategy::readOutputData(std::istream &input_stream)
+OutputData<double>* OutputDataReadTiffStrategy::readOutputData(std::istream& input_stream)
 {
     m_d->read(input_stream);
     return m_d->getOutputData()->clone();
 }
 
 #endif // BORNAGAIN_TIFF_SUPPORT
-
-

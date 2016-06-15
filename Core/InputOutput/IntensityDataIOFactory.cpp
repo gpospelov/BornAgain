@@ -21,7 +21,7 @@
 #include "IHistogram.h"
 
 
-OutputData<double >* IntensityDataIOFactory::readOutputData(const std::string& file_name)
+OutputData<double>* IntensityDataIOFactory::readOutputData(const std::string& file_name)
 {
     return OutputDataReadFactory::getReader(file_name)->getOutputData();
 }

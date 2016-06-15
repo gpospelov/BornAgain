@@ -70,7 +70,7 @@ int CoreFutest::analyseResults()
                 result_data(m_simulation->getDetectorIntensity());
             m_difference = IntensityDataFunctions::getRelativeDifference(
                 *result_data.get(), *m_reference);
-            m_result = (m_difference > m_threshold ? FAILED_DIFF : SUCCESS);
+            m_result = m_difference > m_threshold ? FAILED_DIFF : SUCCESS;
         } catch(const std::exception& ex) {
             std::cout << "CoreFutest::analyseResults() -> "
                 "Intensity data comparison failed\n";

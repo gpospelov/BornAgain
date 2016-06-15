@@ -65,18 +65,11 @@ int CoreFutest::analyseResults()
     if (!m_reference) {
         m_result = FAILED_NOREF;
     } else {
-        try {
-            const std::unique_ptr<OutputData<double> >
-                result_data(m_simulation->getDetectorIntensity());
-            m_difference = IntensityDataFunctions::getRelativeDifference(
-                *result_data.get(), *m_reference);
-            m_result = m_difference > m_threshold/7 ? FAILED_DIFF : SUCCESS;
-        } catch(const std::exception& ex) {
-            std::cout << "CoreFutest::analyseResults() -> "
-                "Intensity data comparison failed\n";
-            std::cout << ex.what() << std::endl;
-            m_result = FAILED_DIFF;
-        }
+        const std::unique_ptr<OutputData<double> >
+            result_data(m_simulation->getDetectorIntensity());
+        m_difference = IntensityDataFunctions::getRelativeDifference(
+            *result_data.get(), *m_reference);
+        m_result = m_difference > m_threshold/7 ? FAILED_DIFF : SUCCESS;
     }
 
     if (getTestResult() != SUCCESS)

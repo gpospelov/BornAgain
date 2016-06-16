@@ -52,7 +52,7 @@ protected:
 private:
     const class FutestInfo* m_info;
     std::string m_test_name;
-    class IParameterized* m_subtest_item;
+    const class IParameterized* m_subtest_item;
 
     int execute_onetest();
     int execute_subtests();

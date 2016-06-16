@@ -88,7 +88,7 @@ Basic2DParaCrystalBuilder::~Basic2DParaCrystalBuilder()
 
 ISample* Basic2DParaCrystalBuilder::buildSample() const
 {
-    IFTDistribution2D* pdf2 = getFTDistribution2D();
+    const IFTDistribution2D* pdf2 = getFTDistribution2D();
     MultiLayer* multi_layer = new MultiLayer();
 
     HomogeneousMaterial air_material("Air", 0.0, 0.0);

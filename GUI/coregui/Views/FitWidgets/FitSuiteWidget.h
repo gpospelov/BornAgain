@@ -56,6 +56,7 @@ signals:
     void fittingStarted(JobItem *jobItem);
     void fittingFinished(JobItem *jobItem);
     void fittingError(const QString &what);
+    void fittingLog(const QString &text);
 
 public slots:
     void onError(const QString &text);

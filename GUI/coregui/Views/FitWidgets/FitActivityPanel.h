@@ -25,6 +25,7 @@ class JobItem;
 class FitSuiteWidget;
 class JobRealTimeWidget;
 class RunFitControlWidget;
+class JobMessagePanel;
 
 //! The FitActivityPanel class is a main widget to run the fitting.
 //! Occupies bottom right corner of JobView, contains stack of FitSuiteWidgets for every
@@ -37,6 +38,7 @@ public:
     FitActivityPanel(JobModel *jobModel, QWidget *parent = 0);
 
     void setRealTimeWidget(JobRealTimeWidget *realTimeWidget);
+    void setJobMessagePanel(JobMessagePanel *jobMessagePanel);
 
     QSize sizeHint() const;
     QSize minimumSizeHint() const;
@@ -45,8 +47,8 @@ public slots:
     void setItem(JobItem *item);
 
 private slots:
-    void onStartFitting();
-    void onStopFitting();
+    void onStartFittingRequest();
+    void onStopFittingRequest();
 
 private:
     bool isValidJobItem(JobItem *item);

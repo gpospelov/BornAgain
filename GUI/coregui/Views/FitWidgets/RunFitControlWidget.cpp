@@ -20,6 +20,7 @@
 #include "JobItem.h"
 #include "FitSuiteItem.h"
 #include "mainwindow_constants.h"
+#include "JobMessagePanel.h"
 #include <QPushButton>
 #include <QSlider>
 #include <QLabel>
@@ -44,6 +45,7 @@ RunFitControlWidget::RunFitControlWidget(QWidget *parent)
     , m_iterationsCountLabel(new QLabel)
     , m_currentItem(0)
     , m_warningSign(0)
+    , m_jobMessagePanel(0)
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
     setFixedHeight(Constants::RUN_FIT_CONTROL_WIDGET_HEIGHT);
@@ -94,6 +96,11 @@ RunFitControlWidget::RunFitControlWidget(QWidget *parent)
     setEnabled(false);
 }
 
+void RunFitControlWidget::setJobMessagePanel(JobMessagePanel *jobMessagePanel)
+{
+    m_jobMessagePanel = jobMessagePanel;
+}
+
 void RunFitControlWidget::onFittingStarted(JobItem *jobItem)
 {
     m_currentItem = jobItem;
@@ -111,6 +118,8 @@ void RunFitControlWidget::onFittingStarted(JobItem *jobItem)
 
     onFitSuitePropertyChange(FitSuiteItem::P_ITERATION_COUNT);
 
+    Q_ASSERT(m_jobMessagePanel);
+    m_jobMessagePanel->onClearLog();
 }
 
 void RunFitControlWidget::onFittingFinished(JobItem *jobItem)
@@ -138,14 +147,22 @@ void RunFitControlWidget::onFittingError(const QString &what)
     m_warningSign->show();
 }
 
+void RunFitControlWidget::onFittingLog(const QString &text)
+{
+    Q_ASSERT(m_jobMessagePanel);
+    m_jobMessagePanel->onMessage(text);
+}
+
 void RunFitControlWidget::setItem(JobItem *item)
 {
     Q_UNUSED(item);
+    // If item is not suitable for fitting, disable widget
     if(!isValidJobItem(item)) {
         setEnabled(false);
         return;
     }
 
+    // if item is ready for fitting, or already has fitting running, enable widget
     if(m_currentItem == 0 || m_currentItem == item) {
         setEnabled(true);
         return;

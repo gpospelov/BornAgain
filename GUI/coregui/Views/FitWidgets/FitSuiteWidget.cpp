@@ -239,5 +239,7 @@ void FitSuiteWidget::connectSignals()
             this, SLOT(onUpdateParameters(QStringList,QVector<double>)));
     connect(m_observer.get(), SIGNAL(updateStatus(QString)),
             this, SLOT(onUpdateStatus(QString)));
+    connect(m_observer.get(), SIGNAL(updateLog(QString)),
+            this, SIGNAL(fittingLog(QString)));
 }
 

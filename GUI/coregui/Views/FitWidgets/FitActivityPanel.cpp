@@ -21,6 +21,7 @@
 #include "JobRealTimeWidget.h"
 #include "mainwindow_constants.h"
 #include "RunFitControlWidget.h"
+#include "JobMessagePanel.h"
 #include <QVBoxLayout>
 #include <QPushButton>
 
@@ -42,8 +43,8 @@ FitActivityPanel::FitActivityPanel(JobModel *jobModel, QWidget *parent)
 
     setLayout(mainLayout);
 
-    connect(m_controlWidget, SIGNAL(startFitting()), this, SLOT(onStartFitting()));
-    connect(m_controlWidget, SIGNAL(stopFitting()), this, SLOT(onStopFitting()));
+    connect(m_controlWidget, SIGNAL(startFitting()), this, SLOT(onStartFittingRequest()));
+    connect(m_controlWidget, SIGNAL(stopFitting()), this, SLOT(onStopFittingRequest()));
 
     m_stackedWidget->setModel(jobModel);
 }
@@ -52,6 +53,11 @@ void FitActivityPanel::setRealTimeWidget(JobRealTimeWidget *realTimeWidget)
 {
     Q_ASSERT(realTimeWidget);
     m_realTimeWidget = realTimeWidget;
+}
+
+void FitActivityPanel::setJobMessagePanel(JobMessagePanel *jobMessagePanel)
+{
+    m_controlWidget->setJobMessagePanel(jobMessagePanel);
 }
 
 QSize FitActivityPanel::sizeHint() const {
@@ -85,16 +91,18 @@ void FitActivityPanel::setItem(JobItem *item)
                 SLOT(onFittingFinished(JobItem *)), Qt::UniqueConnection);
         connect(widget, SIGNAL(fittingError(QString)), m_controlWidget,
                 SLOT(onFittingError(QString)), Qt::UniqueConnection);
+        connect(widget, SIGNAL(fittingLog(QString)), m_controlWidget,
+                SLOT(onFittingLog(QString)), Qt::UniqueConnection);
     }
 }
 
-void FitActivityPanel::onStartFitting()
+void FitActivityPanel::onStartFittingRequest()
 {
     if(FitSuiteWidget *widget = currentFitSuiteWidget())
         widget->startFitting();
 }
 
-void FitActivityPanel::onStopFitting()
+void FitActivityPanel::onStopFittingRequest()
 {
     if(FitSuiteWidget *widget = currentFitSuiteWidget())
         widget->stopFitting();

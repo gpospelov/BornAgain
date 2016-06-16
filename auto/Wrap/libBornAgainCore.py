@@ -4690,7 +4690,7 @@ class ISampleBuilder(IParameterized):
         """
         set_subtest(ISampleBuilder self, IParameterized subtest_item)
 
-        void ISampleBuilder::set_subtest(class IParameterized *subtest_item)
+        void ISampleBuilder::set_subtest(const class IParameterized *subtest_item)
 
         """
         return _libBornAgainCore.ISampleBuilder_set_subtest(self, subtest_item)

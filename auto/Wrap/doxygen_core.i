@@ -7330,7 +7330,7 @@ Templated object registry.
 C++ includes: IRegistry.h
 ";
 
-%feature("docstring")  IRegistry::getItem "ValueType* IRegistry< ValueType >::getItem(const std::string &key) const 
+%feature("docstring")  IRegistry::getItem "const ValueType* IRegistry< ValueType >::getItem(const std::string &key) const 
 ";
 
 %feature("docstring")  IRegistry::keys "std::vector<std::string> IRegistry< ValueType >::keys()
@@ -7483,7 +7483,7 @@ C++ includes: ISampleBuilder.h
 %feature("docstring")  ISampleBuilder::buildSample "virtual class ISample* ISampleBuilder::buildSample() const =0
 ";
 
-%feature("docstring")  ISampleBuilder::set_subtest "void ISampleBuilder::set_subtest(class IParameterized *subtest_item)
+%feature("docstring")  ISampleBuilder::set_subtest "void ISampleBuilder::set_subtest(const class IParameterized *subtest_item)
 ";
 
 %feature("docstring")  ISampleBuilder::getFormFactor "const IFormFactor* ISampleBuilder::getFormFactor() const 

@@ -32,7 +32,7 @@ public:
 
     virtual class ISample* buildSample() const = 0;
 
-    void set_subtest(class IParameterized* subtest_item) { m_subtest_item = subtest_item; }
+    void set_subtest(const class IParameterized* subtest_item) { m_subtest_item = subtest_item; }
     const class IParameterized* m_subtest_item;
 
     const IFormFactor* getFormFactor() const {

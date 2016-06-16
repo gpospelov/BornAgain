@@ -29,7 +29,7 @@ template<class ValueType>
 class IRegistry
 {
 public:
-    ValueType* getItem(const std::string& key) const {
+    const ValueType* getItem(const std::string& key) const {
         auto it = m_data.find(key);
         if(it == m_data.end()) {
             std::ostringstream message;

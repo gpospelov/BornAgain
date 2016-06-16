@@ -163,6 +163,11 @@ const ModelType SimulationOptionsType = "SimulationOptions";
 
 const ModelType RealDataType = "RealData";
 
+const ModelType MinimizerContainerType = "MinimizerContainer";
+const ModelType MinuitMinimizerType = "MinuitMinimizer";
+const ModelType GSLMinimizerType = "GSLMinimizer";
+const ModelType GeneticMinimizerType = "GeneticMinimizer";
+
 // --- Groups ------------------------------------------------------------------
 
 const ModelType FormFactorGroup = "Form Factor";
@@ -178,6 +183,7 @@ const ModelType FTDecayFunction2DGroup = "Decay function 2D";
 const ModelType LatticeGroup = "Lattice group";
 const ModelType MaterialGroup = "Material group";
 const ModelType ResolutionFunctionGroup = "Resolution function group";
+const ModelType MinimizerLibraryGroup = "Minimizer library group";
 
 // --- Units&Constants----------------------------------------------------------
 const ModelType UnitsNbins = "nbins";

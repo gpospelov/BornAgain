@@ -24,19 +24,25 @@
 #include "ModelPath.h"
 #include "MultiLayerItem.h"
 #include "RealDataItem.h"
+#include "MinimizerItem.h"
+#include "IMinimizer.h"
 #include "GUIHelpers.h"
 #include <QDebug>
+
+// FIXME make unique_ptr all along
 
 std::shared_ptr<FitSuite> DomainFittingBuilder::createFitSuite(JobItem *jobItem)
 {
     std::shared_ptr<FitSuite> result(new FitSuite());
-    result->setMinimizer("Genetic");
 
-    SessionItem *fitSuiteItem = jobItem->getItem(JobItem::T_FIT_SUITE);
+    FitSuiteItem *fitSuiteItem = jobItem->fitSuiteItem();
     Q_ASSERT(fitSuiteItem);
 
-    SessionItem *container = fitSuiteItem->getItem(FitSuiteItem::T_FIT_PARAMETERS);
+    result->setMinimizer(fitSuiteItem->minimizerContainerItem()->createMinimizer().release());
+
+    SessionItem *container = fitSuiteItem->fitParameterContainerItem();
     Q_ASSERT(container);
+
 
     foreach(SessionItem *parItem, container->getItems(FitParameterContainerItem::T_FIT_PARAMETERS)) {
         double value = parItem->getItemValue(FitParameterItem::P_START_VALUE).toDouble();

@@ -55,7 +55,7 @@ FitSuiteWidget::FitSuiteWidget(QWidget *parent)
 
     m_tabWidget->addTab(m_fitParametersWidget, "Fit Parameters");
     m_tabWidget->addTab(m_minimizerSettingsWidget, "Minimizer");
-    m_tabWidget->addTab(m_fitResultsWidget, "Fit Results");
+    //m_tabWidget->addTab(m_fitResultsWidget, "Fit Results");
 
     layout->addWidget(m_tabWidget);
 
@@ -73,6 +73,7 @@ void FitSuiteWidget::setItem(JobItem *jobItem)
     Q_ASSERT(jobItem);
     m_currentItem = jobItem;
     m_fitParametersWidget->setItem(jobItem);
+    m_minimizerSettingsWidget->setItem(jobItem);
 }
 
 void FitSuiteWidget::setModelTuningWidget(ParameterTuningWidget *tuningWidget)
@@ -175,6 +176,7 @@ void FitSuiteWidget::startFitting()
 //        QMessageBox box;
 //        box.setText(e.what());
 //        box.exec();
+        m_currentItem->fitSuiteItem()->mapper()->unsubscribe(this);
         emit fittingError(QString::fromStdString(e.what()));
     }
 

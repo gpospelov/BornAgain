@@ -203,6 +203,27 @@ const std::string Thickness = "Thickness";
 const std::string Hurst = "Hurst";
 const std::string CorrelationLength = "CorrelationLength";
 const std::string CrossCorrelationLength = "CrossCorrelationLength";
+
+// Minimizer related
+const std::string MinuitMinimizerType = "MinuitMinimizer";
+const std::string GSLMinimizerType = "GSLMinimizer";
+const std::string GeneticMinimizerType = "GeneticMinimizer";
+
+const std::string MigradAlgorithmType = "Migrad";
+const std::string SimplexAlgorithmType = "Simplex";
+const std::string CombinedAlgorithmType = "Combined";
+const std::string ScanAlgorithmType = "Scan";
+const std::string FumiliAlgorithmType = "Fumili";
+
+const std::string ConjugateFRAlgorithmType = "ConjugateFR";
+const std::string ConjugatePRAlgorithmType = "ConjugatePR";
+const std::string BFGSAlgorithmType = "BFGS";
+const std::string BFGS2AlgorithmType = "BFGS2";
+const std::string LMAAlgorithmType = "LMA";
+const std::string SimAnAlgorithmType = "SimAn";
+
+const std::string GeneticAlgorithmType = "Genetic";
+
 }
 
 #endif // BORNAGAINNAMESPACE_H

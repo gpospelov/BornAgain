@@ -41,8 +41,11 @@ FitParameterProxyModel::FitParameterProxyModel(FitParameterContainerItem *fitPar
     connectModel(fitParContainer->model());
 
     m_root_item->mapper()->setOnItemDestroy(
-                [this](SessionItem *parent) {
-        Q_ASSERT(parent == m_root_item);
+                [this](SessionItem *parentItem) {
+        if(parentItem != m_root_item) {
+            throw GUIHelpers::Error("FitParameterProxyModel::FitParameterProxyModel() -> Error. "
+                                    "Wrong item reported.");
+        }
         m_root_item = 0;
     });
 }
@@ -60,7 +63,6 @@ Qt::ItemFlags FitParameterProxyModel::flags(const QModelIndex &index) const
         if(item->modelType() == Constants::FitParameterType || item->modelType() == Constants::FitParameterContainerType) {
             returnVal |= Qt::ItemIsDropEnabled;
         }
-
     }
 
     return returnVal;

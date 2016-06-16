@@ -13,31 +13,19 @@
 //! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
+
 #include "TestView.h"
 #include "MaskEditor.h"
-#include "ObsoleteRunFitWidget.h"
-#include "ObsoleteFitView.h"
 #include "mainwindow.h"
-#include "ObsoleteFitParameterWidget.h"
-#include "JobModel.h"
 #include "MaterialEditor.h"
-#include <QMimeData>
+#include "MinimizerSettingsWidget.h"
+#include "AccordionWidget.h"
+#include "MinimizerItem.h"
+#include "item_constants.h"
+#include "SessionModel.h"
 #include <QVBoxLayout>
-#include <AccordionWidget.h>
 #include <QLineEdit>
 #include <QCheckBox>
-#include <QTabWidget>
-
-#include "SessionModel.h"
-#include <QTreeView>
-#include <SampleModel.h>
-#include <InstrumentModel.h>
-#include <JobModel.h>
-#include <MaterialModel.h>
-#include <QPersistentModelIndex>
-#include "ModelMapper.h"
-#include "DetectorItems.h"
-#include "SessionModelDelegate.h"
 
 TestView::TestView(MainWindow *mainWindow)
     : QWidget(mainWindow)
@@ -46,38 +34,10 @@ TestView::TestView(MainWindow *mainWindow)
 //    test_MaskEditor();
 //    test_AccordionWidget();
 //    test_RunFitWidget();
-    test_sessionModel();
 //    test_MaterialEditor();
+    test_MinimizerSettings();
 }
 
-void TestView::test_sessionModel()
-{
-    QVBoxLayout *layout = new QVBoxLayout;
-    QTabWidget *tabs = new QTabWidget;
-
-//    addModelToTabs(tabs, m_mainWindow->instrumentModel());
-//    addModelToTabs(tabs, m_mainWindow->sampleModel());
-//    addModelToTabs(tabs, m_mainWindow->materialModel());
-    addModelToTabs(tabs, m_mainWindow->jobModel());
-
-    TestProxyModel *testModel = new TestProxyModel(this);
-    testModel->setSourceModel(m_mainWindow->sampleModel());
-    addModelToTabs(tabs, testModel);
-
-    // TODO: why is instrument empty here?
-    // do some testing here
-//    m_mainWindow->getInstrumentModel()->rootItem()->getChildOfType(Constants::InstrumentType)->mapper()
-//            ->setOnChildPropertyChange(
-//                [](SessionItem* item, const QString &name) {
-//        qDebug() << "Property Changed from " << item->itemName() << " (" << item->modelType() << " )"
-//                 << "with name " << name;
-//    });
-
-    layout->setMargin(0);
-    layout->setSpacing(0);
-    layout->addWidget(tabs);
-    setLayout(layout);
-}
 
 void TestView::test_MaterialEditor()
 {
@@ -89,22 +49,23 @@ void TestView::test_MaterialEditor()
     setLayout(layout);
 }
 
-void TestView::addModelToTabs(QTabWidget *tabs, QAbstractItemModel *model)
+void TestView::test_MinimizerSettings()
 {
-    QTreeView *view = new QTreeView;
-    SessionModelDelegate *delegate = new SessionModelDelegate(this);
+    MinimizerSettingsWidget *widget = new MinimizerSettingsWidget;
+    QVBoxLayout *layout = new QVBoxLayout;
+    layout->setMargin(0);
+    layout->setSpacing(0);
+    layout->addWidget(widget);
+    setLayout(layout);
 
-    view->setModel(model);
-    view->setItemDelegate(delegate);
 
-    view->expandAll();
-    view->resizeColumnToContents(0);
-    view->resizeColumnToContents(1);
-    if (SessionModel *sm = dynamic_cast<SessionModel*>(model))
-        tabs->addTab(view, sm->getModelTag());
-    else
-        tabs->addTab(view, "Some Model");
+    SessionModel* model = new SessionModel("TempModel", this);
+    MinimizerContainerItem *minimizerItem = dynamic_cast<MinimizerContainerItem *>(
+                model->insertNewItem(Constants::MinimizerContainerType));
+    widget->setItem(minimizerItem);
+
 }
+
 
 void TestView::test_MaskEditor()
 {
@@ -194,11 +155,6 @@ void TestView::test_AccordionWidget()
 
 void TestView::test_RunFitWidget()
 {
-    // FIXME_DAVID Use consistent variable names: not 'maskEditor', but runFitWidget
-
-    //RunFitWidget *maskEditor = new RunFitWidget();
-    //FitView *fw = new FitView(m_mainWindow->getSampleModel(), m_mainWindow->getInstrumentModel());
-
     //FitParameterWidget *fitting = new FitParameterWidget(m_mainWindow);
     QVBoxLayout *layout = new QVBoxLayout;
     QTabWidget *tabs = new QTabWidget;
@@ -212,54 +168,3 @@ void TestView::test_RunFitWidget()
 
 }
 
-TestProxyModel::TestProxyModel(QObject *parent)
-    : QIdentityProxyModel(parent)
-{
-}
-
-void TestProxyModel::setSourceModel(QAbstractItemModel *source)
-{
-    QIdentityProxyModel::setSourceModel(source);
-    m_source = dynamic_cast<SessionModel*>(source);
-    connect(m_source, SIGNAL(dataChanged(QModelIndex,QModelIndex,QVector<int>)),
-            this, SIGNAL(layoutChanged()));
-}
-
-QModelIndex TestProxyModel::index(int row, int column, const QModelIndex &parent) const
-{
-    const QModelIndex sourceParent = mapToSource(parent);
-    SessionItem *parentt = m_source->itemForIndex(sourceParent);
-    if (parentt->modelType() == Constants::GroupItemType) {
-        SessionItem *cur = parentt->parent()->getGroupItem(parentt->itemName());
-        const QModelIndex sourceIndex = m_source->index(row, column, cur->index());
-        return mapFromSource(sourceIndex);
-    }
-    const QModelIndex sourceIndex = m_source->index(row, column, sourceParent);
-    return mapFromSource(sourceIndex);
-}
-
-QModelIndex TestProxyModel::parent(const QModelIndex &child) const
-{
-    const QModelIndex sourceIndex = mapToSource(child);
-    SessionItem *head = m_source->itemForIndex(sourceIndex.parent());
-    if (head && head->parent() && head->parent()->modelType() == Constants::GroupItemType) {
-        // skip immediate layer
-        return mapFromSource(head->parent()->index());
-    }
-    const QModelIndex sourceParent = sourceIndex.parent();
-    return mapFromSource(sourceParent);
-}
-
-int TestProxyModel::rowCount(const QModelIndex &parent) const
-{
-    QModelIndex sourceParent = mapToSource(parent);
-    SessionItem *item = m_source->itemForIndex(sourceParent);
-    if (item && item->modelType() == Constants::GroupItemType) {
-        SessionItem *cur = item->parent()->getGroupItem(item->itemName());
-        if (cur)
-            return m_source->rowCount(cur->index());
-        else
-            qDebug() << "proxy::rowCount: null pointer";
-    }
-    return m_source->rowCount(sourceParent);
-}

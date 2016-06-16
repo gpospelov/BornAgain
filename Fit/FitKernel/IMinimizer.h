@@ -44,7 +44,7 @@ class BA_CORE_API_ IMinimizer
     virtual ~IMinimizer() { }
 
     //! run minimization
-    virtual void minimize() = 0;
+    virtual void minimize();
 
     //! Sets internal minimizer parameter
     virtual void setParameter(size_t index, const FitParameter *par);
@@ -105,6 +105,11 @@ class BA_CORE_API_ IMinimizer
     virtual std::string getAlgorithmName() const;
 
 };
+
+inline void IMinimizer::minimize()
+{
+    throw NotImplementedException("IMinimizer::minimize() -> Not implemented.");
+}
 
 inline void IMinimizer::setParameter(size_t /*index*/, const FitParameter* /*par*/)
 {

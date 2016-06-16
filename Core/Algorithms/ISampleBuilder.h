@@ -33,13 +33,13 @@ public:
     virtual class ISample* buildSample() const = 0;
 
     void set_subtest(class IParameterized* subtest_item) { m_subtest_item = subtest_item; }
-    class IParameterized* m_subtest_item;
+    const class IParameterized* m_subtest_item;
 
-    IFormFactor* getFormFactor() const {
-        return dynamic_cast<IFormFactor*>(m_subtest_item); }
+    const IFormFactor* getFormFactor() const {
+        return dynamic_cast<const IFormFactor*>(m_subtest_item); }
 
-    IFTDistribution2D* getFTDistribution2D() const {
-        return dynamic_cast<IFTDistribution2D*>(m_subtest_item); }
+    const IFTDistribution2D* getFTDistribution2D() const {
+        return dynamic_cast<const IFTDistribution2D*>(m_subtest_item); }
 };
 
 #endif // ISAMPLEBUILDER_H_

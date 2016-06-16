@@ -16,7 +16,7 @@
 #include "FutestSuite.h"
 #include "PySuiteFutest.h"
 
-class PySuite : public FutestSuite, public ISingleton<PySuite>
+class PySuite : public FutestSuite
 {
 public:
     PySuite() { setName("PySuite"); }
@@ -27,5 +27,5 @@ public:
 //! The main function of PySuite, to run functional tests
 int main(int argc, char** argv)
 {
-    return PySuite::instance().execute(argc, argv);
+    return (new PySuite())->execute(argc, argv);
 }

@@ -17,7 +17,7 @@
 #include "FutestSuite.h"
 #include "GUIFutest.h"
 
-class GUISuite : public FutestSuite, public ISingleton<GUISuite>
+class GUISuite : public FutestSuite
 {
 public:
     GUISuite() { setName("GUISuite"); }
@@ -28,5 +28,5 @@ public:
 //! The main function of GUITestSuite, to run functional tests
 int main(int argc, char** argv)
 {
-    return GUISuite::instance().execute(argc, argv);
+    return (new GUISuite())->execute(argc, argv);
 }

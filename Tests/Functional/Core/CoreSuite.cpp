@@ -16,7 +16,7 @@
 #include "FutestSuite.h"
 #include "CoreFutest.h"
 
-class CoreSuite : public FutestSuite, public ISingleton<CoreSuite>
+class CoreSuite : public FutestSuite
 {
 public:
     CoreSuite() { setName("CoreSuite"); }
@@ -27,5 +27,5 @@ public:
 //! The main function of CoreSuite, to run functional tests
 int main(int argc, char** argv)
 {
-    return CoreSuite::instance().execute(argc, argv);
+    return (new CoreSuite())->execute(argc, argv);
 }

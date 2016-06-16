@@ -20,6 +20,7 @@
 #include "WinDllMacros.h"
 #include <map>
 #include <sstream>
+#include <memory>
 
 //! @class IRegistry
 //! @ingroup tools_internal
@@ -37,7 +38,7 @@ public:
                     << "'" << key << "'";
             throw UnknownClassRegistrationException(message.str());
         }
-        return it->second;
+        return it->second.get();
     }
 
     std::vector<std::string> keys() {
@@ -55,11 +56,11 @@ protected:
                     << "'" << key << "'";
             throw ExistingClassRegistrationException(message.str());
         }
-        m_data[key] = item;
+        m_data[key] = std::unique_ptr<ValueType>(item);
     }
 
 private:
-    std::map<std::string, ValueType*> m_data;
+    std::map<std::string, std::unique_ptr<ValueType>> m_data;
 };
 
 #endif

@@ -23,7 +23,6 @@
 #include "WinDllMacros.h"
 #include "OutputData.h"
 #include "ISampleBuilder.h"
-#include "ISingleton.h"
 
 //! @class FutestSuite
 //! @brief To execute one functional test of given name.

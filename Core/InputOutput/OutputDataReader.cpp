@@ -25,7 +25,7 @@ OutputDataReader::OutputDataReader(const std::string& file_name)
 {
 }
 
-OutputData<double >* OutputDataReader::getOutputData()
+OutputData<double>* OutputDataReader::getOutputData()
 {
     if(!m_read_strategy)
         throw NullPointerException("OutputDataReader::getOutputData() -> "
@@ -43,7 +43,7 @@ OutputData<double >* OutputDataReader::getOutputData()
     if (!fin.good())
         throw FileIsBadException("OutputDataReader::getOutputData() -> Error! File is not good, "
                                  "probably it is a directory.");
-    OutputData<double >* result = getFromFilteredStream(fin);
+    OutputData<double>* result = getFromFilteredStream(fin);
     fin.close();
     return result;
 }

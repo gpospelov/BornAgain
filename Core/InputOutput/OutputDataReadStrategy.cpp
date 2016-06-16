@@ -13,15 +13,16 @@
 //
 // ************************************************************************** //
 
-#include "OutputDataReadStrategy.h"
+#include <fstream>
+#include <stdexcept>
+
 #include "Complex.h"
-#include "Exceptions.h"
 #include "Utils.h"
 #include "BornAgainNamespace.h"
 #include "OutputData.h"
 #include "OutputDataIOHelper.h"
 #include "TiffHandler.h"
-#include <fstream>
+#include "OutputDataReadStrategy.h"
 
 OutputData<double>* OutputDataReadINTStrategy::readOutputData(std::istream& input_stream)
 {
@@ -62,10 +63,9 @@ OutputData<double>* OutputDataReadNumpyTXTStrategy::readOutputData(std::istream&
     size_t ncols(0);
     if(nrows) ncols = data[0].size();
     for(size_t row=0; row<nrows; row++) {
-        if(data[row].size() != ncols) {
-            throw LogicErrorException("OutputDataReadNumpyTXTStrategy::readOutputData() -> Error. "
-                                      "Number of elements is different from row to row.");
-        }
+        if(data[row].size() != ncols)
+            throw std::runtime_error("OutputDataReadNumpyTXTStrategy::readOutputData() -> Error. "
+                                     "Number of elements is different from row to row.");
     }
     OutputData<double>* result = new OutputData<double>;
     result->addAxis("x", ncols, 0.0, double(ncols));

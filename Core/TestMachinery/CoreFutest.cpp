@@ -45,13 +45,12 @@ void CoreFutest::runTest()
             "AdvancedFutest::runTest() -> Error. Uninitialized simulation object.");
     m_simulation->runSimulation();
 
-    m_reference = nullptr;
     m_ref_filename = BA_REF_DATA_DIR + "/ref_" + getName() + ".int.gz";
     try {
         m_reference = IntensityDataIOFactory::readOutputData( m_ref_filename );
     } catch(const std::exception& ex) {
-        throw std::runtime_error(
-            std::string("FutestSuite::getReferenceData() -> Exception caught: ") + ex.what() );
+        m_reference = nullptr;
+        std::cout << "proceed without reference after catching error [" << ex.what() << "]\n";
     }
 }
 
@@ -83,12 +82,18 @@ void CoreFutest::printResults(std::ostream& ostr) const
     ostr << getFormattedInfoString();
     ostr << Utils::String::getScientificDoubleString(m_difference);
 
-    if (getTestResult() != SUCCESS)
+    if (getTestResult() != SUCCESS) {
         ostr << "\n"
-             << "--> simulation result stored in " << getSimulationResultsFileNameAndPath() << "\n"
-             << "    differs from reference data " << m_ref_filename << "\n"
-             << "    (to inspect such images, use " << BUILD_BIN_DIR << "/view1.py;"
-             << " for a difference image, " << BUILD_BIN_DIR << "/view2.py)\n";
+             << "--> simulation result stored in " << getSimulationResultsFileNameAndPath() << "\n";
+        if (m_reference) {
+            ostr << "    differs from reference data " << m_ref_filename << "\n"
+                 << "    (to inspect such images, use " << BUILD_BIN_DIR << "/view1.py;"
+                 << " for a difference image, " << BUILD_BIN_DIR << "/view2.py)\n";
+        } else {
+            ostr << "    (to inspect the image, use " << BUILD_BIN_DIR << "/view1.py)\n"
+                 << "    reference should have been in " << m_ref_filename << "\n";
+        }
+    }
 }
 
 //! Constructs file name to save results. Strip gzip extention if necessary.

@@ -756,7 +756,7 @@ Core functional test compares results of the standard simulation with reference 
 C++ includes: CoreFutest.h
 ";
 
-%feature("docstring")  CoreFutest::CoreFutest "CoreFutest::CoreFutest(const std::string &name, const std::string &description, GISASSimulation *simulation, double threshold, OutputData< double > *reference, const std::string &file_name)
+%feature("docstring")  CoreFutest::CoreFutest "CoreFutest::CoreFutest(const std::string &name, const std::string &description, GISASSimulation *simulation, double threshold)
 ";
 
 %feature("docstring")  CoreFutest::~CoreFutest "CoreFutest::~CoreFutest()
@@ -7156,7 +7156,7 @@ C++ includes: OutputDataReadStrategy.h
 %feature("docstring")  IOutputDataReadStrategy::~IOutputDataReadStrategy "virtual IOutputDataReadStrategy::~IOutputDataReadStrategy()
 ";
 
-%feature("docstring")  IOutputDataReadStrategy::readOutputData "virtual OutputData<double >* IOutputDataReadStrategy::readOutputData(std::istream &input_stream)=0
+%feature("docstring")  IOutputDataReadStrategy::readOutputData "virtual OutputData<double>* IOutputDataReadStrategy::readOutputData(std::istream &input_stream)=0
 ";
 
 
@@ -13235,13 +13235,7 @@ C++ includes: WavevectorInfo.h
 // File: namespace_0D339.xml
 
 
-// File: namespace_0D345.xml
-
-
 // File: namespace_0D353.xml
-
-
-// File: namespace_0D356.xml
 
 
 // File: namespace_0D67.xml

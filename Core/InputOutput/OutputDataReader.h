@@ -34,13 +34,13 @@ public:
     OutputDataReader(const std::string& file_name);
 
     //! read output data from file (file name was set already from OutputDataIOFactory)
-    OutputData<double >* getOutputData();
+    OutputData<double>* getOutputData();
 
     //! Sets concrete reading strategy
     void setStrategy(IOutputDataReadStrategy* read_strategy);
 
 private:
-    OutputData<double >* getFromFilteredStream(std::istream& input_stream);
+    OutputData<double>* getFromFilteredStream(std::istream& input_stream);
     std::string m_file_name;
     std::unique_ptr<IOutputDataReadStrategy> m_read_strategy;
 };

@@ -28,5 +28,5 @@ public:
 //! The main function of GUITestSuite, to run functional tests
 int main(int argc, char** argv)
 {
-    return (new GUISuite())->execute(argc, argv);
+    return GUISuite().execute(argc, argv);
 }

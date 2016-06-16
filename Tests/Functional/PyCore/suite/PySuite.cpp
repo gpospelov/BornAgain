@@ -27,5 +27,5 @@ public:
 //! The main function of PySuite, to run functional tests
 int main(int argc, char** argv)
 {
-    return (new PySuite())->execute(argc, argv);
+    return PySuite().execute(argc, argv);
 }

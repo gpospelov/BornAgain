@@ -27,5 +27,5 @@ public:
 //! The main function of CoreSuite, to run functional tests
 int main(int argc, char** argv)
 {
-    return (new CoreSuite())->execute(argc, argv);
+    return CoreSuite().execute(argc, argv);
 }

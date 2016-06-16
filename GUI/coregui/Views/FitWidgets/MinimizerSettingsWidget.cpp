@@ -20,6 +20,10 @@
 #include "JobItem.h"
 #include "FitSuiteItem.h"
 #include <QVBoxLayout>
+#include <QPushButton>
+#include <QDebug>
+#include "IMinimizer.h"
+#include <memory>
 
 MinimizerSettingsWidget::MinimizerSettingsWidget(QWidget *parent)
     : QWidget(parent)
@@ -30,6 +34,11 @@ MinimizerSettingsWidget::MinimizerSettingsWidget(QWidget *parent)
 
     QVBoxLayout *layout = new QVBoxLayout;
     layout->addWidget(m_propertyEditor);
+
+    QPushButton *tmp = new QPushButton("tmp");
+    connect(tmp, SIGNAL(clicked(bool)), this, SLOT(onButtonClicked()));
+    layout->addWidget(tmp);
+
     setLayout(layout);
 }
 
@@ -49,4 +58,10 @@ void MinimizerSettingsWidget::setItem(MinimizerContainerItem *minimizerItem)
     Q_ASSERT(minimizerItem);
     m_currentItem = minimizerItem;
     m_propertyEditor->setItem(minimizerItem);
+}
+
+void MinimizerSettingsWidget::onButtonClicked()
+{
+    qDebug() << "XXX";
+    std::unique_ptr<IMinimizer> tmp = m_currentItem->createMinimizer();
 }

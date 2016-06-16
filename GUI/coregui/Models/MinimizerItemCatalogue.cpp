@@ -66,7 +66,7 @@ void MinimizerItemCatalogue::domainMinimizerNames(const MinimizerItem *minimizer
             domainName = std::string("GSLLMA");
             domainAlgo = std::string("");
         }
-    } else if(minimizerType == Constants::GSLMinimizerType) {
+    } else if(minimizerType == Constants::GeneticMinimizerType) {
         domainName = std::string("Genetic");
         domainAlgo = std::string("");
     }

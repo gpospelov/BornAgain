@@ -55,7 +55,7 @@ FitSuiteWidget::FitSuiteWidget(QWidget *parent)
 
     m_tabWidget->addTab(m_fitParametersWidget, "Fit Parameters");
     m_tabWidget->addTab(m_minimizerSettingsWidget, "Minimizer");
-    m_tabWidget->addTab(m_fitResultsWidget, "Fit Results");
+    //m_tabWidget->addTab(m_fitResultsWidget, "Fit Results");
 
     layout->addWidget(m_tabWidget);
 

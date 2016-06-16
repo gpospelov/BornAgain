@@ -87,6 +87,7 @@ int FutestSuite::execute_subtests()
         std::cout << *subtest << "\n";
         if (subtest->getTestResult())
             ++number_of_failed_tests;
+        delete subtest;
     }
     delete subtest_registry;
 

@@ -36,10 +36,10 @@ public:
     class IParameterized* m_subtest_item;
 
     IFormFactor* getFormFactor() const {
-        return dynamic_cast<IFormFactor*>(m_subtest_item)->clone(); }
+        return dynamic_cast<IFormFactor*>(m_subtest_item); }
 
     IFTDistribution2D* getFTDistribution2D() const {
-        return dynamic_cast<IFTDistribution2D*>(m_subtest_item)->clone(); }
+        return dynamic_cast<IFTDistribution2D*>(m_subtest_item); }
 };
 
 #endif // ISAMPLEBUILDER_H_

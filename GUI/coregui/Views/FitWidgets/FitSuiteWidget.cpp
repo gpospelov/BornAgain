@@ -176,6 +176,7 @@ void FitSuiteWidget::startFitting()
 //        QMessageBox box;
 //        box.setText(e.what());
 //        box.exec();
+        m_currentItem->fitSuiteItem()->mapper()->unsubscribe(this);
         emit fittingError(QString::fromStdString(e.what()));
     }
 

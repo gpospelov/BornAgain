@@ -34,7 +34,7 @@ FitSuiteItem::FitSuiteItem()
     addProperty(P_CHI2, 0.0);
 
     registerTag(T_FIT_PARAMETERS, 1, 1, QStringList() << Constants::FitParameterContainerType);
-    registerTag(T_MINIMIZER, 1, 1, QStringList() << Constants::MinimizerType);
+    registerTag(T_MINIMIZER, 1, 1, QStringList() << Constants::MinimizerContainerType);
 }
 
 FitParameterContainerItem *FitSuiteItem::fitParameterContainerItem()
@@ -42,9 +42,9 @@ FitParameterContainerItem *FitSuiteItem::fitParameterContainerItem()
     return dynamic_cast<FitParameterContainerItem *>(getItem(FitSuiteItem::T_FIT_PARAMETERS));
 }
 
-MinimizerItem *FitSuiteItem::minimizerItem()
+MinimizerContainerItem *FitSuiteItem::minimizerContainerItem()
 {
-    return dynamic_cast<MinimizerItem *>(getItem(FitSuiteItem::T_MINIMIZER));
+    return dynamic_cast<MinimizerContainerItem *>(getItem(FitSuiteItem::T_MINIMIZER));
 }
 
 //std::unique_ptr<FitSuite> FitSuiteItem::createFitSuite()

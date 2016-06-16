@@ -65,6 +65,7 @@ std::list<std::string> MinimizerInfo::algorithmDescriptions() const
 }
 
 //! Catalogue constructor fills in all information related to available minimizers/algorithms.
+// FIXME Don't forget "SpeestDescent"
 
 Catalogue::Catalogue()
 {

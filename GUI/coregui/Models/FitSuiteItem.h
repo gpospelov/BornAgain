@@ -21,7 +21,7 @@
 
 class FitSuite;
 class FitParameterContainerItem;
-class MinimizerItem;
+class MinimizerContainerItem;
 
 class BA_CORE_API_ FitSuiteItem : public SessionItem
 {
@@ -35,7 +35,7 @@ public:
     explicit FitSuiteItem();
 
     FitParameterContainerItem *fitParameterContainerItem();
-    MinimizerItem *minimizerItem();
+    MinimizerContainerItem *minimizerContainerItem();
 //    std::unique_ptr<FitSuite> createFitSuite();
 };
 

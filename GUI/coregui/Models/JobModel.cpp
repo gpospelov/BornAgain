@@ -252,13 +252,13 @@ void JobModel::createFitContainers(JobItem *jobItem)
                                       fitSuiteItem->index(), -1, FitSuiteItem::T_FIT_PARAMETERS);
 
     // Minimizer settings
-    SessionItem *minimizerItem = fitSuiteItem->getItem(FitSuiteItem::T_MINIMIZER);
-    if(minimizerItem != nullptr) {
+    SessionItem *minimizerContainerItem = fitSuiteItem->getItem(FitSuiteItem::T_MINIMIZER);
+    if(minimizerContainerItem != nullptr) {
         throw GUIHelpers::Error("JobModel::createFitContainers() -> Error. Attempt to create "
-                                "a second Minimizer.");
+                                "a second MinimizerContainer.");
     }
 
-    minimizerItem = insertNewItem(Constants::MinimizerType,
+    minimizerContainerItem = insertNewItem(Constants::MinimizerContainerType,
                                       fitSuiteItem->index(), -1, FitSuiteItem::T_MINIMIZER);
 
 }

@@ -22,7 +22,7 @@
 
 class ComponentEditor;
 class JobItem;
-class MinimizerItem;
+class MinimizerContainerItem;
 
 //! The MinimizerSettingsWidget contains editor for all minnimizer settings and related fit
 //! options. Part of FitSuiteWidget.
@@ -38,10 +38,10 @@ public:
 
 public slots:
     void setItem(JobItem *jobItem);
-    void setItem(MinimizerItem *minimizerItem);
+    void setItem(MinimizerContainerItem *minimizerItem);
 
 private:
-    MinimizerItem *m_currentItem;
+    MinimizerContainerItem *m_currentItem;
     ComponentEditor *m_propertyEditor;
 };
 

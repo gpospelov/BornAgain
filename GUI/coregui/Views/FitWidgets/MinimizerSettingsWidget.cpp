@@ -41,10 +41,10 @@ QSize MinimizerSettingsWidget::minimumSizeHint() const
 void MinimizerSettingsWidget::setItem(JobItem *jobItem)
 {
     Q_ASSERT(jobItem);
-    setItem(jobItem->fitSuiteItem()->minimizerItem());
+    setItem(jobItem->fitSuiteItem()->minimizerContainerItem());
 }
 
-void MinimizerSettingsWidget::setItem(MinimizerItem *minimizerItem)
+void MinimizerSettingsWidget::setItem(MinimizerContainerItem *minimizerItem)
 {
     Q_ASSERT(minimizerItem);
     m_currentItem = minimizerItem;

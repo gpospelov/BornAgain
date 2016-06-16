@@ -163,7 +163,7 @@ const ModelType SimulationOptionsType = "SimulationOptions";
 
 const ModelType RealDataType = "RealData";
 
-const ModelType MinimizerType = "Minimizer";
+const ModelType MinimizerContainerType = "MinimizerContainer";
 const ModelType MinuitMinimizerType = "MinuitMinimizer";
 const ModelType GSLMinimizerType = "GSLMinimizer";
 const ModelType GeneticMinimizerType = "GeneticMinimizer";

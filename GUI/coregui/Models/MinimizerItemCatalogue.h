@@ -22,15 +22,23 @@
 #include "ComboProperty.h"
 #include <QStringList>
 
+class MinimizerItem;
+
 //! The MinimizerItemCatalogue class is a static class to provide MinimizerItem
 //! with the list of available minimizers/algorithms. It is a bridge class which
 //! extract all necessary information from Core's MinimizerLibrary.
 
+// --------------------------------------------------------------------------------
+// FIXME, TODO class will be refactored simultaneosly with the MinimizerFactory and
+// MinimizerLibrary from the domain (in Sprint32).
+// --------------------------------------------------------------------------------
 
 class BA_CORE_API_ MinimizerItemCatalogue {
 public:
-
     static ComboProperty getAlgorithmCombo(const QString &minimizerType);
+
+    static void domainMinimizerNames(const MinimizerItem *minimizer, std::string &domainName, std::string &domainAlgo);
+
 private:
     static MinimizerLibrary::Catalogue m_catalogue;
 };

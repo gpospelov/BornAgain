@@ -16,6 +16,9 @@
 
 #include "MinimizerItemCatalogue.h"
 #include "GUIHelpers.h"
+#include "MinimizerItem.h"
+#include "ComboProperty.h"
+#include "BornAgainNamespace.h"
 
 MinimizerLibrary::Catalogue MinimizerItemCatalogue::m_catalogue = MinimizerLibrary::Catalogue();
 
@@ -32,4 +35,39 @@ ComboProperty MinimizerItemCatalogue::getAlgorithmCombo(const QString &minimizer
     result.setToolTips(GUIHelpers::fromStdList(descr));
 
     return result;
+}
+
+
+//! !!! FIXME TODO WILL BE REFACTORED IN NEXT SPRINT (Sprint32)
+//! Class provides temporary(!) FIXME translation of GUI minimizer names to domain names.
+//! FIXME Will be refactored together with MinimizerFactory and MinimizerLibrary (in Sprint32).
+//! !!!
+
+void MinimizerItemCatalogue::domainMinimizerNames(const MinimizerItem *minimizer, std::string &domainName, std::string &domainAlgo)
+{
+    domainName.clear();;
+    domainAlgo.clear();
+
+    QString minimizerType = minimizer->modelType();
+
+    ComboProperty combo = minimizer->getItemValue(MinimizerItem::P_ALGORITHMS).value<ComboProperty>();
+    QString algorithmName = combo.getValue();
+
+    if(minimizerType == Constants::MinuitMinimizerType) {
+        domainName = std::string("Minuit2");
+        domainAlgo = algorithmName.toStdString();
+    }
+
+    else if(minimizerType == Constants::GSLMinimizerType) {
+        if(algorithmName.toStdString() != BornAgain::LMAAlgorithmType) {
+            domainName = std::string("GSLMultiMin");
+            domainAlgo = algorithmName.toStdString();
+        } else {
+            domainName = std::string("GSLLMA");
+            domainAlgo = std::string("");
+        }
+    } else if(minimizerType == Constants::GSLMinimizerType) {
+        domainName = std::string("Genetic");
+        domainAlgo = std::string("");
+    }
 }

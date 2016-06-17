@@ -42,10 +42,8 @@ public slots:
 
 signals:
     void finishedFitting();
-
     void startedFitting();
-
-    void error(const QString &message);
+    void fittingError(const QString &message);
 
 // only used by manager for communication with FittingWorker
 private slots:

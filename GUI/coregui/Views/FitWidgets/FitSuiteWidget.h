@@ -60,7 +60,7 @@ signals:
 
 public slots:
     void onError(const QString &text);
-    void onUpdatePlots(OutputData<double>*sim, OutputData<double>*chi2);
+    void onUpdatePlots();
     void onUpdateParameters(const QStringList &parameters, QVector<double> values);
     void onUpdateStatus(const QString &text);
 
@@ -81,7 +81,7 @@ private:
     MinimizerSettingsWidget *m_minimizerSettingsWidget;
     FitResultsWidget *m_fitResultsWidget;
     JobItem *m_currentItem;
-    RunFitManager *m_manager;
+    RunFitManager *m_runFitManager;
     std::shared_ptr<GUIFitObserver> m_observer;
 };
 

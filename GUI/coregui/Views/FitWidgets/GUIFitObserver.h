@@ -40,6 +40,9 @@ public:
 
     void finishedPlotting();
 
+    const OutputData<double> *getSimulationData() const;
+    const OutputData<double> *getChiSquaredData() const;
+
 public slots:
 
     void setInterval(int val);
@@ -48,7 +51,7 @@ signals:
 
     void updateStatus(const QString &);
 
-    void updatePlots(OutputData<double>*, OutputData<double>*);
+    void updatePlots();
 
     void updateLog(const QString &);
 
@@ -57,11 +60,13 @@ signals:
     void updateParameters(const QStringList &, QVector<double>);
 
 private:
-    bool isToUpdatePlots(FitSuite *fitSuite);
-    bool isToUpdateStatus(FitSuite *fitSuite);
+    bool canUpdatePlots(FitSuite *fitSuite);
+    bool canUpdateStatus(FitSuite *fitSuite);
 
     std::atomic<bool> m_block_update_plots;
     int m_update_interval;
+    std::unique_ptr<OutputData<double> > m_simData;
+    std::unique_ptr<OutputData<double> > m_chiData;
 };
 
 #endif

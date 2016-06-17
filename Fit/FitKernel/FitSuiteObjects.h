@@ -61,7 +61,7 @@ class BA_CORE_API_ FitSuiteObjects : public IParameterized
 
     //! Returns new chi-squared map from corresponding FitObject
     //! @param i_item Index of FitObject
-    OutputData<double> * getChiSquaredMap(size_t i_item = 0) const;
+    const OutputData<double> * getChiSquaredMap(size_t i_item = 0) const;
 
     //! run all simulation defined in fit pairs
     void runSimulations();

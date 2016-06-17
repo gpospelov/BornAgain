@@ -77,14 +77,15 @@ void GUIFitObserver::update(FitSuite *subject)
     }
 
 
-    if(isToUpdateStatus(subject)) {
+    if(canUpdateStatus(subject)) {
         emit updateStatus(QString::number(subject->getNumberOfIterations()));
     }
 
-    if(isToUpdatePlots(subject)) {
+    if(canUpdatePlots(subject)) {
         m_block_update_plots = true;
-        emit updatePlots(subject->getSimulationOutputData()->clone(),
-                         subject->getChiSquaredOutputData()->clone());
+        m_simData.reset(subject->getSimulationOutputData()->clone());
+        m_chiData.reset(subject->getChiSquaredOutputData()->clone());
+        emit updatePlots();
     }
 
 }
@@ -95,7 +96,8 @@ void GUIFitObserver::setInterval(int val)
 }
 
 //! Returns true if it is time to update plots
-bool GUIFitObserver::isToUpdatePlots(FitSuite *fitSuite)
+
+bool GUIFitObserver::canUpdatePlots(FitSuite *fitSuite)
 {
     if(m_block_update_plots) return false;
     if(fitSuite->getNumberOfIterations() % m_update_interval != 0) return false;
@@ -104,12 +106,12 @@ bool GUIFitObserver::isToUpdatePlots(FitSuite *fitSuite)
 
 //! Returns true if it is time to send status message. Follow same rules as for plots update,
 //! or in the case of last iteration
-bool GUIFitObserver::isToUpdateStatus(FitSuite *fitSuite)
+bool GUIFitObserver::canUpdateStatus(FitSuite *fitSuite)
 {
     if(fitSuite->getNumberOfIterations() == 0) return true;
     if(fitSuite->getNumberOfIterations() % m_update_interval == 0) return true;
     if(fitSuite->isLastIteration()) return true;
-    return isToUpdatePlots(fitSuite);
+    return canUpdatePlots(fitSuite);
 }
 
 //! Informs observer that FitSuiteWidget has finished plotting and is ready for next plot
@@ -117,3 +119,14 @@ void GUIFitObserver::finishedPlotting()
 {
     m_block_update_plots = false;
 }
+
+const OutputData<double> *GUIFitObserver::getSimulationData() const
+{
+    return m_simData.get();
+}
+
+const OutputData<double> *GUIFitObserver::getChiSquaredData() const
+{
+    return m_chiData.get();
+}
+

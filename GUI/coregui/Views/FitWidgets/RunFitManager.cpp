@@ -92,5 +92,5 @@ void RunFitManager::intern_workerStarted()
 
 void RunFitManager::intern_error(const QString &mesg)
 {
-    emit error(mesg);
+    emit fittingError(mesg);
 }

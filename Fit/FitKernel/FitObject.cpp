@@ -25,6 +25,7 @@ FitObject::FitObject(const GISASSimulation& simulation, const OutputData<double 
     double weight, bool adjust_detector_to_data)
     : m_simulation(simulation.clone())
     , m_real_data(real_data.clone())
+    , m_chi2_data(new OutputData<double>)
     , m_weight(weight)
     , m_adjust_detector_to_data(adjust_detector_to_data)
 {
@@ -77,7 +78,7 @@ void FitObject::init_dataset()
             throw LogicErrorException(get_error_message());
         }
     }
-
+    m_chi2_data->copyShapeFrom(*m_real_data);
 }
 
 bool FitObject::same_dimensions_dataset() const
@@ -165,16 +166,14 @@ void FitObject::prepareFitElements(std::vector<FitElement> &fit_elements, double
 
 //!Creates ChiSquared map from external vector.
 // It is used from Python in one example, didn't find nicer way/place to create such map.
-OutputData<double> *FitObject::getChiSquaredMap(std::vector<FitElement>::const_iterator first,
+const OutputData<double> *FitObject::getChiSquaredMap(std::vector<FitElement>::const_iterator first,
                                                 std::vector<FitElement>::const_iterator last) const
 {
-    OutputData<double> *result = new OutputData<double>;
-    result->copyShapeFrom(*m_simulation_data.get());
-
+    m_chi2_data->setAllTo(0.0);
     for(std::vector<FitElement>::const_iterator it=first; it!=last; ++it) {
-        (*result)[it->getIndex()] = it->getSquaredDifference();
+        (*m_chi2_data)[it->getIndex()] = it->getSquaredDifference();
 
     }
 
-    return result;
+    return m_chi2_data.get();
 }

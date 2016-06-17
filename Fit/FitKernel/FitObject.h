@@ -60,7 +60,7 @@ public:
     void prepareFitElements(std::vector<FitElement> &fit_elements, double weight,
                             IIntensityNormalizer *normalizer=0);
 
-    OutputData<double> *getChiSquaredMap(std::vector<FitElement>::const_iterator first,
+    const OutputData<double> *getChiSquaredMap(std::vector<FitElement>::const_iterator first,
                                          std::vector<FitElement>::const_iterator last) const;
 
     //! Adds parameters from local pool to external pool and recursively calls its direct children.
@@ -83,6 +83,7 @@ private:
     std::unique_ptr<GISASSimulation> m_simulation;
     std::unique_ptr<OutputData<double> > m_real_data;
     std::unique_ptr<OutputData<double> > m_simulation_data;
+    std::unique_ptr<OutputData<double> > m_chi2_data;
     double m_weight;
     bool m_adjust_detector_to_data;
 };

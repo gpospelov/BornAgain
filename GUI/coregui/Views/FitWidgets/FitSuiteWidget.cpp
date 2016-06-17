@@ -43,7 +43,7 @@ FitSuiteWidget::FitSuiteWidget(QWidget *parent)
     , m_minimizerSettingsWidget(new MinimizerSettingsWidget)
     , m_fitResultsWidget(new FitResultsWidget)
     , m_currentItem(0)
-    , m_manager(new RunFitManager(parent))
+    , m_runFitManager(new RunFitManager(parent))
     , m_observer(new GUIFitObserver())
 {
     QVBoxLayout *layout = new QVBoxLayout;
@@ -98,17 +98,10 @@ void FitSuiteWidget::onError(const QString &text)
     qDebug() << "FitSuiteWidget::onError" << text;
 }
 
-void FitSuiteWidget::onUpdatePlots(OutputData<double> *sim, OutputData<double> *chi2)
+void FitSuiteWidget::onUpdatePlots()
 {
-    Q_UNUSED(sim);
-    Q_UNUSED(chi2);
-    // FIXME Ownership sim,chi2 - shouldn't they be deleted here?
-
     qDebug() << "FitSuiteWidget::onUpdatePlots";
-//    OutputData<double> *data = m_currentItem->getIntensityDataItem()->getOutputData();
-//    data->setRawDataVector(sim->getRawDataVector());
-//    m_currentItem->getIntensityDataItem()->emitDataChanged();
-    m_currentItem->getIntensityDataItem()->setRawDataVector(sim);
+    m_currentItem->getIntensityDataItem()->setRawDataVector(m_observer->getSimulationData());
     m_observer->finishedPlotting();
 }
 
@@ -169,9 +162,9 @@ void FitSuiteWidget::startFitting()
         m_observer->setInterval(m_currentItem->fitSuiteItem()->getItemValue(FitSuiteItem::P_UPDATE_INTERVAL).toInt());
         std::shared_ptr<FitSuite> fitSuite(DomainFittingBuilder::createFitSuite(m_currentItem));
         fitSuite->attachObserver(m_observer);
-        m_manager->setFitSuite(fitSuite);
+        m_runFitManager->setFitSuite(fitSuite);
         m_observer->finishedPlotting();
-        m_manager->runFitting();
+        m_runFitManager->runFitting();
         qDebug() << " done";
     } catch(std::exception& e) {
         m_currentItem->fitSuiteItem()->mapper()->unsubscribe(this);
@@ -186,7 +179,7 @@ void FitSuiteWidget::stopFitting()
 //    if(!m_currentItem)
 //        return;
     qDebug() << "FitSuiteWidget::stopFitting()";
-    m_manager->interruptFitting();
+    m_runFitManager->interruptFitting();
 }
 
 void FitSuiteWidget::onFittingStarted()
@@ -206,7 +199,7 @@ void FitSuiteWidget::onFittingFinished()
     m_currentItem->setStatus(Constants::STATUS_COMPLETED);
     m_currentItem->setEndTime(GUIHelpers::currentDateTime());
     m_currentItem->setProgress(100);
-    m_currentItem->setDuration(m_manager->getDuration());
+    m_currentItem->setDuration(m_runFitManager->getDuration());
     qDebug() << "FitSuiteWidget::onFittingFinished()";
     m_currentItem->fitSuiteItem()->mapper()->unsubscribe(this);
     emit fittingFinished(m_currentItem);
@@ -225,13 +218,12 @@ void FitSuiteWidget::onFitSuitePropertyChange(const QString &name)
 
 void FitSuiteWidget::connectSignals()
 {
-    connect(m_manager, SIGNAL(startedFitting()), this, SLOT(onFittingStarted()));
-    connect(m_manager, SIGNAL(finishedFitting()), this, SLOT(onFittingFinished()));
+    connect(m_runFitManager, SIGNAL(startedFitting()), this, SLOT(onFittingStarted()));
+    connect(m_runFitManager, SIGNAL(finishedFitting()), this, SLOT(onFittingFinished()));
+    connect(m_runFitManager, SIGNAL(fittingError(QString)), this, SIGNAL(fittingError(QString)));
 
-    connect(m_manager, SIGNAL(error(QString)), this, SIGNAL(fittingError(QString)));
-
-    connect(m_observer.get(), SIGNAL(updatePlots(OutputData<double>*,OutputData<double>*)),
-            this, SLOT(onUpdatePlots(OutputData<double>*,OutputData<double>*)));
+    connect(m_observer.get(), SIGNAL(updatePlots()),
+            this, SLOT(onUpdatePlots()));
     connect(m_observer.get(), SIGNAL(updateParameters(QStringList,QVector<double>)),
             this, SLOT(onUpdateParameters(QStringList,QVector<double>)));
     connect(m_observer.get(), SIGNAL(updateStatus(QString)),

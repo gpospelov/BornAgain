@@ -18,6 +18,7 @@
 #define FITSUITEWIDGET_H
 
 #include "WinDllMacros.h"
+#include "FitProgressInfo.h"
 #include <QWidget>
 #include <memory>
 
@@ -32,7 +33,7 @@ class ParameterTuningWidget;
 class RunFitManager;
 class GUIFitObserver;
 template <class T> class OutputData;
-class FitProgressInfo;
+//class FitProgressInfo;
 
 
 //! The FitSuiteWidget contains all fit settings for given JobItem (fit parameters,
@@ -64,7 +65,7 @@ public slots:
     void onPlotsUpdate();
     void onUpdateParameters(const QStringList &parameters, QVector<double> values);
     void onStatusUpdate(const QString &text);
-    void onProgressInfoUpdate(const FitProgressInfo &info);
+    void onProgressInfoUpdate(FitProgressInfo info);
 
     void startFitting();
     void stopFitting();

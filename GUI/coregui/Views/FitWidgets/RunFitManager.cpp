@@ -56,7 +56,7 @@ void RunFitManager::runFitting()
     connect(fw, SIGNAL(finished(int)), this, SLOT(intern_workerFinished(int)));
 
     // delete fitting worker and thread when done
-    connect(fw, SIGNAL(finished()), fw, SLOT(deleteLater()));
+    connect(fw, SIGNAL(finished(int)), fw, SLOT(deleteLater()));
     connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
 
     m_is_fit_running = true;

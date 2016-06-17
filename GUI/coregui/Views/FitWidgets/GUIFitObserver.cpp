@@ -75,12 +75,13 @@ void GUIFitObserver::update(FitSuite *subject)
 
 
     if(canUpdateStatus(subject)) {
-        emit statusUpdate(QString::number(subject->getNumberOfIterations()));
+//        emit statusUpdate(QString::number(subject->getNumberOfIterations()));
 
         FitProgressInfo info;
         info.m_chi2 = subject->getChi2();
         info.m_iteration_count = subject->getNumberOfIterations();
         info.m_values = GUIHelpers::fromStdVector(subject->getFitParameters()->getValues());
+        qDebug() << "Emitting progressInfoUpdate" << info.m_iteration_count;
         emit progressInfoUpdate(info);
 
     }

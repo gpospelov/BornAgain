@@ -136,18 +136,20 @@ void FitSuiteWidget::onUpdateParameters(const QStringList &parameters, QVector<d
 
 void FitSuiteWidget::onStatusUpdate(const QString &text)
 {
-    Q_ASSERT(m_currentItem);
-    qDebug() << "FitSuiteWidget::onUpdateStatus(const QString &text)" << text;
-    FitSuiteItem *fitSuiteItem = m_currentItem->fitSuiteItem();
-    Q_ASSERT(fitSuiteItem);
-    bool ok;
-    int niter = text.toInt(&ok);
-    fitSuiteItem->setItemValue(FitSuiteItem::P_ITERATION_COUNT, niter);
+//    Q_ASSERT(m_currentItem);
+//    qDebug() << "FitSuiteWidget::onUpdateStatus(const QString &text)" << text;
+//    FitSuiteItem *fitSuiteItem = m_currentItem->fitSuiteItem();
+//    Q_ASSERT(fitSuiteItem);
+//    bool ok;
+//    int niter = text.toInt(&ok);
+//    fitSuiteItem->setItemValue(FitSuiteItem::P_ITERATION_COUNT, niter);
 }
 
-void FitSuiteWidget::onProgressInfoUpdate(const FitProgressInfo &info)
+void FitSuiteWidget::onProgressInfoUpdate(FitProgressInfo info)
 {
-
+    qDebug() << "AAAA" << info.iterationCount();
+    FitSuiteItem *fitSuiteItem = m_currentItem->fitSuiteItem();
+    fitSuiteItem->setItemValue(FitSuiteItem::P_ITERATION_COUNT, info.iterationCount());
 }
 
 void FitSuiteWidget::startFitting()
@@ -233,14 +235,14 @@ void FitSuiteWidget::connectSignals()
     connect(m_observer.get(), SIGNAL(parameterUpdate(QStringList,QVector<double>)),
             this, SLOT(onUpdateParameters(QStringList,QVector<double>)));
 
-    connect(m_observer.get(), SIGNAL(statusUpdate(QString)), this, SLOT(onStatusUpdate(QString)));
+//    connect(m_observer.get(), SIGNAL(statusUpdate(QString)), this, SLOT(onStatusUpdate(QString)));
 
     connect(m_observer.get(), SIGNAL(logInfoUpdate(QString)),
             this, SIGNAL(fittingLog(QString)));
 
 
     connect(m_observer.get(), SIGNAL(progressInfoUpdate(FitProgressInfo)),
-            this, SLOT(onProgressInfoUpdate(QString)));
+            this, SLOT(onProgressInfoUpdate(FitProgressInfo)));
 
 }
 

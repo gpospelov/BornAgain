@@ -18,6 +18,7 @@
 #define GUIFITOBSERVER_H
 
 #include "IFitObserver.h"
+#include "FitProgressInfo.h"
 #include <QObject>
 #include <atomic>
 
@@ -52,7 +53,7 @@ signals:
     void plotsUpdate();
     void logInfoUpdate(const QString &);
     void parameterUpdate(const QStringList &, QVector<double>);
-    void progressInfoUpdate(const  FitProgressInfo &info);
+    void progressInfoUpdate(FitProgressInfo info);
 
 private:
     bool canUpdatePlots(FitSuite *fitSuite);

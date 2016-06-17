@@ -17,14 +17,16 @@
 #ifndef GUIFITOBSERVER_H
 #define GUIFITOBSERVER_H
 
-#include "WinDllMacros.h"
 #include "IFitObserver.h"
-#include "OutputData.h"
 #include <QObject>
 #include <atomic>
 
+template <class T> class OutputData;
 class FitSuite;
 class IntensityDataItem;
+
+//! The GUIFitObserver class is a intermediate between FitSuite and the GUI.
+//! It is called at the end of each iterations and sends (messages, data) to the rest of the GUI.
 
 class BA_CORE_API_ GUIFitObserver : public QObject, public IFitObserver
 {
@@ -32,12 +34,7 @@ class BA_CORE_API_ GUIFitObserver : public QObject, public IFitObserver
 
 public:
 
-    GUIFitObserver(QObject *parent = 0)
-        : QObject(parent)
-        , IFitObserver(1)
-        , m_block_update_plots(false)
-        , m_update_interval(1)
-    {}
+    GUIFitObserver(QObject *parent = 0);
 
     void update(FitSuite *subject);
 

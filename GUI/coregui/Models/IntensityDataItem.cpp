@@ -111,6 +111,18 @@ void IntensityDataItem::setOutputData(OutputData<double> *data)
     emitDataChanged();
 }
 
+//! Sets the raw data vector from external source
+
+void IntensityDataItem::setRawDataVector(const OutputData<double> *data)
+{
+    if(!m_data->hasSameDimensions(*data)) {
+        throw GUIHelpers::Error("IntensityDataItem::setRawDataVector() -> Error. "
+                                "Different dimensions of data.");
+    }
+    m_data->setRawDataVector(data->getRawDataVector());
+    emitDataChanged();
+}
+
 double IntensityDataItem::getLowerX() const
 {
     return getItem(P_XAXIS)->getItemValue(BasicAxisItem::P_MIN).toDouble();

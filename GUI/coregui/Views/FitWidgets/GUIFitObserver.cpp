@@ -19,8 +19,15 @@
 #include "IntensityDataItem.h"
 #include "FitParameter.h"
 #include "FitSuiteParameters.h"
-#include "QDebug"
+#include <QDebug>
 
+
+GUIFitObserver::GUIFitObserver(QObject *parent)
+    : QObject(parent)
+    , IFitObserver(1)
+    , m_block_update_plots(false)
+    , m_update_interval(1)
+{}
 
 void GUIFitObserver::update(FitSuite *subject)
 {
@@ -69,16 +76,6 @@ void GUIFitObserver::update(FitSuite *subject)
         emit startFitting(subject->getRealOutputData()->clone());
     }
 
-
-//    if (curIteration % m_update_interval == 0 && !m_block_update_plots) {
-//        m_block_update_plots = true;
-
-////        emit updateStatus(QString("Iteration: %1").arg(subject->getNumberOfIterations()));
-//        emit updateStatus(QString::number(subject->getNumberOfIterations()));
-
-//        emit updatePlots(subject->getSimulationOutputData()->clone(),
-//                         subject->getChiSquaredOutputData()->clone());
-//    }
 
     if(isToUpdateStatus(subject)) {
         emit updateStatus(QString::number(subject->getNumberOfIterations()));

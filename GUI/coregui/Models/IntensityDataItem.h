@@ -48,6 +48,7 @@ public:
     OutputData<double> *getOutputData() { return m_data.get(); }
     const OutputData<double> *getOutputData() const { return m_data.get(); }
     void setOutputData(OutputData<double> *data);
+    void setRawDataVector(const OutputData<double> *data);
 
     //! returns lower and upper zoom ranges of x-axis
     double getLowerX() const;

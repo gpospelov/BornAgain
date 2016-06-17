@@ -105,9 +105,10 @@ void FitSuiteWidget::onUpdatePlots(OutputData<double> *sim, OutputData<double> *
     // FIXME Ownership sim,chi2 - shouldn't they be deleted here?
 
     qDebug() << "FitSuiteWidget::onUpdatePlots";
-    OutputData<double> *data = m_currentItem->getIntensityDataItem()->getOutputData();
-    data->setRawDataVector(sim->getRawDataVector());
-    m_currentItem->getIntensityDataItem()->emitDataChanged();
+//    OutputData<double> *data = m_currentItem->getIntensityDataItem()->getOutputData();
+//    data->setRawDataVector(sim->getRawDataVector());
+//    m_currentItem->getIntensityDataItem()->emitDataChanged();
+    m_currentItem->getIntensityDataItem()->setRawDataVector(sim);
     m_observer->finishedPlotting();
 }
 
@@ -173,9 +174,6 @@ void FitSuiteWidget::startFitting()
         m_manager->runFitting();
         qDebug() << " done";
     } catch(std::exception& e) {
-//        QMessageBox box;
-//        box.setText(e.what());
-//        box.exec();
         m_currentItem->fitSuiteItem()->mapper()->unsubscribe(this);
         emit fittingError(QString::fromStdString(e.what()));
     }
@@ -230,7 +228,6 @@ void FitSuiteWidget::connectSignals()
     connect(m_manager, SIGNAL(startedFitting()), this, SLOT(onFittingStarted()));
     connect(m_manager, SIGNAL(finishedFitting()), this, SLOT(onFittingFinished()));
 
-//    connect(m_manager, SIGNAL(error(QString)), this, SLOT(onError(QString)));
     connect(m_manager, SIGNAL(error(QString)), this, SIGNAL(fittingError(QString)));
 
     connect(m_observer.get(), SIGNAL(updatePlots(OutputData<double>*,OutputData<double>*)),

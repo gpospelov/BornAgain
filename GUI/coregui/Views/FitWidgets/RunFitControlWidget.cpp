@@ -89,8 +89,8 @@ RunFitControlWidget::RunFitControlWidget(QWidget *parent)
     layout->addWidget(m_iterationsCountLabel);
     setLayout(layout);
 
-    connect(m_startButton, SIGNAL(clicked(bool)), this, SIGNAL(startFitting()));
-    connect(m_stopButton, SIGNAL(clicked(bool)), this, SIGNAL(stopFitting()));
+    connect(m_startButton, SIGNAL(clicked(bool)), this, SIGNAL(startFittingPushed()));
+    connect(m_stopButton, SIGNAL(clicked(bool)), this, SIGNAL(stopFittingPushed()));
     connect(m_intervalSlider, SIGNAL(valueChanged(int)), this, SLOT(onSliderValueChanged(int)));
 
     setEnabled(false);

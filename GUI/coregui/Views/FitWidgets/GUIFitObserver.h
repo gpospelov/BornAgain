@@ -24,6 +24,7 @@
 template <class T> class OutputData;
 class FitSuite;
 class IntensityDataItem;
+class FitProgressInfo;
 
 //! The GUIFitObserver class is a intermediate between FitSuite and the GUI.
 //! It is called at the end of each iterations and sends (messages, data) to the rest of the GUI.
@@ -40,24 +41,18 @@ public:
 
     void finishedPlotting();
 
-    const OutputData<double> *getSimulationData() const;
-    const OutputData<double> *getChiSquaredData() const;
+    const OutputData<double> *simulationData() const;
+    const OutputData<double> *chiSquaredData() const;
 
 public slots:
-
     void setInterval(int val);
 
 signals:
-
-    void updateStatus(const QString &);
-
-    void updatePlots();
-
-    void updateLog(const QString &);
-
-    void startFitting(OutputData<double>*);
-
-    void updateParameters(const QStringList &, QVector<double>);
+    void statusUpdate(const QString &);
+    void plotsUpdate();
+    void logInfoUpdate(const QString &);
+    void parameterUpdate(const QStringList &, QVector<double>);
+    void progressInfoUpdate(const  FitProgressInfo &info);
 
 private:
     bool canUpdatePlots(FitSuite *fitSuite);

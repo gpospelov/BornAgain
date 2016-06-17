@@ -30,6 +30,7 @@
 #include "MinimizerSettingsWidget.h"
 #include "FitResultsWidget.h"
 #include "mainwindow_constants.h"
+#include "FitProgressInfo.h"
 #include "GUIHelpers.h"
 #include <QVBoxLayout>
 #include <QTabWidget>
@@ -98,10 +99,10 @@ void FitSuiteWidget::onError(const QString &text)
     qDebug() << "FitSuiteWidget::onError" << text;
 }
 
-void FitSuiteWidget::onUpdatePlots()
+void FitSuiteWidget::onPlotsUpdate()
 {
     qDebug() << "FitSuiteWidget::onUpdatePlots";
-    m_currentItem->getIntensityDataItem()->setRawDataVector(m_observer->getSimulationData());
+    m_currentItem->getIntensityDataItem()->setRawDataVector(m_observer->simulationData());
     m_observer->finishedPlotting();
 }
 
@@ -133,7 +134,7 @@ void FitSuiteWidget::onUpdateParameters(const QStringList &parameters, QVector<d
     }
 }
 
-void FitSuiteWidget::onUpdateStatus(const QString &text)
+void FitSuiteWidget::onStatusUpdate(const QString &text)
 {
     Q_ASSERT(m_currentItem);
     qDebug() << "FitSuiteWidget::onUpdateStatus(const QString &text)" << text;
@@ -142,6 +143,11 @@ void FitSuiteWidget::onUpdateStatus(const QString &text)
     bool ok;
     int niter = text.toInt(&ok);
     fitSuiteItem->setItemValue(FitSuiteItem::P_ITERATION_COUNT, niter);
+}
+
+void FitSuiteWidget::onProgressInfoUpdate(const FitProgressInfo &info)
+{
+
 }
 
 void FitSuiteWidget::startFitting()
@@ -222,13 +228,19 @@ void FitSuiteWidget::connectSignals()
     connect(m_runFitManager, SIGNAL(finishedFitting()), this, SLOT(onFittingFinished()));
     connect(m_runFitManager, SIGNAL(fittingError(QString)), this, SIGNAL(fittingError(QString)));
 
-    connect(m_observer.get(), SIGNAL(updatePlots()),
-            this, SLOT(onUpdatePlots()));
-    connect(m_observer.get(), SIGNAL(updateParameters(QStringList,QVector<double>)),
+    connect(m_observer.get(), SIGNAL(plotsUpdate()), this, SLOT(onPlotsUpdate()));
+
+    connect(m_observer.get(), SIGNAL(parameterUpdate(QStringList,QVector<double>)),
             this, SLOT(onUpdateParameters(QStringList,QVector<double>)));
-    connect(m_observer.get(), SIGNAL(updateStatus(QString)),
-            this, SLOT(onUpdateStatus(QString)));
-    connect(m_observer.get(), SIGNAL(updateLog(QString)),
+
+    connect(m_observer.get(), SIGNAL(statusUpdate(QString)), this, SLOT(onStatusUpdate(QString)));
+
+    connect(m_observer.get(), SIGNAL(logInfoUpdate(QString)),
             this, SIGNAL(fittingLog(QString)));
+
+
+    connect(m_observer.get(), SIGNAL(progressInfoUpdate(FitProgressInfo)),
+            this, SLOT(onProgressInfoUpdate(QString)));
+
 }
 

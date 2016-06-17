@@ -19,6 +19,9 @@
 #include "IntensityDataItem.h"
 #include "FitParameter.h"
 #include "FitSuiteParameters.h"
+#include "FitProgressInfo.h"
+#include "GUIHelpers.h"
+#include <QVector>
 #include <QDebug>
 
 
@@ -54,9 +57,9 @@ void GUIFitObserver::update(FitSuite *subject)
             qDebug() << (*it)->getValue();
         }
     }
-    emit updateParameters(parameters, values);
+    emit parameterUpdate(parameters, values);
 
-    emit updateLog(QString("NCalls: %1 Chi: %2\n%3").
+    emit logInfoUpdate(QString("NCalls: %1 Chi: %2\n%3").
                       arg(QString::number(subject->getNumberOfIterations()),
                           QString::number(subject->getChi2()),
                           QString::fromStdString(text)));
@@ -66,27 +69,30 @@ void GUIFitObserver::update(FitSuite *subject)
         std::streambuf *old = std::cout.rdbuf(buffer.rdbuf());
         subject->printResults();
         std::string text = buffer.str();
-        emit updateLog(QString::fromStdString(text));
+        emit logInfoUpdate(QString::fromStdString(text));
         std::cout.rdbuf(old);
-    }
-
-    int curIteration = subject->getNumberOfIterations();
-
-    if (curIteration == 0) {
-        emit startFitting(subject->getRealOutputData()->clone());
     }
 
 
     if(canUpdateStatus(subject)) {
-        emit updateStatus(QString::number(subject->getNumberOfIterations()));
+        emit statusUpdate(QString::number(subject->getNumberOfIterations()));
+
+        FitProgressInfo info;
+        info.m_chi2 = subject->getChi2();
+        info.m_iteration_count = subject->getNumberOfIterations();
+        info.m_values = GUIHelpers::fromStdVector(subject->getFitParameters()->getValues());
+        emit progressInfoUpdate(info);
+
     }
 
     if(canUpdatePlots(subject)) {
         m_block_update_plots = true;
         m_simData.reset(subject->getSimulationOutputData()->clone());
         m_chiData.reset(subject->getChiSquaredOutputData()->clone());
-        emit updatePlots();
+        emit plotsUpdate();
     }
+
+
 
 }
 
@@ -120,12 +126,12 @@ void GUIFitObserver::finishedPlotting()
     m_block_update_plots = false;
 }
 
-const OutputData<double> *GUIFitObserver::getSimulationData() const
+const OutputData<double> *GUIFitObserver::simulationData() const
 {
     return m_simData.get();
 }
 
-const OutputData<double> *GUIFitObserver::getChiSquaredData() const
+const OutputData<double> *GUIFitObserver::chiSquaredData() const
 {
     return m_chiData.get();
 }

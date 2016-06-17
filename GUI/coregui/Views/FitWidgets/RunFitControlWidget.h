@@ -40,8 +40,8 @@ public:
     void setJobMessagePanel(JobMessagePanel *jobMessagePanel);
 
 signals:
-    void startFitting();
-    void stopFitting();
+    void startFittingPushed();
+    void stopFittingPushed();
 
 public slots:
     void onFittingStarted(JobItem *jobItem);

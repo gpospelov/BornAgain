@@ -32,6 +32,7 @@ class ParameterTuningWidget;
 class RunFitManager;
 class GUIFitObserver;
 template <class T> class OutputData;
+class FitProgressInfo;
 
 
 //! The FitSuiteWidget contains all fit settings for given JobItem (fit parameters,
@@ -60,9 +61,10 @@ signals:
 
 public slots:
     void onError(const QString &text);
-    void onUpdatePlots();
+    void onPlotsUpdate();
     void onUpdateParameters(const QStringList &parameters, QVector<double> values);
-    void onUpdateStatus(const QString &text);
+    void onStatusUpdate(const QString &text);
+    void onProgressInfoUpdate(const FitProgressInfo &info);
 
     void startFitting();
     void stopFitting();
@@ -70,7 +72,6 @@ public slots:
 private slots:
     void onFittingStarted();
     void onFittingFinished();
-
     void onFitSuitePropertyChange(const QString &name);
 
 private:

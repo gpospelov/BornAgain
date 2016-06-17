@@ -43,8 +43,8 @@ FitActivityPanel::FitActivityPanel(JobModel *jobModel, QWidget *parent)
 
     setLayout(mainLayout);
 
-    connect(m_controlWidget, SIGNAL(startFitting()), this, SLOT(onStartFittingRequest()));
-    connect(m_controlWidget, SIGNAL(stopFitting()), this, SLOT(onStopFittingRequest()));
+    connect(m_controlWidget, SIGNAL(startFittingPushed()), this, SLOT(onStartFittingRequest()));
+    connect(m_controlWidget, SIGNAL(stopFittingPushed()), this, SLOT(onStopFittingRequest()));
 
     m_stackedWidget->setModel(jobModel);
 }

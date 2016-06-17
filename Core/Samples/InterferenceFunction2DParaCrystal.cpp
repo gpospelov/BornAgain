@@ -17,7 +17,6 @@
 #include "IntegratorReal.h"
 #include "InterferenceFunction2DParaCrystal.h"
 
-
 using namespace BornAgain;
 
 InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal(
@@ -78,50 +77,36 @@ double InterferenceFunction2DParaCrystal::evaluate(const kvector_t q) const
 {
     m_qx = q.x();
     m_qy = q.y();
-    double result;
-    if (m_integrate_xi) {
-        result = mP_integrator->integrate(0.0, Units::PI2)/Units::PI2;
-   }
-    else {
-        result = interferenceForXi(m_lattice_params.m_xi);
-    }
-    return result;
-}
-
-Lattice2DParameters InterferenceFunction2DParaCrystal::getLatticeParameters() const
-{
-    return m_lattice_params;
+    if (!m_integrate_xi)
+        return interferenceForXi(m_lattice_params.m_xi);
+    return mP_integrator->integrate(0.0, Units::PI2)/Units::PI2;
 }
 
 std::string InterferenceFunction2DParaCrystal::addParametersToExternalPool(
-        std::string path, ParameterPool* external_pool, int copy_number) const
+    std::string path, ParameterPool* external_pool, int copy_number) const
 {
     // add own parameters
     std::string  new_path = IParameterized::addParametersToExternalPool(
             path, external_pool, copy_number);
 
     // add parameters of the probability density functions
-    if (m_pdfs[0]) {
+    if (m_pdfs[0])
         m_pdfs[0]->addParametersToExternalPool(new_path, external_pool, 0);
-    }
-    if (m_pdfs[1]) {
+    if (m_pdfs[1])
         m_pdfs[1]->addParametersToExternalPool(new_path, external_pool, 1);
-    }
     return new_path;
 }
 
 double InterferenceFunction2DParaCrystal::getParticleDensity() const
 {
     double area = getUnitCellArea(m_lattice_params);
-    if (area == 0.0) {
+    if (area == 0.0)
         return 0.0;
-    }
     return 1.0/area;
 }
 
-InterferenceFunction2DParaCrystal* InterferenceFunction2DParaCrystal::
-    createSquare(double peak_distance, double damping_length, double domain_size_1,
-        double domain_size_2)
+InterferenceFunction2DParaCrystal* InterferenceFunction2DParaCrystal::createSquare(
+    double peak_distance, double damping_length, double domain_size_1, double domain_size_2)
 {
     InterferenceFunction2DParaCrystal* p_new =
             new InterferenceFunction2DParaCrystal(peak_distance, peak_distance,
@@ -131,9 +116,8 @@ InterferenceFunction2DParaCrystal* InterferenceFunction2DParaCrystal::
     return p_new;
 }
 
-InterferenceFunction2DParaCrystal* InterferenceFunction2DParaCrystal::
-    createHexagonal(double peak_distance, double damping_length,
-            double domain_size_1, double domain_size_2)
+InterferenceFunction2DParaCrystal* InterferenceFunction2DParaCrystal::createHexagonal(
+    double peak_distance, double damping_length, double domain_size_1, double domain_size_2)
 {
     InterferenceFunction2DParaCrystal* p_new =
             new InterferenceFunction2DParaCrystal(peak_distance, peak_distance,
@@ -170,8 +154,8 @@ void InterferenceFunction2DParaCrystal::init_parameters()
 
 double InterferenceFunction2DParaCrystal::interferenceForXi(double xi) const
 {
-    double result = interference1D(m_qx, m_qy, xi, 0)*interference1D(m_qx, m_qy,
-            xi + m_lattice_params.m_angle, 1);
+    double result = interference1D(m_qx, m_qy, xi, 0)*
+        interference1D(m_qx, m_qy, xi + m_lattice_params.m_angle, 1);
     return result;
 }
 

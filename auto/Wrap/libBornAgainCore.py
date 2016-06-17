@@ -17063,16 +17063,6 @@ class InterferenceFunction2DParaCrystal(IInterferenceFunction):
         return _libBornAgainCore.InterferenceFunction2DParaCrystal_setProbabilityDistributions(self, pdf_1, pdf_2)
 
 
-    def setIntegrationOverXi(self, integrate_xi):
-        """
-        setIntegrationOverXi(InterferenceFunction2DParaCrystal self, bool integrate_xi)
-
-        void InterferenceFunction2DParaCrystal::setIntegrationOverXi(bool integrate_xi)
-
-        """
-        return _libBornAgainCore.InterferenceFunction2DParaCrystal_setIntegrationOverXi(self, integrate_xi)
-
-
     def evaluate(self, q):
         """
         evaluate(InterferenceFunction2DParaCrystal self, kvector_t q) -> double
@@ -17103,6 +17093,16 @@ class InterferenceFunction2DParaCrystal(IInterferenceFunction):
 
         """
         return _libBornAgainCore.InterferenceFunction2DParaCrystal_getProbabilityDistributions(self)
+
+
+    def setIntegrationOverXi(self, integrate_xi):
+        """
+        setIntegrationOverXi(InterferenceFunction2DParaCrystal self, bool integrate_xi)
+
+        void InterferenceFunction2DParaCrystal::setIntegrationOverXi(bool integrate_xi)
+
+        """
+        return _libBornAgainCore.InterferenceFunction2DParaCrystal_setIntegrationOverXi(self, integrate_xi)
 
 
     def getIntegrationOverXi(self):

@@ -43,15 +43,15 @@ public:
 
     virtual ~InterferenceFunction2DParaCrystal();
 
-    virtual InterferenceFunction2DParaCrystal *clone() const;
+    virtual InterferenceFunction2DParaCrystal* clone() const;
 
-    virtual void accept(ISampleVisitor *visitor) const;
+    virtual void accept(ISampleVisitor* visitor) const;
 
-    static InterferenceFunction2DParaCrystal *createSquare(double peak_distance,
+    static InterferenceFunction2DParaCrystal* createSquare(double peak_distance,
                                                            double damping_length = 0.0,
                                                            double domain_size_1 = 0.0,
                                                            double domain_size_2 = 0.0);
-    static InterferenceFunction2DParaCrystal *createHexagonal(double peak_distance,
+    static InterferenceFunction2DParaCrystal* createHexagonal(double peak_distance,
                                                               double damping_length = 0.0,
                                                               double domain_size_1 = 0.0,
                                                               double domain_size_2 = 0.0);
@@ -65,22 +65,23 @@ public:
     //! lattice directions.
     //! @param pdf_1: probability distribution in first lattice direction
     //! @param pdf_2: probability distribution in second lattice direction
-    void setProbabilityDistributions(const IFTDistribution2D &pdf_1,
-                                     const IFTDistribution2D &pdf_2);
+    void setProbabilityDistributions(const class IFTDistribution2D& pdf_1,
+                                     const class IFTDistribution2D& pdf_2);
 
-    void setIntegrationOverXi(bool integrate_xi);
 
     virtual double evaluate(const kvector_t q) const;
 
     std::vector<double> getDomainSizes() const;
-    std::vector<const IFTDistribution2D *> getProbabilityDistributions() const;
-    bool getIntegrationOverXi() const;
-    double getDampingLength() const;
+    std::vector<const class IFTDistribution2D*> getProbabilityDistributions() const;
 
-    Lattice2DParameters getLatticeParameters() const;
+    void setIntegrationOverXi(bool integrate_xi) { m_integrate_xi = integrate_xi; }
+    bool getIntegrationOverXi() const { return m_integrate_xi; }
+    double getDampingLength() const { return m_damping_length; }
+
+    Lattice2DParameters getLatticeParameters() const { return m_lattice_params; }
 
     //! Adds parameters from local pool to external pool and recursively calls its direct children.
-    virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool,
+    virtual std::string addParametersToExternalPool(std::string path, ParameterPool* external_pool,
                                                     int copy_number = -1) const;
 
     //! Returns the particle density associated with this 2d paracrystal lattice
@@ -90,12 +91,12 @@ protected:
     //! Registers some class members for later access via parameter pool
     virtual void init_parameters();
 
-    void transformToPrincipalAxes(double qx, double qy, double gamma, double delta, double &q_pa_1,
-                                  double &q_pa_2) const;
+    void transformToPrincipalAxes(double qx, double qy, double gamma, double delta, double& q_pa_1,
+                                  double& q_pa_2) const;
 
     Lattice2DParameters m_lattice_params; //!< Lattice parameters
     bool m_integrate_xi; //!< Integrate over the orientation xi
-    IFTDistribution2D *m_pdfs[2];
+    class IFTDistribution2D* m_pdfs[2];
     double m_damping_length; //!< Damping length for removing delta function singularity at q=0.
     bool m_use_damping_length; //!< Flag that determines if the damping length should be used.
     double m_domain_sizes[2]; //!< Coherence domain sizes
@@ -116,6 +117,7 @@ private:
     mutable double m_qy;
 };
 
+<<<<<<< 49e1e9aa2744a1edf48d4c4704fc1517d0d3c2fc
 inline void InterferenceFunction2DParaCrystal::setIntegrationOverXi(bool integrate_xi)
 {
     m_integrate_xi = integrate_xi;
@@ -131,4 +133,6 @@ inline double InterferenceFunction2DParaCrystal::getDampingLength() const
     return m_damping_length;
 }
 
+=======
+>>>>>>> further decoupling
 #endif // INTERFERENCEFUNCTION2DPARACRYSTAL_H

@@ -3,12 +3,11 @@ Brief Installation instruction for BornAgain framework
 Detailed installation instructions can be found at
 http://www.bornagainproject.org/documentation/installation
 
-
 -------------------------------------------------------------------------------
 1) Install third party software
 -------------------------------------------------------------------------------
 Required:
-* compilers: clang  versions >=3.1 or GCC versions >=4.2
+* compiler with C++-11 support (clang versions >= 3.3, GCC versions >= 4.8)
 * cmake >=2.8.12
 * boost library >=1.48
 * eigen3
@@ -18,25 +17,26 @@ Required:
 * Qt5
 
 -------------------------------------------------------------------------------
-2) Getting the source
+2) Get the source
 -------------------------------------------------------------------------------
+
+download BornAgain-<version>.tar.gz from http://apps.jcns.fz-juelich.de/src/BornAgain/
+or
 git clone git://apps.jcns.fz-juelich.de/BornAgain.git
 
-
 -------------------------------------------------------------------------------
-3) Building with CMake
+3) Build with CMake
 -------------------------------------------------------------------------------
 mkdir <build_dir>
 cd <build_dir>
 cmake <source_dir> -DCMAKE_INSTALL_PREFIX=<install_dir>
 make -j4
-make check
+ctest -j4
 make install
 
-
 -------------------------------------------------------------------------------
-4) Running first simulation
+4) Run a first simulation
 -------------------------------------------------------------------------------
 source <install_dir>/bin/thisbornagain.sh
-cd <install_dir>/share/BornAgain-1.0/Examples/python/simulation/ex01_BasicParticles
+cd <install_dir>/share/BornAgain-<version>/Examples/python/simulation/ex01_BasicParticles
 python CylindersAndPrisms.py

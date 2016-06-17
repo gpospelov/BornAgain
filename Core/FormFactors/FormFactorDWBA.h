@@ -17,7 +17,6 @@
 #define FORMFACTORDWBA_H
 
 #include "IFormFactorDecorator.h"
-#include "LayerSpecularInfo.h"
 
 //! @class FormFactorDWBA
 //! @ingroup formfactors_internal
@@ -29,13 +28,13 @@ public:
     FormFactorDWBA(const IFormFactor& form_factor);
     virtual ~FormFactorDWBA();
 
-    virtual FormFactorDWBA *clone() const;
+    virtual FormFactorDWBA* clone() const;
 
-    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
+    virtual void accept(ISampleVisitor* visitor) const { visitor->visit(this); }
 
     //! Sets reflection/transmission info for scalar DWBA simulation
-    virtual void setSpecularInfo(const ILayerRTCoefficients *p_in_coeffs,
-                         const ILayerRTCoefficients *p_out_coeffs);
+    virtual void setSpecularInfo(const class ILayerRTCoefficients* p_in_coeffs,
+                                 const class ILayerRTCoefficients* p_out_coeffs);
 
     virtual complex_t evaluate(const WavevectorInfo& wavevectors) const;
 
@@ -45,10 +44,8 @@ protected:
     void calculateTerms(const WavevectorInfo& wavevectors) const;
 
     mutable complex_t m_term_S, m_term_RS, m_term_SR, m_term_RSR;
-    const ILayerRTCoefficients *mp_in_coeffs;
-    const ILayerRTCoefficients *mp_out_coeffs;
+    const class ILayerRTCoefficients* mp_in_coeffs;
+    const class ILayerRTCoefficients* mp_out_coeffs;
 };
 
 #endif // FORMFACTORDWBA_H
-
-

@@ -39,6 +39,7 @@ if(BORNAGAIN_PYTHON)
         ${CMAKE_CURRENT_SOURCE_DIR}/StandardFits
         ${CMAKE_SOURCE_DIR}/Core/Basics
         ${CMAKE_SOURCE_DIR}/Core/Detector
+        ${CMAKE_SOURCE_DIR}/Core/Parametrization
         ${CMAKE_SOURCE_DIR}/Core/Simulation
         ${CMAKE_SOURCE_DIR}/Core/StandardSamples
         ${CMAKE_SOURCE_DIR}/Core/Tools

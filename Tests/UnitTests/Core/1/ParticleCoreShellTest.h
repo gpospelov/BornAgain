@@ -1,12 +1,11 @@
 #ifndef PARTICLECORESHELLTEST_H
 #define PARTICLECORESHELLTEST_H
 
-#include "ParticleShapes.h"
+#include "HardParticles.h"
 #include "ParticleCoreShell.h"
 #include "BornAgainNamespace.h"
 #include "Units.h"
 #include "HomogeneousMaterial.h"
-#include "FormFactorFullSphere.h"
 #include "Particle.h"
 #include "Rotations.h"
 

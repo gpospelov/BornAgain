@@ -15,8 +15,7 @@
 
 #include "Units.h"
 #include "BornAgainNamespace.h"
-#include "IFormFactorBorn.h"
-#include "ParticleShapes.h"
+#include "HardParticles.h"
 #include "qLoopedTest.h"
 
 class FFSymmetryTest : public QLoopedTest

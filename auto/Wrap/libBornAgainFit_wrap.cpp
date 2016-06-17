@@ -30929,13 +30929,53 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"IChiSquaredModule_setIntensityFunction", _wrap_IChiSquaredModule_setIntensityFunction, METH_VARARGS, (char *)"IChiSquaredModule_setIntensityFunction(IChiSquaredModule self, IIntensityFunction intensity_function)"},
 	 { (char *)"IChiSquaredModule_processFitElements", _wrap_IChiSquaredModule_processFitElements, METH_VARARGS, (char *)"IChiSquaredModule_processFitElements(IChiSquaredModule self, std::vector< FitElement,std::allocator< FitElement > >::iterator arg3, std::vector< FitElement,std::allocator< FitElement > >::iterator arg4)"},
 	 { (char *)"IChiSquaredModule_swigregister", IChiSquaredModule_swigregister, METH_VARARGS, NULL},
-	 { (char *)"delete_IObserver", _wrap_delete_IObserver, METH_VARARGS, (char *)"delete_IObserver(IObserver self)"},
-	 { (char *)"IObserver_notify", _wrap_IObserver_notify, METH_VARARGS, (char *)"IObserver_notify(IObserver self, IObservable subject)"},
+	 { (char *)"delete_IObserver", _wrap_delete_IObserver, METH_VARARGS, (char *)"\n"
+		"delete_IObserver(IObserver self)\n"
+		"\n"
+		"virtual IObserver::~IObserver()\n"
+		"\n"
+		""},
+	 { (char *)"IObserver_notify", _wrap_IObserver_notify, METH_VARARGS, (char *)"\n"
+		"IObserver_notify(IObserver self, IObservable subject)\n"
+		"\n"
+		"virtual void IObserver::notify(IObservable *subject)=0\n"
+		"\n"
+		"method which is used by observable subject to notify change in status \n"
+		"\n"
+		""},
 	 { (char *)"IObserver_swigregister", IObserver_swigregister, METH_VARARGS, NULL},
-	 { (char *)"delete_IObservable", _wrap_delete_IObservable, METH_VARARGS, (char *)"delete_IObservable(IObservable self)"},
-	 { (char *)"IObservable_attachObserver", _wrap_IObservable_attachObserver, METH_VARARGS, (char *)"IObservable_attachObserver(IObservable self, IObservable::observer_t obj)"},
-	 { (char *)"IObservable_notifyObservers", _wrap_IObservable_notifyObservers, METH_VARARGS, (char *)"IObservable_notifyObservers(IObservable self)"},
-	 { (char *)"new_IObservable", _wrap_new_IObservable, METH_VARARGS, (char *)"new_IObservable(PyObject * arg2) -> IObservable"},
+	 { (char *)"delete_IObservable", _wrap_delete_IObservable, METH_VARARGS, (char *)"\n"
+		"delete_IObservable(IObservable self)\n"
+		"\n"
+		"virtual IObservable::~IObservable()\n"
+		"\n"
+		""},
+	 { (char *)"IObservable_attachObserver", _wrap_IObservable_attachObserver, METH_VARARGS, (char *)"\n"
+		"IObservable_attachObserver(IObservable self, IObservable::observer_t obj)\n"
+		"\n"
+		"void IObservable::attachObserver(observer_t obj)\n"
+		"\n"
+		"attach observer to the list of observers \n"
+		"\n"
+		""},
+	 { (char *)"IObservable_notifyObservers", _wrap_IObservable_notifyObservers, METH_VARARGS, (char *)"\n"
+		"IObservable_notifyObservers(IObservable self)\n"
+		"\n"
+		"void IObservable::notifyObservers()\n"
+		"\n"
+		"notify observers about change in status \n"
+		"\n"
+		""},
+	 { (char *)"new_IObservable", _wrap_new_IObservable, METH_VARARGS, (char *)"\n"
+		"new_IObservable(PyObject * arg2) -> IObservable\n"
+		"\n"
+		"\n"
+		"\n"
+		"Observable interface from Observer pattern, for 1:n object dependencies.\n"
+		"\n"
+		"C++ includes: IObserver.h\n"
+		"\n"
+		""},
 	 { (char *)"disown_IObservable", _wrap_disown_IObservable, METH_VARARGS, NULL},
 	 { (char *)"IObservable_swigregister", IObservable_swigregister, METH_VARARGS, NULL},
 	 { (char *)"new_IFitObserver", _wrap_new_IFitObserver, METH_VARARGS, (char *)"\n"
@@ -31354,7 +31394,7 @@ static PyMethodDef SwigMethods[] = {
 		"setMinimizer(std::string const & minimizer_name)\n"
 		"FitSuite_setMinimizer(FitSuite self, IMinimizer minimizer)\n"
 		"\n"
-		"void FitSuite::setMinimizer(IMinimizer *minimizer)\n"
+		"void FitSuite::setMinimizer(class IMinimizer *minimizer)\n"
 		"\n"
 		"Sets minimizer. \n"
 		"\n"

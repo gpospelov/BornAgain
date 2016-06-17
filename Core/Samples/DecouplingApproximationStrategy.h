@@ -39,12 +39,12 @@ public:
 
 protected:
     //! Evaluates the intensity for given list of evaluated form factors
-    double evaluateForList(const SimulationElement& sim_element,
+    double evaluateForList(const class SimulationElement& sim_element,
                            const std::vector<complex_t> &ff_list) const;
 
     //! Evaluates the intensity for given list of evaluated form factors
     //! in the presence of polarization of beam and detector
-    double evaluateForMatrixList(const SimulationElement& sim_element,
+    double evaluateForMatrixList(const class SimulationElement& sim_element,
                                  const MatrixFFVector &ff_list) const;
 
 private:

@@ -16,7 +16,7 @@
 #include "Units.h"
 #include "BornAgainNamespace.h"
 #include "IFormFactorBorn.h"
-#include "ParticleShapes.h"
+#include "HardParticles.h"
 
 class FormFactorBasicTest : public ::testing::Test
 {

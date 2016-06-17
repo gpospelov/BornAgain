@@ -68,8 +68,8 @@ double FormFactorDWBAPol::getRadius() const
     return 0.0;
 }
 
-void FormFactorDWBAPol::setSpecularInfo(const ILayerRTCoefficients *p_in_coeffs,
-                                       const ILayerRTCoefficients *p_out_coeffs)
+void FormFactorDWBAPol::setSpecularInfo(const ILayerRTCoefficients* p_in_coeffs,
+                                        const ILayerRTCoefficients* p_out_coeffs)
 {
     mp_in_coeffs = p_in_coeffs;
     mp_out_coeffs = p_out_coeffs;

@@ -1768,7 +1768,14 @@ IChiSquaredModule_swigregister = _libBornAgainFit.IChiSquaredModule_swigregister
 IChiSquaredModule_swigregister(IChiSquaredModule)
 
 class IObserver(_object):
-    """Proxy of C++ IObserver class"""
+    """
+
+
+    Observer interface from Observer pattern, for 1:n object dependencies.
+
+    C++ includes: IObserver.h
+
+    """
     __swig_setmethods__ = {}
     __setattr__ = lambda self, name, value: _swig_setattr(self, IObserver, name, value)
     __swig_getmethods__ = {}
@@ -1781,14 +1788,28 @@ class IObserver(_object):
     __del__ = lambda self: None
 
     def notify(self, subject):
-        """notify(IObserver self, IObservable subject)"""
+        """
+        notify(IObserver self, IObservable subject)
+
+        virtual void IObserver::notify(IObservable *subject)=0
+
+        method which is used by observable subject to notify change in status 
+
+        """
         return _libBornAgainFit.IObserver_notify(self, subject)
 
 IObserver_swigregister = _libBornAgainFit.IObserver_swigregister
 IObserver_swigregister(IObserver)
 
 class IObservable(_object):
-    """Proxy of C++ IObservable class"""
+    """
+
+
+    Observable interface from Observer pattern, for 1:n object dependencies.
+
+    C++ includes: IObserver.h
+
+    """
     __swig_setmethods__ = {}
     __setattr__ = lambda self, name, value: _swig_setattr(self, IObservable, name, value)
     __swig_getmethods__ = {}
@@ -1798,17 +1819,40 @@ class IObservable(_object):
     __del__ = lambda self: None
 
     def attachObserver(self, obj):
-        """attachObserver(IObservable self, IObservable::observer_t obj)"""
+        """
+        attachObserver(IObservable self, IObservable::observer_t obj)
+
+        void IObservable::attachObserver(observer_t obj)
+
+        attach observer to the list of observers 
+
+        """
         return _libBornAgainFit.IObservable_attachObserver(self, obj)
 
 
     def notifyObservers(self):
-        """notifyObservers(IObservable self)"""
+        """
+        notifyObservers(IObservable self)
+
+        void IObservable::notifyObservers()
+
+        notify observers about change in status 
+
+        """
         return _libBornAgainFit.IObservable_notifyObservers(self)
 
 
     def __init__(self):
-        """__init__(IObservable self) -> IObservable"""
+        """
+        __init__(IObservable self) -> IObservable
+
+
+
+        Observable interface from Observer pattern, for 1:n object dependencies.
+
+        C++ includes: IObserver.h
+
+        """
         if self.__class__ == IObservable:
             _self = None
         else:
@@ -2906,7 +2950,7 @@ class FitSuite(IObservable):
         setMinimizer(FitSuite self, std::string const & minimizer_name)
         setMinimizer(FitSuite self, IMinimizer minimizer)
 
-        void FitSuite::setMinimizer(IMinimizer *minimizer)
+        void FitSuite::setMinimizer(class IMinimizer *minimizer)
 
         Sets minimizer. 
 

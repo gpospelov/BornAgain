@@ -14,6 +14,8 @@
 // ************************************************************************** //
 
 #include "IntegratorMCMiser.h"
+#include "ScalarRTCoefficients.h"
+#include "SimulationElement.h"
 #include "IInterferenceFunctionStrategy.h"
 
 IInterferenceFunctionStrategy::IInterferenceFunctionStrategy(SimulationOptions sim_params)

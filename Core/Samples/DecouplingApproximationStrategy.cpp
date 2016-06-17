@@ -13,12 +13,15 @@
 //
 // ************************************************************************** //
 
+#include <cassert>
+#include <iostream>
+#include "SimulationElement.h"
+#include "Exceptions.h"
+#include "MathFunctions.h"
 #include "DecouplingApproximationStrategy.h"
 
-
-void
-DecouplingApproximationStrategy::init(const SafePointerVector<FormFactorInfo> &form_factor_infos,
-                                      const IInterferenceFunction& iff)
+void DecouplingApproximationStrategy::init(
+    const SafePointerVector<FormFactorInfo> &form_factor_infos, const IInterferenceFunction& iff)
 {
     IInterferenceFunctionStrategy::init(form_factor_infos, iff);
     if (!checkVectorSizes())
@@ -26,8 +29,8 @@ DecouplingApproximationStrategy::init(const SafePointerVector<FormFactorInfo> &f
             "No formfactors for Decoupling Approximation.");
 }
 
-double DecouplingApproximationStrategy::evaluateForList(const SimulationElement& sim_element,
-                                                        const std::vector<complex_t> &ff_list) const
+double DecouplingApproximationStrategy::evaluateForList(
+    const SimulationElement& sim_element, const std::vector<complex_t> &ff_list) const
 {
     double intensity = 0.0;
     complex_t amplitude = complex_t(0.0, 0.0);

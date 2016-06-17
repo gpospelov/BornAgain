@@ -17,7 +17,6 @@
 #define FORMFACTORDWBAPOL_H
 
 #include "IFormFactor.h"
-#include "LayerSpecularInfo.h"
 
 //! @class FormFactorDWBAPol
 //! @ingroup formfactors_internal
@@ -26,13 +25,13 @@
 class BA_CORE_API_ FormFactorDWBAPol : public IFormFactor
 {
 public:
-    FormFactorDWBAPol(const IFormFactor &form_factor);
+    FormFactorDWBAPol(const IFormFactor& form_factor);
     virtual ~FormFactorDWBAPol();
 
-    virtual FormFactorDWBAPol *clone() const;
+    virtual FormFactorDWBAPol* clone() const;
 
     //! calls the ISampleVisitor's visit method
-    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
+    virtual void accept(ISampleVisitor* visitor) const { visitor->visit(this); }
 
     //! Throws exception
     virtual complex_t evaluate(const WavevectorInfo& wavevectors) const;
@@ -48,8 +47,8 @@ public:
     virtual double getRadius() const;
 
     //! Sets reflection/transmission info for scalar DWBA simulation
-    virtual void setSpecularInfo(const ILayerRTCoefficients *p_in_coeffs,
-                         const ILayerRTCoefficients *p_out_coeffs);
+    virtual void setSpecularInfo(const class ILayerRTCoefficients* p_in_coeffs,
+                                 const class ILayerRTCoefficients* p_out_coeffs);
 
     friend class TestPolarizedDWBATerms;
 
@@ -57,7 +56,7 @@ protected:
     void calculateTerms(const WavevectorInfo& wavevectors) const;
 
     //! The matrix form factor for BA
-    IFormFactor *mp_form_factor;
+    IFormFactor* mp_form_factor;
 
     //! The following matrices each contain the four polarization conditions
     //! (p->p, p->m, m->p, m->m)
@@ -81,8 +80,8 @@ protected:
     mutable Eigen::Matrix2cd m_M22_RS;
     mutable Eigen::Matrix2cd m_M22_SR;
     mutable Eigen::Matrix2cd m_M22_RSR;
-    const ILayerRTCoefficients *mp_in_coeffs;
-    const ILayerRTCoefficients *mp_out_coeffs;
+    const class ILayerRTCoefficients* mp_in_coeffs;
+    const class ILayerRTCoefficients* mp_out_coeffs;
 };
 
 #endif // FORMFACTORDWBAPOL_H

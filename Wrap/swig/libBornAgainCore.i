@@ -130,6 +130,7 @@
 #include "FTDecayFunctions.h"
 #include "IFormFactorDecorator.h"
 #include "IHistogram.h"
+#include "IIntensityFunction.h"
 #include "IInterferenceFunction.h"
 #include "ILayout.h"
 #include "IMaterial.h"
@@ -339,6 +340,7 @@
 %include "MessageService.h"
 %include "MultiLayer.h"
 %include "OffSpecSimulation.h"
+%include "IIntensityFunction.h"
 %include "OutputData.h"
 %template(IntensityData) OutputData<double>;
 %include "OutputDataFunctions.h"

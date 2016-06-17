@@ -13,9 +13,9 @@
 //
 // ************************************************************************** //
 
+#include "LayerSpecularInfo.h"
 #include "BornAgainNamespace.h"
 #include "FormFactorDWBA.h"
-
 
 FormFactorDWBA::FormFactorDWBA(const IFormFactor& form_factor)
     : IFormFactorDecorator(form_factor)
@@ -31,13 +31,13 @@ FormFactorDWBA::~FormFactorDWBA()
 
 FormFactorDWBA* FormFactorDWBA::clone() const
 {
-    FormFactorDWBA *result = new FormFactorDWBA(*mp_form_factor);
+    FormFactorDWBA* result = new FormFactorDWBA(*mp_form_factor);
     result->setSpecularInfo(mp_in_coeffs, mp_out_coeffs);
     return result;
 }
 
-void FormFactorDWBA::setSpecularInfo(const ILayerRTCoefficients *p_in_coeffs,
-                                     const ILayerRTCoefficients *p_out_coeffs)
+void FormFactorDWBA::setSpecularInfo(const class ILayerRTCoefficients* p_in_coeffs,
+                                     const class ILayerRTCoefficients* p_out_coeffs)
 {
     mp_in_coeffs = p_in_coeffs;
     mp_out_coeffs = p_out_coeffs;

@@ -19307,6 +19307,168 @@ class OffSpecSimulation(Simulation):
 OffSpecSimulation_swigregister = _libBornAgainCore.OffSpecSimulation_swigregister
 OffSpecSimulation_swigregister(OffSpecSimulation)
 
+class IIntensityFunction(_object):
+    """
+
+
+    Interface for applying arbitrary function to the measured intensity.
+
+    C++ includes: IIntensityFunction.h
+
+    """
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, IIntensityFunction, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, IIntensityFunction, name)
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainCore.delete_IIntensityFunction
+    __del__ = lambda self: None
+
+    def clone(self):
+        """
+        clone(IIntensityFunction self) -> IIntensityFunction
+
+        virtual IIntensityFunction* IIntensityFunction::clone() const =0
+
+        """
+        return _libBornAgainCore.IIntensityFunction_clone(self)
+
+
+    def evaluate(self, value):
+        """
+        evaluate(IIntensityFunction self, double value) -> double
+
+        virtual double IIntensityFunction::evaluate(double value) const =0
+
+        """
+        return _libBornAgainCore.IIntensityFunction_evaluate(self, value)
+
+IIntensityFunction_swigregister = _libBornAgainCore.IIntensityFunction_swigregister
+IIntensityFunction_swigregister(IIntensityFunction)
+
+class IntensityFunctionLog(IIntensityFunction):
+    """
+
+
+    Algorithm for applying log function to the measured intensity.
+
+    C++ includes: IIntensityFunction.h
+
+    """
+    __swig_setmethods__ = {}
+    for _s in [IIntensityFunction]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, IntensityFunctionLog, name, value)
+    __swig_getmethods__ = {}
+    for _s in [IIntensityFunction]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, IntensityFunctionLog, name)
+    __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainCore.delete_IntensityFunctionLog
+    __del__ = lambda self: None
+
+    def clone(self):
+        """
+        clone(IntensityFunctionLog self) -> IntensityFunctionLog
+
+        virtual IntensityFunctionLog* IntensityFunctionLog::clone() const 
+
+        """
+        return _libBornAgainCore.IntensityFunctionLog_clone(self)
+
+
+    def evaluate(self, value):
+        """
+        evaluate(IntensityFunctionLog self, double value) -> double
+
+        virtual double IntensityFunctionLog::evaluate(double value) const 
+
+        """
+        return _libBornAgainCore.IntensityFunctionLog_evaluate(self, value)
+
+
+    def __init__(self):
+        """
+        __init__(IntensityFunctionLog self) -> IntensityFunctionLog
+
+
+
+        Algorithm for applying log function to the measured intensity.
+
+        C++ includes: IIntensityFunction.h
+
+        """
+        this = _libBornAgainCore.new_IntensityFunctionLog()
+        try:
+            self.this.append(this)
+        except:
+            self.this = this
+IntensityFunctionLog_swigregister = _libBornAgainCore.IntensityFunctionLog_swigregister
+IntensityFunctionLog_swigregister(IntensityFunctionLog)
+
+class IntensityFunctionSqrt(IIntensityFunction):
+    """
+
+
+    Algorithm for applying sqrt function to the measured intensity.
+
+    C++ includes: IIntensityFunction.h
+
+    """
+    __swig_setmethods__ = {}
+    for _s in [IIntensityFunction]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, IntensityFunctionSqrt, name, value)
+    __swig_getmethods__ = {}
+    for _s in [IIntensityFunction]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, IntensityFunctionSqrt, name)
+    __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainCore.delete_IntensityFunctionSqrt
+    __del__ = lambda self: None
+
+    def clone(self):
+        """
+        clone(IntensityFunctionSqrt self) -> IntensityFunctionSqrt
+
+        virtual IntensityFunctionSqrt* IntensityFunctionSqrt::clone() const 
+
+        """
+        return _libBornAgainCore.IntensityFunctionSqrt_clone(self)
+
+
+    def evaluate(self, value):
+        """
+        evaluate(IntensityFunctionSqrt self, double value) -> double
+
+        virtual double IntensityFunctionSqrt::evaluate(double value) const 
+
+        """
+        return _libBornAgainCore.IntensityFunctionSqrt_evaluate(self, value)
+
+
+    def __init__(self):
+        """
+        __init__(IntensityFunctionSqrt self) -> IntensityFunctionSqrt
+
+
+
+        Algorithm for applying sqrt function to the measured intensity.
+
+        C++ includes: IIntensityFunction.h
+
+        """
+        this = _libBornAgainCore.new_IntensityFunctionSqrt()
+        try:
+            self.this.append(this)
+        except:
+            self.this = this
+IntensityFunctionSqrt_swigregister = _libBornAgainCore.IntensityFunctionSqrt_swigregister
+IntensityFunctionSqrt_swigregister(IntensityFunctionSqrt)
+
 class IntensityData(_object):
     """
 
@@ -19911,9 +20073,9 @@ def selectRangeOnOneAxis(data, selected_axis_name, axis_value1, axis_value2):
 
 def applyFunction(data, func):
     """
-    applyFunction(IntensityData data, IIntensityFunction const * func)
+    applyFunction(IntensityData data, IIntensityFunction func)
 
-    void OutputDataFunctions::applyFunction(OutputData< double > &data, const IIntensityFunction *func)
+    BA_CORE_API_ void OutputDataFunctions::applyFunction(OutputData< double > &data, const class IIntensityFunction *func)
 
     apply intensity function to values stored in output data 
 

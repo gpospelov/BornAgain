@@ -22,7 +22,7 @@
 #include "ProgressHandler.h"
 #include "SimulationOptions.h"
 
-template <class T> class OutputData;
+template<class T> class OutputData;
 
 //! @class Simulation
 //! @ingroup simulation

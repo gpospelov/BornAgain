@@ -16,9 +16,7 @@
 #include "DWBASimulation.h"
 #include "MessageService.h"
 #include "OMPISimulation.h"
-#include <thread>
-#include <gsl/gsl_errno.h>
-
+#include "Simulation.h"
 
 Simulation::Simulation()
     : IParameterized("Simulation")
@@ -26,7 +24,7 @@ Simulation::Simulation()
     init_parameters();
 }
 
-Simulation::Simulation(const ISample &p_sample)
+Simulation::Simulation(const ISample& p_sample)
     : IParameterized("Simulation")
 {
     mP_sample.reset(p_sample.clone());
@@ -39,7 +37,7 @@ Simulation::Simulation(std::shared_ptr<class ISampleBuilder> p_sample_builder)
     init_parameters();
 }
 
-Simulation::Simulation(const Simulation &other)
+Simulation::Simulation(const Simulation& other)
     : ICloneable()
     , IParameterized(other)
     , mp_sample_builder(other.mp_sample_builder)
@@ -97,7 +95,7 @@ void Simulation::runOMPISimulation()
 }
 
 //! The ISample object will not be owned by the Simulation object
-void Simulation::setSample(const ISample &sample)
+void Simulation::setSample(const ISample& sample)
 {
     mP_sample.reset(sample.clone());
 }
@@ -130,20 +128,20 @@ std::string Simulation::addParametersToExternalPool(std::string path, ParameterP
     return new_path;
 }
 
-void Simulation::addParameterDistribution(const std::string &param_name,
-                                          const IDistribution1D &distribution, size_t nbr_samples,
-                                          double sigma_factor, const AttLimits &limits)
+void Simulation::addParameterDistribution(const std::string& param_name,
+                                          const IDistribution1D& distribution, size_t nbr_samples,
+                                          double sigma_factor, const AttLimits& limits)
 {
     m_distribution_handler.addParameterDistribution(param_name, distribution, nbr_samples,
                                                     sigma_factor, limits);
 }
 
-void Simulation::addParameterDistribution(const ParameterDistribution &par_distr)
+void Simulation::addParameterDistribution(const ParameterDistribution& par_distr)
 {
     m_distribution_handler.addParameterDistribution(par_distr);
 }
 
-const DistributionHandler &Simulation::getDistributionHandler() const
+const DistributionHandler& Simulation::getDistributionHandler() const
 {
     return m_distribution_handler;
 }
@@ -306,7 +304,7 @@ std::vector<SimulationElement>::iterator Simulation::getBatchEnd(int n_batches, 
     return m_sim_elements.begin() + end_index;
 }
 
-void Simulation::imposeConsistencyOfBatchNumbers(int &n_batches, int &current_batch)
+void Simulation::imposeConsistencyOfBatchNumbers(int& n_batches, int& current_batch)
 {
     if (n_batches < 2) {
         n_batches = 1;

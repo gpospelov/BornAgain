@@ -16,11 +16,17 @@
 #ifndef IINTERFERENCEFUNCTIONSTRATEGY_H
 #define IINTERFERENCEFUNCTIONSTRATEGY_H
 
-#include "FormFactorDWBAPol.h"
+#include <vector>
+#include <memory>
+#include <memory>
+#include <Eigen/StdVector>
+
+#include "LayerSpecularInfo.h"
+#include "IFormFactor.h"
 #include "IInterferenceFunction.h"
 #include "LayerStrategyBuilder.h"
 #include "SimulationElement.h"
-
+#include "FormFactorDWBAPol.h"
 
 // Forward declaration to prevent IntegratorMCMiser.h to be parsed for Python API:
 template <class T> class IntegratorMCMiser;
@@ -44,19 +50,19 @@ public:
     void setSpecularInfo(const LayerSpecularInfo &specular_info);
 
     //! Calculates the intensity for scalar particles/interactions
-    double evaluate(const SimulationElement& sim_element) const;
+    double evaluate(const class SimulationElement& sim_element) const;
 
     //! Calculates the intensity in the presence of polarization of beam and detector
-    double evaluatePol(const SimulationElement& sim_element) const;
+    double evaluatePol(const class SimulationElement& sim_element) const;
 
 protected:
     //! Evaluates the intensity for given list of evaluated form factors
-    virtual double evaluateForList(const SimulationElement& sim_element,
+    virtual double evaluateForList(const class SimulationElement& sim_element,
                                    const std::vector<complex_t> &ff_list) const = 0;
 
     //! Evaluates the intensity for given list of evaluated form factors
     //! in the presence of polarization of beam and detector
-    virtual double evaluateForMatrixList(const SimulationElement& sim_element,
+    virtual double evaluateForMatrixList(const class SimulationElement& sim_element,
                                          const MatrixFFVector &ff_list) const = 0;
 
     //! Returns q-vector from k_i and the bin of k_f
@@ -70,22 +76,22 @@ protected:
 private:
     //! Constructs one list of evaluated form factors to be used in subsequent
     //! calculations
-    void calculateFormFactorList(const SimulationElement& sim_element) const;
+    void calculateFormFactorList(const class SimulationElement& sim_element) const;
 
     //! Constructs lists of evaluated form factors to be used in subsequent
     //! calculations
-    void calculateFormFactorLists(const SimulationElement& sim_element) const;
+    void calculateFormFactorLists(const class SimulationElement& sim_element) const;
 
     //! Clears the cached form factor lists
     void clearFormFactorLists() const;
 
     //! Perform a Monte Carlo integration over the bin for the evaluation of the
     //! intensity
-    double MCIntegratedEvaluate(const SimulationElement& sim_element) const;
+    double MCIntegratedEvaluate(const class SimulationElement& sim_element) const;
 
     //! Perform a Monte Carlo integration over the bin for the evaluation of the
     //! polarized intensity
-    double MCIntegratedEvaluatePol(const SimulationElement& sim_element) const;
+    double MCIntegratedEvaluatePol(const class SimulationElement& sim_element) const;
 
     //! Evaluate for fixed angles
     double evaluate_for_fixed_angles(double *fractions, size_t dim, void *params) const;

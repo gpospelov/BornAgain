@@ -12,12 +12,14 @@ endif()
 set(include_dirs
     ${CMAKE_CURRENT_SOURCE_DIR}/Algorithms/
     ${CMAKE_CURRENT_SOURCE_DIR}/FormFactors/
-    ${CMAKE_CURRENT_SOURCE_DIR}/Geometry/
+    ${CMAKE_CURRENT_SOURCE_DIR}/InputOutput
+    ${CMAKE_CURRENT_SOURCE_DIR}/Masking/
+    ${CMAKE_CURRENT_SOURCE_DIR}/Particles/
     ${CMAKE_CURRENT_SOURCE_DIR}/Samples/
     ${CMAKE_CURRENT_SOURCE_DIR}/StandardSamples/
     ${CMAKE_CURRENT_SOURCE_DIR}/TestMachinery/
     ${CMAKE_CURRENT_SOURCE_DIR}/Tools/
-    ${CMAKE_CURRENT_SOURCE_DIR}/InputOutput
+    ${CMAKE_CURRENT_SOURCE_DIR}/Vectors/
     )
 
 include_directories(${include_dirs})

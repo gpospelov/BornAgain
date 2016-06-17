@@ -2302,6 +2302,8 @@ class kvector_t(_object):
 
         double Geometry::BasicVector3D< double >::cosTheta() const
 
+        Returns cosine of polar angle. 
+
         """
         return _libBornAgainCore.kvector_t_cosTheta(self)
 
@@ -2311,6 +2313,8 @@ class kvector_t(_object):
         sin2Theta(kvector_t self) -> double
 
         double Geometry::BasicVector3D< double >::sin2Theta() const
+
+        Returns squared sine of polar angle. 
 
         """
         return _libBornAgainCore.kvector_t_sin2Theta(self)
@@ -2343,6 +2347,8 @@ class kvector_t(_object):
         angle(kvector_t self, kvector_t v) -> double
 
         double Geometry::BasicVector3D< double >::angle(const BasicVector3D< double > &v) const
+
+        Returns angle with respect to another vector. 
 
         """
         return _libBornAgainCore.kvector_t_angle(self, v)
@@ -7647,7 +7653,7 @@ class IFormFactor(ISample):
         """
         setAmbientMaterial(IFormFactor self, IMaterial arg0)
 
-        virtual void IFormFactor::setAmbientMaterial(const IMaterial &)
+        virtual void IFormFactor::setAmbientMaterial(const class IMaterial &)
 
         Passes the refractive index of the ambient material in which this particle is embedded. 
 
@@ -8089,8 +8095,6 @@ class IFormFactorDecorator(IFormFactor):
         setAmbientMaterial(IFormFactorDecorator self, IMaterial material)
 
         void IFormFactorDecorator::setAmbientMaterial(const IMaterial &material)
-
-        Passes the refractive index of the ambient material in which this particle is embedded. 
 
         """
         return _libBornAgainCore.IFormFactorDecorator_setAmbientMaterial(self, material)
@@ -12585,8 +12589,6 @@ class FormFactorWeighted(IFormFactor):
         setAmbientMaterial(FormFactorWeighted self, IMaterial material)
 
         void FormFactorWeighted::setAmbientMaterial(const IMaterial &material)
-
-        Passes the refractive index of the ambient material in which this particle is embedded. 
 
         """
         return _libBornAgainCore.FormFactorWeighted_setAmbientMaterial(self, material)
@@ -19446,7 +19448,7 @@ class IntensityData(_object):
         """
         __init__(OutputData<(double)> self) -> IntensityData
 
-        OutputData< T >::OutputData()
+        OutputData< T >::OutputData(const OutputData &)=delete
 
         """
         this = _libBornAgainCore.new_IntensityData()

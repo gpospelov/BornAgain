@@ -1465,7 +1465,7 @@ class IMinimizer(_object):
         """
         minimize(IMinimizer self)
 
-        virtual void IMinimizer::minimize()=0
+        void IMinimizer::minimize()
 
         run minimization 
 

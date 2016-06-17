@@ -139,18 +139,16 @@ public:
         m_map[key] = it;
     }
 
-    iterator find(const Key& key) {
-        iterator result = m_list.end();
-        if(m_map.find(key) != m_map.end())
-            result = m_map[key];
-        return result;
+    const iterator find(const Key& key) const {
+        if(m_map.find(key) == m_map.end())
+            return m_list.end();
+        return m_map[key];
     }
 
-    const_iterator find(const Key& key) const {
-        const_iterator result = m_list.end();
-        if(m_map.find(key) != m_map.end())
-            result = m_map[key];
-        return result;
+    iterator find(const Key& key) {
+        if(m_map.find(key) == m_map.end())
+            return m_list.end();
+        return m_map[key];
     }
 
     size_t erase(const Key& key) {

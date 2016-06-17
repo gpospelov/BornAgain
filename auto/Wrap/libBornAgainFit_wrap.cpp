@@ -30466,7 +30466,7 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"IMinimizer_minimize", _wrap_IMinimizer_minimize, METH_VARARGS, (char *)"\n"
 		"IMinimizer_minimize(IMinimizer self)\n"
 		"\n"
-		"virtual void IMinimizer::minimize()=0\n"
+		"void IMinimizer::minimize()\n"
 		"\n"
 		"run minimization \n"
 		"\n"

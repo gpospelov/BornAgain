@@ -1,6 +1,45 @@
 
 // File: index.xml
 
+// File: classMinimizerLibrary_1_1AlgorithmInfo.xml
+%feature("docstring") MinimizerLibrary::AlgorithmInfo "
+
+Provides description of minimization algorithm.
+
+C++ includes: MinimizerLibrary.h
+";
+
+%feature("docstring")  MinimizerLibrary::AlgorithmInfo::AlgorithmInfo "MinimizerLibrary::AlgorithmInfo::AlgorithmInfo()
+";
+
+%feature("docstring")  MinimizerLibrary::AlgorithmInfo::AlgorithmInfo "AlgorithmInfo::AlgorithmInfo(const std::string &algType, const std::string &algDescription)
+";
+
+
+// File: classMinimizerLibrary_1_1Catalogue.xml
+%feature("docstring") MinimizerLibrary::Catalogue "";
+
+%feature("docstring")  MinimizerLibrary::Catalogue::Catalogue "Catalogue::Catalogue()
+
+Catalogue constructor fills in all information related to available minimizers/algorithms. 
+";
+
+%feature("docstring")  MinimizerLibrary::Catalogue::addMinimizer "void Catalogue::addMinimizer(const MinimizerInfo &minimizer)
+
+Adds minimizer info to the catalogue. 
+";
+
+%feature("docstring")  MinimizerLibrary::Catalogue::algorithmTypes "std::list< std::string > Catalogue::algorithmTypes(const std::string &minimizerType)
+
+Returns list of algorithm types for given minimizer type. 
+";
+
+%feature("docstring")  MinimizerLibrary::Catalogue::algorithmDescriptions "std::list< std::string > Catalogue::algorithmDescriptions(const std::string &minimizerType)
+
+Returns list of algorithm descriptions for given minimizer type. 
+";
+
+
 // File: classFitKernel.xml
 %feature("docstring") FitKernel "
 
@@ -1155,7 +1194,7 @@ C++ includes: IMinimizer.h
 %feature("docstring")  IMinimizer::~IMinimizer "virtual IMinimizer::~IMinimizer()
 ";
 
-%feature("docstring")  IMinimizer::minimize "virtual void IMinimizer::minimize()=0
+%feature("docstring")  IMinimizer::minimize "void IMinimizer::minimize()
 
 run minimization 
 ";
@@ -1283,6 +1322,27 @@ C++ includes: IMinimizerFutest.h
 ";
 
 
+// File: classMinimizerLibrary_1_1InfoItem.xml
+%feature("docstring") MinimizerLibrary::InfoItem "
+
+Simple item to hold the name and the description.
+
+C++ includes: MinimizerLibrary.h
+";
+
+%feature("docstring")  MinimizerLibrary::InfoItem::InfoItem "MinimizerLibrary::InfoItem::InfoItem()
+";
+
+%feature("docstring")  MinimizerLibrary::InfoItem::InfoItem "MinimizerLibrary::InfoItem::InfoItem(const std::string &itemType, const std::string &itemDescription)
+";
+
+%feature("docstring")  MinimizerLibrary::InfoItem::getType "std::string MinimizerLibrary::InfoItem::getType() const 
+";
+
+%feature("docstring")  MinimizerLibrary::InfoItem::getDescription "std::string MinimizerLibrary::InfoItem::getDescription() const 
+";
+
+
 // File: classMinimizerCatalogue.xml
 %feature("docstring") MinimizerCatalogue "
 
@@ -1308,6 +1368,39 @@ Map of minimizer names holding list of defined algorithms for every minimizer.
 Factory to create minimizers.
 
 C++ includes: MinimizerFactory.h
+";
+
+
+// File: classMinimizerLibrary_1_1MinimizerInfo.xml
+%feature("docstring") MinimizerLibrary::MinimizerInfo "
+
+Provides info about the minimizer, including list of defined minimization algorithms.
+
+Holds all information about available minimization engines.
+
+C++ includes: MinimizerLibrary.h
+";
+
+%feature("docstring")  MinimizerLibrary::MinimizerInfo::MinimizerInfo "MinimizerLibrary::MinimizerInfo::MinimizerInfo()
+";
+
+%feature("docstring")  MinimizerLibrary::MinimizerInfo::MinimizerInfo "MinimizerInfo::MinimizerInfo(const std::string &minimizerType, const std::string &minimizerDescription)
+";
+
+%feature("docstring")  MinimizerLibrary::MinimizerInfo::addAlgorithm "void MinimizerInfo::addAlgorithm(const AlgorithmInfo &algorithm)
+";
+
+%feature("docstring")  MinimizerLibrary::MinimizerInfo::addAlgorithm "void MinimizerInfo::addAlgorithm(const std::string &algorithmName, const std::string &algorithmDescription)
+";
+
+%feature("docstring")  MinimizerLibrary::MinimizerInfo::algorithmTypes "std::list< std::string > MinimizerInfo::algorithmTypes() const
+
+Return list of algorithm types. 
+";
+
+%feature("docstring")  MinimizerLibrary::MinimizerInfo::algorithmDescriptions "std::list< std::string > MinimizerInfo::algorithmDescriptions() const
+
+Returns list of string with description of all available algorithms. 
 ";
 
 
@@ -1877,6 +1970,9 @@ C++ includes: StandardFitsFactory.h
 // File: namespaceBA__ROOT_1_1Math.xml
 
 
+// File: namespaceMinimizerLibrary.xml
+
+
 // File: FitKernel_8cpp.xml
 
 
@@ -1973,6 +2069,12 @@ C++ includes: StandardFitsFactory.h
 // File: MinimizerFactory_8h.xml
 
 
+// File: MinimizerLibrary_8cpp.xml
+
+
+// File: MinimizerLibrary_8h.xml
+
+
 // File: MinimizerOptions_8cpp.xml
 
 
@@ -2064,14 +2166,11 @@ build<C> is a function void -> IFutest*. C must be a child of IFutest.
 // File: StandardFitsFactory_8h.xml
 
 
-// File: dir_d0c8f8fb9032c27878972645c4679f14.xml
+// File: dir_892d84e8d1420bf45a9053cf0eede900.xml
 
 
-// File: dir_befad91b6aded329d87ab1464acca32e.xml
+// File: dir_4e6c9d4e290828461655ecdd2f34719c.xml
 
 
-// File: dir_abb56b21da33f65f621bf551b5073624.xml
-
-
-// File: dir_8c00782886f69f4c4190b8932144dcd3.xml
+// File: dir_f0d58a7b25b35daab22ce6e2bfb078e9.xml
 

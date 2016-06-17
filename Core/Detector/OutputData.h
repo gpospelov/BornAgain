@@ -50,10 +50,10 @@ public:
     void addAxis(const std::string& name, size_t size, double start, double end);
 
     //! returns axis with given serial number
-    const IAxis *getAxis(size_t serial_number) const;
+    const IAxis* getAxis(size_t serial_number) const;
 
     //! returns axis with given name
-    const IAxis *getAxis(const std::string& axis_name) const;
+    const IAxis* getAxis(const std::string& axis_name) const;
 
     //! returns serial number of axis with given name
     size_t getAxisSerialNumber(const std::string& axis_name) const;
@@ -78,7 +78,7 @@ public:
     std::vector<T> getRawDataVector() const;
 
     //! fill raw array with data
-    void fillRawDataArray(T *destination) const;
+    void fillRawDataArray(T* destination) const;
 
     //! Returns sum of all values in the data structure
     T totalSum() const;
@@ -111,7 +111,7 @@ public:
     }
 
     //! Returns mask that will be used by iterators
-    Mask *getMask() const { return mp_mask; }
+    Mask* getMask() const { return mp_mask; }
 
     //! Sets mask (or a stack of masks)
     void setMask(const Mask& mask);
@@ -196,13 +196,13 @@ public:
     void scaleAll(const T& factor);
 
     //! Adds 'rank' axes with indicated sizes
-    void setAxisSizes(size_t rank, int *n_dims);
+    void setAxisSizes(size_t rank, int* n_dims);
 
     //! Sets new values to raw data vector
     void setRawDataVector(const std::vector<T>& data_vector);
 
     //! Sets new values to raw data array
-    void setRawDataArray(const T *source);
+    void setRawDataArray(const T* source);
 
     //! addition-assignment operator for two output data
     const OutputData<T>& operator+=(const OutputData<T>& right);
@@ -244,7 +244,7 @@ public:
 
     //! returns data as Python numpy array
 #ifdef BORNAGAIN_PYTHON
-    PyObject *getArray() const;
+    PyObject* getArray() const;
 #endif
 
     //! returns true if object is correctly initialized
@@ -254,8 +254,8 @@ private:
     void allocate();
 
     SafePointerVector<IAxis> m_value_axes;
-    LLData<T> *mp_ll_data;
-    Mask *mp_mask;
+    LLData<T>* mp_ll_data;
+    Mask* mp_mask;
 };
 
 /* ***************************************************************************/
@@ -341,13 +341,13 @@ void OutputData<T>::addAxis(const std::string& name, size_t size, double start, 
 }
 
 template <class T>
-const IAxis *OutputData<T>::getAxis(size_t serial_number) const
+const IAxis* OutputData<T>::getAxis(size_t serial_number) const
 {
     return m_value_axes[serial_number];
 }
 
 template <class T>
-const IAxis *OutputData<T>::getAxis(const std::string& axis_name) const
+const IAxis* OutputData<T>::getAxis(const std::string& axis_name) const
 {
     for (size_t i = 0; i < m_value_axes.size(); ++i) {
         if (m_value_axes[i]->getName() == axis_name) {
@@ -393,7 +393,7 @@ inline std::vector<T> OutputData<T>::getRawDataVector() const
 }
 
 template <class T>
-void OutputData<T>::fillRawDataArray(T *destination) const
+void OutputData<T>::fillRawDataArray(T* destination) const
 {
     assert(mp_ll_data);
     for (size_t i=0; i<getAllocatedSize(); ++i)
@@ -436,7 +436,7 @@ void OutputData<T>::addMask(const Mask& mask)
         throw Exceptions::RuntimeErrorException(
             "OutputData<T>::addMask() -> "
             "Error! One can only add single masks to OutputDataIterator at a time");
-    Mask *p_old_mask = getMask();
+    Mask* p_old_mask = getMask();
     mp_mask = mask.clone();
     mp_mask->mp_submask = p_old_mask;
     mp_mask->setMaxIndex(getAllocatedSize());
@@ -603,7 +603,7 @@ void OutputData<T>::scaleAll(const T& factor)
 }
 
 template <class T>
-void OutputData<T>::setAxisSizes(size_t rank, int *n_dims)
+void OutputData<T>::setAxisSizes(size_t rank, int* n_dims)
 {
     clear();
     std::string basename("axis");
@@ -660,7 +660,7 @@ void OutputData<T>::allocate()
 {
     delete mp_ll_data;
     size_t rank = m_value_axes.size();
-    int *dims =  new int[rank];
+    int* dims =  new int[rank];
     for (size_t i=0; i<rank; ++i) {
         dims[i] = (int)getAxis(i)->getSize();
     }
@@ -682,7 +682,7 @@ inline void OutputData<T>::setRawDataVector(const std::vector<T>& data_vector)
 }
 
 template<class T>
-inline void OutputData<T>::setRawDataArray(const T *source)
+inline void OutputData<T>::setRawDataArray(const T* source)
 {
     for (size_t i=0; i<getAllocatedSize(); ++i)
         (*mp_ll_data)[i] = source[i];
@@ -718,7 +718,7 @@ bool OutputData<T>::hasSameShape(const OutputData<U>& right) const
 
 //! returns data as Python numpy array
 #ifdef BORNAGAIN_PYTHON
-template<> PyObject *OutputData<double>::getArray() const;
+template<> PyObject* OutputData<double>::getArray() const;
 #endif
 
 #endif // OUTPUTDATA_H

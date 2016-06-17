@@ -1767,7 +1767,65 @@ class IChiSquaredModule(libBornAgainCore.ICloneable):
 IChiSquaredModule_swigregister = _libBornAgainFit.IChiSquaredModule_swigregister
 IChiSquaredModule_swigregister(IChiSquaredModule)
 
-class IFitObserver(libBornAgainCore.IObserver):
+class IObserver(_object):
+    """Proxy of C++ IObserver class"""
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, IObserver, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, IObserver, name)
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainFit.delete_IObserver
+    __del__ = lambda self: None
+
+    def notify(self, subject):
+        """notify(IObserver self, IObservable subject)"""
+        return _libBornAgainFit.IObserver_notify(self, subject)
+
+IObserver_swigregister = _libBornAgainFit.IObserver_swigregister
+IObserver_swigregister(IObserver)
+
+class IObservable(_object):
+    """Proxy of C++ IObservable class"""
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, IObservable, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, IObservable, name)
+    __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainFit.delete_IObservable
+    __del__ = lambda self: None
+
+    def attachObserver(self, obj):
+        """attachObserver(IObservable self, IObservable::observer_t obj)"""
+        return _libBornAgainFit.IObservable_attachObserver(self, obj)
+
+
+    def notifyObservers(self):
+        """notifyObservers(IObservable self)"""
+        return _libBornAgainFit.IObservable_notifyObservers(self)
+
+
+    def __init__(self):
+        """__init__(IObservable self) -> IObservable"""
+        if self.__class__ == IObservable:
+            _self = None
+        else:
+            _self = self
+        this = _libBornAgainFit.new_IObservable(_self, )
+        try:
+            self.this.append(this)
+        except:
+            self.this = this
+    def __disown__(self):
+        self.this.disown()
+        _libBornAgainFit.disown_IObservable(self)
+        return weakref_proxy(self)
+IObservable_swigregister = _libBornAgainFit.IObservable_swigregister
+IObservable_swigregister(IObservable)
+
+class IFitObserver(IObserver):
     """
 
 
@@ -1777,11 +1835,11 @@ class IFitObserver(libBornAgainCore.IObserver):
 
     """
     __swig_setmethods__ = {}
-    for _s in [libBornAgainCore.IObserver]:
+    for _s in [IObserver]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, IFitObserver, name, value)
     __swig_getmethods__ = {}
-    for _s in [libBornAgainCore.IObserver]:
+    for _s in [IObserver]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, IFitObserver, name)
     __repr__ = _swig_repr
@@ -2739,7 +2797,7 @@ class FitParameter(libBornAgainCore.INamed, libBornAgainCore.AttLimits):
 FitParameter_swigregister = _libBornAgainFit.FitParameter_swigregister
 FitParameter_swigregister(FitParameter)
 
-class FitSuite(libBornAgainCore.IObservable):
+class FitSuite(IObservable):
     """
 
 
@@ -2749,11 +2807,11 @@ class FitSuite(libBornAgainCore.IObservable):
 
     """
     __swig_setmethods__ = {}
-    for _s in [libBornAgainCore.IObservable]:
+    for _s in [IObservable]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, FitSuite, name, value)
     __swig_getmethods__ = {}
-    for _s in [libBornAgainCore.IObservable]:
+    for _s in [IObservable]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, FitSuite, name)
     __repr__ = _swig_repr

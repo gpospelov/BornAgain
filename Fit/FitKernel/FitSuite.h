@@ -23,7 +23,6 @@
 class GISASSimulation;
 class IChiSquaredModule;
 class IFitStrategy;
-class IMinimizer;
 class FitSuiteObjects;
 class FitSuiteParameters;
 class FitSuiteStrategies;
@@ -69,16 +68,16 @@ public:
                       const std::string& minimizer_options=std::string());
 
     //! Replaces default ChiSquaredModule with new one
-    void setChiSquaredModule(const IChiSquaredModule &chi2_module);
+    void setChiSquaredModule(const IChiSquaredModule& chi2_module);
 
     //! Adds fit strategy
-    void addFitStrategy(const IFitStrategy &strategy);
+    void addFitStrategy(const IFitStrategy& strategy);
 
     //! Sets minimizer
-    void setMinimizer(IMinimizer *minimizer);
+    void setMinimizer(class IMinimizer* minimizer);
 
     //! Returns minimizer
-    IMinimizer *getMinimizer();
+    class IMinimizer* getMinimizer();
 
     //! Initializes printing to standard output during the fitting.
     //! Prints also the summary when completed.
@@ -92,7 +91,7 @@ public:
     void releaseAllParameters();
 
     //! Set fixed flag for parameters from the list
-    void setParametersFixed(const std::vector<std::string> &pars, bool is_fixed);
+    void setParametersFixed(const std::vector<std::string>& pars, bool is_fixed);
 
     //! main method to run the fitting
     void runFit();
@@ -143,19 +142,19 @@ public:
     FitOptions& getOptions();
 
     //! Sets general setting of fit kernel
-    void setOptions(const FitOptions &fit_options);
+    void setOptions(const FitOptions& fit_options);
 
     void interruptFitting();
     void resetInterrupt();
     bool isInterrupted();
 
-    const OutputData<double> *getRealOutputData(size_t i_item = 0) const;
-    const OutputData<double> *getSimulationOutputData(size_t i_item = 0) const;
-    const OutputData<double> *getChiSquaredOutputData(size_t i_item = 0) const;
+    const OutputData<double>* getRealOutputData(size_t i_item = 0) const;
+    const OutputData<double>* getSimulationOutputData(size_t i_item = 0) const;
+    const OutputData<double>* getChiSquaredOutputData(size_t i_item = 0) const;
 
 private:
-    FitSuite& operator=(const FitSuite& );
-    FitSuite(const FitSuite& );
+    FitSuite& operator=(const FitSuite&);
+    FitSuite(const FitSuite&);
     std::unique_ptr<FitKernel> m_kernel;
 };
 

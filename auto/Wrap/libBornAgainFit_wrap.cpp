@@ -6057,13 +6057,13 @@ SWIGINTERN void std_vector_Sl_std_string_Sg__insert__SWIG_1(std::vector< std::st
 #include "FitSuiteObjects.h"
 #include "FitSuiteParameters.h"
 #include "IChiSquaredModule.h"
+#include "IObserver.h"
 #include "IFitObserver.h"
 #include "IFitStrategy.h"
 #include "IIntensityFunction.h"
 #include "IIntensityNormalizer.h"
 #include "IMinimizer.h"
 #include "INamed.h"
-#include "IObserver.h"
 #include "ISquaredFunction.h"
 #include "MathFunctions.h"
 #include "MinimizerFactory.h"
@@ -6112,6 +6112,60 @@ SWIGINTERN FitParameter const *FitSuiteParameters___getitem____SWIG_1(FitSuitePa
  * --------------------------------------------------- */
 
 #include "libBornAgainFit_wrap.h"
+
+SwigDirector_IObservable::SwigDirector_IObservable(PyObject *self): IObservable(), Swig::Director(self) {
+  SWIG_DIRECTOR_RGTR((IObservable *)this, this); 
+}
+
+
+
+
+SwigDirector_IObservable::~SwigDirector_IObservable() {
+}
+
+void SwigDirector_IObservable::attachObserver(IObservable::observer_t obj) {
+  swig::SwigVar_PyObject obj0;
+  obj0 = SWIG_NewPointerObj(SWIG_as_voidptr(&obj), SWIGTYPE_p_std__shared_ptrT_IObserver_t,  0 );
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IObservable.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 0;
+  const char * const swig_method_name = "attachObserver";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, (char *)"(O)" ,(PyObject *)obj0);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *)"attachObserver", (char *)"(O)" ,(PyObject *)obj0);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'IObservable.attachObserver'");
+    }
+  }
+}
+
+
+void SwigDirector_IObservable::notifyObservers() {
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IObservable.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 1;
+  const char * const swig_method_name = "notifyObservers";
+  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, NULL, NULL);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *) "notifyObservers", NULL);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'IObservable.notifyObservers'");
+    }
+  }
+}
+
 
 SwigDirector_IFitObserver::SwigDirector_IFitObserver(PyObject *self, int update_every_nth): IFitObserver(update_every_nth), Swig::Director(self) {
   SWIG_DIRECTOR_RGTR((IFitObserver *)this, this); 
@@ -19665,6 +19719,242 @@ SWIGINTERN PyObject *IChiSquaredModule_swigregister(PyObject *SWIGUNUSEDPARM(sel
   return SWIG_Py_Void();
 }
 
+SWIGINTERN PyObject *_wrap_delete_IObserver(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IObserver *arg1 = (IObserver *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  std::shared_ptr< IObserver > tempshared1 ;
+  std::shared_ptr< IObserver > *smartarg1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:delete_IObserver",&obj0)) SWIG_fail;
+  {
+    int newmem = 0;
+    res1 = SWIG_ConvertPtrAndOwn(obj0, &argp1, SWIGTYPE_p_std__shared_ptrT_IObserver_t, 0 |  0 , &newmem);
+    if (!SWIG_IsOK(res1)) {
+      SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_IObserver" "', argument " "1"" of type '" "IObserver *""'"); 
+    }
+    if (newmem & SWIG_CAST_NEW_MEMORY) {
+      tempshared1 = *reinterpret_cast< std::shared_ptr<  IObserver > * >(argp1);
+      delete reinterpret_cast< std::shared_ptr<  IObserver > * >(argp1);
+      arg1 = const_cast< IObserver * >(tempshared1.get());
+    } else {
+      smartarg1 = reinterpret_cast< std::shared_ptr<  IObserver > * >(argp1);
+      arg1 = const_cast< IObserver * >((smartarg1 ? smartarg1->get() : 0));
+    }
+  }
+  (void)arg1; delete smartarg1;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IObserver_notify(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IObserver *arg1 = (IObserver *) 0 ;
+  IObservable *arg2 = (IObservable *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  std::shared_ptr< IObserver > tempshared1 ;
+  std::shared_ptr< IObserver > *smartarg1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:IObserver_notify",&obj0,&obj1)) SWIG_fail;
+  {
+    int newmem = 0;
+    res1 = SWIG_ConvertPtrAndOwn(obj0, &argp1, SWIGTYPE_p_std__shared_ptrT_IObserver_t, 0 |  0 , &newmem);
+    if (!SWIG_IsOK(res1)) {
+      SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IObserver_notify" "', argument " "1"" of type '" "IObserver *""'"); 
+    }
+    if (newmem & SWIG_CAST_NEW_MEMORY) {
+      tempshared1 = *reinterpret_cast< std::shared_ptr<  IObserver > * >(argp1);
+      delete reinterpret_cast< std::shared_ptr<  IObserver > * >(argp1);
+      arg1 = const_cast< IObserver * >(tempshared1.get());
+    } else {
+      smartarg1 = reinterpret_cast< std::shared_ptr<  IObserver > * >(argp1);
+      arg1 = const_cast< IObserver * >((smartarg1 ? smartarg1->get() : 0));
+    }
+  }
+  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_IObservable, 0 |  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IObserver_notify" "', argument " "2"" of type '" "IObservable *""'"); 
+  }
+  arg2 = reinterpret_cast< IObservable * >(argp2);
+  (arg1)->notify(arg2);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *IObserver_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *obj;
+  if (!PyArg_ParseTuple(args,(char*)"O:swigregister", &obj)) return NULL;
+  SWIG_TypeNewClientData(SWIGTYPE_p_std__shared_ptrT_IObserver_t, SWIG_NewClientData(obj));
+  return SWIG_Py_Void();
+}
+
+SWIGINTERN PyObject *_wrap_delete_IObservable(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IObservable *arg1 = (IObservable *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:delete_IObservable",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IObservable, SWIG_POINTER_DISOWN |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_IObservable" "', argument " "1"" of type '" "IObservable *""'"); 
+  }
+  arg1 = reinterpret_cast< IObservable * >(argp1);
+  delete arg1;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IObservable_attachObserver(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IObservable *arg1 = (IObservable *) 0 ;
+  IObservable::observer_t arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 ;
+  int res2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:IObservable_attachObserver",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IObservable, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IObservable_attachObserver" "', argument " "1"" of type '" "IObservable *""'"); 
+  }
+  arg1 = reinterpret_cast< IObservable * >(argp1);
+  {
+    int newmem = 0;
+    res2 = SWIG_ConvertPtrAndOwn(obj1, &argp2, SWIGTYPE_p_std__shared_ptrT_IObserver_t,  0 , &newmem);
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IObservable_attachObserver" "', argument " "2"" of type '" "IObservable::observer_t""'"); 
+    }
+    if (argp2) arg2 = *(reinterpret_cast< IObservable::observer_t * >(argp2));
+    if (newmem & SWIG_CAST_NEW_MEMORY) delete reinterpret_cast< IObservable::observer_t * >(argp2);
+  }
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      (arg1)->IObservable::attachObserver(arg2);
+    } else {
+      (arg1)->attachObserver(arg2);
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IObservable_notifyObservers(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IObservable *arg1 = (IObservable *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:IObservable_notifyObservers",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IObservable, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IObservable_notifyObservers" "', argument " "1"" of type '" "IObservable *""'"); 
+  }
+  arg1 = reinterpret_cast< IObservable * >(argp1);
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      (arg1)->IObservable::notifyObservers();
+    } else {
+      (arg1)->notifyObservers();
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_IObservable(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  PyObject *arg1 = (PyObject *) 0 ;
+  PyObject * obj0 = 0 ;
+  IObservable *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:new_IObservable",&obj0)) SWIG_fail;
+  arg1 = obj0;
+  if ( arg1 != Py_None ) {
+    /* subclassed */
+    result = (IObservable *)new SwigDirector_IObservable(arg1); 
+  } else {
+    result = (IObservable *)new IObservable(); 
+  }
+  
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IObservable, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_disown_IObservable(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IObservable *arg1 = (IObservable *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:disown_IObservable",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IObservable, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "disown_IObservable" "', argument " "1"" of type '" "IObservable *""'"); 
+  }
+  arg1 = reinterpret_cast< IObservable * >(argp1);
+  {
+    Swig::Director *director = SWIG_DIRECTOR_CAST(arg1);
+    if (director) director->swig_disown();
+  }
+  
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *IObservable_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *obj;
+  if (!PyArg_ParseTuple(args,(char*)"O:swigregister", &obj)) return NULL;
+  SWIG_TypeNewClientData(SWIGTYPE_p_IObservable, SWIG_NewClientData(obj));
+  return SWIG_Py_Void();
+}
+
 SWIGINTERN PyObject *_wrap_new_IFitObserver(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   PyObject *arg1 = (PyObject *) 0 ;
@@ -30639,6 +30929,15 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"IChiSquaredModule_setIntensityFunction", _wrap_IChiSquaredModule_setIntensityFunction, METH_VARARGS, (char *)"IChiSquaredModule_setIntensityFunction(IChiSquaredModule self, IIntensityFunction intensity_function)"},
 	 { (char *)"IChiSquaredModule_processFitElements", _wrap_IChiSquaredModule_processFitElements, METH_VARARGS, (char *)"IChiSquaredModule_processFitElements(IChiSquaredModule self, std::vector< FitElement,std::allocator< FitElement > >::iterator arg3, std::vector< FitElement,std::allocator< FitElement > >::iterator arg4)"},
 	 { (char *)"IChiSquaredModule_swigregister", IChiSquaredModule_swigregister, METH_VARARGS, NULL},
+	 { (char *)"delete_IObserver", _wrap_delete_IObserver, METH_VARARGS, (char *)"delete_IObserver(IObserver self)"},
+	 { (char *)"IObserver_notify", _wrap_IObserver_notify, METH_VARARGS, (char *)"IObserver_notify(IObserver self, IObservable subject)"},
+	 { (char *)"IObserver_swigregister", IObserver_swigregister, METH_VARARGS, NULL},
+	 { (char *)"delete_IObservable", _wrap_delete_IObservable, METH_VARARGS, (char *)"delete_IObservable(IObservable self)"},
+	 { (char *)"IObservable_attachObserver", _wrap_IObservable_attachObserver, METH_VARARGS, (char *)"IObservable_attachObserver(IObservable self, IObservable::observer_t obj)"},
+	 { (char *)"IObservable_notifyObservers", _wrap_IObservable_notifyObservers, METH_VARARGS, (char *)"IObservable_notifyObservers(IObservable self)"},
+	 { (char *)"new_IObservable", _wrap_new_IObservable, METH_VARARGS, (char *)"new_IObservable(PyObject * arg2) -> IObservable"},
+	 { (char *)"disown_IObservable", _wrap_disown_IObservable, METH_VARARGS, NULL},
+	 { (char *)"IObservable_swigregister", IObservable_swigregister, METH_VARARGS, NULL},
 	 { (char *)"new_IFitObserver", _wrap_new_IFitObserver, METH_VARARGS, (char *)"\n"
 		"new_IFitObserver(PyObject * arg2, int update_every_nth) -> IFitObserver\n"
 		"\n"
@@ -31988,7 +32287,7 @@ static swig_type_info _swigt__p_std__functionT_double_fdouble_const_pF_t = {"_p_
 static swig_type_info _swigt__p_std__functionT_double_fdouble_const_p_unsigned_int_double_pF_t = {"_p_std__functionT_double_fdouble_const_p_unsigned_int_double_pF_t", "IMinimizer::function_gradient_t *|std::function< double (double const *,unsigned int,double *) > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__invalid_argument = {"_p_std__invalid_argument", "std::invalid_argument *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__shared_ptrT_IFitObserver_t = {"_p_std__shared_ptrT_IFitObserver_t", "std::shared_ptr< IFitObserver > *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_std__shared_ptrT_IObserver_t = {"_p_std__shared_ptrT_IObserver_t", "std::shared_ptr< IObserver > *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_std__shared_ptrT_IObserver_t = {"_p_std__shared_ptrT_IObserver_t", "std::shared_ptr< IObserver > *|IObservable::observer_t *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__shared_ptrT_ISampleBuilder_t = {"_p_std__shared_ptrT_ISampleBuilder_t", "std::shared_ptr< ISampleBuilder > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__string = {"_p_std__string", "std::string *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__vectorT_FitElement_std__allocatorT_FitElement_t_t = {"_p_std__vectorT_FitElement_std__allocatorT_FitElement_t_t", "std::vector< FitElement,std::allocator< FitElement > > *", 0, 0, (void*)0, 0};

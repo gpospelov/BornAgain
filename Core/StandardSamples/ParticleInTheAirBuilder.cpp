@@ -16,14 +16,6 @@
 #include "MultiLayer.h"
 #include "ParticleInTheAirBuilder.h"
 
-ParticleInTheAirBuilder::ParticleInTheAirBuilder()
-{
-}
-
-ParticleInTheAirBuilder::~ParticleInTheAirBuilder()
-{
-}
-
 ISample* ParticleInTheAirBuilder::buildSample() const
 {
     const IFormFactor* form_factor = getFormFactor();

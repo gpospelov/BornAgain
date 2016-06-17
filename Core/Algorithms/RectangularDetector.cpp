@@ -17,7 +17,6 @@
 #include "GISASSimulation.h"
 #include "RectangularDetector.h"
 
-
 RectangularDetector::RectangularDetector(int nxbins, double width, int nybins, double height)
     : m_u0(0.0)
     , m_v0(0.0)
@@ -32,7 +31,7 @@ RectangularDetector::RectangularDetector(int nxbins, double width, int nybins, d
     init_parameters();
 }
 
-RectangularDetector::RectangularDetector(const RectangularDetector &other)
+RectangularDetector::RectangularDetector(const RectangularDetector& other)
     : IDetector2D(other)
     , m_normal_to_detector(other.m_normal_to_detector)
     , m_u0(other.m_u0)
@@ -49,7 +48,7 @@ RectangularDetector::RectangularDetector(const RectangularDetector &other)
     init_parameters();
 }
 
-RectangularDetector &RectangularDetector::operator=(const RectangularDetector &other)
+RectangularDetector& RectangularDetector::operator=(const RectangularDetector& other)
 {
     if (this != &other) {
         RectangularDetector tmp(other);
@@ -63,7 +62,7 @@ RectangularDetector *RectangularDetector::clone() const
     return new RectangularDetector(*this);
 }
 
-void RectangularDetector::init(const Beam &beam)
+void RectangularDetector::init(const Beam& beam)
 {
     double alpha_i = beam.getAlpha();
     kvector_t central_k = beam.getCentralK();
@@ -108,8 +107,8 @@ void RectangularDetector::setDirectBeamPosition(double u0, double v0)
 
 IPixelMap *RectangularDetector::createPixelMap(size_t index) const
 {
-    const IAxis &u_axis = getAxis(BornAgain::X_AXIS_INDEX);
-    const IAxis &v_axis = getAxis(BornAgain::Y_AXIS_INDEX);
+    const IAxis& u_axis = getAxis(BornAgain::X_AXIS_INDEX);
+    const IAxis& v_axis = getAxis(BornAgain::Y_AXIS_INDEX);
     size_t u_index = getAxisBinIndex(index, BornAgain::X_AXIS_INDEX);
     size_t v_index = getAxisBinIndex(index, BornAgain::Y_AXIS_INDEX);
 
@@ -138,13 +137,13 @@ std::string RectangularDetector::addParametersToExternalPool(
 
 double RectangularDetector::getWidth() const
 {
-    const IAxis &axis = getAxis(BornAgain::X_AXIS_INDEX);
+    const IAxis& axis = getAxis(BornAgain::X_AXIS_INDEX);
     return axis.getMax() - axis.getMin();
 }
 
 double RectangularDetector::getHeight() const
 {
-    const IAxis &axis = getAxis(BornAgain::Y_AXIS_INDEX);
+    const IAxis& axis = getAxis(BornAgain::Y_AXIS_INDEX);
     return axis.getMax() - axis.getMin();
 }
 
@@ -198,15 +197,15 @@ RectangularDetector::EDetectorArrangement RectangularDetector::getDetectorArrang
     return m_detector_arrangement;
 }
 
-OutputData<double> *RectangularDetector::createDetectorMap(const Beam &beam,
+OutputData<double> *RectangularDetector::createDetectorMap(const Beam& beam,
                                                            IDetector2D::EAxesUnits units_type) const
 {
     if (getDimension() != 2)
         return 0;
 
     std::unique_ptr<OutputData<double>> result(new OutputData<double>);
-    const IAxis &aX = getAxis(BornAgain::X_AXIS_INDEX);
-    const IAxis &aY = getAxis(BornAgain::Y_AXIS_INDEX);
+    const IAxis& aX = getAxis(BornAgain::X_AXIS_INDEX);
+    const IAxis& aY = getAxis(BornAgain::Y_AXIS_INDEX);
 
     result->addAxis(aX);
     result->addAxis(aY);
@@ -275,24 +274,31 @@ IDetector2D::EAxesUnits RectangularDetector::getDefaultAxesUnits() const
     return IDetector2D::MM;
 }
 
-void RectangularDetector::print(std::ostream &ostr) const
+void RectangularDetector::print(std::ostream& ostr) const
 {
     ostr << "RectangularDetector: '" << getName() << "' " << m_parameters;
-    for (size_t i = 0; i < m_axes.size(); ++i) {
+    for (size_t i = 0; i < m_axes.size(); ++i)
         ostr << "    IAxis:" << *m_axes[i] << std::endl;
-    }
 }
 
 IAxis *RectangularDetector::createAxis(size_t index, size_t n_bins, double min, double max) const
 {
+<<<<<<< 75d4579736b71fdd80b33dc4ee9bd5b73243c509
     if (max <= min) {
         throw Exceptions::LogicErrorException(
             "RectangularDetector::createAxis() -> Error! max <= min");
     }
     if (n_bins == 0) {
         throw Exceptions::LogicErrorException(
+=======
+    if (max <= min)
+        throw LogicErrorException(
+            "RectangularDetector::createAxis() -> Error! max <= min");
+    if (n_bins == 0)
+        throw LogicErrorException(
+>>>>>>> Further decoupling, informed by Doxygen directory dependence graphs.
             "RectangularDetector::createAxis() -> Error! Number n_bins can't be zero.");
-    }    return new FixedBinAxis(getAxisName(index), n_bins, min, max);
+    return new FixedBinAxis(getAxisName(index), n_bins, min, max);
 }
 
 std::string RectangularDetector::getAxisName(size_t index) const
@@ -310,7 +316,7 @@ std::string RectangularDetector::getAxisName(size_t index) const
     }
 }
 
-void RectangularDetector::swapContent(RectangularDetector &other)
+void RectangularDetector::swapContent(RectangularDetector& other)
 {
     IDetector2D::swapContent(other);
     std::swap(this->m_normal_to_detector, other.m_normal_to_detector);

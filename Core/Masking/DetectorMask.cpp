@@ -22,10 +22,9 @@
 DetectorMask::DetectorMask()
     : m_number_of_masked_channels(0)
 {
-
 }
 
-DetectorMask::DetectorMask(const DetectorMask &other)
+DetectorMask::DetectorMask(const DetectorMask& other)
     : m_shapes(other.m_shapes)
     , m_mask_of_shape(other.m_mask_of_shape)
     , m_number_of_masked_channels(other.m_number_of_masked_channels)
@@ -33,7 +32,7 @@ DetectorMask::DetectorMask(const DetectorMask &other)
     m_mask_data.copyFrom(other.m_mask_data);
 }
 
-DetectorMask &DetectorMask::operator=(const DetectorMask &other)
+DetectorMask& DetectorMask::operator=(const DetectorMask& other)
 {
     if (this != &other) {
         m_shapes = other.m_shapes;
@@ -46,7 +45,7 @@ DetectorMask &DetectorMask::operator=(const DetectorMask &other)
     return *this;
 }
 
-void DetectorMask::addMask(const Geometry::IShape2D &shape, bool mask_value)
+void DetectorMask::addMask(const Geometry::IShape2D& shape, bool mask_value)
 {
     m_shapes.push_back(shape.clone());
     m_mask_of_shape.push_back(mask_value);
@@ -54,7 +53,7 @@ void DetectorMask::addMask(const Geometry::IShape2D &shape, bool mask_value)
     m_number_of_masked_channels = 0;
 }
 
-void DetectorMask::initMaskData(const IDetector2D &detector)
+void DetectorMask::initMaskData(const IDetector2D& detector)
 {
     assert(m_shapes.size() == m_mask_of_shape.size());
     m_mask_data.clear();
@@ -65,7 +64,7 @@ void DetectorMask::initMaskData(const IDetector2D &detector)
     process_masks();
 }
 
-void DetectorMask::initMaskData(const OutputData<double> &data)
+void DetectorMask::initMaskData(const OutputData<double>& data)
 {
     assert(m_shapes.size() == m_mask_of_shape.size());
     m_mask_data.clear();
@@ -84,7 +83,7 @@ bool DetectorMask::getMask(size_t index) const
     return m_mask_data[index];
 }
 
-const OutputData<bool> *DetectorMask::getMaskData() const
+const OutputData<bool>* DetectorMask::getMaskData() const
 {
     return &m_mask_data;
 }
@@ -111,7 +110,7 @@ size_t DetectorMask::getNumberOfMasks() const
     return m_shapes.size();
 }
 
-const Geometry::IShape2D *DetectorMask::getMaskShape(size_t mask_index, bool &mask_value) const
+const Geometry::IShape2D* DetectorMask::getMaskShape(size_t mask_index, bool& mask_value) const
 {
     if(mask_index < getNumberOfMasks()) {
         mask_value = m_mask_of_shape[mask_index];
@@ -132,7 +131,7 @@ void DetectorMask::process_masks()
         // setting mask to the data starting from last shape added
         bool is_masked(false);
         for(size_t i_shape=m_shapes.size(); i_shape>0; --i_shape) {
-            const Geometry::IShape2D *shape = m_shapes[i_shape-1];
+            const Geometry::IShape2D* shape = m_shapes[i_shape-1];
             if(shape->contains(binx, biny)) {
                 if(m_mask_of_shape[i_shape-1]) is_masked = true;
                 m_mask_data[index] = m_mask_of_shape[i_shape-1];

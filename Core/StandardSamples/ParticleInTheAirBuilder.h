@@ -26,9 +26,8 @@
 class BA_CORE_API_ ParticleInTheAirBuilder : public ISampleBuilder
 {
 public:
-    ParticleInTheAirBuilder();
-    virtual ~ParticleInTheAirBuilder();
-
+    ParticleInTheAirBuilder() {}
+    virtual ~ParticleInTheAirBuilder() {}
     virtual ISample* buildSample() const;
 };
 

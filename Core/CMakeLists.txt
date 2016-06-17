@@ -10,8 +10,10 @@ endif()
 
 # --- source and include files ---------
 set(include_dirs
+    ${BUILD_INC_DIR}
     ${CMAKE_CURRENT_SOURCE_DIR}/Algorithms/
     ${CMAKE_CURRENT_SOURCE_DIR}/FormFactors/
+    ${CMAKE_CURRENT_SOURCE_DIR}/Export/
     ${CMAKE_CURRENT_SOURCE_DIR}/InputOutput
     ${CMAKE_CURRENT_SOURCE_DIR}/Masking/
     ${CMAKE_CURRENT_SOURCE_DIR}/Particles/

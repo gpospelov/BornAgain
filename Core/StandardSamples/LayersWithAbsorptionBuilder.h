@@ -27,9 +27,8 @@
 class BA_CORE_API_ LayersWithAbsorptionBuilder : public ISampleBuilder
 {
 public:
-    LayersWithAbsorptionBuilder();
-    virtual ~LayersWithAbsorptionBuilder();
-
+    LayersWithAbsorptionBuilder() {}
+    virtual ~LayersWithAbsorptionBuilder() {}
     virtual ISample *buildSample() const;
 };
 

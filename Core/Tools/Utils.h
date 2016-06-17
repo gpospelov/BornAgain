@@ -17,7 +17,6 @@
 #define UTILS_H
 
 #include "WinDllMacros.h"
-#include "VDouble.h"
 #include "Exceptions.h"
 #include <boost/unordered_map.hpp>
 #include <map>
@@ -33,9 +32,6 @@ namespace Utils {
 class BA_CORE_API_ String
 {
 public:
-    //! Parse double values from string to vector of double.
-    static vdouble1d_t parse_doubles(const std::string& str);
-
     //! assuming that string consist of doubles return new string
     //! where doubles are rounded according to the precision
     static std::string round_doubles(const std::string& str, int precision);

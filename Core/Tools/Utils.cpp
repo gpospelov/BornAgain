@@ -39,23 +39,6 @@
 #endif
 #endif
 
-
-
-//! Parse double values from string to vector of double
-
-vdouble1d_t Utils::String::parse_doubles(const std::string& str)
-{
-    vdouble1d_t buff_1d;
-    std::istringstream iss(str);
-    OutputDataIOHelper::readLineOfDoubles(buff_1d, iss);
-    if( buff_1d.empty() ) {
-        std::cout << "Utils::String::parse_doubles -> "
-            "Warning! No parsed values in 1d vector of doubles." << std::endl;
-        std::cout << "Line '" << str << "'" << std::endl;
-    }
-    return buff_1d;
-}
-
 //! Round double numbers in string to given precision.
 
 //! If precision is 6, then 7.2908527770e+03 -> 7.290853e+03.

@@ -17,7 +17,6 @@
 #include <stdexcept>
 
 #include "Complex.h"
-#include "Utils.h"
 #include "BornAgainNamespace.h"
 #include "OutputData.h"
 #include "OutputDataIOHelper.h"
@@ -29,8 +28,7 @@ OutputData<double>* OutputDataReadINTStrategy::readOutputData(std::istream& inpu
     OutputData<double>* result = new OutputData<double>;
     std::string line;
 
-    while( std::getline(input_stream, line) )
-    {
+    while( std::getline(input_stream, line) ) {
         if (line.find("axis") != std::string::npos) {
             IAxis* axis = OutputDataIOHelper::createAxis(input_stream);
             result->addAxis(*axis);
@@ -44,18 +42,16 @@ OutputData<double>* OutputDataReadINTStrategy::readOutputData(std::istream& inpu
     return result;
 }
 
-// ----------------------------------------------------------------------------
 
 OutputData<double>* OutputDataReadNumpyTXTStrategy::readOutputData(std::istream& input_stream)
 {
     std::string line;
-    std::vector<std::vector<double> > data;
+    std::vector<std::vector<double>> data;
 
-    while( std::getline(input_stream, line) )
-    {
-        if(line.empty() || line[0] == '#') continue;
-
-        vdouble1d_t data_in_row = Utils::String::parse_doubles(line);
+    while( std::getline(input_stream, line) ) {
+        if(line.empty() || line[0] == '#')
+            continue;
+        std::vector<double> data_in_row = OutputDataIOHelper::parse_doubles(line);
         data.push_back(data_in_row);
     }
     // validating
@@ -82,14 +78,12 @@ OutputData<double>* OutputDataReadNumpyTXTStrategy::readOutputData(std::istream&
     return result;
 }
 
-// ----------------------------------------------------------------------------
-
 
 #ifdef BORNAGAIN_TIFF_SUPPORT
+
 OutputDataReadTiffStrategy::OutputDataReadTiffStrategy()
     : m_d(new TiffHandler)
-{
-}
+{}
 
 OutputDataReadTiffStrategy::~OutputDataReadTiffStrategy()
 {

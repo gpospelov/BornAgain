@@ -13,7 +13,10 @@
 //
 // ************************************************************************** //
 
-#include "OutputDataIOHelper.h"
+#include <iostream>
+#include <algorithm>
+#include <boost/algorithm/string.hpp>
+
 #include "FixedBinAxis.h"
 #include "VariableBinAxis.h"
 #include "ConstKBinAxis.h"
@@ -22,10 +25,7 @@
 #include "Utils.h"
 #include "OutputData.h"
 #include "FileSystem.h"
-
-#include <iostream>
-#include <algorithm>
-#include <boost/algorithm/string.hpp>
+#include "OutputDataIOHelper.h"
 
 
 bool OutputDataIOHelper::isCompressed(const std::string& name)
@@ -64,7 +64,7 @@ std::string OutputDataIOHelper::GetFileMainExtension(const std::string& name)
     return Utils::FileSystem::GetFileExtension(stripped_name);
 }
 
-bool OutputDataIOHelper::isBinaryFile(const std::string &file_name)
+bool OutputDataIOHelper::isBinaryFile(const std::string& file_name)
 {
     // all compressed files are always binary.
     if(isCompressed(file_name)) return true;
@@ -75,17 +75,17 @@ bool OutputDataIOHelper::isBinaryFile(const std::string &file_name)
     return true;
 }
 
-bool OutputDataIOHelper::isIntFile(const std::string &file_name)
+bool OutputDataIOHelper::isIntFile(const std::string& file_name)
 {
     return GetFileMainExtension(file_name) == IntExtention;
 }
 
-bool OutputDataIOHelper::isTxtFile(const std::string &file_name)
+bool OutputDataIOHelper::isTxtFile(const std::string& file_name)
 {
     return GetFileMainExtension(file_name) == TxtExtention;
 }
 
-bool OutputDataIOHelper::isTiffFile(const std::string &file_name)
+bool OutputDataIOHelper::isTiffFile(const std::string& file_name)
 {
     return GetFileMainExtension(file_name) == TiffExtention;
 }
@@ -93,7 +93,7 @@ bool OutputDataIOHelper::isTiffFile(const std::string &file_name)
 //! Returns true if string representation of the axis contains one of
 //! FixedBinAxis, ConstKBinAxis or CustomBinAxis to parse it later in
 //! similar way.
-bool OutputDataIOHelper::isSimilarToFixedBinAxisType(const std::string &line)
+bool OutputDataIOHelper::isSimilarToFixedBinAxisType(const std::string& line)
 {
     if(line.find(FixedBinAxisType) != std::string::npos ||
        line.find(ConstKBinAxisType) != std::string::npos ||
@@ -105,7 +105,7 @@ bool OutputDataIOHelper::isSimilarToFixedBinAxisType(const std::string &line)
 }
 
 
-bool OutputDataIOHelper::isVariableBinAxisType(const std::string &line)
+bool OutputDataIOHelper::isVariableBinAxisType(const std::string& line)
 {
     if(line.find(VariableBinAxisType) != std::string::npos) {
         return true;
@@ -117,7 +117,7 @@ bool OutputDataIOHelper::isVariableBinAxisType(const std::string &line)
 
 
 //! Creates axis of certain type from input stream
-IAxis *OutputDataIOHelper::createAxis(std::istream &input_stream)
+IAxis *OutputDataIOHelper::createAxis(std::istream& input_stream)
 {
     std::string line;
     std::getline(input_stream, line);
@@ -200,7 +200,7 @@ IAxis *OutputDataIOHelper::createVariableBinAxis(std::string line)
 }
 
 //! Fills output data raw buffer from input stream
-void OutputDataIOHelper::fillOutputData(OutputData<double> *data, std::istream &input_stream)
+void OutputDataIOHelper::fillOutputData(OutputData<double>* data, std::istream& input_stream)
 {
     std::string line;
     data->setAllTo(0.0);
@@ -222,7 +222,22 @@ void OutputDataIOHelper::fillOutputData(OutputData<double> *data, std::istream &
             "OutputDataIOHelper::fillOutputData() -> Error while parsing data.");
 }
 
-void OutputDataIOHelper::readLineOfDoubles(std::vector<double> &buffer, std::istringstream &iss)
+//! Parse double values from string to vector of double
+
+std::vector<double> OutputDataIOHelper::parse_doubles(const std::string& str)
+{
+    std::vector<double> result;
+    std::istringstream iss(str);
+    OutputDataIOHelper::readLineOfDoubles(result, iss);
+    if( result.empty() ) {
+        std::cout << "Utils::String::parse_doubles -> "
+            "Warning! No parsed values in 1d vector of doubles." << std::endl;
+        std::cout << "Line '" << str << "'" << std::endl;
+    }
+    return result;
+}
+
+void OutputDataIOHelper::readLineOfDoubles(std::vector<double>& buffer, std::istringstream& iss)
 {
     iss.imbue(std::locale::classic());
     std::copy(std::istream_iterator<double>(iss),

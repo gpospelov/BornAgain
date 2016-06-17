@@ -22,10 +22,7 @@
 #include "Units.h"
 #include "Materials.h"
 #include "InterferenceFunction2DLattice.h"
-#include "IntensityDataIOFactory.h"
 #include "Utils.h"
-
-
 
 
 // -----------------------------------------------------------------------------

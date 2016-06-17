@@ -13,13 +13,11 @@
 //
 // ************************************************************************** //
 
-#include "StandardSimulations.h"
 #include "SampleBuilderFactory.h"
 #include "GISASSimulation.h"
 #include "ResolutionFunction2DGaussian.h"
 #include "Units.h"
 #include "FileSystem.h"
-#include "IntensityDataIOFactory.h"
 #include "Distributions.h"
 #include "IsGISAXSDetector.h"
 #include "Rectangle.h"
@@ -29,6 +27,7 @@
 #include "InfinitePlane.h"
 #include "BornAgainNamespace.h"
 #include "RectangularDetector.h"
+#include "StandardSimulations.h"
 
 using namespace BornAgain;
 

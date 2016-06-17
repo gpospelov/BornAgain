@@ -19,7 +19,6 @@
 #include "Materials.h"
 #include "FormFactorBox.h"
 #include "GISASSimulation.h"
-#include "IntensityDataIOFactory.h"
 #include "Utils.h"
 #include "Units.h"
 #include "MathFunctions.h"
@@ -127,4 +126,3 @@ ISample *CustomMorphologyBuilder::buildSample() const
 
     return multi_layer;
 }
-

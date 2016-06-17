@@ -18,7 +18,6 @@
 
 #include "Mask.h"
 
-
 //! @class OutputDataIterator
 //! @ingroup tools_internal
 //! @brief Iterator for underlying OutputData container
@@ -120,7 +119,7 @@ template<class TValue2, class TContainer2>
     , mp_output_data(0)
     , mp_mask(0)
 {
-    mp_output_data = static_cast<TContainer *>(other.getContainer());
+    mp_output_data = static_cast<TContainer*>(other.getContainer());
     m_current_index = other.getIndex();
     if (other.getMask()) {
         mp_mask = other.getMask()->clone();
@@ -148,7 +147,7 @@ template <class TValue1, class TContainer1, class TValue2, class TContainer2>
         const OutputDataIterator<TValue2, TContainer2>& right)
 {
     return left.getContainer()==right.getContainer() &&
-            left.getIndex()==right.getIndex();
+        left.getIndex()==right.getIndex();
 }
 
 template <class TValue1, class TContainer1, class TValue2, class TContainer2>

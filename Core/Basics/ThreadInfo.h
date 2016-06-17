@@ -18,7 +18,6 @@
 
 #include "Exceptions.h"
 
-
 //! @class ThreadInfo
 //! @ingroup simulation
 //! @brief Information to run simulation with dedicated number of threads
@@ -33,10 +32,10 @@ struct BA_CORE_API_ ThreadInfo
 };
 
 inline ThreadInfo::ThreadInfo()
-: n_threads(0)
-, current_thread(0)
-, n_batches(1)
-, current_batch(0)
+    : n_threads(0)
+    , current_thread(0)
+    , n_batches(1)
+    , current_batch(0)
 {
 }
 

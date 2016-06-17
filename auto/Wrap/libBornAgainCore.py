@@ -2027,48 +2027,23 @@ ParameterPattern_swigregister(ParameterPattern)
 
 
 def GetMajorVersionNumber():
-    """
-    GetMajorVersionNumber() -> int
-
-    int BornAgain::GetMajorVersionNumber()
-
-    """
+    """GetMajorVersionNumber() -> int"""
     return _libBornAgainCore.GetMajorVersionNumber()
 
 def GetMinorVersionNumber():
-    """
-    GetMinorVersionNumber() -> int
-
-    int BornAgain::GetMinorVersionNumber()
-
-    """
+    """GetMinorVersionNumber() -> int"""
     return _libBornAgainCore.GetMinorVersionNumber()
 
 def GetPatchVersionNumber():
-    """
-    GetPatchVersionNumber() -> int
-
-    int BornAgain::GetPatchVersionNumber()
-
-    """
+    """GetPatchVersionNumber() -> int"""
     return _libBornAgainCore.GetPatchVersionNumber()
 
 def GetName():
-    """
-    GetName() -> std::string
-
-    std::string BornAgain::GetName()
-
-    """
+    """GetName() -> std::string"""
     return _libBornAgainCore.GetName()
 
 def GetVersionNumber():
-    """
-    GetVersionNumber() -> std::string
-
-    std::string BornAgain::GetVersionNumber()
-
-    """
+    """GetVersionNumber() -> std::string"""
     return _libBornAgainCore.GetVersionNumber()
 
 def vecOfLambdaAlphaPhi(_lambda, _alpha, _phi):
@@ -17046,7 +17021,7 @@ class InterferenceFunction2DParaCrystal(IInterferenceFunction):
         """
         setProbabilityDistributions(InterferenceFunction2DParaCrystal self, IFTDistribution2D pdf_1, IFTDistribution2D pdf_2)
 
-        void InterferenceFunction2DParaCrystal::setProbabilityDistributions(const IFTDistribution2D &pdf_1, const IFTDistribution2D &pdf_2)
+        void InterferenceFunction2DParaCrystal::setProbabilityDistributions(const class IFTDistribution2D &pdf_1, const class IFTDistribution2D &pdf_2)
 
         Sets the probability distributions (Fourier transformed) for the two lattice directions.
 

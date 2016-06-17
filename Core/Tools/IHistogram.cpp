@@ -22,17 +22,17 @@ IHistogram::IHistogram()
 {
 }
 
-IHistogram::IHistogram(const IHistogram &other)
+IHistogram::IHistogram(const IHistogram& other)
 {
     m_data.copyFrom(other.m_data);
 }
 
-IHistogram::IHistogram(const IAxis &axis_x)
+IHistogram::IHistogram(const IAxis& axis_x)
 {
     m_data.addAxis(axis_x);
 }
 
-IHistogram::IHistogram(const IAxis &axis_x, const IAxis &axis_y)
+IHistogram::IHistogram(const IAxis& axis_x, const IAxis& axis_y)
 {
     m_data.addAxis(axis_x);
     m_data.addAxis(axis_y);
@@ -234,7 +234,7 @@ void IHistogram::reset()
     m_data.setAllTo(CumulativeValue());
 }
 
-IHistogram* IHistogram::createHistogram(const OutputData<double> &source)
+IHistogram* IHistogram::createHistogram(const OutputData<double>& source)
 {
     if(source.getRank() == 1) {
         return new Histogram1D(source);
@@ -242,14 +242,14 @@ IHistogram* IHistogram::createHistogram(const OutputData<double> &source)
         return new Histogram2D(source);
     } else {
         std::ostringstream message;
-        message << "IHistogram::createHistogram(const OutputData<double> &source) -> Error. ";
+        message << "IHistogram::createHistogram(const OutputData<double>& source) -> Error. ";
         message << "The rank of source " << source.getRank() << " ";
         message << "is not suitable for creation neither 1-dim nor 2-dim histograms.";
         throw Exceptions::LogicErrorException(message.str());
     }
 }
 
-IHistogram* IHistogram::createFrom(const std::string &filename)
+IHistogram* IHistogram::createFrom(const std::string& filename)
 {
     return IntensityDataIOFactory::readIntensityData(filename);
 }
@@ -274,11 +274,11 @@ void IHistogram::check_y_axis() const
     }
 }
 
-void IHistogram::init_from_data(const OutputData<double> &source)
+void IHistogram::init_from_data(const OutputData<double>& source)
 {
     if(getRank() != source.getRank()) {
         std::ostringstream message;
-        message << "IHistogram::IHistogram(const OutputData<double> &data) -> Error. ";
+        message << "IHistogram::IHistogram(const OutputData<double>& data) -> Error. ";
         message << "The dimension of this histogram " << getRank() << " ";
         message << "is differ from the dimension of source " << m_data.getRank() << std::endl;
         throw Exceptions::LogicErrorException(message.str());
@@ -301,11 +301,8 @@ double IHistogram::getBinData(size_t globalbin, IHistogram::DataType dataType) c
         return getBinError(globalbin);
     } else if(dataType == DataType::NENTRIES) {
         return getBinNumberOfEntries(globalbin);
-    } else {
-        std::ostringstream message;
-        message << "IHistogram::getBinData() -> Error. Unknown data type.";
-        throw Exceptions::LogicErrorException(message.str());
-    }
+    } else
+        throw LogicErrorException("IHistogram::getBinData() -> Error. Unknown data type.");
 }
 
 //! returns vector of values of requested DataType
@@ -320,12 +317,11 @@ std::vector<double> IHistogram::getDataVector(IHistogram::DataType dataType) con
 }
 
 //! Copy content (but not the axes) from other histogram. Dimensions should be the same.
-void IHistogram::copyContentFrom(const IHistogram &other)
+void IHistogram::copyContentFrom(const IHistogram& other)
 {
     if(!hasSameDimensions(other)) {
         throw Exceptions::LogicErrorException("IHistogram::copyContentFrom() -> Error. "
                                   "Can't copy the data of different shape.");
-    }
     reset();
     for(size_t i=0; i<getTotalNumberOfBins(); ++i) {
         m_data[i] = other.m_data[i];
@@ -344,35 +340,33 @@ OutputData<double>* IHistogram::createOutputData(IHistogram::DataType dataType) 
     return result;
 }
 
-bool IHistogram::hasSameShape(const IHistogram &other) const
+bool IHistogram::hasSameShape(const IHistogram& other) const
 {
     return m_data.hasSameShape(other.m_data);
 }
 
-bool IHistogram::hasSameDimensions(const IHistogram &other) const
+bool IHistogram::hasSameDimensions(const IHistogram& other) const
 {
     return m_data.hasSameDimensions(other.m_data);
 }
 
-const IHistogram &IHistogram::operator+=(const IHistogram &right)
+const IHistogram& IHistogram::operator+=(const IHistogram& right)
 {
     if(!hasSameDimensions(right)) {
         throw Exceptions::LogicErrorException("IHistogram::operator+=() -> Error. "
                                   "Histograms have different dimension");
-    }
 
-    for(size_t globalbin=0; globalbin<getTotalNumberOfBins(); ++globalbin) {
+    for(size_t globalbin=0; globalbin<getTotalNumberOfBins(); ++globalbin)
         addBinContent(globalbin, right.getBinContent(globalbin));
-    }
+
     return *this;
 }
 
-IHistogram* IHistogram::relativeDifferenceHistogram(const IHistogram &rhs)
+IHistogram* IHistogram::relativeDifferenceHistogram(const IHistogram& rhs)
 {
     if(!hasSameDimensions(rhs)) {
         throw Exceptions::LogicErrorException("IHistogram::relativeDifferenceHistogram() -> Error. "
                                   "Histograms have different dimensions");
-    }
 
     IHistogram* result = this->clone();
     result->reset();
@@ -384,12 +378,12 @@ IHistogram* IHistogram::relativeDifferenceHistogram(const IHistogram &rhs)
     return result;
 }
 
-void IHistogram::save(const std::string &filename)
+void IHistogram::save(const std::string& filename)
 {
     IntensityDataIOFactory::writeIntensityData(*this, filename);
 }
 
-void IHistogram::load(const std::string &filename)
+void IHistogram::load(const std::string& filename)
 {
     const std::unique_ptr<IHistogram> hist(IntensityDataIOFactory::readIntensityData(filename));
     copyContentFrom(*hist);

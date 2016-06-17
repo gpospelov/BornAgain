@@ -45,7 +45,7 @@ IInterferenceFunctionStrategy* LayerStrategyBuilder::createStrategy()
 {
     collectFormFactorInfos();
     collectInterferenceFunction();
-    IInterferenceFunctionStrategy *p_result(0);
+    IInterferenceFunctionStrategy* p_result(0);
     switch (mP_layer->getLayout(m_layout_index)->getApproximation())
     {
     case ILayout::DA:
@@ -88,14 +88,14 @@ void LayerStrategyBuilder::collectFormFactorInfos()
 {
     assert(mP_layer->getNumberOfLayouts()>0);
     m_ff_infos.clear();
-    const ILayout *p_layout = mP_layer->getLayout(m_layout_index);
-    const IMaterial *p_layer_material = mP_layer->getMaterial();
+    const ILayout* p_layout = mP_layer->getLayout(m_layout_index);
+    const IMaterial* p_layer_material = mP_layer->getMaterial();
     double total_abundance = mP_layer->getTotalAbundance();
     if (total_abundance<=0.0) total_abundance = 1.0;
     SafePointerVector<const IParticle> iparticles = p_layout->getParticles();
     size_t number_of_particles = iparticles.size();
     for (size_t i = 0; i<number_of_particles; ++i) {
-        FormFactorInfo *p_ff_info;
+        FormFactorInfo* p_ff_info;
         p_ff_info = createFormFactorInfo(iparticles[i], p_layer_material);
         p_ff_info->m_abundance /= total_abundance;
         m_ff_infos.push_back(p_ff_info);
@@ -106,7 +106,7 @@ void LayerStrategyBuilder::collectFormFactorInfos()
 void LayerStrategyBuilder::collectInterferenceFunction()
 {
     assert(mP_layer->getNumberOfLayouts()>0);
-    const IInterferenceFunction *p_iff =
+    const IInterferenceFunction* p_iff =
             mP_layer->getLayout(m_layout_index)->getInterferenceFunction();
     if (p_iff) {
         mP_interference_function.reset(p_iff->clone());
@@ -114,17 +114,17 @@ void LayerStrategyBuilder::collectInterferenceFunction()
     else mP_interference_function.reset( new InterferenceFunctionNone() );
 }
 
-FormFactorInfo *
-LayerStrategyBuilder::createFormFactorInfo(const IParticle *particle,
-                                           const IMaterial *p_ambient_material) const
+FormFactorInfo*
+LayerStrategyBuilder::createFormFactorInfo(const IParticle* particle,
+                                           const IMaterial* p_ambient_material) const
 {
-    FormFactorInfo *p_result = new FormFactorInfo;
+    FormFactorInfo* p_result = new FormFactorInfo;
     const std::unique_ptr<IParticle> P_particle_clone(particle->clone());
     P_particle_clone->setAmbientMaterial(*p_ambient_material);
 
     // formfactor
     const std::unique_ptr<IFormFactor> P_ff_particle(P_particle_clone->createFormFactor());
-    IFormFactor *p_ff_framework;
+    IFormFactor* p_ff_framework;
     size_t n_layers = mP_layer->getNumberOfLayers();
     if (n_layers>1) {
         if (requiresMatrixFFs()) {
@@ -153,7 +153,7 @@ FormFactorInfo::~FormFactorInfo() { delete mp_ff; }
 
 FormFactorInfo* FormFactorInfo::clone() const
 {
-    FormFactorInfo *p_result = new FormFactorInfo();
+    FormFactorInfo* p_result = new FormFactorInfo();
     p_result->m_abundance = m_abundance;
     p_result->m_pos_x = m_pos_x;
     p_result->m_pos_y = m_pos_y;

@@ -26,7 +26,8 @@
 #include "SphericalDetector.h"
 #include <iomanip>
 
-PyGenVisitor::PyGenVisitor() : m_label(new SampleLabelHandler())
+PyGenVisitor::PyGenVisitor()
+    : m_label(new SampleLabelHandler())
 {
 }
 

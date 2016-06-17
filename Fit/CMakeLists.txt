@@ -35,14 +35,13 @@ if(BORNAGAIN_PYTHON)
     include_directories(${AUTO_DIR})
 
     set(include_dirs
-        ${CMAKE_CURRENT_SOURCE_DIR}/FitKernel/
+        ${CMAKE_CURRENT_SOURCE_DIR}/FitKernel
         ${CMAKE_CURRENT_SOURCE_DIR}/StandardFits
-        ${CMAKE_SOURCE_DIR}/Core/Algorithms/
-        ${CMAKE_SOURCE_DIR}/Core/FormFactors/
-        ${CMAKE_SOURCE_DIR}/Core/Geometry/
-        ${CMAKE_SOURCE_DIR}/Core/Samples/
+        ${CMAKE_SOURCE_DIR}/Core/Basics
+        ${CMAKE_SOURCE_DIR}/Core/Samples
+        ${CMAKE_SOURCE_DIR}/Core/Simulation
         ${CMAKE_SOURCE_DIR}/Core/StandardSamples
-        ${CMAKE_SOURCE_DIR}/Core/Tools/
+        ${CMAKE_SOURCE_DIR}/Core/Tools
         ${CMAKE_SOURCE_DIR}/Core/InputOutput
         )
     include_directories(${include_dirs})

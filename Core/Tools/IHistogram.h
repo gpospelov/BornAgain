@@ -43,11 +43,11 @@ public:
     };
 
     IHistogram();
-    IHistogram(const IHistogram &other);
+    IHistogram(const IHistogram& other);
     virtual ~IHistogram(){}
 
-    IHistogram(const IAxis &axis_x);
-    IHistogram(const IAxis &axis_x, const IAxis &axis_y);
+    IHistogram(const IAxis& axis_x);
+    IHistogram(const IAxis& axis_x, const IAxis& axis_y);
 
     virtual IHistogram *clone() const = 0;
 
@@ -177,10 +177,10 @@ public:
     //! Reset histogram content (axes remains)
     void reset();
 
-    static IHistogram *createHistogram(const OutputData<double> &source);
+    static IHistogram *createHistogram(const OutputData<double>& source);
 
     //! create new histogram from file content
-    static IHistogram *createFrom(const std::string &filename);
+    static IHistogram *createFrom(const std::string& filename);
 
     //! creates new OutputData with histogram's shape and values corresponding to DataType
     OutputData<double> *createOutputData(DataType dataType = DataType::INTEGRAL) const;
@@ -195,24 +195,24 @@ public:
     const IHistogram& operator+=(const IHistogram& right);
 
     //! returns histogram representing relative difference of two histograms.
-    IHistogram *relativeDifferenceHistogram(const IHistogram &rhs);
+    IHistogram *relativeDifferenceHistogram(const IHistogram& rhs);
 
     //! Saves histogram in file
     //! Following formats are available: *.txt, *.tif, *.int (*.txt.gz, *.tif.gz, *.int.gz)
-    void save(const std::string &filename);
+    void save(const std::string& filename);
 
     //! Loads histogram from file, the shape of array in file should match
     //! Following formats are available: *.txt, *.tif, *.int (*.txt.gz, *.tif.gz, *.int.gz)
     //! Only bin content will be loaded, histogram axes remain the same.
-    void load(const std::string &filename);
+    void load(const std::string& filename);
 
 protected:
     void check_x_axis() const;
     void check_y_axis() const;
-    void init_from_data(const OutputData<double> &source);
+    void init_from_data(const OutputData<double>& source);
     double getBinData(size_t globalbin, DataType dataType) const;
     std::vector<double> getDataVector(DataType dataType) const;
-    void copyContentFrom(const IHistogram &other);
+    void copyContentFrom(const IHistogram& other);
     OutputData<CumulativeValue> m_data;
 };
 

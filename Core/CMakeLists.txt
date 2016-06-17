@@ -11,17 +11,18 @@ endif()
 # --- source and include files ---------
 set(include_dirs
     ${BUILD_INC_DIR}
-    ${CMAKE_CURRENT_SOURCE_DIR}/Algorithms/
-    ${CMAKE_CURRENT_SOURCE_DIR}/FormFactors/
-    ${CMAKE_CURRENT_SOURCE_DIR}/Export/
+    ${CMAKE_CURRENT_SOURCE_DIR}/Basics
+    ${CMAKE_CURRENT_SOURCE_DIR}/FormFactors
+    ${CMAKE_CURRENT_SOURCE_DIR}/Export
     ${CMAKE_CURRENT_SOURCE_DIR}/InputOutput
-    ${CMAKE_CURRENT_SOURCE_DIR}/Masking/
-    ${CMAKE_CURRENT_SOURCE_DIR}/Particles/
-    ${CMAKE_CURRENT_SOURCE_DIR}/Samples/
-    ${CMAKE_CURRENT_SOURCE_DIR}/StandardSamples/
-    ${CMAKE_CURRENT_SOURCE_DIR}/TestMachinery/
-    ${CMAKE_CURRENT_SOURCE_DIR}/Tools/
-    ${CMAKE_CURRENT_SOURCE_DIR}/Vectors/
+    ${CMAKE_CURRENT_SOURCE_DIR}/Masking
+    ${CMAKE_CURRENT_SOURCE_DIR}/Particles
+    ${CMAKE_CURRENT_SOURCE_DIR}/Samples
+    ${CMAKE_CURRENT_SOURCE_DIR}/Simulation
+    ${CMAKE_CURRENT_SOURCE_DIR}/StandardSamples
+    ${CMAKE_CURRENT_SOURCE_DIR}/TestMachinery
+    ${CMAKE_CURRENT_SOURCE_DIR}/Tools
+    ${CMAKE_CURRENT_SOURCE_DIR}/Vectors
     )
 
 include_directories(${include_dirs})

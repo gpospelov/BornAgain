@@ -1,39 +1,17 @@
-BornAgain simulation example using C++ interface.
+This folder demonstrates how to use the BornAgain C++ API.
 
-This folder contains: 
+Using this API, one can write C++ programs that use libBornAgainCore
+to perform simulations, and libBornAgainFit to perform fits. This
+may be of interest when integrating BornAgain into a larger framework.
 
---- ./CylindersAndPrisms ---
-    Mixture of cylinders and prisms without interference.
+In general, however, it is much more convenient to run BornAgain
+through its Python API.
 
+THEREFORE, THIS C++ EXAMPLE DIRECTORY IS CURRENTLY NOT MAINTAINED
+AND MAY BE OUT OF PHASE.
 
-How to compile and run the example.
--------------------------------------------------------------------------------
-1.1) Install third party software
--------------------------------------------------------------------------------
-Required:
-* compilers: clang  versions >=3.1 or GCC versions >=4.2
-* cmake >=2.8
-* boost library >=1.48
-* Eigen3 library >=3.1.0
-* ROOT framework (to plot the result)
+Currently, this directory contains only one example:
 
--------------------------------------------------------------------------------
-1.2) Setup BornAgain library
--------------------------------------------------------------------------------
-* install BornAgain library
-* add BornAgain libraries to path by running: source <BornAgain_install_dir>/bin/thisbornagain.sh
-
--------------------------------------------------------------------------------
-2) Build given example with CMake
--------------------------------------------------------------------------------
-mkdir <build_dir>
-cd <build_dir>
-cmake <exmaple_source_dir> 
-make
-
--------------------------------------------------------------------------------
-3) Running the simulation
--------------------------------------------------------------------------------
-cd <build_dir>
-./CylindersAndPrisms
-
+SimulateAndRootplot/
+   Simulate a mixture of uncorrelated cylinders and prisms, and
+   plot results using CERN Root.

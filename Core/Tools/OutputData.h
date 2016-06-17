@@ -42,6 +42,8 @@ class OutputData
 {
 public:
     OutputData();
+    OutputData(const OutputData&) = delete;
+    const OutputData& operator=(const OutputData&) = delete;
     ~OutputData();
     OutputData* clone() const;
 
@@ -90,14 +92,14 @@ public:
     // external iterators (with their possible masking)
     // ---------------------------------
 
-    friend class OutputDataIterator<T, OutputData<T> >;
-    friend class OutputDataIterator<const T, const OutputData<T> >;
+    friend class OutputDataIterator<T, OutputData<T>>;
+    friend class OutputDataIterator<const T, const OutputData<T>>;
 
     //! Read/write iterator type
-    typedef OutputDataIterator<T, OutputData<T> > iterator;
+    typedef OutputDataIterator<T, OutputData<T>> iterator;
 
     //! Read-only iterator type
-    typedef OutputDataIterator<const T, const OutputData<T> > const_iterator;
+    typedef OutputDataIterator<const T, const OutputData<T>> const_iterator;
 
     //! Returns  read/write iterator that points to the first element
     iterator begin();
@@ -221,14 +223,16 @@ public:
 
     //! indexed accessor
     T& operator[](size_t index) {
-        if (mp_ll_data) return (*mp_ll_data)[index];
-        throw ClassInitializationException("Low-level data object was not yet initialized");
+        if (!mp_ll_data)
+            throw ClassInitializationException("Low-level data object was not yet initialized");
+        return (*mp_ll_data)[index];
     }
 
     //! indexed accessor (const)
     const T& operator[](size_t index) const {
-        if (mp_ll_data) return (*mp_ll_data)[index];
-        throw ClassInitializationException("Low-level data object was not yet initialized");
+        if (!mp_ll_data)
+            throw ClassInitializationException("Low-level data object was not yet initialized");
+        return (*mp_ll_data)[index];
     }
 
     // --------
@@ -249,10 +253,6 @@ public:
     //! returns true if object is correctly initialized
     bool isInitialized() const;
 private:
-    //! disabled copy constructor and assignment operators
-    OutputData(const OutputData& );
-    const OutputData& operator=(const OutputData& );
-
     //! memory allocation for current dimensions configuration
     void allocate();
 
@@ -267,9 +267,9 @@ private:
 
 template <class T>
 OutputData<T>::OutputData()
-: m_value_axes()
-, mp_ll_data(0)
-, mp_mask(0)
+    : m_value_axes()
+    , mp_ll_data(0)
+    , mp_mask(0)
 {
     allocate();
 }
@@ -332,8 +332,7 @@ void OutputData<T>::addAxis(const IAxis& new_axis)
 }
 
 template <class T>
-void OutputData<T>::addAxis(const std::string& name, size_t size,
-                            double start, double end)
+void OutputData<T>::addAxis(const std::string& name, size_t size, double start, double end)
 {
     if( getAxis(name) )
         throw LogicErrorException(
@@ -439,8 +438,7 @@ void OutputData<T>::addMask(const Mask& mask)
     if (mask.mp_submask) {
         throw RuntimeErrorException(
             "OutputData<T>::addMask() -> "
-            "Error! One can only add single masks to OutputDataIterator "
-            "at a time");
+            "Error! One can only add single masks to OutputDataIterator at a time");
     }
     Mask *p_old_mask = getMask();
     mp_mask = mask.clone();
@@ -465,8 +463,7 @@ std::vector<int> OutputData<T>::getAxesBinIndices(size_t global_index) const
     for (size_t i=0; i<mp_ll_data->getRank(); ++i)
     {
         result[mp_ll_data->getRank()-1-i] =
-            (int)(remainder %
-                  m_value_axes[mp_ll_data->getRank()-1-i]->getSize());
+            (int)(remainder % m_value_axes[mp_ll_data->getRank()-1-i]->getSize());
         remainder /= m_value_axes[mp_ll_data->getRank()-1-i]->getSize();
     }
     return result;
@@ -502,8 +499,7 @@ size_t OutputData<T>::toGlobalIndex(const std::vector<int> &axes_indices) const
     if (axes_indices.size() != mp_ll_data->getRank())
         throw LogicErrorException(
                     "size_t OutputData<T>::toGlobalIndex() -> "
-                    "Error! Number of coordinates must match "
-                    "rank of data structure");
+                    "Error! Number of coordinates must match rank of data structure");
     size_t result = 0;
     int step_size = 1;
     for (size_t i=mp_ll_data->getRank(); i>0; --i)
@@ -530,8 +526,7 @@ size_t OutputData<T>::findGlobalIndex(const std::vector<double> &coordinates) co
     if (coordinates.size() != mp_ll_data->getRank())
         throw LogicErrorException(
                     "OutputData<T>::findClosestIndex() -> "
-                    "Error! Number of coordinates must match "
-                    "rank of data structure");
+                    "Error! Number of coordinates must match rank of data structure");
     std::vector<int> axes_indexes;
     axes_indexes.resize(mp_ll_data->getRank());
     for(size_t i = 0; i<mp_ll_data->getRank(); ++i) {

@@ -16,8 +16,8 @@
 #ifndef IFORMFACTOR_H
 #define IFORMFACTOR_H
 
+#include "Complex.h"
 #include "Units.h"
-#include "IMaterial.h"
 #include "ISample.h"
 #include "Bin.h"
 #include "EigenCore.h"
@@ -42,7 +42,7 @@ public:
     //! @}
 
     //! Passes the refractive index of the ambient material in which this particle is embedded.
-    virtual void setAmbientMaterial(const IMaterial&) {}
+    virtual void setAmbientMaterial(const class IMaterial&) {}
 
     //! Returns scattering amplitude for complex wavevector bin
     virtual complex_t evaluate(const WavevectorInfo& wavevectors) const=0;

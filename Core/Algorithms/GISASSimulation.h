@@ -21,7 +21,6 @@
 #include "SimulationOptions.h"
 #include "DistributionHandler.h"
 #include "Simulation.h"
-
 #include "EigenCore.h"
 
 //! @class Simulation

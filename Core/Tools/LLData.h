@@ -13,15 +13,14 @@
 //
 // ************************************************************************** //
 
-#ifndef LLDATA_H_
-#define LLDATA_H_
+#ifndef LLDATA_H
+#define LLDATA_H
+
+#include <algorithm>
 
 #include "Exceptions.h"
 #include "Numeric.h"
 #include "EigenCore.h"
-
-#include <algorithm>
-
 
 //! @class LLData
 //! @ingroup tools_internal
@@ -31,7 +30,7 @@ template <class T> class LLData
 {
 public:
     // construction, destruction and assignment
-    LLData(size_t rank, const int *dimensions);
+    LLData(size_t rank, const int* dimensions);
     LLData(const LLData<T>& right);
     LLData<T>& operator=(const LLData<T>& right);
     ~LLData();
@@ -39,8 +38,8 @@ public:
     // accessors
     T& operator[](size_t i);
     const T& operator[](size_t i) const;
-    T& atCoordinate(int *coordinate);
-    const T& atCoordinate(int *coordinate) const;
+    T& atCoordinate(int* coordinate);
+    const T& atCoordinate(int* coordinate) const;
 
     // arithmetic operations
     LLData<T>& operator+=(const LLData<T>& right);
@@ -55,19 +54,20 @@ public:
     // retrieve basic info
     size_t getTotalSize() const;
     inline size_t getRank() const { return m_rank; }
-    const int *getDimensions() const { return m_dims; }
+    const int* getDimensions() const { return m_dims; }
     T getTotalSum() const;
 
 private:
-    void allocate(size_t rank, const int *dimensions);
+    void allocate(size_t rank, const int* dimensions);
     void clear();
     int checkPositiveDimension(int dimension) const;
-    size_t convertCoordinate(int *coordinate) const;
+    size_t convertCoordinate(int* coordinate) const;
     void swapContents(LLData<T>& other);
     T getZeroElement() const;
+
     size_t m_rank;
-    int *m_dims;
-    T *m_data_array;
+    int* m_dims;
+    T* m_data_array;
 };
 
 #ifndef SWIG
@@ -87,17 +87,17 @@ template <class T> bool HaveSameDimensions(const LLData<T>& left, const LLData<T
 
 template<class T>
 inline LLData<T>::LLData(size_t rank, const int* dimensions)
-: m_rank(0)
-, m_dims(0)
-, m_data_array(0)
+    : m_rank(0)
+    , m_dims(0)
+    , m_data_array(0)
 {
     allocate(rank, dimensions);
 }
 
 template<class T> LLData<T>::LLData(const LLData<T>& right)
-: m_rank(0)
-, m_dims(0)
-, m_data_array(0)
+    : m_rank(0)
+    , m_dims(0)
+    , m_data_array(0)
 {
     allocate(right.getRank(), right.getDimensions());
     for (size_t i=0; i<getTotalSize(); ++i) {
@@ -321,8 +321,8 @@ template<class T> bool HaveSameDimensions(const LLData<T>& left, const LLData<T>
     if (left.getRank() != right.getRank()) {
         return false;
     }
-    const int *ldims = left.getDimensions();
-    const int *rdims = right.getDimensions();
+    const int* ldims = left.getDimensions();
+    const int* rdims = right.getDimensions();
     for (size_t i=0; i<left.getRank(); ++i) {
         if (ldims[i] != rdims[i]) {
             return false;
@@ -331,4 +331,4 @@ template<class T> bool HaveSameDimensions(const LLData<T>& left, const LLData<T>
     return true;
 }
 
-#endif /* LLDATA_H_ */
+#endif // LLDATA_H

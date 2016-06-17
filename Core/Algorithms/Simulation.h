@@ -22,7 +22,6 @@
 #include "DistributionHandler.h"
 #include "ProgressHandler.h"
 #include "IDetector2D.h"
-
 #include "EigenCore.h"
 #include "SimulationElement.h"
 

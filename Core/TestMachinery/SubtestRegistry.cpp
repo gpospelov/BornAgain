@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "BornAgainNamespace.h"
-#include "FormFactors.h"
+#include "ParticleShapes.h"
 #include "SubtestRegistry.h"
 
 

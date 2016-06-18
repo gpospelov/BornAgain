@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/UnitTests/Core/P/FormFactorSymmetryTest.h
+//! @file      Tests/UnitTests/Core/Numeric/FormFactorSymmetryTest.h
 //! @brief     Unit tests for symmetry of particle-shape form factors.
 //!
 //! @homepage  http://bornagainproject.org

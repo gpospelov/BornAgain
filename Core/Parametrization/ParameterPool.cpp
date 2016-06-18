@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Tools/ParameterPool.cpp
+//! @file      Core/Parametrization/ParameterPool.cpp
 //! @brief     Implements standard mix-in ParameterPool.
 //!
 //! @homepage  http://www.bornagainproject.org

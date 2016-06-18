@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Algorithms/MatrixSpecularInfoMap.cpp
+//! @file      Core/Reflections/MatrixSpecularInfoMap.cpp
 //! @brief     Implements class ScalarSpecularInfoMap.
 //!
 //! @homepage  http://www.bornagainproject.org

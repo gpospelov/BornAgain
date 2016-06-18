@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Algorithms/SpecularSimulation.cpp
+//! @file      Core/Simulation/SpecularSimulation.cpp
 //! @brief     Implements class OffSpecSimulation.
 //!
 //! @homepage  http://www.bornagainproject.org

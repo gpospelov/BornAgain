@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Geometry/Polygon.h
+//! @file      Core/Detector/Polygon.h
 //! @brief     Declares class Polygon.
 //!
 //! @homepage  http://www.bornagainproject.org

@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Tools/SafePointerVector.h
+//! @file      Core/Basics/SafePointerVector.h
 //! @brief     Declares and implements template class SafePointerVector.
 //!
 //! @homepage  http://www.bornagainproject.org

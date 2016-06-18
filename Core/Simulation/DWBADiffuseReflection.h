@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Algorithms/DWBADiffuseReflection.h
+//! @file      Core/Simulation/DWBADiffuseReflection.h
 //! @brief     Declares class DWBADiffuseReflection.
 //!
 //! @homepage  http://www.bornagainproject.org

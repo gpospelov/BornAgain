@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Algorithms/IIntensityNormalizer.cpp
+//! @file      Core/Detector/IIntensityNormalizer.cpp
 //! @brief     Implements class IntensityNormalizer.
 //!
 //! @homepage  http://www.bornagainproject.org

@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/FormFactors/FormFactorTruncatedSpheroid.cpp
+//! @file      Core/HardParticles/FormFactorTruncatedSpheroid.cpp
 //! @brief     Implements class FormFactorTruncatedSpheroid.
 //!
 //! @homepage  http://www.bornagainproject.org

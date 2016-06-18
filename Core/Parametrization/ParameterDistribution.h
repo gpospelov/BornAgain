@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Tools/ParameterDistribution.h
+//! @file      Core/Parametrization/ParameterDistribution.h
 //! @brief     Declares class ParameterDistribution.
 //!
 //! @homepage  http://www.bornagainproject.org

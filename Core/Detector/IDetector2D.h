@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Algorithms/IDetector2D.h
+//! @file      Core/Detector/IDetector2D.h
 //! @brief     Declares interface IDetector2D.
 //!
 //! @homepage  http://www.bornagainproject.org

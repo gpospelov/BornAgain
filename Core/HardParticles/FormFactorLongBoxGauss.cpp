@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/FormFactors/FormFactorLongBoxGauss.cpp
+//! @file      Core/HardParticles/FormFactorLongBoxGauss.cpp
 //! @brief     Implements class FormFactorLongBoxGauss.
 //!
 //! @homepage  http://www.bornagainproject.org

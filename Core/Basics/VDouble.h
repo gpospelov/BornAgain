@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Tools/VDouble.h
+//! @file      Core/Basics/VDouble.h
 //! @brief     Declares the array types vdouble1d_t, vdouble2d_t.
 //!
 //! @homepage  http://www.bornagainproject.org

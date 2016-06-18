@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Algorithms/IDetectorResolution.h
+//! @file      Core/Detector/IDetectorResolution.h
 //! @brief     Declares class IDetectorResolution.
 //!
 //! @homepage  http://www.bornagainproject.org

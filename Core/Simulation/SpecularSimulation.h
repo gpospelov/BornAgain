@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Algorithms/SpecularSimulation.h
+//! @file      Core/Simulation/SpecularSimulation.h
 //! @brief     Declares class SpecularSimulation.
 //!
 //! @homepage  http://www.bornagainproject.org

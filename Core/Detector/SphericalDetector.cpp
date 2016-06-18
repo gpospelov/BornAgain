@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Algorithms/SphericalDetector.cpp
+//! @file      Core/Detector/SphericalDetector.cpp
 //! @brief     Implements class SphericalDetector.
 //!
 //! @homepage  http://www.bornagainproject.org

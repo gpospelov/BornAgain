@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Algorithms/ScalarRTCoefficients.h
+//! @file      Core/Reflections/ScalarRTCoefficients.h
 //! @brief     Declares class ScalarRTCoefficients.
 //!
 //! @homepage  http://www.bornagainproject.org

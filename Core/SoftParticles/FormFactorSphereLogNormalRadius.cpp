@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/FormFactors/FormFactorSphereLogNormalRadius.cpp
+//! @file      Core/SoftParticles/FormFactorSphereLogNormalRadius.cpp
 //! @brief     Implements class FormFactorSphereGaussianRadius.
 //!
 //! @homepage  http://www.bornagainproject.org

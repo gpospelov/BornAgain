@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/JobWorker.cpp
+//! @file      GUI/coregui/Models/JobWorker.cpp
 //! @brief     Implements class JobWorker
 //!
 //! @homepage  http://www.bornagainproject.org

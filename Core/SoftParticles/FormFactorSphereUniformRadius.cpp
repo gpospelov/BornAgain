@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/FormFactors/FormFactorSphereUniformRadius.cpp
+//! @file      Core/SoftParticles/FormFactorSphereUniformRadius.cpp
 //! @brief     Implements class FormFactorSphereUniformRadius.
 //!
 //! @homepage  http://www.bornagainproject.org

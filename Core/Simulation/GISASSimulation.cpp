@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Algorithms/GISASSimulation.cpp
+//! @file      Core/Simulation/GISASSimulation.cpp
 //! @brief     Implements class Simulation.
 //!
 //! @homepage  http://www.bornagainproject.org

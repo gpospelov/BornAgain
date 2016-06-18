@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/FormFactors/FormFactorCuboctahedron.h
+//! @file      Core/HardParticles/FormFactorCuboctahedron.h
 //! @brief     Declares class FormFactorCuboctahedron
 //!
 //! @homepage  http://www.bornagainproject.org

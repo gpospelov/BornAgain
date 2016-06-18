@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Algorithms/OMPISimulation.cpp
+//! @file      Core/Simulation/OMPISimulation.cpp
 //! @brief     Implements class OMPISimulation.
 //!
 //! @homepage  http://www.bornagainproject.org

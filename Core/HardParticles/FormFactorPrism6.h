@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/FormFactors/FormFactorPrism6.h
+//! @file      Core/HardParticles/FormFactorPrism6.h
 //! @brief     Declares class FormFactorPrism6.
 //!
 //! @homepage  http://www.bornagainproject.org

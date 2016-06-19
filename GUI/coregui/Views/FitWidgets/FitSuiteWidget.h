@@ -65,7 +65,7 @@ public slots:
     void onPlotsUpdate();
     void onUpdateParameters(const QStringList &parameters, QVector<double> values);
     void onStatusUpdate(const QString &text);
-    void onProgressInfoUpdate(FitProgressInfo info);
+    void onProgressInfoUpdate(const FitProgressInfo &info);
 
     void startFitting();
     void stopFitting();

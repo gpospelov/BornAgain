@@ -53,7 +53,7 @@ signals:
     void plotsUpdate();
     void logInfoUpdate(const QString &);
     void parameterUpdate(const QStringList &, QVector<double>);
-    void progressInfoUpdate(FitProgressInfo info);
+    void progressInfoUpdate(const FitProgressInfo &info);
 
 private:
     bool canUpdatePlots(FitSuite *fitSuite);

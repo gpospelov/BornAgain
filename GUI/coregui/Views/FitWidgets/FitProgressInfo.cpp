@@ -22,3 +22,19 @@ FitProgressInfo::FitProgressInfo()
 {
 
 }
+
+//! Copy constructor is reimplemented as required by Qt's meta-object system
+
+FitProgressInfo::FitProgressInfo(const FitProgressInfo &other)
+{
+    m_chi2 = other.m_chi2;
+    m_iteration_count = other.m_iteration_count;
+    m_values = other.m_values;
+}
+
+//! Destructor is reimplemented as required by Qt's meta-object system
+
+FitProgressInfo::~FitProgressInfo()
+{
+
+}

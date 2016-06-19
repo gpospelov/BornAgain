@@ -145,7 +145,7 @@ void FitSuiteWidget::onStatusUpdate(const QString &text)
 //    fitSuiteItem->setItemValue(FitSuiteItem::P_ITERATION_COUNT, niter);
 }
 
-void FitSuiteWidget::onProgressInfoUpdate(FitProgressInfo info)
+void FitSuiteWidget::onProgressInfoUpdate(const FitProgressInfo &info)
 {
     qDebug() << "AAAA" << info.iterationCount();
     FitSuiteItem *fitSuiteItem = m_currentItem->fitSuiteItem();
@@ -241,8 +241,8 @@ void FitSuiteWidget::connectSignals()
             this, SIGNAL(fittingLog(QString)));
 
 
-    connect(m_observer.get(), SIGNAL(progressInfoUpdate(FitProgressInfo)),
-            this, SLOT(onProgressInfoUpdate(FitProgressInfo)));
+    connect(m_observer.get(), SIGNAL(progressInfoUpdate(const FitProgressInfo&)),
+            this, SLOT(onProgressInfoUpdate(const FitProgressInfo&)));
 
 }
 

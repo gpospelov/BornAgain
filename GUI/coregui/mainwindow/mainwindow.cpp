@@ -40,7 +40,6 @@
 #include "tooltipdatabase.h"
 #include "mainwindow_constants.h"
 #include "aboutapplicationdialog.h"
-#include "ObsoleteFitView.h"
 #include "GUIHelpers.h"
 #include "UpdateNotifier.h"
 
@@ -68,7 +67,6 @@ MainWindow::MainWindow(QWidget *parent)
     , m_simulationView(0)
     , m_jobView(0)
     , m_sessionModelView(0)
-    , m_fitView(0)
 {
     initApplication();
     readSettings();
@@ -102,12 +100,6 @@ RealDataModel *MainWindow::realDataModel()
 JobModel *MainWindow::jobModel()
 {
     return models()->jobModel();
-}
-
-ObsoleteFitModel *MainWindow::fitModel()
-{
-    Q_ASSERT(0);
-    return 0;
 }
 
 ApplicationModels *MainWindow::models()

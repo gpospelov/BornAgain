@@ -32,6 +32,11 @@ GUIFitObserver::GUIFitObserver(QObject *parent)
     , m_update_interval(1)
 {}
 
+GUIFitObserver::~GUIFitObserver()
+{
+
+}
+
 void GUIFitObserver::update(FitSuite *subject)
 {
     // discard data after interruption

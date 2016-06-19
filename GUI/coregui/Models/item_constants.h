@@ -120,13 +120,6 @@ const ModelType RefractiveIndexType = "RefractiveIndex";
 
 const ModelType MagneticFieldType = "MagneticField";
 
-const ModelType ObsoleteFitParameterContainerType = "ObsoleteFitParameterContainer";
-const ModelType ObsoleteFitParameterType = "ObsoleteFitParameter";
-const ModelType ObsoleteFitParameterLinkType = "ObsoleteFitParameterLink";
-const ModelType ObsoleteFitSelectionType = "ObsoleteFitSelection";
-const ModelType ObsoleteMinimizerSettingsType = "ObsoleteMinimizer Settings";
-const ModelType ObsoleteInputDataType = "Obsolete Input Data";
-
 const ModelType ParameterContainerType = "Parameter Container";
 const ModelType ParameterType = "Parameter";
 const ModelType ParameterLabelType = "Parameter Label";

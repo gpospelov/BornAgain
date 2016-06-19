@@ -37,6 +37,7 @@ class BA_CORE_API_ GUIFitObserver : public QObject, public IFitObserver
 public:
 
     GUIFitObserver(QObject *parent = 0);
+    ~GUIFitObserver();
 
     void update(FitSuite *subject);
 

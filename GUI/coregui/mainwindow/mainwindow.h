@@ -33,7 +33,6 @@ class ImportDataView;
 class SimulationView;
 class JobView;
 class SessionModelView;
-class ObsoleteFitView;
 
 class MaterialModel;
 class MaterialSvc;
@@ -41,7 +40,6 @@ class SampleModel;
 class InstrumentModel;
 class RealDataModel;
 class JobModel;
-class ObsoleteFitModel;
 class ApplicationModels;
 class ProjectManager;
 class ActionManager;
@@ -64,7 +62,6 @@ public:
     SampleModel *sampleModel();
     RealDataModel *realDataModel();
     JobModel *jobModel();
-    ObsoleteFitModel *fitModel();
     ApplicationModels *models();
 
     Manhattan::ProgressBar *progressBar();
@@ -111,8 +108,7 @@ private:
     SimulationView *m_simulationView;
     JobView *m_jobView;
     SessionModelView *m_sessionModelView;
-    ObsoleteFitView *m_fitView;
 };
 
-#endif // MAINWINDOW_H
+#endif
 

@@ -28,7 +28,9 @@ IView::IView(QGraphicsItem *parent) : QGraphicsObject(parent), m_item(0)
 
 IView::~IView()
 {
-
+    if(m_item) {
+        m_item->mapper()->unsubscribe(this);
+    }
 }
 
 void IView::setParameterizedItem(SessionItem *item)
@@ -52,14 +54,17 @@ void IView::setParameterizedItem(SessionItem *item)
          onSiblingsChange();
     }, this);
 
+    m_item->mapper()->setOnItemDestroy(
+                [this](SessionItem *) {
+        m_item = 0;
+    });
+
 
     update_appearance();
 }
 
-void IView::addView(IView *childView, int row)
+void IView::addView(IView *, int )
 {
-    qDebug() << "IView::addView() " << m_item->itemName()
-             << childView->getItem()->itemName() << " row:" << row;
 }
 
 void IView::onChangedX()
@@ -82,6 +87,7 @@ void IView::update_appearance()
 
 void IView::onPropertyChange(const QString &propertyName)
 {
+    Q_ASSERT(m_item);
     if (propertyName == SessionGraphicsItem::P_XPOS) {
         setX(m_item->getItemValue(SessionGraphicsItem::P_XPOS).toReal());
     } else if (propertyName == SessionGraphicsItem::P_YPOS) {

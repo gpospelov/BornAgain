@@ -77,6 +77,9 @@ private slots:
 
 private:
     void connectSignals();
+    void updateIterationCount(const FitProgressInfo &info);
+    void updateTuningWidgetParameterValues(const FitProgressInfo &info);
+
 
     QTabWidget *m_tabWidget;
     FitParameterWidget *m_fitParametersWidget;

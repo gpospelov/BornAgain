@@ -112,26 +112,26 @@ void FitSuiteWidget::onUpdateParameters(const QStringList &parameters, QVector<d
 {
     qDebug() << "FitSuiteWidget::onUpdateParameters" << parameters << values;
 
-    ParameterContainerItem *parContainer = m_currentItem->parameterContainerItem();
-    Q_ASSERT(parContainer);
+//    ParameterContainerItem *parContainer = m_currentItem->parameterContainerItem();
+//    Q_ASSERT(parContainer);
 
-    SessionItem *fitParContainer = m_currentItem->fitParameterContainerItem();
-    Q_ASSERT(fitParContainer);
+//    SessionItem *fitParContainer = m_currentItem->fitParameterContainerItem();
+//    Q_ASSERT(fitParContainer);
 
-    foreach(SessionItem *fitParItem, fitParContainer->getItems(FitParameterContainerItem::T_FIT_PARAMETERS)) {
-        foreach(SessionItem *linkItem, fitParItem->getItems(FitParameterItem::T_LINK)) {
-            QString domainPath = linkItem->getItemValue(FitParameterLinkItem::P_DOMAIN).toString();
+//    foreach(SessionItem *fitParItem, fitParContainer->getItems(FitParameterContainerItem::T_FIT_PARAMETERS)) {
+//        foreach(SessionItem *linkItem, fitParItem->getItems(FitParameterItem::T_LINK)) {
+//            QString domainPath = linkItem->getItemValue(FitParameterLinkItem::P_DOMAIN).toString();
 
-            if (parameters.contains(domainPath)) {
-                QString parPath = linkItem->getItemValue(FitParameterLinkItem::P_LINK).toString();
-                int index = parameters.indexOf(domainPath);
-                SessionItem *parItem = ModelPath::getItemFromPath(parPath, parContainer);
-                Q_ASSERT(parItem);
-                parItem->setValue(values[index]);
-            }
+//            if (parameters.contains(domainPath)) {
+//                QString parPath = linkItem->getItemValue(FitParameterLinkItem::P_LINK).toString();
+//                int index = parameters.indexOf(domainPath);
+//                SessionItem *parItem = ModelPath::getItemFromPath(parPath, parContainer);
+//                Q_ASSERT(parItem);
+//                parItem->setValue(values[index]);
+//            }
 
-        }
-    }
+//        }
+//    }
 }
 
 void FitSuiteWidget::onStatusUpdate(const QString &text)
@@ -147,9 +147,8 @@ void FitSuiteWidget::onStatusUpdate(const QString &text)
 
 void FitSuiteWidget::onProgressInfoUpdate(const FitProgressInfo &info)
 {
-    qDebug() << "AAAA" << info.iterationCount();
-    FitSuiteItem *fitSuiteItem = m_currentItem->fitSuiteItem();
-    fitSuiteItem->setItemValue(FitSuiteItem::P_ITERATION_COUNT, info.iterationCount());
+    updateIterationCount(info);
+    updateTuningWidgetParameterValues(info);
 }
 
 void FitSuiteWidget::startFitting()
@@ -232,8 +231,8 @@ void FitSuiteWidget::connectSignals()
 
     connect(m_observer.get(), SIGNAL(plotsUpdate()), this, SLOT(onPlotsUpdate()));
 
-    connect(m_observer.get(), SIGNAL(parameterUpdate(QStringList,QVector<double>)),
-            this, SLOT(onUpdateParameters(QStringList,QVector<double>)));
+//    connect(m_observer.get(), SIGNAL(parameterUpdate(QStringList,QVector<double>)),
+//            this, SLOT(onUpdateParameters(QStringList,QVector<double>)));
 
 //    connect(m_observer.get(), SIGNAL(statusUpdate(QString)), this, SLOT(onStatusUpdate(QString)));
 
@@ -244,5 +243,20 @@ void FitSuiteWidget::connectSignals()
     connect(m_observer.get(), SIGNAL(progressInfoUpdate(const FitProgressInfo&)),
             this, SLOT(onProgressInfoUpdate(const FitProgressInfo&)));
 
+}
+
+//! Propagates current number of iteration to FitSuiteItem to make FitControlWidget informed.
+
+void FitSuiteWidget::updateIterationCount(const FitProgressInfo &info)
+{
+    FitSuiteItem *fitSuiteItem = m_currentItem->fitSuiteItem();
+    fitSuiteItem->setItemValue(FitSuiteItem::P_ITERATION_COUNT, info.iterationCount());
+}
+
+void FitSuiteWidget::updateTuningWidgetParameterValues(const FitProgressInfo &info)
+{
+    QVector<double> values = info.parValues();
+    FitParameterContainerItem *fitParContainer = m_currentItem->fitParameterContainerItem();
+    fitParContainer->setValuesInParameterContainer(values, m_currentItem->parameterContainerItem());
 }
 

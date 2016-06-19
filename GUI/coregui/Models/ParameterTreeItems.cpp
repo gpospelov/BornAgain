@@ -18,21 +18,14 @@
 #include "ModelPath.h"
 #include "SessionModel.h"
 
-ParameterContainerItem::ParameterContainerItem()
-    : SessionItem(Constants::ParameterContainerType)
-{
-    const QString T_CHILDREN = "children tag";
-    registerTag(T_CHILDREN, 0, -1, QStringList() << Constants::ParameterLabelType);
-    setDefaultTag(T_CHILDREN);
-}
-
 // ----------------------------------------------------------------------------
 
 ParameterLabelItem::ParameterLabelItem()
     : SessionItem(Constants::ParameterLabelType)
 {
     const QString T_CHILDREN = "children tag";
-    registerTag(T_CHILDREN, 0, -1, QStringList() << Constants::ParameterLabelType << Constants::ParameterType);
+    registerTag(T_CHILDREN, 0, -1, QStringList()
+                << Constants::ParameterLabelType << Constants::ParameterType);
     setDefaultTag(T_CHILDREN);
 }
 
@@ -42,12 +35,17 @@ const QString ParameterItem::P_DOMAIN = "Domain";
 ParameterItem::ParameterItem()
     : SessionItem(Constants::ParameterType)
 {
+    // Link to original PropertyItem in one of components of MultiLayerItem or InstrumentItem
     addProperty(P_LINK, "");
+    // The back up value of PropertyItem to be able to reset parameter tuning tree to initial state
     addProperty(P_BACKUP, 0.0);
+    // The domain name of corresponding ISample's registered parameter
     addProperty(P_DOMAIN, "");
 }
 
 // ----------------------------------------------------------------------------
+
+//! Sets current value to the original PropertyItem of MultiLayerItem/InstrumentItem.
 
 void ParameterItem::propagateValueLink(bool backup)
 {
@@ -57,6 +55,8 @@ void ParameterItem::propagateValueLink(bool backup)
     if (item)
         item->setValue(value());
 }
+
+//! Returns corresponding linked item in MultiLayerItem/IsntrumentItem
 
 SessionItem *ParameterItem::getLinkedItem()
 {
@@ -69,3 +69,12 @@ SessionItem *ParameterItem::getLinkedItem()
     return model()->itemForIndex(ModelPath::getIndexFromPath(model(), link));
 }
 
+// ----------------------------------------------------------------------------
+
+ParameterContainerItem::ParameterContainerItem()
+    : SessionItem(Constants::ParameterContainerType)
+{
+    const QString T_CHILDREN = "children tag";
+    registerTag(T_CHILDREN, 0, -1, QStringList() << Constants::ParameterLabelType);
+    setDefaultTag(T_CHILDREN);
+}

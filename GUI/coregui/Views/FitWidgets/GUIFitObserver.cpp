@@ -43,15 +43,6 @@ void GUIFitObserver::update(FitSuite *subject)
     if (subject->isInterrupted())
         return;
 
-    if (subject->isLastIteration()) {
-        std::stringstream buffer;
-        std::streambuf *old = std::cout.rdbuf(buffer.rdbuf());
-        subject->printResults();
-        std::string text = buffer.str();
-        emit logInfoUpdate(QString::fromStdString(text));
-        std::cout.rdbuf(old);
-    }
-
     if(canUpdateProgressInfo(subject)) {
         FitProgressInfo info;
         info.m_chi2 = subject->getChi2();
@@ -66,6 +57,15 @@ void GUIFitObserver::update(FitSuite *subject)
         m_simData.reset(subject->getSimulationOutputData()->clone());
         m_chiData.reset(subject->getChiSquaredOutputData()->clone());
         emit plotsUpdate();
+    }
+
+    if (subject->isLastIteration()) {
+        std::stringstream buffer;
+        std::streambuf *old = std::cout.rdbuf(buffer.rdbuf());
+        subject->printResults();
+        std::string text = buffer.str();
+        emit logInfoUpdate(QString::fromStdString(text));
+        std::cout.rdbuf(old);
     }
 
 }

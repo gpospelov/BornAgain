@@ -49,15 +49,13 @@ public slots:
     void setInterval(int val);
 
 signals:
-    void statusUpdate(const QString &);
     void plotsUpdate();
     void logInfoUpdate(const QString &);
-    void parameterUpdate(const QStringList &, QVector<double>);
     void progressInfoUpdate(const FitProgressInfo &info);
 
 private:
     bool canUpdatePlots(FitSuite *fitSuite);
-    bool canUpdateStatus(FitSuite *fitSuite);
+    bool canUpdateProgressInfo(FitSuite *fitSuite);
 
     std::atomic<bool> m_block_update_plots;
     int m_update_interval;

@@ -38,32 +38,6 @@ void GUIFitObserver::update(FitSuite *subject)
     if (subject->isInterrupted())
         return;
 
-    // update log every time
-    std::stringstream buffer;
-    std::streambuf *old = std::cout.rdbuf(buffer.rdbuf());
-    subject->getFitParameters()->printParameters();
-    std::string text = buffer.str();
-    std::cout.rdbuf(old);
-
-    // pass parameter name and values to gui
-    auto container = subject->getFitParameters();
-    FitSuiteParameters::iterator it;
-    QStringList parameters;
-    QVector<double> values;
-    for (it = container->begin(); it != container->end(); it++) {
-        parameters.push_back(QString::fromStdString((*it)->getName()));
-        values.push_back((*it)->getValue());
-        if ((*it)->getValue() < 0.0) {
-            qDebug() << (*it)->getValue();
-        }
-    }
-    emit parameterUpdate(parameters, values);
-
-    emit logInfoUpdate(QString("NCalls: %1 Chi: %2\n%3").
-                      arg(QString::number(subject->getNumberOfIterations()),
-                          QString::number(subject->getChi2()),
-                          QString::fromStdString(text)));
-
     if (subject->isLastIteration()) {
         std::stringstream buffer;
         std::streambuf *old = std::cout.rdbuf(buffer.rdbuf());
@@ -73,17 +47,13 @@ void GUIFitObserver::update(FitSuite *subject)
         std::cout.rdbuf(old);
     }
 
-
-    if(canUpdateStatus(subject)) {
-//        emit statusUpdate(QString::number(subject->getNumberOfIterations()));
-
+    if(canUpdateProgressInfo(subject)) {
         FitProgressInfo info;
         info.m_chi2 = subject->getChi2();
         info.m_iteration_count = subject->getNumberOfIterations();
         info.m_values = GUIHelpers::fromStdVector(subject->getFitParameters()->getValues());
         qDebug() << "Emitting progressInfoUpdate" << info.m_iteration_count;
         emit progressInfoUpdate(info);
-
     }
 
     if(canUpdatePlots(subject)) {
@@ -92,8 +62,6 @@ void GUIFitObserver::update(FitSuite *subject)
         m_chiData.reset(subject->getChiSquaredOutputData()->clone());
         emit plotsUpdate();
     }
-
-
 
 }
 
@@ -111,9 +79,9 @@ bool GUIFitObserver::canUpdatePlots(FitSuite *fitSuite)
     return true;
 }
 
-//! Returns true if it is time to send status message. Follow same rules as for plots update,
+//! Returns true if it is time to update progress. Follow same rules as for plots update,
 //! or in the case of last iteration
-bool GUIFitObserver::canUpdateStatus(FitSuite *fitSuite)
+bool GUIFitObserver::canUpdateProgressInfo(FitSuite *fitSuite)
 {
     if(fitSuite->getNumberOfIterations() == 0) return true;
     if(fitSuite->getNumberOfIterations() % m_update_interval == 0) return true;

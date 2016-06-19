@@ -63,8 +63,6 @@ signals:
 public slots:
     void onError(const QString &text);
     void onPlotsUpdate();
-    void onUpdateParameters(const QStringList &parameters, QVector<double> values);
-    void onStatusUpdate(const QString &text);
     void onProgressInfoUpdate(const FitProgressInfo &info);
 
     void startFitting();
@@ -79,6 +77,7 @@ private:
     void connectSignals();
     void updateIterationCount(const FitProgressInfo &info);
     void updateTuningWidgetParameterValues(const FitProgressInfo &info);
+    void updateLog(const FitProgressInfo &info);
 
 
     QTabWidget *m_tabWidget;
@@ -88,6 +87,7 @@ private:
     JobItem *m_currentItem;
     RunFitManager *m_runFitManager;
     std::shared_ptr<GUIFitObserver> m_observer;
+    bool m_block_progress_update;
 };
 
 #endif

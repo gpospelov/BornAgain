@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/TestMachinery/FutestRegistry.cpp
-//! @brief     Implements class FutestRegistry.
+//! @file      Core/TestMachinery/FunctionalTestRegistry.cpp
+//! @brief     Implements class FunctionalTestRegistry.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,12 +13,12 @@
 //
 // ************************************************************************** //
 
-#include "FutestRegistry.h"
+#include "FunctionalTestRegistry.h"
 #include "Exceptions.h"
 #include "Utils.h"
 #include <iostream>
 
-FutestRegistry::FutestRegistry()
+FunctionalTestRegistry::FunctionalTestRegistry()
 {
     add("FormFactors",
         "Test of all form factors defined",
@@ -334,20 +334,20 @@ FutestRegistry::FutestRegistry()
         5e-1);
 }
 
-void FutestRegistry::add(
+void FunctionalTestRegistry::add(
     const std::string& test_name, const std::string& test_description,
     const std::string& simulation_name, const std::string& sample_builder_name,
     const std::string& subtest_type, double threshold )
 {
     if( m_catalogue.find(test_name) != m_catalogue.end() )
         throw ExistingClassRegistrationException(
-            "FutestRegistry::add() -> Error. Existing item " + test_name);
-    m_catalogue[test_name] = FutestInfo(
+            "FunctionalTestRegistry::add() -> Error. Existing item " + test_name);
+    m_catalogue[test_name] = FunctionalTestInfo(
         test_name, test_description, simulation_name,
         sample_builder_name, subtest_type, threshold);
 }
 
-const FutestInfo* FutestRegistry::getItemOrExplain(
+const FunctionalTestInfo* FunctionalTestRegistry::getItemOrExplain(
     const std::string& test_name, const std::string& suite_name) const
 {
     auto it = m_catalogue.find(test_name);
@@ -362,10 +362,10 @@ const FutestInfo* FutestRegistry::getItemOrExplain(
     return &(it->second);
 }
 
-void FutestRegistry::printCatalogue(std::ostream& ostr) const
+void FunctionalTestRegistry::printCatalogue(std::ostream& ostr) const
 {
     for(auto it = m_catalogue.begin(); it != m_catalogue.end(); ++it) {
-        FutestInfo info = it->second;
+        FunctionalTestInfo info = it->second;
         ostr << Utils::AdjustStringLength(info.m_test_name, 20) << " | ";
         ostr << Utils::AdjustStringLength(info.m_test_description, 40) << " | ";
         ostr << info.m_simulation_name << ", ";

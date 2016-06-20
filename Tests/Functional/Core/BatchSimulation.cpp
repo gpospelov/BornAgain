@@ -1,5 +1,5 @@
 #include "SimulationFactory.h"
-#include "IFutest.h"
+#include "IFunctionalTest.h"
 #include "IntensityDataFunctions.h"
 #include "SampleBuilderFactory.h"
 #include <iostream>
@@ -40,9 +40,9 @@ int TestBatchSimulation()
               << " " << (diff>threshold ? "[FAILED]" : "[OK]") << std::endl;
 
     if( diff > threshold )
-        return IFutest::FAILED;
+        return IFunctionalTest::FAILED;
 
-    return IFutest::SUCCESS;
+    return IFunctionalTest::SUCCESS;
 }
 
 

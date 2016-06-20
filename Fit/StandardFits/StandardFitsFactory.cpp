@@ -1,6 +1,6 @@
 
 #include "StandardFitsFactory.h"
-#include "MinimizerFutests.h"
+#include "MinimizerTests.h"
 #include "RectDetectorFitTest.h"
 #include <boost/format.hpp>
 
@@ -47,9 +47,9 @@ StandardFitsFactory::StandardFitsFactory()
         "Fit of rectangular detector, with crop and masks applied");
 }
 
-IFutest* StandardFitsFactory::createTest(const std::string& test_name)
+IFunctionalTest* StandardFitsFactory::createTest(const std::string& test_name)
 {
-    IFutest* result = createItem(test_name);
+    IFunctionalTest* result = createItem(test_name);
     result->setDescription(m_descriptions[test_name]);
     return result;
 }

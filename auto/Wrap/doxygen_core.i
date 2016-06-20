@@ -732,30 +732,6 @@ Sets convolution mode.
 ";
 
 
-// File: classCoreFutest.xml
-%feature("docstring") CoreFutest "
-
-Core functional test compares results of the standard simulation with reference intensity data. Normally invoked by FunctionalMultiTest.
-
-C++ includes: CoreFutest.h
-";
-
-%feature("docstring")  CoreFutest::CoreFutest "CoreFutest::CoreFutest(const std::string &name, const std::string &description, GISASSimulation *simulation, double threshold)
-";
-
-%feature("docstring")  CoreFutest::~CoreFutest "CoreFutest::~CoreFutest()
-";
-
-%feature("docstring")  CoreFutest::runTest "void CoreFutest::runTest()
-";
-
-%feature("docstring")  CoreFutest::analyseResults "int CoreFutest::analyseResults()
-";
-
-%feature("docstring")  CoreFutest::printResults "void CoreFutest::printResults(std::ostream &ostr) const 
-";
-
-
 // File: classCoreShellBoxRotateZandYBuilder.xml
 %feature("docstring") CoreShellBoxRotateZandYBuilder "
 
@@ -783,6 +759,30 @@ C++ includes: CoreShellParticleBuilder.h
 ";
 
 %feature("docstring")  CoreShellParticleBuilder::buildSample "ISample * CoreShellParticleBuilder::buildSample() const 
+";
+
+
+// File: classCoreTest.xml
+%feature("docstring") CoreTest "
+
+Core functional test compares results of the standard simulation with reference intensity data. Normally invoked by FunctionalMultiTest.
+
+C++ includes: CoreTest.h
+";
+
+%feature("docstring")  CoreTest::CoreTest "CoreTest::CoreTest(const std::string &name, const std::string &description, GISASSimulation *simulation, double threshold)
+";
+
+%feature("docstring")  CoreTest::~CoreTest "CoreTest::~CoreTest()
+";
+
+%feature("docstring")  CoreTest::runTest "void CoreTest::runTest()
+";
+
+%feature("docstring")  CoreTest::analyseResults "int CoreTest::analyseResults()
+";
+
+%feature("docstring")  CoreTest::printResults "void CoreTest::printResults(std::ostream &ostr) const 
 ";
 
 
@@ -4301,64 +4301,64 @@ evaluate Fourier transformed distribution for q in X,Y coordinates the original 
 ";
 
 
-// File: classFutestInfo.xml
-%feature("docstring") FutestInfo "
+// File: classFunctionalTestInfo.xml
+%feature("docstring") FunctionalTestInfo "
 
 Contains all necessary information to compose functional test.
 
-C++ includes: FutestInfo.h
+C++ includes: FunctionalTestInfo.h
 ";
 
-%feature("docstring")  FutestInfo::FutestInfo "FutestInfo::FutestInfo()
+%feature("docstring")  FunctionalTestInfo::FunctionalTestInfo "FunctionalTestInfo::FunctionalTestInfo()
 ";
 
-%feature("docstring")  FutestInfo::FutestInfo "FutestInfo::FutestInfo(const std::string &test_name, const std::string &test_description, const std::string &simulation_name, const std::string &sample_builder_name, const std::string &subtest_type, double threshold)
+%feature("docstring")  FunctionalTestInfo::FunctionalTestInfo "FunctionalTestInfo::FunctionalTestInfo(const std::string &test_name, const std::string &test_description, const std::string &simulation_name, const std::string &sample_builder_name, const std::string &subtest_type, double threshold)
 ";
 
 
-// File: classFutestRegistry.xml
-%feature("docstring") FutestRegistry "
+// File: classFunctionalTestRegistry.xml
+%feature("docstring") FunctionalTestRegistry "
 
 The registry which holds information about available functional tests.
 
-C++ includes: FutestRegistry.h
+C++ includes: FunctionalTestRegistry.h
 ";
 
-%feature("docstring")  FutestRegistry::FutestRegistry "FutestRegistry::FutestRegistry()
+%feature("docstring")  FunctionalTestRegistry::FunctionalTestRegistry "FunctionalTestRegistry::FunctionalTestRegistry()
 ";
 
-%feature("docstring")  FutestRegistry::add "void FutestRegistry::add(const std::string &test_name, const std::string &test_description, const std::string &simulation_name, const std::string &sample_builder_name, const std::string &component_registry_name, double threshold)
+%feature("docstring")  FunctionalTestRegistry::add "void FunctionalTestRegistry::add(const std::string &test_name, const std::string &test_description, const std::string &simulation_name, const std::string &sample_builder_name, const std::string &component_registry_name, double threshold)
 ";
 
-%feature("docstring")  FutestRegistry::getItemOrExplain "const FutestInfo * FutestRegistry::getItemOrExplain(const std::string &test_name, const std::string &suite_name) const 
+%feature("docstring")  FunctionalTestRegistry::getItemOrExplain "const FunctionalTestInfo * FunctionalTestRegistry::getItemOrExplain(const std::string &test_name, const std::string &suite_name) const 
 ";
 
-%feature("docstring")  FutestRegistry::printCatalogue "void FutestRegistry::printCatalogue(std::ostream &ostr) const 
+%feature("docstring")  FunctionalTestRegistry::printCatalogue "void FunctionalTestRegistry::printCatalogue(std::ostream &ostr) const 
 ";
 
 
-// File: classFutestSuite.xml
-%feature("docstring") FutestSuite "
+// File: classFunctionalTestSuite.xml
+%feature("docstring") FunctionalTestSuite "
 
 To execute one functional test of given name.
 
-Used in functional tests (Core|Py|GUI)Suite, where it is subclassed as a singleton, and called through instance().execute(argc, argv). When processing execute, dependent classes will call back  getFutest(). Certain tests have subtests; they will call back getFormFactor() etc.
+Used in functional tests (Core|Py|GUI)Suite, where it is subclassed as a singleton, and called through instance().execute(argc, argv). When processing execute, dependent classes will call back  getTest(). Certain tests have subtests; they will call back getFormFactor() etc.
 
-C++ includes: FutestSuite.h
+C++ includes: FunctionalTestSuite.h
 ";
 
-%feature("docstring")  FutestSuite::FutestSuite "FutestSuite::FutestSuite()
+%feature("docstring")  FunctionalTestSuite::FunctionalTestSuite "FunctionalTestSuite::FunctionalTestSuite()
 ";
 
-%feature("docstring")  FutestSuite::~FutestSuite "virtual FutestSuite::~FutestSuite()
+%feature("docstring")  FunctionalTestSuite::~FunctionalTestSuite "virtual FunctionalTestSuite::~FunctionalTestSuite()
 ";
 
-%feature("docstring")  FutestSuite::execute "int FutestSuite::execute(int argc, char **argv)
+%feature("docstring")  FunctionalTestSuite::execute "int FunctionalTestSuite::execute(int argc, char **argv)
 
 Runs test (name given as command-line argument), and returns 0 for SUCCESS, or error code. 
 ";
 
-%feature("docstring")  FutestSuite::getFutest "virtual class IFutest* FutestSuite::getFutest() const =0
+%feature("docstring")  FunctionalTestSuite::getTest "virtual class IFunctionalTest* FunctionalTestSuite::getTest() const =0
 
 overloaded in (Core|Py|GUI)Suite.cpp 
 ";
@@ -5777,42 +5777,42 @@ evaluate Fourier transformed distribution for q in X,Y coordinates the original 
 ";
 
 
-// File: classIFutest.xml
-%feature("docstring") IFutest "
+// File: classIFunctionalTest.xml
+%feature("docstring") IFunctionalTest "
 
 Base class for all functional tests.
 
-C++ includes: IFutest.h
+C++ includes: IFunctionalTest.h
 ";
 
-%feature("docstring")  IFutest::IFutest "IFutest::IFutest()
+%feature("docstring")  IFunctionalTest::IFunctionalTest "IFunctionalTest::IFunctionalTest()
 ";
 
-%feature("docstring")  IFutest::IFutest "IFutest::IFutest(const std::string &name, const std::string &description)
+%feature("docstring")  IFunctionalTest::IFunctionalTest "IFunctionalTest::IFunctionalTest(const std::string &name, const std::string &description)
 ";
 
-%feature("docstring")  IFutest::~IFutest "virtual IFutest::~IFutest()
+%feature("docstring")  IFunctionalTest::~IFunctionalTest "virtual IFunctionalTest::~IFunctionalTest()
 ";
 
-%feature("docstring")  IFutest::runTest "virtual void IFutest::runTest()=0
+%feature("docstring")  IFunctionalTest::runTest "virtual void IFunctionalTest::runTest()=0
 ";
 
-%feature("docstring")  IFutest::analyseResults "virtual int IFutest::analyseResults()=0
+%feature("docstring")  IFunctionalTest::analyseResults "virtual int IFunctionalTest::analyseResults()=0
 ";
 
-%feature("docstring")  IFutest::getDescription "std::string IFutest::getDescription() const 
+%feature("docstring")  IFunctionalTest::getDescription "std::string IFunctionalTest::getDescription() const 
 ";
 
-%feature("docstring")  IFutest::setDescription "void IFutest::setDescription(const std::string &description)
+%feature("docstring")  IFunctionalTest::setDescription "void IFunctionalTest::setDescription(const std::string &description)
 ";
 
-%feature("docstring")  IFutest::getTestResult "ETestResult IFutest::getTestResult() const 
+%feature("docstring")  IFunctionalTest::getTestResult "ETestResult IFunctionalTest::getTestResult() const 
 ";
 
-%feature("docstring")  IFutest::getTestResultString "std::string IFutest::getTestResultString() const 
+%feature("docstring")  IFunctionalTest::getTestResultString "std::string IFunctionalTest::getTestResultString() const 
 ";
 
-%feature("docstring")  IFutest::getFormattedInfoString "std::string IFutest::getFormattedInfoString() const 
+%feature("docstring")  IFunctionalTest::getFormattedInfoString "std::string IFunctionalTest::getFormattedInfoString() const 
 ";
 
 
@@ -10791,33 +10791,33 @@ finalize report to the simulation
 ";
 
 
-// File: classPySuiteFutest.xml
-%feature("docstring") PySuiteFutest "
+// File: classPySuiteTest.xml
+%feature("docstring") PySuiteTest "
 
 Test whether Python dumps yields the same image as a direct computation.
 
-C++ includes: PySuiteFutest.h
+C++ includes: PySuiteTest.h
 ";
 
-%feature("docstring")  PySuiteFutest::PySuiteFutest "PySuiteFutest::PySuiteFutest(const std::string &name, const std::string &description, GISASSimulation *reference_simulation, double threshold)
+%feature("docstring")  PySuiteTest::PySuiteTest "PySuiteTest::PySuiteTest(const std::string &name, const std::string &description, GISASSimulation *reference_simulation, double threshold)
 ";
 
-%feature("docstring")  PySuiteFutest::~PySuiteFutest "PySuiteFutest::~PySuiteFutest()
+%feature("docstring")  PySuiteTest::~PySuiteTest "PySuiteTest::~PySuiteTest()
 ";
 
-%feature("docstring")  PySuiteFutest::runTest "void PySuiteFutest::runTest()
+%feature("docstring")  PySuiteTest::runTest "void PySuiteTest::runTest()
 ";
 
-%feature("docstring")  PySuiteFutest::analyseResults "int PySuiteFutest::analyseResults()
+%feature("docstring")  PySuiteTest::analyseResults "int PySuiteTest::analyseResults()
 ";
 
-%feature("docstring")  PySuiteFutest::getOutputData "const OutputData<double>* PySuiteFutest::getOutputData() const 
+%feature("docstring")  PySuiteTest::getOutputData "const OutputData<double>* PySuiteTest::getOutputData() const 
 ";
 
-%feature("docstring")  PySuiteFutest::getDifference "double PySuiteFutest::getDifference() const 
+%feature("docstring")  PySuiteTest::getDifference "double PySuiteTest::getDifference() const 
 ";
 
-%feature("docstring")  PySuiteFutest::printResults "void PySuiteFutest::printResults(std::ostream &ostr) const 
+%feature("docstring")  PySuiteTest::printResults "void PySuiteTest::printResults(std::ostream &ostr) const 
 ";
 
 
@@ -14737,43 +14737,43 @@ Returns concatenated rotation (first right, then left).
 // File: TwoDimLatticeBuilder_8h.xml
 
 
-// File: CoreFutest_8cpp.xml
+// File: CoreTest_8cpp.xml
 
 
-// File: CoreFutest_8h.xml
+// File: CoreTest_8h.xml
 
 
-// File: FutestInfo_8cpp.xml
+// File: FunctionalTestInfo_8cpp.xml
 
 
-// File: FutestInfo_8h.xml
+// File: FunctionalTestInfo_8h.xml
 
 
-// File: FutestRegistry_8cpp.xml
+// File: FunctionalTestRegistry_8cpp.xml
 
 
-// File: FutestRegistry_8h.xml
+// File: FunctionalTestRegistry_8h.xml
 
 
-// File: FutestSuite_8cpp.xml
+// File: FunctionalTestSuite_8cpp.xml
 
 
-// File: FutestSuite_8h.xml
+// File: FunctionalTestSuite_8h.xml
 
 
-// File: IFutest_8cpp.xml
+// File: IFunctionalTest_8cpp.xml
 
 
-// File: IFutest_8h.xml
+// File: IFunctionalTest_8h.xml
 
 
 // File: IRegistry_8h.xml
 
 
-// File: PySuiteFutest_8cpp.xml
+// File: PySuiteTest_8cpp.xml
 
 
-// File: PySuiteFutest_8h.xml
+// File: PySuiteTest_8h.xml
 
 
 // File: SubtestRegistry_8cpp.xml

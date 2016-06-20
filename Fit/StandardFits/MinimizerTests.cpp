@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/StandardFits/MinimizerFutests.cpp
-//! @brief     Implements classes MinimizerFutests.
+//! @file      Fit/StandardFits/MinimizerTests.cpp
+//! @brief     Implements classes MinimizerTests.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,36 +13,36 @@
 //
 // ************************************************************************** //
 
-#include "MinimizerFutests.h"
+#include "MinimizerTests.h"
 #include "FitSuite.h"
 #include "FitKernel.h"
 #include "MinimizerFactory.h"
 
 Minuit2MigradTest::Minuit2MigradTest()
-    : IMinimizerFutest("Minuit2", "Migrad")
+    : IMinimizerTest("Minuit2", "Migrad")
 {}
 
 Minuit2FumiliTest::Minuit2FumiliTest()
-    : IMinimizerFutest("Minuit2", "Fumili")
+    : IMinimizerTest("Minuit2", "Fumili")
 {}
 
 GSLLevenbergMarquardtTest::GSLLevenbergMarquardtTest()
-    : IMinimizerFutest("GSLLMA")
+    : IMinimizerTest("GSLLMA")
 {}
 
 
 GSLMultiMinBFGSTest::GSLMultiMinBFGSTest()
-    : IMinimizerFutest("GSLMultiMin", "BFGS")
+    : IMinimizerTest("GSLMultiMin", "BFGS")
 {}
 
 
 GSLMultiMinSteepestDescentTest::GSLMultiMinSteepestDescentTest()
-    : IMinimizerFutest("GSLMultiMin", "SteepestDescent")
+    : IMinimizerTest("GSLMultiMin", "SteepestDescent")
 {}
 
 
 GSLSimulatedAnnealingTest::GSLSimulatedAnnealingTest()
-    : IMinimizerFutest("GSLSimAn")
+    : IMinimizerTest("GSLSimAn")
 {}
 
 std::unique_ptr<FitSuite> GSLSimulatedAnnealingTest::createFitSuite()
@@ -66,7 +66,7 @@ std::unique_ptr<FitSuite> GSLSimulatedAnnealingTest::createFitSuite()
 
 
 GeneticTest::GeneticTest()
-    : IMinimizerFutest("Genetic")
+    : IMinimizerTest("Genetic")
 {}
 
 std::unique_ptr<FitSuite> GeneticTest::createFitSuite()

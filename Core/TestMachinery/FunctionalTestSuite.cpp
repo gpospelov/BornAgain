@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/TestMachinery/FutestSuite.cpp
-//! @brief     Implements class FutestSuite.
+//! @file      Core/TestMachinery/FunctionalTestSuite.cpp
+//! @brief     Implements class FunctionalTestSuite.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -15,13 +15,13 @@
 
 #include <iostream>
 
-#include "FutestRegistry.h"
+#include "FunctionalTestRegistry.h"
 #include "SimulationFactory.h"
 #include "SampleBuilderFactory.h"
 #include "SubtestRegistry.h"
-#include "IFutest.h"
+#include "IFunctionalTest.h"
 #include "Exceptions.h"
-#include "FutestSuite.h"
+#include "FunctionalTestSuite.h"
 
 // ************************************************************************** //
 //  Test execution
@@ -29,12 +29,12 @@
 
 //! Runs test (name given as command-line argument), and returns 0 for SUCCESS, or error code.
 
-int FutestSuite::execute(int argc, char** argv) {
+int FunctionalTestSuite::execute(int argc, char** argv) {
     // parse command-line arguments and retrieve test info from registry
     std::string test_name;
     if(argc > 1)
         test_name = std::string(argv[1]);
-    m_info = FutestRegistry::instance().getItemOrExplain(test_name, getName());
+    m_info = FunctionalTestRegistry::instance().getItemOrExplain(test_name, getName());
     if( !m_info )
         return 1;
 
@@ -46,10 +46,10 @@ int FutestSuite::execute(int argc, char** argv) {
 
 //! Runs a single test, and returns 0 for SUCCESS, or error code.
 
-int FutestSuite::execute_onetest()
+int FunctionalTestSuite::execute_onetest()
 {
     m_test_name = m_info->m_test_name;
-    IFutest* test( getFutest() );
+    IFunctionalTest* test( getTest() );
     test->runTest();
     test->analyseResults();
     std::cout << *test << "\n";
@@ -58,7 +58,7 @@ int FutestSuite::execute_onetest()
 
 //! Runs all available subtests, and returns 0 if all succeed, or 1 in case of any error.
 
-int FutestSuite::execute_subtests()
+int FunctionalTestSuite::execute_subtests()
 {
     // initialize subtest registry
     std::vector<std::string> subtest_names;
@@ -68,7 +68,7 @@ int FutestSuite::execute_subtests()
     } else if(m_info->m_subtest_type == "FTDistributions2DRegistry") {
         subtest_registry = new TestFTDistribution2DRegistry;
     } else
-        throw RuntimeErrorException("FutestSuite -> Error. "
+        throw RuntimeErrorException("FunctionalTestSuite -> Error. "
                                     "Unknown factory '"+m_info->m_subtest_type+"'.");
     subtest_names = subtest_registry->keys();
     size_t n_subtests = subtest_names.size();
@@ -79,8 +79,8 @@ int FutestSuite::execute_subtests()
         m_test_name = m_info->m_test_name + "_" + subtest_names[i];
         m_subtest_item = subtest_registry->getItem(subtest_names[i]);
 
-        IFutest* subtest( getFutest() );
-        std::cout << "FutestSuite::execute() -> " << getName()
+        IFunctionalTest* subtest( getTest() );
+        std::cout << "FunctionalTestSuite::execute() -> " << getName()
                   << " " << i+1 << "/" << n_subtests << " (" << subtest_names[i] << ")\n";
         subtest->runTest();
         subtest->analyseResults();
@@ -98,10 +98,10 @@ int FutestSuite::execute_subtests()
 }
 
 // ************************************************************************** //
-//  Functions called by getFutest() in *Suite.cpp
+//  Functions called by getTest() in *Suite.cpp
 // ************************************************************************** //
 
-GISASSimulation* FutestSuite::getSimulation() const
+GISASSimulation* FunctionalTestSuite::getSimulation() const
 {
     SimulationFactory sim_registry;
     GISASSimulation* result = sim_registry.createItem(m_info->m_simulation_name);
@@ -115,12 +115,12 @@ GISASSimulation* FutestSuite::getSimulation() const
 }
 
 //! Constructs functional test description corresponding to the current component.
-std::string FutestSuite::getTestDescription() const
+std::string FunctionalTestSuite::getTestDescription() const
 {
     return m_info->m_test_description;
 }
 
-double FutestSuite::getTestThreshold() const
+double FunctionalTestSuite::getTestThreshold() const
 {
     return m_info->m_threshold;
 }

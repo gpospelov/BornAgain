@@ -13,14 +13,14 @@
 //
 // ************************************************************************** //
 
-#include "FutestSuite.h"
-#include "PySuiteFutest.h"
+#include "FunctionalTestSuite.h"
+#include "PySuiteTest.h"
 
-class PySuite : public FutestSuite
+class PySuite : public FunctionalTestSuite
 {
 public:
     PySuite() { setName("PySuite"); }
-    IFutest* getFutest() const { return new PySuiteFutest(
+    IFunctionalTest* getTest() const { return new PySuiteTest(
             getTestName(), getTestDescription(), getSimulation(), getTestThreshold()); }
 };
 

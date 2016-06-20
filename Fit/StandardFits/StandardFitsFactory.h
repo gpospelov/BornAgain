@@ -2,19 +2,19 @@
 #define STANDARDFITSFACTORY_H
 
 #include "IFactory.h"
-#include "IFutest.h"
+#include "IFunctionalTest.h"
 
 
 //! @class StandardFitsFactory
 //! @ingroup standard_samples
 //! @brief Factory to create predefined functional fit tests
 
-class BA_CORE_API_ StandardFitsFactory : public IFactory<std::string, IFutest>
+class BA_CORE_API_ StandardFitsFactory : public IFactory<std::string, IFunctionalTest>
 {
 public:
     StandardFitsFactory();
 
-    IFutest *createTest(const std::string &test_name);
+    IFunctionalTest *createTest(const std::string &test_name);
 
     bool isValidTest(const std::string &test_name);
 

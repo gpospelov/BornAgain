@@ -1,5 +1,5 @@
 ############################################################################
-# Futests/CMakeLists.txt (called from top-level CMakeLists.txt)
+# Tests/Functional/CMakeLists.txt (called from top-level CMakeLists.txt)
 ############################################################################
 
 add_subdirectory(Core)

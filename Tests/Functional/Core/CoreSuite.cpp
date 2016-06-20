@@ -13,14 +13,14 @@
 //
 // ************************************************************************** //
 
-#include "FutestSuite.h"
-#include "CoreFutest.h"
+#include "FunctionalTestSuite.h"
+#include "CoreTest.h"
 
-class CoreSuite : public FutestSuite
+class CoreSuite : public FunctionalTestSuite
 {
 public:
     CoreSuite() { setName("CoreSuite"); }
-    IFutest* getFutest() const { return new CoreFutest(
+    IFunctionalTest* getTest() const { return new CoreTest(
             getTestName(), getTestDescription(), getSimulation(), getTestThreshold() ); }
 };
 

@@ -21,7 +21,7 @@
 #include "FormFactorCylinder.h"
 #include "Units.h"
 #include "FTDistributions.h"
-#include "FutestSuite.h"
+#include "FunctionalTestSuite.h"
 #include "ParaCrystalBuilder.h"
 
 RadialParaCrystalBuilder::RadialParaCrystalBuilder()

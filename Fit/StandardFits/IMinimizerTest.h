@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/StandardFits/IMinimizerFutest.h
-//! @brief     Declares class IMinimizerFutest.
+//! @file      Fit/StandardFits/IMinimizerTest.h
+//! @brief     Declares class IMinimizerTest.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 #ifndef IMINIMIZERFUNCTIONALTEST_H
 #define IMINIMIZERFUNCTIONALTEST_H
 
-#include "IFutest.h"
+#include "IFunctionalTest.h"
 #include "OutputData.h"
 #include <vector>
 #include <memory>
@@ -26,16 +26,16 @@ class FitSuite;
 class ISample;
 class GISASSimulation;
 
-//! @class IMinimizerFutest
+//! @class IMinimizerTest
 //! @ingroup standard_samples
 //! @brief Basic class for all minimizer functional tests
 
-class BA_CORE_API_ IMinimizerFutest : public IFutest
+class BA_CORE_API_ IMinimizerTest : public IFunctionalTest
 {
 public:
-    IMinimizerFutest(const std::string &minimizer_name,
+    IMinimizerTest(const std::string &minimizer_name,
                              const std::string &minimizer_algorithm = std::string());
-    virtual ~IMinimizerFutest(){}
+    virtual ~IMinimizerTest(){}
 
     void runTest();
     int analyseResults();

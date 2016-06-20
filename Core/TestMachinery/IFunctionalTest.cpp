@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/TestMachinery/IFutest.cpp
-//! @brief     Implements class IFutest.
+//! @file      Core/TestMachinery/IFunctionalTest.cpp
+//! @brief     Implements class IFunctionalTest.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,19 +13,19 @@
 //
 // ************************************************************************** //
 
-#include "IFutest.h"
+#include "IFunctionalTest.h"
 #include "Utils.h"
 #include <sstream>
 
 namespace {
 
-std::map<IFutest::ETestResult, std::string> InitTestResultToString()
+std::map<IFunctionalTest::ETestResult, std::string> InitTestResultToString()
 {
-    std::map<IFutest::ETestResult, std::string> result;
-    result[IFutest::SUCCESS] = "[SUCCESS]";
-    result[IFutest::FAILED_DIFF] = "[FAILED_DIFF]";
-    result[IFutest::FAILED_NOREF] = "[FAILED_NOREF]";
-    result[IFutest::FAILED] = "[FAILED]";
+    std::map<IFunctionalTest::ETestResult, std::string> result;
+    result[IFunctionalTest::SUCCESS] = "[SUCCESS]";
+    result[IFunctionalTest::FAILED_DIFF] = "[FAILED_DIFF]";
+    result[IFunctionalTest::FAILED_NOREF] = "[FAILED_NOREF]";
+    result[IFunctionalTest::FAILED] = "[FAILED]";
     return result;
 }
 
@@ -35,26 +35,27 @@ const size_t width_result = 15;
 
 } // namespace
 
-std::map<IFutest::ETestResult, std::string> IFutest::m_result_to_string = InitTestResultToString();
+std::map<IFunctionalTest::ETestResult, std::string>
+    IFunctionalTest::m_result_to_string = InitTestResultToString();
 
-IFutest::IFutest()
+IFunctionalTest::IFunctionalTest()
     : m_result(SUCCESS)
 {
 }
 
-IFutest::IFutest(const std::string& name, const std::string& description)
+IFunctionalTest::IFunctionalTest(const std::string& name, const std::string& description)
     : INamed(name)
     , m_description(description)
     , m_result(SUCCESS)
 {
 }
 
-std::string IFutest::getTestResultString() const
+std::string IFunctionalTest::getTestResultString() const
 {
-	return m_result_to_string[m_result];
+    return m_result_to_string[m_result];
 }
 
-std::string IFutest::getFormattedInfoString() const
+std::string IFunctionalTest::getFormattedInfoString() const
 {
     std::ostringstream ostr;
     ostr << Utils::AdjustStringLength(getName(), width_name);

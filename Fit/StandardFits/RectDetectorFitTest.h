@@ -16,7 +16,7 @@
 #ifndef RECTDETECTORFITTEST_H
 #define RECTDETECTORFITTEST_H
 
-#include "IMinimizerFutest.h"
+#include "IMinimizerTest.h"
 #include "OutputData.h"
 #include <vector>
 
@@ -29,7 +29,7 @@ class GISASSimulation;
 //! @ingroup standard_samples
 //! @brief Fit of simulation with rectangular detector. The detector is cropped, masks are applied.
 
-class BA_CORE_API_ RectDetectorFitTest : public IMinimizerFutest
+class BA_CORE_API_ RectDetectorFitTest : public IMinimizerTest
 {
 public:
     RectDetectorFitTest();

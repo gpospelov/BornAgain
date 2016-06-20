@@ -1,5 +1,5 @@
 ############################################################################
-# Futests/TestPyDump/CMakeLists.txt
+# Tests/Functional/PyCore/suite/CMakeLists.txt
 ############################################################################
 
 set(test_cases

@@ -14,14 +14,14 @@
 //
 // ************************************************************************** //
 
-#include "FutestSuite.h"
-#include "GUIFutest.h"
+#include "FunctionalTestSuite.h"
+#include "GUITest.h"
 
-class GUISuite : public FutestSuite
+class GUISuite : public FunctionalTestSuite
 {
 public:
     GUISuite() { setName("GUISuite"); }
-    IFutest* getFutest() const { return new GUIFutest(
+    IFunctionalTest* getTest() const { return new GUITest(
             getTestName(), getTestDescription(), getSimulation(), getTestThreshold()); }
 };
 

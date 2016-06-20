@@ -5480,16 +5480,6 @@ Registers object's creation function and store object description.
 %feature("docstring")  IFactory::~IFactory "IFactory< Key, AbstractProduct >::~IFactory()
 ";
 
-%feature("docstring")  IFactory::clear "void IFactory< Key, AbstractProduct >::clear()
-
-clear everything 
-";
-
-%feature("docstring")  IFactory::setOwnObjects "void IFactory< Key, AbstractProduct >::setOwnObjects(bool own_objects)
-
-Sets flag to delete objects on descruction. 
-";
-
 %feature("docstring")  IFactory::getNumberOfRegistered "size_t IFactory< Key, AbstractProduct >::getNumberOfRegistered() const
 
 Returns number of registered objects. 
@@ -14712,10 +14702,6 @@ Returns concatenated rotation (first right, then left).
 
 
 // File: SampleBuilderFactory_8cpp.xml
-%feature("docstring")  build "ISampleBuilder* build()
-
-build<C> is a function void -> ISampleBuilder*. C must be a child of  ISampleBuilder. 
-";
 
 
 // File: SampleBuilderFactory_8h.xml

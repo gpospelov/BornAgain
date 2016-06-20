@@ -22412,30 +22412,6 @@ class SampleBuilderFactory(_object):
     __swig_destroy__ = _libBornAgainCore.delete_SampleBuilderFactory
     __del__ = lambda self: None
 
-    def clear(self):
-        """
-        clear(SampleBuilderFactory self)
-
-        void IFactory< Key, AbstractProduct >::clear()
-
-        clear everything 
-
-        """
-        return _libBornAgainCore.SampleBuilderFactory_clear(self)
-
-
-    def setOwnObjects(self, own_objects):
-        """
-        setOwnObjects(SampleBuilderFactory self, bool own_objects)
-
-        void IFactory< Key, AbstractProduct >::setOwnObjects(bool own_objects)
-
-        Sets flag to delete objects on descruction. 
-
-        """
-        return _libBornAgainCore.SampleBuilderFactory_setOwnObjects(self, own_objects)
-
-
     def getNumberOfRegistered(self):
         """
         getNumberOfRegistered(SampleBuilderFactory self) -> size_t
@@ -22527,30 +22503,6 @@ class SimulationFactory(_object):
 
     __swig_destroy__ = _libBornAgainCore.delete_SimulationFactory
     __del__ = lambda self: None
-
-    def clear(self):
-        """
-        clear(SimulationFactory self)
-
-        void IFactory< Key, AbstractProduct >::clear()
-
-        clear everything 
-
-        """
-        return _libBornAgainCore.SimulationFactory_clear(self)
-
-
-    def setOwnObjects(self, own_objects):
-        """
-        setOwnObjects(SimulationFactory self, bool own_objects)
-
-        void IFactory< Key, AbstractProduct >::setOwnObjects(bool own_objects)
-
-        Sets flag to delete objects on descruction. 
-
-        """
-        return _libBornAgainCore.SimulationFactory_setOwnObjects(self, own_objects)
-
 
     def getNumberOfRegistered(self):
         """

@@ -41,7 +41,7 @@ public:
     typedef typename DescriptionMap_t::iterator iterator;
     typedef typename DescriptionMap_t::const_iterator const_iterator;
 
-    IFactory() : m_own_objects(false) {}
+    IFactory() {}
 
     //! Creates object by calling creation function corresponded to given identifier
     AbstractProduct* createItem(const Key& item_key) {
@@ -50,10 +50,7 @@ public:
             throw UnknownClassRegistrationException(
                     "IFactory::createItem() -> Panic. Unknown item key");
         // invoke the creation function
-        AbstractProduct* x = (it->second)();
-        if(m_own_objects)
-            m_objects.push_back(x);
-        return x;
+        return (it->second)();
     }
 
     //! Registers object's creation function
@@ -74,20 +71,7 @@ public:
         return m_callbacks.insert( typename CallbackMap_t::value_type(item_key, CreateFn)).second;
     }
 
-    ~IFactory() { clear(); }
-
-    //! clear everything
-    void clear() {
-        m_callbacks.clear();
-        if(m_own_objects) {
-            for(auto it: m_objects)
-                delete it;
-        }
-        m_objects.clear();
-    }
-
-    //! Sets flag to delete objects on descruction
-    void setOwnObjects(bool own_objects) { m_own_objects = own_objects; }
+    ~IFactory() {}
 
     //! Returns number of registered objects
     size_t getNumberOfRegistered() const { return m_callbacks.size(); }
@@ -99,12 +83,8 @@ public:
     const_iterator end() const { return m_descriptions.end(); }
 
 protected:
-    //! will store created objects in the list and then delete them on exit then true
-    bool m_own_objects;
     CallbackMap_t m_callbacks;     //!< map of correspondence of objectsId and creation functions
     DescriptionMap_t m_descriptions;     //!< map of correspondence of objectsId and description
-    //! vector of all created objects (if m_store_objects==true)
-    std::vector<AbstractProduct*> m_objects;
 };
 
 template<class T> T* create_new() {

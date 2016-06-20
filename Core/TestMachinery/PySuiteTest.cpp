@@ -31,7 +31,7 @@
 PySuiteTest::PySuiteTest(
     const std::string& name, const std::string& description,
     GISASSimulation* reference_simulation, double threshold)
-    : IFutest(name, description)
+    : IFunctionalTest(name, description)
     , m_reference_simulation(reference_simulation)
     , m_domain_simulation(0)
     , m_threshold(threshold)

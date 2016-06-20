@@ -18,7 +18,7 @@
 #define GUITEST_H
 
 #include "WinDllMacros.h"
-#include "IFutest.h"
+#include "IFunctionalTest.h"
 #include "OutputData.h"
 #include <string>
 
@@ -30,7 +30,7 @@ class GISASSimulation;
 //! the one obtained through domain->GUI->domain convertion. Normally invoked by
 //! FunctionalMultiTest.
 
-class BA_CORE_API_ GUITest : public IFutest
+class BA_CORE_API_ GUITest : public IFunctionalTest
 {
 public:
     GUITest(const std::string &name, const std::string &description,

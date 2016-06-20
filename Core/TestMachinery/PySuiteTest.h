@@ -17,7 +17,7 @@
 #define PYSUITETEST_H
 
 #include "WinDllMacros.h"
-#include "IFutest.h"
+#include "IFunctionalTest.h"
 #include "OutputData.h"
 #include <string>
 
@@ -27,7 +27,7 @@ class GISASSimulation;
 //! @ingroup standard_samples
 //! @brief Test whether Python dumps yields the same image as a direct computation.
 
-class BA_CORE_API_ PySuiteTest : public IFutest
+class BA_CORE_API_ PySuiteTest : public IFunctionalTest
 {
 public:
     PySuiteTest(const std::string& name, const std::string& description,

@@ -76,8 +76,8 @@ int IMinimizerTest::analyseResults()
                       / m_parameters[i].m_real_value;
         if (diff > m_parameter_tolerance)
             m_result = FAILED;
-        std::cout << boost::format("%|12t| %-10s : %-6.4f (diff %6.4g) \n") % m_parameters[i].m_name
-                     % m_parameters[i].m_found_value % diff;
+        std::cout << boost::format("%|12t| %-10s : %-6.4f (diff %6.4g) \n") %
+                     m_parameters[i].m_name % m_parameters[i].m_found_value % diff;
     }
 
     std::cout << getName() << " | " << getDescription() << " | " << getTestResultString() << "\n";

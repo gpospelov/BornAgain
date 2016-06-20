@@ -1947,7 +1947,7 @@ C++ includes: StandardFitsFactory.h
 %feature("docstring")  StandardFitsFactory::StandardFitsFactory "StandardFitsFactory::StandardFitsFactory()
 ";
 
-%feature("docstring")  StandardFitsFactory::createTest "IFutest * StandardFitsFactory::createTest(const std::string &test_name)
+%feature("docstring")  StandardFitsFactory::createTest "IFunctionalTest * StandardFitsFactory::createTest(const std::string &test_name)
 ";
 
 %feature("docstring")  StandardFitsFactory::isValidTest "bool StandardFitsFactory::isValidTest(const std::string &test_name)

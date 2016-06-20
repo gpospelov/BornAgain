@@ -4358,7 +4358,7 @@ C++ includes: FunctionalTestSuite.h
 Runs test (name given as command-line argument), and returns 0 for SUCCESS, or error code. 
 ";
 
-%feature("docstring")  FunctionalTestSuite::getTest "virtual class IFutest* FunctionalTestSuite::getTest() const =0
+%feature("docstring")  FunctionalTestSuite::getTest "virtual class IFunctionalTest* FunctionalTestSuite::getTest() const =0
 
 overloaded in (Core|Py|GUI)Suite.cpp 
 ";
@@ -5777,42 +5777,42 @@ evaluate Fourier transformed distribution for q in X,Y coordinates the original 
 ";
 
 
-// File: classIFutest.xml
-%feature("docstring") IFutest "
+// File: classIFunctionalTest.xml
+%feature("docstring") IFunctionalTest "
 
 Base class for all functional tests.
 
-C++ includes: IFutest.h
+C++ includes: IFunctionalTest.h
 ";
 
-%feature("docstring")  IFutest::IFutest "IFutest::IFutest()
+%feature("docstring")  IFunctionalTest::IFunctionalTest "IFunctionalTest::IFunctionalTest()
 ";
 
-%feature("docstring")  IFutest::IFutest "IFutest::IFutest(const std::string &name, const std::string &description)
+%feature("docstring")  IFunctionalTest::IFunctionalTest "IFunctionalTest::IFunctionalTest(const std::string &name, const std::string &description)
 ";
 
-%feature("docstring")  IFutest::~IFutest "virtual IFutest::~IFutest()
+%feature("docstring")  IFunctionalTest::~IFunctionalTest "virtual IFunctionalTest::~IFunctionalTest()
 ";
 
-%feature("docstring")  IFutest::runTest "virtual void IFutest::runTest()=0
+%feature("docstring")  IFunctionalTest::runTest "virtual void IFunctionalTest::runTest()=0
 ";
 
-%feature("docstring")  IFutest::analyseResults "virtual int IFutest::analyseResults()=0
+%feature("docstring")  IFunctionalTest::analyseResults "virtual int IFunctionalTest::analyseResults()=0
 ";
 
-%feature("docstring")  IFutest::getDescription "std::string IFutest::getDescription() const 
+%feature("docstring")  IFunctionalTest::getDescription "std::string IFunctionalTest::getDescription() const 
 ";
 
-%feature("docstring")  IFutest::setDescription "void IFutest::setDescription(const std::string &description)
+%feature("docstring")  IFunctionalTest::setDescription "void IFunctionalTest::setDescription(const std::string &description)
 ";
 
-%feature("docstring")  IFutest::getTestResult "ETestResult IFutest::getTestResult() const 
+%feature("docstring")  IFunctionalTest::getTestResult "ETestResult IFunctionalTest::getTestResult() const 
 ";
 
-%feature("docstring")  IFutest::getTestResultString "std::string IFutest::getTestResultString() const 
+%feature("docstring")  IFunctionalTest::getTestResultString "std::string IFunctionalTest::getTestResultString() const 
 ";
 
-%feature("docstring")  IFutest::getFormattedInfoString "std::string IFutest::getFormattedInfoString() const 
+%feature("docstring")  IFunctionalTest::getFormattedInfoString "std::string IFunctionalTest::getFormattedInfoString() const 
 ";
 
 
@@ -14761,10 +14761,10 @@ Returns concatenated rotation (first right, then left).
 // File: FunctionalTestSuite_8h.xml
 
 
-// File: IFutest_8cpp.xml
+// File: IFunctionalTest_8cpp.xml
 
 
-// File: IFutest_8h.xml
+// File: IFunctionalTest_8h.xml
 
 
 // File: IRegistry_8h.xml

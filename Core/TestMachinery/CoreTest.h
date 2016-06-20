@@ -18,7 +18,7 @@
 
 #include "WinDllMacros.h"
 #include "OutputData.h"
-#include "IFutest.h"
+#include "IFunctionalTest.h"
 
 class GISASSimulation;
 
@@ -27,7 +27,7 @@ class GISASSimulation;
 //! @brief Core functional test  compares results of the standard simulation with
 //! reference intensity data. Normally invoked by FunctionalMultiTest.
 
-class BA_CORE_API_ CoreTest : public IFutest
+class BA_CORE_API_ CoreTest : public IFunctionalTest
 {
 public:
     CoreTest(

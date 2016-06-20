@@ -20,7 +20,7 @@ class CoreSuite : public FunctionalTestSuite
 {
 public:
     CoreSuite() { setName("CoreSuite"); }
-    IFutest* getTest() const { return new CoreTest(
+    IFunctionalTest* getTest() const { return new CoreTest(
             getTestName(), getTestDescription(), getSimulation(), getTestThreshold() ); }
 };
 

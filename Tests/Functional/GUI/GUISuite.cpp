@@ -21,7 +21,7 @@ class GUISuite : public FunctionalTestSuite
 {
 public:
     GUISuite() { setName("GUISuite"); }
-    IFutest* getTest() const { return new GUITest(
+    IFunctionalTest* getTest() const { return new GUITest(
             getTestName(), getTestDescription(), getSimulation(), getTestThreshold()); }
 };
 

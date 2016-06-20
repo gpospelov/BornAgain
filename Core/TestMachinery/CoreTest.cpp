@@ -25,7 +25,7 @@
 CoreTest::CoreTest(
     const std::string& name, const std::string& description, GISASSimulation* simulation,
     double threshold)
-    : IFutest(name, description)
+    : IFunctionalTest(name, description)
     , m_simulation(simulation)
     , m_threshold(threshold)
     , m_difference(0)

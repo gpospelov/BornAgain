@@ -32,7 +32,7 @@ int main(int argc, char **argv)
         return 1;
     }
 
-    const std::unique_ptr<IFutest> test(catalogue.createTest(test_name));
+    const std::unique_ptr<IFunctionalTest> test(catalogue.createTest(test_name));
     test->runTest();
     return test->analyseResults();
 }

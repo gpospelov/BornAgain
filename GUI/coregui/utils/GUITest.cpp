@@ -34,7 +34,7 @@
 
 GUITest::GUITest(const std::string &name, const std::string &description,
                                      GISASSimulation *reference_simulation, double threshold)
-    : IFutest(name, description)
+    : IFunctionalTest(name, description)
     , m_reference_simulation(reference_simulation)
     , m_domain_simulation(0)
     , m_threshold(threshold)
@@ -63,7 +63,8 @@ void GUITest::runTest()
 
 int GUITest::analyseResults()
 {
-    const std::unique_ptr<OutputData<double> > P_domain_data(m_domain_simulation->getDetectorIntensity());
+    const std::unique_ptr<OutputData<double> > P_domain_data(
+                m_domain_simulation->getDetectorIntensity());
     const std::unique_ptr<OutputData<double> > P_reference_data(
         m_reference_simulation->getDetectorIntensity());
     m_difference = IntensityDataFunctions::getRelativeDifference(*P_domain_data, *P_reference_data);

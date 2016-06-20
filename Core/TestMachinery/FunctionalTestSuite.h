@@ -41,7 +41,7 @@ public:
 
     int execute(int argc, char** argv);
 
-    virtual class IFutest* getTest() const = 0; //!< overloaded in (Core|Py|GUI)Suite.cpp
+    virtual class IFunctionalTest* getTest() const = 0; //!< overloaded in (Core|Py|GUI)Suite.cpp
 
 protected:
     virtual class GISASSimulation* getSimulation() const;

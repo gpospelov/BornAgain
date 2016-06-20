@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/TestMachinery/IFutest.h
-//! @brief     Declares pure virtual base class IFutest.
+//! @file      Core/TestMachinery/IFunctionalTest.h
+//! @brief     Declares pure virtual base class IFunctionalTest.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -21,18 +21,18 @@
 #include <map>
 #include <string>
 
-//! @class IFutest
+//! @class IFunctionalTest
 //! @ingroup standard_samples
 //! @brief Base class for all functional tests
 
-class BA_CORE_API_ IFutest : public INamed
+class BA_CORE_API_ IFunctionalTest : public INamed
 {
 public:
     enum ETestResult { SUCCESS, FAILED, FAILED_DIFF, FAILED_NOREF};
 
-    IFutest();
-    IFutest(const std::string& name, const std::string& description);
-    virtual ~IFutest() {}
+    IFunctionalTest();
+    IFunctionalTest(const std::string& name, const std::string& description);
+    virtual ~IFunctionalTest() {}
 
     virtual void runTest() = 0;
     virtual int analyseResults() = 0;
@@ -41,11 +41,11 @@ public:
     void setDescription(const std::string& description) { m_description = description; }
 
     ETestResult getTestResult() const { return m_result; }
-	std::string getTestResultString() const;
+    std::string getTestResultString() const;
 
     std::string getFormattedInfoString() const;
 
-    friend std::ostream& operator<<(std::ostream& ostr, const IFutest& m) {
+    friend std::ostream& operator<<(std::ostream& ostr, const IFunctionalTest& m) {
         m.printResults(ostr);
         return ostr;
     }

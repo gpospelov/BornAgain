@@ -19,7 +19,7 @@
 #include "SimulationFactory.h"
 #include "SampleBuilderFactory.h"
 #include "SubtestRegistry.h"
-#include "IFutest.h"
+#include "IFunctionalTest.h"
 #include "Exceptions.h"
 #include "FunctionalTestSuite.h"
 
@@ -49,7 +49,7 @@ int FunctionalTestSuite::execute(int argc, char** argv) {
 int FunctionalTestSuite::execute_onetest()
 {
     m_test_name = m_info->m_test_name;
-    IFutest* test( getTest() );
+    IFunctionalTest* test( getTest() );
     test->runTest();
     test->analyseResults();
     std::cout << *test << "\n";
@@ -79,7 +79,7 @@ int FunctionalTestSuite::execute_subtests()
         m_test_name = m_info->m_test_name + "_" + subtest_names[i];
         m_subtest_item = subtest_registry->getItem(subtest_names[i]);
 
-        IFutest* subtest( getTest() );
+        IFunctionalTest* subtest( getTest() );
         std::cout << "FutestSuite::execute() -> " << getName()
                   << " " << i+1 << "/" << n_subtests << " (" << subtest_names[i] << ")\n";
         subtest->runTest();

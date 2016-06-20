@@ -16,7 +16,7 @@
 #ifndef IMINIMIZERFUNCTIONALTEST_H
 #define IMINIMIZERFUNCTIONALTEST_H
 
-#include "IFutest.h"
+#include "IFunctionalTest.h"
 #include "OutputData.h"
 #include <vector>
 #include <memory>
@@ -30,7 +30,7 @@ class GISASSimulation;
 //! @ingroup standard_samples
 //! @brief Basic class for all minimizer functional tests
 
-class BA_CORE_API_ IMinimizerTest : public IFutest
+class BA_CORE_API_ IMinimizerTest : public IFunctionalTest
 {
 public:
     IMinimizerTest(const std::string &minimizer_name,

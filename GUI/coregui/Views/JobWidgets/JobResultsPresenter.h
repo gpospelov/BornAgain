@@ -29,9 +29,9 @@
 class BA_CORE_API_ JobResultsPresenter : public ItemComboWidget
 {
     Q_OBJECT
-public:
 
-        explicit JobResultsPresenter(QWidget *parent = 0);
+public:
+    explicit JobResultsPresenter(QWidget *parent = 0);
 
 };
 

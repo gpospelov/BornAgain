@@ -21,6 +21,7 @@
 #include <QMap>
 
 class IntensityDataWidget;
+class JobResultsPresenter;
 class JobOutputDataToolBar;
 class JobModel;
 class JobItem;
@@ -49,7 +50,7 @@ private:
     void connectSignals();
     IntensityDataWidget *currentOutputDataWidget();
 
-    ItemStackPresenter<IntensityDataWidget> *m_stackedWidget;
+    ItemStackPresenter<JobResultsPresenter> *m_stackedWidget;
     JobOutputDataToolBar *m_toolBar;
 };
 

@@ -15,10 +15,13 @@
 // ************************************************************************** //
 
 #include "JobResultsPresenter.h"
+#include "mainwindow_constants.h"
+#include "IntensityDataWidget.h"
 
 
 JobResultsPresenter::JobResultsPresenter(QWidget *parent)
     : ItemComboWidget(parent)
 {
-
+    add(Constants::IntensityDataWidgetName, create_new<IntensityDataWidget>);
 }
+

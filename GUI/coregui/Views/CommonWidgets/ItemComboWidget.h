@@ -34,22 +34,23 @@ class BA_CORE_API_ ItemComboWidget : public QWidget {
     Q_OBJECT
 
 public:
-
-    typedef QMap<QString, QWidget *(*)()> WidgetMap_t;
-
     explicit ItemComboWidget(QWidget *parent = 0);
 
     virtual void setItem(SessionItem *item);
 
-//    void addWidget(const QString &presentationType, std::function<void(SessionItem*)> f);
 
     void add(const QString &presentationType, std::function<QWidget*()>);
 
+    QWidget *selectorWidget();
+
+private slots:
+    void onWidgetChangeRequest(const QString &name);
+
 private:
+    class QComboBox *m_selectorCombo;
     class QStackedWidget *m_stackedWidget;
     SessionItem *m_currentItem;
-    static WidgetMap_t m_widget_map;
-    IFactory<QString, QWidget> m_factory;
+    IFactory<QString, QWidget> m_widgetFactory;
 };
 
 #endif

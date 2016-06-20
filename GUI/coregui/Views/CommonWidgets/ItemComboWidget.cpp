@@ -16,10 +16,13 @@
 
 #include "ItemComboWidget.h"
 #include <QStackedWidget>
+#include <QComboBox>
 #include <QVBoxLayout>
+#include <QDebug>
 
 ItemComboWidget::ItemComboWidget(QWidget *parent)
     : QWidget(parent)
+    , m_selectorCombo(new QComboBox)
     , m_stackedWidget(new QStackedWidget)
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -32,7 +35,10 @@ ItemComboWidget::ItemComboWidget(QWidget *parent)
     layout->addWidget(m_stackedWidget);
     setLayout(layout);
 
+    connect(m_selectorCombo, SIGNAL(currentIndexChanged(QString)),
+            this, SLOT(onWidgetChangeRequest(QString)));
 }
+
 
 void ItemComboWidget::setItem(SessionItem *item)
 {
@@ -41,5 +47,16 @@ void ItemComboWidget::setItem(SessionItem *item)
 
 void ItemComboWidget::add(const QString &presentationType, std::function<QWidget *()> f)
 {
-    m_factory.registerItem("XXX", f);
+    m_widgetFactory.registerItem(presentationType, f);
+    m_selectorCombo->addItem(presentationType);
+}
+
+QWidget *ItemComboWidget::selectorWidget()
+{
+    return m_selectorCombo;
+}
+
+void ItemComboWidget::onWidgetChangeRequest(const QString &name)
+{
+    qDebug() << "ItemComboWidget::onWidgetChangeRequest" << name;
 }

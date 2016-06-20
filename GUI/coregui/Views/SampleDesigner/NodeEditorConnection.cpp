@@ -38,15 +38,11 @@ NodeEditorConnection::NodeEditorConnection(QGraphicsItem *parent, QGraphicsScene
 
 NodeEditorConnection::~NodeEditorConnection()
 {
-    qDebug() << "NodeEditorConnection::~NodeEditorConnection()" << this;
-    if (m_port1) {
-        qDebug() << " NodeEditorConnection removeAll from " << m_port1;
-        m_port1->connections().removeAll(this);
-    }
-    if (m_port2) {
-        qDebug() << " NodeEditorConnection removeAll from " << m_port2;
-        m_port2->connections().removeAll(this);
-    }
+    if (m_port1)
+        m_port1->remove(this);
+
+    if (m_port2)
+        m_port2->remove(this);
 }
 
 void NodeEditorConnection::setPos1(const QPointF &p)
@@ -54,24 +50,22 @@ void NodeEditorConnection::setPos1(const QPointF &p)
     pos1 = p;
 }
 
-
 void NodeEditorConnection::setPos2(const QPointF &p)
 {
     pos2 = p;
 }
 
-
 void NodeEditorConnection::setPort1(NodeEditorPort *p)
 {
     m_port1 = p;
-    m_port1->connections().append(this);
+    m_port1->append(this);
     setPos1(p->scenePos());
 }
 
 void NodeEditorConnection::setPort2(NodeEditorPort *p)
 {
     m_port2 = p;
-    m_port2->connections().append(this);
+    m_port2->append(this);
     setPos2(p->scenePos());
 }
 
@@ -80,7 +74,6 @@ void NodeEditorConnection::updatePosFromPorts()
     pos1 = m_port1->scenePos();
     pos2 = m_port2->scenePos();
 }
-
 
 void NodeEditorConnection::updatePath()
 {
@@ -94,34 +87,30 @@ void NodeEditorConnection::updatePath()
     setPath(p);
 }
 
-
 NodeEditorPort* NodeEditorConnection::port1() const
 {
     return m_port1;
 }
-
 
 NodeEditorPort* NodeEditorConnection::port2() const
 {
     return m_port2;
 }
 
-
-NodeEditorPort *NodeEditorConnection::getInputPort()
+NodeEditorPort *NodeEditorConnection::inputPort()
 {
     Q_ASSERT(m_port1 && m_port2);
     return (m_port1->isInput() ? m_port1 : m_port2);
 }
 
-
-NodeEditorPort *NodeEditorConnection::getOutputPort()
+NodeEditorPort *NodeEditorConnection::outputPort()
 {
     Q_ASSERT(m_port1 && m_port2);
     return (m_port1->isOutput() ? m_port1 : m_port2);
 }
 
-
-void NodeEditorConnection::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
+void NodeEditorConnection::paint(QPainter *painter,
+                                 const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
     Q_UNUSED(option)
     Q_UNUSED(widget)
@@ -138,17 +127,16 @@ void NodeEditorConnection::paint(QPainter *painter, const QStyleOptionGraphicsIt
 
 ConnectableView *NodeEditorConnection::getParentView()
 {
-    Q_ASSERT(getInputPort() != getOutputPort());
-    ConnectableView *result = dynamic_cast<ConnectableView *>(getInputPort()->parentItem());
+    Q_ASSERT(inputPort() != outputPort());
+    ConnectableView *result = dynamic_cast<ConnectableView *>(inputPort()->parentItem());
     Q_ASSERT(result);
     return result;
 }
 
 ConnectableView *NodeEditorConnection::getChildView()
 {
-    Q_ASSERT(getInputPort() != getOutputPort());
-    ConnectableView *result = dynamic_cast<ConnectableView *>(getOutputPort()->parentItem());
+    Q_ASSERT(inputPort() != outputPort());
+    ConnectableView *result = dynamic_cast<ConnectableView *>(outputPort()->parentItem());
     Q_ASSERT(result);
     return result;
 }
-

@@ -42,7 +42,7 @@ class BA_CORE_API_ NodeEditor : public QObject
 public:
     explicit NodeEditor(QObject *parent = 0);
 
-	void install(QGraphicsScene *scene);
+    void install(QGraphicsScene *scene);
 
     bool eventFilter(QObject *object, QEvent *event);
 
@@ -58,8 +58,8 @@ private:
     bool processMouseMove(QGraphicsSceneMouseEvent *event);
     bool processMouseRelease(QGraphicsSceneMouseEvent *event);
 
-	QGraphicsScene *scene;
-    NodeEditorConnection *conn;
+    QGraphicsScene *m_scene;
+    NodeEditorConnection *m_conn;
 };
 
-#endif // NODEEDITOR_H
+#endif

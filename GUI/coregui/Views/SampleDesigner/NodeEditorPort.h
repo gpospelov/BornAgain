@@ -27,7 +27,6 @@
 #include <QString>
 #include "DesignerHelper.h"
 
-class QNEBlock;
 class NodeEditorConnection;
 class IView;
 
@@ -50,7 +49,8 @@ public:
     bool isOutput();
     bool isInput();
 
-    QVector<NodeEditorConnection *> &connections();
+    void remove(NodeEditorConnection *connection);
+    void append(NodeEditorConnection *connection);
 
     const QString &portName() const;
 
@@ -97,4 +97,4 @@ inline NodeEditorPort::EPortType NodeEditorPort::getPortType() const
     return m_port_type;
 }
 
-#endif // NODEEDITORPORT_H
+#endif

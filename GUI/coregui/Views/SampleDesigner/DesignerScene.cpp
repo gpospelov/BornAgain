@@ -384,22 +384,22 @@ void DesignerScene::onEstablishedConnection(NodeEditorConnection *connection)
 //            connection->getInputPort());
 
 //    childView->getParameterizedItem()->setPort(input_port_index);
-    qDebug() << parentView->getInputPortIndex(connection->getInputPort());
+    qDebug() << parentView->getInputPortIndex(connection->inputPort());
     QString tag;
     if (connection->getParentView()->getItem()->modelType() == Constants::ParticleLayoutType) {
-        if (connection->getInputPort()->getPortType() == NodeEditorPort::INTERFERENCE)
+        if (connection->inputPort()->getPortType() == NodeEditorPort::INTERFERENCE)
             tag = ParticleLayoutItem::T_INTERFERENCE;
     }
     else if (connection->getParentView()->getItem()->modelType() == Constants::ParticleCoreShellType) {
-        if (parentView->getInputPortIndex(connection->getInputPort()) == 0)
+        if (parentView->getInputPortIndex(connection->inputPort()) == 0)
             tag = ParticleCoreShellItem::T_CORE;
-        else if (parentView->getInputPortIndex(connection->getInputPort()) == 1)
+        else if (parentView->getInputPortIndex(connection->inputPort()) == 1)
             tag = ParticleCoreShellItem::T_SHELL;
-        else if (connection->getInputPort()->getPortType() == NodeEditorPort::TRANSFORMATION)
+        else if (connection->inputPort()->getPortType() == NodeEditorPort::TRANSFORMATION)
             tag = ParticleItem::T_TRANSFORMATION;
 
     } else if (connection->getParentView()->getItem()->modelType() == Constants::ParticleCompositionType) {
-        if (connection->getInputPort()->getPortType() == NodeEditorPort::TRANSFORMATION)
+        if (connection->inputPort()->getPortType() == NodeEditorPort::TRANSFORMATION)
             tag = ParticleItem::T_TRANSFORMATION;
     }
     qDebug() << "onEstablishedConnection deleting just created connection";
@@ -414,7 +414,7 @@ void DesignerScene::onEstablishedConnection(NodeEditorConnection *connection)
 void DesignerScene::removeConnection(NodeEditorConnection *connection)
 {
     qDebug() << "DesignerScene::removeConnection()";
-    IView *childView = dynamic_cast<IView *>(connection->getOutputPort()->parentItem());
+    IView *childView = dynamic_cast<IView *>(connection->outputPort()->parentItem());
     m_sampleModel->moveParameterizedItem(childView->getItem(), 0);
 }
 

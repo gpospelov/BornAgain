@@ -22,7 +22,6 @@
 #include <QPainter>
 #include <QDebug>
 
-
 NodeEditorPort::NodeEditorPort(QGraphicsItem *parent, const QString &name,
                                NodeEditorPort::EPortDirection direction,
                                NodeEditorPort::EPortType port_type)
@@ -74,9 +73,15 @@ bool NodeEditorPort::isInput()
     return !isOutput();
 }
 
-QVector<NodeEditorConnection *> &NodeEditorPort::connections()
+void NodeEditorPort::remove(NodeEditorConnection *connection)
 {
-    return m_connections;
+    if(m_connections.contains(connection))
+        m_connections.remove(m_connections.indexOf(connection));
+}
+
+void NodeEditorPort::append(NodeEditorConnection *connection)
+{
+   m_connections.append(connection);
 }
 
 bool NodeEditorPort::isConnected(NodeEditorPort *other)

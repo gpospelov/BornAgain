@@ -22,26 +22,23 @@
 #include <QEvent>
 #include <QGraphicsSceneMouseEvent>
 
-
 NodeEditor::NodeEditor(QObject *parent)
     : QObject(parent)
-    , scene(0)
-    , conn(0)
+    , m_scene(0)
+    , m_conn(0)
 {
-	conn = 0;
+
 }
 
-
-void NodeEditor::install(QGraphicsScene *s)
+void NodeEditor::install(QGraphicsScene *scene)
 {
-	s->installEventFilter(this);
-	scene = s;
+    scene->installEventFilter(this);
+    m_scene = scene;
 }
-
 
 QGraphicsItem* NodeEditor::itemAt(const QPointF &pos)
 {
-	QList<QGraphicsItem*> items = scene->items(QRectF(pos - QPointF(1,1), QSize(3,3)));
+    QList<QGraphicsItem*> items = m_scene->items(QRectF(pos - QPointF(1,1), QSize(3,3)));
 
 	foreach(QGraphicsItem *item, items)
 		if (item->type() > QGraphicsItem::UserType)
@@ -77,15 +74,15 @@ bool NodeEditor::processMousePress(QGraphicsSceneMouseEvent *event)
 {
     bool result(false);
 
-    if(conn==0 && event->button() == Qt::LeftButton) {
+    if(m_conn==0 && event->button() == Qt::LeftButton) {
         QGraphicsItem *item = itemAt(event->scenePos());
         if (item && item->type() == NodeEditorPort::TYPE) {
             emit selectionModeChangeRequest(DesignerView::SIMPLE_SELECTION);
-            conn = new NodeEditorConnection(0, scene);
-            conn->setPort1((NodeEditorPort*) item);
-            conn->setPos1(item->scenePos());
-            conn->setPos2(event->scenePos());
-            conn->updatePath();
+            m_conn = new NodeEditorConnection(0, m_scene);
+            m_conn->setPort1((NodeEditorPort*) item);
+            m_conn->setPos1(item->scenePos());
+            m_conn->setPos2(event->scenePos());
+            m_conn->updatePath();
 
             result = true;
         }
@@ -98,9 +95,9 @@ bool NodeEditor::processMouseMove(QGraphicsSceneMouseEvent *event)
 {
     bool result(false);
 
-    if (conn) {
-        conn->setPos2(event->scenePos());
-        conn->updatePath();
+    if (m_conn) {
+        m_conn->setPos2(event->scenePos());
+        m_conn->updatePath();
         result = true;
     }
 
@@ -111,14 +108,14 @@ bool NodeEditor::processMouseRelease(QGraphicsSceneMouseEvent *event)
 {
     bool result(false);
 
-    if (conn && event->button() == Qt::LeftButton)
+    if (m_conn && event->button() == Qt::LeftButton)
     {
         emit selectionModeChangeRequest(DesignerView::RUBBER_SELECTION);
 
         QGraphicsItem *item = itemAt(event->scenePos());
         if (item && item->type() == NodeEditorPort::TYPE)
         {
-            NodeEditorPort *port1 = conn->port1();
+            NodeEditorPort *port1 = m_conn->port1();
             NodeEditorPort *port2 = (NodeEditorPort*) item;
 
             if (port1->parentItem() != port2->parentItem()
@@ -127,17 +124,17 @@ bool NodeEditor::processMouseRelease(QGraphicsSceneMouseEvent *event)
                     && port1->getPortType() == port2->getPortType()
                     )
             {
-                conn->setPos2(port2->scenePos());
-                conn->setPort2(port2);
-                conn->updatePath();
-                emit connectionIsEstablished(conn);
-                conn = 0;
+                m_conn->setPos2(port2->scenePos());
+                m_conn->setPort2(port2);
+                m_conn->updatePath();
+                emit connectionIsEstablished(m_conn);
+                m_conn = 0;
                 return true;
             }
         }
 
-        delete conn;
-        conn = 0;
+        delete m_conn;
+        m_conn = 0;
         result = true;
     }
 

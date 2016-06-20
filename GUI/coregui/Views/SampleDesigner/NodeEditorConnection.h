@@ -43,11 +43,12 @@ public:
     void setPort2(NodeEditorPort *p);
     void updatePosFromPorts();
     void updatePath();
+
     NodeEditorPort* port1() const;
     NodeEditorPort* port2() const;
 
-    NodeEditorPort *getInputPort();
-    NodeEditorPort *getOutputPort();
+    NodeEditorPort *inputPort();
+    NodeEditorPort *outputPort();
 
     int type() const { return TYPE; }
 
@@ -66,4 +67,4 @@ private:
     NodeEditorPort *m_port2;
 };
 
-#endif // NODEEDITORCONNECTION_H
+#endif

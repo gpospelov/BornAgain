@@ -15,13 +15,13 @@
 // ************************************************************************** //
 
 #include "FutestSuite.h"
-#include "GUIFutest.h"
+#include "GUITest.h"
 
 class GUISuite : public FutestSuite
 {
 public:
     GUISuite() { setName("GUISuite"); }
-    IFutest* getFutest() const { return new GUIFutest(
+    IFutest* getFutest() const { return new GUITest(
             getTestName(), getTestDescription(), getSimulation(), getTestThreshold()); }
 };
 

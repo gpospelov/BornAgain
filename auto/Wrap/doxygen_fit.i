@@ -1053,7 +1053,7 @@ C++ includes: FitSuiteStrategies.h
 
 basic test of Genetic minimizer
 
-C++ includes: MinimizerFutests.h
+C++ includes: MinimizerTests.h
 ";
 
 %feature("docstring")  GeneticTest::GeneticTest "GeneticTest::GeneticTest()
@@ -1065,7 +1065,7 @@ C++ includes: MinimizerFutests.h
 
 basic test of GSL/LMA minimizer
 
-C++ includes: MinimizerFutests.h
+C++ includes: MinimizerTests.h
 ";
 
 %feature("docstring")  GSLLevenbergMarquardtTest::GSLLevenbergMarquardtTest "GSLLevenbergMarquardtTest::GSLLevenbergMarquardtTest()
@@ -1077,7 +1077,7 @@ C++ includes: MinimizerFutests.h
 
 basic test of GSL/BFGS minimizer
 
-C++ includes: MinimizerFutests.h
+C++ includes: MinimizerTests.h
 ";
 
 %feature("docstring")  GSLMultiMinBFGSTest::GSLMultiMinBFGSTest "GSLMultiMinBFGSTest::GSLMultiMinBFGSTest()
@@ -1089,7 +1089,7 @@ C++ includes: MinimizerFutests.h
 
 basic test of GSL/SteepestDescent minimizer
 
-C++ includes: MinimizerFutests.h
+C++ includes: MinimizerTests.h
 ";
 
 %feature("docstring")  GSLMultiMinSteepestDescentTest::GSLMultiMinSteepestDescentTest "GSLMultiMinSteepestDescentTest::GSLMultiMinSteepestDescentTest()
@@ -1101,7 +1101,7 @@ C++ includes: MinimizerFutests.h
 
 basic test of GSL/SimulatedAnnealing minimizer
 
-C++ includes: MinimizerFutests.h
+C++ includes: MinimizerTests.h
 ";
 
 %feature("docstring")  GSLSimulatedAnnealingTest::GSLSimulatedAnnealingTest "GSLSimulatedAnnealingTest::GSLSimulatedAnnealingTest()
@@ -1298,27 +1298,27 @@ return name of the minimization algorithm
 ";
 
 
-// File: classIMinimizerFutest.xml
-%feature("docstring") IMinimizerFutest "
+// File: classIMinimizerTest.xml
+%feature("docstring") IMinimizerTest "
 
 Basic class for all minimizer functional tests.
 
-C++ includes: IMinimizerFutest.h
+C++ includes: IMinimizerTest.h
 ";
 
-%feature("docstring")  IMinimizerFutest::IMinimizerFutest "IMinimizerFutest::IMinimizerFutest(const std::string &minimizer_name, const std::string &minimizer_algorithm=std::string())
+%feature("docstring")  IMinimizerTest::IMinimizerTest "IMinimizerTest::IMinimizerTest(const std::string &minimizer_name, const std::string &minimizer_algorithm=std::string())
 ";
 
-%feature("docstring")  IMinimizerFutest::~IMinimizerFutest "virtual IMinimizerFutest::~IMinimizerFutest()
+%feature("docstring")  IMinimizerTest::~IMinimizerTest "virtual IMinimizerTest::~IMinimizerTest()
 ";
 
-%feature("docstring")  IMinimizerFutest::runTest "void IMinimizerFutest::runTest()
+%feature("docstring")  IMinimizerTest::runTest "void IMinimizerTest::runTest()
 ";
 
-%feature("docstring")  IMinimizerFutest::analyseResults "int IMinimizerFutest::analyseResults()
+%feature("docstring")  IMinimizerTest::analyseResults "int IMinimizerTest::analyseResults()
 ";
 
-%feature("docstring")  IMinimizerFutest::setParameterTolerance "void IMinimizerFutest::setParameterTolerance(double value)
+%feature("docstring")  IMinimizerTest::setParameterTolerance "void IMinimizerTest::setParameterTolerance(double value)
 ";
 
 
@@ -1641,7 +1641,7 @@ Prints fit results.
 
 basic test of Minuit2/Fumili minimizer
 
-C++ includes: MinimizerFutests.h
+C++ includes: MinimizerTests.h
 ";
 
 %feature("docstring")  Minuit2FumiliTest::Minuit2FumiliTest "Minuit2FumiliTest::Minuit2FumiliTest()
@@ -1653,7 +1653,7 @@ C++ includes: MinimizerFutests.h
 
 basic test of Minuit2/Migrad minimizer
 
-C++ includes: MinimizerFutests.h
+C++ includes: MinimizerTests.h
 ";
 
 %feature("docstring")  Minuit2MigradTest::Minuit2MigradTest "Minuit2MigradTest::Minuit2MigradTest()
@@ -1957,10 +1957,10 @@ C++ includes: StandardFitsFactory.h
 ";
 
 
-// File: classIMinimizerFutest_1_1TestParameter.xml
-%feature("docstring") IMinimizerFutest::TestParameter "";
+// File: classIMinimizerTest_1_1TestParameter.xml
+%feature("docstring") IMinimizerTest::TestParameter "";
 
-%feature("docstring")  IMinimizerFutest::TestParameter::TestParameter "IMinimizerFutest::TestParameter::TestParameter(const std::string &name, double real_value, double start_value)
+%feature("docstring")  IMinimizerTest::TestParameter::TestParameter "IMinimizerTest::TestParameter::TestParameter(const std::string &name, double real_value, double start_value)
 ";
 
 
@@ -2138,16 +2138,16 @@ C++ includes: StandardFitsFactory.h
 // File: ROOTSimAnMinimizer_8h.xml
 
 
-// File: IMinimizerFutest_8cpp.xml
+// File: IMinimizerTest_8cpp.xml
 
 
-// File: IMinimizerFutest_8h.xml
+// File: IMinimizerTest_8h.xml
 
 
-// File: MinimizerFutests_8cpp.xml
+// File: MinimizerTests_8cpp.xml
 
 
-// File: MinimizerFutests_8h.xml
+// File: MinimizerTests_8h.xml
 
 
 // File: RectDetectorFitTest_8cpp.xml

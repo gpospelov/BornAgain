@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/utils/GUIFutest.cpp
-//! @brief     Implements class GUIFutest
+//! @file      GUI/coregui/utils/GUITest.cpp
+//! @brief     Implements class GUITest
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,7 +14,7 @@
 //
 // ************************************************************************** //
 
-#include "GUIFutest.h"
+#include "GUITest.h"
 #include "SimulationFactory.h"
 #include "GUIObjectBuilder.h"
 #include "InstrumentModel.h"
@@ -32,7 +32,7 @@
 #include <QDebug>
 
 
-GUIFutest::GUIFutest(const std::string &name, const std::string &description,
+GUITest::GUITest(const std::string &name, const std::string &description,
                                      GISASSimulation *reference_simulation, double threshold)
     : IFutest(name, description)
     , m_reference_simulation(reference_simulation)
@@ -42,13 +42,13 @@ GUIFutest::GUIFutest(const std::string &name, const std::string &description,
 {
 }
 
-GUIFutest::~GUIFutest()
+GUITest::~GUITest()
 {
     delete m_reference_simulation;
     delete m_domain_simulation;
 }
 
-void GUIFutest::runTest()
+void GUITest::runTest()
 {
     if (!m_reference_simulation) {
         throw NullPointerException(
@@ -61,7 +61,7 @@ void GUIFutest::runTest()
     m_domain_simulation->runSimulation();
 }
 
-int GUIFutest::analyseResults()
+int GUITest::analyseResults()
 {
     const std::unique_ptr<OutputData<double> > P_domain_data(m_domain_simulation->getDetectorIntensity());
     const std::unique_ptr<OutputData<double> > P_reference_data(
@@ -71,7 +71,7 @@ int GUIFutest::analyseResults()
     return m_result;
 }
 
-void GUIFutest::printResults(std::ostream &ostr) const
+void GUITest::printResults(std::ostream &ostr) const
 {
     ostr << getFormattedInfoString();
     ostr << Utils::String::getScientificDoubleString(m_difference);
@@ -79,7 +79,7 @@ void GUIFutest::printResults(std::ostream &ostr) const
 
 
 //! returns new simulation from
-void GUIFutest::createDomainSimulation()
+void GUITest::createDomainSimulation()
 {
     assert(m_reference_simulation->getSample());
 

@@ -22,7 +22,7 @@
 #include <memory>
 
 RectDetectorFitTest::RectDetectorFitTest()
-    : IMinimizerFutest("Minuit2", "Migrad")
+    : IMinimizerTest("Minuit2", "Migrad")
 {
 
 }

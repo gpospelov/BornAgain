@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/TestMachinery/CoreFutest.h
-//! @brief     Declares class CoreFutest.
+//! @file      Core/TestMachinery/CoreTest.h
+//! @brief     Declares class CoreTest.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -22,18 +22,18 @@
 
 class GISASSimulation;
 
-//! @class CoreFutest
+//! @class CoreTest
 //! @ingroup standard_samples
 //! @brief Core functional test  compares results of the standard simulation with
 //! reference intensity data. Normally invoked by FunctionalMultiTest.
 
-class BA_CORE_API_ CoreFutest : public IFutest
+class BA_CORE_API_ CoreTest : public IFutest
 {
 public:
-    CoreFutest(
+    CoreTest(
         const std::string& name, const std::string& description, GISASSimulation* simulation,
         double threshold);
-    virtual ~CoreFutest();
+    virtual ~CoreTest();
 
     virtual void runTest();
     virtual int analyseResults();

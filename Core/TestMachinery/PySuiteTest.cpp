@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/TestMachinery/PySuiteFutest.cpp
-//! @brief     Implements class PySuiteFutest
+//! @file      Core/TestMachinery/PySuiteTest.cpp
+//! @brief     Implements class PySuiteTest
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -26,9 +26,9 @@
 #include "FileSystem.h"
 #include "TestConfig.h"
 #include "Utils.h"
-#include "PySuiteFutest.h"
+#include "PySuiteTest.h"
 
-PySuiteFutest::PySuiteFutest(
+PySuiteTest::PySuiteTest(
     const std::string& name, const std::string& description,
     GISASSimulation* reference_simulation, double threshold)
     : IFutest(name, description)
@@ -41,13 +41,13 @@ PySuiteFutest::PySuiteFutest(
 {
 }
 
-PySuiteFutest::~PySuiteFutest()
+PySuiteTest::~PySuiteTest()
 {
     delete m_reference_simulation;
     delete m_domain_simulation;
 }
 
-void PySuiteFutest::runTest()
+void PySuiteTest::runTest()
 {
     assert(m_reference_simulation);
     m_reference_simulation->runSimulation();
@@ -74,7 +74,7 @@ void PySuiteFutest::runTest()
     (void)script_result; // ignore return value
 }
 
-int PySuiteFutest::analyseResults()
+int PySuiteTest::analyseResults()
 {
     const std::unique_ptr<OutputData<double> > P_domain_data(
         IntensityDataIOFactory::readOutputData(m_output_filename+".int"));
@@ -90,7 +90,7 @@ int PySuiteFutest::analyseResults()
     return m_result;
 }
 
-void PySuiteFutest::printResults(std::ostream& ostr) const
+void PySuiteTest::printResults(std::ostream& ostr) const
 {
     ostr << getFormattedInfoString();
     ostr << Utils::String::getScientificDoubleString(m_difference);
@@ -98,7 +98,7 @@ void PySuiteFutest::printResults(std::ostream& ostr) const
         ostr << "--> " << getPySuiteFileNameAndPath();
 }
 
-std::string PySuiteFutest::getPySuiteFileNameAndPath() const
+std::string PySuiteTest::getPySuiteFileNameAndPath() const
 {
     std::string result
         = Utils::FileSystem::GetJoinPath(FAILED_TESTS_DIR, m_pyscript_filename);

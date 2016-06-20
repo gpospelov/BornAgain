@@ -732,30 +732,6 @@ Sets convolution mode.
 ";
 
 
-// File: classCoreFutest.xml
-%feature("docstring") CoreFutest "
-
-Core functional test compares results of the standard simulation with reference intensity data. Normally invoked by FunctionalMultiTest.
-
-C++ includes: CoreFutest.h
-";
-
-%feature("docstring")  CoreFutest::CoreFutest "CoreFutest::CoreFutest(const std::string &name, const std::string &description, GISASSimulation *simulation, double threshold)
-";
-
-%feature("docstring")  CoreFutest::~CoreFutest "CoreFutest::~CoreFutest()
-";
-
-%feature("docstring")  CoreFutest::runTest "void CoreFutest::runTest()
-";
-
-%feature("docstring")  CoreFutest::analyseResults "int CoreFutest::analyseResults()
-";
-
-%feature("docstring")  CoreFutest::printResults "void CoreFutest::printResults(std::ostream &ostr) const 
-";
-
-
 // File: classCoreShellBoxRotateZandYBuilder.xml
 %feature("docstring") CoreShellBoxRotateZandYBuilder "
 
@@ -783,6 +759,30 @@ C++ includes: CoreShellParticleBuilder.h
 ";
 
 %feature("docstring")  CoreShellParticleBuilder::buildSample "ISample * CoreShellParticleBuilder::buildSample() const 
+";
+
+
+// File: classCoreTest.xml
+%feature("docstring") CoreTest "
+
+Core functional test compares results of the standard simulation with reference intensity data. Normally invoked by FunctionalMultiTest.
+
+C++ includes: CoreTest.h
+";
+
+%feature("docstring")  CoreTest::CoreTest "CoreTest::CoreTest(const std::string &name, const std::string &description, GISASSimulation *simulation, double threshold)
+";
+
+%feature("docstring")  CoreTest::~CoreTest "CoreTest::~CoreTest()
+";
+
+%feature("docstring")  CoreTest::runTest "void CoreTest::runTest()
+";
+
+%feature("docstring")  CoreTest::analyseResults "int CoreTest::analyseResults()
+";
+
+%feature("docstring")  CoreTest::printResults "void CoreTest::printResults(std::ostream &ostr) const 
 ";
 
 
@@ -10791,33 +10791,33 @@ finalize report to the simulation
 ";
 
 
-// File: classPySuiteFutest.xml
-%feature("docstring") PySuiteFutest "
+// File: classPySuiteTest.xml
+%feature("docstring") PySuiteTest "
 
 Test whether Python dumps yields the same image as a direct computation.
 
-C++ includes: PySuiteFutest.h
+C++ includes: PySuiteTest.h
 ";
 
-%feature("docstring")  PySuiteFutest::PySuiteFutest "PySuiteFutest::PySuiteFutest(const std::string &name, const std::string &description, GISASSimulation *reference_simulation, double threshold)
+%feature("docstring")  PySuiteTest::PySuiteTest "PySuiteTest::PySuiteTest(const std::string &name, const std::string &description, GISASSimulation *reference_simulation, double threshold)
 ";
 
-%feature("docstring")  PySuiteFutest::~PySuiteFutest "PySuiteFutest::~PySuiteFutest()
+%feature("docstring")  PySuiteTest::~PySuiteTest "PySuiteTest::~PySuiteTest()
 ";
 
-%feature("docstring")  PySuiteFutest::runTest "void PySuiteFutest::runTest()
+%feature("docstring")  PySuiteTest::runTest "void PySuiteTest::runTest()
 ";
 
-%feature("docstring")  PySuiteFutest::analyseResults "int PySuiteFutest::analyseResults()
+%feature("docstring")  PySuiteTest::analyseResults "int PySuiteTest::analyseResults()
 ";
 
-%feature("docstring")  PySuiteFutest::getOutputData "const OutputData<double>* PySuiteFutest::getOutputData() const 
+%feature("docstring")  PySuiteTest::getOutputData "const OutputData<double>* PySuiteTest::getOutputData() const 
 ";
 
-%feature("docstring")  PySuiteFutest::getDifference "double PySuiteFutest::getDifference() const 
+%feature("docstring")  PySuiteTest::getDifference "double PySuiteTest::getDifference() const 
 ";
 
-%feature("docstring")  PySuiteFutest::printResults "void PySuiteFutest::printResults(std::ostream &ostr) const 
+%feature("docstring")  PySuiteTest::printResults "void PySuiteTest::printResults(std::ostream &ostr) const 
 ";
 
 
@@ -14737,10 +14737,10 @@ Returns concatenated rotation (first right, then left).
 // File: TwoDimLatticeBuilder_8h.xml
 
 
-// File: CoreFutest_8cpp.xml
+// File: CoreTest_8cpp.xml
 
 
-// File: CoreFutest_8h.xml
+// File: CoreTest_8h.xml
 
 
 // File: FutestInfo_8cpp.xml
@@ -14770,10 +14770,10 @@ Returns concatenated rotation (first right, then left).
 // File: IRegistry_8h.xml
 
 
-// File: PySuiteFutest_8cpp.xml
+// File: PySuiteTest_8cpp.xml
 
 
-// File: PySuiteFutest_8h.xml
+// File: PySuiteTest_8h.xml
 
 
 // File: SubtestRegistry_8cpp.xml

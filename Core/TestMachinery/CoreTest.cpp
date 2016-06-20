@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/TestMachinery/CoreFutest.cpp
-//! @brief     Implements class CoreFutest.
+//! @file      Core/TestMachinery/CoreTest.cpp
+//! @brief     Implements class CoreTest.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,7 +13,7 @@
 //
 // ************************************************************************** //
 
-#include "CoreFutest.h"
+#include "CoreTest.h"
 #include "GISASSimulation.h"
 #include "IntensityDataFunctions.h"
 #include "TestConfig.h"
@@ -22,7 +22,7 @@
 #include "OutputDataIOHelper.h"
 #include "Utils.h"
 
-CoreFutest::CoreFutest(
+CoreTest::CoreTest(
     const std::string& name, const std::string& description, GISASSimulation* simulation,
     double threshold)
     : IFutest(name, description)
@@ -32,13 +32,13 @@ CoreFutest::CoreFutest(
 {
 }
 
-CoreFutest::~CoreFutest()
+CoreTest::~CoreTest()
 {
     delete m_simulation;
     delete m_reference;
 }
 
-void CoreFutest::runTest()
+void CoreTest::runTest()
 {
     if (!m_simulation)
         throw NullPointerException(
@@ -54,7 +54,7 @@ void CoreFutest::runTest()
     }
 }
 
-int CoreFutest::analyseResults()
+int CoreTest::analyseResults()
 {
     // Run simulation.
     const std::unique_ptr<OutputData<double>>
@@ -77,7 +77,7 @@ int CoreFutest::analyseResults()
     return m_result;
 }
 
-void CoreFutest::printResults(std::ostream& ostr) const
+void CoreTest::printResults(std::ostream& ostr) const
 {
     ostr << getFormattedInfoString();
     ostr << Utils::String::getScientificDoubleString(m_difference);
@@ -97,14 +97,14 @@ void CoreFutest::printResults(std::ostream& ostr) const
 }
 
 //! Constructs file name to save results. Strip gzip extention if necessary.
-std::string CoreFutest::getSimulationResultsFileNameAndPath() const
+std::string CoreTest::getSimulationResultsFileNameAndPath() const
 {
     std::string result = Utils::FileSystem::GetJoinPath(
         FAILED_TESTS_DIR, "ref_" + getName() + ".int.gz");
     return result;
 }
 
-OutputData<double>* CoreFutest::getIntensityData() const
+OutputData<double>* CoreTest::getIntensityData() const
 {
     if (m_simulation)
         return m_simulation->getDetectorIntensity();

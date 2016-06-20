@@ -1,6 +1,6 @@
 
 #include "StandardFitsFactory.h"
-#include "MinimizerFutests.h"
+#include "MinimizerTests.h"
 #include "RectDetectorFitTest.h"
 #include <boost/format.hpp>
 

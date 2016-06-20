@@ -30,12 +30,12 @@ class GISASSimulation;
 //! the one obtained through domain->GUI->domain convertion. Normally invoked by
 //! FunctionalMultiTest.
 
-class BA_CORE_API_ GUIFutest : public IFutest
+class BA_CORE_API_ GUITest : public IFutest
 {
 public:
-    GUIFutest(const std::string &name, const std::string &description,
+    GUITest(const std::string &name, const std::string &description,
                       GISASSimulation *reference_simulation, double threshold);
-    virtual ~GUIFutest();
+    virtual ~GUITest();
 
     virtual void runTest();
     virtual int analyseResults();

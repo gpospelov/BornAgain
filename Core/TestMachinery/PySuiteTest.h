@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/TestMachinery/PySuiteFutest.h
-//! @brief     Declares class PySuiteFutest
+//! @file      Core/TestMachinery/PySuiteTest.h
+//! @brief     Declares class PySuiteTest
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -23,16 +23,16 @@
 
 class GISASSimulation;
 
-//! @class PySuiteFutest
+//! @class PySuiteTest
 //! @ingroup standard_samples
 //! @brief Test whether Python dumps yields the same image as a direct computation.
 
-class BA_CORE_API_ PySuiteFutest : public IFutest
+class BA_CORE_API_ PySuiteTest : public IFutest
 {
 public:
-    PySuiteFutest(const std::string& name, const std::string& description,
+    PySuiteTest(const std::string& name, const std::string& description,
                    GISASSimulation* reference_simulation, double threshold);
-    virtual ~PySuiteFutest();
+    virtual ~PySuiteTest();
 
     virtual void runTest();
     virtual int analyseResults();

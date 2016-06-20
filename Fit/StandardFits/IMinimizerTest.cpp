@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/StandardFits/IMinimizerFutest.cpp
-//! @brief     Implements class IMinimizerFutest.
+//! @file      Fit/StandardFits/IMinimizerTest.cpp
+//! @brief     Implements class IMinimizerTest.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -19,18 +19,18 @@
 #include "SimulationFactory.h"
 #include "OutputData.h"
 #include "FitSuite.h"
-#include "IMinimizerFutest.h"
+#include "IMinimizerTest.h"
 #include "MinimizerFactory.h"
 #include <memory>
 #include <boost/format.hpp>
 
-IMinimizerFutest::TestParameter::TestParameter(const std::string &name, double real_value,
+IMinimizerTest::TestParameter::TestParameter(const std::string &name, double real_value,
                                                        double start_value)
     : m_name(name), m_real_value(real_value), m_start_value(start_value), m_found_value(0.0)
 {
 }
 
-IMinimizerFutest::IMinimizerFutest(const std::string &minimizer_name,
+IMinimizerTest::IMinimizerTest(const std::string &minimizer_name,
                                                    const std::string &minimizer_algorithm)
     : m_minimizer_name(minimizer_name)
     , m_minimizer_algorithm(minimizer_algorithm)
@@ -45,7 +45,7 @@ IMinimizerFutest::IMinimizerFutest(const std::string &minimizer_name,
 }
 
 
-void IMinimizerFutest::runTest()
+void IMinimizerTest::runTest()
 {
     std::unique_ptr<ISample> sample(createSample());
     for (size_t i = 0; i < m_parameters.size(); ++i) {
@@ -69,7 +69,7 @@ void IMinimizerFutest::runTest()
     }
 }
 
-int IMinimizerFutest::analyseResults()
+int IMinimizerTest::analyseResults()
 {
     for (size_t i = 0; i < m_parameters.size(); ++i) {
         double diff = std::abs(m_parameters[i].m_found_value - m_parameters[i].m_real_value)
@@ -85,13 +85,13 @@ int IMinimizerFutest::analyseResults()
     return m_result;
 }
 
-void IMinimizerFutest::setParameterTolerance(double value)
+void IMinimizerTest::setParameterTolerance(double value)
 {
     m_parameter_tolerance = value;
 }
 
 
-std::unique_ptr<FitSuite> IMinimizerFutest::createFitSuite()
+std::unique_ptr<FitSuite> IMinimizerTest::createFitSuite()
 {
     std::unique_ptr<FitSuite> result(new FitSuite());
     result->initPrint(10);
@@ -107,21 +107,21 @@ std::unique_ptr<FitSuite> IMinimizerFutest::createFitSuite()
     return std::move(result);
 }
 
-std::unique_ptr<ISample> IMinimizerFutest::createSample()
+std::unique_ptr<ISample> IMinimizerTest::createSample()
 {
     SampleBuilderFactory builderFactory;
     std::unique_ptr<ISample> result(builderFactory.createSample(m_sample_builder_name));
     return std::move(result);
 }
 
-std::unique_ptr<GISASSimulation> IMinimizerFutest::createSimulation()
+std::unique_ptr<GISASSimulation> IMinimizerTest::createSimulation()
 {
     SimulationFactory simRegistry;
     std::unique_ptr<GISASSimulation> result(simRegistry.createItem(m_simulation_name));
     return std::move(result);
 }
 
-std::unique_ptr<OutputData<double> > IMinimizerFutest::createOutputData(
+std::unique_ptr<OutputData<double> > IMinimizerTest::createOutputData(
     const GISASSimulation *simulation)
 {
     std::unique_ptr<OutputData<double> > result(simulation->getDetectorIntensity());

@@ -87,8 +87,6 @@ protected:
     DescriptionMap_t m_descriptions;     //!< map of correspondence of objectsId and description
 };
 
-template<class T> T* create_new() {
-    return new T();
-}
+template<class T> T* create_new() { return new T(); }
 
 #endif // IFACTORY_H

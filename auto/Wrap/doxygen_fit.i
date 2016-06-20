@@ -2157,10 +2157,6 @@ C++ includes: StandardFitsFactory.h
 
 
 // File: StandardFitsFactory_8cpp.xml
-%feature("docstring")  build "IFutest* build()
-
-build<C> is a function void -> IFutest*. C must be a child of IFutest. 
-";
 
 
 // File: StandardFitsFactory_8h.xml

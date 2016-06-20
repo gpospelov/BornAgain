@@ -20,6 +20,7 @@
 #include <map>
 #include <iostream>
 #include <vector>
+#include <functional>
 
 //! @class IFactory
 //! @ingroup tools_internal
@@ -30,7 +31,7 @@ class IFactory
 {
 public:
     //! function which will be used to create object of AbstractProduct base type
-    typedef AbstractProduct* (*CreateItemCallback) ();
+    typedef typename std::function<AbstractProduct*()> CreateItemCallback;
 
     //! map for correspondance between object identifier and object creation function
     typedef std::map<Key, CreateItemCallback> CallbackMap_t;

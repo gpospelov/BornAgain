@@ -24,7 +24,7 @@
 //! @ingroup standard_samples
 //! @brief Factory to create standard pre-defined samples
 
-class BA_CORE_API_ SampleBuilderFactory : public IFactory<ISampleBuilder>
+class BA_CORE_API_ SampleBuilderFactory : public IFactory<std::string, ISampleBuilder>
 {
 public:
     SampleBuilderFactory();

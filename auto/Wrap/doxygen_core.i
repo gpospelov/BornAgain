@@ -14905,6 +14905,8 @@ global helper function for comparison of axes
 
 
 // File: IFactory_8h.xml
+%feature("docstring")  create_new "T* create_new()
+";
 
 
 // File: IHistogram_8cpp.xml

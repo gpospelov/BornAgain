@@ -107,4 +107,8 @@ protected:
     std::vector<AbstractProduct*> m_objects;
 };
 
+template<class T> T* create_new() {
+    return new T();
+}
+
 #endif // IFACTORY_H

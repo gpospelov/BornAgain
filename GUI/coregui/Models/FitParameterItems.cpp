@@ -21,6 +21,7 @@
 #include "FitParameterHelper.h"
 #include "ParameterTreeItems.h"
 #include "AttLimits.h"
+#include "GUIHelpers.h"
 #include <QDebug>
 
 namespace
@@ -182,4 +183,29 @@ FitParameterItem *FitParameterContainerItem::getFitParameterItem(const QString &
 bool FitParameterContainerItem::isEmpty()
 {
     return getItems(T_FIT_PARAMETERS).isEmpty() ? true : false;
+}
+
+//! Propagate values to the corresponding parameter tree items of parameterContainer.
+
+void FitParameterContainerItem::setValuesInParameterContainer(const QVector<double> &values,
+                                                         ParameterContainerItem *parameterContainer)
+{
+    Q_ASSERT(parameterContainer);
+
+    QVector<SessionItem *> fitPars
+        = getItems(FitParameterContainerItem::T_FIT_PARAMETERS);
+
+    if(fitPars.size() != values.size()) {
+        throw GUIHelpers::Error(" FitParameterContainerItem::setValuesInParameterContainer() -> "
+                                "Error. Wrong size of value vector.");
+    }
+
+    for(int i=0; i<fitPars.size(); ++i) {
+        foreach(SessionItem *linkItem, fitPars[i]->getItems(FitParameterItem::T_LINK)) {
+            QString parPath = linkItem->getItemValue(FitParameterLinkItem::P_LINK).toString();
+            SessionItem *itemInTuningTree = ModelPath::getItemFromPath(parPath, parameterContainer);
+            Q_ASSERT(itemInTuningTree);
+            itemInTuningTree->setValue(values[i]);
+        }
+    }
 }

@@ -228,5 +228,12 @@ QStringList fromStdList(const std::list<std::string> &string_list)
     return result;
 }
 
+QVector<double> fromStdVector(const std::vector<double> &data)
+{
+    QVector<double> result;
+    result.reserve(int(data.size())); std::copy(data.begin(), data.end(), std::back_inserter(result));
+    return result;
+}
+
 
 } // namespace GUIHelpers

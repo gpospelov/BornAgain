@@ -19,18 +19,19 @@
 
 #include "SessionItem.h"
 
-class BA_CORE_API_ ParameterContainerItem : public SessionItem
-{
-public:
-    ParameterContainerItem();
-};
+//! ParameterTreeItems is a collection of items necessary to form a tuning tree for
+//! real time widget.
 
+//! The ParameterLabelItem class represents a label (string without value, like 'Layer',
+//! 'MultiLayer') in a parameter tuning tree.
 
 class BA_CORE_API_ ParameterLabelItem : public SessionItem
 {
 public:
     ParameterLabelItem();
 };
+
+//! The ParameterItem class represent a tuning value in a parameter tuning tree.
 
 class BA_CORE_API_ ParameterItem : public SessionItem
 {
@@ -41,6 +42,15 @@ public:
     ParameterItem();
     void propagateValueLink(bool backup = false);
     SessionItem *getLinkedItem();
+};
+
+//! The ParameterContainerItem is a top item to hold all ParameterItem, represents an entry
+//! point to parameter tuning tree. Part of JobItem.
+
+class BA_CORE_API_ ParameterContainerItem : public SessionItem
+{
+public:
+    ParameterContainerItem();
 };
 
 #endif

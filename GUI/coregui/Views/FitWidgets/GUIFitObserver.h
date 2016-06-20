@@ -17,14 +17,18 @@
 #ifndef GUIFITOBSERVER_H
 #define GUIFITOBSERVER_H
 
-#include "WinDllMacros.h"
 #include "IFitObserver.h"
-#include "OutputData.h"
+#include "FitProgressInfo.h"
 #include <QObject>
 #include <atomic>
 
+template <class T> class OutputData;
 class FitSuite;
 class IntensityDataItem;
+class FitProgressInfo;
+
+//! The GUIFitObserver class is a intermediate between FitSuite and the GUI.
+//! It is called at the end of each iterations and sends (messages, data) to the rest of the GUI.
 
 class BA_CORE_API_ GUIFitObserver : public QObject, public IFitObserver
 {
@@ -32,39 +36,32 @@ class BA_CORE_API_ GUIFitObserver : public QObject, public IFitObserver
 
 public:
 
-    GUIFitObserver(QObject *parent = 0)
-        : QObject(parent)
-        , IFitObserver(1)
-        , m_block_update_plots(false)
-        , m_update_interval(1)
-    {}
+    GUIFitObserver(QObject *parent = 0);
+    ~GUIFitObserver();
 
     void update(FitSuite *subject);
 
     void finishedPlotting();
 
-public slots:
+    const OutputData<double> *simulationData() const;
+    const OutputData<double> *chiSquaredData() const;
 
+public slots:
     void setInterval(int val);
 
 signals:
-
-    void updateStatus(const QString &);
-
-    void updatePlots(OutputData<double>*, OutputData<double>*);
-
-    void updateLog(const QString &);
-
-    void startFitting(OutputData<double>*);
-
-    void updateParameters(const QStringList &, QVector<double>);
+    void plotsUpdate();
+    void logInfoUpdate(const QString &);
+    void progressInfoUpdate(const FitProgressInfo &info);
 
 private:
-    bool isToUpdatePlots(FitSuite *fitSuite);
-    bool isToUpdateStatus(FitSuite *fitSuite);
+    bool canUpdatePlots(FitSuite *fitSuite);
+    bool canUpdateProgressInfo(FitSuite *fitSuite);
 
     std::atomic<bool> m_block_update_plots;
     int m_update_interval;
+    std::unique_ptr<OutputData<double> > m_simData;
+    std::unique_ptr<OutputData<double> > m_chiData;
 };
 
 #endif

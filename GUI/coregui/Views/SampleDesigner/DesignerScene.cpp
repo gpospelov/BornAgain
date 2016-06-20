@@ -146,11 +146,13 @@ void DesignerScene::updateScene()
 void DesignerScene::onRowsInserted(const QModelIndex & /* parent */, int /* first */,
                                    int /* last */)
 {
+    qDebug() << "DesignerScene::onRowsInserted";
     updateScene();
 }
 
 void DesignerScene::onRowsRemoved(const QModelIndex & /* parent */, int /* first */, int /* last */)
 {
+    qDebug() << "DesignerScene::onRowsRemoved";
     updateScene();
 }
 
@@ -286,15 +288,15 @@ void DesignerScene::alignViews()
 }
 
 //! runs recursively through model's item and schedules view removal
-void DesignerScene::deleteViews(const QModelIndex &parentIndex)
+void DesignerScene::deleteViews(const QModelIndex &viewIndex)
 {
-    qDebug() << "DesignerScene::deleteViews()" << parentIndex;
+    qDebug() << "DesignerScene::deleteViews()" << viewIndex;
 
-    for (int i_row = 0; i_row < m_sampleModel->rowCount(parentIndex); ++i_row) {
-        QModelIndex itemIndex = m_sampleModel->index(i_row, 0, parentIndex);
+    for (int i_row = 0; i_row < m_sampleModel->rowCount(viewIndex); ++i_row) {
+        QModelIndex itemIndex = m_sampleModel->index(i_row, 0, viewIndex);
 
         if (SessionItem *item = m_sampleModel->itemForIndex(itemIndex)) {
-
+            qDebug() << "   deleteViews" << item->modelType() << item->displayName();
             removeItemViewFromScene(item);
 
         } else {
@@ -302,21 +304,24 @@ void DesignerScene::deleteViews(const QModelIndex &parentIndex)
         }
         deleteViews(itemIndex);
     }
-    removeItemViewFromScene(m_sampleModel->itemForIndex(parentIndex)); // deleting parent item
+    removeItemViewFromScene(m_sampleModel->itemForIndex(viewIndex)); // deleting view itself
 }
 
 //! removes view from scene corresponding to given item
 void DesignerScene::removeItemViewFromScene(SessionItem *item)
 {
-    qDebug() << "DesignerScene::removeItemFromScene()" << item->modelType();
+    Q_ASSERT(item);
+
+    qDebug() << "DesignerScene::removeItemFromScene()" << item->modelType() << item->displayName();
     for (QMap<SessionItem *, IView *>::iterator it = m_ItemToView.begin();
          it != m_ItemToView.end(); ++it) {
         if (it.key() == item) {
             IView *view = it.value();
             view->setSelected(false);
             m_ItemToView.erase(it);
-            emit view->aboutToBeDeleted();
+//            emit view->aboutToBeDeleted();
             view->deleteLater();
+//            delete view;
             update();
             break;
         }
@@ -339,6 +344,7 @@ void DesignerScene::deleteSelectedItems()
     // Since we don't know the order of items and their parent/child relationship, we need this
     while (indexes.size()) {
         QModelIndex current = m_proxy->mapToSource(indexes.back());
+        qDebug() << "   DesignerScene::deleteSelectedItems() current.selected" << current;
         m_sampleModel->removeRows(current.row(), 1, current.parent());
         indexes = m_selectionModel->selectedIndexes();
     }
@@ -396,8 +402,10 @@ void DesignerScene::onEstablishedConnection(NodeEditorConnection *connection)
         if (connection->getInputPort()->getPortType() == NodeEditorPort::TRANSFORMATION)
             tag = ParticleItem::T_TRANSFORMATION;
     }
+    qDebug() << "onEstablishedConnection deleting just created connection";
     delete connection; // deleting just created connection because it will be recreated from the
                        // model
+    qDebug() << "onEstablishedConnection preparing to move";
     m_sampleModel->moveParameterizedItem(childView->getItem(),
                                          parentView->getItem(), -1, tag);
 }

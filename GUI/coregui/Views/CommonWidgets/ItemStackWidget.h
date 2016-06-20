@@ -24,9 +24,11 @@ class SessionModel;
 class SessionItem;
 
 //! The ItemStackWidget class contains a stack of widgets presenting top level items
-//! of SessionModel. This is the base for ItemStackPresenter, which actually contains item
-//! specific editor's logic.
-//! Used in InstrumentView and ImportDataView to show editors for currently selected items.
+//! of SessionModel. Every item corresponds to its own widget.
+
+//! This is the base for ItemStackPresenter, which actually contains item
+//! specific editor's logic. Used in InstrumentView, ImportDataView, JobView to show editors for
+//! currently selected items.
 
 class BA_CORE_API_ ItemStackWidget : public QWidget
 {

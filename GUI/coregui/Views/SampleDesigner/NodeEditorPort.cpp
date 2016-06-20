@@ -16,12 +16,12 @@
 
 #include "NodeEditorPort.h"
 #include "NodeEditorConnection.h"
-
 #include <QGraphicsScene>
 #include <QFontMetrics>
 #include <QPen>
 #include <QPainter>
-#include <iostream>
+#include <QDebug>
+
 
 NodeEditorPort::NodeEditorPort(QGraphicsItem *parent, const QString &name,
                                NodeEditorPort::EPortDirection direction,
@@ -57,7 +57,8 @@ NodeEditorPort::NodeEditorPort(QGraphicsItem *parent, const QString &name,
 
 NodeEditorPort::~NodeEditorPort()
 {
-    foreach (NodeEditorConnection *conn, m_connections) {
+    QVector<NodeEditorConnection *> connections = m_connections;
+    foreach (NodeEditorConnection *conn, connections) {
         conn->setSelected(false);
         delete conn;
     }

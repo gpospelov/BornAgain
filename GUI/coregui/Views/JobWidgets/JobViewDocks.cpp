@@ -36,6 +36,7 @@ JobViewDocks::JobViewDocks(JobView *parent)
     , m_jobOutputDataWidget(0)
     , m_jobRealTimeWidget(0)
     , m_fitActivityPanel(0)
+    , m_jobMessagePanel(0)
     , m_jobView(parent)
 {
 
@@ -141,10 +142,13 @@ void JobViewDocks::initJobWidgets(JobModel *jobModel)
     m_jobWidgets[JobViewFlags::REAL_TIME_DOCK] = m_jobRealTimeWidget;
 
     m_fitActivityPanel = new FitActivityPanel(jobModel, m_jobView);
-    m_fitActivityPanel->setRealTimeWidget(m_jobRealTimeWidget);
     m_jobWidgets[JobViewFlags::FIT_PANEL_DOCK] = m_fitActivityPanel;
 
-    m_jobWidgets[JobViewFlags::JOB_MESSAGE_DOCK] = new JobMessagePanel(m_jobView);
+    m_jobMessagePanel = new JobMessagePanel(m_jobView);
+    m_jobWidgets[JobViewFlags::JOB_MESSAGE_DOCK] = m_jobMessagePanel;
+
+    m_fitActivityPanel->setRealTimeWidget(m_jobRealTimeWidget);
+    m_fitActivityPanel->setJobMessagePanel(m_jobMessagePanel);
 
     m_jobView->setCentralWidget(centralWidget());
 }
@@ -164,10 +168,10 @@ void JobViewDocks::initDocks()
 
         // Since we have 1-pixel splitters, we generally want to remove
         // frames around item views. So we apply this hack for now.
-//        QList<QAbstractItemView*> frames =
-//                subWindow->findChildren<QAbstractItemView*>();
-//        for (int i = 0 ; i< frames.count(); ++i)
-//            frames[i]->setFrameStyle(QFrame::NoFrame);
+        QList<QAbstractItemView*> frames =
+                subWindow->findChildren<QAbstractItemView*>();
+        for (int i = 0 ; i< frames.count(); ++i)
+            frames[i]->setFrameStyle(QFrame::NoFrame);
 
     }
 

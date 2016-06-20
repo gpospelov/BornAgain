@@ -17,7 +17,7 @@
 #include "appoptions.h"
 #include "mainwindow.h"
 #include "SplashScreen.h"
-
+#include "FitProgressInfo.h"
 #include <QApplication>
 #include <QDebug>
 #include <iostream>
@@ -38,6 +38,7 @@ int main(int argc, char *argv[])
 
     QLocale::setDefault(QLocale(QLocale::English, QLocale::UnitedStates));
     qRegisterMetaType<QVector<double> >("QVector<double>");
+    qRegisterMetaType<FitProgressInfo>("FitProgressInfo");
 
     QApplication a(argc, argv);
 

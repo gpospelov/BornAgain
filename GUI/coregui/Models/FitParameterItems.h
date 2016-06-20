@@ -20,6 +20,10 @@
 
 class AttLimits;
 
+//! FitParameterItems is a collection of items to define fit parameters in GUI.
+
+//! The FitParameterLinkItem class holds a link to ParameterItem in tuning tree.
+
 class BA_CORE_API_ FitParameterLinkItem : public SessionItem
 {
 
@@ -28,6 +32,9 @@ public:
     static const QString P_DOMAIN;
     explicit FitParameterLinkItem();
 };
+
+//! The FitParameterItem class represents a fit parameter in GUI. Contains links to corresponding
+//! ParameterItem's in a tuning tree.
 
 class BA_CORE_API_ FitParameterItem : public SessionItem
 {
@@ -47,6 +54,8 @@ private:
     void setLimitEnabled(const QString &name, bool enabled);
 };
 
+//! The FitParameterContainerItem class is a collection of all defined fit parameters in JobItem.
+
 class BA_CORE_API_ FitParameterContainerItem : public SessionItem
 {
 
@@ -55,6 +64,7 @@ public:
     explicit FitParameterContainerItem();
     FitParameterItem *getFitParameterItem(const QString &link);
     bool isEmpty();
+    void setValuesInParameterContainer(const QVector<double> &values, class ParameterContainerItem *parameterContainer);
 };
 
 #endif

@@ -18,13 +18,23 @@
 #define JOBMESSAGEPANEL_H
 
 #include "WinDllMacros.h"
-#include <QFrame>
+#include <QWidget>
 
-class BA_CORE_API_ JobMessagePanel : public QFrame
+//! The JobMessagePanel class shows log messages from FitActivityPanel at the
+//! bottom part of JobView.
+
+class BA_CORE_API_ JobMessagePanel : public QWidget
 {
     Q_OBJECT
 public:
     JobMessagePanel(QWidget *parent = 0);
+
+public slots:
+    void onClearLog();
+    void onMessage(const QString &message);
+
+private:
+    class QPlainTextEdit *m_plainLog;
 };
 
 #endif

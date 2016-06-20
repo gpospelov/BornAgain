@@ -26,6 +26,7 @@ class QSlider;
 class WarningSignWidget;
 class QLabel;
 class FitSuiteItem;
+class JobMessagePanel;
 
 //! The RunFitControlWidget contains elements to start/stop fitting and to provide minimal
 //! diagnostic. Part of FitActivityPanel.
@@ -36,14 +37,17 @@ class BA_CORE_API_ RunFitControlWidget : public QWidget
 public:
     RunFitControlWidget(QWidget *parent = 0);
 
+    void setJobMessagePanel(JobMessagePanel *jobMessagePanel);
+
 signals:
-    void startFitting();
-    void stopFitting();
+    void startFittingPushed();
+    void stopFittingPushed();
 
 public slots:
     void onFittingStarted(JobItem *jobItem);
     void onFittingFinished(JobItem *jobItem);
     void onFittingError(const QString &what);
+    void onFittingLog(const QString &text);
     void setItem(JobItem *item);
 
 private slots:
@@ -68,6 +72,7 @@ private:
     QLabel *m_iterationsCountLabel;
     JobItem *m_currentItem;
     WarningSignWidget *m_warningSign;
+    JobMessagePanel *m_jobMessagePanel;
 };
 
 #endif

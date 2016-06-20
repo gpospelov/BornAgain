@@ -70,7 +70,7 @@ const OutputData<double> *FitSuiteObjects::getSimulationData(size_t i_item) cons
     return m_fit_objects[check_index(i_item)]->getSimulationData();
 }
 
-OutputData<double> *FitSuiteObjects::getChiSquaredMap(size_t i_item) const
+const OutputData<double> *FitSuiteObjects::getChiSquaredMap(size_t i_item) const
 {
     check_index(i_item);
     size_t istart(0);

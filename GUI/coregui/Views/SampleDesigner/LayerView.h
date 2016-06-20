@@ -27,7 +27,7 @@ public:
     enum { TYPE = DesignerHelper::LAYER };
 
     LayerView(QGraphicsItem *parent = 0);
-    virtual ~LayerView() { }
+    virtual ~LayerView();
 
     virtual int type() const { return TYPE; }
 

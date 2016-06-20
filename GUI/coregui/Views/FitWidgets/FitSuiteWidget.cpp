@@ -30,6 +30,7 @@
 #include "MinimizerSettingsWidget.h"
 #include "FitResultsWidget.h"
 #include "mainwindow_constants.h"
+#include "FitProgressInfo.h"
 #include "GUIHelpers.h"
 #include <QVBoxLayout>
 #include <QTabWidget>
@@ -43,8 +44,9 @@ FitSuiteWidget::FitSuiteWidget(QWidget *parent)
     , m_minimizerSettingsWidget(new MinimizerSettingsWidget)
     , m_fitResultsWidget(new FitResultsWidget)
     , m_currentItem(0)
-    , m_manager(new RunFitManager(parent))
+    , m_runFitManager(new RunFitManager(parent))
     , m_observer(new GUIFitObserver())
+    , m_block_progress_update(false)
 {
     QVBoxLayout *layout = new QVBoxLayout;
     layout->setContentsMargins(0, 0, 0, 0);
@@ -98,56 +100,26 @@ void FitSuiteWidget::onError(const QString &text)
     qDebug() << "FitSuiteWidget::onError" << text;
 }
 
-void FitSuiteWidget::onUpdatePlots(OutputData<double> *sim, OutputData<double> *chi2)
+void FitSuiteWidget::onPlotsUpdate()
 {
-    Q_UNUSED(sim);
-    Q_UNUSED(chi2);
-    // FIXME Ownership sim,chi2 - shouldn't they be deleted here?
-
     qDebug() << "FitSuiteWidget::onUpdatePlots";
-    OutputData<double> *data = m_currentItem->getIntensityDataItem()->getOutputData();
-    data->setRawDataVector(sim->getRawDataVector());
-    m_currentItem->getIntensityDataItem()->emitDataChanged();
+    m_currentItem->getIntensityDataItem()->setRawDataVector(m_observer->simulationData());
     m_observer->finishedPlotting();
 }
 
-//! Propagates current values of fit parameters as reported by FitSuite observer back to JobItem.
+//! Propagates fit progress as reported by GUIFitObserver back to JobItem.
 
-void FitSuiteWidget::onUpdateParameters(const QStringList &parameters, QVector<double> values)
+void FitSuiteWidget::onProgressInfoUpdate(const FitProgressInfo &info)
 {
-    qDebug() << "FitSuiteWidget::onUpdateParameters" << parameters << values;
+    if(m_block_progress_update) return;
 
-    ParameterContainerItem *parContainer = m_currentItem->parameterContainerItem();
-    Q_ASSERT(parContainer);
+    m_block_progress_update = true;
 
-    SessionItem *fitParContainer = m_currentItem->fitParameterContainerItem();
-    Q_ASSERT(fitParContainer);
+    updateIterationCount(info);
+    updateTuningWidgetParameterValues(info);
+    updateLog(info);
 
-    foreach(SessionItem *fitParItem, fitParContainer->getItems(FitParameterContainerItem::T_FIT_PARAMETERS)) {
-        foreach(SessionItem *linkItem, fitParItem->getItems(FitParameterItem::T_LINK)) {
-            QString domainPath = linkItem->getItemValue(FitParameterLinkItem::P_DOMAIN).toString();
-
-            if (parameters.contains(domainPath)) {
-                QString parPath = linkItem->getItemValue(FitParameterLinkItem::P_LINK).toString();
-                int index = parameters.indexOf(domainPath);
-                SessionItem *parItem = ModelPath::getItemFromPath(parPath, parContainer);
-                Q_ASSERT(parItem);
-                parItem->setValue(values[index]);
-            }
-
-        }
-    }
-}
-
-void FitSuiteWidget::onUpdateStatus(const QString &text)
-{
-    Q_ASSERT(m_currentItem);
-    qDebug() << "FitSuiteWidget::onUpdateStatus(const QString &text)" << text;
-    FitSuiteItem *fitSuiteItem = m_currentItem->fitSuiteItem();
-    Q_ASSERT(fitSuiteItem);
-    bool ok;
-    int niter = text.toInt(&ok);
-    fitSuiteItem->setItemValue(FitSuiteItem::P_ITERATION_COUNT, niter);
+    m_block_progress_update = false;
 }
 
 void FitSuiteWidget::startFitting()
@@ -168,14 +140,11 @@ void FitSuiteWidget::startFitting()
         m_observer->setInterval(m_currentItem->fitSuiteItem()->getItemValue(FitSuiteItem::P_UPDATE_INTERVAL).toInt());
         std::shared_ptr<FitSuite> fitSuite(DomainFittingBuilder::createFitSuite(m_currentItem));
         fitSuite->attachObserver(m_observer);
-        m_manager->setFitSuite(fitSuite);
+        m_runFitManager->setFitSuite(fitSuite);
         m_observer->finishedPlotting();
-        m_manager->runFitting();
+        m_runFitManager->runFitting();
         qDebug() << " done";
     } catch(std::exception& e) {
-//        QMessageBox box;
-//        box.setText(e.what());
-//        box.exec();
         m_currentItem->fitSuiteItem()->mapper()->unsubscribe(this);
         emit fittingError(QString::fromStdString(e.what()));
     }
@@ -188,7 +157,7 @@ void FitSuiteWidget::stopFitting()
 //    if(!m_currentItem)
 //        return;
     qDebug() << "FitSuiteWidget::stopFitting()";
-    m_manager->interruptFitting();
+    m_runFitManager->interruptFitting();
 }
 
 void FitSuiteWidget::onFittingStarted()
@@ -208,7 +177,7 @@ void FitSuiteWidget::onFittingFinished()
     m_currentItem->setStatus(Constants::STATUS_COMPLETED);
     m_currentItem->setEndTime(GUIHelpers::currentDateTime());
     m_currentItem->setProgress(100);
-    m_currentItem->setDuration(m_manager->getDuration());
+    m_currentItem->setDuration(m_runFitManager->getDuration());
     qDebug() << "FitSuiteWidget::onFittingFinished()";
     m_currentItem->fitSuiteItem()->mapper()->unsubscribe(this);
     emit fittingFinished(m_currentItem);
@@ -227,17 +196,51 @@ void FitSuiteWidget::onFitSuitePropertyChange(const QString &name)
 
 void FitSuiteWidget::connectSignals()
 {
-    connect(m_manager, SIGNAL(startedFitting()), this, SLOT(onFittingStarted()));
-    connect(m_manager, SIGNAL(finishedFitting()), this, SLOT(onFittingFinished()));
+    connect(m_runFitManager, SIGNAL(startedFitting()), this, SLOT(onFittingStarted()));
+    connect(m_runFitManager, SIGNAL(finishedFitting()), this, SLOT(onFittingFinished()));
+    connect(m_runFitManager, SIGNAL(fittingError(QString)), this, SIGNAL(fittingError(QString)));
 
-//    connect(m_manager, SIGNAL(error(QString)), this, SLOT(onError(QString)));
-    connect(m_manager, SIGNAL(error(QString)), this, SIGNAL(fittingError(QString)));
+    connect(m_observer.get(), SIGNAL(plotsUpdate()), this, SLOT(onPlotsUpdate()));
 
-    connect(m_observer.get(), SIGNAL(updatePlots(OutputData<double>*,OutputData<double>*)),
-            this, SLOT(onUpdatePlots(OutputData<double>*,OutputData<double>*)));
-    connect(m_observer.get(), SIGNAL(updateParameters(QStringList,QVector<double>)),
-            this, SLOT(onUpdateParameters(QStringList,QVector<double>)));
-    connect(m_observer.get(), SIGNAL(updateStatus(QString)),
-            this, SLOT(onUpdateStatus(QString)));
+
+    connect(m_observer.get(), SIGNAL(logInfoUpdate(QString)),
+            this, SIGNAL(fittingLog(QString)));
+
+
+    connect(m_observer.get(), SIGNAL(progressInfoUpdate(const FitProgressInfo&)),
+            this, SLOT(onProgressInfoUpdate(const FitProgressInfo&)));
+
+}
+
+//! Propagates current number of iteration to FitSuiteItem to make FitControlWidget informed.
+
+void FitSuiteWidget::updateIterationCount(const FitProgressInfo &info)
+{
+    FitSuiteItem *fitSuiteItem = m_currentItem->fitSuiteItem();
+    fitSuiteItem->setItemValue(FitSuiteItem::P_ITERATION_COUNT, info.iterationCount());
+}
+
+void FitSuiteWidget::updateTuningWidgetParameterValues(const FitProgressInfo &info)
+{
+    QVector<double> values = info.parValues();
+    FitParameterContainerItem *fitParContainer = m_currentItem->fitParameterContainerItem();
+    fitParContainer->setValuesInParameterContainer(values, m_currentItem->parameterContainerItem());
+}
+
+// FIXME provide normal print on log update
+
+void FitSuiteWidget::updateLog(const FitProgressInfo &info)
+{
+    QString message = QString("NCalls:%1 chi2:%2 \n").arg(info.iterationCount()).arg(info.chi2());
+    FitParameterContainerItem *fitParContainer = m_currentItem->fitParameterContainerItem();
+    int index(0);
+    QVector<double> values = info.parValues();
+    foreach(SessionItem *item, fitParContainer->getItems(FitParameterContainerItem::T_FIT_PARAMETERS)) {
+        QString parinfo = QString("      %1 %2\n").arg(item->displayName()).arg(values[index]);
+        message.append(parinfo);
+    }
+
+//    message.append("\n");
+    emit fittingLog(message);
 }
 

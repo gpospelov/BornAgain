@@ -18,6 +18,7 @@
 #define FITSUITEWIDGET_H
 
 #include "WinDllMacros.h"
+#include "FitProgressInfo.h"
 #include <QWidget>
 #include <memory>
 
@@ -32,6 +33,7 @@ class ParameterTuningWidget;
 class RunFitManager;
 class GUIFitObserver;
 template <class T> class OutputData;
+//class FitProgressInfo;
 
 
 //! The FitSuiteWidget contains all fit settings for given JobItem (fit parameters,
@@ -56,12 +58,12 @@ signals:
     void fittingStarted(JobItem *jobItem);
     void fittingFinished(JobItem *jobItem);
     void fittingError(const QString &what);
+    void fittingLog(const QString &text);
 
 public slots:
     void onError(const QString &text);
-    void onUpdatePlots(OutputData<double>*sim, OutputData<double>*chi2);
-    void onUpdateParameters(const QStringList &parameters, QVector<double> values);
-    void onUpdateStatus(const QString &text);
+    void onPlotsUpdate();
+    void onProgressInfoUpdate(const FitProgressInfo &info);
 
     void startFitting();
     void stopFitting();
@@ -69,19 +71,23 @@ public slots:
 private slots:
     void onFittingStarted();
     void onFittingFinished();
-
     void onFitSuitePropertyChange(const QString &name);
 
 private:
     void connectSignals();
+    void updateIterationCount(const FitProgressInfo &info);
+    void updateTuningWidgetParameterValues(const FitProgressInfo &info);
+    void updateLog(const FitProgressInfo &info);
+
 
     QTabWidget *m_tabWidget;
     FitParameterWidget *m_fitParametersWidget;
     MinimizerSettingsWidget *m_minimizerSettingsWidget;
     FitResultsWidget *m_fitResultsWidget;
     JobItem *m_currentItem;
-    RunFitManager *m_manager;
+    RunFitManager *m_runFitManager;
     std::shared_ptr<GUIFitObserver> m_observer;
+    bool m_block_progress_update;
 };
 
 #endif

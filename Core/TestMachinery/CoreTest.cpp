@@ -42,7 +42,7 @@ void CoreTest::runTest()
 {
     if (!m_simulation)
         throw NullPointerException(
-            "AdvancedFutest::runTest() -> Error. Uninitialized simulation object.");
+            "CoreTest::runTest() -> Error. Uninitialized simulation object.");
     m_simulation->runSimulation();
 
     m_ref_filename = BA_REF_DATA_DIR + "/ref_" + getName() + ".int.gz";

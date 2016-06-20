@@ -1,5 +1,5 @@
 ############################################################################
-# Futests/TestPyCore/CMakeLists.txt
+# Tests/Functional/PyCore/scripts/CMakeLists.txt
 ############################################################################
 
 file(GLOB sources RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "*.py")

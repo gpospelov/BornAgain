@@ -4342,7 +4342,7 @@ C++ includes: FunctionalTestRegistry.h
 
 To execute one functional test of given name.
 
-Used in functional tests (Core|Py|GUI)Suite, where it is subclassed as a singleton, and called through instance().execute(argc, argv). When processing execute, dependent classes will call back getFutest(). Certain tests have subtests; they will call back getFormFactor() etc.
+Used in functional tests (Core|Py|GUI)Suite, where it is subclassed as a singleton, and called through instance().execute(argc, argv). When processing execute, dependent classes will call back  getTest(). Certain tests have subtests; they will call back getFormFactor() etc.
 
 C++ includes: FunctionalTestSuite.h
 ";

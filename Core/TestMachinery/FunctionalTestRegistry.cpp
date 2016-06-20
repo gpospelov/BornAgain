@@ -341,7 +341,7 @@ void FunctionalTestRegistry::add(
 {
     if( m_catalogue.find(test_name) != m_catalogue.end() )
         throw ExistingClassRegistrationException(
-            "FutestRegistry::add() -> Error. Existing item " + test_name);
+            "FunctionalTestRegistry::add() -> Error. Existing item " + test_name);
     m_catalogue[test_name] = FunctionalTestInfo(
         test_name, test_description, simulation_name,
         sample_builder_name, subtest_type, threshold);

@@ -68,7 +68,7 @@ int FunctionalTestSuite::execute_subtests()
     } else if(m_info->m_subtest_type == "FTDistributions2DRegistry") {
         subtest_registry = new TestFTDistribution2DRegistry;
     } else
-        throw RuntimeErrorException("FutestSuite -> Error. "
+        throw RuntimeErrorException("FunctionalTestSuite -> Error. "
                                     "Unknown factory '"+m_info->m_subtest_type+"'.");
     subtest_names = subtest_registry->keys();
     size_t n_subtests = subtest_names.size();
@@ -80,7 +80,7 @@ int FunctionalTestSuite::execute_subtests()
         m_subtest_item = subtest_registry->getItem(subtest_names[i]);
 
         IFunctionalTest* subtest( getTest() );
-        std::cout << "FutestSuite::execute() -> " << getName()
+        std::cout << "FunctionalTestSuite::execute() -> " << getName()
                   << " " << i+1 << "/" << n_subtests << " (" << subtest_names[i] << ")\n";
         subtest->runTest();
         subtest->analyseResults();
@@ -98,7 +98,7 @@ int FunctionalTestSuite::execute_subtests()
 }
 
 // ************************************************************************** //
-//  Functions called by getFutest() in *Suite.cpp
+//  Functions called by getTest() in *Suite.cpp
 // ************************************************************************** //
 
 GISASSimulation* FunctionalTestSuite::getSimulation() const

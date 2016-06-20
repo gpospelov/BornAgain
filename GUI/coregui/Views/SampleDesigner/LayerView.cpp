@@ -20,6 +20,7 @@
 #include "SessionItem.h"
 #include "MaterialProperty.h"
 #include "tooltipdatabase.h"
+#include "MultiLayerView.h"
 #include <QPainter>
 #include <QStyleOptionGraphicsItem>
 #include <QDebug>
@@ -36,6 +37,16 @@ LayerView::LayerView(QGraphicsItem *parent)
     setToolTip(ToolTipDataBase::getSampleViewDesignerToolTip(Constants::LayerType));
     setAcceptDrops(false);
     addPort(QString(), NodeEditorPort::INPUT, NodeEditorPort::PARTICLE_LAYOUT);
+}
+
+LayerView::~LayerView()
+{
+    qDebug() << "LayerView::~LayerView()";
+    // FIXME replace with onChildrenChange inside MultiLayerView
+    MultiLayerView *mlView = dynamic_cast<MultiLayerView *>(parentItem());
+    if(mlView) {
+        mlView->removeLayer(this);
+    }
 }
 
 

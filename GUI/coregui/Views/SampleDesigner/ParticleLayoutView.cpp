@@ -34,6 +34,11 @@ ParticleLayoutView::ParticleLayoutView(QGraphicsItem *parent)
     m_roundpar = 3;
 }
 
+ParticleLayoutView::~ParticleLayoutView()
+{
+    qDebug() << "ParticleLayoutView::~ParticleLayoutView()";
+}
+
 void ParticleLayoutView::addView(IView *childView, int /* row */)
 {
     qDebug() << "ParticleLayoutView::addView() xxx " << m_item->itemName()

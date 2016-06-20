@@ -17,32 +17,36 @@
 #include "NodeEditorConnection.h"
 #include "NodeEditorPort.h"
 #include "ConnectableView.h"
-
 #include <QBrush>
 #include <QPen>
 #include <QGraphicsScene>
 #include <QPainter>
-#include <iostream>
+#include <QDebug>
 
 NodeEditorConnection::NodeEditorConnection(QGraphicsItem *parent, QGraphicsScene *scene)
     : QGraphicsPathItem(parent)
+    , m_port1(0)
+    , m_port2(0)
 {
     setFlag(QGraphicsItem::ItemIsSelectable, true);
     setPen(QPen(Qt::darkGray, 2));
     setBrush(Qt::NoBrush);
     setZValue(-1);
-    m_port1 = 0;
-    m_port2 = 0;
     if(scene) scene->addItem(this);
 }
 
 
 NodeEditorConnection::~NodeEditorConnection()
 {
-    if (m_port1)
-        m_port1->connections().remove(m_port1->connections().indexOf(this));
-    if (m_port2)
-        m_port2->connections().remove(m_port2->connections().indexOf(this));
+    qDebug() << "NodeEditorConnection::~NodeEditorConnection()" << this;
+    if (m_port1) {
+        qDebug() << " NodeEditorConnection removeAll from " << m_port1;
+        m_port1->connections().removeAll(this);
+    }
+    if (m_port2) {
+        qDebug() << " NodeEditorConnection removeAll from " << m_port2;
+        m_port2->connections().removeAll(this);
+    }
 }
 
 void NodeEditorConnection::setPos1(const QPointF &p)
@@ -64,14 +68,12 @@ void NodeEditorConnection::setPort1(NodeEditorPort *p)
     setPos1(p->scenePos());
 }
 
-
 void NodeEditorConnection::setPort2(NodeEditorPort *p)
 {
     m_port2 = p;
     m_port2->connections().append(this);
     setPos2(p->scenePos());
 }
-
 
 void NodeEditorConnection::updatePosFromPorts()
 {

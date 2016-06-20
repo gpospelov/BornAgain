@@ -282,43 +282,27 @@ Returns result of rotation around the axis specified by another vector.
 ";
 
 %feature("docstring")  Geometry::BasicVector3D::conj "BasicVector3D< double > Geometry::BasicVector3D< double >::conj() const
-
-Returns complex conjugate vector. 
 ";
 
 %feature("docstring")  Geometry::BasicVector3D::conj "BasicVector3D< complex_t > Geometry::BasicVector3D< complex_t >::conj() const
-
-Returns complex conjugate vector. 
 ";
 
 %feature("docstring")  Geometry::BasicVector3D::phi "double Geometry::BasicVector3D< double >::phi() const
-
-Returns azimuth angle. 
 ";
 
 %feature("docstring")  Geometry::BasicVector3D::theta "double Geometry::BasicVector3D< double >::theta() const
-
-Returns polar angle. 
 ";
 
 %feature("docstring")  Geometry::BasicVector3D::cosTheta "double Geometry::BasicVector3D< double >::cosTheta() const
-
-Returns cosine of polar angle. 
 ";
 
 %feature("docstring")  Geometry::BasicVector3D::sin2Theta "double Geometry::BasicVector3D< double >::sin2Theta() const
-
-Returns squared sine of polar angle. 
 ";
 
 %feature("docstring")  Geometry::BasicVector3D::complex "BasicVector3D< std::complex< double > > Geometry::BasicVector3D< double >::complex() const
-
-Returns this, trivially converted to complex type. 
 ";
 
 %feature("docstring")  Geometry::BasicVector3D::angle "double Geometry::BasicVector3D< double >::angle(const BasicVector3D< double > &v) const
-
-Returns angle with respect to another vector. 
 ";
 
 %feature("docstring")  Geometry::BasicVector3D::conj "BA_CORE_API_ BasicVector3D< double > Geometry::BasicVector3D< double >::conj() const
@@ -5475,52 +5459,42 @@ Base class for all factories.
 C++ includes: IFactory.h
 ";
 
-%feature("docstring")  IFactory::IFactory "IFactory< AbstractProduct >::IFactory()
+%feature("docstring")  IFactory::IFactory "IFactory< Key, AbstractProduct >::IFactory()
 ";
 
-%feature("docstring")  IFactory::createItem "AbstractProduct* IFactory< AbstractProduct >::createItem(const std::string &itemId)
+%feature("docstring")  IFactory::createItem "AbstractProduct* IFactory< Key, AbstractProduct >::createItem(const Key &item_key)
 
 Creates object by calling creation function corresponded to given identifier. 
 ";
 
-%feature("docstring")  IFactory::registerItem "bool IFactory< AbstractProduct >::registerItem(const std::string &itemId, CreateItemCallback CreateFn)
+%feature("docstring")  IFactory::registerItem "bool IFactory< Key, AbstractProduct >::registerItem(const Key &item_key, CreateItemCallback CreateFn)
 
 Registers object's creation function. 
 ";
 
-%feature("docstring")  IFactory::registerItem "bool IFactory< AbstractProduct >::registerItem(const std::string &itemId, CreateItemCallback CreateFn, const std::string &itemDescription)
+%feature("docstring")  IFactory::registerItem "bool IFactory< Key, AbstractProduct >::registerItem(const Key &item_key, CreateItemCallback CreateFn, const std::string &itemDescription)
 
 Registers object's creation function and store object description. 
 ";
 
-%feature("docstring")  IFactory::~IFactory "IFactory< AbstractProduct >::~IFactory()
+%feature("docstring")  IFactory::~IFactory "IFactory< Key, AbstractProduct >::~IFactory()
 ";
 
-%feature("docstring")  IFactory::clear "void IFactory< AbstractProduct >::clear()
-
-clear everything 
-";
-
-%feature("docstring")  IFactory::setOwnObjects "void IFactory< AbstractProduct >::setOwnObjects(bool own_objects)
-
-Sets flag to delete objects on descruction. 
-";
-
-%feature("docstring")  IFactory::getNumberOfRegistered "size_t IFactory< AbstractProduct >::getNumberOfRegistered() const
+%feature("docstring")  IFactory::getNumberOfRegistered "size_t IFactory< Key, AbstractProduct >::getNumberOfRegistered() const
 
 Returns number of registered objects. 
 ";
 
-%feature("docstring")  IFactory::begin "iterator IFactory< AbstractProduct >::begin()
+%feature("docstring")  IFactory::begin "iterator IFactory< Key, AbstractProduct >::begin()
 ";
 
-%feature("docstring")  IFactory::begin "const_iterator IFactory< AbstractProduct >::begin() const 
+%feature("docstring")  IFactory::begin "const_iterator IFactory< Key, AbstractProduct >::begin() const 
 ";
 
-%feature("docstring")  IFactory::end "iterator IFactory< AbstractProduct >::end()
+%feature("docstring")  IFactory::end "iterator IFactory< Key, AbstractProduct >::end()
 ";
 
-%feature("docstring")  IFactory::end "const_iterator IFactory< AbstractProduct >::end() const 
+%feature("docstring")  IFactory::end "const_iterator IFactory< Key, AbstractProduct >::end() const 
 ";
 
 
@@ -9313,10 +9287,10 @@ C++ includes: Utils.h
 %feature("docstring")  Utils::OrderedMap::insert "void Utils::OrderedMap< Key, Object >::insert(const Key &key, const Object &object)
 ";
 
-%feature("docstring")  Utils::OrderedMap::find "iterator Utils::OrderedMap< Key, Object >::find(const Key &key)
+%feature("docstring")  Utils::OrderedMap::find "const iterator Utils::OrderedMap< Key, Object >::find(const Key &key) const 
 ";
 
-%feature("docstring")  Utils::OrderedMap::find "const_iterator Utils::OrderedMap< Key, Object >::find(const Key &key) const 
+%feature("docstring")  Utils::OrderedMap::find "iterator Utils::OrderedMap< Key, Object >::find(const Key &key)
 ";
 
 %feature("docstring")  Utils::OrderedMap::erase "size_t Utils::OrderedMap< Key, Object >::erase(const Key &key)
@@ -13201,16 +13175,16 @@ C++ includes: WavevectorInfo.h
 // File: classMathFunctions_1_1Convolve_1_1Workspace.xml
 
 
-// File: namespace_0D339.xml
+// File: namespace@339.xml
 
 
-// File: namespace_0D353.xml
+// File: namespace@353.xml
 
 
-// File: namespace_0D67.xml
+// File: namespace@67.xml
 
 
-// File: namespace_0D95.xml
+// File: namespace@95.xml
 
 
 // File: namespaceboost_1_1geometry.xml
@@ -14728,10 +14702,6 @@ Returns concatenated rotation (first right, then left).
 
 
 // File: SampleBuilderFactory_8cpp.xml
-%feature("docstring")  build "ISampleBuilder* build()
-
-build<C> is a function void -> ISampleBuilder*. C must be a child of  ISampleBuilder. 
-";
 
 
 // File: SampleBuilderFactory_8h.xml
@@ -14921,6 +14891,8 @@ global helper function for comparison of axes
 
 
 // File: IFactory_8h.xml
+%feature("docstring")  create_new "T* create_new()
+";
 
 
 // File: IHistogram_8cpp.xml
@@ -14930,6 +14902,9 @@ global helper function for comparison of axes
 
 
 // File: INamed_8h.xml
+
+
+// File: BAConfigure_8h.xml
 
 
 // File: IntegratorComplex_8h.xml
@@ -15113,29 +15088,35 @@ global helper function for comparison of axes
 // File: todo.xml
 
 
-// File: dir_e1ea50aa565d9a3ab2d030f355b28273.xml
+// File: dir_2ae5eef177fdc4a2f78184a703e9ca35.xml
 
 
-// File: dir_c6310732a22f63c0c2fc5595561e68f1.xml
+// File: dir_a5718f9cbd8869dfe6f67ea602e0c081.xml
 
 
-// File: dir_a2ca5d2cdcaf135a87dcab85b198454f.xml
+// File: dir_e8b91df279483b3e8e12615e228a1b30.xml
 
 
-// File: dir_41c864f8b362cbf9598de792bd07bfbb.xml
+// File: dir_0741ac6d11fd047643bf55f8f8c05919.xml
 
 
-// File: dir_d7044b5fc4daccc5700de9f07da81a11.xml
+// File: dir_f917e00ecc0731a03e57c18530cede59.xml
 
 
-// File: dir_3089b6128da5fa5b3826c81ab6bab5ef.xml
+// File: dir_9d78f3c2dc853fa89372782fc968f32a.xml
 
 
-// File: dir_5d2259b43612a5a0ff7512df653d7370.xml
+// File: dir_7fb31f1b073eeae63423bbb2a3a2d187.xml
 
 
-// File: dir_3699ff1c9496be3df876d73b8d75bc3c.xml
+// File: dir_844b9b42d96eb52684a7ef26f932da03.xml
 
 
-// File: dir_e120110860f9b345e7b3217e8b15cbb8.xml
+// File: dir_6239607a7bd3e9e52745ea8c4706e15f.xml
+
+
+// File: dir_66dafcc1787bb051f9038bca1a02d0ff.xml
+
+
+// File: dir_0ae786ed4862dcefebd8dd89a60766dc.xml
 

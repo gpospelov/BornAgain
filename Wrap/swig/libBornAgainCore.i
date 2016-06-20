@@ -360,9 +360,9 @@
 %include "ISelectionRule.h"
 %include "SpecularSimulation.h"
 %include "ThreadInfo.h"
-%template(SampleBuilderFactory) IFactory<ISampleBuilder>;
+%template(SampleBuilderFactory) IFactory<std::string, ISampleBuilder>;
 //%include "SampleBuilderFactory.h"
-%template(SimulationFactory) IFactory<GISASSimulation>;
+%template(SimulationFactory) IFactory<std::string, GISASSimulation>;
 //%include "SimulationFactory.h"
 
 %include "extendCore.i"

@@ -4,49 +4,46 @@
 #include "RectDetectorFitTest.h"
 #include <boost/format.hpp>
 
-//! build<C> is a function void -> IFutest*. C must be a child of IFutest.
-template<class Builder> IFutest* build() { return new Builder(); }
-
 StandardFitsFactory::StandardFitsFactory()
 {
     registerItem(
         "Minuit2_Migrad",
-        build<Minuit2MigradTest>,
+        create_new<Minuit2MigradTest>,
         "Functional test of Minuit2/Migrad minimizer");
 
     registerItem(
         "Minuit2_Fumili",
-        build<Minuit2FumiliTest>,
+        create_new<Minuit2FumiliTest>,
         "Functional test of Minuit2/Fumili minimizer");
 
     registerItem(
         "GSLLevenbergMarquardt",
-        build<GSLLevenbergMarquardtTest>,
+        create_new<GSLLevenbergMarquardtTest>,
         "Functional test of GSL's LevenbergMarquardt minimizer");
 
     registerItem(
         "GSLMultiMinBFGS",
-        build<GSLMultiMinBFGSTest>,
+        create_new<GSLMultiMinBFGSTest>,
         "Functional test of GSL's MultiMin/BFGS minimizer");
 
     registerItem(
         "GSLMultiMinSteepestDescent",
-        build<GSLMultiMinSteepestDescentTest>,
+        create_new<GSLMultiMinSteepestDescentTest>,
         "Functional test of GSL's MultiMin/SteepestDescent minimizer");
 
     registerItem(
         "GSLSimulatedAnnealing",
-        build<GSLSimulatedAnnealingTest>,
+        create_new<GSLSimulatedAnnealingTest>,
         "Functional test of GSL's Simulated Annealing minimizer");
 
     registerItem(
         "GeneticMinimizer",
-        build<GeneticTest>,
+        create_new<GeneticTest>,
         "Functional test of TMVA's Genetic minimizer");
 
     registerItem(
         "RectDetectorFit",
-        build<RectDetectorFitTest>,
+        create_new<RectDetectorFitTest>,
         "Fit of rectangular detector, with crop and masks applied");
 }
 

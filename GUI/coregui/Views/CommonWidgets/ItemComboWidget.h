@@ -18,7 +18,9 @@
 #define ITEMCOMBOWIDGET_H
 
 #include "WinDllMacros.h"
+#include "IFactory.h"
 #include <QWidget>
+#include <QString>
 
 class SessionItem;
 
@@ -39,13 +41,15 @@ public:
 
     virtual void setItem(SessionItem *item);
 
-//    void addWidget(const QString &presentationType, std::function<void(SessionItem*)> f)
+//    void addWidget(const QString &presentationType, std::function<void(SessionItem*)> f);
 
+    void add(const QString &presentationType, std::function<QWidget*()>);
 
 private:
     class QStackedWidget *m_stackedWidget;
     SessionItem *m_currentItem;
     static WidgetMap_t m_widget_map;
+    IFactory<QString, QWidget> m_factory;
 };
 
 #endif

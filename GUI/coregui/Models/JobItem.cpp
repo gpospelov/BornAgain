@@ -21,7 +21,7 @@
 #include "InstrumentModel.h"
 #include "MultiLayerItem.h"
 #include "InstrumentItem.h"
-#include "JobResultsPresenter.h"
+#include "JobItemHelper.h"
 #include "SimulationOptionsItem.h"
 #include "GUIHelpers.h"
 #include "FitSuiteItem.h"
@@ -100,7 +100,7 @@ JobItem::JobItem()
         if (item->modelType() == Constants::IntensityDataType
             && name == IntensityDataItem::P_AXES_UNITS) {
             auto intensityItem = dynamic_cast<IntensityDataItem *>(item);
-            JobResultsPresenter::updateDataAxes(intensityItem, getInstrumentItem());
+            JobItemHelper::updateDataAxes(intensityItem, getInstrumentItem());
             qDebug() << "QQQQ" << item->modelType() << name;
 
         }
@@ -271,7 +271,7 @@ void JobItem::setResults(const GISASSimulation *simulation)
     IntensityDataItem *intensityItem = getIntensityDataItem();
     Q_ASSERT(intensityItem);
 
-    JobResultsPresenter::setResults(intensityItem, simulation);
+    JobItemHelper::setResults(intensityItem, simulation);
     updateIntensityDataFileName();
 }
 

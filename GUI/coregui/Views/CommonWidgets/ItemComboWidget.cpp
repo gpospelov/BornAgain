@@ -31,9 +31,15 @@ ItemComboWidget::ItemComboWidget(QWidget *parent)
     layout->setContentsMargins(0,0,0,0);
     layout->addWidget(m_stackedWidget);
     setLayout(layout);
+
 }
 
 void ItemComboWidget::setItem(SessionItem *item)
 {
     m_currentItem = item;
+}
+
+void ItemComboWidget::add(const QString &presentationType, std::function<QWidget *()> f)
+{
+    m_factory.registerItem("XXX", f);
 }

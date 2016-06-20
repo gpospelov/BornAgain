@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef COREFUNCTIONALTEST_H
-#define COREFUNCTIONALTEST_H
+#ifndef CORETEST_H
+#define CORETEST_H
 
 #include "WinDllMacros.h"
 #include "OutputData.h"

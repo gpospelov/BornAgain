@@ -342,12 +342,12 @@ void FutestRegistry::add(
     if( m_catalogue.find(test_name) != m_catalogue.end() )
         throw ExistingClassRegistrationException(
             "FutestRegistry::add() -> Error. Existing item " + test_name);
-    m_catalogue[test_name] = FutestInfo(
+    m_catalogue[test_name] = FunctionalTestInfo(
         test_name, test_description, simulation_name,
         sample_builder_name, subtest_type, threshold);
 }
 
-const FutestInfo* FutestRegistry::getItemOrExplain(
+const FunctionalTestInfo* FutestRegistry::getItemOrExplain(
     const std::string& test_name, const std::string& suite_name) const
 {
     auto it = m_catalogue.find(test_name);
@@ -365,7 +365,7 @@ const FutestInfo* FutestRegistry::getItemOrExplain(
 void FutestRegistry::printCatalogue(std::ostream& ostr) const
 {
     for(auto it = m_catalogue.begin(); it != m_catalogue.end(); ++it) {
-        FutestInfo info = it->second;
+        FunctionalTestInfo info = it->second;
         ostr << Utils::AdjustStringLength(info.m_test_name, 20) << " | ";
         ostr << Utils::AdjustStringLength(info.m_test_description, 40) << " | ";
         ostr << info.m_simulation_name << ", ";

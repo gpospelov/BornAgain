@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/utils/GUIFutest.h
-//! @brief     Declares class GUIFutest
+//! @file      GUI/coregui/utils/GUITest.h
+//! @brief     Declares class GUITest
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#ifndef GUIFUNCTIONALTEST_H
-#define GUIFUNCTIONALTEST_H
+#ifndef GUITEST_H
+#define GUITEST_H
 
 #include "WinDllMacros.h"
 #include "IFutest.h"
@@ -24,7 +24,7 @@
 
 class GISASSimulation;
 
-//! @class GUIFutest
+//! @class GUITest
 //! @ingroup standard_samples
 //! @brief GUI functional test  compares results of the reference simulation with
 //! the one obtained through domain->GUI->domain convertion. Normally invoked by

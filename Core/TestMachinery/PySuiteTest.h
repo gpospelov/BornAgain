@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef GUIFUNCTIONALTEST_H
-#define GUIFUNCTIONALTEST_H
+#ifndef PYSUITETEST_H
+#define PYSUITETEST_H
 
 #include "WinDllMacros.h"
 #include "IFutest.h"

@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef ICLONEABLEREGISTRY_H
-#define ICLONEABLEREGISTRY_H
+#ifndef IREGISTRY_H
+#define IREGISTRY_H
 
 #include "Exceptions.h"
 #include "WinDllMacros.h"

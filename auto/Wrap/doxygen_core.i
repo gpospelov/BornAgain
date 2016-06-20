@@ -4301,18 +4301,45 @@ evaluate Fourier transformed distribution for q in X,Y coordinates the original 
 ";
 
 
-// File: classFutestInfo.xml
-%feature("docstring") FutestInfo "
+// File: classFunctionalTestInfo.xml
+%feature("docstring") FunctionalTestInfo "
 
 Contains all necessary information to compose functional test.
 
-C++ includes: FutestInfo.h
+C++ includes: FunctionalTestInfo.h
 ";
 
-%feature("docstring")  FutestInfo::FutestInfo "FutestInfo::FutestInfo()
+%feature("docstring")  FunctionalTestInfo::FunctionalTestInfo "FunctionalTestInfo::FunctionalTestInfo()
 ";
 
-%feature("docstring")  FutestInfo::FutestInfo "FutestInfo::FutestInfo(const std::string &test_name, const std::string &test_description, const std::string &simulation_name, const std::string &sample_builder_name, const std::string &subtest_type, double threshold)
+%feature("docstring")  FunctionalTestInfo::FunctionalTestInfo "FunctionalTestInfo::FunctionalTestInfo(const std::string &test_name, const std::string &test_description, const std::string &simulation_name, const std::string &sample_builder_name, const std::string &subtest_type, double threshold)
+";
+
+
+// File: classFunctionalTestSuite.xml
+%feature("docstring") FunctionalTestSuite "
+
+To execute one functional test of given name.
+
+Used in functional tests (Core|Py|GUI)Suite, where it is subclassed as a singleton, and called through instance().execute(argc, argv). When processing execute, dependent classes will call back getFutest(). Certain tests have subtests; they will call back getFormFactor() etc.
+
+C++ includes: FunctionalTestSuite.h
+";
+
+%feature("docstring")  FunctionalTestSuite::FunctionalTestSuite "FunctionalTestSuite::FunctionalTestSuite()
+";
+
+%feature("docstring")  FunctionalTestSuite::~FunctionalTestSuite "virtual FunctionalTestSuite::~FunctionalTestSuite()
+";
+
+%feature("docstring")  FunctionalTestSuite::execute "int FunctionalTestSuite::execute(int argc, char **argv)
+
+Runs test (name given as command-line argument), and returns 0 for SUCCESS, or error code. 
+";
+
+%feature("docstring")  FunctionalTestSuite::getTest "virtual class IFutest* FunctionalTestSuite::getTest() const =0
+
+overloaded in (Core|Py|GUI)Suite.cpp 
 ";
 
 
@@ -4330,37 +4357,10 @@ C++ includes: FutestRegistry.h
 %feature("docstring")  FutestRegistry::add "void FutestRegistry::add(const std::string &test_name, const std::string &test_description, const std::string &simulation_name, const std::string &sample_builder_name, const std::string &component_registry_name, double threshold)
 ";
 
-%feature("docstring")  FutestRegistry::getItemOrExplain "const FutestInfo * FutestRegistry::getItemOrExplain(const std::string &test_name, const std::string &suite_name) const 
+%feature("docstring")  FutestRegistry::getItemOrExplain "const FunctionalTestInfo * FutestRegistry::getItemOrExplain(const std::string &test_name, const std::string &suite_name) const 
 ";
 
 %feature("docstring")  FutestRegistry::printCatalogue "void FutestRegistry::printCatalogue(std::ostream &ostr) const 
-";
-
-
-// File: classFutestSuite.xml
-%feature("docstring") FutestSuite "
-
-To execute one functional test of given name.
-
-Used in functional tests (Core|Py|GUI)Suite, where it is subclassed as a singleton, and called through instance().execute(argc, argv). When processing execute, dependent classes will call back  getFutest(). Certain tests have subtests; they will call back getFormFactor() etc.
-
-C++ includes: FutestSuite.h
-";
-
-%feature("docstring")  FutestSuite::FutestSuite "FutestSuite::FutestSuite()
-";
-
-%feature("docstring")  FutestSuite::~FutestSuite "virtual FutestSuite::~FutestSuite()
-";
-
-%feature("docstring")  FutestSuite::execute "int FutestSuite::execute(int argc, char **argv)
-
-Runs test (name given as command-line argument), and returns 0 for SUCCESS, or error code. 
-";
-
-%feature("docstring")  FutestSuite::getFutest "virtual class IFutest* FutestSuite::getFutest() const =0
-
-overloaded in (Core|Py|GUI)Suite.cpp 
 ";
 
 
@@ -14743,22 +14743,22 @@ Returns concatenated rotation (first right, then left).
 // File: CoreTest_8h.xml
 
 
-// File: FutestInfo_8cpp.xml
+// File: FunctionalTestInfo_8cpp.xml
 
 
-// File: FutestInfo_8h.xml
+// File: FunctionalTestInfo_8h.xml
+
+
+// File: FunctionalTestSuite_8cpp.xml
+
+
+// File: FunctionalTestSuite_8h.xml
 
 
 // File: FutestRegistry_8cpp.xml
 
 
 // File: FutestRegistry_8h.xml
-
-
-// File: FutestSuite_8cpp.xml
-
-
-// File: FutestSuite_8h.xml
 
 
 // File: IFutest_8cpp.xml

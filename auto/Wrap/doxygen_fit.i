@@ -225,7 +225,7 @@ Returns the size of the data. It is equal to the number of non-masked detector c
 Runs simulation and put results (the real and simulated intensities) into external vector. Masked channels will be excluded from the vector. 
 ";
 
-%feature("docstring")  FitObject::getChiSquaredMap "OutputData< double > * FitObject::getChiSquaredMap(std::vector< FitElement >::const_iterator first, std::vector< FitElement >::const_iterator last) const
+%feature("docstring")  FitObject::getChiSquaredMap "const OutputData< double > * FitObject::getChiSquaredMap(std::vector< FitElement >::const_iterator first, std::vector< FitElement >::const_iterator last) const
 
 Creates ChiSquared map from external vector. 
 ";
@@ -823,7 +823,7 @@ i_item:
 Index of  FitObject
 ";
 
-%feature("docstring")  FitSuiteObjects::getChiSquaredMap "OutputData< double > * FitSuiteObjects::getChiSquaredMap(size_t i_item=0) const
+%feature("docstring")  FitSuiteObjects::getChiSquaredMap "const OutputData< double > * FitSuiteObjects::getChiSquaredMap(size_t i_item=0) const
 
 Returns new chi-squared map from corresponding  FitObject
 

@@ -2569,9 +2569,9 @@ class FitObject(libBornAgainCore.IParameterized):
 
     def getChiSquaredMap(self, first, last):
         """
-        getChiSquaredMap(FitObject self, std::vector< FitElement,std::allocator< FitElement > >::const_iterator first, std::vector< FitElement,std::allocator< FitElement > >::const_iterator last) -> OutputData< double > *
+        getChiSquaredMap(FitObject self, std::vector< FitElement,std::allocator< FitElement > >::const_iterator first, std::vector< FitElement,std::allocator< FitElement > >::const_iterator last) -> OutputData< double > const *
 
-        OutputData< double > * FitObject::getChiSquaredMap(std::vector< FitElement >::const_iterator first, std::vector< FitElement >::const_iterator last) const
+        const OutputData< double > * FitObject::getChiSquaredMap(std::vector< FitElement >::const_iterator first, std::vector< FitElement >::const_iterator last) const
 
         Creates ChiSquared map from external vector. 
 
@@ -3317,10 +3317,10 @@ class FitSuiteObjects(libBornAgainCore.IParameterized):
 
     def getChiSquaredMap(self, i_item=0):
         """
-        getChiSquaredMap(FitSuiteObjects self, size_t i_item=0) -> OutputData< double >
-        getChiSquaredMap(FitSuiteObjects self) -> OutputData< double > *
+        getChiSquaredMap(FitSuiteObjects self, size_t i_item=0) -> OutputData< double > const
+        getChiSquaredMap(FitSuiteObjects self) -> OutputData< double > const *
 
-        OutputData< double > * FitSuiteObjects::getChiSquaredMap(size_t i_item=0) const
+        const OutputData< double > * FitSuiteObjects::getChiSquaredMap(size_t i_item=0) const
 
         Returns new chi-squared map from corresponding  FitObject
 

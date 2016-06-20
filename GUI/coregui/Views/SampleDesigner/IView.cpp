@@ -28,9 +28,8 @@ IView::IView(QGraphicsItem *parent) : QGraphicsObject(parent), m_item(0)
 
 IView::~IView()
 {
-    if(m_item) {
+    if(m_item)
         m_item->mapper()->unsubscribe(this);
-    }
 }
 
 void IView::setParameterizedItem(SessionItem *item)

@@ -78,7 +78,7 @@ void MultiLayerView::addNewLayer(ILayerView *layer, int row)
     qDebug() << "MultiLayerView::addNewLayer(), row" << row;
     m_layers.insert(row, layer);
     connect(layer, SIGNAL(heightChanged()), this, SLOT(updateHeight()), Qt::UniqueConnection);
-    connect(layer, SIGNAL(aboutToBeDeleted()), this, SLOT(onLayerAboutToBeDeleted()), Qt::UniqueConnection);
+//    connect(layer, SIGNAL(aboutToBeDeleted()), this, SLOT(onLayerAboutToBeDeleted()), Qt::UniqueConnection);
     layer->setParentItem(this);
 }
 
@@ -97,7 +97,7 @@ void MultiLayerView::removeLayer(ILayerView *layer)
     qDebug() << "MultiLayerView::removeLayer()";
     Q_ASSERT(m_layers.contains(layer));
     disconnect(layer, SIGNAL(heightChanged()), this, SLOT(updateHeight()) );
-    disconnect(layer, SIGNAL(aboutToBeDeleted()), this, SLOT(onLayerAboutToBeDeleted()) );
+//    disconnect(layer, SIGNAL(aboutToBeDeleted()), this, SLOT(onLayerAboutToBeDeleted()) );
     m_layers.removeOne(layer);
     updateGeometry();
 }
@@ -286,10 +286,4 @@ const DesignerMimeData *MultiLayerView::checkDragEvent(QGraphicsSceneDragDropEve
 QVariant MultiLayerView::itemChange(QGraphicsItem::GraphicsItemChange change, const QVariant &value)
 {
     return QGraphicsItem::itemChange(change, value);
-}
-
-void MultiLayerView::onSiblingsChange()
-{
-    qDebug() << "MultiLayerView::onSiblingsChange()";
-
 }

@@ -59,7 +59,6 @@ protected:
     void dragMoveEvent(QGraphicsSceneDragDropEvent *event);
     const DesignerMimeData *checkDragEvent(QGraphicsSceneDragDropEvent * event);
     QVariant itemChange(GraphicsItemChange change, const QVariant &value);
-    virtual void onSiblingsChange();
 
 private:
     QList<ILayerView *> m_layers;

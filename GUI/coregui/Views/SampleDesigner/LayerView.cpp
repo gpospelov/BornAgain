@@ -42,7 +42,7 @@ LayerView::LayerView(QGraphicsItem *parent)
 LayerView::~LayerView()
 {
     qDebug() << "LayerView::~LayerView()";
-    // FIXME replace with onChildrenChange inside MultiLayerView
+    // FIXME replace with onChildrenChange callback from MultiLayerItem's model mapper.
     MultiLayerView *mlView = dynamic_cast<MultiLayerView *>(parentItem());
     if(mlView) {
         mlView->removeLayer(this);

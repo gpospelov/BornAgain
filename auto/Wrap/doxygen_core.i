@@ -4316,6 +4316,27 @@ C++ includes: FunctionalTestInfo.h
 ";
 
 
+// File: classFunctionalTestRegistry.xml
+%feature("docstring") FunctionalTestRegistry "
+
+The registry which holds information about available functional tests.
+
+C++ includes: FunctionalTestRegistry.h
+";
+
+%feature("docstring")  FunctionalTestRegistry::FunctionalTestRegistry "FunctionalTestRegistry::FunctionalTestRegistry()
+";
+
+%feature("docstring")  FunctionalTestRegistry::add "void FunctionalTestRegistry::add(const std::string &test_name, const std::string &test_description, const std::string &simulation_name, const std::string &sample_builder_name, const std::string &component_registry_name, double threshold)
+";
+
+%feature("docstring")  FunctionalTestRegistry::getItemOrExplain "const FunctionalTestInfo * FunctionalTestRegistry::getItemOrExplain(const std::string &test_name, const std::string &suite_name) const 
+";
+
+%feature("docstring")  FunctionalTestRegistry::printCatalogue "void FunctionalTestRegistry::printCatalogue(std::ostream &ostr) const 
+";
+
+
 // File: classFunctionalTestSuite.xml
 %feature("docstring") FunctionalTestSuite "
 
@@ -4340,27 +4361,6 @@ Runs test (name given as command-line argument), and returns 0 for SUCCESS, or e
 %feature("docstring")  FunctionalTestSuite::getTest "virtual class IFutest* FunctionalTestSuite::getTest() const =0
 
 overloaded in (Core|Py|GUI)Suite.cpp 
-";
-
-
-// File: classFutestRegistry.xml
-%feature("docstring") FutestRegistry "
-
-The registry which holds information about available functional tests.
-
-C++ includes: FutestRegistry.h
-";
-
-%feature("docstring")  FutestRegistry::FutestRegistry "FutestRegistry::FutestRegistry()
-";
-
-%feature("docstring")  FutestRegistry::add "void FutestRegistry::add(const std::string &test_name, const std::string &test_description, const std::string &simulation_name, const std::string &sample_builder_name, const std::string &component_registry_name, double threshold)
-";
-
-%feature("docstring")  FutestRegistry::getItemOrExplain "const FunctionalTestInfo * FutestRegistry::getItemOrExplain(const std::string &test_name, const std::string &suite_name) const 
-";
-
-%feature("docstring")  FutestRegistry::printCatalogue "void FutestRegistry::printCatalogue(std::ostream &ostr) const 
 ";
 
 
@@ -14749,16 +14749,16 @@ Returns concatenated rotation (first right, then left).
 // File: FunctionalTestInfo_8h.xml
 
 
+// File: FunctionalTestRegistry_8cpp.xml
+
+
+// File: FunctionalTestRegistry_8h.xml
+
+
 // File: FunctionalTestSuite_8cpp.xml
 
 
 // File: FunctionalTestSuite_8h.xml
-
-
-// File: FutestRegistry_8cpp.xml
-
-
-// File: FutestRegistry_8h.xml
 
 
 // File: IFutest_8cpp.xml

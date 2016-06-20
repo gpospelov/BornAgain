@@ -15,7 +15,7 @@
 
 #include <iostream>
 
-#include "FutestRegistry.h"
+#include "FunctionalTestRegistry.h"
 #include "SimulationFactory.h"
 #include "SampleBuilderFactory.h"
 #include "SubtestRegistry.h"
@@ -34,7 +34,7 @@ int FunctionalTestSuite::execute(int argc, char** argv) {
     std::string test_name;
     if(argc > 1)
         test_name = std::string(argv[1]);
-    m_info = FutestRegistry::instance().getItemOrExplain(test_name, getName());
+    m_info = FunctionalTestRegistry::instance().getItemOrExplain(test_name, getName());
     if( !m_info )
         return 1;
 

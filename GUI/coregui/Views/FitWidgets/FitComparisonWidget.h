@@ -31,6 +31,13 @@ public:
 
     void setItem(class SessionItem *item);
 
+protected:
+    void setJobItem(class JobItem *jobItem);
+
+private:
+    class ColorMapPlot *m_realDataPlot;
+    class ColorMapPlot *m_simulatedDataPlot;
+    class ColorMapPlot *m_chi2DataPlot;
 };
 
 #endif

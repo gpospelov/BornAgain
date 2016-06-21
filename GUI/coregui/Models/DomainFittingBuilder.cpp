@@ -62,7 +62,7 @@ std::shared_ptr<FitSuite> DomainFittingBuilder::createFitSuite(JobItem *jobItem)
                 builder.getSimulation(jobItem->getMultiLayerItem(),
                                         jobItem->getInstrumentItem()));
 
-    RealDataItem *realDataItem = dynamic_cast<RealDataItem*>(jobItem->getItem(JobItem::T_REALDATA));
+    RealDataItem *realDataItem = jobItem->realDataItem();
     if(!realDataItem)
         throw GUIHelpers::Error("DomainFittingBuilder::createFitSuite() -> No Real Data defined.");
 

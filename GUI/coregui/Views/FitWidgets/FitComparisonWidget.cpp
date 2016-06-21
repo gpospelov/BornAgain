@@ -15,21 +15,40 @@
 // ************************************************************************** //
 
 #include "FitComparisonWidget.h"
+#include "ColorMapPlot.h"
+#include "JobItem.h"
+#include "RealDataItem.h"
+#include <QGridLayout>
 #include <QVBoxLayout>
 #include <QLabel>
 #include <QDebug>
 
 FitComparisonWidget::FitComparisonWidget(QWidget *parent)
     : SessionItemWidget(parent)
+    , m_realDataPlot(new ColorMapPlot)
+    , m_simulatedDataPlot(new ColorMapPlot)
+    , m_chi2DataPlot(new ColorMapPlot)
 {
-    QVBoxLayout *layout = new QVBoxLayout();
-    layout->addWidget(new QLabel("xxx"));
 
-    setLayout(layout);
+    QGridLayout *gridLayout = new QGridLayout;
+
+    gridLayout->addWidget(m_realDataPlot, 0, 0);
+    gridLayout->addWidget(m_simulatedDataPlot, 0, 1);
+    gridLayout->addWidget(m_chi2DataPlot, 1, 0);
+
+
+    setLayout(gridLayout);
 }
 
 void FitComparisonWidget::setItem(SessionItem *item)
 {
-    Q_UNUSED(item);
+    JobItem *jobItem = dynamic_cast<JobItem *>(item);
+    setJobItem(jobItem);
+}
 
+void FitComparisonWidget::setJobItem(JobItem *jobItem)
+{
+
+    m_realDataPlot->setItem(jobItem->realDataItem()->intensityDataItem());
+    m_simulatedDataPlot->setItem(jobItem->getIntensityDataItem());
 }

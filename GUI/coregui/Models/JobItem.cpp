@@ -27,6 +27,7 @@
 #include "FitSuiteItem.h"
 #include "ParameterTreeItems.h"
 #include "FitParameterItems.h"
+#include "RealDataItem.h"
 #include <QDateTime>
 #include <QDebug>
 
@@ -291,6 +292,11 @@ FitParameterContainerItem *JobItem::fitParameterContainerItem()
         return item->fitParameterContainerItem();
 
     return nullptr;
+}
+
+RealDataItem *JobItem::realDataItem()
+{
+    return dynamic_cast<RealDataItem*>(getItem(JobItem::T_REALDATA));
 }
 
 //! Updates the name of file to store intensity data.

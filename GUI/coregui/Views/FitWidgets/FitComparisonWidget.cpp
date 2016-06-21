@@ -18,6 +18,9 @@
 #include "ColorMapPlot.h"
 #include "JobItem.h"
 #include "RealDataItem.h"
+#include "SessionModel.h"
+#include "IntensityDataItem.h"
+#include "IntensityDataFunctions.h"
 #include <QGridLayout>
 #include <QVBoxLayout>
 #include <QLabel>
@@ -27,15 +30,18 @@ FitComparisonWidget::FitComparisonWidget(QWidget *parent)
     : SessionItemWidget(parent)
     , m_realDataPlot(new ColorMapPlot)
     , m_simulatedDataPlot(new ColorMapPlot)
-    , m_chi2DataPlot(new ColorMapPlot)
+    , m_relativeDiffPlot(new ColorMapPlot)
+    , m_realDataItem(0)
+    , m_simulatedDataItem(0)
+    , m_relativeDiffItem(0)
+    , m_tempIntensityDataModel(new SessionModel("TempIntensityDataModel", this))
 {
 
     QGridLayout *gridLayout = new QGridLayout;
 
     gridLayout->addWidget(m_realDataPlot, 0, 0);
     gridLayout->addWidget(m_simulatedDataPlot, 0, 1);
-    gridLayout->addWidget(m_chi2DataPlot, 1, 0);
-
+    gridLayout->addWidget(m_relativeDiffPlot, 1, 0);
 
     setLayout(gridLayout);
 }
@@ -48,7 +54,37 @@ void FitComparisonWidget::setItem(SessionItem *item)
 
 void FitComparisonWidget::setJobItem(JobItem *jobItem)
 {
+    m_realDataItem = jobItem->realDataItem()->intensityDataItem();
+    m_simulatedDataItem = jobItem->getIntensityDataItem();
+    m_relativeDiffItem = createRelativeDifferenceItem();
 
-    m_realDataPlot->setItem(jobItem->realDataItem()->intensityDataItem());
-    m_simulatedDataPlot->setItem(jobItem->getIntensityDataItem());
+    calculateRelativeDifference();
+
+    m_realDataPlot->setItem(m_realDataItem);
+    m_simulatedDataPlot->setItem(m_simulatedDataItem);
+    m_relativeDiffPlot->setItem(m_relativeDiffItem);
+}
+
+//! Creates an IntensityDataItem which will hold relative difference map between simulation
+//! and real data.
+
+IntensityDataItem *FitComparisonWidget::createRelativeDifferenceItem()
+{
+    m_tempIntensityDataModel->clear();
+
+    IntensityDataItem *result = dynamic_cast<IntensityDataItem *>(
+        m_tempIntensityDataModel->insertNewItem(Constants::IntensityDataType));
+    return result;
+}
+
+void FitComparisonWidget::calculateRelativeDifference()
+{
+    Q_ASSERT(m_realDataItem);
+    Q_ASSERT(m_simulatedDataItem);
+    Q_ASSERT(m_relativeDiffItem);
+
+    m_relativeDiffItem->setOutputData(
+        IntensityDataFunctions::createRelativeDifferenceData(*m_simulatedDataItem->getOutputData(),
+                *m_realDataItem->getOutputData()));
+
 }

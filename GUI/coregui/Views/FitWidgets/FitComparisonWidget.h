@@ -19,7 +19,7 @@
 
 #include "SessionItemWidget.h"
 
-//! The FitComparisonWidget class represents realdata, simulated data and chi2 map
+//! The FitComparisonWidget class plots realdata, simulated data and relative difference map
 //! during the course of the fit.
 
 class BA_CORE_API_ FitComparisonWidget : public SessionItemWidget
@@ -35,9 +35,18 @@ protected:
     void setJobItem(class JobItem *jobItem);
 
 private:
+    class IntensityDataItem *createRelativeDifferenceItem();
+    void calculateRelativeDifference();
+
     class ColorMapPlot *m_realDataPlot;
     class ColorMapPlot *m_simulatedDataPlot;
-    class ColorMapPlot *m_chi2DataPlot;
+    class ColorMapPlot *m_relativeDiffPlot;
+
+    class IntensityDataItem *m_realDataItem;
+    class IntensityDataItem *m_simulatedDataItem;
+    class IntensityDataItem *m_relativeDiffItem;
+
+    class SessionModel *m_tempIntensityDataModel;
 };
 
 #endif

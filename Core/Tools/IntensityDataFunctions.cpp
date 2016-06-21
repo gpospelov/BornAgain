@@ -35,6 +35,22 @@ double IntensityDataFunctions::getRelativeDifference(
     return diff;
 }
 
+OutputData<double> *
+IntensityDataFunctions::createRelativeDifferenceData(const OutputData<double> &data,
+                                                     const OutputData<double> &reference)
+{
+    if(!data.hasSameDimensions(reference)) {
+        throw RuntimeErrorException("IntensityDataFunctions::createRelativeDifferenceData() -> "
+                                    "Error. Different dimensions of data and reference.");
+    }
+
+    OutputData<double> *result = reference.clone();
+    for(size_t i=0; i<result->getAllocatedSize(); ++i) {
+        (*result)[i] = Numeric::get_relative_difference(data[i], reference[i]);
+    }
+    return result;
+}
+
 double IntensityDataFunctions::getRelativeDifference(
     const IHistogram &result, const IHistogram &reference)
 {

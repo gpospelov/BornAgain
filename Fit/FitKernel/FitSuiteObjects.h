@@ -85,7 +85,7 @@ class BA_CORE_API_ FitSuiteObjects : public IParameterized
 
  protected:
     //! Registers some class members for later access via parameter pool
-    virtual void init_parameters() final {};
+    virtual void init_parameters() final {}
 
     double calculateChiSquaredValue();
 

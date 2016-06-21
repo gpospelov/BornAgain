@@ -43,13 +43,15 @@ public:
 
     virtual void setItem(SessionItem *item);
 
-    void add(const QString &presentationType, factory_function_t);
+    void registerWidget(const QString &presentationType, factory_function_t);
 
     void setPresentation(const QString &presentationType);
+
 
 protected:
 //    virtual void showEvent(class QShowEvent *);
 //    virtual void hideEvent(class QHideEvent *);
+    virtual QStringList getValidPresentationList(SessionItem *item);
 
 private slots:
     void onComboChanged(const QString &name);

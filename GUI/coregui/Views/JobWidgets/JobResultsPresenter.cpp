@@ -18,12 +18,28 @@
 #include "mainwindow_constants.h"
 #include "IntensityDataWidget.h"
 #include "FitComparisonWidget.h"
+#include "JobItem.h"
 #include <QBoxLayout>
 
 JobResultsPresenter::JobResultsPresenter(QWidget *parent)
     : ItemComboWidget(parent)
 {
-    add(Constants::IntensityDataWidgetName, create_new<IntensityDataWidget>);
-    add(Constants::FitComparisonWidgetName, create_new<FitComparisonWidget>);
+    registerWidget(Constants::IntensityDataWidgetName, create_new<IntensityDataWidget>);
+    registerWidget(Constants::FitComparisonWidgetName, create_new<FitComparisonWidget>);
+}
+
+//! Returns list of presentation types, available for given item. JobItem with fitting abilities
+//! is valid for IntensityDataWidget and FitComparisonWidget.
+
+QStringList JobResultsPresenter::getValidPresentationList(SessionItem *item)
+{
+    JobItem *jobItem = dynamic_cast<JobItem *>(item);
+    Q_ASSERT(jobItem);
+
+    QStringList result = QStringList() << Constants::IntensityDataWidgetName;
+    if(jobItem->isValidForFitting())
+        result << Constants::FitComparisonWidgetName;
+
+    return result;
 }
 

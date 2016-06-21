@@ -50,16 +50,18 @@ void ItemComboWidget::setItem(SessionItem *item)
     if(!item)
         return;
 
+    QStringList validPresentations = getValidPresentationList(item);
+    m_toolBar->setPresentationList(validPresentations);
+
     m_currentItem = item;
 
     setPresentation(currentPresentation());
 
 }
 
-void ItemComboWidget::add(const QString &presentationType, factory_function_t f)
+void ItemComboWidget::registerWidget(const QString &presentationType, factory_function_t f)
 {
     m_widgetFactory.registerItem(presentationType, f);
-    m_toolBar->addPresentationType(presentationType);
 }
 
 //! Sets stack to show widget corresponding to given presentation
@@ -82,6 +84,14 @@ void ItemComboWidget::setPresentation(const QString &presentationType)
     if(widget->isHidden())
         widget->show();
 
+}
+
+//! Returns list of presentations valid for given item.
+
+QStringList ItemComboWidget::getValidPresentationList(SessionItem *item)
+{
+    Q_UNUSED(item);
+    return QStringList();
 }
 
 

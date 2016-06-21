@@ -34,6 +34,7 @@ public:
     explicit ItemComboToolBar(QWidget *parent = 0);
 
     void addPresentationType(const QString &name);
+    void setPresentationList(const QStringList &presentationList);
 
     QString currentPresentation() const;
 

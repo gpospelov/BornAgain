@@ -40,6 +40,15 @@ void ItemComboToolBar::addPresentationType(const QString &name)
     setComboConnected(true);
 }
 
+void ItemComboToolBar::setPresentationList(const QStringList &presentationList)
+{
+    Q_ASSERT(presentationList.size());
+
+    setComboConnected(false);
+    m_comboBox->addItems(presentationList);
+    setComboConnected(true);
+}
+
 QString ItemComboToolBar::currentPresentation() const
 {
     return m_comboBox->currentText();

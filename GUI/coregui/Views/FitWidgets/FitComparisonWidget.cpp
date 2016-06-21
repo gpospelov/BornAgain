@@ -46,6 +46,12 @@ FitComparisonWidget::FitComparisonWidget(QWidget *parent)
     setLayout(gridLayout);
 }
 
+FitComparisonWidget::~FitComparisonWidget()
+{
+    if(m_simulatedDataItem)
+        m_simulatedDataItem->mapper()->unsubscribe(this);
+}
+
 void FitComparisonWidget::setItem(SessionItem *item)
 {
     JobItem *jobItem = dynamic_cast<JobItem *>(item);
@@ -55,7 +61,10 @@ void FitComparisonWidget::setItem(SessionItem *item)
 void FitComparisonWidget::setJobItem(JobItem *jobItem)
 {
     m_realDataItem = jobItem->realDataItem()->intensityDataItem();
-    m_simulatedDataItem = jobItem->getIntensityDataItem();
+
+    setSimulatedDataItem(jobItem->getIntensityDataItem());
+
+
     m_relativeDiffItem = createRelativeDifferenceItem();
 
     calculateRelativeDifference();
@@ -63,6 +72,32 @@ void FitComparisonWidget::setJobItem(JobItem *jobItem)
     m_realDataPlot->setItem(m_realDataItem);
     m_simulatedDataPlot->setItem(m_simulatedDataItem);
     m_relativeDiffPlot->setItem(m_relativeDiffItem);
+}
+
+//! Sets tracking of simulated data item.
+
+void FitComparisonWidget::setSimulatedDataItem(IntensityDataItem *simulatedDataItem)
+{
+    if(simulatedDataItem == m_simulatedDataItem)
+        return;
+
+    if(m_simulatedDataItem)
+        m_simulatedDataItem->mapper()->unsubscribe(this);
+
+    m_simulatedDataItem = simulatedDataItem;
+    if(!m_simulatedDataItem) return;
+
+    m_simulatedDataItem->mapper()->setOnValueChange(
+        [this]()
+    {
+        calculateRelativeDifference();
+    }, this);
+
+    m_simulatedDataItem->mapper()->setOnItemDestroy(
+                [this](SessionItem *) {
+        m_simulatedDataItem = 0;
+    }, this);
+
 }
 
 //! Creates an IntensityDataItem which will hold relative difference map between simulation
@@ -74,6 +109,7 @@ IntensityDataItem *FitComparisonWidget::createRelativeDifferenceItem()
 
     IntensityDataItem *result = dynamic_cast<IntensityDataItem *>(
         m_tempIntensityDataModel->insertNewItem(Constants::IntensityDataType));
+
     return result;
 }
 

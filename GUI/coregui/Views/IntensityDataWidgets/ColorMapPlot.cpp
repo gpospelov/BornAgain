@@ -40,6 +40,8 @@ ColorMapPlot::ColorMapPlot(QWidget *parent)
 
 ColorMapPlot::~ColorMapPlot()
 {
+    if(m_item)
+        m_item->mapper()->unsubscribe(this);
 
 }
 
@@ -64,12 +66,22 @@ void ColorMapPlot::setItem(IntensityDataItem *item)
                     [this](const QString &name)
         {
             onPropertyChanged(name);
+//            onIntensityModified();
+        }, this);
+
+        m_item->mapper()->setOnChildPropertyChange([this](SessionItem *item, const QString name) {
+            onSubItemPropertyChanged(item->itemName(), name);
+        }, this);
+
+        m_item->mapper()->setOnValueChange(
+            [this]()
+        {
             onIntensityModified();
         }, this);
-        m_item->mapper()->setOnChildPropertyChange(
-                    [this](SessionItem* item, const QString name)
-        {
-                onSubItemPropertyChanged(item->itemName(), name);
+
+        m_item->mapper()->setOnItemDestroy(
+                    [this](SessionItem *) {
+            m_item = 0;
         }, this);
 
     }

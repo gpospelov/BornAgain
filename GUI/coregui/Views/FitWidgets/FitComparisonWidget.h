@@ -19,6 +19,8 @@
 
 #include "SessionItemWidget.h"
 
+class IntensityDataItem;
+
 //! The FitComparisonWidget class plots realdata, simulated data and relative difference map
 //! during the course of the fit.
 
@@ -28,6 +30,7 @@ class BA_CORE_API_ FitComparisonWidget : public SessionItemWidget
 
 public:
     explicit FitComparisonWidget(QWidget *parent = 0);
+    ~FitComparisonWidget();
 
     void setItem(class SessionItem *item);
 
@@ -35,6 +38,8 @@ protected:
     void setJobItem(class JobItem *jobItem);
 
 private:
+    void setSimulatedDataItem(IntensityDataItem *simulatedDataItem);
+
     class IntensityDataItem *createRelativeDifferenceItem();
     void calculateRelativeDifference();
 
@@ -42,9 +47,9 @@ private:
     class ColorMapPlot *m_simulatedDataPlot;
     class ColorMapPlot *m_relativeDiffPlot;
 
-    class IntensityDataItem *m_realDataItem;
-    class IntensityDataItem *m_simulatedDataItem;
-    class IntensityDataItem *m_relativeDiffItem;
+    IntensityDataItem *m_realDataItem;
+    IntensityDataItem *m_simulatedDataItem;
+    IntensityDataItem *m_relativeDiffItem;
 
     class SessionModel *m_tempIntensityDataModel;
 };

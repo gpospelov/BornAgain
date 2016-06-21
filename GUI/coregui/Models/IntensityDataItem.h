@@ -25,7 +25,7 @@
 class GISASSimulation;
 
 
-class BA_CORE_API_ IntensityDataItem : public QObject, public SessionItem
+class BA_CORE_API_ IntensityDataItem : public SessionItem
 {
 public:
     static const QString P_PROJECTIONS_FLAG;

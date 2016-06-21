@@ -24,6 +24,7 @@
 #include <QMap>
 
 class SessionItem;
+class SessionItemWidget;
 class ItemComboToolBar;
 
 //! The ItemComboWidget class combines stack of widgets with QComboBox controller to switch between
@@ -36,11 +37,13 @@ class BA_CORE_API_ ItemComboWidget : public QWidget {
     Q_OBJECT
 
 public:
+    typedef std::function<SessionItemWidget*()> factory_function_t;
+
     explicit ItemComboWidget(QWidget *parent = 0);
 
     virtual void setItem(SessionItem *item);
 
-    void add(const QString &presentationType, std::function<QWidget*()>);
+    void add(const QString &presentationType, factory_function_t);
 
 protected:
 //    virtual void showEvent(class QShowEvent *);
@@ -55,8 +58,8 @@ private:
     ItemComboToolBar *m_toolBar;
     class QStackedWidget *m_stackedWidget;
     SessionItem *m_currentItem;
-    IFactory<QString, QWidget> m_widgetFactory;
-    QMap<QString, QWidget *> m_presentationTypeToWidget;
+    IFactory<QString, SessionItemWidget> m_widgetFactory;
+    QMap<QString, SessionItemWidget *> m_presentationTypeToWidget;
 
 };
 

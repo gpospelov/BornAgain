@@ -16,6 +16,7 @@
 
 #include "ItemComboWidget.h"
 #include "ItemComboToolBar.h"
+#include "SessionItemWidget.h"
 #include <QStackedWidget>
 #include <QComboBox>
 #include <QVBoxLayout>
@@ -50,12 +51,13 @@ void ItemComboWidget::setItem(SessionItem *item)
     if(!m_currentItem)
         return;
 
-    QWidget *widget = m_presentationTypeToWidget[currentPresentation()];
+    SessionItemWidget *widget = m_presentationTypeToWidget[currentPresentation()];
 
     if(!widget) {
         widget = m_widgetFactory.createItem(currentPresentation());
         m_stackedWidget->addWidget(widget);
         m_presentationTypeToWidget[currentPresentation()] = widget;
+        widget->setItem(item);
     }
     Q_ASSERT(widget);
     m_stackedWidget->setCurrentWidget(widget);
@@ -64,7 +66,7 @@ void ItemComboWidget::setItem(SessionItem *item)
 
 }
 
-void ItemComboWidget::add(const QString &presentationType, std::function<QWidget *()> f)
+void ItemComboWidget::add(const QString &presentationType, factory_function_t f)
 {
     m_widgetFactory.registerItem(presentationType, f);
     m_toolBar->addPresentationType(presentationType);

@@ -18,13 +18,14 @@
 #include "IntensityDataPlotWidget.h"
 #include "IntensityDataPropertyWidget.h"
 #include "IntensityDataItem.h"
+#include "JobItem.h"
 #include "ModelMapper.h"
 #include <QVBoxLayout>
 #include <QDebug>
 
 
 IntensityDataWidget::IntensityDataWidget(QWidget *parent)
-    : QWidget(parent)
+    : SessionItemWidget(parent)
     , m_plotWidget(0)
     , m_propertyWidget(0)
     , m_currentItem(0)
@@ -54,19 +55,27 @@ IntensityDataWidget::IntensityDataWidget(QWidget *parent)
     setLayout(mainLayout);
 }
 
-void IntensityDataWidget::setItem(IntensityDataItem *item)
-{
-    m_plotWidget->setItem(item);
-    m_propertyWidget->setItem(item);
 
-    if (m_currentItem == item) {
+void IntensityDataWidget::setItem(SessionItem *item)
+{
+    JobItem *jobItem = dynamic_cast<JobItem *>(item);
+    Q_ASSERT(jobItem);
+    setIntensityData(jobItem->getIntensityDataItem());
+}
+
+void IntensityDataWidget::setIntensityData(IntensityDataItem *intensityItem)
+{
+    m_plotWidget->setItem(intensityItem);
+    m_propertyWidget->setItem(intensityItem);
+
+    if (m_currentItem == intensityItem) {
         return;
 
     } else {
         if(m_currentItem)
             m_currentItem->mapper()->unsubscribe(this);
 
-        m_currentItem = item;
+        m_currentItem = intensityItem;
         if (!m_currentItem) return;
 
         setPropertyPanelVisible(m_currentItem->getItemValue(IntensityDataItem::P_PROPERTY_PANEL_FLAG).toBool());

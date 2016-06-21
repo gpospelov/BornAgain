@@ -37,6 +37,7 @@ ItemSelectorWidget::ItemSelectorWidget(QWidget *parent)
     setLayout(layout);
 
     m_listView->setContextMenuPolicy(Qt::CustomContextMenu);
+    m_listView->setAttribute(Qt::WA_MacShowFocusRect, false);
 
     connect(m_listView, SIGNAL(customContextMenuRequested(const QPoint &)),
             this, SLOT(onCustomContextMenuRequested(const QPoint &)));

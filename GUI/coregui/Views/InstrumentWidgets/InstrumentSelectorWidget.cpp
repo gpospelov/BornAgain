@@ -38,6 +38,7 @@ InstrumentSelectorWidget::InstrumentSelectorWidget(InstrumentModel *model, QWidg
     m_listView->setMovement(QListView::Static);
     m_listView->setMaximumWidth(200);
     m_listView->setSpacing(12);
+    m_listView->setAttribute(Qt::WA_MacShowFocusRect, false);
     //m_listView->setModel(m_instrumentModel);
 
     m_listView->setObjectName("listView");

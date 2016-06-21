@@ -79,7 +79,7 @@ void ComponentEditorPrivate::init_browser()
             "ComponentEditorPrivate::init_browser() -> Error. "
             "Unknown browser type.");
     }
-
+    m_browser->setAttribute(Qt::WA_MacShowFocusRect, false);
     m_browser->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
     m_browser->setFactoryForManager(m_manager, m_propertyFactory);
 }

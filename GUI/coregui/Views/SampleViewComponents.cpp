@@ -33,6 +33,7 @@ ItemTreeView *SampleViewComponents::createTreeView(
     FilterPropertyProxy *proxy = new FilterPropertyProxy(1, parent);
     proxy->setSourceModel(sampleModel);
     tree_view->setModel(proxy);
+    tree_view->setAttribute(Qt::WA_MacShowFocusRect, false);
     return tree_view;
 }
 

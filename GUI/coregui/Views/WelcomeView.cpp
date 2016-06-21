@@ -68,6 +68,8 @@ WelcomeView::WelcomeView(MainWindow *parent)
     m_newProjectButton->setFont(buttonFont);
     m_newProjectButton->setToolTip("Create new project");
 //    m_newProjectButton->setStyleSheet(ssheet);
+    m_newProjectButton->setAttribute(Qt::WA_MacShowFocusRect, false);
+
 
     m_openProjectButton = new QPushButton(tr("Open Project"));
     m_openProjectButton->setMinimumWidth(buttonWidth);

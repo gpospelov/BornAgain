@@ -510,13 +510,18 @@ void ColorMapPlot::plotItem(IntensityDataItem *intensityItem)
     m_colorMap->data()->setRange(QCPRange(intensityItem->getXmin(), intensityItem->getXmax()),
                                  QCPRange(intensityItem->getYmin(), intensityItem->getYmax()));
 
-    OutputData<double>::const_iterator it = data->begin();
-    while (it != data->end()) {
-        std::vector<int> indices = data->getAxesBinIndices(it.getIndex());
+//    OutputData<double>::const_iterator it = data->begin();
+//    while (it != data->end()) {
+//        std::vector<int> indices = data->getAxesBinIndices(it.getIndex());
 
-        m_colorMap->data()->setCell(indices[0], indices[1], *it);
+//        m_colorMap->data()->setCell(indices[0], indices[1], *it);
 
-        ++it;
+//        ++it;
+//    }
+    for(int ix=0; ix<nx; ++ix) {
+        for(int iy=0; iy<ny; ++iy) {
+            m_colorMap->data()->setCell(ix, iy, (*data)[iy+ny*ix]);
+        }
     }
 
     setColorScaleVisible(intensityItem->getItem(IntensityDataItem::P_ZAXIS)

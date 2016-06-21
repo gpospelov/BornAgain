@@ -51,7 +51,8 @@ private:
     IntensityDataWidget *currentOutputDataWidget();
 
     ItemStackPresenter<JobResultsPresenter> *m_stackedWidget;
-    JobOutputDataToolBar *m_toolBar;
+//    JobOutputDataToolBar *m_toolBar;
+//    class StyledToolBar *m_toolBar;
 };
 
 #endif

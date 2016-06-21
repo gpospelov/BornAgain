@@ -20,6 +20,7 @@
 #include "IntensityDataWidget.h"
 #include "JobOutputDataToolBar.h"
 #include "JobResultsPresenter.h"
+#include "StyledToolBar.h"
 #include "AppSvc.h"
 #include "projectmanager.h"
 #include "JobViewFlags.h"
@@ -29,7 +30,8 @@ JobOutputDataWidget::JobOutputDataWidget(JobModel *jobModel, QWidget *parent)
     : QWidget(parent)
 //    , m_stackedWidget(new ItemStackPresenter<IntensityDataWidget>)
     , m_stackedWidget(new ItemStackPresenter<JobResultsPresenter>)
-    , m_toolBar(new JobOutputDataToolBar)
+//    , m_toolBar(new JobOutputDataToolBar)
+//    , m_toolBar(new StyledToolBar)
 {
     setWindowTitle(QLatin1String("Job OutputData"));
 
@@ -40,7 +42,7 @@ JobOutputDataWidget::JobOutputDataWidget(JobModel *jobModel, QWidget *parent)
     mainLayout->setMargin(0);
     mainLayout->setSpacing(0);
 
-    mainLayout->addWidget(m_toolBar);
+//    mainLayout->addWidget(m_toolBar);
     mainLayout->addWidget(m_stackedWidget);
 
     m_stackedWidget->setMinimumSize(600, 600);
@@ -67,6 +69,7 @@ void JobOutputDataWidget::setItem(JobItem * jobItem)
         JobResultsPresenter *widget = m_stackedWidget->currentWidget();
         Q_ASSERT(widget);
         widget->setItem(jobItem);
+//        widget->setToolBar(m_toolBar);
 //        widget->setItem(jobItem->getIntensityDataItem());
 //        connect(widget, SIGNAL(savePlotRequest()), this, SLOT(onSavePlot()));
     }
@@ -98,6 +101,7 @@ void JobOutputDataWidget::onSavePlot()
 
 void JobOutputDataWidget::onActivityChanged(int activity)
 {
+    Q_UNUSED(activity);
 //    if(activity == JobViewFlags::REAL_TIME_ACTIVITY) {
 //        if(auto widget = currentOutputDataWidget())
 //            widget->setPropertyPanelVisible(false);
@@ -113,10 +117,10 @@ bool JobOutputDataWidget::isValidJobItem(JobItem *item)
 
 void JobOutputDataWidget::connectSignals()
 {
-    connect(m_toolBar, SIGNAL(togglePropertyPanel()), this, SLOT(togglePropertyPanel()));
-    connect(m_toolBar, SIGNAL(toggleProjections()), this, SLOT(toggleProjections()));
-    connect(m_toolBar, SIGNAL(resetView()), this, SLOT(onResetView()));
-    connect(m_toolBar, SIGNAL(savePlot()), this, SLOT(onSavePlot()));
+//    connect(m_toolBar, SIGNAL(togglePropertyPanel()), this, SLOT(togglePropertyPanel()));
+//    connect(m_toolBar, SIGNAL(toggleProjections()), this, SLOT(toggleProjections()));
+//    connect(m_toolBar, SIGNAL(resetView()), this, SLOT(onResetView()));
+//    connect(m_toolBar, SIGNAL(savePlot()), this, SLOT(onSavePlot()));
 }
 
 IntensityDataWidget *JobOutputDataWidget::currentOutputDataWidget()

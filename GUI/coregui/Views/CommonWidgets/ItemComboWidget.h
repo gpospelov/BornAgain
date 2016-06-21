@@ -21,8 +21,10 @@
 #include "IFactory.h"
 #include <QWidget>
 #include <QString>
+#include <QMap>
 
 class SessionItem;
+class ItemComboToolBar;
 
 //! The ItemComboWidget class combines stack of widgets with QComboBox controller to switch between
 //! widgets. It is used in the case when one SessionItem can be presented with different widgets.
@@ -38,19 +40,24 @@ public:
 
     virtual void setItem(SessionItem *item);
 
-
     void add(const QString &presentationType, std::function<QWidget*()>);
 
-    QWidget *selectorWidget();
+protected:
+//    virtual void showEvent(class QShowEvent *);
+//    virtual void hideEvent(class QHideEvent *);
 
 private slots:
-    void onWidgetChangeRequest(const QString &name);
+    void onComboChanged(const QString &name);
 
 private:
-    class QComboBox *m_selectorCombo;
+    QString currentPresentation() const;
+
+    ItemComboToolBar *m_toolBar;
     class QStackedWidget *m_stackedWidget;
     SessionItem *m_currentItem;
     IFactory<QString, QWidget> m_widgetFactory;
+    QMap<QString, QWidget *> m_presentationTypeToWidget;
+
 };
 
 #endif

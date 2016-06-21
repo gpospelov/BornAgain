@@ -17,7 +17,8 @@
 #include "JobResultsPresenter.h"
 #include "mainwindow_constants.h"
 #include "IntensityDataWidget.h"
-
+#include "StyledToolBar.h"
+#include <QBoxLayout>
 
 JobResultsPresenter::JobResultsPresenter(QWidget *parent)
     : ItemComboWidget(parent)

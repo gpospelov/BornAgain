@@ -205,7 +205,7 @@ void ApplicationModels::createTestSample()
 void ApplicationModels::createTestJob()
 {
     SimulationOptionsItem *optionsItem = m_documentModel->getSimulationOptionsItem();
-    optionsItem->setRunPolicy(Constants::JOB_RUN_IN_BACKGROUND);
+    //optionsItem->setRunPolicy(Constants::JOB_RUN_IN_BACKGROUND);
 
     JobItem *jobItem = m_jobModel->addJob(
                 m_sampleModel->multiLayerItem(),
@@ -213,12 +213,12 @@ void ApplicationModels::createTestJob()
                 0,
                 optionsItem);
 
-    IHistogram *data = IntensityDataIOFactory::readIntensityData("/home/pospelov/development/BornAgain/temp/Untitled12/data_job1_0.int");
+//    IHistogram *data = IntensityDataIOFactory::readIntensityData("/home/pospelov/development/BornAgain/temp/Untitled12/data_job1_0.int");
 
-    RealDataItem *realDataItem = dynamic_cast<RealDataItem *>(jobItem->getItem(JobItem::T_REALDATA));
-    Q_ASSERT(realDataItem);
+//    RealDataItem *realDataItem = dynamic_cast<RealDataItem *>(jobItem->getItem(JobItem::T_REALDATA));
+//    Q_ASSERT(realDataItem);
 
-    realDataItem->intensityDataItem()->setOutputData(data->createOutputData());
+//    realDataItem->intensityDataItem()->setOutputData(data->createOutputData());
 //    jobItem->setItemValue(JobItem::P_WITH_FITTING, true);
 
 

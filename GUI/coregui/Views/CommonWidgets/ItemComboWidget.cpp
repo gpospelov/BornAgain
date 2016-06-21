@@ -15,14 +15,16 @@
 // ************************************************************************** //
 
 #include "ItemComboWidget.h"
+#include "ItemComboToolBar.h"
 #include <QStackedWidget>
 #include <QComboBox>
 #include <QVBoxLayout>
+#include <QEvent>
 #include <QDebug>
 
 ItemComboWidget::ItemComboWidget(QWidget *parent)
     : QWidget(parent)
-    , m_selectorCombo(new QComboBox)
+    , m_toolBar(new ItemComboToolBar)
     , m_stackedWidget(new QStackedWidget)
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -32,31 +34,65 @@ ItemComboWidget::ItemComboWidget(QWidget *parent)
     layout->setMargin(0);
     layout->setSpacing(0);
     layout->setContentsMargins(0,0,0,0);
+    layout->addWidget(m_toolBar);
     layout->addWidget(m_stackedWidget);
     setLayout(layout);
 
-    connect(m_selectorCombo, SIGNAL(currentIndexChanged(QString)),
-            this, SLOT(onWidgetChangeRequest(QString)));
+    connect(m_toolBar, SIGNAL(comboChanged(QString)),
+            this, SLOT(onComboChanged(QString)));
 }
 
 
 void ItemComboWidget::setItem(SessionItem *item)
 {
     m_currentItem = item;
+
+    if(!m_currentItem)
+        return;
+
+    QWidget *widget = m_presentationTypeToWidget[currentPresentation()];
+
+    if(!widget) {
+        widget = m_widgetFactory.createItem(currentPresentation());
+        m_stackedWidget->addWidget(widget);
+        m_presentationTypeToWidget[currentPresentation()] = widget;
+    }
+    Q_ASSERT(widget);
+    m_stackedWidget->setCurrentWidget(widget);
+    if(widget->isHidden())
+        widget->show();
+
 }
 
 void ItemComboWidget::add(const QString &presentationType, std::function<QWidget *()> f)
 {
     m_widgetFactory.registerItem(presentationType, f);
-    m_selectorCombo->addItem(presentationType);
+    m_toolBar->addPresentationType(presentationType);
 }
 
-QWidget *ItemComboWidget::selectorWidget()
-{
-    return m_selectorCombo;
-}
 
-void ItemComboWidget::onWidgetChangeRequest(const QString &name)
+//void ItemComboWidget::showEvent(QShowEvent *)
+//{
+//    if(!m_externalToolBar)
+//        return;
+
+
+//}
+
+//void ItemComboWidget::hideEvent(QHideEvent *)
+//{
+//    if(!m_externalToolBar)
+//        return;
+
+//}
+
+void ItemComboWidget::onComboChanged(const QString &name)
 {
     qDebug() << "ItemComboWidget::onWidgetChangeRequest" << name;
 }
+
+QString ItemComboWidget::currentPresentation() const
+{
+    return m_toolBar->currentPresentation();
+}
+

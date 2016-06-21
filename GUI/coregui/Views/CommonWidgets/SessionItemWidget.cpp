@@ -22,3 +22,8 @@ SessionItemWidget::SessionItemWidget(QWidget *parent)
 {
 
 }
+
+QList<QAction *> SessionItemWidget::actionList()
+{
+    return QList<QAction *>();
+}

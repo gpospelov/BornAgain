@@ -19,13 +19,17 @@
 #include "IntensityDataPropertyWidget.h"
 #include "IntensityDataItem.h"
 #include "JobItem.h"
+#include "IntensityDataWidgetActions.h"
 #include "ModelMapper.h"
+#include "AppSvc.h"
+#include "projectmanager.h"
 #include <QVBoxLayout>
 #include <QDebug>
 
 
 IntensityDataWidget::IntensityDataWidget(QWidget *parent)
     : SessionItemWidget(parent)
+    , m_widgetActions(new IntensityDataWidgetActions(this))
     , m_plotWidget(0)
     , m_propertyWidget(0)
     , m_currentItem(0)
@@ -36,7 +40,7 @@ IntensityDataWidget::IntensityDataWidget(QWidget *parent)
     setObjectName(QLatin1String("IntensityDataWidget"));
 
     m_plotWidget = new IntensityDataPlotWidget(this);
-    connect(m_plotWidget, SIGNAL(savePlotRequest()), this, SIGNAL(savePlotRequest()));
+    connect(m_plotWidget, SIGNAL(savePlotRequest()), this, SLOT(savePlot()));
 
     m_propertyWidget = new IntensityDataPropertyWidget(this);
 
@@ -53,6 +57,13 @@ IntensityDataWidget::IntensityDataWidget(QWidget *parent)
 
     mainLayout->addLayout(hlayout);
     setLayout(mainLayout);
+
+
+    connect(m_widgetActions, SIGNAL(togglePropertyPanel()), this, SLOT(togglePropertyPanel()));
+    connect(m_widgetActions, SIGNAL(toggleProjections()), this, SLOT(toggleProjections()));
+    connect(m_widgetActions, SIGNAL(resetView()), this, SLOT(onResetView()));
+    connect(m_widgetActions, SIGNAL(savePlot()), this, SLOT(savePlot()));
+
 }
 
 
@@ -91,6 +102,11 @@ void IntensityDataWidget::setIntensityData(IntensityDataItem *intensityItem)
 
 }
 
+QList<QAction *> IntensityDataWidget::actionList()
+{
+    return m_widgetActions->actionList();
+}
+
 void IntensityDataWidget::togglePropertyPanel()
 {
     if(m_currentItem) {
@@ -123,7 +139,8 @@ void IntensityDataWidget::onResetView()
     m_plotWidget->resetView();
 }
 
-void IntensityDataWidget::savePlot(const QString &dirname)
+void IntensityDataWidget::savePlot()
 {
+    QString dirname = AppSvc::projectManager()->userExportDir();
     m_plotWidget->savePlot(dirname);
 }

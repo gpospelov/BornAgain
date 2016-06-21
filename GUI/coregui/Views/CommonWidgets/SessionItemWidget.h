@@ -30,6 +30,8 @@ public:
     explicit SessionItemWidget(QWidget *parent = 0);
 
     virtual void setItem(class SessionItem *item) = 0;
+    virtual QList<QAction *> actionList();
+
 };
 
 #endif

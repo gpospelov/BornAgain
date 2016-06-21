@@ -18,20 +18,13 @@
 #include "JobModel.h"
 #include "JobItem.h"
 #include "IntensityDataWidget.h"
-#include "JobOutputDataToolBar.h"
 #include "JobResultsPresenter.h"
-#include "StyledToolBar.h"
-#include "AppSvc.h"
-#include "projectmanager.h"
 #include "JobViewFlags.h"
 #include <QVBoxLayout>
 
 JobOutputDataWidget::JobOutputDataWidget(JobModel *jobModel, QWidget *parent)
     : QWidget(parent)
-//    , m_stackedWidget(new ItemStackPresenter<IntensityDataWidget>)
     , m_stackedWidget(new ItemStackPresenter<JobResultsPresenter>)
-//    , m_toolBar(new JobOutputDataToolBar)
-//    , m_toolBar(new StyledToolBar)
 {
     setWindowTitle(QLatin1String("Job OutputData"));
 
@@ -42,17 +35,13 @@ JobOutputDataWidget::JobOutputDataWidget(JobModel *jobModel, QWidget *parent)
     mainLayout->setMargin(0);
     mainLayout->setSpacing(0);
 
-//    mainLayout->addWidget(m_toolBar);
     mainLayout->addWidget(m_stackedWidget);
 
     m_stackedWidget->setMinimumSize(600, 600);
     m_stackedWidget->setModel(jobModel);
 
     setLayout(mainLayout);
-
-    connectSignals();
 }
-
 
 void JobOutputDataWidget::setItem(JobItem * jobItem)
 {
@@ -65,38 +54,10 @@ void JobOutputDataWidget::setItem(JobItem * jobItem)
     m_stackedWidget->setItem(jobItem, isNew);
 
     if(isNew) {
-//        IntensityDataWidget *widget = m_stackedWidget->currentWidget();
         JobResultsPresenter *widget = m_stackedWidget->currentWidget();
         Q_ASSERT(widget);
         widget->setItem(jobItem);
-//        widget->setToolBar(m_toolBar);
-//        widget->setItem(jobItem->getIntensityDataItem());
-//        connect(widget, SIGNAL(savePlotRequest()), this, SLOT(onSavePlot()));
     }
-}
-
-void JobOutputDataWidget::togglePropertyPanel()
-{
-//    if(auto widget = currentOutputDataWidget())
-//        widget->togglePropertyPanel();
-}
-
-void JobOutputDataWidget::toggleProjections()
-{
-//    if(auto widget = currentOutputDataWidget())
-//        widget->toggleProjections();
-}
-
-void JobOutputDataWidget::onResetView()
-{
-//    if(auto widget = currentOutputDataWidget())
-//        widget->onResetView();
-}
-
-void JobOutputDataWidget::onSavePlot()
-{
-//    if(auto widget = currentOutputDataWidget())
-//        widget->savePlot(AppSvc::projectManager()->userExportDir());
 }
 
 void JobOutputDataWidget::onActivityChanged(int activity)
@@ -114,18 +75,3 @@ bool JobOutputDataWidget::isValidJobItem(JobItem *item)
     if(item->isCompleted() || item->isCanceled()) return true;
     return false;
 }
-
-void JobOutputDataWidget::connectSignals()
-{
-//    connect(m_toolBar, SIGNAL(togglePropertyPanel()), this, SLOT(togglePropertyPanel()));
-//    connect(m_toolBar, SIGNAL(toggleProjections()), this, SLOT(toggleProjections()));
-//    connect(m_toolBar, SIGNAL(resetView()), this, SLOT(onResetView()));
-//    connect(m_toolBar, SIGNAL(savePlot()), this, SLOT(onSavePlot()));
-}
-
-IntensityDataWidget *JobOutputDataWidget::currentOutputDataWidget()
-{
-//    return m_stackedWidget->currentWidget();
-    return 0;
-}
-

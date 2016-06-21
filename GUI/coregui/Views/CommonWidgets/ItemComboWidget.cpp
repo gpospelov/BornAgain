@@ -58,6 +58,7 @@ void ItemComboWidget::setItem(SessionItem *item)
         m_stackedWidget->addWidget(widget);
         m_presentationTypeToWidget[currentPresentation()] = widget;
         widget->setItem(item);
+        m_toolBar->setActionList(widget->actionList());
     }
     Q_ASSERT(widget);
     m_stackedWidget->setCurrentWidget(widget);

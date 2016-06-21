@@ -16,15 +16,21 @@
 
 #include "ItemComboToolBar.h"
 #include <QComboBox>
+#include <QAction>
 
 ItemComboToolBar::ItemComboToolBar(QWidget *parent)
     : StyledToolBar(parent)
     , m_comboBox(new QComboBox)
+    , m_comboBoxAction(0)
 {
+    setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+
+    m_comboBox->setFixedWidth(125);
+
     connect(m_comboBox, SIGNAL(currentIndexChanged(QString)),
             this, SIGNAL(comboChanged(QString)));
 
-    addWidget(m_comboBox);
+    m_comboBoxAction = addWidget(m_comboBox);
 }
 
 void ItemComboToolBar::addPresentationType(const QString &name)
@@ -35,4 +41,22 @@ void ItemComboToolBar::addPresentationType(const QString &name)
 QString ItemComboToolBar::currentPresentation() const
 {
     return m_comboBox->currentText();
+}
+
+//! Adds external actions to tool bar (previous actions will be removed).
+
+void ItemComboToolBar::setActionList(const QList<QAction *> &actionList)
+{
+    foreach(QAction *action, actions()) {
+        removeAction(action);
+    }
+
+    foreach(QAction *action, actionList) {
+        addAction(action);
+        addStyledSeparator();
+    }
+
+    addStyledExpand();
+//    Q_ASSERT(m_comboBox);
+    addAction(m_comboBoxAction);
 }

@@ -31,28 +31,28 @@ IntensityDataWidgetActions::IntensityDataWidgetActions(QObject *parent)
     m_toggleProjectionsAction->setIcon(QIcon(":/images/toolbar_projections.png"));
     m_toggleProjectionsAction->setToolTip("Toggle Projections, Ctrl+P");
     m_toggleProjectionsAction->setShortcut(Qt::CTRL + Qt::Key_P);
-    connect(m_toggleProjectionsAction, SIGNAL(clicked()), this, SIGNAL(toggleProjections()));
+    connect(m_toggleProjectionsAction, SIGNAL(triggered()), this, SIGNAL(toggleProjections()));
 
     // plot properties button
     m_togglePropertyPanelAction = new QAction(this);
     m_togglePropertyPanelAction->setText("Plot Properties");
     m_togglePropertyPanelAction->setIcon(QIcon(":/images/toolbar_propertypanel.png"));
     m_togglePropertyPanelAction->setToolTip("Toggle Property Panel");
-    connect(m_togglePropertyPanelAction, SIGNAL(clicked()), this, SIGNAL(togglePropertyPanel()));
+    connect(m_togglePropertyPanelAction, SIGNAL(triggered()), this, SIGNAL(togglePropertyPanel()));
 
     // reset view button
     m_resetViewAction = new QAction(this);
     m_resetViewAction->setText("Reset View");
     m_resetViewAction->setIcon(QIcon(":/images/toolbar_refresh.png"));
     m_resetViewAction->setToolTip("Reset View");
-    connect(m_resetViewAction, SIGNAL(clicked()), this, SIGNAL(resetView()));
+    connect(m_resetViewAction, SIGNAL(triggered()), this, SIGNAL(resetView()));
 
     // save plot button
     m_savePlotAction = new QAction(this);
     m_savePlotAction->setText("Save Plot");
     m_savePlotAction->setIcon(QIcon(":/images/toolbar_save.png"));
     m_savePlotAction->setToolTip("Save Plot");
-    connect(m_savePlotAction, SIGNAL(clicked()), this, SIGNAL(savePlot()));
+    connect(m_savePlotAction, SIGNAL(triggered()), this, SIGNAL(savePlot()));
 }
 
 QList<QAction *> IntensityDataWidgetActions::actionList()

@@ -22,7 +22,6 @@
 
 class IntensityDataWidget;
 class JobResultsPresenter;
-class JobOutputDataToolBar;
 class JobModel;
 class JobItem;
 
@@ -36,23 +35,13 @@ public:
 
 public slots:
     void setItem(JobItem *jobItem);
-
-    void togglePropertyPanel();
-    void toggleProjections();
-    void onResetView();
-    void onSavePlot();
     void onActivityChanged(int);
 
 protected:
     virtual bool isValidJobItem(JobItem *item);
 
 private:
-    void connectSignals();
-    IntensityDataWidget *currentOutputDataWidget();
-
     ItemStackPresenter<JobResultsPresenter> *m_stackedWidget;
-//    JobOutputDataToolBar *m_toolBar;
-//    class StyledToolBar *m_toolBar;
 };
 
 #endif

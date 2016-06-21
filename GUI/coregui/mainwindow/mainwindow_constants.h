@@ -77,6 +77,7 @@ const QString JobFittingActivityName = "Fitting Activity";
 
 //
 const QString IntensityDataWidgetName = "Color Map";
+const QString FitComparisonWidgetName = "Fit Data";
 
 }
 

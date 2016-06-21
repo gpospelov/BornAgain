@@ -27,6 +27,7 @@ ItemComboWidget::ItemComboWidget(QWidget *parent)
     : QWidget(parent)
     , m_toolBar(new ItemComboToolBar)
     , m_stackedWidget(new QStackedWidget)
+    , m_currentItem(0)
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     m_stackedWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -46,24 +47,12 @@ ItemComboWidget::ItemComboWidget(QWidget *parent)
 
 void ItemComboWidget::setItem(SessionItem *item)
 {
-    m_currentItem = item;
-
-    if(!m_currentItem)
+    if(!item)
         return;
 
-    SessionItemWidget *widget = m_presentationTypeToWidget[currentPresentation()];
+    m_currentItem = item;
 
-    if(!widget) {
-        widget = m_widgetFactory.createItem(currentPresentation());
-        m_stackedWidget->addWidget(widget);
-        m_presentationTypeToWidget[currentPresentation()] = widget;
-        widget->setItem(item);
-        m_toolBar->setActionList(widget->actionList());
-    }
-    Q_ASSERT(widget);
-    m_stackedWidget->setCurrentWidget(widget);
-    if(widget->isHidden())
-        widget->show();
+    setPresentation(currentPresentation());
 
 }
 
@@ -71,6 +60,28 @@ void ItemComboWidget::add(const QString &presentationType, factory_function_t f)
 {
     m_widgetFactory.registerItem(presentationType, f);
     m_toolBar->addPresentationType(presentationType);
+}
+
+//! Sets stack to show widget corresponding to given presentation
+
+void ItemComboWidget::setPresentation(const QString &presentationType)
+{
+    Q_ASSERT(m_currentItem);
+
+    SessionItemWidget *widget = m_presentationTypeToWidget[presentationType];
+
+    if(!widget) {
+        widget = m_widgetFactory.createItem(presentationType);
+        m_stackedWidget->addWidget(widget);
+        m_presentationTypeToWidget[presentationType] = widget;
+        widget->setItem(m_currentItem);
+    }
+    Q_ASSERT(widget);
+    m_toolBar->setActionList(widget->actionList());
+    m_stackedWidget->setCurrentWidget(widget);
+    if(widget->isHidden())
+        widget->show();
+
 }
 
 
@@ -92,6 +103,7 @@ void ItemComboWidget::add(const QString &presentationType, factory_function_t f)
 void ItemComboWidget::onComboChanged(const QString &name)
 {
     qDebug() << "ItemComboWidget::onWidgetChangeRequest" << name;
+    setPresentation(currentPresentation());
 }
 
 QString ItemComboWidget::currentPresentation() const

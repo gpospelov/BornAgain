@@ -43,6 +43,8 @@ signals:
     void comboChanged(const QString &presentation);
 
 private:
+    void setComboConnected(bool value);
+
     class QComboBox *m_comboBox;
     QAction *m_comboBoxAction;
 };

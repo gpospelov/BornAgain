@@ -45,6 +45,8 @@ public:
 
     void add(const QString &presentationType, factory_function_t);
 
+    void setPresentation(const QString &presentationType);
+
 protected:
 //    virtual void showEvent(class QShowEvent *);
 //    virtual void hideEvent(class QHideEvent *);

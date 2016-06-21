@@ -17,12 +17,13 @@
 #include "JobResultsPresenter.h"
 #include "mainwindow_constants.h"
 #include "IntensityDataWidget.h"
-#include "StyledToolBar.h"
+#include "FitComparisonWidget.h"
 #include <QBoxLayout>
 
 JobResultsPresenter::JobResultsPresenter(QWidget *parent)
     : ItemComboWidget(parent)
 {
     add(Constants::IntensityDataWidgetName, create_new<IntensityDataWidget>);
+    add(Constants::FitComparisonWidgetName, create_new<FitComparisonWidget>);
 }
 

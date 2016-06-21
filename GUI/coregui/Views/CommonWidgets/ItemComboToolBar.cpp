@@ -26,16 +26,18 @@ ItemComboToolBar::ItemComboToolBar(QWidget *parent)
     setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
 
     m_comboBox->setFixedWidth(125);
-
-    connect(m_comboBox, SIGNAL(currentIndexChanged(QString)),
-            this, SIGNAL(comboChanged(QString)));
+    m_comboBox->setToolTip("Select type of graphical presentation.");
 
     m_comboBoxAction = addWidget(m_comboBox);
+
+    setComboConnected(true);
 }
 
 void ItemComboToolBar::addPresentationType(const QString &name)
 {
+    setComboConnected(false);
     m_comboBox->addItem(name);
+    setComboConnected(true);
 }
 
 QString ItemComboToolBar::currentPresentation() const
@@ -43,7 +45,7 @@ QString ItemComboToolBar::currentPresentation() const
     return m_comboBox->currentText();
 }
 
-//! Adds external actions to tool bar (previous actions will be removed).
+//! Sets external actions to tool bar (previous actions will be removed).
 
 void ItemComboToolBar::setActionList(const QList<QAction *> &actionList)
 {
@@ -57,6 +59,16 @@ void ItemComboToolBar::setActionList(const QList<QAction *> &actionList)
     }
 
     addStyledExpand();
-//    Q_ASSERT(m_comboBox);
     addAction(m_comboBoxAction);
+}
+
+void ItemComboToolBar::setComboConnected(bool value)
+{
+    if(value) {
+        connect(m_comboBox, SIGNAL(currentIndexChanged(QString)),
+                this, SIGNAL(comboChanged(QString)), Qt::UniqueConnection);
+    } else {
+        disconnect(m_comboBox, SIGNAL(currentIndexChanged(QString)),
+                this, SIGNAL(comboChanged(QString)));
+    }
 }

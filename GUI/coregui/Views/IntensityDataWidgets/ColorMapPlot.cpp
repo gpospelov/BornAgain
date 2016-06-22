@@ -146,7 +146,7 @@ void ColorMapPlot::drawLinesOverTheMap()
     }
     m_customPlot->graph(1)->setData(x2, y2);
 
-    replot();
+    m_customPlot->replot();
 }
 
 //! switches visibility of two crossed lines
@@ -155,7 +155,7 @@ void ColorMapPlot::showLinesOverTheMap(bool isVisible)
     if (m_customPlot->graph(0) && m_customPlot->graph(1)) {
         m_customPlot->graph(0)->setVisible(isVisible);
         m_customPlot->graph(1)->setVisible(isVisible);
-        replot();
+        m_customPlot->replot();
     }
 }
 
@@ -434,6 +434,7 @@ void ColorMapPlot::onYaxisRangeChanged(QCPRange newRange)
 void ColorMapPlot::replot()
 {
     m_updateTimer->scheduleUpdate();
+//    m_customPlot->replot(); // will trigger immediate replot, seems that slower
 }
 
 //! Replots ColorMap.

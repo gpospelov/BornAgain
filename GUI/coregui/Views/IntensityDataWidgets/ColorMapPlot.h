@@ -28,6 +28,7 @@ class IntensityDataItem;
 class QCustomPlot;
 class QCPColorMap;
 class QCPColorScale;
+class UpdateTimer;
 
 //! 2D color map widget for IntensityData
 class BA_CORE_API_ ColorMapPlot : public QWidget
@@ -81,6 +82,8 @@ private slots:
     void onDataRangeChanged(QCPRange newRange);
     void onXaxisRangeChanged(QCPRange newRange);
     void onYaxisRangeChanged(QCPRange newRange);
+    void replot();
+    void onTimeToReplot();
 
 private:
 
@@ -109,6 +112,7 @@ private:
     void setAxesRangeConnected(bool isConnected);
     void setDataRangeConnected(bool isConnected);
     void setMouseMoveConnected(bool isConnected);
+    void setUpdateTimerConnected(bool isConnected);
 
     void setFixedColorMapMargins();
 
@@ -132,6 +136,8 @@ private:
 
     bool m_block_update;
     PositionData m_posData;
+
+    UpdateTimer *m_updateTimer;
 };
 
 

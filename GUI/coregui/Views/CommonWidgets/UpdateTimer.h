@@ -34,10 +34,13 @@ public:
     explicit UpdateTimer(int accumulateDuring, QObject *parent = 0);
 
     void setAccumulateDuring(int accumulateDuring);
-
+    void setTimerInterval(int timerInterval);
 
 signals:
     void timeToUpdate();
+
+public slots:
+    void scheduleUpdate();
 
 private slots:
     void onTimerTimeout();
@@ -54,11 +57,10 @@ private:
     //!< Timer interval to check what is going on.
     int m_timer_interval;
 
-    //!< Remaining time to
+    //!< Remaining time to to emit timeToUpdate signal
     int m_remaining_time_to_update;
 
     QTimer *m_timer;
 };
-
 
 #endif

@@ -77,6 +77,7 @@ public:
     ComponentEditorFlags::PresentationType m_presentationType;
     QList<SessionItem *> m_changedItems;
     std::unique_ptr<WheelEventEater> m_wheel_event_filter;
+    SessionItem *m_topItem;
 };
 
 #endif

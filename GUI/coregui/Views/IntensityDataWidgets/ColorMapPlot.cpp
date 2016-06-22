@@ -566,6 +566,8 @@ void ColorMapPlot::setColorMapFromItem(IntensityDataItem *intensityItem)
     setColorScaleAppearanceFromItem(intensityItem);
     setDataRangeFromItem(intensityItem);
 
+    replot();
+
     m_block_update = false;
 }
 

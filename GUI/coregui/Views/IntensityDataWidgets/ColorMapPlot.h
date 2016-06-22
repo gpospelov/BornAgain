@@ -115,7 +115,6 @@ private:
 
     IntensityDataItem *m_item;
 
-    QMap<QString, QCPColorGradient > m_gradient_map;
     bool m_block_update;
     PositionData m_posData;
 };

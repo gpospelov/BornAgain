@@ -15,6 +15,7 @@
 // ************************************************************************** //
 
 #include "ColorMapPlot.h"
+#include "ColorMapHelper.h"
 #include "IntensityDataItem.h"
 #include "AxesItems.h"
 #include "GUIHelpers.h"
@@ -312,7 +313,7 @@ void ColorMapPlot::onPropertyChanged(const QString &property_name)
         return;
 
     if (property_name == IntensityDataItem::P_GRADIENT) {
-        m_colorMap->setGradient(m_gradient_map[m_item->getGradient()]);
+        m_colorMap->setGradient(ColorMapHelper::itemGradient(m_item));
         m_customPlot->replot();
     } else if (property_name == IntensityDataItem::P_IS_INTERPOLATED) {
         m_colorMap->setInterpolate(m_item->isInterpolated());
@@ -445,18 +446,6 @@ void ColorMapPlot::initColorMap()
                                              // right (actually atRight is already the default)
     m_colorMap->setColorScale(m_colorScale); // associate the color map with the color scale
 
-    m_gradient_map[Constants::GRADIENT_GRAYSCALE] = QCPColorGradient::gpGrayscale;
-    m_gradient_map[Constants::GRADIENT_HOT] = QCPColorGradient::gpHot;
-    m_gradient_map[Constants::GRADIENT_COLD] = QCPColorGradient::gpCold;
-    m_gradient_map[Constants::GRADIENT_NIGHT] = QCPColorGradient::gpNight;
-    m_gradient_map[Constants::GRADIENT_CANDY] = QCPColorGradient::gpCandy;
-    m_gradient_map[Constants::GRADIENT_GEOGRAPHY] = QCPColorGradient::gpGeography;
-    m_gradient_map[Constants::GRADIENT_ION] = QCPColorGradient::gpIon;
-    m_gradient_map[Constants::GRADIENT_THERMAL] = QCPColorGradient::gpThermal;
-    m_gradient_map[Constants::GRADIENT_POLAR] = QCPColorGradient::gpPolar;
-    m_gradient_map[Constants::GRADIENT_SPECTRUM] = QCPColorGradient::gpSpectrum;
-    m_gradient_map[Constants::GRADIENT_JET] = QCPColorGradient::gpJet;
-    m_gradient_map[Constants::GRADIENT_HUES] = QCPColorGradient::gpHues;
 
     QPen pen;
     pen.setWidth(1);
@@ -527,7 +516,7 @@ void ColorMapPlot::plotItem(IntensityDataItem *intensityItem)
     setColorScaleVisible(intensityItem->getItem(IntensityDataItem::P_ZAXIS)
         ->getItemValue(BasicAxisItem::P_IS_VISIBLE).toBool());
 
-    m_colorMap->setGradient(m_gradient_map[intensityItem->getGradient()]);
+    m_colorMap->setGradient(ColorMapHelper::itemGradient(m_item));
 
     QCPRange newDataRange(intensityItem->getLowerZ(), intensityItem->getUpperZ());
     if (!intensityItem->isZAxisLocked() || (intensityItem->getLowerZ() > intensityItem->getUpperZ())) {

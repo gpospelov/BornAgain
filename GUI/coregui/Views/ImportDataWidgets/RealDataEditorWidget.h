@@ -20,7 +20,9 @@
 #include "WinDllMacros.h"
 #include <QWidget>
 
-//! The RealDataEditorWidget class provides editing/presenation of RealDataItem
+class ColorMapPlot;
+
+//! The RealDataEditorWidget class provides editing/presenation of RealDataItem in ImportDataView.
 
 class BA_CORE_API_ RealDataEditorWidget : public QWidget
 {
@@ -35,9 +37,7 @@ public:
     void setItem(class SessionItem *item);
 
 private:
-    class ColorMapPlot *m_colorMap;
-
-
+    ColorMapPlot *m_colorMap;
 };
 
 #endif

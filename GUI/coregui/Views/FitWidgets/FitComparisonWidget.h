@@ -20,6 +20,7 @@
 #include "SessionItemWidget.h"
 
 class IntensityDataItem;
+class ColorMapPlot;
 
 //! The FitComparisonWidget class plots realdata, simulated data and relative difference map
 //! during the course of the fit.
@@ -43,9 +44,9 @@ private:
     class IntensityDataItem *createRelativeDifferenceItem();
     void calculateRelativeDifference();
 
-    class ColorMapPlot *m_realDataPlot;
-    class ColorMapPlot *m_simulatedDataPlot;
-    class ColorMapPlot *m_relativeDiffPlot;
+    ColorMapPlot *m_realDataPlot;
+    ColorMapPlot *m_simulatedDataPlot;
+    ColorMapPlot *m_relativeDiffPlot;
 
     IntensityDataItem *m_realDataItem;
     IntensityDataItem *m_simulatedDataItem;

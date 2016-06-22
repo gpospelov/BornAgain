@@ -46,46 +46,42 @@ ColorMapPlot::~ColorMapPlot()
 
 }
 
-//! initializes everything with new IntensityDataItem or plot it, if it was already the case
+//! Sets ColorMap to track intensity item.
+
 void ColorMapPlot::setItem(IntensityDataItem *item)
 {
-    if(item == m_item) {
-        if(m_item)
-            plotItem(m_item);
+    if(item == m_item)
         return;
 
-    } else {
-        if(m_item)
-            m_item->mapper()->unsubscribe(this);
+    resetColorMap();
 
-        m_item = item;
-        if(!m_item) return;
+    m_item = item;
+    if(!m_item)
+        return;
 
-        plotItem(m_item);
+    setColorMapFromItem(m_item);
 
-        m_item->mapper()->setOnPropertyChange(
-                    [this](const QString &name)
-        {
-            onPropertyChanged(name);
-//            onIntensityModified();
-        }, this);
+    m_item->mapper()->setOnPropertyChange(
+                [this](const QString &name)
+    {
+        onPropertyChanged(name);
+    }, this);
 
-        m_item->mapper()->setOnChildPropertyChange([this](SessionItem *item, const QString name) {
-            onSubItemPropertyChanged(item->itemName(), name);
-        }, this);
+    m_item->mapper()->setOnChildPropertyChange([this](SessionItem *item, const QString name) {
+        onSubItemPropertyChanged(item->itemName(), name);
+    }, this);
 
-        m_item->mapper()->setOnValueChange(
-            [this]()
-        {
-            onIntensityModified();
-        }, this);
+    m_item->mapper()->setOnValueChange(
+        [this]()
+    {
+        onIntensityModified();
+    }, this);
 
-        m_item->mapper()->setOnItemDestroy(
-                    [this](SessionItem *) {
-            m_item = 0;
-        }, this);
+    m_item->mapper()->setOnItemDestroy(
+                [this](SessionItem *) {
+        m_item = 0;
+    }, this);
 
-    }
 
 }
 
@@ -303,7 +299,9 @@ void ColorMapPlot::getVerticalSlice(QVector<double> &x, QVector<double> &y)
 void ColorMapPlot::onIntensityModified()
 {
     qDebug() << "ColorMapPlot::onIntensityModified()";
-    plotItem(m_item);
+//    plotItem(m_item);
+    setDataFromItem(m_item);
+    m_customPlot->replot();
 }
 
 //! updates color map depending on  IntensityDataItem properties
@@ -737,5 +735,14 @@ void ColorMapPlot::setColorScaleVisible(bool visibility_flag)
         m_customPlot->plotLayout()->take(m_colorScale);
         m_customPlot->plotLayout()->simplify();
     }
+}
+
+//! Disconnects everything
+
+void ColorMapPlot::resetColorMap()
+{
+    setConnected(false);
+    if(m_item)
+        m_item->mapper()->unsubscribe(this);
 }
 

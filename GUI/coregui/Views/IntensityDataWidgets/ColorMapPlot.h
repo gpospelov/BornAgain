@@ -127,6 +127,8 @@ private:
 
     void setColorScaleVisible(bool visibility_flag);
 
+    void resetColorMap();
+
     QCustomPlot *m_customPlot;
     QCPColorMap *m_colorMap;
     QCPColorScale *m_colorScale;

@@ -46,7 +46,7 @@ void GUIFitObserver::update(FitSuite *subject)
     if(canUpdateProgressInfo(subject)) {
         FitProgressInfo info;
         info.m_chi2 = subject->getChi2();
-        info.m_iteration_count = subject->getNumberOfIterations();
+        info.m_iteration_count = (int)subject->getNumberOfIterations();
         info.m_values = GUIHelpers::fromStdVector(subject->getFitParameters()->getValues());
         qDebug() << "Emitting progressInfoUpdate" << info.m_iteration_count;
         emit progressInfoUpdate(info);
@@ -55,7 +55,7 @@ void GUIFitObserver::update(FitSuite *subject)
     if(canUpdatePlots(subject)) {
         m_block_update_plots = true;
         m_simData.reset(subject->getSimulationOutputData()->clone());
-        m_chiData.reset(subject->getChiSquaredOutputData()->clone());
+//        m_chiData.reset(subject->getChiSquaredOutputData()->clone());
         emit plotsUpdate();
     }
 
@@ -75,13 +75,14 @@ void GUIFitObserver::setInterval(int val)
     m_update_interval = val;
 }
 
-//! Returns true if it is time to update plots
+//! Returns true if it is time to update plots.
 
 bool GUIFitObserver::canUpdatePlots(FitSuite *fitSuite)
 {
     if(m_block_update_plots) return false;
-    if(fitSuite->getNumberOfIterations() % m_update_interval != 0) return false;
-    return true;
+    if(fitSuite->getNumberOfIterations() % m_update_interval == 0) return true;
+    if(fitSuite->isLastIteration()) return true;
+    return false;
 }
 
 //! Returns true if it is time to update progress. Follow same rules as for plots update,
@@ -91,7 +92,7 @@ bool GUIFitObserver::canUpdateProgressInfo(FitSuite *fitSuite)
     if(fitSuite->getNumberOfIterations() == 0) return true;
     if(fitSuite->getNumberOfIterations() % m_update_interval == 0) return true;
     if(fitSuite->isLastIteration()) return true;
-    return canUpdatePlots(fitSuite);
+    return false;
 }
 
 //! Informs observer that FitSuiteWidget has finished plotting and is ready for next plot
@@ -105,8 +106,8 @@ const OutputData<double> *GUIFitObserver::simulationData() const
     return m_simData.get();
 }
 
-const OutputData<double> *GUIFitObserver::chiSquaredData() const
-{
-    return m_chiData.get();
-}
+//const OutputData<double> *GUIFitObserver::chiSquaredData() const
+//{
+//    return m_chiData.get();
+//}
 

@@ -67,7 +67,7 @@ signals:
     void validMousMove();
 
 public slots:
-    void setLogz(bool logz, bool isReplot = false);
+    void setLogz(bool logz);
     void resetView();
     void onMouseMove(QMouseEvent *event);
 
@@ -105,14 +105,10 @@ private:
 
     void initColorMap();
 
-    void plotItem(IntensityDataItem *intensityItem);
-
     void setConnected(bool isConnected);
-
     void setAxesRangeConnected(bool isConnected);
     void setDataRangeConnected(bool isConnected);
     void setMouseMoveConnected(bool isConnected);
-
 
     QCPRange calculateDataRange(IntensityDataItem *intensityItem);
     void setFixedColorMapMargins();

@@ -422,34 +422,17 @@ void ColorMapPlot::initColorMap()
 {
     m_customPlot = new QCustomPlot();
 
-//    m_customPlot->axisRect()->setAutoMargins(QCP::msNone);
-//    m_customPlot->axisRect()->setMargins(QMargins(0.1, 0.1, 0.1, 0.1));
-
     m_colorMap = new QCPColorMap(m_customPlot->xAxis, m_customPlot->yAxis);
     m_customPlot->addPlottable(m_colorMap);
     m_colorScale = new QCPColorScale(m_customPlot);
 
-//    QFontMetrics fontMetric(font());
-//    auto em = fontMetric.width('M'), fontAscent = fontMetric.ascent();
-//    auto *axisRectangle = m_colorScale->axis()->axisRect();
-//    axisRectangle->setMargins(QMargins(0.0*em, fontAscent*1.0, em*5.0, em));
-////    axisRectangle->setAutoMargins(QCP::msNone);
-//    axisRectangle->setAutoMargins(QCP::msTop | QCP::msBottom);
-////    axisRectangle->setMargins(QMargins(1.0*em, fontAscent, em, 1.0*fontAscent));
+    // add it to the right of the main axis rect
+    m_customPlot->plotLayout()->addElement(0, 1, m_colorScale);
 
+    // scale shall be vertical bar with tick/axis labels
+    m_colorScale->setType(QCPAxis::atRight);
 
-//    QCPMarginGroup *marginGroup = new QCPMarginGroup(m_customPlot);
-//    m_colorScale->setMarginGroup(QCP::msBottom | QCP::msTop, marginGroup);
-//    m_customPlot->axisRect()->setMarginGroup(QCP::msBottom | QCP::msTop, marginGroup);
-
-
-    m_customPlot->plotLayout()->addElement(
-        0, 1, m_colorScale); // add it to the right of the main axis rect
-
-    m_colorScale->setType(QCPAxis::atRight); // scale shall be vertical bar with tick/axis labels
-                                             // right (actually atRight is already the default)
-    m_colorMap->setColorScale(m_colorScale); // associate the color map with the color scale
-
+    m_colorMap->setColorScale(m_colorScale);
 
     QPen pen;
     pen.setWidth(1);

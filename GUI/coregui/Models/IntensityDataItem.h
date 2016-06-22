@@ -87,6 +87,10 @@ public:
 
     QString fileName(const QString &projectDir);
 
+    void updateDataRange();
+    void computeDataRange();
+    QPair<double, double> getDataRange() const;
+
 public slots:
     void setLowerX(double xmin);
     void setUpperX(double xmax);
@@ -102,10 +106,8 @@ public slots:
     void setAxesRangeToData();
 
 private:
-    void initAxesZoomLevel();
-    void initAxesLabels();
-    void initDataRange();
-    QPair<double, double> calculateDataRange();
+    void updateAxesZoomLevel();
+    void updateAxesLabels();
 
     std::unique_ptr<OutputData<double> > m_data; //!< simulation results
 };

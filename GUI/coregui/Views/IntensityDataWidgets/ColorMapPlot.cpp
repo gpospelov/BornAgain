@@ -212,8 +212,7 @@ void ColorMapPlot::resetView()
     m_block_update = true;
     m_colorMap->rescaleAxes();
     if(!m_item->isZAxisLocked()) {
-        QCPRange newDataRange = calculateDataRange(m_item);
-        m_colorMap->setDataRange(newDataRange);
+        m_colorMap->setDataRange(ColorMapHelper::itemDataRange(m_item));
     }
     m_customPlot->replot();
     m_block_update = false;
@@ -519,26 +518,6 @@ void ColorMapPlot::setMouseMoveConnected(bool isConnected)
     }
 }
 
-//! calculate zmin, zmax for nicely looking linear, and logariphic z-axis
-QCPRange ColorMapPlot::calculateDataRange(IntensityDataItem *intensityItem)
-{
-    const OutputData<double> *data = intensityItem->getOutputData();
-    OutputData<double>::const_iterator it_max = std::max_element(data->begin(), data->end());
-    OutputData<double>::const_iterator it_min = std::min_element(data->begin(), data->end());
-    double min(*it_min), max(*it_max);
-    if (intensityItem->isLogz()) {
-        if (max > 10000) {
-            min = 1.0;
-            max = max * 1.1;
-        } else {
-            min = max / 10000;
-            max = max * 1.1;
-        }
-    } else {
-        max = max * 1.1;
-    }
-    return QCPRange(min, max);
-}
 
 //! to make fixed margins for whole colormap (change in axes labels wont affect axes rectangle)
 void ColorMapPlot::setFixedColorMapMargins()
@@ -555,13 +534,6 @@ void ColorMapPlot::setFixedColorMapMargins()
 void ColorMapPlot::setColorMapFromItem(IntensityDataItem *intensityItem)
 {
     Q_ASSERT(intensityItem);
-    const OutputData<double> *data = intensityItem->getOutputData();
-    Q_ASSERT(data);
-
-    if (data->getRank() != 2) {
-        throw NullPointerException(
-            "ColorMapPlot::plotItem() -> Error. Zero pointer to the data to draw");
-    }
 
     m_block_update = true;
 
@@ -573,7 +545,6 @@ void ColorMapPlot::setColorMapFromItem(IntensityDataItem *intensityItem)
     setDataRangeFromItem(intensityItem);
 
     m_block_update = false;
-
 }
 
 //! Sets (xmin,xmax,nbins) and (ymin,ymax,nbins) of ColorMapPlot from intensity item.
@@ -581,6 +552,7 @@ void ColorMapPlot::setColorMapFromItem(IntensityDataItem *intensityItem)
 void ColorMapPlot::setAxesRangeFromItem(IntensityDataItem *item)
 {
     auto data = item->getOutputData();
+    Q_ASSERT(data);
 
     m_customPlot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom);
     m_customPlot->axisRect()->setupFullAxesBox(true);
@@ -619,6 +591,7 @@ void ColorMapPlot::setLabelsFromItem(IntensityDataItem *item)
 void ColorMapPlot::setDataFromItem(IntensityDataItem *item)
 {
     auto data = item->getOutputData();
+    Q_ASSERT(data);
     const IAxis *axis_x = data->getAxis(0);
     const IAxis *axis_y = data->getAxis(1);
 

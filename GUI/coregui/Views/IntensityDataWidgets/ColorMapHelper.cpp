@@ -68,3 +68,9 @@ QCPRange ColorMapHelper::itemYrange(const IntensityDataItem *item)
 {
     return QCPRange(item->getYmin(), item->getYmax());
 }
+
+QCPRange ColorMapHelper::itemDataRange(const IntensityDataItem *item)
+{
+    QPair<double, double> range = item->getDataRange();
+    return QCPRange(range.first, range.second);
+}

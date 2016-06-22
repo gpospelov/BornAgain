@@ -36,6 +36,7 @@ public:
 
     static QCPRange itemXrange(const IntensityDataItem *item);
     static QCPRange itemYrange(const IntensityDataItem *item);
+    static QCPRange itemDataRange(const IntensityDataItem *item);
 
 
 private:

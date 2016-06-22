@@ -89,9 +89,9 @@ void IntensityDataItem::setOutputData(OutputData<double> *data)
     Q_ASSERT(data);
     m_data.reset(data);
 
-    initAxesZoomLevel();
-    initAxesLabels();
-    initDataRange();
+    updateAxesZoomLevel();
+    updateAxesLabels();
+    updateDataRange();
 
     emitDataChanged();
 }
@@ -282,7 +282,7 @@ void IntensityDataItem::setAxesRangeToData()
 
 //! Sets zoom range of X,Y axes, if it was not yet defined.
 
-void IntensityDataItem::initAxesZoomLevel()
+void IntensityDataItem::updateAxesZoomLevel()
 {
     // set zoom range of x-axis to min, max values if it was not set already
     if(getUpperX() < getLowerX()) {
@@ -300,7 +300,7 @@ void IntensityDataItem::initAxesZoomLevel()
 
 //! Init axes labels, if it was not done already.
 
-void IntensityDataItem::initAxesLabels()
+void IntensityDataItem::updateAxesLabels()
 {
     if(getXaxisTitle().isEmpty())
         setXaxisTitle(QString::fromStdString(m_data->getAxis(BornAgain::X_AXIS_INDEX)->getName()));
@@ -309,7 +309,9 @@ void IntensityDataItem::initAxesLabels()
         setYaxisTitle(QString::fromStdString(m_data->getAxis(BornAgain::Y_AXIS_INDEX)->getName()));
 }
 
-void IntensityDataItem::initDataRange()
+//! Sets min,max values for z-axis, if axes is not locked, and ranges are not yet set.
+
+void IntensityDataItem::updateDataRange()
 {
     if(isZAxisLocked())
         return;
@@ -317,12 +319,17 @@ void IntensityDataItem::initDataRange()
     if(getLowerZ() <= getUpperZ())
         return;
 
-    QPair<double, double> minmax = calculateDataRange();
+    computeDataRange();
+}
+
+void IntensityDataItem::computeDataRange()
+{
+    QPair<double, double> minmax = getDataRange();
     setLowerAndUpperZ(minmax.first, minmax.second);
 }
 
 //! Init zmin, zmax to match the intensity values range.
-QPair<double, double> IntensityDataItem::calculateDataRange()
+QPair<double, double> IntensityDataItem::getDataRange() const
 {
     const OutputData<double> *data = getOutputData();
     OutputData<double>::const_iterator it_max = std::max_element(data->begin(), data->end());

@@ -110,7 +110,6 @@ private:
     void setDataRangeConnected(bool isConnected);
     void setMouseMoveConnected(bool isConnected);
 
-    QCPRange calculateDataRange(IntensityDataItem *intensityItem);
     void setFixedColorMapMargins();
 
     void setColorMapFromItem(IntensityDataItem *intensityItem);

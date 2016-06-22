@@ -72,6 +72,9 @@ void JobItemHelper::setResults(IntensityDataItem *intensityItem,
     IDetector2D::EAxesUnits selected_units
         = getAxesUnitsFromName(intensityItem->getSelectedAxesUnits());
     intensityItem->setOutputData(simulation->getDetectorIntensity(selected_units));
+    if(!intensityItem->isZAxisLocked())
+        intensityItem->computeDataRange();
+
     updateAxesTitle(intensityItem);
 }
 

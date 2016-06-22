@@ -34,6 +34,10 @@ public:
     static QCPColorGradient getGradient(const QString &gradientName);
     static QCPColorGradient itemGradient(const IntensityDataItem *item);
 
+    static QCPRange itemXrange(const IntensityDataItem *item);
+    static QCPRange itemYrange(const IntensityDataItem *item);
+
+
 private:
     //!< GUI name of the gradient to QCPColorGradient::GradientPreset;
     static gradient_map_t m_gradient_map;

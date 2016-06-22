@@ -67,7 +67,7 @@ signals:
     void validMousMove();
 
 public slots:
-    void setLogz(bool logz, bool isReplot = true);
+    void setLogz(bool logz, bool isReplot = false);
     void resetView();
     void onMouseMove(QMouseEvent *event);
 
@@ -104,10 +104,28 @@ private:
     };
 
     void initColorMap();
+
     void plotItem(IntensityDataItem *intensityItem);
+
+    void setConnected(bool isConnected);
+
+    void setAxesRangeConnected(bool isConnected);
+    void setDataRangeConnected(bool isConnected);
+    void setMouseMoveConnected(bool isConnected);
+
+
     QCPRange calculateDataRange(IntensityDataItem *intensityItem);
-    void setColorScaleVisible(bool visibility_flag);
     void setFixedColorMapMargins();
+
+    void setColorMapFromItem(IntensityDataItem *intensityItem);
+    void setAxesRangeFromItem(IntensityDataItem *item);
+    void setAxesZoomFromItem(IntensityDataItem *item);
+    void setLabelsFromItem(IntensityDataItem *item);
+    void setDataFromItem(IntensityDataItem *item);
+    void setColorScaleAppearanceFromItem(IntensityDataItem *item);
+    void setDataRangeFromItem(IntensityDataItem *item);
+
+    void setColorScaleVisible(bool visibility_flag);
 
     QCustomPlot *m_customPlot;
     QCPColorMap *m_colorMap;

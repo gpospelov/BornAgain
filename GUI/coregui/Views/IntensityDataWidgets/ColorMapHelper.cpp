@@ -58,3 +58,13 @@ QCPColorGradient ColorMapHelper::itemGradient(const IntensityDataItem *item)
 {
     return getGradient(item->getGradient());
 }
+
+QCPRange ColorMapHelper::itemXrange(const IntensityDataItem *item)
+{
+    return QCPRange(item->getXmin(), item->getXmax());
+}
+
+QCPRange ColorMapHelper::itemYrange(const IntensityDataItem *item)
+{
+    return QCPRange(item->getYmin(), item->getYmax());
+}

@@ -21,6 +21,7 @@
 #include "OutputData.h"
 #include "IDetector2D.h"
 #include <QMap>
+#include <QPair>
 
 class GISASSimulation;
 
@@ -101,6 +102,11 @@ public slots:
     void setAxesRangeToData();
 
 private:
+    void initAxesZoomLevel();
+    void initAxesLabels();
+    void initDataRange();
+    QPair<double, double> calculateDataRange();
+
     std::unique_ptr<OutputData<double> > m_data; //!< simulation results
 };
 

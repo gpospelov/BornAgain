@@ -429,19 +429,17 @@ void ColorMapPlot::onYaxisRangeChanged(QCPRange newRange)
     m_block_update = false;
 }
 
-//! Schedule replot for later execution.
+//! Schedule replot for later execution by onTimeReplot() slot.
 
 void ColorMapPlot::replot()
 {
     m_updateTimer->scheduleUpdate();
-//    m_customPlot->replot();
 }
 
 //! Replots ColorMap.
 
 void ColorMapPlot::onTimeToReplot()
 {
-    qDebug() << "ColorMapPlot::onTimeToReplot()";
     m_customPlot->replot();
 }
 

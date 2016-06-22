@@ -30,10 +30,8 @@ UpdateTimer::UpdateTimer(int accumulateDuring, QObject *parent)
     , m_remaining_time_to_update(0)
     , m_timer(new QTimer(this))
 {
-
     m_timer->setInterval(m_timer_interval);
     connect(m_timer, SIGNAL(timeout()), this, SLOT(onTimerTimeout()));
-
 }
 
 //! Sets time period in msec, during which updates will be accumulated.
@@ -52,23 +50,13 @@ void UpdateTimer::setTimerInterval(int timerInterval)
 
 //! Schedule subsequent update.
 
-#include <iostream>
 void UpdateTimer::scheduleUpdate()
 {
     ++m_update_request_count;
-    qDebug() << "TTT scheduleUpdate() m_update_request_count"
-             << m_update_request_count
-             << "m_remaining_time_to_update" << m_remaining_time_to_update;
-
-    std::cout << "TTT scheduleUpdate() m_update_request_count"
-             << m_update_request_count
-             << "m_remaining_time_to_update" << m_remaining_time_to_update
-             << "XXX" << m_timer_interval << std::endl;
 
     if(!m_timer->isActive()) {
         m_timer->start(m_timer_interval);
         m_remaining_time_to_update = m_accumulate_updates_during;
-        qDebug() << "   TTT scheduleUpdate() -- starting --- m_remaining_time_to_update" << m_remaining_time_to_update;
     }
 }
 
@@ -76,27 +64,19 @@ void UpdateTimer::scheduleUpdate()
 void UpdateTimer::onTimerTimeout()
 {
     m_remaining_time_to_update -= m_timer_interval;
-    qDebug() << "   TTT onTimerTimeout() m_remaining_time_to_update" << m_remaining_time_to_update;
 
     if(m_remaining_time_to_update <= 0) {
         m_timer->stop();
-        qDebug() << "   TTT onTimerTimeout()  -- stopping -- m_remaining_time_to_update" << m_remaining_time_to_update;
         processUpdates();
     }
-
 }
 
 void UpdateTimer::processUpdates()
 {
     Q_ASSERT(!m_timer->isActive());
 
-    qDebug() << "   TTT processUpdates() m_update_request_count" << m_update_request_count;
-    std::cout << "   TTT processUpdates() m_update_request_count" << m_update_request_count << std::endl;
-
-    if(m_update_request_count > 0) {
-        qDebug() << "   TTT processUpdates() --- emiting";
+    if(m_update_request_count > 0)
         emit timeToUpdate();
-    }
 
     m_update_request_count = 0;
 }

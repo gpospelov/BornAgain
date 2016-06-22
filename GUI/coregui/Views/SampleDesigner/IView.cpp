@@ -68,13 +68,15 @@ void IView::addView(IView *, int )
 
 void IView::onChangedX()
 {
-    Q_ASSERT(m_item);
+    if(!m_item)
+        return;
     m_item->setItemValue(SessionGraphicsItem::P_XPOS, x());
 }
 
 void IView::onChangedY()
 {
-    Q_ASSERT(m_item);
+    if(!m_item)
+        return;
     m_item->setItemValue(SessionGraphicsItem::P_YPOS, y());
 }
 

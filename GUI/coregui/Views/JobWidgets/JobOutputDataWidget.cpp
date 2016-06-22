@@ -72,6 +72,6 @@ void JobOutputDataWidget::onActivityChanged(int activity)
 bool JobOutputDataWidget::isValidJobItem(JobItem *item)
 {
     if(!item) return false;
-    if(item->isCompleted() || item->isCanceled()) return true;
+    if(item->isCompleted() || item->isCanceled() || item->isFailed()) return true;
     return false;
 }

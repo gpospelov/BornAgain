@@ -38,6 +38,8 @@ def dirCore(x):
     if "/Core/Fitting" in x: return True
     if "/Core/inc" in x: return True
     if "/Core/src" in x: return True
+    if "/Core/InputOutput" in x: return True
+    if "/Core/Geometry" in x: return True
     if "/Fit/Factory" in x: return True
     if "/Fit/FitKernel" in x: return True
     if "/Fit/StandardFits" in x: return True
@@ -52,11 +54,14 @@ def dirPyAPI(x):
 
 
 def dirFuncTest(x):
-    if "/App/" in x: return True
+    # if "/App/" in x: return True
+    if "/Tests/Functional" in x: return True
+    if "/Tests/PerformanceTests" in x: return True
     if "/Tests/FunctionalTests/TestCore" in x: return True
     if "/Tests/FunctionalTests/TestFit" in x: return True
     if "/Tests/FunctionalTests/TestPyCore" in x: return True
     if "/Tests/FunctionalTests/TestPyFit" in x: return True
+    if "/Core/TestMachinery" in x: return True
     return False
 
 
@@ -82,6 +87,7 @@ def dirUnitTests(x):
     if "/UnitTests/" in x: return True
     if "/Tests/UnitTests/TestCore/" in x: return True
     if "/Tests/UnitTests/TestFit/" in x: return True
+    if "/Tests/UnitTests/" in x: return True
     return False
 
 

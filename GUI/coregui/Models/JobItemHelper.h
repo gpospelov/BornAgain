@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Models/JobResultsPresenter.h
-//! @brief     Declares class JobResultsPresenter
+//! @file      GUI/coregui/Models/JobItemHelper.h
+//! @brief     Declares class JobItemHelper
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#ifndef JOBRESULTSPRESENTER_H
-#define JOBRESULTSPRESENTER_H
+#ifndef JOBITEMHELPER_H
+#define JOBITEMHELPER_H
 
 #include "WinDllMacros.h"
 #include "IDetector2D.h"
@@ -26,10 +26,10 @@ class IntensityDataItem;
 class InstrumentItem;
 class JobItem;
 
-//! The JobResultsPresenter is a mediator between GISASSimulation, JobItem and IntensityDataItem.
+//! The JobItemHelper is a mediator between GISASSimulation, JobItem and IntensityDataItem.
 //! Used to modify OutputData's axes units as requested by IntensityDataItem.
 
-class BA_CORE_API_ JobResultsPresenter
+class BA_CORE_API_ JobItemHelper
 {
 public:
     //! Sets simulation results into the IntensityDataItem

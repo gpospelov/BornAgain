@@ -49,8 +49,14 @@ ComponentEditor::~ComponentEditor()
 //! Sets editor to display all recursive properties of given item
 void ComponentEditor::setItem(SessionItem *item, const QString &group_name)
 {
+    if(item == m_d->m_topItem)
+        return;
+
     clearEditor();
-    if(!item) return;
+
+    m_d->m_topItem = item;
+    if(!item)
+        return;
 
     connectModel(item->model());
 

@@ -29,7 +29,7 @@
 #include "WarningMessageService.h"
 #include "MessageContainer.h"
 #include "GUIHelpers.h"
-#include "JobResultsPresenter.h"
+#include "JobItemHelper.h"
 #include "GUIHelpers.h"
 #include <QFile>
 #include <QTextStream>

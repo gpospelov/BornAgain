@@ -28,6 +28,7 @@ class SimulationOptionsItem;
 class FitSuiteItem;
 class ParameterContainerItem;
 class FitParameterContainerItem;
+class RealDataItem;
 
 class BA_CORE_API_ JobItem : public SessionItem
 {
@@ -98,6 +99,7 @@ public:
     FitSuiteItem *fitSuiteItem();
     ParameterContainerItem *parameterContainerItem();
     FitParameterContainerItem *fitParameterContainerItem();
+    RealDataItem *realDataItem();
 
 private:
     void updateIntensityDataFileName();

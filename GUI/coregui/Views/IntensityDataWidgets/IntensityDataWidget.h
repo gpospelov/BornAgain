@@ -17,26 +17,25 @@
 #ifndef INTENSITYDATAWIDGET_H
 #define INTENSITYDATAWIDGET_H
 
-#include "WinDllMacros.h"
-#include <QWidget>
-#include <memory>
+#include "SessionItemWidget.h"
 
-class IntensityDataPropertyWidget;
 class IntensityDataItem;
-class IntensityDataPlotWidget;
 
 //! The widget presents IntensityData color map and property editor.
 //! Belongs to the stack handled by JobOutputDataWidget
-class BA_CORE_API_ IntensityDataWidget : public QWidget
+class BA_CORE_API_ IntensityDataWidget : public SessionItemWidget
 {
     Q_OBJECT
 public:
     explicit IntensityDataWidget(QWidget *parent = 0);
 
-    void setItem(IntensityDataItem *item);
+    void setItem(class SessionItem *item);
+    void setIntensityData(IntensityDataItem *intensityItem);
 
     QSize sizeHint() const { return QSize(500, 400); }
     QSize minimumSizeHint() const { return QSize(128, 128); }
+
+    QList<QAction *> actionList();
 
 signals:
     void savePlotRequest();
@@ -44,13 +43,14 @@ signals:
 public slots:
     void onResetView();
     void togglePropertyPanel();
-    void savePlot(const QString &dirname);
+    void savePlot();
     void toggleProjections();
     void setPropertyPanelVisible(bool visible);
 
 private:
-    IntensityDataPlotWidget *m_plotWidget;
-    IntensityDataPropertyWidget *m_propertyWidget;
+    class IntensityDataWidgetActions *m_widgetActions;
+    class IntensityDataPlotWidget *m_plotWidget;
+    class IntensityDataPropertyWidget *m_propertyWidget;
     IntensityDataItem *m_currentItem;
 };
 

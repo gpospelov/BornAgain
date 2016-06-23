@@ -18,9 +18,14 @@
 #define ITEMCOMBOWIDGET_H
 
 #include "WinDllMacros.h"
+#include "IFactory.h"
 #include <QWidget>
+#include <QString>
+#include <QMap>
 
 class SessionItem;
+class SessionItemWidget;
+class ItemComboToolBar;
 
 //! The ItemComboWidget class combines stack of widgets with QComboBox controller to switch between
 //! widgets. It is used in the case when one SessionItem can be presented with different widgets.
@@ -32,20 +37,34 @@ class BA_CORE_API_ ItemComboWidget : public QWidget {
     Q_OBJECT
 
 public:
-
-    typedef QMap<QString, QWidget *(*)()> WidgetMap_t;
+    typedef std::function<SessionItemWidget*()> factory_function_t;
 
     explicit ItemComboWidget(QWidget *parent = 0);
 
     virtual void setItem(SessionItem *item);
 
-//    void addWidget(const QString &presentationType, std::function<void(SessionItem*)> f)
+    void registerWidget(const QString &presentationType, factory_function_t);
 
+    void setPresentation(const QString &presentationType);
+
+
+protected:
+//    virtual void showEvent(class QShowEvent *);
+//    virtual void hideEvent(class QHideEvent *);
+    virtual QStringList getValidPresentationList(SessionItem *item);
+
+private slots:
+    void onComboChanged(const QString &name);
 
 private:
+    QString currentPresentation() const;
+
+    ItemComboToolBar *m_toolBar;
     class QStackedWidget *m_stackedWidget;
     SessionItem *m_currentItem;
-    static WidgetMap_t m_widget_map;
+    IFactory<QString, SessionItemWidget> m_widgetFactory;
+    QMap<QString, SessionItemWidget *> m_presentationTypeToWidget;
+
 };
 
 #endif

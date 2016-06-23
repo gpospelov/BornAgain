@@ -27,7 +27,7 @@
 #include "ParameterTreeBuilder.h"
 #include "ParameterTreeItems.h"
 #include "SimulationOptionsItem.h"
-#include "JobResultsPresenter.h"
+#include "JobItemHelper.h"
 #include "IntensityDataItem.h"
 #include "FitSuiteItem.h"
 #include <QUuid>
@@ -135,7 +135,7 @@ void JobModel::loadNonXMLData(const QString &projectDir)
 {
     for (int i = 0; i < rowCount(QModelIndex()); ++i) {
         JobItem *jobItem = getJobItemForIndex(index(i, 0, QModelIndex()));
-        JobResultsPresenter::loadIntensityData(jobItem, projectDir);
+        JobItemHelper::loadIntensityData(jobItem, projectDir);
     }
 
 }
@@ -146,7 +146,7 @@ void JobModel::saveNonXMLData(const QString &projectDir)
 {
     for (int i = 0; i < rowCount(QModelIndex()); ++i) {
         JobItem *jobItem = getJobItemForIndex(index(i, 0, QModelIndex()));
-        JobResultsPresenter::saveIntensityData(jobItem, projectDir);
+        JobItemHelper::saveIntensityData(jobItem, projectDir);
     }
 }
 

@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/JobWidgets/JobOutputDataToolBar.h
-//! @brief     Declares class JobOutputDataToolBar
+//! @file      GUI/coregui/Views/IntensityDataWidgets/IntensityDataWidgetActions.h
+//! @brief     Declares class IntensityDataWidgetActions
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,21 +14,24 @@
 //
 // ************************************************************************** //
 
-#ifndef JOBOUTPUTDATATOOLBAR_H
-#define JOBOUTPUTDATATOOLBAR_H
+#ifndef INTENSITYDATAWIDGETACTIONS_H
+#define INTENSITYDATAWIDGETACTIONS_H
 
-#include "StyledToolBar.h"
+#include "WinDllMacros.h"
+#include <QObject>
 
-class QToolButton;
+class QAction;
 
-//! The JobOutputDataToolBar class represents main toolbar of JobOutputDataWidget.
+//! The IntensityDataWidgetActions class holds all actions related to IntensityDataWidget
 
-class BA_CORE_API_ JobOutputDataToolBar : public StyledToolBar
+class BA_CORE_API_ IntensityDataWidgetActions : public QObject
 {
     Q_OBJECT
 
 public:
-    explicit JobOutputDataToolBar(QWidget *parent = 0);
+    explicit IntensityDataWidgetActions(QObject *parent);
+
+    QList<QAction *> actionList();
 
 signals:
     void togglePropertyPanel();
@@ -37,10 +40,10 @@ signals:
     void savePlot();
 
 private:
-    QToolButton *m_toggleProjectionsButton;
-    QToolButton *m_togglePropertyPanelButton;
-    QToolButton *m_resetViewButton;
-    QToolButton *m_savePlotButton;
+    QAction *m_toggleProjectionsAction;
+    QAction *m_togglePropertyPanelAction;
+    QAction *m_resetViewAction;
+    QAction *m_savePlotAction;
 };
 
 #endif

@@ -21,12 +21,13 @@
 #include "InstrumentModel.h"
 #include "MultiLayerItem.h"
 #include "InstrumentItem.h"
-#include "JobResultsPresenter.h"
+#include "JobItemHelper.h"
 #include "SimulationOptionsItem.h"
 #include "GUIHelpers.h"
 #include "FitSuiteItem.h"
 #include "ParameterTreeItems.h"
 #include "FitParameterItems.h"
+#include "RealDataItem.h"
 #include <QDateTime>
 #include <QDebug>
 
@@ -100,7 +101,7 @@ JobItem::JobItem()
         if (item->modelType() == Constants::IntensityDataType
             && name == IntensityDataItem::P_AXES_UNITS) {
             auto intensityItem = dynamic_cast<IntensityDataItem *>(item);
-            JobResultsPresenter::updateDataAxes(intensityItem, getInstrumentItem());
+            JobItemHelper::updateDataAxes(intensityItem, getInstrumentItem());
             qDebug() << "QQQQ" << item->modelType() << name;
 
         }
@@ -271,7 +272,7 @@ void JobItem::setResults(const GISASSimulation *simulation)
     IntensityDataItem *intensityItem = getIntensityDataItem();
     Q_ASSERT(intensityItem);
 
-    JobResultsPresenter::setResults(intensityItem, simulation);
+    JobItemHelper::setResults(intensityItem, simulation);
     updateIntensityDataFileName();
 }
 
@@ -291,6 +292,11 @@ FitParameterContainerItem *JobItem::fitParameterContainerItem()
         return item->fitParameterContainerItem();
 
     return nullptr;
+}
+
+RealDataItem *JobItem::realDataItem()
+{
+    return dynamic_cast<RealDataItem*>(getItem(JobItem::T_REALDATA));
 }
 
 //! Updates the name of file to store intensity data.

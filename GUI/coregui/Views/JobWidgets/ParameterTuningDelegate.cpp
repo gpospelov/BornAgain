@@ -139,7 +139,10 @@ QWidget *ParameterTuningDelegate::createEditor(QWidget *parent,
     if (index.column() == m_valueColumn) {
         if(index.parent().isValid() == false) return nullptr;
 
-        double value = index.model()->data(index, Qt::EditRole).toDouble();
+        QVariant data = index.model()->data(index, Qt::EditRole);
+        if(!data.isValid()) return nullptr;
+
+        double value = data.toDouble();
 
         m_currentItem = static_cast<ParameterItem*>(ParameterTuningModel::toSourceIndex(index).internalPointer());
 

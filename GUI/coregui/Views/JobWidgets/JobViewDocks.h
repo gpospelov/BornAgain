@@ -24,6 +24,12 @@
 
 class QDockWidget;
 class JobView;
+class JobSelectorWidget;
+class JobOutputDataWidget;
+class JobRealTimeWidget;
+class FitActivityPanel;
+class JobMessagePanel;
+
 
 //! The JobViewDocks class assists JobView in holding all main job widgets and corresponding
 //! dock containers.
@@ -59,11 +65,11 @@ private:
     void initJobWidgets(class JobModel *jobModel);
     void initDocks();
 
-    class JobSelectorWidget *m_jobSelector;
-    class JobOutputDataWidget *m_jobOutputDataWidget;
-    class JobRealTimeWidget *m_jobRealTimeWidget;
-    class FitActivityPanel *m_fitActivityPanel;
-    class JobMessagePanel *m_jobMessagePanel;
+    JobSelectorWidget *m_jobSelector;
+    JobOutputDataWidget *m_jobOutputDataWidget;
+    JobRealTimeWidget *m_jobRealTimeWidget;
+    FitActivityPanel *m_fitActivityPanel;
+    JobMessagePanel *m_jobMessagePanel;
 
     QVector<QWidget *> m_jobWidgets;
     QVector<QDockWidget *> m_dockWidgets;

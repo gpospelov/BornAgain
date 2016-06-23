@@ -72,6 +72,7 @@ ParameterTuningWidget::ParameterTuningWidget(QWidget *parent)
     //m_treeView->setSelectionMode(QAbstractItemView::ExtendedSelection);
     m_treeView->setContextMenuPolicy(Qt::CustomContextMenu);
     m_treeView->setDragDropMode(QAbstractItemView::NoDragDrop);
+    m_treeView->setAttribute(Qt::WA_MacShowFocusRect, false);
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->setMargin(0);

@@ -22,6 +22,7 @@
 StyledToolBar::StyledToolBar(QWidget *parent)
     : QToolBar(parent)
 {
+//    setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     setMovable(false);
     const int size = style()->pixelMetric(QStyle::PM_SmallIconSize);
     setIconSize(QSize(size, size));

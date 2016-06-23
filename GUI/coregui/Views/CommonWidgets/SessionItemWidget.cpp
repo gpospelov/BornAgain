@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/FitWidgets/FitResultsWidget.h
-//! @brief     Declares class FitResultsWidget
+//! @file      GUI/coregui/Views/CommonWidgets/SessionItemWidget.h
+//! @brief     Declares class ItemComboWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,20 +14,16 @@
 //
 // ************************************************************************** //
 
-#ifndef FITRESULTSWIDGET_H
-#define FITRESULTSWIDGET_H
+#include "SessionItemWidget.h"
 
-#include "WinDllMacros.h"
-#include <QWidget>
 
-//! The FitResultsWidget contains fitting summary. Part of FitSuiteWidget.
-
-class BA_CORE_API_ FitResultsWidget : public QWidget
+SessionItemWidget::SessionItemWidget(QWidget *parent)
+    : QWidget(parent)
 {
-    Q_OBJECT
 
-public:
-    FitResultsWidget(QWidget *parent = 0);
-};
+}
 
-#endif
+QList<QAction *> SessionItemWidget::actionList()
+{
+    return QList<QAction *>();
+}

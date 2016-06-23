@@ -21,11 +21,12 @@
 #include "OutputData.h"
 #include "IDetector2D.h"
 #include <QMap>
+#include <QPair>
 
 class GISASSimulation;
 
 
-class BA_CORE_API_ IntensityDataItem : public QObject, public SessionItem
+class BA_CORE_API_ IntensityDataItem : public SessionItem
 {
 public:
     static const QString P_PROJECTIONS_FLAG;
@@ -86,6 +87,10 @@ public:
 
     QString fileName(const QString &projectDir);
 
+    void updateDataRange();
+    void computeDataRange();
+    QPair<double, double> getDataRange() const;
+
 public slots:
     void setLowerX(double xmin);
     void setUpperX(double xmax);
@@ -101,6 +106,9 @@ public slots:
     void setAxesRangeToData();
 
 private:
+    void updateAxesZoomLevel();
+    void updateAxesLabels();
+
     std::unique_ptr<OutputData<double> > m_data; //!< simulation results
 };
 

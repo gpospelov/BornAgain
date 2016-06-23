@@ -28,9 +28,11 @@
 #include <QDebug>
 
 DetectorMaskDelegate::DetectorMaskDelegate(QObject *parent)
-    : QObject(parent), m_tempIntensityDataModel(
-                           new SessionModel("TempIntensityDataModel", this)),
-      m_instrumentModel(0), m_detectorItem(0), m_intensityItem(0)
+    : QObject(parent)
+    , m_tempIntensityDataModel(new SessionModel("TempIntensityDataModel", this))
+    , m_instrumentModel(0)
+    , m_detectorItem(0)
+    , m_intensityItem(0)
 {
 }
 

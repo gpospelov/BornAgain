@@ -39,17 +39,17 @@ public:
     enum EColumn {PAR_NAME, PAR_TYPE, PAR_VALUE, PAR_MIN, PAR_MAX, MAX_COLUMNS};
 
     Qt::ItemFlags flags(const QModelIndex & index) const Q_DECL_OVERRIDE;
-    QModelIndex index(int row, int column, const QModelIndex &parent) const;
-    QModelIndex parent(const QModelIndex &child) const;
-    int rowCount(const QModelIndex &parent) const;
-    int columnCount(const QModelIndex &parent) const;
+    QModelIndex index(int row, int column, const QModelIndex &parent) const Q_DECL_OVERRIDE;
+    QModelIndex parent(const QModelIndex &child) const Q_DECL_OVERRIDE;
+    int rowCount(const QModelIndex &parent) const Q_DECL_OVERRIDE;
+    int columnCount(const QModelIndex &parent) const Q_DECL_OVERRIDE;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const Q_DECL_OVERRIDE;
     bool setData(const QModelIndex &index, const QVariant &value, int role) Q_DECL_OVERRIDE;
 
     QStringList mimeTypes() const Q_DECL_OVERRIDE;
-    Qt::DropActions supportedDragActions() const;
-    Qt::DropActions supportedDropActions() const;
-    QMimeData *mimeData(const QModelIndexList &indexes) const;
+    Qt::DropActions supportedDragActions() const Q_DECL_OVERRIDE;
+    Qt::DropActions supportedDropActions() const Q_DECL_OVERRIDE;
+    QMimeData *mimeData(const QModelIndexList &indexes) const Q_DECL_OVERRIDE;
     bool canDropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column,
                              const QModelIndex &parent) const Q_DECL_OVERRIDE;
     bool dropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column,

@@ -117,9 +117,7 @@ void IntensityDataPlotWidget::setItem(IntensityDataItem *item)
                 showProjections(m_item->getItemValue(IntensityDataItem::P_PROJECTIONS_FLAG).toBool());
             }
         }, this);
-        m_item->mapper()->setOnValueChange([this](void){
-            onIntensityModified();
-        }, this);
+
     }
 
 }
@@ -243,11 +241,6 @@ void IntensityDataPlotWidget::showContextMenu(const QPoint &point)
 
     //menu.exec(mapToGlobal(point));
     menu.exec(point);
-}
-
-void IntensityDataPlotWidget::onIntensityModified()
-{
-    m_centralPlot->setItem(m_item);
 }
 
 void IntensityDataPlotWidget::setupContextMenuActions()

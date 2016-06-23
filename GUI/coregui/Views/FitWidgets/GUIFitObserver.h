@@ -44,7 +44,7 @@ public:
     void finishedPlotting();
 
     const OutputData<double> *simulationData() const;
-    const OutputData<double> *chiSquaredData() const;
+    //const OutputData<double> *chiSquaredData() const;
 
 public slots:
     void setInterval(int val);
@@ -61,7 +61,7 @@ private:
     std::atomic<bool> m_block_update_plots;
     int m_update_interval;
     std::unique_ptr<OutputData<double> > m_simData;
-    std::unique_ptr<OutputData<double> > m_chiData;
+    //std::unique_ptr<OutputData<double> > m_chiData;
 };
 
 #endif

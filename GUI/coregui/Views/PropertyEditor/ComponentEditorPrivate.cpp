@@ -26,6 +26,7 @@ ComponentEditorPrivate::ComponentEditorPrivate(ComponentEditorFlags::Presentatio
     , m_propertyFactory(new PropertyVariantFactory(parent))
     , m_presentationType(flags)
     , m_wheel_event_filter(new WheelEventEater)
+    , m_topItem(0)
 {
     m_read_only_manager = new PropertyVariantManager(parent);
     m_manager = new PropertyVariantManager(parent);
@@ -79,7 +80,7 @@ void ComponentEditorPrivate::init_browser()
             "ComponentEditorPrivate::init_browser() -> Error. "
             "Unknown browser type.");
     }
-
+    m_browser->setAttribute(Qt::WA_MacShowFocusRect, false);
     m_browser->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
     m_browser->setFactoryForManager(m_manager, m_propertyFactory);
 }

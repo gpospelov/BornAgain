@@ -33,6 +33,8 @@ MinimizerSettingsWidget::MinimizerSettingsWidget(QWidget *parent)
     setWindowTitle(QLatin1String("Minimizer Settings"));
 
     QVBoxLayout *layout = new QVBoxLayout;
+    layout->setMargin(0);
+    layout->setSpacing(0);
     layout->addWidget(m_propertyEditor);
 
     QPushButton *tmp = new QPushButton("tmp");

@@ -57,6 +57,7 @@ SimulationDataSelectorWidget::SimulationDataSelectorWidget(QWidget *parent)
     QLabel *instrumentSelectionLabel = new QLabel(QStringLiteral("Select Instrument:"));
     instrumentSelectionLabel->setToolTip(select_instrument_tooltip);
     m_instrumentCombo->setToolTip(select_instrument_tooltip);
+    m_instrumentCombo->setAttribute(Qt::WA_MacShowFocusRect, false);
 
     QLabel *sampleSelectionLabel = new QLabel(QStringLiteral("Select Sample:"));
     sampleSelectionLabel->setToolTip(select_sample_tooltip);

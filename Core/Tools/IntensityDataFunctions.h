@@ -32,6 +32,9 @@ public:
     static double getRelativeDifference(const OutputData<double> &result,
                          const OutputData<double> &reference);
 
+    static OutputData<double> *createRelativeDifferenceData(const OutputData<double> &data,
+                                                            const OutputData<double> &reference);
+
     static double getRelativeDifference(const IHistogram &result,
                          const IHistogram &reference);
 

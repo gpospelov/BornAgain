@@ -78,7 +78,7 @@ if(APPLE)
     if(BORNAGAIN_APPLE_BUNDLE)
         # this makes sense only if we build a bundle
         set(link_flags "-Wl,-rpath,@loader_path/../Frameworks/ \
-  -Wl,-rpath,@loader_path/../../../lib/BornAgain-${BornAgain_VERSION_MAJOR}.${BornAgain_VERSION_MINOR}/")
+  -Wl,-rpath,@loader_path/../lib/BornAgain-${BornAgain_VERSION_MAJOR}.${BornAgain_VERSION_MINOR}/")
     else()
         set(link_flags "-Wl,-rpath,@loader_path/../../../lib/BornAgain-${BornAgain_VERSION_MAJOR}.${BornAgain_VERSION_MINOR}/")
     endif()
@@ -113,10 +113,10 @@ if(UNIX)
         install( FILES ${CMAKE_SOURCE_DIR}/GUI/main/BornAgain.icns
             DESTINATION ${destination_bundle}/Contents/Resources/
         )
-        install( FILES ${CMAKE_SOURCE_DIR}/cmake/scripts/qt.conf
+        install( FILES ${CMAKE_SOURCE_DIR}/cmake/bornagain/scripts/qt.conf
             DESTINATION ${destination_bundle}/Contents/Resources/
         )
-        configure_file(${CMAKE_SOURCE_DIR}/cmake/modules/FixAppleBundle.cmake.in
+        configure_file(${CMAKE_SOURCE_DIR}/cmake/bornagain/modules/FixAppleBundle.cmake.in
                        ${BUILD_VAR_DIR}/FixAppleBundle.cmake @ONLY)
         install(SCRIPT ${BUILD_VAR_DIR}/FixAppleBundle.cmake COMPONENT Runtime)
 

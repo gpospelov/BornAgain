@@ -33,6 +33,9 @@ JobMessagePanel::JobMessagePanel(QWidget *parent)
     m_plainLog->setFont(f);
 
     QVBoxLayout *layout = new QVBoxLayout;
+    layout->setMargin(0);
+    layout->setSpacing(0);
+
     layout->addWidget(m_plainLog);
 
     setLayout(layout);

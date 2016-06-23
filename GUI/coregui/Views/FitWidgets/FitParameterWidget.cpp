@@ -51,6 +51,8 @@ FitParameterWidget::FitParameterWidget(QWidget *parent)
 {
     QVBoxLayout *layout = new QVBoxLayout;
     layout->addWidget(m_treeView);
+    layout->setMargin(0);
+    layout->setSpacing(0);
     setLayout(layout);
     init_actions();
 

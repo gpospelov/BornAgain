@@ -50,6 +50,9 @@ FitSuiteWidget::FitSuiteWidget(QWidget *parent)
 {
     QVBoxLayout *layout = new QVBoxLayout;
     layout->setContentsMargins(0, 0, 0, 0);
+    layout->setMargin(0);
+    layout->setSpacing(0);
+
 //    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
 //    m_tabWidget->setMinimumSize(25, 25);

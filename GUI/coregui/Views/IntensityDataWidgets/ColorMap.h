@@ -29,6 +29,7 @@ class QCustomPlot;
 class QCPColorMap;
 class QCPColorScale;
 class UpdateTimer;
+class ColorMapEvent;
 
 //! The ColorMap class presents 2D intensity data from IntensityDataItem as color map.
 //! Provides a minimal functionality to plot the data, interact with the axes and report mouse
@@ -38,6 +39,7 @@ class UpdateTimer;
 
 class BA_CORE_API_ ColorMap : public QWidget {
     Q_OBJECT
+
 public:
     explicit ColorMap(QWidget *parent = 0);
     ~ColorMap();
@@ -49,11 +51,7 @@ public:
 
     QString getStatusString();
 
-    void drawLinesOverTheMap();
-
-    void showLinesOverTheMap(bool isVisible);
-
-    QCustomPlot *getCustomPlot() { return m_customPlot; }
+    QCustomPlot *customPlot() { return m_customPlot; }
 
     //! transform axes coordinates to CustomPlot widget coordinates
     double xAxisCoordToPixel(double axis_coordinate) const;
@@ -66,7 +64,7 @@ public:
     //! returns rectangle representing current axes zoom state in widget coordinates
     QRectF getViewportRectangleInWidgetCoordinates();
 
-    void setTrackMoveEventsFlag(bool flag);
+    void setTrackMoveEvents(bool flag);
 
 signals:
     void validMousMove();
@@ -74,10 +72,6 @@ signals:
 public slots:
     void setLogz(bool logz);
     void resetView();
-    void onMouseMove(QMouseEvent *event);
-
-    void getHorizontalSlice(QVector<double> &x, QVector<double> &y);
-    void getVerticalSlice(QVector<double> &x, QVector<double> &y);
 
 private slots:
     void onIntensityModified();
@@ -115,7 +109,6 @@ private:
     void setConnected(bool isConnected);
     void setAxesRangeConnected(bool isConnected);
     void setDataRangeConnected(bool isConnected);
-    void setMouseMoveConnected(bool isConnected);
     void setUpdateTimerConnected(bool isConnected);
 
     void setFixedColorMapMargins();
@@ -142,6 +135,7 @@ private:
     PositionData m_posData;
 
     UpdateTimer *m_updateTimer;
+    ColorMapEvent *m_colorMapEvent;
 
 };
 

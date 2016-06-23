@@ -21,6 +21,7 @@
 #include "GUIHelpers.h"
 #include "UpdateTimer.h"
 #include "Units.h"
+#include "ColorMapEvent.h"
 #include <QDebug>
 
 namespace {
@@ -29,12 +30,13 @@ const int replot_update_interval = 10;
 
 ColorMap::ColorMap(QWidget *parent)
     : QWidget(parent)
-    , m_customPlot(0)
+    , m_customPlot(new QCustomPlot())
     , m_colorMap(0)
     , m_colorScale(0)
     , m_item(0)
     , m_block_update(true)
     , m_updateTimer(new UpdateTimer(replot_update_interval, this))
+    , m_colorMapEvent(new ColorMapEvent(this))
 {
     initColorMap();
 
@@ -43,8 +45,8 @@ ColorMap::ColorMap(QWidget *parent)
     vlayout->setSpacing(0);
     vlayout->addWidget(m_customPlot);
     setLayout(vlayout);
-    setMouseTracking(false);
-    m_customPlot->setMouseTracking(false);
+
+    setTrackMoveEvents(true);
 
     //    setFixedColorMapMargins();
 }
@@ -111,54 +113,6 @@ QString ColorMap::getStatusString()
     return result;
 }
 
-//! draws two crossed lines
-void ColorMap::drawLinesOverTheMap()
-{
-    if (!m_customPlot->graph(0)->visible() || !m_customPlot->graph(1)->visible())
-        return;
-
-    QCPColorMapData *data = m_colorMap->data();
-    Q_ASSERT(data);
-
-    // draw line over plot
-    QCPRange keyRange = data->keyRange();
-    QCPRange valueRange = data->valueRange();
-
-    int keySize = data->keySize();
-    int valueSize = data->valueSize();
-
-    double fraction = (keyRange.upper - keyRange.lower) / keySize;
-
-    QVector<double> x1(keySize + 1), y1(keySize + 1);
-    for (int i = 0; i < x1.size(); i++) {
-        x1[i] = keyRange.lower + (i * fraction);
-        y1[i] = m_posData.m_yPos;
-    }
-    m_customPlot->graph(0)->setData(x1, y1);
-
-    // draw vertical line
-    fraction = (valueRange.upper - valueRange.lower) / valueSize;
-
-    QVector<double> x2(valueSize + 1), y2(valueSize + 1);
-    for (int i = 0; i < x2.size(); i++) {
-        x2[i] = m_posData.m_xPos;
-        y2[i] = valueRange.lower + (i * fraction);
-    }
-    m_customPlot->graph(1)->setData(x2, y2);
-
-    m_customPlot->replot();
-}
-
-//! switches visibility of two crossed lines
-void ColorMap::showLinesOverTheMap(bool isVisible)
-{
-    if (m_customPlot->graph(0) && m_customPlot->graph(1)) {
-        m_customPlot->graph(0)->setVisible(isVisible);
-        m_customPlot->graph(1)->setVisible(isVisible);
-        m_customPlot->replot();
-    }
-}
-
 double ColorMap::xAxisCoordToPixel(double axis_coordinate) const
 {
     double result = m_customPlot->xAxis->coordToPixel(axis_coordinate);
@@ -197,10 +151,10 @@ QRectF ColorMap::getViewportRectangleInWidgetCoordinates()
 }
 
 //! to track move events (used when showing profile histograms and printing status string)
-void ColorMap::setTrackMoveEventsFlag(bool flag)
+
+void ColorMap::setTrackMoveEvents(bool flag)
 {
-    setMouseTracking(flag);
-    m_customPlot->setMouseTracking(flag);
+    m_colorMapEvent->setMouseTracking(flag);
 }
 
 //! sets logarithmic scale
@@ -229,81 +183,6 @@ void ColorMap::resetView()
     m_block_update = false;
 }
 
-//! saves information about mouse position and intensity data underneath
-void ColorMap::onMouseMove(QMouseEvent *event)
-{
-    m_posData.reset();
-    QPoint point = event->pos();
-    double xPos = m_customPlot->xAxis->pixelToCoord(point.x());
-    double yPos = m_customPlot->yAxis->pixelToCoord(point.y());
-
-
-    if (m_customPlot->xAxis->range().contains(xPos)
-        && m_customPlot->yAxis->range().contains(yPos)) {
-        m_posData.valid = true;
-        m_posData.m_xPos = xPos;
-        m_posData.m_yPos = yPos;
-        QCPColorMapData *data = m_colorMap->data();
-        data->coordToCell(xPos, yPos, &m_posData.key, &m_posData.value);
-        m_posData.cellValue = data->cell(m_posData.key, m_posData.value);
-        emit validMousMove();
-    }
-}
-
-//! returns vectors corresponding to the cut along x-axis
-void ColorMap::getHorizontalSlice(QVector<double> &x, QVector<double> &y)
-{
-    x.clear();
-    y.clear();
-
-    QCPColorMapData *data = m_colorMap->data();
-    QCPRange range = data->keyRange();
-    int keySize = data->keySize();
-    int valueSize = data->valueSize();
-
-    x.resize(keySize);
-    y.resize(keySize);
-
-    double fraction = (range.upper - range.lower) / keySize;
-
-    for (int i = 0; i < x.size(); ++i) {
-        x[i] = range.lower + (i * fraction);
-
-        if (m_posData.value >= 0 && m_posData.value < valueSize) {
-            y[i] = data->cell(i, m_posData.value);
-        } else {
-            y[i] = 0;
-        }
-    }
-}
-
-//! returns vectors corresponding to the cut along y-axis
-void ColorMap::getVerticalSlice(QVector<double> &x, QVector<double> &y)
-{
-    x.clear();
-    y.clear();
-
-    QCPColorMapData *data = m_colorMap->data();
-    QCPRange range = data->valueRange();
-    int keySize = data->keySize();
-    int valueSize = data->valueSize();
-
-    x.resize(valueSize);
-    y.resize(valueSize);
-
-    double fraction = (range.upper - range.lower) / valueSize;
-
-    for (int i = 0; i < x.size(); ++i) {
-        x[i] = range.lower + (i * fraction);
-
-        if (m_posData.key >= 0 && m_posData.key < keySize) {
-            y[i] = data->cell(m_posData.key, i);
-        } else {
-            y[i] = 0;
-        }
-    }
-}
-
 void ColorMap::onIntensityModified()
 {
     qDebug() << "ColorMap::onIntensityModified()";
@@ -323,10 +202,11 @@ void ColorMap::onPropertyChanged(const QString &property_name)
     } else if (property_name == IntensityDataItem::P_IS_INTERPOLATED) {
         m_colorMap->setInterpolate(m_item->isInterpolated());
         replot();
-    } else if (property_name == IntensityDataItem::P_PROJECTIONS_FLAG) {
-        showLinesOverTheMap(
-            m_item->getItemValue(IntensityDataItem::P_PROJECTIONS_FLAG).toBool());
     }
+//    else if (property_name == IntensityDataItem::P_PROJECTIONS_FLAG) {
+//        showLinesOverTheMap(
+//            m_item->getItemValue(IntensityDataItem::P_PROJECTIONS_FLAG).toBool());
+//    }
 }
 
 void ColorMap::onSubItemPropertyChanged(const QString &property_group,
@@ -447,30 +327,10 @@ void ColorMap::onTimeToReplot()
 //! creates and initializes the color map
 void ColorMap::initColorMap()
 {
-    m_customPlot = new QCustomPlot();
-
     m_colorMap = new QCPColorMap(m_customPlot->xAxis, m_customPlot->yAxis);
     m_customPlot->addPlottable(m_colorMap);
     m_colorScale = new QCPColorScale(m_customPlot);
-
-    // add it to the right of the main axis rect
-    m_customPlot->plotLayout()->addElement(0, 1, m_colorScale);
-
-    // scale shall be vertical bar with tick/axis labels
-    m_colorScale->setType(QCPAxis::atRight);
-
     m_colorMap->setColorScale(m_colorScale);
-
-    QPen pen;
-    pen.setWidth(1);
-    pen.setStyle(Qt::SolidLine);
-    pen.setColor(QColor(255, 255, 255, 130));
-    m_customPlot->addGraph();
-    m_customPlot->graph(0)->setPen(pen);
-    m_customPlot->addGraph();
-    m_customPlot->graph(1)->setPen(pen);
-
-    //setConnected(true);
 }
 
 
@@ -478,7 +338,6 @@ void ColorMap::setConnected(bool isConnected)
 {
     setAxesRangeConnected(isConnected);
     setDataRangeConnected(isConnected);
-    setMouseMoveConnected(isConnected);
     setUpdateTimerConnected(isConnected);
 }
 
@@ -512,20 +371,6 @@ void ColorMap::setDataRangeConnected(bool isConnected)
     } else {
         disconnect(m_colorMap, SIGNAL(dataRangeChanged(QCPRange)), this,
                 SLOT(onDataRangeChanged(QCPRange)));
-    }
-}
-
-//! Connects/disconnects signals related to MouseMove in ColorMap
-
-void ColorMap::setMouseMoveConnected(bool isConnected)
-{
-    if(isConnected) {
-        connect(m_customPlot, SIGNAL(mouseMove(QMouseEvent *)),
-                this, SLOT(onMouseMove(QMouseEvent *)), Qt::UniqueConnection);
-
-    } else {
-        disconnect(m_customPlot, SIGNAL(mouseMove(QMouseEvent *)),
-                this, SLOT(onMouseMove(QMouseEvent *)));
     }
 }
 

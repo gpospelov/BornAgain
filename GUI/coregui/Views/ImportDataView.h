@@ -22,6 +22,11 @@
 #include "RealDataEditorWidget.h"
 #include <QWidget>
 
+class ImportDataToolBar;
+class QSplitter;
+class ItemSelectorWidget;
+class RealDataModel;
+
 //! The ImportDataView class is a main view for importing experimental data.
 
 class BA_CORE_API_ ImportDataView : public QWidget
@@ -37,11 +42,11 @@ public slots:
 private:
     void setupConnections();
 
-    class ImportDataToolBar *m_toolBar;
-    class QSplitter *m_splitter;
-    class ItemSelectorWidget *m_selectorWidget;
+    ImportDataToolBar *m_toolBar;
+    QSplitter *m_splitter;
+    ItemSelectorWidget *m_selectorWidget;
     ItemStackPresenter<RealDataEditorWidget> *m_stackedWidget;
-    class RealDataModel *m_realDataModel;
+    RealDataModel *m_realDataModel;
 };
 
 #endif

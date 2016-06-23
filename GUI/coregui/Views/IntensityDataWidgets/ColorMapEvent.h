@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/ImportDataWidgets/RealDataEditorWidget.h
-//! @brief     Declares class RealDataEditorWidget
+//! @file      GUI/coregui/Views/IntensityDataWidgets/ColorMapEvent.h
+//! @brief     Declares class ColorMapEvent
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,27 +14,32 @@
 //
 // ************************************************************************** //
 
-#ifndef REALDATAEDITORWIDGET_H
-#define REALDATAEDITORWIDGET_H
+#ifndef COLORMAPEVENT_H
+#define COLORMAPEVENT_H
 
 #include "WinDllMacros.h"
-#include <QWidget>
+#include <QObject>
 
 class ColorMap;
+class QMouseEvent;
 
-//! The RealDataEditorWidget class provides editing/presenation of RealDataItem in ImportDataView.
+//! The ColorMapEvent class helps ColorMap to handle mouse events by playing a role of
+//! event filter. Particularly, it constructs a valid status string.
 
-class BA_CORE_API_ RealDataEditorWidget : public QWidget
-{
+class BA_CORE_API_ ColorMapEvent : public QObject {
     Q_OBJECT
 
 public:
-    RealDataEditorWidget(QWidget *parent = 0);
+    explicit ColorMapEvent(ColorMap *colorMap);
 
-//    QSize sizeHint() const { return QSize(200, 400); }
-//    QSize minimumSizeHint() const { return QSize(200, 200); }
+    void setMouseTracking(bool enable);
 
-    void setItem(class SessionItem *item);
+public slots:
+    void onCustomMouseMove(QMouseEvent *event);
+
+
+protected:
+//  bool eventFilter( QObject *dist, QEvent *event );
 
 private:
     ColorMap *m_colorMap;

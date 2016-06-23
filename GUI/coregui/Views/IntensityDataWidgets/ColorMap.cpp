@@ -33,10 +33,10 @@ ColorMap::ColorMap(QWidget *parent)
     , m_customPlot(new QCustomPlot())
     , m_colorMap(0)
     , m_colorScale(0)
-    , m_item(0)
-    , m_block_update(true)
     , m_updateTimer(new UpdateTimer(replot_update_interval, this))
     , m_colorMapEvent(new ColorMapEvent(this))
+    , m_item(0)
+    , m_block_update(true)
 {
     initColorMap();
 
@@ -98,26 +98,9 @@ void ColorMap::setItem(IntensityDataItem *item)
 
 }
 
-//! returns string containing bin content information
-QString ColorMap::getStatusString()
-{
-    QString result;
-    if (m_posData.valid) {
-        result = QString(" [x: %1, y: %2]    [binx: %3, biny:%4]    [value: %5]")
-                     .arg(QString::number(m_posData.m_xPos, 'f', 4))
-                     .arg(QString::number(m_posData.m_yPos, 'f', 4), 2)
-                     .arg(m_posData.key, 2)
-                     .arg(m_posData.value, 2)
-                     .arg(QString::number(m_posData.cellValue, 'f', 2));
-    }
-    return result;
-}
-
 double ColorMap::xAxisCoordToPixel(double axis_coordinate) const
 {
-    double result = m_customPlot->xAxis->coordToPixel(axis_coordinate);
-//    qDebug() << "ColorMapPlot::xAxisCoordToPixel axis_coordinate:" << axis_coordinate << "result:" << result;
-    return result;
+    return m_customPlot->xAxis->coordToPixel(axis_coordinate);
 }
 
 double ColorMap::yAxisCoordToPixel(double axis_coordinate) const
@@ -148,6 +131,31 @@ QRectF ColorMap::getViewportRectangleInWidgetCoordinates()
                   yAxisCoordToPixel(top),
                   xAxisCoordToPixel(right) - xAxisCoordToPixel(left),
                   yAxisCoordToPixel(bottom) - yAxisCoordToPixel(top));
+}
+
+bool ColorMap::axesRangeContains(double xpos, double ypos) const
+{
+    if (customPlot()->xAxis->range().contains(xpos)
+            && customPlot()->yAxis->range().contains(ypos)) {
+        return true;
+    }
+    return false;
+}
+
+ColorMapBin ColorMap::colorMapBin(double xpos, double ypos) const
+{
+    ColorMapBin result;
+
+    result.m_x = xpos;
+    result.m_y = ypos;
+
+    if(axesRangeContains(xpos, ypos))
+        result.in_axes_range = true;
+
+     m_colorMap->data()->coordToCell(xpos, ypos, &result.m_nx, &result.m_ny);
+     result.m_value = m_colorMap->data()->cell(result.m_nx, result.m_ny);
+
+    return result;
 }
 
 //! to track move events (used when showing profile histograms and printing status string)

@@ -20,19 +20,17 @@
 #include "RealDataItem.h"
 #include "IntensityDataItem.h"
 #include <QVBoxLayout>
-#include <QLabel>
 #include <QDebug>
 
 RealDataEditorWidget::RealDataEditorWidget(QWidget *parent)
     : QWidget(parent)
     , m_colorMap(new ColorMap(this))
-//    , m_label(new QLabel("xxx"))
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     QVBoxLayout *layout = new QVBoxLayout;
-    vlayout->setMargin(0);
-    vlayout->setSpacing(0);
+    layout->setMargin(0);
+    layout->setSpacing(0);
     layout->addWidget(m_colorMap);
     setLayout(layout);
 }

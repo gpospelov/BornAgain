@@ -16,6 +16,7 @@
 
 #include "ColorMapEvent.h"
 #include "ColorMap.h"
+#include <QMouseEvent>
 #include <QDebug>
 
 ColorMapEvent::ColorMapEvent(ColorMap *colorMap)
@@ -30,20 +31,63 @@ ColorMapEvent::ColorMapEvent(ColorMap *colorMap)
 void ColorMapEvent::setMouseTracking(bool enable)
 {
     m_colorMap->setMouseTracking(enable);
-    m_colorMap->customPlot()->setMouseTracking(enable);
+    customPlot()->setMouseTracking(enable);
 
     if(enable) {
-        connect(m_colorMap->customPlot(), SIGNAL(mouseMove(QMouseEvent *)),
+        connect(customPlot(), SIGNAL(mouseMove(QMouseEvent *)),
                 this, SLOT(onCustomMouseMove(QMouseEvent *)), Qt::UniqueConnection);
     } else {
-        disconnect(m_colorMap->customPlot(), SIGNAL(mouseMove(QMouseEvent *)),
+        disconnect(customPlot(), SIGNAL(mouseMove(QMouseEvent *)),
                 this, SLOT(onCustomMouseMove(QMouseEvent *)));
     }
 }
 
-//! Constructs status string on mouse move event coming from QCustomPlot.
+//! Constructs status string on mouse move event coming from QCustomPlot. String is emitted
+//! if mouse is in axes's viewport rectangle. Once mouse goes out of it, an
+//! empty string is emitted once.
 
 void ColorMapEvent::onCustomMouseMove(QMouseEvent *event)
 {
     qDebug() << "ColorMapEvent::onCustomMouseMove(QMouseEvent *event)" << event;
+    ColorMapBin currentPos = currentColorMapBin(event);
+
+
+    if(currentPos.inAxesRange()) {
+        emit colorMap()->statusString(currentPos.statusString());
+
+    } else {
+        if(m_prevPos.inAxesRange()) {
+            emit colorMap()->statusString(QString());
+        }
+
+    }
+
+    m_prevPos = currentPos;
 }
+
+ColorMap *ColorMapEvent::colorMap()
+{
+    return m_colorMap;
+}
+
+const ColorMap *ColorMapEvent::colorMap() const
+{
+    return m_colorMap;
+}
+
+QCustomPlot *ColorMapEvent::customPlot()
+{
+    return m_colorMap->customPlot();
+}
+
+
+//! Constructs current position of the data.
+
+ColorMapBin ColorMapEvent::currentColorMapBin(QMouseEvent *event) const
+{
+    double x = colorMap()->pixelToXaxisCoord(event->pos().x());
+    double y = colorMap()->pixelToYaxisCoord(event->pos().y());
+
+    return colorMap()->colorMapBin(x, y);
+}
+

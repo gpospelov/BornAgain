@@ -19,6 +19,7 @@
 
 #include "WinDllMacros.h"
 #include "qcustomplot.h"
+#include "ColorMapBin.h"
 #include <QWidget>
 #include <QMap>
 #include <QPoint>
@@ -32,10 +33,9 @@ class UpdateTimer;
 class ColorMapEvent;
 
 //! The ColorMap class presents 2D intensity data from IntensityDataItem as color map.
-//! Provides a minimal functionality to plot the data, interact with the axes and report mouse
-//! move events to higher level. Should be a component for more complicated plotting widgets.
 
-//! This is a replacement for ColorMapPlot.
+//! Provides a minimal functionality for data plotting and axes interaction. Should be a component
+//! for more complicated plotting widgets. This is a replacement for ColorMapPlot.
 
 class BA_CORE_API_ ColorMap : public QWidget {
     Q_OBJECT
@@ -49,9 +49,8 @@ public:
 
     void setItem(IntensityDataItem *item);
 
-    QString getStatusString();
-
     QCustomPlot *customPlot() { return m_customPlot; }
+    const QCustomPlot *customPlot() const { return m_customPlot; }
 
     //! transform axes coordinates to CustomPlot widget coordinates
     double xAxisCoordToPixel(double axis_coordinate) const;
@@ -64,10 +63,16 @@ public:
     //! returns rectangle representing current axes zoom state in widget coordinates
     QRectF getViewportRectangleInWidgetCoordinates();
 
+    //! Returns true if axes rectangle contains given in axes coordinates.
+    bool axesRangeContains(double xpos, double ypos) const;
+
+    //! Returns ColorMapBin corresponding to given axes coordinates.
+    ColorMapBin colorMapBin(double xpos, double ypos) const;
+
     void setTrackMoveEvents(bool flag);
 
 signals:
-    void validMousMove();
+    void statusString(const QString &text);
 
 public slots:
     void setLogz(bool logz);
@@ -84,26 +89,6 @@ private slots:
     void onTimeToReplot();
 
 private:
-
-    class PositionData {
-    public:
-        PositionData() { reset(); }
-        bool valid;
-        int key;
-        int value;
-        double m_xPos;
-        double m_yPos;
-        double cellValue;
-        void reset() {
-            valid = false;
-            key = 0;
-            value = 0;
-            m_xPos = 0;
-            m_yPos = 0;
-            cellValue = 0;
-        }
-    };
-
     void initColorMap();
 
     void setConnected(bool isConnected);
@@ -129,14 +114,11 @@ private:
     QCPColorMap *m_colorMap;
     QCPColorScale *m_colorScale;
 
-    IntensityDataItem *m_item;
-
-    bool m_block_update;
-    PositionData m_posData;
-
     UpdateTimer *m_updateTimer;
     ColorMapEvent *m_colorMapEvent;
 
+    IntensityDataItem *m_item;
+    bool m_block_update;
 };
 
 #endif

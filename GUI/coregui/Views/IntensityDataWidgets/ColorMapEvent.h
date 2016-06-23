@@ -18,13 +18,15 @@
 #define COLORMAPEVENT_H
 
 #include "WinDllMacros.h"
+#include "ColorMapBin.h"
 #include <QObject>
 
 class ColorMap;
 class QMouseEvent;
+class QCustomPlot;
 
-//! The ColorMapEvent class helps ColorMap to handle mouse events by playing a role of
-//! event filter. Particularly, it constructs a valid status string.
+//! The ColorMapEvent class helps ColorMap to handle mouse events. Particularly,
+//! it constructs a valid status string. Can be extended to play a role of event filter.
 
 class BA_CORE_API_ ColorMapEvent : public QObject {
     Q_OBJECT
@@ -37,12 +39,14 @@ public:
 public slots:
     void onCustomMouseMove(QMouseEvent *event);
 
-
-protected:
-//  bool eventFilter( QObject *dist, QEvent *event );
-
 private:
+    ColorMap *colorMap();
+    const ColorMap *colorMap() const;
+    QCustomPlot *customPlot();
+    ColorMapBin currentColorMapBin(QMouseEvent *event) const;
+
     ColorMap *m_colorMap;
+    ColorMapBin m_prevPos;
 };
 
 #endif

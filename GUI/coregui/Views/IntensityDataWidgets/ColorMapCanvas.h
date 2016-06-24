@@ -21,6 +21,7 @@
 #include <QWidget>
 
 class ColorMap;
+class ColorMapCanvasEvent;
 class IntensityDataItem;
 class QLabel;
 
@@ -37,6 +38,8 @@ public:
 
     void setItem(IntensityDataItem *intensityDataItem);
 
+    QLabel *statusLabel();
+
 public slots:
     void onStatusString(const QString &name);
     void setStatusLabelEnabled(bool flag);
@@ -45,6 +48,7 @@ private:
     void setStatusLabelConnected(bool flag);
 
     ColorMap *m_colorMap;
+    ColorMapCanvasEvent *m_canvasEvent;
     QLabel *m_statusLabel;
 };
 

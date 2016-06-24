@@ -17,6 +17,7 @@
 #include "ColorMapCanvas.h"
 #include "ColorMap.h"
 #include "ColorMapCanvasEvent.h"
+#include "StatusLabel.h"
 #include <QVBoxLayout>
 #include <QLabel>
 #include <QDebug>
@@ -29,15 +30,15 @@ ColorMapCanvas::ColorMapCanvas(QWidget *parent)
     : QWidget(parent)
     , m_colorMap(new ColorMap)
     , m_canvasEvent(new ColorMapCanvasEvent(this))
-    , m_statusLabel(new QLabel)
+    , m_statusLabel(new StatusLabel)
 {
     QVBoxLayout *layout = new QVBoxLayout;
     layout->setMargin(0);
     layout->setSpacing(0);
 
-    m_statusLabel->setAlignment(Qt::AlignVCenter| Qt::AlignLeft);
-    m_statusLabel->setStyleSheet("background-color:white;");
-    m_statusLabel->setMargin(3);
+//    m_statusLabel->setAlignment(Qt::AlignVCenter| Qt::AlignLeft);
+//    m_statusLabel->setStyleSheet("background-color:white;");
+//    m_statusLabel->setMargin(3);
 
     layout->addWidget(m_colorMap);
     layout->addWidget(m_statusLabel);
@@ -53,10 +54,10 @@ void ColorMapCanvas::setItem(IntensityDataItem *intensityDataItem)
     m_colorMap->setItem(intensityDataItem);
 }
 
-QLabel *ColorMapCanvas::statusLabel()
-{
-    return m_statusLabel;
-}
+//QLabel *ColorMapCanvas::statusLabel()
+//{
+//    return m_statusLabel;
+//}
 
 void ColorMapCanvas::onStatusString(const QString &name)
 {

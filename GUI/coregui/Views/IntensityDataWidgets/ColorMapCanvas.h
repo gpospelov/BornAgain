@@ -23,7 +23,8 @@
 class ColorMap;
 class ColorMapCanvasEvent;
 class IntensityDataItem;
-class QLabel;
+//class QLabel;
+class StatusLabel;
 
 //! The ColorMapCanvas class contains ColorMap for intensity data presentation, and provide
 //! control of font size, status string appearance, defines common actions
@@ -38,7 +39,7 @@ public:
 
     void setItem(IntensityDataItem *intensityDataItem);
 
-    QLabel *statusLabel();
+//    QLabel *statusLabel();
 
 public slots:
     void onStatusString(const QString &name);
@@ -49,7 +50,7 @@ private:
 
     ColorMap *m_colorMap;
     ColorMapCanvasEvent *m_canvasEvent;
-    QLabel *m_statusLabel;
+    StatusLabel *m_statusLabel;
 };
 
 #endif

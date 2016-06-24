@@ -35,9 +35,9 @@ bool ColorMapCanvasEvent::eventFilter(QObject *obj, QEvent *event)
         QResizeEvent *resizeEvent = static_cast<QResizeEvent *>(event);
         Q_ASSERT(resizeEvent);
 
-        QRect rect = m_canvas->statusLabel()->geometry();
-        rect.setWidth(resizeEvent->size().width());
-        m_canvas->statusLabel()->setGeometry(rect);
+//        QRect rect = m_canvas->statusLabel()->geometry();
+//        rect.setWidth(resizeEvent->size().width());
+//        m_canvas->statusLabel()->setGeometry(rect);
 
         qDebug() << "  resize" << resizeEvent->size();
     }

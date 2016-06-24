@@ -39,7 +39,7 @@ ColorMapCanvas::ColorMapCanvas(QWidget *parent)
 
     setLayout(layout);
 
-    m_statusLabel->setLabelEnabled(true);
+    m_statusLabel->setLabelEnabled(false);
 }
 
 

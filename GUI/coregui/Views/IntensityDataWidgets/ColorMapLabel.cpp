@@ -17,10 +17,15 @@
 #include "ColorMapLabel.h"
 #include "ColorMap.h"
 
+//namespace {
+//const int min_size = 0;
+//}
+
 ColorMapLabel::ColorMapLabel(ColorMap *colorMap, QWidget *parent)
     : StatusLabel(parent)
 {
-    addColorMap(colorMap);
+    if(colorMap)
+        addColorMap(colorMap);
 }
 
 void ColorMapLabel::addColorMap(ColorMap *colorMap)
@@ -43,10 +48,26 @@ void ColorMapLabel::setLabelEnabled(bool flag)
     setEnabled(flag);
 }
 
+//! Disconnects all color maps from the label.
+
+void ColorMapLabel::reset()
+{
+    foreach(ColorMap *colorMap, m_colorMaps)
+        setColorMapLabelEnabled(colorMap, false);
+
+    m_colorMaps.clear();
+}
+
 void ColorMapLabel::onColorMapStatusString(const QString &text)
 {
     setText(text);
 }
+
+//void ColorMapLabel::resizeEvent(QResizeEvent *event)
+//{
+//    qDebug() << "ColorMapLabel::resizeEvent(QResizeEvent *event)" << event->size();
+
+//}
 
 //! Enables/disables showing of label for given color map.
 

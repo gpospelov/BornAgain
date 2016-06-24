@@ -15,35 +15,51 @@
 // ************************************************************************** //
 
 #include "FitComparisonWidget.h"
-#include "ColorMapPlot.h"
+#include "ColorMap.h"
 #include "JobItem.h"
 #include "RealDataItem.h"
 #include "SessionModel.h"
 #include "IntensityDataItem.h"
 #include "IntensityDataFunctions.h"
+#include "FitFlowWidget.h"
+#include "ColorMapLabel.h"
 #include <QGridLayout>
+#include <QVBoxLayout>
 #include <QVBoxLayout>
 #include <QLabel>
 #include <QDebug>
 
 FitComparisonWidget::FitComparisonWidget(QWidget *parent)
     : SessionItemWidget(parent)
-    , m_realDataPlot(new ColorMapPlot)
-    , m_simulatedDataPlot(new ColorMapPlot)
-    , m_relativeDiffPlot(new ColorMapPlot)
+    , m_realDataPlot(new ColorMap)
+    , m_simulatedDataPlot(new ColorMap)
+    , m_relativeDiffPlot(new ColorMap)
+    , m_fitFlowWidget(new FitFlowWidget)
+    , m_statusLabel(new ColorMapLabel(0, this))
     , m_realDataItem(0)
     , m_simulatedDataItem(0)
     , m_relativeDiffItem(0)
     , m_tempIntensityDataModel(new SessionModel("TempIntensityDataModel", this))
 {
+    QVBoxLayout *vlayout = new QVBoxLayout;
+    vlayout->setMargin(0);
+    vlayout->setSpacing(0);
 
     QGridLayout *gridLayout = new QGridLayout;
+    gridLayout->setMargin(0);
+    gridLayout->setSpacing(0);
+
+    setStyleSheet("background-color:white;");
 
     gridLayout->addWidget(m_realDataPlot, 0, 0);
     gridLayout->addWidget(m_simulatedDataPlot, 0, 1);
     gridLayout->addWidget(m_relativeDiffPlot, 1, 0);
+    gridLayout->addWidget(m_fitFlowWidget, 1, 1);
 
-    setLayout(gridLayout);
+    vlayout->addLayout(gridLayout);
+    vlayout->addWidget(m_statusLabel);
+    setLayout(vlayout);
+
 }
 
 FitComparisonWidget::~FitComparisonWidget()
@@ -72,6 +88,11 @@ void FitComparisonWidget::setJobItem(JobItem *jobItem)
     m_realDataPlot->setItem(m_realDataItem);
     m_simulatedDataPlot->setItem(m_simulatedDataItem);
     m_relativeDiffPlot->setItem(m_relativeDiffItem);
+
+    m_statusLabel->reset();
+    m_statusLabel->addColorMap(m_realDataPlot);
+    m_statusLabel->addColorMap(m_simulatedDataPlot);
+    m_statusLabel->addColorMap(m_relativeDiffPlot);
 }
 
 //! Sets tracking of simulated data item.

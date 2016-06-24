@@ -22,7 +22,7 @@
 
 namespace {
 const int default_label_height = 20;
-const int default_text_size = 12;
+const int default_text_size = 11;
 }
 
 StatusLabel::StatusLabel(QWidget *parent)

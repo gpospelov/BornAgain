@@ -21,6 +21,7 @@
 #include <QList>
 
 class ColorMap;
+class QResizeEvent;
 
 //! The ColorMapLabel class shows status string as reported by ColorMap in a frame.
 //! Can work with more than one ColorMap. Provides automatic adjustment of font size,
@@ -37,9 +38,13 @@ public:
 
     void setLabelEnabled(bool flag);
 
+    void reset();
 
 public slots:
     void onColorMapStatusString(const QString &text);
+
+//protected:
+//    void resizeEvent(QResizeEvent *event);
 
 private:
     void setColorMapLabelEnabled(ColorMap *colorMap, bool flag);

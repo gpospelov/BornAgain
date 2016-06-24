@@ -51,6 +51,12 @@ void StatusLabel::setPointSize(int pointSize)
     update();
 }
 
+void StatusLabel::setAlignment(Qt::Alignment alignment)
+{
+    m_alignment = alignment;
+    update();
+}
+
 void StatusLabel::paintEvent(QPaintEvent *event)
 {
     QWidget::paintEvent(event);
@@ -62,5 +68,5 @@ void StatusLabel::paintEvent(QPaintEvent *event)
 
     QRect textRect(0, 0, geometry().width(), geometry().height());
     painter.fillRect(textRect, QColor(Qt::white));
-    painter.drawText(textRect, Qt::AlignVCenter| Qt::AlignLeft, m_text);
+    painter.drawText(textRect, m_alignment, m_text);
 }

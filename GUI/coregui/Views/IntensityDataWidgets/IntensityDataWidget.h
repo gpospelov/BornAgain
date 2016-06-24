@@ -20,6 +20,9 @@
 #include "SessionItemWidget.h"
 
 class IntensityDataItem;
+class IntensityDataWidgetActions;
+class IntensityDataPlotWidget;
+class IntensityDataPropertyWidget;
 
 //! The widget presents IntensityData color map and property editor.
 //! Belongs to the stack handled by JobOutputDataWidget
@@ -48,9 +51,9 @@ public slots:
     void setPropertyPanelVisible(bool visible);
 
 private:
-    class IntensityDataWidgetActions *m_widgetActions;
-    class IntensityDataPlotWidget *m_plotWidget;
-    class IntensityDataPropertyWidget *m_propertyWidget;
+    IntensityDataWidgetActions *m_widgetActions;
+    IntensityDataPlotWidget *m_plotWidget;
+    IntensityDataPropertyWidget *m_propertyWidget;
     IntensityDataItem *m_currentItem;
 };
 

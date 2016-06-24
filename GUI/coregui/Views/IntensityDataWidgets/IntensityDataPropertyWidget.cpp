@@ -23,7 +23,6 @@
 
 IntensityDataPropertyWidget::IntensityDataPropertyWidget(QWidget *parent)
     : QWidget(parent)
-    , m_jobModel(0)
     , m_currentItem(0)
     , m_componentEditor(0)
 {
@@ -40,26 +39,6 @@ IntensityDataPropertyWidget::IntensityDataPropertyWidget(QWidget *parent)
     mainLayout->addWidget(m_componentEditor);
 
     setLayout(mainLayout);
-}
-
-void IntensityDataPropertyWidget::setModel(JobModel *model)
-{
-    Q_ASSERT(model);
-    if(model != m_jobModel) {
-        if(m_jobModel)
-            disconnect(m_jobModel,
-                SIGNAL( selectionChanged(JobItem *) ),
-                this,
-                SLOT( setItem(JobItem *) )
-                );
-
-        m_jobModel = model;
-        connect(m_jobModel,
-            SIGNAL( selectionChanged(JobItem *) ),
-            this,
-            SLOT( setItem(JobItem *) )
-            );
-    }
 }
 
 void IntensityDataPropertyWidget::setItem(IntensityDataItem *jobItem)

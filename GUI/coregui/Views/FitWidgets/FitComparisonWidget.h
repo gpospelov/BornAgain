@@ -20,7 +20,7 @@
 #include "SessionItemWidget.h"
 
 class IntensityDataItem;
-class ColorMap;
+class ColorMapCanvas;
 class SessionModel;
 class FitFlowWidget;
 class ColorMapLabel;
@@ -46,10 +46,11 @@ private:
 
     IntensityDataItem *createRelativeDifferenceItem();
     void calculateRelativeDifference();
+    void backupLabels();
 
-    ColorMap *m_realDataPlot;
-    ColorMap *m_simulatedDataPlot;
-    ColorMap *m_relativeDiffPlot;
+    ColorMapCanvas *m_realDataPlot;
+    ColorMapCanvas *m_simulatedDataPlot;
+    ColorMapCanvas *m_relativeDiffPlot;
     FitFlowWidget *m_fitFlowWidget;
     ColorMapLabel *m_statusLabel;
 

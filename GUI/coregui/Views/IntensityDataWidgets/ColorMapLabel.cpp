@@ -16,6 +16,7 @@
 
 #include "ColorMapLabel.h"
 #include "ColorMap.h"
+#include "ColorMapCanvas.h"
 
 //namespace {
 //const int min_size = 0;
@@ -36,6 +37,11 @@ void ColorMapLabel::addColorMap(ColorMap *colorMap)
     m_colorMaps.push_back(colorMap);
 
     setColorMapLabelEnabled(colorMap, true);
+}
+
+void ColorMapLabel::addColorMap(ColorMapCanvas *colorMapCanvas)
+{
+    addColorMap(colorMapCanvas->colorMap());
 }
 
 //! Enables/disables label. If disabled, all colorMaps are disconnected and label is hiding.

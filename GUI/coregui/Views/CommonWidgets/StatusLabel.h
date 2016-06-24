@@ -38,12 +38,15 @@ public:
     void setText(const QString &text);
     void setFont(const QFont &font);
     void setPointSize(int pointSize);
+    void setAlignment(Qt::Alignment);
+
 
 protected:
     void paintEvent(QPaintEvent *event);
 
 private:
     QString m_text;
+    Qt::Alignment m_alignment;
     QFont m_font;
 };
 

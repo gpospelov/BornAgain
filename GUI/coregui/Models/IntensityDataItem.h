@@ -31,6 +31,7 @@ class BA_CORE_API_ IntensityDataItem : public SessionItem
 {
 public:
     static const QString P_PROJECTIONS_FLAG;
+    static const QString P_TITLE;
     static const QString P_IS_INTERPOLATED;
     static const QString P_GRADIENT;
     static const QString P_ZAXIS_MIN;

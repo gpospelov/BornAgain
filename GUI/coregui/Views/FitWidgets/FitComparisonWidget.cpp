@@ -15,7 +15,7 @@
 // ************************************************************************** //
 
 #include "FitComparisonWidget.h"
-#include "ColorMap.h"
+#include "ColorMapCanvas.h"
 #include "JobItem.h"
 #include "RealDataItem.h"
 #include "SessionModel.h"
@@ -23,17 +23,23 @@
 #include "IntensityDataFunctions.h"
 #include "FitFlowWidget.h"
 #include "ColorMapLabel.h"
+#include "AxesItems.h"
 #include <QGridLayout>
 #include <QVBoxLayout>
 #include <QVBoxLayout>
 #include <QLabel>
 #include <QDebug>
 
+namespace {
+const double relative_diff_min = 1e-05;
+const double relative_diff_max = 10;
+}
+
 FitComparisonWidget::FitComparisonWidget(QWidget *parent)
     : SessionItemWidget(parent)
-    , m_realDataPlot(new ColorMap)
-    , m_simulatedDataPlot(new ColorMap)
-    , m_relativeDiffPlot(new ColorMap)
+    , m_realDataPlot(new ColorMapCanvas)
+    , m_simulatedDataPlot(new ColorMapCanvas)
+    , m_relativeDiffPlot(new ColorMapCanvas)
     , m_fitFlowWidget(new FitFlowWidget)
     , m_statusLabel(new ColorMapLabel(0, this))
     , m_realDataItem(0)
@@ -143,5 +149,15 @@ void FitComparisonWidget::calculateRelativeDifference()
     m_relativeDiffItem->setOutputData(
         IntensityDataFunctions::createRelativeDifferenceData(*m_simulatedDataItem->getOutputData(),
                 *m_realDataItem->getOutputData()));
+
+    m_relativeDiffItem->xAxisItem()->setItemValue(BasicAxisItem::P_TITLE, QString());
+    m_relativeDiffItem->yAxisItem()->setItemValue(BasicAxisItem::P_TITLE, QString());
+    m_relativeDiffItem->setLowerAndUpperZ(relative_diff_min, relative_diff_max);
+
+}
+
+//! Backup axes labels of
+void FitComparisonWidget::backupLabels()
+{
 
 }

@@ -45,7 +45,6 @@ void BasicAxisItem::register_basic_properties()
     addProperty(P_MAX, -1.0)->setDecimals(3);
     getItem(P_MAX)->setLimits(AttLimits::limitless());
     addProperty(P_TITLE, QString());
-    addProperty(P_TITLE_IS_VISIBLE, false);
 }
 
 // ---------------------------------------------------------------------------------------------- //

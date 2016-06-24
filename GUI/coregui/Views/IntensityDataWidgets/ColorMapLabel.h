@@ -21,6 +21,7 @@
 #include <QList>
 
 class ColorMap;
+class ColorMapCanvas;
 class QResizeEvent;
 
 //! The ColorMapLabel class shows status string as reported by ColorMap in a frame.
@@ -35,6 +36,7 @@ public:
     ColorMapLabel(ColorMap *colorMap, QWidget *parent = 0);
 
     void addColorMap(ColorMap *colorMap);
+    void addColorMap(ColorMapCanvas *colorMapCanvas);
 
     void setLabelEnabled(bool flag);
 

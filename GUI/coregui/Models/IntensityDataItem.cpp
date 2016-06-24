@@ -28,6 +28,7 @@
 #include <QDebug>
 
 const QString IntensityDataItem::P_AXES_UNITS = "Axes Units";
+const QString IntensityDataItem::P_TITLE = "Title";
 const QString IntensityDataItem::P_PROJECTIONS_FLAG = "Projections";
 const QString IntensityDataItem::P_IS_INTERPOLATED = "Interpolation";
 const QString IntensityDataItem::P_GRADIENT = "Gradient";
@@ -46,6 +47,8 @@ IntensityDataItem::IntensityDataItem()
 
     ComboProperty units;
     addProperty(P_AXES_UNITS, units.getVariant())->setVisible(false);
+
+    addProperty(P_TITLE, QString("XXX"))->setVisible(false);
 
     addProperty(P_PROJECTIONS_FLAG, false)->setVisible(false);
     addProperty(P_IS_INTERPOLATED, true);

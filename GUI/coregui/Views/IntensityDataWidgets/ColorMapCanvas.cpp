@@ -17,35 +17,29 @@
 #include "ColorMapCanvas.h"
 #include "ColorMap.h"
 #include "ColorMapCanvasEvent.h"
-#include "StatusLabel.h"
+#include "ColorMapLabel.h"
 #include <QVBoxLayout>
 #include <QLabel>
 #include <QDebug>
 
-namespace {
-const int initial_label_width = 100;
-}
 
 ColorMapCanvas::ColorMapCanvas(QWidget *parent)
     : QWidget(parent)
     , m_colorMap(new ColorMap)
     , m_canvasEvent(new ColorMapCanvasEvent(this))
-    , m_statusLabel(new StatusLabel)
+    , m_statusLabel(new ColorMapLabel(m_colorMap, this))
 {
     QVBoxLayout *layout = new QVBoxLayout;
     layout->setMargin(0);
     layout->setSpacing(0);
 
-//    m_statusLabel->setAlignment(Qt::AlignVCenter| Qt::AlignLeft);
-//    m_statusLabel->setStyleSheet("background-color:white;");
-//    m_statusLabel->setMargin(3);
 
     layout->addWidget(m_colorMap);
     layout->addWidget(m_statusLabel);
 
     setLayout(layout);
 
-    setStatusLabelEnabled(true);
+    m_statusLabel->setLabelEnabled(true);
 }
 
 
@@ -65,25 +59,3 @@ void ColorMapCanvas::onStatusString(const QString &name)
 }
 
 
-//! Enables/disables status label with bins/amplitudes at the bottom of widget.
-
-void ColorMapCanvas::setStatusLabelEnabled(bool flag)
-{
-    m_colorMap->setMouseTrackingEnabled(true);
-    setStatusLabelConnected(flag);
-    m_statusLabel->setVisible(flag);
-
-}
-
-//! Connects/disconnects signals for status label.
-
-void ColorMapCanvas::setStatusLabelConnected(bool flag)
-{
-    if(flag) {
-        connect(m_colorMap, SIGNAL(statusString(const QString&)),
-                this, SLOT(onStatusString(const QString&)), Qt::UniqueConnection);
-    } else {
-        disconnect(m_colorMap, SIGNAL(statusString(const QString&)),
-                this, SLOT(onStatusString(const QString&)));
-    }
-}

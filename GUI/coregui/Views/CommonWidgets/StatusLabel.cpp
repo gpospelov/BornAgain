@@ -21,19 +21,33 @@
 #include <QDebug>
 
 namespace {
-const int default_height = 20;
+const int default_label_height = 20;
+const int default_text_size = 12;
 }
 
 StatusLabel::StatusLabel(QWidget *parent)
     : QFrame(parent)
+    , m_font("Monospace", default_text_size, QFont::Normal, false)
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
-    setFixedHeight(default_height);
+    setFixedHeight(default_label_height);
 }
 
 void StatusLabel::setText(const QString &text)
 {
     m_text = text;
+    update();
+}
+
+void StatusLabel::setFont(const QFont &font)
+{
+    m_font = font;
+    update();
+}
+
+void StatusLabel::setPointSize(int pointSize)
+{
+    m_font.setPointSize(pointSize);
     update();
 }
 
@@ -44,8 +58,7 @@ void StatusLabel::paintEvent(QPaintEvent *event)
     QPainter painter(this);
     painter.setBrush(QColor(Qt::black));
     painter.setPen(QColor(Qt::black));
-    QFont serifFont("Monospace", 12, QFont::Normal, false);
-    painter.setFont(serifFont);
+    painter.setFont(m_font);
 
     QRect textRect(0, 0, geometry().width(), geometry().height());
     painter.fillRect(textRect, QColor(Qt::white));

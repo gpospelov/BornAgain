@@ -23,22 +23,28 @@
 class QPaintEvent;
 
 //! The StatusLabel class shows a single line of text on a white background. Opposite to QLabel,
-//! it adjusts size of text depending on available space.
+//! if text string is too long for current size, it will be clipped.
+
+//! This class is intended for ColorMapLabel, where the size of font is adjusted automatically
+//! depending from available space.
 
 class BA_CORE_API_ StatusLabel : public QFrame
 {
     Q_OBJECT
 
 public:
-    StatusLabel(QWidget *parent = 0);
+    explicit StatusLabel(QWidget *parent = 0);
 
     void setText(const QString &text);
+    void setFont(const QFont &font);
+    void setPointSize(int pointSize);
 
 protected:
     void paintEvent(QPaintEvent *event);
 
 private:
     QString m_text;
+    QFont m_font;
 };
 
 #endif

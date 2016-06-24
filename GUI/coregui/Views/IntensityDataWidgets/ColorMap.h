@@ -51,6 +51,7 @@ public:
 
     QCustomPlot *customPlot() { return m_customPlot; }
     const QCustomPlot *customPlot() const { return m_customPlot; }
+    QCPColorScale *colorScale() { return m_colorScale; }
 
     //! transform axes coordinates to CustomPlot widget coordinates
     double xAxisCoordToPixel(double axis_coordinate) const;

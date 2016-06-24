@@ -19,6 +19,8 @@
 
 #include "WinDllMacros.h"
 #include <QObject>
+#include <QMap>
+#include <QFont>
 
 class ColorMapCanvas;
 class QObject;
@@ -38,7 +40,13 @@ protected:
     bool eventFilter(QObject *obj, QEvent *event);
 
 private:
+    void backupFonts();
+    void restoreFonts();
+    void scaleFonts(double factor);
+    void setTickLabelFont(const QFont &font);
+
     ColorMapCanvas *m_canvas;
+    QMap<QString, QFont> m_fonts;
 };
 
 #endif

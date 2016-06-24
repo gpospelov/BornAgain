@@ -16,10 +16,17 @@
 
 #include "ColorMapCanvasEvent.h"
 #include "ColorMapCanvas.h"
+#include "ColorMap.h"
+#include "qcustomplot.h"
 #include <QResizeEvent>
 #include <QLabel>
 #include <QRect>
 #include <QDebug>
+
+namespace {
+const QString tick_font = "tick-font-key";
+const int widget_size_to_switch_font = 500;
+}
 
 ColorMapCanvasEvent::ColorMapCanvasEvent(ColorMapCanvas *canvas)
     : QObject(canvas)
@@ -30,17 +37,53 @@ ColorMapCanvasEvent::ColorMapCanvasEvent(ColorMapCanvas *canvas)
 
 bool ColorMapCanvasEvent::eventFilter(QObject *obj, QEvent *event)
 {
-    qDebug() << "ColorMapCanvasEvent::eventFilter" << event->type();
     if (event->type() == QEvent::Resize) {
         QResizeEvent *resizeEvent = static_cast<QResizeEvent *>(event);
         Q_ASSERT(resizeEvent);
 
-//        QRect rect = m_canvas->statusLabel()->geometry();
-//        rect.setWidth(resizeEvent->size().width());
-//        m_canvas->statusLabel()->setGeometry(rect);
+        if(!m_fonts.contains(tick_font)) {
+            backupFonts();
+
+        } else {
+            if(resizeEvent->size().width() < widget_size_to_switch_font) {
+                scaleFonts(0.8);
+            } else {
+                restoreFonts();
+            }
+
+        }
 
         qDebug() << "  resize" << resizeEvent->size();
     }
 
     return QObject::eventFilter(obj, event);
+}
+
+//! Backup all fonts.
+
+void ColorMapCanvasEvent::backupFonts()
+{
+    m_fonts[tick_font] = m_canvas->colorMap()->customPlot()->xAxis->tickLabelFont();
+
+}
+
+void ColorMapCanvasEvent::restoreFonts()
+{
+    QFont ff = m_fonts[tick_font];
+    setTickLabelFont(ff);
+}
+
+void ColorMapCanvasEvent::scaleFonts(double factor)
+{
+    QFont ff = m_fonts[tick_font];
+    ff.setPointSizeF(ff.pointSizeF()*factor);
+    setTickLabelFont(ff);
+}
+
+void ColorMapCanvasEvent::setTickLabelFont(const QFont &font)
+{
+    m_canvas->colorMap()->customPlot()->xAxis->setTickLabelFont(font);
+    m_canvas->colorMap()->customPlot()->yAxis->setTickLabelFont(font);
+    m_canvas->colorMap()->colorScale()->axis()->setTickLabelFont(font);
+
 }

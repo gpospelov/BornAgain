@@ -450,7 +450,7 @@ SessionItem *SessionModel::topItem(const QString &model_type,
 {
     QList<SessionItem *> items = topItems(model_type);
 
-    if(item_name.isEmpty())
+    if(item_name.isEmpty() && items.size())
         return items.front();
 
     foreach(SessionItem *item, items) {

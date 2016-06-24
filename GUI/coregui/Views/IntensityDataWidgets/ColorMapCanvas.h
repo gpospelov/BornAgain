@@ -20,8 +20,12 @@
 #include "WinDllMacros.h"
 #include <QWidget>
 
-//! The ColorMapCanvas class contains ColorMap for intensity data presentation, and controls
-//! size of fonds, depending from size of widget, status string appearance, set of definig actions
+class ColorMap;
+class IntensityDataItem;
+class QLabel;
+
+//! The ColorMapCanvas class contains ColorMap for intensity data presentation, and provide
+//! control of font size, status string appearance, defines common actions
 //! (reset view, save plot, show context menu).
 
 class BA_CORE_API_ ColorMapCanvas : public QWidget
@@ -31,6 +35,17 @@ class BA_CORE_API_ ColorMapCanvas : public QWidget
 public:
     explicit ColorMapCanvas(QWidget *parent = 0);
 
+    void setItem(IntensityDataItem *intensityDataItem);
+
+public slots:
+    void onStatusString(const QString &name);
+    void setStatusLabelEnabled(bool flag);
+
+private:
+    void setStatusLabelConnected(bool flag);
+
+    ColorMap *m_colorMap;
+    QLabel *m_statusLabel;
 };
 
 #endif

@@ -88,9 +88,9 @@ void TestView::test_ColorMapLight()
 //    Q_ASSERT(jobItem);
 //    IntensityDataItem *intensityData = jobItem->getIntensityDataItem();
 
-    ColorMap *map1 = new ColorMap;
-    ColorMap *map2 = new ColorMap;
-    ColorMap *map3 = new ColorMap;
+    ColorMapCanvas *map1 = new ColorMapCanvas;
+    ColorMapCanvas *map2 = new ColorMapCanvas;
+    ColorMapCanvas *map3 = new ColorMapCanvas;
 
     map1->setItem(intensityData);
     map2->setItem(intensityData);

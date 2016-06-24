@@ -34,7 +34,7 @@ class BA_CORE_API_ ColorMapEvent : public QObject {
 public:
     explicit ColorMapEvent(ColorMap *colorMap);
 
-    void setMouseTracking(bool enable);
+    void setMouseTrackingEnabled(bool enable);
 
 public slots:
     void onCustomMouseMove(QMouseEvent *event);

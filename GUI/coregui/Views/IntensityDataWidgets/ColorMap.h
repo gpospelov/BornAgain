@@ -69,7 +69,7 @@ public:
     //! Returns ColorMapBin corresponding to given axes coordinates.
     ColorMapBin colorMapBin(double xpos, double ypos) const;
 
-    void setTrackMoveEvents(bool flag);
+    void setMouseTrackingEnabled(bool enable);
 
 signals:
     void statusString(const QString &text);

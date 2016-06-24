@@ -46,7 +46,7 @@ ColorMap::ColorMap(QWidget *parent)
     vlayout->addWidget(m_customPlot);
     setLayout(vlayout);
 
-    setTrackMoveEvents(true);
+    setMouseTrackingEnabled(true);
 
     //    setFixedColorMapMargins();
 }
@@ -160,9 +160,9 @@ ColorMapBin ColorMap::colorMapBin(double xpos, double ypos) const
 
 //! to track move events (used when showing profile histograms and printing status string)
 
-void ColorMap::setTrackMoveEvents(bool flag)
+void ColorMap::setMouseTrackingEnabled(bool enable)
 {
-    m_colorMapEvent->setMouseTracking(flag);
+    m_colorMapEvent->setMouseTrackingEnabled(enable);
 }
 
 //! sets logarithmic scale

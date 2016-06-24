@@ -28,7 +28,7 @@ ColorMapEvent::ColorMapEvent(ColorMap *colorMap)
 
 //! Sets tracking of the mouse for parent COlorMap
 
-void ColorMapEvent::setMouseTracking(bool enable)
+void ColorMapEvent::setMouseTrackingEnabled(bool enable)
 {
     m_colorMap->setMouseTracking(enable);
     customPlot()->setMouseTracking(enable);
@@ -48,9 +48,7 @@ void ColorMapEvent::setMouseTracking(bool enable)
 
 void ColorMapEvent::onCustomMouseMove(QMouseEvent *event)
 {
-    qDebug() << "ColorMapEvent::onCustomMouseMove(QMouseEvent *event)" << event;
     ColorMapBin currentPos = currentColorMapBin(event);
-
 
     if(currentPos.inAxesRange()) {
         emit colorMap()->statusString(currentPos.statusString());
@@ -59,7 +57,6 @@ void ColorMapEvent::onCustomMouseMove(QMouseEvent *event)
         if(m_prevPos.inAxesRange()) {
             emit colorMap()->statusString(QString());
         }
-
     }
 
     m_prevPos = currentPos;

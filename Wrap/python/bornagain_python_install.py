@@ -205,7 +205,7 @@ def patch_libraries(dir_name):
     Patches libraries depending on Python to point on the same shared libpython2.7.dylib which current interpreter is using
     """
     print "--> Patching libraries to rely on '{0}'".format(get_python_shared_library())
-    libfiles = glob.glob(os.path.join(dir_name, '*/libBornAgain*'))
+    libfiles = glob.glob(os.path.join(dir_name, '*/_libBornAgain*'))
     for f in libfiles:
         cmd = "install_name_tool -delete_rpath  @loader_path/../../Frameworks " + f
         cmd = "install_name_tool -add_rpath  @loader_path/../Frameworks " + f
@@ -290,4 +290,3 @@ if __name__ == '__main__':
 
 
 
-    

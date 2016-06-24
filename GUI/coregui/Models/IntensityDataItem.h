@@ -24,6 +24,7 @@
 #include <QPair>
 
 class GISASSimulation;
+class BasicAxisItem;
 
 
 class BA_CORE_API_ IntensityDataItem : public SessionItem
@@ -90,6 +91,9 @@ public:
     void updateDataRange();
     void computeDataRange();
     QPair<double, double> getDataRange() const;
+
+    BasicAxisItem *xAxisItem();
+    BasicAxisItem *yAxisItem();
 
 public slots:
     void setLowerX(double xmin);

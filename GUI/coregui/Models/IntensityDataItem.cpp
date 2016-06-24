@@ -349,3 +349,13 @@ QPair<double, double> IntensityDataItem::getDataRange() const
 
     return QPair<double, double>(min, max);
 }
+
+BasicAxisItem *IntensityDataItem::xAxisItem()
+{
+    return dynamic_cast<BasicAxisItem *>(getItem(P_XAXIS));
+}
+
+BasicAxisItem *IntensityDataItem::yAxisItem()
+{
+    return dynamic_cast<BasicAxisItem *>(getItem(P_YAXIS));
+}

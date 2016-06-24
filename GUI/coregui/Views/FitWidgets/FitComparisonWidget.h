@@ -18,6 +18,7 @@
 #define FITCOMPARISONWIDGET_H
 
 #include "SessionItemWidget.h"
+#include <QMap>
 
 class IntensityDataItem;
 class ColorMapCanvas;
@@ -40,13 +41,21 @@ public:
 
 protected:
     void setJobItem(class JobItem *jobItem);
+    virtual void showEvent(QShowEvent *);
+    virtual void hideEvent(QHideEvent *);
 
 private:
-    void setSimulatedDataItem(IntensityDataItem *simulatedDataItem);
 
+    struct LabelBackup {
+        QString xlabel, ylabel;
+    };
+
+    void setSimulatedDataItem(IntensityDataItem *simulatedDataItem);
     IntensityDataItem *createRelativeDifferenceItem();
     void calculateRelativeDifference();
-    void backupLabels();
+    void backupLabels(IntensityDataItem *intensityItem);
+    void restoreLabels(IntensityDataItem *intensityItem);
+    void removeLabels(IntensityDataItem *intensityItem);
 
     ColorMapCanvas *m_realDataPlot;
     ColorMapCanvas *m_simulatedDataPlot;
@@ -59,6 +68,7 @@ private:
     IntensityDataItem *m_relativeDiffItem;
 
     SessionModel *m_tempIntensityDataModel;
+    QMap<IntensityDataItem *, LabelBackup> m_labelBackup;
 };
 
 #endif

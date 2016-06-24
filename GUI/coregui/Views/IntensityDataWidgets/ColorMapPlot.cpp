@@ -353,6 +353,7 @@ void ColorMapPlot::onSubItemPropertyChanged(const QString &property_group,
             replot();
         } else if (property_name == BasicAxisItem::P_TITLE) {
             m_customPlot->xAxis->setLabel(m_item->getXaxisTitle());
+            m_colorScale->setMargins(QMargins(0,0,0,0));
             replot();
         }
     } else if (property_group == IntensityDataItem::P_YAXIS) {

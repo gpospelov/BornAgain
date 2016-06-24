@@ -83,6 +83,7 @@ void FitComparisonWidget::setItem(SessionItem *item)
 void FitComparisonWidget::setJobItem(JobItem *jobItem)
 {
     m_realDataItem = jobItem->realDataItem()->intensityDataItem();
+    backupLabels(m_realDataItem);
 
     setSimulatedDataItem(jobItem->getIntensityDataItem());
 
@@ -99,6 +100,28 @@ void FitComparisonWidget::setJobItem(JobItem *jobItem)
     m_statusLabel->addColorMap(m_realDataPlot);
     m_statusLabel->addColorMap(m_simulatedDataPlot);
     m_statusLabel->addColorMap(m_relativeDiffPlot);
+}
+
+//! When widget is visible, axes labels will be removed intensity data items to free more space.
+
+void FitComparisonWidget::showEvent(QShowEvent *)
+{
+    if(isVisible()) {
+        qDebug() << "!!! visible";
+        removeLabels(m_realDataItem);
+        removeLabels(m_simulatedDataItem);
+    }
+}
+
+//! When widget is about to be hidden, axes labels will be restored to not to upset other widgets.
+
+void FitComparisonWidget::hideEvent(QHideEvent *)
+{
+    if(isHidden()) {
+        qDebug() << "!!! hidden";
+        restoreLabels(m_realDataItem);
+        restoreLabels(m_simulatedDataItem);
+    }
 }
 
 //! Sets tracking of simulated data item.
@@ -124,6 +147,8 @@ void FitComparisonWidget::setSimulatedDataItem(IntensityDataItem *simulatedDataI
                 [this](SessionItem *) {
         m_simulatedDataItem = 0;
     }, this);
+
+    backupLabels(simulatedDataItem);
 
 }
 
@@ -156,8 +181,36 @@ void FitComparisonWidget::calculateRelativeDifference()
 
 }
 
-//! Backup axes labels of
-void FitComparisonWidget::backupLabels()
-{
+//! Backup axes labels for given item. Labels will be returned back when FitComparisonWidget
+//! is hidden.
 
+void FitComparisonWidget::backupLabels(IntensityDataItem *intensityItem)
+{
+    LabelBackup data;
+    data.xlabel = intensityItem->xAxisItem()->getItemValue(BasicAxisItem::P_TITLE).toString();
+    data.ylabel = intensityItem->yAxisItem()->getItemValue(BasicAxisItem::P_TITLE).toString();
+    m_labelBackup[intensityItem] = data;
+}
+
+//! Restores item labels from the backup.
+
+void FitComparisonWidget::restoreLabels(IntensityDataItem *intensityItem)
+{
+    QMap<IntensityDataItem *, LabelBackup>::iterator it = m_labelBackup.find(intensityItem);
+    if(it != m_labelBackup.end()) {
+        LabelBackup lb = it.value();
+        intensityItem->xAxisItem()->setItemValue(BasicAxisItem::P_TITLE, lb.xlabel);
+        intensityItem->yAxisItem()->setItemValue(BasicAxisItem::P_TITLE, lb.ylabel);
+    }
+}
+
+//! Removes axes label from item. This is because they occupy too much space on this dense widget.
+
+void FitComparisonWidget::removeLabels(IntensityDataItem *intensityItem)
+{
+    if(!intensityItem)
+        return;
+
+    intensityItem->xAxisItem()->setItemValue(BasicAxisItem::P_TITLE, QString());
+    intensityItem->yAxisItem()->setItemValue(BasicAxisItem::P_TITLE, QString());
 }

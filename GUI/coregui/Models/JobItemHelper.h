@@ -46,7 +46,6 @@ public:
     //! load intensity data from project directory
     static void loadIntensityData(JobItem *jobItem, const QString &projectDir);
 
-private:
     //! returns axes units names from their domain counterpart
     static QString getNameFromAxesUnits(IDetector2D::EAxesUnits units);
 
@@ -60,8 +59,13 @@ private:
 
     static void updateAxesTitle(IntensityDataItem *intensityItem);
 
+    static OutputData<double> *createDefaultDetectorMap(const InstrumentItem *instrumentItem);
+
     static OutputData<double> *createDetectorMap(const InstrumentItem *instrumentItem,
                                                  IDetector2D::EAxesUnits units);
+
+    static bool hasSameDimensions(const IntensityDataItem *intensityItem,
+                              const GISASSimulation *simulation);
 
     //!< correspondance of GUI axes units names to their domain counterpart
     static QMap<QString, IDetector2D::EAxesUnits> m_name_to_units;

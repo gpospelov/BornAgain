@@ -35,7 +35,8 @@ ComponentEditor::ComponentEditor(ComponentEditorFlags::PresentationType flags, Q
 
     QVBoxLayout *layout = new QVBoxLayout(this);
     layout->setMargin(0);
-//    layout->setContentsMargins(0,0,0,0);
+    layout->setSpacing(0);
+    layout->setContentsMargins(0,0,0,0);
     layout->addWidget(m_d->m_browser);
 //    layout->addStretch();
 

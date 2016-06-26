@@ -58,9 +58,9 @@ ImportDataView::ImportDataView(MainWindow *mainWindow)
 
     m_selectorWidget->setModel(mainWindow->realDataModel());
     m_stackedWidget->setModel(mainWindow->realDataModel());
-    m_toolBar->setModel(mainWindow->realDataModel());
+    m_toolBar->setRealDataModel(mainWindow->realDataModel());
+    m_toolBar->setInstrumentModel(mainWindow->instrumentModel());
     m_toolBar->setSelectionModel(m_selectorWidget->selectionModel());
-
 }
 
 void ImportDataView::onSelectionChanged(SessionItem *item)
@@ -80,17 +80,4 @@ void ImportDataView::setupConnections()
 {
     connect(m_selectorWidget, SIGNAL(selectionChanged(SessionItem *)),
         this, SLOT(onSelectionChanged(SessionItem *)));
-
-//    connect(m_realDataModel,
-//            SIGNAL(modelAboutToBeReset()),
-//            this,
-//            SLOT(resetView())
-//            );
-
-//    connect(m_instrumentModel,
-//            SIGNAL(rowsAboutToBeRemoved(QModelIndex, int,int)),
-//            this,
-//            SLOT(onRowsAboutToBeRemoved(QModelIndex,int,int))
-//            );
-
 }

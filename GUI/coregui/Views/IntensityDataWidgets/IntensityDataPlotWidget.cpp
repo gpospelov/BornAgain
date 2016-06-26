@@ -135,11 +135,16 @@ void IntensityDataPlotWidget::onSplitterMoved(int pos, int index)
     }
 }
 
-//! reset views to original axes min and max
 void IntensityDataPlotWidget::resetView()
 {
-    m_centralPlot->resetView();
+    m_item->resetView();
 }
+
+//! reset views to original axes min and max
+//void IntensityDataPlotWidget::resetView()
+//{
+//    m_centralPlot->resetView();
+//}
 
 //! updates status string, line cross and projections on mouse move
 void IntensityDataPlotWidget::onMouseMove()

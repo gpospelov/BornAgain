@@ -23,9 +23,16 @@
 #include "MinimizerItem.h"
 #include "item_constants.h"
 #include "SessionModel.h"
+#include "ColorMap.h"
+#include "ColorMapCanvas.h"
+#include "JobModel.h"
+#include "JobItem.h"
+#include "IntensityDataItem.h"
+#include "IntensityDataIOFactory.h"
 #include <QVBoxLayout>
 #include <QLineEdit>
 #include <QCheckBox>
+#include <QGridLayout>
 
 TestView::TestView(MainWindow *mainWindow)
     : QWidget(mainWindow)
@@ -35,7 +42,8 @@ TestView::TestView(MainWindow *mainWindow)
 //    test_AccordionWidget();
 //    test_RunFitWidget();
 //    test_MaterialEditor();
-    test_MinimizerSettings();
+//    test_MinimizerSettings();
+    test_ColorMapLight();
 }
 
 
@@ -63,6 +71,36 @@ void TestView::test_MinimizerSettings()
     MinimizerContainerItem *minimizerItem = dynamic_cast<MinimizerContainerItem *>(
                 model->insertNewItem(Constants::MinimizerContainerType));
     widget->setItem(minimizerItem);
+
+}
+
+void TestView::test_ColorMapLight()
+{
+//    SessionModel *tempIntensityDataModel = new SessionModel("TempIntensityDataModel", this);
+//    IntensityDataItem *intensityData = dynamic_cast<IntensityDataItem *>(
+//        tempIntensityDataModel->insertNewItem(Constants::IntensityDataType));
+////    intensityData->setOutputData(IntensityDataIOFactory::readOutputData("/home/pospelov/development/BornAgain/temp/Untitled25/jobdata_job1_0.int.gz"));
+
+
+//    QGridLayout *gridLayout = new QGridLayout;
+
+////    JobItem *jobItem = dynamic_cast<JobItem *>(m_mainWindow->jobModel()->topItem());
+////    Q_ASSERT(jobItem);
+////    IntensityDataItem *intensityData = jobItem->getIntensityDataItem();
+
+//    ColorMapCanvas *map1 = new ColorMapCanvas;
+//    ColorMapCanvas *map2 = new ColorMapCanvas;
+//    ColorMapCanvas *map3 = new ColorMapCanvas;
+
+//    map1->setItem(intensityData);
+//    map2->setItem(intensityData);
+//    map3->setItem(intensityData);
+
+//    gridLayout->addWidget(map1, 0, 0);
+//    gridLayout->addWidget(map2, 0, 1);
+//    gridLayout->addWidget(map3, 1, 0);
+
+//    setLayout(gridLayout);
 
 }
 

@@ -24,12 +24,14 @@
 #include <QPair>
 
 class GISASSimulation;
+class BasicAxisItem;
 
 
 class BA_CORE_API_ IntensityDataItem : public SessionItem
 {
 public:
     static const QString P_PROJECTIONS_FLAG;
+    static const QString P_TITLE;
     static const QString P_IS_INTERPOLATED;
     static const QString P_GRADIENT;
     static const QString P_ZAXIS_MIN;
@@ -90,6 +92,11 @@ public:
     void updateDataRange();
     void computeDataRange();
     QPair<double, double> getDataRange() const;
+
+    BasicAxisItem *xAxisItem();
+    BasicAxisItem *yAxisItem();
+
+    void resetView();
 
 public slots:
     void setLowerX(double xmin);

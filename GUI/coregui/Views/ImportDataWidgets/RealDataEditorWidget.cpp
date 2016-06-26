@@ -16,21 +16,21 @@
 
 #include "RealDataEditorWidget.h"
 #include "SessionItem.h"
-#include "ColorMapPlot.h"
+#include "ColorMap.h"
 #include "RealDataItem.h"
 #include "IntensityDataItem.h"
 #include <QVBoxLayout>
-#include <QLabel>
 #include <QDebug>
 
 RealDataEditorWidget::RealDataEditorWidget(QWidget *parent)
     : QWidget(parent)
-    , m_colorMap(new ColorMapPlot(this))
-//    , m_label(new QLabel("xxx"))
+    , m_colorMap(new ColorMap(this))
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     QVBoxLayout *layout = new QVBoxLayout;
+    layout->setMargin(0);
+    layout->setSpacing(0);
     layout->addWidget(m_colorMap);
     setLayout(layout);
 }

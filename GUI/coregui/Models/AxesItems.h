@@ -28,7 +28,10 @@ public:
     static const QString P_MIN;
     static const QString P_MAX;
     static const QString P_TITLE;
+//    static const QString P_TITLE_IS_VISIBLE;
     explicit BasicAxisItem(const QString &type=Constants::BasicAxisType);
+
+//    bool isAxisLabelVisible() const;
 
     virtual ~BasicAxisItem(){}
 protected:

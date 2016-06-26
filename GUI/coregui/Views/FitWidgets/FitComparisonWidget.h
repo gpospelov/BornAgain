@@ -18,9 +18,14 @@
 #define FITCOMPARISONWIDGET_H
 
 #include "SessionItemWidget.h"
+#include <QMap>
 
 class IntensityDataItem;
-class ColorMapPlot;
+class ColorMapCanvas;
+class SessionModel;
+class FitFlowWidget;
+class ColorMapLabel;
+class QAction;
 
 //! The FitComparisonWidget class plots realdata, simulated data and relative difference map
 //! during the course of the fit.
@@ -35,24 +40,43 @@ public:
 
     void setItem(class SessionItem *item);
 
+    virtual QList<QAction *> actionList();
+
+private slots:
+    void onResetViewAction();
+
 protected:
     void setJobItem(class JobItem *jobItem);
+    virtual void showEvent(QShowEvent *);
+    virtual void hideEvent(QHideEvent *);
 
 private:
+
+    struct LabelBackup {
+        QString xlabel, ylabel;
+    };
+
     void setSimulatedDataItem(IntensityDataItem *simulatedDataItem);
-
-    class IntensityDataItem *createRelativeDifferenceItem();
+    IntensityDataItem *createRelativeDifferenceItem();
     void calculateRelativeDifference();
+    void backupLabels(IntensityDataItem *intensityItem);
+    void restoreLabels(IntensityDataItem *intensityItem);
+    void removeLabels(IntensityDataItem *intensityItem);
 
-    ColorMapPlot *m_realDataPlot;
-    ColorMapPlot *m_simulatedDataPlot;
-    ColorMapPlot *m_relativeDiffPlot;
+    ColorMapCanvas *m_realDataPlot;
+    ColorMapCanvas *m_simulatedDataPlot;
+    ColorMapCanvas *m_relativeDiffPlot;
+    FitFlowWidget *m_fitFlowWidget;
+    ColorMapLabel *m_statusLabel;
 
     IntensityDataItem *m_realDataItem;
     IntensityDataItem *m_simulatedDataItem;
     IntensityDataItem *m_relativeDiffItem;
 
-    class SessionModel *m_tempIntensityDataModel;
+    QAction *m_resetViewAction;
+
+    SessionModel *m_tempIntensityDataModel;
+    QMap<IntensityDataItem *, LabelBackup> m_labelBackup;
 };
 
 #endif

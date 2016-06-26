@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Models/InstrumentItem.h
-//! @brief     Declares class InstrumentItem
+//! @file      GUI/coregui/Views/FitWidgets/FitFlowWidget.cpp
+//! @brief     Implement class FitFlowWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,22 +14,19 @@
 //
 // ************************************************************************** //
 
-#ifndef INSTRUMENT_ITEM_H
-#define INSTRUMENT_ITEM_H
+#include "FitFlowWidget.h"
+#include <QVBoxLayout>
 
-#include "SessionItem.h"
-
-class BeamItem;
-class DetectorItem;
-
-class BA_CORE_API_ InstrumentItem : public SessionItem
+FitFlowWidget::FitFlowWidget(QWidget *parent)
+    : QFrame(parent)
 {
-public:
-    explicit InstrumentItem();
+    setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
 
-    BeamItem *getBeamItem() const;
+    QVBoxLayout *layout = new QVBoxLayout;
+    layout->setSpacing(0);
+    layout->setMargin(0);
 
-    DetectorItem *getDetectorItem() const;
-};
+    setStyleSheet("background-color:white;");
 
-#endif
+    setLayout(layout);
+}

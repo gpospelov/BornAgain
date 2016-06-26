@@ -28,6 +28,7 @@
 #include <QDebug>
 
 const QString IntensityDataItem::P_AXES_UNITS = "Axes Units";
+const QString IntensityDataItem::P_TITLE = "Title";
 const QString IntensityDataItem::P_PROJECTIONS_FLAG = "Projections";
 const QString IntensityDataItem::P_IS_INTERPOLATED = "Interpolation";
 const QString IntensityDataItem::P_GRADIENT = "Gradient";
@@ -46,6 +47,8 @@ IntensityDataItem::IntensityDataItem()
 
     ComboProperty units;
     addProperty(P_AXES_UNITS, units.getVariant())->setVisible(false);
+
+    addProperty(P_TITLE, QString())->setVisible(false);
 
     addProperty(P_PROJECTIONS_FLAG, false)->setVisible(false);
     addProperty(P_IS_INTERPOLATED, true);
@@ -348,4 +351,23 @@ QPair<double, double> IntensityDataItem::getDataRange() const
     }
 
     return QPair<double, double>(min, max);
+}
+
+BasicAxisItem *IntensityDataItem::xAxisItem()
+{
+    return dynamic_cast<BasicAxisItem *>(getItem(P_XAXIS));
+}
+
+BasicAxisItem *IntensityDataItem::yAxisItem()
+{
+    return dynamic_cast<BasicAxisItem *>(getItem(P_YAXIS));
+}
+
+//! Set axes viewport to original data.
+
+void IntensityDataItem::resetView()
+{
+    setAxesRangeToData();
+    if(!isZAxisLocked())
+        computeDataRange();
 }

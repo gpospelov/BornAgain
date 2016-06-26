@@ -36,6 +36,8 @@ private:
     void test_RunFitWidget();
     void test_MaterialEditor();
     void test_MinimizerSettings();
+    void test_ColorMapLight();
+
 
     MainWindow *m_mainWindow;
 };

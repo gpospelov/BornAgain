@@ -40,9 +40,6 @@ public slots:
     void setItem(JobItem *jobItem);
     void setItem(MinimizerContainerItem *minimizerItem);
 
-private slots:
-    void onButtonClicked();
-
 private:
     MinimizerContainerItem *m_currentItem;
     ComponentEditor *m_propertyEditor;

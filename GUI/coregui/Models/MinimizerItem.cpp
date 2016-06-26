@@ -50,6 +50,7 @@ MinimizerContainerItem::MinimizerContainerItem()
 {
     addGroupProperty(P_MINIMIZERS, Constants::MinimizerLibraryGroup)
             ->setToolTip(QStringLiteral("Minimizer library"));
+    setGroupProperty(P_MINIMIZERS, Constants::MinuitMinimizerType);
 }
 
 std::unique_ptr<IMinimizer> MinimizerContainerItem::createMinimizer() const

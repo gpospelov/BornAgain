@@ -20,8 +20,10 @@
 #include "StyledToolBar.h"
 
 class QAction;
-class SessionModel;
+class RealDataModel;
+class InstrumentModel;
 class QItemSelectionModel;
+class RealDataItem;
 
 //! The ImportDataToolBar class represents a narrow toolbar on top of ImportDataView. Contains
 //! all action's logic to import, clone and remove data set.
@@ -32,7 +34,8 @@ class BA_CORE_API_ ImportDataToolBar : public StyledToolBar
 public:
     ImportDataToolBar(QWidget *parent = 0);
 
-    void setModel(SessionModel *model);
+    void setRealDataModel(RealDataModel *model);
+    void setInstrumentModel(InstrumentModel *model);
     void setSelectionModel(QItemSelectionModel *selectionModel);
 
 private slots:
@@ -41,11 +44,14 @@ private slots:
     void onRemoveDataAction();
 
 private:
+    void matchAxesToInstrument(RealDataItem *realDataItem);
+
     QAction *m_importDataAction;
     QAction *m_cloneDataAction;
     QAction *m_removeDataAction;
 
-    SessionModel *m_model;
+    RealDataModel *m_realDataModel;
+    InstrumentModel *m_instrumentModel;
     QItemSelectionModel *m_selectionModel;
 };
 

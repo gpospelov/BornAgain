@@ -46,7 +46,6 @@ public:
     //! load intensity data from project directory
     static void loadIntensityData(JobItem *jobItem, const QString &projectDir);
 
-private:
     //! returns axes units names from their domain counterpart
     static QString getNameFromAxesUnits(IDetector2D::EAxesUnits units);
 
@@ -59,6 +58,8 @@ private:
     static void initIntensityItemProperties(IntensityDataItem *intensityItem, const IDetector2D *detector);
 
     static void updateAxesTitle(IntensityDataItem *intensityItem);
+
+    static OutputData<double> *createDefaultDetectorMap(const InstrumentItem *instrumentItem);
 
     static OutputData<double> *createDetectorMap(const InstrumentItem *instrumentItem,
                                                  IDetector2D::EAxesUnits units);

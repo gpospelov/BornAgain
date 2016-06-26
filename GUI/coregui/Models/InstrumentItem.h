@@ -24,11 +24,8 @@ class DetectorItem;
 
 class BA_CORE_API_ InstrumentItem : public SessionItem
 {
-
-
 public:
     explicit InstrumentItem();
-    virtual ~InstrumentItem() {}
 
     BeamItem *getBeamItem() const;
 

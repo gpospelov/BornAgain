@@ -368,6 +368,6 @@ BasicAxisItem *IntensityDataItem::yAxisItem()
 void IntensityDataItem::resetView()
 {
     setAxesRangeToData();
-    if(isZAxisLocked())
+    if(!isZAxisLocked())
         computeDataRange();
 }

@@ -384,8 +384,7 @@ void ColorMapPlot::onSubItemPropertyChanged(const QString &property_group,
             if (zmin != range.lower) {
                 range.lower = zmin;
                 m_colorMap->setDataRange(range);
-                // ??
-//                m_customPlot->replot();
+                replot();
             }
         } else if (property_name == BasicAxisItem::P_MAX) {
             QCPRange range = m_colorMap->dataRange();

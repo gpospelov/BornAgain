@@ -25,6 +25,7 @@ class ColorMapCanvas;
 class SessionModel;
 class FitFlowWidget;
 class ColorMapLabel;
+class QAction;
 
 //! The FitComparisonWidget class plots realdata, simulated data and relative difference map
 //! during the course of the fit.
@@ -38,6 +39,11 @@ public:
     ~FitComparisonWidget();
 
     void setItem(class SessionItem *item);
+
+    virtual QList<QAction *> actionList();
+
+private slots:
+    void onResetViewAction();
 
 protected:
     void setJobItem(class JobItem *jobItem);
@@ -66,6 +72,8 @@ private:
     IntensityDataItem *m_realDataItem;
     IntensityDataItem *m_simulatedDataItem;
     IntensityDataItem *m_relativeDiffItem;
+
+    QAction *m_resetViewAction;
 
     SessionModel *m_tempIntensityDataModel;
     QMap<IntensityDataItem *, LabelBackup> m_labelBackup;

@@ -27,6 +27,7 @@
 #include <QGridLayout>
 #include <QVBoxLayout>
 #include <QVBoxLayout>
+#include <QAction>
 #include <QLabel>
 #include <QDebug>
 
@@ -45,6 +46,7 @@ FitComparisonWidget::FitComparisonWidget(QWidget *parent)
     , m_realDataItem(0)
     , m_simulatedDataItem(0)
     , m_relativeDiffItem(0)
+    , m_resetViewAction(0)
     , m_tempIntensityDataModel(new SessionModel("TempIntensityDataModel", this))
 {
     QVBoxLayout *vlayout = new QVBoxLayout;
@@ -66,6 +68,12 @@ FitComparisonWidget::FitComparisonWidget(QWidget *parent)
     vlayout->addWidget(m_statusLabel);
     setLayout(vlayout);
 
+    m_resetViewAction = new QAction(this);
+    m_resetViewAction->setText("Reset View");
+    m_resetViewAction->setIcon(QIcon(":/images/toolbar_refresh.png"));
+    m_resetViewAction->setToolTip("Reset View");
+    connect(m_resetViewAction, SIGNAL(triggered()), this, SLOT(onResetViewAction()));
+
 }
 
 FitComparisonWidget::~FitComparisonWidget()
@@ -78,6 +86,11 @@ void FitComparisonWidget::setItem(SessionItem *item)
 {
     JobItem *jobItem = dynamic_cast<JobItem *>(item);
     setJobItem(jobItem);
+}
+
+QList<QAction *> FitComparisonWidget::actionList()
+{
+    return QList<QAction *>() << m_resetViewAction;
 }
 
 void FitComparisonWidget::setJobItem(JobItem *jobItem)
@@ -122,6 +135,15 @@ void FitComparisonWidget::hideEvent(QHideEvent *)
         restoreLabels(m_realDataItem);
         restoreLabels(m_simulatedDataItem);
     }
+}
+
+void FitComparisonWidget::onResetViewAction()
+{
+    qDebug() << "FitComparisonWidget::onResetViewAction()";
+    m_realDataItem->resetView();
+    m_simulatedDataItem->resetView();
+    m_relativeDiffItem->resetView();
+    m_relativeDiffItem->setLowerAndUpperZ(relative_diff_min, relative_diff_max);
 }
 
 //! Sets tracking of simulated data item.

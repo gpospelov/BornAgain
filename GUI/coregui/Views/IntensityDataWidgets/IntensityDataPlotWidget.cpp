@@ -135,6 +135,11 @@ void IntensityDataPlotWidget::onSplitterMoved(int pos, int index)
     }
 }
 
+void IntensityDataPlotWidget::resetView()
+{
+    m_item->resetView();
+}
+
 //! reset views to original axes min and max
 //void IntensityDataPlotWidget::resetView()
 //{

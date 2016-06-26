@@ -220,13 +220,14 @@ void ColorMapPlot::setLogz(bool logz)
 //! reset all axes min,max to initial value
 void ColorMapPlot::resetView()
 {
-    m_block_update = true;
-    m_colorMap->rescaleAxes();
-    if(!m_item->isZAxisLocked()) {
-        m_colorMap->setDataRange(ColorMapHelper::itemDataRange(m_item));
-    }
-    replot();
-    m_block_update = false;
+//    m_block_update = true;
+//    m_colorMap->rescaleAxes();
+//    if(!m_item->isZAxisLocked()) {
+//        m_colorMap->setDataRange(ColorMapHelper::itemDataRange(m_item));
+//    }
+//    replot();
+//    m_block_update = false;
+    m_item->resetView();
 }
 
 //! saves information about mouse position and intensity data underneath
@@ -326,6 +327,9 @@ void ColorMapPlot::onPropertyChanged(const QString &property_name)
     } else if (property_name == IntensityDataItem::P_PROJECTIONS_FLAG) {
         showLinesOverTheMap(
             m_item->getItemValue(IntensityDataItem::P_PROJECTIONS_FLAG).toBool());
+    } else if(property_name == IntensityDataItem::P_AXES_UNITS) {
+        setAxesRangeFromItem(m_item);
+        replot();
     }
 }
 

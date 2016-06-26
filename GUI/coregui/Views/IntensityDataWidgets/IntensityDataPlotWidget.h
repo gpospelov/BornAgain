@@ -47,7 +47,7 @@ signals:
 
 public slots:
     void onSplitterMoved(int pos, int index);
-    void resetView();
+//    void resetView();
     void onMouseMove();
     void onMousePress(QMouseEvent *event);
     void savePlot(const QString &dirname);

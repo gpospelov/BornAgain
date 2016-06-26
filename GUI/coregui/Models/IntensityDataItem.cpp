@@ -48,7 +48,7 @@ IntensityDataItem::IntensityDataItem()
     ComboProperty units;
     addProperty(P_AXES_UNITS, units.getVariant())->setVisible(false);
 
-    addProperty(P_TITLE, QString("XXX"))->setVisible(false);
+    addProperty(P_TITLE, QString())->setVisible(false);
 
     addProperty(P_PROJECTIONS_FLAG, false)->setVisible(false);
     addProperty(P_IS_INTERPOLATED, true);
@@ -361,4 +361,13 @@ BasicAxisItem *IntensityDataItem::xAxisItem()
 BasicAxisItem *IntensityDataItem::yAxisItem()
 {
     return dynamic_cast<BasicAxisItem *>(getItem(P_YAXIS));
+}
+
+//! Set axes viewport to original data.
+
+void IntensityDataItem::resetView()
+{
+    setAxesRangeToData();
+    if(isZAxisLocked())
+        computeDataRange();
 }

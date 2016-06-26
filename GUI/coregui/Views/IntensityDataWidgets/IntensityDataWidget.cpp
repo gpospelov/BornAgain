@@ -136,7 +136,11 @@ void IntensityDataWidget::toggleProjections()
 
 void IntensityDataWidget::onResetView()
 {
-    m_plotWidget->resetView();
+    //m_plotWidget->resetView();
+    if(!m_currentItem)
+        return;
+
+    m_currentItem->resetView();
 }
 
 void IntensityDataWidget::savePlot()

@@ -182,13 +182,14 @@ void ColorMap::setLogz(bool logz)
 //! reset all axes min,max to initial value
 void ColorMap::resetView()
 {
-    m_block_update = true;
-    m_colorMap->rescaleAxes();
-    if(!m_item->isZAxisLocked()) {
-        m_colorMap->setDataRange(ColorMapHelper::itemDataRange(m_item));
-    }
-    replot();
-    m_block_update = false;
+//    m_block_update = true;
+//    m_colorMap->rescaleAxes();
+//    if(!m_item->isZAxisLocked()) {
+//        m_colorMap->setDataRange(ColorMapHelper::itemDataRange(m_item));
+//    }
+//    replot();
+//    m_block_update = false;
+    m_item->resetView();
 }
 
 void ColorMap::onIntensityModified()
@@ -210,11 +211,10 @@ void ColorMap::onPropertyChanged(const QString &property_name)
     } else if (property_name == IntensityDataItem::P_IS_INTERPOLATED) {
         m_colorMap->setInterpolate(m_item->isInterpolated());
         replot();
+    } else if(property_name == IntensityDataItem::P_AXES_UNITS) {
+        setAxesRangeFromItem(m_item);
+        replot();
     }
-//    else if (property_name == IntensityDataItem::P_PROJECTIONS_FLAG) {
-//        showLinesOverTheMap(
-//            m_item->getItemValue(IntensityDataItem::P_PROJECTIONS_FLAG).toBool());
-//    }
 }
 
 void ColorMap::onSubItemPropertyChanged(const QString &property_group,

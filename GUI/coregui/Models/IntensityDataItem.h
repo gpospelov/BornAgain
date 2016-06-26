@@ -96,6 +96,8 @@ public:
     BasicAxisItem *xAxisItem();
     BasicAxisItem *yAxisItem();
 
+    void resetView();
+
 public slots:
     void setLowerX(double xmin);
     void setUpperX(double xmax);

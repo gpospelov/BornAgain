@@ -33,7 +33,7 @@
 
 namespace {
 const double relative_diff_min = 1e-05;
-const double relative_diff_max = 10;
+const double relative_diff_max = 1;
 }
 
 FitComparisonWidget::FitComparisonWidget(QWidget *parent)

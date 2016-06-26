@@ -207,14 +207,27 @@ void ColorMapPlot::setTrackMoveEventsFlag(bool flag)
 void ColorMapPlot::setLogz(bool logz)
 {
     if (logz) {
-        m_colorScale->setDataScaleType(QCPAxis::stLogarithmic);
-        m_colorScale->axis()->setNumberFormat("eb");
-        m_colorScale->axis()->setNumberPrecision(0);
+        if(m_colorScale->dataScaleType() != QCPAxis::stLogarithmic) {
+            m_colorScale->setDataScaleType(QCPAxis::stLogarithmic);
+            m_colorScale->axis()->setNumberFormat("eb");
+            m_colorScale->axis()->setNumberPrecision(0);
+        }
     } else {
-        m_colorScale->axis()->setNumberFormat("f");
-        m_colorScale->axis()->setNumberPrecision(0);
-        m_colorScale->setDataScaleType(QCPAxis::stLinear);
+        if(m_colorScale->dataScaleType() != QCPAxis::stLinear) {
+            m_colorScale->axis()->setNumberFormat("f");
+            m_colorScale->axis()->setNumberPrecision(0);
+            m_colorScale->setDataScaleType(QCPAxis::stLinear);
+        }
     }
+//    if (logz) {
+//        m_colorScale->setDataScaleType(QCPAxis::stLogarithmic);
+//        m_colorScale->axis()->setNumberFormat("eb");
+//        m_colorScale->axis()->setNumberPrecision(0);
+//    } else {
+//        m_colorScale->axis()->setNumberFormat("f");
+//        m_colorScale->axis()->setNumberPrecision(0);
+//        m_colorScale->setDataScaleType(QCPAxis::stLinear);
+//    }
 }
 
 //! reset all axes min,max to initial value
@@ -378,22 +391,9 @@ void ColorMapPlot::onSubItemPropertyChanged(const QString &property_group,
     }
 
     else if (property_group == IntensityDataItem::P_ZAXIS) {
-        if (property_name == BasicAxisItem::P_MIN) {
-            QCPRange range = m_colorMap->dataRange();
-            double zmin = m_item->getLowerZ();
-            if (zmin != range.lower) {
-                range.lower = zmin;
-                m_colorMap->setDataRange(range);
-                replot();
-            }
-        } else if (property_name == BasicAxisItem::P_MAX) {
-            QCPRange range = m_colorMap->dataRange();
-            double zmax = m_item->getUpperZ();
-            if (zmax != range.upper) {
-                range.upper = zmax;
-                m_colorMap->setDataRange(range);
-                replot();
-            }
+        if (property_name == BasicAxisItem::P_MIN || property_name == BasicAxisItem::P_MAX) {
+            setDataRangeFromItem(m_item);
+            replot();
         } else if (property_name == AmplitudeAxisItem::P_IS_LOGSCALE) {
             setLogz(m_item->isLogz());
             replot();

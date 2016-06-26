@@ -76,31 +76,31 @@ void TestView::test_MinimizerSettings()
 
 void TestView::test_ColorMapLight()
 {
-    SessionModel *tempIntensityDataModel = new SessionModel("TempIntensityDataModel", this);
-    IntensityDataItem *intensityData = dynamic_cast<IntensityDataItem *>(
-        tempIntensityDataModel->insertNewItem(Constants::IntensityDataType));
-    intensityData->setOutputData(IntensityDataIOFactory::readOutputData("/home/pospelov/development/BornAgain/temp/Untitled25/jobdata_job1_0.int.gz"));
+//    SessionModel *tempIntensityDataModel = new SessionModel("TempIntensityDataModel", this);
+//    IntensityDataItem *intensityData = dynamic_cast<IntensityDataItem *>(
+//        tempIntensityDataModel->insertNewItem(Constants::IntensityDataType));
+////    intensityData->setOutputData(IntensityDataIOFactory::readOutputData("/home/pospelov/development/BornAgain/temp/Untitled25/jobdata_job1_0.int.gz"));
 
 
-    QGridLayout *gridLayout = new QGridLayout;
+//    QGridLayout *gridLayout = new QGridLayout;
 
-//    JobItem *jobItem = dynamic_cast<JobItem *>(m_mainWindow->jobModel()->topItem());
-//    Q_ASSERT(jobItem);
-//    IntensityDataItem *intensityData = jobItem->getIntensityDataItem();
+////    JobItem *jobItem = dynamic_cast<JobItem *>(m_mainWindow->jobModel()->topItem());
+////    Q_ASSERT(jobItem);
+////    IntensityDataItem *intensityData = jobItem->getIntensityDataItem();
 
-    ColorMapCanvas *map1 = new ColorMapCanvas;
-    ColorMapCanvas *map2 = new ColorMapCanvas;
-    ColorMapCanvas *map3 = new ColorMapCanvas;
+//    ColorMapCanvas *map1 = new ColorMapCanvas;
+//    ColorMapCanvas *map2 = new ColorMapCanvas;
+//    ColorMapCanvas *map3 = new ColorMapCanvas;
 
-    map1->setItem(intensityData);
-    map2->setItem(intensityData);
-    map3->setItem(intensityData);
+//    map1->setItem(intensityData);
+//    map2->setItem(intensityData);
+//    map3->setItem(intensityData);
 
-    gridLayout->addWidget(map1, 0, 0);
-    gridLayout->addWidget(map2, 0, 1);
-    gridLayout->addWidget(map3, 1, 0);
+//    gridLayout->addWidget(map1, 0, 0);
+//    gridLayout->addWidget(map2, 0, 1);
+//    gridLayout->addWidget(map3, 1, 0);
 
-    setLayout(gridLayout);
+//    setLayout(gridLayout);
 
 }
 

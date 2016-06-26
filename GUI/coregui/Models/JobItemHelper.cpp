@@ -65,17 +65,24 @@ QMap<IDetector2D::EAxesUnits, QString> JobItemHelper::m_units_to_name
 void JobItemHelper::setResults(IntensityDataItem *intensityItem,
                                      const GISASSimulation *simulation)
 {
-    const IDetector2D *detector = simulation->getInstrument().getDetector();
 
-    initIntensityItemProperties(intensityItem, detector);
+    if(hasSameDimensions(intensityItem, simulation)) {
+        intensityItem->setRawDataVector(simulation->getOutputData());
+        if(!intensityItem->isZAxisLocked())
+            intensityItem->computeDataRange();
 
-    IDetector2D::EAxesUnits selected_units
-        = getAxesUnitsFromName(intensityItem->getSelectedAxesUnits());
-    intensityItem->setOutputData(simulation->getDetectorIntensity(selected_units));
-    if(!intensityItem->isZAxisLocked())
-        intensityItem->computeDataRange();
+    } else {
 
-    updateAxesTitle(intensityItem);
+        const IDetector2D *detector = simulation->getInstrument().getDetector();
+
+        initIntensityItemProperties(intensityItem, detector);
+
+        IDetector2D::EAxesUnits selected_units
+            = getAxesUnitsFromName(intensityItem->getSelectedAxesUnits());
+        intensityItem->setOutputData(simulation->getDetectorIntensity(selected_units));
+
+        updateAxesTitle(intensityItem);
+    }
 }
 
 //! Updates axes of OutputData in IntensityData item to correspond
@@ -255,4 +262,15 @@ OutputData<double> *JobItemHelper::createDetectorMap(const InstrumentItem *instr
     }
 
     return result;
+}
+
+//! Returns true if IntensityDataItem has OutputData with the same shape as simulation.
+
+bool JobItemHelper::hasSameDimensions(const IntensityDataItem *intensityItem,
+                                  const GISASSimulation *simulation)
+{
+    if(auto data = intensityItem->getOutputData())
+        return data->hasSameDimensions(*simulation->getOutputData());
+
+    return false;
 }

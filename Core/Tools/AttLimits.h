@@ -31,7 +31,6 @@ class BA_CORE_API_ AttLimits
     AttLimits()
         : m_has_lower_limit(false), m_has_upper_limit(false),
         m_is_fixed(false), m_lower_limit(0.), m_upper_limit(0.) {}
-    ~AttLimits(){}
 
     //! if has lower limit
     bool hasLowerLimit() const { return m_has_lower_limit; }

@@ -49,9 +49,16 @@ public:
 
     void initMinMaxValues(const AttLimits &limits);
 
+    AttLimits getLimits();
+
 private:
     void onTypeChange();
     void setLimitEnabled(const QString &name, bool enabled);
+    bool isLimited() const;
+    bool isFree() const;
+    bool isLowerLimited() const;
+    bool isUpperLimited() const;
+    bool isFixed() const;
 };
 
 //! The FitParameterContainerItem class is a collection of all defined fit parameters in JobItem.
@@ -63,8 +70,10 @@ public:
     static const QString T_FIT_PARAMETERS;
     explicit FitParameterContainerItem();
     FitParameterItem *getFitParameterItem(const QString &link);
+    QVector<FitParameterItem *> fitParameterItems();
     bool isEmpty();
-    void setValuesInParameterContainer(const QVector<double> &values, class ParameterContainerItem *parameterContainer);
+    void setValuesInParameterContainer(const QVector<double> &values,
+                                       class ParameterContainerItem *parameterContainer);
 };
 
 #endif

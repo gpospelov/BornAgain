@@ -400,7 +400,7 @@ def fix_apple_bundle():
     print "Fixing OS X bundle at '{0}'".format(bundle_dir())
     print '-'*80
     # copy_python_framework()
-    # copy_qt_libraries()
+    copy_qt_libraries()
     copy_qt_plugins()
     copy_dependencies()
     validate_dependencies()

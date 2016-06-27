@@ -30,7 +30,6 @@ namespace Manhattan {
     class MiniSplitter;
 }
 
-
 //! The ImportDataView class is a main view for importing experimental data.
 
 class BA_CORE_API_ ImportDataView : public QWidget
@@ -47,7 +46,7 @@ private:
     void setupConnections();
 
     ImportDataToolBar *m_toolBar;
-    class Manhattan::MiniSplitter *m_splitter;
+    Manhattan::MiniSplitter *m_splitter;
     ItemSelectorWidget *m_selectorWidget;
     ItemStackPresenter<RealDataEditorWidget> *m_stackedWidget;
     RealDataModel *m_realDataModel;

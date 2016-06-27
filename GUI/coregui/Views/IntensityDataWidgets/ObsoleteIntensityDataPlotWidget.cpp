@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/IntensityDataWidgets/IntensityDataPlotWidget.cpp
-//! @brief     Implements class IntensityDataPlotWidget
+//! @file      GUI/coregui/Views/IntensityDataWidgets/ObsoleteIntensityDataPlotWidget.cpp
+//! @brief     Implements class ObsoleteIntensityDataPlotWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,7 +14,7 @@
 //
 // ************************************************************************** //
 
-#include "IntensityDataPlotWidget.h"
+#include "ObsoleteIntensityDataPlotWidget.h"
 #include "ColorMapPlot.h"
 #include "HorizontalSlicePlot.h"
 #include "VerticalSlicePlot.h"
@@ -27,7 +27,7 @@
 #include <QDebug>
 
 
-IntensityDataPlotWidget::IntensityDataPlotWidget(QWidget *parent)
+ObsoleteIntensityDataPlotWidget::ObsoleteIntensityDataPlotWidget(QWidget *parent)
     : QWidget(parent)
     , m_splitter(new QSplitter(this))
     , m_splitterTop(new QSplitter(this))
@@ -86,13 +86,13 @@ IntensityDataPlotWidget::IntensityDataPlotWidget(QWidget *parent)
     setupContextMenuActions();
 }
 
-IntensityDataPlotWidget::~IntensityDataPlotWidget()
+ObsoleteIntensityDataPlotWidget::~ObsoleteIntensityDataPlotWidget()
 {
 
 }
 
 //! initializes the class with NIntensityDataItem
-void IntensityDataPlotWidget::setItem(IntensityDataItem *item)
+void ObsoleteIntensityDataPlotWidget::setItem(IntensityDataItem *item)
 {
     m_centralPlot->setItem(item);
     m_horizontalPlot->setItem(item);
@@ -123,7 +123,7 @@ void IntensityDataPlotWidget::setItem(IntensityDataItem *item)
 }
 
 //! provide syncronious move of top and bottom splitters
-void IntensityDataPlotWidget::onSplitterMoved(int pos, int index)
+void ObsoleteIntensityDataPlotWidget::onSplitterMoved(int pos, int index)
 {
     Q_UNUSED(index);
     QSplitter *splitter = qobject_cast<QSplitter *>(sender());
@@ -135,7 +135,7 @@ void IntensityDataPlotWidget::onSplitterMoved(int pos, int index)
     }
 }
 
-void IntensityDataPlotWidget::resetView()
+void ObsoleteIntensityDataPlotWidget::resetView()
 {
     m_item->resetView();
 }
@@ -147,7 +147,7 @@ void IntensityDataPlotWidget::resetView()
 //}
 
 //! updates status string, line cross and projections on mouse move
-void IntensityDataPlotWidget::onMouseMove()
+void ObsoleteIntensityDataPlotWidget::onMouseMove()
 {
     m_statusLabel->setText(m_centralPlot->getStatusString());
 
@@ -170,7 +170,7 @@ void IntensityDataPlotWidget::onMouseMove()
 }
 
 //! provides context menu on right mouse button
-void IntensityDataPlotWidget::onMousePress(QMouseEvent *event)
+void ObsoleteIntensityDataPlotWidget::onMousePress(QMouseEvent *event)
 {
     if(event->button() == Qt::RightButton) {
         //showContextMenu(event->pos());
@@ -179,7 +179,7 @@ void IntensityDataPlotWidget::onMousePress(QMouseEvent *event)
 }
 
 //! saves plot into proposed directory
-void IntensityDataPlotWidget::savePlot(const QString &dirname)
+void ObsoleteIntensityDataPlotWidget::savePlot(const QString &dirname)
 {
     Q_ASSERT(m_item);
 
@@ -194,7 +194,7 @@ void IntensityDataPlotWidget::savePlot(const QString &dirname)
 }
 
 //! switches projections On and Off
-void IntensityDataPlotWidget::showProjections(bool flag)
+void ObsoleteIntensityDataPlotWidget::showProjections(bool flag)
 {
     if(flag) {
         // restoring old splitter positions
@@ -218,20 +218,20 @@ void IntensityDataPlotWidget::showProjections(bool flag)
     }
 }
 
-void IntensityDataPlotWidget::onPropertyPanelAction(bool flag)
+void ObsoleteIntensityDataPlotWidget::onPropertyPanelAction(bool flag)
 {
     Q_ASSERT(m_item);
     m_item->setItemValue(IntensityDataItem::P_PROPERTY_PANEL_FLAG, flag);
 }
 
-void IntensityDataPlotWidget::onProjectionsAction(bool flag)
+void ObsoleteIntensityDataPlotWidget::onProjectionsAction(bool flag)
 {
     Q_ASSERT(m_item);
     m_item->setItemValue(IntensityDataItem::P_PROJECTIONS_FLAG, flag);
 }
 
 
-void IntensityDataPlotWidget::showContextMenu(const QPoint &point)
+void ObsoleteIntensityDataPlotWidget::showContextMenu(const QPoint &point)
 {
     Q_ASSERT(m_item);
     QMenu menu;
@@ -248,7 +248,7 @@ void IntensityDataPlotWidget::showContextMenu(const QPoint &point)
     menu.exec(point);
 }
 
-void IntensityDataPlotWidget::setupContextMenuActions()
+void ObsoleteIntensityDataPlotWidget::setupContextMenuActions()
 {
     m_propertyPanelAction = new QAction(tr("Plot Properties"), this);
     m_propertyPanelAction->setCheckable(true);
@@ -266,13 +266,13 @@ void IntensityDataPlotWidget::setupContextMenuActions()
 
 }
 
-void IntensityDataPlotWidget::updateItem(IntensityDataItem *item)
+void ObsoleteIntensityDataPlotWidget::updateItem(IntensityDataItem *item)
 {
     showProjections(item->getItemValue(IntensityDataItem::P_PROJECTIONS_FLAG).toBool());
 }
 
 //! sets sizes of top and bottom splitters to have correct sizes of vertical histogram (on the left) and color map
-void IntensityDataPlotWidget::initLeftRightAreaSize(int left_size, int right_size)
+void ObsoleteIntensityDataPlotWidget::initLeftRightAreaSize(int left_size, int right_size)
 {
     QList<int> sizes = QList<int>() << left_size << right_size;
     m_splitterTop->setSizes(sizes);
@@ -280,21 +280,21 @@ void IntensityDataPlotWidget::initLeftRightAreaSize(int left_size, int right_siz
 }
 
 //! set size of main splitter to have correct sizes of horizontal histogram (at the bottom) and color map
-void IntensityDataPlotWidget::initTopBottomAreaSize(int top_size, int bottom_size)
+void ObsoleteIntensityDataPlotWidget::initTopBottomAreaSize(int top_size, int bottom_size)
 {
     QList<int> sizes = QList<int>() << top_size << bottom_size;
     m_splitter->setSizes(sizes);
 }
 
 //! returns true if bottom splitter is not collapsed
-bool IntensityDataPlotWidget::isBottomAreaVisible()
+bool ObsoleteIntensityDataPlotWidget::isBottomAreaVisible()
 {
     QList<int> sizes = m_splitter->sizes();
     return sizes[1] != 0;
 }
 
 //! returns true if left splitter is not collapsed
-bool IntensityDataPlotWidget::isLeftAreaVisible()
+bool ObsoleteIntensityDataPlotWidget::isLeftAreaVisible()
 {
     QList<int> sizes = m_splitterTop->sizes();
     return sizes[0] != 0;

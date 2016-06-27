@@ -17,7 +17,7 @@
 #include "JobOutputDataWidget.h"
 #include "JobModel.h"
 #include "JobItem.h"
-#include "IntensityDataWidget.h"
+#include "ObsoleteIntensityDataWidget.h"
 #include "JobResultsPresenter.h"
 #include "JobViewFlags.h"
 #include <QVBoxLayout>

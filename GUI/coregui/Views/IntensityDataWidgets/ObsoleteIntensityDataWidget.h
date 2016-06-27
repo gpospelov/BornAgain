@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/IntensityDataWidgets/IntensityDataWidget.h
-//! @brief     Declares class IntensityDataWidget
+//! @file      GUI/coregui/Views/IntensityDataWidgets/ObsoleteIntensityDataWidget.h
+//! @brief     Declares class ObsoleteIntensityDataWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,23 +14,23 @@
 //
 // ************************************************************************** //
 
-#ifndef INTENSITYDATAWIDGET_H
-#define INTENSITYDATAWIDGET_H
+#ifndef OBSOLETEINTENSITYDATAWIDGET_H
+#define OBSOLETEINTENSITYDATAWIDGET_H
 
 #include "SessionItemWidget.h"
 
 class IntensityDataItem;
-class IntensityDataWidgetActions;
-class IntensityDataPlotWidget;
-class IntensityDataPropertyWidget;
+class ObsoleteIntensityDataWidgetActions;
+class ObsoleteIntensityDataPlotWidget;
+class ObsoleteIntensityDataPropertyWidget;
 
 //! The widget presents IntensityData color map and property editor.
 //! Belongs to the stack handled by JobOutputDataWidget
-class BA_CORE_API_ IntensityDataWidget : public SessionItemWidget
+class BA_CORE_API_ ObsoleteIntensityDataWidget : public SessionItemWidget
 {
     Q_OBJECT
 public:
-    explicit IntensityDataWidget(QWidget *parent = 0);
+    explicit ObsoleteIntensityDataWidget(QWidget *parent = 0);
 
     void setItem(class SessionItem *item);
     void setIntensityData(IntensityDataItem *intensityItem);
@@ -51,9 +51,9 @@ public slots:
     void setPropertyPanelVisible(bool visible);
 
 private:
-    IntensityDataWidgetActions *m_widgetActions;
-    IntensityDataPlotWidget *m_plotWidget;
-    IntensityDataPropertyWidget *m_propertyWidget;
+    ObsoleteIntensityDataWidgetActions *m_widgetActions;
+    ObsoleteIntensityDataPlotWidget *m_plotWidget;
+    ObsoleteIntensityDataPropertyWidget *m_propertyWidget;
     IntensityDataItem *m_currentItem;
 };
 

@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/IntensityDataWidgets/IntensityDataPlotWidget.h
-//! @brief     Declares class IntensityDataPlotWidget
+//! @file      GUI/coregui/Views/IntensityDataWidgets/ObsoleteIntensityDataPlotWidget.h
+//! @brief     Declares class ObsoleteIntensityDataPlotWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#ifndef INTENSITYDATAPLOTWIDGET_H
-#define INTENSITYDATAPLOTWIDGET_H
+#ifndef OBSOLETEINTENSITYDATAPLOTWIDGET_H
+#define OBSOLETEINTENSITYDATAPLOTWIDGET_H
 
 #include "WinDllMacros.h"
 #include <QWidget>
@@ -30,12 +30,12 @@ class IntensityDataItem;
 
 //! The widget contains IntensityDataItem color map, two projections and all
 //! logic. Belongs to IntensityDataWidget.
-class BA_CORE_API_ IntensityDataPlotWidget : public QWidget
+class BA_CORE_API_ ObsoleteIntensityDataPlotWidget : public QWidget
 {
     Q_OBJECT
 public:
-    explicit IntensityDataPlotWidget(QWidget *parent = 0);
-    ~IntensityDataPlotWidget();
+    explicit ObsoleteIntensityDataPlotWidget(QWidget *parent = 0);
+    ~ObsoleteIntensityDataPlotWidget();
 
     QSize sizeHint() const { return QSize(800, 800); }
     QSize minimumSizeHint() const { return QSize(512, 512); }

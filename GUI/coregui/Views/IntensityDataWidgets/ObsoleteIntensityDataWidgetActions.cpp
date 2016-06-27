@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/IntensityDataWidgets/IntensityDataWidgetActions.cpp
-//! @brief     Implements class IntensityDataWidgetActions
+//! @file      GUI/coregui/Views/IntensityDataWidgets/ObsoleteIntensityDataWidgetActions.cpp
+//! @brief     Implements class ObsoleteIntensityDataWidgetActions
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,10 +14,10 @@
 //
 // ************************************************************************** //
 
-#include "IntensityDataWidgetActions.h"
+#include "ObsoleteIntensityDataWidgetActions.h"
 #include <QAction>
 
-IntensityDataWidgetActions::IntensityDataWidgetActions(QObject *parent)
+ObsoleteIntensityDataWidgetActions::ObsoleteIntensityDataWidgetActions(QObject *parent)
     : QObject(parent)
     , m_toggleProjectionsAction(0)
     , m_togglePropertyPanelAction(0)
@@ -55,7 +55,7 @@ IntensityDataWidgetActions::IntensityDataWidgetActions(QObject *parent)
     connect(m_savePlotAction, SIGNAL(triggered()), this, SIGNAL(savePlot()));
 }
 
-QList<QAction *> IntensityDataWidgetActions::actionList()
+QList<QAction *> ObsoleteIntensityDataWidgetActions::actionList()
 {
     return QList<QAction *>() << m_resetViewAction << m_toggleProjectionsAction
                               << m_togglePropertyPanelAction << m_savePlotAction;

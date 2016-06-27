@@ -27,8 +27,12 @@
 #include <QDebug>
 
 namespace {
-const QString filter_string = "Intensity File (*.int *.int.gz *.tif *.tif.gz *.txt *.txt.gz);;"
+//const QString filter_string = "Intensity File (*.int *.int.gz *.tif *.tif.gz *.txt *.txt.gz);;"
+//        "Other (*)";
+
+const QString filter_string = "Intensity File (*.int *.gz *.tif *.txt);;"
         "Other (*)";
+
 }
 
 OutputData<double> *ImportDataAssistant::importData(QString &baseNameOfLoadedFile)

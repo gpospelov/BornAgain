@@ -19,6 +19,7 @@
 #include "WinDllMacros.h"
 #include "Exceptions.h"
 #include <boost/unordered_map.hpp>
+#include <vector>
 #include <map>
 #include <list>
 

@@ -84,6 +84,23 @@ void ImportDataToolBar::setSelectionModel(QItemSelectionModel *selectionModel)
     m_selectionModel = selectionModel;
 }
 
+//! Sets action to toolbar, preserving own toolbar's actions.
+
+void ImportDataToolBar::setActionList(const QList<QAction *> &actionList)
+{
+    clear();
+
+    addAction(m_importDataAction);
+    addAction(m_removeDataAction);
+
+    addStyledSeparator();
+
+    foreach(QAction *action, actionList) {
+        addAction(action);
+    }
+
+}
+
 void ImportDataToolBar::onImportDataAction()
 {
     qDebug() << "ImportDataToolBar::onImportDataAction()";

@@ -38,6 +38,8 @@ public:
     void setInstrumentModel(InstrumentModel *model);
     void setSelectionModel(QItemSelectionModel *selectionModel);
 
+    void setActionList(const QList<QAction *> &actionList);
+
 private slots:
     void onImportDataAction();
     void onCloneDataAction();

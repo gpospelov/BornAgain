@@ -75,8 +75,8 @@ void ImportDataView::onSelectionChanged(SessionItem *item)
         RealDataEditorWidget *widget = m_stackedWidget->currentWidget();
         Q_ASSERT(widget);
         widget->setItem(item);
-        m_toolBar->addActions(widget->actionList());
     }
+    m_toolBar->setActionList(m_stackedWidget->currentWidget()->actionList());
 
 }
 

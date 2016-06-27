@@ -46,6 +46,9 @@ public:
     //! load intensity data from project directory
     static void loadIntensityData(JobItem *jobItem, const QString &projectDir);
 
+    //! load intensity data from project directory
+    static void loadRealData(JobItem *jobItem, const QString &projectDir);
+
     //! returns axes units names from their domain counterpart
     static QString getNameFromAxesUnits(IDetector2D::EAxesUnits units);
 

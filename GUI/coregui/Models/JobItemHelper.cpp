@@ -25,6 +25,7 @@
 #include "OutputData.h"
 #include "GUIHelpers.h"
 #include "JobItem.h"
+#include "RealDataItem.h"
 #include "IntensityDataIOFactory.h"
 #include <QFileInfo>
 #include <QDebug>
@@ -162,6 +163,22 @@ void JobItemHelper::loadIntensityData(JobItem *jobItem, const QString &projectDi
             warning.append(filename);
             warning.append("' was not found");
             jobItem->setComments(warning);
+        }
+    }
+}
+
+void JobItemHelper::loadRealData(JobItem *jobItem, const QString &projectDir)
+{
+    if(RealDataItem *realDataItem = jobItem->realDataItem()) {
+        if(IntensityDataItem *intensityItem =realDataItem->intensityDataItem()) {
+            QString filename = intensityItem->fileName(projectDir);
+            QFileInfo info(filename);
+            if (info.exists()) {
+                std::unique_ptr<OutputData<double>> rawData(
+                    IntensityDataIOFactory::readOutputData(filename.toStdString()));
+                intensityItem->setOutputData(rawData.release());
+
+            }
         }
     }
 }

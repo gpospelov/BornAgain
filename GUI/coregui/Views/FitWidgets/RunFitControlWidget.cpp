@@ -108,6 +108,8 @@ void RunFitControlWidget::onFittingStarted(JobItem *jobItem)
     m_startButton->setEnabled(false);
     m_stopButton->setEnabled(true);
 
+    Q_ASSERT(fitSuiteItem());
+
     fitSuiteItem()->setItemValue(FitSuiteItem::P_UPDATE_INTERVAL, sliderUpdateInterval());
 
     fitSuiteItem()->mapper()->setOnPropertyChange(
@@ -177,7 +179,8 @@ void RunFitControlWidget::onSliderValueChanged(int value)
     qDebug() << "RunFitControlWidget::onSliderValueChanged(int value)";
     int interval = sliderValueToUpdateInterval(value);
     m_updateIntervalLabel->setText(QString::number(interval));
-    fitSuiteItem()->setItemValue(FitSuiteItem::P_UPDATE_INTERVAL, interval);
+    if(fitSuiteItem())
+        fitSuiteItem()->setItemValue(FitSuiteItem::P_UPDATE_INTERVAL, interval);
 }
 
 void RunFitControlWidget::onFitSuitePropertyChange(const QString &name)
@@ -227,10 +230,10 @@ int RunFitControlWidget::sliderValueToUpdateInterval(int value)
 
 FitSuiteItem *RunFitControlWidget::fitSuiteItem()
 {
-    Q_ASSERT(m_currentItem);
-    FitSuiteItem *result = m_currentItem->fitSuiteItem();
-    Q_ASSERT(result);
-    return result;
+    if(m_currentItem)
+        return m_currentItem->fitSuiteItem();
+
+    return nullptr;
 }
 
 bool RunFitControlWidget::isValidJobItem(JobItem *jobItem)

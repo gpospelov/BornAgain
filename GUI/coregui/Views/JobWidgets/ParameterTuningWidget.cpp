@@ -202,7 +202,7 @@ void ParameterTuningWidget::restoreModelsOfCurrentJobItem()
     if(m_currentJobItem->isRunning())
         return;
 
-//    closeActiveEditors();
+    closeActiveEditors();
 
     m_jobModel->restore(m_currentJobItem);
     m_jobModel->runJob(m_currentJobItem->index());

@@ -74,7 +74,8 @@ void ParticleView::paint(QPainter *painter,
 void ParticleView::onPropertyChange(const QString &propertyName)
 {
     if (propertyName == ParticleItem::P_FORM_FACTOR) {
-        updatePixmap();
+//        updatePixmap();
+        update_appearance();
     }
 
     IView::onPropertyChange(propertyName);

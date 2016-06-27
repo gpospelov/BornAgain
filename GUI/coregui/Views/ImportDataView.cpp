@@ -20,6 +20,7 @@
 #include "ItemSelectorWidget.h"
 #include "RealDataModel.h"
 #include "mainwindow_constants.h"
+#include "minisplitter.h"
 #include <QVBoxLayout>
 #include <QSplitter>
 #include <QDebug>
@@ -27,7 +28,8 @@
 ImportDataView::ImportDataView(MainWindow *mainWindow)
     : QWidget(mainWindow)
     , m_toolBar(new ImportDataToolBar)
-    , m_splitter(new QSplitter)
+//    , m_splitter(new QSplitter)
+    , m_splitter(new Manhattan::MiniSplitter)
     , m_selectorWidget(new ItemSelectorWidget)
     , m_stackedWidget(new ItemStackPresenter<RealDataEditorWidget>)
     , m_realDataModel(mainWindow->realDataModel())
@@ -47,7 +49,7 @@ ImportDataView::ImportDataView(MainWindow *mainWindow)
     m_splitter->setCollapsible(1, false);
 
     m_splitter->setSizes(QList<int>() << Constants::ITEM_SELECTOR_WIDGET_WIDTH
-                         << Constants::ITEM_SELECTOR_WIDGET_WIDTH*8);
+                         << Constants::ITEM_SELECTOR_WIDGET_WIDTH*7);
 
     mainLayout->addWidget(m_toolBar);
     mainLayout->addWidget(m_splitter);

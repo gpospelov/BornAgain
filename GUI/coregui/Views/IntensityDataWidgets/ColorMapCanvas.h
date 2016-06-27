@@ -41,11 +41,12 @@ public:
 
     ColorMap *colorMap();
 
+    void setStatusLabelEnabled(bool flag);
+
 public slots:
     void onStatusString(const QString &name);
 
 private:
-    void setStatusLabelConnected(bool flag);
 //    void onTitleChanged(const QString &title);
 
 //    StatusLabel *m_titleLabel;

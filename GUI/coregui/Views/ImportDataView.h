@@ -23,9 +23,13 @@
 #include <QWidget>
 
 class ImportDataToolBar;
-class QSplitter;
 class ItemSelectorWidget;
 class RealDataModel;
+
+namespace Manhattan {
+    class MiniSplitter;
+}
+
 
 //! The ImportDataView class is a main view for importing experimental data.
 
@@ -43,7 +47,7 @@ private:
     void setupConnections();
 
     ImportDataToolBar *m_toolBar;
-    QSplitter *m_splitter;
+    class Manhattan::MiniSplitter *m_splitter;
     ItemSelectorWidget *m_selectorWidget;
     ItemStackPresenter<RealDataEditorWidget> *m_stackedWidget;
     RealDataModel *m_realDataModel;

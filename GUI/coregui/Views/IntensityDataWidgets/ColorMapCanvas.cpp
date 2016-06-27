@@ -44,7 +44,7 @@ ColorMapCanvas::ColorMapCanvas(QWidget *parent)
 
     setLayout(layout);
 
-    m_statusLabel->setLabelEnabled(false);
+    setStatusLabelEnabled(false);
 }
 
 
@@ -70,6 +70,12 @@ void ColorMapCanvas::setItem(IntensityDataItem *intensityDataItem)
 ColorMap *ColorMapCanvas::colorMap()
 {
     return m_colorMap;
+}
+
+void ColorMapCanvas::setStatusLabelEnabled(bool flag)
+{
+    m_statusLabel->setLabelEnabled(flag);
+    m_statusLabel->setHidden(!flag);
 }
 
 //QLabel *ColorMapCanvas::statusLabel()

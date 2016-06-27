@@ -16,7 +16,7 @@
 
 #include "RealDataEditorWidget.h"
 #include "SessionItem.h"
-#include "ColorMap.h"
+#include "ColorMapCanvas.h"
 #include "RealDataItem.h"
 #include "IntensityDataItem.h"
 #include <QVBoxLayout>
@@ -24,7 +24,7 @@
 
 RealDataEditorWidget::RealDataEditorWidget(QWidget *parent)
     : QWidget(parent)
-    , m_colorMap(new ColorMap(this))
+    , m_colorMap(new ColorMapCanvas(this))
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
@@ -33,6 +33,8 @@ RealDataEditorWidget::RealDataEditorWidget(QWidget *parent)
     layout->setSpacing(0);
     layout->addWidget(m_colorMap);
     setLayout(layout);
+
+    m_colorMap->setStatusLabelEnabled(true);
 }
 
 void RealDataEditorWidget::setItem(SessionItem *item)

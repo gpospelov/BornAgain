@@ -47,7 +47,7 @@ private:
     void matchAxesToInstrument(RealDataItem *realDataItem);
 
     QAction *m_importDataAction;
-    QAction *m_cloneDataAction;
+//    QAction *m_cloneDataAction;
     QAction *m_removeDataAction;
 
     RealDataModel *m_realDataModel;

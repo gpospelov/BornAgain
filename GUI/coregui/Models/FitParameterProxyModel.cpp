@@ -60,9 +60,24 @@ Qt::ItemFlags FitParameterProxyModel::flags(const QModelIndex &index) const
         if(item->parent()->modelType() == Constants::FitParameterLinkType && index.column() == 0) {
             returnVal |= Qt::ItemIsDragEnabled;
         }
-        if(item->modelType() == Constants::FitParameterType || item->modelType() == Constants::FitParameterContainerType) {
-            returnVal |= Qt::ItemIsDropEnabled;
+
+        // TODO REDMINE #1478 > allow to drop on top of FitParameterItem as soon as 1478 resolved
+        const bool allow_one_fit_parameter_to_have_more_than_one_link = false;
+        if(allow_one_fit_parameter_to_have_more_than_one_link) {
+            // drop is allowed to fit parameter container, and, to FitParameterItem itself.
+            // (i.e. we can have more than one link in single FitParameterItem)
+            if(item->modelType() == Constants::FitParameterType || item->modelType() == Constants::FitParameterContainerType) {
+                  returnVal |= Qt::ItemIsDropEnabled;
+            }
+        } else {
+            // drop is allowed only to fit parameter container
+            // (i.e. only one link is allowed in FitParameterItem)
+            if(item->modelType() == Constants::FitParameterContainerType) {
+                returnVal |= Qt::ItemIsDropEnabled;
+            }
         }
+
+
     }
 
     return returnVal;

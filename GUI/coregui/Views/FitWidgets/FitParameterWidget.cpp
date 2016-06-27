@@ -263,19 +263,24 @@ void FitParameterWidget::initTuningWidgetContextMenu(QMenu &menu)
 
     menu.addAction(m_createFitParAction);
     QMenu *addToFitParMenu = menu.addMenu("Add to existing fit parameter");
+    addToFitParMenu->setDisabled(true);
+    Q_UNUSED(addToFitParMenu);
 
-    QStringList fitParNames
-        = FitParameterHelper::getFitParameterNames(m_jobItem->fitParameterContainerItem());
-    if(fitParNames.isEmpty() || canCreateFitParameter()==false) {
-        addToFitParMenu->setEnabled(false);
-    }
+    // --> TODO REDMINE #1478 Uncomment, when issue is solved
 
-    for(int i =0; i<fitParNames.count(); ++i) {
-        QAction *action = new QAction(QString("to ").append(fitParNames.at(i)), addToFitParMenu);
-        connect(action, SIGNAL(triggered()), m_signalMapper, SLOT(map()));
-        m_signalMapper->setMapping(action, i);
-        addToFitParMenu->addAction(action);
-    }
+//    QStringList fitParNames
+//        = FitParameterHelper::getFitParameterNames(m_jobItem->fitParameterContainerItem());
+//    if(fitParNames.isEmpty() || canCreateFitParameter()==false) {
+//        addToFitParMenu->setEnabled(false);
+//    }
+
+//    for(int i =0; i<fitParNames.count(); ++i) {
+//        QAction *action = new QAction(QString("to ").append(fitParNames.at(i)), addToFitParMenu);
+//        connect(action, SIGNAL(triggered()), m_signalMapper, SLOT(map()));
+//        m_signalMapper->setMapping(action, i);
+//        addToFitParMenu->addAction(action);
+//    }
+    // <-- end of uncomment
 
     menu.addSeparator();
     menu.addAction(m_removeFromFitParAction);

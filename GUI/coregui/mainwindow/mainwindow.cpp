@@ -74,8 +74,8 @@ MainWindow::MainWindow(QWidget *parent)
     initViews();
     initConnections();
 
-    m_applicationModels->createTestSample();
-    m_applicationModels->createTestJob();
+//    m_applicationModels->createTestSample();
+//    m_applicationModels->createTestJob();
 }
 
 MaterialModel *MainWindow::materialModel()
@@ -277,7 +277,7 @@ void MainWindow::initViews()
     //m_tabWidget->insertTab(MODELVIEW, m_sessionModelView, QIcon(":/images/main_sessionmodel.svg"), "Models");
     m_tabWidget->insertTab(TESTVIEW, testView, QIcon(":/images/main_jobview.svg"), "TestView");
 
-    m_tabWidget->setCurrentIndex(TESTVIEW);
+    m_tabWidget->setCurrentIndex(WELCOME);
 
     // enabling technical view
     QSettings settings;

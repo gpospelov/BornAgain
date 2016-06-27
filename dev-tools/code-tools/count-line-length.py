@@ -1,6 +1,7 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 import glob, sys
+from io import open
 
 fworst = ""
 lworst = 0

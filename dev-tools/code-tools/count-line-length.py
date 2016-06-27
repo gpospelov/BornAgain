@@ -17,7 +17,7 @@ limit = int(sys.argv[1])
 flist = sys.argv[2:]
 for fn in flist:
     # read in
-    fd = open( fn, 'r' )
+    fd = open( fn, 'r', encoding="utf-8" )
     txt = fd.read().split( '\n' )
     fd.close
 

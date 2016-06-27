@@ -5,6 +5,5 @@ set(WEB_LEN_LIM 85) # maximum line length of code for display in Drupal web page
 file(GLOB PY_EXAMPLES "Examples/python/*/ex*/*.py")
 
 add_test(NAME "PyExampleLineLength"
-    COMMAND ${PYTHON_EXECUTABLE}
-    ${CMAKE_SOURCE_DIR}/dev-tools/code-tools/count-line-length.py ${WEB_LEN_LIM}
+    COMMAND ${CMAKE_SOURCE_DIR}/dev-tools/code-tools/count-line-length.py ${WEB_LEN_LIM}
     ${PY_EXAMPLES})

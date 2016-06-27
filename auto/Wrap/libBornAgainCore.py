@@ -16419,6 +16419,14 @@ class IntensityDataFunctions(_object):
     __getattr__ = lambda self, name: _swig_getattr(self, IntensityDataFunctions, name)
     __repr__ = _swig_repr
 
+    def createRelativeDifferenceData(data, reference):
+        """createRelativeDifferenceData(IntensityData data, IntensityData reference) -> IntensityData"""
+        return _libBornAgainCore.IntensityDataFunctions_createRelativeDifferenceData(data, reference)
+
+    if _newclass:
+        createRelativeDifferenceData = staticmethod(createRelativeDifferenceData)
+    __swig_getmethods__["createRelativeDifferenceData"] = lambda x: createRelativeDifferenceData
+
     def getRelativeDifference(*args):
         """
         getRelativeDifference(IntensityData result, IntensityData reference) -> double
@@ -16466,6 +16474,10 @@ class IntensityDataFunctions(_object):
     __del__ = lambda self: None
 IntensityDataFunctions_swigregister = _libBornAgainCore.IntensityDataFunctions_swigregister
 IntensityDataFunctions_swigregister(IntensityDataFunctions)
+
+def IntensityDataFunctions_createRelativeDifferenceData(data, reference):
+    """IntensityDataFunctions_createRelativeDifferenceData(IntensityData data, IntensityData reference) -> IntensityData"""
+    return _libBornAgainCore.IntensityDataFunctions_createRelativeDifferenceData(data, reference)
 
 def IntensityDataFunctions_getRelativeDifference(*args):
     """

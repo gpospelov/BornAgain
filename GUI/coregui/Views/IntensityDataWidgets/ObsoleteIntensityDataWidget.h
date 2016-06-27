@@ -22,7 +22,7 @@
 class IntensityDataItem;
 class ObsoleteIntensityDataWidgetActions;
 class ObsoleteIntensityDataPlotWidget;
-class ObsoleteIntensityDataPropertyWidget;
+class IntensityDataPropertyWidget;
 
 //! The widget presents IntensityData color map and property editor.
 //! Belongs to the stack handled by JobOutputDataWidget
@@ -48,12 +48,11 @@ public slots:
     void togglePropertyPanel();
     void savePlot();
     void toggleProjections();
-    void setPropertyPanelVisible(bool visible);
 
 private:
     ObsoleteIntensityDataWidgetActions *m_widgetActions;
     ObsoleteIntensityDataPlotWidget *m_plotWidget;
-    ObsoleteIntensityDataPropertyWidget *m_propertyWidget;
+    IntensityDataPropertyWidget *m_propertyWidget;
     IntensityDataItem *m_currentItem;
 };
 

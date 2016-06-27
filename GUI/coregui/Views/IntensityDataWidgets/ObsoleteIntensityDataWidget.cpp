@@ -16,7 +16,7 @@
 
 #include "ObsoleteIntensityDataWidget.h"
 #include "ObsoleteIntensityDataPlotWidget.h"
-#include "ObsoleteIntensityDataPropertyWidget.h"
+#include "IntensityDataPropertyWidget.h"
 #include "IntensityDataItem.h"
 #include "JobItem.h"
 #include "ObsoleteIntensityDataWidgetActions.h"
@@ -42,7 +42,7 @@ ObsoleteIntensityDataWidget::ObsoleteIntensityDataWidget(QWidget *parent)
     m_plotWidget = new ObsoleteIntensityDataPlotWidget(this);
     connect(m_plotWidget, SIGNAL(savePlotRequest()), this, SLOT(savePlot()));
 
-    m_propertyWidget = new ObsoleteIntensityDataPropertyWidget(this);
+    m_propertyWidget = new IntensityDataPropertyWidget(this);
 
     QHBoxLayout *hlayout = new QHBoxLayout;
     hlayout->setMargin(0);
@@ -78,28 +78,6 @@ void ObsoleteIntensityDataWidget::setIntensityData(IntensityDataItem *intensityI
 {
     m_plotWidget->setItem(intensityItem);
     m_propertyWidget->setItem(intensityItem);
-
-    if (m_currentItem == intensityItem) {
-        return;
-
-    } else {
-        if(m_currentItem)
-            m_currentItem->mapper()->unsubscribe(this);
-
-        m_currentItem = intensityItem;
-        if (!m_currentItem) return;
-
-        setPropertyPanelVisible(m_currentItem->getItemValue(IntensityDataItem::P_PROPERTY_PANEL_FLAG).toBool());
-
-        m_currentItem->mapper()->setOnPropertyChange(
-                     [this](const QString &name)
-        {
-            if(name == IntensityDataItem::P_PROPERTY_PANEL_FLAG) {
-                setPropertyPanelVisible(m_currentItem->getItemValue(IntensityDataItem::P_PROPERTY_PANEL_FLAG).toBool());
-            }
-        }, this);
-    }
-
 }
 
 QList<QAction *> ObsoleteIntensityDataWidget::actionList()
@@ -115,28 +93,18 @@ void ObsoleteIntensityDataWidget::togglePropertyPanel()
     }
 }
 
-void ObsoleteIntensityDataWidget::setPropertyPanelVisible(bool visible)
-{
-    if(visible) {
-        m_propertyWidget->setItem(m_currentItem);
-
-    } else {
-        m_propertyWidget->setItem(0);
-    }
-    m_propertyWidget->setVisible(visible);
-}
-
 void ObsoleteIntensityDataWidget::toggleProjections()
 {
-    if(m_currentItem) {
-        bool current_flag = m_currentItem->getItemValue(IntensityDataItem::P_PROJECTIONS_FLAG).toBool();
-        m_currentItem->setItemValue(IntensityDataItem::P_PROJECTIONS_FLAG, !current_flag);
-    }
+    if(!m_currentItem)
+        return;
+
+    bool current_flag = m_currentItem->getItemValue(IntensityDataItem::P_PROJECTIONS_FLAG).toBool();
+    m_currentItem->setItemValue(IntensityDataItem::P_PROJECTIONS_FLAG, !current_flag);
+
 }
 
 void ObsoleteIntensityDataWidget::onResetView()
 {
-    //m_plotWidget->resetView();
     if(!m_currentItem)
         return;
 

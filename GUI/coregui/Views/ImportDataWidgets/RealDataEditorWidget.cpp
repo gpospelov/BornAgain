@@ -16,43 +16,45 @@
 
 #include "RealDataEditorWidget.h"
 #include "SessionItem.h"
-#include "ColorMapCanvas.h"
 #include "RealDataItem.h"
 #include "IntensityDataItem.h"
 #include "IntensityDataWidget.h"
-#include <QVBoxLayout>
+#include "IntensityDataPropertyWidget.h"
+#include <QBoxLayout>
+#include <QAction>
 #include <QDebug>
 
 RealDataEditorWidget::RealDataEditorWidget(QWidget *parent)
     : SessionItemWidget(parent)
     , m_intensityWidget(new IntensityDataWidget)
-//    , m_colorMap(new ColorMapCanvas(this))
+    , m_propertyWidget(new IntensityDataPropertyWidget)
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
-    QVBoxLayout *layout = new QVBoxLayout;
-    layout->setMargin(0);
-    layout->setSpacing(0);
-//    layout->addWidget(m_colorMap);
-    layout->addWidget(m_intensityWidget);
-    setLayout(layout);
+    QHBoxLayout *hlayout = new QHBoxLayout;
+    hlayout->setMargin(0);
+    hlayout->setSpacing(0);
 
-//    m_colorMap->setStatusLabelEnabled(true);
+    hlayout->addWidget(m_intensityWidget);
+    hlayout->addWidget(m_propertyWidget);
+
+    QVBoxLayout *mainLayout = new QVBoxLayout;
+    mainLayout->setMargin(0);
+    mainLayout->setSpacing(0);
+
+    mainLayout->addLayout(hlayout);
+    setLayout(mainLayout);
+
 }
 
 void RealDataEditorWidget::setItem(SessionItem *item)
 {
-    //    m_label->setText(item->displayName());
-    qDebug() << "AAAAA ->setItem";
     IntensityDataItem *intensityData = dynamic_cast<IntensityDataItem *>(item->getItem(RealDataItem::T_INTENSITY_DATA));
-//    Q_ASSERT(intensityData);
-//    Q_ASSERT(intensityData->getOutputData());
     m_intensityWidget->setItem(intensityData);
-//    m_colorMap->setItem(intensityData);
-    qDebug() << "AAAAA -> done!";
+    m_propertyWidget->setItem(intensityData);
 }
 
 QList<QAction *> RealDataEditorWidget::actionList()
 {
-    return m_intensityWidget->actionList();
+    return m_intensityWidget->actionList() + m_propertyWidget->actionList();
 }

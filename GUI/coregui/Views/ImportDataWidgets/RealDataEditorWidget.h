@@ -21,7 +21,9 @@
 
 class SessionItem;
 class IntensityDataWidget;
-class ColorMapCanvas;
+class IntensityDataPropertyWidget;
+class IntensityDataItem;
+class QAction;
 
 //! The RealDataEditorWidget class provides editing/presenation of RealDataItem in ImportDataView.
 
@@ -41,7 +43,8 @@ public:
 
 private:
     IntensityDataWidget *m_intensityWidget;
-//    ColorMapCanvas *m_colorMap;
+    IntensityDataPropertyWidget *m_propertyWidget;
+    IntensityDataItem *m_currentItem;
 };
 
 #endif

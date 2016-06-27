@@ -72,6 +72,10 @@ ColorMap *ColorMapCanvas::colorMap()
     return m_colorMap;
 }
 
+QCustomPlot *ColorMapCanvas::customPlot() {
+    return m_colorMap->customPlot();
+}
+
 void ColorMapCanvas::setStatusLabelEnabled(bool flag)
 {
     m_statusLabel->setLabelEnabled(flag);

@@ -21,6 +21,7 @@
 #include <QWidget>
 
 class ColorMap;
+class QCustomPlot;
 class ColorMapCanvasEvent;
 class IntensityDataItem;
 class ColorMapLabel;
@@ -40,6 +41,7 @@ public:
     void setItem(IntensityDataItem *intensityDataItem);
 
     ColorMap *colorMap();
+    QCustomPlot *customPlot();
 
     void setStatusLabelEnabled(bool flag);
 

@@ -54,7 +54,7 @@ SavePlotAssistant::Format::Format(const QString &file_extention, const QString &
 
 }
 
-void SavePlotAssistant::savePlot(const QString &dirname, ColorMapPlot *plot,
+void SavePlotAssistant::savePlot(const QString &dirname, QCustomPlot *plot,
                                  IntensityDataItem *item)
 
 {
@@ -79,18 +79,18 @@ void SavePlotAssistant::savePlot(const QString &dirname, ColorMapPlot *plot,
 
 }
 
-void SavePlotAssistant::saveToFile(const QString &fileName, ColorMapPlot *plot, IntensityDataItem *item)
+void SavePlotAssistant::saveToFile(const QString &fileName, QCustomPlot *plot, IntensityDataItem *item)
 {
     if(isPngFile(fileName)) {
-        plot->getCustomPlot()->savePng(fileName);
+        plot->savePng(fileName);
     }
 
     else if(isJpgFile(fileName)) {
-        plot->getCustomPlot()->saveJpg(fileName);
+        plot->saveJpg(fileName);
     }
 
     else if(isPdfFile(fileName)) {
-        plot->getCustomPlot()->savePdf(fileName, true, plot->width(), plot->height());
+        plot->savePdf(fileName, true, plot->width(), plot->height());
     }
 
     else {

@@ -188,7 +188,7 @@ void ObsoleteIntensityDataPlotWidget::savePlot(const QString &dirname)
         m_centralPlot->showLinesOverTheMap(false);
 
     SavePlotAssistant saveAssistant;
-    saveAssistant.savePlot(dirname, m_centralPlot, m_item);
+    saveAssistant.savePlot(dirname, m_centralPlot->getCustomPlot(), m_item);
 
     m_centralPlot->showLinesOverTheMap(projections_flag);
 }

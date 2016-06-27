@@ -70,7 +70,7 @@ FitComparisonWidget::FitComparisonWidget(QWidget *parent)
 
     m_resetViewAction = new QAction(this);
     m_resetViewAction->setText("Reset View");
-    m_resetViewAction->setIcon(QIcon(":/images/toolbar_refresh.png"));
+    m_resetViewAction->setIcon(QIcon(":/images/toolbar16light_refresh.svg"));
     m_resetViewAction->setToolTip("Reset View");
     connect(m_resetViewAction, SIGNAL(triggered()), this, SLOT(onResetViewAction()));
 

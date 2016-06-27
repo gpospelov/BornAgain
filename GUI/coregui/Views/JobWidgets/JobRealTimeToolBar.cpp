@@ -24,7 +24,7 @@ JobRealTimeToolBar::JobRealTimeToolBar(QWidget *parent)
 {
     m_resetParametersButton = new QToolButton;
     m_resetParametersButton->setText("Reset Values");
-    m_resetParametersButton->setIcon(QIcon(":/images/toolbar_refresh.png"));
+    m_resetParametersButton->setIcon(QIcon(":/images/toolbar16light_refresh.svg"));
     m_resetParametersButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     m_resetParametersButton->setToolTip("Reset parameter tree to initial values");
     connect(m_resetParametersButton, SIGNAL(clicked()), this, SIGNAL(resetParameters()));

@@ -103,8 +103,8 @@ ParameterTuningDelegate::ParameterTuningDelegate(QObject *parent)
 
 ParameterTuningDelegate::~ParameterTuningDelegate()
 {
-    if(m_currentItem)
-        m_currentItem->mapper()->unsubscribe(this);
+//    if(m_currentItem)
+//        m_currentItem->mapper()->unsubscribe(this);
 
 }
 
@@ -195,15 +195,16 @@ QWidget *ParameterTuningDelegate::createEditor(QWidget *parent,
         m_contentLayout->addWidget(m_valueBox);
         m_contentLayout->addWidget(m_slider);
 
-        m_currentItem->mapper()->setOnValueChange(
-                      [this](){
-              m_valueBox->setValue(m_currentItem->value().toDouble());
-        }, this);
+        // FIXME there is an issue with time of life of editor .vs. item
+//        m_currentItem->mapper()->setOnValueChange(
+//                      [this](){
+//              m_valueBox->setValue(m_currentItem->value().toDouble());
+//        }, this);
 
-        m_currentItem->mapper()->setOnItemDestroy(
-                    [this](SessionItem *) {
-            m_currentItem = 0;
-        }, this);
+//        m_currentItem->mapper()->setOnItemDestroy(
+//                    [this](SessionItem *) {
+//            m_currentItem = 0;
+//        }, this);
 
         m_contentWidget->setLayout(m_contentLayout);
 

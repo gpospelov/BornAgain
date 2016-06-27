@@ -109,6 +109,7 @@ void JobView::connectActivityRelated()
     // Activity was changed: this -> JobOutputDataWidget
     connect(this, SIGNAL(activityChanged(int)),
             m_docks->jobOutputDataWidget(), SLOT(onActivityChanged(int)));
+
 }
 
 //! Connects signals related to dock layout.

@@ -20,6 +20,7 @@
 #include "ObsoleteIntensityDataWidget.h"
 #include "JobResultsPresenter.h"
 #include "JobViewFlags.h"
+#include "mainwindow_constants.h"
 #include <QVBoxLayout>
 
 JobOutputDataWidget::JobOutputDataWidget(JobModel *jobModel, QWidget *parent)
@@ -67,6 +68,14 @@ void JobOutputDataWidget::onActivityChanged(int activity)
 //        if(auto widget = currentOutputDataWidget())
 //            widget->setPropertyPanelVisible(false);
 //    }
+
+    if(auto widget = m_stackedWidget->currentWidget()) {
+        if(activity == JobViewFlags::FITTING_ACTIVITY) {
+            widget->setPresentation(Constants::FitComparisonWidgetName);
+        } else if(activity == JobViewFlags::REAL_TIME_ACTIVITY) {
+            widget->setPresentation(Constants::IntensityDataWidgetName);
+        }
+    }
 }
 
 bool JobOutputDataWidget::isValidJobItem(JobItem *item)

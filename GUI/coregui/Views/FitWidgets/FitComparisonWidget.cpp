@@ -99,6 +99,9 @@ QList<QAction *> FitComparisonWidget::actionList()
 
 void FitComparisonWidget::setJobItem(JobItem *jobItem)
 {
+    if(!jobItem->isValidForFitting())
+        return;
+
     processJobItemItem(jobItem);
     setSimulatedDataItem(jobItem->getIntensityDataItem());
 
@@ -140,6 +143,7 @@ void FitComparisonWidget::hideEvent(QHideEvent *)
 
 void FitComparisonWidget::processJobItemItem(JobItem *jobItem)
 {
+
     if(jobItem == m_currentJobItem)
         return;
 

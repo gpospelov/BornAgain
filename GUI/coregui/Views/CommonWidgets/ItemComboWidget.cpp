@@ -68,6 +68,9 @@ void ItemComboWidget::registerWidget(const QString &presentationType, factory_fu
 
 void ItemComboWidget::setPresentation(const QString &presentationType)
 {
+    if(!getValidPresentationList(m_currentItem).contains(presentationType))
+        return;
+
     Q_ASSERT(m_currentItem);
 
     SessionItemWidget *widget = m_presentationTypeToWidget[presentationType];

@@ -79,6 +79,11 @@ void IntensityDataPropertyWidget::setItem(SessionItem *item)
         }
     }, this);
 
+    m_currentItem->mapper()->setOnItemDestroy(
+                [this](SessionItem *) {
+        m_currentItem = 0;
+    }, this);
+
 
 }
 

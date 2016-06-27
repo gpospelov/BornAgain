@@ -101,6 +101,13 @@ ParameterTuningDelegate::ParameterTuningDelegate(QObject *parent)
 
 }
 
+ParameterTuningDelegate::~ParameterTuningDelegate()
+{
+    if(m_currentItem)
+        m_currentItem->mapper()->unsubscribe(this);
+
+}
+
 void ParameterTuningDelegate::paint(QPainter *painter,
                                 const QStyleOptionViewItem &option,
                                 const QModelIndex &index) const
@@ -188,16 +195,15 @@ QWidget *ParameterTuningDelegate::createEditor(QWidget *parent,
         m_contentLayout->addWidget(m_valueBox);
         m_contentLayout->addWidget(m_slider);
 
-        // FIXME CHECK
-        // This mapping seems to be necessary only in the case when ModelTuningDelegate is active,
-        // when item changes its value from outside. It never happens it seems, so mapper
-        // is not necessary.
-        // If one outcomment code below, the time life of ModelTuningDelegate will make application
-        // crash during the fitting. Check this again and remove commented.
-//        m_currentItem->mapper()->setOnValueChange(
-//                      [this](){
-//              m_valueBox->setValue(m_currentItem->value().toDouble());
-//        }, this);
+        m_currentItem->mapper()->setOnValueChange(
+                      [this](){
+              m_valueBox->setValue(m_currentItem->value().toDouble());
+        }, this);
+
+        m_currentItem->mapper()->setOnItemDestroy(
+                    [this](SessionItem *) {
+            m_currentItem = 0;
+        }, this);
 
         m_contentWidget->setLayout(m_contentLayout);
 

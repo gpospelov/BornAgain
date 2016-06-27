@@ -68,6 +68,7 @@ private:
     void updateDragAndDropSettings();
 
     void setTuningDelegateEnabled(bool enabled);
+    void closeActiveEditors();
 
     JobModel *m_jobModel;
     JobItem *m_currentJobItem;

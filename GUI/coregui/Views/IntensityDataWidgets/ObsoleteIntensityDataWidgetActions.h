@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/IntensityDataWidgets/IntensityDataWidgetActions.h
-//! @brief     Declares class IntensityDataWidgetActions
+//! @file      GUI/coregui/Views/IntensityDataWidgets/ObsoleteIntensityDataWidgetActions.h
+//! @brief     Declares class ObsoleteIntensityDataWidgetActions
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#ifndef INTENSITYDATAWIDGETACTIONS_H
-#define INTENSITYDATAWIDGETACTIONS_H
+#ifndef OBSOLETEINTENSITYDATAWIDGETACTIONS_H
+#define OBSOLETEINTENSITYDATAWIDGETACTIONS_H
 
 #include "WinDllMacros.h"
 #include <QObject>
@@ -24,12 +24,12 @@ class QAction;
 
 //! The IntensityDataWidgetActions class holds all actions related to IntensityDataWidget
 
-class BA_CORE_API_ IntensityDataWidgetActions : public QObject
+class BA_CORE_API_ ObsoleteIntensityDataWidgetActions : public QObject
 {
     Q_OBJECT
 
 public:
-    explicit IntensityDataWidgetActions(QObject *parent);
+    explicit ObsoleteIntensityDataWidgetActions(QObject *parent);
 
     QList<QAction *> actionList();
 

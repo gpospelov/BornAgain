@@ -43,6 +43,7 @@ FitComparisonWidget::FitComparisonWidget(QWidget *parent)
     , m_relativeDiffPlot(new ColorMapCanvas)
     , m_fitFlowWidget(new FitFlowWidget)
     , m_statusLabel(new ColorMapLabel(0, this))
+    , m_currentJobItem(0)
     , m_realDataItem(0)
     , m_simulatedDataItem(0)
     , m_relativeDiffItem(0)
@@ -70,7 +71,7 @@ FitComparisonWidget::FitComparisonWidget(QWidget *parent)
 
     m_resetViewAction = new QAction(this);
     m_resetViewAction->setText("Reset View");
-    m_resetViewAction->setIcon(QIcon(":/images/toolbar_refresh.png"));
+    m_resetViewAction->setIcon(QIcon(":/images/toolbar16light_refresh.svg"));
     m_resetViewAction->setToolTip("Reset View");
     connect(m_resetViewAction, SIGNAL(triggered()), this, SLOT(onResetViewAction()));
 
@@ -80,6 +81,9 @@ FitComparisonWidget::~FitComparisonWidget()
 {
     if(m_simulatedDataItem)
         m_simulatedDataItem->mapper()->unsubscribe(this);
+
+    if(m_currentJobItem)
+        m_currentJobItem->mapper()->unsubscribe(this);
 }
 
 void FitComparisonWidget::setItem(SessionItem *item)
@@ -95,14 +99,14 @@ QList<QAction *> FitComparisonWidget::actionList()
 
 void FitComparisonWidget::setJobItem(JobItem *jobItem)
 {
-    m_realDataItem = jobItem->realDataItem()->intensityDataItem();
-    backupLabels(m_realDataItem);
+    if(!jobItem->isValidForFitting())
+        return;
 
+    processJobItemItem(jobItem);
     setSimulatedDataItem(jobItem->getIntensityDataItem());
 
 
     m_relativeDiffItem = createRelativeDifferenceItem();
-
     calculateRelativeDifference();
 
     m_realDataPlot->setItem(m_realDataItem);
@@ -135,6 +139,36 @@ void FitComparisonWidget::hideEvent(QHideEvent *)
         restoreLabels(m_realDataItem);
         restoreLabels(m_simulatedDataItem);
     }
+}
+
+void FitComparisonWidget::processJobItemItem(JobItem *jobItem)
+{
+
+    if(jobItem == m_currentJobItem)
+        return;
+
+    if(m_currentJobItem)
+        m_currentJobItem->mapper()->unsubscribe(this);
+
+    m_currentJobItem = jobItem;
+    if(!m_currentJobItem) return;
+
+    m_currentJobItem->mapper()->setOnPropertyChange(
+                [this](const QString &name)
+    {
+        if(name == JobItem::P_STATUS) {
+            if(m_currentJobItem->isCompleted())
+                onResetViewAction();
+        }
+    }, this);
+
+    m_currentJobItem->mapper()->setOnItemDestroy(
+                [this](SessionItem *) {
+        m_currentJobItem = 0;
+    }, this);
+
+    m_realDataItem = m_currentJobItem->realDataItem()->intensityDataItem();
+    backupLabels(m_realDataItem);
 }
 
 void FitComparisonWidget::onResetViewAction()

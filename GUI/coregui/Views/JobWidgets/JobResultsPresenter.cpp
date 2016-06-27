@@ -16,7 +16,7 @@
 
 #include "JobResultsPresenter.h"
 #include "mainwindow_constants.h"
-#include "IntensityDataWidget.h"
+#include "ObsoleteIntensityDataWidget.h"
 #include "FitComparisonWidget.h"
 #include "JobItem.h"
 #include <QBoxLayout>
@@ -24,7 +24,7 @@
 JobResultsPresenter::JobResultsPresenter(QWidget *parent)
     : ItemComboWidget(parent)
 {
-    registerWidget(Constants::IntensityDataWidgetName, create_new<IntensityDataWidget>);
+    registerWidget(Constants::IntensityDataWidgetName, create_new<ObsoleteIntensityDataWidget>);
     registerWidget(Constants::FitComparisonWidgetName, create_new<FitComparisonWidget>);
 }
 

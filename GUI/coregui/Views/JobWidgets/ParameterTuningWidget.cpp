@@ -202,6 +202,8 @@ void ParameterTuningWidget::restoreModelsOfCurrentJobItem()
     if(m_currentJobItem->isRunning())
         return;
 
+    closeActiveEditors();
+
     m_jobModel->restore(m_currentJobItem);
     m_jobModel->runJob(m_currentJobItem->index());
 }
@@ -299,13 +301,18 @@ void ParameterTuningWidget::setTuningDelegateEnabled(bool enabled)
 
     } else {
         m_delegate->setReadOnly(true);
-        QModelIndex index = m_treeView->currentIndex();
-        QWidget *editor = m_treeView->indexWidget(index);
-        if(editor) {
-            //m_delegate->commitData(editor);
-            m_delegate->closeEditor(editor, QAbstractItemDelegate::NoHint);
-        }
-        m_treeView->selectionModel()->clearSelection();
+        closeActiveEditors();
     }
+}
+
+void ParameterTuningWidget::closeActiveEditors()
+{
+    QModelIndex index = m_treeView->currentIndex();
+    QWidget *editor = m_treeView->indexWidget(index);
+    if(editor) {
+        //m_delegate->commitData(editor);
+        m_delegate->closeEditor(editor, QAbstractItemDelegate::NoHint);
+    }
+    m_treeView->selectionModel()->clearSelection();
 }
 

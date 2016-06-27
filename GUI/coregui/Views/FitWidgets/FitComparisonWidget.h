@@ -20,6 +20,7 @@
 #include "SessionItemWidget.h"
 #include <QMap>
 
+class JobItem;
 class IntensityDataItem;
 class ColorMapCanvas;
 class SessionModel;
@@ -56,7 +57,9 @@ private:
         QString xlabel, ylabel;
     };
 
+    void processJobItemItem(JobItem *jobItem);
     void setSimulatedDataItem(IntensityDataItem *simulatedDataItem);
+
     IntensityDataItem *createRelativeDifferenceItem();
     void calculateRelativeDifference();
     void backupLabels(IntensityDataItem *intensityItem);
@@ -69,6 +72,7 @@ private:
     FitFlowWidget *m_fitFlowWidget;
     ColorMapLabel *m_statusLabel;
 
+    JobItem *m_currentJobItem;
     IntensityDataItem *m_realDataItem;
     IntensityDataItem *m_simulatedDataItem;
     IntensityDataItem *m_relativeDiffItem;

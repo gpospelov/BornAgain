@@ -37,7 +37,7 @@
 ImportDataToolBar::ImportDataToolBar(QWidget *parent)
     : StyledToolBar(parent)
     , m_importDataAction(0)
-    , m_cloneDataAction(0)
+//    , m_cloneDataAction(0)
     , m_removeDataAction(0)
     , m_realDataModel(0)
     , m_instrumentModel(0)
@@ -52,13 +52,13 @@ ImportDataToolBar::ImportDataToolBar(QWidget *parent)
             SLOT(onImportDataAction()));
     addAction(m_importDataAction);
 
-    m_cloneDataAction = new QAction(QStringLiteral("Clone"), parent);
-    m_cloneDataAction->setIcon(
-        QIcon(":/images/toolbar16light_cloneitem.svg"));
-    m_cloneDataAction->setToolTip(QStringLiteral("Clone selected data"));
-    connect(m_cloneDataAction, SIGNAL(triggered()), this,
-            SLOT(onCloneDataAction()));
-    addAction(m_cloneDataAction);
+//    m_cloneDataAction = new QAction(QStringLiteral("Clone"), parent);
+//    m_cloneDataAction->setIcon(
+//        QIcon(":/images/toolbar16light_cloneitem.svg"));
+//    m_cloneDataAction->setToolTip(QStringLiteral("Clone selected data"));
+//    connect(m_cloneDataAction, SIGNAL(triggered()), this,
+//            SLOT(onCloneDataAction()));
+//    addAction(m_cloneDataAction);
 
     m_removeDataAction = new QAction(QStringLiteral("Remove"), parent);
     m_removeDataAction->setIcon(QIcon(":/images/toolbar16light_recycle.svg"));
@@ -82,6 +82,23 @@ void ImportDataToolBar::setInstrumentModel(InstrumentModel *model)
 void ImportDataToolBar::setSelectionModel(QItemSelectionModel *selectionModel)
 {
     m_selectionModel = selectionModel;
+}
+
+//! Sets action to toolbar, preserving own toolbar's actions.
+
+void ImportDataToolBar::setActionList(const QList<QAction *> &actionList)
+{
+    clear();
+
+    addAction(m_importDataAction);
+    addAction(m_removeDataAction);
+
+    addStyledSeparator();
+
+    foreach(QAction *action, actionList) {
+        addAction(action);
+    }
+
 }
 
 void ImportDataToolBar::onImportDataAction()

@@ -40,21 +40,20 @@ std::shared_ptr<FitSuite> DomainFittingBuilder::createFitSuite(JobItem *jobItem)
 
     result->setMinimizer(fitSuiteItem->minimizerContainerItem()->createMinimizer().release());
 
-    SessionItem *container = fitSuiteItem->fitParameterContainerItem();
+    FitParameterContainerItem *container = fitSuiteItem->fitParameterContainerItem();
     Q_ASSERT(container);
 
-
-    foreach(SessionItem *parItem, container->getItems(FitParameterContainerItem::T_FIT_PARAMETERS)) {
+    foreach(FitParameterItem *parItem, container->fitParameterItems()) {
         double value = parItem->getItemValue(FitParameterItem::P_START_VALUE).toDouble();
-        qDebug() << "FFF" << parItem->displayName() << value;
-
         foreach(SessionItem *linkItem, parItem->getItems(FitParameterItem::T_LINK)) {
             QString link = linkItem->getItemValue(FitParameterLinkItem::P_LINK).toString();
             std::string domainPath = "*" + ModelPath::translateParameterName(jobItem->getMultiLayerItem()->parent(), link);
             linkItem->setItemValue(FitParameterLinkItem::P_DOMAIN, QString::fromStdString(domainPath));
-            result->addFitParameter(domainPath, value, AttLimits::limited(2., 10.));
-        }
+            result->addFitParameter(domainPath, value, parItem->getLimits());
 
+            //FIXME only link is possible at the time due to limitations in FitCore
+            break;
+        }
     }
 
     DomainSimulationBuilder builder;
@@ -72,6 +71,5 @@ std::shared_ptr<FitSuite> DomainFittingBuilder::createFitSuite(JobItem *jobItem)
 
     result->addSimulationAndRealData(*simulation.get(), *intensityItem->getOutputData());
 
-//    return std::move(result);
     return result;
 }

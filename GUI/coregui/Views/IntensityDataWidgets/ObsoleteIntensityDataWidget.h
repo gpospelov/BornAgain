@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/IntensityDataWidgets/IntensityDataWidget.h
-//! @brief     Declares class IntensityDataWidget
+//! @file      GUI/coregui/Views/IntensityDataWidgets/ObsoleteIntensityDataWidget.h
+//! @brief     Declares class ObsoleteIntensityDataWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,26 +14,25 @@
 //
 // ************************************************************************** //
 
-#ifndef INTENSITYDATAWIDGET_H
-#define INTENSITYDATAWIDGET_H
+#ifndef OBSOLETEINTENSITYDATAWIDGET_H
+#define OBSOLETEINTENSITYDATAWIDGET_H
 
 #include "SessionItemWidget.h"
 
-class SessionItem;
 class IntensityDataItem;
-class ColorMapCanvas;
-class QAction;
+class ObsoleteIntensityDataWidgetActions;
+class ObsoleteIntensityDataPlotWidget;
+class IntensityDataPropertyWidget;
 
-//! The IntensityDataWidget class represents IntensityDataItem as color map,
-//! provides standard actions (reset view, save as) for external toolbars and context menus.
-
-class BA_CORE_API_ IntensityDataWidget : public SessionItemWidget
+//! The widget presents IntensityData color map and property editor.
+//! Belongs to the stack handled by JobOutputDataWidget
+class BA_CORE_API_ ObsoleteIntensityDataWidget : public SessionItemWidget
 {
     Q_OBJECT
 public:
-    explicit IntensityDataWidget(QWidget *parent = 0);
+    explicit ObsoleteIntensityDataWidget(QWidget *parent = 0);
 
-    void setItem(SessionItem *item);
+    void setItem(class SessionItem *item);
     void setIntensityData(IntensityDataItem *intensityItem);
 
     QSize sizeHint() const { return QSize(500, 400); }
@@ -41,17 +40,20 @@ public:
 
     QList<QAction *> actionList();
 
+signals:
+    void savePlotRequest();
+
 public slots:
-    void onResetViewAction();
-    void onSavePlotAction();
+    void onResetView();
+    void togglePropertyPanel();
+    void savePlot();
+    void toggleProjections();
 
 private:
-    void initActions();
-
-    ColorMapCanvas *m_colorMap;
+    ObsoleteIntensityDataWidgetActions *m_widgetActions;
+    ObsoleteIntensityDataPlotWidget *m_plotWidget;
+    IntensityDataPropertyWidget *m_propertyWidget;
     IntensityDataItem *m_currentItem;
-    QAction *m_resetViewAction;
-    QAction *m_savePlotAction;
 };
 
 #endif

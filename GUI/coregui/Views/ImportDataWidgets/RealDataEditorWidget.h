@@ -17,14 +17,17 @@
 #ifndef REALDATAEDITORWIDGET_H
 #define REALDATAEDITORWIDGET_H
 
-#include "WinDllMacros.h"
-#include <QWidget>
+#include "SessionItemWidget.h"
 
-class ColorMap;
+class SessionItem;
+class IntensityDataWidget;
+class IntensityDataPropertyWidget;
+class IntensityDataItem;
+class QAction;
 
 //! The RealDataEditorWidget class provides editing/presenation of RealDataItem in ImportDataView.
 
-class BA_CORE_API_ RealDataEditorWidget : public QWidget
+class BA_CORE_API_ RealDataEditorWidget : public SessionItemWidget
 {
     Q_OBJECT
 
@@ -36,8 +39,12 @@ public:
 
     void setItem(class SessionItem *item);
 
+    QList<QAction *> actionList();
+
 private:
-    ColorMap *m_colorMap;
+    IntensityDataWidget *m_intensityWidget;
+    IntensityDataPropertyWidget *m_propertyWidget;
+    IntensityDataItem *m_currentItem;
 };
 
 #endif

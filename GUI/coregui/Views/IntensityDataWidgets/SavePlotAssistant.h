@@ -21,7 +21,7 @@
 #include <QString>
 #include <QVector>
 
-class ColorMapPlot;
+class QCustomPlot;
 class IntensityDataItem;
 
 //! Assistant class which contains all logic for saving IntensityData to various formats
@@ -38,10 +38,10 @@ public:
         QString m_filter;
     };
 
-    void savePlot(const QString &dirname, ColorMapPlot *plot, IntensityDataItem *item);
+    void savePlot(const QString &dirname, QCustomPlot *plot, IntensityDataItem *item);
 
 private:
-    void saveToFile(const QString &dirname, ColorMapPlot *plot, IntensityDataItem *item);
+    void saveToFile(const QString &dirname, QCustomPlot *plot, IntensityDataItem *item);
     QString getFilterString() const;
     QString composeFileName(const QString &fileName, const QString &filterName) const;
     bool isValidExtension(const QString &fileName) const;

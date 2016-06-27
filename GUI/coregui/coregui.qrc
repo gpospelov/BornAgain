@@ -14,10 +14,6 @@
         <file>images/treeview-vline.png</file>
         <file>images/toolbar_newitem.png</file>
         <file>images/toolbar_newitem_dark.png</file>
-        <file>images/toolbar_propertypanel.png</file>
-        <file>images/toolbar_projections.png</file>
-        <file>images/toolbar_save.png</file>
-        <file>images/toolbar_refresh.png</file>
         <file>images/BornAgain.ico</file>
         <file>images/collapse_arrow.png</file>
         <file>images/expand_arrow.png</file>
@@ -46,5 +42,9 @@
         <file>images/main_sampleview.svg</file>
         <file>images/main_simulationview.svg</file>
         <file>images/main_welcomeview.svg</file>
+        <file>images/toolbar16light_refresh.svg</file>
+        <file>images/toolbar16light_save.svg</file>
+        <file>images/toolbar16light_projections.svg</file>
+        <file>images/toolbar16light_propertypanel.svg</file>
     </qresource>
 </RCC>

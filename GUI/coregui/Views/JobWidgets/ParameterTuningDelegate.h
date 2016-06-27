@@ -48,6 +48,7 @@ public:
 
 
     ParameterTuningDelegate(QObject *parent = 0);
+    ~ParameterTuningDelegate();
 
     QSize sizeHint ( const QStyleOptionViewItem & option, const QModelIndex & /* index */) const
     {

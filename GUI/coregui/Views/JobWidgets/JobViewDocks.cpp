@@ -67,7 +67,6 @@ void JobViewDocks::setActivity(int activity)
 
 void JobViewDocks::setItem(JobItem *jobItem)
 {
-    qDebug()  << "AAAA" << m_dockWidgets[JobViewFlags::FIT_PANEL_DOCK]->isHidden();
     jobOutputDataWidget()->setItem(jobItem);
     jobRealTimeWidget()->setItem(jobItem);
     fitActivityPanel()->setItem(jobItem);

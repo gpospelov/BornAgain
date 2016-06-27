@@ -53,7 +53,7 @@ class BA_CORE_API_ MainWindow : public Manhattan::FancyMainWindow
     Q_OBJECT
 
 public:
-    enum ETabViewId {WELCOME, INSTRUMENT, SAMPLE, IMPORT, SIMULATION, JOB, TESTVIEW, MAXVIEWCOUNT};
+    enum ETabViewId {WELCOME, INSTRUMENT, SAMPLE, IMPORT, SIMULATION, JOB, MAXVIEWCOUNT};
 
     explicit MainWindow(QWidget *parent = 0);
 

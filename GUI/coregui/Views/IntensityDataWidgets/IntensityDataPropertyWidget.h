@@ -17,8 +17,7 @@
 #ifndef INTENSITYDATAPROPERTYWIDGET_H
 #define INTENSITYDATAPROPERTYWIDGET_H
 
-#include "WinDllMacros.h"
-#include <QWidget>
+#include "SessionItemWidget.h"
 
 class JobModel;
 class IntensityDataItem;
@@ -26,20 +25,28 @@ class ComponentEditor;
 
 //! The IntensityDataPropertyWidget shows ComponentEditor for given IntensityDataItem.
 
-class BA_CORE_API_ IntensityDataPropertyWidget : public QWidget
+class BA_CORE_API_ IntensityDataPropertyWidget : public SessionItemWidget
 {
     Q_OBJECT
 public:
     explicit IntensityDataPropertyWidget(QWidget *parent = 0);
+    ~IntensityDataPropertyWidget();
 
     QSize sizeHint() const { return QSize(230, 256); }
     QSize minimumSizeHint() const { return QSize(230, 64); }
 
+    void setItem(SessionItem *item);
+
+    QList<QAction *> actionList();
+
 public slots:
-    void setItem(IntensityDataItem *item);
+    void onTogglePanelAction();
 
 private:
-    IntensityDataItem *m_currentItem;
+    void setPanelVisible(bool visible);
+
+    QAction *m_togglePanelAction;
+    SessionItem *m_currentItem;
     ComponentEditor *m_componentEditor;
 };
 

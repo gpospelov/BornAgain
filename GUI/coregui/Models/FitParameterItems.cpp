@@ -113,32 +113,60 @@ void FitParameterItem::initMinMaxValues(const AttLimits &limits)
     }
 }
 
+//! Constructs AttLimits correspodning to current GUI settings.
+
+AttLimits FitParameterItem::getLimits()
+{
+    if(isFixed()) {
+        return AttLimits::fixed();
+    }
+
+    else if(isLimited()) {
+        return AttLimits::limited(getItemValue(P_MIN).toDouble(), getItemValue(P_MAX).toDouble());
+    }
+
+    else if(isLowerLimited()) {
+        return AttLimits::lowerLimited(getItemValue(P_MIN).toDouble());
+    }
+
+    else if(isUpperLimited()) {
+        return AttLimits::upperLimited(getItemValue(P_MAX).toDouble());
+    }
+
+    else if(isFree()) {
+        return AttLimits::limitless();
+    }
+
+    else {
+        throw GUIHelpers::Error("FitParameterItem::getLimits() -> Error. Unknown limit type");
+    }
+}
+
 //! Enables/disables min, max properties on FitParameterItem's type
 
 void FitParameterItem::onTypeChange()
 {
-    ComboProperty partype = getItemValue(P_TYPE).value<ComboProperty>();
-    if(partype.getValue() == Constants::FITPAR_FIXED) {
+    if(isFixed()) {
         setLimitEnabled(P_MIN, false);
         setLimitEnabled(P_MAX, false);
     }
 
-    else if(partype.getValue() == Constants::FITPAR_LIMITED) {
+    else if(isLimited()) {
         setLimitEnabled(P_MIN, true);
         setLimitEnabled(P_MAX, true);
     }
 
-    else if(partype.getValue() == Constants::FITPAR_LOWERLIMITED) {
+    else if(isLowerLimited()) {
         setLimitEnabled(P_MIN, true);
         setLimitEnabled(P_MAX, false);
     }
 
-    else if(partype.getValue() == Constants::FITPAR_UPPERLIMITED) {
+    else if(isUpperLimited()) {
         setLimitEnabled(P_MIN, false);
         setLimitEnabled(P_MAX, true);
     }
 
-    else if(partype.getValue() == Constants::FITPAR_FREE) {
+    else if(isFree()) {
         setLimitEnabled(P_MIN, false);
         setLimitEnabled(P_MAX, false);
     }
@@ -154,6 +182,36 @@ void FitParameterItem::setLimitEnabled(const QString &name, bool enabled)
         propertyItem->setEnabled(enabled);
         propertyItem->setEditable(enabled);
     }
+}
+
+bool FitParameterItem::isLimited() const
+{
+    ComboProperty partype = getItemValue(P_TYPE).value<ComboProperty>();
+    return partype.getValue() == Constants::FITPAR_LIMITED;
+}
+
+bool FitParameterItem::isFree() const
+{
+    ComboProperty partype = getItemValue(P_TYPE).value<ComboProperty>();
+    return partype.getValue() == Constants::FITPAR_FREE;
+}
+
+bool FitParameterItem::isLowerLimited() const
+{
+    ComboProperty partype = getItemValue(P_TYPE).value<ComboProperty>();
+    return partype.getValue() == Constants::FITPAR_LOWERLIMITED;
+}
+
+bool FitParameterItem::isUpperLimited() const
+{
+    ComboProperty partype = getItemValue(P_TYPE).value<ComboProperty>();
+    return partype.getValue() == Constants::FITPAR_UPPERLIMITED;
+}
+
+bool FitParameterItem::isFixed() const
+{
+    ComboProperty partype = getItemValue(P_TYPE).value<ComboProperty>();
+    return partype.getValue() == Constants::FITPAR_FIXED;
 }
 
 // ----------------------------------------------------------------------------
@@ -178,6 +236,15 @@ FitParameterItem *FitParameterContainerItem::getFitParameterItem(const QString &
         }
     }
     return nullptr;
+}
+
+QVector<FitParameterItem *> FitParameterContainerItem::fitParameterItems()
+{
+    QVector<FitParameterItem *> result;
+    foreach(SessionItem *parItem, getItems(T_FIT_PARAMETERS)) {
+        result.push_back(dynamic_cast<FitParameterItem *>(parItem));
+    }
+    return result;
 }
 
 bool FitParameterContainerItem::isEmpty()

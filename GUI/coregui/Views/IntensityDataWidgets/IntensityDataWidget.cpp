@@ -38,6 +38,8 @@ IntensityDataWidget::IntensityDataWidget(QWidget *parent)
     setLayout(layout);
 
     m_colorMap->setStatusLabelEnabled(true);
+
+    initActions();
 }
 
 void IntensityDataWidget::setItem(SessionItem *item)
@@ -68,7 +70,6 @@ void IntensityDataWidget::onSavePlotAction()
     QString dirname = AppSvc::projectManager()->userExportDir();
     SavePlotAssistant saveAssistant;
     saveAssistant.savePlot(dirname, m_colorMap->customPlot(), m_currentItem);
-
 }
 
 void IntensityDataWidget::initActions()
@@ -83,7 +84,6 @@ void IntensityDataWidget::initActions()
     m_savePlotAction->setText("Save");
     m_savePlotAction->setIcon(QIcon(":/images/toolbar16light_save.svg"));
     m_savePlotAction->setToolTip("Save Plot");
-    connect(m_savePlotAction, SIGNAL(triggered()), this, SIGNAL(savePlot()));
-
+    connect(m_savePlotAction, SIGNAL(triggered()), this, SLOT(onSavePlotAction()));
 }
 

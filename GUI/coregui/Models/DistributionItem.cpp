@@ -23,10 +23,25 @@
 
 const QString DistributionItem::P_NUMBER_OF_SAMPLES = "Number of samples";
 const QString DistributionItem::P_SIGMA_FACTOR = "Sigma factor";
+const QString DistributionItem::P_IS_INITIALIZED = "is initialized";
 
 DistributionItem::DistributionItem(const QString name)
     : SessionItem(name)
 {
+    addProperty(P_IS_INITIALIZED, false)->setVisible(false);
+}
+
+//! Provides initialization of the distribution with some reasonable parameters around given value.
+//! Used by beamDistributionItem to propagate value from DistributionNone to the distribution
+//! currently selected by GroupItem.
+
+void DistributionItem::init_parameters(double value)
+{
+    if(getItemValue(P_IS_INITIALIZED).toBool())
+        return;
+
+    init_distribution(value);
+    setItemValue(P_IS_INITIALIZED, true);
 }
 
 void DistributionItem::register_number_of_samples()
@@ -55,7 +70,7 @@ std::unique_ptr<IDistribution1D> DistributionNoneItem::createDistribution() cons
     return nullptr;
 }
 
-void DistributionNoneItem::init_parameters(double value)
+void DistributionNoneItem::init_distribution(double value)
 {
     setItemValue(DistributionNoneItem::P_VALUE, value);
 }
@@ -81,7 +96,7 @@ std::unique_ptr<IDistribution1D> DistributionGateItem::createDistribution() cons
     return GUIHelpers::make_unique<DistributionGate>(min, max);
 }
 
-void DistributionGateItem::init_parameters(double value)
+void DistributionGateItem::init_distribution(double value)
 {
     double sigma(0.1*std::abs(value));
     if(sigma == 0.0) sigma = 0.1;
@@ -110,7 +125,7 @@ std::unique_ptr<IDistribution1D> DistributionLorentzItem::createDistribution() c
     return GUIHelpers::make_unique<DistributionLorentz>(mean, hwhm);
 }
 
-void DistributionLorentzItem::init_parameters(double value)
+void DistributionLorentzItem::init_distribution(double value)
 {
     double sigma(0.1*std::abs(value));
     if(sigma == 0.0) sigma = 0.1;
@@ -141,7 +156,7 @@ std::unique_ptr<IDistribution1D> DistributionGaussianItem::createDistribution() 
     return GUIHelpers::make_unique<DistributionGaussian>(mean, std_dev);
 }
 
-void DistributionGaussianItem::init_parameters(double value)
+void DistributionGaussianItem::init_distribution(double value)
 {
     double sigma(0.1*std::abs(value));
     if(sigma == 0.0) sigma = 0.1;
@@ -172,7 +187,7 @@ std::unique_ptr<IDistribution1D> DistributionLogNormalItem::createDistribution()
     return GUIHelpers::make_unique<DistributionLogNormal>(median, scale_par);
 }
 
-void DistributionLogNormalItem::init_parameters(double value)
+void DistributionLogNormalItem::init_distribution(double value)
 {
     double sigma(0.1*std::abs(value));
     if(sigma == 0.0) sigma = 0.1;
@@ -203,7 +218,7 @@ std::unique_ptr<IDistribution1D> DistributionCosineItem::createDistribution() co
     return GUIHelpers::make_unique<DistributionCosine>(mean, sigma);
 }
 
-void DistributionCosineItem::init_parameters(double value)
+void DistributionCosineItem::init_distribution(double value)
 {
     double sigma(0.1*std::abs(value));
     if(sigma == 0.0) sigma = 0.1;

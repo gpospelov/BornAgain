@@ -37,8 +37,9 @@ public:
     std::unique_ptr<ParameterDistribution> getParameterDistributionForName(
             const std::string &parameter_name);
 
-
 protected:
+    void initDistributionItem();
+
     virtual std::unique_ptr<IDistribution1D> createDistribution1D();
 };
 

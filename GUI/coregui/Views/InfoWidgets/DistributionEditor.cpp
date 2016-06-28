@@ -84,7 +84,7 @@ void DistributionEditor::setItem(SessionItem *item)
         }, this);
 
         DistributionItem *distrItem = dynamic_cast<DistributionItem *>(
-            m_item->getCurrentItem());
+            m_item->currentItem());
         Q_ASSERT(distrItem);
         m_plotwidget->setItem(distrItem);
     }
@@ -94,7 +94,7 @@ void DistributionEditor::onPropertyChanged(const QString &property_name)
 {
     if (property_name == GroupItem::T_ITEMS) {
         DistributionItem *distrItem = dynamic_cast<DistributionItem *>(
-            m_item->getCurrentItem());
+            m_item->currentItem());
         Q_ASSERT(distrItem);
         m_plotwidget->setItem(distrItem);
     }

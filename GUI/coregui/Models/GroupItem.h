@@ -28,7 +28,7 @@ public:
     GroupItem();
     void setGroup(GroupProperty_t group);
     GroupProperty_t group() const;
-    SessionItem *getCurrentItem();
+    SessionItem *currentItem();
 };
 
 #endif

@@ -19,9 +19,10 @@
 #include <QPlainTextEdit>
 #include <QVBoxLayout>
 #include <QScrollBar>
+#include <QStackedWidget>
 
 JobMessagePanel::JobMessagePanel(QWidget *parent)
-    : QWidget(parent)
+    : InfoPanel(parent)
     , m_plainLog(new QPlainTextEdit)
 {
     setWindowTitle(Constants::JobMessagePanelName);
@@ -32,13 +33,8 @@ JobMessagePanel::JobMessagePanel(QWidget *parent)
     f.setStyleHint(QFont::Monospace);
     m_plainLog->setFont(f);
 
-    QVBoxLayout *layout = new QVBoxLayout;
-    layout->setMargin(0);
-    layout->setSpacing(0);
+    m_stackedWidget->addWidget(m_plainLog);
 
-    layout->addWidget(m_plainLog);
-
-    setLayout(layout);
 }
 
 void JobMessagePanel::onClearLog()

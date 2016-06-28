@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/InfoWidgets/InfoToolBar.cpp
-//! @brief     Implements class InfoToolBar
+//! @file      GUI/coregui/Views/CommonWidgets/InfoPanelToolBar.cpp
+//! @brief     Declares class InfoPanelToolBar
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,11 +14,12 @@
 //
 // ************************************************************************** //
 
-#include "InfoToolBar.h"
+#include "InfoPanelToolBar.h"
+
 #include <QHBoxLayout>
 #include <QToolButton>
 
-InfoToolBar::InfoToolBar(QWidget *parent)
+InfoPanelToolBar::InfoPanelToolBar(QWidget *parent)
     : StyledToolBar(parent)
     , m_expandButton(new QToolButton)
     , m_closeButton(new QToolButton)
@@ -27,11 +28,11 @@ InfoToolBar::InfoToolBar(QWidget *parent)
     setMinimumSize(25, 25);
 
     m_expandButton->setIcon(QIcon(":/images/darkarrowup.png"));
-    m_expandButton->setToolTip("Collapse/expand view");
+    m_expandButton->setToolTip("Collapse/expand of Python script viewer");
     connect(m_expandButton, SIGNAL(clicked()), this, SLOT(onExpandButtonClicked()));
 
     m_closeButton->setIcon(QIcon(":/images/darkclosebutton.png"));
-    m_closeButton->setToolTip("Close viewer");
+    m_closeButton->setToolTip("Close Python script viewer");
     connect(m_closeButton, SIGNAL(clicked()), this, SIGNAL(closeButtonClicked()));
 
     QWidget* empty = new QWidget();
@@ -44,7 +45,7 @@ InfoToolBar::InfoToolBar(QWidget *parent)
     setStyleSheet("QToolBar {border-bottom: 1px solid gray}");
 }
 
-void InfoToolBar::setExpandStatus(bool status)
+void InfoPanelToolBar::setExpandStatus(bool status)
 {
     m_expanded = status;
     if(m_expanded) {
@@ -54,7 +55,7 @@ void InfoToolBar::setExpandStatus(bool status)
     }
 }
 
-void InfoToolBar::onExpandButtonClicked()
+void InfoPanelToolBar::onExpandButtonClicked()
 {
     m_expanded = !m_expanded;
     setExpandStatus(m_expanded);

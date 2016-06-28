@@ -16,7 +16,7 @@
 
 #include "InfoWidget.h"
 #include "PySampleWidget.h"
-#include "InfoToolBar.h"
+#include "InfoPanelToolBar.h"
 #include <QResizeEvent>
 #include <QVBoxLayout>
 #include <QDebug>
@@ -28,7 +28,7 @@ const int minimum_height_before_collapse = 40;
 
 InfoWidget::InfoWidget(QWidget *parent)
     : QWidget(parent)
-    , m_infoToolBar(new InfoToolBar(this))
+    , m_infoToolBar(new InfoPanelToolBar(this))
     , m_pySampleWidget(new PySampleWidget(this))
     , m_placeHolder(new QWidget(this))
     , m_cached_height(200)

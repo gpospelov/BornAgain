@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/JobWidgets/JobMessagePanel.h
-//! @brief     Declares class JobMessagePanel
+//! @file      GUI/coregui/Views/CommonWidgets/InfoPanelToolBar.h
+//! @brief     Declares class InfoPanelToolBar
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,28 +14,37 @@
 //
 // ************************************************************************** //
 
-#ifndef JOBMESSAGEPANEL_H
-#define JOBMESSAGEPANEL_H
+#ifndef INFOPANELTOOLBAR_H
+#define INFOPANELTOOLBAR_H
 
-#include "InfoPanel.h"
+#include "StyledToolBar.h"
 
-class QPlainTextEdit;
+class QToolButton;
 
-//! The JobMessagePanel class shows log messages from FitActivityPanel at the
-//! bottom part of JobView.
+//! The InfoPanelToolBar class represents a toolbar for InfoPanel
 
-class BA_CORE_API_ JobMessagePanel : public InfoPanel
+class BA_CORE_API_ InfoPanelToolBar : public StyledToolBar
 {
     Q_OBJECT
+
 public:
-    JobMessagePanel(QWidget *parent = 0);
+    explicit InfoPanelToolBar(QWidget *parent = 0);
+
+signals:
+    void expandButtonClicked();
+    void closeButtonClicked();
 
 public slots:
-    void onClearLog();
-    void onMessage(const QString &message);
+    void setExpandStatus(bool status);
+
+protected slots:
+    void onExpandButtonClicked();
 
 private:
-    QPlainTextEdit *m_plainLog;
+    QToolButton *m_expandButton;
+    QToolButton *m_closeButton;
+    bool m_expanded;
 };
+
 
 #endif

@@ -75,6 +75,9 @@ void ILayerView::updateColor()
         if (v.isValid()) {
             MaterialProperty mp = v.value<MaterialProperty>();
             setColor(mp.getColor());
+            update();
+        } else {
+            Q_ASSERT(0);
         }
     }
 }
@@ -156,7 +159,11 @@ void ILayerView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     // the scene: changing ownership.
     if (parentItem() && !requested_parent) {
         qDebug() << "1.3 Layer->Scene";
-        setPos(mapToScene(event->pos()) - event->pos());
+        QPointF newPos = mapToScene(event->pos()) - event->pos();
+//        setPos(newPos);
+        this->getItem()->setItemValue(SessionGraphicsItem::P_XPOS, newPos.x());
+        this->getItem()->setItemValue(SessionGraphicsItem::P_YPOS, newPos.y());
+
         model->moveParameterizedItem(this->getItem(), 0);
         QGraphicsItem::mouseReleaseEvent(event);
         return;

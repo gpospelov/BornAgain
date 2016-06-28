@@ -38,6 +38,8 @@ public:
     MaterialItem *getMaterial(const QModelIndex &index);
     MaterialItem *getMaterial(const MaterialProperty &property);
     MaterialItem *getMaterial(const QString &material_name);
+
+    MaterialItem *cloneMaterial(const QModelIndex &index);
 };
 
 #endif

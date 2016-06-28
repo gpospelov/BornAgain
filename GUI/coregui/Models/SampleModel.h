@@ -35,11 +35,11 @@ public:
     MultiLayerItem *multiLayerItem(const QString &item_name=QString());
 
 public slots:
-    void onMaterialModelChanged(const QModelIndex &first, const QModelIndex &second);
+    void onMaterialModelChanged(const QModelIndex &, const QModelIndex &);
 
 private:
     void exploreForMaterials(const QModelIndex &parentIndex = QModelIndex());
-    QString m_material_identifier;
+    bool m_block_explore_for_material;
 };
 
 #endif

@@ -20,6 +20,7 @@
 #include "MaterialUtils.h"
 #include "MaterialProperty.h"
 #include "IconProvider.h"
+#include <QUuid>
 #include <QDebug>
 
 MaterialModel::MaterialModel(QObject *parent)
@@ -90,4 +91,18 @@ MaterialItem *MaterialModel::getMaterial(const QString &material_name)
          }
     }
     return 0;
+}
+
+//! Returns clone of material with given index.
+
+MaterialItem *MaterialModel::cloneMaterial(const QModelIndex &index)
+{
+    const MaterialItem *origMaterial = getMaterial(index);
+    if(!origMaterial)
+        return nullptr;
+
+    SessionItem *clonedMaterial = copyParameterizedItem(origMaterial, 0);
+    clonedMaterial->setItemValue(MaterialItem::P_IDENTIFIER, QUuid::createUuid().toString());
+    clonedMaterial->setItemName(origMaterial->itemName()+" (clone)");
+    return dynamic_cast<MaterialItem *>(clonedMaterial);
 }

@@ -93,12 +93,8 @@ void MaterialEditorToolBar::onCloneMaterialAction()
     QModelIndexList selected = m_selectionModel->selectedIndexes();
     if(selected.size()) {
         QModelIndex selectedIndex = selected.front();
-        const MaterialItem *origMaterial =m_materialModel->getMaterial(selectedIndex);
-        SessionItem *clonedMaterial = m_materialModel->copyParameterizedItem(origMaterial, 0);
-        clonedMaterial->setItemValue(MaterialItem::P_IDENTIFIER, QUuid::createUuid().toString());
-        clonedMaterial->setItemName(origMaterial->itemName()+" (clone)");
+        m_materialModel->cloneMaterial(selectedIndex);
     }
-
 }
 
 void MaterialEditorToolBar::onRemoveMaterialAction()

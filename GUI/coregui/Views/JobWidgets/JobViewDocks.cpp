@@ -25,6 +25,8 @@
 #include "JobViewActivities.h"
 #include <QAbstractItemView>
 #include <QDockWidget>
+#include <QAction>
+#include <QTimer>
 
 namespace {
 const JobViewFlags::Activity default_activity = JobViewFlags::JOB_VIEW_ACTIVITY;
@@ -104,6 +106,55 @@ void JobViewDocks::onToggleJobSelector()
     selectorDock->setHidden(!selectorDock->isHidden());
 }
 
+//! A hack to request update of QDockWidget size if its child (e.g. InfoWidget) wants it.
+//! The problem bypassed here is that there is no direct method to QMainWindow to recalculate
+//! position of splitters surrounding given QDockWidget. So our child QWidget requests here
+//! the change of Min/Max size of QDockWidget, this will trigger recalculation of QDockWidget
+//! layout and will force QDockWidget to respect sizeHints provided by ChildWidget. Later (in one
+//! single timer shot) we return min/max sizes of QDockWidget back to re-enable splitters
+//! functionality.
+
+void JobViewDocks::setDockHeightForWidget(int height)
+{
+    qDebug() << "JobViewDocks::setDockHeightForWidget(int)" << height;
+
+    QWidget *widget = qobject_cast<QWidget *>(sender());
+    Q_ASSERT(widget);
+    QDockWidget *dock = findDock(widget);
+    Q_ASSERT(dock);
+
+    m_dock_info.m_dock = dock;
+    m_dock_info.m_min_size = dock->minimumSize();
+    m_dock_info.m_max_size = dock->maximumSize();
+
+    if(height >0) {
+        if(dock->height() < height) {
+            dock->setMinimumHeight(height);
+        } else {
+            dock->setMaximumHeight(height);
+        }
+    }
+
+    QTimer::singleShot(1, this, [=]() {
+        Q_ASSERT(m_dock_info.m_dock);
+        m_dock_info.m_dock->setMinimumSize(m_dock_info.m_min_size);
+        m_dock_info.m_dock->setMaximumSize(m_dock_info.m_max_size);
+        m_dock_info.m_dock = 0;
+    });
+
+}
+
+void JobViewDocks::onWidgetCloseRequest()
+{
+    qDebug() << "JobViewDocks::onWidgetCloseRequest()";
+    QWidget *widget = qobject_cast<QWidget *>(sender());
+    Q_ASSERT(widget);
+    QDockWidget *dock = findDock(widget);
+    Q_ASSERT(dock);
+
+    dock->toggleViewAction()->trigger();
+}
+
 //! Returns job widget with given Id.
 
 QWidget *JobViewDocks::jobWidget(JobViewFlags::Dock dockId)
@@ -144,6 +195,9 @@ void JobViewDocks::initJobWidgets(JobModel *jobModel)
     m_jobWidgets[JobViewFlags::FIT_PANEL_DOCK] = m_fitActivityPanel;
 
     m_jobMessagePanel = new JobMessagePanel(m_jobView);
+    connect(m_jobMessagePanel, SIGNAL(widgetHeightRequest(int)), this, SLOT(setDockHeightForWidget(int)));
+    connect(m_jobMessagePanel, SIGNAL(widgetCloseRequest()), this, SLOT(onWidgetCloseRequest()));
+
     m_jobWidgets[JobViewFlags::JOB_MESSAGE_DOCK] = m_jobMessagePanel;
 
     m_fitActivityPanel->setRealTimeWidget(m_jobRealTimeWidget);
@@ -164,6 +218,7 @@ void JobViewDocks::initDocks()
     for (int i = 0; i < JobViewFlags::NUMBER_OF_DOCKS; i++) {
         QWidget *subWindow = jobWidget(JobViewFlags::Dock(i));
         m_dockWidgets[i] = m_jobView->addDockForWidget(subWindow);
+        //m_dockWidgets[i]->setMinimumSize(QSize());
 
         // Since we have 1-pixel splitters, we generally want to remove
         // frames around item views. So we apply this hack for now.
@@ -175,4 +230,12 @@ void JobViewDocks::initDocks()
     }
 
     onResetLayout();
+}
+
+QDockWidget *JobViewDocks::findDock(QWidget *widget)
+{
+    int index = m_jobWidgets.indexOf(widget);
+    if(index>=0)
+        return m_dockWidgets[index];
+    return nullptr;
 }

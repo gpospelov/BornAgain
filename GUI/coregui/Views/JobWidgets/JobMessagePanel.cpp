@@ -35,6 +35,8 @@ JobMessagePanel::JobMessagePanel(QWidget *parent)
 
     m_stackedWidget->addWidget(m_plainLog);
 
+
+    setContentVisible(false);
 }
 
 void JobMessagePanel::onClearLog()

@@ -20,7 +20,7 @@
 #include "WinDllMacros.h"
 #include <QWidget>
 
-class InfoPanelToolBar;
+class InfoToolBar;
 class SampleModel;
 class InstrumentModel;
 class PySampleWidget;
@@ -56,7 +56,7 @@ protected:
     bool isEditorVisible();
 
 private:
-    InfoPanelToolBar *m_infoToolBar;
+    InfoToolBar *m_infoToolBar;
     PySampleWidget *m_pySampleWidget;
     QWidget *m_placeHolder;
     int m_cached_height;

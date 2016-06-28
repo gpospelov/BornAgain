@@ -19,13 +19,19 @@
 #include <QHBoxLayout>
 #include <QToolButton>
 
+namespace {
+const int minimum_size = 25;
+}
+
+
+
 InfoPanelToolBar::InfoPanelToolBar(QWidget *parent)
     : StyledToolBar(parent)
     , m_expandButton(new QToolButton)
     , m_closeButton(new QToolButton)
     , m_expanded(false)
 {
-    setMinimumSize(25, 25);
+    setMinimumSize(minimum_size, minimum_size);
 
     m_expandButton->setIcon(QIcon(":/images/darkarrowup.png"));
     m_expandButton->setToolTip("Collapse/expand of Python script viewer");
@@ -35,10 +41,11 @@ InfoPanelToolBar::InfoPanelToolBar(QWidget *parent)
     m_closeButton->setToolTip("Close Python script viewer");
     connect(m_closeButton, SIGNAL(clicked()), this, SIGNAL(closeButtonClicked()));
 
-    QWidget* empty = new QWidget();
-    empty->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
-    addWidget(empty);
+//    QWidget* empty = new QWidget();
+//    empty->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+//    addWidget(empty);
 
+    addStyledExpand();
     addWidget(m_expandButton);
     addWidget(m_closeButton);
 

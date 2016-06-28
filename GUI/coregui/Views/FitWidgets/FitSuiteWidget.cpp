@@ -202,7 +202,7 @@ void FitSuiteWidget::onFitSuitePropertyChange(const QString &name)
 
 void FitSuiteWidget::processFittingError(const QString &text)
 {
-    m_currentItem->setStatus(Constants::STATUS_FAILED);
+    //m_currentItem->setStatus(Constants::STATUS_FITTING_FAILED);
     emit fittingError(text);
 }
 

@@ -21,7 +21,7 @@ namespace Constants
 {
 
 const int plot_tick_label_size = 10;
-const int plot_axes_label_size = 12;
+const int plot_axes_label_size = 10;
 const int plot_colorbar_size=12;
 
 }

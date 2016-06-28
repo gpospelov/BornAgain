@@ -72,6 +72,7 @@ private slots:
     void onFittingStarted();
     void onFittingFinished();
     void onFitSuitePropertyChange(const QString &name);
+    void processFittingError(const QString &text);
 
 private:
     void connectSignals();

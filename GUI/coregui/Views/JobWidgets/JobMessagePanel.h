@@ -18,8 +18,9 @@
 #define JOBMESSAGEPANEL_H
 
 #include "InfoPanel.h"
+#include <QColor>
 
-class QPlainTextEdit;
+class QTextEdit;
 
 //! The JobMessagePanel class shows log messages from FitActivityPanel at the
 //! bottom part of JobView.
@@ -32,10 +33,10 @@ public:
 
 public slots:
     void onClearLog();
-    void onMessage(const QString &message);
+    void onMessage(const QString &message, const QColor &color = QColor(Qt::black));
 
 private:
-    QPlainTextEdit *m_plainLog;
+    QTextEdit *m_plainLog;
 };
 
 #endif

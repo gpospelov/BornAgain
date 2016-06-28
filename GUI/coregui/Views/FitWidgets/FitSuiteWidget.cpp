@@ -148,7 +148,9 @@ void FitSuiteWidget::startFitting()
         m_runFitManager->runFitting();
         qDebug() << " done";
     } catch(std::exception& e) {
+        m_currentItem->setStatus(Constants::STATUS_FAILED);
         m_currentItem->fitSuiteItem()->mapper()->unsubscribe(this);
+        processFittingError(QString::fromStdString(e.what()));
         emit fittingError(QString::fromStdString(e.what()));
     }
 
@@ -177,7 +179,8 @@ void FitSuiteWidget::onFittingStarted()
 
 void FitSuiteWidget::onFittingFinished()
 {
-    m_currentItem->setStatus(Constants::STATUS_COMPLETED);
+    if(m_currentItem->getStatus() != Constants::STATUS_FAILED)
+        m_currentItem->setStatus(Constants::STATUS_COMPLETED);
     m_currentItem->setEndTime(GUIHelpers::currentDateTime());
     m_currentItem->setProgress(100);
     m_currentItem->setDuration(m_runFitManager->getDuration());
@@ -197,11 +200,17 @@ void FitSuiteWidget::onFitSuitePropertyChange(const QString &name)
 
 }
 
+void FitSuiteWidget::processFittingError(const QString &text)
+{
+    m_currentItem->setStatus(Constants::STATUS_FAILED);
+    emit fittingError(text);
+}
+
 void FitSuiteWidget::connectSignals()
 {
     connect(m_runFitManager, SIGNAL(startedFitting()), this, SLOT(onFittingStarted()));
     connect(m_runFitManager, SIGNAL(finishedFitting()), this, SLOT(onFittingFinished()));
-    connect(m_runFitManager, SIGNAL(fittingError(QString)), this, SIGNAL(fittingError(QString)));
+    connect(m_runFitManager, SIGNAL(fittingError(QString)), this, SLOT(processFittingError(QString)));
 
     connect(m_observer.get(), SIGNAL(plotsUpdate()), this, SLOT(onPlotsUpdate()));
 

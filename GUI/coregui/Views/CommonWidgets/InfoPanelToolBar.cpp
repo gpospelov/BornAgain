@@ -23,8 +23,6 @@ namespace {
 const int minimum_size = 25;
 }
 
-
-
 InfoPanelToolBar::InfoPanelToolBar(QWidget *parent)
     : StyledToolBar(parent)
     , m_expandButton(new QToolButton)
@@ -34,16 +32,12 @@ InfoPanelToolBar::InfoPanelToolBar(QWidget *parent)
     setMinimumSize(minimum_size, minimum_size);
 
     m_expandButton->setIcon(QIcon(":/images/darkarrowup.png"));
-    m_expandButton->setToolTip("Collapse/expand of Python script viewer");
+    m_expandButton->setToolTip("Collapse/expand view");
     connect(m_expandButton, SIGNAL(clicked()), this, SLOT(onExpandButtonClicked()));
 
     m_closeButton->setIcon(QIcon(":/images/darkclosebutton.png"));
-    m_closeButton->setToolTip("Close Python script viewer");
+    m_closeButton->setToolTip("Close viewe");
     connect(m_closeButton, SIGNAL(clicked()), this, SIGNAL(closeButtonClicked()));
-
-//    QWidget* empty = new QWidget();
-//    empty->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
-//    addWidget(empty);
 
     addStyledExpand();
     addWidget(m_expandButton);

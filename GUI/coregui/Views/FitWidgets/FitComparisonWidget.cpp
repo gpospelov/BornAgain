@@ -112,6 +112,7 @@ void FitComparisonWidget::setJobItem(JobItem *jobItem)
     m_realDataPlot->setItem(m_realDataItem);
     m_simulatedDataPlot->setItem(m_simulatedDataItem);
     m_relativeDiffPlot->setItem(m_relativeDiffItem);
+    m_fitFlowWidget->setItem(jobItem->fitSuiteItem());
 
     m_statusLabel->reset();
     m_statusLabel->addColorMap(m_realDataPlot);

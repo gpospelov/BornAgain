@@ -53,6 +53,7 @@ signals:
     void plotsUpdate();
     void logInfoUpdate(const QString &);
     void progressInfoUpdate(const FitProgressInfo &info);
+//    void chiSquareUpdate(int niter, double chi2);
 
 private:
     bool canUpdatePlots(FitSuite *fitSuite);

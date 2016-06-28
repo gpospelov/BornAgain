@@ -230,6 +230,7 @@ void FitSuiteWidget::updateIterationCount(const FitProgressInfo &info)
 {
     FitSuiteItem *fitSuiteItem = m_currentItem->fitSuiteItem();
     fitSuiteItem->setItemValue(FitSuiteItem::P_ITERATION_COUNT, info.iterationCount());
+    fitSuiteItem->setItemValue(FitSuiteItem::P_CHI2, info.chi2());
 }
 
 void FitSuiteWidget::updateTuningWidgetParameterValues(const FitProgressInfo &info)

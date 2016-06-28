@@ -21,6 +21,7 @@
 #include <QFrame>
 
 class HistogramPlot;
+class FitSuiteItem;
 
 //! The FitFlowWidget class is intended for showing chi2 .vs interation count dependency.
 //! The main goal is to fill vacant place in FitComparisonWidget.
@@ -30,10 +31,15 @@ class BA_CORE_API_ FitFlowWidget : public QFrame
     Q_OBJECT
 public:
     explicit FitFlowWidget(QWidget *parent = 0);
+    ~FitFlowWidget();
+
+    void setItem(FitSuiteItem *fitSuiteItem);
 
 private:
     HistogramPlot *m_histPlot;
-
+    FitSuiteItem *m_fitSuiteItem;
+    QVector<double> m_x;
+    QVector<double> m_y;
 };
 
 

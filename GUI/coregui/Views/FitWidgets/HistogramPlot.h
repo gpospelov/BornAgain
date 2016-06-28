@@ -27,6 +27,10 @@ class BA_CORE_API_ HistogramPlot : public QWidget
 public:
     explicit HistogramPlot(QWidget *parent = 0);
 
+public slots:
+//    bool addData(double x, double y);
+
+    void setData(const QVector<double> &x, const QVector<double> y);
 private:
 
     QCustomPlot *m_customPlot;

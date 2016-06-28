@@ -1465,8 +1465,6 @@ class AttLimits(_object):
             self.this.append(this)
         except Exception:
             self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_AttLimits
-    __del__ = lambda self: None
 
     def hasLowerLimit(self):
         """
@@ -1701,6 +1699,8 @@ class AttLimits(_object):
         """__ne__(AttLimits self, AttLimits other) -> bool"""
         return _libBornAgainCore.AttLimits___ne__(self, other)
 
+    __swig_destroy__ = _libBornAgainCore.delete_AttLimits
+    __del__ = lambda self: None
 AttLimits_swigregister = _libBornAgainCore.AttLimits_swigregister
 AttLimits_swigregister(AttLimits)
 

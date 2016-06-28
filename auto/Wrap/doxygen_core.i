@@ -37,9 +37,6 @@ C++ includes: AttLimits.h
 %feature("docstring")  AttLimits::AttLimits "AttLimits::AttLimits()
 ";
 
-%feature("docstring")  AttLimits::~AttLimits "AttLimits::~AttLimits()
-";
-
 %feature("docstring")  AttLimits::hasLowerLimit "bool AttLimits::hasLowerLimit() const
 
 if has lower limit 

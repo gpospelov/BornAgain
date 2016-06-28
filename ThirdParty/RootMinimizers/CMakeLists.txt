@@ -14,7 +14,7 @@ file(GLOB source_files
     "src/TMVA/*.cxx"
 )
 
-file(GLOB include_files 
+file(GLOB include_files
     "inc/Fit/*.h"
     "inc/Math/*.h"
     "inc/Minuit2/*.h"
@@ -24,8 +24,7 @@ file(GLOB include_files
 
 # --- definitions ---------
 add_definitions(-DWARNINGMSG)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} \
-    -DMATH_NO_PLUGIN_MANAGER -DHAS_MINUIT2 -DR__HAS_MATHMORE")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DMATH_NO_PLUGIN_MANAGER -DHAS_MINUIT2 -DR__HAS_MATHMORE")
 if(NOT WIN32)
     SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-deprecated-declarations")
 endif()

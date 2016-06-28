@@ -57,13 +57,24 @@ public:
 public slots:
     void onResetLayout();
     void onToggleJobSelector();
+    void setDockHeightForWidget(int height);
+    void onWidgetCloseRequest();
 
 private:
+    //! Stores sizes of dock widget
+    struct DockSizeInfo {
+        DockSizeInfo():m_dock(0){}
+        QDockWidget *m_dock;
+        QSize m_min_size;
+        QSize m_max_size;
+    };
+
     QWidget *jobWidget(JobViewFlags::Dock dockId);
     QDockWidget *dock(JobViewFlags::Dock dockId);
     QWidget *centralWidget();
     void initJobWidgets(class JobModel *jobModel);
     void initDocks();
+    QDockWidget *findDock(QWidget *widget);
 
     JobSelectorWidget *m_jobSelector;
     JobOutputDataWidget *m_jobOutputDataWidget;
@@ -75,6 +86,8 @@ private:
     QVector<QDockWidget *> m_dockWidgets;
 
     JobView *m_jobView;
+    DockSizeInfo m_dock_info;
+
 };
 
 #endif

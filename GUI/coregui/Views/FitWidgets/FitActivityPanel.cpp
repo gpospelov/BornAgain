@@ -30,6 +30,7 @@ FitActivityPanel::FitActivityPanel(JobModel *jobModel, QWidget *parent)
     , m_stackedWidget(new ItemStackPresenter<FitSuiteWidget>)
     , m_controlWidget(new RunFitControlWidget)
     , m_realTimeWidget(0)
+    , m_jobMessagePanel(0)
 {
     setWindowTitle(Constants::JobFitPanelName);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
@@ -57,6 +58,7 @@ void FitActivityPanel::setRealTimeWidget(JobRealTimeWidget *realTimeWidget)
 
 void FitActivityPanel::setJobMessagePanel(JobMessagePanel *jobMessagePanel)
 {
+    m_jobMessagePanel = jobMessagePanel;
     m_controlWidget->setJobMessagePanel(jobMessagePanel);
 }
 

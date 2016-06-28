@@ -43,6 +43,8 @@ void GUIFitObserver::update(FitSuite *subject)
     if (subject->isInterrupted())
         return;
 
+//    emit chiSquareUpdate((int)subject->getNumberOfIterations(), subject->getChi2());
+
     if(canUpdateProgressInfo(subject)) {
         FitProgressInfo info;
         info.m_chi2 = subject->getChi2();

@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/JobWidgets/JobMessagePanel.h
-//! @brief     Declares class JobMessagePanel
+//! @file      GUI/coregui/Views/FitWidgets/HistogramPlot.h
+//! @brief     Declares class HistogramPlot
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,29 +14,28 @@
 //
 // ************************************************************************** //
 
-#ifndef JOBMESSAGEPANEL_H
-#define JOBMESSAGEPANEL_H
+#ifndef HISTOGRAMPLOT_H
+#define HISTOGRAMPLOT_H
 
-#include "InfoPanel.h"
-#include <QColor>
+#include "WinDllMacros.h"
+#include "qcustomplot.h"
+#include <QWidget>
 
-class QTextEdit;
-
-//! The JobMessagePanel class shows log messages from FitActivityPanel at the
-//! bottom part of JobView.
-
-class BA_CORE_API_ JobMessagePanel : public InfoPanel
+class BA_CORE_API_ HistogramPlot : public QWidget
 {
     Q_OBJECT
 public:
-    JobMessagePanel(QWidget *parent = 0);
+    explicit HistogramPlot(QWidget *parent = 0);
 
 public slots:
-    void onClearLog();
-    void onMessage(const QString &message, const QColor &color = QColor(Qt::black));
+//    bool addData(double x, double y);
 
+    void setData(const QVector<double> &x, const QVector<double> y);
 private:
-    QTextEdit *m_plainLog;
+
+    QCustomPlot *m_customPlot;
+
 };
 
 #endif
+

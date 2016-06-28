@@ -15,18 +15,68 @@
 // ************************************************************************** //
 
 #include "FitFlowWidget.h"
+#include "HistogramPlot.h"
+#include "FitSuiteItem.h"
 #include <QVBoxLayout>
+#include <QDebug>
 
 FitFlowWidget::FitFlowWidget(QWidget *parent)
     : QFrame(parent)
+    , m_histPlot(new HistogramPlot)
+    , m_fitSuiteItem(0)
 {
     setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
 
     QVBoxLayout *layout = new QVBoxLayout;
-    layout->setSpacing(0);
-    layout->setMargin(0);
+    layout->setContentsMargins(10, 10, 10, 10);
+    layout->addWidget(m_histPlot);
 
     setStyleSheet("background-color:white;");
 
     setLayout(layout);
+}
+
+FitFlowWidget::~FitFlowWidget()
+{
+    if(m_fitSuiteItem)
+        m_fitSuiteItem->mapper()->unsubscribe(this);
+}
+
+void FitFlowWidget::setItem(FitSuiteItem *fitSuiteItem)
+{
+    if(fitSuiteItem == m_fitSuiteItem)
+        return;
+
+    if(m_fitSuiteItem)
+        m_fitSuiteItem->mapper()->unsubscribe(this);
+
+    m_fitSuiteItem = fitSuiteItem;
+    if(!m_fitSuiteItem)
+        return;
+
+    m_fitSuiteItem->mapper()->setOnPropertyChange(
+                [this](const QString &name)
+    {
+        if(name == FitSuiteItem::P_CHI2) {
+            int iter = m_fitSuiteItem->getItemValue(FitSuiteItem::P_ITERATION_COUNT).toInt();
+            double chi = m_fitSuiteItem->getItemValue(FitSuiteItem::P_CHI2).toDouble();
+            if(iter == 0) {
+                m_x.clear();
+                m_y.clear();
+            }
+            m_x.push_back(static_cast<double>(iter));
+            m_y.push_back(chi);
+            m_histPlot->setData(m_x, m_y);
+        }
+//        if(name == JobItem::P_STATUS) {
+//            if(m_currentJobItem->isCompleted())
+//                onResetViewAction();
+//        }
+    }, this);
+
+    m_fitSuiteItem->mapper()->setOnItemDestroy(
+                [this](SessionItem *) {
+        m_fitSuiteItem = 0;
+    }, this);
+
 }

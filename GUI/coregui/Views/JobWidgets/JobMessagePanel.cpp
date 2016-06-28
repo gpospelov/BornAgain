@@ -16,29 +16,27 @@
 
 #include "JobMessagePanel.h"
 #include "mainwindow_constants.h"
-#include <QPlainTextEdit>
+#include <QTextEdit>
 #include <QVBoxLayout>
 #include <QScrollBar>
+#include <QStackedWidget>
 
 JobMessagePanel::JobMessagePanel(QWidget *parent)
-    : QWidget(parent)
-    , m_plainLog(new QPlainTextEdit)
+    : InfoPanel(parent)
+    , m_plainLog(new QTextEdit)
 {
     setWindowTitle(Constants::JobMessagePanelName);
 
     m_plainLog->setReadOnly(true);
-    m_plainLog->setMaximumBlockCount(100000);
+//    m_plainLog->setMaximumBlockCount(100000);
     QFont f("unexistent");
     f.setStyleHint(QFont::Monospace);
     m_plainLog->setFont(f);
 
-    QVBoxLayout *layout = new QVBoxLayout;
-    layout->setMargin(0);
-    layout->setSpacing(0);
+    m_stackedWidget->addWidget(m_plainLog);
 
-    layout->addWidget(m_plainLog);
 
-    setLayout(layout);
+    setContentVisible(false);
 }
 
 void JobMessagePanel::onClearLog()
@@ -46,11 +44,13 @@ void JobMessagePanel::onClearLog()
     m_plainLog->clear();
 }
 
-void JobMessagePanel::onMessage(const QString &message)
+void JobMessagePanel::onMessage(const QString &message, const QColor &color)
 {
     QScrollBar *scrollbar = m_plainLog->verticalScrollBar();
     bool autoscroll = scrollbar->value() == scrollbar->maximum();
-    m_plainLog->appendPlainText(message);
+//    m_plainLog->appendPlainText(message);
+    m_plainLog->setTextColor(color);
+    m_plainLog->append(message);
     if (autoscroll) {
         QTextCursor c = m_plainLog->textCursor();
         c.movePosition(QTextCursor::End);

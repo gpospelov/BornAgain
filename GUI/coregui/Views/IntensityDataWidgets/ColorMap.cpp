@@ -22,6 +22,7 @@
 #include "UpdateTimer.h"
 #include "Units.h"
 #include "ColorMapEvent.h"
+#include "plot_constants.h"
 #include <QDebug>
 
 namespace {
@@ -332,6 +333,12 @@ void ColorMap::initColorMap()
     m_customPlot->addPlottable(m_colorMap);
     m_colorScale = new QCPColorScale(m_customPlot);
     m_colorMap->setColorScale(m_colorScale);
+
+    m_colorScale->setBarWidth(Constants::plot_colorbar_size);
+    m_colorScale->axis()->setTickLabelFont(QFont(QFont().family(), Constants::plot_tick_label_size));
+    m_customPlot->xAxis->setTickLabelFont(QFont(QFont().family(), Constants::plot_tick_label_size));
+    m_customPlot->yAxis->setTickLabelFont(QFont(QFont().family(), Constants::plot_tick_label_size));
+
 }
 
 

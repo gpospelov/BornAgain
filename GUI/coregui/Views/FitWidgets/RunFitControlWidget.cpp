@@ -127,6 +127,10 @@ void RunFitControlWidget::onFittingStarted(JobItem *jobItem)
 void RunFitControlWidget::onFittingFinished(JobItem *jobItem)
 {
     Q_ASSERT(jobItem = m_currentItem);
+
+    if(jobItem->isCompleted())
+        m_jobMessagePanel->onMessage(QStringLiteral("Done"), QColor(Qt::darkBlue));
+
     m_startButton->setEnabled(true);
     m_stopButton->setEnabled(false);
     fitSuiteItem()->mapper()->unsubscribe(this);
@@ -147,6 +151,8 @@ void RunFitControlWidget::onFittingError(const QString &what)
     QPoint pos = getPositionForWarningSign();
     m_warningSign->setPosition(pos.x(), pos.y());
     m_warningSign->show();
+
+    m_jobMessagePanel->onMessage(message, QColor(Qt::darkRed));
 }
 
 void RunFitControlWidget::onFittingLog(const QString &text)

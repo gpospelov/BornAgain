@@ -19,8 +19,8 @@
 #include "Distributions.h"
 #include "ParameterDistribution.h"
 #include "Units.h"
+#include "GroupItem.h"
 #include "GUIHelpers.h"
-
 #include <QDebug>
 
 const QString BeamDistributionItem::P_DISTRIBUTION = "Distribution";
@@ -30,6 +30,24 @@ BeamDistributionItem::BeamDistributionItem(const QString name)
 {
     addGroupProperty(P_DISTRIBUTION, Constants::DistributionExtendedGroup);
     setGroupProperty(P_DISTRIBUTION, Constants::DistributionNoneType);
+
+
+    mapper()->setOnChildPropertyChange(
+                [this](SessionItem* item, const QString &name)
+    {
+        qDebug() << "AAAAA" << item->modelType() << name;
+        if(item->modelType() == Constants::GroupItemType) {
+            initDistributionItem();
+        }
+//        if (item->modelType() == Constants::IntensityDataType
+//            && name == IntensityDataItem::P_AXES_UNITS) {
+//            auto intensityItem = dynamic_cast<IntensityDataItem *>(item);
+//            JobItemHelper::updateDataAxes(intensityItem, getInstrumentItem());
+//            qDebug() << "QQQQ" << item->modelType() << name;
+
+//        }
+    });
+
 }
 
 //! returns parameter distribution to add into the Simulation
@@ -66,6 +84,33 @@ BeamDistributionItem::getParameterDistributionForName(const std::string &paramet
         }
     }
     return P_par_distr;
+}
+
+//! Propagates the value stored in DistributionNone type into currently activive distribution.
+
+void BeamDistributionItem::initDistributionItem()
+{
+    GroupItem *groupItem = dynamic_cast<GroupItem *>(getItem(P_DISTRIBUTION));
+    Q_ASSERT(groupItem);
+
+    SessionItem *distributionNone(0);
+    foreach(SessionItem *item, groupItem->getItems(GroupItem::T_ITEMS)) {
+        if(item->modelType() == Constants::DistributionNoneType) {
+            distributionNone = item;
+            break;
+        }
+    }
+
+    if(!distributionNone)
+        return;
+
+    if(distributionNone != groupItem->currentItem()) {
+        DistributionItem *distrItem = dynamic_cast<DistributionItem *>(groupItem->currentItem());
+        Q_ASSERT(distrItem);
+        distrItem->init_parameters(distributionNone->getItemValue(DistributionNoneItem::P_VALUE).toDouble());
+    }
+
+
 }
 
 std::unique_ptr<IDistribution1D> BeamDistributionItem::createDistribution1D()

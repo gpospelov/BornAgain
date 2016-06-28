@@ -63,6 +63,8 @@ FitParameterWidget::FitParameterWidget(QWidget *parent)
     m_treeView->setDragEnabled(true);
     m_treeView->setDragDropMode(QAbstractItemView::DragDrop);
     m_treeView->installEventFilter(m_keyboardFilter);
+    m_treeView->setAlternatingRowColors(true);
+    m_treeView->setStyleSheet("alternate-background-color: #EFF0F1;");
 
     connect(m_treeView, SIGNAL(customContextMenuRequested(const QPoint &)),
             this, SLOT(onFitParameterTreeContextMenu(const QPoint &)));

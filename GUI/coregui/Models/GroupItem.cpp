@@ -48,7 +48,7 @@ GroupProperty_t GroupItem::group() const
     return value().value<GroupProperty_t>();
 }
 
-SessionItem *GroupItem::getCurrentItem()
+SessionItem *GroupItem::currentItem()
 {
     return group()->getCurrentItem();
 }

@@ -24,7 +24,6 @@
 
 #include <QVBoxLayout>
 #include <QVariant>
-#include <QDebug>
 
 ComponentEditor::ComponentEditor(ComponentEditorFlags::PresentationType flags, QWidget *parent)
     : QWidget(parent)
@@ -107,12 +106,7 @@ void ComponentEditor::onDataChanged(const QModelIndex &topLeft,
     SessionItem *item = model->itemForIndex(topLeft);
     Q_ASSERT(item);
 
-    qDebug() << " ComponentEditor::onDataChanged" << m_d->m_presentationType
-             << roles << item->modelType() << item->displayName();
-
     if(m_d->m_changedItems.contains(item)) return;
-
-    qDebug() << " ComponentEditor::onDataChanged 1.2 processing";
 
     if (QtVariantProperty *property = m_d->getPropertyForItem(item)) {
         // updating editor's property appearance (tooltips, limits)
@@ -138,10 +132,9 @@ void ComponentEditor::onDataChanged(const QModelIndex &topLeft,
 //! Updates the editor starting from given SessionItem's parent.
 //! Editor should know already about given item (i.e. corresponding
 //! QtVariantProperty should exist.
-void ComponentEditor::onRowsInserted(const QModelIndex &parent, int first,
-                                     int last)
+void ComponentEditor::onRowsInserted(const QModelIndex &parent, int,
+                                     int )
 {
-    qDebug() << "ComponentEditor::onRowsInserted" << parent << first << last;
     SessionModel *model = qobject_cast<SessionModel *>(sender());
 
     SessionItem *item = model->itemForIndex(parent);
@@ -157,16 +150,13 @@ void ComponentEditor::onRowsInserted(const QModelIndex &parent, int first,
 void ComponentEditor::onQtPropertyChanged(QtProperty *property,
                                           const QVariant &value)
 {
-    qDebug() << "ComponentEditor::onQtPropertyChanged" << property << value;
     if (SessionItem *item = m_d->getItemForProperty(property)) {
         Q_ASSERT(item);
-        qDebug() << "Disconnecting";
 //        disconnectModel(item->model());
         m_d->m_changedItems.append(item);
         item->setValue(value);
 //        connectModel(item->model());
         m_d->m_changedItems.removeAll(item);
-        qDebug() << "Connected";
     }
 }
 
@@ -202,7 +192,8 @@ ComponentEditor::componentItems(SessionItem *item) const
 
         if (item->modelType() == Constants::GroupItemType) {
             foreach (SessionItem *childOfChild, child->childItems()) {
-                result.append(childOfChild);
+                if (childOfChild->isVisible())
+                    result.append(childOfChild);
             }
         }
 

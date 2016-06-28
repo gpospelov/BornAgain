@@ -18,8 +18,6 @@
 #include "SessionModel.h"
 #include "CustomEventFilters.h"
 #include <QModelIndex>
-#include <QDebug>
-
 
 ComponentBoxEditor::ComponentBoxEditor(QWidget *parent)
     : ComponentEditor(ComponentEditorFlags::BROWSER_GROUPBOX, parent)
@@ -39,7 +37,7 @@ void ComponentBoxEditor::updatePropertyItems(SessionItem *item, QtVariantPropert
 {
     if(item->modelType() == Constants::PropertyType ||
             item->modelType() == Constants::GroupItemType) {
-        updateItem(item, parentProperty);
+            updateItem(item, parentProperty);
     }
 
     if(m_d->m_item_to_insert_mode.contains(item)) {
@@ -77,9 +75,6 @@ void ComponentBoxEditor::onDataChanged(const QModelIndex &topLeft, const QModelI
     Q_ASSERT(model);
     SessionItem *item = model->itemForIndex(topLeft);
     Q_ASSERT(item);
-
-    qDebug() << " ComponentEditor::onDataChanged" << m_d->m_presentationType
-             << roles << item->modelType() << item->displayName();
 
     if (QtVariantProperty *property = m_d->getPropertyForItem(item)) {
         // updating editor's property appearance (tooltips, limits)

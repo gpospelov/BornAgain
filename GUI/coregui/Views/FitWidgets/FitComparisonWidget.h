@@ -69,6 +69,8 @@ private:
     ColorMapCanvas *m_realDataPlot;
     ColorMapCanvas *m_simulatedDataPlot;
     ColorMapCanvas *m_relativeDiffPlot;
+
+
     FitFlowWidget *m_fitFlowWidget;
     ColorMapLabel *m_statusLabel;
 

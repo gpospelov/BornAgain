@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/FitWidgets/FitFlowWidget.h
-//! @brief     Declares class FitFlowWidget
+//! @file      GUI/coregui/Views/FitWidgets/plot_constants.h
+//! @brief     Declares various constants for plotting
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,29 +14,15 @@
 //
 // ************************************************************************** //
 
-#ifndef FITFLOWWIDGET_H
-#define FITFLOWWIDGET_H
+#ifndef PLOT_CONSTANTS_H
+#define PLOT_CONSTANTS_H
 
-#include "WinDllMacros.h"
-#include <QFrame>
-
-class HistogramPlot;
-
-//! The FitFlowWidget class is intended for showing chi2 .vs interation count dependency.
-//! The main goal is to fill vacant place in FitComparisonWidget.
-
-class BA_CORE_API_ FitFlowWidget : public QFrame
+namespace Constants
 {
-    Q_OBJECT
-public:
-    explicit FitFlowWidget(QWidget *parent = 0);
 
-private:
-    HistogramPlot *m_histPlot;
+const int plot_tick_label_size = 10;
+const int plot_colorbar_size=12;
 
-};
-
-
+}
 
 #endif
-

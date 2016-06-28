@@ -15,16 +15,19 @@
 // ************************************************************************** //
 
 #include "FitFlowWidget.h"
+#include "HistogramPlot.h"
 #include <QVBoxLayout>
 
 FitFlowWidget::FitFlowWidget(QWidget *parent)
     : QFrame(parent)
+    , m_histPlot(new HistogramPlot)
 {
     setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
 
     QVBoxLayout *layout = new QVBoxLayout;
     layout->setSpacing(0);
     layout->setMargin(0);
+    layout->addWidget(m_histPlot);
 
     setStyleSheet("background-color:white;");
 

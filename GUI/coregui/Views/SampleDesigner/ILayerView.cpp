@@ -75,6 +75,7 @@ void ILayerView::updateColor()
         if (v.isValid()) {
             MaterialProperty mp = v.value<MaterialProperty>();
             setColor(mp.getColor());
+            update();
         }
     }
 }

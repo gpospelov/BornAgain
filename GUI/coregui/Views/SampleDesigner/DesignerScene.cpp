@@ -319,7 +319,7 @@ void DesignerScene::removeItemViewFromScene(SessionItem *item)
             IView *view = it.value();
             view->setSelected(false);
             m_ItemToView.erase(it);
-//            emit view->aboutToBeDeleted();
+            emit view->aboutToBeDeleted();
             view->deleteLater();
 //            delete view;
             update();

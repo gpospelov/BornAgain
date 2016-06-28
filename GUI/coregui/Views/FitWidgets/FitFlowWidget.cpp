@@ -28,7 +28,7 @@ FitFlowWidget::FitFlowWidget(QWidget *parent)
     setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
 
     QVBoxLayout *layout = new QVBoxLayout;
-    layout->setContentsMargins(10, 10, 10, 10);
+    layout->setContentsMargins(0, 15, 15, 0);
     layout->addWidget(m_histPlot);
 
     setStyleSheet("background-color:white;");

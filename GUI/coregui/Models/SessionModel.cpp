@@ -427,15 +427,19 @@ SessionItem *SessionModel::copyParameterizedItem(const SessionItem *item_to_copy
         new_parent = m_root_item;
     }
 
+    const QString tagName = tag.isEmpty() ? new_parent->defaultTag() : tag;
+
+
     QByteArray xml_data;
     QXmlStreamWriter writer(&xml_data);
     SessionWriter::writeItemAndChildItems(&writer, item_to_copy);
 
     QXmlStreamReader reader(xml_data);
 
-    SessionReader::readItems(&reader, new_parent, tag);
+    SessionReader::readItems(&reader, new_parent, tagName);
 
-    return new_parent->getItem(tag);
+//    return new_parent->getItem(tagName);
+    return new_parent->getItems(tagName).back();
 }
 
 SessionModel *SessionModel::createCopy(SessionItem *parent)

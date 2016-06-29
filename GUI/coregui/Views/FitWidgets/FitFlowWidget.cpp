@@ -61,12 +61,13 @@ void FitFlowWidget::setItem(FitSuiteItem *fitSuiteItem)
             int iter = m_fitSuiteItem->getItemValue(FitSuiteItem::P_ITERATION_COUNT).toInt();
             double chi = m_fitSuiteItem->getItemValue(FitSuiteItem::P_CHI2).toDouble();
             if(iter == 0) {
-                m_x.clear();
-                m_y.clear();
+                m_histPlot->clearData();
+//                m_x.clear();
+//                m_y.clear();
             }
-            m_x.push_back(static_cast<double>(iter));
-            m_y.push_back(chi);
-            m_histPlot->setData(m_x, m_y);
+//            m_x.push_back(static_cast<double>(iter));
+//            m_y.push_back(chi);
+            m_histPlot->addData(static_cast<double>(iter), chi);
         }
 //        if(name == JobItem::P_STATUS) {
 //            if(m_currentJobItem->isCompleted())
@@ -80,3 +81,4 @@ void FitFlowWidget::setItem(FitSuiteItem *fitSuiteItem)
     }, this);
 
 }
+

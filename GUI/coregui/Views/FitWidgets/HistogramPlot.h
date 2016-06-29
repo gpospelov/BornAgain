@@ -30,7 +30,12 @@ public:
 public slots:
 //    bool addData(double x, double y);
 
+    void addData(double x, double y);
+    void addData(const QVector<double> &x, const QVector<double> y);
     void setData(const QVector<double> &x, const QVector<double> y);
+
+    void clearData();
+
 private:
 
     QCustomPlot *m_customPlot;

@@ -21,6 +21,9 @@
 #include "fancymainwindow.h"
 
 class MainWindow;
+class JobViewDocks;
+class JobActivityStatusBar;
+class JobProgressAssistant;
 
 //! The JobView class is a main view to show list of jobs, job results and widgets for real time
 //! and fitting activities.
@@ -52,10 +55,10 @@ private:
     void connectLayoutRelated();
     void connectJobRelated();
 
-    class JobViewDocks *m_docks;
-    class JobActivityStatusBar *m_jobActivityStatusBar;
-    class JobProgressAssistant *m_progressAssistant;
-    class JobItem *m_currentItem;
+    JobViewDocks *m_docks;
+    JobActivityStatusBar *m_jobActivityStatusBar;
+    JobProgressAssistant *m_progressAssistant;
+    JobItem *m_currentItem;
     MainWindow *m_mainWindow;
 };
 

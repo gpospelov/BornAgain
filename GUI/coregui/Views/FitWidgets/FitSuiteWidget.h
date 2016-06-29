@@ -80,7 +80,6 @@ private:
     void updateTuningWidgetParameterValues(const FitProgressInfo &info);
     void updateLog(const FitProgressInfo &info);
 
-
     QTabWidget *m_tabWidget;
     FitParameterWidget *m_fitParametersWidget;
     MinimizerSettingsWidget *m_minimizerSettingsWidget;

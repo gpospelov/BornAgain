@@ -52,8 +52,6 @@ bool ColorMapCanvasEvent::eventFilter(QObject *obj, QEvent *event)
             }
 
         }
-
-        qDebug() << "  resize" << resizeEvent->size();
     }
 
     return QObject::eventFilter(obj, event);

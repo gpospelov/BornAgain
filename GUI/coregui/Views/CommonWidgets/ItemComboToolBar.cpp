@@ -33,6 +33,13 @@ ItemComboToolBar::ItemComboToolBar(QWidget *parent)
     setComboConnected(true);
 }
 
+void ItemComboToolBar::setPresentation(const QString &name)
+{
+    setComboConnected(false);
+    m_comboBox->setCurrentText(name);
+    setComboConnected(true);
+}
+
 void ItemComboToolBar::addPresentationType(const QString &name)
 {
     setComboConnected(false);

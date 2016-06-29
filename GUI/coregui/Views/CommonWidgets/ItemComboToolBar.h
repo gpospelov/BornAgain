@@ -33,6 +33,8 @@ class BA_CORE_API_ ItemComboToolBar : public StyledToolBar
 public:
     explicit ItemComboToolBar(QWidget *parent = 0);
 
+    void setPresentation(const QString &name);
+
     void addPresentationType(const QString &name);
     void setPresentationList(const QStringList &presentationList);
 

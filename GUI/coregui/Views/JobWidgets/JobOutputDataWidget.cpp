@@ -74,6 +74,8 @@ void JobOutputDataWidget::onActivityChanged(int activity)
             widget->setPresentation(Constants::FitComparisonWidgetName);
         } else if(activity == JobViewFlags::REAL_TIME_ACTIVITY) {
             widget->setPresentation(Constants::IntensityDataWidgetName);
+        } else if(activity == JobViewFlags::JOB_VIEW_ACTIVITY) {
+            widget->setPresentation(Constants::IntensityDataWidgetName);
         }
     }
 }

@@ -59,6 +59,7 @@ public slots:
     void onToggleJobSelector();
     void setDockHeightForWidget(int height);
     void onWidgetCloseRequest();
+    void dockToMinMaxSizes();
 
 private:
     //! Stores sizes of dock widget

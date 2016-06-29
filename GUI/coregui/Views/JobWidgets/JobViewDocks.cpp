@@ -135,12 +135,16 @@ void JobViewDocks::setDockHeightForWidget(int height)
         }
     }
 
-    QTimer::singleShot(1, this, [=]() {
-        Q_ASSERT(m_dock_info.m_dock);
-        m_dock_info.m_dock->setMinimumSize(m_dock_info.m_min_size);
-        m_dock_info.m_dock->setMaximumSize(m_dock_info.m_max_size);
-        m_dock_info.m_dock = 0;
-    });
+// Pity, lambda functions doesn't compile for QTimer under Qt5.3.1
+//    QTimer::singleShot(1, this, [=]() {
+//        Q_ASSERT(m_dock_info.m_dock);
+//        m_dock_info.m_dock->setMinimumSize(m_dock_info.m_min_size);
+//        m_dock_info.m_dock->setMaximumSize(m_dock_info.m_max_size);
+//        m_dock_info.m_dock = 0;
+//    });
+
+    QTimer::singleShot(1, this, SLOT(dockToMinMaxSizes()));
+
 
 }
 
@@ -153,6 +157,14 @@ void JobViewDocks::onWidgetCloseRequest()
     Q_ASSERT(dock);
 
     dock->toggleViewAction()->trigger();
+}
+
+void JobViewDocks::dockToMinMaxSizes()
+{
+    Q_ASSERT(m_dock_info.m_dock);
+    m_dock_info.m_dock->setMinimumSize(m_dock_info.m_min_size);
+    m_dock_info.m_dock->setMaximumSize(m_dock_info.m_max_size);
+    m_dock_info.m_dock = 0;
 }
 
 //! Returns job widget with given Id.

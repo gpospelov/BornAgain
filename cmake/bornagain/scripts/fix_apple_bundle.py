@@ -125,6 +125,7 @@ def fixDependency(filename, old, new):
     """
     Replaces old dependency with new one for given binary file
     """
+    print "    fixDependency(filename, old, new)", filename, old, new
     p = subprocess.Popen(['install_name_tool', '-change', old, new, filename], stdout=subprocess.PIPE)
     p.communicate()
     return
@@ -399,8 +400,9 @@ def fix_apple_bundle():
     print '-'*80
     print "Fixing OS X bundle at '{0}'".format(bundle_dir())
     print '-'*80
-    # copy_python_framework()
-    copy_qt_libraries()
+    # # copy_python_framework()
+    # FIXME provide automatic recognition of Qt dependency type (@rpath or hard coded)
+    # copy_qt_libraries() # this line should be uncommented for macport based builds
     copy_qt_plugins()
     copy_dependencies()
     validate_dependencies()

@@ -187,19 +187,11 @@ void ColorMap::setLogz(bool logz)
 //! reset all axes min,max to initial value
 void ColorMap::resetView()
 {
-//    m_block_update = true;
-//    m_colorMap->rescaleAxes();
-//    if(!m_item->isZAxisLocked()) {
-//        m_colorMap->setDataRange(ColorMapHelper::itemDataRange(m_item));
-//    }
-//    replot();
-//    m_block_update = false;
     m_item->resetView();
 }
 
 void ColorMap::onIntensityModified()
 {
-    qDebug() << "ColorMap::onIntensityModified()";
     setDataFromItem(m_item);
     replot();
 }
@@ -225,13 +217,8 @@ void ColorMap::onPropertyChanged(const QString &property_name)
 void ColorMap::onSubItemPropertyChanged(const QString &property_group,
                                             const QString &property_name)
 {
-    qDebug() << "ColorMap::onSubItemPropertyChanged(const QString &property_name)"
-             << property_group << property_name;
-
     if (m_block_update)
         return;
-
-    qDebug() << " --> No block, proceeding";
 
     if (property_group == IntensityDataItem::P_XAXIS) {
         if (property_name == BasicAxisItem::P_MIN) {
@@ -287,7 +274,6 @@ void ColorMap::onSubItemPropertyChanged(const QString &property_group,
 //! Propagate zmin, zmax back to IntensityDataItem
 void ColorMap::onDataRangeChanged(QCPRange newRange)
 {
-    qDebug() << "ColorMap::onDataRangeChanged" << newRange.lower << newRange.upper;
     m_block_update = true;
     m_item->setLowerAndUpperZ(newRange.lower, newRange.upper);
     m_block_update = false;

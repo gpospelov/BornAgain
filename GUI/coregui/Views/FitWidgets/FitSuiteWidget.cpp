@@ -105,7 +105,7 @@ void FitSuiteWidget::onError(const QString &text)
 
 void FitSuiteWidget::onPlotsUpdate()
 {
-    qDebug() << "FitSuiteWidget::onUpdatePlots";
+    qDebug() << "FitSuiteWidget::onPlotsUpdate";
     m_currentItem->getIntensityDataItem()->setRawDataVector(m_observer->simulationData());
     m_observer->finishedPlotting();
 }
@@ -192,7 +192,6 @@ void FitSuiteWidget::onFittingFinished()
 //! Propagates update interval from FitSuiteItem to fit observer.
 void FitSuiteWidget::onFitSuitePropertyChange(const QString &name)
 {
-    qDebug() << "FitSuiteWidget::onFitSuitePropertyChange(const QString &name)" << name;
     if(name == FitSuiteItem::P_UPDATE_INTERVAL) {
         m_observer->setInterval(m_currentItem->fitSuiteItem()->getItemValue(FitSuiteItem::P_UPDATE_INTERVAL).toInt());
 

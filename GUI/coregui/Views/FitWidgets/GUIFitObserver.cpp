@@ -43,23 +43,43 @@ void GUIFitObserver::update(FitSuite *subject)
     if (subject->isInterrupted())
         return;
 
-//    emit chiSquareUpdate((int)subject->getNumberOfIterations(), subject->getChi2());
+//    if(canUpdateProgressInfo(subject)) {
+//        FitProgressInfo info;
+//        info.m_chi2 = subject->getChi2();
+//        info.m_iteration_count = (int)subject->getNumberOfIterations();
+//        info.m_values = GUIHelpers::fromStdVector(subject->getFitParameters()->getValues());
+//        qDebug() << "Emitting progressInfoUpdate" << info.m_iteration_count;
+//        emit progressInfoUpdate(info);
+//    }
 
-    if(canUpdateProgressInfo(subject)) {
+//    if(canUpdatePlots(subject)) {
+//        m_block_update_plots = true;
+//        m_simData.reset(subject->getSimulationOutputData()->clone());
+//        emit plotsUpdate();
+//    }
+
+    if(subject->getNumberOfIterations() % m_update_interval == 0) {
+        if(m_block_update_plots) {
+            qDebug() << "GUI is busy with plotting, skipping iteration "
+                     << subject->getNumberOfIterations();
+        }
+    }
+
+
+    if(canUpdatePlots(subject)) {
+        m_block_update_plots = true;
+
         FitProgressInfo info;
         info.m_chi2 = subject->getChi2();
         info.m_iteration_count = (int)subject->getNumberOfIterations();
         info.m_values = GUIHelpers::fromStdVector(subject->getFitParameters()->getValues());
         qDebug() << "Emitting progressInfoUpdate" << info.m_iteration_count;
         emit progressInfoUpdate(info);
-    }
 
-    if(canUpdatePlots(subject)) {
-        m_block_update_plots = true;
         m_simData.reset(subject->getSimulationOutputData()->clone());
-//        m_chiData.reset(subject->getChiSquaredOutputData()->clone());
         emit plotsUpdate();
     }
+
 
     if (subject->isLastIteration()) {
         std::stringstream buffer;

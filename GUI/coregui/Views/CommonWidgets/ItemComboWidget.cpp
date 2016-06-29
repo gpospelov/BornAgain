@@ -71,6 +71,8 @@ void ItemComboWidget::setPresentation(const QString &presentationType)
     if(!getValidPresentationList(m_currentItem).contains(presentationType))
         return;
 
+    m_toolBar->setPresentation(presentationType);
+
     Q_ASSERT(m_currentItem);
 
     SessionItemWidget *widget = m_presentationTypeToWidget[presentationType];

@@ -7,8 +7,7 @@ scale and background factors.
 """
 
 from __future__ import print_function
-import numpy
-import matplotlib
+from matplotlib import pyplot as plt
 import math
 import random
 import bornagain as ba
@@ -97,8 +96,8 @@ def run_fitting():
     fit_suite = ba.FitSuite()
     fit_suite.addSimulationAndRealData(simulation, real_data)
 
-    chiModule = ChiSquaredModule()
-    chiModule.setIntensityNormalizer(IntensityScaleAndShiftNormalizer())
+    chiModule = ba.ChiSquaredModule()
+    chiModule.setIntensityNormalizer(ba.IntensityScaleAndShiftNormalizer())
     fit_suite.setChiSquaredModule(chiModule)
 
     fit_suite.initPrint(10)

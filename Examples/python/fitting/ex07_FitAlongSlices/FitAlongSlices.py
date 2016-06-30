@@ -142,8 +142,8 @@ class DrawObserver(ba.IFitObserver):
         simul_data = fit_suite.getSimulationData()
 
         # These lines add to make cast explicit, see Bug #1367
-        real_data = Histogram2D.dynamicCast(real_data)
-        simul_data = Histogram2D.dynamicCast(simul_data)
+        real_data = ba.Histogram2D.dynamicCast(real_data)
+        simul_data = ba.Histogram2D.dynamicCast(simul_data)
 
         # plot real data
         self.plot_real_data(real_data, nplot=1)
@@ -193,6 +193,7 @@ def run_fitting():
     fit_suite = ba.FitSuite()
     fit_suite.addSimulationAndRealData(simulation, real_data)
     fit_suite.initPrint(5)
+
     draw_observer = DrawObserver(draw_every_nth=5)
     fit_suite.attachObserver(draw_observer)
 

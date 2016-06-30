@@ -85,7 +85,7 @@ def run_fitting():
     real_data = create_real_data()
 
     fit_suite = ba.FitSuite()
-    fit_suite.setMinimizer("GSLLMA")
+    #fit_suite.setMinimizer("GSLLMA")
     fit_suite.addSimulationAndRealData(simulation, real_data)
     fit_suite.initPrint(10)
 

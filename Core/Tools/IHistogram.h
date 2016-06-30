@@ -36,7 +36,7 @@ class Histogram2D;
 class BA_CORE_API_ IHistogram
 {
 public:
-    enum class DataType {
+    enum DataType {
         INTEGRAL,
         AVERAGE,
         STANDARD_ERROR,

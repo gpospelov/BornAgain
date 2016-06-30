@@ -10,8 +10,7 @@ to find the precise location of best minima found on previous step.
 """
 
 from __future__ import print_function
-import numpy
-import matplotlib
+from matplotlib import pyplot as plt
 import math
 import random
 import bornagain as ba

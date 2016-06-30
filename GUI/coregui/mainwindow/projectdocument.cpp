@@ -44,7 +44,7 @@ namespace {
 const QString OPEN_FILE_ERROR = "OPEN_FILE_ERROR";
 const QString EXCEPTION_THROW = "EXCEPTION_THROW";
 const QString XML_FORMAT_ERROR = "XML_FORMAT_ERROR";
-const QString minimal_supported_version = "1.5.0";
+const QString minimal_supported_version = "1.6.0";
 }
 
 ProjectDocument::ProjectDocument()

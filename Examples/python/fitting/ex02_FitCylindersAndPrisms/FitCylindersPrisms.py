@@ -54,7 +54,7 @@ def run_fitting():
     simulation = get_simulation()
     simulation.setSample(sample)
 
-    real_data = IntensityDataIOFactory.readIntensityData(
+    real_data = ba.IntensityDataIOFactory.readIntensityData(
         'refdata_fitcylinderprisms.int.gz')
 
     fit_suite = ba.FitSuite()
@@ -68,7 +68,7 @@ def run_fitting():
                               ba.AttLimits.lowerLimited(0.01))
     fit_suite.addFitParameter("*Prism3/Height", 4.*nm,
                               ba.AttLimits.lowerLimited(0.01))
-    fit_suite.addFitParameter("*Prism3/Length", 12.*nm,
+    fit_suite.addFitParameter("*Prism3/BaseEdge", 12.*nm,
                               ba.AttLimits.lowerLimited(0.01))
 
     # running fit

@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Samples/BAVersion.h
-//! @brief     Declares functions for access to the package version number.
+//! @file      Samples/inc/BAVersion.h
+//! @brief     Defines functions for access to the package version number.
 //!
 //! @homepage  http://bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,16 +13,15 @@
 //
 // ************************************************************************** //
 
-#ifndef BAVERSION_H_
-#define BAVERSION_H_
-
+#ifndef BAVERSION_H
+#define BAVERSION_H
 
 #include <string>
 #include <sstream>
 
 namespace BornAgain {
     const int major_version_number = 1;
-    const int minor_version_number = 5;
+    const int minor_version_number = 6;
     const int patch_version_number = 0;
 
     inline int GetMajorVersionNumber() { return major_version_number; }
@@ -41,10 +40,6 @@ namespace BornAgain {
 
         return ostr.str();
     }
-
 }
 
-
-
-#endif /* BAVERSION_H_ */
-
+#endif // BAVERSION_H

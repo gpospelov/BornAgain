@@ -59,11 +59,7 @@ def get_simulation(monte_carlo_integration=True):
     simulation.setDetectorParameters(200, phi_min*deg, phi_max*deg,
                                      200, alpha_min*deg, alpha_max*deg)
     simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
-    if monte_carlo_integration:
-        sim_pars = SimulationParameters()
-        sim_pars.m_mc_integration = True
-        sim_pars.m_mc_points = 100
-        simulation.setSimulationParameters(sim_pars)
+    simulation.getOptions().setMonteCarloIntegration(True, 100)
 
     return simulation
 

@@ -6,7 +6,7 @@ export PATH=/usr/local/bin:$QTDIR/bin/:$PATH
 export WORKDIR=/Users/vagrant/build
 rm -r -f $WORKDIR; mkdir -p $WORKDIR; cd $WORKDIR;
 
-git clone -b develop git://apps.jcns.fz-juelich.de/BornAgain.git
+git clone -b release-1.6.0 git://apps.jcns.fz-juelich.de/BornAgain.git
 mkdir BornAgain-build
 cd BornAgain-build
 export ANACONDA=/Users/vagrant/anaconda2

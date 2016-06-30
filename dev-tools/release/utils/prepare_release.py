@@ -34,7 +34,8 @@ def download_from_app_server():
 
 def cmake_release():
     print "\nRunning cmake ...", get_build_dir()
-    cmd = "cd %s; cmake -DBORNAGAIN_USERMANUAL=ON -DBORNAGAIN_RELEASE=ON -DCMAKE_INSTALL_PREFIX=%s %s" % (get_build_dir(), get_install_dir(), get_source_dir() )
+    # cmd = "cd %s; cmake -DBORNAGAIN_USERMANUAL=ON -DBORNAGAIN_RELEASE=ON -DCMAKE_INSTALL_PREFIX=%s %s" % (get_build_dir(), get_install_dir(), get_source_dir() )
+    cmd = "cd %s; cmake  -DCMAKE_INSTALL_PREFIX=%s %s" % (get_build_dir(), get_install_dir(), get_source_dir() )
     run_command(cmd)
 
 

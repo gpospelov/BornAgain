@@ -193,6 +193,7 @@ def run_fitting():
     fit_suite = ba.FitSuite()
     fit_suite.addSimulationAndRealData(simulation, real_data)
     fit_suite.initPrint(5)
+
     draw_observer = DrawObserver(draw_every_nth=5)
     fit_suite.attachObserver(draw_observer)
 

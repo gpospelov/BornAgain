@@ -7,10 +7,11 @@ import math
 import random
 import ctypes
 import bornagain as ba
+from matplotlib import pyplot as plt
 from bornagain import deg, angstrom, nm
 
 
-class MySampleBuilder(ISampleBuilder):
+class MySampleBuilder(ba.ISampleBuilder):
     """
     Sample builder is used to build complex samples from set of parameters.
     Given builder produces the sample representing spheres at hex lattice
@@ -19,7 +20,7 @@ class MySampleBuilder(ISampleBuilder):
     lattice_constant - hexagonal lattice constant
     """
     def __init__(self):
-        ISampleBuilder.__init__(self)
+        ba.ISampleBuilder.__init__(self)
         self.sample = None
         # parameters describing the sample
         self.radius = ctypes.c_double(5.0*nm)

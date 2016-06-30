@@ -45,9 +45,9 @@ class CustomFormFactor(ba.IFormFactorBorn):
         qzhH = 0.5*q.z()*self.H
         qxhL = 0.5*q.x()*self.L
         qyhL = 0.5*q.y()*self.L
-        return 0.5*self.H*self.L**2*cmath.exp(complex(0.,1.)*qzhH)*sinc(qzhH)*
-            (sinc(0.5*qyhL)*(sinc(qxhL)-0.5*sinc(0.5*qxhL))+
-             sinc(0.5*qxhL)*sinc(qyhL))
+        return 0.5*self.H*self.L**2*cmath.exp(complex(0., 1.)*qzhH)*\
+               sinc(qzhH)*(sinc(0.5*qyhL)*(sinc(qxhL)-0.5*sinc(0.5*qxhL))+\
+               sinc(0.5*qxhL)*sinc(qyhL))
 
 
 

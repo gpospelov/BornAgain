@@ -66,7 +66,7 @@ def update_upload_dir():
     run_command("mv %s/*Manual-*.pdf %s/old" % (get_upload_dir(), get_upload_dir()))
     run_command("cp %s/BornAgain-%s.tar.gz %s" % (get_build_dir(), get_version(), get_upload_dir()))
     run_command("cp %s/CHANGELOG %s" % (get_source_dir(), get_upload_dir()))
-    run_command("cp %s/Doc/UserManual/BornAgainManual.pdf %s/%s" % (get_build_dir(), get_upload_dir(), get_manual_name()) )
+    #run_command("cp %s/Doc/UserManual/BornAgainManual.pdf %s/%s" % (get_build_dir(), get_upload_dir(), get_manual_name()) )
 
 
 def prepare_release():

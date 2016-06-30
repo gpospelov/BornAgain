@@ -91,6 +91,8 @@ endif()
 # -----------------------------------------------------------------------------
 if(BORNAGAIN_APPLE_BUNDLE)
     set(executable_destination BUNDLE DESTINATION  ".")
+elseif(WIN32)
+    set(executable_destination DESTINATION "${destination_gui}")
 else()
     set(executable_destination DESTINATION "${destination_gui}/exec")
 endif()

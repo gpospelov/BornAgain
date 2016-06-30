@@ -2,14 +2,15 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/InstrumentModel.cpp
+//! @file      GUI/coregui/Models/InstrumentModel.cpp
 //! @brief     Implements class InstrumentModel
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
@@ -23,23 +24,15 @@ InstrumentModel::InstrumentModel(QObject *parent)
 }
 
 
-InstrumentModel *InstrumentModel::createCopy(ParameterizedItem *parent)
+InstrumentModel *InstrumentModel::createCopy(SessionItem *parent)
 {
     InstrumentModel *result = new InstrumentModel();
     result->initFrom(this, parent);
     return result;
 }
 
-
-//! returns list of Instruments defined in the model
-QMap<QString, ParameterizedItem *> InstrumentModel::getInstrumentMap() const
+InstrumentItem *InstrumentModel::instrumentItem(const QString &instrument_name)
 {
-    return getTopItemMap(Constants::InstrumentType);
-}
-
-
-InstrumentItem *InstrumentModel::getInstrumentItem(const QString &instrument_name)
-{
-    return dynamic_cast<InstrumentItem *>(getTopItem(Constants::InstrumentType, instrument_name));
+    return dynamic_cast<InstrumentItem *>(topItem(Constants::InstrumentType, instrument_name));
 }
 

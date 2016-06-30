@@ -1,4 +1,4 @@
-// @(#)root/tmva $Id$    
+// @(#)root/tmva $Id$
 // Author: Peter Speckmayer
 
 /**********************************************************************************
@@ -14,8 +14,8 @@
  *      Peter Speckmayer <speckmay@mail.cern.ch>  - CERN, Switzerland             *
  *                                                                                *
  * Copyright (c) 2005:                                                            *
- *      CERN, Switzerland                                                         * 
- *      MPI-K Heidelberg, Germany                                                 * 
+ *      CERN, Switzerland                                                         *
+ *      MPI-K Heidelberg, Germany                                                 *
  *                                                                                *
  * Redistribution and use in source and binary forms, with or without             *
  * modification, are permitted according to the terms listed in LICENSE           *
@@ -63,7 +63,7 @@ class TRandom3;
 namespace BA_TMVA {
 
 //   class MsgLogger;
-   
+
    class Interval {
 
    public:
@@ -80,7 +80,7 @@ namespace BA_TMVA {
       virtual Int_t    GetNbins() const { return fNbins; }
       virtual Double_t GetMean()  const;
       virtual Double_t GetRndm( BA_ROOT::TRandom3& )  const;
-      virtual Double_t GetElement( Int_t position ) const;      
+      virtual Double_t GetElement( Int_t position ) const;
       virtual Double_t GetStepSize(Int_t iBin=0) const;
 
       void SetMax( Double_t m ) { fMax = m; }

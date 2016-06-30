@@ -2,14 +2,15 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/MaskWidgets/MaskViewFactory.h
+//! @file      GUI/coregui/Views/MaskWidgets/MaskViewFactory.cpp
 //! @brief     Implements class MaskViewFactory
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
@@ -25,9 +26,9 @@
 #include "MaskAllView.h"
 #include "MaskContainerView.h"
 #include "IntensityDataView.h"
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 
-IMaskView *MaskViewFactory::createMaskView(ParameterizedItem *item,
+IMaskView *MaskViewFactory::createMaskView(SessionItem *item,
                                            ISceneAdaptor *adaptor)
 {
     IMaskView *result(0);

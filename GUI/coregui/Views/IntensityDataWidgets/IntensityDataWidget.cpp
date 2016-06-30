@@ -2,123 +2,88 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/IntensityDataWidgets/IntensityDataWidget.cpp
+//! @file      GUI/coregui/Views/IntensityDataWidgets/IntensityDataWidget.cpp
 //! @brief     Implements class IntensityDataWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
 #include "IntensityDataWidget.h"
-#include "IntensityDataPlotWidget.h"
-#include "IntensityDataPropertyWidget.h"
+#include "ColorMapCanvas.h"
 #include "IntensityDataItem.h"
+#include "SavePlotAssistant.h"
+#include "AppSvc.h"
+#include "projectmanager.h"
 #include <QVBoxLayout>
-#include <QDebug>
-
+#include <QAction>
 
 IntensityDataWidget::IntensityDataWidget(QWidget *parent)
-    : QWidget(parent)
-    , m_plotWidget(0)
-    , m_propertyWidget(0)
-    , m_currentItem(0)
+    : SessionItemWidget(parent)
+    , m_colorMap(new ColorMapCanvas(this))
+    , m_resetViewAction(0)
+    , m_savePlotAction(0)
 {
-    setMinimumSize(600, 600);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    setWindowTitle(QLatin1String("IntensityDataWidget"));
-    setObjectName(QLatin1String("IntensityDataWidget"));
 
-    m_plotWidget = new IntensityDataPlotWidget(this);
-    connect(m_plotWidget, SIGNAL(savePlotRequest()), this, SIGNAL(savePlotRequest()));
+    QVBoxLayout *layout = new QVBoxLayout;
+    layout->setMargin(0);
+    layout->setSpacing(0);
+    layout->addWidget(m_colorMap);
+    setLayout(layout);
 
-    m_propertyWidget = new IntensityDataPropertyWidget(this);
+    m_colorMap->setStatusLabelEnabled(true);
 
-    QHBoxLayout *hlayout = new QHBoxLayout;
-    hlayout->setMargin(0);
-    hlayout->setSpacing(0);
-
-    hlayout->addWidget(m_plotWidget);
-    hlayout->addWidget(m_propertyWidget);
-
-    QVBoxLayout *mainLayout = new QVBoxLayout;
-    mainLayout->setMargin(0);
-    mainLayout->setSpacing(0);
-
-    mainLayout->addLayout(hlayout);
-    setLayout(mainLayout);
+    initActions();
 }
 
-void IntensityDataWidget::setItem(IntensityDataItem *item)
+void IntensityDataWidget::setItem(SessionItem *item)
 {
-    m_plotWidget->setItem(item);
-    m_propertyWidget->setItem(item);
-
-    if (m_currentItem == item) return;
-
-    if (m_currentItem) {
-        disconnect(m_currentItem, SIGNAL(propertyChanged(QString)),
-                this, SLOT(onPropertyChanged(QString)));
-    }
-
-    m_currentItem = item;
-
-    if (!m_currentItem) return;
-
-    updateItem(m_currentItem);
-
-    connect(m_currentItem, SIGNAL(propertyChanged(QString)),
-            this, SLOT(onPropertyChanged(QString)));
+    IntensityDataItem *intensityItem = dynamic_cast<IntensityDataItem *>(item);
+    Q_ASSERT(intensityItem);
+    setIntensityData(intensityItem);
 }
 
-void IntensityDataWidget::togglePropertyPanel()
+void IntensityDataWidget::setIntensityData(IntensityDataItem *intensityItem)
 {
-    if(m_currentItem) {
-        bool current_flag = m_currentItem->getRegisteredProperty(IntensityDataItem::P_PROPERTY_PANEL_FLAG).toBool();
-        m_currentItem->setRegisteredProperty(IntensityDataItem::P_PROPERTY_PANEL_FLAG, !current_flag);
-    }
+    m_currentItem = intensityItem;
+    m_colorMap->setItem(intensityItem);
 }
 
-void IntensityDataWidget::setPropertyPanelVisible(bool visible)
+QList<QAction *> IntensityDataWidget::actionList()
 {
-    if(visible) {
-        m_propertyWidget->setItem(m_currentItem);
-
-    } else {
-        m_propertyWidget->setItem(0);
-    }
-    m_propertyWidget->setVisible(visible);
+    return QList<QAction *>() << m_resetViewAction << m_savePlotAction;
 }
 
-void IntensityDataWidget::onPropertyChanged(const QString &property_name)
+void IntensityDataWidget::onResetViewAction()
 {
-    if(property_name == IntensityDataItem::P_PROPERTY_PANEL_FLAG) {
-        setPropertyPanelVisible(m_currentItem->getRegisteredProperty(IntensityDataItem::P_PROPERTY_PANEL_FLAG).toBool());
-    }
+    m_currentItem->resetView();
 }
 
-void IntensityDataWidget::updateItem(IntensityDataItem *item)
+void IntensityDataWidget::onSavePlotAction()
 {
-    setPropertyPanelVisible(item->getRegisteredProperty(IntensityDataItem::P_PROPERTY_PANEL_FLAG).toBool());
+    QString dirname = AppSvc::projectManager()->userExportDir();
+    SavePlotAssistant saveAssistant;
+    saveAssistant.savePlot(dirname, m_colorMap->customPlot(), m_currentItem);
 }
 
-void IntensityDataWidget::toggleProjections()
+void IntensityDataWidget::initActions()
 {
-    if(m_currentItem) {
-        bool current_flag = m_currentItem->getRegisteredProperty(IntensityDataItem::P_PROJECTIONS_FLAG).toBool();
-        m_currentItem->setRegisteredProperty(IntensityDataItem::P_PROJECTIONS_FLAG, !current_flag);
-    }
+    m_resetViewAction = new QAction(this);
+    m_resetViewAction->setText("Reset");
+    m_resetViewAction->setIcon(QIcon(":/images/toolbar16light_refresh.svg"));
+    m_resetViewAction->setToolTip("Reset View");
+    connect(m_resetViewAction, SIGNAL(triggered()), this, SLOT(onResetViewAction()));
+
+    m_savePlotAction = new QAction(this);
+    m_savePlotAction->setText("Save");
+    m_savePlotAction->setIcon(QIcon(":/images/toolbar16light_save.svg"));
+    m_savePlotAction->setToolTip("Save Plot");
+    connect(m_savePlotAction, SIGNAL(triggered()), this, SLOT(onSavePlotAction()));
 }
 
-void IntensityDataWidget::onResetView()
-{
-    m_plotWidget->resetView();
-}
-
-void IntensityDataWidget::savePlot(const QString &dirname)
-{
-    m_plotWidget->savePlot(dirname);
-}

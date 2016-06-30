@@ -2,14 +2,15 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/MaskWidgets/IMaskView.h
-//! @brief     Defines interface class IMaskView for all masks on graphics scene
+//! @file      GUI/coregui/Views/MaskWidgets/IMaskView.h
+//! @brief     Declares interface class IMaskView for all masks on graphics scene
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
@@ -19,8 +20,9 @@
 #include "WinDllMacros.h"
 #include "MaskEditorHelper.h"
 #include <QGraphicsObject>
+#include <memory>
 
-class ParameterizedItem;
+class SessionItem;
 class ISceneAdaptor;
 class QPainter;
 
@@ -33,12 +35,12 @@ public:
     virtual int type() const { return MaskEditorHelper::IMASKVIEW; }
 
     IMaskView();
-    virtual ~IMaskView(){}
+    virtual ~IMaskView();
 
     QRectF boundingRect() const;
 
-    virtual void setParameterizedItem(ParameterizedItem *item);
-    virtual ParameterizedItem *getParameterizedItem();
+    virtual void setParameterizedItem(SessionItem *item);
+    virtual SessionItem *getParameterizedItem();
 
     const ISceneAdaptor *getAdaptor();
     virtual void setSceneAdaptor(const ISceneAdaptor *adaptor);
@@ -67,7 +69,7 @@ public slots:
     virtual void onPropertyChange(const QString &propertyName);
 
 protected:
-    ParameterizedItem *m_item;
+    SessionItem *m_item;
     const ISceneAdaptor *m_adaptor;
     QRectF m_bounding_rect;
 };

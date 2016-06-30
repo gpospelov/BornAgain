@@ -2,33 +2,36 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/NIntensityDataItem.h
-//! @brief     Defines class NIntensityDataItem
+//! @file      GUI/coregui/Models/IntensityDataItem.h
+//! @brief     Declares class IntensityDataItem
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
 #ifndef INTENSITYDATAITEM_H
 #define INTENSITYDATAITEM_H
 
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 #include "OutputData.h"
 #include "IDetector2D.h"
 #include <QMap>
+#include <QPair>
 
 class GISASSimulation;
+class BasicAxisItem;
 
 
-class BA_CORE_API_ IntensityDataItem : public ParameterizedItem
+class BA_CORE_API_ IntensityDataItem : public SessionItem
 {
-    Q_OBJECT
 public:
     static const QString P_PROJECTIONS_FLAG;
+    static const QString P_TITLE;
     static const QString P_IS_INTERPOLATED;
     static const QString P_GRADIENT;
     static const QString P_ZAXIS_MIN;
@@ -38,13 +41,17 @@ public:
     static const QString P_XAXIS;
     static const QString P_YAXIS;
     static const QString P_ZAXIS;
+    static const QString P_FILE_NAME;
+    static const QString T_MASKS;
 
-    explicit IntensityDataItem(ParameterizedItem *parent=0);
+
+    explicit IntensityDataItem();
     virtual ~IntensityDataItem();
 
     OutputData<double> *getOutputData() { return m_data.get(); }
     const OutputData<double> *getOutputData() const { return m_data.get(); }
     void setOutputData(OutputData<double> *data);
+    void setRawDataVector(const OutputData<double> *data);
 
     //! returns lower and upper zoom ranges of x-axis
     double getLowerX() const;
@@ -76,12 +83,20 @@ public:
     bool isZAxisLocked() const;
     void setZAxisLocked(bool state);
 
-    void setNameFromProposed(const QString &proposed_name);
+//    void setNameFromProposed(const QString &proposed_name);
 
     virtual QString getSelectedAxesUnits() const;
 
-signals:
-    void intensityModified();
+    QString fileName(const QString &projectDir);
+
+    void updateDataRange();
+    void computeDataRange();
+    QPair<double, double> getDataRange() const;
+
+    BasicAxisItem *xAxisItem();
+    BasicAxisItem *yAxisItem();
+
+    void resetView();
 
 public slots:
     void setLowerX(double xmin);
@@ -98,6 +113,9 @@ public slots:
     void setAxesRangeToData();
 
 private:
+    void updateAxesZoomLevel();
+    void updateAxesLabels();
+
     std::unique_ptr<OutputData<double> > m_data; //!< simulation results
 };
 

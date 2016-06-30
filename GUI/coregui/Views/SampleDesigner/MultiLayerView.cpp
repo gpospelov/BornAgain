@@ -2,19 +2,20 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/SampleDesigner/MultiLayerView.cpp
+//! @file      GUI/coregui/Views/SampleDesigner/MultiLayerView.cpp
 //! @brief     Implements class MultiLayerView
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
 #include "MultiLayerView.h"
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 #include "DesignerScene.h"
 #include "SampleModel.h"
 #include "LayerView.h"
@@ -56,7 +57,7 @@ void MultiLayerView::paint(QPainter *painter, const QStyleOptionGraphicsItem *op
 
 void MultiLayerView::addView(IView *childView, int row)
 {
-    qDebug() << "MultiLayerView::addView() " << m_item->itemName() << childView->getParameterizedItem()->itemName() << "row" << row;
+    qDebug() << "MultiLayerView::addView() " << m_item->itemName() << childView->getItem()->itemName() << "row" << row;
     ILayerView *layer = dynamic_cast<ILayerView *>(childView);
     Q_ASSERT(layer);
 
@@ -64,7 +65,9 @@ void MultiLayerView::addView(IView *childView, int row)
         addNewLayer(layer, row);
     } else {
         int previous_row = m_layers.indexOf(layer);
-        if(previous_row != row) m_layers.swap(previous_row, row);
+        if(previous_row != row) {
+            m_layers.swap(previous_row, row);
+        }
     }
     updateGeometry();
 }
@@ -74,8 +77,8 @@ void MultiLayerView::addNewLayer(ILayerView *layer, int row)
 {
     qDebug() << "MultiLayerView::addNewLayer(), row" << row;
     m_layers.insert(row, layer);
-    connect(layer, SIGNAL(heightChanged()), this, SLOT(updateHeight()) );
-    connect(layer, SIGNAL(aboutToBeDeleted()), this, SLOT(onLayerAboutToBeDeleted()) );
+    connect(layer, SIGNAL(heightChanged()), this, SLOT(updateHeight()), Qt::UniqueConnection);
+    connect(layer, SIGNAL(aboutToBeDeleted()), this, SLOT(onLayerAboutToBeDeleted()), Qt::UniqueConnection);
     layer->setParentItem(this);
 }
 
@@ -251,7 +254,7 @@ void MultiLayerView::dropEvent(QGraphicsSceneDragDropEvent *event)
             qDebug() << "\n XXX" << getDropArea(event->scenePos()) << event->scenePos();
             sampleModel->insertNewItem(
                         mimeData->getClassName(),
-                        sampleModel->indexOfItem(this->getParameterizedItem()),
+                        sampleModel->indexOfItem(this->getItem()),
                         getDropArea(event->pos())
                         );
         }
@@ -269,7 +272,7 @@ const DesignerMimeData *MultiLayerView::checkDragEvent(QGraphicsSceneDragDropEve
 
     int row = getDropArea(event->pos());
     if(mimeData->hasFormat("bornagain/widget")
-            && getParameterizedItem()->acceptsAsChild(mimeData->getClassName())
+            && getItem()->acceptsAsDefaultItem(mimeData->getClassName())
             && row!=-1 ) {
 
         qDebug() << "MultiLayerView::checkDragEvent -> yes"  << row << getDropAreaRectangle(row);

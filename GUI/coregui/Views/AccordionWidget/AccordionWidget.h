@@ -1,3 +1,19 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      GUI/coregui/Views/AccordionWidget/AccordionWidget.h
+//! @brief     Declares AccordionWidget class
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2016
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
+//
+// ************************************************************************** //
+
 // This file is part of qAccordion. An Accordion widget for Qt
 // Copyright © 2015 Christian Rapp <0x2a at posteo dot org>
 //

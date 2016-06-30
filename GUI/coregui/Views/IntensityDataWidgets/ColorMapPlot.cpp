@@ -2,27 +2,39 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/IntensityDataWidgets/ColorMapPlot.cpp
+//! @file      GUI/coregui/Views/IntensityDataWidgets/ColorMapPlot.cpp
 //! @brief     Implements class ColorMapPlot
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
 #include "ColorMapPlot.h"
+#include "ColorMapHelper.h"
 #include "IntensityDataItem.h"
 #include "AxesItems.h"
 #include "GUIHelpers.h"
+#include "UpdateTimer.h"
 #include "Units.h"
 #include <QDebug>
 
+namespace {
+const int replot_update_interval = 10;
+}
+
 ColorMapPlot::ColorMapPlot(QWidget *parent)
-    : QWidget(parent), m_customPlot(0), m_colorMap(0), m_colorScale(0), m_item(0),
-      m_block_update(true)
+    : QWidget(parent)
+    , m_customPlot(0)
+    , m_colorMap(0)
+    , m_colorScale(0)
+    , m_item(0)
+    , m_block_update(true)
+    , m_updateTimer(new UpdateTimer(replot_update_interval, this))
 {
     initColorMap();
 
@@ -34,40 +46,54 @@ ColorMapPlot::ColorMapPlot(QWidget *parent)
     setMouseTracking(false);
     m_customPlot->setMouseTracking(false);
 
-//    setFixedColorMapMargins();
+    //    setFixedColorMapMargins();
 }
 
-//! initializes everything with new IntensityDataItem or plot it, if it was already the case
+ColorMapPlot::~ColorMapPlot()
+{
+    if(m_item)
+        m_item->mapper()->unsubscribe(this);
+
+}
+
+//! Sets ColorMap to track intensity item.
+
 void ColorMapPlot::setItem(IntensityDataItem *item)
 {
-    if (item && (m_item == item)) {
-        // qDebug() << "ColorMapPlot::setItem(NIntensityDataItem *item) item==m_item";
-        plotItem(m_item);
+    if(item == m_item)
         return;
-    }
 
-    if (m_item) {
-        disconnect(m_item, SIGNAL(intensityModified()), this,
-                   SLOT(onIntensityModified()));
-        disconnect(m_item, SIGNAL(propertyChanged(QString)), this,
-                   SLOT(onPropertyChanged(QString)));
-        disconnect(m_item, SIGNAL(subItemPropertyChanged(QString, QString)), this,
-                   SLOT(onSubItemPropertyChanged(QString, QString)));
-    }
+    resetColorMap();
 
     m_item = item;
-
-    if (!m_item)
+    if(!m_item)
         return;
 
-    plotItem(m_item);
+    setColorMapFromItem(m_item);
 
-    connect(m_item, SIGNAL(intensityModified()), this,
-               SLOT(onIntensityModified()));
-    connect(m_item, SIGNAL(propertyChanged(QString)), this, SLOT(onPropertyChanged(QString)));
+    m_item->mapper()->setOnPropertyChange(
+                [this](const QString &name)
+    {
+        onPropertyChanged(name);
+    }, this);
 
-    connect(m_item, SIGNAL(subItemPropertyChanged(QString, QString)), this,
-            SLOT(onSubItemPropertyChanged(QString, QString)));
+    m_item->mapper()->setOnChildPropertyChange([this](SessionItem *item, const QString name) {
+        onSubItemPropertyChanged(item->itemName(), name);
+    }, this);
+
+    m_item->mapper()->setOnValueChange(
+        [this]()
+    {
+        onIntensityModified();
+    }, this);
+
+    m_item->mapper()->setOnItemDestroy(
+                [this](SessionItem *) {
+        m_item = 0;
+    }, this);
+
+    setConnected(true);
+
 }
 
 //! returns string containing bin content information
@@ -126,8 +152,6 @@ void ColorMapPlot::drawLinesOverTheMap()
 //! switches visibility of two crossed lines
 void ColorMapPlot::showLinesOverTheMap(bool isVisible)
 {
-    m_customPlot->setMouseTracking(isVisible);
-
     if (m_customPlot->graph(0) && m_customPlot->graph(1)) {
         m_customPlot->graph(0)->setVisible(isVisible);
         m_customPlot->graph(1)->setVisible(isVisible);
@@ -180,32 +204,36 @@ void ColorMapPlot::setTrackMoveEventsFlag(bool flag)
 }
 
 //! sets logarithmic scale
-void ColorMapPlot::setLogz(bool logz, bool isReplot)
+void ColorMapPlot::setLogz(bool logz)
 {
     if (logz) {
-        m_colorScale->setDataScaleType(QCPAxis::stLogarithmic);
-        m_colorScale->axis()->setNumberFormat("eb");
-        m_colorScale->axis()->setNumberPrecision(0);
+        if(m_colorScale->dataScaleType() != QCPAxis::stLogarithmic) {
+            m_colorScale->setDataScaleType(QCPAxis::stLogarithmic);
+            m_colorScale->axis()->setNumberFormat("eb");
+            m_colorScale->axis()->setNumberPrecision(0);
+        }
     } else {
-        m_colorScale->axis()->setNumberFormat("f");
-        m_colorScale->axis()->setNumberPrecision(0);
-        m_colorScale->setDataScaleType(QCPAxis::stLinear);
+        if(m_colorScale->dataScaleType() != QCPAxis::stLinear) {
+            m_colorScale->axis()->setNumberFormat("f");
+            m_colorScale->axis()->setNumberPrecision(0);
+            m_colorScale->setDataScaleType(QCPAxis::stLinear);
+        }
     }
-    if (isReplot)
-        m_customPlot->replot();
+//    if (logz) {
+//        m_colorScale->setDataScaleType(QCPAxis::stLogarithmic);
+//        m_colorScale->axis()->setNumberFormat("eb");
+//        m_colorScale->axis()->setNumberPrecision(0);
+//    } else {
+//        m_colorScale->axis()->setNumberFormat("f");
+//        m_colorScale->axis()->setNumberPrecision(0);
+//        m_colorScale->setDataScaleType(QCPAxis::stLinear);
+//    }
 }
 
 //! reset all axes min,max to initial value
 void ColorMapPlot::resetView()
 {
-    m_block_update = true;
-    m_colorMap->rescaleAxes();
-    if(!m_item->isZAxisLocked()) {
-        QCPRange newDataRange = calculateDataRange(m_item);
-        m_colorMap->setDataRange(newDataRange);
-    }
-    m_customPlot->replot();
-    m_block_update = false;
+    m_item->resetView();
 }
 
 //! saves information about mouse position and intensity data underneath
@@ -216,7 +244,6 @@ void ColorMapPlot::onMouseMove(QMouseEvent *event)
     double xPos = m_customPlot->xAxis->pixelToCoord(point.x());
     double yPos = m_customPlot->yAxis->pixelToCoord(point.y());
 
-//    qDebug() << "AAA ColorMapPlot::onMouseMove() " << point << "xpos:" << xPos << "yPos:" << yPos;
 
     if (m_customPlot->xAxis->range().contains(xPos)
         && m_customPlot->yAxis->range().contains(yPos)) {
@@ -286,8 +313,8 @@ void ColorMapPlot::getVerticalSlice(QVector<double> &x, QVector<double> &y)
 
 void ColorMapPlot::onIntensityModified()
 {
-    qDebug() << "ColorMapPlot::onIntensityModified()";
-    plotItem(m_item);
+    setDataFromItem(m_item);
+    replot();
 }
 
 //! updates color map depending on  IntensityDataItem properties
@@ -297,14 +324,17 @@ void ColorMapPlot::onPropertyChanged(const QString &property_name)
         return;
 
     if (property_name == IntensityDataItem::P_GRADIENT) {
-        m_colorMap->setGradient(m_gradient_map[m_item->getGradient()]);
-        m_customPlot->replot();
+        m_colorMap->setGradient(ColorMapHelper::itemGradient(m_item));
+        replot();
     } else if (property_name == IntensityDataItem::P_IS_INTERPOLATED) {
         m_colorMap->setInterpolate(m_item->isInterpolated());
-        m_customPlot->replot();
+        replot();
     } else if (property_name == IntensityDataItem::P_PROJECTIONS_FLAG) {
         showLinesOverTheMap(
-            m_item->getRegisteredProperty(IntensityDataItem::P_PROJECTIONS_FLAG).toBool());
+            m_item->getItemValue(IntensityDataItem::P_PROJECTIONS_FLAG).toBool());
+    } else if(property_name == IntensityDataItem::P_AXES_UNITS) {
+        setAxesRangeFromItem(m_item);
+        replot();
     }
 }
 
@@ -314,60 +344,52 @@ void ColorMapPlot::onSubItemPropertyChanged(const QString &property_group,
     if (m_block_update)
         return;
 
-    qDebug() << "ColorMapPlot::onSubItemPropertyChanged(const QString &property_name)"
-             << property_group << property_name;
     if (property_group == IntensityDataItem::P_XAXIS) {
         if (property_name == BasicAxisItem::P_MIN) {
             QCPRange range = m_customPlot->xAxis->range();
             range.lower = m_item->getLowerX();
             m_customPlot->xAxis->setRange(range);
+            replot();
         } else if (property_name == BasicAxisItem::P_MAX) {
             QCPRange range = m_customPlot->xAxis->range();
             range.upper = m_item->getUpperX();
             m_customPlot->xAxis->setRange(range);
+            replot();
         } else if (property_name == BasicAxisItem::P_TITLE) {
             m_customPlot->xAxis->setLabel(m_item->getXaxisTitle());
+            m_colorScale->setMargins(QMargins(0,0,0,0));
+            replot();
         }
-        m_customPlot->replot();
     } else if (property_group == IntensityDataItem::P_YAXIS) {
         if (property_name == BasicAxisItem::P_MIN) {
             QCPRange range = m_customPlot->yAxis->range();
             range.lower = m_item->getLowerY();
             m_customPlot->yAxis->setRange(range);
+            replot();
         } else if (property_name == BasicAxisItem::P_MAX) {
             QCPRange range = m_customPlot->yAxis->range();
             range.upper = m_item->getUpperY();
             m_customPlot->yAxis->setRange(range);
+            replot();
         } else if (property_name == BasicAxisItem::P_TITLE) {
             m_customPlot->yAxis->setLabel(m_item->getYaxisTitle());
+            replot();
         }
-        m_customPlot->replot();
     }
 
     else if (property_group == IntensityDataItem::P_ZAXIS) {
-        if (property_name == BasicAxisItem::P_MIN) {
-            QCPRange range = m_colorMap->dataRange();
-            double zmin = m_item->getLowerZ();
-            if (zmin != range.lower) {
-                range.lower = zmin;
-                m_colorMap->setDataRange(range);
-            }
-        } else if (property_name == BasicAxisItem::P_MAX) {
-            QCPRange range = m_colorMap->dataRange();
-            double zmax = m_item->getUpperZ();
-            if (zmax != range.upper) {
-                range.upper = zmax;
-                m_colorMap->setDataRange(range);
-                m_customPlot->replot();
-            }
+        if (property_name == BasicAxisItem::P_MIN || property_name == BasicAxisItem::P_MAX) {
+            setDataRangeFromItem(m_item);
+            replot();
         } else if (property_name == AmplitudeAxisItem::P_IS_LOGSCALE) {
             setLogz(m_item->isLogz());
+            replot();
 
         } else if (property_name == BasicAxisItem::P_IS_VISIBLE) {
-            setColorScaleVisible(m_item->getSubItems()[IntensityDataItem::P_ZAXIS]
-                ->getRegisteredProperty(BasicAxisItem::P_IS_VISIBLE).toBool());
+            setColorScaleVisible(m_item->getItem(IntensityDataItem::P_ZAXIS)
+                ->getItemValue(BasicAxisItem::P_IS_VISIBLE).toBool());
+            replot();
         }
-        m_customPlot->replot();
     }
 }
 
@@ -397,51 +419,37 @@ void ColorMapPlot::onYaxisRangeChanged(QCPRange newRange)
     m_block_update = false;
 }
 
+//! Schedule replot for later execution by onTimeReplot() slot.
+
+void ColorMapPlot::replot()
+{
+    m_updateTimer->scheduleUpdate();
+//    m_customPlot->replot(); // will trigger immediate replot, seems that slower
+}
+
+//! Replots ColorMap.
+
+void ColorMapPlot::onTimeToReplot()
+{
+    m_customPlot->replot();
+}
+
 //! creates and initializes the color map
 void ColorMapPlot::initColorMap()
 {
     m_customPlot = new QCustomPlot();
 
-//    m_customPlot->axisRect()->setAutoMargins(QCP::msNone);
-//    m_customPlot->axisRect()->setMargins(QMargins(0.1, 0.1, 0.1, 0.1));
-
     m_colorMap = new QCPColorMap(m_customPlot->xAxis, m_customPlot->yAxis);
     m_customPlot->addPlottable(m_colorMap);
     m_colorScale = new QCPColorScale(m_customPlot);
 
-//    QFontMetrics fontMetric(font());
-//    auto em = fontMetric.width('M'), fontAscent = fontMetric.ascent();
-//    auto *axisRectangle = m_colorScale->axis()->axisRect();
-//    axisRectangle->setMargins(QMargins(0.0*em, fontAscent*1.0, em*5.0, em));
-////    axisRectangle->setAutoMargins(QCP::msNone);
-//    axisRectangle->setAutoMargins(QCP::msTop | QCP::msBottom);
-////    axisRectangle->setMargins(QMargins(1.0*em, fontAscent, em, 1.0*fontAscent));
+    // add it to the right of the main axis rect
+    m_customPlot->plotLayout()->addElement(0, 1, m_colorScale);
 
+    // scale shall be vertical bar with tick/axis labels
+    m_colorScale->setType(QCPAxis::atRight);
 
-//    QCPMarginGroup *marginGroup = new QCPMarginGroup(m_customPlot);
-//    m_colorScale->setMarginGroup(QCP::msBottom | QCP::msTop, marginGroup);
-//    m_customPlot->axisRect()->setMarginGroup(QCP::msBottom | QCP::msTop, marginGroup);
-
-
-    m_customPlot->plotLayout()->addElement(
-        0, 1, m_colorScale); // add it to the right of the main axis rect
-
-    m_colorScale->setType(QCPAxis::atRight); // scale shall be vertical bar with tick/axis labels
-                                             // right (actually atRight is already the default)
-    m_colorMap->setColorScale(m_colorScale); // associate the color map with the color scale
-
-    m_gradient_map[Constants::GRADIENT_GRAYSCALE] = QCPColorGradient::gpGrayscale;
-    m_gradient_map[Constants::GRADIENT_HOT] = QCPColorGradient::gpHot;
-    m_gradient_map[Constants::GRADIENT_COLD] = QCPColorGradient::gpCold;
-    m_gradient_map[Constants::GRADIENT_NIGHT] = QCPColorGradient::gpNight;
-    m_gradient_map[Constants::GRADIENT_CANDY] = QCPColorGradient::gpCandy;
-    m_gradient_map[Constants::GRADIENT_GEOGRAPHY] = QCPColorGradient::gpGeography;
-    m_gradient_map[Constants::GRADIENT_ION] = QCPColorGradient::gpIon;
-    m_gradient_map[Constants::GRADIENT_THERMAL] = QCPColorGradient::gpThermal;
-    m_gradient_map[Constants::GRADIENT_POLAR] = QCPColorGradient::gpPolar;
-    m_gradient_map[Constants::GRADIENT_SPECTRUM] = QCPColorGradient::gpSpectrum;
-    m_gradient_map[Constants::GRADIENT_JET] = QCPColorGradient::gpJet;
-    m_gradient_map[Constants::GRADIENT_HUES] = QCPColorGradient::gpHues;
+    m_colorMap->setColorScale(m_colorScale);
 
     QPen pen;
     pen.setWidth(1);
@@ -452,122 +460,76 @@ void ColorMapPlot::initColorMap()
     m_customPlot->addGraph();
     m_customPlot->graph(1)->setPen(pen);
 
-    connect(m_colorMap, SIGNAL(dataRangeChanged(QCPRange)), this,
-            SLOT(onDataRangeChanged(QCPRange)));
-    connect(m_customPlot->xAxis, SIGNAL(rangeChanged(QCPRange)), this,
-            SLOT(onXaxisRangeChanged(QCPRange)));
-    connect(m_customPlot->yAxis, SIGNAL(rangeChanged(QCPRange)), this,
-            SLOT(onYaxisRangeChanged(QCPRange)));
-    connect(m_customPlot, SIGNAL(mouseMove(QMouseEvent *)), this, SLOT(onMouseMove(QMouseEvent *)));
+    //setConnected(true);
 }
 
-//! plot IntensityDataItem
-void ColorMapPlot::plotItem(IntensityDataItem *intensityItem)
+
+void ColorMapPlot::setConnected(bool isConnected)
 {
-    m_block_update = true;
-    Q_ASSERT(intensityItem == m_item);
-
-    const OutputData<double> *data = intensityItem->getOutputData();
-    // Q_ASSERT(data);
-    if (!data)
-        return;
-
-    if (data->getRank() != 2) {
-        throw NullPointerException(
-            "ColorMapPlot::plotItem() -> Error. Zero pointer to the data to draw");
-    }
-
-    m_customPlot->setInteractions(
-        QCP::iRangeDrag
-        | QCP::iRangeZoom); // this will also allow rescaling the color scale by dragging/zooming
-    m_customPlot->axisRect()->setupFullAxesBox(true);
-
-    m_customPlot->xAxis->setLabel(intensityItem->getXaxisTitle());
-    m_customPlot->yAxis->setLabel(intensityItem->getYaxisTitle());
-
-    const IAxis *axis_x = data->getAxis(0);
-    const IAxis *axis_y = data->getAxis(1);
-
-    int nx = axis_x->getSize();
-    int ny = axis_y->getSize();
-    m_colorMap->data()->setSize(nx, ny); // we want the color map to have nx * ny data points
-
-    m_colorMap->data()->setRange(QCPRange(intensityItem->getXmin(), intensityItem->getXmax()),
-                                 QCPRange(intensityItem->getYmin(), intensityItem->getYmax()));
-
-    OutputData<double>::const_iterator it = data->begin();
-    while (it != data->end()) {
-        std::vector<int> indices = data->getAxesBinIndices(it.getIndex());
-
-        m_colorMap->data()->setCell(indices[0], indices[1], *it);
-
-        ++it;
-    }
-
-    setColorScaleVisible(intensityItem->getSubItems()[IntensityDataItem::P_ZAXIS]
-        ->getRegisteredProperty(BasicAxisItem::P_IS_VISIBLE).toBool());
-
-    m_colorMap->setGradient(m_gradient_map[intensityItem->getGradient()]);
-
-    QCPRange newDataRange(intensityItem->getLowerZ(), intensityItem->getUpperZ());
-    if (!intensityItem->isZAxisLocked() || (intensityItem->getLowerZ() > intensityItem->getUpperZ())) {
-        newDataRange = calculateDataRange(intensityItem);
-        m_colorMap->setDataRange(newDataRange);
-        intensityItem->setLowerAndUpperZ(newDataRange.lower, newDataRange.upper);
-    }
-
-    m_colorMap->setDataRange(newDataRange);
-    setLogz(intensityItem->isLogz(), false);
-
-    // make sure the axis rect and color scale synchronize their bottom and top margins (so they
-    // line up):
-    QCPMarginGroup *marginGroup = new QCPMarginGroup(m_customPlot);
-    m_customPlot->axisRect()->setMarginGroup(QCP::msBottom | QCP::msTop, marginGroup);
-    m_colorScale->setMarginGroup(QCP::msBottom | QCP::msTop, marginGroup);
-
-    // rescale the key (x) and value (y) axes so the whole color map is visible:
-    //    m_customPlot->rescaleAxes();
-
-    m_customPlot->xAxis->setRange(intensityItem->getLowerX(), intensityItem->getUpperX());
-    m_customPlot->yAxis->setRange(intensityItem->getLowerY(), intensityItem->getUpperY());
-
-    m_customPlot->replot();
-    m_block_update = false;
+    setAxesRangeConnected(isConnected);
+    setDataRangeConnected(isConnected);
+    setMouseMoveConnected(isConnected);
+    setUpdateTimerConnected(isConnected);
 }
 
-//! calculate zmin, zmax for nicely looking linear, and logariphic z-axis
-QCPRange ColorMapPlot::calculateDataRange(IntensityDataItem *intensityItem)
+//! Connects/disconnects signals related to ColorMap's X,Y axes rectangle change.
+
+void ColorMapPlot::setAxesRangeConnected(bool isConnected)
 {
-    const OutputData<double> *data = intensityItem->getOutputData();
-    OutputData<double>::const_iterator it_max = std::max_element(data->begin(), data->end());
-    OutputData<double>::const_iterator it_min = std::min_element(data->begin(), data->end());
-    double min(*it_min), max(*it_max);
-    if (intensityItem->isLogz()) {
-        if (max > 10000) {
-            min = 1.0;
-            max = max * 1.1;
-        } else {
-            min = max / 10000;
-            max = max * 1.1;
-        }
+    if(isConnected) {
+        connect(m_customPlot->xAxis, SIGNAL(rangeChanged(QCPRange)), this,
+                SLOT(onXaxisRangeChanged(QCPRange)), Qt::UniqueConnection);
+
+        connect(m_customPlot->yAxis, SIGNAL(rangeChanged(QCPRange)), this,
+                SLOT(onYaxisRangeChanged(QCPRange)), Qt::UniqueConnection);
+
     } else {
-        max = max * 1.1;
+        disconnect(m_customPlot->xAxis, SIGNAL(rangeChanged(QCPRange)), this,
+                SLOT(onXaxisRangeChanged(QCPRange)));
+
+        disconnect(m_customPlot->yAxis, SIGNAL(rangeChanged(QCPRange)), this,
+                SLOT(onYaxisRangeChanged(QCPRange)));
     }
-    return QCPRange(min, max);
 }
 
-void ColorMapPlot::setColorScaleVisible(bool visibility_flag)
+//! Connects/disconnects signals related to ColorMap's Z-axis (min,max) change.
+
+void ColorMapPlot::setDataRangeConnected(bool isConnected)
 {
-    m_colorScale->setVisible(visibility_flag);
-    if(visibility_flag) {
-        m_customPlot->plotLayout()->addElement(
-            0, 1, m_colorScale); // add it to the right of the main axis rect
+    if(isConnected) {
+        connect(m_colorMap, SIGNAL(dataRangeChanged(QCPRange)), this,
+                SLOT(onDataRangeChanged(QCPRange)), Qt::UniqueConnection);
     } else {
-        m_customPlot->plotLayout()->take(m_colorScale);
-        m_customPlot->plotLayout()->simplify();
-
+        disconnect(m_colorMap, SIGNAL(dataRangeChanged(QCPRange)), this,
+                SLOT(onDataRangeChanged(QCPRange)));
     }
 }
+
+//! Connects/disconnects signals related to MouseMove in ColorMap
+
+void ColorMapPlot::setMouseMoveConnected(bool isConnected)
+{
+    if(isConnected) {
+        connect(m_customPlot, SIGNAL(mouseMove(QMouseEvent *)),
+                this, SLOT(onMouseMove(QMouseEvent *)), Qt::UniqueConnection);
+
+    } else {
+        disconnect(m_customPlot, SIGNAL(mouseMove(QMouseEvent *)),
+                this, SLOT(onMouseMove(QMouseEvent *)));
+    }
+}
+
+void ColorMapPlot::setUpdateTimerConnected(bool isConnected)
+{
+    if(isConnected) {
+        connect(m_updateTimer, SIGNAL(timeToUpdate()),
+                this, SLOT(onTimeToReplot()), Qt::UniqueConnection);
+    } else {
+        disconnect(m_updateTimer, SIGNAL(timeToUpdate()),
+                this, SLOT(onTimeToReplot()));
+    }
+}
+
 
 //! to make fixed margins for whole colormap (change in axes labels wont affect axes rectangle)
 void ColorMapPlot::setFixedColorMapMargins()
@@ -578,3 +540,128 @@ void ColorMapPlot::setFixedColorMapMargins()
     axisRectangle->setAutoMargins(QCP::msTop | QCP::msBottom);
     axisRectangle->setMargins(QMargins(6.0*em, fontAscent*1.5, em*1.2, 4.5*fontAscent));
 }
+
+//! Sets initial state of ColorMap to match given intensity item.
+
+void ColorMapPlot::setColorMapFromItem(IntensityDataItem *intensityItem)
+{
+    Q_ASSERT(intensityItem);
+
+    m_block_update = true;
+
+    setAxesRangeFromItem(intensityItem);
+    setAxesZoomFromItem(intensityItem);
+    setLabelsFromItem(intensityItem);
+    setDataFromItem(intensityItem);
+    setColorScaleAppearanceFromItem(intensityItem);
+    setDataRangeFromItem(intensityItem);
+
+    replot();
+
+    m_block_update = false;
+}
+
+//! Sets (xmin,xmax,nbins) and (ymin,ymax,nbins) of ColorMapPlot from intensity item.
+
+void ColorMapPlot::setAxesRangeFromItem(IntensityDataItem *item)
+{
+    auto data = item->getOutputData();
+    Q_ASSERT(data);
+
+    m_customPlot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom);
+    m_customPlot->axisRect()->setupFullAxesBox(true);
+
+    const IAxis *axis_x = data->getAxis(0);
+    const IAxis *axis_y = data->getAxis(1);
+
+    m_colorMap->data()->setSize(static_cast<int>(axis_x->getSize()),
+                                static_cast<int>(axis_y->getSize()));
+
+    m_colorMap->data()->setRange(ColorMapHelper::itemXrange(item),
+                                 ColorMapHelper::itemYrange(item));
+
+}
+
+//! Sets zoom range of X,Y axes as in intensity item.
+
+void ColorMapPlot::setAxesZoomFromItem(IntensityDataItem *item)
+{
+    setAxesRangeConnected(false);
+    m_customPlot->xAxis->setRange(item->getLowerX(), item->getUpperX());
+    m_customPlot->yAxis->setRange(item->getLowerY(), item->getUpperY());
+    setAxesRangeConnected(true);
+}
+
+//! Sets X,Y axes labels from item
+
+void ColorMapPlot::setLabelsFromItem(IntensityDataItem *item)
+{
+    m_customPlot->xAxis->setLabel(item->getXaxisTitle());
+    m_customPlot->yAxis->setLabel(item->getYaxisTitle());
+}
+
+//! Sets the intensity values to ColorMapPlot.
+
+void ColorMapPlot::setDataFromItem(IntensityDataItem *item)
+{
+    auto data = item->getOutputData();
+    Q_ASSERT(data);
+    const IAxis *axis_x = data->getAxis(0);
+    const IAxis *axis_y = data->getAxis(1);
+
+    for(size_t ix=0; ix<axis_x->getSize(); ++ix) {
+        for(size_t iy=0; iy<axis_y->getSize(); ++iy) {
+            m_colorMap->data()->setCell(static_cast<int>(ix), static_cast<int>(iy),
+                                        (*data)[iy+axis_y->getSize()*ix]);
+        }
+    }
+}
+
+//! Sets the appearance of color scale (visibility, gradient type) from intensity item.
+
+void ColorMapPlot::setColorScaleAppearanceFromItem(IntensityDataItem *item)
+{
+    setColorScaleVisible(item->getItem(IntensityDataItem::P_ZAXIS)
+        ->getItemValue(BasicAxisItem::P_IS_VISIBLE).toBool());
+    m_colorMap->setGradient(ColorMapHelper::itemGradient(m_item));
+    m_colorMap->setInterpolate(m_item->isInterpolated());
+    // make sure the axis rect and color scale synchronize their bottom and top margins (so they
+    // line up):
+    QCPMarginGroup *marginGroup = new QCPMarginGroup(m_customPlot);
+    m_customPlot->axisRect()->setMarginGroup(QCP::msBottom | QCP::msTop, marginGroup);
+    m_colorScale->setMarginGroup(QCP::msBottom | QCP::msTop, marginGroup);
+}
+
+void ColorMapPlot::setDataRangeFromItem(IntensityDataItem *item)
+{
+    setDataRangeConnected(false);
+
+    QCPRange newDataRange(item->getLowerZ(), item->getUpperZ());
+    m_colorMap->setDataRange(newDataRange);
+    setLogz(item->isLogz());
+
+    setDataRangeConnected(true);
+}
+
+
+void ColorMapPlot::setColorScaleVisible(bool visibility_flag)
+{
+    m_colorScale->setVisible(visibility_flag);
+    if(visibility_flag) {
+        // add it to the right of the main axis rect
+        m_customPlot->plotLayout()->addElement(0, 1, m_colorScale);
+    } else {
+        m_customPlot->plotLayout()->take(m_colorScale);
+        m_customPlot->plotLayout()->simplify();
+    }
+}
+
+//! Disconnects everything
+
+void ColorMapPlot::resetColorMap()
+{
+    setConnected(false);
+    if(m_item)
+        m_item->mapper()->unsubscribe(this);
+}
+

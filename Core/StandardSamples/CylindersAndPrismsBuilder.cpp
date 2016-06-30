@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      StandardSamples/CylindersAndPrismsBuilder.cpp
+//! @file      Core/StandardSamples/CylindersAndPrismsBuilder.cpp
 //! @brief     Implements class CylindersAndPrismsBuilder.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -42,9 +42,9 @@ void CylindersAndPrismsBuilder::init_parameters()
     registerParameter("cylinder_weight", &m_cylinder_weight);
 }
 
-ISample *CylindersAndPrismsBuilder::buildSample() const
+ISample* CylindersAndPrismsBuilder::buildSample() const
 {
-    MultiLayer *multi_layer = new MultiLayer();
+    MultiLayer* multi_layer = new MultiLayer();
 
     HomogeneousMaterial air_material("Air", 0., 0.);
     HomogeneousMaterial substrate_material("Substrate", 6e-6, 2e-8);

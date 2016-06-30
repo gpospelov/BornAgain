@@ -2,20 +2,21 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/InstrumentWidgets/InstrumentSelectorWidget.cpp
+//! @file      GUI/coregui/Views/InstrumentWidgets/InstrumentSelectorWidget.cpp
 //! @brief     Implements class InstrumentSelectorWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
 #include "InstrumentSelectorWidget.h"
 #include "InstrumentModel.h"
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 #include <QListView>
 #include <QVBoxLayout>
 #include <QPushButton>
@@ -37,6 +38,7 @@ InstrumentSelectorWidget::InstrumentSelectorWidget(InstrumentModel *model, QWidg
     m_listView->setMovement(QListView::Static);
     m_listView->setMaximumWidth(200);
     m_listView->setSpacing(12);
+    m_listView->setAttribute(Qt::WA_MacShowFocusRect, false);
     //m_listView->setModel(m_instrumentModel);
 
     m_listView->setObjectName("listView");

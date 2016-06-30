@@ -73,7 +73,7 @@ that they also hold for complex scattering vectors,
 used to describe in order to take any material absorption into account.
 The implementation in \BornAgain\ allows all three components
 of~$\q$ to be complex.\footnote
-{According to Sec.~\ref{Smulayabs},
+{According to \cref{Smulayabs},
 only the vertical components of $\k_\ti$ and $\k_\tf$ can have imaginary parts.
 However,
 for tilted particles
@@ -81,7 +81,7 @@ $F(\v{\tilde{q}})$ needs to be computed with
 a rotated scattering vector~$\v{\tilde q}$
 that may be complex in all three components.}
 Some background information on the form factor computations is
-given in App.~\ref{SFFcomp}.
+given in \cref{SFFcomp}.
 
 The following tables summarize the implemented particle geometries,
  roughly ordered by decreasing symmetry.
@@ -93,7 +93,7 @@ Afterwards, the detailed documentation is in alphabetical order.
  \texttt{#1}& %\newline\textsl{#1} &
 #5 & % symmetry
 #4 & % parameters
-Page~\pageref{S#3}\\} % , Sec.~\ref{S#3}
+Page~\pageref{S#3}\\} % , \cref{S#3}
 \begin{center}
   \def\h{\text{h}}
   \def\v{\text{v}}
@@ -112,6 +112,8 @@ Shape&Name&Symmetry&Parameters&Reference\\\hline
 \entry{TruncatedSphere}{Sphere3d}{TruncatedSphere}{$R$, $H$}{C$_{\infty\v}$}{SphericalCap}
 \entry{TruncatedSpheroid}{Spheroid3d}{TruncatedSpheroid}{$R$, $H$, $f_p$}{C$_{\infty\v}$}{SpheroidalCap}
 \entry{Cone}{Cone3d}{Cone}{$R$, $H$, $\alpha$}{C$_{\infty\v}$}{ConicalFrustum}
+\entry{Icosahedron}{Icosahedron3d}{Icosahedron}{$L$}{I$_\h$}{Icosahedron}
+\entry{Dodecahedron}{Dodecahedron3d}{Dodecahedron}{$L$}{I$_\h$}{Dodecahedron}
 \entry{TruncatedCube}{TruncatedCube3d}{TruncatedCube}{$L$, $t$}{O$_\h$}{TruncatedCube}
 \entry{Prism6}{Prism63d}{Prism6}{$R$, $H$}{D$_{6\h}$}{Prism6}
 \entry{Cone6}{Cone63d}{Cone6}{$R$, $H$, $\alpha$}{C$_{6\v}$}{Frustum6}
@@ -151,10 +153,23 @@ If results contain an integral,
 then no analytical form was found,
 and the integral is evaluated by numeric quadrature.
 \index{Quadrature}%
-The analytical expressions for $F(\q)$ contain singularities for
-certain values of $\q$.
-All these singularities are removable.
-Our implementation comprises appropriate case distinctions.
+For polyhedral figures,
+\index{Polyhedron!form factor}
+\index{Form factor!polyhedron}
+except a few simple ones like the rectangular box,
+we use a generic form factor computation,
+parametrized by the vertices of the figure,
+that is described in full detail in a mathematical paper~\cite{ba:ffp}.
+
+Almost all analytical expressions for $F(\q)$ contain
+removable singularities for certain values of $\q$.
+Our implementation uses proper analytic continuations at these singularities,
+\index{Form factor!singularities}
+\index{Singularitiy!in form factor computation}
+though this is not explicitly denoted in the following formula collection.
+Furthermore, series expansions are used to ensure numeric accuracies
+in the neighborhood of the singularities.
+For polyhedra, see Ref.~\cite{ba:ffp} for a meticulous discussion.
 
 \begin{figure}[t]
 \begin{center}
@@ -203,14 +218,14 @@ $I$ has horizontal and vertical mirror planes:
   = I(\alpha_\tf,-\phi_\tf).
 \end{equation}
 % TODO RESTORE TEMPORARILY REMOVED XREF
-% The physical origin this symmetry is discussed in Sec.~\ref{Ssym}.
+% The physical origin this symmetry is discussed in \cref{Ssym}.
 For these particles,
 plots of $I$ are restricted to the quadrant $\alpha_\tf\ge0$, $\phi_\tf\ge0$.
 However, it requires some experience to fully appreciate the
 information content of these plots.
 For a demonstration of this,
-try to capture the main features of Fig.~\ref{F1quadrants}.
-Then compare with Fig.~\ref{F4quadrants}.
+try to capture the main features of \cref{F1quadrants}.
+Then compare with \cref{F4quadrants}.
 
 \begin{figure}[t]
 \begin{center}
@@ -267,32 +282,9 @@ They must fulfill
   H \le \frac{\tan\alpha}{2} \min\,(L,W).
 \end{displaymath}
 
-\paragraph{Form factor etc}\strut\\
-Notation:
-\begin{displaymath}
-  \ell\coloneqq L/2,\quad
-  w\coloneqq W/2,\quad
-  h\coloneqq H/2,\quad
-  f_\pm(z)\coloneqq \exp(\pm i z)\sinc(z).
-\end{displaymath}
-Results:
+\paragraph{Form factor, volume, horizontal section}\strut\\
 \begin{equation*}
-\begin{array}{@{}l@{}l@{}}
-\DS F=
-\frac{H}{q_xq_y} \Big\{
-   &+\DS  f_+\left(\left(\frac{q_x-q_y}{\tan\alpha} +q_z\right)h\right)
-        \exp(-i(q_x\ell-q_y w))
-\\[3.6ex]
-   &\DS+ f_-\left(\left(\frac{q_x-q_y}{\tan\alpha} -q_z\right)h\right)
-        \exp(+i(q_x\ell-q_y w))
-\\[3.6ex]
-   &\DS- f_+\left(\left(\frac{q_x+q_y}{\tan\alpha} +q_z\right)h\right)
-        \exp(-i(q_x\ell+q_y w))
-\\[3.6ex]
-   &\DS- f_-\left(\left(\frac{q_x+q_y}{\tan\alpha} -q_z\right)h\right)
-        \exp(+i(q_x\ell+q_y w))
-\Big\},
-\end{array}
+  F \text{~: computed using the generic polyhedron form factor~\cite{ba:ffp},}
 \end{equation*}
 \begin{equation*}
   V= H \Big[LW - \dfrac{(L + W)H}{\tan\alpha} + \dfrac{4}{3} \dfrac{H^2}{\tan^2\alpha}\Big].
@@ -301,8 +293,7 @@ Results:
   S=LW.
 \end{equation*}
 
-\paragraph{Examples}\strut
-
+\paragraph{Examples}\strut\\
 \begin{figure}[H]
 \begin{center}
 \includegraphics[width=\textwidth]{fig/ff2/ff_AnisoPyramid.pdf}
@@ -313,14 +304,15 @@ for four different angles~$\omega$ of rotation around the $z$ axis.}
 \label{fig:FFAnisoPyramidEx}
 \end{figure}
 
-\paragraph{References}\strut\\
+\paragraph{History}\strut\\
 Agrees with the \E{In-plane anisotropic pyramid} form factor of \IsGISAXS\
 \cite[Eq.~2.40]{Laz08} \cite[Eq.~217]{ReLL09},
-except for different parametrization and
-for a refactoring of the analytical expression for $F(\q)$.
+except for different parametrization.
 This is \E{not} the \E{anisotropic pyramid} of \FitGISAXS,
 which is a true pyramid with an off-center apex \cite{Bab13}.
 
+Formfactors~$F(\q)$ have been checked against the different computation of \IsGISAXS,
+and were found to fully agree.
 
 %===============================================================================
 \ffsection{Box (cuboid)} \label{SBox}
@@ -328,6 +320,7 @@ which is a true pyramid with an off-center apex \cite{Bab13}.
   \index{Box (form factor)}
   \index{Cuboid (form factor)}
   \index{Prism (form factor)!reactangular (Box)}
+  \index{Platonic solids!cube}
   \index{FormFactorBox@\Code{FormFactorBox}}
 
 \paragraph{Real-space geometry}\strut\\
@@ -356,7 +349,7 @@ with the parameters
 \item \texttt{height}, $H$.
 \end{itemize}
 
-\paragraph{Form factor etc}
+\paragraph{Form factor, volume, horizontal section}
 
 \begin{equation*}
 F= L W H\exp\left(i q_z \frac{H}{2}\right) \sinc\left(q_x \frac{L}{2}\right)
@@ -380,7 +373,7 @@ computed with $L=18$~nm, $W=4.6$~nm, and $H=3$~nm,
 for four different angles~$\omega$ of rotation around the $z$ axis.}
 \end{figure}
 
-\paragraph{References}\strut\\
+\paragraph{History}\strut\\
 Agrees with \E{Box} form factor of \IsGISAXS\
 \cite[Eq.~2.38]{Laz08} \cite[Eq.~214]{ReLL09},
 except for factors $1/2$ in the definitions of parameters $L$, $W$, $H$.
@@ -421,7 +414,7 @@ They must fulfill
   H\le R\tan\alpha.
 \end{displaymath}
 
-\paragraph{Form factor etc}\strut\\
+\paragraph{Form factor, volume, horizontal section}\strut\\
 Notation:
 \begin{equation*}
   R_H \coloneqq R-\dfrac{H}{\tan \alpha}, \quad
@@ -452,7 +445,7 @@ computed with $R=4$~nm, $H=11$~nm, and $\alpha=75^\circ$,
 for four different tilt angles~$\vartheta$ (rotation around the $y$ axis).}
 \end{figure}
 
-\paragraph{References}\strut\\
+\paragraph{History}\strut\\
 Agrees with \E{Cone} form factor of \IsGISAXS\
 \cite[Eq.~2.28]{Laz08} \cite[Eq.~225]{ReLL09},
 except for a substitution $z\to\rho$ in our expression for~$F$.
@@ -482,13 +475,13 @@ except for a substitution $z\to\rho$ in our expression for~$F$.
 \FloatBarrier
 \paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
 \begin{lstlisting}
-  FormFactorCone6(radius,height, alpha)
+  FormFactorCone6(base_edge,height, alpha)
 \end{lstlisting}
 with the parameters
 \begin{itemize}
-\item \texttt{radius} of the regular hexagonal base, $R$,
+\item \texttt{base\_edge}, edge of the regular hexagonal base, $R$,
 \item \texttt{height}, $H$,
-\item \texttt{alpha}, between the base and a side face, $\alpha$.
+\item \texttt{alpha}, dihedral angle between the base and a side face, $\alpha$.
 \end{itemize}
 Note that the orthographic projection does not show~$\alpha$,
 but the angle~$\beta$ between the base and a side edge.
@@ -499,24 +492,12 @@ The parameters must fulfill
   H \le (\tan\beta)R.
 \end{displaymath}
 
-\paragraph{Form factor etc}\strut\\
-Notation:
+\paragraph{Form factor, volume, horizontal section}\strut\\
 \begin{equation*}
-  R_H \coloneqq R-\frac{H}{\tan\beta},\quad
-  \tilde{q}_x \coloneqq \frac{1}{2}q_y,\quad
-  \tilde{q}_y \coloneqq \frac{\sqrt{3}}{2}q_y,\quad
-  \tilde{q}_z \coloneqq (\tan\beta) q_z.
-\end{equation*}
-Results:
-\Work{The integral in $F$ could be worked out algebraically.}
-\begin{equation*}
-  F = \frac{\sqrt{3}\, \e^{i\tilde q_z R}}{\tilde q_y ^2 - \tilde q_x^2}
-    \int_{R_H}^R\!\d\rho\, \e^{-i\tilde q_z \rho}
-\Big[\rho\tilde q_y \sinc(\tilde q_x\rho)\sin(\tilde q_y\rho)
-+\cos(2\tilde q_x\rho)-\cos(\tilde q_y \rho)\cos(\tilde q_x\rho) \Big],
+  F \text{~: computed using the generic polyhedron form factor~\cite{ba:ffp},}
 \end{equation*}
 \begin{equation*}
-  V = \tan\beta  \left( R^3- R_H^3 \right),
+  V = \tan\beta  \left( R^3- \left(R-\frac{H}{\tan\beta}\right)^3 \right),
 \end{equation*}
 \begin{equation*}
   S =\dfrac{3\sqrt{3}R^2}{2}.
@@ -533,16 +514,20 @@ computed with $R=6$~nm, $H=5$~nm, and $\alpha=60^\circ$,
 for four different angles~$\omega$ of rotation around the $z$ axis.}
 \end{figure}
 
-\paragraph{References}\strut\\
-Hopefully agrees with \E{Cone6} form factor of \IsGISAXS\
-\cite[Eq.~2.32]{Laz08} \cite[Eq.~222]{ReLL09},
-except for different parametrization.
+\paragraph{History}\strut\\
+Our parametrization deviates from the form factor \E{Cone6} of \IsGISAXS
+\cite[Eq.~2.32]{Laz08} \cite[Eq.~222]{ReLL09}.
 
+Up to \BornAgain-1.5 computed by numeric integration, as in \IsGISAXS.
+Since \BornAgain-1.6 higher speed and better accuracy are achieved
+by using the generic polyhedron form factor \cite{ba:ffp},
+with series expansions near singularities.
 
 %===============================================================================
 \ffsection{Cuboctahedron} \label{SCuboctahedron}
 %===============================================================================
   \index{Cuboctahedron (form factor)}
+  \index{Platonic solids!octahedron}
   \index{FormFactorCuboctahedron@\Code{FormFactorCuboctahedron}}
 
 \paragraph{Real-space geometry}\strut\\
@@ -579,12 +564,9 @@ They must fulfill
   r_h H \le \frac{\tan\alpha}{2} L.
 \end{displaymath}
 
-\paragraph{Form factor etc}\strut\\
-Using the form factor of a square pyramid $F_\text{Py}$
-(Sec.~\ref{SPyramid}):
+\paragraph{Form factor, volume, horizontal section}\strut\\
 \begin{equation*}
-F=\exp(iq_zH)\Big[F_\text{Py}(q_x,q_y, q_z, L, r_H H,\alpha)
-                 +F_\text{Py}(q_x, q_y, -q_z, L, H, \alpha))\Big],
+  F \text{~: computed using the generic polyhedron form factor~\cite{ba:ffp},}
 \end{equation*}
 \begin{equation*}
   V= \dfrac{1}{6} \tan(\alpha)L^3 \Big[ 2
@@ -607,10 +589,12 @@ computed with $L=8$~nm, $H=5$~nm, $r_H=0.5$, and $\alpha=60^\circ$,
 for four different angles~$\omega$ of rotation around the $z$ axis.}
 \end{figure}
 
-\paragraph{References}\strut\\
+\paragraph{History}\strut\\
 Agrees with \E{Cuboctahedron} form factor of \IsGISAXS\
 \cite[Eq.~2.34]{Laz08} \cite[Eq.~218]{ReLL09},
 except for different parametrization $L=2R_{\rm{\Code{IsGISAXS}}}$.
+Since \BornAgain-1.6 implemented
+using the generic polyhedron form factor \cite{ba:ffp}.
 
 
 %===============================================================================
@@ -642,11 +626,15 @@ with the parameters
 \item \texttt{height}, $H$.
 \end{itemize}
 
-\paragraph{Form factor etc}\strut\\
+\paragraph{Form factor, volume, horizontal section}\strut\\
 Notation:
 \begin{equation*}
   q_{\parallel} \coloneqq \sqrt{q_x^2+q_y^2}.
 \end{equation*}
+Note that this does \E{not} involve the sesquilinear product
+$|q_x|^2=q_x^* q_x$ but the plain product $q_xq_x$ of complex numbers
+(and analogous for~$q_y$).
+
 Results:
 \begin{equation*}
   F=  2\pi R^2 H  \sinc\left(q_ z \frac{H}{2}\right) \exp\left(i q_ z \frac{H}{2}\right)
@@ -670,9 +658,110 @@ computed with $R=3$~nm and $H=8.8$~nm,
 for four different tilt angles~$\vartheta$ (rotation around the $y$ axis).}
 \end{figure}
 
-\paragraph{References}\strut\\
-Agrees with \E{Cylinder} form factor of \IsGISAXS\
-\cite[Eq.~2.27]{Laz08} \cite[Eq.~223]{ReLL09}.
+\paragraph{History and Derivation}\strut\\
+For real wave vectors, this form factor is well known;
+it goes back to Lord Rayleigh.
+In \IsGISAXS, it has been implemented as form factor \E{Cylinder}
+\cite[Eq.~2.27]{Laz08} \cite[Eq.~223]{ReLL09},
+allowing for complex wavevectors.
+
+Since it is not obvious that the standard formula also holds for complex~$\q$,
+let us provide a derivation. We only consider the integral over the polar angle,
+\begin{equation}
+  I(\q) \coloneqq \int_0^{2\pi}\!\d\varphi\,\exp\left(iq_xr\sin\varphi+iq_yr\cos\varphi\right).
+\end{equation}
+With the abbreviations $a\coloneqq r(q_x+iq_y)/2$ and $b\coloneqq r(q_x-iq_y)/2$,
+\begin{equation}
+  I(\q) = \int_0^{2\pi}\!\d\varphi\,\exp\left(a\e^{i\varphi}-b\e^{-i\varphi}\right).
+\end{equation}
+Expansion of the exponential, combined with a binomial expansion of its argument, yields
+\begin{equation}
+  I(\q)
+  = \int_0^{2\pi}\!\d\varphi\,
+  \sum_{n=0}^\infty\sum_{k=0}^n(-)^k\frac{a^{n-k}b^{k}}{(n-k)!k!}\e^{i(n-2k)\varphi}.
+\end{equation}
+The integral over $\varphi$ vanishes except for $n=2k$. Hence
+\begin{equation}
+  I(\q)
+  = 2\pi \sum_{k=0}^\infty(-)^k\frac{{\sqrt{ab}\,}^{2k}}{k!k!}
+  = 2\pi J_0\left(rq_\parallel\right).
+\end{equation}
+Integration over~$r$ then yields the in-plane contribution to the form factor~$F(\q)$.
+
+
+%===============================================================================
+\ffsection{Dodecahedron} \label{SDodecahedron}
+%===============================================================================
+  \index{Dodecahedron (form factor)}
+  \index{Platonic solids!dodecahedron}
+  \index{FormFactorDodecahedron@\Code{FormFactorDodecahedron}}
+
+\paragraph{Real-space geometry}\strut\\
+
+\begin{figure}[H]
+\strut\hfill
+%\subfigure[Perspective]
+{\includegraphics[width=.24\textwidth]{fig/blue/Dodecahedron3d.png}}
+%\hfill
+%\subfigure[Top view]{\includegraphics[width=.30\textwidth]{fig/cuts/Box2dxy.pdf}}
+%\hfill
+%\subfigure[Side view]{\raisebox{2mm}{\includegraphics[width=.30\textwidth]{fig/cuts/Box2dxz.pdf}}}
+\hfill\strut
+\caption{A regular dodecahedron.}
+\end{figure}
+
+\FloatBarrier
+
+\paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
+\begin{lstlisting}
+  FormFactorDodecahedron(edge)
+\end{lstlisting}
+with the parameter
+\begin{itemize}
+\item \texttt{edge}, length of one edge, $a$.
+\end{itemize}
+
+\paragraph{Form factor, volume, horizontal section}\strut\\
+\begin{equation*}
+  F \text{~: computed using the generic form factor of a polyhedron
+             with inversion symmetry~\cite{ba:ffp},}
+\end{equation*}
+\begin{equation*}
+  V= \frac{1}{4} (15+7\sqrt{5}) a^3 \approx 7.663\,a^3,
+\end{equation*}
+%\begin{equation*}
+%  S = %% wait for Holden, Shapes, Space, and Symmetry
+%\end{equation*}
+
+\paragraph{Examples}\strut
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=\textwidth]{fig/ff2/ff_Dodecahedron_sym.pdf}
+\end{center}
+\caption{Normalized intensity $|F|^2/V^2$,
+computed with $a=3.2$~nm,
+for three orientations of high symmetry:
+$x$ axis perpendicular to a polygonal face;
+vertex on the $x$ axis;
+edge in the $xy$ plane and perpendicular to the $x$ axis.}
+\end{figure}
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=\textwidth]{fig/ff2/ff_Dodecahedron_asy.pdf}
+\end{center}
+\caption{Normalized intensity $|F|^2/V^2$,
+computed with $a=3.2$~nm,
+for three orientations of decreasing symmetry:
+base pentagon in $xy$ plane and pointing in $x$ direction;
+rotated by $13^\circ$ around the $z$ axis;
+ditto, and tilted by $9^\circ$ around the $x$ axis.}
+\end{figure}
+
+\paragraph{History}\strut\\
+New in \BornAgain-1.6,
+based on the generic form factor of the polyhedron~\cite{ba:ffp}.
 
 
 %===============================================================================
@@ -706,7 +795,7 @@ with the parameters
 \item \texttt{height}, $H$.
 \end{itemize}
 
-\paragraph{Form factor etc}\strut\\
+\paragraph{Form factor, volume, horizontal section}\strut\\
 Notation:
 \begin{equation*}
   \gamma \coloneqq \sqrt{(q_x R_a)^2+(q_y R_b)^2}
@@ -734,7 +823,7 @@ computed with $R_a=6.3$~nm, $R_b=4.2$~nm and $H=3$~nm,
 for four different angles~$\omega$ of rotation around the $z$ axis.}
 \end{figure}
 
-\paragraph{References}\strut\\
+\paragraph{History}\strut\\
 Agrees with the \IsGISAXS\ form factor
 \E{Ellipsoid} \cite[Eq.~2.41, wrongly labeled in Fig.~2.4]{Laz08}
 or \E{Ellipsoidal Cylinder} \cite[Eq.~224]{ReLL09}.
@@ -771,9 +860,16 @@ with the parameter
 \item \texttt{radius}, $R$.
 \end{itemize}
 
-\paragraph{Form factor etc}\strut\\
+\paragraph{Form factor, volume, horizontal section}\strut\\
+Notation:
 \begin{equation*}
-F = 4\pi R^3 \exp(iq_z R)\frac{\sin(q R) - q R \cos(q R)}{(qR)^3},
+  q \coloneqq \sqrt{q_x^2+q_y^2+q_z^2}.
+\end{equation*}
+Note that this does \E{not} involve the sesquilinear product
+$|q_x|^2=q_x^* q_x$ but the plain product $q_xq_x$ of complex numbers
+(and analogous for~$q_y$, $q_z$).
+\begin{equation*}
+F = \frac{4\pi}{q^3} \exp(iq_z R)\left[\sin(qR) - qR \cos(qR)\right],
 \end{equation*}
 \begin{equation*}
   V = \dfrac{4\pi}{3}R^3,
@@ -792,10 +888,144 @@ F = 4\pi R^3 \exp(iq_z R)\frac{\sin(q R) - q R \cos(q R)}{(qR)^3},
 computed with $R=3.9$~nm.}
 \end{figure}
 
-\paragraph{References}\strut\\
-This form factor, which goes back at least to Lord Rayleigh,
-agrees with the \E{Full sphere} of \IsGISAXS
-\cite[Eq.~2.36]{Laz08} \cite[Eq.~226]{ReLL09}.
+\paragraph{History and Derivation}\strut\\
+For real wave vectors, this form factor is well known;
+it goes back at least to Lord Rayleigh.
+In \IsGISAXS, it has been implemented as form factor \E{Full sphere}
+\cite[Eq.~2.36]{Laz08} \cite[Eq.~226]{ReLL09},
+allowing for complex wavevectors.
+Since it is not obvious that Rayleigh's formula also holds for complex~$\q$,
+let us outline a derivation
+(if you know a more elegant one, we would like to hear).
+
+If the origin is at the center of the sphere, then the form factor is
+\begin{equation}
+I(\q,R)
+ = \int_0^R\d r\, r^2\int_0^{\pi}\d\theta\,\sin\theta\int_0^{2\pi}\d\varphi
+  \:\e^{i\q\r}
+\end{equation}
+with $\q\r
+= q_x r\sin\theta\cos\varphi + q_y r\sin\theta\sin\varphi + q_z r\cos\theta$.
+For the integration over $\varphi$,
+see \cref{SCylinder} on the form factor of a cylinder:
+\begin{equation}
+  I(\q,R)
+  = 2\pi \int_0^R \d r\,r^2 \int_0^{\pi} \d\theta\, \sin\theta
+   \exp\left(i q_z \cos \theta\right) J_0\left(q_\parallel r\sin \theta\right)
+\end{equation}
+with $q_{\parallel}=\sqrt{q_x^2+q_y^2}$.
+By symmetry, the imaginary part is zero,
+so that the exponential reduces to a cosine:
+\begin{equation}
+  I(\q,R)
+  = 2\pi \int_0^R \d r\,r^2 \int_0^{\pi} \d\theta\, \sin\theta
+   \cos\left(q_z \cos \theta\right) J_0\left(q_\parallel r\sin \theta\right).
+\end{equation}
+Expand the cosine and the Bessel function:
+\begin{equation}
+  I(\q,R)
+  = 2\pi \int_0^R \d r\,r^2 \int_0^{\pi} \d\theta\, \sin\theta
+    \sum_{j=0}^\infty (-)^j \frac{(q_zr\cos\theta)^{2j}}{(2j)!}\,
+    \sum_{k=0}^{\infty} (-)^k \frac{(q_\parallel r \sin\theta)^{2k}}{4^k k!^2}.
+\end{equation}
+Sort by powers of $r$, and integrate:
+\begin{equation}
+  I(\q,R)
+  = 2\pi \sum_{n=0}^\infty (-)^n \frac{R^{2n+3}}{2n+3} \sum_{k=0}^n
+    \frac{{q_z}^{2n-2k}}{(2n-2k)!}\,\frac{{q_\parallel}^{2k}}{4^k k!^2} \zeta(k,n)
+\end{equation}
+with
+\begin{equation}
+  \zeta(k,n)
+  \coloneqq \int_0^{\pi} \d\theta\, \sin\theta
+  (\cos\theta)^{2n-2k}(\sin\theta)^{2k}.
+\end{equation}
+This integral \cite[no.\ 2.512.4]{GrRy07} yields
+\begin{equation}
+  \zeta(k,n)
+  = \frac{2^{2k+1}(2n-2k)! n! k!}{(2n+1)!(n-k)!}.
+\end{equation}
+Hence
+\begin{equation}\label{ESphereU}
+  I(\q,R)
+  = 4\pi \sum_{n=0}^\infty (-)^n \frac{R^{2n+3}}{(2n+3)(2n+1)!}
+    \sum_{k=0}^n \frac{n!}{(n-k)!k!}{q_z}^{2n-2k}{q_\parallel}^{2k}.
+\end{equation}
+The inner sum happens to be the binomial expansion of
+$q^{2n}=\left({q_z}^2+{q_\parallel}^2\right)^n$.
+Therefore \cref{ESphereU} coincides with the series expansion of
+\begin{equation}
+  I(\q,R)
+  = 4\pi q^{-3} \left( \sin(qR) - qR\cos(qR) \right),
+\end{equation}
+which is what we wanted to prove.
+
+%===============================================================================
+\ffsection{FullSpheroid} \label{SFullSpheroid}
+%===============================================================================
+  \index{Full spheroid (form factor)}
+  \index{Spheroid (form factor)}
+  \index{FormFactorFullSpheroid@\Code{FormFactorFullSpheroid}}
+
+\paragraph{Real-space geometry}\strut\\
+
+\begin{figure}[H]
+\hfill
+\subfigure[Perspective]{\includegraphics[width=.24\textwidth]{fig/blue/FullSpheroid3d.png}}
+\hfill
+\subfigure[Top view]{\includegraphics[width=.30\textwidth]{fig/cuts/FullSpheroid2dxy.pdf}}
+\hfill
+\subfigure[Side view]{\raisebox{-3mm}{\includegraphics[width=.30\textwidth]{fig/cuts/FullSpheroid2dxz.pdf}}}
+\hfill
+\caption{A full spheroid, generated by rotating an ellipse around the vertical axis.}
+\end{figure}
+
+\FloatBarrier
+
+\paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
+\begin{lstlisting}
+  FormFactorFullSpheroid(radius,height)
+\end{lstlisting}
+with the parameters
+\begin{itemize}
+\item \texttt{radius}, $R$,
+\item \texttt{height}, $H$.
+\end{itemize}
+
+\paragraph{Form factor, volume, horizontal section}\strut\\
+Notation:
+\begin{equation*}
+ R_z \coloneqq R\sqrt{1-\frac{4z^2}{H^2}},\quad
+ q_\plll \coloneqq \sqrt{q_x^2+q_y^2}.
+\end{equation*}
+Results:
+\begin{equation*}
+  F = 4\pi \exp(i q_z H/2) \int_0^{H/2} \!\d z\,
+     R_z^2 \frac{J_1(q_{\parallel}R_z)}{q_{\parallel}R_z} \cos(q_z z),
+\end{equation*}
+\begin{equation*}
+  V =\dfrac{2}{3}R^2H,
+\end{equation*}
+\begin{equation*}
+  S =\pi R^2.
+\end{equation*}
+
+\paragraph{Example}\strut
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.5\textwidth]{fig/ff2/ff_FullSpheroid.pdf}
+\end{center}
+\caption{Normalized intensity $|F|^2/V^2$,
+computed with $R=3.5$~nm and $H=9.8$~nm.}
+% changes very little under tilt !
+\end{figure}
+
+\paragraph{History}\strut\\
+Agrees with the \E{Full spheroid} form factor of \IsGISAXS\
+\cite[Eq.~2.37]{Laz08} \cite[Eq.~227]{ReLL09},
+with corrected volume formula.
+We also discovered a wrong factor of~2 in the \IsGISAXS\ code.
 
 
 %===============================================================================
@@ -830,7 +1060,7 @@ with the parameters
 \item \texttt{height}, equal to radius in $z$ direction, $H$
 \end{itemize}
 
-\paragraph{Form factor etc}\strut\\
+\paragraph{Form factor, volume, horizontal section}\strut\\
 Notation:
 \begin{equation*}
  r_{a,z} \coloneqq R_a \sqrt{1-\left(\dfrac{z}{H} \right)^2},\quad
@@ -860,7 +1090,7 @@ computed with $R_a=10$~nm, $R_b=3.8$~nm and $H=3.2$~nm,
 for four different angles~$\omega$ of rotation around the $z$ axis.}
 \end{figure}
 
-\paragraph{References}\strut\\
+\paragraph{History}\strut\\
 Agrees with the \IsGISAXS\ form factor
 \E{Anisotropic hemi-ellipsoid}
 \cite[Eq.~2.42, with wrong sign in the $z$-dependent phase factor]{Laz08}
@@ -868,71 +1098,78 @@ or \E{Hemi-spheroid} \cite[Eq.~229]{ReLL09}.
 
 
 %===============================================================================
-\ffsection{FullSpheroid} \label{SFullSpheroid}
+\ffsection{Icosahedron} \label{SIcosahedron}
 %===============================================================================
-  \index{Full spheroid (form factor)}
-  \index{Spheroid (form factor)}
-  \index{FormFactorFullSpheroid@\Code{FormFactorFullSpheroid}}
+  \index{Icosahedron (form factor)}
+  \index{Platonic solids!icosahedron}
+  \index{FormFactorIcosahedron@\Code{FormFactorIcosahedron}}
 
 \paragraph{Real-space geometry}\strut\\
 
 \begin{figure}[H]
-\hfill
-\subfigure[Perspective]{\includegraphics[width=.24\textwidth]{fig/blue/FullSpheroid3d.png}}
-\hfill
-\subfigure[Top view]{\includegraphics[width=.30\textwidth]{fig/cuts/FullSpheroid2dxy.pdf}}
-\hfill
-\subfigure[Side view]{\raisebox{-3mm}{\includegraphics[width=.30\textwidth]{fig/cuts/FullSpheroid2dxz.pdf}}}
-\hfill
-\caption{A full spheroid, generated by rotating an ellipse around the vertical axis.}
+\strut\hfill
+%\subfigure[Perspective]
+{\includegraphics[width=.24\textwidth]{fig/blue/Icosahedron3d.png}}
+%\hfill
+%\subfigure[Top view]{\includegraphics[width=.30\textwidth]{fig/cuts/Box2dxy.pdf}}
+%\hfill
+%\subfigure[Side view]{\raisebox{2mm}{\includegraphics[width=.30\textwidth]{fig/cuts/Box2dxz.pdf}}}
+\hfill\strut
+\caption{A regular icosahedron.}
 \end{figure}
 
 \FloatBarrier
 
 \paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
 \begin{lstlisting}
-  FormFactorFullSpheroid(radius,height)
+  FormFactorIcosahedron(edge)
 \end{lstlisting}
-with the parameters
+with the parameter
 \begin{itemize}
-\item \texttt{radius}, $R$,
-\item \texttt{height}, $H$.
+\item \texttt{edge}, length of one edge, $a$.
 \end{itemize}
 
-\paragraph{Form factor etc}\strut\\
-Notation:
+\paragraph{Form factor, volume, horizontal section}\strut\\
 \begin{equation*}
- R_z \coloneqq R\sqrt{1-\frac{4z^2}{H^2}},\quad
- q_\plll \coloneqq \sqrt{q_x^2+q_y^2}.
-\end{equation*}
-Results:
-\begin{equation*}
-  F = 4\pi \exp(i q_z H/2) \int_0^{H/2} \!\d z\,
-     R_z^2 \frac{J_1(q_{\parallel}R_z)}{q_{\parallel}R_z} \cos(q_z z),
+  F \text{~: computed using the generic form factor of a polyhedron
+             with inversion symmetry~\cite{ba:ffp},}
 \end{equation*}
 \begin{equation*}
-  V =\dfrac{2}{3}R^2H,
+  V= \frac{5}{12} (3+\sqrt5)a^3 \approx 2.182\,a^3
 \end{equation*}
-\begin{equation*}
-  S =\pi R^2.
-\end{equation*}
+%\begin{equation*}
+%  S = %% wait for Holden, Shapes, Space, and Symmetry
+%\end{equation*}
 
-\paragraph{Example}\strut
+\paragraph{Examples}\strut
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[width=0.5\textwidth]{fig/ff2/ff_FullSpheroid.pdf}
+\includegraphics[width=\textwidth]{fig/ff2/ff_Icosahedron_sym.pdf}
 \end{center}
 \caption{Normalized intensity $|F|^2/V^2$,
-computed with $R=3.5$~nm and $H=9.8$~nm.}
-% changes very little under tilt !
+computed with $a=4.8$~nm,
+for three orientations of high symmetry:
+$x$ axis perpendicular to a polygonal face;
+vertex on the $x$ axis;
+edge in the $xy$ plane and perpendicular to the $x$ axis.}
 \end{figure}
 
-\paragraph{References}\strut\\
-Agrees with the \E{Full spheroid} form factor of \IsGISAXS\
-\cite[Eq.~2.37]{Laz08} \cite[Eq.~227]{ReLL09},
-with corrected volume formula.
-We also discovered a wrong factor of~2 in the \IsGISAXS\ code.
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=\textwidth]{fig/ff2/ff_Icosahedron_asy.pdf}
+\end{center}
+\caption{Normalized intensity $|F|^2/V^2$,
+computed with $a=4.8$~nm,
+for three orientations of decreasing symmetry:
+base pentagon in $xy$ plane and pointing in $x$ direction;
+rotated by $13^\circ$ around the $z$ axis;
+ditto, and tilted by $9^\circ$ around the $x$ axis.}
+\end{figure}
+
+\paragraph{History}\strut\\
+New in \BornAgain-1.6,
+based on the generic form factor of the polyhedron~\cite{ba:ffp}.
 
 
 %===============================================================================
@@ -943,15 +1180,13 @@ We also discovered a wrong factor of~2 in the \IsGISAXS\ code.
 
 \paragraph{Real-space geometry}\strut\\
 
-\Work{probably the $xy$ view needs to be rotated by 30$^\circ$}
-
 \begin{figure}[H]
 \hfill
 \subfigure[Perspective]{\includegraphics[width=.24\textwidth]{fig/blue/Prism33d.png}}
 \hfill
-\subfigure[Top view]{\includegraphics[width=.30\textwidth]{fig/cuts/Prism32dxy.pdf}}
+\subfigure[Top view]{\includegraphics[width=.30\textwidth]{fig/cuts/Prism32dxy.ps}}
 \hfill
-\subfigure[Side view]{\raisebox{2mm}{\includegraphics[width=.30\textwidth]{fig/cuts/Prism32dxz.pdf}}}
+\subfigure[Side view]{\includegraphics[width=.30\textwidth]{fig/cuts/Prism32dxz.ps}}
 \hfill
 \caption{A prism based on an equilateral triangle.}
 \end{figure}
@@ -968,15 +1203,12 @@ with the parameters
 \item \texttt{height}, $H$.
 \end{itemize}
 
-\paragraph{Form factor etc}\strut\\
-\begin{align*}
-F &= \frac{2 \sqrt{3}}{q_x^2-3q_y^2}
-     \exp\left(-i q_y\frac{L}{2\sqrt{3}}\right)
-    \left[\exp\left(i \sqrt{3} q_y \frac{L}{2} \right)-\cos\left(q_x \frac{L}{2}\right)
-    -i \sqrt{3} q_y \frac{L}{2} \sinc\left(q_x \frac{L}{2}\right) \right] \\
-  &
-  \times  H \sinc\left(q_z \frac{H}{2} \right) \exp\left(i q_z \frac{H}{2}\right),
-\end{align*}
+\paragraph{Form factor, volume, horizontal section}\strut\\
+\begin{equation*}
+F = H \sinc\left(q_z\frac{H}{2}\right) \exp\left(-i q_z\frac{ H}{2}\right) F_\parallel(\q_\parallel)
+\end{equation*}
+with the form factor $F_\parallel$ of the base triangle
+computed using the generic form factor of a planar polygon \cite{ba:ffp},
 \begin{equation*}
   V= \dfrac{\sqrt{3}}{4} H L^2,
 \end{equation*}
@@ -991,16 +1223,23 @@ F &= \frac{2 \sqrt{3}}{q_x^2-3q_y^2}
 \includegraphics[width=\textwidth]{fig/ff2/ff_Prism3.pdf}
 \end{center}
 \caption{Normalized intensity $|F|^2/V^2$,
-computed with $R=13.8$~nm and $H=3$~nm,
+computed with $L=13.8$~nm and $H=3$~nm,
 for four different angles~$\omega$ of rotation around the $z$ axis.}
 \label{fig:FFprism3Ex}
 \end{figure}
 
-\paragraph{References}\strut\\
-Agrees with \E{Prism3} form factor of \IsGISAXS\
-\cite[Eq.~2.29]{Laz08} \cite[Eq.~219]{ReLL09},
-except for the definition of parameter $L= 2 R_{\rm{\Code{IsGISAXS}}}$.
+\paragraph{History}\strut\\
+Has been validated against the \E{Prism3} form factor of \IsGISAXS\
+\cite[Eq.~2.29]{Laz08} \cite[Eq.~219]{ReLL09}.
+Note the different parameterization $L= 2 R_{\rm{\Code{IsGISAXS}}}$.
 In \FitGISAXS\ just called \E{Prism} \cite{Bab13}.
+In \BornAgain-1.6,
+redefined to let the $x$ axis point along a symmetry axis
+(rotated by $30^\circ$ with respect to the previous version).
+
+Reimplemented in \BornAgain-1.6 using the generic form factor
+of a polygonal prism \cite{ba:ffp},
+to achieve numerical stability near the removable singularity at $q\to0$.
 
 %===============================================================================
 \ffsection{Prism6 (hexagonal)} \label{SPrism6}
@@ -1033,12 +1272,13 @@ with the parameters
 \item \texttt{height}, $H$.
 \end{itemize}
 
-\paragraph{Form factor etc}\strut\\
+\paragraph{Form factor, volume, horizontal section}\strut\\
 \begin{equation*}
 F = H \sinc\left(q_z\frac{H}{2}\right) \exp\left(-i q_z\frac{ H}{2}\right) F_\parallel(\q_\parallel)
 \end{equation*}
-with the polygon form factor $F_\parallel$
-computed according to (\ref{Eff2ngon}),
+with the form factor $F_\parallel$ of the base hexagon
+computed using the generic form factor of a planar polygon
+with two-fold symmetry~($S_2$) \cite{ba:ffp},
 \begin{equation*}
   V = \dfrac{3\sqrt{3}}{2}H R^2,
 \end{equation*}
@@ -1058,13 +1298,15 @@ for four different angles~$\omega$ of rotation around the $z$ axis.}
 \label{fig:FFprism6Ex}
 \end{figure}
 
-\paragraph{References}\strut\\
+\paragraph{History}\strut\\
 Has been validated against the \E{Prism6} form factor of \IsGISAXS\
 \cite[Eq.~2.31]{Laz08} \cite[Eq.~221]{ReLL09},
 which has different parametrization
 and lacks a factor $H$ in $F(\q)$.
-As expected, our computation derived in Sec.~\ref{SFFPolygon}
-is numerically more stable near the removable singularity at $q\to0$.
+
+Reimplemented in \BornAgain-1.5 using the generic form factor
+of a polygonal prism with symmetry~$S_2$ \cite{ba:ffp},
+to achieve numerical stability near the removable singularity at $q\to0$.
 
 
 %===============================================================================
@@ -1104,24 +1346,9 @@ They must fulfill
   H \le \frac{\tan\alpha}{2}L.
 \end{displaymath}
 
-\paragraph{Form factor etc}\strut\\
-Notation:
-\begin{displaymath}
-  a\coloneqq q_x/\tan\alpha,\quad
-  b\coloneqq q_y/\tan\alpha,\quad
-  c\coloneqq q_z.
-\end{displaymath}
-Results:
+\paragraph{Form factor, volume, horizontal section}\strut\\
 \begin{equation*}
-  \DS F= \frac{\exp(iq_zL\tan\alpha/2)}{\tan^2\alpha} \Big\{ I_p(H-L\tan\alpha/2) - I_p(-L\tan\alpha/2) \Big\}
-\end{equation*}
-Where $I_p(z)$ is an antiderivative for the final z--integration in the Fourier transform of the non--truncated pyramid shape function:
-\begin{equation*}
-\begin{array}{@{}l@{}l@{}}
-  \DS I_p(z) = & 4\exp(icz)\Big\{ \sin(az)\big[b(a^2-b^2+c^2)\cos(bz) + ic(a^2+b^2-c^2)\sin(bz)\big] \\
-  & +a\cos(az)\big[(-a^2+b^2+c^2)\sin(bz) + 2ibc\cos(bz) \big] \Big\} \\
-  & / \Big\{ab\big[(a+b)^2-c^2\big]\big[(a-b)^2-c^2\big]\Big\}
-\end{array}
+  F \text{~: computed using the generic polyhedron form factor~\cite{ba:ffp},}
 \end{equation*}
 \begin{equation*}
   V = \dfrac{1}{6}  L^3 \tan\alpha\left[ 1
@@ -1135,7 +1362,6 @@ Where $I_p(z)$ is an antiderivative for the final z--integration in the Fourier 
 
 \begin{figure}[H]
 \begin{center}
-%\includegraphics[angle=-90,width=\textwidth]{fig/ff/figffpyramid.pdf}
 \includegraphics[width=\textwidth]{fig/ff2/ff_Pyramid.pdf}
 \end{center}
 \caption{Normalized intensity $|F|^2/V^2$,
@@ -1143,12 +1369,15 @@ computed with $L=10$~nm, $H=4.2$~nm and $\alpha=60^{\circ}$,
 for four different angles~$\omega$ of rotation around the $z$ axis.}
 \end{figure}
 
-\paragraph{References}\strut\\
+\paragraph{History}\strut\\
 Corresponds to \E{Pyramid} form factor of \IsGISAXS\
 \cite[Eq.~2.31]{Laz08} \cite[Eq.~221]{ReLL09},
-with different parametrization $L=2R_{\rm{\Code{IsGISXAXS}}}$,
-with correction of a sign error,
-and with a more compact form of $F(\q)$.
+except for different parametrization $L=2R_{\rm{\Code{IsGISXAXS}}}$
+and a corrected sign.
+
+Reimplemented in \BornAgain-1.6 using the generic form factor
+of a polygonal prism \cite{ba:ffp},
+to achieve numerical stability near the removable singularity at $q\to0$.
 
 
 %===============================================================================
@@ -1168,7 +1397,7 @@ and with a more compact form of $F(\q)$.
 \hfill
 \subfigure[Side view]{\includegraphics[width=.30\textwidth]{fig/cuts/Ripple12dyz.pdf}}
 \hfill
-\caption{An infinite ripple with a sinusoidal profile.}
+\caption{A ripple with a sinusoidal profile.}
 \end{figure}
 
 \paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
@@ -1182,11 +1411,25 @@ with the parameters
 \item \texttt{height}, $H$.
 \end{itemize}
 
-\paragraph{Form factor etc}\strut\\
-\begin{align*}
-F &=L \cdot \frac{W}{\pi}\cdot \sinc\left(\frac{q_xL}{2}\right)\times \\
-&\int_0^H\!\d z\, \arccos\left(\frac{2z}{H}-1\right)\sinc\left[\frac{q_yW}{2\pi}\arccos\left(\frac{2z}{H} - 1\right)\right]\exp\left(iq_zz\right),
-\end{align*}
+The ripple is modelled as a surface
+\begin{equation*}
+  Z(y) = \frac{H}{2}\left[ 1 + \cos\frac{2\pi y}{W} \right].
+\end{equation*}
+
+\paragraph{Form factor}\strut\\
+Using the inverse profile
+\begin{equation*}
+  Y(z) = \frac{W}{2\pi}\text{arccos}\left( \frac{2z}{H}-1 \right),
+\end{equation*}
+the form factor is computed by numeric integration:
+\begin{equation*}
+F = L \sinc\left(\frac{q_xL}{2}\right)
+   \int_0^H\!\d z\,\e^{iq_zz}\, 2Y(z)\sinc\left(q_y Y(z)\right).
+\end{equation*}
+The integration is substantially accelerated by the substitution
+$u=\text{arccos}( 2z/H-1)$.
+
+\paragraph{Volume, horizontal section}\strut\\
 \begin{equation*}
   V = \dfrac{L W H}{2},
 \end{equation*}
@@ -1205,7 +1448,7 @@ computed with $L=25$~nm, $W=10$~nm and $H=8$~nm,
 for four different angles~$\omega$ of rotation around the $z$ axis.}
 \end{figure}
 
-\paragraph{References}\strut\\
+\paragraph{History}\strut\\
 Agrees with the \E{Ripple1} form factor of \FitGISAXS\ \cite{Bab13}.
 
 %===============================================================================
@@ -1225,7 +1468,7 @@ Agrees with the \E{Ripple1} form factor of \FitGISAXS\ \cite{Bab13}.
 \hfill
 \subfigure[Side view]{\includegraphics[width=.30\textwidth]{fig/cuts/Ripple22dyz.pdf}}
 \hfill
-\caption{An infinite ripple with an asymmetric saw-tooth profile.}
+\caption{A ripple with an asymmetric saw-tooth profile.}
 \end{figure}
 
 \FloatBarrier
@@ -1246,7 +1489,7 @@ They must fulfill
   |d| \le W/2.
 \end{displaymath}
 
-\paragraph{Form factor etc}\strut\\
+\paragraph{Form factor, volume, horizontal section}\strut\\
 \begin{align*}
 F &=L W
 \sinc\left(\frac{q_xL}{2}\right)\times \\ &
@@ -1276,7 +1519,7 @@ for four different angles~$\omega$ of rotation around the $z$ axis.
 The low symmetry requires other angular ranges than used in most other figures.}
 \end{figure}
 
-\paragraph{References}\strut\\
+\paragraph{History}\strut\\
 Agrees with the \E{Ripple2} form factor of \FitGISAXS\ \cite{Bab13}.
 
 
@@ -1285,6 +1528,7 @@ Agrees with the \E{Ripple2} form factor of \FitGISAXS\ \cite{Bab13}.
 %===============================================================================
   \index{Tetrahedron (form factor)}
   \index{Truncated tetrahedron (form factor)}
+  \index{Platonic solids!tetrahedron}
   \index{FormFactorTetrahedron@\Code{FormFactorTetrahedron}}
 
 \paragraph{Real-space geometry}\strut\\
@@ -1296,9 +1540,9 @@ Incorrectly named so, since it actually has five, not four surfaces.
 \hfill
 \subfigure[Perspective]{\includegraphics[width=.24\textwidth]{fig/blue/Tetrahedron3d.png}}
 \hfill
-\subfigure[Top view]{\includegraphics[width=.30\textwidth]{fig/cuts/Tetrahedron2dxy.pdf}}
+\subfigure[Top view]{\includegraphics[width=.30\textwidth]{fig/cuts/Tetrahedron2dxy.ps}}
 \hfill
-\subfigure[Side view]{\raisebox{5mm}{\includegraphics[width=.30\textwidth]{fig/cuts/Tetrahedron2dxz.pdf}}}
+\subfigure[Side view]{\includegraphics[width=.30\textwidth]{fig/cuts/Tetrahedron2dxz.ps}}
 \hfill
 \caption{A truncated pyramid, based on an equilateral triangle.}
 \end{figure}
@@ -1313,33 +1557,19 @@ with the parameters
 \begin{itemize}
 \item \texttt{length} of one edge of the equilateral triangular base, $L$,
 \item \texttt{height}, $H$,
-\item \texttt{alpha}, angle between the base and a side face, $\alpha$.
+\item \texttt{alpha}, dihedral angle between the base and a side face, $\alpha$.
 \end{itemize}
 They must fulfill
 \begin{displaymath}
   H\le \frac{\tan{\alpha}}{2\sqrt{3}} L.
 \end{displaymath}
-Note that the orthographic projection does not show~$\alpha$,
-but the angle~$\beta$ between the base and a side edge.
-They are related through $\tan \alpha = 2 \tan \beta$.
+The orthographic projection also shows the angle~$\beta$ between the base and a side edge.
+It is related to the dihedral angle through $\tan \alpha = 2 \tan \beta$.
 
-\paragraph{Form factor etc}\strut\\
-Notation:
+\paragraph{Form factor, volume, horizontal section}\strut\\
 \begin{equation*}
-q_1  \coloneqq \frac{1}{2}\left[\frac{q_x\sqrt{3} -q_y}{\tan \alpha}-q_z \right],
-\quad q_2 \coloneqq \frac{1}{2}\left[\frac{q_x\sqrt{3} +q_y}{\tan \alpha}+q_z
-\right], \quad
-q_3 \coloneqq \frac{q_y}{\tan \alpha} -\frac{q_z}{2}, \quad
-D \coloneqq \frac{L \tan \alpha}{\sqrt{3}} -H.
+  F\text{~: computed using the generic polyhedron form factor~\cite{ba:ffp},}
 \end{equation*}
-Results:
-\begin{align*}
-&F=\frac{\sqrt{3}H}{q_x (q_x^2-3q_y^2)}
-\exp\left(i\frac{q_z L\tan (\alpha)}{2\sqrt{3}}\right) \times \\
-&\Big\{2q_x \exp(iq_3 D)\sinc(q_3 H) - (q_x +\sqrt{3}q_y)
-\exp(iq_1 D)\sinc(q_1 H)\\
-&-(q_x-\sqrt{3}q_y)\exp(-iq_2 D)\sinc(q_2 H) \Big\},
-\end{align*}
 \begin{equation*}
   V= \dfrac{\tan(\alpha) L^3}{24} \left[1- \left(1 -
   \dfrac{2\sqrt{3} H}{L \tan(\alpha)} \right)^3\right],
@@ -1360,11 +1590,18 @@ for four different angles~$\omega$ of rotation around the $z$ axis.
 The low symmetry requires other angular ranges than used in most other figures.}
 \end{figure}
 
-\paragraph{References}\strut\\
-Agrees with the \E{Tetrahedron} form factor of \IsGISAXS\
-\cite[Eq.~2.30]{Laz08} \cite[Eq.~220]{ReLL09}.
-In \FitGISAXS\ correctly called \E{Truncated tetrahedron} \cite{Bab13}.
+\paragraph{History}\strut\\
+Previous implementations as \E{Tetrahedron} in \IsGISAXS\
+\cite[Eq.~2.30]{Laz08} \cite[Eq.~220]{ReLL09},
+and as  \E{Truncated tetrahedron} in \FitGISAXS\ \cite{Bab13}.
+In \BornAgain-1.6,
+redefined to let the $x$ axis lay in a mirror plane
+(rotated by $30^\circ$ with respect to the previous version).
 
+Up to \BornAgain-1.5, we computed the form factor by numeric integration, as in \IsGISAXS.
+Since \BornAgain-1.6 higher speed and accuracy are achieved
+by using the generic polyhedron form factor \cite{ba:ffp},
+with series expansions near singularities.
 
 %===============================================================================
 \ffsection{TruncatedCube} \label{STruncatedCube}
@@ -1403,41 +1640,10 @@ They must fulfill
   t \le L/2.
 \end{displaymath}
 
-\paragraph{Form factor etc}\strut\\
-Notation:\\
-Besides the form factor $F_\text{Box}(\q)$
-of the full cube of side length $L$ (Sec.~\ref{SBox}),
-we need the form factor of a trirectangular tetrahedrons
-as cut from the cube:
-\begin{align*}
-F_{\text{vertex}_1}(q_x, q_y, q_z, L, t) &=\frac{t}{q_z}\exp\left( i\frac{q_x(L-t)+ q_y L}{2} \right) \\
-\times \Big\{ \frac{1}{q_y} \sinc\left( \frac{q_x t}{2}\right)
-&- \frac{q_z}{q_y(q_y + q_z)} \exp\left(i\frac{q_yt}{2}\right) \sinc\left( \frac{(q_x-q_y)t}{2}\right)\\
-&- \frac{1}{q_y + q_z} \exp\left( i\frac{q_z t}{2} \right) \sinc \left( \frac{(q_x+q_z) t}{2} \right)  \Big\}
-\end{align*}
-Thanks to symmetry (see the following figure,
-which shows the vertices $V_i$ for $i=1,\ldots,8$),
-the form factors of other seven tetrahedrons cut from the cube
-can be computed as follows
-(note that the origin is taken as usual
-at the centre of the bottom face of the cube):
-\begin{figure}[H]
-\begin{center}
-\includegraphics[width=.5\textwidth]{fig/drawing/SketchTruncatedcube.png}
-\end{center}
-\end{figure}
-\begin{align*}
-F_{\text{vertex}_2}(q_x, q_y, q_z, L, t) &= F_{\text{vertex}_1}(q_y, -q_x, q_z, L, t) \\
-F_{\text{vertex}_3}(q_x, q_y, q_z, L, t) &= F_{\text{vertex}_1}(-q_x, -q_y, q_z, L, t) \\
-F_{\text{vertex}_4}(q_x, q_y, q_z, L, t) &= F_{\text{vertex}_1}(-q_y, q_x, q_z, L, t) \\
-F_{\text{vertex}_5}(q_x, q_y, q_z, L, t) &= \exp(iq_zL)F_{\text{vertex}_1}(q_x, q_y, -q_z, L, t) \\
-F_{\text{vertex}_6}(q_x, q_y, q_z, L, t) &= \exp(iq_zL)F_{\text{vertex}_1}(q_y, -q_x,- q_z, L, t) \\
-F_{\text{vertex}_7}(q_x, q_y, q_z, L, t) &= \exp(iq_zL)F_{\text{vertex}_1}(-q_x, -q_y, -q_z, L, t) \\
-F_{\text{vertex}_8}(q_x, q_y, q_z, L, t) &= \exp(iq_zL)F_{\text{vertex}_1}(-q_y, q_x, -q_z, L, t)
-\end{align*}
-Result:
+\paragraph{Form factor, volume, horizontal section}\strut\\
 \begin{equation*}
-F =F_{\text{Box}}(q_x,q_y,q_z, L, L, L) - \sum_{i=1}^8 F_{\text{vertex}_i}(q_x, q_y, q_z, L, t)
+  F \text{~: computed using the generic form factor of a polyhedron
+             with inversion symmetry~\cite{ba:ffp},}
 \end{equation*}
 \begin{equation*}
   V = L^3 - \dfrac{4}{3}t^3,
@@ -1457,8 +1663,10 @@ computed with $L=25$~nm, $W=10$~nm, $H=8$~nm, and $d=5$~nm,
 for four different angles~$\omega$ of rotation around the $z$ axis.}
 \end{figure}
 
-\paragraph{References}\strut\\
-\cite{HeSS74}
+\paragraph{History}\strut\\
+Motivated by \cite{HeSS74}.
+Reimplemented in \BornAgain-1.6 using the generic form factor
+of a polygonal prism \cite{ba:ffp}.
 
 
 %===============================================================================
@@ -1496,7 +1704,7 @@ They must fulfill
    0 < H\leq 2R.
 \end{displaymath}
 
-\paragraph{Form factor etc}\strut\\
+\paragraph{Form factor, volume, horizontal section}\strut\\
 Notation:
 \begin{equation*}
   q_{\parallel} \coloneqq \sqrt{q_x^2+q_y^2},\quad
@@ -1526,7 +1734,7 @@ computed with $R=4.2$~nm and $H=6.1$~nm,
 for four different tilt angles~$\vartheta$ (rotation around the $y$ axis).}
 \end{figure}
 
-\paragraph{References}\strut\\
+\paragraph{History}\strut\\
 Agrees with the \IsGISAXS\ form factor
 \E{Sphere} \cite[Eq.~2.33]{Laz08} or
 \E{Truncated sphere} \cite[Eq.~228]{ReLL09}.
@@ -1567,7 +1775,7 @@ They must fulfill
   0< \dfrac{H}{R}\le 2f_p.
 \end{displaymath}
 
-\paragraph{Form factor etc}\strut\\
+\paragraph{Form factor, volume, horizontal section}\strut\\
 Notation:
 \begin{equation*}
   q_{\parallel} \coloneqq \sqrt{q_x^2+q_y^2}, \quad
@@ -1597,7 +1805,7 @@ computed with $R=3.3$~nm, $H=9.8$~nm, and $f_p=1.8$,
 for four different tilt angles~$\vartheta$ (rotation around the $y$ axis).}
 \end{figure}
 
-\paragraph{References}\strut\\
+\paragraph{History}\strut\\
 Agrees with the \IsGISAXS\ form factor
 \E{Sphere} \cite[Eq.~2.33]{Laz08} or
 \E{TruncatedSpheroid} \cite[Eq.~228]{ReLL09}.

@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      StandardSamples/SampleBuilderFactory.cpp
+//! @file      Core/StandardSamples/SampleBuilderFactory.cpp
 //! @brief     Implement class SampleBuilderFactory.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -13,7 +13,8 @@
 //
 // ************************************************************************** //
 
-#include "SampleBuilderFactory.h"
+#include <memory>
+#include "ISample.h"
 #include "CylindersAndPrismsBuilder.h"
 #include "CylindersBuilder.h"
 #include "ParaCrystalBuilder.h"
@@ -34,206 +35,202 @@
 #include "TransformationsBuilder.h"
 #include "BoxCompositionBuilder.h"
 #include "LayersWithAbsorptionBuilder.h"
+#include "SampleBuilderFactory.h"
 
 SampleBuilderFactory::SampleBuilderFactory()
 {
     registerItem(
         "CylindersAndPrismsBuilder",
-        IFactoryCreateFunction<CylindersAndPrismsBuilder, ISampleBuilder>,
+        create_new<CylindersAndPrismsBuilder>,
         "Mixture of cylinders and prisms without interference");
 
     registerItem(
         "TwoTypesCylindersDistributionBuilder",
-        IFactoryCreateFunction<TwoTypesCylindersDistributionBuilder, ISampleBuilder>,
+        create_new<TwoTypesCylindersDistributionBuilder>,
         "Mixture of cylinder particles with two types size distribution ");
 
     registerItem(
         "CylindersInBABuilder",
-        IFactoryCreateFunction<CylindersInBABuilder, ISampleBuilder>,
+        create_new<CylindersInBABuilder>,
         "Cylinder formfactor in BA");
     registerItem(
         "CylindersInDWBABuilder",
-        IFactoryCreateFunction<CylindersInDWBABuilder, ISampleBuilder>,
+        create_new<CylindersInDWBABuilder>,
         "Cylinder formfactor in DWBA");
+    registerItem(
+        "LargeCylindersInDWBABuilder",
+        create_new<LargeCylindersInDWBABuilder>,
+        "Large cylinders in DWBA");
 
     registerItem(
         "CylindersWithSizeDistributionBuilder",
-        IFactoryCreateFunction<CylindersWithSizeDistributionBuilder, ISampleBuilder>,
+        create_new<CylindersWithSizeDistributionBuilder>,
         "Cylinder formfactor in BA with size distribution");
 
     registerItem(
         "RadialParaCrystalBuilder",
-        IFactoryCreateFunction<RadialParaCrystalBuilder, ISampleBuilder>,
+        create_new<RadialParaCrystalBuilder>,
         "Interference function of radial paracrystal");
 
     registerItem(
         "Basic2DParaCrystalBuilder",
-        IFactoryCreateFunction<Basic2DParaCrystalBuilder, ISampleBuilder>,
+        create_new<Basic2DParaCrystalBuilder>,
         "Interference function of 2D basic paracrystal with variety of FT distributions");
 
     registerItem(
         "HexParaCrystalBuilder",
-        IFactoryCreateFunction<HexParaCrystalBuilder, ISampleBuilder>,
+        create_new<HexParaCrystalBuilder>,
         "Interference function of 2D hexagonal paracrystal");
 
     registerItem(
         "Lattice1DBuilder",
-        IFactoryCreateFunction<Lattice1DBuilder, ISampleBuilder>,
+        create_new<Lattice1DBuilder>,
         "Interference function of 1D lattice");
 
     registerItem(
         "RectParaCrystalBuilder",
-        IFactoryCreateFunction<RectParaCrystalBuilder, ISampleBuilder>,
+        create_new<RectParaCrystalBuilder>,
         "Interference function of 2D rectangular paracrystal");
 
     registerItem(
         "SquareLatticeBuilder",
-        IFactoryCreateFunction<SquareLatticeBuilder, ISampleBuilder>,
+        create_new<SquareLatticeBuilder>,
         "Interference of square lattice with disordered");
 
     registerItem(
         "CenteredSquareLatticeBuilder",
-        IFactoryCreateFunction<CenteredSquareLatticeBuilder, ISampleBuilder>,
+        create_new<CenteredSquareLatticeBuilder>,
         "Interference of centered square lattice");
 
     registerItem(
         "RotatedSquareLatticeBuilder",
-        IFactoryCreateFunction<RotatedSquareLatticeBuilder, ISampleBuilder>,
+        create_new<RotatedSquareLatticeBuilder>,
         "2D lattice rotated");
 
     registerItem(
         "CustomMorphologyBuilder",
-        IFactoryCreateFunction<CustomMorphologyBuilder, ISampleBuilder>,
+        create_new<CustomMorphologyBuilder>,
         "Mixture of different particles a la IsGISAXS morphology file");
 
     registerItem(
         "RotatedPyramidsBuilder",
-        IFactoryCreateFunction<RotatedPyramidsBuilder, ISampleBuilder>,
+        create_new<RotatedPyramidsBuilder>,
         "Rotated pyramids on top of substrate");
 
     registerItem(
         "CoreShellParticleBuilder",
-        IFactoryCreateFunction<CoreShellParticleBuilder, ISampleBuilder>,
+        create_new<CoreShellParticleBuilder>,
         "Core shell nanoparticles");
 
     registerItem(
         "CoreShellBoxRotateZandYBuilder",
-        IFactoryCreateFunction<CoreShellBoxRotateZandYBuilder, ISampleBuilder>,
+        create_new<CoreShellBoxRotateZandYBuilder>,
         "Rotation and translation of core shell box particle in 3 layers system.");
 
     registerItem(
         "SizeDistributionDAModelBuilder",
-        IFactoryCreateFunction<SizeDistributionDAModelBuilder, ISampleBuilder>,
+        create_new<SizeDistributionDAModelBuilder>,
         "Size distribution model: decoupling approximation");
 
     registerItem(
         "SizeDistributionLMAModelBuilder",
-        IFactoryCreateFunction<SizeDistributionLMAModelBuilder, ISampleBuilder>,
+        create_new<SizeDistributionLMAModelBuilder>,
         "Size distribution model: local monodisperse approximation");
 
     registerItem(
         "SizeDistributionSSCAModelBuilder",
-        IFactoryCreateFunction<SizeDistributionSSCAModelBuilder, ISampleBuilder>,
+        create_new<SizeDistributionSSCAModelBuilder>,
         "Size distribution model: size space coupling approximation");
 
     registerItem(
         "CylindersInSSCABuilder",
-        IFactoryCreateFunction<CylindersInSSCABuilder, ISampleBuilder>,
+        create_new<CylindersInSSCABuilder>,
         "Size spacing correlation approximation");
 
     registerItem(
         "MesoCrystalBuilder",
-        IFactoryCreateFunction<MesoCrystalBuilder, ISampleBuilder>,
+        create_new<MesoCrystalBuilder>,
         "Mesocrystals of cylindrical shape composed by spherical nanoparticles");
 
     registerItem(
         "MagneticParticleZeroFieldBuilder",
-        IFactoryCreateFunction<MagneticParticleZeroFieldBuilder, ISampleBuilder>,
+        create_new<MagneticParticleZeroFieldBuilder>,
         "Polarized DWBA with zero magnetic field");
 
     registerItem(
         "MagneticCylindersBuilder",
-        IFactoryCreateFunction<MagneticCylindersBuilder, ISampleBuilder>,
+        create_new<MagneticCylindersBuilder>,
         "Polarized DWBA with non-zero magnetic field");
 
     registerItem(
         "MultiLayerWithRoughnessBuilder",
-        IFactoryCreateFunction<MultiLayerWithRoughnessBuilder, ISampleBuilder>,
+        create_new<MultiLayerWithRoughnessBuilder>,
         "Layer with correlated roughness");
 
     registerItem(
        "MultipleLayoutBuilder",
-       IFactoryCreateFunction<MultipleLayoutBuilder, ISampleBuilder>,
+       create_new<MultipleLayoutBuilder>,
       "cylinder and prisms using multiple layouts");
 
     registerItem(
         "TriangularRippleBuilder",
-        IFactoryCreateFunction<TriangularRippleBuilder, ISampleBuilder>,
+        create_new<TriangularRippleBuilder>,
         "triangular ripple within the 1D-paracrystal model");
 
     registerItem(
         "CosineRippleBuilder",
-        IFactoryCreateFunction<CosineRippleBuilder, ISampleBuilder>,
+        create_new<CosineRippleBuilder>,
         "cosine ripple within the 1D-paracrystal model");
 
     registerItem(
         "ParticleCompositionBuilder",
-        IFactoryCreateFunction<ParticleCompositionBuilder, ISampleBuilder>,
+        create_new<ParticleCompositionBuilder>,
         "Composition of particles to represent two layers of spheres in hex lattice");
 
     registerItem(
         "BoxCompositionRotateXBuilder",
-        IFactoryCreateFunction<BoxCompositionRotateXBuilder, ISampleBuilder>,
+        create_new<BoxCompositionRotateXBuilder>,
         "Two boxes in particle composition rotated in X by 90 degrees");
 
     registerItem(
         "BoxCompositionRotateYBuilder",
-        IFactoryCreateFunction<BoxCompositionRotateYBuilder, ISampleBuilder>,
+        create_new<BoxCompositionRotateYBuilder>,
         "Two boxes in particle composition rotated in Y by 90 degrees");
 
     registerItem(
         "BoxCompositionRotateZBuilder",
-        IFactoryCreateFunction<BoxCompositionRotateZBuilder, ISampleBuilder>,
+        create_new<BoxCompositionRotateZBuilder>,
         "Two boxes in particle composition rotated in Z by 90 degrees");
 
     registerItem(
         "BoxCompositionRotateZandYBuilder",
-        IFactoryCreateFunction<BoxCompositionRotateZandYBuilder, ISampleBuilder>,
+        create_new<BoxCompositionRotateZandYBuilder>,
         "Two boxes in particle composition rotated in Z and Y by 90 degrees");
 
     registerItem(
         "BoxStackCompositionBuilder",
-        IFactoryCreateFunction<BoxStackCompositionBuilder, ISampleBuilder>,
+        create_new<BoxStackCompositionBuilder>,
         "Two different boxes are first rotated and then composed, composition is then rotated.");
 
     registerItem(
         "ParticleInTheAirBuilder",
-        IFactoryCreateFunction<ParticleInTheAirBuilder, ISampleBuilder>,
+        create_new<ParticleInTheAirBuilder>,
         "Particle in the air layer to test form factors");
 
     registerItem(
         "TransformBoxBuilder",
-        IFactoryCreateFunction<TransformBoxBuilder, ISampleBuilder>,
+        create_new<TransformBoxBuilder>,
         "Rotated and translated box in 3 layer system");
 
     registerItem(
         "LayersWithAbsorptionBuilder",
-        IFactoryCreateFunction<LayersWithAbsorptionBuilder, ISampleBuilder>,
+        create_new<LayersWithAbsorptionBuilder>,
         "3 layer system with absorption");
-
 }
+
+//! Retrieves a SampleBuilder from the registry, does the build, and returns the result.
 
 ISample *SampleBuilderFactory::createSample(const std::string& name)
 {
-    SampleBuilder_t builder(createItem(name));
-    ISample *result = builder->buildSample();
-//    result->setName(name);
-    return result;
-}
-
-SampleBuilder_t SampleBuilderFactory::createBuilder(const std::string& name)
-{
-    SampleBuilder_t result(createItem(name));
-//    result->setName(name);
-    return result;
+    return createItem(name)->buildSample();
 }

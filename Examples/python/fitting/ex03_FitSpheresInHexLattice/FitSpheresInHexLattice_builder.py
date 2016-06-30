@@ -6,47 +6,52 @@ Sample builder approach is used.
 import math
 import random
 import ctypes
-from bornagain import *
+import bornagain as ba
+from matplotlib import pyplot as plt
+from bornagain import deg, angstrom, nm
 
 
-class MySampleBuilder(ISampleBuilder):
+class MySampleBuilder(ba.ISampleBuilder):
     """
     Sample builder is used to build complex samples from set of parameters.
-    Given builder produces the sample representing spheres at hex lattice using two parameters as an input:
+    Given builder produces the sample representing spheres at hex lattice
+    using two parameters as an input:
     radius - radius of spheres
     lattice_constant - hexagonal lattice constant
     """
     def __init__(self):
-        ISampleBuilder.__init__(self)
+        ba.ISampleBuilder.__init__(self)
         self.sample = None
         # parameters describing the sample
-        self.radius = ctypes.c_double(5.0*nanometer)
-        self.lattice_constant = ctypes.c_double(10.0*nanometer)
+        self.radius = ctypes.c_double(5.0*nm)
+        self.lattice_constant = ctypes.c_double(10.0*nm)
         # register parameters
         self.registerParameter("radius", ctypes.addressof(self.radius))
-        self.registerParameter("lattice_constant", ctypes.addressof(self.lattice_constant))
+        self.registerParameter("lattice_constant",
+                               ctypes.addressof(self.lattice_constant))
 
     # constructs the sample for current values of parameters
     def buildSample(self):
-        m_air = HomogeneousMaterial("Air", 0.0, 0.0)
-        m_substrate = HomogeneousMaterial("Substrate", 6e-6, 2e-8)
-        m_particle = HomogeneousMaterial("Particle", 6e-4, 2e-8)
+        m_air = ba.HomogeneousMaterial("Air", 0.0, 0.0)
+        m_substrate = ba.HomogeneousMaterial("Substrate", 6e-6, 2e-8)
+        m_particle = ba.HomogeneousMaterial("Particle", 6e-4, 2e-8)
 
-        sphere_ff = FormFactorFullSphere(self.radius.value)
-        sphere = Particle(m_particle, sphere_ff)
-        particle_layout = ParticleLayout()
+        sphere_ff = ba.FormFactorFullSphere(self.radius.value)
+        sphere = ba.Particle(m_particle, sphere_ff)
+        particle_layout = ba.ParticleLayout()
         particle_layout.addParticle(sphere)
 
-        interference = InterferenceFunction2DLattice.createHexagonal(self.lattice_constant.value)
-        pdf = FTDecayFunction2DCauchy(10*nanometer, 10*nanometer)
+        interference = ba.InterferenceFunction2DLattice.createHexagonal(
+            self.lattice_constant.value)
+        pdf = ba.FTDecayFunction2DCauchy(10*nm, 10*nm)
         interference.setDecayFunction(pdf)
 
         particle_layout.addInterferenceFunction(interference)
 
-        air_layer = Layer(m_air)
+        air_layer = ba.Layer(m_air)
         air_layer.addLayout(particle_layout)
-        substrate_layer = Layer(m_substrate, 0)
-        multi_layer = MultiLayer()
+        substrate_layer = ba.Layer(m_substrate, 0)
+        multi_layer = ba.MultiLayer()
         multi_layer.addLayer(air_layer)
         multi_layer.addLayer(substrate_layer)
         self.sample = multi_layer
@@ -55,11 +60,12 @@ class MySampleBuilder(ISampleBuilder):
 
 def get_simulation():
     """
-    Create and return GISAXS simulation with beam and detector defined
+    Returns a GISAXS simulation with beam and detector defined.
     """
-    simulation = GISASSimulation()
-    simulation.setDetectorParameters(100, -1.0*degree, 1.0*degree, 100, 0.0*degree, 2.0*degree)
-    simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
+    simulation = ba.GISASSimulation()
+    simulation.setDetectorParameters(100, -1.0*deg, 1.0*deg,
+                                     100, 0.0*deg, 2.0*deg)
+    simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
 
     return simulation
 
@@ -69,8 +75,8 @@ def create_real_data():
     Generating "real" data by adding noise to the simulated data.
     """
     sample_builder = MySampleBuilder()
-    sample_builder.setParameterValue("radius", 5.0*nanometer)
-    sample_builder.setParameterValue("lattice_constant", 10.0*nanometer)
+    sample_builder.setParameterValue("radius", 5.0*nm)
+    sample_builder.setParameterValue("lattice_constant", 10.0*nm)
 
     simulation = get_simulation()
     simulation.setSampleBuilder(sample_builder)
@@ -101,28 +107,28 @@ def run_fitting():
 
     real_data = create_real_data()
 
-    fit_suite = FitSuite()
+    fit_suite = ba.FitSuite()
     fit_suite.addSimulationAndRealData(simulation, real_data)
     fit_suite.initPrint(1)
 
-    draw_observer = DefaultFitObserver(draw_every_nth=10)
+    draw_observer = ba.DefaultFitObserver(draw_every_nth=10)
     fit_suite.attachObserver(draw_observer)
 
     # setting fitting parameters with starting values
-    fit_suite.addFitParameter("*radius", 8.*nanometer, AttLimits.limited(4., 12.))
-    fit_suite.addFitParameter("*lattice_constant", 8.*nanometer, AttLimits.limited(4., 12.))
+    fit_suite.addFitParameter("*radius", 8.*nm, ba.AttLimits.limited(4., 12.))
+    fit_suite.addFitParameter("*lattice_constant",
+                              8.*nm, ba.AttLimits.limited(4., 12.))
 
     # running fit
     fit_suite.runFit()
 
-    print "Fitting completed."
-    print "chi2:", fit_suite.getChi2()
+    print("Fitting completed.")
+    print("chi2:", fit_suite.getChi2())
     fitpars = fit_suite.getFitParameters()
     for i in range(0, fitpars.size()):
-        print fitpars[i].getName(), fitpars[i].getValue(), fitpars[i].getError()
+        print(fitpars[i].getName(), fitpars[i].getValue(), fitpars[i].getError())
 
 
 if __name__ == '__main__':
     run_fitting()
     plt.show()
-

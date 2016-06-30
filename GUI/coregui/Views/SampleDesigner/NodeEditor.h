@@ -2,14 +2,15 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/SampleDesigner/NodeEditor.h
-//! @brief     Defines class NodeEditor
+//! @file      GUI/coregui/Views/SampleDesigner/NodeEditor.h
+//! @brief     Declares class NodeEditor
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
@@ -29,6 +30,7 @@ class QGraphicsScene;
 class NodeEditorConnection;
 class QGraphicsItem;
 class QPointF;
+class QGraphicsSceneMouseEvent;
 
 //! The NodeEditor class implement for QGraphicsScene an editable schematic
 //! of the dependency graph, displaying nodes and the connections between their
@@ -40,9 +42,9 @@ class BA_CORE_API_ NodeEditor : public QObject
 public:
     explicit NodeEditor(QObject *parent = 0);
 
-	void install(QGraphicsScene *scene);
+    void install(QGraphicsScene *scene);
 
-	bool eventFilter(QObject *, QEvent *);
+    bool eventFilter(QObject *object, QEvent *event);
 
 signals:
     void selectionModeChangeRequest(int);
@@ -52,8 +54,12 @@ private:
 	QGraphicsItem *itemAt(const QPointF&);
 
 private:
-	QGraphicsScene *scene;
-    NodeEditorConnection *conn;
+    bool processMousePress(QGraphicsSceneMouseEvent *event);
+    bool processMouseMove(QGraphicsSceneMouseEvent *event);
+    bool processMouseRelease(QGraphicsSceneMouseEvent *event);
+
+    QGraphicsScene *m_scene;
+    NodeEditorConnection *m_conn;
 };
 
-#endif // NODEEDITOR_H
+#endif

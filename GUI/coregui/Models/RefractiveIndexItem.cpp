@@ -2,14 +2,15 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/RefractiveIndexItem.cpp
+//! @file      GUI/coregui/Models/RefractiveIndexItem.cpp
 //! @brief     Implements class RefractiveIndexItem
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
@@ -21,14 +22,23 @@ const QString RefractiveIndexItem::P_DELTA = "delta";
 const QString RefractiveIndexItem::P_BETA = "beta";
 
 
-RefractiveIndexItem::RefractiveIndexItem(ParameterizedItem *parent)
-    : ParameterizedItem(Constants::RefractiveIndexType, parent)
+RefractiveIndexItem::RefractiveIndexItem()
+    : SessionItem(Constants::RefractiveIndexType)
 {
     ScientificDoubleProperty delta(0.0);
-    registerProperty(P_DELTA, delta.getVariant());
+    addProperty(P_DELTA, delta.getVariant());
 
     ScientificDoubleProperty beta(0.0);
-    registerProperty(P_BETA, beta.getVariant());
+    addProperty(P_BETA, beta.getVariant());
+
+    mapper()->setOnPropertyChange(
+        [this](const QString &){
+            setValue(itemLabel());
+        }
+    );
+
+    setValue(itemLabel());
+    setEditable(false);
 }
 
 QString RefractiveIndexItem::itemLabel() const
@@ -38,24 +48,24 @@ QString RefractiveIndexItem::itemLabel() const
 
 double RefractiveIndexItem::getDelta() const
 {
-    return getRegisteredProperty(P_DELTA).value<ScientificDoubleProperty>().getValue();
+    return getItemValue(P_DELTA).value<ScientificDoubleProperty>().getValue();
 }
 
 void RefractiveIndexItem::setDelta(double delta)
 {
-    ScientificDoubleProperty scd_property = getRegisteredProperty(P_DELTA).value<ScientificDoubleProperty>();
-    scd_property.setValue(delta);
-    setRegisteredProperty(P_DELTA, scd_property.getVariant());
+    ScientificDoubleProperty property = getItemValue(P_DELTA).value<ScientificDoubleProperty>();
+    property.setValue(delta);
+    setItemValue(P_DELTA, property.getVariant());
 }
 
 double RefractiveIndexItem::getBeta() const
 {
-    return getRegisteredProperty(P_BETA).value<ScientificDoubleProperty>().getValue();
+    return getItemValue(P_BETA).value<ScientificDoubleProperty>().getValue();
 }
 
 void RefractiveIndexItem::setBeta(double beta)
 {
-    ScientificDoubleProperty scd_property = getRegisteredProperty(P_BETA).value<ScientificDoubleProperty>();
-    scd_property.setValue(beta);
-    setRegisteredProperty(P_BETA, scd_property.getVariant());
+    ScientificDoubleProperty property = getItemValue(P_BETA).value<ScientificDoubleProperty>();
+    property.setValue(beta);
+    setItemValue(P_BETA, property.getVariant());
 }

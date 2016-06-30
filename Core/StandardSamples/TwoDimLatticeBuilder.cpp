@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      StandardSamples/IsGISAXS06Builder.cpp
+//! @file      Core/StandardSamples/TwoDimLatticeBuilder.cpp
 //! @brief     Implements class IsGISAXS06Builder.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -22,10 +22,7 @@
 #include "Units.h"
 #include "Materials.h"
 #include "InterferenceFunction2DLattice.h"
-#include "IntensityDataIOFactory.h"
 #include "Utils.h"
-
-
 
 
 // -----------------------------------------------------------------------------

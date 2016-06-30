@@ -2,33 +2,34 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/SphericalDetectorItem.h
-//! @brief     Defines class SphericalDetectorItem
+//! @file      GUI/coregui/Models/SphericalDetectorItem.h
+//! @brief     Declares class SphericalDetectorItem
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
 #ifndef SPHERICALDETECTORITEM_H
 #define SPHERICALDETECTORITEM_H
 
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 #include <memory>
 
 class IDetector2D;
 class IResolutionFunction2D;
 
-class SphericalDetectorItem : public ParameterizedItem
+class SphericalDetectorItem : public SessionItem
 {
 public:
     static const QString P_PHI_AXIS;
     static const QString P_ALPHA_AXIS;
     static const QString P_RESOLUTION_FUNCTION;
-    explicit SphericalDetectorItem(ParameterizedItem *parent=0);
+    explicit SphericalDetectorItem();
 
     std::unique_ptr<IDetector2D> createDetector() const;
     std::unique_ptr<IResolutionFunction2D> createResolutionFunction();

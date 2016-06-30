@@ -2,14 +2,15 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/LayerRoughnessItems.h
-//! @brief     Defines classes LayerRoughnessItems
+//! @file      GUI/coregui/Models/LayerRoughnessItems.h
+//! @brief     Declares classes LayerRoughnessItems
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
@@ -17,25 +18,25 @@
 #define LAYERROUGHNESSITEMS_H
 
 
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 
-class BA_CORE_API_ LayerZeroRoughnessItem : public ParameterizedItem
+class BA_CORE_API_ LayerZeroRoughnessItem : public SessionItem
 {
-    Q_OBJECT
+
 public:
-    explicit LayerZeroRoughnessItem(ParameterizedItem *parent=0);
+    explicit LayerZeroRoughnessItem();
     virtual ~LayerZeroRoughnessItem(){}
 };
 
 
-class BA_CORE_API_ LayerBasicRoughnessItem : public ParameterizedItem
+class BA_CORE_API_ LayerBasicRoughnessItem : public SessionItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_SIGMA;
     static const QString P_HURST;
     static const QString P_LATERAL_CORR_LENGTH;
-    explicit LayerBasicRoughnessItem(ParameterizedItem *parent=0);
+    explicit LayerBasicRoughnessItem();
     virtual ~LayerBasicRoughnessItem(){}
 };
 

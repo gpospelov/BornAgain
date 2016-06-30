@@ -2,23 +2,26 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/SampleDesigner/SamplePropertyWidget.cpp
+//! @file      GUI/coregui/Views/SampleDesigner/SamplePropertyWidget.cpp
 //! @brief     Implements class IntensityDataPropertyWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
 #include "SamplePropertyWidget.h"
-#include "AwesomePropertyEditor.h"
-#include "ParameterizedItem.h"
+#include "ComponentEditor.h"
+#include "SessionItem.h"
 #include <QVBoxLayout>
 #include <QItemSelection>
 #include <QModelIndexList>
+
+#include <QSortFilterProxyModel>
 #include <QDebug>
 
 SamplePropertyWidget::SamplePropertyWidget(QItemSelectionModel *selection_model, QWidget *parent)
@@ -35,7 +38,7 @@ SamplePropertyWidget::SamplePropertyWidget(QItemSelectionModel *selection_model,
     mainLayout->setMargin(0);
     mainLayout->setSpacing(0);
 
-    m_propertyEditor = new AwesomePropertyEditor(this);
+    m_propertyEditor = new ComponentEditor;
 
     mainLayout->addWidget(m_propertyEditor);
     setLayout(mainLayout);
@@ -68,10 +71,18 @@ void SamplePropertyWidget::selectionChanged(const QItemSelection & selected,
     qDebug() << "SamplePropertyWidget::selectionChanged" << selected << deselected;
     (void)deselected;
     QModelIndexList indices = selected.indexes();
+
     if(indices.size()) {
-        ParameterizedItem *item = static_cast<ParameterizedItem *>(
-                indices.back().internalPointer());
-        m_propertyEditor->setItem(item, item->modelType());
+        QSortFilterProxyModel *proxy = dynamic_cast<QSortFilterProxyModel*>(const_cast<QAbstractItemModel*>(indices[0].model()));
+        QModelIndex index = indices.back();
+        if (proxy) {
+            index = proxy->mapToSource(index);
+        }
+        SessionItem *item = static_cast<SessionItem *>(
+                index.internalPointer());
+//        m_propertyEditor->setItem(item, item->modelType());
+        if (item)
+            m_propertyEditor->setItem(item, item->modelType());
     } else {
         m_propertyEditor->setItem(0);
     }

@@ -70,13 +70,18 @@ endif()
 
 if(APPLE)
     set(MACOSX_BUNDLE_IDENTIFIER "org.bornagainproject.BornAgain")
-    configure_file("${CMAKE_SOURCE_DIR}/cmake/scripts/MacOSXBundleInfo.plist.in"
-        "${destination_runtime_configs}/Info.plist" @ONLY)
+    configure_file("${TEMPLATE_DIR}/MacOSXBundleInfo.plist.in" "${BUILD_VAR_DIR}/Info.plist" @ONLY)
 
     set_target_properties(${executable_name}
-        PROPERTIES MACOSX_BUNDLE_INFO_PLIST ${destination_runtime_configs}/Info.plist)
+        PROPERTIES MACOSX_BUNDLE_INFO_PLIST ${BUILD_VAR_DIR}/Info.plist)
 
-    set(link_flags "-Wl,-rpath,@loader_path/../Frameworks/ -Wl,-rpath,@loader_path/../lib/BornAgain-${BornAgain_VERSION_MAJOR}.${BornAgain_VERSION_MINOR}/")
+    if(BORNAGAIN_APPLE_BUNDLE)
+        # this makes sense only if we build a bundle
+        set(link_flags "-Wl,-rpath,@loader_path/../Frameworks/ \
+  -Wl,-rpath,@loader_path/../lib/BornAgain-${BornAgain_VERSION_MAJOR}.${BornAgain_VERSION_MINOR}/")
+    else()
+        set(link_flags "-Wl,-rpath,@loader_path/../../../lib/BornAgain-${BornAgain_VERSION_MAJOR}.${BornAgain_VERSION_MINOR}/")
+    endif()
     set_target_properties(${executable_name} PROPERTIES LINK_FLAGS ${link_flags})
 endif()
 
@@ -86,9 +91,12 @@ endif()
 # -----------------------------------------------------------------------------
 if(BORNAGAIN_APPLE_BUNDLE)
     set(executable_destination BUNDLE DESTINATION  ".")
-else()
+elseif(WIN32)
     set(executable_destination DESTINATION ${destination_gui})
+else()
+    set(executable_destination DESTINATION "${destination_gui}/exec")
 endif()
+#message(STATUS "Executable destination is ${executable_destination}")
 install (TARGETS ${executable_name} ${executable_destination} COMPONENT Applications)
 
 set(image_files
@@ -107,22 +115,19 @@ if(UNIX)
         install( FILES ${CMAKE_SOURCE_DIR}/GUI/main/BornAgain.icns
             DESTINATION ${destination_bundle}/Contents/Resources/
         )
-        install( FILES ${CMAKE_SOURCE_DIR}/cmake/scripts/qt.conf
+        install( FILES ${CMAKE_SOURCE_DIR}/cmake/bornagain/scripts/qt.conf
             DESTINATION ${destination_bundle}/Contents/Resources/
         )
-        configure_file(${CMAKE_SOURCE_DIR}/cmake/modules/FixAppleBundle.cmake.in
-                       ${destination_runtime_configs}/FixAppleBundle.cmake @ONLY)
-        install(SCRIPT ${destination_runtime_configs}/FixAppleBundle.cmake COMPONENT Runtime)
-
+        configure_file(${CMAKE_SOURCE_DIR}/cmake/bornagain/modules/FixAppleBundle.cmake.in
+                       ${BUILD_VAR_DIR}/FixAppleBundle.cmake @ONLY)
+        install(SCRIPT ${BUILD_VAR_DIR}/FixAppleBundle.cmake COMPONENT Runtime)
+    elseif(WIN32)
     elseif(NOT BUILD_DEBIAN)
         # creating link to BornAgain gui in bin directory
         install(CODE "
         execute_process(COMMAND \${CMAKE_COMMAND} -E create_symlink
-        \"../libexec/${destination_suffix}/BornAgain\" \"bornagain\"
+        \"../${destination_libexec}/exec/BornAgain\" \"bornagain\"
         WORKING_DIRECTORY \"${CMAKE_INSTALL_PREFIX}/${destination_bin}\")
         " COMPONENT Runtime)
-
     endif()
 endif()
-
-

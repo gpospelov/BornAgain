@@ -2,14 +2,15 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/SampleDesigner/NodeEditorConnection.h
-//! @brief     Defines class NodeEditorConnection
+//! @file      GUI/coregui/Views/SampleDesigner/NodeEditorConnection.h
+//! @brief     Declares class NodeEditorConnection
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
@@ -42,11 +43,12 @@ public:
     void setPort2(NodeEditorPort *p);
     void updatePosFromPorts();
     void updatePath();
+
     NodeEditorPort* port1() const;
     NodeEditorPort* port2() const;
 
-    NodeEditorPort *getInputPort();
-    NodeEditorPort *getOutputPort();
+    NodeEditorPort *inputPort();
+    NodeEditorPort *outputPort();
 
     int type() const { return TYPE; }
 
@@ -65,4 +67,4 @@ private:
     NodeEditorPort *m_port2;
 };
 
-#endif // NODEEDITORCONNECTION_H
+#endif

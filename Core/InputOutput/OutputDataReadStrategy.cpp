@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      InputOutput/OutputDataReadStrategy.cpp
+//! @file      Core/InputOutput/OutputDataReadStrategy.cpp
 //! @brief     Implements class OutputDataReadStrategy.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -13,25 +13,24 @@
 //
 // ************************************************************************** //
 
-#include "OutputDataReadStrategy.h"
-#include "Types.h"
-#include "Exceptions.h"
-#include "Utils.h"
+#include <fstream>
+#include <stdexcept>
+
+#include "Complex.h"
 #include "BornAgainNamespace.h"
 #include "OutputData.h"
 #include "OutputDataIOHelper.h"
 #include "TiffHandler.h"
-#include <fstream>
+#include "OutputDataReadStrategy.h"
 
-OutputData<double > *OutputDataReadINTStrategy::readOutputData(std::istream &input_stream)
+OutputData<double>* OutputDataReadINTStrategy::readOutputData(std::istream& input_stream)
 {
-    OutputData<double > *result = new OutputData<double>;
+    OutputData<double>* result = new OutputData<double>;
     std::string line;
 
-    while( std::getline(input_stream, line) )
-    {
+    while( std::getline(input_stream, line) ) {
         if (line.find("axis") != std::string::npos) {
-            IAxis *axis = OutputDataIOHelper::createAxis(input_stream);
+            IAxis* axis = OutputDataIOHelper::createAxis(input_stream);
             result->addAxis(*axis);
             delete axis;
         }
@@ -43,18 +42,16 @@ OutputData<double > *OutputDataReadINTStrategy::readOutputData(std::istream &inp
     return result;
 }
 
-// ----------------------------------------------------------------------------
 
-OutputData<double> *OutputDataReadNumpyTXTStrategy::readOutputData(std::istream &input_stream)
+OutputData<double>* OutputDataReadNumpyTXTStrategy::readOutputData(std::istream& input_stream)
 {
     std::string line;
-    std::vector<std::vector<double> > data;
+    std::vector<std::vector<double>> data;
 
-    while( std::getline(input_stream, line) )
-    {
-        if(line.empty() || line[0] == '#') continue;
-
-        vdouble1d_t data_in_row = Utils::String::parse_doubles(line);
+    while( std::getline(input_stream, line) ) {
+        if(line.empty() || line[0] == '#')
+            continue;
+        std::vector<double> data_in_row = OutputDataIOHelper::parse_doubles(line);
         data.push_back(data_in_row);
     }
     // validating
@@ -62,12 +59,11 @@ OutputData<double> *OutputDataReadNumpyTXTStrategy::readOutputData(std::istream 
     size_t ncols(0);
     if(nrows) ncols = data[0].size();
     for(size_t row=0; row<nrows; row++) {
-        if(data[row].size() != ncols) {
-            throw LogicErrorException("OutputDataReadNumpyTXTStrategy::readOutputData() -> Error. "
-                                      "Number of elements is different from row to row.");
-        }
+        if(data[row].size() != ncols)
+            throw std::runtime_error("OutputDataReadNumpyTXTStrategy::readOutputData() -> Error. "
+                                     "Number of elements is different from row to row.");
     }
-    OutputData<double > *result = new OutputData<double>;
+    OutputData<double>* result = new OutputData<double>;
     result->addAxis("x", ncols, 0.0, double(ncols));
     result->addAxis("y", nrows, 0.0, double(nrows));
     std::vector<int> axes_indices(2);
@@ -82,26 +78,22 @@ OutputData<double> *OutputDataReadNumpyTXTStrategy::readOutputData(std::istream 
     return result;
 }
 
-// ----------------------------------------------------------------------------
-
 
 #ifdef BORNAGAIN_TIFF_SUPPORT
+
 OutputDataReadTiffStrategy::OutputDataReadTiffStrategy()
     : m_d(new TiffHandler)
-{
-}
+{}
 
 OutputDataReadTiffStrategy::~OutputDataReadTiffStrategy()
 {
     delete m_d;
 }
 
-OutputData<double> *OutputDataReadTiffStrategy::readOutputData(std::istream &input_stream)
+OutputData<double>* OutputDataReadTiffStrategy::readOutputData(std::istream& input_stream)
 {
     m_d->read(input_stream);
     return m_d->getOutputData()->clone();
 }
 
 #endif // BORNAGAIN_TIFF_SUPPORT
-
-

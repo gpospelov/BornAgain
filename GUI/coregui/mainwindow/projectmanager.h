@@ -2,14 +2,15 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/mainwindow/projectmanager.h
-//! @brief     Defines class ProjectManager
+//! @file      GUI/coregui/mainwindow/projectmanager.h
+//! @brief     Declares class ProjectManager
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
@@ -44,8 +45,15 @@ public:
 
     ProjectDocument *getDocument() { return m_project_document; }
 
+    QString getProjectDir() const;
+
+    QString userExportDir() const;
+    QString userImportDir() const;
+    void setImportDir(const QString &dirname);
+
 signals:
     void modified();
+    void projectOpened();
 
 public slots:
     void clearRecentProjects();

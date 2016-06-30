@@ -4,7 +4,8 @@ Spherical particles embedded in the middle of the layer on top of substrate.
 import numpy
 import matplotlib
 from matplotlib import pyplot as plt
-from bornagain import *
+import bornagain as ba
+from bornagain import deg, angstrom, nm
 
 phi_min, phi_max = -1.0, 1.0
 alpha_min, alpha_max = 0.0, 2.0
@@ -12,28 +13,28 @@ alpha_min, alpha_max = 0.0, 2.0
 
 def get_sample():
     """
-    Build and return the sample with buried spheres in Distorted Wave Born Approximation.
+    Returns a sample with spherical particles in an layer between air and substrate.
     """
     # defining materials
-    m_ambience = HomogeneousMaterial("Air", 0.0, 0.0)
-    m_interm_layer = HomogeneousMaterial("IntermLayer", 3.45e-6, 5.24e-9)
-    m_substrate = HomogeneousMaterial("Substrate", 7.43e-6, 1.72e-7)
-    m_particle = HomogeneousMaterial("Particle", 0.0, 0.0)
+    m_ambience = ba.HomogeneousMaterial("Air", 0.0, 0.0)
+    m_interm_layer = ba.HomogeneousMaterial("IntermLayer", 3.45e-6, 5.24e-9)
+    m_substrate = ba.HomogeneousMaterial("Substrate", 7.43e-6, 1.72e-7)
+    m_particle = ba.HomogeneousMaterial("Particle", 0.0, 0.0)
 
     # collection of particles
-    ff_sphere = FormFactorFullSphere(10.2*nanometer)
-    sphere = Particle(m_particle, ff_sphere)
+    ff_sphere = ba.FormFactorFullSphere(10.2*nm)
+    sphere = ba.Particle(m_particle, ff_sphere)
     sphere.setPosition(0.0, 0.0, -25.2)
-    particle_layout = ParticleLayout()
+    particle_layout = ba.ParticleLayout()
     particle_layout.addParticle(sphere, 1.0)
 
     # assembling the sample
-    air_layer = Layer(m_ambience)
-    intermediate_layer = Layer(m_interm_layer, 30.*nanometer)
+    air_layer = ba.Layer(m_ambience)
+    intermediate_layer = ba.Layer(m_interm_layer, 30.*nm)
     intermediate_layer.addLayout(particle_layout)
-    substrate_layer = Layer(m_substrate, 0)
+    substrate_layer = ba.Layer(m_substrate, 0)
 
-    multi_layer = MultiLayer()
+    multi_layer = ba.MultiLayer()
     multi_layer.addLayer(air_layer)
     multi_layer.addLayer(intermediate_layer)
     multi_layer.addLayer(substrate_layer)
@@ -42,11 +43,12 @@ def get_sample():
 
 def get_simulation():
     """
-    Create and return GISAXS simulation with beam and detector defined
+    Returns a GISAXS simulation with beam and detector defined.
     """
-    simulation = GISASSimulation()
-    simulation.setDetectorParameters(200, phi_min*degree, phi_max*degree, 200, alpha_min*degree, alpha_max*degree)
-    simulation.setBeamParameters(1.5*angstrom, 0.15*degree, 0.0*degree)
+    simulation = ba.GISASSimulation()
+    simulation.setDetectorParameters(200, phi_min*deg, phi_max*deg,
+                                     200, alpha_min*deg, alpha_max*deg)
+    simulation.setBeamParameters(1.5*angstrom, 0.15*deg, 0.0*deg)
     return simulation
 
 
@@ -61,10 +63,12 @@ def run_simulation():
     result = simulation.getIntensityData()
 
     # showing the result
-    im = plt.imshow(result.getArray(),
-                    norm=matplotlib.colors.LogNorm(1.0, result.getMaximum()),
-                    extent=[result.getXmin()/deg, result.getXmax()/deg, result.getYmin()/deg, result.getYmax()/deg],
-                    aspect='auto')
+    im = plt.imshow(
+        result.getArray(),
+        norm=matplotlib.colors.LogNorm(1.0, result.getMaximum()),
+        extent=[result.getXmin()/deg, result.getXmax()/deg,
+                result.getYmin()/deg, result.getYmax()/deg],
+        aspect='auto')
     cb = plt.colorbar(im)
     cb.set_label(r'Intensity (arb. u.)', size=16)
     plt.xlabel(r'$\phi_f (^{\circ})$', fontsize=16)
@@ -74,4 +78,3 @@ def run_simulation():
 
 if __name__ == '__main__':
     run_simulation()
-

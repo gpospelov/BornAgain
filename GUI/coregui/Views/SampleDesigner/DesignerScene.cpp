@@ -2,14 +2,15 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/SampleDesigner/DesignerScene.cpp
+//! @file      GUI/coregui/Views/SampleDesigner/DesignerScene.cpp
 //! @brief     Implements class DesignerScene
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
@@ -23,13 +24,17 @@
 #include "LayerView.h"
 #include "ConnectableView.h"
 #include "ItemFactory.h"
-#include "ParameterizedGraphicsItem.h"
+#include "SessionGraphicsItem.h"
 #include "NodeEditor.h"
 #include "NodeEditorConnection.h"
 #include "DesignerMimeData.h"
 #include "SampleBuilderFactory.h"
 #include "GUIExamplesFactory.h"
 #include "ParticleItem.h"
+#include "ParticleLayoutItem.h"
+#include "ParticleCoreShellItem.h"
+#include "ParticleCompositionItem.h"
+#include "FilterPropertyProxy.h"
 
 #include <QItemSelection>
 #include <QDebug>
@@ -37,7 +42,7 @@
 #include <QPainter>
 
 DesignerScene::DesignerScene(QObject *parent)
-    : QGraphicsScene(parent), m_sampleModel(0), m_instrumentModel(0), m_selectionModel(0),
+    : QGraphicsScene(parent), m_sampleModel(0), m_instrumentModel(0), m_selectionModel(0), m_proxy(0),
       m_block_selection(false), m_aligner(new SampleViewAligner(this))
 {
     setSceneRect(QRectF(-800, 0, 1600, 1600));
@@ -95,7 +100,7 @@ void DesignerScene::setInstrumentModel(InstrumentModel *instrumentModel)
     m_instrumentModel = instrumentModel;
 }
 
-void DesignerScene::setSelectionModel(QItemSelectionModel *model)
+void DesignerScene::setSelectionModel(QItemSelectionModel *model, FilterPropertyProxy *proxy)
 {
     Q_ASSERT(model);
 
@@ -107,10 +112,20 @@ void DesignerScene::setSelectionModel(QItemSelectionModel *model)
         }
 
         m_selectionModel = model;
+        m_proxy = proxy;
 
         connect(m_selectionModel, SIGNAL(selectionChanged(QItemSelection, QItemSelection)), this,
                 SLOT(onSessionSelectionChanged(QItemSelection, QItemSelection)));
     }
+}
+
+IView *DesignerScene::getViewForItem(SessionItem *item)
+{
+    auto it = m_ItemToView.find(item);
+    if(it != m_ItemToView.end()) {
+        return it.value();
+    }
+    return nullptr;
 }
 
 void DesignerScene::resetScene()
@@ -131,11 +146,13 @@ void DesignerScene::updateScene()
 void DesignerScene::onRowsInserted(const QModelIndex & /* parent */, int /* first */,
                                    int /* last */)
 {
+    qDebug() << "DesignerScene::onRowsInserted";
     updateScene();
 }
 
 void DesignerScene::onRowsRemoved(const QModelIndex & /* parent */, int /* first */, int /* last */)
 {
+    qDebug() << "DesignerScene::onRowsRemoved";
     updateScene();
 }
 
@@ -160,9 +177,9 @@ void DesignerScene::onSessionSelectionChanged(const QItemSelection & /* selected
     qDebug() << "DesignerScene::onSessionSelectionChanged()";
     m_block_selection = true;
 
-    for (QMap<ParameterizedItem *, IView *>::iterator it = m_ItemToView.begin();
+    for (QMap<SessionItem *, IView *>::iterator it = m_ItemToView.begin();
          it != m_ItemToView.end(); ++it) {
-        QModelIndex index = m_sampleModel->indexOfItem(it.key());
+        QModelIndex index = m_proxy->mapFromSource(m_sampleModel->indexOfItem(it.key()));
         if (index.isValid()) {
             if (m_selectionModel->isSelected(index)) {
                 it.value()->setSelected(true);
@@ -189,11 +206,11 @@ void DesignerScene::onSceneSelectionChanged()
     for (int i = 0; i < selected.size(); ++i) {
         IView *view = dynamic_cast<IView *>(selected[i]);
         if (view) {
-            ParameterizedItem *sampleItem = view->getParameterizedItem();
+            SessionItem *sampleItem = view->getItem();
             QModelIndex itemIndex = m_sampleModel->indexOfItem(sampleItem);
             Q_ASSERT(itemIndex.isValid());
-            if (!m_selectionModel->isSelected(itemIndex))
-                m_selectionModel->select(itemIndex, QItemSelectionModel::Select);
+            if (!m_selectionModel->isSelected(m_proxy->mapFromSource(itemIndex)))
+                m_selectionModel->select(m_proxy->mapFromSource(itemIndex), QItemSelectionModel::Select);
         }
     }
 
@@ -212,18 +229,22 @@ void DesignerScene::updateViews(const QModelIndex &parentIndex, IView *parentVie
     }
 
     IView *childView(0);
+    int childCount = 0;
     for (int i_row = 0; i_row < m_sampleModel->rowCount(parentIndex); ++i_row) {
         QModelIndex itemIndex = m_sampleModel->index(i_row, 0, parentIndex);
 
-        if (ParameterizedItem *item = m_sampleModel->itemForIndex(itemIndex)) {
+        if (SessionItem *item = m_sampleModel->itemForIndex(itemIndex)) {
+
+            if(item && !SampleViewFactory::isValidType(item->modelType()))
+                    continue;
 
             childView = addViewForItem(item);
             if (childView) {
                 if (parentView) {
                     qDebug() << "       DesignerScene::updateViews() -> adding child "
                              << item->modelType() << " to parent"
-                             << parentView->getParameterizedItem()->modelType();
-                    parentView->addView(childView, i_row);
+                             << parentView->getItem()->modelType();
+                    parentView->addView(childView, childCount++);
                 }
             }
 
@@ -236,12 +257,13 @@ void DesignerScene::updateViews(const QModelIndex &parentIndex, IView *parentVie
 }
 
 //! adds view for item, if it doesn't exists
-IView *DesignerScene::addViewForItem(ParameterizedItem *item)
+IView *DesignerScene::addViewForItem(SessionItem *item)
 {
     qDebug() << "DesignerScene::addViewForItem() ->" << item->modelType();
     Q_ASSERT(item);
 
-    IView *view = m_ItemToView[item];
+    IView *view = getViewForItem(item);
+
     if (!view) {
         qDebug() << "       DesignerScene::addViewForItem() -> Creating view for item"
                  << item->modelType();
@@ -266,15 +288,15 @@ void DesignerScene::alignViews()
 }
 
 //! runs recursively through model's item and schedules view removal
-void DesignerScene::deleteViews(const QModelIndex &parentIndex)
+void DesignerScene::deleteViews(const QModelIndex &viewIndex)
 {
-    qDebug() << "DesignerScene::deleteViews()" << parentIndex;
+    qDebug() << "DesignerScene::deleteViews()" << viewIndex;
 
-    for (int i_row = 0; i_row < m_sampleModel->rowCount(parentIndex); ++i_row) {
-        QModelIndex itemIndex = m_sampleModel->index(i_row, 0, parentIndex);
+    for (int i_row = 0; i_row < m_sampleModel->rowCount(viewIndex); ++i_row) {
+        QModelIndex itemIndex = m_sampleModel->index(i_row, 0, viewIndex);
 
-        if (ParameterizedItem *item = m_sampleModel->itemForIndex(itemIndex)) {
-
+        if (SessionItem *item = m_sampleModel->itemForIndex(itemIndex)) {
+            qDebug() << "   deleteViews" << item->modelType() << item->displayName();
             removeItemViewFromScene(item);
 
         } else {
@@ -282,14 +304,16 @@ void DesignerScene::deleteViews(const QModelIndex &parentIndex)
         }
         deleteViews(itemIndex);
     }
-    removeItemViewFromScene(m_sampleModel->itemForIndex(parentIndex)); // deleting parent item
+    removeItemViewFromScene(m_sampleModel->itemForIndex(viewIndex)); // deleting view itself
 }
 
 //! removes view from scene corresponding to given item
-void DesignerScene::removeItemViewFromScene(ParameterizedItem *item)
+void DesignerScene::removeItemViewFromScene(SessionItem *item)
 {
-    qDebug() << "DesignerScene::removeItemFromScene()" << item->modelType();
-    for (QMap<ParameterizedItem *, IView *>::iterator it = m_ItemToView.begin();
+    Q_ASSERT(item);
+
+    qDebug() << "DesignerScene::removeItemFromScene()" << item->modelType() << item->displayName();
+    for (QMap<SessionItem *, IView *>::iterator it = m_ItemToView.begin();
          it != m_ItemToView.end(); ++it) {
         if (it.key() == item) {
             IView *view = it.value();
@@ -297,6 +321,7 @@ void DesignerScene::removeItemViewFromScene(ParameterizedItem *item)
             m_ItemToView.erase(it);
             emit view->aboutToBeDeleted();
             view->deleteLater();
+//            delete view;
             update();
             break;
         }
@@ -312,13 +337,15 @@ void DesignerScene::deleteSelectedItems()
 
     QList<IView *> views_which_will_be_deleted;
     foreach (QModelIndex index, indexes) {
-        views_which_will_be_deleted.append(m_ItemToView[m_sampleModel->itemForIndex(index)]);
+        views_which_will_be_deleted.append(m_ItemToView[m_sampleModel->itemForIndex(m_proxy->mapToSource(index))]);
     }
 
     // deleting selected items on model side, corresponding views will be deleted automatically
     // Since we don't know the order of items and their parent/child relationship, we need this
     while (indexes.size()) {
-        m_sampleModel->removeRows(indexes.back().row(), 1, indexes.back().parent());
+        QModelIndex current = m_proxy->mapToSource(indexes.back());
+        qDebug() << "   DesignerScene::deleteSelectedItems() current.selected" << current;
+        m_sampleModel->removeRows(current.row(), 1, current.parent());
         indexes = m_selectionModel->selectedIndexes();
     }
 
@@ -351,24 +378,44 @@ void DesignerScene::onEstablishedConnection(NodeEditorConnection *connection)
     ConnectableView *parentView = connection->getParentView();
     ConnectableView *childView = connection->getChildView();
 
-    ParameterizedItem::PortInfo::EPorts input_port_index
-        = (ParameterizedItem::PortInfo::EPorts)parentView->getInputPortIndex(
-            connection->getInputPort());
+    // TODO restore logic
+//    SessionItem::PortInfo::EPorts input_port_index
+//        = (ParameterizedItem::PortInfo::EPorts)parentView->getInputPortIndex(
+//            connection->getInputPort());
 
-    childView->getParameterizedItem()->setItemPort(input_port_index);
-    qDebug() << parentView->getInputPortIndex(connection->getInputPort());
+//    childView->getParameterizedItem()->setPort(input_port_index);
+    qDebug() << parentView->getInputPortIndex(connection->inputPort());
+    QString tag;
+    if (connection->getParentView()->getItem()->modelType() == Constants::ParticleLayoutType) {
+        if (connection->inputPort()->getPortType() == NodeEditorPort::INTERFERENCE)
+            tag = ParticleLayoutItem::T_INTERFERENCE;
+    }
+    else if (connection->getParentView()->getItem()->modelType() == Constants::ParticleCoreShellType) {
+        if (parentView->getInputPortIndex(connection->inputPort()) == 0)
+            tag = ParticleCoreShellItem::T_CORE;
+        else if (parentView->getInputPortIndex(connection->inputPort()) == 1)
+            tag = ParticleCoreShellItem::T_SHELL;
+        else if (connection->inputPort()->getPortType() == NodeEditorPort::TRANSFORMATION)
+            tag = ParticleItem::T_TRANSFORMATION;
+
+    } else if (connection->getParentView()->getItem()->modelType() == Constants::ParticleCompositionType) {
+        if (connection->inputPort()->getPortType() == NodeEditorPort::TRANSFORMATION)
+            tag = ParticleItem::T_TRANSFORMATION;
+    }
+    qDebug() << "onEstablishedConnection deleting just created connection";
     delete connection; // deleting just created connection because it will be recreated from the
                        // model
-    m_sampleModel->moveParameterizedItem(childView->getParameterizedItem(),
-                                         parentView->getParameterizedItem());
+    qDebug() << "onEstablishedConnection preparing to move";
+    m_sampleModel->moveParameterizedItem(childView->getItem(),
+                                         parentView->getItem(), -1, tag);
 }
 
 //! propagates break of connection between views on scene to the model
 void DesignerScene::removeConnection(NodeEditorConnection *connection)
 {
     qDebug() << "DesignerScene::removeConnection()";
-    IView *childView = dynamic_cast<IView *>(connection->getOutputPort()->parentItem());
-    m_sampleModel->moveParameterizedItem(childView->getParameterizedItem(), 0);
+    IView *childView = dynamic_cast<IView *>(connection->outputPort()->parentItem());
+    m_sampleModel->moveParameterizedItem(childView->getItem(), 0);
 }
 
 //! handles drag event
@@ -405,9 +452,9 @@ void DesignerScene::dropEvent(QGraphicsSceneDragDropEvent *event)
         } else {
             // other views can be dropped on canvas anywhere
             qDebug() << "DesignerScene::dropEvent() -> about to drop";
-            if (SampleViewFactory::isValidItemName(mimeData->getClassName())) {
+            if (SampleViewFactory::isValidType(mimeData->getClassName())) {
 
-                ParameterizedItem *new_item(0);
+                SessionItem *new_item(0);
                 if (mimeData->getClassName().startsWith(Constants::FormFactorType)) {
                     new_item = m_sampleModel->insertNewItem(Constants::ParticleType);
                     QString ffName = mimeData->getClassName();
@@ -418,15 +465,15 @@ void DesignerScene::dropEvent(QGraphicsSceneDragDropEvent *event)
                     new_item = m_sampleModel->insertNewItem(mimeData->getClassName());
                 }
 
-                // propagating drop coordinates to ParameterizedItem
+                // propagating drop coordinates to SessionItem
                 QRectF boundingRect = DesignerHelper::getDefaultBoundingRect(new_item->modelType());
-                new_item->setRegisteredProperty(ParameterizedGraphicsItem::P_XPOS,
+                new_item->setItemValue(SessionGraphicsItem::P_XPOS,
                                                 event->scenePos().x() - boundingRect.width() / 2);
-                new_item->setRegisteredProperty(ParameterizedGraphicsItem::P_YPOS,
+                new_item->setItemValue(SessionGraphicsItem::P_YPOS,
                                                 event->scenePos().y() - boundingRect.height() / 2);
 
             } else if (GUIExamplesFactory::isValidExampleName(mimeData->getClassName())) {
-                ParameterizedItem *topItem = GUIExamplesFactory::createSampleItems(
+                SessionItem *topItem = GUIExamplesFactory::createSampleItems(
                     mimeData->getClassName(), m_sampleModel);
                 QRectF boundingRect = DesignerHelper::getDefaultBoundingRect(topItem->modelType());
                 QPointF reference(event->scenePos().x() - boundingRect.width() / 2,

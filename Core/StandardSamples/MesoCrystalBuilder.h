@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      StandardSamples/MesoCrystalBuilder.h
-//! @brief     Defines class MesoCrystalBuilder.
+//! @file      Core/StandardSamples/MesoCrystalBuilder.h
+//! @brief     Declares class MesoCrystalBuilder.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,11 +17,7 @@
 #define MESOCRYSTALBUILDER_H
 
 #include "ISampleBuilder.h"
-#include "Types.h"
-
-class Lattice;
-class MesoCrystal;
-
+#include "Complex.h"
 
 //! @class MesoCrystalBuilder
 //! @ingroup standard_samples
@@ -34,14 +30,16 @@ public:
     MesoCrystalBuilder();
 
     virtual ~MesoCrystalBuilder(){}
-    virtual ISample *buildSample() const;
+    virtual class ISample* buildSample() const;
 
 protected:
     virtual void init_parameters();
 
 private:
-    MesoCrystal *createMesoCrystal(double stacking_radius_a, double stacking_radius_c, complex_t n_particle, const IFormFactor *p_meso_form_factor) const;
-    const Lattice *createLattice(double stacking_radius_a, double stacking_radius_c) const;
+    class MesoCrystal* createMesoCrystal(
+        double stacking_radius_a, double stacking_radius_c,
+        complex_t n_particle, const class IFormFactor* p_meso_form_factor) const;
+    const class Lattice* createLattice(double stacking_radius_a, double stacking_radius_c) const;
     double m_lattice_length_a;
     double m_lattice_length_c;
     double m_nanoparticle_radius;
@@ -56,6 +54,4 @@ private:
     double m_nphi_rotations;
 };
 
-
 #endif // MESOCRYSTALBUILDER_H
-

@@ -2,109 +2,76 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/JobWidgets/JobPropertiesWidget.cpp
+//! @file      GUI/coregui/Views/JobWidgets/JobPropertiesWidget.cpp
 //! @brief     Implements class JobPropertiesWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
 #include "JobPropertiesWidget.h"
-#include "AwesomePropertyEditor.h"
-#include "JobModel.h"
+#include "ComponentEditor.h"
 #include "JobItem.h"
+#include "mainwindow_constants.h"
 #include <QVBoxLayout>
 #include <QTabBar>
 #include <QTextEdit>
 #include <QTabWidget>
-#include <QDebug>
 
 JobPropertiesWidget::JobPropertiesWidget(QWidget *parent)
     : QWidget(parent)
-    , m_jobModel(0)
     , m_currentItem(0)
     , m_tabWidget(new QTabWidget)
-    , m_propertyEditor(0)
-    , m_commentsEditor(0)
+    , m_propertyEditor(new ComponentEditor)
+    , m_commentsEditor(new QTextEdit)
     , m_block_update(false)
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
-    setWindowTitle(QLatin1String("Job Properties"));
-    setObjectName(QLatin1String("Job Properties"));
+    setWindowTitle(Constants::JobPropertiesWidgetName);
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->setMargin(0);
     mainLayout->setSpacing(0);
-
-    m_propertyEditor = new AwesomePropertyEditor(this);
-
-    m_commentsEditor = new QTextEdit();
-    connect(m_commentsEditor, SIGNAL(textChanged()), this, SLOT(onTextChanged()));
-
-    QWidget *commentsWidget = new QWidget();
-    QVBoxLayout * vlayout = new QVBoxLayout;
-    vlayout->setMargin(8);
-    vlayout->addWidget(m_commentsEditor);
-    commentsWidget->setLayout(vlayout);
+    mainLayout->setContentsMargins(0,0,0,0);
 
     m_tabWidget->setTabPosition(QTabWidget::South);
     m_tabWidget->insertTab(JOB_PROPERTIES, m_propertyEditor, "Job Properties");
-    m_tabWidget->insertTab(JOB_COMMENTS, commentsWidget, "Details");
+    m_tabWidget->insertTab(JOB_COMMENTS, m_commentsEditor, "Details");
 
     mainLayout->addWidget(m_tabWidget);
-
     setLayout(mainLayout);
-}
 
-void JobPropertiesWidget::setModel(JobModel *model)
-{
-    Q_ASSERT(model);
-    if(model != m_jobModel) {
-        if(m_jobModel)
-            disconnect(m_jobModel,
-                SIGNAL( selectionChanged(JobItem *) ),
-                this,
-                SLOT( setItem(JobItem *) )
-                );
-
-        m_jobModel = model;
-        connect(m_jobModel,
-            SIGNAL( selectionChanged(JobItem *) ),
-            this,
-            SLOT( setItem(JobItem *) )
-            );
-    }
+    connect(m_commentsEditor, SIGNAL(textChanged()), this, SLOT(onTextChanged()));
 }
 
 void JobPropertiesWidget::setItem(JobItem *jobItem)
 {
     m_propertyEditor->setItem(jobItem);
 
-    if (m_currentItem == jobItem) return;
+    if (m_currentItem == jobItem) {
+        return;
 
-    if (m_currentItem) {
-        disconnect(m_currentItem, SIGNAL(propertyChanged(QString)),
-                this, SLOT(onPropertyChanged(QString)));
-    }
+    } else {
+        if(m_currentItem)
+            m_currentItem->mapper()->unsubscribe(this);
 
-    m_currentItem = jobItem;
+        m_currentItem = jobItem;
+        if (!m_currentItem) return;
 
-    if (!m_currentItem) return;
-
-    updateItem(m_currentItem);
-
-    connect(m_currentItem, SIGNAL(propertyChanged(QString)),
-            this, SLOT(onPropertyChanged(QString)));
-}
-
-void JobPropertiesWidget::onPropertyChanged(const QString &property_name)
-{
-    if(property_name == JobItem::P_COMMENTS) {
         updateItem(m_currentItem);
+
+        m_currentItem->mapper()->setOnPropertyChange(
+                    [this](const QString &name)
+        {
+            if(name == JobItem::P_COMMENTS) {
+                updateItem(m_currentItem);
+            }
+        }, this);
     }
 }
 

@@ -2,35 +2,123 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/TestView.cpp
+//! @file      GUI/coregui/Views/TestView.cpp
 //! @brief     Implements class TestView
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
+
 #include "TestView.h"
 #include "MaskEditor.h"
+#include "mainwindow.h"
+#include "MaterialEditor.h"
+#include "MinimizerSettingsWidget.h"
+#include "AccordionWidget.h"
+#include "MinimizerItem.h"
+#include "item_constants.h"
+#include "SessionModel.h"
+#include "ColorMap.h"
+#include "ColorMapCanvas.h"
+#include "JobModel.h"
+#include "JobItem.h"
+#include "IntensityDataItem.h"
+#include "IntensityDataIOFactory.h"
 #include <QVBoxLayout>
-#include <AccordionWidget.h>
 #include <QLineEdit>
 #include <QCheckBox>
+#include <QGridLayout>
 
-TestView::TestView(QWidget *parent)
-    : QWidget(parent)
+TestView::TestView(MainWindow *mainWindow)
+    : QWidget(mainWindow)
+    , m_mainWindow(mainWindow)
 {
-//    MaskEditor *maskEditor = new MaskEditor();
-//    QVBoxLayout *layout = new QVBoxLayout;
-//    layout->setMargin(0);
-//    layout->setSpacing(0);
-//    layout->addWidget(maskEditor);
-//    setLayout(layout);
+//    test_MaskEditor();
+//    test_AccordionWidget();
+//    test_RunFitWidget();
+//    test_MaterialEditor();
+//    test_MinimizerSettings();
+    test_ColorMapLight();
+}
 
-//    maskEditor->init_test_model();
 
+void TestView::test_MaterialEditor()
+{
+    MaterialEditor *materialEditor = new MaterialEditor(m_mainWindow->materialModel());
+    QVBoxLayout *layout = new QVBoxLayout;
+    layout->setMargin(0);
+    layout->setSpacing(0);
+    layout->addWidget(materialEditor);
+    setLayout(layout);
+}
+
+void TestView::test_MinimizerSettings()
+{
+    MinimizerSettingsWidget *widget = new MinimizerSettingsWidget;
+    QVBoxLayout *layout = new QVBoxLayout;
+    layout->setMargin(0);
+    layout->setSpacing(0);
+    layout->addWidget(widget);
+    setLayout(layout);
+
+
+    SessionModel* model = new SessionModel("TempModel", this);
+    MinimizerContainerItem *minimizerItem = dynamic_cast<MinimizerContainerItem *>(
+                model->insertNewItem(Constants::MinimizerContainerType));
+    widget->setItem(minimizerItem);
+
+}
+
+void TestView::test_ColorMapLight()
+{
+//    SessionModel *tempIntensityDataModel = new SessionModel("TempIntensityDataModel", this);
+//    IntensityDataItem *intensityData = dynamic_cast<IntensityDataItem *>(
+//        tempIntensityDataModel->insertNewItem(Constants::IntensityDataType));
+////    intensityData->setOutputData(IntensityDataIOFactory::readOutputData("/home/pospelov/development/BornAgain/temp/Untitled25/jobdata_job1_0.int.gz"));
+
+
+//    QGridLayout *gridLayout = new QGridLayout;
+
+////    JobItem *jobItem = dynamic_cast<JobItem *>(m_mainWindow->jobModel()->topItem());
+////    Q_ASSERT(jobItem);
+////    IntensityDataItem *intensityData = jobItem->getIntensityDataItem();
+
+//    ColorMapCanvas *map1 = new ColorMapCanvas;
+//    ColorMapCanvas *map2 = new ColorMapCanvas;
+//    ColorMapCanvas *map3 = new ColorMapCanvas;
+
+//    map1->setItem(intensityData);
+//    map2->setItem(intensityData);
+//    map3->setItem(intensityData);
+
+//    gridLayout->addWidget(map1, 0, 0);
+//    gridLayout->addWidget(map2, 0, 1);
+//    gridLayout->addWidget(map3, 1, 0);
+
+//    setLayout(gridLayout);
+
+}
+
+
+void TestView::test_MaskEditor()
+{
+    MaskEditor *maskEditor = new MaskEditor();
+    QVBoxLayout *layout = new QVBoxLayout;
+    layout->setMargin(0);
+    layout->setSpacing(0);
+    layout->addWidget(maskEditor);
+    setLayout(layout);
+
+    maskEditor->init_test_model();
+}
+
+void TestView::test_AccordionWidget()
+{
     AccordionWidget *myAccordion = new AccordionWidget();
     myAccordion->setMultiActive(true);
     // add the Accordion to your layout
@@ -101,5 +189,20 @@ TestView::TestView(QWidget *parent)
         contentFrame->layout()->addWidget(cb7);
 
     }
+}
+
+void TestView::test_RunFitWidget()
+{
+    //FitParameterWidget *fitting = new FitParameterWidget(m_mainWindow);
+    QVBoxLayout *layout = new QVBoxLayout;
+    QTabWidget *tabs = new QTabWidget;
+    //tabs->addTab(maskEditor, "Run Fit");
+    //tabs->addTab(fw, "FitView by Ivonna");
+    //tabs->addTab(fitting, "Test TreeView");
+    layout->setMargin(0);
+    layout->setSpacing(0);
+    layout->addWidget(tabs);
+    setLayout(layout);
 
 }
+

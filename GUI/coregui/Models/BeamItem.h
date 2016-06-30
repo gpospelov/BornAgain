@@ -2,31 +2,32 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/BeamItem.h
-//! @brief     Defines class BeamItem
+//! @file      GUI/coregui/Models/BeamItem.h
+//! @brief     Declares class BeamItem
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
 #ifndef BEAMITEM_H
 #define BEAMITEM_H
 
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 
-class BA_CORE_API_ BeamItem : public ParameterizedItem
+class BA_CORE_API_ BeamItem : public SessionItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_INTENSITY;
     static const QString P_WAVELENGTH;
     static const QString P_INCLINATION_ANGLE;
     static const QString P_AZIMUTHAL_ANGLE;
-    explicit BeamItem(ParameterizedItem *parent=0);
+    explicit BeamItem();
     virtual ~BeamItem(){}
 
     double getIntensity() const;

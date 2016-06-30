@@ -12,53 +12,58 @@
 # ROOT graphics added
 # see http://root.cern.ch/drupal/content/how-use-use-python-pyroot-interpreter
 # MG: I've modified this file to run it from command line in release.sh script
-import re
-from email.utils import parsedate
-from time import mktime
-from datetime import datetime
-from os import popen
-import os
-from sys import argv,stderr,stdout
-#import getopt
-from array import array
-from optparse import OptionParser
 
+import datetime, optparse, os, re, sys, time
 
-#opts, args = getopt.getopt(argv[1:],None)
-usage = "usage: %prog [options]"
-parser = OptionParser(usage)
-parser.add_option('-o', '--output-filename', type="string", action="store", dest="outfname", help="Output plot file name.", default="lines_of_code.png")
-parser.add_option('-i', '--input-dir', type="string", action="store", dest="gitdir", help="Path to the .git folder.", default=".")
-(options, args) = parser.parse_args()
+# ------------------------------------------------------------------------------
+# categorize files
+# ------------------------------------------------------------------------------
 
+descr=[
+    "non-source",
+    "auto",
+    "conf",
+    "core",
+    "futest",
+    "utest",
+    "GUI",
+    "examples",
+    "third-party",
+    "other C++",
+    "other Py",
+    "undef",
+]
 
-
-#extfolder = False
-#if len(args) == 1:
-#    extfolder = True
-#    targetfolder = args[0]
-
-extfolder=True
-targetfolder=options.gitdir
-fc=0
-locs=0
-locs_type=[0,0,0,0,0,0,0,0,0]
-#       0      1                  2            3      4        5      6     7       8
-descr=["Core","Functional Tests","Unit Tests","*.py","macros","GUI", "PythonAPI","Third","Undef"]
-adds=None
-cmt=None
-prev_time = datetime(2000,1,1)
-
-history=[]
-
-def pop():
-    if adds is not None:
-        pstr="%s %8u %5s %5s %7s %s \t%s"%(d,locs,'+'+str(adds),'-'+str(dels),hsh,who,cmt.strip())
-        print pstr
-        atmp = []
-        for x in locs_type:
-            atmp.append(x)
-        history.append((d,locs,atmp,adds,dels,hsh,who,cmt))
+def filetype(x):
+    if  re.search( r'(dev-tools|build|qbuild|html)/', x ):
+        file_type = 0 # skip
+    elif( re.search( r'doxygen_\w+\.i', x ) or
+          re.search( r'lib\w+\.py', x ) or
+          re.search( r'lib\w+_wrap\.', x ) or
+          re.search( r'bornagain\.1$', x ) or
+          re.match( r'(Core|Fit)/PythonAPI', x ) ):
+        file_type = 1 # auto-generated
+    elif re.search( r'\w+\.(in|txt|cmake)$', x ):
+        file_type = 2 # configuration scripts
+    elif fileCpp(x) and dirCore(x):
+        file_type = 3 # core C++ code
+    elif (fileCpp(x) or filePython(x)) and dirFuncTest(x):
+        file_type = 4 # functional tests
+    elif fileCpp(x) and dirUnitTests(x):
+        file_type = 5 # unit tests
+    elif dirGUI(x):
+        file_type = 6 # GUI
+    elif re.match( r'Examples/', x ):
+        file_type = 7 # Examples
+    elif dirThirdParty(x):
+        file_type = 8 # other third-party code
+    elif fileCpp(x):
+        file_type = 9 # other C++ code
+    elif filePython(x):
+        file_type = 10 # other Py code
+    else:
+        file_type = 11 # unknown type
+    return file_type
 
 def filePython(x):
     if ".py" in x and not ".pypp." in x: return True
@@ -69,127 +74,167 @@ def fileCpp(x):
     return False
 
 def dirCore(x):
-    if "/Core/Algorithms" in x: return True
-    if "/Core/FormFactors" in x: return True
-    if "/Core/Samples" in x: return True
-    if "/Core/StandardSamples" in x: return True
-    if "/Core/Tools" in x: return True
-    if "/Core/Fitting" in x: return True
-    if "/Core/inc" in x: return True
-    if "/Core/src" in x: return True
-    if "/Fit/Factory" in x: return True
-    if "/Fit/FitKernel" in x: return True
-    if "/Fit/StandardFits" in x: return True
-    if "/Core/Geometry" in x: return True
-    return False
-
-def dirPyAPI(x):
-    if "/Core/PythonAPI" in x: return True
-    if "/Fit/PythonAPI" in x: return True
+    if "Core/Algorithms" in x: return True
+    if "Core/FormFactors" in x: return True
+    if "Core/Geometry" in x: return True
+    if "Core/InputOutput" in x: return True
+    if "Core/Samples" in x: return True
+    if "Core/StandardSamples" in x: return True
+    if "Core/Tools" in x: return True
+    if "Fit/Factory" in x: return True
+    if "Fit/FitKernel" in x: return True
+    if "Fit/StandardFits" in x: return True
+    # abolished directories:
+    if "GISASFW" in x: return True
+    if "Core/Fitting" in x: return True
+    if "Core/inc" in x: return True
+    if "Core/src" in x: return True
     return False
 
 def dirFuncTest(x):
-    if "/App/" in x: return True
-    if "/Tests/FunctionalTests/TestCore" in x: return True
-    if "/Tests/FunctionalTests/TestFit" in x: return True
-    if "/Tests/FunctionalTests/TestPyCore" in x: return True
-    if "/Tests/FunctionalTests/TestPyFit" in x: return True
+    if "App/" in x: return True
+    if "Tests/FunctionalTests/TestCore" in x: return True
+    if "Tests/FunctionalTests/TestFit" in x: return True
+    if "Tests/FunctionalTests/TestPyCore" in x: return True
+    if "Tests/FunctionalTests/TestPyFit" in x: return True
     return False
 
 def dirGUI(x):
-    if "/GUI/coregui" in x  and not "widgetbox" in x and not "qttools" in x: return True
-    if "/GUI/main" in x: return True
-    if "/AppGUI/coregui" in x: return True
-    if "/BASuite" in x: return True
+    if "GUI/coregui" in x  and not "widgetbox" in x and not "qttools" in x: return True
+    if "GUI/main" in x: return True
+    # abolished directories:
+    if "AppGUI/coregui" in x: return True
+    if "BASuite" in x: return True
     return False
 
 def dirThirdParty(x):
-    if "/ThirdParty" in x: return True
+    if "ThirdParty" in x: return True
+    if "ROOT" in x: return True
+    if "GUI/externals" in x: return True
     return False
 
 def dirSkip(x):
-    if "/pub/core" in x: return True
+    # abolished directories:
+    if "pub/core" in x: return True
     return False
 
 def dirUnitTests(x):
-    if "/UnitTests/" in x: return True
-    if "/Tests/UnitTests/TestCore/" in x: return True
-    if "/Tests/UnitTests/TestFit/" in x: return True
+    if "Tests/UnitTests/TestCore/" in x: return True
+    if "Tests/UnitTests/TestFit/" in x: return True
+    # abolished directories:
+    if "UnitTests/" in x: return True
     return False
 
+# ------------------------------------------------------------------------------
+#
+# ------------------------------------------------------------------------------
+
+def append_to_history():
+    if adds is None:
+        return
+    history.append((d,list(locs_type),adds,dels,hsh,who,cmt))
+
+def save_history_as_table(fname):
+    f = open(fname, 'w')
+    for entry in history:
+        d = entry[0]
+        tim = 2012 +  (d - datetime.datetime(2012,1,1)).total_seconds()/366.0/24/3600
+        f.write( "%9.4f" % ( tim ) )
+        for i in entry[1]:
+            f.write( " %6i" % ( i ) )
+        f.write( " # %s %s\n" % (entry[4], entry[6][0:28] ) )
+    f.close()
+    print( "Table with one line per commit written to "+fname )
 
 # ------------------------------------------------------------------------------
-def filetype(x):
-    file_type=8
-
-    if dirSkip(x): return file_type
-
-    if fileCpp(x) and dirCore(x):
-        file_type = 0
-    elif (fileCpp(x) or filePython(x)) and dirFuncTest(x):
-        file_type = 1
-
-    elif dirUnitTests(x):
-        file_type = 2
-
-    elif dirGUI(x):
-        file_type = 5
-
-    elif dirPyAPI(x):
-        file_type = 6
-
-    elif dirThirdParty(x):
-        file_type = 7
-    return file_type
-
-
+# MAIN
 # ------------------------------------------------------------------------------
+usage = "usage: %prog [options]"
+parser = optparse.OptionParser(usage)
+parser.add_option('-o', '--output-filename', type="string", action="store", dest="outfname", help="Output plot file name.", default="lines_of_code.png")
+parser.add_option('-i', '--input-dir', type="string", action="store", dest="gitdir", help="Path to the .git folder.", default=".")
+(options, args) = parser.parse_args()
+
+fc=0
+locs_type=[0 for cat in descr]
+
+adds = None
+dels = None
+cmt = None
+hsh = None
+prev_time = datetime.datetime(2000,1,1)
+
+history=[]
+
 prevfolder = os.getcwd()
-if extfolder: os.chdir(targetfolder)
+os.chdir(options.gitdir)
 
-# parsing output of git log 
-file_type_ppp = 8
-file_type_mmm = 8
-for x in popen('git log develop --reverse -p'):
-    if x.startswith('commit'):
-        pop()
-        hsh=x[7:14];
-    if x.startswith('Author'):
-        who=x.replace("Author: ",'').replace('\n','');
-        who=re.sub(">.*","",who);
-        who=re.sub(".*<","",who);
-    if x.startswith('Date'):
-        fc=1
-        d=datetime(*parsedate(x[5:])[:7])
-        t=mktime(parsedate(x[5:]))
-        adds=0
-        dels=0
-        print x
-    if fc==2:
-        cmt=x[:-1]
-        fc=0
-    if fc==1:
-        if len(x)==1: fc=2
-    if x.startswith('+++'):
-        file_type_ppp = filetype(x)
+pos = -1
+for x in os.popen('git log develop --reverse --pretty=format:"A: %ae%nD: %ct%nS: %s%nH: %h%n" --numstat'):
+    x = x.rstrip(' \t\r\n')
+    if pos==-1 or pos==4:
+        m = re.match(r'A: (.+)@', x )
+        if m:
+            who = m.group(1)
+            if pos!=-1:
+                append_to_history()
+            pos = 0
+            adds=0
+            dels=0
+            continue
 
-    if x.startswith('---'):
-        file_type_mmm = filetype(x)
+    if pos==0:
+        m = re.match(r'D: (.+)$', x )
+        if m is None:
+            raise RuntimeError("D not found")
+        pos = 1
+        raw = m.group(1)
+        d = datetime.datetime.fromtimestamp(float(raw))
+        sys.stdout.write( str(d) )
+        sys.stdout.write( '\r' )
+        sys.stdout.flush()
+        # if( d.year!=2012 ): break # TEMPORARY, to accelerate development
+    elif pos==1:
+        m = re.match(r'S: (.+)$', x )
+        if m is None:
+            raise "S not found"
+        pos = 2
+        cmt = m.group(1)
+    elif pos==2:
+        m = re.match(r'H: (.+)$', x )
+        if m is None:
+            raise RuntimeError("H not found")
+        pos = 3
+        hsh = m.group(1)
+    elif pos==3:
+        if x!="":
+            raise RuntimeError("empty line not found")
+        pos = 4
+    else:
+        pos = 5
+        if x=="":
+            pos = 4
+            continue
+        m = re.match(r'-\s+-\s+(.+)$', x )
+        if m:
+            continue
+        m = re.match(r'(\d+)\s+(\d+)\s+(.+)$', x )
+        if m is None:
+            raise RuntimeError( "Unexpected record '"+x+"'" )
+        lines_inserted = int(m.group(1))
+        lines_deleted = int(m.group(2))
+        fnam = m.group(3)
+        ftyp = filetype(fnam)
+        locs_type[ftyp] += lines_inserted - lines_deleted
+append_to_history() # once more upon leaving the loop
 
-    if x.startswith('+') and not x.startswith('+++'):
-        locs_type[file_type_ppp] += 1
-        if file_type_ppp <6:
-            adds+=1
-            locs+=1
-    if x.startswith('-') and not x.startswith('---'):
-        locs_type[file_type_mmm] -= 1
-        if file_type_mmm <6:
-            dels+=1
-            locs-=1
+save_history_as_table("lines_of_code.tab")
 
-pop()
+# clear progress line
+sys.stdout.write( '\r' )
+sys.stdout.flush()
+
 os.chdir(prevfolder)
-
 
 # --------------------------------------------------------
 # making ROOT plot - number of lines of code .vs. time
@@ -205,10 +250,8 @@ time_offset = int(td_first.Convert()) - 7*24.*3600 # one week before first commi
 
 ntimebins = 4*int((td_last.Convert() - time_offset)/3600./24)
 
-
 #print "ntimebins", ntimebins
 hist_ncommits = TH1D("ncommits", "ncommits", ntimebins, td_first.Convert() - time_offset, td_last.Convert() - time_offset)
-
 
 # ---------------------------------
 # creating histograms
@@ -227,7 +270,7 @@ for i in range(0, len(selected_hist) ):
     i_hist = selected_hist[i]
     #hist = TH1D(descr[i_hist],descr[i_hist],len(xtmp)-1,xtmp)
     hist = TH1D(descr[i_hist],descr[i_hist], ntimebins, td_first.Convert() - time_offset, td_last.Convert() - time_offset )
-    
+
     hist.GetXaxis().SetTimeDisplay(1)
     hist.GetXaxis().SetTimeFormat("%d/%m")
     hist.GetYaxis().SetLabelSize(0.030)
@@ -237,7 +280,6 @@ for i in range(0, len(selected_hist) ):
     hist.SetLineColor(a_colors[i_hist])
     hist.SetFillColor(a_colors[i_hist])
     a_histograms.append(hist)
-
 
 # adding histograms to legend in right order
 for i_hist in range(len(a_histograms)-1,-1,-1):
@@ -268,14 +310,6 @@ for h in a_histograms:
         if h.GetBinContent(i_bin) == 0:
             h.SetBinContent(i_bin, prev_content)
         prev_content = h.GetBinContent(i_bin)
-        
-    
-
-
-
-
-
-
 
 #preparing canvas
 c1 = TCanvas( 'gisasfw_loc', 'Number of lines of code in BornAgain project', 800, 800)
@@ -307,14 +341,4 @@ gPad.RedrawAxis()
 gPad.RedrawAxis("G")
 
 c1.Print(options.outfname)
-
-
-
-# wait for input to keep the GUI (which lives on a ROOT event dispatcher) alive
-#if __name__ == '__main__':
-#   rep = ''
-#   while not rep in [ 'q', 'Q' ]:
-#      rep = raw_input( 'enter "q" to quit: ' )
-#      if 1 < len(rep):
-#         rep = rep[0]
-
+print( "Plot saved in "+options.outfname )

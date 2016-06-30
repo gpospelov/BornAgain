@@ -2,14 +2,15 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/MaskWidgets/MaskGraphicsScene.h
-//! @brief     Defines class MaskGraphicsScene
+//! @file      GUI/coregui/Views/MaskWidgets/MaskGraphicsScene.h
+//! @brief     Declares class MaskGraphicsScene
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
@@ -24,7 +25,7 @@
 #include <QSharedPointer>
 
 class SessionModel;
-class ParameterizedItem;
+class SessionItem;
 class IMaskView;
 class ISceneAdaptor;
 class MaskGraphicsProxy;
@@ -77,9 +78,9 @@ protected:
 private:
     void updateProxyWidget();
     void updateViews(const QModelIndex &parentIndex = QModelIndex(), IMaskView *parentView = 0);
-    IMaskView* addViewForItem(ParameterizedItem *item);
+    IMaskView* addViewForItem(SessionItem *item);
     void deleteViews(const QModelIndex & itemIndex);
-    void removeItemViewFromScene(ParameterizedItem *item);
+    void removeItemViewFromScene(SessionItem *item);
 
     bool isValidMouseClick(QGraphicsSceneMouseEvent *event);
     bool isValidForRectangleDrawing(QGraphicsSceneMouseEvent *event);
@@ -103,17 +104,17 @@ private:
 
     void setZValues();
     PolygonView *getCurrentPolygon() const;
-    void setItemName(ParameterizedItem *itemToChange);
+    void setItemName(SessionItem *itemToChange);
 
     SessionModel *m_maskModel;
     QItemSelectionModel *m_selectionModel;
     QSharedPointer<ISceneAdaptor> m_adaptor;
-    QMap<ParameterizedItem *, IMaskView *> m_ItemToView;
+    QMap<SessionItem *, IMaskView *> m_ItemToView;
     MaskGraphicsProxy *m_proxy;
     bool m_block_selection;
     QModelIndex m_maskContainerIndex;
     IntensityDataItem *m_intensityItem;
-    ParameterizedItem *m_currentItem;
+    SessionItem *m_currentItem;
     QPointF m_currentMousePosition;
     MaskDrawingContext m_context;
 };

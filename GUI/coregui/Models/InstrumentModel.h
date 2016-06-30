@@ -2,14 +2,15 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/InstrumentModel.h
-//! @brief     Defines class InstrumentModel
+//! @file      GUI/coregui/Models/InstrumentModel.h
+//! @brief     Declares class InstrumentModel
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
@@ -29,11 +30,9 @@ public:
     explicit InstrumentModel(QObject *parent = 0);
     virtual ~InstrumentModel(){}
 
-    virtual InstrumentModel *createCopy(ParameterizedItem *parent=0);
+    virtual InstrumentModel *createCopy(SessionItem *parent=0);
 
-    QMap<QString, ParameterizedItem *> getInstrumentMap() const;
-
-    InstrumentItem *getInstrumentItem(const QString &instrument_name = QString());
+    InstrumentItem *instrumentItem(const QString &instrument_name = QString());
 };
 
 #endif

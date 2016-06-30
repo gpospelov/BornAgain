@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      StandardSamples/TransformationsBuilder.cpp
+//! @file      Core/StandardSamples/TransformationsBuilder.cpp
 //! @brief     Implements classes to build samples with different transformations.
 //!
 //! @homepage  http://www.bornagainproject.org

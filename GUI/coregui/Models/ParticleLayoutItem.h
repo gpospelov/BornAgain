@@ -2,32 +2,33 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/ParticleLayoutItem.h
-//! @brief     Defines class ParticleLayoutItem
+//! @file      GUI/coregui/Models/ParticleLayoutItem.h
+//! @brief     Declares class ParticleLayoutItem
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
 #ifndef PARTICLELAYOUTITEM_H
 #define PARTICLELAYOUTITEM_H
 
-#include "ParameterizedGraphicsItem.h"
+#include "SessionGraphicsItem.h"
 
-class BA_CORE_API_ ParticleLayoutItem : public ParameterizedGraphicsItem
+class BA_CORE_API_ ParticleLayoutItem : public SessionGraphicsItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_APPROX;
     static const QString P_TOTAL_DENSITY;
-    explicit ParticleLayoutItem(ParameterizedItem *parent=0);
+    static const QString T_PARTICLES;
+    static const QString T_INTERFERENCE;
+    explicit ParticleLayoutItem();
     virtual ~ParticleLayoutItem();
-    virtual void insertChildItem(int row, ParameterizedItem *item);
-    virtual void onChildPropertyChange(ParameterizedItem *item, const QString &propertyName=QString());
 };
 
 #endif // PARTICLELAYOUTITEM_H

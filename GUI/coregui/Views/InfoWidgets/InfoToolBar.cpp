@@ -2,42 +2,36 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/InfoWidgets/InfoToolBar.cpp
+//! @file      GUI/coregui/Views/InfoWidgets/InfoToolBar.cpp
 //! @brief     Implements class InfoToolBar
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
 #include "InfoToolBar.h"
 #include <QHBoxLayout>
 #include <QToolButton>
-#include <QStyle>
-#include <QDebug>
 
 InfoToolBar::InfoToolBar(QWidget *parent)
-    : QToolBar(parent)
+    : StyledToolBar(parent)
     , m_expandButton(new QToolButton)
     , m_closeButton(new QToolButton)
     , m_expanded(false)
 {
-    setMovable(false);
-
-    const int size = style()->pixelMetric(QStyle::PM_SmallIconSize);
-    setIconSize(QSize(size, size));
-    setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
     setMinimumSize(25, 25);
 
     m_expandButton->setIcon(QIcon(":/images/darkarrowup.png"));
-    m_expandButton->setToolTip("Collapse/expand of Python script viewer");
+    m_expandButton->setToolTip("Collapse/expand view");
     connect(m_expandButton, SIGNAL(clicked()), this, SLOT(onExpandButtonClicked()));
 
     m_closeButton->setIcon(QIcon(":/images/darkclosebutton.png"));
-    m_closeButton->setToolTip("Close Python script viewer");
+    m_closeButton->setToolTip("Close viewer");
     connect(m_closeButton, SIGNAL(clicked()), this, SIGNAL(closeButtonClicked()));
 
     QWidget* empty = new QWidget();

@@ -2,14 +2,15 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/SampleModel.h
-//! @brief     Defines class SampleModel
+//! @file      GUI/coregui/Models/SampleModel.h
+//! @brief     Declares class SampleModel
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
@@ -29,18 +30,16 @@ public:
     explicit SampleModel(QObject *parent = 0);
     virtual ~SampleModel(){}
 
-    virtual SampleModel *createCopy(ParameterizedItem *parent = 0);
+    virtual SampleModel *createCopy(SessionItem *parent = 0);
 
-    QMap<QString, ParameterizedItem *> getSampleMap() const;
-
-    MultiLayerItem *getMultiLayerItem(const QString &item_name=QString());
+    MultiLayerItem *multiLayerItem(const QString &item_name=QString());
 
 public slots:
-    void onMaterialModelChanged(const QModelIndex &first, const QModelIndex &second);
+    void onMaterialModelChanged(const QModelIndex &, const QModelIndex &);
 
 private:
     void exploreForMaterials(const QModelIndex &parentIndex = QModelIndex());
-    QString m_material_identifier;
+    bool m_block_explore_for_material;
 };
 
 #endif

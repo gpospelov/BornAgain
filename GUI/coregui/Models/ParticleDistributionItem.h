@@ -2,14 +2,15 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/ParticleDistributionItem.h
-//! @brief     Defines class ParticleDistributionItem
+//! @file      GUI/coregui/Models/ParticleDistributionItem.h
+//! @brief     Declares class ParticleDistributionItem
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
@@ -17,25 +18,22 @@
 #define PARTICLEDISTRIBUTIONITEM_H
 
 #include "ParticleDistribution.h"
-#include "ParameterizedGraphicsItem.h"
+#include "SessionGraphicsItem.h"
 
 #include <QStringList>
 
 class ParameterPool;
 
-class BA_CORE_API_ ParticleDistributionItem : public ParameterizedGraphicsItem
+class BA_CORE_API_ ParticleDistributionItem : public SessionGraphicsItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_DISTRIBUTED_PARAMETER;
     static const QString P_DISTRIBUTION;
     static const QString NO_SELECTION;
-    explicit ParticleDistributionItem(ParameterizedItem *parent=0);
+    static const QString T_PARTICLES;
+    explicit ParticleDistributionItem();
     virtual ~ParticleDistributionItem();
-
-    virtual void insertChildItem(int row, ParameterizedItem *item);
-
-    virtual void onChildPropertyChange(ParameterizedItem *item, const QString &propertyName=QString());
 
     std::unique_ptr<ParticleDistribution> createParticleDistribution() const;
 

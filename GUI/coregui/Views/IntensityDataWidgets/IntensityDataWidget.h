@@ -2,62 +2,56 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/IntensityDataWidgets/IntensityDataWidget.h
-//! @brief     Defines class IntensityDataWidget
+//! @file      GUI/coregui/Views/IntensityDataWidgets/IntensityDataWidget.h
+//! @brief     Declares class IntensityDataWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
 #ifndef INTENSITYDATAWIDGET_H
 #define INTENSITYDATAWIDGET_H
 
-#include "WinDllMacros.h"
-#include <QWidget>
+#include "SessionItemWidget.h"
 
-class IntensityDataPropertyWidget;
+class SessionItem;
 class IntensityDataItem;
-class IntensityDataPlotWidget;
+class ColorMapCanvas;
+class QAction;
 
-//! The widget presents IntensityData color map and property editor.
-//! Belongs to the stack handled by JobOutputDataWidget
-class BA_CORE_API_ IntensityDataWidget : public QWidget
+//! The IntensityDataWidget class represents IntensityDataItem as color map,
+//! provides standard actions (reset view, save as) for external toolbars and context menus.
+
+class BA_CORE_API_ IntensityDataWidget : public SessionItemWidget
 {
     Q_OBJECT
 public:
     explicit IntensityDataWidget(QWidget *parent = 0);
 
-    void setItem(IntensityDataItem *item);
+    void setItem(SessionItem *item);
+    void setIntensityData(IntensityDataItem *intensityItem);
 
     QSize sizeHint() const { return QSize(500, 400); }
     QSize minimumSizeHint() const { return QSize(128, 128); }
 
-signals:
-    void savePlotRequest();
+    QList<QAction *> actionList();
 
 public slots:
-    void onResetView();
-    void togglePropertyPanel();
-    void savePlot(const QString &dirname);
-    void toggleProjections();
-    void setPropertyPanelVisible(bool visible);
-
-private slots:
-    void onPropertyChanged(const QString &property_name);
+    void onResetViewAction();
+    void onSavePlotAction();
 
 private:
-    void updateItem(IntensityDataItem *item);
+    void initActions();
 
-    IntensityDataPlotWidget *m_plotWidget;
-    IntensityDataPropertyWidget *m_propertyWidget;
+    ColorMapCanvas *m_colorMap;
     IntensityDataItem *m_currentItem;
+    QAction *m_resetViewAction;
+    QAction *m_savePlotAction;
 };
-
-
-
 
 #endif

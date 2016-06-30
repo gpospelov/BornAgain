@@ -2,14 +2,15 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/NJobModel.cpp
-//! @brief     Implements class NJobModel
+//! @file      GUI/coregui/Models/JobModel.cpp
+//! @brief     Implements class JobModel
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
@@ -22,6 +23,13 @@
 #include "InstrumentModel.h"
 #include "MultiLayerItem.h"
 #include "InstrumentItem.h"
+#include "RealDataItem.h"
+#include "ParameterTreeBuilder.h"
+#include "ParameterTreeItems.h"
+#include "SimulationOptionsItem.h"
+#include "JobItemHelper.h"
+#include "IntensityDataItem.h"
+#include "FitSuiteItem.h"
 #include <QUuid>
 #include <QDebug>
 #include <QItemSelection>
@@ -32,7 +40,7 @@ JobModel::JobModel(QObject *parent)
     , m_queue_data(0)
 {
     m_queue_data = new JobQueueData(this);
-    connect(m_queue_data, SIGNAL(focusRequest(QString)), this, SLOT(onFocusRequest(QString)));
+    connect(m_queue_data, SIGNAL(focusRequest(JobItem *)), this, SIGNAL(focusRequest(JobItem *)));
     connect(m_queue_data, SIGNAL(globalProgress(int)), this, SIGNAL(globalProgress(int)));
     setObjectName(SessionXML::JobModelTag);
 }
@@ -69,120 +77,88 @@ JobItem *JobModel::getJobItemForIdentifier(const QString &identifier)
 
 
 //! Main method to add a job
-JobItem *JobModel::addJob(const MultiLayerItem *multiLayerItem, const InstrumentItem *instrumentItem,
-                          const QString &run_policy, int numberOfThreads)
+JobItem *JobModel::addJob(const MultiLayerItem *multiLayerItem,
+                          const InstrumentItem *instrumentItem,
+                          const RealDataItem *realDataItem,
+                          const SimulationOptionsItem *optionItem)
 {
+    Q_ASSERT(multiLayerItem);
+    Q_ASSERT(instrumentItem);
+    Q_ASSERT(optionItem);
+
     JobItem *jobItem = dynamic_cast<JobItem *>(insertNewItem(Constants::JobItemType));
     jobItem->setItemName(generateJobName());
     jobItem->setIdentifier(generateJobIdentifier());
-    jobItem->setNumberOfThreads(numberOfThreads);
-    jobItem->setRunPolicy(run_policy);
 
-    setSampleForJobItem(jobItem, multiLayerItem);
-    setInstrumentForJobItem(jobItem, instrumentItem);
+    SessionItem *multilayer = copyParameterizedItem(multiLayerItem, jobItem, JobItem::T_SAMPLE);
+    multilayer->setItemName(Constants::MultiLayerType);
+    copyParameterizedItem(instrumentItem, jobItem, JobItem::T_INSTRUMENT);
+    copyParameterizedItem(optionItem, jobItem, JobItem::T_SIMULATION_OPTIONS);
 
-    insertNewItem(Constants::IntensityDataType, indexOfItem(jobItem));
+    jobItem->getItem(JobItem::P_SAMPLE_NAME)->setValue(multiLayerItem->itemName());
+    jobItem->getItem(JobItem::P_INSTRUMENT_NAME)->setValue(instrumentItem->itemName());
 
-    if (jobItem->runImmediately() || jobItem->runInBackground())
-        m_queue_data->runJob(jobItem);
+    ParameterTreeBuilder::createParameterTree(jobItem, JobItem::T_PARAMETER_TREE);
+
+    insertNewItem(Constants::IntensityDataType, indexOfItem(jobItem), -1, JobItem::T_OUTPUT);
+
+    if(realDataItem) {
+        copyRealDataItem(jobItem, realDataItem);
+        createFitContainers(jobItem);
+    }
 
     return jobItem;
-}
-
-//! Adds a multilayer to children of given JobItem.
-//! The same method is used to set either original multilayer or its backup version.
-void JobModel::setSampleForJobItem(JobItem *jobItem, const MultiLayerItem *multiLayerItem, bool backup)
-{
-    Q_ASSERT(jobItem);
-    Q_ASSERT(multiLayerItem);
-
-    // removing old multilayer (or its backup version) from children of given jobItem
-    MultiLayerItem *old_sample = jobItem->getMultiLayerItem(backup);
-    if(old_sample) {
-        removeRows(indexOfItem(old_sample).row(), 1, indexOfItem(old_sample->parent()));
-    }
-
-    ParameterizedItem *new_item = copyParameterizedItem(multiLayerItem, jobItem);
-
-    // our original multiLayerItem might come from backup itself, lets clean up its specific name
-    QString name = new_item->itemName();
-    name.remove(Constants::JOB_BACKUP);
-    jobItem->setRegisteredProperty(JobItem::P_SAMPLE_NAME, name);
-
-    // if new_item is supposed to be the backup, then it's name should end up with '_backup'
-    if(backup) {
-        name.append(Constants::JOB_BACKUP);
-    }
-
-    new_item->setItemName(name);
-}
-
-//! Adds an instrument to children of given JobItem.
-//! The same method is used to set either original instrument or its backup version.
-void JobModel::setInstrumentForJobItem(JobItem *jobItem, const InstrumentItem *instrumentItem, bool backup)
-{
-    Q_ASSERT(jobItem);
-    Q_ASSERT(instrumentItem);
-
-    // removing old instrument from children of given jobItem
-    InstrumentItem *old = jobItem->getInstrumentItem(backup);
-    if (old) {
-        removeRows(indexOfItem(old).row(), 1, indexOfItem(old->parent()));
-    }
-
-    ParameterizedItem *new_item = copyParameterizedItem(instrumentItem, jobItem);
-
-    // our original instrumentItem might itself come from backup, lets clean up its specific name
-    QString name = new_item->itemName();
-    name.remove(Constants::JOB_BACKUP);
-    jobItem->setRegisteredProperty(JobItem::P_INSTRUMENT_NAME, name);
-
-    // if new_item is supposed to be the backup, then it's name should end up with '_backup'
-    if(backup) {
-        name.append(Constants::JOB_BACKUP);
-    }
-
-    new_item->setItemName(name);
-}
-
-//! Backup instrument and sample model for given JobItem. If backup already exists, do nothing.
-void JobModel::backup(JobItem *jobItem)
-{
-    if(!jobItem->getMultiLayerItem(true)) {
-        MultiLayerItem *multilayer = jobItem->getMultiLayerItem();
-        Q_ASSERT(multilayer);
-
-        setSampleForJobItem(jobItem, multilayer, true);
-    }
-
-    if(!jobItem->getInstrumentItem(true)) {
-        InstrumentItem *instrument = jobItem->getInstrumentItem();
-        Q_ASSERT(instrument);
-
-        setInstrumentForJobItem(jobItem, instrument, true);
-    }
 }
 
 //! restore instrument and sample model from backup for given JobItem
 void JobModel::restore(JobItem *jobItem)
 {
-    MultiLayerItem *multilayer = jobItem->getMultiLayerItem(true);
-    Q_ASSERT(multilayer);
+    restoreItem(jobItem->getItem(JobItem::T_PARAMETER_TREE));
+}
 
-    setSampleForJobItem(jobItem, multilayer);
+bool JobModel::hasUnfinishedJobs()
+{
+    return m_queue_data->hasUnfinishedJobs();
+}
 
-    InstrumentItem *instrument = jobItem->getInstrumentItem(true);
-    Q_ASSERT(instrument);
+void JobModel::clear()
+{
+    foreach (SessionItem *item, topItems(Constants::JobItemType)) {
+        removeJob(item->index());
+    }
+    SessionModel::clear();
+}
 
-    setInstrumentForJobItem(jobItem, instrument);
+//! Loads OutputData from the projectDir to JobItem
+
+void JobModel::loadNonXMLData(const QString &projectDir)
+{
+    for (int i = 0; i < rowCount(QModelIndex()); ++i) {
+        JobItem *jobItem = getJobItemForIndex(index(i, 0, QModelIndex()));
+        JobItemHelper::loadIntensityData(jobItem, projectDir);
+        JobItemHelper::loadRealData(jobItem, projectDir);
+    }
+
+}
+
+//! Saves JobItem's OutputData to the projectDir
+
+void JobModel::saveNonXMLData(const QString &projectDir)
+{
+    for (int i = 0; i < rowCount(QModelIndex()); ++i) {
+        JobItem *jobItem = getJobItemForIndex(index(i, 0, QModelIndex()));
+        JobItemHelper::saveIntensityData(jobItem, projectDir);
+    }
+}
+
+void JobModel::onCancelAllJobs()
+{
+    m_queue_data->onCancelAllJobs();
 }
 
 void JobModel::runJob(const QModelIndex &index)
 {
-    qDebug() << "NJobModel::runJob(const QModelIndex &index)";
-    JobItem *jobItem = getJobItemForIndex(index);
-    jobItem->setRunPolicy(Constants::JOB_RUN_IMMEDIATELY);
-    m_queue_data->runJob(jobItem);
+    m_queue_data->runJob(getJobItemForIndex(index));
 }
 
 void JobModel::cancelJob(const QModelIndex &index)
@@ -195,35 +171,11 @@ void JobModel::removeJob(const QModelIndex &index)
 {
     qDebug() << "NJobModel::removeJob(const QModelIndex &index)";
     JobItem *jobItem = getJobItemForIndex(index);
+    Q_ASSERT(jobItem);
     m_queue_data->removeJob(jobItem->getIdentifier());
 
     emit aboutToDeleteJobItem(jobItem);
     removeRows(index.row(), 1, QModelIndex());
-}
-
-void JobModel::onSelectionChanged(const QItemSelection &selected, const QItemSelection &deselected)
-{
-    Q_UNUSED(deselected);
-    qDebug() << "NJobModel::onSelectionChanged" << selected;
-    QModelIndexList indices = selected.indexes();
-    if(indices.size()) {
-        qDebug() << "NJobModel::onSelectionChanged -> emiting selectionChanged(0)" << indices.back();
-        emit selectionChanged(getJobItemForIndex(indices.back()));
-    } else {
-        qDebug() << "NJobModel::onSelectionChanged -> emiting selectionChanged(0)";
-        emit selectionChanged(0);
-    }
-
-//    if(!selected.empty() &&  !selected.first().indexes().empty()) {
-//        QModelIndex index = selected.first().indexes().at(0);
-//        emit selectionChanged(getJobItemForIndex(index));
-    //    }
-}
-
-// called when jobQueueData asks for focus
-void JobModel::onFocusRequest(const QString &identifier)
-{
-    emit focusRequest(getJobItemForIdentifier(identifier));
 }
 
 //! generates job name
@@ -234,7 +186,7 @@ QString JobModel::generateJobName()
     for(int i_row = 0; i_row < rowCount(parentIndex); ++i_row) {
          QModelIndex itemIndex = index( i_row, 0, parentIndex );
 
-         if (ParameterizedItem *item = itemForIndex(itemIndex)){
+         if (SessionItem *item = itemForIndex(itemIndex)){
              if(item->modelType() == Constants::JobItemType) {
                  QString jobName = item->itemName();
                  if(jobName.startsWith("job")) {
@@ -253,4 +205,63 @@ QString JobModel::generateJobIdentifier()
 {
     return QUuid::createUuid().toString();
 }
+
+void JobModel::restoreItem(SessionItem *item)
+{
+    if (ParameterItem *parameter = dynamic_cast<ParameterItem*>(item)) {
+        parameter->propagateValueLink(true);
+    }
+    for (auto child : item->childItems()) {
+        restoreItem(child);
+    }
+}
+
+//! Copy RealDataItem to jobItem intended for fitting.
+
+void JobModel::copyRealDataItem(JobItem *jobItem, const RealDataItem *realDataItem)
+{
+    if(!realDataItem)
+        return;
+
+    RealDataItem *realDataItemCopy = dynamic_cast<RealDataItem *>(
+        copyParameterizedItem(realDataItem, jobItem, JobItem::T_REALDATA));
+    Q_ASSERT(realDataItemCopy);
+    realDataItemCopy->intensityDataItem()->setOutputData(
+                realDataItem->intensityDataItem()->getOutputData()->clone());
+}
+
+//! Creates necessary fit containers for jobItem intended for fitting.
+
+void JobModel::createFitContainers(JobItem *jobItem)
+{
+    SessionItem *fitSuiteItem = jobItem->getItem(JobItem::T_FIT_SUITE);
+    if(fitSuiteItem != nullptr) {
+        throw GUIHelpers::Error("JobModel::createFitContainers() -> Error. Attempt to create "
+                                "a second FitSuiteItem.");
+    }
+
+    fitSuiteItem = insertNewItem(Constants::FitSuiteType,
+                                 jobItem->index(), -1, JobItem::T_FIT_SUITE);
+
+    SessionItem *parsContainerItem = fitSuiteItem->getItem(FitSuiteItem::T_FIT_PARAMETERS);
+    if(parsContainerItem != nullptr) {
+        throw GUIHelpers::Error("JobModel::createFitContainers() -> Error. Attempt to create "
+                                "a second FitParameterContainer.");
+    }
+
+    parsContainerItem = insertNewItem(Constants::FitParameterContainerType,
+                                      fitSuiteItem->index(), -1, FitSuiteItem::T_FIT_PARAMETERS);
+
+    // Minimizer settings
+    SessionItem *minimizerContainerItem = fitSuiteItem->getItem(FitSuiteItem::T_MINIMIZER);
+    if(minimizerContainerItem != nullptr) {
+        throw GUIHelpers::Error("JobModel::createFitContainers() -> Error. Attempt to create "
+                                "a second MinimizerContainer.");
+    }
+
+    minimizerContainerItem = insertNewItem(Constants::MinimizerContainerType,
+                                      fitSuiteItem->index(), -1, FitSuiteItem::T_MINIMIZER);
+
+}
+
 

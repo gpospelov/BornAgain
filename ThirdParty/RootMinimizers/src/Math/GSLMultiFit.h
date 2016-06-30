@@ -31,6 +31,7 @@
 #include "gsl/gsl_matrix.h"
 #include "gsl/gsl_multifit_nlin.h"
 #include "gsl/gsl_blas.h"
+#include "gsl/gsl_version.h"
 #include "GSLMultiFitFunctionWrapper.h"
 
 #include "Math/IFunction.h"
@@ -143,10 +144,8 @@ public:
    /// gradient value at the minimum
    const double * Gradient() const {
       if (fSolver == 0) return 0;
-#ifdef BORNAGAIN_GSL_BIGGEROREQUAL_2
-      gsl_matrix * J = gsl_matrix_alloc(fSolver->fdf->n, fSolver->fdf->p);
-      gsl_multifit_fdfsolver_jac(fSolver, J);
-      gsl_multifit_gradient(J, fSolver->f,fVec);
+#if GSL_MAJOR_VERSION  > 1
+      fType->gradient(fSolver->state, fVec);
 #else
       gsl_multifit_gradient(fSolver->J, fSolver->f,fVec);
 #endif
@@ -160,10 +159,11 @@ public:
       unsigned int npar = fSolver->fdf->p;
       fCov = gsl_matrix_alloc( npar, npar );
       static double kEpsrel = 0.0001;
-#ifdef BORNAGAIN_GSL_BIGGEROREQUAL_2
-      gsl_matrix * J = gsl_matrix_alloc(fSolver->fdf->n, fSolver->fdf->p);
-      gsl_multifit_fdfsolver_jac(fSolver, J);
+#if GSL_MAJOR_VERSION > 1
+      gsl_matrix* J = gsl_matrix_alloc(npar,npar);
+      gsl_multifit_fdfsolver_jac (fSolver, J);
       int ret = gsl_multifit_covar(J, kEpsrel, fCov);
+      gsl_matrix_free(J);
 #else
       int ret = gsl_multifit_covar(fSolver->J, kEpsrel, fCov);
 #endif

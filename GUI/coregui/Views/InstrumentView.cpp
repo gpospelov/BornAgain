@@ -2,25 +2,27 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/InstrumentView.cpp
+//! @file      GUI/coregui/Views/InstrumentView.cpp
 //! @brief     Implements class InstrumentView
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
 #include "InstrumentView.h"
+#include "mainwindow.h"
 #include "InstrumentModel.h"
 #include "InstrumentSelectorWidget.h"
 #include "InstrumentEditorWidget.h"
 #include "InstrumentItem.h"
 #include "ExtendedDetectorDialog.h"
 #include "DetectorItems.h"
-#include "styledbar.h"
+#include "StyledToolBar.h"
 #include "minisplitter.h"
 #include <QBoxLayout>
 #include <QListView>
@@ -35,10 +37,10 @@
 #include <QRegExp>
 
 
-InstrumentView::InstrumentView(InstrumentModel *model, QWidget *parent)
-    : QWidget(parent)
-    , m_instrumentModel(model)
-    , m_toolBar(new QToolBar(this))
+InstrumentView::InstrumentView(MainWindow *mainWindow)
+    : QWidget(mainWindow)
+    , m_instrumentModel(mainWindow->instrumentModel())
+    , m_toolBar(new StyledToolBar(this))
     , m_instrumentSelector(new InstrumentSelectorWidget(m_instrumentModel, this))
     , m_stackWidget(new QStackedWidget)
     , m_addInstrumentAction(0)
@@ -79,7 +81,7 @@ void InstrumentView::resetView()
 {
     qDebug() << "InstrumentView::resetView()";
 
-    QMap<ParameterizedItem *, InstrumentEditorWidget *>::iterator it = m_instrumentToEditor.begin();
+    QMap<SessionItem *, InstrumentEditorWidget *>::iterator it = m_instrumentToEditor.begin();
     while(it!=m_instrumentToEditor.end()) {
         m_stackWidget->removeWidget(it.value());
         delete it.value();
@@ -98,7 +100,7 @@ void InstrumentView::onSelectionChanged(const QItemSelection &selected, const QI
         return;
     }
 
-    ParameterizedItem *instrument = m_instrumentModel->itemForIndex(selected.indexes().back());
+    SessionItem *instrument = m_instrumentModel->itemForIndex(selected.indexes().back());
     qDebug() << "InstrumentView::onSelectionChanged()" << instrument->itemName();
 
     InstrumentEditorWidget *widget = m_instrumentToEditor[instrument];
@@ -123,7 +125,7 @@ void InstrumentView::onSelectionChanged(const QItemSelection &selected, const QI
 void InstrumentView::onAddInstrument()
 {
     qDebug() << "InstrumentView::onAddInstrument()";
-    ParameterizedItem *instrument = m_instrumentModel->insertNewItem(Constants::InstrumentType);
+    SessionItem *instrument = m_instrumentModel->insertNewItem(Constants::InstrumentType);
     instrument->setItemName(getNewInstrumentName("Default GISAS"));
     m_instrumentModel->insertNewItem(Constants::DetectorType, m_instrumentModel->indexOfItem(instrument));
     m_instrumentModel->insertNewItem(Constants::BeamType, m_instrumentModel->indexOfItem(instrument));
@@ -148,13 +150,13 @@ void InstrumentView::onRemoveInstrument()
 void InstrumentView::onRowsAboutToBeRemoved(QModelIndex parent, int first, int /* last */)
 {
     qDebug() << "InstrumentView::onRowsAboutToBeRemoved()";
-    ParameterizedItem *item = m_instrumentModel->itemForIndex(m_instrumentModel->index(first,0, parent));
+    SessionItem *item = m_instrumentModel->itemForIndex(m_instrumentModel->index(first,0, parent));
     Q_ASSERT(item);
     InstrumentEditorWidget *widget = m_instrumentToEditor[item];
 
     if(!widget) return;
 
-    QMap<ParameterizedItem *, InstrumentEditorWidget *>::iterator it = m_instrumentToEditor.begin();
+    QMap<SessionItem *, InstrumentEditorWidget *>::iterator it = m_instrumentToEditor.begin();
     while(it!=m_instrumentToEditor.end()) {
         if(it.value() == widget) {
             it = m_instrumentToEditor.erase(it);

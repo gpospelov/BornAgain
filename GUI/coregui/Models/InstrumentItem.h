@@ -2,36 +2,34 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/InstrumentItem.h
-//! @brief     Defines class InstrumentItem
+//! @file      GUI/coregui/Models/InstrumentItem.h
+//! @brief     Declares class InstrumentItem
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
 #ifndef INSTRUMENT_ITEM_H
 #define INSTRUMENT_ITEM_H
 
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 
 class BeamItem;
 class DetectorItem;
 
-class BA_CORE_API_ InstrumentItem : public ParameterizedItem
+class BA_CORE_API_ InstrumentItem : public SessionItem
 {
-    Q_OBJECT
-
 public:
-    explicit InstrumentItem(ParameterizedItem *parent=0);
-    virtual ~InstrumentItem() {}
+    explicit InstrumentItem();
 
-    BeamItem *getBeamItem();
+    BeamItem *getBeamItem() const;
 
-    DetectorItem *getDetectorItem();
+    DetectorItem *getDetectorItem() const;
 };
 
 #endif

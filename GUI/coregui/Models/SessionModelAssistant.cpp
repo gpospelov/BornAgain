@@ -2,20 +2,21 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/SessionModelAssistant.cpp
+//! @file      GUI/coregui/Models/SessionModelAssistant.cpp
 //! @brief     Implements class SessionModelAssistant
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
 #include "SessionModelAssistant.h"
 #include "GUIHelpers.h"
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 
 SessionModelAssistant::SessionModelAssistant()
     : m_on_error_behavior(THROW_EXCEPTION)
@@ -44,7 +45,7 @@ bool SessionModelAssistant::hasErrors() const
     return m_list_of_errors.size();
 }
 
-void SessionModelAssistant::report_unknown_item_property(const ParameterizedItem *item,
+void SessionModelAssistant::report_unknown_item_property(const SessionItem *item,
                                                          const QString &property_name)
 {
     QString message = QString("Unknown property '%1' for item type '%2'")

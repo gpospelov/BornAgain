@@ -2,18 +2,20 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/SampleView.cpp
+//! @file      GUI/coregui/Views/SampleView.cpp
 //! @brief     Implements class SampleView
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
 #include "SampleView.h"
+#include "mainwindow.h"
 #include "SampleViewComponents.h"
 #include "SampleDesigner.h"
 #include "SampleToolBar.h"
@@ -21,6 +23,7 @@
 #include "SamplePropertyWidget.h"
 #include "InfoWidget.h"
 #include "ItemFactory.h"
+#include "FilterPropertyProxy.h"
 #include <QDockWidget>
 #include <QAbstractItemView>
 #include <QToolBar>
@@ -30,12 +33,12 @@
 #include <QDebug>
 #include <QTimer>
 
-SampleView::SampleView(SampleModel *sampleModel, InstrumentModel *instrumentModel, QWidget *parent)
-    : Manhattan::FancyMainWindow(parent)
+SampleView::SampleView(MainWindow *mainWindow)
+    : Manhattan::FancyMainWindow(mainWindow)
     , m_sampleDesigner(new SampleDesigner(this))
     , m_toolBar(0)
-    , m_sampleModel(sampleModel)
-    , m_instrumentModel(instrumentModel)
+    , m_sampleModel(mainWindow->sampleModel())
+    , m_instrumentModel(mainWindow->instrumentModel())
 {
     setObjectName(tr("SampleView"));
 
@@ -86,6 +89,9 @@ void SampleView::initSubWindows()
 
     m_tree_view = SampleViewComponents::createTreeView(m_sampleModel, this);
     m_subWindows[SAMPLE_TREE] = m_tree_view;
+    m_tree_view->expandAll();
+    connect(m_tree_view->model(), SIGNAL(rowsInserted(QModelIndex,int,int)),
+            m_tree_view, SLOT(expandAll()));
 
     m_subWindows[PROPERTY_EDITOR] = new SamplePropertyWidget(m_tree_view->selectionModel(), this);
 
@@ -98,7 +104,7 @@ void SampleView::initSubWindows()
 
     m_sampleDesigner->setSampleModel(m_sampleModel);
     m_sampleDesigner->setInstrumentModel(m_instrumentModel);
-    m_sampleDesigner->setSelectionModel(m_tree_view->selectionModel());
+    m_sampleDesigner->setSelectionModel(m_tree_view->selectionModel(), dynamic_cast<FilterPropertyProxy*>(const_cast<QAbstractItemModel*>(m_tree_view->model())));
 }
 
 void SampleView::initSelectionModel()
@@ -144,9 +150,10 @@ void SampleView::resetToDefaultLayout()
 
 void SampleView::addItem(const QString &item_name)
 {
-    QModelIndex currentIndex = getTreeView()->currentIndex();
+    QModelIndex currentIndex = FilterPropertyProxy::toSourceIndex(getTreeView()->currentIndex());
+
     QModelIndex currentIndexAtColumnZero = getIndexAtColumnZero(currentIndex);
-    ParameterizedItem *new_item
+    SessionItem *new_item
         = getSampleModel()->insertNewItem(item_name, currentIndexAtColumnZero);
     if (new_item) {
         QModelIndex new_index = getSampleModel()->indexOfItem(new_item);
@@ -157,7 +164,8 @@ void SampleView::addItem(const QString &item_name)
 
 void SampleView::deleteItem()
 {
-    QModelIndex currentIndex = getTreeView()->currentIndex();
+    QModelIndex currentIndex = FilterPropertyProxy::toSourceIndex(getTreeView()->currentIndex());
+
     if (!currentIndex.isValid()) return;
     QModelIndex parent_index = getSampleModel()->parent(currentIndex);
     int row = currentIndex.row();
@@ -211,13 +219,13 @@ void SampleView::showContextMenu(const QPoint &pnt)
 {
     QMenu menu;
     QMenu add_menu(QString("Add"));
-    QList<QString> addItemNames;
-    QModelIndex parent_index = getTreeView()->indexAt(pnt);
+    QVector<QString> addItemNames;
+    QModelIndex parent_index = FilterPropertyProxy::toSourceIndex(getTreeView()->indexAt(pnt));
     getTreeView()->setCurrentIndex(parent_index);
     if (!parent_index.isValid()) {
-        addItemNames = ItemFactory::getValidTopItemNames();
+        addItemNames = ItemFactory::getValidTopItemNames().toVector();
     } else {
-        addItemNames = getSampleModel()->getAcceptableChildItems(parent_index);
+        addItemNames = getSampleModel()->getAcceptableDefaultItemTypes(parent_index);
     }
     if (addItemNames.size() > 0) {
         foreach (QString item_name, addItemNames) {

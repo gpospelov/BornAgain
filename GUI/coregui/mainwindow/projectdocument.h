@@ -2,14 +2,15 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/mainwindow/projectdocument.h
-//! @brief     Defines class ProjectDocument
+//! @file      GUI/coregui/mainwindow/projectdocument.h
+//! @brief     Declares class ProjectDocument
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
@@ -22,12 +23,8 @@
 
 class QIODevice;
 class QModelIndex;
-class JobItem;
+class ApplicationModels;
 class SessionModel;
-class InstrumentModel;
-class MaterialModel;
-class SampleModel;
-class JobModel;
 class QXmlStreamReader;
 class WarningMessageService;
 
@@ -72,10 +69,7 @@ public:
 
     static QString getProjectFileExtension();
 
-    void setMaterialModel(MaterialModel *materialModel);
-    void setInstrumentModel(InstrumentModel *instrumentModel);
-    void setSampleModel(SampleModel *sampleModel);
-    void setJobModel(JobModel *jobModel);
+    void setApplicationModels(ApplicationModels *applicationModels);
 
     bool save();
     bool load(const QString &project_file_name);
@@ -100,28 +94,20 @@ signals:
     void modified();
 
 public slots:
-    void onDataChanged(const QModelIndex &, const QModelIndex &);
-    void onJobModelChanged(const QString &);
-    void onRowsChanged(const QModelIndex &parent, int, int);
+    void onModelChanged();
 
 private:
     void readFrom(QIODevice *device);
     void writeTo(QIODevice *device);
-    void readModel(SessionModel *model, QXmlStreamReader *reader);
 
-    void reviseOutputData();
-    void saveOutputData();
-    void loadOutputData();
+    void cleanProjectDir();
 
-    void disconnectModel(SessionModel *model);
-    void connectModel(SessionModel *model);
+    void disconnectModels();
+    void connectModels();
 
     QString m_project_dir;
     QString m_project_name;
-    MaterialModel *m_materialModel;
-    InstrumentModel *m_instrumentModel;
-    SampleModel *m_sampleModel;
-    JobModel *m_jobModel;
+    ApplicationModels *m_applicationModels;
     bool m_modified;
     EDocumentStatus m_documentStatus;
     WarningMessageService *m_messageService;

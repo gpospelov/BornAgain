@@ -2,29 +2,30 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/RectangularDetectorItem.h
-//! @brief     Defines class RectangularDetectorItem
+//! @file      GUI/coregui/Models/RectangularDetectorItem.h
+//! @brief     Declares class RectangularDetectorItem
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
 #ifndef RECTANGULARDETECTORITEM_H
 #define RECTANGULARDETECTORITEM_H
 
-#include "ParameterizedItem.h"
-#include "Types.h"
+#include "SessionItem.h"
+#include "Vectors3D.h"
 #include <memory>
 
 class IDetector2D;
 class IResolutionFunction2D;
 
 
-class RectangularDetectorItem : public ParameterizedItem
+class BA_CORE_API_ RectangularDetectorItem : public SessionItem
 {
 public:
     static const QString P_X_AXIS;
@@ -39,9 +40,7 @@ public:
     static const QString P_DBEAM_V0;
     static const QString P_DISTANCE;
 
-    explicit RectangularDetectorItem(ParameterizedItem *parent=0);
-
-    virtual void onPropertyChange(const QString &name);
+    explicit RectangularDetectorItem();
 
     std::unique_ptr<IDetector2D> createDetector() const;
     std::unique_ptr<IResolutionFunction2D> createResolutionFunction();

@@ -2,14 +2,15 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/MaterialEditor/MaterialEditor.h
-//! @brief     Defines class MaterialEditor
+//! @file      GUI/coregui/Views/MaterialEditor/MaterialEditor.h
+//! @brief     Declares class MaterialEditor
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
@@ -17,40 +18,54 @@
 #define MATERIALEDITOR_H
 
 #include "WinDllMacros.h"
-#include "MaterialProperty.h"
-#include <QObject>
+#include <QWidget>
 
 class MaterialModel;
-class SessionModel;
+class MaterialEditorToolBar;
+class QSplitter;
+class QListView;
+class ComponentEditor;
+class QItemSelection;
+class QItemSelectionModel;
+class MaterialItem;
+class MaterialProperty;
 
-//! The MaterialEditor is the main class to access materials.
-class BA_CORE_API_ MaterialEditor : public QObject
+//! Main widget of MaterialEditor
+class BA_CORE_API_ MaterialEditor : public QWidget
 {
     Q_OBJECT
+
 public:
-    MaterialEditor(MaterialModel *materialModel);
-    virtual ~MaterialEditor();
+    MaterialEditor(MaterialModel *materialModel, QWidget *parent = 0);
 
-    static MaterialEditor *instance();
+    QItemSelectionModel *getSelectionModel();
 
-    static MaterialProperty getMaterialProperty(const QString &name);
-    static MaterialProperty selectMaterialProperty();
-    static MaterialProperty getDefaultMaterialProperty();
+    MaterialItem *getSelectedMaterial();
 
-    static MaterialModel *getMaterialModel();
+    void setInitialMaterialProperty(const MaterialProperty &matProperty);
+
+    bool isModelWasModified() const;
+
+private slots:
+    void onSelectionChanged(const QItemSelection &selected, const QItemSelection&);
+    void onDataChanged(const QModelIndex &, const QModelIndex &, const QVector<int> &);
+    void onRowsInserted(const QModelIndex &, int, int );
+    void onRowsRemoved(const QModelIndex &, int, int);
+
+protected:
+    void contextMenuEvent(QContextMenuEvent *event);
 
 private:
-    MaterialProperty this_selectMaterialProperty();
-    MaterialProperty this_getMaterialProperty(const QString &name);
-    MaterialProperty this_getDefaultMaterialProperty();
-    MaterialModel *this_getMaterialModel();
+    void init_views();
 
-    static MaterialEditor *m_instance;
     MaterialModel *m_materialModel;
+    MaterialEditorToolBar *m_toolBar;
+    QSplitter *m_splitter;
+    QListView *m_listView;
+    ComponentEditor *m_componentEditor;
+    bool m_model_was_modified;
 };
 
 
-
 #endif
-
 

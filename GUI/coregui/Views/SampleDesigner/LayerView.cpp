@@ -2,23 +2,25 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/SampleDesigner/LayerView.cpp
+//! @file      GUI/coregui/Views/SampleDesigner/LayerView.cpp
 //! @brief     Implements class LayerView
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
 #include "LayerView.h"
 #include "LayerItem.h"
 #include "ParticleLayoutView.h"
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 #include "MaterialProperty.h"
 #include "tooltipdatabase.h"
+#include "MultiLayerView.h"
 #include <QPainter>
 #include <QStyleOptionGraphicsItem>
 #include <QDebug>
@@ -37,18 +39,20 @@ LayerView::LayerView(QGraphicsItem *parent)
     addPort(QString(), NodeEditorPort::INPUT, NodeEditorPort::PARTICLE_LAYOUT);
 }
 
+LayerView::~LayerView()
+{
+    qDebug() << "LayerView::~LayerView()";
+    // FIXME replace with onChildrenChange callback from MultiLayerItem's model mapper.
+//    MultiLayerView *mlView = dynamic_cast<MultiLayerView *>(parentItem());
+//    if(mlView) {
+//        mlView->removeLayer(this);
+//    }
+}
+
 
 void LayerView::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
     Q_UNUSED(widget);
-
-//    if(ParameterizedItem *item = getParameterizedItem()) {
-//        qDebug() << "XXX " << item;
-//        QVariant v = item->property("Material");
-//        Q_ASSERT(v.isValid());
-//        MaterialProperty mat = v.value<MaterialProperty>();
-//        m_color = mat.getColor();
-//    }
 
     painter->setPen(Qt::black);
     if (option->state & (QStyle::State_Selected | QStyle::State_HasFocus)) {
@@ -61,7 +65,7 @@ void LayerView::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
 
 void LayerView::addView(IView *childView, int /* row */)
 {
-    qDebug() << "LayerView::addView() " << m_item->itemName() << childView->getParameterizedItem()->itemName();
+    qDebug() << "LayerView::addView() " << m_item->itemName() << childView->getItem()->itemName();
     ParticleLayoutView *layout = dynamic_cast<ParticleLayoutView *>(childView);
     Q_ASSERT(layout);
     connectInputPort(layout, 0);

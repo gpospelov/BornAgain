@@ -2,21 +2,22 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/BeamDistributionItem.h
-//! @brief     Defines class BeamDistributionItem
+//! @file      GUI/coregui/Models/BeamDistributionItem.h
+//! @brief     Declares class BeamDistributionItem
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
 #ifndef BEAMDISTRIBUTIONITEM_H
 #define BEAMDISTRIBUTIONITEM_H
 
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 #include "DistributionItem.h"
 
 #include <memory>
@@ -26,24 +27,19 @@ class IDistribution1D;
 
 //! The BeamDistributionItem handles wavelength, inclination and azimuthal parameter
 //! distribution for BeamItem
-class BA_CORE_API_ BeamDistributionItem : public ParameterizedItem
+class BA_CORE_API_ BeamDistributionItem : public SessionItem
 {
-    Q_OBJECT
 public:
     static const QString P_DISTRIBUTION;
-    static const QString P_CACHED_VALUE;
-    explicit BeamDistributionItem(const QString name = QString(), ParameterizedItem *parent=0);
+    explicit BeamDistributionItem(const QString name = QString());
     virtual ~BeamDistributionItem(){}
-    virtual void onPropertyChange(const QString &name);
 
     std::unique_ptr<ParameterDistribution> getParameterDistributionForName(
             const std::string &parameter_name);
 
-protected slots:
-    virtual void onSubItemChanged(const QString &propertyName);
-    virtual void onSubItemPropertyChanged(const QString &property_group, const QString &property_name);
-
 protected:
+    void initDistributionItem();
+
     virtual std::unique_ptr<IDistribution1D> createDistribution1D();
 };
 

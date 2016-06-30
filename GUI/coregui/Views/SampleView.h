@@ -2,14 +2,15 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/SampleView.h
-//! @brief     Defines class SampleView
+//! @file      GUI/coregui/Views/SampleView.h
+//! @brief     Declares class SampleView
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
@@ -27,6 +28,7 @@
 #include <QItemSelectionModel>
 
 
+class MainWindow;
 class SampleModel;
 class InstrumentModel;
 class SampleDesignerInterface;
@@ -49,7 +51,7 @@ public:
         NUMBER_OF_SUB_WINDOWS
     };
 
-    SampleView(SampleModel *sampleModel, InstrumentModel *instrumentModel, QWidget *parent = 0);
+    SampleView(MainWindow *mainWindow);
     virtual ~SampleView();
 
 public slots:

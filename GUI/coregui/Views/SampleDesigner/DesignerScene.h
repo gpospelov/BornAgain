@@ -2,14 +2,15 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/SampleDesigner/DesignerScene.h
-//! @brief     Defines class DesignerScene
+//! @file      GUI/coregui/Views/SampleDesigner/DesignerScene.h
+//! @brief     Declares class DesignerScene
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
@@ -23,8 +24,8 @@
 
 class InstrumentModel;
 class SampleModel;
-class ParameterizedItem;
-class ParameterizedGraphicsItem;
+class SessionItem;
+class SessionGraphicsItem;
 class QItemSelectionModel;
 class IView;
 class QItemSelection;
@@ -32,6 +33,7 @@ class NodeEditorConnection;
 class DesignerMimeData;
 class SampleViewAligner;
 class NodeEditor;
+class FilterPropertyProxy;
 
 
 //! Main class which represents SessionModel on graphics scene
@@ -45,11 +47,11 @@ public:
 
     void setSampleModel(SampleModel *sampleModel);
     void setInstrumentModel(InstrumentModel *instrumentModel);
-    void setSelectionModel(QItemSelectionModel *model);
+    void setSelectionModel(QItemSelectionModel *model, FilterPropertyProxy *proxy);
 
     SampleModel *getSampleModel() { return m_sampleModel; }
 
-    IView *getViewForItem(ParameterizedItem *item) { return m_ItemToView[item]; }
+    IView *getViewForItem(SessionItem *item);
 
     NodeEditor *getNodeEditor() { return m_nodeEditor;}
 
@@ -86,11 +88,11 @@ protected:
 
 private:
 
-    IView *addViewForItem(ParameterizedItem *item);
+    IView *addViewForItem(SessionItem *item);
     void updateViews(const QModelIndex &parentIndex = QModelIndex(), IView *parentView = 0);
     void deleteViews(const QModelIndex & parentIndex);
     void alignViews();
-    void removeItemViewFromScene(ParameterizedItem *item);
+    void removeItemViewFromScene(SessionItem *item);
     bool isMultiLayerNearby(QGraphicsSceneDragDropEvent *event);
     void adjustSceneRect();
     bool isAcceptedByMultiLayer(const DesignerMimeData *mimeData, QGraphicsSceneDragDropEvent *event);
@@ -99,9 +101,10 @@ private:
     SampleModel *m_sampleModel;
     InstrumentModel *m_instrumentModel;
     QItemSelectionModel *m_selectionModel;
+    FilterPropertyProxy *m_proxy;
     bool m_block_selection;
 
-    QMap<ParameterizedItem *, IView *> m_ItemToView;
+    QMap<SessionItem *, IView *> m_ItemToView;
     //!< Correspondance of model's item and scene's view
 
     QLineF m_layer_interface_line;

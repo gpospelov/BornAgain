@@ -2,29 +2,30 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/ResolutionFunctionItems.h
-//! @brief     Defines family of ResolutionFunctionItem
+//! @file      GUI/coregui/Models/ResolutionFunctionItems.h
+//! @brief     Declares family of ResolutionFunctionItem
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
 #ifndef RESOLUTIONFUNCTIONITEMS_H
 #define RESOLUTIONFUNCTIONITEMS_H
 
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 #include "ResolutionFunction2DGaussian.h"
 
 
-class BA_CORE_API_ ResolutionFunctionItem : public ParameterizedItem
+class BA_CORE_API_ ResolutionFunctionItem : public SessionItem
 {
-    Q_OBJECT
+
 public:
-    explicit ResolutionFunctionItem(const QString name, ParameterizedItem *parent=0);
+    explicit ResolutionFunctionItem(const QString name);
     virtual ~ResolutionFunctionItem() {}
 
     virtual IResolutionFunction2D *createResolutionFunction(double scale = 1.0) const=0;
@@ -32,19 +33,19 @@ public:
 
 class BA_CORE_API_ ResolutionFunctionNoneItem : public ResolutionFunctionItem
 {
-    Q_OBJECT
+
 public:
-    explicit ResolutionFunctionNoneItem(ParameterizedItem *parent=0);
+    explicit ResolutionFunctionNoneItem();
     virtual IResolutionFunction2D *createResolutionFunction(double scale) const;
 };
 
 class BA_CORE_API_ ResolutionFunction2DGaussianItem : public ResolutionFunctionItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_SIGMA_X;
     static const QString P_SIGMA_Y;
-    explicit ResolutionFunction2DGaussianItem(ParameterizedItem *parent=0);
+    explicit ResolutionFunction2DGaussianItem();
     virtual IResolutionFunction2D *createResolutionFunction(double scale) const;
 };
 

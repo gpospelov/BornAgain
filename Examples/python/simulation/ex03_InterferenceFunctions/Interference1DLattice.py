@@ -4,7 +4,8 @@ Long boxes on a 1D lattice
 import numpy
 import matplotlib
 from matplotlib import pyplot as plt
-from bornagain import *
+import bornagain as ba
+from bornagain import deg, angstrom, nm
 
 phi_min, phi_max = -1.0, 1.0
 alpha_min, alpha_max = 0.0, 2.0
@@ -12,33 +13,35 @@ alpha_min, alpha_max = 0.0, 2.0
 
 def get_sample():
     """
-    Build and return the sample representing infinitely long boxes on a 1D lattice
+    Returns a sample with a grating on a substrate.
+    The structure is modelled by infinitely long boxes forming a 1D lattice.
     """
     # defining materials
-    m_ambience = HomogeneousMaterial("Air", 0.0, 0.0)
-    m_substrate = HomogeneousMaterial("Substrate", 6e-6, 2e-8)
-    m_particle = HomogeneousMaterial("Particle", 6e-4, 2e-8)
+    m_ambience = ba.HomogeneousMaterial("Air", 0.0, 0.0)
+    m_substrate = ba.HomogeneousMaterial("Substrate", 6e-6, 2e-8)
+    m_particle = ba.HomogeneousMaterial("Particle", 6e-4, 2e-8)
 
     # collection of particles
-    lattice_length = 30.0*nanometer
-    lattice_rotation_angle = 0.0*degree
-    interference = InterferenceFunction1DLattice(lattice_length, lattice_rotation_angle)
-    pdf = FTDecayFunction1DCauchy(20./2./numpy.pi*nanometer)
+    lattice_length = 30.0*nm
+    lattice_rotation_angle = 0.0*deg
+    interference = ba.InterferenceFunction1DLattice(
+        lattice_length, lattice_rotation_angle)
+    pdf = ba.FTDecayFunction1DCauchy(20./2./numpy.pi*nm)
     interference.setDecayFunction(pdf)
 
-    box_ff = FormFactorBox(1000*nanometer, 10*nanometer, 15.0*nanometer)
-    box = Particle(m_particle, box_ff)
-    transform = RotationZ(25.0*degree)
-    particle_layout = ParticleLayout()
-    particle_layout.addParticle(box, 1.0, kvector_t(0.0, 0.0, 0.0), transform)
+    box_ff = ba.FormFactorBox(1000*nm, 10*nm, 15.0*nm)
+    box = ba.Particle(m_particle, box_ff)
+    transform = ba.RotationZ(25.0*deg)
+    particle_layout = ba.ParticleLayout()
+    particle_layout.addParticle(box, 1.0, ba.kvector_t(0.0, 0.0, 0.0), transform)
     particle_layout.addInterferenceFunction(interference)
 
     # assembling the sample
-    air_layer = Layer(m_ambience)
+    air_layer = ba.Layer(m_ambience)
     air_layer.addLayout(particle_layout)
-    substrate_layer = Layer(m_substrate)
+    substrate_layer = ba.Layer(m_substrate)
 
-    multi_layer = MultiLayer()
+    multi_layer = ba.MultiLayer()
     multi_layer.addLayer(air_layer)
     multi_layer.addLayer(substrate_layer)
     return multi_layer
@@ -48,9 +51,10 @@ def get_simulation():
     """
     Create and return GISAXS simulation with beam and detector defined
     """
-    simulation = GISASSimulation()
-    simulation.setDetectorParameters(200, phi_min*degree, phi_max*degree, 200, alpha_min*degree, alpha_max*degree)
-    simulation.setBeamParameters(24.0*angstrom, 0.2*degree, 0.0*degree)
+    simulation = ba.GISASSimulation()
+    simulation.setDetectorParameters(200, phi_min*deg, phi_max*deg,
+                                     200, alpha_min*deg, alpha_max*deg)
+    simulation.setBeamParameters(24.0*angstrom, 0.2*deg, 0.0*deg)
     return simulation
 
 
@@ -65,10 +69,12 @@ def run_simulation():
     result = simulation.getIntensityData()
 
     # showing the result
-    im = plt.imshow(result.getArray(),
-                    norm=matplotlib.colors.LogNorm(1.0, result.getMaximum()),
-                    extent=[result.getXmin()/deg, result.getXmax()/deg, result.getYmin()/deg, result.getYmax()/deg],
-                    aspect='auto')
+    im = plt.imshow(
+        result.getArray(),
+        norm=matplotlib.colors.LogNorm(1.0, result.getMaximum()),
+        extent=[result.getXmin()/deg, result.getXmax()/deg,
+                result.getYmin()/deg, result.getYmax()/deg],
+        aspect='auto')
     cb = plt.colorbar(im)
     cb.set_label(r'Intensity (arb. u.)', size=16)
     plt.xlabel(r'$\phi_f (^{\circ})$', fontsize=16)

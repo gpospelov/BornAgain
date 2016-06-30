@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      InputOutput/OutputDataWriteStrategy.cpp
+//! @file      Core/InputOutput/OutputDataWriteStrategy.cpp
 //! @brief     Implements class OutputDataWriteStrategy.
 //!
 //! @homepage  http://www.bornagainproject.org

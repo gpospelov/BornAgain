@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      StandardSamples/MesoCrystalBuilder.cpp
+//! @file      Core/StandardSamples/MesoCrystalBuilder.cpp
 //! @brief     Implements class MesoCrystalBuilder.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -13,7 +13,7 @@
 //
 // ************************************************************************** //
 
-#include "MesoCrystalBuilder.h"
+#include <memory>
 #include "FormFactorCylinder.h"
 #include "FormFactorDecoratorDebyeWaller.h"
 #include "MultiLayer.h"
@@ -24,22 +24,22 @@
 #include "Units.h"
 #include "Materials.h"
 #include "FormFactorSphereGaussianRadius.h"
-#include <boost/scoped_ptr.hpp>
+#include "MesoCrystalBuilder.h"
 
 
 MesoCrystalBuilder::MesoCrystalBuilder()
-: m_lattice_length_a(6.2091e+00*Units::nanometer)
-, m_lattice_length_c(6.5677e+00*Units::nanometer)
-, m_nanoparticle_radius(4.6976e+00*Units::nanometer)
-, m_sigma_nanoparticle_radius(3.6720e-01*Units::nanometer)
-, m_meso_height(1.1221e+02*Units::nanometer)
-, m_meso_radius(9.4567e+02*Units::nanometer)
-, m_sigma_meso_height(1.3310e+00*Units::nanometer)
-, m_sigma_meso_radius(1.3863e+00*Units::nanometer)
-, m_sigma_lattice_length_a(1.1601e+00*Units::nanometer)
-, m_surface_filling_ratio(1.7286e-01)
-, m_roughness(2.8746e+01*Units::nanometer)
-, m_nphi_rotations(2)
+    : m_lattice_length_a(6.2091e+00*Units::nanometer)
+    , m_lattice_length_c(6.5677e+00*Units::nanometer)
+    , m_nanoparticle_radius(4.6976e+00*Units::nanometer)
+    , m_sigma_nanoparticle_radius(3.6720e-01*Units::nanometer)
+    , m_meso_height(1.1221e+02*Units::nanometer)
+    , m_meso_radius(9.4567e+02*Units::nanometer)
+    , m_sigma_meso_height(1.3310e+00*Units::nanometer)
+    , m_sigma_meso_radius(1.3863e+00*Units::nanometer)
+    , m_sigma_lattice_length_a(1.1601e+00*Units::nanometer)
+    , m_surface_filling_ratio(1.7286e-01)
+    , m_roughness(12e+00*Units::nanometer)
+    , m_nphi_rotations(2)
 {
     init_parameters();
 }
@@ -48,20 +48,19 @@ MesoCrystalBuilder::MesoCrystalBuilder()
 void MesoCrystalBuilder::init_parameters()
 {
     clearParameterPool();
-    registerParameter("meso_radius",& m_meso_radius);
-    registerParameter("surface_filling_ratio",& m_surface_filling_ratio);
-    registerParameter("meso_height",& m_meso_height);
-    registerParameter("sigma_meso_height",& m_sigma_meso_height);
-    registerParameter("sigma_meso_radius",& m_sigma_meso_radius);
-    registerParameter("lattice_length_a",& m_lattice_length_a);
-    registerParameter("lattice_length_c",& m_lattice_length_c);
-    registerParameter("nanoparticle_radius",& m_nanoparticle_radius);
-    registerParameter("sigma_nanoparticle_radius",& m_sigma_nanoparticle_radius);
-    registerParameter("sigma_lattice_length_a",& m_sigma_lattice_length_a);
-    registerParameter("roughness",& m_roughness);
-    registerParameter("nphi_rotations",& m_nphi_rotations);
+    registerParameter("meso_radius", &m_meso_radius);
+    registerParameter("surface_filling_ratio", &m_surface_filling_ratio);
+    registerParameter("meso_height", &m_meso_height);
+    registerParameter("sigma_meso_height", &m_sigma_meso_height);
+    registerParameter("sigma_meso_radius", &m_sigma_meso_radius);
+    registerParameter("lattice_length_a", &m_lattice_length_a);
+    registerParameter("lattice_length_c", &m_lattice_length_c);
+    registerParameter("nanoparticle_radius", &m_nanoparticle_radius);
+    registerParameter("sigma_nanoparticle_radius", &m_sigma_nanoparticle_radius);
+    registerParameter("sigma_lattice_length_a", &m_sigma_lattice_length_a);
+    registerParameter("roughness", &m_roughness);
+    registerParameter("nphi_rotations", &m_nphi_rotations);
 }
-
 
 
 // create mesocrystal
@@ -70,21 +69,23 @@ ISample* MesoCrystalBuilder::buildSample() const
     // create mesocrystal
     double surface_density = m_surface_filling_ratio/Units::PI/m_meso_radius/m_meso_radius;
 //    complex_t n_particle(1.0-1.55e-5, 1.37e-6); // data from Artur
-    complex_t n_particle(1.0-2.84e-5, 4.7e-7); // data from http://henke.lbl.gov/optical_constants/getdb2.html
+    // data from http://henke.lbl.gov/optical_constants/getdb2.html
+    complex_t n_particle(1.0-2.84e-5, 4.7e-7);
     complex_t avg_n_squared_meso = 0.7886*n_particle*n_particle + 0.2114;
-    complex_t n_avg = std::sqrt(m_surface_filling_ratio*avg_n_squared_meso + 1.0 - m_surface_filling_ratio);
+    complex_t n_avg = std::sqrt(m_surface_filling_ratio*avg_n_squared_meso + 1.0 -
+                                m_surface_filling_ratio);
     complex_t n_particle_adapted = std::sqrt(n_avg*n_avg + n_particle*n_particle - 1.0);
     FormFactorCylinder ff_cyl(m_meso_radius, m_meso_height);
     FormFactorDecoratorDebyeWaller ff_meso(ff_cyl, m_sigma_meso_height*m_sigma_meso_height/2.0,
-            m_sigma_meso_radius*m_sigma_meso_radius/2.0);
+                                           m_sigma_meso_radius*m_sigma_meso_radius/2.0);
 
     // Create multilayer
-    MultiLayer *p_multi_layer = new MultiLayer();
+    MultiLayer* p_multi_layer = new MultiLayer();
 
     complex_t n_air(1.0, 0.0);
     complex_t n_substrate(1.0-7.57e-6, 1.73e-7);
 
-    HomogeneousMaterial air_material ("Air", n_air);
+    HomogeneousMaterial air_material("Air", n_air);
     HomogeneousMaterial average_layer_material("Averagelayer", n_avg);
     HomogeneousMaterial substrate_material("Substrate", n_substrate);
 
@@ -104,12 +105,12 @@ ISample* MesoCrystalBuilder::buildSample() const
     for (size_t i=0; i<n_max_phi_rotation_steps; ++i) {
         for (size_t j=0; j<n_alpha_rotation_steps; ++j) {
             RotationZ z_rotation(phi_start + i*phi_step);
-            boost::scoped_ptr<MesoCrystal> P_meso(createMesoCrystal(
+            const std::unique_ptr<MesoCrystal> P_meso(createMesoCrystal(
                                     m_lattice_length_a, m_lattice_length_c,
                                     n_particle_adapted, &ff_meso) );
             P_meso->setPosition(0.0, 0.0, -m_meso_height);
 //            particle_layout.addParticle(*P_meso, z_rotation);
-            particle_layout.addParticle(*P_meso, 1.0, kvector_t(0,0,0), z_rotation);
+            particle_layout.addParticle(*P_meso, 1.0, kvector_t(0.0, 0.0, 0.0), z_rotation);
         }
     }
 
@@ -130,12 +131,11 @@ ISample* MesoCrystalBuilder::buildSample() const
     return p_multi_layer;
 }
 
-
-
-MesoCrystal* MesoCrystalBuilder::createMesoCrystal(double stacking_radius_a, double stacking_radius_c, complex_t n_particle,
-        const IFormFactor* p_meso_form_factor) const
+MesoCrystal* MesoCrystalBuilder::createMesoCrystal(
+    double stacking_radius_a, double stacking_radius_c, complex_t n_particle,
+    const IFormFactor* p_meso_form_factor) const
 {
-    const Lattice *p_lat = createLattice(stacking_radius_a, stacking_radius_c);
+    const Lattice* p_lat = createLattice(stacking_radius_a, stacking_radius_c);
     kvector_t bas_a = p_lat->getBasisVectorA();
     kvector_t bas_b = p_lat->getBasisVectorB();
     kvector_t bas_c = p_lat->getBasisVectorC();
@@ -158,17 +158,13 @@ MesoCrystal* MesoCrystalBuilder::createMesoCrystal(double stacking_radius_a, dou
     double dw_factor = m_sigma_lattice_length_a*m_sigma_lattice_length_a/6.0;
     npc.setDWFactor(dw_factor);
     return new MesoCrystal(npc.clone(), p_meso_form_factor->clone());
-
 }
 
-const Lattice *MesoCrystalBuilder::createLattice(double stacking_radius_a, double stacking_radius_c) const
+const Lattice* MesoCrystalBuilder::createLattice(
+    double stacking_radius_a, double stacking_radius_c) const
 {
-    Lattice *p_result = new Lattice(Lattice::createTrigonalLattice(stacking_radius_a*2.0, stacking_radius_c*2.0*2.3));
+    Lattice* p_result = new Lattice(Lattice::createTrigonalLattice(
+                                        stacking_radius_a*2.0, stacking_radius_c*2.0*2.3));
     p_result->setSelectionRule(SimpleSelectionRule(-1, 1, 1, 3));
     return p_result;
 }
-
-
-
-
-

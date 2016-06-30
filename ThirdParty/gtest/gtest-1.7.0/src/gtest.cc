@@ -1,3 +1,7 @@
+// patched for BornAgain -  all patches are marked with 'PATCHED/BA'
+//
+// JWu 5/16: suppressed output for successful tests (cf http://stackoverflow.com/questions/36847322)
+
 // Copyright 2005, Google Inc.
 // All rights reserved.
 //
@@ -2761,7 +2765,7 @@ void PrettyUnitTestResultPrinter::OnEnvironmentsSetUpStart(
 void PrettyUnitTestResultPrinter::OnTestCaseStart(const TestCase& test_case) {
   const std::string counts =
       FormatCountableNoun(test_case.test_to_run_count(), "test", "tests");
-  ColoredPrintf(COLOR_GREEN, "[----------] ");
+  ColoredPrintf(COLOR_GREEN, "[ RUN      ] "); // PATCHED/BA
   printf("%s from %s", counts.c_str(), test_case.name());
   if (test_case.type_param() == NULL) {
     printf("\n");
@@ -2771,11 +2775,12 @@ void PrettyUnitTestResultPrinter::OnTestCaseStart(const TestCase& test_case) {
   fflush(stdout);
 }
 
-void PrettyUnitTestResultPrinter::OnTestStart(const TestInfo& test_info) {
-  ColoredPrintf(COLOR_GREEN,  "[ RUN      ] ");
-  PrintTestName(test_info.test_case_name(), test_info.name());
-  printf("\n");
-  fflush(stdout);
+void PrettyUnitTestResultPrinter::OnTestStart(const TestInfo&) {
+//  PATCHED/BA
+//  ColoredPrintf(COLOR_GREEN,  "[ RUN      ] ");
+//  PrintTestName(test_info.test_case_name(), test_info.name());
+//  printf("\n");
+//  fflush(stdout);
 }
 
 // Called after an assertion failure.
@@ -2792,7 +2797,7 @@ void PrettyUnitTestResultPrinter::OnTestPartResult(
 
 void PrettyUnitTestResultPrinter::OnTestEnd(const TestInfo& test_info) {
   if (test_info.result()->Passed()) {
-    ColoredPrintf(COLOR_GREEN, "[       OK ] ");
+      return;// PATCHED/BA ColoredPrintf(COLOR_GREEN, "[       OK ] ");
   } else {
     ColoredPrintf(COLOR_RED, "[  FAILED  ] ");
   }
@@ -2814,8 +2819,8 @@ void PrettyUnitTestResultPrinter::OnTestCaseEnd(const TestCase& test_case) {
 
   const std::string counts =
       FormatCountableNoun(test_case.test_to_run_count(), "test", "tests");
-  ColoredPrintf(COLOR_GREEN, "[----------] ");
-  printf("%s from %s (%s ms total)\n\n",
+  ColoredPrintf(COLOR_GREEN, "[     DONE ] "); // PATCH/BA
+  printf("%s from %s (%s ms total)\n", // patched JWu
          counts.c_str(), test_case.name(),
          internal::StreamableToString(test_case.elapsed_time()).c_str());
   fflush(stdout);

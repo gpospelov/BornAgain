@@ -2,14 +2,15 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/SampleDesigner/SampleViewAligner.h
-//! @brief     Defines class SampleViewAligner
+//! @file      GUI/coregui/Views/SampleDesigner/SampleViewAligner.h
+//! @brief     Declares class SampleViewAligner
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
@@ -22,7 +23,7 @@
 #include <QPointF>
 class DesignerScene;
 class IView;
-class ParameterizedItem;
+class SessionItem;
 
 
 //! Makes alignment of sample droped on graphics scene.
@@ -32,7 +33,7 @@ class BA_CORE_API_ SampleViewAligner
 public:
     SampleViewAligner(DesignerScene *scene);
 
-    void alignSample(ParameterizedItem *item, QPointF reference = QPointF(), bool force_alignment = false);
+    void alignSample(SessionItem *item, QPointF reference = QPointF(), bool force_alignment = false);
     void alignSample(const QModelIndex & parentIndex, QPointF reference = QPointF(), bool force_alignment = false);
 
     void smartAlign();

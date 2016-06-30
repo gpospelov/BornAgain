@@ -2,14 +2,15 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/GUIExamplesFactory.h
-//! @brief     Defines class GUIExamplesFactory
+//! @file      GUI/coregui/Models/GUIExamplesFactory.h
+//! @brief     Declares class GUIExamplesFactory
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
@@ -20,7 +21,7 @@
 #include <QMap>
 #include <QString>
 
-class ParameterizedItem;
+class SessionItem;
 class InstrumentModel;
 class SampleModel;
 
@@ -30,8 +31,8 @@ class BA_CORE_API_ GUIExamplesFactory
 public:
     static bool isValidExampleName(const QString &name);
 
-    static ParameterizedItem *createSampleItems(const QString &name, SampleModel *sampleModel);
-//    static ParameterizedItem *createInstrumentItems(const QString &name, InstrumentModel *instrumentModel);
+    static SessionItem *createSampleItems(const QString &name, SampleModel *sampleModel);
+//    static SessionItem *createInstrumentItems(const QString &name, InstrumentModel *instrumentModel);
 
 private:
     static QMap<QString, QString> m_name_to_registry;

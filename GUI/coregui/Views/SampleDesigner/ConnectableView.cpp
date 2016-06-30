@@ -2,14 +2,15 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/SampleDesigner/ConnectableView.cpp
+//! @file      GUI/coregui/Views/SampleDesigner/ConnectableView.cpp
 //! @brief     Implements class ConnectableView
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
@@ -18,8 +19,9 @@
 #include "NodeEditorPort.h"
 #include "NodeEditorConnection.h"
 #include "GUIHelpers.h"
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 #include <QPainter>
+#include <QDebug>
 #include <QStyleOptionGraphicsItem>
 #include <QObject>
 #include <iostream>
@@ -31,15 +33,6 @@ ConnectableView::ConnectableView(QGraphicsItem *parent, QRect rect)
     setFlag(QGraphicsItem::ItemIsMovable, true);
     setFlag(QGraphicsItem::ItemIsSelectable, true);
     setFlag(QGraphicsItem::ItemSendsGeometryChanges);
-}
-
-void ConnectableView::setParameterizedItem(ParameterizedItem *item)
-{
-    IView::setParameterizedItem(item);
-    if (m_item) {
-        setLabel( hyphenate(m_item->itemName()) );
-        connect(m_item, SIGNAL(siblingsChanged()), this, SLOT(onSiblingsChanged()));
-    }
 }
 
 void ConnectableView::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
@@ -101,6 +94,10 @@ void ConnectableView::connectInputPort(ConnectableView *other, int port_number)
     if (other->getOutputPorts().size() != 1)
         throw GUIHelpers::Error("ConnectableView::connectInputPort() -> Wrong output port number");
 
+    //FIXME for debug
+    if (port_number < 0)
+        return;
+
     NodeEditorPort *input = m_input_ports.at(port_number);
     NodeEditorPort *output = other->getOutputPorts().at(0);
 
@@ -115,14 +112,6 @@ void ConnectableView::connectInputPort(ConnectableView *other, int port_number)
 int ConnectableView::getInputPortIndex(NodeEditorPort *port)
 {
     return m_input_ports.indexOf(port);
-}
-
-void ConnectableView::onSiblingsChanged()
-{
-    if (m_item) {
-        setLabel( hyphenate(m_item->itemName()) );
-        update();
-    }
 }
 
 // calculation of y-pos for ports
@@ -178,6 +167,13 @@ int ConnectableView::getNumberOfOutputPorts()
 int ConnectableView::getNumberOfInputPorts()
 {
     return m_input_ports.size();
+}
+
+void ConnectableView::update_appearance()
+{
+    qDebug() << "AAAA COnnectableView " << m_item->modelType() << m_item->displayName();
+    setLabel( hyphenate(m_item->displayName()) );
+    IView::update_appearance();
 }
 
 QString ConnectableView::hyphenate(const QString &name) const

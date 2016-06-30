@@ -2,57 +2,54 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/MultiLayerItem.cpp
+//! @file      GUI/coregui/Models/MultiLayerItem.cpp
 //! @brief     Implements class MultiLayerItem
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
 #include "MultiLayerItem.h"
 #include "LayerItem.h"
 #include "ScientificDoubleProperty.h"
+#include "SessionModel.h"
 #include <QDebug>
 
 const QString MultiLayerItem::P_CROSS_CORR_LENGTH = "Cross Correlation Length";
+const QString MultiLayerItem::T_LAYERS = "Layer tag";
 
-MultiLayerItem::MultiLayerItem(ParameterizedItem *parent)
-    : ParameterizedGraphicsItem(Constants::MultiLayerType, parent)
+MultiLayerItem::MultiLayerItem()
+    : SessionGraphicsItem(Constants::MultiLayerType)
 {
-    registerProperty(P_CROSS_CORR_LENGTH, 0.0);
-    addToValidChildren(Constants::LayerType);
-    registerProperty(P_NAME, Constants::MultiLayerType);
-}
-
-ParameterizedItem *MultiLayerItem::takeChildItem(int row)
-{
-    ParameterizedItem *item = ParameterizedItem::takeChildItem(row);
-    updateLayers();
-    return item;
-}
-
-void MultiLayerItem::insertChildItem(int row, ParameterizedItem *item)
-{
-    ParameterizedItem::insertChildItem(row, item);
-    updateLayers();
+    addProperty(P_CROSS_CORR_LENGTH, 0.0);
+    registerTag(T_LAYERS, 0, -1, QStringList() << Constants::LayerType);
+    setDefaultTag(T_LAYERS);
+    setItemName(Constants::MultiLayerType);
+    mapper()->setOnChildrenChange(
+                [this](SessionItem*)
+    {
+        updateLayers();
+    });
 }
 
 void MultiLayerItem::updateLayers()
 {
-    for(int i = 0; i<childItemCount(); ++i) {
-        if(i == 0) {
-            childAt(i)->getPropertyAttribute(LayerItem::P_ROUGHNESS).setDisabled();
+    QVector<SessionItem*> list = getChildrenOfType(Constants::LayerType);
+    for(auto it = list.begin(); it != list.end(); ++it) {
+        if(it == list.begin()) {
+            (*it)->getItem(LayerItem::P_ROUGHNESS)->setEnabled(false);
         } else {
-            childAt(i)->getPropertyAttribute(LayerItem::P_ROUGHNESS).setVisible();
+            (*it)->getItem(LayerItem::P_ROUGHNESS)->setEnabled(true);
         }
-        if(i==0 || i==childItemCount()-1) {
-            childAt(i)->getPropertyAttribute(LayerItem::P_THICKNESS).setDisabled();
+        if(it == list.begin() || it == list.end()) {
+            (*it)->getItem(LayerItem::P_THICKNESS)->setEnabled(false);
         } else {
-            childAt(i)->getPropertyAttribute(LayerItem::P_THICKNESS).setVisible();
+            (*it)->getItem(LayerItem::P_THICKNESS)->setEnabled(true);
         }
     }
 }

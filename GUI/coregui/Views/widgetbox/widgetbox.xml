@@ -71,7 +71,7 @@
 
     <category name="Particles">
 
-        <categoryentry name="Anisotropic pyramid" icon="images/ff_anisopyramid_32.png">
+        <categoryentry name="Anisotropic pyramid" icon="images/ff_AnisoPyramid_32.png">
             <widget class="FormFactorAnisoPyramid">
                 <property name="objectName">
                     <string notr="true">somestring</string>
@@ -79,7 +79,7 @@
             </widget>
         </categoryentry>
 
-        <categoryentry name="Box" icon="images/ff_box_32.png">
+        <categoryentry name="Box" icon="images/ff_Box_32.png">
             <widget class="FormFactorBox">
                 <property name="objectName">
                     <string notr="true">somestring</string>
@@ -87,7 +87,7 @@
             </widget>
         </categoryentry>
 
-        <categoryentry name="Cone" icon="images/ff_cone_32.png">
+        <categoryentry name="Cone" icon="images/ff_Cone_32.png">
             <widget class="FormFactorCone">
                 <property name="objectName">
                     <string notr="true">somestring</string>
@@ -95,7 +95,7 @@
             </widget>
         </categoryentry>
 
-        <categoryentry name="Cone6" icon="images/ff_cone6_32.png">
+        <categoryentry name="Cone6" icon="images/ff_Cone6_32.png">
             <widget class="FormFactorCone6">
                 <property name="objectName">
                     <string notr="true">somestring</string>
@@ -103,7 +103,7 @@
             </widget>
         </categoryentry>
 
-        <categoryentry name="Cuboctahedron" icon="images/ff_cubeoct_32.png">
+        <categoryentry name="Cuboctahedron" icon="images/ff_Cuboctahedron_32.png">
             <widget class="FormFactorCuboctahedron">
                 <property name="objectName">
                     <string notr="true">somestring</string>
@@ -111,7 +111,7 @@
             </widget>
         </categoryentry>
 
-        <categoryentry name="Cylinder" icon="images/ff_cylinder_32.png">
+        <categoryentry name="Cylinder" icon="images/ff_Cylinder_32.png">
             <widget class="FormFactorCylinder">
                 <property name="objectName">
                     <string notr="true">somestring</string>
@@ -119,7 +119,15 @@
             </widget>
         </categoryentry>
 
-        <categoryentry name="Ellipsoidal cylinder" icon="images/ff_ellipscylinder_32.png">
+        <categoryentry name="Dodecahedron" icon="images/ff_Dodecahedron_32.png">
+            <widget class="FormFactorDodecahedron">
+                <property name="objectName">
+                    <string notr="true">somestring</string>
+                </property>
+            </widget>
+        </categoryentry>
+
+        <categoryentry name="Ellipsoidal cylinder" icon="images/ff_EllipsoidalCylinder_32.png">
             <widget class="FormFactorEllipsoidalCylinder">
                 <property name="objectName">
                     <string notr="true">somestring</string>
@@ -127,7 +135,7 @@
             </widget>
         </categoryentry>
 
-        <categoryentry name="Full sphere" icon="images/ff_fullsphere_32.png">
+        <categoryentry name="Full sphere" icon="images/ff_FullSphere_32.png">
             <widget class="FormFactorFullSphere">
                 <property name="objectName">
                     <string notr="true">somestring</string>
@@ -135,7 +143,7 @@
             </widget>
         </categoryentry>
 
-        <categoryentry name="Full spheroid" icon="images/ff_fullspheroid_32.png">
+        <categoryentry name="Full spheroid" icon="images/ff_FullSpheroid_32.png">
             <widget class="FormFactorFullSpheroid">
                 <property name="objectName">
                     <string notr="true">somestring</string>
@@ -143,7 +151,7 @@
             </widget>
         </categoryentry>
 
-        <categoryentry name="Hemi ellipsoid" icon="images/ff_hemiellipsoid_32.png">
+        <categoryentry name="Hemi ellipsoid" icon="images/ff_HemiEllipsoid_32.png">
             <widget class="FormFactorHemiEllipsoid">
                 <property name="objectName">
                     <string notr="true">somestring</string>
@@ -151,7 +159,15 @@
             </widget>
         </categoryentry>
 
-        <categoryentry name="Prism3" icon="images/ff_prism3_32.png">
+        <categoryentry name="Icosahedron" icon="images/ff_Icosahedron_32.png">
+            <widget class="FormFactorIcosahedron">
+                <property name="objectName">
+                    <string notr="true">somestring</string>
+                </property>
+            </widget>
+        </categoryentry>
+
+        <categoryentry name="Prism3" icon="images/ff_Prism3_32.png">
             <widget class="FormFactorPrism3">
                 <property name="objectName">
                     <string notr="true">somestring</string>
@@ -159,7 +175,7 @@
             </widget>
         </categoryentry>
 
-        <categoryentry name="Prism6" icon="images/ff_prism6_32.png">
+        <categoryentry name="Prism6" icon="images/ff_Prism6_32.png">
             <widget class="FormFactorPrism6">
                 <property name="objectName">
                     <string notr="true">somestring</string>
@@ -167,7 +183,7 @@
             </widget>
         </categoryentry>
 
-        <categoryentry name="Pyramid" icon="images/ff_pyramid_32.png">
+        <categoryentry name="Pyramid" icon="images/ff_Pyramid_32.png">
             <widget class="FormFactorPyramid">
                 <property name="objectName">
                     <string notr="true">somestring</string>
@@ -175,7 +191,7 @@
             </widget>
         </categoryentry>
 
-        <categoryentry name="Ripple1" icon="images/ff_ripple1_32.png">
+        <categoryentry name="Ripple1" icon="images/ff_Ripple1_32.png">
             <widget class="FormFactorRipple1">
                 <property name="objectName">
                     <string notr="true">somestring</string>
@@ -183,7 +199,7 @@
             </widget>
         </categoryentry>
 
-        <categoryentry name="Ripple2" icon="images/ff_ripple2_32.png">
+        <categoryentry name="Ripple2" icon="images/ff_Ripple2_32.png">
             <widget class="FormFactorRipple2">
                 <property name="objectName">
                     <string notr="true">somestring</string>
@@ -191,7 +207,7 @@
             </widget>
         </categoryentry>
 
-        <categoryentry name="Tetrahedron" icon="images/ff_tetrahedron_32.png">
+        <categoryentry name="Tetrahedron" icon="images/ff_Tetrahedron_32.png">
             <widget class="FormFactorTetrahedron">
                 <property name="objectName">
                     <string notr="true">somestring</string>
@@ -199,7 +215,7 @@
             </widget>
         </categoryentry>
 
-        <categoryentry name="Truncated cube" icon="images/ff_trunccube_32.png">
+        <categoryentry name="Truncated cube" icon="images/ff_TruncatedCube_32.png">
             <widget class="FormFactorTruncatedCube">
                 <property name="objectName">
                     <string notr="true">somestring</string>
@@ -207,7 +223,7 @@
             </widget>
         </categoryentry>
 
-        <categoryentry name="Truncated sphere" icon="images/ff_truncsphere_32.png">
+        <categoryentry name="Truncated sphere" icon="images/ff_TruncatedSphere_32.png">
             <widget class="FormFactorTruncatedSphere">
                 <property name="objectName">
                     <string notr="true">somestring</string>
@@ -215,7 +231,7 @@
             </widget>
         </categoryentry>
 
-        <categoryentry name="Truncated spheroid" icon="images/ff_truncspheroid_32.png">
+        <categoryentry name="Truncated spheroid" icon="images/ff_TruncatedSpheroid_32.png">
             <widget class="FormFactorTruncatedSpheroid">
                 <property name="objectName">
                     <string notr="true">somestring</string>

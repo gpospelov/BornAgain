@@ -2,6 +2,7 @@
 # Draws two dimensional numpy array using ROOT
 # Usage: python show2d.py file_name
 
+from __future__ import print_function
 import argparse
 import os
 import numpy
@@ -56,10 +57,10 @@ if __name__ == '__main__':
     print( "loading..." )
     a=np.loadtxt(filename)
     file_no_prefix = os.path.splitext(os.path.basename(filename))[0]
-    print 'Filename: ', file_no_prefix
-    print 'Data shape: ', a.shape
-    print 'Minimum value of data: ', a.flatten().min()
-    print 'Maximum value of data: ', a.flatten().max()
+    print('Filename: ', file_no_prefix)
+    print('Data shape: ', a.shape)
+    print('Minimum value of data: ', a.flatten().min())
+    print('Maximum value of data: ', a.flatten().max())
 
     PlotNumpyArrayWithROOT(a, zmin, zmax)
 

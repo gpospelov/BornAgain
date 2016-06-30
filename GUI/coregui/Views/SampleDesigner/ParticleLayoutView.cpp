@@ -2,21 +2,22 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/SampleDesigner/ParticleLayoutView.cpp
+//! @file      GUI/coregui/Views/SampleDesigner/ParticleLayoutView.cpp
 //! @brief     Implements class ParticleLayoutView
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
 #include "ParticleLayoutView.h"
 #include "ParticleView.h"
 #include "DesignerHelper.h"
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 #include "GUIHelpers.h"
 #include <QDebug>
 
@@ -33,10 +34,15 @@ ParticleLayoutView::ParticleLayoutView(QGraphicsItem *parent)
     m_roundpar = 3;
 }
 
+ParticleLayoutView::~ParticleLayoutView()
+{
+    qDebug() << "ParticleLayoutView::~ParticleLayoutView()";
+}
+
 void ParticleLayoutView::addView(IView *childView, int /* row */)
 {
     qDebug() << "ParticleLayoutView::addView() xxx " << m_item->itemName()
-             << childView->getParameterizedItem()->itemName() << childView->type()
+             << childView->getItem()->itemName() << childView->type()
              << DesignerHelper::PARTICLE;
     if(childView->type() == DesignerHelper::PARTICLE) {
         connectInputPort(dynamic_cast<ConnectableView *>(childView), 0);

@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      StandardSamples/StandardSimulations.cpp
+//! @file      Core/StandardSamples/StandardSimulations.cpp
 //! @brief     Implements functions for standard simulations.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -13,13 +13,11 @@
 //
 // ************************************************************************** //
 
-#include "StandardSimulations.h"
 #include "SampleBuilderFactory.h"
 #include "GISASSimulation.h"
 #include "ResolutionFunction2DGaussian.h"
 #include "Units.h"
 #include "FileSystem.h"
-#include "IntensityDataIOFactory.h"
 #include "Distributions.h"
 #include "IsGISAXSDetector.h"
 #include "Rectangle.h"
@@ -29,6 +27,7 @@
 #include "InfinitePlane.h"
 #include "BornAgainNamespace.h"
 #include "RectangularDetector.h"
+#include "StandardSimulations.h"
 
 using namespace BornAgain;
 
@@ -37,74 +36,64 @@ const int rdet_nbinsx(40), rdet_nbinsy(30);
 const double rdet_width(20.0), rdet_height(18.0), rdet_distance(1000.0);
 }
 
-GISASSimulation *StandardSimulations::PolarizedDWBAMagCylinders2()
+GISASSimulation* StandardSimulations::PolarizedDWBAMagCylinders2()
 {
     SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("MagneticCylindersBuilder");
+    std::shared_ptr<class ISampleBuilder> builder(factory.createItem("MagneticCylindersBuilder"));
 
-    GISASSimulation *result = new GISASSimulation();
+    GISASSimulation* result = new GISASSimulation();
 
-
-    result->setDetectorParameters(
-        100, -1.0*Units::degree, 1.0*Units::degree, 100,
-        0.0*Units::degree, 2.0*Units::degree);
-    result->setBeamParameters(
-        1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
+    result->setDetectorParameters(100, -1.0*Units::degree, 1.0*Units::degree,
+                                  100, 0.0*Units::degree, 2.0*Units::degree);
+    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
     result->setBeamIntensity(1e7);
-
     result->setSampleBuilder( builder );
-
     return result;
 }
 
 //! Basic GISAS simulation with the detector phi[0,2], theta[0,2]
-GISASSimulation *StandardSimulations::BasicGISAS()
+GISASSimulation* StandardSimulations::BasicGISAS()
 {
-    GISASSimulation *result = new GISASSimulation();
+    GISASSimulation* result = new GISASSimulation();
     result->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
-                                     100, 0.0*Units::degree, 2.0*Units::degree);
-    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
-            0.0*Units::degree);
+                                  100, 0.0*Units::degree, 2.0*Units::degree);
+    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
     return result;
 }
 
 //! Basic GISAS for polarization studies
-GISASSimulation *StandardSimulations::BasicGISAS00()
+GISASSimulation* StandardSimulations::BasicGISAS00()
 {
-    GISASSimulation *result = BasicGISAS();
+    GISASSimulation* result = BasicGISAS();
     kvector_t zplus(0.0, 0.0, 1.0);
     result->setBeamPolarization(zplus);
     result->setAnalyzerProperties(zplus, 1.0, 0.5);
     return result;
 }
 
-
 //! GISAS simulation with small detector and phi[-2,2], theta[0,2]
-GISASSimulation *StandardSimulations::MiniGISAS()
+GISASSimulation* StandardSimulations::MiniGISAS()
 {
-    GISASSimulation *result = new GISASSimulation();
+    GISASSimulation* result = new GISASSimulation();
     result->setDetectorParameters(25, -2.0*Units::degree, 2.0*Units::degree,
-                                     25, 0.0*Units::degree, 2.0*Units::degree);
-    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
-            0.0*Units::degree);
+                                  25, 0.0*Units::degree, 2.0*Units::degree);
+    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
     return result;
 }
 
 //! GISAS simulation with small detector and phi[-1,1], theta[0,1]
-GISASSimulation *StandardSimulations::MiniGISAS_v2()
+GISASSimulation* StandardSimulations::MiniGISAS_v2()
 {
-    GISASSimulation *result = new GISASSimulation();
+    GISASSimulation* result = new GISASSimulation();
     result->setDetectorParameters(25, -1.0*Units::degree, 1.0*Units::degree,
-                                     25, 0.0*Units::degree, 1.0*Units::degree);
-    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
-            0.0*Units::degree);
+                                  25, 0.0*Units::degree, 1.0*Units::degree);
+    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
     return result;
 }
 
-
-GISASSimulation *StandardSimulations::MiniGISASBeamDivergence()
+GISASSimulation* StandardSimulations::MiniGISASBeamDivergence()
 {
-    GISASSimulation *result = MiniGISAS();
+    GISASSimulation* result = MiniGISAS();
 
     DistributionLogNormal wavelength_distr(1.0*Units::angstrom, 0.1);
     DistributionGaussian alpha_distr(0.2*Units::degree, 0.1*Units::degree);
@@ -123,13 +112,12 @@ GISASSimulation *StandardSimulations::MiniGISASBeamDivergence()
     return result;
 }
 
-GISASSimulation *StandardSimulations::GISASWithMasks()
+GISASSimulation* StandardSimulations::GISASWithMasks()
 {
-    GISASSimulation *result = new GISASSimulation();
+    GISASSimulation* result = new GISASSimulation();
     result->setDetectorParameters(100, -1.0*Units::degree, 1.0*Units::degree,
                                      100, 0.0*Units::degree, 2.0*Units::degree);
-    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
-            0.0*Units::degree);
+    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
     result->setBeamIntensity(1e+7);
 
     result->maskAll();
@@ -152,34 +140,31 @@ GISASSimulation *StandardSimulations::GISASWithMasks()
     result->addMask(Geometry::VerticalLine(-0.6*deg), true);
     result->addMask(Geometry::HorizontalLine(0.3*deg), false);
 
-
     return result;
 }
 
-
-GISASSimulation *StandardSimulations::MiniGISASDetectorResolution()
+GISASSimulation* StandardSimulations::MiniGISASDetectorResolution()
 {
-    GISASSimulation *result = MiniGISAS();
+    GISASSimulation* result = MiniGISAS();
     ResolutionFunction2DGaussian resfunc(0.0025, 0.0025);
     result->setDetectorResolutionFunction(resfunc);
     return result;
 }
 
 //! GISAS simulation with large detector to test performance
-GISASSimulation *StandardSimulations::MaxiGISAS()
+GISASSimulation* StandardSimulations::MaxiGISAS()
 {
-    GISASSimulation *result = new GISASSimulation();
+    GISASSimulation* result = new GISASSimulation();
     result->setDetectorParameters(256, -2.0*Units::degree, 2.0*Units::degree,
-                                     256, 0.0*Units::degree, 2.0*Units::degree);
-    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
-            0.0*Units::degree);
+                                  256, 0.0*Units::degree, 2.0*Units::degree);
+    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
     return result;
 }
 
 //! Basic GISAS for polarization studies
-GISASSimulation *StandardSimulations::MaxiGISAS00()
+GISASSimulation* StandardSimulations::MaxiGISAS00()
 {
-    GISASSimulation *result = MaxiGISAS();
+    GISASSimulation* result = MaxiGISAS();
     kvector_t zplus(0.0, 0.0, 1.0);
     result->setBeamPolarization(zplus);
     result->setAnalyzerProperties(zplus, 1.0, 0.5);
@@ -188,35 +173,33 @@ GISASSimulation *StandardSimulations::MaxiGISAS00()
 
 
 //! Typical IsGISAXS simulation with the detector phi[-1,1], theta[0,2]
-GISASSimulation *StandardSimulations::IsGISAXSSimulation1()
+GISASSimulation* StandardSimulations::IsGISAXSSimulation1()
 {
-    GISASSimulation *result = new GISASSimulation();
+    GISASSimulation* result = new GISASSimulation();
     IsGISAXSDetector detector;
     detector.setDetectorParameters(100,-1.0*Units::degree, 1.0*Units::degree,
                                    100, 0.0*Units::degree, 2.0*Units::degree);
     result->setDetector(detector);
-    result->setBeamParameters(
-        1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
+    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
     return result;
 }
 
 
 //! Typical IsGISAXS simulation with the detector phi[0,2], theta[0,2]
-GISASSimulation *StandardSimulations::IsGISAXSSimulation2()
+GISASSimulation* StandardSimulations::IsGISAXSSimulation2()
 {
-    GISASSimulation *result = new GISASSimulation();
+    GISASSimulation* result = new GISASSimulation();
     IsGISAXSDetector detector;
     detector.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
                                    100, 0.0*Units::degree, 2.0*Units::degree);
     result->setDetector(detector);
-    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
-                0.0*Units::degree);
+    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
     return result;
 }
 
-GISASSimulation *StandardSimulations::RectDetectorGeneric()
+GISASSimulation* StandardSimulations::RectDetectorGeneric()
 {
-    GISASSimulation *result = new GISASSimulation();
+    GISASSimulation* result = new GISASSimulation();
     result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
 
     RectangularDetector detector(rdet_nbinsx, rdet_width, rdet_nbinsy, rdet_height);
@@ -227,9 +210,9 @@ GISASSimulation *StandardSimulations::RectDetectorGeneric()
     return result;
 }
 
-GISASSimulation *StandardSimulations::RectDetectorPerpToSample()
+GISASSimulation* StandardSimulations::RectDetectorPerpToSample()
 {
-    GISASSimulation *result = new GISASSimulation();
+    GISASSimulation* result = new GISASSimulation();
     result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
 
     RectangularDetector detector(rdet_nbinsx, rdet_width, rdet_nbinsy, rdet_height);
@@ -240,9 +223,9 @@ GISASSimulation *StandardSimulations::RectDetectorPerpToSample()
 }
 
 
-GISASSimulation *StandardSimulations::RectDetectorPerpToDirectBeam()
+GISASSimulation* StandardSimulations::RectDetectorPerpToDirectBeam()
 {
-    GISASSimulation *result = new GISASSimulation();
+    GISASSimulation* result = new GISASSimulation();
     result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
 
     RectangularDetector detector(rdet_nbinsx, rdet_width, rdet_nbinsy, rdet_height);
@@ -253,9 +236,9 @@ GISASSimulation *StandardSimulations::RectDetectorPerpToDirectBeam()
 }
 
 
-GISASSimulation *StandardSimulations::RectDetectorPerpToReflectedBeam()
+GISASSimulation* StandardSimulations::RectDetectorPerpToReflectedBeam()
 {
-    GISASSimulation *result = new GISASSimulation();
+    GISASSimulation* result = new GISASSimulation();
     result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
 
     RectangularDetector detector(rdet_nbinsx, rdet_width, rdet_nbinsy, rdet_height);
@@ -266,9 +249,9 @@ GISASSimulation *StandardSimulations::RectDetectorPerpToReflectedBeam()
 }
 
 
-GISASSimulation *StandardSimulations::RectDetectorPerpToReflectedBeamDpos()
+GISASSimulation* StandardSimulations::RectDetectorPerpToReflectedBeamDpos()
 {
-    GISASSimulation *result = new GISASSimulation();
+    GISASSimulation* result = new GISASSimulation();
     result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
 
     RectangularDetector detector(rdet_nbinsx, rdet_width, rdet_nbinsy, rdet_height);
@@ -279,3 +262,10 @@ GISASSimulation *StandardSimulations::RectDetectorPerpToReflectedBeamDpos()
     return result;
 }
 
+
+GISASSimulation* StandardSimulations::MiniGISASMonteCarlo()
+{
+    GISASSimulation* result = MiniGISAS();
+    result->getOptions().setMonteCarloIntegration(true, 100);
+    return result;
+}

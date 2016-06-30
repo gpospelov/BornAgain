@@ -2,32 +2,33 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/LayerItem.h
-//! @brief     Defines class LayerItem
+//! @file      GUI/coregui/Models/LayerItem.h
+//! @brief     Declares class LayerItem
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
 #ifndef LAYERITEM_H
 #define LAYERITEM_H
 
-#include "ParameterizedGraphicsItem.h"
+#include "SessionGraphicsItem.h"
 
-class BA_CORE_API_ LayerItem : public ParameterizedGraphicsItem
+class BA_CORE_API_ LayerItem : public SessionGraphicsItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_THICKNESS;
     static const QString P_ROUGHNESS;
     static const QString P_MATERIAL;
-    explicit LayerItem(ParameterizedItem *parent=0);
+    static const QString T_LAYOUTS;
+    explicit LayerItem();
     virtual ~LayerItem(){}
-    virtual void insertChildItem(int row, ParameterizedItem *item);
 };
 
 #endif // LAYERITEM_H

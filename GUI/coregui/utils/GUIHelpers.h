@@ -2,14 +2,15 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/utils/GUIHelpers.h
-//! @brief     Defines class GUIHelpers functions
+//! @file      GUI/coregui/utils/GUIHelpers.h
+//! @brief     Declares class GUIHelpers functions
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
@@ -23,6 +24,8 @@
 #include <memory>
 
 class QVariant;
+class JobItem;
+class RealDataItem;
 
 namespace GUIHelpers
 {
@@ -55,6 +58,20 @@ BA_CORE_API_ int getVariantType(const QVariant &variant);
 BA_CORE_API_ QString getBornAgainVersionString();
 
 BA_CORE_API_ QString getValidFileName(const QString &proposed_name);
+
+BA_CORE_API_ QString intensityDataFileName(JobItem *jobItem);
+BA_CORE_API_ QString intensityDataFileName(RealDataItem *realDataItem);
+
+BA_CORE_API_ QString fileDir(const QString &fileName);
+
+BA_CORE_API_ bool parseVersion(const QString &version, int &major_num, int &minor_num, int &patch_num);
+
+BA_CORE_API_ bool isVersionMatchMinimal(const QString &version, const QString &minimal_version);
+
+BA_CORE_API_ QString currentDateTime();
+
+BA_CORE_API_ QStringList fromStdList(const std::list<std::string> &string_list);
+BA_CORE_API_ QVector<double> fromStdVector(const std::vector<double> &data);
 
 template<class T, class... Ts> std::unique_ptr<T> make_unique(Ts&&... params)
 {

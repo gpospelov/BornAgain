@@ -2,14 +2,15 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/item_constants.h
-//! @brief     Defines item constants
+//! @file      GUI/coregui/Models/item_constants.h
+//! @brief     Declares item constants
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
@@ -47,10 +48,12 @@ const ModelType ConeType = "Cone";
 const ModelType Cone6Type = "Cone6";
 const ModelType CuboctahedronType = "Cuboctahedron";
 const ModelType CylinderType = "Cylinder";
+const ModelType DodecahedronType = "Dodecahedron";
 const ModelType EllipsoidalCylinderType = "EllipsoidalCylinder";
 const ModelType FullSphereType = "FullSphere";
 const ModelType FullSpheroidType = "FullSpheroid";
 const ModelType HemiEllipsoidType = "HemiEllipsoid";
+const ModelType IcosahedronType = "Icosahedron";
 const ModelType Prism3Type = "Prism3";
 const ModelType Prism6Type = "Prism6";
 const ModelType PyramidType = "Pyramid";
@@ -66,7 +69,9 @@ const ModelType YRotationType = "YRotation";
 const ModelType ZRotationType = "ZRotation";
 const ModelType EulerRotationType = "EulerRotation";
 
+const ModelType PropertyType = "Property";
 const ModelType VectorType = "Vector";
+const ModelType GroupItemType = "GroupProperty";
 
 const ModelType LayerBasicRoughnessType = "LayerBasicRoughness";
 const ModelType LayerZeroRoughnessType = "LayerZeroRoughness";
@@ -115,7 +120,14 @@ const ModelType RefractiveIndexType = "RefractiveIndex";
 
 const ModelType MagneticFieldType = "MagneticField";
 
+const ModelType ParameterContainerType = "Parameter Container";
+const ModelType ParameterType = "Parameter";
+const ModelType ParameterLabelType = "Parameter Label";
+
+const ModelType FitParameterContainerType = "FitParameterContainer";
 const ModelType FitParameterType = "FitParameter";
+const ModelType FitParameterLinkType = "FitParameterLink";
+const ModelType FitSuiteType = "FitSuite";
 
 const ModelType JobItemType = "JobItem";
 const ModelType IntensityDataType = "IntensityData";
@@ -140,6 +152,15 @@ const ModelType VerticalLineMaskType = "VerticalLineMask";
 const ModelType HorizontalLineMaskType = "HorizontalLineMask";
 const ModelType MaskAllType = "MaskAllMask";
 
+const ModelType SimulationOptionsType = "SimulationOptions";
+
+const ModelType RealDataType = "RealData";
+
+const ModelType MinimizerContainerType = "MinimizerContainer";
+const ModelType MinuitMinimizerType = "MinuitMinimizer";
+const ModelType GSLMinimizerType = "GSLMinimizer";
+const ModelType GeneticMinimizerType = "GeneticMinimizer";
+
 // --- Groups ------------------------------------------------------------------
 
 const ModelType FormFactorGroup = "Form Factor";
@@ -155,6 +176,7 @@ const ModelType FTDecayFunction2DGroup = "Decay function 2D";
 const ModelType LatticeGroup = "Lattice group";
 const ModelType MaterialGroup = "Material group";
 const ModelType ResolutionFunctionGroup = "Resolution function group";
+const ModelType MinimizerLibraryGroup = "Minimizer library group";
 
 // --- Units&Constants----------------------------------------------------------
 const ModelType UnitsNbins = "nbins";
@@ -165,6 +187,7 @@ const ModelType UnitsQyQz = "Qy,Qz";
 
 const ModelType STATUS_IDLE = "Idle";
 const ModelType STATUS_RUNNING = "Running";
+const ModelType STATUS_FITTING = "Fitting";
 const ModelType STATUS_COMPLETED = "Completed";
 const ModelType STATUS_CANCELED = "Canceled";
 const ModelType STATUS_FAILED = "Failed";
@@ -187,11 +210,20 @@ const ModelType JOB_RUN_IN_BACKGROUND = "In background";
 const ModelType JOB_RUN_SUBMIT_ONLY = "Submit only";
 const ModelType JOB_BACKUP = "_backup";
 
+const ModelType SIMULATION_ANALYTICAL = "Analytical";
+const ModelType SIMULATION_MONTECARLO = "Monte-Carlo Integration";
+
 const ModelType ALIGNMENT_GENERIC = "Generic";
 const ModelType ALIGNMENT_TO_SAMPLE = "Perpendicular to sample x-axis";
 const ModelType ALIGNMENT_TO_DIRECT_BEAM = "Perpendicular to direct beam";
 const ModelType ALIGNMENT_TO_REFLECTED_BEAM = "Perpendicular to reflected beam";
 const ModelType ALIGNMENT_TO_REFLECTED_BEAM_DPOS = "Perpendicular to reflected beam (dpos)";
+
+const ModelType FITPAR_FIXED = "fixed";
+const ModelType FITPAR_LIMITED = "limited";
+const ModelType FITPAR_LOWERLIMITED = "lower limited";
+const ModelType FITPAR_UPPERLIMITED = "upper limited";
+const ModelType FITPAR_FREE = "free";
 
 }
 

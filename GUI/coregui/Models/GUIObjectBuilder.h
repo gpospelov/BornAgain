@@ -2,14 +2,15 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/GUIObjectBuilder.h
-//! @brief     Defines class GUIObjectBuilder
+//! @file      GUI/coregui/Models/GUIObjectBuilder.h
+//! @brief     Declares class GUIObjectBuilder
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
@@ -24,7 +25,8 @@
 
 class InstrumentModel;
 class SampleModel;
-class ParameterizedItem;
+class SessionItem;
+class DocumentModel;
 
 //! Class to build SampleModel and InstrumentModel from domain's ISample
 class BA_CORE_API_ GUIObjectBuilder : public ISampleVisitor
@@ -33,18 +35,21 @@ public:
     GUIObjectBuilder();
     virtual ~GUIObjectBuilder(){}
 
-    ParameterizedItem *populateSampleModel(SampleModel *sampleModel,
+    SessionItem *populateSampleModel(SampleModel *sampleModel,
                                            const GISASSimulation &simulation,
                                            const QString &sampleName=QString());
 
-    ParameterizedItem *populateSampleModel(SampleModel *sampleModel,
+    SessionItem *populateSampleModel(SampleModel *sampleModel,
                                            const ISample &sample,
                                            const QString &sampleName=QString());
 
-    ParameterizedItem *populateInstrumentModel(InstrumentModel *instrumentModel,
+    SessionItem *populateInstrumentModel(InstrumentModel *instrumentModel,
                                                const GISASSimulation &simulation,
                                                const QString &instrumentName=QString());
 
+
+    SessionItem *populateDocumentModel(DocumentModel *documentModel,
+                                               const GISASSimulation &simulation);
 
     using ISampleVisitor::visit;
 
@@ -67,10 +72,12 @@ public:
     void visit(const FormFactorCone6 *);
     void visit(const FormFactorCuboctahedron *);
     void visit(const FormFactorCylinder *);
+    void visit(const FormFactorDodecahedron *);
     void visit(const FormFactorEllipsoidalCylinder *);
     void visit(const FormFactorFullSphere *);
     void visit(const FormFactorFullSpheroid *);
     void visit(const FormFactorHemiEllipsoid *);
+    void visit(const FormFactorIcosahedron *);
     void visit(const FormFactorPrism3 *);
     void visit(const FormFactorPrism6 *);
     void visit(const FormFactorPyramid *);
@@ -95,16 +102,16 @@ public:
     void visit(const RotationEuler *);
 
 private:
-    void buildAbundanceInfo(ParameterizedItem *particleItem);
-    void buildPositionInfo(ParameterizedItem *particleItem, const IParticle *sample);
+    void buildAbundanceInfo(SessionItem *particleItem);
+    void buildPositionInfo(SessionItem *particleItem, const IParticle *sample);
     MaterialProperty createMaterialFromDomain(const IMaterial *);
 
     SampleModel *m_sampleModel;
 
-    QMap<int, ParameterizedItem *> m_levelToParentItem;
+    QMap<int, SessionItem *> m_levelToParentItem;
     QMap<QString, double > m_propertyToValue;
     QMap<QString, bool> m_sample_encountered;
-    QMap<ParameterizedItem *, const ISample *> m_itemToSample;
+    QMap<SessionItem *, const ISample *> m_itemToSample;
     QString m_topSampleName;
 };
 

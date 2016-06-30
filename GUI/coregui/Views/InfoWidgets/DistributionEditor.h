@@ -2,14 +2,15 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/InfoWidgets/DistributionEditor.h
-//! @brief     Defines class DistributionEditor
+//! @file      GUI/coregui/Views/InfoWidgets/DistributionEditor.h
+//! @brief     Declares class DistributionEditor
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
@@ -18,11 +19,12 @@
 
 #include <QWidget>
 #include "qcustomplot.h"
+#include <memory>
 
 class QGroupBox;
 class DistributionWidget;
-class ParameterizedItem;
-class AwesomePropertyEditor;
+class GroupItem;
+class ComponentBoxEditor;
 
 //! The DistributionEditor class, being a child of DistributionDialog, contains a widget
 //! to show Distribution1D and awesome property editor to change distribution parameters
@@ -31,17 +33,18 @@ class DistributionEditor : public QWidget
     Q_OBJECT
 public:
     DistributionEditor(QWidget *parent = 0);
-    virtual ~DistributionEditor() {}
-    void setItem(ParameterizedItem *item);
-    void plotItem(ParameterizedItem *item);
+    virtual ~DistributionEditor();
+
+    void setItem(SessionItem *item);
+    void plotItem(SessionItem *item);
     void setNameOfEditor(QString name);
 
 private slots:
-    void onSubItemChanged(const QString &property_name);
+    void onPropertyChanged(const QString &property_name);
 
 private:
-    AwesomePropertyEditor *m_propertyEditor;
-    ParameterizedItem *m_item;
+    ComponentBoxEditor *m_propertyEditor;
+    GroupItem *m_item;
     DistributionWidget *m_plotwidget;
     QString m_nameOfEditor;
     QGroupBox *m_box;

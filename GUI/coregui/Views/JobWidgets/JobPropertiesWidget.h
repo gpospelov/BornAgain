@@ -2,14 +2,15 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/JobWidgets/JobPropertiesWidget.h
-//! @brief     Defines class JobPropertiesWidget
+//! @file      GUI/coregui/Views/JobWidgets/JobPropertiesWidget.h
+//! @brief     Declares class JobPropertiesWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
@@ -18,16 +19,15 @@
 
 #include "WinDllMacros.h"
 #include <QWidget>
-#include <QMap>
 
-class JobModel;
 class JobItem;
 class QTextEdit;
 class QTabWidget;
-class AwesomePropertyEditor;
+class ComponentEditor;
 
-//! Widget to show and change properties of currently selected JobItem
-//! Left buttom corner of JobView
+//! The JobPropertiesWidget class holds component editor for JobItem. Part of JobSelectorWidget,
+//! resides at lower left corner of JobView.
+
 class BA_CORE_API_ JobPropertiesWidget : public QWidget
 {
     Q_OBJECT
@@ -35,25 +35,21 @@ public:
     enum ETabId { JOB_PROPERTIES, JOB_COMMENTS };
     explicit JobPropertiesWidget(QWidget *parent = 0);
 
-    void setModel(JobModel *model);
-
     QSize sizeHint() const { return QSize(64, 256); }
     QSize minimumSizeHint() const { return QSize(64, 64); }
 
-public slots:    
+public slots:
     void setItem(JobItem *item);
 
 private slots:
-    void onPropertyChanged(const QString &property_name);
     void onTextChanged();
 
 private:
     void updateItem(JobItem *item);
 
-    JobModel *m_jobModel;
     JobItem *m_currentItem;
     QTabWidget *m_tabWidget;
-    AwesomePropertyEditor *m_propertyEditor;
+    ComponentEditor *m_propertyEditor;
     QTextEdit *m_commentsEditor;
     bool m_block_update;
 };

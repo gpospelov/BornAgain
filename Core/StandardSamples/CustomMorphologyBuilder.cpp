@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      StandardSamples/CustomMorphologyBuilder.cpp
+//! @file      Core/StandardSamples/CustomMorphologyBuilder.cpp
 //! @brief     Implements class CustomMorphologyBuilder.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -19,7 +19,6 @@
 #include "Materials.h"
 #include "FormFactorBox.h"
 #include "GISASSimulation.h"
-#include "IntensityDataIOFactory.h"
 #include "Utils.h"
 #include "Units.h"
 #include "MathFunctions.h"
@@ -127,4 +126,3 @@ ISample *CustomMorphologyBuilder::buildSample() const
 
     return multi_layer;
 }
-

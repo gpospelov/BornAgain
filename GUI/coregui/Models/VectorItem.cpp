@@ -2,42 +2,53 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/VectorItem.cpp
+//! @file      GUI/coregui/Models/VectorItem.cpp
 //! @brief     Implements class VectorItem
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
 #include "VectorItem.h"
+#include <QDebug>
 
 const QString VectorItem::P_X = "X";
 const QString VectorItem::P_Y = "Y";
 const QString VectorItem::P_Z = "Z";
 
-VectorItem::VectorItem(ParameterizedItem *parent)
-    : ParameterizedItem(Constants::VectorType, parent)
+VectorItem::VectorItem()
+    : SessionItem(Constants::VectorType)
 {
-    registerProperty(P_X, 0.0).limitless();
-    registerProperty(P_Y, 0.0).limitless();
-    registerProperty(P_Z, 0.0).limitless();
+    addProperty(P_X, 0.0)->setLimits(AttLimits::limitless());
+    addProperty(P_Y, 0.0)->setLimits(AttLimits::limitless());
+    addProperty(P_Z, 0.0)->setLimits(AttLimits::limitless());
+
+    mapper()->setOnPropertyChange(
+        [this](const QString &){
+            setValue(itemLabel());
+        }
+    );
+
+    setValue(itemLabel());
+    setEditable(false);
 }
 
 QString VectorItem::itemLabel() const
 {
-    return QString("(%1, %2, %3)").arg(getRegisteredProperty(P_X).toDouble())
-                                  .arg(getRegisteredProperty(P_Y).toDouble())
-            .arg(getRegisteredProperty(P_Z).toDouble());
+    return QString("(%1, %2, %3)").arg(getItemValue(P_X).toDouble())
+                                  .arg(getItemValue(P_Y).toDouble())
+            .arg(getItemValue(P_Z).toDouble());
 }
 
 kvector_t VectorItem::getVector() const
 {
-    return kvector_t(getRegisteredProperty(P_X).toDouble(),
-                     getRegisteredProperty(P_Y).toDouble(),
-                     getRegisteredProperty(P_Z).toDouble());
+    return kvector_t(getItemValue(P_X).toDouble(),
+                     getItemValue(P_Y).toDouble(),
+                     getItemValue(P_Z).toDouble());
 }
 

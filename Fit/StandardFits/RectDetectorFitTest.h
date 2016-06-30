@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      StandardFits/RectDetectorFitTest.h
-//! @brief     Defines class RectDetectorFitTest.
+//! @file      Fit/StandardFits/RectDetectorFitTest.h
+//! @brief     Declares class RectDetectorFitTest.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 #ifndef RECTDETECTORFITTEST_H
 #define RECTDETECTORFITTEST_H
 
-#include "IMinimizerFunctionalTest.h"
+#include "IMinimizerTest.h"
 #include "OutputData.h"
 #include <vector>
 
@@ -29,7 +29,7 @@ class GISASSimulation;
 //! @ingroup standard_samples
 //! @brief Fit of simulation with rectangular detector. The detector is cropped, masks are applied.
 
-class BA_CORE_API_ RectDetectorFitTest : public IMinimizerFunctionalTest
+class BA_CORE_API_ RectDetectorFitTest : public IMinimizerTest
 {
 public:
     RectDetectorFitTest();

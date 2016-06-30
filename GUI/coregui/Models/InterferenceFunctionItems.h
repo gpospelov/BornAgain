@@ -2,40 +2,41 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/InterferenceFunctionItems.h
-//! @brief     Defines InterferenceFunctionItems's classes
+//! @file      GUI/coregui/Models/InterferenceFunctionItems.h
+//! @brief     Declares InterferenceFunctionItems's classes
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
 #ifndef PARACRYSTALITEMS_H
 #define PARACRYSTALITEMS_H
 
-#include "ParameterizedGraphicsItem.h"
+#include "SessionGraphicsItem.h"
 
 
-class BA_CORE_API_ InterferenceFunctionRadialParaCrystalItem : public ParameterizedGraphicsItem
+class BA_CORE_API_ InterferenceFunctionRadialParaCrystalItem : public SessionGraphicsItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_PEAK_DISTANCE;
     static const QString P_DAMPING_LENGTH;
     static const QString P_DOMAIN_SIZE;
     static const QString P_KAPPA;
     static const QString P_PDF;
-    explicit InterferenceFunctionRadialParaCrystalItem(ParameterizedItem *parent=0);
+    explicit InterferenceFunctionRadialParaCrystalItem();
     virtual ~InterferenceFunctionRadialParaCrystalItem(){}
 };
 
 
-class BA_CORE_API_ InterferenceFunction2DParaCrystalItem : public ParameterizedGraphicsItem
+class BA_CORE_API_ InterferenceFunction2DParaCrystalItem : public SessionGraphicsItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_ROTATION_ANGLE;
     static const QString P_DAMPING_LENGTH;
@@ -44,32 +45,31 @@ public:
     static const QString P_XI_INTEGRATION;
     static const QString P_PDF1;
     static const QString P_PDF2;
-    explicit InterferenceFunction2DParaCrystalItem(ParameterizedItem *parent=0);
+    explicit InterferenceFunction2DParaCrystalItem();
     virtual ~InterferenceFunction2DParaCrystalItem(){}
-    virtual void onPropertyChange(const QString &name);
 };
 
 
-class BA_CORE_API_ InterferenceFunction1DLatticeItem : public ParameterizedGraphicsItem
+class BA_CORE_API_ InterferenceFunction1DLatticeItem : public SessionGraphicsItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_LENGTH;
     static const QString P_ROTATION_ANGLE;
     static const QString P_DECAY_FUNCTION;
-    explicit InterferenceFunction1DLatticeItem(ParameterizedItem *parent=0);
+    explicit InterferenceFunction1DLatticeItem();
     virtual ~InterferenceFunction1DLatticeItem(){}
 };
 
 
-class BA_CORE_API_ InterferenceFunction2DLatticeItem : public ParameterizedGraphicsItem
+class BA_CORE_API_ InterferenceFunction2DLatticeItem : public SessionGraphicsItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_LATTICE_TYPE;
     static const QString P_ROTATION_ANGLE;
     static const QString P_DECAY_FUNCTION;
-    explicit InterferenceFunction2DLatticeItem(ParameterizedItem *parent=0);
+    explicit InterferenceFunction2DLatticeItem();
     virtual ~InterferenceFunction2DLatticeItem(){}
 };
 

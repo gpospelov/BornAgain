@@ -2,14 +2,15 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/ParticleLayoutItem.cpp
+//! @file      GUI/coregui/Models/ParticleLayoutItem.cpp
 //! @brief     Implements class ParticleLayoutItem
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
@@ -20,63 +21,41 @@
 
 const QString ParticleLayoutItem::P_APPROX = "Approximation";
 const QString ParticleLayoutItem::P_TOTAL_DENSITY = "Total particle density";
+const QString ParticleLayoutItem::T_PARTICLES = "Particle Tag";
+const QString ParticleLayoutItem::T_INTERFERENCE = "Interference Tag";
 
-ParticleLayoutItem::ParticleLayoutItem(ParameterizedItem *parent)
-    : ParameterizedGraphicsItem(Constants::ParticleLayoutType, parent)
+ParticleLayoutItem::ParticleLayoutItem()
+    : SessionGraphicsItem(Constants::ParticleLayoutType)
 {
     ComboProperty approx;
     approx << "Decoupling Approximation" << "Size Space Coupling Approximation";
-    registerProperty(P_APPROX, approx.getVariant());
-    registerProperty(P_TOTAL_DENSITY, 1.0);
+    addProperty(P_APPROX, approx.getVariant());
+    addProperty(P_TOTAL_DENSITY, 1.0);
 
-    addToValidChildren(Constants::ParticleType, PortInfo::PORT_0);
-    addToValidChildren(Constants::ParticleCoreShellType, PortInfo::PORT_0);
-    addToValidChildren(Constants::ParticleCompositionType, PortInfo::PORT_0);
-    addToValidChildren(Constants::ParticleDistributionType, PortInfo::PORT_0);
-    addToValidChildren(Constants::InterferenceFunctionRadialParaCrystalType, PortInfo::PORT_1, 1);
-    addToValidChildren(Constants::InterferenceFunction2DParaCrystalType, PortInfo::PORT_1, 1);
-    addToValidChildren(Constants::InterferenceFunction1DLatticeType, PortInfo::PORT_1, 1);
-    addToValidChildren(Constants::InterferenceFunction2DLatticeType, PortInfo::PORT_1, 1);
+    registerTag(T_PARTICLES, 0, -1, QStringList() << Constants::ParticleType << Constants::ParticleCoreShellType
+                << Constants::ParticleCompositionType << Constants::ParticleDistributionType);
+    setDefaultTag(T_PARTICLES);
+    registerTag(T_INTERFERENCE, 0, 1, QStringList() << Constants::InterferenceFunctionRadialParaCrystalType
+                << Constants::InterferenceFunction2DParaCrystalType << Constants::InterferenceFunction1DLatticeType
+                << Constants::InterferenceFunction2DLatticeType);
+
+    mapper()->setOnChildrenChange(
+                [this](SessionItem* item)
+    {
+        int count = 0;
+        for (auto child_item : childItems()) {
+            if (child_item->modelType() == Constants::InterferenceFunction2DParaCrystalType
+                || child_item->modelType() == Constants::InterferenceFunction2DLatticeType) {
+                count++;
+            }
+        }
+        if ((item && count > 0) || (!item && count > 1))
+            getItem(P_TOTAL_DENSITY)->setEnabled(false);
+        else
+            getItem(P_TOTAL_DENSITY)->setEnabled(true);
+    });
 }
 
 ParticleLayoutItem::~ParticleLayoutItem()
 {
-}
-
-void ParticleLayoutItem::insertChildItem(int row, ParameterizedItem *item)
-{
-    ParameterizedItem::insertChildItem(row, item);
-    if (item->modelType() == Constants::ParticleType
-        || item->modelType() == Constants::ParticleCoreShellType
-        || item->modelType() == Constants::ParticleCompositionType
-        || item->modelType() == Constants::ParticleDistributionType) {
-        int port = item->getRegisteredProperty(ParameterizedItem::P_PORT).toInt();
-        if (port == PortInfo::DEFAULT) {
-            item->setItemPort(PortInfo::PORT_0);
-        }
-    } else if (item->modelType() == Constants::InterferenceFunctionRadialParaCrystalType
-               || item->modelType() == Constants::InterferenceFunction2DParaCrystalType
-               || item->modelType() == Constants::InterferenceFunction1DLatticeType
-               || item->modelType() == Constants::InterferenceFunction2DLatticeType) {
-        int port = item->getRegisteredProperty(ParameterizedItem::P_PORT).toInt();
-        if (port == PortInfo::DEFAULT) {
-            item->setItemPort(PortInfo::PORT_1);
-        }
-    }
-}
-
-void ParticleLayoutItem::onChildPropertyChange(ParameterizedItem *item, const QString &propertyName)
-{
-    for (auto child_item : childItems()) {
-        if (child_item->modelType() == Constants::InterferenceFunction2DParaCrystalType
-            || child_item->modelType() == Constants::InterferenceFunction2DLatticeType) {
-            getPropertyAttribute(P_TOTAL_DENSITY).setDisabled();
-            emit propertyChanged(P_TOTAL_DENSITY);
-            ParameterizedItem::onChildPropertyChange(item, propertyName);
-            return;
-        }
-    }
-    getPropertyAttribute(P_TOTAL_DENSITY).setVisible();
-    emit propertyChanged(P_TOTAL_DENSITY);
-    ParameterizedItem::onChildPropertyChange(item, propertyName);
 }

@@ -2,45 +2,36 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/JobQueueData.cpp
+//! @file      GUI/coregui/Models/JobQueueData.cpp
 //! @brief     Implements class JobQueueData
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
 #include "JobQueueData.h"
 #include "GISASSimulation.h"
-#include "AngleProperty.h"
-#include "InstrumentItem.h"
-#include "InstrumentModel.h"
-#include "DetectorItems.h"
-#include "IntensityDataItem.h"
 #include "JobItem.h"
 #include "JobModel.h"
-#include "JobRunner.h"
+#include "JobWorker.h"
 #include "DomainSimulationBuilder.h"
-#include "ThreadInfo.h"
 #include "GUIHelpers.h"
-#include <QUuid>
 #include <QThread>
-#include <QDateTime>
 #include <QDebug>
 
-
-//! Creates JobQueueItem and corresponding JobItem.
-//! Created JobItem will be registered using unique identifier.
 JobQueueData::JobQueueData(JobModel *jobModel)
     : m_jobModel(jobModel)
 {
 
 }
 
-//! returns the thread (if exists) for given identifier
+//! Returns the thread for given identifier.
+
 QThread *JobQueueData::getThread(QString identifier)
 {
     QMap<QString, QThread *>::const_iterator it = m_threads.find(identifier);
@@ -50,19 +41,19 @@ QThread *JobQueueData::getThread(QString identifier)
     return 0;
 }
 
+//! Returns job runner for given identifier.
 
-//! returns job runner (if exists) for given identifier
-JobRunner *JobQueueData::getRunner(QString identifier)
+JobWorker *JobQueueData::getRunner(QString identifier)
 {
-    QMap<QString, JobRunner *>::const_iterator it = m_runners.find(identifier);
+    QMap<QString, JobWorker *>::const_iterator it = m_runners.find(identifier);
     if(it != m_runners.end()) {
         return it.value();
     }
     return 0;
 }
 
+//! Returns the simulation (if exists) for given identifier.
 
-//! returns the simulation (if exists) for given identifier
 GISASSimulation *JobQueueData::getSimulation(QString identifier)
 {
     QMap<QString, GISASSimulation *>::const_iterator it = m_simulations.find(identifier);
@@ -77,30 +68,8 @@ bool JobQueueData::hasUnfinishedJobs()
     return m_simulations.size();
 }
 
-//void JobQueueData::setResults(JobItem *jobItem, const GISASSimulation *simulation)
-//{
-//    if(!simulation)
-//        throw GUIHelpers::Error("NJobItem::setResults() -> Error. Null simulation.");
+//! Submits job and run it in a thread.
 
-//    jobItem->setResults(simulation);
-////    IntensityDataItem *intensityItem = jobItem->getIntensityDataItem();
-
-////    if(!intensityItem) {
-////        intensityItem = static_cast<IntensityDataItem *>(m_jobModel->insertNewItem(Constants::IntensityDataType, m_jobModel->indexOfItem(jobItem)));
-////    }
-////    intensityItem->setNameFromProposed(jobItem->itemName());
-//////    intensityItem->setOutputData(simulation->getDetectorIntensity());
-////    intensityItem->setResults(simulation);
-//}
-
-void JobQueueData::runJob(const QString &identifier)
-{
-    qDebug() << "JobQueueData::runJob(const QString &identifier)";
-    JobItem *jobItem = m_jobModel->getJobItemForIdentifier(identifier);
-    runJob(jobItem);
-}
-
-//! submit job and run it in a thread
 void JobQueueData::runJob(JobItem *jobItem)
 {
     QString identifier = jobItem->getIdentifier();
@@ -115,25 +84,23 @@ void JobQueueData::runJob(JobItem *jobItem)
     GISASSimulation *simulation(0);
     try{
         simulation = DomainSimulationBuilder::getSimulation(jobItem->getMultiLayerItem(),
-                                                            jobItem->getInstrumentItem());
+                                                            jobItem->getInstrumentItem(),
+                                                            jobItem->getSimulationOptionsItem());
     } catch(const std::exception &ex) {
-        QString message("JobQueueData::runJob() -> Error. Attempt to create sample/instrument object from user description "
+        QString message("JobQueueData::runJob() -> Error. "
+                        "Attempt to create sample/instrument object from user description "
                         "has failed with following error message.\n\n");
         message += QString::fromStdString(std::string(ex.what()));
         jobItem->setComments(message);
         jobItem->setProgress(100);
         jobItem->setStatus(Constants::STATUS_FAILED);
-        emit focusRequest(identifier);
-        emit jobIsFinished(identifier);
+        emit focusRequest(jobItem);
         return;
     }
 
-    ThreadInfo info;
-    info.n_threads = jobItem->getNumberOfThreads();
-    simulation->setThreadInfo(info);
     m_simulations[identifier] = simulation;
 
-    JobRunner *runner = new JobRunner(identifier, simulation);
+    JobWorker *runner = new JobWorker(identifier, simulation);
     m_runners[identifier] = runner;
 
     QThread *thread = new QThread();
@@ -156,79 +123,59 @@ void JobQueueData::runJob(JobItem *jobItem)
     // finished job will do all cleanup
     connect(runner, SIGNAL(finished()), this, SLOT(onFinishedJob()));
 
-    qDebug() << "JobQueueData::runInThread() starting thread";
     thread->start();
 }
 
+//! Cancels running job.
 
-//! cancels running job
 void JobQueueData::cancelJob(const QString &identifier)
 {
-    qDebug() << "JobQueueData::cancelJob()";
     if(getThread(identifier)) {
-        JobRunner *runner = getRunner(identifier);
+        JobWorker *runner = getRunner(identifier);
         runner->terminate();
-        return;
     }
-    //qDebug() << "JobQueueData::cancelJob() -> No thread is running";
 }
 
+//! Remove job from list completely.
 
-//! remove job from list completely
 void JobQueueData::removeJob(const QString &identifier)
 {
-    qDebug() << "JobQueueData::removeJob" << identifier;
     cancelJob(identifier);
     clearSimulation(identifier);
 }
 
+//! Sets JobItem properties when the job is going to start.
+
 void JobQueueData::onStartedJob()
 {
-    qDebug() << "JobQueueData::onStartedJob()";
-    JobRunner *runner = qobject_cast<JobRunner *>(sender());
+    JobWorker *runner = qobject_cast<JobWorker *>(sender());
     Q_ASSERT(runner);
     JobItem *jobItem = m_jobModel->getJobItemForIdentifier(runner->getIdentifier());
     jobItem->setProgress(0);
     jobItem->setStatus(Constants::STATUS_RUNNING);
-    QString begin_time = QDateTime::currentDateTime().toString("yyyy.MM.dd hh:mm:ss");
-    jobItem->setBeginTime(begin_time);
-    jobItem->setEndTime("");
+    jobItem->setBeginTime(GUIHelpers::currentDateTime());
+    jobItem->setEndTime(QString());
 }
+
+//! Performs necessary actions when job is finished.
 
 void JobQueueData::onFinishedJob()
 {
-    qDebug() << "JobQueueData::onFinishedJob()";
-
-    JobRunner *runner = qobject_cast<JobRunner *>(sender());
+    JobWorker *runner = qobject_cast<JobWorker *>(sender());
     Q_ASSERT(runner);
 
     JobItem *jobItem = m_jobModel->getJobItemForIdentifier(runner->getIdentifier());
 
-    QString end_time = QDateTime::currentDateTime().toString("yyyy.MM.dd hh:mm:ss");
-    jobItem->setEndTime(end_time);
+    processFinishedJob(runner, jobItem);
 
-
-    // propagating status of runner
-    jobItem->setStatus(runner->getStatus());
-    if(jobItem->isFailed()) {
-        jobItem->setComments(runner->getFailureMessage());
-    } else {
-        // propagating simulation results
-        GISASSimulation *simulation = getSimulation(runner->getIdentifier());
-        jobItem->setResults(simulation);
-    }
-
-    // I tell to the thread to exit here (instead of connecting JobRunner::finished to the QThread::quit because of strange behaviour)
+    // I tell to the thread to exit here (instead of connecting JobRunner::finished
+    // to the QThread::quit because of strange behaviour)
     getThread(runner->getIdentifier())->quit();
 
-    if(jobItem->runImmediately())
-        emit focusRequest(runner->getIdentifier());
-
-    emit jobIsFinished(runner->getIdentifier());
+    emit focusRequest(jobItem);
 
     clearSimulation(runner->getIdentifier());
     assignForDeletion(runner);
-//    qDebug() << "     JobQueueData::onFinishedJob() -> after emiting jobIsFinished(), after asigning runner for deletion";
 
     if(!hasUnfinishedJobs())
         emit globalProgress(100);
@@ -236,25 +183,24 @@ void JobQueueData::onFinishedJob()
 
 void JobQueueData::onFinishedThread()
 {
-    //qDebug() << "JobQueueData::onFinishedThread()";
     QThread *thread = qobject_cast<QThread *>(sender());
     assignForDeletion(thread);
 }
 
 void JobQueueData::onProgressUpdate()
 {
-    qDebug() << "JobQueueData::onProgressUpdate()";
-    JobRunner *runner = qobject_cast<JobRunner *>(sender());
+    JobWorker *runner = qobject_cast<JobWorker *>(sender());
     Q_ASSERT(runner);
     JobItem *jobItem = m_jobModel->getJobItemForIdentifier(runner->getIdentifier());
     jobItem->setProgress(runner->getProgress());
     updateGlobalProgress();
 }
 
-// estimates global progress from the progress of multiple running jobs
+//! Estimates global progress from the progress of multiple running jobs and
+//! emmits appropriate signal.
+
 void JobQueueData::updateGlobalProgress()
 {
-    qDebug() << "JobQueueData::updateGlobalProgress()";
     int global_progress(0);
     int nRunningJobs(0);
     QModelIndex parentIndex;
@@ -274,6 +220,8 @@ void JobQueueData::updateGlobalProgress()
     emit globalProgress(global_progress);
 }
 
+//! Cancels all running jobs.
+
 void JobQueueData::onCancelAllJobs()
 {
     QStringList keys = m_threads.keys();
@@ -283,10 +231,11 @@ void JobQueueData::onCancelAllJobs()
 }
 
 //! Removes QThread from the map of known threads, assigns it for deletion.
+
 void JobQueueData::assignForDeletion(QThread *thread)
 {
     Q_ASSERT(thread);
-    for(QMap<QString, QThread *>::iterator it=m_threads.begin(); it!=m_threads.end(); ++it) {
+    for(auto it=m_threads.begin(); it!=m_threads.end(); ++it) {
         if(it.value() == thread) {
             thread->deleteLater();
             m_threads.erase(it);
@@ -297,14 +246,13 @@ void JobQueueData::assignForDeletion(QThread *thread)
 }
 
 //! Removes JobRunner from the map of known runners, assigns it for deletion.
-void JobQueueData::assignForDeletion(JobRunner *runner)
+
+void JobQueueData::assignForDeletion(JobWorker *runner)
 {
-    qDebug() << "JobQueueData::assignForDeletion(JobRunner)";
     Q_ASSERT(runner);
     runner->disconnect();
-    for(QMap<QString, JobRunner *>::iterator it=m_runners.begin(); it!=m_runners.end(); ++it) {
+    for(auto it=m_runners.begin(); it!=m_runners.end(); ++it) {
         if(it.value() == runner) {
-            qDebug() << "       JobQueueData::assignForDeletion(JobRunner) -> deleting runner";
             runner->deleteLater();
             m_runners.erase(it);
             return;
@@ -318,4 +266,26 @@ void JobQueueData::clearSimulation(const QString &identifier)
     GISASSimulation *simulation = getSimulation(identifier);
     m_simulations.remove(identifier);
     delete simulation;
+}
+
+//! Set all data of finished job
+
+void JobQueueData::processFinishedJob(JobWorker *runner, JobItem *jobItem)
+{
+    jobItem->setEndTime(GUIHelpers::currentDateTime());
+    jobItem->setDuration(runner->getSimulationDuration());
+
+    // propagating status of runner
+    jobItem->setStatus(runner->getStatus());
+    if(jobItem->isFailed()) {
+        jobItem->setComments(runner->getFailureMessage());
+    } else {
+        // propagating simulation results
+        GISASSimulation *simulation = getSimulation(runner->getIdentifier());
+        jobItem->setResults(simulation);
+    }
+
+    // fixing job progress (if job was successfull, but due to wrong estimation, progress not 100%)
+    if(jobItem->isCompleted())
+        jobItem->setProgress(100);
 }

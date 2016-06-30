@@ -2,14 +2,15 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/IntensityDataWidgets/SavePlotAssistant.h
-//! @brief     Defines class SavePlotAssistant
+//! @file      GUI/coregui/Views/IntensityDataWidgets/SavePlotAssistant.h
+//! @brief     Declares class SavePlotAssistant
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
@@ -20,7 +21,7 @@
 #include <QString>
 #include <QVector>
 
-class ColorMapPlot;
+class QCustomPlot;
 class IntensityDataItem;
 
 //! Assistant class which contains all logic for saving IntensityData to various formats
@@ -37,10 +38,10 @@ public:
         QString m_filter;
     };
 
-    void savePlot(const QString &dirname, ColorMapPlot *plot, IntensityDataItem *item);
+    void savePlot(const QString &dirname, QCustomPlot *plot, IntensityDataItem *item);
 
 private:
-    void saveToFile(const QString &dirname, ColorMapPlot *plot, IntensityDataItem *item);
+    void saveToFile(const QString &dirname, QCustomPlot *plot, IntensityDataItem *item);
     QString getFilterString() const;
     QString composeFileName(const QString &fileName, const QString &filterName) const;
     bool isValidExtension(const QString &fileName) const;

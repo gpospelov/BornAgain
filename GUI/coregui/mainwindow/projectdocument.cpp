@@ -2,18 +2,21 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/mainwindow/projectdocument.cpp
+//! @file      GUI/coregui/mainwindow/projectdocument.cpp
 //! @brief     Implements class ProjectDocument
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
 #include "projectdocument.h"
+#include "ApplicationModels.h"
+#include "DocumentModel.h"
 #include "MaterialModel.h"
 #include "InstrumentModel.h"
 #include "JobQueueData.h"
@@ -26,7 +29,8 @@
 #include "WarningMessageService.h"
 #include "MessageContainer.h"
 #include "GUIHelpers.h"
-#include "JobResultsPresenter.h"
+#include "JobItemHelper.h"
+#include "GUIHelpers.h"
 #include <QFile>
 #include <QTextStream>
 #include <QFileInfo>
@@ -40,17 +44,18 @@ namespace {
 const QString OPEN_FILE_ERROR = "OPEN_FILE_ERROR";
 const QString EXCEPTION_THROW = "EXCEPTION_THROW";
 const QString XML_FORMAT_ERROR = "XML_FORMAT_ERROR";
+const QString minimal_supported_version = "1.6.0";
 }
 
 ProjectDocument::ProjectDocument()
-    : m_materialModel(0), m_instrumentModel(0), m_sampleModel(0), m_jobModel(0)
+    : m_applicationModels(0)
     , m_modified(false), m_documentStatus(STATUS_OK), m_messageService(0)
 {
     setObjectName("ProjectDocument");
 }
 
 ProjectDocument::ProjectDocument(const QString &projectFileName)
-    : m_materialModel(0), m_instrumentModel(0), m_sampleModel(0), m_jobModel(0)
+    : m_applicationModels(0)
     , m_modified(false), m_documentStatus(STATUS_OK), m_messageService(0)
 {
     setObjectName("ProjectDocument");
@@ -96,45 +101,19 @@ QString ProjectDocument::getProjectFileExtension()
     return QString(".pro");
 }
 
-void ProjectDocument::setMaterialModel(MaterialModel *materialModel)
+void ProjectDocument::setApplicationModels(ApplicationModels *applicationModels)
 {
-    if (materialModel != m_materialModel) {
-        disconnectModel(m_materialModel);
-        m_materialModel = materialModel;
-        connectModel(m_materialModel);
-    }
-}
-
-void ProjectDocument::setInstrumentModel(InstrumentModel *instrumentModel)
-{
-    if (instrumentModel != m_instrumentModel) {
-        disconnectModel(m_instrumentModel);
-        m_instrumentModel = instrumentModel;
-        connectModel(m_instrumentModel);
-    }
-}
-
-void ProjectDocument::setSampleModel(SampleModel *sampleModel)
-{
-    if (sampleModel != m_sampleModel) {
-        disconnectModel(m_sampleModel);
-        m_sampleModel = sampleModel;
-        connectModel(m_sampleModel);
-    }
-}
-
-void ProjectDocument::setJobModel(JobModel *jobModel)
-{
-    if (jobModel != m_jobModel) {
-        disconnectModel(m_jobModel);
-        m_jobModel = jobModel;
-        connectModel(m_jobModel);
+    if (applicationModels != m_applicationModels) {
+        disconnectModels();
+        m_applicationModels = applicationModels;
+        connectModels();
     }
 }
 
 bool ProjectDocument::save()
 {
-    reviseOutputData();
+    cleanProjectDir();
+//    reviseOutputData();
     QString filename = getProjectFileName();
 
     QFile file(filename);
@@ -144,9 +123,7 @@ bool ProjectDocument::save()
     }
     writeTo(&file);
     file.close();
-
-    // saving of non-xml data
-    saveOutputData();
+    m_applicationModels->saveNonXMLData(getProjectDir());
 
     m_modified = false;
     emit modified();
@@ -169,11 +146,11 @@ bool ProjectDocument::load(const QString &project_file_name)
 
     try {
         // loading project file
+        disconnectModels();
         readFrom(&file);
         file.close();
-
-        // loading accompanying non-xml data
-        loadOutputData();
+        m_applicationModels->loadNonXMLData(getProjectDir());
+        connectModels();
 
     } catch (const std::exception &ex) {
         m_documentStatus = EDocumentStatus(m_documentStatus | STATUS_FAILED);
@@ -223,23 +200,10 @@ QString ProjectDocument::getDocumentVersion() const
 {
     QString result(m_currentVersion);
     if(result.isEmpty()) result = GUIHelpers::getBornAgainVersionString();
-    return QString("1.2.0");
     return result;
 }
 
-void ProjectDocument::onDataChanged(const QModelIndex &, const QModelIndex &)
-{
-    m_modified = true;
-    emit modified();
-}
-
-void ProjectDocument::onJobModelChanged(const QString &)
-{
-    m_modified = true;
-    emit modified();
-}
-
-void ProjectDocument::onRowsChanged(const QModelIndex &, int , int )
+void ProjectDocument::onModelChanged()
 {
     m_modified = true;
     emit modified();
@@ -247,11 +211,6 @@ void ProjectDocument::onRowsChanged(const QModelIndex &, int , int )
 
 void ProjectDocument::readFrom(QIODevice *device)
 {
-    disconnectModel(m_materialModel);
-    disconnectModel(m_instrumentModel);
-    disconnectModel(m_sampleModel);
-    disconnectModel(m_jobModel);
-
     QXmlStreamReader reader(device);
 
     while (!reader.atEnd()) {
@@ -261,21 +220,26 @@ void ProjectDocument::readFrom(QIODevice *device)
                 m_currentVersion = reader.attributes()
                                             .value(ProjectDocumentXML::BornAgainVersionAttribute)
                                             .toString();
-            } else if (reader.name() == ProjectDocumentXML::InfoTag) {
-                //
-            } else if (reader.name() == SessionXML::MaterialModelTag) {
-                readModel(m_materialModel, &reader);
-
-            } else if (reader.name() == SessionXML::InstrumentModelTag) {
-                readModel(m_instrumentModel, &reader);
-
-            } else if (reader.name() == SessionXML::SampleModelTag) {
-                readModel(m_sampleModel, &reader);
-
-            } else if (reader.name() == SessionXML::JobModelTag) {
-                readModel(m_jobModel, &reader);
+                if(!GUIHelpers::isVersionMatchMinimal(m_currentVersion, minimal_supported_version)) {
+                    m_documentStatus = EDocumentStatus(m_documentStatus | STATUS_FAILED);
+                    QString message = QString("Can't open document version '%1', "
+                        "minimal supported version '%2'").arg(m_currentVersion)
+                            .arg(minimal_supported_version);
+                    m_messageService->send_message(this, OPEN_FILE_ERROR, message);
+                    return;
+                }
 
             }
+
+            else if (reader.name() == ProjectDocumentXML::InfoTag) {
+                //
+            } else {
+                m_applicationModels->readFrom(&reader, m_messageService);
+                if(m_messageService->hasWarnings(m_applicationModels)) {
+                    m_documentStatus = EDocumentStatus(m_documentStatus|STATUS_WARNING);
+                }
+            }
+
         }
     }
 
@@ -284,11 +248,6 @@ void ProjectDocument::readFrom(QIODevice *device)
         m_messageService->send_message(this, XML_FORMAT_ERROR, reader.errorString());
         return;
     }
-
-    connectModel(m_materialModel);
-    connectModel(m_instrumentModel);
-    connectModel(m_sampleModel);
-    connectModel(m_jobModel);
 }
 
 void ProjectDocument::writeTo(QIODevice *device)
@@ -304,89 +263,39 @@ void ProjectDocument::writeTo(QIODevice *device)
     writer.writeAttribute(ProjectDocumentXML::InfoNameAttribute, getProjectName());
     writer.writeEndElement(); // InfoTag
 
-    m_materialModel->writeTo(&writer);
-    m_instrumentModel->writeTo(&writer);
-    m_sampleModel->writeTo(&writer);
-    m_jobModel->writeTo(&writer);
+    m_applicationModels->writeTo(&writer);
 
     writer.writeEndElement(); // BornAgain tag
     writer.writeEndDocument();
 }
 
-void ProjectDocument::readModel(SessionModel *model, QXmlStreamReader *reader)
+//! Cleans projectDir from *.int.gz files. Done on project save.
+
+void ProjectDocument::cleanProjectDir()
 {
-    model->setMessageService(m_messageService);
-
-    model->readFrom(reader);
-
-    if(m_messageService->hasWarnings(model)) {
-        m_documentStatus = EDocumentStatus(m_documentStatus|STATUS_WARNING);
-    }
-    model->setMessageService(0);
-}
-
-//! Adjusts name of IntensityData item to possibly changed name of JobItem. Take care of old
-//! *.int files in project directory by removing them.
-void ProjectDocument::reviseOutputData()
-{
-    for (int i = 0; i < m_jobModel->rowCount(QModelIndex()); ++i) {
-        JobItem *jobItem = m_jobModel->getJobItemForIndex(m_jobModel->index(i, 0, QModelIndex()));
-        IntensityDataItem *dataItem = jobItem->getIntensityDataItem();
-        if (dataItem) {
-            // handling case when user has renamed jobItem and we have to clean previous
-            // *.int file
-            QString filename = getProjectDir() + "/" + dataItem->itemName();
-            QFile fin(filename);
-            if (fin.exists()) {
-                fin.remove();
-            }
-
-            // making new name of *.int file from jobItem name
-            dataItem->setNameFromProposed(jobItem->itemName());
-        }
+    QDir dir(getProjectDir());
+    QStringList filters("*.int.gz");
+    QStringList intensityFiles = dir.entryList(filters);
+    foreach(QString fileName, intensityFiles) {
+        QString filename = getProjectDir() + QStringLiteral("/") + fileName;
+        QFile fin(filename);
+        if (fin.exists())
+            fin.remove();
     }
 }
 
-//! saves OutputData into project directory
-void ProjectDocument::saveOutputData()
+void ProjectDocument::disconnectModels()
 {
-    Q_ASSERT(m_jobModel);
-    for (int i = 0; i < m_jobModel->rowCount(QModelIndex()); ++i) {
-        JobItem *jobItem = m_jobModel->getJobItemForIndex(m_jobModel->index(i, 0, QModelIndex()));
-        JobResultsPresenter::saveIntensityData(jobItem, getProjectDir());
+    if(m_applicationModels) {
+        disconnect(m_applicationModels, SIGNAL(modelChanged()), this,
+                   SLOT(onModelChanged()));
     }
 }
 
-//! load OutputData from project directory
-void ProjectDocument::loadOutputData()
+void ProjectDocument::connectModels()
 {
-    for (int i = 0; i < m_jobModel->rowCount(QModelIndex()); ++i) {
-        JobItem *jobItem = m_jobModel->getJobItemForIndex(m_jobModel->index(i, 0, QModelIndex()));
-        JobResultsPresenter::loadIntensityData(jobItem, getProjectDir());
+    if(m_applicationModels) {
+        connect(m_applicationModels, SIGNAL(modelChanged()), this,
+                   SLOT(onModelChanged()), Qt::UniqueConnection);
     }
 }
-
-void ProjectDocument::disconnectModel(SessionModel *model)
-{
-    if(model) {
-        disconnect(model, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this,
-                   SLOT(onDataChanged(QModelIndex, QModelIndex)));
-        disconnect(model, SIGNAL(rowsRemoved(QModelIndex, int, int)), this,
-                   SLOT(onRowsChanged(QModelIndex, int, int)));
-        disconnect(model, SIGNAL(rowsInserted(QModelIndex, int,int)), this,
-                   SLOT(onRowsChanged(QModelIndex, int,int)));
-    }
-}
-
-void ProjectDocument::connectModel(SessionModel *model)
-{
-    if(model) {
-        connect(model, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this,
-                   SLOT(onDataChanged(QModelIndex, QModelIndex)));
-        connect(model, SIGNAL(rowsRemoved(QModelIndex, int, int)), this,
-                   SLOT(onRowsChanged(QModelIndex, int, int)));
-        connect(model, SIGNAL(rowsInserted(QModelIndex, int,int)), this,
-                   SLOT(onRowsChanged(QModelIndex, int,int)));
-    }
-}
-

@@ -2,25 +2,26 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/InstrumentWidgets/BeamEditorWidget.cpp
+//! @file      GUI/coregui/Views/InstrumentWidgets/BeamEditorWidget.cpp
 //! @brief     Implements class BeamEditorWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
 #include "BeamEditorWidget.h"
-#include "UniversalPropertyEditor.h"
-#include "AwesomePropertyEditor.h"
-#include "AwesomePropertyPresenter.h"
+#include "ComponentBoxEditor.h"
 #include "BeamItem.h"
 #include "LayerItem.h"
-#include "GroupBox.h"
+#include "GroupInfoBox.h"
 #include "GUIHelpers.h"
+#include "ComponentInfoBox.h"
+#include "BeamDistributionItem.h"
 #include <QGroupBox>
 #include <QVBoxLayout>
 #include <QLabel>
@@ -37,8 +38,13 @@ namespace
 }
 
 BeamEditorWidget::BeamEditorWidget(QWidget *parent)
-    : QWidget(parent), m_intensityEditor(0), m_wavelengthPresenter(0),
-      m_inclinationAnglePresenter(0), m_azimuthalAnglePresenter(0), m_gridLayout(0), m_beamItem(0)
+    : QWidget(parent)
+    , m_intensityEditor(0)
+    , m_wavelengthPresenter(0)
+    , m_inclinationAnglePresenter(0)
+    , m_azimuthalAnglePresenter(0)
+    , m_gridLayout(0)
+    , m_beamItem(0)
 {
     setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
 
@@ -50,24 +56,25 @@ BeamEditorWidget::BeamEditorWidget(QWidget *parent)
     // whole content is represented as grid layout
     m_gridLayout = new QGridLayout;
 
-    m_intensityEditor
-        = new AwesomePropertyEditor(this, AwesomePropertyEditor::BROWSER_GROUPBOX_TYPE);
+    m_intensityEditor = new ComponentBoxEditor;
+
+
     m_gridLayout->addWidget(m_intensityEditor, 0, 0);
 
-    m_wavelengthPresenter = new AwesomePropertyPresenter(name_of_groupbox_wavenlength, this);
+    m_wavelengthPresenter = new ComponentInfoBox(name_of_groupbox_wavenlength);
     m_gridLayout->addWidget(m_wavelengthPresenter, 1, 0);
-    connect(m_wavelengthPresenter, SIGNAL(onDialogRequest(ParameterizedItem*, QString)), this,
-            SLOT(onDialogRequest(ParameterizedItem*, QString)));
+    connect(m_wavelengthPresenter, SIGNAL(onDialogRequest(SessionItem*, QString)), this,
+            SLOT(onDialogRequest(SessionItem*, QString)));
 
-    m_inclinationAnglePresenter = new AwesomePropertyPresenter(name_of_groupbox_inclination, this);
+    m_inclinationAnglePresenter = new ComponentInfoBox(name_of_groupbox_inclination, this);
     m_gridLayout->addWidget(m_inclinationAnglePresenter, 1, 1);
-    connect(m_inclinationAnglePresenter, SIGNAL(onDialogRequest(ParameterizedItem*, QString)),
-            this, SLOT(onDialogRequest(ParameterizedItem*, QString)));
+    connect(m_inclinationAnglePresenter, SIGNAL(onDialogRequest(SessionItem*, QString)),
+            this, SLOT(onDialogRequest(SessionItem*, QString)));
 
-    m_azimuthalAnglePresenter = new AwesomePropertyPresenter(name_of_groupbox_azimuthal, this);
+    m_azimuthalAnglePresenter = new ComponentInfoBox(name_of_groupbox_azimuthal, this);
     m_gridLayout->addWidget(m_azimuthalAnglePresenter, 1, 2);
-    connect(m_azimuthalAnglePresenter, SIGNAL(onDialogRequest(ParameterizedItem*, QString)),
-            this, SLOT(onDialogRequest(ParameterizedItem*, QString)));
+    connect(m_azimuthalAnglePresenter, SIGNAL(onDialogRequest(SessionItem*, QString)),
+            this, SLOT(onDialogRequest(SessionItem*, QString)));
 
     groupLayout->addLayout(m_gridLayout);
 
@@ -89,20 +96,20 @@ void BeamEditorWidget::setBeamItem(BeamItem *beamItem)
     if (!m_beamItem)
         return;
 
-    m_intensityEditor->addItemProperty(m_beamItem, BeamItem::P_INTENSITY);
+    m_intensityEditor->addItem(m_beamItem->getItem(BeamItem::P_INTENSITY));
 
-    ParameterizedItem *wavelengthItem = m_beamItem->getSubItems()[BeamItem::P_WAVELENGTH];
-    m_wavelengthPresenter->setItem(wavelengthItem);
+    SessionItem *wavelengthItem = m_beamItem->getItem(BeamItem::P_WAVELENGTH);
+    m_wavelengthPresenter->addPropertyItems(wavelengthItem->getItem(BeamDistributionItem::P_DISTRIBUTION));
 
-    ParameterizedItem *inclinationAngleItem
-            = m_beamItem->getSubItems()[BeamItem::P_INCLINATION_ANGLE];
-    m_inclinationAnglePresenter->setItem(inclinationAngleItem);
+    SessionItem *inclinationAngleItem
+            = m_beamItem->getItem(BeamItem::P_INCLINATION_ANGLE);
+    m_inclinationAnglePresenter->addPropertyItems(inclinationAngleItem->getItem(BeamDistributionItem::P_DISTRIBUTION));
 
-    ParameterizedItem *azimuthalAngleItem = m_beamItem->getSubItems()[BeamItem::P_AZIMUTHAL_ANGLE];
-    m_azimuthalAnglePresenter->setItem(azimuthalAngleItem);
+    SessionItem *azimuthalAngleItem = m_beamItem->getItem(BeamItem::P_AZIMUTHAL_ANGLE);
+    m_azimuthalAnglePresenter->addPropertyItems(azimuthalAngleItem->getItem(BeamDistributionItem::P_DISTRIBUTION));
 }
 
-void BeamEditorWidget::onDialogRequest(ParameterizedItem *item, QString name)
+void BeamEditorWidget::onDialogRequest(SessionItem *item, QString name)
 {
     DistributionDialog *dialog = new DistributionDialog(this);
     dialog->setItem(item);

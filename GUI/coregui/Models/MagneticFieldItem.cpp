@@ -2,14 +2,15 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/MagneticFieldItem.cpp
+//! @file      GUI/coregui/Models/MagneticFieldItem.cpp
 //! @brief     Implements class MagneticFieldItem
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
@@ -19,17 +20,17 @@ const QString MagneticFieldItem::P_BX = "Bx";
 const QString MagneticFieldItem::P_BY = "By";
 const QString MagneticFieldItem::P_BZ = "Bz";
 
-MagneticFieldItem::MagneticFieldItem(ParameterizedItem *parent)
-    : ParameterizedItem(Constants::MagneticFieldType, parent)
+MagneticFieldItem::MagneticFieldItem()
+    : SessionItem(Constants::MagneticFieldType)
 {
-    registerProperty(P_BX, 0.0);
-    registerProperty(P_BY, 0.0);
-    registerProperty(P_BZ, 0.0);
+    addProperty(P_BX, 0.0);
+    addProperty(P_BY, 0.0);
+    addProperty(P_BZ, 0.0);
 }
 
 QString MagneticFieldItem::itemLabel() const
 {
-    return QString("(%1, %2, %3)").arg(getRegisteredProperty(P_BX).toDouble())
-                                  .arg(getRegisteredProperty(P_BY).toDouble())
-                                  .arg(getRegisteredProperty(P_BZ).toDouble());
+    return QString("(%1, %2, %3)").arg(getItemValue(P_BX).toDouble())
+                                  .arg(getItemValue(P_BY).toDouble())
+                                  .arg(getItemValue(P_BZ).toDouble());
 }

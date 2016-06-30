@@ -2,25 +2,25 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/SampleDesigner/NodeEditorPort.cpp
+//! @file      GUI/coregui/Views/SampleDesigner/NodeEditorPort.cpp
 //! @brief     Implements class NodeEditorPort
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
 #include "NodeEditorPort.h"
 #include "NodeEditorConnection.h"
-
 #include <QGraphicsScene>
 #include <QFontMetrics>
 #include <QPen>
 #include <QPainter>
-#include <iostream>
+#include <QDebug>
 
 NodeEditorPort::NodeEditorPort(QGraphicsItem *parent, const QString &name,
                                NodeEditorPort::EPortDirection direction,
@@ -56,7 +56,8 @@ NodeEditorPort::NodeEditorPort(QGraphicsItem *parent, const QString &name,
 
 NodeEditorPort::~NodeEditorPort()
 {
-    foreach (NodeEditorConnection *conn, m_connections) {
+    QVector<NodeEditorConnection *> connections = m_connections;
+    foreach (NodeEditorConnection *conn, connections) {
         conn->setSelected(false);
         delete conn;
     }
@@ -72,9 +73,15 @@ bool NodeEditorPort::isInput()
     return !isOutput();
 }
 
-QVector<NodeEditorConnection *> &NodeEditorPort::connections()
+void NodeEditorPort::remove(NodeEditorConnection *connection)
 {
-    return m_connections;
+    if(m_connections.contains(connection))
+        m_connections.remove(m_connections.indexOf(connection));
+}
+
+void NodeEditorPort::append(NodeEditorConnection *connection)
+{
+   m_connections.append(connection);
 }
 
 bool NodeEditorPort::isConnected(NodeEditorPort *other)

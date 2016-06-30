@@ -2,14 +2,15 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/InstrumentItem.cpp
+//! @file      GUI/coregui/Models/InstrumentItem.cpp
 //! @brief     Implements class InstrumentItem
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
@@ -17,17 +18,18 @@
 #include "DetectorItems.h"
 #include "BeamItem.h"
 
-InstrumentItem::InstrumentItem(ParameterizedItem *parent)
-    : ParameterizedItem(Constants::InstrumentType, parent)
+InstrumentItem::InstrumentItem()
+    : SessionItem(Constants::InstrumentType)
 {
-    registerProperty(P_NAME, Constants::InstrumentType);
-    addToValidChildren(Constants::BeamType);
-    addToValidChildren(Constants::DetectorType);
+    setItemName(Constants::InstrumentType);
+    const QString T_DATA = "Data tag";
+    registerTag(T_DATA, 0, -1, QStringList() << Constants::BeamType << Constants::DetectorType);
+    setDefaultTag(T_DATA);
 }
 
-BeamItem *InstrumentItem::getBeamItem()
+BeamItem *InstrumentItem::getBeamItem() const
 {
-    for(ParameterizedItem *item : childItems()) {
+    for(SessionItem *item : childItems()) {
         if(item->modelType() == Constants::BeamType) {
             return dynamic_cast<BeamItem *>(item);
         }
@@ -35,9 +37,9 @@ BeamItem *InstrumentItem::getBeamItem()
     return 0;
 }
 
-DetectorItem *InstrumentItem::getDetectorItem()
+DetectorItem *InstrumentItem::getDetectorItem() const
 {
-    for(ParameterizedItem *item : childItems()) {
+    for(SessionItem *item : childItems()) {
         if(item->modelType() == Constants::DetectorType) {
             return dynamic_cast<DetectorItem *>(item);
         }

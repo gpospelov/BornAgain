@@ -2,14 +2,15 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/JobView.h
-//! @brief     Defines class JobView
+//! @file      GUI/coregui/Views/JobView.h
+//! @brief     Declares class JobView
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
@@ -19,44 +20,46 @@
 #include "WinDllMacros.h"
 #include "fancymainwindow.h"
 
-struct JobViewPrivate;
-class JobModel;
-class JobItem;
-class ProjectManager;
+class MainWindow;
+class JobViewDocks;
+class JobActivityStatusBar;
+class JobProgressAssistant;
 
-namespace Manhattan {
-    class ProgressBar;
-}
+//! The JobView class is a main view to show list of jobs, job results and widgets for real time
+//! and fitting activities.
 
-//! Main class to represent list of jobs, show job results and run real time simulation
 class BA_CORE_API_ JobView : public Manhattan::FancyMainWindow
 {
     Q_OBJECT
 
 public:
-    enum ESubWindows { JOB_LIST_DOCK, REAL_TIME_DOCK, NUMBER_OF_DOCKS };
-    enum EActivities { JOB_VIEW_ACTIVITY, REAL_TIME_ACTIVITY };
-
-    JobView(JobModel *jobModel, ProjectManager *projectManager, QWidget *parent = 0);
-    virtual ~JobView();
-
-    void setProgressBar(Manhattan::ProgressBar *progressBar);
+    JobView(MainWindow *mainWindow);
 
 signals:
     void focusRequest(int);
     void activityChanged(int activity);
 
 public slots:
-    void updateGlobalProgressBar(int);
-    void onFocusRequest(JobItem *);
-    void resetToDefaultLayout();
+    void onFocusRequest(class JobItem *jobItem);
     void setActivity(int activity);
+    void onDockMenuRequest();
+    void onSelectionChanged(class JobItem *jobItem);
+
+protected:
+    virtual void showEvent(QShowEvent *);
+    virtual void hideEvent(QHideEvent *);
 
 private:
-    void initWindows();
     void connectSignals();
+    void connectActivityRelated();
+    void connectLayoutRelated();
+    void connectJobRelated();
 
-    JobViewPrivate *m_d;
+    JobViewDocks *m_docks;
+    JobActivityStatusBar *m_jobActivityStatusBar;
+    JobProgressAssistant *m_progressAssistant;
+    JobItem *m_currentItem;
+    MainWindow *m_mainWindow;
 };
 
 #endif

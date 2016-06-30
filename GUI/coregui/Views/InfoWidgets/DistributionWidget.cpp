@@ -2,14 +2,15 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/InfoWidgets/DistributionWidget.cpp
+//! @file      GUI/coregui/Views/InfoWidgets/DistributionWidget.cpp
 //! @brief     Implements class DistributionWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
@@ -68,19 +69,28 @@ DistributionWidget::DistributionWidget(QWidget *parent)
 
 void DistributionWidget::setItem(DistributionItem *item)
 {
-    if (m_item == item)
+    if (m_item == item) {
         return;
-    if (m_item) {
 
-        disconnect();
+    } else {
+        if (m_item) {
+            disconnect();
+            m_item->mapper()->unsubscribe(this);
+        }
+
+        m_item = item;
+        if (!m_item) return;
+
+        plotItem();
+
+        m_item->mapper()->setOnPropertyChange(
+                    [this](QString)
+        {
+            plotItem();
+        }, this);
+
     }
-    m_item = item;
 
-    if (!m_item)
-        return;
-
-    plotItem();
-    connect(m_item, SIGNAL(propertyChanged(QString)), this, SLOT(onPropertyChanged()));
 }
 
 void DistributionWidget::plotItem()
@@ -125,9 +135,9 @@ void DistributionWidget::plotItem()
 
     if (m_item->itemName() != Constants::DistributionNoneType && !exceptionThrown) {
         int numberOfSamples
-            = m_item->getRegisteredProperty(DistributionItem::P_NUMBER_OF_SAMPLES).toInt();
+            = m_item->getItemValue(DistributionItem::P_NUMBER_OF_SAMPLES).toInt();
         double sigmafactor
-            = m_item->getRegisteredProperty(DistributionItem::P_SIGMA_FACTOR).toDouble();
+            = m_item->getItemValue(DistributionItem::P_SIGMA_FACTOR).toDouble();
 
         QVector<double> xBar;
         QVector<double> x;
@@ -166,7 +176,7 @@ void DistributionWidget::plotItem()
     } else if(!exceptionThrown) {
         QVector<double> xPos;
         QVector<double> yPos;
-        xPos.push_back(m_item->getRegisteredProperty(DistributionNoneItem::P_VALUE).toDouble());
+        xPos.push_back(m_item->getItemValue(DistributionNoneItem::P_VALUE).toDouble());
         yPos.push_back(1);
         QCPBars *bars = new QCPBars(m_plot->xAxis, m_plot->yAxis);
         bars->setWidth(gap_between_bars);
@@ -180,11 +190,6 @@ void DistributionWidget::plotItem()
     }
     m_plot->replot();
     connect(m_plot, SIGNAL(mouseMove(QMouseEvent *)), this, SLOT(onMouseMove(QMouseEvent *)));
-}
-
-void DistributionWidget::onPropertyChanged()
-{
-    plotItem();
 }
 
 double DistributionWidget::getWidthOfBars(double min, double max, int samples)

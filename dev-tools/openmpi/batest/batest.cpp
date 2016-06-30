@@ -1,5 +1,5 @@
 #include <iostream>
-#include "SimulationRegistry.h"
+#include "SimulationFactory.h"
 #include "OutputDataFunctions.h"
 #include <mpi.h>
 
@@ -10,7 +10,7 @@ int main(int argc, char **argv)
 
     std::cout << "Hello World" << std::endl;
 
-    SimulationRegistry sim_registry;
+    SimulationFactory sim_registry;
     GISASSimulation *simulation = sim_registry.createSimulation("isgisaxs01");
 
     simulation->runOMPISimulation();

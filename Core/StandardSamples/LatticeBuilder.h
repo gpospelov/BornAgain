@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      StandardSamples/LatticeBuilder.h
-//! @brief     Defines classes of LatticeBuilder family.
+//! @file      Core/StandardSamples/LatticeBuilder.h
+//! @brief     Declares classes of LatticeBuilder family.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -27,7 +27,7 @@ class BA_CORE_API_ Lattice1DBuilder : public ISampleBuilder
 {
 public:
     Lattice1DBuilder();
-    ISample *buildSample() const;
+    ISample* buildSample() const;
 
 protected:
     void init_parameters();

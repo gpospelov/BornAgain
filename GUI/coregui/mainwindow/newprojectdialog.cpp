@@ -2,14 +2,15 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/mainwindow/newprojectdialog.cpp
+//! @file      GUI/coregui/mainwindow/newprojectdialog.cpp
 //! @brief     Implements class NewProjectDialog
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
@@ -127,7 +128,7 @@ void NewProjectDialog::onBrowseDirectory()
     }
 }
 
-//! checks if ProjectPath is valid. Corresponding directory should exists.
+//! Returns true if ProjectPath is valid. Corresponding directory should exists.
 void NewProjectDialog::checkIfProjectPathIsValid(const QString &dirname)
 {
     if (QFile::exists(dirname)) {
@@ -139,7 +140,7 @@ void NewProjectDialog::checkIfProjectPathIsValid(const QString &dirname)
     updateWarningStatus();
 }
 
-//! checks if project name is valid. There should not be the directory with such
+//! Returns true if project name is valid. There should not be the directory with such
 //! name in ProjectPath
 void NewProjectDialog::checkIfProjectNameIsValid(const QString &projectName)
 {

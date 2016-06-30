@@ -5,7 +5,7 @@ from ROOT to our source tree.
 import os
 import filecmp
 
-ROOT_SOURCE = "/home/pospelov/software/root/root-6.04.02.source"
+ROOT_SOURCE = "/home/pospelov/software/root/root_v6.06.02.source"
 BORNAGAIN_SOURCE = "/home/pospelov/development/BornAgain/BornAgain/ThirdParty/RootMinimizers"
 
 

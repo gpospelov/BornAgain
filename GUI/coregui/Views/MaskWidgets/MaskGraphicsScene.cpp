@@ -2,14 +2,15 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/MaskWidgets/MaskGraphicsScene.cpp
+//! @file      GUI/coregui/Views/MaskWidgets/MaskGraphicsScene.cpp
 //! @brief     Implements class MaskGraphicsScene
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
@@ -17,7 +18,7 @@
 #include "SessionModel.h"
 #include "IntensityDataItem.h"
 #include "MaskGraphicsProxy.h"
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 #include "IMaskView.h"
 #include "ISceneAdaptor.h"
 #include "ColorMapSceneAdaptor.h"
@@ -235,7 +236,7 @@ void MaskGraphicsScene::onSessionSelectionChanged(const QItemSelection & /* sele
 
     m_block_selection = true;
 
-    for (QMap<ParameterizedItem *, IMaskView *>::iterator it = m_ItemToView.begin();
+    for (QMap<SessionItem *, IMaskView *>::iterator it = m_ItemToView.begin();
          it != m_ItemToView.end(); ++it) {
         QModelIndex index = m_maskModel->indexOfItem(it.key());
         if (index.isValid()) {
@@ -262,7 +263,7 @@ void MaskGraphicsScene::onSceneSelectionChanged()
     for (int i = 0; i < selected.size(); ++i) {
         IMaskView *view = dynamic_cast<IMaskView *>(selected[i]);
         if (view) {
-            ParameterizedItem *maskItem = view->getParameterizedItem();
+            SessionItem *maskItem = view->getParameterizedItem();
             QModelIndex itemIndex = m_maskModel->indexOfItem(maskItem);
             Q_ASSERT(itemIndex.isValid());
             if (!m_selectionModel->isSelected(itemIndex))
@@ -411,7 +412,12 @@ void MaskGraphicsScene::updateViews(const QModelIndex &parentIndex, IMaskView *p
     IMaskView *childView(0);
     for (int i_row = 0; i_row < m_maskModel->rowCount(parentIndex); ++i_row) {
         QModelIndex itemIndex = m_maskModel->index(i_row, 0, parentIndex);
-        if (ParameterizedItem *item = m_maskModel->itemForIndex(itemIndex)) {
+        if (SessionItem *item = m_maskModel->itemForIndex(itemIndex)) {
+
+            if (item && (item->modelType() == Constants::GroupItemType || item->modelType() == Constants::PropertyType)) {
+                continue;
+            }
+
             childView = addViewForItem(item);
             if (childView) {
                 if (parentView) {
@@ -426,7 +432,7 @@ void MaskGraphicsScene::updateViews(const QModelIndex &parentIndex, IMaskView *p
     }
 }
 
-IMaskView *MaskGraphicsScene::addViewForItem(ParameterizedItem *item)
+IMaskView *MaskGraphicsScene::addViewForItem(SessionItem *item)
 {
     Q_ASSERT(item);
     IMaskView *view = m_ItemToView[item];
@@ -446,7 +452,7 @@ void MaskGraphicsScene::deleteViews(const QModelIndex &parentIndex)
 {
     for (int i_row = 0; i_row < m_maskModel->rowCount(parentIndex); ++i_row) {
         QModelIndex itemIndex = m_maskModel->index(i_row, 0, parentIndex);
-        if (ParameterizedItem *item = m_maskModel->itemForIndex(itemIndex)) {
+        if (SessionItem *item = m_maskModel->itemForIndex(itemIndex)) {
             removeItemViewFromScene(item);
         }
         deleteViews(itemIndex);
@@ -455,9 +461,9 @@ void MaskGraphicsScene::deleteViews(const QModelIndex &parentIndex)
 }
 
 //! removes single view from scene
-void MaskGraphicsScene::removeItemViewFromScene(ParameterizedItem *item)
+void MaskGraphicsScene::removeItemViewFromScene(SessionItem *item)
 {
-    for (QMap<ParameterizedItem *, IMaskView *>::iterator it = m_ItemToView.begin();
+    for (QMap<SessionItem *, IMaskView *>::iterator it = m_ItemToView.begin();
          it != m_ItemToView.end(); ++it) {
         if (it.key() == item) {
             IMaskView *view = it.value();
@@ -525,7 +531,7 @@ bool MaskGraphicsScene::isValidForMaskAllDrawing(QGraphicsSceneMouseEvent *event
     if(!isValidMouseClick(event)) return false;
     if(isDrawingInProgress()) return false;
     if(!m_context.isMaskAllMode()) return false;
-    foreach(ParameterizedItem *item, m_ItemToView.keys()) {
+    foreach(SessionItem *item, m_ItemToView.keys()) {
         if(item->modelType() == Constants::MaskAllType) return false;
     }
     return true;
@@ -578,7 +584,7 @@ void MaskGraphicsScene::processRectangleItem(QGraphicsSceneMouseEvent *event)
     if(!m_currentItem && line.length() > min_distance_to_create_rect) {
         m_currentItem = m_maskModel->insertNewItem(Constants::RectangleMaskType,
                                                    m_maskContainerIndex, 0);
-        m_currentItem->setRegisteredProperty(MaskItem::P_MASK_VALUE,
+        m_currentItem->setItemValue(MaskItem::P_MASK_VALUE,
                                              m_context.getMaskValue());
         setItemName(m_currentItem);
     }
@@ -596,10 +602,10 @@ void MaskGraphicsScene::processRectangleItem(QGraphicsSceneMouseEvent *event)
 //        m_currentItem->setRegisteredProperty(
 //            RectangleItem::P_HEIGHT, m_adaptor->fromSceneY(ymin) - m_adaptor->fromSceneY(ymax));
 
-        m_currentItem->setRegisteredProperty(RectangleItem::P_XLOW, m_adaptor->fromSceneX(xmin));
-        m_currentItem->setRegisteredProperty(RectangleItem::P_YLOW, m_adaptor->fromSceneY(ymax));
-        m_currentItem->setRegisteredProperty(RectangleItem::P_XUP, m_adaptor->fromSceneX(xmax));
-        m_currentItem->setRegisteredProperty(RectangleItem::P_YUP, m_adaptor->fromSceneY(ymin));
+        m_currentItem->setItemValue(RectangleItem::P_XLOW, m_adaptor->fromSceneX(xmin));
+        m_currentItem->setItemValue(RectangleItem::P_YLOW, m_adaptor->fromSceneY(ymax));
+        m_currentItem->setItemValue(RectangleItem::P_XUP, m_adaptor->fromSceneX(xmax));
+        m_currentItem->setItemValue(RectangleItem::P_YUP, m_adaptor->fromSceneY(ymin));
     }
 }
 
@@ -615,7 +621,7 @@ void MaskGraphicsScene::processEllipseItem(QGraphicsSceneMouseEvent *event)
     if(!m_currentItem && line.length() > min_distance_to_create_rect) {
         m_currentItem = m_maskModel->insertNewItem(Constants::EllipseMaskType,
                                                    m_maskContainerIndex, 0);
-        m_currentItem->setRegisteredProperty(MaskItem::P_MASK_VALUE,
+        m_currentItem->setItemValue(MaskItem::P_MASK_VALUE,
                                              m_context.getMaskValue());
         setItemName(m_currentItem);
     }
@@ -626,13 +632,13 @@ void MaskGraphicsScene::processEllipseItem(QGraphicsSceneMouseEvent *event)
         qreal ymin = std::min(click_pos.y(), mouse_pos.y());
         qreal ymax = std::max(click_pos.y(), mouse_pos.y());
 
-        m_currentItem->setRegisteredProperty(EllipseItem::P_XCENTER,
+        m_currentItem->setItemValue(EllipseItem::P_XCENTER,
                                              m_adaptor->fromSceneX(xmin + (xmax-xmin)/2.));
-        m_currentItem->setRegisteredProperty(EllipseItem::P_YCENTER,
+        m_currentItem->setItemValue(EllipseItem::P_YCENTER,
                                              m_adaptor->fromSceneY(ymin + (ymax-ymin)/2.));
-        m_currentItem->setRegisteredProperty(
+        m_currentItem->setItemValue(
             EllipseItem::P_XRADIUS, (m_adaptor->fromSceneX(xmax) - m_adaptor->fromSceneX(xmin))/2.);
-        m_currentItem->setRegisteredProperty(
+        m_currentItem->setItemValue(
             EllipseItem::P_YRADIUS, (m_adaptor->fromSceneY(ymin) - m_adaptor->fromSceneY(ymax))/2.);
     }
 
@@ -646,7 +652,7 @@ void MaskGraphicsScene::processPolygonItem(QGraphicsSceneMouseEvent *event)
         setDrawingInProgress(true);
         m_currentItem = m_maskModel->insertNewItem(Constants::PolygonMaskType,
                                                    m_maskContainerIndex, 0);
-        m_currentItem->setRegisteredProperty(MaskItem::P_MASK_VALUE, m_context.getMaskValue());
+        m_currentItem->setItemValue(MaskItem::P_MASK_VALUE, m_context.getMaskValue());
         m_selectionModel->clearSelection();
         m_selectionModel->select(m_maskModel->indexOfItem(m_currentItem), QItemSelectionModel::Select);
         setItemName(m_currentItem);
@@ -661,12 +667,12 @@ void MaskGraphicsScene::processPolygonItem(QGraphicsSceneMouseEvent *event)
         }
     }
 
-    ParameterizedItem *point = m_maskModel->insertNewItem(Constants::PolygonPointType,
+    SessionItem *point = m_maskModel->insertNewItem(Constants::PolygonPointType,
                                                           m_maskModel->indexOfItem(m_currentItem));
     QPointF click_pos = event->buttonDownScenePos(Qt::LeftButton);
 
-    point->setRegisteredProperty(PolygonPointItem::P_POSX, m_adaptor->fromSceneX(click_pos.x()));
-    point->setRegisteredProperty(PolygonPointItem::P_POSY, m_adaptor->fromSceneY(click_pos.y()));
+    point->setItemValue(PolygonPointItem::P_POSX, m_adaptor->fromSceneX(click_pos.x()));
+    point->setItemValue(PolygonPointItem::P_POSY, m_adaptor->fromSceneY(click_pos.y()));
 }
 
 void MaskGraphicsScene::processLineItem(QGraphicsSceneMouseEvent *event)
@@ -683,7 +689,7 @@ void MaskGraphicsScene::processLineItem(QGraphicsSceneMouseEvent *event)
     m_selectionModel->clearSelection();
     m_selectionModel->select(m_maskModel->indexOfItem(m_currentItem), QItemSelectionModel::Select);
     setItemName(m_currentItem);
-    m_currentItem->setRegisteredProperty(MaskItem::P_MASK_VALUE,
+    m_currentItem->setItemValue(MaskItem::P_MASK_VALUE,
                                          m_context.getMaskValue());
 
     setDrawingInProgress(false);
@@ -693,7 +699,7 @@ void MaskGraphicsScene::processVerticalLineItem(const QPointF &pos)
 {
     m_currentItem = m_maskModel->insertNewItem(Constants::VerticalLineMaskType,
                                                m_maskContainerIndex, 0);
-    m_currentItem->setRegisteredProperty(VerticalLineItem::P_POSX,
+    m_currentItem->setItemValue(VerticalLineItem::P_POSX,
                                          m_adaptor->fromSceneX(pos.x()));
 }
 
@@ -701,7 +707,7 @@ void MaskGraphicsScene::processHorizontalLineItem(const QPointF &pos)
 {
     m_currentItem = m_maskModel->insertNewItem(Constants::HorizontalLineMaskType,
                                                m_maskContainerIndex, 0);
-    m_currentItem->setRegisteredProperty(HorizontalLineItem::P_POSY,
+    m_currentItem->setItemValue(HorizontalLineItem::P_POSY,
                                          m_adaptor->fromSceneY(pos.y()));
 }
 
@@ -722,7 +728,7 @@ void MaskGraphicsScene::setZValues()
     Q_ASSERT(m_maskContainerIndex.isValid());
     for(int i = 0; i < m_maskModel->rowCount(m_maskContainerIndex); i++) {
         QModelIndex itemIndex = m_maskModel->index(i, 0, m_maskContainerIndex);
-        ParameterizedItem *item =  m_maskModel->itemForIndex(itemIndex);
+        SessionItem *item =  m_maskModel->itemForIndex(itemIndex);
         Q_ASSERT(item);
         if(IMaskView *view = m_ItemToView[item]) {
             view->setZValue(m_maskModel->rowCount(m_maskContainerIndex) -  itemIndex.row() + 1);
@@ -748,12 +754,12 @@ PolygonView *MaskGraphicsScene::getCurrentPolygon() const
 
 //! Sets item name depending on alreay existent items.
 //! If there is already "Rectangle1", the new name will be "Rectangle2"
-void MaskGraphicsScene::setItemName(ParameterizedItem *itemToChange)
+void MaskGraphicsScene::setItemName(SessionItem *itemToChange)
 {
     int glob_index(0);
     for(int i_row = 0; i_row < m_maskModel->rowCount(m_maskContainerIndex); ++i_row) {
          QModelIndex itemIndex = m_maskModel->index( i_row, 0, m_maskContainerIndex );
-         if (ParameterizedItem *currentItem = m_maskModel->itemForIndex(itemIndex)){
+         if (SessionItem *currentItem = m_maskModel->itemForIndex(itemIndex)){
              if(currentItem->modelType() == itemToChange->modelType()) {
                  QString itemName = currentItem->itemName();
                  if(itemName.startsWith(itemToChange->itemName())) {

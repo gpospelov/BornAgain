@@ -2,14 +2,15 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/InstrumentWidgets/DetectorMaskDelegate.h
-//! @brief     Defines class DetectorMaskDelegate
+//! @file      GUI/coregui/Views/InstrumentWidgets/DetectorMaskDelegate.h
+//! @brief     Declares class DetectorMaskDelegate
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
@@ -27,6 +28,7 @@ class DetectorItem;
 class InstrumentModel;
 class IntensityDataItem;
 class MaskEditor;
+class SessionModel;
 
 //! The DetectorMaskDelegate class provides syncronization between DetectorItem (defined
 //! in InstrumentModel) and temporary IntensityDataItem (defined in temporary SessionModel).
@@ -38,15 +40,16 @@ class BA_CORE_API_ DetectorMaskDelegate : public QObject
 public:
     DetectorMaskDelegate(QObject *parent);
 
-    void setDetectorContext(InstrumentModel *instrumentModel, DetectorItem *detectorItem);
-    void initMaskEditor(MaskEditor *maskEditor);
+    void initMaskEditorContext(MaskEditor *maskEditor,
+                               InstrumentModel *instrumentModel,
+                               DetectorItem *detectorItem);
 
 private:
     void createIntensityDataItem();
     void createMaskContainer();
     OutputData<double> *createOutputData(DetectorItem *detectorItem);
-    void copyMasksFromDetector();
 
+    SessionModel *m_tempIntensityDataModel;
     InstrumentModel *m_instrumentModel;
     DetectorItem *m_detectorItem;
     IntensityDataItem *m_intensityItem;

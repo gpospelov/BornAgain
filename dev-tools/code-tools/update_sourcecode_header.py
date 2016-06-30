@@ -6,20 +6,20 @@ import os
 import sys
 import glob
 
-
 directories = [
-    "Core/Algorithms",
-    "Core/FormFactors",
-    "Core/Geometry",
-    "Core/Samples",
-    "Core/StandardSamples",
-    "Core/Tools",
-    "Fit/FitKernel",
+    # "Core/Algorithms",
+    # "Core/FormFactors",
+    # "Core/Geometry",
+    # "Core/Samples",
+    # "Core/StandardSamples",
+    # "Core/Tools",
+    # "Fit/FitKernel",
     "GUI/coregui",
     "GUI/main",
-    "App"
+    #"App"
 ]
 
+#
 header_top = [
     u"// ************************************************************************** //",
     u"//                                                                              ",
@@ -34,9 +34,10 @@ header_bottom = [
     u"//!                                                                             ",
     u"//! @homepage  http://www.bornagainproject.org                                  ",
     u"//! @license   GNU General Public License v3 or higher (see COPYING)            ",
-    u"//! @copyright Forschungszentrum J\u00fclich GmbH 2015                          ",
+    u"//! @copyright Forschungszentrum J\u00fclich GmbH 2016                          ",
     u"//! @authors   Scientific Computing Group at MLZ Garching                       ",
-    u"//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke      ",
+    u"//! @authors   C\u00E9line Durniak, Marina Ganeva, David Li, Gennady Pospelov   ",
+    u"//! @authors   Walter Van Herck, Joachim Wuttke                                 ",
     u"//                                                                              ",
     u"// ************************************************************************** //"
     ]

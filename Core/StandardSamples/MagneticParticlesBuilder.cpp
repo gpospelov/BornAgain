@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      StandardSamples/PolarizedParticlesBuilder.cpp
+//! @file      Core/StandardSamples/MagneticParticlesBuilder.cpp
 //! @brief     Implements classes to build magnetic samples
 //!
 //! @homepage  http://www.bornagainproject.org

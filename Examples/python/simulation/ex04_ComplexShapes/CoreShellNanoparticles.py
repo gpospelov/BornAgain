@@ -4,7 +4,8 @@ Core shell nanoparticles
 import numpy
 import matplotlib
 from matplotlib import pyplot as plt
-from bornagain import *
+import bornagain as ba
+from bornagain import deg, angstrom, nm
 
 phi_min, phi_max = -1.0, 1.0
 alpha_min, alpha_max = 0.0, 2.0
@@ -12,30 +13,30 @@ alpha_min, alpha_max = 0.0, 2.0
 
 def get_sample():
     """
-    Build and return the sample representing core shell nano particles
+    Returns a sample with box-shaped core-shell particles on a substrate.
     """
     # defining materials
-    m_air = HomogeneousMaterial("Air", 0.0, 0.0 )
-    m_shell = HomogeneousMaterial("Shell", 1e-4, 2e-8 )
-    m_core = HomogeneousMaterial("Core", 6e-5, 2e-8 )
+    m_air = ba.HomogeneousMaterial("Air", 0.0, 0.0 )
+    m_shell = ba.HomogeneousMaterial("Shell", 1e-4, 2e-8 )
+    m_core = ba.HomogeneousMaterial("Core", 6e-5, 2e-8 )
 
     # collection of particles
-    parallelepiped1_ff = FormFactorBox(16*nanometer, 16*nanometer, 8*nanometer)
-    parallelepiped2_ff = FormFactorBox(12*nanometer, 12*nanometer, 7*nanometer)
-    shell_particle = Particle(m_shell, parallelepiped1_ff)
-    core_particle = Particle(m_core, parallelepiped2_ff)
-    core_position = kvector_t(0.0, 0.0, 0.0)
+    parallelepiped1_ff = ba.FormFactorBox(16*nm, 16*nm, 8*nm)
+    parallelepiped2_ff = ba.FormFactorBox(12*nm, 12*nm, 7*nm)
+    shell_particle = ba.Particle(m_shell, parallelepiped1_ff)
+    core_particle = ba.Particle(m_core, parallelepiped2_ff)
+    core_position = ba.kvector_t(0.0, 0.0, 0.0)
 
-    particle = ParticleCoreShell(shell_particle, core_particle, core_position)
-    particle_layout = ParticleLayout()
+    particle = ba.ParticleCoreShell(shell_particle, core_particle, core_position)
+    particle_layout = ba.ParticleLayout()
     particle_layout.addParticle(particle)
-    interference = InterferenceFunctionNone()
+    interference = ba.InterferenceFunctionNone()
     particle_layout.addInterferenceFunction(interference)
 
-    air_layer = Layer(m_air)
+    air_layer = ba.Layer(m_air)
     air_layer.addLayout(particle_layout)
 
-    multi_layer = MultiLayer()
+    multi_layer = ba.MultiLayer()
     multi_layer.addLayer(air_layer)
 
     return multi_layer
@@ -43,11 +44,12 @@ def get_sample():
 
 def get_simulation():
     """
-    Create and return GISAXS simulation with beam and detector defined
+    Returns a GISAXS simulation with beam and detector defined.
     """
-    simulation = GISASSimulation()
-    simulation.setDetectorParameters(200, phi_min*degree, phi_max*degree, 200, alpha_min*degree, alpha_max*degree)
-    simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
+    simulation = ba.GISASSimulation()
+    simulation.setDetectorParameters(200, phi_min*deg, phi_max*deg,
+                                     200, alpha_min*deg, alpha_max*deg)
+    simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
     return simulation
 
 
@@ -62,10 +64,12 @@ def run_simulation():
     result = simulation.getIntensityData()
 
     # showing the result
-    im = plt.imshow(result.getArray(),
-                    norm=matplotlib.colors.LogNorm(1.0, result.getMaximum()),
-                    extent=[result.getXmin()/deg, result.getXmax()/deg, result.getYmin()/deg, result.getYmax()/deg],
-                    aspect='auto')
+    im = plt.imshow(
+        result.getArray(),
+        norm=matplotlib.colors.LogNorm(1.0, result.getMaximum()),
+        extent=[result.getXmin()/deg, result.getXmax()/deg,
+                result.getYmin()/deg, result.getYmax()/deg],
+        aspect='auto')
     cb = plt.colorbar(im)
     cb.set_label(r'Intensity (arb. u.)', size=16)
     plt.xlabel(r'$\phi_f (^{\circ})$', fontsize=16)
@@ -75,4 +79,3 @@ def run_simulation():
 
 if __name__ == '__main__':
     run_simulation()
-

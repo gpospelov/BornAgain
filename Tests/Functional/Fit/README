@@ -1,0 +1,10 @@
+Collection of functional tests (C++)
+
+Collection of fitting tests for libBornAgainFit library.
+Different geometries, number of fit parameters, variety of minimizers
+and minimization strategies.
+
+Tests are compiled and executed automatically when user builds
+the whole project with 'check' target cmake; make check
+
+One can run tests manually by running in the build directory ./bin/FitSuite

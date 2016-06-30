@@ -4,7 +4,8 @@ Cylinders of two different sizes in Size-Spacing Coupling Approximation
 import numpy
 import matplotlib
 from matplotlib import pyplot as plt
-from bornagain import *
+import bornagain as ba
+from bornagain import deg, angstrom, nm
 
 phi_min, phi_max = 0.0, 2.0
 alpha_min, alpha_max = 0.0, 2.0
@@ -12,42 +13,43 @@ alpha_min, alpha_max = 0.0, 2.0
 
 def get_sample():
     """
-    Build and return the sample.
-    Cylinders come in two different sizes.
+    Returns a sample with cylinders of two different sizes on a substrate.
+    The cylinder positions are modelled in Size-Spacing Coupling  Approximation.
     """
-    m_ambience = HomogeneousMaterial("Air", 0.0, 0.0)
-    m_substrate = HomogeneousMaterial("Substrate", 6e-6, 2e-8)
-    m_particle = HomogeneousMaterial("Particle", 6e-4, 2e-8)
-    
+    m_ambience = ba.HomogeneousMaterial("Air", 0.0, 0.0)
+    m_substrate = ba.HomogeneousMaterial("Substrate", 6e-6, 2e-8)
+    m_particle = ba.HomogeneousMaterial("Particle", 6e-4, 2e-8)
+
     # cylindrical particle 1
-    radius1 = 5*nanometer
+    radius1 = 5*nm
     height1 = radius1
-    cylinder_ff1 = FormFactorCylinder(radius1, height1)
-    cylinder1 = Particle(m_particle, cylinder_ff1)
-    
+    cylinder_ff1 = ba.FormFactorCylinder(radius1, height1)
+    cylinder1 = ba.Particle(m_particle, cylinder_ff1)
+
     # cylindrical particle 2
-    radius2 = 8*nanometer
+    radius2 = 8*nm
     height2 = radius2
-    cylinder_ff2 = FormFactorCylinder(radius2, height2)
-    cylinder2 = Particle(m_particle, cylinder_ff2)
-    
+    cylinder_ff2 = ba.FormFactorCylinder(radius2, height2)
+    cylinder2 = ba.Particle(m_particle, cylinder_ff2)
+
     # interference function
-    interference = InterferenceFunctionRadialParaCrystal(18.0*nanometer, 1e3*nanometer)
-    pdf = FTDistribution1DGauss(3 * nanometer)
+    interference = ba.InterferenceFunctionRadialParaCrystal(
+        18.0*nm, 1e3*nm)
+    pdf = ba.FTDistribution1DGauss(3 * nm)
     interference.setProbabilityDistribution(pdf)
     interference.setKappa(1.0)
-    
+
     # assembling the sample
-    particle_layout = ParticleLayout()
+    particle_layout = ba.ParticleLayout()
     particle_layout.addParticle(cylinder1, 0.8)
     particle_layout.addParticle(cylinder2, 0.2)
     particle_layout.addInterferenceFunction(interference)
-    particle_layout.setApproximation(ILayout.SSCA)
-    
-    air_layer = Layer(m_ambience)
+    particle_layout.setApproximation(ba.ILayout.SSCA)
+
+    air_layer = ba.Layer(m_ambience)
     air_layer.addLayout(particle_layout)
-    substrate_layer = Layer(m_substrate)
-    multi_layer = MultiLayer()
+    substrate_layer = ba.Layer(m_substrate)
+    multi_layer = ba.MultiLayer()
     multi_layer.addLayer(air_layer)
     multi_layer.addLayer(substrate_layer)
     return multi_layer
@@ -57,9 +59,10 @@ def get_simulation():
     """
     Create and return GISAXS simulation with beam and detector defined
     """
-    simulation = GISASSimulation()
-    simulation.setDetectorParameters(200, phi_min*degree, phi_max*degree, 200, alpha_min*degree, alpha_max*degree)
-    simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
+    simulation = ba.GISASSimulation()
+    simulation.setDetectorParameters(200, phi_min*deg, phi_max*deg,
+                                     200, alpha_min*deg, alpha_max*deg)
+    simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
     return simulation
 
 
@@ -72,12 +75,14 @@ def run_simulation():
     simulation.setSample(sample)
     simulation.runSimulation()
     result = simulation.getIntensityData()
-    
+
     # showing the result
-    im = plt.imshow(result.getArray(),
-                    norm=matplotlib.colors.LogNorm(1.0, result.getMaximum()),
-                    extent=[result.getXmin()/deg, result.getXmax()/deg, result.getYmin()/deg, result.getYmax()/deg],
-                    aspect='auto')
+    im = plt.imshow(
+        result.getArray(),
+        norm=matplotlib.colors.LogNorm(1.0, result.getMaximum()),
+        extent=[result.getXmin()/deg, result.getXmax()/deg,
+                result.getYmin()/deg, result.getYmax()/deg],
+        aspect='auto')
     cb = plt.colorbar(im)
     cb.set_label(r'Intensity (arb. u.)', size=16)
     plt.xlabel(r'$\phi_f (^{\circ})$', fontsize=16)
@@ -87,5 +92,3 @@ def run_simulation():
 
 if __name__ == '__main__':
     run_simulation()
-
-

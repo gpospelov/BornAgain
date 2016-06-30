@@ -2,14 +2,15 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/GroupPropertyRegistry.cpp
+//! @file      GUI/coregui/Models/GroupPropertyRegistry.cpp
 //! @brief     Implements class GroupPropertyRegistry
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
@@ -22,7 +23,7 @@
 namespace
 {
 
-// Correspondance of ParameterizedItem's types to their labels
+// Correspondance of SessionItem's types to their labels
 GroupPropertyRegistry::SelectableGroupMap_t initializeSelectableGroupMap()
 {
     GroupPropertyRegistry::SelectableGroupMap_t result;
@@ -34,10 +35,12 @@ GroupPropertyRegistry::SelectableGroupMap_t initializeSelectableGroupMap()
     formfactors[Constants::Cone6Type] = "Cone6";
     formfactors[Constants::CuboctahedronType] = "Cuboctahedron";
     formfactors[Constants::CylinderType] = "Cylinder";
+    formfactors[Constants::DodecahedronType] = "Dodecahedron";
     formfactors[Constants::EllipsoidalCylinderType] = "Ellipsoidal Cylinder";
     formfactors[Constants::FullSphereType] = "Full Sphere";
     formfactors[Constants::FullSpheroidType] = "Full Spheroid";
     formfactors[Constants::HemiEllipsoidType] = "Hemi Ellipsoid";
+    formfactors[Constants::IcosahedronType] = "Icosahedron";
     formfactors[Constants::Prism3Type] = "Prism3";
     formfactors[Constants::Prism6Type] = "Prism6";
     formfactors[Constants::PyramidType] = "Pyramid";
@@ -124,6 +127,12 @@ GroupPropertyRegistry::SelectableGroupMap_t initializeSelectableGroupMap()
     resolution_functions[Constants::ResolutionFunction2DGaussianType] = "2D Gaussian";
     result[Constants::ResolutionFunctionGroup] = resolution_functions;
 
+    std::map<QString, QString> minimizers;
+    minimizers[Constants::MinuitMinimizerType] = "Minuit2";
+    minimizers[Constants::GSLMinimizerType] = "GSL";
+    minimizers[Constants::GeneticMinimizerType] = "Genetics";
+    result[Constants::MinimizerLibraryGroup] = minimizers;
+
     return result;
 }
 }
@@ -131,28 +140,19 @@ GroupPropertyRegistry::SelectableGroupMap_t initializeSelectableGroupMap()
 GroupPropertyRegistry::SelectableGroupMap_t GroupPropertyRegistry::m_selectable_group_map
     = initializeSelectableGroupMap();
 
+bool GroupPropertyRegistry::isValidGroup(const QString &group_type)
+{
+    auto it = m_selectable_group_map.find(group_type);
+    return it==m_selectable_group_map.end() ? false : true;
+}
+
 GroupProperty_t
 GroupPropertyRegistry::createGroupProperty(const QString &group_name,
-                                           const Constants::ModelType &group_model)
+                                           const Constants::ModelType &group_type)
 {
-    Constants::ModelType groupModelType = group_model;
-    if (groupModelType.isEmpty())
-        groupModelType = group_name;
-
+    Q_ASSERT(isValidGroup(group_type));
     GroupProperty_t result(new GroupProperty(group_name));
-
-    if (m_selectable_group_map.find(groupModelType) != m_selectable_group_map.end()) {
-        qDebug() << "GroupPropertyRegistry::createGroupProperty() -> creating selectable group of "
-                    "groupModelType" << groupModelType;
-        result->setGroupType(GroupProperty::SELECTABLE);
-        result->setGroupMap(m_selectable_group_map[groupModelType]);
-    } else {
-        result->setGroupType(GroupProperty::FIXED);
-        // result->setValue(group_n);
-        std::map<QString, QString> group_map;
-        group_map[groupModelType] = "No label";
-        result->setGroupMap(group_map);
-    }
+    result->setGroupMap(m_selectable_group_map[group_type]);
 
     return result;
 }

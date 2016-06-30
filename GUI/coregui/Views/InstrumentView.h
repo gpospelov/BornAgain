@@ -2,14 +2,15 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/InstrumentView.h
-//! @brief     Defines class InstrumentView
+//! @file      GUI/coregui/Views/InstrumentView.h
+//! @brief     Declares class InstrumentView
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
@@ -21,6 +22,7 @@
 #include <QString>
 #include <QMap>
 
+class MainWindow;
 class InstrumentSelectorWidget;
 class InstrumentEditorWidget;
 class InstrumentModel;
@@ -29,21 +31,17 @@ class QStackedWidget;
 class QMenu;
 class QAction;
 class QItemSelection;
-class ParameterizedItem;
-class QToolBar;
+class SessionItem;
 class QToolButton;
 class DetectorItem;
 
-namespace Manhattan{
-    class StyledBar;
-}
 
 class BA_CORE_API_ InstrumentView : public QWidget
 {
     Q_OBJECT
 
 public:
-    InstrumentView(InstrumentModel *model, QWidget *parent = 0);
+    InstrumentView(MainWindow *mainWindow);
 
 public slots:
     void updateView();
@@ -61,10 +59,10 @@ private:
     void updateMapOfNames();
 
     InstrumentModel *m_instrumentModel;
-    QToolBar *m_toolBar;
+    class StyledToolBar *m_toolBar;
     InstrumentSelectorWidget *m_instrumentSelector;
     QStackedWidget *m_stackWidget;
-    QMap<ParameterizedItem *, InstrumentEditorWidget *> m_instrumentToEditor;
+    QMap<SessionItem *, InstrumentEditorWidget *> m_instrumentToEditor;
     QAction *m_addInstrumentAction;
     QAction *m_removeInstrumentAction;
     QToolButton *m_addInstrumentButton;

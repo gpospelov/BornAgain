@@ -20,7 +20,7 @@ def check_tarball():
     run_command(cmd)
     cmd = "cd %s; mkdir build; mkdir installed" % get_checktarball_dir()
     run_command(cmd)
-    cmd = "cd %s/build; cmake -DBORNAGAIN_GUI=ON -DCMAKE_INSTALL_PREFIX=../installed ../BornAgain-%s; make -j8; make check; make install" % (get_checktarball_dir(), get_version())
+    cmd = "cd %s/build; cmake -DCMAKE_INSTALL_PREFIX=../installed ../BornAgain-%s; make -j8; make check; make install" % (get_checktarball_dir(), get_version())
     run_command(cmd)
     cmd = "cd %s/installed/lib; python -c \"from libBornAgainCore import *; print GetVersionNumber()\"" % (get_checktarball_dir())
     print cmd
@@ -36,7 +36,7 @@ def check_master_branch():
     run_command(cmd)
     cmd = "cd %s; git clone git://apps.jcns.fz-juelich.de/BornAgain.git " % get_checkmaster_dir()
     run_command(cmd)
-    cmd = "cd %s/build; cmake -DBORNAGAIN_GUI=ON -DCMAKE_INSTALL_PREFIX=../installed ../BornAgain; make -j8; make check; make install" % (get_checkmaster_dir())
+    cmd = "cd %s/build; cmake -DCMAKE_INSTALL_PREFIX=../installed ../BornAgain; make -j8; make check; make install" % (get_checkmaster_dir())
     run_command(cmd)
     cmd = "source %s/installed/bin/thisbornagain.sh; python -c \"from libBornAgainCore import *; print GetVersionNumber()\"" % (get_checkmaster_dir())
     print cmd

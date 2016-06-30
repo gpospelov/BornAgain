@@ -2,53 +2,49 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/GroupProperty.cpp
+//! @file      GUI/coregui/Models/GroupProperty.cpp
 //! @brief     Implements class GroupProperty
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
 #include "GroupProperty.h"
 #include "GUIHelpers.h"
 #include "ItemFactory.h"
+#include <QDebug>
 
 
 GroupProperty::GroupProperty(QString group_name)
     : m_group_name(std::move(group_name))
-    , m_group_type(UNDEFINED)
-    , m_parent(0)
+    , m_groupItem(0)
 {
 }
 
-GroupProperty::EGroupType GroupProperty::type() const
+SessionItem *GroupProperty::getCurrentItem()
 {
-    return m_group_type;
+    qDebug() << "GroupProperty::getCurrentItem()" << m_groupItem;
+    if(m_groupItem) return m_groupItem->getChildByName(this->getCurrentType());
+    return 0;
 }
 
-void GroupProperty::setParent(ParameterizedItem *parent)
+void GroupProperty::setGroupItem(SessionItem *groupItem)
 {
-    Q_ASSERT(parent);
-    m_parent = parent;
-    m_parent->addSubItem(getGroupName(), createCorrespondingItem());
+    Q_ASSERT(groupItem);
+    m_groupItem = groupItem;
+    SessionItem *item = createCorrespondingItem();
+    m_groupItem->insertItem(-1, item);
 }
 
-ParameterizedItem *GroupProperty::createCorrespondingItem()
+SessionItem *GroupProperty::createCorrespondingItem()
 {
-    ParameterizedItem *result = ItemFactory::createItem(getCurrentType());
-    if(type() == FIXED) {
-        setCurrentLabel(result->itemLabel());
-    }
+    SessionItem *result = ItemFactory::createItem(getCurrentType());
     return result;
-}
-
-QString GroupProperty::getGroupName() const
-{
-    return m_group_name;
 }
 
 QString GroupProperty::getCurrentType() const
@@ -56,29 +52,34 @@ QString GroupProperty::getCurrentType() const
     return m_current_type;
 }
 
-void GroupProperty::setCurrentType(const QString &type)
+void GroupProperty::setCurrentType(const QString &type, bool)
 {
     if(type == getCurrentType()) return;
 
+    SessionItem *prevItem = getCurrentItem();
     m_current_type = type;
 
-    if(m_parent) {
-        m_parent->addSubItem(getGroupName(), createCorrespondingItem());
-        //emit m_parent->subItemChanged(getGroupName());
+    if(m_groupItem) {
+        if (auto item = m_groupItem->getChildByName(m_current_type)) {
+            item->setVisible(true);
+            item->setEnabled(true);
+        } else {
+            SessionItem *new_item = createCorrespondingItem();
+            m_groupItem->insertItem(-1, new_item);
+        }
+
+        if(prevItem) {
+            prevItem->setVisible(false);
+            prevItem->setEnabled(false);
+        }
+
+        m_groupItem->emitDataChanged();
     }
 }
 
 QString GroupProperty::getCurrentLabel() const
 {
     return m_type_label_map.at(m_current_type);
-}
-
-void GroupProperty::setCurrentLabel(const QString &label)
-{
-    if(type() == FIXED) {
-        m_type_label_map[m_current_type] = label;
-        if(m_parent) emit m_parent->propertyChanged(getGroupName());
-    }
 }
 
 QStringList GroupProperty::getTypes() const
@@ -129,9 +130,3 @@ void GroupProperty::setGroupMap(std::map<QString, QString> group_map)
     m_type_label_map = std::move(group_map);
     setCurrentType(m_type_label_map.begin()->first);
 }
-
-void GroupProperty::setGroupType(GroupProperty::EGroupType group_type)
-{
-    m_group_type = group_type;
-}
-

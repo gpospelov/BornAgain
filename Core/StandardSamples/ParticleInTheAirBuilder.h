@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      StandardSamples/ParticleInTheAirBuilder.h
-//! @brief     Defines class ParticleInTheAirBuilder.
+//! @file      Core/StandardSamples/ParticleInTheAirBuilder.h
+//! @brief     Declares class ParticleInTheAirBuilder.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -31,12 +31,7 @@ public:
     ParticleInTheAirBuilder();
     virtual ~ParticleInTheAirBuilder();
 
-    virtual void init_from(const IComponentService *service);
-
-    virtual ISample *buildSample() const;
-
-private:
-    IFormFactor *m_form_factor;
+    virtual ISample* buildSample() const;
 };
 
 #endif // FORMFACTORSBUILDER_H

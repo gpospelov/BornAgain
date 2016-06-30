@@ -2,14 +2,15 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/FTDecayFunctionItems.h
-//! @brief     Defines FTDecayFunction1DItem classes
+//! @file      GUI/coregui/Models/FTDecayFunctionItems.h
+//! @brief     Declares FTDecayFunction1DItem classes
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
@@ -17,64 +18,64 @@
 #define FTDECAYFUNCTIONITEMS_H
 
 
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 #include "FTDecayFunctions.h"
 
 
-class BA_CORE_API_ FTDecayFunction1DItem : public ParameterizedItem
+class BA_CORE_API_ FTDecayFunction1DItem : public SessionItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_DECAY_LENGTH;
-    explicit FTDecayFunction1DItem(const QString name, ParameterizedItem *parent)
-        : ParameterizedItem(name, parent){}
+    explicit FTDecayFunction1DItem(const QString name)
+        : SessionItem(name){}
     virtual IFTDecayFunction1D *createFTDecayFunction() const { return 0;}
     virtual ~FTDecayFunction1DItem(){}
 };
 
 class BA_CORE_API_ FTDecayFunction1DCauchyItem : public FTDecayFunction1DItem
 {
-    Q_OBJECT
+
 public:
-    explicit FTDecayFunction1DCauchyItem(ParameterizedItem *parent=0);
+    explicit FTDecayFunction1DCauchyItem();
     virtual IFTDecayFunction1D *createFTDecayFunction() const;
 };
 
 class BA_CORE_API_ FTDecayFunction1DGaussItem : public FTDecayFunction1DItem
 {
-    Q_OBJECT
+
 public:
-    explicit FTDecayFunction1DGaussItem(ParameterizedItem *parent=0);
+    explicit FTDecayFunction1DGaussItem();
     virtual IFTDecayFunction1D *createFTDecayFunction() const;
 };
 
 class BA_CORE_API_ FTDecayFunction1DTriangleItem : public FTDecayFunction1DItem
 {
-    Q_OBJECT
+
 public:
-    explicit FTDecayFunction1DTriangleItem(ParameterizedItem *parent=0);
+    explicit FTDecayFunction1DTriangleItem();
     virtual IFTDecayFunction1D *createFTDecayFunction() const;
 };
 
 class BA_CORE_API_ FTDecayFunction1DVoigtItem : public FTDecayFunction1DItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_ETA;
-    explicit FTDecayFunction1DVoigtItem(ParameterizedItem *parent=0);
+    explicit FTDecayFunction1DVoigtItem();
     virtual IFTDecayFunction1D *createFTDecayFunction() const;
 };
 
-class BA_CORE_API_ FTDecayFunction2DItem : public ParameterizedItem
+class BA_CORE_API_ FTDecayFunction2DItem : public SessionItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_DECAY_LENGTH_X;
     static const QString P_DECAY_LENGTH_Y;
     static const QString P_GAMMA;
-    explicit FTDecayFunction2DItem(const QString name, ParameterizedItem *parent)
-        : ParameterizedItem(name, parent) {
-         registerProperty(P_GAMMA, 0.0);
+    explicit FTDecayFunction2DItem(const QString name)
+        : SessionItem(name) {
+         addProperty(P_GAMMA, 0.0);
     }
     virtual IFTDecayFunction2D *createFTDecayFunction() const { return 0;}
     virtual ~FTDecayFunction2DItem(){}
@@ -82,26 +83,26 @@ public:
 
 class BA_CORE_API_ FTDecayFunction2DCauchyItem : public FTDecayFunction2DItem
 {
-    Q_OBJECT
+
 public:
-    explicit FTDecayFunction2DCauchyItem(ParameterizedItem *parent=0);
+    explicit FTDecayFunction2DCauchyItem();
     virtual IFTDecayFunction2D *createFTDecayFunction() const;
 };
 
 class BA_CORE_API_ FTDecayFunction2DGaussItem : public FTDecayFunction2DItem
 {
-    Q_OBJECT
+
 public:
-    explicit FTDecayFunction2DGaussItem(ParameterizedItem *parent=0);
+    explicit FTDecayFunction2DGaussItem();
     virtual IFTDecayFunction2D *createFTDecayFunction() const;
 };
 
 class BA_CORE_API_ FTDecayFunction2DVoigtItem : public FTDecayFunction2DItem
 {
-    Q_OBJECT
+
 public:
     static const QString P_ETA;
-    explicit FTDecayFunction2DVoigtItem(ParameterizedItem *parent=0);
+    explicit FTDecayFunction2DVoigtItem();
     virtual IFTDecayFunction2D *createFTDecayFunction() const;
 };
 

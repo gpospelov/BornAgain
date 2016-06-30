@@ -2,14 +2,15 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/InfoWidgets/ExtendedDetectorDialog.h
-//! @brief     Defines class DistributionDialog
+//! @file      GUI/coregui/Views/InstrumentWidgets/ExtendedDetectorDialog.h
+//! @brief     Declares class DistributionDialog
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
@@ -40,10 +41,11 @@ private:
     void reject();
 
 private:
-    MaskEditor *m_maskEditor;
-    DetectorMaskDelegate *m_detectorMaskDelegate;
     void readSettings();
     void writeSettings();
+
+    MaskEditor *m_maskEditor;
+    DetectorMaskDelegate *m_detectorMaskDelegate;
 };
 
 #endif

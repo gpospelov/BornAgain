@@ -2,14 +2,15 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/InfoWidgets/DistributionWidget.h
-//! @brief     Defines class DistributionWidget
+//! @file      GUI/coregui/Views/InfoWidgets/DistributionWidget.h
+//! @brief     Declares class DistributionWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
@@ -19,8 +20,9 @@
 #include <QWidget>
 #include "WarningSignWidget.h"
 #include "qcustomplot.h"
+#include <memory>
 
-class ParameterizedItem;
+class SessionItem;
 class AwesomePropertyEditor;
 class QLabel;
 class QCustomPlot;
@@ -35,9 +37,7 @@ class DistributionWidget : public QWidget
 
 public:
     DistributionWidget(QWidget *parent = 0);
-    virtual ~DistributionWidget()
-    {
-    }
+
     void setItem(DistributionItem *item);
     void plotItem();
     double getWidthOfBars(double min, double max, int samples);
@@ -53,7 +53,6 @@ public slots:
 protected:
     void resizeEvent(QResizeEvent *event);
 private slots:
-    void onPropertyChanged();
     void resetView();
 
 private:

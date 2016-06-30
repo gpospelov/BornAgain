@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      InputOutput/TiffReadStrategy.cpp
+//! @file      Core/InputOutput/TiffHandler.cpp
 //! @brief     Implements class TiffReadStrategy.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -46,6 +46,9 @@ TiffHandler::~TiffHandler()
 void TiffHandler::read(std::istream &input_stream)
 {
     m_tiff = TIFFStreamOpen("MemTIFF", &input_stream);
+    if(!m_tiff) {
+        throw Exceptions::FormatErrorException("TiffHandler::read() -> Can't open the file.");
+    }
     read_header();
     read_data();
     close();
@@ -184,9 +187,9 @@ void TiffHandler::write_data()
         }
         memcpy(buf, &line_buf[0], buf_size);
 
-        if(TIFFWriteScanline(m_tiff, buf, row) < 0) {
-            throw FormatErrorException("TiffHandler::write_data() -> Error. Error in TIFFWriteScanline.");
-        }
+        if(TIFFWriteScanline(m_tiff, buf, row) < 0)
+            throw FormatErrorException(
+                "TiffHandler::write_data() -> Error. Error in TIFFWriteScanline.");
     }
     _TIFFfree(buf);
     TIFFFlush(m_tiff);

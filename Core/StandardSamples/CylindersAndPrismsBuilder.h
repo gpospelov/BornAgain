@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      StandardSamples/CylindersAndPrismsBuilder.h
-//! @brief     Defines class CylindersAndPrismsBuilder.
+//! @file      Core/StandardSamples/CylindersAndPrismsBuilder.h
+//! @brief     Declares class CylindersAndPrismsBuilder.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -27,7 +27,7 @@ class BA_CORE_API_ CylindersAndPrismsBuilder : public ISampleBuilder
 {
 public:
     CylindersAndPrismsBuilder();
-    ISample *buildSample() const;
+    ISample* buildSample() const;
 
 protected:
     void init_parameters();

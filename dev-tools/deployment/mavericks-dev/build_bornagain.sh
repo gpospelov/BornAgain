@@ -6,11 +6,11 @@ export PATH=/usr/local/bin:$QTDIR/bin/:$PATH
 export WORKDIR=/Users/vagrant/build
 rm -r -f $WORKDIR; mkdir -p $WORKDIR; cd $WORKDIR;
 
-git clone -b develop git://apps.jcns.fz-juelich.de/BornAgain.git
+git clone -b release-1.6.0 git://apps.jcns.fz-juelich.de/BornAgain.git
 mkdir BornAgain-build
 cd BornAgain-build
 export ANACONDA=/Users/vagrant/anaconda2
-cmake -DPYTHON_LIBRARY=$ANACONDA/lib/libpython2.7.dylib -DPYTHON_EXECUTABLE=$ANACONDA/bin/python2.7 -DBORNAGAIN_APPLE_BUNDLE=ON -DCMAKE_PREFIX_PATH=/usr/local ../BornAgain
+cmake -DCMAKE_C_COMPILER=/usr/local/opt/llvm36/bin/clang-3.6 -DCMAKE_CXX_COMPILER=/usr/local/opt/llvm36/bin/clang++-3.6  -DPYTHON_LIBRARY=$ANACONDA/lib/libpython2.7.dylib -DPYTHON_EXECUTABLE=$ANACONDA/bin/python2.7 -DBORNAGAIN_APPLE_BUNDLE=ON -DCMAKE_PREFIX_PATH=/usr/local ../BornAgain
 make -j4
 cpack -V
 

@@ -2,14 +2,15 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/SampleDesigner/SampleViewAligner.cpp
+//! @file      GUI/coregui/Views/SampleDesigner/SampleViewAligner.cpp
 //! @brief     Implements class SampleViewAligner
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
@@ -19,8 +20,6 @@
 #include "IView.h"
 #include <QModelIndex>
 #include <QDebug>
-
-
 
 SampleViewAligner::SampleViewAligner(DesignerScene *scene)
     : m_scene(scene)
@@ -119,9 +118,9 @@ QList<IView *> SampleViewAligner::getConnectedViews(IView *view)
 {
     QList<IView *> result;
 
-    ParameterizedItem *itemOfView = view->getParameterizedItem();
+    SessionItem *itemOfView = view->getItem();
 
-    QList<ParameterizedItem *> connected_items;
+    QList<SessionItem *> connected_items;
 
     if(itemOfView->parent()->modelType() == Constants::LayerType) {
         // e.g. we are dealing here with ParticleLayout, so we will use directly MultiLayer to interact with
@@ -132,15 +131,15 @@ QList<IView *> SampleViewAligner::getConnectedViews(IView *view)
 
     if(itemOfView->modelType() == Constants::MultiLayerType) {
         // MultiLayer will not interact with its Layers, but with they children, e.g. with ParticleLayouts
-        foreach(ParameterizedItem *child,  itemOfView->childItems()) {
-            connected_items.append(child->childItems());
+        foreach(SessionItem *child,  itemOfView->childItems()) {
+            connected_items.append(child->childItems().toList());
         }
     } else {
-        connected_items.append(itemOfView->childItems());
+        connected_items.append(itemOfView->childItems().toList());
 
     }
 
-    foreach(ParameterizedItem *item, connected_items) {
+    foreach(SessionItem *item, connected_items) {
         IView *view = m_scene->getViewForItem(item);
         if(view) {
             result.append(view);
@@ -153,7 +152,7 @@ QList<IView *> SampleViewAligner::getConnectedViews(IView *view)
 
 
 //! Aligns sample starting from
-void SampleViewAligner::alignSample(ParameterizedItem *item, QPointF reference, bool force_alignment)
+void SampleViewAligner::alignSample(SessionItem *item, QPointF reference, bool force_alignment)
 {
     Q_ASSERT(item);
     alignSample(m_scene->getSampleModel()->indexOfItem(item), reference, force_alignment);
@@ -168,12 +167,7 @@ void SampleViewAligner::alignSample(const QModelIndex & parentIndex, QPointF ref
 {
     SampleModel *sampleModel = m_scene->getSampleModel();
 
-    IView *view = getViewForIndex(parentIndex);
-//    if(view)
-//        qDebug() << "SampleViewAligner2::alignSample" << view->getParameterizedItem()->modelType() << reference
-//                 << view->pos() << view->mapToScene(view->pos());
-
-    if(view) {
+    if(IView *view = getViewForIndex(parentIndex)) {
         if( (force_alignment || view->pos().isNull()) && !view->parentObject())
             view->setPos(reference);
 
@@ -184,12 +178,11 @@ void SampleViewAligner::alignSample(const QModelIndex & parentIndex, QPointF ref
         }
     }
 
-//    qDebug() << "   new_pos:" << reference;
-
+    int child_counter = 0;
     for( int i_row = 0; i_row < sampleModel->rowCount( parentIndex ); ++i_row) {
          QModelIndex itemIndex = sampleModel->index( i_row, 0, parentIndex );
-         QPointF child_reference = reference + QPointF(-150, 150*i_row);
-//         qDebug() << "   child_reference:" << child_reference;
+         if(!getViewForIndex(itemIndex)) continue;
+         QPointF child_reference = reference + QPointF(-150, 150*child_counter++);
          alignSample(itemIndex, child_reference, force_alignment);
     }
 }
@@ -198,11 +191,8 @@ void SampleViewAligner::alignSample(const QModelIndex & parentIndex, QPointF ref
 IView *SampleViewAligner::getViewForIndex(const QModelIndex &index)
 {
     SampleModel *sampleModel = m_scene->getSampleModel();
-    ParameterizedItem *item = sampleModel->itemForIndex(index);
-    if(IView *view = m_scene->getViewForItem(item)) {
-        return view;
-    }
-    return 0;
+    SessionItem *item = sampleModel->itemForIndex(index);
+    return m_scene->getViewForItem(item);
 }
 
 

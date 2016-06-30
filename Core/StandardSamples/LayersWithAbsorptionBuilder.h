@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      StandardSamples/LayersWithAbsorptionBuilder.h
-//! @brief     Defines class LayersWithAbsorptionBuilder.
+//! @file      Core/StandardSamples/LayersWithAbsorptionBuilder.h
+//! @brief     Declares class LayersWithAbsorptionBuilder.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -32,12 +32,7 @@ public:
     LayersWithAbsorptionBuilder();
     virtual ~LayersWithAbsorptionBuilder();
 
-    virtual void init_from(const IComponentService *service);
-
     virtual ISample *buildSample() const;
-
-private:
-    IFormFactor *m_form_factor;
 };
 
 #endif // FORMFACTORSBUILDER_H

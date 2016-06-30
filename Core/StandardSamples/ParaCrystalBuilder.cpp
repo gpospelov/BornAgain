@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      StandardSamples/ParaCrystalBuilder.cpp
+//! @file      Core/StandardSamples/ParaCrystalBuilder.cpp
 //! @brief     Implements class ParaCrystalBuilder.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -13,7 +13,6 @@
 //
 // ************************************************************************** //
 
-#include "ParaCrystalBuilder.h"
 #include "MultiLayer.h"
 #include "ParticleLayout.h"
 #include "Materials.h"
@@ -22,7 +21,8 @@
 #include "FormFactorCylinder.h"
 #include "Units.h"
 #include "FTDistributions.h"
-#include "IComponentService.h"
+#include "FunctionalTestSuite.h"
+#include "ParaCrystalBuilder.h"
 
 RadialParaCrystalBuilder::RadialParaCrystalBuilder()
     : m_corr_peak_distance(20.0*Units::nanometer)
@@ -34,9 +34,9 @@ RadialParaCrystalBuilder::RadialParaCrystalBuilder()
     init_parameters();
 }
 
-ISample *RadialParaCrystalBuilder::buildSample() const
+ISample* RadialParaCrystalBuilder::buildSample() const
 {
-    MultiLayer *multi_layer = new MultiLayer();
+    MultiLayer* multi_layer = new MultiLayer();
 
     HomogeneousMaterial air_material("Air", 0.0, 0.0);
     HomogeneousMaterial substrate_material("Substrate", 6e-6, 2e-8);
@@ -79,25 +79,17 @@ void RadialParaCrystalBuilder::init_parameters()
 
 Basic2DParaCrystalBuilder::Basic2DParaCrystalBuilder()
     : m_pdf1(new FTDistribution2DCauchy(0.1*Units::nanometer, 0.2*Units::nanometer))
-    , m_pdf2(new FTDistribution2DCauchy(0.3*Units::nanometer, 0.4*Units::nanometer))
 {}
 
 Basic2DParaCrystalBuilder::~Basic2DParaCrystalBuilder()
 {
     delete m_pdf1;
-    delete m_pdf2;
 }
 
-void Basic2DParaCrystalBuilder::init_from(const IComponentService *service)
+ISample* Basic2DParaCrystalBuilder::buildSample() const
 {
-    // we will read only second function from component service
-    delete m_pdf2;
-    m_pdf2 = service->getFTDistribution2D();
-}
-
-ISample *Basic2DParaCrystalBuilder::buildSample() const
-{
-    MultiLayer *multi_layer = new MultiLayer();
+    const IFTDistribution2D* pdf2 = getFTDistribution2D();
+    MultiLayer* multi_layer = new MultiLayer();
 
     HomogeneousMaterial air_material("Air", 0.0, 0.0);
     HomogeneousMaterial substrate_material("Substrate", 6e-6, 2e-8);
@@ -113,7 +105,7 @@ ISample *Basic2DParaCrystalBuilder::buildSample() const
     interference_function.setDomainSizes(20.0*Units::micrometer,
             40.0*Units::micrometer);
 
-    interference_function.setProbabilityDistributions(*m_pdf1, *m_pdf2);
+    interference_function.setProbabilityDistributions(*m_pdf1, *pdf2);
 
     FormFactorCylinder ff_cylinder(5.0*Units::nanometer, 5.0*Units::nanometer);
 
@@ -146,9 +138,9 @@ HexParaCrystalBuilder::HexParaCrystalBuilder()
     init_parameters();
 }
 
-ISample *HexParaCrystalBuilder::buildSample() const
+ISample* HexParaCrystalBuilder::buildSample() const
 {
-    MultiLayer *multi_layer = new MultiLayer();
+    MultiLayer* multi_layer = new MultiLayer();
 
     HomogeneousMaterial particle_material("Particle", 6e-4, 2e-8);
     HomogeneousMaterial air_material("Air", 0.0, 0.0);
@@ -192,9 +184,9 @@ void HexParaCrystalBuilder::init_parameters()
 // RectParaCrystalBuilder
 // -----------------------------------------------------------------------------
 
-ISample *RectParaCrystalBuilder::buildSample() const
+ISample* RectParaCrystalBuilder::buildSample() const
 {
-    MultiLayer *multi_layer = new MultiLayer();
+    MultiLayer* multi_layer = new MultiLayer();
 
     HomogeneousMaterial air_material("Air", 0.0, 0.0);
     HomogeneousMaterial substrate_material("Substrate", 6e-6, 2e-8);
@@ -231,9 +223,9 @@ ISample *RectParaCrystalBuilder::buildSample() const
 // IsGISAXS08BBuilder
 // -----------------------------------------------------------------------------
 
-ISample *IsGISAXS08BBuilder::buildSample() const
+ISample* IsGISAXS08BBuilder::buildSample() const
 {
-    MultiLayer *multi_layer = new MultiLayer();
+    MultiLayer* multi_layer = new MultiLayer();
 
     HomogeneousMaterial air_material("Air", 0.0, 0.0);
     HomogeneousMaterial substrate_material("Substrate", 6e-6, 2e-8);

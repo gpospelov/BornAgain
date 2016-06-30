@@ -2,14 +2,15 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/JobItem.cpp
+//! @file      GUI/coregui/Models/JobItem.cpp
 //! @brief     Implements class JobItem
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
@@ -20,73 +21,99 @@
 #include "InstrumentModel.h"
 #include "MultiLayerItem.h"
 #include "InstrumentItem.h"
-#include "JobResultsPresenter.h"
+#include "JobItemHelper.h"
+#include "SimulationOptionsItem.h"
+#include "GUIHelpers.h"
+#include "FitSuiteItem.h"
+#include "ParameterTreeItems.h"
+#include "FitParameterItems.h"
+#include "RealDataItem.h"
+#include <QDateTime>
 #include <QDebug>
 
-
-namespace
-{
-
-QMap<QString, QString> initializeRunPolicies()
-{
-    QMap<QString, QString> result;
-    result[Constants::JOB_RUN_IMMEDIATELY] =
-        QString("Start simulation immediately, switch to Jobs view automatically when completed");
-    result[Constants::JOB_RUN_IN_BACKGROUND] =
-        QString("Start simulation immediately, do not switch to Jobs view when completed");
-    result[Constants::JOB_RUN_SUBMIT_ONLY] =
-        QString("Only submit simulation for consequent execution,"
-                " has to be started from Jobs view explicitely");
-    return result;
+namespace {
+    QVariant createStatusVariant() {
+        ComboProperty status;
+        status << Constants::STATUS_IDLE << Constants::STATUS_RUNNING
+               << Constants::STATUS_FITTING << Constants::STATUS_COMPLETED
+               << Constants::STATUS_CANCELED << Constants::STATUS_FAILED;
+        return status.getVariant();
+    }
 }
-
-}
-
-QMap<QString, QString> JobItem::m_run_policies = initializeRunPolicies();
-
 
 const QString JobItem::P_IDENTIFIER = "Identifier";
 const QString JobItem::P_SAMPLE_NAME = "Sample";
 const QString JobItem::P_INSTRUMENT_NAME = "Instrument";
+const QString JobItem::P_WITH_FITTING = "With Fitting";
 const QString JobItem::P_STATUS = "Status";
 const QString JobItem::P_BEGIN_TIME = "Begin Time";
 const QString JobItem::P_END_TIME = "End Time";
+const QString JobItem::P_DURATION = "Duration";
 const QString JobItem::P_COMMENTS = "Comments";
 const QString JobItem::P_PROGRESS = "Progress";
-const QString JobItem::P_NTHREADS = "Number of Threads";
-const QString JobItem::P_RUN_POLICY = "Run Policy";
+const QString JobItem::T_SAMPLE = "Sample Tag";
+const QString JobItem::T_INSTRUMENT = "Instrument Tag";
+const QString JobItem::T_OUTPUT = "Output Tag";
+const QString JobItem::T_REALDATA = "Real Data Tag";
+const QString JobItem::T_PARAMETER_TREE = "Parameter Tree";
+const QString JobItem::T_SIMULATION_OPTIONS = "Simulation Options";
+const QString JobItem::T_FIT_SUITE = "Fit Suite";
 
-
-JobItem::JobItem(ParameterizedItem *parent)
-    : ParameterizedItem(Constants::JobItemType, parent)
+JobItem::JobItem()
+    : SessionItem(Constants::JobItemType)
 {
-    registerProperty(P_NAME, Constants::JobItemType);
-    registerProperty(P_IDENTIFIER, QString()).setHidden();
-    registerProperty(P_SAMPLE_NAME, QString()).setReadOnly();
-    registerProperty(P_INSTRUMENT_NAME, QString()).setReadOnly();
+    setItemName(Constants::JobItemType);
+    addProperty(P_IDENTIFIER, QString())->setVisible(false);
+    addProperty(P_SAMPLE_NAME, QString())->setEditable(false);
+    addProperty(P_INSTRUMENT_NAME, QString())->setEditable(false);
+    addProperty(P_WITH_FITTING, false)->setVisible(false);
 
-    ComboProperty status;
-    status << Constants::STATUS_IDLE << Constants::STATUS_RUNNING << Constants::STATUS_COMPLETED
-           << Constants::STATUS_CANCELED << Constants::STATUS_FAILED;
-    registerProperty(P_STATUS, status.getVariant()).setReadOnly();
+//    ComboProperty status;
+//    status << Constants::STATUS_IDLE << Constants::STATUS_RUNNING << Constants::STATUS_FITTING << Constants::STATUS_COMPLETED
+//           << Constants::STATUS_CANCELED << Constants::STATUS_FAILED;
+    addProperty(P_STATUS, createStatusVariant())->setEditable(false);
 
-    registerProperty(P_BEGIN_TIME, QString()).setReadOnly();
-    registerProperty(P_END_TIME, QString()).setReadOnly();
-    registerProperty(P_COMMENTS, QString()).setHidden();
+    addProperty(P_BEGIN_TIME, QString())->setEditable(false);
+    addProperty(P_END_TIME, QString())->setEditable(false);
 
-    registerProperty(P_PROGRESS, 0).setHidden();
-    registerProperty(P_NTHREADS, -1).setHidden();
+    SessionItem *durationItem = addProperty(P_DURATION, QString());
+    durationItem->setEditable(false);
+    durationItem->setToolTip(QStringLiteral("Duration of DWBA simulation in sec.msec format"));
 
-    ComboProperty policy;
-    policy << Constants::JOB_RUN_IMMEDIATELY
-           << Constants::JOB_RUN_IN_BACKGROUND
-           << Constants::JOB_RUN_SUBMIT_ONLY;
-    registerProperty(P_RUN_POLICY, policy.getVariant()).setHidden();
+    addProperty(P_COMMENTS, QString())->setVisible(false);
+    addProperty(P_PROGRESS, 0)->setVisible(false);
 
-    addToValidChildren(Constants::IntensityDataType);
+    registerTag(T_SAMPLE, 1, 1, QStringList() << Constants::MultiLayerType);
+    registerTag(T_INSTRUMENT, 1, 1, QStringList() << Constants::InstrumentType);
+    registerTag(T_OUTPUT, 1, 1, QStringList() << Constants::IntensityDataType);
+    registerTag(T_REALDATA, 1, 1, QStringList() << Constants::RealDataType);
+//    registerTag(T_PARAMETER_TREE, 0, -1, QStringList() << Constants::ParameterLabelType
+//                << Constants::ParameterType);
+    registerTag(T_PARAMETER_TREE, 0, -1, QStringList() << Constants::ParameterContainerType);
 
-    addToValidChildren(Constants::MultiLayerType);
-    addToValidChildren(Constants::InstrumentType);
+    registerTag(T_SIMULATION_OPTIONS, 1, 1, QStringList() << Constants::SimulationOptionsType);
+
+    registerTag(T_FIT_SUITE, 1, 1, QStringList() << Constants::FitSuiteType);
+
+    mapper()->setOnChildPropertyChange(
+                [this](SessionItem* item, const QString &name)
+    {
+        if (item->modelType() == Constants::IntensityDataType
+            && name == IntensityDataItem::P_AXES_UNITS) {
+            auto intensityItem = dynamic_cast<IntensityDataItem *>(item);
+            JobItemHelper::updateDataAxes(intensityItem, getInstrumentItem());
+            qDebug() << "QQQQ" << item->modelType() << name;
+
+        }
+    });
+
+    mapper()->setOnPropertyChange(
+        [this](const QString &name){
+        if(name == P_NAME)
+            updateIntensityDataFileName();
+        }
+    );
+
 }
 
 JobItem::~JobItem()
@@ -95,164 +122,149 @@ JobItem::~JobItem()
 
 QString JobItem::getIdentifier() const
 {
-    return getRegisteredProperty(P_IDENTIFIER).toString();
+    return getItemValue(P_IDENTIFIER).toString();
 }
 
 void JobItem::setIdentifier(const QString &identifier)
 {
-    setRegisteredProperty(JobItem::P_IDENTIFIER, identifier);
+    setItemValue(JobItem::P_IDENTIFIER, identifier);
 }
 
 IntensityDataItem *JobItem::getIntensityDataItem()
 {
-    foreach(ParameterizedItem *item, childItems()) {
-        IntensityDataItem *data = dynamic_cast<IntensityDataItem *>(item);
-        if(data) return data;
-    }
-    return 0;
+    return dynamic_cast<IntensityDataItem*>(getItem(T_OUTPUT));
 }
 
 QString JobItem::getStatus() const
 {
-    ComboProperty combo_property = getRegisteredProperty(P_STATUS).value<ComboProperty>();
+    ComboProperty combo_property = getItemValue(P_STATUS).value<ComboProperty>();
     return combo_property.getValue();
 }
 
 void JobItem::setStatus(const QString &status)
 {
-    ComboProperty combo_property = getRegisteredProperty(P_STATUS).value<ComboProperty>();
+    ComboProperty combo_property = getItemValue(P_STATUS).value<ComboProperty>();
     combo_property.setValue(status);
-    setRegisteredProperty(P_STATUS, combo_property.getVariant());
+    setItemValue(P_STATUS, combo_property.getVariant());
     if(status == Constants::STATUS_FAILED) {
         if(IntensityDataItem *intensityItem = getIntensityDataItem()) {
             if(intensityItem->getOutputData())
                 intensityItem->getOutputData()->setAllTo(0.0);
-                emit intensityItem->intensityModified();
+                emit intensityItem->emitDataChanged();
         }
     }
 }
 
 bool JobItem::isIdle() const
 {
-    ComboProperty combo_property = getRegisteredProperty(P_STATUS).value<ComboProperty>();
+    ComboProperty combo_property = getItemValue(P_STATUS).value<ComboProperty>();
     return combo_property.getValue() == Constants::STATUS_IDLE;
 }
 
 bool JobItem::isRunning() const
 {
-    ComboProperty combo_property = getRegisteredProperty(P_STATUS).value<ComboProperty>();
+    ComboProperty combo_property = getItemValue(P_STATUS).value<ComboProperty>();
     return combo_property.getValue() == Constants::STATUS_RUNNING;
 }
 
 bool JobItem::isCompleted() const
 {
-    ComboProperty combo_property = getRegisteredProperty(P_STATUS).value<ComboProperty>();
+    ComboProperty combo_property = getItemValue(P_STATUS).value<ComboProperty>();
     return combo_property.getValue() == Constants::STATUS_COMPLETED;
 }
 
 bool JobItem::isCanceled() const
 {
-    ComboProperty combo_property = getRegisteredProperty(P_STATUS).value<ComboProperty>();
+    ComboProperty combo_property = getItemValue(P_STATUS).value<ComboProperty>();
     return combo_property.getValue() == Constants::STATUS_CANCELED;
 }
 
 bool JobItem::isFailed() const
 {
-    ComboProperty combo_property = getRegisteredProperty(P_STATUS).value<ComboProperty>();
+    ComboProperty combo_property = getItemValue(P_STATUS).value<ComboProperty>();
     return combo_property.getValue() == Constants::STATUS_FAILED;
+}
+
+bool JobItem::isValidForFitting()
+{
+    if(isTag(T_REALDATA) && getItem(T_REALDATA)) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 void JobItem::setBeginTime(const QString &begin_time)
 {
-    setRegisteredProperty(P_BEGIN_TIME, begin_time);
+    setItemValue(P_BEGIN_TIME, begin_time);
 }
 
 void JobItem::setEndTime(const QString &end_time)
 {
-    setRegisteredProperty(P_END_TIME, end_time);
+    setItemValue(P_END_TIME, end_time);
+}
+
+// Sets duration (msec -> "sec.msec")
+void JobItem::setDuration(int duration)
+{
+    QString str;
+    if(duration != 0)
+        str.sprintf("%7.3f", duration/1000.);
+    setItemValue(P_DURATION, str.simplified());
 }
 
 QString JobItem::getComments() const
 {
-    return getRegisteredProperty(P_COMMENTS).toString();
+    return getItemValue(P_COMMENTS).toString();
 }
 
 void JobItem::setComments(const QString &comments)
 {
-    setRegisteredProperty(P_COMMENTS, comments);
+    setItemValue(P_COMMENTS, comments);
 }
 
 int JobItem::getProgress() const
 {
-    return getRegisteredProperty(P_PROGRESS).toInt();
+    return getItemValue(P_PROGRESS).toInt();
 }
 
 void JobItem::setProgress(int progress)
 {
-    setRegisteredProperty(P_PROGRESS, progress);
+    setItemValue(P_PROGRESS, progress);
 }
 
 int JobItem::getNumberOfThreads() const
 {
-    return getRegisteredProperty(P_NTHREADS).toInt();
-}
-
-void JobItem::setNumberOfThreads(int number_of_threads)
-{
-    setRegisteredProperty(P_NTHREADS, number_of_threads);
+    return getSimulationOptionsItem()->getNumberOfThreads();
 }
 
 void JobItem::setRunPolicy(const QString &run_policy)
 {
-    ComboProperty combo_property = getRegisteredProperty(JobItem::P_RUN_POLICY).value<ComboProperty>();
-    combo_property.setValue(run_policy);
-    setRegisteredProperty(JobItem::P_RUN_POLICY, combo_property.getVariant());
+    getSimulationOptionsItem()->setRunPolicy(run_policy);
 }
 
 bool JobItem::runImmediately() const
 {
-    ComboProperty combo_property = getRegisteredProperty(P_RUN_POLICY).value<ComboProperty>();
-    return combo_property.getValue() == Constants::JOB_RUN_IMMEDIATELY;
+    return getSimulationOptionsItem()->runImmediately();
 }
 
 bool JobItem::runInBackground() const
 {
-    ComboProperty combo_property = getRegisteredProperty(P_RUN_POLICY).value<ComboProperty>();
-    return combo_property.getValue() == Constants::JOB_RUN_IN_BACKGROUND;
+    return getSimulationOptionsItem()->runInBackground();
 }
 
 //! Returns MultiLayerItem of this JobItem, if from_backup=true, then backup'ed version of
 //! multilayer will be used
-MultiLayerItem *JobItem::getMultiLayerItem(bool from_backup)
+MultiLayerItem *JobItem::getMultiLayerItem()
 {
-    foreach(ParameterizedItem *item, childItems()) {
-        if(MultiLayerItem *multilayer = dynamic_cast<MultiLayerItem *>(item)) {
-            if(from_backup && multilayer->itemName().endsWith(Constants::JOB_BACKUP)) {
-                return multilayer;
-            }
-            if(!from_backup && !multilayer->itemName().endsWith(Constants::JOB_BACKUP)) {
-                return multilayer;
-            }
-        }
-    }
-    return 0;
+    return dynamic_cast<MultiLayerItem*>(getItem(T_SAMPLE));
 }
 
 //! Returns InstrumentItem of this JobItem, if from_backup=true, then backup'ed version of
 //! the instrument will be used
-InstrumentItem *JobItem::getInstrumentItem(bool from_backup)
+InstrumentItem *JobItem::getInstrumentItem()
 {
-    foreach(ParameterizedItem *item, childItems()) {
-        if(InstrumentItem *instrument = dynamic_cast<InstrumentItem *>(item)) {
-            if(from_backup && instrument->itemName().endsWith(Constants::JOB_BACKUP)) {
-                return instrument;
-            }
-            if(!from_backup && !instrument->itemName().endsWith(Constants::JOB_BACKUP)) {
-                return instrument;
-            }
-        }
-    }
-    return 0;
+    return dynamic_cast<InstrumentItem*>(getItem(T_INSTRUMENT));
 }
 
 void JobItem::setResults(const GISASSimulation *simulation)
@@ -260,35 +272,55 @@ void JobItem::setResults(const GISASSimulation *simulation)
     IntensityDataItem *intensityItem = getIntensityDataItem();
     Q_ASSERT(intensityItem);
 
-    JobResultsPresenter::setResults(intensityItem, simulation);
-
-
-
-//    Q_ASSERT(simulation);
-//    IntensityDataItem *intensityItem = getIntensityDataItem();
-//    Q_ASSERT(intensityItem);
-//    intensityItem->setNameFromProposed(this->itemName());
-    //    intensityItem->setResults(simulation);
+    JobItemHelper::setResults(intensityItem, simulation);
+    updateIntensityDataFileName();
 }
 
-void JobItem::onChildPropertyChange(ParameterizedItem *item, const QString &propertyName)
+FitSuiteItem *JobItem::fitSuiteItem()
 {
-    if (item->modelType() == Constants::IntensityDataType
-        && propertyName == IntensityDataItem::P_AXES_UNITS) {
-        auto intensityItem = dynamic_cast<IntensityDataItem *>(item);
-        JobResultsPresenter::updateDataAxes(intensityItem, getInstrumentItem());
-        qDebug() << "QQQQ" << item->modelType() << propertyName;
-
-    }
-
+    return dynamic_cast<FitSuiteItem *>(getItem(JobItem::T_FIT_SUITE));
 }
 
-//void JobItem::onPropertyChange(const QString &name)
-//{
-//    if(name == ParameterizedItem::P_NAME) {
-//        if(IntensityDataItem *intensityDataItem = getIntensityDataItem()) {
-//            intensityDataItem->setNameFromProposed(itemName());
-//        }
-//    }
-//}
+ParameterContainerItem *JobItem::parameterContainerItem()
+{
+    return dynamic_cast<ParameterContainerItem *>(getItem(JobItem::T_PARAMETER_TREE));
+}
+
+FitParameterContainerItem *JobItem::fitParameterContainerItem()
+{
+    if(FitSuiteItem *item = fitSuiteItem())
+        return item->fitParameterContainerItem();
+
+    return nullptr;
+}
+
+RealDataItem *JobItem::realDataItem()
+{
+    return dynamic_cast<RealDataItem*>(getItem(JobItem::T_REALDATA));
+}
+
+//! Updates the name of file to store intensity data.
+
+void JobItem::updateIntensityDataFileName()
+{
+    if(IntensityDataItem *item = getIntensityDataItem()) {
+        QString newFileName = GUIHelpers::intensityDataFileName(this);
+        item->setItemValue(IntensityDataItem::P_FILE_NAME, newFileName);
+    }
+}
+
+SimulationOptionsItem *JobItem::getSimulationOptionsItem()
+{
+    return const_cast<SimulationOptionsItem *>(static_cast<const JobItem*>(this)->getSimulationOptionsItem());
+}
+
+const SimulationOptionsItem *JobItem::getSimulationOptionsItem() const
+{
+    const SimulationOptionsItem *result = dynamic_cast<const SimulationOptionsItem *>(getItem(T_SIMULATION_OPTIONS));
+    if(!result) {
+        throw GUIHelpers::Error("JobItem::getSimulationOptions() -> Error. "
+                                "Can't get SimulationOptionsItem");
+    }
+    return result;
+}
 

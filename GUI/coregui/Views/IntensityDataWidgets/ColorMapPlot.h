@@ -2,14 +2,15 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/IntensityDataWidgets/ColorMapPlot.h
-//! @brief     Defines class ColorMapPlot
+//! @file      GUI/coregui/Views/IntensityDataWidgets/ColorMapPlot.h
+//! @brief     Declares class ColorMapPlot
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
@@ -21,11 +22,13 @@
 #include <QWidget>
 #include <QMap>
 #include <QPoint>
+#include <memory>
 
 class IntensityDataItem;
 class QCustomPlot;
 class QCPColorMap;
 class QCPColorScale;
+class UpdateTimer;
 
 //! 2D color map widget for IntensityData
 class BA_CORE_API_ ColorMapPlot : public QWidget
@@ -33,6 +36,7 @@ class BA_CORE_API_ ColorMapPlot : public QWidget
     Q_OBJECT
 public:
     explicit ColorMapPlot(QWidget *parent = 0);
+    ~ColorMapPlot();
 
     QSize sizeHint() const { return QSize(500, 400); }
     QSize minimumSizeHint() const { return QSize(128, 128); }
@@ -64,7 +68,7 @@ signals:
     void validMousMove();
 
 public slots:
-    void setLogz(bool logz, bool isReplot = true);
+    void setLogz(bool logz);
     void resetView();
     void onMouseMove(QMouseEvent *event);
 
@@ -78,6 +82,8 @@ private slots:
     void onDataRangeChanged(QCPRange newRange);
     void onXaxisRangeChanged(QCPRange newRange);
     void onYaxisRangeChanged(QCPRange newRange);
+    void replot();
+    void onTimeToReplot();
 
 private:
 
@@ -101,10 +107,26 @@ private:
     };
 
     void initColorMap();
-    void plotItem(IntensityDataItem *intensityItem);
-    QCPRange calculateDataRange(IntensityDataItem *intensityItem);
-    void setColorScaleVisible(bool visibility_flag);
+
+    void setConnected(bool isConnected);
+    void setAxesRangeConnected(bool isConnected);
+    void setDataRangeConnected(bool isConnected);
+    void setMouseMoveConnected(bool isConnected);
+    void setUpdateTimerConnected(bool isConnected);
+
     void setFixedColorMapMargins();
+
+    void setColorMapFromItem(IntensityDataItem *intensityItem);
+    void setAxesRangeFromItem(IntensityDataItem *item);
+    void setAxesZoomFromItem(IntensityDataItem *item);
+    void setLabelsFromItem(IntensityDataItem *item);
+    void setDataFromItem(IntensityDataItem *item);
+    void setColorScaleAppearanceFromItem(IntensityDataItem *item);
+    void setDataRangeFromItem(IntensityDataItem *item);
+
+    void setColorScaleVisible(bool visibility_flag);
+
+    void resetColorMap();
 
     QCustomPlot *m_customPlot;
     QCPColorMap *m_colorMap;
@@ -112,9 +134,10 @@ private:
 
     IntensityDataItem *m_item;
 
-    QMap<QString, QCPColorGradient > m_gradient_map;
     bool m_block_update;
     PositionData m_posData;
+
+    UpdateTimer *m_updateTimer;
 };
 
 

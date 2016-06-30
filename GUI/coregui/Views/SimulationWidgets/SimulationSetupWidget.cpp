@@ -2,94 +2,111 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/SimulationWidgets/SimulationSetupWidget.cpp
+//! @file      GUI/coregui/Views/SimulationWidgets/SimulationSetupWidget.cpp
 //! @brief     Implements class SimulationSetupWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
 #include "SimulationSetupWidget.h"
-#include "GISASSimulation.h"
-#include "mainwindow.h"
 #include "JobModel.h"
-#include "MultiLayerItem.h"
-#include "InstrumentItem.h"
-#include "SampleModel.h"
-#include "InstrumentModel.h"
 #include "JobItem.h"
-#include "SampleValidator.h"
-#include "Utils.h"
-#include "PyGenTools.h"
-#include "mainwindow_constants.h"
 #include "PythonScriptWidget.h"
-#include <QGroupBox>
+#include "projectmanager.h"
+#include "SimulationOptionsWidget.h"
+#include "ApplicationModels.h"
+#include "AppSvc.h"
+#include "DocumentModel.h"
+#include "SimulationDataSelectorWidget.h"
+#include "SimulationSetupAssistant.h"
 #include <QPushButton>
 #include <QVBoxLayout>
-#include <QComboBox>
-#include <QLabel>
-#include <QGridLayout>
 #include <QMessageBox>
-#include <QFileDialog>
-#include <QDir>
-#include <QtCore>
-#include <QMenu>
-#include <DomainSimulationBuilder.h>
+#include <QDebug>
 
 SimulationSetupWidget::SimulationSetupWidget(QWidget *parent)
     : QWidget(parent)
-    , m_jobModel(0)
-    , m_sampleModel(0)
-    , m_instrumentModel(0)
-    , m_projectManager(0)
+    , m_applicationModels(0)
+    , runSimulationButton(0)
+    , exportToPyScriptButton(0)
+    , m_simDataSelectorWidget(new SimulationDataSelectorWidget(this))
+    , m_simOptionsWidget(new SimulationOptionsWidget(this))
 {
-    // selection of input parameters
-    QGroupBox *inputDataGroup = new QGroupBox(tr("Data selection"));
-    // instrument selection
-    QLabel *instrumentSelectionLabel = new QLabel(tr("Select Instrument:"));
-    instrumentSelectionBox = new QComboBox;
-    // sample selection
-    QLabel *sampleSelectionLabel = new QLabel(tr("Select Sample:"));
-    sampleSelectionBox = new QComboBox;
-    // layout
-    QGridLayout *dataSelectionLayout = new QGridLayout;
-    dataSelectionLayout->addWidget(instrumentSelectionLabel, 0, 0);
-    dataSelectionLayout->addWidget(instrumentSelectionBox, 0, 1);
-    dataSelectionLayout->addWidget(sampleSelectionLabel, 1, 0);
-    dataSelectionLayout->addWidget(sampleSelectionBox, 1, 1);
-    inputDataGroup->setLayout(dataSelectionLayout);
-    //updateViewElements();
+    QVBoxLayout *mainLayout = new QVBoxLayout;
+    mainLayout->addWidget(m_simDataSelectorWidget);
+    mainLayout->addWidget(m_simOptionsWidget);
+    mainLayout->addWidget(createButtonWidget());
+    mainLayout->addStretch(10);
+    setLayout(mainLayout);
 
-    // selection of simulation parameters
-    QGroupBox *simulationParametersGroup = new QGroupBox(tr("Simulation Parameters"));
-    // run policy
-    QLabel *runPolicyLabel = new QLabel(tr("Run Policy:"));
-    runPolicyLabel->setToolTip("Defines run policy for the simulation");
-    runPolicySelectionBox = new QComboBox;
-    runPolicySelectionBox->setToolTip("Defines run policy for the simulation");
-    runPolicySelectionBox->addItems(JobItem::getRunPolicies().keys());
-    int index(0);
-    foreach(QString descr, JobItem::getRunPolicies().values())
-        runPolicySelectionBox->setItemData(index++, descr, Qt::ToolTipRole);
+    // signal and slots
+    connect(runSimulationButton, SIGNAL(clicked()), this, SLOT(onRunSimulation()));
+    connect(exportToPyScriptButton, SIGNAL(clicked()), this, SLOT(onExportToPythonScript()));
+}
 
-    // selection of number of threads
-    QLabel *cpuUsageLabel = new QLabel(tr("CPU Usage:"));
-    cpuUsageLabel->setToolTip("Defines number of threads to use for the simulation.");
-    cpuUsageSelectionBox = new QComboBox;
-    cpuUsageSelectionBox->setToolTip("Defines number of threads to use for the simulation.");
-    cpuUsageSelectionBox->addItems(getCPUUsageOptions());
+void SimulationSetupWidget::setApplicationModels(ApplicationModels *model)
+{
+    Q_ASSERT(model);
+    if(model != m_applicationModels) {
+        m_applicationModels = model;
+        m_simDataSelectorWidget->setApplicationModels(model);
+        updateViewElements();
+    }
+}
 
-    // layout
-    QGridLayout *simulationParametersLayout = new QGridLayout;
-    simulationParametersLayout->addWidget(runPolicyLabel, 0, 0);
-    simulationParametersLayout->addWidget(runPolicySelectionBox, 0, 1);
-    simulationParametersLayout->addWidget(cpuUsageLabel, 1, 0);
-    simulationParametersLayout->addWidget(cpuUsageSelectionBox, 1, 1);
-    simulationParametersGroup->setLayout(simulationParametersLayout);
+void SimulationSetupWidget::updateViewElements()
+{
+    m_simDataSelectorWidget->updateViewElements();
+    m_simOptionsWidget->setItem(m_applicationModels->documentModel()->getSimulationOptionsItem());
+}
+
+void SimulationSetupWidget::onRunSimulation()
+{
+    const MultiLayerItem *multiLayerItem = m_simDataSelectorWidget->selectedMultiLayerItem();
+    const InstrumentItem *instrumentItem = m_simDataSelectorWidget->selectedInstrumentItem();
+    const RealDataItem *realDataItem = m_simDataSelectorWidget->selectedRealDataItem();
+
+    SimulationSetupAssistant assistant;
+    if(!assistant.isValidSimulationSetup(multiLayerItem, instrumentItem, realDataItem))
+        return;
+
+    JobItem *jobItem = m_applicationModels->jobModel()->addJob(
+                multiLayerItem,
+                instrumentItem,
+                realDataItem,
+                m_applicationModels->documentModel()->getSimulationOptionsItem());
+
+    if (jobItem->runImmediately() || jobItem->runInBackground())
+        m_applicationModels->jobModel()->runJob(jobItem->index());
+}
+
+void SimulationSetupWidget::onExportToPythonScript()
+{
+    const MultiLayerItem *multiLayerItem = m_simDataSelectorWidget->selectedMultiLayerItem();
+    const InstrumentItem *instrumentItem = m_simDataSelectorWidget->selectedInstrumentItem();
+
+    SimulationSetupAssistant assistant;
+    if(!assistant.isValidSimulationSetup(multiLayerItem, instrumentItem))
+        return;
+
+    PythonScriptWidget *pythonWidget = new PythonScriptWidget(this);
+    pythonWidget->show();
+    pythonWidget->raise();
+    pythonWidget->generatePythonScript(
+        multiLayerItem, instrumentItem,
+        m_applicationModels->documentModel()->getSimulationOptionsItem(),
+        AppSvc::projectManager()->getProjectDir());
+}
+
+QWidget *SimulationSetupWidget::createButtonWidget()
+{
+    QWidget *result = new QWidget;
 
     QHBoxLayout *simButtonLayout = new QHBoxLayout;
     // run simulation button
@@ -118,226 +135,7 @@ SimulationSetupWidget::SimulationSetupWidget(QWidget *parent)
     simButtonLayout->addWidget(exportToPyScriptButton);
     simButtonLayout->addStretch();
 
-    // main layout
-    QVBoxLayout *mainLayout = new QVBoxLayout;
-    mainLayout->addWidget(inputDataGroup);
-    mainLayout->addWidget(simulationParametersGroup);
-    mainLayout->addLayout(simButtonLayout);
-    mainLayout->addStretch();
-    setLayout(mainLayout);
-
-    // signal and slots
-    connect(runSimulationButton, SIGNAL(clicked()), this, SLOT(onRunSimulation()));
-    connect(exportToPyScriptButton, SIGNAL(clicked()), this, SLOT(onExportToPythonScript()));
-}
-
-void SimulationSetupWidget::setJobModel(JobModel *model)
-{
-    Q_ASSERT(model);
-    if(model != m_jobModel) {
-        m_jobModel = model;
-    }
-}
-
-void SimulationSetupWidget::setSampleModel(SampleModel *model)
-{
-    Q_ASSERT(model);
-    if(model != m_sampleModel) {
-        m_sampleModel = model;
-        updateSelectionBox(sampleSelectionBox, m_sampleModel->getSampleMap().keys());
-    }
-}
-
-void SimulationSetupWidget::setInstrumentModel(InstrumentModel *model)
-{
-    Q_ASSERT(model);
-    if(model != m_instrumentModel) {
-        m_instrumentModel = model;
-        updateSelectionBox(instrumentSelectionBox, m_instrumentModel->getInstrumentMap().keys());
-    }
-}
-
-QString SimulationSetupWidget::getSelectedInstrumentName() const
-{
-    return instrumentSelectionBox->currentText();
-}
-
-int SimulationSetupWidget::getSelectedInstrumentIndex() const
-{
-    return instrumentSelectionBox->currentIndex();
-}
-
-QString SimulationSetupWidget::getSelectedSampleName() const
-{
-    return sampleSelectionBox->currentText();
-}
-
-int SimulationSetupWidget::getSelectedSampleIndex() const
-{
-    return sampleSelectionBox->currentIndex();
-}
-
-void SimulationSetupWidget::setProjectManager(ProjectManager *projectManager)
-{
-    m_projectManager = projectManager;
-}
-
-void SimulationSetupWidget::updateViewElements()
-{
-    updateSelectionBox(instrumentSelectionBox, m_instrumentModel->getInstrumentMap().keys());
-    updateSelectionBox(sampleSelectionBox, m_sampleModel->getSampleMap().keys());
-}
-
-void SimulationSetupWidget::onRunSimulation()
-{
-    InstrumentModel *jobInstrumentModel = getJobInstrumentModel();
-    if (!jobInstrumentModel) {
-        QMessageBox::warning(this, tr("No Instrument Selected"),
-                             tr("You must select an instrument first."));
-        return;
-    }
-
-    SampleModel *jobSampleModel = getJobSampleModel();
-    if (!jobSampleModel) {
-        QMessageBox::warning(this, tr("No Sample Selected"), tr("You must select a sample first."));
-        return;
-    }
-
-    SampleValidator sampleValidator;
-    if (!sampleValidator.isValidSampleModel(jobSampleModel)) {
-        QMessageBox::warning(this, tr("Not suitable MultiLayer"),
-                             sampleValidator.getValidationMessage());
-        return;
-    }
-
-    m_jobModel->addJob(getSelectedMultiLayerItem(), getSelectedInstrumentItem(),
-                       runPolicySelectionBox->currentText(), getNumberOfThreads());
-}
-
-void SimulationSetupWidget::onExportToPythonScript()
-{
-    InstrumentModel *instrumentModel = getJobInstrumentModel();
-    if(!instrumentModel) {
-        QMessageBox::warning(this, tr("No Instrument Selected"),
-                             tr("You must select an instrument first."));
-        return;
-    }
-
-    SampleModel *sampleModel = getJobSampleModel();
-    if(!sampleModel) {
-        QMessageBox::warning(this, tr("No Sample Selected"),
-                             tr("You must select a sample first."));
-        return;
-    }
-
-    SampleValidator sampleValidator;
-    if(!sampleValidator.isValidSampleModel(sampleModel)) {
-        QMessageBox::warning(this, tr("Not suitable MultiLayer"),
-                             sampleValidator.getValidationMessage());
-        return;
-    }
-
-    PythonScriptWidget *pythonWidget = new PythonScriptWidget(this, m_projectManager);
-    pythonWidget->show();
-    pythonWidget->raise();
-    pythonWidget->generatePythonScript(sampleModel, instrumentModel);
-}
-
-void SimulationSetupWidget::updateSelectionBox(QComboBox *comboBox, QStringList itemList)
-{
-    QString previousItem = comboBox->currentText();
-
-    comboBox->clear();
-    if(itemList.isEmpty()) {
-        comboBox->setEnabled(false);
-        comboBox->addItem("Not yet defined");
-    } else {
-        comboBox->setEnabled(true);
-        qSort(itemList.begin(), itemList.end());
-        comboBox->addItems(itemList);
-        if(itemList.contains(previousItem))
-            comboBox->setCurrentIndex(itemList.indexOf(previousItem));
-    }
-}
-
-//! returns list with number of threads to select
-QStringList SimulationSetupWidget::getCPUUsageOptions()
-{
-    QStringList result;
-    int nthreads = Utils::System::getThreadHardwareConcurrency();
-    for(int i = nthreads; i>0; i--){
-        if(i == nthreads) {
-            result.append(QString("Max (%1 threads)").arg(QString::number(i)));
-        } else if(i == 1) {
-            result.append(QString("%1 thread").arg(QString::number(i)));
-        } else {
-            result.append(QString("%1 threads").arg(QString::number(i)));
-        }
-    }
-    return result;
-}
-
-int SimulationSetupWidget::getNumberOfThreads()
-{
-    foreach(QChar ch, cpuUsageSelectionBox->currentText()) {
-        if(ch.isDigit()) return ch.digitValue();
-    }
-    return 0;
-}
-
-//! Returns copy of InstrumentModel containing a single instrument according to the text selection
-InstrumentModel *SimulationSetupWidget::getJobInstrumentModel()
-{
-    InstrumentModel *result(0);
-    QMap<QString, ParameterizedItem *> instruments = m_instrumentModel->getInstrumentMap();
-    if(instruments[getSelectedInstrumentName()]) {
-        int index = getSelectedInstrumentIndex();
-        QMap<QString, ParameterizedItem *>::iterator it = instruments.begin()+index;
-        result = m_instrumentModel->createCopy(it.value());
-    }
+    result->setLayout(simButtonLayout);
 
     return result;
 }
-
-//! Returns copy of SampleModel containing a single MultiLayer according to the text selection
-SampleModel *SimulationSetupWidget::getJobSampleModel()
-{
-    SampleModel *result(0);
-    QMap<QString, ParameterizedItem *> samples = m_sampleModel->getSampleMap();
-    if(samples[getSelectedSampleName()]) {
-        int index = getSelectedSampleIndex();
-        QMap<QString, ParameterizedItem *>::iterator it = samples.begin()+index;
-        result = m_sampleModel->createCopy(it.value());
-    }
-    return result;
-}
-
-//! Returns selected MultiLayerItem taking into account that there might be several
-//! multilayers with same name
-const MultiLayerItem *SimulationSetupWidget::getSelectedMultiLayerItem() const
-{
-    const MultiLayerItem *result(0);
-    QMap<QString, ParameterizedItem *> samples = m_sampleModel->getSampleMap();
-    if(samples[getSelectedSampleName()]) {
-        int index = getSelectedSampleIndex();
-        QMap<QString, ParameterizedItem *>::const_iterator it = samples.begin()+index;
-        result = dynamic_cast<MultiLayerItem *>(it.value());
-    }
-    return result;
-}
-
-//! Returns selected InstrumentItem taking into account that there might be several
-//! insturments with same name
-const InstrumentItem *SimulationSetupWidget::getSelectedInstrumentItem() const
-{
-    const InstrumentItem *result(0);
-    QMap<QString, ParameterizedItem *> instruments = m_instrumentModel->getInstrumentMap();
-    if(instruments[getSelectedInstrumentName()]) {
-        int index = getSelectedInstrumentIndex();
-        QMap<QString, ParameterizedItem *>::const_iterator it = instruments.begin()+index;
-        result = dynamic_cast<InstrumentItem *>(it.value());
-    }
-    return result;
-
-}
-

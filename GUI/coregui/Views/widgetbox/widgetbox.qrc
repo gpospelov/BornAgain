@@ -1,30 +1,27 @@
 <RCC>
     <qresource prefix="/widgetbox">
         <file>widgetbox.xml</file>
-        <file>images/sample_edithlayout.png</file>
-        <file>images/sample_editvlayout.png</file>
-        <file>images/sample_spacer.png</file>
-        <file>images/sample_vspacer.png</file>
-        <file>images/sample_layers2.png</file>
-        <file>images/ff_anisopyramid_32.png</file>
-        <file>images/ff_box_32.png</file>
-        <file>images/ff_cone_32.png</file>
-        <file>images/ff_cone6_32.png</file>
-        <file>images/ff_cubeoct_32.png</file>
-        <file>images/ff_cylinder_32.png</file>
-        <file>images/ff_ellipscylinder_32.png</file>
-        <file>images/ff_fullsphere_32.png</file>
-        <file>images/ff_fullspheroid_32.png</file>
-        <file>images/ff_hemiellipsoid_32.png</file>
-        <file>images/ff_prism3_32.png</file>
-        <file>images/ff_prism6_32.png</file>
-        <file>images/ff_pyramid_32.png</file>
-        <file>images/ff_ripple1_32.png</file>
-        <file>images/ff_ripple2_32.png</file>
-        <file>images/ff_tetrahedron_32.png</file>
-        <file>images/ff_truncsphere_32.png</file>
-        <file>images/ff_truncspheroid_32.png</file>
-        <file>images/sample_layers3.png</file>
+        <file>images/ff_AnisoPyramid_32.png</file>
+        <file>images/ff_Box_32.png</file>
+        <file>images/ff_Cone_32.png</file>
+        <file>images/ff_Cone6_32.png</file>
+        <file>images/ff_Cuboctahedron_32.png</file>
+        <file>images/ff_Cylinder_32.png</file>
+        <file>images/ff_Dodecahedron_32.png</file>
+        <file>images/ff_EllipsoidalCylinder_32.png</file>
+        <file>images/ff_FullSphere_32.png</file>
+        <file>images/ff_FullSpheroid_32.png</file>
+        <file>images/ff_HemiEllipsoid_32.png</file>
+        <file>images/ff_Icosahedron_32.png</file>
+        <file>images/ff_Prism3_32.png</file>
+        <file>images/ff_Prism6_32.png</file>
+        <file>images/ff_Pyramid_32.png</file>
+        <file>images/ff_Ripple1_32.png</file>
+        <file>images/ff_Ripple2_32.png</file>
+        <file>images/ff_Tetrahedron_32.png</file>
+        <file>images/ff_TruncatedCube_32.png</file>
+        <file>images/ff_TruncatedSphere_32.png</file>
+        <file>images/ff_TruncatedSpheroid_32.png</file>
         <file>images/MultiLayer.png</file>
         <file>images/Layer.png</file>
         <file>images/ParaCrystal2D.png</file>
@@ -35,7 +32,7 @@
         <file>images/Transformation.png</file>
         <file>images/ParticleComposition.png</file>
         <file>images/SizeDistribution.png</file>
-        <file>images/ff_trunccube_32.png</file>
         <file>images/Lattice1D.png</file>
+        <file>images/sample_layers2.png</file>
     </qresource>
 </RCC>

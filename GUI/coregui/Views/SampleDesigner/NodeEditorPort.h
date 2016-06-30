@@ -2,14 +2,15 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/SampleDesigner/NodeEditorPort.h
-//! @brief     Defines class NodeEditorPort
+//! @file      GUI/coregui/Views/SampleDesigner/NodeEditorPort.h
+//! @brief     Declares class NodeEditorPort
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
@@ -26,7 +27,6 @@
 #include <QString>
 #include "DesignerHelper.h"
 
-class QNEBlock;
 class NodeEditorConnection;
 class IView;
 
@@ -49,7 +49,8 @@ public:
     bool isOutput();
     bool isInput();
 
-    QVector<NodeEditorConnection *> &connections();
+    void remove(NodeEditorConnection *connection);
+    void append(NodeEditorConnection *connection);
 
     const QString &portName() const;
 
@@ -96,4 +97,4 @@ inline NodeEditorPort::EPortType NodeEditorPort::getPortType() const
     return m_port_type;
 }
 
-#endif // NODEEDITORPORT_H
+#endif

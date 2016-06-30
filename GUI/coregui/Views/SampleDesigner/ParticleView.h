@@ -2,20 +2,20 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/SampleDesigner/ParticleView.h
-//! @brief     Defines class ParticleView
+//! @file      GUI/coregui/Views/SampleDesigner/ParticleView.h
+//! @brief     Declares class ParticleView
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
 #ifndef PARTICLEVIEW_H
 #define PARTICLEVIEW_H
-
 
 #include "ConnectableView.h"
 #include <QPixmap>
@@ -34,15 +34,17 @@ public:
 
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
-    void setParameterizedItem(ParameterizedItem *item);
-
     void onPropertyChange(const QString &propertyName);
 
     void addView(IView *childView, int row = 0); // to add Transformation
 
-private:
-    QPixmap m_pixmap;
+protected:
+    void update_appearance();
 
+private:
+    void updatePixmap();
+
+    QPixmap m_pixmap;
 };
 
 

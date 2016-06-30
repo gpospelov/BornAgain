@@ -293,7 +293,7 @@
 2013-11-26 17:20:01 | jcnsopc73  | macosx64, 2800 MHz      | 23.8095     | 23.8095     | 1.48148     | 800000      | 
 2013-11-26 17:20:51 | jcnsopc73  | macosx64, 2800 MHz      | 23.5294     | 23.5294     | 1.48148     | 769231      | 
 
-# switch mesocrystal test to the one from SimulationRegistry
+# switch mesocrystal test to the one from SimulationFactory
 2013-12-09 17:51:20 | jcnsopc73  | macosx64, 2800 MHz      | 23.5294     | 23.2558     | 0.0356125   | 800000      |
 
 # PreRelease-0.9.3
@@ -498,3 +498,7 @@
 # PreRelease-1.5.0
 | date                | hostname   | sysinfo       | tr | total    | MultiLayer   | CylindersInD | RotatedPyram | CoreShell    | SquareLattic | RadialParaCr | HexParaCryst | SSCA         | Mesocrystal  | PolMagCyl    |
 | 2016-02-11 14:10:57 | jcnsopc126 | linuxx8664gcc | 0  | 18.247   | 1.981        | 0.920        | 1.418        | 0.696        | 2.578        | 0.950        | 3.899        | 1.381        | 2.008        | 2.417        |
+
+| date                | hostname  | sysinfo      | python | total cpu | total wall | MultiLayer | CylindersInDWBA | RotatedPyramids | CoreShell | SquareLattice | RadialParaCrystal | HexParaCrystal | SSCA   | Mesocrystal | PolMagCyl | Custom FF |
+| 2016-05-25 12:50:59 | jcnsopc22 | Linux x86_64 | 2.7    | 126.2680  | 19.0747    | 2.9620     | 0.7566          | 3.5780          | 0.5746    | 2.2319        | 0.7519            | 2.6683         | 1.0811 | 1.7840      | 1.8264    | 0.8599    |
+

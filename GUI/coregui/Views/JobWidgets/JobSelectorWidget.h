@@ -2,14 +2,15 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/JobWidgets/JobSelectorWidget.h
-//! @brief     Implements class JobSelectorWidget
+//! @file      GUI/coregui/Views/JobWidgets/JobSelectorWidget.h
+//! @brief     Declares class JobSelectorWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
@@ -21,35 +22,42 @@
 
 class JobModel;
 class JobItem;
-class JobPropertiesWidget;
-class QSplitter;
-class QPushButton;
-class JobListWidget;
 
-//! Widget to select JobQueueItem in a list and display its properties
-//! Left side of JobQueueView
-//! Contains two widgets: JobListWidget (top) and JobQueueProperties(buttom)
+namespace Manhattan {
+    class MiniSplitter;
+}
+
+//! The JobSelectorWidget class represents left panel of JobView. Contains a tree to select jobs
+//! on the top and job property editor at the bottom.
+
 class BA_CORE_API_ JobSelectorWidget : public QWidget
 {
-public:
-    explicit JobSelectorWidget(JobModel *model, QWidget *parent = 0);
+    Q_OBJECT
 
-    void setModel(JobModel *model);
+public:
+    explicit JobSelectorWidget(JobModel *jobModel, QWidget *parent = 0);
+
+    void setModel(JobModel *jobModel);
 
     QSize sizeHint() const { return QSize(210, 600); }
     QSize minimumSizeHint() const { return QSize(64, 300); }
 
+signals:
+    void selectionChanged(JobItem *);
+
 public slots:
     void makeJobItemSelected(JobItem *);
 
+private slots:
+    void onSelectionChanged(JobItem *jobItem);
+
 private:
+    class Manhattan::MiniSplitter *m_splitter;
+    class StyledToolBar *m_toolBar;
+    class JobSelectorActions *m_jobSelectorActions;
+    class JobListWidget *m_jobListWidget;
+    class JobPropertiesWidget *m_jobProperties;
     JobModel *m_jobModel;
-    QSplitter *m_splitter;
-    JobListWidget *m_jobListWidget;
-    JobPropertiesWidget *m_jobProperties;
 };
-
-
-
 
 #endif

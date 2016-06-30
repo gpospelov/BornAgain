@@ -2,43 +2,37 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/LayerItem.cpp
+//! @file      GUI/coregui/Models/LayerItem.cpp
 //! @brief     Implements class LayerItem
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
 #include "LayerItem.h"
 #include "MaterialUtils.h"
 #include "ComboProperty.h"
+#include "ItemFactory.h"
 
 const QString LayerItem::P_THICKNESS = "Thickness";
 const QString LayerItem::P_ROUGHNESS = "Top roughness";
 const QString LayerItem::P_MATERIAL = "Material";
+const QString LayerItem::T_LAYOUTS = "Layout tag";
 
-LayerItem::LayerItem(ParameterizedItem *parent)
-    : ParameterizedGraphicsItem(Constants::LayerType, parent)
+LayerItem::LayerItem()
+    : SessionGraphicsItem(Constants::LayerType)
 {
-    registerProperty(P_THICKNESS, 0.0);
-    registerProperty(P_MATERIAL, MaterialUtils::getDefaultMaterialProperty().getVariant());
+    addProperty(P_THICKNESS, 0.0);
+    getItem(P_THICKNESS)->setLimits(AttLimits::lowerLimited(0.0));
+    addProperty(P_MATERIAL, MaterialUtils::getDefaultMaterialProperty().getVariant());
 
-    registerGroupProperty(P_ROUGHNESS, Constants::LayerRoughnessGroup);
+    addGroupProperty(P_ROUGHNESS, Constants::LayerRoughnessGroup);
     setGroupProperty(P_ROUGHNESS, Constants::LayerZeroRoughnessType);
-    addToValidChildren(Constants::ParticleLayoutType, PortInfo::PORT_0);
-}
-
-void LayerItem::insertChildItem(int row, ParameterizedItem *item)
-{
-    ParameterizedItem::insertChildItem(row, item);
-    if (item->modelType() == Constants::ParticleLayoutType) {
-        int port = item->getRegisteredProperty(ParameterizedItem::P_PORT).toInt();
-        if (port == PortInfo::DEFAULT) {
-            item->setItemPort(PortInfo::PORT_0);
-        }
-    }
+    registerTag(T_LAYOUTS, 0, -1, QStringList() << Constants::ParticleLayoutType);
+    setDefaultTag(T_LAYOUTS);
 }

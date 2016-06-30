@@ -2,14 +2,15 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/SampleModel.cpp
+//! @file      GUI/coregui/Models/SampleModel.cpp
 //! @brief     Implements class SampleModel
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
@@ -21,67 +22,47 @@
 #include "ParticleItem.h"
 #include <QDebug>
 
-SampleModel::SampleModel(QObject *parent) : SessionModel(SessionXML::SampleModelTag, parent)
+SampleModel::SampleModel(QObject *parent)
+    : SessionModel(SessionXML::SampleModelTag, parent)
+    , m_block_explore_for_material(false)
 {
     setObjectName(SessionXML::SampleModelTag);
 }
 
-SampleModel *SampleModel::createCopy(ParameterizedItem *parent)
+SampleModel *SampleModel::createCopy(SessionItem *parent)
 {
     SampleModel *result = new SampleModel();
     result->initFrom(this, parent);
     return result;
 }
 
-//! returns list of MultiLayers defined in the model
-QMap<QString, ParameterizedItem *> SampleModel::getSampleMap() const
+MultiLayerItem *SampleModel::multiLayerItem(const QString &item_name)
 {
-    return getTopItemMap(Constants::MultiLayerType);
+    return dynamic_cast<MultiLayerItem *>(topItem(Constants::MultiLayerType, item_name));
 }
 
-MultiLayerItem *SampleModel::getMultiLayerItem(const QString &item_name)
+void SampleModel::onMaterialModelChanged(const QModelIndex &, const QModelIndex &)
 {
-    return dynamic_cast<MultiLayerItem *>(getTopItem(Constants::MultiLayerType, item_name));
-}
+    if(m_block_explore_for_material)
+        return;
 
-void SampleModel::onMaterialModelChanged(const QModelIndex &first, const QModelIndex & /* second */)
-{
-    MaterialModel *materialModel = qobject_cast<MaterialModel *>(sender());
-    qDebug() << "SampleModel::onMaterialModelChanged()" << first;
-    Q_ASSERT(materialModel);
-    MaterialItem *material = dynamic_cast<MaterialItem *>(materialModel->itemForIndex(first));
-    Q_ASSERT(material);
-    m_material_identifier = material->getIdentifier();
-
+    m_block_explore_for_material = true;
     exploreForMaterials();
+    m_block_explore_for_material = false;
 }
 
 void SampleModel::exploreForMaterials(const QModelIndex &parentIndex)
 {
-    if (!parentIndex.isValid()) {
-        qDebug() << "Dumping model";
-    }
 
     for (int i_row = 0; i_row < rowCount(parentIndex); ++i_row) {
         QModelIndex itemIndex = index(i_row, 0, parentIndex);
-        if (ParameterizedItem *item = itemForIndex(itemIndex)) {
+        if (SessionItem *item = itemForIndex(itemIndex)) {
             if (item->modelType() == Constants::LayerType
                 || item->modelType() == Constants::ParticleType) {
-                qDebug() << " found item" << item->modelType();
-                MaterialProperty material_property
-                    = item->getRegisteredProperty(LayerItem::P_MATERIAL).value<MaterialProperty>();
-                if (material_property.getIdentifier() == m_material_identifier) {
-//                    item->setRegisteredProperty(LayerItem::P_MATERIAL,
-//                                                material_property.getVariant());
-                    // MaterialProperty of the layer corresponds to the material which just has been changed
-                    // To trigger color change in ILayerView we have to trigger propertyChanged
-                    emit item->propertyChanged(LayerItem::P_MATERIAL);
-                }
+                // we pretend here that MaterialProperty changed to update IView colors
+                item->getItem(LayerItem::P_MATERIAL)->emitDataChanged();
             }
-        } else {
-            qDebug() << "not a parameterized graphics item";
         }
-
         exploreForMaterials(itemIndex);
     }
 }

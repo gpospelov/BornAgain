@@ -2,213 +2,445 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/FitWidgets/FitParameterWidget.cpp
+//! @file      GUI/coregui/Views/FitWidgets/FitParameterWidget.cpp
 //! @brief     Implements class FitParameterWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
 #include "FitParameterWidget.h"
-#include "FitParameterItem.h"
-#include <QDebug>
+#include "JobItem.h"
+#include "JobModel.h"
+#include "FitSuiteItem.h"
+#include "FitParameterItems.h"
+#include "ParameterTuningWidget.h"
+#include "FilterPropertyProxy.h"
+#include "ParameterTreeItems.h"
+#include "FitParameterProxyModel.h"
+#include "FitParameterHelper.h"
+#include "SessionModelDelegate.h"
+#include "CustomEventFilters.h"
+#include "OverlayLabelController.h"
+#include "mainwindow_constants.h"
+#include <QMenu>
+#include <QSignalMapper>
+#include <QTreeView>
 #include <QVBoxLayout>
+#include <QAction>
+#include <QDebug>
 
-
-
-FitParameterWidget::FitParameterWidget(FitProxyModel *fitProxyModel, QWidget *parent)
+FitParameterWidget::FitParameterWidget(QWidget *parent)
     : QWidget(parent)
-    , m_treeView(0)
-    , m_fitProxyModel(fitProxyModel)
+    , m_treeView(new QTreeView)
+    , m_jobItem(0)
+    , m_tuningWidget(0)
+    , m_createFitParAction(0)
+    , m_removeFromFitParAction(0)
+    , m_removeFitParAction(0)
+    , m_signalMapper(0)
+    , m_fitParameterModel(0)
+    , m_delegate(new SessionModelDelegate(this))
+    , m_keyboardFilter(new DeleteEventFilter(this))
+    , m_infoLabel(new OverlayLabelController(this))
 {
+    QVBoxLayout *layout = new QVBoxLayout;
+    layout->addWidget(m_treeView);
+    layout->setMargin(0);
+    layout->setSpacing(0);
+    setLayout(layout);
+    init_actions();
 
-    QColor bgColor(255,255,255,255);
-    QPalette palette;
-    palette.setColor(QPalette::Background, bgColor);
-    setAutoFillBackground(true);
-    setPalette(palette);
+    m_treeView->setSelectionMode(QAbstractItemView::ExtendedSelection);
+    m_treeView->setSelectionBehavior(QAbstractItemView::SelectRows);
+    m_treeView->setContextMenuPolicy(Qt::CustomContextMenu);
+    m_treeView->setItemDelegate(m_delegate);
+    m_treeView->setDragEnabled(true);
+    m_treeView->setDragDropMode(QAbstractItemView::DragDrop);
+    m_treeView->installEventFilter(m_keyboardFilter);
+    m_treeView->setAlternatingRowColors(true);
+    m_treeView->setStyleSheet("alternate-background-color: #EFF0F1;");
 
+    connect(m_treeView, SIGNAL(customContextMenuRequested(const QPoint &)),
+            this, SLOT(onFitParameterTreeContextMenu(const QPoint &)));
 
-    initFitModel();
+    m_infoLabel->setArea(m_treeView);
+    m_infoLabel->setText(QStringLiteral("Drop parameter(s) to fit here"));
+}
 
-    m_fitProxyModel->setFitModel(m_fitModel);
-    m_fitProxyModel->setHeaderData(0, Qt::Horizontal,"Title");
+void FitParameterWidget::setItem(JobItem *jobItem)
+{
+    if(jobItem == m_jobItem) {
+        return;
+    }
 
-    /*if(m_fitModel)
-    {
-        ParameterizedItem *item1 = m_fitModel->insertNewItem(Constants::FitParameterType);
-        item1->setItemName("par1");
-        item1->setRegisteredProperty(FitParameterItem::P_MIN, 1.0);
+    else {
+        m_jobItem = jobItem;
+        if (!m_jobItem) return;
 
-        FitParameterItem *item2 = dynamic_cast<FitParameterItem *>(m_fitModel->insertNewItem(Constants::FitParameterType));
-        item2->setItemName("par2");
+        init_fit_model();
+    }
+}
 
-//        ParameterizedItem *old_item = m_fitModel->itemForIndex(m_fitModel->index(0,0, QModelIndex()));
-//        qDebug() << "FitModel: " << old_item->getRegisteredProperty(FitParameterItem::P_MIN);
+//! Sets ParameterTuningWidget to be able to provide it with context menu and steer
+//! it behaviour in the course of fit settings or fit runnig
 
-//        FitParameterItem *fit_item = dynamic_cast<FitParameterItem *>(m_fitModel->itemForIndex(m_fitModel->index(1,0, QModelIndex())));
-//        qDebug() << "FitModel: " << fit_item->getRegisteredProperty(FitParameterItem::P_MAX);
+void FitParameterWidget::setParameterTuningWidget(ParameterTuningWidget *tuningWidget)
+{
+    if(tuningWidget == m_tuningWidget) {
+        return;
 
+    } else {
+        if(m_tuningWidget)
+            disconnect(m_tuningWidget, SIGNAL(itemContextMenuRequest(QPoint)),
+                this, SLOT(onTuningWidgetContextMenu(QPoint)));
 
+        m_tuningWidget = tuningWidget;
+        if(!m_tuningWidget) return;
 
-    }*/
+        connect(m_tuningWidget, SIGNAL(itemContextMenuRequest(QPoint)),
+            this, SLOT(onTuningWidgetContextMenu(QPoint)), Qt::UniqueConnection);
+    }
+}
 
+//QSize FitParameterWidget::sizeHint() const
+//{
+//    return QSize(Constants::REALTIME_WIDGET_WIDTH_HINT, Constants::FIT_PARAMETER_WIDGET_HEIGHT);
+//}
 
-    m_treeView = new QTreeView();
-    m_treeView->setStyleSheet("QTreeView::branch {background: palette(base);}QTreeView::branch:has-siblings:!adjoins-item {border-image: url(:/images/treeview-vline.png) 0;}QTreeView::branch:has-siblings:adjoins-item {border-image: url(:/images/treeview-branch-more.png) 0;}QTreeView::branch:!has-children:!has-siblings:adjoins-item {border-image: url(:/images/treeview-branch-end.png) 0;}QTreeView::branch:has-children:!has-siblings:closed,QTreeView::branch:closed:has-children:has-siblings {border-image: none;image: url(:/images/treeview-branch-closed.png);}QTreeView::branch:open:has-children:!has-siblings,QTreeView::branch:open:has-children:has-siblings  {border-image: none;image: url(:/images/treeview-branch-open.png);}");
+//QSize FitParameterWidget::minimumSizeHint() const
+//{
+//    return QSize(25, 25);
+//}
 
+//! Creates context menu for ParameterTuningWidget
 
-    //m_parameterModel = createParameterModel(m_fitModel);
-    //connect(m_parameterModel, SIGNAL(dataChanged(QModelIndex,QModelIndex)), this, SLOT(onModelChanged(QModelIndex,QModelIndex)));
+void FitParameterWidget::onTuningWidgetContextMenu(const QPoint &point)
+{
+    QMenu menu;
+    initTuningWidgetContextMenu(menu);
+    menu.exec(point);
+    setActionsEnabled(true);
+}
 
+//! Creates context menu for the tree with fit parameters
 
+void FitParameterWidget::onFitParameterTreeContextMenu(const QPoint &point)
+{
+    QMenu menu;
+    initFitParameterTreeContextMenu(menu);
+    menu.exec(m_treeView->mapToGlobal(point+ QPoint(2, 22)));
+    setActionsEnabled(true);
+}
 
-//    FitProxyModel *fitProxyModel = new FitProxyModel;
-//    qDebug() << fitProxyModel;
+void FitParameterWidget::onTuningWidgetSelectionChanged(const QItemSelection &selection)
+{
+    Q_UNUSED(selection);
+}
 
+//! Propagates selection form the tree with fit parameters to the tuning widget
 
-    int height = this->height();
-    m_treeView->setModel(m_fitProxyModel);
-    m_treeView->setFixedHeight(height);
-    m_treeView->setColumnWidth(0,170);
-    m_treeView->expandAll();
+void FitParameterWidget::onFitParametersSelectionChanged(const QItemSelection &selection)
+{
+    Q_UNUSED(selection);
+    qDebug() << "onFitParametersSelectionChanged ->";
+    if (selection.indexes().isEmpty())
+        return;
 
+    foreach(QModelIndex index, selection.indexes()) {
+        m_tuningWidget->selectionModel()->clearSelection();
+        SessionItem *item = m_fitParameterModel->itemForIndex(index);
+        if(item->parent()->modelType() == Constants::FitParameterLinkType) {
+            QString link = item->parent()->getItemValue(FitParameterLinkItem::P_LINK).toString();
+            m_tuningWidget->makeSelected(FitParameterHelper::getParameterItem(m_jobItem->fitParameterContainerItem(), link));
+        }
+        qDebug() << "XXX index" << index << item->modelType();
 
-    QVBoxLayout *vlayout = new QVBoxLayout(this);
-    vlayout->setMargin(0);
-    vlayout->setSpacing(0);
-    vlayout->addWidget(m_treeView);
-    vlayout->addStretch();
-    this->setLayout(vlayout);
-
-
-//    QModelIndex idx = m_parameterModel->invisibleRootItem()->index();
-//    for (int i=0; i<m_parameterModel->rowCount(); i++){
-//    if (m_parameterModel->item(i,0)->hasChildren()){
-
-//            m_treeView->setFirstColumnSpanned(0, m_parameterModel->item(i,0)->index(), true);
-//            m_treeView->setFirstColumnSpanned(1, m_parameterModel->item(i,0)->index(), true);
-//        }
-//    }
-
+    }
 
 }
 
-QStandardItemModel *FitParameterWidget::createParameterModel(FitModel *fitModel)
+//! Creates fit parameters for all selected ParameterItem's in tuning widget
+
+void FitParameterWidget::onCreateFitParAction()
 {
-    QStandardItemModel *result(0);
-    result = new QStandardItemModel();
-    result->setHorizontalHeaderItem( 0, new QStandardItem( "Property" ) );
-    result->setHorizontalHeaderItem( 1, new QStandardItem( "Use" ) );
-    result->setHorizontalHeaderItem( 2, new QStandardItem( "Value" ) );
-    result->setHorizontalHeaderItem( 3, new QStandardItem( "Min" ) );
-    result->setHorizontalHeaderItem( 4, new QStandardItem( "Max" ) );
+    foreach(ParameterItem *item, m_tuningWidget->getSelectedParameters()) {
+        if(!FitParameterHelper::getFitParameterItem(m_jobItem->fitParameterContainerItem(), item)) {
+            FitParameterHelper::createFitParameter(m_jobItem->fitParameterContainerItem(), item);
+        }
+    }
+}
+
+//! All ParameterItem's selected in tuning widget will be removed from link section of
+//! corresponding fitParameterItem.
+
+void FitParameterWidget::onRemoveFromFitParAction()
+{
+    foreach(ParameterItem *item, m_tuningWidget->getSelectedParameters()) {
+        if(FitParameterHelper::getFitParameterItem(m_jobItem->fitParameterContainerItem(), item)) {
+            FitParameterHelper::removeFromFitParameters(m_jobItem->fitParameterContainerItem(), item);
+        }
+    }
+}
+
+//! All selected FitParameterItem's of FitParameterItemLink's will be removed
+
+void FitParameterWidget::onRemoveFitParAction()
+{
+    FitParameterContainerItem *container = m_jobItem->fitParameterContainerItem();
+
+    // retrieve both, selected FitParameterItem and FitParameterItemLink
+    QVector<FitParameterLinkItem *> linksToRemove = selectedFitParameterLinks();
+    QVector<FitParameterItem *> itemsToRemove = selectedFitParameters();
+
+    foreach(FitParameterLinkItem *item, linksToRemove) {
+        container->model()->removeRow(item->index().row(), item->index().parent());
+    }
+
+    foreach(FitParameterItem *item, itemsToRemove) {
+        container->model()->removeRow(item->index().row(), item->index().parent());
+    }
+}
+
+//! Add all selected parameters to fitParameter with given index
+
+void FitParameterWidget::onAddToFitParAction(int ipar)
+{
+    QStringList fitParNames
+        = FitParameterHelper::getFitParameterNames(m_jobItem->fitParameterContainerItem());
+    foreach (ParameterItem *item, m_tuningWidget->getSelectedParameters()) {
+        FitParameterHelper::addToFitParameter(m_jobItem->fitParameterContainerItem(), item,
+                                          fitParNames.at(ipar));
+    }
+}
+
+void FitParameterWidget::onFitParameterModelChange()
+{
+    qDebug() << "FitParameterWidget::onFitParameterModelChange()";
+    spanParameters();
+    updateInfoLabel();
+}
 
 
-    iterateSessionModel(fitModel, QModelIndex(), result);
-//    if(standardItem)
-//    {
-//        result->appendRow(standardItem);
+//! Context menu reimplemented to suppress the default one
+
+void FitParameterWidget::contextMenuEvent(QContextMenuEvent *event)
+{
+    Q_UNUSED(event);
+}
+
+void FitParameterWidget::init_actions()
+{
+    m_createFitParAction = new QAction(QStringLiteral("Create fit parameter"), this);
+    connect(m_createFitParAction, SIGNAL(triggered()), this, SLOT(onCreateFitParAction()));
+
+    m_removeFromFitParAction = new QAction(QStringLiteral("Remove from fit parameters"), this);
+    connect(m_removeFromFitParAction, SIGNAL(triggered()), this, SLOT(onRemoveFromFitParAction()));
+
+    m_removeFitParAction = new QAction(QStringLiteral("Remove fit parameter"), this);
+    connect(m_removeFitParAction, SIGNAL(triggered()), this, SLOT(onRemoveFitParAction()));
+
+    m_signalMapper = new QSignalMapper(this);
+    connect(m_signalMapper, SIGNAL(mapped(int)), this, SLOT(onAddToFitParAction(int)));
+
+    connect(m_keyboardFilter, SIGNAL(removeItem()), this, SLOT(onRemoveFitParAction()));
+}
+
+//! Fills context menu for ParameterTuningWidget with content.
+
+void FitParameterWidget::initTuningWidgetContextMenu(QMenu &menu)
+{
+    if(m_jobItem->getStatus() == Constants::STATUS_FITTING) {
+        setActionsEnabled(false);
+        return;
+    }
+
+    m_removeFromFitParAction->setEnabled(canRemoveFromFitParameters());
+    m_createFitParAction->setEnabled(canCreateFitParameter());
+
+    menu.addAction(m_createFitParAction);
+    QMenu *addToFitParMenu = menu.addMenu("Add to existing fit parameter");
+    addToFitParMenu->setDisabled(true);
+    Q_UNUSED(addToFitParMenu);
+
+    // --> TODO REDMINE #1478 Uncomment, when issue is solved
+
+//    QStringList fitParNames
+//        = FitParameterHelper::getFitParameterNames(m_jobItem->fitParameterContainerItem());
+//    if(fitParNames.isEmpty() || canCreateFitParameter()==false) {
+//        addToFitParMenu->setEnabled(false);
 //    }
 
+//    for(int i =0; i<fitParNames.count(); ++i) {
+//        QAction *action = new QAction(QString("to ").append(fitParNames.at(i)), addToFitParMenu);
+//        connect(action, SIGNAL(triggered()), m_signalMapper, SLOT(map()));
+//        m_signalMapper->setMapping(action, i);
+//        addToFitParMenu->addAction(action);
+//    }
+    // <-- end of uncomment
+
+    menu.addSeparator();
+    menu.addAction(m_removeFromFitParAction);
+}
+
+//! Fills context menu for FitParameterTree with content.
+
+void FitParameterWidget::initFitParameterTreeContextMenu(QMenu &menu)
+{
+    if(m_jobItem->getStatus() == Constants::STATUS_FITTING) {
+        setActionsEnabled(false);
+        return;
+    }
+    menu.addAction(m_removeFitParAction);
+}
+
+//! Initializes FitParameterModel and its tree.
+
+void FitParameterWidget::init_fit_model()
+{
+    m_treeView->setModel(0);
+
+    delete m_fitParameterModel;
+    m_fitParameterModel = new FitParameterProxyModel(m_jobItem->fitParameterContainerItem(),
+                                                   m_jobItem->fitParameterContainerItem()->model());
+    m_treeView->setModel(m_fitParameterModel);
+
+    connect(m_fitParameterModel, SIGNAL(dataChanged(QModelIndex,QModelIndex,QVector<int>)),
+            this, SLOT(onFitParameterModelChange()));
+    connect(m_fitParameterModel, SIGNAL(modelReset()), this, SLOT(onFitParameterModelChange()));
+
+    onFitParameterModelChange();
+    connectFitParametersSelection(true);
+}
+
+//! Returns true if tuning widget contains selected ParameterItem's which can be used to create
+//! a fit parameter (i.e. it is not linked with some fit parameter already).
+
+bool FitParameterWidget::canCreateFitParameter()
+{
+    QVector<ParameterItem *> selected = m_tuningWidget->getSelectedParameters();
+    foreach(ParameterItem *item, selected) {
+        if(FitParameterHelper::getFitParameterItem(
+                    m_jobItem->fitParameterContainerItem(), item) == nullptr)
+            return true;
+    }
+    return false;
+}
+
+//! Returns true if tuning widget contains selected ParameterItem's which can be removed from
+//! fit parameters.
+
+bool FitParameterWidget::canRemoveFromFitParameters()
+{
+    QVector<ParameterItem *> selected = m_tuningWidget->getSelectedParameters();
+    foreach(ParameterItem *item, selected) {
+        if(FitParameterHelper::getFitParameterItem(m_jobItem->fitParameterContainerItem(), item))
+            return true;
+    }
+    return false;
+}
+
+//! Enables/disables all context menu actions.
+
+void FitParameterWidget::setActionsEnabled(bool value)
+{
+    m_createFitParAction->setEnabled(value);
+    m_removeFromFitParAction->setEnabled(value);
+    m_removeFitParAction->setEnabled(value);
+}
+
+//! Returns list of FitParameterItem's currently selected in FitParameterItem tree
+
+QVector<FitParameterItem *> FitParameterWidget::selectedFitParameters()
+{
+    QVector<FitParameterItem *> result;
+    QModelIndexList indexes = m_treeView->selectionModel()->selectedIndexes();
+    foreach(QModelIndex index, indexes) {
+        if(SessionItem *item = m_fitParameterModel->itemForIndex(index)) {
+            if(item->modelType() == Constants::FitParameterType) {
+                FitParameterItem *fitParItem = dynamic_cast<FitParameterItem *>(item);
+                Q_ASSERT(fitParItem);
+                result.push_back(fitParItem);
+            }
+        }
+    }
     return result;
 }
 
-QStandardItemModel *FitParameterWidget::iterateSessionModel(FitModel *fitModel, const QModelIndex &parentIndex, QStandardItemModel *parentItem)
+//! Returns links of FitParameterLink's item selected in FitParameterItem tree
+
+QVector<FitParameterLinkItem *> FitParameterWidget::selectedFitParameterLinks()
 {
-    Q_ASSERT(fitModel);
-
-    if(!parentIndex.isValid()) {
-        qDebug() << "Dumping model";
-    }
-
-
-    for( int i_row = 0; i_row < fitModel->rowCount( parentIndex ); ++i_row) {
-        QModelIndex itemIndex = fitModel->index( i_row, 0, parentIndex );
-
-
-
-        if (ParameterizedItem *item = fitModel->itemForIndex(itemIndex)){
-
-
-            qDebug() << "FitParameterWidget::iterateSessionModel: " << item->itemName() << item->getRegisteredProperty(FitParameterItem::P_MIN)<<  item->getRegisteredProperty(FitParameterItem::P_MAX);
-
-            insertRowIntoItem(parentItem, item->itemName(), item->getRegisteredProperty(FitParameterItem::P_VALUE), item->getRegisteredProperty(FitParameterItem::P_MIN), item->getRegisteredProperty(FitParameterItem::P_MAX), item->getRegisteredProperty(FitParameterItem::P_USE));
-
+    QVector<FitParameterLinkItem *> result;
+    QModelIndexList indexes = m_treeView->selectionModel()->selectedIndexes();
+    foreach (QModelIndex index, indexes) {
+        if (SessionItem *item = m_fitParameterModel->itemForIndex(index)) {
+            if (item->parent()->modelType() == Constants::FitParameterLinkType) {
+                FitParameterLinkItem *fitParItem
+                    = dynamic_cast<FitParameterLinkItem *>(item->parent());
+                Q_ASSERT(fitParItem);
+                result.push_back(fitParItem);
+            }
         }
-
     }
-
-    return parentItem;
+    return result;
 }
 
-void FitParameterWidget::insertRowIntoItem(QStandardItemModel *parentItem, QString title, QVariant value, QVariant min, QVariant max, QVariant isUse)
+//! Makes first column in FitParameterItem's tree related to ParameterItem link occupy whole space.
+
+void FitParameterWidget::spanParameters()
 {
-
-    QStandardItem *titleItem = new QStandardItem(title);
-
-    QStandardItem *useItem = new QStandardItem();
-    useItem->setData(isUse, Qt::EditRole);
-    useItem->setEditable(true);
-
-    QStandardItem *valueItem = new QStandardItem();
-    valueItem->setData(value, Qt::EditRole);
-    valueItem->setEditable(true);
-
-    QStandardItem *minItem = new QStandardItem();
-    minItem->setData(min, Qt::EditRole);
-    minItem->setEditable(true);
-
-    QStandardItem *maxItem = new QStandardItem();
-    maxItem->setData(max, Qt::EditRole);
-    maxItem->setEditable(true);
-
-
-    QStandardItem *subItem1 = new QStandardItem("this is the description 1 this is the description 1 this is the description 1");
-    QStandardItem *subItem2 = new QStandardItem("this is the description 2 this is the description 2 this is the description 2");
-    titleItem->appendRow(QList<QStandardItem *>() << subItem1 << new QStandardItem << new QStandardItem <<new QStandardItem <<new QStandardItem);
-    titleItem->appendRow(subItem2);
-
-    parentItem->appendRow(QList<QStandardItem *>()  << titleItem << useItem << valueItem << minItem << maxItem);
-
+    m_treeView->expandAll();
+    for (int i = 0; i < m_fitParameterModel->rowCount(QModelIndex()); i++){
+        QModelIndex parameter = m_fitParameterModel->index(i,0,QModelIndex());
+        if (!parameter.isValid())
+            break;
+        int childRowCount = m_fitParameterModel->rowCount(parameter);
+        if (childRowCount > 0){
+            for (int j = 0; j < childRowCount; j++) {
+                m_treeView->setFirstColumnSpanned(j, parameter, true);
+            }
+        }
+    }
 }
 
-void FitParameterWidget::initFitModel()
+//! Places overlay label on top of tree view, if there is no fit parameters
+void FitParameterWidget::updateInfoLabel()
 {
-    m_fitModel = new FitModel;
-
-//    ParameterizedItem *item1 = m_fitModel->insertNewItem(Constants::FitParameterType);
-//    item1->setItemName("Par1");
-//    item1->setRegisteredProperty(FitParameterItem::P_USE, true);
-//    item1->setRegisteredProperty(FitParameterItem::P_VALUE, 3.0);
-//    item1->setRegisteredProperty(FitParameterItem::P_MIN, 1.0);
-//    item1->setRegisteredProperty(FitParameterItem::P_MAX, 5.0);
-//    //item1->setRegisteredProperty(FitParameterItem::P_NAME, tr("Par1"));
-
-    FitParameterItem *item1 = dynamic_cast<FitParameterItem *>(m_fitModel->insertNewItem(Constants::FitParameterType));
-    item1->setItemName("Par1");
-    QStringList descList1;
-    descList1 << "This is description 1" << "This is description 2" << "This is description 3";
-    item1->setParNames(descList1);
-
-    FitParameterItem *item2 = dynamic_cast<FitParameterItem *>(m_fitModel->insertNewItem(Constants::FitParameterType));
-    item2->setItemName("Par2");
-    QStringList descList2;
-    descList2 << "This is description 1" << "This is description 2" << "This is description 3";
-    item2->setParNames(descList2);
-
-    FitParameterItem *item3 = dynamic_cast<FitParameterItem *>(m_fitModel->insertNewItem(Constants::FitParameterType));
-    item3->setItemName("Par3");
-    QStringList descList3;
-    descList3 << "This is description 1" << "This is description 2" << "This is description 3";
-    item3->setParNames(descList3);
+    Q_ASSERT(m_jobItem);
+    bool is_to_show_label = m_jobItem->fitParameterContainerItem()->isEmpty();
+    m_infoLabel->setShown(is_to_show_label);
+}
 
 
-    m_fitModel->save("fitmodel.xml");
+void FitParameterWidget::connectTuningWidgetSelection(bool active)
+{
+    Q_ASSERT(m_tuningWidget);
 
-    //ParameterizedItem *old_item = m_fitModel->itemForIndex(m_fitModel->index(0,0, QModelIndex()));
+    if (active) {
+        connect(m_tuningWidget->selectionModel(),
+                SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
+                this, SLOT(onTuningWidgetSelectionChanged(QItemSelection)), Qt::UniqueConnection);
+    } else {
+        disconnect(m_tuningWidget->selectionModel(),
+                SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
+                this, SLOT(onTuningWidgetSelectionChanged(QItemSelection)));
+    }
+}
+
+void FitParameterWidget::connectFitParametersSelection(bool active) {
+    if (active) {
+        connect(m_treeView->selectionModel(),
+                SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
+                this, SLOT(onFitParametersSelectionChanged(QItemSelection)), Qt::UniqueConnection);
+    } else {
+        disconnect(m_treeView->selectionModel(),
+                SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
+                this, SLOT(onFitParametersSelectionChanged(QItemSelection)));
+    }
 }

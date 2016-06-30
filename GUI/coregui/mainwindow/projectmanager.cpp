@@ -2,14 +2,15 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/mainwindow/projectmanager.cpp
+//! @file      GUI/coregui/mainwindow/projectmanager.cpp
 //! @brief     Implements class ProjectManager
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
@@ -24,11 +25,14 @@
 #include "WarningMessageService.h"
 #include "MessageContainer.h"
 #include "GUIMessage.h"
+#include "ApplicationModels.h"
+#include "AppSvc.h"
 #include <QDir>
 #include <QFileDialog>
 #include <QSettings>
 #include <QDebug>
 #include <QMessageBox>
+#include <QStandardPaths>
 #include <iostream>
 
 ProjectManager::ProjectManager(MainWindow *parent)
@@ -37,12 +41,14 @@ ProjectManager::ProjectManager(MainWindow *parent)
     , m_messageService(new WarningMessageService)
 
 {
-    setParent(parent);
+    createNewProject();
+    AppSvc::subscribe(this);
 }
 
 
 ProjectManager::~ProjectManager()
 {
+    AppSvc::unsubscribe(this);
     delete m_project_document;
     delete m_messageService;
 }
@@ -93,10 +99,7 @@ void ProjectManager::createNewProject()
     m_project_document = new ProjectDocument();
     connect(m_project_document, SIGNAL(modified()), this, SLOT(onDocumentModified()));
     m_project_document->setProjectName("Untitled");
-    m_project_document->setMaterialModel(m_mainWindow->getMaterialModel());
-    m_project_document->setInstrumentModel(m_mainWindow->getInstrumentModel());
-    m_project_document->setSampleModel(m_mainWindow->getSampleModel());
-    m_project_document->setJobModel(m_mainWindow->getJobModel());
+    m_project_document->setApplicationModels(m_mainWindow->models());
     m_project_document->setMessageService(m_messageService);
 }
 
@@ -208,6 +211,7 @@ void ProjectManager::openProject(QString fileName)
         addToRecentProjects();
     }
 
+    emit projectOpened();
     emit modified();
 }
 
@@ -254,6 +258,52 @@ QStringList ProjectManager::getRecentProjects()
     }
     m_recentProjects = updatedList;
     return m_recentProjects;
+}
+
+//!returns name of the current project directory
+QString ProjectManager::getProjectDir() const
+{
+    if(m_project_document && m_project_document->hasValidNameAndPath()) {
+        return m_project_document->getProjectDir();
+    }
+    return QString();
+}
+
+//! Returns directory name suitable for saving plots
+QString ProjectManager::userExportDir() const
+{
+    QString result = getProjectDir();
+    if(result.isEmpty()) {
+        result = QStandardPaths::writableLocation(QStandardPaths::HomeLocation);
+    }
+    return result;
+}
+
+//! Returns directory name which was used by the user to import files.
+QString ProjectManager::userImportDir() const
+{
+    QString result;
+    QSettings settings;
+    if(settings.childGroups().contains(Constants::S_PROJECTMANAGER)) {
+        settings.beginGroup(Constants::S_PROJECTMANAGER);
+        result = settings.value(Constants::S_LASTUSEDIMPORTDIR, QString()).toString();
+        settings.endGroup();
+    }
+    if(result.isEmpty())
+        result = userExportDir();
+
+    return result;
+}
+
+//! Set user import directory in system settings
+void ProjectManager::setImportDir(const QString &dirname)
+{
+    QSettings settings;
+    if(settings.childGroups().contains(Constants::S_PROJECTMANAGER)) {
+        settings.beginGroup(Constants::S_PROJECTMANAGER);
+        settings.setValue(Constants::S_LASTUSEDIMPORTDIR, dirname);
+        settings.endGroup();
+    }
 }
 
 //! clear list of recent projects
@@ -311,7 +361,7 @@ void ProjectManager::deleteCurrentProject()
 {
     delete m_project_document;
     m_project_document = 0;
-    m_mainWindow->resetModels();
+    m_mainWindow->models()->resetModels();
 }
 
 

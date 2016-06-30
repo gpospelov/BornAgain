@@ -2,24 +2,30 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/utils/GUIHelpers.cpp
+//! @file      GUI/coregui/utils/GUIHelpers.cpp
 //! @brief     Implements GUIHelpers functions
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
 #include "GUIHelpers.h"
 #include "BAVersion.h"
+#include "JobItem.h"
+#include "RealDataItem.h"
 #include <QApplication>
 #include <QFile>
+#include <QDir>
 #include <QRegExp>
 #include <QMessageBox>
 #include <QPushButton>
+#include <QFileInfo>
+#include <QDateTime>
 #include <QDebug>
 
 namespace GUIHelpers {
@@ -143,9 +149,89 @@ QString getBornAgainVersionString()
 QString getValidFileName(const QString &proposed_name)
 {
     QString result = proposed_name;
-    for(QMap<QString, QString>::const_iterator it=invalidCharacterMap.begin(); it!=invalidCharacterMap.end(); ++it) {
+    for(auto it=invalidCharacterMap.begin(); it!=invalidCharacterMap.end(); ++it) {
         result.replace(it.key(), it.value());
     }
+    return result;
+}
+
+//! Constructs file name there intensity data should be stored in the case of JobItem.
+
+QString intensityDataFileName(JobItem *jobItem)
+{
+    QString bodyName = GUIHelpers::getValidFileName(jobItem->itemName());
+    return QString("jobdata_%1_0.int.gz").arg(bodyName);
+}
+
+//! Constructs file name there intensity data should be stored in the case of RealDataItem.
+
+QString intensityDataFileName(RealDataItem *realDataItem)
+{
+    QString bodyName = GUIHelpers::getValidFileName(realDataItem->itemName());
+    return QString("realdata_%1_0.int.gz").arg(bodyName);
+}
+
+//! parses version string into 3 numbers, returns true in the case of success
+bool parseVersion(const QString &version, int &major_num, int &minor_num, int &patch_num)
+{
+    major_num = minor_num = patch_num = 0;
+    bool success(true);
+    QStringList nums = version.split(QStringLiteral("."));
+    if(nums.size() != 3) return false;
+
+    bool ok(false);
+    major_num = nums.at(0).toInt(&ok); success &= ok;
+    minor_num = nums.at(1).toInt(&ok); success &= ok;
+    patch_num = nums.at(2).toInt(&ok); success &= ok;
+
+    return success;
+}
+
+
+//! returns true if current BornAgain version match minimal required version
+bool isVersionMatchMinimal(const QString &version, const QString &minimal_version)
+{
+    int ba_major(0), ba_minor(0), ba_patch(0);
+    if(!parseVersion(version, ba_major, ba_minor, ba_patch))
+        return false;
+
+    int minv_major(0), minv_minor(0), minv_patch(0);
+    if(!parseVersion(minimal_version, minv_major, minv_minor, minv_patch))
+        return false;
+
+    int ba = ba_major*10000 + ba_minor*100 + ba_patch;
+    int minv = minv_major*10000 + minv_minor*100 + minv_patch;
+    return ba >= minv;
+}
+
+//! Returns file directory from the full file path
+QString fileDir(const QString &fileName)
+{
+    QFileInfo info(fileName);
+    if(info.exists()) {
+        return info.dir().path();
+    }
+    return QString();
+}
+
+QString currentDateTime()
+{
+    return QDateTime::currentDateTime().toString("yyyy.MM.dd hh:mm:ss");;
+}
+
+QStringList fromStdList(const std::list<std::string> &string_list)
+{
+    QStringList result;
+    for(std::string str : string_list) {
+        result.append(QString::fromStdString(str));
+    }
+    return result;
+}
+
+QVector<double> fromStdVector(const std::vector<double> &data)
+{
+    QVector<double> result;
+    result.reserve(int(data.size())); std::copy(data.begin(), data.end(), std::back_inserter(result));
     return result;
 }
 

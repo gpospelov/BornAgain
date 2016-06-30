@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      InputOutput/OutputDataReader.h
-//! @brief     Defines class OutputDataReader.
+//! @file      Core/InputOutput/OutputDataReader.h
+//! @brief     Declares class OutputDataReader.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -20,7 +20,7 @@
 #include "OutputDataReadStrategy.h"
 #include <string>
 #include <vector>
-#include <boost/scoped_ptr.hpp>
+#include <memory>
 
 template <class T> class OutputData;
 
@@ -34,17 +34,15 @@ public:
     OutputDataReader(const std::string& file_name);
 
     //! read output data from file (file name was set already from OutputDataIOFactory)
-    OutputData<double > *getOutputData();
+    OutputData<double>* getOutputData();
 
     //! Sets concrete reading strategy
-    void setStrategy(IOutputDataReadStrategy *read_strategy);
+    void setStrategy(IOutputDataReadStrategy* read_strategy);
 
 private:
-    OutputData<double > *getFromFilteredStream(std::istream &input_stream);
+    OutputData<double>* getFromFilteredStream(std::istream& input_stream);
     std::string m_file_name;
-    boost::scoped_ptr<IOutputDataReadStrategy> m_read_strategy;
+    std::unique_ptr<IOutputDataReadStrategy> m_read_strategy;
 };
 
 #endif // OUTPUTDATAREADER_H
-
-

@@ -2,14 +2,15 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/mainwindow/actionmanager.cpp
+//! @file      GUI/coregui/mainwindow/actionmanager.cpp
 //! @brief     Implements class ActionManager
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
@@ -53,7 +54,7 @@ ActionManager::ActionManager(MainWindow *parent)
 
 void ActionManager::createActions()
 {
-    ProjectManager *projectManager = m_mainWindow->getProjectManager();
+    ProjectManager *projectManager = m_mainWindow->projectManager();
     Q_ASSERT(projectManager);
 
     // new project action
@@ -146,11 +147,11 @@ void ActionManager::createGlobalShortcuts()
 
 void ActionManager::aboutToShowRecentProjects()
 {
-    qDebug() << "ActionManager::aboutToShowRecentProjects() ->" << m_mainWindow->getProjectManager()->getRecentProjects();
+    qDebug() << "ActionManager::aboutToShowRecentProjects() ->" << m_mainWindow->projectManager()->getRecentProjects();
     m_recentProjectsMenu->clear();
 
     bool hasRecentProjects = false;
-    foreach(QString file, m_mainWindow->getProjectManager()->getRecentProjects() ) {
+    foreach(QString file, m_mainWindow->projectManager()->getRecentProjects() ) {
         hasRecentProjects = true;
         qDebug() << file << QDir::toNativeSeparators(Utils::withTildeHomePath(file));
         QAction *action = m_recentProjectsMenu->addAction(QDir::toNativeSeparators(Utils::withTildeHomePath(file)));
@@ -164,20 +165,29 @@ void ActionManager::aboutToShowRecentProjects()
     if (hasRecentProjects) {
         m_recentProjectsMenu->addSeparator();
         QAction *action = m_recentProjectsMenu->addAction("Clear Menu");
-        connect(action, SIGNAL(triggered()), m_mainWindow->getProjectManager(), SLOT(clearRecentProjects()));
+        connect(action, SIGNAL(triggered()), m_mainWindow->projectManager(), SLOT(clearRecentProjects()));
     }
 
 }
 
 void ActionManager::aboutToShowSettings()
 {
-    m_settingsMenu->clear();
+    m_settingsMenu->clear();    
     QSettings settings;
+
     settings.beginGroup(Constants::S_UPDATES);
     QAction *action = m_settingsMenu->addAction(tr("Check for Updates"));
     action->setCheckable(true);
     action->setChecked(settings.value(Constants::S_CHECKFORUPDATES, false).toBool());
     connect(action, SIGNAL(toggled(bool)), this, SLOT(toggleCheckForUpdates(bool)));
+    settings.endGroup();
+
+    settings.beginGroup(Constants::S_SESSIONMODELVIEW);
+    action = m_settingsMenu->addAction(tr("Model tech view"));
+    action->setToolTip("Additional developer's view will appear in left control tab bar");
+    action->setCheckable(true);
+    action->setChecked(settings.value(Constants::S_VIEWISACTIVE, false).toBool());
+    connect(action, SIGNAL(toggled(bool)), this, SLOT(setSessionModelViewActive(bool)));
     settings.endGroup();
 }
 
@@ -188,6 +198,15 @@ void ActionManager::toggleCheckForUpdates(bool status)
     settings.setValue(Constants::S_CHECKFORUPDATES, status);
     settings.endGroup();
     m_mainWindow->getUpdateNotifier()->checkForUpdates();
+}
+
+void ActionManager::setSessionModelViewActive(bool status)
+{
+    QSettings settings;
+    settings.beginGroup(Constants::S_SESSIONMODELVIEW);
+    settings.setValue(Constants::S_VIEWISACTIVE, status);
+    settings.endGroup();
+    m_mainWindow->onSessionModelViewActive(status);
 }
 
 

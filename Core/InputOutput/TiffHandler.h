@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      InputOutput/TiffHandler.h
-//! @brief     Defines class TiffHandler.
+//! @file      Core/InputOutput/TiffHandler.h
+//! @brief     Declares class TiffHandler.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -23,7 +23,7 @@
 #include <string>
 #include <tiffio.h>
 #include <tiffio.hxx>
-#include <boost/scoped_ptr.hpp>
+#include <memory>
 
 //! @class TiffHandler
 //! @ingroup input_output_internal
@@ -52,7 +52,7 @@ private:
     TIFF *m_tiff;
     size_t m_width;
     size_t m_height;
-    boost::scoped_ptr<OutputData<double> > m_data;
+    std::unique_ptr<OutputData<double> > m_data;
 };
 
 #endif // BORNAGAIN_TIFF_SUPPORT

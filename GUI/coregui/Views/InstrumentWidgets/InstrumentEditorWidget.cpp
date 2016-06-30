@@ -2,19 +2,20 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/InstrumentWidgets/InstrumentEditorWidget.cpp
+//! @file      GUI/coregui/Views/InstrumentWidgets/InstrumentEditorWidget.cpp
 //! @brief     Implements class InstrumentEditorWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
 #include "InstrumentEditorWidget.h"
-#include "ParameterizedItem.h"
+#include "SessionItem.h"
 #include "BeamItem.h"
 #include "DetectorItems.h"
 #include "DetectorEditorWidget.h"
@@ -107,33 +108,34 @@ InstrumentEditorWidget::InstrumentEditorWidget(QWidget *parent)
             );
 }
 
-void InstrumentEditorWidget::setInstrumentItem(ParameterizedItem *instrument)
+void InstrumentEditorWidget::setInstrumentItem(SessionItem *instrument)
 {
     Q_ASSERT(instrument);
     if(instrument != m_currentItem) {
         if(m_currentItem) {
-            disconnect(m_currentItem,
-                       SIGNAL(propertyChanged(QString)),
-                       this,
-                       SLOT(onPropertyChanged(QString))
-                       );
-            disconnect(m_currentItem,
-                       SIGNAL(subItemChanged(QString)),
-                       this,
-                       SLOT(onPropertyChanged(QString))
-                       );
+            // TODO restore logic
+//            disconnect(m_currentItem,
+//                       SIGNAL(propertyChanged(QString)),
+//                       this,
+//                       SLOT(onPropertyChanged(QString))
+//                       );
+//            disconnect(m_currentItem,
+//                       SIGNAL(subItemChanged(QString)),
+//                       this,
+//                       SLOT(onPropertyChanged(QString))
+//                       );
         }
         m_currentItem = instrument;
-        connect(m_currentItem,
-                   SIGNAL(propertyChanged(QString)),
-                   this,
-                   SLOT(onPropertyChanged(QString))
-                   );
-        connect(m_currentItem,
-                   SIGNAL(subItemChanged(QString)),
-                   this,
-                   SLOT(onPropertyChanged(QString))
-                   );
+//        connect(m_currentItem,
+//                   SIGNAL(propertyChanged(QString)),
+//                   this,
+//                   SLOT(onPropertyChanged(QString))
+//                   );
+//        connect(m_currentItem,
+//                   SIGNAL(subItemChanged(QString)),
+//                   this,
+//                   SLOT(onPropertyChanged(QString))
+//                   );
         updateWidgets();
     }
     InstrumentItem *instrumentItem = dynamic_cast<InstrumentItem *>(instrument);

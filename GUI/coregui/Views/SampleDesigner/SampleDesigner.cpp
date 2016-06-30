@@ -2,14 +2,15 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/SampleDesigner/SampleDesigner.cpp
+//! @file      GUI/coregui/Views/SampleDesigner/SampleDesigner.cpp
 //! @brief     Implements class SampleDesigner
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
@@ -17,6 +18,7 @@
 #include "DesignerScene.h"
 #include "DesignerView.h"
 #include "MultiLayerView.h"
+#include "FilterPropertyProxy.h"
 #include "ISample.h"
 #include <QDebug>
 
@@ -46,9 +48,9 @@ void SampleDesigner::setInstrumentModel(InstrumentModel *instrumentModel)
 }
 
 
-void SampleDesigner::setSelectionModel(QItemSelectionModel *model)
+void SampleDesigner::setSelectionModel(QItemSelectionModel *model, FilterPropertyProxy *proxy)
 {
-    if(model) m_designerScene->setSelectionModel(model);
+    if(model) m_designerScene->setSelectionModel(model, proxy);
 }
 
 

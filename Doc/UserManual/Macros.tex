@@ -14,7 +14,12 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Vectors
-\renewcommand{\v}[1]{\ensuremath{\mathbf{#1}}}
+\ifolducm
+  \def\v#1{\ensuremath{\mathbf{#1}}} % for unicode-math <= 0.7f
+\else
+  \def\v#1{\symbf{#1}}
+\fi
+
 % unused \newcommand{\unitvec}[1]{\ensuremath{\widehat{\vect{#1}}}}
 \newcommand{\Nabla}{\v{\nabla}}
 

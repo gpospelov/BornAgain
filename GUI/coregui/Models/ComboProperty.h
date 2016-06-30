@@ -2,14 +2,15 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/ComboProperty.h
-//! @brief     Defines class ComboProperty
+//! @file      GUI/coregui/Models/ComboProperty.h
+//! @brief     Declares class ComboProperty
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
@@ -21,7 +22,7 @@
 #include <QMetaType>
 #include <QVariant>
 
-//! The ComboProperty defines ParameterizedItem's property with a value
+//! The ComboProperty defines SessionItem's property with a value
 //! from predefined list.
 //!
 //! This is a light version of GroupProperty without SubItem mechanism
@@ -40,11 +41,16 @@ public:
 
     QStringList getValues() const;
 
+    QStringList getToolTips() const;
+    void setToolTips(const QStringList &tooltips);
+
     int index() const;
     int toIndex(const QString &value) const;
     QString toString(int index) const;
 
     inline ComboProperty &operator<<(const QString &str);
+
+    inline ComboProperty &operator<<(const QStringList &str);
 
     QVariant getVariant() const;
 
@@ -58,6 +64,7 @@ public:
 
 private:
     QStringList m_values;
+    QStringList m_values_tooltips;
     QString m_current_value;
     QString m_cached_value;  // for comboboxes with dynamically generated value lists
     bool m_cache_contains_GUI_value;
@@ -84,6 +91,13 @@ inline QStringList ComboProperty::getValues() const
 }
 
 inline ComboProperty &ComboProperty::operator<<(const QString &str)
+{
+    m_values.append(str);
+    if(m_values.size()) m_current_value=m_values.at(0);
+    return *this;
+}
+
+inline ComboProperty &ComboProperty::operator<<(const QStringList &str)
 {
     m_values.append(str);
     if(m_values.size()) m_current_value=m_values.at(0);

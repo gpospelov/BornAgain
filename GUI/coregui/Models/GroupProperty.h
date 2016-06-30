@@ -2,14 +2,15 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/GroupProperty.h
-//! @brief     Defines class GroupProperty
+//! @file      GUI/coregui/Models/GroupProperty.h
+//! @brief     Declares class GroupProperty
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
@@ -24,29 +25,24 @@
 #include <QMetaType>
 #include <QSharedPointer>
 
-class ParameterizedItem;
+class SessionItem;
 
 //! The GroupProperty class represents a composition of the basic properties
-//! corresponding to a ParameterizedItem object.
+//! corresponding to a SessionItem object.
 //! Its construction is handled by a GroupPropertyRegistry object.
 class BA_CORE_API_ GroupProperty
 {
 public:
-    enum EGroupType { UNDEFINED, FIXED, SELECTABLE };
+    void setGroupItem(SessionItem *groupItem);
 
-    EGroupType type() const;
+    SessionItem *getCurrentItem();
 
-    void setParent(ParameterizedItem *parent);
-
-    ParameterizedItem *createCorrespondingItem();
-
-    QString getGroupName() const;
+    SessionItem *createCorrespondingItem();
 
     QString getCurrentType() const;
-    void setCurrentType(const QString &type);
+    void setCurrentType(const QString &type, bool = true);
 
     QString getCurrentLabel() const;
-    void setCurrentLabel(const QString &label);
 
     QStringList getTypes() const;
     QStringList getLabels() const;
@@ -56,23 +52,18 @@ public:
     QString toString(int index) const;
 
     friend class GroupPropertyRegistry;
+
 private:
     GroupProperty(QString group_name);
-
     void setGroupMap(std::map<QString, QString> group_map);
-    void setGroupType(EGroupType group_type);
 
     QString m_group_name;
-    EGroupType m_group_type;
-    ParameterizedItem *m_parent;
+    SessionItem *m_groupItem;
     QString m_current_type;
-
     std::map<QString, QString > m_type_label_map;
 };
 
 typedef QSharedPointer<GroupProperty> GroupProperty_t;
-
 Q_DECLARE_METATYPE(GroupProperty_t)
-
 
 #endif

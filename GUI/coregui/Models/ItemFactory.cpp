@@ -2,14 +2,15 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/ItemFactory.cpp
+//! @file      GUI/coregui/Models/ItemFactory.cpp
 //! @brief     Implements class ItemFactory
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
@@ -29,6 +30,8 @@
 #include "BeamItem.h"
 #include "DetectorItems.h"
 #include "VectorItem.h"
+#include "PropertyItem.h"
+#include "GroupItem.h"
 #include "GUIHelpers.h"
 #include "FormFactorItems.h"
 #include "LayerRoughnessItems.h"
@@ -38,7 +41,6 @@
 #include "MaterialItem.h"
 #include "RefractiveIndexItem.h"
 #include "MagneticFieldItem.h"
-#include "FitParameterItem.h"
 #include "JobItem.h"
 #include "IntensityDataItem.h"
 #include "AxesItems.h"
@@ -47,10 +49,16 @@
 #include "BeamWavelengthItem.h"
 #include "BeamAngleItems.h"
 #include "MaskItems.h"
+#include "ParameterTreeItems.h"
+#include "SimulationOptionsItem.h"
+#include "FitParameterItems.h"
+#include "FitSuiteItem.h"
+#include "RealDataItem.h"
+#include "MinimizerItem.h"
 #include <QDebug>
 
 namespace {
-template<typename T> ParameterizedItem *createInstance() { return new T; }
+template<typename T> SessionItem *createInstance() { return new T; }
 
 ItemFactory::ItemMap_t initializeItemMap() {
     ItemFactory::ItemMap_t result;
@@ -71,17 +79,20 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::DetectorType] = &createInstance<DetectorItem>;
     result[Constants::BeamType] = &createInstance<BeamItem>;
     result[Constants::VectorType] = &createInstance<VectorItem>;
+    result[Constants::PropertyType] = &createInstance<PropertyItem>;
 
     result[Constants::AnisoPyramidType] = &createInstance<AnisoPyramidItem>;
     result[Constants::BoxType] = &createInstance<BoxItem>;
     result[Constants::ConeType] = &createInstance<ConeItem>;
     result[Constants::Cone6Type] = &createInstance<Cone6Item>;
     result[Constants::CuboctahedronType] = &createInstance<CuboctahedronItem>;
+    result[Constants::DodecahedronType] = &createInstance<DodecahedronItem>;
     result[Constants::CylinderType] = &createInstance<CylinderItem>;
     result[Constants::EllipsoidalCylinderType] = &createInstance<EllipsoidalCylinderItem>;
     result[Constants::FullSphereType] = &createInstance<FullSphereItem>;
     result[Constants::FullSpheroidType] = &createInstance<FullSpheroidItem>;
     result[Constants::HemiEllipsoidType] = &createInstance<HemiEllipsoidItem>;
+    result[Constants::IcosahedronType] = &createInstance<IcosahedronItem>;
     result[Constants::Prism3Type] = &createInstance<Prism3Item>;
     result[Constants::Prism6Type] = &createInstance<Prism6Item>;
     result[Constants::PyramidType] = &createInstance<PyramidItem>;
@@ -143,8 +154,6 @@ ItemFactory::ItemMap_t initializeItemMap() {
 
     result[Constants::MagneticFieldType] = &createInstance<MagneticFieldItem>;
 
-    result[Constants::FitParameterType] = &createInstance<FitParameterItem>;
-
     result[Constants::JobItemType] = &createInstance<JobItem>;
 
     result[Constants::IntensityDataType] = &createInstance<IntensityDataItem>;
@@ -169,6 +178,26 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::EllipseMaskType] = &createInstance<EllipseItem>;
     result[Constants::MaskAllType] = &createInstance<MaskAllItem>;
 
+    result[Constants::GroupItemType] = &createInstance<GroupItem>;
+
+    result[Constants::ParameterContainerType] = &createInstance<ParameterContainerItem>;
+    result[Constants::ParameterLabelType] = &createInstance<ParameterLabelItem>;
+    result[Constants::ParameterType] = &createInstance<ParameterItem>;
+
+    result[Constants::FitParameterContainerType] = &createInstance<FitParameterContainerItem>;
+    result[Constants::FitParameterType] = &createInstance<FitParameterItem>;
+    result[Constants::FitParameterLinkType] = &createInstance<FitParameterLinkItem>;
+    result[Constants::FitSuiteType] = &createInstance<FitSuiteItem>;
+
+    result[Constants::SimulationOptionsType] = &createInstance<SimulationOptionsItem>;
+
+    result[Constants::RealDataType] = &createInstance<RealDataItem>;
+
+    result[Constants::MinimizerContainerType] = &createInstance<MinimizerContainerItem>;
+    result[Constants::MinuitMinimizerType] = &createInstance<MinuitMinimizerItem>;
+    result[Constants::GSLMinimizerType] = &createInstance<GSLMinimizerItem>;
+    result[Constants::GeneticMinimizerType] = &createInstance<GeneticMinimizerItem>;
+
     return result;
 }
 }
@@ -188,27 +217,33 @@ QStringList ItemFactory::m_valid_top_item_names = QStringList()
 
 ItemFactory::ItemMap_t ItemFactory::m_item_map = initializeItemMap();
 
-ParameterizedItem *ItemFactory::createItem(const QString &model_name,
-                                           ParameterizedItem *parent)
+SessionItem *ItemFactory::createItem(const QString &model_name,
+                                           SessionItem *parent)
 {
     qDebug() << "ItemFactory::createItem" << model_name;
 
     if(!m_item_map.contains(model_name))
         throw GUIHelpers::Error("ItemFactory::createItem() -> Error: Model name does not exist: "+model_name);
 
-    ParameterizedItem *result = m_item_map[model_name]();
+    SessionItem *result = m_item_map[model_name]();
     if(parent) {
-        parent->insertChildItem(-1, result);
+        parent->insertItem(-1, result);
     }
     qDebug() << "       result:" << result;
     return result;
 }
 
-ParameterizedItem *ItemFactory::createEmptyItem()
+SessionItem *ItemFactory::createEmptyItem()
 {
-    return new ParameterizedItem();
+    SessionItem *result = new SessionItem(QStringLiteral("ROOT_ITEM"));
+    return result;
 }
 
 QList<QString> ItemFactory::getValidTopItemNames() {
     return m_valid_top_item_names;
+}
+
+bool ItemFactory::isValidItemType(const QString &name)
+{
+    return m_item_map.contains(name);
 }

@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      InputOutput/OutputDataIOFactory.cpp
+//! @file      Core/InputOutput/IntensityDataIOFactory.cpp
 //! @brief     Implements class OutputDataIOFactory.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -20,38 +20,25 @@
 #include "Utils.h"
 #include "IHistogram.h"
 
-#include <memory>
 
-/* ************************************************************************* */
-// reading output data
-/* ************************************************************************* */
-OutputData<double > *IntensityDataIOFactory::readOutputData(
-        const std::string& file_name)
+OutputData<double>* IntensityDataIOFactory::readOutputData(const std::string& file_name)
 {
-    std::unique_ptr<OutputDataReader> P_reader(OutputDataReadFactory::getReader(file_name));
-    return P_reader->getOutputData();
+    return OutputDataReadFactory::getReader(file_name)->getOutputData();
 }
 
-IHistogram *IntensityDataIOFactory::readIntensityData(const std::string &file_name)
+IHistogram* IntensityDataIOFactory::readIntensityData(const std::string& file_name)
 {
-    std::unique_ptr<OutputData<double> > data(readOutputData(file_name));
-    return IHistogram::createHistogram(*data);
+    return IHistogram::createHistogram(*(readOutputData(file_name)));
 }
 
-
-/* ************************************************************************* */
-// writing output data
-/* ************************************************************************* */
-void IntensityDataIOFactory::writeOutputData(const OutputData<double>& data,
-        const std::string& file_name)
+void IntensityDataIOFactory::writeOutputData(
+    const OutputData<double>& data, const std::string& file_name)
 {
-    std::unique_ptr<OutputDataWriter> P_writer(OutputDataWriteFactory::getWriter(file_name));
-    return P_writer->writeOutputData(data);
+    return OutputDataWriteFactory::getWriter(file_name)->writeOutputData(data);
 }
 
-void IntensityDataIOFactory::writeIntensityData(const IHistogram &histogram,
-                                                const std::string &file_name)
+void IntensityDataIOFactory::writeIntensityData(
+    const IHistogram& histogram, const std::string& file_name)
 {
-    std::unique_ptr<OutputData<double> > data(histogram.createOutputData());
-    writeOutputData(*data, file_name);
+    writeOutputData(*(histogram.createOutputData()), file_name);
 }

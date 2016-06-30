@@ -2,14 +2,15 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/mainwindow/mainwindow.h
-//! @brief     Defines class MainWindow
+//! @file      GUI/coregui/mainwindow/mainwindow.h
+//! @brief     Declares class MainWindow
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
@@ -25,27 +26,25 @@ namespace Manhattan {
     class ProgressBar;
 }
 
-class TaskSelectorWidget;
 class WelcomeView;
 class InstrumentView;
 class SampleView;
-class PyScriptView;
+class ImportDataView;
 class SimulationView;
 class JobView;
-class Instrument;
-class ISample;
-class ActionManager;
-class ProjectManager;
-class QCloseEvent;
-class QSettings;
-class InstrumentModel;
-class MaterialEditor;
-class ToolTipDataBase;
+class SessionModelView;
+
 class MaterialModel;
+class MaterialSvc;
 class SampleModel;
-class FitProxyModel;
-class FitView;
+class InstrumentModel;
+class RealDataModel;
 class JobModel;
+class ApplicationModels;
+class ProjectManager;
+class ActionManager;
+class QSettings;
+class ToolTipDataBase;
 class UpdateNotifier;
 
 
@@ -54,67 +53,62 @@ class BA_CORE_API_ MainWindow : public Manhattan::FancyMainWindow
     Q_OBJECT
 
 public:
-    enum ETabViewId { WELCOME, INSTRUMENT, SAMPLE, SIMULATION, JOB, TEST_VIEW};
+    enum ETabViewId {WELCOME, INSTRUMENT, SAMPLE, IMPORT, SIMULATION, JOB, MAXVIEWCOUNT};
 
     explicit MainWindow(QWidget *parent = 0);
-    virtual ~MainWindow();
 
-    MaterialModel *getMaterialModel() { return m_materialModel; }
-    InstrumentModel *getInstrumentModel() { return m_instrumentModel; }
-    SampleModel *getSampleModel() { return m_sampleModel; }
-    JobModel *getJobModel() { return m_jobModel; }
-    Manhattan::ProgressBar *getProgressBar() { return m_progressBar; }
-    ActionManager *getActionManager() { return m_actionManager; }
-    ProjectManager *getProjectManager() { return m_projectManager; }
-    UpdateNotifier *getUpdateNotifier() { return m_updateNotifier; }
+    MaterialModel *materialModel();
+    InstrumentModel *instrumentModel();
+    SampleModel *sampleModel();
+    RealDataModel *realDataModel();
+    JobModel *jobModel();
+    ApplicationModels *models();
+
+    Manhattan::ProgressBar *progressBar();
+    QStatusBar *statusBar();
+
+    ActionManager *getActionManager();
+    ProjectManager *projectManager();
+    UpdateNotifier *getUpdateNotifier();
 
 public slots:
     void onChangeTabWidget(int index);
     void onFocusRequest(int index);
     void openRecentProject();
-    void readSettings();
-    void writeSettings();
     void onRunSimulationShortcut();
     void onAboutApplication();
-    void resetModels();
+    void onSessionModelViewActive(bool isActive);
 
 protected:
     virtual void closeEvent(QCloseEvent *event);
+    virtual void showEvent(QShowEvent *event);
 
 private:
+    void initApplication();
+    void initProgressBar();
+    void initViews();
+
+    void readSettings();
+    void writeSettings();
+    void initConnections();
+
     Manhattan::FancyTabWidget  *m_tabWidget;
+    Manhattan::ProgressBar *m_progressBar;
+
+    ApplicationModels *m_applicationModels;
+    ProjectManager *m_projectManager;
+    ActionManager *m_actionManager;
+    ToolTipDataBase *m_toolTipDataBase;
+    UpdateNotifier *m_updateNotifier;
+
     WelcomeView *m_welcomeView;
     InstrumentView *m_instrumentView;
     SampleView *m_sampleView;
+    ImportDataView *m_importDataView;
     SimulationView *m_simulationView;
-
     JobView *m_jobView;
-    FitView *m_fitView;
-
-    Manhattan::ProgressBar *m_progressBar;
-
-    ActionManager *m_actionManager; //!< responsible for menus and actions
-    ProjectManager *m_projectManager; //!< handles activity related to opening/saving projects
-
-    JobModel *m_jobModel;  //!< model for all jobs
-    SampleModel *m_sampleModel; //!< model for all samples
-    InstrumentModel *m_instrumentModel; //!< model for all instruments
-    MaterialModel *m_materialModel; //!< model for all materials
-    MaterialEditor *m_materialEditor;
-    ToolTipDataBase *m_toolTipDataBase;
-    FitProxyModel *m_fitProxyModel;
-    UpdateNotifier *m_updateNotifier;
-
-    void createModels();
-    void createMaterialModel();
-    void createSampleModel();
-    void createJobModel();
-    void createInstrumentModel();
-    void createFitModel();
-
-    void testGUIObjectBuilder();
-    virtual void showEvent(QShowEvent *event);
+    SessionModelView *m_sessionModelView;
 };
 
-#endif // MAINWINDOW_H
+#endif
 

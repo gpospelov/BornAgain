@@ -2,14 +2,15 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/InfoWidgets/PySampleWidget.cpp
+//! @file      GUI/coregui/Views/InfoWidgets/PySampleWidget.cpp
 //! @brief     Implements class PySampleWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
@@ -178,7 +179,7 @@ void PySampleWidget::enableEditor()
 {
     Q_ASSERT(m_sampleModel);
 
-    if(m_sampleModel->getSampleMap().empty()) {
+    if(m_sampleModel->topItems().isEmpty()) {
         // negative number would mean that editor was never used and still contains welcome message
         // which we want to keep
         if(m_n_of_sceduled_updates >= 0) updateEditor();
@@ -227,13 +228,9 @@ QString PySampleWidget::generateCodeSnippet()
 
     QString result;
 
-    QMap<QString, ParameterizedItem *> sampleMap = m_sampleModel->getSampleMap();
-    for(QMap<QString, ParameterizedItem *>::iterator it = sampleMap.begin();
-        it!=sampleMap.end(); ++it) {
-
+    foreach(SessionItem *sampleItem, m_sampleModel->topItems()) {
         DomainObjectBuilder builder;
         PyGenVisitor visitor;
-        ParameterizedItem *sampleItem = it.value();
 
         try {
             auto P_multilayer = builder.buildMultiLayer(*sampleItem);

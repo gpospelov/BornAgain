@@ -2,29 +2,31 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/IntensityDataWidgets/IntensityDataPropertyWidget.cpp
+//! @file      GUI/coregui/Views/IntensityDataWidgets/IntensityDataPropertyWidget.cpp
 //! @brief     Implements class IntensityDataPropertyWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
 #include "IntensityDataPropertyWidget.h"
-#include "AwesomePropertyEditor.h"
 #include "JobModel.h"
 #include "IntensityDataItem.h"
+#include "ComponentEditor.h"
 #include <QVBoxLayout>
+#include <QAction>
 #include <QDebug>
 
 IntensityDataPropertyWidget::IntensityDataPropertyWidget(QWidget *parent)
-    : QWidget(parent)
-    , m_jobModel(0)
+    : SessionItemWidget(parent)
+    , m_togglePanelAction(0)
     , m_currentItem(0)
-    , m_propertyEditor(0)
+    , m_componentEditor(0)
 {
     setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
     setWindowTitle(QLatin1String("Intensity Data Properties"));
@@ -34,35 +36,78 @@ IntensityDataPropertyWidget::IntensityDataPropertyWidget(QWidget *parent)
     mainLayout->setMargin(0);
     mainLayout->setSpacing(0);
 
-    m_propertyEditor = new AwesomePropertyEditor(this);
-    //m_propertyEditor->setCreateGroupProperty(false);
+    m_componentEditor = new ComponentEditor();
 
-    mainLayout->addWidget(m_propertyEditor);
+    mainLayout->addWidget(m_componentEditor);
 
     setLayout(mainLayout);
+
+    m_togglePanelAction = new QAction(this);
+    m_togglePanelAction->setText("Properties");
+    m_togglePanelAction->setIcon(QIcon(":/images/toolbar16light_propertypanel.svg"));
+    m_togglePanelAction->setToolTip("Toggle Property Panel");
+    connect(m_togglePanelAction, SIGNAL(triggered()), this, SLOT(onTogglePanelAction()));
+
 }
 
-void IntensityDataPropertyWidget::setModel(JobModel *model)
+IntensityDataPropertyWidget::~IntensityDataPropertyWidget()
 {
-    Q_ASSERT(model);
-    if(model != m_jobModel) {
-        if(m_jobModel)
-            disconnect(m_jobModel,
-                SIGNAL( selectionChanged(JobItem *) ),
-                this,
-                SLOT( setItem(JobItem *) )
-                );
+    if(m_currentItem)
+        m_currentItem->mapper()->unsubscribe(this);
+}
 
-        m_jobModel = model;
-        connect(m_jobModel,
-            SIGNAL( selectionChanged(JobItem *) ),
-            this,
-            SLOT( setItem(JobItem *) )
-            );
+void IntensityDataPropertyWidget::setItem(SessionItem *item)
+{
+    if(m_currentItem == item)
+        return;
+
+    if(m_currentItem)
+        m_currentItem->mapper()->unsubscribe(this);
+
+    m_currentItem = item;
+   if (!m_currentItem) return;
+
+    m_componentEditor->setItem(item);
+
+    setPanelVisible(m_currentItem->getItemValue(IntensityDataItem::P_PROPERTY_PANEL_FLAG).toBool());
+
+    m_currentItem->mapper()->setOnPropertyChange(
+                 [this](const QString &name)
+    {
+        if(name == IntensityDataItem::P_PROPERTY_PANEL_FLAG) {
+            setPanelVisible(m_currentItem->getItemValue(IntensityDataItem::P_PROPERTY_PANEL_FLAG).toBool());
+        }
+    }, this);
+
+    m_currentItem->mapper()->setOnItemDestroy(
+                [this](SessionItem *) {
+        m_currentItem = 0;
+    }, this);
+
+
+}
+
+QList<QAction *> IntensityDataPropertyWidget::actionList()
+{
+    return QList<QAction *>() << m_togglePanelAction;
+}
+
+void IntensityDataPropertyWidget::onTogglePanelAction()
+{
+    if(m_currentItem) {
+        bool current_flag = m_currentItem->getItemValue(IntensityDataItem::P_PROPERTY_PANEL_FLAG).toBool();
+        m_currentItem->setItemValue(IntensityDataItem::P_PROPERTY_PANEL_FLAG, !current_flag);
     }
+
 }
 
-void IntensityDataPropertyWidget::setItem(IntensityDataItem *jobItem)
+void IntensityDataPropertyWidget::setPanelVisible(bool visible)
 {
-    m_propertyEditor->setItem(jobItem, "Plot Properties");
+    if(visible) {
+        m_componentEditor->setItem(m_currentItem);
+
+    } else {
+        m_componentEditor->setItem(0);
+    }
+    setVisible(visible);
 }

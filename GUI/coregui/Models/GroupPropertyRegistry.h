@@ -2,14 +2,15 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/GroupPropertyRegistry.h
-//! @brief     Defines class GroupPropertyRegistry
+//! @file      GUI/coregui/Models/GroupPropertyRegistry.h
+//! @brief     Declares class GroupPropertyRegistry
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
@@ -23,7 +24,7 @@
 #include <map>
 #include <QString>
 
-class ParameterizedItem;
+class SessionItem;
 
 //! The GroupPropertyRegistry is responsible for constructing GroupProperty objects
 //! according to the given name of the group.
@@ -32,7 +33,11 @@ class BA_CORE_API_ GroupPropertyRegistry
 public:
     using SelectableGroupMap_t = std::map<QString, std::map<QString, QString>>;
 
-    static GroupProperty_t createGroupProperty(const QString &group_name, const Constants::ModelType &group_model = Constants::ModelType());
+    static bool isValidGroup(const QString &group_type);
+
+    static GroupProperty_t createGroupProperty(const QString &group_name,
+            const Constants::ModelType &group_type);
+
 private:
     static SelectableGroupMap_t m_selectable_group_map;
     //!< Contains correspondance of selectable group names to their content,

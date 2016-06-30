@@ -2,14 +2,15 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/NJobModel.h
-//! @brief     Defines class NJobModel
+//! @file      GUI/coregui/Models/JobModel.h
+//! @brief     Declares class JobModel
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 #ifndef JOBMODEL_H
@@ -23,6 +24,8 @@ class InstrumentModel;
 class QItemSelection;
 class MultiLayerItem;
 class InstrumentItem;
+class RealDataItem;
+class SimulationOptionsItem;
 
 class BA_CORE_API_ JobModel : public SessionModel
 {
@@ -32,40 +35,42 @@ public:
     explicit JobModel(QObject *parent = 0);
     virtual ~JobModel();
 
-    JobQueueData *getJobQueueData() { return m_queue_data; }
-
     const JobItem *getJobItemForIndex(const QModelIndex &index) const;
     JobItem *getJobItemForIndex(const QModelIndex &index);
 
     JobItem *getJobItemForIdentifier(const QString &identifier);
 
-    JobItem *addJob(const MultiLayerItem *multiLayerItem, const InstrumentItem *instrumentItem,
-            const QString &run_policy = QString(), int numberOfThreads=-1);
-
-    void setSampleForJobItem(JobItem *jobItem, const MultiLayerItem *multiLayerItem, bool backup = false);
-
-    void setInstrumentForJobItem(JobItem *jobItem, const InstrumentItem *instrumentItem, bool backup=false);
-
-    void backup(JobItem *jobItem);
+    JobItem *addJob(const MultiLayerItem *multiLayerItem,
+                    const InstrumentItem *instrumentItem,
+                    const RealDataItem *realDataItem,
+                    const SimulationOptionsItem *optionItem);
 
     void restore(JobItem *jobItem);
 
+    bool hasUnfinishedJobs();
+
+    void clear();
+
+    void loadNonXMLData(const QString &projectDir);
+    void saveNonXMLData(const QString &projectDir);
+
 signals:
-    void selectionChanged(JobItem *item);
     void aboutToDeleteJobItem(JobItem *item);
     void focusRequest(JobItem *item);
     void globalProgress(int);
 
 public slots:
+    void onCancelAllJobs();
     void runJob(const QModelIndex &index);
     void cancelJob(const QModelIndex &index);
     void removeJob(const QModelIndex &index);
-    void onSelectionChanged( const QItemSelection &selected, const QItemSelection &deselected);
-    void onFocusRequest(const QString &identifier);
 
 private:
     QString generateJobName();
     QString generateJobIdentifier();
+    void restoreItem(SessionItem *item);
+    void copyRealDataItem(JobItem *jobItem, const RealDataItem *realDataItem);
+    void createFitContainers(JobItem *jobItem);
 
     JobQueueData *m_queue_data;
 };

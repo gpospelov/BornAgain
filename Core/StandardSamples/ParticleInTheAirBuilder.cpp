@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      StandardSamples/ParticleInTheAirBuilder.cpp
+//! @file      Core/StandardSamples/ParticleInTheAirBuilder.cpp
 //! @brief     Implements class ParticleInTheAirBuilder.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -18,33 +18,24 @@
 #include "HomogeneousMaterial.h"
 #include "Particle.h"
 #include "ParticleLayout.h"
-#include "IComponentService.h"
+#include "FunctionalTestSuite.h"
 #include "Exceptions.h"
 
 ParticleInTheAirBuilder::ParticleInTheAirBuilder()
-    : m_form_factor(0)
 {
-
 }
 
 ParticleInTheAirBuilder::~ParticleInTheAirBuilder()
 {
-
 }
 
-void ParticleInTheAirBuilder::init_from(const IComponentService *service)
+ISample* ParticleInTheAirBuilder::buildSample() const
 {
-    delete m_form_factor;
-    m_form_factor = service->getFormFactor();
-}
-
-ISample *ParticleInTheAirBuilder::buildSample() const
-{
-    if(!m_form_factor) {
+    const IFormFactor* form_factor = getFormFactor();
+    if(!form_factor)
         throw NullPointerException("ParticleInTheAirBuilder::buildSample() -> Error. "
                                    "Form factor is not initialized.");
-    }
-    MultiLayer *result = new MultiLayer;
+    MultiLayer* result = new MultiLayer;
 
     HomogeneousMaterial air_material("Air", 0.0, 0.0);
     HomogeneousMaterial particle_material("Particle", 6e-4, 2e-8);
@@ -52,7 +43,7 @@ ISample *ParticleInTheAirBuilder::buildSample() const
     Layer air_layer;
     air_layer.setMaterial(air_material);
 
-    Particle particle(particle_material, *m_form_factor);
+    Particle particle(particle_material, *form_factor);
     ParticleLayout particle_layout(particle);
     air_layer.addLayout(particle_layout);
 
@@ -60,4 +51,3 @@ ISample *ParticleInTheAirBuilder::buildSample() const
 
     return result;
 }
-

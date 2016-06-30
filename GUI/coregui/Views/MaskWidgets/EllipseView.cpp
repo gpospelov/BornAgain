@@ -2,14 +2,15 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/MaskWidgets/EllipseView.cpp
+//! @file      GUI/coregui/Views/MaskWidgets/EllipseView.cpp
 //! @brief     Implements EllipseView class
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
@@ -43,14 +44,14 @@ EllipseView::EllipseView()
 void EllipseView::onChangedX()
 {
     m_block_on_property_change = true;
-    m_item->setRegisteredProperty(EllipseItem::P_XCENTER, fromSceneX(this->x()));
+    m_item->setItemValue(EllipseItem::P_XCENTER, fromSceneX(this->x()));
     m_block_on_property_change = false;
 }
 
 void EllipseView::onChangedY()
 {
     m_block_on_property_change = true;
-    m_item->setRegisteredProperty(EllipseItem::P_YCENTER, fromSceneY(this->y()));
+    m_item->setItemValue(EllipseItem::P_YCENTER, fromSceneY(this->y()));
     m_block_on_property_change = false;
 }
 
@@ -102,7 +103,7 @@ void EllipseView::onSizeHandleElementRequest(bool going_to_resize)
 void EllipseView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
     painter->setRenderHints(QPainter::Antialiasing);
-    bool mask_value = m_item->getRegisteredProperty(MaskItem::P_MASK_VALUE).toBool();
+    bool mask_value = m_item->getItemValue(MaskItem::P_MASK_VALUE).toBool();
     painter->setBrush(MaskEditorHelper::getMaskBrush(mask_value));
     painter->setPen(MaskEditorHelper::getMaskPen(mask_value));
     painter->drawEllipse(m_mask_rect);
@@ -138,27 +139,27 @@ void EllipseView::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
         QPointF centerInScene = mapToScene(center);
 
         if(m_activeHandleElement->getHandleType() == SizeHandleElement::RESIZE) {
-            m_item->setRegisteredProperty(EllipseItem::P_XCENTER, fromSceneX(centerInScene.x()));
-            m_item->setRegisteredProperty(EllipseItem::P_YCENTER, fromSceneY(centerInScene.y()));
+            m_item->setItemValue(EllipseItem::P_XCENTER, fromSceneX(centerInScene.x()));
+            m_item->setItemValue(EllipseItem::P_YCENTER, fromSceneY(centerInScene.y()));
 
-            m_item->setRegisteredProperty(EllipseItem::P_XRADIUS,
+            m_item->setItemValue(EllipseItem::P_XRADIUS,
                                           (fromSceneX(centerInScene.x()+width/2.) -
                                           fromSceneX(centerInScene.x()-width/2.))/2.);
-            m_item->setRegisteredProperty(EllipseItem::P_YRADIUS,
+            m_item->setItemValue(EllipseItem::P_YRADIUS,
                                           (fromSceneY(centerInScene.y()-height/2.) -
                                           fromSceneY(centerInScene.y()+height/2.))/2.);
 
 
 
         } else if(m_activeHandleElement->getHandleType() == SizeHandleElement::RESIZE_HEIGHT) {
-            m_item->setRegisteredProperty(EllipseItem::P_YCENTER, fromSceneY(centerInScene.y()));
-            m_item->setRegisteredProperty(EllipseItem::P_YRADIUS,
+            m_item->setItemValue(EllipseItem::P_YCENTER, fromSceneY(centerInScene.y()));
+            m_item->setItemValue(EllipseItem::P_YRADIUS,
                                           (fromSceneY(centerInScene.y()-height/2.) -
                                           fromSceneY(centerInScene.y()+height/2.))/2.);
 
         } else if(m_activeHandleElement->getHandleType() == SizeHandleElement::RESIZE_WIDTH) {
-            m_item->setRegisteredProperty(EllipseItem::P_XCENTER, fromSceneX(centerInScene.x()));
-            m_item->setRegisteredProperty(EllipseItem::P_XRADIUS,
+            m_item->setItemValue(EllipseItem::P_XCENTER, fromSceneX(centerInScene.x()));
+            m_item->setItemValue(EllipseItem::P_XRADIUS,
                                           (fromSceneX(centerInScene.x()+width/2.) -
                                           fromSceneX(centerInScene.x()-width/2.))/2.);
         }

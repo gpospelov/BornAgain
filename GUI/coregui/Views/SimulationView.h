@@ -2,14 +2,15 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/SimulationView.h
-//! @brief     Defines class SimulationView
+//! @file      GUI/coregui/Views/SimulationView.h
+//! @brief     Declares class SimulationView
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
@@ -20,11 +21,8 @@
 #include <QWidget>
 
 class MainWindow;
-class SampleModel;
-class InstrumentModel;
 class SimulationSetupWidget;
 class StyledToolBar;
-class JobModel;
 
 class BA_CORE_API_ SimulationView : public QWidget
 {
@@ -40,9 +38,6 @@ public slots:
     void onRunSimulationShortcut();
 
 private:
-    JobModel *m_jobModel;
-    SampleModel *m_sampleModel;
-    InstrumentModel *m_instrumentModel;
     SimulationSetupWidget *m_simulationSetupWidget;
     StyledToolBar *m_toolBar;
 };

@@ -2,20 +2,24 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/PropertyAttribute.cpp
+//! @file      GUI/coregui/Models/PropertyAttribute.cpp
 //! @brief     Implements class PropertyAttribute
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
 #include "PropertyAttribute.h"
+#include "SessionItem.h"
+#include "tooltipdatabase.h"
+#include <QDebug>
 
-PropertyAttribute::PropertyAttribute(PropertyAttribute::EAppearance appearance,
+PropertyAttribute::PropertyAttribute(PropertyAttribute::Appearance appearance,
                                      const AttLimits &limits, int decimals, const QString &label,
                                      const QString &tooltip)
     : m_appearance(appearance)
@@ -40,12 +44,12 @@ PropertyAttribute PropertyAttribute::labeled(const QString &label)
     return PropertyAttribute(VISIBLE, AttLimits::lowerLimited(0.0), 2, label);
 }
 
-PropertyAttribute::EAppearance PropertyAttribute::getAppearance() const
+PropertyAttribute::Appearance PropertyAttribute::getAppearance() const
 {
     return m_appearance;
 }
 
-void PropertyAttribute::setAppearance(PropertyAttribute::EAppearance appearance)
+void PropertyAttribute::setAppearance(PropertyAttribute::Appearance appearance)
 {
     m_appearance = appearance;
 }
@@ -120,46 +124,73 @@ PropertyAttribute &PropertyAttribute::setToolTip(const QString &tooltip)
 
 bool PropertyAttribute::isVisible() const
 {
-    return (m_appearance & PropertyAttribute::VISIBLE);
+    return !isHidden();
 }
 
 PropertyAttribute &PropertyAttribute::setVisible()
 {
-    m_appearance = VISIBLE;
+    m_appearance &= ~PropertyAttribute::HIDDEN;
     return *this;
 }
 
 bool PropertyAttribute::isHidden() const
 {
-    return (m_appearance & PropertyAttribute::HIDDEN);
+    return m_appearance.testFlag(PropertyAttribute::HIDDEN);
 }
 
 PropertyAttribute& PropertyAttribute::setHidden()
 {
-    m_appearance = HIDDEN;
+    m_appearance |= PropertyAttribute::HIDDEN;
     return *this;
 }
 
 bool PropertyAttribute::isDisabled() const
 {
-    return (m_appearance & PropertyAttribute::DISABLED);
+    return m_appearance.testFlag(PropertyAttribute::DISABLED);
 }
 
 PropertyAttribute& PropertyAttribute::setDisabled()
 {
-    m_appearance = DISABLED;
+    m_appearance |= PropertyAttribute::DISABLED;
+    return *this;
+}
+
+PropertyAttribute &PropertyAttribute::setEnabled()
+{
+    m_appearance &= ~PropertyAttribute::DISABLED;
     return *this;
 }
 
 bool PropertyAttribute::isReadOnly() const
 {
-    return (m_appearance & PropertyAttribute::READONLY);
+    return m_appearance.testFlag(PropertyAttribute::READONLY);
 }
 
 PropertyAttribute& PropertyAttribute::setReadOnly()
 {
-    m_appearance = READONLY;
+    m_appearance |= PropertyAttribute::READONLY;
     return *this;
+}
+
+PropertyAttribute PropertyAttribute::fromItem(SessionItem *item)
+{
+    PropertyAttribute attribute = PropertyAttribute(PropertyAttribute::VISIBLE, item->limits(),
+                                                    item->decimals(), item->displayName(), item->toolTip());
+    if (!item->isVisible())
+        attribute.setHidden();
+    if (!item->isEditable())
+        attribute.setReadOnly();
+    if (!item->isEnabled())
+        attribute.setDisabled();
+
+    if(attribute.getToolTip().isEmpty()) {
+        if(SessionItem *parent = item->parent()) {
+            attribute.setToolTip(ToolTipDataBase::getSampleViewToolTip(
+                                     parent->modelType(), item->displayName()));
+        }
+    }
+
+    return attribute;
 }
 
 

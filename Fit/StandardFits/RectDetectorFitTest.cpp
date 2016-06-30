@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      StandardFits/RectDetectorFitTest.cpp
+//! @file      Fit/StandardFits/RectDetectorFitTest.cpp
 //! @brief     Implements class RectDetectorFitTest.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -22,7 +22,7 @@
 #include <memory>
 
 RectDetectorFitTest::RectDetectorFitTest()
-    : IMinimizerFunctionalTest("Minuit2", "Migrad")
+    : IMinimizerTest("Minuit2", "Migrad")
 {
 
 }

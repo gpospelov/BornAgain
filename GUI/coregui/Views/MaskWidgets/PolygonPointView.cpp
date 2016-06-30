@@ -2,14 +2,15 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/MaskWidgets/PolygonPointView.cpp
+//! @file      GUI/coregui/Views/MaskWidgets/PolygonPointView.cpp
 //! @brief     Implements PolygonPointView class
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
@@ -36,8 +37,8 @@ QRectF PolygonPointView::boundingRect() const
 
 void PolygonPointView::updateParameterizedItem(const QPointF &pos)
 {
-    m_item->setRegisteredProperty(PolygonPointItem::P_POSX, fromSceneX(pos.x()));
-    m_item->setRegisteredProperty(PolygonPointItem::P_POSY, fromSceneY(pos.y()));
+    m_item->setItemValue(PolygonPointItem::P_POSX, fromSceneX(pos.x()));
+    m_item->setItemValue(PolygonPointItem::P_POSY, fromSceneY(pos.y()));
 }
 
 void PolygonPointView::update_view()

@@ -2,14 +2,15 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/MaterialModel.cpp
+//! @file      GUI/coregui/Models/MaterialModel.cpp
 //! @brief     Implements class MaterialModel
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
@@ -18,12 +19,22 @@
 #include "RefractiveIndexItem.h"
 #include "MaterialUtils.h"
 #include "MaterialProperty.h"
+#include "IconProvider.h"
+#include <QUuid>
 #include <QDebug>
 
 MaterialModel::MaterialModel(QObject *parent)
     : SessionModel(SessionXML::MaterialModelTag, parent)
 {
     setObjectName(SessionXML::MaterialModelTag);
+    setIconProvider(new IconProvider());
+}
+
+MaterialModel *MaterialModel::createCopy(SessionItem *parent)
+{
+    MaterialModel *result = new MaterialModel();
+    result->initFrom(this, parent);
+    return result;
 }
 
 MaterialItem *MaterialModel::addMaterial(const QString &name, double delta, double beta)
@@ -31,13 +42,14 @@ MaterialItem *MaterialModel::addMaterial(const QString &name, double delta, doub
     MaterialItem *materialItem = dynamic_cast<MaterialItem *>(insertNewItem(Constants::MaterialType));
     materialItem->setItemName(name);
 
-    RefractiveIndexItem *refractiveIndexItem = dynamic_cast<RefractiveIndexItem *>(materialItem->getSubItems()[MaterialItem::P_REFRACTIVE_INDEX]);
+    RefractiveIndexItem *refractiveIndexItem =
+            dynamic_cast<RefractiveIndexItem *>(materialItem->getItem(MaterialItem::P_REFRACTIVE_INDEX));
     Q_ASSERT(refractiveIndexItem);
 
     refractiveIndexItem->setDelta(delta);
     refractiveIndexItem->setBeta(beta);
 
-    materialItem->setRegisteredProperty(MaterialItem::P_COLOR, MaterialUtils::suggestMaterialColorProperty(name).getVariant());
+    materialItem->setItemValue(MaterialItem::P_COLOR, MaterialUtils::suggestMaterialColorProperty(name).getVariant());
 
     return materialItem;
 }
@@ -46,6 +58,11 @@ void MaterialModel::removeMaterial(MaterialItem *item)
 {
     QModelIndex materialIndex = indexOfItem(item);
     removeRows(materialIndex.row(), 1, materialIndex.parent());
+}
+
+MaterialItem *MaterialModel::getMaterial(const QModelIndex &index)
+{
+    return dynamic_cast<MaterialItem *>(itemForIndex(index));
 }
 
 MaterialItem *MaterialModel::getMaterial(const MaterialProperty &property)
@@ -74,4 +91,18 @@ MaterialItem *MaterialModel::getMaterial(const QString &material_name)
          }
     }
     return 0;
+}
+
+//! Returns clone of material with given index.
+
+MaterialItem *MaterialModel::cloneMaterial(const QModelIndex &index)
+{
+    const MaterialItem *origMaterial = getMaterial(index);
+    if(!origMaterial)
+        return nullptr;
+
+    SessionItem *clonedMaterial = copyParameterizedItem(origMaterial, 0);
+    clonedMaterial->setItemValue(MaterialItem::P_IDENTIFIER, QUuid::createUuid().toString());
+    clonedMaterial->setItemName(origMaterial->itemName()+" (clone)");
+    return dynamic_cast<MaterialItem *>(clonedMaterial);
 }

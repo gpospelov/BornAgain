@@ -2,14 +2,15 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/InstrumentWidgets/SphericalDetectorWidget.h
-//! @brief     Defines class SphericalDetectorWidget
+//! @file      GUI/coregui/Views/InstrumentWidgets/SphericalDetectorWidget.h
+//! @brief     Declares class SphericalDetectorWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
@@ -20,9 +21,9 @@
 #include <QWidget>
 
 class DetectorItem;
-class AwesomePropertyEditor;
 class QGridLayout;
 class ColumnResizer;
+class ComponentBoxEditor;
 
 //! Widget for editing a spherical detector settings
 
@@ -41,10 +42,9 @@ public slots:
 
 private:
     ColumnResizer *m_columnResizer;
-    AwesomePropertyEditor *m_detectorTypeEditor;
-    AwesomePropertyEditor *m_phiAxisEditor;
-    AwesomePropertyEditor *m_alphaAxisEditor;
-    AwesomePropertyEditor *m_resolutionFunctionEditor;
+    ComponentBoxEditor *m_phiAxisEditor;
+    ComponentBoxEditor *m_alphaAxisEditor;
+    ComponentBoxEditor *m_resolutionFunctionEditor;
     QGridLayout *m_gridLayout;
 };
 

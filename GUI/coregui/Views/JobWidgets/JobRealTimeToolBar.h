@@ -2,27 +2,26 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/JobWidgets/JobRealTimeToolBar.h
-//! @brief     Defines class JobRealTimeToolBar
+//! @file      GUI/coregui/Views/JobWidgets/JobRealTimeToolBar.h
+//! @brief     Declares class JobRealTimeToolBar
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
 #ifndef JOBREALTIMETOOLBAR_H
 #define JOBREALTIMETOOLBAR_H
 
-#include <QToolBar>
-#include "WinDllMacros.h"
+#include "StyledToolBar.h"
 
-class QToolButton;
+//! The JobRealTimeToolBar class represents a toolbar with buttons for JobRealTimeWidget.
 
-//! The JobRealTimeToolBar contains buttons needed for JobRealTimeWidget
-class BA_CORE_API_ JobRealTimeToolBar : public QToolBar
+class BA_CORE_API_ JobRealTimeToolBar : public StyledToolBar
 {
     Q_OBJECT
 
@@ -33,10 +32,8 @@ signals:
     void resetParameters();
 
 private:
-    QToolButton *m_resetParametersButton;
-    QToolButton *m_exportParametersButton;
+    class QToolButton *m_resetParametersButton;
 };
-
 
 #endif
 

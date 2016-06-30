@@ -2,14 +2,15 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/SampleValidator.h
-//! @brief     Defines class SampleValidator
+//! @file      GUI/coregui/Models/SampleValidator.h
+//! @brief     Declares class SampleValidator
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
@@ -19,8 +20,8 @@
 #include <QString>
 #include <QModelIndex>
 
-class SampleModel;
-class ParameterizedItem;
+class SessionItem;
+class MultiLayerItem;
 
 //! Validates SampleModel for MultiLayerItem suitable for simulation
 class SampleValidator
@@ -28,16 +29,21 @@ class SampleValidator
 public:
     SampleValidator();
 
-    bool isValidSampleModel(SampleModel *sampleModel);
+    bool isValidMultiLayer(const  MultiLayerItem *multilayer);
 
     QString getValidationMessage() const { return m_validation_message; }
 
 private:
-    void iterateSampleModel(SampleModel *sampleModel, const QModelIndex &parentIndex = QModelIndex());
+    void initValidator();
 
-    QString validateMultiLayerItem(ParameterizedItem *item);
-    QString validateParticleLayoutItem(ParameterizedItem *item);
-    QString validateParticleCoreShellItem(ParameterizedItem *item);
+    void iterateItems(const SessionItem *parentItem);
+    void validateItem(const SessionItem *item);
+
+    QString validateMultiLayerItem(const SessionItem *item);
+    QString validateParticleLayoutItem(const SessionItem *item);
+    QString validateParticleCoreShellItem(const SessionItem *item);
+    QString validateParticleCompositionItem(const SessionItem *item);
+    QString validateParticleDistributionItem(const SessionItem *item);
 
     bool m_valid_sample;
     QString m_validation_message;

@@ -2,14 +2,15 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/PropertyEditor/PropertyBrowserUtils.h
-//! @brief     Defines class PropertyBrowserUtils
+//! @file      GUI/coregui/Views/PropertyEditor/PropertyBrowserUtils.h
+//! @brief     Declares class PropertyBrowserUtils
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
@@ -53,6 +54,9 @@ private:
 class BA_CORE_API_ GroupPropertyEdit : public QWidget
 {
     Q_OBJECT
+
+    Q_PROPERTY(GroupProperty_t group READ group WRITE setGroup USER true)
+
 public:
     GroupPropertyEdit(QWidget *parent = 0);
     virtual ~GroupPropertyEdit();
@@ -63,13 +67,17 @@ public:
     virtual QSize sizeHint() const;
     virtual QSize minimumSizeHint() const;
 
+    GroupProperty_t group() const;
+    void setGroup(GroupProperty_t group);
+
 signals:
     void groupPropertyChanged(const GroupProperty_t &group_property);
+
 private slots:
     void indexChanged(int index);
+
 private:
-    void processFixedGroup();
-    void processSelectableGroup();
+    void processGroup();
     QComboBox *m_box;
     QLabel *m_label;
     GroupProperty_t m_groupProperty;

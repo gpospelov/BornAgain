@@ -2,14 +2,15 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/MaskWidgets/MaskEditorActions.cpp
+//! @file      GUI/coregui/Views/MaskWidgets/MaskEditorActions.cpp
 //! @brief     Implement class MaskEditorActions
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
@@ -86,9 +87,9 @@ void MaskEditorActions::onToggleMaskValueAction()
     Q_ASSERT(m_maskModel);
     Q_ASSERT(m_selectionModel);
     foreach(QModelIndex itemIndex, m_selectionModel->selectedIndexes()) {
-        if(ParameterizedItem *item =  m_maskModel->itemForIndex(itemIndex)) {
-            bool old_value = item->getRegisteredProperty(MaskItem::P_MASK_VALUE).toBool();
-            item->setRegisteredProperty(MaskItem::P_MASK_VALUE, !old_value);
+        if(SessionItem *item =  m_maskModel->itemForIndex(itemIndex)) {
+            bool old_value = item->getItemValue(MaskItem::P_MASK_VALUE).toBool();
+            item->setItemValue(MaskItem::P_MASK_VALUE, !old_value);
         }
     }
 }
@@ -127,10 +128,10 @@ void MaskEditorActions::changeMaskStackingOrder(MaskEditorFlags::Stacking value)
     QModelIndexList indexes = m_selectionModel->selectedIndexes();
 
     foreach(QModelIndex itemIndex, indexes) {
-        if(ParameterizedItem *item =  m_maskModel->itemForIndex(itemIndex)) {
+        if(SessionItem *item =  m_maskModel->itemForIndex(itemIndex)) {
             int new_row = itemIndex.row() + change_in_row;
             if(new_row >= 0 && new_row <= m_maskModel->rowCount(m_rootIndex)) {
-                ParameterizedItem *newItem = m_maskModel->moveParameterizedItem(
+                SessionItem *newItem = m_maskModel->moveParameterizedItem(
                             item,m_maskModel->itemForIndex(m_rootIndex), new_row);
                 m_selectionModel->select(m_maskModel->indexOfItem(newItem),
                                          QItemSelectionModel::Select);
@@ -157,8 +158,8 @@ bool MaskEditorActions::isSendToBackPossible() const
     bool result(false);
     QModelIndexList indexes = m_selectionModel->selectedIndexes();
     if(indexes.size() == 1) {
-        ParameterizedItem *item = m_maskModel->itemForIndex(indexes.front());
-        if(indexes.front().row() != item->parent()->childItemCount() -1) result = true;
+        SessionItem *item = m_maskModel->itemForIndex(indexes.front());
+        if(indexes.front().row() != item->parent()->rowCount() -1) result = true;
     }
     return result;
 }

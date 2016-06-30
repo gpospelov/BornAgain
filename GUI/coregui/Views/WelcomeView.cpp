@@ -2,14 +2,15 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/WelcomeView.cpp
+//! @file      GUI/coregui/Views/WelcomeView.cpp
 //! @brief     Implements class WelcomeView
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
@@ -42,7 +43,7 @@ WelcomeView::WelcomeView(MainWindow *parent)
     setAutoFillBackground(true);
     setPalette(palette);
 
-    m_projectManager = m_mainWindow->getProjectManager();
+    m_projectManager = m_mainWindow->projectManager();
     Q_ASSERT(m_projectManager);
 
     // button layout
@@ -67,6 +68,8 @@ WelcomeView::WelcomeView(MainWindow *parent)
     m_newProjectButton->setFont(buttonFont);
     m_newProjectButton->setToolTip("Create new project");
 //    m_newProjectButton->setStyleSheet(ssheet);
+    m_newProjectButton->setAttribute(Qt::WA_MacShowFocusRect, false);
+
 
     m_openProjectButton = new QPushButton(tr("Open Project"));
     m_openProjectButton->setMinimumWidth(buttonWidth);

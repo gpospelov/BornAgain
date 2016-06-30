@@ -2,14 +2,15 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/IntensityDataWidgets/VerticalSlicePlot.cpp
+//! @file      GUI/coregui/Views/IntensityDataWidgets/VerticalSlicePlot.cpp
 //! @brief     Implements class VerticalSlicePlot
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
@@ -25,6 +26,7 @@ VerticalSlicePlot::VerticalSlicePlot(QWidget *parent)
     , m_customPlot(0)
     , m_bars(0)
     , m_item(0)
+//    , m_mapper(0)
 {
     m_customPlot = new QCustomPlot();
     m_bars = new QCPBars(m_customPlot->yAxis, m_customPlot->xAxis);
@@ -40,26 +42,25 @@ VerticalSlicePlot::VerticalSlicePlot(QWidget *parent)
 
 void VerticalSlicePlot::setItem(IntensityDataItem *item)
 {
-    if (m_item == item) return;
+    if (m_item == item) {
+        return;
 
-    if (m_item) {
-//        disconnect(m_item, SIGNAL(propertyChanged(QString)),
-//                this, SLOT(onPropertyChanged(QString)));
-        disconnect(m_item, SIGNAL(subItemPropertyChanged(QString,QString)),
-                this, SLOT(onSubItemPropertyChanged(QString,QString)));
+    } else {
+        if(m_item)
+            m_item->mapper()->unsubscribe(this);
+
+        m_item = item;
+        if (!m_item) return;
+
+        plotItem(m_item);
+
+        m_item->mapper()->setOnChildPropertyChange(
+                    [this](SessionItem* item, const QString name)
+        {
+            if (item->parent() && item->parent()->modelType() == Constants::GroupItemType)
+                onSubItemPropertyChanged(item->itemName(), name);
+        }, this);
     }
-
-    m_item = item;
-
-    if (!m_item) return;
-
-    plotItem(m_item);
-
-//    connect(m_item, SIGNAL(propertyChanged(QString)),
-//            this, SLOT(onPropertyChanged(QString)));
-
-    connect(m_item, SIGNAL(subItemPropertyChanged(QString,QString)),
-            this, SLOT(onSubItemPropertyChanged(QString,QString)));
 
 }
 

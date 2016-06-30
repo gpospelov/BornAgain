@@ -2,14 +2,15 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/IntensityDataWidgets/SavePlotAssistant.cpp
+//! @file      GUI/coregui/Views/IntensityDataWidgets/SavePlotAssistant.cpp
 //! @brief     Implements class SavePlotAssistant
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
 
@@ -53,7 +54,7 @@ SavePlotAssistant::Format::Format(const QString &file_extention, const QString &
 
 }
 
-void SavePlotAssistant::savePlot(const QString &dirname, ColorMapPlot *plot,
+void SavePlotAssistant::savePlot(const QString &dirname, QCustomPlot *plot,
                                  IntensityDataItem *item)
 
 {
@@ -78,18 +79,18 @@ void SavePlotAssistant::savePlot(const QString &dirname, ColorMapPlot *plot,
 
 }
 
-void SavePlotAssistant::saveToFile(const QString &fileName, ColorMapPlot *plot, IntensityDataItem *item)
+void SavePlotAssistant::saveToFile(const QString &fileName, QCustomPlot *plot, IntensityDataItem *item)
 {
     if(isPngFile(fileName)) {
-        plot->getCustomPlot()->savePng(fileName);
+        plot->savePng(fileName);
     }
 
     else if(isJpgFile(fileName)) {
-        plot->getCustomPlot()->saveJpg(fileName);
+        plot->saveJpg(fileName);
     }
 
     else if(isPdfFile(fileName)) {
-        plot->getCustomPlot()->savePdf(fileName, true, plot->width(), plot->height());
+        plot->savePdf(fileName, true, plot->width(), plot->height());
     }
 
     else {

@@ -121,7 +121,7 @@ if(UNIX)
         configure_file(${CMAKE_SOURCE_DIR}/cmake/bornagain/modules/FixAppleBundle.cmake.in
                        ${BUILD_VAR_DIR}/FixAppleBundle.cmake @ONLY)
         install(SCRIPT ${BUILD_VAR_DIR}/FixAppleBundle.cmake COMPONENT Runtime)
-
+    elseif(WIN32)
     elseif(NOT BUILD_DEBIAN)
         # creating link to BornAgain gui in bin directory
         install(CODE "
@@ -129,6 +129,5 @@ if(UNIX)
         \"../${destination_libexec}/exec/BornAgain\" \"bornagain\"
         WORKING_DIRECTORY \"${CMAKE_INSTALL_PREFIX}/${destination_bin}\")
         " COMPONENT Runtime)
-
     endif()
 endif()

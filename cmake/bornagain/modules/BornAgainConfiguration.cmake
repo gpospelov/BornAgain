@@ -120,7 +120,7 @@ message(STATUS "Destination directories: bin->${destination_bin}, lib->${destina
 if(BORNAGAIN_RELEASE)
     # configure a header file to pass CMake settings to the source code
     configure_file(${TEMPLATE_DIR}/BAVersion.h.in
-        ${CMAKE_SOURCE_DIR}/Core/Samples/inc/BAVersion.h)
+        ${CMAKE_SOURCE_DIR}/Core/Samples/BAVersion.h)
 
     # configure Doxyfile
     configure_file(${CMAKE_SOURCE_DIR}/Doc/Doxygen/Doxyfile.in

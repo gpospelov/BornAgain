@@ -1,3 +1,67 @@
+BornAgain-1.6.0, released 2016.06.30
+  > Summary:
+    1) Python 3 support
+    2) GUI: beta version of fitting
+    3) Core: new roughness calculation that is more stable for large roughness
+    4) Core: new formfactors dodecahedron and icosahedron
+    5) Windows: switched to 64-bits
+
+  * Bug #1084: MultiLayer samples with roughness (and without particles) report wrong progress to the GUI's progress bar
+  * Bug #1113: GUI: python script view is not updating while selecting different multilayers
+  * Bug #1274: GUI: rotated ellipse in MaskEditor is wrongly propagated to domain
+  * Bug #1294: provide substantial unit tests for factor computations
+  * Bug #1338: Crash while saving certain project file
+  * Bug #1343: GUI: online update notifier is not working
+  * Bug #1358: for complex vector3D, functions mag() and mag2() should return a real, not a complex number
+  * Bug #1367: Fix python bindings to make fitting example FitAlongSlices working
+  * Bug #1370: Fix numerous "features" introduced by latest major GUI refactoring
+  * Bug #1396: GUI: Provide limits for all properties
+  * Bug #1401: correct inaccurate numerics near removable singularity in form factors Tetrahedron and Prism3
+  * Bug #1404: compilation broken for libgsl2
+  * Bug #1405: Implementation error in MultiLayerRoughnessDWBASimulation
+  * Bug #1413: polyhedra won't react to ex-post parameter variation
+  * Bug #1429: Unit tests files are not shown in Qt Creator IDE
+  * Bug #1449: Apply detector resolution function can give negative results
+  * Bug #1455: RuntimeError if CrossCorrLength=0
+  * Bug #1458: Compilation under Mac OS is broken
+  * Bug #1465: Repair MacOS cmake machinery
+  * Bug #1470: Revise all README's in BornAgain source directory.
+  * Feature #335: Check Python 3 compatibility
+  * Feature #1075: Cone6 form factor -> analytic
+  * Feature #1126: GUI: improve performance of IntensityDataWidget while dragging colorbar
+  * Feature #1138: GUI: provide uniform style for double numbers in GUI-generated Python script
+  * Feature #1180: GUI: refactor material editor to make select/cancel behavior less confusing
+  * Feature #1238: nicer layout for newsletter@bornagainproject.org
+  * Feature #1245: Investigate alternative Python API generation (for c++11)
+  * Feature #1281: GUI: provide widget for fit parameters settings
+  * Feature #1305: GUI: Make real time simulation aware of current zoom level to speed up the performance
+  * Feature #1342: GUI: add Monte-Carlo integration option in the simulation
+  * Feature #1365: Replace old ./App based performance test machinery with new one
+  * Feature #1387: GUI: finalize FitWidget
+  * Feature #1388: GUI: refactor RealTimeActivity
+  * Feature #1408: GUI: refactor/beautify/finalize FitWidget
+  * Feature #1409: accelerate Ripple1
+  * Feature #1427: Implement new roughness calculation that is more stable for large roughness
+  * Documentation #1262: Fix IsGISAXS references in form factor section
+  * Documentation #1269: Update documentation for new phi angle definition
+  * Documentation #1280: draw tetrahedron as seen from -x
+  * Documentation #1351: Drupal: update installation instructions, tutorials for coming release 1.6
+  * Documentation #1400: blender: paint dodecahedron and icosahedron
+  * Refactoring #1217: Cleanup App directory from all obsolete code
+  * Refactoring #1258: GUI: move XML related methods outside of the SessionModel
+  * Refactoring #1295: remove 'inc/ and 'src/' directory level
+  * Refactoring #1296: update internal information about performance tests
+  * Refactoring #1333: MSC switches hopefully obsolete
+  * Refactoring #1334: Core: remove ProgramOptions from the simulation
+  * Refactoring #1352: GUI: refactor SessionModel and ParameterizedItem
+  * Refactoring #1353: GUI: refactor AwesomePropertyEditor to rely on new GUI model
+  * Refactoring #1424: reduce verbosity of googletest output
+  * Refactoring #1472: Introduce additional template parameter for IFactory to be able to use QString as a key
+  * Testing #1345: Vagrant: Provide Win10 Vagrant box running on build server
+  * Testing #1346: Winbuild: Provide GSL/Cmake based compilation uder MSVC 2015
+  * Testing #1347: Winbuild: Provide compilation of BornAgain in MSVC 2015 Comunity edition (64bits, Python2 and 3)
+  * Configuration #1350: Buildbot: provide set of configurations for buildbot-based BornAgain's builds
+
 BornAgain-1.5.1, released 2016.02.18
 Hotfix:
   * Bug #1341: GUI crashes if simulating with 1D lattice interference function

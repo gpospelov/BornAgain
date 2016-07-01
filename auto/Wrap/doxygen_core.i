@@ -14901,9 +14901,6 @@ global helper function for comparison of axes
 // File: INamed_8h.xml
 
 
-// File: BAConfigure_8h.xml
-
-
 // File: IntegratorComplex_8h.xml
 %feature("docstring")  make_integrator_complex "P_integrator_complex<T> make_integrator_complex(const T *object, complex_integrand< T > mem_function)
 ";
@@ -15098,9 +15095,6 @@ global helper function for comparison of axes
 
 
 // File: dir_f917e00ecc0731a03e57c18530cede59.xml
-
-
-// File: dir_9d78f3c2dc853fa89372782fc968f32a.xml
 
 
 // File: dir_7fb31f1b073eeae63423bbb2a3a2d187.xml

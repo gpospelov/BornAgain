@@ -59,9 +59,7 @@ void SpecularMatrix::execute(const MultiLayer& sample, const kvector_t k,
     if (coeff[0].lambda == 0.0) {
         coeff[0].t_r(0) = 1.0;
         coeff[0].t_r(1) = -1.0;
-        for (size_t i=1; i<N; ++i) {
-            coeff[i].t_r.setZero();
-        }
+        setZeroBelow(coeff, 0);
         return;
     }
     // Calculate transmission/refraction coefficients t_r for each layer,
@@ -92,6 +90,11 @@ void SpecularMatrix::execute(const MultiLayer& sample, const kvector_t k,
                     (lambda_rough-lambda_below)*coeff[i+1].t_r(0) +
                     (lambda_rough+lambda_below)*coeff[i+1].t_r(1) )/2.0/lambda *
                     std::exp( ikd*lambda);
+        if (std::isnan(std::abs(coeff[i].t_r(0)))) {
+            coeff[i].t_r(0) = 1.0;
+            coeff[i].t_r(1) = 0.0;
+            setZeroBelow(coeff, i);
+        }
     }
     // Normalize to incoming downward travelling amplitude = 1.
     complex_t T0 = coeff[0].getScalarT();
@@ -99,3 +102,12 @@ void SpecularMatrix::execute(const MultiLayer& sample, const kvector_t k,
         coeff[i].t_r = coeff[i].t_r/T0;
     }
 }
+
+void SpecularMatrix::setZeroBelow(MultiLayerCoeff_t& coeff, size_t current_layer)
+{
+    size_t N = coeff.size();
+    for (size_t i=current_layer+1; i<N; ++i) {
+        coeff[i].t_r.setZero();
+    }
+}
+

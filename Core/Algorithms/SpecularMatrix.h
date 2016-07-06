@@ -37,6 +37,8 @@ public:
     //! Computes refraction angles and transmission/reflection coefficients
     //! for given coherent wave propagation in a multilayer.
     static void execute(const MultiLayer& sample, const kvector_t k, MultiLayerCoeff_t& coeff);
+private:
+    void setZeroBelow(MultiLayerCoeff_t& coeff, size_t current_layer);
 };
 
 #endif /* SPECULARMATRIX_H_ */

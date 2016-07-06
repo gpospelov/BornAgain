@@ -28,26 +28,30 @@ ScalarSpecularInfoMap *ScalarSpecularInfoMap::clone() const
     return new ScalarSpecularInfoMap(mp_multilayer, m_layer);
 }
 
-//! \todo Can we avoid the code duplication in the two following functions ?
-
 const ScalarRTCoefficients *ScalarSpecularInfoMap::getOutCoefficients(
         double alpha_f, double phi_f, double wavelength) const
 {
-    (void)phi_f;
-    SpecularMatrix::MultiLayerCoeff_t coeffs;
-    // phi has no effect on R,T, so just pass zero:
+    (void)phi_f; // phi has no effect on R,T, so just pass zero:
     kvector_t kvec = Geometry::vecOfLambdaAlphaPhi(wavelength, -alpha_f, 0.0);
-    SpecularMatrix::execute(*mp_multilayer, kvec, coeffs);
-    return new ScalarRTCoefficients(coeffs[m_layer]);
+    return getCoefficients(kvec);
 }
 
 const ScalarRTCoefficients *ScalarSpecularInfoMap::getInCoefficients(
         double alpha_i, double phi_i, double wavelength) const
 {
-    (void)phi_i;
-    SpecularMatrix::MultiLayerCoeff_t coeffs;
-    // phi has no effect on R,T, so just pass zero:
+    (void)phi_i; // phi has no effect on R,T, so just pass zero:
     kvector_t kvec = Geometry::vecOfLambdaAlphaPhi(wavelength, alpha_i, 0.0);
+    return getCoefficients(kvec);
+}
+
+const ScalarRTCoefficients *ScalarSpecularInfoMap::getCoefficients(kvector_t kvec) const
+{
+    SpecularMatrix::MultiLayerCoeff_t coeffs;
     SpecularMatrix::execute(*mp_multilayer, kvec, coeffs);
-    return new ScalarRTCoefficients(coeffs[m_layer]);
+    auto layer_coeffs = coeffs[m_layer];
+    if (std::isnan(layer_coeffs.getScalarT().real())) {
+        throw RuntimeErrorException("ScalarSpecularInfoMap::getCoefficients() -> "
+                                    "Error! Amplitude is NaN");
+    }
+    return new ScalarRTCoefficients(layer_coeffs);
 }

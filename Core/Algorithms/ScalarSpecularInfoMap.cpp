@@ -49,9 +49,5 @@ const ScalarRTCoefficients *ScalarSpecularInfoMap::getCoefficients(kvector_t kve
     SpecularMatrix::MultiLayerCoeff_t coeffs;
     SpecularMatrix::execute(*mp_multilayer, kvec, coeffs);
     auto layer_coeffs = coeffs[m_layer];
-    if (std::isnan(layer_coeffs.getScalarT().real())) {
-        throw RuntimeErrorException("ScalarSpecularInfoMap::getCoefficients() -> "
-                                    "Error! Amplitude is NaN");
-    }
     return new ScalarRTCoefficients(layer_coeffs);
 }

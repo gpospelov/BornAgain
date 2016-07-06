@@ -45,6 +45,7 @@ public:
 private:
     const MultiLayer *mp_multilayer;
     const int m_layer;
+    const ScalarRTCoefficients *getCoefficients(kvector_t kvec) const;
 };
 
 #endif /* SCALARSPECULARINFOMAP_H_ */

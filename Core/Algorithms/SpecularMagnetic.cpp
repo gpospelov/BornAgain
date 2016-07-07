@@ -57,6 +57,7 @@ void SpecularMagnetic::calculateEigenvalues(const MultiLayer& sample,
     }
 }
 
+// todo: avoid overflows (see SpecularMatrix.cpp)
 void SpecularMagnetic::calculateTransferAndBoundary(const MultiLayer& sample,
         const kvector_t k, MultiLayerCoeff_t& coeff)
 {

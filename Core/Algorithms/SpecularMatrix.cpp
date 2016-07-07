@@ -129,6 +129,7 @@ bool calculateUpFromLayer(SpecularMatrix::MultiLayerCoeff_t& coeff, const MultiL
                     (lambda_rough-lambda_below)*coeff[i+1].t_r(0) +
                     (lambda_rough+lambda_below)*coeff[i+1].t_r(1) )/2.0/lambda *
                     std::exp( ikd*lambda);
+        // If T overflowed, return false, so the calculation can restart from a layer higher
         if (std::isinf(std::abs(coeff[i].getScalarT()))) {
             return false;
         }

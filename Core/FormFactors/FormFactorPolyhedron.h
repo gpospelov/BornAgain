@@ -145,6 +145,7 @@ public:
 protected:
     std::unique_ptr<PolyhedralFace> m_base;
     double m_height;
+    void setPrism( bool symmetry_Ci, const std::vector<kvector_t>& vertices );
 };
 
 

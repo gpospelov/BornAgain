@@ -35,11 +35,11 @@ void FormFactorPrism3::onChange()
     double as = a/2;
     double ac = a/sqrt(3)/2;
     double ah = a/sqrt(3);
-    kvector_t V[3] = {
+    std::vector<kvector_t> V {
         { -ac,  as, 0. },
         { -ac, -as, 0. },
         {  ah,  0., 0. } };
-    m_base = std::unique_ptr<PolyhedralFace>( new PolyhedralFace( { V[0], V[1], V[2] }, false ) );
+    setPrism( false, V );
 }
 
 FormFactorPrism3* FormFactorPrism3::clone() const

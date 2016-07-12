@@ -34,15 +34,14 @@ void FormFactorPrism6::onChange()
     double a = m_base_edge;
     double as = a*sqrt(3)/2;
     double ac = a/2;
-    kvector_t V[6] = {
+    std::vector<kvector_t> V {
         {  a,   0., 0. },
         {  ac,  as, 0. },
         { -ac,  as, 0. },
         { -a,   0., 0. },
         { -ac, -as, 0. },
         {  ac, -as, 0. } };
-    m_base = std::unique_ptr<PolyhedralFace>(
-        new PolyhedralFace( { V[0], V[1], V[2], V[3], V[4], V[5] }, true ) );
+    setPrism( true, V );
 }
 
 FormFactorPrism6* FormFactorPrism6::clone() const

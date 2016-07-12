@@ -54,11 +54,8 @@ PolyhedralEdge::PolyhedralEdge( const kvector_t _Vlow, const kvector_t _Vhig )
     : m_E((_Vhig-_Vlow)/2)
     , m_R((_Vhig+_Vlow)/2)
 {
-    if( m_E.mag2()==0 ) {
-        std::ostringstream msg;
-        msg<<"zero-length edge between "<<_Vlow<<" and "<<_Vhig;
-        throw std::runtime_error(msg.str());
-    }
+    if( m_E.mag2()==0 )
+        throw std::invalid_argument("At least one edge has zero length");
 };
 
 //! Returns sum_l=0^M/2 u^2l v^(M-2l) / (2l+1)!(M-2l)! - vperp^M/M!
@@ -146,9 +143,9 @@ PolyhedralFace::PolyhedralFace( const std::vector<kvector_t>& V, bool _sym_S2 )
 {
     size_t NV = V.size();
     if( !NV )
-        throw Exceptions::NotImplementedException( "Face with no edges" );
+        throw std::logic_error("Face with no edges");
     if( NV<3 )
-        throw Exceptions::NotImplementedException( "Face with less than three edges" );
+        throw std::logic_error("Face with less than three edges");
 
     // compute radius in 2d and 3d
     m_radius_2d = diameter( V )/2;
@@ -169,7 +166,7 @@ PolyhedralFace::PolyhedralFace( const std::vector<kvector_t>& V, bool _sym_S2 )
     }
     size_t NE = edges.size();
     if( NE<3 )
-        throw Exceptions::RuntimeErrorException( "Face has less than three non-vanishing edges" );
+        throw std::invalid_argument("Face has less than three non-vanishing edges");
 
     // compute n_k, rperp
     m_normal = kvector_t();
@@ -177,7 +174,7 @@ PolyhedralFace::PolyhedralFace( const std::vector<kvector_t>& V, bool _sym_S2 )
         size_t jj = (j+1)%NE;
         kvector_t ee = edges[j].E().cross( edges[jj].E() );
         if( ee.mag2()==0 ) {
-            throw Exceptions::RuntimeErrorException( "Two adjacent edges are parallel" );
+            throw std::logic_error("Two adjacent edges are parallel");
         }
         m_normal += ee.unit();
     }
@@ -189,7 +186,7 @@ PolyhedralFace::PolyhedralFace( const std::vector<kvector_t>& V, bool _sym_S2 )
     // assert that the vertices lay in a plane
     for ( size_t j=1; j<NV; ++j )
         if( std::abs(V[j].dot(m_normal) - m_rperp) > 1e-14*m_radius_3d )
-            throw std::runtime_error("Face is not planar");
+            throw std::logic_error("Face is not planar");
     // compute m_area
     m_area = 0;
     for ( size_t j=0; j<NV; ++j ) {
@@ -199,14 +196,14 @@ PolyhedralFace::PolyhedralFace( const std::vector<kvector_t>& V, bool _sym_S2 )
     // only now deal with inversion symmetry
     if( sym_S2 ) {
         if( NE&1 )
-            throw std::runtime_error("Odd #edges violates symmetry S2");
+            throw std::logic_error("Odd #edges violates symmetry S2");
         NE /= 2;
         for( size_t j=0; j<NE; ++j ){
             if( ((edges[j].R()-m_rperp*m_normal)+
                  (edges[j+NE].R()-m_rperp*m_normal)).mag() > 1e-12*m_radius_2d )
-                throw std::runtime_error("Edge centers violate symmetry S2");
+                throw std::logic_error("Edge centers violate symmetry S2");
             if( (edges[j].E()+edges[j+NE].E()).mag() > 1e-12*m_radius_2d )
-                throw std::runtime_error("Edge vectors violate symmetry S2");
+                throw std::logic_error("Edge vectors violate symmetry S2");
         }
         // keep only half of the egdes
         edges.erase( edges.begin()+NE, edges.end() );
@@ -312,7 +309,7 @@ complex_t PolyhedralFace::expansion(
     if( !diagnosis.request_convergence )
         return sum;
 #endif
-    throw std::runtime_error("Bug in formfactor computation: series f(q_pa) not converged");
+    throw std::runtime_error("Series f(q_pa) not converged");
 }
 
 //! Returns core contribution to analytic 2d form factor.
@@ -390,7 +387,7 @@ complex_t PolyhedralFace::ff( const cvector_t q, const bool sym_Ci ) const
 complex_t PolyhedralFace::ff_2D( const cvector_t qpa ) const
 {
     if ( std::abs(qpa.dot(m_normal))>eps*qpa.mag() )
-        throw std::runtime_error("ff_2D called with perpendicular q component");
+        throw std::logic_error("ff_2D called with perpendicular q component");
     double qpa_red = m_radius_2d * qpa.mag();
     if ( qpa_red==0 ) {
         return m_area;
@@ -414,11 +411,11 @@ complex_t PolyhedralFace::ff_2D( const cvector_t qpa ) const
 void PolyhedralFace::assert_Ci( const PolyhedralFace& other ) const
 {
     if( std::abs(m_rperp-other.m_rperp)>1e-15*(m_rperp+other.m_rperp) )
-        throw std::runtime_error("Faces with different distance from origin violate symmetry Ci");
+        throw std::logic_error("Faces with different distance from origin violate symmetry Ci");
     if( std::abs(m_area-other.m_area)>1e-15*(m_area+other.m_area) )
-        throw std::runtime_error("Faces with different areas violate symmetry Ci");
+        throw std::logic_error("Faces with different areas violate symmetry Ci");
     if( (m_normal+other.m_normal).mag()>1e-14 )
-        throw std::runtime_error("Faces do not have opposite orientation, violating symmetry Ci");
+        throw std::logic_error("Faces do not have opposite orientation, violating symmetry Ci");
 }
 
 //**************************************************************************************************
@@ -434,42 +431,51 @@ void FormFactorPolyhedron::setLimits( double _q, int _n ) { q_limit_series=_q; n
 void FormFactorPolyhedron::setPolyhedron(
     const PolyhedralTopology& topology, double z_origin, const std::vector<kvector_t>& vertices )
 {
-    m_z_origin = z_origin;
-    m_sym_Ci = topology.symmetry_Ci;
+    try {
+        m_z_origin = z_origin;
+        m_sym_Ci = topology.symmetry_Ci;
 
-    double diameter = 0;
-    for ( size_t j=0; j<vertices.size(); ++j )
-        for ( size_t jj=j+1; jj<vertices.size(); ++jj )
-            diameter = std::max( diameter, (vertices[j]-vertices[jj]).mag() );
+        double diameter = 0;
+        for ( size_t j=0; j<vertices.size(); ++j )
+            for ( size_t jj=j+1; jj<vertices.size(); ++jj )
+                diameter = std::max( diameter, (vertices[j]-vertices[jj]).mag() );
 
-    m_faces.clear();
-    for( const PolygonalTopology& tf: topology.faces ) {
-        std::vector<kvector_t> corners; // of one face
-        for( int i: tf.vertexIndices )
-            corners.push_back( vertices[i] );
-        if( PolyhedralFace::diameter( corners )<= 1e-14*diameter )
-            continue; // skip ridiculously small face
-        m_faces.push_back( PolyhedralFace( corners, tf.symmetry_S2 ) );
-    }
-    if( m_faces.size() < 4 )
-        throw Exceptions::RuntimeErrorException( "less than four non-vanishing faces" );
+        m_faces.clear();
+        for( const PolygonalTopology& tf: topology.faces ) {
+            std::vector<kvector_t> corners; // of one face
+            for( int i: tf.vertexIndices )
+                corners.push_back( vertices[i] );
+            if( PolyhedralFace::diameter( corners )<= 1e-14*diameter )
+                continue; // skip ridiculously small face
+            m_faces.push_back( PolyhedralFace( corners, tf.symmetry_S2 ) );
+        }
+        if( m_faces.size() < 4 )
+            throw std::logic_error("Less than four non-vanishing faces" );
 
-    m_radius = 0;
-    m_volume = 0;
-    for( const PolyhedralFace& Gk: m_faces ) {
-        m_radius = std::max( m_radius, Gk.radius3d() );
-        m_volume += Gk.pyramidalVolume();
-    }
-
-    if( m_sym_Ci ) {
-        if( m_faces.size()&1 )
-            throw std::runtime_error("Odd #faces violates symmetry Ci");
-        size_t N = m_faces.size()/2;
-        // for this tests, m_faces must be in a specific order
-        for( size_t k=0; k<N; ++k )
-            m_faces[k].assert_Ci( m_faces[2*N-1-k] );
-        // keep only half of the faces
-        m_faces.erase( m_faces.begin()+N, m_faces.end() );
+        m_radius = 0;
+        m_volume = 0;
+        for( const PolyhedralFace& Gk: m_faces ) {
+            m_radius = std::max( m_radius, Gk.radius3d() );
+            m_volume += Gk.pyramidalVolume();
+        }
+        if( m_sym_Ci ) {
+            if( m_faces.size()&1 )
+                throw std::logic_error("Odd #faces violates symmetry Ci");
+            size_t N = m_faces.size()/2;
+            // for this tests, m_faces must be in a specific order
+            for( size_t k=0; k<N; ++k )
+                m_faces[k].assert_Ci( m_faces[2*N-1-k] );
+            // keep only half of the faces
+            m_faces.erase( m_faces.begin()+N, m_faces.end() );
+        }
+    } catch (std::invalid_argument& e) {
+        throw std::invalid_argument( "Invalid parameterization of "+getName()+": "+e.what());
+    } catch (std::logic_error& e) {
+        throw std::logic_error( "Bug in "+getName()+": "+e.what()+
+            " [please report to the maintainers]");
+    } catch (std::exception& e) {
+        throw std::runtime_error( "Unexpected exception in "+getName()+": "+e.what()+
+            " [please report to the maintainers]");
     }
 }
 
@@ -477,7 +483,18 @@ void FormFactorPolyhedron::setPolyhedron(
 
 complex_t FormFactorPolyhedron::evaluate_for_q( const cvector_t q ) const
 {
-    return exp_I(-m_z_origin*q.z()) * evaluate_centered(q);
+    try {
+        return exp_I(-m_z_origin*q.z()) * evaluate_centered(q);
+    } catch (std::logic_error& e) {
+        throw std::logic_error( "Bug in "+getName()+": "+e.what()+
+            " [please report to the maintainers]");
+    } catch (std::runtime_error& e) {
+        throw std::runtime_error( "Numeric computation failed in "+getName()+": "+e.what()+
+            " [please report to the maintainers]");
+    } catch (std::exception& e) {
+        throw std::runtime_error( "Unexpected exception in "+getName()+": "+e.what()+
+            " [please report to the maintainers]");
+    }
 }
 
 //! Returns the form factor F(q) of this polyhedron, with origin at z=0.
@@ -532,7 +549,7 @@ complex_t FormFactorPolyhedron::evaluate_centered( const cvector_t q ) const
             return m_volume+sum;
         }
 #endif
-        throw std::runtime_error("Bug in formfactor computation: series F(q) not converged");
+        throw std::runtime_error("Series F(q) not converged");
     } else {
         // direct evaluation of analytic formula (coefficients may involve series)
         complex_t sum = 0;
@@ -565,7 +582,7 @@ void FormFactorPolyhedron::assert_platonic() const
         if (std::abs(Gk.pyramidalVolume()-pyramidal_volume) > 160*eps*pyramidal_volume) {
             std::cerr<<std::setprecision(16)<<"BUG: pyr_volume(this face)="<<
                 Gk.pyramidalVolume()<<" vs pyr_volume(avge)="<<pyramidal_volume<<"\n";
-            throw std::runtime_error("Deviant pyramidal volume");
+            throw std::runtime_error("Deviant pyramidal volume in "+getName());
         }
 }
 
@@ -580,6 +597,21 @@ FormFactorPolygonalPrism::FormFactorPolygonalPrism(double height)
     registerParameter(BornAgain::Height, &m_height, AttLimits::n_positive());
 }
 
+void FormFactorPolygonalPrism::setPrism( bool symmetry_Ci, const std::vector<kvector_t>& vertices )
+{
+    try {
+        m_base = std::unique_ptr<PolyhedralFace>( new PolyhedralFace( vertices, symmetry_Ci ) );
+    } catch (std::invalid_argument& e) {
+        throw std::invalid_argument( "Invalid parameterization of "+getName()+": "+e.what());
+    } catch (std::logic_error& e) {
+        throw std::logic_error( "Bug in "+getName()+": "+e.what()+
+            " [please report to the maintainers]");
+    } catch (std::exception& e) {
+        throw std::runtime_error( "Unexpected exception in "+getName()+": "+e.what()+
+            " [please report to the maintainers]");
+    }
+}
+
 //! Returns the volume of this prism.
 double FormFactorPolygonalPrism::getVolume() const { return m_height * m_base->area(); }
 
@@ -587,13 +619,24 @@ double FormFactorPolygonalPrism::getVolume() const { return m_height * m_base->a
 
 complex_t FormFactorPolygonalPrism::evaluate_for_q( const cvector_t q ) const
 {
+    try {
 #ifdef POLYHEDRAL_DIAGNOSTIC
-    diagnosis.maxOrder = 0;
-    diagnosis.nExpandedFaces = 0;
+        diagnosis.maxOrder = 0;
+        diagnosis.nExpandedFaces = 0;
 #endif
-    const cvector_t qxy( q.x(), q.y(), 0. );
-    return m_height * exp_I(m_height/2*q.z()) * MathFunctions::sinc(m_height/2*q.z()) *
-        m_base->ff_2D( qxy );
+        const cvector_t qxy( q.x(), q.y(), 0. );
+        return m_height * exp_I(m_height/2*q.z()) * MathFunctions::sinc(m_height/2*q.z()) *
+            m_base->ff_2D( qxy );
+    } catch (std::logic_error& e) {
+        throw std::logic_error( "Bug in "+getName()+": "+e.what()+
+            " [please report to the maintainers]");
+    } catch (std::runtime_error& e) {
+        throw std::runtime_error( "Numeric computation failed in "+getName()+": "+e.what()+
+            " [please report to the maintainers]");
+    } catch (std::exception& e) {
+        throw std::runtime_error( "Unexpected exception in "+getName()+": "+e.what()+
+            " [please report to the maintainers]");
+    }
 }
 
 
@@ -603,9 +646,20 @@ complex_t FormFactorPolygonalPrism::evaluate_for_q( const cvector_t q ) const
 
 complex_t FormFactorPolygonalSurface::evaluate_for_q( const cvector_t q ) const
 {
+    try {
 #ifdef POLYHEDRAL_DIAGNOSTIC
-    diagnosis.maxOrder = 0;
-    diagnosis.nExpandedFaces = 0;
+        diagnosis.maxOrder = 0;
+        diagnosis.nExpandedFaces = 0;
 #endif
-    return m_base->ff( q, false );
+        return m_base->ff( q, false );
+    } catch (std::logic_error& e) {
+        throw std::logic_error( "Bug in "+getName()+": "+e.what()+
+            " [please report to the maintainers]");
+    } catch (std::runtime_error& e) {
+        throw std::runtime_error( "Numeric computation failed in "+getName()+": "+e.what()+
+            " [please report to the maintainers]");
+    } catch (std::exception& e) {
+        throw std::runtime_error( "Unexpected exception in "+getName()+": "+e.what()+
+            " [please report to the maintainers]");
+    }
 }

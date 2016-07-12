@@ -6,5 +6,5 @@ file(GLOB PY_EXAMPLES "Examples/python/*/ex*/*.py")
 
 add_test(NAME "PyExampleLineLength"
     COMMAND ${PYTHON_EXECUTABLE}
-    ${CMAKE_SOURCE_DIR}/dev-tools/code-tools/count-line-length.py ${WEB_LEN_LIM}
+    ${CMAKE_SOURCE_DIR}/dev-tools/analyze/count-line-length.py ${WEB_LEN_LIM}
     ${PY_EXAMPLES})

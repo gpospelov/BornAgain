@@ -146,9 +146,9 @@ PolyhedralFace::PolyhedralFace( const std::vector<kvector_t>& V, bool _sym_S2 )
 {
     size_t NV = V.size();
     if( !NV )
-        throw NotImplementedException( "Face with no edges" );
+        throw Exceptions::NotImplementedException( "Face with no edges" );
     if( NV<3 )
-        throw NotImplementedException( "Face with less than three edges" );
+        throw Exceptions::NotImplementedException( "Face with less than three edges" );
 
     // compute radius in 2d and 3d
     m_radius_2d = diameter( V )/2;
@@ -169,7 +169,7 @@ PolyhedralFace::PolyhedralFace( const std::vector<kvector_t>& V, bool _sym_S2 )
     }
     size_t NE = edges.size();
     if( NE<3 )
-        throw RuntimeErrorException( "Face has less than three non-vanishing edges" );
+        throw Exceptions::RuntimeErrorException( "Face has less than three non-vanishing edges" );
 
     // compute n_k, rperp
     m_normal = kvector_t();
@@ -177,7 +177,7 @@ PolyhedralFace::PolyhedralFace( const std::vector<kvector_t>& V, bool _sym_S2 )
         size_t jj = (j+1)%NE;
         kvector_t ee = edges[j].E().cross( edges[jj].E() );
         if( ee.mag2()==0 ) {
-            throw RuntimeErrorException( "Two adjacent edges are parallel" );
+            throw Exceptions::RuntimeErrorException( "Two adjacent edges are parallel" );
         }
         m_normal += ee.unit();
     }
@@ -452,7 +452,7 @@ void FormFactorPolyhedron::setPolyhedron(
         m_faces.push_back( PolyhedralFace( corners, tf.symmetry_S2 ) );
     }
     if( m_faces.size() < 4 )
-        throw RuntimeErrorException( "less than four non-vanishing faces" );
+        throw Exceptions::RuntimeErrorException( "less than four non-vanishing faces" );
 
     m_radius = 0;
     m_volume = 0;

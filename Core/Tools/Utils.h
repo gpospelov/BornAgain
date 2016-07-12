@@ -165,7 +165,7 @@ public:
     const Object& value(const Key& key) {
         typename map_t::const_iterator mit = m_map.find(key);
         if(mit == m_map.end())
-            throw RuntimeErrorException("OrderedMap::value() -> No such key");
+            throw Exceptions::RuntimeErrorException("OrderedMap::value() -> No such key");
         const_iterator it = mit->second;
         return (*it).second;
     }

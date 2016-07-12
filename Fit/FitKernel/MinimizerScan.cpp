@@ -54,7 +54,7 @@ void MinimizerScan::construct_fcnvalues_map()
         }
     }
     if( !m_fcnvalues_map->getRank() ) {
-        throw LogicErrorException("MinimizerScan::construct_parameter_map() -> Error! No parameters with TAttLimit::limited(left,right) attribute were found.");
+        throw Exceptions::LogicErrorException("MinimizerScan::construct_parameter_map() -> Error! No parameters with TAttLimit::limited(left,right) attribute were found.");
     }
     m_fcnvalues_map->setAllTo(0.0);
 }

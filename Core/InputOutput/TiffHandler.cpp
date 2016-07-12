@@ -35,7 +35,6 @@ TiffHandler::TiffHandler()
     , m_width(0)
     , m_height(0)
 {
-
 }
 
 TiffHandler::~TiffHandler()
@@ -79,8 +78,8 @@ void TiffHandler::read_header()
     if (!TIFFGetField(m_tiff, TIFFTAG_IMAGEWIDTH, &width)
         || !TIFFGetField(m_tiff, TIFFTAG_IMAGELENGTH, &height)
         || !TIFFGetField(m_tiff, TIFFTAG_PHOTOMETRIC, &photometric)) {
-        throw FormatErrorException("TiffHandler::read_header() -> Error. "
-                                   "Can't read width/height/photometric info.");
+        throw Exceptions::FormatErrorException("TiffHandler::read_header() -> Error. "
+                                               "Can't read width/height/photometric info.");
     }
 
     m_width = (size_t) width;
@@ -105,7 +104,7 @@ void TiffHandler::read_header()
                 << "    TIFFTAG_PHOTOMETRIC: " << photometric << std::endl
                 << "    TIFFTAG_BITSPERSAMPLE: " << bitPerSample << std::endl
                 << "    TIFFTAG_SAMPLESPERPIXEL: " << samplesPerPixel << std::endl;
-        throw FormatErrorException(message.str());
+        throw Exceptions::FormatErrorException(message.str());
     }
 
 }
@@ -116,13 +115,13 @@ void TiffHandler::read_data()
 
     tmsize_t buf_size = TIFFScanlineSize(m_tiff);
     tmsize_t expected_size = size_of_int*m_width;
-    if(buf_size != expected_size) {
-        throw FormatErrorException("TiffHandler::read_data() -> Error. Wrong scanline size.");
-    }
+    if(buf_size != expected_size)
+        throw Exceptions::FormatErrorException(
+            "TiffHandler::read_data() -> Error. Wrong scanline size.");
     tdata_t buf = _TIFFmalloc(buf_size);
-    if(!buf) {
-        throw FormatErrorException("TiffHandler::read_data() -> Error. Can't allocate buffer.");
-    }
+    if(!buf)
+        throw Exceptions::FormatErrorException(
+            "TiffHandler::read_data() -> Error. Can't allocate buffer.");
 
     create_output_data();
 
@@ -130,9 +129,9 @@ void TiffHandler::read_data()
     line_buf.resize(m_width, 0);
     std::vector<int> axes_indices(2);
     for (uint32 row = 0; row < (uint32) m_height; row++) {
-        if(TIFFReadScanline(m_tiff, buf, row) < 0) {
-            throw FormatErrorException("TiffHandler::read_data() -> Error. Error in scanline.");
-        }
+        if(TIFFReadScanline(m_tiff, buf, row) < 0)
+            throw Exceptions::FormatErrorException(
+                "TiffHandler::read_data() -> Error. Error in scanline.");
         memcpy(&line_buf[0], buf, buf_size);
         for(size_t col=0; col<line_buf.size(); ++col) {
 //            std::cout << "row:" << row << " col:" << col << " " << line_buf[col] << std::endl;
@@ -171,9 +170,9 @@ void TiffHandler::write_data()
 {
     tmsize_t buf_size = size_of_int*m_width;;
     tdata_t buf = _TIFFmalloc(buf_size);
-    if(!buf) {
-        throw FormatErrorException("TiffHandler::write_data() -> Error. Can't allocate buffer.");
-    }
+    if(!buf)
+        throw Exceptions::FormatErrorException(
+            "TiffHandler::write_data() -> Error. Can't allocate buffer.");
 
     std::vector<int> line_buf;
     line_buf.resize(m_width, 0);
@@ -188,7 +187,7 @@ void TiffHandler::write_data()
         memcpy(buf, &line_buf[0], buf_size);
 
         if(TIFFWriteScanline(m_tiff, buf, row) < 0)
-            throw FormatErrorException(
+            throw Exceptions::FormatErrorException(
                 "TiffHandler::write_data() -> Error. Error in TIFFWriteScanline.");
     }
     _TIFFfree(buf);

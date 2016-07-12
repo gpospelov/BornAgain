@@ -34,7 +34,8 @@ MaskCoordinateFunction* MaskCoordinateFunction::clone() const
 bool MaskCoordinateFunction::isMasked(size_t rank, const int* coordinates) const
 {
     if (rank != m_rank)
-        throw LogicErrorException("Mask function must have same rank as data structure");
+        throw Exceptions::LogicErrorException(
+            "Mask function must have same rank as data structure");
     if (m_invert) {
         return !isInStandardMaskedArea(coordinates);
     } else {

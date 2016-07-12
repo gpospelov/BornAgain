@@ -61,9 +61,8 @@ void DetectorMask::initMaskData(const IDetector2D &detector)
     assert(m_shapes.size() == m_mask_of_shape.size());
     m_mask_data.clear();
 
-    for (size_t dim=0; dim<detector.getDimension(); ++dim) {
+    for (size_t dim=0; dim<detector.getDimension(); ++dim)
         m_mask_data.addAxis(detector.getAxis(dim));
-    }
 
     process_masks();
 }
@@ -73,18 +72,17 @@ void DetectorMask::initMaskData(const OutputData<double> &data)
     assert(m_shapes.size() == m_mask_of_shape.size());
     m_mask_data.clear();
 
-    for (size_t dim=0; dim<data.getRank(); ++dim) {
+    for (size_t dim=0; dim<data.getRank(); ++dim)
         m_mask_data.addAxis(*data.getAxis(dim));
-    }
 
     process_masks();
 }
 
 bool DetectorMask::getMask(size_t index) const
 {
-    if(!m_mask_data.isInitialized()) {
-        throw LogicErrorException("DetectorMask::getMask() -> Error. Masks are not initialized");
-    }
+    if(!m_mask_data.isInitialized())
+        throw Exceptions::LogicErrorException(
+            "DetectorMask::getMask() -> Error. Masks are not initialized");
     return m_mask_data[index];
 }
 
@@ -102,7 +100,7 @@ void DetectorMask::removeMasks()
 
 bool DetectorMask::hasMasks() const
 {
-    return (m_shapes.size() ? true : false);
+    return m_shapes.size() ? true : false;
 }
 
 int DetectorMask::getNumberOfMaskedChannels() const

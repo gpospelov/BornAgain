@@ -224,14 +224,16 @@ public:
     //! indexed accessor
     T& operator[](size_t index) {
         if (!mp_ll_data)
-            throw ClassInitializationException("Low-level data object was not yet initialized");
+            throw Exceptions::ClassInitializationException(
+                "Low-level data object was not yet initialized");
         return (*mp_ll_data)[index];
     }
 
     //! indexed accessor (const)
     const T& operator[](size_t index) const {
         if (!mp_ll_data)
-            throw ClassInitializationException("Low-level data object was not yet initialized");
+            throw Exceptions::ClassInitializationException(
+                "Low-level data object was not yet initialized");
         return (*mp_ll_data)[index];
     }
 
@@ -321,7 +323,7 @@ template <class T>
 void OutputData<T>::addAxis(const IAxis& new_axis)
 {
     if( getAxis(new_axis.getName()) )
-        throw LogicErrorException(
+        throw Exceptions::LogicErrorException(
             "OutputData<T>::addAxis(const IAxis& new_axis) -> "
             "Error! Attempt to add axis with already existing name '" +
             new_axis.getName() + "'");
@@ -335,7 +337,7 @@ template <class T>
 void OutputData<T>::addAxis(const std::string& name, size_t size, double start, double end)
 {
     if( getAxis(name) )
-        throw LogicErrorException(
+        throw Exceptions::LogicErrorException(
             "OutputData<T>::addAxis(std::string name) -> "
             "Error! Attempt to add axis with already existing name '" +
             name+"'");
@@ -367,7 +369,7 @@ size_t OutputData<T>::getAxisSerialNumber(const std::string &axis_name) const
     for (size_t i = 0; i < m_value_axes.size(); ++i) {
         if (m_value_axes[i]->getName() == axis_name) return i;
     }
-    throw LogicErrorException(
+    throw Exceptions::LogicErrorException(
         "OutputData<T>::getAxisSerialNumber() -> "
         "Error! Axis with given name not found '"+axis_name+std::string("'"));
 }
@@ -435,11 +437,10 @@ void OutputData<T>::setMask(const Mask& mask)
 template <class T>
 void OutputData<T>::addMask(const Mask& mask)
 {
-    if (mask.mp_submask) {
-        throw RuntimeErrorException(
+    if (mask.mp_submask)
+        throw Exceptions::RuntimeErrorException(
             "OutputData<T>::addMask() -> "
             "Error! One can only add single masks to OutputDataIterator at a time");
-    }
     Mask *p_old_mask = getMask();
     mp_mask = mask.clone();
     mp_mask->mp_submask = p_old_mask;
@@ -481,8 +482,8 @@ int OutputData<T>::getAxisBinIndex(size_t global_index, size_t i_selected_axis) 
         if(i_selected_axis == i_axis ) return result;
         remainder /= m_value_axes[i_axis]->getSize();
     }
-    throw LogicErrorException("OutputData<T>::getAxisBinIndex() -> "
-                              "Error! No axis with given number");
+    throw Exceptions::LogicErrorException(
+        "OutputData<T>::getAxisBinIndex() -> Error! No axis with given number");
 }
 
 
@@ -497,9 +498,9 @@ size_t OutputData<T>::toGlobalIndex(const std::vector<int> &axes_indices) const
 {
     assert(mp_ll_data);
     if (axes_indices.size() != mp_ll_data->getRank())
-        throw LogicErrorException(
-                    "size_t OutputData<T>::toGlobalIndex() -> "
-                    "Error! Number of coordinates must match rank of data structure");
+        throw Exceptions::LogicErrorException(
+            "size_t OutputData<T>::toGlobalIndex() -> "
+            "Error! Number of coordinates must match rank of data structure");
     size_t result = 0;
     int step_size = 1;
     for (size_t i=mp_ll_data->getRank(); i>0; --i)
@@ -510,7 +511,7 @@ size_t OutputData<T>::toGlobalIndex(const std::vector<int> &axes_indices) const
             message << axes_indices[i-1] << " is out of range. Axis ";
             message << m_value_axes[i-1]->getName();
             message << " size " << m_value_axes[i-1]->getSize() << ".\n";
-            throw LogicErrorException(message.str());
+            throw Exceptions::LogicErrorException(message.str());
         }
         result += axes_indices[i-1]*step_size;
         step_size *= m_value_axes[i-1]->getSize();
@@ -524,9 +525,9 @@ size_t OutputData<T>::findGlobalIndex(const std::vector<double> &coordinates) co
 {
     assert(mp_ll_data);
     if (coordinates.size() != mp_ll_data->getRank())
-        throw LogicErrorException(
-                    "OutputData<T>::findClosestIndex() -> "
-                    "Error! Number of coordinates must match rank of data structure");
+        throw Exceptions::LogicErrorException(
+            "OutputData<T>::findClosestIndex() -> "
+            "Error! Number of coordinates must match rank of data structure");
     std::vector<int> axes_indexes;
     axes_indexes.resize(mp_ll_data->getRank());
     for(size_t i = 0; i<mp_ll_data->getRank(); ++i) {
@@ -592,7 +593,7 @@ template <class T>
 void OutputData<T>::setAllTo(const T& value)
 {
     if(!mp_ll_data)
-        throw ClassInitializationException(
+        throw Exceptions::ClassInitializationException(
             "OutputData::setAllTo() -> Error! Low-level data object was not yet initialized.");
     mp_ll_data->setAll(value);
 }
@@ -601,7 +602,7 @@ template <class T>
 void OutputData<T>::scaleAll(const T& factor)
 {
     if(!mp_ll_data)
-        throw ClassInitializationException(
+        throw Exceptions::ClassInitializationException(
             "OutputData::scaleAll() -> Error! Low-level data object was not yet initialized.");
     mp_ll_data->scaleAll(factor);
 }
@@ -678,7 +679,7 @@ template<class T>
 inline void OutputData<T>::setRawDataVector(const std::vector<T>& data_vector)
 {
     if (data_vector.size() != getAllocatedSize())
-        throw RuntimeErrorException(
+        throw Exceptions::RuntimeErrorException(
             "OutputData<T>::setRawDataVector() -> Error! "
             "setRawDataVector can only be called with a data vector of the correct size." );
     for (size_t i=0; i<getAllocatedSize(); ++i)

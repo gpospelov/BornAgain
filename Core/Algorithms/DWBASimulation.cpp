@@ -55,11 +55,11 @@ DWBASimulation *DWBASimulation::clone() const
 bool DWBASimulation::checkPolarizationPresent() const
 {
     if (!mp_simulation)
-        throw ClassInitializationException("DWBASimulation::"
+        throw Exceptions::ClassInitializationException("DWBASimulation::"
                 "checkPolarizationPresent(): simulation not initialized");
     ISample *p_sample = mp_simulation->getSample();
     if (!p_sample)
-        throw ClassInitializationException("DWBASimulation::"
+        throw Exceptions::ClassInitializationException("DWBASimulation::"
                 "checkPolarizationPresent(): sample not initialized");
     return p_sample->containsMagneticMaterial();
 }

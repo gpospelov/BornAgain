@@ -48,7 +48,7 @@ public:
     //! throw exception if parameter was not initialized with proper value
     void checkNull() const {
         if(isNull())
-            throw NullPointerException(
+            throw Exceptions::NullPointerException(
                 "RealParameterWrapper::getValue() -> Attempt to access uninitialised pointer.");
     }
 

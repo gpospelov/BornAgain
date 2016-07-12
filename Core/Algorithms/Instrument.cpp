@@ -84,7 +84,7 @@ std::string Instrument::addParametersToExternalPool(
 void Instrument::initDetector()
 {
     if(!mP_detector)
-        throw RuntimeErrorException(
+        throw Exceptions::RuntimeErrorException(
             "Instrument::initDetector() -> Error. Detector is not initialized.");
     getDetector()->init(getBeam());
 }
@@ -126,7 +126,7 @@ OutputData<double>* Instrument::getDetectorIntensity(
     } else {
         OutputData<double>* detectorMap = mP_detector->createDetectorMap(m_beam, units_type);
         if(!detectorMap) {
-            throw RuntimeErrorException("Instrument::getDetectorIntensity() -> Error."
+            throw Exceptions::RuntimeErrorException("Instrument::getDetectorIntensity() -> Error."
                                         "Can't create detector map.");
         }
         detectorMap->setRawDataVector(result->getRawDataVector());

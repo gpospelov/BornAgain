@@ -43,8 +43,8 @@ void FitSuiteParameters::addParameter(const std::string& name, double value, dou
 {
     for(auto par : m_parameters) {
         if( par->getName() == name )
-            throw LogicErrorException("FitSuiteParameters:addtFitParameter() -> Error. "
-                                      "Existing parameter '"+name+"'");
+            throw Exceptions::LogicErrorException("FitSuiteParameters:addtFitParameter() -> Error. "
+                                                  "Existing parameter '"+name+"'");
     }
     m_parameters.push_back(new FitParameterLinked(name, value, step, attlim, error));
 }
@@ -55,8 +55,8 @@ const FitParameter *FitSuiteParameters::getParameter(const std::string& name) co
     for(parameters_t::const_iterator it = m_parameters.begin(); it!=m_parameters.end(); ++it) {
         if( (*it)->getName() == name ) return (*it);
     }
-    throw LogicErrorException("FitSuiteParameters::getFitParameter() -> "
-                              "Error. No parameter with name '"+name+"'");
+    throw Exceptions::LogicErrorException("FitSuiteParameters::getFitParameter() -> "
+                                          "Error. No parameter with name '"+name+"'");
 }
 
 
@@ -65,8 +65,8 @@ FitParameter *FitSuiteParameters::getParameter(const std::string& name)
     for(parameters_t::iterator it = m_parameters.begin(); it!=m_parameters.end(); ++it) {
         if( (*it)->getName() == name ) return (*it);
     }
-    throw LogicErrorException("FitSuiteParameters::getFitParameter() -> "
-                              "Error. No parameter with name '"+name+"'");
+    throw Exceptions::LogicErrorException("FitSuiteParameters::getFitParameter() -> "
+                                          "Error. No parameter with name '"+name+"'");
 }
 
 //! Sets values for all defined parameters
@@ -86,13 +86,14 @@ void FitSuiteParameters::setValues(const double *pars_values)
     size_t index(0);
     for(parameters_t::iterator it=m_parameters.begin(); it!=m_parameters.end(); ++it) {
         if( std::isnan(pars_values[index]) ) {
-            throw LogicErrorException("FitSuiteParameters::setValues() -> Error."
-                                      " Attempt to set nan '"+(*it)->getName() + std::string("'."));
+            throw Exceptions::LogicErrorException(
+                "FitSuiteParameters::setValues() -> Error."
+                " Attempt to set nan '"+(*it)->getName() + std::string("'."));
         }
         if( std::isinf(pars_values[index]) ) {
-            throw LogicErrorException("FitSuiteParameters::setValues() -> Error. "
-                                      "Attempt to set inf '" +
-                                      (*it)->getName()  + std::string("'."));
+            throw Exceptions::LogicErrorException("FitSuiteParameters::setValues() -> Error. "
+                                                  "Attempt to set inf '" +
+                                                  (*it)->getName()  + std::string("'."));
         }
         (*it)->setValue(pars_values[index]);
         index++;
@@ -106,7 +107,7 @@ void FitSuiteParameters::setValues(const std::vector<double>& pars_values)
         ostr << "FitSuiteParameters::setValues() -> Wrong size of array with parameter values "
              << pars_values.size()
              << ", number of parameters expected " << m_parameters.size() << std::endl;
-        throw OutOfBoundsException(ostr.str());
+        throw Exceptions::OutOfBoundsException(ostr.str());
     }
     setValues(&pars_values[0]);
 }
@@ -119,7 +120,7 @@ void FitSuiteParameters::setErrors(const std::vector<double>& pars_errors)
         ostr << "FitSuiteParameters::setErrors() -> Wrong size of array with parameter errors "
              << pars_errors.size()
              << ", number of parameters expected " << m_parameters.size() << std::endl;
-        throw OutOfBoundsException(ostr.str());
+        throw Exceptions::OutOfBoundsException(ostr.str());
     }
     for(size_t i=0; i<m_parameters.size(); ++i) {
         m_parameters[i]->setError(pars_errors[i]);
@@ -182,8 +183,8 @@ void FitSuiteParameters::link_to_pool(const ParameterPool *pool)
     // going through all fit parameters defined
     for(parameters_t::iterator it = m_parameters.begin(); it!= m_parameters.end(); ++it) {
         FitParameterLinked *par = dynamic_cast<FitParameterLinked *>((*it));
-        if( !par ) throw LogicErrorException("FitSuiteParameters::link_to_pool() -> Error!"
-                                             " Can't cast to FitParameterLinked.");
+        if( !par ) throw Exceptions::LogicErrorException(
+            "FitSuiteParameters::link_to_pool() -> Error! Can't cast to FitParameterLinked.");
         par->addMatchedParametersFromPool(pool);
     }
 }
@@ -230,6 +231,8 @@ void FitSuiteParameters::setParametersFixed(const std::vector<std::string> &pars
 }
 
 size_t FitSuiteParameters::check_index(size_t index) const {
-    return (index < m_parameters.size() ? index : throw  OutOfBoundsException(
-           "FitSuiteParameters::check_index() -> Index out of bounds"));
+    if( index >= m_parameters.size() )
+        throw Exceptions::OutOfBoundsException(
+            "FitSuiteParameters::check_index() -> Index out of bounds");
+    return index;
 }

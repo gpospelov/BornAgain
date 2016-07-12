@@ -38,7 +38,7 @@ void SampleMaterialVisitor::addMaterial(const IMaterial* p_material)
 bool SampleMaterialVisitor::containsMagneticMaterial() const {
     for (std::vector<const IMaterial *>::const_iterator it = m_materials.begin();
             it != m_materials.end(); ++it) {
-        if(!(*it)) throw DomainErrorException("SampleMaterialVisitor::"
+        if(!(*it)) throw Exceptions::DomainErrorException("SampleMaterialVisitor::"
                              "containsMagneticMaterial() -> Error.");
         if (!(*it)->isScalarMaterial()) return true;
     }

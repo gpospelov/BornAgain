@@ -41,7 +41,7 @@ void SampleIteratorPreorderStrategy::next(IteratorMemento &iterator_stack) const
 {
     const ISample *p_sample = iterator_stack.getCurrent();
     if( !p_sample ) {
-        throw NullPointerException("CompositeIteratorPreorderStrategy::next(): "
+        throw Exceptions::NullPointerException("CompositeIteratorPreorderStrategy::next(): "
                                    "Error! Null object in the tree of objects");
     }
     std::vector<const ISample *> children = p_sample->getChildren();

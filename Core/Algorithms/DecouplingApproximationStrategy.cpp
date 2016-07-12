@@ -25,9 +25,9 @@ DecouplingApproximationStrategy::init(const SafePointerVector<FormFactorInfo> &f
                                       const IInterferenceFunction& iff)
 {
     IInterferenceFunctionStrategy::init(form_factor_infos, iff);
-    if (!checkVectorSizes()) {
-        throw ClassInitializationException("No formfactors for Decoupling Approximation.");
-    }
+    if (!checkVectorSizes())
+        throw Exceptions::ClassInitializationException(
+            "No formfactors for Decoupling Approximation.");
 }
 
 double DecouplingApproximationStrategy::evaluateForList(const SimulationElement& sim_element,
@@ -43,11 +43,9 @@ double DecouplingApproximationStrategy::evaluateForList(const SimulationElement&
         return 0.0;
     for (size_t i = 0; i < m_ff_infos.size(); ++i) {
         complex_t ff = ff_list[i];
-
-        if (std::isnan(ff.real())) {
-            throw RuntimeErrorException("DecouplingApproximationStrategy::evaluateForList() -> "
-                                        "Error! Amplitude is NaN");
-        }
+        if (std::isnan(ff.real()))
+            throw Exceptions::RuntimeErrorException(
+                "DecouplingApproximationStrategy::evaluateForList() -> Error! Amplitude is NaN");
         double fraction = m_ff_infos[i]->m_abundance / total_abundance;
         amplitude += fraction * ff;
         intensity += fraction * (std::norm(ff));
@@ -71,11 +69,10 @@ double DecouplingApproximationStrategy::evaluateForMatrixList(const SimulationEl
         return 0.0;
     for (size_t i = 0; i < m_ff_infos.size(); ++i) {
         Eigen::Matrix2cd ff = ff_list[i];
-
-        if (!ff.allFinite()) {
-            throw RuntimeErrorException("DecouplingApproximationStrategy::evaluateForList() -> "
-                                        "Error! Form factor contains NaN or infinite");
-        }
+        if (!ff.allFinite())
+            throw Exceptions::RuntimeErrorException(
+                "DecouplingApproximationStrategy::evaluateForList() -> "
+                "Error! Form factor contains NaN or infinite");
         double fraction = m_ff_infos[i]->m_abundance / total_abundance;
         mean_amplitude += fraction * ff;
         mean_intensity += fraction * (ff * sim_element.getPolarization() * ff.adjoint());

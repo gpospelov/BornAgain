@@ -238,7 +238,7 @@ template<class TValue, class TContainer>
     void OutputDataIterator<TValue, TContainer>::addMask(const Mask& mask)
 {
     if (mask.mp_submask) {
-        throw RuntimeErrorException("OutputDataIterator<>::addMask()"
+        throw Exceptions::RuntimeErrorException("OutputDataIterator<>::addMask()"
             " -> Error! One can only add single masks to OutputDataIterator at a time");
     }
     Mask* p_old_mask = getMask();

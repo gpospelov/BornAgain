@@ -565,7 +565,7 @@ std::string PyGenVisitor::defineFormFactors() const
             std::ostringstream formFactorException;
             formFactorException << "\n" << p_ff->getName() << " :: Not Casted To Any "
                                 << "Form Factor\n";
-            throw NotImplementedException(formFactorException.str());
+            throw Exceptions::NotImplementedException(formFactorException.str());
         }
         it++;
     }
@@ -749,7 +749,7 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
                     std::ostringstream pdfException;
                     pdfException << "\n" << pdf->getName() << " :: Not Casted To Any "
                                  << "Decay Function\n";
-                    throw NotImplementedException(pdfException.str());
+                    throw Exceptions::NotImplementedException(pdfException.str());
                 }
 
                 result << indent() << it->second << ".setDecayFunction(" << it->second
@@ -817,7 +817,7 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
                     std::ostringstream pdfException;
                     pdfException << "\n" << pdf->getName() << " :: Not Casted To Any "
                                  << "Probability Distribution Function\n";
-                    throw NotImplementedException(pdfException.str());
+                    throw Exceptions::NotImplementedException(pdfException.str());
                 }
 
                 result << indent() << it->second << ".setProbabilityDistribution(" << it->second
@@ -879,7 +879,7 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
                 std::ostringstream pdfException;
                 pdfException << "\n" << pdf->getName() << " :: Not Casted To Any "
                              << "Probability Distribution Function\n";
-                throw NotImplementedException(pdfException.str());
+                throw Exceptions::NotImplementedException(pdfException.str());
             }
 
             result << indent() << it->second << ".setDecayFunction(" << it->second << "_pdf)\n";
@@ -1004,7 +1004,7 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
                 std::ostringstream pdfException;
                 pdfException << "\n" << pdf_1->getName() << " :: Not Casted To Any "
                              << "Probability Distribution Function\n";
-                throw NotImplementedException(pdfException.str());
+                throw Exceptions::NotImplementedException(pdfException.str());
             }
 
             const IFTDistribution2D* pdf_2 = pdf_vector[1];
@@ -1074,7 +1074,7 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
                 std::ostringstream pdfException;
                 pdfException << "\n" << pdf_2->getName() << " :: Not Casted To Any "
                              << "Probability Distribution Function\n";
-                throw NotImplementedException(pdfException.str());
+                throw Exceptions::NotImplementedException(pdfException.str());
             }
 
             result << indent() << it->second << ".setProbabilityDistributions(" << it->second
@@ -1085,7 +1085,7 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
             std::ostringstream interferenceException;
             interferenceException << "\n" << interference->getName() << " :: Not Casted To Any "
                                   << "Interference Function\n";
-            throw NotImplementedException(interferenceException.str());
+            throw Exceptions::NotImplementedException(interferenceException.str());
         }
 
         it++;

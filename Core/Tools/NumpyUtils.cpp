@@ -35,7 +35,7 @@ PyObject* Utils::createNumpyArray(const std::vector<double>& data)
     PyObject *pyarray = PyArray_SimpleNew(ndim_numpy, ndimsizes_numpy, NPY_DOUBLE);
     delete [] ndimsizes_numpy;
     if(pyarray == nullptr ) {
-        throw RuntimeErrorException("ExportOutputData() -> Panic in PyArray_SimpleNew");
+        throw Exceptions::RuntimeErrorException("ExportOutputData() -> Panic in PyArray_SimpleNew");
     }
     Py_INCREF(pyarray);
 

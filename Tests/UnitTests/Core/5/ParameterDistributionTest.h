@@ -18,8 +18,10 @@ TEST_F(ParameterDistributionTest, ParameterDistributionConstructor)
 {
     std::string name = "MainParameterName";
     DistributionGate distribution(1.0, 2.0);
-    EXPECT_THROW(ParameterDistribution(name, distribution, 1, -1.0), RuntimeErrorException);
-    EXPECT_THROW(ParameterDistribution(name, distribution, 0), RuntimeErrorException);
+    EXPECT_THROW(ParameterDistribution(name, distribution, 1, -1.0),
+                 Exceptions::RuntimeErrorException);
+    EXPECT_THROW(ParameterDistribution(name, distribution, 0),
+                 Exceptions::RuntimeErrorException);
 
     // Sigma constructor
     ParameterDistribution pardistr(name, distribution, 1);

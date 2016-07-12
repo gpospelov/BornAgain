@@ -15,7 +15,7 @@ public:
 TEST_F(DetectorMaskTest, InitialState)
 {
     DetectorMask test;
-    EXPECT_THROW(test.getMask(0), LogicErrorException);
+    EXPECT_THROW(test.getMask(0), Exceptions::LogicErrorException);
     EXPECT_FALSE(test.getMaskData()->isInitialized());
 }
 

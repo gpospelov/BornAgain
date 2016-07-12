@@ -39,7 +39,7 @@ public:
 
     MultiLayerDWBASimulation *clone() const
     {
-        throw NotImplementedException(
+        throw Exceptions::NotImplementedException(
             "MultiLayerDWBASimulation::clone() -> Error: not implemented");
     }
 

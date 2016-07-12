@@ -54,7 +54,7 @@ ConstKBinAxis *ConstKBinAxis::clone() const
 ConstKBinAxis *ConstKBinAxis::createClippedAxis(double left, double right) const
 {
     if(left >= right)
-        throw LogicErrorException(
+        throw Exceptions::LogicErrorException(
             "ConstKBinAxis::createClippedAxis() -> Error. 'left'' should be smaller than 'right'");
 
     if(left < getMin()) left = getBin(0).getMidPoint();

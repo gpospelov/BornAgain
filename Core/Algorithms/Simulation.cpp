@@ -114,7 +114,7 @@ void Simulation::setSample(const ISample &sample)
 void Simulation::setSampleBuilder(std::shared_ptr<class ISampleBuilder> p_sample_builder)
 {
     if (!p_sample_builder.get())
-        throw NullPointerException("Simulation::setSampleBuilder() -> "
+        throw Exceptions::NullPointerException("Simulation::setSampleBuilder() -> "
                                    "Error! Attempt to set null sample builder.");
 
     mp_sample_builder = p_sample_builder;
@@ -287,7 +287,7 @@ void Simulation::initProgressHandlerDWBA(ProgressHandlerDWBA *dwba_progress)
 void Simulation::verifyDWBASimulation(DWBASimulation *dwbaSimulation)
 {
     if (!dwbaSimulation)
-        throw RuntimeErrorException(
+        throw Exceptions::RuntimeErrorException(
             "Simulation::runSimulation() -> Can't create the simulation for given sample."
             "It should be either the MultiLayer with more than one layer (with or without "
             "particles),"
@@ -322,7 +322,7 @@ void Simulation::imposeConsistencyOfBatchNumbers(int &n_batches, int &current_ba
         current_batch = 0;
     }
     if (current_batch >= n_batches)
-        throw ClassInitializationException(
+        throw Exceptions::ClassInitializationException(
             "Simulation::imposeConsistencyOfBatchNumbers(): Batch number must be smaller than "
             "number of batches.");
 }

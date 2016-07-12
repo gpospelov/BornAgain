@@ -63,8 +63,9 @@ void ParameterPool::addParameter(const std::string& name, RealParameterWrapper p
 {
     if ( !m_map.insert(parametermap_t::value_type(name, par)).second ) {
         print(std::cout);
-        throw RuntimeErrorException("ParameterPool::addParameter() -> Error! Parameter '"+
-                                    name+"' is already registered");
+        throw Exceptions::RuntimeErrorException(
+            "ParameterPool::addParameter() -> Error! Parameter '"+
+            name+"' is already registered");
     }
 }
 
@@ -84,7 +85,7 @@ RealParameterWrapper ParameterPool::getParameter(const std::string& name) const
 {
     auto it = m_map.find(name);
     if( it==m_map.end() )
-        throw LogicErrorException("ParameterPool::getParameter() -> Warning."
+        throw Exceptions::LogicErrorException("ParameterPool::getParameter() -> Warning."
                                   " No parameter with name '"+name+"'");
     return (*it).second;
 }
@@ -114,11 +115,11 @@ void ParameterPool::setParameterValue(const std::string& name, double value)
 {
     RealParameterWrapper x = getParameter(name);
     if( x.isNull() )
-        throw LogicErrorException("ParameterPool::setParameterValue() ->"
+        throw Exceptions::LogicErrorException("ParameterPool::setParameterValue() ->"
                                   " Error! Unitialized parameter '"+name+"'.");
     try {
         x.setValue(value);
-    } catch(RuntimeErrorException) {
+    } catch(Exceptions::RuntimeErrorException) {
         report_set_value_error(name, value);
     }
 }
@@ -133,7 +134,7 @@ int ParameterPool::setMatchedParametersValue(const std::string& wildcards, doubl
             try {
                 (*it).second.setValue(value);
                 npars++;
-            } catch(RuntimeErrorException) {
+            } catch(Exceptions::RuntimeErrorException) {
                 report_set_value_error((*it).first, value);
             }
         }
@@ -196,7 +197,7 @@ void ParameterPool::report_find_matched_parameters_error(const std::string& patt
        << "' have been found. Existing keys are:" << std::endl;
     for(auto it=m_map.begin(); it!= m_map.end(); ++it)
         ostr << "'" << (*it).first << "'" << std::endl;
-    throw LogicErrorException(ostr.str());
+    throw Exceptions::LogicErrorException(ostr.str());
 }
 
 void ParameterPool::report_set_value_error(const std::string& parname, double value) const
@@ -208,5 +209,5 @@ void ParameterPool::report_set_value_error(const std::string& parname, double va
     ostr << value;
     ostr << " for parameter '" << parname << "' failed. Out of bounds?";
     ostr << " Parameter limits " << (*it).second.getAttLimits() << ".\n";
-    throw LogicErrorException(ostr.str());
+    throw Exceptions::LogicErrorException(ostr.str());
 }

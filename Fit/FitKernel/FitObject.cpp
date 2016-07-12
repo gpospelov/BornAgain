@@ -75,7 +75,7 @@ void FitObject::init_dataset()
         if(m_adjust_detector_to_data && is_possible_to_adjust_simulation()) {
             m_simulation->setDetectorParameters(*m_real_data);
         } else {
-            throw LogicErrorException(get_error_message());
+            throw Exceptions::LogicErrorException(get_error_message());
         }
     }
     m_chi2_data->copyShapeFrom(*m_real_data);
@@ -154,7 +154,7 @@ void FitObject::prepareFitElements(std::vector<FitElement> &fit_elements, double
                 << "m_simulation_data->getAllocatedSize():" << m_simulation_data->getAllocatedSize()
                 << " " << "masks->getAllocatedSize()" << masks->getAllocatedSize()
                 << std::endl;
-        throw RuntimeErrorException(message.str());
+        throw Exceptions::RuntimeErrorException(message.str());
     }
 
     for(size_t index=0; index<m_simulation_data->getAllocatedSize(); ++index) {

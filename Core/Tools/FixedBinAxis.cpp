@@ -104,7 +104,7 @@ std::vector<double> FixedBinAxis::getBinBoundaries() const
 FixedBinAxis *FixedBinAxis::createClippedAxis(double left, double right) const
 {
     if(left >= right)
-        throw LogicErrorException("FixedBinAxis::createClippedAxis() -> Error. "
+        throw Exceptions::LogicErrorException("FixedBinAxis::createClippedAxis() -> Error. "
                                   "'left' should be smaller than 'right'");
 
     if(left < getMin()) left = getBin(0).getMidPoint();

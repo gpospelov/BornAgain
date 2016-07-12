@@ -146,7 +146,7 @@ inline const T& LLData<T>::atCoordinate(int* coordinate) const
 template<class T> LLData<T>& LLData<T>::operator+=(const LLData<T>& right)
 {
     if (!HaveSameDimensions(*this, right))
-        throw RuntimeErrorException(
+        throw Exceptions::RuntimeErrorException(
             "Operation += on LLData requires both operands to have the same dimensions");
     for (size_t i=0; i<getTotalSize(); ++i) {
         m_data_array[i] += right[i];
@@ -157,7 +157,7 @@ template<class T> LLData<T>& LLData<T>::operator+=(const LLData<T>& right)
 template<class T> LLData<T>& LLData<T>::operator-=(const LLData& right)
 {
     if (!HaveSameDimensions(*this, right))
-        throw RuntimeErrorException(
+        throw Exceptions::RuntimeErrorException(
             "Operation -= on LLData requires both operands to have the same dimensions");
     for (size_t i=0; i<getTotalSize(); ++i) {
         m_data_array[i] -= right[i];
@@ -168,7 +168,7 @@ template<class T> LLData<T>& LLData<T>::operator-=(const LLData& right)
 template<class T> LLData<T>& LLData<T>::operator*=(const LLData& right)
 {
     if (!HaveSameDimensions(*this, right))
-        throw RuntimeErrorException(
+        throw Exceptions::RuntimeErrorException(
             "Operation *= on LLData requires both operands to have the same dimensions");
     for (size_t i=0; i<getTotalSize(); ++i) {
         m_data_array[i] *= right[i];
@@ -179,7 +179,7 @@ template<class T> LLData<T>& LLData<T>::operator*=(const LLData& right)
 template<class T> LLData<T>& LLData<T>::operator/=(const LLData& right)
 {
     if (!HaveSameDimensions(*this, right))
-        throw RuntimeErrorException(
+        throw Exceptions::RuntimeErrorException(
             "Operation /= on LLData requires both operands to have the same dimensions");
     for (size_t i=0; i<getTotalSize(); ++i) {
         double ratio;
@@ -259,7 +259,7 @@ template<class T> void LLData<T>::clear()
 template<class T> inline int LLData<T>::checkPositiveDimension(int dimension) const
 {
     if (dimension<1) {
-        throw OutOfBoundsException("Dimension must be bigger than zero.");
+        throw Exceptions::OutOfBoundsException("Dimension must be bigger than zero.");
     }
     return dimension;
 }

@@ -28,19 +28,19 @@
 
 void SamplePrintVisitor::visit(const ISample *)
 {
-    throw NotImplementedException("SamplePrintVisitor::visit(const ISample *)"
+    throw Exceptions::NotImplementedException("SamplePrintVisitor::visit(const ISample *)"
                                   " -> Error. Not implemented.");
 }
 
 void SamplePrintVisitor::visit(const ICompositeSample *)
 {
-    throw NotImplementedException("SamplePrintVisitor::"
+    throw Exceptions::NotImplementedException("SamplePrintVisitor::"
                                   "visit(const ICompositeSample *) -> Error. Not implemented.");
 }
 
 void SamplePrintVisitor::visit(const IClusteredParticles *)
 {
-    throw NotImplementedException("SamplePrintVisitor::"
+    throw Exceptions::NotImplementedException("SamplePrintVisitor::"
                                   "visit(const IClusteredParticles *) -> Error. Not implemented.");
 }
 
@@ -51,7 +51,7 @@ void SamplePrintVisitor::visit(const Crystal *sample)
 
 void SamplePrintVisitor::visit(const ILayout *)
 {
-    throw NotImplementedException("SamplePrintVisitor::"
+    throw Exceptions::NotImplementedException("SamplePrintVisitor::"
                                   "visit(const IDecoration *) -> Error. Not implemented.");
 }
 
@@ -111,25 +111,25 @@ void SamplePrintVisitor::visit(const ParticleCoreShell *sample)
 
 void SamplePrintVisitor::visit(const IFormFactor *)
 {
-    throw NotImplementedException("SamplePrintVisitor::"
+    throw Exceptions::NotImplementedException("SamplePrintVisitor::"
                                   "visit(const IFormFactor *) -> Error. Not implemented.");
 }
 
 void SamplePrintVisitor::visit(const FormFactorDWBAPol *)
 {
-    throw NotImplementedException("SamplePrintVisitor::"
+    throw Exceptions::NotImplementedException("SamplePrintVisitor::"
                                   "visit(const FormFactorDWBAPol *) -> Error. Not implemented.");
 }
 
 void SamplePrintVisitor::visit(const FormFactorWeighted *)
 {
-    throw NotImplementedException("SamplePrintVisitor::"
+    throw Exceptions::NotImplementedException("SamplePrintVisitor::"
                                   "visit(const FormFactorWeighted *) -> Error. Not implemented.");
 }
 
 void SamplePrintVisitor::visit(const IFormFactorBorn *)
 {
-    throw NotImplementedException("SamplePrintVisitor::"
+    throw Exceptions::NotImplementedException("SamplePrintVisitor::"
                                   "visit(const IFormFactorBorn *) -> Error. Not implemented.");
 }
 
@@ -155,7 +155,7 @@ void SamplePrintVisitor::visit(const FormFactorCone6 *sample)
 
 void SamplePrintVisitor::visit(const FormFactorCrystal *)
 {
-    throw NotImplementedException("SamplePrintVisitor::"
+    throw Exceptions::NotImplementedException("SamplePrintVisitor::"
                                   "visit(const FormFactorCrystal *) -> Error. Not implemented.");
 }
 
@@ -281,13 +281,13 @@ void SamplePrintVisitor::visit(const FormFactorTruncatedSpheroid *sample)
 
 void SamplePrintVisitor::visit(const IFormFactorDecorator *)
 {
-    throw NotImplementedException("SamplePrintVisitor::"
+    throw Exceptions::NotImplementedException("SamplePrintVisitor::"
                                   "visit(const IFormFactorDecorator *) -> Error. Not implemented.");
 }
 
 void SamplePrintVisitor::visit(const FormFactorDWBA *)
 {
-    throw NotImplementedException("SamplePrintVisitor::"
+    throw Exceptions::NotImplementedException("SamplePrintVisitor::"
                                   "visit(const FormFactorDWBA *) -> Error. Not implemented.");
 }
 
@@ -298,42 +298,42 @@ void SamplePrintVisitor::visit(const FormFactorDecoratorDebyeWaller *sample)
 
 void SamplePrintVisitor::visit(const FormFactorDecoratorFactor *)
 {
-    throw NotImplementedException(
+    throw Exceptions::NotImplementedException(
         "SamplePrintVisitor::"
         "visit(const FormFactorDecoratorFactor *) -> Error. Not implemented.");
 }
 
 void SamplePrintVisitor::visit(const FormFactorDecoratorMaterial *)
 {
-    throw NotImplementedException(
+    throw Exceptions::NotImplementedException(
         "SamplePrintVisitor::"
         "visit(const FormFactorDecoratorMaterial *) -> Error. Not implemented.");
 }
 
 void SamplePrintVisitor::visit(const FormFactorDecoratorMultiPositionFactor *)
 {
-    throw NotImplementedException("SamplePrintVisitor::"
+    throw Exceptions::NotImplementedException("SamplePrintVisitor::"
                                   "visit(const FormFactorDecoratorMultiPositionFactor *) -> "
                                   "Error. Not implemented.");
 }
 
 void SamplePrintVisitor::visit(const FormFactorDecoratorPositionFactor *)
 {
-    throw NotImplementedException("SamplePrintVisitor::"
+    throw Exceptions::NotImplementedException("SamplePrintVisitor::"
                                   "visit(const FormFactorDecoratorPositionFactor *) -> "
                                   "Error. Not implemented.");
 }
 
 void SamplePrintVisitor::visit(const FormFactorDecoratorRotation *)
 {
-    throw NotImplementedException("SamplePrintVisitor::"
+    throw Exceptions::NotImplementedException("SamplePrintVisitor::"
                                   "visit(const FormFactorDecoratorRotation *) -> "
                                   "Error. Not implemented.");
 }
 
 void SamplePrintVisitor::visit(const IInterferenceFunction *)
 {
-    throw NotImplementedException(
+    throw Exceptions::NotImplementedException(
         "SamplePrintVisitor::"
         "visit(const IInterferenceFunction *) -> Error. Not implemented.");
 }
@@ -369,7 +369,7 @@ void SamplePrintVisitor::visit(const InterferenceFunctionNone *sample)
 
 void SamplePrintVisitor::visit(const IRoughness *)
 {
-    throw NotImplementedException("SamplePrintVisitor::"
+    throw Exceptions::NotImplementedException("SamplePrintVisitor::"
                                   "visit(const IRoughness *) -> Error. Not implemented.");
 }
 

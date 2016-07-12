@@ -41,7 +41,7 @@ CoreTest::~CoreTest()
 void CoreTest::runTest()
 {
     if (!m_simulation)
-        throw NullPointerException(
+        throw Exceptions::NullPointerException(
             "CoreTest::runTest() -> Error. Uninitialized simulation object.");
     m_simulation->runSimulation();
 

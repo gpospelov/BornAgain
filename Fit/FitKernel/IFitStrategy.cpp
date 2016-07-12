@@ -57,7 +57,7 @@ IFitStrategy *FitStrategyDefault::clone() const
 void FitStrategyDefault::execute()
 {
     if( !m_kernel )
-        throw NullPointerException("FitStrategyDefault::execute() -> FitSuite doesn't exists");
+        throw Exceptions::NullPointerException("FitStrategyDefault::execute() -> FitSuite doesn't exists");
 
     // calling minimization
     m_kernel->minimize();

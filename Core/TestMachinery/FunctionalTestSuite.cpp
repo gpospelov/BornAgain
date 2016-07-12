@@ -68,7 +68,7 @@ int FunctionalTestSuite::execute_subtests()
     } else if(m_info->m_subtest_type == "FTDistributions2DRegistry") {
         subtest_registry = new TestFTDistribution2DRegistry;
     } else
-        throw RuntimeErrorException("FunctionalTestSuite -> Error. "
+        throw Exceptions::RuntimeErrorException("FunctionalTestSuite -> Error. "
                                     "Unknown factory '"+m_info->m_subtest_type+"'.");
     subtest_names = subtest_registry->keys();
     size_t n_subtests = subtest_names.size();

@@ -40,7 +40,7 @@ TEST_F(DistributionsTest, DistributionGateDefaultConstructor)
 TEST_F(DistributionsTest, DistributionGateConstructor)
 {
     // Throw error when m_min > m_max:
-    EXPECT_THROW(DistributionGate(1.1, 1.0), ClassInitializationException);
+    EXPECT_THROW(DistributionGate(1.1, 1.0), Exceptions::ClassInitializationException);
 
     // When m_min == m_max, only one sample is generated (the mean):
     DistributionGate distr1(1.0, 1.0);
@@ -79,7 +79,7 @@ TEST_F(DistributionsTest, DistributionGateConstructor)
 TEST_F(DistributionsTest, DistributionGateParameters)
 {
     DistributionGate gate(2.0, 3.0);
-    /* TEMPORARILY DISABLED getParameterPool() 
+    /* TEMPORARILY DISABLED getParameterPool()
     EXPECT_EQ(gate.getMin(), gate.getParameterPool()->getParameter(BornAgain::Minimum).getValue());
     EXPECT_EQ(gate.getMax(), gate.getParameterPool()->getParameter(BornAgain::Maximum).getValue());
     */
@@ -140,7 +140,7 @@ TEST_F(DistributionsTest, DistributionLorentzConstructor)
 TEST_F(DistributionsTest, DistributionLorentzParameters)
 {
     DistributionLorentz lorentz(2.0, 3.0);
-    /* TEMPORARILY DISABLED getParameterPool() 
+    /* TEMPORARILY DISABLED getParameterPool()
     EXPECT_EQ(lorentz.getMean(),
               lorentz.getParameterPool()->getParameter(BornAgain::Mean).getValue());
     EXPECT_EQ(lorentz.getHWHM(),
@@ -235,7 +235,7 @@ TEST_F(DistributionsTest, DistributionGaussianConstructor)
 TEST_F(DistributionsTest, DistributionGaussianParameters)
 {
     DistributionGaussian gaussian(2.0, 3.0);
-    /* TEMPORARILY DISABLED getParameterPool() 
+    /* TEMPORARILY DISABLED getParameterPool()
     EXPECT_EQ(gaussian.getMean(),
               gaussian.getParameterPool()->getParameter(BornAgain::Mean).getValue());
     EXPECT_EQ(gaussian.getStdDev(),
@@ -306,7 +306,7 @@ TEST_F(DistributionsTest, DistributionLogNormalConstructorWithTwoParameter)
 TEST_F(DistributionsTest, DistributionLogNormalParameters)
 {
     DistributionLogNormal logNormal(2.0, 3.0);
-    /* TEMPORARILY DISABLED getParameterPool() 
+    /* TEMPORARILY DISABLED getParameterPool()
     EXPECT_EQ(logNormal.getMedian(),
               logNormal.getParameterPool()->getParameter(BornAgain::Median).getValue());
     EXPECT_EQ(logNormal.getScalePar(),
@@ -378,7 +378,7 @@ TEST_F(DistributionsTest, DistributionCosineConstructor)
 TEST_F(DistributionsTest, DistributionCosineParameters)
 {
     DistributionCosine cosine(2.0, 3.0);
-    /* TEMPORARILY DISABLED getParameterPool() 
+    /* TEMPORARILY DISABLED getParameterPool()
     EXPECT_EQ(cosine.getMean(), cosine.getParameterPool()->getParameter(BornAgain::Mean).getValue());
     EXPECT_EQ(cosine.getSigma(), cosine.getParameterPool()->getParameter(BornAgain::Sigma).getValue());
     */

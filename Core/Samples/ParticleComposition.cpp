@@ -164,7 +164,7 @@ kvector_t ParticleComposition::getParticlePosition(size_t index) const
 
 size_t ParticleComposition::check_index(size_t index) const
 {
-    return index < m_particles.size() ? index : throw OutOfBoundsException(
+    return index < m_particles.size() ? index : throw Exceptions::OutOfBoundsException(
         "ParticleComposition::check_index() -> Index is out of bounds");
 }
 

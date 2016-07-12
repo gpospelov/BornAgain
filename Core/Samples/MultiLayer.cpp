@@ -205,7 +205,7 @@ double MultiLayer::getCrossCorrSpectralFun(const kvector_t kvec, size_t j, size_
 void MultiLayer::setLayerThickness(size_t i_layer, double thickness)
 {
     if (thickness < 0.)
-        throw DomainErrorException("Layer thickness cannot be negative");
+        throw Exceptions::DomainErrorException("Layer thickness cannot be negative");
 
     m_layers[ check_layer_index(i_layer) ]->setThickness(thickness);
     // recalculating z-coordinates of layers
@@ -271,14 +271,14 @@ void MultiLayer::setNLayersInLayers() const
 size_t MultiLayer::check_layer_index(size_t i_layer) const
 {
     if( i_layer >= m_layers.size() )
-        throw OutOfBoundsException("Layer index is out of bounds");
+        throw Exceptions::OutOfBoundsException("Layer index is out of bounds");
     return i_layer;
 }
 
 size_t MultiLayer::check_interface_index(size_t i_interface) const
 {
     if( i_interface >= m_interfaces.size() )
-        throw OutOfBoundsException("Interface index is out of bounds");
+        throw Exceptions::OutOfBoundsException("Interface index is out of bounds");
     return i_interface;
 }
 

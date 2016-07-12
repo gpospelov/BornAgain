@@ -51,7 +51,7 @@ double FormFactorCrystal::getRadius() const
 complex_t FormFactorCrystal::evaluate_for_q(const cvector_t q) const
 {
     (void)q;
-    throw LogicErrorException("evaluate_for_q() should never be called"
+    throw Exceptions::LogicErrorException("evaluate_for_q() should never be called"
                               " explicitly for FormFactorCrystal");
 }
 

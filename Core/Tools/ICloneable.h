@@ -39,11 +39,11 @@ public:
 
 private:
     ICloneable(const ICloneable& ) {
-        throw NotImplementedException(
+        throw Exceptions::NotImplementedException(
         "ICloneable(const ICloneable& ) -> Error: not implemented.");
     }
     ICloneable& operator=(const ICloneable& ) {
-        throw NotImplementedException(
+        throw Exceptions::NotImplementedException(
         "ICloneable& operator=(const ICloneable& ) -> Error: not implemented.");
     }
 };

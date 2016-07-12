@@ -30,7 +30,7 @@ Ellipse::Ellipse(double xcenter, double ycenter, double xradius, double yradius,
         message <<
             "Ellipse::Ellipse(double xcenter, double ycenter, double xradius, double yradius) "
             "-> Error. Radius can't be negative\n";
-        throw LogicErrorException(message.str());
+        throw Exceptions::LogicErrorException(message.str());
     }
 }
 

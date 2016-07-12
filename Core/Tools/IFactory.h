@@ -47,7 +47,7 @@ public:
     AbstractProduct* createItem(const Key& item_key) {
         auto it = m_callbacks.find(item_key);
         if( it == m_callbacks.end() ) // unexpectedly not found
-            throw UnknownClassRegistrationException(
+            throw Exceptions::UnknownClassRegistrationException(
                     "IFactory::createItem() -> Panic. Unknown item key");
         // invoke the creation function
         return (it->second)();
@@ -56,7 +56,7 @@ public:
     //! Registers object's creation function
     bool registerItem(const Key& item_key, CreateItemCallback CreateFn) {
         if( m_callbacks.find(item_key) != m_callbacks.end() )
-            throw ExistingClassRegistrationException(
+            throw Exceptions::ExistingClassRegistrationException(
                     "IFactory::registerItem() -> Panic! Already registered item key");
         return m_callbacks.insert( typename CallbackMap_t::value_type(item_key, CreateFn)).second;
     }
@@ -65,7 +65,7 @@ public:
     bool registerItem(const Key& item_key, CreateItemCallback CreateFn,
                       const std::string& itemDescription) {
         if( m_callbacks.find(item_key) != m_callbacks.end() )
-            throw ExistingClassRegistrationException(
+            throw Exceptions::ExistingClassRegistrationException(
                     "IFactory::registerItem() -> Panic! Already registered item key");
         m_descriptions.insert( typename DescriptionMap_t::value_type(item_key, itemDescription));
         return m_callbacks.insert( typename CallbackMap_t::value_type(item_key, CreateFn)).second;

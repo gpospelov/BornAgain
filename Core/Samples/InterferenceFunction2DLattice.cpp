@@ -94,7 +94,7 @@ const IFTDecayFunction2D *InterferenceFunction2DLattice::getDecayFunction() cons
 double InterferenceFunction2DLattice::evaluate(const kvector_t q) const
 {
     if (!mp_pdf) {
-        throw NullPointerException("InterferenceFunction2DLattice::evaluate"
+        throw Exceptions::NullPointerException("InterferenceFunction2DLattice::evaluate"
                                    " -> Error! No probability distribution function defined.");
     }
     double result = 0.0;
@@ -143,10 +143,10 @@ double InterferenceFunction2DLattice::getParticleDensity() const
 
 double InterferenceFunction2DLattice::interferenceAtOneRecLatticePoint(double qx, double qy) const
 {
-    if (!mp_pdf) {
-        throw NullPointerException("InterferenceFunction2DLattice::interferenceAtOneRecLatticePoint"
-                                   " -> Error! No probability distribution function defined.");
-    }
+    if (!mp_pdf)
+        throw Exceptions::NullPointerException(
+            "InterferenceFunction2DLattice::interferenceAtOneRecLatticePoint"
+            " -> Error! No probability distribution function defined.");
     double qp1, qp2;
     double gamma = m_lattice_params.m_xi + mp_pdf->getGamma();
     double delta = mp_pdf->getDelta();
@@ -197,11 +197,11 @@ void InterferenceFunction2DLattice::init_parameters()
 
 void InterferenceFunction2DLattice::initialize_rec_vectors()
 {
-    if (m_lattice_params.m_length_1 == 0 || m_lattice_params.m_length_2 == 0) {
-        throw DivisionByZeroException("InterferenceFunction2DLattice::"
-                                      "initialize_rec_vectors() -> Error! Zero parameters"
-                                      " m_lattice_params.m_length1 or m_lattice_params.m_length_2");
-    }
+    if (m_lattice_params.m_length_1 == 0 || m_lattice_params.m_length_2 == 0)
+        throw Exceptions::DivisionByZeroException(
+            "InterferenceFunction2DLattice::"
+            "initialize_rec_vectors() -> Error! Zero parameters"
+            " m_lattice_params.m_length1 or m_lattice_params.m_length_2");
     double sinalpha = std::sin(m_lattice_params.m_angle);
     double ainv = Units::PI2 / m_lattice_params.m_length_1 / sinalpha;
     double binv = Units::PI2 / m_lattice_params.m_length_2 / sinalpha;
@@ -216,10 +216,10 @@ void InterferenceFunction2DLattice::initialize_rec_vectors()
 void InterferenceFunction2DLattice::initialize_calc_factors(double coherence_length_x,
                                                             double coherence_length_y)
 {
-    if (!mp_pdf) {
-        throw NullPointerException("InterferenceFunction2DLattice::initialize_calc_factors"
-                                   " -> Error! No probability distribution function defined.");
-    }
+    if (!mp_pdf)
+        throw Exceptions::NullPointerException(
+            "InterferenceFunction2DLattice::initialize_calc_factors"
+            " -> Error! No probability distribution function defined.");
     // number of reciprocal lattice points to use
     double qa_max, qb_max;
     mp_pdf->transformToStarBasis(nmax / coherence_length_x, nmax / coherence_length_y,

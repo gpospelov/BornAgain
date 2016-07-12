@@ -45,7 +45,7 @@ void PolygonPrivate::init_from(const std::vector<double> &x, const std::vector<d
         std::ostringstream message;
         message << "Polygon::Polygon(const std::vector<double> &x, const std::vector<double> &y) "
                 << "Error. Sizes of arrays must conincide." << std::endl;
-        throw LogicErrorException(message.str());
+        throw Exceptions::LogicErrorException(message.str());
     }
     std::vector<point_t> points;
     for(size_t i=0; i<x.size(); ++i) {
@@ -90,7 +90,7 @@ Polygon::Polygon(std::vector<std::vector<double> > points)
             message << "Polygon(const std::vector<std::vector<double> > &points) -> Error. "
                     << " Should be two-dimensional array with second dimension of 2 size."
                     << std::endl;
-            throw LogicErrorException(message.str());
+            throw Exceptions::LogicErrorException(message.str());
         }
         x.push_back(points[i][0]);
         y.push_back(points[i][1]);

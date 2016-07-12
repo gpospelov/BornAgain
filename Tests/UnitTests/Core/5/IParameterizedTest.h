@@ -64,7 +64,7 @@ TEST_F(IParameterizedTest, SetParameterValue)
     m_parameterized.setParameterValue("par2", 4.0);
     EXPECT_EQ( double(3.0), m_parameterized.m_real_par1);
     EXPECT_EQ( double(4.0), m_parameterized.m_real_par2);
-    ASSERT_THROW( m_parameterized.setParameterValue("NotExistingParameterName", 4.0), LogicErrorException );
+    ASSERT_THROW( m_parameterized.setParameterValue("NotExistingParameterName", 4.0), Exceptions::LogicErrorException );
     m_parameterized.setParameterValue("*par*", 5.0);
     EXPECT_EQ( double(5.0), m_parameterized.m_real_par1);
     EXPECT_EQ( double(5.0), m_parameterized.m_real_par2);

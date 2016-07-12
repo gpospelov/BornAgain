@@ -44,7 +44,7 @@ IOutputDataWriteStrategy *OutputDataWriteFactory::getWriteStrategy(const std::st
 #endif // BORNAGAIN_TIFF_SUPPORT
 
     else {
-        throw LogicErrorException("OutputDataWriteFactory::getWriter() -> Error. "
+        throw Exceptions::LogicErrorException("OutputDataWriteFactory::getWriter() -> Error. "
                 "Don't know how to write file '" + file_name+std::string("'"));
     }
 

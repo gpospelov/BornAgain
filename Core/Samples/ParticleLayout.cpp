@@ -137,7 +137,7 @@ size_t ParticleLayout::getNumberOfParticles() const
 const IAbstractParticle* ParticleLayout::getParticle(size_t index) const
 {
     if (index<m_particles.size()) return m_particles[index];
-    throw OutOfBoundsException(
+    throw Exceptions::OutOfBoundsException(
         "ParticleLayout::getParticle() -> "
         "Error! Not so many particles in this decoration.");
 }

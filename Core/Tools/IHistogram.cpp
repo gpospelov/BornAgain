@@ -45,7 +45,7 @@ IHistogram::IHistogram(const IAxis &axis_x, const IAxis &axis_y)
 
 size_t IHistogram::getRank() const
 {
-    throw NotImplementedException("IHistogram::getRank() -> Error. Not implemented.");
+    throw Exceptions::NotImplementedException("IHistogram::getRank() -> Error. Not implemented.");
     return 0;
 }
 
@@ -250,7 +250,7 @@ IHistogram* IHistogram::createHistogram(const OutputData<double> &source)
         message << "IHistogram::createHistogram(const OutputData<double> &source) -> Error. ";
         message << "The rank of source " << source.getRank() << " ";
         message << "is not suitable for creation neither 1-dim nor 2-dim histograms.";
-        throw LogicErrorException(message.str());
+        throw Exceptions::LogicErrorException(message.str());
     }
 }
 
@@ -265,7 +265,7 @@ void IHistogram::check_x_axis() const
         std::ostringstream message;
         message << "IHistogram::check_x_axis() -> Error. X-xis does not exist. ";
         message << "Rank of histogram " << getRank() << "." << std::endl;
-        throw LogicErrorException(message.str());
+        throw Exceptions::LogicErrorException(message.str());
     }
 }
 
@@ -275,7 +275,7 @@ void IHistogram::check_y_axis() const
         std::ostringstream message;
         message << "IHistogram::check_y_axis() -> Error. Y-axis does not exist. ";
         message << "Rank of histogram " << getRank() << "." << std::endl;
-        throw LogicErrorException(message.str());
+        throw Exceptions::LogicErrorException(message.str());
     }
 }
 
@@ -286,7 +286,7 @@ void IHistogram::init_from_data(const OutputData<double> &source)
         message << "IHistogram::IHistogram(const OutputData<double> &data) -> Error. ";
         message << "The dimension of this histogram " << getRank() << " ";
         message << "is differ from the dimension of source " << m_data.getRank() << std::endl;
-        throw LogicErrorException(message.str());
+        throw Exceptions::LogicErrorException(message.str());
     }
 
     m_data.copyShapeFrom(source);
@@ -309,7 +309,7 @@ double IHistogram::getBinData(size_t globalbin, IHistogram::DataType dataType) c
     } else {
         std::ostringstream message;
         message << "IHistogram::getBinData() -> Error. Unknown data type.";
-        throw LogicErrorException(message.str());
+        throw Exceptions::LogicErrorException(message.str());
     }
 }
 
@@ -328,7 +328,7 @@ std::vector<double> IHistogram::getDataVector(IHistogram::DataType dataType) con
 void IHistogram::copyContentFrom(const IHistogram &other)
 {
     if(!hasSameDimensions(other)) {
-        throw LogicErrorException("IHistogram::copyContentFrom() -> Error. "
+        throw Exceptions::LogicErrorException("IHistogram::copyContentFrom() -> Error. "
                                   "Can't copy the data of different shape.");
     }
     reset();
@@ -362,7 +362,7 @@ bool IHistogram::hasSameDimensions(const IHistogram &other) const
 const IHistogram &IHistogram::operator+=(const IHistogram &right)
 {
     if(!hasSameDimensions(right)) {
-        throw LogicErrorException("IHistogram::operator+=() -> Error. "
+        throw Exceptions::LogicErrorException("IHistogram::operator+=() -> Error. "
                                   "Histograms have different dimension");
     }
 
@@ -375,7 +375,7 @@ const IHistogram &IHistogram::operator+=(const IHistogram &right)
 IHistogram* IHistogram::relativeDifferenceHistogram(const IHistogram &rhs)
 {
     if(!hasSameDimensions(rhs)) {
-        throw LogicErrorException("IHistogram::relativeDifferenceHistogram() -> Error. "
+        throw Exceptions::LogicErrorException("IHistogram::relativeDifferenceHistogram() -> Error. "
                                   "Histograms have different dimensions");
     }
 

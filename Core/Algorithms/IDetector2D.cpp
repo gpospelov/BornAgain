@@ -49,13 +49,13 @@ const IAxis &IDetector2D::getAxis(size_t index) const
     if (isCorrectAxisIndex(index)) {
         return *m_axes[index];
     }
-    throw OutOfBoundsException("Not so many axes in this detector.");
+    throw Exceptions::OutOfBoundsException("Not so many axes in this detector.");
 }
 
 void IDetector2D::matchDetectorAxes(const OutputData<double> &output_data)
 {
     if (output_data.getRank()!=2) {
-        throw LogicErrorException(
+        throw Exceptions::LogicErrorException(
             "IDetector2D::matchDetectorAxes() -> Error! Data is not two dimensional");
     }
     clear();
@@ -85,7 +85,7 @@ void IDetector2D::setDetectorAxes(const IAxis &axis0, const IAxis &axis1)
 void IDetector2D::applyDetectorResolution(OutputData<double> *p_intensity_map) const
 {
     if (!p_intensity_map) {
-        throw NullPointerException("IDetector2D::applyDetectorResolution() -> "
+        throw Exceptions::NullPointerException("IDetector2D::applyDetectorResolution() -> "
                                    "Error! Null pointer to intensity map");
     }
     if (mP_detector_resolution.get()) {
@@ -190,7 +190,7 @@ std::vector<SimulationElement> IDetector2D::createSimulationElements(const Beam 
     Eigen::Matrix2cd analyzer_operator = getAnalyzerOperator();
 
     if (getDimension()!=2)
-        throw RuntimeErrorException("IDetector2D::createSimulationElements: "
+        throw Exceptions::RuntimeErrorException("IDetector2D::createSimulationElements: "
                                     "detector is not two-dimensional");
     if (!hasMasks()) m_detector_mask.initMaskData(*this);
     const OutputData<bool>* mask_data = m_detector_mask.getMaskData();
@@ -243,7 +243,7 @@ size_t IDetector2D::getAxisBinIndex(size_t index, size_t selected_axis) const
         if(selected_axis == i_axis ) return result;
         remainder /= m_axes[i_axis]->getSize();
     }
-    throw LogicErrorException("IDetector2D::getAxisBinIndex() -> "
+    throw Exceptions::LogicErrorException("IDetector2D::getAxisBinIndex() -> "
                               "Error! No axis with given number");
 }
 

@@ -35,7 +35,7 @@ LayerInterface::~LayerInterface()
 
 LayerInterface *LayerInterface::clone() const
 {
-    throw NotImplementedException("LayerInterface::clone() -> Not allowed to clone.");
+    throw Exceptions::NotImplementedException("LayerInterface::clone() -> Not allowed to clone.");
 }
 
 void LayerInterface::accept(ISampleVisitor *visitor) const

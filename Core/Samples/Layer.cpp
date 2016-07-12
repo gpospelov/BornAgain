@@ -78,7 +78,7 @@ void Layer::accept(ISampleVisitor *visitor) const
 void Layer::setThickness(double thickness)
 {
     if (thickness < 0.)
-        throw DomainErrorException("Layer thickness cannot be negative");
+        throw Exceptions::DomainErrorException("Layer thickness cannot be negative");
     m_thickness = thickness;
 }
 

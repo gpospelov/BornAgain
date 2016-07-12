@@ -36,7 +36,7 @@ public:
 
     MultiLayerRoughnessDWBASimulation *clone() const
     {
-        throw NotImplementedException(
+        throw Exceptions::NotImplementedException(
             "MultiLayerRoughnessDWBASimulation::clone() -> "
             "Error: not implemented.");
     }

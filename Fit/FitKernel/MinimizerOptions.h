@@ -94,7 +94,7 @@ private:
        if (pos != opts.end()) {
            pos->second = value;
        } else {
-           throw LogicErrorException("MinimizerOptions::setValue() -> Error! Not existing name '"+name+"'");
+           throw Exceptions::LogicErrorException("MinimizerOptions::setValue() -> Error! Not existing name '"+name+"'");
        }
     }
 
@@ -103,7 +103,7 @@ private:
        typename M::iterator pos;
        pos = opts.find(name);
        if (pos != opts.end()) {
-           throw LogicErrorException("MinimizerOptions::addValue() -> Error! Already existing name '"+name+"'");
+           throw Exceptions::LogicErrorException("MinimizerOptions::addValue() -> Error! Already existing name '"+name+"'");
        } else {
            opts.insert(typename M::value_type(name, value) );
        }
@@ -114,7 +114,7 @@ private:
        typename M::const_iterator pos;
        pos = opts.find(name);
        if (pos == opts.end()) {
-           throw LogicErrorException("MinimizerOptions::getValue() -> Error! Not existing name '"+name+"'");
+           throw Exceptions::LogicErrorException("MinimizerOptions::getValue() -> Error! Not existing name '"+name+"'");
        }
        return  (*pos).second;
     }

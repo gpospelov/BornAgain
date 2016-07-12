@@ -27,11 +27,10 @@
 
 void ICompositeSample::registerChild(ISample *sample)
 {
-    if(sample) {
-        m_samples.push_back(sample);
-    } else {
-        throw NullPointerException("ICompositeSample::registerChild -> Error. Null pointer.");
-    }
+    if(!sample)
+        throw Exceptions::NullPointerException(
+            "ICompositeSample::registerChild -> Error. Null pointer.");
+    m_samples.push_back(sample);
 }
 
 //! remove registered child from the container
@@ -104,4 +103,3 @@ bool ICompositeSample::childIndexInRange(size_t index) const
 {
     return index<m_samples.size();
 }
-

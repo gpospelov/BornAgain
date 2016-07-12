@@ -72,7 +72,8 @@ inline void IFormFactor::accept(ISampleVisitor* visitor) const
 inline Eigen::Matrix2cd IFormFactor::evaluatePol(const WavevectorInfo&) const
 {
     // Throws to prevent unanticipated behaviour
-    throw NotImplementedException("IFormFactor::evaluatePol: is not implemented by default");
+    throw Exceptions::NotImplementedException(
+        "IFormFactor::evaluatePol: is not implemented by default");
 }
 #endif
 

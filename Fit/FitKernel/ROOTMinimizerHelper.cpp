@@ -47,7 +47,7 @@
 //    }
 
 //    if( !success ) {
-//        throw LogicErrorException("ROOTMinimizerOptionsHelper::processCommand() -> Error! Can't parse command '"+command+"'");
+//        throw Exceptions::LogicErrorException("ROOTMinimizerOptionsHelper::processCommand() -> Error! Can't parse command '"+command+"'");
 //    }
 
 //    return success;

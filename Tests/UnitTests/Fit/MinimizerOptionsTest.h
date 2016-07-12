@@ -17,7 +17,7 @@ TEST_F(MinimizerOptionsTest, InitialState)
     EXPECT_EQ(0, options.getMaxIterations());
     EXPECT_EQ(0, options.getMaxFunctionCalls());
 
-    ASSERT_THROW(options.setValue("some_value",1.0), LogicErrorException);
+    ASSERT_THROW(options.setValue("some_value",1.0), Exceptions::LogicErrorException);
 }
 
 
@@ -38,12 +38,12 @@ TEST_F(MinimizerOptionsTest, SetValues)
     options.addValue("some_double",9.9);
     options.addValue("some_string","xxx");
 
-    ASSERT_THROW(options.addValue("some_int",1), LogicErrorException);
+    ASSERT_THROW(options.addValue("some_int",1), Exceptions::LogicErrorException);
     EXPECT_EQ(options.getIntValue("some_int"), 1);
     EXPECT_EQ(options.getRealValue("some_double"), 9.9);
     EXPECT_EQ(options.getNamedValue("some_string"), "xxx");
 
-    ASSERT_THROW(options.getIntValue("some_int2"), LogicErrorException);
+    ASSERT_THROW(options.getIntValue("some_int2"), Exceptions::LogicErrorException);
 
     MinimizerOptions opt2 = options;
     EXPECT_EQ(0.02, opt2.getTolerance());

@@ -31,7 +31,7 @@ double IntensityDataFunctions::getRelativeDifference(
     }
     diff /= result.getAllocatedSize();
 
-    if (std::isnan(diff)) throw RuntimeErrorException("diff=NaN!");
+    if (std::isnan(diff)) throw Exceptions::RuntimeErrorException("diff=NaN!");
     return diff;
 }
 
@@ -40,8 +40,9 @@ IntensityDataFunctions::createRelativeDifferenceData(const OutputData<double> &d
                                                      const OutputData<double> &reference)
 {
     if(!data.hasSameDimensions(reference)) {
-        throw RuntimeErrorException("IntensityDataFunctions::createRelativeDifferenceData() -> "
-                                    "Error. Different dimensions of data and reference.");
+        throw Exceptions::RuntimeErrorException(
+            "IntensityDataFunctions::createRelativeDifferenceData() -> "
+            "Error. Different dimensions of data and reference.");
     }
 
     OutputData<double> *result = reference.clone();
@@ -54,10 +55,10 @@ IntensityDataFunctions::createRelativeDifferenceData(const OutputData<double> &d
 double IntensityDataFunctions::getRelativeDifference(
     const IHistogram &result, const IHistogram &reference)
 {
-    if(!result.hasSameDimensions(reference)) {
-        throw LogicErrorException("IntensityDataFunctions::getRelativeDifference() -> Error. "
-                                  "Histograms have different dimensions.");
-    }
+    if(!result.hasSameDimensions(reference))
+        throw Exceptions::LogicErrorException(
+            "IntensityDataFunctions::getRelativeDifference() -> Error. "
+            "Histograms have different dimensions.");
 
     double summ(0.0);
     for(size_t i=0; i<result.getTotalNumberOfBins(); ++i) {
@@ -72,8 +73,9 @@ OutputData<double> *IntensityDataFunctions::createClippedDataSet(
         const OutputData<double> &origin, double x1, double y1, double x2, double y2)
 {
     if (origin.getRank() != 2)
-        throw LogicErrorException("IntensityDataFunctions::createClippedData()"
-                " -> Error! Works only on two-dimensional data");
+        throw Exceptions::LogicErrorException(
+            "IntensityDataFunctions::createClippedData()"
+            " -> Error! Works only on two-dimensional data");
 
     OutputData<double > *result = new OutputData<double >;
     for(size_t i_axis=0; i_axis<origin.getRank(); i_axis++) {
@@ -110,8 +112,9 @@ OutputData<double> *IntensityDataFunctions::applyDetectorResolution(
     const OutputData<double> &origin, const IResolutionFunction2D &resolution_function)
 {
     if (origin.getRank() != 2)
-        throw LogicErrorException("IntensityDataFunctions::applyDetectorResolution()"
-                " -> Error! Works only on two-dimensional data");
+        throw Exceptions::LogicErrorException(
+            "IntensityDataFunctions::applyDetectorResolution()"
+            " -> Error! Works only on two-dimensional data");
     OutputData<double > *result = origin.clone();
     const std::unique_ptr<ConvolutionDetectorResolution> P_resolution(
         new ConvolutionDetectorResolution(resolution_function));

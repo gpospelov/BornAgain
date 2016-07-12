@@ -28,7 +28,7 @@ RealParameterWrapper::RealParameterWrapper(
         message << "RealParameterWrapper::RealParameterWrapper() -> Error. "
                 << "Initial value " << getValue() << " is out of bounds "
                 << limits << std::endl;
-        throw OutOfBoundsException(message.str());
+        throw Exceptions::OutOfBoundsException(message.str());
     }
 }
 
@@ -56,7 +56,7 @@ void RealParameterWrapper::setValue(double value)
             *m_data = value;
             m_parent->onChange();
         } else {
-            throw OutOfBoundsException("Value not in range");
+            throw Exceptions::OutOfBoundsException("Value not in range");
         }
     }
 }

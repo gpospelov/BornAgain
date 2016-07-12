@@ -36,7 +36,7 @@ public:
             std::ostringstream message;
             message << "IRegistry::createItem() -> Error. Not existing item key "
                     << "'" << key << "'";
-            throw UnknownClassRegistrationException(message.str());
+            throw Exceptions::UnknownClassRegistrationException(message.str());
         }
         return it->second.get();
     }
@@ -54,7 +54,7 @@ protected:
             std::ostringstream message;
             message << "IRegistry::createItem() -> Error. Already existing item with key "
                     << "'" << key << "'";
-            throw ExistingClassRegistrationException(message.str());
+            throw Exceptions::ExistingClassRegistrationException(message.str());
         }
         m_data[key] = std::unique_ptr<ValueType>(item);
     }

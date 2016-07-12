@@ -24,7 +24,7 @@ std::vector<ParameterSample> IDistribution1D::generateSamples(
     size_t nbr_samples, double sigma_factor, const AttLimits &limits) const
 {
     if (nbr_samples == 0)
-        throw OutOfBoundsException("IDistribution1D::generateSamples: number "
+        throw Exceptions::OutOfBoundsException("IDistribution1D::generateSamples: number "
                                    "of generated samples must be bigger than zero");
     std::vector<double> sample_values = generateValueList( nbr_samples, sigma_factor, limits);
     return generateSamplesFromValues(sample_values);
@@ -34,7 +34,7 @@ std::vector<ParameterSample> IDistribution1D::generateSamples(
     size_t nbr_samples, double xmin, double xmax) const
 {
     if (nbr_samples == 0)
-        throw OutOfBoundsException("IDistribution1D::generateSamples: number "
+        throw Exceptions::OutOfBoundsException("IDistribution1D::generateSamples: number "
                                    "of generated samples must be bigger than zero");
     std::vector<double> sample_values = generateValues(nbr_samples, xmin, xmax);
     return generateSamplesFromValues(sample_values);
@@ -43,7 +43,8 @@ std::vector<ParameterSample> IDistribution1D::generateSamples(
 //! Interface
 void IDistribution1D::SignalBadInitialization(std::string distribution_name)
 {
-    throw ClassInitializationException(distribution_name +": not correctly initialized");
+    throw Exceptions::ClassInitializationException(
+        distribution_name +": not correctly initialized");
 }
 
 void IDistribution1D::adjustMinMaxForLimits(
@@ -55,7 +56,7 @@ void IDistribution1D::adjustMinMaxForLimits(
         std::ostringstream ostr;
         ostr << "IDistribution1D::adjustMinMaxForLimits() -> Error. Can't' adjust ";
         ostr << "xmin:" << xmin << " xmax:" << xmax << " for given limits " << limits << std::endl;
-        throw DomainErrorException(ostr.str());
+        throw Exceptions::DomainErrorException(ostr.str());
     }
 }
 
@@ -72,7 +73,7 @@ std::vector<ParameterSample> IDistribution1D::generateSamplesFromValues(
         norm_factor += pdf;
     }
     if (norm_factor <= 0.0)
-        throw RuntimeErrorException("IDistribution1D::generateSamples: "
+        throw Exceptions::RuntimeErrorException("IDistribution1D::generateSamples: "
                                     "total probability must be bigger than zero");
     for (size_t i=0; i<sample_values.size(); ++i) {
         result[i].weight /= norm_factor;

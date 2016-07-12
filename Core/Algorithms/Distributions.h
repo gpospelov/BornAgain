@@ -32,7 +32,7 @@ public:
 
     //! clone method
     virtual IDistribution1D* clone() const {
-        throw NotImplementedException("IDistribution1D cannot be cloned");
+        throw Exceptions::NotImplementedException("IDistribution1D cannot be cloned");
     }
 
     //! get the probability density for value x

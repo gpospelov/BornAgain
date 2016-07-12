@@ -89,7 +89,7 @@ double VariableBinAxis::getBinCenter(size_t index) const
 size_t VariableBinAxis::findClosestIndex(double value) const
 {
     if(m_bin_boundaries.size()<2)
-        throw ClassInitializationException(
+        throw Exceptions::ClassInitializationException(
             "VariableBinAxis::findClosestIndex() -> Error! "
             "VariableBinAxis not  correctly initialized" );
     if( value < getMin()) {
@@ -124,7 +124,7 @@ VariableBinAxis* VariableBinAxis::createClippedAxis(double left, double right) c
 {
 
     if(left >= right)
-        throw LogicErrorException("VariableBinAxis::createClippedAxis() -> Error. "
+        throw Exceptions::LogicErrorException("VariableBinAxis::createClippedAxis() -> Error. "
                                   "'left'' should be smaller than 'right'" );
 
     if(left < getMin()) left = getBin(0).getMidPoint();

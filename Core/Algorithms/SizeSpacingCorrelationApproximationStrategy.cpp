@@ -28,7 +28,7 @@ void SizeSpacingCorrelationApproximationStrategy::init(
 {
     IInterferenceFunctionStrategy::init(form_factor_infos, iff);
     if (!checkVectorSizes()) {
-        throw ClassInitializationException(
+        throw Exceptions::ClassInitializationException(
             "No formfactors for Size-Spacing Correlation Approximation.");
     }
     initMeanRadius();
@@ -163,7 +163,7 @@ SizeSpacingCorrelationApproximationStrategy::getCharacteristicDistribution(doubl
     const InterferenceFunctionRadialParaCrystal *p_iff
         = dynamic_cast<const InterferenceFunctionRadialParaCrystal *>(mP_iff.get());
     if (p_iff == 0) {
-        throw ClassInitializationException("Wrong interference function for SSCA");
+        throw Exceptions::ClassInitializationException("Wrong interference function for SSCA");
     }
     return p_iff->FTPDF(qp);
 }

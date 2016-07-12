@@ -33,7 +33,7 @@ FitStrategyAdjustParameters::FitStrategyAdjustParameters(const FitStrategyAdjust
 //! strategy which fixes/releases fit parameters and then call minimizer
 void FitStrategyAdjustParameters::execute()
 {
-    if( !m_kernel ) throw NullPointerException("FitSuiteStrategyAdjustParameters::execute() -> FitSuite doesn't exists");
+    if( !m_kernel ) throw Exceptions::NullPointerException("FitSuiteStrategyAdjustParameters::execute() -> FitSuite doesn't exists");
     FitSuiteParameters *fitParameters = m_kernel->getFitParameters();
 
     // fixing all parameters at they current values

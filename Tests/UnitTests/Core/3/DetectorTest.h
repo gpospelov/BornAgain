@@ -41,10 +41,10 @@ DetectorTest::~DetectorTest()
 TEST_F(DetectorTest, InitialDetectorState)
 {
     EXPECT_EQ((size_t)0, emptyDetector.getDimension());
-    ASSERT_THROW(emptyDetector.getAxis(0), OutOfBoundsException);
+    ASSERT_THROW(emptyDetector.getAxis(0), Exceptions::OutOfBoundsException);
     OutputData<double>* p_intensity_map(nullptr);
     ASSERT_THROW(emptyDetector.applyDetectorResolution(p_intensity_map),
-            NullPointerException);
+                 Exceptions::NullPointerException);
 }
 
 TEST_F(DetectorTest, DetectorConstruction)

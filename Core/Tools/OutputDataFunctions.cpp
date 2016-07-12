@@ -132,7 +132,7 @@ void OutputDataFunctions::FourierTransformR(
     if (source.getAllocatedSize() != total_complex_size) {
         delete[] n_real_dims;
         delete[] n_complex_dims;
-        throw ClassInitializationException("Inverse Fourier transform requires"
+        throw Exceptions::ClassInitializationException("Inverse Fourier transform requires"
                 " properly allocated map sizes");
     }
     //  initialize temporary arrays
@@ -258,12 +258,12 @@ OutputData<double>* OutputDataFunctions::sliceAccrossOneAxis(
     double fixed_axis_value)
 {
     if (data.getRank() != 2) {
-        throw LogicErrorException("OutputDataFunctions::sliceAccrossOneAxis()"
+        throw Exceptions::LogicErrorException("OutputDataFunctions::sliceAccrossOneAxis()"
                 " -> Error! It was checked only with number of dimensions"
                 " equal 2.");
     }
     if( !data.getAxis(fixed_axis_name) ) {
-        throw LogicErrorException("OutputDataFunctions::sliceAccrossOneAxis()"
+        throw Exceptions::LogicErrorException("OutputDataFunctions::sliceAccrossOneAxis()"
                 " -> Error! No axis with name "+fixed_axis_name);
     }
 
@@ -311,19 +311,19 @@ OutputData<double>* OutputDataFunctions::selectRangeOnOneAxis(
     double axis_value1,  double axis_value2)
 {
     if (data.getRank() != 2) {
-        throw LogicErrorException("OutputDataFunctions::selectRangeOnOneAxis()"
+        throw Exceptions::LogicErrorException("OutputDataFunctions::selectRangeOnOneAxis()"
                 " -> Error! It was checked only with number of dimensions"
                 " equal 2.");
     }
 
     const IAxis *selected_axis = data.getAxis(selected_axis_name);
     if( !selected_axis ) {
-        throw LogicErrorException("OutputDataFunctions::selectRangeOnOneAxis()"
+        throw Exceptions::LogicErrorException("OutputDataFunctions::selectRangeOnOneAxis()"
                 " -> Error! No axis with name "+selected_axis_name);
     }
 
     if(axis_value2 < axis_value1) {
-        throw LogicErrorException("OutputDataFunctions::selectRangeOnOneAxis()"
+        throw Exceptions::LogicErrorException("OutputDataFunctions::selectRangeOnOneAxis()"
                 " -> Error! Axis range xmax<xmin. ");
     }
 

@@ -30,7 +30,7 @@ void FitParameterLinked::addParameter(RealParameterWrapper par)
     if( !par.isNull() ) {
         m_pool_parameters.push_back(par);
     } else {
-        throw LogicErrorException("FitMultiParameter::addParameter() -> Attempt to add null parameter");
+        throw Exceptions::LogicErrorException("FitMultiParameter::addParameter() -> Attempt to add null parameter");
     }
 }
 
@@ -44,7 +44,7 @@ void FitParameterLinked::addMatchedParametersFromPool(const ParameterPool *pool,
     m_pool_parameters.insert(m_pool_parameters.end(), matched_pars.begin(), matched_pars.end());
 
     if( matched_pars.empty() ) {
-        throw LogicErrorException("FitMultiParameter::addMatchedParametersFromPool() -> Error! Failed to add anything from pool using wildcard '"+wildcard_to_use+"'");
+        throw Exceptions::LogicErrorException("FitMultiParameter::addMatchedParametersFromPool() -> Error! Failed to add anything from pool using wildcard '"+wildcard_to_use+"'");
     }
 }
 

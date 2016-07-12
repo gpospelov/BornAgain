@@ -296,11 +296,11 @@ void RectangularDetector::print(std::ostream &ostr) const
 IAxis *RectangularDetector::createAxis(size_t index, size_t n_bins, double min, double max) const
 {
     if (max <= min) {
-        throw LogicErrorException(
+        throw Exceptions::LogicErrorException(
             "RectangularDetector::createAxis() -> Error! max <= min");
     }
     if (n_bins == 0) {
-        throw LogicErrorException(
+        throw Exceptions::LogicErrorException(
             "RectangularDetector::createAxis() -> Error! Number n_bins can't be zero.");
     }    return new FixedBinAxis(getAxisName(index), n_bins, min, max);
 }
@@ -315,7 +315,7 @@ std::string RectangularDetector::getAxisName(size_t index) const
         return BornAgain::V_AXIS_NAME;
         break;
     default:
-        throw LogicErrorException(
+        throw Exceptions::LogicErrorException(
             "RectangularDetector::getAxisName(size_t index) -> Error! index > 1");
     }
 }
@@ -368,7 +368,8 @@ void RectangularDetector::initNormalVector(const kvector_t central_k)
     }
 
     else {
-        throw LogicErrorException("RectangularDetector::init() -> Unknown detector arrangement");
+        throw Exceptions::LogicErrorException(
+            "RectangularDetector::init() -> Unknown detector arrangement");
     }
 }
 

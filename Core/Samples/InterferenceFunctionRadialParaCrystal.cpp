@@ -83,7 +83,7 @@ double InterferenceFunctionRadialParaCrystal::getKappa() const
 double InterferenceFunctionRadialParaCrystal::evaluate(const kvector_t q) const
 {
     if (!mP_pdf.get()) {
-        throw NullPointerException("InterferenceFunctionRadialParaCrystal::"
+        throw Exceptions::NullPointerException("InterferenceFunctionRadialParaCrystal::"
                 "evaluate() -> Error! Probability distribution for "
                 "interference funtion not properly initialized");
     }

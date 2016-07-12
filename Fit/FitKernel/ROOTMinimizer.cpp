@@ -61,7 +61,7 @@ void ROOTMinimizer::setParameters(const FitSuiteParameters& parameters)
         std::ostringstream ostr;
         ostr << "ROOTMinimizer::setParameters() -> Error! Number of variables defined in minimizer (" << getNumberOfVariables() << ") ";
         ostr << "doesn't coincide with number of FitSuite's parameters (" << parameters.size() << ")";
-        throw LogicErrorException(ostr.str());
+        throw Exceptions::LogicErrorException(ostr.str());
     }
 }
 
@@ -80,7 +80,7 @@ void ROOTMinimizer::setParameter(size_t index, const FitParameter *par)
     } else if( !par->hasUpperLimit() && !par->hasLowerLimit() && !par->isFixed() ) {
         success=m_root_minimizer->SetVariable((int)index, par->getName().c_str(), par->getValue(), par->getStep());
     } else {
-        throw DomainErrorException("ROOTMinimizer::setVariable() -> Error!");
+        throw Exceptions::DomainErrorException("ROOTMinimizer::setVariable() -> Error!");
     }
 
     if( !success ) {
@@ -88,7 +88,7 @@ void ROOTMinimizer::setParameter(size_t index, const FitParameter *par)
         ostr << "ROOTMinimizer::setVariable() -> Error! Minimizer returned false while setting the variable." << std::endl;
         ostr << "Probably given index has been already used for another variable name." << std::endl;
         ostr << "Index:" << index << " name '" << par->getName() << "'" << std::endl;
-        throw LogicErrorException(ostr.str());
+        throw Exceptions::LogicErrorException(ostr.str());
     }
 }
 
@@ -186,7 +186,7 @@ void ROOTMinimizer::propagateOptions()
     m_root_minimizer->SetPrintLevel(m_options.getPrintLevel());
 }
 
-size_t ROOTMinimizer::check_index(size_t index) const { return index<getNumberOfVariables() ? index : throw OutOfBoundsException("ROOTMinimizer::getErrorOfVariable() -> Wrong number of the variable"); }
+size_t ROOTMinimizer::check_index(size_t index) const { return index<getNumberOfVariables() ? index : throw Exceptions::OutOfBoundsException("ROOTMinimizer::getErrorOfVariable() -> Wrong number of the variable"); }
 
 
 

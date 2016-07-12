@@ -72,10 +72,10 @@ void OutputDataWriteINTStrategy::writeOutputData(const OutputData<double> &data,
 void OutputDataWriteNumpyTXTStrategy::writeOutputData(const OutputData<double> &data,
                                                       std::ostream &output_stream)
 {
-    if(data.getRank() != 2) {
-        throw LogicErrorException("OutputDataWriteNumpyTXTStrategy::writeOutputData -> Error. "
-                                  "Only 2-dim arrays supported");
-    }
+    if(data.getRank() != 2)
+        throw Exceptions::LogicErrorException(
+            "OutputDataWriteNumpyTXTStrategy::writeOutputData -> Error. "
+            "Only 2-dim arrays supported");
 
     output_stream << "# BornAgain Intensity Data" << std::endl;
     output_stream << "# Simple 2D array suitable for numpy, matlab etc." << std::endl;
@@ -97,7 +97,6 @@ void OutputDataWriteNumpyTXTStrategy::writeOutputData(const OutputData<double> &
 OutputDataWriteTiffStrategy::OutputDataWriteTiffStrategy()
     : m_d(new TiffHandler)
 {
-
 }
 
 OutputDataWriteTiffStrategy::~OutputDataWriteTiffStrategy()

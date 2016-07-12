@@ -122,10 +122,7 @@ public:
 
 void LogExceptionMessage(const std::string& message);
 
-}
-
-using namespace Exceptions;
-
+} // namespace Exceptions;
 
 #ifdef _WIN32
 #ifdef _MSC_VER
@@ -133,7 +130,4 @@ using namespace Exceptions;
 #endif
 #endif
 
-
 #endif // EXCEPTIONS_H
-
-

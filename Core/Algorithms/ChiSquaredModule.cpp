@@ -22,10 +22,10 @@
 //double ChiSquaredModule::calculateChiSquared()
 //{
 //    if( !mp_real_data )
-//        throw NullPointerException("ChiSquaredModule::calculateChiSquared() -> "
+//        throw Exceptions::NullPointerException("ChiSquaredModule::calculateChiSquared() -> "
 //                                   "Error! No real data has been set");
 //    if( !mp_simulation_data )
-//        throw NullPointerException("ChiSquaredModule::calculateChiSquared() -> "
+//        throw Exceptions::NullPointerException("ChiSquaredModule::calculateChiSquared() -> "
 //                                   "Error! No simulated data has been set");
 
 //    if(mp_data_normalizer) {
@@ -99,10 +99,10 @@
 //OutputData<double>* ChiSquaredModule::createChi2DifferenceMap() const
 //{
 //    if( !mp_real_data )
-//        throw NullPointerException("ChiSquaredModule::calculateChiSquared() -> "
+//        throw Exceptions::NullPointerException("ChiSquaredModule::calculateChiSquared() -> "
 //                                   "Error! No real data has been set");
 //    if( !mp_simulation_data )
-//        throw NullPointerException("ChiSquaredModule::calculateChiSquared() -> "
+//        throw Exceptions::NullPointerException("ChiSquaredModule::calculateChiSquared() -> "
 //                                   "Error! No simulated data has been set");
 
 //    OutputData<double > *p_difference = mp_simulation_data->clone();
@@ -115,7 +115,7 @@
 ////    while (it_diff != p_difference->end()) {
 ////        if( (it_sim.getIndex() != it_real.getIndex()) ||
 ////            (it_sim.getIndex() != it_diff.getIndex()) ) {
-////            throw DomainErrorException(
+////            throw Exceptions::DomainErrorException(
 ////                "ChiSquaredModule::calculateChiSquared() -> Iterator inconsistency");
 ////        }
 ////        double value_simu = *it_sim++;
@@ -134,8 +134,9 @@
 ////    }
 
 //    if(mp_masks && mp_masks->getAllocatedSize() != mp_real_data->getAllocatedSize()) {
-//        throw LogicErrorException("ChiSquaredModule::createChi2DifferenceMap() -> Error. "
-//                                  "Size of mask array differs from real data.");
+//        throw Exceptions::LogicErrorException(
+//             "ChiSquaredModule::createChi2DifferenceMap() -> Error. "
+//             "Size of mask array differs from real data.");
 //    }
 
 //    for(size_t index=0; index<mp_real_data->getAllocatedSize(); ++index) {

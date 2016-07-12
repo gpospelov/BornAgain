@@ -114,8 +114,4 @@ FormatErrorException::FormatErrorException(const std::string& message)
     LogExceptionMessage(message);
 }
 
-
-}
-
-
-
+} // namespace Exceptions

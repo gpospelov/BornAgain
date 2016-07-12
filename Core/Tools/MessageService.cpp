@@ -94,7 +94,7 @@ void Logger::SetLevel(const std::string& levelname)
         }
         ++index;
     }
-    throw LogicErrorException(
+    throw Exceptions::LogicErrorException(
         "Logger::SetLevel() -> Error! There is no message level '"+levelname+"'");
 }
 

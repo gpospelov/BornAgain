@@ -50,7 +50,7 @@ protected:
 
 inline ISimulation *ISimulation::clone() const
 {
-    throw NotImplementedException("ISimulation::clone() -> "
+    throw Exceptions::NotImplementedException("ISimulation::clone() -> "
                                   "Error: not implemented exception.");
 }
 

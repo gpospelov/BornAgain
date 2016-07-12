@@ -33,8 +33,8 @@ ISample* LayersWithAbsorptionBuilder::buildSample() const
 {
     const IFormFactor *form_factor = getFormFactor();
     if(!form_factor)
-        throw NullPointerException("LayersWithAbsorptionBuilder::buildSample() -> Error. "
-                                   "Form factor is not initialized.");
+        throw Exceptions::NullPointerException(
+            "LayersWithAbsorptionBuilder::buildSample() -> Error. Form factor is not initialized.");
 
     HomogeneousMaterial mAmbience("Air", 0.0, 0.0);
     HomogeneousMaterial mMiddle("Teflon", 2.900e-6, 6.019e-9);

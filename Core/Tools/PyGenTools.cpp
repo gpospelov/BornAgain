@@ -93,7 +93,7 @@ std::string PyGenTools::getRepresentation(const class IDistribution1D* distribut
                 << PyGenTools::printDouble(d->getSigma()) << ")";
      }
      else {
-         throw RuntimeErrorException(
+         throw Exceptions::RuntimeErrorException(
             "PyGenTools::getRepresentation(const IDistribution1D* distribution) "
             "-> Error. Unknown distribution type");
      }

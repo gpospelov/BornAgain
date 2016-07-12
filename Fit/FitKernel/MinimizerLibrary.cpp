@@ -107,7 +107,7 @@ void Catalogue::addMinimizer(const MinimizerInfo &minimizer)
     if(it==m_minimizers.end()) {
         m_minimizers[minimizer.getType()] = minimizer;
     } else {
-        throw LogicErrorException("Catalogue::addMinimizer() -> Error. Attempt to add twice "
+        throw Exceptions::LogicErrorException("Catalogue::addMinimizer() -> Error. Attempt to add twice "
                                   " minimizer " + minimizer.getType());
     }
 }
@@ -134,7 +134,7 @@ MinimizerLibrary::MinimizerInfo Catalogue::minimizerInfo(const std::string &mini
 {
     auto it = m_minimizers.find(minimizerType);
     if(it == m_minimizers.end()) {
-        throw LogicErrorException("Catalogue::addMinimizer() -> Error. Non existing minimizer "
+        throw Exceptions::LogicErrorException("Catalogue::addMinimizer() -> Error. Non existing minimizer "
                                   + minimizerType);
     }
     return m_minimizers[minimizerType];

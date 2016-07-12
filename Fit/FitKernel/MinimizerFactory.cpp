@@ -104,7 +104,7 @@ IMinimizer *MinimizerFactory::createMinimizer(
             minimizer << "' or algorithm '" << algorithm << "'" << std::endl;
         ostr << "Possible names are:" << std::endl;
         ostr << catalogue;
-        throw LogicErrorException(ostr.str());
+        throw Exceptions::LogicErrorException(ostr.str());
     }
 
     IMinimizer *result(0);
@@ -130,13 +130,13 @@ IMinimizer *MinimizerFactory::createMinimizer(
         result = new ROOTGeneticMinimizer(minimizer, algorithm);
 
     } else
-        throw LogicErrorException("MinimizerFactory::createMinimizer() -> Error! "
-                                  "Wrong minimizer name '"+minimizer+"'" );
+        throw Exceptions::LogicErrorException("MinimizerFactory::createMinimizer() -> Error! "
+                                              "Wrong minimizer name '"+minimizer+"'" );
 
     if( !options.empty() ) {
         try {
             result->setOptionString(options);
-        } catch (NotImplementedException& e) {
+        } catch (Exceptions::NotImplementedException& e) {
             std::cout << "MinimizerFactory::createMinimizer() -> Warning! " <<
                 "Minimizer doesn't have method implemented" << e.what() << std::endl;
         }

@@ -224,13 +224,13 @@ void FitKernel::notifyObservers()
 
 bool FitKernel::check_prerequisites() const
 {
-    if( !m_minimizer ) throw LogicErrorException(
+    if( !m_minimizer ) throw Exceptions::LogicErrorException(
                 "FitSuite::check_prerequisites() -> Error! No minimizer found.");
-    if( !m_fit_objects.getNumberOfFitObjects() ) throw LogicErrorException(
+    if( !m_fit_objects.getNumberOfFitObjects() ) throw Exceptions::LogicErrorException(
                 "FitSuite::check_prerequisites() -> Error! No simulation/data description defined");
-    if( !m_fit_parameters.size() ) throw LogicErrorException(
+    if( !m_fit_parameters.size() ) throw Exceptions::LogicErrorException(
                 "FitSuite::check_prerequisites() -> Error! No fit parameters defined");
-    if( m_fit_objects.getSizeOfDataSet() == 0) throw LogicErrorException(
+    if( m_fit_objects.getSizeOfDataSet() == 0) throw Exceptions::LogicErrorException(
                 "FitSuite::check_prerequisites() -> Error! No elements to fit. "
                 "Looks like whole detector is masked.");
     return true;

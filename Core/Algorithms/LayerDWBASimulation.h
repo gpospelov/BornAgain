@@ -30,7 +30,7 @@ public:
     virtual ~LayerDWBASimulation();
 
     LayerDWBASimulation* clone() const {
-        throw NotImplementedException(
+        throw Exceptions::NotImplementedException(
             "ISimulation::clone() -> Error: not implemented exception."); }
 
     void setSpecularInfo(const LayerSpecularInfo& specular_info) {

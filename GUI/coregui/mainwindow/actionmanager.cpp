@@ -19,7 +19,7 @@
 #include "mainwindow.h"
 #include "mainwindow_constants.h"
 #include "projectmanager.h"
-#include "stringutils.h"
+#include "qstringutils.h"
 #include "UpdateNotifier.h"
 #include <QMenuBar>
 #include <QMenu>
@@ -172,7 +172,7 @@ void ActionManager::aboutToShowRecentProjects()
 
 void ActionManager::aboutToShowSettings()
 {
-    m_settingsMenu->clear();    
+    m_settingsMenu->clear();
     QSettings settings;
 
     settings.beginGroup(Constants::S_UPDATES);
@@ -208,5 +208,3 @@ void ActionManager::setSessionModelViewActive(bool status)
     settings.endGroup();
     m_mainWindow->onSessionModelViewActive(status);
 }
-
-

@@ -21,7 +21,7 @@
 #include "mainwindow_constants.h"
 #include "projectdocument.h"
 #include "projectmanager.h"
-#include "stringutils.h"
+#include "qstringutils.h"
 #include <QGroupBox>
 #include <QLabel>
 #include <QComboBox>

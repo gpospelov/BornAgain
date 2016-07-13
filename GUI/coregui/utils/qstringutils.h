@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/utils/stringutils.h
+//! @file      GUI/coregui/utils/qstringutils.h
 //! @brief     Declares functions from Utils namespace
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -23,12 +23,8 @@
 namespace Utils
 {
 
-
 BA_CORE_API_ QString withTildeHomePath(const QString &path);
-
 
 }
 
-
 #endif
-

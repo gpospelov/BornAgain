@@ -44,4 +44,4 @@ private:
     int m_current_index;
 };
 
-#endif
+#endif // FANCYLABEL_H

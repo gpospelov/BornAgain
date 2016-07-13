@@ -30,4 +30,4 @@ namespace Utils
 
 #endif // NUMPYUTILS_H
 
-#endif // BORNAGAIN_PYTHON
+#endif // NUMPYUTILS_H

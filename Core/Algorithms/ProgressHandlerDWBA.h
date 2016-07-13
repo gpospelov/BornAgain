@@ -37,4 +37,4 @@ private:
     long m_report_every_nth;
 };
 
-#endif
+#endif // PROGRESSHANDLERDWBA_H

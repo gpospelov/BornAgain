@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FORMFACTORFULLSPHERE_H_
-#define FORMFACTORFULLSPHERE_H_
+#ifndef FORMFACTORFULLSPHERE_H
+#define FORMFACTORFULLSPHERE_H
 
 #include "IFormFactorBorn.h"
 
@@ -46,4 +46,4 @@ inline double FormFactorFullSphere::getRadius() const
     return m_radius;
 }
 
-#endif /* FORMFACTORFULLSPHERE_H_ */
+#endif // FORMFACTORFULLSPHERE_H

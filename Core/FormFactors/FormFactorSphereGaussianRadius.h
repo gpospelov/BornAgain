@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FORMFACTORSPHEREGAUSSIANRADIUS_H_
-#define FORMFACTORSPHEREGAUSSIANRADIUS_H_
+#ifndef FORMFACTORSPHEREGAUSSIANRADIUS_H
+#define FORMFACTORSPHEREGAUSSIANRADIUS_H
 #include "MathFunctions.h"
 
 #include "IFormFactor.h"
@@ -51,6 +51,6 @@ private:
     FormFactorFullSphere *p_ff_sphere;
 };
 
-#endif /* FORMFACTORSPHEREGAUSSIANRADIUS_H_ */
+#endif // FORMFACTORSPHEREGAUSSIANRADIUS_H
 
 

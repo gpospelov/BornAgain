@@ -122,4 +122,4 @@ private:
     bool m_block_update;
 };
 
-#endif
+#endif // COLORMAP_H

@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FORMFACTORSPHEREUNIFORMRADIUS_H_
-#define FORMFACTORSPHEREUNIFORMRADIUS_H_
+#ifndef FORMFACTORSPHEREUNIFORMRADIUS_H
+#define FORMFACTORSPHEREUNIFORMRADIUS_H
 
 #include "MathFunctions.h"
 
@@ -49,4 +49,4 @@ private:
     double m_full_width; //!< This is the full width of the radius distribution
 };
 
-#endif /* FORMFACTORSPHEREUNIFORMRADIUS_H_ */
+#endif // FORMFACTORSPHEREUNIFORMRADIUS_H

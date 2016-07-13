@@ -44,4 +44,4 @@ private:
         int m_yImage;
 };
 
-#endif
+#endif // GROUPINFOBOX_H

@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef IDETECTORRESOLUTION_H_
-#define IDETECTORRESOLUTION_H_
+#ifndef IDETECTORRESOLUTION_H
+#define IDETECTORRESOLUTION_H
 
 #include "OutputData.h"
 #include "IParameterized.h"
@@ -40,4 +40,4 @@ public:
     virtual IDetectorResolution *clone() const = 0;
 };
 
-#endif /* IDETECTORRESOLUTION_H_ */
+#endif // IDETECTORRESOLUTION_H

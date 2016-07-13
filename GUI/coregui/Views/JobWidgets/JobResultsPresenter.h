@@ -38,4 +38,4 @@ protected:
 
 };
 
-#endif
+#endif // JOBRESULTSPRESENTER_H

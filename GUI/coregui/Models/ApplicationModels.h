@@ -82,4 +82,4 @@ private:
     JobModel *m_jobModel;
 };
 
-#endif
+#endif // APPLICATIONMODELS_H

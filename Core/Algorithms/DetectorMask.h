@@ -75,5 +75,5 @@ private:
     int m_number_of_masked_channels;
 };
 
-#endif
+#endif // DETECTORMASK_H
 

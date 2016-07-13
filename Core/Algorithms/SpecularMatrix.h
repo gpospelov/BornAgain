@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef SPECULARMATRIX_H_
-#define SPECULARMATRIX_H_
+#ifndef SPECULARMATRIX_H
+#define SPECULARMATRIX_H
 
 #include "Complex.h"
 #include "ISimulation.h"
@@ -39,4 +39,4 @@ public:
     static void execute(const MultiLayer& sample, const kvector_t k, MultiLayerCoeff_t& coeff);
 };
 
-#endif /* SPECULARMATRIX_H_ */
+#endif // SPECULARMATRIX_H

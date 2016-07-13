@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef ILAYOUT_H_
-#define ILAYOUT_H_
+#ifndef ILAYOUT_H
+#define ILAYOUT_H
 
 #include "ICompositeSample.h"
 #include "IParticle.h"
@@ -102,4 +102,4 @@ inline void ILayout::setApproximation(ILayout::EInterferenceApproximation approx
     me_approx = approximation;
 }
 
-#endif /* ILAYOUT_H_ */
+#endif // ILAYOUT_H

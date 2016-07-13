@@ -55,5 +55,5 @@ private:
     JobModel *m_jobModel;
 };
 
-#endif
+#endif // JOBSELECTORACTIONS_H
 

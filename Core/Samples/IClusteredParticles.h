@@ -51,4 +51,4 @@ public:
     virtual void applyRotation(const IRotation&) = delete;
 };
 
-#endif // ICLUSTEREDNANOPARTICLES_H
+#endif // ICLUSTEREDPARTICLES_H

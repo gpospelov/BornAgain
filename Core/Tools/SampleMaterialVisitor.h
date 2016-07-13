@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef SAMPLEMATERIALVISITOR_H_
-#define SAMPLEMATERIALVISITOR_H_
+#ifndef SAMPLEMATERIALVISITOR_H
+#define SAMPLEMATERIALVISITOR_H
 
 #include "ISampleVisitor.h"
 #include "IMaterial.h"
@@ -136,4 +136,4 @@ protected:
 
 
 
-#endif /* SAMPLEMATERIALVISITOR_H_ */
+#endif // SAMPLEMATERIALVISITOR_H

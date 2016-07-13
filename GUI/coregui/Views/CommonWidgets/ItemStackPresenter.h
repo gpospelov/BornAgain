@@ -110,4 +110,4 @@ private:
 };
 
 
-#endif
+#endif // ITEMSTACKPRESENTER_H

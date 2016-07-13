@@ -42,4 +42,4 @@ private:
     QString m_warning_message;
 };
 
-#endif
+#endif // WARNINGSIGNWIDGET_H

@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MAINWINDOWCONSTANTS_H
-#define MAINWINDOWCONSTANTS_H
+#ifndef MAINWINDOW_CONSTANTS_H
+#define MAINWINDOW_CONSTANTS_H
 
 #include <QString>
 
@@ -81,5 +81,5 @@ const QString FitComparisonWidgetName = "Fit Data";
 
 }
 
-#endif
+#endif // MAINWINDOW_CONSTANTS_H
 

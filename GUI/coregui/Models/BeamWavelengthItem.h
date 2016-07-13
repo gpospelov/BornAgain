@@ -28,4 +28,4 @@ public:
     virtual ~BeamWavelengthItem(){}
 };
 
-#endif
+#endif // BEAMWAVELENGTHITEM_H

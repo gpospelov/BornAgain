@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FORMFACTORSPHERELOGNORMALRADIUS_H_
-#define FORMFACTORSPHERELOGNORMALRADIUS_H_
+#ifndef FORMFACTORSPHERELOGNORMALRADIUS_H
+#define FORMFACTORSPHERELOGNORMALRADIUS_H
 #include "MathFunctions.h"
 #include "SafePointerVector.h"
 
@@ -58,6 +58,6 @@ private:
     std::vector<double> m_probabilities;
 };
 
-#endif /* FORMFACTORSPHERELOGNORMALRADIUS_H_ */
+#endif // FORMFACTORSPHERELOGNORMALRADIUS_H
 
 

@@ -44,4 +44,4 @@ private:
     double m_sigma_y;
 };
 
-#endif /* RESOLUTIONFUNCTION2DGAUSSIAN_H */
+#endif // RESOLUTIONFUNCTION2DGAUSSIAN_H

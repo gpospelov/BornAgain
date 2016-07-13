@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef OFFSPECSIMULATION_H_
-#define OFFSPECSIMULATION_H_
+#ifndef OFFSPECSIMULATION_H
+#define OFFSPECSIMULATION_H
 
 #include "Simulation.h"
 #include "Instrument.h"
@@ -122,4 +122,4 @@ private:
     void initialize();
 };
 
-#endif // OFFSPECSIMULATION_H_
+#endif // OFFSPECSIMULATION_H

@@ -217,4 +217,4 @@ protected:
     OutputData<CumulativeValue> m_data;
 };
 
-#endif
+#endif // IHISTOGRAM_H

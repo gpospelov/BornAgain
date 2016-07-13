@@ -126,4 +126,4 @@ inline void ModelMapper::clean_container(U& v, const void *caller) {
 }
 
 
-#endif
+#endif // MODELMAPPER_H

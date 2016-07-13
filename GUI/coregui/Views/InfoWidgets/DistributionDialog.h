@@ -37,4 +37,4 @@ private:
     DistributionEditor *m_editor;
 };
 
-#endif
+#endif // DISTRIBUTIONDIALOG_H

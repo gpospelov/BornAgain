@@ -57,4 +57,4 @@ private:
 
 } // namespace Geometry
 
-#endif
+#endif // ELLIPSE_H

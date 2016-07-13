@@ -37,5 +37,5 @@ private:
     QString m_messageDescription;
 };
 
-#endif
+#endif // GUIMESSAGE_H
 

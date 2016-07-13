@@ -39,4 +39,4 @@ private:
     QTextEdit *m_plainLog;
 };
 
-#endif
+#endif // JOBMESSAGEPANEL_H

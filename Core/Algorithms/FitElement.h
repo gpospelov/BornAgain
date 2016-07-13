@@ -92,4 +92,4 @@ inline void FitElement::setResidual(double value)
     m_residual = value;
 }
 
-#endif
+#endif // FITELEMENT_H

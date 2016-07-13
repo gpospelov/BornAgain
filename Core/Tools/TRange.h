@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef TRANGE_H_
-#define TRANGE_H_
+#ifndef TRANGE_H
+#define TRANGE_H
 
 //! @class TRange
 //! @ingroup tools_internal
@@ -48,6 +48,6 @@ private:
     size_t m_n_samples;
 };
 
-#endif /* TRANGE_H_ */
+#endif // TRANGE_H
 
 

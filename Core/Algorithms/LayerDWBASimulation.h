@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef LAYERDWBASIMULATION_H_
-#define LAYERDWBASIMULATION_H_
+#ifndef LAYERDWBASIMULATION_H
+#define LAYERDWBASIMULATION_H
 
 #include "DWBASimulation.h"
 #include "LayerSpecularInfo.h"
@@ -46,4 +46,4 @@ protected:
     class LayerSpecularInfo* mp_specular_info;
 };
 
-#endif // LAYERDWBASIMULATION_H_
+#endif // LAYERDWBASIMULATION_H

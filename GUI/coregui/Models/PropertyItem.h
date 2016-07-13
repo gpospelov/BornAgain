@@ -26,5 +26,5 @@ public:
     PropertyItem();
 };
 
-#endif
+#endif // PROPERTYITEM_H
 

@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef CHISQUAREDMODULE_H_
-#define CHISQUAREDMODULE_H_
+#ifndef CHISQUAREDMODULE_H
+#define CHISQUAREDMODULE_H
 
 #include "IChiSquaredModule.h"
 
@@ -37,4 +37,4 @@ public:
                                     std::vector<FitElement>::iterator last);
 };
 
-#endif /* CHISQUAREDMODULE_H_ */
+#endif // CHISQUAREDMODULE_H

@@ -54,4 +54,4 @@ private:
     std::string m_output_filename;
 };
 
-#endif
+#endif // PYSUITETEST_H

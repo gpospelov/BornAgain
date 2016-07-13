@@ -53,4 +53,4 @@ inline Qt::DropActions ParameterTuningModel::supportedDropActions() const
     return Qt::IgnoreAction;
 }
 
-#endif
+#endif // PARAMETERTUNINGMODEL_H

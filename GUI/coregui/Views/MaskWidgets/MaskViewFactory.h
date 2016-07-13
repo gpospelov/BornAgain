@@ -33,4 +33,4 @@ public:
                                      ISceneAdaptor *adaptor = 0);
 };
 
-#endif
+#endif // MASKVIEWFACTORY_H

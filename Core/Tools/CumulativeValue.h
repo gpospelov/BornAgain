@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef CUMULATIVE_VALUE_H
-#define CUMULATIVE_VALUE_H
+#ifndef CUMULATIVEVALUE_H
+#define CUMULATIVEVALUE_H
 
 #include "WinDllMacros.h"
 
@@ -110,4 +110,4 @@ inline bool operator>(const CumulativeValue& lhs, const CumulativeValue& rhs)
     return rhs<lhs;
 }
 
-#endif
+#endif // CUMULATIVEVALUE_H

@@ -49,4 +49,4 @@ private:
     QMap<QString, QFont> m_fonts;
 };
 
-#endif
+#endif // COLORMAPCANVASEVENT_H

@@ -56,5 +56,5 @@ private:
 };
 
 
-#endif
+#endif // MASKRESULTSPRESENTER_H
 

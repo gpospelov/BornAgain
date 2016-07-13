@@ -58,4 +58,4 @@ private:
     int execute_subtests();
 };
 
-#endif
+#endif // FUNCTIONALTESTSUITE_H

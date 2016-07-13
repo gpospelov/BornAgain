@@ -73,4 +73,4 @@ private:
     JobModel *m_jobModel;
 };
 
-#endif
+#endif // JOBQUEUEDATA_H

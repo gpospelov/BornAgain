@@ -62,4 +62,4 @@ protected:
 };
 
 
-#endif
+#endif // COMPONENTEDITOR_H

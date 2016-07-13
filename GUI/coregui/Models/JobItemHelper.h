@@ -79,5 +79,5 @@ public:
 };
 
 
-#endif
+#endif // JOBITEMHELPER_H
 

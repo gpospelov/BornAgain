@@ -56,4 +56,4 @@ private:
     ApplicationModels *m_applicationModels;
 };
 
-#endif
+#endif // SIMULATIONDATASELECTORWIDGET_H

@@ -63,4 +63,4 @@ private:
 
 Q_DECLARE_METATYPE(AngleProperty)
 
-#endif
+#endif // ANGLEPROPERTY_H

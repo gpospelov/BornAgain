@@ -67,4 +67,4 @@ private:
     NodeEditorPort *m_port2;
 };
 
-#endif
+#endif // NODEEDITORCONNECTION_H

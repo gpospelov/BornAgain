@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DETECTOR_ITEMS_H
-#define DETECTOR_ITEMS_H
+#ifndef DETECTORITEMS_H
+#define DETECTORITEMS_H
 
 #include "SessionItem.h"
 #include "SphericalDetectorItem.h"
@@ -35,4 +35,4 @@ public:
     MaskContainerItem *getMaskContainerItem() const;
 };
 
-#endif
+#endif // DETECTORITEMS_H

@@ -50,5 +50,5 @@ private:
     QFont m_font;
 };
 
-#endif
+#endif // STATUSLABEL_H
 

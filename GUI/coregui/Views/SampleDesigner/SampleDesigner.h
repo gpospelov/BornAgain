@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#ifndef SAMPLEEDITOR_H
-#define SAMPLEEDITOR_H
+#ifndef SAMPLEDESIGNER_H
+#define SAMPLEDESIGNER_H
 
 #include <QObject>
 #include <QStackedWidget>
@@ -71,4 +71,4 @@ private:
 
 
 
-#endif // SAMPLEEDITOR_H
+#endif // SAMPLEDESIGNER_H

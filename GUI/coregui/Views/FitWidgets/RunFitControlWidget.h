@@ -75,4 +75,4 @@ private:
     JobMessagePanel *m_jobMessagePanel;
 };
 
-#endif
+#endif // RUNFITCONTROLWIDGET_H

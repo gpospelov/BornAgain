@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef SIMULATION_H_
-#define SIMULATION_H_
+#ifndef SIMULATION_H
+#define SIMULATION_H
 
 #include "ISample.h"
 #include "ISampleBuilder.h"
@@ -144,4 +144,4 @@ private:
     void imposeConsistencyOfBatchNumbers(int& n_batches, int& current_batch);
 };
 
-#endif // SIMULATION_H_
+#endif // SIMULATION_H

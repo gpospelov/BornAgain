@@ -52,4 +52,4 @@ private:
     RealDataModel *m_realDataModel;
 };
 
-#endif
+#endif // IMPORTDATAVIEW_H

@@ -36,5 +36,5 @@ public:
 };
 
 
-#endif
+#endif // PARTICLECOMPOSITIONVIEW_H
 

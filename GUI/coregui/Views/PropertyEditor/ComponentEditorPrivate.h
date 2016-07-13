@@ -80,4 +80,4 @@ public:
     SessionItem *m_topItem;
 };
 
-#endif
+#endif // COMPONENTEDITORPRIVATE_H

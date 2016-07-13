@@ -51,8 +51,8 @@
 //
 
 
-#ifndef SPACER_WIDGET_H
-#define SPACER_WIDGET_H
+#ifndef SPACER_WIDGET_P_H
+#define SPACER_WIDGET_P_H
 
 #include "shared_global_p.h"
 
@@ -116,4 +116,4 @@ private:
 
 QT_END_NAMESPACE
 
-#endif // SPACER_WIDGET_H
+#endif // SPACER_WIDGET_P_H

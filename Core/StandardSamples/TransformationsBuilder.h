@@ -30,4 +30,4 @@ public:
 };
 
 
-#endif // ROTATEDPYRAMIDSBUILDER_H
+#endif // TRANSFORMATIONSBUILDER_H

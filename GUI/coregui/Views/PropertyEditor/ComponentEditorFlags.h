@@ -42,4 +42,4 @@ public:
 Q_DECLARE_OPERATORS_FOR_FLAGS(ComponentEditorFlags::PresentationType)
 
 
-#endif
+#endif // COMPONENTEDITORFLAGS_H

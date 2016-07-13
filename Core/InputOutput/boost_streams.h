@@ -33,5 +33,5 @@ GCC_DIAG_OFF(unused-parameter)
 #endif
 GCC_DIAG_ON(unused-parameter)
 
-#endif
+#endif // BOOST_STREAMS_H
 

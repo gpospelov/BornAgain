@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#ifndef INSTRUMENT_EDITOR_WIDGET_H
-#define INSTRUMENT_EDITOR_WIDGET_H
+#ifndef INSTRUMENTEDITORWIDGET_H
+#define INSTRUMENTEDITORWIDGET_H
 
 
 #include "WinDllMacros.h"
@@ -60,4 +60,4 @@ private:
     InstrumentComponentsWidget *m_instrumentComponents;
 };
 
-#endif
+#endif // INSTRUMENTEDITORWIDGET_H

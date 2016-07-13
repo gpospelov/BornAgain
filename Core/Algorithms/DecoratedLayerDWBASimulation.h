@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DECORATEDLAYERDWBASIMULATION_H_
-#define DECORATEDLAYERDWBASIMULATION_H_
+#ifndef DECORATEDLAYERDWBASIMULATION_H
+#define DECORATEDLAYERDWBASIMULATION_H
 
 #include "LayerDWBASimulation.h"
 #include "IInterferenceFunctionStrategy.h"
@@ -48,4 +48,4 @@ private:
 
 };
 
-#endif /* DECORATEDLAYERDWBASIMULATION_H_ */
+#endif // DECORATEDLAYERDWBASIMULATION_H

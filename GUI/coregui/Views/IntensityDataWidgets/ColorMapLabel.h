@@ -55,5 +55,5 @@ private:
     QList<ColorMap *> m_colorMaps;
 };
 
-#endif
+#endif // COLORMAPLABEL_H
 

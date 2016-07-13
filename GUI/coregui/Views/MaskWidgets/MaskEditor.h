@@ -63,4 +63,4 @@ private:
 };
 
 
-#endif
+#endif // MASKEDITOR_H

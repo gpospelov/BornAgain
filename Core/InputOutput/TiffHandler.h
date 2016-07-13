@@ -57,5 +57,5 @@ private:
 
 #endif // BORNAGAIN_TIFF_SUPPORT
 
-#endif
+#endif // TIFFHANDLER_H
 

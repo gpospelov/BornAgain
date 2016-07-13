@@ -68,4 +68,4 @@ private:
     EOnErrorBehavior m_on_error_behavior;
 };
 
-#endif
+#endif // SESSIONMODELASSISTANT_H

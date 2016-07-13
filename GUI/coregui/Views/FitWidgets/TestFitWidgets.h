@@ -45,4 +45,4 @@ private:
     JobItem *m_jobItem;
 };
 
-#endif
+#endif // TESTFITWIDGETS_H

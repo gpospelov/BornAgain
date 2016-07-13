@@ -50,4 +50,4 @@ private:
     std::string m_ref_filename;
     };
 
-#endif
+#endif // CORETEST_H

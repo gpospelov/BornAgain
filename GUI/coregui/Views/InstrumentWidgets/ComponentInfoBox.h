@@ -51,4 +51,4 @@ private:
     QString m_title;
 };
 
-#endif
+#endif // COMPONENTINFOBOX_H

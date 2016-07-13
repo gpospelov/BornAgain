@@ -37,4 +37,4 @@ public:
     std::unique_ptr<IMaterial> createMaterial() const;
 };
 
-#endif
+#endif // MATERIALITEM_H

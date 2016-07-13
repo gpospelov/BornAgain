@@ -71,4 +71,4 @@ private:
     WarningSignWidget *m_warningSign;
 };
 
-#endif
+#endif // PYSAMPLEWIDGET_H

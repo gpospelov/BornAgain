@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef IFORMFACTORBORN_H_
-#define IFORMFACTORBORN_H_
+#ifndef IFORMFACTORBORN_H
+#define IFORMFACTORBORN_H
 
 #include "IFormFactor.h"
 
@@ -64,4 +64,4 @@ public:
 };
 #endif
 
-#endif /* IFORMFACTORBORN_H_ */
+#endif // IFORMFACTORBORN_H

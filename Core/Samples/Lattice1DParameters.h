@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef LATTICE1DPARAMETERS_H_
-#define LATTICE1DPARAMETERS_H_
+#ifndef LATTICE1DPARAMETERS_H
+#define LATTICE1DPARAMETERS_H
 
 #include "IParameterized.h"
 
@@ -31,4 +31,4 @@ public:
     double m_xi;
 };
 
-#endif /* LATTICE1DPARAMETERS_H_ */
+#endif // LATTICE1DPARAMETERS_H

@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef IINTERFERENCEFUNCTIONSTRATEGY_H_
-#define IINTERFERENCEFUNCTIONSTRATEGY_H_
+#ifndef IINTERFERENCEFUNCTIONSTRATEGY_H
+#define IINTERFERENCEFUNCTIONSTRATEGY_H
 
 #include "IFormFactor.h"
 #include "IInterferenceFunction.h"
@@ -118,4 +118,4 @@ inline cvector_t IInterferenceFunctionStrategy::getQ(const cvector_t k_i,
     return k_i - k_f_bin.getMidPoint();
 }
 
-#endif /* IINTERFERENCEFUNCTIONSTRATEGY_H_ */
+#endif // IINTERFERENCEFUNCTIONSTRATEGY_H

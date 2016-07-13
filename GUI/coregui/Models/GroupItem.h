@@ -31,5 +31,5 @@ public:
     SessionItem *currentItem();
 };
 
-#endif
+#endif // GROUPITEM_H
 

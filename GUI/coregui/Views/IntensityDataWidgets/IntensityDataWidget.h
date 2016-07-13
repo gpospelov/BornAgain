@@ -54,4 +54,4 @@ private:
     QAction *m_savePlotAction;
 };
 
-#endif
+#endif // INTENSITYDATAWIDGET_H

@@ -21,4 +21,4 @@ public:
     void printCatalogue(std::ostream &ostr);
 };
 
-#endif
+#endif // STANDARDFITSFACTORY_H

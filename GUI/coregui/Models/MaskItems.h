@@ -115,4 +115,4 @@ public:
 };
 
 
-#endif
+#endif // MASKITEMS_H

@@ -100,4 +100,4 @@ private:
     OverlayLabelController *m_infoLabel;
 };
 
-#endif
+#endif // FITPARAMETERWIDGET_H

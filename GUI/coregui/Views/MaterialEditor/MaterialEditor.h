@@ -67,5 +67,5 @@ private:
 };
 
 
-#endif
+#endif // MATERIALEDITOR_H
 

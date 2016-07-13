@@ -70,4 +70,4 @@ private:
     AttLimits m_limits;
 };
 
-#endif // REALPARAMETERPROXY_H
+#endif // REALPARAMETERWRAPPER_H

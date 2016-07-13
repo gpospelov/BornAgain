@@ -28,4 +28,4 @@ public:
     virtual ~MaskModel() {}
 };
 
-#endif
+#endif // MASKMODEL_H

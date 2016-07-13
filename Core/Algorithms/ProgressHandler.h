@@ -62,4 +62,4 @@ private:
 typedef std::shared_ptr<class ProgressHandler > ProgressHandler_t;
 
 
-#endif
+#endif // PROGRESSHANDLER_H

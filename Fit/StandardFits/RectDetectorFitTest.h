@@ -40,4 +40,4 @@ protected:
 
 };
 
-#endif
+#endif // RECTDETECTORFITTEST_H

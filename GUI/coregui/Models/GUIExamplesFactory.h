@@ -40,5 +40,5 @@ private:
 };
 
 
-#endif
+#endif // GUIEXAMPLESFACTORY_H
 

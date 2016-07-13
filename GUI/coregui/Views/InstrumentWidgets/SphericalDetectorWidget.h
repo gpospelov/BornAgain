@@ -48,4 +48,4 @@ private:
     QGridLayout *m_gridLayout;
 };
 
-#endif
+#endif // SPHERICALDETECTORWIDGET_H

@@ -42,4 +42,4 @@ public:
     double m_threshold;
 };
 
-#endif
+#endif // FUNCTIONALTESTINFO_H

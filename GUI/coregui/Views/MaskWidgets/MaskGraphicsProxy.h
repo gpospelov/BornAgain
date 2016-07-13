@@ -55,4 +55,4 @@ private:
     bool m_send_signals_to_colormap;
 };
 
-#endif
+#endif // MASKGRAPHICSPROXY_H

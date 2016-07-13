@@ -90,4 +90,4 @@ private:
     bool m_isReadOnly;
 };
 
-#endif //SAMPLETUNINGDELEGATE_H
+#endif // PARAMETERTUNINGDELEGATE_H

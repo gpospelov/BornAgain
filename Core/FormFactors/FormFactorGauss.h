@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FORMFACTORGAUSS_H_
-#define FORMFACTORGAUSS_H_
+#ifndef FORMFACTORGAUSS_H
+#define FORMFACTORGAUSS_H
 
 #include "IFormFactorBorn.h"
 
@@ -61,6 +61,6 @@ inline double FormFactorGauss::getRadius() const
     return m_width;
 }
 
-#endif /* FORMFACTORGAUSS_H_ */
+#endif // FORMFACTORGAUSS_H
 
 

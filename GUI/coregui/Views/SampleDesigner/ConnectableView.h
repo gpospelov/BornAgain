@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#ifndef ISAMPLEVIEW_H
-#define ISAMPLEVIEW_H
+#ifndef CONNECTABLEVIEW_H
+#define CONNECTABLEVIEW_H
 
 #include "WinDllMacros.h"
 #include "IView.h"
@@ -91,4 +91,4 @@ private:
 
 
 
-#endif //  ISAMPLEVIEW_H
+#endif // CONNECTABLEVIEW_H

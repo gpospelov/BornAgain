@@ -55,4 +55,4 @@ protected:
 
 } // namespace Geometry
 
-#endif
+#endif // ISHAPE2D_H

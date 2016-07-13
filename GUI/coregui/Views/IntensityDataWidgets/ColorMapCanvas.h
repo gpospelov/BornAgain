@@ -57,5 +57,5 @@ private:
     ColorMapLabel *m_statusLabel;
 };
 
-#endif
+#endif // COLORMAPCANVAS_H
 

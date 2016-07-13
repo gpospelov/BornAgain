@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#ifndef TECTCOMPONENTVIEW_H
-#define TECTCOMPONENTVIEW_H
+#ifndef TESTCOMPONENTVIEW_H
+#define TESTCOMPONENTVIEW_H
 
 #include <QWidget>
 
@@ -47,4 +47,4 @@ private:
     ComponentEditor *m_editor3;
 };
 
-#endif
+#endif // TESTCOMPONENTVIEW_H

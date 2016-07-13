@@ -17,8 +17,8 @@
 //
 // ************************************************************************** //
 
-#ifndef GEOMETRY_BASICVECTOR3D_H
-#define GEOMETRY_BASICVECTOR3D_H
+#ifndef BASICVECTOR3D_H
+#define BASICVECTOR3D_H
 
 static const double PI2 = 6.28318530717958647692528676655900577;
 #include "WinDllMacros.h"
@@ -321,4 +321,4 @@ template<> BA_CORE_API_ BasicVector3D<std::complex<double> > BasicVector3D<doubl
 
 }  // namespace Geometry
 
-#endif /* GEOMETRY_BASICVECTOR3D_H */
+#endif // BASICVECTOR3D_H

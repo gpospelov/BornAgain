@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MATRIXSPECULARINFOMAP_H_
-#define MATRIXSPECULARINFOMAP_H_
+#ifndef MATRIXSPECULARINFOMAP_H
+#define MATRIXSPECULARINFOMAP_H
 
 #include "ISpecularInfoMap.h"
 #include "MatrixRTCoefficients.h"
@@ -51,4 +51,4 @@ private:
 };
 
 
-#endif /* MATRIXSPECULARINFOMAP_H_ */
+#endif // MATRIXSPECULARINFOMAP_H

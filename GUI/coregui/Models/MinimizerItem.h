@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MINUITMINIMIZERITEM_H
-#define MINUITMINIMIZERITEM_H
+#ifndef MINIMIZERITEM_H
+#define MINIMIZERITEM_H
 
 #include "SessionItem.h"
 #include <memory>
@@ -76,5 +76,5 @@ public:
     virtual std::unique_ptr<IMinimizer> createMinimizer() const;
 };
 
-#endif
+#endif // MINIMIZERITEM_H
 

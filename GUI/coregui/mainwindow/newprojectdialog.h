@@ -67,4 +67,4 @@ private:
     bool m_valid_projectPath;
 };
 
-#endif
+#endif // NEWPROJECTDIALOG_H

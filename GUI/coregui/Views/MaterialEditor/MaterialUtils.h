@@ -38,4 +38,4 @@ BA_CORE_API_ std::unique_ptr<IMaterial> createDomainMaterial(
 }
 
 
-#endif
+#endif // MATERIALUTILS_H

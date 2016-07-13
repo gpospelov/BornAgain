@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef ISELECTIONRULE_H_
-#define ISELECTIONRULE_H_
+#ifndef ISELECTIONRULE_H
+#define ISELECTIONRULE_H
 
 #include "BasicVector3D.h"
 
@@ -67,6 +67,6 @@ inline bool SimpleSelectionRule::coordinateSelected(
     return (m_a*coordinate[0]+m_b*coordinate[1]+m_c*coordinate[2])%m_mod == 0;
 }
 
-#endif /* ISELECTIONRULE_H_ */
+#endif // ISELECTIONRULE_H
 
 

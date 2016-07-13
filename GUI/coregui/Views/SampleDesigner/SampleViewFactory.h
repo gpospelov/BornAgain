@@ -36,4 +36,4 @@ private:
 };
 
 
-#endif
+#endif // SAMPLEVIEWFACTORY_H

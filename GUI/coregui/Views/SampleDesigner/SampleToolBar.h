@@ -60,4 +60,4 @@ private:
     QAction *m_zoomOutAction;
 };
 
-#endif
+#endif // SAMPLETOOLBAR_H

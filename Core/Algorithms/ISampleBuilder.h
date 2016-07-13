@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef ISAMPLEBUILDER_H_
-#define ISAMPLEBUILDER_H_
+#ifndef ISAMPLEBUILDER_H
+#define ISAMPLEBUILDER_H
 
 #include "IParameterized.h"
 #include "FTDistributions.h"
@@ -42,4 +42,4 @@ public:
         return dynamic_cast<const IFTDistribution2D*>(m_subtest_item); }
 };
 
-#endif // ISAMPLEBUILDER_H_
+#endif // ISAMPLEBUILDER_H

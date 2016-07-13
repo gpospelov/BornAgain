@@ -49,4 +49,4 @@ private:
 
 
 
-#endif
+#endif // PARTICLEVIEW_H

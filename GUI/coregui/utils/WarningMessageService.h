@@ -57,4 +57,4 @@ private:
     container_t m_messageContainer;
 };
 
-#endif
+#endif // WARNINGMESSAGESERVICE_H

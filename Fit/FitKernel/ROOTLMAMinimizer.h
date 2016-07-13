@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef ROOTMULTIFITMINIMIZER_H
-#define ROOTMULTIFITMINIMIZER_H
+#ifndef ROOTLMAMINIMIZER_H
+#define ROOTLMAMINIMIZER_H
 
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
@@ -40,4 +40,4 @@ protected:
     BA_ROOT::Math::GSLNLSMinimizer *m_lma_minimizer;
 };
 
-#endif // ROOTMULTIFITMINIMIZER_H
+#endif // ROOTLMAMINIMIZER_H

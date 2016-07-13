@@ -36,4 +36,4 @@ public:
     void addStyledExpand();
 };
 
-#endif
+#endif // STYLEDTOOLBAR_H

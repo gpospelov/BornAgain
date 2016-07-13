@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FORMFACTORDECORATORMULTIPOSITIONFACTOR_H_
-#define FORMFACTORDECORATORMULTIPOSITIONFACTOR_H_
+#ifndef FORMFACTORDECORATORMULTIPOSITIONFACTOR_H
+#define FORMFACTORDECORATORMULTIPOSITIONFACTOR_H
 
 #include "IFormFactorDecorator.h"
 
@@ -47,4 +47,4 @@ private:
     std::vector<kvector_t> m_positions;
 };
 
-#endif /* FORMFACTORDECORATORMULTIPOSITIONFACTOR_H_ */
+#endif // FORMFACTORDECORATORMULTIPOSITIONFACTOR_H

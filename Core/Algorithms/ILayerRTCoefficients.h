@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef ILAYERRTCOEFFICIENTS_H_
-#define ILAYERRTCOEFFICIENTS_H_
+#ifndef ILAYERRTCOEFFICIENTS_H
+#define ILAYERRTCOEFFICIENTS_H
 
 #include "Complex.h"
 #include "EigenCore.h"
@@ -62,4 +62,4 @@ public:
 };
 
 
-#endif /* ILAYERRTCOEFFICIENTS_H_ */
+#endif // ILAYERRTCOEFFICIENTS_H

@@ -41,4 +41,4 @@ private:
 //    ComponentEditor *m_boxEditor;
 };
 
-#endif
+#endif // SIMULATIONOPTIONSWIDGET_H

@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef IFORMFACTORDECORATOR_H_
-#define IFORMFACTORDECORATOR_H_
+#ifndef IFORMFACTORDECORATOR_H
+#define IFORMFACTORDECORATOR_H
 
 #include "IFormFactor.h"
 
@@ -70,4 +70,4 @@ inline double IFormFactorDecorator::getRadius() const
     return 0.0;
 }
 
-#endif /* IFORMFACTORDECORATOR_H_ */
+#endif // IFORMFACTORDECORATOR_H

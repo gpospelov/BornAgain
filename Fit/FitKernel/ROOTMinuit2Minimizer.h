@@ -39,4 +39,4 @@ protected:
 };
 
 
-#endif
+#endif // ROOTMINUIT2MINIMIZER_H

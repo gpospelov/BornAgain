@@ -60,4 +60,4 @@ private:
     JobModel *m_jobModel;
 };
 
-#endif
+#endif // JOBSELECTORWIDGET_H

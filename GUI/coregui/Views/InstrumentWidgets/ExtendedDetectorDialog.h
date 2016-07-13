@@ -48,4 +48,4 @@ private:
     DetectorMaskDelegate *m_detectorMaskDelegate;
 };
 
-#endif
+#endif // EXTENDEDDETECTORDIALOG_H

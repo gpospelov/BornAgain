@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef THREADINFO_H_
-#define THREADINFO_H_
+#ifndef THREADINFO_H
+#define THREADINFO_H
 
 #include "Exceptions.h"
 
@@ -40,4 +40,4 @@ inline ThreadInfo::ThreadInfo()
 {
 }
 
-#endif /* THREADINFO_H_ */
+#endif // THREADINFO_H

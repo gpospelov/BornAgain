@@ -53,4 +53,4 @@ private:
     QAction *m_removeMaterialAction;
 };
 
-#endif
+#endif // MATERIALEDITORTOOLBAR_H

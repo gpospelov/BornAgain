@@ -77,4 +77,4 @@ BA_CORE_API_ QString translateParameterNameToGUI(class SessionItem *item,
                                                  const class QString &par_name);
 }
 
-#endif
+#endif // TRANSFORMFROMDOMAIN_H

@@ -46,4 +46,4 @@ private:
     DetectorItem *m_detectorItem;
 };
 
-#endif
+#endif // INSTRUMENTCOMPONENTSWIDGET_H

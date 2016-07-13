@@ -49,4 +49,4 @@ public:
                                            const QString &link);
 };
 
-#endif
+#endif // FITPARAMETERHELPER_H

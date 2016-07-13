@@ -41,4 +41,4 @@ public:
 };
 
 
-#endif
+#endif // LAYERROUGHNESSITEMS_H

@@ -91,4 +91,4 @@ private:
 
 };
 
-#endif
+#endif // JOBVIEWDOCKS_H

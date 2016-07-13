@@ -66,4 +66,4 @@ private:
     int m_simulation_duration;
 };
 
-#endif
+#endif // JOBWORKER_H

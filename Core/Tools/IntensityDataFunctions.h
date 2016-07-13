@@ -48,4 +48,4 @@ public:
 
 };
 
-#endif // INTENSITYDATAHELPER_H
+#endif // INTENSITYDATAFUNCTIONS_H

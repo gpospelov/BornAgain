@@ -51,4 +51,4 @@ private:
     QMap<QString, QColor> m_status_to_color;
 };
 
-#endif
+#endif // JOBLISTVIEWDELEGATE_H

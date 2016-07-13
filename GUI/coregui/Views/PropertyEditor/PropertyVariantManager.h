@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#ifndef OBJECTVARIANTMANAGER_H
-#define OBJECTVARIANTMANAGER_H
+#ifndef PROPERTYVARIANTMANAGER_H
+#define PROPERTYVARIANTMANAGER_H
 
 //! collection of classes extending QtPropertyBrowser functionality
 
@@ -63,4 +63,4 @@ private:
     QMap<const QtProperty *, ComboProperty> m_theComboValues;
 };
 
-#endif // OBJECTVARIANTMANAGER_H
+#endif // PROPERTYVARIANTMANAGER_H

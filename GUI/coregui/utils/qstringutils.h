@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#ifndef STRINGUTILS_H
-#define STRINGUTILS_H
+#ifndef QSTRINGUTILS_H
+#define QSTRINGUTILS_H
 
 #include "WinDllMacros.h"
 #include <QString>
@@ -27,4 +27,4 @@ BA_CORE_API_ QString withTildeHomePath(const QString &path);
 
 }
 
-#endif
+#endif // QSTRINGUTILS_H

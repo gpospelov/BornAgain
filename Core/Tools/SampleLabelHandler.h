@@ -111,4 +111,4 @@ private:
     rotations_t m_RotationsLabel;
 };
 
-#endif // LABELSAMPLE_H
+#endif // SAMPLELABELHANDLER_H

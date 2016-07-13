@@ -94,4 +94,4 @@ private:
 
 } // MinimizerLibrary namespace
 
-#endif
+#endif // MINIMIZERLIBRARY_H

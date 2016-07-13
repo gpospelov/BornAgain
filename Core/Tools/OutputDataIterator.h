@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef OUTPUTDATAITERATOR_H_
-#define OUTPUTDATAITERATOR_H_
+#ifndef OUTPUTDATAITERATOR_H
+#define OUTPUTDATAITERATOR_H
 
 #include "Mask.h"
 
@@ -257,4 +257,4 @@ template<class TValue, class TContainer>
     std::swap(this->mp_mask, other.mp_mask);
 }
 
-#endif /* OUTPUTDATAITERATOR_H_ */
+#endif // OUTPUTDATAITERATOR_H

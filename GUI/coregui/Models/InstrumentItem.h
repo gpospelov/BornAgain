@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#ifndef INSTRUMENT_ITEM_H
-#define INSTRUMENT_ITEM_H
+#ifndef INSTRUMENTITEM_H
+#define INSTRUMENTITEM_H
 
 #include "SessionItem.h"
 
@@ -32,4 +32,4 @@ public:
     DetectorItem *getDetectorItem() const;
 };
 
-#endif
+#endif // INSTRUMENTITEM_H

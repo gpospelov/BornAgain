@@ -116,5 +116,5 @@ private:
 };
 
 
-#endif
+#endif // DESIGNERSCENE_H
 

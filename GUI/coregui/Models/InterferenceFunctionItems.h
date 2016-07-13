@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#ifndef PARACRYSTALITEMS_H
-#define PARACRYSTALITEMS_H
+#ifndef INTERFERENCEFUNCTIONITEMS_H
+#define INTERFERENCEFUNCTIONITEMS_H
 
 #include "SessionGraphicsItem.h"
 
@@ -73,4 +73,4 @@ public:
     virtual ~InterferenceFunction2DLatticeItem(){}
 };
 
-#endif
+#endif // INTERFERENCEFUNCTIONITEMS_H

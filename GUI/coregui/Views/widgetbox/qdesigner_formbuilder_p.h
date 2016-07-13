@@ -50,8 +50,8 @@
 // We mean it.
 //
 
-#ifndef QDESIGNER_FORMBUILDER_H
-#define QDESIGNER_FORMBUILDER_H
+#ifndef QDESIGNER_FORMBUILDER_P_H
+#define QDESIGNER_FORMBUILDER_P_H
 
 #include "shared_global_p.h"
 #include "deviceprofile_p.h"
@@ -173,4 +173,4 @@ protected:
 
 QT_END_NAMESPACE
 
-#endif // QDESIGNER_FORMBUILDER_H
+#endif // QDESIGNER_FORMBUILDER_P_H

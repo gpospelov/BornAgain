@@ -50,4 +50,4 @@ private:
     QGroupBox *m_box;
 };
 
-#endif
+#endif // DISTRIBUTIONEDITOR_H

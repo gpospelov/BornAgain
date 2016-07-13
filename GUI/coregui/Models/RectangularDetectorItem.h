@@ -56,4 +56,4 @@ private:
     bool m_is_constructed;
 };
 
-#endif
+#endif // RECTANGULARDETECTORITEM_H

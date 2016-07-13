@@ -48,4 +48,4 @@ private slots:
 
 };
 
-#endif
+#endif // SESSIONMODELDELEGATE_H

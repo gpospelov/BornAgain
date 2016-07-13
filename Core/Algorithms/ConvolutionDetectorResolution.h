@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef CONVOLUTIONDETECTORRESOLUTION_H_
-#define CONVOLUTIONDETECTORRESOLUTION_H_
+#ifndef CONVOLUTIONDETECTORRESOLUTION_H
+#define CONVOLUTIONDETECTORRESOLUTION_H
 
 #include "IDetectorResolution.h"
 #include "IResolutionFunction2D.h"
@@ -73,4 +73,4 @@ inline const IResolutionFunction2D *ConvolutionDetectorResolution::getResolution
     return mp_res_function_2d;
 }
 
-#endif /* CONVOLUTIONDETECTORRESOLUTION_H_ */
+#endif // CONVOLUTIONDETECTORRESOLUTION_H

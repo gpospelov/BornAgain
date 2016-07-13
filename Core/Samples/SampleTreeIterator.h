@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef ISAMPLETREEITERATOR_H
-#define ISAMPLETREEITERATOR_H
+#ifndef SAMPLETREEITERATOR_H
+#define SAMPLETREEITERATOR_H
 
 #include "ISample.h"
 #include "ICompositeSample.h"
@@ -144,4 +144,4 @@ inline size_t SampleTreeIterator<Strategy>::getLevel() const
     return m_memento_itor.size();
 }
 
-#endif // ISAMPLETREEITERATOR_H
+#endif // SAMPLETREEITERATOR_H

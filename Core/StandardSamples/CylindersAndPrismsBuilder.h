@@ -40,4 +40,4 @@ private:
     double m_cylinder_weight;
 };
 
-#endif
+#endif // CYLINDERSANDPRISMSBUILDER_H

@@ -65,4 +65,4 @@ private:
     SessionModel *m_model;
 };
 
-#endif
+#endif // ITEMSELECTORWIDGET_H

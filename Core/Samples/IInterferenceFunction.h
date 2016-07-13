@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef IINTERFERENCEFUNCTION_H_
-#define IINTERFERENCEFUNCTION_H_
+#ifndef IINTERFERENCEFUNCTION_H
+#define IINTERFERENCEFUNCTION_H
 
 #include "Vectors3D.h"
 #include "ISample.h"
@@ -45,4 +45,4 @@ public:
     virtual double getParticleDensity() const { return 0.0; }
 };
 
-#endif /* IINTERFERENCEFUNCTION_H_ */
+#endif // IINTERFERENCEFUNCTION_H

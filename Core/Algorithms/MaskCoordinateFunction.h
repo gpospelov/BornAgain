@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MASKCOORDINATEFUNCTION_H_
-#define MASKCOORDINATEFUNCTION_H_
+#ifndef MASKCOORDINATEFUNCTION_H
+#define MASKCOORDINATEFUNCTION_H
 
 #include <cstddef>
 #include "ICloneable.h"
@@ -79,4 +79,4 @@ private:
     int *m_radii;
 };
 
-#endif /* MASKCOORDINATEFUNCTION_H_ */
+#endif // MASKCOORDINATEFUNCTION_H

@@ -30,4 +30,4 @@ public:
     FitResultsWidget(QWidget *parent = 0);
 };
 
-#endif
+#endif // FITRESULTSWIDGET_H

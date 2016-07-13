@@ -97,4 +97,4 @@ inline NodeEditorPort::EPortType NodeEditorPort::getPortType() const
     return m_port_type;
 }
 
-#endif
+#endif // NODEEDITORPORT_H

@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#ifndef COMBO_PROPERTY_H
-#define COMBO_PROPERTY_H
+#ifndef COMBOPROPERTY_H
+#define COMBOPROPERTY_H
 
 #include "WinDllMacros.h"
 #include <QStringList>
@@ -134,4 +134,4 @@ Q_DECLARE_METATYPE(ComboProperty)
 
 
 
-#endif
+#endif // COMBOPROPERTY_H

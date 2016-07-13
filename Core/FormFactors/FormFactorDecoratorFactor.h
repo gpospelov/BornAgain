@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FORMFACTORDECORATORFACTOR_H_
-#define FORMFACTORDECORATORFACTOR_H_
+#ifndef FORMFACTORDECORATORFACTOR_H
+#define FORMFACTORDECORATORFACTOR_H
 
 #include "IFormFactorDecorator.h"
 #include "BornAgainNamespace.h"
@@ -63,4 +63,4 @@ inline complex_t FormFactorDecoratorFactor::evaluate(const WavevectorInfo& wavev
     return m_factor * mp_form_factor->evaluate(wavevectors);
 }
 
-#endif /* FORMFACTORDECORATORFACTOR_H_ */
+#endif // FORMFACTORDECORATORFACTOR_H

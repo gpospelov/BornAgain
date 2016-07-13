@@ -50,4 +50,4 @@ private:
     ComponentEditor *m_propertyEditor;
 };
 
-#endif
+#endif // SAMPLEPROPERTYWIDGET_H

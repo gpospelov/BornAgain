@@ -70,6 +70,6 @@ inline void FitOptions::setStepFactor(double step_factor)
 
 
 
-#endif // ATTFITTING_H
+#endif // FITOPTIONS_H
 
 

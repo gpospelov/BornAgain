@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FORMFACTORTOOLS_H_
-#define FORMFACTORTOOLS_H_
+#ifndef FORMFACTORTOOLS_H
+#define FORMFACTORTOOLS_H
 
 #include "IFormFactor.h"
 
@@ -32,4 +32,4 @@ IFormFactor* createDWBAMatrixFormFactor(const IFormFactor &form_factor);
 }
 
 
-#endif /* FORMFACTORTOOLS_H_ */
+#endif // FORMFACTORTOOLS_H

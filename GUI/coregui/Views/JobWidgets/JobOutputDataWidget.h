@@ -44,4 +44,4 @@ private:
     ItemStackPresenter<JobResultsPresenter> *m_stackedWidget;
 };
 
-#endif
+#endif // JOBOUTPUTDATAWIDGET_H

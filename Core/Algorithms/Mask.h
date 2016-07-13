@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MASK_H_
-#define MASK_H_
+#ifndef MASK_H
+#define MASK_H
 
 #include "MaskCoordinateFunction.h"
 
@@ -95,4 +95,4 @@ private:
     MaskCoordinateFunction *mp_mask_function;
 };
 
-#endif /* MASK_H_ */
+#endif // MASK_H

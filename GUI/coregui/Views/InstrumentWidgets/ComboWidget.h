@@ -48,4 +48,4 @@ private:
     void setCollapse(bool);
 };
 
-#endif
+#endif // COMBOWIDGET_H

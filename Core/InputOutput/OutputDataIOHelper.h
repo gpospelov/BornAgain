@@ -75,4 +75,4 @@ std::vector<double> parse_doubles(const std::string& str);
 void readLineOfDoubles(std::vector<double>& buffer, std::istringstream& iss);
 }
 
-#endif
+#endif // OUTPUTDATAIOHELPER_H

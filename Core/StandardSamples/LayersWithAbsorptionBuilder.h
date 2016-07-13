@@ -35,4 +35,4 @@ public:
     virtual ISample *buildSample() const;
 };
 
-#endif // FORMFACTORSBUILDER_H
+#endif // LAYERSWITHABSORPTIONBUILDER_H

@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FTDISTRIBUTIONS_H_
-#define FTDISTRIBUTIONS_H_
+#ifndef FTDISTRIBUTIONS_H
+#define FTDISTRIBUTIONS_H
 
 #include "IParameterized.h"
 #include "Units.h"
@@ -281,4 +281,4 @@ protected:
     double m_eta;
 };
 
-#endif /* FTDISTRIBUTIONS_H_ */
+#endif // FTDISTRIBUTIONS_H

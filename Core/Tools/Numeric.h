@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef NUMERIC_H_
-#define NUMERIC_H_
+#ifndef NUMERIC_H
+#define NUMERIC_H
 
 #include "WinDllMacros.h"
 #include <limits>
@@ -37,4 +37,4 @@ double BA_CORE_API_ get_relative_difference(double a, double b);
 
 } // Numeric namespace
 
-#endif /* NUMERIC_H_ */
+#endif // NUMERIC_H

@@ -51,5 +51,5 @@ public:
 
 
 
-#endif // DISTRIBUTIONITEM_H
+#endif // RESOLUTIONFUNCTIONITEMS_H
 

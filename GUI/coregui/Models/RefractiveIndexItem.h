@@ -36,4 +36,4 @@ public:
     void setBeta(double beta);
 };
 
-#endif
+#endif // REFRACTIVEINDEXITEM_H

@@ -63,4 +63,4 @@ public:
     static void writeIntensityData(const IHistogram &histogram, const std::string& file_name);
 };
 
-#endif // OUTPUTDATAIOFACTORY_H
+#endif // INTENSITYDATAIOFACTORY_H

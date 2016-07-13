@@ -57,4 +57,4 @@ protected:
     int m_cached_height;
 };
 
-#endif
+#endif // INFOPANEL_H

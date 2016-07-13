@@ -50,8 +50,8 @@
 // We mean it.
 //
 
-#ifndef SHAREDENUMS_H
-#define SHAREDENUMS_H
+#ifndef SHARED_ENUMS_P_H
+#define SHARED_ENUMS_P_H
 
 #include "shared_global_p.h"
 
@@ -96,4 +96,4 @@ namespace qdesigner_internal {
 
 QT_END_NAMESPACE
 
-#endif // SHAREDENUMS_H
+#endif // SHARED_ENUMS_P_H

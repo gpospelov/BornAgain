@@ -52,5 +52,5 @@ private:
 };
 
 
-#endif
+#endif // SAMPLEVIEWALIGNER_H
 

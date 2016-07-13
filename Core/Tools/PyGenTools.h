@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef PYSCRIPTTOOLS_H
-#define PYSCRIPTTOOLS_H
+#ifndef PYGENTOOLS_H
+#define PYGENTOOLS_H
 
 #include "PyGenVisitor.h"
 #include "Complex.h"
@@ -36,4 +36,4 @@ namespace PyGenTools {
     BA_CORE_API_ bool isDefaultDirection(const kvector_t direction);
 }
 
-#endif // PYSCRIPTTOOLS_H
+#endif // PYGENTOOLS_H

@@ -65,4 +65,4 @@ private:
     WarningSignWidget *m_warningSign;
 };
 
-#endif
+#endif // DISTRIBUTIONWIDGET_H

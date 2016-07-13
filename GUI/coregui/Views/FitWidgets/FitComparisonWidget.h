@@ -85,4 +85,4 @@ private:
     QMap<IntensityDataItem *, LabelBackup> m_labelBackup;
 };
 
-#endif
+#endif // FITCOMPARISONWIDGET_H

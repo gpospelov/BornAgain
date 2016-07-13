@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef INTERFERENCEFUNCTION2DLATTICE_H_
-#define INTERFERENCEFUNCTION2DLATTICE_H_
+#ifndef INTERFERENCEFUNCTION2DLATTICE_H
+#define INTERFERENCEFUNCTION2DLATTICE_H
 
 #include "IInterferenceFunction.h"
 #include "Lattice2DParameters.h"
@@ -93,4 +93,4 @@ private:
     int m_na, m_nb; //!< determines the number of reciprocal lattice points to use
 };
 
-#endif /* INTERFERENCEFUNCTION2DLATTICE_H_ */
+#endif // INTERFERENCEFUNCTION2DLATTICE_H

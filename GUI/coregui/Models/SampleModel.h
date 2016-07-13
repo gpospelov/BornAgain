@@ -42,4 +42,4 @@ private:
     bool m_block_explore_for_material;
 };
 
-#endif
+#endif // SAMPLEMODEL_H

@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef LATTICE_H_
-#define LATTICE_H_
+#ifndef LATTICE_H
+#define LATTICE_H
 
 #include "Vectors3D.h"
 #include "ISelectionRule.h"
@@ -98,4 +98,4 @@ private:
     mutable KVectorContainer m_kvector_container;
 };
 
-#endif /* LATTICE_H_ */
+#endif // LATTICE_H

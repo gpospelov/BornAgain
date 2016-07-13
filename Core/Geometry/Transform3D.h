@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef GEOMETRY_TRANSFORM3D_H
-#define GEOMETRY_TRANSFORM3D_H
+#ifndef TRANSFORM3D_H
+#define TRANSFORM3D_H
 
 #include "Complex.h"
 #include "BasicVector3D.h"
@@ -109,4 +109,4 @@ private:
 
 }// namespace Geometry
 
-#endif /* GEOMETRY_TRANSFORM3D_H */
+#endif // TRANSFORM3D_H

@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#ifndef INTENSITYDATDAVIEW_H
-#define INTENSITYDATDAVIEW_H
+#ifndef INTENSITYDATAVIEW_H
+#define INTENSITYDATAVIEW_H
 
 #include "IMaskView.h"
 #include "SizeHandleElement.h"
@@ -41,4 +41,4 @@ protected:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *);
 };
 
-#endif
+#endif // INTENSITYDATAVIEW_H

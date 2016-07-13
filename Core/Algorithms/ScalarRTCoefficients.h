@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef SCALARRTCOEFFICIENTS_H_
-#define SCALARRTCOEFFICIENTS_H_
+#ifndef SCALARRTCOEFFICIENTS_H
+#define SCALARRTCOEFFICIENTS_H
 
 #include "ILayerRTCoefficients.h"
 #include "Complex.h"
@@ -148,4 +148,4 @@ inline complex_t ScalarRTCoefficients::getScalarT() const
     return t_r(0);
 }
 
-#endif /* SCALARRTCOEFFICIENTS_H_ */
+#endif // SCALARRTCOEFFICIENTS_H

@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MULTILAYERDWBASIMULATION_H_
-#define MULTILAYERDWBASIMULATION_H_
+#ifndef MULTILAYERDWBASIMULATION_H
+#define MULTILAYERDWBASIMULATION_H
 
 #include "LayerDWBASimulation.h"
 #include "SafePointerVector.h"
@@ -62,4 +62,4 @@ protected:
     MultiLayerRoughnessDWBASimulation *mp_roughness_dwba_simulation;
 };
 
-#endif /* MULTILAYERDWBASIMULATION_H_ */
+#endif // MULTILAYERDWBASIMULATION_H

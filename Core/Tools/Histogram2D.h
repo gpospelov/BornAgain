@@ -111,4 +111,4 @@ protected:
     Histogram1D* create_projectionY(int xbinlow, int xbinup);
 };
 
-#endif
+#endif // HISTOGRAM2D_H

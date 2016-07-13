@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#ifndef OBJECTVARIANTFACTORY_H
-#define OBJECTVARIANTFACTORY_H
+#ifndef PROPERTYVARIANTFACTORY_H
+#define PROPERTYVARIANTFACTORY_H
 
 //! collection of classes extending QtPropertyBrowser functionality
 
@@ -88,4 +88,4 @@ private:
 
 };
 
-#endif // OBJECTVARIANTFACTORY_H
+#endif // PROPERTYVARIANTFACTORY_H

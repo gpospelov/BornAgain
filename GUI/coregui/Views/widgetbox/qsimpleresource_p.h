@@ -50,8 +50,8 @@
 // We mean it.
 //
 
-#ifndef QSIMPLERESOURCE_H
-#define QSIMPLERESOURCE_H
+#ifndef QSIMPLERESOURCE_P_H
+#define QSIMPLERESOURCE_P_H
 
 #include "shared_global_p.h"
 //#include "abstractformbuilder.h"
@@ -151,4 +151,4 @@ public:
 
 QT_END_NAMESPACE
 
-#endif
+#endif // QSIMPLERESOURCE_P_H

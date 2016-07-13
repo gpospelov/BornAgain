@@ -43,5 +43,5 @@ public:
     void setAzimuthalAngle(double value, const QString &distribution_name = QString());
 };
 
-#endif
+#endif // BEAMITEM_H
 

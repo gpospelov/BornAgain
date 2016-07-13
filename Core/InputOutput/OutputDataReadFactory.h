@@ -35,4 +35,4 @@ private:
     static IOutputDataReadStrategy *getReadStrategy(const std::string& file_name);
 };
 
-#endif
+#endif // OUTPUTDATAREADFACTORY_H

@@ -13,11 +13,11 @@
 //
 // ************************************************************************** //
 
-#ifndef INTERFERENCEFUNCTIONSTRATEGIES_H_
-#define INTERFERENCEFUNCTIONSTRATEGIES_H_
+#ifndef INTERFERENCEFUNCTIONSTRATEGIES_H
+#define INTERFERENCEFUNCTIONSTRATEGIES_H
 
 #include "IInterferenceFunctionStrategy.h"
 #include "DecouplingApproximationStrategy.h"
 #include "SizeSpacingCorrelationApproximationStrategy.h"
 
-#endif /* INTERFERENCEFUNCTIONSTRATEGIES_H_ */
+#endif // INTERFERENCEFUNCTIONSTRATEGIES_H

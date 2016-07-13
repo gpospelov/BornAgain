@@ -47,4 +47,4 @@ private:
     IntensityDataItem *m_currentItem;
 };
 
-#endif
+#endif // REALDATAEDITORWIDGET_H

@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DISTRIBUTIONS_H_
-#define DISTRIBUTIONS_H_
+#ifndef DISTRIBUTIONS_H
+#define DISTRIBUTIONS_H
 
 #include "IParameterized.h"
 #include "ParameterSample.h"
@@ -276,4 +276,4 @@ private:
     double m_sigma;
 };
 
-#endif /* DISTRIBUTIONS_H_ */
+#endif // DISTRIBUTIONS_H

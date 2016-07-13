@@ -72,4 +72,4 @@ private:
 };
 
 
-#endif
+#endif // INSTRUMENTVIEW_H

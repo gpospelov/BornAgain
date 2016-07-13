@@ -35,5 +35,5 @@ private:
     class QToolButton *m_resetParametersButton;
 };
 
-#endif
+#endif // JOBREALTIMETOOLBAR_H
 

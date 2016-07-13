@@ -49,4 +49,4 @@ private:
     ColorMapBin m_prevPos;
 };
 
-#endif
+#endif // COLORMAPEVENT_H

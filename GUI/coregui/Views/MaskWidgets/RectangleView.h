@@ -71,4 +71,4 @@ private:
 };
 
 
-#endif
+#endif // RECTANGLEVIEW_H

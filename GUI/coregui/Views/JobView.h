@@ -62,4 +62,4 @@ private:
     MainWindow *m_mainWindow;
 };
 
-#endif
+#endif // JOBVIEW_H

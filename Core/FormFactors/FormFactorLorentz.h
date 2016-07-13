@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FORMFACTORLORENTZ_H_
-#define FORMFACTORLORENTZ_H_
+#ifndef FORMFACTORLORENTZ_H
+#define FORMFACTORLORENTZ_H
 
 #include "IFormFactorBorn.h"
 
@@ -62,6 +62,6 @@ inline double FormFactorLorentz::getWidth() const
     return m_width;
 }
 
-#endif /* FORMFACTORLORENTZ_H_ */
+#endif // FORMFACTORLORENTZ_H
 
 

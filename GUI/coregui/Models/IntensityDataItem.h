@@ -119,5 +119,5 @@ private:
     std::unique_ptr<OutputData<double> > m_data; //!< simulation results
 };
 
-#endif // NINTENSITYDATAITEM_H
+#endif // INTENSITYDATAITEM_H
 

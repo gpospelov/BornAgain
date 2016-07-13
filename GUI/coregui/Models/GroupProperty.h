@@ -66,4 +66,4 @@ private:
 typedef QSharedPointer<GroupProperty> GroupProperty_t;
 Q_DECLARE_METATYPE(GroupProperty_t)
 
-#endif
+#endif // GROUPPROPERTY_H

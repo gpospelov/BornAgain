@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef ISPECULARINFOMAP_H_
-#define ISPECULARINFOMAP_H_
+#ifndef ISPECULARINFOMAP_H
+#define ISPECULARINFOMAP_H
 
 #include "ILayerRTCoefficients.h"
 
@@ -45,4 +45,4 @@ private:
 };
 
 
-#endif /* ISPECULARINFOMAP_H_ */
+#endif // ISPECULARINFOMAP_H

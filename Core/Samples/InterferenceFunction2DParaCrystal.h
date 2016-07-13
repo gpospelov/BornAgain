@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef INTERFERENCEFUNCTION2DPARACRYSTAL_H_
-#define INTERFERENCEFUNCTION2DPARACRYSTAL_H_
+#ifndef INTERFERENCEFUNCTION2DPARACRYSTAL_H
+#define INTERFERENCEFUNCTION2DPARACRYSTAL_H
 
 #include "IInterferenceFunction.h"
 #include "Lattice2DParameters.h"
@@ -133,4 +133,4 @@ inline double InterferenceFunction2DParaCrystal::getDampingLength() const
     return m_damping_length;
 }
 
-#endif /* INTERFERENCEFUNCTION2DPARACRYSTAL_H_ */
+#endif // INTERFERENCEFUNCTION2DPARACRYSTAL_H

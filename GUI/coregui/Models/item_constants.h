@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#ifndef ITEMCONSTANTS_H
-#define ITEMCONSTANTS_H
+#ifndef ITEM_CONSTANTS_H
+#define ITEM_CONSTANTS_H
 
 #include <QString>
 
@@ -227,4 +227,4 @@ const ModelType FITPAR_FREE = "free";
 
 }
 
-#endif
+#endif // ITEM_CONSTANTS_H

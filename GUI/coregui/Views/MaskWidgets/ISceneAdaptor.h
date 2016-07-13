@@ -61,4 +61,4 @@ public:
 };
 
 
-#endif
+#endif // ISCENEADAPTOR_H

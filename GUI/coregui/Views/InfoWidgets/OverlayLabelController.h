@@ -50,4 +50,4 @@ private:
     QString m_text;
 };
 
-#endif
+#endif // OVERLAYLABELCONTROLLER_H

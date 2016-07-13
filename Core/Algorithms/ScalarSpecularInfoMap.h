@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef SCALARSPECULARINFOMAP_H_
-#define SCALARSPECULARINFOMAP_H_
+#ifndef SCALARSPECULARINFOMAP_H
+#define SCALARSPECULARINFOMAP_H
 
 #include "ISpecularInfoMap.h"
 #include "ScalarRTCoefficients.h"
@@ -48,4 +48,4 @@ private:
     const ScalarRTCoefficients *getCoefficients(kvector_t kvec) const;
 };
 
-#endif /* SCALARSPECULARINFOMAP_H_ */
+#endif // SCALARSPECULARINFOMAP_H

@@ -62,4 +62,4 @@ private:
     int m_duration;
 };
 
-#endif
+#endif // RUNFITMANAGER_H

@@ -56,4 +56,4 @@ private:
     SimulationOptionsWidget *m_simOptionsWidget;
 };
 
-#endif
+#endif // SIMULATIONSETUPWIDGET_H

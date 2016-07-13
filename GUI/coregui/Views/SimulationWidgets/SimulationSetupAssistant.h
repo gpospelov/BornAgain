@@ -49,4 +49,4 @@ private:
 };
 
 
-#endif
+#endif // SIMULATIONSETUPASSISTANT_H

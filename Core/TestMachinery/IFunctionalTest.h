@@ -58,4 +58,4 @@ protected:
     static std::map<ETestResult, std::string> m_result_to_string;
 };
 
-#endif
+#endif // IFUNCTIONALTEST_H

@@ -57,4 +57,4 @@ private:
     QItemSelectionModel *m_selectionModel;
 };
 
-#endif
+#endif // IMPORTDATATOOLBAR_H

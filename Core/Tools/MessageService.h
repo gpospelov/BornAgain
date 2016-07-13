@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MESSAGESVC_H
-#define MESSAGESVC_H
+#ifndef MESSAGESERVICE_H
+#define MESSAGESERVICE_H
 
 #include "WinDllMacros.h"
 #include <iostream>
@@ -74,6 +74,6 @@ else MSG::Logger(level)
 
 
 
-#endif // MESSAGESVC_H
+#endif // MESSAGESERVICE_H
 
 

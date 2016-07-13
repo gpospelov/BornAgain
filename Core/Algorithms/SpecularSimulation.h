@@ -125,4 +125,4 @@ protected:
 };
 
 
-#endif
+#endif // SPECULARSIMULATION_H

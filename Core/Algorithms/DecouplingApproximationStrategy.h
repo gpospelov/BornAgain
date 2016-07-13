@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DECOUPLINGAPPROXIMATIONSTRATEGY_H_
-#define DECOUPLINGAPPROXIMATIONSTRATEGY_H_
+#ifndef DECOUPLINGAPPROXIMATIONSTRATEGY_H
+#define DECOUPLINGAPPROXIMATIONSTRATEGY_H
 
 #include "Complex.h"
 #include "IInterferenceFunctionStrategy.h"
@@ -52,4 +52,4 @@ private:
     bool checkVectorSizes() const;
 };
 
-#endif /* DECOUPLINGAPPROXIMATIONSTRATEGY_H_ */
+#endif // DECOUPLINGAPPROXIMATIONSTRATEGY_H

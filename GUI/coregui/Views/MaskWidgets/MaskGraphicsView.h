@@ -57,4 +57,4 @@ private:
 };
 
 
-#endif
+#endif // MASKGRAPHICSVIEW_H

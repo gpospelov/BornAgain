@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MESOCRYSTAL_H_
-#define MESOCRYSTAL_H_
+#ifndef MESOCRYSTAL_H
+#define MESOCRYSTAL_H
 
 #include "IClusteredParticles.h"
 #include "IFormFactor.h"
@@ -61,6 +61,6 @@ private:
     void initialize();
 };
 
-#endif /* MESOCRYSTAL_H_ */
+#endif // MESOCRYSTAL_H
 
 

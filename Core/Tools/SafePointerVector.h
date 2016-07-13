@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef SAFEPOINTERVECTOR_H_
-#define SAFEPOINTERVECTOR_H_
+#ifndef SAFEPOINTERVECTOR_H
+#define SAFEPOINTERVECTOR_H
 
 #include <vector>
 #include <algorithm>
@@ -131,4 +131,4 @@ template<class T> void SafePointerVector<T>::clear()
     m_pointers.clear();
 }
 
-#endif /* SAFEPOINTERVECTOR_H_ */
+#endif // SAFEPOINTERVECTOR_H

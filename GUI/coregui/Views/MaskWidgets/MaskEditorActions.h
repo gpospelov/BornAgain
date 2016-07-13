@@ -70,4 +70,4 @@ private:
     QItemSelectionModel *m_selectionModel;
 };
 
-#endif
+#endif // MASKEDITORACTIONS_H

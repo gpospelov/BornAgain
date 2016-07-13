@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef SIMULATIONREGISTRY_H
-#define SIMULATIONREGISTRY_H
+#ifndef SIMULATIONFACTORY_H
+#define SIMULATIONFACTORY_H
 
 #include "IFactory.h"
 #include "GISASSimulation.h"
@@ -30,4 +30,4 @@ public:
     SimulationFactory();
 };
 
-#endif // SIMULATIONREGISTRY_H
+#endif // SIMULATIONFACTORY_H

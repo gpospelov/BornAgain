@@ -38,4 +38,4 @@ private:
 
 };
 
-#endif
+#endif // SPLASHSCREEN_H

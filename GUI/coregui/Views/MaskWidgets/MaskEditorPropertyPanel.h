@@ -70,4 +70,4 @@ private:
 };
 
 
-#endif
+#endif // MASKEDITORPROPERTYPANEL_H

@@ -60,4 +60,4 @@ private:
     JobMessagePanel *m_jobMessagePanel;
 };
 
-#endif
+#endif // FITACTIVITYPANEL_H

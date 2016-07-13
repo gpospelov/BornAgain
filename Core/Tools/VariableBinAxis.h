@@ -69,4 +69,4 @@ private:
 };
 
 
-#endif
+#endif // VARIABLEBINAXIS_H

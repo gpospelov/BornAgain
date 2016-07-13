@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FTDECAYFUNCTIONS_H_
-#define FTDECAYFUNCTIONS_H_
+#ifndef FTDECAYFUNCTIONS_H
+#define FTDECAYFUNCTIONS_H
 
 #include "IParameterized.h"
 #include "Units.h"
@@ -255,4 +255,4 @@ protected:
     double m_eta;
 };
 
-#endif /* FTDECAYFUNCTIONS_H_ */
+#endif // FTDECAYFUNCTIONS_H

@@ -53,5 +53,5 @@ private:
     double m_difference;
 };
 
-#endif
+#endif // GUITEST_H
 

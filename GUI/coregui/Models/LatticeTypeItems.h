@@ -48,4 +48,4 @@ public:
     virtual ~HexagonalLatticeTypeItem(){}
 };
 
-#endif
+#endif // LATTICETYPEITEMS_H

@@ -54,4 +54,4 @@ private:
     bool m_block_update;
 };
 
-#endif
+#endif // JOBPROPERTIESWIDGET_H

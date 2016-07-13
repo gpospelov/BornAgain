@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#ifndef SESSIONITEM_H_
-#define SESSIONITEM_H_
+#ifndef SESSIONITEM_H
+#define SESSIONITEM_H
 
 #include "WinDllMacros.h"
 #include "item_constants.h"
@@ -161,4 +161,4 @@ private:
 
 Q_DECLARE_METATYPE(SessionItem*) // INVESTIGATE something requires sessionitem be declared as meta type
 
-#endif /* SessionItem_H_ */
+#endif // SESSIONITEM_H

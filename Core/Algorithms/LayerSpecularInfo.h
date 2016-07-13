@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef LAYERSPECULARINFO_H_
-#define LAYERSPECULARINFO_H_
+#ifndef LAYERSPECULARINFO_H
+#define LAYERSPECULARINFO_H
 
 #include "Utils.h"
 #include "ICloneable.h"
@@ -56,4 +56,4 @@ private:
 };
 
 
-#endif /* LAYERSPECULARINFO_H_ */
+#endif // LAYERSPECULARINFO_H

@@ -65,4 +65,4 @@ private:
     //std::unique_ptr<OutputData<double> > m_chiData;
 };
 
-#endif
+#endif // GUIFITOBSERVER_H

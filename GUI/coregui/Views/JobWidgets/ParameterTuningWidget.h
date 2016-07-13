@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#ifndef PARAMETERTUNIGWIDGET_H
-#define PARAMETERTUNIGWIDGET_H
+#ifndef PARAMETERTUNINGWIDGET_H
+#define PARAMETERTUNINGWIDGET_H
 
 #include <QWidget>
 #include <memory>
@@ -79,4 +79,4 @@ private:
     WarningSignWidget *m_warningSign;
 };
 
-#endif
+#endif // PARAMETERTUNINGWIDGET_H

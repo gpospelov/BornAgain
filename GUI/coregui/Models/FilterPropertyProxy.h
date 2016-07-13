@@ -43,4 +43,4 @@ private:
     int m_columns;
 };
 
-#endif
+#endif // FILTERPROPERTYPROXY_H

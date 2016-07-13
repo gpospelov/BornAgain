@@ -49,4 +49,4 @@ private:
     ItemStackPresenter<ParameterTuningWidget> *m_stackedWidget;
 };
 
-#endif
+#endif // JOBREALTIMEWIDGET_H

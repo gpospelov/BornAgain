@@ -31,4 +31,4 @@ public:
     static std::shared_ptr<FitSuite> createFitSuite(JobItem *jobItem);
 };
 
-#endif
+#endif // DOMAINFITTINGBUILDER_H

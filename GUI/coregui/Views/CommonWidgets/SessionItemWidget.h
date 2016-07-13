@@ -34,5 +34,5 @@ public:
 
 };
 
-#endif
+#endif // SESSIONITEMWIDGET_H
 

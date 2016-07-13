@@ -35,4 +35,4 @@ public:
     InstrumentItem *instrumentItem(const QString &instrument_name = QString());
 };
 
-#endif
+#endif // INSTRUMENTMODEL_H

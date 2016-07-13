@@ -64,4 +64,4 @@ private:
     RectangularDetectorItem *m_detectorItem;
 };
 
-#endif
+#endif // RECTANGULARDETECTORWIDGET_H

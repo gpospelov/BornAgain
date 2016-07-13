@@ -90,4 +90,4 @@ private:
     bool m_block_progress_update;
 };
 
-#endif
+#endif // FITSUITEWIDGET_H

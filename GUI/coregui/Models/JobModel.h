@@ -75,4 +75,4 @@ private:
     JobQueueData *m_queue_data;
 };
 
-#endif
+#endif // JOBMODEL_H

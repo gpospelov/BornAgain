@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef LAYERSTRATEGYBUILDER_H_
-#define LAYERSTRATEGYBUILDER_H_
+#ifndef LAYERSTRATEGYBUILDER_H
+#define LAYERSTRATEGYBUILDER_H
 
 #include "SimulationOptions.h"
 #include "SafePointerVector.h"
@@ -96,4 +96,4 @@ public:
     double m_abundance;
 };
 
-#endif /* LAYERSTRATEGYBUILDER_H_ */
+#endif // LAYERSTRATEGYBUILDER_H

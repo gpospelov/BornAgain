@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef LATTICE2DPARAMETERS_H_
-#define LATTICE2DPARAMETERS_H_
+#ifndef LATTICE2DPARAMETERS_H
+#define LATTICE2DPARAMETERS_H
 
 #include "IParameterized.h"
 
@@ -39,4 +39,4 @@ inline double getUnitCellArea(const Lattice2DParameters& lattice_params) {
     return std::abs(length_1*length_2*std::sin(angle));
 }
 
-#endif /* LATTICE2DPARAMETERS_H_ */
+#endif // LATTICE2DPARAMETERS_H

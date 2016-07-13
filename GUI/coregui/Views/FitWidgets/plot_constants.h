@@ -26,4 +26,4 @@ const int plot_colorbar_size=12;
 
 }
 
-#endif
+#endif // PLOT_CONSTANTS_H

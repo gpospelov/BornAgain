@@ -64,4 +64,4 @@ private:
 };
 
 
-#endif /* SIMULATIONPARAMETERS_H_ */
+#endif // SIMULATIONOPTIONS_H

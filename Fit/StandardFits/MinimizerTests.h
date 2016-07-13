@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MINIMIZERFUNCTIONALTESTS_H
-#define MINIMIZERFUNCTIONALTESTS_H
+#ifndef MINIMIZERTESTS_H
+#define MINIMIZERTESTS_H
 
 #include "IMinimizerTest.h"
 
@@ -71,6 +71,6 @@ protected:
     std::unique_ptr<FitSuite> createFitSuite();
 };
 
-#endif
+#endif // MINIMIZERTESTS_H
 
 

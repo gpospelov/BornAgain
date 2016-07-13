@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#ifndef NHISTOGRAMPLOT_H
-#define NHISTOGRAMPLOT_H
+#ifndef VERTICALSLICEPLOT_H
+#define VERTICALSLICEPLOT_H
 
 #include "WinDllMacros.h"
 #include <QWidget>
@@ -62,4 +62,4 @@ private:
 
 
 
-#endif
+#endif // VERTICALSLICEPLOT_H

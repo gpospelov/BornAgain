@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_EIGENCORE_H
-#define BORNAGAIN_EIGENCORE_H
+#ifndef EIGENCORE_H
+#define EIGENCORE_H
 
 // This include file is introduced to deal with Eigen alignment
 // see http://eigen.tuxfamily.org/dox-devel/group__TopicStructHavingEigenMembers.html
@@ -30,5 +30,5 @@
 #endif
 
 
-#endif //BORNAGAIN_EIGENCORE_H
+#endif // EIGENCORE_H
 

@@ -76,5 +76,5 @@ protected:
 
 
 
-#endif
+#endif // IMASKVIEW_H
 

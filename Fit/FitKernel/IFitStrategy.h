@@ -67,4 +67,4 @@ class BA_CORE_API_ FitStrategyDefault : public IFitStrategy
     virtual void execute();
 };
 
-#endif // FITSTRATEGY_H
+#endif // IFITSTRATEGY_H

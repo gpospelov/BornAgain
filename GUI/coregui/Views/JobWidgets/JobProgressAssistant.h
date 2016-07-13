@@ -37,4 +37,4 @@ private:
     MainWindow *m_mainWindow;
 };
 
-#endif
+#endif // JOBPROGRESSASSISTANT_H

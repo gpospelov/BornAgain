@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef HOMOGENEOUSMAGNETICMATERIAL_H_
-#define HOMOGENEOUSMAGNETICMATERIAL_H_
+#ifndef HOMOGENEOUSMAGNETICMATERIAL_H
+#define HOMOGENEOUSMAGNETICMATERIAL_H
 
 #include "HomogeneousMaterial.h"
 #include "EigenCore.h"
@@ -96,4 +96,4 @@ private:
 #endif
 };
 
-#endif /* HOMOGENEOUSMAGNETICMATERIAL_H_ */
+#endif // HOMOGENEOUSMAGNETICMATERIAL_H

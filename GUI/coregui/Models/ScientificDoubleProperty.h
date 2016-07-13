@@ -46,5 +46,5 @@ private:
 Q_DECLARE_METATYPE(ScientificDoubleProperty)
 
 
-#endif
+#endif // SCIENTIFICDOUBLEPROPERTY_H
 

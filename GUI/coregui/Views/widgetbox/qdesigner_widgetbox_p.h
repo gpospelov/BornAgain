@@ -50,8 +50,8 @@
 // We mean it.
 //
 
-#ifndef QDESIGNER_WIDGETBOX_H
-#define QDESIGNER_WIDGETBOX_H
+#ifndef QDESIGNER_WIDGETBOX_P_H
+#define QDESIGNER_WIDGETBOX_P_H
 
 #include "shared_global_p.h"
 #include <QtDesigner/QDesignerWidgetBoxInterface>
@@ -98,4 +98,4 @@ private:
 
 QT_END_NAMESPACE
 
-#endif // QDESIGNER_WIDGETBOX_H
+#endif // QDESIGNER_WIDGETBOX_P_H

@@ -46,4 +46,4 @@ private:
 
 Q_DECLARE_METATYPE(FitProgressInfo)
 
-#endif
+#endif // FITPROGRESSINFO_H

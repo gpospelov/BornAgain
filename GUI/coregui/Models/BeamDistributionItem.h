@@ -43,4 +43,4 @@ protected:
     virtual std::unique_ptr<IDistribution1D> createDistribution1D();
 };
 
-#endif
+#endif // BEAMDISTRIBUTIONITEM_H

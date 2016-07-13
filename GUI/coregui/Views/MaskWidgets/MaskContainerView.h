@@ -41,4 +41,4 @@ protected:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *);
 };
 
-#endif
+#endif // MASKCONTAINERVIEW_H

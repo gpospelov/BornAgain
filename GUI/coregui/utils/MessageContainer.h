@@ -48,4 +48,4 @@ private:
     container_t m_messages;
 };
 
-#endif
+#endif // MESSAGECONTAINER_H

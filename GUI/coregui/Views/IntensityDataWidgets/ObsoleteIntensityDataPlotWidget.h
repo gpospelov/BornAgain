@@ -82,4 +82,4 @@ private:
     IntensityDataItem *m_item;
 };
 
-#endif
+#endif // OBSOLETEINTENSITYDATAPLOTWIDGET_H

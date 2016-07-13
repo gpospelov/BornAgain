@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#ifndef SAMPLEMANAGER_H
-#define SAMPLEMANAGER_H
+#ifndef SAMPLEVIEW_H
+#define SAMPLEVIEW_H
 
 #include "WinDllMacros.h"
 #include "fancymainwindow.h"
@@ -110,4 +110,4 @@ private:
 };
 
 
-#endif // SAMPLEMANAGER_H
+#endif // SAMPLEVIEW_H

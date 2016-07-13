@@ -50,4 +50,4 @@ private:
     ComponentEditor *m_componentEditor;
 };
 
-#endif
+#endif // INTENSITYDATAPROPERTYWIDGET_H

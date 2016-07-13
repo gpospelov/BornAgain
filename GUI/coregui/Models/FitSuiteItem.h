@@ -39,4 +39,4 @@ public:
 //    std::unique_ptr<FitSuite> createFitSuite();
 };
 
-#endif
+#endif // FITSUITEITEM_H

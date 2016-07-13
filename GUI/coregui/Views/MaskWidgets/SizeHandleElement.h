@@ -74,4 +74,4 @@ private:
     static QMap<EHandleLocation, EHandleLocation> m_opposite_handle_location;
 };
 
-#endif
+#endif // SIZEHANDLEELEMENT_H

@@ -9,8 +9,8 @@
 //
 // ************************************************************************** //
 
-#ifndef __FENV_H_LINUX_REPLACEMENT__
-#define __FENV_H_LINUX_REPLACEMENT__
+#ifndef FP_EXCEPTION_GLIBC_EXTENSION_H
+#define FP_EXCEPTION_GLIBC_EXTENSION_H
 
 //#include <fenv.h>
 #include <signal.h>
@@ -61,6 +61,6 @@ extern "C" {
 #endif
 
 
-#endif // __FENV_H_LINUX_REPLACEMENT__
+#endif // FP_EXCEPTION_GLIBC_EXTENSION_H
 
 

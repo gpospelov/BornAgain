@@ -106,4 +106,4 @@ private:
     const SimulationOptionsItem *getSimulationOptionsItem() const;
 };
 
-#endif // NJOBITEM_H
+#endif // JOBITEM_H

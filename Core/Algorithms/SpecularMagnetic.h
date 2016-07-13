@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef SPECULARMAGNETIC_H_
-#define SPECULARMAGNETIC_H_
+#ifndef SPECULARMAGNETIC_H
+#define SPECULARMAGNETIC_H
 
 #include "Complex.h"
 #include "ISimulation.h"
@@ -48,4 +48,4 @@ private:
     static complex_t getImExponential(complex_t exponent);
 };
 
-#endif /* SPECULARMAGNETIC_H_ */
+#endif // SPECULARMAGNETIC_H

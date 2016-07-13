@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef PARAMETERDISTRIBUTION_H_
-#define PARAMETERDISTRIBUTION_H_
+#ifndef PARAMETERDISTRIBUTION_H
+#define PARAMETERDISTRIBUTION_H
 
 #include "ParameterSample.h"
 #include "IParameterized.h"
@@ -122,4 +122,4 @@ inline double ParameterDistribution::getMaxValue() const
     return m_xmax;
 }
 
-#endif /* PARAMETERDISTRIBUTION_H_ */
+#endif // PARAMETERDISTRIBUTION_H

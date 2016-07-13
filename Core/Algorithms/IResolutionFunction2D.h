@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef IRESOLUTIONFUNCTION2D_H_
-#define IRESOLUTIONFUNCTION2D_H_
+#ifndef IRESOLUTIONFUNCTION2D_H
+#define IRESOLUTIONFUNCTION2D_H
 
 #include "IParameterized.h"
 
@@ -32,4 +32,4 @@ public:
     virtual IResolutionFunction2D *clone() const = 0;
 };
 
-#endif /* IRESOLUTIONFUNCTION2D_H_ */
+#endif // IRESOLUTIONFUNCTION2D_H

@@ -36,5 +36,5 @@ public:
 };
 
 
-#endif
+#endif // PARTICLECORESHELLVIEW_H
 

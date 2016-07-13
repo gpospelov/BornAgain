@@ -70,4 +70,4 @@ private:
     QVector<ModelTree> m_content;
 };
 
-#endif
+#endif // SESSIONMODELVIEW_H

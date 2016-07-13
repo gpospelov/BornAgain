@@ -51,4 +51,4 @@ private:
     MaterialEditor *m_materialEditor;
 };
 
-#endif
+#endif // MATERIALEDITORDIALOG_H

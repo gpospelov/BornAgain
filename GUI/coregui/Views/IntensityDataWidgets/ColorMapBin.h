@@ -51,4 +51,4 @@ public:
     double m_x, m_y, m_value;
 };
 
-#endif
+#endif // COLORMAPBIN_H

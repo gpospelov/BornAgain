@@ -42,4 +42,4 @@ private:
     MainWindow *m_mainWindow;
 };
 
-#endif
+#endif // TESTVIEW_H

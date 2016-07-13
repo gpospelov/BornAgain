@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DWBASIMULATION_H_
-#define DWBASIMULATION_H_
+#ifndef DWBASIMULATION_H
+#define DWBASIMULATION_H
 
 #include "Complex.h"
 #include "ISimulation.h"
@@ -60,4 +60,4 @@ protected:
     ProgressHandlerDWBA m_progress;
 };
 
-#endif /* DWBASIMULATION_H_ */
+#endif // DWBASIMULATION_H

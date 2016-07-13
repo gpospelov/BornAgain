@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef RECTANGULARDETECTOR_H_
-#define RECTANGULARDETECTOR_H_
+#ifndef RECTANGULARDETECTOR_H
+#define RECTANGULARDETECTOR_H
 
 #include "IDetector2D.h"
 #include "IDetectorResolution.h"
@@ -147,4 +147,4 @@ private:
     kvector_t m_normal;
 };
 
-#endif /* RECTANGULARDETECTOR_H_ */
+#endif // RECTANGULARDETECTOR_H

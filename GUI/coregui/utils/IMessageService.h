@@ -27,5 +27,5 @@ public:
     virtual ~IMessageService(){}
 };
 
-#endif
+#endif // IMESSAGESERVICE_H
 

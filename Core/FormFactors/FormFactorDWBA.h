@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FORMFACTORDWBA_H_
-#define FORMFACTORDWBA_H_
+#ifndef FORMFACTORDWBA_H
+#define FORMFACTORDWBA_H
 
 #include "IFormFactorDecorator.h"
 #include "LayerSpecularInfo.h"
@@ -49,6 +49,6 @@ protected:
     const ILayerRTCoefficients *mp_out_coeffs;
 };
 
-#endif /* FORMFACTORDWBA_H_ */
+#endif // FORMFACTORDWBA_H
 
 

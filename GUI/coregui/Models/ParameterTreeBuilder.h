@@ -35,4 +35,4 @@ private:
     static void populateDomainLinks(JobItem *jobItem,  const QString &tag);
 };
 
-#endif
+#endif // PARAMETERTREEBUILDER_H

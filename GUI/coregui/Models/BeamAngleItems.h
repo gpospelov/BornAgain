@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BEAMANGLEITEM_H
-#define BEAMANGLEITEM_H
+#ifndef BEAMANGLEITEMS_H
+#define BEAMANGLEITEMS_H
 
 #include "WinDllMacros.h"
 #include "BeamDistributionItem.h"
@@ -45,4 +45,4 @@ public:
 };
 
 
-#endif
+#endif // BEAMANGLEITEMS_H

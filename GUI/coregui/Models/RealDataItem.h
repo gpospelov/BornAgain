@@ -36,6 +36,6 @@ private:
     void updateIntensityDataFileName();
 };
 
-#endif
+#endif // REALDATAITEM_H
 
 

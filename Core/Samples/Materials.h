@@ -28,4 +28,4 @@ IMaterial *createInvertedMaterial(const IMaterial *material);
 
 
 
-#endif
+#endif // MATERIALS_H

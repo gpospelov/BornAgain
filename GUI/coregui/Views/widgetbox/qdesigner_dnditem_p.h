@@ -50,8 +50,8 @@
 // We mean it.
 //
 
-#ifndef QDESIGNER_DNDITEM_H
-#define QDESIGNER_DNDITEM_H
+#ifndef QDESIGNER_DNDITEM_P_H
+#define QDESIGNER_DNDITEM_P_H
 
 #include "shared_global_p.h"
 #include <QtDesigner/abstractdnditem.h>
@@ -144,4 +144,4 @@ private:
 
 QT_END_NAMESPACE
 
-#endif // QDESIGNER_DNDITEM_H
+#endif // QDESIGNER_DNDITEM_P_H

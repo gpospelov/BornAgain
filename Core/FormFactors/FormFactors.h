@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FORMFACTORS_H_
-#define FORMFACTORS_H_
+#ifndef FORMFACTORS_H
+#define FORMFACTORS_H
 
 #include "FormFactorCrystal.h"
 #include "FormFactorDecoratorDebyeWaller.h"
@@ -28,4 +28,4 @@
 #include "FormFactorWeighted.h"
 #include "ParticleShapes.h"
 
-#endif /* FORMFACTORS_H_ */
+#endif // FORMFACTORS_H

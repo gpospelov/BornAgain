@@ -44,5 +44,5 @@ private:
 
 
 
-#endif
+#endif // FITFLOWWIDGET_H
 

@@ -50,4 +50,4 @@ private:
     QStringList getCPUUsageOptions();
 };
 
-#endif
+#endif // SIMULATIONOPTIONSITEM_H

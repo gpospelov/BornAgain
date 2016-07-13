@@ -46,4 +46,4 @@ private:
     bool m_expanded;
 };
 
-#endif
+#endif // INFOTOOLBAR_H

@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#ifndef APPLICATIONSERVICE_H
-#define APPLICATIONSERVICE_H
+#ifndef APPSVC_H
+#define APPSVC_H
 
 #include "WinDllMacros.h"
 #include "ISingleton.h"
@@ -41,4 +41,4 @@ private:
     ProjectManager *m_projectManager;
 };
 
-#endif
+#endif // APPSVC_H

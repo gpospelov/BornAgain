@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef SPHERICALDETECTOR_H_
-#define SPHERICALDETECTOR_H_
+#ifndef SPHERICALDETECTOR_H
+#define SPHERICALDETECTOR_H
 
 #include "IDetector2D.h"
 #include "IDetectorResolution.h"
@@ -99,4 +99,4 @@ private:
     double m_solid_angle;
 };
 
-#endif /* SPHERICALDETECTOR_H_ */
+#endif // SPHERICALDETECTOR_H

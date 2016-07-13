@@ -32,4 +32,4 @@ public:
     virtual ~TestItem(){}
 };
 
-#endif
+#endif // TESTITEM_H

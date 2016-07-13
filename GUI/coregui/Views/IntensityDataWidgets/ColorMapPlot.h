@@ -142,4 +142,4 @@ private:
 
 
 
-#endif
+#endif // COLORMAPPLOT_H

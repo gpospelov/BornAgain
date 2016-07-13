@@ -65,4 +65,4 @@ protected:
     QSize m_size_hint;
 };
 
-#endif
+#endif // ITEMSTACKWIDGET_H

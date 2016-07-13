@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef _PYGENVISITOR_H
-#define _PYGENVISITOR_H
+#ifndef PYGENVISITOR_H
+#define PYGENVISITOR_H
 #include "ISampleVisitor.h"
 #include "WinDllMacros.h"
 
@@ -112,4 +112,4 @@ private:
                                 std::ostringstream& result) const;
 };
 
-#endif
+#endif // PYGENVISITOR_H

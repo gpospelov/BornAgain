@@ -42,5 +42,5 @@ public:
     MaterialItem *cloneMaterial(const QModelIndex &index);
 };
 
-#endif
+#endif // MATERIALMODEL_H
 

@@ -37,4 +37,4 @@ private:
     class QListView *m_listView;
 };
 
-#endif
+#endif // REALDATASELECTORWIDGET_H

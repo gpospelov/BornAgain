@@ -43,4 +43,4 @@ private:
     static MinimizerLibrary::Catalogue m_catalogue;
 };
 
-#endif
+#endif // MINIMIZERITEMCATALOGUE_H

@@ -45,4 +45,4 @@ GISASSimulation* RectDetectorPerpToReflectedBeamDpos();
 GISASSimulation* MiniGISASMonteCarlo();
 }
 
-#endif
+#endif // STANDARDSIMULATIONS_H

@@ -91,5 +91,5 @@ private:
 Q_DECLARE_OPERATORS_FOR_FLAGS(PropertyAttribute::Appearance)
 Q_DECLARE_METATYPE(PropertyAttribute)
 
-#endif
+#endif // PROPERTYATTRIBUTE_H
 

@@ -43,4 +43,4 @@ protected:
 };
 
 
-#endif
+#endif // IFITOBSERVER_H

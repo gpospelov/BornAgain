@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef INTERFERENCEFUNCTIONS_H_
-#define INTERFERENCEFUNCTIONS_H_
+#ifndef INTERFERENCEFUNCTIONS_H
+#define INTERFERENCEFUNCTIONS_H
 
 #include "InterferenceFunctionNone.h"
 #include "InterferenceFunctionRadialParaCrystal.h"
@@ -22,6 +22,6 @@
 #include "InterferenceFunction2DLattice.h"
 #include "InterferenceFunction2DParaCrystal.h"
 
-#endif /* INTERFERENCEFUNCTIONS_H_ */
+#endif // INTERFERENCEFUNCTIONS_H
 
 

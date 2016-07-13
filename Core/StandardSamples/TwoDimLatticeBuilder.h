@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef ISGISAXS06BUILDER_H
-#define ISGISAXS06BUILDER_H
+#ifndef TWODIMLATTICEBUILDER_H
+#define TWODIMLATTICEBUILDER_H
 
 #include "ISampleBuilder.h"
 
@@ -53,4 +53,4 @@ public:
     ISample *buildSample() const;
 };
 
-#endif // ISGISAXS06BUILDER_H
+#endif // TWODIMLATTICEBUILDER_H

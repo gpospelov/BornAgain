@@ -63,4 +63,4 @@ private:
     QTimer *m_timer;
 };
 
-#endif
+#endif // UPDATETIMER_H

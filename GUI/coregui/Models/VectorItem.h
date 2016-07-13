@@ -34,5 +34,5 @@ public:
     kvector_t getVector() const;
 };
 
-#endif
+#endif // VECTORITEM_H
 

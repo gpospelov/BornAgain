@@ -66,4 +66,4 @@ private:
     static std::vector<std::unique_ptr<IParameterTranslator>> m_special_translators;
 };
 
-#endif
+#endif // MODELPATH_H

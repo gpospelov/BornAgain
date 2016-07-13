@@ -110,4 +110,4 @@ private:
     double m_total_particle_density;
 };
 
-#endif // PARTICLEDECORATION_H
+#endif // PARTICLELAYOUT_H

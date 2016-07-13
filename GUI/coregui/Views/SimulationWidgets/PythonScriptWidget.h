@@ -59,4 +59,4 @@ private:
     QString m_outputDir;
 };
 
-#endif
+#endif // PYTHONSCRIPTWIDGET_H

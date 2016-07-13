@@ -120,4 +120,4 @@ private:
 };
 
 
-#endif
+#endif // MASKGRAPHICSSCENE_H

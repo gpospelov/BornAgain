@@ -63,4 +63,4 @@ private:
     std::map<std::string, std::unique_ptr<ValueType>> m_data;
 };
 
-#endif
+#endif // IREGISTRY_H

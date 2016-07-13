@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef ISQUAREDFUNCTION_H_
-#define ISQUAREDFUNCTION_H_
+#ifndef ISQUAREDFUNCTION_H
+#define ISQUAREDFUNCTION_H
 
 #include "Numeric.h"
 #include "Exceptions.h"
@@ -186,4 +186,4 @@ private:
     double m_sigma;
 };
 
-#endif /* ISQUAREDFUNCTION_H_ */
+#endif // ISQUAREDFUNCTION_H

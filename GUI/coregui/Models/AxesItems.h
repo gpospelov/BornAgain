@@ -47,4 +47,4 @@ public:
     virtual ~AmplitudeAxisItem(){}
 };
 
-#endif
+#endif // AXESITEMS_H

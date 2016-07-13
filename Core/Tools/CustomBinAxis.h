@@ -54,4 +54,4 @@ protected:
 };
 
 
-#endif
+#endif // CUSTOMBINAXIS_H

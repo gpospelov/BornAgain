@@ -37,4 +37,4 @@ public:
                                           const SimulationOptionsItem *optionsItem = 0);
 };
 
-#endif
+#endif // DOMAINSIMULATIONBUILDER_H

@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef IMINIMIZERFUNCTIONALTEST_H
-#define IMINIMIZERFUNCTIONALTEST_H
+#ifndef IMINIMIZERTEST_H
+#define IMINIMIZERTEST_H
 
 #include "IFunctionalTest.h"
 #include "OutputData.h"
@@ -66,4 +66,4 @@ protected:
     double m_parameter_tolerance;
 };
 
-#endif
+#endif // IMINIMIZERTEST_H

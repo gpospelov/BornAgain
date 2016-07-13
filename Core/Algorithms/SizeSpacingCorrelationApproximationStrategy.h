@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef SIZESPACINGCORRELATIONAPPROXIMATIONSTRATEGY_H_
-#define SIZESPACINGCORRELATIONAPPROXIMATIONSTRATEGY_H_
+#ifndef SIZESPACINGCORRELATIONAPPROXIMATIONSTRATEGY_H
+#define SIZESPACINGCORRELATIONAPPROXIMATIONSTRATEGY_H
 
 #include "Complex.h"
 #include "IInterferenceFunctionStrategy.h"
@@ -63,4 +63,4 @@ private:
     double m_kappa;
 };
 
-#endif /* SIZESPACINGCORRELATIONAPPROXIMATIONSTRATEGY_H_ */
+#endif // SIZESPACINGCORRELATIONAPPROXIMATIONSTRATEGY_H

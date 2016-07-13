@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef SIMULATIONELEMENT_H_
-#define SIMULATIONELEMENT_H_
+#ifndef SIMULATIONELEMENT_H
+#define SIMULATIONELEMENT_H
 
 #include "Complex.h"
 #include "IParameterized.h"
@@ -182,4 +182,4 @@ void setAllElementIntensities(std::vector<SimulationElement>::iterator first,
 
 
 
-#endif /* SIMULATIONELEMENT_H_ */
+#endif // SIMULATIONELEMENT_H

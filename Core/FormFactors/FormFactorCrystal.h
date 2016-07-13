@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FORMFACTORCRYSTAL_H_
-#define FORMFACTORCRYSTAL_H_
+#ifndef FORMFACTORCRYSTAL_H
+#define FORMFACTORCRYSTAL_H
 
 #include "IFormFactorBorn.h"
 #include "Crystal.h"
@@ -56,6 +56,6 @@ private:
     double m_max_rec_length;
 };
 
-#endif /* FORMFACTORCRYSTAL_H_ */
+#endif // FORMFACTORCRYSTAL_H
 
 

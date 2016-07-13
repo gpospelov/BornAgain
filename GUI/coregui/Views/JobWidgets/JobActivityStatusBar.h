@@ -50,4 +50,4 @@ private:
     MainWindow *m_mainWindow;
 };
 
-#endif
+#endif // JOBACTIVITYSTATUSBAR_H

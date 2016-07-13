@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FORMFACTORDWBAPOL_H_
-#define FORMFACTORDWBAPOL_H_
+#ifndef FORMFACTORDWBAPOL_H
+#define FORMFACTORDWBAPOL_H
 
 #include "IFormFactor.h"
 #include "LayerSpecularInfo.h"
@@ -85,4 +85,4 @@ protected:
     const ILayerRTCoefficients *mp_out_coeffs;
 };
 
-#endif /* FORMFACTORDWBAPOL_H_ */
+#endif // FORMFACTORDWBAPOL_H

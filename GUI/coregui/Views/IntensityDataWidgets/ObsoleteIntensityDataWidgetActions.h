@@ -46,4 +46,4 @@ private:
     QAction *m_savePlotAction;
 };
 
-#endif
+#endif // OBSOLETEINTENSITYDATAWIDGETACTIONS_H

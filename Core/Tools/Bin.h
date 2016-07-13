@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BIN_H_
-#define BIN_H_
+#ifndef BIN_H
+#define BIN_H
 
 #include "Numeric.h"
 #include "Vectors3D.h"
@@ -88,4 +88,4 @@ inline Bin1DCVector::Bin1DCVector(double wavelength, const Bin1D& alpha_bin, con
         wavelength, alpha_bin.m_upper, phi_bin.m_upper).complex();
 }
 
-#endif /* BIN_H_ */
+#endif // BIN_H

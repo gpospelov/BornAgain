@@ -55,4 +55,4 @@ private:
     QString m_projectDocumentVersion;
 };
 
-#endif
+#endif // PROJECTLOADWARNINGDIALOG_H

@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef IPIXELMAP_H_
-#define IPIXELMAP_H_
+#ifndef IPIXELMAP_H
+#define IPIXELMAP_H
 
 #include "Vectors3D.h"
 
@@ -34,4 +34,4 @@ public:
     virtual double getSolidAngle() const=0;
 };
 
-#endif /* IPIXELMAP_H_ */
+#endif // IPIXELMAP_H

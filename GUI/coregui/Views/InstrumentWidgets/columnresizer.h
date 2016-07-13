@@ -64,4 +64,4 @@ private:
     ColumnResizerPrivate* const d;
 };
 
-#endif /* COLUMNRESIZER_H */
+#endif // COLUMNRESIZER_H

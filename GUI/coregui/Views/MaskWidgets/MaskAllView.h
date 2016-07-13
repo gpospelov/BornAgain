@@ -37,4 +37,4 @@ protected:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *);
 };
 
-#endif
+#endif // MASKALLVIEW_H

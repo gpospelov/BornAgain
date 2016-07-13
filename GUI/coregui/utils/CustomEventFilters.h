@@ -67,4 +67,4 @@ signals:
 
 
 
-#endif
+#endif // CUSTOMEVENTFILTERS_H

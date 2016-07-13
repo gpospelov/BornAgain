@@ -62,4 +62,4 @@ private:
     int m_cached_height;
 };
 
-#endif
+#endif // INFOWIDGET_H

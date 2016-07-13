@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DISTRIBUTIONHANDLER_H_
-#define DISTRIBUTIONHANDLER_H_
+#ifndef DISTRIBUTIONHANDLER_H
+#define DISTRIBUTIONHANDLER_H
 
 #include "IParameterized.h"
 #include "ParameterDistribution.h"
@@ -59,4 +59,4 @@ private:
 };
 
 
-#endif /* DISTRIBUTIONHANDLER_H_ */
+#endif // DISTRIBUTIONHANDLER_H

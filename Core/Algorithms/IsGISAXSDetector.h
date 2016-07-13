@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef ISGISAXSDETECTOR_H_
-#define ISGISAXSDETECTOR_H_
+#ifndef ISGISAXSDETECTOR_H
+#define ISGISAXSDETECTOR_H
 
 #include "SphericalDetector.h"
 
@@ -43,4 +43,4 @@ protected:
     virtual IAxis* createAxis(size_t index, size_t n_bins, double min, double max) const;
 };
 
-#endif /* ISGISAXSDETECTOR_H_ */
+#endif // ISGISAXSDETECTOR_H

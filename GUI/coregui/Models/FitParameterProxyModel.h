@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FITPARAMETERABSMODEL_H
-#define FITPARAMETERABSMODEL_H
+#ifndef FITPARAMETERPROXYMODEL_H
+#define FITPARAMETERPROXYMODEL_H
 
 #include "WinDllMacros.h"
 #include <QAbstractItemModel>
@@ -92,4 +92,4 @@ inline Qt::DropActions FitParameterProxyModel::supportedDropActions() const
 }
 
 
-#endif
+#endif // FITPARAMETERPROXYMODEL_H

@@ -58,4 +58,4 @@ private:
     JobModel *m_jobModel;
 };
 
-#endif
+#endif // JOBLISTWIDGET_H

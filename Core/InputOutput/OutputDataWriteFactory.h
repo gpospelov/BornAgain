@@ -35,4 +35,4 @@ private:
     static IOutputDataWriteStrategy *getWriteStrategy(const std::string& file_name);
 };
 
-#endif
+#endif // OUTPUTDATAWRITEFACTORY_H

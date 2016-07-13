@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef PARAMETERSAMPLE_H_
-#define PARAMETERSAMPLE_H_
+#ifndef PARAMETERSAMPLE_H
+#define PARAMETERSAMPLE_H
 
 //! @class ParameterSample
 //! @ingroup algorithms_internal
@@ -25,4 +25,4 @@ struct ParameterSample
 	double weight;
 };
 
-#endif /* PARAMETERSAMPLE_H_ */
+#endif // PARAMETERSAMPLE_H

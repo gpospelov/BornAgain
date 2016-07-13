@@ -62,4 +62,4 @@ private:
     NodeEditorConnection *m_conn;
 };
 
-#endif
+#endif // NODEEDITOR_H

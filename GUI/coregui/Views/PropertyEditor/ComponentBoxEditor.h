@@ -41,4 +41,4 @@ public slots:
 };
 
 
-#endif
+#endif // COMPONENTBOXEDITOR_H

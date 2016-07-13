@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MATRIXRTCOEFFICIENTS_H_
-#define MATRIXRTCOEFFICIENTS_H_
+#ifndef MATRIXRTCOEFFICIENTS_H
+#define MATRIXRTCOEFFICIENTS_H
 
 #include "ILayerRTCoefficients.h"
 #include "Complex.h"
@@ -185,4 +185,4 @@ inline Eigen::Vector2cd MatrixRTCoefficients::getKz() const
     return kz;
 }
 
-#endif /* MATRIXRTCOEFFICIENTS_H_ */
+#endif // MATRIXRTCOEFFICIENTS_H

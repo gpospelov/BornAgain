@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#ifndef ItemIDFactory_H
-#define ItemIDFactory_H
+#ifndef ITEMIDFACTORY_H
+#define ITEMIDFACTORY_H
 
 #include <QUuid>
 #include <QMap>
@@ -47,4 +47,4 @@ private:
     QMap<SessionItem*, QString> ItemtoIDMap;
 };
 
-#endif
+#endif // ITEMIDFACTORY_H

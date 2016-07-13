@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef INTERFERENCEFUNCTIONNONE_H_
-#define INTERFERENCEFUNCTIONNONE_H_
+#ifndef INTERFERENCEFUNCTIONNONE_H
+#define INTERFERENCEFUNCTIONNONE_H
 
 #include "IInterferenceFunction.h"
 
@@ -34,4 +34,4 @@ public:
     virtual double evaluate(const kvector_t q) const;
 };
 
-#endif /* INTERFERENCEFUNCTIONNONE_H_ */
+#endif // INTERFERENCEFUNCTIONNONE_H

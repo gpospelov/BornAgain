@@ -34,4 +34,4 @@ public:
     virtual ISample* buildSample() const;
 };
 
-#endif // FORMFACTORSBUILDER_H
+#endif // PARTICLEINTHEAIRBUILDER_H

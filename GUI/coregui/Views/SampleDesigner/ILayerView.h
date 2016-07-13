@@ -70,4 +70,4 @@ public:
 };
 
 
-#endif
+#endif // ILAYERVIEW_H

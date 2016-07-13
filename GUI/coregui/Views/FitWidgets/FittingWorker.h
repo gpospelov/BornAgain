@@ -51,4 +51,4 @@ private:
 
 };
 
-#endif
+#endif // FITTINGWORKER_H

@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef PARTICLECOMPOSITION_H_
-#define PARTICLECOMPOSITION_H_
+#ifndef PARTICLECOMPOSITION_H
+#define PARTICLECOMPOSITION_H
 
 #include "IParticle.h"
 #include "Complex.h"
@@ -74,4 +74,4 @@ private:
     void initialize();
 };
 
-#endif /* PARTICLECOMPOSITION_H_ */
+#endif // PARTICLECOMPOSITION_H

@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BEAM_H_
-#define BEAM_H_
+#ifndef BEAM_H
+#define BEAM_H
 
 #include "Vectors3D.h"
 #include "IParameterized.h"
@@ -114,4 +114,4 @@ inline double Beam::getPhi() const
     return m_phi;
 }
 
-#endif /* BEAM_H_ */
+#endif // BEAM_H

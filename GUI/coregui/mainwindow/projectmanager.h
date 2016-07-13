@@ -84,4 +84,4 @@ private:
     WarningMessageService *m_messageService;
 };
 
-#endif
+#endif // PROJECTMANAGER_H

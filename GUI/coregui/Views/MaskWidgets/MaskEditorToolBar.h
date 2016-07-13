@@ -66,4 +66,4 @@ private:
 };
 
 
-#endif
+#endif // MASKEDITORTOOLBAR_H

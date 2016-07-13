@@ -110,5 +110,5 @@ private:
     SessionModelView *m_sessionModelView;
 };
 
-#endif
+#endif // MAINWINDOW_H
 

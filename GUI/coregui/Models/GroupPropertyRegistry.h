@@ -45,4 +45,4 @@ private:
 };
 
 
-#endif
+#endif // GROUPPROPERTYREGISTRY_H

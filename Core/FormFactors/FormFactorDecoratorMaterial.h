@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FORMFACTORDECORATORMATERIAL_H_
-#define FORMFACTORDECORATORMATERIAL_H_
+#ifndef FORMFACTORDECORATORMATERIAL_H
+#define FORMFACTORDECORATORMATERIAL_H
 
 #include "FormFactorDecoratorFactor.h"
 #include "HomogeneousMaterial.h"
@@ -58,4 +58,4 @@ private:
     std::unique_ptr<IMaterial> mP_ambient_material;
 };
 
-#endif /* FORMFACTORDECORATORMATERIAL_H_ */
+#endif // FORMFACTORDECORATORMATERIAL_H

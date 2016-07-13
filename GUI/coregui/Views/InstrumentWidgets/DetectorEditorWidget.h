@@ -55,4 +55,4 @@ private:
     QWidget *m_subDetectorWidget;
 };
 
-#endif
+#endif // DETECTOREDITORWIDGET_H

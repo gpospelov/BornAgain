@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef TESTCOMPONENTSREGISTRY_H
-#define TESTCOMPONENTSREGISTRY_H
+#ifndef SUBTESTREGISTRY_H
+#define SUBTESTREGISTRY_H
 
 #include "IRegistry.h"
 #include "IFormFactor.h"
@@ -42,4 +42,4 @@ public:
     TestFormFactorsRegistry();
 };
 
-#endif // TESTCOMPONENTREGISTRY_H
+#endif // SUBTESTREGISTRY_H

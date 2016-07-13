@@ -144,5 +144,5 @@ public:
 };
 
 
-#endif
+#endif // FTDISTRIBUTIONITEMS_H
 

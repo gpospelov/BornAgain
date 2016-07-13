@@ -48,4 +48,4 @@ private:
     BeamItem *m_beamItem;
 };
 
-#endif
+#endif // BEAMEDITORWIDGET_H

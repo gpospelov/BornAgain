@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#ifndef ITEMCOLBOTOOLBAR_H
-#define ITEMCOLBOTOOLBAR_H
+#ifndef ITEMCOMBOTOOLBAR_H
+#define ITEMCOMBOTOOLBAR_H
 
 #include "StyledToolBar.h"
 #include <QList>
@@ -52,5 +52,5 @@ private:
     QAction *m_comboBoxAction;
 };
 
-#endif
+#endif // ITEMCOMBOTOOLBAR_H
 

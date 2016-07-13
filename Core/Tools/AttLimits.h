@@ -147,4 +147,4 @@ inline bool AttLimits::operator!=(const AttLimits &other) const
     return !(*this == other);
 }
 
-#endif // LIMITS_H
+#endif // ATTLIMITS_H

@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef GISASSIMULATION_H_
-#define GISASSIMULATION_H_
+#ifndef GISASSIMULATION_H
+#define GISASSIMULATION_H
 
 #include "ISampleBuilder.h"
 #include "Instrument.h"
@@ -142,4 +142,4 @@ private:
     void initialize();
 };
 
-#endif // GISASSIMULATION_H_
+#endif // GISASSIMULATION_H

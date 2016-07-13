@@ -43,4 +43,4 @@ private:
     std::map<std::string, FunctionalTestInfo> m_catalogue;
 };
 
-#endif
+#endif // FUNCTIONALTESTREGISTRY_H

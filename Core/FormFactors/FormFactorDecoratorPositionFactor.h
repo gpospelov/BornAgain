@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FORMFACTORDECORATORPOSITIONFACTOR_H_
-#define FORMFACTORDECORATORPOSITIONFACTOR_H_
+#ifndef FORMFACTORDECORATORPOSITIONFACTOR_H
+#define FORMFACTORDECORATORPOSITIONFACTOR_H
 
 #include "IFormFactorDecorator.h"
 #include "BornAgainNamespace.h"
@@ -85,4 +85,4 @@ inline complex_t FormFactorDecoratorPositionFactor::getPositionFactor(const cvec
     return exp_I(qr);
 }
 
-#endif /* FORMFACTORDECORATORPOSITIONFACTOR_H_ */
+#endif // FORMFACTORDECORATORPOSITIONFACTOR_H

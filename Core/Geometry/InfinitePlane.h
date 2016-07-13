@@ -40,4 +40,4 @@ public:
 
 } // namespace Geometry
 
-#endif
+#endif // INFINITEPLANE_H

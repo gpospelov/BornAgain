@@ -39,4 +39,4 @@ private:
     static activity_map_t m_activityToDocks;
 };
 
-#endif
+#endif // JOBVIEWACTIVITIES_H

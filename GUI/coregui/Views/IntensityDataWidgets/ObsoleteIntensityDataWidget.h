@@ -56,4 +56,4 @@ private:
     IntensityDataItem *m_currentItem;
 };
 
-#endif
+#endif // OBSOLETEINTENSITYDATAWIDGET_H

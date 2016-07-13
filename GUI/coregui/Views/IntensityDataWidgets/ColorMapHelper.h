@@ -44,4 +44,4 @@ private:
     static gradient_map_t m_gradient_map;
 };
 
-#endif
+#endif // COLORMAPHELPER_H

@@ -47,4 +47,4 @@ private:
 };
 
 
-#endif
+#endif // INFOPANELTOOLBAR_H

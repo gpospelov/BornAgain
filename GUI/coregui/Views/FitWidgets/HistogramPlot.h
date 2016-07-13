@@ -42,5 +42,5 @@ private:
 
 };
 
-#endif
+#endif // HISTOGRAMPLOT_H
 

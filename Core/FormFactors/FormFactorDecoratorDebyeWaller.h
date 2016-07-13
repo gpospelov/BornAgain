@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FORMFACTORDECORATORDEBYEWALLER_H_
-#define FORMFACTORDECORATORDEBYEWALLER_H_
+#ifndef FORMFACTORDECORATORDEBYEWALLER_H
+#define FORMFACTORDECORATORDEBYEWALLER_H
 
 #include "IFormFactorDecorator.h"
 
@@ -55,4 +55,4 @@ private:
     void initialize();
 };
 
-#endif /* FORMFACTORDECORATORDEBYEWALLER_H_ */
+#endif // FORMFACTORDECORATORDEBYEWALLER_H

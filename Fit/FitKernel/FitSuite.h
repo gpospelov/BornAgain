@@ -161,4 +161,4 @@ private:
     std::unique_ptr<FitKernel> m_kernel;
 };
 
-#endif
+#endif // FITSUITE_H

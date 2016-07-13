@@ -122,4 +122,4 @@ typedef std::complex<double> complex_t;
 Q_DECLARE_METATYPE(complex_t)
 
 
-#endif // EDITORHELPER_H
+#endif // DESIGNERHELPER_H

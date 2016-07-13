@@ -46,4 +46,4 @@ public:
 Q_DECLARE_OPERATORS_FOR_FLAGS(JobViewFlags::Dock)
 Q_DECLARE_OPERATORS_FOR_FLAGS(JobViewFlags::Activity)
 
-#endif
+#endif // JOBVIEWFLAGS_H

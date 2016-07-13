@@ -59,4 +59,4 @@ Q_DECLARE_METATYPE(ColorProperty)
 
 
 
-#endif
+#endif // COLORPROPERTY_H

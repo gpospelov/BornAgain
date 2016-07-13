@@ -82,4 +82,4 @@ inline double FormFactorLongRipple2Lorentz::getAsymmetry() const
     return m_d;
 }
 
-#endif
+#endif // FORMFACTORLONGRIPPLE2LORENTZ_H

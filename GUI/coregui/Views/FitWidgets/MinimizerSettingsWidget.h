@@ -45,4 +45,4 @@ private:
     ComponentEditor *m_propertyEditor;
 };
 
-#endif
+#endif // MINIMIZERSETTINGSWIDGET_H

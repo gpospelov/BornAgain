@@ -56,6 +56,6 @@ private:
 
 
 
-#endif
+#endif // MATERIALSVC_H
 
 

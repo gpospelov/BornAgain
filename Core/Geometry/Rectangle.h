@@ -55,4 +55,4 @@ private:
 
 } // namespace Geometry
 
-#endif
+#endif // RECTANGLE_H

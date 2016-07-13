@@ -96,4 +96,4 @@ private:
 
 } // namespace Geometry
 
-#endif
+#endif // LINE_H

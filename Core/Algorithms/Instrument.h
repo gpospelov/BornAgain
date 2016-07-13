@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef INSTRUMENT_H_
-#define INSTRUMENT_H_
+#ifndef INSTRUMENT_H
+#define INSTRUMENT_H
 
 #include "Beam.h"
 #include "IDetector2D.h"
@@ -165,4 +165,4 @@ inline void Instrument::setAnalyzerProperties(const kvector_t direction, double 
     mP_detector->setAnalyzerProperties(direction, efficiency, total_transmission);
 }
 
-#endif /* INSTRUMENT_H_ */
+#endif // INSTRUMENT_H

@@ -76,4 +76,4 @@ public:
                                        class ParameterContainerItem *parameterContainer);
 };
 
-#endif
+#endif // FITPARAMETERITEMS_H

@@ -60,4 +60,4 @@ private:
     IntensityDataItem *m_item;
 };
 
-#endif
+#endif // HORIZONTALSLICEPLOT_H

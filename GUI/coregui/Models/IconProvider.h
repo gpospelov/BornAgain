@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#ifndef ICON_PROVIDER_H
-#define ICON_PROVIDER_H
+#ifndef ICONPROVIDER_H
+#define ICONPROVIDER_H
 
 #include "WinDllMacros.h"
 #include <QIcon>
@@ -35,5 +35,5 @@ public:
 };
 
 
-#endif
+#endif // ICONPROVIDER_H
 

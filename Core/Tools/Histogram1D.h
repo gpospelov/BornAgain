@@ -74,4 +74,4 @@ public:
 };
 
 
-#endif
+#endif // HISTOGRAM1D_H

@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#ifndef INSTRUMENT_SELECTOR_WIDGET_H
-#define INSTRUMENT_SELECTOR_WIDGET_H
+#ifndef INSTRUMENTSELECTORWIDGET_H
+#define INSTRUMENTSELECTORWIDGET_H
 
 #include "WinDllMacros.h"
 #include <QWidget>
@@ -53,5 +53,5 @@ private:
 };
 
 
-#endif
+#endif // INSTRUMENTSELECTORWIDGET_H
 

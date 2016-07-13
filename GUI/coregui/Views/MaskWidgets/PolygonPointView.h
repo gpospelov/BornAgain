@@ -51,4 +51,4 @@ private:
     bool m_on_hover;
 };
 
-#endif
+#endif // POLYGONPOINTVIEW_H

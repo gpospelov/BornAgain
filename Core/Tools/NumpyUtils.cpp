@@ -22,7 +22,7 @@
 
 #include "NumpyUtils.h"
 #include "Exceptions.h"
-#include "numpy/arrayobject.h"
+#include <numpy/arrayobject.h>
 
 PyObject* Utils::createNumpyArray(const std::vector<double>& data)
 {

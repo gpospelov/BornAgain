@@ -20,7 +20,7 @@
 #define NO_IMPORT_ARRAY
 
 #include "OutputData.h"
-#include "numpy/arrayobject.h"
+#include <numpy/arrayobject.h>
 
 template<>
 PyObject *OutputData<double>::getArray() const

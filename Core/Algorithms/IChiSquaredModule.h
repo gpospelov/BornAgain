@@ -44,7 +44,8 @@ public:
     void setChiSquaredFunction(const ISquaredFunction& squared_function);
 
     //! Returns data normalizer.
-    virtual const IIntensityNormalizer* getIntensityNormalizer() const { return mp_data_normalizer; }
+    virtual const IIntensityNormalizer* getIntensityNormalizer() const {
+        return mp_data_normalizer; }
 
     //! Returns data normalizer, non-const version needed to set internals.
     virtual IIntensityNormalizer* getIntensityNormalizer() {  return mp_data_normalizer; }

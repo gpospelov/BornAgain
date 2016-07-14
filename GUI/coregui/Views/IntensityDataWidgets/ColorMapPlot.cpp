@@ -566,7 +566,7 @@ void ColorMapPlot::setColorMapFromItem(IntensityDataItem *intensityItem)
 void ColorMapPlot::setAxesRangeFromItem(IntensityDataItem *item)
 {
     auto data = item->getOutputData();
-    Q_ASSERT(data);
+    if(!data) return;
 
     m_customPlot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom);
     m_customPlot->axisRect()->setupFullAxesBox(true);
@@ -605,7 +605,8 @@ void ColorMapPlot::setLabelsFromItem(IntensityDataItem *item)
 void ColorMapPlot::setDataFromItem(IntensityDataItem *item)
 {
     auto data = item->getOutputData();
-    Q_ASSERT(data);
+    if(!data) return;
+
     const IAxis *axis_x = data->getAxis(0);
     const IAxis *axis_y = data->getAxis(1);
 

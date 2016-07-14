@@ -16,18 +16,17 @@
 #ifndef OUTPUTDATA_H
 #define OUTPUTDATA_H
 
+#include "FixedBinAxis.h"
+#include "LLData.h"
+#include "OutputDataIterator.h"
+#include "SafePointerVector.h"
+
 #ifdef BORNAGAIN_PYTHON
 #ifndef PyObject_HEAD
 struct _object;
 typedef _object PyObject;
 #endif
 #endif
-
-#include "FixedBinAxis.h"
-#include "LLData.h"
-#include "OutputDataIterator.h"
-#include "SafePointerVector.h"
-
 
 //! @class OutputData
 //! @ingroup tools

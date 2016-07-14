@@ -13,13 +13,14 @@
 //
 // ************************************************************************** //
 
-#include "InterferenceFunction2DLattice.h"
-#include "BornAgainNamespace.h"
-
 #include "Macros.h"
+
 GCC_DIAG_OFF(unused-parameter)
 #include <boost/math/special_functions/round.hpp>
 GCC_DIAG_ON(unused-parameter)
+
+#include "InterferenceFunction2DLattice.h"
+#include "BornAgainNamespace.h"
 
 using namespace BornAgain;
 
@@ -41,20 +42,20 @@ InterferenceFunction2DLattice::~InterferenceFunction2DLattice()
     delete mp_pdf;
 }
 
-InterferenceFunction2DLattice *InterferenceFunction2DLattice::clone() const
+InterferenceFunction2DLattice* InterferenceFunction2DLattice::clone() const
 {
-    InterferenceFunction2DLattice *result = new InterferenceFunction2DLattice(m_lattice_params);
+    InterferenceFunction2DLattice* result = new InterferenceFunction2DLattice(m_lattice_params);
     if (mp_pdf)
         result->setDecayFunction(*mp_pdf);
     return result;
 }
 
-void InterferenceFunction2DLattice::accept(ISampleVisitor *visitor) const
+void InterferenceFunction2DLattice::accept(ISampleVisitor* visitor) const
 {
     visitor->visit(this);
 }
 
-InterferenceFunction2DLattice *InterferenceFunction2DLattice::createSquare(double lattice_length,
+InterferenceFunction2DLattice* InterferenceFunction2DLattice::createSquare(double lattice_length,
                                                                            double xi)
 {
     Lattice2DParameters lattice_params;
@@ -65,7 +66,7 @@ InterferenceFunction2DLattice *InterferenceFunction2DLattice::createSquare(doubl
     return new InterferenceFunction2DLattice(lattice_params);
 }
 
-InterferenceFunction2DLattice *InterferenceFunction2DLattice::createHexagonal(double lattice_length,
+InterferenceFunction2DLattice* InterferenceFunction2DLattice::createHexagonal(double lattice_length,
                                                                               double xi)
 {
     Lattice2DParameters lattice_params;
@@ -86,17 +87,16 @@ void InterferenceFunction2DLattice::setDecayFunction(const IFTDecayFunction2D &p
     initialize_calc_factors(omega_x, omega_y);
 }
 
-const IFTDecayFunction2D *InterferenceFunction2DLattice::getDecayFunction() const
+const IFTDecayFunction2D* InterferenceFunction2DLattice::getDecayFunction() const
 {
     return mp_pdf;
 }
 
 double InterferenceFunction2DLattice::evaluate(const kvector_t q) const
 {
-    if (!mp_pdf) {
+    if (!mp_pdf)
         throw Exceptions::NullPointerException("InterferenceFunction2DLattice::evaluate"
                                    " -> Error! No probability distribution function defined.");
-    }
     double result = 0.0;
     double qxr = q.x();
     double qyr = q.y();
@@ -119,7 +119,7 @@ Lattice2DParameters InterferenceFunction2DLattice::getLatticeParameters() const
 }
 
 std::string InterferenceFunction2DLattice::addParametersToExternalPool(
-        std::string path, ParameterPool *external_pool, int copy_number) const
+        std::string path, ParameterPool* external_pool, int copy_number) const
 {
     // add own parameters
     std::string  new_path = IParameterized::addParametersToExternalPool(

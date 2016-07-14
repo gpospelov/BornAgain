@@ -32,27 +32,26 @@ public:
     //! @param length_2 Lattice length 2
     //! @param angle angle between lattice vectors
     //! @param xi rotation of lattice with respect to x-axis
-    InterferenceFunction2DLattice(double length_1, double length_2,
-                                  double angle, double xi=0.0);
+    InterferenceFunction2DLattice(double length_1, double length_2, double angle, double xi=0.0);
     virtual ~InterferenceFunction2DLattice();
 
-    virtual InterferenceFunction2DLattice *clone() const;
+    virtual InterferenceFunction2DLattice* clone() const;
 
-    virtual void accept(ISampleVisitor *visitor) const;
+    virtual void accept(ISampleVisitor* visitor) const;
 
-    static InterferenceFunction2DLattice *createSquare(double lattice_length, double xi = 0.0);
-    static InterferenceFunction2DLattice *createHexagonal(double lattice_length, double xi = 0.0);
+    static InterferenceFunction2DLattice* createSquare(double lattice_length, double xi = 0.0);
+    static InterferenceFunction2DLattice* createHexagonal(double lattice_length, double xi = 0.0);
 
     void setDecayFunction(const IFTDecayFunction2D& pdf);
 
-    const IFTDecayFunction2D *getDecayFunction() const;
+    const IFTDecayFunction2D* getDecayFunction() const;
 
     virtual double evaluate(const kvector_t q) const;
 
     Lattice2DParameters getLatticeParameters() const;
 
     //! Adds parameters from local pool to external pool and recursively calls its direct children.
-    virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool,
+    virtual std::string addParametersToExternalPool(std::string path, ParameterPool* external_pool,
                                                     int copy_number = -1) const;
 
     //! Returns the particle density associated with this 2d lattice
@@ -72,7 +71,7 @@ protected:
             double& qx_frac, double& qy_frac) const;
 
     Lattice2DParameters m_lattice_params;
-    IFTDecayFunction2D *mp_pdf;
+    IFTDecayFunction2D* mp_pdf;
     static const int nmax = 20; //!< maximum value for qx*Lambdax and qy*lambday
 
 private:

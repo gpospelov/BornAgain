@@ -14,16 +14,16 @@
 //
 // ************************************************************************** //
 
-#include "TestView.h"
-#include "MaskEditor.h"
-#include "mainwindow.h"
-#include "MaterialEditor.h"
-#include "MinimizerSettingsWidget.h"
-#include "AccordionWidget.h"
-#include "MinimizerItem.h"
-#include "JobModel.h"
-#include <QLineEdit>
 #include <QCheckBox>
+#include <QLineEdit>
+#include "AccordionWidget.h"
+#include "JobModel.h"
+#include "MaskEditor.h"
+#include "MaterialEditor.h"
+#include "MinimizerItem.h"
+#include "MinimizerSettingsWidget.h"
+#include "mainwindow.h"
+#include "TestView.h"
 
 TestView::TestView(MainWindow *mainWindow)
     : QWidget(mainWindow)

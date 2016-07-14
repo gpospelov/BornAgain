@@ -14,14 +14,14 @@
 //
 // ************************************************************************** //
 
-#include "ImportDataView.h"
-#include "mainwindow.h"
+#include <QVBoxLayout>
 #include "ImportDataToolBar.h"
 #include "ItemSelectorWidget.h"
 #include "RealDataModel.h"
+#include "mainwindow.h"
 #include "mainwindow_constants.h"
 #include "minisplitter.h"
-#include <QVBoxLayout>
+#include "ImportDataView.h"
 
 ImportDataView::ImportDataView(MainWindow *mainWindow)
     : QWidget(mainWindow)

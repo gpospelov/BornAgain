@@ -14,16 +14,16 @@
 //
 // ************************************************************************** //
 
-#include "JobView.h"
-#include "JobViewDocks.h"
-#include "JobSelectorWidget.h"
-#include "JobOutputDataWidget.h"
-#include "JobProgressAssistant.h"
-#include "JobModel.h"
-#include "mainwindow.h"
+#include <QMenu>
 #include "JobActivityStatusBar.h"
 #include "JobItem.h"
-#include <QMenu>
+#include "JobModel.h"
+#include "JobOutputDataWidget.h"
+#include "JobProgressAssistant.h"
+#include "JobSelectorWidget.h"
+#include "JobViewDocks.h"
+#include "mainwindow.h"
+#include "JobView.h"
 
 JobView::JobView(MainWindow *mainWindow)
     : m_docks(new JobViewDocks(this))

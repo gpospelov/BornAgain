@@ -18,10 +18,8 @@
 #define SAMPLEVIEWCOMPONENTS_H
 
 #include "ItemTreeView.h"
-
-//#include "SamplePropertyEditor.h"
-#include "SampleWidgetBox.h"
 #include "SampleModel.h"
+#include "SampleWidgetBox.h"
 
 
 

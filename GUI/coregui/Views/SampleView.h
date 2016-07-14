@@ -17,10 +17,10 @@
 #ifndef SAMPLEVIEW_H
 #define SAMPLEVIEW_H
 
-#include "fancymainwindow.h"
-#include <QTreeView>
 #include <QAction>
 #include <QSignalMapper>
+#include <QTreeView>
+#include "fancymainwindow.h"
 
 
 class MainWindow;

@@ -14,19 +14,19 @@
 //
 // ************************************************************************** //
 
-#include "SampleView.h"
-#include "mainwindow.h"
-#include "SampleViewComponents.h"
-#include "SampleDesigner.h"
-#include "SampleToolBar.h"
-#include "SamplePropertyWidget.h"
-#include "InfoWidget.h"
-#include "ItemFactory.h"
-#include "FilterPropertyProxy.h"
+#include <QDebug>
 #include <QDockWidget>
 #include <QMenu>
-#include <QDebug>
 #include <QTimer>
+#include "FilterPropertyProxy.h"
+#include "InfoWidget.h"
+#include "ItemFactory.h"
+#include "SampleDesigner.h"
+#include "SamplePropertyWidget.h"
+#include "SampleToolBar.h"
+#include "SampleViewComponents.h"
+#include "mainwindow.h"
+#include "SampleView.h"
 
 SampleView::SampleView(MainWindow *mainWindow)
     : Manhattan::FancyMainWindow(mainWindow)

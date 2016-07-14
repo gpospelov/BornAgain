@@ -76,6 +76,9 @@ protected:
     //! generate list of sampled values with their weight from value list
     std::vector<ParameterSample> generateSamplesFromValues(
         const std::vector<double>& sample_values) const;
+
+    //! signals that the distribution is in the limit case of a delta distribution
+    virtual bool isDelta() const=0;
 };
 
 //! @class DistributionGate
@@ -115,6 +118,8 @@ protected:
     //! Registers some class members for later access via parameter pool
     void init_parameters();
 
+    //! signals that the distribution is in the limit case of a delta distribution
+    virtual bool isDelta() const;
 private:
     //! check initialization
     bool checkInitialization() const;
@@ -152,6 +157,9 @@ public:
 protected:
     //! Registers some class members for later access via parameter pool
     void init_parameters();
+
+    //! signals that the distribution is in the limit case of a delta distribution
+    virtual bool isDelta() const;
 private:
     //! check initialization
     bool checkInitialization() const;
@@ -190,6 +198,9 @@ public:
 protected:
     //! Registers some class members for later access via parameter pool
     void init_parameters();
+
+    //! signals that the distribution is in the limit case of a delta distribution
+    virtual bool isDelta() const;
 private:
     //! check initialization
     bool checkInitialization() const;
@@ -231,6 +242,9 @@ public:
 protected:
     //! Registers some class members for later access via parameter pool
     void init_parameters();
+
+    //! signals that the distribution is in the limit case of a delta distribution
+    virtual bool isDelta() const;
 private:
     //! check initialization
     bool checkInitialization() const;
@@ -269,6 +283,9 @@ public:
 protected:
     //! Registers some class members for later access via parameter pool
     void init_parameters();
+
+    //! signals that the distribution is in the limit case of a delta distribution
+    virtual bool isDelta() const;
 private:
     //! check initialization
     bool checkInitialization() const;

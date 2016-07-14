@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#include "FitSuiteObjects.h"
 #include "ChiSquaredModule.h"
+#include "FitSuiteObjects.h"
 
 FitSuiteObjects::FitSuiteObjects()
   : m_total_weight(0)

@@ -16,8 +16,8 @@
 #ifndef FITSUITESTRATEGIES_H
 #define FITSUITESTRATEGIES_H
 
-#include "SafePointerVector.h"
 #include "IFitStrategy.h"
+#include "SafePointerVector.h"
 
 
 //! @class FitSuiteStrategies

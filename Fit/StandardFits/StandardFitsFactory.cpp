@@ -1,8 +1,8 @@
 
-#include "StandardFitsFactory.h"
+#include <boost/format.hpp>
 #include "MinimizerTests.h"
 #include "RectDetectorFitTest.h"
-#include <boost/format.hpp>
+#include "StandardFitsFactory.h"
 
 StandardFitsFactory::StandardFitsFactory()
 {

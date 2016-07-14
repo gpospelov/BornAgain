@@ -13,9 +13,9 @@
 //
 // ************************************************************************** //
 
-#include "FitStrategyAdjustMinimizer.h"
 #include "FitKernel.h"
 #include "MinimizerFactory.h"
+#include "FitStrategyAdjustMinimizer.h"
 
 
 FitStrategyAdjustMinimizer::FitStrategyAdjustMinimizer()

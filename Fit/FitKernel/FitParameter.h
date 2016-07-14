@@ -16,8 +16,8 @@
 #ifndef FITPARAMETER_H
 #define FITPARAMETER_H
 
-#include "INamed.h"
 #include "AttLimits.h"
+#include "INamed.h"
 
 //! @class FitParameter
 //! @ingroup fitting_internal

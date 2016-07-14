@@ -13,10 +13,10 @@
 //
 // ************************************************************************** //
 
-#include "FitSuitePrintObserver.h"
 #include "FitSuite.h"
-#include "FitSuiteStrategies.h"
 #include "FitSuiteParameters.h"
+#include "FitSuiteStrategies.h"
+#include "FitSuitePrintObserver.h"
 
 
 FitSuitePrintObserver::FitSuitePrintObserver(int print_every_nth)

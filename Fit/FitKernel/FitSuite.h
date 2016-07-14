@@ -16,9 +16,9 @@
 #ifndef FITSUITE_H
 #define FITSUITE_H
 
-#include "IObserver.h"
-#include "IHistogram.h"
 #include "AttLimits.h"
+#include "IHistogram.h"
+#include "IObserver.h"
 
 class GISASSimulation;
 class IChiSquaredModule;

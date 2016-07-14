@@ -16,8 +16,8 @@
 #ifndef MINIMIZERTEST_H
 #define MINIMIZERTEST_H
 
-#include "IMinimizer.h"
 #include "FitSuiteParameters.h"
+#include "IMinimizer.h"
 
 
 //! @class MinimizerTest

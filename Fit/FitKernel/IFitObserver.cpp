@@ -13,9 +13,9 @@
 //
 // ************************************************************************** //
 
-#include "IFitObserver.h"
 #include "FitSuite.h"
 #include "FitSuiteStrategies.h"
+#include "IFitObserver.h"
 
 
 IFitObserver::IFitObserver(int update_every_nth)

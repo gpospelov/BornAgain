@@ -16,8 +16,8 @@
 #ifndef ROOTMINIMIZER_H
 #define ROOTMINIMIZER_H
 
-#include "IMinimizer.h"
 #include "FitSuiteParameters.h"
+#include "IMinimizer.h"
 
 class ROOTMinimizerChiSquaredFunction;
 class ROOTMinimizerGradientFunction;
@@ -27,7 +27,6 @@ namespace Math {
 class Minimizer;
 }
 }
-
 
 //! @class ROOTMinimizer
 //! @ingroup fitting_internal

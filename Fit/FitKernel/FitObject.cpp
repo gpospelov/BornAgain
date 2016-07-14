@@ -13,9 +13,9 @@
 //
 // ************************************************************************** //
 
-#include "FitObject.h"
 #include "GISASSimulation.h"
 #include "IIntensityNormalizer.h"
+#include "FitObject.h"
 
 FitObject::FitObject(const GISASSimulation& simulation, const OutputData<double >& real_data,
     double weight, bool adjust_detector_to_data)

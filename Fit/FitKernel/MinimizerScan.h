@@ -16,8 +16,8 @@
 #ifndef MINIMIZERSCAN_H
 #define MINIMIZERSCAN_H
 
-#include "IMinimizer.h"
 #include "FitSuiteParameters.h"
+#include "IMinimizer.h"
 #include "OutputData.h"
 
 

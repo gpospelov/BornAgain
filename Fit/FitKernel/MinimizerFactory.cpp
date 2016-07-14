@@ -13,14 +13,14 @@
 //
 // ************************************************************************** //
 
-#include "MinimizerFactory.h"
-#include "MinimizerTest.h"
 #include "MinimizerScan.h"
+#include "MinimizerTest.h"
+#include "ROOTGeneticMinimizer.h"
+#include "ROOTLMAMinimizer.h"
 #include "ROOTMinuit2Minimizer.h"
 #include "ROOTMultiMinMinimizer.h"
 #include "ROOTSimAnMinimizer.h"
-#include "ROOTLMAMinimizer.h"
-#include "ROOTGeneticMinimizer.h"
+#include "MinimizerFactory.h"
 
 // ************************************************************************** //
 // auxiliary class MinimizerCatalogue

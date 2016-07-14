@@ -13,9 +13,9 @@
 //
 // ************************************************************************** //
 
-#include "FitStrategyAdjustParameters.h"
 #include "FitKernel.h"
 #include "MessageService.h"
+#include "FitStrategyAdjustParameters.h"
 
 
 FitStrategyAdjustParameters::FitStrategyAdjustParameters(const FitStrategyAdjustParameters &other)

@@ -19,7 +19,6 @@
 #include "IFunctionalTest.h"
 #include "OutputData.h"
 
-class GISASSimulation;
 
 //! @class CoreTest
 //! @ingroup standard_samples

@@ -13,7 +13,10 @@
 //
 // ************************************************************************** //
 
+#include "ISample.h"
+#include "SpecularMatrix.h"
 #include "SpecularSimulation.h"
+#include <memory>
 
 SpecularSimulation::SpecularSimulation()
     : IParameterized("SpecularSimulation"), m_sample(0), m_alpha_i_axis(0), m_z_axis(0),

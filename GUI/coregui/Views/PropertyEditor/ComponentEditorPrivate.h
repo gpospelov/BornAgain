@@ -17,8 +17,6 @@
 #ifndef COMPONENTEDITORPRIVATE_H
 #define COMPONENTEDITORPRIVATE_H
 
-#include <QMap>
-#include <memory>
 #include "ComponentEditorFlags.h"
 #include "PropertyAttribute.h"
 #include "PropertyVariantFactory.h"
@@ -28,6 +26,8 @@
 #include "qtbuttonpropertybrowser.h"
 #include "qtgroupboxpropertybrowser.h"
 #include "qttreepropertybrowser.h"
+#include <QMap>
+#include <memory>
 
 class WheelEventEater;
 

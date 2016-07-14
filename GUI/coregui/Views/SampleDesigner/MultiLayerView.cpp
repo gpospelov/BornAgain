@@ -14,10 +14,6 @@
 //
 // ************************************************************************** //
 
-#include <QDebug>
-#include <QGraphicsSceneMouseEvent>
-#include <QPainter>
-#include <QStyleOptionGraphicsItem>
 #include "DesignerHelper.h"
 #include "DesignerMimeData.h"
 #include "DesignerScene.h"
@@ -25,6 +21,10 @@
 #include "SampleModel.h"
 #include "SessionItem.h"
 #include "MultiLayerView.h"
+#include <QDebug>
+#include <QGraphicsSceneMouseEvent>
+#include <QPainter>
+#include <QStyleOptionGraphicsItem>
 
 
 

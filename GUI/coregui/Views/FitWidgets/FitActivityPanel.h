@@ -17,8 +17,8 @@
 #ifndef FITACTIVITYPANEL_H
 #define FITACTIVITYPANEL_H
 
-#include <QWidget>
 #include "ItemStackPresenter.h"
+#include <QWidget>
 
 class JobModel;
 class JobItem;

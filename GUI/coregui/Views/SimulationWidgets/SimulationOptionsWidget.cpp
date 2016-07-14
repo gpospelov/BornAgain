@@ -14,12 +14,12 @@
 //
 // ************************************************************************** //
 
-#include <QGroupBox>
-#include <QVBoxLayout>
 #include "ComponentBoxEditor.h"
 #include "ComponentEditor.h"
 #include "SimulationOptionsItem.h"
 #include "SimulationOptionsWidget.h"
+#include <QGroupBox>
+#include <QVBoxLayout>
 
 SimulationOptionsWidget::SimulationOptionsWidget(QWidget *parent)
     : QWidget(parent)

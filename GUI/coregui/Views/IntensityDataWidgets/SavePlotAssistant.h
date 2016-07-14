@@ -17,9 +17,9 @@
 #ifndef SAVEPLOTASSISTANT_H
 #define SAVEPLOTASSISTANT_H
 
+#include "WinDllMacros.h"
 #include <QString>
 #include <QVector>
-#include "WinDllMacros.h"
 
 class QCustomPlot;
 class IntensityDataItem;

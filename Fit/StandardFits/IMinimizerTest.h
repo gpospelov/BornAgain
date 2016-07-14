@@ -16,9 +16,9 @@
 #ifndef IMINIMIZERTEST_H
 #define IMINIMIZERTEST_H
 
-#include <memory>
 #include "IFunctionalTest.h"
 #include "OutputData.h"
+#include <memory>
 
 class FitSuite;
 class ISample;

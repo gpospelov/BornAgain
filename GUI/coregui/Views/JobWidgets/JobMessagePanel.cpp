@@ -14,12 +14,12 @@
 //
 // ************************************************************************** //
 
+#include "mainwindow_constants.h"
+#include "JobMessagePanel.h"
 #include <QScrollBar>
 #include <QStackedWidget>
 #include <QTextEdit>
 #include <QVBoxLayout>
-#include "mainwindow_constants.h"
-#include "JobMessagePanel.h"
 
 JobMessagePanel::JobMessagePanel(QWidget *parent)
     : InfoPanel(parent)

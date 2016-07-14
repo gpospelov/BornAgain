@@ -17,9 +17,9 @@
 #ifndef OBSOLETEINTENSITYDATAPLOTWIDGET_H
 #define OBSOLETEINTENSITYDATAPLOTWIDGET_H
 
+#include "WinDllMacros.h"
 #include <QWidget>
 #include <memory>
-#include "WinDllMacros.h"
 
 class QSplitter;
 class HorizontalSlicePlot;

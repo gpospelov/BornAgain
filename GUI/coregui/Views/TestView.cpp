@@ -14,8 +14,6 @@
 //
 // ************************************************************************** //
 
-#include <QCheckBox>
-#include <QLineEdit>
 #include "AccordionWidget.h"
 #include "JobModel.h"
 #include "MaskEditor.h"
@@ -24,6 +22,8 @@
 #include "MinimizerSettingsWidget.h"
 #include "mainwindow.h"
 #include "TestView.h"
+#include <QCheckBox>
+#include <QLineEdit>
 
 TestView::TestView(MainWindow *mainWindow)
     : QWidget(mainWindow)

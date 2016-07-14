@@ -14,12 +14,6 @@
 //
 // ************************************************************************** //
 
-#include <QAction>
-#include <QDebug>
-#include <QGridLayout>
-#include <QLabel>
-#include <QVBoxLayout>
-#include <QVBoxLayout>
 #include "AxesItems.h"
 #include "ColorMapCanvas.h"
 #include "ColorMapLabel.h"
@@ -30,6 +24,12 @@
 #include "RealDataItem.h"
 #include "SessionModel.h"
 #include "FitComparisonWidget.h"
+#include <QAction>
+#include <QDebug>
+#include <QGridLayout>
+#include <QLabel>
+#include <QVBoxLayout>
+#include <QVBoxLayout>
 
 namespace {
 const double relative_diff_min = 1e-05;

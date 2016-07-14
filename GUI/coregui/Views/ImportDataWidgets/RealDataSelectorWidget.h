@@ -17,8 +17,8 @@
 #ifndef REALDATASELECTORWIDGET_H
 #define REALDATASELECTORWIDGET_H
 
-#include <QWidget>
 #include "WinDllMacros.h"
+#include <QWidget>
 
 //! The RealDataSelectorWidget class holds QListView on the left side of ImportDataView to
 //! switch between different RealDataItem's

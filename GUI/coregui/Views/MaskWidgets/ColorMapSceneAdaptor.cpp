@@ -14,9 +14,9 @@
 //
 // ************************************************************************** //
 
-#include <QDebug>
 #include "ColorMapPlot.h"
 #include "ColorMapSceneAdaptor.h"
+#include <QDebug>
 
 ColorMapSceneAdaptor::ColorMapSceneAdaptor()
     : m_plot(0)

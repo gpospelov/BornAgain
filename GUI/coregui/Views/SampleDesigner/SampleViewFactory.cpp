@@ -14,7 +14,6 @@
 //
 // ************************************************************************** //
 
-#include <QDebug>
 #include "GUIHelpers.h"
 #include "InterferenceFunctionViews.h"
 #include "LayerView.h"
@@ -27,6 +26,7 @@
 #include "TransformationView.h"
 #include "item_constants.h"
 #include "SampleViewFactory.h"
+#include <QDebug>
 
 
 QStringList SampleViewFactory::m_valid_item_names  = QStringList()

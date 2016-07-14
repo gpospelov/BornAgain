@@ -17,10 +17,10 @@
 #ifndef MATERIALEDITORDIALOG_H
 #define MATERIALEDITORDIALOG_H
 
-#include <QDialog>
-#include <memory>
 #include "MaterialProperty.h"
 #include "WinDllMacros.h"
+#include <QDialog>
+#include <memory>
 
 class MaterialModel;
 class MaterialEditor;

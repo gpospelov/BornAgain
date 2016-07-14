@@ -14,15 +14,15 @@
 //
 // ************************************************************************** //
 
-#include <QDebug>
-#include <QObject>
-#include <QPainter>
-#include <QStyleOptionGraphicsItem>
 #include "GUIHelpers.h"
 #include "GroupItem.h"
 #include "GroupProperty.h"
 #include "ParticleItem.h"
 #include "ParticleView.h"
+#include <QDebug>
+#include <QObject>
+#include <QPainter>
+#include <QStyleOptionGraphicsItem>
 
 ParticleView::ParticleView(QGraphicsItem *parent) : ConnectableView(parent)
 {

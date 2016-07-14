@@ -14,8 +14,6 @@
 //
 // ************************************************************************** //
 
-#include <QDebug>
-#include <QVector>
 #include "FitParameter.h"
 #include "FitProgressInfo.h"
 #include "FitSuite.h"
@@ -23,6 +21,8 @@
 #include "GUIHelpers.h"
 #include "IntensityDataItem.h"
 #include "GUIFitObserver.h"
+#include <QDebug>
+#include <QVector>
 
 
 GUIFitObserver::GUIFitObserver(QObject *parent)

@@ -14,11 +14,6 @@
 //
 // ************************************************************************** //
 
-#include <QBoxLayout>
-#include <QDebug>
-#include <QListView>
-#include <QStackedWidget>
-#include <QToolButton>
 #include "ExtendedDetectorDialog.h"
 #include "InstrumentEditorWidget.h"
 #include "InstrumentModel.h"
@@ -26,6 +21,11 @@
 #include "StyledToolBar.h"
 #include "mainwindow.h"
 #include "InstrumentView.h"
+#include <QBoxLayout>
+#include <QDebug>
+#include <QListView>
+#include <QStackedWidget>
+#include <QToolButton>
 
 
 InstrumentView::InstrumentView(MainWindow *mainWindow)

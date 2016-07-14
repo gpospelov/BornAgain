@@ -13,7 +13,6 @@
 //
 // ************************************************************************** //
 
-#include <iomanip>
 #include "ConvolutionDetectorResolution.h"
 #include "FormFactors.h"
 #include "InterferenceFunctions.h"
@@ -25,6 +24,7 @@
 #include "ResolutionFunction2DGaussian.h"
 #include "SampleLabelHandler.h"
 #include "SphericalDetector.h"
+#include <iomanip>
 
 PyGenVisitor::PyGenVisitor() : m_label(new SampleLabelHandler())
 {

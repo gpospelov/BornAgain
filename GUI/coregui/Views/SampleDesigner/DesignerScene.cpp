@@ -14,10 +14,6 @@
 //
 // ************************************************************************** //
 
-#include <QDebug>
-#include <QGraphicsSceneMouseEvent>
-#include <QItemSelection>
-#include <QPainter>
 #include "ConnectableView.h"
 #include "DesignerHelper.h"
 #include "DesignerMimeData.h"
@@ -39,6 +35,10 @@
 #include "SampleViewFactory.h"
 #include "SessionGraphicsItem.h"
 #include "DesignerScene.h"
+#include <QDebug>
+#include <QGraphicsSceneMouseEvent>
+#include <QItemSelection>
+#include <QPainter>
 
 DesignerScene::DesignerScene(QObject *parent)
     : QGraphicsScene(parent), m_sampleModel(0), m_instrumentModel(0), m_selectionModel(0), m_proxy(0),

@@ -17,10 +17,10 @@
 #ifndef COLORMAPHELPER_H
 #define COLORMAPHELPER_H
 
-#include <QMap>
-#include <QString>
 #include "WinDllMacros.h"
 #include "qcustomplot.h"
+#include <QMap>
+#include <QString>
 
 class IntensityDataItem;
 

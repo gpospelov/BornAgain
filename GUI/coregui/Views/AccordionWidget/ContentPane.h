@@ -33,6 +33,9 @@
 #ifndef CONTENTPANE_H
 #define CONTENTPANE_H
 
+#include "AccordionWidget.h"
+#include "ClickableFrame.h"
+#include "WinDllMacros.h"
 #include <QFrame>
 #include <QHBoxLayout>
 #include <QPainter>
@@ -42,9 +45,6 @@
 #include <QStyleOption>
 #include <QWidget>
 #include <memory>
-#include "AccordionWidget.h"
-#include "ClickableFrame.h"
-#include "WinDllMacros.h"
 
 // TODO: Do i really need to export the ClickableFrame class?
 /**

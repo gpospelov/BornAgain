@@ -14,12 +14,12 @@
 //
 // ************************************************************************** //
 
-#include <QDebug>
-#include <QVBoxLayout>
 #include "BeamEditorWidget.h"
 #include "DetectorEditorWidget.h"
 #include "columnresizer.h"
 #include "InstrumentComponentsWidget.h"
+#include <QDebug>
+#include <QVBoxLayout>
 
 InstrumentComponentsWidget::InstrumentComponentsWidget(QWidget *parent)
     : QWidget(parent)

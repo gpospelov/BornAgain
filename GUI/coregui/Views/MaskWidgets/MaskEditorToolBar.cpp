@@ -14,6 +14,8 @@
 //
 // ************************************************************************** //
 
+#include "MaskEditorActions.h"
+#include "MaskEditorToolBar.h"
 #include <QButtonGroup>
 #include <QDebug>
 #include <QLabel>
@@ -21,8 +23,6 @@
 #include <QStyle>
 #include <QToolButton>
 #include <QVariant>
-#include "MaskEditorActions.h"
-#include "MaskEditorToolBar.h"
 
 namespace {
 const int toolbar_icon_size = 32;

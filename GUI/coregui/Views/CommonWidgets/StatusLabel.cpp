@@ -14,11 +14,11 @@
 //
 // ************************************************************************** //
 
+#include "StatusLabel.h"
 #include <QColor>
 #include <QDebug>
 #include <QFont>
 #include <QPainter>
-#include "StatusLabel.h"
 
 namespace {
 const int default_label_height = 20;

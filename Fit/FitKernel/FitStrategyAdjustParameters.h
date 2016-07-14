@@ -16,8 +16,8 @@
 #ifndef FITSTRATEGYADJUSTPARAMETERS_H
 #define FITSTRATEGYADJUSTPARAMETERS_H
 
-#include <vector>
 #include "IFitStrategy.h"
+#include <vector>
 
 //! @class FitStrategyAdjustParameters
 //! @ingroup fitting

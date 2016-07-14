@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#include <vector>
 #include "ISingleton.h"
+#include <vector>
 
 //! This class contains precomputed constants.
 

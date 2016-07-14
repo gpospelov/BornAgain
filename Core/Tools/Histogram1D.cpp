@@ -13,10 +13,10 @@
 //
 // ************************************************************************** //
 
-#include <memory>
 #include "NumpyUtils.h"
 #include "VariableBinAxis.h"
 #include "Histogram1D.h"
+#include <memory>
 
 
 Histogram1D::Histogram1D(int nbinsx, double xlow, double xup)

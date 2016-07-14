@@ -14,14 +14,6 @@
 //
 // ************************************************************************** //
 
-#include <QBoxLayout>
-#include <QComboBox>
-#include <QDebug>
-#include <QEvent>
-#include <QGroupBox>
-#include <QLineEdit>
-#include <QScrollArea>
-#include <QScrollBar>
 #include "BeamEditorWidget.h"
 #include "BeamItem.h"
 #include "DetectorEditorWidget.h"
@@ -30,6 +22,14 @@
 #include "InstrumentItem.h"
 #include "SessionItem.h"
 #include "InstrumentEditorWidget.h"
+#include <QBoxLayout>
+#include <QComboBox>
+#include <QDebug>
+#include <QEvent>
+#include <QGroupBox>
+#include <QLineEdit>
+#include <QScrollArea>
+#include <QScrollBar>
 
 
 class AdjustingScrollArea : public QScrollArea {

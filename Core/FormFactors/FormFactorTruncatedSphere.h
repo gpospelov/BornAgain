@@ -16,9 +16,9 @@
 #ifndef FORMFACTORTRUNCATEDSPHERE_H
 #define FORMFACTORTRUNCATEDSPHERE_H
 
-#include <memory>
 #include "IFormFactorBorn.h"
 #include "IntegratorComplex.h"
+#include <memory>
 
 //! @class FormFactorTruncatedSphere
 //! @ingroup formfactors

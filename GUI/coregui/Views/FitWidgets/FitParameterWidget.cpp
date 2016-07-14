@@ -14,12 +14,6 @@
 //
 // ************************************************************************** //
 
-#include <QAction>
-#include <QDebug>
-#include <QMenu>
-#include <QSignalMapper>
-#include <QTreeView>
-#include <QVBoxLayout>
 #include "CustomEventFilters.h"
 #include "FilterPropertyProxy.h"
 #include "FitParameterHelper.h"
@@ -34,6 +28,12 @@
 #include "SessionModelDelegate.h"
 #include "mainwindow_constants.h"
 #include "FitParameterWidget.h"
+#include <QAction>
+#include <QDebug>
+#include <QMenu>
+#include <QSignalMapper>
+#include <QTreeView>
+#include <QVBoxLayout>
 
 FitParameterWidget::FitParameterWidget(QWidget *parent)
     : QWidget(parent)

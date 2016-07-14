@@ -14,14 +14,14 @@
 //
 // ************************************************************************** //
 
+#include "ItemComboToolBar.h"
+#include "SessionItemWidget.h"
+#include "ItemComboWidget.h"
 #include <QComboBox>
 #include <QDebug>
 #include <QEvent>
 #include <QStackedWidget>
 #include <QVBoxLayout>
-#include "ItemComboToolBar.h"
-#include "SessionItemWidget.h"
-#include "ItemComboWidget.h"
 
 ItemComboWidget::ItemComboWidget(QWidget *parent)
     : QWidget(parent)

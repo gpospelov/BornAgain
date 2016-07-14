@@ -14,16 +14,16 @@
 //
 // ************************************************************************** //
 
-#include <QDebug>
-#include <QGraphicsSceneMouseEvent>
-#include <QMarginsF>
-#include <QPainter>
-#include <QRegion>
 #include "ISceneAdaptor.h"
 #include "MaskEditorHelper.h"
 #include "MaskItems.h"
 #include "SizeHandleElement.h"
 #include "RectangleView.h"
+#include <QDebug>
+#include <QGraphicsSceneMouseEvent>
+#include <QMarginsF>
+#include <QPainter>
+#include <QRegion>
 
 namespace {
 const double bbox_margins = 5; // additional margins around rectangle to form bounding box

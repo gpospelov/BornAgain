@@ -16,9 +16,9 @@
 #ifndef FUNCTIONALTESTREGISTRY_H
 #define FUNCTIONALTESTREGISTRY_H
 
-#include <map>
 #include "FunctionalTestInfo.h"
 #include "ISingleton.h"
+#include <map>
 
 //! @class FunctionalTestRegistry
 //! @ingroup standard_samples

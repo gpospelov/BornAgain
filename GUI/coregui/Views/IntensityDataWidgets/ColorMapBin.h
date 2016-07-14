@@ -17,8 +17,8 @@
 #ifndef COLORMAPBIN_H
 #define COLORMAPBIN_H
 
-#include <QString>
 #include "WinDllMacros.h"
+#include <QString>
 
 //! The ColorMapBin class contains parameters of intensity data bin under current mouse position.
 

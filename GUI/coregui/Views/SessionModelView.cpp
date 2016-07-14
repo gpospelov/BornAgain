@@ -14,10 +14,6 @@
 //
 // ************************************************************************** //
 
-#include <QToolBar>
-#include <QToolButton>
-#include <QTreeView>
-#include <QVBoxLayout>
 #include "InstrumentModel.h"
 #include "JobModel.h"
 #include "MaterialModel.h"
@@ -26,6 +22,10 @@
 #include "SessionModelDelegate.h"
 #include "mainwindow.h"
 #include "SessionModelView.h"
+#include <QToolBar>
+#include <QToolButton>
+#include <QTreeView>
+#include <QVBoxLayout>
 
 
 SessionModelView::ModelTree::ModelTree(SessionModel *model, QTreeView *tree)

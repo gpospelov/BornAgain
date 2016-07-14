@@ -17,8 +17,8 @@
 #ifndef ITEMSELECTORWIDGET_H
 #define ITEMSELECTORWIDGET_H
 
-#include <QWidget>
 #include "WinDllMacros.h"
+#include <QWidget>
 
 class SessionModel;
 class SessionItem;

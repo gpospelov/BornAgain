@@ -14,16 +14,6 @@
 //
 // ************************************************************************** //
 
-#include <QApplication>
-#include <QDebug>
-#include <QItemSelectionModel>
-#include <QKeyEvent>
-#include <QLabel>
-#include <QScrollBar>
-#include <QStandardItemModel>
-#include <QToolButton>
-#include <QTreeView>
-#include <QVBoxLayout>
 #include "DesignerHelper.h"
 #include "GUIHelpers.h"
 #include "InstrumentModel.h"
@@ -39,6 +29,16 @@
 #include "SliderSettingsWidget.h"
 #include "WarningSignWidget.h"
 #include "ParameterTuningWidget.h"
+#include <QApplication>
+#include <QDebug>
+#include <QItemSelectionModel>
+#include <QKeyEvent>
+#include <QLabel>
+#include <QScrollBar>
+#include <QStandardItemModel>
+#include <QToolButton>
+#include <QTreeView>
+#include <QVBoxLayout>
 
 namespace {
 const int warning_sign_xpos = 38;

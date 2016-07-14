@@ -17,9 +17,9 @@
 #ifndef FITTINGWORKER_H
 #define FITTINGWORKER_H
 
+#include "WinDllMacros.h"
 #include <QObject>
 #include <memory>
-#include "WinDllMacros.h"
 
 class FitSuite;
 

@@ -17,9 +17,9 @@
 #ifndef FITPARAMETERWIDGET_H
 #define FITPARAMETERWIDGET_H
 
+#include "WinDllMacros.h"
 #include <QWidget>
 #include <memory>
-#include "WinDllMacros.h"
 
 class JobItem;
 class ParameterTuningWidget;

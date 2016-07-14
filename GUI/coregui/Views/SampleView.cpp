@@ -14,10 +14,6 @@
 //
 // ************************************************************************** //
 
-#include <QDebug>
-#include <QDockWidget>
-#include <QMenu>
-#include <QTimer>
 #include "FilterPropertyProxy.h"
 #include "InfoWidget.h"
 #include "ItemFactory.h"
@@ -27,6 +23,10 @@
 #include "SampleViewComponents.h"
 #include "mainwindow.h"
 #include "SampleView.h"
+#include <QDebug>
+#include <QDockWidget>
+#include <QMenu>
+#include <QTimer>
 
 SampleView::SampleView(MainWindow *mainWindow)
     : Manhattan::FancyMainWindow(mainWindow)

@@ -17,10 +17,10 @@
 #ifndef GUIFITOBSERVER_H
 #define GUIFITOBSERVER_H
 
-#include <QObject>
-#include <atomic>
 #include "FitProgressInfo.h"
 #include "IFitObserver.h"
+#include <QObject>
+#include <atomic>
 
 template <class T> class OutputData;
 class FitSuite;

@@ -17,8 +17,8 @@
 #ifndef PYTHONSCRIPTWIDGET_H
 #define PYTHONSCRIPTWIDGET_H
 
-#include <QDialog>
 #include "WinDllMacros.h"
+#include <QDialog>
 
 class QToolBar;
 class QTextEdit;

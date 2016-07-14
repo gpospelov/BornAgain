@@ -19,8 +19,8 @@
 #define PY_ARRAY_UNIQUE_SYMBOL BORNAGAIN_PYTHONAPI_ARRAY
 #define NO_IMPORT_ARRAY
 
-#include <numpy/arrayobject.h>
 #include "OutputData.h"
+#include <numpy/arrayobject.h>
 
 template<>
 PyObject *OutputData<double>::getArray() const

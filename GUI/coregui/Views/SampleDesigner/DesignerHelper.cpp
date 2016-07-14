@@ -14,13 +14,13 @@
 //
 // ************************************************************************** //
 
+#include "item_constants.h"
+#include "DesignerHelper.h"
 #include <QDebug>
 #include <QPainter>
 #include <QtGlobal>
 #include <cmath>
 #include <iostream>
-#include "item_constants.h"
-#include "DesignerHelper.h"
 
 int DesignerHelper::m_default_layer_height = 30;
 int DesignerHelper::m_default_layer_width = 200;

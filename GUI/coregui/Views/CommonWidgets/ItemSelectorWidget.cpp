@@ -14,13 +14,13 @@
 //
 // ************************************************************************** //
 
-#include <QDebug>
-#include <QListView>
-#include <QVBoxLayout>
 #include "SessionItem.h"
 #include "SessionModel.h"
 #include "mainwindow_constants.h"
 #include "ItemSelectorWidget.h"
+#include <QDebug>
+#include <QListView>
+#include <QVBoxLayout>
 
 
 ItemSelectorWidget::ItemSelectorWidget(QWidget *parent)

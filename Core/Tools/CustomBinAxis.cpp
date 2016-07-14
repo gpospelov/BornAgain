@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#include <iomanip>
 #include "CustomBinAxis.h"
+#include <iomanip>
 
 CustomBinAxis::CustomBinAxis(const std::string &name, size_t nbins, double start, double end)
     : VariableBinAxis(name, nbins)

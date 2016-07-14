@@ -14,8 +14,6 @@
 //
 // ************************************************************************** //
 
-#include <QDebug>
-#include <QVBoxLayout>
 #include "BeamWavelengthItem.h"
 #include "ComponentBoxEditor.h"
 #include "DistributionDialog.h"
@@ -26,6 +24,8 @@
 #include "SessionItem.h"
 #include "qcustomplot.h"
 #include "DistributionEditor.h"
+#include <QDebug>
+#include <QVBoxLayout>
 
 namespace
 {

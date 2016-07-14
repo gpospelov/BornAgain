@@ -14,12 +14,12 @@
 //
 // ************************************************************************** //
 
-#include "appoptions.h"
 #include "GUIHelpers.h"
+#include "appoptions.h"
+#include <fstream>
+#include <iostream>
 #include <boost/program_options/config.hpp>
 #include <boost/program_options/parsers.hpp>
-#include <iostream>
-#include <fstream>
 
 
 ApplicationOptions::ApplicationOptions(int argc, char **argv)

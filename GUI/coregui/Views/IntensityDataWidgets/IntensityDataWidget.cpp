@@ -14,14 +14,14 @@
 //
 // ************************************************************************** //
 
-#include <QAction>
-#include <QVBoxLayout>
 #include "AppSvc.h"
 #include "ColorMapCanvas.h"
 #include "IntensityDataItem.h"
 #include "SavePlotAssistant.h"
 #include "projectmanager.h"
 #include "IntensityDataWidget.h"
+#include <QAction>
+#include <QVBoxLayout>
 
 IntensityDataWidget::IntensityDataWidget(QWidget *parent)
     : SessionItemWidget(parent)

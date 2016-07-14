@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#include <cmath>
 #include "IIntensityFunction.h"
+#include <cmath>
 
 double IntensityFunctionLog::evaluate(double value) const
 {

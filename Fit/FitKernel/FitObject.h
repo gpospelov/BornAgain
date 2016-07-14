@@ -16,10 +16,10 @@
 #ifndef FITOBJECT_H
 #define FITOBJECT_H
 
-#include <memory>
 #include "FitElement.h"
 #include "IParameterized.h"
 #include "OutputData.h"
+#include <memory>
 
 class GISASSimulation;
 class IIntensityNormalizer;

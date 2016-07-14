@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#include <iomanip>
 #include "FixedBinAxis.h"
+#include <iomanip>
 
 
 FixedBinAxis::FixedBinAxis(const std::string &name, size_t nbins, double start, double end)

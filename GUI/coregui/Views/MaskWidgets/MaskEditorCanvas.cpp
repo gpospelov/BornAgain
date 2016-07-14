@@ -14,17 +14,17 @@
 //
 // ************************************************************************** //
 
-#include <QDebug>
-#include <QDebug>
-#include <QGraphicsRectItem>
-#include <QModelIndex>
-#include <QVBoxLayout>
 #include "MaskGraphicsProxy.h"
 #include "MaskGraphicsScene.h"
 #include "MaskGraphicsView.h"
 #include "MaskResultsPresenter.h"
 #include "SessionModel.h"
 #include "MaskEditorCanvas.h"
+#include <QDebug>
+#include <QDebug>
+#include <QGraphicsRectItem>
+#include <QModelIndex>
+#include <QVBoxLayout>
 
 
 MaskEditorCanvas::MaskEditorCanvas(QWidget *parent)

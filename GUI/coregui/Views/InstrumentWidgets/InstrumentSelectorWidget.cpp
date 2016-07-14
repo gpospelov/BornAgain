@@ -14,15 +14,15 @@
 //
 // ************************************************************************** //
 
+#include "InstrumentModel.h"
+#include "SessionItem.h"
+#include "InstrumentSelectorWidget.h"
 #include <QAction>
 #include <QDebug>
 #include <QListView>
 #include <QMenu>
 #include <QPushButton>
 #include <QVBoxLayout>
-#include "InstrumentModel.h"
-#include "SessionItem.h"
-#include "InstrumentSelectorWidget.h"
 
 InstrumentSelectorWidget::InstrumentSelectorWidget(InstrumentModel *model, QWidget *parent)
     : QWidget(parent)

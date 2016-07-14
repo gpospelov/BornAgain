@@ -17,8 +17,8 @@
 #ifndef PARTICLEVIEW_H
 #define PARTICLEVIEW_H
 
-#include <QPixmap>
 #include "ConnectableView.h"
+#include <QPixmap>
 
 //! Class representing view of Particle item
 class BA_CORE_API_ ParticleView : public ConnectableView

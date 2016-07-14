@@ -14,14 +14,14 @@
 //
 // ************************************************************************** //
 
-#include <QAction>
-#include <QDebug>
-#include <QItemSelectionModel>
-#include <QMenu>
 #include "JobItem.h"
 #include "JobModel.h"
 #include "StyledToolBar.h"
 #include "JobSelectorActions.h"
+#include <QAction>
+#include <QDebug>
+#include <QItemSelectionModel>
+#include <QMenu>
 
 JobSelectorActions::JobSelectorActions(JobModel *jobModel, QObject *parent)
     : QObject(parent)

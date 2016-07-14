@@ -17,9 +17,9 @@
 #ifndef FITPROGRESSINFO_H
 #define FITPROGRESSINFO_H
 
+#include "WinDllMacros.h"
 #include <QMetaType>
 #include <QVector>
-#include "WinDllMacros.h"
 
 //! The FitProgressInfo class contains all essential information about fit progress.
 //! It is send from GUIFitObserver to FitSuiteWidget on every nth iteration.

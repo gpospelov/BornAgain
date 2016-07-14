@@ -14,6 +14,8 @@
 //
 // ************************************************************************** //
 
+#include "hostosinfo.h"
+#include "GroupInfoBox.h"
 #include <QApplication>
 #include <QDebug>
 #include <QMouseEvent>
@@ -24,8 +26,6 @@
 #include <QStylePainter>
 #include <QToolTip>
 #include <iostream>
-#include "hostosinfo.h"
-#include "GroupInfoBox.h"
 
 namespace
 {

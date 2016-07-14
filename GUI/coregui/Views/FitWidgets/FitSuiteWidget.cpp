@@ -14,10 +14,6 @@
 //
 // ************************************************************************** //
 
-#include <QDebug>
-#include <QMessageBox>
-#include <QTabWidget>
-#include <QVBoxLayout>
 #include "DomainFittingBuilder.h"
 #include "FitParameterItems.h"
 #include "FitParameterWidget.h"
@@ -36,6 +32,10 @@
 #include "RunFitManager.h"
 #include "mainwindow_constants.h"
 #include "FitSuiteWidget.h"
+#include <QDebug>
+#include <QMessageBox>
+#include <QTabWidget>
+#include <QVBoxLayout>
 
 FitSuiteWidget::FitSuiteWidget(QWidget *parent)
     : QWidget(parent)

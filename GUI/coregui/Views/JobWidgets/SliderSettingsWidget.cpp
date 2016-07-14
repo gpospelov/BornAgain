@@ -14,6 +14,7 @@
 //
 // ************************************************************************** //
 
+#include "SliderSettingsWidget.h"
 #include <QCheckBox>
 #include <QDebug>
 #include <QGroupBox>
@@ -21,7 +22,6 @@
 #include <QLabel>
 #include <QRadioButton>
 #include <QVBoxLayout>
-#include "SliderSettingsWidget.h"
 
 
 SliderSettingsWidget::SliderSettingsWidget(QWidget *parent)

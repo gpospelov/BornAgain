@@ -14,14 +14,14 @@
 //
 // ************************************************************************** //
 
+#include "MaskGraphicsProxy.h"
+#include "MaskGraphicsScene.h"
+#include "MaskGraphicsView.h"
 #include <QDebug>
 #include <QGraphicsScene>
 #include <QScrollBar>
 #include <QTransform>
 #include <QWheelEvent>
-#include "MaskGraphicsProxy.h"
-#include "MaskGraphicsScene.h"
-#include "MaskGraphicsView.h"
 
 namespace {
 const double min_zoom_value = 1.0;

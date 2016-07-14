@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#include <Eigen/LU>
 #include "Transform3D.h"
+#include <Eigen/LU>
 
 
 Geometry::Transform3D::Transform3D()

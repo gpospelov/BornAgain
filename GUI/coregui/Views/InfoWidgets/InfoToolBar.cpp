@@ -14,9 +14,9 @@
 //
 // ************************************************************************** //
 
+#include "InfoToolBar.h"
 #include <QHBoxLayout>
 #include <QToolButton>
-#include "InfoToolBar.h"
 
 InfoToolBar::InfoToolBar(QWidget *parent)
     : StyledToolBar(parent)

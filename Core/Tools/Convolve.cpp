@@ -13,10 +13,10 @@
 //
 // ************************************************************************** //
 
-#include <iostream>
-#include <sstream>
 #include "Exceptions.h"
 #include "Convolve.h"
+#include <iostream>
+#include <sstream>
 
 MathFunctions::Convolve::Convolve() : m_mode(FFTW_UNDEFINED)
 {

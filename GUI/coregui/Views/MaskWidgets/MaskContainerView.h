@@ -17,9 +17,9 @@
 #ifndef MASKCONTAINERVIEW_H
 #define MASKCONTAINERVIEW_H
 
-#include <QMap>
 #include "IMaskView.h"
 #include "SizeHandleElement.h"
+#include <QMap>
 
 //! The MaskContainerView is nothing move than just transparent rectangle to cover axes area
 //! of ColorMapPlot inside MaskGraphicsScene. The goal of this rectangle is to hide all MaskViews

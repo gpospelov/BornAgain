@@ -15,10 +15,10 @@
 
 #ifndef MINIMIZEROPTIONS_H
 #define MINIMIZEROPTIONS_H
+#include "Exceptions.h"
 #include <iomanip>
 #include <iostream>
 #include <map>
-#include "Exceptions.h"
 
 //! @class MinimizerOptions
 //! @ingroup fitting

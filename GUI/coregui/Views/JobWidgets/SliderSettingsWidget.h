@@ -17,8 +17,8 @@
 #ifndef SLIDERSETTINGSWIDGET_H
 #define SLIDERSETTINGSWIDGET_H
 
-#include <QWidget>
 #include "WinDllMacros.h"
+#include <QWidget>
 
 class QRadioButton;
 class QCheckBox;

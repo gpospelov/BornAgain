@@ -17,9 +17,9 @@
 #ifndef IVIEW_H
 #define IVIEW_H
 
+#include "DesignerHelper.h"
 #include <QGraphicsObject>
 #include <memory>
-#include "DesignerHelper.h"
 
 class SessionItem;
 

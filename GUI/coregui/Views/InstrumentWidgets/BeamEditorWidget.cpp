@@ -14,13 +14,6 @@
 //
 // ************************************************************************** //
 
-#include <QComboBox>
-#include <QDebug>
-#include <QGroupBox>
-#include <QLabel>
-#include <QLineEdit>
-#include <QVBoxLayout>
-#include <iostream>
 #include "BeamDistributionItem.h"
 #include "BeamItem.h"
 #include "ComponentBoxEditor.h"
@@ -30,6 +23,13 @@
 #include "GroupInfoBox.h"
 #include "LayerItem.h"
 #include "BeamEditorWidget.h"
+#include <QComboBox>
+#include <QDebug>
+#include <QGroupBox>
+#include <QLabel>
+#include <QLineEdit>
+#include <QVBoxLayout>
+#include <iostream>
 namespace
 {
     QString name_of_groupbox_wavenlength("Wavelength [nm]");

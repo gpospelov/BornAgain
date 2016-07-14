@@ -14,11 +14,11 @@
 //
 // ************************************************************************** //
 
+#include "ComponentBoxEditor.h"
+#include "ComponentInfoBox.h"
 #include <QGroupBox>
 #include <QVBoxLayout>
 #include <iostream>
-#include "ComponentBoxEditor.h"
-#include "ComponentInfoBox.h"
 
 ComponentInfoBox::ComponentInfoBox(const QString &title, QWidget *parent)
     : QWidget(parent)

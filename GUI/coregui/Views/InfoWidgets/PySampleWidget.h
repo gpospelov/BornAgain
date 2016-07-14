@@ -17,8 +17,8 @@
 #ifndef PYSAMPLEWIDGET_H
 #define PYSAMPLEWIDGET_H
 
-#include <QWidget>
 #include "WinDllMacros.h"
+#include <QWidget>
 
 class SampleModel;
 class InstrumentModel;

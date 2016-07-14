@@ -14,8 +14,6 @@
 //
 // ************************************************************************** //
 
-#include <QDebug>
-#include <QGraphicsSceneMouseEvent>
 #include "DesignerHelper.h"
 #include "DesignerScene.h"
 #include "GUIHelpers.h"
@@ -25,6 +23,8 @@
 #include "SampleModel.h"
 #include "SessionItem.h"
 #include "ILayerView.h"
+#include <QDebug>
+#include <QGraphicsSceneMouseEvent>
 
 QLineF MultiLayerCandidate::getInterfaceToScene()
 {

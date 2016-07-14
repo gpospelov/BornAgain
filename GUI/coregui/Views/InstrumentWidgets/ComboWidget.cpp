@@ -14,6 +14,8 @@
 //
 // ************************************************************************** //
 
+#include "GUIHelpers.h"
+#include "ComboWidget.h"
 #include <QBoxLayout>
 #include <QComboBox>
 #include <QDebug>
@@ -23,8 +25,6 @@
 #include <QLabel>
 #include <QPushButton>
 #include <QSpinBox>
-#include "GUIHelpers.h"
-#include "ComboWidget.h"
 
 ComboWidget::ComboWidget(QString item, QGridLayout *layout, QWidget *parent)
     : QWidget(parent)

@@ -14,6 +14,15 @@
 //
 // ************************************************************************** //
 
+#include "DesignerHelper.h"
+#include "DomainObjectBuilder.h"
+#include "InstrumentModel.h"
+#include "MultiLayer.h"
+#include "PyGenVisitor.h"
+#include "PythonSyntaxHighlighter.h"
+#include "SampleModel.h"
+#include "WarningSignWidget.h"
+#include "PySampleWidget.h"
 #include <QDebug>
 #include <QFile>
 #include <QModelIndex>
@@ -25,15 +34,6 @@
 #include <QTextStream>
 #include <QTimer>
 #include <QVBoxLayout>
-#include "DesignerHelper.h"
-#include "DomainObjectBuilder.h"
-#include "InstrumentModel.h"
-#include "MultiLayer.h"
-#include "PyGenVisitor.h"
-#include "PythonSyntaxHighlighter.h"
-#include "SampleModel.h"
-#include "WarningSignWidget.h"
-#include "PySampleWidget.h"
 
 namespace {
 const int timer_interval_msec = 10;

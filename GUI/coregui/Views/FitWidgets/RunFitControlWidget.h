@@ -17,8 +17,8 @@
 #ifndef RUNFITCONTROLWIDGET_H
 #define RUNFITCONTROLWIDGET_H
 
-#include <QWidget>
 #include "WinDllMacros.h"
+#include <QWidget>
 
 class JobItem;
 class QPushButton;

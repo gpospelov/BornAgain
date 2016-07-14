@@ -13,10 +13,10 @@
 //
 // ************************************************************************** //
 
-#include <iomanip>
 #include "BornAgainNamespace.h"
 #include "TiffHandler.h"
 #include "OutputDataWriteStrategy.h"
+#include <iomanip>
 
 static const int precision { 12 };
 

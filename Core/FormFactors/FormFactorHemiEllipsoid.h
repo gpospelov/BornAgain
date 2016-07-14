@@ -16,9 +16,9 @@
 #ifndef FORMFACTORHEMIELLIPSOID_H
 #define FORMFACTORHEMIELLIPSOID_H
 
-#include <memory>
 #include "IFormFactorBorn.h"
 #include "IntegratorComplex.h"
+#include <memory>
 
 //! @class FormFactorHemiEllipsoid
 //! @ingroup formfactors

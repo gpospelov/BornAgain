@@ -14,7 +14,6 @@
 //
 // ************************************************************************** //
 
-#include <QDebug>
 #include "AxesItems.h"
 #include "ColorMapHelper.h"
 #include "GUIHelpers.h"
@@ -22,6 +21,7 @@
 #include "Units.h"
 #include "UpdateTimer.h"
 #include "ColorMapPlot.h"
+#include <QDebug>
 
 namespace {
 const int replot_update_interval = 10;

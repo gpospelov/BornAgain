@@ -14,11 +14,11 @@
 //
 // ************************************************************************** //
 
+#include "DesignerHelper.h"
+#include "OverlayLabelWidget.h"
 #include <QColor>
 #include <QFont>
 #include <QPainter>
-#include "DesignerHelper.h"
-#include "OverlayLabelWidget.h"
 
 OverlayLabelWidget::OverlayLabelWidget(QWidget *parent)
     : QWidget(parent)

@@ -17,12 +17,12 @@
 #ifndef MASKGRAPHICSSCENE_H
 #define MASKGRAPHICSSCENE_H
 
+#include "MaskDrawingContext.h"
+#include "MaskEditorHelper.h"
 #include <QGraphicsScene>
 #include <QMap>
 #include <QModelIndex>
 #include <QSharedPointer>
-#include "MaskDrawingContext.h"
-#include "MaskEditorHelper.h"
 
 class SessionModel;
 class SessionItem;

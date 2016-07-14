@@ -14,11 +14,6 @@
 //
 // ************************************************************************** //
 
-#include <QBoxLayout>
-#include <QContextMenuEvent>
-#include <QDebug>
-#include <QMenu>
-#include <QSplitter>
 #include "GUIHelpers.h"
 #include "IntensityDataItem.h"
 #include "MaskEditorActions.h"
@@ -32,6 +27,11 @@
 #include "SessionModel.h"
 #include "SimulationFactory.h"
 #include "MaskEditor.h"
+#include <QBoxLayout>
+#include <QContextMenuEvent>
+#include <QDebug>
+#include <QMenu>
+#include <QSplitter>
 
 
 MaskEditor::MaskEditor(QWidget* parent)

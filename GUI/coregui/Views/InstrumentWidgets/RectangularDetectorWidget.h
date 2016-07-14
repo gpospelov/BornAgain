@@ -17,9 +17,9 @@
 #ifndef RECTANGULARDETECTORWIDGET_H
 #define RECTANGULARDETECTORWIDGET_H
 
+#include "WinDllMacros.h"
 #include <QWidget>
 #include <memory>
-#include "WinDllMacros.h"
 
 class ColumnResizer;
 class GroupInfoBox;

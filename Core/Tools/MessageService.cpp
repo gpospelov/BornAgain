@@ -13,9 +13,9 @@
 //
 // ************************************************************************** //
 
-#include <boost/date_time/posix_time/posix_time.hpp>
 #include "Exceptions.h"
 #include "MessageService.h"
+#include <boost/date_time/posix_time/posix_time.hpp>
 
 std::vector<std::string> MSG::Logger::m_level_names =
     {"VERBOSE", "DEBUG2", "DEBUG", "INFO", "WARNING", "ERROR", "FATAL"};

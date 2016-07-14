@@ -14,9 +14,9 @@
 //
 // ************************************************************************** //
 
+#include "ItemComboToolBar.h"
 #include <QAction>
 #include <QComboBox>
-#include "ItemComboToolBar.h"
 
 ItemComboToolBar::ItemComboToolBar(QWidget *parent)
     : StyledToolBar(parent)

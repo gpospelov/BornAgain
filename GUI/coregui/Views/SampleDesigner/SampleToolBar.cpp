@@ -14,6 +14,10 @@
 //
 // ************************************************************************** //
 
+#include "DesignerView.h"
+#include "MaterialProperty.h"
+#include "MaterialSvc.h"
+#include "SampleToolBar.h"
 #include <QAction>
 #include <QButtonGroup>
 #include <QComboBox>
@@ -23,10 +27,6 @@
 #include <QMenu>
 #include <QPushButton>
 #include <QToolButton>
-#include "DesignerView.h"
-#include "MaterialProperty.h"
-#include "MaterialSvc.h"
-#include "SampleToolBar.h"
 
 //! main tool bar on top of SampleView window
 SampleToolBar::SampleToolBar(QWidget *parent)

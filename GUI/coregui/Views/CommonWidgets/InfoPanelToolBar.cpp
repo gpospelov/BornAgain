@@ -14,9 +14,9 @@
 //
 // ************************************************************************** //
 
+#include "InfoPanelToolBar.h"
 #include <QHBoxLayout>
 #include <QToolButton>
-#include "InfoPanelToolBar.h"
 
 namespace {
 const int minimum_size = 25;

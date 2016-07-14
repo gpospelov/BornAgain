@@ -17,10 +17,10 @@
 #ifndef DESIGNERSCENE_H
 #define DESIGNERSCENE_H
 
+#include "WinDllMacros.h"
 #include <QGraphicsScene>
 #include <QMap>
 #include <QModelIndex>
-#include "WinDllMacros.h"
 
 class InstrumentModel;
 class SampleModel;

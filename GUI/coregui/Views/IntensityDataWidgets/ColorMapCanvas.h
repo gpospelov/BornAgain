@@ -17,8 +17,8 @@
 #ifndef COLORMAPCANVAS_H
 #define COLORMAPCANVAS_H
 
-#include <QWidget>
 #include "WinDllMacros.h"
+#include <QWidget>
 
 class ColorMap;
 class QCustomPlot;

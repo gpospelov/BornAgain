@@ -14,14 +14,14 @@
 //
 // ************************************************************************** //
 
+#include "ComponentEditor.h"
+#include "SessionItem.h"
+#include "SamplePropertyWidget.h"
 #include <QDebug>
 #include <QItemSelection>
 #include <QModelIndexList>
 #include <QSortFilterProxyModel>
 #include <QVBoxLayout>
-#include "ComponentEditor.h"
-#include "SessionItem.h"
-#include "SamplePropertyWidget.h"
 
 SamplePropertyWidget::SamplePropertyWidget(QItemSelectionModel *selection_model, QWidget *parent)
     : QWidget(parent)

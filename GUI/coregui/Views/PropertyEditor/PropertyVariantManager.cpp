@@ -14,10 +14,10 @@
 //
 // ************************************************************************** //
 
-#include <QDebug>
 #include "DesignerHelper.h"
 #include "SessionItem.h"
 #include "PropertyVariantManager.h"
+#include <QDebug>
 
 PropertyVariantManager::PropertyVariantManager(QObject *parent)
     : QtVariantPropertyManager(parent)

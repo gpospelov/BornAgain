@@ -14,7 +14,6 @@
 //
 // ************************************************************************** //
 
-#include <QHBoxLayout>
 #include "JobItem.h"
 #include "JobListWidget.h"
 #include "JobModel.h"
@@ -24,6 +23,7 @@
 #include "mainwindow_constants.h"
 #include "minisplitter.h"
 #include "JobSelectorWidget.h"
+#include <QHBoxLayout>
 
 
 JobSelectorWidget::JobSelectorWidget(JobModel *jobModel, QWidget *parent)

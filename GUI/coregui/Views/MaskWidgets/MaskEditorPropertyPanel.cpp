@@ -14,6 +14,13 @@
 //
 // ************************************************************************** //
 
+#include "AccordionWidget.h"
+#include "ComponentEditor.h"
+#include "ContentPane.h"
+#include "IntensityDataItem.h"
+#include "MaskEditorFlags.h"
+#include "SessionModel.h"
+#include "MaskEditorPropertyPanel.h"
 #include <QButtonGroup>
 #include <QDebug>
 #include <QGridLayout>
@@ -24,13 +31,6 @@
 #include <QPushButton>
 #include <QToolButton>
 #include <QVBoxLayout>
-#include "AccordionWidget.h"
-#include "ComponentEditor.h"
-#include "ContentPane.h"
-#include "IntensityDataItem.h"
-#include "MaskEditorFlags.h"
-#include "SessionModel.h"
-#include "MaskEditorPropertyPanel.h"
 
 MaskEditorPropertyPanel::MaskEditorPropertyPanel(QWidget *parent)
     : QWidget(parent)

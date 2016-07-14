@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#include <Eigen/LU>
 #include "SpecularMagnetic.h"
+#include <Eigen/LU>
 
 static complex_t I(0.,1.);
 

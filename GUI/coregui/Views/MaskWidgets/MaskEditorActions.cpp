@@ -14,13 +14,13 @@
 //
 // ************************************************************************** //
 
+#include "MaskItems.h"
+#include "SessionModel.h"
+#include "MaskEditorActions.h"
 #include <QAction>
 #include <QDebug>
 #include <QItemSelectionModel>
 #include <QMenu>
-#include "MaskItems.h"
-#include "SessionModel.h"
-#include "MaskEditorActions.h"
 
 MaskEditorActions::MaskEditorActions(QWidget *parent)
     : QObject(parent)

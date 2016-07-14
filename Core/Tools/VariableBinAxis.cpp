@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#include <iomanip>
 #include "VariableBinAxis.h"
+#include <iomanip>
 
 
 VariableBinAxis::VariableBinAxis(

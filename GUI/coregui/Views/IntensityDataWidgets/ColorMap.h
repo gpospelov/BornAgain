@@ -17,13 +17,13 @@
 #ifndef COLORMAP_H
 #define COLORMAP_H
 
+#include "ColorMapBin.h"
+#include "WinDllMacros.h"
+#include "qcustomplot.h"
 #include <QMap>
 #include <QPoint>
 #include <QWidget>
 #include <memory>
-#include "ColorMapBin.h"
-#include "WinDllMacros.h"
-#include "qcustomplot.h"
 
 class IntensityDataItem;
 class QCustomPlot;

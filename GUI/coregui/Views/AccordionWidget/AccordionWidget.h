@@ -33,6 +33,9 @@
 #ifndef ACCORDIONWIDGET_H
 #define ACCORDIONWIDGET_H
 
+#include "ClickableFrame.h"
+#include "ContentPane.h"
+#include "WinDllMacros.h"
 #include <QDebug>
 #include <QGridLayout>
 #include <QHBoxLayout>
@@ -46,9 +49,6 @@
 #include <iterator>
 #include <memory>
 #include <vector>
-#include "ClickableFrame.h"
-#include "ContentPane.h"
-#include "WinDllMacros.h"
 
 class ContentPane;
 

@@ -17,8 +17,8 @@
 #ifndef INFOWIDGET_H
 #define INFOWIDGET_H
 
-#include <QWidget>
 #include "WinDllMacros.h"
+#include <QWidget>
 
 class InfoToolBar;
 class SampleModel;

@@ -14,10 +14,6 @@
 //
 // ************************************************************************** //
 
-#include <QDebug>
-#include <QGroupBox>
-#include <QLabel>
-#include <QVBoxLayout>
 #include "ComponentBoxEditor.h"
 #include "DetectorItems.h"
 #include "DetectorItems.h"
@@ -28,6 +24,10 @@
 #include "SphericalDetectorWidget.h"
 #include "columnresizer.h"
 #include "DetectorEditorWidget.h"
+#include <QDebug>
+#include <QGroupBox>
+#include <QLabel>
+#include <QVBoxLayout>
 
 DetectorEditorWidget::DetectorEditorWidget(ColumnResizer *columnResizer, QWidget *parent)
     : QWidget(parent)

@@ -17,9 +17,9 @@
 #ifndef ISCENEADAPTOR_H
 #define ISCENEADAPTOR_H
 
+#include "WinDllMacros.h"
 #include <QObject>
 #include <QRectF>
-#include "WinDllMacros.h"
 
 //! Interface to adapt MaskItems coordinates (expressed in units of IntensityDataItem)
 //! to/from scene coordinates.

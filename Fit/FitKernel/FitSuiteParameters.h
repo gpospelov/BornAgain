@@ -16,8 +16,8 @@
 #ifndef FITSUITEPARAMETERS_H
 #define FITSUITEPARAMETERS_H
 
-#include <vector>
 #include "FitParameter.h"
+#include <vector>
 
 class ParameterPool;
 

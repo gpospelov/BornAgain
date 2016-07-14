@@ -13,10 +13,10 @@
 //
 // ************************************************************************** //
 
-#include <memory>
 #include "Histogram1D.h"
 #include "Histogram2D.h"
 #include "IntensityDataIOFactory.h"
+#include <memory>
 
 IHistogram::IHistogram()
 {

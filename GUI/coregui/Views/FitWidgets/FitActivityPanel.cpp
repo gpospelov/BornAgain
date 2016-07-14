@@ -14,8 +14,6 @@
 //
 // ************************************************************************** //
 
-#include <QPushButton>
-#include <QVBoxLayout>
 #include "FitSuiteWidget.h"
 #include "JobItem.h"
 #include "JobMessagePanel.h"
@@ -24,6 +22,8 @@
 #include "RunFitControlWidget.h"
 #include "mainwindow_constants.h"
 #include "FitActivityPanel.h"
+#include <QPushButton>
+#include <QVBoxLayout>
 
 FitActivityPanel::FitActivityPanel(JobModel *jobModel, QWidget *parent)
     : QWidget(parent)

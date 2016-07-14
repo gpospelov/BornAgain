@@ -13,10 +13,10 @@
 //
 // ************************************************************************** //
 
-#include <memory>
 #include "ConvolutionDetectorResolution.h"
 #include "IHistogram.h"
 #include "IntensityDataFunctions.h"
+#include <memory>
 
 double IntensityDataFunctions::getRelativeDifference(
         const OutputData<double> &result, const OutputData<double> &reference)

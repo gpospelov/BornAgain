@@ -14,9 +14,6 @@
 //
 // ************************************************************************** //
 
-#include <QDebug>
-#include <QPainter>
-#include <QStyleOptionGraphicsItem>
 #include "LayerItem.h"
 #include "MaterialProperty.h"
 #include "MultiLayerView.h"
@@ -24,6 +21,9 @@
 #include "SessionItem.h"
 #include "tooltipdatabase.h"
 #include "LayerView.h"
+#include <QDebug>
+#include <QPainter>
+#include <QStyleOptionGraphicsItem>
 
 
 

@@ -14,8 +14,6 @@
 //
 // ************************************************************************** //
 
-#include <QDebug>
-#include <QVBoxLayout>
 #include "AppSvc.h"
 #include "IntensityDataItem.h"
 #include "IntensityDataPropertyWidget.h"
@@ -25,6 +23,8 @@
 #include "ObsoleteIntensityDataWidgetActions.h"
 #include "projectmanager.h"
 #include "ObsoleteIntensityDataWidget.h"
+#include <QDebug>
+#include <QVBoxLayout>
 
 
 ObsoleteIntensityDataWidget::ObsoleteIntensityDataWidget(QWidget *parent)

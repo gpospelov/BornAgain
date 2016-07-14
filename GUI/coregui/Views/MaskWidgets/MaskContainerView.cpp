@@ -14,12 +14,12 @@
 //
 // ************************************************************************** //
 
+#include "ISceneAdaptor.h"
+#include "MaskContainerView.h"
 #include <QBrush>
 #include <QDebug>
 #include <QPainter>
 #include <QStyleOptionGraphicsItem>
-#include "ISceneAdaptor.h"
-#include "MaskContainerView.h"
 
 
 MaskContainerView::MaskContainerView()

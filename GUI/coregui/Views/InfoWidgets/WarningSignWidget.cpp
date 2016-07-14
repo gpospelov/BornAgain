@@ -14,10 +14,10 @@
 //
 // ************************************************************************** //
 
+#include "WarningSignWidget.h"
 #include <QMessageBox>
 #include <QPainter>
 #include <QRect>
-#include "WarningSignWidget.h"
 
 WarningSignWidget::WarningSignWidget(QWidget * parent)
     : QWidget(parent)

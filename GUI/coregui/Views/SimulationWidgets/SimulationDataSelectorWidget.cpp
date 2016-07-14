@@ -14,12 +14,6 @@
 //
 // ************************************************************************** //
 
-#include <QComboBox>
-#include <QDebug>
-#include <QFileDialog>
-#include <QGroupBox>
-#include <QLabel>
-#include <QVBoxLayout>
 #include "ApplicationModels.h"
 #include "InstrumentItem.h"
 #include "InstrumentModel.h"
@@ -28,6 +22,12 @@
 #include "RealDataModel.h"
 #include "SampleModel.h"
 #include "SimulationDataSelectorWidget.h"
+#include <QComboBox>
+#include <QDebug>
+#include <QFileDialog>
+#include <QGroupBox>
+#include <QLabel>
+#include <QVBoxLayout>
 
 namespace
 {

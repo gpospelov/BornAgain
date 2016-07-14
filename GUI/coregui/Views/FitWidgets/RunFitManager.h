@@ -17,10 +17,10 @@
 #ifndef RUNFITMANAGER_H
 #define RUNFITMANAGER_H
 
+#include "WinDllMacros.h"
 #include <QObject>
 #include <atomic>
 #include <memory>
-#include "WinDllMacros.h"
 
 class FitSuite;
 

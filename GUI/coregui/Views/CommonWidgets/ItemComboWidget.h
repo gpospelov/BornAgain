@@ -17,11 +17,11 @@
 #ifndef ITEMCOMBOWIDGET_H
 #define ITEMCOMBOWIDGET_H
 
+#include "IFactory.h"
+#include "WinDllMacros.h"
 #include <QMap>
 #include <QString>
 #include <QWidget>
-#include "IFactory.h"
-#include "WinDllMacros.h"
 
 class SessionItem;
 class SessionItemWidget;

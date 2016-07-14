@@ -14,10 +14,6 @@
 //
 // ************************************************************************** //
 
-#include <QDebug>
-#include <QGraphicsItem>
-#include <QItemSelection>
-#include <QLineF>
 #include "ColorMapSceneAdaptor.h"
 #include "IMaskView.h"
 #include "ISceneAdaptor.h"
@@ -31,6 +27,10 @@
 #include "SessionModel.h"
 #include "item_constants.h"
 #include "MaskGraphicsScene.h"
+#include <QDebug>
+#include <QGraphicsItem>
+#include <QItemSelection>
+#include <QLineF>
 
 namespace {
 const QRectF default_scene_rect(0, 0, 800, 600);

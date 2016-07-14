@@ -13,8 +13,6 @@
 //! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
-#include <QVBoxLayout>
-#include <QVariant>
 #include "ComponentEditorPrivate.h"
 #include "GUIHelpers.h"
 #include "GroupItem.h"
@@ -23,6 +21,8 @@
 #include "SessionModel.h"
 #include "qtpropertybrowser.h"
 #include "ComponentEditor.h"
+#include <QVBoxLayout>
+#include <QVariant>
 
 ComponentEditor::ComponentEditor(ComponentEditorFlags::PresentationType flags, QWidget *parent)
     : QWidget(parent)

@@ -14,7 +14,6 @@
 //
 // ************************************************************************** //
 
-#include <QMenu>
 #include "JobActivityStatusBar.h"
 #include "JobItem.h"
 #include "JobModel.h"
@@ -24,6 +23,7 @@
 #include "JobViewDocks.h"
 #include "mainwindow.h"
 #include "JobView.h"
+#include <QMenu>
 
 JobView::JobView(MainWindow *mainWindow)
     : m_docks(new JobViewDocks(this))

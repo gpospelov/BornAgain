@@ -17,10 +17,10 @@
 #ifndef SAMPLEDESIGNER_H
 #define SAMPLEDESIGNER_H
 
-#include <QObject>
-#include <QStackedWidget>
 #include "DesignerScene.h"
 #include "DesignerView.h"
+#include <QObject>
+#include <QStackedWidget>
 
 class DesignerScene;
 class DesignerWidgetFactory;

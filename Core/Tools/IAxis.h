@@ -16,8 +16,8 @@
 #ifndef IAXIS_H
 #define IAXIS_H
 
-#include <vector>
 #include "Bin.h"
+#include <vector>
 
 
 //! @class IAxis

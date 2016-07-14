@@ -17,8 +17,8 @@
 #ifndef SIMULATIONDATASELECTORWIDGET_H
 #define SIMULATIONDATASELECTORWIDGET_H
 
-#include <QWidget>
 #include "WinDllMacros.h"
+#include <QWidget>
 
 class ApplicationModels;
 class QComboBox;

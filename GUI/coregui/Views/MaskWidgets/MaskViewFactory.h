@@ -17,8 +17,8 @@
 #ifndef MASKVIEWFACTORY_H
 #define MASKVIEWFACTORY_H
 
-#include <QString>
 #include "WinDllMacros.h"
+#include <QString>
 
 class IMaskView;
 class SessionItem;

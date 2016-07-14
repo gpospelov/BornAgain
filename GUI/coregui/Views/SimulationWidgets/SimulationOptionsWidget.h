@@ -17,8 +17,8 @@
 #ifndef SIMULATIONOPTIONSWIDGET_H
 #define SIMULATIONOPTIONSWIDGET_H
 
-#include <QWidget>
 #include "WinDllMacros.h"
+#include <QWidget>
 
 class SimulationOptionsItem;
 class ComponentBoxEditor;

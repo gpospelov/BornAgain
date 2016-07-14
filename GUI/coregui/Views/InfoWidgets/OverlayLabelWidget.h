@@ -17,10 +17,10 @@
 #ifndef OVERLAYLABELWIDGET
 #define OVERLAYLABELWIDGET
 
+#include "WinDllMacros.h"
 #include <QRect>
 #include <QString>
 #include <QWidget>
-#include "WinDllMacros.h"
 
 //! The OverlayLabelWidget is a semi-transparent overlay label to place on top of other
 //! widgets outside of any layout context.

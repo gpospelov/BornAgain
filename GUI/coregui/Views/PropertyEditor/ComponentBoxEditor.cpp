@@ -13,11 +13,11 @@
 //! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
-#include <QModelIndex>
 #include "ComponentEditorPrivate.h"
 #include "CustomEventFilters.h"
 #include "SessionModel.h"
 #include "ComponentBoxEditor.h"
+#include <QModelIndex>
 
 ComponentBoxEditor::ComponentBoxEditor(QWidget *parent)
     : ComponentEditor(ComponentEditorFlags::BROWSER_GROUPBOX, parent)

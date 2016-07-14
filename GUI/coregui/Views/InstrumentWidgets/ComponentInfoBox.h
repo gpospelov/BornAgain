@@ -17,9 +17,9 @@
 #ifndef COMPONENTINFOBOX_H
 #define COMPONENTINFOBOX_H
 
-#include <QWidget>
 #include "GroupInfoBox.h"
 #include "WinDllMacros.h"
+#include <QWidget>
 
 class ComponentBoxEditor;
 class SessionItem;

@@ -14,9 +14,6 @@
 //
 // ************************************************************************** //
 
-#include <QAction>
-#include <QDebug>
-#include <QItemSelectionModel>
 #include "ComboProperty.h"
 #include "DetectorItems.h"
 #include "IDetector2D.h"
@@ -33,6 +30,9 @@
 #include "SphericalDetectorItem.h"
 #include "ImportDataToolBar.h"
 #include "ImportDataToolBar.h"
+#include <QAction>
+#include <QDebug>
+#include <QItemSelectionModel>
 
 ImportDataToolBar::ImportDataToolBar(QWidget *parent)
     : StyledToolBar(parent)

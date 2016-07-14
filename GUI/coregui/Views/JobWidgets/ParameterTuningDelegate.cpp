@@ -14,6 +14,12 @@
 //
 // ************************************************************************** //
 
+#include "GUIHelpers.h"
+#include "ModelPath.h"
+#include "ParameterTreeItems.h"
+#include "ParameterTuningModel.h"
+#include "SessionModel.h"
+#include "ParameterTuningDelegate.h"
 #include <QAbstractItemModel>
 #include <QApplication>
 #include <QDebug>
@@ -29,12 +35,6 @@
 #include <cmath>
 #include <iostream>
 #include <limits>
-#include "GUIHelpers.h"
-#include "ModelPath.h"
-#include "ParameterTreeItems.h"
-#include "ParameterTuningModel.h"
-#include "SessionModel.h"
-#include "ParameterTuningDelegate.h"
 
 
 namespace {

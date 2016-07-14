@@ -14,7 +14,6 @@
 //
 // ************************************************************************** //
 
-#include <QVBoxLayout>
 #include "ImportDataToolBar.h"
 #include "ItemSelectorWidget.h"
 #include "RealDataModel.h"
@@ -22,6 +21,7 @@
 #include "mainwindow_constants.h"
 #include "minisplitter.h"
 #include "ImportDataView.h"
+#include <QVBoxLayout>
 
 ImportDataView::ImportDataView(MainWindow *mainWindow)
     : QWidget(mainWindow)

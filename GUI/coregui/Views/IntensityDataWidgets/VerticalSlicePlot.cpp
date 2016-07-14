@@ -14,12 +14,12 @@
 //
 // ************************************************************************** //
 
-#include <QVBoxLayout>
 #include "AxesItems.h"
 #include "IntensityDataItem.h"
 #include "Units.h"
 #include "qcustomplot.h"
 #include "VerticalSlicePlot.h"
+#include <QVBoxLayout>
 
 VerticalSlicePlot::VerticalSlicePlot(QWidget *parent)
     : QWidget(parent)

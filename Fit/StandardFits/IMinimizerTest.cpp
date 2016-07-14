@@ -13,12 +13,12 @@
 //
 // ************************************************************************** //
 
-#include <boost/format.hpp>
 #include "FitSuite.h"
 #include "MinimizerFactory.h"
 #include "SampleBuilderFactory.h"
 #include "SimulationFactory.h"
 #include "IMinimizerTest.h"
+#include <boost/format.hpp>
 
 IMinimizerTest::TestParameter::TestParameter(const std::string &name, double real_value,
                                                        double start_value)

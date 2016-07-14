@@ -14,10 +14,6 @@
 //
 // ************************************************************************** //
 
-#include <QDebug>
-#include <QLabel>
-#include <QSplitter>
-#include <QVBoxLayout>
 #include "ColorMapPlot.h"
 #include "HorizontalSlicePlot.h"
 #include "IntensityDataItem.h"
@@ -25,6 +21,10 @@
 #include "VerticalSlicePlot.h"
 #include "qcustomplot.h"
 #include "ObsoleteIntensityDataPlotWidget.h"
+#include <QDebug>
+#include <QLabel>
+#include <QSplitter>
+#include <QVBoxLayout>
 
 
 ObsoleteIntensityDataPlotWidget::ObsoleteIntensityDataPlotWidget(QWidget *parent)

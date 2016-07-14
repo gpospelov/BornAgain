@@ -17,8 +17,8 @@
 #ifndef MINIMIZERSETTINGSWIDGET_H
 #define MINIMIZERSETTINGSWIDGET_H
 
-#include <QWidget>
 #include "WinDllMacros.h"
+#include <QWidget>
 
 class ComponentEditor;
 class JobItem;

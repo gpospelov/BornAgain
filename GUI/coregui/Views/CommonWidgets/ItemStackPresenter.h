@@ -17,10 +17,10 @@
 #ifndef ITEMSTACKPRESENTER_H
 #define ITEMSTACKPRESENTER_H
 
+#include "ItemStackWidget.h"
 #include <QDebug>
 #include <QMap>
 #include <QStackedWidget>
-#include "ItemStackWidget.h"
 
 class SessionItem;
 

@@ -13,7 +13,6 @@
 //
 // ************************************************************************** //
 
-#include <iomanip>
 #include "Distributions.h"
 #include "Ellipse.h"
 #include "InfinitePlane.h"
@@ -23,6 +22,7 @@
 #include "Polygon.h"
 #include "Rectangle.h"
 #include "PyGenTools.h"
+#include <iomanip>
 GCC_DIAG_OFF(missing-field-initializers)
 GCC_DIAG_OFF(unused-parameter)
 GCC_DIAG_ON(unused-parameter)

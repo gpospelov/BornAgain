@@ -16,10 +16,10 @@
 #ifndef PARAMETERPOOL_H
 #define PARAMETERPOOL_H
 
-#include <map>
-#include <vector>
 #include "ICloneable.h"
 #include "RealParameterWrapper.h"
+#include <map>
+#include <vector>
 
 
 //! @class ParameterPool

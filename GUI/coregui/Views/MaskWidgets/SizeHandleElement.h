@@ -17,10 +17,10 @@
 #ifndef SIZEHANDLEELEMENT_H
 #define SIZEHANDLEELEMENT_H
 
+#include "MaskEditorHelper.h"
 #include <QCursor>
 #include <QGraphicsObject>
 #include <QMap>
-#include "MaskEditorHelper.h"
 
 //! Size handle on top of RectangleView represented as small circle or small rectangle.
 //! Placed either in corners on in the middle of the edge.

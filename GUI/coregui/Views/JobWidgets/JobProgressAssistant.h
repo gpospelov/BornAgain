@@ -17,8 +17,8 @@
 #ifndef JOBPROGRESSASSISTANT_H
 #define JOBPROGRESSASSISTANT_H
 
-#include <QObject>
 #include "WinDllMacros.h"
+#include <QObject>
 
 class MainWindow;
 

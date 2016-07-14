@@ -16,9 +16,9 @@
 #ifndef FORMFACTORLONGRIPPLE1LORENTZ_H
 #define FORMFACTORLONGRIPPLE1LORENTZ_H
 
-#include <memory>
 #include "IFormFactorBorn.h"
 #include "IntegratorComplex.h"
+#include <memory>
 
 //! @class FormFactorLongRipple1Lorentz
 //! @ingroup formfactors

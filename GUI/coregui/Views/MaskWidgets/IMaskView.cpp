@@ -14,15 +14,15 @@
 //
 // ************************************************************************** //
 
+#include "ISceneAdaptor.h"
+#include "MaskItems.h"
+#include "SessionItem.h"
+#include "IMaskView.h"
 #include <QAction>
 #include <QDebug>
 #include <QGraphicsSceneContextMenuEvent>
 #include <QMenu>
 #include <QPainter>
-#include "ISceneAdaptor.h"
-#include "MaskItems.h"
-#include "SessionItem.h"
-#include "IMaskView.h"
 
 IMaskView::IMaskView()
     : m_item(0)

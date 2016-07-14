@@ -17,10 +17,10 @@
 #ifndef DISTRIBUTIONWIDGET_H
 #define DISTRIBUTIONWIDGET_H
 
-#include <QWidget>
-#include <memory>
 #include "WarningSignWidget.h"
 #include "qcustomplot.h"
+#include <QWidget>
+#include <memory>
 
 class SessionItem;
 class AwesomePropertyEditor;

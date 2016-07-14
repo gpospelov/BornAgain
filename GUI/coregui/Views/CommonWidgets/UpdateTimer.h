@@ -17,8 +17,8 @@
 #ifndef UPDATETIMER_H
 #define UPDATETIMER_H
 
-#include <QObject>
 #include "WinDllMacros.h"
+#include <QObject>
 
 class QTimer;
 

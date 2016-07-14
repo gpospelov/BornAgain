@@ -19,12 +19,12 @@
 
 //! collection of classes extending QtPropertyBrowser functionality
 
-#include <QtVariantPropertyManager>
 #include "ColorProperty.h"
 #include "ComboProperty.h"
 #include "GroupProperty.h"
 #include "MaterialProperty.h"
 #include "ScientificDoubleProperty.h"
+#include <QtVariantPropertyManager>
 
 class QObject;
 

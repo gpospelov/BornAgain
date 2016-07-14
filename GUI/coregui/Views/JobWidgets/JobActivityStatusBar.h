@@ -17,8 +17,8 @@
 #ifndef JOBACTIVITYSTATUSBAR_H
 #define JOBACTIVITYSTATUSBAR_H
 
-#include <QWidget>
 #include "WinDllMacros.h"
+#include <QWidget>
 
 class MainWindow;
 class QToolButton;

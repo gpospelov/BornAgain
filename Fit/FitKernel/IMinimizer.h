@@ -16,9 +16,9 @@
 #ifndef IMINIMIZER_H
 #define IMINIMIZER_H
 
+#include "MinimizerOptions.h"
 #include <functional>
 #include <vector>
-#include "MinimizerOptions.h"
 
 class FitParameter;
 class FitSuiteParameters;

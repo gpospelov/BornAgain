@@ -12,11 +12,11 @@
 //! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
-#include <fstream>
 #include "OutputData.h"
 #include "OutputDataIOHelper.h"
 #include "boost_streams.h"
 #include "OutputDataReader.h"
+#include <fstream>
 
 OutputDataReader::OutputDataReader(const std::string& file_name)
     : m_file_name(file_name)

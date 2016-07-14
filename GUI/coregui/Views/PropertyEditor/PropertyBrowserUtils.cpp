@@ -14,6 +14,9 @@
 //
 // ************************************************************************** //
 
+#include "GUIHelpers.h"
+#include "MaterialSvc.h"
+#include "PropertyBrowserUtils.h"
 #include <QColorDialog>
 #include <QComboBox>
 #include <QDebug>
@@ -27,9 +30,6 @@
 #include <QPixmap>
 #include <QRgb>
 #include <QToolButton>
-#include "GUIHelpers.h"
-#include "MaterialSvc.h"
-#include "PropertyBrowserUtils.h"
 
 // -----------------------------------------------------------------------------
 // MaterialPropertyEdit

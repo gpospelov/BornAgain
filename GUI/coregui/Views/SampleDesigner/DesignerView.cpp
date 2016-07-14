@@ -14,6 +14,11 @@
 //
 // ************************************************************************** //
 
+#include "DesignerHelper.h"
+#include "DesignerMimeData.h"
+#include "DesignerScene.h"
+#include "GUIHelpers.h"
+#include "DesignerView.h"
 #include <QDebug>
 #include <QDragEnterEvent>
 #include <QGraphicsScene>
@@ -21,11 +26,6 @@
 #include <QMimeData>
 #include <QShortcut>
 #include <QVBoxLayout>
-#include "DesignerHelper.h"
-#include "DesignerMimeData.h"
-#include "DesignerScene.h"
-#include "GUIHelpers.h"
-#include "DesignerView.h"
 
 DesignerView::DesignerView(QGraphicsScene *scene, QWidget *parent) : QGraphicsView(scene, parent)
 {

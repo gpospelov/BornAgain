@@ -13,9 +13,9 @@
 //
 // ************************************************************************** //
 
-#include <gsl/gsl_linalg.h>
 #include "Units.h"
 #include "Lattice.h"
+#include <gsl/gsl_linalg.h>
 
 Lattice::Lattice()
 : mp_selection_rule(0)

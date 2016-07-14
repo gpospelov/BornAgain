@@ -14,11 +14,11 @@
 //
 // ************************************************************************** //
 
-#include <QDebug>
-#include <QString>
 #include "ModelMapper.h"
 #include "SessionGraphicsItem.h"
 #include "IView.h"
+#include <QDebug>
+#include <QString>
 
 IView::IView(QGraphicsItem *parent) : QGraphicsObject(parent), m_item(0)
 {

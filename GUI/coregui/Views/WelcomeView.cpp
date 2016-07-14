@@ -14,12 +14,6 @@
 //
 // ************************************************************************** //
 
-#include <QCommandLinkButton>
-#include <QDebug>
-#include <QDesktopServices>
-#include <QSignalMapper>
-#include <QUrl>
-#include <QVBoxLayout>
 #include "DesignerHelper.h"
 #include "FancyLabel.h"
 #include "mainwindow.h"
@@ -28,6 +22,12 @@
 #include "projectmanager.h"
 #include "qstringutils.h"
 #include "WelcomeView.h"
+#include <QCommandLinkButton>
+#include <QDebug>
+#include <QDesktopServices>
+#include <QSignalMapper>
+#include <QUrl>
+#include <QVBoxLayout>
 
 WelcomeView::WelcomeView(MainWindow *parent)
     : m_mainWindow(parent)

@@ -14,12 +14,12 @@
 //
 // ************************************************************************** //
 
-#include <QDebug>
-#include <QResizeEvent>
-#include <QVBoxLayout>
 #include "InfoToolBar.h"
 #include "PySampleWidget.h"
 #include "InfoWidget.h"
+#include <QDebug>
+#include <QResizeEvent>
+#include <QVBoxLayout>
 
 namespace {
 const int minimum_widget_height = 25; // height of toolbar

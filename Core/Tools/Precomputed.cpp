@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#include <cmath>
 #include "Precomputed.h"
+#include <cmath>
 
 //! Precompute things upon class instantiation.
 

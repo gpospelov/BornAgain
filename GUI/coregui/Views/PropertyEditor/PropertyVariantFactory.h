@@ -19,8 +19,8 @@
 
 //! collection of classes extending QtPropertyBrowser functionality
 
-#include <QtVariantEditorFactory>
 #include "GroupProperty.h"
+#include <QtVariantEditorFactory>
 
 class MaterialPropertyEdit;
 class MaterialProperty;

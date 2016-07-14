@@ -16,9 +16,9 @@
 #ifndef FASTVECTOR_H
 #define FASTVECTOR_H
 
+#include "Vectors3D.h"
 #include <iostream>
 #include <vector>
-#include "Vectors3D.h"
 
 //! @class KVectorContainer
 //! @ingroup tools_internal

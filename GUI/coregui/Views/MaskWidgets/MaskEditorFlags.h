@@ -17,8 +17,8 @@
 #ifndef MASKEDITORFLAGS_H
 #define MASKEDITORFLAGS_H
 
-#include <QWidget>
 #include "WinDllMacros.h"
+#include <QWidget>
 
 //! Help class to define various flags for MaskEditor operation
 

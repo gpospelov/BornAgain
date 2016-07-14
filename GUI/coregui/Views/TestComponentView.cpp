@@ -13,12 +13,12 @@
 //! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
-#include <QHBoxLayout>
-#include <QTreeView>
 #include "ComponentEditor.h"
 #include "SampleModel.h"
 #include "mainwindow.h"
 #include "TestComponentView.h"
+#include <QHBoxLayout>
+#include <QTreeView>
 
 TestComponentView::TestComponentView(MainWindow *mainWindow)
     : QWidget(mainWindow)

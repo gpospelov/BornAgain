@@ -17,8 +17,8 @@
 #ifndef INSTRUMENTCOMPONENTSWIDGET_H
 #define INSTRUMENTCOMPONENTSWIDGET_H
 
-#include <QWidget>
 #include "WinDllMacros.h"
+#include <QWidget>
 
 class BeamItem;
 class DetectorItem;

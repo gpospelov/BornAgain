@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#include <iostream>
 #include "Exceptions.h"
+#include <iostream>
 
 namespace Exceptions {
 

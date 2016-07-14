@@ -14,7 +14,6 @@
 //
 // ************************************************************************** //
 
-#include <QVBoxLayout>
 #include "JobItem.h"
 #include "JobModel.h"
 #include "JobResultsPresenter.h"
@@ -22,6 +21,7 @@
 #include "ObsoleteIntensityDataWidget.h"
 #include "mainwindow_constants.h"
 #include "JobOutputDataWidget.h"
+#include <QVBoxLayout>
 
 JobOutputDataWidget::JobOutputDataWidget(JobModel *jobModel, QWidget *parent)
     : QWidget(parent)

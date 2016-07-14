@@ -14,9 +14,9 @@
 //
 // ************************************************************************** //
 
+#include "RealDataSelectorWidget.h"
 #include <QListView>
 #include <QVBoxLayout>
-#include "RealDataSelectorWidget.h"
 
 RealDataSelectorWidget::RealDataSelectorWidget(QWidget *parent)
     : QWidget(parent)

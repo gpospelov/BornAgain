@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#include <iomanip>
 #include "FitParameter.h"
+#include <iomanip>
 
 FitParameter::FitParameter() : m_value(0), m_step(0), m_error(0)
 { }

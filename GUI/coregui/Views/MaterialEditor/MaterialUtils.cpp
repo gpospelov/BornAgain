@@ -14,7 +14,6 @@
 //
 // ************************************************************************** //
 
-#include <QDebug>
 #include "ComboProperty.h"
 #include "DesignerHelper.h"
 #include "GUIHelpers.h"
@@ -25,6 +24,7 @@
 #include "MaterialSvc.h"
 #include "RefractiveIndexItem.h"
 #include "MaterialUtils.h"
+#include <QDebug>
 
 
 QColor MaterialUtils::suggestMaterialColor(const QString &name)

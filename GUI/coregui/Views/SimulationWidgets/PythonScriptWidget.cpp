@@ -14,6 +14,18 @@
 //
 // ************************************************************************** //
 
+#include "DesignerHelper.h"
+#include "DomainSimulationBuilder.h"
+#include "GISASSimulation.h"
+#include "InstrumentModel.h"
+#include "PyGenTools.h"
+#include "PythonSyntaxHighlighter.h"
+#include "SampleModel.h"
+#include "SimulationOptionsItem.h"
+#include "WarningSignWidget.h"
+#include "projectdocument.h"
+#include "projectmanager.h"
+#include "PythonScriptWidget.h"
 #include <QDebug>
 #include <QDir>
 #include <QFile>
@@ -28,18 +40,6 @@
 #include <QToolBar>
 #include <QToolButton>
 #include <QVBoxLayout>
-#include "DesignerHelper.h"
-#include "DomainSimulationBuilder.h"
-#include "GISASSimulation.h"
-#include "InstrumentModel.h"
-#include "PyGenTools.h"
-#include "PythonSyntaxHighlighter.h"
-#include "SampleModel.h"
-#include "SimulationOptionsItem.h"
-#include "WarningSignWidget.h"
-#include "projectdocument.h"
-#include "projectmanager.h"
-#include "PythonScriptWidget.h"
 
 
 

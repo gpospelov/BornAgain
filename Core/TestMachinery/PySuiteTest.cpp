@@ -13,7 +13,6 @@
 //
 // ************************************************************************** //
 
-#include <fstream>
 #include "BAPython.h"
 #include "FileSystem.h"
 #include "IntensityDataFunctions.h"
@@ -23,6 +22,7 @@
 #include "TestConfig.h"
 #include "Utils.h"
 #include "PySuiteTest.h"
+#include <fstream>
 
 PySuiteTest::PySuiteTest(
     const std::string& name, const std::string& description,

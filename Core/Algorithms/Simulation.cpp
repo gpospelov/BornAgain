@@ -13,11 +13,11 @@
 //
 // ************************************************************************** //
 
-#include <thread>
-#include <gsl/gsl_errno.h>
 #include "DWBASimulation.h"
 #include "MessageService.h"
 #include "OMPISimulation.h"
+#include <thread>
+#include <gsl/gsl_errno.h>
 
 
 Simulation::Simulation()

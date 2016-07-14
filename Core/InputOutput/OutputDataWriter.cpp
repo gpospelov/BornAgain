@@ -13,11 +13,11 @@
 //
 // ************************************************************************** //
 
-#include <fstream>
 #include "OutputData.h"
 #include "OutputDataIOHelper.h"
 #include "boost_streams.h"
 #include "OutputDataWriter.h"
+#include <fstream>
 
 OutputDataWriter::OutputDataWriter(const std::string &file_name)
     : m_file_name(file_name)

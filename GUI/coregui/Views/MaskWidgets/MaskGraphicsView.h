@@ -17,8 +17,8 @@
 #ifndef MASKGRAPHICSVIEW_H
 #define MASKGRAPHICSVIEW_H
 
-#include <QGraphicsView>
 #include "MaskEditorFlags.h"
+#include <QGraphicsView>
 
 class QWheelEvent;
 class MaskGraphicsProxy;

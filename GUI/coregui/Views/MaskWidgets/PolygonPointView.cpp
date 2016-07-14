@@ -14,14 +14,14 @@
 //
 // ************************************************************************** //
 
-#include <QCursor>
-#include <QDebug>
-#include <QGraphicsSceneMouseEvent>
-#include <QPainter>
 #include "ISceneAdaptor.h"
 #include "MaskEditorHelper.h"
 #include "MaskItems.h"
 #include "PolygonPointView.h"
+#include <QCursor>
+#include <QDebug>
+#include <QGraphicsSceneMouseEvent>
+#include <QPainter>
 
 PolygonPointView::PolygonPointView()
     : m_on_hover(false)

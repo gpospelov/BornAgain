@@ -14,11 +14,11 @@
 //
 // ************************************************************************** //
 
-#include <QHBoxLayout>
-#include <QPushButton>
 #include "DistributionEditor.h"
 #include "SessionItem.h"
 #include "DistributionDialog.h"
+#include <QHBoxLayout>
+#include <QPushButton>
 
 DistributionDialog::DistributionDialog(QWidget *parent)
     : QDialog(parent)

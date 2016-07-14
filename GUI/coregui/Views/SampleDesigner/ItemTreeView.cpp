@@ -14,11 +14,11 @@
 //
 // ************************************************************************** //
 
-#include <QDragMoveEvent>
-#include <QMimeData>
 #include "GUIHelpers.h"
 #include "SessionModel.h"
 #include "ItemTreeView.h"
+#include <QDragMoveEvent>
+#include <QMimeData>
 
 ItemTreeView::ItemTreeView(QWidget *parent)
     : QTreeView(parent)

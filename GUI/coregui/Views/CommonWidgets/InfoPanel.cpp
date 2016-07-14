@@ -14,12 +14,12 @@
 //
 // ************************************************************************** //
 
+#include "InfoPanelToolBar.h"
+#include "InfoPanel.h"
 #include <QBoxLayout>
 #include <QDebug>
 #include <QResizeEvent>
 #include <QStackedWidget>
-#include "InfoPanelToolBar.h"
-#include "InfoPanel.h"
 
 namespace {
 const int minimum_widget_height = 25; // height of toolbar

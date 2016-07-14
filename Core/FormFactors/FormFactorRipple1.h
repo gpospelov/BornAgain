@@ -16,9 +16,9 @@
 #ifndef FORMFACTORRIPPLE1_H
 #define FORMFACTORRIPPLE1_H
 
-#include <memory>
 #include "IFormFactorBorn.h"
 #include "IntegratorComplex.h"
+#include <memory>
 
 //! @class FormFactorRipple1
 //! @ingroup formfactors

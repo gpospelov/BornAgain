@@ -17,12 +17,12 @@
 #ifndef MASKRESULTSPRESENTER_H
 #define MASKRESULTSPRESENTER_H
 
-#include <QModelIndex>
-#include <QObject>
-#include <memory>
 #include "MaskEditorFlags.h"
 #include "OutputData.h"
 #include "WinDllMacros.h"
+#include <QModelIndex>
+#include <QObject>
+#include <memory>
 
 
 class SessionModel;

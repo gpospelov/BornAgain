@@ -17,10 +17,10 @@
 #ifndef FITSUITEWIDGET_H
 #define FITSUITEWIDGET_H
 
-#include <QWidget>
-#include <memory>
 #include "FitProgressInfo.h"
 #include "WinDllMacros.h"
+#include <QWidget>
+#include <memory>
 
 class QTabWidget;
 class JobModel;

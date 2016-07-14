@@ -16,8 +16,8 @@
 #ifndef ISHAPE2D_H
 #define ISHAPE2D_H
 
-#include <iostream>
 #include "ICloneable.h"
+#include <iostream>
 
 struct Bin1D;
 

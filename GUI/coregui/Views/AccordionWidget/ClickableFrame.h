@@ -33,13 +33,13 @@
 #ifndef CLICKABLEFRAME_H
 #define CLICKABLEFRAME_H
 
+#include "WinDllMacros.h"
 #include <QFrame>
 #include <QGraphicsView>
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QMouseEvent>
 #include <QString>
-#include "WinDllMacros.h"
 
 #ifdef __GNUC__
   #define ATTR_UNUSED __attribute__((unused))

@@ -13,9 +13,9 @@
 //
 // ************************************************************************** //
 
-#include <memory>
 #include "BornAgainNamespace.h"
 #include "FormFactorDecoratorRotation.h"
+#include <memory>
 
 FormFactorDecoratorRotation::FormFactorDecoratorRotation(
     const IFormFactor& form_factor, const IRotation& transform)

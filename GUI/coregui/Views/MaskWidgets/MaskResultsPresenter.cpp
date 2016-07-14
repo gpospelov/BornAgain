@@ -14,8 +14,6 @@
 //
 // ************************************************************************** //
 
-#include <QDebug>
-#include <QVBoxLayout>
 #include "ColorMapPlot.h"
 #include "DetectorMask.h"
 #include "IShape2D.h"
@@ -24,6 +22,8 @@
 #include "OutputData.h"
 #include "SessionModel.h"
 #include "MaskResultsPresenter.h"
+#include <QDebug>
+#include <QVBoxLayout>
 
 MaskResultsPresenter::MaskResultsPresenter(QWidget *parent)
     : QObject(parent)

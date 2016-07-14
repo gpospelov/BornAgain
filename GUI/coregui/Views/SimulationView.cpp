@@ -14,11 +14,11 @@
 //
 // ************************************************************************** //
 
-#include <QVBoxLayout>
 #include "SimulationSetupWidget.h"
 #include "StyledToolBar.h"
 #include "mainwindow.h"
 #include "SimulationView.h"
+#include <QVBoxLayout>
 
 SimulationView::SimulationView(MainWindow *mainWindow)
     : QWidget(mainWindow)

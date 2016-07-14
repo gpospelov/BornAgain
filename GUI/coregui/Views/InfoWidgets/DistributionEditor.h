@@ -17,10 +17,10 @@
 #ifndef DISTRIBUTIONEDITOR_H
 #define DISTRIBUTIONEDITOR_H
 
-#include <QWidget>
-#include <memory>
 #include "SessionItem.h"
 #include "qcustomplot.h"
+#include <QWidget>
+#include <memory>
 
 class QGroupBox;
 class DistributionWidget;

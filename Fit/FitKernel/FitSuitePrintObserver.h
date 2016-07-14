@@ -16,8 +16,8 @@
 #ifndef FITSUITEPRINTOBSERVER_H
 #define FITSUITEPRINTOBSERVER_H
 
-#include <boost/date_time/posix_time/posix_time.hpp>
 #include "IFitObserver.h"
+#include <boost/date_time/posix_time/posix_time.hpp>
 
 //! @class FitSuitePrintObserver
 //! @ingroup fitting_internal

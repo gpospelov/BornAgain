@@ -18,10 +18,10 @@
 #define INSTRUMENTEDITORWIDGET_H
 
 
+#include "WinDllMacros.h"
 #include <QLabel>
 #include <QMap>
 #include <QWidget>
-#include "WinDllMacros.h"
 
 class SessionItem;
 class DetectorEditorWidget;

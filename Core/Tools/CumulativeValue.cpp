@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#include <cmath>
 #include "CumulativeValue.h"
+#include <cmath>
 
 double CumulativeValue::getRMS() const
 {

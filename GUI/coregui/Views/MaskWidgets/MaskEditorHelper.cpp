@@ -14,11 +14,11 @@
 //
 // ************************************************************************** //
 
+#include "MaskEditorHelper.h"
 #include <QBrush>
 #include <QColor>
 #include <QPen>
 #include <QRectF>
-#include "MaskEditorHelper.h"
 
 QBrush MaskEditorHelper::getSelectionMarkerBrush()
 {

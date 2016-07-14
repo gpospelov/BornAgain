@@ -17,8 +17,8 @@
 #ifndef COMBOWIDGET_H
 #define COMBOWIDGET_H
 
-#include <QWidget>
 #include "WinDllMacros.h"
+#include <QWidget>
 
 class QComboBox;
 class QLabel;

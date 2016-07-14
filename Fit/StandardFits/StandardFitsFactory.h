@@ -2,7 +2,6 @@
 #define STANDARDFITSFACTORY_H
 
 #include "IFactory.h"
-#include "IFunctionalTest.h"
 
 
 //! @class StandardFitsFactory

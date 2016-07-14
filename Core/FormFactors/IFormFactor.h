@@ -17,8 +17,8 @@
 #define IFORMFACTOR_H
 
 #include "Complex.h"
-#include "ISample.h"
 #include "EigenCore.h"
+#include "ISample.h"
 #include "WavevectorInfo.h"
 
 class ILayerRTCoefficients;

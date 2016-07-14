@@ -15,8 +15,8 @@
 
 #ifndef FORMFACTORSPHERELOGNORMALRADIUS_H
 #define FORMFACTORSPHERELOGNORMALRADIUS_H
-#include "SafePointerVector.h"
 #include "FormFactorFullSphere.h"
+#include "SafePointerVector.h"
 
 class DistributionLogNormal;
 

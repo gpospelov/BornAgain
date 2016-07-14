@@ -16,8 +16,8 @@
 #ifndef FORMFACTORDECORATORPOSITIONFACTOR_H
 #define FORMFACTORDECORATORPOSITIONFACTOR_H
 
-#include "IFormFactorDecorator.h"
 #include "BornAgainNamespace.h"
+#include "IFormFactorDecorator.h"
 
 //! @class FormFactorDecoratorPositionFactor
 //! @ingroup formfactors_internal

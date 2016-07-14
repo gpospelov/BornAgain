@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#include "FormFactorTrivial.h"
 #include "BornAgainNamespace.h"
+#include "FormFactorTrivial.h"
 
 
 FormFactorTrivial::FormFactorTrivial()

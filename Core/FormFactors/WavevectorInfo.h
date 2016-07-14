@@ -16,8 +16,8 @@
 #ifndef WAVEVECTORINFO_H
 #define WAVEVECTORINFO_H
 
-#include "Units.h"
 #include "Bin.h"
+#include "Units.h"
 
 
 //! @class WavevectorInfo

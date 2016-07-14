@@ -18,9 +18,7 @@
 
 #include <memory>
 #include "IFormFactorBorn.h"
-
-// Forward declaration to prevent IntegratorComplex.h to be parsed for Python API:
-template <class T> class IntegratorComplex;
+#include "IntegratorComplex.h"
 
 //! @class FormFactorTruncatedSpheroid
 //! @ingroup formfactors
@@ -33,9 +31,9 @@ public:
 
     virtual ~FormFactorTruncatedSpheroid();
 
-    virtual FormFactorTruncatedSpheroid *clone() const;
+    virtual FormFactorTruncatedSpheroid* clone() const;
 
-    virtual void accept(ISampleVisitor *visitor) const;
+    virtual void accept(ISampleVisitor* visitor) const;
 
     double getHeight() const;
 

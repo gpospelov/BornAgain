@@ -16,8 +16,8 @@
 #ifndef FORMFACTORCRYSTAL_H
 #define FORMFACTORCRYSTAL_H
 
-#include "IFormFactorBorn.h"
 #include "Crystal.h"
+#include "IFormFactorBorn.h"
 
 //! @class FormFactorCrystal
 //! @ingroup formfactors

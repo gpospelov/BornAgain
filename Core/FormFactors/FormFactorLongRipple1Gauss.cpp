@@ -13,11 +13,9 @@
 //
 // ************************************************************************** //
 
-#include "FormFactorLongRipple1Gauss.h"
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
-#include "IntegratorComplex.h"
-
+#include "FormFactorLongRipple1Gauss.h"
 
 using namespace  BornAgain;
 
@@ -103,5 +101,5 @@ complex_t FormFactorLongRipple1Gauss::evaluate_for_q(const cvector_t q) const
 
     // numerical integration otherwise
     complex_t integral = mP_integrator->integrate(0, m_height);
-    return factor*integral;
+    return factor * integral;
 }

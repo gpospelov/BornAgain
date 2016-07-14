@@ -18,9 +18,7 @@
 
 #include <memory>
 #include "IFormFactorBorn.h"
-
-// Forward declaration to prevent IntegratorComplex.h to be parsed for Python API:
-template <class T> class IntegratorComplex;
+#include "IntegratorComplex.h"
 
 //! @class FormFactorTruncatedSphere
 //! @ingroup formfactors

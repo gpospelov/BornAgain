@@ -13,11 +13,9 @@
 //
 // ************************************************************************** //
 
-#include "FormFactorLongRipple1Lorentz.h"
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
-#include "IntegratorComplex.h"
-
+#include "FormFactorLongRipple1Lorentz.h"
 
 using namespace  BornAgain;
 

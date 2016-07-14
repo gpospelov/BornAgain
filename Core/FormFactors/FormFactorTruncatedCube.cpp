@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#include "FormFactorTruncatedCube.h"
 #include "BornAgainNamespace.h"
+#include "FormFactorTruncatedCube.h"
 
 const PolyhedralTopology FormFactorTruncatedCube::topology = {
     {

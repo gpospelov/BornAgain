@@ -18,9 +18,7 @@
 
 #include <memory>
 #include "IFormFactorBorn.h"
-
-// Forward declaration to prevent IntegratorComplex.h to be parsed for Python API:
-template <class T> class IntegratorComplex;
+#include "IntegratorComplex.h"
 
 //! @class FormFactorLongRipple1Gauss
 //! @ingroup formfactors
@@ -37,9 +35,9 @@ public:
 
     virtual ~FormFactorLongRipple1Gauss();
 
-    virtual FormFactorLongRipple1Gauss *clone() const;
+    virtual FormFactorLongRipple1Gauss* clone() const;
 
-    virtual void accept(ISampleVisitor *visitor) const;
+    virtual void accept(ISampleVisitor* visitor) const;
 
     virtual double getRadius() const;
 
@@ -84,5 +82,3 @@ inline double FormFactorLongRipple1Gauss::getLength() const
 }
 
 #endif // FORMFACTORLONGRIPPLE1GAUSS_H
-
-

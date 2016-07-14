@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#include "FormFactorFullSphere.h"
 #include "BornAgainNamespace.h"
+#include "FormFactorFullSphere.h"
 
 #ifdef POLYHEDRAL_DIAGNOSTIC
 #endif

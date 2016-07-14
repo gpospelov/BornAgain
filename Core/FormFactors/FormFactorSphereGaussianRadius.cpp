@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#include "FormFactorSphereGaussianRadius.h"
 #include "BornAgainNamespace.h"
+#include "FormFactorSphereGaussianRadius.h"
 
 using namespace  BornAgain;
 

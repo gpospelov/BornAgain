@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#include "FormFactorLongRipple2Gauss.h"
 #include "BornAgainNamespace.h"
+#include "FormFactorLongRipple2Gauss.h"
 
 
 using namespace  BornAgain;

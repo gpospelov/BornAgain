@@ -13,9 +13,9 @@
 //
 // ************************************************************************** //
 
-#include "FormFactorCuboctahedron.h"
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
+#include "FormFactorCuboctahedron.h"
 
 const PolyhedralTopology FormFactorCuboctahedron::topology = {
     {

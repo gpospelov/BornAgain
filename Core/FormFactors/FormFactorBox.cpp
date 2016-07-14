@@ -13,9 +13,9 @@
 //
 // ************************************************************************** //
 
-#include "FormFactorBox.h"
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
+#include "FormFactorBox.h"
 
 using namespace  BornAgain;
 

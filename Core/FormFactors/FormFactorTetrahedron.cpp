@@ -13,9 +13,9 @@
 //
 // ************************************************************************** //
 
-#include "FormFactorTetrahedron.h"
-#include "MathFunctions.h"
 #include "BornAgainNamespace.h"
+#include "MathFunctions.h"
+#include "FormFactorTetrahedron.h"
 
 const PolyhedralTopology FormFactorTetrahedron::topology = {
     {

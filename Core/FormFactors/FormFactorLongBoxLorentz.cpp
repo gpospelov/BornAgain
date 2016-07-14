@@ -13,9 +13,9 @@
 //
 // ************************************************************************** //
 
-#include "FormFactorLongBoxLorentz.h"
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
+#include "FormFactorLongBoxLorentz.h"
 
 using namespace  BornAgain;
 

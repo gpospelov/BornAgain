@@ -13,10 +13,9 @@
 //
 // ************************************************************************** //
 
-#include "FormFactorCone.h"
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
-#include "IntegratorComplex.h"
+#include "FormFactorCone.h"
 
 //! @brief Cone constructor
 //! @param radius of Cone's base

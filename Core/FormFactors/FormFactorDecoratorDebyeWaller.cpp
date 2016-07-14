@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#include "FormFactorDecoratorDebyeWaller.h"
 #include "BornAgainNamespace.h"
+#include "FormFactorDecoratorDebyeWaller.h"
 
 using namespace  BornAgain;
 

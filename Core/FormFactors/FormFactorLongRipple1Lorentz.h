@@ -18,9 +18,7 @@
 
 #include <memory>
 #include "IFormFactorBorn.h"
-
-// Forward declaration to prevent IntegratorComplex.h to be parsed for Python API:
-template <class T> class IntegratorComplex;
+#include "IntegratorComplex.h"
 
 //! @class FormFactorLongRipple1Lorentz
 //! @ingroup formfactors
@@ -84,5 +82,3 @@ inline double FormFactorLongRipple1Lorentz::getLength() const
 }
 
 #endif // FORMFACTORLONGRIPPLE1LORENTZ_H
-
-

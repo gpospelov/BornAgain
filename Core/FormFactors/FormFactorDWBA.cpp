@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#include "FormFactorDWBA.h"
 #include "BornAgainNamespace.h"
+#include "FormFactorDWBA.h"
 
 
 FormFactorDWBA::FormFactorDWBA(const IFormFactor& form_factor)

@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#include "FormFactorDodecahedron.h"
 #include "BornAgainNamespace.h"
+#include "FormFactorDodecahedron.h"
 
 const PolyhedralTopology FormFactorDodecahedron::topology = {
     {

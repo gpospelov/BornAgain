@@ -16,8 +16,8 @@
 #ifndef FORMFACTORCONE_H
 #define FORMFACTORCONE_H
 
-#include "FormFactorPolyhedron.h"
-
+#include "IFormFactorBorn.h"
+#include "IntegratorComplex.h"
 
 // Forward declaration to prevent IntegratorComplex.h to be parsed for Python API:
 template <class T> class IntegratorComplex;

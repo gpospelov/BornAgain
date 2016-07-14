@@ -26,12 +26,14 @@ std::vector<ParameterSample> IDistribution1D::generateSamples(
     if (nbr_samples == 0)
         throw OutOfBoundsException("IDistribution1D::generateSamples: number "
                                    "of generated samples must be bigger than zero");
-    std::vector<double> sample_values;
     if (isDelta()) {
-        sample_values.push_back(getMean());
-    } else {
-        sample_values = generateValueList( nbr_samples, sigma_factor, limits);
+        ParameterSample delta_sample;
+        delta_sample.value = getMean();
+        delta_sample.weight = 1.0;
+        std::vector<ParameterSample> result = { delta_sample };
+        return result;
     }
+    std::vector<double> sample_values = generateValueList( nbr_samples, sigma_factor, limits);
     return generateSamplesFromValues(sample_values);
 }
 
@@ -41,12 +43,14 @@ std::vector<ParameterSample> IDistribution1D::generateSamples(
     if (nbr_samples == 0)
         throw OutOfBoundsException("IDistribution1D::generateSamples: number "
                                    "of generated samples must be bigger than zero");
-    std::vector<double> sample_values;
     if (isDelta()) {
-        sample_values.push_back(getMean());
-    } else {
-        sample_values = generateValues(nbr_samples, xmin, xmax);
+        ParameterSample delta_sample;
+        delta_sample.value = getMean();
+        delta_sample.weight = 1.0;
+        std::vector<ParameterSample> result = { delta_sample };
+        return result;
     }
+    std::vector<double> sample_values = generateValues(nbr_samples, xmin, xmax);
     return generateSamplesFromValues(sample_values);
 }
 

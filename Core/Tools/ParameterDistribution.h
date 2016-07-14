@@ -87,11 +87,6 @@ inline std::string ParameterDistribution::getMainParameterName() const
     return m_name;
 }
 
-inline size_t ParameterDistribution::getNbrSamples() const
-{
-    return m_nbr_samples;
-}
-
 inline double ParameterDistribution::getSigmaFactor() const
 {
     return m_sigma_factor;

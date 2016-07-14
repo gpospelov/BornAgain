@@ -15,7 +15,6 @@
 
 #ifdef BORNAGAIN_TIFF_SUPPORT
 
-#include <tiffio.hxx>
 #include "Utils.h"
 #include "BornAgainNamespace.h"
 #include "TiffHandler.h"

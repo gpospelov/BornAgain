@@ -18,7 +18,6 @@
 
 #include "IParameterized.h"
 #include "Units.h"
-#include "Numeric.h"
 
 
 //! @class IFTDecayFunction1D

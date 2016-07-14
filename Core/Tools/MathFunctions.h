@@ -20,9 +20,7 @@
 #include "Units.h"
 #include "Numeric.h"
 
-#include <cstdlib>
 #include <vector>
-#include <cmath>
 
 //! Various mathematical functions.
 

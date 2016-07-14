@@ -16,7 +16,6 @@
 #ifndef ISAMPLEVISITOR_H
 #define ISAMPLEVISITOR_H
 
-#include "Exceptions.h"
 
 class ISample;
 // - the order according to the hierarchy as reported by IDE

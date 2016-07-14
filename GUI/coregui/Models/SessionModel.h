@@ -17,14 +17,11 @@
 #ifndef SESSIONMODEL_H
 #define SESSIONMODEL_H
 
-#include <QAbstractItemModel>
-#include <QtCore/QXmlStreamReader>
 #include <QtCore/QXmlStreamWriter>
 #include "SessionItem.h"
 #include "SessionXML.h"
 
 class IconProvider;
-class WarningMessageService;
 
 class BA_CORE_API_ SessionModel : public QAbstractItemModel
 {

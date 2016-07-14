@@ -15,11 +15,6 @@
 
 #include "ParticleInTheAirBuilder.h"
 #include "MultiLayer.h"
-#include "HomogeneousMaterial.h"
-#include "Particle.h"
-#include "ParticleLayout.h"
-#include "FunctionalTestSuite.h"
-#include "Exceptions.h"
 
 ParticleInTheAirBuilder::ParticleInTheAirBuilder()
 {

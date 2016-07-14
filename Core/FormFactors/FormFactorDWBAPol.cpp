@@ -15,7 +15,6 @@
 
 #include "FormFactorDWBAPol.h"
 #include "BornAgainNamespace.h"
-#include "Exceptions.h"
 
 FormFactorDWBAPol::FormFactorDWBAPol(const IFormFactor &form_factor)
 : mp_form_factor(form_factor.clone())

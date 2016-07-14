@@ -17,12 +17,8 @@
 #define MULTILAYERDWBASIMULATION_H
 
 #include "LayerDWBASimulation.h"
-#include "SafePointerVector.h"
 
-#include <set>
-#include <map>
 
-class MultiLayer;
 class MultiLayerRoughnessDWBASimulation;
 
 

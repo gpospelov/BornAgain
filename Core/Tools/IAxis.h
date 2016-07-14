@@ -17,10 +17,8 @@
 #define IAXIS_H
 
 #include "Bin.h"
-#include "Exceptions.h"
 #include <vector>
 
-using std::size_t;
 
 //! @class IAxis
 //! @ingroup tools_internal

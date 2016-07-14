@@ -15,13 +15,9 @@
 
 #include "SampleLabelHandler.h"
 #include "MultiLayer.h"
-#include "Layer.h"
-#include "IParticle.h"
-#include "ParticleLayout.h"
 #include "ParticleCoreShell.h"
 #include "ParticleComposition.h"
 #include "ParticleDistribution.h"
-#include <iostream>
 
 SampleLabelHandler::SampleLabelHandler()
 {

@@ -18,8 +18,6 @@
 
 #include "OutputData.h"
 #include "IParameterized.h"
-#include "ICloneable.h"
-#include "EigenCore.h"
 
 
 //! @class IDetectorResolution

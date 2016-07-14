@@ -19,9 +19,7 @@
 #include "DWBASimulation.h"
 #include "LayerSpecularInfo.h"
 
-#include <vector>
 
-class MultiLayer;
 
 
 //! @class MultiLayerRoughnessDWBASimulation

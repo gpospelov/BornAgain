@@ -17,9 +17,7 @@
 #ifndef TOOLTIP_DATABASE
 #define TOOLTIP_DATABASE
 
-#include "WinDllMacros.h"
 #include <QObject>
-#include <QMap>
 
 namespace ToolTipsXML {
 const QString modelTag = "ToolTipsData";

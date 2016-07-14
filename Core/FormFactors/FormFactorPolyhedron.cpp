@@ -17,27 +17,18 @@
 //! by Joachim Wuttke, entitled
 //! "Form factor (Fourier shape transform) of polygon and polyhedron."
 
-#include <cmath>
-#include <iostream>
-#include <sstream>
 #include <iomanip>
-#include <algorithm>
-#include <complex>
-#include <vector>
 
 #include "Precomputed.h"
-#include "BasicVector3D.h"
 #include "MathFunctions.h"
 #include "BornAgainNamespace.h"
 
-#include "IFormFactorBorn.h"
 #include "FormFactorPolyhedron.h"
 
 static const complex_t I(0.,1.);
 static const double eps(2e-16);
 
 #ifdef POLYHEDRAL_DIAGNOSTIC
-extern Diagnosis diagnosis;
 #endif
 
 double PolyhedralFace::qpa_limit_series = 3e-2;

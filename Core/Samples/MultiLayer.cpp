@@ -14,12 +14,8 @@
 // ************************************************************************** //
 
 #include "MultiLayer.h"
-#include "BornAgainNamespace.h"
 #include "MessageService.h"
 
-#include <algorithm>
-#include <stdexcept>
-#include <iomanip>
 
 using namespace BornAgain;
 

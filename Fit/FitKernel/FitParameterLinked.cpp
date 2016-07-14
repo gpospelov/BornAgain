@@ -14,7 +14,6 @@
 // ************************************************************************** //
 
 #include "FitParameterLinked.h"
-#include "Utils.h"
 
 FitParameterLinked::FitParameterLinked()
 {

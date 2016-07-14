@@ -18,7 +18,6 @@
 
 #include "Numeric.h"
 #include "Vectors3D.h"
-#include "WinDllMacros.h"
 
 //! @class Bin1D
 //! @ingroup tools_internal

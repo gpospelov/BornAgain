@@ -18,7 +18,6 @@
 #define AXESITEMS_H
 
 #include "SessionItem.h"
-#include "item_constants.h"
 
 class BA_CORE_API_  BasicAxisItem : public SessionItem
 {

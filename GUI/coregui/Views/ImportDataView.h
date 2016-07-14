@@ -17,10 +17,8 @@
 #ifndef IMPORTDATAVIEW_H
 #define IMPORTDATAVIEW_H
 
-#include "WinDllMacros.h"
 #include "ItemStackPresenter.h"
 #include "RealDataEditorWidget.h"
-#include <QWidget>
 
 class ImportDataToolBar;
 class ItemSelectorWidget;

@@ -18,7 +18,6 @@
 
 #include "IFormFactor.h"
 #include "ICompositeSample.h"
-#include "Exceptions.h"
 
 //! @class IClusteredParticles
 //! @ingroup samples_internal

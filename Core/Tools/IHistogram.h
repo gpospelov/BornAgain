@@ -27,7 +27,6 @@ typedef _object PyObject;
 #endif
 
 class Histogram1D;
-class Histogram2D;
 
 //! @class IHistogram
 //! @ingroup tools

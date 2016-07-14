@@ -16,9 +16,6 @@
 #ifndef INTENSITYDATAIOFACTORY_H
 #define INTENSITYDATAIOFACTORY_H
 
-#include "WinDllMacros.h"
-#include "OutputDataReader.h"
-#include "OutputDataWriter.h"
 
 #include <string>
 

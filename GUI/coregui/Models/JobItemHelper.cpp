@@ -15,20 +15,16 @@
 // ************************************************************************** //
 
 #include "JobItemHelper.h"
-#include "item_constants.h"
 #include "IntensityDataItem.h"
 #include "GISASSimulation.h"
 #include "ComboProperty.h"
 #include "DomainObjectBuilder.h"
 #include "InstrumentItem.h"
-#include "Instrument.h"
-#include "OutputData.h"
 #include "GUIHelpers.h"
 #include "JobItem.h"
 #include "RealDataItem.h"
 #include "IntensityDataIOFactory.h"
 #include <QFileInfo>
-#include <QDebug>
 
 namespace
 {

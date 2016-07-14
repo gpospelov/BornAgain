@@ -21,18 +21,9 @@
 #include "MinimizerSettingsWidget.h"
 #include "AccordionWidget.h"
 #include "MinimizerItem.h"
-#include "item_constants.h"
-#include "SessionModel.h"
-#include "ColorMap.h"
-#include "ColorMapCanvas.h"
 #include "JobModel.h"
-#include "JobItem.h"
-#include "IntensityDataItem.h"
-#include "IntensityDataIOFactory.h"
-#include <QVBoxLayout>
 #include <QLineEdit>
 #include <QCheckBox>
-#include <QGridLayout>
 
 TestView::TestView(MainWindow *mainWindow)
     : QWidget(mainWindow)

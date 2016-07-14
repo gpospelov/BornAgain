@@ -17,12 +17,8 @@
 #ifndef STYLEDTOOLBAR_H
 #define STYLEDTOOLBAR_H
 
-#include "WinDllMacros.h"
 #include <QToolBar>
 
-class QAction;
-class QToolButton;
-class QToolBar;
 
 //! The StyledToolBar class represents our standard narrow toolbar with the height 24 pixels.
 

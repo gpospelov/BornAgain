@@ -16,8 +16,6 @@
 #ifndef LATTICEBUILDER_H
 #define LATTICEBUILDER_H
 
-#include "ISampleBuilder.h"
-class IFTDistribution2D;
 
 //! @class Lattice1DBuilder
 //! @ingroup standard_samples

@@ -16,7 +16,6 @@
 #ifndef FASTVECTOR_H
 #define FASTVECTOR_H
 
-#include "Vectors3D.h"
 #include <iostream>
 #include <vector>
 

@@ -17,14 +17,11 @@
 #ifndef FITPARAMETERHELPER_H
 #define FITPARAMETERHELPER_H
 
-#include "WinDllMacros.h"
-#include <QMap>
 #include <QStringList>
 
 class ParameterItem;
 class FitParameterItem;
 class FitParameterContainerItem;
-class JobItem;
 
 //! The FitParameterHelper class contains set of convenience static methods to handle
 //! various fitting items in given JobItem.

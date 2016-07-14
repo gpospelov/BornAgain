@@ -13,14 +13,12 @@
 //
 // ************************************************************************** //
 
-#include <iostream>
 
 #include "FunctionalTestRegistry.h"
 #include "SimulationFactory.h"
 #include "SampleBuilderFactory.h"
 #include "SubtestRegistry.h"
 #include "IFunctionalTest.h"
-#include "Exceptions.h"
 #include "FunctionalTestSuite.h"
 
 // ************************************************************************** //

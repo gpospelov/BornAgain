@@ -17,7 +17,6 @@
 #ifndef BEAMANGLEITEMS_H
 #define BEAMANGLEITEMS_H
 
-#include "WinDllMacros.h"
 #include "BeamDistributionItem.h"
 
 class BA_CORE_API_ BeamAzimuthalAngleItem : public BeamDistributionItem

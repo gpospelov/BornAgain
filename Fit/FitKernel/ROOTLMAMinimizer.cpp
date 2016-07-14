@@ -14,7 +14,6 @@
 // ************************************************************************** //
 
 #include "ROOTLMAMinimizer.h"
-#include "Math/GenAlgoOptions.h"
 
 
 ROOTLMAMinimizer::ROOTLMAMinimizer(const std::string& minimizer_name, const std::string& algo_type)

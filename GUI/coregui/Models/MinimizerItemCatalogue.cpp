@@ -17,7 +17,6 @@
 #include "MinimizerItemCatalogue.h"
 #include "GUIHelpers.h"
 #include "MinimizerItem.h"
-#include "ComboProperty.h"
 #include "BornAgainNamespace.h"
 
 MinimizerLibrary::Catalogue MinimizerItemCatalogue::m_catalogue = MinimizerLibrary::Catalogue();

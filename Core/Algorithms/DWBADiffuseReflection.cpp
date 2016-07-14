@@ -14,7 +14,6 @@
 // ************************************************************************** //
 
 #include "DWBADiffuseReflection.h"
-#include "LayerRoughness.h"
 
 DWBADiffuseReflection::DWBADiffuseReflection()
     : m_sample(0)

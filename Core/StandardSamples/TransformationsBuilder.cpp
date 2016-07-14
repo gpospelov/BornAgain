@@ -14,13 +14,8 @@
 // ************************************************************************** //
 
 #include "TransformationsBuilder.h"
-#include "HomogeneousMaterial.h"
 #include "FormFactorBox.h"
-#include "Particle.h"
-#include "ParticleLayout.h"
-#include "Layer.h"
 #include "MultiLayer.h"
-#include "Rotations.h"
 
 
 ISample *TransformBoxBuilder::buildSample() const

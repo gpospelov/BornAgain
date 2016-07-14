@@ -16,12 +16,9 @@
 #ifndef MATRIXSPECULARINFOMAP_H
 #define MATRIXSPECULARINFOMAP_H
 
-#include "ISpecularInfoMap.h"
 #include "MatrixRTCoefficients.h"
 #include "MultiLayer.h"
-#include "Utils.h"
 
-#include <memory>
 
 
 //! @class MatrixSpecularInfoMap

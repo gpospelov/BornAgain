@@ -15,17 +15,12 @@
 // ************************************************************************** //
 
 #include "FitParameterProxyModel.h"
-#include "SessionItem.h"
 #include "FitParameterItems.h"
-#include "SessionModel.h"
 #include "JobModel.h"
 #include "FitParameterHelper.h"
-#include "ParameterTreeItems.h"
 #include "GUIHelpers.h"
 #include "ModelPath.h"
-#include <QColor>
 #include <QMimeData>
-#include <QDebug>
 
 
 FitParameterProxyModel::FitParameterProxyModel(FitParameterContainerItem *fitParContainer, QObject *parent)

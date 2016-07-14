@@ -17,10 +17,7 @@
 #include "JobModel.h"
 #include "JobQueueData.h"
 #include "JobItem.h"
-#include "ComboProperty.h"
 #include "GUIHelpers.h"
-#include "SampleModel.h"
-#include "InstrumentModel.h"
 #include "MultiLayerItem.h"
 #include "InstrumentItem.h"
 #include "RealDataItem.h"
@@ -32,7 +29,6 @@
 #include "FitSuiteItem.h"
 #include <QUuid>
 #include <QDebug>
-#include <QItemSelection>
 
 
 JobModel::JobModel(QObject *parent)

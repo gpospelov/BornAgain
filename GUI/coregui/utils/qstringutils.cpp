@@ -16,7 +16,6 @@
 
 #include "qstringutils.h"
 #include "hostosinfo.h"
-#include <QFileInfo>
 #include <QDir>
 
 namespace Utils

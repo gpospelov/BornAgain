@@ -17,7 +17,6 @@
 #ifndef DETECTORITEMS_H
 #define DETECTORITEMS_H
 
-#include "SessionItem.h"
 #include "SphericalDetectorItem.h"
 #include "RectangularDetectorItem.h"
 

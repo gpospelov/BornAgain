@@ -15,7 +15,6 @@
 
 #include "Histogram2D.h"
 #include "Histogram1D.h"
-#include "FixedBinAxis.h"
 #include "VariableBinAxis.h"
 #include <memory>
 

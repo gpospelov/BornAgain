@@ -16,8 +16,6 @@
 #ifndef LAYERSWITHABSORPTIONBUILDER_H
 #define LAYERSWITHABSORPTIONBUILDER_H
 
-#include "ISampleBuilder.h"
-class IFormFactor;
 
 //! @class LayersWithAbsorptionBuilder
 //! @ingroup standard_samples

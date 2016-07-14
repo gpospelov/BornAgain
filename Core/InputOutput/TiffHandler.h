@@ -18,11 +18,8 @@
 
 #ifdef BORNAGAIN_TIFF_SUPPORT
 
-#include "WinDllMacros.h"
 #include "OutputData.h"
-#include <string>
 #include <tiffio.h>
-#include <tiffio.hxx>
 #include <memory>
 
 //! @class TiffHandler

@@ -18,22 +18,17 @@
 #include "newprojectdialog.h"
 #include "mainwindow.h"
 #include "projectdocument.h"
-#include "actionmanager.h"
 #include "mainwindow_constants.h"
 #include "GUIHelpers.h"
 #include "ProjectLoadWarningDialog.h"
 #include "WarningMessageService.h"
-#include "MessageContainer.h"
-#include "GUIMessage.h"
 #include "ApplicationModels.h"
 #include "AppSvc.h"
-#include <QDir>
 #include <QFileDialog>
 #include <QSettings>
 #include <QDebug>
 #include <QMessageBox>
 #include <QStandardPaths>
-#include <iostream>
 
 ProjectManager::ProjectManager(MainWindow *parent)
     : m_mainWindow(parent)

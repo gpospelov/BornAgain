@@ -13,14 +13,9 @@
 //
 // ************************************************************************** //
 
-#include "IHistogram.h"
-#include "FixedBinAxis.h"
-#include "VariableBinAxis.h"
-#include "Exceptions.h"
 #include "Histogram1D.h"
 #include "Histogram2D.h"
 #include "IntensityDataIOFactory.h"
-#include <sstream>
 #include <memory>
 
 IHistogram::IHistogram()

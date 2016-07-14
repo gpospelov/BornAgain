@@ -18,11 +18,9 @@
 
 #include "Vectors3D.h"
 #include "ISelectionRule.h"
-#include "TRange.h"
 #include "FastVector.h"
 #include "Rotations.h"
 
-#include <vector>
 
 //! @class Lattice
 //! @ingroup samples

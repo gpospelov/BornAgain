@@ -18,8 +18,6 @@
 
 #include "Exceptions.h"
 #include <map>
-#include <iostream>
-#include <vector>
 #include <functional>
 
 //! @class IFactory

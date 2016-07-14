@@ -16,9 +16,6 @@
 #ifndef DWBADIFFUSEREFLECTION_H
 #define DWBADIFFUSEREFLECTION_H
 
-#include "ISimulation.h"
-#include "Units.h"
-#include "MultiLayer.h"
 #include "SpecularMatrix.h"
 
 //! @class DWBADiffuseReflection

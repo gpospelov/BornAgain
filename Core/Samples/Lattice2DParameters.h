@@ -16,7 +16,6 @@
 #ifndef LATTICE2DPARAMETERS_H
 #define LATTICE2DPARAMETERS_H
 
-#include "IParameterized.h"
 
 //! @class Lattice2DParameters
 //! @ingroup samples

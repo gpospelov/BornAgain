@@ -15,10 +15,8 @@
 // ************************************************************************** //
 
 #include "MaterialModel.h"
-#include "MaterialItem.h"
 #include "RefractiveIndexItem.h"
 #include "MaterialUtils.h"
-#include "MaterialProperty.h"
 #include "IconProvider.h"
 #include <QUuid>
 #include <QDebug>

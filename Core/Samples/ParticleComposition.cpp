@@ -13,8 +13,6 @@
 //
 // ************************************************************************** //
 
-#include "ParticleComposition.h"
-#include "BornAgainNamespace.h"
 #include "FormFactors.h"
 #include "Materials.h"
 #include "ParticleDistribution.h"

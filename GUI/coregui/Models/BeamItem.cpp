@@ -15,17 +15,10 @@
 // ************************************************************************** //
 
 #include "BeamItem.h"
-#include "InterferenceFunctionItems.h"
-#include "ComboProperty.h"
-#include "AngleProperty.h"
-#include "DistributionItem.h"
 #include "ScientificDoubleProperty.h"
-#include "BeamDistributionItem.h"
-#include "Units.h"
 #include "BeamDistributionItem.h"
 #include "BornAgainNamespace.h"
 
-#include <QDebug>
 
 const QString BeamItem::P_INTENSITY = QString::fromStdString(BornAgain::Intensity);
 const QString BeamItem::P_WAVELENGTH = QString::fromStdString(BornAgain::Wavelength);

@@ -17,15 +17,11 @@
 #ifndef MODELPATH_H
 #define MODELPATH_H
 
-#include "WinDllMacros.h"
 #include "ParameterTranslators.h"
-#include <string>
 #include <vector>
 #include <memory>
 
 class SessionItem;
-class QString;
-class QStringList;
 class QModelIndex;
 class SessionModel;
 

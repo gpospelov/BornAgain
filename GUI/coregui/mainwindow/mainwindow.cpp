@@ -25,15 +25,11 @@
 #include "ImportDataView.h"
 #include "SimulationView.h"
 #include "JobView.h"
-#include "TestView.h"
 #include "SessionModelView.h"
-#include "TestFitWidgets.h"
 
-#include "JobQueueData.h"
 #include "stylehelper.h"
 #include "JobModel.h"
 #include "ApplicationModels.h"
-#include "mainwindow_constants.h"
 #include "hostosinfo.h"
 #include "projectmanager.h"
 #include "progressbar.h"
@@ -44,12 +40,9 @@
 #include "UpdateNotifier.h"
 
 #include <QApplication>
-#include <QStatusBar>
 #include <QSettings>
 #include <QCloseEvent>
 #include <QMessageBox>
-#include <QDebug>
-#include <QTimer>
 
 MainWindow::MainWindow(QWidget *parent)
     : Manhattan::FancyMainWindow(parent)

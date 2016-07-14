@@ -16,8 +16,6 @@
 #ifndef PROGRESSHANDLER_H
 #define PROGRESSHANDLER_H
 
-#include "WinDllMacros.h"
-#include <functional>
 #include <memory>
 
 class Simulation;

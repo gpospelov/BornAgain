@@ -17,7 +17,6 @@
 #define MATRIXRTCOEFFICIENTS_H
 
 #include "ILayerRTCoefficients.h"
-#include "Complex.h"
 
 
 //! @class MatrixRTCoefficients

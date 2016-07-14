@@ -17,10 +17,6 @@
 #include "MinimizerItem.h"
 #include "MinimizerItemCatalogue.h"
 #include "MinimizerFactory.h"
-#include "ComboProperty.h"
-#include "IMinimizer.h"
-#include "MinimizerOptions.h"
-#include "GUIHelpers.h"
 #include <QDebug>
 
 // ----------------------------------------------------------------------------

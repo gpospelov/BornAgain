@@ -18,9 +18,7 @@
 
 #include "IObserver.h"
 #include "IHistogram.h"
-#include "OutputData.h"
 #include "AttLimits.h"
-#include <memory>
 
 class GISASSimulation;
 class IChiSquaredModule;

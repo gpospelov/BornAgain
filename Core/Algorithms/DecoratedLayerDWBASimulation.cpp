@@ -16,9 +16,7 @@
 #include "DecoratedLayerDWBASimulation.h"
 #include "Layer.h"
 #include "MessageService.h"
-#include "BornAgainNamespace.h"
 
-#include <memory>
 
 DecoratedLayerDWBASimulation::DecoratedLayerDWBASimulation(const Layer *p_layer,
                                                            size_t layout_index)

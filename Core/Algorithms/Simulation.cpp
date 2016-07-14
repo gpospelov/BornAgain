@@ -13,20 +13,12 @@
 //
 // ************************************************************************** //
 
-#include <memory>
 #include <thread>
 #include <gsl/gsl_errno.h>
 
-#include "Macros.h"
-#include "MathFunctions.h"
 #include "DWBASimulation.h"
 #include "MessageService.h"
-#include "OutputDataFunctions.h"
-#include "BornAgainNamespace.h"
-#include "ProgressHandlerDWBA.h"
 #include "OMPISimulation.h"
-#include "ISample.h"
-#include "Simulation.h"
 
 
 Simulation::Simulation()

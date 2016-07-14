@@ -14,8 +14,6 @@
 // ************************************************************************** //
 
 #include "ROOTGeneticMinimizer.h"
-#include "Math/GenAlgoOptions.h"
-#include "MessageService.h"
 
 
 ROOTGeneticMinimizer::ROOTGeneticMinimizer(const std::string& minimizer_name, const std::string& algo_type)

@@ -17,9 +17,7 @@
 #ifndef FANCYLABEL_H
 #define FANCYLABEL_H
 
-#include "WinDllMacros.h"
 #include <QLabel>
-#include <QTimer>
 
 //! The FancyLabel class is QLabel-like class with trivail animation, when text slowly
 //! appears on the screen from left to right pretending to be typed

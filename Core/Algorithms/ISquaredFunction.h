@@ -17,9 +17,7 @@
 #define ISQUAREDFUNCTION_H
 
 #include "Numeric.h"
-#include "Exceptions.h"
 
-#include <iostream>
 
 
 //! @class ISquaredFunction

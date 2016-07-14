@@ -17,7 +17,6 @@
 #define MESOCRYSTAL_H
 
 #include "IClusteredParticles.h"
-#include "IFormFactor.h"
 #include "IParticle.h"
 
 //! @class MesoCrystal

@@ -17,18 +17,11 @@
 #include "newprojectdialog.h"
 #include "projectdocument.h"
 #include <QLabel>
-#include <QLineEdit>
 #include <QGroupBox>
-#include <QGridLayout>
-#include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QPushButton>
-#include <QStatusBar>
-#include <QDir>
 #include <QFileDialog>
-#include <QDebug>
 
-#include <iostream>
 
 NewProjectDialog::NewProjectDialog(QWidget *parent, const QString &workingDirectory
                                    , const QString &projectName)

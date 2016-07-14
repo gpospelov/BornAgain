@@ -17,7 +17,6 @@
 #ifndef MASKCOORDINATEFUNCTION_H
 #define MASKCOORDINATEFUNCTION_H
 
-#include <cstddef>
 #include "ICloneable.h"
 
 

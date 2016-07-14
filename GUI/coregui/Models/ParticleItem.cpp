@@ -23,7 +23,6 @@
 #include "GUIHelpers.h"
 #include "ModelPath.h"
 
-#include <QDebug>
 
 const QString ParticleItem::P_FORM_FACTOR = "Form Factor";
 const QString ParticleItem::P_ABUNDANCE = "Abundance";

@@ -16,16 +16,9 @@
 
 #include "IntensityDataItem.h"
 #include "ComboProperty.h"
-#include "AngleProperty.h"
 #include "AxesItems.h"
-#include "Units.h"
 #include "GUIHelpers.h"
-#include "GISASSimulation.h"
 #include "BornAgainNamespace.h"
-#include "IDetector2D.h"
-#include "SphericalDetector.h"
-#include "RectangularDetector.h"
-#include <QDebug>
 
 const QString IntensityDataItem::P_AXES_UNITS = "Axes Units";
 const QString IntensityDataItem::P_TITLE = "Title";

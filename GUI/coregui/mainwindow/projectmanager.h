@@ -17,14 +17,10 @@
 #ifndef PROJECTMANAGER_H
 #define PROJECTMANAGER_H
 
-#include "WinDllMacros.h"
 #include <QObject>
-#include <QString>
-#include <QStringList>
 
 class MainWindow;
 class ProjectDocument;
-class QSettings;
 class WarningMessageService;
 
 //! handles activity related to opening/save projects

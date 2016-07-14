@@ -16,10 +16,8 @@
 #ifndef SIMULATIONOPTIONS_H
 #define SIMULATIONOPTIONS_H
 
-#include "WinDllMacros.h"
 #include "ThreadInfo.h"
 
-#include <cstddef>
 
 //! @class SimulationOptions
 //! @ingroup simulation

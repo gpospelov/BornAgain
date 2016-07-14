@@ -15,9 +15,6 @@
 // ************************************************************************** //
 
 #include "ResolutionFunctionItems.h"
-#include "ComboProperty.h"
-#include "Units.h"
-#include <QDebug>
 
 ResolutionFunctionItem::ResolutionFunctionItem(const QString name)
     : SessionItem(name)

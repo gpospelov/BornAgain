@@ -17,12 +17,7 @@
 #ifndef GROUPPROPERTY_H
 #define GROUPPROPERTY_H
 
-#include "WinDllMacros.h"
-#include "item_constants.h"
 
-#include <map>
-#include <QString>
-#include <QMetaType>
 #include <QSharedPointer>
 
 class SessionItem;

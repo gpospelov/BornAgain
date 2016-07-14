@@ -16,7 +16,6 @@
 #include "FormFactorDWBA.h"
 #include "BornAgainNamespace.h"
 
-#include <cmath>
 
 FormFactorDWBA::FormFactorDWBA(const IFormFactor& form_factor)
     : IFormFactorDecorator(form_factor)

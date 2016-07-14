@@ -14,19 +14,14 @@
 //
 // ************************************************************************** //
 
-#include "GUIHelpers.h"
 #include "BAVersion.h"
 #include "JobItem.h"
 #include "RealDataItem.h"
 #include <QApplication>
-#include <QFile>
 #include <QDir>
-#include <QRegExp>
 #include <QMessageBox>
 #include <QPushButton>
-#include <QFileInfo>
 #include <QDateTime>
-#include <QDebug>
 
 namespace GUIHelpers {
 

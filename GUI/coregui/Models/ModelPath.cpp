@@ -15,15 +15,9 @@
 // ************************************************************************** //
 
 #include "ModelPath.h"
-#include "SessionItem.h"
-#include "GroupProperty.h"
 #include "GroupItem.h"
 #include "ParticleItem.h"
 #include "SessionModel.h"
-#include <QModelIndex>
-#include <QStringList>
-#include <QDebug>
-#include <sstream>
 
 
 std::vector<std::unique_ptr<IParameterTranslator>> ModelPath::m_special_translators;

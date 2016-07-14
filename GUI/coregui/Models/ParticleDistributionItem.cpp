@@ -16,10 +16,6 @@
 
 #include "ParticleDistributionItem.h"
 #include "ParticleItem.h"
-#include "ParticleDistribution.h"
-#include "Particle.h"
-#include "ParticleCoreShell.h"
-#include "DomainObjectBuilder.h"
 #include "TransformToDomain.h"
 #include "TransformFromDomain.h"
 #include "DistributionItem.h"
@@ -28,7 +24,6 @@
 #include "GUIHelpers.h"
 #include "ModelPath.h"
 #include <QDebug>
-#include <memory>
 
 const QString ParticleDistributionItem::P_DISTRIBUTED_PARAMETER = "Distributed parameter";
 const QString ParticleDistributionItem::P_DISTRIBUTION = "Distribution";

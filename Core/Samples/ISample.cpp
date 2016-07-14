@@ -13,9 +13,7 @@
 //
 // ************************************************************************** //
 
-#include "ISample.h"
 #include "SampleMaterialVisitor.h"
-#include "ICompositeSample.h"
 #include "SamplePrintVisitor.h"
 
 ISample* ISample::cloneInvertB() const

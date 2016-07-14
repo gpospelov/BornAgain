@@ -14,11 +14,6 @@
 // ************************************************************************** //
 
 #include "MultiLayer.h"
-#include "HomogeneousMaterial.h"
-#include "Particle.h"
-#include "ParticleLayout.h"
-#include "FunctionalTestSuite.h"
-#include "Exceptions.h"
 #include "LayersWithAbsorptionBuilder.h"
 
 LayersWithAbsorptionBuilder::LayersWithAbsorptionBuilder()

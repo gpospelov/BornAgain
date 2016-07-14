@@ -16,7 +16,6 @@
 #ifndef BAVERSION_H
 #define BAVERSION_H
 
-#include <string>
 #include <sstream>
 
 namespace BornAgain {

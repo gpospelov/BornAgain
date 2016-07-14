@@ -13,10 +13,8 @@
 //
 // ************************************************************************** //
 
-#include "SimulationElement.h"
 #include "IDetector2D.h"
 
-#include <Bin.h>
 
 SimulationElement::SimulationElement(double wavelength, double alpha_i, double phi_i,
                                      const IPixelMap *pixelmap)

@@ -15,14 +15,9 @@
 
 #ifndef PYGENVISITOR_H
 #define PYGENVISITOR_H
-#include "ISampleVisitor.h"
-#include "WinDllMacros.h"
 
-#include <set>
 
-class IMaterial;
 class SampleLabelHandler;
-class GISASSimulation;
 
 class BA_CORE_API_ PyGenVisitor : public ISampleVisitor
 {
@@ -30,7 +25,6 @@ public:
     PyGenVisitor();
     virtual ~PyGenVisitor();
 
-    using ISampleVisitor::visit;
 
     std::string writePyScript(
         const GISASSimulation* simulation, const std::string& output_filename);

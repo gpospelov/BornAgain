@@ -16,10 +16,7 @@
 #ifndef IMINIMIZER_H
 #define IMINIMIZER_H
 
-#include "WinDllMacros.h"
-#include "Macros.h"
 #include <functional>
-#include "Exceptions.h"
 #include <vector>
 #include "MinimizerOptions.h"
 

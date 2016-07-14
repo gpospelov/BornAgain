@@ -14,14 +14,8 @@
 // ************************************************************************** //
 #ifdef BORNAGAIN_TIFF_SUPPORT
 #include "TiffHandler.h"
-#include "Exceptions.h"
 #include "Utils.h"
 #include "BornAgainNamespace.h"
-#include <fstream>
-#include <cassert>
-#include <iostream>
-#include <sstream>
-#include <tiffio.h>
 #include <tiffio.hxx>
 
 namespace {

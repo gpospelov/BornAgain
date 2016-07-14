@@ -16,10 +16,7 @@
 #ifndef MESSAGESERVICE_H
 #define MESSAGESERVICE_H
 
-#include "WinDllMacros.h"
-#include <iostream>
 #include <sstream>
-#include <string>
 #include <vector>
 #include <iomanip>
 

@@ -15,7 +15,6 @@
 
 #include "SizeSpacingCorrelationApproximationStrategy.h"
 #include "InterferenceFunctionRadialParaCrystal.h"
-#include "MathFunctions.h"
 
 SizeSpacingCorrelationApproximationStrategy::SizeSpacingCorrelationApproximationStrategy(
     SimulationOptions sim_params, double kappa)

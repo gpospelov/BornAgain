@@ -16,11 +16,8 @@
 #ifndef SPECULARMATRIX_H
 #define SPECULARMATRIX_H
 
-#include "Complex.h"
-#include "ISimulation.h"
 #include "MultiLayer.h"
 #include "ScalarRTCoefficients.h"
-#include "EigenCore.h"
 
 
 //! @class SpecularMatrix

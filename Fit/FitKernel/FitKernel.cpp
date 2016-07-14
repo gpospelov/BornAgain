@@ -14,10 +14,7 @@
 // ************************************************************************** //
 
 #include "FitSuite.h"
-#include "FitParameterLinked.h"
-#include "IMinimizer.h"
 #include "MessageService.h"
-#include "FitSuitePrintObserver.h"
 #include "MinimizerFactory.h"
 #include "FitKernel.h"
 

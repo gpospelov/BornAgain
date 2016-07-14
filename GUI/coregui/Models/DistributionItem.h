@@ -18,9 +18,7 @@
 #define DISTRIBUTIONITEM_H
 
 #include "SessionItem.h"
-#include "PropertyAttribute.h"
 
-#include <memory>
 
 class IDistribution1D;
 

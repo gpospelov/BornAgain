@@ -16,7 +16,6 @@
 
 #include "RotationItems.h"
 #include "Units.h"
-#include "BornAgainNamespace.h"
 
 /* ------------------------------------------------ */
 

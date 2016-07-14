@@ -15,9 +15,7 @@
 
 #include "FitSuiteParameters.h"
 #include "FitParameterLinked.h"
-#include "GISASSimulation.h"
 #include "MessageService.h"
-#include "MathFunctions.h"
 
 FitSuiteParameters::FitSuiteParameters()
 {

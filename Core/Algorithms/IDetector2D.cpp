@@ -15,12 +15,8 @@
 
 #include "IDetector2D.h"
 #include "MessageService.h"
-#include "BornAgainNamespace.h"
-#include "Rectangle.h"
 #include "InfinitePlane.h"
 
-#include <Eigen/LU>
-#include <memory>
 
 IDetector2D::IDetector2D()
     : m_axes()

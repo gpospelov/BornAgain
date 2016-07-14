@@ -17,7 +17,6 @@
 #define PYGENTOOLS_H
 
 #include "PyGenVisitor.h"
-#include "Complex.h"
 
 namespace PyGenTools {
     BA_CORE_API_ std::string genPyScript(

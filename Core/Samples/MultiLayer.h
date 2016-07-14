@@ -18,9 +18,7 @@
 
 #include "Layer.h"
 #include "LayerInterface.h"
-#include "LayerRoughness.h"
 #include "MultiLayerDWBASimulation.h"
-#include <vector>
 
 
 //! @class MultiLayer

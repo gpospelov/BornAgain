@@ -14,15 +14,10 @@
 // ************************************************************************** //
 
 #include "OMPISimulation.h"
-#include "GISASSimulation.h"
-#include "OutputData.h"
-#include "Exceptions.h"
-#include "MessageService.h"
 #include "OutputDataFunctions.h"
 
 #ifdef BORNAGAIN_OPENMPI
 
-#include <mpi.h>
 
 
 void OMPISimulation::runSimulation(Simulation * simulation)

@@ -19,8 +19,6 @@
 
 #include "SessionItem.h"
 class IntensityDataItem;
-class SampleModel;
-class InstrumentModel;
 class GISASSimulation;
 class MultiLayerItem;
 class InstrumentItem;

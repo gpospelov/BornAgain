@@ -15,7 +15,6 @@
 // ************************************************************************** //
 
 #include "GroupItem.h"
-#include <QDebug>
 
 const QString GroupItem::T_ITEMS = "Item tag";
 

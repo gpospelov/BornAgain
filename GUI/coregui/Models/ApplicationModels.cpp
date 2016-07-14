@@ -25,13 +25,7 @@
 #include "IconProvider.h"
 #include "SampleBuilderFactory.h"
 #include "JobItem.h"
-#include "SimulationOptionsItem.h"
-#include "IntensityDataIOFactory.h"
-#include "Histogram2D.h"
-#include "IntensityDataItem.h"
 #include "WarningMessageService.h"
-#include "RealDataItem.h"
-#include <QDebug>
 
 ApplicationModels::ApplicationModels(QObject *parent)
     : QObject(parent)

@@ -18,7 +18,6 @@
 #define MATERIALITEM_H
 
 #include "SessionItem.h"
-#include <QColor>
 
 class IMaterial;
 

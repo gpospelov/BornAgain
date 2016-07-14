@@ -17,19 +17,14 @@
 #ifndef SESSIONITEM_H
 #define SESSIONITEM_H
 
-#include "WinDllMacros.h"
 #include "item_constants.h"
 #include "ModelMapper.h"
 #include "AttLimits.h"
 
 #include <memory>
-#include <QVector>
-#include <QVariant>
-#include <QMetaType>
 
 Q_DECLARE_METATYPE(AttLimits)
 
-class SessionModel;
 class SessionItemData;
 
 class SessionTagInfo

@@ -18,12 +18,10 @@
 #include "DesignerHelper.h"
 #include "GUIHelpers.h"
 #include <QLabel>
-#include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QPushButton>
 #include <QDate>
 
-#include <iostream>
 
 AboutApplicationDialog::AboutApplicationDialog(QWidget *parent)
     : QDialog(parent)

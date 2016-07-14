@@ -13,11 +13,7 @@
 //
 // ************************************************************************** //
 
-#include <fstream>
-#include <stdexcept>
 
-#include "Complex.h"
-#include "BornAgainNamespace.h"
 #include "OutputData.h"
 #include "OutputDataIOHelper.h"
 #include "TiffHandler.h"

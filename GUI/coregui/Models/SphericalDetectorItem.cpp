@@ -17,8 +17,6 @@
 #include "Units.h"
 #include "SphericalDetectorItem.h"
 #include "AxesItems.h"
-#include "VectorItem.h"
-#include "GUIHelpers.h"
 #include "SphericalDetector.h"
 #include "ResolutionFunctionItems.h"
 

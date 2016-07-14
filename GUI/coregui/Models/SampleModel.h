@@ -18,8 +18,6 @@
 #define SAMPLEMODEL_H
 
 #include "SessionModel.h"
-#include "MaterialProperty.h"
-#include <QStringList>
 
 class MultiLayerItem;
 class BA_CORE_API_ SampleModel : public SessionModel

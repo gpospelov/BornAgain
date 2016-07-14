@@ -17,19 +17,14 @@
 #ifndef INSTRUMENTVIEW_H
 #define INSTRUMENTVIEW_H
 
-#include "WinDllMacros.h"
 #include <QWidget>
-#include <QString>
 #include <QMap>
 
 class MainWindow;
 class InstrumentSelectorWidget;
 class InstrumentEditorWidget;
 class InstrumentModel;
-class QListView;
 class QStackedWidget;
-class QMenu;
-class QAction;
 class QItemSelection;
 class SessionItem;
 class QToolButton;

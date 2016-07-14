@@ -14,7 +14,6 @@
 // ************************************************************************** //
 
 #include "OutputDataWriter.h"
-#include "OutputDataWriteStrategy.h"
 #include "OutputDataIOHelper.h"
 #include "OutputData.h"
 #include "boost_streams.h"

@@ -16,7 +16,6 @@
 #ifndef ROOTMINIMIZERFUNCTION_H
 #define ROOTMINIMIZERFUNCTION_H
 
-#include "IMinimizer.h"
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 #include "Math/Functor.h"

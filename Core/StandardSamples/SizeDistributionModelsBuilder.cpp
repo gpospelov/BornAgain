@@ -14,11 +14,7 @@
 // ************************************************************************** //
 
 #include "SizeDistributionModelsBuilder.h"
-#include "BornAgainNamespace.h"
 #include "MultiLayer.h"
-#include "ParticleLayout.h"
-#include "Materials.h"
-#include "Units.h"
 #include "InterferenceFunctionRadialParaCrystal.h"
 #include "FormFactorCylinder.h"
 #include "Distributions.h"

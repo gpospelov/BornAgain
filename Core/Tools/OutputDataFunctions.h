@@ -16,12 +16,9 @@
 #ifndef OUTPUTDATAFUNCTIONS_H
 #define OUTPUTDATAFUNCTIONS_H
 
-#include "WinDllMacros.h"
 #include "Complex.h"
 #include "OutputData.h"
 #include "IIntensityFunction.h"
-#include "Mask.h"
-#include "EigenCore.h"
 
 //! Collection of functions to deal with OutputData
 

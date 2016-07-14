@@ -19,16 +19,11 @@
 #include "SampleViewComponents.h"
 #include "SampleDesigner.h"
 #include "SampleToolBar.h"
-#include "GUIHelpers.h"
 #include "SamplePropertyWidget.h"
 #include "InfoWidget.h"
 #include "ItemFactory.h"
 #include "FilterPropertyProxy.h"
 #include <QDockWidget>
-#include <QAbstractItemView>
-#include <QToolBar>
-#include <QAction>
-#include <QToolButton>
 #include <QMenu>
 #include <QDebug>
 #include <QTimer>

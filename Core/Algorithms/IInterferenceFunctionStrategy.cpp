@@ -15,7 +15,6 @@
 
 #include "IInterferenceFunctionStrategy.h"
 #include "IntegratorMCMiser.h"
-#include "ScalarRTCoefficients.h"
 
 IInterferenceFunctionStrategy::IInterferenceFunctionStrategy(SimulationOptions sim_params)
     : mP_iff { nullptr }

@@ -17,15 +17,10 @@
 #ifndef NEWPROJECTDIALOG_H
 #define NEWPROJECTDIALOG_H
 
-#include "WinDllMacros.h"
 #include <QDialog>
-#include <QString>
 #include <QLineEdit>
 
 class QLabel;
-class QPushButton;
-class QStatusBar;
-class QPalette;
 
 
 //! new project dialog window

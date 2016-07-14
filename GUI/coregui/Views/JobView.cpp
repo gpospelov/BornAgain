@@ -18,14 +18,12 @@
 #include "JobViewDocks.h"
 #include "JobSelectorWidget.h"
 #include "JobOutputDataWidget.h"
-#include "JobRealTimeWidget.h"
 #include "JobProgressAssistant.h"
 #include "JobModel.h"
 #include "mainwindow.h"
 #include "JobActivityStatusBar.h"
 #include "JobItem.h"
 #include <QMenu>
-#include <QCursor>
 
 JobView::JobView(MainWindow *mainWindow)
     : m_docks(new JobViewDocks(this))

@@ -14,7 +14,6 @@
 // ************************************************************************** //
 
 #include "FormFactorDecoratorMaterial.h"
-#include "BornAgainNamespace.h"
 
 FormFactorDecoratorMaterial::FormFactorDecoratorMaterial(const IFormFactor &form_factor)
     : FormFactorDecoratorFactor(form_factor, 1.0),

@@ -16,7 +16,6 @@
 #ifndef ISELECTIONRULE_H
 #define ISELECTIONRULE_H
 
-#include "BasicVector3D.h"
 
 typedef Geometry::BasicVector3D<int> IndexVector3D;
 

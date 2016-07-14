@@ -15,7 +15,6 @@
 // ************************************************************************** //
 
 #include "JobQueueData.h"
-#include "GISASSimulation.h"
 #include "JobItem.h"
 #include "JobModel.h"
 #include "JobWorker.h"

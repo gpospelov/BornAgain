@@ -18,10 +18,7 @@
 
 #include "ILayout.h"
 #include "Particle.h"
-#include "IInterferenceFunction.h"
-#include "Rotations.h"
 
-#include <memory>
 
 //! @class ParticleLayout
 //! @ingroup samples

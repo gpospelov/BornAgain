@@ -17,13 +17,7 @@
 #include "FormFactorFullSphere.h"
 #include "InterferenceFunction2DLattice.h"
 #include "ParticleComposition.h"
-#include "Materials.h"
 #include "MultiLayer.h"
-#include "ParticleLayout.h"
-#include "FTDecayFunctions.h"
-#include "Units.h"
-#include "Rotations.h"
-#include "FormFactorBox.h"
 
 // --- ParticleCompositionBuilder ---
 

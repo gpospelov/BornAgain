@@ -15,7 +15,6 @@
 // ************************************************************************** //
 
 #include "VectorItem.h"
-#include <QDebug>
 
 const QString VectorItem::P_X = "X";
 const QString VectorItem::P_Y = "Y";

@@ -18,7 +18,6 @@
 #define TRANSFORMATIONITEM_H
 
 #include "SessionGraphicsItem.h"
-#include <QVector>
 
 class TransformationItem : public SessionGraphicsItem
 {

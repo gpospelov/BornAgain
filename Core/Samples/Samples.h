@@ -16,12 +16,7 @@
 #ifndef SAMPLES_H
 #define SAMPLES_H
 
-#include "Crystal.h"
-#include "Layer.h"
-#include "LayerInterface.h"
 #include "MultiLayer.h"
-#include "Particle.h"
-#include "ParticleLayout.h"
 #include "FormFactors.h"
 
 #endif // SAMPLES_H

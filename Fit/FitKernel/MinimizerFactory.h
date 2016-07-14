@@ -17,9 +17,6 @@
 #define MINIMIZERFACTORY_H
 
 #include "IMinimizer.h"
-#include <string>
-#include <vector>
-#include <map>
 
 
 //! @class MinimizerFactory

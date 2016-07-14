@@ -13,8 +13,6 @@
 //
 // ************************************************************************** //
 
-#include <memory>
-#include "ISample.h"
 #include "CylindersAndPrismsBuilder.h"
 #include "CylindersBuilder.h"
 #include "ParaCrystalBuilder.h"

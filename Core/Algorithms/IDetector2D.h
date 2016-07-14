@@ -16,18 +16,12 @@
 #ifndef IDETECTOR2D_H
 #define IDETECTOR2D_H
 
-#include "Complex.h"
-#include "IParameterized.h"
-#include "EigenCore.h"
-#include "IPixelMap.h"
 #include "IDetectorResolution.h"
 #include "DetectorMask.h"
 #include "SimulationElement.h"
 #include "Beam.h"
 
-#include <memory>
 
-class GISASSimulation;
 
 //! @class IDetector
 //! @ingroup simulation

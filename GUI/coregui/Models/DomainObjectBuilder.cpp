@@ -17,28 +17,11 @@
 #include "DomainObjectBuilder.h"
 #include "TransformToDomain.h"
 #include "GUIHelpers.h"
-#include "ParticleCoreShellItem.h"
-#include "Samples.h"
-#include "Instrument.h"
-#include "InterferenceFunctions.h"
-#include "SessionItem.h"
-#include "ParticleCoreShell.h"
 #include "LayerItem.h"
-#include "TransformationItem.h"
-#include "VectorItem.h"
-#include "RotationItems.h"
 #include "ParticleDistributionItem.h"
-#include "ParticleDistribution.h"
-#include "Distributions.h"
 #include "ComboProperty.h"
-#include "MultiLayerItem.h"
-#include "DistributionItem.h"
-#include "ParticleItem.h"
-#include "ParticleCompositionItem.h"
 #include "ParticleLayoutItem.h"
 
-#include <QDebug>
-#include <memory>
 
 std::unique_ptr<MultiLayer> DomainObjectBuilder::buildMultiLayer(const SessionItem &multilayer_item) const
 {

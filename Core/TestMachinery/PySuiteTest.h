@@ -16,12 +16,9 @@
 #ifndef PYSUITETEST_H
 #define PYSUITETEST_H
 
-#include "WinDllMacros.h"
 #include "IFunctionalTest.h"
 #include "OutputData.h"
-#include <string>
 
-class GISASSimulation;
 
 //! @class PySuiteTest
 //! @ingroup standard_samples

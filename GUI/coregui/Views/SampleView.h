@@ -17,24 +17,17 @@
 #ifndef SAMPLEVIEW_H
 #define SAMPLEVIEW_H
 
-#include "WinDllMacros.h"
 #include "fancymainwindow.h"
-#include <QWidget>
-#include <QMainWindow>
-#include <QDockWidget>
 #include <QTreeView>
 #include <QAction>
 #include <QSignalMapper>
-#include <QItemSelectionModel>
 
 
 class MainWindow;
 class SampleModel;
 class InstrumentModel;
-class SampleDesignerInterface;
 class SampleDesigner;
 class SampleToolBar;
-class MaterialBrowser;
 
 
 class BA_CORE_API_ SampleView : public Manhattan::FancyMainWindow

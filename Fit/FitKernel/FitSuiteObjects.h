@@ -16,13 +16,8 @@
 #ifndef FITSUITEOBJECTS_H
 #define FITSUITEOBJECTS_H
 
-#include "IParameterized.h"
-#include "OutputData.h"
 #include "FitObject.h"
-#include "FitElement.h"
-#include "GISASSimulation.h"
 
-#include <vector>
 
 class IChiSquaredModule;
 

@@ -18,9 +18,6 @@
 #define ANGLEPROPERTY_H
 
 
-#include "WinDllMacros.h"
-#include <QStringList>
-#include <QMetaType>
 #include <QVariant>
 
 //! The AngleProperty keeps angle value together with units (radians, degrees)

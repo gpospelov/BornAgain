@@ -16,7 +16,6 @@
 
 #include "SessionModelView.h"
 #include "mainwindow.h"
-#include "ApplicationModels.h"
 #include "InstrumentModel.h"
 #include "RealDataModel.h"
 #include "SampleModel.h"
@@ -25,10 +24,8 @@
 #include "SessionModelDelegate.h"
 #include <QVBoxLayout>
 #include <QToolBar>
-#include <QTabWidget>
 #include <QToolButton>
 #include <QTreeView>
-#include <QDebug>
 
 
 SessionModelView::ModelTree::ModelTree(SessionModel *model, QTreeView *tree)

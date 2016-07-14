@@ -14,10 +14,6 @@
 // ************************************************************************** //
 
 #include "SpecularSimulation.h"
-#include "MultiLayer.h"
-#include "SpecularMatrix.h"
-#include "Units.h"
-#include <iostream>
 
 SpecularSimulation::SpecularSimulation()
     : IParameterized("SpecularSimulation"), m_sample(0), m_alpha_i_axis(0), m_z_axis(0),

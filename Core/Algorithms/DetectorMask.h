@@ -16,11 +16,8 @@
 #ifndef DETECTORMASK_H
 #define DETECTORMASK_H
 
-#include "WinDllMacros.h"
-#include "SafePointerVector.h"
 #include "OutputData.h"
 #include "IShape2D.h"
-#include <map>
 
 
 class IDetector2D;

@@ -18,8 +18,6 @@
 
 #include "INamed.h"
 #include "AttLimits.h"
-#include <string>
-#include <vector>
 
 //! @class FitParameter
 //! @ingroup fitting_internal

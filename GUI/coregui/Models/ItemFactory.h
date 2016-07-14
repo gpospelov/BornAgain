@@ -17,8 +17,6 @@
 #ifndef ITEMFACTORY_H
 #define ITEMFACTORY_H
 
-#include <QMap>
-#include <QStringList>
 #include "SessionItem.h"
 
 class BA_CORE_API_ ItemFactory

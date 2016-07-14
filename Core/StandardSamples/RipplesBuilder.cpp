@@ -15,11 +15,8 @@
 
 #include "RipplesBuilder.h"
 #include "MultiLayer.h"
-#include "ParticleLayout.h"
-#include "Materials.h"
 #include "FormFactorRipple1.h"
 #include "FormFactorRipple2.h"
-#include "Units.h"
 #include "InterferenceFunctionRadialParaCrystal.h"
 
 CosineRippleBuilder::CosineRippleBuilder()

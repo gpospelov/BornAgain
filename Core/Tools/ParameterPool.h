@@ -16,14 +16,11 @@
 #ifndef PARAMETERPOOL_H
 #define PARAMETERPOOL_H
 
-#include "WinDllMacros.h"
 #include "ICloneable.h"
 #include "RealParameterWrapper.h"
 #include <map>
 #include <vector>
 
-class IParameterized;
-class AttLimits;
 
 //! @class ParameterPool
 //! @ingroup tools_internal

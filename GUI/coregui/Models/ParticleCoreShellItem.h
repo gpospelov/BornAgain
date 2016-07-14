@@ -20,8 +20,6 @@
 #include "ParticleCoreShell.h"
 #include "SessionGraphicsItem.h"
 
-#include <QVector>
-#include <memory>
 
 class BA_CORE_API_ ParticleCoreShellItem : public SessionGraphicsItem
 {

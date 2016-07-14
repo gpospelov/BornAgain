@@ -16,8 +16,6 @@
 #include "ConvolutionDetectorResolution.h"
 #include "Convolve.h"
 
-#include <iostream>
-#include <cassert>
 
 ConvolutionDetectorResolution::ConvolutionDetectorResolution(
         cumulative_DF_1d res_function_1d)

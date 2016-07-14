@@ -19,7 +19,6 @@
 #include "LayerDWBASimulation.h"
 #include "IInterferenceFunctionStrategy.h"
 
-class Layer;
 
 //! @class DecoratedLayerDWBASimulation
 //! @ingroup algorithms_internal

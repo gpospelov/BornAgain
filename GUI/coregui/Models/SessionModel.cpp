@@ -17,15 +17,7 @@
 #include "SessionModel.h"
 #include "ItemFactory.h"
 #include "GUIHelpers.h"
-#include "ComboProperty.h"
-#include "ScientificDoubleProperty.h"
 #include "IconProvider.h"
-#include "GroupProperty.h"
-#include "MaterialUtils.h"
-#include "MaterialProperty.h"
-#include "AngleProperty.h"
-#include "SessionGraphicsItem.h"
-#include "WarningMessageService.h"
 #include <QFile>
 #include <QMimeData>
 #include <QDebug>

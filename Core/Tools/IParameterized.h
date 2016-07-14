@@ -19,7 +19,6 @@
 #include "INamed.h"
 #include "ParameterPool.h"
 
-class AttLimits;
 
 //! @class IParameterized
 //! @ingroup tools_internal

@@ -15,7 +15,6 @@
 
 #include "Exceptions.h"
 #include <iostream>
-#include <string>
 
 namespace Exceptions {
 

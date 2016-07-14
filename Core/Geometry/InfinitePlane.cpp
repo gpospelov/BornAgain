@@ -14,7 +14,6 @@
 // ************************************************************************** //
 
 #include "InfinitePlane.h"
-#include "Bin.h"
 
 namespace Geometry {
 

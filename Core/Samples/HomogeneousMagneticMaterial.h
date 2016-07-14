@@ -17,10 +17,8 @@
 #define HOMOGENEOUSMAGNETICMATERIAL_H
 
 #include "HomogeneousMaterial.h"
-#include "EigenCore.h"
 
 #ifndef SWIG
-#include <Eigen/StdVector>
 #endif
 
 //! @class HomogeneousMagneticMaterial

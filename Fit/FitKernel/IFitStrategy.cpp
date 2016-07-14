@@ -13,7 +13,6 @@
 //
 // ************************************************************************** //
 
-#include "IFitStrategy.h"
 #include "FitKernel.h"
 
 IFitStrategy::IFitStrategy()

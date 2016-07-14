@@ -16,11 +16,9 @@
 #ifndef INSTRUMENT_H
 #define INSTRUMENT_H
 
-#include "Beam.h"
 #include "IDetector2D.h"
 #include "IResolutionFunction2D.h"
 
-#include <memory>
 
 //! @class Instrument
 //! @ingroup simulation_internal

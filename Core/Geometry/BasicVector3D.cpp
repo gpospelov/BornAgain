@@ -13,7 +13,6 @@
 //
 // ************************************************************************** //
 
-#include <iostream>
 #include "BasicVector3D.h"
 
 typedef std::complex<double> complex_t;

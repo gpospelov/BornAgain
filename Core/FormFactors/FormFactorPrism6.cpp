@@ -15,7 +15,6 @@
 
 #include "FormFactorPrism6.h"
 #include "BornAgainNamespace.h"
-#include "MathFunctions.h"
 
 //! @brief Prism6 constructor
 //! @param base_edge of hexagonal base

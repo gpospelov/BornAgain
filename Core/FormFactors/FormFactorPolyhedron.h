@@ -16,9 +16,7 @@
 #ifndef FORMFACTORPOLYHEDRON_H
 #define FORMFACTORPOLYHEDRON_H
 
-#include<complex>
 #include<memory>
-#include "Vectors3D.h"
 
 #include "IFormFactorBorn.h"
 

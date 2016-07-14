@@ -16,12 +16,8 @@
 #ifndef IMATERIAL_H
 #define IMATERIAL_H
 
-#include "INamed.h"
 #include "Vectors3D.h"
-#include "EigenCore.h"
 #include "Rotations.h"
-#include <string>
-#include <iostream>
 
 //! @class IMaterial
 //! @ingroup materials_internal

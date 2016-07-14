@@ -17,7 +17,6 @@
 #ifndef APPSVC_H
 #define APPSVC_H
 
-#include "WinDllMacros.h"
 #include "ISingleton.h"
 
 class ProjectManager;

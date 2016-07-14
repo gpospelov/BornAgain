@@ -16,7 +16,6 @@
 #ifndef CUMULATIVEVALUE_H
 #define CUMULATIVEVALUE_H
 
-#include "WinDllMacros.h"
 
 //! @class CumulativeValue
 //! @ingroup tools

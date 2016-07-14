@@ -17,13 +17,7 @@
 #define RECTDETECTORFITTEST_H
 
 #include "IMinimizerTest.h"
-#include "OutputData.h"
-#include <vector>
 
-class IMinimizer;
-class FitSuite;
-class ISample;
-class GISASSimulation;
 
 //! @class RectDetectorFitTest
 //! @ingroup standard_samples

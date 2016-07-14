@@ -17,7 +17,6 @@
 #define PARTICLEINTHEAIRBUILDER_H
 
 #include "ISampleBuilder.h"
-class IFormFactor;
 
 //! @class ParticleInTheAirBuilder
 //! @ingroup standard_samples

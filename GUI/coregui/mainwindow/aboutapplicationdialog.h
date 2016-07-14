@@ -17,15 +17,9 @@
 #ifndef ABOUTAPPLICATIONDIALOG_H
 #define ABOUTAPPLICATIONDIALOG_H
 
-#include "WinDllMacros.h"
 #include <QDialog>
-#include <QString>
 
 
-class QLabel;
-class QPushButton;
-class QStatusBar;
-class QPalette;
 
 
 //! new project dialog window

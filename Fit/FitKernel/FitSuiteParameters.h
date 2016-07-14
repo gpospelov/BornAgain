@@ -16,12 +16,10 @@
 #ifndef FITSUITEPARAMETERS_H
 #define FITSUITEPARAMETERS_H
 
-#include "Exceptions.h"
 #include "FitParameter.h"
 #include <vector>
 
 class ParameterPool;
-class AttLimits;
 
 //! @class FitSuiteParameters
 //! @ingroup fitting_internal

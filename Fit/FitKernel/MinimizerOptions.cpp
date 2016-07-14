@@ -14,7 +14,6 @@
 // ************************************************************************** //
 
 #include "MinimizerOptions.h"
-#include <iomanip>
 
 MinimizerOptions::MinimizerOptions()
     : m_tolerance(0.01)

@@ -17,10 +17,7 @@
 #define ROOTMINIMIZER_H
 
 #include "IMinimizer.h"
-#include "OutputData.h"
-#include "Exceptions.h"
 #include "FitSuiteParameters.h"
-#include <string>
 
 class ROOTMinimizerChiSquaredFunction;
 class ROOTMinimizerGradientFunction;

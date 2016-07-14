@@ -18,7 +18,6 @@
 
 #include "gsl/gsl_monte_miser.h"
 
-#include <memory>
 
 //! Alias template for member function with signature double f(double)
 template <class T>

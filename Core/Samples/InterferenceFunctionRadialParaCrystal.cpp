@@ -15,7 +15,6 @@
 
 #include "InterferenceFunctionRadialParaCrystal.h"
 #include "BornAgainNamespace.h"
-#include "MathFunctions.h"
 
 using namespace BornAgain;
 

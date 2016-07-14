@@ -18,7 +18,6 @@
 
 #include "IParticle.h"
 #include "ParameterDistribution.h"
-#include "SafePointerVector.h"
 
 //! @class ParticleDistribution
 //! @ingroup samples

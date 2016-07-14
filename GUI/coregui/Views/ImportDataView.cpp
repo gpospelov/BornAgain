@@ -22,8 +22,6 @@
 #include "mainwindow_constants.h"
 #include "minisplitter.h"
 #include <QVBoxLayout>
-#include <QSplitter>
-#include <QDebug>
 
 ImportDataView::ImportDataView(MainWindow *mainWindow)
     : QWidget(mainWindow)

@@ -13,9 +13,7 @@
 //
 // ************************************************************************** //
 #include "OutputDataWriteFactory.h"
-#include "OutputDataWriter.h"
 #include "Exceptions.h"
-#include "OutputDataWriteStrategy.h"
 #include "OutputDataIOHelper.h"
 
 OutputDataWriter *OutputDataWriteFactory::getWriter(const std::string &file_name)

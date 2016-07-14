@@ -16,12 +16,8 @@
 #ifndef GISASSIMULATION_H
 #define GISASSIMULATION_H
 
-#include "ISampleBuilder.h"
 #include "Instrument.h"
-#include "SimulationOptions.h"
-#include "DistributionHandler.h"
 #include "Simulation.h"
-#include "EigenCore.h"
 
 //! @class Simulation
 //! @ingroup simulation

@@ -16,7 +16,6 @@
 #ifndef VDOUBLE_H
 #define VDOUBLE_H
 
-#include <vector>
 
 typedef std::vector<double> vdouble1d_t;
 typedef std::vector<vdouble1d_t> vdouble2d_t;

@@ -19,7 +19,6 @@
 
 #include "SessionItem.h"
 #include "Vectors3D.h"
-#include <memory>
 
 class IDetector2D;
 class IResolutionFunction2D;

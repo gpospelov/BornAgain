@@ -16,10 +16,7 @@
 #ifndef OUTPUTDATAREADER_H
 #define OUTPUTDATAREADER_H
 
-#include "WinDllMacros.h"
 #include "OutputDataReadStrategy.h"
-#include <string>
-#include <vector>
 #include <memory>
 
 template <class T> class OutputData;

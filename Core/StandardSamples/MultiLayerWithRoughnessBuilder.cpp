@@ -15,10 +15,6 @@
 
 #include "MultiLayerWithRoughnessBuilder.h"
 #include "MultiLayer.h"
-#include "ParticleLayout.h"
-#include "Materials.h"
-#include "Units.h"
-#include "IRoughness.h"
 
 MultiLayerWithRoughnessBuilder::MultiLayerWithRoughnessBuilder()
     : m_thicknessA(2.5*Units::nanometer)

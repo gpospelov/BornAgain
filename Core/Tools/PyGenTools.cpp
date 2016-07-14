@@ -14,27 +14,15 @@
 // ************************************************************************** //
 
 #include "Macros.h"
-#include "IntensityDataFunctions.h"
-#include "IntensityDataIOFactory.h"
-#include "ISample.h"
 #include "MultiLayer.h"
 #include "PyGenTools.h"
-#include "GISASSimulation.h"
 #include "Distributions.h"
 #include "Rectangle.h"
 #include "Ellipse.h"
 #include "Line.h"
 #include "Polygon.h"
 #include "InfinitePlane.h"
-#include "BAPython.h"
-#include <memory>
-#include <sstream>
-#include <fstream>
-#include <iostream>
 #include <iomanip>
-#include <cstdio>
-#include <cmath>
-#include <Python.h>
 GCC_DIAG_OFF(missing-field-initializers)
 GCC_DIAG_OFF(unused-parameter)
 GCC_DIAG_ON(unused-parameter)

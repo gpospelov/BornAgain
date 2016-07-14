@@ -15,11 +15,9 @@
 
 #include "FormFactorLongRipple1Gauss.h"
 #include "BornAgainNamespace.h"
-#include "Numeric.h"
 #include "MathFunctions.h"
 #include "IntegratorComplex.h"
 
-#include <cmath>
 
 using namespace  BornAgain;
 

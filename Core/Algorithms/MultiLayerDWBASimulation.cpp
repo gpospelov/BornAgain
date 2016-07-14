@@ -13,16 +13,11 @@
 //
 // ************************************************************************** //
 
-#include "MultiLayerDWBASimulation.h"
 
-#include "SpecularMatrix.h"
-#include "SpecularMagnetic.h"
-#include "MultiLayer.h"
 #include "MultiLayerRoughnessDWBASimulation.h"
 #include "MessageService.h"
 #include "ScalarSpecularInfoMap.h"
 #include "MatrixSpecularInfoMap.h"
-#include "BornAgainNamespace.h"
 
 
 MultiLayerDWBASimulation::MultiLayerDWBASimulation(

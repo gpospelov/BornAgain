@@ -16,11 +16,9 @@
 #ifndef DISTRIBUTIONHANDLER_H
 #define DISTRIBUTIONHANDLER_H
 
-#include "IParameterized.h"
 #include "ParameterDistribution.h"
 
 
-class IDistribution1D;
 
 //! @class DistributionHandler
 //! @ingroup algorithms_internal

@@ -14,11 +14,8 @@
 // ************************************************************************** //
 
 #include "OutputDataReadFactory.h"
-#include "OutputDataReader.h"
-#include "OutputDataReadStrategy.h"
 #include "OutputDataIOHelper.h"
 #include "Exceptions.h"
-#include "FileSystem.h"
 
 
 OutputDataReader* OutputDataReadFactory::getReader(const std::string &file_name)

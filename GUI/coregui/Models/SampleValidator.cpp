@@ -21,7 +21,6 @@
 #include "ParticleCompositionItem.h"
 #include "ParticleCoreShellItem.h"
 #include "ParticleDistributionItem.h"
-#include <QDebug>
 
 SampleValidator::SampleValidator()
     : m_valid_sample(true)

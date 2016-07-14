@@ -13,20 +13,10 @@
 //
 // ************************************************************************** //
 
-#include "Units.h"
 #include "RectangularDetector.h"
-#include "MessageService.h"
 #include "BornAgainNamespace.h"
-#include "FixedBinAxis.h"
-#include "ConstKBinAxis.h"
-#include "CustomBinAxis.h"
-#include "Beam.h"
-#include "Rectangle.h"
 #include "GISASSimulation.h"
-#include "Instrument.h"
-#include "Beam.h"
 
-#include <iostream>
 
 RectangularDetector::RectangularDetector(int nxbins, double width, int nybins, double height)
     : m_u0(0.0)

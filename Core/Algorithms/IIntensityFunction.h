@@ -17,7 +17,6 @@
 #ifndef IINTENSITYFUNCTION_H
 #define IINTENSITYFUNCTION_H
 
-#include <cmath>
 
 
 //! @class IIntensityFunction

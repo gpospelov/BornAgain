@@ -16,7 +16,6 @@
 #ifndef MATERIALS_H
 #define MATERIALS_H
 
-#include "HomogeneousMaterial.h"
 #include "HomogeneousMagneticMaterial.h"
 
 namespace Materials {

@@ -14,11 +14,9 @@
 // ************************************************************************** //
 
 #include "Particle.h"
-#include "BornAgainNamespace.h"
 #include "Materials.h"
 #include "FormFactorDecoratorPositionFactor.h"
 
-#include <memory>
 
 Particle::Particle()
 {

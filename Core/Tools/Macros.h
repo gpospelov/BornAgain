@@ -22,13 +22,11 @@ It should be used to get rid from warnings coming from the third party library (
 
 Usage:
 GCC_DIAG_OFF(unused-parameter);
-#include <boost/program_options.hpp>
 GCC_DIAG_ON(unused-parameter);
 
 For the gcc 4.6 macros have same behavior as
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wunused-parameter"
-#include <boost/program_options.hpp>
 #pragma GCC diagnostic pop
 
 Be aware, that macros has different behavior for gcc<4.2, 4.2<=gcc<4.6; gcc>=4.6

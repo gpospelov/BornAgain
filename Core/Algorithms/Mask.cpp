@@ -15,8 +15,6 @@
 
 #include "Mask.h"
 
-#include <iostream>
-#include <algorithm>
 
 // ************************************************************************** //
 // implement class Mask

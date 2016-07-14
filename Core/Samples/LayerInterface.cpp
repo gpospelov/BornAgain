@@ -17,8 +17,6 @@
 #include "BornAgainNamespace.h"
 #include "MessageService.h"
 
-#include <iostream>
-#include <iomanip>
 
 LayerInterface::LayerInterface()
 : m_roughness(0)

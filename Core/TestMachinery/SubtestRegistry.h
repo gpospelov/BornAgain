@@ -17,7 +17,6 @@
 #define SUBTESTREGISTRY_H
 
 #include "IRegistry.h"
-#include "IFormFactor.h"
 #include "FTDistributions.h"
 
 // ************************************************************************** //

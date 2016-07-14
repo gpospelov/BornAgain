@@ -14,7 +14,6 @@
 // ************************************************************************** //
 
 #include "LLData.h"
-#include "EigenCore.h"
 
 template <>
 Eigen::Matrix2d LLData<Eigen::Matrix2d>::getZeroElement() const

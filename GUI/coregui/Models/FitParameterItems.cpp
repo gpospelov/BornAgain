@@ -17,12 +17,8 @@
 #include "FitParameterItems.h"
 #include "ComboProperty.h"
 #include "ModelPath.h"
-#include "SessionModel.h"
-#include "FitParameterHelper.h"
 #include "ParameterTreeItems.h"
-#include "AttLimits.h"
 #include "GUIHelpers.h"
-#include <QDebug>
 
 namespace
 {

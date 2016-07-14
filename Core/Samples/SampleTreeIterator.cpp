@@ -14,8 +14,6 @@
 // ************************************************************************** //
 
 #include "SampleTreeIterator.h"
-#include "ISampleIteratorStrategy.h"
-#include "Exceptions.h"
 
 
 

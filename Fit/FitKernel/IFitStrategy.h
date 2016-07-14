@@ -17,7 +17,6 @@
 #define IFITSTRATEGY_H
 
 #include "INamed.h"
-#include <iostream>
 
 class FitKernel;
 

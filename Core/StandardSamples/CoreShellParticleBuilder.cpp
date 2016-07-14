@@ -15,11 +15,7 @@
 
 #include "CoreShellParticleBuilder.h"
 #include "MultiLayer.h"
-#include "ParticleLayout.h"
-#include "Materials.h"
-#include "Units.h"
 #include "FormFactorBox.h"
-#include "InterferenceFunctionNone.h"
 #include "ParticleCoreShell.h"
 
 // --- CoreShellParticleBuilder ---

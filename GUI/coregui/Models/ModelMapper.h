@@ -17,15 +17,10 @@
 #ifndef MODELMAPPER_H
 #define MODELMAPPER_H
 
-#include "WinDllMacros.h"
 
-#include <QObject>
-#include <QVector>
 #include <functional>
 #include <QModelIndex>
-#include <vector>
 
-class QModelIndex;
 class SessionModel;
 class SessionItem;
 

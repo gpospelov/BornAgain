@@ -15,10 +15,7 @@
 
 #include "Beam.h"
 #include "BornAgainNamespace.h"
-#include "Exceptions.h"
-#include "Numeric.h"
 #include "Complex.h"
-#include <Eigen/LU>
 
 using namespace BornAgain;
 

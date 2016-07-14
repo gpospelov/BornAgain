@@ -17,10 +17,8 @@
 #ifndef MINIMIZERITEMCATALOGUE_H
 #define MINIMIZERITEMCATALOGUE_H
 
-#include "WinDllMacros.h"
 #include "MinimizerLibrary.h"
 #include "ComboProperty.h"
-#include <QStringList>
 
 class MinimizerItem;
 

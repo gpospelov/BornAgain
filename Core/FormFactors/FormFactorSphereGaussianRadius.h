@@ -15,11 +15,8 @@
 
 #ifndef FORMFACTORSPHEREGAUSSIANRADIUS_H
 #define FORMFACTORSPHEREGAUSSIANRADIUS_H
-#include "MathFunctions.h"
 
-#include "IFormFactor.h"
 #include "FormFactorFullSphere.h"
-#include <cassert>
 
 //! @class FormFactorSphereGaussianRadius
 //! @ingroup formfactors

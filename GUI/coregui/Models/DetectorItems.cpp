@@ -15,10 +15,7 @@
 // ************************************************************************** //
 
 #include "DetectorItems.h"
-#include "AngleProperty.h"
 #include "MaskItems.h"
-#include "ModelMapper.h"
-#include <QDebug>
 
 const QString DetectorItem::P_DETECTOR = "DetectorType";
 const QString DetectorItem::T_MASKS = "Mask tag";

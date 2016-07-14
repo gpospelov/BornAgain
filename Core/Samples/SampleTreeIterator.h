@@ -16,14 +16,9 @@
 #ifndef SAMPLETREEITERATOR_H
 #define SAMPLETREEITERATOR_H
 
-#include "ISample.h"
 #include "ICompositeSample.h"
-#include <iostream>
 #include <stack>
-#include <list>
-#include <memory>
 
-class ISampleIteratorStrategy;
 
 //! @class IteratorState
 //! @ingroup samples_internal

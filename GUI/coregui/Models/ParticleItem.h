@@ -20,7 +20,6 @@
 #include "Particle.h"
 #include "SessionGraphicsItem.h"
 
-#include <memory>
 
 class BA_CORE_API_ ParticleItem : public SessionGraphicsItem
 {

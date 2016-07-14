@@ -19,7 +19,6 @@
 #include "Simulation.h"
 #include "Instrument.h"
 
-class Histogram2D;
 
 //! @class OffSpecSimulation
 //! @ingroup simulation

@@ -13,9 +13,7 @@
 #define FP_EXCEPTION_GLIBC_EXTENSION_H
 
 //#include <fenv.h>
-#include <signal.h>
 #ifdef __cplusplus
-extern "C" {
 #endif
 
   /* GNU C Library:

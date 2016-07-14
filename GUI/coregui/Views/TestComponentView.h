@@ -22,7 +22,6 @@
 class MainWindow;
 class SampleModel;
 class ComponentEditor;
-class ComponentProxyEditor;
 class QTreeView;
 class QItemSelection;
 

@@ -16,7 +16,6 @@
 #ifndef INTERFERENCEFUNCTIONSTRATEGIES_H
 #define INTERFERENCEFUNCTIONSTRATEGIES_H
 
-#include "IInterferenceFunctionStrategy.h"
 #include "DecouplingApproximationStrategy.h"
 #include "SizeSpacingCorrelationApproximationStrategy.h"
 

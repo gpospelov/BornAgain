@@ -16,15 +16,10 @@
 #ifndef ILAYOUT_H
 #define ILAYOUT_H
 
-#include "ICompositeSample.h"
 #include "IParticle.h"
-#include "IFormFactor.h"
 #include "SafePointerVector.h"
 
-#include <utility>
 
-class IInterferenceFunctionStrategy;
-class IInterferenceFunction;
 
 //! @class ILayout
 //! @ingroup samples_internal

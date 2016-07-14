@@ -16,8 +16,6 @@
 #include "Instrument.h"
 #include "SphericalDetector.h"
 #include "ConvolutionDetectorResolution.h"
-#include "BornAgainNamespace.h"
-#include <memory>
 
 Instrument::Instrument()
     : IParameterized("Instrument")

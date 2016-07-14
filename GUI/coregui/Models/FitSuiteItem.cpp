@@ -15,7 +15,6 @@
 // ************************************************************************** //
 
 #include "FitSuiteItem.h"
-#include "FitSuite.h"
 #include "FitParameterItems.h"
 #include "MinimizerItem.h"
 

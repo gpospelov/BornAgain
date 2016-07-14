@@ -14,9 +14,7 @@
 // ************************************************************************** //
 
 #include "FitSuiteObjects.h"
-#include "FitObject.h"
 #include "ChiSquaredModule.h"
-#include <sstream>
 
 FitSuiteObjects::FitSuiteObjects()
   : m_total_weight(0)

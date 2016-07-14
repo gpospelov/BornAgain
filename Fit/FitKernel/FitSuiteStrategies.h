@@ -19,7 +19,6 @@
 #include "SafePointerVector.h"
 #include "IFitStrategy.h"
 
-class FitKernel;
 
 //! @class FitSuiteStrategies
 //! @ingroup fitting_internal

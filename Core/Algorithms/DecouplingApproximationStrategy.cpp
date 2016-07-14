@@ -14,11 +14,7 @@
 // ************************************************************************** //
 
 #include "DecouplingApproximationStrategy.h"
-#include "Exceptions.h"
-#include "MathFunctions.h"
 
-#include <cassert>
-#include <iostream>
 
 void
 DecouplingApproximationStrategy::init(const SafePointerVector<FormFactorInfo> &form_factor_infos,

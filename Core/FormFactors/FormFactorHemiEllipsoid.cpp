@@ -16,10 +16,8 @@
 #include "FormFactorHemiEllipsoid.h"
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
-#include "Numeric.h"
 #include "IntegratorComplex.h"
 
-#include <cmath>
 
 using namespace  BornAgain;
 

@@ -17,9 +17,6 @@
 #define OUTPUTDATAIOHELPER_H
 
 
-#include "WinDllMacros.h"
-#include <string>
-#include <iostream>
 #include <vector>
 
 class IAxis;

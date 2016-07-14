@@ -17,7 +17,6 @@
 #include "PropertyAttribute.h"
 #include "SessionItem.h"
 #include "tooltipdatabase.h"
-#include <QDebug>
 
 PropertyAttribute::PropertyAttribute(PropertyAttribute::Appearance appearance,
                                      const AttLimits &limits, int decimals, const QString &label,

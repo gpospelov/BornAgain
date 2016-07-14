@@ -16,10 +16,8 @@
 #ifndef IFUNCTIONALTEST_H
 #define IFUNCTIONALTEST_H
 
-#include "WinDllMacros.h"
 #include "INamed.h"
 #include <map>
-#include <string>
 
 //! @class IFunctionalTest
 //! @ingroup standard_samples

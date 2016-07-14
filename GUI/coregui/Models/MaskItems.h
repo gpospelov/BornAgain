@@ -18,7 +18,6 @@
 #define MASKITEMS_H
 
 #include "SessionItem.h"
-#include <memory>
 
 namespace Geometry {
 class IShape2D;

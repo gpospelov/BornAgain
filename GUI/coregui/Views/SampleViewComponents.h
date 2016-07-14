@@ -17,15 +17,12 @@
 #ifndef SAMPLEVIEWCOMPONENTS_H
 #define SAMPLEVIEWCOMPONENTS_H
 
-#include <QWidget>
 #include "ItemTreeView.h"
-#include "widgetbox.h"
 
 //#include "SamplePropertyEditor.h"
 #include "SampleWidgetBox.h"
 #include "SampleModel.h"
 
-#include <QSortFilterProxyModel>
 
 
 //class BA_CORE_API_ SampleInfoStreamInterface : public QWidget

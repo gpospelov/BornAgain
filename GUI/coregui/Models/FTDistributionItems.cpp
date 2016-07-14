@@ -15,8 +15,6 @@
 // ************************************************************************** //
 
 #include "FTDistributionItems.h"
-#include "item_constants.h"
-#include "Units.h"
 
 using namespace Constants;
 

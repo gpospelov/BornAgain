@@ -16,7 +16,6 @@
 #ifndef SIZESPACINGCORRELATIONAPPROXIMATIONSTRATEGY_H
 #define SIZESPACINGCORRELATIONAPPROXIMATIONSTRATEGY_H
 
-#include "Complex.h"
 #include "IInterferenceFunctionStrategy.h"
 
 //! @class SizeSpacingCorrelationApproximationStrategy

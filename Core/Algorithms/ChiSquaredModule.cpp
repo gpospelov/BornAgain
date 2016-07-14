@@ -14,8 +14,6 @@
 // ************************************************************************** //
 
 #include "ChiSquaredModule.h"
-#include "OutputDataFunctions.h"
-#include <cassert>
 
 //! Updates mp_simulation_data and mp_weights, returns chi^2.
 

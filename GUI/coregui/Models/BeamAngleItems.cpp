@@ -15,7 +15,6 @@
 // ************************************************************************** //
 
 #include "BeamAngleItems.h"
-#include "item_constants.h"
 #include "Distributions.h"
 #include "Units.h"
 #include "GUIHelpers.h"

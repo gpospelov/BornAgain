@@ -13,12 +13,8 @@
 //
 // ************************************************************************** //
 
-#include "Crystal.h"
-#include "BornAgainNamespace.h"
 #include "FormFactorCrystal.h"
 #include "FormFactorDecoratorDebyeWaller.h"
-#include "Units.h"
-#include "MathFunctions.h"
 
 Crystal::Crystal(const ParticleComposition& lattice_basis, const Lattice& lattice)
     : m_lattice(lattice), m_dw_factor(0.0)

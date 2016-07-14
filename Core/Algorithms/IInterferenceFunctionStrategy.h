@@ -16,18 +16,11 @@
 #ifndef IINTERFERENCEFUNCTIONSTRATEGY_H
 #define IINTERFERENCEFUNCTIONSTRATEGY_H
 
-#include "IFormFactor.h"
 #include "IInterferenceFunction.h"
-#include "Bin.h"
-#include "SafePointerVector.h"
 #include "LayerStrategyBuilder.h"
 #include "FormFactorDWBAPol.h"
 #include "SimulationElement.h"
 
-#include <vector>
-#include <memory>
-#include <memory>
-#include <Eigen/StdVector>
 
 // Forward declaration to prevent IntegratorMCMiser.h to be parsed for Python API:
 template <class T> class IntegratorMCMiser;

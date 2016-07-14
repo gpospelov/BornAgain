@@ -16,11 +16,8 @@
 #ifndef FORMFACTORSPHEREUNIFORMRADIUS_H
 #define FORMFACTORSPHEREUNIFORMRADIUS_H
 
-#include "MathFunctions.h"
 
-#include "IFormFactor.h"
 #include "FormFactorFullSphere.h"
-#include <cassert>
 
 //! @class FormFactorSphereUniformRadius
 //! @ingroup formfactors

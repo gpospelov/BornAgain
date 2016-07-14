@@ -16,11 +16,8 @@
 #ifndef OUTPUTDATAREADFACTORY_H
 #define OUTPUTDATAREADFACTORY_H
 
-#include <string>
-#include "WinDllMacros.h"
 #include "OutputDataReader.h"
 
-class IOutputDataReadStrategy;
 
 //! @class OutputDataReadFactory
 //! @ingroup input_output_internal

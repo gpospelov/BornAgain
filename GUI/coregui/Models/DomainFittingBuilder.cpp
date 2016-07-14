@@ -27,7 +27,6 @@
 #include "MinimizerItem.h"
 #include "IMinimizer.h"
 #include "GUIHelpers.h"
-#include <QDebug>
 
 // FIXME make unique_ptr all along
 

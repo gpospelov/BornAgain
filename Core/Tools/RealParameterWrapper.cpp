@@ -14,7 +14,6 @@
 // ************************************************************************** //
 
 #include "IParameterized.h"
-#include "RealParameterWrapper.h"
 #include <sstream>
 
 RealParameterWrapper::RealParameterWrapper(

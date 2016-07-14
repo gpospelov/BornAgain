@@ -17,12 +17,9 @@
 #ifndef TESTVIEW_H
 #define TESTVIEW_H
 
-#include "WinDllMacros.h"
 #include <QWidget>
 
 class MainWindow;
-class QTabWidget;
-class QAbstractItemModel;
 
 class BA_CORE_API_ TestView : public QWidget
 {

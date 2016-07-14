@@ -19,7 +19,6 @@
 
 #include "IMessageService.h"
 #include <QMap>
-#include <QStringList>
 
 class MessageContainer;
 class QObject;

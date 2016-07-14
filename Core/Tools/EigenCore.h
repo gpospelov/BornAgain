@@ -21,7 +21,6 @@
 
 #ifndef SWIG
 #ifndef _WIN32
-#include <unistd.h>
 #endif
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"

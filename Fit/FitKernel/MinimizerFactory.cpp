@@ -21,7 +21,6 @@
 #include "ROOTSimAnMinimizer.h"
 #include "ROOTLMAMinimizer.h"
 #include "ROOTGeneticMinimizer.h"
-#include <iomanip>
 
 // ************************************************************************** //
 // auxiliary class MinimizerCatalogue

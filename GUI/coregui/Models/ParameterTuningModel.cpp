@@ -15,8 +15,6 @@
 // ************************************************************************** //
 
 #include "ParameterTuningModel.h"
-#include "FitParameterItems.h"
-#include "SessionXML.h"
 #include "FitParameterHelper.h"
 #include "SessionModel.h"
 #include "ParameterTreeItems.h"

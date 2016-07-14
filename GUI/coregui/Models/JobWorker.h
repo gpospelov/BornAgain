@@ -17,9 +17,7 @@
 #ifndef JOBWORKER_H
 #define JOBWORKER_H
 
-#include "WinDllMacros.h"
 #include <QObject>
-#include <QString>
 
 class GISASSimulation;
 

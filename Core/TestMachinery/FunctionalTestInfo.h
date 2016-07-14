@@ -16,7 +16,6 @@
 #ifndef FUNCTIONALTESTINFO_H
 #define FUNCTIONALTESTINFO_H
 
-#include "WinDllMacros.h"
 #include <string>
 
 //! @class FunctionalTestInfo

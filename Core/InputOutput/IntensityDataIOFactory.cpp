@@ -16,8 +16,6 @@
 #include "IntensityDataIOFactory.h"
 #include "OutputDataReadFactory.h"
 #include "OutputDataWriteFactory.h"
-#include "Exceptions.h"
-#include "Utils.h"
 #include "IHistogram.h"
 
 

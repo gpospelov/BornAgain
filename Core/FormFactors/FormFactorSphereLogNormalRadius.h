@@ -15,12 +15,9 @@
 
 #ifndef FORMFACTORSPHERELOGNORMALRADIUS_H
 #define FORMFACTORSPHERELOGNORMALRADIUS_H
-#include "MathFunctions.h"
 #include "SafePointerVector.h"
 
-#include "IFormFactor.h"
 #include "FormFactorFullSphere.h"
-#include <cassert>
 
 class DistributionLogNormal;
 

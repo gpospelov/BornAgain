@@ -17,7 +17,6 @@
 #ifndef DOMAINFITTINGBUILDER_H
 #define DOMAINFITTINGBUILDER_H
 
-#include <QString>
 #include <memory>
 
 class JobItem;

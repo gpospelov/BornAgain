@@ -16,10 +16,7 @@
 #ifndef ISINGLETON_H
 #define ISINGLETON_H
 
-#include <stdexcept>
 #include <iostream>
-#include <typeinfo>
-#include "Macros.h"
 #include <mutex>
 
 //! @class ISingleton

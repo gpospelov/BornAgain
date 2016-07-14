@@ -18,7 +18,6 @@
 
 #include "Mask.h"
 
-#include <iterator>
 
 //! @class OutputDataIterator
 //! @ingroup tools_internal

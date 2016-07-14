@@ -18,7 +18,6 @@
 #include "ParticleItem.h"
 #include "VectorItem.h"
 #include "RotationItems.h"
-#include "BornAgainNamespace.h"
 
 
 PositionTranslator::PositionTranslator()

@@ -14,12 +14,9 @@
 //
 // ************************************************************************** //
 
-#include "SessionXML.h"
-#include "SessionItem.h"
 #include "SessionModel.h"
 #include "MaterialProperty.h"
 #include "ComboProperty.h"
-#include "GroupProperty.h"
 #include "ScientificDoubleProperty.h"
 #include "ColorProperty.h"
 #include "AngleProperty.h"
@@ -27,7 +24,6 @@
 #include "ItemFactory.h"
 #include "GroupItem.h"
 #include "WarningMessageService.h"
-#include <QXmlStreamWriter>
 #include <QDebug>
 
 namespace

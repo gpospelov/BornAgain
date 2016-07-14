@@ -16,11 +16,8 @@
 #ifndef FUNCTIONALTESTREGISTRY_H
 #define FUNCTIONALTESTREGISTRY_H
 
-#include <vector>
-#include <string>
 #include <map>
 
-#include "WinDllMacros.h"
 #include "FunctionalTestInfo.h"
 #include "ISingleton.h"
 

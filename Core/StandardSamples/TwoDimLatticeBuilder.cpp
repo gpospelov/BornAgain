@@ -15,14 +15,9 @@
 
 #include "TwoDimLatticeBuilder.h"
 #include "MultiLayer.h"
-#include "ParticleLayout.h"
 #include "ParticleComposition.h"
 #include "FormFactorCylinder.h"
-#include "GISASSimulation.h"
-#include "Units.h"
-#include "Materials.h"
 #include "InterferenceFunction2DLattice.h"
-#include "Utils.h"
 
 
 // -----------------------------------------------------------------------------

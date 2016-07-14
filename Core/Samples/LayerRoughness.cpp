@@ -17,9 +17,6 @@
 #include "LayerRoughness.h"
 #include "BornAgainNamespace.h"
 
-#include <cmath>
-#include <iostream>
-#include <iomanip>
 
 using namespace BornAgain;
 

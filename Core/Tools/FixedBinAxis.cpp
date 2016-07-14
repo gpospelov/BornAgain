@@ -14,7 +14,6 @@
 // ************************************************************************** //
 
 #include "FixedBinAxis.h"
-#include "Exceptions.h"
 #include <iomanip>
 
 

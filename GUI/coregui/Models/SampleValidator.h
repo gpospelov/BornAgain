@@ -17,7 +17,6 @@
 #ifndef SAMPLE_VALIDATOR
 #define SAMPLE_VALIDATOR
 
-#include <QString>
 #include <QModelIndex>
 
 class SessionItem;

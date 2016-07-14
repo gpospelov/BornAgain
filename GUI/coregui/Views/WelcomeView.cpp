@@ -22,17 +22,12 @@
 #include "projectdocument.h"
 #include "projectmanager.h"
 #include "qstringutils.h"
-#include <QGroupBox>
-#include <QLabel>
-#include <QComboBox>
 #include <QVBoxLayout>
 #include <QDesktopServices>
 #include <QUrl>
-#include <QSizePolicy>
 #include <QCommandLinkButton>
 #include <QSignalMapper>
 #include <QDebug>
-#include <QPushButton>
 
 WelcomeView::WelcomeView(MainWindow *parent)
     : m_mainWindow(parent)

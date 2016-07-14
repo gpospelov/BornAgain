@@ -18,11 +18,8 @@
 
 #include "ParameterSample.h"
 #include "IParameterized.h"
-#include "AttLimits.h"
 
 #include <memory>
-#include <string>
-#include <vector>
 
 class IDistribution1D;
 

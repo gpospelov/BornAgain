@@ -17,10 +17,8 @@
 #define LAYER_H
 
 #include "Materials.h"
-#include "ICompositeSample.h"
 #include "LayerDWBASimulation.h"
 #include "ParticleLayout.h"
-#include "SafePointerVector.h"
 
 //! @class Layer
 //! @ingroup samples

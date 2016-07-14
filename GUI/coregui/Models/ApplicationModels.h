@@ -17,7 +17,6 @@
 #ifndef APPLICATIONMODELS_H
 #define APPLICATIONMODELS_H
 
-#include "WinDllMacros.h"
 #include <QObject>
 
 class SessionModel;

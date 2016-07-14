@@ -19,7 +19,6 @@
 #include "IParameterized.h"
 #include "ParameterSample.h"
 
-class AttLimits;
 
 //! @class IDistribution1D
 //! @ingroup algorithms_internal

@@ -17,9 +17,7 @@
 #ifndef ICONPROVIDER_H
 #define ICONPROVIDER_H
 
-#include "WinDllMacros.h"
 #include <QIcon>
-#include <QString>
 
 class SessionItem;
 

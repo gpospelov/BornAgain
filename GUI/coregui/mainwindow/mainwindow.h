@@ -17,9 +17,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include "WinDllMacros.h"
 #include "fancymainwindow.h"
-#include <QMainWindow>
 
 namespace Manhattan {
     class FancyTabWidget;
@@ -35,7 +33,6 @@ class JobView;
 class SessionModelView;
 
 class MaterialModel;
-class MaterialSvc;
 class SampleModel;
 class InstrumentModel;
 class RealDataModel;
@@ -43,7 +40,6 @@ class JobModel;
 class ApplicationModels;
 class ProjectManager;
 class ActionManager;
-class QSettings;
 class ToolTipDataBase;
 class UpdateNotifier;
 

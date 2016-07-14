@@ -19,7 +19,6 @@
 #include "ICompositeSample.h"
 #include "LayerRoughness.h"
 
-class Layer;
 
 //! @class LayerInterface
 //! @ingroup samples_internal

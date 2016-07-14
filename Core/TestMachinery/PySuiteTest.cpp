@@ -13,10 +13,7 @@
 //
 // ************************************************************************** //
 
-#include <memory>
 #include <fstream>
-#include <cstdio>
-#include <cassert>
 
 #include "SimulationFactory.h"
 #include "IntensityDataIOFactory.h"

@@ -19,7 +19,6 @@
 #include "IFitStrategy.h"
 #include "IMinimizer.h"
 
-class MinimizerOptions;
 
 //! @class FitStrategyAdjustMinimizer
 //! @ingroup fitting

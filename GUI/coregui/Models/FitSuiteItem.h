@@ -19,7 +19,6 @@
 
 #include "SessionItem.h"
 
-class FitSuite;
 class FitParameterContainerItem;
 class MinimizerContainerItem;
 

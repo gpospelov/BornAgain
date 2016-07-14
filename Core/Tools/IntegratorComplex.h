@@ -17,7 +17,6 @@
 #define INTEGRATORCOMPLEX_H
 
 #include "IntegratorReal.h"
-#include "Complex.h"
 
 //! Alias template for member function with signature complex_t f(double)
 template <class T>

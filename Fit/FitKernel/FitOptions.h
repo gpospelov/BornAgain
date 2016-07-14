@@ -16,9 +16,6 @@
 #ifndef FITOPTIONS_H
 #define FITOPTIONS_H
 
-#include "WinDllMacros.h"
-#include <iostream>
-#include <iomanip>
 
 
 //! @class FitOptions

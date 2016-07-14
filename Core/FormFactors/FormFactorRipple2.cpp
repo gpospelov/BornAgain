@@ -15,10 +15,8 @@
 
 #include "FormFactorRipple2.h"
 #include "BornAgainNamespace.h"
-#include "Numeric.h"
 #include "MathFunctions.h"
 
-#include <cmath>
 
 using namespace  BornAgain;
 

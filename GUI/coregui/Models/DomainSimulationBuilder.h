@@ -17,15 +17,11 @@
 #ifndef DOMAINSIMULATIONBUILDER_H
 #define DOMAINSIMULATIONBUILDER_H
 
-#include <QString>
 
 class GISASSimulation;
-class SampleModel;
-class InstrumentModel;
 class MultiLayerItem;
 class InstrumentItem;
 class SimulationOptionsItem;
-class DocumentModel;
 
 //! The DomainSimulationBuilder class builds the domain simulation
 //! from instrument and sample models.

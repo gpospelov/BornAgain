@@ -15,21 +15,16 @@
 // ************************************************************************** //
 
 #include "GUITest.h"
-#include "SimulationFactory.h"
 #include "GUIObjectBuilder.h"
 #include "InstrumentModel.h"
 #include "SampleModel.h"
 #include "MaterialSvc.h"
 #include "MaterialModel.h"
-#include "Instrument.h"
-#include "DomainObjectBuilder.h"
-#include "SessionItem.h"
 #include "IntensityDataFunctions.h"
 #include "DomainSimulationBuilder.h"
 #include "DocumentModel.h"
 #include "Utils.h"
 
-#include <QDebug>
 
 
 GUITest::GUITest(const std::string &name, const std::string &description,

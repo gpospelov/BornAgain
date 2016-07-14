@@ -15,15 +15,7 @@
 
 #include "CustomMorphologyBuilder.h"
 #include "MultiLayer.h"
-#include "ParticleLayout.h"
-#include "Materials.h"
 #include "FormFactorBox.h"
-#include "GISASSimulation.h"
-#include "Utils.h"
-#include "Units.h"
-#include "MathFunctions.h"
-#include <iostream>
-#include <cmath>
 
 CustomMorphologyBuilder::CustomMorphologyBuilder()
 {

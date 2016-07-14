@@ -19,7 +19,6 @@
 #include "TestConfig.h"
 #include "FileSystem.h"
 #include "IntensityDataIOFactory.h"
-#include "OutputDataIOHelper.h"
 #include "Utils.h"
 
 CoreTest::CoreTest(

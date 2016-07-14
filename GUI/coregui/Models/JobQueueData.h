@@ -17,16 +17,13 @@
 #ifndef JOBQUEUEDATA_H
 #define JOBQUEUEDATA_H
 
-#include "WinDllMacros.h"
 #include <QObject>
-#include <QString>
 #include <QMap>
 
 class JobItem;
 class JobModel;
 class GISASSimulation;
 class JobWorker;
-class QThread;
 
 //! The JobQueueData class holds all objects/logic to run simulation in a thread.
 

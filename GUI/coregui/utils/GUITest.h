@@ -17,10 +17,8 @@
 #ifndef GUITEST_H
 #define GUITEST_H
 
-#include "WinDllMacros.h"
 #include "IFunctionalTest.h"
 #include "OutputData.h"
-#include <string>
 
 class GISASSimulation;
 

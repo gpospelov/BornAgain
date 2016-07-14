@@ -13,15 +13,7 @@
 //
 // ************************************************************************** //
 
-#include <gsl/gsl_errno.h>
-#include <memory>
-#include "Macros.h"
-#include "MathFunctions.h"
-#include "MessageService.h"
-#include "OutputDataFunctions.h"
 #include "BornAgainNamespace.h"
-#include "ProgressHandlerDWBA.h"
-#include "OMPISimulation.h"
 #include "Histogram2D.h"
 #include "GISASSimulation.h"
 

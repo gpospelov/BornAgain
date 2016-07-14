@@ -20,9 +20,7 @@
 #include "Samples.h"
 #include "InterferenceFunctions.h"
 #include "SessionItem.h"
-#include "Instrument.h"
 
-#include <memory>
 
 namespace TransformToDomain
 {

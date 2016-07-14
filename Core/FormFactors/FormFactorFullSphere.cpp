@@ -15,10 +15,8 @@
 
 #include "FormFactorFullSphere.h"
 #include "BornAgainNamespace.h"
-#include "MathFunctions.h"
 
 #ifdef POLYHEDRAL_DIAGNOSTIC
-extern Diagnosis diagnosis;
 #endif
 
 using namespace  BornAgain;

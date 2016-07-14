@@ -13,9 +13,7 @@
 //
 // ************************************************************************** //
 
-#include "DetectorMask.h"
 #include "IDetector2D.h"
-#include "IShape2D.h"
 #include "BornAgainNamespace.h"
 
 

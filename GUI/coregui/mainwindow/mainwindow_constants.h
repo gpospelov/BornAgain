@@ -17,7 +17,6 @@
 #ifndef MAINWINDOW_CONSTANTS_H
 #define MAINWINDOW_CONSTANTS_H
 
-#include <QString>
 
 namespace Constants {
 

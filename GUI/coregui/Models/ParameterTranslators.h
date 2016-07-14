@@ -16,7 +16,6 @@
 #ifndef PARAMETERTRANSLATORS_H
 #define PARAMETERTRANSLATORS_H
 
-#include <string>
 #include <QStringList>
 
 class IParameterTranslator {

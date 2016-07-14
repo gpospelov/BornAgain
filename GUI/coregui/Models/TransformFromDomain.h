@@ -17,8 +17,6 @@
 #ifndef TRANSFORMFROMDOMAIN_H
 #define TRANSFORMFROMDOMAIN_H
 
-#include "WinDllMacros.h"
-#include <QString>
 
 namespace TransformFromDomain
 {

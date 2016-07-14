@@ -15,10 +15,8 @@
 
 
 #include "SpecularMatrix.h"
-#include "Numeric.h"
 #include "MathFunctions.h"
 
-using std::sqrt;
 
 namespace {
     const complex_t imag_unit = complex_t(0.0, 1.0);

@@ -13,11 +13,8 @@
 //
 // ************************************************************************** //
 
-#include "FitSuiteFunctions.h"
 #include "FitKernel.h"
 #include "MessageService.h"
-#include "Exceptions.h"
-#include <iomanip>
 
 //! evaluate chi squared value
 double FitSuiteChiSquaredFunction::evaluate(const double *pars)

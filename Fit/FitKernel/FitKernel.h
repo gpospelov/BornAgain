@@ -21,11 +21,7 @@
 #include "FitSuiteObjects.h"
 #include "FitSuiteParameters.h"
 #include "FitSuiteStrategies.h"
-#include "ChiSquaredModule.h"
-#include "IObserver.h"
 
-#include <string>
-#include <memory>
 #include <boost/date_time/posix_time/posix_time.hpp>
 #ifndef SWIG
 #include <atomic>

@@ -16,9 +16,6 @@
 
 #include "MultiLayerItem.h"
 #include "LayerItem.h"
-#include "ScientificDoubleProperty.h"
-#include "SessionModel.h"
-#include <QDebug>
 
 const QString MultiLayerItem::P_CROSS_CORR_LENGTH = "Cross Correlation Length";
 const QString MultiLayerItem::T_LAYERS = "Layer tag";

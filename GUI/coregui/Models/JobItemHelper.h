@@ -17,7 +17,6 @@
 #ifndef JOBITEMHELPER_H
 #define JOBITEMHELPER_H
 
-#include "WinDllMacros.h"
 #include "IDetector2D.h"
 #include <QMap>
 

@@ -16,7 +16,6 @@
 #ifndef LLDATA_H
 #define LLDATA_H
 
-#include <algorithm>
 
 #include "Exceptions.h"
 #include "Numeric.h"

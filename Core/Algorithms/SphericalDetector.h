@@ -17,15 +17,7 @@
 #define SPHERICALDETECTOR_H
 
 #include "IDetector2D.h"
-#include "IDetectorResolution.h"
-#include "SafePointerVector.h"
-#include "EigenCore.h"
-#include "DetectorMask.h"
-#include "SimulationElement.h"
-#include "Beam.h"
-#include "IPixelMap.h"
 
-class AngularPixelMap;
 
 //! @class SphericalDetector
 //! @ingroup simulation

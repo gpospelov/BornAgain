@@ -17,8 +17,6 @@
 #include "JobItem.h"
 #include "ComboProperty.h"
 #include "IntensityDataItem.h"
-#include "SampleModel.h"
-#include "InstrumentModel.h"
 #include "MultiLayerItem.h"
 #include "InstrumentItem.h"
 #include "JobItemHelper.h"
@@ -26,9 +24,7 @@
 #include "GUIHelpers.h"
 #include "FitSuiteItem.h"
 #include "ParameterTreeItems.h"
-#include "FitParameterItems.h"
 #include "RealDataItem.h"
-#include <QDateTime>
 #include <QDebug>
 
 namespace {

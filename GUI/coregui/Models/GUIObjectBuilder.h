@@ -17,11 +17,8 @@
 #ifndef GUIOBJECTBUILDER_H
 #define GUIOBJECTBUILDER_H
 
-#include "ISampleVisitor.h"
 #include "Samples.h"
-#include "InterferenceFunctions.h"
 #include "MaterialProperty.h"
-#include <QMap>
 
 class InstrumentModel;
 class SampleModel;
@@ -51,7 +48,6 @@ public:
     SessionItem *populateDocumentModel(DocumentModel *documentModel,
                                                const GISASSimulation &simulation);
 
-    using ISampleVisitor::visit;
 
     void visit(const ParticleLayout *);
 

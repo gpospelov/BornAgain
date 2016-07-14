@@ -15,13 +15,8 @@
 // ************************************************************************** //
 
 #include "SessionModelDelegate.h"
-#include "SessionModel.h"
-#include "ComboProperty.h"
 #include "PropertyBrowserUtils.h"
-#include "ComboProperty.h"
-#include <QDebug>
 #include <QApplication>
-#include <QPainter>
 
 SessionModelDelegate::SessionModelDelegate(QWidget *parent)
     : QStyledItemDelegate(parent)

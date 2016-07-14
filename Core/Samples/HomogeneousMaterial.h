@@ -17,7 +17,6 @@
 #define HOMOGENEOUSMATERIAL_H
 
 #include "IMaterial.h"
-#include "Complex.h"
 
 //! @class HomogeneousMaterial
 //! @ingroup materials

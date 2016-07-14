@@ -14,14 +14,9 @@
 // ************************************************************************** //
 
 #include "MultiLayer.h"
-#include "ParticleLayout.h"
-#include "Materials.h"
 #include "InterferenceFunctionRadialParaCrystal.h"
 #include "InterferenceFunction2DParaCrystal.h"
 #include "FormFactorCylinder.h"
-#include "Units.h"
-#include "FTDistributions.h"
-#include "FunctionalTestSuite.h"
 #include "ParaCrystalBuilder.h"
 
 RadialParaCrystalBuilder::RadialParaCrystalBuilder()

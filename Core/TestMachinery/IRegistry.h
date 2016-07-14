@@ -16,11 +16,6 @@
 #ifndef IREGISTRY_H
 #define IREGISTRY_H
 
-#include "Exceptions.h"
-#include "WinDllMacros.h"
-#include <map>
-#include <sstream>
-#include <memory>
 
 //! @class IRegistry
 //! @ingroup tools_internal

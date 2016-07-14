@@ -15,11 +15,7 @@
 
 #include "RotatedPyramidsBuilder.h"
 #include "FormFactorPyramid.h"
-#include "InterferenceFunctionNone.h"
-#include "Materials.h"
 #include "MultiLayer.h"
-#include "ParticleLayout.h"
-#include "Units.h"
 
 
 RotatedPyramidsBuilder::RotatedPyramidsBuilder()

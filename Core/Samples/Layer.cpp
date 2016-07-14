@@ -13,13 +13,9 @@
 //
 // ************************************************************************** //
 
-#include "Layer.h"
-#include "BornAgainNamespace.h"
-#include "Exceptions.h"
 #include "DecoratedLayerDWBASimulation.h"
 #include "MultiLayer.h"
 
-#include <iomanip>
 
 using namespace BornAgain;
 

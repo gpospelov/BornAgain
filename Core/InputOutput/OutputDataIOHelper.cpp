@@ -13,15 +13,9 @@
 //
 // ************************************************************************** //
 
-#include <iostream>
-#include <algorithm>
-#include <boost/algorithm/string.hpp>
 
-#include "FixedBinAxis.h"
-#include "VariableBinAxis.h"
 #include "ConstKBinAxis.h"
 #include "CustomBinAxis.h"
-#include "Exceptions.h"
 #include "Utils.h"
 #include "OutputData.h"
 #include "FileSystem.h"

@@ -15,7 +15,6 @@
 // ************************************************************************** //
 
 #include "MessageContainer.h"
-#include "GUIMessage.h"
 #include "GUIHelpers.h"
 
 namespace {

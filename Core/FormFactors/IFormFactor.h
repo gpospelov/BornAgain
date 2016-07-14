@@ -17,9 +17,7 @@
 #define IFORMFACTOR_H
 
 #include "Complex.h"
-#include "Units.h"
 #include "ISample.h"
-#include "Bin.h"
 #include "EigenCore.h"
 #include "WavevectorInfo.h"
 

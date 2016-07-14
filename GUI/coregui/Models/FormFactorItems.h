@@ -19,7 +19,6 @@
 
 #include "SessionItem.h"
 
-#include <memory>
 
 class IFormFactor;
 

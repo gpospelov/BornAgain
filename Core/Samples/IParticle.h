@@ -18,7 +18,6 @@
 
 #include "ICompositeSample.h"
 #include "IMaterial.h"
-#include "Rotations.h"
 
 #include <memory>
 

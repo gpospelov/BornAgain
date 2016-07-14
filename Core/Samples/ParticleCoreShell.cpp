@@ -14,7 +14,6 @@
 // ************************************************************************** //
 
 #include "ParticleCoreShell.h"
-#include "BornAgainNamespace.h"
 #include "FormFactors.h"
 #include "Materials.h"
 

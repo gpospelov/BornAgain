@@ -15,7 +15,6 @@
 // ************************************************************************** //
 
 #include "LayerRoughnessItems.h"
-#include "ScientificDoubleProperty.h"
 
 
 LayerZeroRoughnessItem::LayerZeroRoughnessItem()

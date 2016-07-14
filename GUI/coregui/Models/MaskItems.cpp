@@ -20,7 +20,6 @@
 #include "Line.h"
 #include "Ellipse.h"
 #include "InfinitePlane.h"
-#include "Units.h"
 #include "GUIHelpers.h"
 
 

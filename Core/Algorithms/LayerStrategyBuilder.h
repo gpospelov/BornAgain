@@ -18,17 +18,13 @@
 
 #include "SimulationOptions.h"
 #include "SafePointerVector.h"
-#include "ICloneable.h"
 #include "IMaterial.h"
 
 #include <memory>
 
 class FormFactorInfo;
-class IInterferenceFunction;
 class IInterferenceFunctionStrategy;
-class Layer;
 class Simulation;
-class IFormFactor;
 class LayerSpecularInfo;
 
 

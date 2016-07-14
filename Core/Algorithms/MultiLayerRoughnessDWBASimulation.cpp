@@ -14,12 +14,9 @@
 // ************************************************************************** //
 
 #include "MultiLayerRoughnessDWBASimulation.h"
-#include "MultiLayer.h"
 #include "DWBADiffuseReflection.h"
-#include "BornAgainNamespace.h"
 #include "Faddeeva.hh"
 
-#include <memory>
 
 // Diffuse scattering from rough interfaces is modelled after
 // Phys. Rev. B, vol. 51 (4), p. 2311 (1995)

@@ -14,16 +14,9 @@
 // ************************************************************************** //
 
 #include "ROOTMinimizer.h"
-#include "Exceptions.h"
-#include "FitSuiteParameters.h"
-#include "Utils.h"
 #include "ROOTMinimizerFunction.h"
-#include <iomanip>
-#include <sstream>
 #include "ROOTMinimizerHelper.h"
-#include "MinimizerOptions.h"
 #include "Math/Minimizer.h"
-#include "Math/Functor.h"
 
 
 

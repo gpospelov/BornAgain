@@ -15,12 +15,8 @@
 // ************************************************************************** //
 
 #include "SplashScreen.h"
-#include "DesignerHelper.h"
 #include "GUIHelpers.h"
 #include <QStyleOptionProgressBarV2>
-#include <QFont>
-#include <QPainter>
-#include <QDebug>
 
 SplashScreen::SplashScreen(QWidget *parent) :
     QSplashScreen(parent),m_progress(0)

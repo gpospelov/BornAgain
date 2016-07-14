@@ -15,11 +15,9 @@
 
 #include "FormFactorRipple1.h"
 #include "BornAgainNamespace.h"
-#include "Numeric.h"
 #include "MathFunctions.h"
 #include "IntegratorComplex.h"
 
-#include <cmath>
 
 static complex_t I(0.,1.);
 

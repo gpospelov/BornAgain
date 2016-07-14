@@ -16,18 +16,9 @@
 #include "TestComponentView.h"
 #include "mainwindow.h"
 #include "SampleModel.h"
-#include "BeamItem.h"
-#include "InstrumentItem.h"
 #include "ComponentEditor.h"
-#include "item_constants.h"
-#include "MultiLayerItem.h"
-#include "SampleBuilderFactory.h"
-#include "GUIObjectBuilder.h"
-#include "InstrumentModel.h"
-#include <QItemSelectionModel>
 #include <QHBoxLayout>
 #include <QTreeView>
-#include <QDebug>
 
 TestComponentView::TestComponentView(MainWindow *mainWindow)
     : QWidget(mainWindow)

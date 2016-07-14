@@ -14,11 +14,7 @@
 // ************************************************************************** //
 
 #include "OutputDataFunctions.h"
-#include "Exceptions.h"
-#include "Numeric.h"
-#include "MathFunctions.h"
 
-#include <cmath>
 #include <fftw3.h>
 
 void toFftw3Array(complex_t *source, size_t length, fftw_complex *destination);

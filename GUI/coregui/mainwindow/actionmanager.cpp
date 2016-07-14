@@ -22,14 +22,10 @@
 #include "qstringutils.h"
 #include "UpdateNotifier.h"
 #include <QMenuBar>
-#include <QMenu>
 #include <QShortcut>
 #include <QSettings>
-#include <QFileInfo>
-#include <QKeySequence>
 #include <QDebug>
 #include <QDir>
-#include <iostream>
 
 ActionManager::ActionManager(MainWindow *parent)
     : QObject(parent)

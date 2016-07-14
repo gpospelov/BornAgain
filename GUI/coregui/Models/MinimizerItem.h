@@ -18,7 +18,6 @@
 #define MINIMIZERITEM_H
 
 #include "SessionItem.h"
-#include <memory>
 
 class IMinimizer;
 

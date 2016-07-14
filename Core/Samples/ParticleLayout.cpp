@@ -14,12 +14,7 @@
 // ************************************************************************** //
 
 #include "ParticleLayout.h"
-#include "BornAgainNamespace.h"
-#include "InterferenceFunctionNone.h"
-#include "DecouplingApproximationStrategy.h"
-#include "InterferenceFunctionRadialParaCrystal.h"
 #include "SizeSpacingCorrelationApproximationStrategy.h"
-#include "MessageService.h"
 #include "ParticleDistribution.h"
 
 #include <iomanip>

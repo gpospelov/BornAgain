@@ -13,14 +13,8 @@
 //
 // ************************************************************************** //
 
-#include "IParameterized.h"
 #include "ParameterPool.h"
-#include "Exceptions.h"
 #include "Utils.h"
-#include "MessageService.h"
-#include <boost/algorithm/string/replace.hpp>
-#include <iostream>
-#include <sstream>
 
 typedef std::map<std::string, RealParameterWrapper > parametermap_t;
 

@@ -14,10 +14,6 @@
 // ************************************************************************** //
 
 #include "IntensityDataFunctions.h"
-#include "OutputDataFunctions.h"
-#include "MathFunctions.h"
-#include "IDetectorResolution.h"
-#include "IResolutionFunction2D.h"
 #include "ConvolutionDetectorResolution.h"
 #include "IHistogram.h"
 #include <memory>

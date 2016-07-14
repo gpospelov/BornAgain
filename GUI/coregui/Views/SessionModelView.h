@@ -17,9 +17,7 @@
 #ifndef SESSIONMODELVIEW_H
 #define SESSIONMODELVIEW_H
 
-#include "WinDllMacros.h"
 #include <QWidget>
-#include <QVector>
 
 class MainWindow;
 class QToolBar;

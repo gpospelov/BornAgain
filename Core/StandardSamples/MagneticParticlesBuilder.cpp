@@ -15,11 +15,7 @@
 
 #include "MagneticParticlesBuilder.h"
 #include "MultiLayer.h"
-#include "ParticleLayout.h"
-#include "Materials.h"
 #include "FormFactorCylinder.h"
-#include "Units.h"
-#include "InterferenceFunctionNone.h"
 
 
 // ----------------------------------------------------------------------------

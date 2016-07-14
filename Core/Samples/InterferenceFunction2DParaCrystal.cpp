@@ -16,10 +16,7 @@
 #include "InterferenceFunction2DParaCrystal.h"
 #include "BornAgainNamespace.h"
 #include "IntegratorReal.h"
-#include "MathFunctions.h"
-#include "Exceptions.h"
 
-#include <functional>
 
 using namespace BornAgain;
 

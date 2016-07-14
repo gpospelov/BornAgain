@@ -15,9 +15,7 @@
 
 #include "Units.h"
 #include "Lattice.h"
-#include "Exceptions.h"
 
-#include "gsl/gsl_matrix.h"
 #include "gsl/gsl_linalg.h"
 
 Lattice::Lattice()

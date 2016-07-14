@@ -17,14 +17,11 @@
 #define SPECULARSIMULATION_H
 
 //#include "MultiLayerRTCoefficients.h"
-#include "OutputData.h"
 
 #ifndef SWIG
 #include "SpecularMatrix.h"
 #endif
-#include <vector>
 
-#include <memory>
 
 
 //! @class SpecularSimulation

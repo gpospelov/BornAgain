@@ -15,15 +15,11 @@
 // ************************************************************************** //
 
 #include "MaterialItem.h"
-#include "ColorProperty.h"
 #include "MaterialUtils.h"
 #include "RefractiveIndexItem.h"
-#include "ScientificDoubleProperty.h"
-#include "ComboProperty.h"
 #include "GUIHelpers.h"
 #include "HomogeneousMaterial.h"
 #include <QUuid>
-#include <QDebug>
 
 
 const QString MaterialItem::P_COLOR = "Color";

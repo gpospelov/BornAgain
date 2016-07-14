@@ -15,12 +15,8 @@
 // ************************************************************************** //
 
 #include "SampleModel.h"
-#include "MaterialModel.h"
-#include "MaterialItem.h"
 #include "LayerItem.h"
 #include "MultiLayerItem.h"
-#include "ParticleItem.h"
-#include <QDebug>
 
 SampleModel::SampleModel(QObject *parent)
     : SessionModel(SessionXML::SampleModelTag, parent)

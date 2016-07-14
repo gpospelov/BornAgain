@@ -15,11 +15,7 @@
 
 #include "InterferenceFunction1DLattice.h"
 #include "MultiLayer.h"
-#include "ParticleLayout.h"
-#include "Materials.h"
 #include "FormFactorCylinder.h"
-#include "Units.h"
-#include "FTDistributions.h"
 #include "LatticeBuilder.h"
 
 

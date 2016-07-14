@@ -17,7 +17,6 @@
 #define ICOMPOSITESAMPLE_H
 
 #include "ISample.h"
-#include <list>
 
 //! @class ICompositeSample
 //! @ingroup samples_internal

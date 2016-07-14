@@ -14,7 +14,6 @@
 // ************************************************************************** //
 #include "OutputData.h"
 #include "OutputDataReader.h"
-#include "OutputDataReadStrategy.h"
 #include "OutputDataIOHelper.h"
 #include "boost_streams.h"
 

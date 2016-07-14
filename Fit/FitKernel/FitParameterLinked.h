@@ -18,10 +18,6 @@
 
 #include "FitParameter.h"
 #include "ParameterPool.h"
-#include "AttLimits.h"
-#include <string>
-#include <vector>
-#include <iostream>
 
 
 //! @class FitParameterLinked

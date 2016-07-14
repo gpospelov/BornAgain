@@ -17,15 +17,10 @@
 #ifndef PROJECTDOCUMENT_H
 #define PROJECTDOCUMENT_H
 
-#include "WinDllMacros.h"
 #include <QObject>
-#include <QString>
 
 class QIODevice;
-class QModelIndex;
 class ApplicationModels;
-class SessionModel;
-class QXmlStreamReader;
 class WarningMessageService;
 
 namespace ProjectDocumentXML

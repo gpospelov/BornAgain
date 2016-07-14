@@ -18,7 +18,6 @@
 #define SPHERICALDETECTORITEM_H
 
 #include "SessionItem.h"
-#include <memory>
 
 class IDetector2D;
 class IResolutionFunction2D;

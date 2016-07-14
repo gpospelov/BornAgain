@@ -17,13 +17,10 @@
 #ifndef BEAMDISTRIBUTIONITEM_H
 #define BEAMDISTRIBUTIONITEM_H
 
-#include "SessionItem.h"
 #include "DistributionItem.h"
 
-#include <memory>
 
 class ParameterDistribution;
-class IDistribution1D;
 
 //! The BeamDistributionItem handles wavelength, inclination and azimuthal parameter
 //! distribution for BeamItem

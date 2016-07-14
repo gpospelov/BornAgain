@@ -17,13 +17,9 @@
 #ifndef GUIHELPERS_H
 #define GUIHELPERS_H
 
-#include "WinDllMacros.h"
 #include <QWidget>
-#include <QString>
-#include <exception>
 #include <memory>
 
-class QVariant;
 class JobItem;
 class RealDataItem;
 

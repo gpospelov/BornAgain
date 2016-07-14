@@ -19,22 +19,13 @@
 #include "InstrumentModel.h"
 #include "InstrumentSelectorWidget.h"
 #include "InstrumentEditorWidget.h"
-#include "InstrumentItem.h"
 #include "ExtendedDetectorDialog.h"
-#include "DetectorItems.h"
 #include "StyledToolBar.h"
-#include "minisplitter.h"
 #include <QBoxLayout>
 #include <QListView>
 #include <QStackedWidget>
-#include <QPushButton>
 #include <QToolButton>
-#include <QMenu>
-#include <QAction>
 #include <QDebug>
-#include <QComboBox>
-#include <QToolBar>
-#include <QRegExp>
 
 
 InstrumentView::InstrumentView(MainWindow *mainWindow)

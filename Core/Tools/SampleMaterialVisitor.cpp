@@ -14,10 +14,7 @@
 // ************************************************************************** //
 
 #include "SampleMaterialVisitor.h"
-#include "IMaterial.h"
 #include "Layer.h"
-#include "Particle.h"
-#include "ParticleComposition.h"
 
 
 void SampleMaterialVisitor::clear()

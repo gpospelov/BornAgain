@@ -18,12 +18,8 @@
 #define INTENSITYDATAITEM_H
 
 #include "SessionItem.h"
-#include "OutputData.h"
 #include "IDetector2D.h"
-#include <QMap>
-#include <QPair>
 
-class GISASSimulation;
 class BasicAxisItem;
 
 

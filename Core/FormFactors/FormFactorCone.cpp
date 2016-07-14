@@ -15,7 +15,6 @@
 
 #include "FormFactorCone.h"
 #include "BornAgainNamespace.h"
-#include "Numeric.h"
 #include "MathFunctions.h"
 #include "IntegratorComplex.h"
 

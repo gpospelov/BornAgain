@@ -13,35 +13,18 @@
 //
 // ************************************************************************** //
 
-#include <iostream>
-#include <fstream>
 #include <iomanip>
-#include <map>
-#include <set>
-#include <utility>
-#include "Exceptions.h"
 #include "FormFactors.h"
 #include "InterferenceFunctions.h"
-#include "IMaterial.h"
-#include "ICompositeSample.h"
-#include "Layer.h"
 #include "SampleLabelHandler.h"
-#include "LayerInterface.h"
 #include "MultiLayer.h"
-#include "Particle.h"
 #include "ParticleCoreShell.h"
 #include "ParticleDistribution.h"
-#include "ParticleLayout.h"
-#include "PyGenVisitor.h"
 #include "PyGenTools.h"
-#include "ParameterDistribution.h"
-#include "Rotations.h"
-#include "DetectorMask.h"
 #include "ConvolutionDetectorResolution.h"
 #include "ResolutionFunction2DGaussian.h"
 #include "RectangularDetector.h"
 #include "SphericalDetector.h"
-#include "SimulationOptions.h"
 
 PyGenVisitor::PyGenVisitor() : m_label(new SampleLabelHandler())
 {

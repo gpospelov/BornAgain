@@ -16,7 +16,6 @@
 #include "Distributions.h"
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
-#include "Exceptions.h"
 
 using namespace BornAgain;
 

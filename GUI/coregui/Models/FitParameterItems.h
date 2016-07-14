@@ -18,7 +18,6 @@
 
 #include "SessionItem.h"
 
-class AttLimits;
 
 //! FitParameterItems is a collection of items to define fit parameters in GUI.
 

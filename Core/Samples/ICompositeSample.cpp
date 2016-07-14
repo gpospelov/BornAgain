@@ -13,14 +13,9 @@
 //
 // ************************************************************************** //
 
-#include "ICompositeSample.h"
 #include "SampleTreeIterator.h"
-#include "MessageService.h"
-#include "Exceptions.h"
 #include "Utils.h"
 
-#include <algorithm>
-#include <sstream>
 
 
 //! Registers child in the container

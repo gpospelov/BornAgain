@@ -14,27 +14,16 @@
 // ************************************************************************** //
 
 #include "Utils.h"
-#include "Exceptions.h"
 
-#include <iostream>
-#include <iomanip>
 #include <boost/regex.hpp>
-#include <boost/algorithm/string/replace.hpp>
 #include <boost/algorithm/string.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
-#include <boost/date_time/local_time_adjustor.hpp>
-#include <boost/date_time/c_local_time_adjustor.hpp>
-#include <string>
 #include <thread>
-#include <locale>
 
-#include "Macros.h"
 
 
 #ifdef DEBUG_FPE
-#include <fenv.h>
 #ifdef Q_OS_MAC
-#include "fp_exception_glibc_extension.h"
 #endif
 #endif
 
@@ -128,7 +117,6 @@ std::string Utils::System::getCurrentDateAndTime()
 {
     using boost::posix_time::ptime;
     using boost::posix_time::second_clock;
-    using boost::posix_time::to_simple_string;
     using boost::gregorian::day_clock;
 
     ptime todayUtc(day_clock::universal_day(), second_clock::universal_time().time_of_day());

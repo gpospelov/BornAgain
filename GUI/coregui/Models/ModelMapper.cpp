@@ -14,12 +14,9 @@
 //
 // ************************************************************************** //
 
-#include "ModelMapper.h"
 #include "SessionModel.h"
-#include "SessionItem.h"
 #include <QDebug>
 
-#include <QModelIndex>
 
 ModelMapper::ModelMapper(QObject *parent)
     : QObject(parent)

@@ -15,45 +15,33 @@
 // ************************************************************************** //
 
 #include "TransformToDomain.h"
-#include "MaterialUtils.h"
 #include "GUIHelpers.h"
-#include "FormFactorItems.h"
 #include "InterferenceFunctionItems.h"
 #include "ParticleItem.h"
 #include "LayerItem.h"
 #include "BeamItem.h"
 #include "ComboProperty.h"
 #include "DetectorItems.h"
-#include "AxesItems.h"
 #include "MultiLayerItem.h"
 #include "LatticeTypeItems.h"
 #include "FTDistributionItems.h"
 #include "ParticleCoreShellItem.h"
-#include "ParticleCoreShell.h"
 #include "ParticleCompositionItem.h"
 #include "LayerRoughnessItems.h"
 #include "TransformationItem.h"
 #include "VectorItem.h"
 #include "RotationItems.h"
 #include "MaterialUtils.h"
-#include "MaterialProperty.h"
-#include "AngleProperty.h"
-#include "FixedBinAxis.h"
-#include "ConstKBinAxis.h"
 #include "ParticleLayoutItem.h"
-#include "DistributionItem.h"
 #include "Distributions.h"
 #include "BeamWavelengthItem.h"
 #include "BeamAngleItems.h"
-#include "ResolutionFunctionItems.h"
 #include "MaskItems.h"
-#include "BornAgainNamespace.h"
 #include "ParticleDistributionItem.h"
 #include "FTDecayFunctionItems.h"
 #include "SimulationOptionsItem.h"
 
 
-#include <QDebug>
 
 using namespace BornAgain;
 

@@ -15,7 +15,6 @@
 // ************************************************************************** //
 
 #include "BeamDistributionItem.h"
-#include "DistributionItem.h"
 #include "Distributions.h"
 #include "ParameterDistribution.h"
 #include "Units.h"

@@ -16,11 +16,8 @@
 #ifndef SPECULARMAGNETIC_H
 #define SPECULARMAGNETIC_H
 
-#include "Complex.h"
-#include "ISimulation.h"
 #include "MultiLayer.h"
 #include "MatrixRTCoefficients.h"
-#include "EigenCore.h"
 
 
 //! @class SpecularMagnetic

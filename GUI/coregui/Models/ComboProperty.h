@@ -17,9 +17,6 @@
 #ifndef COMBOPROPERTY_H
 #define COMBOPROPERTY_H
 
-#include "WinDllMacros.h"
-#include <QStringList>
-#include <QMetaType>
 #include <QVariant>
 
 //! The ComboProperty defines SessionItem's property with a value

@@ -15,7 +15,6 @@
 // ************************************************************************** //
 
 #include "LatticeTypeItems.h"
-#include "Units.h"
 
 const QString BasicLatticeTypeItem::P_LATTICE_LENGTH1 = "Lattice_length_1";
 const QString BasicLatticeTypeItem::P_LATTICE_LENGTH2 = "Lattice_length_2";

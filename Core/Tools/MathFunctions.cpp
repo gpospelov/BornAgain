@@ -15,16 +15,12 @@
 
 #include "MathFunctions.h"
 
-#include <cmath>
-#include <cassert>
 #include <cstring>
-#include <stdexcept>
 #include <fftw3.h>
 #include <gsl/gsl_sf_erf.h>
 #include "gsl/gsl_sf_bessel.h"
 #include "gsl/gsl_sf_trig.h"
 #include "gsl/gsl_sf_expint.h"
-#include "gsl/gsl_integration.h"
 #include <random>
 #include <chrono>
 

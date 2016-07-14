@@ -16,11 +16,8 @@
 #ifndef OUTPUTDATAWRITEFACTORY_H
 #define OUTPUTDATAWRITEFACTORY_H
 
-#include <string>
-#include "WinDllMacros.h"
 #include "OutputDataWriter.h"
 
-class IOutputDataWriteStrategy;
 
 //! @class OutputDataWriteFactory
 //! @ingroup input_output_internal

@@ -18,8 +18,6 @@
 
 #include "ISampleBuilder.h"
 
-class ParticleComposition;
-class HomogeneousMaterial;
 
 //! @class BoxCompositionBuilder
 //! @ingroup standard_samples

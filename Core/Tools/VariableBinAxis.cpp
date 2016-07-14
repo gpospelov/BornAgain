@@ -14,9 +14,6 @@
 // ************************************************************************** //
 
 #include "VariableBinAxis.h"
-#include "Exceptions.h"
-#include <iostream>
-#include <algorithm>
 #include <iomanip>
 
 

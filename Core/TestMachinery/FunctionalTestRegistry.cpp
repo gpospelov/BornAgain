@@ -14,9 +14,7 @@
 // ************************************************************************** //
 
 #include "FunctionalTestRegistry.h"
-#include "Exceptions.h"
 #include "Utils.h"
-#include <iostream>
 
 FunctionalTestRegistry::FunctionalTestRegistry()
 {

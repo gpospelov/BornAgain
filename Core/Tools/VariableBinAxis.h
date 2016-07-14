@@ -18,7 +18,6 @@
 
 #include "IAxis.h"
 
-using std::size_t;
 
 //! @class VariableBinAxis
 //! @ingroup tools

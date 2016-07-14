@@ -17,12 +17,9 @@
 #ifndef GUIEXAMPLESFACTORY_H
 #define GUIEXAMPLESFACTORY_H
 
-#include "WinDllMacros.h"
 #include <QMap>
-#include <QString>
 
 class SessionItem;
-class InstrumentModel;
 class SampleModel;
 
 //! Class that generates GUI model from

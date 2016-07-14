@@ -17,7 +17,6 @@
 #ifndef SESSIONMODELASSISTANT_H
 #define SESSIONMODELASSISTANT_H
 
-#include <QString>
 #include <QMap>
 
 class SessionItem;

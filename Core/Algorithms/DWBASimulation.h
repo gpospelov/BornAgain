@@ -16,14 +16,9 @@
 #ifndef DWBASIMULATION_H
 #define DWBASIMULATION_H
 
-#include "Complex.h"
 #include "ISimulation.h"
 #include "GISASSimulation.h"
-#include "OutputData.h"
-#include "ThreadInfo.h"
-#include "EigenCore.h"
 #include "ProgressHandlerDWBA.h"
-#include "SimulationElement.h"
 
 //! @class DWBASimulation
 //! @ingroup algorithms_internal

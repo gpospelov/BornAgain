@@ -16,11 +16,8 @@
 #ifndef REALPARAMETERWRAPPER_H
 #define REALPARAMETERWRAPPER_H
 
-#include "WinDllMacros.h"
-#include "Exceptions.h"
 #include "AttLimits.h"
 
-#include <ostream>
 
 class IParameterized;
 

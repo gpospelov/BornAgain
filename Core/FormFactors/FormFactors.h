@@ -18,13 +18,6 @@
 
 #include "FormFactorCrystal.h"
 #include "FormFactorDecoratorDebyeWaller.h"
-#include "FormFactorDecoratorFactor.h"
-#include "FormFactorDecoratorMultiPositionFactor.h"
-#include "FormFactorDecoratorPositionFactor.h"
-#include "FormFactorDecoratorMaterial.h"
-#include "FormFactorDecoratorRotation.h"
-#include "FormFactorDWBA.h"
-#include "FormFactorDWBAPol.h"
 #include "FormFactorWeighted.h"
 #include "ParticleShapes.h"
 

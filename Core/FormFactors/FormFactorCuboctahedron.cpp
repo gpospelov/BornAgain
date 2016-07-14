@@ -15,7 +15,6 @@
 
 #include "FormFactorCuboctahedron.h"
 #include "BornAgainNamespace.h"
-#include "FormFactorPyramid.h"
 #include "MathFunctions.h"
 
 const PolyhedralTopology FormFactorCuboctahedron::topology = {

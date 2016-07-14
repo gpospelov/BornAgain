@@ -17,7 +17,6 @@
 #define OUTPUTDATAREADSTRATEGY_H
 
 #include <string>
-#include "WinDllMacros.h"
 
 template <class T> class OutputData;
 

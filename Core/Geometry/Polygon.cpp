@@ -19,9 +19,7 @@
 GCC_DIAG_OFF(unused-parameter)
 #include <boost/geometry.hpp>
 #include <boost/geometry/geometries/point_xy.hpp>
-#include <boost/geometry/geometries/polygon.hpp>
 GCC_DIAG_ON(unused-parameter)
-#include <iostream>
 
 using namespace boost::geometry;
 

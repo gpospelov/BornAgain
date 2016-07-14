@@ -16,7 +16,6 @@
 #ifndef ISAMPLEBUILDER_H
 #define ISAMPLEBUILDER_H
 
-#include "IParameterized.h"
 #include "FTDistributions.h"
 #include "IFormFactor.h"
 

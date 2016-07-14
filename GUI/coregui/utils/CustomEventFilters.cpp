@@ -15,8 +15,6 @@
 // ************************************************************************** //
 
 #include "CustomEventFilters.h"
-#include <QEvent>
-#include <QSpinBox>
 #include <QComboBox>
 #include <QKeyEvent>
 

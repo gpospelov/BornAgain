@@ -14,8 +14,6 @@
 // ************************************************************************** //
 
 #include "IIntensityNormalizer.h"
-#include <algorithm>
-#include <iostream>
 
 void IntensityNormalizer::init_parameters()
 {

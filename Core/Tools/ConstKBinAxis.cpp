@@ -14,9 +14,7 @@
 // ************************************************************************** //
 
 #include "ConstKBinAxis.h"
-#include "Exceptions.h"
 #include <iomanip>
-#include <iostream>
 
 ConstKBinAxis::ConstKBinAxis(const std::string &name, size_t nbins)
     : VariableBinAxis(name, nbins)

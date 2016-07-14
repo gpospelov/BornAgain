@@ -15,7 +15,6 @@
 
 #include "Convolve.h"
 #include <iostream>
-#include <stdexcept>
 #include <sstream>
 #include "Exceptions.h"
 

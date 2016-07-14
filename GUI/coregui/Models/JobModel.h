@@ -19,9 +19,6 @@
 #include "SessionModel.h"
 class JobQueueData;
 class JobItem;
-class SampleModel;
-class InstrumentModel;
-class QItemSelection;
 class MultiLayerItem;
 class InstrumentItem;
 class RealDataItem;

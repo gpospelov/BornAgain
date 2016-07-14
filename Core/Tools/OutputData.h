@@ -27,11 +27,7 @@ typedef _object PyObject;
 #include "LLData.h"
 #include "OutputDataIterator.h"
 #include "SafePointerVector.h"
-#include "ThreadInfo.h"
-#include <sstream>
-#include <cassert>
 
-using std::size_t;
 
 //! @class OutputData
 //! @ingroup tools

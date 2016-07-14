@@ -13,16 +13,11 @@
 //
 // ************************************************************************** //
 
-#include <memory>
 #include "FormFactorCylinder.h"
 #include "FormFactorDecoratorDebyeWaller.h"
 #include "MultiLayer.h"
-#include "InterferenceFunctions.h"
 #include "Crystal.h"
 #include "MesoCrystal.h"
-#include "ParticleLayout.h"
-#include "Units.h"
-#include "Materials.h"
 #include "FormFactorSphereGaussianRadius.h"
 #include "MesoCrystalBuilder.h"
 

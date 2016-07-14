@@ -15,9 +15,7 @@
 
 #ifndef MINIMIZEROPTIONS_H
 #define MINIMIZEROPTIONS_H
-#include "WinDllMacros.h"
 #include "Exceptions.h"
-#include <string>
 #include <map>
 #include <iostream>
 #include <iomanip>

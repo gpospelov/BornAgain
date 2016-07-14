@@ -15,8 +15,6 @@
 
 #include "FormFactorTruncatedCube.h"
 #include "BornAgainNamespace.h"
-#include "FormFactorBox.h"
-#include "MathFunctions.h"
 
 const PolyhedralTopology FormFactorTruncatedCube::topology = {
     {

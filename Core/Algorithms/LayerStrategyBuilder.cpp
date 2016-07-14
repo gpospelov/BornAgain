@@ -14,14 +14,11 @@
 //
 // ************************************************************************** //
 
-#include "LayerStrategyBuilder.h"
 #include "Layer.h"
-#include "Simulation.h"
 #include "InterferenceFunctions.h"
 #include "InterferenceFunctionStrategies.h"
 #include "FormFactorTools.h"
 
-#include <memory>
 
 LayerStrategyBuilder::LayerStrategyBuilder(const Layer &decorated_layer,
                                            const Simulation &simulation,

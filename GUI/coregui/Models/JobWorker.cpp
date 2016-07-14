@@ -16,11 +16,7 @@
 
 #include "JobWorker.h"
 #include "GISASSimulation.h"
-#include "ProgressHandler.h"
-#include "ThreadInfo.h"
 #include "item_constants.h"
-#include <functional>
-#include <QTimer>
 #include <QDateTime>
 #include <QDebug>
 

@@ -14,7 +14,6 @@
 // ************************************************************************** //
 
 #include "MinimizerScan.h"
-#include <algorithm>
 
 //! Scan minimizer find minimum of chi2 function by equidistant scanning of fit parameters.
 // Only parameters with defined limits (i.e. AttLimits::limited(left, right) )

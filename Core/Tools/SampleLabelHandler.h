@@ -16,9 +16,7 @@
 #ifndef SAMPLELABELHANDLER_H
 #define SAMPLELABELHANDLER_H
 
-#include "WinDllMacros.h"
 #include "Utils.h"
-#include <map>
 
 class IFormFactor;
 class IInterferenceFunction;

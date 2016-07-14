@@ -15,7 +15,6 @@
 
 #include "MinimizerTests.h"
 #include "FitSuite.h"
-#include "FitKernel.h"
 #include "MinimizerFactory.h"
 
 Minuit2MigradTest::Minuit2MigradTest()

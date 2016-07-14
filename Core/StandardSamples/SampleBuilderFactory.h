@@ -16,7 +16,6 @@
 #ifndef SAMPLEBUILDERFACTORY_H
 #define SAMPLEBUILDERFACTORY_H
 
-#include <memory>
 #include "IFactory.h"
 #include "ISampleBuilder.h"
 

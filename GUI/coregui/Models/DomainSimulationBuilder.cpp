@@ -15,12 +15,7 @@
 // ************************************************************************** //
 
 #include "DomainSimulationBuilder.h"
-#include "SampleModel.h"
-#include "DocumentModel.h"
-#include "InstrumentModel.h"
-#include "Instrument.h"
 #include "InstrumentItem.h"
-#include "MultiLayer.h"
 #include "MultiLayerItem.h"
 #include "BeamItem.h"
 #include "DetectorItems.h"
@@ -28,8 +23,6 @@
 #include "TransformToDomain.h"
 #include "SimulationOptionsItem.h"
 #include "GUIHelpers.h"
-#include <QDebug>
-#include <memory>
 
 
 //! Creates domain simulation from sample and instrument items.

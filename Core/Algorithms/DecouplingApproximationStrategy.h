@@ -16,7 +16,6 @@
 #ifndef DECOUPLINGAPPROXIMATIONSTRATEGY_H
 #define DECOUPLINGAPPROXIMATIONSTRATEGY_H
 
-#include "Complex.h"
 #include "IInterferenceFunctionStrategy.h"
 
 //! @class DecouplingApproximationStrategy

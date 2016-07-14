@@ -24,7 +24,6 @@
 #include "FormFactorCylinder.h"
 #include "FormFactorDodecahedron.h"
 #include "FormFactorEllipsoidalCylinder.h"
-#include "FormFactorFullSphere.h"
 #include "FormFactorFullSpheroid.h"
 #include "FormFactorGauss.h"
 #include "FormFactorHemiEllipsoid.h"

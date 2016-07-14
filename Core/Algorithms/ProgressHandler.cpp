@@ -13,13 +13,7 @@
 //
 // ************************************************************************** //
 
-#include "ProgressHandler.h"
-#include "Exceptions.h"
-#include "Simulation.h"
-#include "Instrument.h"
-#include "IDetector2D.h"
 #include "MultiLayer.h"
-#include "LayerInterface.h"
 #include <mutex>
 
 

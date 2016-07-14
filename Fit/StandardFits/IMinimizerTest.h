@@ -18,10 +18,8 @@
 
 #include "IFunctionalTest.h"
 #include "OutputData.h"
-#include <vector>
 #include <memory>
 
-class IMinimizer;
 class FitSuite;
 class ISample;
 class GISASSimulation;

@@ -17,7 +17,6 @@
 #include "FitKernel.h"
 #include "FitSuitePrintObserver.h"
 #include "MinimizerFactory.h"
-#include "IHistogram.h"
 
 FitSuite::FitSuite()
     : m_kernel(new FitKernel(this))

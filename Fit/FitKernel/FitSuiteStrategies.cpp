@@ -13,10 +13,7 @@
 //
 // ************************************************************************** //
 
-#include "FitSuiteStrategies.h"
 #include "FitKernel.h"
-#include "MessageService.h"
-#include <cassert>
 
 FitSuiteStrategies::FitSuiteStrategies()
     : m_kernel(nullptr), m_current_strategy_index(0)

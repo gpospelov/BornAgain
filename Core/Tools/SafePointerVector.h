@@ -19,7 +19,6 @@
 #include <vector>
 #include <algorithm>
 
-using std::size_t;
 
 //! @class SafePointerVector
 //! @ingroup tools_internal

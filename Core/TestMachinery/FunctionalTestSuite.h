@@ -16,12 +16,7 @@
 #ifndef FUNCTIONALTESTSUITE_H
 #define FUNCTIONALTESTSUITE_H
 
-#include <vector>
-#include <string>
-#include <memory>
 
-#include "WinDllMacros.h"
-#include "OutputData.h"
 #include "ISampleBuilder.h"
 
 //! @class FunctionalTestSuite

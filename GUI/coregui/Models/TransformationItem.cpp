@@ -15,9 +15,6 @@
 // ************************************************************************** //
 
 #include "TransformationItem.h"
-#include "ParticleItem.h"
-#include "GUIHelpers.h"
-#include <QDebug>
 
 const QString TransformationItem::P_ROT = "Rotation type";
 

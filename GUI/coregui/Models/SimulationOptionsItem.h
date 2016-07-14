@@ -18,7 +18,6 @@
 #define SIMULATIONOPTIONSITEM_H
 
 #include "SessionItem.h"
-#include <QStringList>
 
 //! The SimulationOptionsItem class holds simulation status (run policy, number of threads,
 //! integration flag). Used in SimulationView to define job settings. When job is started,

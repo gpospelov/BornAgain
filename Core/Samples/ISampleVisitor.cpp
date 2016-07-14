@@ -13,9 +13,6 @@
 //
 // ************************************************************************** //
 
-#include "ISampleVisitor.h"
-#include "ISample.h"
-#include "ICompositeSample.h"
 #include "SampleTreeIterator.h"
 #include "ISampleIteratorStrategy.h"
 

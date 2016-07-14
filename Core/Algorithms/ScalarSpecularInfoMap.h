@@ -19,7 +19,6 @@
 #include "ISpecularInfoMap.h"
 #include "ScalarRTCoefficients.h"
 #include "MultiLayer.h"
-#include "Utils.h"
 
 
 //! @class ScalarSpecularInfoMap

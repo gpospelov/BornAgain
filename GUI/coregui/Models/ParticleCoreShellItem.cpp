@@ -16,11 +16,9 @@
 
 #include "ParticleCoreShellItem.h"
 #include "ParticleItem.h"
-#include "VectorItem.h"
 #include "TransformToDomain.h"
 #include "GUIHelpers.h"
 #include "ModelPath.h"
-#include <QDebug>
 
 const QString ParticleCoreShellItem::T_CORE = "Core Tag";
 const QString ParticleCoreShellItem::T_SHELL = "Shell Tag";

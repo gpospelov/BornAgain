@@ -18,7 +18,6 @@
 #include "Units.h"
 #include "BornAgainNamespace.h"
 
-#include <QDebug>
 
 const QString InterferenceFunctionRadialParaCrystalItem::P_PEAK_DISTANCE =
         QString::fromStdString(BornAgain::PeakDistance);

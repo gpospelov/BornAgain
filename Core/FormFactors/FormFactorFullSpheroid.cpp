@@ -16,7 +16,6 @@
 #include "FormFactorFullSpheroid.h"
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
-#include "Numeric.h"
 #include "IntegratorComplex.h"
 
 using namespace  BornAgain;

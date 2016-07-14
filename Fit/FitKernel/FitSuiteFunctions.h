@@ -17,9 +17,7 @@
 #ifndef FITSUITEFUNCTIONS_H
 #define FITSUITEFUNCTIONS_H
 
-#include "WinDllMacros.h"
 #include <vector>
-#include <cstddef>
 using std::size_t;
 
 class FitKernel;

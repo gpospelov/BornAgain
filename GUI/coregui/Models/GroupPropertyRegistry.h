@@ -17,14 +17,10 @@
 #ifndef GROUPPROPERTYREGISTRY_H
 #define GROUPPROPERTYREGISTRY_H
 
-#include "WinDllMacros.h"
 #include "item_constants.h"
 #include "GroupProperty.h"
 
-#include <map>
-#include <QString>
 
-class SessionItem;
 
 //! The GroupPropertyRegistry is responsible for constructing GroupProperty objects
 //! according to the given name of the group.

@@ -16,8 +16,6 @@
 #ifndef NUMERIC_H
 #define NUMERIC_H
 
-#include "WinDllMacros.h"
-#include <limits>
 #include <cmath>
 #include <algorithm>
 

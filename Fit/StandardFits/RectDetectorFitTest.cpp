@@ -17,9 +17,7 @@
 #include "GISASSimulation.h"
 #include "RectangularDetector.h"
 #include "Rectangle.h"
-#include "Units.h"
 #include "Histogram2D.h"
-#include <memory>
 
 RectDetectorFitTest::RectDetectorFitTest()
     : IMinimizerTest("Minuit2", "Migrad")

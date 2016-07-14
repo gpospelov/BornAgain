@@ -16,7 +16,6 @@
 #include "FormFactorTetrahedron.h"
 #include "MathFunctions.h"
 #include "BornAgainNamespace.h"
-#include "IntegratorComplex.h"
 
 const PolyhedralTopology FormFactorTetrahedron::topology = {
     {

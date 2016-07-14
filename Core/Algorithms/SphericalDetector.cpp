@@ -15,15 +15,8 @@
 
 #include "Units.h"
 #include "SphericalDetector.h"
-#include "MessageService.h"
 #include "BornAgainNamespace.h"
-#include "FixedBinAxis.h"
-#include "ConstKBinAxis.h"
-#include "CustomBinAxis.h"
-#include "Beam.h"
-#include "Rectangle.h"
 
-#include <iostream>
 
 SphericalDetector::SphericalDetector()
 {

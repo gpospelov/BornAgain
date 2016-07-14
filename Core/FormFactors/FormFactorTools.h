@@ -18,7 +18,6 @@
 
 #include "IFormFactor.h"
 
-class LayerSpecularInfo;
 
 namespace FormFactorTools {
 

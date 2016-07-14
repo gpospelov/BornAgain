@@ -17,7 +17,6 @@
 #define ISAMPLEITERATORSTRATEGY_H
 
 #include "ISample.h"
-#include <list>
 
 
 class IteratorMemento;

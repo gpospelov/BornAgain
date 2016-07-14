@@ -16,9 +16,7 @@
 #ifndef LAYERSPECULARINFO_H
 #define LAYERSPECULARINFO_H
 
-#include "Utils.h"
 #include "ICloneable.h"
-#include "ILayerRTCoefficients.h"
 #include "ISpecularInfoMap.h"
 
 #include <memory>

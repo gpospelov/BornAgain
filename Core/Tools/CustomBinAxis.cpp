@@ -14,7 +14,6 @@
 // ************************************************************************** //
 
 #include "CustomBinAxis.h"
-#include "Units.h"
 #include <iomanip>
 
 CustomBinAxis::CustomBinAxis(const std::string &name, size_t nbins, double start, double end)

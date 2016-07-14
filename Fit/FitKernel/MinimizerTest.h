@@ -18,7 +18,6 @@
 
 #include "IMinimizer.h"
 #include "FitSuiteParameters.h"
-#include <map>
 
 
 //! @class MinimizerTest

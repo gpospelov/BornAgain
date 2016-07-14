@@ -17,7 +17,6 @@
 #ifndef BEAMWAVELENGTHITEM_H
 #define BEAMWAVELENGTHITEM_H
 
-#include "WinDllMacros.h"
 #include "BeamDistributionItem.h"
 
 class BA_CORE_API_ BeamWavelengthItem : public BeamDistributionItem

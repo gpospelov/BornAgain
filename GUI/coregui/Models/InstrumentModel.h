@@ -18,7 +18,6 @@
 #define INSTRUMENTMODEL_H
 
 #include "SessionModel.h"
-#include <QStringList>
 
 class InstrumentItem;
 

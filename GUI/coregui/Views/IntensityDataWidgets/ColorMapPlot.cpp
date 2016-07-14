@@ -69,6 +69,12 @@ void ColorMapPlot::setItem(IntensityDataItem *item)
     if(!m_item)
         return;
 
+    // FIXME. ColorMapPlot should be functional, even if OutputData is zero
+    if(m_item->getOutputData() == nullptr) {
+        m_item = 0;
+        return;
+    }
+
     setColorMapFromItem(m_item);
 
     m_item->mapper()->setOnPropertyChange(

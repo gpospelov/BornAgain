@@ -18,11 +18,6 @@
 
 #include "Numeric.h"
 #include "Vectors3D.h"
-
-//! @class Bin1D
-//! @ingroup tools_internal
-//! @brief One dimensional bin with left and right bounds.
-
 #include <iostream>
 
 struct BA_CORE_API_ Bin1D

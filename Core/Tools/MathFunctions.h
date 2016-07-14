@@ -19,7 +19,6 @@
 #include "Complex.h"
 #include "Units.h"
 #include "Numeric.h"
-
 #include <vector>
 
 //! Various mathematical functions.

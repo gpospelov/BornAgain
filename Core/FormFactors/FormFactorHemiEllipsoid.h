@@ -17,7 +17,6 @@
 #define FORMFACTORHEMIELLIPSOID_H
 
 #include "IFormFactorBorn.h"
-
 #include <memory>
 
 // Forward declaration to prevent IntegratorComplex.h to be parsed for Python API:

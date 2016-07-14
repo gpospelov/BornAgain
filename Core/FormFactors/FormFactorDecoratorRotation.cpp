@@ -15,7 +15,6 @@
 
 #include "FormFactorDecoratorRotation.h"
 #include "BornAgainNamespace.h"
-
 #include <memory>
 
 FormFactorDecoratorRotation::FormFactorDecoratorRotation(

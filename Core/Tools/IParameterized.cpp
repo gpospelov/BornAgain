@@ -14,7 +14,6 @@
 // ************************************************************************** //
 
 #include "IParameterized.h"
-
 #include <sstream>
 #include <memory>
 

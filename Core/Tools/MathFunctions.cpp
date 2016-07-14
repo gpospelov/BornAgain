@@ -14,7 +14,6 @@
 // ************************************************************************** //
 
 #include "MathFunctions.h"
-
 #include <cstring>
 #include <fftw3.h>
 #include <gsl/gsl_sf_erf.h>

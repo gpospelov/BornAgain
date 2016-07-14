@@ -18,7 +18,6 @@
 
 #include "ParameterSample.h"
 #include "IParameterized.h"
-
 #include <memory>
 
 class IDistribution1D;

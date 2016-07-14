@@ -18,11 +18,9 @@
 //! "Form factor (Fourier shape transform) of polygon and polyhedron."
 
 #include <iomanip>
-
 #include "Precomputed.h"
 #include "MathFunctions.h"
 #include "BornAgainNamespace.h"
-
 #include "FormFactorPolyhedron.h"
 
 static const complex_t I(0.,1.);

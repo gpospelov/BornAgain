@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#include "SampleTreeIterator.h"
 #include "ISampleIteratorStrategy.h"
+#include "SampleTreeIterator.h"
 
 void VisitSampleTreePreorder(const ISample& sample, ISampleVisitor& visitor)
 {

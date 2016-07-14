@@ -13,9 +13,9 @@
 //
 // ************************************************************************** //
 
-#include "ParticleCoreShell.h"
 #include "FormFactors.h"
 #include "Materials.h"
+#include "ParticleCoreShell.h"
 
 
 ParticleCoreShell::ParticleCoreShell(const Particle& shell,

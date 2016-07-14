@@ -14,9 +14,9 @@
 // ************************************************************************** //
 
 #include <iomanip>
-#include "ParticleLayout.h"
-#include "SizeSpacingCorrelationApproximationStrategy.h"
 #include "ParticleDistribution.h"
+#include "SizeSpacingCorrelationApproximationStrategy.h"
+#include "ParticleLayout.h"
 
 
 ParticleLayout::ParticleLayout()

@@ -17,8 +17,8 @@
 #define OUTPUTDATAFUNCTIONS_H
 
 #include "Complex.h"
-#include "OutputData.h"
 #include "IIntensityFunction.h"
+#include "OutputData.h"
 
 //! Collection of functions to deal with OutputData
 

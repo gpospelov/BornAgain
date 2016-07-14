@@ -13,10 +13,10 @@
 //
 // ************************************************************************** //
 
-#include "CoreShellParticleBuilder.h"
-#include "MultiLayer.h"
 #include "FormFactorBox.h"
+#include "MultiLayer.h"
 #include "ParticleCoreShell.h"
+#include "CoreShellParticleBuilder.h"
 
 // --- CoreShellParticleBuilder ---
 

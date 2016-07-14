@@ -17,8 +17,8 @@
 #define CRYSTAL_H
 
 #include "IClusteredParticles.h"
-#include "Particle.h"
 #include "Lattice.h"
+#include "Particle.h"
 #include "ParticleComposition.h"
 
 

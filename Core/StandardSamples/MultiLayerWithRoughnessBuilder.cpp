@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#include "MultiLayerWithRoughnessBuilder.h"
 #include "MultiLayer.h"
+#include "MultiLayerWithRoughnessBuilder.h"
 
 MultiLayerWithRoughnessBuilder::MultiLayerWithRoughnessBuilder()
     : m_thicknessA(2.5*Units::nanometer)

@@ -13,10 +13,10 @@
 //
 // ************************************************************************** //
 
-#include "BoxCompositionBuilder.h"
-#include "ParticleComposition.h"
-#include "MultiLayer.h"
 #include "FormFactorBox.h"
+#include "MultiLayer.h"
+#include "ParticleComposition.h"
+#include "BoxCompositionBuilder.h"
 
 
 BoxCompositionBuilder::BoxCompositionBuilder()

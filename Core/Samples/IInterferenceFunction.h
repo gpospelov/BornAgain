@@ -16,8 +16,8 @@
 #ifndef IINTERFERENCEFUNCTION_H
 #define IINTERFERENCEFUNCTION_H
 
-#include "Vectors3D.h"
 #include "ISample.h"
+#include "Vectors3D.h"
 
 //! @class IInterferenceFunction
 //! @ingroup interference_internal

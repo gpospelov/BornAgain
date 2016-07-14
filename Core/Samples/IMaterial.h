@@ -16,8 +16,8 @@
 #ifndef IMATERIAL_H
 #define IMATERIAL_H
 
-#include "Vectors3D.h"
 #include "Rotations.h"
+#include "Vectors3D.h"
 
 //! @class IMaterial
 //! @ingroup materials_internal

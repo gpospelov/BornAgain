@@ -13,9 +13,9 @@
 //
 // ************************************************************************** //
 
-#include "MesoCrystal.h"
 #include "FormFactorDecoratorPositionFactor.h"
 #include "FormFactorDecoratorRotation.h"
+#include "MesoCrystal.h"
 
 MesoCrystal::MesoCrystal(IClusteredParticles *p_particle_structure, IFormFactor *p_form_factor)
     : mp_particle_structure(p_particle_structure), mp_meso_form_factor(p_form_factor)

@@ -13,11 +13,9 @@
 //
 // ************************************************************************** //
 
-#include "FormFactorRipple1.h"
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
-#include "IntegratorComplex.h"
-
+#include "FormFactorRipple1.h"
 
 static complex_t I(0.,1.);
 
@@ -96,7 +94,7 @@ complex_t FormFactorRipple1::evaluate_for_q(const cvector_t q) const
             return factor*Units::PID4*m_height;
         return factor*Units::PID2*m_height*MathFunctions::sinc(q.y()*m_width*0.5)/(1.0-aaa2);
     }
-    
+
     // numerical integration otherwise
     m_ay = q.y() * m_width / Units::PI2;
     m_az = I * q.z() * (m_height/2);

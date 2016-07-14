@@ -13,12 +13,12 @@
 //
 // ************************************************************************** //
 
-#include "SizeDistributionModelsBuilder.h"
-#include "MultiLayer.h"
-#include "InterferenceFunctionRadialParaCrystal.h"
-#include "FormFactorCylinder.h"
 #include "Distributions.h"
+#include "FormFactorCylinder.h"
+#include "InterferenceFunctionRadialParaCrystal.h"
+#include "MultiLayer.h"
 #include "ParticleDistribution.h"
+#include "SizeDistributionModelsBuilder.h"
 
 using namespace BornAgain;
 

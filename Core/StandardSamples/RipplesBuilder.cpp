@@ -13,11 +13,11 @@
 //
 // ************************************************************************** //
 
-#include "RipplesBuilder.h"
-#include "MultiLayer.h"
 #include "FormFactorRipple1.h"
 #include "FormFactorRipple2.h"
 #include "InterferenceFunctionRadialParaCrystal.h"
+#include "MultiLayer.h"
+#include "RipplesBuilder.h"
 
 CosineRippleBuilder::CosineRippleBuilder()
     : m_w(20.0*Units::nanometer)

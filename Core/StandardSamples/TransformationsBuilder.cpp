@@ -13,9 +13,9 @@
 //
 // ************************************************************************** //
 
-#include "TransformationsBuilder.h"
 #include "FormFactorBox.h"
 #include "MultiLayer.h"
+#include "TransformationsBuilder.h"
 
 
 ISample *TransformBoxBuilder::buildSample() const

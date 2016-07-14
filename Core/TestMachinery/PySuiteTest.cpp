@@ -14,12 +14,12 @@
 // ************************************************************************** //
 
 #include <fstream>
-#include "SimulationFactory.h"
-#include "IntensityDataIOFactory.h"
-#include "IntensityDataFunctions.h"
-#include "PyGenTools.h"
 #include "BAPython.h"
 #include "FileSystem.h"
+#include "IntensityDataFunctions.h"
+#include "IntensityDataIOFactory.h"
+#include "PyGenTools.h"
+#include "SimulationFactory.h"
 #include "TestConfig.h"
 #include "Utils.h"
 #include "PySuiteTest.h"

@@ -15,10 +15,10 @@
 
 
 #include "FunctionalTestRegistry.h"
-#include "SimulationFactory.h"
-#include "SampleBuilderFactory.h"
-#include "SubtestRegistry.h"
 #include "IFunctionalTest.h"
+#include "SampleBuilderFactory.h"
+#include "SimulationFactory.h"
+#include "SubtestRegistry.h"
 #include "FunctionalTestSuite.h"
 
 // ************************************************************************** //

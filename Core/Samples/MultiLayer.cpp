@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#include "MultiLayer.h"
 #include "MessageService.h"
+#include "MultiLayer.h"
 
 
 using namespace BornAgain;

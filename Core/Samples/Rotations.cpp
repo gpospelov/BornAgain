@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#include "Rotations.h"
 #include "BornAgainNamespace.h"
+#include "Rotations.h"
 
 using namespace BornAgain;
 

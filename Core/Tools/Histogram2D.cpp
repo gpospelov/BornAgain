@@ -14,9 +14,9 @@
 // ************************************************************************** //
 
 #include <memory>
-#include "Histogram2D.h"
 #include "Histogram1D.h"
 #include "VariableBinAxis.h"
+#include "Histogram2D.h"
 
 Histogram2D::Histogram2D(int nbinsx, double xlow, double xup, int nbinsy, double ylow, double yup)
 {

@@ -13,9 +13,9 @@
 //
 // ************************************************************************** //
 
-#include "MagneticParticlesBuilder.h"
-#include "MultiLayer.h"
 #include "FormFactorCylinder.h"
+#include "MultiLayer.h"
+#include "MagneticParticlesBuilder.h"
 
 
 // ----------------------------------------------------------------------------

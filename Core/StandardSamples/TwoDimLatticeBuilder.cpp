@@ -13,11 +13,11 @@
 //
 // ************************************************************************** //
 
-#include "TwoDimLatticeBuilder.h"
-#include "MultiLayer.h"
-#include "ParticleComposition.h"
 #include "FormFactorCylinder.h"
 #include "InterferenceFunction2DLattice.h"
+#include "MultiLayer.h"
+#include "ParticleComposition.h"
+#include "TwoDimLatticeBuilder.h"
 
 
 // -----------------------------------------------------------------------------

@@ -16,8 +16,8 @@
 #ifndef ICLUSTEREDPARTICLES_H
 #define ICLUSTEREDPARTICLES_H
 
-#include "IFormFactor.h"
 #include "ICompositeSample.h"
+#include "IFormFactor.h"
 
 //! @class IClusteredParticles
 //! @ingroup samples_internal

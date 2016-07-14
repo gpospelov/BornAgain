@@ -16,9 +16,9 @@
 #ifndef PARTICLE_H
 #define PARTICLE_H
 
-#include "IParticle.h"
 #include "FormFactorDecoratorMaterial.h"
 #include "FormFactorDecoratorRotation.h"
+#include "IParticle.h"
 
 
 //! @class Particle

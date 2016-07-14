@@ -13,9 +13,9 @@
 //
 // ************************************************************************** //
 
-#include "InterferenceFunction2DParaCrystal.h"
 #include "BornAgainNamespace.h"
 #include "IntegratorReal.h"
+#include "InterferenceFunction2DParaCrystal.h"
 
 
 using namespace BornAgain;

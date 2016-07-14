@@ -13,9 +13,9 @@
 //
 // ************************************************************************** //
 
-#include "LayerInterface.h"
 #include "BornAgainNamespace.h"
 #include "MessageService.h"
+#include "LayerInterface.h"
 
 
 LayerInterface::LayerInterface()

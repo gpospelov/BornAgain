@@ -16,8 +16,8 @@
 #ifndef SAMPLES_H
 #define SAMPLES_H
 
-#include "MultiLayer.h"
 #include "FormFactors.h"
+#include "MultiLayer.h"
 
 #endif // SAMPLES_H
 

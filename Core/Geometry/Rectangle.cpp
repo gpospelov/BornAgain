@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#include "Rectangle.h"
 #include "Bin.h"
+#include "Rectangle.h"
 
 namespace Geometry {
 

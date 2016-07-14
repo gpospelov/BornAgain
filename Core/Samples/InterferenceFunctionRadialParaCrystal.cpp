@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#include "InterferenceFunctionRadialParaCrystal.h"
 #include "BornAgainNamespace.h"
+#include "InterferenceFunctionRadialParaCrystal.h"
 
 using namespace BornAgain;
 

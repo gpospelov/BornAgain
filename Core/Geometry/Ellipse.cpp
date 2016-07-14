@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#include "Ellipse.h"
 #include "Bin.h"
+#include "Ellipse.h"
 
 namespace Geometry {
 

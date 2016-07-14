@@ -16,8 +16,8 @@
 #ifndef LAYER_H
 #define LAYER_H
 
-#include "Materials.h"
 #include "LayerDWBASimulation.h"
+#include "Materials.h"
 #include "ParticleLayout.h"
 
 //! @class Layer

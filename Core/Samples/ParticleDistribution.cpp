@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#include "ParticleDistribution.h"
 #include "BornAgainNamespace.h"
+#include "ParticleDistribution.h"
 
 ParticleDistribution::ParticleDistribution(const IParticle &prototype,
                                            const ParameterDistribution &par_distr)

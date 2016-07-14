@@ -13,11 +13,11 @@
 //
 // ************************************************************************** //
 
-#include "SampleLabelHandler.h"
 #include "MultiLayer.h"
-#include "ParticleCoreShell.h"
 #include "ParticleComposition.h"
+#include "ParticleCoreShell.h"
 #include "ParticleDistribution.h"
+#include "SampleLabelHandler.h"
 
 SampleLabelHandler::SampleLabelHandler()
 {

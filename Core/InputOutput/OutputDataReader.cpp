@@ -14,9 +14,9 @@
 // ************************************************************************** //
 #include <fstream>
 #include "OutputData.h"
-#include "OutputDataReader.h"
 #include "OutputDataIOHelper.h"
 #include "boost_streams.h"
+#include "OutputDataReader.h"
 
 OutputDataReader::OutputDataReader(const std::string& file_name)
     : m_file_name(file_name)

@@ -16,9 +16,9 @@
 #ifndef MESSAGESERVICE_H
 #define MESSAGESERVICE_H
 
+#include <iomanip>
 #include <sstream>
 #include <vector>
-#include <iomanip>
 
 
 //! Sets of logging utilities

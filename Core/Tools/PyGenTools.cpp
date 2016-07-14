@@ -14,15 +14,15 @@
 // ************************************************************************** //
 
 #include <iomanip>
+#include "Distributions.h"
+#include "Ellipse.h"
+#include "InfinitePlane.h"
+#include "Line.h"
 #include "Macros.h"
 #include "MultiLayer.h"
-#include "PyGenTools.h"
-#include "Distributions.h"
-#include "Rectangle.h"
-#include "Ellipse.h"
-#include "Line.h"
 #include "Polygon.h"
-#include "InfinitePlane.h"
+#include "Rectangle.h"
+#include "PyGenTools.h"
 GCC_DIAG_OFF(missing-field-initializers)
 GCC_DIAG_OFF(unused-parameter)
 GCC_DIAG_ON(unused-parameter)

@@ -14,9 +14,9 @@
 // ************************************************************************** //
 
 #include <iomanip>
-#include "OutputDataWriteStrategy.h"
-#include "TiffHandler.h"
 #include "BornAgainNamespace.h"
+#include "TiffHandler.h"
+#include "OutputDataWriteStrategy.h"
 
 static const int precision { 12 };
 

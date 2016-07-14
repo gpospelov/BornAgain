@@ -16,8 +16,8 @@
 #ifndef CORETEST_H
 #define CORETEST_H
 
-#include "OutputData.h"
 #include "IFunctionalTest.h"
+#include "OutputData.h"
 
 class GISASSimulation;
 

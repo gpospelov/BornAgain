@@ -16,8 +16,8 @@
 #ifndef IFACTORY_H
 #define IFACTORY_H
 
-#include <map>
 #include <functional>
+#include <map>
 #include "Exceptions.h"
 
 //! @class IFactory

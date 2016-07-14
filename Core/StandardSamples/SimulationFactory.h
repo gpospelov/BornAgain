@@ -16,8 +16,8 @@
 #ifndef SIMULATIONFACTORY_H
 #define SIMULATIONFACTORY_H
 
-#include "IFactory.h"
 #include "GISASSimulation.h"
+#include "IFactory.h"
 
 //! @class SimulationFactory
 //! @ingroup standard_samples

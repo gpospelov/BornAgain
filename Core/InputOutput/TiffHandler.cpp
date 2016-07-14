@@ -15,8 +15,8 @@
 
 #ifdef BORNAGAIN_TIFF_SUPPORT
 
-#include "Utils.h"
 #include "BornAgainNamespace.h"
+#include "Utils.h"
 #include "TiffHandler.h"
 
 namespace {

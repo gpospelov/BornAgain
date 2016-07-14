@@ -16,9 +16,9 @@
 #ifndef INTERFERENCEFUNCTION1DLATTICE_H
 #define INTERFERENCEFUNCTION1DLATTICE_H
 
+#include "FTDecayFunctions.h"
 #include "IInterferenceFunction.h"
 #include "Lattice1DParameters.h"
-#include "FTDecayFunctions.h"
 
 //! @class InterferenceFunction1DLattice
 //! @ingroup interference

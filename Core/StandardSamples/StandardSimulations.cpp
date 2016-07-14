@@ -13,17 +13,17 @@
 //
 // ************************************************************************** //
 
-#include "SampleBuilderFactory.h"
-#include "GISASSimulation.h"
-#include "ResolutionFunction2DGaussian.h"
-#include "Distributions.h"
-#include "IsGISAXSDetector.h"
-#include "Rectangle.h"
-#include "Ellipse.h"
-#include "Polygon.h"
-#include "Line.h"
 #include "BornAgainNamespace.h"
+#include "Distributions.h"
+#include "Ellipse.h"
+#include "GISASSimulation.h"
+#include "IsGISAXSDetector.h"
+#include "Line.h"
+#include "Polygon.h"
+#include "Rectangle.h"
 #include "RectangularDetector.h"
+#include "ResolutionFunction2DGaussian.h"
+#include "SampleBuilderFactory.h"
 #include "StandardSimulations.h"
 
 using namespace BornAgain;

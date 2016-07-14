@@ -14,9 +14,9 @@
 // ************************************************************************** //
 
 #include <memory>
-#include "Histogram1D.h"
-#include "VariableBinAxis.h"
 #include "NumpyUtils.h"
+#include "VariableBinAxis.h"
+#include "Histogram1D.h"
 
 
 Histogram1D::Histogram1D(int nbinsx, double xlow, double xup)

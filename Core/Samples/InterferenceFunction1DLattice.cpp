@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#include "InterferenceFunction1DLattice.h"
 #include "BornAgainNamespace.h"
+#include "InterferenceFunction1DLattice.h"
 
 using namespace BornAgain;
 

@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#include "FunctionalTestRegistry.h"
 #include "Utils.h"
+#include "FunctionalTestRegistry.h"
 
 FunctionalTestRegistry::FunctionalTestRegistry()
 {

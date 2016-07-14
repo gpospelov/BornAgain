@@ -13,9 +13,9 @@
 //
 // ************************************************************************** //
 
+#include "FormFactorCylinder.h"
 #include "InterferenceFunction1DLattice.h"
 #include "MultiLayer.h"
-#include "FormFactorCylinder.h"
 #include "LatticeBuilder.h"
 
 

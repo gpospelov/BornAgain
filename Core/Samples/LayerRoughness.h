@@ -16,8 +16,8 @@
 #ifndef LAYERROUGHNESS_H
 #define LAYERROUGHNESS_H
 
-#include "Vectors3D.h"
 #include "IRoughness.h"
+#include "Vectors3D.h"
 
 //! @class LayerRoughness
 //! @ingroup samples

@@ -18,7 +18,7 @@
 
 #include <iostream>
 #include <vector>
-
+#include "Vectors3D.h"
 
 //! @class KVectorContainer
 //! @ingroup tools_internal

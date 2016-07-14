@@ -16,8 +16,8 @@
 #ifndef DETECTORMASK_H
 #define DETECTORMASK_H
 
-#include "OutputData.h"
 #include "IShape2D.h"
+#include "OutputData.h"
 
 
 class IDetector2D;

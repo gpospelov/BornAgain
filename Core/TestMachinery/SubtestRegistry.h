@@ -16,8 +16,8 @@
 #ifndef SUBTESTREGISTRY_H
 #define SUBTESTREGISTRY_H
 
-#include "IRegistry.h"
 #include "FTDistributions.h"
+#include "IRegistry.h"
 
 // ************************************************************************** //
 //! @class TestFTDistribution2DRegistry

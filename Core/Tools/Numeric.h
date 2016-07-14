@@ -16,8 +16,8 @@
 #ifndef NUMERIC_H
 #define NUMERIC_H
 
-#include <cmath>
 #include <algorithm>
+#include <cmath>
 
 //! Floating-point epsilon, tolerances, almost-equal.
 

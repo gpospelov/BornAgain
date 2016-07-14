@@ -16,11 +16,9 @@
 #ifndef LATTICE_H
 #define LATTICE_H
 
-#include "Vectors3D.h"
-#include "ISelectionRule.h"
 #include "FastVector.h"
+#include "ISelectionRule.h"
 #include "Rotations.h"
-
 
 //! @class Lattice
 //! @ingroup samples

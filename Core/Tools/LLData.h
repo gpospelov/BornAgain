@@ -17,9 +17,9 @@
 #define LLDATA_H
 
 
+#include "EigenCore.h"
 #include "Exceptions.h"
 #include "Numeric.h"
-#include "EigenCore.h"
 
 //! @class LLData
 //! @ingroup tools_internal

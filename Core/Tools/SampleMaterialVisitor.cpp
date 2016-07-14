@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#include "SampleMaterialVisitor.h"
 #include "Layer.h"
+#include "SampleMaterialVisitor.h"
 
 
 void SampleMaterialVisitor::clear()

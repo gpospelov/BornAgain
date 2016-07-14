@@ -16,8 +16,8 @@
 #ifndef IHISTOGRAM_H
 #define IHISTOGRAM_H
 
-#include "OutputData.h"
 #include "CumulativeValue.h"
+#include "OutputData.h"
 
 #ifdef BORNAGAIN_PYTHON
 #ifndef PyObject_HEAD

@@ -14,16 +14,16 @@
 // ************************************************************************** //
 
 #include <iomanip>
+#include "ConvolutionDetectorResolution.h"
 #include "FormFactors.h"
 #include "InterferenceFunctions.h"
-#include "SampleLabelHandler.h"
 #include "MultiLayer.h"
 #include "ParticleCoreShell.h"
 #include "ParticleDistribution.h"
 #include "PyGenTools.h"
-#include "ConvolutionDetectorResolution.h"
-#include "ResolutionFunction2DGaussian.h"
 #include "RectangularDetector.h"
+#include "ResolutionFunction2DGaussian.h"
+#include "SampleLabelHandler.h"
 #include "SphericalDetector.h"
 
 PyGenVisitor::PyGenVisitor() : m_label(new SampleLabelHandler())

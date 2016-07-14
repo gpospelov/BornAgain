@@ -6680,7 +6680,7 @@ C++ includes: IIntensityFunction.h
 %feature("docstring")  IntensityFunctionLog::clone "virtual IntensityFunctionLog* IntensityFunctionLog::clone() const 
 ";
 
-%feature("docstring")  IntensityFunctionLog::evaluate "virtual double IntensityFunctionLog::evaluate(double value) const 
+%feature("docstring")  IntensityFunctionLog::evaluate "double IntensityFunctionLog::evaluate(double value) const 
 ";
 
 
@@ -6698,7 +6698,7 @@ C++ includes: IIntensityFunction.h
 %feature("docstring")  IntensityFunctionSqrt::clone "virtual IntensityFunctionSqrt* IntensityFunctionSqrt::clone() const 
 ";
 
-%feature("docstring")  IntensityFunctionSqrt::evaluate "virtual double IntensityFunctionSqrt::evaluate(double value) const 
+%feature("docstring")  IntensityFunctionSqrt::evaluate "double IntensityFunctionSqrt::evaluate(double value) const 
 ";
 
 
@@ -10657,139 +10657,139 @@ finalize report to the simulation
 %feature("docstring")  PyGenVisitor::~PyGenVisitor "PyGenVisitor::~PyGenVisitor()
 ";
 
-%feature("docstring")  PyGenVisitor::writePyScript "std::string PyGenVisitor::writePyScript(const GISASSimulation *simulation, const std::string &output_filename)
+%feature("docstring")  PyGenVisitor::writePyScript "std::string PyGenVisitor::writePyScript(const class GISASSimulation *simulation, const std::string &output_filename)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorAnisoPyramid *sample)
+%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class FormFactorAnisoPyramid *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorBox *sample)
+%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class FormFactorBox *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorCone *sample)
+%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class FormFactorCone *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorCone6 *sample)
+%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class FormFactorCone6 *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorCuboctahedron *sample)
+%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class FormFactorCuboctahedron *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorCylinder *sample)
+%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class FormFactorCylinder *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorDodecahedron *sample)
+%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class FormFactorDodecahedron *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorEllipsoidalCylinder *sample)
+%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class FormFactorEllipsoidalCylinder *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorFullSphere *sample)
+%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class FormFactorFullSphere *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorFullSpheroid *sample)
+%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class FormFactorFullSpheroid *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorGauss *sample)
+%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class FormFactorGauss *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorHemiEllipsoid *sample)
+%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class FormFactorHemiEllipsoid *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorIcosahedron *sample)
+%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class FormFactorIcosahedron *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorLorentz *sample)
+%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class FormFactorLorentz *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorPrism3 *sample)
+%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class FormFactorPrism3 *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorPrism6 *sample)
+%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class FormFactorPrism6 *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorPyramid *sample)
+%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class FormFactorPyramid *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorRipple1 *sample)
+%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class FormFactorRipple1 *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorRipple2 *sample)
+%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class FormFactorRipple2 *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorTetrahedron *sample)
+%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class FormFactorTetrahedron *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorTruncatedCube *sample)
+%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class FormFactorTruncatedCube *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorTruncatedSphere *sample)
+%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class FormFactorTruncatedSphere *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorTruncatedSpheroid *sample)
+%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class FormFactorTruncatedSpheroid *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const InterferenceFunctionNone *sample)
+%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class InterferenceFunctionNone *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const InterferenceFunction1DLattice *sample)
+%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class InterferenceFunction1DLattice *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const InterferenceFunctionRadialParaCrystal *sample)
+%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class InterferenceFunctionRadialParaCrystal *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const InterferenceFunction2DLattice *sample)
+%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class InterferenceFunction2DLattice *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const InterferenceFunction2DParaCrystal *sample)
+%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class InterferenceFunction2DParaCrystal *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const Layer *sample)
+%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class Layer *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const LayerInterface *sample)
+%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class LayerInterface *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const LayerRoughness *sample)
+%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class LayerRoughness *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const MultiLayer *sample)
+%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class MultiLayer *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const ParticleComposition *sample)
+%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class ParticleComposition *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const MesoCrystal *sample)
+%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class MesoCrystal *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const Particle *sample)
+%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class Particle *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const ParticleDistribution *sample)
+%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class ParticleDistribution *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const ParticleCoreShell *sample)
+%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class ParticleCoreShell *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const ParticleLayout *sample)
+%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class ParticleLayout *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const RotationX *sample)
+%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class RotationX *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const RotationY *sample)
+%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class RotationY *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const RotationZ *sample)
+%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class RotationZ *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const RotationEuler *sample)
+%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class RotationEuler *sample)
 ";
 
 %feature("docstring")  PyGenVisitor::definePreamble "std::string PyGenVisitor::definePreamble() const 
 ";
 
-%feature("docstring")  PyGenVisitor::defineGetSimulation "std::string PyGenVisitor::defineGetSimulation(const GISASSimulation *simulation) const 
+%feature("docstring")  PyGenVisitor::defineGetSimulation "std::string PyGenVisitor::defineGetSimulation(const class GISASSimulation *simulation) const 
 ";
 
 %feature("docstring")  PyGenVisitor::defineGetSample "std::string PyGenVisitor::defineGetSample() const 
@@ -13180,16 +13180,16 @@ C++ includes: WavevectorInfo.h
 // File: classMathFunctions_1_1Convolve_1_1Workspace.xml
 
 
-// File: namespace_0D339.xml
+// File: namespace_0D340.xml
 
 
-// File: namespace_0D353.xml
+// File: namespace_0D354.xml
 
 
-// File: namespace_0D67.xml
+// File: namespace_0D68.xml
 
 
-// File: namespace_0D95.xml
+// File: namespace_0D96.xml
 
 
 // File: namespaceboost_1_1geometry.xml
@@ -13530,7 +13530,7 @@ Parse double values from string to vector of double.
 %feature("docstring")  PyGenTools::getRepresentation "std::string PyGenTools::getRepresentation(const class IDistribution1D *distribution)
 ";
 
-%feature("docstring")  PyGenTools::getRepresentation "std::string PyGenTools::getRepresentation(const std::string &indent, const class Geometry::IShape2D *ishape, bool mask_value)
+%feature("docstring")  PyGenTools::getRepresentation "BA_CORE_API_ std::string PyGenTools::getRepresentation(const std::string &indent, const Geometry::IShape2D *ishape, bool mask_value)
 ";
 
 %feature("docstring")  PyGenTools::printBool "std::string PyGenTools::printBool(double value)
@@ -13753,6 +13753,9 @@ enables exception throw in the case of NaN, Inf
 
 
 // File: IDetectorResolution_8h.xml
+
+
+// File: IIntensityFunction_8cpp.xml
 
 
 // File: IIntensityFunction_8h.xml

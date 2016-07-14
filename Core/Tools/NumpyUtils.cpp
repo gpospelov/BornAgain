@@ -20,9 +20,9 @@
 #define PY_ARRAY_UNIQUE_SYMBOL BORNAGAIN_PYTHONAPI_ARRAY
 #define NO_IMPORT_ARRAY
 
-#include "NumpyUtils.h"
-#include "Exceptions.h"
 #include <numpy/arrayobject.h>
+#include "Exceptions.h"
+#include "NumpyUtils.h"
 
 PyObject* Utils::createNumpyArray(const std::vector<double>& data)
 {

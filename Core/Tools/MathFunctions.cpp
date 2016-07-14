@@ -13,14 +13,14 @@
 //
 // ************************************************************************** //
 
+#include <chrono>
 #include <cstring>
 #include <fftw3.h>
-#include <gsl/gsl_sf_erf.h>
 #include <random>
-#include <chrono>
 #include <gsl/gsl_sf_bessel.h>
-#include <gsl/gsl_sf_trig.h>
+#include <gsl/gsl_sf_erf.h>
 #include <gsl/gsl_sf_expint.h>
+#include <gsl/gsl_sf_trig.h>
 #include "MathFunctions.h"
 
 

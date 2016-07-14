@@ -13,10 +13,10 @@
 //
 // ************************************************************************** //
 
-#include <boost/regex.hpp>
+#include <thread>
 #include <boost/algorithm/string.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
-#include <thread>
+#include <boost/regex.hpp>
 #include "Utils.h"
 
 

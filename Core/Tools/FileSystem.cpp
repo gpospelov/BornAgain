@@ -14,8 +14,8 @@
 // ************************************************************************** //
 
 #include <boost/filesystem.hpp>
-#include "FileSystem.h"
 #include "Exceptions.h"
+#include "FileSystem.h"
 
 std::string Utils::FileSystem::m_argv0_path = std::string();
 std::string Utils::FileSystem::m_reference_data_dir = std::string();

@@ -16,8 +16,8 @@
 #ifndef ATTLIMITS_H
 #define ATTLIMITS_H
 
-#include "Numeric.h"
 #include <iostream>
+#include "Numeric.h"
 
 
 //! @class AttLimits

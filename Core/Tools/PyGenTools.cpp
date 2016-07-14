@@ -13,6 +13,7 @@
 //
 // ************************************************************************** //
 
+#include <iomanip>
 #include "Macros.h"
 #include "MultiLayer.h"
 #include "PyGenTools.h"
@@ -22,7 +23,6 @@
 #include "Line.h"
 #include "Polygon.h"
 #include "InfinitePlane.h"
-#include <iomanip>
 GCC_DIAG_OFF(missing-field-initializers)
 GCC_DIAG_OFF(unused-parameter)
 GCC_DIAG_ON(unused-parameter)

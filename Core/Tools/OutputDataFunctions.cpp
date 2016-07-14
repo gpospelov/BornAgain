@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#include "OutputDataFunctions.h"
 #include <fftw3.h>
+#include "OutputDataFunctions.h"
 
 void toFftw3Array(complex_t *source, size_t length, fftw_complex *destination);
 void fromFftw3Array(fftw_complex *source, size_t length, complex_t *destination);

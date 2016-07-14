@@ -13,9 +13,9 @@
 //
 // ************************************************************************** //
 
-#include "Convolve.h"
 #include <iostream>
 #include <sstream>
+#include "Convolve.h"
 #include "Exceptions.h"
 
 MathFunctions::Convolve::Convolve() : m_mode(FFTW_UNDEFINED)

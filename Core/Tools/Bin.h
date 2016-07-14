@@ -16,9 +16,9 @@
 #ifndef BIN_H
 #define BIN_H
 
+#include <iostream>
 #include "Numeric.h"
 #include "Vectors3D.h"
-#include <iostream>
 
 struct BA_CORE_API_ Bin1D
 {

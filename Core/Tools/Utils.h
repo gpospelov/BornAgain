@@ -16,8 +16,8 @@
 #ifndef UTILS_H
 #define UTILS_H
 
-#include "Exceptions.h"
 #include <boost/unordered_map.hpp>
+#include "Exceptions.h"
 
 namespace Utils {
 

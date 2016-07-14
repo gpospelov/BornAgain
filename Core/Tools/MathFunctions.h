@@ -16,10 +16,10 @@
 #ifndef MATHFUNCTIONS_H
 #define MATHFUNCTIONS_H
 
+#include <vector>
 #include "Complex.h"
 #include "Units.h"
 #include "Numeric.h"
-#include <vector>
 
 //! Various mathematical functions.
 

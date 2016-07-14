@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#include "ConstKBinAxis.h"
 #include <iomanip>
+#include "ConstKBinAxis.h"
 
 ConstKBinAxis::ConstKBinAxis(const std::string &name, size_t nbins)
     : VariableBinAxis(name, nbins)

@@ -16,8 +16,8 @@
 #ifndef SAMPLEPRINTVISITOR_H
 #define SAMPLEPRINTVISITOR_H
 
-#include "ISampleVisitor.h"
 #include <string>
+#include "ISampleVisitor.h"
 
 //! @class SamplePrintVisitor
 //! @ingroup samples_internal

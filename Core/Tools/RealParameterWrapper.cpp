@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#include "IParameterized.h"
 #include <sstream>
+#include "IParameterized.h"
 
 RealParameterWrapper::RealParameterWrapper(
     IParameterized* parent, double* par, const AttLimits& limits)

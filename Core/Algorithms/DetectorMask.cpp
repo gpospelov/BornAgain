@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#include "IDetector2D.h"
 #include "BornAgainNamespace.h"
+#include "IDetector2D.h"
 
 
 // InfinitePlane, Line, VerticalLine, HorizontalLine

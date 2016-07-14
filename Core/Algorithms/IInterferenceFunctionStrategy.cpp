@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#include "IInterferenceFunctionStrategy.h"
 #include "IntegratorMCMiser.h"
+#include "IInterferenceFunctionStrategy.h"
 
 IInterferenceFunctionStrategy::IInterferenceFunctionStrategy(SimulationOptions sim_params)
     : mP_iff { nullptr }

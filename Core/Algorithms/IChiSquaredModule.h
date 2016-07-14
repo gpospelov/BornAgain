@@ -16,10 +16,10 @@
 #ifndef ICHISQUAREDMODULE_H
 #define ICHISQUAREDMODULE_H
 
-#include "ISquaredFunction.h"
-#include "IIntensityNormalizer.h"
-#include "IIntensityFunction.h"
 #include "FitElement.h"
+#include "IIntensityFunction.h"
+#include "IIntensityNormalizer.h"
+#include "ISquaredFunction.h"
 
 
 //! @class IChiSquaredModule
@@ -40,16 +40,14 @@ public:
     const ISquaredFunction* getSquaredFunction() const { return mp_squared_function; }
 
     //! Sets squared function // TODO: merge these two functions (SWIG warning 509)
-    void setChiSquaredFunction(ISquaredFunction *squared_function);
+    void setChiSquaredFunction(ISquaredFunction* squared_function);
     void setChiSquaredFunction(const ISquaredFunction& squared_function);
 
     //! Returns data normalizer.
-    virtual const IIntensityNormalizer* getIntensityNormalizer() const {
-        return mp_data_normalizer; }
+    virtual const IIntensityNormalizer* getIntensityNormalizer() const { return mp_data_normalizer; }
 
     //! Returns data normalizer, non-const version needed to set internals.
-    virtual IIntensityNormalizer* getIntensityNormalizer() {
-        return mp_data_normalizer; }
+    virtual IIntensityNormalizer* getIntensityNormalizer() {  return mp_data_normalizer; }
 
     //! Sets data normalizer
     virtual void setIntensityNormalizer(const IIntensityNormalizer& data_normalizer);

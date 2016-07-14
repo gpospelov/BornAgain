@@ -16,9 +16,9 @@
 #ifndef BEAM_H
 #define BEAM_H
 
-#include "Vectors3D.h"
-#include "IParameterized.h"
 #include "EigenCore.h"
+#include "IParameterized.h"
+#include "Vectors3D.h"
 
 //! @class Beam
 //! @ingroup simulation

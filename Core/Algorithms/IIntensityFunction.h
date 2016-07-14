@@ -17,8 +17,6 @@
 #ifndef IINTENSITYFUNCTION_H
 #define IINTENSITYFUNCTION_H
 
-
-
 //! @class IIntensityFunction
 //! @ingroup algorithms_internal
 //! @brief Interface for applying arbitrary function to the measured intensity
@@ -41,10 +39,8 @@ class BA_CORE_API_ IntensityFunctionLog : public IIntensityFunction
 {
 public:
     virtual ~IntensityFunctionLog() {}
-    virtual IntensityFunctionLog *clone() const {
-        return new IntensityFunctionLog(); }
-    virtual double evaluate(double value) const {
-        return (value > 0 ? std::log(value) : 0); }
+    virtual IntensityFunctionLog *clone() const { return new IntensityFunctionLog(); }
+    virtual double evaluate(double value) const;
 };
 
 
@@ -56,10 +52,8 @@ class BA_CORE_API_ IntensityFunctionSqrt : public IIntensityFunction
 {
 public:
     virtual ~IntensityFunctionSqrt() {}
-    virtual IntensityFunctionSqrt *clone() const {
-        return new IntensityFunctionSqrt(); }
-    virtual double evaluate(double value) const {
-        return (value > 0 ? std::sqrt(value) : 0); }
+    virtual IntensityFunctionSqrt *clone() const { return new IntensityFunctionSqrt(); }
+    virtual double evaluate(double value) const;
 };
 
 #endif // IINTENSITYFUNCTION_H

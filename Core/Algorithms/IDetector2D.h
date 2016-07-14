@@ -16,10 +16,10 @@
 #ifndef IDETECTOR2D_H
 #define IDETECTOR2D_H
 
-#include "IDetectorResolution.h"
-#include "DetectorMask.h"
-#include "SimulationElement.h"
 #include "Beam.h"
+#include "DetectorMask.h"
+#include "IDetectorResolution.h"
+#include "SimulationElement.h"
 
 
 

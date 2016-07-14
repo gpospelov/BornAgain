@@ -16,11 +16,11 @@
 #ifndef SIMULATION_H
 #define SIMULATION_H
 
-#include "ISampleBuilder.h"
-#include "SimulationOptions.h"
 #include "DistributionHandler.h"
-#include "ProgressHandler.h"
 #include "IDetector2D.h"
+#include "ISampleBuilder.h"
+#include "ProgressHandler.h"
+#include "SimulationOptions.h"
 
 template <class T> class OutputData;
 

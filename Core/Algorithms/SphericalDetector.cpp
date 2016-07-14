@@ -13,9 +13,9 @@
 //
 // ************************************************************************** //
 
+#include "BornAgainNamespace.h"
 #include "Units.h"
 #include "SphericalDetector.h"
-#include "BornAgainNamespace.h"
 
 
 SphericalDetector::SphericalDetector()

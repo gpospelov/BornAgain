@@ -16,8 +16,8 @@
 #ifndef DWBASIMULATION_H
 #define DWBASIMULATION_H
 
-#include "ISimulation.h"
 #include "GISASSimulation.h"
+#include "ISimulation.h"
 #include "ProgressHandlerDWBA.h"
 
 //! @class DWBASimulation

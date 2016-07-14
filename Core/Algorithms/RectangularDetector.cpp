@@ -13,9 +13,9 @@
 //
 // ************************************************************************** //
 
-#include "RectangularDetector.h"
 #include "BornAgainNamespace.h"
 #include "GISASSimulation.h"
+#include "RectangularDetector.h"
 
 
 RectangularDetector::RectangularDetector(int nxbins, double width, int nybins, double height)

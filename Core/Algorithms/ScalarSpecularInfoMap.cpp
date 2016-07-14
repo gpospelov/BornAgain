@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#include "ScalarSpecularInfoMap.h"
 #include "SpecularMatrix.h"
+#include "ScalarSpecularInfoMap.h"
 
 
 ScalarSpecularInfoMap::ScalarSpecularInfoMap(const MultiLayer *multilayer, int layer)

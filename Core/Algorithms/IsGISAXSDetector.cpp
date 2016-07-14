@@ -13,9 +13,9 @@
 //
 // ************************************************************************** //
 
-#include "IsGISAXSDetector.h"
 #include "BornAgainNamespace.h"
 #include "CustomBinAxis.h"
+#include "IsGISAXSDetector.h"
 
 
 IsGISAXSDetector::IsGISAXSDetector()

@@ -14,8 +14,8 @@
 // ************************************************************************** //
 
 
-#include "SpecularMatrix.h"
 #include "MathFunctions.h"
+#include "SpecularMatrix.h"
 
 
 namespace {

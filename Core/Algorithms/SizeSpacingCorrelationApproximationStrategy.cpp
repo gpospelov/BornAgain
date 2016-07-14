@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#include "SizeSpacingCorrelationApproximationStrategy.h"
 #include "InterferenceFunctionRadialParaCrystal.h"
+#include "SizeSpacingCorrelationApproximationStrategy.h"
 
 SizeSpacingCorrelationApproximationStrategy::SizeSpacingCorrelationApproximationStrategy(
     SimulationOptions sim_params, double kappa)

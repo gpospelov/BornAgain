@@ -13,9 +13,9 @@
 //
 // ************************************************************************** //
 
-#include "ResolutionFunction2DGaussian.h"
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
+#include "ResolutionFunction2DGaussian.h"
 
 ResolutionFunction2DGaussian::ResolutionFunction2DGaussian(double sigma_x, double sigma_y)
 : m_sigma_x(sigma_x)

@@ -13,9 +13,9 @@
 //
 // ************************************************************************** //
 
-#include "IDetector2D.h"
-#include "MessageService.h"
 #include "InfinitePlane.h"
+#include "MessageService.h"
+#include "IDetector2D.h"
 
 
 IDetector2D::IDetector2D()

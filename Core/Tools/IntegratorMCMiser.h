@@ -17,8 +17,8 @@
 #ifndef INTEGRATORMCMISER_H
 #define INTEGRATORMCMISER_H
 
+#include <memory>
 #include <gsl/gsl_monte_miser.h>
-
 
 //! Alias template for member function with signature double f(double)
 template <class T>

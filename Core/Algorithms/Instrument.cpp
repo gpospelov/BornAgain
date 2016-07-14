@@ -13,9 +13,9 @@
 //
 // ************************************************************************** //
 
-#include "Instrument.h"
-#include "SphericalDetector.h"
 #include "ConvolutionDetectorResolution.h"
+#include "SphericalDetector.h"
+#include "Instrument.h"
 
 Instrument::Instrument()
     : IParameterized("Instrument")

@@ -16,8 +16,8 @@
 #ifndef IDETECTORRESOLUTION_H
 #define IDETECTORRESOLUTION_H
 
-#include "OutputData.h"
 #include "IParameterized.h"
+#include "OutputData.h"
 
 
 //! @class IDetectorResolution

@@ -16,9 +16,9 @@
 #ifndef IINTERFERENCEFUNCTIONSTRATEGY_H
 #define IINTERFERENCEFUNCTIONSTRATEGY_H
 
+#include "FormFactorDWBAPol.h"
 #include "IInterferenceFunction.h"
 #include "LayerStrategyBuilder.h"
-#include "FormFactorDWBAPol.h"
 #include "SimulationElement.h"
 
 

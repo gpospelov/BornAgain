@@ -18,8 +18,8 @@
 
 #include <memory>
 #include "Complex.h"
-#include "IParameterized.h"
 #include "EigenCore.h"
+#include "IParameterized.h"
 #include "IPixelMap.h"
 
 //! @class SimulationElement

@@ -13,9 +13,9 @@
 //
 // ************************************************************************** //
 
-#include "DecoratedLayerDWBASimulation.h"
 #include "Layer.h"
 #include "MessageService.h"
+#include "DecoratedLayerDWBASimulation.h"
 
 
 DecoratedLayerDWBASimulation::DecoratedLayerDWBASimulation(const Layer *p_layer,

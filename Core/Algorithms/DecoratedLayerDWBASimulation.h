@@ -16,8 +16,8 @@
 #ifndef DECORATEDLAYERDWBASIMULATION_H
 #define DECORATEDLAYERDWBASIMULATION_H
 
-#include "LayerDWBASimulation.h"
 #include "IInterferenceFunctionStrategy.h"
+#include "LayerDWBASimulation.h"
 
 
 //! @class DecoratedLayerDWBASimulation

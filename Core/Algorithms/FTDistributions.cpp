@@ -13,10 +13,10 @@
 //
 // ************************************************************************** //
 
-#include "FTDistributions.h"
 #include "BornAgainNamespace.h"
-#include "MathFunctions.h"
 #include "IntegratorReal.h"
+#include "MathFunctions.h"
+#include "FTDistributions.h"
 
 using namespace BornAgain;
 

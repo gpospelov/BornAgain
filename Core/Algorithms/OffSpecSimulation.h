@@ -16,8 +16,8 @@
 #ifndef OFFSPECSIMULATION_H
 #define OFFSPECSIMULATION_H
 
-#include "Simulation.h"
 #include "Instrument.h"
+#include "Simulation.h"
 
 
 //! @class OffSpecSimulation

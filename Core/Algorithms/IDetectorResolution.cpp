@@ -14,8 +14,8 @@
 // ************************************************************************** //
 
 #include <memory>
-#include "IDetectorResolution.h"
 #include "OutputDataFunctions.h"
+#include "IDetectorResolution.h"
 
 void IDetectorResolution::applyDetectorResolutionPol(
         OutputData<Eigen::Matrix2d>* p_matrix_intensity) const

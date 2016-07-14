@@ -16,8 +16,8 @@
 #ifndef OUTPUTDATAWRITER_H
 #define OUTPUTDATAWRITER_H
 
-#include "OutputDataWriteStrategy.h"
 #include <memory>
+#include "OutputDataWriteStrategy.h"
 
 template <class T> class OutputData;
 

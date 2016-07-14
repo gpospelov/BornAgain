@@ -13,11 +13,10 @@
 //
 // ************************************************************************** //
 
+#include <iomanip>
 #include "ParticleLayout.h"
 #include "SizeSpacingCorrelationApproximationStrategy.h"
 #include "ParticleDistribution.h"
-
-#include <iomanip>
 
 
 ParticleLayout::ParticleLayout()

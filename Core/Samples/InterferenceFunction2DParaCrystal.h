@@ -16,12 +16,11 @@
 #ifndef INTERFERENCEFUNCTION2DPARACRYSTAL_H
 #define INTERFERENCEFUNCTION2DPARACRYSTAL_H
 
+#include <memory>
 #include "IInterferenceFunction.h"
 #include "Lattice2DParameters.h"
 #include "FTDistributions.h"
 #include "Complex.h"
-
-#include <memory>
 
 // Forward declaration to prevent IntegratorReal.h to be parsed for Python API:
 template <class T> class IntegratorReal;

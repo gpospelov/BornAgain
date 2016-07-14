@@ -18,10 +18,10 @@
 #include <gsl/gsl_sf_erf.h>
 #include <random>
 #include <chrono>
-#include "MathFunctions.h"
 #include <gsl/gsl_sf_bessel.h>
 #include <gsl/gsl_sf_trig.h>
 #include <gsl/gsl_sf_expint.h>
+#include "MathFunctions.h"
 
 
 // ************************************************************************** //

@@ -16,8 +16,8 @@
 #ifndef OUTPUTDATAREADER_H
 #define OUTPUTDATAREADER_H
 
-#include "OutputDataReadStrategy.h"
 #include <memory>
+#include "OutputDataReadStrategy.h"
 
 template <class T> class OutputData;
 

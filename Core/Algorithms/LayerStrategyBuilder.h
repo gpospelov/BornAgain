@@ -16,11 +16,10 @@
 #ifndef LAYERSTRATEGYBUILDER_H
 #define LAYERSTRATEGYBUILDER_H
 
+#include <memory>
 #include "SimulationOptions.h"
 #include "SafePointerVector.h"
 #include "IMaterial.h"
-
-#include <memory>
 
 class FormFactorInfo;
 class IInterferenceFunctionStrategy;

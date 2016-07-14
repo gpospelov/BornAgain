@@ -16,8 +16,8 @@
 #ifndef FORMFACTORLONGRIPPLE1GAUSS_H
 #define FORMFACTORLONGRIPPLE1GAUSS_H
 
-#include "IFormFactorBorn.h"
 #include <memory>
+#include "IFormFactorBorn.h"
 
 // Forward declaration to prevent IntegratorComplex.h to be parsed for Python API:
 template <class T> class IntegratorComplex;

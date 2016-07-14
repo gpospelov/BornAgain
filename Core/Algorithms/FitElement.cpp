@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#include "FitElement.h"
 #include <algorithm>
+#include "FitElement.h"
 
 FitElement::FitElement()
     : m_index(0)

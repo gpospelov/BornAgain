@@ -14,7 +14,6 @@
 // ************************************************************************** //
 
 #include <fstream>
-
 #include "SimulationFactory.h"
 #include "IntensityDataIOFactory.h"
 #include "IntensityDataFunctions.h"

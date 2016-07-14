@@ -17,7 +17,6 @@
 #define FUNCTIONALTESTREGISTRY_H
 
 #include <map>
-
 #include "FunctionalTestInfo.h"
 #include "ISingleton.h"
 

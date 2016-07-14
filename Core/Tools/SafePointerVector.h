@@ -16,8 +16,8 @@
 #ifndef SAFEPOINTERVECTOR_H
 #define SAFEPOINTERVECTOR_H
 
-#include <vector>
 #include <algorithm>
+#include <vector>
 
 
 //! @class SafePointerVector

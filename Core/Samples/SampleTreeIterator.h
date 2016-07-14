@@ -16,8 +16,8 @@
 #ifndef SAMPLETREEITERATOR_H
 #define SAMPLETREEITERATOR_H
 
-#include "ICompositeSample.h"
 #include <stack>
+#include "ICompositeSample.h"
 
 
 //! @class IteratorState

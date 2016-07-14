@@ -16,12 +16,11 @@
 #ifndef SIMULATIONELEMENT_H
 #define SIMULATIONELEMENT_H
 
+#include <memory>
 #include "Complex.h"
 #include "IParameterized.h"
 #include "EigenCore.h"
 #include "IPixelMap.h"
-
-#include <memory>
 
 //! @class SimulationElement
 //! @ingroup simulation

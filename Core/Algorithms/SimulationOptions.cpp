@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#include "SimulationOptions.h"
 #include <thread>
+#include "SimulationOptions.h"
 
 SimulationOptions::SimulationOptions()
     : m_mc_integration(false)

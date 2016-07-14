@@ -18,10 +18,10 @@
 
 #ifdef BORNAGAIN_TIFF_SUPPORT
 
-#include "OutputData.h"
 #include <tiffio.h>
 #include <tiffio.hxx>
 #include <memory>
+#include "OutputData.h"
 
 //! @class TiffHandler
 //! @ingroup input_output_internal

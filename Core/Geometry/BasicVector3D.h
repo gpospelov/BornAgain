@@ -20,8 +20,8 @@
 #ifndef BASICVECTOR3D_H
 #define BASICVECTOR3D_H
 
-#include "Exceptions.h"
 #include <complex>
+#include "Exceptions.h"
 
 static const double PI2 = 6.28318530717958647692528676655900577;
 

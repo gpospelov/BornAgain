@@ -16,8 +16,8 @@
 #ifndef IFUNCTIONALTEST_H
 #define IFUNCTIONALTEST_H
 
-#include "INamed.h"
 #include <map>
+#include "INamed.h"
 
 //! @class IFunctionalTest
 //! @ingroup standard_samples

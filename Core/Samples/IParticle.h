@@ -16,10 +16,9 @@
 #ifndef IPARTICLE_H
 #define IPARTICLE_H
 
+#include <memory>
 #include "ICompositeSample.h"
 #include "IMaterial.h"
-
-#include <memory>
 
 //! @class IAbstractParticle
 //! @ingroup samples

@@ -16,11 +16,10 @@
 #ifndef INTERFERENCEFUNCTIONRADIALPARACRYSTAL_H
 #define INTERFERENCEFUNCTIONRADIALPARACRYSTAL_H
 
+#include <memory>
 #include "IInterferenceFunction.h"
 #include "FTDistributions.h"
 #include "Complex.h"
-
-#include <memory>
 
 //! @class InterferenceFunctionRadialParaCrystal
 //! @ingroup interference

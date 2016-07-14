@@ -16,9 +16,9 @@
 #ifndef FORMFACTORDECORATORMATERIAL_H
 #define FORMFACTORDECORATORMATERIAL_H
 
+#include <memory>
 #include "FormFactorDecoratorFactor.h"
 #include "HomogeneousMaterial.h"
-#include <memory>
 
 //! @class FormFactorDecoratorMaterial
 //! @ingroup formfactors_decorations

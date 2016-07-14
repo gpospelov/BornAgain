@@ -14,21 +14,21 @@
 //
 // ************************************************************************** //
 
-#include "SimulationSetupWidget.h"
-#include "JobModel.h"
-#include "JobItem.h"
-#include "PythonScriptWidget.h"
-#include "projectmanager.h"
-#include "SimulationOptionsWidget.h"
-#include "ApplicationModels.h"
-#include "AppSvc.h"
-#include "DocumentModel.h"
-#include "SimulationDataSelectorWidget.h"
-#include "SimulationSetupAssistant.h"
+#include <QDebug>
+#include <QMessageBox>
 #include <QPushButton>
 #include <QVBoxLayout>
-#include <QMessageBox>
-#include <QDebug>
+#include "AppSvc.h"
+#include "ApplicationModels.h"
+#include "DocumentModel.h"
+#include "JobItem.h"
+#include "JobModel.h"
+#include "PythonScriptWidget.h"
+#include "SimulationDataSelectorWidget.h"
+#include "SimulationOptionsWidget.h"
+#include "SimulationSetupAssistant.h"
+#include "projectmanager.h"
+#include "SimulationSetupWidget.h"
 
 SimulationSetupWidget::SimulationSetupWidget(QWidget *parent)
     : QWidget(parent)

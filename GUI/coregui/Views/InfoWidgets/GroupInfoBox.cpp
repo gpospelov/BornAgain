@@ -14,18 +14,18 @@
 //
 // ************************************************************************** //
 
-#include "GroupInfoBox.h"
-#include "hostosinfo.h"
+#include <QApplication>
+#include <QDebug>
 #include <QMouseEvent>
-#include <QStyleOptionGroupBox>
-#include <QStylePainter>
-#include <QPushButton>
-#include <iostream>
 #include <QPainter>
 #include <QPixmap>
-#include <QApplication>
+#include <QPushButton>
+#include <QStyleOptionGroupBox>
+#include <QStylePainter>
 #include <QToolTip>
-#include <QDebug>
+#include <iostream>
+#include "hostosinfo.h"
+#include "GroupInfoBox.h"
 
 namespace
 {

@@ -17,10 +17,10 @@
 #ifndef COLORMAPCANVASEVENT_H
 #define COLORMAPCANVASEVENT_H
 
-#include "WinDllMacros.h"
-#include <QObject>
-#include <QMap>
 #include <QFont>
+#include <QMap>
+#include <QObject>
+#include "WinDllMacros.h"
 
 class ColorMapCanvas;
 class QObject;

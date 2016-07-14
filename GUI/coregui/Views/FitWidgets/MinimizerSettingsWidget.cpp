@@ -14,14 +14,14 @@
 //
 // ************************************************************************** //
 
-#include "MinimizerSettingsWidget.h"
-#include "MinimizerItem.h"
-#include "ComponentEditor.h"
-#include "JobItem.h"
-#include "FitSuiteItem.h"
-#include <QVBoxLayout>
-#include <QPushButton>
 #include <QDebug>
+#include <QPushButton>
+#include <QVBoxLayout>
+#include "ComponentEditor.h"
+#include "FitSuiteItem.h"
+#include "JobItem.h"
+#include "MinimizerItem.h"
+#include "MinimizerSettingsWidget.h"
 
 MinimizerSettingsWidget::MinimizerSettingsWidget(QWidget *parent)
     : QWidget(parent)

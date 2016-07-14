@@ -14,18 +14,18 @@
 //
 // ************************************************************************** //
 
-#include "actionmanager.h"
+#include <QDebug>
+#include <QDir>
+#include <QMenuBar>
+#include <QSettings>
+#include <QShortcut>
+#include "UpdateNotifier.h"
 #include "hostosinfo.h"
 #include "mainwindow.h"
 #include "mainwindow_constants.h"
 #include "projectmanager.h"
 #include "qstringutils.h"
-#include "UpdateNotifier.h"
-#include <QMenuBar>
-#include <QShortcut>
-#include <QSettings>
-#include <QDebug>
-#include <QDir>
+#include "actionmanager.h"
 
 ActionManager::ActionManager(MainWindow *parent)
     : QObject(parent)

@@ -14,16 +14,16 @@
 //
 // ************************************************************************** //
 
-#include "FitActivityPanel.h"
-#include "JobModel.h"
-#include "JobItem.h"
-#include "FitSuiteWidget.h"
-#include "JobRealTimeWidget.h"
-#include "mainwindow_constants.h"
-#include "RunFitControlWidget.h"
-#include "JobMessagePanel.h"
-#include <QVBoxLayout>
 #include <QPushButton>
+#include <QVBoxLayout>
+#include "FitSuiteWidget.h"
+#include "JobItem.h"
+#include "JobMessagePanel.h"
+#include "JobModel.h"
+#include "JobRealTimeWidget.h"
+#include "RunFitControlWidget.h"
+#include "mainwindow_constants.h"
+#include "FitActivityPanel.h"
 
 FitActivityPanel::FitActivityPanel(JobModel *jobModel, QWidget *parent)
     : QWidget(parent)

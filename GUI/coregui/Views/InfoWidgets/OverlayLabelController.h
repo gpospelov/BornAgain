@@ -17,9 +17,9 @@
 #ifndef OVERLAYLABELCONTROLLER_H
 #define OVERLAYLABELCONTROLLER_H
 
-#include "WinDllMacros.h"
 #include <QObject>
 #include <QString>
+#include "WinDllMacros.h"
 
 class OverlayLabelWidget;
 class QAbstractScrollArea;

@@ -17,8 +17,8 @@
 #ifndef MASKEDITORHELPER_H
 #define MASKEDITORHELPER_H
 
-#include "WinDllMacros.h"
 #include <QGraphicsItem>
+#include "WinDllMacros.h"
 
 class QBrush;
 class QPen;

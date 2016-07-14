@@ -17,8 +17,8 @@
 #ifndef TESTFITWIDGETS_H
 #define TESTFITWIDGETS_H
 
-#include "WinDllMacros.h"
 #include <QWidget>
+#include "WinDllMacros.h"
 
 class MainWindow;
 class ParameterTuningWidget;

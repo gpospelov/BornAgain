@@ -14,31 +14,31 @@
 //
 // ************************************************************************** //
 
-#include "ParameterTuningWidget.h"
-#include "JobQueueData.h"
-#include "JobItem.h"
-#include "SliderSettingsWidget.h"
-#include "ParameterTreeBuilder.h"
-#include "GUIHelpers.h"
-#include "ParameterTuningDelegate.h"
-#include "JobModel.h"
-#include "SampleModel.h"
-#include "InstrumentModel.h"
-#include "IntensityDataItem.h"
-#include "DesignerHelper.h"
-#include "WarningSignWidget.h"
-#include "ParameterTuningModel.h"
-#include "ParameterTreeItems.h"
+#include <QApplication>
+#include <QDebug>
+#include <QItemSelectionModel>
+#include <QKeyEvent>
 #include <QLabel>
-#include <QVBoxLayout>
-#include <QTreeView>
+#include <QScrollBar>
 #include <QStandardItemModel>
 #include <QToolButton>
-#include <QDebug>
-#include <QScrollBar>
-#include <QApplication>
-#include <QKeyEvent>
-#include <QItemSelectionModel>
+#include <QTreeView>
+#include <QVBoxLayout>
+#include "DesignerHelper.h"
+#include "GUIHelpers.h"
+#include "InstrumentModel.h"
+#include "IntensityDataItem.h"
+#include "JobItem.h"
+#include "JobModel.h"
+#include "JobQueueData.h"
+#include "ParameterTreeBuilder.h"
+#include "ParameterTreeItems.h"
+#include "ParameterTuningDelegate.h"
+#include "ParameterTuningModel.h"
+#include "SampleModel.h"
+#include "SliderSettingsWidget.h"
+#include "WarningSignWidget.h"
+#include "ParameterTuningWidget.h"
 
 namespace {
 const int warning_sign_xpos = 38;

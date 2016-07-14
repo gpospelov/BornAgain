@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#include "MaskDrawingContext.h"
 #include <QDebug>
+#include "MaskDrawingContext.h"
 
 
 MaskDrawingContext::MaskDrawingContext()

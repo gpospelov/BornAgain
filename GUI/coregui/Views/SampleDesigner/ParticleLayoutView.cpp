@@ -14,12 +14,12 @@
 //
 // ************************************************************************** //
 
-#include "ParticleLayoutView.h"
-#include "ParticleView.h"
-#include "DesignerHelper.h"
-#include "SessionItem.h"
-#include "GUIHelpers.h"
 #include <QDebug>
+#include "DesignerHelper.h"
+#include "GUIHelpers.h"
+#include "ParticleView.h"
+#include "SessionItem.h"
+#include "ParticleLayoutView.h"
 
 
 ParticleLayoutView::ParticleLayoutView(QGraphicsItem *parent)

@@ -14,13 +14,13 @@
 //
 // ************************************************************************** //
 
-#include "SavePlotAssistant.h"
-#include "ColorMapPlot.h"
-#include "IntensityDataItem.h"
-#include "IntensityDataIOFactory.h"
+#include <QDebug>
 #include <QFileDialog>
 #include <QMessageBox>
-#include <QDebug>
+#include "ColorMapPlot.h"
+#include "IntensityDataIOFactory.h"
+#include "IntensityDataItem.h"
+#include "SavePlotAssistant.h"
 
 namespace {
 const QString png_extension = ".png";

@@ -14,18 +14,18 @@
 //
 // ************************************************************************** //
 
-#include "ExtendedDetectorDialog.h"
+#include <QDebug>
+#include <QKeyEvent>
+#include <QModelIndex>
+#include <QPushButton>
+#include <QSettings>
+#include <QVBoxLayout>
+#include "CustomEventFilters.h"
+#include "DetectorMaskDelegate.h"
 #include "MaskEditor.h"
 #include "MaskModel.h"
-#include "DetectorMaskDelegate.h"
-#include "CustomEventFilters.h"
 #include "mainwindow_constants.h"
-#include <QPushButton>
-#include <QModelIndex>
-#include <QVBoxLayout>
-#include <QKeyEvent>
-#include <QDebug>
-#include <QSettings>
+#include "ExtendedDetectorDialog.h"
 
 ExtendedDetectorDialog::ExtendedDetectorDialog(QWidget *parent)
     : QDialog(parent)

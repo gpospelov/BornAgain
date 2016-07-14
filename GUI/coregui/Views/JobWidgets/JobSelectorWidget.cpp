@@ -14,16 +14,16 @@
 //
 // ************************************************************************** //
 
-#include "JobSelectorWidget.h"
-#include "JobModel.h"
-#include "JobSelectorActions.h"
-#include "mainwindow_constants.h"
-#include "JobItem.h"
-#include "JobPropertiesWidget.h"
-#include "JobListWidget.h"
-#include "StyledToolBar.h"
-#include "minisplitter.h"
 #include <QHBoxLayout>
+#include "JobItem.h"
+#include "JobListWidget.h"
+#include "JobModel.h"
+#include "JobPropertiesWidget.h"
+#include "JobSelectorActions.h"
+#include "StyledToolBar.h"
+#include "mainwindow_constants.h"
+#include "minisplitter.h"
+#include "JobSelectorWidget.h"
 
 
 JobSelectorWidget::JobSelectorWidget(JobModel *jobModel, QWidget *parent)

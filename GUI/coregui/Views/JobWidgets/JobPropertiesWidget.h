@@ -17,8 +17,8 @@
 #ifndef JOBPROPERTIESWIDGET_H
 #define JOBPROPERTIESWIDGET_H
 
-#include "WinDllMacros.h"
 #include <QWidget>
+#include "WinDllMacros.h"
 
 class JobItem;
 class QTextEdit;

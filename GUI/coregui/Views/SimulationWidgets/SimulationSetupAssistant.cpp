@@ -14,17 +14,17 @@
 //
 // ************************************************************************** //
 
-#include "SimulationSetupAssistant.h"
-#include "SampleValidator.h"
-#include "RealDataItem.h"
-#include "IntensityDataItem.h"
-#include "InstrumentItem.h"
-#include "DetectorItems.h"
-#include "AxesItems.h"
-#include "IDetector2D.h"
-#include "IAxis.h"
-#include <QMessageBox>
 #include <QDebug>
+#include <QMessageBox>
+#include "AxesItems.h"
+#include "DetectorItems.h"
+#include "IAxis.h"
+#include "IDetector2D.h"
+#include "InstrumentItem.h"
+#include "IntensityDataItem.h"
+#include "RealDataItem.h"
+#include "SampleValidator.h"
+#include "SimulationSetupAssistant.h"
 
 //! Returns true if given setup is valid for submitting the job
 

@@ -14,18 +14,18 @@
 //
 // ************************************************************************** //
 
-#include "JobListViewDelegate.h"
-#include "JobModel.h"
-#include "JobItem.h"
-#include "progressbar.h"
-#include <QDebug>
-#include <QPainter>
-#include <QPaintDevice>
 #include <QApplication>
-#include <QWidget>
+#include <QDebug>
 #include <QMouseEvent>
+#include <QPaintDevice>
+#include <QPainter>
 #include <QStyleOptionProgressBarV2>
+#include <QWidget>
+#include "JobItem.h"
+#include "JobModel.h"
 #include "hostosinfo.h"
+#include "progressbar.h"
+#include "JobListViewDelegate.h"
 
 JobListViewDelegate::JobListViewDelegate(QWidget *parent)
     : QItemDelegate(parent)

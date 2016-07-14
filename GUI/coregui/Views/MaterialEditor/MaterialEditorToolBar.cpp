@@ -14,16 +14,16 @@
 //
 // ************************************************************************** //
 
-#include "MaterialEditorToolBar.h"
-#include "MaterialModel.h"
-#include "MaterialItem.h"
+#include <QAction>
+#include <QDebug>
 #include <QItemSelectionModel>
 #include <QListView>
-#include <QVariant>
-#include <QAction>
 #include <QMenu>
 #include <QUuid>
-#include <QDebug>
+#include <QVariant>
+#include "MaterialItem.h"
+#include "MaterialModel.h"
+#include "MaterialEditorToolBar.h"
 
 namespace {
 const int toolbar_icon_size = 32;

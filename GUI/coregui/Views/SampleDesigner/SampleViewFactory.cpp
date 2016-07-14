@@ -14,19 +14,19 @@
 //
 // ************************************************************************** //
 
-#include "SampleViewFactory.h"
-#include "item_constants.h"
-#include "MultiLayerView.h"
+#include <QDebug>
+#include "GUIHelpers.h"
+#include "InterferenceFunctionViews.h"
 #include "LayerView.h"
+#include "MultiLayerView.h"
+#include "ParticleCompositionView.h"
+#include "ParticleCoreShellView.h"
+#include "ParticleDistributionView.h"
 #include "ParticleLayoutView.h"
 #include "ParticleView.h"
 #include "TransformationView.h"
-#include "ParticleCoreShellView.h"
-#include "ParticleCompositionView.h"
-#include "ParticleDistributionView.h"
-#include "InterferenceFunctionViews.h"
-#include "GUIHelpers.h"
-#include <QDebug>
+#include "item_constants.h"
+#include "SampleViewFactory.h"
 
 
 QStringList SampleViewFactory::m_valid_item_names  = QStringList()

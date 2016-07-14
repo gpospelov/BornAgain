@@ -14,17 +14,17 @@
 //
 // ************************************************************************** //
 
-#include "ConnectableView.h"
-#include "DesignerHelper.h"
-#include "NodeEditorPort.h"
-#include "NodeEditorConnection.h"
-#include "GUIHelpers.h"
-#include "SessionItem.h"
-#include <QPainter>
 #include <QDebug>
-#include <QStyleOptionGraphicsItem>
 #include <QObject>
+#include <QPainter>
+#include <QStyleOptionGraphicsItem>
 #include <iostream>
+#include "DesignerHelper.h"
+#include "GUIHelpers.h"
+#include "NodeEditorConnection.h"
+#include "NodeEditorPort.h"
+#include "SessionItem.h"
+#include "ConnectableView.h"
 
 ConnectableView::ConnectableView(QGraphicsItem *parent, QRect rect)
     : IView(parent), m_name("Unnamed"), m_color(Qt::gray), m_rect(rect), m_roundpar(3),

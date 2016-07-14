@@ -17,8 +17,8 @@
 #ifndef SESSIONITEMWIDGET_H
 #define SESSIONITEMWIDGET_H
 
-#include "WinDllMacros.h"
 #include <QWidget>
+#include "WinDllMacros.h"
 
 //! The SessionItemWidget class is a base for all widgets representing the content of SessionItem.
 

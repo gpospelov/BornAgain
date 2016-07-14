@@ -17,10 +17,10 @@
 #ifndef MASKEDITOR_H
 #define MASKEDITOR_H
 
-#include "WinDllMacros.h"
-#include <QWidget>
 #include <QMainWindow>
 #include <QModelIndex>
+#include <QWidget>
+#include "WinDllMacros.h"
 
 class MaskEditorPropertyPanel;
 class MaskEditorActions;

@@ -14,9 +14,9 @@
 //
 // ************************************************************************** //
 
-#include "TransformationView.h"
 #include "DesignerHelper.h"
 #include "item_constants.h"
+#include "TransformationView.h"
 
 
 TransformationView::TransformationView(QGraphicsItem *parent)

@@ -18,9 +18,9 @@
 #define DISTRIBUTIONWIDGET_H
 
 #include <QWidget>
+#include <memory>
 #include "WarningSignWidget.h"
 #include "qcustomplot.h"
-#include <memory>
 
 class SessionItem;
 class AwesomePropertyEditor;

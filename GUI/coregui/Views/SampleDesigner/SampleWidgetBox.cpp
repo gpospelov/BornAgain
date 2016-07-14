@@ -14,10 +14,10 @@
 //
 // ************************************************************************** //
 
-#include "SampleWidgetBox.h"
-#include "widgetbox.h"
-#include "styledbar.h"
 #include <QVBoxLayout>
+#include "styledbar.h"
+#include "widgetbox.h"
+#include "SampleWidgetBox.h"
 
 #if QT_VERSION < 0x050000
 #define QStringLiteral QString

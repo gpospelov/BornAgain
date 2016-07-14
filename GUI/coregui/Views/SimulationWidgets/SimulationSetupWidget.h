@@ -17,8 +17,8 @@
 #ifndef SIMULATIONSETUPWIDGET_H
 #define SIMULATIONSETUPWIDGET_H
 
-#include "WinDllMacros.h"
 #include <QWidget>
+#include "WinDllMacros.h"
 
 class QPushButton;
 class MultiLayerItem;

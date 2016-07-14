@@ -17,8 +17,8 @@
 #ifndef MATERIALEDITORTOOLBAR_H
 #define MATERIALEDITORTOOLBAR_H
 
-#include "WinDllMacros.h"
 #include <QToolBar>
+#include "WinDllMacros.h"
 
 class QAction;
 class MaterialModel;

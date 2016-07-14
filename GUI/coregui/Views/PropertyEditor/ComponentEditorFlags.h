@@ -17,8 +17,8 @@
 #ifndef COMPONENTEDITORFLAGS_H
 #define COMPONENTEDITORFLAGS_H
 
-#include "WinDllMacros.h"
 #include <QObject>
+#include "WinDllMacros.h"
 
 class BA_CORE_API_ ComponentEditorFlags
 {

@@ -14,13 +14,13 @@
 //
 // ************************************************************************** //
 
-#include "NodeEditorPort.h"
-#include "NodeEditorConnection.h"
-#include <QGraphicsScene>
-#include <QFontMetrics>
-#include <QPen>
-#include <QPainter>
 #include <QDebug>
+#include <QFontMetrics>
+#include <QGraphicsScene>
+#include <QPainter>
+#include <QPen>
+#include "NodeEditorConnection.h"
+#include "NodeEditorPort.h"
 
 NodeEditorPort::NodeEditorPort(QGraphicsItem *parent, const QString &name,
                                NodeEditorPort::EPortDirection direction,

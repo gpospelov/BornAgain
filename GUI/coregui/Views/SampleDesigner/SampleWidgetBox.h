@@ -17,8 +17,8 @@
 #ifndef SAMPLEWIDGETBOX_H
 #define SAMPLEWIDGETBOX_H
 
-#include "WinDllMacros.h"
 #include <QWidget>
+#include "WinDllMacros.h"
 
 class QDesignerWidgetBoxInterface;
 class SampleDesignerInterface;

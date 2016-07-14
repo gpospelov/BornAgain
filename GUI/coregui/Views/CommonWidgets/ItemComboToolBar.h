@@ -17,8 +17,8 @@
 #ifndef ITEMCOMBOTOOLBAR_H
 #define ITEMCOMBOTOOLBAR_H
 
-#include "StyledToolBar.h"
 #include <QList>
+#include "StyledToolBar.h"
 
 class QAction;
 

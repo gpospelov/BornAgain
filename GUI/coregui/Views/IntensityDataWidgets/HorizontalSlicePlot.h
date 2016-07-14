@@ -17,9 +17,9 @@
 #ifndef HORIZONTALSLICEPLOT_H
 #define HORIZONTALSLICEPLOT_H
 
-#include "WinDllMacros.h"
 #include <QWidget>
 #include <memory>
+#include "WinDllMacros.h"
 
 class IntensityDataItem;
 class QCustomPlot;

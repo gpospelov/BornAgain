@@ -17,8 +17,8 @@
 #ifndef ITEMSTACKWIDGET_H
 #define ITEMSTACKWIDGET_H
 
-#include "WinDllMacros.h"
 #include <QWidget>
+#include "WinDllMacros.h"
 
 class SessionModel;
 class SessionItem;

@@ -14,14 +14,14 @@
 //
 // ************************************************************************** //
 
-#include "NodeEditorConnection.h"
-#include "NodeEditorPort.h"
-#include "ConnectableView.h"
 #include <QBrush>
-#include <QPen>
+#include <QDebug>
 #include <QGraphicsScene>
 #include <QPainter>
-#include <QDebug>
+#include <QPen>
+#include "ConnectableView.h"
+#include "NodeEditorPort.h"
+#include "NodeEditorConnection.h"
 
 NodeEditorConnection::NodeEditorConnection(QGraphicsItem *parent, QGraphicsScene *scene)
     : QGraphicsPathItem(parent)

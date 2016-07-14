@@ -14,10 +14,10 @@
 //
 // ************************************************************************** //
 
-#include "ParticleCoreShellView.h"
-#include "SessionItem.h"
-#include "ParticleCoreShellItem.h"
 #include <QDebug>
+#include "ParticleCoreShellItem.h"
+#include "SessionItem.h"
+#include "ParticleCoreShellView.h"
 
 
 ParticleCoreShellView::ParticleCoreShellView(QGraphicsItem *parent)

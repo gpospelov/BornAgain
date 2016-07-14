@@ -17,8 +17,8 @@
 #ifndef SAMPLEPROPERTYWIDGET_H
 #define SAMPLEPROPERTYWIDGET_H
 
-#include "WinDllMacros.h"
 #include <QWidget>
+#include "WinDllMacros.h"
 
 class QItemSelectionModel;
 class QItemSelection;

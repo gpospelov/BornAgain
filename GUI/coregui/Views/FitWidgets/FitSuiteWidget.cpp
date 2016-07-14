@@ -14,28 +14,28 @@
 //
 // ************************************************************************** //
 
-#include "FitSuiteWidget.h"
-#include "JobModel.h"
-#include "JobItem.h"
-#include "FitSuiteItem.h"
+#include <QDebug>
+#include <QMessageBox>
+#include <QTabWidget>
+#include <QVBoxLayout>
+#include "DomainFittingBuilder.h"
 #include "FitParameterItems.h"
 #include "FitParameterWidget.h"
-#include "RunFitManager.h"
-#include "GUIFitObserver.h"
-#include "DomainFittingBuilder.h"
-#include "IntensityDataItem.h"
+#include "FitProgressInfo.h"
+#include "FitResultsWidget.h"
 #include "FitSuite.h"
+#include "FitSuiteItem.h"
+#include "GUIFitObserver.h"
+#include "GUIHelpers.h"
+#include "IntensityDataItem.h"
+#include "JobItem.h"
+#include "JobModel.h"
+#include "MinimizerSettingsWidget.h"
 #include "ModelPath.h"
 #include "ParameterTreeItems.h"
-#include "MinimizerSettingsWidget.h"
-#include "FitResultsWidget.h"
+#include "RunFitManager.h"
 #include "mainwindow_constants.h"
-#include "FitProgressInfo.h"
-#include "GUIHelpers.h"
-#include <QVBoxLayout>
-#include <QTabWidget>
-#include <QMessageBox>
-#include <QDebug>
+#include "FitSuiteWidget.h"
 
 FitSuiteWidget::FitSuiteWidget(QWidget *parent)
     : QWidget(parent)

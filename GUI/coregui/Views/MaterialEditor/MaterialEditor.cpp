@@ -14,14 +14,14 @@
 //
 // ************************************************************************** //
 
-#include "MaterialEditor.h"
-#include "MaterialEditorToolBar.h"
-#include "ComponentEditor.h"
-#include "MaterialModel.h"
-#include "MaterialItem.h"
 #include <QListView>
 #include <QSplitter>
 #include <QVBoxLayout>
+#include "ComponentEditor.h"
+#include "MaterialEditorToolBar.h"
+#include "MaterialItem.h"
+#include "MaterialModel.h"
+#include "MaterialEditor.h"
 
 MaterialEditor::MaterialEditor(MaterialModel *materialModel, QWidget *parent)
     : QWidget(parent)

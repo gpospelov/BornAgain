@@ -17,10 +17,10 @@
 #ifndef JOBVIEWDOCKS_H
 #define JOBVIEWDOCKS_H
 
-#include "WinDllMacros.h"
-#include "JobViewFlags.h"
 #include <QObject>
 #include <QVector>
+#include "JobViewFlags.h"
+#include "WinDllMacros.h"
 
 class QDockWidget;
 class JobView;

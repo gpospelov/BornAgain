@@ -14,11 +14,11 @@
 //
 // ************************************************************************** //
 
-#include "FitFlowWidget.h"
-#include "HistogramPlot.h"
-#include "FitSuiteItem.h"
-#include <QVBoxLayout>
 #include <QDebug>
+#include <QVBoxLayout>
+#include "FitSuiteItem.h"
+#include "HistogramPlot.h"
+#include "FitFlowWidget.h"
 
 FitFlowWidget::FitFlowWidget(QWidget *parent)
     : QFrame(parent)

@@ -17,9 +17,9 @@
 #ifndef COLORMAPEVENT_H
 #define COLORMAPEVENT_H
 
-#include "WinDllMacros.h"
-#include "ColorMapBin.h"
 #include <QObject>
+#include "ColorMapBin.h"
+#include "WinDllMacros.h"
 
 class ColorMap;
 class QMouseEvent;

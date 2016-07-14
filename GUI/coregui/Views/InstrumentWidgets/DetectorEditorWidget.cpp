@@ -14,20 +14,20 @@
 //
 // ************************************************************************** //
 
-#include "DetectorEditorWidget.h"
-#include "ComponentBoxEditor.h"
-#include "DetectorItems.h"
-#include "GroupInfoBox.h"
-#include "ExtendedDetectorDialog.h"
-#include "SphericalDetectorWidget.h"
-#include "RectangularDetectorWidget.h"
-#include "columnresizer.h"
-#include "GUIHelpers.h"
-#include "DetectorItems.h"
+#include <QDebug>
 #include <QGroupBox>
 #include <QLabel>
 #include <QVBoxLayout>
-#include <QDebug>
+#include "ComponentBoxEditor.h"
+#include "DetectorItems.h"
+#include "DetectorItems.h"
+#include "ExtendedDetectorDialog.h"
+#include "GUIHelpers.h"
+#include "GroupInfoBox.h"
+#include "RectangularDetectorWidget.h"
+#include "SphericalDetectorWidget.h"
+#include "columnresizer.h"
+#include "DetectorEditorWidget.h"
 
 DetectorEditorWidget::DetectorEditorWidget(ColumnResizer *columnResizer, QWidget *parent)
     : QWidget(parent)

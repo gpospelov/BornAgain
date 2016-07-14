@@ -17,8 +17,8 @@
 #ifndef JOBMESSAGEPANEL_H
 #define JOBMESSAGEPANEL_H
 
-#include "InfoPanel.h"
 #include <QColor>
+#include "InfoPanel.h"
 
 class QTextEdit;
 

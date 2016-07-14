@@ -14,18 +14,18 @@
 //
 // ************************************************************************** //
 
+#include <QDebug>
+#include <QVBoxLayout>
 #include "BeamWavelengthItem.h"
-#include "SessionItem.h"
 #include "ComponentBoxEditor.h"
-#include "DistributionWidget.h"
-#include "DistributionEditor.h"
-#include "Distributions.h"
-#include "qcustomplot.h"
 #include "DistributionDialog.h"
+#include "DistributionWidget.h"
+#include "Distributions.h"
 #include "GroupInfoBox.h"
 #include "GroupItem.h"
-#include <QVBoxLayout>
-#include <QDebug>
+#include "SessionItem.h"
+#include "qcustomplot.h"
+#include "DistributionEditor.h"
 
 namespace
 {

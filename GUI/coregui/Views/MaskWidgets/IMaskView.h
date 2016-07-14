@@ -17,10 +17,10 @@
 #ifndef IMASKVIEW_H
 #define IMASKVIEW_H
 
-#include "WinDllMacros.h"
-#include "MaskEditorHelper.h"
 #include <QGraphicsObject>
 #include <memory>
+#include "MaskEditorHelper.h"
+#include "WinDllMacros.h"
 
 class SessionItem;
 class ISceneAdaptor;

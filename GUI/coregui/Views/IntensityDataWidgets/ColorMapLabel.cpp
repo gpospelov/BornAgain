@@ -14,9 +14,9 @@
 //
 // ************************************************************************** //
 
-#include "ColorMapLabel.h"
 #include "ColorMap.h"
 #include "ColorMapCanvas.h"
+#include "ColorMapLabel.h"
 
 //namespace {
 //const int min_size = 0;

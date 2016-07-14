@@ -17,9 +17,9 @@
 #ifndef MASKEDITORPROPERTYPANEL_H
 #define MASKEDITORPROPERTYPANEL_H
 
-#include "MaskEditorFlags.h"
-#include <QWidget>
 #include <QModelIndex>
+#include <QWidget>
+#include "MaskEditorFlags.h"
 
 class QListView;
 class SessionModel;

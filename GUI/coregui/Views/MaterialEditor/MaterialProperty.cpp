@@ -14,10 +14,10 @@
 //
 // ************************************************************************** //
 
-#include "MaterialProperty.h"
 #include "MaterialItem.h"
-#include "MaterialSvc.h"
 #include "MaterialModel.h"
+#include "MaterialSvc.h"
+#include "MaterialProperty.h"
 
 QString MaterialProperty::getName() const
 {

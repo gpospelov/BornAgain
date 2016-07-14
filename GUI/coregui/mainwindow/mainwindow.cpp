@@ -14,35 +14,32 @@
 //
 // ************************************************************************** //
 
-#include "mainwindow.h"
-#include "fancytabwidget.h"
-#include "manhattanstyle.h"
-#include "actionmanager.h"
-
-#include "WelcomeView.h"
-#include "InstrumentView.h"
-#include "SampleView.h"
-#include "ImportDataView.h"
-#include "SimulationView.h"
-#include "JobView.h"
-#include "SessionModelView.h"
-
-#include "stylehelper.h"
-#include "JobModel.h"
-#include "ApplicationModels.h"
-#include "hostosinfo.h"
-#include "projectmanager.h"
-#include "progressbar.h"
-#include "tooltipdatabase.h"
-#include "mainwindow_constants.h"
-#include "aboutapplicationdialog.h"
-#include "GUIHelpers.h"
-#include "UpdateNotifier.h"
-
 #include <QApplication>
-#include <QSettings>
 #include <QCloseEvent>
 #include <QMessageBox>
+#include <QSettings>
+#include "ApplicationModels.h"
+#include "GUIHelpers.h"
+#include "ImportDataView.h"
+#include "InstrumentView.h"
+#include "JobModel.h"
+#include "JobView.h"
+#include "SampleView.h"
+#include "SessionModelView.h"
+#include "SimulationView.h"
+#include "UpdateNotifier.h"
+#include "WelcomeView.h"
+#include "aboutapplicationdialog.h"
+#include "actionmanager.h"
+#include "fancytabwidget.h"
+#include "hostosinfo.h"
+#include "mainwindow_constants.h"
+#include "manhattanstyle.h"
+#include "progressbar.h"
+#include "projectmanager.h"
+#include "stylehelper.h"
+#include "tooltipdatabase.h"
+#include "mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : Manhattan::FancyMainWindow(parent)

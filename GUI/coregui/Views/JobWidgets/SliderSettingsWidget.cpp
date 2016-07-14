@@ -14,15 +14,14 @@
 //
 // ************************************************************************** //
 
-#include "SliderSettingsWidget.h"
-
+#include <QCheckBox>
 #include <QDebug>
 #include <QGroupBox>
-#include <QRadioButton>
 #include <QHBoxLayout>
-#include <QVBoxLayout>
 #include <QLabel>
-#include <QCheckBox>
+#include <QRadioButton>
+#include <QVBoxLayout>
+#include "SliderSettingsWidget.h"
 
 
 SliderSettingsWidget::SliderSettingsWidget(QWidget *parent)

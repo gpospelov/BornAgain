@@ -14,12 +14,12 @@
 //
 // ************************************************************************** //
 
-#include "ComponentEditorPrivate.h"
-#include "GUIHelpers.h"
-#include "CustomEventFilters.h"
-#include <QString>
 #include <QComboBox>
 #include <QDebug>
+#include <QString>
+#include "CustomEventFilters.h"
+#include "GUIHelpers.h"
+#include "ComponentEditorPrivate.h"
 
 ComponentEditorPrivate::ComponentEditorPrivate(ComponentEditorFlags::PresentationType flags, QWidget *parent)
     : m_browser(0), m_manager(0), m_read_only_manager(0)

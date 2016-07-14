@@ -17,9 +17,9 @@
 #ifndef RECTANGLEVIEW_H
 #define RECTANGLEVIEW_H
 
+#include <QMap>
 #include "IMaskView.h"
 #include "SizeHandleElement.h"
-#include <QMap>
 
 //! This is a View of rectangular mask ( represented by RectangleItem) on GraphicsScene.
 //! Given view follows standard QGraphicsScene notations: (x,y) is top left corner.

@@ -14,14 +14,14 @@
 //
 // ************************************************************************** //
 
-#include "JobPropertiesWidget.h"
+#include <QTabBar>
+#include <QTabWidget>
+#include <QTextEdit>
+#include <QVBoxLayout>
 #include "ComponentEditor.h"
 #include "JobItem.h"
 #include "mainwindow_constants.h"
-#include <QVBoxLayout>
-#include <QTabBar>
-#include <QTextEdit>
-#include <QTabWidget>
+#include "JobPropertiesWidget.h"
 
 JobPropertiesWidget::JobPropertiesWidget(QWidget *parent)
     : QWidget(parent)

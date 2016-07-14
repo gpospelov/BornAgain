@@ -33,22 +33,20 @@
 #ifndef ACCORDIONWIDGET_H
 #define ACCORDIONWIDGET_H
 
-#include <QWidget>
+#include <QDebug>
 #include <QGridLayout>
 #include <QHBoxLayout>
-#include <QVBoxLayout>
 #include <QPainter>
-#include <QStyleOption>
 #include <QSpacerItem>
 #include <QString>
-#include <QDebug>
-
-#include <vector>
-#include <memory>
+#include <QStyleOption>
+#include <QVBoxLayout>
+#include <QWidget>
 #include <algorithm>
 #include <iterator>
-
-
+#include <memory>
+#include <vector>
+#include "ClickableFrame.h"
 #include "ContentPane.h"
 #include "WinDllMacros.h"
 

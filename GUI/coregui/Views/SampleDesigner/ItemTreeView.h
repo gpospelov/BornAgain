@@ -17,8 +17,8 @@
 #ifndef ITEMTREEVIEW_H
 #define ITEMTREEVIEW_H
 
-#include "WinDllMacros.h"
 #include <QTreeView>
+#include "WinDllMacros.h"
 
 class BA_CORE_API_ ItemTreeView : public QTreeView
 {

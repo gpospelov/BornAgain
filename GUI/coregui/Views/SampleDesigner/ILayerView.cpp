@@ -14,17 +14,17 @@
 //
 // ************************************************************************** //
 
-#include "ILayerView.h"
-#include "DesignerScene.h"
-#include "DesignerHelper.h"
-#include "MultiLayerView.h"
-#include "SessionItem.h"
-#include "SampleModel.h"
-#include "LayerItem.h"
-#include "GUIHelpers.h"
-#include "MaterialProperty.h"
-#include <QGraphicsSceneMouseEvent>
 #include <QDebug>
+#include <QGraphicsSceneMouseEvent>
+#include "DesignerHelper.h"
+#include "DesignerScene.h"
+#include "GUIHelpers.h"
+#include "LayerItem.h"
+#include "MaterialProperty.h"
+#include "MultiLayerView.h"
+#include "SampleModel.h"
+#include "SessionItem.h"
+#include "ILayerView.h"
 
 QLineF MultiLayerCandidate::getInterfaceToScene()
 {

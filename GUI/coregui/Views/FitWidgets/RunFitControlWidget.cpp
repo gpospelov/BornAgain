@@ -14,19 +14,19 @@
 //
 // ************************************************************************** //
 
-#include "RunFitControlWidget.h"
-#include "WarningSignWidget.h"
-#include "DesignerHelper.h"
-#include "JobItem.h"
-#include "FitSuiteItem.h"
-#include "mainwindow_constants.h"
-#include "JobMessagePanel.h"
-#include <QPushButton>
-#include <QSlider>
-#include <QLabel>
-#include <QHBoxLayout>
 #include <QDebug>
 #include <QFont>
+#include <QHBoxLayout>
+#include <QLabel>
+#include <QPushButton>
+#include <QSlider>
+#include "DesignerHelper.h"
+#include "FitSuiteItem.h"
+#include "JobItem.h"
+#include "JobMessagePanel.h"
+#include "WarningSignWidget.h"
+#include "mainwindow_constants.h"
+#include "RunFitControlWidget.h"
 
 namespace {
 const int warning_sign_xpos = 42;

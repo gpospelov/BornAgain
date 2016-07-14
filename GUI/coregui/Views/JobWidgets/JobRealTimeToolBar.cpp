@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#include "JobRealTimeToolBar.h"
 #include <QToolButton>
+#include "JobRealTimeToolBar.h"
 
 //! main tool bar on top of SampleView window
 JobRealTimeToolBar::JobRealTimeToolBar(QWidget *parent)

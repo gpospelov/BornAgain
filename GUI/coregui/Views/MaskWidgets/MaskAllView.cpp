@@ -14,14 +14,14 @@
 //
 // ************************************************************************** //
 
-#include "MaskAllView.h"
-#include "ColorMapSceneAdaptor.h"
-#include "MaskItems.h"
-#include "MaskEditorHelper.h"
-#include <QPainter>
 #include <QBrush>
-#include <QStyleOptionGraphicsItem>
 #include <QDebug>
+#include <QPainter>
+#include <QStyleOptionGraphicsItem>
+#include "ColorMapSceneAdaptor.h"
+#include "MaskEditorHelper.h"
+#include "MaskItems.h"
+#include "MaskAllView.h"
 
 MaskAllView::MaskAllView()
 {

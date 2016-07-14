@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#include "ObsoleteIntensityDataWidgetActions.h"
 #include <QAction>
+#include "ObsoleteIntensityDataWidgetActions.h"
 
 ObsoleteIntensityDataWidgetActions::ObsoleteIntensityDataWidgetActions(QObject *parent)
     : QObject(parent)

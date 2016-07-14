@@ -17,9 +17,9 @@
 #ifndef MATERIALSVC_H
 #define MATERIALSVC_H
 
-#include "WinDllMacros.h"
-#include "MaterialProperty.h"
 #include <QObject>
+#include "MaterialProperty.h"
+#include "WinDllMacros.h"
 
 class MaterialModel;
 class SessionModel;

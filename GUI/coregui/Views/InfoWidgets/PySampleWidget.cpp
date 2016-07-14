@@ -14,26 +14,26 @@
 //
 // ************************************************************************** //
 
-#include "PySampleWidget.h"
-#include "SampleModel.h"
-#include "InstrumentModel.h"
-#include "PythonSyntaxHighlighter.h"
+#include <QDebug>
+#include <QFile>
+#include <QModelIndex>
+#include <QPainter>
+#include <QPixmap>
+#include <QScrollBar>
+#include <QTextCodec>
+#include <QTextEdit>
+#include <QTextStream>
+#include <QTimer>
+#include <QVBoxLayout>
+#include "DesignerHelper.h"
 #include "DomainObjectBuilder.h"
+#include "InstrumentModel.h"
 #include "MultiLayer.h"
 #include "PyGenVisitor.h"
+#include "PythonSyntaxHighlighter.h"
+#include "SampleModel.h"
 #include "WarningSignWidget.h"
-#include "DesignerHelper.h"
-#include <QVBoxLayout>
-#include <QTextEdit>
-#include <QFile>
-#include <QTextStream>
-#include <QModelIndex>
-#include <QScrollBar>
-#include <QTimer>
-#include <QTextCodec>
-#include <QDebug>
-#include <QPixmap>
-#include <QPainter>
+#include "PySampleWidget.h"
 
 namespace {
 const int timer_interval_msec = 10;

@@ -17,8 +17,8 @@
 #ifndef FITFLOWWIDGET_H
 #define FITFLOWWIDGET_H
 
-#include "WinDllMacros.h"
 #include <QFrame>
+#include "WinDllMacros.h"
 
 class HistogramPlot;
 class FitSuiteItem;

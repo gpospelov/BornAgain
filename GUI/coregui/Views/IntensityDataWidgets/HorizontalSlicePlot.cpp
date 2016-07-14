@@ -14,12 +14,12 @@
 //
 // ************************************************************************** //
 
-#include "HorizontalSlicePlot.h"
-#include "IntensityDataItem.h"
-#include "AxesItems.h"
-#include "qcustomplot.h"
-#include "Units.h"
 #include <QVBoxLayout>
+#include "AxesItems.h"
+#include "IntensityDataItem.h"
+#include "Units.h"
+#include "qcustomplot.h"
+#include "HorizontalSlicePlot.h"
 
 HorizontalSlicePlot::HorizontalSlicePlot(QWidget *parent)
     : QWidget(parent)

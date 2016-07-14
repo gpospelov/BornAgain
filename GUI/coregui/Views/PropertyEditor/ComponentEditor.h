@@ -17,10 +17,10 @@
 #ifndef COMPONENTEDITOR_H
 #define COMPONENTEDITOR_H
 
-#include "WinDllMacros.h"
-#include "ComponentEditorFlags.h"
 #include <QWidget>
 #include <memory>
+#include "ComponentEditorFlags.h"
+#include "WinDllMacros.h"
 
 class ComponentEditorPrivate;
 class SessionItem;

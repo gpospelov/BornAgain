@@ -14,10 +14,10 @@
 //
 // ************************************************************************** //
 
-#include "FittingWorker.h"
-#include "FitSuite.h"
 #include <QDateTime>
 #include <QDebug>
+#include "FitSuite.h"
+#include "FittingWorker.h"
 
 void FittingWorker::startFit()
 {

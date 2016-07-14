@@ -14,12 +14,12 @@
 //
 // ************************************************************************** //
 
-#include "MaskGraphicsProxy.h"
+#include <QDebug>
 #include <QGraphicsSceneMouseEvent>
 #include "ColorMapPlot.h"
 #include "ColorMapSceneAdaptor.h"
 #include "IntensityDataItem.h"
-#include <QDebug>
+#include "MaskGraphicsProxy.h"
 
 MaskGraphicsProxy::MaskGraphicsProxy()
     : m_colorMap(new ColorMapPlot)

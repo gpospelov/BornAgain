@@ -14,9 +14,9 @@
 //
 // ************************************************************************** //
 
-#include "StyledToolBar.h"
-#include <QStyle>
 #include <QLabel>
+#include <QStyle>
+#include "StyledToolBar.h"
 
 StyledToolBar::StyledToolBar(QWidget *parent)
     : QToolBar(parent)

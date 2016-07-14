@@ -17,9 +17,9 @@
 #ifndef ELLIPSEVIEW_H
 #define ELLIPSEVIEW_H
 
+#include <QMap>
 #include "IMaskView.h"
 #include "SizeHandleElement.h"
-#include <QMap>
 
 //! This is a View of ellipse mask (represented by EllipseItem) on GraphicsScene.
 //! Given view follows standard QGraphicsScene notations: (x,y) is top left corner.

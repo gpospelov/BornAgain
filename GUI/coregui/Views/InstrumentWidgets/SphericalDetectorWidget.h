@@ -17,8 +17,8 @@
 #ifndef SPHERICALDETECTORWIDGET_H
 #define SPHERICALDETECTORWIDGET_H
 
-#include "WinDllMacros.h"
 #include <QWidget>
+#include "WinDllMacros.h"
 
 class DetectorItem;
 class QGridLayout;

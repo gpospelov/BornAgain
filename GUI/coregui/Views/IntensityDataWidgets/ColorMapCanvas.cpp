@@ -14,15 +14,15 @@
 //
 // ************************************************************************** //
 
-#include "ColorMapCanvas.h"
+#include <QDebug>
+#include <QLabel>
+#include <QVBoxLayout>
 #include "ColorMap.h"
 #include "ColorMapCanvasEvent.h"
 #include "ColorMapLabel.h"
 #include "IntensityDataItem.h"
 #include "StatusLabel.h"
-#include <QVBoxLayout>
-#include <QLabel>
-#include <QDebug>
+#include "ColorMapCanvas.h"
 
 
 ColorMapCanvas::ColorMapCanvas(QWidget *parent)

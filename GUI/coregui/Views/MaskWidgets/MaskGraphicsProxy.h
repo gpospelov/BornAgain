@@ -17,9 +17,9 @@
 #ifndef MASKGRAPHICSPROXY_H
 #define MASKGRAPHICSPROXY_H
 
+#include <QGraphicsProxyWidget>
 #include "ColorMapPlot.h"
 #include "MaskEditorHelper.h"
-#include <QGraphicsProxyWidget>
 
 class SessionItem;
 class ISceneAdaptor;

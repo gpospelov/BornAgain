@@ -14,17 +14,17 @@
 //
 // ************************************************************************** //
 
-#include "ObsoleteIntensityDataPlotWidget.h"
-#include "ColorMapPlot.h"
-#include "HorizontalSlicePlot.h"
-#include "VerticalSlicePlot.h"
-#include "IntensityDataItem.h"
-#include "SavePlotAssistant.h"
-#include "qcustomplot.h"
+#include <QDebug>
+#include <QLabel>
 #include <QSplitter>
 #include <QVBoxLayout>
-#include <QLabel>
-#include <QDebug>
+#include "ColorMapPlot.h"
+#include "HorizontalSlicePlot.h"
+#include "IntensityDataItem.h"
+#include "SavePlotAssistant.h"
+#include "VerticalSlicePlot.h"
+#include "qcustomplot.h"
+#include "ObsoleteIntensityDataPlotWidget.h"
 
 
 ObsoleteIntensityDataPlotWidget::ObsoleteIntensityDataPlotWidget(QWidget *parent)

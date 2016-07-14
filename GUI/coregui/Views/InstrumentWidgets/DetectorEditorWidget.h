@@ -17,9 +17,9 @@
 #ifndef DETECTOREDITORWIDGET_H
 #define DETECTOREDITORWIDGET_H
 
-#include "WinDllMacros.h"
 #include <QWidget>
 #include <memory>
+#include "WinDllMacros.h"
 
 class GroupInfoBox;
 class DetectorItem;

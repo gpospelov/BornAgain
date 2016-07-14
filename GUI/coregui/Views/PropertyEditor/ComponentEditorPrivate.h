@@ -17,17 +17,17 @@
 #ifndef COMPONENTEDITORPRIVATE_H
 #define COMPONENTEDITORPRIVATE_H
 
-#include "WinDllMacros.h"
-#include "ComponentEditorFlags.h"
-#include "PropertyVariantManager.h"
-#include "PropertyVariantFactory.h"
-#include "qttreepropertybrowser.h"
-#include "qtgroupboxpropertybrowser.h"
-#include "qtbuttonpropertybrowser.h"
-#include "SessionItem.h"
-#include "PropertyAttribute.h"
 #include <QMap>
 #include <memory>
+#include "ComponentEditorFlags.h"
+#include "PropertyAttribute.h"
+#include "PropertyVariantFactory.h"
+#include "PropertyVariantManager.h"
+#include "SessionItem.h"
+#include "WinDllMacros.h"
+#include "qtbuttonpropertybrowser.h"
+#include "qtgroupboxpropertybrowser.h"
+#include "qttreepropertybrowser.h"
 
 class WheelEventEater;
 

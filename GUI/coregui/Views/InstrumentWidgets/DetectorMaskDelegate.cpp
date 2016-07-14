@@ -14,18 +14,18 @@
 //
 // ************************************************************************** //
 
-#include "DetectorMaskDelegate.h"
-#include "InstrumentModel.h"
-#include "MaskModel.h"
-#include "DetectorItems.h"
-#include "IntensityDataItem.h"
-#include "OutputData.h"
+#include <QDebug>
 #include "AxesItems.h"
+#include "ComboProperty.h"
+#include "DetectorItems.h"
+#include "GUIHelpers.h"
+#include "InstrumentModel.h"
+#include "IntensityDataItem.h"
 #include "MaskEditor.h"
 #include "MaskItems.h"
-#include "GUIHelpers.h"
-#include "ComboProperty.h"
-#include <QDebug>
+#include "MaskModel.h"
+#include "OutputData.h"
+#include "DetectorMaskDelegate.h"
 
 DetectorMaskDelegate::DetectorMaskDelegate(QObject *parent)
     : QObject(parent)

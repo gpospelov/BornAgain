@@ -18,8 +18,9 @@
 #define DISTRIBUTIONEDITOR_H
 
 #include <QWidget>
-#include "qcustomplot.h"
 #include <memory>
+#include "SessionItem.h"
+#include "qcustomplot.h"
 
 class QGroupBox;
 class DistributionWidget;

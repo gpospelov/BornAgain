@@ -17,9 +17,9 @@
 #ifndef HISTOGRAMPLOT_H
 #define HISTOGRAMPLOT_H
 
+#include <QWidget>
 #include "WinDllMacros.h"
 #include "qcustomplot.h"
-#include <QWidget>
 
 class BA_CORE_API_ HistogramPlot : public QWidget
 {

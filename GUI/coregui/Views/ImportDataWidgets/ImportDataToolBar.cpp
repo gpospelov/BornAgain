@@ -14,25 +14,25 @@
 //
 // ************************************************************************** //
 
-#include "ImportDataToolBar.h"
-#include "RealDataModel.h"
-#include "InstrumentModel.h"
-#include "ImportDataAssistant.h"
-#include "ImportDataToolBar.h"
-#include "IntensityDataItem.h"
-#include "IDetector2D.h"
-#include "RealDataItem.h"
-#include "SessionItem.h"
-#include "DetectorItems.h"
-#include "RectangularDetectorItem.h"
-#include "SphericalDetectorItem.h"
-#include "InstrumentItem.h"
-#include "JobItemHelper.h"
-#include "IDetector2D.h"
-#include "ComboProperty.h"
-#include <QItemSelectionModel>
 #include <QAction>
 #include <QDebug>
+#include <QItemSelectionModel>
+#include "ComboProperty.h"
+#include "DetectorItems.h"
+#include "IDetector2D.h"
+#include "IDetector2D.h"
+#include "ImportDataAssistant.h"
+#include "InstrumentItem.h"
+#include "InstrumentModel.h"
+#include "IntensityDataItem.h"
+#include "JobItemHelper.h"
+#include "RealDataItem.h"
+#include "RealDataModel.h"
+#include "RectangularDetectorItem.h"
+#include "SessionItem.h"
+#include "SphericalDetectorItem.h"
+#include "ImportDataToolBar.h"
+#include "ImportDataToolBar.h"
 
 ImportDataToolBar::ImportDataToolBar(QWidget *parent)
     : StyledToolBar(parent)

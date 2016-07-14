@@ -14,21 +14,21 @@
 //
 // ************************************************************************** //
 
-#include "projectmanager.h"
-#include "newprojectdialog.h"
-#include "mainwindow.h"
-#include "projectdocument.h"
-#include "mainwindow_constants.h"
+#include <QDebug>
+#include <QFileDialog>
+#include <QMessageBox>
+#include <QSettings>
+#include <QStandardPaths>
+#include "AppSvc.h"
+#include "ApplicationModels.h"
 #include "GUIHelpers.h"
 #include "ProjectLoadWarningDialog.h"
 #include "WarningMessageService.h"
-#include "ApplicationModels.h"
-#include "AppSvc.h"
-#include <QFileDialog>
-#include <QSettings>
-#include <QDebug>
-#include <QMessageBox>
-#include <QStandardPaths>
+#include "mainwindow.h"
+#include "mainwindow_constants.h"
+#include "newprojectdialog.h"
+#include "projectdocument.h"
+#include "projectmanager.h"
 
 ProjectManager::ProjectManager(MainWindow *parent)
     : m_mainWindow(parent)

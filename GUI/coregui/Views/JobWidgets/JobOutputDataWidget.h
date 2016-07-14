@@ -17,8 +17,8 @@
 #ifndef JOBOUTPUTDATAWIDGET_H
 #define JOBOUTPUTDATAWIDGET_H
 
-#include "ItemStackPresenter.h"
 #include <QMap>
+#include "ItemStackPresenter.h"
 
 class ObsoleteIntensityDataWidget;
 class JobResultsPresenter;

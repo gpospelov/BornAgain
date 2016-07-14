@@ -17,8 +17,8 @@
 #ifndef DESIGNERMIMEDATA_H
 #define DESIGNERMIMEDATA_H
 
-#include "WinDllMacros.h"
 #include <QMimeData>
+#include "WinDllMacros.h"
 
 class QDrag;
 class QXmlStreamReader;

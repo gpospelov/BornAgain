@@ -14,10 +14,10 @@
 //
 // ************************************************************************** //
 
-#include "ColorMapEvent.h"
-#include "ColorMap.h"
-#include <QMouseEvent>
 #include <QDebug>
+#include <QMouseEvent>
+#include "ColorMap.h"
+#include "ColorMapEvent.h"
 
 ColorMapEvent::ColorMapEvent(ColorMap *colorMap)
     : QObject(colorMap)

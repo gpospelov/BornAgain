@@ -14,12 +14,12 @@
 //
 // ************************************************************************** //
 
-#include "RunFitManager.h"
-#include "FittingWorker.h"
-#include "FitSuite.h"
+#include <QDebug>
 #include <QThread>
 #include <memory>
-#include <QDebug>
+#include "FitSuite.h"
+#include "FittingWorker.h"
+#include "RunFitManager.h"
 
 RunFitManager::RunFitManager(QObject *parent)
     : QObject(parent)

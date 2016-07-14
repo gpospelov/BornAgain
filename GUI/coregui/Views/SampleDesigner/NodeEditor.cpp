@@ -14,13 +14,13 @@
 //
 // ************************************************************************** //
 
-#include "NodeEditor.h"
-#include "NodeEditorPort.h"
-#include "NodeEditorConnection.h"
-#include "DesignerView.h"
-#include <QGraphicsScene>
 #include <QEvent>
+#include <QGraphicsScene>
 #include <QGraphicsSceneMouseEvent>
+#include "DesignerView.h"
+#include "NodeEditorConnection.h"
+#include "NodeEditorPort.h"
+#include "NodeEditor.h"
 
 NodeEditor::NodeEditor(QObject *parent)
     : QObject(parent)

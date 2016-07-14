@@ -14,17 +14,16 @@
 //
 // ************************************************************************** //
 
-#include "MaskResultsPresenter.h"
-#include "ColorMapPlot.h"
-#include "SessionModel.h"
-#include "IntensityDataItem.h"
-#include "OutputData.h"
-#include "MaskItems.h"
-#include "IShape2D.h"
-#include "DetectorMask.h"
-
-#include <QVBoxLayout>
 #include <QDebug>
+#include <QVBoxLayout>
+#include "ColorMapPlot.h"
+#include "DetectorMask.h"
+#include "IShape2D.h"
+#include "IntensityDataItem.h"
+#include "MaskItems.h"
+#include "OutputData.h"
+#include "SessionModel.h"
+#include "MaskResultsPresenter.h"
 
 MaskResultsPresenter::MaskResultsPresenter(QWidget *parent)
     : QObject(parent)

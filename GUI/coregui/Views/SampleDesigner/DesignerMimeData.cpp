@@ -14,20 +14,17 @@
 //
 // ************************************************************************** //
 
-#include "DesignerMimeData.h"
-#include <QWidget>
-#include <QDrag>
+#include <QBitmap>
 #include <QByteArray>
 #include <QDataStream>
-#include <QPixmap>
-
-#include <QXmlStreamReader>
+#include <QDrag>
 #include <QPainter>
-#include <QBitmap>
-
+#include <QPixmap>
+#include <QWidget>
+#include <QXmlStreamReader>
 #include <iostream>
-
 #include "DesignerHelper.h"
+#include "DesignerMimeData.h"
 
 #if QT_VERSION < 0x050000
 #define QStringLiteral QString

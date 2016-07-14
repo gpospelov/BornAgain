@@ -14,12 +14,12 @@
 //
 // ************************************************************************** //
 
-#include "IntensityDataView.h"
-#include "ISceneAdaptor.h"
-#include <QPainter>
 #include <QBrush>
-#include <QStyleOptionGraphicsItem>
 #include <QDebug>
+#include <QPainter>
+#include <QStyleOptionGraphicsItem>
+#include "ISceneAdaptor.h"
+#include "IntensityDataView.h"
 
 
 IntensityDataView::IntensityDataView()

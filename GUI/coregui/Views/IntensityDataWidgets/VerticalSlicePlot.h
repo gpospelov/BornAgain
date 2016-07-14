@@ -17,9 +17,9 @@
 #ifndef VERTICALSLICEPLOT_H
 #define VERTICALSLICEPLOT_H
 
-#include "WinDllMacros.h"
 #include <QWidget>
 #include <memory>
+#include "WinDllMacros.h"
 
 class IntensityDataItem;
 class QCustomPlot;

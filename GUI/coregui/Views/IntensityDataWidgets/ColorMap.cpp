@@ -14,16 +14,16 @@
 //
 // ************************************************************************** //
 
-#include "ColorMap.h"
-#include "ColorMapHelper.h"
-#include "IntensityDataItem.h"
-#include "AxesItems.h"
-#include "GUIHelpers.h"
-#include "UpdateTimer.h"
-#include "Units.h"
-#include "ColorMapEvent.h"
-#include "plot_constants.h"
 #include <QDebug>
+#include "AxesItems.h"
+#include "ColorMapEvent.h"
+#include "ColorMapHelper.h"
+#include "GUIHelpers.h"
+#include "IntensityDataItem.h"
+#include "Units.h"
+#include "UpdateTimer.h"
+#include "plot_constants.h"
+#include "ColorMap.h"
 
 namespace {
 const int replot_update_interval = 10;

@@ -17,8 +17,8 @@
 #ifndef INSTRUMENTSELECTORWIDGET_H
 #define INSTRUMENTSELECTORWIDGET_H
 
-#include "WinDllMacros.h"
 #include <QWidget>
+#include "WinDllMacros.h"
 class InstrumentModel;
 class QListView;
 class QAction;

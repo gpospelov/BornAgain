@@ -14,19 +14,19 @@
 //
 // ************************************************************************** //
 
-#include "JobViewDocks.h"
-#include "JobView.h"
-#include "JobModel.h"
-#include "JobSelectorWidget.h"
-#include "JobOutputDataWidget.h"
-#include "JobRealTimeWidget.h"
+#include <QAbstractItemView>
+#include <QAction>
+#include <QDockWidget>
+#include <QTimer>
 #include "FitActivityPanel.h"
 #include "JobMessagePanel.h"
+#include "JobModel.h"
+#include "JobOutputDataWidget.h"
+#include "JobRealTimeWidget.h"
+#include "JobSelectorWidget.h"
+#include "JobView.h"
 #include "JobViewActivities.h"
-#include <QAbstractItemView>
-#include <QDockWidget>
-#include <QAction>
-#include <QTimer>
+#include "JobViewDocks.h"
 
 namespace {
 const JobViewFlags::Activity default_activity = JobViewFlags::JOB_VIEW_ACTIVITY;

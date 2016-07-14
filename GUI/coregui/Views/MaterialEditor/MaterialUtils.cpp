@@ -14,17 +14,17 @@
 //
 // ************************************************************************** //
 
-#include "MaterialUtils.h"
+#include <QDebug>
+#include "ComboProperty.h"
 #include "DesignerHelper.h"
 #include "GUIHelpers.h"
-#include "HomogeneousMaterial.h"
 #include "HomogeneousMagneticMaterial.h"
-#include "MaterialSvc.h"
-#include "MaterialModel.h"
-#include "RefractiveIndexItem.h"
+#include "HomogeneousMaterial.h"
 #include "MagneticFieldItem.h"
-#include "ComboProperty.h"
-#include <QDebug>
+#include "MaterialModel.h"
+#include "MaterialSvc.h"
+#include "RefractiveIndexItem.h"
+#include "MaterialUtils.h"
 
 
 QColor MaterialUtils::suggestMaterialColor(const QString &name)

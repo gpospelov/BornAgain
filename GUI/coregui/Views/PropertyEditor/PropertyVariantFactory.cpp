@@ -14,10 +14,10 @@
 //
 // ************************************************************************** //
 
-#include "PropertyVariantFactory.h"
-#include "PropertyVariantManager.h"
-#include "PropertyBrowserUtils.h"
 #include <QDebug>
+#include "PropertyBrowserUtils.h"
+#include "PropertyVariantManager.h"
+#include "PropertyVariantFactory.h"
 
 
 PropertyVariantFactory::~PropertyVariantFactory()

@@ -19,8 +19,8 @@
 
 #include <QObject>
 #include <QStackedWidget>
-#include "DesignerView.h"
 #include "DesignerScene.h"
+#include "DesignerView.h"
 
 class DesignerScene;
 class DesignerWidgetFactory;

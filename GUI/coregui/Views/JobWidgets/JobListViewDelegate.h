@@ -17,10 +17,10 @@
 #ifndef JOBLISTVIEWDELEGATE_H
 #define JOBLISTVIEWDELEGATE_H
 
-#include "WinDllMacros.h"
 #include <QItemDelegate>
-#include <QRect>
 #include <QMap>
+#include <QRect>
+#include "WinDllMacros.h"
 
 class JobItem;
 

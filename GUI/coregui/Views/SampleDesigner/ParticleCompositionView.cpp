@@ -14,11 +14,11 @@
 //
 // ************************************************************************** //
 
-#include "ParticleCompositionView.h"
-#include "SessionItem.h"
-#include "ParticleItem.h"
-#include "ParticleCompositionItem.h"
 #include <QDebug>
+#include "ParticleCompositionItem.h"
+#include "ParticleItem.h"
+#include "SessionItem.h"
+#include "ParticleCompositionView.h"
 
 ParticleCompositionView::ParticleCompositionView(QGraphicsItem *parent) : ConnectableView(parent)
 {

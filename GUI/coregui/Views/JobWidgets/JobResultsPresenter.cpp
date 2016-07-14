@@ -14,12 +14,12 @@
 //
 // ************************************************************************** //
 
-#include "JobResultsPresenter.h"
-#include "mainwindow_constants.h"
-#include "ObsoleteIntensityDataWidget.h"
+#include <QBoxLayout>
 #include "FitComparisonWidget.h"
 #include "JobItem.h"
-#include <QBoxLayout>
+#include "ObsoleteIntensityDataWidget.h"
+#include "mainwindow_constants.h"
+#include "JobResultsPresenter.h"
 
 JobResultsPresenter::JobResultsPresenter(QWidget *parent)
     : ItemComboWidget(parent)

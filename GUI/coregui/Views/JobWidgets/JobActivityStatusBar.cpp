@@ -14,13 +14,13 @@
 //
 // ************************************************************************** //
 
-#include "JobActivityStatusBar.h"
-#include "mainwindow.h"
-#include "JobViewActivities.h"
-#include <QHBoxLayout>
-#include <QToolButton>
 #include <QComboBox>
+#include <QHBoxLayout>
 #include <QStatusBar>
+#include <QToolButton>
+#include "JobViewActivities.h"
+#include "mainwindow.h"
+#include "JobActivityStatusBar.h"
 
 JobActivityStatusBar::JobActivityStatusBar(MainWindow *mainWindow)
     : QWidget(mainWindow)

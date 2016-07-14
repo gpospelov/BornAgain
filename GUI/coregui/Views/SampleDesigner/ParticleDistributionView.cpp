@@ -14,9 +14,9 @@
 //
 // ************************************************************************** //
 
-#include "ParticleDistributionView.h"
-#include "SessionItem.h"
 #include <QDebug>
+#include "SessionItem.h"
+#include "ParticleDistributionView.h"
 
 
 ParticleDistributionView::ParticleDistributionView(QGraphicsItem *parent)

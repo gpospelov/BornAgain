@@ -17,9 +17,9 @@
 #ifndef JOBLISTWIDGET_H
 #define JOBLISTWIDGET_H
 
-#include "WinDllMacros.h"
-#include <QWidget>
 #include <QModelIndexList>
+#include <QWidget>
+#include "WinDllMacros.h"
 
 class JobModel;
 class JobListViewDelegate;

@@ -17,8 +17,8 @@
 #ifndef COLORMAPLABEL_H
 #define COLORMAPLABEL_H
 
-#include "StatusLabel.h"
 #include <QList>
+#include "StatusLabel.h"
 
 class ColorMap;
 class ColorMapCanvas;

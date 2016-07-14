@@ -17,8 +17,8 @@
 #ifndef FITCOMPARISONWIDGET_H
 #define FITCOMPARISONWIDGET_H
 
-#include "SessionItemWidget.h"
 #include <QMap>
+#include "SessionItemWidget.h"
 
 class JobItem;
 class IntensityDataItem;

@@ -14,12 +14,12 @@
 //
 // ************************************************************************** //
 
-#include "OverlayLabelController.h"
-#include "OverlayLabelWidget.h"
 #include <QAbstractScrollArea>
+#include <QDebug>
 #include <QEvent>
 #include <QRect>
-#include <QDebug>
+#include "OverlayLabelWidget.h"
+#include "OverlayLabelController.h"
 
 OverlayLabelController::OverlayLabelController(QObject *parent)
     : QObject(parent)

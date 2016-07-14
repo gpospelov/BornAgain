@@ -17,9 +17,9 @@
 #ifndef BEAMEDITORWIDGET_H
 #define BEAMEDITORWIDGET_H
 
-#include "WinDllMacros.h"
 #include <QWidget>
 #include "SessionItem.h"
+#include "WinDllMacros.h"
 
 class BeamItem;
 class ComponentBoxEditor;

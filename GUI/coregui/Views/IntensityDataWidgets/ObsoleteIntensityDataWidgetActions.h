@@ -17,8 +17,8 @@
 #ifndef OBSOLETEINTENSITYDATAWIDGETACTIONS_H
 #define OBSOLETEINTENSITYDATAWIDGETACTIONS_H
 
-#include "WinDllMacros.h"
 #include <QObject>
+#include "WinDllMacros.h"
 
 class QAction;
 

@@ -16,7 +16,6 @@
 #ifndef TWODIMLATTICEBUILDER_H
 #define TWODIMLATTICEBUILDER_H
 
-#include "ISampleBuilder.h"
 
 
 //! @class SquareLatticeBuilder

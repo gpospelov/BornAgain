@@ -19,7 +19,6 @@
 //#include "MultiLayerRTCoefficients.h"
 
 #ifndef SWIG
-#include "SpecularMatrix.h"
 #endif
 
 

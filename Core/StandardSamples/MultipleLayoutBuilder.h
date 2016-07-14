@@ -16,7 +16,6 @@
 #ifndef MULTIPLELAYOUTBUILDER_H
 #define MULTIPLELAYOUTBUILDER_H
 
-#include "ISampleBuilder.h"
 
 //! @class MultipleLayoutBuilder
 //! @ingroup standard_samples

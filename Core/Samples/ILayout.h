@@ -17,7 +17,6 @@
 #define ILAYOUT_H
 
 #include "IParticle.h"
-#include "SafePointerVector.h"
 
 
 

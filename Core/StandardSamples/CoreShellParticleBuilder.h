@@ -16,7 +16,6 @@
 #ifndef CORESHELLPARTICLEBUILDER_H
 #define CORESHELLPARTICLEBUILDER_H
 
-#include "ISampleBuilder.h"
 
 //! @class CoreShellParticleBuilder
 //! @ingroup standard_samples

@@ -17,7 +17,6 @@
 #define INTENSITYDATAIOFACTORY_H
 
 
-#include <string>
 
 template <class T> class OutputData;
 class IHistogram;

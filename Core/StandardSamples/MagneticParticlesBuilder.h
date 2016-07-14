@@ -16,7 +16,6 @@
 #ifndef MAGNETICPARTICLESBUILDER_H
 #define MAGNETICPARTICLESBUILDER_H
 
-#include "ISampleBuilder.h"
 
 //! @class MagneticParticleZeroFieldBuilder
 //! @ingroup standard_samples

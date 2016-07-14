@@ -16,7 +16,6 @@
 #ifndef CYLINDERSBUILDER_H
 #define CYLINDERSBUILDER_H
 
-#include "ISampleBuilder.h"
 
 //! @class CylindersInDWBABuilder
 //! @ingroup standard_samples

@@ -16,7 +16,6 @@
 #ifndef ROTATEDPYRAMIDSBUILDER_H
 #define ROTATEDPYRAMIDSBUILDER_H
 
-#include "ISampleBuilder.h"
 
 //! @class RotatedPyramidsBuilder
 //! @ingroup standard_samples

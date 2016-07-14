@@ -16,7 +16,6 @@
 #ifndef PARTICLEINTHEAIRBUILDER_H
 #define PARTICLEINTHEAIRBUILDER_H
 
-#include "ISampleBuilder.h"
 
 //! @class ParticleInTheAirBuilder
 //! @ingroup standard_samples

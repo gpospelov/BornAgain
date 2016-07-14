@@ -16,7 +16,6 @@
 #ifndef MULTILAYERWITHROUGHNESSBUILDER_H
 #define MULTILAYERWITHROUGHNESSBUILDER_H
 
-#include "ISampleBuilder.h"
 
 //! @class MultiLayerWithRoughnessBuilder
 //! @ingroup standard_samples

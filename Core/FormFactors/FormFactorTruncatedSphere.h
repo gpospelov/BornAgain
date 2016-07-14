@@ -18,7 +18,6 @@
 
 #include "IFormFactorBorn.h"
 #include "IntegratorComplex.h"
-#include <memory>
 
 //! @class FormFactorTruncatedSphere
 //! @ingroup formfactors

@@ -16,7 +16,6 @@
 #ifndef CUSTOMMORPHOLOGYBUILDER_H
 #define CUSTOMMORPHOLOGYBUILDER_H
 
-#include "ISampleBuilder.h"
 
 //! @class CustomMorphologyBuilder
 //! @ingroup standard_samples

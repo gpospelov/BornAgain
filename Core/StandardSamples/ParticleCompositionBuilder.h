@@ -16,7 +16,6 @@
 #ifndef PARTICLECOMPOSITIONBUILDER_H
 #define PARTICLECOMPOSITIONBUILDER_H
 
-#include "ISampleBuilder.h"
 
 //! @class ParticleCompositionBuilder
 //! @ingroup standard_samples

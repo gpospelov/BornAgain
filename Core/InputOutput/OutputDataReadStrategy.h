@@ -16,7 +16,6 @@
 #ifndef OUTPUTDATAREADSTRATEGY_H
 #define OUTPUTDATAREADSTRATEGY_H
 
-#include <string>
 
 template <class T> class OutputData;
 

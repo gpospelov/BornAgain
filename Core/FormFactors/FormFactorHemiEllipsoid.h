@@ -18,7 +18,6 @@
 
 #include "IFormFactorBorn.h"
 #include "IntegratorComplex.h"
-#include <memory>
 
 //! @class FormFactorHemiEllipsoid
 //! @ingroup formfactors

@@ -15,13 +15,12 @@
 
 #ifdef BORNAGAIN_PYTHON
 
-#include "OutputData.h"
-
 #define NPY_NO_DEPRECATED_API NPY_1_7_API_VERSION
-#include <Python.h> // needed by Teamcity ??
 #define PY_ARRAY_UNIQUE_SYMBOL BORNAGAIN_PYTHONAPI_ARRAY
 #define NO_IMPORT_ARRAY
 #include <numpy/arrayobject.h>
+
+#include "OutputData.h"
 
 template<>
 PyObject *OutputData<double>::getArray() const

@@ -18,6 +18,9 @@
 
 #include "ICloneable.h"
 #include "IParameterized.h"
+#include "ILayerRTCoefficients.h"
+#include "OutputData.h"
+#include <memory>
 
 //! @class SpecularSimulation
 //! @ingroup simulation
@@ -43,7 +46,7 @@ public:
     void setSample(const class ISample& sample);
 
     //! Returns the sample
-    ISample* getSample() const;
+    class ISample* getSample() const;
 
     //! Sets the sample builder
     void setSampleBuilder(std::shared_ptr<class ISampleBuilder> sample_builder);

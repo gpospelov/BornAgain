@@ -13,9 +13,9 @@
 //
 // ************************************************************************** //
 
+#include "SpecularSimulation.h"
 #include "ISample.h"
 #include "SpecularMatrix.h"
-#include "SpecularSimulation.h"
 #include <memory>
 
 SpecularSimulation::SpecularSimulation()

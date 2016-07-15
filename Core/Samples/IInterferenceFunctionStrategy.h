@@ -16,10 +16,9 @@
 #ifndef IINTERFERENCEFUNCTIONSTRATEGY_H
 #define IINTERFERENCEFUNCTIONSTRATEGY_H
 
+#include <Eigen/StdVector>
 #include <vector>
 #include <memory>
-#include <memory>
-#include <Eigen/StdVector>
 
 #include "LayerSpecularInfo.h"
 #include "IFormFactor.h"

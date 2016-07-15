@@ -21,12 +21,12 @@
 #include "InstrumentEditorWidget.h"
 #include "ExtendedDetectorDialog.h"
 #include "StyledToolBar.h"
+#include <QAction> // need detected by TeamCity
 #include <QBoxLayout>
 #include <QListView>
 #include <QStackedWidget>
 #include <QToolButton>
 #include <QDebug>
-
 
 InstrumentView::InstrumentView(MainWindow *mainWindow)
     : QWidget(mainWindow)
@@ -83,11 +83,13 @@ void InstrumentView::resetView()
 }
 
 
-void InstrumentView::onSelectionChanged(const QItemSelection &selected, const QItemSelection &deselected )
+void InstrumentView::onSelectionChanged(
+    const QItemSelection &selected, const QItemSelection &deselected )
 {
     qDebug() << "InstrumentView::onSelectionChanged()" << selected << deselected;
     if(selected.indexes().isEmpty()) {
-        qDebug() << "       InstrumentView::onSelectionChanged() -> no selected" << selected << deselected;
+        qDebug() << "       InstrumentView::onSelectionChanged() -> no selected"
+                 << selected << deselected;
         return;
     }
 
@@ -118,8 +120,10 @@ void InstrumentView::onAddInstrument()
     qDebug() << "InstrumentView::onAddInstrument()";
     SessionItem *instrument = m_instrumentModel->insertNewItem(Constants::InstrumentType);
     instrument->setItemName(getNewInstrumentName("Default GISAS"));
-    m_instrumentModel->insertNewItem(Constants::DetectorType, m_instrumentModel->indexOfItem(instrument));
-    m_instrumentModel->insertNewItem(Constants::BeamType, m_instrumentModel->indexOfItem(instrument));
+    m_instrumentModel->insertNewItem(
+        Constants::DetectorType, m_instrumentModel->indexOfItem(instrument));
+    m_instrumentModel->insertNewItem(
+        Constants::BeamType, m_instrumentModel->indexOfItem(instrument));
     QModelIndex itemIndex = m_instrumentModel->indexOfItem(instrument);
     qDebug() << "       InstrumentView::onAddInstrument() -> clearing selection";
     m_instrumentSelector->getSelectionModel()->clearSelection();
@@ -272,4 +276,3 @@ void InstrumentView::updateMapOfNames()
 //        qDebug() << "XXXXXXXXXXXXXXXX" << name << ncopy << regexp.cap(0);
     }
 }
-

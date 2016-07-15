@@ -37,9 +37,6 @@ C++ includes: AttLimits.h
 %feature("docstring")  AttLimits::AttLimits "AttLimits::AttLimits()
 ";
 
-%feature("docstring")  AttLimits::~AttLimits "AttLimits::~AttLimits()
-";
-
 %feature("docstring")  AttLimits::hasLowerLimit "bool AttLimits::hasLowerLimit() const
 
 if has lower limit 
@@ -395,12 +392,7 @@ Gets the polarization density matrix (in spin basis along z-axis)
 
 
 // File: structBin1D.xml
-%feature("docstring") Bin1D "
-
-One dimensional bin with left and right bounds.
-
-C++ includes: Bin.h
-";
+%feature("docstring") Bin1D "";
 
 %feature("docstring")  Bin1D::Bin1D "Bin1D::Bin1D()
 ";
@@ -613,6 +605,8 @@ clone method
 ";
 
 %feature("docstring")  ChiSquaredModule::processFitElements "void ChiSquaredModule::processFitElements(std::vector< FitElement >::iterator first, std::vector< FitElement >::iterator last)
+
+Updates mp_simulation_data and mp_weights, returns chi^2. 
 ";
 
 
@@ -746,30 +740,6 @@ Sets convolution mode.
 ";
 
 
-// File: classCoreFutest.xml
-%feature("docstring") CoreFutest "
-
-Core functional test compares results of the standard simulation with reference intensity data. Normally invoked by FunctionalMultiTest.
-
-C++ includes: CoreFutest.h
-";
-
-%feature("docstring")  CoreFutest::CoreFutest "CoreFutest::CoreFutest(const std::string &name, const std::string &description, GISASSimulation *simulation, double threshold)
-";
-
-%feature("docstring")  CoreFutest::~CoreFutest "CoreFutest::~CoreFutest()
-";
-
-%feature("docstring")  CoreFutest::runTest "void CoreFutest::runTest()
-";
-
-%feature("docstring")  CoreFutest::analyseResults "int CoreFutest::analyseResults()
-";
-
-%feature("docstring")  CoreFutest::printResults "void CoreFutest::printResults(std::ostream &ostr) const 
-";
-
-
 // File: classCoreShellBoxRotateZandYBuilder.xml
 %feature("docstring") CoreShellBoxRotateZandYBuilder "
 
@@ -797,6 +767,30 @@ C++ includes: CoreShellParticleBuilder.h
 ";
 
 %feature("docstring")  CoreShellParticleBuilder::buildSample "ISample * CoreShellParticleBuilder::buildSample() const 
+";
+
+
+// File: classCoreTest.xml
+%feature("docstring") CoreTest "
+
+Core functional test compares results of the standard simulation with reference intensity data. Normally invoked by FunctionalMultiTest.
+
+C++ includes: CoreTest.h
+";
+
+%feature("docstring")  CoreTest::CoreTest "CoreTest::CoreTest(const std::string &name, const std::string &description, GISASSimulation *simulation, double threshold)
+";
+
+%feature("docstring")  CoreTest::~CoreTest "CoreTest::~CoreTest()
+";
+
+%feature("docstring")  CoreTest::runTest "void CoreTest::runTest()
+";
+
+%feature("docstring")  CoreTest::analyseResults "int CoreTest::analyseResults()
+";
+
+%feature("docstring")  CoreTest::printResults "void CoreTest::printResults(std::ostream &ostr) const 
 ";
 
 
@@ -876,25 +870,25 @@ C++ includes: CumulativeValue.h
 %feature("docstring")  CumulativeValue::CumulativeValue "CumulativeValue::CumulativeValue()
 ";
 
+%feature("docstring")  CumulativeValue::clear "void CumulativeValue::clear()
+";
+
+%feature("docstring")  CumulativeValue::setContent "void CumulativeValue::setContent(double value)
+";
+
+%feature("docstring")  CumulativeValue::add "void CumulativeValue::add(double value, double weight=1.0)
+";
+
 %feature("docstring")  CumulativeValue::getNumberOfEntries "int CumulativeValue::getNumberOfEntries() const 
 ";
 
 %feature("docstring")  CumulativeValue::getContent "double CumulativeValue::getContent() const 
 ";
 
-%feature("docstring")  CumulativeValue::setContent "void CumulativeValue::setContent(double value)
-";
-
 %feature("docstring")  CumulativeValue::getAverage "double CumulativeValue::getAverage() const 
 ";
 
 %feature("docstring")  CumulativeValue::getRMS "double CumulativeValue::getRMS() const 
-";
-
-%feature("docstring")  CumulativeValue::add "void CumulativeValue::add(double value, double weight=1.0)
-";
-
-%feature("docstring")  CumulativeValue::clear "void CumulativeValue::clear()
 ";
 
 
@@ -4315,64 +4309,64 @@ evaluate Fourier transformed distribution for q in X,Y coordinates the original 
 ";
 
 
-// File: classFutestInfo.xml
-%feature("docstring") FutestInfo "
+// File: classFunctionalTestInfo.xml
+%feature("docstring") FunctionalTestInfo "
 
 Contains all necessary information to compose functional test.
 
-C++ includes: FutestInfo.h
+C++ includes: FunctionalTestInfo.h
 ";
 
-%feature("docstring")  FutestInfo::FutestInfo "FutestInfo::FutestInfo()
+%feature("docstring")  FunctionalTestInfo::FunctionalTestInfo "FunctionalTestInfo::FunctionalTestInfo()
 ";
 
-%feature("docstring")  FutestInfo::FutestInfo "FutestInfo::FutestInfo(const std::string &test_name, const std::string &test_description, const std::string &simulation_name, const std::string &sample_builder_name, const std::string &subtest_type, double threshold)
+%feature("docstring")  FunctionalTestInfo::FunctionalTestInfo "FunctionalTestInfo::FunctionalTestInfo(const std::string &test_name, const std::string &test_description, const std::string &simulation_name, const std::string &sample_builder_name, const std::string &subtest_type, double threshold)
 ";
 
 
-// File: classFutestRegistry.xml
-%feature("docstring") FutestRegistry "
+// File: classFunctionalTestRegistry.xml
+%feature("docstring") FunctionalTestRegistry "
 
 The registry which holds information about available functional tests.
 
-C++ includes: FutestRegistry.h
+C++ includes: FunctionalTestRegistry.h
 ";
 
-%feature("docstring")  FutestRegistry::FutestRegistry "FutestRegistry::FutestRegistry()
+%feature("docstring")  FunctionalTestRegistry::FunctionalTestRegistry "FunctionalTestRegistry::FunctionalTestRegistry()
 ";
 
-%feature("docstring")  FutestRegistry::add "void FutestRegistry::add(const std::string &test_name, const std::string &test_description, const std::string &simulation_name, const std::string &sample_builder_name, const std::string &component_registry_name, double threshold)
+%feature("docstring")  FunctionalTestRegistry::add "void FunctionalTestRegistry::add(const std::string &test_name, const std::string &test_description, const std::string &simulation_name, const std::string &sample_builder_name, const std::string &component_registry_name, double threshold)
 ";
 
-%feature("docstring")  FutestRegistry::getItemOrExplain "const FutestInfo * FutestRegistry::getItemOrExplain(const std::string &test_name, const std::string &suite_name) const 
+%feature("docstring")  FunctionalTestRegistry::getItemOrExplain "const FunctionalTestInfo * FunctionalTestRegistry::getItemOrExplain(const std::string &test_name, const std::string &suite_name) const 
 ";
 
-%feature("docstring")  FutestRegistry::printCatalogue "void FutestRegistry::printCatalogue(std::ostream &ostr) const 
+%feature("docstring")  FunctionalTestRegistry::printCatalogue "void FunctionalTestRegistry::printCatalogue(std::ostream &ostr) const 
 ";
 
 
-// File: classFutestSuite.xml
-%feature("docstring") FutestSuite "
+// File: classFunctionalTestSuite.xml
+%feature("docstring") FunctionalTestSuite "
 
 To execute one functional test of given name.
 
-Used in functional tests (Core|Py|GUI)Suite, where it is subclassed as a singleton, and called through instance().execute(argc, argv). When processing execute, dependent classes will call back  getFutest(). Certain tests have subtests; they will call back getFormFactor() etc.
+Used in functional tests (Core|Py|GUI)Suite, where it is subclassed as a singleton, and called through instance().execute(argc, argv). When processing execute, dependent classes will call back  getTest(). Certain tests have subtests; they will call back getFormFactor() etc.
 
-C++ includes: FutestSuite.h
+C++ includes: FunctionalTestSuite.h
 ";
 
-%feature("docstring")  FutestSuite::FutestSuite "FutestSuite::FutestSuite()
+%feature("docstring")  FunctionalTestSuite::FunctionalTestSuite "FunctionalTestSuite::FunctionalTestSuite()
 ";
 
-%feature("docstring")  FutestSuite::~FutestSuite "virtual FutestSuite::~FutestSuite()
+%feature("docstring")  FunctionalTestSuite::~FunctionalTestSuite "virtual FunctionalTestSuite::~FunctionalTestSuite()
 ";
 
-%feature("docstring")  FutestSuite::execute "int FutestSuite::execute(int argc, char **argv)
+%feature("docstring")  FunctionalTestSuite::execute "int FunctionalTestSuite::execute(int argc, char **argv)
 
 Runs test (name given as command-line argument), and returns 0 for SUCCESS, or error code. 
 ";
 
-%feature("docstring")  FutestSuite::getFutest "virtual class IFutest* FutestSuite::getFutest() const =0
+%feature("docstring")  FunctionalTestSuite::getTest "virtual class IFunctionalTest* FunctionalTestSuite::getTest() const =0
 
 overloaded in (Core|Py|GUI)Suite.cpp 
 ";
@@ -5473,52 +5467,42 @@ Base class for all factories.
 C++ includes: IFactory.h
 ";
 
-%feature("docstring")  IFactory::IFactory "IFactory< AbstractProduct >::IFactory()
+%feature("docstring")  IFactory::IFactory "IFactory< Key, AbstractProduct >::IFactory()
 ";
 
-%feature("docstring")  IFactory::createItem "AbstractProduct* IFactory< AbstractProduct >::createItem(const std::string &itemId)
+%feature("docstring")  IFactory::createItem "AbstractProduct* IFactory< Key, AbstractProduct >::createItem(const Key &item_key)
 
 Creates object by calling creation function corresponded to given identifier. 
 ";
 
-%feature("docstring")  IFactory::registerItem "bool IFactory< AbstractProduct >::registerItem(const std::string &itemId, CreateItemCallback CreateFn)
+%feature("docstring")  IFactory::registerItem "bool IFactory< Key, AbstractProduct >::registerItem(const Key &item_key, CreateItemCallback CreateFn)
 
 Registers object's creation function. 
 ";
 
-%feature("docstring")  IFactory::registerItem "bool IFactory< AbstractProduct >::registerItem(const std::string &itemId, CreateItemCallback CreateFn, const std::string &itemDescription)
+%feature("docstring")  IFactory::registerItem "bool IFactory< Key, AbstractProduct >::registerItem(const Key &item_key, CreateItemCallback CreateFn, const std::string &itemDescription)
 
 Registers object's creation function and store object description. 
 ";
 
-%feature("docstring")  IFactory::~IFactory "IFactory< AbstractProduct >::~IFactory()
+%feature("docstring")  IFactory::~IFactory "IFactory< Key, AbstractProduct >::~IFactory()
 ";
 
-%feature("docstring")  IFactory::clear "void IFactory< AbstractProduct >::clear()
-
-clear everything 
-";
-
-%feature("docstring")  IFactory::setOwnObjects "void IFactory< AbstractProduct >::setOwnObjects(bool own_objects)
-
-Sets flag to delete objects on descruction. 
-";
-
-%feature("docstring")  IFactory::getNumberOfRegistered "size_t IFactory< AbstractProduct >::getNumberOfRegistered() const
+%feature("docstring")  IFactory::getNumberOfRegistered "size_t IFactory< Key, AbstractProduct >::getNumberOfRegistered() const
 
 Returns number of registered objects. 
 ";
 
-%feature("docstring")  IFactory::begin "iterator IFactory< AbstractProduct >::begin()
+%feature("docstring")  IFactory::begin "iterator IFactory< Key, AbstractProduct >::begin()
 ";
 
-%feature("docstring")  IFactory::begin "const_iterator IFactory< AbstractProduct >::begin() const 
+%feature("docstring")  IFactory::begin "const_iterator IFactory< Key, AbstractProduct >::begin() const 
 ";
 
-%feature("docstring")  IFactory::end "iterator IFactory< AbstractProduct >::end()
+%feature("docstring")  IFactory::end "iterator IFactory< Key, AbstractProduct >::end()
 ";
 
-%feature("docstring")  IFactory::end "const_iterator IFactory< AbstractProduct >::end() const 
+%feature("docstring")  IFactory::end "const_iterator IFactory< Key, AbstractProduct >::end() const 
 ";
 
 
@@ -5801,42 +5785,42 @@ evaluate Fourier transformed distribution for q in X,Y coordinates the original 
 ";
 
 
-// File: classIFutest.xml
-%feature("docstring") IFutest "
+// File: classIFunctionalTest.xml
+%feature("docstring") IFunctionalTest "
 
 Base class for all functional tests.
 
-C++ includes: IFutest.h
+C++ includes: IFunctionalTest.h
 ";
 
-%feature("docstring")  IFutest::IFutest "IFutest::IFutest()
+%feature("docstring")  IFunctionalTest::IFunctionalTest "IFunctionalTest::IFunctionalTest()
 ";
 
-%feature("docstring")  IFutest::IFutest "IFutest::IFutest(const std::string &name, const std::string &description)
+%feature("docstring")  IFunctionalTest::IFunctionalTest "IFunctionalTest::IFunctionalTest(const std::string &name, const std::string &description)
 ";
 
-%feature("docstring")  IFutest::~IFutest "virtual IFutest::~IFutest()
+%feature("docstring")  IFunctionalTest::~IFunctionalTest "virtual IFunctionalTest::~IFunctionalTest()
 ";
 
-%feature("docstring")  IFutest::runTest "virtual void IFutest::runTest()=0
+%feature("docstring")  IFunctionalTest::runTest "virtual void IFunctionalTest::runTest()=0
 ";
 
-%feature("docstring")  IFutest::analyseResults "virtual int IFutest::analyseResults()=0
+%feature("docstring")  IFunctionalTest::analyseResults "virtual int IFunctionalTest::analyseResults()=0
 ";
 
-%feature("docstring")  IFutest::getDescription "std::string IFutest::getDescription() const 
+%feature("docstring")  IFunctionalTest::getDescription "std::string IFunctionalTest::getDescription() const 
 ";
 
-%feature("docstring")  IFutest::setDescription "void IFutest::setDescription(const std::string &description)
+%feature("docstring")  IFunctionalTest::setDescription "void IFunctionalTest::setDescription(const std::string &description)
 ";
 
-%feature("docstring")  IFutest::getTestResult "ETestResult IFutest::getTestResult() const 
+%feature("docstring")  IFunctionalTest::getTestResult "ETestResult IFunctionalTest::getTestResult() const 
 ";
 
-%feature("docstring")  IFutest::getTestResultString "std::string IFutest::getTestResultString() const 
+%feature("docstring")  IFunctionalTest::getTestResultString "std::string IFunctionalTest::getTestResultString() const 
 ";
 
-%feature("docstring")  IFutest::getFormattedInfoString "std::string IFutest::getFormattedInfoString() const 
+%feature("docstring")  IFunctionalTest::getFormattedInfoString "std::string IFunctionalTest::getFormattedInfoString() const 
 ";
 
 
@@ -6088,11 +6072,9 @@ Returns integral of bins content (computed as a sum of all bin content).
 Reset histogram content (axes remains) 
 ";
 
-%feature("docstring")  IHistogram::createOutputData "OutputData< double > * IHistogram::createOutputData(DataType dataType=DataType::INTEGRAL) const
+%feature("docstring")  IHistogram::createOutputData "OutputData<double>* IHistogram::createOutputData(DataType dataType=DataType::INTEGRAL) const
 
-creates new  OutputData with histogram's shape and values corresponding to DataType
-
-creates new  OutputData with histogram's shape and put there values corresponding to DataType 
+creates new  OutputData with histogram's shape and values corresponding to DataType 
 ";
 
 %feature("docstring")  IHistogram::hasSameShape "bool IHistogram::hasSameShape(const IHistogram &other) const
@@ -6105,7 +6087,7 @@ Returns true if objects a) have same dimensions b) bin boundaries of axes coinci
 Returns true if object have same rank and number of axes bins. 
 ";
 
-%feature("docstring")  IHistogram::relativeDifferenceHistogram "IHistogram * IHistogram::relativeDifferenceHistogram(const IHistogram &rhs)
+%feature("docstring")  IHistogram::relativeDifferenceHistogram "IHistogram* IHistogram::relativeDifferenceHistogram(const IHistogram &rhs)
 
 returns histogram representing relative difference of two histograms. 
 ";
@@ -6696,7 +6678,7 @@ C++ includes: IIntensityFunction.h
 %feature("docstring")  IntensityFunctionLog::clone "virtual IntensityFunctionLog* IntensityFunctionLog::clone() const 
 ";
 
-%feature("docstring")  IntensityFunctionLog::evaluate "virtual double IntensityFunctionLog::evaluate(double value) const 
+%feature("docstring")  IntensityFunctionLog::evaluate "double IntensityFunctionLog::evaluate(double value) const 
 ";
 
 
@@ -6714,7 +6696,7 @@ C++ includes: IIntensityFunction.h
 %feature("docstring")  IntensityFunctionSqrt::clone "virtual IntensityFunctionSqrt* IntensityFunctionSqrt::clone() const 
 ";
 
-%feature("docstring")  IntensityFunctionSqrt::evaluate "virtual double IntensityFunctionSqrt::evaluate(double value) const 
+%feature("docstring")  IntensityFunctionSqrt::evaluate "double IntensityFunctionSqrt::evaluate(double value) const 
 ";
 
 
@@ -7499,220 +7481,220 @@ C++ includes: ISampleVisitor.h
 %feature("docstring")  ISampleVisitor::~ISampleVisitor "virtual ISampleVisitor::~ISampleVisitor()
 ";
 
-%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const ISample *)
+%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class ISample *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const ICompositeSample *)
+%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class ICompositeSample *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const IClusteredParticles *)
+%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class IClusteredParticles *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const Crystal *)
+%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class Crystal *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const ILayout *)
+%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class ILayout *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const ParticleLayout *)
+%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class ParticleLayout *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const Layer *)
+%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class Layer *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const LayerInterface *)
+%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class LayerInterface *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const MultiLayer *)
+%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class MultiLayer *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const IAbstractParticle *)
+%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class IAbstractParticle *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const IParticle *)
+%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class IParticle *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const Particle *)
+%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class Particle *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const ParticleDistribution *)
+%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class ParticleDistribution *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const ParticleComposition *)
+%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class ParticleComposition *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const MesoCrystal *)
+%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class MesoCrystal *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const ParticleCoreShell *)
+%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class ParticleCoreShell *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const IFormFactor *)
+%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class IFormFactor *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const IFormFactorBorn *)
+%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class IFormFactorBorn *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const IFormFactorDecorator *)
+%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class IFormFactorDecorator *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const FormFactorAnisoPyramid *)
+%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class FormFactorAnisoPyramid *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const FormFactorBox *)
+%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class FormFactorBox *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const FormFactorCone *)
+%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class FormFactorCone *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const FormFactorCone6 *)
+%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class FormFactorCone6 *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const FormFactorCuboctahedron *)
+%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class FormFactorCuboctahedron *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const FormFactorCrystal *)
+%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class FormFactorCrystal *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const FormFactorCylinder *)
+%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class FormFactorCylinder *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const FormFactorDodecahedron *)
+%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class FormFactorDodecahedron *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const FormFactorEllipsoidalCylinder *)
+%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class FormFactorEllipsoidalCylinder *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const FormFactorFullSphere *)
+%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class FormFactorFullSphere *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const FormFactorFullSpheroid *)
+%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class FormFactorFullSpheroid *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const FormFactorGauss *)
+%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class FormFactorGauss *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const FormFactorHemiEllipsoid *)
+%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class FormFactorHemiEllipsoid *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const FormFactorIcosahedron *)
+%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class FormFactorIcosahedron *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const FormFactorLongBoxGauss *)
+%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class FormFactorLongBoxGauss *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const FormFactorLongBoxLorentz *)
+%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class FormFactorLongBoxLorentz *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const FormFactorLorentz *)
+%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class FormFactorLorentz *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const FormFactorPrism3 *)
+%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class FormFactorPrism3 *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const FormFactorPrism6 *)
+%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class FormFactorPrism6 *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const FormFactorPyramid *)
+%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class FormFactorPyramid *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const FormFactorRipple1 *)
+%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class FormFactorRipple1 *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const FormFactorRipple2 *)
+%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class FormFactorRipple2 *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const FormFactorSphereGaussianRadius *)
+%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class FormFactorSphereGaussianRadius *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const FormFactorSphereLogNormalRadius *)
+%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class FormFactorSphereLogNormalRadius *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const FormFactorTetrahedron *)
+%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class FormFactorTetrahedron *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const FormFactorTrivial *)
+%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class FormFactorTrivial *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const FormFactorTruncatedCube *)
+%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class FormFactorTruncatedCube *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const FormFactorTruncatedSphere *)
+%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class FormFactorTruncatedSphere *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const FormFactorTruncatedSpheroid *)
+%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class FormFactorTruncatedSpheroid *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const FormFactorDWBA *)
+%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class FormFactorDWBA *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const FormFactorDWBAPol *)
+%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class FormFactorDWBAPol *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const FormFactorWeighted *)
+%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class FormFactorWeighted *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const FormFactorDecoratorDebyeWaller *)
+%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class FormFactorDecoratorDebyeWaller *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const FormFactorDecoratorFactor *)
+%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class FormFactorDecoratorFactor *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const FormFactorDecoratorMaterial *)
+%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class FormFactorDecoratorMaterial *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const FormFactorDecoratorMultiPositionFactor *)
+%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class FormFactorDecoratorMultiPositionFactor *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const FormFactorDecoratorPositionFactor *)
+%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class FormFactorDecoratorPositionFactor *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const FormFactorDecoratorRotation *)
+%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class FormFactorDecoratorRotation *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const IInterferenceFunction *)
+%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class IInterferenceFunction *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const InterferenceFunction1DLattice *)
+%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class InterferenceFunction1DLattice *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const InterferenceFunctionRadialParaCrystal *)
+%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class InterferenceFunctionRadialParaCrystal *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const InterferenceFunction2DLattice *)
+%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class InterferenceFunction2DLattice *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const InterferenceFunction2DParaCrystal *)
+%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class InterferenceFunction2DParaCrystal *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const InterferenceFunctionNone *)
+%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class InterferenceFunctionNone *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const IRoughness *)
+%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class IRoughness *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const LayerRoughness *)
+%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class LayerRoughness *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const IRotation *)
+%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class IRotation *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const RotationX *)
+%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class RotationX *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const RotationY *)
+%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class RotationY *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const RotationZ *)
+%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class RotationZ *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const RotationEuler *)
+%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class RotationEuler *)
 ";
 
-%feature("docstring")  ISampleVisitor::visitEnter "bool ISampleVisitor::visitEnter(const ICompositeSample *)
+%feature("docstring")  ISampleVisitor::visitEnter "bool ISampleVisitor::visitEnter(const class ICompositeSample *)
 ";
 
-%feature("docstring")  ISampleVisitor::visitLeave "bool ISampleVisitor::visitLeave(const ICompositeSample *)
+%feature("docstring")  ISampleVisitor::visitLeave "bool ISampleVisitor::visitLeave(const class ICompositeSample *)
 ";
 
 %feature("docstring")  ISampleVisitor::getLevel "int ISampleVisitor::getLevel() const
@@ -10634,139 +10616,139 @@ finalize report to the simulation
 %feature("docstring")  PyGenVisitor::~PyGenVisitor "PyGenVisitor::~PyGenVisitor()
 ";
 
-%feature("docstring")  PyGenVisitor::writePyScript "std::string PyGenVisitor::writePyScript(const GISASSimulation *simulation, const std::string &output_filename)
+%feature("docstring")  PyGenVisitor::writePyScript "std::string PyGenVisitor::writePyScript(const class GISASSimulation *simulation, const std::string &output_filename)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorAnisoPyramid *sample)
+%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class FormFactorAnisoPyramid *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorBox *sample)
+%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class FormFactorBox *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorCone *sample)
+%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class FormFactorCone *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorCone6 *sample)
+%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class FormFactorCone6 *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorCuboctahedron *sample)
+%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class FormFactorCuboctahedron *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorCylinder *sample)
+%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class FormFactorCylinder *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorDodecahedron *sample)
+%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class FormFactorDodecahedron *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorEllipsoidalCylinder *sample)
+%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class FormFactorEllipsoidalCylinder *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorFullSphere *sample)
+%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class FormFactorFullSphere *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorFullSpheroid *sample)
+%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class FormFactorFullSpheroid *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorGauss *sample)
+%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class FormFactorGauss *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorHemiEllipsoid *sample)
+%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class FormFactorHemiEllipsoid *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorIcosahedron *sample)
+%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class FormFactorIcosahedron *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorLorentz *sample)
+%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class FormFactorLorentz *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorPrism3 *sample)
+%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class FormFactorPrism3 *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorPrism6 *sample)
+%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class FormFactorPrism6 *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorPyramid *sample)
+%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class FormFactorPyramid *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorRipple1 *sample)
+%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class FormFactorRipple1 *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorRipple2 *sample)
+%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class FormFactorRipple2 *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorTetrahedron *sample)
+%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class FormFactorTetrahedron *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorTruncatedCube *sample)
+%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class FormFactorTruncatedCube *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorTruncatedSphere *sample)
+%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class FormFactorTruncatedSphere *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorTruncatedSpheroid *sample)
+%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class FormFactorTruncatedSpheroid *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const InterferenceFunctionNone *sample)
+%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class InterferenceFunctionNone *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const InterferenceFunction1DLattice *sample)
+%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class InterferenceFunction1DLattice *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const InterferenceFunctionRadialParaCrystal *sample)
+%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class InterferenceFunctionRadialParaCrystal *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const InterferenceFunction2DLattice *sample)
+%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class InterferenceFunction2DLattice *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const InterferenceFunction2DParaCrystal *sample)
+%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class InterferenceFunction2DParaCrystal *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const Layer *sample)
+%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class Layer *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const LayerInterface *sample)
+%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class LayerInterface *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const LayerRoughness *sample)
+%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class LayerRoughness *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const MultiLayer *sample)
+%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class MultiLayer *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const ParticleComposition *sample)
+%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class ParticleComposition *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const MesoCrystal *sample)
+%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class MesoCrystal *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const Particle *sample)
+%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class Particle *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const ParticleDistribution *sample)
+%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class ParticleDistribution *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const ParticleCoreShell *sample)
+%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class ParticleCoreShell *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const ParticleLayout *sample)
+%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class ParticleLayout *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const RotationX *sample)
+%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class RotationX *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const RotationY *sample)
+%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class RotationY *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const RotationZ *sample)
+%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class RotationZ *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const RotationEuler *sample)
+%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class RotationEuler *sample)
 ";
 
 %feature("docstring")  PyGenVisitor::definePreamble "std::string PyGenVisitor::definePreamble() const 
 ";
 
-%feature("docstring")  PyGenVisitor::defineGetSimulation "std::string PyGenVisitor::defineGetSimulation(const GISASSimulation *simulation) const 
+%feature("docstring")  PyGenVisitor::defineGetSimulation "std::string PyGenVisitor::defineGetSimulation(const class GISASSimulation *simulation) const 
 ";
 
 %feature("docstring")  PyGenVisitor::defineGetSample "std::string PyGenVisitor::defineGetSample() const 
@@ -10776,33 +10758,33 @@ finalize report to the simulation
 ";
 
 
-// File: classPySuiteFutest.xml
-%feature("docstring") PySuiteFutest "
+// File: classPySuiteTest.xml
+%feature("docstring") PySuiteTest "
 
 Test whether Python dumps yields the same image as a direct computation.
 
-C++ includes: PySuiteFutest.h
+C++ includes: PySuiteTest.h
 ";
 
-%feature("docstring")  PySuiteFutest::PySuiteFutest "PySuiteFutest::PySuiteFutest(const std::string &name, const std::string &description, GISASSimulation *reference_simulation, double threshold)
+%feature("docstring")  PySuiteTest::PySuiteTest "PySuiteTest::PySuiteTest(const std::string &name, const std::string &description, GISASSimulation *reference_simulation, double threshold)
 ";
 
-%feature("docstring")  PySuiteFutest::~PySuiteFutest "PySuiteFutest::~PySuiteFutest()
+%feature("docstring")  PySuiteTest::~PySuiteTest "PySuiteTest::~PySuiteTest()
 ";
 
-%feature("docstring")  PySuiteFutest::runTest "void PySuiteFutest::runTest()
+%feature("docstring")  PySuiteTest::runTest "void PySuiteTest::runTest()
 ";
 
-%feature("docstring")  PySuiteFutest::analyseResults "int PySuiteFutest::analyseResults()
+%feature("docstring")  PySuiteTest::analyseResults "int PySuiteTest::analyseResults()
 ";
 
-%feature("docstring")  PySuiteFutest::getOutputData "const OutputData<double>* PySuiteFutest::getOutputData() const 
+%feature("docstring")  PySuiteTest::getOutputData "const OutputData<double>* PySuiteTest::getOutputData() const 
 ";
 
-%feature("docstring")  PySuiteFutest::getDifference "double PySuiteFutest::getDifference() const 
+%feature("docstring")  PySuiteTest::getDifference "double PySuiteTest::getDifference() const 
 ";
 
-%feature("docstring")  PySuiteFutest::printResults "void PySuiteFutest::printResults(std::ostream &ostr) const 
+%feature("docstring")  PySuiteTest::printResults "void PySuiteTest::printResults(std::ostream &ostr) const 
 ";
 
 
@@ -11054,19 +11036,19 @@ C++ includes: ParaCrystalBuilder.h
 %feature("docstring")  RectPixelMap::~RectPixelMap "virtual RectPixelMap::~RectPixelMap()
 ";
 
-%feature("docstring")  RectPixelMap::clone "RectPixelMap * RectPixelMap::clone() const 
+%feature("docstring")  RectPixelMap::clone "virtual RectPixelMap* RectPixelMap::clone() const 
 ";
 
-%feature("docstring")  RectPixelMap::createZeroSizeMap "RectPixelMap * RectPixelMap::createZeroSizeMap(double x, double y) const 
+%feature("docstring")  RectPixelMap::createZeroSizeMap "virtual RectPixelMap* RectPixelMap::createZeroSizeMap(double x, double y) const 
 ";
 
-%feature("docstring")  RectPixelMap::getK "kvector_t RectPixelMap::getK(double x, double y, double wavelength) const 
+%feature("docstring")  RectPixelMap::getK "virtual kvector_t RectPixelMap::getK(double x, double y, double wavelength) const 
 ";
 
-%feature("docstring")  RectPixelMap::getIntegrationFactor "double RectPixelMap::getIntegrationFactor(double x, double y) const 
+%feature("docstring")  RectPixelMap::getIntegrationFactor "virtual double RectPixelMap::getIntegrationFactor(double x, double y) const 
 ";
 
-%feature("docstring")  RectPixelMap::getSolidAngle "double RectPixelMap::getSolidAngle() const 
+%feature("docstring")  RectPixelMap::getSolidAngle "virtual double RectPixelMap::getSolidAngle() const 
 ";
 
 
@@ -12066,10 +12048,7 @@ C++ includes: ScalarSpecularInfoMap.h
 
 %feature("docstring")  ScalarSpecularInfoMap::getOutCoefficients "const ScalarRTCoefficients * ScalarSpecularInfoMap::getOutCoefficients(double alpha_f, double phi_f, double wavelength) const
 
-Retrieves the amplitude coefficients for the given angles.
-
-Todo
-Can we avoid the code duplication in the two following functions ? 
+Retrieves the amplitude coefficients for the given angles. 
 ";
 
 %feature("docstring")  ScalarSpecularInfoMap::getInCoefficients "const ScalarRTCoefficients * ScalarSpecularInfoMap::getInCoefficients(double alpha_i, double phi_i, double wavelength) const
@@ -12479,7 +12458,7 @@ C++ includes: SpecularSimulation.h
 %feature("docstring")  SpecularSimulation::SpecularSimulation "SpecularSimulation::SpecularSimulation()
 ";
 
-%feature("docstring")  SpecularSimulation::SpecularSimulation "SpecularSimulation::SpecularSimulation(const ISample &sample)
+%feature("docstring")  SpecularSimulation::SpecularSimulation "SpecularSimulation::SpecularSimulation(const class ISample &sample)
 ";
 
 %feature("docstring")  SpecularSimulation::SpecularSimulation "SpecularSimulation::SpecularSimulation(std::shared_ptr< class ISampleBuilder > sample_builder)
@@ -12496,7 +12475,7 @@ C++ includes: SpecularSimulation.h
 Run a simulation with the current parameter settings. 
 ";
 
-%feature("docstring")  SpecularSimulation::setSample "void SpecularSimulation::setSample(const ISample &sample)
+%feature("docstring")  SpecularSimulation::setSample "void SpecularSimulation::setSample(const class ISample &sample)
 
 Sets the sample to be tested. 
 ";
@@ -12516,7 +12495,7 @@ Sets the sample builder.
 return sample builder 
 ";
 
-%feature("docstring")  SpecularSimulation::setBeamParameters "void SpecularSimulation::setBeamParameters(double lambda, const IAxis &alpha_axis)
+%feature("docstring")  SpecularSimulation::setBeamParameters "void SpecularSimulation::setBeamParameters(double lambda, const class IAxis &alpha_axis)
 
 Sets beam parameters with alpha_i of the beam defined in the range. 
 ";
@@ -12524,7 +12503,7 @@ Sets beam parameters with alpha_i of the beam defined in the range.
 %feature("docstring")  SpecularSimulation::setBeamParameters "void SpecularSimulation::setBeamParameters(double lambda, int nbins, double alpha_i_min, double alpha_i_max)
 ";
 
-%feature("docstring")  SpecularSimulation::setEvanescentWaveAxis "void SpecularSimulation::setEvanescentWaveAxis(const IAxis &z_axis)
+%feature("docstring")  SpecularSimulation::setEvanescentWaveAxis "void SpecularSimulation::setEvanescentWaveAxis(const class IAxis &z_axis)
 
 set axis for evanescent wave axis 
 ";
@@ -13160,16 +13139,16 @@ C++ includes: WavevectorInfo.h
 // File: classMathFunctions_1_1Convolve_1_1Workspace.xml
 
 
-// File: namespace_0D231.xml
+// File: namespace_0D232.xml
 
 
-// File: namespace_0D335.xml
+// File: namespace_0D337.xml
 
 
-// File: namespace_0D404.xml
+// File: namespace_0D405.xml
 
 
-// File: namespace_0D418.xml
+// File: namespace_0D419.xml
 
 
 // File: namespaceboost_1_1geometry.xml
@@ -13392,13 +13371,9 @@ Assembles a matrix-valued OuputData structure from its component maps.
 Slice data, having one bin on selected axis fixed. Resulting output data will have one axis less (without axis 'fixed_axis_name') 
 ";
 
-%feature("docstring")  OutputDataFunctions::selectRangeOnOneAxis "OutputData< double > * OutputDataFunctions::selectRangeOnOneAxis(const OutputData< double > &data, const std::string &selected_axis_name, double axis_value1, double axis_value2)
+%feature("docstring")  OutputDataFunctions::selectRangeOnOneAxis "BA_CORE_API_ OutputData<double>* OutputDataFunctions::selectRangeOnOneAxis(const OutputData< double > &data, const std::string &selected_axis_name, double axis_value1, double axis_value2)
 
-Select range on one of the axis.
-
-Select range on one of the axis. Resulting output data will have same number of axes
-
-Resulting output data will have same number of axes 
+Select range on one of the axis. Resulting output data will have same number of axes 
 ";
 
 %feature("docstring")  OutputDataFunctions::applyFunction "BA_CORE_API_ void OutputDataFunctions::applyFunction(OutputData< double > &data, const class IIntensityFunction *func)
@@ -13496,7 +13471,7 @@ Parse double values from string to vector of double.
 %feature("docstring")  PyGenTools::getRepresentation "std::string PyGenTools::getRepresentation(const class IDistribution1D *distribution)
 ";
 
-%feature("docstring")  PyGenTools::getRepresentation "std::string PyGenTools::getRepresentation(const std::string &indent, const class Geometry::IShape2D *ishape, bool mask_value)
+%feature("docstring")  PyGenTools::getRepresentation "BA_CORE_API_ std::string PyGenTools::getRepresentation(const std::string &indent, const Geometry::IShape2D *ishape, bool mask_value)
 ";
 
 %feature("docstring")  PyGenTools::printBool "std::string PyGenTools::printBool(double value)
@@ -13619,6 +13594,9 @@ enables exception throw in the case of NaN, Inf
 ";
 
 
+// File: IIntensityFunction_8cpp.xml
+
+
 // File: BornAgainNamespace_8h.xml
 
 
@@ -13712,7 +13690,10 @@ Returns exp(I*z), where I is the imaginary unit.
 // File: WinDllMacros_8h.xml
 
 
-// File: ChiSquaredModule_8cpp.xml
+// File: Detector_2ChiSquaredModule_8cpp.xml
+
+
+// File: Simulation_2ChiSquaredModule_8cpp.xml
 
 
 // File: ChiSquaredModule_8h.xml
@@ -14367,6 +14348,11 @@ The mathematics implemented here is described in full detail in a paper by Joach
 
 
 // File: SpecularMatrix_8cpp.xml
+%feature("docstring")  setZeroBelow "void setZeroBelow(SpecularMatrix::MultiLayerCoeff_t &coeff, size_t current_layer)
+";
+
+%feature("docstring")  calculateUpFromLayer "bool calculateUpFromLayer(SpecularMatrix::MultiLayerCoeff_t &coeff, const MultiLayer &sample, const kvector_t k, size_t layer_index)
+";
 
 
 // File: SpecularMatrix_8h.xml
@@ -14501,10 +14487,10 @@ The mathematics implemented here is described in full detail in a paper by Joach
 
 
 // File: ISampleVisitor_8h.xml
-%feature("docstring")  VisitSampleTreePreorder "BA_CORE_API_ void VisitSampleTreePreorder(const ISample &sample, ISampleVisitor &visitor)
+%feature("docstring")  VisitSampleTreePreorder "BA_CORE_API_ void VisitSampleTreePreorder(const class ISample &sample, ISampleVisitor &visitor)
 ";
 
-%feature("docstring")  VisitSampleTreePostorder "BA_CORE_API_ void VisitSampleTreePostorder(const ISample &sample, ISampleVisitor &visitor)
+%feature("docstring")  VisitSampleTreePostorder "BA_CORE_API_ void VisitSampleTreePostorder(const class ISample &sample, ISampleVisitor &visitor)
 ";
 
 
@@ -14782,9 +14768,6 @@ Returns concatenated rotation (first right, then left).
 // File: FormFactorSphereUniformRadius_8h.xml
 
 
-// File: SoftParticles_8h.xml
-
-
 // File: BoxCompositionBuilder_8cpp.xml
 
 
@@ -14888,10 +14871,6 @@ Returns concatenated rotation (first right, then left).
 
 
 // File: SampleBuilderFactory_8cpp.xml
-%feature("docstring")  build "ISampleBuilder* build()
-
-build<C> is a function void -> ISampleBuilder*. C must be a child of  ISampleBuilder. 
-";
 
 
 // File: SampleBuilderFactory_8h.xml
@@ -14927,43 +14906,43 @@ build<C> is a function void -> ISampleBuilder*. C must be a child of  ISampleBui
 // File: TwoDimLatticeBuilder_8h.xml
 
 
-// File: CoreFutest_8cpp.xml
+// File: CoreTest_8cpp.xml
 
 
-// File: CoreFutest_8h.xml
+// File: CoreTest_8h.xml
 
 
-// File: FutestInfo_8cpp.xml
+// File: FunctionalTestInfo_8cpp.xml
 
 
-// File: FutestInfo_8h.xml
+// File: FunctionalTestInfo_8h.xml
 
 
-// File: FutestRegistry_8cpp.xml
+// File: FunctionalTestRegistry_8cpp.xml
 
 
-// File: FutestRegistry_8h.xml
+// File: FunctionalTestRegistry_8h.xml
 
 
-// File: FutestSuite_8cpp.xml
+// File: FunctionalTestSuite_8cpp.xml
 
 
-// File: FutestSuite_8h.xml
+// File: FunctionalTestSuite_8h.xml
 
 
-// File: IFutest_8cpp.xml
+// File: IFunctionalTest_8cpp.xml
 
 
-// File: IFutest_8h.xml
+// File: IFunctionalTest_8h.xml
 
 
 // File: IRegistry_8h.xml
 
 
-// File: PySuiteFutest_8cpp.xml
+// File: PySuiteTest_8cpp.xml
 
 
-// File: PySuiteFutest_8h.xml
+// File: PySuiteTest_8h.xml
 
 
 // File: SubtestRegistry_8cpp.xml
@@ -14984,6 +14963,9 @@ build<C> is a function void -> ISampleBuilder*. C must be a child of  ISampleBui
 // File: Convolve_8h.xml
 
 
+// File: CumulativeValue_8cpp.xml
+
+
 // File: fp__exception__glibc__extension_8h.xml
 %feature("docstring")  fegetexcept "int fegetexcept(void)
 
@@ -15002,6 +14984,8 @@ David N. Williams
 
 
 // File: IFactory_8h.xml
+%feature("docstring")  create_new "T* create_new()
+";
 
 
 // File: IntegratorComplex_8h.xml
@@ -15050,6 +15034,9 @@ David N. Williams
 
 
 // File: todo.xml
+
+
+// File: dir_e1ea50aa565d9a3ab2d030f355b28273.xml
 
 
 // File: dir_f2db70b1039b2dc98a7a13a1758f382f.xml

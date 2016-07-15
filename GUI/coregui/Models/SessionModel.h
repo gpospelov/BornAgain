@@ -17,9 +17,10 @@
 #ifndef SESSIONMODEL_H
 #define SESSIONMODEL_H
 
-#include <QtCore/QXmlStreamWriter>
 #include "SessionItem.h"
 #include "SessionXML.h"
+#include <QtCore/QXmlStreamWriter>
+#include <QStringList>
 
 class IconProvider;
 

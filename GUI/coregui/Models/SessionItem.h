@@ -20,7 +20,7 @@
 #include "item_constants.h"
 #include "ModelMapper.h"
 #include "AttLimits.h"
-
+#include <QStringList>
 #include <memory>
 
 Q_DECLARE_METATYPE(AttLimits)

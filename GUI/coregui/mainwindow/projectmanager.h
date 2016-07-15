@@ -18,7 +18,7 @@
 #define PROJECTMANAGER_H
 
 #include <QObject>
-#include <QtCore/QStringList> // need detected by TeamCity
+#include <QStringList> // need detected by TeamCity
 
 class MainWindow;
 class ProjectDocument;

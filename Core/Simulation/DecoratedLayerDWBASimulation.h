@@ -19,7 +19,6 @@
 #include "IInterferenceFunctionStrategy.h"
 #include "LayerDWBASimulation.h"
 
-
 //! @class DecoratedLayerDWBASimulation
 //! @ingroup algorithms_internal
 //! @brief Calculates scattering cross sections in DWBA for a layer with particles in/on it

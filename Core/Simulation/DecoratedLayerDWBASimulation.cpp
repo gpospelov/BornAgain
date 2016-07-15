@@ -13,10 +13,9 @@
 //
 // ************************************************************************** //
 
+#include "DecoratedLayerDWBASimulation.h"
 #include "Layer.h"
 #include "MessageService.h"
-#include "DecoratedLayerDWBASimulation.h"
-
 
 DecoratedLayerDWBASimulation::DecoratedLayerDWBASimulation(const Layer *p_layer,
                                                            size_t layout_index)
@@ -37,9 +36,9 @@ void DecoratedLayerDWBASimulation::run()
     } catch (const std::exception &ex) {
         setRunMessage(std::string(ex.what()));
         setStatus(FAILED);
-        std::string message("DecoratedLayerDWBASimulation::run() -> Exception was caught \n\n"
-                            + getRunMessage());
-        throw Exceptions::RuntimeErrorException(message);
+        throw Exceptions::RuntimeErrorException(
+            "DecoratedLayerDWBASimulation::run() -> Exception was caught \n\n"
+            + getRunMessage());
     }
 }
 

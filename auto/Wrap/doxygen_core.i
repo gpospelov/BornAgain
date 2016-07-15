@@ -605,8 +605,6 @@ clone method
 ";
 
 %feature("docstring")  ChiSquaredModule::processFitElements "void ChiSquaredModule::processFitElements(std::vector< FitElement >::iterator first, std::vector< FitElement >::iterator last)
-
-Updates mp_simulation_data and mp_weights, returns chi^2. 
 ";
 
 
@@ -6072,9 +6070,11 @@ Returns integral of bins content (computed as a sum of all bin content).
 Reset histogram content (axes remains) 
 ";
 
-%feature("docstring")  IHistogram::createOutputData "OutputData<double>* IHistogram::createOutputData(DataType dataType=DataType::INTEGRAL) const
+%feature("docstring")  IHistogram::createOutputData "OutputData< double > * IHistogram::createOutputData(DataType dataType=DataType::INTEGRAL) const
 
-creates new  OutputData with histogram's shape and values corresponding to DataType 
+creates new  OutputData with histogram's shape and values corresponding to DataType
+
+creates new  OutputData with histogram's shape and put there values corresponding to DataType 
 ";
 
 %feature("docstring")  IHistogram::hasSameShape "bool IHistogram::hasSameShape(const IHistogram &other) const
@@ -6087,7 +6087,7 @@ Returns true if objects a) have same dimensions b) bin boundaries of axes coinci
 Returns true if object have same rank and number of axes bins. 
 ";
 
-%feature("docstring")  IHistogram::relativeDifferenceHistogram "IHistogram* IHistogram::relativeDifferenceHistogram(const IHistogram &rhs)
+%feature("docstring")  IHistogram::relativeDifferenceHistogram "IHistogram * IHistogram::relativeDifferenceHistogram(const IHistogram &rhs)
 
 returns histogram representing relative difference of two histograms. 
 ";
@@ -11036,19 +11036,19 @@ C++ includes: ParaCrystalBuilder.h
 %feature("docstring")  RectPixelMap::~RectPixelMap "virtual RectPixelMap::~RectPixelMap()
 ";
 
-%feature("docstring")  RectPixelMap::clone "virtual RectPixelMap* RectPixelMap::clone() const 
+%feature("docstring")  RectPixelMap::clone "RectPixelMap * RectPixelMap::clone() const 
 ";
 
-%feature("docstring")  RectPixelMap::createZeroSizeMap "virtual RectPixelMap* RectPixelMap::createZeroSizeMap(double x, double y) const 
+%feature("docstring")  RectPixelMap::createZeroSizeMap "RectPixelMap * RectPixelMap::createZeroSizeMap(double x, double y) const 
 ";
 
-%feature("docstring")  RectPixelMap::getK "virtual kvector_t RectPixelMap::getK(double x, double y, double wavelength) const 
+%feature("docstring")  RectPixelMap::getK "kvector_t RectPixelMap::getK(double x, double y, double wavelength) const 
 ";
 
-%feature("docstring")  RectPixelMap::getIntegrationFactor "virtual double RectPixelMap::getIntegrationFactor(double x, double y) const 
+%feature("docstring")  RectPixelMap::getIntegrationFactor "double RectPixelMap::getIntegrationFactor(double x, double y) const 
 ";
 
-%feature("docstring")  RectPixelMap::getSolidAngle "virtual double RectPixelMap::getSolidAngle() const 
+%feature("docstring")  RectPixelMap::getSolidAngle "double RectPixelMap::getSolidAngle() const 
 ";
 
 
@@ -13142,7 +13142,7 @@ C++ includes: WavevectorInfo.h
 // File: namespace_0D232.xml
 
 
-// File: namespace_0D337.xml
+// File: namespace_0D336.xml
 
 
 // File: namespace_0D405.xml
@@ -13371,9 +13371,13 @@ Assembles a matrix-valued OuputData structure from its component maps.
 Slice data, having one bin on selected axis fixed. Resulting output data will have one axis less (without axis 'fixed_axis_name') 
 ";
 
-%feature("docstring")  OutputDataFunctions::selectRangeOnOneAxis "BA_CORE_API_ OutputData<double>* OutputDataFunctions::selectRangeOnOneAxis(const OutputData< double > &data, const std::string &selected_axis_name, double axis_value1, double axis_value2)
+%feature("docstring")  OutputDataFunctions::selectRangeOnOneAxis "OutputData< double > * OutputDataFunctions::selectRangeOnOneAxis(const OutputData< double > &data, const std::string &selected_axis_name, double axis_value1, double axis_value2)
 
-Select range on one of the axis. Resulting output data will have same number of axes 
+Select range on one of the axis.
+
+Select range on one of the axis. Resulting output data will have same number of axes
+
+Resulting output data will have same number of axes 
 ";
 
 %feature("docstring")  OutputDataFunctions::applyFunction "BA_CORE_API_ void OutputDataFunctions::applyFunction(OutputData< double > &data, const class IIntensityFunction *func)
@@ -13690,10 +13694,7 @@ Returns exp(I*z), where I is the imaginary unit.
 // File: WinDllMacros_8h.xml
 
 
-// File: Detector_2ChiSquaredModule_8cpp.xml
-
-
-// File: Simulation_2ChiSquaredModule_8cpp.xml
+// File: ChiSquaredModule_8cpp.xml
 
 
 // File: ChiSquaredModule_8h.xml
@@ -14766,6 +14767,9 @@ Returns concatenated rotation (first right, then left).
 
 
 // File: FormFactorSphereUniformRadius_8h.xml
+
+
+// File: SoftParticles_8h.xml
 
 
 // File: BoxCompositionBuilder_8cpp.xml

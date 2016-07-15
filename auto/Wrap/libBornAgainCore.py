@@ -13679,9 +13679,11 @@ class IHistogram(_object):
         createOutputData(IHistogram self, IHistogram::DataType dataType) -> IntensityData
         createOutputData(IHistogram self) -> IntensityData
 
-        OutputData<double>* IHistogram::createOutputData(DataType dataType=DataType::INTEGRAL) const
+        OutputData< double > * IHistogram::createOutputData(DataType dataType=DataType::INTEGRAL) const
 
-        creates new  OutputData with histogram's shape and values corresponding to DataType 
+        creates new  OutputData with histogram's shape and values corresponding to DataType
+
+        creates new  OutputData with histogram's shape and put there values corresponding to DataType 
 
         """
         return _libBornAgainCore.IHistogram_createOutputData(self, *args)
@@ -13720,7 +13722,7 @@ class IHistogram(_object):
         """
         relativeDifferenceHistogram(IHistogram self, IHistogram rhs) -> IHistogram
 
-        IHistogram* IHistogram::relativeDifferenceHistogram(const IHistogram &rhs)
+        IHistogram * IHistogram::relativeDifferenceHistogram(const IHistogram &rhs)
 
         returns histogram representing relative difference of two histograms. 
 
@@ -20058,9 +20060,13 @@ def selectRangeOnOneAxis(data, selected_axis_name, axis_value1, axis_value2):
     """
     selectRangeOnOneAxis(IntensityData data, std::string const & selected_axis_name, double axis_value1, double axis_value2) -> IntensityData
 
-    BA_CORE_API_ OutputData<double>* OutputDataFunctions::selectRangeOnOneAxis(const OutputData< double > &data, const std::string &selected_axis_name, double axis_value1, double axis_value2)
+    OutputData< double > * OutputDataFunctions::selectRangeOnOneAxis(const OutputData< double > &data, const std::string &selected_axis_name, double axis_value1, double axis_value2)
 
-    Select range on one of the axis. Resulting output data will have same number of axes 
+    Select range on one of the axis.
+
+    Select range on one of the axis. Resulting output data will have same number of axes
+
+    Resulting output data will have same number of axes 
 
     """
     return _libBornAgainCore.selectRangeOnOneAxis(data, selected_axis_name, axis_value1, axis_value2)
@@ -21847,7 +21853,7 @@ class RectPixelMap(IPixelMap):
         """
         clone(RectPixelMap self) -> RectPixelMap
 
-        virtual RectPixelMap* RectPixelMap::clone() const 
+        RectPixelMap * RectPixelMap::clone() const 
 
         """
         return _libBornAgainCore.RectPixelMap_clone(self)
@@ -21857,7 +21863,7 @@ class RectPixelMap(IPixelMap):
         """
         createZeroSizeMap(RectPixelMap self, double x, double y) -> RectPixelMap
 
-        virtual RectPixelMap* RectPixelMap::createZeroSizeMap(double x, double y) const 
+        RectPixelMap * RectPixelMap::createZeroSizeMap(double x, double y) const 
 
         """
         return _libBornAgainCore.RectPixelMap_createZeroSizeMap(self, x, y)
@@ -21867,7 +21873,7 @@ class RectPixelMap(IPixelMap):
         """
         getK(RectPixelMap self, double x, double y, double wavelength) -> kvector_t
 
-        virtual kvector_t RectPixelMap::getK(double x, double y, double wavelength) const 
+        kvector_t RectPixelMap::getK(double x, double y, double wavelength) const 
 
         """
         return _libBornAgainCore.RectPixelMap_getK(self, x, y, wavelength)
@@ -21877,7 +21883,7 @@ class RectPixelMap(IPixelMap):
         """
         getIntegrationFactor(RectPixelMap self, double x, double y) -> double
 
-        virtual double RectPixelMap::getIntegrationFactor(double x, double y) const 
+        double RectPixelMap::getIntegrationFactor(double x, double y) const 
 
         """
         return _libBornAgainCore.RectPixelMap_getIntegrationFactor(self, x, y)
@@ -21887,7 +21893,7 @@ class RectPixelMap(IPixelMap):
         """
         getSolidAngle(RectPixelMap self) -> double
 
-        virtual double RectPixelMap::getSolidAngle() const 
+        double RectPixelMap::getSolidAngle() const 
 
         """
         return _libBornAgainCore.RectPixelMap_getSolidAngle(self)

@@ -13,9 +13,8 @@
 //
 // ************************************************************************** //
 
+#include "Layer.h"
 #include "DecoratedLayerDWBASimulation.h"
-#include "MultiLayer.h"
-
 
 using namespace BornAgain;
 
@@ -34,10 +33,10 @@ Layer::Layer(const Layer& other) : ICompositeSample()
 {
     m_thickness = other.m_thickness;
     mp_material = 0;
-    if(other.mp_material) mp_material = other.mp_material->clone();
-    for (size_t i=0; i<other.getNumberOfLayouts();++i) {
+    if (other.mp_material)
+        mp_material = other.mp_material->clone();
+    for (size_t i=0; i<other.getNumberOfLayouts();++i)
         addLayoutPtr(other.getLayout(i)->clone());
-    }
     setNumberOfLayers(other.getNumberOfLayers());
     initialize();
 }
@@ -56,9 +55,8 @@ Layer* Layer::cloneInvertB() const
 {
     Layer *p_clone = new Layer();
     p_clone->mp_material = Materials::createInvertedMaterial(this->mp_material);
-    for (size_t i=0; i<getNumberOfLayouts(); ++i) {
+    for (size_t i=0; i<getNumberOfLayouts(); ++i)
         p_clone->addLayoutPtr(getLayout(i)->cloneInvertB());
-    }
     p_clone->m_thickness = this->m_thickness;
     p_clone->setNumberOfLayers(getNumberOfLayers());
     p_clone->init_parameters();
@@ -118,9 +116,8 @@ void Layer::addLayout(const ILayout &decoration)
 
 const ILayout *Layer::getLayout(size_t i) const
 {
-    if (i>=m_layouts.size()) {
-        return 0;
-    }
+    if (i>=m_layouts.size())
+        return nullptr;
     return m_layouts[i];
 }
 
@@ -131,26 +128,23 @@ bool Layer::hasDWBASimulation() const
 
 LayerDWBASimulation *Layer::createLayoutSimulation(size_t layout_index) const
 {
-    if(getNumberOfLayouts()==0 || layout_index>=getNumberOfLayouts()) {
-        return 0;
-    }
+    if (getNumberOfLayouts()==0 || layout_index>=getNumberOfLayouts())
+        return nullptr;
     return new DecoratedLayerDWBASimulation(this, layout_index);
 }
 
 double Layer::getTotalParticleSurfaceDensity(size_t layout_index) const
 {
-    if (getNumberOfLayouts()==0 || layout_index>=getNumberOfLayouts()) {
+    if (getNumberOfLayouts()==0 || layout_index>=getNumberOfLayouts())
         return 0.0;
-    }
     return getLayout(layout_index)->getTotalParticleSurfaceDensity();
 }
 
 double Layer::getTotalAbundance() const
 {
     double total_abundance = 0.0;
-    for (size_t i=0; i<getNumberOfLayouts(); ++i) {
+    for (size_t i=0; i<getNumberOfLayouts(); ++i)
         total_abundance += getLayout(i)->getTotalAbundance();
-    }
     return total_abundance;
 }
 
@@ -179,8 +173,8 @@ void Layer::print(std::ostream& ostr) const
 
 void Layer::addLayoutPtr(ILayout *layout)
 {
-    if( !layout ) return;
-
+    if( !layout )
+        return;
     m_layouts.push_back(layout);
     registerChild(layout);
 }

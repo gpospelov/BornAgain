@@ -28,6 +28,16 @@ typedef _object PyObject;
 #endif
 #endif
 
+#include "FixedBinAxis.h"
+#include "LLData.h"
+#include "OutputDataIterator.h"
+#include "SafePointerVector.h"
+#include "ThreadInfo.h"
+#include <sstream>
+#include <cassert>
+
+using std::size_t;
+
 //! @class OutputData
 //! @ingroup tools
 //! @brief Template class to store data of any type in multi-dimensional space.
@@ -477,8 +487,8 @@ int OutputData<T>::getAxisBinIndex(size_t global_index, size_t i_selected_axis) 
         if(i_selected_axis == i_axis ) return result;
         remainder /= m_value_axes[i_axis]->getSize();
     }
-    throw Exceptions::LogicErrorException(
-        "OutputData<T>::getAxisBinIndex() -> Error! No axis with given number");
+    throw Exceptions::LogicErrorException("OutputData<T>::getAxisBinIndex() -> "
+                                          "Error! No axis with given number");
 }
 
 

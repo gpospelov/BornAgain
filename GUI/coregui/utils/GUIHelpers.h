@@ -18,6 +18,7 @@
 #define GUIHELPERS_H
 
 #include <QWidget>
+#include <QStringList>
 #include <memory>
 
 class JobItem;
@@ -77,4 +78,3 @@ template<class T, class... Ts> std::unique_ptr<T> make_unique(Ts&&... params)
 } // namespace GUIHelpers
 
 #endif // GUIHELPERS_H
-

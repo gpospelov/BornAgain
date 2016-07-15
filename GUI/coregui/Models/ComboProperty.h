@@ -18,6 +18,7 @@
 #define COMBOPROPERTY_H
 
 #include <QVariant>
+#include <QStringList>
 
 //! The ComboProperty defines SessionItem's property with a value
 //! from predefined list.

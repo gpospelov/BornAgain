@@ -18,6 +18,7 @@
 #define FITPARAMETERPROXYMODEL_H
 
 #include <QAbstractItemModel>
+#include <QStringList>
 
 class SessionModel;
 class FitParameterContainerItem;

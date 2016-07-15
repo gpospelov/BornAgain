@@ -19,6 +19,7 @@
 
 #include "IMessageService.h"
 #include <QMap>
+#include <QStringList> // need detected by TeamCity
 
 class MessageContainer;
 class QObject;

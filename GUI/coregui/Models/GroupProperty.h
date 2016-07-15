@@ -17,8 +17,8 @@
 #ifndef GROUPPROPERTY_H
 #define GROUPPROPERTY_H
 
-
 #include <QSharedPointer>
+#include <QStringList>
 
 class SessionItem;
 

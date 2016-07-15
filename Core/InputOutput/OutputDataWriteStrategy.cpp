@@ -13,18 +13,19 @@
 //
 // ************************************************************************** //
 
-#include "BornAgainNamespace.h"
-#include "TiffHandler.h"
+#include "OutputData.h" // needed by some compilers
 #include "OutputDataWriteStrategy.h"
+#include "TiffHandler.h"
+#include "BornAgainNamespace.h"
+#include <cmath>
 #include <iomanip>
 
 static const int precision { 12 };
 
 double IgnoreDenormalized(double value)
 {
-    if (std::abs(value)<std::numeric_limits<double>::min()) {
+    if (std::fpclassify(value)==FP_SUBNORMAL)
         return 0.0;
-    }
     return value;
 }
 

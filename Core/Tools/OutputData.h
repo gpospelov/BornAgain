@@ -27,7 +27,11 @@ typedef _object PyObject;
 #include "LLData.h"
 #include "OutputDataIterator.h"
 #include "SafePointerVector.h"
+#include "ThreadInfo.h"
+#include <sstream>
+#include <cassert>
 
+using std::size_t;
 
 //! @class OutputData
 //! @ingroup tools
@@ -478,8 +482,8 @@ int OutputData<T>::getAxisBinIndex(size_t global_index, size_t i_selected_axis) 
         if(i_selected_axis == i_axis ) return result;
         remainder /= m_value_axes[i_axis]->getSize();
     }
-    throw Exceptions::LogicErrorException(
-        "OutputData<T>::getAxisBinIndex() -> Error! No axis with given number");
+    throw Exceptions::LogicErrorException("OutputData<T>::getAxisBinIndex() -> "
+                                          "Error! No axis with given number");
 }
 
 

@@ -13,16 +13,17 @@
 //
 // ************************************************************************** //
 
-#ifdef BORNAGAIN_PYTHON
-
 #include "OutputData.h"
 
+#ifdef BORNAGAIN_PYTHON
 #define NPY_NO_DEPRECATED_API NPY_1_7_API_VERSION
+#include <Python.h>
 #define PY_ARRAY_UNIQUE_SYMBOL BORNAGAIN_PYTHONAPI_ARRAY
 #define NO_IMPORT_ARRAY
-#include <pyconfig.h>
-#include <numpy/numpyconfig.h>
 #include <numpy/arrayobject.h>
+
+#include <iostream>
+
 
 template<>
 PyObject *OutputData<double>::getArray() const
@@ -47,9 +48,8 @@ PyObject *OutputData<double>::getArray() const
     // creating standalone numpy array
     PyObject *pyarray = PyArray_SimpleNew(ndim_numpy, ndimsizes_numpy, NPY_DOUBLE);
     delete [] ndimsizes_numpy;
-    if(pyarray == nullptr ) {
+    if(pyarray == nullptr )
         throw Exceptions::RuntimeErrorException("ExportOutputData() -> Panic in PyArray_SimpleNew");
-    }
     Py_INCREF(pyarray);
 
     // getting pointer to data buffer of numpy array

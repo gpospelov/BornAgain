@@ -13,6 +13,7 @@
 //
 // ************************************************************************** //
 
+#include "OutputData.h" // needed by some compilers
 #include "OutputDataWriteStrategy.h"
 #include "TiffHandler.h"
 #include "BornAgainNamespace.h"

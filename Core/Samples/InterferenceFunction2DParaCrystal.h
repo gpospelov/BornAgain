@@ -117,22 +117,4 @@ private:
     mutable double m_qy;
 };
 
-<<<<<<< 49e1e9aa2744a1edf48d4c4704fc1517d0d3c2fc
-inline void InterferenceFunction2DParaCrystal::setIntegrationOverXi(bool integrate_xi)
-{
-    m_integrate_xi = integrate_xi;
-}
-
-inline bool InterferenceFunction2DParaCrystal::getIntegrationOverXi() const
-{
-    return m_integrate_xi;
-}
-
-inline double InterferenceFunction2DParaCrystal::getDampingLength() const
-{
-    return m_damping_length;
-}
-
-=======
->>>>>>> further decoupling
 #endif // INTERFERENCEFUNCTION2DPARACRYSTAL_H

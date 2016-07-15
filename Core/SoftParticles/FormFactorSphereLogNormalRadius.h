@@ -15,6 +15,7 @@
 
 #ifndef FORMFACTORSPHERELOGNORMALRADIUS_H
 #define FORMFACTORSPHERELOGNORMALRADIUS_H
+
 #include "FormFactorFullSphere.h"
 #include "SafePointerVector.h"
 
@@ -27,8 +28,7 @@ class DistributionLogNormal;
 class BA_CORE_API_ FormFactorSphereLogNormalRadius : public IFormFactorBorn
 {
 public:
-    FormFactorSphereLogNormalRadius(double mean, double scale_param,
-                                    size_t n_samples);
+    FormFactorSphereLogNormalRadius(double mean, double scale_param, size_t n_samples);
     virtual FormFactorSphereLogNormalRadius *clone() const;
     virtual ~FormFactorSphereLogNormalRadius();
 
@@ -54,10 +54,4 @@ private:
     std::vector<double> m_probabilities;
 };
 
-<<<<<<< 8c6ec7d21339391fcfd36947f7e6c17b2267ff2f:Core/FormFactors/FormFactorSphereLogNormalRadius.h
 #endif // FORMFACTORSPHERELOGNORMALRADIUS_H
-
-
-=======
-#endif /* FORMFACTORSPHERELOGNORMALRADIUS_H_ */
->>>>>>> Much of Core now nicely decoupled.:Core/SoftParticles/FormFactorSphereLogNormalRadius.h

@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "BornAgainNamespace.h"
+#include "ILayerRTCoefficients.h"
 #include "FormFactorDWBAPol.h"
 
 FormFactorDWBAPol::FormFactorDWBAPol(const IFormFactor &form_factor)

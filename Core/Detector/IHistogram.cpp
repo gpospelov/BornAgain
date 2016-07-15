@@ -302,7 +302,8 @@ double IHistogram::getBinData(size_t globalbin, IHistogram::DataType dataType) c
     } else if(dataType == DataType::NENTRIES) {
         return getBinNumberOfEntries(globalbin);
     } else
-        throw LogicErrorException("IHistogram::getBinData() -> Error. Unknown data type.");
+        throw Exceptions::LogicErrorException(
+            "IHistogram::getBinData() -> Error. Unknown data type.");
 }
 
 //! returns vector of values of requested DataType
@@ -319,9 +320,9 @@ std::vector<double> IHistogram::getDataVector(IHistogram::DataType dataType) con
 //! Copy content (but not the axes) from other histogram. Dimensions should be the same.
 void IHistogram::copyContentFrom(const IHistogram& other)
 {
-    if(!hasSameDimensions(other)) {
-        throw Exceptions::LogicErrorException("IHistogram::copyContentFrom() -> Error. "
-                                  "Can't copy the data of different shape.");
+    if(!hasSameDimensions(other))
+        throw Exceptions::LogicErrorException(
+            "IHistogram::copyContentFrom() -> Error. Can't copy the data of different shape.");
     reset();
     for(size_t i=0; i<getTotalNumberOfBins(); ++i) {
         m_data[i] = other.m_data[i];
@@ -352,9 +353,9 @@ bool IHistogram::hasSameDimensions(const IHistogram& other) const
 
 const IHistogram& IHistogram::operator+=(const IHistogram& right)
 {
-    if(!hasSameDimensions(right)) {
-        throw Exceptions::LogicErrorException("IHistogram::operator+=() -> Error. "
-                                  "Histograms have different dimension");
+    if(!hasSameDimensions(right))
+        throw Exceptions::LogicErrorException(
+            "IHistogram::operator+=() -> Error. Histograms have different dimension");
 
     for(size_t globalbin=0; globalbin<getTotalNumberOfBins(); ++globalbin)
         addBinContent(globalbin, right.getBinContent(globalbin));
@@ -364,9 +365,10 @@ const IHistogram& IHistogram::operator+=(const IHistogram& right)
 
 IHistogram* IHistogram::relativeDifferenceHistogram(const IHistogram& rhs)
 {
-    if(!hasSameDimensions(rhs)) {
-        throw Exceptions::LogicErrorException("IHistogram::relativeDifferenceHistogram() -> Error. "
-                                  "Histograms have different dimensions");
+    if(!hasSameDimensions(rhs))
+        throw Exceptions::LogicErrorException(
+            "IHistogram::relativeDifferenceHistogram() -> Error. "
+            "Histograms have different dimensions");
 
     IHistogram* result = this->clone();
     result->reset();

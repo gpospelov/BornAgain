@@ -251,21 +251,11 @@ OutputData<double>* OutputDataFunctions::sliceAccrossOneAxis(
     const OutputData<double>& data, const std::string& fixed_axis_name,
     double fixed_axis_value)
 {
-<<<<<<< 8c6ec7d21339391fcfd36947f7e6c17b2267ff2f:Core/Simulation/OutputDataFunctions.cpp
-    if (data.getRank() != 2) {
-        throw Exceptions::LogicErrorException("OutputDataFunctions::sliceAccrossOneAxis()"
-                " -> Error! It was checked only with number of dimensions"
-                " equal 2.");
-    }
-    if( !data.getAxis(fixed_axis_name) ) {
-        throw Exceptions::LogicErrorException("OutputDataFunctions::sliceAccrossOneAxis()"
-=======
     if (data.getRank() != 2)
-        throw LogicErrorException("OutputDataFunctions::sliceAccrossOneAxis()"
+        throw Exceptions::LogicErrorException("OutputDataFunctions::sliceAccrossOneAxis()"
                 " -> Error! It was checked only with number of dimensions equal 2.");
     if( !data.getAxis(fixed_axis_name) )
-        throw LogicErrorException("OutputDataFunctions::sliceAccrossOneAxis()"
->>>>>>> Much of Core now nicely decoupled.:Core/Detector/OutputDataFunctions.cpp
+        throw Exceptions::LogicErrorException("OutputDataFunctions::sliceAccrossOneAxis()"
                 " -> Error! No axis with name "+fixed_axis_name);
 
     OutputData<double>* sliced_data = new OutputData<double>;
@@ -311,34 +301,17 @@ OutputData<double>* OutputDataFunctions::selectRangeOnOneAxis(
     const OutputData<double>& data, const std::string& selected_axis_name,
     double axis_value1,  double axis_value2)
 {
-<<<<<<< 8c6ec7d21339391fcfd36947f7e6c17b2267ff2f:Core/Simulation/OutputDataFunctions.cpp
-    if (data.getRank() != 2) {
-        throw Exceptions::LogicErrorException("OutputDataFunctions::selectRangeOnOneAxis()"
-                " -> Error! It was checked only with number of dimensions"
-                " equal 2.");
-    }
-
-    const IAxis *selected_axis = data.getAxis(selected_axis_name);
-    if( !selected_axis ) {
-        throw Exceptions::LogicErrorException("OutputDataFunctions::selectRangeOnOneAxis()"
-=======
     if (data.getRank() != 2)
-        throw LogicErrorException("OutputDataFunctions::selectRangeOnOneAxis()"
+        throw Exceptions::LogicErrorException("OutputDataFunctions::selectRangeOnOneAxis()"
                 " -> Error! It was checked only with number of dimensions equal 2.");
 
-    const IAxis* selected_axis = data.getAxis(selected_axis_name);
+    const IAxis *selected_axis = data.getAxis(selected_axis_name);
     if( !selected_axis )
-        throw LogicErrorException("OutputDataFunctions::selectRangeOnOneAxis()"
->>>>>>> Much of Core now nicely decoupled.:Core/Detector/OutputDataFunctions.cpp
+        throw Exceptions::LogicErrorException("OutputDataFunctions::selectRangeOnOneAxis()"
                 " -> Error! No axis with name "+selected_axis_name);
 
-<<<<<<< 8c6ec7d21339391fcfd36947f7e6c17b2267ff2f:Core/Simulation/OutputDataFunctions.cpp
-    if(axis_value2 < axis_value1) {
-        throw Exceptions::LogicErrorException("OutputDataFunctions::selectRangeOnOneAxis()"
-=======
     if(axis_value2 < axis_value1)
-        throw LogicErrorException("OutputDataFunctions::selectRangeOnOneAxis()"
->>>>>>> Much of Core now nicely decoupled.:Core/Detector/OutputDataFunctions.cpp
+        throw Exceptions::LogicErrorException("OutputDataFunctions::selectRangeOnOneAxis()"
                 " -> Error! Axis range xmax<xmin. ");
 
     size_t selected_axis_index = data.getAxisSerialNumber(selected_axis_name);

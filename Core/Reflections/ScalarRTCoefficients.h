@@ -16,7 +16,9 @@
 #ifndef SCALARRTCOEFFICIENTS_H2
 #define SCALARRTCOEFFICIENTS_H2
 
-
+#include "Complex.h"
+#include "EigenCore.h"
+#include "ILayerRTCoefficients.h"
 
 //! @class ScalarRTCoefficients
 //! @ingroup algorithms_internal

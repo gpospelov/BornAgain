@@ -283,20 +283,11 @@ void RectangularDetector::print(std::ostream& ostr) const
 
 IAxis *RectangularDetector::createAxis(size_t index, size_t n_bins, double min, double max) const
 {
-<<<<<<< 75d4579736b71fdd80b33dc4ee9bd5b73243c509
-    if (max <= min) {
-        throw Exceptions::LogicErrorException(
-            "RectangularDetector::createAxis() -> Error! max <= min");
-    }
-    if (n_bins == 0) {
-        throw Exceptions::LogicErrorException(
-=======
     if (max <= min)
-        throw LogicErrorException(
+        throw Exceptions::LogicErrorException(
             "RectangularDetector::createAxis() -> Error! max <= min");
     if (n_bins == 0)
-        throw LogicErrorException(
->>>>>>> Further decoupling, informed by Doxygen directory dependence graphs.
+        throw Exceptions::LogicErrorException(
             "RectangularDetector::createAxis() -> Error! Number n_bins can't be zero.");
     return new FixedBinAxis(getAxisName(index), n_bins, min, max);
 }

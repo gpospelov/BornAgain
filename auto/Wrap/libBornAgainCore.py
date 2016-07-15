@@ -4810,7 +4810,7 @@ class ISampleVisitor(_object):
         visit(ISampleVisitor self, RotationZ arg2)
         visit(ISampleVisitor self, RotationEuler arg2)
 
-        void ISampleVisitor::visit(const RotationEuler *)
+        virtual void ISampleVisitor::visit(const class RotationEuler *)
 
         """
         return _libBornAgainCore.ISampleVisitor_visit(self, *args)
@@ -4820,7 +4820,7 @@ class ISampleVisitor(_object):
         """
         visitEnter(ISampleVisitor self, ICompositeSample arg2) -> bool
 
-        bool ISampleVisitor::visitEnter(const ICompositeSample *)
+        bool ISampleVisitor::visitEnter(const class ICompositeSample *)
 
         """
         return _libBornAgainCore.ISampleVisitor_visitEnter(self, arg2)
@@ -4830,7 +4830,7 @@ class ISampleVisitor(_object):
         """
         visitLeave(ISampleVisitor self, ICompositeSample arg2) -> bool
 
-        bool ISampleVisitor::visitLeave(const ICompositeSample *)
+        bool ISampleVisitor::visitLeave(const class ICompositeSample *)
 
         """
         return _libBornAgainCore.ISampleVisitor_visitLeave(self, arg2)
@@ -4867,7 +4867,7 @@ def VisitSampleTreePreorder(sample, visitor):
     """
     VisitSampleTreePreorder(ISample sample, ISampleVisitor visitor)
 
-    BA_CORE_API_ void VisitSampleTreePreorder(const ISample &sample, ISampleVisitor &visitor)
+    BA_CORE_API_ void VisitSampleTreePreorder(const class ISample &sample, ISampleVisitor &visitor)
 
     """
     return _libBornAgainCore.VisitSampleTreePreorder(sample, visitor)
@@ -4876,7 +4876,7 @@ def VisitSampleTreePostorder(sample, visitor):
     """
     VisitSampleTreePostorder(ISample sample, ISampleVisitor visitor)
 
-    BA_CORE_API_ void VisitSampleTreePostorder(const ISample &sample, ISampleVisitor &visitor)
+    BA_CORE_API_ void VisitSampleTreePostorder(const class ISample &sample, ISampleVisitor &visitor)
 
     """
     return _libBornAgainCore.VisitSampleTreePostorder(sample, visitor)
@@ -13679,11 +13679,9 @@ class IHistogram(_object):
         createOutputData(IHistogram self, IHistogram::DataType dataType) -> IntensityData
         createOutputData(IHistogram self) -> IntensityData
 
-        OutputData< double > * IHistogram::createOutputData(DataType dataType=DataType::INTEGRAL) const
+        OutputData<double>* IHistogram::createOutputData(DataType dataType=DataType::INTEGRAL) const
 
-        creates new  OutputData with histogram's shape and values corresponding to DataType
-
-        creates new  OutputData with histogram's shape and put there values corresponding to DataType 
+        creates new  OutputData with histogram's shape and values corresponding to DataType 
 
         """
         return _libBornAgainCore.IHistogram_createOutputData(self, *args)
@@ -13722,7 +13720,7 @@ class IHistogram(_object):
         """
         relativeDifferenceHistogram(IHistogram self, IHistogram rhs) -> IHistogram
 
-        IHistogram * IHistogram::relativeDifferenceHistogram(const IHistogram &rhs)
+        IHistogram* IHistogram::relativeDifferenceHistogram(const IHistogram &rhs)
 
         returns histogram representing relative difference of two histograms. 
 
@@ -19384,7 +19382,7 @@ class IntensityFunctionLog(IIntensityFunction):
         """
         evaluate(IntensityFunctionLog self, double value) -> double
 
-        virtual double IntensityFunctionLog::evaluate(double value) const 
+        double IntensityFunctionLog::evaluate(double value) const 
 
         """
         return _libBornAgainCore.IntensityFunctionLog_evaluate(self, value)
@@ -19444,7 +19442,7 @@ class IntensityFunctionSqrt(IIntensityFunction):
         """
         evaluate(IntensityFunctionSqrt self, double value) -> double
 
-        virtual double IntensityFunctionSqrt::evaluate(double value) const 
+        double IntensityFunctionSqrt::evaluate(double value) const 
 
         """
         return _libBornAgainCore.IntensityFunctionSqrt_evaluate(self, value)
@@ -20060,13 +20058,9 @@ def selectRangeOnOneAxis(data, selected_axis_name, axis_value1, axis_value2):
     """
     selectRangeOnOneAxis(IntensityData data, std::string const & selected_axis_name, double axis_value1, double axis_value2) -> IntensityData
 
-    OutputData< double > * OutputDataFunctions::selectRangeOnOneAxis(const OutputData< double > &data, const std::string &selected_axis_name, double axis_value1, double axis_value2)
+    BA_CORE_API_ OutputData<double>* OutputDataFunctions::selectRangeOnOneAxis(const OutputData< double > &data, const std::string &selected_axis_name, double axis_value1, double axis_value2)
 
-    Select range on one of the axis.
-
-    Select range on one of the axis. Resulting output data will have same number of axes
-
-    Resulting output data will have same number of axes 
+    Select range on one of the axis. Resulting output data will have same number of axes 
 
     """
     return _libBornAgainCore.selectRangeOnOneAxis(data, selected_axis_name, axis_value1, axis_value2)
@@ -21853,7 +21847,7 @@ class RectPixelMap(IPixelMap):
         """
         clone(RectPixelMap self) -> RectPixelMap
 
-        RectPixelMap * RectPixelMap::clone() const 
+        virtual RectPixelMap* RectPixelMap::clone() const 
 
         """
         return _libBornAgainCore.RectPixelMap_clone(self)
@@ -21863,7 +21857,7 @@ class RectPixelMap(IPixelMap):
         """
         createZeroSizeMap(RectPixelMap self, double x, double y) -> RectPixelMap
 
-        RectPixelMap * RectPixelMap::createZeroSizeMap(double x, double y) const 
+        virtual RectPixelMap* RectPixelMap::createZeroSizeMap(double x, double y) const 
 
         """
         return _libBornAgainCore.RectPixelMap_createZeroSizeMap(self, x, y)
@@ -21873,7 +21867,7 @@ class RectPixelMap(IPixelMap):
         """
         getK(RectPixelMap self, double x, double y, double wavelength) -> kvector_t
 
-        kvector_t RectPixelMap::getK(double x, double y, double wavelength) const 
+        virtual kvector_t RectPixelMap::getK(double x, double y, double wavelength) const 
 
         """
         return _libBornAgainCore.RectPixelMap_getK(self, x, y, wavelength)
@@ -21883,7 +21877,7 @@ class RectPixelMap(IPixelMap):
         """
         getIntegrationFactor(RectPixelMap self, double x, double y) -> double
 
-        double RectPixelMap::getIntegrationFactor(double x, double y) const 
+        virtual double RectPixelMap::getIntegrationFactor(double x, double y) const 
 
         """
         return _libBornAgainCore.RectPixelMap_getIntegrationFactor(self, x, y)
@@ -21893,7 +21887,7 @@ class RectPixelMap(IPixelMap):
         """
         getSolidAngle(RectPixelMap self) -> double
 
-        double RectPixelMap::getSolidAngle() const 
+        virtual double RectPixelMap::getSolidAngle() const 
 
         """
         return _libBornAgainCore.RectPixelMap_getSolidAngle(self)
@@ -22039,7 +22033,7 @@ class SpecularSimulation(ICloneable, IParameterized):
         """
         setSample(SpecularSimulation self, ISample sample)
 
-        void SpecularSimulation::setSample(const ISample &sample)
+        void SpecularSimulation::setSample(const class ISample &sample)
 
         Sets the sample to be tested. 
 

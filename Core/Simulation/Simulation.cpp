@@ -17,6 +17,8 @@
 #include "MessageService.h"
 #include "OMPISimulation.h"
 #include "Simulation.h"
+#include <thread>
+#include <gsl/gsl_errno.h>
 
 Simulation::Simulation()
     : IParameterized("Simulation")

@@ -16,12 +16,9 @@
 #ifndef IDETECTOR2D_H
 #define IDETECTOR2D_H
 
-#include "Beam.h"
 #include "DetectorMask.h"
 #include "IDetectorResolution.h"
 #include "SimulationElement.h"
-
-
 
 //! @class IDetector
 //! @ingroup simulation
@@ -40,7 +37,7 @@ public:
     virtual ~IDetector2D() {}
 
     //! Inits detector with the beam settings
-    virtual void init(const Beam& beam);
+    virtual void init(const class Beam& beam);
 
     void addAxis(const IAxis& axis);
 
@@ -102,8 +99,8 @@ public:
 
 #ifndef SWIG
     //! Create a vector of SimulationElement objects according to the detector and its mask
-    std::vector<SimulationElement> createSimulationElements(const Beam& beam);
-    SimulationElement getSimulationElement(size_t index, const Beam& beam) const;
+    std::vector<SimulationElement> createSimulationElements(const class Beam& beam);
+    SimulationElement getSimulationElement(size_t index, const class Beam& beam) const;
 #endif
 
     //! Adds parameters from local pool to external pool and recursively calls its direct children.
@@ -111,7 +108,8 @@ public:
                                                     int copy_number = -1) const;
 
     //! Returns detector map in given axes units
-    virtual OutputData<double>* createDetectorMap(const Beam& beam, EAxesUnits units_type) const;
+    virtual OutputData<double>* createDetectorMap(
+        const class Beam& beam, EAxesUnits units_type) const;
 
     //! returns vector of valid axes units
     virtual std::vector<EAxesUnits> getValidAxesUnits() const;

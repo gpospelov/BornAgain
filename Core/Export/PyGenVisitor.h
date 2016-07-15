@@ -16,6 +16,7 @@
 #ifndef PYGENVISITOR_H
 #define PYGENVISITOR_H
 
+#include "Beam.h"
 #include "ISampleVisitor.h"
 
 class SampleLabelHandler;

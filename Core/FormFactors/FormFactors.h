@@ -23,8 +23,6 @@
 #include "FormFactorDecoratorPositionFactor.h"
 #include "FormFactorDecoratorMaterial.h"
 #include "FormFactorDecoratorRotation.h"
-#include "FormFactorDWBA.h"
-#include "FormFactorDWBAPol.h"
 #include "FormFactorWeighted.h"
 #include "SoftParticles.h"
 #include "HardParticles.h"

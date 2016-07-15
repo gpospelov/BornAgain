@@ -18,6 +18,7 @@
 #define SESSIONMODELASSISTANT_H
 
 #include <QMap>
+#include <QString> // need detected by TeamCity
 
 class SessionItem;
 

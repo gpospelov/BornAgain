@@ -21,6 +21,7 @@
 #define PY_ARRAY_UNIQUE_SYMBOL BORNAGAIN_PYTHONAPI_ARRAY
 #define NO_IMPORT_ARRAY
 #include <pyconfig.h>
+#include <numpy/numpyconfig.h>
 #include <numpy/arrayobject.h>
 
 template<>

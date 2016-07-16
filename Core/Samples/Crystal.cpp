@@ -13,6 +13,7 @@
 //
 // ************************************************************************** //
 
+#include "Crystal.h"
 #include "FormFactorCrystal.h"
 #include "FormFactorDecoratorDebyeWaller.h"
 

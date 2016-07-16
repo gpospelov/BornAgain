@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Samples/ParticleCoreShell.h
-//! @brief     Declares class ParticleCoreShell.
+//! @brief     Declares ParticleCoreShell.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -18,14 +18,14 @@
 
 #include "IParticle.h"
 
-//! @class ParticleCoreShell
+//! @ParticleCoreShell
 //! @ingroup samples
 //! @brief A particle with a core/shell geometry
 
 class BA_CORE_API_ ParticleCoreShell : public IParticle
 {
 public:
-    ParticleCoreShell(const Particle& shell, const Particle& core,
+    ParticleCoreShell(const class Particle& shell, const class Particle& core,
             kvector_t relative_core_position=kvector_t(0.0, 0.0, 0.0));
     virtual ~ParticleCoreShell();
     virtual ParticleCoreShell *clone() const;
@@ -45,18 +45,18 @@ public:
                                                      kvector_t translation) const;
 
     //! Returns the core particle
-    const Particle *getCoreParticle() const;
+    const class Particle *getCoreParticle() const;
 
     //! Returns the shell particle
-    const Particle *getShellParticle() const;
+    const class Particle *getShellParticle() const;
 
 protected:
-    void addAndRegisterCore(const Particle &core, kvector_t relative_core_position);
-    void addAndRegisterShell(const Particle &shell);
+    void addAndRegisterCore(const class Particle &core, kvector_t relative_core_position);
+    void addAndRegisterShell(const class Particle &shell);
 
     ParticleCoreShell();
-    Particle *mp_shell;
-    Particle *mp_core;
+    class Particle *mp_shell;
+    class Particle *mp_core;
 };
 
 #endif // PARTICLECORESHELL_H

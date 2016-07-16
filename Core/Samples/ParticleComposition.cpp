@@ -13,6 +13,7 @@
 //
 // ************************************************************************** //
 
+#include "ParticleComposition.h"
 #include "FormFactors.h"
 #include "Materials.h"
 #include "ParticleDistribution.h"

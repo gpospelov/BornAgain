@@ -16,8 +16,8 @@
 #ifndef FORMFACTORCRYSTAL_H
 #define FORMFACTORCRYSTAL_H
 
-#include "Crystal.h"
 #include "IFormFactorBorn.h"
+#include "Lattice.h"
 
 //! @class FormFactorCrystal
 //! @ingroup formfactors
@@ -26,8 +26,8 @@
 class BA_CORE_API_ FormFactorCrystal : public IFormFactorBorn
 {
 public:
-    FormFactorCrystal(const Lattice &lattice, const IFormFactor &basis_form_factor,
-                      const IFormFactor &meso_form_factor);
+    FormFactorCrystal(const Lattice& lattice, const IFormFactor& basis_form_factor,
+                      const IFormFactor& meso_form_factor);
 
     virtual ~FormFactorCrystal();
 
@@ -57,5 +57,3 @@ private:
 };
 
 #endif // FORMFACTORCRYSTAL_H
-
-

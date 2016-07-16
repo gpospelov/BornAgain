@@ -17,6 +17,7 @@
 #include "GUIObjectBuilder.h"
 #include "BeamDistributionItem.h"
 #include "BeamItem.h"
+#include "Crystal.h"
 #include "ComboProperty.h"
 #include "DetectorItems.h"
 #include "DocumentModel.h"

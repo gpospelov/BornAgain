@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "FormFactorCrystal.h"
+#include "BornAgainNamespace.h"
 
 FormFactorCrystal::FormFactorCrystal(const Lattice &lattice, const IFormFactor &basis_form_factor,
                                      const IFormFactor &meso_form_factor)

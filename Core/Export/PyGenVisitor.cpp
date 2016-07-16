@@ -15,6 +15,7 @@
 
 #include "PyGenVisitor.h"
 #include "ConvolutionDetectorResolution.h"
+#include "Crystal.h"
 #include "FormFactors.h"
 #include "InterferenceFunctions.h"
 #include "MultiLayer.h"

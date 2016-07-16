@@ -13,13 +13,13 @@
 //
 // ************************************************************************** //
 
+#include "ParticleCoreShell.h"
 #include "FormFactors.h"
 #include "Materials.h"
-#include "ParticleCoreShell.h"
+#include "Particle.h"
 
-
-ParticleCoreShell::ParticleCoreShell(const Particle& shell,
-        const Particle& core, kvector_t relative_core_position)
+ParticleCoreShell::ParticleCoreShell(
+    const Particle& shell, const Particle& core, kvector_t relative_core_position)
     : mp_shell { nullptr }, mp_core { nullptr }
 {
     setName(BornAgain::ParticleCoreShellType);
@@ -34,22 +34,21 @@ ParticleCoreShell::~ParticleCoreShell()
     delete mp_core;
 }
 
-ParticleCoreShell *ParticleCoreShell::clone() const
+ParticleCoreShell* ParticleCoreShell::clone() const
 {
-    ParticleCoreShell *p_result =
+    ParticleCoreShell* p_result =
             new ParticleCoreShell(*mp_shell, *mp_core, kvector_t(0.0, 0.0, 0.0));
     p_result->setAbundance(m_abundance);
     p_result->setAmbientMaterial(*getAmbientMaterial());
-    if (mP_rotation.get()) {
+    if (mP_rotation.get())
         p_result->setRotation(*mP_rotation);
-    }
     p_result->setPosition(m_position);
     return p_result;
 }
 
 ParticleCoreShell* ParticleCoreShell::cloneInvertB() const
 {
-    ParticleCoreShell *p_result = new ParticleCoreShell();
+    ParticleCoreShell* p_result = new ParticleCoreShell();
     p_result->setAbundance(m_abundance);
     p_result->mp_shell = this->mp_shell->cloneInvertB();
     p_result->mp_core = this->mp_core->cloneInvertB();
@@ -61,7 +60,7 @@ ParticleCoreShell* ParticleCoreShell::cloneInvertB() const
     return p_result;
 }
 
-void ParticleCoreShell::accept(ISampleVisitor *visitor) const
+void ParticleCoreShell::accept(ISampleVisitor* visitor) const
 {
     visitor->visit(this);
 }
@@ -71,13 +70,13 @@ void ParticleCoreShell::setAmbientMaterial(const IMaterial& material)
     mp_shell->setAmbientMaterial(material);
 }
 
-const IMaterial *ParticleCoreShell::getAmbientMaterial() const
+const IMaterial* ParticleCoreShell::getAmbientMaterial() const
 {
     if (!mp_shell) return 0;
     return mp_shell->getAmbientMaterial();
 }
 
-IFormFactor *ParticleCoreShell::createTransformedFormFactor(const IRotation *p_rotation,
+IFormFactor* ParticleCoreShell::createTransformedFormFactor(const IRotation* p_rotation,
                                                             kvector_t translation) const
 {
     if (!mp_core || !mp_shell)
@@ -105,12 +104,12 @@ IFormFactor *ParticleCoreShell::createTransformedFormFactor(const IRotation *p_r
     return P_result.release();
 }
 
-const Particle *ParticleCoreShell::getCoreParticle() const
+const Particle* ParticleCoreShell::getCoreParticle() const
 {
     return mp_core;
 }
 
-const Particle *ParticleCoreShell::getShellParticle() const
+const Particle* ParticleCoreShell::getShellParticle() const
 {
     return mp_shell;
 }

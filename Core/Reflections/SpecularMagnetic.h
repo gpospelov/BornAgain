@@ -18,7 +18,8 @@
 
 #include "ISimulation.h"
 #include "MatrixRTCoefficients.h"
-#include "MultiLayer.h"
+#include "Vectors3D.h"
+#include <vector>
 
 //! @class SpecularMagnetic
 //! @ingroup algorithms_internal
@@ -33,13 +34,14 @@ public:
 
     //! Computes refraction angle reflection/transmission coefficients
     //! for given multilayer and wavevector k
-    static void execute(const MultiLayer& sample, const kvector_t k, MultiLayerCoeff_t& coeff);
+    static void execute(
+        const class MultiLayer& sample, const kvector_t k, MultiLayerCoeff_t& coeff);
 
 private:
-    static void calculateEigenvalues(const MultiLayer& sample, const kvector_t k,
-           MultiLayerCoeff_t& coeff);
-    static void calculateTransferAndBoundary(const MultiLayer& sample,
-           const kvector_t k, MultiLayerCoeff_t& coeff);
+    static void calculateEigenvalues(
+        const class MultiLayer& sample, const kvector_t k, MultiLayerCoeff_t& coeff);
+    static void calculateTransferAndBoundary(
+        const MultiLayer& sample, const kvector_t k, MultiLayerCoeff_t& coeff);
     static void setForNoTransmission(MultiLayerCoeff_t& coeff);
     static complex_t getImExponential(complex_t exponent);
 };

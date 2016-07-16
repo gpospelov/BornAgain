@@ -14,12 +14,13 @@
 // ************************************************************************** //
 
 #include "SpecularMagnetic.h"
+#include "MultiLayer.h"
 #include <Eigen/LU>
 
 static complex_t I(0.,1.);
 
-void SpecularMagnetic::execute(const MultiLayer& sample, const kvector_t k,
-        MultiLayerCoeff_t& coeff)
+void SpecularMagnetic::execute(
+    const MultiLayer& sample, const kvector_t k, MultiLayerCoeff_t& coeff)
 {
     coeff.clear();
     coeff.resize(sample.getNumberOfLayers());
@@ -29,8 +30,8 @@ void SpecularMagnetic::execute(const MultiLayer& sample, const kvector_t k,
     calculateTransferAndBoundary(sample, k, coeff);
 }
 
-void SpecularMagnetic::calculateEigenvalues(const MultiLayer& sample,
-        const kvector_t k, MultiLayerCoeff_t& coeff)
+void SpecularMagnetic::calculateEigenvalues(
+    const MultiLayer& sample, const kvector_t k, MultiLayerCoeff_t& coeff)
 {
     double mag_k = k.mag();
     double sign_kz = k.z() > 0.0 ? -1.0 : 1.0;
@@ -57,8 +58,8 @@ void SpecularMagnetic::calculateEigenvalues(const MultiLayer& sample,
 }
 
 // todo: avoid overflows (see SpecularMatrix.cpp)
-void SpecularMagnetic::calculateTransferAndBoundary(const MultiLayer& sample,
-        const kvector_t k, MultiLayerCoeff_t& coeff)
+void SpecularMagnetic::calculateTransferAndBoundary(
+    const MultiLayer& sample, const kvector_t k, MultiLayerCoeff_t& coeff)
 {
     (void)k;
     size_t N = coeff.size();

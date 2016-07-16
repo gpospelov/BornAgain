@@ -18,6 +18,7 @@
 #include "InterferenceFunction1DLattice.h"
 #include "HomogeneousMaterial.h"
 #include "MultiLayer.h"
+#include "Particle.h"
 #include "ParticleLayout.h"
 
 Lattice1DBuilder::Lattice1DBuilder()

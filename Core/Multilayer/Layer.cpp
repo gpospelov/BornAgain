@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "Layer.h"
+#include "BornAgainNamespace.h"
 #include "DecoratedLayerDWBASimulation.h"
 #include "IInterferenceFunction.h"
 #include "ISampleVisitor.h"

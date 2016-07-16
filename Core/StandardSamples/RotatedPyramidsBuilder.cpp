@@ -17,6 +17,7 @@
 #include "HomogeneousMaterial.h"
 #include "MultiLayer.h"
 #include "RotatedPyramidsBuilder.h"
+#include "Particle.h"
 #include "ParticleLayout.h"
 
 RotatedPyramidsBuilder::RotatedPyramidsBuilder()

@@ -17,6 +17,7 @@
 #include "FormFactorBox.h"
 #include "Materials.h"
 #include "MultiLayer.h"
+#include "Particle.h"
 #include "ParticleCoreShell.h"
 #include "ParticleLayout.h"
 

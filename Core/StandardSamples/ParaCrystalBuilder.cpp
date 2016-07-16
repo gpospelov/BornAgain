@@ -19,6 +19,7 @@
 #include "InterferenceFunction2DParaCrystal.h"
 #include "InterferenceFunctionRadialParaCrystal.h"
 #include "MultiLayer.h"
+#include "Particle.h"
 #include "ParticleLayout.h"
 
 RadialParaCrystalBuilder::RadialParaCrystalBuilder()

@@ -14,8 +14,10 @@
 // ************************************************************************** //
 
 #include "BoxCompositionBuilder.h"
+#include "HomogeneousMaterial.h"
 #include "FormFactorBox.h"
 #include "MultiLayer.h"
+#include "Particle.h"
 #include "ParticleComposition.h"
 #include "ParticleLayout.h"
 

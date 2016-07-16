@@ -16,6 +16,7 @@
 #include "ParticleInTheAirBuilder.h"
 #include "HomogeneousMaterial.h"
 #include "MultiLayer.h"
+#include "Particle.h"
 #include "ParticleLayout.h"
 
 ISample* ParticleInTheAirBuilder::buildSample() const

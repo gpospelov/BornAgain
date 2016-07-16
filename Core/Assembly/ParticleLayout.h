@@ -16,8 +16,9 @@
 #ifndef PARTICLELAYOUT_H
 #define PARTICLELAYOUT_H
 
-#include "Particle.h"
 #include "ILayout.h"
+#include "Vectors3D.h"
+#include <memory>
 
 //! @class ParticleLayout
 //! @ingroup samples

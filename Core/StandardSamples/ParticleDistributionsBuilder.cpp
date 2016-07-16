@@ -17,6 +17,7 @@
 #include "FormFactorCylinder.h"
 #include "HomogeneousMaterial.h"
 #include "MultiLayer.h"
+#include "Particle.h"
 #include "ParticleDistribution.h"
 #include "ParticleDistributionsBuilder.h"
 #include "ParticleLayout.h"

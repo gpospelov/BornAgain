@@ -19,6 +19,7 @@
 #include "HomogeneousMaterial.h"
 #include "InterferenceFunctionRadialParaCrystal.h"
 #include "MultiLayer.h"
+#include "Particle.h"
 #include "ParticleDistribution.h"
 #include "ParticleLayout.h"
 

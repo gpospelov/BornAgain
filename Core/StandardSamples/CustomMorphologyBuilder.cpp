@@ -17,6 +17,7 @@
 #include "FormFactorBox.h"
 #include "HomogeneousMaterial.h"
 #include "MultiLayer.h"
+#include "Particle.h"
 #include "ParticleLayout.h"
 
 ISample* CustomMorphologyBuilder::buildSample() const

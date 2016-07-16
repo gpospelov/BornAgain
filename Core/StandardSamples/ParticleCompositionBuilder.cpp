@@ -17,6 +17,7 @@
 #include "HomogeneousMaterial.h"
 #include "InterferenceFunction2DLattice.h"
 #include "MultiLayer.h"
+#include "Particle.h"
 #include "ParticleComposition.h"
 #include "ParticleCompositionBuilder.h"
 #include "ParticleLayout.h"

@@ -18,6 +18,7 @@
 #include "FormFactorPrism3.h"
 #include "HomogeneousMaterial.h"
 #include "MultiLayer.h"
+#include "Particle.h"
 #include "ParticleLayout.h"
 
 CylindersAndPrismsBuilder::CylindersAndPrismsBuilder()

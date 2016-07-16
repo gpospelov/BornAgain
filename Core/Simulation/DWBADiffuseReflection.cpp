@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "DWBADiffuseReflection.h"
+#include "MultiLayer.h"
 
 DWBADiffuseReflection::DWBADiffuseReflection()
     : m_sample(0)

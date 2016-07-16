@@ -15,6 +15,7 @@
 
 #include "SpecularSimulation.h"
 #include "ISampleBuilder.h"
+#include "MultiLayer.h"
 #include "SpecularMatrix.h"
 #include <memory>
 
@@ -193,10 +194,6 @@ SpecularSimulation::getLayerRTCoefficients(size_t i_alpha, size_t i_layer) const
             "SpecularSimulation::getLayerRTCoefficients() -> Error. Wrong layer index.");
 
     return m_data[i_alpha][i_layer];
-}
-
-void SpecularSimulation::init_parameters()
-{
 }
 
 void SpecularSimulation::updateSample()

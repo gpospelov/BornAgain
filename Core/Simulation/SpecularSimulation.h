@@ -85,7 +85,7 @@ protected:
     SpecularSimulation(const SpecularSimulation& other);
 
     //! Registers some class members for later access via parameter pool
-    void init_parameters();
+    void init_parameters() {}
 
     //! Update the sample by calling the sample builder, if present
     void updateSample();

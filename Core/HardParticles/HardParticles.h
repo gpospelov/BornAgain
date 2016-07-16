@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/HardParticles/HardParticles.h
-//! @brief     Include all particle-shape form-factor include files.
+//! @brief     Includes all particle-shape form-factor definitions.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

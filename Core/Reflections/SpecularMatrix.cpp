@@ -13,16 +13,16 @@
 //
 // ************************************************************************** //
 
-
-#include "MathFunctions.h"
 #include "SpecularMatrix.h"
-
+#include "MathFunctions.h"
+#include "MultiLayer.h"
 
 namespace {
     const complex_t imag_unit = complex_t(0.0, 1.0);
 }
 
 void setZeroBelow(SpecularMatrix::MultiLayerCoeff_t& coeff, size_t current_layer);
+
 bool calculateUpFromLayer(SpecularMatrix::MultiLayerCoeff_t& coeff, const MultiLayer& sample,
                           const kvector_t k, size_t layer_index);
 
@@ -31,8 +31,7 @@ bool calculateUpFromLayer(SpecularMatrix::MultiLayerCoeff_t& coeff, const MultiL
 // k : length: wavenumber in vacuum, direction: defined in layer 0
 // roughness is modelled by tanh profile (see e.g. Phys. Rev. B, vol. 47 (8), p. 4385 (1993) )
 
-void SpecularMatrix::execute(const MultiLayer& sample, const kvector_t k,
-        MultiLayerCoeff_t& coeff)
+void SpecularMatrix::execute(const MultiLayer& sample, const kvector_t k, MultiLayerCoeff_t& coeff)
 {
     size_t N = sample.getNumberOfLayers();
     assert(N>0);

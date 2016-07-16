@@ -17,9 +17,9 @@
 #define SPECULARMATRIX_H
 
 #include "ISimulation.h"
-#include "MultiLayer.h"
 #include "ScalarRTCoefficients.h"
-
+#include "Vectors3D.h"
+#include <vector>
 
 //! @class SpecularMatrix
 //! @ingroup algorithms_internal
@@ -34,7 +34,8 @@ public:
 
     //! Computes refraction angles and transmission/reflection coefficients
     //! for given coherent wave propagation in a multilayer.
-    static void execute(const MultiLayer& sample, const kvector_t k, MultiLayerCoeff_t& coeff);
+    static void execute(
+        const class MultiLayer& sample, const kvector_t k, MultiLayerCoeff_t& coeff);
 };
 
 #endif // SPECULARMATRIX_H

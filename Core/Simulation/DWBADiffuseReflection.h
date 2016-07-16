@@ -27,10 +27,10 @@ class BA_CORE_API_ DWBADiffuseReflection : public ISimulation
 public:
     DWBADiffuseReflection();
 
-    void execute(const MultiLayer& sample,
+    void execute(const class MultiLayer& sample,
                  const kvector_t ki, const kvector_t kf);
 
-    void setSample(const MultiLayer& sample) {m_sample =& sample; }
+    void setSample(const class MultiLayer& sample) {m_sample =& sample; }
 
     double getDiffuseAutocorr() const { return m_diffuse_autocorr; }
 
@@ -47,7 +47,7 @@ private:
 
     complex_t get_sum4terms(size_t ilayer);
 
-    const MultiLayer *m_sample;
+    const class MultiLayer *m_sample;
     SpecularMatrix::MultiLayerCoeff_t m_fcoeff_i;
     SpecularMatrix::MultiLayerCoeff_t m_fcoeff_f;
     double m_diffuse_autocorr;

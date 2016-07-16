@@ -17,8 +17,7 @@
 #define ILAYOUT_H
 
 #include "IParticle.h"
-
-
+#include "SafePointerVector.h"
 
 //! @class ILayout
 //! @ingroup samples_internal
@@ -32,19 +31,19 @@ public:
     ILayout() : me_approx(DA) {}
     virtual ~ILayout() {}
 
-    virtual ILayout *clone() const=0;
+    virtual ILayout* clone() const=0;
 
     //! calls the ISampleVisitor's visit method
-    virtual void accept(ISampleVisitor *visitor) const=0;
+    virtual void accept(ISampleVisitor* visitor) const=0;
 
     //! Returns a clone with inverted magnetic fields
-    virtual ILayout *cloneInvertB() const=0;
+    virtual ILayout* cloneInvertB() const=0;
 
     //! Returns number of particles
     virtual size_t getNumberOfParticles() const=0;
 
     //! Returns information about particle with index
-    virtual const IAbstractParticle *getParticle(size_t index) const=0;
+    virtual const IAbstractParticle* getParticle(size_t index) const=0;
 
     //! Returns information on all particles (type and abundance)
     //! and generates new particles if an IAbstractParticle denotes a collection

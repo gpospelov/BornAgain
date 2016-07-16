@@ -16,7 +16,6 @@
 #ifndef LAYER_H
 #define LAYER_H
 
-#include "LayerDWBASimulation.h"
 #include "Materials.h"
 #include "ParticleLayout.h"
 
@@ -77,7 +76,7 @@ public:
     virtual bool hasDWBASimulation() const;
 
     //! creates and returns a LayerDWBASimulation for the given layout
-    LayerDWBASimulation *createLayoutSimulation(size_t layout_index) const;
+    class LayerDWBASimulation *createLayoutSimulation(size_t layout_index) const;
 
     double getTotalParticleSurfaceDensity(size_t layout_index) const;
 

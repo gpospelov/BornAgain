@@ -14,9 +14,9 @@
 // ************************************************************************** //
 
 #include "Layer.h"
+#include "LayerDWBASimulation.h"
 
-
-LayerDWBASimulation::LayerDWBASimulation(const Layer *p_layer)
+LayerDWBASimulation::LayerDWBASimulation(const Layer* p_layer)
 : mp_specular_info(0)
 {
     mp_layer = p_layer->clone();

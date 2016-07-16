@@ -18,7 +18,7 @@
 #include "InterferenceFunctionStrategies.h"
 #include "InterferenceFunctions.h"
 #include "Layer.h"
-
+#include "Simulation.h"
 
 LayerStrategyBuilder::LayerStrategyBuilder(const Layer &decorated_layer,
                                            const Simulation &simulation,

@@ -15,39 +15,40 @@
 // ************************************************************************** //
 
 #include "GUIObjectBuilder.h"
-#include "InstrumentModel.h"
-#include "SampleModel.h"
-#include "LayerItem.h"
+#include "BeamDistributionItem.h"
 #include "BeamItem.h"
-#include "DetectorItems.h"
-#include "MultiLayerItem.h"
-#include "MaterialUtils.h"
-#include "MaterialSvc.h"
-#include "MaterialModel.h"
-#include "ParticleItem.h"
-#include "TransformationItem.h"
-#include "FormFactorItems.h"
-#include "TransformFromDomain.h"
 #include "ComboProperty.h"
-#include "GUIHelpers.h"
-#include "ParticleCoreShellItem.h"
-#include "VectorItem.h"
-#include "ParticleLayoutItem.h"
-#include "RotationItems.h"
-#include "ParticleDistributionItem.h"
+#include "DetectorItems.h"
 #include "DocumentModel.h"
+#include "FormFactorItems.h"
+#include "GUIHelpers.h"
+#include "InstrumentModel.h"
+#include "LayerItem.h"
+#include "MaterialModel.h"
+#include "MaterialSvc.h"
+#include "MaterialUtils.h"
+#include "MultiLayerItem.h"
+#include "ParticleCoreShellItem.h"
+#include "ParticleDistributionItem.h"
+#include "ParticleItem.h"
+#include "ParticleLayoutItem.h"
+#include "RectangularDetector.h"
+#include "RotationItems.h"
+#include "SampleModel.h"
 #include "SimulationOptionsItem.h"
+#include "SphericalDetector.h"
+#include "TransformFromDomain.h"
+#include "TransformationItem.h"
+#include "VectorItem.h"
 #include <QDebug>
-
 
 GUIObjectBuilder::GUIObjectBuilder()
     : m_sampleModel(0)
 {
 }
 
-
-SessionItem *GUIObjectBuilder::populateSampleModel(SampleModel *sampleModel,
-                                       const GISASSimulation &simulation, const QString &sampleName)
+SessionItem *GUIObjectBuilder::populateSampleModel(
+    SampleModel *sampleModel, const GISASSimulation &simulation, const QString &sampleName)
 {
     std::unique_ptr<ISample> P_sample;
     if(simulation.getSampleBuilder()) {

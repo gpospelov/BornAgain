@@ -18,7 +18,6 @@
 
 #include "IDetector2D.h"
 
-
 //! @class SphericalDetector
 //! @ingroup simulation
 //! @brief A spherical detector with axes and resolution function.
@@ -46,7 +45,7 @@ public:
     virtual ~SphericalDetector() {}
 
     //! Adds parameters from local pool to external pool and recursively calls its direct children.
-    virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool,
+    virtual std::string addParametersToExternalPool(std::string path, ParameterPool* external_pool,
                                                     int copy_number = -1) const;
 
     //! Returns detector map in given axes units
@@ -62,7 +61,7 @@ protected:
     //! Create an IPixelMap for the given OutputData object and index
     virtual IPixelMap* createPixelMap(size_t index) const;
 
-    virtual void print(std::ostream &ostr) const;
+    virtual void print(std::ostream& ostr) const;
 
     //! Registers some class members for later access via parameter pool.
     virtual void init_parameters() {}

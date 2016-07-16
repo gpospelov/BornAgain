@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "MultiLayerWithRoughnessBuilder.h"
+#include "HomogeneousMaterial.h"
 #include "MultiLayer.h"
 
 MultiLayerWithRoughnessBuilder::MultiLayerWithRoughnessBuilder()

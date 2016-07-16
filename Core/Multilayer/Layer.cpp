@@ -16,7 +16,9 @@
 #include "Layer.h"
 #include "DecoratedLayerDWBASimulation.h"
 #include "IInterferenceFunction.h"
+#include "ISampleVisitor.h"
 #include "Materials.h"
+#include "ParticleLayout.h"
 
 using namespace BornAgain;
 

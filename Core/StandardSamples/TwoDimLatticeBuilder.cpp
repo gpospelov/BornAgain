@@ -13,12 +13,12 @@
 //
 // ************************************************************************** //
 
+#include "TwoDimLatticeBuilder.h"
 #include "FormFactorCylinder.h"
 #include "InterferenceFunction2DLattice.h"
 #include "MultiLayer.h"
 #include "ParticleComposition.h"
-#include "TwoDimLatticeBuilder.h"
-
+#include "ParticleLayout.h"
 
 // -----------------------------------------------------------------------------
 // lattice #1:

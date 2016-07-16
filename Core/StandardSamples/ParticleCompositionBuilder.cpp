@@ -14,10 +14,12 @@
 // ************************************************************************** //
 
 #include "FormFactorFullSphere.h"
+#include "HomogeneousMaterial.h"
 #include "InterferenceFunction2DLattice.h"
 #include "MultiLayer.h"
 #include "ParticleComposition.h"
 #include "ParticleCompositionBuilder.h"
+#include "ParticleLayout.h"
 
 // --- ParticleCompositionBuilder ---
 
@@ -61,4 +63,3 @@ ISample *ParticleCompositionBuilder::buildSample() const
 
     return multi_layer;
 }
-

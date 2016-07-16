@@ -17,6 +17,7 @@
 #include "FormFactorCylinder.h"
 #include "Materials.h"
 #include "MultiLayer.h"
+#include "ParticleLayout.h"
 
 // ----------------------------------------------------------------------------
 // Magnetic cylinders and zero magnetic field

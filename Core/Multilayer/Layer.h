@@ -16,7 +16,9 @@
 #ifndef LAYER_H
 #define LAYER_H
 
-#include "ParticleLayout.h"
+#include "Complex.h"
+#include "ICompositeSample.h"
+#include "SafePointerVector.h"
 
 //! @class Layer
 //! @ingroup samples
@@ -39,7 +41,7 @@ public:
     virtual Layer* cloneInvertB() const;
 
     //! Calls the ISampleVisitor's visit method
-    virtual void accept(ISampleVisitor* visitor) const;
+    virtual void accept(class ISampleVisitor* visitor) const;
 
     //! Sets layer thickness in nanometers.
     virtual void setThickness(double thickness);
@@ -63,13 +65,13 @@ public:
     complex_t getRefractiveIndex2() const;
 
     //! sets particle layout
-    virtual void addLayout(const ILayout& decoration);
+    virtual void addLayout(const class ILayout& decoration);
 
     //! gets number of layouts present
     size_t getNumberOfLayouts() const;
 
     //! returns particle decoration
-    virtual const ILayout* getLayout(size_t i) const;
+    virtual const class ILayout* getLayout(size_t i) const;
 
     //! Returns true if decoration is present
     virtual bool hasDWBASimulation() const { return m_layouts.size()>0; }
@@ -92,11 +94,11 @@ protected:
     void print(std::ostream& ostr) const;
 
     //! adds particle layout (separate pointer version due to python-bindings)
-    virtual void addLayoutPtr(ILayout* layout);
+    virtual void addLayoutPtr(class ILayout* layout);
 
     double m_thickness;       //!< layer thickness in nanometers
     class IMaterial* mp_material;   //!< pointer to the material
-    SafePointerVector<ILayout> m_layouts; //!< independent layouts in this layer
+    SafePointerVector<class ILayout> m_layouts; //!< independent layouts in this layer
     size_t mn_layers;
 private:
     void initialize();

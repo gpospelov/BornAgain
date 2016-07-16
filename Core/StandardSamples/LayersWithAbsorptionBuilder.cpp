@@ -13,8 +13,9 @@
 //
 // ************************************************************************** //
 
-#include "MultiLayer.h"
 #include "LayersWithAbsorptionBuilder.h"
+#include "MultiLayer.h"
+#include "ParticleLayout.h"
 
 ISample* LayersWithAbsorptionBuilder::buildSample() const
 {

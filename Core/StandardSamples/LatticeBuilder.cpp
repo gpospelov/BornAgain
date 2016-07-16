@@ -16,7 +16,9 @@
 #include "LatticeBuilder.h"
 #include "FormFactorCylinder.h"
 #include "InterferenceFunction1DLattice.h"
+#include "HomogeneousMaterial.h"
 #include "MultiLayer.h"
+#include "ParticleLayout.h"
 
 Lattice1DBuilder::Lattice1DBuilder()
     : m_length(20.0*Units::nanometer)

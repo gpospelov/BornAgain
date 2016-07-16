@@ -15,8 +15,10 @@
 
 #include "CoreShellParticleBuilder.h"
 #include "FormFactorBox.h"
+#include "Materials.h"
 #include "MultiLayer.h"
 #include "ParticleCoreShell.h"
+#include "ParticleLayout.h"
 
 // --- CoreShellParticleBuilder ---
 

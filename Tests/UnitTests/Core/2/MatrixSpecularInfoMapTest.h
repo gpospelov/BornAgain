@@ -1,6 +1,7 @@
 #ifndef MATRIXSPECULARINFOMAPTEST_H
 #define MATRIXSPECULARINFOMAPTEST_H
 
+#include "HomogeneousMaterial.h"
 #include "MatrixRTCoefficients.h"
 #include "MatrixSpecularInfoMap.h"
 #include "MultiLayer.h"

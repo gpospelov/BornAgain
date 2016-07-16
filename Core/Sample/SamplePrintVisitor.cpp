@@ -20,6 +20,7 @@
 #include "MultiLayer.h"
 #include "ParticleCoreShell.h"
 #include "ParticleDistribution.h"
+#include "ParticleLayout.h"
 #include "SamplePrintVisitor.h"
 
 void SamplePrintVisitor::visit(const ISample*)

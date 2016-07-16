@@ -14,6 +14,8 @@
 // ************************************************************************** //
 
 #include "MultiLayer.h"
+#include "BornAgainNamespace.h"
+#include "Materials.h"
 #include "MessageService.h"
 #include "MultiLayerDWBASimulation.h"
 

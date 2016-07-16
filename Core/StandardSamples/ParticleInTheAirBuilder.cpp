@@ -13,8 +13,10 @@
 //
 // ************************************************************************** //
 
-#include "MultiLayer.h"
 #include "ParticleInTheAirBuilder.h"
+#include "HomogeneousMaterial.h"
+#include "MultiLayer.h"
+#include "ParticleLayout.h"
 
 ISample* ParticleInTheAirBuilder::buildSample() const
 {

@@ -17,6 +17,8 @@
 #include "FormFactorTools.h"
 #include "InterferenceFunctionStrategies.h"
 #include "InterferenceFunctions.h"
+#include "IParticle.h"
+#include "ILayout.h"
 #include "Layer.h"
 #include "LayerSpecularInfo.h"
 #include "Simulation.h"

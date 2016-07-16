@@ -13,11 +13,13 @@
 //
 // ************************************************************************** //
 
+#include "RipplesBuilder.h"
 #include "FormFactorRipple1.h"
 #include "FormFactorRipple2.h"
+#include "HomogeneousMaterial.h"
 #include "InterferenceFunctionRadialParaCrystal.h"
 #include "MultiLayer.h"
-#include "RipplesBuilder.h"
+#include "ParticleLayout.h"
 
 CosineRippleBuilder::CosineRippleBuilder()
     : m_w(20.0*Units::nanometer)
@@ -126,4 +128,3 @@ ISample *TriangularRippleBuilder::buildSample() const
 
     return p_multi_layer;
 }
-

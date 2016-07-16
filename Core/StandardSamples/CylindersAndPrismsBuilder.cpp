@@ -16,7 +16,9 @@
 #include "CylindersAndPrismsBuilder.h"
 #include "FormFactorCylinder.h"
 #include "FormFactorPrism3.h"
+#include "HomogeneousMaterial.h"
 #include "MultiLayer.h"
+#include "ParticleLayout.h"
 
 CylindersAndPrismsBuilder::CylindersAndPrismsBuilder()
     : m_cylinder_height(5*Units::nanometer)

@@ -16,7 +16,9 @@
 #include "MultipleLayoutBuilder.h"
 #include "FormFactorCylinder.h"
 #include "FormFactorPrism3.h"
+#include "HomogeneousMaterial.h"
 #include "MultiLayer.h"
+#include "ParticleLayout.h"
 
 MultipleLayoutBuilder::MultipleLayoutBuilder()
     : m_cylinder_height(5*Units::nanometer)

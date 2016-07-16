@@ -33,6 +33,7 @@
 #include "ParticleCoreShellItem.h"
 #include "ParticleDistributionItem.h"
 #include "ParticleItem.h"
+#include "ParticleLayout.h"
 #include "ParticleLayoutItem.h"
 #include "RectangularDetector.h"
 #include "RotationItems.h"

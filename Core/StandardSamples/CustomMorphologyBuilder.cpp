@@ -13,9 +13,11 @@
 //
 // ************************************************************************** //
 
-#include "FormFactorBox.h"
-#include "MultiLayer.h"
 #include "CustomMorphologyBuilder.h"
+#include "FormFactorBox.h"
+#include "HomogeneousMaterial.h"
+#include "MultiLayer.h"
+#include "ParticleLayout.h"
 
 ISample* CustomMorphologyBuilder::buildSample() const
 {

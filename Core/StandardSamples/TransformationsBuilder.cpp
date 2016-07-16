@@ -13,12 +13,12 @@
 //
 // ************************************************************************** //
 
+#include "TransformationsBuilder.h"
 #include "FormFactorBox.h"
 #include "MultiLayer.h"
-#include "TransformationsBuilder.h"
+#include "ParticleLayout.h"
 
-
-ISample *TransformBoxBuilder::buildSample() const
+ISample* TransformBoxBuilder::buildSample() const
 {
     HomogeneousMaterial mAmbience("Air", 0.0, 0.0);
     HomogeneousMaterial mMiddle("Teflon", 2.900e-6, 6.019e-9);
@@ -44,7 +44,7 @@ ISample *TransformBoxBuilder::buildSample() const
     middle_layer.addLayout(layout);
     Layer substrate(mSubstrate);
 
-    MultiLayer *multi_layer = new MultiLayer();
+    MultiLayer* multi_layer = new MultiLayer();
     multi_layer->addLayer(air_layer);
     multi_layer->addLayer(middle_layer);
     multi_layer->addLayer(substrate);

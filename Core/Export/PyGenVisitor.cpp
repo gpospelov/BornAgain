@@ -23,6 +23,7 @@
 #include "MultiLayerDWBASimulation.h"
 #include "ParticleCoreShell.h"
 #include "ParticleDistribution.h"
+#include "ParticleLayout.h"
 #include "PyGenTools.h"
 #include "RectangularDetector.h"
 #include "ResolutionFunction2DGaussian.h"

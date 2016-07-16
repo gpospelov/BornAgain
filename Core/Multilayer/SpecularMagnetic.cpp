@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "SpecularMagnetic.h"
+#include "Materials.h"
 #include "MultiLayer.h"
 #include <Eigen/LU>
 

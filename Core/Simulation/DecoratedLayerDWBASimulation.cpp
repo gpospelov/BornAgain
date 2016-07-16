@@ -16,9 +16,10 @@
 #include "DecoratedLayerDWBASimulation.h"
 #include "Layer.h"
 #include "MessageService.h"
+#include "IInterferenceFunctionStrategy.h"
 
-DecoratedLayerDWBASimulation::DecoratedLayerDWBASimulation(const Layer *p_layer,
-                                                           size_t layout_index)
+DecoratedLayerDWBASimulation::DecoratedLayerDWBASimulation(
+    const Layer* p_layer, size_t layout_index)
     : LayerDWBASimulation(p_layer), m_layout_index(layout_index)
 {
 }
@@ -37,8 +38,7 @@ void DecoratedLayerDWBASimulation::run()
         setRunMessage(std::string(ex.what()));
         setStatus(FAILED);
         throw Exceptions::RuntimeErrorException(
-            "DecoratedLayerDWBASimulation::run() -> Exception was caught \n\n"
-            + getRunMessage());
+            "DecoratedLayerDWBASimulation::run() -> Exception was caught \n\n" + getRunMessage());
     }
 }
 
@@ -50,17 +50,17 @@ void DecoratedLayerDWBASimulation::runProtected()
     calculateCoherentIntensity(P_strategy.get());
 }
 
-IInterferenceFunctionStrategy *DecoratedLayerDWBASimulation::createAndInitStrategy() const
+IInterferenceFunctionStrategy* DecoratedLayerDWBASimulation::createAndInitStrategy() const
 {
     LayerStrategyBuilder builder(*mp_layer, *mp_simulation, m_sim_options, m_layout_index);
     assert(mp_specular_info);
     builder.setRTInfo(*mp_specular_info);
-    IInterferenceFunctionStrategy *p_strategy = builder.createStrategy();
+    IInterferenceFunctionStrategy* p_strategy = builder.createStrategy();
     return p_strategy;
 }
 
 void DecoratedLayerDWBASimulation::calculateCoherentIntensity(
-    const IInterferenceFunctionStrategy *p_strategy)
+    const IInterferenceFunctionStrategy* p_strategy)
 {
     msglog(MSG::DEBUG2) << "LayerDecoratorDWBASimulation::calculateCoh...()";
     double total_surface_density = mp_layer->getTotalParticleSurfaceDensity(m_layout_index);

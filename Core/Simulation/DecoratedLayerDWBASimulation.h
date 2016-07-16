@@ -16,7 +16,6 @@
 #ifndef DECORATEDLAYERDWBASIMULATION_H
 #define DECORATEDLAYERDWBASIMULATION_H
 
-#include "IInterferenceFunctionStrategy.h"
 #include "LayerDWBASimulation.h"
 
 //! @class DecoratedLayerDWBASimulation
@@ -26,10 +25,10 @@
 class BA_CORE_API_ DecoratedLayerDWBASimulation : public LayerDWBASimulation
 {
 public:
-    DecoratedLayerDWBASimulation(const Layer *p_layer, size_t layout_index=0);
+    DecoratedLayerDWBASimulation(const Layer* p_layer, size_t layout_index=0);
     virtual ~DecoratedLayerDWBASimulation();
 
-    DecoratedLayerDWBASimulation *clone() const
+    DecoratedLayerDWBASimulation* clone() const
     {
         throw Exceptions::NotImplementedException("DecoratedLayerDWBASimulation::clone() -> "
                                       "Error: not implemented.");
@@ -40,10 +39,9 @@ protected:
     virtual void runProtected();
 
 private:
-    IInterferenceFunctionStrategy *createAndInitStrategy() const;
-    void calculateCoherentIntensity(const IInterferenceFunctionStrategy *p_strategy);
+    class IInterferenceFunctionStrategy* createAndInitStrategy() const;
+    void calculateCoherentIntensity(const class IInterferenceFunctionStrategy* p_strategy);
     size_t m_layout_index;
-
 };
 
 #endif // DECORATEDLAYERDWBASIMULATION_H

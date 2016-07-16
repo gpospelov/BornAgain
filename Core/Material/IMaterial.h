@@ -72,7 +72,7 @@ public:
 #endif
 
     //! Create a new material that is transformed with respect to this one
-    virtual const IMaterial *createTransformedMaterial(const IRotation &rotation) const;
+    virtual const IMaterial *createTransformedMaterial(const class IRotation &rotation) const;
 
 protected:
     virtual void print(std::ostream &ostr) const
@@ -83,8 +83,8 @@ protected:
 
 inline IMaterial *IMaterial::clone() const
 {
-    throw Exceptions::NotImplementedException("IMaterial is an interface and "
-                                              "should not be cloned!");
+    throw Exceptions::NotImplementedException(
+        "IMaterial is an interface and should not be cloned!");
 }
 
 #ifndef SWIG
@@ -99,11 +99,10 @@ inline Eigen::Matrix2cd IMaterial::getSpecularScatteringMatrix(const kvector_t k
 
 #endif // SWIG
 
-inline const IMaterial *IMaterial::createTransformedMaterial(const IRotation &rotation) const
+inline const IMaterial *IMaterial::createTransformedMaterial(const class IRotation&) const
 {
-    (void)rotation;
-    throw Exceptions::NotImplementedException("IMaterial is an interface and "
-                                              "should not be created!");
+    throw Exceptions::NotImplementedException(
+        "IMaterial is an interface and should not be created!");
 }
 
 #endif // IMATERIAL_H

@@ -11,15 +11,16 @@ endif()
 # --- source and include files ---------
 set(include_dirs
     ${BUILD_INC_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/Assemblies
     ${CMAKE_CURRENT_SOURCE_DIR}/Basics
     ${CMAKE_CURRENT_SOURCE_DIR}/Detector
-    ${CMAKE_CURRENT_SOURCE_DIR}/FormFactors
     ${CMAKE_CURRENT_SOURCE_DIR}/Export
     ${CMAKE_CURRENT_SOURCE_DIR}/InputOutput
     ${CMAKE_CURRENT_SOURCE_DIR}/HardParticles
+    ${CMAKE_CURRENT_SOURCE_DIR}/Material
+    ${CMAKE_CURRENT_SOURCE_DIR}/Multilayer
     ${CMAKE_CURRENT_SOURCE_DIR}/Parametrization
-    ${CMAKE_CURRENT_SOURCE_DIR}/Reflections
-    ${CMAKE_CURRENT_SOURCE_DIR}/Samples
+    ${CMAKE_CURRENT_SOURCE_DIR}/Particles
     ${CMAKE_CURRENT_SOURCE_DIR}/Simulation
     ${CMAKE_CURRENT_SOURCE_DIR}/SoftParticles
     ${CMAKE_CURRENT_SOURCE_DIR}/StandardSamples

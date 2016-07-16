@@ -6291,7 +6291,7 @@ C++ includes: ILayout.h
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  ILayout::accept "virtual void ILayout::accept(ISampleVisitor *visitor) const =0
+%feature("docstring")  ILayout::accept "virtual void ILayout::accept(class ISampleVisitor *visitor) const =0
 
 calls the  ISampleVisitor's visit method 
 ";
@@ -6306,12 +6306,12 @@ Returns a clone with inverted magnetic fields.
 Returns number of particles. 
 ";
 
-%feature("docstring")  ILayout::getParticle "virtual const IAbstractParticle* ILayout::getParticle(size_t index) const =0
+%feature("docstring")  ILayout::getParticle "virtual const class IAbstractParticle* ILayout::getParticle(size_t index) const =0
 
 Returns information about particle with index. 
 ";
 
-%feature("docstring")  ILayout::getParticles "virtual SafePointerVector<const IParticle> ILayout::getParticles() const =0
+%feature("docstring")  ILayout::getParticles "virtual SafePointerVector<const class IParticle> ILayout::getParticles() const =0
 
 Returns information on all particles (type and abundance) and generates new particles if an  IAbstractParticle denotes a collection 
 ";
@@ -10241,10 +10241,10 @@ C++ includes: ParticleLayout.h
 %feature("docstring")  ParticleLayout::ParticleLayout "ParticleLayout::ParticleLayout()
 ";
 
-%feature("docstring")  ParticleLayout::ParticleLayout "ParticleLayout::ParticleLayout(const IAbstractParticle &particle)
+%feature("docstring")  ParticleLayout::ParticleLayout "ParticleLayout::ParticleLayout(const class IAbstractParticle &particle)
 ";
 
-%feature("docstring")  ParticleLayout::ParticleLayout "ParticleLayout::ParticleLayout(const IAbstractParticle &particle, double abundance)
+%feature("docstring")  ParticleLayout::ParticleLayout "ParticleLayout::ParticleLayout(const class IAbstractParticle &particle, double abundance)
 ";
 
 %feature("docstring")  ParticleLayout::~ParticleLayout "ParticleLayout::~ParticleLayout()
@@ -10260,17 +10260,17 @@ Returns a clone of this  ISample object.
 Returns a clone with inverted magnetic fields. 
 ";
 
-%feature("docstring")  ParticleLayout::accept "void ParticleLayout::accept(ISampleVisitor *visitor) const
+%feature("docstring")  ParticleLayout::accept "void ParticleLayout::accept(class ISampleVisitor *visitor) const
 
 calls the  ISampleVisitor's visit method 
 ";
 
-%feature("docstring")  ParticleLayout::addParticle "void ParticleLayout::addParticle(const IAbstractParticle &particle)
+%feature("docstring")  ParticleLayout::addParticle "virtual void ParticleLayout::addParticle(const class IAbstractParticle &particle)
 
 Adds generic particle to the layout. 
 ";
 
-%feature("docstring")  ParticleLayout::addParticle "void ParticleLayout::addParticle(const IAbstractParticle &particle, double abundance)
+%feature("docstring")  ParticleLayout::addParticle "virtual void ParticleLayout::addParticle(const class IAbstractParticle &particle, double abundance)
 
 Adds generic particle to the layout with only abundance defined.
 
@@ -10284,7 +10284,7 @@ abundance:
  Particle abundance 
 ";
 
-%feature("docstring")  ParticleLayout::addParticle "void ParticleLayout::addParticle(const IParticle &particle, double abundance, const kvector_t position)
+%feature("docstring")  ParticleLayout::addParticle "virtual void ParticleLayout::addParticle(const class IParticle &particle, double abundance, const kvector_t position)
 
 Adds particle to the layout with abundance and position defined.
 
@@ -10301,7 +10301,7 @@ position:
  Particle position 
 ";
 
-%feature("docstring")  ParticleLayout::addParticle "void ParticleLayout::addParticle(const IParticle &particle, double abundance, const kvector_t position, const IRotation &rotation)
+%feature("docstring")  ParticleLayout::addParticle "virtual void ParticleLayout::addParticle(const class IParticle &particle, double abundance, const kvector_t position, const IRotation &rotation)
 
 Adds particle to the layout with abundance, position and the rotation defined.
 

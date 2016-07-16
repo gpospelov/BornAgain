@@ -14793,7 +14793,7 @@ class ILayout(ICompositeSample):
         """
         accept(ILayout self, ISampleVisitor visitor)
 
-        virtual void ILayout::accept(ISampleVisitor *visitor) const =0
+        virtual void ILayout::accept(class ISampleVisitor *visitor) const =0
 
         calls the  ISampleVisitor's visit method 
 
@@ -14829,7 +14829,7 @@ class ILayout(ICompositeSample):
         """
         getParticle(ILayout self, size_t index) -> IAbstractParticle
 
-        virtual const IAbstractParticle* ILayout::getParticle(size_t index) const =0
+        virtual const class IAbstractParticle* ILayout::getParticle(size_t index) const =0
 
         Returns information about particle with index. 
 
@@ -14841,7 +14841,7 @@ class ILayout(ICompositeSample):
         """
         getParticles(ILayout self) -> SafePointerVector< IParticle const >
 
-        virtual SafePointerVector<const IParticle> ILayout::getParticles() const =0
+        virtual SafePointerVector<const class IParticle> ILayout::getParticles() const =0
 
         Returns information on all particles (type and abundance) and generates new particles if an  IAbstractParticle denotes a collection 
 
@@ -21052,7 +21052,7 @@ class ParticleLayout(ILayout):
         __init__(ParticleLayout self, IAbstractParticle particle) -> ParticleLayout
         __init__(ParticleLayout self, IAbstractParticle particle, double abundance) -> ParticleLayout
 
-        ParticleLayout::ParticleLayout(const IAbstractParticle &particle, double abundance)
+        ParticleLayout::ParticleLayout(const class IAbstractParticle &particle, double abundance)
 
         """
         this = _libBornAgainCore.new_ParticleLayout(*args)
@@ -21091,7 +21091,7 @@ class ParticleLayout(ILayout):
         """
         accept(ParticleLayout self, ISampleVisitor visitor)
 
-        void ParticleLayout::accept(ISampleVisitor *visitor) const
+        void ParticleLayout::accept(class ISampleVisitor *visitor) const
 
         calls the  ISampleVisitor's visit method 
 
@@ -21106,7 +21106,7 @@ class ParticleLayout(ILayout):
         addParticle(ParticleLayout self, IParticle particle, double abundance, kvector_t position)
         addParticle(ParticleLayout self, IParticle particle, double abundance, kvector_t position, IRotation rotation)
 
-        void ParticleLayout::addParticle(const IParticle &particle, double abundance, const kvector_t position, const IRotation &rotation)
+        virtual void ParticleLayout::addParticle(const class IParticle &particle, double abundance, const kvector_t position, const IRotation &rotation)
 
         Adds particle to the layout with abundance, position and the rotation defined.
 

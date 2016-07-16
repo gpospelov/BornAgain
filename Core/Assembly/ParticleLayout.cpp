@@ -15,6 +15,7 @@
 
 #include "ParticleLayout.h"
 #include "IInterferenceFunction.h"
+#include "Particle.h"
 #include "ParticleDistribution.h"
 #include "SizeSpacingCorrelationApproximationStrategy.h"
 #include <iomanip>

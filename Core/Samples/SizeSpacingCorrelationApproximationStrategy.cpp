@@ -13,8 +13,9 @@
 //
 // ************************************************************************** //
 
-#include "InterferenceFunctionRadialParaCrystal.h"
 #include "SizeSpacingCorrelationApproximationStrategy.h"
+#include "InterferenceFunctionRadialParaCrystal.h"
+#include "SimulationElement.h"
 
 SizeSpacingCorrelationApproximationStrategy::SizeSpacingCorrelationApproximationStrategy(
     SimulationOptions sim_params, double kappa)
@@ -26,10 +27,9 @@ void SizeSpacingCorrelationApproximationStrategy::init(
     const SafePointerVector<FormFactorInfo> &form_factor_infos, const IInterferenceFunction &iff)
 {
     IInterferenceFunctionStrategy::init(form_factor_infos, iff);
-    if (!checkVectorSizes()) {
+    if (!checkVectorSizes())
         throw Exceptions::ClassInitializationException(
             "No formfactors for Size-Spacing Correlation Approximation.");
-    }
     initMeanRadius();
 }
 

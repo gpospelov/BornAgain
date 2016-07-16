@@ -59,18 +59,16 @@ IInterferenceFunctionStrategy* LayerStrategyBuilder::createStrategy()
             throw Exceptions::ClassInitializationException(
                     "SSCA requires a strictly positive coupling value");
         }
-        p_result = new SizeSpacingCorrelationApproximationStrategy(
-            m_sim_params, kappa);
+        p_result = new SizeSpacingCorrelationApproximationStrategy(m_sim_params, kappa);
         break;
     }
     default:
         throw Exceptions::ClassInitializationException(
-                "Unknown interference function approximation");
+            "Unknown interference function approximation");
     }
-    if (!p_result) {
+    if (!p_result)
         throw Exceptions::ClassInitializationException(
-                "Could not create appropriate strategy");
-    }
+            "Could not create appropriate strategy");
     p_result->init(m_ff_infos, *mP_interference_function);
     p_result->setSpecularInfo(*mP_specular_info);
     return p_result;
@@ -104,16 +102,15 @@ void LayerStrategyBuilder::collectInterferenceFunction()
 {
     assert(mP_layer->getNumberOfLayouts()>0);
     const IInterferenceFunction* p_iff =
-            mP_layer->getLayout(m_layout_index)->getInterferenceFunction();
-    if (p_iff) {
+        mP_layer->getLayout(m_layout_index)->getInterferenceFunction();
+    if (p_iff)
         mP_interference_function.reset(p_iff->clone());
-    }
-    else mP_interference_function.reset( new InterferenceFunctionNone() );
+    else
+        mP_interference_function.reset( new InterferenceFunctionNone() );
 }
 
-FormFactorInfo*
-LayerStrategyBuilder::createFormFactorInfo(const IParticle* particle,
-                                           const IMaterial* p_ambient_material) const
+FormFactorInfo* LayerStrategyBuilder::createFormFactorInfo(
+    const IParticle* particle, const IMaterial* p_ambient_material) const
 {
     FormFactorInfo* p_result = new FormFactorInfo;
     const std::unique_ptr<IParticle> P_particle_clone(particle->clone());

@@ -18,7 +18,6 @@
 
 #include "IFormFactor.h"
 #include "LayerStrategyBuilder.h"
-#include "SimulationElement.h"
 #include <Eigen/StdVector>
 #include <vector>
 #include <memory>

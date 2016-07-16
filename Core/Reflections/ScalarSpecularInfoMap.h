@@ -17,9 +17,7 @@
 #define SCALARSPECULARINFOMAP_H
 
 #include "ISpecularInfoMap.h"
-#include "MultiLayer.h"
-#include "ScalarRTCoefficients.h"
-
+#include "Vectors3D.h"
 
 //! @class ScalarSpecularInfoMap
 //! @ingroup algorithms_internal
@@ -29,22 +27,22 @@
 class BA_CORE_API_ ScalarSpecularInfoMap : public ISpecularInfoMap
 {
 public:
-    ScalarSpecularInfoMap(const MultiLayer *multilayer, int layer);
+    ScalarSpecularInfoMap(const class MultiLayer* multilayer, int layer);
     virtual ~ScalarSpecularInfoMap() {}
 
     virtual ScalarSpecularInfoMap* clone() const;
 
     //! Retrieves the amplitude coefficients for the given angles
-    virtual const ScalarRTCoefficients *getOutCoefficients(double alpha_f, double phi_f,
-                                                           double wavelength) const;
+    virtual const class ILayerRTCoefficients* getOutCoefficients(
+        double alpha_f, double phi_f, double wavelength) const;
 
     //! Retrieves the amplitude coefficients for the given angles
-    virtual const ScalarRTCoefficients *getInCoefficients(double alpha_i, double phi_i,
-                                                          double wavelength) const;
+    virtual const class ILayerRTCoefficients* getInCoefficients(
+        double alpha_i, double phi_i, double wavelength) const;
 private:
-    const MultiLayer *mp_multilayer;
+    const class MultiLayer* mp_multilayer;
     const int m_layer;
-    const ScalarRTCoefficients *getCoefficients(kvector_t kvec) const;
+    const class ScalarRTCoefficients* getCoefficients(kvector_t kvec) const;
 };
 
 #endif // SCALARSPECULARINFOMAP_H

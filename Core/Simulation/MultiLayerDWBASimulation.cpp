@@ -16,6 +16,7 @@
 #include "BornAgainNamespace.h"
 #include "MatrixSpecularInfoMap.h"
 #include "MessageService.h"
+#include "MultiLayer.h"
 #include "MultiLayerRoughnessDWBASimulation.h"
 #include "ScalarSpecularInfoMap.h"
 #include "SpecularMatrix.h"

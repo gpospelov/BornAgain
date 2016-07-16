@@ -19,7 +19,6 @@
 #include "ICompositeSample.h"
 #include <stack>
 
-
 //! @class IteratorState
 //! @ingroup samples_internal
 //! @brief Holds state of iterator at single level for SampleTreeIterator

@@ -20,7 +20,6 @@
 #include "ScalarRTCoefficients.h"
 #include "SimulationElement.h"
 #include "Layer.h"
-#include "Simulation.h"
 
 IInterferenceFunctionStrategy::IInterferenceFunctionStrategy(SimulationOptions sim_params)
     : mP_iff { nullptr }

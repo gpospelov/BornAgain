@@ -13,19 +13,23 @@
 //
 // ************************************************************************** //
 
+#include "IInterferenceFunctionStrategy.h"
+#include "IInterferenceFunction.h"
 #include "IntegratorMCMiser.h"
+#include "LayerSpecularInfo.h"
 #include "ScalarRTCoefficients.h"
 #include "SimulationElement.h"
-#include "IInterferenceFunctionStrategy.h"
+#include "Layer.h"
+#include "Simulation.h"
 
 IInterferenceFunctionStrategy::IInterferenceFunctionStrategy(SimulationOptions sim_params)
     : mP_iff { nullptr }
     , m_options(sim_params)
 {
     mP_integrator = make_integrator_miser(
-                    this, &IInterferenceFunctionStrategy::evaluate_for_fixed_angles, 2);
+        this, &IInterferenceFunctionStrategy::evaluate_for_fixed_angles, 2);
     mP_integrator_pol = make_integrator_miser(
-                this, &IInterferenceFunctionStrategy::evaluate_for_fixed_angles_pol, 2);
+        this, &IInterferenceFunctionStrategy::evaluate_for_fixed_angles_pol, 2);
 }
 
 // destructor should be defined and it should be in *.cpp,
@@ -33,17 +37,16 @@ IInterferenceFunctionStrategy::IInterferenceFunctionStrategy(SimulationOptions s
 IInterferenceFunctionStrategy::~IInterferenceFunctionStrategy(){}
 
 void IInterferenceFunctionStrategy::init(
-    const SafePointerVector<FormFactorInfo> &form_factor_infos, const IInterferenceFunction& iff)
+    const SafePointerVector<FormFactorInfo>& form_factor_infos, const IInterferenceFunction& iff)
 {
     m_ff_infos = form_factor_infos;
     mP_iff.reset(iff.clone());
 }
 
-void IInterferenceFunctionStrategy::setSpecularInfo(const LayerSpecularInfo &specular_info)
+void IInterferenceFunctionStrategy::setSpecularInfo(const LayerSpecularInfo& specular_info)
 {
-    if (mP_specular_info.get() != &specular_info) {
+    if (mP_specular_info.get() != &specular_info)
         mP_specular_info.reset(specular_info.clone());
-    }
 }
 
 double IInterferenceFunctionStrategy::evaluate(const SimulationElement& sim_element) const
@@ -57,9 +60,8 @@ double IInterferenceFunctionStrategy::evaluate(const SimulationElement& sim_elem
 
 double IInterferenceFunctionStrategy::evaluatePol(const SimulationElement& sim_element) const
 {
-    if (m_options.isIntegrate()) {
+    if (m_options.isIntegrate())
         return MCIntegratedEvaluatePol(sim_element);
-    }
     calculateFormFactorLists(sim_element);
     return evaluateForMatrixList(sim_element, m_ff_pol);
 }
@@ -123,7 +125,7 @@ double IInterferenceFunctionStrategy::MCIntegratedEvaluate(
     double min_array[] = {0.0, 0.0};
     double max_array[] = {1.0, 1.0};
     return mP_integrator->integrate(
-        min_array, max_array, (void *)&sim_element, m_options.getMcPoints());
+        min_array, max_array, (void*)&sim_element, m_options.getMcPoints());
 }
 
 double IInterferenceFunctionStrategy::MCIntegratedEvaluatePol(
@@ -132,16 +134,16 @@ double IInterferenceFunctionStrategy::MCIntegratedEvaluatePol(
     double min_array[] = {0.0, 0.0};
     double max_array[] = {1.0, 1.0};
     return mP_integrator_pol->integrate(
-        min_array, max_array, (void *)&sim_element, m_options.getMcPoints());
+        min_array, max_array, (void*)&sim_element, m_options.getMcPoints());
 }
 
 double IInterferenceFunctionStrategy::evaluate_for_fixed_angles(
-    double *fractions, size_t /* dim */, void *params) const
+    double* fractions, size_t /* dim */, void* params) const
 {
     double par0 = fractions[0];
     double par1 = fractions[1];
 
-    SimulationElement *pars = static_cast<SimulationElement *>(params);
+    SimulationElement* pars = static_cast<SimulationElement*>(params);
 
     SimulationElement sim_element(*pars, par0, par1);
     calculateFormFactorList(sim_element);
@@ -149,14 +151,20 @@ double IInterferenceFunctionStrategy::evaluate_for_fixed_angles(
 }
 
 double IInterferenceFunctionStrategy::evaluate_for_fixed_angles_pol(
-    double *fractions, size_t /* dim */, void *params) const
+    double* fractions, size_t /* dim */, void* params) const
 {
     double par0 = fractions[0];
     double par1 = fractions[1];
 
-    SimulationElement *pars = static_cast<SimulationElement *>(params);
+    SimulationElement* pars = static_cast<SimulationElement*>(params);
 
     SimulationElement sim_element(*pars, par0, par1);
     calculateFormFactorLists(sim_element);
     return pars->getIntegrationFactor(par0, par1) * evaluateForMatrixList(sim_element, m_ff_pol);
+}
+
+cvector_t IInterferenceFunctionStrategy::getQ(
+    const cvector_t k_i, const Bin1DCVector& k_f_bin) const
+{
+    return k_i - k_f_bin.getMidPoint();
 }

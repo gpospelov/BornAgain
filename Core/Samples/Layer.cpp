@@ -15,6 +15,7 @@
 
 #include "Layer.h"
 #include "DecoratedLayerDWBASimulation.h"
+#include "IInterferenceFunction.h"
 
 using namespace BornAgain;
 
@@ -23,7 +24,7 @@ Layer::Layer() : m_thickness(0), mp_material(0)
     initialize();
 }
 
-Layer::Layer(const IMaterial &material, double thickness) : m_thickness(thickness), mp_material(0)
+Layer::Layer(const IMaterial& material, double thickness) : m_thickness(thickness), mp_material(0)
 {
     setMaterial(material);
     initialize();
@@ -46,14 +47,14 @@ Layer::~Layer()
     delete mp_material;
 }
 
-Layer *Layer::clone() const
+Layer* Layer::clone() const
 {
     return new Layer(*this);
 }
 
 Layer* Layer::cloneInvertB() const
 {
-    Layer *p_clone = new Layer();
+    Layer* p_clone = new Layer();
     p_clone->mp_material = Materials::createInvertedMaterial(this->mp_material);
     for (size_t i=0; i<getNumberOfLayouts(); ++i)
         p_clone->addLayoutPtr(getLayout(i)->cloneInvertB());
@@ -63,7 +64,7 @@ Layer* Layer::cloneInvertB() const
     return p_clone;
 }
 
-void Layer::accept(ISampleVisitor *visitor) const
+void Layer::accept(ISampleVisitor* visitor) const
 {
     visitor->visit(this);
 }
@@ -76,27 +77,17 @@ void Layer::setThickness(double thickness)
     m_thickness = thickness;
 }
 
-double Layer::getThickness() const
-{
-    return m_thickness;
-}
-
 //! Sets _material_ of the layer.
-void Layer::setMaterial(const IMaterial &material)
+void Layer::setMaterial(const IMaterial& material)
 {
     delete mp_material;
     mp_material = material.clone();
 }
 
-void Layer::setMaterialAndThickness(const IMaterial &material, double thickness)
+void Layer::setMaterialAndThickness(const IMaterial& material, double thickness)
 {
     setMaterial(material);
     setThickness(thickness);
-}
-
-const IMaterial *Layer::getMaterial() const
-{
-    return mp_material;
 }
 
 complex_t Layer::getRefractiveIndex() const
@@ -109,24 +100,19 @@ complex_t Layer::getRefractiveIndex2() const
     return getRefractiveIndex()*getRefractiveIndex();
 }
 
-void Layer::addLayout(const ILayout &decoration)
+void Layer::addLayout(const ILayout& decoration)
 {
     addLayoutPtr(decoration.clone());
 }
 
-const ILayout *Layer::getLayout(size_t i) const
+const ILayout* Layer::getLayout(size_t i) const
 {
     if (i>=m_layouts.size())
         return nullptr;
     return m_layouts[i];
 }
 
-bool Layer::hasDWBASimulation() const
-{
-    return (m_layouts.size()>0);
-}
-
-LayerDWBASimulation *Layer::createLayoutSimulation(size_t layout_index) const
+LayerDWBASimulation* Layer::createLayoutSimulation(size_t layout_index) const
 {
     if (getNumberOfLayouts()==0 || layout_index>=getNumberOfLayouts())
         return nullptr;
@@ -148,16 +134,6 @@ double Layer::getTotalAbundance() const
     return total_abundance;
 }
 
-void Layer::setNumberOfLayers(size_t n_layers)
-{
-    mn_layers = n_layers;
-}
-
-size_t Layer::getNumberOfLayers() const
-{
-    return mn_layers;
-}
-
 void Layer::init_parameters()
 {
     clearParameterPool();
@@ -171,7 +147,7 @@ void Layer::print(std::ostream& ostr) const
     ostr << "-->Layer{" <<  *getMaterial() << "}";
 }
 
-void Layer::addLayoutPtr(ILayout *layout)
+void Layer::addLayoutPtr(ILayout* layout)
 {
     if( !layout )
         return;

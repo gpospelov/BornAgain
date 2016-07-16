@@ -46,7 +46,7 @@ public:
     virtual void setThickness(double thickness);
 
     //! Returns layer thickness in nanometers.
-    virtual double getThickness() const;
+    virtual double getThickness() const { return m_thickness; }
 
     //! Sets _material_ of the layer.
     virtual void setMaterial(const IMaterial& material);
@@ -55,7 +55,7 @@ public:
     virtual void setMaterialAndThickness(const IMaterial& material, double thickness);
 
     //! Returns layer's material.
-    virtual const IMaterial* getMaterial() const;
+    virtual const IMaterial* getMaterial() const { return mp_material; }
 
     //! Returns refractive index of the layer's material.
     virtual complex_t getRefractiveIndex() const;
@@ -73,7 +73,7 @@ public:
     virtual const ILayout* getLayout(size_t i) const;
 
     //! Returns true if decoration is present
-    virtual bool hasDWBASimulation() const;
+    virtual bool hasDWBASimulation() const { return m_layouts.size()>0; }
 
     //! creates and returns a LayerDWBASimulation for the given layout
     class LayerDWBASimulation *createLayoutSimulation(size_t layout_index) const;
@@ -82,9 +82,8 @@ public:
 
     double getTotalAbundance() const;
 
-    void setNumberOfLayers(size_t n_layers);
-
-    size_t getNumberOfLayers() const;
+    void setNumberOfLayers(size_t n_layers) { mn_layers = n_layers; }
+    size_t getNumberOfLayers() const { return mn_layers; }
 
 protected:
     Layer(const Layer& other);

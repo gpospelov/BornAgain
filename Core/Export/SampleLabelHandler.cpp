@@ -15,6 +15,7 @@
 
 #include "SampleLabelHandler.h"
 #include "HomogeneousMagneticMaterial.h"
+#include "IInterferenceFunction.h"
 #include "IMaterial.h"
 #include "MultiLayer.h"
 #include "ParticleComposition.h"

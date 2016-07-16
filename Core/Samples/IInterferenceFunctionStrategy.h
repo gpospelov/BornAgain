@@ -16,9 +16,7 @@
 #ifndef IINTERFERENCEFUNCTIONSTRATEGY_H
 #define IINTERFERENCEFUNCTIONSTRATEGY_H
 
-#include "LayerSpecularInfo.h"
 #include "IFormFactor.h"
-#include "IInterferenceFunction.h"
 #include "LayerStrategyBuilder.h"
 #include "SimulationElement.h"
 #include "FormFactorDWBAPol.h"
@@ -41,11 +39,11 @@ public:
     virtual ~IInterferenceFunctionStrategy();
 
     //! Initializes the object with form factors and interference functions
-    virtual void init(const SafePointerVector<FormFactorInfo> &form_factor_infos,
-                      const IInterferenceFunction& iff);
+    virtual void init(const SafePointerVector<FormFactorInfo>& form_factor_infos,
+                      const class IInterferenceFunction& iff);
 
     //! Provides the R,T coefficients information
-    void setSpecularInfo(const LayerSpecularInfo &specular_info);
+    void setSpecularInfo(const class LayerSpecularInfo& specular_info);
 
     //! Calculates the intensity for scalar particles/interactions
     double evaluate(const class SimulationElement& sim_element) const;
@@ -56,20 +54,20 @@ public:
 protected:
     //! Evaluates the intensity for given list of evaluated form factors
     virtual double evaluateForList(const class SimulationElement& sim_element,
-                                   const std::vector<complex_t> &ff_list) const = 0;
+                                   const std::vector<complex_t>& ff_list) const = 0;
 
     //! Evaluates the intensity for given list of evaluated form factors
     //! in the presence of polarization of beam and detector
     virtual double evaluateForMatrixList(const class SimulationElement& sim_element,
-                                         const MatrixFFVector &ff_list) const = 0;
+                                         const MatrixFFVector& ff_list) const = 0;
 
     //! Returns q-vector from k_i and the bin of k_f
-    cvector_t getQ(const cvector_t k_i, const Bin1DCVector &k_f_bin) const;
+    cvector_t getQ(const cvector_t k_i, const Bin1DCVector& k_f_bin) const;
 
     SafePointerVector<FormFactorInfo> m_ff_infos;          //!< form factor info
-    std::unique_ptr<IInterferenceFunction> mP_iff;       //!< interference function
+    std::unique_ptr<class IInterferenceFunction> mP_iff;       //!< interference function
     SimulationOptions m_options;                     //!< simulation options
-    std::unique_ptr<LayerSpecularInfo> mP_specular_info; //!< R and T coefficients for DWBA
+    std::unique_ptr<class LayerSpecularInfo> mP_specular_info; //!< R and T coefficients for DWBA
 
 private:
     //! Constructs one list of evaluated form factors to be used in subsequent
@@ -92,10 +90,10 @@ private:
     double MCIntegratedEvaluatePol(const class SimulationElement& sim_element) const;
 
     //! Evaluate for fixed angles
-    double evaluate_for_fixed_angles(double *fractions, size_t dim, void *params) const;
+    double evaluate_for_fixed_angles(double* fractions, size_t dim, void* params) const;
 
     //! Evaluate polarized for fixed angles
-    double evaluate_for_fixed_angles_pol(double *fractions, size_t dim, void *params) const;
+    double evaluate_for_fixed_angles_pol(double* fractions, size_t dim, void* params) const;
 
     //! cached form factor evaluations
     mutable std::vector<complex_t> m_ff;
@@ -104,15 +102,9 @@ private:
     mutable MatrixFFVector m_ff_pol;
 
 #ifndef SWIG
-    std::unique_ptr<IntegratorMCMiser<IInterferenceFunctionStrategy>> mP_integrator;
-    std::unique_ptr<IntegratorMCMiser<IInterferenceFunctionStrategy>> mP_integrator_pol;
+    std::unique_ptr<IntegratorMCMiser<class IInterferenceFunctionStrategy>> mP_integrator;
+    std::unique_ptr<IntegratorMCMiser<class IInterferenceFunctionStrategy>> mP_integrator_pol;
 #endif
 };
-
-inline cvector_t IInterferenceFunctionStrategy::getQ(const cvector_t k_i,
-                                                     const Bin1DCVector &k_f_bin) const
-{
-    return k_i - k_f_bin.getMidPoint();
-}
 
 #endif // IINTERFERENCEFUNCTIONSTRATEGY_H

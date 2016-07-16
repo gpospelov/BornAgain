@@ -16,6 +16,7 @@
 #include "Distributions.h"
 #include "Ellipse.h"
 #include "GISASSimulation.h"
+#include "IInterferenceFunction.h"
 #include "InfinitePlane.h"
 #include "Line.h"
 #include "Macros.h"

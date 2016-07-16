@@ -19,7 +19,6 @@
 #include "ILayout.h"
 #include "Particle.h"
 
-
 //! @class ParticleLayout
 //! @ingroup samples
 //! @brief Decorator class that adds particles to ISample objects
@@ -64,7 +63,7 @@ public:
                              const kvector_t position, const IRotation& rotation);
 
     //! Returns number of particles
-    virtual size_t getNumberOfParticles() const;
+    virtual size_t getNumberOfParticles() const { return m_particles.size(); }
 
     //! get information about particle with index
     virtual const IAbstractParticle* getParticle(size_t index) const;
@@ -77,23 +76,24 @@ public:
     double getAbundanceOfParticle(size_t index) const;
 
     //! Returns interference functions
-    virtual const IInterferenceFunction* getInterferenceFunction() const;
+    virtual const class IInterferenceFunction* getInterferenceFunction() const;
 
     //! Sets interference function
-    void addInterferenceFunction(const IInterferenceFunction& interference_function);
+    void addInterferenceFunction(const class IInterferenceFunction& interference_function);
 
     //! Returns surface density of all particles
     virtual double getTotalParticleSurfaceDensity() const;
 
     //! Sets surface density of all particles
-    virtual void setTotalParticleSurfaceDensity(double particle_density);
+    virtual void setTotalParticleSurfaceDensity(double particle_density) {
+        m_total_particle_density = particle_density; }
 
 private:
     //! Adds particle information with simultaneous registration in parent class.
     void addAndRegisterAbstractParticle(IAbstractParticle* child);
 
     //! Sets interference function with simultaneous registration in parent class
-    void setAndRegisterInterferenceFunction(IInterferenceFunction* child);
+    void setAndRegisterInterferenceFunction(class IInterferenceFunction* child);
 
     void print(std::ostream& ostr) const;
 
@@ -101,7 +101,7 @@ private:
     SafePointerVector<IAbstractParticle> m_particles;
 
     //! Interference function
-    std::unique_ptr<IInterferenceFunction> mP_interference_function;
+    std::unique_ptr<class IInterferenceFunction> mP_interference_function;
 
     //! Total particle surface density
     double m_total_particle_density;

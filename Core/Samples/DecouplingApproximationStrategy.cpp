@@ -13,12 +13,16 @@
 //
 // ************************************************************************** //
 
-#include <cassert>
-#include <iostream>
+#include "DecouplingApproximationStrategy.h"
 #include "SimulationElement.h"
 #include "Exceptions.h"
+#include "IInterferenceFunction.h"
 #include "MathFunctions.h"
-#include "DecouplingApproximationStrategy.h"
+#include "Layer.h"
+#include "LayerSpecularInfo.h"
+#include "Simulation.h"
+#include <cassert>
+#include <iostream>
 
 void DecouplingApproximationStrategy::init(
     const SafePointerVector<FormFactorInfo> &form_factor_infos, const IInterferenceFunction& iff)

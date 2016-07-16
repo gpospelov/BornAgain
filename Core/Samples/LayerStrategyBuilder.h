@@ -16,16 +16,9 @@
 #ifndef LAYERSTRATEGYBUILDER_H
 #define LAYERSTRATEGYBUILDER_H
 
-#include "IMaterial.h"
 #include "SafePointerVector.h"
 #include "SimulationOptions.h"
 #include <memory>
-
-class FormFactorInfo;
-class IInterferenceFunctionStrategy;
-class Simulation;
-class LayerSpecularInfo;
-
 
 //! @class LayerStrategyBuilder
 //! @ingroup algorithms_internal
@@ -35,24 +28,22 @@ class BA_CORE_API_ LayerStrategyBuilder
 {
 public:
     LayerStrategyBuilder(
-        const Layer& decorated_layer,
-        const Simulation& simulation,
-        const SimulationOptions& sim_params,
-        size_t layout_index);
+        const class Layer& decorated_layer, const class Simulation& simulation,
+        const SimulationOptions& sim_params, size_t layout_index);
 
     virtual ~LayerStrategyBuilder();
 
     //! Sets reflection/transmission map for DWBA calculation
-    void setRTInfo(const LayerSpecularInfo &specular_info);
+    void setRTInfo(const class LayerSpecularInfo& specular_info);
 
     //! Creates a strategy object which is able to calculate the scattering for fixed k_f
-    virtual IInterferenceFunctionStrategy *createStrategy();
+    virtual class IInterferenceFunctionStrategy* createStrategy();
 
 protected:
-    std::unique_ptr<Layer> mP_layer;                            //!< decorated layer
-    std::unique_ptr<Simulation> mP_simulation;                  //!< simulation
+    std::unique_ptr<class Layer> mP_layer;                            //!< decorated layer
+    std::unique_ptr<class Simulation> mP_simulation;                  //!< simulation
     SimulationOptions m_sim_params;          //!< simulation parameters
-    std::unique_ptr<LayerSpecularInfo> mP_specular_info; //!< R and T coefficients for DWBA
+    std::unique_ptr<class LayerSpecularInfo> mP_specular_info; //!< R and T coefficients for DWBA
     size_t m_layout_index; //!< index for the layout to be used in the layer
 
 private:
@@ -64,14 +55,14 @@ private:
     //! collect the interference function
     void collectInterferenceFunction();
     //! Creates formfactor info for single particle
-    FormFactorInfo *createFormFactorInfo(const IParticle *particle,
-                                         const IMaterial *p_ambient_material) const;
+    class FormFactorInfo *createFormFactorInfo(
+        const class IParticle *particle, const class IMaterial *p_ambient_material) const;
 
     //! Info about form factors
-    SafePointerVector<FormFactorInfo> m_ff_infos;
+    SafePointerVector<class FormFactorInfo> m_ff_infos;
 
     //! Interference function
-    std::unique_ptr<IInterferenceFunction> mP_interference_function;
+    std::unique_ptr<class IInterferenceFunction> mP_interference_function;
 };
 
 //! @class FormFactorInfo

@@ -18,12 +18,12 @@
 #include "InterferenceFunctionStrategies.h"
 #include "InterferenceFunctions.h"
 #include "Layer.h"
+#include "LayerSpecularInfo.h"
 #include "Simulation.h"
 
-LayerStrategyBuilder::LayerStrategyBuilder(const Layer &decorated_layer,
-                                           const Simulation &simulation,
-                                           const SimulationOptions &sim_params,
-                                           size_t layout_index)
+LayerStrategyBuilder::LayerStrategyBuilder(
+    const Layer& decorated_layer, const Simulation& simulation,
+    const SimulationOptions& sim_params, size_t layout_index)
     : m_sim_params{sim_params}, mP_specular_info{nullptr}, m_layout_index{layout_index}
 {
     mP_layer.reset(decorated_layer.clone());
@@ -31,10 +31,7 @@ LayerStrategyBuilder::LayerStrategyBuilder(const Layer &decorated_layer,
     assert(mP_layer->getNumberOfLayouts() > 0);
 }
 
-LayerStrategyBuilder::~LayerStrategyBuilder()
-{
-}
-
+LayerStrategyBuilder::~LayerStrategyBuilder() {} // needs class declartions not present in .h
 
 void LayerStrategyBuilder::setRTInfo(const LayerSpecularInfo& specular_info)
 {

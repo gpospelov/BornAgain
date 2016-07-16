@@ -13131,7 +13131,7 @@ C++ includes: WavevectorInfo.h
 // File: classMathFunctions_1_1Convolve_1_1Workspace.xml
 
 
-// File: namespace_0D269.xml
+// File: namespace_0D268.xml
 
 
 // File: namespace_0D335.xml
@@ -14370,9 +14370,6 @@ The mathematics implemented here is described in full detail in a paper by Joach
 // File: IFormFactorBorn_8cpp.xml
 
 
-// File: IFormFactorBorn_8h.xml
-
-
 // File: ILayerRTCoefficients_8h.xml
 
 
@@ -14516,6 +14513,9 @@ The mathematics implemented here is described in full detail in a paper by Joach
 
 
 // File: IClusteredParticles_8h.xml
+
+
+// File: IFormFactorBorn_8h.xml
 
 
 // File: IParticle_8cpp.xml

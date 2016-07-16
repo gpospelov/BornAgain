@@ -20,7 +20,6 @@
 #include "ISpecularInfoMap.h"
 #include <memory>
 
-
 //! @class LayerSpecularInfo
 //! @ingroup algorithms_internal
 //! @brief Holds the amplitude information of the neutron
@@ -31,23 +30,23 @@
 class BA_CORE_API_ LayerSpecularInfo : public ICloneable
 {
 public:
-    LayerSpecularInfo();
+    LayerSpecularInfo() {}
     virtual ~LayerSpecularInfo() {}
 
-    virtual LayerSpecularInfo *clone() const;
+    virtual LayerSpecularInfo* clone() const;
 
     //! Adds the amplitude coefficients for the (time-reversed) outgoing
     //! wavevector with the given angles
-    void addRTCoefficients(ISpecularInfoMap *rt_coefficient_map);
+    void addRTCoefficients(ISpecularInfoMap* rt_coefficient_map);
 
     //! Retrieves the amplitude coefficients for the (time-reversed) outgoing
     //! wavevector with the given angles
-    const ILayerRTCoefficients *getOutCoefficients(double alpha_f, double phi_f,
-                                                   double wavelength) const;
+    const class ILayerRTCoefficients* getOutCoefficients(
+        double alpha_f, double phi_f, double wavelength) const;
 
     //! Retrieves the amplitude coefficients for the incoming wavevector
-    const ILayerRTCoefficients *getInCoefficients(double alpha_i, double phi_i,
-                                                  double wavelength) const;
+    const class ILayerRTCoefficients* getInCoefficients(
+        double alpha_i, double phi_i, double wavelength) const;
 private:
     std::unique_ptr<ISpecularInfoMap> mP_coeff_map;
 };

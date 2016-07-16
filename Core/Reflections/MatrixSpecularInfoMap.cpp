@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "MatrixSpecularInfoMap.h"
+#include "MultiLayer.h"
 #include "SpecularMagnetic.h"
 
 MatrixSpecularInfoMap::MatrixSpecularInfoMap(const MultiLayer* multilayer, int layer)

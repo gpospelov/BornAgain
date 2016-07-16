@@ -15,10 +15,6 @@
 
 #include "LayerSpecularInfo.h"
 
-LayerSpecularInfo::LayerSpecularInfo()
-{
-}
-
 LayerSpecularInfo* LayerSpecularInfo::clone() const
 {
     LayerSpecularInfo *p_result = new LayerSpecularInfo;

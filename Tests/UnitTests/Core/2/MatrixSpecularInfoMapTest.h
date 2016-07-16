@@ -1,10 +1,10 @@
 #ifndef MATRIXSPECULARINFOMAPTEST_H
 #define MATRIXSPECULARINFOMAPTEST_H
 
-#include "Units.h"
 #include "MatrixRTCoefficients.h"
 #include "MatrixSpecularInfoMap.h"
-
+#include "MultiLayer.h"
+#include "Units.h"
 #include <memory>
 
 class MatrixSpecularInfoMapTest : public ::testing :: Test
@@ -14,8 +14,7 @@ protected:
     virtual ~MatrixSpecularInfoMapTest() {
         delete mp_multilayer;
     }
-
-    MultiLayer *mp_multilayer;
+    MultiLayer* mp_multilayer;
 };
 
 MatrixSpecularInfoMapTest::MatrixSpecularInfoMapTest()
@@ -79,4 +78,3 @@ TEST_F(MatrixSpecularInfoMapTest, getCoefficients)
 }
 
 #endif //MATRIXSPECULARINFOMAPTEST_H
-

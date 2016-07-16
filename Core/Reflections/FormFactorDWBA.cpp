@@ -16,6 +16,7 @@
 #include "LayerSpecularInfo.h"
 #include "BornAgainNamespace.h"
 #include "FormFactorDWBA.h"
+#include "ILayerRTCoefficients.h"
 
 FormFactorDWBA::FormFactorDWBA(const IFormFactor& form_factor)
     : IFormFactorDecorator(form_factor)
@@ -23,10 +24,6 @@ FormFactorDWBA::FormFactorDWBA(const IFormFactor& form_factor)
     , mp_out_coeffs(0)
 {
     setName(BornAgain::FormFactorDWBAType);
-}
-
-FormFactorDWBA::~FormFactorDWBA()
-{
 }
 
 FormFactorDWBA* FormFactorDWBA::clone() const

@@ -26,7 +26,7 @@ class BA_CORE_API_ FormFactorDWBA: public IFormFactorDecorator
 {
 public:
     FormFactorDWBA(const IFormFactor& form_factor);
-    virtual ~FormFactorDWBA();
+    virtual ~FormFactorDWBA() {}
 
     virtual FormFactorDWBA* clone() const;
 

@@ -23,24 +23,26 @@
 //! @ingroup samples
 //! @brief An interface for classes representing a rotation
 
+//! must be subclass of sample, because it can be registered as a child in ICompositeSample
+
 class BA_CORE_API_ IRotation : public ISample
 {
 public:
-    static IRotation *createRotation(const Geometry::Transform3D &transform);
+    static IRotation* createRotation(const Geometry::Transform3D& transform);
 
     virtual ~IRotation() {}
 
     //! Returns a clone
-    virtual IRotation *clone() const=0;
+    virtual IRotation* clone() const=0;
 
     //! Returns a clone with inverted magnetic fields
-    virtual IRotation *cloneInvertB() const=0;
+    virtual IRotation* cloneInvertB() const=0;
 
     //! Returns a new IRotation object that is the current object's inverse
-    virtual IRotation *createInverse() const=0;
+    virtual IRotation* createInverse() const=0;
 
     //! Calls the ISampleVisitor's visit method
-    void accept(ISampleVisitor* visitor) const;
+    void accept(class ISampleVisitor* visitor) const;
 
     //! Returns transformation.
     virtual Geometry::Transform3D getTransform3D() const=0;
@@ -49,20 +51,20 @@ public:
     virtual bool isIdentity() const;
 };
 
-BA_CORE_API_ IRotation *CreateProduct(const IRotation& left, const IRotation &right);
+BA_CORE_API_ IRotation* CreateProduct(const IRotation& left, const IRotation& right);
 
 class BA_CORE_API_ RotationX : public IRotation
 {
 public:
     RotationX(double angle);
 
-    RotationX *clone() const;
-    RotationX *cloneInvertB() const;
-    RotationX *createInverse() const;
+    RotationX* clone() const;
+    RotationX* cloneInvertB() const;
+    RotationX* createInverse() const;
 
     double getAngle() const;
 
-    void accept(ISampleVisitor* visitor) const;
+    void accept(class ISampleVisitor* visitor) const;
 
     Geometry::Transform3D getTransform3D() const;
 
@@ -76,13 +78,13 @@ class BA_CORE_API_ RotationY : public IRotation
 public:
     RotationY(double angle);
 
-    RotationY *clone() const;
-    RotationY *cloneInvertB() const;
-    RotationY *createInverse() const;
+    RotationY* clone() const;
+    RotationY* cloneInvertB() const;
+    RotationY* createInverse() const;
 
     double getAngle() const;
 
-    void accept(ISampleVisitor* visitor) const;
+    void accept(class ISampleVisitor* visitor) const;
 
     Geometry::Transform3D getTransform3D() const;
 
@@ -96,13 +98,13 @@ class BA_CORE_API_ RotationZ : public IRotation
 public:
     RotationZ(double angle = 0.0);
 
-    RotationZ *clone() const;
-    RotationZ *cloneInvertB() const;
-    RotationZ *createInverse() const;
+    RotationZ* clone() const;
+    RotationZ* cloneInvertB() const;
+    RotationZ* createInverse() const;
 
     double getAngle() const;
 
-    void accept(ISampleVisitor* visitor) const;
+    void accept(class ISampleVisitor* visitor) const;
 
     Geometry::Transform3D getTransform3D() const;
 
@@ -116,15 +118,15 @@ class BA_CORE_API_ RotationEuler : public IRotation
 public:
     RotationEuler(double alpha, double beta, double gamma);
 
-    RotationEuler *clone() const;
-    RotationEuler *cloneInvertB() const;
-    IRotation *createInverse() const;
+    RotationEuler* clone() const;
+    RotationEuler* cloneInvertB() const;
+    IRotation* createInverse() const;
 
     double getAlpha() const;
     double getBeta() const;
     double getGamma() const;
 
-    void accept(ISampleVisitor* visitor) const;
+    void accept(class ISampleVisitor* visitor) const;
 
     Geometry::Transform3D getTransform3D() const;
 

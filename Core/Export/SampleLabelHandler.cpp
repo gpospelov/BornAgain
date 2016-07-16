@@ -13,15 +13,13 @@
 //
 // ************************************************************************** //
 
+#include "SampleLabelHandler.h"
+#include "HomogeneousMagneticMaterial.h"
+#include "IMaterial.h"
 #include "MultiLayer.h"
 #include "ParticleComposition.h"
 #include "ParticleCoreShell.h"
 #include "ParticleDistribution.h"
-#include "SampleLabelHandler.h"
-
-SampleLabelHandler::SampleLabelHandler()
-{
-}
 
 std::string SampleLabelHandler::getLabel(const IFormFactor* sample)
 {

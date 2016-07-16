@@ -35,29 +35,21 @@ IDetector2D::IDetector2D(const IDetector2D &other)
     init_parameters();
 }
 
-void IDetector2D::init(const Beam &beam)
-{
-    (void)beam;
-}
-
 const IAxis &IDetector2D::getAxis(size_t index) const
 {
-    if (isCorrectAxisIndex(index)) {
+    if (isCorrectAxisIndex(index))
         return *m_axes[index];
-    }
     throw Exceptions::OutOfBoundsException("Not so many axes in this detector.");
 }
 
 void IDetector2D::matchDetectorAxes(const OutputData<double> &output_data)
 {
-    if (output_data.getRank()!=2) {
+    if (output_data.getRank()!=2)
         throw Exceptions::LogicErrorException(
             "IDetector2D::matchDetectorAxes() -> Error! Data is not two dimensional");
-    }
     clear();
-    for (size_t i_axis = 0; i_axis < output_data.getRank(); ++i_axis) {
+    for (size_t i_axis = 0; i_axis < output_data.getRank(); ++i_axis)
         addAxis(*output_data.getAxis(i_axis));
-    }
     m_detector_mask.initMaskData(*this);
 }
 
@@ -110,27 +102,20 @@ std::string IDetector2D::addParametersToExternalPool(
         = IParameterized::addParametersToExternalPool(path, external_pool, copy_number);
 
     // add parameters of the resolution function
-    if (mP_detector_resolution) {
+    if (mP_detector_resolution)
         mP_detector_resolution->addParametersToExternalPool(new_path, external_pool, -1);
-    }
     return new_path;
 }
 
-OutputData<double> *IDetector2D::createDetectorMap(
-    const Beam& /* beam */, EAxesUnits /* units_type */) const
+OutputData<double>* IDetector2D::createDetectorMap(const Beam&, EAxesUnits) const
 {
-    return 0;
+    return nullptr;
 }
 
 std::vector<IDetector2D::EAxesUnits> IDetector2D::getValidAxesUnits() const
 {
     std::vector<EAxesUnits> result = {NBINS};
     return result;
-}
-
-IDetector2D::EAxesUnits IDetector2D::getDefaultAxesUnits() const
-{
-    return DEFAULT;
 }
 
 void IDetector2D::removeMasks()
@@ -158,7 +143,7 @@ const DetectorMask *IDetector2D::getDetectorMask() const
 
 int IDetector2D::getNumberOfMaskedChannels() const
 {
-    if(getDetectorMask()) {
+    if (getDetectorMask()) {
         return getDetectorMask()->getNumberOfMaskedChannels();
     } else {
         return 0;
@@ -167,7 +152,8 @@ int IDetector2D::getNumberOfMaskedChannels() const
 
 bool IDetector2D::isMasked(size_t index) const
 {
-    if(!m_detector_mask.getMaskData()->isInitialized()) return false;
+    if (!m_detector_mask.getMaskData()->isInitialized())
+        return false;
     return m_detector_mask.getMask(index);
 }
 
@@ -186,9 +172,10 @@ std::vector<SimulationElement> IDetector2D::createSimulationElements(const Beam 
     Eigen::Matrix2cd analyzer_operator = getAnalyzerOperator();
 
     if (getDimension()!=2)
-        throw Exceptions::RuntimeErrorException("IDetector2D::createSimulationElements: "
-                                    "detector is not two-dimensional");
-    if (!hasMasks()) m_detector_mask.initMaskData(*this);
+        throw Exceptions::RuntimeErrorException(
+            "IDetector2D::createSimulationElements: detector is not two-dimensional");
+    if (!hasMasks())
+        m_detector_mask.initMaskData(*this);
     const OutputData<bool>* mask_data = m_detector_mask.getMaskData();
     for (size_t index=0; index<mask_data->getAllocatedSize(); ++index) {
         if ((*mask_data)[index]) continue;

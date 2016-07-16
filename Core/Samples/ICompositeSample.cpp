@@ -16,8 +16,6 @@
 #include "SampleTreeIterator.h"
 #include "Utils.h"
 
-
-
 //! Registers child in the container
 
 void ICompositeSample::registerChild(ISample *sample)

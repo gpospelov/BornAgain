@@ -23,7 +23,7 @@ IFormFactor* IParticle::createFormFactor() const
     return createTransformedFormFactor(nullptr, kvector_t());
 }
 
-void IParticle::setRotation(const IRotation &rotation)
+void IParticle::setRotation(const IRotation& rotation)
 {
     if (!mP_rotation.get()) {
         mP_rotation.reset(rotation.clone());
@@ -35,7 +35,7 @@ void IParticle::setRotation(const IRotation &rotation)
     registerChild(mP_rotation.get());
 }
 
-void IParticle::applyRotation(const IRotation &rotation)
+void IParticle::applyRotation(const IRotation& rotation)
 {
     if (mP_rotation.get()) {
         deregisterChild(mP_rotation.get());
@@ -85,4 +85,19 @@ void IParticle::registerPosition()
     registerParameter(PositionX, &m_position[0]);
     registerParameter(PositionY, &m_position[1]);
     registerParameter(PositionZ, &m_position[2]);
+}
+
+void IAbstractParticle::accept(ISampleVisitor* visitor) const
+{
+    visitor->visit(this);
+}
+
+void IParticle::accept(ISampleVisitor* visitor) const
+{
+    visitor->visit(this);
+}
+
+const IRotation* IParticle::getRotation() const
+{
+    return mP_rotation.get();
 }

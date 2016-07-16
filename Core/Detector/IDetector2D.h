@@ -37,7 +37,7 @@ public:
     virtual ~IDetector2D() {}
 
     //! Inits detector with the beam settings
-    virtual void init(const class Beam& beam);
+    virtual void init(const class Beam&) {}
 
     void addAxis(const IAxis& axis);
 
@@ -108,14 +108,14 @@ public:
                                                     int copy_number = -1) const;
 
     //! Returns detector map in given axes units
-    virtual OutputData<double>* createDetectorMap(
-        const class Beam& beam, EAxesUnits units_type) const;
+    virtual OutputData<double>* createDetectorMap(const class Beam&, EAxesUnits) const;
 
     //! returns vector of valid axes units
     virtual std::vector<EAxesUnits> getValidAxesUnits() const;
 
     //! return default axes units
-    virtual EAxesUnits getDefaultAxesUnits() const;
+    virtual EAxesUnits getDefaultAxesUnits() const { return DEFAULT; }
+
 
 protected:
     //! Create an IPixelMap for the given OutputData object and index

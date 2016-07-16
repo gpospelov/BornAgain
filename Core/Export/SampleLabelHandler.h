@@ -18,20 +18,6 @@
 
 #include "Utils.h"
 
-class IFormFactor;
-class IInterferenceFunction;
-class Layer;
-class MultiLayer;
-class LayerRoughness;
-class IMaterial;
-class Particle;
-class IAbstractParticle;
-class ParticleCoreShell;
-class ParticleDistribution;
-class ILayout;
-class ParticleComposition;
-class IRotation;
-
 //! @class SampleLabelHandler
 //! @ingroup tools_internal
 //! @brief The hadler which construct labels for sample variables during python script generation
@@ -39,20 +25,21 @@ class IRotation;
 class BA_CORE_API_ SampleLabelHandler
 {
 public:
-    typedef Utils::OrderedMap<const IFormFactor*, std::string> formfactors_t;
-    typedef Utils::OrderedMap<const IInterferenceFunction*, std::string> interferences_t;
-    typedef Utils::OrderedMap<const Layer*, std::string> layers_t;
-    typedef Utils::OrderedMap<const LayerRoughness*, std::string> roughnesses_t;
-    typedef Utils::OrderedMap<const IMaterial*, std::string> materials_t;
-    typedef Utils::OrderedMap<const MultiLayer*, std::string> multilayers_t;
-    typedef Utils::OrderedMap<const Particle*, std::string> particles_t;
-    typedef Utils::OrderedMap<const ParticleCoreShell*, std::string> particlescoreshell_t;
-    typedef Utils::OrderedMap<const ParticleDistribution*, std::string> particledistributions_t;
-    typedef Utils::OrderedMap<const ILayout*, std::string> layouts_t;
-    typedef Utils::OrderedMap<const ParticleComposition*, std::string> particlecompositions_t;
-    typedef Utils::OrderedMap<const IRotation*, std::string> rotations_t;
+    typedef Utils::OrderedMap<const class IFormFactor*, std::string> formfactors_t;
+    typedef Utils::OrderedMap<const class IInterferenceFunction*, std::string> interferences_t;
+    typedef Utils::OrderedMap<const class Layer*, std::string> layers_t;
+    typedef Utils::OrderedMap<const class LayerRoughness*, std::string> roughnesses_t;
+    typedef Utils::OrderedMap<const class IMaterial*, std::string> materials_t;
+    typedef Utils::OrderedMap<const class MultiLayer*, std::string> multilayers_t;
+    typedef Utils::OrderedMap<const class Particle*, std::string> particles_t;
+    typedef Utils::OrderedMap<const class ParticleCoreShell*, std::string> particlescoreshell_t;
+    typedef Utils::OrderedMap<const class ParticleDistribution*, std::string>
+        particledistributions_t;
+    typedef Utils::OrderedMap<const class ILayout*, std::string> layouts_t;
+    typedef Utils::OrderedMap<const class ParticleComposition*, std::string> particlecompositions_t;
+    typedef Utils::OrderedMap<const class IRotation*, std::string> rotations_t;
 
-    SampleLabelHandler();
+    SampleLabelHandler() {}
     formfactors_t* getFormFactorMap();
     interferences_t* getInterferenceFunctionMap();
     layers_t* getLayerMap();
@@ -66,35 +53,35 @@ public:
     particlecompositions_t* getParticleCompositionMap();
     rotations_t* getRotationsMap();
 
-    std::string getLabel(const IFormFactor *sample);
-    std::string getLabel(const IInterferenceFunction *sample);
-    std::string getLabel(const IMaterial *sample);
-    std::string getLabel(const Layer *sample);
-    std::string getLabel(const LayerRoughness *sample);
-    std::string getLabel(const MultiLayer *sample);
-    std::string getLabel(const IAbstractParticle *sample);
-    std::string getLabel(const ParticleCoreShell *sample);
-    std::string getLabel(const ParticleDistribution *sample);
-    std::string getLabel(const ILayout *sample);
-    std::string getLabel(const ParticleComposition *sample);
-    std::string getLabel(const IRotation *sample);
+    std::string getLabel(const class IFormFactor* sample);
+    std::string getLabel(const class IInterferenceFunction* sample);
+    std::string getLabel(const class IMaterial* sample);
+    std::string getLabel(const class Layer* sample);
+    std::string getLabel(const class LayerRoughness* sample);
+    std::string getLabel(const class MultiLayer* sample);
+    std::string getLabel(const class IAbstractParticle* sample);
+    std::string getLabel(const class ParticleCoreShell* sample);
+    std::string getLabel(const class ParticleDistribution* sample);
+    std::string getLabel(const class ILayout* sample);
+    std::string getLabel(const class ParticleComposition* sample);
+    std::string getLabel(const class IRotation* sample);
 
-    void insertMaterial(const IMaterial *sample);
-    void setLabel(const IFormFactor *sample);
-    void setLabel(const IInterferenceFunction *sample);
-    void setLabel(const ILayout *sample);
-    void setLabel(const Layer *sample);
-    void setLabel(const LayerRoughness *sample);
-    void setLabel(const MultiLayer *sample);
-    void setLabel(const Particle *sample);
-    void setLabel(const ParticleCoreShell *sample);
-    void setLabel(const ParticleDistribution *sample);
-    void setLabel(const ParticleComposition *sample);
-    void setLabel(const IRotation *sample);
+    void insertMaterial(const class IMaterial* sample);
+    void setLabel(const class IFormFactor* sample);
+    void setLabel(const class IInterferenceFunction* sample);
+    void setLabel(const class ILayout* sample);
+    void setLabel(const class Layer* sample);
+    void setLabel(const class LayerRoughness* sample);
+    void setLabel(const class MultiLayer* sample);
+    void setLabel(const class Particle* sample);
+    void setLabel(const class ParticleCoreShell* sample);
+    void setLabel(const class ParticleDistribution* sample);
+    void setLabel(const class ParticleComposition* sample);
+    void setLabel(const class IRotation* sample);
 
 
 private:
-    bool definesSameMaterial(const IMaterial *left, const IMaterial *right) const;
+    bool definesSameMaterial(const class IMaterial* left, const class IMaterial* right) const;
     formfactors_t m_FormFactorLabel;
     interferences_t m_InterferenceFunctionLabel;
     layers_t m_LayerLabel;

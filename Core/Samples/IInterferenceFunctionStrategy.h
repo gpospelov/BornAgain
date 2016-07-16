@@ -19,7 +19,6 @@
 #include "IFormFactor.h"
 #include "LayerStrategyBuilder.h"
 #include "SimulationElement.h"
-#include "FormFactorDWBAPol.h"
 #include <Eigen/StdVector>
 #include <vector>
 #include <memory>

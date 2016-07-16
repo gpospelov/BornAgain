@@ -16,6 +16,7 @@
 #include "Layer.h"
 #include "DecoratedLayerDWBASimulation.h"
 #include "IInterferenceFunction.h"
+#include "Materials.h"
 
 using namespace BornAgain;
 

@@ -18,6 +18,7 @@
 #include "Crystal.h"
 #include "FormFactors.h"
 #include "InterferenceFunctions.h"
+#include "Materials.h"
 #include "MultiLayer.h"
 #include "MultiLayerDWBASimulation.h"
 #include "ParticleCoreShell.h"

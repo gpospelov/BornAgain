@@ -15,6 +15,7 @@
 
 #include "MagneticParticlesBuilder.h"
 #include "FormFactorCylinder.h"
+#include "Materials.h"
 #include "MultiLayer.h"
 
 // ----------------------------------------------------------------------------
@@ -24,11 +25,9 @@
 MagneticParticleZeroFieldBuilder::MagneticParticleZeroFieldBuilder()
     :  m_cylinder_radius(5*Units::nanometer)
     ,  m_cylinder_height(5*Units::nanometer)
-
 {
     init_parameters();
 }
-
 
 void MagneticParticleZeroFieldBuilder::init_parameters()
 {
@@ -36,7 +35,6 @@ void MagneticParticleZeroFieldBuilder::init_parameters()
     registerParameter("cylinder_radius", &m_cylinder_radius);
     registerParameter("cylinder_height", &m_cylinder_height);
 }
-
 
 ISample* MagneticParticleZeroFieldBuilder::buildSample() const
 {
@@ -72,14 +70,12 @@ MagneticCylindersBuilder::MagneticCylindersBuilder()
     init_parameters();
 }
 
-
 void MagneticCylindersBuilder::init_parameters()
 {
     clearParameterPool();
     registerParameter("cylinder_radius", &m_cylinder_radius);
     registerParameter("cylinder_height", &m_cylinder_height);
 }
-
 
 ISample* MagneticCylindersBuilder::buildSample() const
 {

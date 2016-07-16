@@ -13,6 +13,7 @@
 //
 // ************************************************************************** //
 
+#include "PyGenVisitor.h"
 #include "ConvolutionDetectorResolution.h"
 #include "FormFactors.h"
 #include "InterferenceFunctions.h"

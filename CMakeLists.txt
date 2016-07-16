@@ -44,6 +44,7 @@ endif()
 include(GetFilenameComponent) # overwrite CMake command
 include(SearchInstalledSoftware)
 include(CheckCompiler)
+#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror -Wfatal-errors")
 include(BornAgainConfiguration)
 include(GeneratePythonDocs)
 include(GoogletestWrapper)

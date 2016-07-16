@@ -13,17 +13,19 @@
 //
 // ************************************************************************** //
 
+#include "PyGenTools.h"
 #include "Distributions.h"
 #include "Ellipse.h"
 #include "GISASSimulation.h"
 #include "IInterferenceFunction.h"
 #include "InfinitePlane.h"
+#include "IShape2D.h"
 #include "Line.h"
 #include "Macros.h"
 #include "MultiLayer.h"
 #include "Polygon.h"
+#include "PyGenVisitor.h"
 #include "Rectangle.h"
-#include "PyGenTools.h"
 #include <iomanip>
 GCC_DIAG_OFF(missing-field-initializers)
 GCC_DIAG_OFF(unused-parameter)
@@ -152,7 +154,6 @@ std::string PyGenTools::getRepresentation(
     return result.str();
 }
 
-
 std::string PyGenTools::printBool(double value)
 {
     return value ? "True" : "False";
@@ -179,7 +180,6 @@ std::string PyGenTools::printNm(double input)
     inter << PyGenTools::printDouble(input) << "*nm";
     return inter.str();
 }
-
 
 // 1.000000e+07 -> 1.0e+07
 std::string PyGenTools::printScientificDouble(double input)
@@ -216,7 +216,6 @@ bool PyGenTools::isSquare(double length1, double length2, double angle)
 {
     return length1==length2 && Numeric::areAlmostEqual(angle, Units::PI/2.0);
 }
-
 
 bool PyGenTools::isHexagonal(double length1, double length2, double angle)
 {

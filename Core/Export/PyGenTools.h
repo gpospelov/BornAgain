@@ -16,13 +16,18 @@
 #ifndef PYGENTOOLS_H
 #define PYGENTOOLS_H
 
-#include "IShape2D.h"
-#include "PyGenVisitor.h"
+#include "Vectors3D.h"
+#include <string>
+namespace Geometry {
+    class IShape2D;
+}
+class GISASSimulation;
+class IDistribution1D;
 
 namespace PyGenTools {
     BA_CORE_API_ std::string genPyScript(
-        class GISASSimulation* simulation, const std::string& output_filename);
-    BA_CORE_API_ std::string getRepresentation(const class IDistribution1D* distribution);
+        GISASSimulation* simulation, const std::string& output_filename);
+    BA_CORE_API_ std::string getRepresentation(const IDistribution1D* distribution);
     BA_CORE_API_ std::string getRepresentation(
         const std::string& indent, const Geometry::IShape2D* ishape, bool mask_value);
     BA_CORE_API_ std::string printBool(double value);

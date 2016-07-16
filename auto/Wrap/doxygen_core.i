@@ -6676,7 +6676,7 @@ C++ includes: IIntensityFunction.h
 %feature("docstring")  IntensityFunctionLog::clone "virtual IntensityFunctionLog* IntensityFunctionLog::clone() const 
 ";
 
-%feature("docstring")  IntensityFunctionLog::evaluate "double IntensityFunctionLog::evaluate(double value) const 
+%feature("docstring")  IntensityFunctionLog::evaluate "virtual double IntensityFunctionLog::evaluate(double value) const 
 ";
 
 
@@ -6694,7 +6694,7 @@ C++ includes: IIntensityFunction.h
 %feature("docstring")  IntensityFunctionSqrt::clone "virtual IntensityFunctionSqrt* IntensityFunctionSqrt::clone() const 
 ";
 
-%feature("docstring")  IntensityFunctionSqrt::evaluate "double IntensityFunctionSqrt::evaluate(double value) const 
+%feature("docstring")  IntensityFunctionSqrt::evaluate "virtual double IntensityFunctionSqrt::evaluate(double value) const 
 ";
 
 
@@ -13131,16 +13131,16 @@ C++ includes: WavevectorInfo.h
 // File: classMathFunctions_1_1Convolve_1_1Workspace.xml
 
 
-// File: namespace_0D334.xml
+// File: namespace_0D249.xml
 
 
-// File: namespace_0D403.xml
+// File: namespace_0D333.xml
 
 
-// File: namespace_0D417.xml
+// File: namespace_0D402.xml
 
 
-// File: namespace_0D63.xml
+// File: namespace_0D416.xml
 
 
 // File: namespaceboost_1_1geometry.xml
@@ -13590,31 +13590,10 @@ enables exception throw in the case of NaN, Inf
 ";
 
 
-// File: IIntensityFunction_8cpp.xml
-
-
 // File: DecouplingApproximationStrategy_8cpp.xml
 
 
 // File: DecouplingApproximationStrategy_8h.xml
-
-
-// File: FormFactorDWBA_8cpp.xml
-
-
-// File: FormFactorDWBA_8h.xml
-
-
-// File: FormFactorDWBAPol_8cpp.xml
-
-
-// File: FormFactorDWBAPol_8h.xml
-
-
-// File: FormFactorTools_8cpp.xml
-
-
-// File: FormFactorTools_8h.xml
 
 
 // File: FTDecayFunctions_8cpp.xml
@@ -13629,15 +13608,6 @@ enables exception throw in the case of NaN, Inf
 // File: FTDistributions_8h.xml
 
 
-// File: IFormFactor_8h.xml
-
-
-// File: IFormFactorBorn_8cpp.xml
-
-
-// File: IFormFactorBorn_8h.xml
-
-
 // File: IInterferenceFunction_8h.xml
 
 
@@ -13645,9 +13615,6 @@ enables exception throw in the case of NaN, Inf
 
 
 // File: IInterferenceFunctionStrategy_8h.xml
-
-
-// File: ILayerRTCoefficients_8h.xml
 
 
 // File: ILayout_8h.xml
@@ -13689,107 +13656,16 @@ enables exception throw in the case of NaN, Inf
 // File: InterferenceFunctionStrategies_8h.xml
 
 
-// File: IRoughness_8h.xml
-
-
-// File: ISampleBuilder_8h.xml
-
-
-// File: ISpecularInfoMap_8h.xml
-
-
-// File: Layer_8cpp.xml
-
-
-// File: Layer_8h.xml
-
-
-// File: LayerInterface_8cpp.xml
-
-
-// File: LayerInterface_8h.xml
-
-
-// File: LayerRoughness_8cpp.xml
-
-
-// File: LayerRoughness_8h.xml
-
-
-// File: LayerSpecularInfo_8cpp.xml
-
-
-// File: LayerSpecularInfo_8h.xml
-
-
-// File: LayerStrategyBuilder_8cpp.xml
-
-
-// File: LayerStrategyBuilder_8h.xml
-
-
-// File: MatrixRTCoefficients_8cpp.xml
-
-
-// File: MatrixRTCoefficients_8h.xml
-
-
-// File: MatrixSpecularInfoMap_8cpp.xml
-
-
-// File: MatrixSpecularInfoMap_8h.xml
-
-
-// File: MultiLayer_8cpp.xml
-
-
-// File: MultiLayer_8h.xml
-
-
-// File: ParticleDistribution_8cpp.xml
-
-
-// File: ParticleDistribution_8h.xml
-
-
 // File: ParticleLayout_8cpp.xml
 
 
 // File: ParticleLayout_8h.xml
 
 
-// File: ScalarRTCoefficients_8h.xml
-
-
-// File: ScalarSpecularInfoMap_8cpp.xml
-
-
-// File: ScalarSpecularInfoMap_8h.xml
-
-
 // File: SizeSpacingCorrelationApproximationStrategy_8cpp.xml
 
 
 // File: SizeSpacingCorrelationApproximationStrategy_8h.xml
-
-
-// File: SpecularMagnetic_8cpp.xml
-%feature("docstring")  I "static complex_t I(0., 1.)
-";
-
-
-// File: SpecularMagnetic_8h.xml
-
-
-// File: SpecularMatrix_8cpp.xml
-%feature("docstring")  setZeroBelow "void setZeroBelow(SpecularMatrix::MultiLayerCoeff_t &coeff, size_t current_layer)
-";
-
-%feature("docstring")  calculateUpFromLayer "bool calculateUpFromLayer(SpecularMatrix::MultiLayerCoeff_t &coeff, const MultiLayer &sample, const kvector_t k, size_t layer_index)
-";
-
-
-// File: SpecularMatrix_8h.xml
 
 
 // File: BornAgainNamespace_8h.xml
@@ -14431,6 +14307,103 @@ The mathematics implemented here is described in full detail in a paper by Joach
 // File: Materials_8h.xml
 
 
+// File: IFormFactor_8h.xml
+
+
+// File: IFormFactorBorn_8cpp.xml
+
+
+// File: IFormFactorBorn_8h.xml
+
+
+// File: ILayerRTCoefficients_8h.xml
+
+
+// File: IRoughness_8h.xml
+
+
+// File: ISampleBuilder_8h.xml
+
+
+// File: ISpecularInfoMap_8h.xml
+
+
+// File: Layer_8cpp.xml
+
+
+// File: Layer_8h.xml
+
+
+// File: LayerInterface_8cpp.xml
+
+
+// File: LayerInterface_8h.xml
+
+
+// File: LayerRoughness_8cpp.xml
+
+
+// File: LayerRoughness_8h.xml
+
+
+// File: LayerSpecularInfo_8cpp.xml
+
+
+// File: LayerSpecularInfo_8h.xml
+
+
+// File: LayerStrategyBuilder_8cpp.xml
+
+
+// File: LayerStrategyBuilder_8h.xml
+
+
+// File: MatrixRTCoefficients_8cpp.xml
+
+
+// File: MatrixRTCoefficients_8h.xml
+
+
+// File: MatrixSpecularInfoMap_8cpp.xml
+
+
+// File: MatrixSpecularInfoMap_8h.xml
+
+
+// File: MultiLayer_8cpp.xml
+
+
+// File: MultiLayer_8h.xml
+
+
+// File: ScalarRTCoefficients_8h.xml
+
+
+// File: ScalarSpecularInfoMap_8cpp.xml
+
+
+// File: ScalarSpecularInfoMap_8h.xml
+
+
+// File: SpecularMagnetic_8cpp.xml
+%feature("docstring")  I "static complex_t I(0., 1.)
+";
+
+
+// File: SpecularMagnetic_8h.xml
+
+
+// File: SpecularMatrix_8cpp.xml
+%feature("docstring")  setZeroBelow "void setZeroBelow(SpecularMatrix::MultiLayerCoeff_t &coeff, size_t current_layer)
+";
+
+%feature("docstring")  calculateUpFromLayer "bool calculateUpFromLayer(SpecularMatrix::MultiLayerCoeff_t &coeff, const MultiLayer &sample, const kvector_t k, size_t layer_index)
+";
+
+
+// File: SpecularMatrix_8h.xml
+
+
 // File: Distributions_8cpp.xml
 
 
@@ -14551,6 +14524,12 @@ The mathematics implemented here is described in full detail in a paper by Joach
 // File: ParticleCoreShell_8h.xml
 
 
+// File: ParticleDistribution_8cpp.xml
+
+
+// File: ParticleDistribution_8h.xml
+
+
 // File: TRange_8h.xml
 
 
@@ -14566,6 +14545,24 @@ Returns concatenated rotation (first right, then left).
 
 Returns concatenated rotation (first right, then left). 
 ";
+
+
+// File: FormFactorDWBA_8cpp.xml
+
+
+// File: FormFactorDWBA_8h.xml
+
+
+// File: FormFactorDWBAPol_8cpp.xml
+
+
+// File: FormFactorDWBAPol_8h.xml
+
+
+// File: FormFactorTools_8cpp.xml
+
+
+// File: FormFactorTools_8h.xml
 
 
 // File: ICompositeSample_8cpp.xml
@@ -15029,9 +15026,6 @@ David N. Williams
 // File: todo.xml
 
 
-// File: dir_e1ea50aa565d9a3ab2d030f355b28273.xml
-
-
 // File: dir_6201fca93792e30c30ae4242f9ea3e60.xml
 
 
@@ -15057,6 +15051,9 @@ David N. Williams
 
 
 // File: dir_0bf70e747e161ad6105733dd3b116e64.xml
+
+
+// File: dir_c21740227f50b02f28bdacfb625f042a.xml
 
 
 // File: dir_d4e34ce36424db6c5895519defe19e58.xml

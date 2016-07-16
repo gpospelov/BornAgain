@@ -19384,7 +19384,7 @@ class IntensityFunctionLog(IIntensityFunction):
         """
         evaluate(IntensityFunctionLog self, double value) -> double
 
-        double IntensityFunctionLog::evaluate(double value) const 
+        virtual double IntensityFunctionLog::evaluate(double value) const 
 
         """
         return _libBornAgainCore.IntensityFunctionLog_evaluate(self, value)
@@ -19444,7 +19444,7 @@ class IntensityFunctionSqrt(IIntensityFunction):
         """
         evaluate(IntensityFunctionSqrt self, double value) -> double
 
-        double IntensityFunctionSqrt::evaluate(double value) const 
+        virtual double IntensityFunctionSqrt::evaluate(double value) const 
 
         """
         return _libBornAgainCore.IntensityFunctionSqrt_evaluate(self, value)

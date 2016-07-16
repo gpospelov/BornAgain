@@ -1426,10 +1426,10 @@ C++ includes: DWBADiffuseReflection.h
 %feature("docstring")  DWBADiffuseReflection::DWBADiffuseReflection "DWBADiffuseReflection::DWBADiffuseReflection()
 ";
 
-%feature("docstring")  DWBADiffuseReflection::execute "void DWBADiffuseReflection::execute(const MultiLayer &sample, const kvector_t ki, const kvector_t kf)
+%feature("docstring")  DWBADiffuseReflection::execute "void DWBADiffuseReflection::execute(const class MultiLayer &sample, const kvector_t ki, const kvector_t kf)
 ";
 
-%feature("docstring")  DWBADiffuseReflection::setSample "void DWBADiffuseReflection::setSample(const MultiLayer &sample)
+%feature("docstring")  DWBADiffuseReflection::setSample "void DWBADiffuseReflection::setSample(const class MultiLayer &sample)
 ";
 
 %feature("docstring")  DWBADiffuseReflection::getDiffuseAutocorr "double DWBADiffuseReflection::getDiffuseAutocorr() const 
@@ -2341,7 +2341,7 @@ C++ includes: FormFactorDWBA.h
 %feature("docstring")  FormFactorDWBA::FormFactorDWBA "FormFactorDWBA::FormFactorDWBA(const IFormFactor &form_factor)
 ";
 
-%feature("docstring")  FormFactorDWBA::~FormFactorDWBA "FormFactorDWBA::~FormFactorDWBA()
+%feature("docstring")  FormFactorDWBA::~FormFactorDWBA "virtual FormFactorDWBA::~FormFactorDWBA()
 ";
 
 %feature("docstring")  FormFactorDWBA::clone "FormFactorDWBA * FormFactorDWBA::clone() const
@@ -4916,12 +4916,12 @@ Returns a clone of this  ISample object.
 Returns a clone with inverted magnetic fields. 
 ";
 
-%feature("docstring")  IAbstractParticle::accept "void IAbstractParticle::accept(ISampleVisitor *visitor) const
+%feature("docstring")  IAbstractParticle::accept "void IAbstractParticle::accept(class ISampleVisitor *visitor) const
 
 calls the  ISampleVisitor's visit method 
 ";
 
-%feature("docstring")  IAbstractParticle::setAmbientMaterial "void IAbstractParticle::setAmbientMaterial(const IMaterial &material)
+%feature("docstring")  IAbstractParticle::setAmbientMaterial "virtual void IAbstractParticle::setAmbientMaterial(const class IMaterial &)
 
 Sets the refractive index of the ambient material (which influences its scattering power) 
 ";
@@ -4936,7 +4936,7 @@ Returns abundance.
 Sets abundance. 
 ";
 
-%feature("docstring")  IAbstractParticle::getAmbientMaterial "virtual const IMaterial* IAbstractParticle::getAmbientMaterial() const =0
+%feature("docstring")  IAbstractParticle::getAmbientMaterial "virtual const class IMaterial* IAbstractParticle::getAmbientMaterial() const =0
 
 Returns particle's material. 
 ";
@@ -5233,7 +5233,7 @@ C++ includes: IDetector2D.h
 %feature("docstring")  IDetector2D::~IDetector2D "virtual IDetector2D::~IDetector2D()
 ";
 
-%feature("docstring")  IDetector2D::init "void IDetector2D::init(const Beam &beam)
+%feature("docstring")  IDetector2D::init "virtual void IDetector2D::init(const class Beam &)
 
 Inits detector with the beam settings. 
 ";
@@ -5326,12 +5326,12 @@ Put the mask for all detector channels (i.e. exclude whole detector from the ana
 return true if has masks 
 ";
 
-%feature("docstring")  IDetector2D::createSimulationElements "std::vector< SimulationElement > IDetector2D::createSimulationElements(const Beam &beam)
+%feature("docstring")  IDetector2D::createSimulationElements "std::vector< SimulationElement > IDetector2D::createSimulationElements(const class Beam &beam)
 
 Create a vector of  SimulationElement objects according to the detector and its mask. 
 ";
 
-%feature("docstring")  IDetector2D::getSimulationElement "SimulationElement IDetector2D::getSimulationElement(size_t index, const Beam &beam) const
+%feature("docstring")  IDetector2D::getSimulationElement "SimulationElement IDetector2D::getSimulationElement(size_t index, const class Beam &beam) const
 
 create single simulation element 
 ";
@@ -5341,7 +5341,7 @@ create single simulation element
 Adds parameters from local pool to external pool and recursively calls its direct children. 
 ";
 
-%feature("docstring")  IDetector2D::createDetectorMap "OutputData< double > * IDetector2D::createDetectorMap(const Beam &beam, EAxesUnits units_type) const
+%feature("docstring")  IDetector2D::createDetectorMap "OutputData< double > * IDetector2D::createDetectorMap(const class Beam &, EAxesUnits) const
 
 Returns detector map in given axes units. 
 ";
@@ -5351,7 +5351,7 @@ Returns detector map in given axes units.
 returns vector of valid axes units 
 ";
 
-%feature("docstring")  IDetector2D::getDefaultAxesUnits "IDetector2D::EAxesUnits IDetector2D::getDefaultAxesUnits() const
+%feature("docstring")  IDetector2D::getDefaultAxesUnits "virtual EAxesUnits IDetector2D::getDefaultAxesUnits() const
 
 return default axes units 
 ";
@@ -7197,7 +7197,7 @@ Returns a clone of this  ISample object.
 Returns a clone with inverted magnetic fields. 
 ";
 
-%feature("docstring")  IParticle::accept "void IParticle::accept(ISampleVisitor *visitor) const
+%feature("docstring")  IParticle::accept "void IParticle::accept(class ISampleVisitor *visitor) const
 
 calls the  ISampleVisitor's visit method 
 ";
@@ -7311,6 +7311,8 @@ C++ includes: IResolutionFunction2D.h
 // File: classIRotation.xml
 %feature("docstring") IRotation "
 
+must be subclass of sample, because it can be registered as a child in  ICompositeSample
+
 An interface for classes representing a rotation.
 
 C++ includes: Rotations.h
@@ -7334,7 +7336,7 @@ Returns a clone with inverted magnetic fields.
 Returns a new  IRotation object that is the current object's inverse. 
 ";
 
-%feature("docstring")  IRotation::accept "void IRotation::accept(ISampleVisitor *visitor) const
+%feature("docstring")  IRotation::accept "void IRotation::accept(class ISampleVisitor *visitor) const
 
 Calls the  ISampleVisitor's visit method. 
 ";
@@ -8765,7 +8767,7 @@ Implementation of  ISpecularInfoMap for matrix valued reflection/ transmission c
 C++ includes: MatrixSpecularInfoMap.h
 ";
 
-%feature("docstring")  MatrixSpecularInfoMap::MatrixSpecularInfoMap "MatrixSpecularInfoMap::MatrixSpecularInfoMap(const MultiLayer *multilayer, int layer)
+%feature("docstring")  MatrixSpecularInfoMap::MatrixSpecularInfoMap "MatrixSpecularInfoMap::MatrixSpecularInfoMap(const class MultiLayer *multilayer, int layer)
 ";
 
 %feature("docstring")  MatrixSpecularInfoMap::~MatrixSpecularInfoMap "virtual MatrixSpecularInfoMap::~MatrixSpecularInfoMap()
@@ -8832,8 +8834,6 @@ Calls the  ISampleVisitor's visit method.
 ";
 
 %feature("docstring")  MesoCrystal::setAmbientMaterial "void MesoCrystal::setAmbientMaterial(const IMaterial &material)
-
-Sets the refractive index of the ambient material (which influences its scattering power) 
 ";
 
 %feature("docstring")  MesoCrystal::getAmbientMaterial "const IMaterial * MesoCrystal::getAmbientMaterial() const
@@ -8915,12 +8915,12 @@ Adds layer with default (zero) roughness.
 Adds layer with top roughness. 
 ";
 
-%feature("docstring")  MultiLayer::getLayer "const Layer * MultiLayer::getLayer(size_t i_layer) const
+%feature("docstring")  MultiLayer::getLayer "const Layer* MultiLayer::getLayer(size_t i_layer) const
 
 Returns layer with given index. 
 ";
 
-%feature("docstring")  MultiLayer::getLayerInterface "const LayerInterface * MultiLayer::getLayerInterface(size_t i_interface) const
+%feature("docstring")  MultiLayer::getLayerInterface "const LayerInterface* MultiLayer::getLayerInterface(size_t i_interface) const
 
 Returns layer with given index. 
 ";
@@ -8988,7 +8988,7 @@ Fourier transform of the correlation function of roughnesses between the interfa
 Sets thickness of layer. 
 ";
 
-%feature("docstring")  MultiLayer::createDWBASimulation "MultiLayerDWBASimulation * MultiLayer::createDWBASimulation() const
+%feature("docstring")  MultiLayer::createDWBASimulation "DWBASimulation * MultiLayer::createDWBASimulation() const
 
 look for the presence of DWBA terms (e.g. included particles) and return  ISimulation if needed 
 ";
@@ -9043,7 +9043,7 @@ Calculation of diffuse reflection from multilayer with rough interfaces.
 C++ includes: MultiLayerRoughnessDWBASimulation.h
 ";
 
-%feature("docstring")  MultiLayerRoughnessDWBASimulation::MultiLayerRoughnessDWBASimulation "MultiLayerRoughnessDWBASimulation::MultiLayerRoughnessDWBASimulation(const MultiLayer *p_multi_layer)
+%feature("docstring")  MultiLayerRoughnessDWBASimulation::MultiLayerRoughnessDWBASimulation "MultiLayerRoughnessDWBASimulation::MultiLayerRoughnessDWBASimulation(const class MultiLayer *p_multi_layer)
 ";
 
 %feature("docstring")  MultiLayerRoughnessDWBASimulation::~MultiLayerRoughnessDWBASimulation "MultiLayerRoughnessDWBASimulation::~MultiLayerRoughnessDWBASimulation()
@@ -10061,8 +10061,6 @@ Calls the  ISampleVisitor's visit method.
 ";
 
 %feature("docstring")  ParticleComposition::setAmbientMaterial "void ParticleComposition::setAmbientMaterial(const IMaterial &material)
-
-Sets the refractive index of the ambient material (which influences its scattering power) 
 ";
 
 %feature("docstring")  ParticleComposition::getAmbientMaterial "const IMaterial * ParticleComposition::getAmbientMaterial() const
@@ -10936,8 +10934,6 @@ Height of the detector in mm along y-direction
 ";
 
 %feature("docstring")  RectangularDetector::init "void RectangularDetector::init(const Beam &beam)
-
-Inits detector with the beam settings. 
 ";
 
 %feature("docstring")  RectangularDetector::setPosition "void RectangularDetector::setPosition(const kvector_t normal_to_detector, double u0, double v0, const kvector_t direction=kvector_t(0.0,-1.0, 0.0))
@@ -11136,7 +11132,7 @@ Returns a new  IRotation object that is the current object's inverse.
 %feature("docstring")  RotationEuler::getGamma "double RotationEuler::getGamma() const 
 ";
 
-%feature("docstring")  RotationEuler::accept "void RotationEuler::accept(ISampleVisitor *visitor) const
+%feature("docstring")  RotationEuler::accept "void RotationEuler::accept(class ISampleVisitor *visitor) const
 
 Calls the  ISampleVisitor's visit method. 
 ";
@@ -11171,7 +11167,7 @@ Returns a new  IRotation object that is the current object's inverse.
 %feature("docstring")  RotationX::getAngle "double RotationX::getAngle() const 
 ";
 
-%feature("docstring")  RotationX::accept "void RotationX::accept(ISampleVisitor *visitor) const
+%feature("docstring")  RotationX::accept "void RotationX::accept(class ISampleVisitor *visitor) const
 
 Calls the  ISampleVisitor's visit method. 
 ";
@@ -11206,7 +11202,7 @@ Returns a new  IRotation object that is the current object's inverse.
 %feature("docstring")  RotationY::getAngle "double RotationY::getAngle() const 
 ";
 
-%feature("docstring")  RotationY::accept "void RotationY::accept(ISampleVisitor *visitor) const
+%feature("docstring")  RotationY::accept "void RotationY::accept(class ISampleVisitor *visitor) const
 
 Calls the  ISampleVisitor's visit method. 
 ";
@@ -11241,7 +11237,7 @@ Returns a new  IRotation object that is the current object's inverse.
 %feature("docstring")  RotationZ::getAngle "double RotationZ::getAngle() const 
 ";
 
-%feature("docstring")  RotationZ::accept "void RotationZ::accept(ISampleVisitor *visitor) const
+%feature("docstring")  RotationZ::accept "void RotationZ::accept(class ISampleVisitor *visitor) const
 
 Calls the  ISampleVisitor's visit method. 
 ";
@@ -11420,76 +11416,76 @@ C++ includes: SampleLabelHandler.h
 %feature("docstring")  SampleLabelHandler::getRotationsMap "SampleLabelHandler::rotations_t * SampleLabelHandler::getRotationsMap()
 ";
 
-%feature("docstring")  SampleLabelHandler::getLabel "std::string SampleLabelHandler::getLabel(const IFormFactor *sample)
+%feature("docstring")  SampleLabelHandler::getLabel "std::string SampleLabelHandler::getLabel(const class IFormFactor *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::getLabel "std::string SampleLabelHandler::getLabel(const IInterferenceFunction *sample)
+%feature("docstring")  SampleLabelHandler::getLabel "std::string SampleLabelHandler::getLabel(const class IInterferenceFunction *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::getLabel "std::string SampleLabelHandler::getLabel(const IMaterial *sample)
+%feature("docstring")  SampleLabelHandler::getLabel "std::string SampleLabelHandler::getLabel(const class IMaterial *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::getLabel "std::string SampleLabelHandler::getLabel(const Layer *sample)
+%feature("docstring")  SampleLabelHandler::getLabel "std::string SampleLabelHandler::getLabel(const class Layer *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::getLabel "std::string SampleLabelHandler::getLabel(const LayerRoughness *sample)
+%feature("docstring")  SampleLabelHandler::getLabel "std::string SampleLabelHandler::getLabel(const class LayerRoughness *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::getLabel "std::string SampleLabelHandler::getLabel(const MultiLayer *sample)
+%feature("docstring")  SampleLabelHandler::getLabel "std::string SampleLabelHandler::getLabel(const class MultiLayer *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::getLabel "std::string SampleLabelHandler::getLabel(const IAbstractParticle *sample)
+%feature("docstring")  SampleLabelHandler::getLabel "std::string SampleLabelHandler::getLabel(const class IAbstractParticle *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::getLabel "std::string SampleLabelHandler::getLabel(const ParticleCoreShell *sample)
+%feature("docstring")  SampleLabelHandler::getLabel "std::string SampleLabelHandler::getLabel(const class ParticleCoreShell *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::getLabel "std::string SampleLabelHandler::getLabel(const ParticleDistribution *sample)
+%feature("docstring")  SampleLabelHandler::getLabel "std::string SampleLabelHandler::getLabel(const class ParticleDistribution *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::getLabel "std::string SampleLabelHandler::getLabel(const ILayout *sample)
+%feature("docstring")  SampleLabelHandler::getLabel "std::string SampleLabelHandler::getLabel(const class ILayout *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::getLabel "std::string SampleLabelHandler::getLabel(const ParticleComposition *sample)
+%feature("docstring")  SampleLabelHandler::getLabel "std::string SampleLabelHandler::getLabel(const class ParticleComposition *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::getLabel "std::string SampleLabelHandler::getLabel(const IRotation *sample)
+%feature("docstring")  SampleLabelHandler::getLabel "std::string SampleLabelHandler::getLabel(const class IRotation *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::insertMaterial "void SampleLabelHandler::insertMaterial(const IMaterial *sample)
+%feature("docstring")  SampleLabelHandler::insertMaterial "void SampleLabelHandler::insertMaterial(const class IMaterial *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::setLabel "void SampleLabelHandler::setLabel(const IFormFactor *sample)
+%feature("docstring")  SampleLabelHandler::setLabel "void SampleLabelHandler::setLabel(const class IFormFactor *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::setLabel "void SampleLabelHandler::setLabel(const IInterferenceFunction *sample)
+%feature("docstring")  SampleLabelHandler::setLabel "void SampleLabelHandler::setLabel(const class IInterferenceFunction *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::setLabel "void SampleLabelHandler::setLabel(const ILayout *sample)
+%feature("docstring")  SampleLabelHandler::setLabel "void SampleLabelHandler::setLabel(const class ILayout *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::setLabel "void SampleLabelHandler::setLabel(const Layer *sample)
+%feature("docstring")  SampleLabelHandler::setLabel "void SampleLabelHandler::setLabel(const class Layer *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::setLabel "void SampleLabelHandler::setLabel(const LayerRoughness *sample)
+%feature("docstring")  SampleLabelHandler::setLabel "void SampleLabelHandler::setLabel(const class LayerRoughness *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::setLabel "void SampleLabelHandler::setLabel(const MultiLayer *sample)
+%feature("docstring")  SampleLabelHandler::setLabel "void SampleLabelHandler::setLabel(const class MultiLayer *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::setLabel "void SampleLabelHandler::setLabel(const Particle *sample)
+%feature("docstring")  SampleLabelHandler::setLabel "void SampleLabelHandler::setLabel(const class Particle *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::setLabel "void SampleLabelHandler::setLabel(const ParticleCoreShell *sample)
+%feature("docstring")  SampleLabelHandler::setLabel "void SampleLabelHandler::setLabel(const class ParticleCoreShell *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::setLabel "void SampleLabelHandler::setLabel(const ParticleDistribution *sample)
+%feature("docstring")  SampleLabelHandler::setLabel "void SampleLabelHandler::setLabel(const class ParticleDistribution *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::setLabel "void SampleLabelHandler::setLabel(const ParticleComposition *sample)
+%feature("docstring")  SampleLabelHandler::setLabel "void SampleLabelHandler::setLabel(const class ParticleComposition *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::setLabel "void SampleLabelHandler::setLabel(const IRotation *sample)
+%feature("docstring")  SampleLabelHandler::setLabel "void SampleLabelHandler::setLabel(const class IRotation *sample)
 ";
 
 
@@ -12480,7 +12476,7 @@ Run a simulation with the current parameter settings.
 Sets the sample to be tested. 
 ";
 
-%feature("docstring")  SpecularSimulation::getSample "ISample * SpecularSimulation::getSample() const
+%feature("docstring")  SpecularSimulation::getSample "class ISample* SpecularSimulation::getSample() const
 
 Returns the sample. 
 ";
@@ -12490,7 +12486,7 @@ Returns the sample.
 Sets the sample builder. 
 ";
 
-%feature("docstring")  SpecularSimulation::getSampleBuilder "std::shared_ptr< class ISampleBuilder > SpecularSimulation::getSampleBuilder() const
+%feature("docstring")  SpecularSimulation::getSampleBuilder "std::shared_ptr<class ISampleBuilder> SpecularSimulation::getSampleBuilder() const
 
 return sample builder 
 ";
@@ -13139,7 +13135,7 @@ C++ includes: WavevectorInfo.h
 // File: classMathFunctions_1_1Convolve_1_1Workspace.xml
 
 
-// File: namespace_0D232.xml
+// File: namespace_0D234.xml
 
 
 // File: namespace_0D336.xml
@@ -13694,6 +13690,12 @@ Returns exp(I*z), where I is the imaginary unit.
 // File: WinDllMacros_8h.xml
 
 
+// File: Beam_8cpp.xml
+
+
+// File: Beam_8h.xml
+
+
 // File: ChiSquaredModule_8cpp.xml
 
 
@@ -13978,25 +13980,7 @@ Set all element intensities to given value.
 // File: FormFactorDecoratorRotation_8h.xml
 
 
-// File: FormFactorDWBA_8cpp.xml
-
-
-// File: FormFactorDWBA_8h.xml
-
-
-// File: FormFactorDWBAPol_8cpp.xml
-
-
-// File: FormFactorDWBAPol_8h.xml
-
-
 // File: FormFactors_8h.xml
-
-
-// File: FormFactorTools_8cpp.xml
-
-
-// File: FormFactorTools_8h.xml
 
 
 // File: FormFactorWeighted_8cpp.xml
@@ -14305,6 +14289,24 @@ The mathematics implemented here is described in full detail in a paper by Joach
 
 
 // File: RealParameterWrapper_8h.xml
+
+
+// File: FormFactorDWBA_8cpp.xml
+
+
+// File: FormFactorDWBA_8h.xml
+
+
+// File: FormFactorDWBAPol_8cpp.xml
+
+
+// File: FormFactorDWBAPol_8h.xml
+
+
+// File: FormFactorTools_8cpp.xml
+
+
+// File: FormFactorTools_8h.xml
 
 
 // File: ILayerRTCoefficients_8h.xml
@@ -14626,12 +14628,6 @@ Returns concatenated rotation (first right, then left).
 
 
 // File: TRange_8h.xml
-
-
-// File: Beam_8cpp.xml
-
-
-// File: Beam_8h.xml
 
 
 // File: DecoratedLayerDWBASimulation_8cpp.xml

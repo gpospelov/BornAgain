@@ -14360,7 +14360,7 @@ class IDetector2D(IParameterized):
         """
         init(IDetector2D self, Beam arg2)
 
-        void IDetector2D::init(const Beam &beam)
+        virtual void IDetector2D::init(const class Beam &)
 
         Inits detector with the beam settings. 
 
@@ -14583,7 +14583,7 @@ class IDetector2D(IParameterized):
         """
         createDetectorMap(IDetector2D self, Beam arg2, IDetector2D::EAxesUnits arg3) -> IntensityData
 
-        OutputData< double > * IDetector2D::createDetectorMap(const Beam &beam, EAxesUnits units_type) const
+        OutputData< double > * IDetector2D::createDetectorMap(const class Beam &, EAxesUnits) const
 
         Returns detector map in given axes units. 
 
@@ -14607,7 +14607,7 @@ class IDetector2D(IParameterized):
         """
         getDefaultAxesUnits(IDetector2D self) -> IDetector2D::EAxesUnits
 
-        IDetector2D::EAxesUnits IDetector2D::getDefaultAxesUnits() const
+        virtual EAxesUnits IDetector2D::getDefaultAxesUnits() const
 
         return default axes units 
 
@@ -14987,7 +14987,7 @@ class IAbstractParticle(ICompositeSample):
         """
         accept(IAbstractParticle self, ISampleVisitor visitor)
 
-        void IAbstractParticle::accept(ISampleVisitor *visitor) const
+        void IAbstractParticle::accept(class ISampleVisitor *visitor) const
 
         calls the  ISampleVisitor's visit method 
 
@@ -14999,7 +14999,7 @@ class IAbstractParticle(ICompositeSample):
         """
         setAmbientMaterial(IAbstractParticle self, IMaterial arg2)
 
-        void IAbstractParticle::setAmbientMaterial(const IMaterial &material)
+        virtual void IAbstractParticle::setAmbientMaterial(const class IMaterial &)
 
         Sets the refractive index of the ambient material (which influences its scattering power) 
 
@@ -15035,7 +15035,7 @@ class IAbstractParticle(ICompositeSample):
         """
         getAmbientMaterial(IAbstractParticle self) -> IMaterial
 
-        virtual const IMaterial* IAbstractParticle::getAmbientMaterial() const =0
+        virtual const class IMaterial* IAbstractParticle::getAmbientMaterial() const =0
 
         Returns particle's material. 
 
@@ -15097,7 +15097,7 @@ class IParticle(IAbstractParticle):
         """
         accept(IParticle self, ISampleVisitor visitor)
 
-        void IParticle::accept(ISampleVisitor *visitor) const
+        void IParticle::accept(class ISampleVisitor *visitor) const
 
         calls the  ISampleVisitor's visit method 
 
@@ -15254,6 +15254,8 @@ class IRotation(ISample):
     """
 
 
+    must be subclass of sample, because it can be registered as a child in  ICompositeSample
+
     An interface for classes representing a rotation.
 
     C++ includes: Rotations.h
@@ -15322,7 +15324,7 @@ class IRotation(ISample):
         """
         accept(IRotation self, ISampleVisitor visitor)
 
-        void IRotation::accept(ISampleVisitor *visitor) const
+        void IRotation::accept(class ISampleVisitor *visitor) const
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -15446,7 +15448,7 @@ class RotationX(IRotation):
         """
         accept(RotationX self, ISampleVisitor visitor)
 
-        void RotationX::accept(ISampleVisitor *visitor) const
+        void RotationX::accept(class ISampleVisitor *visitor) const
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -15545,7 +15547,7 @@ class RotationY(IRotation):
         """
         accept(RotationY self, ISampleVisitor visitor)
 
-        void RotationY::accept(ISampleVisitor *visitor) const
+        void RotationY::accept(class ISampleVisitor *visitor) const
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -15645,7 +15647,7 @@ class RotationZ(IRotation):
         """
         accept(RotationZ self, ISampleVisitor visitor)
 
-        void RotationZ::accept(ISampleVisitor *visitor) const
+        void RotationZ::accept(class ISampleVisitor *visitor) const
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -15764,7 +15766,7 @@ class RotationEuler(IRotation):
         """
         accept(RotationEuler self, ISampleVisitor visitor)
 
-        void RotationEuler::accept(ISampleVisitor *visitor) const
+        void RotationEuler::accept(class ISampleVisitor *visitor) const
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -18617,8 +18619,6 @@ class MesoCrystal(IParticle):
 
         void MesoCrystal::setAmbientMaterial(const IMaterial &material)
 
-        Sets the refractive index of the ambient material (which influences its scattering power) 
-
         """
         return _libBornAgainCore.MesoCrystal_setAmbientMaterial(self, material)
 
@@ -18878,7 +18878,7 @@ class MultiLayer(ICompositeSample):
         """
         getLayer(MultiLayer self, size_t i_layer) -> Layer
 
-        const Layer * MultiLayer::getLayer(size_t i_layer) const
+        const Layer* MultiLayer::getLayer(size_t i_layer) const
 
         Returns layer with given index. 
 
@@ -18890,7 +18890,7 @@ class MultiLayer(ICompositeSample):
         """
         getLayerInterface(MultiLayer self, size_t i_interface) -> LayerInterface const *
 
-        const LayerInterface * MultiLayer::getLayerInterface(size_t i_interface) const
+        const LayerInterface* MultiLayer::getLayerInterface(size_t i_interface) const
 
         Returns layer with given index. 
 
@@ -19042,7 +19042,7 @@ class MultiLayer(ICompositeSample):
         """
         createDWBASimulation(MultiLayer self) -> DWBASimulation *
 
-        MultiLayerDWBASimulation * MultiLayer::createDWBASimulation() const
+        DWBASimulation * MultiLayer::createDWBASimulation() const
 
         look for the presence of DWBA terms (e.g. included particles) and return  ISimulation if needed 
 
@@ -20686,8 +20686,6 @@ class ParticleComposition(IParticle):
 
         void ParticleComposition::setAmbientMaterial(const IMaterial &material)
 
-        Sets the refractive index of the ambient material (which influences its scattering power) 
-
         """
         return _libBornAgainCore.ParticleComposition_setAmbientMaterial(self, material)
 
@@ -21605,8 +21603,6 @@ class RectangularDetector(IDetector2D):
 
         void RectangularDetector::init(const Beam &beam)
 
-        Inits detector with the beam settings. 
-
         """
         return _libBornAgainCore.RectangularDetector_init(self, beam)
 
@@ -22051,7 +22047,7 @@ class SpecularSimulation(ICloneable, IParameterized):
         """
         getSample(SpecularSimulation self) -> ISample
 
-        ISample * SpecularSimulation::getSample() const
+        class ISample* SpecularSimulation::getSample() const
 
         Returns the sample. 
 
@@ -22075,7 +22071,7 @@ class SpecularSimulation(ICloneable, IParameterized):
         """
         getSampleBuilder(SpecularSimulation self) -> std::shared_ptr< ISampleBuilder >
 
-        std::shared_ptr< class ISampleBuilder > SpecularSimulation::getSampleBuilder() const
+        std::shared_ptr<class ISampleBuilder> SpecularSimulation::getSampleBuilder() const
 
         return sample builder 
 

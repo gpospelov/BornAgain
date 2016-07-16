@@ -17,7 +17,8 @@
 #ifndef GUIOBJECTBUILDER_H
 #define GUIOBJECTBUILDER_H
 
-#include "Samples.h"
+#include "FormFactors.h"
+#include "MultiLayer.h"
 #include "MaterialProperty.h"
 
 class InstrumentModel;

@@ -40,23 +40,16 @@ public:
     {
     }
 
-    virtual ~HomogeneousMaterial()
-    {
-    }
+    virtual ~HomogeneousMaterial() {}
 
     virtual HomogeneousMaterial *clone() const;
 
     //! Return refractive index.
-    virtual complex_t getRefractiveIndex() const
-    {
-        return m_refractive_index;
-    }
+    virtual complex_t getRefractiveIndex() const { return m_refractive_index; }
 
     //! Set refractive index.
-    void setRefractiveIndex(const complex_t refractive_index)
-    {
-        m_refractive_index = refractive_index;
-    }
+    void setRefractiveIndex(const complex_t refractive_index) {
+        m_refractive_index = refractive_index; }
 
 #ifndef SWIG
     //! Get the scattering matrix (~potential V) from the material.
@@ -83,9 +76,8 @@ inline HomogeneousMaterial *HomogeneousMaterial::clone() const
 }
 
 #ifndef SWIG
-inline Eigen::Matrix2cd HomogeneousMaterial::getScatteringMatrix(double k_mag2) const
+inline Eigen::Matrix2cd HomogeneousMaterial::getScatteringMatrix(double) const
 {
-    (void)k_mag2;
     return m_refractive_index * m_refractive_index * Eigen::Matrix2cd::Identity();
 }
 

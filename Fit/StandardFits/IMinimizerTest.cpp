@@ -14,10 +14,13 @@
 // ************************************************************************** //
 
 #include "FitSuite.h"
+#include "GISASSimulation.h"
+#include "IMinimizerTest.h"
+#include "ISample.h"
 #include "MinimizerFactory.h"
 #include "SampleBuilderFactory.h"
 #include "SimulationFactory.h"
-#include "IMinimizerTest.h"
+#include "Units.h"
 #include <boost/format.hpp>
 
 IMinimizerTest::TestParameter::TestParameter(const std::string &name, double real_value,

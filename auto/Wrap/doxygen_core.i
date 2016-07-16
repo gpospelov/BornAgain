@@ -4374,7 +4374,7 @@ overloaded in (Core|Py|GUI)Suite.cpp
 %feature("docstring")  GISASSimulation::GISASSimulation "GISASSimulation::GISASSimulation()
 ";
 
-%feature("docstring")  GISASSimulation::GISASSimulation "GISASSimulation::GISASSimulation(const ISample &p_sample)
+%feature("docstring")  GISASSimulation::GISASSimulation "GISASSimulation::GISASSimulation(const class ISample &p_sample)
 ";
 
 %feature("docstring")  GISASSimulation::GISASSimulation "GISASSimulation::GISASSimulation(std::shared_ptr< class ISampleBuilder > p_sample_builder)
@@ -6676,7 +6676,7 @@ C++ includes: IIntensityFunction.h
 %feature("docstring")  IntensityFunctionLog::clone "virtual IntensityFunctionLog* IntensityFunctionLog::clone() const 
 ";
 
-%feature("docstring")  IntensityFunctionLog::evaluate "virtual double IntensityFunctionLog::evaluate(double value) const 
+%feature("docstring")  IntensityFunctionLog::evaluate "double IntensityFunctionLog::evaluate(double value) const 
 ";
 
 
@@ -6694,7 +6694,7 @@ C++ includes: IIntensityFunction.h
 %feature("docstring")  IntensityFunctionSqrt::clone "virtual IntensityFunctionSqrt* IntensityFunctionSqrt::clone() const 
 ";
 
-%feature("docstring")  IntensityFunctionSqrt::evaluate "virtual double IntensityFunctionSqrt::evaluate(double value) const 
+%feature("docstring")  IntensityFunctionSqrt::evaluate "double IntensityFunctionSqrt::evaluate(double value) const 
 ";
 
 
@@ -7439,10 +7439,10 @@ C++ includes: ISampleBuilder.h
 %feature("docstring")  ISampleBuilder::set_subtest "void ISampleBuilder::set_subtest(const class IParameterized *subtest_item)
 ";
 
-%feature("docstring")  ISampleBuilder::getFormFactor "const IFormFactor* ISampleBuilder::getFormFactor() const 
+%feature("docstring")  ISampleBuilder::getFormFactor "const IFormFactor * ISampleBuilder::getFormFactor() const 
 ";
 
-%feature("docstring")  ISampleBuilder::getFTDistribution2D "const IFTDistribution2D* ISampleBuilder::getFTDistribution2D() const 
+%feature("docstring")  ISampleBuilder::getFTDistribution2D "const IFTDistribution2D * ISampleBuilder::getFTDistribution2D() const 
 ";
 
 
@@ -8128,7 +8128,7 @@ C++ includes: Layer.h
 Constructs empty layer. 
 ";
 
-%feature("docstring")  Layer::Layer "Layer::Layer(const IMaterial &material, double thickness=0)
+%feature("docstring")  Layer::Layer "Layer::Layer(const class IMaterial &material, double thickness=0)
 
 Constructs layer made of  material with  thickness in nanometers and decoration. 
 ";
@@ -8146,7 +8146,7 @@ Returns a clone of this  ISample object.
 Returns a clone with inverted magnetic fields. 
 ";
 
-%feature("docstring")  Layer::accept "void Layer::accept(ISampleVisitor *visitor) const
+%feature("docstring")  Layer::accept "void Layer::accept(class ISampleVisitor *visitor) const
 
 Calls the  ISampleVisitor's visit method. 
 ";
@@ -8161,17 +8161,17 @@ Sets layer thickness in nanometers.
 Returns layer thickness in nanometers. 
 ";
 
-%feature("docstring")  Layer::setMaterial "void Layer::setMaterial(const IMaterial &material)
+%feature("docstring")  Layer::setMaterial "void Layer::setMaterial(const class IMaterial &material)
 
 Sets  material of the layer. 
 ";
 
-%feature("docstring")  Layer::setMaterialAndThickness "void Layer::setMaterialAndThickness(const IMaterial &material, double thickness)
+%feature("docstring")  Layer::setMaterialAndThickness "void Layer::setMaterialAndThickness(const class IMaterial &material, double thickness)
 
 Sets  material and  thickness. 
 ";
 
-%feature("docstring")  Layer::getMaterial "virtual const IMaterial* Layer::getMaterial() const
+%feature("docstring")  Layer::getMaterial "virtual const class IMaterial* Layer::getMaterial() const
 
 Returns layer's material. 
 ";
@@ -8186,7 +8186,7 @@ Returns refractive index of the layer's material.
 Returns squared refractive index of the layer's material. 
 ";
 
-%feature("docstring")  Layer::addLayout "void Layer::addLayout(const ILayout &decoration)
+%feature("docstring")  Layer::addLayout "void Layer::addLayout(const class ILayout &decoration)
 
 sets particle layout 
 ";
@@ -10762,7 +10762,7 @@ Test whether Python dumps yields the same image as a direct computation.
 C++ includes: PySuiteTest.h
 ";
 
-%feature("docstring")  PySuiteTest::PySuiteTest "PySuiteTest::PySuiteTest(const std::string &name, const std::string &description, GISASSimulation *reference_simulation, double threshold)
+%feature("docstring")  PySuiteTest::PySuiteTest "PySuiteTest::PySuiteTest(const std::string &name, const std::string &description, class GISASSimulation *reference_simulation, double threshold)
 ";
 
 %feature("docstring")  PySuiteTest::~PySuiteTest "PySuiteTest::~PySuiteTest()
@@ -12090,13 +12090,13 @@ C++ includes: GISASSimulation.h
 %feature("docstring")  Simulation::Simulation "Simulation::Simulation()
 ";
 
-%feature("docstring")  Simulation::Simulation "Simulation::Simulation(const ISample &p_sample)
+%feature("docstring")  Simulation::Simulation "Simulation::Simulation(const class ISample &p_sample)
 ";
 
 %feature("docstring")  Simulation::Simulation "Simulation::Simulation(std::shared_ptr< class ISampleBuilder > p_sample_builder)
 ";
 
-%feature("docstring")  Simulation::~Simulation "virtual Simulation::~Simulation()
+%feature("docstring")  Simulation::~Simulation "Simulation::~Simulation()
 ";
 
 %feature("docstring")  Simulation::clone "virtual Simulation* Simulation::clone() const =0
@@ -12119,14 +12119,14 @@ Run simulation with possible averaging over parameter distributions.
 Run an OpenMPI simulation. 
 ";
 
-%feature("docstring")  Simulation::setSample "void Simulation::setSample(const ISample &sample)
+%feature("docstring")  Simulation::setSample "void Simulation::setSample(const class ISample &sample)
 
 Sets the sample to be tested.
 
 The  ISample object will not be owned by the  Simulation object. 
 ";
 
-%feature("docstring")  Simulation::getSample "ISample* Simulation::getSample() const
+%feature("docstring")  Simulation::getSample "class ISample* Simulation::getSample() const
 
 Returns the sample. 
 ";
@@ -13131,16 +13131,16 @@ C++ includes: WavevectorInfo.h
 // File: classMathFunctions_1_1Convolve_1_1Workspace.xml
 
 
-// File: namespace_0D249.xml
+// File: namespace_0D269.xml
 
 
-// File: namespace_0D333.xml
+// File: namespace_0D335.xml
 
 
-// File: namespace_0D402.xml
+// File: namespace_0D404.xml
 
 
-// File: namespace_0D416.xml
+// File: namespace_0D418.xml
 
 
 // File: namespaceboost_1_1geometry.xml
@@ -13858,6 +13858,9 @@ global helper function for comparison of axes
 // File: IHistogram_8h.xml
 
 
+// File: IIntensityFunction_8cpp.xml
+
+
 // File: IIntensityFunction_8h.xml
 
 
@@ -14013,6 +14016,60 @@ Set all element intensities to given value.
 
 
 // File: SampleLabelHandler_8h.xml
+
+
+// File: FormFactorDecoratorDebyeWaller_8cpp.xml
+
+
+// File: FormFactorDecoratorDebyeWaller_8h.xml
+
+
+// File: FormFactorDecoratorFactor_8h.xml
+
+
+// File: FormFactorDecoratorMaterial_8cpp.xml
+
+
+// File: FormFactorDecoratorMaterial_8h.xml
+
+
+// File: FormFactorDecoratorMultiPositionFactor_8cpp.xml
+
+
+// File: FormFactorDecoratorMultiPositionFactor_8h.xml
+
+
+// File: FormFactorDecoratorPositionFactor_8h.xml
+
+
+// File: FormFactorDecoratorRotation_8cpp.xml
+
+
+// File: FormFactorDecoratorRotation_8h.xml
+
+
+// File: FormFactorDWBA_8cpp.xml
+
+
+// File: FormFactorDWBA_8h.xml
+
+
+// File: FormFactorDWBAPol_8cpp.xml
+
+
+// File: FormFactorDWBAPol_8h.xml
+
+
+// File: FormFactors_8h.xml
+
+
+// File: FormFactorTools_8cpp.xml
+
+
+// File: FormFactorTools_8h.xml
+
+
+// File: IFormFactorDecorator_8h.xml
 
 
 // File: FormFactorAnisoPyramid_8cpp.xml
@@ -14322,6 +14379,9 @@ The mathematics implemented here is described in full detail in a paper by Joach
 // File: IRoughness_8h.xml
 
 
+// File: ISampleBuilder_8cpp.xml
+
+
 // File: ISampleBuilder_8h.xml
 
 
@@ -14449,39 +14509,6 @@ The mathematics implemented here is described in full detail in a paper by Joach
 // File: FormFactorCrystal_8h.xml
 
 
-// File: FormFactorDecoratorDebyeWaller_8cpp.xml
-
-
-// File: FormFactorDecoratorDebyeWaller_8h.xml
-
-
-// File: FormFactorDecoratorFactor_8h.xml
-
-
-// File: FormFactorDecoratorMaterial_8cpp.xml
-
-
-// File: FormFactorDecoratorMaterial_8h.xml
-
-
-// File: FormFactorDecoratorMultiPositionFactor_8cpp.xml
-
-
-// File: FormFactorDecoratorMultiPositionFactor_8h.xml
-
-
-// File: FormFactorDecoratorPositionFactor_8h.xml
-
-
-// File: FormFactorDecoratorRotation_8cpp.xml
-
-
-// File: FormFactorDecoratorRotation_8h.xml
-
-
-// File: FormFactors_8h.xml
-
-
 // File: FormFactorWeighted_8cpp.xml
 
 
@@ -14489,9 +14516,6 @@ The mathematics implemented here is described in full detail in a paper by Joach
 
 
 // File: IClusteredParticles_8h.xml
-
-
-// File: IFormFactorDecorator_8h.xml
 
 
 // File: IParticle_8cpp.xml
@@ -14545,24 +14569,6 @@ Returns concatenated rotation (first right, then left).
 
 Returns concatenated rotation (first right, then left). 
 ";
-
-
-// File: FormFactorDWBA_8cpp.xml
-
-
-// File: FormFactorDWBA_8h.xml
-
-
-// File: FormFactorDWBAPol_8cpp.xml
-
-
-// File: FormFactorDWBAPol_8h.xml
-
-
-// File: FormFactorTools_8cpp.xml
-
-
-// File: FormFactorTools_8h.xml
 
 
 // File: ICompositeSample_8cpp.xml
@@ -15039,6 +15045,9 @@ David N. Williams
 
 
 // File: dir_cca9b87b2505f372a6ce58947a507789.xml
+
+
+// File: dir_c8e420540f3cc673520907fed872650b.xml
 
 
 // File: dir_43bf4f843b6e885b1bee2bc28b8e4b1a.xml

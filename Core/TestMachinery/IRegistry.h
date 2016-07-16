@@ -16,6 +16,7 @@
 #ifndef IREGISTRY_H
 #define IREGISTRY_H
 
+#include <memory>
 
 //! @class IRegistry
 //! @ingroup tools_internal
@@ -27,12 +28,9 @@ class IRegistry
 public:
     const ValueType* getItem(const std::string& key) const {
         auto it = m_data.find(key);
-        if(it == m_data.end()) {
-            std::ostringstream message;
-            message << "IRegistry::createItem() -> Error. Not existing item key "
-                    << "'" << key << "'";
-            throw Exceptions::UnknownClassRegistrationException(message.str());
-        }
+        if(it == m_data.end())
+            throw Exceptions::UnknownClassRegistrationException(
+                "IRegistry::createItem() -> Error. Not existing item key '" + key + "'");
         return it->second.get();
     }
 
@@ -45,12 +43,9 @@ public:
 
 protected:
     void add(const std::string& key, ValueType* item) {
-        if(m_data.find(key) != m_data.end()) {
-            std::ostringstream message;
-            message << "IRegistry::createItem() -> Error. Already existing item with key "
-                    << "'" << key << "'";
-            throw Exceptions::ExistingClassRegistrationException(message.str());
-        }
+        if(m_data.find(key) != m_data.end())
+            throw Exceptions::ExistingClassRegistrationException(
+                "IRegistry::createItem() -> Error. Already existing item with key '" + key + "'");
         m_data[key] = std::unique_ptr<ValueType>(item);
     }
 

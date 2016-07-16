@@ -32,9 +32,9 @@ class BA_CORE_API_ Simulation : public ICloneable, public IParameterized
 {
 public:
     Simulation();
-    Simulation(const ISample& p_sample);
+    Simulation(const class ISample& p_sample);
     Simulation(std::shared_ptr<class ISampleBuilder> p_sample_builder);
-    virtual ~Simulation() {}
+    virtual ~Simulation();
 
     virtual Simulation* clone() const=0;
 
@@ -48,10 +48,10 @@ public:
     void runOMPISimulation();
 
     //! Sets the sample to be tested
-    void setSample(const ISample& sample);
+    void setSample(const class ISample& sample);
 
     //! Returns the sample
-    ISample* getSample() const { return mP_sample.get(); }
+    class ISample* getSample() const { return mP_sample.get(); }
 
     //! Sets the sample builder
     void setSampleBuilder(std::shared_ptr<class ISampleBuilder> sample_builder);
@@ -130,7 +130,7 @@ protected:
     //! Returns the end iterator of simulation elements for the current batch
     std::vector<SimulationElement>::iterator getBatchEnd(int n_batches, int current_batch);
 
-    std::unique_ptr<ISample> mP_sample;
+    std::unique_ptr<class ISample> mP_sample;
     std::shared_ptr<class ISampleBuilder> mp_sample_builder;
     SimulationOptions m_options;
     DistributionHandler m_distribution_handler;

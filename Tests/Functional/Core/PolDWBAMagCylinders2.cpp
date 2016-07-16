@@ -1,3 +1,4 @@
+#include "GISASSimulation.h"
 #include "IntensityDataFunctions.h"
 #include "IntensityDataIOFactory.h"
 #include "SimulationFactory.h"

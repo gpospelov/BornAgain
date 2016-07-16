@@ -4648,7 +4648,7 @@ class ISampleBuilder(IParameterized):
         """
         getFormFactor(ISampleBuilder self) -> IFormFactor
 
-        const IFormFactor* ISampleBuilder::getFormFactor() const 
+        const IFormFactor * ISampleBuilder::getFormFactor() const 
 
         """
         return _libBornAgainCore.ISampleBuilder_getFormFactor(self)
@@ -4658,7 +4658,7 @@ class ISampleBuilder(IParameterized):
         """
         getFTDistribution2D(ISampleBuilder self) -> IFTDistribution2D
 
-        const IFTDistribution2D* ISampleBuilder::getFTDistribution2D() const 
+        const IFTDistribution2D * ISampleBuilder::getFTDistribution2D() const 
 
         """
         return _libBornAgainCore.ISampleBuilder_getFTDistribution2D(self)
@@ -12652,7 +12652,7 @@ class Simulation(ICloneable, IParameterized):
         """
         setSample(Simulation self, ISample sample)
 
-        void Simulation::setSample(const ISample &sample)
+        void Simulation::setSample(const class ISample &sample)
 
         Sets the sample to be tested.
 
@@ -12666,7 +12666,7 @@ class Simulation(ICloneable, IParameterized):
         """
         getSample(Simulation self) -> ISample
 
-        ISample* Simulation::getSample() const
+        class ISample* Simulation::getSample() const
 
         Returns the sample. 
 
@@ -17719,7 +17719,7 @@ class Layer(ICompositeSample):
         __init__(Layer self, IMaterial material, double thickness=0) -> Layer
         __init__(Layer self, IMaterial material) -> Layer
 
-        Layer::Layer(const IMaterial &material, double thickness=0)
+        Layer::Layer(const class IMaterial &material, double thickness=0)
 
         Constructs layer made of  material with  thickness in nanometers and decoration. 
 
@@ -17760,7 +17760,7 @@ class Layer(ICompositeSample):
         """
         accept(Layer self, ISampleVisitor visitor)
 
-        void Layer::accept(ISampleVisitor *visitor) const
+        void Layer::accept(class ISampleVisitor *visitor) const
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -17796,7 +17796,7 @@ class Layer(ICompositeSample):
         """
         setMaterial(Layer self, IMaterial material)
 
-        void Layer::setMaterial(const IMaterial &material)
+        void Layer::setMaterial(const class IMaterial &material)
 
         Sets  material of the layer. 
 
@@ -17808,7 +17808,7 @@ class Layer(ICompositeSample):
         """
         setMaterialAndThickness(Layer self, IMaterial material, double thickness)
 
-        void Layer::setMaterialAndThickness(const IMaterial &material, double thickness)
+        void Layer::setMaterialAndThickness(const class IMaterial &material, double thickness)
 
         Sets  material and  thickness. 
 
@@ -17820,7 +17820,7 @@ class Layer(ICompositeSample):
         """
         getMaterial(Layer self) -> IMaterial
 
-        virtual const IMaterial* Layer::getMaterial() const
+        virtual const class IMaterial* Layer::getMaterial() const
 
         Returns layer's material. 
 
@@ -17856,7 +17856,7 @@ class Layer(ICompositeSample):
         """
         addLayout(Layer self, ILayout decoration)
 
-        void Layer::addLayout(const ILayout &decoration)
+        void Layer::addLayout(const class ILayout &decoration)
 
         sets particle layout 
 
@@ -19384,7 +19384,7 @@ class IntensityFunctionLog(IIntensityFunction):
         """
         evaluate(IntensityFunctionLog self, double value) -> double
 
-        virtual double IntensityFunctionLog::evaluate(double value) const 
+        double IntensityFunctionLog::evaluate(double value) const 
 
         """
         return _libBornAgainCore.IntensityFunctionLog_evaluate(self, value)
@@ -19444,7 +19444,7 @@ class IntensityFunctionSqrt(IIntensityFunction):
         """
         evaluate(IntensityFunctionSqrt self, double value) -> double
 
-        virtual double IntensityFunctionSqrt::evaluate(double value) const 
+        double IntensityFunctionSqrt::evaluate(double value) const 
 
         """
         return _libBornAgainCore.IntensityFunctionSqrt_evaluate(self, value)

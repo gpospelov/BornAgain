@@ -13,10 +13,11 @@
 //
 // ************************************************************************** //
 
+#include "Simulation.h"
 #include "DWBASimulation.h"
 #include "MessageService.h"
 #include "OMPISimulation.h"
-#include "Simulation.h"
+#include "ISample.h"
 #include <thread>
 #include <gsl/gsl_errno.h>
 
@@ -25,6 +26,8 @@ Simulation::Simulation()
 {
     init_parameters();
 }
+
+Simulation::~Simulation() {} // forward class declaration prevents move to .h
 
 Simulation::Simulation(const ISample& p_sample)
     : IParameterized("Simulation")

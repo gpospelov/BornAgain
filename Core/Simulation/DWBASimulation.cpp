@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "DWBASimulation.h"
-
+#include "ISample.h"
 
 DWBASimulation::DWBASimulation()
     : mp_simulation(nullptr)

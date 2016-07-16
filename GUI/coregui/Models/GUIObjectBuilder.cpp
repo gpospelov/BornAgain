@@ -171,13 +171,11 @@ void GUIObjectBuilder::visit(const Layer* sample)
     SessionItem* parent = m_levelToParentItem[getLevel()-1];
     Q_ASSERT(parent);
 
-    const MultiLayer* multilayer =
-            dynamic_cast<const MultiLayer*>(m_itemToSample[parent]);
+    const MultiLayer* multilayer = dynamic_cast<const MultiLayer*>(m_itemToSample[parent]);
     Q_ASSERT(multilayer);
     int layer_index = multilayer->getIndexOfLayer(sample);
     Q_ASSERT(layer_index != -1);
-    const LayerInterface* interface =
-            multilayer->getLayerTopInterface(layer_index);
+    const LayerInterface* interface = multilayer->getLayerTopInterface(layer_index);
 
     SessionItem* layerItem = m_sampleModel->insertNewItem(
         Constants::LayerType, m_sampleModel->indexOfItem(parent));
@@ -191,8 +189,7 @@ void GUIObjectBuilder::visit(const Layer* sample)
 
 void GUIObjectBuilder::visit(const LayerInterface*)
 {
-    qDebug() << "GUIObjectBuilder::visit(const LayerInterface*)"  << getLevel();
-
+    qDebug() << "GUIObjectBuilder::visit(const LayerInterface*)" << getLevel();
 }
 
 void GUIObjectBuilder::visit(const MultiLayer* sample)

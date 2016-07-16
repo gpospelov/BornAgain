@@ -13,10 +13,10 @@
 //
 // ************************************************************************** //
 
+#include "GISASSimulation.h"
 #include "BornAgainNamespace.h"
 #include "Histogram2D.h"
-#include "GISASSimulation.h"
-
+#include "ISample.h"
 
 GISASSimulation::GISASSimulation()
 {

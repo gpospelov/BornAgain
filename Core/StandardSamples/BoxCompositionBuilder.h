@@ -30,7 +30,7 @@ public:
     virtual ~BoxCompositionBuilder();
 
 protected:
-    class MultiLayer* createMultiLayer(const ParticleComposition &composition) const;
+    class MultiLayer* createMultiLayer(const class ParticleComposition& composition) const;
     const class HomogeneousMaterial* m_particleMaterial;
     const double m_layer_thickness;
     const double m_length;

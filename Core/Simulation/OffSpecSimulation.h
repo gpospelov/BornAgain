@@ -49,7 +49,7 @@ public:
         (void) units_type; return m_intensity_map.clone(); }
 
     //! Returns clone of the detector intensity map in the form of 2D histogram.
-    Histogram2D* getIntensityData() const;
+    class Histogram2D* getIntensityData() const;
 
     //! Sets the instrument containing beam and detector information
     void setInstrument(const Instrument& instrument);

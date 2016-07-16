@@ -13,6 +13,7 @@
 //
 // ************************************************************************** //
 
+#include "StandardSimulations.h"
 #include "BornAgainNamespace.h"
 #include "Distributions.h"
 #include "Ellipse.h"
@@ -24,7 +25,7 @@
 #include "RectangularDetector.h"
 #include "ResolutionFunction2DGaussian.h"
 #include "SampleBuilderFactory.h"
-#include "StandardSimulations.h"
+#include "Units.h"
 
 using namespace BornAgain;
 

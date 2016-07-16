@@ -16,6 +16,7 @@
 #ifndef MESOCRYSTALBUILDER_H
 #define MESOCRYSTALBUILDER_H
 
+#include "Complex.h"
 #include "ISampleBuilder.h"
 
 //! @class MesoCrystalBuilder

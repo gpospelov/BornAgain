@@ -13,9 +13,10 @@
 //
 // ************************************************************************** //
 
+#include "OffSpecSimulation.h"
 #include "BornAgainNamespace.h"
 #include "Histogram2D.h"
-#include "OffSpecSimulation.h"
+#include "ISample.h"
 
 OffSpecSimulation::OffSpecSimulation()
     : mp_alpha_i_axis(0)

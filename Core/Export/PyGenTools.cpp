@@ -26,6 +26,7 @@
 #include "Polygon.h"
 #include "PyGenVisitor.h"
 #include "Rectangle.h"
+#include "Units.h"
 #include <iomanip>
 GCC_DIAG_OFF(missing-field-initializers)
 GCC_DIAG_OFF(unused-parameter)

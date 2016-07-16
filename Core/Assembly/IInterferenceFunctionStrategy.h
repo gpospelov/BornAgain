@@ -16,8 +16,12 @@
 #ifndef IINTERFERENCEFUNCTIONSTRATEGY_H
 #define IINTERFERENCEFUNCTIONSTRATEGY_H
 
-#include "IFormFactor.h"
-#include "LayerStrategyBuilder.h"
+#include "Bin.h"
+#include "Complex.h"
+#include "IFormFactorInfo.h"
+#include "SafePointerVector.h"
+#include "SimulationOptions.h"
+#include "Vectors3D.h"
 #include <Eigen/StdVector>
 #include <vector>
 #include <memory>

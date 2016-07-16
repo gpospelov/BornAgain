@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Samples/LayerStrategyBuilder.h
-//! @brief     Declares classes LayerStrategyBuilder, FormFactorInfo.
+//! @brief     Declares class LayerStrategyBuilder.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -63,23 +63,6 @@ private:
 
     //! Interference function
     std::unique_ptr<class IInterferenceFunction> mP_interference_function;
-};
-
-//! @class FormFactorInfo
-//! @ingroup formfactors_internal
-//! @brief The %FormFactorInfo holds information about particle position and abundance
-
-class BA_CORE_API_ FormFactorInfo : public ICloneable
-{
-public:
-    FormFactorInfo()
-        : mp_ff(0), m_pos_x(0.0), m_pos_y(0.0), m_abundance(0.0) {}
-    virtual ~FormFactorInfo();
-    /* out-of-place implementation required due to IFormFactor */
-    virtual FormFactorInfo *clone() const;
-    IFormFactor *mp_ff;
-    double m_pos_x, m_pos_y;
-    double m_abundance;
 };
 
 #endif // LAYERSTRATEGYBUILDER_H

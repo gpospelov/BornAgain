@@ -14,7 +14,9 @@
 //
 // ************************************************************************** //
 
+#include "LayerStrategyBuilder.h"
 #include "FormFactorTools.h"
+#include "IFormFactor.h"
 #include "InterferenceFunctionStrategies.h"
 #include "InterferenceFunctions.h"
 #include "IParticle.h"
@@ -52,15 +54,13 @@ IInterferenceFunctionStrategy* LayerStrategyBuilder::createStrategy()
         break;
     case ILayout::SSCA:
     {
-        if (!mP_interference_function) {
+        if (!mP_interference_function)
             throw Exceptions::ClassInitializationException(
                     "SSCA requires an interference function");
-        }
         double kappa = mP_interference_function->getKappa();
-        if (kappa<=0.0) {
+        if (kappa<=0.0)
             throw Exceptions::ClassInitializationException(
                     "SSCA requires a strictly positive coupling value");
-        }
         p_result = new SizeSpacingCorrelationApproximationStrategy(m_sim_params, kappa);
         break;
     }
@@ -88,7 +88,8 @@ void LayerStrategyBuilder::collectFormFactorInfos()
     const ILayout* p_layout = mP_layer->getLayout(m_layout_index);
     const IMaterial* p_layer_material = mP_layer->getMaterial();
     double total_abundance = mP_layer->getTotalAbundance();
-    if (total_abundance<=0.0) total_abundance = 1.0;
+    if (total_abundance<=0.0)
+        total_abundance = 1.0;
     SafePointerVector<const IParticle> iparticles = p_layout->getParticles();
     size_t number_of_particles = iparticles.size();
     for (size_t i = 0; i<number_of_particles; ++i) {
@@ -123,12 +124,10 @@ FormFactorInfo* LayerStrategyBuilder::createFormFactorInfo(
     IFormFactor* p_ff_framework;
     size_t n_layers = mP_layer->getNumberOfLayers();
     if (n_layers>1) {
-        if (requiresMatrixFFs()) {
+        if (requiresMatrixFFs())
             p_ff_framework = FormFactorTools::createDWBAMatrixFormFactor(*P_ff_particle);
-        }
-        else {
+        else
             p_ff_framework = FormFactorTools::createDWBAScalarFormFactor(*P_ff_particle);
-        }
     } else {
         p_ff_framework = P_ff_particle->clone();
     }

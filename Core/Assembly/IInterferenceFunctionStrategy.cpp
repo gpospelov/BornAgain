@@ -13,6 +13,7 @@
 //
 // ************************************************************************** //
 
+#include "IFormFactor.h"
 #include "IInterferenceFunctionStrategy.h"
 #include "IInterferenceFunction.h"
 #include "IntegratorMCMiser.h"
@@ -20,6 +21,8 @@
 #include "ScalarRTCoefficients.h"
 #include "SimulationElement.h"
 #include "Layer.h"
+#include "Units.h"
+#include "WavevectorInfo.h"
 
 IInterferenceFunctionStrategy::IInterferenceFunctionStrategy(SimulationOptions sim_params)
     : mP_iff { nullptr }

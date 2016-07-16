@@ -15,6 +15,7 @@
 
 #include "DecoratedLayerDWBASimulation.h"
 #include "Layer.h"
+#include "LayerStrategyBuilder.h"
 #include "MessageService.h"
 #include "IInterferenceFunctionStrategy.h"
 

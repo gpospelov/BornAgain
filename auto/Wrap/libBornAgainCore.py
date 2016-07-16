@@ -14127,7 +14127,7 @@ class IMaterial(INamed):
         """
         createTransformedMaterial(IMaterial self, IRotation rotation) -> IMaterial
 
-        const IMaterial * IMaterial::createTransformedMaterial(const IRotation &rotation) const
+        const IMaterial * IMaterial::createTransformedMaterial(const class IRotation &rotation) const
 
         Create a new material that is transformed with respect to this one. 
 
@@ -17784,7 +17784,7 @@ class Layer(ICompositeSample):
         """
         getThickness(Layer self) -> double
 
-        double Layer::getThickness() const
+        virtual double Layer::getThickness() const
 
         Returns layer thickness in nanometers. 
 
@@ -17820,7 +17820,7 @@ class Layer(ICompositeSample):
         """
         getMaterial(Layer self) -> IMaterial
 
-        const IMaterial * Layer::getMaterial() const
+        virtual const IMaterial* Layer::getMaterial() const
 
         Returns layer's material. 
 
@@ -17892,7 +17892,7 @@ class Layer(ICompositeSample):
         """
         hasDWBASimulation(Layer self) -> bool
 
-        bool Layer::hasDWBASimulation() const
+        virtual bool Layer::hasDWBASimulation() const
 
         Returns true if decoration is present. 
 
@@ -20774,7 +20774,7 @@ class ParticleCoreShell(IParticle):
         __init__(ParticleCoreShell self, Particle shell, Particle core, kvector_t relative_core_position) -> ParticleCoreShell
         __init__(ParticleCoreShell self, Particle shell, Particle core) -> ParticleCoreShell
 
-        ParticleCoreShell::ParticleCoreShell(const Particle &shell, const Particle &core, kvector_t relative_core_position=kvector_t(0.0, 0.0, 0.0))
+        ParticleCoreShell::ParticleCoreShell(const class Particle &shell, const class Particle &core, kvector_t relative_core_position=kvector_t(0.0, 0.0, 0.0))
 
         """
         this = _libBornAgainCore.new_ParticleCoreShell(*args)
@@ -21133,7 +21133,7 @@ class ParticleLayout(ILayout):
         """
         getNumberOfParticles(ParticleLayout self) -> size_t
 
-        size_t ParticleLayout::getNumberOfParticles() const
+        virtual size_t ParticleLayout::getNumberOfParticles() const
 
         Returns number of particles. 
 
@@ -21195,7 +21195,7 @@ class ParticleLayout(ILayout):
         """
         addInterferenceFunction(ParticleLayout self, IInterferenceFunction interference_function)
 
-        void ParticleLayout::addInterferenceFunction(const IInterferenceFunction &interference_function)
+        void ParticleLayout::addInterferenceFunction(const class IInterferenceFunction &interference_function)
 
         Sets interference function.
 
@@ -21221,7 +21221,7 @@ class ParticleLayout(ILayout):
         """
         setTotalParticleSurfaceDensity(ParticleLayout self, double particle_density)
 
-        void ParticleLayout::setTotalParticleSurfaceDensity(double particle_density)
+        virtual void ParticleLayout::setTotalParticleSurfaceDensity(double particle_density)
 
         Sets surface density of all particles. 
 

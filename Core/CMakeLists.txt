@@ -17,9 +17,11 @@ set(include_dirs
     ${CMAKE_CURRENT_SOURCE_DIR}/Export
     ${CMAKE_CURRENT_SOURCE_DIR}/InputOutput
     ${CMAKE_CURRENT_SOURCE_DIR}/HardParticles
+    ${CMAKE_CURRENT_SOURCE_DIR}/Lattice
     ${CMAKE_CURRENT_SOURCE_DIR}/Material
     ${CMAKE_CURRENT_SOURCE_DIR}/Parametrization
     ${CMAKE_CURRENT_SOURCE_DIR}/Particles
+    ${CMAKE_CURRENT_SOURCE_DIR}/Rotation
     ${CMAKE_CURRENT_SOURCE_DIR}/Sample
     ${CMAKE_CURRENT_SOURCE_DIR}/Simulation
     ${CMAKE_CURRENT_SOURCE_DIR}/SoftParticles

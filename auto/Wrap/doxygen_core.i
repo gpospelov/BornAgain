@@ -549,21 +549,21 @@ C++ includes: BoxCompositionBuilder.h
 ";
 
 
-// File: structIntegratorMCMiser_1_1CallBackHolder.xml
-%feature("docstring") IntegratorMCMiser::CallBackHolder "
-
-structure holding the object and possible extra parameters
-
-C++ includes: IntegratorMCMiser.h
-";
-
-
 // File: structIntegratorReal_1_1CallBackHolder.xml
 %feature("docstring") IntegratorReal::CallBackHolder "
 
 structure holding the object and possible extra parameters
 
 C++ includes: IntegratorReal.h
+";
+
+
+// File: structIntegratorMCMiser_1_1CallBackHolder.xml
+%feature("docstring") IntegratorMCMiser::CallBackHolder "
+
+structure holding the object and possible extra parameters
+
+C++ includes: IntegratorMCMiser.h
 ";
 
 
@@ -1073,8 +1073,6 @@ C++ includes: DecouplingApproximationStrategy.h
 ";
 
 %feature("docstring")  DecouplingApproximationStrategy::init "void DecouplingApproximationStrategy::init(const SafePointerVector< FormFactorInfo > &form_factor_infos, const IInterferenceFunction &iff)
-
-Initializes the object with form factors and interference functions. 
 ";
 
 
@@ -6196,12 +6194,12 @@ C++ includes: IInterferenceFunctionStrategy.h
 %feature("docstring")  IInterferenceFunctionStrategy::~IInterferenceFunctionStrategy "IInterferenceFunctionStrategy::~IInterferenceFunctionStrategy()
 ";
 
-%feature("docstring")  IInterferenceFunctionStrategy::init "void IInterferenceFunctionStrategy::init(const SafePointerVector< FormFactorInfo > &form_factor_infos, const IInterferenceFunction &iff)
+%feature("docstring")  IInterferenceFunctionStrategy::init "void IInterferenceFunctionStrategy::init(const SafePointerVector< FormFactorInfo > &form_factor_infos, const class IInterferenceFunction &iff)
 
 Initializes the object with form factors and interference functions. 
 ";
 
-%feature("docstring")  IInterferenceFunctionStrategy::setSpecularInfo "void IInterferenceFunctionStrategy::setSpecularInfo(const LayerSpecularInfo &specular_info)
+%feature("docstring")  IInterferenceFunctionStrategy::setSpecularInfo "void IInterferenceFunctionStrategy::setSpecularInfo(const class LayerSpecularInfo &specular_info)
 
 Provides the R,T coefficients information. 
 ";
@@ -6397,7 +6395,7 @@ Get the effective scattering matrix from the refractive index and a given waveve
 Get the scattering matrix (~potential V) from the material. This matrix appears in the full three-dimensional Schroedinger equation. 
 ";
 
-%feature("docstring")  IMaterial::createTransformedMaterial "const IMaterial * IMaterial::createTransformedMaterial(const IRotation &rotation) const
+%feature("docstring")  IMaterial::createTransformedMaterial "const IMaterial * IMaterial::createTransformedMaterial(const class IRotation &rotation) const
 
 Create a new material that is transformed with respect to this one. 
 ";
@@ -8158,7 +8156,7 @@ Calls the  ISampleVisitor's visit method.
 Sets layer thickness in nanometers. 
 ";
 
-%feature("docstring")  Layer::getThickness "double Layer::getThickness() const
+%feature("docstring")  Layer::getThickness "virtual double Layer::getThickness() const
 
 Returns layer thickness in nanometers. 
 ";
@@ -8173,7 +8171,7 @@ Sets  material of the layer.
 Sets  material and  thickness. 
 ";
 
-%feature("docstring")  Layer::getMaterial "const IMaterial * Layer::getMaterial() const
+%feature("docstring")  Layer::getMaterial "virtual const IMaterial* Layer::getMaterial() const
 
 Returns layer's material. 
 ";
@@ -8203,7 +8201,7 @@ gets number of layouts present
 returns particle decoration 
 ";
 
-%feature("docstring")  Layer::hasDWBASimulation "bool Layer::hasDWBASimulation() const
+%feature("docstring")  Layer::hasDWBASimulation "virtual bool Layer::hasDWBASimulation() const
 
 Returns true if decoration is present. 
 ";
@@ -8416,13 +8414,13 @@ Methods to generate a simulation strategy for decorated  Layer SimulationParamet
 C++ includes: LayerStrategyBuilder.h
 ";
 
-%feature("docstring")  LayerStrategyBuilder::LayerStrategyBuilder "LayerStrategyBuilder::LayerStrategyBuilder(const Layer &decorated_layer, const Simulation &simulation, const SimulationOptions &sim_params, size_t layout_index)
+%feature("docstring")  LayerStrategyBuilder::LayerStrategyBuilder "LayerStrategyBuilder::LayerStrategyBuilder(const class Layer &decorated_layer, const class Simulation &simulation, const SimulationOptions &sim_params, size_t layout_index)
 ";
 
 %feature("docstring")  LayerStrategyBuilder::~LayerStrategyBuilder "LayerStrategyBuilder::~LayerStrategyBuilder()
 ";
 
-%feature("docstring")  LayerStrategyBuilder::setRTInfo "void LayerStrategyBuilder::setRTInfo(const LayerSpecularInfo &specular_info)
+%feature("docstring")  LayerStrategyBuilder::setRTInfo "void LayerStrategyBuilder::setRTInfo(const class LayerSpecularInfo &specular_info)
 
 Sets reflection/transmission map for DWBA calculation. 
 ";
@@ -10110,7 +10108,7 @@ A particle with a core/shell geometry.
 C++ includes: ParticleCoreShell.h
 ";
 
-%feature("docstring")  ParticleCoreShell::ParticleCoreShell "ParticleCoreShell::ParticleCoreShell(const Particle &shell, const Particle &core, kvector_t relative_core_position=kvector_t(0.0, 0.0, 0.0))
+%feature("docstring")  ParticleCoreShell::ParticleCoreShell "ParticleCoreShell::ParticleCoreShell(const class Particle &shell, const class Particle &core, kvector_t relative_core_position=kvector_t(0.0, 0.0, 0.0))
 ";
 
 %feature("docstring")  ParticleCoreShell::~ParticleCoreShell "ParticleCoreShell::~ParticleCoreShell()
@@ -10323,7 +10321,7 @@ rotation:
  Particle rotation 
 ";
 
-%feature("docstring")  ParticleLayout::getNumberOfParticles "size_t ParticleLayout::getNumberOfParticles() const
+%feature("docstring")  ParticleLayout::getNumberOfParticles "virtual size_t ParticleLayout::getNumberOfParticles() const
 
 Returns number of particles. 
 ";
@@ -10350,7 +10348,7 @@ Get abundance fraction of particle with index.
 Returns interference functions. 
 ";
 
-%feature("docstring")  ParticleLayout::addInterferenceFunction "void ParticleLayout::addInterferenceFunction(const IInterferenceFunction &interference_function)
+%feature("docstring")  ParticleLayout::addInterferenceFunction "void ParticleLayout::addInterferenceFunction(const class IInterferenceFunction &interference_function)
 
 Sets interference function.
 
@@ -10362,7 +10360,7 @@ Adds interference functions.
 Returns surface density of all particles. 
 ";
 
-%feature("docstring")  ParticleLayout::setTotalParticleSurfaceDensity "void ParticleLayout::setTotalParticleSurfaceDensity(double particle_density)
+%feature("docstring")  ParticleLayout::setTotalParticleSurfaceDensity "virtual void ParticleLayout::setTotalParticleSurfaceDensity(double particle_density)
 
 Sets surface density of all particles. 
 ";
@@ -12033,7 +12031,7 @@ Implementation of  ISpecularInfoMap for scalar valued reflection/ transmission c
 C++ includes: ScalarSpecularInfoMap.h
 ";
 
-%feature("docstring")  ScalarSpecularInfoMap::ScalarSpecularInfoMap "ScalarSpecularInfoMap::ScalarSpecularInfoMap(const MultiLayer *multilayer, int layer)
+%feature("docstring")  ScalarSpecularInfoMap::ScalarSpecularInfoMap "ScalarSpecularInfoMap::ScalarSpecularInfoMap(const class MultiLayer *multilayer, int layer)
 ";
 
 %feature("docstring")  ScalarSpecularInfoMap::~ScalarSpecularInfoMap "virtual ScalarSpecularInfoMap::~ScalarSpecularInfoMap()
@@ -12042,12 +12040,12 @@ C++ includes: ScalarSpecularInfoMap.h
 %feature("docstring")  ScalarSpecularInfoMap::clone "ScalarSpecularInfoMap * ScalarSpecularInfoMap::clone() const 
 ";
 
-%feature("docstring")  ScalarSpecularInfoMap::getOutCoefficients "const ScalarRTCoefficients * ScalarSpecularInfoMap::getOutCoefficients(double alpha_f, double phi_f, double wavelength) const
+%feature("docstring")  ScalarSpecularInfoMap::getOutCoefficients "const ILayerRTCoefficients * ScalarSpecularInfoMap::getOutCoefficients(double alpha_f, double phi_f, double wavelength) const
 
 Retrieves the amplitude coefficients for the given angles. 
 ";
 
-%feature("docstring")  ScalarSpecularInfoMap::getInCoefficients "const ScalarRTCoefficients * ScalarSpecularInfoMap::getInCoefficients(double alpha_i, double phi_i, double wavelength) const
+%feature("docstring")  ScalarSpecularInfoMap::getInCoefficients "const ILayerRTCoefficients * ScalarSpecularInfoMap::getInCoefficients(double alpha_i, double phi_i, double wavelength) const
 
 Retrieves the amplitude coefficients for the given angles. 
 ";
@@ -12420,8 +12418,6 @@ C++ includes: SizeSpacingCorrelationApproximationStrategy.h
 ";
 
 %feature("docstring")  SizeSpacingCorrelationApproximationStrategy::init "void SizeSpacingCorrelationApproximationStrategy::init(const SafePointerVector< FormFactorInfo > &form_factor_infos, const IInterferenceFunction &iff)
-
-Initializes the object with form factors and interference functions. 
 ";
 
 
@@ -13135,16 +13131,16 @@ C++ includes: WavevectorInfo.h
 // File: classMathFunctions_1_1Convolve_1_1Workspace.xml
 
 
-// File: namespace_0D234.xml
+// File: namespace_0D334.xml
 
 
-// File: namespace_0D336.xml
+// File: namespace_0D403.xml
 
 
-// File: namespace_0D405.xml
+// File: namespace_0D417.xml
 
 
-// File: namespace_0D419.xml
+// File: namespace_0D63.xml
 
 
 // File: namespaceboost_1_1geometry.xml
@@ -13465,10 +13461,10 @@ Parse double values from string to vector of double.
 
 
 // File: namespacePyGenTools.xml
-%feature("docstring")  PyGenTools::genPyScript "std::string PyGenTools::genPyScript(class GISASSimulation *simulation, const std::string &output_filename)
+%feature("docstring")  PyGenTools::genPyScript "std::string PyGenTools::genPyScript(GISASSimulation *simulation, const std::string &output_filename)
 ";
 
-%feature("docstring")  PyGenTools::getRepresentation "std::string PyGenTools::getRepresentation(const class IDistribution1D *distribution)
+%feature("docstring")  PyGenTools::getRepresentation "BA_CORE_API_ std::string PyGenTools::getRepresentation(const IDistribution1D *distribution)
 ";
 
 %feature("docstring")  PyGenTools::getRepresentation "BA_CORE_API_ std::string PyGenTools::getRepresentation(const std::string &indent, const Geometry::IShape2D *ishape, bool mask_value)
@@ -13595,6 +13591,205 @@ enables exception throw in the case of NaN, Inf
 
 
 // File: IIntensityFunction_8cpp.xml
+
+
+// File: DecouplingApproximationStrategy_8cpp.xml
+
+
+// File: DecouplingApproximationStrategy_8h.xml
+
+
+// File: FormFactorDWBA_8cpp.xml
+
+
+// File: FormFactorDWBA_8h.xml
+
+
+// File: FormFactorDWBAPol_8cpp.xml
+
+
+// File: FormFactorDWBAPol_8h.xml
+
+
+// File: FormFactorTools_8cpp.xml
+
+
+// File: FormFactorTools_8h.xml
+
+
+// File: FTDecayFunctions_8cpp.xml
+
+
+// File: FTDecayFunctions_8h.xml
+
+
+// File: FTDistributions_8cpp.xml
+
+
+// File: FTDistributions_8h.xml
+
+
+// File: IFormFactor_8h.xml
+
+
+// File: IFormFactorBorn_8cpp.xml
+
+
+// File: IFormFactorBorn_8h.xml
+
+
+// File: IInterferenceFunction_8h.xml
+
+
+// File: IInterferenceFunctionStrategy_8cpp.xml
+
+
+// File: IInterferenceFunctionStrategy_8h.xml
+
+
+// File: ILayerRTCoefficients_8h.xml
+
+
+// File: ILayout_8h.xml
+
+
+// File: InterferenceFunction1DLattice_8cpp.xml
+
+
+// File: InterferenceFunction1DLattice_8h.xml
+
+
+// File: InterferenceFunction2DLattice_8cpp.xml
+
+
+// File: InterferenceFunction2DLattice_8h.xml
+
+
+// File: InterferenceFunction2DParaCrystal_8cpp.xml
+
+
+// File: InterferenceFunction2DParaCrystal_8h.xml
+
+
+// File: InterferenceFunctionNone_8cpp.xml
+
+
+// File: InterferenceFunctionNone_8h.xml
+
+
+// File: InterferenceFunctionRadialParaCrystal_8cpp.xml
+
+
+// File: InterferenceFunctionRadialParaCrystal_8h.xml
+
+
+// File: InterferenceFunctions_8h.xml
+
+
+// File: InterferenceFunctionStrategies_8h.xml
+
+
+// File: IRoughness_8h.xml
+
+
+// File: ISampleBuilder_8h.xml
+
+
+// File: ISpecularInfoMap_8h.xml
+
+
+// File: Layer_8cpp.xml
+
+
+// File: Layer_8h.xml
+
+
+// File: LayerInterface_8cpp.xml
+
+
+// File: LayerInterface_8h.xml
+
+
+// File: LayerRoughness_8cpp.xml
+
+
+// File: LayerRoughness_8h.xml
+
+
+// File: LayerSpecularInfo_8cpp.xml
+
+
+// File: LayerSpecularInfo_8h.xml
+
+
+// File: LayerStrategyBuilder_8cpp.xml
+
+
+// File: LayerStrategyBuilder_8h.xml
+
+
+// File: MatrixRTCoefficients_8cpp.xml
+
+
+// File: MatrixRTCoefficients_8h.xml
+
+
+// File: MatrixSpecularInfoMap_8cpp.xml
+
+
+// File: MatrixSpecularInfoMap_8h.xml
+
+
+// File: MultiLayer_8cpp.xml
+
+
+// File: MultiLayer_8h.xml
+
+
+// File: ParticleDistribution_8cpp.xml
+
+
+// File: ParticleDistribution_8h.xml
+
+
+// File: ParticleLayout_8cpp.xml
+
+
+// File: ParticleLayout_8h.xml
+
+
+// File: ScalarRTCoefficients_8h.xml
+
+
+// File: ScalarSpecularInfoMap_8cpp.xml
+
+
+// File: ScalarSpecularInfoMap_8h.xml
+
+
+// File: SizeSpacingCorrelationApproximationStrategy_8cpp.xml
+
+
+// File: SizeSpacingCorrelationApproximationStrategy_8h.xml
+
+
+// File: SpecularMagnetic_8cpp.xml
+%feature("docstring")  I "static complex_t I(0., 1.)
+";
+
+
+// File: SpecularMagnetic_8h.xml
+
+
+// File: SpecularMatrix_8cpp.xml
+%feature("docstring")  setZeroBelow "void setZeroBelow(SpecularMatrix::MultiLayerCoeff_t &coeff, size_t current_layer)
+";
+
+%feature("docstring")  calculateUpFromLayer "bool calculateUpFromLayer(SpecularMatrix::MultiLayerCoeff_t &coeff, const MultiLayer &sample, const kvector_t k, size_t layer_index)
+";
+
+
+// File: SpecularMatrix_8h.xml
 
 
 // File: BornAgainNamespace_8h.xml
@@ -13944,66 +14139,6 @@ Set all element intensities to given value.
 // File: SampleLabelHandler_8h.xml
 
 
-// File: FormFactorCrystal_8cpp.xml
-
-
-// File: FormFactorCrystal_8h.xml
-
-
-// File: FormFactorDecoratorDebyeWaller_8cpp.xml
-
-
-// File: FormFactorDecoratorDebyeWaller_8h.xml
-
-
-// File: FormFactorDecoratorFactor_8h.xml
-
-
-// File: FormFactorDecoratorMaterial_8cpp.xml
-
-
-// File: FormFactorDecoratorMaterial_8h.xml
-
-
-// File: FormFactorDecoratorMultiPositionFactor_8cpp.xml
-
-
-// File: FormFactorDecoratorMultiPositionFactor_8h.xml
-
-
-// File: FormFactorDecoratorPositionFactor_8h.xml
-
-
-// File: FormFactorDecoratorRotation_8cpp.xml
-
-
-// File: FormFactorDecoratorRotation_8h.xml
-
-
-// File: FormFactors_8h.xml
-
-
-// File: FormFactorWeighted_8cpp.xml
-
-
-// File: FormFactorWeighted_8h.xml
-
-
-// File: IFormFactor_8h.xml
-
-
-// File: IFormFactorBorn_8cpp.xml
-
-
-// File: IFormFactorBorn_8h.xml
-
-
-// File: IFormFactorDecorator_8h.xml
-
-
-// File: WavevectorInfo_8h.xml
-
-
 // File: FormFactorAnisoPyramid_8cpp.xml
 
 
@@ -14258,6 +14393,44 @@ The mathematics implemented here is described in full detail in a paper by Joach
 // File: TiffHandler_8h.xml
 
 
+// File: ISelectionRule_8h.xml
+
+
+// File: Lattice_8cpp.xml
+
+
+// File: Lattice_8h.xml
+
+
+// File: Lattice1DParameters_8h.xml
+
+
+// File: Lattice2DParameters_8h.xml
+%feature("docstring")  getUnitCellArea "double getUnitCellArea(const Lattice2DParameters &lattice_params)
+";
+
+
+// File: HomogeneousMagneticMaterial_8cpp.xml
+
+
+// File: HomogeneousMagneticMaterial_8h.xml
+
+
+// File: HomogeneousMaterial_8h.xml
+
+
+// File: IMaterial_8cpp.xml
+
+
+// File: IMaterial_8h.xml
+
+
+// File: Materials_8cpp.xml
+
+
+// File: Materials_8h.xml
+
+
 // File: Distributions_8cpp.xml
 
 
@@ -14291,170 +14464,61 @@ The mathematics implemented here is described in full detail in a paper by Joach
 // File: RealParameterWrapper_8h.xml
 
 
-// File: FormFactorDWBA_8cpp.xml
-
-
-// File: FormFactorDWBA_8h.xml
-
-
-// File: FormFactorDWBAPol_8cpp.xml
-
-
-// File: FormFactorDWBAPol_8h.xml
-
-
-// File: FormFactorTools_8cpp.xml
-
-
-// File: FormFactorTools_8h.xml
-
-
-// File: ILayerRTCoefficients_8h.xml
-
-
-// File: ISpecularInfoMap_8h.xml
-
-
-// File: LayerSpecularInfo_8cpp.xml
-
-
-// File: LayerSpecularInfo_8h.xml
-
-
-// File: MatrixRTCoefficients_8cpp.xml
-
-
-// File: MatrixRTCoefficients_8h.xml
-
-
-// File: MatrixSpecularInfoMap_8cpp.xml
-
-
-// File: MatrixSpecularInfoMap_8h.xml
-
-
-// File: ScalarRTCoefficients_8h.xml
-
-
-// File: ScalarSpecularInfoMap_8cpp.xml
-
-
-// File: ScalarSpecularInfoMap_8h.xml
-
-
-// File: SpecularMagnetic_8cpp.xml
-%feature("docstring")  I "static complex_t I(0., 1.)
-";
-
-
-// File: SpecularMagnetic_8h.xml
-
-
-// File: SpecularMatrix_8cpp.xml
-%feature("docstring")  setZeroBelow "void setZeroBelow(SpecularMatrix::MultiLayerCoeff_t &coeff, size_t current_layer)
-";
-
-%feature("docstring")  calculateUpFromLayer "bool calculateUpFromLayer(SpecularMatrix::MultiLayerCoeff_t &coeff, const MultiLayer &sample, const kvector_t k, size_t layer_index)
-";
-
-
-// File: SpecularMatrix_8h.xml
-
-
 // File: Crystal_8cpp.xml
 
 
 // File: Crystal_8h.xml
 
 
-// File: DecouplingApproximationStrategy_8cpp.xml
+// File: FormFactorCrystal_8cpp.xml
 
 
-// File: DecouplingApproximationStrategy_8h.xml
+// File: FormFactorCrystal_8h.xml
 
 
-// File: FTDecayFunctions_8cpp.xml
+// File: FormFactorDecoratorDebyeWaller_8cpp.xml
 
 
-// File: FTDecayFunctions_8h.xml
+// File: FormFactorDecoratorDebyeWaller_8h.xml
 
 
-// File: FTDistributions_8cpp.xml
+// File: FormFactorDecoratorFactor_8h.xml
 
 
-// File: FTDistributions_8h.xml
+// File: FormFactorDecoratorMaterial_8cpp.xml
 
 
-// File: HomogeneousMagneticMaterial_8cpp.xml
+// File: FormFactorDecoratorMaterial_8h.xml
 
 
-// File: HomogeneousMagneticMaterial_8h.xml
+// File: FormFactorDecoratorMultiPositionFactor_8cpp.xml
 
 
-// File: HomogeneousMaterial_8h.xml
+// File: FormFactorDecoratorMultiPositionFactor_8h.xml
+
+
+// File: FormFactorDecoratorPositionFactor_8h.xml
+
+
+// File: FormFactorDecoratorRotation_8cpp.xml
+
+
+// File: FormFactorDecoratorRotation_8h.xml
+
+
+// File: FormFactors_8h.xml
+
+
+// File: FormFactorWeighted_8cpp.xml
+
+
+// File: FormFactorWeighted_8h.xml
 
 
 // File: IClusteredParticles_8h.xml
 
 
-// File: ICompositeSample_8cpp.xml
-
-
-// File: ICompositeSample_8h.xml
-
-
-// File: IInterferenceFunction_8h.xml
-
-
-// File: IInterferenceFunctionStrategy_8cpp.xml
-
-
-// File: IInterferenceFunctionStrategy_8h.xml
-
-
-// File: ILayout_8h.xml
-
-
-// File: IMaterial_8cpp.xml
-
-
-// File: IMaterial_8h.xml
-
-
-// File: InterferenceFunction1DLattice_8cpp.xml
-
-
-// File: InterferenceFunction1DLattice_8h.xml
-
-
-// File: InterferenceFunction2DLattice_8cpp.xml
-
-
-// File: InterferenceFunction2DLattice_8h.xml
-
-
-// File: InterferenceFunction2DParaCrystal_8cpp.xml
-
-
-// File: InterferenceFunction2DParaCrystal_8h.xml
-
-
-// File: InterferenceFunctionNone_8cpp.xml
-
-
-// File: InterferenceFunctionNone_8h.xml
-
-
-// File: InterferenceFunctionRadialParaCrystal_8cpp.xml
-
-
-// File: InterferenceFunctionRadialParaCrystal_8h.xml
-
-
-// File: InterferenceFunctions_8h.xml
-
-
-// File: InterferenceFunctionStrategies_8h.xml
+// File: IFormFactorDecorator_8h.xml
 
 
 // File: IParticle_8cpp.xml
@@ -14463,16 +14527,57 @@ The mathematics implemented here is described in full detail in a paper by Joach
 // File: IParticle_8h.xml
 
 
-// File: IRoughness_8h.xml
+// File: MesoCrystal_8cpp.xml
+
+
+// File: MesoCrystal_8h.xml
+
+
+// File: Particle_8cpp.xml
+
+
+// File: Particle_8h.xml
+
+
+// File: ParticleComposition_8cpp.xml
+
+
+// File: ParticleComposition_8h.xml
+
+
+// File: ParticleCoreShell_8cpp.xml
+
+
+// File: ParticleCoreShell_8h.xml
+
+
+// File: TRange_8h.xml
+
+
+// File: Rotations_8cpp.xml
+%feature("docstring")  CreateProduct "IRotation* CreateProduct(const IRotation &left, const IRotation &right)
+
+Returns concatenated rotation (first right, then left). 
+";
+
+
+// File: Rotations_8h.xml
+%feature("docstring")  CreateProduct "BA_CORE_API_ IRotation* CreateProduct(const IRotation &left, const IRotation &right)
+
+Returns concatenated rotation (first right, then left). 
+";
+
+
+// File: ICompositeSample_8cpp.xml
+
+
+// File: ICompositeSample_8h.xml
 
 
 // File: ISample_8cpp.xml
 
 
 // File: ISample_8h.xml
-
-
-// File: ISampleBuilder_8h.xml
 
 
 // File: ISampleIteratorStrategy_8cpp.xml
@@ -14497,109 +14602,6 @@ The mathematics implemented here is described in full detail in a paper by Joach
 ";
 
 
-// File: ISelectionRule_8h.xml
-
-
-// File: Lattice_8cpp.xml
-
-
-// File: Lattice_8h.xml
-
-
-// File: Lattice1DParameters_8h.xml
-
-
-// File: Lattice2DParameters_8h.xml
-%feature("docstring")  getUnitCellArea "double getUnitCellArea(const Lattice2DParameters &lattice_params)
-";
-
-
-// File: Layer_8cpp.xml
-
-
-// File: Layer_8h.xml
-
-
-// File: LayerInterface_8cpp.xml
-
-
-// File: LayerInterface_8h.xml
-
-
-// File: LayerRoughness_8cpp.xml
-
-
-// File: LayerRoughness_8h.xml
-
-
-// File: LayerStrategyBuilder_8cpp.xml
-
-
-// File: LayerStrategyBuilder_8h.xml
-
-
-// File: Materials_8cpp.xml
-
-
-// File: Materials_8h.xml
-
-
-// File: MesoCrystal_8cpp.xml
-
-
-// File: MesoCrystal_8h.xml
-
-
-// File: MultiLayer_8cpp.xml
-
-
-// File: MultiLayer_8h.xml
-
-
-// File: Particle_8cpp.xml
-
-
-// File: Particle_8h.xml
-
-
-// File: ParticleComposition_8cpp.xml
-
-
-// File: ParticleComposition_8h.xml
-
-
-// File: ParticleCoreShell_8cpp.xml
-
-
-// File: ParticleCoreShell_8h.xml
-
-
-// File: ParticleDistribution_8cpp.xml
-
-
-// File: ParticleDistribution_8h.xml
-
-
-// File: ParticleLayout_8cpp.xml
-
-
-// File: ParticleLayout_8h.xml
-
-
-// File: Rotations_8cpp.xml
-%feature("docstring")  CreateProduct "IRotation* CreateProduct(const IRotation &left, const IRotation &right)
-
-Returns concatenated rotation (first right, then left). 
-";
-
-
-// File: Rotations_8h.xml
-%feature("docstring")  CreateProduct "BA_CORE_API_ IRotation* CreateProduct(const IRotation &left, const IRotation &right)
-
-Returns concatenated rotation (first right, then left). 
-";
-
-
 // File: SampleMaterialVisitor_8cpp.xml
 
 
@@ -14612,22 +14614,10 @@ Returns concatenated rotation (first right, then left).
 // File: SamplePrintVisitor_8h.xml
 
 
-// File: Samples_8h.xml
-
-
 // File: SampleTreeIterator_8cpp.xml
 
 
 // File: SampleTreeIterator_8h.xml
-
-
-// File: SizeSpacingCorrelationApproximationStrategy_8cpp.xml
-
-
-// File: SizeSpacingCorrelationApproximationStrategy_8h.xml
-
-
-// File: TRange_8h.xml
 
 
 // File: DecoratedLayerDWBASimulation_8cpp.xml
@@ -15033,10 +15023,16 @@ David N. Williams
 // File: Vectors3D_8h.xml
 
 
+// File: WavevectorInfo_8h.xml
+
+
 // File: todo.xml
 
 
 // File: dir_e1ea50aa565d9a3ab2d030f355b28273.xml
+
+
+// File: dir_6201fca93792e30c30ae4242f9ea3e60.xml
 
 
 // File: dir_f2db70b1039b2dc98a7a13a1758f382f.xml
@@ -15051,22 +15047,28 @@ David N. Williams
 // File: dir_cca9b87b2505f372a6ce58947a507789.xml
 
 
-// File: dir_a2ca5d2cdcaf135a87dcab85b198454f.xml
-
-
 // File: dir_43bf4f843b6e885b1bee2bc28b8e4b1a.xml
 
 
 // File: dir_d7044b5fc4daccc5700de9f07da81a11.xml
 
 
+// File: dir_7f8c371d7d9c2d18aea541845cde06e7.xml
+
+
+// File: dir_0bf70e747e161ad6105733dd3b116e64.xml
+
+
 // File: dir_d4e34ce36424db6c5895519defe19e58.xml
 
 
-// File: dir_c804e9cac819706258b86e2f86b25131.xml
+// File: dir_56f35af5cdc8591a6ab0d4cb14eefef0.xml
 
 
-// File: dir_3089b6128da5fa5b3826c81ab6bab5ef.xml
+// File: dir_b68f57b1e17bed671dde6594d8b31be9.xml
+
+
+// File: dir_a3eed303c38754514b4d9174b7e731d6.xml
 
 
 // File: dir_d7a24665a95cfc15308ebd7b07b5ebd6.xml

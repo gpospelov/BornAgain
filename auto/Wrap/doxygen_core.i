@@ -2718,7 +2718,7 @@ Calls the  ISampleVisitor's visit method.
 
 The FormFactorInfo holds information about particle position and abundance.
 
-C++ includes: LayerStrategyBuilder.h
+C++ includes: IFormFactorInfo.h
 ";
 
 %feature("docstring")  FormFactorInfo::FormFactorInfo "FormFactorInfo::FormFactorInfo()
@@ -6194,7 +6194,7 @@ C++ includes: IInterferenceFunctionStrategy.h
 %feature("docstring")  IInterferenceFunctionStrategy::~IInterferenceFunctionStrategy "IInterferenceFunctionStrategy::~IInterferenceFunctionStrategy()
 ";
 
-%feature("docstring")  IInterferenceFunctionStrategy::init "void IInterferenceFunctionStrategy::init(const SafePointerVector< FormFactorInfo > &form_factor_infos, const class IInterferenceFunction &iff)
+%feature("docstring")  IInterferenceFunctionStrategy::init "void IInterferenceFunctionStrategy::init(const SafePointerVector< class FormFactorInfo > &form_factor_infos, const class IInterferenceFunction &iff)
 
 Initializes the object with form factors and interference functions. 
 ";
@@ -13131,16 +13131,16 @@ C++ includes: WavevectorInfo.h
 // File: classMathFunctions_1_1Convolve_1_1Workspace.xml
 
 
-// File: namespace_0D268.xml
+// File: namespace_0D267.xml
 
 
-// File: namespace_0D335.xml
+// File: namespace_0D336.xml
 
 
-// File: namespace_0D404.xml
+// File: namespace_0D405.xml
 
 
-// File: namespace_0D418.xml
+// File: namespace_0D419.xml
 
 
 // File: namespaceboost_1_1geometry.xml
@@ -14060,9 +14060,6 @@ Set all element intensities to given value.
 // File: FormFactorDWBAPol_8h.xml
 
 
-// File: FormFactors_8h.xml
-
-
 // File: FormFactorTools_8cpp.xml
 
 
@@ -14367,7 +14364,7 @@ The mathematics implemented here is described in full detail in a paper by Joach
 // File: IFormFactor_8h.xml
 
 
-// File: IFormFactorBorn_8cpp.xml
+// File: IFormFactorInfo_8h.xml
 
 
 // File: ILayerRTCoefficients_8h.xml
@@ -14506,6 +14503,9 @@ The mathematics implemented here is described in full detail in a paper by Joach
 // File: FormFactorCrystal_8h.xml
 
 
+// File: FormFactors_8h.xml
+
+
 // File: FormFactorWeighted_8cpp.xml
 
 
@@ -14513,6 +14513,9 @@ The mathematics implemented here is described in full detail in a paper by Joach
 
 
 // File: IClusteredParticles_8h.xml
+
+
+// File: IFormFactorBorn_8cpp.xml
 
 
 // File: IFormFactorBorn_8h.xml

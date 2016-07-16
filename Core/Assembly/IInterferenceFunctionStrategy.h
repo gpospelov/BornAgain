@@ -18,7 +18,6 @@
 
 #include "Bin.h"
 #include "Complex.h"
-#include "IFormFactorInfo.h"
 #include "SafePointerVector.h"
 #include "SimulationOptions.h"
 #include "Vectors3D.h"
@@ -41,7 +40,7 @@ public:
     virtual ~IInterferenceFunctionStrategy();
 
     //! Initializes the object with form factors and interference functions
-    virtual void init(const SafePointerVector<FormFactorInfo>& form_factor_infos,
+    virtual void init(const SafePointerVector<class FormFactorInfo>& form_factor_infos,
                       const class IInterferenceFunction& iff);
 
     //! Provides the R,T coefficients information
@@ -66,7 +65,7 @@ protected:
     //! Returns q-vector from k_i and the bin of k_f
     cvector_t getQ(const cvector_t k_i, const Bin1DCVector& k_f_bin) const;
 
-    SafePointerVector<FormFactorInfo> m_ff_infos;          //!< form factor info
+    SafePointerVector<class FormFactorInfo> m_ff_infos;          //!< form factor info
     std::unique_ptr<class IInterferenceFunction> mP_iff;       //!< interference function
     SimulationOptions m_options;                     //!< simulation options
     std::unique_ptr<class LayerSpecularInfo> mP_specular_info; //!< R and T coefficients for DWBA

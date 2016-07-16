@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "IFormFactor.h"
+#include "FormFactorInfo.h"
 #include "IInterferenceFunctionStrategy.h"
 #include "IInterferenceFunction.h"
 #include "IntegratorMCMiser.h"

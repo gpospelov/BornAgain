@@ -19,6 +19,7 @@ set(include_dirs
     ${CMAKE_CURRENT_SOURCE_DIR}/HardParticles
     ${CMAKE_CURRENT_SOURCE_DIR}/Lattice
     ${CMAKE_CURRENT_SOURCE_DIR}/Material
+    ${CMAKE_CURRENT_SOURCE_DIR}/Multilayer
     ${CMAKE_CURRENT_SOURCE_DIR}/Parametrization
     ${CMAKE_CURRENT_SOURCE_DIR}/Particles
     ${CMAKE_CURRENT_SOURCE_DIR}/Rotation

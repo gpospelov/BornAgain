@@ -16,6 +16,7 @@
 #ifndef SPECULARMATRIX_H
 #define SPECULARMATRIX_H
 
+#include "ISimulation.h"
 #include "MultiLayer.h"
 #include "ScalarRTCoefficients.h"
 

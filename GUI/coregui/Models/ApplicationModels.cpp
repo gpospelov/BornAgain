@@ -13,7 +13,9 @@
 //! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
+
 #include "ApplicationModels.h"
+#include "GISASSimulation.h"
 #include "GUIObjectBuilder.h"
 #include "DocumentModel.h"
 #include "MaterialModel.h"
@@ -298,4 +300,3 @@ void ApplicationModels::connectModel(SessionModel *model)
                    SIGNAL(modelChanged()), Qt::UniqueConnection);
     }
 }
-

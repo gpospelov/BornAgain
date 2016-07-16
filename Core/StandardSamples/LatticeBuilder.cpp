@@ -13,11 +13,10 @@
 //
 // ************************************************************************** //
 
+#include "LatticeBuilder.h"
 #include "FormFactorCylinder.h"
 #include "InterferenceFunction1DLattice.h"
 #include "MultiLayer.h"
-#include "LatticeBuilder.h"
-
 
 Lattice1DBuilder::Lattice1DBuilder()
     : m_length(20.0*Units::nanometer)

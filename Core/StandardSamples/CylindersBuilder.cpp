@@ -13,10 +13,9 @@
 //
 // ************************************************************************** //
 
+#include "CylindersBuilder.h"
 #include "FormFactorCylinder.h"
 #include "MultiLayer.h"
-#include "CylindersBuilder.h"
-
 
 // -----------------------------------------------------------------------------
 // Cylinders in DWBA
@@ -37,9 +36,9 @@ void CylindersInDWBABuilder::init_parameters()
 }
 
 
-ISample *CylindersInDWBABuilder::buildSample() const
+ISample* CylindersInDWBABuilder::buildSample() const
 {
-    MultiLayer *multi_layer = new MultiLayer();
+    MultiLayer* multi_layer = new MultiLayer();
 
     HomogeneousMaterial air_material("Air", 0.0, 0.0);
     HomogeneousMaterial substrate_material("Substrate", 6e-6, 2e-8);
@@ -81,9 +80,9 @@ void CylindersInBABuilder::init_parameters()
 }
 
 
-ISample *CylindersInBABuilder::buildSample() const
+ISample* CylindersInBABuilder::buildSample() const
 {
-    MultiLayer *multi_layer = new MultiLayer();
+    MultiLayer* multi_layer = new MultiLayer();
 
     HomogeneousMaterial air_material("Air", 0.0, 0.0);
     HomogeneousMaterial particle_material("Particle", 6e-4, 2e-8);
@@ -120,9 +119,9 @@ void LargeCylindersInDWBABuilder::init_parameters()
 }
 
 
-ISample *LargeCylindersInDWBABuilder::buildSample() const
+ISample* LargeCylindersInDWBABuilder::buildSample() const
 {
-    MultiLayer *multi_layer = new MultiLayer();
+    MultiLayer* multi_layer = new MultiLayer();
 
     HomogeneousMaterial air_material("Air", 0.0, 0.0);
     HomogeneousMaterial substrate_material("Substrate", 6e-6, 2e-8);

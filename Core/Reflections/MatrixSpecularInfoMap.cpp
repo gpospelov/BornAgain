@@ -13,10 +13,10 @@
 //
 // ************************************************************************** //
 
-#include "SpecularMagnetic.h"
 #include "MatrixSpecularInfoMap.h"
+#include "SpecularMagnetic.h"
 
-MatrixSpecularInfoMap::MatrixSpecularInfoMap(const MultiLayer *multilayer, int layer)
+MatrixSpecularInfoMap::MatrixSpecularInfoMap(const MultiLayer* multilayer, int layer)
     : m_layer(layer)
 {
     if (multilayer){
@@ -25,9 +25,9 @@ MatrixSpecularInfoMap::MatrixSpecularInfoMap(const MultiLayer *multilayer, int l
     }
 }
 
-MatrixSpecularInfoMap *MatrixSpecularInfoMap::clone() const
+MatrixSpecularInfoMap* MatrixSpecularInfoMap::clone() const
 {
-    MatrixSpecularInfoMap *result = new MatrixSpecularInfoMap(0, m_layer);
+    MatrixSpecularInfoMap* result = new MatrixSpecularInfoMap(0, m_layer);
     if (mP_multilayer.get()){
         result->mP_multilayer.reset(mP_multilayer->clone());
         result->mP_inverted_multilayer.reset(mP_inverted_multilayer->clone());
@@ -35,7 +35,7 @@ MatrixSpecularInfoMap *MatrixSpecularInfoMap::clone() const
     return result;
 }
 
-const MatrixRTCoefficients *MatrixSpecularInfoMap::getOutCoefficients(
+const MatrixRTCoefficients* MatrixSpecularInfoMap::getOutCoefficients(
         double alpha_f, double phi_f, double wavelength) const
 {
     SpecularMagnetic::MultiLayerCoeff_t coeffs;
@@ -44,7 +44,7 @@ const MatrixRTCoefficients *MatrixSpecularInfoMap::getOutCoefficients(
     return new MatrixRTCoefficients(coeffs[m_layer]);
 }
 
-const MatrixRTCoefficients *MatrixSpecularInfoMap::getInCoefficients(
+const MatrixRTCoefficients* MatrixSpecularInfoMap::getInCoefficients(
         double alpha_i, double phi_i, double wavelength) const
 {
     SpecularMagnetic::MultiLayerCoeff_t coeffs;

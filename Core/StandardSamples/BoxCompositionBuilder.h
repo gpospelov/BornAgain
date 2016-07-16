@@ -18,7 +18,6 @@
 
 #include "ISampleBuilder.h"
 
-
 //! @class BoxCompositionBuilder
 //! @ingroup standard_samples
 //! @brief Parent class to test all kind of compositions made out of boxes.

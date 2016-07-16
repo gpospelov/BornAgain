@@ -16,6 +16,7 @@
 #ifndef LAYERSWITHABSORPTIONBUILDER_H
 #define LAYERSWITHABSORPTIONBUILDER_H
 
+#include "ISampleBuilder.h"
 
 //! @class LayersWithAbsorptionBuilder
 //! @ingroup standard_samples

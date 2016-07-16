@@ -13,9 +13,10 @@
 //
 // ************************************************************************** //
 
+#include "ProgressHandler.h"
 #include "MultiLayer.h"
+#include "Simulation.h"
 #include <mutex>
-
 
 ProgressHandler::ProgressHandler()
     : m_nitems(0)
@@ -63,13 +64,13 @@ bool ProgressHandler::update(int n)
 
 //! Initialize ProgressHandler, estimates number of items to be calculated
 //! by DWBASimulation's.
-void ProgressHandler::init(Simulation *simulation, int param_combinations)
+void ProgressHandler::init(Simulation* simulation, int param_combinations)
 {
     m_nitems = 0;
     m_current_progress = 0;
     m_nitems_max = 0;
 
-    MultiLayer *multilayer = dynamic_cast<MultiLayer *>(simulation->getSample());
+    MultiLayer* multilayer = dynamic_cast<MultiLayer*>(simulation->getSample());
 
     double number_of_rounds_factor(0.0);
     int nlayouts(0);

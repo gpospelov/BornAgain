@@ -16,6 +16,7 @@
 #ifndef CYLINDERSBUILDER_H
 #define CYLINDERSBUILDER_H
 
+#include "ISampleBuilder.h"
 
 //! @class CylindersInDWBABuilder
 //! @ingroup standard_samples
@@ -25,7 +26,7 @@ class BA_CORE_API_ CylindersInDWBABuilder : public ISampleBuilder
 {
 public:
     CylindersInDWBABuilder();
-    ISample *buildSample() const;
+    class ISample* buildSample() const;
 
 protected:
     void init_parameters();
@@ -44,7 +45,7 @@ class BA_CORE_API_ CylindersInBABuilder : public ISampleBuilder
 {
 public:
     CylindersInBABuilder();
-    ISample *buildSample() const;
+    class ISample* buildSample() const;
 
 protected:
     void init_parameters();
@@ -62,7 +63,7 @@ class BA_CORE_API_ LargeCylindersInDWBABuilder : public ISampleBuilder
 {
 public:
     LargeCylindersInDWBABuilder();
-    ISample *buildSample() const;
+    class ISample* buildSample() const;
 
 protected:
     void init_parameters();

@@ -110,19 +110,17 @@ void AngleProperty::setInDegrees()
 
 double AngleProperty::getValue() const
 {
-//    return (m_angle_units == Radians ? m_angle_in_radians : Units::rad2deg(m_angle_in_radians));
-    return (m_angle_units == Constants::UnitsRadians ? m_angle_in_radians : Units::rad2deg(m_angle_in_radians));
+    return m_angle_units == Constants::UnitsRadians ?
+        m_angle_in_radians : Units::rad2deg(m_angle_in_radians);
 }
 
 
 void AngleProperty::setValue(double value)
 {
-    if(m_angle_units == Constants::UnitsRadians) {
+    if(m_angle_units == Constants::UnitsRadians)
         m_angle_in_radians = value;
-    }
-    else {
+    else
         m_angle_in_radians = Units::deg2rad(value);
-    }
 }
 
 

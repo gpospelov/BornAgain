@@ -17,12 +17,7 @@
 #include "MultiLayer.h"
 #include "CustomMorphologyBuilder.h"
 
-CustomMorphologyBuilder::CustomMorphologyBuilder()
-{
-}
-
-
-ISample *CustomMorphologyBuilder::buildSample() const
+ISample* CustomMorphologyBuilder::buildSample() const
 {
     MultiLayer* multi_layer = new MultiLayer();
 

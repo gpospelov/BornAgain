@@ -13,9 +13,9 @@
 //
 // ************************************************************************** //
 
-#include "MessageService.h"
 #include "MultiLayer.h"
-
+#include "MessageService.h"
+#include "MultiLayerDWBASimulation.h"
 
 using namespace BornAgain;
 
@@ -214,7 +214,7 @@ void MultiLayer::setLayerThickness(size_t i_layer, double thickness)
     }
 }
 
-MultiLayerDWBASimulation* MultiLayer::createDWBASimulation() const
+DWBASimulation* MultiLayer::createDWBASimulation() const
 {
     return new MultiLayerDWBASimulation(this);
 }
@@ -296,4 +296,21 @@ size_t MultiLayer::zToLayerIndex(double z_value)
         std::upper_bound(m_layers_z.rbegin(), m_layers_z.rend(), z_value);
     size_t nbin = m_layers_z.rend() - top_limit;
     return nbin;
+}
+
+double MultiLayer::getLayerBottomZ(size_t i_layer) const
+{
+    return m_layers_z[ check_layer_index(i_layer) ];
+}
+
+double MultiLayer::getLayerThickness(size_t i_layer) const
+{
+    return m_layers[ check_layer_index(i_layer) ]->getThickness();
+}
+
+void MultiLayer::setCrossCorrLength(double crossCorrLength)
+{
+    if(crossCorrLength<0.0)
+        throw Exceptions::LogicErrorException("Attempt to set crossCorrLength to negative value");
+    m_crossCorrLength = crossCorrLength;
 }

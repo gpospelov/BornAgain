@@ -2,6 +2,7 @@
 #define SPECULARSIMULATIONTEST_H
 
 #include "SpecularSimulation.h"
+#include "ISampleBuilder.h"
 #include "Exceptions.h"
 #include "FixedBinAxis.h"
 #include "Units.h"

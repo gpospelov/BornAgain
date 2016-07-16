@@ -16,6 +16,7 @@
 #ifndef CYLINDERSANDPRISMSBUILDER_H
 #define CYLINDERSANDPRISMSBUILDER_H
 
+#include "ISampleBuilder.h"
 
 //! @class CylindersAndPrismsBuilder
 //! @ingroup standard_samples
@@ -26,7 +27,7 @@ class BA_CORE_API_ CylindersAndPrismsBuilder : public ISampleBuilder
 {
 public:
     CylindersAndPrismsBuilder();
-    ISample* buildSample() const;
+    class ISample* buildSample() const;
 
 protected:
     void init_parameters();

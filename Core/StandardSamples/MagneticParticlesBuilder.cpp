@@ -13,10 +13,9 @@
 //
 // ************************************************************************** //
 
+#include "MagneticParticlesBuilder.h"
 #include "FormFactorCylinder.h"
 #include "MultiLayer.h"
-#include "MagneticParticlesBuilder.h"
-
 
 // ----------------------------------------------------------------------------
 // Magnetic cylinders and zero magnetic field
@@ -39,9 +38,9 @@ void MagneticParticleZeroFieldBuilder::init_parameters()
 }
 
 
-ISample *MagneticParticleZeroFieldBuilder::buildSample() const
+ISample* MagneticParticleZeroFieldBuilder::buildSample() const
 {
-    MultiLayer *multi_layer = new MultiLayer();
+    MultiLayer* multi_layer = new MultiLayer();
 
     HomogeneousMaterial air_material("Air", 0.0, 0.0);
     HomogeneousMaterial substrate_material("Substrate", 6e-6, 2e-8);
@@ -82,9 +81,9 @@ void MagneticCylindersBuilder::init_parameters()
 }
 
 
-ISample *MagneticCylindersBuilder::buildSample() const
+ISample* MagneticCylindersBuilder::buildSample() const
 {
-    MultiLayer *multi_layer = new MultiLayer();
+    MultiLayer* multi_layer = new MultiLayer();
 
     HomogeneousMaterial air_material("Air", 0.0, 0.0);
     HomogeneousMaterial substrate_material("Substrate", 15e-6, 0.0);
@@ -105,4 +104,3 @@ ISample *MagneticCylindersBuilder::buildSample() const
     multi_layer->addLayer(substrate_layer);
     return multi_layer;
 }
-

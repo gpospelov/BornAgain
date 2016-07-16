@@ -15,15 +15,16 @@
 // ************************************************************************** //
 
 #include "DomainSimulationBuilder.h"
-#include "InstrumentItem.h"
-#include "MultiLayerItem.h"
 #include "BeamItem.h"
 #include "DetectorItems.h"
 #include "DomainObjectBuilder.h"
-#include "TransformToDomain.h"
-#include "SimulationOptionsItem.h"
+#include "GISASSimulation.h"
 #include "GUIHelpers.h"
-
+#include "InstrumentItem.h"
+#include "MultiLayer.h"
+#include "MultiLayerItem.h"
+#include "SimulationOptionsItem.h"
+#include "TransformToDomain.h"
 
 //! Creates domain simulation from sample and instrument items.
 GISASSimulation *DomainSimulationBuilder::getSimulation(const MultiLayerItem *sampleItem,

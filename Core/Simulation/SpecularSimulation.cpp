@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "SpecularSimulation.h"
-#include "ISample.h"
+#include "ISampleBuilder.h"
 #include "SpecularMatrix.h"
 #include <memory>
 
@@ -72,11 +72,6 @@ void SpecularSimulation::setSample(const ISample &sample)
     m_sample = sample.clone();
 }
 
-ISample *SpecularSimulation::getSample() const
-{
-    return m_sample;
-}
-
 void SpecularSimulation::setSampleBuilder(std::shared_ptr<class ISampleBuilder> sample_builder)
 {
     if (!sample_builder.get())
@@ -86,11 +81,6 @@ void SpecularSimulation::setSampleBuilder(std::shared_ptr<class ISampleBuilder> 
     m_sample_builder = sample_builder;
     delete m_sample;
     m_sample = 0;
-}
-
-std::shared_ptr<class ISampleBuilder> SpecularSimulation::getSampleBuilder() const
-{
-    return m_sample_builder;
 }
 
 void SpecularSimulation::prepareSimulation()

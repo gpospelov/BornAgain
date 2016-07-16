@@ -17,6 +17,7 @@
 #include "FormFactors.h"
 #include "InterferenceFunctions.h"
 #include "MultiLayer.h"
+#include "MultiLayerDWBASimulation.h"
 #include "ParticleCoreShell.h"
 #include "ParticleDistribution.h"
 #include "PyGenTools.h"

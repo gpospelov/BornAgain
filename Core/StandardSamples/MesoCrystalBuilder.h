@@ -16,6 +16,7 @@
 #ifndef MESOCRYSTALBUILDER_H
 #define MESOCRYSTALBUILDER_H
 
+#include "ISampleBuilder.h"
 
 //! @class MesoCrystalBuilder
 //! @ingroup standard_samples

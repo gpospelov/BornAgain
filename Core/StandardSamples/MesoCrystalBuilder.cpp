@@ -13,14 +13,13 @@
 //
 // ************************************************************************** //
 
+#include "MesoCrystalBuilder.h"
 #include "Crystal.h"
 #include "FormFactorCylinder.h"
 #include "FormFactorDecoratorDebyeWaller.h"
 #include "FormFactorSphereGaussianRadius.h"
 #include "MesoCrystal.h"
 #include "MultiLayer.h"
-#include "MesoCrystalBuilder.h"
-
 
 MesoCrystalBuilder::MesoCrystalBuilder()
     : m_lattice_length_a(6.2091e+00*Units::nanometer)
@@ -38,7 +37,6 @@ MesoCrystalBuilder::MesoCrystalBuilder()
 {
     init_parameters();
 }
-
 
 void MesoCrystalBuilder::init_parameters()
 {

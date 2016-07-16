@@ -18,8 +18,6 @@
 
 #include "Layer.h"
 #include "LayerInterface.h"
-#include "MultiLayerDWBASimulation.h"
-
 
 //! @class MultiLayer
 //! @ingroup samples
@@ -43,13 +41,13 @@ public:
     virtual ~MultiLayer();
 
     //! calls the ISampleVisitor's visit method
-    virtual void accept(ISampleVisitor *visitor) const;
+    virtual void accept(ISampleVisitor* visitor) const;
 
     //! Returns number of layers in multilayer
-    size_t getNumberOfLayers() const;
+    size_t getNumberOfLayers() const { return m_layers.size(); }
 
     //! Returns number of interfaces in multilayer
-    size_t getNumberOfInterfaces() const;
+    size_t getNumberOfInterfaces() const { return m_interfaces.size(); }
 
     //! Adds object to multilayer, overrides from ISample
     void addLayer(const Layer& p_child);
@@ -58,10 +56,11 @@ public:
     void addLayerWithTopRoughness(const Layer& layer, const LayerRoughness& roughness);
 
     //! Returns layer with given index
-    const Layer *getLayer(size_t i_layer) const;
+    const Layer* getLayer(size_t i_layer) const { return m_layers[check_layer_index(i_layer)]; }
 
     //! Returns layer with given index
-    const LayerInterface *getLayerInterface(size_t i_interface) const;
+    const LayerInterface* getLayerInterface(size_t i_interface) const {
+        return m_interfaces[check_interface_index(i_interface)]; }
 
     //! Returns z-coordinate of the layer's bottom
     double getLayerBottomZ(size_t i_layer) const;
@@ -70,48 +69,47 @@ public:
     double getLayerThickness(size_t i_layer) const;
 
     //! Returns top interface of layer
-    const LayerInterface *getLayerTopInterface(size_t i_layer) const;
+    const LayerInterface* getLayerTopInterface(size_t i_layer) const;
 
     //! Returns bottom interface of layer
-    const LayerInterface *getLayerBottomInterface(size_t i_layer) const;
+    const LayerInterface* getLayerBottomInterface(size_t i_layer) const;
 
     //! Destructs allocated objects
     void clear();
 
     //! Returns alone of multilayer with clones of all layers and recreated
     //! interfaces between layers
-    virtual MultiLayer *clone() const;
+    virtual MultiLayer* clone() const;
 
     //! Returns a clone with inverted magnetic fields
-    virtual MultiLayer *cloneInvertB() const;
+    virtual MultiLayer* cloneInvertB() const;
 
     //! Sets cross correlation length of roughnesses between interfaces
     void setCrossCorrLength(double crossCorrLength);
 
     //! Returns cross correlation length of roughnesses between interfaces
-    double getCrossCorrLength() const;
+    double getCrossCorrLength() const { return m_crossCorrLength; }
 
     ///! correlation function of roughnesses between the interfaces
     //double getCrossCorrFun(const kvector_t k, int j, int k) const;
 
     //! Fourier transform of the correlation function of roughnesses between
     //! the interfaces
-    double getCrossCorrSpectralFun(
-        const kvector_t kvec, size_t j, size_t k) const;
+    double getCrossCorrSpectralFun(const kvector_t kvec, size_t j, size_t k) const;
 
     //! Sets thickness of layer.
     void setLayerThickness(size_t i_layer, double thickness);
 
     //! Prints class
-    friend std::ostream& operator << (std::ostream& ostr, const MultiLayer& m)
-    { m.print(ostr); return ostr; }
+    friend std::ostream& operator << (std::ostream& ostr, const MultiLayer& m) {
+        m.print(ostr); return ostr; }
 
-    //! look for the presence of DWBA terms (e.g. included particles) and return
-    //! ISimulation if needed
-    virtual MultiLayerDWBASimulation *createDWBASimulation() const;
+    //! look for the presence of DWBA terms (e.g. included particles)
+    //! and return ISimulation if needed
+    virtual class DWBASimulation* createDWBASimulation() const;
 
     //! returns layer index
-    int getIndexOfLayer(const Layer *layer) const;
+    int getIndexOfLayer(const Layer* layer) const;
 
     //! returns true if contains magnetic materials and matrix calculations are required
     bool requiresMatrixRTCoefficients() const;
@@ -127,10 +125,10 @@ protected:
 
 private:
     //! Adds the layer with simultaneous registration in parent class
-    void addAndRegisterLayer(Layer *child);
+    void addAndRegisterLayer(Layer* child);
 
     //! Adds the interface with simultaneous registration in parent class
-    void addAndRegisterInterface(LayerInterface *child);
+    void addAndRegisterInterface(LayerInterface* child);
 
     void setNLayersInLayers() const;
 
@@ -141,57 +139,13 @@ private:
     size_t check_interface_index(size_t i_interface) const;
 
     //! stack of layers [nlayers]
-    std::vector<Layer *> m_layers;
+    std::vector<Layer*> m_layers;
     //! coordinate of layer's bottoms [nlayers]
-    std::vector<double > m_layers_z;
+    std::vector<double> m_layers_z;
     //! stack of layer interfaces [nlayers-1]
-    std::vector<LayerInterface *> m_interfaces;
+    std::vector<LayerInterface*> m_interfaces;
     //! cross correlation length (in z direction) between different layers
     double m_crossCorrLength;
 };
 
-inline size_t MultiLayer::getNumberOfLayers() const
-{
-    return m_layers.size();
-}
-
-inline size_t MultiLayer::getNumberOfInterfaces() const
-{
-    return m_interfaces.size();
-}
-
-inline const Layer *MultiLayer::getLayer(size_t i_layer) const
-{
-    return m_layers[ check_layer_index(i_layer) ];
-}
-
-inline const LayerInterface *MultiLayer::getLayerInterface(size_t i_interface) const
-{
-    return m_interfaces[ check_interface_index(i_interface) ];
-}
-
-inline double MultiLayer::getLayerBottomZ(size_t i_layer) const
-{
-    return m_layers_z[ check_layer_index(i_layer) ];
-}
-
-inline double MultiLayer::getLayerThickness(size_t i_layer) const
-{
-    return m_layers[ check_layer_index(i_layer) ]->getThickness();
-}
-
-inline void MultiLayer::setCrossCorrLength(double crossCorrLength)
-{
-    if(crossCorrLength<0.0)
-        throw Exceptions::LogicErrorException("Attempt to set crossCorrLength to negative value");
-    m_crossCorrLength = crossCorrLength;
-}
-
-inline double MultiLayer::getCrossCorrLength() const
-{
-    return m_crossCorrLength;
-}
-
 #endif // MULTILAYER_H
-
-

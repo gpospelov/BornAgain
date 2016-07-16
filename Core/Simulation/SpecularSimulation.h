@@ -46,13 +46,13 @@ public:
     void setSample(const class ISample& sample);
 
     //! Returns the sample
-    class ISample* getSample() const;
+    class ISample* getSample() const { return m_sample; }
 
     //! Sets the sample builder
     void setSampleBuilder(std::shared_ptr<class ISampleBuilder> sample_builder);
 
     //! return sample builder
-    std::shared_ptr<class ISampleBuilder> getSampleBuilder() const;
+    std::shared_ptr<class ISampleBuilder> getSampleBuilder() const { return m_sample_builder; }
 
     //! Sets beam parameters with alpha_i of the beam defined in the range
     void setBeamParameters(double lambda, const class IAxis &alpha_axis);

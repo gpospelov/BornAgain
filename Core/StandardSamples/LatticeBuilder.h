@@ -16,6 +16,7 @@
 #ifndef LATTICEBUILDER_H
 #define LATTICEBUILDER_H
 
+#include "ISampleBuilder.h"
 
 //! @class Lattice1DBuilder
 //! @ingroup standard_samples
@@ -25,7 +26,7 @@ class BA_CORE_API_ Lattice1DBuilder : public ISampleBuilder
 {
 public:
     Lattice1DBuilder();
-    ISample* buildSample() const;
+    class ISample* buildSample() const;
 
 protected:
     void init_parameters();

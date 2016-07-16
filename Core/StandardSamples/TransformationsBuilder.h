@@ -16,6 +16,7 @@
 #ifndef TRANSFORMATIONSBUILDER_H
 #define TRANSFORMATIONSBUILDER_H
 
+#include "ISampleBuilder.h"
 
 //! @class TransformBoxBuilder
 //! @ingroup standard_samples

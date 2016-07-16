@@ -14356,16 +14356,16 @@ class IDetector2D(IParameterized):
     __swig_destroy__ = _libBornAgainCore.delete_IDetector2D
     __del__ = lambda self: None
 
-    def init(self, beam):
+    def init(self, arg2):
         """
-        init(IDetector2D self, Beam beam)
+        init(IDetector2D self, Beam arg2)
 
         void IDetector2D::init(const Beam &beam)
 
         Inits detector with the beam settings. 
 
         """
-        return _libBornAgainCore.IDetector2D_init(self, beam)
+        return _libBornAgainCore.IDetector2D_init(self, arg2)
 
 
     def addAxis(self, axis):
@@ -14579,16 +14579,16 @@ class IDetector2D(IParameterized):
         return _libBornAgainCore.IDetector2D_hasMasks(self)
 
 
-    def createDetectorMap(self, beam, units_type):
+    def createDetectorMap(self, arg2, arg3):
         """
-        createDetectorMap(IDetector2D self, Beam beam, IDetector2D::EAxesUnits units_type) -> IntensityData
+        createDetectorMap(IDetector2D self, Beam arg2, IDetector2D::EAxesUnits arg3) -> IntensityData
 
         OutputData< double > * IDetector2D::createDetectorMap(const Beam &beam, EAxesUnits units_type) const
 
         Returns detector map in given axes units. 
 
         """
-        return _libBornAgainCore.IDetector2D_createDetectorMap(self, beam, units_type)
+        return _libBornAgainCore.IDetector2D_createDetectorMap(self, arg2, arg3)
 
 
     def getValidAxesUnits(self):
@@ -14995,16 +14995,16 @@ class IAbstractParticle(ICompositeSample):
         return _libBornAgainCore.IAbstractParticle_accept(self, visitor)
 
 
-    def setAmbientMaterial(self, material):
+    def setAmbientMaterial(self, arg2):
         """
-        setAmbientMaterial(IAbstractParticle self, IMaterial material)
+        setAmbientMaterial(IAbstractParticle self, IMaterial arg2)
 
         void IAbstractParticle::setAmbientMaterial(const IMaterial &material)
 
         Sets the refractive index of the ambient material (which influences its scattering power) 
 
         """
-        return _libBornAgainCore.IAbstractParticle_setAmbientMaterial(self, material)
+        return _libBornAgainCore.IAbstractParticle_setAmbientMaterial(self, arg2)
 
 
     def getAbundance(self):
@@ -19040,7 +19040,7 @@ class MultiLayer(ICompositeSample):
 
     def createDWBASimulation(self):
         """
-        createDWBASimulation(MultiLayer self) -> MultiLayerDWBASimulation *
+        createDWBASimulation(MultiLayer self) -> DWBASimulation *
 
         MultiLayerDWBASimulation * MultiLayer::createDWBASimulation() const
 

@@ -16,6 +16,7 @@
 
 #include "LayerStrategyBuilder.h"
 #include "FormFactorTools.h"
+#include "FormFactorInfo.h"
 #include "IFormFactor.h"
 #include "InterferenceFunctionStrategies.h"
 #include "InterferenceFunctions.h"

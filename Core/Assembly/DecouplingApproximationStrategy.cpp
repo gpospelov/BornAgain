@@ -16,6 +16,7 @@
 #include "DecouplingApproximationStrategy.h"
 #include "SimulationElement.h"
 #include "Exceptions.h"
+#include "FormFactorInfo.h"
 #include "IInterferenceFunction.h"
 #include "MathFunctions.h"
 #include "Layer.h"

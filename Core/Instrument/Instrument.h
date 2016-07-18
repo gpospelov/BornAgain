@@ -28,16 +28,16 @@ class BA_CORE_API_ Instrument : public IParameterized
 {
 public:
     Instrument();
-    Instrument(const Instrument &other);
+    Instrument(const Instrument& other);
     Instrument& operator=(const Instrument& other);
 
     virtual ~Instrument() {}
 
     //! Returns the beam data
-    Beam getBeam() const;
+    Beam getBeam() const { return m_beam; }
 
     //! Sets the beam data
-    void setBeam(const Beam &beam);
+    void setBeam(const Beam& beam);
 
     //! Sets the beam wavelength and incoming angles
     void setBeamParameters(double wavelength, double alpha_i, double phi_i);
@@ -56,7 +56,7 @@ public:
     IDetector2D* getDetector();
 
     //! Returns a detector axis
-    const IAxis &getDetectorAxis(size_t index) const;
+    const IAxis& getDetectorAxis(size_t index) const;
 
     //! Returns the detector's dimension
     size_t getDetectorDimension() const;
@@ -65,7 +65,7 @@ public:
     void setDetector(const IDetector2D& detector);
 
     //! Sets detector parameters using axes of output data
-    void matchDetectorAxes(const OutputData<double> &output_data);
+    void matchDetectorAxes(const OutputData<double>& output_data);
 
     //! Sets detector parameters using angle ranges
     void setDetectorParameters(size_t n_x, double x_min, double x_max,
@@ -97,14 +97,14 @@ public:
 #endif
 
     //! Adds parameters from local pool to external pool and recursively calls its direct children.
-    virtual std::string addParametersToExternalPool(std::string path, ParameterPool* external_pool,
-                                                    int copy_number = -1) const;
+    virtual std::string addParametersToExternalPool(
+        std::string path, ParameterPool* external_pool, int copy_number = -1) const;
 
     //! init detector with beam settings
     void initDetector();
 
 protected:
-    virtual void print(std::ostream &ostr) const;
+    virtual void print(std::ostream& ostr) const;
 
     //! Registers some class members for later access via parameter pool
     virtual void init_parameters();
@@ -112,14 +112,6 @@ protected:
     std::unique_ptr<IDetector2D> mP_detector;
     Beam m_beam;
 };
-
-inline Beam Instrument::getBeam() const
-{
-    return m_beam;
-}
-
-
-
 
 
 inline void Instrument::setBeamIntensity(double intensity)
@@ -147,7 +139,7 @@ inline IDetector2D* Instrument::getDetector()
     return mP_detector.get();
 }
 
-inline const IAxis &Instrument::getDetectorAxis(size_t index) const
+inline const IAxis& Instrument::getDetectorAxis(size_t index) const
 {
     return mP_detector->getAxis(index);
 }

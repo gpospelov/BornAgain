@@ -13,10 +13,10 @@ set(include_dirs
     ${BUILD_INC_DIR}
     ${CMAKE_CURRENT_SOURCE_DIR}/Assembly
     ${CMAKE_CURRENT_SOURCE_DIR}/Basics
-    ${CMAKE_CURRENT_SOURCE_DIR}/Detector
     ${CMAKE_CURRENT_SOURCE_DIR}/Export
     ${CMAKE_CURRENT_SOURCE_DIR}/FormFactor
     ${CMAKE_CURRENT_SOURCE_DIR}/InputOutput
+    ${CMAKE_CURRENT_SOURCE_DIR}/Instrument
     ${CMAKE_CURRENT_SOURCE_DIR}/HardParticles
     ${CMAKE_CURRENT_SOURCE_DIR}/Lattice
     ${CMAKE_CURRENT_SOURCE_DIR}/Material

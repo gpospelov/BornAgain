@@ -48,22 +48,18 @@ bool ProgressHandler::update(int n)
 
     m_nitems += n;
 
-    int progress = int(double(100*m_nitems)/double(m_nitems_max)); // in percents
+    int progress = int(100.*m_nitems/m_nitems_max); // in percents
     //std::cout << "ProgressHandler::update n:" << n << " m_nitems:" << m_nitems <<
     //         " m_nitems_max:" << m_nitems_max << " progress:" << progress << std::endl;
-    if(progress != m_current_progress) {
+    if(progress != m_current_progress)
         m_current_progress = progress;
-    }
-    if(m_callback) {
+    if(m_callback)
         continue_calculations = m_callback(m_current_progress); // report to gui
-    }
 
     return continue_calculations;
 }
 
-
-//! Initialize ProgressHandler, estimates number of items to be calculated
-//! by DWBASimulation's.
+//! Initialize ProgressHandler, estimates number of items to be calculated by DWBASimulation's.
 void ProgressHandler::init(Simulation* simulation, int param_combinations)
 {
     m_nitems = 0;
@@ -74,23 +70,24 @@ void ProgressHandler::init(Simulation* simulation, int param_combinations)
 
     double number_of_rounds_factor(0.0);
     int nlayouts(0);
-    for(size_t i_layer=0; i_layer<multilayer->getNumberOfLayers(); ++i_layer) {
+    for (size_t i_layer=0; i_layer<multilayer->getNumberOfLayers(); ++i_layer) {
         nlayouts += multilayer->getLayer(i_layer)->getNumberOfLayouts();
     }
-    if(nlayouts > 0) number_of_rounds_factor += 1.0;
+    if (nlayouts > 0)
+        number_of_rounds_factor += 1.0;
 
     // Analyzing sample for additional factors which will slow done the simulation
     int nroughness(0);
-    if(multilayer) {
+    if (multilayer) {
         for (size_t i=0; i<multilayer->getNumberOfInterfaces(); ++i) {
-            if(multilayer->getLayerInterface(i)->getRoughness() ) {
+            if(multilayer->getLayerInterface(i)->getRoughness() )
                 nroughness++;
-            }
         }
     }
-    if(nroughness>0) number_of_rounds_factor += 1.0;
+    if (nroughness>0)
+        number_of_rounds_factor += 1.0;
 
     // Simplified estimation of total number of items in DWBA simulation
-    m_nitems_max = number_of_rounds_factor*param_combinations*
+    m_nitems_max = number_of_rounds_factor * param_combinations *
         simulation->getNumberOfSimulationElements();
 }

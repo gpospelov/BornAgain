@@ -57,7 +57,6 @@ private:
 
 // Shared pointer is needed because multiple DWBASimulation threads will contain a
 // local clone of Simulation, which contains the original ProgressHandler
-typedef std::shared_ptr<class ProgressHandler > ProgressHandler_t;
-
+typedef std::shared_ptr<class ProgressHandler> ProgressHandler_t;
 
 #endif // PROGRESSHANDLER_H

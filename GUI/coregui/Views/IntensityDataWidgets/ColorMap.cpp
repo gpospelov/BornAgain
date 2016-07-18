@@ -72,6 +72,12 @@ void ColorMap::setItem(IntensityDataItem *item)
     if(!m_item)
         return;
 
+    // FIXME. ColorMapPlot should be functional, even if OutputData is zero
+    if(m_item->getOutputData() == nullptr) {
+        m_item = 0;
+        return;
+    }
+
     setColorMapFromItem(m_item);
 
     m_item->mapper()->setOnPropertyChange(
@@ -415,7 +421,7 @@ void ColorMap::setColorMapFromItem(IntensityDataItem *intensityItem)
 void ColorMap::setAxesRangeFromItem(IntensityDataItem *item)
 {
     auto data = item->getOutputData();
-    Q_ASSERT(data);
+    if(!data) return;
 
     m_customPlot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom);
     m_customPlot->axisRect()->setupFullAxesBox(true);
@@ -454,7 +460,8 @@ void ColorMap::setLabelsFromItem(IntensityDataItem *item)
 void ColorMap::setDataFromItem(IntensityDataItem *item)
 {
     auto data = item->getOutputData();
-    Q_ASSERT(data);
+    if(!data) return;
+
     const IAxis *axis_x = data->getAxis(0);
     const IAxis *axis_y = data->getAxis(1);
 

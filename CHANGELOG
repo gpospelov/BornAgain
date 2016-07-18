@@ -1,3 +1,8 @@
+BornAgain-1.6.1, released 2016.07.15
+  > Hotfix:
+  * Bug #1499: GUI Segmentation fault if layer is too thick
+  * Bug #1512: GUI crashes when simulating for a lognormal distribution of wavelength with scale parameter zero
+
 BornAgain-1.6.0, released 2016.06.30
   > Summary:
     1) Python 3 support

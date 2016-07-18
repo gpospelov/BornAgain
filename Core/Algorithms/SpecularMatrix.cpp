@@ -24,6 +24,10 @@ namespace {
     const complex_t imag_unit = complex_t(0.0, 1.0);
 }
 
+void setZeroBelow(SpecularMatrix::MultiLayerCoeff_t& coeff, size_t current_layer);
+bool calculateUpFromLayer(SpecularMatrix::MultiLayerCoeff_t& coeff, const MultiLayer& sample,
+                          const kvector_t k, size_t layer_index);
+
 // Computes refraction angles and transmission/reflection coefficients
 // for given coherent wave propagation in a multilayer.
 // k : length: wavenumber in vacuum, direction: defined in layer 0
@@ -59,14 +63,47 @@ void SpecularMatrix::execute(const MultiLayer& sample, const kvector_t k,
     if (coeff[0].lambda == 0.0) {
         coeff[0].t_r(0) = 1.0;
         coeff[0].t_r(1) = -1.0;
-        for (size_t i=1; i<N; ++i) {
-            coeff[i].t_r.setZero();
-        }
+        setZeroBelow(coeff, 0);
         return;
     }
     // Calculate transmission/refraction coefficients t_r for each layer,
     // from bottom to top.
-    for (int i=N-2; i>=0; --i) {
+    size_t start_layer_index = N-2;
+    while (!calculateUpFromLayer(coeff, sample, k, start_layer_index)) {
+        setZeroBelow(coeff, start_layer_index);
+        coeff[start_layer_index].t_r(0) = 1.0;
+        coeff[start_layer_index].t_r(1) = 0.0;
+        --start_layer_index;
+    }
+
+    // Normalize to incoming downward travelling amplitude = 1.
+    complex_t T0 = coeff[0].getScalarT();
+    // This trick is used to avoid overflows in the intermediate steps of
+    // complex division:
+    double tmax = std::max(std::abs(T0.real()), std::abs(T0.imag()));
+    for (size_t i=0; i<N; ++i) {
+        coeff[i].t_r(0) /= tmax;
+        coeff[i].t_r(1) /= tmax;
+    }
+    // Now the real normalization to T_0 proceeds
+    T0 = coeff[0].getScalarT();
+    for (size_t i=0; i<N; ++i) {
+        coeff[i].t_r = coeff[i].t_r/T0;
+    }
+}
+
+void setZeroBelow(SpecularMatrix::MultiLayerCoeff_t& coeff, size_t current_layer)
+{
+    size_t N = coeff.size();
+    for (size_t i=current_layer+1; i<N; ++i) {
+        coeff[i].t_r.setZero();
+    }
+}
+
+bool calculateUpFromLayer(SpecularMatrix::MultiLayerCoeff_t& coeff, const MultiLayer& sample,
+                          const kvector_t k, size_t layer_index)
+{
+    for (int i=layer_index; i>=0; --i) {
         complex_t roughness_factor = 1;
         if (sample.getLayerInterface(i)->getRoughness()) {
             double sigma = sample.getLayerBottomInterface(i)->getRoughness()->getSigma();
@@ -92,10 +129,9 @@ void SpecularMatrix::execute(const MultiLayer& sample, const kvector_t k,
                     (lambda_rough-lambda_below)*coeff[i+1].t_r(0) +
                     (lambda_rough+lambda_below)*coeff[i+1].t_r(1) )/2.0/lambda *
                     std::exp( ikd*lambda);
+        if (std::isinf(std::abs(coeff[i].getScalarT()))) {
+            return false;
+        }
     }
-    // Normalize to incoming downward travelling amplitude = 1.
-    complex_t T0 = coeff[0].getScalarT();
-    for (size_t i=0; i<N; ++i) {
-        coeff[i].t_r = coeff[i].t_r/T0;
-    }
+    return true;
 }

@@ -65,6 +65,8 @@ public:
     virtual std::vector<double> generateValues(size_t nbr_samples,
             double xmin, double xmax) const;
 
+    //! signals that the distribution is in the limit case of a delta distribution
+    virtual bool isDelta() const=0;
 
 protected:
     //! this function is called during bad initialization of a subclass
@@ -111,6 +113,9 @@ public:
     virtual std::vector<double> generateValueList(
         size_t nbr_samples, double sigma_factor, const AttLimits &limits = AttLimits()) const;
 
+    //! signals that the distribution is in the limit case of a delta distribution
+    virtual bool isDelta() const;
+
 protected:
     //! Registers some class members for later access via parameter pool
     void init_parameters();
@@ -149,9 +154,13 @@ public:
     virtual std::vector<double> generateValueList(
         size_t nbr_samples, double sigma_factor, const AttLimits &limits = AttLimits()) const;
 
+    //! signals that the distribution is in the limit case of a delta distribution
+    virtual bool isDelta() const;
+
 protected:
     //! Registers some class members for later access via parameter pool
     void init_parameters();
+
 private:
     //! check initialization
     bool checkInitialization() const;
@@ -187,9 +196,13 @@ public:
     virtual std::vector<double> generateValueList(size_t nbr_samples,
             double sigma_factor, const AttLimits &limits = AttLimits()) const;
 
+    //! signals that the distribution is in the limit case of a delta distribution
+    virtual bool isDelta() const;
+
 protected:
     //! Registers some class members for later access via parameter pool
     void init_parameters();
+
 private:
     //! check initialization
     bool checkInitialization() const;
@@ -228,9 +241,13 @@ public:
     virtual std::vector<double> generateValueList(
         size_t nbr_samples, double sigma_factor, const AttLimits &limits = AttLimits()) const;
 
+    //! signals that the distribution is in the limit case of a delta distribution
+    virtual bool isDelta() const;
+
 protected:
     //! Registers some class members for later access via parameter pool
     void init_parameters();
+
 private:
     //! check initialization
     bool checkInitialization() const;
@@ -266,9 +283,13 @@ public:
     virtual std::vector<double> generateValueList(
         size_t nbr_samples, double sigma_factor, const AttLimits &limits = AttLimits()) const;
 
+    //! signals that the distribution is in the limit case of a delta distribution
+    virtual bool isDelta() const;
+
 protected:
     //! Registers some class members for later access via parameter pool
     void init_parameters();
+
 private:
     //! check initialization
     bool checkInitialization() const;

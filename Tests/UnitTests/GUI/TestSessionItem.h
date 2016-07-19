@@ -229,4 +229,4 @@ inline void TestSessionItem::test_model_types()
 //}
 
 
-#endif
+#endif // TESTSESSIONITEM_H

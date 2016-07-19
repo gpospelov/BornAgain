@@ -437,4 +437,4 @@ TEST_F(Histogram2DTest, GetMaximumGetMinimum)
     EXPECT_EQ(size_t(49), hist.getMaximumBinIndex());
 }
 
-#endif
+#endif // HISTOGRAM2DTEST_H

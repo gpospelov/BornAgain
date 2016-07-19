@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#ifndef OVERLAYLABELWIDGET
-#define OVERLAYLABELWIDGET
+#ifndef OVERLAYLABELWIDGET_H
+#define OVERLAYLABELWIDGET_H
 
 #include "WinDllMacros.h"
 #include <QRect>
@@ -44,4 +44,4 @@ private:
     QRect m_bounding_rect;
 };
 
-#endif
+#endif // OVERLAYLABELWIDGET_H

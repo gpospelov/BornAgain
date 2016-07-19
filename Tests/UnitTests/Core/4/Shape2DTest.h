@@ -105,4 +105,4 @@ TEST_F(Shape2DTest, HorizontalLine)
     EXPECT_FALSE(line.contains(Bin1D(0.0, 1.0), Bin1D(1.01, 2.0)));
 }
 
-#endif
+#endif // SHAPE2DTEST_H

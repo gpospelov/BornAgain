@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef PARTICLESHAPES_H
-#define PARTICLESHAPES_H
+#ifndef HARDPARTICLES_H
+#define HARDPARTICLES_H
 
 #include "FormFactorAnisoPyramid.h"
 #include "FormFactorBox.h"
@@ -41,4 +41,4 @@
 #include "FormFactorTruncatedSphere.h"
 #include "FormFactorTruncatedSpheroid.h"
 
-#endif // PARTICLESHAPES_H
+#endif // HARDPARTICLES_H

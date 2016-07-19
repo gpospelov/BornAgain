@@ -13,6 +13,9 @@
 //
 // ************************************************************************** //
 
+#ifndef PRECOMPUTED_H
+#define PRECOMPUTED_H
+
 #include "ISingleton.h"
 #include <vector>
 
@@ -27,3 +30,5 @@ public:
 private:
     Precomputed(); //!< Constructor, precomputes everything.
 };
+
+#endif // PRECOMPUTED_H

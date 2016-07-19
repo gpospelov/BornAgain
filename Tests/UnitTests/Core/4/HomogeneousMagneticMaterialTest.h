@@ -128,4 +128,4 @@ TEST_F(HomogeneousMagneticMaterialTest, HomogeneousMagneticMaterialClone)
 }
 
 
-#endif //HOMOGENEOUSMAGNETICMATERIALTEST_H
+#endif // HOMOGENEOUSMAGNETICMATERIALTEST_H

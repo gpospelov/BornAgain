@@ -131,4 +131,4 @@ TEST_F(SpecularSimulationTest, SimulationClone)
 }
 
 
-#endif
+#endif // SPECULARSIMULATIONTEST_H

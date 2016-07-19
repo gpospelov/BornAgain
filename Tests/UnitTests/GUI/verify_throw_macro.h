@@ -30,4 +30,4 @@ return; \
 } while(0)
 
 
-#endif
+#endif // VERIFY_THROW_MACRO_H

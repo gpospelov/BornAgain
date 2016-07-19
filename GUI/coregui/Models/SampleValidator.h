@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#ifndef SAMPLE_VALIDATOR
-#define SAMPLE_VALIDATOR
+#ifndef SAMPLEVALIDATOR_H
+#define SAMPLEVALIDATOR_H
 
 #include <QModelIndex>
 
@@ -49,4 +49,4 @@ private:
 };
 
 
-#endif
+#endif // SAMPLEVALIDATOR_H

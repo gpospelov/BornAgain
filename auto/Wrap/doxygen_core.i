@@ -549,21 +549,21 @@ C++ includes: BoxCompositionBuilder.h
 ";
 
 
-// File: structIntegratorReal_1_1CallBackHolder.xml
-%feature("docstring") IntegratorReal::CallBackHolder "
-
-structure holding the object and possible extra parameters
-
-C++ includes: IntegratorReal.h
-";
-
-
 // File: structIntegratorMCMiser_1_1CallBackHolder.xml
 %feature("docstring") IntegratorMCMiser::CallBackHolder "
 
 structure holding the object and possible extra parameters
 
 C++ includes: IntegratorMCMiser.h
+";
+
+
+// File: structIntegratorReal_1_1CallBackHolder.xml
+%feature("docstring") IntegratorReal::CallBackHolder "
+
+structure holding the object and possible extra parameters
+
+C++ includes: IntegratorReal.h
 ";
 
 
@@ -13164,13 +13164,13 @@ C++ includes: WavevectorInfo.h
 // File: namespace_0D271.xml
 
 
-// File: namespace_0D338.xml
+// File: namespace_0D332.xml
 
 
-// File: namespace_0D405.xml
+// File: namespace_0D399.xml
 
 
-// File: namespace_0D419.xml
+// File: namespace_0D413.xml
 
 
 // File: namespaceboost_1_1geometry.xml
@@ -14634,34 +14634,6 @@ Returns concatenated rotation (first right, then left).
 // File: ISampleIteratorStrategy_8h.xml
 
 
-// File: ISampleVisitor_8cpp.xml
-%feature("docstring")  VisitSampleTreePreorder "void VisitSampleTreePreorder(const ISample &sample, ISampleVisitor &visitor)
-";
-
-%feature("docstring")  VisitSampleTreePostorder "void VisitSampleTreePostorder(const ISample &sample, ISampleVisitor &visitor)
-";
-
-
-// File: ISampleVisitor_8h.xml
-%feature("docstring")  VisitSampleTreePreorder "BA_CORE_API_ void VisitSampleTreePreorder(const class ISample &sample, ISampleVisitor &visitor)
-";
-
-%feature("docstring")  VisitSampleTreePostorder "BA_CORE_API_ void VisitSampleTreePostorder(const class ISample &sample, ISampleVisitor &visitor)
-";
-
-
-// File: SampleMaterialVisitor_8cpp.xml
-
-
-// File: SampleMaterialVisitor_8h.xml
-
-
-// File: SamplePrintVisitor_8cpp.xml
-
-
-// File: SamplePrintVisitor_8h.xml
-
-
 // File: SampleTreeIterator_8cpp.xml
 
 
@@ -15062,6 +15034,34 @@ David N. Williams
 // File: WavevectorInfo_8h.xml
 
 
+// File: ISampleVisitor_8cpp.xml
+%feature("docstring")  VisitSampleTreePreorder "void VisitSampleTreePreorder(const ISample &sample, ISampleVisitor &visitor)
+";
+
+%feature("docstring")  VisitSampleTreePostorder "void VisitSampleTreePostorder(const ISample &sample, ISampleVisitor &visitor)
+";
+
+
+// File: ISampleVisitor_8h.xml
+%feature("docstring")  VisitSampleTreePreorder "BA_CORE_API_ void VisitSampleTreePreorder(const class ISample &sample, ISampleVisitor &visitor)
+";
+
+%feature("docstring")  VisitSampleTreePostorder "BA_CORE_API_ void VisitSampleTreePostorder(const class ISample &sample, ISampleVisitor &visitor)
+";
+
+
+// File: SampleMaterialVisitor_8cpp.xml
+
+
+// File: SampleMaterialVisitor_8h.xml
+
+
+// File: SamplePrintVisitor_8cpp.xml
+
+
+// File: SamplePrintVisitor_8h.xml
+
+
 // File: todo.xml
 
 
@@ -15126,4 +15126,7 @@ David N. Williams
 
 
 // File: dir_eab7faf105a6971a8b09ddb5c60d62eb.xml
+
+
+// File: dir_06acaf35e2549d988a99ee5aacf848c8.xml
 

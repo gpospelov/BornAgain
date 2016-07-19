@@ -79,4 +79,4 @@ TEST_F(ScalarSpecularInfoMapTest, getCoefficients)
     EXPECT_NEAR(lambda0.imag(), P_rt_coeffs->getScalarKz().imag(), 1e-6);
 }
 
-#endif //SCALARSPECULARINFOMAPTEST_H
+#endif // SCALARSPECULARINFOMAPTEST_H

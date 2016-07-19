@@ -78,4 +78,4 @@ TEST_F(MatrixSpecularInfoMapTest, getCoefficients)
     EXPECT_NEAR(lambda0.imag(), P_rt_coeffs->getKz()(1).imag(), 1e-6);
 }
 
-#endif //MATRIXSPECULARINFOMAPTEST_H
+#endif // MATRIXSPECULARINFOMAPTEST_H

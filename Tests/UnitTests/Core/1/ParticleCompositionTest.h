@@ -107,4 +107,4 @@ TEST_F(ParticleCompositionTest, ParticleCompositionClone)
     delete lbClone;
 }
 
-#endif
+#endif // PARTICLECOMPOSITIONTEST_H

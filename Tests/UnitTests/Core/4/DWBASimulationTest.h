@@ -111,4 +111,4 @@ TEST_F(DWBASimulationTest, InitialState)
 //}
 
 
-#endif // DETECTORTEST_H
+#endif // DWBASIMULATIONTEST_H

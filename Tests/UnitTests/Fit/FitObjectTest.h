@@ -47,4 +47,4 @@ TEST_F(FitObjectTest, Initialization)
 
 
 
-#endif
+#endif // FITOBJECTTEST_H

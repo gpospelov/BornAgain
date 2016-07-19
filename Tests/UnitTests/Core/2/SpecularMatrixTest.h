@@ -33,4 +33,4 @@ TEST_F(SpecularMatrixTest, initial)
     SpecularMatrix::execute(mLayer, v, coeff);
 }
 
-#endif //SPECULARMATRIXTEST_H
+#endif // SPECULARMATRIXTEST_H

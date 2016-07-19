@@ -344,4 +344,4 @@ inline void TestMapperForItem::test_TwoWidgetsSubscription()
 
 
 
-#endif
+#endif // TESTMAPPERFORITEM_H

@@ -14,12 +14,10 @@
 //
 // ************************************************************************** //
 
-#ifndef SESSIONGRAPHICSITEM_h
-#define SESSIONGRAPHICSITEM_h
-
+#ifndef SESSIONGRAPHICSITEM_H
+#define SESSIONGRAPHICSITEM_H
 
 #include "SessionItem.h"
-
 
 class BA_CORE_API_ SessionGraphicsItem : public SessionItem
 {
@@ -32,6 +30,4 @@ protected:
     explicit SessionGraphicsItem(const QString &model_type=QString());
 };
 
-#endif
-
-
+#endif // SESSIONGRAPHICSITEM_H

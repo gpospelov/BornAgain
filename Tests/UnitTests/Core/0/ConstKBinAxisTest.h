@@ -96,4 +96,4 @@ TEST_F(ConstKBinAxisTest, ClippedAxis)
     delete clip2;
 }
 
-#endif
+#endif // CONSTKBINAXISTEST_H

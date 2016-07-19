@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BLA123_H
-#define BLA123_H
+#ifndef FORMFACTORINFO_H
+#define FORMFACTORINFO_H
 
 #include "ICloneable.h"
 
@@ -35,4 +35,4 @@ public:
     double m_abundance;
 };
 
-#endif
+#endif // FORMFACTORINFO_H

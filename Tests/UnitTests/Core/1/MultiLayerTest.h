@@ -1,5 +1,5 @@
-#ifndef MLAYERTEST_H
-#define MLAYERTEST_H
+#ifndef MULTILAYERTEST_H
+#define MULTILAYERTEST_H
 
 #include "MultiLayer.h"
 #include "BornAgainNamespace.h"
@@ -573,4 +573,4 @@ TEST_F(MultiLayerTest, MultiLayerZtoIndex)
     EXPECT_EQ(size_t(4), mLayer.zToLayerIndex(-61.0));
 }
 
-#endif
+#endif // MULTILAYERTEST_H

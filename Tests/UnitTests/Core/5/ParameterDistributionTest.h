@@ -141,4 +141,4 @@ TEST_F(ParameterDistributionTest, GenerateSamples)
 }
 
 
-#endif
+#endif // PARAMETERDISTRIBUTIONTEST_H

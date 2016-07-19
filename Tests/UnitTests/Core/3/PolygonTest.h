@@ -137,4 +137,4 @@ TEST_F(PolygonTest, ConstructFrom2DArray)
 //}
 
 
-#endif
+#endif // POLYGONTEST_H

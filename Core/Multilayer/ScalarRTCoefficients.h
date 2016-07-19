@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef SCALARRTCOEFFICIENTS_H2
-#define SCALARRTCOEFFICIENTS_H2
+#ifndef SCALARRTCOEFFICIENTS_H
+#define SCALARRTCOEFFICIENTS_H
 
 #include "Complex.h"
 #include "EigenCore.h"
@@ -148,4 +148,4 @@ inline complex_t ScalarRTCoefficients::getScalarT() const
     return t_r(0);
 }
 
-#endif // SCALARRTCOEFFICIENTS_H2
+#endif // SCALARRTCOEFFICIENTS_H

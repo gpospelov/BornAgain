@@ -110,4 +110,4 @@ TEST_F(HomogeneousMaterialTest, HomogeneousMaterialClone)
 
 }
 
-#endif //HOMOGENEOUSMATERIALTEST_H
+#endif // HOMOGENEOUSMATERIALTEST_H

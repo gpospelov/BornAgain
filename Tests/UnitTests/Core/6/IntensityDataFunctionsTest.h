@@ -145,4 +145,4 @@ TEST_F(IntensityDataFunctionsTest, ClipDataSetVariable)
 //}
 
 
-#endif
+#endif // INTENSITYDATAFUNCTIONSTEST_H

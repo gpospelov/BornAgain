@@ -92,17 +92,27 @@ void SimulationElement::initPolarization()
 
 double SimulationElement::getAlpha(double x, double y) const
 {
-    kvector_t kf = getK(x, y);
-    return M_PI_2 - kf.theta();
+    return M_PI_2 - getK(x,y).theta();
 }
 
 double SimulationElement::getPhi(double x, double y) const
 {
-    kvector_t kf = getK(x, y);
-    return kf.phi();
+    return getK(x,y).phi();
 }
 
-void AddElementsWithWeight(std::vector<SimulationElement>::const_iterator first,
+kvector_t SimulationElement::getK(double x, double y) const {
+    return mP_pixel_map->getK(x, y, m_wavelength);
+}
+
+double SimulationElement::getIntegrationFactor(double x, double y) const {
+    return mP_pixel_map->getIntegrationFactor(x, y);
+}
+
+double SimulationElement::getSolidAngle() const {
+    return mP_pixel_map->getSolidAngle();
+}
+
+void addElementsWithWeight(std::vector<SimulationElement>::const_iterator first,
                            std::vector<SimulationElement>::const_iterator last,
                            std::vector<SimulationElement>::iterator result, double weight)
 {

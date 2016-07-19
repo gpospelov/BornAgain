@@ -90,12 +90,10 @@ void MultiLayerDWBASimulation::runProtected()
     msglog(MSG::DEBUG2) << "MultiLayerDWBASimulation::runProtected()";
     m_dwba_intensity.setAllTo(0.0);
 
-    if (requiresMatrixRTCoefficients()) {
+    if (requiresMatrixRTCoefficients())
         collectRTCoefficientsMatrix();
-    }
-    else {
+    else
         collectRTCoefficientsScalar();
-    }
 
     // run through layers and run layer simulations
     std::vector<SimulationElement> layer_elements;
@@ -108,7 +106,7 @@ void MultiLayerDWBASimulation::runProtected()
             LayerDWBASimulation *p_layer_dwba_sim = it->second[i];
             p_layer_dwba_sim->init(*mp_simulation, layer_elements.begin(), layer_elements.end());
             p_layer_dwba_sim->run();
-            AddElementsWithWeight(layer_elements.begin(), layer_elements.end(), m_begin_it, 1.0);
+            addElementsWithWeight(layer_elements.begin(), layer_elements.end(), m_begin_it, 1.0);
         }
     }
 
@@ -117,7 +115,7 @@ void MultiLayerDWBASimulation::runProtected()
         mp_roughness_dwba_simulation->init(*mp_simulation, layer_elements.begin(),
                                            layer_elements.end());
         mp_roughness_dwba_simulation->run();
-        AddElementsWithWeight(layer_elements.begin(), layer_elements.end(), m_begin_it, 1.0);
+        addElementsWithWeight(layer_elements.begin(), layer_elements.end(), m_begin_it, 1.0);
     }
 }
 

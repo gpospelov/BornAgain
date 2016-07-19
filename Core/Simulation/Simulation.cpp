@@ -87,7 +87,7 @@ void Simulation::runSimulation()
     for (size_t index = 0; index < param_combinations; ++index) {
         double weight = m_distribution_handler.setParameterValues(P_param_pool.get(), index);
         runSingleSimulation();
-        AddElementsWithWeight(m_sim_elements.begin(), m_sim_elements.end(), total_intensity.begin(),
+        addElementsWithWeight(m_sim_elements.begin(), m_sim_elements.end(), total_intensity.begin(),
                               weight);
     }
     m_sim_elements = total_intensity;

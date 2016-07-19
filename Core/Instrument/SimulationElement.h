@@ -42,26 +42,27 @@ public:
 
 #ifndef SWIG
     //! Sets the polarization density matrix (in spin basis along z-axis)
-    void setPolarization(const Eigen::Matrix2cd& polarization);
+    void setPolarization(const Eigen::Matrix2cd& polarization) { m_polarization = polarization; }
 
     //! Gets the polarization density matrix (in spin basis along z-axis)
-    Eigen::Matrix2cd getPolarization() const;
+    Eigen::Matrix2cd getPolarization() const { return m_polarization; }
 
     //! Sets the polarization analyzer operator (in spin basis along z-axis)
-    void setAnalyzerOperator(const Eigen::Matrix2cd& polarization_operator);
+    void setAnalyzerOperator(const Eigen::Matrix2cd& polarization_operator) {
+        m_analyzer_operator = polarization_operator; }
 
     //! Gets the polarization analyzer operator (in spin basis along z-axis)
-    Eigen::Matrix2cd getAnalyzerOperator() const;
+    Eigen::Matrix2cd getAnalyzerOperator() const { return m_analyzer_operator; }
 #endif
 
-    double getWavelength() const;
-    double getAlphaI() const;
-    double getPhiI() const;
-    double getAlphaMean() const;
-    double getPhiMean() const;
-    void setIntensity(double intensity);
-    void addIntensity(double intensity);
-    double getIntensity() const;
+    double getWavelength() const { return m_wavelength; }
+    double getAlphaI() const { return m_alpha_i; }
+    double getPhiI() const { return m_phi_i; }
+    double getAlphaMean() const { return getAlpha(0.5, 0.5); }
+    double getPhiMean() const { return getPhi(0.5, 0.5); }
+    void setIntensity(double intensity) { m_intensity = intensity; }
+    void addIntensity(double intensity) { m_intensity += intensity; }
+    double getIntensity() const { return m_intensity; }
     kvector_t getKI() const;
     kvector_t getMeanKF() const;
     kvector_t getMeanQ() const;
@@ -95,82 +96,9 @@ private:
     std::unique_ptr<IPixelMap> mP_pixel_map;
 };
 
-#ifndef SWIG
-inline void SimulationElement::setPolarization(const Eigen::Matrix2cd &polarization)
-{
-    m_polarization = polarization;
-}
-
-inline Eigen::Matrix2cd SimulationElement::getPolarization() const
-{
-    return m_polarization;
-}
-
-inline void SimulationElement::setAnalyzerOperator(const Eigen::Matrix2cd &polarization_operator)
-{
-    m_analyzer_operator = polarization_operator;
-}
-
-inline Eigen::Matrix2cd SimulationElement::getAnalyzerOperator() const
-{
-    return m_analyzer_operator;
-}
-#endif
-
-inline double SimulationElement::getWavelength() const
-{
-    return m_wavelength;
-}
-
-inline double SimulationElement::getAlphaI() const
-{
-    return m_alpha_i;
-}
-
-inline double SimulationElement::getPhiI() const
-{
-    return m_phi_i;
-}
-
-inline double SimulationElement::getAlphaMean() const
-{
-    return getAlpha(0.5, 0.5);
-}
-
-inline double SimulationElement::getPhiMean() const
-{
-    return getPhi(0.5, 0.5);
-}
-
-inline void SimulationElement::setIntensity(double intensity)
-{
-    m_intensity = intensity;
-}
-
-inline void SimulationElement::addIntensity(double intensity)
-{
-    m_intensity += intensity;
-}
-
-inline double SimulationElement::getIntensity() const
-{
-    return m_intensity;
-}
-
-inline kvector_t SimulationElement::getK(double x, double y) const {
-    return mP_pixel_map->getK(x, y, m_wavelength);
-}
-
-inline double SimulationElement::getIntegrationFactor(double x, double y) const {
-    return mP_pixel_map->getIntegrationFactor(x, y);
-}
-
-inline double SimulationElement::getSolidAngle() const {
-    return mP_pixel_map->getSolidAngle();
-}
 
 //! Add element vector to element vector with weight
-void AddElementsWithWeight(std::vector<SimulationElement>::const_iterator first,
+void addElementsWithWeight(std::vector<SimulationElement>::const_iterator first,
                            std::vector<SimulationElement>::const_iterator last,
                            std::vector<SimulationElement>::iterator result,
                            double weight);
@@ -178,7 +106,5 @@ void AddElementsWithWeight(std::vector<SimulationElement>::const_iterator first,
 //! Set all element intensities to given value
 void setAllElementIntensities(std::vector<SimulationElement>::iterator first,
                               std::vector<SimulationElement>::iterator last, double intensity);
-
-
 
 #endif // SIMULATIONELEMENT_H

@@ -17,6 +17,7 @@
 #ifndef GUIOBJECTBUILDER_H
 #define GUIOBJECTBUILDER_H
 
+#include "ISampleVisitor.h"
 #include "Samples.h"
 #include "MaterialProperty.h"
 
@@ -48,6 +49,8 @@ public:
     SessionItem *populateDocumentModel(DocumentModel *documentModel,
                                                const GISASSimulation &simulation);
 
+
+    using ISampleVisitor::visit;
 
     void visit(const ParticleLayout *);
 

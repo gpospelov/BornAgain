@@ -18,6 +18,7 @@
 #include "JobItem.h"
 #include "JobModel.h"
 #include "JobWorker.h"
+#include "GISASSimulation.h"
 #include "DomainSimulationBuilder.h"
 #include "GUIHelpers.h"
 #include <QThread>

@@ -16,6 +16,7 @@
 #ifndef PYGENVISITOR_H
 #define PYGENVISITOR_H
 
+#include "ISampleVisitor.h"
 
 class SampleLabelHandler;
 
@@ -25,6 +26,7 @@ public:
     PyGenVisitor();
     virtual ~PyGenVisitor();
 
+    using ISampleVisitor::visit;
 
     std::string writePyScript(
         const GISASSimulation* simulation, const std::string& output_filename);

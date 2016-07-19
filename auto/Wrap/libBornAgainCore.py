@@ -5354,6 +5354,18 @@ class IDistribution1D(IParameterized):
         """
         return _libBornAgainCore.IDistribution1D_generateValues(self, nbr_samples, xmin, xmax)
 
+
+    def isDelta(self):
+        """
+        isDelta(IDistribution1D self) -> bool
+
+        virtual bool IDistribution1D::isDelta() const =0
+
+        signals that the distribution is in the limit case of a delta distribution 
+
+        """
+        return _libBornAgainCore.IDistribution1D_isDelta(self)
+
 IDistribution1D_swigregister = _libBornAgainCore.IDistribution1D_swigregister
 IDistribution1D_swigregister(IDistribution1D)
 
@@ -5464,6 +5476,18 @@ class DistributionGate(IDistribution1D):
         """
         return _libBornAgainCore.DistributionGate_generateValueList(self, *args)
 
+
+    def isDelta(self):
+        """
+        isDelta(DistributionGate self) -> bool
+
+        bool DistributionGate::isDelta() const
+
+        signals that the distribution is in the limit case of a delta distribution 
+
+        """
+        return _libBornAgainCore.DistributionGate_isDelta(self)
+
 DistributionGate_swigregister = _libBornAgainCore.DistributionGate_swigregister
 DistributionGate_swigregister(DistributionGate)
 
@@ -5562,6 +5586,18 @@ class DistributionLorentz(IDistribution1D):
         """
         return _libBornAgainCore.DistributionLorentz_generateValueList(self, *args)
 
+
+    def isDelta(self):
+        """
+        isDelta(DistributionLorentz self) -> bool
+
+        bool DistributionLorentz::isDelta() const
+
+        signals that the distribution is in the limit case of a delta distribution 
+
+        """
+        return _libBornAgainCore.DistributionLorentz_isDelta(self)
+
 DistributionLorentz_swigregister = _libBornAgainCore.DistributionLorentz_swigregister
 DistributionLorentz_swigregister(DistributionLorentz)
 
@@ -5659,6 +5695,18 @@ class DistributionGaussian(IDistribution1D):
 
         """
         return _libBornAgainCore.DistributionGaussian_generateValueList(self, *args)
+
+
+    def isDelta(self):
+        """
+        isDelta(DistributionGaussian self) -> bool
+
+        bool DistributionGaussian::isDelta() const
+
+        signals that the distribution is in the limit case of a delta distribution 
+
+        """
+        return _libBornAgainCore.DistributionGaussian_isDelta(self)
 
 DistributionGaussian_swigregister = _libBornAgainCore.DistributionGaussian_swigregister
 DistributionGaussian_swigregister(DistributionGaussian)
@@ -5770,6 +5818,18 @@ class DistributionLogNormal(IDistribution1D):
         """
         return _libBornAgainCore.DistributionLogNormal_generateValueList(self, *args)
 
+
+    def isDelta(self):
+        """
+        isDelta(DistributionLogNormal self) -> bool
+
+        bool DistributionLogNormal::isDelta() const
+
+        signals that the distribution is in the limit case of a delta distribution 
+
+        """
+        return _libBornAgainCore.DistributionLogNormal_isDelta(self)
+
 DistributionLogNormal_swigregister = _libBornAgainCore.DistributionLogNormal_swigregister
 DistributionLogNormal_swigregister(DistributionLogNormal)
 
@@ -5867,6 +5927,18 @@ class DistributionCosine(IDistribution1D):
 
         """
         return _libBornAgainCore.DistributionCosine_generateValueList(self, *args)
+
+
+    def isDelta(self):
+        """
+        isDelta(DistributionCosine self) -> bool
+
+        bool DistributionCosine::isDelta() const
+
+        signals that the distribution is in the limit case of a delta distribution 
+
+        """
+        return _libBornAgainCore.DistributionCosine_isDelta(self)
 
 DistributionCosine_swigregister = _libBornAgainCore.DistributionCosine_swigregister
 DistributionCosine_swigregister(DistributionCosine)

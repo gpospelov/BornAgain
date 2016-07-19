@@ -1189,6 +1189,11 @@ Returns the sigma parameter of the distribution.
 generate list of sample values 
 ";
 
+%feature("docstring")  DistributionCosine::isDelta "bool DistributionCosine::isDelta() const
+
+signals that the distribution is in the limit case of a delta distribution 
+";
+
 
 // File: classDistributionGate.xml
 %feature("docstring") DistributionGate "
@@ -1237,6 +1242,11 @@ Returns the maximum value of the distribution.
 Returns list of sample values. 
 ";
 
+%feature("docstring")  DistributionGate::isDelta "bool DistributionGate::isDelta() const
+
+signals that the distribution is in the limit case of a delta distribution 
+";
+
 
 // File: classDistributionGaussian.xml
 %feature("docstring") DistributionGaussian "
@@ -1278,6 +1288,11 @@ Returns the standard deviation.
 %feature("docstring")  DistributionGaussian::generateValueList "std::vector< double > DistributionGaussian::generateValueList(size_t nbr_samples, double sigma_factor, const AttLimits &limits=AttLimits()) const
 
 generate list of sample values 
+";
+
+%feature("docstring")  DistributionGaussian::isDelta "bool DistributionGaussian::isDelta() const
+
+signals that the distribution is in the limit case of a delta distribution 
 ";
 
 
@@ -1364,6 +1379,11 @@ Returns the scale parameter of the distribution.
 generate list of sample values 
 ";
 
+%feature("docstring")  DistributionLogNormal::isDelta "bool DistributionLogNormal::isDelta() const
+
+signals that the distribution is in the limit case of a delta distribution 
+";
+
 
 // File: classDistributionLorentz.xml
 %feature("docstring") DistributionLorentz "
@@ -1405,6 +1425,11 @@ Returns the half width at half maximum.
 %feature("docstring")  DistributionLorentz::generateValueList "std::vector< double > DistributionLorentz::generateValueList(size_t nbr_samples, double sigma_factor, const AttLimits &limits=AttLimits()) const
 
 generate list of sample values 
+";
+
+%feature("docstring")  DistributionLorentz::isDelta "bool DistributionLorentz::isDelta() const
+
+signals that the distribution is in the limit case of a delta distribution 
 ";
 
 
@@ -5461,6 +5486,11 @@ xmax:
 start and end value of the generated samples
 
 vector of generated values 
+";
+
+%feature("docstring")  IDistribution1D::isDelta "virtual bool IDistribution1D::isDelta() const =0
+
+signals that the distribution is in the limit case of a delta distribution 
 ";
 
 

@@ -14,9 +14,9 @@
 // ************************************************************************** //
 
 #include "BornAgainNamespace.h"
+#include "IDetectorResolution.h"
 #include "Units.h"
 #include "SphericalDetector.h"
-
 
 SphericalDetector::SphericalDetector()
 {
@@ -48,13 +48,13 @@ SphericalDetector &SphericalDetector::operator=(const SphericalDetector &other)
     return *this;
 }
 
-SphericalDetector *SphericalDetector::clone() const
+SphericalDetector* SphericalDetector::clone() const
 {
     return new SphericalDetector(*this);
 }
 
 std::string SphericalDetector::addParametersToExternalPool(
-    std::string path, ParameterPool *external_pool, int copy_number) const
+    std::string path, ParameterPool* external_pool, int copy_number) const
 {
     // add own parameters
     std::string new_path
@@ -67,7 +67,7 @@ std::string SphericalDetector::addParametersToExternalPool(
     return new_path;
 }
 
-OutputData<double> *SphericalDetector::createDetectorMap(const Beam &beam,
+OutputData<double>* SphericalDetector::createDetectorMap(const Beam &beam,
                                                          IDetector2D::EAxesUnits units_type) const
 {
     if (getDimension() != 2)
@@ -200,14 +200,14 @@ AngularPixelMap::AngularPixelMap(Bin1D alpha_bin, Bin1D phi_bin)
     m_solid_angle = std::abs(m_dphi*(std::sin(m_alpha+m_dalpha) - std::sin(m_alpha)));
 }
 
-AngularPixelMap *AngularPixelMap::clone() const
+AngularPixelMap* AngularPixelMap::clone() const
 {
     Bin1D alpha_bin(m_alpha, m_alpha+m_dalpha);
     Bin1D phi_bin(m_phi, m_phi+m_dphi);
     return new AngularPixelMap(alpha_bin, phi_bin);
 }
 
-AngularPixelMap *AngularPixelMap::createZeroSizeMap(double x, double y) const
+AngularPixelMap* AngularPixelMap::createZeroSizeMap(double x, double y) const
 {
     double phi = m_phi + x*m_dphi;
     double alpha = m_alpha + y*m_dalpha;

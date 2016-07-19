@@ -16,9 +16,22 @@
 #ifndef IDETECTOR2D_H
 #define IDETECTOR2D_H
 
+#include "IParameterized.h"
 #include "DetectorMask.h"
-#include "IDetectorResolution.h"
+#include "EigenCore.h"
+#include "Vectors3D.h"
+#include "IPixelMap.h"
 #include "SimulationElement.h"
+#include <memory>
+
+template<class T> class OutputData;
+class Beam;
+class IAxis;
+class IDetector2D;
+class IDetectorResolution;
+namespace Geometry {
+    class IShape2D;
+}
 
 //! @class IDetector
 //! @ingroup simulation
@@ -34,10 +47,10 @@ public:
 
     virtual IDetector2D* clone() const=0;
 
-    virtual ~IDetector2D() {}
+    virtual ~IDetector2D();
 
     //! Inits detector with the beam settings
-    virtual void init(const class Beam&) {}
+    virtual void init(const Beam&) {}
 
     void addAxis(const IAxis& axis);
 
@@ -99,8 +112,8 @@ public:
 
 #ifndef SWIG
     //! Create a vector of SimulationElement objects according to the detector and its mask
-    std::vector<SimulationElement> createSimulationElements(const class Beam& beam);
-    SimulationElement getSimulationElement(size_t index, const class Beam& beam) const;
+    std::vector<SimulationElement> createSimulationElements(const Beam& beam);
+    SimulationElement getSimulationElement(size_t index, const Beam& beam) const;
 #endif
 
     //! Adds parameters from local pool to external pool and recursively calls its direct children.
@@ -108,7 +121,7 @@ public:
                                                     int copy_number = -1) const;
 
     //! Returns detector map in given axes units
-    virtual OutputData<double>* createDetectorMap(const class Beam&, EAxesUnits) const;
+    virtual OutputData<double>* createDetectorMap(const Beam&, EAxesUnits) const;
 
     //! returns vector of valid axes units
     virtual std::vector<EAxesUnits> getValidAxesUnits() const;
@@ -160,44 +173,5 @@ private:
         const kvector_t direction, double efficiency, double total_transmission = 1.0) const;
 #endif
 };
-
-inline void IDetector2D::addAxis(const IAxis& axis)
-{
-    m_axes.push_back(axis.clone());
-}
-
-inline size_t IDetector2D::getDimension() const
-{
-    return m_axes.size();
-}
-
-inline void IDetector2D::clear()
-{
-    m_axes.clear();
-}
-
-inline void IDetector2D::setDetectorResolution(IDetectorResolution* p_detector_resolution)
-{
-    if (mP_detector_resolution.get()!=p_detector_resolution) {
-        mP_detector_resolution.reset(p_detector_resolution);
-    }
-}
-
-inline const IDetectorResolution* IDetector2D::getDetectorResolutionFunction() const
-{
-    return mP_detector_resolution.get();
-}
-
-#ifndef SWIG
-inline Eigen::Matrix2cd IDetector2D::getAnalyzerOperator() const
-{
-    return m_analyzer_operator;
-}
-#endif
-
-inline bool IDetector2D::isCorrectAxisIndex(size_t index) const
-{
-    return index < getDimension();
-}
 
 #endif // IDETECTOR2D_H

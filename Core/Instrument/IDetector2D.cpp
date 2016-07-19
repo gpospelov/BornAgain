@@ -15,6 +15,7 @@
 
 #include "IDetector2D.h"
 #include "Beam.h"
+#include "IDetectorResolution.h"
 #include "InfinitePlane.h"
 #include "MessageService.h"
 
@@ -34,6 +35,8 @@ IDetector2D::IDetector2D(const IDetector2D &other)
         mP_detector_resolution.reset(other.mP_detector_resolution->clone());
     init_parameters();
 }
+
+IDetector2D::~IDetector2D() {}
 
 const IAxis &IDetector2D::getAxis(size_t index) const
 {
@@ -267,4 +270,43 @@ Eigen::Matrix2cd IDetector2D::calculateAnalyzerOperator(
     result(1, 0) = diff*(x + im * y) / 2.0;
     result(1, 1) = (sum - diff*z) / 2.0;
     return result;
+}
+
+void IDetector2D::addAxis(const IAxis& axis)
+{
+    m_axes.push_back(axis.clone());
+}
+
+size_t IDetector2D::getDimension() const
+{
+    return m_axes.size();
+}
+
+void IDetector2D::clear()
+{
+    m_axes.clear();
+}
+
+void IDetector2D::setDetectorResolution(IDetectorResolution* p_detector_resolution)
+{
+    if (mP_detector_resolution.get()!=p_detector_resolution) {
+        mP_detector_resolution.reset(p_detector_resolution);
+    }
+}
+
+const IDetectorResolution* IDetector2D::getDetectorResolutionFunction() const
+{
+    return mP_detector_resolution.get();
+}
+
+#ifndef SWIG
+Eigen::Matrix2cd IDetector2D::getAnalyzerOperator() const
+{
+    return m_analyzer_operator;
+}
+#endif
+
+bool IDetector2D::isCorrectAxisIndex(size_t index) const
+{
+    return index < getDimension();
 }

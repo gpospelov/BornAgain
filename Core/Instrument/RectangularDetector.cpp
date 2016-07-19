@@ -15,6 +15,7 @@
 
 #include "BornAgainNamespace.h"
 #include "Beam.h"
+#include "IDetectorResolution.h"
 #include "RectangularDetector.h"
 #include "Units.h"
 

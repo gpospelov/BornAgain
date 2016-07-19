@@ -77,5 +77,5 @@ std::unique_ptr<IResolutionFunction2D> SphericalDetectorItem::createResolutionFu
 
     std::unique_ptr<IResolutionFunction2D> result(resfuncItem->createResolutionFunction(Units::degree));
 
-    return std::move(result);
+    return result;
 }

@@ -179,7 +179,7 @@ std::unique_ptr<IResolutionFunction2D> RectangularDetectorItem::createResolution
         getGroupItem(P_RESOLUTION_FUNCTION));
     Q_ASSERT(resfuncItem);
     std::unique_ptr<IResolutionFunction2D> result(resfuncItem->createResolutionFunction());
-    return std::move(result);
+    return result;
 }
 
 void RectangularDetectorItem::setDetectorAlignment(const QString &alignment)

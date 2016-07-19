@@ -75,36 +75,36 @@ BeamAngleHelper::creatAngleDistribution(DistributionItem *distributionItem)
             = distributionItem->getItemValue(DistributionGateItem::P_MIN).toDouble();
         double max
             = distributionItem->getItemValue(DistributionGateItem::P_MAX).toDouble();
-        P_distribution = std::move(
-            GUIHelpers::make_unique<DistributionGate>(Units::deg2rad(min), Units::deg2rad(max)));
+        P_distribution = GUIHelpers::make_unique<DistributionGate>(
+                    Units::deg2rad(min), Units::deg2rad(max));
     } else if (distributionItem->modelType() == Constants::DistributionLorentzType) {
         double mean
             = distributionItem->getItemValue(DistributionLorentzItem::P_MEAN).toDouble();
         double hwhm
             = distributionItem->getItemValue(DistributionLorentzItem::P_HWHM).toDouble();
-        P_distribution = std::move(GUIHelpers::make_unique<DistributionLorentz>(
-            Units::deg2rad(mean), Units::deg2rad(hwhm)));
+        P_distribution = GUIHelpers::make_unique<DistributionLorentz>(
+                    Units::deg2rad(mean), Units::deg2rad(hwhm));
     } else if (distributionItem->modelType() == Constants::DistributionGaussianType) {
         double mean
             = distributionItem->getItemValue(DistributionGaussianItem::P_MEAN).toDouble();
         double std_dev = distributionItem->getItemValue(
                                                DistributionGaussianItem::P_STD_DEV).toDouble();
-        P_distribution = std::move(GUIHelpers::make_unique<DistributionGaussian>(
-            Units::deg2rad(mean), Units::deg2rad(std_dev)));
+        P_distribution = GUIHelpers::make_unique<DistributionGaussian>(
+                    Units::deg2rad(mean), Units::deg2rad(std_dev));
     } else if (distributionItem->modelType() == Constants::DistributionLogNormalType) {
         double median = distributionItem->getItemValue(DistributionLogNormalItem::P_MEDIAN)
                             .toDouble();
         double scale_par = distributionItem->getItemValue(
                                                  DistributionLogNormalItem::P_SCALE_PAR).toDouble();
-        P_distribution = std::move(
-            GUIHelpers::make_unique<DistributionLogNormal>(Units::deg2rad(median), scale_par));
+        P_distribution = GUIHelpers::make_unique<DistributionLogNormal>(
+                    Units::deg2rad(median), scale_par);
     } else if (distributionItem->modelType() == Constants::DistributionCosineType) {
         double mean
             = distributionItem->getItemValue(DistributionCosineItem::P_MEAN).toDouble();
         double sigma
             = distributionItem->getItemValue(DistributionCosineItem::P_SIGMA).toDouble();
-        P_distribution = std::move(GUIHelpers::make_unique<DistributionCosine>(
-            Units::deg2rad(mean), Units::deg2rad(sigma)));
+        P_distribution = GUIHelpers::make_unique<DistributionCosine>(
+                    Units::deg2rad(mean), Units::deg2rad(sigma));
     }
     return P_distribution;
 }

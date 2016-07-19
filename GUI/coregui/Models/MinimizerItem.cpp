@@ -89,7 +89,7 @@ std::unique_ptr<IMinimizer> MinuitMinimizerItem::createMinimizer() const
     std::unique_ptr<IMinimizer> result(MinimizerFactory::createMinimizer(minimizerName, minimizerAlgo));
     result->getOptions()->setMaxIterations(maxIterationCount());
 
-    return std::move(result);
+    return result;
 }
 
 // ----------------------------------------------------------------------------
@@ -122,7 +122,7 @@ std::unique_ptr<IMinimizer> GSLMinimizerItem::createMinimizer() const
     std::unique_ptr<IMinimizer> result(MinimizerFactory::createMinimizer(minimizerName, minimizerAlgo));
     result->getOptions()->setMaxIterations(maxIterationCount());
 
-    return std::move(result);
+    return result;
 }
 
 
@@ -158,7 +158,7 @@ std::unique_ptr<IMinimizer> GeneticMinimizerItem::createMinimizer() const
     std::unique_ptr<IMinimizer> result(MinimizerFactory::createMinimizer(minimizerName, minimizerAlgo));
     result->getOptions()->setMaxIterations(maxIterationCount());
 
-    return std::move(result);
+    return result;
 }
 
 //GeneticMinimizerItem::~GeneticMinimizerItem()

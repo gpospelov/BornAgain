@@ -60,7 +60,7 @@ std::unique_ptr<FitSuite> GSLSimulatedAnnealingTest::createFitSuite()
                                     AttLimits::limited(4.0, 6.0), m_parameters[i].m_start_value / 100.);
     }
 
-    return std::move(result);
+    return result;
 }
 
 
@@ -82,5 +82,5 @@ std::unique_ptr<FitSuite> GeneticTest::createFitSuite()
                                     AttLimits::limited(4.0, 6.0), m_parameters[i].m_start_value / 100.);
     }
 
-    return std::move(result);
+    return result;
 }

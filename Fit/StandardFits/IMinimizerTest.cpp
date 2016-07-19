@@ -13,11 +13,15 @@
 //
 // ************************************************************************** //
 
+#include "Units.h"
+#include "FitKernel.h"
 #include "SampleBuilderFactory.h"
 #include "SimulationFactory.h"
+#include "OutputData.h"
 #include "FitSuite.h"
 #include "IMinimizerTest.h"
 #include "MinimizerFactory.h"
+#include <memory>
 #include <boost/format.hpp>
 
 IMinimizerTest::TestParameter::TestParameter(const std::string &name, double real_value,
@@ -100,26 +104,26 @@ std::unique_ptr<FitSuite> IMinimizerTest::createFitSuite()
             m_parameters[i].m_name, m_parameters[i].m_start_value,
             AttLimits::lowerLimited(0.01), m_parameters[i].m_start_value / 100.);
     }
-    return std::move(result);
+    return result;
 }
 
 std::unique_ptr<ISample> IMinimizerTest::createSample()
 {
     SampleBuilderFactory builderFactory;
     std::unique_ptr<ISample> result(builderFactory.createSample(m_sample_builder_name));
-    return std::move(result);
+    return result;
 }
 
 std::unique_ptr<GISASSimulation> IMinimizerTest::createSimulation()
 {
     SimulationFactory simRegistry;
     std::unique_ptr<GISASSimulation> result(simRegistry.createItem(m_simulation_name));
-    return std::move(result);
+    return result;
 }
 
 std::unique_ptr<OutputData<double> > IMinimizerTest::createOutputData(
     const GISASSimulation *simulation)
 {
     std::unique_ptr<OutputData<double> > result(simulation->getDetectorIntensity());
-    return std::move(result);
+    return result;
 }

@@ -19,27 +19,32 @@
 #include "Complex.h"
 #include "ISampleBuilder.h"
 
-//! @class MesoCrystalBuilder
+class IFormFactor;
+class ISample;
+class Lattice;
+class MesoCrystal;
+
+//! @MesoCrystalBuilder
 //! @ingroup standard_samples
 //! @brief Builds sample: mesocrystals of cylindrical shape composed by
 //! spherical nanoparticles.
 
-class BA_CORE_API_  MesoCrystalBuilder : public ISampleBuilder
+class BA_CORE_API_ MesoCrystalBuilder : public ISampleBuilder
 {
 public:
     MesoCrystalBuilder();
 
     virtual ~MesoCrystalBuilder(){}
-    virtual class ISample* buildSample() const;
+    virtual ISample* buildSample() const;
 
 protected:
     virtual void init_parameters();
 
 private:
-    class MesoCrystal* createMesoCrystal(
+    MesoCrystal* createMesoCrystal(
         double stacking_radius_a, double stacking_radius_c,
-        complex_t n_particle, const class IFormFactor* p_meso_form_factor) const;
-    const class Lattice* createLattice(double stacking_radius_a, double stacking_radius_c) const;
+        complex_t n_particle, const IFormFactor* p_meso_form_factor) const;
+    const Lattice* createLattice(double stacking_radius_a, double stacking_radius_c) const;
     double m_lattice_length_a;
     double m_lattice_length_c;
     double m_nanoparticle_radius;

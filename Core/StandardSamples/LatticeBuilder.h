@@ -18,6 +18,8 @@
 
 #include "ISampleBuilder.h"
 
+class ISample;
+
 //! @class Lattice1DBuilder
 //! @ingroup standard_samples
 //! @brief Builds sample: cylinders with 1DDL structure factor
@@ -26,7 +28,7 @@ class BA_CORE_API_ Lattice1DBuilder : public ISampleBuilder
 {
 public:
     Lattice1DBuilder();
-    class ISample* buildSample() const;
+    ISample* buildSample() const;
 
 protected:
     void init_parameters();

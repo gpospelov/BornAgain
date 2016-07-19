@@ -18,6 +18,8 @@
 
 #include "ISampleBuilder.h"
 
+class ISample;
+
 //! @class MultipleLayoutBuilder
 //! @ingroup standard_samples
 //! @brief Builds sample: mixture of cylinders and prisms without interference
@@ -27,7 +29,7 @@ class BA_CORE_API_ MultipleLayoutBuilder : public ISampleBuilder
 {
 public:
     MultipleLayoutBuilder();
-    class ISample* buildSample() const;
+    ISample* buildSample() const;
 
 protected:
     void init_parameters();

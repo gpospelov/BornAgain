@@ -18,6 +18,9 @@
 
 #include "ISampleBuilder.h"
 
+class IFTDistribution2D;
+class ISample;
+
 //! @class RadialParaCrystalBuilder
 //! @ingroup standard_samples
 //! @brief Builds sample: cylinders with 1DDL structure factor (IsGISAXS example #4)
@@ -26,7 +29,7 @@ class BA_CORE_API_ RadialParaCrystalBuilder : public ISampleBuilder
 {
 public:
     RadialParaCrystalBuilder();
-    class ISample* buildSample() const;
+    ISample* buildSample() const;
 
 protected:
     void init_parameters();
@@ -49,9 +52,9 @@ class BA_CORE_API_ Basic2DParaCrystalBuilder : public ISampleBuilder
 public:
     Basic2DParaCrystalBuilder();
     virtual ~Basic2DParaCrystalBuilder();
-    virtual class ISample* buildSample() const;
+    virtual ISample* buildSample() const;
 private:
-    class IFTDistribution2D* m_pdf1;
+    IFTDistribution2D* m_pdf1;
 };
 
 //! @class HexParaCrystalBuilder
@@ -62,7 +65,7 @@ class BA_CORE_API_ HexParaCrystalBuilder : public ISampleBuilder
 {
 public:
     HexParaCrystalBuilder();
-    virtual class ISample* buildSample() const;
+    virtual ISample* buildSample() const;
 
 protected:
     virtual void init_parameters();
@@ -84,7 +87,7 @@ class BA_CORE_API_ RectParaCrystalBuilder : public ISampleBuilder
 {
 public:
     RectParaCrystalBuilder(){}
-    virtual class ISample* buildSample() const;
+    virtual ISample* buildSample() const;
 };
 
 //! @class IsGISAXS08BBuilder
@@ -96,7 +99,7 @@ class BA_CORE_API_ IsGISAXS08BBuilder : public ISampleBuilder
 {
 public:
     IsGISAXS08BBuilder(){}
-    virtual class ISample* buildSample() const;
+    virtual ISample* buildSample() const;
 };
 
 #endif // PARACRYSTALBUILDER_H

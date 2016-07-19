@@ -18,6 +18,8 @@
 
 #include "IFormFactor.h"
 
+class ILayerRTCoefficients;
+
 //! @class FormFactorDWBAPol
 //! @ingroup formfactors_internal
 //! @brief Evaluates a coherent sum of the 16 matrix DWBA terms in a polarized formfactor.
@@ -47,8 +49,8 @@ public:
     virtual double getRadius() const;
 
     //! Sets reflection/transmission info for scalar DWBA simulation
-    virtual void setSpecularInfo(const class ILayerRTCoefficients* p_in_coeffs,
-                                 const class ILayerRTCoefficients* p_out_coeffs);
+    virtual void setSpecularInfo(const ILayerRTCoefficients* p_in_coeffs,
+                                 const ILayerRTCoefficients* p_out_coeffs);
 
     friend class TestPolarizedDWBATerms;
 
@@ -80,8 +82,8 @@ protected:
     mutable Eigen::Matrix2cd m_M22_RS;
     mutable Eigen::Matrix2cd m_M22_SR;
     mutable Eigen::Matrix2cd m_M22_RSR;
-    const class ILayerRTCoefficients* mp_in_coeffs;
-    const class ILayerRTCoefficients* mp_out_coeffs;
+    const ILayerRTCoefficients* mp_in_coeffs;
+    const ILayerRTCoefficients* mp_out_coeffs;
 };
 
 #endif // FORMFACTORDWBAPOL_H

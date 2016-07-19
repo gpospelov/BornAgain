@@ -22,6 +22,11 @@
 #include "OutputData.h"
 #include <memory>
 
+class IAxis;
+class ISample;
+class ISampleBuilder;
+class MultiLayer;
+
 //! @class SpecularSimulation
 //! @ingroup simulation
 //! @brief Main class to run a specular simulation.
@@ -33,8 +38,8 @@ public:
     typedef std::vector<LayerRTCoefficients_t> MultiLayerRTCoefficients_t;
 
     SpecularSimulation();
-    SpecularSimulation(const class ISample& sample);
-    SpecularSimulation(std::shared_ptr<class ISampleBuilder> sample_builder);
+    SpecularSimulation(const ISample& sample);
+    SpecularSimulation(std::shared_ptr<ISampleBuilder> sample_builder);
     virtual ~SpecularSimulation();
 
     SpecularSimulation* clone() const;
@@ -43,27 +48,27 @@ public:
     void runSimulation();
 
     //! Sets the sample to be tested
-    void setSample(const class ISample& sample);
+    void setSample(const ISample& sample);
 
     //! Returns the sample
-    class ISample* getSample() const { return m_sample; }
+    ISample* getSample() const { return m_sample; }
 
     //! Sets the sample builder
-    void setSampleBuilder(std::shared_ptr<class ISampleBuilder> sample_builder);
+    void setSampleBuilder(std::shared_ptr<ISampleBuilder> sample_builder);
 
     //! return sample builder
-    std::shared_ptr<class ISampleBuilder> getSampleBuilder() const { return m_sample_builder; }
+    std::shared_ptr<ISampleBuilder> getSampleBuilder() const { return m_sample_builder; }
 
     //! Sets beam parameters with alpha_i of the beam defined in the range
-    void setBeamParameters(double lambda, const class IAxis &alpha_axis);
+    void setBeamParameters(double lambda, const IAxis& alpha_axis);
     void setBeamParameters(double lambda, int nbins, double alpha_i_min, double alpha_i_max);
 
     //! set axis for evanescent wave axis
-    void setEvanescentWaveAxis(const class IAxis &z_axis);
+    void setEvanescentWaveAxis(const IAxis& z_axis);
     void setEvanescentWaveAxis(int nbins, double z_min, double z_max);
 
     //! returns alpha_i axis
-    const class IAxis* getAlphaAxis() const;
+    const IAxis* getAlphaAxis() const;
 
     //! returns vector of reflection coefficients for all alpha_i angles for given layer index
     std::vector<complex_t> getScalarR(size_t i_layer) const;
@@ -91,10 +96,10 @@ protected:
     void updateSample();
 
     //! calculates RT coefficients for multilayer without magnetic materials
-    void collectRTCoefficientsScalar(const class MultiLayer* multilayer);
+    void collectRTCoefficientsScalar(const MultiLayer* multilayer);
 
     //! calculates RT coefficients for multilayer with magnetic materials
-    void collectRTCoefficientsMatrix(const class MultiLayer* multilayer);
+    void collectRTCoefficientsMatrix(const MultiLayer* multilayer);
 
     //! calculates the intensity of evanescent wave
 //    void calculateEvanescentWaveIntensity();
@@ -105,10 +110,10 @@ protected:
     //! update data axes
     void updateCoefficientDataAxes();
 
-    class ISample* m_sample;
-    std::shared_ptr<class ISampleBuilder> m_sample_builder;
-    class IAxis* m_alpha_i_axis;
-    class IAxis* m_z_axis;
+    ISample* m_sample;
+    std::shared_ptr<ISampleBuilder> m_sample_builder;
+    IAxis* m_alpha_i_axis;
+    IAxis* m_z_axis;
     double m_lambda;
 
 #ifndef SWIG

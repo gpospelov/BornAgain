@@ -19,6 +19,8 @@
 #include "DWBASimulation.h"
 #include "LayerSpecularInfo.h"
 
+class MultiLayer;
+
 //! @class MultiLayerRoughnessDWBASimulation
 //! @ingroup algorithms_internal
 //! @brief Calculation of diffuse reflection from multilayer with rough interfaces
@@ -26,7 +28,7 @@
 class BA_CORE_API_ MultiLayerRoughnessDWBASimulation : public DWBASimulation
 {
 public:
-    MultiLayerRoughnessDWBASimulation(const class MultiLayer* p_multi_layer);
+    MultiLayerRoughnessDWBASimulation(const MultiLayer* p_multi_layer);
     virtual ~MultiLayerRoughnessDWBASimulation();
 
     MultiLayerRoughnessDWBASimulation* clone() const
@@ -49,7 +51,7 @@ protected:
     complex_t get_refractive_term(size_t ilayer) const;
     complex_t get_sum8terms(size_t ilayer, const SimulationElement& sim_element);
 
-    class MultiLayer* mp_multi_layer;
+    MultiLayer* mp_multi_layer;
     std::vector<LayerSpecularInfo*> mp_specular_info_vector;
 };
 

@@ -18,6 +18,8 @@
 
 #include "LayerDWBASimulation.h"
 
+class IInterferenceFunctionStrategy;
+
 //! @class DecoratedLayerDWBASimulation
 //! @ingroup algorithms_internal
 //! @brief Calculates scattering cross sections in DWBA for a layer with particles in/on it
@@ -30,8 +32,8 @@ public:
 
     DecoratedLayerDWBASimulation* clone() const
     {
-        throw Exceptions::NotImplementedException("DecoratedLayerDWBASimulation::clone() -> "
-                                      "Error: not implemented.");
+        throw Exceptions::NotImplementedException(
+            "DecoratedLayerDWBASimulation::clone() -> Error: not implemented.");
     }
 
     virtual void run();
@@ -39,8 +41,8 @@ protected:
     virtual void runProtected();
 
 private:
-    class IInterferenceFunctionStrategy* createAndInitStrategy() const;
-    void calculateCoherentIntensity(const class IInterferenceFunctionStrategy* p_strategy);
+    IInterferenceFunctionStrategy* createAndInitStrategy() const;
+    void calculateCoherentIntensity(const IInterferenceFunctionStrategy* p_strategy);
     size_t m_layout_index;
 };
 

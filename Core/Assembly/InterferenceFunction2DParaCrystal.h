@@ -22,8 +22,8 @@
 #include "Lattice2DParameters.h"
 #include <memory>
 
-// Forward declaration to prevent IntegratorReal.h to be parsed for Python API:
 template <class T> class IntegratorReal;
+class IFTDistribution2D;
 
 //! @class InterferenceFunction2DParaCrystal
 //! @ingroup interference
@@ -65,14 +65,14 @@ public:
     //! lattice directions.
     //! @param pdf_1: probability distribution in first lattice direction
     //! @param pdf_2: probability distribution in second lattice direction
-    void setProbabilityDistributions(const class IFTDistribution2D& pdf_1,
-                                     const class IFTDistribution2D& pdf_2);
+    void setProbabilityDistributions(const IFTDistribution2D& pdf_1,
+                                     const IFTDistribution2D& pdf_2);
 
 
     virtual double evaluate(const kvector_t q) const;
 
     std::vector<double> getDomainSizes() const;
-    std::vector<const class IFTDistribution2D*> getProbabilityDistributions() const;
+    std::vector<const IFTDistribution2D*> getProbabilityDistributions() const;
 
     void setIntegrationOverXi(bool integrate_xi) { m_integrate_xi = integrate_xi; }
     bool getIntegrationOverXi() const { return m_integrate_xi; }
@@ -96,7 +96,7 @@ protected:
 
     Lattice2DParameters m_lattice_params; //!< Lattice parameters
     bool m_integrate_xi; //!< Integrate over the orientation xi
-    class IFTDistribution2D* m_pdfs[2];
+    IFTDistribution2D* m_pdfs[2];
     double m_damping_length; //!< Damping length for removing delta function singularity at q=0.
     bool m_use_damping_length; //!< Flag that determines if the damping length should be used.
     double m_domain_sizes[2]; //!< Coherence domain sizes

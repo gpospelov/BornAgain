@@ -18,6 +18,8 @@
 
 #include "ISampleBuilder.h"
 
+class ISample;
+
 //! @class MultiLayerWithRoughnessBuilder
 //! @ingroup standard_samples
 //! @brief Builds sample: layers with correlated roughness
@@ -26,7 +28,7 @@ class BA_CORE_API_ MultiLayerWithRoughnessBuilder : public ISampleBuilder
 {
 public:
     MultiLayerWithRoughnessBuilder();
-    class ISample* buildSample() const;
+    ISample* buildSample() const;
 
 protected:
     void init_parameters();

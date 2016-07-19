@@ -18,6 +18,8 @@
 
 #include "IInterferenceFunctionStrategy.h"
 
+class SimulationElement;
+
 //! @class DecouplingApproximationStrategy
 //! @ingroup algorithms_internal
 //! @brief Strategy for implementing decoupling approximation
@@ -30,21 +32,19 @@ public:
     {
     }
 
-    virtual ~DecouplingApproximationStrategy()
-    {
-    }
+    virtual ~DecouplingApproximationStrategy() {}
 
     void init(const SafePointerVector<FormFactorInfo> &form_factor_infos,
               const IInterferenceFunction& iff);
 
 protected:
     //! Evaluates the intensity for given list of evaluated form factors
-    double evaluateForList(const class SimulationElement& sim_element,
+    double evaluateForList(const SimulationElement& sim_element,
                            const std::vector<complex_t> &ff_list) const;
 
     //! Evaluates the intensity for given list of evaluated form factors
     //! in the presence of polarization of beam and detector
-    double evaluateForMatrixList(const class SimulationElement& sim_element,
+    double evaluateForMatrixList(const SimulationElement& sim_element,
                                  const MatrixFFVector &ff_list) const;
 
 private:

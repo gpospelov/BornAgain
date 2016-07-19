@@ -18,6 +18,8 @@
 
 #include "ISampleBuilder.h"
 
+class ISample;
+
 //! @class CylindersInDWBABuilder
 //! @ingroup standard_samples
 //! @brief Builds sample: cylinder formfactor in DWBA (IsGISAXS example #3, part I)
@@ -26,7 +28,7 @@ class BA_CORE_API_ CylindersInDWBABuilder : public ISampleBuilder
 {
 public:
     CylindersInDWBABuilder();
-    class ISample* buildSample() const;
+    ISample* buildSample() const;
 
 protected:
     void init_parameters();
@@ -36,7 +38,6 @@ private:
     double m_radius;
 };
 
-
 //! @class CylindersInBABuilder
 //! @ingroup standard_samples
 //! @brief Builds sample: cylinder formfactor in BA (IsGISAXS example #3, part II)
@@ -45,7 +46,7 @@ class BA_CORE_API_ CylindersInBABuilder : public ISampleBuilder
 {
 public:
     CylindersInBABuilder();
-    class ISample* buildSample() const;
+    ISample* buildSample() const;
 
 protected:
     void init_parameters();
@@ -63,7 +64,7 @@ class BA_CORE_API_ LargeCylindersInDWBABuilder : public ISampleBuilder
 {
 public:
     LargeCylindersInDWBABuilder();
-    class ISample* buildSample() const;
+    ISample* buildSample() const;
 
 protected:
     void init_parameters();
@@ -72,6 +73,5 @@ private:
     double m_height;
     double m_radius;
 };
-
 
 #endif // CYLINDERSBUILDER_H

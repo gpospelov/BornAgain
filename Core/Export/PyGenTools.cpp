@@ -50,7 +50,7 @@ std::string PyGenTools::genPyScript(GISASSimulation* simulation, const std::stri
     return result.str();
 }
 
-std::string PyGenTools::getRepresentation(const class IDistribution1D* distribution)
+std::string PyGenTools::getRepresentation(const IDistribution1D* distribution)
 {
      std::ostringstream result;
      result << std::setprecision(12);
@@ -94,7 +94,7 @@ std::string PyGenTools::getRepresentation(const class IDistribution1D* distribut
 }
 
 std::string PyGenTools::getRepresentation(
-    const std::string& indent, const class Geometry::IShape2D* ishape, bool mask_value)
+    const std::string& indent, const Geometry::IShape2D* ishape, bool mask_value)
 {     std::ostringstream result;
       result << std::setprecision(12);
 

@@ -18,6 +18,8 @@
 
 #include "SpecularMatrix.h"
 
+class MultiLayer;
+
 //! @class DWBADiffuseReflection
 //! @ingroup algorithms_internal
 //! @brief Calculation of diffuse (aka off-specular) reflection from multilayers.
@@ -27,10 +29,10 @@ class BA_CORE_API_ DWBADiffuseReflection : public ISimulation
 public:
     DWBADiffuseReflection();
 
-    void execute(const class MultiLayer& sample,
+    void execute(const MultiLayer& sample,
                  const kvector_t ki, const kvector_t kf);
 
-    void setSample(const class MultiLayer& sample) {m_sample =& sample; }
+    void setSample(const MultiLayer& sample) {m_sample =& sample; }
 
     double getDiffuseAutocorr() const { return m_diffuse_autocorr; }
 
@@ -47,7 +49,7 @@ private:
 
     complex_t get_sum4terms(size_t ilayer);
 
-    const class MultiLayer *m_sample;
+    const MultiLayer *m_sample;
     SpecularMatrix::MultiLayerCoeff_t m_fcoeff_i;
     SpecularMatrix::MultiLayerCoeff_t m_fcoeff_f;
     double m_diffuse_autocorr;

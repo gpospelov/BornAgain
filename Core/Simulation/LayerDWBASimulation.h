@@ -19,6 +19,9 @@
 #include "DWBASimulation.h"
 #include "LayerSpecularInfo.h"
 
+class Layer;
+class LayerSpecularInfo;
+
 //! @class LayerDWBASimulation
 //! @ingroup algorithms_internal
 //! @brief Base class for DWBA simulations in a layer.
@@ -26,7 +29,7 @@
 class BA_CORE_API_ LayerDWBASimulation : public DWBASimulation
 {
 public:
-    LayerDWBASimulation(const class Layer* p_layer);
+    LayerDWBASimulation(const Layer* p_layer);
     virtual ~LayerDWBASimulation();
 
     LayerDWBASimulation* clone() const {
@@ -42,8 +45,8 @@ public:
 
 protected:
     Bin1DCVector getKfBin(double wavelength, const Bin1D& alpha_bin, const Bin1D& phi_bin) const;
-    class Layer* mp_layer;
-    class LayerSpecularInfo* mp_specular_info;
+    Layer* mp_layer;
+    LayerSpecularInfo* mp_specular_info;
 };
 
 #endif // LAYERDWBASIMULATION_H

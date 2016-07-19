@@ -23,6 +23,10 @@
 #include "SimulationOptions.h"
 
 template<class T> class OutputData;
+class DWBASimulation;
+class ISample;
+class ISampleBuilder;
+class ProgressHandlerDWBA;
 
 //! @class Simulation
 //! @ingroup simulation
@@ -32,8 +36,8 @@ class BA_CORE_API_ Simulation : public ICloneable, public IParameterized
 {
 public:
     Simulation();
-    Simulation(const class ISample& p_sample);
-    Simulation(std::shared_ptr<class ISampleBuilder> p_sample_builder);
+    Simulation(const ISample& p_sample);
+    Simulation(std::shared_ptr<ISampleBuilder> p_sample_builder);
     virtual ~Simulation();
 
     virtual Simulation* clone() const=0;
@@ -48,16 +52,16 @@ public:
     void runOMPISimulation();
 
     //! Sets the sample to be tested
-    void setSample(const class ISample& sample);
+    void setSample(const ISample& sample);
 
     //! Returns the sample
-    class ISample* getSample() const { return mP_sample.get(); }
+    ISample* getSample() const { return mP_sample.get(); }
 
     //! Sets the sample builder
-    void setSampleBuilder(std::shared_ptr<class ISampleBuilder> sample_builder);
+    void setSampleBuilder(std::shared_ptr<ISampleBuilder> sample_builder);
 
     //! return sample builder
-    std::shared_ptr<class ISampleBuilder> getSampleBuilder() const { return mp_sample_builder; }
+    std::shared_ptr<ISampleBuilder> getSampleBuilder() const { return mp_sample_builder; }
 
     //! Gets the number of elements this simulation needs to calculate
     virtual int getNumberOfSimulationElements() const=0;
@@ -85,7 +89,7 @@ public:
     void setProgressHandler(ProgressHandler_t progress) { m_progress = progress; }
 
     //! initializes DWBA progress handler
-    void initProgressHandlerDWBA(class ProgressHandlerDWBA* dwba_progress);
+    void initProgressHandlerDWBA(ProgressHandlerDWBA* dwba_progress);
 #endif
 
     friend class OMPISimulation;
@@ -122,7 +126,7 @@ protected:
 #endif
 
     //! Verify existence of the DWBASimulation object
-    void verifyDWBASimulation(class DWBASimulation* dwbaSimulation);
+    void verifyDWBASimulation(DWBASimulation* dwbaSimulation);
 
     //! Returns the start iterator of simulation elements for the current batch
     std::vector<SimulationElement>::iterator getBatchStart(int n_batches, int current_batch);
@@ -130,8 +134,8 @@ protected:
     //! Returns the end iterator of simulation elements for the current batch
     std::vector<SimulationElement>::iterator getBatchEnd(int n_batches, int current_batch);
 
-    std::unique_ptr<class ISample> mP_sample;
-    std::shared_ptr<class ISampleBuilder> mp_sample_builder;
+    std::unique_ptr<ISample> mP_sample;
+    std::shared_ptr<ISampleBuilder> mp_sample_builder;
     SimulationOptions m_options;
     DistributionHandler m_distribution_handler;
     ProgressHandler_t m_progress;

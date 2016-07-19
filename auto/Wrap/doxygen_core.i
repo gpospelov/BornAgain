@@ -1073,6 +1073,8 @@ C++ includes: DecouplingApproximationStrategy.h
 ";
 
 %feature("docstring")  DecouplingApproximationStrategy::init "void DecouplingApproximationStrategy::init(const SafePointerVector< FormFactorInfo > &form_factor_infos, const IInterferenceFunction &iff)
+
+Initializes the object with form factors and interference functions. 
 ";
 
 
@@ -1449,10 +1451,10 @@ C++ includes: DWBADiffuseReflection.h
 %feature("docstring")  DWBADiffuseReflection::DWBADiffuseReflection "DWBADiffuseReflection::DWBADiffuseReflection()
 ";
 
-%feature("docstring")  DWBADiffuseReflection::execute "void DWBADiffuseReflection::execute(const class MultiLayer &sample, const kvector_t ki, const kvector_t kf)
+%feature("docstring")  DWBADiffuseReflection::execute "void DWBADiffuseReflection::execute(const MultiLayer &sample, const kvector_t ki, const kvector_t kf)
 ";
 
-%feature("docstring")  DWBADiffuseReflection::setSample "void DWBADiffuseReflection::setSample(const class MultiLayer &sample)
+%feature("docstring")  DWBADiffuseReflection::setSample "void DWBADiffuseReflection::setSample(const MultiLayer &sample)
 ";
 
 %feature("docstring")  DWBADiffuseReflection::getDiffuseAutocorr "double DWBADiffuseReflection::getDiffuseAutocorr() const 
@@ -2377,7 +2379,7 @@ Returns a clone of this  ISample object.
 Calls the  ISampleVisitor's visit method. 
 ";
 
-%feature("docstring")  FormFactorDWBA::setSpecularInfo "void FormFactorDWBA::setSpecularInfo(const class ILayerRTCoefficients *p_in_coeffs, const class ILayerRTCoefficients *p_out_coeffs)
+%feature("docstring")  FormFactorDWBA::setSpecularInfo "void FormFactorDWBA::setSpecularInfo(const ILayerRTCoefficients *p_in_coeffs, const ILayerRTCoefficients *p_out_coeffs)
 
 Sets reflection/transmission info for scalar DWBA simulation. 
 ";
@@ -2432,7 +2434,7 @@ Returns the total volume of the particle of this form factor's shape.
 Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
 
-%feature("docstring")  FormFactorDWBAPol::setSpecularInfo "void FormFactorDWBAPol::setSpecularInfo(const class ILayerRTCoefficients *p_in_coeffs, const class ILayerRTCoefficients *p_out_coeffs)
+%feature("docstring")  FormFactorDWBAPol::setSpecularInfo "void FormFactorDWBAPol::setSpecularInfo(const ILayerRTCoefficients *p_in_coeffs, const ILayerRTCoefficients *p_out_coeffs)
 
 Sets reflection/transmission info for scalar DWBA simulation. 
 ";
@@ -4399,10 +4401,10 @@ overloaded in (Core|Py|GUI)Suite.cpp
 %feature("docstring")  GISASSimulation::GISASSimulation "GISASSimulation::GISASSimulation()
 ";
 
-%feature("docstring")  GISASSimulation::GISASSimulation "GISASSimulation::GISASSimulation(const class ISample &p_sample)
+%feature("docstring")  GISASSimulation::GISASSimulation "GISASSimulation::GISASSimulation(const ISample &p_sample)
 ";
 
-%feature("docstring")  GISASSimulation::GISASSimulation "GISASSimulation::GISASSimulation(std::shared_ptr< class ISampleBuilder > p_sample_builder)
+%feature("docstring")  GISASSimulation::GISASSimulation "GISASSimulation::GISASSimulation(std::shared_ptr< ISampleBuilder > p_sample_builder)
 ";
 
 %feature("docstring")  GISASSimulation::~GISASSimulation "virtual GISASSimulation::~GISASSimulation()
@@ -4474,7 +4476,7 @@ Sets the detector (axes can be overwritten later)
 Sets detector parameters using axes of output data. 
 ";
 
-%feature("docstring")  GISASSimulation::setDetectorParameters "void GISASSimulation::setDetectorParameters(const class IHistogram &histogram)
+%feature("docstring")  GISASSimulation::setDetectorParameters "void GISASSimulation::setDetectorParameters(const IHistogram &histogram)
 ";
 
 %feature("docstring")  GISASSimulation::setDetectorParameters "void GISASSimulation::setDetectorParameters(size_t n_phi, double phi_min, double phi_max, size_t n_alpha, double alpha_min, double alpha_max)
@@ -4523,7 +4525,7 @@ Sets the polarization analyzer characteristics of the detector.
 removes all masks from the detector 
 ";
 
-%feature("docstring")  GISASSimulation::addMask "void GISASSimulation::addMask(const class Geometry::IShape2D &shape, bool mask_value=true)
+%feature("docstring")  GISASSimulation::addMask "void GISASSimulation::addMask(const Geometry::IShape2D &shape, bool mask_value=true)
 
 Adds mask of given shape to the stack of detector masks. The mask value 'true' means that the channel will be excluded from the simulation. The mask which is added last has priority.
 
@@ -6224,22 +6226,22 @@ C++ includes: IInterferenceFunctionStrategy.h
 %feature("docstring")  IInterferenceFunctionStrategy::~IInterferenceFunctionStrategy "IInterferenceFunctionStrategy::~IInterferenceFunctionStrategy()
 ";
 
-%feature("docstring")  IInterferenceFunctionStrategy::init "void IInterferenceFunctionStrategy::init(const SafePointerVector< class FormFactorInfo > &form_factor_infos, const class IInterferenceFunction &iff)
+%feature("docstring")  IInterferenceFunctionStrategy::init "void IInterferenceFunctionStrategy::init(const SafePointerVector< FormFactorInfo > &form_factor_infos, const IInterferenceFunction &iff)
 
 Initializes the object with form factors and interference functions. 
 ";
 
-%feature("docstring")  IInterferenceFunctionStrategy::setSpecularInfo "void IInterferenceFunctionStrategy::setSpecularInfo(const class LayerSpecularInfo &specular_info)
+%feature("docstring")  IInterferenceFunctionStrategy::setSpecularInfo "void IInterferenceFunctionStrategy::setSpecularInfo(const LayerSpecularInfo &specular_info)
 
 Provides the R,T coefficients information. 
 ";
 
-%feature("docstring")  IInterferenceFunctionStrategy::evaluate "double IInterferenceFunctionStrategy::evaluate(const class SimulationElement &sim_element) const
+%feature("docstring")  IInterferenceFunctionStrategy::evaluate "double IInterferenceFunctionStrategy::evaluate(const SimulationElement &sim_element) const
 
 Calculates the intensity for scalar particles/interactions. 
 ";
 
-%feature("docstring")  IInterferenceFunctionStrategy::evaluatePol "double IInterferenceFunctionStrategy::evaluatePol(const class SimulationElement &sim_element) const
+%feature("docstring")  IInterferenceFunctionStrategy::evaluatePol "double IInterferenceFunctionStrategy::evaluatePol(const SimulationElement &sim_element) const
 
 Calculates the intensity in the presence of polarization of beam and detector. 
 ";
@@ -6321,7 +6323,7 @@ C++ includes: ILayout.h
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  ILayout::accept "virtual void ILayout::accept(class ISampleVisitor *visitor) const =0
+%feature("docstring")  ILayout::accept "virtual void ILayout::accept(ISampleVisitor *visitor) const =0
 
 calls the  ISampleVisitor's visit method 
 ";
@@ -6336,12 +6338,12 @@ Returns a clone with inverted magnetic fields.
 Returns number of particles. 
 ";
 
-%feature("docstring")  ILayout::getParticle "virtual const class IAbstractParticle* ILayout::getParticle(size_t index) const =0
+%feature("docstring")  ILayout::getParticle "virtual const IAbstractParticle* ILayout::getParticle(size_t index) const =0
 
 Returns information about particle with index. 
 ";
 
-%feature("docstring")  ILayout::getParticles "virtual SafePointerVector<const class IParticle> ILayout::getParticles() const =0
+%feature("docstring")  ILayout::getParticles "virtual SafePointerVector<const IParticle> ILayout::getParticles() const =0
 
 Returns information on all particles (type and abundance) and generates new particles if an  IAbstractParticle denotes a collection 
 ";
@@ -6950,7 +6952,7 @@ size_2:
 size in second lattice direction 
 ";
 
-%feature("docstring")  InterferenceFunction2DParaCrystal::setProbabilityDistributions "void InterferenceFunction2DParaCrystal::setProbabilityDistributions(const class IFTDistribution2D &pdf_1, const class IFTDistribution2D &pdf_2)
+%feature("docstring")  InterferenceFunction2DParaCrystal::setProbabilityDistributions "void InterferenceFunction2DParaCrystal::setProbabilityDistributions(const IFTDistribution2D &pdf_1, const IFTDistribution2D &pdf_2)
 
 Sets the probability distributions (Fourier transformed) for the two lattice directions.
 
@@ -8262,7 +8264,7 @@ Base class for DWBA simulations in a layer.
 C++ includes: LayerDWBASimulation.h
 ";
 
-%feature("docstring")  LayerDWBASimulation::LayerDWBASimulation "LayerDWBASimulation::LayerDWBASimulation(const class Layer *p_layer)
+%feature("docstring")  LayerDWBASimulation::LayerDWBASimulation "LayerDWBASimulation::LayerDWBASimulation(const Layer *p_layer)
 ";
 
 %feature("docstring")  LayerDWBASimulation::~LayerDWBASimulation "LayerDWBASimulation::~LayerDWBASimulation()
@@ -9071,7 +9073,7 @@ Calculation of diffuse reflection from multilayer with rough interfaces.
 C++ includes: MultiLayerRoughnessDWBASimulation.h
 ";
 
-%feature("docstring")  MultiLayerRoughnessDWBASimulation::MultiLayerRoughnessDWBASimulation "MultiLayerRoughnessDWBASimulation::MultiLayerRoughnessDWBASimulation(const class MultiLayer *p_multi_layer)
+%feature("docstring")  MultiLayerRoughnessDWBASimulation::MultiLayerRoughnessDWBASimulation "MultiLayerRoughnessDWBASimulation::MultiLayerRoughnessDWBASimulation(const MultiLayer *p_multi_layer)
 ";
 
 %feature("docstring")  MultiLayerRoughnessDWBASimulation::~MultiLayerRoughnessDWBASimulation "MultiLayerRoughnessDWBASimulation::~MultiLayerRoughnessDWBASimulation()
@@ -10271,10 +10273,10 @@ C++ includes: ParticleLayout.h
 %feature("docstring")  ParticleLayout::ParticleLayout "ParticleLayout::ParticleLayout()
 ";
 
-%feature("docstring")  ParticleLayout::ParticleLayout "ParticleLayout::ParticleLayout(const class IAbstractParticle &particle)
+%feature("docstring")  ParticleLayout::ParticleLayout "ParticleLayout::ParticleLayout(const IAbstractParticle &particle)
 ";
 
-%feature("docstring")  ParticleLayout::ParticleLayout "ParticleLayout::ParticleLayout(const class IAbstractParticle &particle, double abundance)
+%feature("docstring")  ParticleLayout::ParticleLayout "ParticleLayout::ParticleLayout(const IAbstractParticle &particle, double abundance)
 ";
 
 %feature("docstring")  ParticleLayout::~ParticleLayout "ParticleLayout::~ParticleLayout()
@@ -10290,17 +10292,17 @@ Returns a clone of this  ISample object.
 Returns a clone with inverted magnetic fields. 
 ";
 
-%feature("docstring")  ParticleLayout::accept "void ParticleLayout::accept(class ISampleVisitor *visitor) const
+%feature("docstring")  ParticleLayout::accept "void ParticleLayout::accept(ISampleVisitor *visitor) const
 
 calls the  ISampleVisitor's visit method 
 ";
 
-%feature("docstring")  ParticleLayout::addParticle "virtual void ParticleLayout::addParticle(const class IAbstractParticle &particle)
+%feature("docstring")  ParticleLayout::addParticle "void ParticleLayout::addParticle(const IAbstractParticle &particle)
 
 Adds generic particle to the layout. 
 ";
 
-%feature("docstring")  ParticleLayout::addParticle "virtual void ParticleLayout::addParticle(const class IAbstractParticle &particle, double abundance)
+%feature("docstring")  ParticleLayout::addParticle "void ParticleLayout::addParticle(const IAbstractParticle &particle, double abundance)
 
 Adds generic particle to the layout with only abundance defined.
 
@@ -10314,7 +10316,7 @@ abundance:
  Particle abundance 
 ";
 
-%feature("docstring")  ParticleLayout::addParticle "virtual void ParticleLayout::addParticle(const class IParticle &particle, double abundance, const kvector_t position)
+%feature("docstring")  ParticleLayout::addParticle "void ParticleLayout::addParticle(const IParticle &particle, double abundance, const kvector_t position)
 
 Adds particle to the layout with abundance and position defined.
 
@@ -10331,7 +10333,7 @@ position:
  Particle position 
 ";
 
-%feature("docstring")  ParticleLayout::addParticle "virtual void ParticleLayout::addParticle(const class IParticle &particle, double abundance, const kvector_t position, const IRotation &rotation)
+%feature("docstring")  ParticleLayout::addParticle "void ParticleLayout::addParticle(const IParticle &particle, double abundance, const kvector_t position, const IRotation &rotation)
 
 Adds particle to the layout with abundance, position and the rotation defined.
 
@@ -10378,7 +10380,7 @@ Get abundance fraction of particle with index.
 Returns interference functions. 
 ";
 
-%feature("docstring")  ParticleLayout::addInterferenceFunction "void ParticleLayout::addInterferenceFunction(const class IInterferenceFunction &interference_function)
+%feature("docstring")  ParticleLayout::addInterferenceFunction "void ParticleLayout::addInterferenceFunction(const IInterferenceFunction &interference_function)
 
 Sets interference function.
 
@@ -11417,7 +11419,7 @@ C++ includes: SampleLabelHandler.h
 %feature("docstring")  SampleLabelHandler::getLayerMap "SampleLabelHandler::layers_t * SampleLabelHandler::getLayerMap()
 ";
 
-%feature("docstring")  SampleLabelHandler::getLayerRoughnessMap "SampleLabelHandler::roughnesses_t * SampleLabelHandler::getLayerRoughnessMap()
+%feature("docstring")  SampleLabelHandler::getParticleLayoutMap "SampleLabelHandler::layouts_t * SampleLabelHandler::getParticleLayoutMap()
 ";
 
 %feature("docstring")  SampleLabelHandler::getMaterialMap "SampleLabelHandler::materials_t * SampleLabelHandler::getMaterialMap()
@@ -11426,94 +11428,94 @@ C++ includes: SampleLabelHandler.h
 %feature("docstring")  SampleLabelHandler::getMultiLayerMap "SampleLabelHandler::multilayers_t * SampleLabelHandler::getMultiLayerMap()
 ";
 
+%feature("docstring")  SampleLabelHandler::getParticleCompositionMap "SampleLabelHandler::particlecompositions_t * SampleLabelHandler::getParticleCompositionMap()
+";
+
+%feature("docstring")  SampleLabelHandler::getParticleDistributionsMap "SampleLabelHandler::particledistributions_t * SampleLabelHandler::getParticleDistributionsMap()
+";
+
 %feature("docstring")  SampleLabelHandler::getParticleMap "SampleLabelHandler::particles_t * SampleLabelHandler::getParticleMap()
 ";
 
 %feature("docstring")  SampleLabelHandler::getParticleCoreShellMap "SampleLabelHandler::particlescoreshell_t * SampleLabelHandler::getParticleCoreShellMap()
 ";
 
-%feature("docstring")  SampleLabelHandler::getParticleDistributionsMap "SampleLabelHandler::particledistributions_t * SampleLabelHandler::getParticleDistributionsMap()
-";
-
-%feature("docstring")  SampleLabelHandler::getParticleLayoutMap "SampleLabelHandler::layouts_t * SampleLabelHandler::getParticleLayoutMap()
-";
-
-%feature("docstring")  SampleLabelHandler::getParticleCompositionMap "SampleLabelHandler::particlecompositions_t * SampleLabelHandler::getParticleCompositionMap()
-";
-
 %feature("docstring")  SampleLabelHandler::getRotationsMap "SampleLabelHandler::rotations_t * SampleLabelHandler::getRotationsMap()
 ";
 
-%feature("docstring")  SampleLabelHandler::getLabel "std::string SampleLabelHandler::getLabel(const class IFormFactor *sample)
+%feature("docstring")  SampleLabelHandler::getLayerRoughnessMap "SampleLabelHandler::roughnesses_t * SampleLabelHandler::getLayerRoughnessMap()
 ";
 
-%feature("docstring")  SampleLabelHandler::getLabel "std::string SampleLabelHandler::getLabel(const class IInterferenceFunction *sample)
+%feature("docstring")  SampleLabelHandler::getLabel "std::string SampleLabelHandler::getLabel(const IAbstractParticle *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::getLabel "std::string SampleLabelHandler::getLabel(const class IMaterial *sample)
+%feature("docstring")  SampleLabelHandler::getLabel "std::string SampleLabelHandler::getLabel(const IFormFactor *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::getLabel "std::string SampleLabelHandler::getLabel(const class Layer *sample)
+%feature("docstring")  SampleLabelHandler::getLabel "std::string SampleLabelHandler::getLabel(const IInterferenceFunction *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::getLabel "std::string SampleLabelHandler::getLabel(const class LayerRoughness *sample)
+%feature("docstring")  SampleLabelHandler::getLabel "std::string SampleLabelHandler::getLabel(const ILayout *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::getLabel "std::string SampleLabelHandler::getLabel(const class MultiLayer *sample)
+%feature("docstring")  SampleLabelHandler::getLabel "std::string SampleLabelHandler::getLabel(const IMaterial *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::getLabel "std::string SampleLabelHandler::getLabel(const class IAbstractParticle *sample)
+%feature("docstring")  SampleLabelHandler::getLabel "std::string SampleLabelHandler::getLabel(const IRotation *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::getLabel "std::string SampleLabelHandler::getLabel(const class ParticleCoreShell *sample)
+%feature("docstring")  SampleLabelHandler::getLabel "std::string SampleLabelHandler::getLabel(const Layer *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::getLabel "std::string SampleLabelHandler::getLabel(const class ParticleDistribution *sample)
+%feature("docstring")  SampleLabelHandler::getLabel "std::string SampleLabelHandler::getLabel(const LayerRoughness *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::getLabel "std::string SampleLabelHandler::getLabel(const class ILayout *sample)
+%feature("docstring")  SampleLabelHandler::getLabel "std::string SampleLabelHandler::getLabel(const MultiLayer *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::getLabel "std::string SampleLabelHandler::getLabel(const class ParticleComposition *sample)
+%feature("docstring")  SampleLabelHandler::getLabel "std::string SampleLabelHandler::getLabel(const ParticleComposition *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::getLabel "std::string SampleLabelHandler::getLabel(const class IRotation *sample)
+%feature("docstring")  SampleLabelHandler::getLabel "std::string SampleLabelHandler::getLabel(const ParticleCoreShell *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::insertMaterial "void SampleLabelHandler::insertMaterial(const class IMaterial *sample)
+%feature("docstring")  SampleLabelHandler::getLabel "std::string SampleLabelHandler::getLabel(const ParticleDistribution *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::setLabel "void SampleLabelHandler::setLabel(const class IFormFactor *sample)
+%feature("docstring")  SampleLabelHandler::insertMaterial "void SampleLabelHandler::insertMaterial(const IMaterial *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::setLabel "void SampleLabelHandler::setLabel(const class IInterferenceFunction *sample)
+%feature("docstring")  SampleLabelHandler::setLabel "void SampleLabelHandler::setLabel(const IFormFactor *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::setLabel "void SampleLabelHandler::setLabel(const class ILayout *sample)
+%feature("docstring")  SampleLabelHandler::setLabel "void SampleLabelHandler::setLabel(const IInterferenceFunction *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::setLabel "void SampleLabelHandler::setLabel(const class Layer *sample)
+%feature("docstring")  SampleLabelHandler::setLabel "void SampleLabelHandler::setLabel(const ILayout *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::setLabel "void SampleLabelHandler::setLabel(const class LayerRoughness *sample)
+%feature("docstring")  SampleLabelHandler::setLabel "void SampleLabelHandler::setLabel(const IRotation *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::setLabel "void SampleLabelHandler::setLabel(const class MultiLayer *sample)
+%feature("docstring")  SampleLabelHandler::setLabel "void SampleLabelHandler::setLabel(const Layer *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::setLabel "void SampleLabelHandler::setLabel(const class Particle *sample)
+%feature("docstring")  SampleLabelHandler::setLabel "void SampleLabelHandler::setLabel(const LayerRoughness *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::setLabel "void SampleLabelHandler::setLabel(const class ParticleCoreShell *sample)
+%feature("docstring")  SampleLabelHandler::setLabel "void SampleLabelHandler::setLabel(const MultiLayer *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::setLabel "void SampleLabelHandler::setLabel(const class ParticleDistribution *sample)
+%feature("docstring")  SampleLabelHandler::setLabel "void SampleLabelHandler::setLabel(const Particle *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::setLabel "void SampleLabelHandler::setLabel(const class ParticleComposition *sample)
+%feature("docstring")  SampleLabelHandler::setLabel "void SampleLabelHandler::setLabel(const ParticleComposition *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::setLabel "void SampleLabelHandler::setLabel(const class IRotation *sample)
+%feature("docstring")  SampleLabelHandler::setLabel "void SampleLabelHandler::setLabel(const ParticleCoreShell *sample)
+";
+
+%feature("docstring")  SampleLabelHandler::setLabel "void SampleLabelHandler::setLabel(const ParticleDistribution *sample)
 ";
 
 
@@ -12120,10 +12122,10 @@ C++ includes: GISASSimulation.h
 %feature("docstring")  Simulation::Simulation "Simulation::Simulation()
 ";
 
-%feature("docstring")  Simulation::Simulation "Simulation::Simulation(const class ISample &p_sample)
+%feature("docstring")  Simulation::Simulation "Simulation::Simulation(const ISample &p_sample)
 ";
 
-%feature("docstring")  Simulation::Simulation "Simulation::Simulation(std::shared_ptr< class ISampleBuilder > p_sample_builder)
+%feature("docstring")  Simulation::Simulation "Simulation::Simulation(std::shared_ptr< ISampleBuilder > p_sample_builder)
 ";
 
 %feature("docstring")  Simulation::~Simulation "Simulation::~Simulation()
@@ -12149,24 +12151,24 @@ Run simulation with possible averaging over parameter distributions.
 Run an OpenMPI simulation. 
 ";
 
-%feature("docstring")  Simulation::setSample "void Simulation::setSample(const class ISample &sample)
+%feature("docstring")  Simulation::setSample "void Simulation::setSample(const ISample &sample)
 
 Sets the sample to be tested.
 
 The  ISample object will not be owned by the  Simulation object. 
 ";
 
-%feature("docstring")  Simulation::getSample "class ISample* Simulation::getSample() const
+%feature("docstring")  Simulation::getSample "ISample* Simulation::getSample() const
 
 Returns the sample. 
 ";
 
-%feature("docstring")  Simulation::setSampleBuilder "void Simulation::setSampleBuilder(std::shared_ptr< class ISampleBuilder > sample_builder)
+%feature("docstring")  Simulation::setSampleBuilder "void Simulation::setSampleBuilder(std::shared_ptr< ISampleBuilder > sample_builder)
 
 Sets the sample builder. 
 ";
 
-%feature("docstring")  Simulation::getSampleBuilder "std::shared_ptr<class ISampleBuilder> Simulation::getSampleBuilder() const
+%feature("docstring")  Simulation::getSampleBuilder "std::shared_ptr<ISampleBuilder> Simulation::getSampleBuilder() const
 
 return sample builder 
 ";
@@ -12204,7 +12206,7 @@ add a sampled parameter distribution
 sets progress handler (used by GUI) 
 ";
 
-%feature("docstring")  Simulation::initProgressHandlerDWBA "void Simulation::initProgressHandlerDWBA(class ProgressHandlerDWBA *dwba_progress)
+%feature("docstring")  Simulation::initProgressHandlerDWBA "void Simulation::initProgressHandlerDWBA(ProgressHandlerDWBA *dwba_progress)
 
 initializes DWBA progress handler 
 ";
@@ -12448,6 +12450,8 @@ C++ includes: SizeSpacingCorrelationApproximationStrategy.h
 ";
 
 %feature("docstring")  SizeSpacingCorrelationApproximationStrategy::init "void SizeSpacingCorrelationApproximationStrategy::init(const SafePointerVector< FormFactorInfo > &form_factor_infos, const IInterferenceFunction &iff)
+
+Initializes the object with form factors and interference functions. 
 ";
 
 
@@ -12480,10 +12484,10 @@ C++ includes: SpecularSimulation.h
 %feature("docstring")  SpecularSimulation::SpecularSimulation "SpecularSimulation::SpecularSimulation()
 ";
 
-%feature("docstring")  SpecularSimulation::SpecularSimulation "SpecularSimulation::SpecularSimulation(const class ISample &sample)
+%feature("docstring")  SpecularSimulation::SpecularSimulation "SpecularSimulation::SpecularSimulation(const ISample &sample)
 ";
 
-%feature("docstring")  SpecularSimulation::SpecularSimulation "SpecularSimulation::SpecularSimulation(std::shared_ptr< class ISampleBuilder > sample_builder)
+%feature("docstring")  SpecularSimulation::SpecularSimulation "SpecularSimulation::SpecularSimulation(std::shared_ptr< ISampleBuilder > sample_builder)
 ";
 
 %feature("docstring")  SpecularSimulation::~SpecularSimulation "SpecularSimulation::~SpecularSimulation()
@@ -12497,27 +12501,27 @@ C++ includes: SpecularSimulation.h
 Run a simulation with the current parameter settings. 
 ";
 
-%feature("docstring")  SpecularSimulation::setSample "void SpecularSimulation::setSample(const class ISample &sample)
+%feature("docstring")  SpecularSimulation::setSample "void SpecularSimulation::setSample(const ISample &sample)
 
 Sets the sample to be tested. 
 ";
 
-%feature("docstring")  SpecularSimulation::getSample "class ISample* SpecularSimulation::getSample() const
+%feature("docstring")  SpecularSimulation::getSample "ISample* SpecularSimulation::getSample() const
 
 Returns the sample. 
 ";
 
-%feature("docstring")  SpecularSimulation::setSampleBuilder "void SpecularSimulation::setSampleBuilder(std::shared_ptr< class ISampleBuilder > sample_builder)
+%feature("docstring")  SpecularSimulation::setSampleBuilder "void SpecularSimulation::setSampleBuilder(std::shared_ptr< ISampleBuilder > sample_builder)
 
 Sets the sample builder. 
 ";
 
-%feature("docstring")  SpecularSimulation::getSampleBuilder "std::shared_ptr<class ISampleBuilder> SpecularSimulation::getSampleBuilder() const
+%feature("docstring")  SpecularSimulation::getSampleBuilder "std::shared_ptr<ISampleBuilder> SpecularSimulation::getSampleBuilder() const
 
 return sample builder 
 ";
 
-%feature("docstring")  SpecularSimulation::setBeamParameters "void SpecularSimulation::setBeamParameters(double lambda, const class IAxis &alpha_axis)
+%feature("docstring")  SpecularSimulation::setBeamParameters "void SpecularSimulation::setBeamParameters(double lambda, const IAxis &alpha_axis)
 
 Sets beam parameters with alpha_i of the beam defined in the range. 
 ";
@@ -12525,7 +12529,7 @@ Sets beam parameters with alpha_i of the beam defined in the range.
 %feature("docstring")  SpecularSimulation::setBeamParameters "void SpecularSimulation::setBeamParameters(double lambda, int nbins, double alpha_i_min, double alpha_i_max)
 ";
 
-%feature("docstring")  SpecularSimulation::setEvanescentWaveAxis "void SpecularSimulation::setEvanescentWaveAxis(const class IAxis &z_axis)
+%feature("docstring")  SpecularSimulation::setEvanescentWaveAxis "void SpecularSimulation::setEvanescentWaveAxis(const IAxis &z_axis)
 
 set axis for evanescent wave axis 
 ";
@@ -13494,10 +13498,10 @@ Parse double values from string to vector of double.
 %feature("docstring")  PyGenTools::genPyScript "std::string PyGenTools::genPyScript(GISASSimulation *simulation, const std::string &output_filename)
 ";
 
-%feature("docstring")  PyGenTools::getRepresentation "BA_CORE_API_ std::string PyGenTools::getRepresentation(const IDistribution1D *distribution)
+%feature("docstring")  PyGenTools::getRepresentation "std::string PyGenTools::getRepresentation(const IDistribution1D *distribution)
 ";
 
-%feature("docstring")  PyGenTools::getRepresentation "BA_CORE_API_ std::string PyGenTools::getRepresentation(const std::string &indent, const Geometry::IShape2D *ishape, bool mask_value)
+%feature("docstring")  PyGenTools::getRepresentation "std::string PyGenTools::getRepresentation(const std::string &indent, const Geometry::IShape2D *ishape, bool mask_value)
 ";
 
 %feature("docstring")  PyGenTools::printBool "std::string PyGenTools::printBool(double value)

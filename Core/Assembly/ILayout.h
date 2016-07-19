@@ -19,6 +19,10 @@
 #include "ICompositeSample.h"
 #include "SafePointerVector.h"
 
+class IAbstractParticle;
+class IParticle;
+class ISampleVisitor;
+
 //! @class ILayout
 //! @ingroup samples_internal
 //! @brief Interface to equip a sample component with various properties.
@@ -34,7 +38,7 @@ public:
     virtual ILayout* clone() const=0;
 
     //! calls the ISampleVisitor's visit method
-    virtual void accept(class ISampleVisitor* visitor) const=0;
+    virtual void accept(ISampleVisitor* visitor) const=0;
 
     //! Returns a clone with inverted magnetic fields
     virtual ILayout* cloneInvertB() const=0;
@@ -43,11 +47,11 @@ public:
     virtual size_t getNumberOfParticles() const=0;
 
     //! Returns information about particle with index
-    virtual const class IAbstractParticle* getParticle(size_t index) const=0;
+    virtual const IAbstractParticle* getParticle(size_t index) const=0;
 
     //! Returns information on all particles (type and abundance)
     //! and generates new particles if an IAbstractParticle denotes a collection
-    virtual SafePointerVector<const class IParticle> getParticles() const=0;
+    virtual SafePointerVector<const IParticle> getParticles() const=0;
 
     /// Get abundance fraction of particle with index
     virtual double getAbundanceOfParticle(size_t index) const=0;

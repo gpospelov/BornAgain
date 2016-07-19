@@ -29,7 +29,7 @@ GISASSimulation::GISASSimulation(const ISample& p_sample)
     initialize();
 }
 
-GISASSimulation::GISASSimulation(std::shared_ptr<class ISampleBuilder> p_sample_builder)
+GISASSimulation::GISASSimulation(std::shared_ptr<ISampleBuilder> p_sample_builder)
     : Simulation(p_sample_builder)
 {
     initialize();
@@ -111,7 +111,7 @@ void GISASSimulation::setDetectorParameters(const OutputData<double>& output_dat
     m_intensity_map.setAllTo(0.);
 }
 
-void GISASSimulation::setDetectorParameters(const class IHistogram& histogram)
+void GISASSimulation::setDetectorParameters(const IHistogram& histogram)
 {
     const std::unique_ptr<OutputData<double> > data(histogram.createOutputData());
     setDetectorParameters(*data);

@@ -12724,7 +12724,7 @@ class Simulation(ICloneable, IParameterized):
         """
         setSample(Simulation self, ISample sample)
 
-        void Simulation::setSample(const class ISample &sample)
+        void Simulation::setSample(const ISample &sample)
 
         Sets the sample to be tested.
 
@@ -12738,7 +12738,7 @@ class Simulation(ICloneable, IParameterized):
         """
         getSample(Simulation self) -> ISample
 
-        class ISample* Simulation::getSample() const
+        ISample* Simulation::getSample() const
 
         Returns the sample. 
 
@@ -12750,7 +12750,7 @@ class Simulation(ICloneable, IParameterized):
         """
         setSampleBuilder(Simulation self, std::shared_ptr< ISampleBuilder > sample_builder)
 
-        void Simulation::setSampleBuilder(std::shared_ptr< class ISampleBuilder > sample_builder)
+        void Simulation::setSampleBuilder(std::shared_ptr< ISampleBuilder > sample_builder)
 
         Sets the sample builder. 
 
@@ -12762,7 +12762,7 @@ class Simulation(ICloneable, IParameterized):
         """
         getSampleBuilder(Simulation self) -> std::shared_ptr< ISampleBuilder >
 
-        std::shared_ptr<class ISampleBuilder> Simulation::getSampleBuilder() const
+        std::shared_ptr<ISampleBuilder> Simulation::getSampleBuilder() const
 
         return sample builder 
 
@@ -13012,7 +13012,7 @@ class GISASSimulation(Simulation):
         __init__(GISASSimulation self, ISample p_sample) -> GISASSimulation
         __init__(GISASSimulation self, std::shared_ptr< ISampleBuilder > p_sample_builder) -> GISASSimulation
 
-        GISASSimulation::GISASSimulation(std::shared_ptr< class ISampleBuilder > p_sample_builder)
+        GISASSimulation::GISASSimulation(std::shared_ptr< ISampleBuilder > p_sample_builder)
 
         """
         this = _libBornAgainCore.new_GISASSimulation(*args)
@@ -13255,7 +13255,7 @@ class GISASSimulation(Simulation):
         addMask(GISASSimulation self, IShape2D shape, bool mask_value=True)
         addMask(GISASSimulation self, IShape2D shape)
 
-        void GISASSimulation::addMask(const class Geometry::IShape2D &shape, bool mask_value=true)
+        void GISASSimulation::addMask(const Geometry::IShape2D &shape, bool mask_value=true)
 
         Adds mask of given shape to the stack of detector masks. The mask value 'true' means that the channel will be excluded from the simulation. The mask which is added last has priority.
 
@@ -14865,7 +14865,7 @@ class ILayout(ICompositeSample):
         """
         accept(ILayout self, ISampleVisitor visitor)
 
-        virtual void ILayout::accept(class ISampleVisitor *visitor) const =0
+        virtual void ILayout::accept(ISampleVisitor *visitor) const =0
 
         calls the  ISampleVisitor's visit method 
 
@@ -14901,7 +14901,7 @@ class ILayout(ICompositeSample):
         """
         getParticle(ILayout self, size_t index) -> IAbstractParticle
 
-        virtual const class IAbstractParticle* ILayout::getParticle(size_t index) const =0
+        virtual const IAbstractParticle* ILayout::getParticle(size_t index) const =0
 
         Returns information about particle with index. 
 
@@ -14913,7 +14913,7 @@ class ILayout(ICompositeSample):
         """
         getParticles(ILayout self) -> SafePointerVector< IParticle const >
 
-        virtual SafePointerVector<const class IParticle> ILayout::getParticles() const =0
+        virtual SafePointerVector<const IParticle> ILayout::getParticles() const =0
 
         Returns information on all particles (type and abundance) and generates new particles if an  IAbstractParticle denotes a collection 
 
@@ -16993,7 +16993,7 @@ class InterferenceFunction2DParaCrystal(IInterferenceFunction):
         """
         setProbabilityDistributions(InterferenceFunction2DParaCrystal self, IFTDistribution2D pdf_1, IFTDistribution2D pdf_2)
 
-        void InterferenceFunction2DParaCrystal::setProbabilityDistributions(const class IFTDistribution2D &pdf_1, const class IFTDistribution2D &pdf_2)
+        void InterferenceFunction2DParaCrystal::setProbabilityDistributions(const IFTDistribution2D &pdf_1, const IFTDistribution2D &pdf_2)
 
         Sets the probability distributions (Fourier transformed) for the two lattice directions.
 
@@ -21124,7 +21124,7 @@ class ParticleLayout(ILayout):
         __init__(ParticleLayout self, IAbstractParticle particle) -> ParticleLayout
         __init__(ParticleLayout self, IAbstractParticle particle, double abundance) -> ParticleLayout
 
-        ParticleLayout::ParticleLayout(const class IAbstractParticle &particle, double abundance)
+        ParticleLayout::ParticleLayout(const IAbstractParticle &particle, double abundance)
 
         """
         this = _libBornAgainCore.new_ParticleLayout(*args)
@@ -21163,7 +21163,7 @@ class ParticleLayout(ILayout):
         """
         accept(ParticleLayout self, ISampleVisitor visitor)
 
-        void ParticleLayout::accept(class ISampleVisitor *visitor) const
+        void ParticleLayout::accept(ISampleVisitor *visitor) const
 
         calls the  ISampleVisitor's visit method 
 
@@ -21178,7 +21178,7 @@ class ParticleLayout(ILayout):
         addParticle(ParticleLayout self, IParticle particle, double abundance, kvector_t position)
         addParticle(ParticleLayout self, IParticle particle, double abundance, kvector_t position, IRotation rotation)
 
-        virtual void ParticleLayout::addParticle(const class IParticle &particle, double abundance, const kvector_t position, const IRotation &rotation)
+        void ParticleLayout::addParticle(const IParticle &particle, double abundance, const kvector_t position, const IRotation &rotation)
 
         Adds particle to the layout with abundance, position and the rotation defined.
 
@@ -21267,7 +21267,7 @@ class ParticleLayout(ILayout):
         """
         addInterferenceFunction(ParticleLayout self, IInterferenceFunction interference_function)
 
-        void ParticleLayout::addInterferenceFunction(const class IInterferenceFunction &interference_function)
+        void ParticleLayout::addInterferenceFunction(const IInterferenceFunction &interference_function)
 
         Sets interference function.
 
@@ -22070,7 +22070,7 @@ class SpecularSimulation(ICloneable, IParameterized):
         __init__(SpecularSimulation self, ISample sample) -> SpecularSimulation
         __init__(SpecularSimulation self, std::shared_ptr< ISampleBuilder > sample_builder) -> SpecularSimulation
 
-        SpecularSimulation::SpecularSimulation(std::shared_ptr< class ISampleBuilder > sample_builder)
+        SpecularSimulation::SpecularSimulation(std::shared_ptr< ISampleBuilder > sample_builder)
 
         """
         this = _libBornAgainCore.new_SpecularSimulation(*args)
@@ -22107,7 +22107,7 @@ class SpecularSimulation(ICloneable, IParameterized):
         """
         setSample(SpecularSimulation self, ISample sample)
 
-        void SpecularSimulation::setSample(const class ISample &sample)
+        void SpecularSimulation::setSample(const ISample &sample)
 
         Sets the sample to be tested. 
 
@@ -22119,7 +22119,7 @@ class SpecularSimulation(ICloneable, IParameterized):
         """
         getSample(SpecularSimulation self) -> ISample
 
-        class ISample* SpecularSimulation::getSample() const
+        ISample* SpecularSimulation::getSample() const
 
         Returns the sample. 
 
@@ -22131,7 +22131,7 @@ class SpecularSimulation(ICloneable, IParameterized):
         """
         setSampleBuilder(SpecularSimulation self, std::shared_ptr< ISampleBuilder > sample_builder)
 
-        void SpecularSimulation::setSampleBuilder(std::shared_ptr< class ISampleBuilder > sample_builder)
+        void SpecularSimulation::setSampleBuilder(std::shared_ptr< ISampleBuilder > sample_builder)
 
         Sets the sample builder. 
 
@@ -22143,7 +22143,7 @@ class SpecularSimulation(ICloneable, IParameterized):
         """
         getSampleBuilder(SpecularSimulation self) -> std::shared_ptr< ISampleBuilder >
 
-        std::shared_ptr<class ISampleBuilder> SpecularSimulation::getSampleBuilder() const
+        std::shared_ptr<ISampleBuilder> SpecularSimulation::getSampleBuilder() const
 
         return sample builder 
 

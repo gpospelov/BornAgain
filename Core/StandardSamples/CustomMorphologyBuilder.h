@@ -18,6 +18,8 @@
 
 #include "ISampleBuilder.h"
 
+class ISample;
+
 //! @class CustomMorphologyBuilder
 //! @ingroup standard_samples
 //! @brief Builds sample: mixture of different particles (IsGISAXS example #7)
@@ -26,7 +28,7 @@ class BA_CORE_API_ CustomMorphologyBuilder : public ISampleBuilder
 {
 public:
     CustomMorphologyBuilder() {}
-    class ISample* buildSample() const;
+    ISample* buildSample() const;
 };
 
 #endif // CUSTOMMORPHOLOGYBUILDER_H

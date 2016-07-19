@@ -18,6 +18,8 @@
 
 #include "ISampleBuilder.h"
 
+class ISample;
+
 //! @class CoreShellParticleBuilder
 //! @ingroup standard_samples
 //! @brief Builds sample: Core Shell Nanoparticles (IsGISAXS example #11).
@@ -26,7 +28,7 @@ class BA_CORE_API_ CoreShellParticleBuilder : public ISampleBuilder
 {
 public:
     CoreShellParticleBuilder(){}
-    class ISample* buildSample() const;
+    ISample* buildSample() const;
 };
 
 
@@ -38,7 +40,7 @@ class BA_CORE_API_ CoreShellBoxRotateZandYBuilder : public ISampleBuilder
 {
 public:
     CoreShellBoxRotateZandYBuilder(){}
-    class ISample* buildSample() const;
+    ISample* buildSample() const;
 };
 
 #endif // CORESHELLPARTICLEBUILDER_H

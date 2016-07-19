@@ -68,11 +68,10 @@ void OffSpecSimulation::setBeamParameters(
         double lambda, const IAxis &alpha_axis, double phi_i) {
     delete mp_alpha_i_axis;
     mp_alpha_i_axis = alpha_axis.clone();
-    if (alpha_axis.getSize()<1) {
+    if (alpha_axis.getSize()<1)
         throw Exceptions::ClassInitializationException(
                 "OffSpecSimulation::prepareSimulation() "
                 "-> Error. Incoming alpha range size < 1.");
-    }
     double alpha_start = alpha_axis[0];
     m_instrument.setBeamParameters(lambda, alpha_start, phi_i);
     updateIntensityMap();
@@ -168,7 +167,7 @@ void OffSpecSimulation::initSimulationElementVector()
         beam.setCentralK(wavelength, alpha_i, phi_i);
         m_instrument.setBeam(beam);
         std::vector<SimulationElement> sim_elements_alpha_i =
-                m_instrument.createSimulationElements();
+            m_instrument.createSimulationElements();
         m_sim_elements.insert(m_sim_elements.end(), sim_elements_alpha_i.begin(),
                               sim_elements_alpha_i.end());
     }
@@ -185,9 +184,8 @@ void OffSpecSimulation::transferResultsToIntensityMap()
                                     "intensity map size does not conform to number of "
                                     "calculated intensities");
     }
-    for (size_t i=0; i<mp_alpha_i_axis->getSize(); ++i) {
+    for (size_t i=0; i<mp_alpha_i_axis->getSize(); ++i)
         transferDetectorImage(i);
-    }
 }
 
 double OffSpecSimulation::getBeamIntensity() const
@@ -198,13 +196,11 @@ double OffSpecSimulation::getBeamIntensity() const
 void OffSpecSimulation::updateIntensityMap()
 {
     m_intensity_map.clear();
-    if (mp_alpha_i_axis) {
+    if (mp_alpha_i_axis)
         m_intensity_map.addAxis(*mp_alpha_i_axis);
-    }
     size_t detector_dimension = m_instrument.getDetectorDimension();
-    if (detector_dimension==2) {
+    if (detector_dimension==2)
         m_intensity_map.addAxis(m_instrument.getDetectorAxis(1));
-    }
     m_intensity_map.setAllTo(0.);
 }
 
@@ -212,13 +208,11 @@ void OffSpecSimulation::transferDetectorImage(int index)
 {
     OutputData<double> detector_image;
     size_t detector_dimension = m_instrument.getDetectorDimension();
-    for (size_t dim=0; dim<detector_dimension; ++dim) {
+    for (size_t dim=0; dim<detector_dimension; ++dim)
         detector_image.addAxis(m_instrument.getDetectorAxis(dim));
-    }
     size_t detector_size = detector_image.getAllocatedSize();
-    for (size_t i=0; i<detector_size; ++i) {
+    for (size_t i=0; i<detector_size; ++i)
         detector_image[i] = m_sim_elements[index*detector_size + i].getIntensity();
-    }
     m_instrument.applyDetectorResolution(&detector_image);
     size_t y_axis_size = m_instrument.getDetectorAxis(1).getSize();
     for (size_t i=0; i<detector_size; ++i) {
@@ -233,20 +227,17 @@ void OffSpecSimulation::checkInitialization() const
                 "OffSpecSimulation::checkInitialization() "
                 "Incoming alpha range not configured.");
     }
-    if (m_instrument.getDetectorDimension()!=2) {
-        throw Exceptions::RuntimeErrorException("OffSpecSimulation::checkInitialization: "
-                                    "detector is not two-dimensional");
-    }
+    if (m_instrument.getDetectorDimension()!=2)
+        throw Exceptions::RuntimeErrorException(
+            "OffSpecSimulation::checkInitialization: detector is not two-dimensional");
     const IAxis &phi_axis = m_instrument.getDetectorAxis(0);
-    if (phi_axis.getName()!=BornAgain::PHI_AXIS_NAME) {
-        throw Exceptions::RuntimeErrorException("OffSpecSimulation::checkInitialization: "
-                                    "phi-axis is not correct");
-    }
+    if (phi_axis.getName()!=BornAgain::PHI_AXIS_NAME)
+        throw Exceptions::RuntimeErrorException(
+            "OffSpecSimulation::checkInitialization: phi-axis is not correct");
     const IAxis &alpha_axis = m_instrument.getDetectorAxis(1);
-    if (alpha_axis.getName()!=BornAgain::ALPHA_AXIS_NAME) {
-        throw Exceptions::RuntimeErrorException("OffSpecSimulation::checkInitialization: "
-                                    "alpha-axis is not correct");
-    }
+    if (alpha_axis.getName()!=BornAgain::ALPHA_AXIS_NAME)
+        throw Exceptions::RuntimeErrorException(
+            "OffSpecSimulation::checkInitialization: alpha-axis is not correct");
 }
 
 void OffSpecSimulation::initialize()

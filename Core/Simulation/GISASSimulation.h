@@ -19,6 +19,11 @@
 #include "Instrument.h"
 #include "Simulation.h"
 
+class ISample;
+class ISampleBuilder;
+class IHistogram;
+class Histogram2D;
+
 //! @class Simulation
 //! @ingroup simulation
 //! @brief Main class to run the simulation.
@@ -27,8 +32,8 @@ class BA_CORE_API_ GISASSimulation : public Simulation
 {
 public:
     GISASSimulation();
-    GISASSimulation(const class ISample& p_sample);
-    GISASSimulation(std::shared_ptr<class ISampleBuilder> p_sample_builder);
+    GISASSimulation(const ISample& p_sample);
+    GISASSimulation(std::shared_ptr<ISampleBuilder> p_sample_builder);
 
     virtual ~GISASSimulation() {}
 
@@ -49,7 +54,7 @@ public:
 
     //! Returns clone of the detector intensity map with detector resolution applied in the form
     //! of 2D histogram.
-    class Histogram2D* getIntensityData(
+    Histogram2D* getIntensityData(
         IDetector2D::EAxesUnits units_type = IDetector2D::DEFAULT) const;
 
     //! Sets the instrument containing beam and detector information
@@ -73,7 +78,7 @@ public:
 
     //! Sets detector parameters using axes of output data
     void setDetectorParameters(const OutputData<double> &output_data);
-    void setDetectorParameters(const class IHistogram& histogram);
+    void setDetectorParameters(const IHistogram& histogram);
 
     //! Sets spherical detector parameters using angle ranges
     //! @param n_phi number of phi-axis bins
@@ -103,7 +108,7 @@ public:
     //! has priority.
     //! @param shape The shape of mask (Rectangle, Polygon, Line, Ellipse)
     //! @param mask_value The value of mask
-    void addMask(const class Geometry::IShape2D& shape, bool mask_value = true);
+    void addMask(const Geometry::IShape2D& shape, bool mask_value = true);
 
     //! Put the mask for all detector channels (i.e. exclude whole detector from the analysis)
     void maskAll();

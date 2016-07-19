@@ -18,6 +18,8 @@
 
 #include "ISampleBuilder.h"
 
+class ISample;
+
 //! @class MagneticParticleZeroFieldBuilder
 //! @ingroup standard_samples
 //! @brief Builds sample: cylinders with magnetic material and zero magnetic field.
@@ -26,7 +28,7 @@ class BA_CORE_API_ MagneticParticleZeroFieldBuilder : public ISampleBuilder
 {
 public:
     MagneticParticleZeroFieldBuilder();
-    class ISample* buildSample() const;
+    ISample* buildSample() const;
 
 protected:
     void init_parameters();
@@ -44,7 +46,7 @@ class BA_CORE_API_ MagneticCylindersBuilder : public ISampleBuilder
 {
 public:
     MagneticCylindersBuilder();
-    class ISample* buildSample() const;
+    ISample* buildSample() const;
 
 protected:
     void init_parameters();
@@ -53,6 +55,5 @@ private:
     double m_cylinder_radius;
     double m_cylinder_height;
 };
-
 
 #endif // MAGNETICPARTICLESBUILDER_H

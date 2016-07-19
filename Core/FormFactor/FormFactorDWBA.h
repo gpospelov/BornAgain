@@ -18,6 +18,9 @@
 
 #include "IFormFactorDecorator.h"
 
+class ILayerRTCoefficients;
+class ISampleVisitor;
+
 //! @class FormFactorDWBA
 //! @ingroup formfactors_internal
 //! @brief Evaluates a coherent sum of the four DWBA terms in a scalar formfactor.
@@ -33,8 +36,8 @@ public:
     virtual void accept(ISampleVisitor* visitor) const { visitor->visit(this); }
 
     //! Sets reflection/transmission info for scalar DWBA simulation
-    virtual void setSpecularInfo(const class ILayerRTCoefficients* p_in_coeffs,
-                                 const class ILayerRTCoefficients* p_out_coeffs);
+    virtual void setSpecularInfo(const ILayerRTCoefficients* p_in_coeffs,
+                                 const ILayerRTCoefficients* p_out_coeffs);
 
     virtual complex_t evaluate(const WavevectorInfo& wavevectors) const;
 
@@ -44,8 +47,8 @@ protected:
     void calculateTerms(const WavevectorInfo& wavevectors) const;
 
     mutable complex_t m_term_S, m_term_RS, m_term_SR, m_term_RSR;
-    const class ILayerRTCoefficients* mp_in_coeffs;
-    const class ILayerRTCoefficients* mp_out_coeffs;
+    const ILayerRTCoefficients* mp_in_coeffs;
+    const ILayerRTCoefficients* mp_out_coeffs;
 };
 
 #endif // FORMFACTORDWBA_H

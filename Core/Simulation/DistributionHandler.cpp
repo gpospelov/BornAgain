@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "DistributionHandler.h"
+#include "ParameterSample.h"
 
 DistributionHandler::DistributionHandler()
 : m_nbr_combinations(1)

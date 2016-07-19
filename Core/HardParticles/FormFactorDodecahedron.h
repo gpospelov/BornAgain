@@ -32,14 +32,12 @@ public:
     virtual FormFactorDodecahedron *clone() const final;
     virtual void accept(ISampleVisitor *visitor) const final;
 
-    double getEdge() const;
+    double getEdge() const { return m_edge; }
 
 private:
     static const PolyhedralTopology topology;
     virtual void onChange() final;
     double m_edge;
 };
-
-inline double FormFactorDodecahedron::getEdge() const { return m_edge; }
 
 #endif // FORMFACTORDODECAHEDRON_H

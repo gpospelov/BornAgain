@@ -18,6 +18,7 @@
 #include "ISample.h"
 #include "MessageService.h"
 #include "OMPISimulation.h"
+#include "ParameterSample.h"
 #include "SimulationElement.h"
 #include <gsl/gsl_errno.h>
 #include <thread>

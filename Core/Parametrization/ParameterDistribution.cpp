@@ -133,3 +133,8 @@ void ParameterDistribution::init_parameters()
 {
     clearParameterPool();
 }
+
+const IDistribution1D* ParameterDistribution::getDistribution() const
+{
+    return mP_distribution.get();
+}

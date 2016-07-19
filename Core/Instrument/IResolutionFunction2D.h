@@ -18,7 +18,6 @@
 
 #include "IParameterized.h"
 
-
 //! @class IResolutionFunction2D
 //! @ingroup algorithms_internal
 //! @brief Interface providing two-dimensional resolution function.

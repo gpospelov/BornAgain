@@ -54,6 +54,11 @@ FormFactorCone* FormFactorCone::clone() const
    return new FormFactorCone(m_radius, m_height, m_alpha);
 }
 
+void FormFactorCone::accept(ISampleVisitor* visitor) const
+{
+    visitor->visit(this);
+}
+
 //! Integrand for complex formfactor.
 complex_t FormFactorCone::Integrand(double Z) const
 {

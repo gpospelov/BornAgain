@@ -38,11 +38,10 @@ public:
 
     virtual void accept(ISampleVisitor *visitor) const;
 
+    double getHeight() const { return m_height; }
+    double getRadiusX() const { return m_radius_x; }
+    double getRadiusY() const { return m_radius_y; }
     virtual double getRadius() const;
-
-    double getHeight() const;
-    double getRadiusX() const;
-    double getRadiusY() const;
 
     virtual complex_t evaluate_for_q (const cvector_t q) const;
 
@@ -62,20 +61,5 @@ private:
     std::unique_ptr<IntegratorComplex<FormFactorHemiEllipsoid>> mP_integrator;
 #endif
 };
-
-inline double FormFactorHemiEllipsoid::getHeight() const
-{
-    return m_height;
-}
-
-inline double FormFactorHemiEllipsoid::getRadiusX() const
-{
-    return m_radius_x;
-}
-
-inline double FormFactorHemiEllipsoid::getRadiusY() const
-{
-    return m_radius_y;
-}
 
 #endif // FORMFACTORHEMIELLIPSOID_H

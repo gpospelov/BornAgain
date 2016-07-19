@@ -16,6 +16,7 @@
 #ifndef IDETECTOR2D_H
 #define IDETECTOR2D_H
 
+#include "Beam.h"
 #include "DetectorMask.h"
 #include "EigenCore.h"
 #include "IParameterized.h"

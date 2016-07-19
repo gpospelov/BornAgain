@@ -8916,18 +8916,6 @@ class FormFactorBox(IFormFactorBorn):
         return _libBornAgainCore.FormFactorBox_getHeight(self)
 
 
-    def getRadius(self):
-        """
-        getRadius(FormFactorBox self) -> double
-
-        double FormFactorBox::getRadius() const
-
-        Returns radius of Box. 
-
-        """
-        return _libBornAgainCore.FormFactorBox_getRadius(self)
-
-
     def getWidth(self):
         """
         getWidth(FormFactorBox self) -> double
@@ -8938,6 +8926,18 @@ class FormFactorBox(IFormFactorBorn):
 
         """
         return _libBornAgainCore.FormFactorBox_getWidth(self)
+
+
+    def getRadius(self):
+        """
+        getRadius(FormFactorBox self) -> double
+
+        double FormFactorBox::getRadius() const
+
+        Returns radius of Box. 
+
+        """
+        return _libBornAgainCore.FormFactorBox_getRadius(self)
 
 
     def evaluate_for_q(self, q):
@@ -9044,6 +9044,16 @@ class FormFactorCone(IFormFactorBorn):
         return _libBornAgainCore.FormFactorCone_getHeight(self)
 
 
+    def getAlpha(self):
+        """
+        getAlpha(FormFactorCone self) -> double
+
+        double FormFactorCone::getAlpha() const 
+
+        """
+        return _libBornAgainCore.FormFactorCone_getAlpha(self)
+
+
     def getRadius(self):
         """
         getRadius(FormFactorCone self) -> double
@@ -9054,16 +9064,6 @@ class FormFactorCone(IFormFactorBorn):
 
         """
         return _libBornAgainCore.FormFactorCone_getRadius(self)
-
-
-    def getAlpha(self):
-        """
-        getAlpha(FormFactorCone self) -> double
-
-        double FormFactorCone::getAlpha() const 
-
-        """
-        return _libBornAgainCore.FormFactorCone_getAlpha(self)
 
 
     def evaluate_for_q(self, q):
@@ -9755,18 +9755,6 @@ class FormFactorEllipsoidalCylinder(IFormFactorBorn):
         return _libBornAgainCore.FormFactorEllipsoidalCylinder_accept(self, visitor)
 
 
-    def getRadius(self):
-        """
-        getRadius(FormFactorEllipsoidalCylinder self) -> double
-
-        double FormFactorEllipsoidalCylinder::getRadius() const
-
-        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-
-        """
-        return _libBornAgainCore.FormFactorEllipsoidalCylinder_getRadius(self)
-
-
     def getRadiusX(self):
         """
         getRadiusX(FormFactorEllipsoidalCylinder self) -> double
@@ -9795,6 +9783,18 @@ class FormFactorEllipsoidalCylinder(IFormFactorBorn):
 
         """
         return _libBornAgainCore.FormFactorEllipsoidalCylinder_getHeight(self)
+
+
+    def getRadius(self):
+        """
+        getRadius(FormFactorEllipsoidalCylinder self) -> double
+
+        double FormFactorEllipsoidalCylinder::getRadius() const
+
+        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+
+        """
+        return _libBornAgainCore.FormFactorEllipsoidalCylinder_getRadius(self)
 
 
     def evaluate_for_q(self, q):
@@ -10203,18 +10203,6 @@ class FormFactorHemiEllipsoid(IFormFactorBorn):
         return _libBornAgainCore.FormFactorHemiEllipsoid_accept(self, visitor)
 
 
-    def getRadius(self):
-        """
-        getRadius(FormFactorHemiEllipsoid self) -> double
-
-        double FormFactorHemiEllipsoid::getRadius() const
-
-        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-
-        """
-        return _libBornAgainCore.FormFactorHemiEllipsoid_getRadius(self)
-
-
     def getHeight(self):
         """
         getHeight(FormFactorHemiEllipsoid self) -> double
@@ -10243,6 +10231,18 @@ class FormFactorHemiEllipsoid(IFormFactorBorn):
 
         """
         return _libBornAgainCore.FormFactorHemiEllipsoid_getRadiusY(self)
+
+
+    def getRadius(self):
+        """
+        getRadius(FormFactorHemiEllipsoid self) -> double
+
+        double FormFactorHemiEllipsoid::getRadius() const
+
+        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+
+        """
+        return _libBornAgainCore.FormFactorHemiEllipsoid_getRadius(self)
 
 
     def evaluate_for_q(self, q):
@@ -10422,18 +10422,6 @@ class FormFactorLongBoxGauss(IFormFactorBorn):
         return _libBornAgainCore.FormFactorLongBoxGauss_getHeight(self)
 
 
-    def getRadius(self):
-        """
-        getRadius(FormFactorLongBoxGauss self) -> double
-
-        double FormFactorLongBoxGauss::getRadius() const
-
-        Returns radius of Box. 
-
-        """
-        return _libBornAgainCore.FormFactorLongBoxGauss_getRadius(self)
-
-
     def getWidth(self):
         """
         getWidth(FormFactorLongBoxGauss self) -> double
@@ -10444,6 +10432,18 @@ class FormFactorLongBoxGauss(IFormFactorBorn):
 
         """
         return _libBornAgainCore.FormFactorLongBoxGauss_getWidth(self)
+
+
+    def getRadius(self):
+        """
+        getRadius(FormFactorLongBoxGauss self) -> double
+
+        double FormFactorLongBoxGauss::getRadius() const
+
+        Returns radius of Box. 
+
+        """
+        return _libBornAgainCore.FormFactorLongBoxGauss_getRadius(self)
 
 
     def evaluate_for_q(self, q):
@@ -10555,18 +10555,6 @@ class FormFactorLongBoxLorentz(IFormFactorBorn):
         return _libBornAgainCore.FormFactorLongBoxLorentz_getHeight(self)
 
 
-    def getRadius(self):
-        """
-        getRadius(FormFactorLongBoxLorentz self) -> double
-
-        double FormFactorLongBoxLorentz::getRadius() const
-
-        Returns radius of Box. 
-
-        """
-        return _libBornAgainCore.FormFactorLongBoxLorentz_getRadius(self)
-
-
     def getWidth(self):
         """
         getWidth(FormFactorLongBoxLorentz self) -> double
@@ -10577,6 +10565,18 @@ class FormFactorLongBoxLorentz(IFormFactorBorn):
 
         """
         return _libBornAgainCore.FormFactorLongBoxLorentz_getWidth(self)
+
+
+    def getRadius(self):
+        """
+        getRadius(FormFactorLongBoxLorentz self) -> double
+
+        double FormFactorLongBoxLorentz::getRadius() const
+
+        Returns radius of Box. 
+
+        """
+        return _libBornAgainCore.FormFactorLongBoxLorentz_getRadius(self)
 
 
     def evaluate_for_q(self, q):
@@ -10673,18 +10673,6 @@ class FormFactorLongRipple1Gauss(IFormFactorBorn):
         return _libBornAgainCore.FormFactorLongRipple1Gauss_accept(self, visitor)
 
 
-    def getRadius(self):
-        """
-        getRadius(FormFactorLongRipple1Gauss self) -> double
-
-        double FormFactorLongRipple1Gauss::getRadius() const
-
-        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-
-        """
-        return _libBornAgainCore.FormFactorLongRipple1Gauss_getRadius(self)
-
-
     def getHeight(self):
         """
         getHeight(FormFactorLongRipple1Gauss self) -> double
@@ -10713,6 +10701,18 @@ class FormFactorLongRipple1Gauss(IFormFactorBorn):
 
         """
         return _libBornAgainCore.FormFactorLongRipple1Gauss_getLength(self)
+
+
+    def getRadius(self):
+        """
+        getRadius(FormFactorLongRipple1Gauss self) -> double
+
+        double FormFactorLongRipple1Gauss::getRadius() const
+
+        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+
+        """
+        return _libBornAgainCore.FormFactorLongRipple1Gauss_getRadius(self)
 
 
     def evaluate_for_q(self, q):
@@ -10932,18 +10932,6 @@ class FormFactorLongRipple2Gauss(IFormFactorBorn):
         return _libBornAgainCore.FormFactorLongRipple2Gauss_accept(self, visitor)
 
 
-    def getRadius(self):
-        """
-        getRadius(FormFactorLongRipple2Gauss self) -> double
-
-        double FormFactorLongRipple2Gauss::getRadius() const
-
-        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-
-        """
-        return _libBornAgainCore.FormFactorLongRipple2Gauss_getRadius(self)
-
-
     def getHeight(self):
         """
         getHeight(FormFactorLongRipple2Gauss self) -> double
@@ -10982,6 +10970,18 @@ class FormFactorLongRipple2Gauss(IFormFactorBorn):
 
         """
         return _libBornAgainCore.FormFactorLongRipple2Gauss_getAsymmetry(self)
+
+
+    def getRadius(self):
+        """
+        getRadius(FormFactorLongRipple2Gauss self) -> double
+
+        double FormFactorLongRipple2Gauss::getRadius() const
+
+        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+
+        """
+        return _libBornAgainCore.FormFactorLongRipple2Gauss_getRadius(self)
 
 
     def evaluate_for_q(self, q):
@@ -11073,18 +11073,6 @@ class FormFactorLongRipple2Lorentz(IFormFactorBorn):
         return _libBornAgainCore.FormFactorLongRipple2Lorentz_accept(self, visitor)
 
 
-    def getRadius(self):
-        """
-        getRadius(FormFactorLongRipple2Lorentz self) -> double
-
-        double FormFactorLongRipple2Lorentz::getRadius() const
-
-        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-
-        """
-        return _libBornAgainCore.FormFactorLongRipple2Lorentz_getRadius(self)
-
-
     def getHeight(self):
         """
         getHeight(FormFactorLongRipple2Lorentz self) -> double
@@ -11123,6 +11111,18 @@ class FormFactorLongRipple2Lorentz(IFormFactorBorn):
 
         """
         return _libBornAgainCore.FormFactorLongRipple2Lorentz_getAsymmetry(self)
+
+
+    def getRadius(self):
+        """
+        getRadius(FormFactorLongRipple2Lorentz self) -> double
+
+        double FormFactorLongRipple2Lorentz::getRadius() const
+
+        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+
+        """
+        return _libBornAgainCore.FormFactorLongRipple2Lorentz_getRadius(self)
 
 
     def evaluate_for_q(self, q):
@@ -11196,18 +11196,6 @@ class FormFactorLorentz(IFormFactorBorn):
         return _libBornAgainCore.FormFactorLorentz_accept(self, visitor)
 
 
-    def getRadius(self):
-        """
-        getRadius(FormFactorLorentz self) -> double
-
-        double FormFactorLorentz::getRadius() const
-
-        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-
-        """
-        return _libBornAgainCore.FormFactorLorentz_getRadius(self)
-
-
     def getHeight(self):
         """
         getHeight(FormFactorLorentz self) -> double
@@ -11230,6 +11218,18 @@ class FormFactorLorentz(IFormFactorBorn):
 
         """
         return _libBornAgainCore.FormFactorLorentz_getWidth(self)
+
+
+    def getRadius(self):
+        """
+        getRadius(FormFactorLorentz self) -> double
+
+        double FormFactorLorentz::getRadius() const
+
+        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+
+        """
+        return _libBornAgainCore.FormFactorLorentz_getRadius(self)
 
 
     def evaluate_for_q(self, q):
@@ -11592,16 +11592,14 @@ class FormFactorRipple1(IFormFactorBorn):
         return _libBornAgainCore.FormFactorRipple1_accept(self, visitor)
 
 
-    def getRadius(self):
+    def getLength(self):
         """
-        getRadius(FormFactorRipple1 self) -> double
+        getLength(FormFactorRipple1 self) -> double
 
-        double FormFactorRipple1::getRadius() const
-
-        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+        double FormFactorRipple1::getLength() const 
 
         """
-        return _libBornAgainCore.FormFactorRipple1_getRadius(self)
+        return _libBornAgainCore.FormFactorRipple1_getLength(self)
 
 
     def getHeight(self):
@@ -11624,14 +11622,16 @@ class FormFactorRipple1(IFormFactorBorn):
         return _libBornAgainCore.FormFactorRipple1_getWidth(self)
 
 
-    def getLength(self):
+    def getRadius(self):
         """
-        getLength(FormFactorRipple1 self) -> double
+        getRadius(FormFactorRipple1 self) -> double
 
-        double FormFactorRipple1::getLength() const 
+        double FormFactorRipple1::getRadius() const
+
+        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
         """
-        return _libBornAgainCore.FormFactorRipple1_getLength(self)
+        return _libBornAgainCore.FormFactorRipple1_getRadius(self)
 
 
     def evaluate_for_q(self, q):
@@ -11723,18 +11723,6 @@ class FormFactorRipple2(IFormFactorBorn):
         return _libBornAgainCore.FormFactorRipple2_accept(self, visitor)
 
 
-    def getRadius(self):
-        """
-        getRadius(FormFactorRipple2 self) -> double
-
-        double FormFactorRipple2::getRadius() const
-
-        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-
-        """
-        return _libBornAgainCore.FormFactorRipple2_getRadius(self)
-
-
     def getHeight(self):
         """
         getHeight(FormFactorRipple2 self) -> double
@@ -11773,6 +11761,18 @@ class FormFactorRipple2(IFormFactorBorn):
 
         """
         return _libBornAgainCore.FormFactorRipple2_getAsymmetry(self)
+
+
+    def getRadius(self):
+        """
+        getRadius(FormFactorRipple2 self) -> double
+
+        double FormFactorRipple2::getRadius() const
+
+        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+
+        """
+        return _libBornAgainCore.FormFactorRipple2_getRadius(self)
 
 
     def evaluate_for_q(self, q):

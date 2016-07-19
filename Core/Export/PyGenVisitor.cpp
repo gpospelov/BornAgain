@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "PyGenVisitor.h"
+#include "Beam.h"
 #include "ConvolutionDetectorResolution.h"
 #include "Crystal.h"
 #include "FormFactors.h"

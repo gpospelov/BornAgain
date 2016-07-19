@@ -33,16 +33,18 @@ public:
 
     ISimulation *clone() const;
 
-    virtual void run();
+    virtual void run() {}
 
-    bool isCompleted() const;
+    bool isCompleted() const { return m_status == COMPLETED; }
 
-    std::string getRunMessage() const;
+    std::string getRunMessage() const { return m_run_message; }
 
 protected:
-    virtual void runProtected();
-    void setStatus(ESimulationStatus status);
-    void setRunMessage(const std::string &message);
+    virtual void runProtected() {}
+
+    void setStatus(ESimulationStatus status) { m_status = status; }
+
+    void setRunMessage(const std::string &message) { m_run_message = message; }
 
     ESimulationStatus m_status;
     std::string m_run_message;
@@ -52,34 +54,6 @@ inline ISimulation *ISimulation::clone() const
 {
     throw Exceptions::NotImplementedException("ISimulation::clone() -> "
                                   "Error: not implemented exception.");
-}
-
-inline void ISimulation::run()
-{
-}
-
-inline bool ISimulation::isCompleted() const
-{
-    return m_status == COMPLETED;
-}
-
-inline std::string ISimulation::getRunMessage() const
-{
-    return m_run_message;
-}
-
-inline void ISimulation::runProtected()
-{
-}
-
-inline void ISimulation::setStatus(ISimulation::ESimulationStatus status)
-{
-    m_status = status;
-}
-
-inline void ISimulation::setRunMessage(const std::string &message)
-{
-    m_run_message = message;
 }
 
 #endif // ISIMULATION_H

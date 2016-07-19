@@ -38,9 +38,9 @@ public:
 
     virtual void accept(ISampleVisitor *visitor) const;
 
-    double getHeight() const;
+    double getHeight() const { return m_height; }
 
-    virtual double getRadius() const;
+    virtual double getRadius() const { return m_radius; }
 
     virtual complex_t evaluate_for_q(const cvector_t q) const;
 
@@ -49,7 +49,6 @@ protected:
     virtual void init_parameters();
 
 private:
-
     complex_t Integrand(double Z) const;
 
     double m_radius;
@@ -60,15 +59,5 @@ private:
     std::unique_ptr<IntegratorComplex<FormFactorFullSpheroid>> mP_integrator;
 #endif
 };
-
-inline double FormFactorFullSpheroid::getHeight() const
-{
-    return m_height;
-}
-
-inline double FormFactorFullSpheroid::getRadius() const
-{
-    return m_radius;
-}
 
 #endif // FORMFACTORFULLSPHEROID_H

@@ -38,15 +38,12 @@ public:
 
     virtual void accept(ISampleVisitor *visitor) const;
 
+    double getHeight() const { return m_height; }
+    double getWidth() const { return m_width; }
+    double getLength() const { return m_length; }
+    double getAsymmetry() const { return m_d; }
+
     virtual double getRadius() const;
-
-    double getHeight() const;
-
-    double getWidth() const;
-
-    double getLength() const;
-
-    double getAsymmetry() const;
 
     virtual complex_t evaluate_for_q(const cvector_t q) const;
 
@@ -61,25 +58,5 @@ private:
     double m_d;
     mutable cvector_t m_q;
 };
-
-inline double FormFactorLongRipple2Lorentz::getHeight() const
-{
-    return m_height;
-}
-
-inline double FormFactorLongRipple2Lorentz::getWidth() const
-{
-    return m_width;
-}
-
-inline double FormFactorLongRipple2Lorentz::getLength() const
-{
-    return m_length;
-}
-
-inline double FormFactorLongRipple2Lorentz::getAsymmetry() const
-{
-    return m_d;
-}
 
 #endif // FORMFACTORLONGRIPPLE2LORENTZ_H

@@ -25,6 +25,7 @@
 #include "FTDistributionItems.h"
 #include "GISASSimulation.h"
 #include "GUIHelpers.h"
+#include "IResolutionFunction2D.h"
 #include "InterferenceFunction1DLattice.h"
 #include "InterferenceFunction2DLattice.h"
 #include "InterferenceFunction2DParaCrystal.h"

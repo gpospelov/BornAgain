@@ -34,11 +34,9 @@ public:
 
     virtual void accept(ISampleVisitor* visitor) const;
 
-    double getHeight() const;
-
-    double getHeightFlattening() const;
-
-    virtual double getRadius() const;
+    double getHeight() const { return m_height; }
+    double getHeightFlattening() const { return m_height_flattening; }
+    virtual double getRadius() const { return m_radius; }
 
     virtual complex_t evaluate_for_q(const cvector_t q) const;
 
@@ -59,21 +57,5 @@ private:
     std::unique_ptr<IntegratorComplex<FormFactorTruncatedSpheroid>> mP_integrator;
 #endif
 };
-
-inline double FormFactorTruncatedSpheroid::getHeight() const
-{
-    return m_height;
-}
-
-inline double FormFactorTruncatedSpheroid::getHeightFlattening() const
-{
-    return m_height_flattening;
-}
-
-inline double FormFactorTruncatedSpheroid::getRadius() const
-{
-    return m_radius;
-}
-
 
 #endif // FORMFACTORTRUNCATEDSPHEROID_H

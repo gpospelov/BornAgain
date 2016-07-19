@@ -16,9 +16,15 @@
 #ifndef INSTRUMENT_H
 #define INSTRUMENT_H
 
+#include "IParameterized.h"
 #include "Beam.h"
 #include "IDetector2D.h"
-#include "IResolutionFunction2D.h"
+#include <memory>
+
+template<class T> class OutputData;
+class IAxis;
+class IResolutionFunction2D;
+class SimulationElement;
 
 //! @class Instrument
 //! @ingroup simulation_internal
@@ -31,7 +37,7 @@ public:
     Instrument(const Instrument& other);
     Instrument& operator=(const Instrument& other);
 
-    virtual ~Instrument() {}
+    virtual ~Instrument();
 
     //! Returns the beam data
     Beam getBeam() const { return m_beam; }
@@ -107,52 +113,10 @@ protected:
     virtual void print(std::ostream& ostr) const;
 
     //! Registers some class members for later access via parameter pool
-    virtual void init_parameters();
+    virtual void init_parameters() {}
 
     std::unique_ptr<IDetector2D> mP_detector;
-    Beam m_beam;
+    Beam m_beam; // TODO -> pointer
 };
-
-
-inline void Instrument::setBeamIntensity(double intensity)
-{
-    m_beam.setIntensity(intensity);
-}
-
-inline void Instrument::setBeamPolarization(const kvector_t bloch_vector)
-{
-    m_beam.setPolarization(bloch_vector);
-}
-
-inline double Instrument::getBeamIntensity() const
-{
-    return m_beam.getIntensity();
-}
-
-inline const IDetector2D* Instrument::getDetector() const
-{
-    return mP_detector.get();
-}
-
-inline IDetector2D* Instrument::getDetector()
-{
-    return mP_detector.get();
-}
-
-inline const IAxis& Instrument::getDetectorAxis(size_t index) const
-{
-    return mP_detector->getAxis(index);
-}
-
-inline size_t Instrument::getDetectorDimension() const
-{
-    return mP_detector->getDimension();
-}
-
-inline void Instrument::setAnalyzerProperties(const kvector_t direction, double efficiency,
-                                              double total_transmission)
-{
-    mP_detector->setAnalyzerProperties(direction, efficiency, total_transmission);
-}
 
 #endif // INSTRUMENT_H

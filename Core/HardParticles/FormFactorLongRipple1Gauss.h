@@ -38,13 +38,11 @@ public:
 
     virtual void accept(ISampleVisitor* visitor) const;
 
+    double getHeight() const { return m_height; }
+    double getWidth() const { return m_width; }
+    double getLength() const { return m_length; }
+
     virtual double getRadius() const;
-
-    double getHeight() const;
-
-    double getWidth() const;
-
-    double getLength() const;
 
     virtual complex_t evaluate_for_q(const cvector_t q) const;
 
@@ -64,20 +62,5 @@ private:
     std::unique_ptr<IntegratorComplex<FormFactorLongRipple1Gauss>> mP_integrator;
 #endif
 };
-
-inline double FormFactorLongRipple1Gauss::getHeight() const
-{
-    return m_height;
-}
-
-inline double FormFactorLongRipple1Gauss::getWidth() const
-{
-    return m_width;
-}
-
-inline double FormFactorLongRipple1Gauss::getLength() const
-{
-    return m_length;
-}
 
 #endif // FORMFACTORLONGRIPPLE1GAUSS_H

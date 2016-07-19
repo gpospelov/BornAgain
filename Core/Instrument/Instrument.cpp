@@ -14,9 +14,12 @@
 // ************************************************************************** //
 
 #include "Instrument.h"
+#include "Beam.h"
 #include "ConvolutionDetectorResolution.h"
 #include "SimulationElement.h"
 #include "SphericalDetector.h"
+#include "IDetector2D.h"
+#include "IResolutionFunction2D.h"
 
 Instrument::Instrument()
     : IParameterized("Instrument")
@@ -31,6 +34,8 @@ Instrument::Instrument(const Instrument &other) : IParameterized(), m_beam(other
     setName(other.getName());
     init_parameters();
 }
+
+Instrument::~Instrument() {}
 
 Instrument &Instrument::operator=(const Instrument &other)
 {
@@ -132,10 +137,6 @@ OutputData<double>* Instrument::getDetectorIntensity(
     }
 }
 
-void Instrument::init_parameters()
-{
-}
-
 void Instrument::print(std::ostream& ostr) const
 {
     ostr << "Instrument: '" << getName() << "' " << m_parameters << std::endl;
@@ -153,4 +154,45 @@ void Instrument::setBeam(const Beam &beam)
 {
     m_beam = beam;
     if(mP_detector) initDetector();
+}
+
+void Instrument::setBeamIntensity(double intensity)
+{
+    m_beam.setIntensity(intensity);
+}
+
+void Instrument::setBeamPolarization(const kvector_t bloch_vector)
+{
+    m_beam.setPolarization(bloch_vector);
+}
+
+double Instrument::getBeamIntensity() const
+{
+    return m_beam.getIntensity();
+}
+
+const IDetector2D* Instrument::getDetector() const
+{
+    return mP_detector.get();
+}
+
+IDetector2D* Instrument::getDetector()
+{
+    return mP_detector.get();
+}
+
+const IAxis& Instrument::getDetectorAxis(size_t index) const
+{
+    return mP_detector->getAxis(index);
+}
+
+size_t Instrument::getDetectorDimension() const
+{
+    return mP_detector->getDimension();
+}
+
+void Instrument::setAnalyzerProperties(const kvector_t direction, double efficiency,
+                                       double total_transmission)
+{
+    mP_detector->setAnalyzerProperties(direction, efficiency, total_transmission);
 }

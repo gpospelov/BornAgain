@@ -40,11 +40,9 @@ public:
 
     virtual double getRadius() const;
 
-    double getHeight() const;
-
-    double getWidth() const;
-
-    double getLength() const;
+    double getHeight() const { return m_height; }
+    double getWidth() const { return m_width; }
+    double getLength() const { return m_length; }
 
     virtual complex_t evaluate_for_q(const cvector_t q) const;
 
@@ -64,20 +62,5 @@ private:
     std::unique_ptr<IntegratorComplex<FormFactorLongRipple1Lorentz>> mP_integrator;
 #endif
 };
-
-inline double FormFactorLongRipple1Lorentz::getHeight() const
-{
-    return m_height;
-}
-
-inline double FormFactorLongRipple1Lorentz::getWidth() const
-{
-    return m_width;
-}
-
-inline double FormFactorLongRipple1Lorentz::getLength() const
-{
-    return m_length;
-}
 
 #endif // FORMFACTORLONGRIPPLE1LORENTZ_H

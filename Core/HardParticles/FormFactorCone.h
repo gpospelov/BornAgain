@@ -19,6 +19,8 @@
 #include "IFormFactorBorn.h"
 #include "IntegratorComplex.h"
 
+class ISampleVisitor;
+
 // Forward declaration to prevent IntegratorComplex.h to be parsed for Python API:
 template <class T> class IntegratorComplex;
 
@@ -33,13 +35,11 @@ public:
 
     virtual FormFactorCone* clone() const;
 
-    virtual void accept(ISampleVisitor *visitor) const;
+    virtual void accept(ISampleVisitor* visitor) const;
 
-    double getHeight() const;
-
-    virtual double getRadius() const;
-
-    double getAlpha() const;
+    double getHeight() const { return m_height; }
+    double getAlpha() const { return m_alpha; }
+    virtual double getRadius() const { return m_radius; }
 
     virtual complex_t evaluate_for_q (const cvector_t q) const;
 
@@ -56,25 +56,5 @@ private:
     std::unique_ptr<IntegratorComplex<FormFactorCone>> mP_integrator;
 #endif
 };
-
-inline void FormFactorCone::accept(ISampleVisitor *visitor) const
-{
-    visitor->visit(this);
-}
-
-inline double FormFactorCone::getHeight() const
-{
-    return m_height;
-}
-
-inline double FormFactorCone::getRadius() const
-{
-    return m_radius;
-}
-
-inline double FormFactorCone::getAlpha() const
-{
-    return m_alpha;
-}
 
 #endif // FORMFACTORCONE_H

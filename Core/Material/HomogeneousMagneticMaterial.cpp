@@ -14,6 +14,8 @@
 // ************************************************************************** //
 
 #include "HomogeneousMagneticMaterial.h"
+#include "Rotations.h"
+#include "Transform3D.h"
 
 const double HomogeneousMagneticMaterial::m_magnetic_prefactor
                  = -2.91042993836710484e-3;

@@ -18,6 +18,7 @@
 
 #include "ISampleVisitor.h"
 #include "IMaterial.h"
+#include <vector>
 
 //! @class SampleMaterialVisitor
 //! @ingroup samples_internal
@@ -119,9 +120,7 @@ public:
     void visit(const RotationEuler*);
 
     //! return vector of material presented in the sample
-    std::vector<const IMaterial*> getMaterials() const {
-        return m_materials;
-    }
+    std::vector<const IMaterial*> getMaterials() const { return m_materials; }
 
     //! return true if contains magnetic materials
     bool containsMagneticMaterial() const;

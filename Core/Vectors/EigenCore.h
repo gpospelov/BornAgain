@@ -28,6 +28,4 @@
 #pragma GCC diagnostic pop
 #endif
 
-
 #endif // EIGENCORE_H
-

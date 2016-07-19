@@ -17,6 +17,7 @@
 #define HOMOGENEOUSMATERIAL_H
 
 #include "IMaterial.h"
+#include <vector>
 
 //! @class HomogeneousMaterial
 //! @ingroup materials
@@ -42,7 +43,7 @@ public:
 
     virtual ~HomogeneousMaterial() {}
 
-    virtual HomogeneousMaterial *clone() const;
+    virtual HomogeneousMaterial* clone() const;
 
     //! Return refractive index.
     virtual complex_t getRefractiveIndex() const { return m_refractive_index; }
@@ -81,10 +82,8 @@ inline Eigen::Matrix2cd HomogeneousMaterial::getScatteringMatrix(double) const
     return m_refractive_index * m_refractive_index * Eigen::Matrix2cd::Identity();
 }
 
-inline const IMaterial *
-HomogeneousMaterial::createTransformedMaterial(const IRotation &rotation) const
+inline const IMaterial* HomogeneousMaterial::createTransformedMaterial(const IRotation&) const
 {
-    (void)rotation;
     return new HomogeneousMaterial(getName(), getRefractiveIndex());
 }
 

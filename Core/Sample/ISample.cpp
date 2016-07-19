@@ -13,6 +13,7 @@
 //
 // ************************************************************************** //
 
+#include "ISample.h"
 #include "SampleMaterialVisitor.h"
 #include "SamplePrintVisitor.h"
 
@@ -22,7 +23,7 @@ ISample* ISample::cloneInvertB() const
         "ISample::cloneInvertB() -> Error! Method is not implemented");
 }
 
-DWBASimulation *ISample::createDWBASimulation() const
+DWBASimulation* ISample::createDWBASimulation() const
 {
     return nullptr;
 }
@@ -40,7 +41,7 @@ bool ISample::containsMagneticMaterial() const
     return material_vis.containsMagneticMaterial();
 }
 
-std::vector<const ISample *> ISample::getChildren() const
+std::vector<const ISample*> ISample::getChildren() const
 {
-    return std::vector<const ISample*>{};
+    return std::vector<const ISample*> {};
 }

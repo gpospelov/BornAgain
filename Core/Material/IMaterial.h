@@ -16,8 +16,12 @@
 #ifndef IMATERIAL_H
 #define IMATERIAL_H
 
-#include "Rotations.h"
+#include "Complex.h"
+#include "EigenCore.h"
+#include "INamed.h"
 #include "Vectors3D.h"
+
+class IRotation;
 
 //! @class IMaterial
 //! @ingroup materials_internal
@@ -26,26 +30,14 @@
 class BA_CORE_API_ IMaterial : public INamed
 {
 public:
-    //! Constructor that sets _name_.
-    explicit IMaterial(const std::string &name) : INamed(name)
-    {
-    }
-
-    //! Destructor.
-    virtual ~IMaterial()
-    {
-    }
-
-    //! Clone
+    explicit IMaterial(const std::string &name) : INamed(name) {}
+    virtual ~IMaterial() {}
     virtual IMaterial *clone() const;
 
     //! Indicates whether the interaction with the material is scalar.
     //! This means that different polarization states will be diffracted
     //! equally
-    virtual bool isScalarMaterial() const
-    {
-        return true;
-    }
+    virtual bool isScalarMaterial() const { return true; }
 
     friend std::ostream &operator<<(std::ostream &ostr, const IMaterial &m)
     {
@@ -54,10 +46,7 @@ public:
     }
 
     //! Return refractive index.
-    virtual complex_t getRefractiveIndex() const
-    {
-        return 1.0;
-    }
+    virtual complex_t getRefractiveIndex() const { return 1.0; }
 
 #ifndef SWIG
     //! Get the effective scattering matrix from the refractive index
@@ -72,7 +61,7 @@ public:
 #endif
 
     //! Create a new material that is transformed with respect to this one
-    virtual const IMaterial *createTransformedMaterial(const class IRotation &rotation) const;
+    virtual const IMaterial *createTransformedMaterial(const IRotation &rotation) const;
 
 protected:
     virtual void print(std::ostream &ostr) const
@@ -99,7 +88,7 @@ inline Eigen::Matrix2cd IMaterial::getSpecularScatteringMatrix(const kvector_t k
 
 #endif // SWIG
 
-inline const IMaterial *IMaterial::createTransformedMaterial(const class IRotation&) const
+inline const IMaterial *IMaterial::createTransformedMaterial(const IRotation&) const
 {
     throw Exceptions::NotImplementedException(
         "IMaterial is an interface and should not be created!");

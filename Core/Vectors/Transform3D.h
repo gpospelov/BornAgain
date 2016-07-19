@@ -20,7 +20,6 @@
 #include "Complex.h"
 #include "EigenCore.h"
 
-
 namespace Geometry {
 
 //! @class Transform3D

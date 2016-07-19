@@ -4810,7 +4810,7 @@ class ISampleVisitor(_object):
         visit(ISampleVisitor self, RotationZ arg2)
         visit(ISampleVisitor self, RotationEuler arg2)
 
-        virtual void ISampleVisitor::visit(const class RotationEuler *)
+        void ISampleVisitor::visit(const RotationEuler *)
 
         """
         return _libBornAgainCore.ISampleVisitor_visit(self, *args)
@@ -4820,7 +4820,7 @@ class ISampleVisitor(_object):
         """
         visitEnter(ISampleVisitor self, ICompositeSample arg2) -> bool
 
-        bool ISampleVisitor::visitEnter(const class ICompositeSample *)
+        bool ISampleVisitor::visitEnter(const ICompositeSample *)
 
         """
         return _libBornAgainCore.ISampleVisitor_visitEnter(self, arg2)
@@ -4830,7 +4830,7 @@ class ISampleVisitor(_object):
         """
         visitLeave(ISampleVisitor self, ICompositeSample arg2) -> bool
 
-        bool ISampleVisitor::visitLeave(const class ICompositeSample *)
+        bool ISampleVisitor::visitLeave(const ICompositeSample *)
 
         """
         return _libBornAgainCore.ISampleVisitor_visitLeave(self, arg2)
@@ -4867,7 +4867,7 @@ def VisitSampleTreePreorder(sample, visitor):
     """
     VisitSampleTreePreorder(ISample sample, ISampleVisitor visitor)
 
-    BA_CORE_API_ void VisitSampleTreePreorder(const class ISample &sample, ISampleVisitor &visitor)
+    BA_CORE_API_ void VisitSampleTreePreorder(const ISample &sample, ISampleVisitor &visitor)
 
     """
     return _libBornAgainCore.VisitSampleTreePreorder(sample, visitor)
@@ -4876,7 +4876,7 @@ def VisitSampleTreePostorder(sample, visitor):
     """
     VisitSampleTreePostorder(ISample sample, ISampleVisitor visitor)
 
-    BA_CORE_API_ void VisitSampleTreePostorder(const class ISample &sample, ISampleVisitor &visitor)
+    BA_CORE_API_ void VisitSampleTreePostorder(const ISample &sample, ISampleVisitor &visitor)
 
     """
     return _libBornAgainCore.VisitSampleTreePostorder(sample, visitor)

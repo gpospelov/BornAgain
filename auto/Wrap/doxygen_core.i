@@ -7511,220 +7511,220 @@ C++ includes: ISampleVisitor.h
 %feature("docstring")  ISampleVisitor::~ISampleVisitor "virtual ISampleVisitor::~ISampleVisitor()
 ";
 
-%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class ISample *)
+%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const ISample *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class ICompositeSample *)
+%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const ICompositeSample *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class IClusteredParticles *)
+%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const IClusteredParticles *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class Crystal *)
+%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const Crystal *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class ILayout *)
+%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const ILayout *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class ParticleLayout *)
+%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const ParticleLayout *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class Layer *)
+%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const Layer *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class LayerInterface *)
+%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const LayerInterface *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class MultiLayer *)
+%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const MultiLayer *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class IAbstractParticle *)
+%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const IAbstractParticle *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class IParticle *)
+%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const IParticle *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class Particle *)
+%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const Particle *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class ParticleDistribution *)
+%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const ParticleDistribution *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class ParticleComposition *)
+%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const ParticleComposition *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class MesoCrystal *)
+%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const MesoCrystal *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class ParticleCoreShell *)
+%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const ParticleCoreShell *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class IFormFactor *)
+%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const IFormFactor *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class IFormFactorBorn *)
+%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const IFormFactorBorn *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class IFormFactorDecorator *)
+%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const IFormFactorDecorator *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class FormFactorAnisoPyramid *)
+%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const FormFactorAnisoPyramid *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class FormFactorBox *)
+%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const FormFactorBox *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class FormFactorCone *)
+%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const FormFactorCone *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class FormFactorCone6 *)
+%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const FormFactorCone6 *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class FormFactorCuboctahedron *)
+%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const FormFactorCuboctahedron *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class FormFactorCrystal *)
+%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const FormFactorCrystal *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class FormFactorCylinder *)
+%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const FormFactorCylinder *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class FormFactorDodecahedron *)
+%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const FormFactorDodecahedron *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class FormFactorEllipsoidalCylinder *)
+%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const FormFactorEllipsoidalCylinder *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class FormFactorFullSphere *)
+%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const FormFactorFullSphere *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class FormFactorFullSpheroid *)
+%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const FormFactorFullSpheroid *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class FormFactorGauss *)
+%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const FormFactorGauss *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class FormFactorHemiEllipsoid *)
+%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const FormFactorHemiEllipsoid *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class FormFactorIcosahedron *)
+%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const FormFactorIcosahedron *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class FormFactorLongBoxGauss *)
+%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const FormFactorLongBoxGauss *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class FormFactorLongBoxLorentz *)
+%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const FormFactorLongBoxLorentz *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class FormFactorLorentz *)
+%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const FormFactorLorentz *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class FormFactorPrism3 *)
+%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const FormFactorPrism3 *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class FormFactorPrism6 *)
+%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const FormFactorPrism6 *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class FormFactorPyramid *)
+%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const FormFactorPyramid *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class FormFactorRipple1 *)
+%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const FormFactorRipple1 *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class FormFactorRipple2 *)
+%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const FormFactorRipple2 *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class FormFactorSphereGaussianRadius *)
+%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const FormFactorSphereGaussianRadius *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class FormFactorSphereLogNormalRadius *)
+%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const FormFactorSphereLogNormalRadius *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class FormFactorTetrahedron *)
+%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const FormFactorTetrahedron *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class FormFactorTrivial *)
+%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const FormFactorTrivial *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class FormFactorTruncatedCube *)
+%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const FormFactorTruncatedCube *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class FormFactorTruncatedSphere *)
+%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const FormFactorTruncatedSphere *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class FormFactorTruncatedSpheroid *)
+%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const FormFactorTruncatedSpheroid *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class FormFactorDWBA *)
+%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const FormFactorDWBA *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class FormFactorDWBAPol *)
+%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const FormFactorDWBAPol *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class FormFactorWeighted *)
+%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const FormFactorWeighted *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class FormFactorDecoratorDebyeWaller *)
+%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const FormFactorDecoratorDebyeWaller *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class FormFactorDecoratorFactor *)
+%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const FormFactorDecoratorFactor *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class FormFactorDecoratorMaterial *)
+%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const FormFactorDecoratorMaterial *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class FormFactorDecoratorMultiPositionFactor *)
+%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const FormFactorDecoratorMultiPositionFactor *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class FormFactorDecoratorPositionFactor *)
+%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const FormFactorDecoratorPositionFactor *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class FormFactorDecoratorRotation *)
+%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const FormFactorDecoratorRotation *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class IInterferenceFunction *)
+%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const IInterferenceFunction *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class InterferenceFunction1DLattice *)
+%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const InterferenceFunction1DLattice *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class InterferenceFunctionRadialParaCrystal *)
+%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const InterferenceFunctionRadialParaCrystal *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class InterferenceFunction2DLattice *)
+%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const InterferenceFunction2DLattice *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class InterferenceFunction2DParaCrystal *)
+%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const InterferenceFunction2DParaCrystal *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class InterferenceFunctionNone *)
+%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const InterferenceFunctionNone *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class IRoughness *)
+%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const IRoughness *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class LayerRoughness *)
+%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const LayerRoughness *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class IRotation *)
+%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const IRotation *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class RotationX *)
+%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const RotationX *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class RotationY *)
+%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const RotationY *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class RotationZ *)
+%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const RotationZ *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "virtual void ISampleVisitor::visit(const class RotationEuler *)
+%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const RotationEuler *)
 ";
 
-%feature("docstring")  ISampleVisitor::visitEnter "bool ISampleVisitor::visitEnter(const class ICompositeSample *)
+%feature("docstring")  ISampleVisitor::visitEnter "bool ISampleVisitor::visitEnter(const ICompositeSample *)
 ";
 
-%feature("docstring")  ISampleVisitor::visitLeave "bool ISampleVisitor::visitLeave(const class ICompositeSample *)
+%feature("docstring")  ISampleVisitor::visitLeave "bool ISampleVisitor::visitLeave(const ICompositeSample *)
 ";
 
 %feature("docstring")  ISampleVisitor::getLevel "int ISampleVisitor::getLevel() const
@@ -10642,133 +10642,133 @@ finalize report to the simulation
 %feature("docstring")  PyGenVisitor::~PyGenVisitor "PyGenVisitor::~PyGenVisitor()
 ";
 
-%feature("docstring")  PyGenVisitor::writePyScript "std::string PyGenVisitor::writePyScript(const class GISASSimulation *simulation, const std::string &output_filename)
+%feature("docstring")  PyGenVisitor::writePyScript "std::string PyGenVisitor::writePyScript(const GISASSimulation *simulation, const std::string &output_filename)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorAnisoPyramid *sample)
+%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorAnisoPyramid *)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorBox *sample)
+%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorBox *)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorCone *sample)
+%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorCone *)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorCone6 *sample)
+%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorCone6 *)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorCuboctahedron *sample)
+%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorCuboctahedron *)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorCylinder *sample)
+%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorCylinder *)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorDodecahedron *sample)
+%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorDodecahedron *)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorEllipsoidalCylinder *sample)
+%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorEllipsoidalCylinder *)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorFullSphere *sample)
+%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorFullSphere *)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorFullSpheroid *sample)
+%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorFullSpheroid *)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorGauss *sample)
+%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorGauss *)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorHemiEllipsoid *sample)
+%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorHemiEllipsoid *)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorIcosahedron *sample)
+%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorIcosahedron *)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorLorentz *sample)
+%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorLorentz *)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorPrism3 *sample)
+%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorPrism3 *)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorPrism6 *sample)
+%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorPrism6 *)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorPyramid *sample)
+%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorPyramid *)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorRipple1 *sample)
+%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorRipple1 *)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorRipple2 *sample)
+%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorRipple2 *)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorTetrahedron *sample)
+%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorTetrahedron *)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorTruncatedCube *sample)
+%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorTruncatedCube *)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorTruncatedSphere *sample)
+%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorTruncatedSphere *)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorTruncatedSpheroid *sample)
+%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorTruncatedSpheroid *)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const InterferenceFunctionNone *sample)
+%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const InterferenceFunctionNone *)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const InterferenceFunction1DLattice *sample)
+%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const InterferenceFunction1DLattice *)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const InterferenceFunctionRadialParaCrystal *sample)
+%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const InterferenceFunctionRadialParaCrystal *)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const InterferenceFunction2DLattice *sample)
+%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const InterferenceFunction2DLattice *)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const InterferenceFunction2DParaCrystal *sample)
+%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const InterferenceFunction2DParaCrystal *)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const Layer *sample)
+%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const Layer *)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const LayerInterface *sample)
+%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const LayerInterface *)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const LayerRoughness *sample)
+%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const LayerRoughness *)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const MultiLayer *sample)
+%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const MultiLayer *)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const ParticleComposition *sample)
+%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const ParticleComposition *)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const MesoCrystal *sample)
+%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const MesoCrystal *)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const Particle *sample)
+%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const Particle *)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const ParticleDistribution *sample)
+%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const ParticleDistribution *)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const ParticleCoreShell *sample)
+%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const ParticleCoreShell *)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const ParticleLayout *sample)
+%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const ParticleLayout *)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const RotationX *sample)
+%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const RotationX *)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const RotationY *sample)
+%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const RotationY *)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const RotationZ *sample)
+%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const RotationZ *)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const RotationEuler *sample)
+%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const RotationEuler *)
 ";
 
 %feature("docstring")  PyGenVisitor::definePreamble "std::string PyGenVisitor::definePreamble() const 
@@ -11531,193 +11531,193 @@ C++ includes: SampleMaterialVisitor.h
 %feature("docstring")  SampleMaterialVisitor::~SampleMaterialVisitor "virtual SampleMaterialVisitor::~SampleMaterialVisitor()
 ";
 
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const ISample *sample)
+%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const ISample *)
 ";
 
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const ICompositeSample *sample)
+%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const ICompositeSample *)
 ";
 
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const IClusteredParticles *sample)
+%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const IClusteredParticles *)
 ";
 
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const Crystal *sample)
+%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const Crystal *)
 ";
 
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const ILayout *sample)
+%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const ILayout *)
 ";
 
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const ParticleLayout *sample)
+%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const ParticleLayout *)
 ";
 
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const Layer *sample)
+%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const Layer *)
 ";
 
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const LayerInterface *sample)
+%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const LayerInterface *)
 ";
 
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const MultiLayer *sample)
+%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const MultiLayer *)
 ";
 
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const Particle *sample)
+%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const Particle *)
 ";
 
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const ParticleDistribution *sample)
+%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const ParticleDistribution *)
 ";
 
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const ParticleComposition *sample)
+%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const ParticleComposition *)
 ";
 
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const MesoCrystal *sample)
+%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const MesoCrystal *)
 ";
 
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const ParticleCoreShell *sample)
+%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const ParticleCoreShell *)
 ";
 
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const IFormFactor *sample)
+%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const IFormFactor *)
 ";
 
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorDWBAPol *sample)
+%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorDWBAPol *)
 ";
 
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorWeighted *sample)
+%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorWeighted *)
 ";
 
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const IFormFactorBorn *sample)
+%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const IFormFactorBorn *)
 ";
 
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorAnisoPyramid *sample)
+%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorAnisoPyramid *)
 ";
 
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorBox *sample)
+%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorBox *)
 ";
 
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorCone *sample)
+%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorCone *)
 ";
 
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorCone6 *sample)
+%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorCone6 *)
 ";
 
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorCrystal *sample)
+%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorCrystal *)
 ";
 
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorCuboctahedron *sample)
+%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorCuboctahedron *)
 ";
 
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorCylinder *sample)
+%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorCylinder *)
 ";
 
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorDodecahedron *sample)
+%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorDodecahedron *)
 ";
 
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorEllipsoidalCylinder *sample)
+%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorEllipsoidalCylinder *)
 ";
 
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorFullSphere *sample)
+%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorFullSphere *)
 ";
 
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorFullSpheroid *sample)
+%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorFullSpheroid *)
 ";
 
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorGauss *sample)
+%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorGauss *)
 ";
 
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorHemiEllipsoid *sample)
+%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorHemiEllipsoid *)
 ";
 
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorIcosahedron *sample)
+%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorIcosahedron *)
 ";
 
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorLongBoxGauss *sample)
+%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorLongBoxGauss *)
 ";
 
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorLongBoxLorentz *sample)
+%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorLongBoxLorentz *)
 ";
 
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorLorentz *sample)
+%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorLorentz *)
 ";
 
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorPrism3 *sample)
+%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorPrism3 *)
 ";
 
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorPrism6 *sample)
+%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorPrism6 *)
 ";
 
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorPyramid *sample)
+%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorPyramid *)
 ";
 
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorRipple1 *sample)
+%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorRipple1 *)
 ";
 
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorRipple2 *sample)
+%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorRipple2 *)
 ";
 
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorSphereGaussianRadius *sample)
+%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorSphereGaussianRadius *)
 ";
 
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorSphereLogNormalRadius *sample)
+%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorSphereLogNormalRadius *)
 ";
 
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorTetrahedron *sample)
+%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorTetrahedron *)
 ";
 
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorTrivial *sample)
+%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorTrivial *)
 ";
 
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorTruncatedCube *sample)
+%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorTruncatedCube *)
 ";
 
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorTruncatedSphere *sample)
+%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorTruncatedSphere *)
 ";
 
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorTruncatedSpheroid *sample)
+%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorTruncatedSpheroid *)
 ";
 
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const IFormFactorDecorator *sample)
+%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const IFormFactorDecorator *)
 ";
 
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorDWBA *sample)
+%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorDWBA *)
 ";
 
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorDecoratorDebyeWaller *sample)
+%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorDecoratorDebyeWaller *)
 ";
 
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorDecoratorFactor *sample)
+%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorDecoratorFactor *)
 ";
 
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorDecoratorMaterial *sample)
+%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorDecoratorMaterial *)
 ";
 
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorDecoratorMultiPositionFactor *sample)
+%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorDecoratorMultiPositionFactor *)
 ";
 
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorDecoratorPositionFactor *sample)
+%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorDecoratorPositionFactor *)
 ";
 
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorDecoratorRotation *sample)
+%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorDecoratorRotation *)
 ";
 
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const IInterferenceFunction *sample)
+%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const IInterferenceFunction *)
 ";
 
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const InterferenceFunction1DLattice *sample)
+%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const InterferenceFunction1DLattice *)
 ";
 
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const InterferenceFunctionRadialParaCrystal *sample)
+%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const InterferenceFunctionRadialParaCrystal *)
 ";
 
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const InterferenceFunction2DLattice *sample)
+%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const InterferenceFunction2DLattice *)
 ";
 
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const InterferenceFunction2DParaCrystal *sample)
+%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const InterferenceFunction2DParaCrystal *)
 ";
 
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const InterferenceFunctionNone *sample)
+%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const InterferenceFunctionNone *)
 ";
 
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const IRoughness *sample)
+%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const IRoughness *)
 ";
 
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const LayerRoughness *sample)
+%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const LayerRoughness *)
 ";
 
 %feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const RotationX *)
@@ -11732,7 +11732,7 @@ C++ includes: SampleMaterialVisitor.h
 %feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const RotationEuler *)
 ";
 
-%feature("docstring")  SampleMaterialVisitor::getMaterials "std::vector<const IMaterial *> SampleMaterialVisitor::getMaterials() const
+%feature("docstring")  SampleMaterialVisitor::getMaterials "std::vector<const IMaterial*> SampleMaterialVisitor::getMaterials() const
 
 return vector of material presented in the sample 
 ";
@@ -11759,205 +11759,205 @@ C++ includes: SamplePrintVisitor.h
 %feature("docstring")  SamplePrintVisitor::SamplePrintVisitor "SamplePrintVisitor::SamplePrintVisitor()
 ";
 
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const ISample *sample)
+%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const ISample *)
 ";
 
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const ICompositeSample *sample)
+%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const ICompositeSample *)
 ";
 
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const IClusteredParticles *sample)
+%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const IClusteredParticles *)
 ";
 
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const Crystal *sample)
+%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const Crystal *)
 ";
 
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const ILayout *sample)
+%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const ILayout *)
 ";
 
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const ParticleLayout *sample)
+%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const ParticleLayout *)
 ";
 
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const Layer *sample)
+%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const Layer *)
 ";
 
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const LayerInterface *sample)
+%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const LayerInterface *)
 ";
 
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const MultiLayer *sample)
+%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const MultiLayer *)
 ";
 
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const Particle *sample)
+%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const Particle *)
 ";
 
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const ParticleDistribution *sample)
+%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const ParticleDistribution *)
 ";
 
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const ParticleComposition *sample)
+%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const ParticleComposition *)
 ";
 
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const MesoCrystal *sample)
+%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const MesoCrystal *)
 ";
 
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const ParticleCoreShell *sample)
+%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const ParticleCoreShell *)
 ";
 
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const IFormFactor *sample)
+%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const IFormFactor *)
 ";
 
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorDWBAPol *sample)
+%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorDWBAPol *)
 ";
 
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorWeighted *sample)
+%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorWeighted *)
 ";
 
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const IFormFactorBorn *sample)
+%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const IFormFactorBorn *)
 ";
 
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorAnisoPyramid *sample)
+%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorAnisoPyramid *)
 ";
 
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorBox *sample)
+%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorBox *)
 ";
 
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorCone *sample)
+%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorCone *)
 ";
 
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorCone6 *sample)
+%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorCone6 *)
 ";
 
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorCrystal *sample)
+%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorCrystal *)
 ";
 
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorCuboctahedron *sample)
+%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorCuboctahedron *)
 ";
 
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorCylinder *sample)
+%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorCylinder *)
 ";
 
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorDodecahedron *sample)
+%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorDodecahedron *)
 ";
 
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorEllipsoidalCylinder *sample)
+%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorEllipsoidalCylinder *)
 ";
 
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorFullSphere *sample)
+%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorFullSphere *)
 ";
 
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorFullSpheroid *sample)
+%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorFullSpheroid *)
 ";
 
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorGauss *sample)
+%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorGauss *)
 ";
 
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorHemiEllipsoid *sample)
+%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorHemiEllipsoid *)
 ";
 
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorIcosahedron *sample)
+%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorIcosahedron *)
 ";
 
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorLongBoxGauss *sample)
+%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorLongBoxGauss *)
 ";
 
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorLongBoxLorentz *sample)
+%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorLongBoxLorentz *)
 ";
 
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorLorentz *sample)
+%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorLorentz *)
 ";
 
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorPrism3 *sample)
+%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorPrism3 *)
 ";
 
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorPrism6 *sample)
+%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorPrism6 *)
 ";
 
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorPyramid *sample)
+%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorPyramid *)
 ";
 
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorRipple1 *sample)
+%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorRipple1 *)
 ";
 
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorRipple2 *sample)
+%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorRipple2 *)
 ";
 
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorSphereGaussianRadius *sample)
+%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorSphereGaussianRadius *)
 ";
 
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorSphereLogNormalRadius *sample)
+%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorSphereLogNormalRadius *)
 ";
 
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorTetrahedron *sample)
+%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorTetrahedron *)
 ";
 
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorTrivial *sample)
+%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorTrivial *)
 ";
 
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorTruncatedCube *sample)
+%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorTruncatedCube *)
 ";
 
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorTruncatedSphere *sample)
+%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorTruncatedSphere *)
 ";
 
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorTruncatedSpheroid *sample)
+%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorTruncatedSpheroid *)
 ";
 
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const IFormFactorDecorator *sample)
+%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const IFormFactorDecorator *)
 ";
 
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorDWBA *sample)
+%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorDWBA *)
 ";
 
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorDecoratorDebyeWaller *sample)
+%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorDecoratorDebyeWaller *)
 ";
 
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorDecoratorFactor *sample)
+%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorDecoratorFactor *)
 ";
 
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorDecoratorMaterial *sample)
+%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorDecoratorMaterial *)
 ";
 
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorDecoratorMultiPositionFactor *sample)
+%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorDecoratorMultiPositionFactor *)
 ";
 
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorDecoratorPositionFactor *sample)
+%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorDecoratorPositionFactor *)
 ";
 
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorDecoratorRotation *sample)
+%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorDecoratorRotation *)
 ";
 
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const IInterferenceFunction *sample)
+%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const IInterferenceFunction *)
 ";
 
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const InterferenceFunction1DLattice *sample)
+%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const InterferenceFunction1DLattice *)
 ";
 
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const InterferenceFunctionRadialParaCrystal *sample)
+%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const InterferenceFunctionRadialParaCrystal *)
 ";
 
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const InterferenceFunction2DLattice *sample)
+%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const InterferenceFunction2DLattice *)
 ";
 
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const InterferenceFunction2DParaCrystal *sample)
+%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const InterferenceFunction2DParaCrystal *)
 ";
 
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const InterferenceFunctionNone *sample)
+%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const InterferenceFunctionNone *)
 ";
 
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const IRoughness *sample)
+%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const IRoughness *)
 ";
 
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const LayerRoughness *sample)
+%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const LayerRoughness *)
 ";
 
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const RotationX *sample)
+%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const RotationX *)
 ";
 
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const RotationY *sample)
+%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const RotationY *)
 ";
 
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const RotationZ *sample)
+%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const RotationZ *)
 ";
 
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const RotationEuler *sample)
+%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const RotationEuler *)
 ";
 
 
@@ -15043,10 +15043,10 @@ David N. Williams
 
 
 // File: ISampleVisitor_8h.xml
-%feature("docstring")  VisitSampleTreePreorder "BA_CORE_API_ void VisitSampleTreePreorder(const class ISample &sample, ISampleVisitor &visitor)
+%feature("docstring")  VisitSampleTreePreorder "BA_CORE_API_ void VisitSampleTreePreorder(const ISample &sample, ISampleVisitor &visitor)
 ";
 
-%feature("docstring")  VisitSampleTreePostorder "BA_CORE_API_ void VisitSampleTreePostorder(const class ISample &sample, ISampleVisitor &visitor)
+%feature("docstring")  VisitSampleTreePostorder "BA_CORE_API_ void VisitSampleTreePostorder(const ISample &sample, ISampleVisitor &visitor)
 ";
 
 

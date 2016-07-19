@@ -19,6 +19,7 @@
 #include "ISampleVisitor.h"
 #include <string>
 
+class GISASSimulation;
 class SampleLabelHandler;
 
 class BA_CORE_API_ PyGenVisitor : public ISampleVisitor
@@ -30,50 +31,50 @@ public:
     using ISampleVisitor::visit;
 
     std::string writePyScript(
-        const class GISASSimulation* simulation, const std::string& output_filename);
-    virtual void visit(const FormFactorAnisoPyramid* sample);
-    virtual void visit(const FormFactorBox* sample);
-    virtual void visit(const FormFactorCone* sample);
-    virtual void visit(const FormFactorCone6* sample);
-    virtual void visit(const FormFactorCuboctahedron* sample);
-    virtual void visit(const FormFactorCylinder* sample);
-    virtual void visit(const FormFactorDodecahedron* sample);
-    virtual void visit(const FormFactorEllipsoidalCylinder* sample);
-    virtual void visit(const FormFactorFullSphere* sample);
-    virtual void visit(const FormFactorFullSpheroid* sample);
-    virtual void visit(const FormFactorGauss* sample);
-    virtual void visit(const FormFactorHemiEllipsoid* sample);
-    virtual void visit(const FormFactorIcosahedron* sample);
-    virtual void visit(const FormFactorLorentz* sample);
-    virtual void visit(const FormFactorPrism3* sample);
-    virtual void visit(const FormFactorPrism6* sample);
-    virtual void visit(const FormFactorPyramid* sample);
-    virtual void visit(const FormFactorRipple1* sample);
-    virtual void visit(const FormFactorRipple2* sample);
-    virtual void visit(const FormFactorTetrahedron* sample);
-    virtual void visit(const FormFactorTruncatedCube* sample);
-    virtual void visit(const FormFactorTruncatedSphere* sample);
-    virtual void visit(const FormFactorTruncatedSpheroid* sample);
-    virtual void visit(const InterferenceFunctionNone* sample);
-    virtual void visit(const InterferenceFunction1DLattice* sample);
-    virtual void visit(const InterferenceFunctionRadialParaCrystal* sample);
-    virtual void visit(const InterferenceFunction2DLattice* sample);
-    virtual void visit(const InterferenceFunction2DParaCrystal* sample);
-    virtual void visit(const Layer* sample);
-    virtual void visit(const LayerInterface* sample){ (void)sample; }
-    virtual void visit(const LayerRoughness* sample);
-    virtual void visit(const MultiLayer* sample);
-    virtual void visit(const ParticleComposition* sample);
-    virtual void visit(const MesoCrystal* sample);
-    virtual void visit(const Particle* sample);
-    virtual void visit(const ParticleDistribution* sample);
-    virtual void visit(const ParticleCoreShell* sample);
-    virtual void visit(const ParticleLayout* sample);
+        const GISASSimulation* simulation, const std::string& output_filename);
+    virtual void visit(const FormFactorAnisoPyramid*);
+    virtual void visit(const FormFactorBox*);
+    virtual void visit(const FormFactorCone*);
+    virtual void visit(const FormFactorCone6*);
+    virtual void visit(const FormFactorCuboctahedron*);
+    virtual void visit(const FormFactorCylinder*);
+    virtual void visit(const FormFactorDodecahedron*);
+    virtual void visit(const FormFactorEllipsoidalCylinder*);
+    virtual void visit(const FormFactorFullSphere*);
+    virtual void visit(const FormFactorFullSpheroid*);
+    virtual void visit(const FormFactorGauss*);
+    virtual void visit(const FormFactorHemiEllipsoid*);
+    virtual void visit(const FormFactorIcosahedron*);
+    virtual void visit(const FormFactorLorentz*);
+    virtual void visit(const FormFactorPrism3*);
+    virtual void visit(const FormFactorPrism6*);
+    virtual void visit(const FormFactorPyramid*);
+    virtual void visit(const FormFactorRipple1*);
+    virtual void visit(const FormFactorRipple2*);
+    virtual void visit(const FormFactorTetrahedron*);
+    virtual void visit(const FormFactorTruncatedCube*);
+    virtual void visit(const FormFactorTruncatedSphere*);
+    virtual void visit(const FormFactorTruncatedSpheroid*);
+    virtual void visit(const InterferenceFunctionNone*);
+    virtual void visit(const InterferenceFunction1DLattice*);
+    virtual void visit(const InterferenceFunctionRadialParaCrystal*);
+    virtual void visit(const InterferenceFunction2DLattice*);
+    virtual void visit(const InterferenceFunction2DParaCrystal*);
+    virtual void visit(const Layer*);
+    virtual void visit(const LayerInterface*);
+    virtual void visit(const LayerRoughness*);
+    virtual void visit(const MultiLayer*);
+    virtual void visit(const ParticleComposition*);
+    virtual void visit(const MesoCrystal*);
+    virtual void visit(const Particle*);
+    virtual void visit(const ParticleDistribution*);
+    virtual void visit(const ParticleCoreShell*);
+    virtual void visit(const ParticleLayout*);
 
-    virtual void visit(const RotationX* sample);
-    virtual void visit(const RotationY* sample);
-    virtual void visit(const RotationZ* sample);
-    virtual void visit(const RotationEuler* sample);
+    virtual void visit(const RotationX*);
+    virtual void visit(const RotationY*);
+    virtual void visit(const RotationZ*);
+    virtual void visit(const RotationEuler*);
 
     std::string definePreamble() const;
     std::string defineGetSimulation(const GISASSimulation* simulation) const;

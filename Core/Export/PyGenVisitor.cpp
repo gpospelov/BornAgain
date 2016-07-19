@@ -203,6 +203,10 @@ void PyGenVisitor::visit(const Layer* sample)
     m_label->setLabel(sample);
 }
 
+void PyGenVisitor::visit(const LayerInterface*)
+{
+}
+
 void PyGenVisitor::visit(const LayerRoughness* sample)
 {
     m_label->setLabel(sample);
@@ -218,9 +222,8 @@ void PyGenVisitor::visit(const ParticleComposition* sample)
     m_label->setLabel(sample);
 }
 
-void PyGenVisitor::visit(const MesoCrystal* sample)
+void PyGenVisitor::visit(const MesoCrystal*)
 {
-    (void)sample;
     throw Exceptions::NotImplementedException("PyGenVisitor::visit(const MesoCrystal* sample): "
                                               "not implemented!");
 }

@@ -30,94 +30,94 @@ public:
 
     using ISampleVisitor::visit;
 
-    void visit(const ISample *sample);
+    void visit(const ISample*);
 
-    void visit(const ICompositeSample *sample);
+    void visit(const ICompositeSample*);
 
-    void visit(const IClusteredParticles *sample);
-    void visit(const Crystal *sample);
+    void visit(const IClusteredParticles*);
+    void visit(const Crystal*);
 
-    void visit(const ILayout *sample);
-    void visit(const ParticleLayout *sample);
+    void visit(const ILayout*);
+    void visit(const ParticleLayout*);
 
-    void visit(const Layer *sample);
+    void visit(const Layer*);
 
-    void visit(const LayerInterface *sample);
+    void visit(const LayerInterface*);
 
-    void visit(const MultiLayer *sample);
+    void visit(const MultiLayer*);
 
-    void visit(const Particle *sample);
-    void visit(const ParticleDistribution *sample);
-    void visit(const ParticleComposition *sample);
-    void visit(const MesoCrystal *sample);
-    void visit(const ParticleCoreShell *sample);
+    void visit(const Particle*);
+    void visit(const ParticleDistribution*);
+    void visit(const ParticleComposition*);
+    void visit(const MesoCrystal*);
+    void visit(const ParticleCoreShell*);
 
-    void visit(const IFormFactor *sample);
+    void visit(const IFormFactor*);
 
-    void visit(const FormFactorDWBAPol *sample);
+    void visit(const FormFactorDWBAPol*);
 
-    void visit(const FormFactorWeighted *sample);
+    void visit(const FormFactorWeighted*);
 
-    void visit(const IFormFactorBorn *sample);
+    void visit(const IFormFactorBorn*);
 
-    void visit(const FormFactorAnisoPyramid *sample);
-    void visit(const FormFactorBox *sample);
-    void visit(const FormFactorCone *sample);
-    void visit(const FormFactorCone6 *sample);
-    void visit(const FormFactorCrystal *sample);
-    void visit(const FormFactorCuboctahedron *sample);
-    void visit(const FormFactorCylinder *sample);
-    void visit(const FormFactorDodecahedron *sample);
-    void visit(const FormFactorEllipsoidalCylinder *sample);
-    void visit(const FormFactorFullSphere *sample);
-    void visit(const FormFactorFullSpheroid *sample);
-    void visit(const FormFactorGauss *sample);
-    void visit(const FormFactorHemiEllipsoid *sample);
-    void visit(const FormFactorIcosahedron *sample);
-    void visit(const FormFactorLongBoxGauss *sample);
-    void visit(const FormFactorLongBoxLorentz *sample);
-    void visit(const FormFactorLorentz *sample);
-    void visit(const FormFactorPrism3 *sample);
-    void visit(const FormFactorPrism6 *sample);
-    void visit(const FormFactorPyramid *sample);
-    void visit(const FormFactorRipple1 *sample);
-    void visit(const FormFactorRipple2 *sample);
-    void visit(const FormFactorSphereGaussianRadius *sample);
-    void visit(const FormFactorSphereLogNormalRadius *sample);
-    void visit(const FormFactorTetrahedron *sample);
-    void visit(const FormFactorTrivial *sample);
-    void visit(const FormFactorTruncatedCube *sample);
-    void visit(const FormFactorTruncatedSphere *sample);
-    void visit(const FormFactorTruncatedSpheroid *sample);
+    void visit(const FormFactorAnisoPyramid*);
+    void visit(const FormFactorBox*);
+    void visit(const FormFactorCone*);
+    void visit(const FormFactorCone6*);
+    void visit(const FormFactorCrystal*);
+    void visit(const FormFactorCuboctahedron*);
+    void visit(const FormFactorCylinder*);
+    void visit(const FormFactorDodecahedron*);
+    void visit(const FormFactorEllipsoidalCylinder*);
+    void visit(const FormFactorFullSphere*);
+    void visit(const FormFactorFullSpheroid*);
+    void visit(const FormFactorGauss*);
+    void visit(const FormFactorHemiEllipsoid*);
+    void visit(const FormFactorIcosahedron*);
+    void visit(const FormFactorLongBoxGauss*);
+    void visit(const FormFactorLongBoxLorentz*);
+    void visit(const FormFactorLorentz*);
+    void visit(const FormFactorPrism3*);
+    void visit(const FormFactorPrism6*);
+    void visit(const FormFactorPyramid*);
+    void visit(const FormFactorRipple1*);
+    void visit(const FormFactorRipple2*);
+    void visit(const FormFactorSphereGaussianRadius*);
+    void visit(const FormFactorSphereLogNormalRadius*);
+    void visit(const FormFactorTetrahedron*);
+    void visit(const FormFactorTrivial*);
+    void visit(const FormFactorTruncatedCube*);
+    void visit(const FormFactorTruncatedSphere*);
+    void visit(const FormFactorTruncatedSpheroid*);
 
-    void visit(const IFormFactorDecorator *sample);
+    void visit(const IFormFactorDecorator*);
 
-    void visit(const FormFactorDWBA *sample);
-    void visit(const FormFactorDecoratorDebyeWaller *sample);
-    void visit(const FormFactorDecoratorFactor *sample);
-    void visit(const FormFactorDecoratorMaterial *sample);
-    void visit(const FormFactorDecoratorMultiPositionFactor *sample);
-    void visit(const FormFactorDecoratorPositionFactor *sample);
-    void visit(const FormFactorDecoratorRotation *sample);
+    void visit(const FormFactorDWBA*);
+    void visit(const FormFactorDecoratorDebyeWaller*);
+    void visit(const FormFactorDecoratorFactor*);
+    void visit(const FormFactorDecoratorMaterial*);
+    void visit(const FormFactorDecoratorMultiPositionFactor*);
+    void visit(const FormFactorDecoratorPositionFactor*);
+    void visit(const FormFactorDecoratorRotation*);
 
-    void visit(const IInterferenceFunction *sample);
-    void visit(const InterferenceFunction1DLattice *sample);
-    void visit(const InterferenceFunctionRadialParaCrystal *sample);
-    void visit(const InterferenceFunction2DLattice *sample);
-    void visit(const InterferenceFunction2DParaCrystal *sample);
-    void visit(const InterferenceFunctionNone *sample);
+    void visit(const IInterferenceFunction*);
+    void visit(const InterferenceFunction1DLattice*);
+    void visit(const InterferenceFunctionRadialParaCrystal*);
+    void visit(const InterferenceFunction2DLattice*);
+    void visit(const InterferenceFunction2DParaCrystal*);
+    void visit(const InterferenceFunctionNone*);
 
-    void visit(const IRoughness *sample);
-    void visit(const LayerRoughness *sample);
+    void visit(const IRoughness*);
+    void visit(const LayerRoughness*);
 
-    void visit(const RotationX *sample);
-    void visit(const RotationY *sample);
-    void visit(const RotationZ *sample);
-    void visit(const RotationEuler *sample);
+    void visit(const RotationX*);
+    void visit(const RotationY*);
+    void visit(const RotationZ*);
+    void visit(const RotationEuler*);
 
 private:
     std::string get_indent();
-    void print_default(const ISample *sample);
+    void print_default(const ISample*);
 };
 
 

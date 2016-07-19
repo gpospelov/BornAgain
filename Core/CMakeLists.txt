@@ -31,6 +31,7 @@ set(include_dirs
     ${CMAKE_CURRENT_SOURCE_DIR}/TestMachinery
     ${CMAKE_CURRENT_SOURCE_DIR}/Tools
     ${CMAKE_CURRENT_SOURCE_DIR}/Vectors
+    ${CMAKE_CURRENT_SOURCE_DIR}/Visitors
     )
 
 include_directories(${include_dirs})

@@ -7,23 +7,51 @@
 
 import glob, re, sys
 
-def edit( fn ):
+def doit( fn ):
+    global nchanged, nempty
     # print( "File " + fn )
 
     # read in
     fd = open( fn, 'r' )
-    t = fd.read()
+    ti = fd.read()
     fd.close
 
-    t = re.sub( r'(//! @file).*', r'\1      '+fn[2:], t, re.M )
+    if not re.search(  r'(//! @file)', ti ):
+        print( "no '@file' in " + fn )
+        nempty += 1
+        return
 
-    # save result
+    tf = re.sub( r'(//! @file).*', r'\1      '+fn, ti, re.M )
+
+    if ti==tf:
+        return
+
+    nchanged += 1
     fd = open( fn, 'w' )
-    fd.write( t )
+    fd.write( tf )
     fd.close
 
-## Main
+# main
 
-flist = sys.argv[1:]
-for fn in flist:
-    edit( fn )
+if len(sys.argv)<=1:
+    print("Usage: %s <source_files>" % sys.argv[0])
+    sys.exit()
+
+nempty   = 0
+ncorrupt = 0
+nchanged = 0
+
+files = sys.argv[1:]
+nfiles = len(files)
+
+for i in range(nfiles):
+    fn = files[i]
+    # print( "SOIN - file %i/%i: %s" % ( i+1, len(files), fn ) )
+    doit( fn )
+
+print( "Summary:" )
+print( "  number of files: %i" % nfiles )
+print( "  w/o '@file':     %i" % nempty )
+# print( "  nonstandard:     %i" % ncorrupt )
+print( "  found in form:   %i" % (nfiles - nempty - ncorrupt - nchanged) )
+print( "  changed:         %i" % nchanged )

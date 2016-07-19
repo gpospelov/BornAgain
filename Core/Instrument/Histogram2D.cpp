@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Detector/Histogram2D.cpp
+//! @file      Core/Instrument/Histogram2D.cpp
 //! @brief     Implements class Histogram2D.
 //!
 //! @homepage  http://www.bornagainproject.org

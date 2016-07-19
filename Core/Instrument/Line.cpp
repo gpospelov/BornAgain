@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Detector/Line.cpp
+//! @file      Core/Instrument/Line.cpp
 //! @brief     Implements class Line.
 //!
 //! @homepage  http://www.bornagainproject.org

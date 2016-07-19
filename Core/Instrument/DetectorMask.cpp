@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Detector/DetectorMask.cpp
+//! @file      Core/Instrument/DetectorMask.cpp
 //! @brief     Implements class DetectorMask.
 //!
 //! @homepage  http://www.bornagainproject.org

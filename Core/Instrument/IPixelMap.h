@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Detector/IPixelMap.h
+//! @file      Core/Instrument/IPixelMap.h
 //! @brief     Declares interface IPixelMap.
 //!
 //! @homepage  http://www.bornagainproject.org

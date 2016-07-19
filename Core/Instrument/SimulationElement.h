@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Detector/SimulationElement.h
+//! @file      Core/Instrument/SimulationElement.h
 //! @brief     Declares class SimulationElement.
 //!
 //! @homepage  http://www.bornagainproject.org

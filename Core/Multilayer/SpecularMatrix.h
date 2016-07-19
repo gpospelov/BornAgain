@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Reflections/SpecularMatrix.h
+//! @file      Core/Multilayer/SpecularMatrix.h
 //! @brief     Declares class SpecularMatrix.
 //!
 //! @homepage  http://www.bornagainproject.org

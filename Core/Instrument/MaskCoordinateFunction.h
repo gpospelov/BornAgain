@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Detector/MaskCoordinateFunction.h
+//! @file      Core/Instrument/MaskCoordinateFunction.h
 //! @brief     Declares classes MaskCoordinateFunction,
 //!              MaskCoordinateRectangleFunction, MaskCoordinateEllipseFunction
 //!

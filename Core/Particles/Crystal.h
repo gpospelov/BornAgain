@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Samples/Crystal.h
+//! @file      Core/Particles/Crystal.h
 //! @brief     Declares class Crystal.
 //!
 //! @homepage  http://www.bornagainproject.org

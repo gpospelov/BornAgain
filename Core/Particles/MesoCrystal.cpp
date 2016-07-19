@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Samples/MesoCrystal.cpp
+//! @file      Core/Particles/MesoCrystal.cpp
 //! @brief     Implements class MesoCrystal.
 //!
 //! @homepage  http://www.bornagainproject.org

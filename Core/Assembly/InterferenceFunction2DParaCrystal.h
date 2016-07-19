@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Samples/InterferenceFunction2DParaCrystal.h
+//! @file      Core/Assembly/InterferenceFunction2DParaCrystal.h
 //! @brief     Declares class InterferenceFunction2DParaCrystal.
 //!
 //! @homepage  http://www.bornagainproject.org

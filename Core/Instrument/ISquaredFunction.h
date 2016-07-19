@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Detector/ISquaredFunction.h
+//! @file      Core/Instrument/ISquaredFunction.h
 //! @brief     Declares classes ISquaredFunction, SquaredFunctionDefault, ...
 //!
 //! @homepage  http://www.bornagainproject.org

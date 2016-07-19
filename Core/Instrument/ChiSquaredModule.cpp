@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Detector/ChiSquaredModule.cpp
+//! @file      Core/Instrument/ChiSquaredModule.cpp
 //! @brief     Implements class ChiSquaredModule.
 //!
 //! @homepage  http://www.bornagainproject.org

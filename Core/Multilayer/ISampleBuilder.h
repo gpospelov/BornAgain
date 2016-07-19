@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Samples/ISampleBuilder.h
+//! @file      Core/Multilayer/ISampleBuilder.h
 //! @brief     Declares pure virtual base class ISampleBuilder.
 //!
 //! @homepage  http://www.bornagainproject.org

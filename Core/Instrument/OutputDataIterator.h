@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Detector/OutputDataIterator.h
+//! @file      Core/Instrument/OutputDataIterator.h
 //! @brief     Declares and implements template class OutputDataIterator.
 //!
 //! @homepage  http://www.bornagainproject.org

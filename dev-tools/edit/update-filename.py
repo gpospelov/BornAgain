@@ -9,6 +9,7 @@ import glob, re, sys
 
 def doit( fn ):
     global nchanged, nempty
+    fn = re.sub( r'^\./', '', fn )
     # print( "File " + fn )
 
     # read in

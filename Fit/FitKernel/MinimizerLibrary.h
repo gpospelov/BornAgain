@@ -18,6 +18,7 @@
 
 #include <list>
 #include <map>
+#include <string>
 
 //! The MinimizerLibrary namespace contains set of classes to form the catalogue of
 //! available minimizers, their algorithms and short descriptions.

@@ -18,6 +18,8 @@
 #include "Materials.h"
 #include "MessageService.h"
 #include "MultiLayerDWBASimulation.h"
+#include "Layer.h"
+#include "LayerInterface.h"
 
 using namespace BornAgain;
 

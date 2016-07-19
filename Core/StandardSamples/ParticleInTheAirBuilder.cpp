@@ -18,6 +18,7 @@
 #include "MultiLayer.h"
 #include "Particle.h"
 #include "ParticleLayout.h"
+#include "Layer.h"
 
 ISample* ParticleInTheAirBuilder::buildSample() const
 {

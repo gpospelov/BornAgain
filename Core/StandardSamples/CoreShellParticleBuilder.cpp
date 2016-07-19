@@ -20,6 +20,7 @@
 #include "Particle.h"
 #include "ParticleCoreShell.h"
 #include "ParticleLayout.h"
+#include "Layer.h"
 
 // --- CoreShellParticleBuilder ---
 

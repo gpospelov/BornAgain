@@ -5,6 +5,7 @@
 #include "Units.h"
 #include "ScalarRTCoefficients.h"
 #include "ScalarSpecularInfoMap.h"
+#include "Layer.h"
 #include <memory>
 
 class ScalarSpecularInfoMapTest : public ::testing :: Test

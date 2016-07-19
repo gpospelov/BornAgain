@@ -21,6 +21,7 @@
 #include "Particle.h"
 #include "ParticleComposition.h"
 #include "ParticleLayout.h"
+#include "Layer.h"
 
 // -----------------------------------------------------------------------------
 // lattice #1:

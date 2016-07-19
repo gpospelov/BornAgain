@@ -6,6 +6,7 @@
 #include "MatrixSpecularInfoMap.h"
 #include "MultiLayer.h"
 #include "Units.h"
+#include "Layer.h"
 #include <memory>
 
 class MatrixSpecularInfoMapTest : public ::testing :: Test

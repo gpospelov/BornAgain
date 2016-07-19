@@ -17,6 +17,9 @@
 #include "DWBADiffuseReflection.h"
 #include "Faddeeva.hh"
 #include "MultiLayer.h"
+#include "Layer.h"
+#include "LayerInterface.h"
+#include "LayerRoughness.h"
 #include "Units.h"
 #include "SimulationElement.h"
 

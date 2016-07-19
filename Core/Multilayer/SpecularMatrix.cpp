@@ -16,6 +16,8 @@
 #include "SpecularMatrix.h"
 #include "MathFunctions.h"
 #include "MultiLayer.h"
+#include "Layer.h"
+#include "LayerInterface.h"
 
 namespace {
     const complex_t imag_unit = complex_t(0.0, 1.0);

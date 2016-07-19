@@ -8,6 +8,8 @@
 #include "Materials.h"
 #include "Units.h"
 #include "ParticleLayout.h"
+#include "Layer.h"
+#include "LayerInterface.h"
 
 class MultiLayerTest : public ::testing::Test
 {

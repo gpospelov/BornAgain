@@ -27,6 +27,7 @@
 #include "GISASSimulation.h"
 #include "GUIHelpers.h"
 #include "InstrumentModel.h"
+#include "Layer.h"
 #include "LayerItem.h"
 #include "MaterialModel.h"
 #include "MaterialSvc.h"

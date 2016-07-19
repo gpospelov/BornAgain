@@ -14,6 +14,8 @@
 // ************************************************************************** //
 
 #include "ProgressHandler.h"
+#include "Layer.h"
+#include "LayerInterface.h"
 #include "MultiLayer.h"
 #include "Simulation.h"
 #include <mutex>

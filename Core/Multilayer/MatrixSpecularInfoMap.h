@@ -20,6 +20,8 @@
 #include "MatrixRTCoefficients.h"
 #include <memory>
 
+class MultiLayer;
+
 //! @class MatrixSpecularInfoMap
 //! @ingroup algorithms_internal
 //! @brief Implementation of ISpecularInfoMap for matrix valued reflection/
@@ -28,7 +30,7 @@
 class BA_CORE_API_ MatrixSpecularInfoMap : public ISpecularInfoMap
 {
 public:
-    MatrixSpecularInfoMap(const class MultiLayer* multilayer, int layer);
+    MatrixSpecularInfoMap(const MultiLayer* multilayer, int layer);
     virtual ~MatrixSpecularInfoMap() {}
 
     virtual MatrixSpecularInfoMap* clone() const;
@@ -41,10 +43,9 @@ public:
     virtual const MatrixRTCoefficients* getInCoefficients(
         double alpha_i, double phi_i, double wavelength) const;
 private:
-    std::unique_ptr<class MultiLayer> mP_multilayer;
-    std::unique_ptr<class MultiLayer> mP_inverted_multilayer;
+    std::unique_ptr<MultiLayer> mP_multilayer;
+    std::unique_ptr<MultiLayer> mP_inverted_multilayer;
     const int m_layer;
 };
-
 
 #endif // MATRIXSPECULARINFOMAP_H

@@ -21,6 +21,7 @@
 #include "MultiLayer.h"
 #include "Particle.h"
 #include "ParticleLayout.h"
+#include "Layer.h"
 
 CosineRippleBuilder::CosineRippleBuilder()
     : m_w(20.0*Units::nanometer)
@@ -32,7 +33,6 @@ CosineRippleBuilder::CosineRippleBuilder()
     init_parameters();
 }
 
-
 void CosineRippleBuilder::init_parameters()
 {
     clearParameterPool();
@@ -42,7 +42,6 @@ void CosineRippleBuilder::init_parameters()
     registerParameter("interf_distance", &m_interf_distance);
     registerParameter("interf_width", &m_interf_width);
 }
-
 
 ISample *CosineRippleBuilder::buildSample() const
 {
@@ -87,7 +86,6 @@ TriangularRippleBuilder::TriangularRippleBuilder()
     init_parameters();
 }
 
-
 void TriangularRippleBuilder::init_parameters()
 {
     clearParameterPool();
@@ -98,7 +96,6 @@ void TriangularRippleBuilder::init_parameters()
     registerParameter("interf_distance", &m_interf_distance);
     registerParameter("interf_width", &m_interf_width);
 }
-
 
 ISample *TriangularRippleBuilder::buildSample() const
 {

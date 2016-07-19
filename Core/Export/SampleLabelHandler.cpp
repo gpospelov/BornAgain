@@ -18,6 +18,7 @@
 #include "IInterferenceFunction.h"
 #include "IMaterial.h"
 #include "MultiLayer.h"
+#include "LayerRoughness.h"
 #include "Particle.h"
 #include "ParticleComposition.h"
 #include "ParticleCoreShell.h"

@@ -17,8 +17,9 @@
 #define OUTPUTDATAFUNCTIONS_H
 
 #include "Complex.h"
-#include "IIntensityFunction.h"
 #include "OutputData.h"
+
+class IIntensityFunction;
 
 //! Collection of functions to deal with OutputData
 
@@ -66,7 +67,7 @@ namespace OutputDataFunctions
         double axis_value1, double axis_value2);
 
     //! apply intensity function to values stored in output data
-    BA_CORE_API_ void applyFunction(OutputData<double>& data, const class IIntensityFunction* func);
+    BA_CORE_API_ void applyFunction(OutputData<double>& data, const IIntensityFunction* func);
 }
 
 #endif // OUTPUTDATAFUNCTIONS_H

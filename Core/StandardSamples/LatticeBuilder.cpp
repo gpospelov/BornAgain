@@ -20,6 +20,7 @@
 #include "MultiLayer.h"
 #include "Particle.h"
 #include "ParticleLayout.h"
+#include "Layer.h"
 
 Lattice1DBuilder::Lattice1DBuilder()
     : m_length(20.0*Units::nanometer)

@@ -22,6 +22,7 @@
 #include "Particle.h"
 #include "ParticleDistribution.h"
 #include "ParticleLayout.h"
+#include "Layer.h"
 
 using namespace BornAgain;
 

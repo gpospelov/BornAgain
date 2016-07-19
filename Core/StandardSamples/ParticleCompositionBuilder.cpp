@@ -21,12 +21,13 @@
 #include "ParticleComposition.h"
 #include "ParticleCompositionBuilder.h"
 #include "ParticleLayout.h"
+#include "Layer.h"
 
 // --- ParticleCompositionBuilder ---
 
-ISample *ParticleCompositionBuilder::buildSample() const
+ISample* ParticleCompositionBuilder::buildSample() const
 {
-    MultiLayer *multi_layer = new MultiLayer();
+    MultiLayer* multi_layer = new MultiLayer();
 
     HomogeneousMaterial air_material("Air", 0.0, 0.0);
     HomogeneousMaterial substrate_material("Substrate", 6e-6, 2e-8);

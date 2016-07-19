@@ -22,6 +22,9 @@
 #include "ParticleDistribution.h"
 #include "ParticleLayout.h"
 #include "SamplePrintVisitor.h"
+#include "Layer.h"
+#include "LayerInterface.h"
+#include "LayerRoughness.h"
 
 void SamplePrintVisitor::visit(const ISample*)
 {

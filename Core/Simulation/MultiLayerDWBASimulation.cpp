@@ -24,6 +24,9 @@
 #include "SpecularMagnetic.h"
 #include "MultiLayerDWBASimulation.h"
 #include "SimulationElement.h"
+#include "Layer.h"
+#include "LayerInterface.h"
+#include "LayerRoughness.h"
 
 MultiLayerDWBASimulation::MultiLayerDWBASimulation(const MultiLayer* p_multi_layer)
   : mp_roughness_dwba_simulation(0)

@@ -17,6 +17,9 @@
 #include "FormFactorCylinder.h"
 #include "Materials.h"
 #include "MultiLayer.h"
+#include "Layer.h"
+#include "LayerInterface.h"
+#include "LayerRoughness.h"
 #include "Particle.h"
 #include "ParticleLayout.h"
 

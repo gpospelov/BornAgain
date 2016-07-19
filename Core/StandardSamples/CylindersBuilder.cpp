@@ -17,9 +17,11 @@
 #include "CylindersBuilder.h"
 #include "FormFactorCylinder.h"
 #include "HomogeneousMaterial.h"
+#include "LayerInterface.h"
 #include "MultiLayer.h"
 #include "Particle.h"
 #include "ParticleLayout.h"
+#include "Layer.h"
 
 // -----------------------------------------------------------------------------
 // Cylinders in DWBA
@@ -31,14 +33,12 @@ CylindersInDWBABuilder::CylindersInDWBABuilder()
     init_parameters();
 }
 
-
 void CylindersInDWBABuilder::init_parameters()
 {
     clearParameterPool();
     registerParameter(BornAgain::Radius, &m_radius);
     registerParameter(BornAgain::Height, &m_height);
 }
-
 
 ISample* CylindersInDWBABuilder::buildSample() const
 {
@@ -64,7 +64,6 @@ ISample* CylindersInDWBABuilder::buildSample() const
     return multi_layer;
 }
 
-
 // -----------------------------------------------------------------------------
 // Cylinders in BA
 // -----------------------------------------------------------------------------
@@ -75,14 +74,12 @@ CylindersInBABuilder::CylindersInBABuilder()
     init_parameters();
 }
 
-
 void CylindersInBABuilder::init_parameters()
 {
     clearParameterPool();
     registerParameter(BornAgain::Radius, &m_radius);
     registerParameter(BornAgain::Height, &m_height);
 }
-
 
 ISample* CylindersInBABuilder::buildSample() const
 {
@@ -114,14 +111,12 @@ LargeCylindersInDWBABuilder::LargeCylindersInDWBABuilder()
     init_parameters();
 }
 
-
 void LargeCylindersInDWBABuilder::init_parameters()
 {
     clearParameterPool();
     registerParameter(BornAgain::Radius, &m_radius);
     registerParameter(BornAgain::Height, &m_height);
 }
-
 
 ISample* LargeCylindersInDWBABuilder::buildSample() const
 {

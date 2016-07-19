@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "OutputDataFunctions.h"
+#include "IIntensityFunction.h"
 #include <fftw3.h>
 
 void toFftw3Array(complex_t* source, size_t length, fftw_complex* destination);
@@ -77,14 +78,12 @@ void OutputDataFunctions::FourierTransform(
                 (n_complex_dims[i] = (int)dimensions[i]/2 +1);
     }
     // allocate result
-    if (p_destination->getAllocatedSize() != total_complex_size) {
+    if (p_destination->getAllocatedSize() != total_complex_size)
         p_destination->setAxisSizes(rank, n_complex_dims);
-    }
     //  initialize temporary arrays
     double* input = fftw_alloc_real(total_real_size);
     fftw_complex* output = fftw_alloc_complex(total_complex_size);
-    fftw_plan plan = fftw_plan_dft_r2c((int)rank, n_real_dims, input,
-            output, FFTW_ESTIMATE);
+    fftw_plan plan = fftw_plan_dft_r2c((int)rank, n_real_dims, input, output, FFTW_ESTIMATE);
     source.fillRawDataArray(input);
 
     // execute the plan
@@ -158,9 +157,8 @@ OutputData<double>* OutputDataFunctions::getRealPart(
     const OutputData<complex_t>& source)
 {
     OutputData<double>* p_result = new OutputData<double>();
-    for (size_t i=0; i<source.getRank(); ++i) {
+    for (size_t i=0; i<source.getRank(); ++i)
         p_result->addAxis(*source.getAxis(i));
-    }
     OutputData<complex_t>::const_iterator it_source = source.begin();
     OutputData<double>::iterator it_result = p_result->begin();
     while (it_source != source.end()) {
@@ -175,9 +173,8 @@ OutputData<double>* OutputDataFunctions::getImagPart(
     const OutputData<complex_t>& source)
 {
     OutputData<double>* p_result = new OutputData<double>();
-    for (size_t i=0; i<source.getRank(); ++i) {
+    for (size_t i=0; i<source.getRank(); ++i)
         p_result->addAxis(*source.getAxis(i));
-    }
     OutputData<complex_t>::const_iterator it_source = source.begin();
     OutputData<double>::iterator it_result = p_result->begin();
     while (it_source != source.end()) {
@@ -192,9 +189,8 @@ OutputData<double>* OutputDataFunctions::getModulusPart(
         const OutputData<complex_t>& source)
 {
     OutputData<double>* p_result = new OutputData<double>();
-    for (size_t i=0; i<source.getRank(); ++i) {
+    for (size_t i=0; i<source.getRank(); ++i)
         p_result->addAxis(*source.getAxis(i));
-    }
     OutputData<complex_t>::const_iterator it_source = source.begin();
     OutputData<double>::iterator it_result = p_result->begin();
     while (it_source != source.end()) {
@@ -212,9 +208,8 @@ OutputData<double>* OutputDataFunctions::getComponentData(
 
     // no iterators to avoid use of masks
     size_t nbr_elements = source.getAllocatedSize();
-    for (size_t i=0; i<nbr_elements; ++i) {
+    for (size_t i=0; i<nbr_elements; ++i)
         (*p_result)[i] = source[i](row, column);
-    }
     return p_result;
 }
 

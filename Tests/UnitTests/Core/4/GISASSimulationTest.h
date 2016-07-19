@@ -7,7 +7,7 @@
 #include "MultiLayer.h"
 #include "ISampleBuilder.h"
 #include "BornAgainNamespace.h"
-
+#include "Layer.h"
 #include <memory>
 #include <cmath>
 

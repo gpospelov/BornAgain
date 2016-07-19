@@ -20,6 +20,7 @@
 #include "MultiLayer.h"
 #include "Particle.h"
 #include "ParticleLayout.h"
+#include "Layer.h"
 
 MultipleLayoutBuilder::MultipleLayoutBuilder()
     : m_cylinder_height(5*Units::nanometer)
@@ -31,7 +32,6 @@ MultipleLayoutBuilder::MultipleLayoutBuilder()
     init_parameters();
 }
 
-
 void MultipleLayoutBuilder::init_parameters()
 {
     clearParameterPool();
@@ -41,7 +41,6 @@ void MultipleLayoutBuilder::init_parameters()
     registerParameter("prism_length", &m_prism_length);
     registerParameter("cylinder_weight", &m_cylinder_weight);
 }
-
 
 ISample* MultipleLayoutBuilder::buildSample() const
 {

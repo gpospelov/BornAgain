@@ -7,6 +7,7 @@
 #include "Exceptions.h"
 #include "FixedBinAxis.h"
 #include "Units.h"
+#include "Layer.h"
 #include <iostream>
 
 class SpecularSimulationTest : public ::testing::Test

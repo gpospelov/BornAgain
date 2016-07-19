@@ -16,6 +16,8 @@
 #include "SpecularMagnetic.h"
 #include "Materials.h"
 #include "MultiLayer.h"
+#include "Layer.h"
+#include "LayerInterface.h"
 #include <Eigen/LU>
 
 static complex_t I(0.,1.);

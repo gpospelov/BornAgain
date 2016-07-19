@@ -16,8 +16,12 @@
 #ifndef MULTILAYER_H
 #define MULTILAYER_H
 
-#include "Layer.h"
-#include "LayerInterface.h"
+#include "ICompositeSample.h"
+#include "Vectors3D.h"
+
+class Layer;
+class LayerInterface;
+class GISASSimulation;
 
 //! @class MultiLayer
 //! @ingroup samples
@@ -106,7 +110,7 @@ public:
 
     //! look for the presence of DWBA terms (e.g. included particles)
     //! and return ISimulation if needed
-    virtual class DWBASimulation* createDWBASimulation() const;
+    virtual DWBASimulation* createDWBASimulation() const;
 
     //! returns layer index
     int getIndexOfLayer(const Layer* layer) const;

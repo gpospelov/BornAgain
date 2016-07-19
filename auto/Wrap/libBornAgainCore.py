@@ -4624,7 +4624,7 @@ class ISampleBuilder(IParameterized):
         """
         buildSample(ISampleBuilder self) -> ISample
 
-        virtual class ISample* ISampleBuilder::buildSample() const =0
+        virtual ISample* ISampleBuilder::buildSample() const =0
 
         """
         return _libBornAgainCore.ISampleBuilder_buildSample(self)
@@ -4634,7 +4634,7 @@ class ISampleBuilder(IParameterized):
         """
         set_subtest(ISampleBuilder self, IParameterized subtest_item)
 
-        void ISampleBuilder::set_subtest(const class IParameterized *subtest_item)
+        void ISampleBuilder::set_subtest(const IParameterized *subtest_item)
 
         """
         return _libBornAgainCore.ISampleBuilder_set_subtest(self, subtest_item)
@@ -7693,7 +7693,7 @@ class IFormFactor(ISample):
         """
         setAmbientMaterial(IFormFactor self, IMaterial arg0)
 
-        virtual void IFormFactor::setAmbientMaterial(const class IMaterial &)
+        virtual void IFormFactor::setAmbientMaterial(const IMaterial &)
 
         Passes the refractive index of the ambient material in which this particle is embedded. 
 
@@ -8135,6 +8135,8 @@ class IFormFactorDecorator(IFormFactor):
         setAmbientMaterial(IFormFactorDecorator self, IMaterial material)
 
         void IFormFactorDecorator::setAmbientMaterial(const IMaterial &material)
+
+        Passes the refractive index of the ambient material in which this particle is embedded. 
 
         """
         return _libBornAgainCore.IFormFactorDecorator_setAmbientMaterial(self, material)
@@ -12630,6 +12632,8 @@ class FormFactorWeighted(IFormFactor):
 
         void FormFactorWeighted::setAmbientMaterial(const IMaterial &material)
 
+        Passes the refractive index of the ambient material in which this particle is embedded. 
+
         """
         return _libBornAgainCore.FormFactorWeighted_setAmbientMaterial(self, material)
 
@@ -14148,8 +14152,6 @@ class IMaterial(INamed):
 
         IMaterial::IMaterial(const std::string &name)
 
-        Constructor that sets  name. 
-
         """
         this = _libBornAgainCore.new_IMaterial(name)
         try:
@@ -14163,9 +14165,7 @@ class IMaterial(INamed):
         """
         clone(IMaterial self) -> IMaterial
 
-        IMaterial * IMaterial::clone() const
-
-        Clone. 
+        IMaterial * IMaterial::clone() const 
 
         """
         return _libBornAgainCore.IMaterial_clone(self)
@@ -14199,7 +14199,7 @@ class IMaterial(INamed):
         """
         createTransformedMaterial(IMaterial self, IRotation rotation) -> IMaterial
 
-        const IMaterial * IMaterial::createTransformedMaterial(const class IRotation &rotation) const
+        const IMaterial * IMaterial::createTransformedMaterial(const IRotation &rotation) const
 
         Create a new material that is transformed with respect to this one. 
 
@@ -14250,9 +14250,7 @@ class HomogeneousMaterial(IMaterial):
         """
         clone(HomogeneousMaterial self) -> HomogeneousMaterial
 
-        HomogeneousMaterial * HomogeneousMaterial::clone() const
-
-        Clone. 
+        HomogeneousMaterial * HomogeneousMaterial::clone() const 
 
         """
         return _libBornAgainCore.HomogeneousMaterial_clone(self)
@@ -14432,7 +14430,7 @@ class IDetector2D(IParameterized):
         """
         init(IDetector2D self, Beam arg2)
 
-        virtual void IDetector2D::init(const class Beam &)
+        virtual void IDetector2D::init(const Beam &)
 
         Inits detector with the beam settings. 
 
@@ -14655,7 +14653,7 @@ class IDetector2D(IParameterized):
         """
         createDetectorMap(IDetector2D self, Beam arg2, IDetector2D::EAxesUnits arg3) -> IntensityData
 
-        OutputData< double > * IDetector2D::createDetectorMap(const class Beam &, EAxesUnits) const
+        OutputData< double > * IDetector2D::createDetectorMap(const Beam &, EAxesUnits) const
 
         Returns detector map in given axes units. 
 
@@ -15059,7 +15057,7 @@ class IAbstractParticle(ICompositeSample):
         """
         accept(IAbstractParticle self, ISampleVisitor visitor)
 
-        void IAbstractParticle::accept(class ISampleVisitor *visitor) const
+        void IAbstractParticle::accept(ISampleVisitor *visitor) const
 
         calls the  ISampleVisitor's visit method 
 
@@ -15071,7 +15069,7 @@ class IAbstractParticle(ICompositeSample):
         """
         setAmbientMaterial(IAbstractParticle self, IMaterial arg2)
 
-        virtual void IAbstractParticle::setAmbientMaterial(const class IMaterial &)
+        virtual void IAbstractParticle::setAmbientMaterial(const IMaterial &)
 
         Sets the refractive index of the ambient material (which influences its scattering power) 
 
@@ -15107,7 +15105,7 @@ class IAbstractParticle(ICompositeSample):
         """
         getAmbientMaterial(IAbstractParticle self) -> IMaterial
 
-        virtual const class IMaterial* IAbstractParticle::getAmbientMaterial() const =0
+        virtual const IMaterial* IAbstractParticle::getAmbientMaterial() const =0
 
         Returns particle's material. 
 
@@ -17791,7 +17789,7 @@ class Layer(ICompositeSample):
         __init__(Layer self, IMaterial material, double thickness=0) -> Layer
         __init__(Layer self, IMaterial material) -> Layer
 
-        Layer::Layer(const class IMaterial &material, double thickness=0)
+        Layer::Layer(const IMaterial &material, double thickness=0)
 
         Constructs layer made of  material with  thickness in nanometers and decoration. 
 
@@ -17868,7 +17866,7 @@ class Layer(ICompositeSample):
         """
         setMaterial(Layer self, IMaterial material)
 
-        void Layer::setMaterial(const class IMaterial &material)
+        void Layer::setMaterial(const IMaterial &material)
 
         Sets  material of the layer. 
 
@@ -17880,7 +17878,7 @@ class Layer(ICompositeSample):
         """
         setMaterialAndThickness(Layer self, IMaterial material, double thickness)
 
-        void Layer::setMaterialAndThickness(const class IMaterial &material, double thickness)
+        void Layer::setMaterialAndThickness(const IMaterial &material, double thickness)
 
         Sets  material and  thickness. 
 
@@ -17892,7 +17890,7 @@ class Layer(ICompositeSample):
         """
         getMaterial(Layer self) -> IMaterial
 
-        virtual const class IMaterial* Layer::getMaterial() const
+        virtual const IMaterial* Layer::getMaterial() const
 
         Returns layer's material. 
 
@@ -17928,7 +17926,7 @@ class Layer(ICompositeSample):
         """
         addLayout(Layer self, ILayout decoration)
 
-        void Layer::addLayout(const class ILayout &decoration)
+        void Layer::addLayout(const ILayout &decoration)
 
         sets particle layout 
 
@@ -18691,6 +18689,8 @@ class MesoCrystal(IParticle):
 
         void MesoCrystal::setAmbientMaterial(const IMaterial &material)
 
+        Sets the refractive index of the ambient material (which influences its scattering power) 
+
         """
         return _libBornAgainCore.MesoCrystal_setAmbientMaterial(self, material)
 
@@ -18725,7 +18725,7 @@ class MesoCrystal(IParticle):
 
         const IClusteredParticles * MesoCrystal::getClusteredParticles() const
 
-        get the internal structure, which is in principle unbounded in space (eg. an infinite crystal) 
+        get the internal structure, which is in principle unbounded in space (e.g. an infinite crystal) 
 
         """
         return _libBornAgainCore.MesoCrystal_getClusteredParticles(self)
@@ -20147,7 +20147,7 @@ def applyFunction(data, func):
     """
     applyFunction(IntensityData data, IIntensityFunction func)
 
-    BA_CORE_API_ void OutputDataFunctions::applyFunction(OutputData< double > &data, const class IIntensityFunction *func)
+    void OutputDataFunctions::applyFunction(OutputData< double > &data, const IIntensityFunction *func)
 
     apply intensity function to values stored in output data 
 
@@ -20758,6 +20758,8 @@ class ParticleComposition(IParticle):
 
         void ParticleComposition::setAmbientMaterial(const IMaterial &material)
 
+        Sets the refractive index of the ambient material (which influences its scattering power) 
+
         """
         return _libBornAgainCore.ParticleComposition_setAmbientMaterial(self, material)
 
@@ -20846,7 +20848,7 @@ class ParticleCoreShell(IParticle):
         __init__(ParticleCoreShell self, Particle shell, Particle core, kvector_t relative_core_position) -> ParticleCoreShell
         __init__(ParticleCoreShell self, Particle shell, Particle core) -> ParticleCoreShell
 
-        ParticleCoreShell::ParticleCoreShell(const class Particle &shell, const class Particle &core, kvector_t relative_core_position=kvector_t(0.0, 0.0, 0.0))
+        ParticleCoreShell::ParticleCoreShell(const Particle &shell, const Particle &core, kvector_t relative_core_position=kvector_t(0.0, 0.0, 0.0))
 
         """
         this = _libBornAgainCore.new_ParticleCoreShell(*args)
@@ -21674,6 +21676,8 @@ class RectangularDetector(IDetector2D):
         init(RectangularDetector self, Beam beam)
 
         void RectangularDetector::init(const Beam &beam)
+
+        Inits detector with the beam settings. 
 
         """
         return _libBornAgainCore.RectangularDetector_init(self, beam)

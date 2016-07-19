@@ -16,9 +16,17 @@
 #ifndef LAYERSTRATEGYBUILDER_H
 #define LAYERSTRATEGYBUILDER_H
 
-#include "SafePointerVector.h"
 #include "SimulationOptions.h"
+#include "SafePointerVector.h"
 #include <memory>
+
+class FormFactorInfo;
+class IInterferenceFunctionStrategy;
+class IMaterial;
+class IParticle;
+class Layer;
+class LayerSpecularInfo;
+class Simulation;
 
 //! @class LayerStrategyBuilder
 //! @ingroup algorithms_internal
@@ -28,16 +36,16 @@ class BA_CORE_API_ LayerStrategyBuilder
 {
 public:
     LayerStrategyBuilder(
-        const class Layer& decorated_layer, const class Simulation& simulation,
+        const Layer& decorated_layer, const Simulation& simulation,
         const SimulationOptions& sim_params, size_t layout_index);
 
     virtual ~LayerStrategyBuilder();
 
     //! Sets reflection/transmission map for DWBA calculation
-    void setRTInfo(const class LayerSpecularInfo& specular_info);
+    void setRTInfo(const LayerSpecularInfo& specular_info);
 
     //! Creates a strategy object which is able to calculate the scattering for fixed k_f
-    virtual class IInterferenceFunctionStrategy* createStrategy();
+    virtual IInterferenceFunctionStrategy* createStrategy();
 
 protected:
     std::unique_ptr<class Layer> mP_layer;                            //!< decorated layer
@@ -55,8 +63,8 @@ private:
     //! collect the interference function
     void collectInterferenceFunction();
     //! Creates formfactor info for single particle
-    class FormFactorInfo *createFormFactorInfo(
-        const class IParticle *particle, const class IMaterial *p_ambient_material) const;
+    FormFactorInfo *createFormFactorInfo(
+        const IParticle *particle, const IMaterial *p_ambient_material) const;
 
     //! Info about form factors
     SafePointerVector<class FormFactorInfo> m_ff_infos;

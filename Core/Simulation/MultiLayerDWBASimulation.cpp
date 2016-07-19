@@ -25,6 +25,7 @@
 #include "MultiLayerDWBASimulation.h"
 #include "SimulationElement.h"
 #include "Layer.h"
+#include "LayerDWBASimulation.h"
 #include "LayerInterface.h"
 #include "LayerRoughness.h"
 

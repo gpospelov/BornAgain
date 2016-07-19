@@ -20,6 +20,10 @@
 #include "ICompositeSample.h"
 #include "SafePointerVector.h"
 
+class LayerDWBASimulation;
+class IMaterial;
+class ISampleVisitor;
+
 //! @class Layer
 //! @ingroup samples
 //! @brief A layer with thickness and material
@@ -31,7 +35,7 @@ public:
     Layer();
 
     //! Constructs layer made of _material_ with _thickness_ in nanometers and decoration
-    Layer(const class IMaterial& material, double thickness = 0);
+    Layer(const IMaterial& material, double thickness = 0);
 
     virtual ~Layer();
 
@@ -50,13 +54,13 @@ public:
     virtual double getThickness() const { return m_thickness; }
 
     //! Sets _material_ of the layer.
-    virtual void setMaterial(const class IMaterial& material);
+    virtual void setMaterial(const IMaterial& material);
 
     //! Sets _material_ and _thickness_.
-    virtual void setMaterialAndThickness(const class IMaterial& material, double thickness);
+    virtual void setMaterialAndThickness(const IMaterial& material, double thickness);
 
     //! Returns layer's material.
-    virtual const class IMaterial* getMaterial() const { return mp_material; }
+    virtual const IMaterial* getMaterial() const { return mp_material; }
 
     //! Returns refractive index of the layer's material.
     virtual complex_t getRefractiveIndex() const;
@@ -65,19 +69,19 @@ public:
     complex_t getRefractiveIndex2() const;
 
     //! sets particle layout
-    virtual void addLayout(const class ILayout& decoration);
+    virtual void addLayout(const ILayout& decoration);
 
     //! gets number of layouts present
     size_t getNumberOfLayouts() const;
 
     //! returns particle decoration
-    virtual const class ILayout* getLayout(size_t i) const;
+    virtual const ILayout* getLayout(size_t i) const;
 
     //! Returns true if decoration is present
     virtual bool hasDWBASimulation() const { return m_layouts.size()>0; }
 
     //! creates and returns a LayerDWBASimulation for the given layout
-    class LayerDWBASimulation* createLayoutSimulation(size_t layout_index) const;
+    LayerDWBASimulation* createLayoutSimulation(size_t layout_index) const;
 
     double getTotalParticleSurfaceDensity(size_t layout_index) const;
 
@@ -97,7 +101,7 @@ protected:
     virtual void addLayoutPtr(class ILayout* layout);
 
     double m_thickness;       //!< layer thickness in nanometers
-    class IMaterial* mp_material;   //!< pointer to the material
+    IMaterial* mp_material;   //!< pointer to the material
     SafePointerVector<class ILayout> m_layouts; //!< independent layouts in this layer
     size_t mn_layers;
 private:

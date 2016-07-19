@@ -16,11 +16,11 @@
 #ifndef MULTILAYERDWBASIMULATION_H
 #define MULTILAYERDWBASIMULATION_H
 
-#include "LayerDWBASimulation.h"
+#include "DWBASimulation.h"
+#include "Complex.h"
 
-
+class LayerDWBASimulation;
 class MultiLayerRoughnessDWBASimulation;
-
 
 //! @class MultiLayerDWBASimulation
 //! @ingroup algorithms_internal

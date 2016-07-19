@@ -18,6 +18,7 @@
 #include "Faddeeva.hh"
 #include "MultiLayer.h"
 #include "Layer.h"
+#include "LayerSpecularInfo.h"
 #include "LayerInterface.h"
 #include "LayerRoughness.h"
 #include "Units.h"
@@ -180,4 +181,11 @@ complex_t MultiLayerRoughnessDWBASimulation::get_sum8terms(size_t ilayer,
                       * h_min(qz4_minus*sigma);
 
     return term1 + term2 + term3 + term4 + term5 + term6 + term7 + term8;
+}
+
+void MultiLayerRoughnessDWBASimulation::setSpecularInfo(size_t i_layer,
+        const LayerSpecularInfo& specular_info)
+{
+    delete mp_specular_info_vector[i_layer];
+    mp_specular_info_vector[i_layer] = specular_info.clone();
 }

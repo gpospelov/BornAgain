@@ -36,7 +36,7 @@ LayerStrategyBuilder::LayerStrategyBuilder(
     assert(mP_layer->getNumberOfLayouts() > 0);
 }
 
-LayerStrategyBuilder::~LayerStrategyBuilder() {} // needs class declartions not present in .h
+LayerStrategyBuilder::~LayerStrategyBuilder() {}
 
 void LayerStrategyBuilder::setRTInfo(const LayerSpecularInfo& specular_info)
 {

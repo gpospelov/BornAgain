@@ -18,6 +18,10 @@
 
 #include "IParameterized.h"
 
+class ISample;
+class IFormFactor;
+class IFTDistribution2D;
+
 //! @class ISampleBuilder
 //! @ingroup simulation_internal
 //! @brief Interface to the class capable to build samples to simulate
@@ -28,13 +32,13 @@ public:
     ISampleBuilder() : IParameterized("SampleBuilder") {}
     virtual ~ISampleBuilder() {}
 
-    virtual class ISample* buildSample() const = 0;
+    virtual ISample* buildSample() const = 0;
 
-    void set_subtest(const class IParameterized* subtest_item) { m_subtest_item = subtest_item; }
+    void set_subtest(const IParameterized* subtest_item) { m_subtest_item = subtest_item; }
     const IParameterized* m_subtest_item;
 
-    const class IFormFactor* getFormFactor() const;
-    const class IFTDistribution2D* getFTDistribution2D() const;
+    const IFormFactor* getFormFactor() const;
+    const IFTDistribution2D* getFTDistribution2D() const;
 };
 
 #endif // ISAMPLEBUILDER_H

@@ -16,9 +16,10 @@
 #ifndef MULTILAYERROUGHNESSDWBASIMULATION_H
 #define MULTILAYERROUGHNESSDWBASIMULATION_H
 
+#include "Complex.h"
 #include "DWBASimulation.h"
-#include "LayerSpecularInfo.h"
 
+class LayerSpecularInfo;
 class MultiLayer;
 
 //! @class MultiLayerRoughnessDWBASimulation
@@ -54,12 +55,5 @@ protected:
     MultiLayer* mp_multi_layer;
     std::vector<LayerSpecularInfo*> mp_specular_info_vector;
 };
-
-inline void MultiLayerRoughnessDWBASimulation::setSpecularInfo(size_t i_layer,
-        const LayerSpecularInfo& specular_info)
-{
-    delete mp_specular_info_vector[i_layer];
-    mp_specular_info_vector[i_layer] = specular_info.clone();
-}
 
 #endif // MULTILAYERROUGHNESSDWBASIMULATION_H

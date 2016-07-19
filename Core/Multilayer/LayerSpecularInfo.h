@@ -17,8 +17,10 @@
 #define LAYERSPECULARINFO_H
 
 #include "ICloneable.h"
-#include "ISpecularInfoMap.h"
 #include <memory>
+
+class ISpecularInfoMap;
+class ILayerRTCoefficients;
 
 //! @class LayerSpecularInfo
 //! @ingroup algorithms_internal
@@ -30,8 +32,8 @@
 class BA_CORE_API_ LayerSpecularInfo : public ICloneable
 {
 public:
-    LayerSpecularInfo() {}
-    virtual ~LayerSpecularInfo() {}
+    LayerSpecularInfo();
+    virtual ~LayerSpecularInfo();
 
     virtual LayerSpecularInfo* clone() const;
 
@@ -41,11 +43,11 @@ public:
 
     //! Retrieves the amplitude coefficients for the (time-reversed) outgoing
     //! wavevector with the given angles
-    const class ILayerRTCoefficients* getOutCoefficients(
+    const ILayerRTCoefficients* getOutCoefficients(
         double alpha_f, double phi_f, double wavelength) const;
 
     //! Retrieves the amplitude coefficients for the incoming wavevector
-    const class ILayerRTCoefficients* getInCoefficients(
+    const ILayerRTCoefficients* getInCoefficients(
         double alpha_i, double phi_i, double wavelength) const;
 private:
     std::unique_ptr<ISpecularInfoMap> mP_coeff_map;

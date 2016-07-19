@@ -21,6 +21,7 @@
 #include "ISample.h"
 #include "WavevectorInfo.h"
 
+class IMaterial;
 class ILayerRTCoefficients;
 
 //! @class IFormFactor
@@ -40,7 +41,7 @@ public:
     //! @}
 
     //! Passes the refractive index of the ambient material in which this particle is embedded.
-    virtual void setAmbientMaterial(const class IMaterial&) {}
+    virtual void setAmbientMaterial(const IMaterial&) {}
 
     //! Returns scattering amplitude for complex wavevector bin
     virtual complex_t evaluate(const WavevectorInfo& wavevectors) const=0;

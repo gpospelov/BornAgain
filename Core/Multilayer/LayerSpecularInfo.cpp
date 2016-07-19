@@ -14,6 +14,10 @@
 // ************************************************************************** //
 
 #include "LayerSpecularInfo.h"
+#include "ISpecularInfoMap.h"
+
+LayerSpecularInfo::LayerSpecularInfo() {}
+LayerSpecularInfo::~LayerSpecularInfo() {}
 
 LayerSpecularInfo* LayerSpecularInfo::clone() const
 {
@@ -24,9 +28,8 @@ LayerSpecularInfo* LayerSpecularInfo::clone() const
 
 void LayerSpecularInfo::addRTCoefficients(ISpecularInfoMap* rt_coefficient_map)
 {
-    if (mP_coeff_map.get() != rt_coefficient_map) {
+    if (mP_coeff_map.get() != rt_coefficient_map)
         mP_coeff_map.reset(rt_coefficient_map);
-    }
 }
 
 const ILayerRTCoefficients* LayerSpecularInfo::getOutCoefficients(

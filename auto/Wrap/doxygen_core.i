@@ -3913,6 +3913,8 @@ Returns the (approximate in some cases) radial size of the particle of this form
 ";
 
 %feature("docstring")  FormFactorWeighted::setAmbientMaterial "void FormFactorWeighted::setAmbientMaterial(const IMaterial &material)
+
+Passes the refractive index of the ambient material in which this particle is embedded. 
 ";
 
 %feature("docstring")  FormFactorWeighted::evaluate "complex_t FormFactorWeighted::evaluate(const WavevectorInfo &wavevectors) const
@@ -4389,7 +4391,7 @@ C++ includes: FunctionalTestSuite.h
 Runs test (name given as command-line argument), and returns 0 for SUCCESS, or error code. 
 ";
 
-%feature("docstring")  FunctionalTestSuite::getTest "virtual class IFunctionalTest* FunctionalTestSuite::getTest() const =0
+%feature("docstring")  FunctionalTestSuite::getTest "virtual IFunctionalTest* FunctionalTestSuite::getTest() const =0
 
 overloaded in (Core|Py|GUI)Suite.cpp 
 ";
@@ -4855,9 +4857,7 @@ Constructs a material with  name and refractive_index parameters delta and beta 
 %feature("docstring")  HomogeneousMaterial::~HomogeneousMaterial "virtual HomogeneousMaterial::~HomogeneousMaterial()
 ";
 
-%feature("docstring")  HomogeneousMaterial::clone "HomogeneousMaterial * HomogeneousMaterial::clone() const
-
-Clone. 
+%feature("docstring")  HomogeneousMaterial::clone "HomogeneousMaterial * HomogeneousMaterial::clone() const 
 ";
 
 %feature("docstring")  HomogeneousMaterial::getRefractiveIndex "virtual complex_t HomogeneousMaterial::getRefractiveIndex() const
@@ -4941,12 +4941,12 @@ Returns a clone of this  ISample object.
 Returns a clone with inverted magnetic fields. 
 ";
 
-%feature("docstring")  IAbstractParticle::accept "void IAbstractParticle::accept(class ISampleVisitor *visitor) const
+%feature("docstring")  IAbstractParticle::accept "void IAbstractParticle::accept(ISampleVisitor *visitor) const
 
 calls the  ISampleVisitor's visit method 
 ";
 
-%feature("docstring")  IAbstractParticle::setAmbientMaterial "virtual void IAbstractParticle::setAmbientMaterial(const class IMaterial &)
+%feature("docstring")  IAbstractParticle::setAmbientMaterial "virtual void IAbstractParticle::setAmbientMaterial(const IMaterial &)
 
 Sets the refractive index of the ambient material (which influences its scattering power) 
 ";
@@ -4961,7 +4961,7 @@ Returns abundance.
 Sets abundance. 
 ";
 
-%feature("docstring")  IAbstractParticle::getAmbientMaterial "virtual const class IMaterial* IAbstractParticle::getAmbientMaterial() const =0
+%feature("docstring")  IAbstractParticle::getAmbientMaterial "virtual const IMaterial* IAbstractParticle::getAmbientMaterial() const =0
 
 Returns particle's material. 
 ";
@@ -5255,10 +5255,10 @@ C++ includes: IDetector2D.h
 %feature("docstring")  IDetector2D::clone "virtual IDetector2D* IDetector2D::clone() const =0
 ";
 
-%feature("docstring")  IDetector2D::~IDetector2D "virtual IDetector2D::~IDetector2D()
+%feature("docstring")  IDetector2D::~IDetector2D "IDetector2D::~IDetector2D()
 ";
 
-%feature("docstring")  IDetector2D::init "virtual void IDetector2D::init(const class Beam &)
+%feature("docstring")  IDetector2D::init "virtual void IDetector2D::init(const Beam &)
 
 Inits detector with the beam settings. 
 ";
@@ -5351,12 +5351,12 @@ Put the mask for all detector channels (i.e. exclude whole detector from the ana
 return true if has masks 
 ";
 
-%feature("docstring")  IDetector2D::createSimulationElements "std::vector< SimulationElement > IDetector2D::createSimulationElements(const class Beam &beam)
+%feature("docstring")  IDetector2D::createSimulationElements "std::vector< SimulationElement > IDetector2D::createSimulationElements(const Beam &beam)
 
 Create a vector of  SimulationElement objects according to the detector and its mask. 
 ";
 
-%feature("docstring")  IDetector2D::getSimulationElement "SimulationElement IDetector2D::getSimulationElement(size_t index, const class Beam &beam) const
+%feature("docstring")  IDetector2D::getSimulationElement "SimulationElement IDetector2D::getSimulationElement(size_t index, const Beam &beam) const
 
 create single simulation element 
 ";
@@ -5366,7 +5366,7 @@ create single simulation element
 Adds parameters from local pool to external pool and recursively calls its direct children. 
 ";
 
-%feature("docstring")  IDetector2D::createDetectorMap "OutputData< double > * IDetector2D::createDetectorMap(const class Beam &, EAxesUnits) const
+%feature("docstring")  IDetector2D::createDetectorMap "OutputData< double > * IDetector2D::createDetectorMap(const Beam &, EAxesUnits) const
 
 Returns detector map in given axes units. 
 ";
@@ -5553,7 +5553,7 @@ C++ includes: IFormFactor.h
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  IFormFactor::setAmbientMaterial "virtual void IFormFactor::setAmbientMaterial(const class IMaterial &)
+%feature("docstring")  IFormFactor::setAmbientMaterial "virtual void IFormFactor::setAmbientMaterial(const IMaterial &)
 
 Passes the refractive index of the ambient material in which this particle is embedded. 
 ";
@@ -5655,6 +5655,8 @@ Calls the  ISampleVisitor's visit method.
 ";
 
 %feature("docstring")  IFormFactorDecorator::setAmbientMaterial "void IFormFactorDecorator::setAmbientMaterial(const IMaterial &material)
+
+Passes the refractive index of the ambient material in which this particle is embedded. 
 ";
 
 %feature("docstring")  IFormFactorDecorator::getVolume "double IFormFactorDecorator::getVolume() const
@@ -6393,18 +6395,12 @@ C++ includes: IMaterial.h
 ";
 
 %feature("docstring")  IMaterial::IMaterial "IMaterial::IMaterial(const std::string &name)
-
-Constructor that sets  name. 
 ";
 
 %feature("docstring")  IMaterial::~IMaterial "virtual IMaterial::~IMaterial()
-
-Destructor. 
 ";
 
-%feature("docstring")  IMaterial::clone "IMaterial * IMaterial::clone() const
-
-Clone. 
+%feature("docstring")  IMaterial::clone "IMaterial * IMaterial::clone() const 
 ";
 
 %feature("docstring")  IMaterial::isScalarMaterial "virtual bool IMaterial::isScalarMaterial() const
@@ -6427,7 +6423,7 @@ Get the effective scattering matrix from the refractive index and a given waveve
 Get the scattering matrix (~potential V) from the material. This matrix appears in the full three-dimensional Schroedinger equation. 
 ";
 
-%feature("docstring")  IMaterial::createTransformedMaterial "const IMaterial * IMaterial::createTransformedMaterial(const class IRotation &rotation) const
+%feature("docstring")  IMaterial::createTransformedMaterial "const IMaterial * IMaterial::createTransformedMaterial(const IRotation &rotation) const
 
 Create a new material that is transformed with respect to this one. 
 ";
@@ -7465,10 +7461,10 @@ C++ includes: ISampleBuilder.h
 %feature("docstring")  ISampleBuilder::~ISampleBuilder "virtual ISampleBuilder::~ISampleBuilder()
 ";
 
-%feature("docstring")  ISampleBuilder::buildSample "virtual class ISample* ISampleBuilder::buildSample() const =0
+%feature("docstring")  ISampleBuilder::buildSample "virtual ISample* ISampleBuilder::buildSample() const =0
 ";
 
-%feature("docstring")  ISampleBuilder::set_subtest "void ISampleBuilder::set_subtest(const class IParameterized *subtest_item)
+%feature("docstring")  ISampleBuilder::set_subtest "void ISampleBuilder::set_subtest(const IParameterized *subtest_item)
 ";
 
 %feature("docstring")  ISampleBuilder::getFormFactor "const IFormFactor * ISampleBuilder::getFormFactor() const 
@@ -8160,7 +8156,7 @@ C++ includes: Layer.h
 Constructs empty layer. 
 ";
 
-%feature("docstring")  Layer::Layer "Layer::Layer(const class IMaterial &material, double thickness=0)
+%feature("docstring")  Layer::Layer "Layer::Layer(const IMaterial &material, double thickness=0)
 
 Constructs layer made of  material with  thickness in nanometers and decoration. 
 ";
@@ -8193,17 +8189,17 @@ Sets layer thickness in nanometers.
 Returns layer thickness in nanometers. 
 ";
 
-%feature("docstring")  Layer::setMaterial "void Layer::setMaterial(const class IMaterial &material)
+%feature("docstring")  Layer::setMaterial "void Layer::setMaterial(const IMaterial &material)
 
 Sets  material of the layer. 
 ";
 
-%feature("docstring")  Layer::setMaterialAndThickness "void Layer::setMaterialAndThickness(const class IMaterial &material, double thickness)
+%feature("docstring")  Layer::setMaterialAndThickness "void Layer::setMaterialAndThickness(const IMaterial &material, double thickness)
 
 Sets  material and  thickness. 
 ";
 
-%feature("docstring")  Layer::getMaterial "virtual const class IMaterial* Layer::getMaterial() const
+%feature("docstring")  Layer::getMaterial "virtual const IMaterial* Layer::getMaterial() const
 
 Returns layer's material. 
 ";
@@ -8218,7 +8214,7 @@ Returns refractive index of the layer's material.
 Returns squared refractive index of the layer's material. 
 ";
 
-%feature("docstring")  Layer::addLayout "void Layer::addLayout(const class ILayout &decoration)
+%feature("docstring")  Layer::addLayout "void Layer::addLayout(const ILayout &decoration)
 
 sets particle layout 
 ";
@@ -8416,7 +8412,7 @@ C++ includes: LayerSpecularInfo.h
 %feature("docstring")  LayerSpecularInfo::LayerSpecularInfo "LayerSpecularInfo::LayerSpecularInfo()
 ";
 
-%feature("docstring")  LayerSpecularInfo::~LayerSpecularInfo "virtual LayerSpecularInfo::~LayerSpecularInfo()
+%feature("docstring")  LayerSpecularInfo::~LayerSpecularInfo "LayerSpecularInfo::~LayerSpecularInfo()
 ";
 
 %feature("docstring")  LayerSpecularInfo::clone "LayerSpecularInfo * LayerSpecularInfo::clone() const 
@@ -8446,13 +8442,13 @@ Methods to generate a simulation strategy for decorated  Layer SimulationParamet
 C++ includes: LayerStrategyBuilder.h
 ";
 
-%feature("docstring")  LayerStrategyBuilder::LayerStrategyBuilder "LayerStrategyBuilder::LayerStrategyBuilder(const class Layer &decorated_layer, const class Simulation &simulation, const SimulationOptions &sim_params, size_t layout_index)
+%feature("docstring")  LayerStrategyBuilder::LayerStrategyBuilder "LayerStrategyBuilder::LayerStrategyBuilder(const Layer &decorated_layer, const Simulation &simulation, const SimulationOptions &sim_params, size_t layout_index)
 ";
 
 %feature("docstring")  LayerStrategyBuilder::~LayerStrategyBuilder "LayerStrategyBuilder::~LayerStrategyBuilder()
 ";
 
-%feature("docstring")  LayerStrategyBuilder::setRTInfo "void LayerStrategyBuilder::setRTInfo(const class LayerSpecularInfo &specular_info)
+%feature("docstring")  LayerStrategyBuilder::setRTInfo "void LayerStrategyBuilder::setRTInfo(const LayerSpecularInfo &specular_info)
 
 Sets reflection/transmission map for DWBA calculation. 
 ";
@@ -8797,7 +8793,7 @@ Implementation of  ISpecularInfoMap for matrix valued reflection/ transmission c
 C++ includes: MatrixSpecularInfoMap.h
 ";
 
-%feature("docstring")  MatrixSpecularInfoMap::MatrixSpecularInfoMap "MatrixSpecularInfoMap::MatrixSpecularInfoMap(const class MultiLayer *multilayer, int layer)
+%feature("docstring")  MatrixSpecularInfoMap::MatrixSpecularInfoMap "MatrixSpecularInfoMap::MatrixSpecularInfoMap(const MultiLayer *multilayer, int layer)
 ";
 
 %feature("docstring")  MatrixSpecularInfoMap::~MatrixSpecularInfoMap "virtual MatrixSpecularInfoMap::~MatrixSpecularInfoMap()
@@ -8864,6 +8860,8 @@ Calls the  ISampleVisitor's visit method.
 ";
 
 %feature("docstring")  MesoCrystal::setAmbientMaterial "void MesoCrystal::setAmbientMaterial(const IMaterial &material)
+
+Sets the refractive index of the ambient material (which influences its scattering power) 
 ";
 
 %feature("docstring")  MesoCrystal::getAmbientMaterial "const IMaterial * MesoCrystal::getAmbientMaterial() const
@@ -8878,7 +8876,7 @@ Create a form factor for this particle with an extra scattering factor.
 
 %feature("docstring")  MesoCrystal::getClusteredParticles "const IClusteredParticles * MesoCrystal::getClusteredParticles() const
 
-get the internal structure, which is in principle unbounded in space (eg. an infinite crystal) 
+get the internal structure, which is in principle unbounded in space (e.g. an infinite crystal) 
 ";
 
 
@@ -10091,6 +10089,8 @@ Calls the  ISampleVisitor's visit method.
 ";
 
 %feature("docstring")  ParticleComposition::setAmbientMaterial "void ParticleComposition::setAmbientMaterial(const IMaterial &material)
+
+Sets the refractive index of the ambient material (which influences its scattering power) 
 ";
 
 %feature("docstring")  ParticleComposition::getAmbientMaterial "const IMaterial * ParticleComposition::getAmbientMaterial() const
@@ -10140,7 +10140,7 @@ A particle with a core/shell geometry.
 C++ includes: ParticleCoreShell.h
 ";
 
-%feature("docstring")  ParticleCoreShell::ParticleCoreShell "ParticleCoreShell::ParticleCoreShell(const class Particle &shell, const class Particle &core, kvector_t relative_core_position=kvector_t(0.0, 0.0, 0.0))
+%feature("docstring")  ParticleCoreShell::ParticleCoreShell "ParticleCoreShell::ParticleCoreShell(const Particle &shell, const Particle &core, kvector_t relative_core_position=kvector_t(0.0, 0.0, 0.0))
 ";
 
 %feature("docstring")  ParticleCoreShell::~ParticleCoreShell "ParticleCoreShell::~ParticleCoreShell()
@@ -10960,10 +10960,12 @@ Height of the detector in mm along y-direction
 %feature("docstring")  RectangularDetector::clone "RectangularDetector * RectangularDetector::clone() const 
 ";
 
-%feature("docstring")  RectangularDetector::~RectangularDetector "virtual RectangularDetector::~RectangularDetector()
+%feature("docstring")  RectangularDetector::~RectangularDetector "RectangularDetector::~RectangularDetector()
 ";
 
 %feature("docstring")  RectangularDetector::init "void RectangularDetector::init(const Beam &beam)
+
+Inits detector with the beam settings. 
 ";
 
 %feature("docstring")  RectangularDetector::setPosition "void RectangularDetector::setPosition(const kvector_t normal_to_detector, double u0, double v0, const kvector_t direction=kvector_t(0.0,-1.0, 0.0))
@@ -12063,7 +12065,7 @@ Implementation of  ISpecularInfoMap for scalar valued reflection/ transmission c
 C++ includes: ScalarSpecularInfoMap.h
 ";
 
-%feature("docstring")  ScalarSpecularInfoMap::ScalarSpecularInfoMap "ScalarSpecularInfoMap::ScalarSpecularInfoMap(const class MultiLayer *multilayer, int layer)
+%feature("docstring")  ScalarSpecularInfoMap::ScalarSpecularInfoMap "ScalarSpecularInfoMap::ScalarSpecularInfoMap(const MultiLayer *multilayer, int layer)
 ";
 
 %feature("docstring")  ScalarSpecularInfoMap::~ScalarSpecularInfoMap "virtual ScalarSpecularInfoMap::~ScalarSpecularInfoMap()
@@ -13406,7 +13408,7 @@ Select range on one of the axis. Resulting output data will have same number of 
 Resulting output data will have same number of axes 
 ";
 
-%feature("docstring")  OutputDataFunctions::applyFunction "BA_CORE_API_ void OutputDataFunctions::applyFunction(OutputData< double > &data, const class IIntensityFunction *func)
+%feature("docstring")  OutputDataFunctions::applyFunction "void OutputDataFunctions::applyFunction(OutputData< double > &data, const IIntensityFunction *func)
 
 apply intensity function to values stored in output data 
 ";
@@ -14334,7 +14336,7 @@ global helper function for comparison of axes
 
 
 // File: SimulationElement_8cpp.xml
-%feature("docstring")  AddElementsWithWeight "void AddElementsWithWeight(std::vector< SimulationElement >::const_iterator first, std::vector< SimulationElement >::const_iterator last, std::vector< SimulationElement >::iterator result, double weight)
+%feature("docstring")  addElementsWithWeight "void addElementsWithWeight(std::vector< SimulationElement >::const_iterator first, std::vector< SimulationElement >::const_iterator last, std::vector< SimulationElement >::iterator result, double weight)
 
 Add element vector to element vector with weight. 
 ";
@@ -14346,7 +14348,7 @@ Set all element intensities to given value.
 
 
 // File: SimulationElement_8h.xml
-%feature("docstring")  AddElementsWithWeight "void AddElementsWithWeight(std::vector< SimulationElement >::const_iterator first, std::vector< SimulationElement >::const_iterator last, std::vector< SimulationElement >::iterator result, double weight)
+%feature("docstring")  addElementsWithWeight "void addElementsWithWeight(std::vector< SimulationElement >::const_iterator first, std::vector< SimulationElement >::const_iterator last, std::vector< SimulationElement >::iterator result, double weight)
 
 Add element vector to element vector with weight. 
 ";

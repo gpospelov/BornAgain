@@ -33,7 +33,7 @@ public:
     virtual FormFactorDWBAPol* clone() const;
 
     //! calls the ISampleVisitor's visit method
-    virtual void accept(ISampleVisitor* visitor) const { visitor->visit(this); }
+    virtual void accept(ISampleVisitor* visitor) const;
 
     //! Throws exception
     virtual complex_t evaluate(const WavevectorInfo& wavevectors) const;

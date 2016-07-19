@@ -27,9 +27,7 @@ class BA_CORE_API_ IRoughness : public ISample
 public:
     IRoughness() {}
     virtual ~IRoughness() {}
-    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
+    virtual void accept(ISampleVisitor *visitor) const;
 };
 
 #endif // IROUGHNESS_H
-
-

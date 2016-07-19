@@ -26,6 +26,7 @@
 #include "FormFactors.h"
 #include "GISASSimulation.h"
 #include "GUIHelpers.h"
+#include "IMaterial.h"
 #include "InstrumentModel.h"
 #include "Layer.h"
 #include "LayerItem.h"

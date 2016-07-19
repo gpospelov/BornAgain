@@ -16,6 +16,7 @@
 #include "FormFactorDWBA.h"
 #include "BornAgainNamespace.h"
 #include "ILayerRTCoefficients.h"
+#include "ISampleVisitor.h"
 #include "LayerSpecularInfo.h"
 
 FormFactorDWBA::FormFactorDWBA(const IFormFactor& form_factor)
@@ -25,6 +26,8 @@ FormFactorDWBA::FormFactorDWBA(const IFormFactor& form_factor)
 {
     setName(BornAgain::FormFactorDWBAType);
 }
+
+void FormFactorDWBA::accept(ISampleVisitor* visitor) const { visitor->visit(this); }
 
 FormFactorDWBA* FormFactorDWBA::clone() const
 {

@@ -20,8 +20,10 @@
 #include "SafePointerVector.h"
 
 class IAbstractParticle;
+class IInterferenceFunction;
+class ILayout;
 class IParticle;
-class ISampleVisitor;
+class IRotation;
 
 //! @class ILayout
 //! @ingroup samples_internal

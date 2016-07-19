@@ -25,12 +25,12 @@
 class BA_CORE_API_ FormFactorDecoratorMultiPositionFactor : public IFormFactorDecorator
 {
 public:
-    FormFactorDecoratorMultiPositionFactor(const IFormFactor &form_factor,
+    FormFactorDecoratorMultiPositionFactor(const IFormFactor& form_factor,
                                            std::vector<kvector_t> positions);
 
-    virtual FormFactorDecoratorMultiPositionFactor *clone() const;
+    virtual FormFactorDecoratorMultiPositionFactor* clone() const;
 
-    virtual void accept(ISampleVisitor *visitor) const;
+    virtual void accept(ISampleVisitor* visitor) const;
 
     virtual double getVolume() const;
 

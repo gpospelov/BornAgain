@@ -13,14 +13,14 @@
 //
 // ************************************************************************** //
 
+#include "InterferenceFunction2DLattice.h"
+#include "BornAgainNamespace.h"
 #include "Macros.h"
+#include "ISampleVisitor.h"
 
 GCC_DIAG_OFF(unused-parameter)
 #include <boost/math/special_functions/round.hpp>
 GCC_DIAG_ON(unused-parameter)
-
-#include "InterferenceFunction2DLattice.h"
-#include "BornAgainNamespace.h"
 
 using namespace BornAgain;
 

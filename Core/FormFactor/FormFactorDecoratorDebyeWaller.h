@@ -26,22 +26,17 @@ class BA_CORE_API_ FormFactorDecoratorDebyeWaller : public IFormFactorDecorator
 {
 public:
     //! Isotropic Debye-Waller factor.
-    FormFactorDecoratorDebyeWaller(const IFormFactor &form_factor, double dw_factor);
+    FormFactorDecoratorDebyeWaller(const IFormFactor& form_factor, double dw_factor);
 
     //! Anisotropic Debye-Waller factor.
-    FormFactorDecoratorDebyeWaller(const IFormFactor &form_factor, double dw_h_factor,
+    FormFactorDecoratorDebyeWaller(const IFormFactor& form_factor, double dw_h_factor,
                                    double dw_r_factor);
 
-    virtual ~FormFactorDecoratorDebyeWaller()
-    {
-    }
+    virtual ~FormFactorDecoratorDebyeWaller() {}
 
-    virtual FormFactorDecoratorDebyeWaller *clone() const;
+    virtual FormFactorDecoratorDebyeWaller* clone() const;
 
-    virtual void accept(ISampleVisitor *visitor) const
-    {
-        visitor->visit(this);
-    }
+    virtual void accept(ISampleVisitor* visitor) const;
 
     virtual complex_t evaluate(const WavevectorInfo& wavevectors) const;
 

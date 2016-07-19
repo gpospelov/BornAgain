@@ -15,6 +15,7 @@
 
 #include "FormFactorDecoratorMultiPositionFactor.h"
 #include "BornAgainNamespace.h"
+#include "ISampleVisitor.h"
 
 FormFactorDecoratorMultiPositionFactor::FormFactorDecoratorMultiPositionFactor(
     const IFormFactor &form_factor, std::vector<kvector_t> positions)

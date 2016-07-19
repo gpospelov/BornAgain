@@ -8023,7 +8023,7 @@ class IFormFactorBorn(IFormFactor):
         """
         accept(IFormFactorBorn self, ISampleVisitor visitor)
 
-        virtual void IFormFactorBorn::accept(ISampleVisitor *visitor) const
+        void IFormFactorBorn::accept(ISampleVisitor *visitor) const
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -8896,9 +8896,7 @@ class FormFactorBox(IFormFactorBorn):
         """
         getLength(FormFactorBox self) -> double
 
-        double FormFactorBox::getLength() const
-
-        Returns length of Box. 
+        double FormFactorBox::getLength() const 
 
         """
         return _libBornAgainCore.FormFactorBox_getLength(self)
@@ -8908,9 +8906,7 @@ class FormFactorBox(IFormFactorBorn):
         """
         getHeight(FormFactorBox self) -> double
 
-        double FormFactorBox::getHeight() const
-
-        Returns height of Box. 
+        double FormFactorBox::getHeight() const 
 
         """
         return _libBornAgainCore.FormFactorBox_getHeight(self)
@@ -8920,9 +8916,7 @@ class FormFactorBox(IFormFactorBorn):
         """
         getWidth(FormFactorBox self) -> double
 
-        double FormFactorBox::getWidth() const
-
-        Returns width of Box. 
+        double FormFactorBox::getWidth() const 
 
         """
         return _libBornAgainCore.FormFactorBox_getWidth(self)
@@ -8932,9 +8926,9 @@ class FormFactorBox(IFormFactorBorn):
         """
         getRadius(FormFactorBox self) -> double
 
-        double FormFactorBox::getRadius() const
+        virtual double FormFactorBox::getRadius() const
 
-        Returns radius of Box. 
+        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
         """
         return _libBornAgainCore.FormFactorBox_getRadius(self)
@@ -9058,7 +9052,7 @@ class FormFactorCone(IFormFactorBorn):
         """
         getRadius(FormFactorCone self) -> double
 
-        double FormFactorCone::getRadius() const
+        virtual double FormFactorCone::getRadius() const
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -9504,7 +9498,7 @@ class FormFactorCylinder(IFormFactorBorn):
         """
         getRadius(FormFactorCylinder self) -> double
 
-        double FormFactorCylinder::getRadius() const
+        virtual double FormFactorCylinder::getRadius() const
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -9585,7 +9579,7 @@ class FormFactorDecoratorDebyeWaller(IFormFactorDecorator):
         """
         accept(FormFactorDecoratorDebyeWaller self, ISampleVisitor visitor)
 
-        virtual void FormFactorDecoratorDebyeWaller::accept(ISampleVisitor *visitor) const
+        void FormFactorDecoratorDebyeWaller::accept(ISampleVisitor *visitor) const
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -9887,9 +9881,9 @@ class FormFactorFullSphere(IFormFactorBorn):
         """
         getRadius(FormFactorFullSphere self) -> double
 
-        double FormFactorFullSphere::getRadius() const
+        virtual double FormFactorFullSphere::getRadius() const
 
-        Returns radius of sphere. 
+        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
         """
         return _libBornAgainCore.FormFactorFullSphere_getRadius(self)
@@ -10000,7 +9994,7 @@ class FormFactorFullSpheroid(IFormFactorBorn):
         """
         getRadius(FormFactorFullSpheroid self) -> double
 
-        double FormFactorFullSpheroid::getRadius() const
+        virtual double FormFactorFullSpheroid::getRadius() const
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -10402,9 +10396,7 @@ class FormFactorLongBoxGauss(IFormFactorBorn):
         """
         getLength(FormFactorLongBoxGauss self) -> double
 
-        double FormFactorLongBoxGauss::getLength() const
-
-        Returns length of Box. 
+        double FormFactorLongBoxGauss::getLength() const 
 
         """
         return _libBornAgainCore.FormFactorLongBoxGauss_getLength(self)
@@ -10414,9 +10406,7 @@ class FormFactorLongBoxGauss(IFormFactorBorn):
         """
         getHeight(FormFactorLongBoxGauss self) -> double
 
-        double FormFactorLongBoxGauss::getHeight() const
-
-        Returns height of Box. 
+        double FormFactorLongBoxGauss::getHeight() const 
 
         """
         return _libBornAgainCore.FormFactorLongBoxGauss_getHeight(self)
@@ -10426,9 +10416,7 @@ class FormFactorLongBoxGauss(IFormFactorBorn):
         """
         getWidth(FormFactorLongBoxGauss self) -> double
 
-        double FormFactorLongBoxGauss::getWidth() const
-
-        Returns width of Box. 
+        double FormFactorLongBoxGauss::getWidth() const 
 
         """
         return _libBornAgainCore.FormFactorLongBoxGauss_getWidth(self)
@@ -10438,9 +10426,9 @@ class FormFactorLongBoxGauss(IFormFactorBorn):
         """
         getRadius(FormFactorLongBoxGauss self) -> double
 
-        double FormFactorLongBoxGauss::getRadius() const
+        virtual double FormFactorLongBoxGauss::getRadius() const
 
-        Returns radius of Box. 
+        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
         """
         return _libBornAgainCore.FormFactorLongBoxGauss_getRadius(self)
@@ -10535,9 +10523,7 @@ class FormFactorLongBoxLorentz(IFormFactorBorn):
         """
         getLength(FormFactorLongBoxLorentz self) -> double
 
-        double FormFactorLongBoxLorentz::getLength() const
-
-        Returns length of Box. 
+        double FormFactorLongBoxLorentz::getLength() const 
 
         """
         return _libBornAgainCore.FormFactorLongBoxLorentz_getLength(self)
@@ -10547,9 +10533,7 @@ class FormFactorLongBoxLorentz(IFormFactorBorn):
         """
         getHeight(FormFactorLongBoxLorentz self) -> double
 
-        double FormFactorLongBoxLorentz::getHeight() const
-
-        Returns height of Box. 
+        double FormFactorLongBoxLorentz::getHeight() const 
 
         """
         return _libBornAgainCore.FormFactorLongBoxLorentz_getHeight(self)
@@ -10559,9 +10543,7 @@ class FormFactorLongBoxLorentz(IFormFactorBorn):
         """
         getWidth(FormFactorLongBoxLorentz self) -> double
 
-        double FormFactorLongBoxLorentz::getWidth() const
-
-        Returns width of Box. 
+        double FormFactorLongBoxLorentz::getWidth() const 
 
         """
         return _libBornAgainCore.FormFactorLongBoxLorentz_getWidth(self)
@@ -10571,9 +10553,9 @@ class FormFactorLongBoxLorentz(IFormFactorBorn):
         """
         getRadius(FormFactorLongBoxLorentz self) -> double
 
-        double FormFactorLongBoxLorentz::getRadius() const
+        virtual double FormFactorLongBoxLorentz::getRadius() const
 
-        Returns radius of Box. 
+        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
         """
         return _libBornAgainCore.FormFactorLongBoxLorentz_getRadius(self)
@@ -11200,9 +11182,7 @@ class FormFactorLorentz(IFormFactorBorn):
         """
         getHeight(FormFactorLorentz self) -> double
 
-        double FormFactorLorentz::getHeight() const
-
-        Returns height of shape. 
+        double FormFactorLorentz::getHeight() const 
 
         """
         return _libBornAgainCore.FormFactorLorentz_getHeight(self)
@@ -11212,9 +11192,7 @@ class FormFactorLorentz(IFormFactorBorn):
         """
         getWidth(FormFactorLorentz self) -> double
 
-        double FormFactorLorentz::getWidth() const
-
-        Returns width of shape. 
+        double FormFactorLorentz::getWidth() const 
 
         """
         return _libBornAgainCore.FormFactorLorentz_getWidth(self)
@@ -12517,7 +12495,7 @@ class FormFactorTruncatedSpheroid(IFormFactorBorn):
         """
         getRadius(FormFactorTruncatedSpheroid self) -> double
 
-        double FormFactorTruncatedSpheroid::getRadius() const
+        virtual double FormFactorTruncatedSpheroid::getRadius() const
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -18053,7 +18031,7 @@ class IRoughness(ISample):
         """
         accept(IRoughness self, ISampleVisitor visitor)
 
-        virtual void IRoughness::accept(ISampleVisitor *visitor) const
+        void IRoughness::accept(ISampleVisitor *visitor) const
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -18114,7 +18092,7 @@ class LayerRoughness(IRoughness):
         """
         accept(LayerRoughness self, ISampleVisitor visitor)
 
-        virtual void LayerRoughness::accept(ISampleVisitor *visitor) const
+        void LayerRoughness::accept(ISampleVisitor *visitor) const
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -20257,7 +20235,7 @@ class ParameterDistribution(IParameterized):
         """
         getLinkedParameterNames(ParameterDistribution self) -> vector_string_t
 
-        std::vector< std::string > ParameterDistribution::getLinkedParameterNames() const
+        std::vector<std::string> ParameterDistribution::getLinkedParameterNames() const
 
         get list of linked parameter names 
 

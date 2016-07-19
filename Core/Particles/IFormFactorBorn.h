@@ -28,9 +28,9 @@ class BA_CORE_API_ IFormFactorBorn : public IFormFactor
 public:
     IFormFactorBorn() {}
     virtual ~IFormFactorBorn() {}
-    virtual IFormFactorBorn *clone() const=0;
+    virtual IFormFactorBorn* clone() const=0;
 
-    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
+    virtual void accept(ISampleVisitor* visitor) const;
 
     virtual complex_t evaluate(const WavevectorInfo& wavevectors) const;
 

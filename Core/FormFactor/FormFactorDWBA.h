@@ -19,7 +19,6 @@
 #include "IFormFactorDecorator.h"
 
 class ILayerRTCoefficients;
-class ISampleVisitor;
 
 //! @class FormFactorDWBA
 //! @ingroup formfactors_internal
@@ -33,7 +32,7 @@ public:
 
     virtual FormFactorDWBA* clone() const;
 
-    virtual void accept(ISampleVisitor* visitor) const { visitor->visit(this); }
+    virtual void accept(ISampleVisitor* visitor) const;
 
     //! Sets reflection/transmission info for scalar DWBA simulation
     virtual void setSpecularInfo(const ILayerRTCoefficients* p_in_coeffs,

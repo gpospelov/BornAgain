@@ -15,6 +15,7 @@
 
 #include "InterferenceFunctionNone.h"
 #include "BornAgainNamespace.h"
+#include "ISampleVisitor.h"
 
 
 InterferenceFunctionNone::InterferenceFunctionNone()

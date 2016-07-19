@@ -16,6 +16,7 @@
 #include "FormFactorDWBAPol.h"
 #include "BornAgainNamespace.h"
 #include "ILayerRTCoefficients.h"
+#include "ISampleVisitor.h"
 
 FormFactorDWBAPol::FormFactorDWBAPol(const IFormFactor &form_factor)
 : mp_form_factor(form_factor.clone())
@@ -28,6 +29,8 @@ FormFactorDWBAPol::FormFactorDWBAPol(const IFormFactor &form_factor)
 FormFactorDWBAPol::~FormFactorDWBAPol()
 {
 }
+
+void FormFactorDWBAPol::accept(ISampleVisitor* visitor) const { visitor->visit(this); }
 
 FormFactorDWBAPol* FormFactorDWBAPol::clone() const
 {

@@ -15,6 +15,7 @@
 
 #include "FormFactorDecoratorDebyeWaller.h"
 #include "BornAgainNamespace.h"
+#include "ISampleVisitor.h"
 
 using namespace  BornAgain;
 
@@ -31,6 +32,11 @@ FormFactorDecoratorDebyeWaller::FormFactorDecoratorDebyeWaller(const IFormFactor
     : IFormFactorDecorator(form_factor), m_h_dw_factor(dw_h_factor), m_r_dw_factor(dw_r_factor)
 {
     initialize();
+}
+
+void FormFactorDecoratorDebyeWaller::accept(ISampleVisitor *visitor) const
+{
+    visitor->visit(this);
 }
 
 FormFactorDecoratorDebyeWaller *FormFactorDecoratorDebyeWaller::clone() const

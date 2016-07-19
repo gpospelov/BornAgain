@@ -14,6 +14,8 @@
 // ************************************************************************** //
 
 #include "FormFactorDecoratorMaterial.h"
+#include "ISampleVisitor.h"
+#include "IMaterial.h"
 
 FormFactorDecoratorMaterial::FormFactorDecoratorMaterial(const IFormFactor &form_factor)
     : FormFactorDecoratorFactor(form_factor, 1.0),
@@ -21,6 +23,11 @@ FormFactorDecoratorMaterial::FormFactorDecoratorMaterial(const IFormFactor &form
       mP_ambient_material{nullptr}
 {
     setName(BornAgain::FormFactorDecoratorMaterialType);
+}
+
+void FormFactorDecoratorMaterial::accept(ISampleVisitor* visitor) const
+{
+    visitor->visit(this);
 }
 
 FormFactorDecoratorMaterial *FormFactorDecoratorMaterial::clone() const

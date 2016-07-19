@@ -15,8 +15,8 @@
 
 #include "LayerRoughness.h"
 #include "BornAgainNamespace.h"
+#include "ISampleVisitor.h"
 #include "Units.h"
-
 
 using namespace BornAgain;
 
@@ -34,6 +34,11 @@ LayerRoughness::LayerRoughness(double sigma, double hurstParameter, double latte
     , m_latteralCorrLength(latteralCorrLength)
 {
     initialize();
+}
+
+void LayerRoughness::accept(ISampleVisitor *visitor) const
+{
+    visitor->visit(this);
 }
 
 LayerRoughness* LayerRoughness::clone() const
@@ -75,36 +80,6 @@ double LayerRoughness::getCorrFun(const kvector_t k) const
     double clength = m_latteralCorrLength;
     double R = sqrt(k.x()*k.x() + k.y()*k.y());
     return m_sigma*m_sigma*std::exp( -1.0*std::pow(R/clength, 2.*H) );
-}
-
-void LayerRoughness::setSigma(double sigma)
-{
-    m_sigma = sigma;
-}
-
-double LayerRoughness::getSigma() const
-{
-    return m_sigma;
-}
-
-void LayerRoughness::setHurstParameter(double hurstParameter)
-{
-    m_hurstParameter = hurstParameter;
-}
-
-double LayerRoughness::getHurstParameter() const
-{
-    return m_hurstParameter;
-}
-
-void LayerRoughness::setLatteralCorrLength(double latteralCorrLength)
-{
-    m_latteralCorrLength = latteralCorrLength;
-}
-
-double LayerRoughness::getLatteralCorrLength() const
-{
-    return m_latteralCorrLength;
 }
 
 std::ostream &operator<<(std::ostream &ostr, LayerRoughness &m)

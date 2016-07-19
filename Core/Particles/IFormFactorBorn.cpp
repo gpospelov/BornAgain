@@ -14,7 +14,9 @@
 // ************************************************************************** //
 
 #include "IFormFactorBorn.h"
+#include "ISampleVisitor.h"
 
+void IFormFactorBorn::accept(ISampleVisitor* visitor) const { visitor->visit(this); }
 
 complex_t IFormFactorBorn::evaluate(const WavevectorInfo& wavevectors) const
 {

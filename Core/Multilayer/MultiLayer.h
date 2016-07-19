@@ -19,9 +19,10 @@
 #include "ICompositeSample.h"
 #include "Vectors3D.h"
 
+class GISASSimulation;
 class Layer;
 class LayerInterface;
-class GISASSimulation;
+class LayerRoughness;
 
 //! @class MultiLayer
 //! @ingroup samples

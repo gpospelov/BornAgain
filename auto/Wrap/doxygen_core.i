@@ -1807,24 +1807,18 @@ Returns a clone of this  ISample object.
 Calls the  ISampleVisitor's visit method. 
 ";
 
-%feature("docstring")  FormFactorBox::getLength "double FormFactorBox::getLength() const
-
-Returns length of Box. 
+%feature("docstring")  FormFactorBox::getLength "double FormFactorBox::getLength() const 
 ";
 
-%feature("docstring")  FormFactorBox::getHeight "double FormFactorBox::getHeight() const
-
-Returns height of Box. 
+%feature("docstring")  FormFactorBox::getHeight "double FormFactorBox::getHeight() const 
 ";
 
-%feature("docstring")  FormFactorBox::getRadius "double FormFactorBox::getRadius() const
-
-Returns radius of Box. 
+%feature("docstring")  FormFactorBox::getWidth "double FormFactorBox::getWidth() const 
 ";
 
-%feature("docstring")  FormFactorBox::getWidth "double FormFactorBox::getWidth() const
+%feature("docstring")  FormFactorBox::getRadius "virtual double FormFactorBox::getRadius() const
 
-Returns width of Box. 
+Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
 
 %feature("docstring")  FormFactorBox::evaluate_for_q "complex_t FormFactorBox::evaluate_for_q(const cvector_t q) const
@@ -1880,12 +1874,12 @@ Calls the  ISampleVisitor's visit method.
 %feature("docstring")  FormFactorCone::getHeight "double FormFactorCone::getHeight() const 
 ";
 
-%feature("docstring")  FormFactorCone::getRadius "double FormFactorCone::getRadius() const
-
-Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+%feature("docstring")  FormFactorCone::getAlpha "double FormFactorCone::getAlpha() const 
 ";
 
-%feature("docstring")  FormFactorCone::getAlpha "double FormFactorCone::getAlpha() const 
+%feature("docstring")  FormFactorCone::getRadius "virtual double FormFactorCone::getRadius() const
+
+Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
 
 %feature("docstring")  FormFactorCone::evaluate_for_q "complex_t FormFactorCone::evaluate_for_q(const cvector_t q) const
@@ -2090,7 +2084,7 @@ Calls the  ISampleVisitor's visit method.
 %feature("docstring")  FormFactorCylinder::getHeight "double FormFactorCylinder::getHeight() const 
 ";
 
-%feature("docstring")  FormFactorCylinder::getRadius "double FormFactorCylinder::getRadius() const
+%feature("docstring")  FormFactorCylinder::getRadius "virtual double FormFactorCylinder::getRadius() const
 
 Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
@@ -2133,7 +2127,7 @@ Anisotropic Debye-Waller factor.
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  FormFactorDecoratorDebyeWaller::accept "virtual void FormFactorDecoratorDebyeWaller::accept(ISampleVisitor *visitor) const
+%feature("docstring")  FormFactorDecoratorDebyeWaller::accept "void FormFactorDecoratorDebyeWaller::accept(ISampleVisitor *visitor) const
 
 Calls the  ISampleVisitor's visit method. 
 ";
@@ -2190,7 +2184,7 @@ C++ includes: FormFactorDecoratorMaterial.h
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  FormFactorDecoratorMaterial::accept "virtual void FormFactorDecoratorMaterial::accept(ISampleVisitor *visitor) const
+%feature("docstring")  FormFactorDecoratorMaterial::accept "void FormFactorDecoratorMaterial::accept(ISampleVisitor *visitor) const
 
 Calls the  ISampleVisitor's visit method. 
 ";
@@ -2374,7 +2368,7 @@ C++ includes: FormFactorDWBA.h
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  FormFactorDWBA::accept "virtual void FormFactorDWBA::accept(ISampleVisitor *visitor) const
+%feature("docstring")  FormFactorDWBA::accept "void FormFactorDWBA::accept(ISampleVisitor *visitor) const
 
 Calls the  ISampleVisitor's visit method. 
 ";
@@ -2409,7 +2403,7 @@ C++ includes: FormFactorDWBAPol.h
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  FormFactorDWBAPol::accept "virtual void FormFactorDWBAPol::accept(ISampleVisitor *visitor) const
+%feature("docstring")  FormFactorDWBAPol::accept "void FormFactorDWBAPol::accept(ISampleVisitor *visitor) const
 
 calls the  ISampleVisitor's visit method 
 ";
@@ -2475,11 +2469,6 @@ Returns a clone of this  ISample object.
 Calls the  ISampleVisitor's visit method. 
 ";
 
-%feature("docstring")  FormFactorEllipsoidalCylinder::getRadius "double FormFactorEllipsoidalCylinder::getRadius() const
-
-Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-";
-
 %feature("docstring")  FormFactorEllipsoidalCylinder::getRadiusX "double FormFactorEllipsoidalCylinder::getRadiusX() const 
 ";
 
@@ -2487,6 +2476,11 @@ Returns the (approximate in some cases) radial size of the particle of this form
 ";
 
 %feature("docstring")  FormFactorEllipsoidalCylinder::getHeight "double FormFactorEllipsoidalCylinder::getHeight() const 
+";
+
+%feature("docstring")  FormFactorEllipsoidalCylinder::getRadius "double FormFactorEllipsoidalCylinder::getRadius() const
+
+Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
 
 %feature("docstring")  FormFactorEllipsoidalCylinder::evaluate_for_q "complex_t FormFactorEllipsoidalCylinder::evaluate_for_q(const cvector_t q) const
@@ -2530,9 +2524,9 @@ Returns a clone of this  ISample object.
 Calls the  ISampleVisitor's visit method. 
 ";
 
-%feature("docstring")  FormFactorFullSphere::getRadius "double FormFactorFullSphere::getRadius() const
+%feature("docstring")  FormFactorFullSphere::getRadius "virtual double FormFactorFullSphere::getRadius() const
 
-Returns radius of sphere. 
+Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
 
 %feature("docstring")  FormFactorFullSphere::evaluate_for_q "complex_t FormFactorFullSphere::evaluate_for_q(const cvector_t q) const
@@ -2585,7 +2579,7 @@ Calls the  ISampleVisitor's visit method.
 %feature("docstring")  FormFactorFullSpheroid::getHeight "double FormFactorFullSpheroid::getHeight() const 
 ";
 
-%feature("docstring")  FormFactorFullSpheroid::getRadius "double FormFactorFullSpheroid::getRadius() const
+%feature("docstring")  FormFactorFullSpheroid::getRadius "virtual double FormFactorFullSpheroid::getRadius() const
 
 Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
@@ -2689,11 +2683,6 @@ Returns a clone of this  ISample object.
 Calls the  ISampleVisitor's visit method. 
 ";
 
-%feature("docstring")  FormFactorHemiEllipsoid::getRadius "double FormFactorHemiEllipsoid::getRadius() const
-
-Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-";
-
 %feature("docstring")  FormFactorHemiEllipsoid::getHeight "double FormFactorHemiEllipsoid::getHeight() const 
 ";
 
@@ -2701,6 +2690,11 @@ Returns the (approximate in some cases) radial size of the particle of this form
 ";
 
 %feature("docstring")  FormFactorHemiEllipsoid::getRadiusY "double FormFactorHemiEllipsoid::getRadiusY() const 
+";
+
+%feature("docstring")  FormFactorHemiEllipsoid::getRadius "double FormFactorHemiEllipsoid::getRadius() const
+
+Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
 
 %feature("docstring")  FormFactorHemiEllipsoid::evaluate_for_q "complex_t FormFactorHemiEllipsoid::evaluate_for_q(const cvector_t q) const
@@ -2788,24 +2782,18 @@ Returns a clone of this  ISample object.
 Calls the  ISampleVisitor's visit method. 
 ";
 
-%feature("docstring")  FormFactorLongBoxGauss::getLength "double FormFactorLongBoxGauss::getLength() const
-
-Returns length of Box. 
+%feature("docstring")  FormFactorLongBoxGauss::getLength "double FormFactorLongBoxGauss::getLength() const 
 ";
 
-%feature("docstring")  FormFactorLongBoxGauss::getHeight "double FormFactorLongBoxGauss::getHeight() const
-
-Returns height of Box. 
+%feature("docstring")  FormFactorLongBoxGauss::getHeight "double FormFactorLongBoxGauss::getHeight() const 
 ";
 
-%feature("docstring")  FormFactorLongBoxGauss::getRadius "double FormFactorLongBoxGauss::getRadius() const
-
-Returns radius of Box. 
+%feature("docstring")  FormFactorLongBoxGauss::getWidth "double FormFactorLongBoxGauss::getWidth() const 
 ";
 
-%feature("docstring")  FormFactorLongBoxGauss::getWidth "double FormFactorLongBoxGauss::getWidth() const
+%feature("docstring")  FormFactorLongBoxGauss::getRadius "virtual double FormFactorLongBoxGauss::getRadius() const
 
-Returns width of Box. 
+Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
 
 %feature("docstring")  FormFactorLongBoxGauss::evaluate_for_q "complex_t FormFactorLongBoxGauss::evaluate_for_q(const cvector_t q) const
@@ -2850,24 +2838,18 @@ Returns a clone of this  ISample object.
 Calls the  ISampleVisitor's visit method. 
 ";
 
-%feature("docstring")  FormFactorLongBoxLorentz::getLength "double FormFactorLongBoxLorentz::getLength() const
-
-Returns length of Box. 
+%feature("docstring")  FormFactorLongBoxLorentz::getLength "double FormFactorLongBoxLorentz::getLength() const 
 ";
 
-%feature("docstring")  FormFactorLongBoxLorentz::getHeight "double FormFactorLongBoxLorentz::getHeight() const
-
-Returns height of Box. 
+%feature("docstring")  FormFactorLongBoxLorentz::getHeight "double FormFactorLongBoxLorentz::getHeight() const 
 ";
 
-%feature("docstring")  FormFactorLongBoxLorentz::getRadius "double FormFactorLongBoxLorentz::getRadius() const
-
-Returns radius of Box. 
+%feature("docstring")  FormFactorLongBoxLorentz::getWidth "double FormFactorLongBoxLorentz::getWidth() const 
 ";
 
-%feature("docstring")  FormFactorLongBoxLorentz::getWidth "double FormFactorLongBoxLorentz::getWidth() const
+%feature("docstring")  FormFactorLongBoxLorentz::getRadius "virtual double FormFactorLongBoxLorentz::getRadius() const
 
-Returns width of Box. 
+Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
 
 %feature("docstring")  FormFactorLongBoxLorentz::evaluate_for_q "complex_t FormFactorLongBoxLorentz::evaluate_for_q(const cvector_t q) const
@@ -2920,11 +2902,6 @@ Returns a clone of this  ISample object.
 Calls the  ISampleVisitor's visit method. 
 ";
 
-%feature("docstring")  FormFactorLongRipple1Gauss::getRadius "double FormFactorLongRipple1Gauss::getRadius() const
-
-Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-";
-
 %feature("docstring")  FormFactorLongRipple1Gauss::getHeight "double FormFactorLongRipple1Gauss::getHeight() const 
 ";
 
@@ -2932,6 +2909,11 @@ Returns the (approximate in some cases) radial size of the particle of this form
 ";
 
 %feature("docstring")  FormFactorLongRipple1Gauss::getLength "double FormFactorLongRipple1Gauss::getLength() const 
+";
+
+%feature("docstring")  FormFactorLongRipple1Gauss::getRadius "double FormFactorLongRipple1Gauss::getRadius() const
+
+Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
 
 %feature("docstring")  FormFactorLongRipple1Gauss::evaluate_for_q "complex_t FormFactorLongRipple1Gauss::evaluate_for_q(const cvector_t q) const
@@ -3039,11 +3021,6 @@ Returns a clone of this  ISample object.
 Calls the  ISampleVisitor's visit method. 
 ";
 
-%feature("docstring")  FormFactorLongRipple2Gauss::getRadius "double FormFactorLongRipple2Gauss::getRadius() const
-
-Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-";
-
 %feature("docstring")  FormFactorLongRipple2Gauss::getHeight "double FormFactorLongRipple2Gauss::getHeight() const 
 ";
 
@@ -3054,6 +3031,11 @@ Returns the (approximate in some cases) radial size of the particle of this form
 ";
 
 %feature("docstring")  FormFactorLongRipple2Gauss::getAsymmetry "double FormFactorLongRipple2Gauss::getAsymmetry() const 
+";
+
+%feature("docstring")  FormFactorLongRipple2Gauss::getRadius "double FormFactorLongRipple2Gauss::getRadius() const
+
+Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
 
 %feature("docstring")  FormFactorLongRipple2Gauss::evaluate_for_q "complex_t FormFactorLongRipple2Gauss::evaluate_for_q(const cvector_t q) const
@@ -3103,11 +3085,6 @@ Returns a clone of this  ISample object.
 Calls the  ISampleVisitor's visit method. 
 ";
 
-%feature("docstring")  FormFactorLongRipple2Lorentz::getRadius "double FormFactorLongRipple2Lorentz::getRadius() const
-
-Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-";
-
 %feature("docstring")  FormFactorLongRipple2Lorentz::getHeight "double FormFactorLongRipple2Lorentz::getHeight() const 
 ";
 
@@ -3118,6 +3095,11 @@ Returns the (approximate in some cases) radial size of the particle of this form
 ";
 
 %feature("docstring")  FormFactorLongRipple2Lorentz::getAsymmetry "double FormFactorLongRipple2Lorentz::getAsymmetry() const 
+";
+
+%feature("docstring")  FormFactorLongRipple2Lorentz::getRadius "double FormFactorLongRipple2Lorentz::getRadius() const
+
+Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
 
 %feature("docstring")  FormFactorLongRipple2Lorentz::evaluate_for_q "complex_t FormFactorLongRipple2Lorentz::evaluate_for_q(const cvector_t q) const
@@ -3150,19 +3132,15 @@ Returns a clone of this  ISample object.
 Calls the  ISampleVisitor's visit method. 
 ";
 
+%feature("docstring")  FormFactorLorentz::getHeight "double FormFactorLorentz::getHeight() const 
+";
+
+%feature("docstring")  FormFactorLorentz::getWidth "double FormFactorLorentz::getWidth() const 
+";
+
 %feature("docstring")  FormFactorLorentz::getRadius "double FormFactorLorentz::getRadius() const
 
 Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-";
-
-%feature("docstring")  FormFactorLorentz::getHeight "double FormFactorLorentz::getHeight() const
-
-Returns height of shape. 
-";
-
-%feature("docstring")  FormFactorLorentz::getWidth "double FormFactorLorentz::getWidth() const
-
-Returns width of shape. 
 ";
 
 %feature("docstring")  FormFactorLorentz::evaluate_for_q "complex_t FormFactorLorentz::evaluate_for_q(const cvector_t q) const
@@ -3437,9 +3415,7 @@ Returns a clone of this  ISample object.
 Calls the  ISampleVisitor's visit method. 
 ";
 
-%feature("docstring")  FormFactorRipple1::getRadius "double FormFactorRipple1::getRadius() const
-
-Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+%feature("docstring")  FormFactorRipple1::getLength "double FormFactorRipple1::getLength() const 
 ";
 
 %feature("docstring")  FormFactorRipple1::getHeight "double FormFactorRipple1::getHeight() const 
@@ -3448,7 +3424,9 @@ Returns the (approximate in some cases) radial size of the particle of this form
 %feature("docstring")  FormFactorRipple1::getWidth "double FormFactorRipple1::getWidth() const 
 ";
 
-%feature("docstring")  FormFactorRipple1::getLength "double FormFactorRipple1::getLength() const 
+%feature("docstring")  FormFactorRipple1::getRadius "double FormFactorRipple1::getRadius() const
+
+Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
 
 %feature("docstring")  FormFactorRipple1::evaluate_for_q "complex_t FormFactorRipple1::evaluate_for_q(const cvector_t q) const
@@ -3498,11 +3476,6 @@ Returns a clone of this  ISample object.
 Calls the  ISampleVisitor's visit method. 
 ";
 
-%feature("docstring")  FormFactorRipple2::getRadius "double FormFactorRipple2::getRadius() const
-
-Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-";
-
 %feature("docstring")  FormFactorRipple2::getHeight "double FormFactorRipple2::getHeight() const 
 ";
 
@@ -3513,6 +3486,11 @@ Returns the (approximate in some cases) radial size of the particle of this form
 ";
 
 %feature("docstring")  FormFactorRipple2::getAsymmetry "double FormFactorRipple2::getAsymmetry() const 
+";
+
+%feature("docstring")  FormFactorRipple2::getRadius "double FormFactorRipple2::getRadius() const
+
+Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
 
 %feature("docstring")  FormFactorRipple2::evaluate_for_q "complex_t FormFactorRipple2::evaluate_for_q(const cvector_t q) const
@@ -3863,7 +3841,7 @@ Calls the  ISampleVisitor's visit method.
 %feature("docstring")  FormFactorTruncatedSpheroid::getHeightFlattening "double FormFactorTruncatedSpheroid::getHeightFlattening() const 
 ";
 
-%feature("docstring")  FormFactorTruncatedSpheroid::getRadius "double FormFactorTruncatedSpheroid::getRadius() const
+%feature("docstring")  FormFactorTruncatedSpheroid::getRadius "virtual double FormFactorTruncatedSpheroid::getRadius() const
 
 Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
@@ -5603,7 +5581,7 @@ C++ includes: IFormFactorBorn.h
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  IFormFactorBorn::accept "virtual void IFormFactorBorn::accept(ISampleVisitor *visitor) const
+%feature("docstring")  IFormFactorBorn::accept "void IFormFactorBorn::accept(ISampleVisitor *visitor) const
 
 Calls the  ISampleVisitor's visit method. 
 ";
@@ -6489,7 +6467,7 @@ C++ includes: Instrument.h
 %feature("docstring")  Instrument::Instrument "Instrument::Instrument(const Instrument &other)
 ";
 
-%feature("docstring")  Instrument::~Instrument "virtual Instrument::~Instrument()
+%feature("docstring")  Instrument::~Instrument "Instrument::~Instrument()
 ";
 
 %feature("docstring")  Instrument::getBeam "Beam Instrument::getBeam() const
@@ -7392,7 +7370,7 @@ C++ includes: IRoughness.h
 %feature("docstring")  IRoughness::~IRoughness "virtual IRoughness::~IRoughness()
 ";
 
-%feature("docstring")  IRoughness::accept "virtual void IRoughness::accept(ISampleVisitor *visitor) const
+%feature("docstring")  IRoughness::accept "void IRoughness::accept(ISampleVisitor *visitor) const
 
 Calls the  ISampleVisitor's visit method. 
 ";
@@ -7841,7 +7819,7 @@ C++ includes: ISimulation.h
 %feature("docstring")  ISimulation::clone "ISimulation * ISimulation::clone() const 
 ";
 
-%feature("docstring")  ISimulation::run "void ISimulation::run()
+%feature("docstring")  ISimulation::run "virtual void ISimulation::run()
 ";
 
 %feature("docstring")  ISimulation::isCompleted "bool ISimulation::isCompleted() const 
@@ -8354,7 +8332,7 @@ C++ includes: LayerRoughness.h
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  LayerRoughness::accept "virtual void LayerRoughness::accept(ISampleVisitor *visitor) const
+%feature("docstring")  LayerRoughness::accept "void LayerRoughness::accept(ISampleVisitor *visitor) const
 
 Calls the  ISampleVisitor's visit method. 
 ";
@@ -9830,7 +9808,7 @@ get the sigma factor
 generate list of sampled values with their weight 
 ";
 
-%feature("docstring")  ParameterDistribution::getLinkedParameterNames "std::vector< std::string > ParameterDistribution::getLinkedParameterNames() const
+%feature("docstring")  ParameterDistribution::getLinkedParameterNames "std::vector<std::string> ParameterDistribution::getLinkedParameterNames() const
 
 get list of linked parameter names 
 ";
@@ -13170,16 +13148,16 @@ C++ includes: WavevectorInfo.h
 // File: classMathFunctions_1_1Convolve_1_1Workspace.xml
 
 
-// File: namespace_0D274.xml
+// File: namespace_0D276.xml
 
 
-// File: namespace_0D335.xml
+// File: namespace_0D337.xml
 
 
-// File: namespace_0D402.xml
+// File: namespace_0D404.xml
 
 
-// File: namespace_0D416.xml
+// File: namespace_0D418.xml
 
 
 // File: namespaceboost_1_1geometry.xml
@@ -13827,6 +13805,9 @@ Returns exp(I*z), where I is the imaginary unit.
 // File: FormFactorDecoratorDebyeWaller_8h.xml
 
 
+// File: FormFactorDecoratorFactor_8cpp.xml
+
+
 // File: FormFactorDecoratorFactor_8h.xml
 
 
@@ -14426,6 +14407,9 @@ Set all element intensities to given value.
 
 
 // File: ILayerRTCoefficients_8h.xml
+
+
+// File: IRoughness_8cpp.xml
 
 
 // File: IRoughness_8h.xml

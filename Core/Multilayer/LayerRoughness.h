@@ -33,13 +33,10 @@ public:
     LayerRoughness();
     LayerRoughness(double sigma, double hurstParameter, double latteralCorrLength);
 
-    LayerRoughness *clone() const;
+    LayerRoughness* clone() const;
 
     //! Calls the ISampleVisitor's visit method
-    virtual void accept(ISampleVisitor *visitor) const
-    {
-        visitor->visit(this);
-    }
+    virtual void accept(ISampleVisitor* visitor) const;
 
     //! Returns power spectral density of the surface roughness
     double getSpectralFun(const kvector_t kvec) const;
@@ -47,19 +44,20 @@ public:
     double getCorrFun(const kvector_t k) const;
 
     //! Sets rms of roughness
-    void setSigma(double sigma);
+    void setSigma(double sigma) { m_sigma = sigma; }
     //! Returns rms of roughness
-    double getSigma() const;
+    double getSigma() const { return m_sigma; }
 
     //! Sets hurst parameter. It describes how jagged the surface is.
-    void setHurstParameter(double hurstParameter);
+    void setHurstParameter(double hurstParameter) { m_hurstParameter = hurstParameter; }
     //! Returns hurst parameter
-    double getHurstParameter() const;
+    double getHurstParameter() const { return m_hurstParameter; }
 
     //! Sets lateral correlation length
-    void setLatteralCorrLength(double latteralCorrLength);
+    void setLatteralCorrLength(double latteralCorrLength) {
+        m_latteralCorrLength = latteralCorrLength; }
     //! Returns latteral correlation length
-    double getLatteralCorrLength() const;
+    double getLatteralCorrLength() const { return m_latteralCorrLength; }
 
     //! Prints class
     friend std::ostream& operator<<(std::ostream& ostr, /*const*/ LayerRoughness& m);

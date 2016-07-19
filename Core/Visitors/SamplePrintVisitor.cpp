@@ -16,6 +16,7 @@
 #include "SamplePrintVisitor.h"
 #include "Crystal.h"
 #include "FormFactors.h"
+#include "IMaterial.h"
 #include "InterferenceFunctions.h"
 #include "Layer.h"
 #include "LayerInterface.h"

@@ -17,8 +17,9 @@
 #define FORMFACTORDECORATORMATERIAL_H
 
 #include "FormFactorDecoratorFactor.h"
-#include "HomogeneousMaterial.h"
 #include <memory>
+
+class IMaterial;
 
 //! @class FormFactorDecoratorMaterial
 //! @ingroup formfactors_decorations
@@ -28,20 +29,17 @@
 class BA_CORE_API_ FormFactorDecoratorMaterial : public FormFactorDecoratorFactor
 {
 public:
-    FormFactorDecoratorMaterial(const IFormFactor &form_factor);
+    FormFactorDecoratorMaterial(const IFormFactor& form_factor);
 
-    virtual FormFactorDecoratorMaterial *clone() const;
+    virtual FormFactorDecoratorMaterial* clone() const;
 
-    virtual void accept(ISampleVisitor *visitor) const
-    {
-        visitor->visit(this);
-    }
+    virtual void accept(ISampleVisitor* visitor) const;
 
     //! Sets the material of the scatterer
-    virtual void setMaterial(const IMaterial &material);
+    virtual void setMaterial(const IMaterial& material);
 
     //! Sets the ambient material
-    virtual void setAmbientMaterial(const IMaterial &material);
+    virtual void setAmbientMaterial(const IMaterial& material);
 
     //! Retrieves the refractive index of the ambient material
     virtual complex_t getAmbientRefractiveIndex() const;

@@ -18,6 +18,7 @@
 #include "IDetectorResolution.h"
 #include "InfinitePlane.h"
 #include "MessageService.h"
+#include "SimulationElement.h"
 
 IDetector2D::IDetector2D()
     : m_axes()

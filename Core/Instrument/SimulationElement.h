@@ -38,7 +38,7 @@ public:
     //! the original detector pixel
     SimulationElement(const SimulationElement &other, double x, double y);
 
-    ~SimulationElement() {}
+    ~SimulationElement();
 
 #ifndef SWIG
     //! Sets the polarization density matrix (in spin basis along z-axis)

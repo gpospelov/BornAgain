@@ -19,16 +19,16 @@
 #include "IParameterized.h"
 #include "DetectorMask.h"
 #include "EigenCore.h"
+#include "SafePointerVector.h"
 #include "Vectors3D.h"
-#include "IPixelMap.h"
-#include "SimulationElement.h"
 #include <memory>
 
 template<class T> class OutputData;
 class Beam;
 class IAxis;
-class IDetector2D;
 class IDetectorResolution;
+class IPixelMap;
+class SimulationElement;
 namespace Geometry {
     class IShape2D;
 }

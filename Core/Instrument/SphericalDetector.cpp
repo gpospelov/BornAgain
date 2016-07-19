@@ -15,8 +15,10 @@
 
 #include "BornAgainNamespace.h"
 #include "IDetectorResolution.h"
+#include "IPixelMap.h"
 #include "Units.h"
 #include "SphericalDetector.h"
+#include "SimulationElement.h"
 
 SphericalDetector::SphericalDetector()
 {
@@ -32,16 +34,16 @@ SphericalDetector::SphericalDetector(size_t n_phi, double phi_min, double phi_ma
     setDetectorParameters(n_phi, phi_min, phi_max, n_alpha, alpha_min, alpha_max);
 }
 
-SphericalDetector::SphericalDetector(const SphericalDetector &other)
+SphericalDetector::SphericalDetector(const SphericalDetector& other)
     : IDetector2D(other)
 {
     setName(BornAgain::SphericalDetectorType);
     init_parameters();
 }
 
-SphericalDetector &SphericalDetector::operator=(const SphericalDetector &other)
+SphericalDetector& SphericalDetector::operator=(const SphericalDetector& other)
 {
-    if (this != &other) {
+    if (this !=& other) {
         SphericalDetector tmp(other);
         tmp.swapContent(*this);
     }
@@ -67,7 +69,7 @@ std::string SphericalDetector::addParametersToExternalPool(
     return new_path;
 }
 
-OutputData<double>* SphericalDetector::createDetectorMap(const Beam &beam,
+OutputData<double>* SphericalDetector::createDetectorMap(const Beam& beam,
                                                          IDetector2D::EAxesUnits units_type) const
 {
     if (getDimension() != 2)
@@ -75,8 +77,8 @@ OutputData<double>* SphericalDetector::createDetectorMap(const Beam &beam,
 
     std::unique_ptr<OutputData<double>> result(new OutputData<double>);
 
-    const IAxis &aX = getAxis(BornAgain::X_AXIS_INDEX);
-    const IAxis &aY = getAxis(BornAgain::Y_AXIS_INDEX);
+    const IAxis& aX = getAxis(BornAgain::X_AXIS_INDEX);
+    const IAxis& aY = getAxis(BornAgain::Y_AXIS_INDEX);
 
     result->addAxis(aX);
     result->addAxis(aY);
@@ -148,8 +150,8 @@ IDetector2D::EAxesUnits SphericalDetector::getDefaultAxesUnits() const
 
 IPixelMap* SphericalDetector::createPixelMap(size_t index) const
 {
-    const IAxis &phi_axis = getAxis(BornAgain::X_AXIS_INDEX);
-    const IAxis &alpha_axis = getAxis(BornAgain::Y_AXIS_INDEX);
+    const IAxis& phi_axis = getAxis(BornAgain::X_AXIS_INDEX);
+    const IAxis& alpha_axis = getAxis(BornAgain::Y_AXIS_INDEX);
     size_t phi_index = getAxisBinIndex(index, BornAgain::X_AXIS_INDEX);
     size_t alpha_index = getAxisBinIndex(index, BornAgain::Y_AXIS_INDEX);
 
@@ -158,7 +160,7 @@ IPixelMap* SphericalDetector::createPixelMap(size_t index) const
     return new AngularPixelMap(alpha_bin, phi_bin);
 }
 
-void SphericalDetector::print(std::ostream &ostr) const
+void SphericalDetector::print(std::ostream& ostr) const
 {
     ostr << "SphericalDetector: '" << getName() << "' " << m_parameters;
     for (size_t i = 0; i < m_axes.size(); ++i) {

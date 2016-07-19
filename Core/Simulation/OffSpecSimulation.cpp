@@ -17,6 +17,7 @@
 #include "BornAgainNamespace.h"
 #include "Histogram2D.h"
 #include "ISample.h"
+#include "SimulationElement.h"
 
 OffSpecSimulation::OffSpecSimulation()
     : mp_alpha_i_axis(0)

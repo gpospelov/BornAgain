@@ -16,6 +16,7 @@
 #include "ConvolutionDetectorResolution.h"
 #include "SphericalDetector.h"
 #include "Instrument.h"
+#include "SimulationElement.h"
 
 Instrument::Instrument()
     : IParameterized("Instrument")
@@ -123,10 +124,9 @@ OutputData<double>* Instrument::getDetectorIntensity(
         return result.release();
     } else {
         OutputData<double>* detectorMap = mP_detector->createDetectorMap(m_beam, units_type);
-        if(!detectorMap) {
+        if(!detectorMap)
             throw Exceptions::RuntimeErrorException("Instrument::getDetectorIntensity() -> Error."
                                         "Can't create detector map.");
-        }
         detectorMap->setRawDataVector(result->getRawDataVector());
         return detectorMap;
     }

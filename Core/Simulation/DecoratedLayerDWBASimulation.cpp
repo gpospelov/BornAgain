@@ -18,6 +18,7 @@
 #include "LayerStrategyBuilder.h"
 #include "MessageService.h"
 #include "IInterferenceFunctionStrategy.h"
+#include "SimulationElement.h"
 
 DecoratedLayerDWBASimulation::DecoratedLayerDWBASimulation(
     const Layer* p_layer, size_t layout_index)

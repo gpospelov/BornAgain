@@ -13,11 +13,11 @@
 //
 // ************************************************************************** //
 
-#include "IDetector2D.h"
-
+#include "SimulationElement.h"
+#include "IPixelMap.h"
 
 SimulationElement::SimulationElement(double wavelength, double alpha_i, double phi_i,
-                                     const IPixelMap *pixelmap)
+                                     const IPixelMap* pixelmap)
     : m_wavelength(wavelength), m_alpha_i(alpha_i), m_phi_i(phi_i), m_intensity(0.0)
 {
     mP_pixel_map.reset(pixelmap->clone());
@@ -32,6 +32,8 @@ SimulationElement::SimulationElement(const SimulationElement &other)
     m_polarization = other.m_polarization;
     m_analyzer_operator = other.m_analyzer_operator;
 }
+
+SimulationElement::~SimulationElement() {}
 
 SimulationElement &SimulationElement::operator=(const SimulationElement &other)
 {
@@ -104,15 +106,13 @@ void AddElementsWithWeight(std::vector<SimulationElement>::const_iterator first,
                            std::vector<SimulationElement>::const_iterator last,
                            std::vector<SimulationElement>::iterator result, double weight)
 {
-    for (std::vector<SimulationElement>::const_iterator it = first; it != last; ++it, ++result) {
+    for (std::vector<SimulationElement>::const_iterator it = first; it != last; ++it, ++result)
         result->addIntensity(it->getIntensity() * weight);
-    }
 }
 
 void setAllElementIntensities(std::vector<SimulationElement>::iterator first,
                               std::vector<SimulationElement>::iterator last, double intensity)
 {
-    for (std::vector<SimulationElement>::iterator it = first; it != last; ++it) {
+    for (std::vector<SimulationElement>::iterator it = first; it != last; ++it)
         it->setIntensity(intensity);
-    }
 }

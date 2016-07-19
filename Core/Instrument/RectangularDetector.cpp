@@ -18,6 +18,7 @@
 #include "IDetectorResolution.h"
 #include "RectangularDetector.h"
 #include "Units.h"
+#include "SimulationElement.h"
 
 RectangularDetector::RectangularDetector(int nxbins, double width, int nybins, double height)
     : m_u0(0.0)
@@ -49,6 +50,8 @@ RectangularDetector::RectangularDetector(const RectangularDetector& other)
     setName(BornAgain::RectangularDetectorType);
     init_parameters();
 }
+
+RectangularDetector::~RectangularDetector() {}
 
 RectangularDetector& RectangularDetector::operator=(const RectangularDetector& other)
 {

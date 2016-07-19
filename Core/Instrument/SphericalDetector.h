@@ -17,6 +17,7 @@
 #define SPHERICALDETECTOR_H
 
 #include "IDetector2D.h"
+#include "IPixelMap.h"
 
 //! @class SphericalDetector
 //! @ingroup simulation

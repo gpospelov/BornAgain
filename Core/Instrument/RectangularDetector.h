@@ -17,7 +17,7 @@
 #define RECTANGULARDETECTOR_H
 
 #include "IDetector2D.h"
-
+#include "IPixelMap.h"
 
 //! @class RectangularDetector
 //! @ingroup simulation
@@ -26,7 +26,6 @@
 class BA_CORE_API_ RectangularDetector : public IDetector2D
 {
 public:
-
     enum EDetectorArrangement {
         GENERIC,
         PERPENDICULAR_TO_SAMPLE,
@@ -42,14 +41,14 @@ public:
     //! @param height Height of the detector in mm along y-direction
     RectangularDetector(int nxbins, double width, int nybins, double height);
 
-    RectangularDetector(const RectangularDetector &other);
-    RectangularDetector &operator=(const RectangularDetector &other);
+    RectangularDetector(const RectangularDetector& other);
+    RectangularDetector& operator=(const RectangularDetector& other);
 
     virtual RectangularDetector* clone() const;
 
-    virtual ~RectangularDetector() {}
+    virtual ~RectangularDetector();
 
-    virtual void init(const Beam &beam);
+    virtual void init(const Beam& beam);
 
     void setPosition(const kvector_t normal_to_detector, double u0, double v0,
                      const kvector_t direction = kvector_t(0.0, -1.0, 0.0));
@@ -61,7 +60,7 @@ public:
     void setDirectBeamPosition(double u0, double v0);
 
     //! Adds parameters from local pool to external pool and recursively calls its direct children.
-    virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool,
+    virtual std::string addParametersToExternalPool(std::string path, ParameterPool* external_pool,
                                                     int copy_number = -1) const;
 
     double getWidth() const;
@@ -78,7 +77,7 @@ public:
     EDetectorArrangement getDetectorArrangment() const;
 
     //! Returns detector map in given axes units
-    virtual OutputData<double> *createDetectorMap(const Beam& beam, EAxesUnits units_type) const;
+    virtual OutputData<double>* createDetectorMap(const Beam& beam, EAxesUnits units_type) const;
 
     //! returns vector of valid axes units
     virtual std::vector<EAxesUnits> getValidAxesUnits() const;
@@ -90,7 +89,7 @@ protected:
     //! Create an IPixelMap for the given OutputData object and index
     virtual IPixelMap* createPixelMap(size_t index) const;
 
-    virtual void print(std::ostream &ostr) const;
+    virtual void print(std::ostream& ostr) const;
 
     //! Registers some class members for later access via parameter pool.
     virtual void init_parameters() {}
@@ -102,7 +101,7 @@ protected:
     virtual std::string getAxisName(size_t index) const;
 
     //! swap function
-    void swapContent(RectangularDetector &other);
+    void swapContent(RectangularDetector& other);
 private:
     void setDistanceAndOffset(double distance, double u0, double v0);
     void initNormalVector(const kvector_t central_k);

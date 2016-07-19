@@ -17,6 +17,7 @@
 #include "BornAgainNamespace.h"
 #include "Histogram2D.h"
 #include "ISample.h"
+#include "SimulationElement.h"
 
 GISASSimulation::GISASSimulation()
 {

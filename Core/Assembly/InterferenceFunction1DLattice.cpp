@@ -15,12 +15,14 @@
 
 #include "InterferenceFunction1DLattice.h"
 #include "BornAgainNamespace.h"
+#include "ISampleVisitor.h"
+#include "FTDecayFunctions.h"
 
 using namespace BornAgain;
 
-    //! @brief constructor
-    //! @param length Lattice length
-    //! @param xi rotation of lattice with respect to x-axis
+//! @brief constructor
+//! @param length Lattice length
+//! @param xi rotation of lattice with respect to x-axis
 InterferenceFunction1DLattice::InterferenceFunction1DLattice(double length, double xi)
     : mp_pdf(0), m_na(0)
 {
@@ -99,4 +101,14 @@ void InterferenceFunction1DLattice::init_parameters()
     clearParameterPool();
     registerParameter(Length, &m_lattice_params.m_length);
     registerParameter(Xi, &m_lattice_params.m_xi);
+}
+
+Lattice1DParameters InterferenceFunction1DLattice::getLatticeParameters() const
+{
+    return m_lattice_params;
+}
+
+const IFTDecayFunction1D* InterferenceFunction1DLattice::getDecayFunction() const
+{
+    return mp_pdf;
 }

@@ -13,8 +13,11 @@
 //
 // ************************************************************************** //
 
-#include "SampleTreeIterator.h"
+#include "ICompositeSample.h"
+#include "ISampleVisitor.h"
 #include "Utils.h"
+
+ICompositeSample::~ICompositeSample() {}
 
 //! Registers child in the container
 
@@ -95,4 +98,14 @@ std::string ICompositeSample::addParametersToExternalPool(std::string path,
 bool ICompositeSample::childIndexInRange(size_t index) const
 {
     return index<m_samples.size();
+}
+
+void ICompositeSample::accept(ISampleVisitor* visitor) const
+{
+    visitor->visit(this);
+}
+
+size_t ICompositeSample::size() const
+{
+    return m_samples.size();
 }

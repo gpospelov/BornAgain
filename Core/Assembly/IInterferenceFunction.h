@@ -19,6 +19,8 @@
 #include "ISample.h"
 #include "Vectors3D.h"
 
+class ISampleVisitor;
+
 //! @class IInterferenceFunction
 //! @ingroup interference_internal
 //! @brief Interface to interference functions.
@@ -26,7 +28,7 @@
 class BA_CORE_API_ IInterferenceFunction : public ISample
 {
 public:
-    virtual ~IInterferenceFunction() {}
+    virtual ~IInterferenceFunction();
 
     //! Evaluates the interference function for a given wavevector transfer (only the real
     //! x and y components are relevant)
@@ -34,8 +36,8 @@ public:
 
     virtual IInterferenceFunction *clone() const=0;
 
-    //! Calls the ISampleVisitor's visit method
-    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
+    //! Calls ISampleVisitor::visit
+    virtual void accept(ISampleVisitor *visitor) const;
 
     //! Retrieves the size-distance coupling constant (default 0.0)
     virtual double getKappa() const { return 0.0; }

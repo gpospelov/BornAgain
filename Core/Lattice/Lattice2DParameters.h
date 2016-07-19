@@ -16,6 +16,7 @@
 #ifndef LATTICE2DPARAMETERS_H
 #define LATTICE2DPARAMETERS_H
 
+#include <cmath>
 
 //! @class Lattice2DParameters
 //! @ingroup samples
@@ -24,18 +25,13 @@
 class Lattice2DParameters
 {
 public:
-    Lattice2DParameters() : m_length_1(0), m_length_2(0), m_angle(0), m_xi(0) { }
+    Lattice2DParameters() : m_length_1(0), m_length_2(0), m_angle(0), m_xi(0) {}
+
+    double getUnitCellArea() const;
 
     double m_length_1, m_length_2;
     double m_angle;
     double m_xi;
 };
-
-inline double getUnitCellArea(const Lattice2DParameters& lattice_params) {
-    double length_1 = lattice_params.m_length_1;
-    double length_2 = lattice_params.m_length_2;
-    double angle = lattice_params.m_angle;
-    return std::abs(length_1*length_2*std::sin(angle));
-}
 
 #endif // LATTICE2DPARAMETERS_H

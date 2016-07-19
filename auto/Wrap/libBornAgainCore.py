@@ -14787,9 +14787,9 @@ class IInterferenceFunction(ISample):
         """
         accept(IInterferenceFunction self, ISampleVisitor visitor)
 
-        virtual void IInterferenceFunction::accept(ISampleVisitor *visitor) const
+        void IInterferenceFunction::accept(ISampleVisitor *visitor) const
 
-        Calls the  ISampleVisitor's visit method. 
+        Calls ISampleVisitor::visit. 
 
         """
         return _libBornAgainCore.IInterferenceFunction_accept(self, visitor)
@@ -16451,7 +16451,7 @@ class InterferenceFunction1DLattice(IInterferenceFunction):
 
         void InterferenceFunction1DLattice::accept(ISampleVisitor *visitor) const
 
-        Calls the  ISampleVisitor's visit method. 
+        Calls ISampleVisitor::visit. 
 
         """
         return _libBornAgainCore.InterferenceFunction1DLattice_accept(self, visitor)
@@ -16554,7 +16554,7 @@ class InterferenceFunctionRadialParaCrystal(IInterferenceFunction):
 
         void InterferenceFunctionRadialParaCrystal::accept(ISampleVisitor *visitor) const
 
-        Calls the  ISampleVisitor's visit method. 
+        Calls ISampleVisitor::visit. 
 
         """
         return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_accept(self, visitor)
@@ -16762,7 +16762,7 @@ class InterferenceFunction2DLattice(IInterferenceFunction):
 
         void InterferenceFunction2DLattice::accept(ISampleVisitor *visitor) const
 
-        Calls the  ISampleVisitor's visit method. 
+        Calls ISampleVisitor::visit. 
 
         """
         return _libBornAgainCore.InterferenceFunction2DLattice_accept(self, visitor)
@@ -16934,7 +16934,7 @@ class InterferenceFunction2DParaCrystal(IInterferenceFunction):
 
         void InterferenceFunction2DParaCrystal::accept(ISampleVisitor *visitor) const
 
-        Calls the  ISampleVisitor's visit method. 
+        Calls ISampleVisitor::visit. 
 
         """
         return _libBornAgainCore.InterferenceFunction2DParaCrystal_accept(self, visitor)
@@ -17162,7 +17162,7 @@ class InterferenceFunctionNone(IInterferenceFunction):
 
         void InterferenceFunctionNone::accept(ISampleVisitor *visitor) const
 
-        Calls the  ISampleVisitor's visit method. 
+        Calls ISampleVisitor::visit. 
 
         """
         return _libBornAgainCore.InterferenceFunctionNone_accept(self, visitor)
@@ -17734,6 +17734,16 @@ class Lattice2DParameters(_object):
             self.this.append(this)
         except:
             self.this = this
+
+    def getUnitCellArea(self):
+        """
+        getUnitCellArea(Lattice2DParameters self) -> double
+
+        double Lattice2DParameters::getUnitCellArea() const 
+
+        """
+        return _libBornAgainCore.Lattice2DParameters_getUnitCellArea(self)
+
     __swig_setmethods__["m_length_1"] = _libBornAgainCore.Lattice2DParameters_m_length_1_set
     __swig_getmethods__["m_length_1"] = _libBornAgainCore.Lattice2DParameters_m_length_1_get
     if _newclass:
@@ -17755,15 +17765,6 @@ class Lattice2DParameters(_object):
 Lattice2DParameters_swigregister = _libBornAgainCore.Lattice2DParameters_swigregister
 Lattice2DParameters_swigregister(Lattice2DParameters)
 
-
-def getUnitCellArea(lattice_params):
-    """
-    getUnitCellArea(Lattice2DParameters lattice_params) -> double
-
-    double getUnitCellArea(const Lattice2DParameters &lattice_params)
-
-    """
-    return _libBornAgainCore.getUnitCellArea(lattice_params)
 class Layer(ICompositeSample):
     """
 

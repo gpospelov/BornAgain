@@ -99,7 +99,7 @@ std::string InterferenceFunction2DParaCrystal::addParametersToExternalPool(
 
 double InterferenceFunction2DParaCrystal::getParticleDensity() const
 {
-    double area = getUnitCellArea(m_lattice_params);
+    double area = m_lattice_params.getUnitCellArea();
     if (area == 0.0)
         return 0.0;
     return 1.0/area;

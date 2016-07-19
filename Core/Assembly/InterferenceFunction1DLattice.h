@@ -16,9 +16,11 @@
 #ifndef INTERFERENCEFUNCTION1DLATTICE_H
 #define INTERFERENCEFUNCTION1DLATTICE_H
 
-#include "FTDecayFunctions.h"
 #include "IInterferenceFunction.h"
 #include "Lattice1DParameters.h"
+
+class ISampleVisitor;
+class IFTDecayFunction1D;
 
 //! @class InterferenceFunction1DLattice
 //! @ingroup interference
@@ -54,15 +56,5 @@ private:
 
     int m_na; //!< determines the number of reciprocal lattice points to use
 };
-
-inline Lattice1DParameters InterferenceFunction1DLattice::getLatticeParameters() const
-{
-    return m_lattice_params;
-}
-
-inline const IFTDecayFunction1D* InterferenceFunction1DLattice::getDecayFunction() const
-{
-    return mp_pdf;
-}
 
 #endif // INTERFERENCEFUNCTION1DLATTICE_H

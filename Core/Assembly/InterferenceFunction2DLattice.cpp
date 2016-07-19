@@ -134,10 +134,9 @@ std::string InterferenceFunction2DLattice::addParametersToExternalPool(
 
 double InterferenceFunction2DLattice::getParticleDensity() const
 {
-    double area = getUnitCellArea(m_lattice_params);
-    if (area == 0.0) {
+    double area = m_lattice_params.getUnitCellArea();
+    if (area == 0.0)
         return 0.0;
-    }
     return 1.0/area;
 }
 

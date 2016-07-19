@@ -104,7 +104,7 @@ GISASSimulation* FunctionalTestSuite::getSimulation() const
     SimulationFactory sim_registry;
     GISASSimulation* result = sim_registry.createItem(m_info->m_simulation_name);
     SampleBuilderFactory sample_factory;
-    std::shared_ptr<class ISampleBuilder> sample_builder(
+    std::shared_ptr<ISampleBuilder> sample_builder(
         sample_factory.createItem(m_info->m_sample_builder_name) );
     if(m_subtest_item)
         sample_builder->set_subtest(m_subtest_item);

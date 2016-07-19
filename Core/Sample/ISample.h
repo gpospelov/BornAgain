@@ -17,8 +17,9 @@
 #define ISAMPLE_H
 
 #include "IParameterized.h"
-#include "ISampleVisitor.h"
+#include "ISampleVisitor.h" // TODO
 
+class ISampleVisitor;
 class DWBASimulation;
 
 //! @class ISample

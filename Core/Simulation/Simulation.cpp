@@ -37,7 +37,7 @@ Simulation::Simulation(const ISample& p_sample)
     init_parameters();
 }
 
-Simulation::Simulation(std::shared_ptr<class ISampleBuilder> p_sample_builder)
+Simulation::Simulation(std::shared_ptr<ISampleBuilder> p_sample_builder)
     : IParameterized("Simulation"), mp_sample_builder(p_sample_builder)
 {
     init_parameters();

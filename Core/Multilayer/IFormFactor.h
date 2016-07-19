@@ -32,7 +32,7 @@ class BA_CORE_API_ IFormFactor : public ISample
 {
 public:
     IFormFactor() {}
-    virtual ~IFormFactor() {}
+    virtual ~IFormFactor();
 
     virtual IFormFactor* clone() const=0;
 
@@ -61,25 +61,5 @@ public:
     //! Sets reflection/transmission info
     virtual void setSpecularInfo(const ILayerRTCoefficients*, const ILayerRTCoefficients*) {}
 };
-
-inline void IFormFactor::accept(ISampleVisitor* visitor) const
-{
-    visitor->visit(this);
-}
-
-#ifndef SWIG
-inline Eigen::Matrix2cd IFormFactor::evaluatePol(const WavevectorInfo&) const
-{
-    // Throws to prevent unanticipated behaviour
-    throw Exceptions::NotImplementedException(
-        "IFormFactor::evaluatePol: is not implemented by default");
-}
-#endif
-
-inline double IFormFactor::getVolume() const
-{
-    WavevectorInfo zero_wavevectors;
-    return std::abs(evaluate(zero_wavevectors));
-}
 
 #endif // IFORMFACTOR_H

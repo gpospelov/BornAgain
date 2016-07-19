@@ -18,6 +18,8 @@
 
 #include "ISample.h"
 
+class ISampleVisitor;
+
 //! @class ICompositeSample
 //! @ingroup samples_internal
 //! @brief Interface to describe the tree-like composition of samples
@@ -26,24 +28,24 @@ class BA_CORE_API_ ICompositeSample : public ISample
 {
 public:
     ICompositeSample() {}
-    virtual ~ICompositeSample() {}
+    virtual ~ICompositeSample();
 
-    ICompositeSample *clone() const = 0;
+    ICompositeSample* clone() const = 0;
 
     //! calls the ISampleVisitor's visit method
-    virtual void accept(ISampleVisitor *visitor) const;
+    virtual void accept(ISampleVisitor* visitor) const;
 
     //! Registers child in the container.
-    virtual void registerChild(ISample *sample);
+    virtual void registerChild(ISample* sample);
 
     //! Removes registered child from the container
-    virtual void deregisterChild(ISample *sample);
+    virtual void deregisterChild(ISample* sample);
 
     //! Returns child pointer by index (with range checking)
-    ISample *operator[](size_t index);
+    ISample* operator[](size_t index);
 
     //! Returns child pointer by index (with range checking)
-    const ISample *operator[](size_t index) const;
+    const ISample* operator[](size_t index) const;
 
     //! Returns a vector of children (const).
     virtual std::vector<const ISample*> getChildren() const;
@@ -52,7 +54,7 @@ public:
     virtual size_t size() const;
 
     //! Adds parameters from local pool to external pool and recursively calls its direct children.
-    virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool,
+    virtual std::string addParametersToExternalPool(std::string path, ParameterPool* external_pool,
                                                     int copy_number = -1) const;
 
 private:
@@ -63,16 +65,4 @@ private:
     std::vector<ISample*> m_samples;
 };
 
-inline void ICompositeSample::accept(ISampleVisitor *visitor) const
-{
-    visitor->visit(this);
-}
-
-inline size_t ICompositeSample::size() const
-{
-    return m_samples.size();
-}
-
 #endif // ICOMPOSITESAMPLE_H
-
-

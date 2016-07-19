@@ -5193,7 +5193,7 @@ C++ includes: ICompositeSample.h
 %feature("docstring")  ICompositeSample::ICompositeSample "ICompositeSample::ICompositeSample()
 ";
 
-%feature("docstring")  ICompositeSample::~ICompositeSample "virtual ICompositeSample::~ICompositeSample()
+%feature("docstring")  ICompositeSample::~ICompositeSample "ICompositeSample::~ICompositeSample()
 ";
 
 %feature("docstring")  ICompositeSample::clone "ICompositeSample* ICompositeSample::clone() const =0
@@ -5545,7 +5545,7 @@ C++ includes: IFormFactor.h
 %feature("docstring")  IFormFactor::IFormFactor "IFormFactor::IFormFactor()
 ";
 
-%feature("docstring")  IFormFactor::~IFormFactor "virtual IFormFactor::~IFormFactor()
+%feature("docstring")  IFormFactor::~IFormFactor "IFormFactor::~IFormFactor()
 ";
 
 %feature("docstring")  IFormFactor::clone "virtual IFormFactor* IFormFactor::clone() const =0
@@ -6185,7 +6185,7 @@ Interface to interference functions.
 C++ includes: IInterferenceFunction.h
 ";
 
-%feature("docstring")  IInterferenceFunction::~IInterferenceFunction "virtual IInterferenceFunction::~IInterferenceFunction()
+%feature("docstring")  IInterferenceFunction::~IInterferenceFunction "IInterferenceFunction::~IInterferenceFunction()
 ";
 
 %feature("docstring")  IInterferenceFunction::evaluate "virtual double IInterferenceFunction::evaluate(const kvector_t q) const =0
@@ -6198,9 +6198,9 @@ Evaluates the interference function for a given wavevector transfer (only the re
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  IInterferenceFunction::accept "virtual void IInterferenceFunction::accept(ISampleVisitor *visitor) const
+%feature("docstring")  IInterferenceFunction::accept "void IInterferenceFunction::accept(ISampleVisitor *visitor) const
 
-Calls the  ISampleVisitor's visit method. 
+Calls ISampleVisitor::visit. 
 ";
 
 %feature("docstring")  IInterferenceFunction::getKappa "virtual double IInterferenceFunction::getKappa() const
@@ -6806,7 +6806,7 @@ Returns a clone of this  ISample object.
 
 %feature("docstring")  InterferenceFunction1DLattice::accept "void InterferenceFunction1DLattice::accept(ISampleVisitor *visitor) const
 
-Calls the  ISampleVisitor's visit method. 
+Calls ISampleVisitor::visit. 
 ";
 
 %feature("docstring")  InterferenceFunction1DLattice::setDecayFunction "void InterferenceFunction1DLattice::setDecayFunction(const IFTDecayFunction1D &pdf)
@@ -6862,7 +6862,7 @@ Returns a clone of this  ISample object.
 
 %feature("docstring")  InterferenceFunction2DLattice::accept "void InterferenceFunction2DLattice::accept(ISampleVisitor *visitor) const
 
-Calls the  ISampleVisitor's visit method. 
+Calls ISampleVisitor::visit. 
 ";
 
 %feature("docstring")  InterferenceFunction2DLattice::setDecayFunction "void InterferenceFunction2DLattice::setDecayFunction(const IFTDecayFunction2D &pdf)
@@ -6931,7 +6931,7 @@ Returns a clone of this  ISample object.
 
 %feature("docstring")  InterferenceFunction2DParaCrystal::accept "void InterferenceFunction2DParaCrystal::accept(ISampleVisitor *visitor) const
 
-Calls the  ISampleVisitor's visit method. 
+Calls ISampleVisitor::visit. 
 ";
 
 %feature("docstring")  InterferenceFunction2DParaCrystal::setDomainSizes "void InterferenceFunction2DParaCrystal::setDomainSizes(double size_1, double size_2)
@@ -7014,7 +7014,7 @@ Returns a clone of this  ISample object.
 
 %feature("docstring")  InterferenceFunctionNone::accept "void InterferenceFunctionNone::accept(ISampleVisitor *visitor) const
 
-Calls the  ISampleVisitor's visit method. 
+Calls ISampleVisitor::visit. 
 ";
 
 %feature("docstring")  InterferenceFunctionNone::evaluate "double InterferenceFunctionNone::evaluate(const kvector_t q) const
@@ -7044,7 +7044,7 @@ Returns a clone of this  ISample object.
 
 %feature("docstring")  InterferenceFunctionRadialParaCrystal::accept "void InterferenceFunctionRadialParaCrystal::accept(ISampleVisitor *visitor) const
 
-Calls the  ISampleVisitor's visit method. 
+Calls ISampleVisitor::visit. 
 ";
 
 %feature("docstring")  InterferenceFunctionRadialParaCrystal::setDomainSize "void InterferenceFunctionRadialParaCrystal::setDomainSize(double size)
@@ -8140,6 +8140,9 @@ C++ includes: Lattice2DParameters.h
 ";
 
 %feature("docstring")  Lattice2DParameters::Lattice2DParameters "Lattice2DParameters::Lattice2DParameters()
+";
+
+%feature("docstring")  Lattice2DParameters::getUnitCellArea "double Lattice2DParameters::getUnitCellArea() const 
 ";
 
 
@@ -13167,16 +13170,16 @@ C++ includes: WavevectorInfo.h
 // File: classMathFunctions_1_1Convolve_1_1Workspace.xml
 
 
-// File: namespace_0D271.xml
+// File: namespace_0D274.xml
 
 
-// File: namespace_0D332.xml
+// File: namespace_0D335.xml
 
 
-// File: namespace_0D399.xml
+// File: namespace_0D402.xml
 
 
-// File: namespace_0D413.xml
+// File: namespace_0D416.xml
 
 
 // File: namespaceboost_1_1geometry.xml
@@ -13642,6 +13645,9 @@ enables exception throw in the case of NaN, Inf
 
 
 // File: FTDistributions_8h.xml
+
+
+// File: IInterferenceFunction_8cpp.xml
 
 
 // File: IInterferenceFunction_8h.xml
@@ -14383,9 +14389,10 @@ Set all element intensities to given value.
 // File: Lattice1DParameters_8h.xml
 
 
+// File: Lattice2DParameters_8cpp.xml
+
+
 // File: Lattice2DParameters_8h.xml
-%feature("docstring")  getUnitCellArea "double getUnitCellArea(const Lattice2DParameters &lattice_params)
-";
 
 
 // File: HomogeneousMagneticMaterial_8cpp.xml
@@ -14410,6 +14417,9 @@ Set all element intensities to given value.
 
 
 // File: FormFactorInfo_8h.xml
+
+
+// File: IFormFactor_8cpp.xml
 
 
 // File: IFormFactor_8h.xml

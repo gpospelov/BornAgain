@@ -32,7 +32,7 @@ OffSpecSimulation::OffSpecSimulation(const ISample& p_sample)
     initialize();
 }
 
-OffSpecSimulation::OffSpecSimulation(std::shared_ptr<class ISampleBuilder> p_sample_builder)
+OffSpecSimulation::OffSpecSimulation(std::shared_ptr<ISampleBuilder> p_sample_builder)
     : Simulation(p_sample_builder)
     , mp_alpha_i_axis(0)
 {

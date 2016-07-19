@@ -33,7 +33,7 @@ SpecularSimulation::SpecularSimulation(const ISample &sample)
     init_parameters();
 }
 
-SpecularSimulation::SpecularSimulation(std::shared_ptr<class ISampleBuilder> sample_builder)
+SpecularSimulation::SpecularSimulation(std::shared_ptr<ISampleBuilder> sample_builder)
     : IParameterized("SpecularSimulation"), m_sample(0), m_sample_builder(sample_builder),
       m_alpha_i_axis(0), m_z_axis(0), m_lambda(0.0)
 {
@@ -73,7 +73,7 @@ void SpecularSimulation::setSample(const ISample &sample)
     m_sample = sample.clone();
 }
 
-void SpecularSimulation::setSampleBuilder(std::shared_ptr<class ISampleBuilder> sample_builder)
+void SpecularSimulation::setSampleBuilder(std::shared_ptr<ISampleBuilder> sample_builder)
 {
     if (!sample_builder.get())
         throw Exceptions::NullPointerException("SpecularSimulation::setSampleBuilder() -> "

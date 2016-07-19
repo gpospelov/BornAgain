@@ -21,6 +21,7 @@
 #include "SafePointerVector.h"
 
 class LayerDWBASimulation;
+class ILayout;
 class IMaterial;
 class ISampleVisitor;
 

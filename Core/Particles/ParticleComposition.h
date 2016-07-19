@@ -18,6 +18,8 @@
 
 #include "IParticle.h"
 
+class IMaterial;
+
 //! @class ParticleComposition
 //! @ingroup samples
 //! @brief A composition of particles at fixed positions

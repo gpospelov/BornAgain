@@ -19,6 +19,7 @@
 #include "Instrument.h"
 #include "Simulation.h"
 
+class Histogram2D;
 
 //! @class OffSpecSimulation
 //! @ingroup simulation
@@ -49,7 +50,7 @@ public:
         (void) units_type; return m_intensity_map.clone(); }
 
     //! Returns clone of the detector intensity map in the form of 2D histogram.
-    class Histogram2D* getIntensityData() const;
+    Histogram2D* getIntensityData() const;
 
     //! Sets the instrument containing beam and detector information
     void setInstrument(const Instrument& instrument);

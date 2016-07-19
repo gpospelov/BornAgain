@@ -21,6 +21,9 @@
 #include "Vectors3D.h"
 #include <memory>
 
+class IMaterial;
+class ISampleVisitor;
+
 //! @class IAbstractParticle
 //! @ingroup samples
 //! @brief Interface for a generic particle
@@ -36,10 +39,10 @@ public:
     virtual IAbstractParticle* cloneInvertB() const = 0;
 
     //! calls the ISampleVisitor's visit method
-    virtual void accept(class ISampleVisitor* visitor) const;
+    virtual void accept(ISampleVisitor* visitor) const;
 
     //! Sets the refractive index of the ambient material (which influences its scattering power)
-    virtual void setAmbientMaterial(const class IMaterial&) {}
+    virtual void setAmbientMaterial(const IMaterial&) {}
 
     //! Returns abundance.
     double getAbundance() const { return m_abundance; }
@@ -48,7 +51,7 @@ public:
     void setAbundance(double abundance) { m_abundance = abundance; }
 
     //! Returns particle's material.
-    virtual const class IMaterial* getAmbientMaterial() const = 0;
+    virtual const IMaterial* getAmbientMaterial() const = 0;
 
 protected:
     double m_abundance;

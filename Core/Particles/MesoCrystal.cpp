@@ -16,14 +16,15 @@
 #include "FormFactorDecoratorPositionFactor.h"
 #include "FormFactorDecoratorRotation.h"
 #include "MesoCrystal.h"
+#include "IClusteredParticles.h"
 
-MesoCrystal::MesoCrystal(IClusteredParticles *p_particle_structure, IFormFactor *p_form_factor)
+MesoCrystal::MesoCrystal(IClusteredParticles* p_particle_structure, IFormFactor* p_form_factor)
     : mp_particle_structure(p_particle_structure), mp_meso_form_factor(p_form_factor)
 {
     initialize();
 }
 
-MesoCrystal::MesoCrystal(const IClusteredParticles &particle_structure, IFormFactor &form_factor)
+MesoCrystal::MesoCrystal(const IClusteredParticles& particle_structure, IFormFactor& form_factor)
     : mp_particle_structure(particle_structure.clone()), mp_meso_form_factor(form_factor.clone())
 {
     initialize();
@@ -35,9 +36,9 @@ MesoCrystal::~MesoCrystal()
     delete mp_particle_structure;
 }
 
-MesoCrystal *MesoCrystal::clone() const
+MesoCrystal* MesoCrystal::clone() const
 {
-    MesoCrystal *p_result
+    MesoCrystal* p_result
         = new MesoCrystal(mp_particle_structure->clone(), mp_meso_form_factor->clone());
     p_result->setAbundance(m_abundance);
     if (mP_rotation.get()) {
@@ -47,9 +48,9 @@ MesoCrystal *MesoCrystal::clone() const
     return p_result;
 }
 
-MesoCrystal *MesoCrystal::cloneInvertB() const
+MesoCrystal* MesoCrystal::cloneInvertB() const
 {
-    MesoCrystal *p_result
+    MesoCrystal* p_result
         = new MesoCrystal(mp_particle_structure->cloneInvertB(), mp_meso_form_factor->clone());
     p_result->setAbundance(m_abundance);
     if (mP_rotation.get()) {
@@ -59,7 +60,7 @@ MesoCrystal *MesoCrystal::cloneInvertB() const
     return p_result;
 }
 
-void MesoCrystal::accept(ISampleVisitor *visitor) const
+void MesoCrystal::accept(ISampleVisitor* visitor) const
 {
     visitor->visit(this);
 }
@@ -69,13 +70,13 @@ void MesoCrystal::setAmbientMaterial(const IMaterial& material)
     mp_particle_structure->setAmbientMaterial(material);
 }
 
-const IMaterial *MesoCrystal::getAmbientMaterial() const
+const IMaterial* MesoCrystal::getAmbientMaterial() const
 {
     if (!mp_particle_structure) return 0;
     return mp_particle_structure->getAmbientMaterial();
 }
 
-IFormFactor *MesoCrystal::createTransformedFormFactor(const IRotation *p_rotation,
+IFormFactor* MesoCrystal::createTransformedFormFactor(const IRotation* p_rotation,
                                                       kvector_t translation) const
 {
     if (!mp_particle_structure || !mp_meso_form_factor)
@@ -84,27 +85,27 @@ IFormFactor *MesoCrystal::createTransformedFormFactor(const IRotation *p_rotatio
     kvector_t total_position = getComposedTranslation(p_rotation, translation);
     std::unique_ptr<IFormFactor> P_transformed_meso(createTransformationDecoratedFormFactor(
         *mp_meso_form_factor, P_total_rotation.get(), total_position));
-    IFormFactor *p_result = mp_particle_structure->createTotalFormFactor(
+    IFormFactor* p_result = mp_particle_structure->createTotalFormFactor(
         *P_transformed_meso, P_total_rotation.get(), total_position);
     return p_result;
 }
 
-const IClusteredParticles *MesoCrystal::getClusteredParticles() const
+const IClusteredParticles* MesoCrystal::getClusteredParticles() const
 {
     return mp_particle_structure;
 }
 
-IFormFactor *MesoCrystal::createTransformationDecoratedFormFactor(const IFormFactor &bare_ff,
-                                                                  const IRotation *p_rotation,
+IFormFactor* MesoCrystal::createTransformationDecoratedFormFactor(const IFormFactor& bare_ff,
+                                                                  const IRotation* p_rotation,
                                                                   kvector_t translation) const
 {
-    IFormFactor *p_intermediate;
+    IFormFactor* p_intermediate;
     if (p_rotation) {
         p_intermediate = new FormFactorDecoratorRotation(bare_ff, *p_rotation);
     } else {
         p_intermediate = bare_ff.clone();
     }
-    IFormFactor *p_result;
+    IFormFactor* p_result;
     if (translation != kvector_t()) {
         p_result = new FormFactorDecoratorPositionFactor(*p_intermediate, translation);
         delete p_intermediate;

@@ -20,6 +20,7 @@
 #include "FormFactorDecoratorRotation.h"
 #include "IParticle.h"
 
+class IMaterial;
 
 //! @class Particle
 //! @ingroup samples

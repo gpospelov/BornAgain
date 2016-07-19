@@ -18,6 +18,9 @@
 
 #include "IParticle.h"
 
+class IMaterial;
+class Particle;
+
 //! @ParticleCoreShell
 //! @ingroup samples
 //! @brief A particle with a core/shell geometry
@@ -25,7 +28,7 @@
 class BA_CORE_API_ ParticleCoreShell : public IParticle
 {
 public:
-    ParticleCoreShell(const class Particle& shell, const class Particle& core,
+    ParticleCoreShell(const Particle& shell, const Particle& core,
             kvector_t relative_core_position=kvector_t(0.0, 0.0, 0.0));
     virtual ~ParticleCoreShell();
     virtual ParticleCoreShell *clone() const;
@@ -45,18 +48,18 @@ public:
                                                      kvector_t translation) const;
 
     //! Returns the core particle
-    const class Particle *getCoreParticle() const;
+    const Particle *getCoreParticle() const;
 
     //! Returns the shell particle
-    const class Particle *getShellParticle() const;
+    const Particle *getShellParticle() const;
 
 protected:
-    void addAndRegisterCore(const class Particle &core, kvector_t relative_core_position);
-    void addAndRegisterShell(const class Particle &shell);
+    void addAndRegisterCore(const Particle &core, kvector_t relative_core_position);
+    void addAndRegisterShell(const Particle &shell);
 
     ParticleCoreShell();
-    class Particle *mp_shell;
-    class Particle *mp_core;
+    Particle *mp_shell;
+    Particle *mp_core;
 };
 
 #endif // PARTICLECORESHELL_H

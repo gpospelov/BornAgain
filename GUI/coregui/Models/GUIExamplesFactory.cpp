@@ -16,7 +16,9 @@
 
 #include "GUIExamplesFactory.h"
 #include "GUIObjectBuilder.h"
+#include "ISample.h"
 #include "SampleBuilderFactory.h"
+#include <memory>
 
 //! Defines correspondance between example name and real name of simulation from SimulationFactory
 QMap<QString, QString > init_NameToRegistry()

@@ -17,10 +17,12 @@
 #include "GUIObjectBuilder.h"
 #include "BeamDistributionItem.h"
 #include "BeamItem.h"
+#include "BornAgainNamespace.h"
 #include "Crystal.h"
 #include "ComboProperty.h"
 #include "DetectorItems.h"
 #include "DocumentModel.h"
+#include "FormFactors.h"
 #include "FormFactorItems.h"
 #include "GISASSimulation.h"
 #include "GUIHelpers.h"
@@ -29,6 +31,7 @@
 #include "MaterialModel.h"
 #include "MaterialSvc.h"
 #include "MaterialUtils.h"
+#include "MultiLayer.h"
 #include "MultiLayerItem.h"
 #include "ParticleCoreShellItem.h"
 #include "ParticleDistributionItem.h"
@@ -171,7 +174,7 @@ void GUIObjectBuilder::visit(const Layer* sample)
     SessionItem* parent = m_levelToParentItem[getLevel()-1];
     Q_ASSERT(parent);
 
-    const MultiLayer* multilayer = dynamic_cast<const MultiLayer*>(m_itemToSample[parent]);
+    auto multilayer = dynamic_cast<const MultiLayer*>(m_itemToSample[parent]);
     Q_ASSERT(multilayer);
     int layer_index = multilayer->getIndexOfLayer(sample);
     Q_ASSERT(layer_index != -1);

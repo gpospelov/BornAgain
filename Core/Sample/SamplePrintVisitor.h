@@ -28,6 +28,7 @@ class BA_CORE_API_ SamplePrintVisitor : public ISampleVisitor
 public:
     SamplePrintVisitor() {}
 
+    using ISampleVisitor::visit;
 
     void visit(const ISample *sample);
 

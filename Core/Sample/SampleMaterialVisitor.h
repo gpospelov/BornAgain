@@ -16,6 +16,7 @@
 #ifndef SAMPLEMATERIALVISITOR_H
 #define SAMPLEMATERIALVISITOR_H
 
+#include "ISampleVisitor.h"
 #include "IMaterial.h"
 
 //! @class SampleMaterialVisitor
@@ -30,6 +31,7 @@ public:
 
     // visiting methods (the order according to the hierarchy as reported by IDE)
 
+    using ISampleVisitor::visit;
 
     void visit(const ISample *sample);
 

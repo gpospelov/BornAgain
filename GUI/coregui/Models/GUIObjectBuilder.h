@@ -17,10 +17,10 @@
 #ifndef GUIOBJECTBUILDER_H
 #define GUIOBJECTBUILDER_H
 
-#include "FormFactors.h"
-#include "MultiLayer.h"
+#include "ISampleVisitor.h"
 #include "MaterialProperty.h"
 
+class IMaterial;
 class InstrumentModel;
 class SampleModel;
 class SessionItem;
@@ -45,12 +45,13 @@ public:
                                          const class GISASSimulation &simulation,
                                                const QString &instrumentName=QString());
 
-
     SessionItem* populateDocumentModel(DocumentModel* documentModel,
                                        const class GISASSimulation &simulation);
 
 
-    void visit(const ParticleLayout*);
+    using ISampleVisitor::visit;
+
+    void visit(const ParticleLayout *);
 
     void visit(const Layer*);
 

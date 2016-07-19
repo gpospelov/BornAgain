@@ -21,6 +21,7 @@
 #include "MaterialModel.h"
 #include "MaterialSvc.h"
 #include "InstrumentModel.h"
+#include "ISample.h"
 #include "SampleModel.h"
 #include "RealDataModel.h"
 #include "JobModel.h"

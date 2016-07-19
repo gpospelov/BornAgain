@@ -18,6 +18,7 @@
 
 #include "Vectors3D.h"
 #include <string>
+
 namespace Geometry {
     class IShape2D;
 }

@@ -25,6 +25,13 @@ std::vector<ParameterSample> IDistribution1D::generateSamples(
     if (nbr_samples == 0)
         throw Exceptions::OutOfBoundsException("IDistribution1D::generateSamples: number "
                                    "of generated samples must be bigger than zero");
+    if (isDelta()) {
+        ParameterSample delta_sample;
+        delta_sample.value = getMean();
+        delta_sample.weight = 1.0;
+        std::vector<ParameterSample> result = { delta_sample };
+        return result;
+    }
     std::vector<double> sample_values = generateValueList( nbr_samples, sigma_factor, limits);
     return generateSamplesFromValues(sample_values);
 }
@@ -35,6 +42,13 @@ std::vector<ParameterSample> IDistribution1D::generateSamples(
     if (nbr_samples == 0)
         throw Exceptions::OutOfBoundsException("IDistribution1D::generateSamples: number "
                                    "of generated samples must be bigger than zero");
+    if (isDelta()) {
+        ParameterSample delta_sample;
+        delta_sample.value = getMean();
+        delta_sample.weight = 1.0;
+        std::vector<ParameterSample> result = { delta_sample };
+        return result;
+    }
     std::vector<double> sample_values = generateValues(nbr_samples, xmin, xmax);
     return generateSamplesFromValues(sample_values);
 }
@@ -133,6 +147,11 @@ void DistributionGate::init_parameters()
     registerParameter(Maximum, &m_max);
 }
 
+bool DistributionGate::isDelta() const
+{
+    return m_max == m_min;
+}
+
 bool DistributionGate::checkInitialization() const
 {
     bool result = true;
@@ -178,6 +197,11 @@ void DistributionLorentz::init_parameters()
     clearParameterPool();
     registerParameter(Mean, &m_mean);
     registerParameter(HWHM, &m_hwhm);
+}
+
+bool DistributionLorentz::isDelta() const
+{
+    return m_hwhm == 0.0;
 }
 
 bool DistributionLorentz::checkInitialization() const
@@ -231,6 +255,11 @@ void DistributionGaussian::init_parameters()
     clearParameterPool();
     registerParameter(Mean, &m_mean);
     registerParameter(StdDeviation, &m_std_dev);
+}
+
+bool DistributionGaussian::isDelta() const
+{
+    return m_std_dev == 0.0;
 }
 
 bool DistributionGaussian::checkInitialization() const
@@ -297,6 +326,11 @@ void DistributionLogNormal::init_parameters()
     registerParameter(ScaleParameter, &m_scale_param);
 }
 
+bool DistributionLogNormal::isDelta() const
+{
+    return m_scale_param == 0.0;
+}
+
 bool DistributionLogNormal::checkInitialization() const
 {
     bool result = true;
@@ -348,6 +382,11 @@ void DistributionCosine::init_parameters()
     clearParameterPool();
     registerParameter(Mean, &m_mean);
     registerParameter(Sigma, &m_sigma);
+}
+
+bool DistributionCosine::isDelta() const
+{
+    return m_sigma == 0.0;
 }
 
 bool DistributionCosine::checkInitialization() const

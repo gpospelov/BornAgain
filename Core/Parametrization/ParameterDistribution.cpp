@@ -113,6 +113,13 @@ ParameterDistribution &ParameterDistribution::linkParameter(std::string par_name
     return *this;
 }
 
+size_t ParameterDistribution::getNbrSamples() const
+{
+    if (mP_distribution && mP_distribution->isDelta())
+        return 1;
+    return m_nbr_samples;
+}
+
 std::vector<ParameterSample> ParameterDistribution::generateSamples() const
 {
     if(m_xmin < m_xmax) {

@@ -1180,6 +1180,11 @@ Returns the sigma parameter of the distribution.
 generate list of sample values 
 ";
 
+%feature("docstring")  DistributionCosine::isDelta "bool DistributionCosine::isDelta() const
+
+signals that the distribution is in the limit case of a delta distribution 
+";
+
 
 // File: classDistributionGate.xml
 %feature("docstring") DistributionGate "
@@ -1228,6 +1233,11 @@ Returns the maximum value of the distribution.
 Returns list of sample values. 
 ";
 
+%feature("docstring")  DistributionGate::isDelta "bool DistributionGate::isDelta() const
+
+signals that the distribution is in the limit case of a delta distribution 
+";
+
 
 // File: classDistributionGaussian.xml
 %feature("docstring") DistributionGaussian "
@@ -1269,6 +1279,11 @@ Returns the standard deviation.
 %feature("docstring")  DistributionGaussian::generateValueList "std::vector< double > DistributionGaussian::generateValueList(size_t nbr_samples, double sigma_factor, const AttLimits &limits=AttLimits()) const
 
 generate list of sample values 
+";
+
+%feature("docstring")  DistributionGaussian::isDelta "bool DistributionGaussian::isDelta() const
+
+signals that the distribution is in the limit case of a delta distribution 
 ";
 
 
@@ -1355,6 +1370,11 @@ Returns the scale parameter of the distribution.
 generate list of sample values 
 ";
 
+%feature("docstring")  DistributionLogNormal::isDelta "bool DistributionLogNormal::isDelta() const
+
+signals that the distribution is in the limit case of a delta distribution 
+";
+
 
 // File: classDistributionLorentz.xml
 %feature("docstring") DistributionLorentz "
@@ -1396,6 +1416,11 @@ Returns the half width at half maximum.
 %feature("docstring")  DistributionLorentz::generateValueList "std::vector< double > DistributionLorentz::generateValueList(size_t nbr_samples, double sigma_factor, const AttLimits &limits=AttLimits()) const
 
 generate list of sample values 
+";
+
+%feature("docstring")  DistributionLorentz::isDelta "bool DistributionLorentz::isDelta() const
+
+signals that the distribution is in the limit case of a delta distribution 
 ";
 
 
@@ -2718,7 +2743,7 @@ Calls the  ISampleVisitor's visit method.
 
 The FormFactorInfo holds information about particle position and abundance.
 
-C++ includes: IFormFactorInfo.h
+C++ includes: FormFactorInfo.h
 ";
 
 %feature("docstring")  FormFactorInfo::FormFactorInfo "FormFactorInfo::FormFactorInfo()
@@ -5452,6 +5477,11 @@ xmax:
 start and end value of the generated samples
 
 vector of generated values 
+";
+
+%feature("docstring")  IDistribution1D::isDelta "virtual bool IDistribution1D::isDelta() const =0
+
+signals that the distribution is in the limit case of a delta distribution 
 ";
 
 
@@ -10615,136 +10645,136 @@ finalize report to the simulation
 %feature("docstring")  PyGenVisitor::writePyScript "std::string PyGenVisitor::writePyScript(const class GISASSimulation *simulation, const std::string &output_filename)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class FormFactorAnisoPyramid *sample)
+%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorAnisoPyramid *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class FormFactorBox *sample)
+%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorBox *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class FormFactorCone *sample)
+%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorCone *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class FormFactorCone6 *sample)
+%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorCone6 *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class FormFactorCuboctahedron *sample)
+%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorCuboctahedron *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class FormFactorCylinder *sample)
+%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorCylinder *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class FormFactorDodecahedron *sample)
+%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorDodecahedron *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class FormFactorEllipsoidalCylinder *sample)
+%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorEllipsoidalCylinder *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class FormFactorFullSphere *sample)
+%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorFullSphere *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class FormFactorFullSpheroid *sample)
+%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorFullSpheroid *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class FormFactorGauss *sample)
+%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorGauss *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class FormFactorHemiEllipsoid *sample)
+%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorHemiEllipsoid *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class FormFactorIcosahedron *sample)
+%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorIcosahedron *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class FormFactorLorentz *sample)
+%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorLorentz *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class FormFactorPrism3 *sample)
+%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorPrism3 *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class FormFactorPrism6 *sample)
+%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorPrism6 *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class FormFactorPyramid *sample)
+%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorPyramid *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class FormFactorRipple1 *sample)
+%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorRipple1 *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class FormFactorRipple2 *sample)
+%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorRipple2 *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class FormFactorTetrahedron *sample)
+%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorTetrahedron *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class FormFactorTruncatedCube *sample)
+%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorTruncatedCube *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class FormFactorTruncatedSphere *sample)
+%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorTruncatedSphere *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class FormFactorTruncatedSpheroid *sample)
+%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorTruncatedSpheroid *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class InterferenceFunctionNone *sample)
+%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const InterferenceFunctionNone *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class InterferenceFunction1DLattice *sample)
+%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const InterferenceFunction1DLattice *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class InterferenceFunctionRadialParaCrystal *sample)
+%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const InterferenceFunctionRadialParaCrystal *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class InterferenceFunction2DLattice *sample)
+%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const InterferenceFunction2DLattice *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class InterferenceFunction2DParaCrystal *sample)
+%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const InterferenceFunction2DParaCrystal *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class Layer *sample)
+%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const Layer *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class LayerInterface *sample)
+%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const LayerInterface *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class LayerRoughness *sample)
+%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const LayerRoughness *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class MultiLayer *sample)
+%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const MultiLayer *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class ParticleComposition *sample)
+%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const ParticleComposition *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class MesoCrystal *sample)
+%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const MesoCrystal *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class Particle *sample)
+%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const Particle *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class ParticleDistribution *sample)
+%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const ParticleDistribution *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class ParticleCoreShell *sample)
+%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const ParticleCoreShell *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class ParticleLayout *sample)
+%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const ParticleLayout *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class RotationX *sample)
+%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const RotationX *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class RotationY *sample)
+%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const RotationY *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class RotationZ *sample)
+%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const RotationZ *sample)
 ";
 
-%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const class RotationEuler *sample)
+%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const RotationEuler *sample)
 ";
 
 %feature("docstring")  PyGenVisitor::definePreamble "std::string PyGenVisitor::definePreamble() const 
 ";
 
-%feature("docstring")  PyGenVisitor::defineGetSimulation "std::string PyGenVisitor::defineGetSimulation(const class GISASSimulation *simulation) const 
+%feature("docstring")  PyGenVisitor::defineGetSimulation "std::string PyGenVisitor::defineGetSimulation(const GISASSimulation *simulation) const 
 ";
 
 %feature("docstring")  PyGenVisitor::defineGetSample "std::string PyGenVisitor::defineGetSample() const 
@@ -13131,10 +13161,10 @@ C++ includes: WavevectorInfo.h
 // File: classMathFunctions_1_1Convolve_1_1Workspace.xml
 
 
-// File: namespace_0D267.xml
+// File: namespace_0D271.xml
 
 
-// File: namespace_0D336.xml
+// File: namespace_0D338.xml
 
 
 // File: namespace_0D405.xml
@@ -13761,245 +13791,6 @@ Returns exp(I*z), where I is the imaginary unit.
 // File: WinDllMacros_8h.xml
 
 
-// File: Beam_8cpp.xml
-
-
-// File: Beam_8h.xml
-
-
-// File: ChiSquaredModule_8cpp.xml
-
-
-// File: ChiSquaredModule_8h.xml
-
-
-// File: ConstKBinAxis_8cpp.xml
-
-
-// File: ConstKBinAxis_8h.xml
-
-
-// File: ConvolutionDetectorResolution_8cpp.xml
-
-
-// File: ConvolutionDetectorResolution_8h.xml
-
-
-// File: CustomBinAxis_8cpp.xml
-
-
-// File: CustomBinAxis_8h.xml
-
-
-// File: DetectorMask_8cpp.xml
-
-
-// File: DetectorMask_8h.xml
-
-
-// File: Ellipse_8cpp.xml
-
-
-// File: Ellipse_8h.xml
-
-
-// File: FitElement_8cpp.xml
-
-
-// File: FitElement_8h.xml
-
-
-// File: FixedBinAxis_8cpp.xml
-
-
-// File: FixedBinAxis_8h.xml
-
-
-// File: Histogram1D_8cpp.xml
-
-
-// File: Histogram1D_8h.xml
-
-
-// File: Histogram2D_8cpp.xml
-
-
-// File: Histogram2D_8h.xml
-
-
-// File: IAxis_8h.xml
-%feature("docstring")  HaveSameNameAndShape "bool HaveSameNameAndShape(const IAxis &left, const IAxis &right)
-
-global helper function for comparison of axes 
-";
-
-
-// File: IChiSquaredModule_8cpp.xml
-
-
-// File: IChiSquaredModule_8h.xml
-
-
-// File: IDetector2D_8cpp.xml
-
-
-// File: IDetector2D_8h.xml
-
-
-// File: IDetectorResolution_8cpp.xml
-
-
-// File: IDetectorResolution_8h.xml
-
-
-// File: IHistogram_8cpp.xml
-
-
-// File: IHistogram_8h.xml
-
-
-// File: IIntensityFunction_8cpp.xml
-
-
-// File: IIntensityFunction_8h.xml
-
-
-// File: IIntensityNormalizer_8cpp.xml
-
-
-// File: IIntensityNormalizer_8h.xml
-
-
-// File: InfinitePlane_8cpp.xml
-
-
-// File: InfinitePlane_8h.xml
-
-
-// File: IntensityDataFunctions_8cpp.xml
-
-
-// File: IntensityDataFunctions_8h.xml
-
-
-// File: IPixelMap_8h.xml
-
-
-// File: IResolutionFunction2D_8h.xml
-
-
-// File: IsGISAXSDetector_8cpp.xml
-
-
-// File: IsGISAXSDetector_8h.xml
-
-
-// File: IShape2D_8h.xml
-
-
-// File: ISquaredFunction_8h.xml
-
-
-// File: Line_8cpp.xml
-
-
-// File: Line_8h.xml
-
-
-// File: LLData_8cpp.xml
-
-
-// File: LLData_8h.xml
-%feature("docstring")  HaveSameDimensions "bool HaveSameDimensions(const LLData< T > &left, const LLData< T > &right)
-";
-
-
-// File: Mask_8cpp.xml
-
-
-// File: Mask_8h.xml
-
-
-// File: MaskCoordinateFunction_8cpp.xml
-
-
-// File: MaskCoordinateFunction_8h.xml
-
-
-// File: OutputData_8cpp.xml
-
-
-// File: OutputData_8h.xml
-
-
-// File: OutputDataFunctions_8cpp.xml
-%feature("docstring")  toFftw3Array "void toFftw3Array(complex_t *source, size_t length, fftw_complex *destination)
-";
-
-%feature("docstring")  fromFftw3Array "void fromFftw3Array(fftw_complex *source, size_t length, complex_t *destination)
-";
-
-
-// File: OutputDataFunctions_8h.xml
-
-
-// File: OutputDataIterator_8h.xml
-
-
-// File: Polygon_8cpp.xml
-
-
-// File: Polygon_8h.xml
-
-
-// File: Rectangle_8cpp.xml
-
-
-// File: Rectangle_8h.xml
-
-
-// File: RectangularDetector_8cpp.xml
-
-
-// File: RectangularDetector_8h.xml
-
-
-// File: SimulationElement_8cpp.xml
-%feature("docstring")  AddElementsWithWeight "void AddElementsWithWeight(std::vector< SimulationElement >::const_iterator first, std::vector< SimulationElement >::const_iterator last, std::vector< SimulationElement >::iterator result, double weight)
-
-Add element vector to element vector with weight. 
-";
-
-%feature("docstring")  setAllElementIntensities "void setAllElementIntensities(std::vector< SimulationElement >::iterator first, std::vector< SimulationElement >::iterator last, double intensity)
-
-Set all element intensities to given value. 
-";
-
-
-// File: SimulationElement_8h.xml
-%feature("docstring")  AddElementsWithWeight "void AddElementsWithWeight(std::vector< SimulationElement >::const_iterator first, std::vector< SimulationElement >::const_iterator last, std::vector< SimulationElement >::iterator result, double weight)
-
-Add element vector to element vector with weight. 
-";
-
-%feature("docstring")  setAllElementIntensities "void setAllElementIntensities(std::vector< SimulationElement >::iterator first, std::vector< SimulationElement >::iterator last, double intensity)
-
-Set all element intensities to given value. 
-";
-
-
-// File: SphericalDetector_8cpp.xml
-
-
-// File: SphericalDetector_8h.xml
-
-
-// File: VariableBinAxis_8cpp.xml
-
-
-// File: VariableBinAxis_8h.xml
-
-
 // File: PyGenTools_8cpp.xml
 
 
@@ -14323,6 +14114,257 @@ The mathematics implemented here is described in full detail in a paper by Joach
 // File: TiffHandler_8h.xml
 
 
+// File: Beam_8cpp.xml
+
+
+// File: Beam_8h.xml
+
+
+// File: ChiSquaredModule_8cpp.xml
+
+
+// File: ChiSquaredModule_8h.xml
+
+
+// File: ConstKBinAxis_8cpp.xml
+
+
+// File: ConstKBinAxis_8h.xml
+
+
+// File: ConvolutionDetectorResolution_8cpp.xml
+
+
+// File: ConvolutionDetectorResolution_8h.xml
+
+
+// File: CustomBinAxis_8cpp.xml
+
+
+// File: CustomBinAxis_8h.xml
+
+
+// File: DetectorMask_8cpp.xml
+
+
+// File: DetectorMask_8h.xml
+
+
+// File: Ellipse_8cpp.xml
+
+
+// File: Ellipse_8h.xml
+
+
+// File: FitElement_8cpp.xml
+
+
+// File: FitElement_8h.xml
+
+
+// File: FixedBinAxis_8cpp.xml
+
+
+// File: FixedBinAxis_8h.xml
+
+
+// File: Histogram1D_8cpp.xml
+
+
+// File: Histogram1D_8h.xml
+
+
+// File: Histogram2D_8cpp.xml
+
+
+// File: Histogram2D_8h.xml
+
+
+// File: IAxis_8h.xml
+%feature("docstring")  HaveSameNameAndShape "bool HaveSameNameAndShape(const IAxis &left, const IAxis &right)
+
+global helper function for comparison of axes 
+";
+
+
+// File: IChiSquaredModule_8cpp.xml
+
+
+// File: IChiSquaredModule_8h.xml
+
+
+// File: IDetector2D_8cpp.xml
+
+
+// File: IDetector2D_8h.xml
+
+
+// File: IDetectorResolution_8cpp.xml
+
+
+// File: IDetectorResolution_8h.xml
+
+
+// File: IHistogram_8cpp.xml
+
+
+// File: IHistogram_8h.xml
+
+
+// File: IIntensityFunction_8cpp.xml
+
+
+// File: IIntensityFunction_8h.xml
+
+
+// File: IIntensityNormalizer_8cpp.xml
+
+
+// File: IIntensityNormalizer_8h.xml
+
+
+// File: InfinitePlane_8cpp.xml
+
+
+// File: InfinitePlane_8h.xml
+
+
+// File: Instrument_8cpp.xml
+
+
+// File: Instrument_8h.xml
+
+
+// File: IntensityDataFunctions_8cpp.xml
+
+
+// File: IntensityDataFunctions_8h.xml
+
+
+// File: IPixelMap_8h.xml
+
+
+// File: IResolutionFunction2D_8h.xml
+
+
+// File: IsGISAXSDetector_8cpp.xml
+
+
+// File: IsGISAXSDetector_8h.xml
+
+
+// File: IShape2D_8h.xml
+
+
+// File: ISquaredFunction_8h.xml
+
+
+// File: Line_8cpp.xml
+
+
+// File: Line_8h.xml
+
+
+// File: LLData_8cpp.xml
+
+
+// File: LLData_8h.xml
+%feature("docstring")  HaveSameDimensions "bool HaveSameDimensions(const LLData< T > &left, const LLData< T > &right)
+";
+
+
+// File: Mask_8cpp.xml
+
+
+// File: Mask_8h.xml
+
+
+// File: MaskCoordinateFunction_8cpp.xml
+
+
+// File: MaskCoordinateFunction_8h.xml
+
+
+// File: OutputData_8cpp.xml
+
+
+// File: OutputData_8h.xml
+
+
+// File: OutputDataFunctions_8cpp.xml
+%feature("docstring")  toFftw3Array "void toFftw3Array(complex_t *source, size_t length, fftw_complex *destination)
+";
+
+%feature("docstring")  fromFftw3Array "void fromFftw3Array(fftw_complex *source, size_t length, complex_t *destination)
+";
+
+
+// File: OutputDataFunctions_8h.xml
+
+
+// File: OutputDataIterator_8h.xml
+
+
+// File: Polygon_8cpp.xml
+
+
+// File: Polygon_8h.xml
+
+
+// File: Rectangle_8cpp.xml
+
+
+// File: Rectangle_8h.xml
+
+
+// File: RectangularDetector_8cpp.xml
+
+
+// File: RectangularDetector_8h.xml
+
+
+// File: ResolutionFunction2DGaussian_8cpp.xml
+
+
+// File: ResolutionFunction2DGaussian_8h.xml
+
+
+// File: SimulationElement_8cpp.xml
+%feature("docstring")  AddElementsWithWeight "void AddElementsWithWeight(std::vector< SimulationElement >::const_iterator first, std::vector< SimulationElement >::const_iterator last, std::vector< SimulationElement >::iterator result, double weight)
+
+Add element vector to element vector with weight. 
+";
+
+%feature("docstring")  setAllElementIntensities "void setAllElementIntensities(std::vector< SimulationElement >::iterator first, std::vector< SimulationElement >::iterator last, double intensity)
+
+Set all element intensities to given value. 
+";
+
+
+// File: SimulationElement_8h.xml
+%feature("docstring")  AddElementsWithWeight "void AddElementsWithWeight(std::vector< SimulationElement >::const_iterator first, std::vector< SimulationElement >::const_iterator last, std::vector< SimulationElement >::iterator result, double weight)
+
+Add element vector to element vector with weight. 
+";
+
+%feature("docstring")  setAllElementIntensities "void setAllElementIntensities(std::vector< SimulationElement >::iterator first, std::vector< SimulationElement >::iterator last, double intensity)
+
+Set all element intensities to given value. 
+";
+
+
+// File: SphericalDetector_8cpp.xml
+
+
+// File: SphericalDetector_8h.xml
+
+
+// File: VariableBinAxis_8cpp.xml
+
+
+// File: VariableBinAxis_8h.xml
+
+
 // File: ISelectionRule_8h.xml
 
 
@@ -14361,10 +14403,10 @@ The mathematics implemented here is described in full detail in a paper by Joach
 // File: Materials_8h.xml
 
 
+// File: FormFactorInfo_8h.xml
+
+
 // File: IFormFactor_8h.xml
-
-
-// File: IFormFactorInfo_8h.xml
 
 
 // File: ILayerRTCoefficients_8h.xml
@@ -14656,12 +14698,6 @@ Returns concatenated rotation (first right, then left).
 // File: GISASSimulation_8h.xml
 
 
-// File: Instrument_8cpp.xml
-
-
-// File: Instrument_8h.xml
-
-
 // File: ISimulation_8h.xml
 
 
@@ -14705,12 +14741,6 @@ Returns concatenated rotation (first right, then left).
 
 
 // File: ProgressHandlerDWBA_8h.xml
-
-
-// File: ResolutionFunction2DGaussian_8cpp.xml
-
-
-// File: ResolutionFunction2DGaussian_8h.xml
 
 
 // File: Simulation_8cpp.xml
@@ -15044,9 +15074,6 @@ David N. Williams
 // File: dir_c6310732a22f63c0c2fc5595561e68f1.xml
 
 
-// File: dir_44f78a63fb6824b6161080fb024dfdfe.xml
-
-
 // File: dir_cca9b87b2505f372a6ce58947a507789.xml
 
 
@@ -15057,6 +15084,9 @@ David N. Williams
 
 
 // File: dir_d7044b5fc4daccc5700de9f07da81a11.xml
+
+
+// File: dir_602d2305564088eb1fd2ee9e74929d48.xml
 
 
 // File: dir_7f8c371d7d9c2d18aea541845cde06e7.xml

@@ -14,19 +14,20 @@
 //
 // ************************************************************************** //
 
+#include "InstrumentView.h"
 #include "ExtendedDetectorDialog.h"
 #include "InstrumentEditorWidget.h"
 #include "InstrumentModel.h"
 #include "InstrumentSelectorWidget.h"
 #include "StyledToolBar.h"
 #include "mainwindow.h"
-#include "InstrumentView.h"
 #include <QAction> // need detected by TeamCity
 #include <QBoxLayout>
 #include <QDebug>
 #include <QListView>
 #include <QStackedWidget>
 #include <QToolButton>
+#include <QDebug>
 
 InstrumentView::InstrumentView(MainWindow *mainWindow)
     : QWidget(mainWindow)

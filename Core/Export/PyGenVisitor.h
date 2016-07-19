@@ -16,8 +16,8 @@
 #ifndef PYGENVISITOR_H
 #define PYGENVISITOR_H
 
-#include "Beam.h"
 #include "ISampleVisitor.h"
+#include <string>
 
 class SampleLabelHandler;
 
@@ -27,54 +27,56 @@ public:
     PyGenVisitor();
     virtual ~PyGenVisitor();
 
+    using ISampleVisitor::visit;
+
     std::string writePyScript(
         const class GISASSimulation* simulation, const std::string& output_filename);
-    virtual void visit(const class FormFactorAnisoPyramid* sample);
-    virtual void visit(const class FormFactorBox* sample);
-    virtual void visit(const class FormFactorCone* sample);
-    virtual void visit(const class FormFactorCone6* sample);
-    virtual void visit(const class FormFactorCuboctahedron* sample);
-    virtual void visit(const class FormFactorCylinder* sample);
-    virtual void visit(const class FormFactorDodecahedron* sample);
-    virtual void visit(const class FormFactorEllipsoidalCylinder* sample);
-    virtual void visit(const class FormFactorFullSphere* sample);
-    virtual void visit(const class FormFactorFullSpheroid* sample);
-    virtual void visit(const class FormFactorGauss* sample);
-    virtual void visit(const class FormFactorHemiEllipsoid* sample);
-    virtual void visit(const class FormFactorIcosahedron* sample);
-    virtual void visit(const class FormFactorLorentz* sample);
-    virtual void visit(const class FormFactorPrism3* sample);
-    virtual void visit(const class FormFactorPrism6* sample);
-    virtual void visit(const class FormFactorPyramid* sample);
-    virtual void visit(const class FormFactorRipple1* sample);
-    virtual void visit(const class FormFactorRipple2* sample);
-    virtual void visit(const class FormFactorTetrahedron* sample);
-    virtual void visit(const class FormFactorTruncatedCube* sample);
-    virtual void visit(const class FormFactorTruncatedSphere* sample);
-    virtual void visit(const class FormFactorTruncatedSpheroid* sample);
-    virtual void visit(const class InterferenceFunctionNone* sample);
-    virtual void visit(const class InterferenceFunction1DLattice* sample);
-    virtual void visit(const class InterferenceFunctionRadialParaCrystal* sample);
-    virtual void visit(const class InterferenceFunction2DLattice* sample);
-    virtual void visit(const class InterferenceFunction2DParaCrystal* sample);
-    virtual void visit(const class Layer* sample);
-    virtual void visit(const class LayerInterface* sample){ (void)sample; }
-    virtual void visit(const class LayerRoughness* sample);
-    virtual void visit(const class MultiLayer* sample);
-    virtual void visit(const class ParticleComposition* sample);
-    virtual void visit(const class MesoCrystal* sample);
-    virtual void visit(const class Particle* sample);
-    virtual void visit(const class ParticleDistribution* sample);
-    virtual void visit(const class ParticleCoreShell* sample);
-    virtual void visit(const class ParticleLayout* sample);
+    virtual void visit(const FormFactorAnisoPyramid* sample);
+    virtual void visit(const FormFactorBox* sample);
+    virtual void visit(const FormFactorCone* sample);
+    virtual void visit(const FormFactorCone6* sample);
+    virtual void visit(const FormFactorCuboctahedron* sample);
+    virtual void visit(const FormFactorCylinder* sample);
+    virtual void visit(const FormFactorDodecahedron* sample);
+    virtual void visit(const FormFactorEllipsoidalCylinder* sample);
+    virtual void visit(const FormFactorFullSphere* sample);
+    virtual void visit(const FormFactorFullSpheroid* sample);
+    virtual void visit(const FormFactorGauss* sample);
+    virtual void visit(const FormFactorHemiEllipsoid* sample);
+    virtual void visit(const FormFactorIcosahedron* sample);
+    virtual void visit(const FormFactorLorentz* sample);
+    virtual void visit(const FormFactorPrism3* sample);
+    virtual void visit(const FormFactorPrism6* sample);
+    virtual void visit(const FormFactorPyramid* sample);
+    virtual void visit(const FormFactorRipple1* sample);
+    virtual void visit(const FormFactorRipple2* sample);
+    virtual void visit(const FormFactorTetrahedron* sample);
+    virtual void visit(const FormFactorTruncatedCube* sample);
+    virtual void visit(const FormFactorTruncatedSphere* sample);
+    virtual void visit(const FormFactorTruncatedSpheroid* sample);
+    virtual void visit(const InterferenceFunctionNone* sample);
+    virtual void visit(const InterferenceFunction1DLattice* sample);
+    virtual void visit(const InterferenceFunctionRadialParaCrystal* sample);
+    virtual void visit(const InterferenceFunction2DLattice* sample);
+    virtual void visit(const InterferenceFunction2DParaCrystal* sample);
+    virtual void visit(const Layer* sample);
+    virtual void visit(const LayerInterface* sample){ (void)sample; }
+    virtual void visit(const LayerRoughness* sample);
+    virtual void visit(const MultiLayer* sample);
+    virtual void visit(const ParticleComposition* sample);
+    virtual void visit(const MesoCrystal* sample);
+    virtual void visit(const Particle* sample);
+    virtual void visit(const ParticleDistribution* sample);
+    virtual void visit(const ParticleCoreShell* sample);
+    virtual void visit(const ParticleLayout* sample);
 
-    virtual void visit(const class RotationX* sample);
-    virtual void visit(const class RotationY* sample);
-    virtual void visit(const class RotationZ* sample);
-    virtual void visit(const class RotationEuler* sample);
+    virtual void visit(const RotationX* sample);
+    virtual void visit(const RotationY* sample);
+    virtual void visit(const RotationZ* sample);
+    virtual void visit(const RotationEuler* sample);
 
     std::string definePreamble() const;
-    std::string defineGetSimulation(const class GISASSimulation* simulation) const;
+    std::string defineGetSimulation(const GISASSimulation* simulation) const;
     std::string defineGetSample() const;
     std::string defineMaterials() const;
 
@@ -90,20 +92,20 @@ private:
     std::string defineRoughnesses() const;
     std::string addLayoutsToLayers() const;
     std::string defineMultiLayers() const;
-    std::string defineDetector(const class GISASSimulation* simulation) const;
-    std::string defineDetectorResolutionFunction(const class GISASSimulation* simulation) const;
-    std::string defineBeam(const class GISASSimulation* simulation) const;
-    std::string defineParameterDistributions(const class GISASSimulation* simulation) const;
-    std::string defineMasks(const class GISASSimulation* simulation) const;
-    std::string defineSimulationOptions(const class GISASSimulation* simulation) const;
-    std::string definePlotting(const class GISASSimulation* simulation) const;
+    std::string defineDetector(const GISASSimulation* simulation) const;
+    std::string defineDetectorResolutionFunction(const GISASSimulation* simulation) const;
+    std::string defineBeam(const GISASSimulation* simulation) const;
+    std::string defineParameterDistributions(const GISASSimulation* simulation) const;
+    std::string defineMasks(const GISASSimulation* simulation) const;
+    std::string defineSimulationOptions(const GISASSimulation* simulation) const;
+    std::string definePlotting(const GISASSimulation* simulation) const;
     std::string defineRunSimulation() const;
     SampleLabelHandler* m_label;
 
     std::string indent() const;
-    void setRotationInformation(const class IParticle* particle, std::string particle_name,
+    void setRotationInformation(const IParticle* particle, std::string particle_name,
                                 std::ostringstream& result) const;
-    void setPositionInformation(const class IParticle* particle, std::string particle_name,
+    void setPositionInformation(const IParticle* particle, std::string particle_name,
                                 std::ostringstream& result) const;
 };
 

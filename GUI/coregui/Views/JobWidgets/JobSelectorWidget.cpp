@@ -14,6 +14,7 @@
 //
 // ************************************************************************** //
 
+#include "JobSelectorWidget.h"
 #include "JobItem.h"
 #include "JobListWidget.h"
 #include "JobModel.h"
@@ -22,7 +23,6 @@
 #include "StyledToolBar.h"
 #include "mainwindow_constants.h"
 #include "minisplitter.h"
-#include "JobSelectorWidget.h"
 #include <QHBoxLayout>
 
 

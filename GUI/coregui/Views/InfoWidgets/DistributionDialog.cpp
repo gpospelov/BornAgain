@@ -14,9 +14,9 @@
 //
 // ************************************************************************** //
 
+#include "DistributionDialog.h"
 #include "DistributionEditor.h"
 #include "SessionItem.h"
-#include "DistributionDialog.h"
 #include <QHBoxLayout>
 #include <QPushButton>
 

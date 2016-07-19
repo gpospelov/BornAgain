@@ -15,10 +15,10 @@
 // ************************************************************************** //
 
 #include "FitParameterProxyModel.h"
-#include "FitParameterItems.h"
-#include "JobModel.h"
 #include "FitParameterHelper.h"
+#include "FitParameterItems.h"
 #include "GUIHelpers.h"
+#include "JobModel.h"
 #include "ModelPath.h"
 #include <QMimeData>
 

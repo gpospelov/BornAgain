@@ -14,12 +14,12 @@
 //
 // ************************************************************************** //
 
+#include "ParameterTuningDelegate.h"
 #include "GUIHelpers.h"
 #include "ModelPath.h"
 #include "ParameterTreeItems.h"
 #include "ParameterTuningModel.h"
 #include "SessionModel.h"
-#include "ParameterTuningDelegate.h"
 #include <QAbstractItemModel>
 #include <QApplication>
 #include <QDebug>

@@ -14,10 +14,10 @@
 //
 // ************************************************************************** //
 
+#include "InstrumentComponentsWidget.h"
 #include "BeamEditorWidget.h"
 #include "DetectorEditorWidget.h"
 #include "columnresizer.h"
-#include "InstrumentComponentsWidget.h"
 #include <QDebug>
 #include <QVBoxLayout>
 

@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#include "SessionItem.h"
 #include "ParticleDistributionView.h"
+#include "SessionItem.h"
 #include <QDebug>
 
 

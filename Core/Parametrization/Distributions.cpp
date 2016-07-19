@@ -13,9 +13,9 @@
 //
 // ************************************************************************** //
 
+#include "Distributions.h"
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
-#include "Distributions.h"
 
 using namespace BornAgain;
 

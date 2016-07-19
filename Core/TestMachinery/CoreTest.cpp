@@ -13,13 +13,13 @@
 //
 // ************************************************************************** //
 
+#include "CoreTest.h"
 #include "FileSystem.h"
 #include "GISASSimulation.h"
 #include "IntensityDataFunctions.h"
 #include "IntensityDataIOFactory.h"
 #include "TestConfig.h"
 #include "Utils.h"
-#include "CoreTest.h"
 
 CoreTest::CoreTest(
     const std::string& name, const std::string& description, GISASSimulation* simulation,

@@ -13,6 +13,7 @@
 //
 // ************************************************************************** //
 
+#include "SampleBuilderFactory.h"
 #include "BoxCompositionBuilder.h"
 #include "CoreShellParticleBuilder.h"
 #include "CustomMorphologyBuilder.h"
@@ -33,7 +34,6 @@
 #include "SizeDistributionModelsBuilder.h"
 #include "TransformationsBuilder.h"
 #include "TwoDimLatticeBuilder.h"
-#include "SampleBuilderFactory.h"
 
 SampleBuilderFactory::SampleBuilderFactory()
 {

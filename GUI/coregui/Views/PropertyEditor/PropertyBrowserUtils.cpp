@@ -14,9 +14,9 @@
 //
 // ************************************************************************** //
 
+#include "PropertyBrowserUtils.h"
 #include "GUIHelpers.h"
 #include "MaterialSvc.h"
-#include "PropertyBrowserUtils.h"
 #include <QColorDialog>
 #include <QComboBox>
 #include <QDebug>

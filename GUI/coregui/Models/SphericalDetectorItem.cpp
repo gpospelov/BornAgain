@@ -14,11 +14,11 @@
 //
 // ************************************************************************** //
 
-#include "Units.h"
 #include "SphericalDetectorItem.h"
 #include "AxesItems.h"
-#include "SphericalDetector.h"
 #include "ResolutionFunctionItems.h"
+#include "SphericalDetector.h"
+#include "Units.h"
 
 const QString SphericalDetectorItem::P_PHI_AXIS = "Phi axis";
 const QString SphericalDetectorItem::P_ALPHA_AXIS = "Alpha axis";

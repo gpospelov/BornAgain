@@ -13,9 +13,9 @@
 //
 // ************************************************************************** //
 
+#include "FormFactorCone6.h"
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
-#include "FormFactorCone6.h"
 
 const PolyhedralTopology FormFactorCone6::topology = {
     {

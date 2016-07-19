@@ -13,9 +13,9 @@
 //
 // ************************************************************************** //
 
+#include "FormFactorTools.h"
 #include "FormFactorDWBA.h"
 #include "FormFactorDWBAPol.h"
-#include "FormFactorTools.h"
 
 IFormFactor *FormFactorTools::createDWBAScalarFormFactor(const IFormFactor &form_factor)
 {

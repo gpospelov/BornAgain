@@ -14,6 +14,7 @@
 //
 // ************************************************************************** //
 
+#include "RectangularDetectorWidget.h"
 #include "ComboProperty.h"
 #include "ComponentBoxEditor.h"
 #include "ComponentEditor.h"
@@ -21,7 +22,6 @@
 #include "ExtendedDetectorDialog.h"
 #include "GroupInfoBox.h"
 #include "columnresizer.h"
-#include "RectangularDetectorWidget.h"
 #include <QDebug>
 #include <QGroupBox>
 #include <QVBoxLayout>

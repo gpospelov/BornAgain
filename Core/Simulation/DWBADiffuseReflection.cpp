@@ -14,10 +14,10 @@
 // ************************************************************************** //
 
 #include "DWBADiffuseReflection.h"
-#include "MultiLayer.h"
-#include "Units.h"
 #include "Layer.h"
 #include "LayerInterface.h"
+#include "MultiLayer.h"
+#include "Units.h"
 
 DWBADiffuseReflection::DWBADiffuseReflection()
     : m_sample(0)

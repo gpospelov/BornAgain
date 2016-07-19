@@ -16,10 +16,10 @@
 
 #include "BeamDistributionItem.h"
 #include "Distributions.h"
+#include "GUIHelpers.h"
+#include "GroupItem.h"
 #include "ParameterDistribution.h"
 #include "Units.h"
-#include "GroupItem.h"
-#include "GUIHelpers.h"
 #include <QDebug>
 
 const QString BeamDistributionItem::P_DISTRIBUTION = "Distribution";

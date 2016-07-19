@@ -15,9 +15,9 @@
 // ************************************************************************** //
 
 #include "BeamItem.h"
-#include "ScientificDoubleProperty.h"
 #include "BeamDistributionItem.h"
 #include "BornAgainNamespace.h"
+#include "ScientificDoubleProperty.h"
 
 
 const QString BeamItem::P_INTENSITY = QString::fromStdString(BornAgain::Intensity);

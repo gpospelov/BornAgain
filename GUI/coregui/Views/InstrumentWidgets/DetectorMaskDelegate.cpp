@@ -14,6 +14,7 @@
 //
 // ************************************************************************** //
 
+#include "DetectorMaskDelegate.h"
 #include "AxesItems.h"
 #include "ComboProperty.h"
 #include "DetectorItems.h"
@@ -24,7 +25,6 @@
 #include "MaskItems.h"
 #include "MaskModel.h"
 #include "OutputData.h"
-#include "DetectorMaskDelegate.h"
 #include <QDebug>
 
 DetectorMaskDelegate::DetectorMaskDelegate(QObject *parent)

@@ -14,11 +14,11 @@
 //
 // ************************************************************************** //
 
+#include "MaterialEditorDialog.h"
 #include "MaterialEditor.h"
 #include "MaterialModel.h"
 #include "MaterialUtils.h"
 #include "mainwindow_constants.h"
-#include "MaterialEditorDialog.h"
 #include <QAction>
 #include <QDebug>
 #include <QPushButton>

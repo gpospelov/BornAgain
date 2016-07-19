@@ -15,8 +15,8 @@
 // ************************************************************************** //
 
 #include "RealDataModel.h"
-#include "RealDataItem.h"
 #include "ImportDataAssistant.h"
+#include "RealDataItem.h"
 
 RealDataModel::RealDataModel(QObject *parent)
     : SessionModel(SessionXML::RealDataModelTag, parent)

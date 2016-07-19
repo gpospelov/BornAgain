@@ -14,6 +14,7 @@
 //
 // ************************************************************************** //
 
+#include "MaskGraphicsScene.h"
 #include "ColorMapSceneAdaptor.h"
 #include "IMaskView.h"
 #include "ISceneAdaptor.h"
@@ -26,7 +27,6 @@
 #include "SessionItem.h"
 #include "SessionModel.h"
 #include "item_constants.h"
-#include "MaskGraphicsScene.h"
 #include <QDebug>
 #include <QGraphicsItem>
 #include <QItemSelection>

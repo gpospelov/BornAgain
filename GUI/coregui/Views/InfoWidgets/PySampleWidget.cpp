@@ -14,6 +14,7 @@
 //
 // ************************************************************************** //
 
+#include "PySampleWidget.h"
 #include "DesignerHelper.h"
 #include "DomainObjectBuilder.h"
 #include "InstrumentModel.h"
@@ -22,7 +23,6 @@
 #include "PythonSyntaxHighlighter.h"
 #include "SampleModel.h"
 #include "WarningSignWidget.h"
-#include "PySampleWidget.h"
 #include <QDebug>
 #include <QFile>
 #include <QModelIndex>

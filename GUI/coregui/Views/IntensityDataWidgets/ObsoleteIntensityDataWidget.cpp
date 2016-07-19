@@ -14,6 +14,7 @@
 //
 // ************************************************************************** //
 
+#include "ObsoleteIntensityDataWidget.h"
 #include "AppSvc.h"
 #include "IntensityDataItem.h"
 #include "IntensityDataPropertyWidget.h"
@@ -22,7 +23,6 @@
 #include "ObsoleteIntensityDataPlotWidget.h"
 #include "ObsoleteIntensityDataWidgetActions.h"
 #include "projectmanager.h"
-#include "ObsoleteIntensityDataWidget.h"
 #include <QDebug>
 #include <QVBoxLayout>
 

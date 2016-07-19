@@ -17,8 +17,9 @@
 #define CORETEST_H
 
 #include "IFunctionalTest.h"
-#include "OutputData.h"
 
+template <class T> class OutputData;
+class GISASSimulation;
 
 //! @class CoreTest
 //! @ingroup standard_samples
@@ -46,6 +47,6 @@ private:
     OutputData<double>* m_reference;
     double m_difference;
     std::string m_ref_filename;
-    };
+};
 
 #endif // CORETEST_H

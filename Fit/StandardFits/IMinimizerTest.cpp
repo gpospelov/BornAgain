@@ -13,9 +13,9 @@
 //
 // ************************************************************************** //
 
+#include "IMinimizerTest.h"
 #include "FitSuite.h"
 #include "GISASSimulation.h"
-#include "IMinimizerTest.h"
 #include "ISample.h"
 #include "MinimizerFactory.h"
 #include "SampleBuilderFactory.h"

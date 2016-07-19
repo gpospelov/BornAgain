@@ -15,18 +15,18 @@
 // ************************************************************************** //
 #include "DomainFittingBuilder.h"
 #include "DomainSimulationBuilder.h"
-#include "JobItem.h"
+#include "FitParameterItems.h"
 #include "FitSuite.h"
 #include "FitSuiteItem.h"
-#include "FitParameterItems.h"
-#include "IntensityDataItem.h"
 #include "GISASSimulation.h"
+#include "GUIHelpers.h"
+#include "IMinimizer.h"
+#include "IntensityDataItem.h"
+#include "JobItem.h"
+#include "MinimizerItem.h"
 #include "ModelPath.h"
 #include "MultiLayerItem.h"
 #include "RealDataItem.h"
-#include "MinimizerItem.h"
-#include "IMinimizer.h"
-#include "GUIHelpers.h"
 
 // FIXME make unique_ptr all along
 

@@ -14,6 +14,7 @@
 //
 // ************************************************************************** //
 
+#include "DetectorEditorWidget.h"
 #include "ComponentBoxEditor.h"
 #include "DetectorItems.h"
 #include "DetectorItems.h"
@@ -23,7 +24,6 @@
 #include "RectangularDetectorWidget.h"
 #include "SphericalDetectorWidget.h"
 #include "columnresizer.h"
-#include "DetectorEditorWidget.h"
 #include <QDebug>
 #include <QGroupBox>
 #include <QLabel>

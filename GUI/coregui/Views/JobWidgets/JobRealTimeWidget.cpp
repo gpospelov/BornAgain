@@ -14,12 +14,12 @@
 //
 // ************************************************************************** //
 
+#include "JobRealTimeWidget.h"
 #include "JobItem.h"
 #include "JobModel.h"
 #include "JobRealTimeToolBar.h"
 #include "ParameterTuningWidget.h"
 #include "mainwindow_constants.h"
-#include "JobRealTimeWidget.h"
 #include <QVBoxLayout>
 
 JobRealTimeWidget::JobRealTimeWidget(JobModel *jobModel, QWidget *parent)

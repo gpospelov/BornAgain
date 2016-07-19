@@ -13,10 +13,10 @@
 //
 // ************************************************************************** //
 
+#include "ROOTMinimizerHelper.h"
 #include "Math/GenAlgoOptions.h"
 #include "Math/Minimizer.h"
 #include "Utils.h"
-#include "ROOTMinimizerHelper.h"
 
 
 // ----------------------------------------------------------------------------

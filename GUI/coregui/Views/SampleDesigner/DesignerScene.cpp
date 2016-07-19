@@ -14,6 +14,7 @@
 //
 // ************************************************************************** //
 
+#include "DesignerScene.h"
 #include "ConnectableView.h"
 #include "DesignerHelper.h"
 #include "DesignerMimeData.h"
@@ -34,7 +35,6 @@
 #include "SampleViewAligner.h"
 #include "SampleViewFactory.h"
 #include "SessionGraphicsItem.h"
-#include "DesignerScene.h"
 #include <QDebug>
 #include <QGraphicsSceneMouseEvent>
 #include <QItemSelection>

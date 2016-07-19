@@ -13,9 +13,9 @@
 //
 // ************************************************************************** //
 
+#include "FormFactorLongRipple1Gauss.h"
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
-#include "FormFactorLongRipple1Gauss.h"
 
 using namespace  BornAgain;
 

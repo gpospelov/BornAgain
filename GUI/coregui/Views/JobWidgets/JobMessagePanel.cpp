@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#include "mainwindow_constants.h"
 #include "JobMessagePanel.h"
+#include "mainwindow_constants.h"
 #include <QScrollBar>
 #include <QStackedWidget>
 #include <QTextEdit>

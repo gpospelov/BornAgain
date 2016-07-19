@@ -14,11 +14,11 @@
 //
 // ************************************************************************** //
 
+#include "JobProgressAssistant.h"
 #include "JobModel.h"
 #include "JobQueueData.h"
 #include "mainwindow.h"
 #include "progressbar.h"
-#include "JobProgressAssistant.h"
 
 JobProgressAssistant::JobProgressAssistant(MainWindow *mainWindow)
     : QObject(mainWindow)

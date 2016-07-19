@@ -18,8 +18,8 @@
 #define MODELMAPPER_H
 
 
-#include <functional>
 #include <QModelIndex>
+#include <functional>
 
 class SessionModel;
 class SessionItem;

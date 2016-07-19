@@ -13,18 +13,18 @@
 //
 // ************************************************************************** //
 
+#include "SamplePrintVisitor.h"
 #include "Crystal.h"
 #include "FormFactors.h"
 #include "InterferenceFunctions.h"
+#include "Layer.h"
+#include "LayerInterface.h"
+#include "LayerRoughness.h"
 #include "MesoCrystal.h"
 #include "MultiLayer.h"
 #include "ParticleCoreShell.h"
 #include "ParticleDistribution.h"
 #include "ParticleLayout.h"
-#include "SamplePrintVisitor.h"
-#include "Layer.h"
-#include "LayerInterface.h"
-#include "LayerRoughness.h"
 
 void SamplePrintVisitor::visit(const ISample*)
 {

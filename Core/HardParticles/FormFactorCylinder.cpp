@@ -13,9 +13,9 @@
 //
 // ************************************************************************** //
 
+#include "FormFactorCylinder.h"
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
-#include "FormFactorCylinder.h"
 
 using namespace  BornAgain;
 

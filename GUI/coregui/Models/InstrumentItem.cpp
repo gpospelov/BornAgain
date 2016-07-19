@@ -15,8 +15,8 @@
 // ************************************************************************** //
 
 #include "InstrumentItem.h"
-#include "DetectorItems.h"
 #include "BeamItem.h"
+#include "DetectorItems.h"
 
 InstrumentItem::InstrumentItem()
     : SessionItem(Constants::InstrumentType)

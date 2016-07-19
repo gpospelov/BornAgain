@@ -14,6 +14,7 @@
 //
 // ************************************************************************** //
 
+#include "MaskResultsPresenter.h"
 #include "ColorMapPlot.h"
 #include "DetectorMask.h"
 #include "IShape2D.h"
@@ -21,7 +22,6 @@
 #include "MaskItems.h"
 #include "OutputData.h"
 #include "SessionModel.h"
-#include "MaskResultsPresenter.h"
 #include <QDebug>
 #include <QVBoxLayout>
 

@@ -17,8 +17,8 @@
 #ifndef RESOLUTIONFUNCTIONITEMS_H
 #define RESOLUTIONFUNCTIONITEMS_H
 
-#include "SessionItem.h"
 #include "ResolutionFunction2DGaussian.h"
+#include "SessionItem.h"
 
 
 class BA_CORE_API_ ResolutionFunctionItem : public SessionItem

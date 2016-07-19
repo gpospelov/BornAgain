@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#include "DesignerHelper.h"
 #include "OverlayLabelWidget.h"
+#include "DesignerHelper.h"
 #include <QColor>
 #include <QFont>
 #include <QPainter>

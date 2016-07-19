@@ -14,12 +14,12 @@
 //
 // ************************************************************************** //
 
+#include "MaskEditorCanvas.h"
 #include "MaskGraphicsProxy.h"
 #include "MaskGraphicsScene.h"
 #include "MaskGraphicsView.h"
 #include "MaskResultsPresenter.h"
 #include "SessionModel.h"
-#include "MaskEditorCanvas.h"
 #include <QDebug>
 #include <QDebug>
 #include <QGraphicsRectItem>

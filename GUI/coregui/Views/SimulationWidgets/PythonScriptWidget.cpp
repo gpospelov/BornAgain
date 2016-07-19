@@ -14,6 +14,7 @@
 //
 // ************************************************************************** //
 
+#include "PythonScriptWidget.h"
 #include "DesignerHelper.h"
 #include "DomainSimulationBuilder.h"
 #include "GISASSimulation.h"
@@ -25,7 +26,6 @@
 #include "WarningSignWidget.h"
 #include "projectdocument.h"
 #include "projectmanager.h"
-#include "PythonScriptWidget.h"
 #include <QDebug>
 #include <QDir>
 #include <QFile>

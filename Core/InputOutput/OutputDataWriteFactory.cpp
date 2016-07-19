@@ -12,9 +12,9 @@
 //! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
+#include "OutputDataWriteFactory.h"
 #include "Exceptions.h"
 #include "OutputDataIOHelper.h"
-#include "OutputDataWriteFactory.h"
 
 OutputDataWriter *OutputDataWriteFactory::getWriter(const std::string &file_name)
 {

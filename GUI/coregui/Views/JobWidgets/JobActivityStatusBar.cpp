@@ -14,9 +14,9 @@
 //
 // ************************************************************************** //
 
+#include "JobActivityStatusBar.h"
 #include "JobViewActivities.h"
 #include "mainwindow.h"
-#include "JobActivityStatusBar.h"
 #include <QComboBox>
 #include <QHBoxLayout>
 #include <QStatusBar>

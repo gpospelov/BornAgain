@@ -14,11 +14,11 @@
 //
 // ************************************************************************** //
 
+#include "EllipseView.h"
 #include "ISceneAdaptor.h"
 #include "MaskEditorHelper.h"
 #include "MaskItems.h"
 #include "SizeHandleElement.h"
-#include "EllipseView.h"
 #include <QDebug>
 #include <QGraphicsSceneMouseEvent>
 #include <QMarginsF>

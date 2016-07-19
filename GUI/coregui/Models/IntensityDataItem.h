@@ -17,8 +17,8 @@
 #ifndef INTENSITYDATAITEM_H
 #define INTENSITYDATAITEM_H
 
-#include "SessionItem.h"
 #include "IDetector2D.h"
+#include "SessionItem.h"
 
 class BasicAxisItem;
 

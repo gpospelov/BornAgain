@@ -14,12 +14,11 @@
 //
 // ************************************************************************** //
 
-#include "SessionModel.h"
-#include "GroupPropertyRegistry.h"
-#include "GroupItem.h"
-#include "ItemFactory.h"
 #include "GUIHelpers.h"
-
+#include "GroupItem.h"
+#include "GroupPropertyRegistry.h"
+#include "ItemFactory.h"
+#include "SessionModel.h"
 #include <QDebug>
 
 class SessionItemData

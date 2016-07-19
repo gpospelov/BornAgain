@@ -13,15 +13,15 @@
 //
 // ************************************************************************** //
 
+#include "ParticleCompositionBuilder.h"
 #include "FormFactorFullSphere.h"
 #include "HomogeneousMaterial.h"
 #include "InterferenceFunction2DLattice.h"
+#include "Layer.h"
 #include "MultiLayer.h"
 #include "Particle.h"
 #include "ParticleComposition.h"
-#include "ParticleCompositionBuilder.h"
 #include "ParticleLayout.h"
-#include "Layer.h"
 
 // --- ParticleCompositionBuilder ---
 

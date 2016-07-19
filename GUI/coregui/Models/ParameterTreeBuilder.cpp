@@ -15,13 +15,13 @@
 // ************************************************************************** //
 
 #include "ParameterTreeBuilder.h"
-#include "SampleModel.h"
-#include "JobItem.h"
-#include "MultiLayerItem.h"
-#include "GroupItem.h"
-#include "ModelPath.h"
-#include "ParameterTreeItems.h"
 #include "FitParameterHelper.h"
+#include "GroupItem.h"
+#include "JobItem.h"
+#include "ModelPath.h"
+#include "MultiLayerItem.h"
+#include "ParameterTreeItems.h"
+#include "SampleModel.h"
 #include <QStack>
 
 void ParameterTreeBuilder::createParameterTree(JobItem *item, const QString &tag)

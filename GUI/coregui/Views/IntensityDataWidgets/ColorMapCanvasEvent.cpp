@@ -14,10 +14,10 @@
 //
 // ************************************************************************** //
 
+#include "ColorMapCanvasEvent.h"
 #include "ColorMap.h"
 #include "ColorMapCanvas.h"
 #include "qcustomplot.h"
-#include "ColorMapCanvasEvent.h"
 #include <QDebug>
 #include <QLabel>
 #include <QRect>

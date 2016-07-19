@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#include "ISceneAdaptor.h"
 #include "MaskContainerView.h"
+#include "ISceneAdaptor.h"
 #include <QBrush>
 #include <QDebug>
 #include <QPainter>

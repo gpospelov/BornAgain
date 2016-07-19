@@ -14,6 +14,7 @@
 //
 // ************************************************************************** //
 
+#include "ParameterTuningWidget.h"
 #include "DesignerHelper.h"
 #include "GUIHelpers.h"
 #include "InstrumentModel.h"
@@ -28,7 +29,6 @@
 #include "SampleModel.h"
 #include "SliderSettingsWidget.h"
 #include "WarningSignWidget.h"
-#include "ParameterTuningWidget.h"
 #include <QApplication>
 #include <QDebug>
 #include <QItemSelectionModel>

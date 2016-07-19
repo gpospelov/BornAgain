@@ -14,10 +14,10 @@
 //
 // ************************************************************************** //
 
+#include "PolygonPointView.h"
 #include "ISceneAdaptor.h"
 #include "MaskEditorHelper.h"
 #include "MaskItems.h"
-#include "PolygonPointView.h"
 #include <QCursor>
 #include <QDebug>
 #include <QGraphicsSceneMouseEvent>

@@ -17,8 +17,8 @@
 #ifndef DETECTORITEMS_H
 #define DETECTORITEMS_H
 
-#include "SphericalDetectorItem.h"
 #include "RectangularDetectorItem.h"
+#include "SphericalDetectorItem.h"
 
 class MaskContainerItem;
 

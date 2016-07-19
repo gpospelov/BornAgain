@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#include "BornAgainNamespace.h"
 #include "FormFactorDecoratorMultiPositionFactor.h"
+#include "BornAgainNamespace.h"
 
 FormFactorDecoratorMultiPositionFactor::FormFactorDecoratorMultiPositionFactor(
     const IFormFactor &form_factor, std::vector<kvector_t> positions)

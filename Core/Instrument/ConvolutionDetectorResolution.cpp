@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#include "Convolve.h"
 #include "ConvolutionDetectorResolution.h"
+#include "Convolve.h"
 
 
 ConvolutionDetectorResolution::ConvolutionDetectorResolution(

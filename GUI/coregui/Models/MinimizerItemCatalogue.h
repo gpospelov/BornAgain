@@ -17,8 +17,8 @@
 #ifndef MINIMIZERITEMCATALOGUE_H
 #define MINIMIZERITEMCATALOGUE_H
 
-#include "MinimizerLibrary.h"
 #include "ComboProperty.h"
+#include "MinimizerLibrary.h"
 
 class MinimizerItem;
 

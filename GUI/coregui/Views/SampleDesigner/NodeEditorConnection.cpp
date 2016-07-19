@@ -14,9 +14,9 @@
 //
 // ************************************************************************** //
 
+#include "NodeEditorConnection.h"
 #include "ConnectableView.h"
 #include "NodeEditorPort.h"
-#include "NodeEditorConnection.h"
 #include <QBrush>
 #include <QDebug>
 #include <QGraphicsScene>

@@ -13,21 +13,21 @@
 //
 // ************************************************************************** //
 
-#include "BornAgainNamespace.h"
-#include "MatrixSpecularInfoMap.h"
-#include "MessageService.h"
-#include "Materials.h"
-#include "MultiLayer.h"
-#include "MultiLayerRoughnessDWBASimulation.h"
-#include "ScalarSpecularInfoMap.h"
-#include "SpecularMatrix.h"
-#include "SpecularMagnetic.h"
 #include "MultiLayerDWBASimulation.h"
-#include "SimulationElement.h"
+#include "BornAgainNamespace.h"
 #include "Layer.h"
 #include "LayerDWBASimulation.h"
 #include "LayerInterface.h"
 #include "LayerRoughness.h"
+#include "Materials.h"
+#include "MatrixSpecularInfoMap.h"
+#include "MessageService.h"
+#include "MultiLayer.h"
+#include "MultiLayerRoughnessDWBASimulation.h"
+#include "ScalarSpecularInfoMap.h"
+#include "SimulationElement.h"
+#include "SpecularMagnetic.h"
+#include "SpecularMatrix.h"
 
 MultiLayerDWBASimulation::MultiLayerDWBASimulation(const MultiLayer* p_multi_layer)
   : mp_roughness_dwba_simulation(0)

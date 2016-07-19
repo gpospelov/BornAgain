@@ -14,6 +14,7 @@
 //
 // ************************************************************************** //
 
+#include "JobViewDocks.h"
 #include "FitActivityPanel.h"
 #include "JobMessagePanel.h"
 #include "JobModel.h"
@@ -22,7 +23,6 @@
 #include "JobSelectorWidget.h"
 #include "JobView.h"
 #include "JobViewActivities.h"
-#include "JobViewDocks.h"
 #include <QAbstractItemView>
 #include <QAction>
 #include <QDockWidget>

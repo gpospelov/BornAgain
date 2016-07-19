@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#include "BornAgainNamespace.h"
 #include "FormFactorPrism6.h"
+#include "BornAgainNamespace.h"
 
 //! @brief Prism6 constructor
 //! @param base_edge of hexagonal base

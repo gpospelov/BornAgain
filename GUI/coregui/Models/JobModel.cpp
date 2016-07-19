@@ -15,20 +15,20 @@
 // ************************************************************************** //
 
 #include "JobModel.h"
-#include "JobQueueData.h"
-#include "JobItem.h"
+#include "FitSuiteItem.h"
 #include "GUIHelpers.h"
-#include "MultiLayerItem.h"
 #include "InstrumentItem.h"
-#include "RealDataItem.h"
+#include "IntensityDataItem.h"
+#include "JobItem.h"
+#include "JobItemHelper.h"
+#include "JobQueueData.h"
+#include "MultiLayerItem.h"
 #include "ParameterTreeBuilder.h"
 #include "ParameterTreeItems.h"
+#include "RealDataItem.h"
 #include "SimulationOptionsItem.h"
-#include "JobItemHelper.h"
-#include "IntensityDataItem.h"
-#include "FitSuiteItem.h"
-#include <QUuid>
 #include <QDebug>
+#include <QUuid>
 
 
 JobModel::JobModel(QObject *parent)

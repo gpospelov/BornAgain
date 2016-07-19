@@ -14,9 +14,9 @@
 //
 // ************************************************************************** //
 
+#include "RunFitManager.h"
 #include "FitSuite.h"
 #include "FittingWorker.h"
-#include "RunFitManager.h"
 #include <QDebug>
 #include <QThread>
 #include <memory>

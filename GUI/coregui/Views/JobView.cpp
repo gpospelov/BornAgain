@@ -14,6 +14,7 @@
 //
 // ************************************************************************** //
 
+#include "JobView.h"
 #include "JobActivityStatusBar.h"
 #include "JobItem.h"
 #include "JobModel.h"
@@ -22,7 +23,6 @@
 #include "JobSelectorWidget.h"
 #include "JobViewDocks.h"
 #include "mainwindow.h"
-#include "JobView.h"
 #include <QMenu>
 
 JobView::JobView(MainWindow *mainWindow)

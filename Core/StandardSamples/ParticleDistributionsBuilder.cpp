@@ -13,15 +13,15 @@
 //
 // ************************************************************************** //
 
+#include "ParticleDistributionsBuilder.h"
 #include "Distributions.h"
 #include "FormFactorCylinder.h"
 #include "HomogeneousMaterial.h"
+#include "Layer.h"
 #include "MultiLayer.h"
 #include "Particle.h"
 #include "ParticleDistribution.h"
-#include "ParticleDistributionsBuilder.h"
 #include "ParticleLayout.h"
-#include "Layer.h"
 
 using namespace BornAgain;
 

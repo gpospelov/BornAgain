@@ -14,13 +14,13 @@
 //
 // ************************************************************************** //
 
+#include "RunFitControlWidget.h"
 #include "DesignerHelper.h"
 #include "FitSuiteItem.h"
 #include "JobItem.h"
 #include "JobMessagePanel.h"
 #include "WarningSignWidget.h"
 #include "mainwindow_constants.h"
-#include "RunFitControlWidget.h"
 #include <QDebug>
 #include <QFont>
 #include <QHBoxLayout>

@@ -13,9 +13,9 @@
 //
 // ************************************************************************** //
 
+#include "FormFactorRipple2.h"
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
-#include "FormFactorRipple2.h"
 
 
 using namespace  BornAgain;

@@ -13,10 +13,10 @@
 //
 // ************************************************************************** //
 
+#include "FitSuite.h"
 #include "FitKernel.h"
 #include "FitSuitePrintObserver.h"
 #include "MinimizerFactory.h"
-#include "FitSuite.h"
 
 FitSuite::FitSuite()
     : m_kernel(new FitKernel(this))

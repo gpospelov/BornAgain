@@ -14,11 +14,11 @@
 //
 // ************************************************************************** //
 
+#include "MinimizerSettingsWidget.h"
 #include "ComponentEditor.h"
 #include "FitSuiteItem.h"
 #include "JobItem.h"
 #include "MinimizerItem.h"
-#include "MinimizerSettingsWidget.h"
 #include <QDebug>
 #include <QPushButton>
 #include <QVBoxLayout>

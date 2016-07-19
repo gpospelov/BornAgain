@@ -16,6 +16,7 @@
 #ifndef OUTPUTDATAREADSTRATEGY_H
 #define OUTPUTDATAREADSTRATEGY_H
 
+#include <istream>
 
 template <class T> class OutputData;
 

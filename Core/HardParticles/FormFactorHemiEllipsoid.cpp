@@ -13,9 +13,9 @@
 //
 // ************************************************************************** //
 
+#include "FormFactorHemiEllipsoid.h"
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
-#include "FormFactorHemiEllipsoid.h"
 
 using namespace  BornAgain;
 

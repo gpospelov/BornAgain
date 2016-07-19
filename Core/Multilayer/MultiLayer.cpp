@@ -15,11 +15,11 @@
 
 #include "MultiLayer.h"
 #include "BornAgainNamespace.h"
+#include "Layer.h"
+#include "LayerInterface.h"
 #include "Materials.h"
 #include "MessageService.h"
 #include "MultiLayerDWBASimulation.h"
-#include "Layer.h"
-#include "LayerInterface.h"
 
 using namespace BornAgain;
 

@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#include "NodeEditorConnection.h"
 #include "NodeEditorPort.h"
+#include "NodeEditorConnection.h"
 #include <QDebug>
 #include <QFontMetrics>
 #include <QGraphicsScene>

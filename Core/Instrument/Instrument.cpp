@@ -13,10 +13,10 @@
 //
 // ************************************************************************** //
 
-#include "ConvolutionDetectorResolution.h"
-#include "SphericalDetector.h"
 #include "Instrument.h"
+#include "ConvolutionDetectorResolution.h"
 #include "SimulationElement.h"
+#include "SphericalDetector.h"
 
 Instrument::Instrument()
     : IParameterized("Instrument")

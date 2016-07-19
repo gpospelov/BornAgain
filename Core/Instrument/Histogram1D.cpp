@@ -13,9 +13,9 @@
 //
 // ************************************************************************** //
 
+#include "Histogram1D.h"
 #include "NumpyUtils.h"
 #include "VariableBinAxis.h"
-#include "Histogram1D.h"
 #include <memory>
 
 

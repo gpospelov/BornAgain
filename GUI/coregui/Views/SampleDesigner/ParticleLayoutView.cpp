@@ -14,11 +14,11 @@
 //
 // ************************************************************************** //
 
+#include "ParticleLayoutView.h"
 #include "DesignerHelper.h"
 #include "GUIHelpers.h"
 #include "ParticleView.h"
 #include "SessionItem.h"
-#include "ParticleLayoutView.h"
 #include <QDebug>
 
 

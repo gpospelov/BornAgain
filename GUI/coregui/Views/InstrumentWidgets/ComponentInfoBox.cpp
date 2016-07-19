@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#include "ComponentBoxEditor.h"
 #include "ComponentInfoBox.h"
+#include "ComponentBoxEditor.h"
 #include <QGroupBox>
 #include <QVBoxLayout>
 #include <iostream>

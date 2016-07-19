@@ -14,9 +14,9 @@
 //
 // ************************************************************************** //
 
+#include "ItemStackWidget.h"
 #include "GUIHelpers.h"
 #include "SessionModel.h"
-#include "ItemStackWidget.h"
 #include <QDebug>
 #include <QStackedWidget>
 #include <QVBoxLayout>

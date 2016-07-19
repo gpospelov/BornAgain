@@ -14,6 +14,7 @@
 //
 // ************************************************************************** //
 
+#include "TestView.h"
 #include "AccordionWidget.h"
 #include "JobModel.h"
 #include "MaskEditor.h"
@@ -21,7 +22,6 @@
 #include "MinimizerItem.h"
 #include "MinimizerSettingsWidget.h"
 #include "mainwindow.h"
-#include "TestView.h"
 #include <QCheckBox>
 #include <QLineEdit>
 

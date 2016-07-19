@@ -16,11 +16,11 @@
 
 #include "RectangularDetectorItem.h"
 #include "AxesItems.h"
-#include "VectorItem.h"
 #include "ComboProperty.h"
+#include "GUIHelpers.h"
 #include "RectangularDetector.h"
 #include "ResolutionFunctionItems.h"
-#include "GUIHelpers.h"
+#include "VectorItem.h"
 #include <QDebug>
 
 namespace {

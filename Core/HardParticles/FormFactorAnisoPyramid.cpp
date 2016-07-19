@@ -13,9 +13,9 @@
 //
 // ************************************************************************** //
 
+#include "FormFactorAnisoPyramid.h"
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
-#include "FormFactorAnisoPyramid.h"
 
 const PolyhedralTopology FormFactorAnisoPyramid::topology = {
     {

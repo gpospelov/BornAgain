@@ -14,9 +14,9 @@
 //
 // ************************************************************************** //
 
+#include "InstrumentSelectorWidget.h"
 #include "InstrumentModel.h"
 #include "SessionItem.h"
-#include "InstrumentSelectorWidget.h"
 #include <QAction>
 #include <QDebug>
 #include <QListView>

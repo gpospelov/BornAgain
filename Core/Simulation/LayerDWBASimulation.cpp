@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#include "Layer.h"
 #include "LayerDWBASimulation.h"
+#include "Layer.h"
 
 LayerDWBASimulation::LayerDWBASimulation(const Layer* p_layer)
 : mp_specular_info(0)

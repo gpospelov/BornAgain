@@ -14,12 +14,12 @@
 //
 // ************************************************************************** //
 
+#include "ConnectableView.h"
 #include "DesignerHelper.h"
 #include "GUIHelpers.h"
 #include "NodeEditorConnection.h"
 #include "NodeEditorPort.h"
 #include "SessionItem.h"
-#include "ConnectableView.h"
 #include <QDebug>
 #include <QObject>
 #include <QPainter>

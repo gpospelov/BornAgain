@@ -14,9 +14,9 @@
 //
 // ************************************************************************** //
 
+#include "IView.h"
 #include "ModelMapper.h"
 #include "SessionGraphicsItem.h"
-#include "IView.h"
 #include <QDebug>
 #include <QString>
 

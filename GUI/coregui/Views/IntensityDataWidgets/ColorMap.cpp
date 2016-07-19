@@ -14,6 +14,7 @@
 //
 // ************************************************************************** //
 
+#include "ColorMap.h"
 #include "AxesItems.h"
 #include "ColorMapEvent.h"
 #include "ColorMapHelper.h"
@@ -22,7 +23,6 @@
 #include "Units.h"
 #include "UpdateTimer.h"
 #include "plot_constants.h"
-#include "ColorMap.h"
 #include <QDebug>
 
 namespace {

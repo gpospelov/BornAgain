@@ -18,6 +18,8 @@
 
 #include "IFactory.h"
 
+class IFunctionalTest;
+
 //! @class StandardFitsFactory
 //! @ingroup standard_samples
 //! @brief Factory to create predefined functional fit tests

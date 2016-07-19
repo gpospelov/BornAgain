@@ -13,9 +13,9 @@
 //
 // ************************************************************************** //
 
+#include "FitSuiteParameters.h"
 #include "FitParameterLinked.h"
 #include "MessageService.h"
-#include "FitSuiteParameters.h"
 
 FitSuiteParameters::FitSuiteParameters()
 {

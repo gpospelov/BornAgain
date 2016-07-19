@@ -14,9 +14,9 @@
 //
 // ************************************************************************** //
 
+#include "MaterialEditorToolBar.h"
 #include "MaterialItem.h"
 #include "MaterialModel.h"
-#include "MaterialEditorToolBar.h"
 #include <QAction>
 #include <QDebug>
 #include <QItemSelectionModel>

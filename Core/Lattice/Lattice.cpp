@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#include "Units.h"
 #include "Lattice.h"
+#include "Units.h"
 #include <gsl/gsl_linalg.h>
 
 Lattice::Lattice()

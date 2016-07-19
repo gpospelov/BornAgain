@@ -14,11 +14,11 @@
 //
 // ************************************************************************** //
 
+#include "JobListWidget.h"
 #include "ItemSelectorWidget.h"
 #include "JobItem.h"
 #include "JobListViewDelegate.h"
 #include "JobModel.h"
-#include "JobListWidget.h"
 #include <QItemSelectionModel>
 #include <QListView>
 #include <QVBoxLayout>

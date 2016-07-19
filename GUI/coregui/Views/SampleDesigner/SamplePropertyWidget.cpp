@@ -14,9 +14,9 @@
 //
 // ************************************************************************** //
 
+#include "SamplePropertyWidget.h"
 #include "ComponentEditor.h"
 #include "SessionItem.h"
-#include "SamplePropertyWidget.h"
 #include <QDebug>
 #include <QItemSelection>
 #include <QModelIndexList>

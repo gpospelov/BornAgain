@@ -14,6 +14,7 @@
 //
 // ************************************************************************** //
 
+#include "WelcomeView.h"
 #include "DesignerHelper.h"
 #include "FancyLabel.h"
 #include "mainwindow.h"
@@ -21,7 +22,6 @@
 #include "projectdocument.h"
 #include "projectmanager.h"
 #include "qstringutils.h"
-#include "WelcomeView.h"
 #include <QCommandLinkButton>
 #include <QDebug>
 #include <QDesktopServices>

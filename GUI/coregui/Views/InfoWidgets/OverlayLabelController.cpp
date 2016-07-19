@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#include "OverlayLabelWidget.h"
 #include "OverlayLabelController.h"
+#include "OverlayLabelWidget.h"
 #include <QAbstractScrollArea>
 #include <QDebug>
 #include <QEvent>

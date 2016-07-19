@@ -18,10 +18,10 @@
 #include "HomogeneousMaterial.h"
 #include "InterferenceFunction2DParaCrystal.h"
 #include "InterferenceFunctionRadialParaCrystal.h"
+#include "Layer.h"
 #include "MultiLayer.h"
 #include "Particle.h"
 #include "ParticleLayout.h"
-#include "Layer.h"
 
 RadialParaCrystalBuilder::RadialParaCrystalBuilder()
     : m_corr_peak_distance(20.0*Units::nanometer)

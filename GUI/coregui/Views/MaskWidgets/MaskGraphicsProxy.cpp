@@ -14,10 +14,10 @@
 //
 // ************************************************************************** //
 
+#include "MaskGraphicsProxy.h"
 #include "ColorMapPlot.h"
 #include "ColorMapSceneAdaptor.h"
 #include "IntensityDataItem.h"
-#include "MaskGraphicsProxy.h"
 #include <QDebug>
 #include <QGraphicsSceneMouseEvent>
 

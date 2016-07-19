@@ -14,10 +14,10 @@
 //
 // ************************************************************************** //
 
+#include "JobPropertiesWidget.h"
 #include "ComponentEditor.h"
 #include "JobItem.h"
 #include "mainwindow_constants.h"
-#include "JobPropertiesWidget.h"
 #include <QTabBar>
 #include <QTabWidget>
 #include <QTextEdit>

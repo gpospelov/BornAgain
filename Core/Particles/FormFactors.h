@@ -18,12 +18,12 @@
 
 #include "FormFactorDecoratorDebyeWaller.h"
 #include "FormFactorDecoratorFactor.h"
+#include "FormFactorDecoratorMaterial.h"
 #include "FormFactorDecoratorMultiPositionFactor.h"
 #include "FormFactorDecoratorPositionFactor.h"
-#include "FormFactorDecoratorMaterial.h"
 #include "FormFactorDecoratorRotation.h"
 #include "FormFactorWeighted.h"
-#include "SoftParticles.h"
 #include "HardParticles.h"
+#include "SoftParticles.h"
 
 #endif // FORMFACTORS_H

@@ -15,9 +15,9 @@
 
 #ifdef BORNAGAIN_TIFF_SUPPORT
 
+#include "TiffHandler.h"
 #include "BornAgainNamespace.h"
 #include "Utils.h"
-#include "TiffHandler.h"
 
 namespace {
 size_t supported_bitPerSample = 32;

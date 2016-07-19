@@ -14,9 +14,9 @@
 //
 // ************************************************************************** //
 
+#include "ItemComboWidget.h"
 #include "ItemComboToolBar.h"
 #include "SessionItemWidget.h"
-#include "ItemComboWidget.h"
 #include <QComboBox>
 #include <QDebug>
 #include <QEvent>

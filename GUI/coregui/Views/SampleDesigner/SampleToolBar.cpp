@@ -14,10 +14,10 @@
 //
 // ************************************************************************** //
 
+#include "SampleToolBar.h"
 #include "DesignerView.h"
 #include "MaterialProperty.h"
 #include "MaterialSvc.h"
-#include "SampleToolBar.h"
 #include <QAction>
 #include <QButtonGroup>
 #include <QComboBox>

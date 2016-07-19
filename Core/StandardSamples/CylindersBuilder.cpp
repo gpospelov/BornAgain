@@ -13,15 +13,15 @@
 //
 // ************************************************************************** //
 
-#include "BornAgainNamespace.h"
 #include "CylindersBuilder.h"
+#include "BornAgainNamespace.h"
 #include "FormFactorCylinder.h"
 #include "HomogeneousMaterial.h"
+#include "Layer.h"
 #include "LayerInterface.h"
 #include "MultiLayer.h"
 #include "Particle.h"
 #include "ParticleLayout.h"
-#include "Layer.h"
 
 // -----------------------------------------------------------------------------
 // Cylinders in DWBA

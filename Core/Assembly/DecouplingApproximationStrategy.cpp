@@ -14,13 +14,13 @@
 // ************************************************************************** //
 
 #include "DecouplingApproximationStrategy.h"
-#include "SimulationElement.h"
 #include "Exceptions.h"
 #include "FormFactorInfo.h"
 #include "IInterferenceFunction.h"
-#include "MathFunctions.h"
 #include "Layer.h"
 #include "LayerSpecularInfo.h"
+#include "MathFunctions.h"
+#include "SimulationElement.h"
 #include <cassert>
 #include <iostream>
 

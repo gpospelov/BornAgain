@@ -13,10 +13,10 @@
 //
 // ************************************************************************** //
 
-#include "OutputData.h" // needed by some compilers
 #include "OutputDataWriteStrategy.h"
-#include "TiffHandler.h"
 #include "BornAgainNamespace.h"
+#include "OutputData.h" // needed by some compilers
+#include "TiffHandler.h"
 #include <cmath>
 #include <iomanip>
 

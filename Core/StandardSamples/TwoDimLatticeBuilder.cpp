@@ -17,11 +17,11 @@
 #include "FormFactorCylinder.h"
 #include "HomogeneousMaterial.h"
 #include "InterferenceFunction2DLattice.h"
+#include "Layer.h"
 #include "MultiLayer.h"
 #include "Particle.h"
 #include "ParticleComposition.h"
 #include "ParticleLayout.h"
-#include "Layer.h"
 
 // -----------------------------------------------------------------------------
 // lattice #1:

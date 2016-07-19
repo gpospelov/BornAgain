@@ -17,8 +17,8 @@
 #define SPECULARSIMULATION_H
 
 #include "ICloneable.h"
-#include "IParameterized.h"
 #include "ILayerRTCoefficients.h"
+#include "IParameterized.h"
 #include "OutputData.h"
 #include <memory>
 

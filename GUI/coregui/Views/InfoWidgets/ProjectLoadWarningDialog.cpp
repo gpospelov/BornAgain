@@ -14,13 +14,13 @@
 //
 // ************************************************************************** //
 
+#include "ProjectLoadWarningDialog.h"
 #include "DesignerHelper.h"
 #include "GUIHelpers.h"
 #include "GUIMessage.h"
 #include "MessageContainer.h"
 #include "SessionModel.h"
 #include "WarningMessageService.h"
-#include "ProjectLoadWarningDialog.h"
 #include <QBoxLayout>
 #include <QDebug>
 #include <QFrame>

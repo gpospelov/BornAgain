@@ -14,6 +14,7 @@
 //
 // ************************************************************************** //
 
+#include "MaterialUtils.h"
 #include "ComboProperty.h"
 #include "DesignerHelper.h"
 #include "GUIHelpers.h"
@@ -23,7 +24,6 @@
 #include "MaterialModel.h"
 #include "MaterialSvc.h"
 #include "RefractiveIndexItem.h"
-#include "MaterialUtils.h"
 #include <QDebug>
 
 

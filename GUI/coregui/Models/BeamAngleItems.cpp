@@ -16,8 +16,8 @@
 
 #include "BeamAngleItems.h"
 #include "Distributions.h"
-#include "Units.h"
 #include "GUIHelpers.h"
+#include "Units.h"
 
 
 BeamInclinationAngleItem::BeamInclinationAngleItem()

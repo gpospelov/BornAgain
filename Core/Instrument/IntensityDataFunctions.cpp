@@ -13,9 +13,9 @@
 //
 // ************************************************************************** //
 
+#include "IntensityDataFunctions.h"
 #include "ConvolutionDetectorResolution.h"
 #include "IHistogram.h"
-#include "IntensityDataFunctions.h"
 #include <memory>
 
 double IntensityDataFunctions::getRelativeDifference(

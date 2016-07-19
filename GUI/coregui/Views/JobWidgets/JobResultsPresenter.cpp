@@ -14,11 +14,11 @@
 //
 // ************************************************************************** //
 
+#include "JobResultsPresenter.h"
 #include "FitComparisonWidget.h"
 #include "JobItem.h"
 #include "ObsoleteIntensityDataWidget.h"
 #include "mainwindow_constants.h"
-#include "JobResultsPresenter.h"
 #include <QBoxLayout>
 
 JobResultsPresenter::JobResultsPresenter(QWidget *parent)

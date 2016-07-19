@@ -16,10 +16,11 @@
 #ifndef MULTILAYERDWBASIMULATION_H
 #define MULTILAYERDWBASIMULATION_H
 
-#include "DWBASimulation.h"
 #include "Complex.h"
+#include "DWBASimulation.h"
 
 class LayerDWBASimulation;
+class MultiLayer;
 class MultiLayerRoughnessDWBASimulation;
 
 //! @class MultiLayerDWBASimulation
@@ -30,10 +31,10 @@ class MultiLayerRoughnessDWBASimulation;
 class BA_CORE_API_ MultiLayerDWBASimulation : public DWBASimulation
 {
 public:
-    MultiLayerDWBASimulation(const MultiLayer *p_multi_layer);
+    MultiLayerDWBASimulation(const MultiLayer* p_multi_layer);
     virtual ~MultiLayerDWBASimulation();
 
-    MultiLayerDWBASimulation *clone() const
+    MultiLayerDWBASimulation* clone() const
     {
         throw Exceptions::NotImplementedException(
             "MultiLayerDWBASimulation::clone() -> Error: not implemented");
@@ -54,8 +55,8 @@ protected:
     bool requiresMatrixRTCoefficients() const;
 
     std::map<size_t, SafePointerVector<LayerDWBASimulation>> m_layer_dwba_simulations_map;
-    MultiLayer *mp_multi_layer;
-    MultiLayerRoughnessDWBASimulation *mp_roughness_dwba_simulation;
+    MultiLayer* mp_multi_layer;
+    MultiLayerRoughnessDWBASimulation* mp_roughness_dwba_simulation;
 };
 
 #endif // MULTILAYERDWBASIMULATION_H

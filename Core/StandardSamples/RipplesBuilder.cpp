@@ -18,10 +18,10 @@
 #include "FormFactorRipple2.h"
 #include "HomogeneousMaterial.h"
 #include "InterferenceFunctionRadialParaCrystal.h"
+#include "Layer.h"
 #include "MultiLayer.h"
 #include "Particle.h"
 #include "ParticleLayout.h"
-#include "Layer.h"
 
 CosineRippleBuilder::CosineRippleBuilder()
     : m_w(20.0*Units::nanometer)

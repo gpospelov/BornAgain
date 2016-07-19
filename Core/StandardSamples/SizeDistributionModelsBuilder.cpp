@@ -18,11 +18,11 @@
 #include "FormFactorCylinder.h"
 #include "HomogeneousMaterial.h"
 #include "InterferenceFunctionRadialParaCrystal.h"
+#include "Layer.h"
 #include "MultiLayer.h"
 #include "Particle.h"
 #include "ParticleDistribution.h"
 #include "ParticleLayout.h"
-#include "Layer.h"
 
 using namespace BornAgain;
 

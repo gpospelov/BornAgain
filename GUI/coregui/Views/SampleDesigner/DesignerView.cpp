@@ -14,11 +14,11 @@
 //
 // ************************************************************************** //
 
+#include "DesignerView.h"
 #include "DesignerHelper.h"
 #include "DesignerMimeData.h"
 #include "DesignerScene.h"
 #include "GUIHelpers.h"
-#include "DesignerView.h"
 #include <QDebug>
 #include <QDragEnterEvent>
 #include <QGraphicsScene>

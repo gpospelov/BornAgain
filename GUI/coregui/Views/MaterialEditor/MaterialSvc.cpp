@@ -14,12 +14,12 @@
 //
 // ************************************************************************** //
 
+#include "MaterialSvc.h"
 #include "MaterialEditorDialog.h"
 #include "MaterialItem.h"
 #include "MaterialModel.h"
 #include "MaterialUtils.h"
 #include "SessionModel.h"
-#include "MaterialSvc.h"
 #include <QDebug>
 
 MaterialSvc *MaterialSvc::m_instance = 0;

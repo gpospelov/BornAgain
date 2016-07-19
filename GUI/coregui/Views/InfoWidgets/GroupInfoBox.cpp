@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#include "hostosinfo.h"
 #include "GroupInfoBox.h"
+#include "hostosinfo.h"
 #include <QApplication>
 #include <QDebug>
 #include <QMouseEvent>

@@ -14,6 +14,7 @@
 //
 // ************************************************************************** //
 
+#include "InstrumentEditorWidget.h"
 #include "BeamEditorWidget.h"
 #include "BeamItem.h"
 #include "DetectorEditorWidget.h"
@@ -21,7 +22,6 @@
 #include "InstrumentComponentsWidget.h"
 #include "InstrumentItem.h"
 #include "SessionItem.h"
-#include "InstrumentEditorWidget.h"
 #include <QBoxLayout>
 #include <QComboBox>
 #include <QDebug>

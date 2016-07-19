@@ -22,8 +22,8 @@
 #include "SimulationOptions.h"
 #include "Vectors3D.h"
 #include <Eigen/StdVector>
-#include <vector>
 #include <memory>
+#include <vector>
 
 template <class T> class IntegratorMCMiser;
 class FormFactorInfo;

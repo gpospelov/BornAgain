@@ -14,10 +14,10 @@
 //
 // ************************************************************************** //
 
+#include "MaskAllView.h"
 #include "ColorMapSceneAdaptor.h"
 #include "MaskEditorHelper.h"
 #include "MaskItems.h"
-#include "MaskAllView.h"
 #include <QBrush>
 #include <QDebug>
 #include <QPainter>

@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#include "Utils.h"
 #include "ParameterPool.h"
+#include "Utils.h"
 
 typedef std::map<std::string, RealParameterWrapper > parametermap_t;
 

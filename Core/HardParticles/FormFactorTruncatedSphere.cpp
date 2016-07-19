@@ -13,9 +13,9 @@
 //
 // ************************************************************************** //
 
+#include "FormFactorTruncatedSphere.h"
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
-#include "FormFactorTruncatedSphere.h"
 
 using namespace  BornAgain;
 

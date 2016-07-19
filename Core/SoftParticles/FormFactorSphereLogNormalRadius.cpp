@@ -13,9 +13,9 @@
 //
 // ************************************************************************** //
 
+#include "FormFactorSphereLogNormalRadius.h"
 #include "BornAgainNamespace.h"
 #include "Distributions.h"
-#include "FormFactorSphereLogNormalRadius.h"
 
 using namespace BornAgain;
 

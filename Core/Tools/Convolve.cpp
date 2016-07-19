@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#include "Exceptions.h"
 #include "Convolve.h"
+#include "Exceptions.h"
 #include <iostream>
 #include <sstream>
 

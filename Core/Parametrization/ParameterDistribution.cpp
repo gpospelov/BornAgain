@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#include "Distributions.h"
 #include "ParameterDistribution.h"
+#include "Distributions.h"
 
 
 ParameterDistribution::ParameterDistribution(const std::string &par_name,

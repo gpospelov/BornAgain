@@ -14,12 +14,12 @@
 //
 // ************************************************************************** //
 
+#include "RealDataEditorWidget.h"
 #include "IntensityDataItem.h"
 #include "IntensityDataPropertyWidget.h"
 #include "IntensityDataWidget.h"
 #include "RealDataItem.h"
 #include "SessionItem.h"
-#include "RealDataEditorWidget.h"
 #include <QAction>
 #include <QBoxLayout>
 #include <QDebug>

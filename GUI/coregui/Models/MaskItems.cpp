@@ -15,12 +15,12 @@
 // ************************************************************************** //
 
 #include "MaskItems.h"
-#include "Rectangle.h"
-#include "Polygon.h"
-#include "Line.h"
 #include "Ellipse.h"
-#include "InfinitePlane.h"
 #include "GUIHelpers.h"
+#include "InfinitePlane.h"
+#include "Line.h"
+#include "Polygon.h"
+#include "Rectangle.h"
 
 
 MaskContainerItem::MaskContainerItem()

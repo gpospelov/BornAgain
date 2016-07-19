@@ -14,12 +14,12 @@
 //
 // ************************************************************************** //
 
+#include "SampleDesigner.h"
 #include "DesignerScene.h"
 #include "DesignerView.h"
 #include "FilterPropertyProxy.h"
 #include "ISample.h"
 #include "MultiLayerView.h"
-#include "SampleDesigner.h"
 #include <QDebug>
 
 SampleDesigner::SampleDesigner(QWidget *parent)

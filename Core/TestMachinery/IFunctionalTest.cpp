@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#include "Utils.h"
 #include "IFunctionalTest.h"
+#include "Utils.h"
 
 namespace {
 

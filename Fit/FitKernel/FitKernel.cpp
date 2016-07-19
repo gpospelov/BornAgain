@@ -13,10 +13,10 @@
 //
 // ************************************************************************** //
 
+#include "FitKernel.h"
 #include "FitSuite.h"
 #include "MessageService.h"
 #include "MinimizerFactory.h"
-#include "FitKernel.h"
 
 
 FitKernel::FitKernel(FitSuite *fit_suite)

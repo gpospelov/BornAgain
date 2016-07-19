@@ -16,10 +16,10 @@
 #include "TransformationsBuilder.h"
 #include "FormFactorBox.h"
 #include "HomogeneousMaterial.h"
+#include "Layer.h"
 #include "MultiLayer.h"
 #include "Particle.h"
 #include "ParticleLayout.h"
-#include "Layer.h"
 
 ISample* TransformBoxBuilder::buildSample() const
 {

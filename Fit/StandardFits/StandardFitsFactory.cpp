@@ -13,9 +13,9 @@
 //
 // ************************************************************************** //
 
+#include "StandardFitsFactory.h"
 #include "MinimizerTests.h"
 #include "RectDetectorFitTest.h"
-#include "StandardFitsFactory.h"
 #include <boost/format.hpp>
 
 StandardFitsFactory::StandardFitsFactory()

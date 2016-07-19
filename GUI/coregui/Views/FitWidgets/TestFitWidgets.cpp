@@ -14,6 +14,7 @@
 //
 // ************************************************************************** //
 
+#include "TestFitWidgets.h"
 #include "FitParameterItems.h"
 #include "FitParameterWidget.h"
 #include "FitSuiteItem.h"
@@ -22,7 +23,6 @@
 #include "ParameterTuningWidget.h"
 #include "item_constants.h"
 #include "mainwindow.h"
-#include "TestFitWidgets.h"
 #include <QHBoxLayout>
 #include <QTreeView>
 #include <QVBoxLayout>

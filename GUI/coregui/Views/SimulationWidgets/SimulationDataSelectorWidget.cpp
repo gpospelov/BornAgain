@@ -14,6 +14,7 @@
 //
 // ************************************************************************** //
 
+#include "SimulationDataSelectorWidget.h"
 #include "ApplicationModels.h"
 #include "InstrumentItem.h"
 #include "InstrumentModel.h"
@@ -21,7 +22,6 @@
 #include "RealDataItem.h"
 #include "RealDataModel.h"
 #include "SampleModel.h"
-#include "SimulationDataSelectorWidget.h"
 #include <QComboBox>
 #include <QDebug>
 #include <QFileDialog>

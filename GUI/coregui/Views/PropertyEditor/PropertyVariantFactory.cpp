@@ -14,9 +14,9 @@
 //
 // ************************************************************************** //
 
+#include "PropertyVariantFactory.h"
 #include "PropertyBrowserUtils.h"
 #include "PropertyVariantManager.h"
-#include "PropertyVariantFactory.h"
 #include <QDebug>
 
 

@@ -14,6 +14,7 @@
 //
 // ************************************************************************** //
 
+#include "BeamEditorWidget.h"
 #include "BeamDistributionItem.h"
 #include "BeamItem.h"
 #include "ComponentBoxEditor.h"
@@ -22,7 +23,6 @@
 #include "GUIHelpers.h"
 #include "GroupInfoBox.h"
 #include "LayerItem.h"
-#include "BeamEditorWidget.h"
 #include <QComboBox>
 #include <QDebug>
 #include <QGroupBox>

@@ -14,12 +14,12 @@
 //
 // ************************************************************************** //
 
+#include "ExtendedDetectorDialog.h"
 #include "CustomEventFilters.h"
 #include "DetectorMaskDelegate.h"
 #include "MaskEditor.h"
 #include "MaskModel.h"
 #include "mainwindow_constants.h"
-#include "ExtendedDetectorDialog.h"
 #include <QDebug>
 #include <QKeyEvent>
 #include <QModelIndex>

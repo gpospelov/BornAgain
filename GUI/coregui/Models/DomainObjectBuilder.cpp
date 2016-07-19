@@ -15,15 +15,15 @@
 // ************************************************************************** //
 
 #include "DomainObjectBuilder.h"
-#include "TransformToDomain.h"
+#include "ComboProperty.h"
 #include "GISASSimulation.h"
 #include "GUIHelpers.h"
 #include "IInterferenceFunction.h"
 #include "LayerItem.h"
 #include "MultiLayer.h"
 #include "ParticleDistributionItem.h"
-#include "ComboProperty.h"
 #include "ParticleLayoutItem.h"
+#include "TransformToDomain.h"
 
 std::unique_ptr<MultiLayer> DomainObjectBuilder::buildMultiLayer(
     const SessionItem& multilayer_item) const

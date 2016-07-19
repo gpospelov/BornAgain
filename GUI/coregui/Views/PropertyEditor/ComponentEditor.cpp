@@ -13,6 +13,7 @@
 //! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
+#include "ComponentEditor.h"
 #include "ComponentEditorPrivate.h"
 #include "GUIHelpers.h"
 #include "GroupItem.h"
@@ -20,7 +21,6 @@
 #include "SessionItem.h"
 #include "SessionModel.h"
 #include "qtpropertybrowser.h"
-#include "ComponentEditor.h"
 #include <QVBoxLayout>
 #include <QVariant>
 

@@ -13,12 +13,12 @@
 //
 // ************************************************************************** //
 
+#include "SphericalDetector.h"
 #include "BornAgainNamespace.h"
 #include "IDetectorResolution.h"
 #include "IPixelMap.h"
-#include "Units.h"
-#include "SphericalDetector.h"
 #include "SimulationElement.h"
+#include "Units.h"
 
 SphericalDetector::SphericalDetector()
 {

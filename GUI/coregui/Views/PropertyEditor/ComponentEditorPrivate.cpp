@@ -14,9 +14,9 @@
 //
 // ************************************************************************** //
 
+#include "ComponentEditorPrivate.h"
 #include "CustomEventFilters.h"
 #include "GUIHelpers.h"
-#include "ComponentEditorPrivate.h"
 #include <QComboBox>
 #include <QDebug>
 #include <QString>

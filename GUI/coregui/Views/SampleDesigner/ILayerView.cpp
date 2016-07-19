@@ -14,6 +14,7 @@
 //
 // ************************************************************************** //
 
+#include "ILayerView.h"
 #include "DesignerHelper.h"
 #include "DesignerScene.h"
 #include "GUIHelpers.h"
@@ -22,7 +23,6 @@
 #include "MultiLayerView.h"
 #include "SampleModel.h"
 #include "SessionItem.h"
-#include "ILayerView.h"
 #include <QDebug>
 #include <QGraphicsSceneMouseEvent>
 

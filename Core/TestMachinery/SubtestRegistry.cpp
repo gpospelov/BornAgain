@@ -13,9 +13,9 @@
 //
 // ************************************************************************** //
 
+#include "SubtestRegistry.h"
 #include "BornAgainNamespace.h"
 #include "HardParticles.h"
-#include "SubtestRegistry.h"
 
 
 // ************************************************************************** //

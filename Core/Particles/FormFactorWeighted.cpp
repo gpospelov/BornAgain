@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#include "BornAgainNamespace.h"
 #include "FormFactorWeighted.h"
+#include "BornAgainNamespace.h"
 
 
 FormFactorWeighted::FormFactorWeighted()

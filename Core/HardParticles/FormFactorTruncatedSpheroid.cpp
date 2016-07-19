@@ -13,9 +13,9 @@
 //
 // ************************************************************************** //
 
+#include "FormFactorTruncatedSpheroid.h"
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
-#include "FormFactorTruncatedSpheroid.h"
 
 using namespace  BornAgain;
 

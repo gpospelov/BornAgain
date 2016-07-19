@@ -14,11 +14,11 @@
 //
 // ************************************************************************** //
 
+#include "MaterialEditor.h"
 #include "ComponentEditor.h"
 #include "MaterialEditorToolBar.h"
 #include "MaterialItem.h"
 #include "MaterialModel.h"
-#include "MaterialEditor.h"
 #include <QListView>
 #include <QSplitter>
 #include <QVBoxLayout>

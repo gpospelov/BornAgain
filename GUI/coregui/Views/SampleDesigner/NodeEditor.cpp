@@ -14,10 +14,10 @@
 //
 // ************************************************************************** //
 
+#include "NodeEditor.h"
 #include "DesignerView.h"
 #include "NodeEditorConnection.h"
 #include "NodeEditorPort.h"
-#include "NodeEditor.h"
 #include <QEvent>
 #include <QGraphicsScene>
 #include <QGraphicsSceneMouseEvent>

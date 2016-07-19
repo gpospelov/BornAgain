@@ -14,10 +14,10 @@
 //
 // ************************************************************************** //
 
+#include "IMaskView.h"
 #include "ISceneAdaptor.h"
 #include "MaskItems.h"
 #include "SessionItem.h"
-#include "IMaskView.h"
 #include <QAction>
 #include <QDebug>
 #include <QGraphicsSceneContextMenuEvent>

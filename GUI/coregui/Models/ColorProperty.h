@@ -18,6 +18,7 @@
 #define COLORPROPERTY_H
 
 #include <QPixmap>
+#include <QVariant>
 
 //! The ColorProperty for SessionItem and PropertyEditor
 //!

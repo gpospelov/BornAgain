@@ -14,6 +14,8 @@
 //
 // ************************************************************************** //
 
+#include "ImportDataToolBar.h"
+#include "ImportDataToolBar.h"
 #include "ComboProperty.h"
 #include "DetectorItems.h"
 #include "IDetector2D.h"
@@ -28,8 +30,6 @@
 #include "RectangularDetectorItem.h"
 #include "SessionItem.h"
 #include "SphericalDetectorItem.h"
-#include "ImportDataToolBar.h"
-#include "ImportDataToolBar.h"
 #include <QAction>
 #include <QDebug>
 #include <QItemSelectionModel>

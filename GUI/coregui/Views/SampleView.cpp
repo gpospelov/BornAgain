@@ -14,6 +14,7 @@
 //
 // ************************************************************************** //
 
+#include "SampleView.h"
 #include "FilterPropertyProxy.h"
 #include "InfoWidget.h"
 #include "ItemFactory.h"
@@ -22,7 +23,6 @@
 #include "SampleToolBar.h"
 #include "SampleViewComponents.h"
 #include "mainwindow.h"
-#include "SampleView.h"
 #include <QDebug>
 #include <QDockWidget>
 #include <QMenu>

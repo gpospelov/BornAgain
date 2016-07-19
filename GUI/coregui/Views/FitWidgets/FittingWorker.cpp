@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#include "FitSuite.h"
 #include "FittingWorker.h"
+#include "FitSuite.h"
 #include <QDateTime>
 #include <QDebug>
 

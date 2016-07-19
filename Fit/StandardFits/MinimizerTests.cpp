@@ -13,9 +13,9 @@
 //
 // ************************************************************************** //
 
+#include "MinimizerTests.h"
 #include "FitSuite.h"
 #include "MinimizerFactory.h"
-#include "MinimizerTests.h"
 
 Minuit2MigradTest::Minuit2MigradTest()
     : IMinimizerTest("Minuit2", "Migrad")

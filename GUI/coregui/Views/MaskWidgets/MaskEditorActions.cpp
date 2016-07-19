@@ -14,9 +14,9 @@
 //
 // ************************************************************************** //
 
+#include "MaskEditorActions.h"
 #include "MaskItems.h"
 #include "SessionModel.h"
-#include "MaskEditorActions.h"
 #include <QAction>
 #include <QDebug>
 #include <QItemSelectionModel>

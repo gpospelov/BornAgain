@@ -14,13 +14,13 @@
 //
 // ************************************************************************** //
 
+#include "ImportDataAssistant.h"
 #include "AppSvc.h"
 #include "GUIHelpers.h"
 #include "IntensityDataIOFactory.h"
 #include "IntensityDataItem.h"
 #include "RealDataItem.h"
 #include "projectmanager.h"
-#include "ImportDataAssistant.h"
 #include <QDebug>
 #include <QFileDialog>
 #include <QFileInfo>

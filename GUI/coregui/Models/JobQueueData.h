@@ -17,8 +17,8 @@
 #ifndef JOBQUEUEDATA_H
 #define JOBQUEUEDATA_H
 
-#include <QObject>
 #include <QMap>
+#include <QObject>
 
 class JobItem;
 class JobModel;

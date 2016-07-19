@@ -14,9 +14,9 @@
 //
 // ************************************************************************** //
 
+#include "FitFlowWidget.h"
 #include "FitSuiteItem.h"
 #include "HistogramPlot.h"
-#include "FitFlowWidget.h"
 #include <QDebug>
 #include <QVBoxLayout>
 

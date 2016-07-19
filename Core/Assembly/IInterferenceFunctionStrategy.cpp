@@ -13,15 +13,15 @@
 //
 // ************************************************************************** //
 
-#include "IFormFactor.h"
-#include "FormFactorInfo.h"
 #include "IInterferenceFunctionStrategy.h"
+#include "FormFactorInfo.h"
+#include "IFormFactor.h"
 #include "IInterferenceFunction.h"
 #include "IntegratorMCMiser.h"
+#include "Layer.h"
 #include "LayerSpecularInfo.h"
 #include "ScalarRTCoefficients.h"
 #include "SimulationElement.h"
-#include "Layer.h"
 #include "Units.h"
 #include "WavevectorInfo.h"
 

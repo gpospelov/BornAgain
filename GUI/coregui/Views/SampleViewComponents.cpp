@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#include "FilterPropertyProxy.h"
 #include "SampleViewComponents.h"
+#include "FilterPropertyProxy.h"
 
 
 SampleWidgetBox *SampleViewComponents::createWidgetBox(

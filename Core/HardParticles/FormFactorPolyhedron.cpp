@@ -17,10 +17,10 @@
 //! by Joachim Wuttke, entitled
 //! "Form factor (Fourier shape transform) of polygon and polyhedron."
 
+#include "FormFactorPolyhedron.h"
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
 #include "Precomputed.h"
-#include "FormFactorPolyhedron.h"
 #include <iomanip>
 
 static const complex_t I(0.,1.);

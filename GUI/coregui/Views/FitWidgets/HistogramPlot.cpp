@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#include "plot_constants.h"
 #include "HistogramPlot.h"
+#include "plot_constants.h"
 
 HistogramPlot::HistogramPlot(QWidget *parent)
     : QWidget(parent)

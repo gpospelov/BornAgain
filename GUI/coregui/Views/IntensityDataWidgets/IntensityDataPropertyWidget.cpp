@@ -14,10 +14,10 @@
 //
 // ************************************************************************** //
 
+#include "IntensityDataPropertyWidget.h"
 #include "ComponentEditor.h"
 #include "IntensityDataItem.h"
 #include "JobModel.h"
-#include "IntensityDataPropertyWidget.h"
 #include <QAction>
 #include <QDebug>
 #include <QVBoxLayout>

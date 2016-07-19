@@ -13,9 +13,9 @@
 //
 // ************************************************************************** //
 
+#include "Beam.h"
 #include "BornAgainNamespace.h"
 #include "Complex.h"
-#include "Beam.h"
 
 using namespace BornAgain;
 

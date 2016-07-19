@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#include "ISceneAdaptor.h"
 #include "IntensityDataView.h"
+#include "ISceneAdaptor.h"
 #include <QBrush>
 #include <QDebug>
 #include <QPainter>

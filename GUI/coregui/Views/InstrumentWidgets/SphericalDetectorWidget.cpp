@@ -14,12 +14,12 @@
 //
 // ************************************************************************** //
 
+#include "SphericalDetectorWidget.h"
 #include "ComponentBoxEditor.h"
 #include "DetectorItems.h"
 #include "ExtendedDetectorDialog.h"
 #include "GroupInfoBox.h"
 #include "columnresizer.h"
-#include "SphericalDetectorWidget.h"
 #include <QDebug>
 #include <QGroupBox>
 #include <QVBoxLayout>

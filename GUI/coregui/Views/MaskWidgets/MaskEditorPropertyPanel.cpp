@@ -14,13 +14,13 @@
 //
 // ************************************************************************** //
 
+#include "MaskEditorPropertyPanel.h"
 #include "AccordionWidget.h"
 #include "ComponentEditor.h"
 #include "ContentPane.h"
 #include "IntensityDataItem.h"
 #include "MaskEditorFlags.h"
 #include "SessionModel.h"
-#include "MaskEditorPropertyPanel.h"
 #include <QButtonGroup>
 #include <QDebug>
 #include <QGridLayout>

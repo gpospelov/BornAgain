@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#include "ColorMap.h"
 #include "ColorMapEvent.h"
+#include "ColorMap.h"
 #include <QDebug>
 #include <QMouseEvent>
 

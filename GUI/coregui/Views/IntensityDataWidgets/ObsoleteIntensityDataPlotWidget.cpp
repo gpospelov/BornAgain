@@ -14,13 +14,13 @@
 //
 // ************************************************************************** //
 
+#include "ObsoleteIntensityDataPlotWidget.h"
 #include "ColorMapPlot.h"
 #include "HorizontalSlicePlot.h"
 #include "IntensityDataItem.h"
 #include "SavePlotAssistant.h"
 #include "VerticalSlicePlot.h"
 #include "qcustomplot.h"
-#include "ObsoleteIntensityDataPlotWidget.h"
 #include <QDebug>
 #include <QLabel>
 #include <QSplitter>

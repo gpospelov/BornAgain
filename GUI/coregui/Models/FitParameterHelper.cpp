@@ -15,11 +15,11 @@
 // ************************************************************************** //
 
 #include "FitParameterHelper.h"
-#include "JobItem.h"
 #include "FitParameterItems.h"
+#include "JobItem.h"
 #include "JobModel.h"
-#include "ParameterTreeItems.h"
 #include "ModelPath.h"
+#include "ParameterTreeItems.h"
 
 //! Creates fit parameter from given ParameterItem, sets starting value to the value
 //! of ParameterItem, copies link.

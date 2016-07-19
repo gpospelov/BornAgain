@@ -14,10 +14,10 @@
 //
 // ************************************************************************** //
 
+#include "JobSelectorActions.h"
 #include "JobItem.h"
 #include "JobModel.h"
 #include "StyledToolBar.h"
-#include "JobSelectorActions.h"
 #include <QAction>
 #include <QDebug>
 #include <QItemSelectionModel>

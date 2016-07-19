@@ -14,6 +14,7 @@
 //
 // ************************************************************************** //
 
+#include "FitParameterWidget.h"
 #include "CustomEventFilters.h"
 #include "FilterPropertyProxy.h"
 #include "FitParameterHelper.h"
@@ -27,7 +28,6 @@
 #include "ParameterTuningWidget.h"
 #include "SessionModelDelegate.h"
 #include "mainwindow_constants.h"
-#include "FitParameterWidget.h"
 #include <QAction>
 #include <QDebug>
 #include <QMenu>

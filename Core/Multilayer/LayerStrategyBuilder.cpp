@@ -15,13 +15,13 @@
 // ************************************************************************** //
 
 #include "LayerStrategyBuilder.h"
-#include "FormFactorTools.h"
 #include "FormFactorInfo.h"
+#include "FormFactorTools.h"
 #include "IFormFactor.h"
+#include "ILayout.h"
+#include "IParticle.h"
 #include "InterferenceFunctionStrategies.h"
 #include "InterferenceFunctions.h"
-#include "IParticle.h"
-#include "ILayout.h"
 #include "Layer.h"
 #include "LayerSpecularInfo.h"
 #include "Simulation.h"

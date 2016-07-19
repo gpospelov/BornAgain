@@ -14,6 +14,7 @@
 //
 // ************************************************************************** //
 
+#include "FitSuiteWidget.h"
 #include "DomainFittingBuilder.h"
 #include "FitParameterItems.h"
 #include "FitParameterWidget.h"
@@ -31,7 +32,6 @@
 #include "ParameterTreeItems.h"
 #include "RunFitManager.h"
 #include "mainwindow_constants.h"
-#include "FitSuiteWidget.h"
 #include <QDebug>
 #include <QMessageBox>
 #include <QTabWidget>

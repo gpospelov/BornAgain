@@ -14,10 +14,10 @@
 //
 // ************************************************************************** //
 
+#include "ColorMapHelper.h"
 #include "GUIHelpers.h"
 #include "IntensityDataItem.h"
 #include "item_constants.h"
-#include "ColorMapHelper.h"
 
 namespace {
 ColorMapHelper::gradient_map_t createGradientMap() {

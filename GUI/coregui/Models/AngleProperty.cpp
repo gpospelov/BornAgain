@@ -15,8 +15,8 @@
 // ************************************************************************** //
 
 #include "AngleProperty.h"
-#include "Units.h"
 #include "GUIHelpers.h"
+#include "Units.h"
 #include "item_constants.h"
 
 QStringList AngleProperty::m_labels = QStringList()

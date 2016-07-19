@@ -14,10 +14,10 @@
 //
 // ************************************************************************** //
 
+#include "SampleViewAligner.h"
 #include "DesignerScene.h"
 #include "IView.h"
 #include "SampleModel.h"
-#include "SampleViewAligner.h"
 #include <QDebug>
 #include <QModelIndex>
 

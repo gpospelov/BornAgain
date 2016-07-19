@@ -16,15 +16,15 @@
 
 #include "JobItem.h"
 #include "ComboProperty.h"
-#include "IntensityDataItem.h"
-#include "MultiLayerItem.h"
-#include "InstrumentItem.h"
-#include "JobItemHelper.h"
-#include "SimulationOptionsItem.h"
-#include "GUIHelpers.h"
 #include "FitSuiteItem.h"
+#include "GUIHelpers.h"
+#include "InstrumentItem.h"
+#include "IntensityDataItem.h"
+#include "JobItemHelper.h"
+#include "MultiLayerItem.h"
 #include "ParameterTreeItems.h"
 #include "RealDataItem.h"
+#include "SimulationOptionsItem.h"
 #include <QDebug>
 
 namespace {

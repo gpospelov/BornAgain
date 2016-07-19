@@ -17,8 +17,6 @@
 #ifndef TRANSFORMTODOMAIN_H
 #define TRANSFORMTODOMAIN_H
 
-#include <memory>
-
 #include "Beam.h"
 #include "Distributions.h" // for IDistribution1D
 #include "IInterferenceFunction.h"
@@ -30,6 +28,7 @@
 #include "MultiLayer.h"
 #include "ParticleDistribution.h"
 #include "ParticleLayout.h"
+#include <memory>
 
 class GISASSimulation;
 class SessionItem;

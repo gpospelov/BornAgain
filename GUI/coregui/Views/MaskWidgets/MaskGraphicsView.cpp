@@ -14,9 +14,9 @@
 //
 // ************************************************************************** //
 
+#include "MaskGraphicsView.h"
 #include "MaskGraphicsProxy.h"
 #include "MaskGraphicsScene.h"
-#include "MaskGraphicsView.h"
 #include <QDebug>
 #include <QGraphicsScene>
 #include <QScrollBar>

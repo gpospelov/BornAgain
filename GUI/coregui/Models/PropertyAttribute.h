@@ -18,9 +18,9 @@
 #define PROPERTYATTRIBUTE_H
 
 
-#include <QString>
 #include "AttLimits.h"
 #include <QMetaType>
+#include <QString>
 
 class SessionItem;
 

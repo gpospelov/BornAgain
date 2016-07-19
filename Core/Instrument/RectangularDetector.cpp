@@ -13,12 +13,12 @@
 //
 // ************************************************************************** //
 
-#include "BornAgainNamespace.h"
-#include "Beam.h"
-#include "IDetectorResolution.h"
 #include "RectangularDetector.h"
-#include "Units.h"
+#include "Beam.h"
+#include "BornAgainNamespace.h"
+#include "IDetectorResolution.h"
 #include "SimulationElement.h"
+#include "Units.h"
 
 RectangularDetector::RectangularDetector(int nxbins, double width, int nybins, double height)
     : m_u0(0.0)

@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#include "OutputDataFunctions.h"
 #include "OMPISimulation.h"
+#include "OutputDataFunctions.h"
 
 #ifdef BORNAGAIN_OPENMPI
 

@@ -13,10 +13,10 @@
 //
 // ************************************************************************** //
 
+#include "ROOTMinimizer.h"
 #include "Math/Minimizer.h"
 #include "ROOTMinimizerFunction.h"
 #include "ROOTMinimizerHelper.h"
-#include "ROOTMinimizer.h"
 
 // ----------------------------------------------------------------------------
 // ROOTMinimizer c-tor

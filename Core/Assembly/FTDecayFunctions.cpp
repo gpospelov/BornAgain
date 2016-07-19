@@ -13,9 +13,9 @@
 //
 // ************************************************************************** //
 
+#include "FTDecayFunctions.h"
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
-#include "FTDecayFunctions.h"
 
 using namespace BornAgain;
 

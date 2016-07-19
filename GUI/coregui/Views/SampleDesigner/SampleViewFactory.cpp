@@ -14,6 +14,7 @@
 //
 // ************************************************************************** //
 
+#include "SampleViewFactory.h"
 #include "GUIHelpers.h"
 #include "InterferenceFunctionViews.h"
 #include "LayerView.h"
@@ -25,7 +26,6 @@
 #include "ParticleView.h"
 #include "TransformationView.h"
 #include "item_constants.h"
-#include "SampleViewFactory.h"
 #include <QDebug>
 
 

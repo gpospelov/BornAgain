@@ -14,6 +14,7 @@
 //
 // ************************************************************************** //
 
+#include "FitComparisonWidget.h"
 #include "AxesItems.h"
 #include "ColorMapCanvas.h"
 #include "ColorMapLabel.h"
@@ -23,7 +24,6 @@
 #include "JobItem.h"
 #include "RealDataItem.h"
 #include "SessionModel.h"
-#include "FitComparisonWidget.h"
 #include <QAction>
 #include <QDebug>
 #include <QGridLayout>

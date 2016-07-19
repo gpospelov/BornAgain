@@ -14,6 +14,7 @@
 //
 // ************************************************************************** //
 
+#include "SimulationSetupWidget.h"
 #include "AppSvc.h"
 #include "ApplicationModels.h"
 #include "DocumentModel.h"
@@ -24,7 +25,6 @@
 #include "SimulationOptionsWidget.h"
 #include "SimulationSetupAssistant.h"
 #include "projectmanager.h"
-#include "SimulationSetupWidget.h"
 #include <QDebug>
 #include <QMessageBox>
 #include <QPushButton>

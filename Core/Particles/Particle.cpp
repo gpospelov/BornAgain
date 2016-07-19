@@ -13,9 +13,9 @@
 //
 // ************************************************************************** //
 
+#include "Particle.h"
 #include "FormFactorDecoratorPositionFactor.h"
 #include "Materials.h"
-#include "Particle.h"
 
 
 Particle::Particle()

@@ -14,9 +14,9 @@
 //
 // ************************************************************************** //
 
+#include "InterferenceFunctionViews.h"
 #include "DesignerHelper.h"
 #include "item_constants.h"
-#include "InterferenceFunctionViews.h"
 
 
 InterferenceFunctionRadialParaCrystalView::InterferenceFunctionRadialParaCrystalView(QGraphicsItem *parent)

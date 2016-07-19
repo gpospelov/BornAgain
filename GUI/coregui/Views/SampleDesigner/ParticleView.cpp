@@ -14,11 +14,11 @@
 //
 // ************************************************************************** //
 
+#include "ParticleView.h"
 #include "GUIHelpers.h"
 #include "GroupItem.h"
 #include "GroupProperty.h"
 #include "ParticleItem.h"
-#include "ParticleView.h"
 #include <QDebug>
 #include <QObject>
 #include <QPainter>

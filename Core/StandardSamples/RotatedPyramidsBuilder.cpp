@@ -13,13 +13,13 @@
 //
 // ************************************************************************** //
 
+#include "RotatedPyramidsBuilder.h"
 #include "FormFactorPyramid.h"
 #include "HomogeneousMaterial.h"
+#include "Layer.h"
 #include "MultiLayer.h"
-#include "RotatedPyramidsBuilder.h"
 #include "Particle.h"
 #include "ParticleLayout.h"
-#include "Layer.h"
 
 RotatedPyramidsBuilder::RotatedPyramidsBuilder()
     : m_length(10*Units::nanometer)

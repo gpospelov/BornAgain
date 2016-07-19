@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#include "FormFactorDecoratorPositionFactor.h"
 #include "IParticle.h"
+#include "FormFactorDecoratorPositionFactor.h"
 
 using namespace BornAgain;
 

@@ -13,10 +13,10 @@
 //
 // ************************************************************************** //
 
-#include "LayerSpecularInfo.h"
-#include "BornAgainNamespace.h"
 #include "FormFactorDWBA.h"
+#include "BornAgainNamespace.h"
 #include "ILayerRTCoefficients.h"
+#include "LayerSpecularInfo.h"
 
 FormFactorDWBA::FormFactorDWBA(const IFormFactor& form_factor)
     : IFormFactorDecorator(form_factor)

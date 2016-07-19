@@ -14,6 +14,7 @@
 //
 // ************************************************************************** //
 
+#include "MaskViewFactory.h"
 #include "EllipseView.h"
 #include "GUIHelpers.h"
 #include "IMaskView.h"
@@ -26,7 +27,6 @@
 #include "RectangleView.h"
 #include "SessionItem.h"
 #include "item_constants.h"
-#include "MaskViewFactory.h"
 
 IMaskView *MaskViewFactory::createMaskView(SessionItem *item,
                                            ISceneAdaptor *adaptor)

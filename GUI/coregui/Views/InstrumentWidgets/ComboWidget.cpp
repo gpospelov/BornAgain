@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#include "GUIHelpers.h"
 #include "ComboWidget.h"
+#include "GUIHelpers.h"
 #include <QBoxLayout>
 #include <QComboBox>
 #include <QDebug>

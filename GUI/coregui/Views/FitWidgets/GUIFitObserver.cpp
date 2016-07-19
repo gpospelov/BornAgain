@@ -14,13 +14,13 @@
 //
 // ************************************************************************** //
 
+#include "GUIFitObserver.h"
 #include "FitParameter.h"
 #include "FitProgressInfo.h"
 #include "FitSuite.h"
 #include "FitSuiteParameters.h"
 #include "GUIHelpers.h"
 #include "IntensityDataItem.h"
-#include "GUIFitObserver.h"
 #include <QDebug>
 #include <QVector>
 

@@ -16,8 +16,8 @@
 #ifndef LAYERSTRATEGYBUILDER_H
 #define LAYERSTRATEGYBUILDER_H
 
-#include "SimulationOptions.h"
 #include "SafePointerVector.h"
+#include "SimulationOptions.h"
 #include <memory>
 
 class FormFactorInfo;

@@ -14,12 +14,12 @@
 // ************************************************************************** //
 
 #include "LayersWithAbsorptionBuilder.h"
-#include "MultiLayer.h"
-#include "Particle.h"
-#include "ParticleLayout.h"
 #include "Layer.h"
 #include "LayerInterface.h"
 #include "LayerRoughness.h"
+#include "MultiLayer.h"
+#include "Particle.h"
+#include "ParticleLayout.h"
 
 ISample* LayersWithAbsorptionBuilder::buildSample() const
 {

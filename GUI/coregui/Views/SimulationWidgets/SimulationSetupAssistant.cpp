@@ -14,6 +14,7 @@
 //
 // ************************************************************************** //
 
+#include "SimulationSetupAssistant.h"
 #include "AxesItems.h"
 #include "DetectorItems.h"
 #include "IAxis.h"
@@ -22,7 +23,6 @@
 #include "IntensityDataItem.h"
 #include "RealDataItem.h"
 #include "SampleValidator.h"
-#include "SimulationSetupAssistant.h"
 #include <QDebug>
 #include <QMessageBox>
 

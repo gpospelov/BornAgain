@@ -15,11 +15,11 @@
 // ************************************************************************** //
 
 #include "ParticleCompositionItem.h"
+#include "GUIHelpers.h"
+#include "ModelPath.h"
 #include "ParticleCoreShellItem.h"
 #include "ParticleItem.h"
 #include "TransformToDomain.h"
-#include "GUIHelpers.h"
-#include "ModelPath.h"
 
 const QString ParticleCompositionItem::T_PARTICLES = "Particle Tag";
 

@@ -18,8 +18,8 @@
 #define MODELPATH_H
 
 #include "ParameterTranslators.h"
-#include <vector>
 #include <memory>
+#include <vector>
 
 class SessionItem;
 class QModelIndex;

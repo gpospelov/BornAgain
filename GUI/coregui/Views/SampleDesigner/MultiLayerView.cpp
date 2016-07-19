@@ -14,13 +14,13 @@
 //
 // ************************************************************************** //
 
+#include "MultiLayerView.h"
 #include "DesignerHelper.h"
 #include "DesignerMimeData.h"
 #include "DesignerScene.h"
 #include "LayerView.h"
 #include "SampleModel.h"
 #include "SessionItem.h"
-#include "MultiLayerView.h"
 #include <QDebug>
 #include <QGraphicsSceneMouseEvent>
 #include <QPainter>

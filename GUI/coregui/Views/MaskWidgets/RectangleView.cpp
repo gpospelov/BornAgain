@@ -14,11 +14,11 @@
 //
 // ************************************************************************** //
 
+#include "RectangleView.h"
 #include "ISceneAdaptor.h"
 #include "MaskEditorHelper.h"
 #include "MaskItems.h"
 #include "SizeHandleElement.h"
-#include "RectangleView.h"
 #include <QDebug>
 #include <QGraphicsSceneMouseEvent>
 #include <QMarginsF>

@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#include "SampleTreeIterator.h"
 #include "ISampleIteratorStrategy.h"
+#include "SampleTreeIterator.h"
 
 
 SampleIteratorPreorderStrategy::SampleIteratorPreorderStrategy()

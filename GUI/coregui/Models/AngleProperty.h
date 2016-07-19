@@ -17,8 +17,8 @@
 #ifndef ANGLEPROPERTY_H
 #define ANGLEPROPERTY_H
 
-#include <QVariant>
 #include <QStringList>
+#include <QVariant>
 
 //! The AngleProperty keeps angle value together with units (radians, degrees)
 //! in which the angle should be presented to the user.

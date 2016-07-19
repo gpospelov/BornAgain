@@ -14,6 +14,7 @@
 //
 // ************************************************************************** //
 
+#include "SessionModelView.h"
 #include "InstrumentModel.h"
 #include "JobModel.h"
 #include "MaterialModel.h"
@@ -21,7 +22,6 @@
 #include "SampleModel.h"
 #include "SessionModelDelegate.h"
 #include "mainwindow.h"
-#include "SessionModelView.h"
 #include <QToolBar>
 #include <QToolButton>
 #include <QTreeView>

@@ -14,15 +14,15 @@
 //
 // ************************************************************************** //
 
-#include "SessionModel.h"
-#include "MaterialProperty.h"
-#include "ComboProperty.h"
-#include "ScientificDoubleProperty.h"
-#include "ColorProperty.h"
 #include "AngleProperty.h"
+#include "ColorProperty.h"
+#include "ComboProperty.h"
 #include "GUIHelpers.h"
-#include "ItemFactory.h"
 #include "GroupItem.h"
+#include "ItemFactory.h"
+#include "MaterialProperty.h"
+#include "ScientificDoubleProperty.h"
+#include "SessionModel.h"
 #include "WarningMessageService.h"
 #include <QDebug>
 

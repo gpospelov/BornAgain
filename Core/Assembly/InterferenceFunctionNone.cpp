@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#include "BornAgainNamespace.h"
 #include "InterferenceFunctionNone.h"
+#include "BornAgainNamespace.h"
 
 
 InterferenceFunctionNone::InterferenceFunctionNone()

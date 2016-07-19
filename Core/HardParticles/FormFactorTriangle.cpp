@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#include "BornAgainNamespace.h"
 #include "FormFactorTriangle.h"
+#include "BornAgainNamespace.h"
 
 FormFactorTriangle::FormFactorTriangle(const double base_edge)
     : m_base_edge( base_edge )

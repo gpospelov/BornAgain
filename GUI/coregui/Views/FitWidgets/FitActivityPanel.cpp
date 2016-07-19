@@ -14,6 +14,7 @@
 //
 // ************************************************************************** //
 
+#include "FitActivityPanel.h"
 #include "FitSuiteWidget.h"
 #include "JobItem.h"
 #include "JobMessagePanel.h"
@@ -21,7 +22,6 @@
 #include "JobRealTimeWidget.h"
 #include "RunFitControlWidget.h"
 #include "mainwindow_constants.h"
-#include "FitActivityPanel.h"
 #include <QPushButton>
 #include <QVBoxLayout>
 

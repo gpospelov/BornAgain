@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Instrument/InfinitePlane.h
+//! @file      Core/Mask/InfinitePlane.h
 //! @brief     Declares class InfinitePlane.
 //!
 //! @homepage  http://www.bornagainproject.org

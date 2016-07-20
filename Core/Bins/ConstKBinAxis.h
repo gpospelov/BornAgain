@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Instrument/ConstKBinAxis.h
+//! @file      Core/Bins/ConstKBinAxis.h
 //! @brief     Declares class ConstKBinAxis.
 //!
 //! @homepage  http://www.bornagainproject.org

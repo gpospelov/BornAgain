@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Vectors/Bin.h
+//! @file      Core/Bins/Bin.h
 //! @brief     Declares structs Bin1D, Bin1DCVector
 //!
 //! @homepage  http://www.bornagainproject.org

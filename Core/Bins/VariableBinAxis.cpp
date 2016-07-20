@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Instrument/VariableBinAxis.cpp
+//! @file      Core/Bins/VariableBinAxis.cpp
 //! @brief     Implements VariableBinAxis class.
 //!
 //! @homepage  http://www.bornagainproject.org

@@ -19,7 +19,6 @@
 #include "LayerDWBASimulation.h"
 #include "LayerInterface.h"
 #include "LayerRoughness.h"
-#include "Materials.h"
 #include "MatrixSpecularInfoMap.h"
 #include "MessageService.h"
 #include "MultiLayer.h"
@@ -49,11 +48,10 @@ void MultiLayerDWBASimulation::init(const Simulation& simulation,
     DWBASimulation::init(simulation, begin_it, end_it);
     for (size_t i=0; i<mp_multi_layer->getNumberOfLayers(); ++i) {
         for (size_t j=0; j<mp_multi_layer->getLayer(i)->getNumberOfLayouts(); ++j) {
-            LayerDWBASimulation *p_layer_dwba_sim =
+            LayerDWBASimulation* p_layer_dwba_sim =
                 mp_multi_layer->getLayer(i)->createLayoutSimulation(j);
             if (p_layer_dwba_sim) {
-                if (m_layer_dwba_simulations_map.find(i)
-                    == m_layer_dwba_simulations_map.end()) {
+                if (m_layer_dwba_simulations_map.find(i) == m_layer_dwba_simulations_map.end()) {
                     m_layer_dwba_simulations_map[i] =
                             SafePointerVector<LayerDWBASimulation>();
                 }
@@ -94,7 +92,7 @@ void MultiLayerDWBASimulation::runProtected()
     msglog(MSG::DEBUG2) << "MultiLayerDWBASimulation::runProtected()";
     m_dwba_intensity.setAllTo(0.0);
 
-    if (requiresMatrixRTCoefficients())
+    if (mp_multi_layer->requiresMatrixRTCoefficients())
         collectRTCoefficientsMatrix();
     else
         collectRTCoefficientsScalar();
@@ -102,19 +100,17 @@ void MultiLayerDWBASimulation::runProtected()
     // run through layers and run layer simulations
     std::vector<SimulationElement> layer_elements;
     std::copy(m_begin_it, m_end_it, std::back_inserter(layer_elements));
-    for (std::map<size_t, SafePointerVector<LayerDWBASimulation> >::
-         iterator it = m_layer_dwba_simulations_map.begin();
-            it != m_layer_dwba_simulations_map.end(); ++it)
+    for (auto it=m_layer_dwba_simulations_map.begin(); it!=m_layer_dwba_simulations_map.end(); ++it)
     {
         for (size_t i=0; i<it->second.size(); ++i) {
-            LayerDWBASimulation *p_layer_dwba_sim = it->second[i];
+            LayerDWBASimulation* p_layer_dwba_sim = it->second[i];
             p_layer_dwba_sim->init(*mp_simulation, layer_elements.begin(), layer_elements.end());
             p_layer_dwba_sim->run();
             addElementsWithWeight(layer_elements.begin(), layer_elements.end(), m_begin_it, 1.0);
         }
     }
 
-    if (!requiresMatrixRTCoefficients() && mp_roughness_dwba_simulation) {
+    if (!mp_multi_layer->requiresMatrixRTCoefficients() && mp_roughness_dwba_simulation) {
         msglog(MSG::DEBUG2) << "MultiLayerDWBASimulation::run() -> roughness";
         mp_roughness_dwba_simulation->init(*mp_simulation, layer_elements.begin(),
                                            layer_elements.end());
@@ -131,15 +127,14 @@ void MultiLayerDWBASimulation::collectRTCoefficientsScalar()
         msglog(MSG::DEBUG2) << "MultiLayerDWBASimulation::run()"
                 "-> Layer " << i_layer;
         LayerSpecularInfo layer_coeff_map;
-        ScalarSpecularInfoMap *p_coeff_map = new ScalarSpecularInfoMap(mp_multi_layer, i_layer);
+        ScalarSpecularInfoMap* p_coeff_map = new ScalarSpecularInfoMap(mp_multi_layer, i_layer);
         layer_coeff_map.addRTCoefficients(p_coeff_map);
 
         // layer DWBA simulation
-        std::map<size_t, SafePointerVector<LayerDWBASimulation> >
-                ::iterator pos = m_layer_dwba_simulations_map.find(i_layer);
+        auto pos = m_layer_dwba_simulations_map.find(i_layer);
         if(pos != m_layer_dwba_simulations_map.end() ) {
             for (size_t i=0; i<pos->second.size();++i) {
-                LayerDWBASimulation *p_layer_dwba_sim = pos->second[i];
+                LayerDWBASimulation* p_layer_dwba_sim = pos->second[i];
                 p_layer_dwba_sim->setSpecularInfo(layer_coeff_map);
             }
         }
@@ -160,27 +155,16 @@ void MultiLayerDWBASimulation::collectRTCoefficientsMatrix()
         msglog(MSG::DEBUG2) << "MultiLayerDWBASimulation::runMagnetic()"
                 "-> Layer " << i_layer;
         LayerSpecularInfo layer_coeff_map;
-        MatrixSpecularInfoMap *p_coeff_map = new MatrixSpecularInfoMap(mp_multi_layer, i_layer);
+        MatrixSpecularInfoMap* p_coeff_map = new MatrixSpecularInfoMap(mp_multi_layer, i_layer);
         layer_coeff_map.addRTCoefficients(p_coeff_map);
 
         // layer DWBA simulation
-        std::map<size_t, SafePointerVector<LayerDWBASimulation> >
-             ::iterator pos = m_layer_dwba_simulations_map.find(i_layer);
+        auto pos = m_layer_dwba_simulations_map.find(i_layer);
         if(pos != m_layer_dwba_simulations_map.end() ) {
             for (size_t i=0; i<pos->second.size();++i) {
-                LayerDWBASimulation *p_layer_dwba_sim = pos->second[i];
+                LayerDWBASimulation* p_layer_dwba_sim = pos->second[i];
                 p_layer_dwba_sim->setSpecularInfo(layer_coeff_map);
             }
         }
     } // i_layer
-}
-
-bool MultiLayerDWBASimulation::requiresMatrixRTCoefficients() const
-{
-    for (size_t i=0; i<mp_multi_layer->getNumberOfLayers(); ++i) {
-        const Layer *p_layer = mp_multi_layer->getLayer(i);
-        const IMaterial *p_material = p_layer->getMaterial();
-        if (!p_material->isScalarMaterial()) return true;
-    }
-    return false;
 }

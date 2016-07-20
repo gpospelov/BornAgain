@@ -52,7 +52,6 @@ protected:
     //! calculates intensity map for samples with magnetization
     void collectRTCoefficientsScalar();
     void collectRTCoefficientsMatrix();
-    bool requiresMatrixRTCoefficients() const;
 
     std::map<size_t, SafePointerVector<LayerDWBASimulation>> m_layer_dwba_simulations_map;
     MultiLayer* mp_multi_layer;

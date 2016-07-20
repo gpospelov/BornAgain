@@ -19,6 +19,7 @@
 #include "FormFactorDecoratorDebyeWaller.h"
 #include "FormFactorSphereGaussianRadius.h"
 #include "HomogeneousMaterial.h"
+#include "ISelectionRule.h"
 #include "Layer.h"
 #include "LayerInterface.h"
 #include "LayerRoughness.h"

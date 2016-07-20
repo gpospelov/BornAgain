@@ -15870,7 +15870,7 @@ class ISelectionRule(_object):
 
     def coordinateSelected(self, coordinate):
         """
-        coordinateSelected(ISelectionRule self, IndexVector3D const & coordinate) -> bool
+        coordinateSelected(ISelectionRule self, ivector_t const & coordinate) -> bool
 
         virtual bool ISelectionRule::coordinateSelected(const IndexVector3D &coordinate) const =0
 
@@ -15926,7 +15926,7 @@ class SimpleSelectionRule(ISelectionRule):
 
     def coordinateSelected(self, coordinate):
         """
-        coordinateSelected(SimpleSelectionRule self, IndexVector3D const & coordinate) -> bool
+        coordinateSelected(SimpleSelectionRule self, ivector_t const & coordinate) -> bool
 
         bool SimpleSelectionRule::coordinateSelected(const IndexVector3D &coordinate) const 
 
@@ -17547,7 +17547,7 @@ class Lattice(_object):
 
     def getNearestLatticeVectorCoordinates(self, vector_in):
         """
-        getNearestLatticeVectorCoordinates(Lattice self, kvector_t vector_in) -> IndexVector3D
+        getNearestLatticeVectorCoordinates(Lattice self, kvector_t vector_in) -> ivector_t
 
         IndexVector3D Lattice::getNearestLatticeVectorCoordinates(const kvector_t vector_in) const
 
@@ -17559,7 +17559,7 @@ class Lattice(_object):
 
     def getNearestReciprocalLatticeVectorCoordinates(self, vector_in):
         """
-        getNearestReciprocalLatticeVectorCoordinates(Lattice self, kvector_t vector_in) -> IndexVector3D
+        getNearestReciprocalLatticeVectorCoordinates(Lattice self, kvector_t vector_in) -> ivector_t
 
         IndexVector3D Lattice::getNearestReciprocalLatticeVectorCoordinates(const kvector_t vector_in) const
 

@@ -16,8 +16,7 @@
 #ifndef ISELECTIONRULE_H
 #define ISELECTIONRULE_H
 
-
-typedef Geometry::BasicVector3D<int> IndexVector3D;
+#include "Vectors3D.h"
 
 //! @class ISelectionRule
 //! @ingroup samples_internal
@@ -28,9 +27,9 @@ class BA_CORE_API_ ISelectionRule
 public:
     virtual ~ISelectionRule() {}
 
-    virtual ISelectionRule *clone() const=0;
+    virtual ISelectionRule* clone() const=0;
 
-    virtual bool coordinateSelected(const IndexVector3D& coordinate) const=0;
+    virtual bool coordinateSelected(const ivector_t& coordinate) const=0;
 };
 
 //! @class SimpleSelectionRule
@@ -43,9 +42,9 @@ public:
     SimpleSelectionRule(int a, int b, int c, int modulus);
     virtual ~SimpleSelectionRule() {}
 
-    virtual SimpleSelectionRule *clone() const;
+    virtual SimpleSelectionRule* clone() const;
 
-    virtual bool coordinateSelected(const IndexVector3D& coordinate) const;
+    virtual bool coordinateSelected(const ivector_t& coordinate) const;
 private:
     int m_a, m_b, m_c;
     int m_mod;
@@ -61,11 +60,9 @@ inline SimpleSelectionRule* SimpleSelectionRule::clone() const
 }
 
 inline bool SimpleSelectionRule::coordinateSelected(
-        const IndexVector3D& coordinate) const
+        const ivector_t& coordinate) const
 {
     return (m_a*coordinate[0]+m_b*coordinate[1]+m_c*coordinate[2])%m_mod == 0;
 }
 
 #endif // ISELECTIONRULE_H
-
-

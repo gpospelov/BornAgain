@@ -17,8 +17,9 @@
 #define LATTICE_H
 
 #include "FastVector.h"
-#include "ISelectionRule.h"
 #include "Rotations.h"
+
+class ISelectionRule;
 
 //! @class Lattice
 //! @ingroup samples
@@ -54,20 +55,17 @@ public:
     void getReciprocalLatticeBasis(kvector_t b1, kvector_t b2, kvector_t b3) const;
 
     //! Returns the nearest lattice point from a given vector
-    IndexVector3D getNearestLatticeVectorCoordinates(const kvector_t vector_in) const;
+    ivector_t getNearestLatticeVectorCoordinates(const kvector_t vector_in) const;
 
     //! Returns the nearest reciprocal lattice point from a given vector
-    IndexVector3D getNearestReciprocalLatticeVectorCoordinates(const kvector_t vector_in) const;
+    ivector_t getNearestReciprocalLatticeVectorCoordinates(const kvector_t vector_in) const;
 
     //! Computes a list of reciprocal lattice vectors within a specified distance of a given vector
     void computeReciprocalLatticeVectorsWithinRadius(
             const kvector_t input_vector, double radius) const;
 
     //! Sets a selection rule for the reciprocal vectors
-    void setSelectionRule(const ISelectionRule& p_selection_rule) {
-        delete mp_selection_rule;
-        mp_selection_rule = p_selection_rule.clone();
-    }
+    void setSelectionRule(const ISelectionRule& p_selection_rule);
 
     static Lattice createFCCLattice(double a);
 
@@ -78,7 +76,7 @@ private:
     Lattice& operator=(const Lattice& lattice);
 
     void computeVectorsWithinRadius(const kvector_t input_vector,
-            const IndexVector3D& nearest_coords, double radius,
+            const ivector_t& nearest_coords, double radius,
             const kvector_t v1, const kvector_t v2, const kvector_t v3,
             const kvector_t rec1, const kvector_t rec2, const kvector_t rec3) const;
 

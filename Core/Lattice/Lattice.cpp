@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "Lattice.h"
+#include "ISelectionRule.h"
 #include "Units.h"
 #include <gsl/gsl_linalg.h>
 
@@ -87,7 +88,7 @@ void Lattice::getReciprocalLatticeBasis(kvector_t b1, kvector_t b2,
     return;
 }
 
-IndexVector3D Lattice::getNearestLatticeVectorCoordinates(const kvector_t vector_in) const
+ivector_t Lattice::getNearestLatticeVectorCoordinates(const kvector_t vector_in) const
 {
     double a1_coord = vector_in.dot(m_b1)/Units::PI2;
     double a2_coord = vector_in.dot(m_b2)/Units::PI2;
@@ -95,10 +96,10 @@ IndexVector3D Lattice::getNearestLatticeVectorCoordinates(const kvector_t vector
     int c1 = (int)std::floor(a1_coord + 0.5);
     int c2 = (int)std::floor(a2_coord + 0.5);
     int c3 = (int)std::floor(a3_coord + 0.5);
-    return IndexVector3D(c1, c2, c3);
+    return ivector_t(c1, c2, c3);
 }
 
-IndexVector3D Lattice::getNearestReciprocalLatticeVectorCoordinates(
+ivector_t Lattice::getNearestReciprocalLatticeVectorCoordinates(
         const kvector_t vector_in) const
 {
     double b1_coord = vector_in.dot(m_a1)/Units::PI2;
@@ -107,7 +108,7 @@ IndexVector3D Lattice::getNearestReciprocalLatticeVectorCoordinates(
     int c1 = (int)std::floor(b1_coord + 0.5);
     int c2 = (int)std::floor(b2_coord + 0.5);
     int c3 = (int)std::floor(b3_coord + 0.5);
-    return IndexVector3D(c1, c2, c3);
+    return ivector_t(c1, c2, c3);
 }
 
 void Lattice::computeReciprocalLatticeVectorsWithinRadius(
@@ -116,7 +117,7 @@ void Lattice::computeReciprocalLatticeVectorsWithinRadius(
     if (!m_cache_ok) {
         initialize();
     }
-    IndexVector3D nearest_coords = getNearestReciprocalLatticeVectorCoordinates(
+    ivector_t nearest_coords = getNearestReciprocalLatticeVectorCoordinates(
             input_vector);
     computeVectorsWithinRadius(input_vector, nearest_coords, radius,
             m_b1, m_b2, m_b3, m_a1, m_a2, m_a3);
@@ -150,7 +151,7 @@ void Lattice::computeReciprocalVectors() const
 }
 
 void Lattice::computeVectorsWithinRadius(const kvector_t input_vector,
-        const IndexVector3D& nearest_coords, double radius, const kvector_t v1,
+        const ivector_t& nearest_coords, double radius, const kvector_t v1,
         const kvector_t v2, const kvector_t v3, const kvector_t rec1,
         const kvector_t rec2, const kvector_t rec3) const
 {
@@ -165,7 +166,7 @@ void Lattice::computeVectorsWithinRadius(const kvector_t input_vector,
         {
             for (int index_Z = -max_Z; index_Z <= max_Z; ++index_Z)
             {
-                IndexVector3D coords(index_X + nearest_coords[0],
+                ivector_t coords(index_X + nearest_coords[0],
                         index_Y + nearest_coords[1], index_Z + nearest_coords[2]);
                 if (mp_selection_rule && !mp_selection_rule->coordinateSelected(coords)) continue;
                 kvector_t latticePoint = coords[0]*v1 + coords[1]*v2 + coords[2]*v3;
@@ -216,4 +217,9 @@ void Lattice::computeInverseVectors(const kvector_t v1, const kvector_t v2,
     gsl_permutation_free(p_perm);
     gsl_matrix_free(p_basisMatrix);
     gsl_matrix_free(p_inverseMatrix);
+}
+
+void Lattice::setSelectionRule(const ISelectionRule& p_selection_rule) {
+    delete mp_selection_rule;
+    mp_selection_rule = p_selection_rule.clone();
 }

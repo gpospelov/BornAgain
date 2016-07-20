@@ -311,9 +311,8 @@ MathFunctions::FastFourierTransform(const std::vector<complex_t> &data,
     // saving data for user
     std::vector<complex_t> outData;
     outData.resize(npx);
-    for (size_t i = 0; i < npx; i++) {
+    for (size_t i = 0; i < npx; i++)
         outData[i] = scale * complex_t(ftResult[i][0], ftResult[i][1]);
-    }
 
     fftw_destroy_plan(plan);
     fftw_free(ftData);
@@ -326,9 +325,8 @@ MathFunctions::FastFourierTransform(const std::vector<complex_t> &data,
 //!   for the discrete fast Fourier transformation library (fftw3);
 //!   transforms real to complex
 
-std::vector<complex_t>
-MathFunctions::FastFourierTransform(const std::vector<double> &data,
-                                    MathFunctions::EFFTDirection ftCase)
+std::vector<complex_t> MathFunctions::FastFourierTransform(
+    const std::vector<double> &data, MathFunctions::EFFTDirection ftCase)
 {
     std::vector<complex_t> cdata;
     cdata.resize(data.size());

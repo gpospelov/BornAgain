@@ -22,9 +22,9 @@
 #include <gsl/gsl_sf_trig.h>
 #include <chrono>
 #include <cstring>
+#include <exception> // need detected by TeamCity
 #include <fftw3.h>
 #include <random>
-
 
 // ************************************************************************** //
 //  Various functions
@@ -344,10 +344,9 @@ std::vector<complex_t>
 MathFunctions::ConvolveFFT(const std::vector<double> &signal,
                            const std::vector<double> &resfunc)
 {
-    if (signal.size() != resfunc.size()) {
+    if (signal.size() != resfunc.size())
         throw std::runtime_error("MathFunctions::ConvolveFFT() -> This convolution works only for "
                                  "two vectors of equal size. Use Convolve class instead.");
-    }
     std::vector<complex_t> fft_signal
         = MathFunctions::FastFourierTransform(signal, MathFunctions::FORWARD_FFT);
     std::vector<complex_t> fft_resfunc
@@ -355,9 +354,8 @@ MathFunctions::ConvolveFFT(const std::vector<double> &signal,
 
     std::vector<complex_t> fft_prod;
     fft_prod.resize(fft_signal.size());
-    for (size_t i = 0; i < fft_signal.size(); i++) {
+    for (size_t i = 0; i < fft_signal.size(); i++)
         fft_prod[i] = fft_signal[i] * fft_resfunc[i];
-    }
 
     std::vector<complex_t> result
         = MathFunctions::FastFourierTransform(fft_prod, MathFunctions::BACKWARD_FFT);

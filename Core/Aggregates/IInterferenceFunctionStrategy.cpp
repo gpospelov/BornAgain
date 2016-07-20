@@ -14,7 +14,6 @@
 // ************************************************************************** //
 
 #include "IInterferenceFunctionStrategy.h"
-#include "Bin.h"
 #include "FormFactorInfo.h"
 #include "IFormFactor.h"
 #include "IInterferenceFunction.h"
@@ -166,10 +165,4 @@ double IInterferenceFunctionStrategy::evaluate_for_fixed_angles_pol(
     SimulationElement sim_element(*pars, par0, par1);
     calculateFormFactorLists(sim_element);
     return pars->getIntegrationFactor(par0, par1) * evaluateForMatrixList(sim_element, m_ff_pol);
-}
-
-cvector_t IInterferenceFunctionStrategy::getQ(
-    const cvector_t k_i, const Bin1DCVector& k_f_bin) const
-{
-    return k_i - k_f_bin.getMidPoint();
 }

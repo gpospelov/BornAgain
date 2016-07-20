@@ -282,7 +282,6 @@ size_t MultiLayer::check_interface_index(size_t i_interface) const
     return i_interface;
 }
 
-
 bool MultiLayer::requiresMatrixRTCoefficients() const
 {
     for (auto layer: m_layers) {

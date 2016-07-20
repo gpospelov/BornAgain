@@ -65,9 +65,6 @@ protected:
     virtual double evaluateForMatrixList(const SimulationElement& sim_element,
                                          const MatrixFFVector& ff_list) const = 0;
 
-    //! Returns q-vector from k_i and the bin of k_f
-    cvector_t getQ(const cvector_t k_i, const Bin1DCVector& k_f_bin) const;
-
     SafePointerVector<FormFactorInfo> m_ff_infos;          //!< form factor info
     std::unique_ptr<IInterferenceFunction> mP_iff;       //!< interference function
     SimulationOptions m_options;                     //!< simulation options

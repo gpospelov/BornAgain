@@ -16,8 +16,7 @@
 #ifndef WAVEVECTORINFO_H
 #define WAVEVECTORINFO_H
 
-#include "Bin.h"
-#include "Units.h"
+#include "Vectors3D.h"
 
 //! @class WavevectorInfo
 //! @ingroup formfactors_internal

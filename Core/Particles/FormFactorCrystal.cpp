@@ -15,6 +15,7 @@
 
 #include "FormFactorCrystal.h"
 #include "BornAgainNamespace.h"
+#include "Units.h"
 #include "WavevectorInfo.h"
 
 FormFactorCrystal::FormFactorCrystal(const Lattice &lattice, const IFormFactor &basis_form_factor,
@@ -48,11 +49,10 @@ double FormFactorCrystal::getRadius() const
     return mp_meso_form_factor->getRadius();
 }
 
-complex_t FormFactorCrystal::evaluate_for_q(const cvector_t q) const
+complex_t FormFactorCrystal::evaluate_for_q(const cvector_t) const
 {
-    (void)q;
-    throw Exceptions::LogicErrorException("evaluate_for_q() should never be called"
-                              " explicitly for FormFactorCrystal");
+    throw Exceptions::LogicErrorException(
+        "BUG: evaluate_for_q() should never be called explicitly for FormFactorCrystal");
 }
 
 complex_t FormFactorCrystal::evaluate(const WavevectorInfo& wavevectors) const

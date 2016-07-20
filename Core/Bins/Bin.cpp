@@ -32,9 +32,3 @@ Bin1DCVector::Bin1DCVector(double wavelength, const Bin1D& alpha_bin, const Bin1
     m_q_upper = Geometry::vecOfLambdaAlphaPhi(
         wavelength, alpha_bin.m_upper, phi_bin.m_upper).complex();
 }
-
-//! Returns scattering vector q for given k_i, taking k_f at mid of current bin.
-cvector_t Bin1DCVector::ki2Q( const cvector_t k_i ) const
-{
-    return k_i - getMidPoint();
-}

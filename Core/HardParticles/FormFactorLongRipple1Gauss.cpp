@@ -16,6 +16,7 @@
 #include "FormFactorLongRipple1Gauss.h"
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
+#include "Units.h"
 
 using namespace  BornAgain;
 

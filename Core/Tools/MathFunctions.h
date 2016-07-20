@@ -17,7 +17,6 @@
 #define MATHFUNCTIONS_H
 
 #include "Complex.h"
-#include "Units.h"
 #include <vector>
 
 //! Various mathematical functions.

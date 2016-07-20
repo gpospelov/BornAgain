@@ -16,6 +16,7 @@
 #include "FTDecayFunctions.h"
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
+#include "Units.h"
 
 using namespace BornAgain;
 
@@ -163,6 +164,13 @@ double FTDecayFunction1DCosine::evaluate(double q) const
 */
 
 //==============2D====================
+
+IFTDecayFunction2D::IFTDecayFunction2D(double decay_length_x, double decay_length_y)
+    : m_omega_x(decay_length_x)
+    , m_omega_y(decay_length_y)
+    , m_gamma(0.0)
+    , m_delta(Units::PI/2.0)
+{}
 
 void IFTDecayFunction2D::transformToStarBasis(double qX, double qY, double alpha,
                                               double a, double b, double &qa, double &qb) const

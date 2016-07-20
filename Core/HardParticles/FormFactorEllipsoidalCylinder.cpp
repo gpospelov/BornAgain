@@ -16,8 +16,9 @@
 #include "FormFactorEllipsoidalCylinder.h"
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
+#include "Units.h"
 
-using namespace  BornAgain;
+using namespace BornAgain;
 
 FormFactorEllipsoidalCylinder::FormFactorEllipsoidalCylinder(double radius_x, double radius_y,
                                                              double height)
@@ -35,7 +36,7 @@ FormFactorEllipsoidalCylinder* FormFactorEllipsoidalCylinder::clone() const
     return new FormFactorEllipsoidalCylinder(m_radius_x, m_radius_y, m_height);
 }
 
-void FormFactorEllipsoidalCylinder::accept(ISampleVisitor *visitor) const
+void FormFactorEllipsoidalCylinder::accept(ISampleVisitor* visitor) const
 {
     visitor->visit(this);
 }

@@ -46,6 +46,7 @@
 #include "SimulationOptionsItem.h"
 #include "TransformationItem.h"
 #include "VectorItem.h"
+#include "Units.h"
 
 using namespace BornAgain;
 

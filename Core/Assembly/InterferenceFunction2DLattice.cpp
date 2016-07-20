@@ -17,6 +17,7 @@
 #include "BornAgainNamespace.h"
 #include "Macros.h"
 #include "ISampleVisitor.h"
+#include "Units.h"
 
 GCC_DIAG_OFF(unused-parameter)
 #include <boost/math/special_functions/round.hpp>

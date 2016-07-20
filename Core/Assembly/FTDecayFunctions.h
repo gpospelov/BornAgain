@@ -17,8 +17,6 @@
 #define FTDECAYFUNCTIONS_H
 
 #include "IParameterized.h" // inheriting from
-#include "Units.h"
-
 
 //! @class IFTDecayFunction1D
 //! @ingroup algorithms_internal
@@ -156,11 +154,7 @@ public:
 class BA_CORE_API_ IFTDecayFunction2D : public IParameterized
 {
 public:
-    IFTDecayFunction2D(double decay_length_x, double decay_length_y)
-        : m_omega_x(decay_length_x)
-        , m_omega_y(decay_length_y)
-        , m_gamma(0.0)
-        , m_delta(Units::PI/2.0) {}
+    IFTDecayFunction2D(double decay_length_x, double decay_length_y);
     virtual ~IFTDecayFunction2D() {}
 
     virtual IFTDecayFunction2D *clone() const=0;

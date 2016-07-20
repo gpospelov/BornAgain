@@ -15,6 +15,7 @@
 
 #include "MathFunctions.h"
 #include "Numeric.h"
+#include "Units.h"
 #include <gsl/gsl_sf_bessel.h>
 #include <gsl/gsl_sf_erf.h>
 #include <gsl/gsl_sf_expint.h>

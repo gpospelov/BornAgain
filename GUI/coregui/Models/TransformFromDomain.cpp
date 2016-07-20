@@ -47,6 +47,7 @@
 #include "ResolutionFunctionItems.h"
 #include "SphericalDetector.h"
 #include "VectorItem.h"
+#include "Units.h"
 #include <QDebug>
 
 using namespace BornAgain;

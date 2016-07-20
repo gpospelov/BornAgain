@@ -22,6 +22,7 @@
 #include "MultiLayer.h"
 #include "Particle.h"
 #include "ParticleLayout.h"
+#include "Units.h"
 
 CosineRippleBuilder::CosineRippleBuilder()
     : m_w(20.0*Units::nanometer)

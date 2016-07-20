@@ -18,6 +18,7 @@
 #include "ISampleVisitor.h"
 #include "IntegratorReal.h"
 #include "Numeric.h"
+#include "Units.h"
 #include <limits>
 
 using namespace BornAgain;
@@ -47,7 +48,8 @@ InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal(
 
 InterferenceFunction2DParaCrystal::~InterferenceFunction2DParaCrystal()
 {
-    for (size_t i=0; i<2; ++i) delete m_pdfs[i];
+    for (size_t i=0; i<2; ++i)
+        delete m_pdfs[i];
 }
 
 InterferenceFunction2DParaCrystal* InterferenceFunction2DParaCrystal::clone() const

@@ -16,6 +16,7 @@
 #include "FormFactorRipple1.h"
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
+#include "Units.h"
 
 static complex_t I(0.,1.);
 

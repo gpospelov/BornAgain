@@ -15,6 +15,7 @@
 // ************************************************************************** //
 
 #include "FTDecayFunctionItems.h"
+#include "Units.h"
 
 const QString FTDecayFunction1DItem::P_DECAY_LENGTH = "Decay Length";
 const QString FTDecayFunction1DVoigtItem::P_ETA = "Eta";

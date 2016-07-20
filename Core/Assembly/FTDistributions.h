@@ -17,8 +17,6 @@
 #define FTDISTRIBUTIONS_H
 
 #include "IParameterized.h" // inheriting from
-#include "Units.h"
-
 
 //! @class IFTDistribution1D
 //! @ingroup algorithms_internal
@@ -29,13 +27,13 @@ public:
     IFTDistribution1D(double omega) : m_omega(omega) {}
     virtual ~IFTDistribution1D() {}
 
-    virtual IFTDistribution1D *clone() const=0;
+    virtual IFTDistribution1D* clone() const=0;
     virtual double evaluate(double q) const=0;
     void setOmega(double omega) { m_omega = omega; }
     double getOmega() const { return m_omega; }
 
-    friend std::ostream& operator<<(std::ostream& ostr, const IFTDistribution1D& m)
-    { m.print(ostr); return ostr; }
+    friend std::ostream& operator<<(std::ostream& ostr, const IFTDistribution1D& m) {
+        m.print(ostr); return ostr; }
 
 protected:
     virtual void print(std::ostream& ostr) const;
@@ -53,7 +51,7 @@ public:
     FTDistribution1DCauchy(double omega);
     virtual ~FTDistribution1DCauchy() {}
 
-    virtual FTDistribution1DCauchy *clone() const;
+    virtual FTDistribution1DCauchy* clone() const;
 
     virtual double evaluate(double q) const;
 };
@@ -68,7 +66,7 @@ public:
     FTDistribution1DGauss(double omega);
     virtual ~FTDistribution1DGauss() {}
 
-    virtual FTDistribution1DGauss *clone() const;
+    virtual FTDistribution1DGauss* clone() const;
 
     virtual double evaluate(double q) const;
 };
@@ -84,7 +82,7 @@ public:
     FTDistribution1DGate(double omega);
     virtual ~FTDistribution1DGate() {}
 
-    virtual FTDistribution1DGate *clone() const;
+    virtual FTDistribution1DGate* clone() const;
 
     virtual double evaluate(double q) const;
 };
@@ -100,7 +98,7 @@ public:
     FTDistribution1DTriangle(double omega);
     virtual ~FTDistribution1DTriangle() {}
 
-    virtual FTDistribution1DTriangle *clone() const;
+    virtual FTDistribution1DTriangle* clone() const;
 
     virtual double evaluate(double q) const;
 };
@@ -116,7 +114,7 @@ public:
     FTDistribution1DCosine(double omega);
     virtual ~FTDistribution1DCosine() {}
 
-    virtual FTDistribution1DCosine *clone() const;
+    virtual FTDistribution1DCosine* clone() const;
 
     virtual double evaluate(double q) const;
 };
@@ -131,7 +129,7 @@ public:
     FTDistribution1DVoigt(double omega, double eta);
     virtual ~FTDistribution1DVoigt() {}
 
-    virtual FTDistribution1DVoigt *clone() const;
+    virtual FTDistribution1DVoigt* clone() const;
 
     virtual double evaluate(double q) const;
 
@@ -148,14 +146,10 @@ protected:
 class BA_CORE_API_ IFTDistribution2D : public IParameterized
 {
 public:
-    IFTDistribution2D(double coherence_length_x, double coherence_length_y)
-        : m_coherence_length_x(coherence_length_x)
-        , m_coherence_length_y(coherence_length_y)
-        , m_gamma(0.0)
-        , m_delta(Units::PI/2.0) {}
+    IFTDistribution2D(double coherence_length_x, double coherence_length_y);
     virtual ~IFTDistribution2D() {}
 
-    virtual IFTDistribution2D *clone() const=0;
+    virtual IFTDistribution2D* clone() const=0;
 
     // set angle between first lattice vector and X-axis of distribution (both in direct space)
     void setGamma(double gamma) { m_gamma = gamma; }
@@ -177,8 +171,8 @@ public:
     //! total integral is equal to 1
     virtual double evaluate(double qx, double qy) const=0;
 
-    friend std::ostream& operator<<(std::ostream& ostr, const IFTDistribution2D& m)
-    { m.print(ostr); return ostr; }
+    friend std::ostream& operator<<(std::ostream& ostr, const IFTDistribution2D& m) {
+        m.print(ostr); return ostr; }
 
 protected:
     virtual void print(std::ostream& ostr) const;
@@ -200,7 +194,7 @@ public:
     FTDistribution2DCauchy(double coherence_length_x, double coherence_length_y);
     virtual ~FTDistribution2DCauchy() {}
 
-    virtual FTDistribution2DCauchy *clone() const;
+    virtual FTDistribution2DCauchy* clone() const;
 
     virtual double evaluate(double qx, double qy) const;
 };
@@ -216,7 +210,7 @@ public:
     FTDistribution2DGauss(double coherence_length_x, double coherence_length_y);
     virtual ~FTDistribution2DGauss() {}
 
-    virtual FTDistribution2DGauss *clone() const;
+    virtual FTDistribution2DGauss* clone() const;
 
     virtual double evaluate(double qx, double qy) const;
 };
@@ -232,7 +226,7 @@ public:
     FTDistribution2DGate(double coherence_length_x, double coherence_length_y);
     virtual ~FTDistribution2DGate() {}
 
-    virtual FTDistribution2DGate *clone() const;
+    virtual FTDistribution2DGate* clone() const;
 
     virtual double evaluate(double qx, double qy) const;
 };
@@ -248,7 +242,7 @@ public:
     FTDistribution2DCone(double coherence_length_x, double coherence_length_y);
     virtual ~FTDistribution2DCone() {}
 
-    virtual FTDistribution2DCone *clone() const;
+    virtual FTDistribution2DCone* clone() const;
 
     virtual double evaluate(double qx, double qy) const;
 
@@ -265,11 +259,10 @@ private:
 class BA_CORE_API_ FTDistribution2DVoigt : public IFTDistribution2D
 {
 public:
-    FTDistribution2DVoigt(double coherence_length_x, double coherence_length_y,
-            double eta);
+    FTDistribution2DVoigt(double coherence_length_x, double coherence_length_y, double eta);
     virtual ~FTDistribution2DVoigt() {}
 
-    virtual FTDistribution2DVoigt *clone() const;
+    virtual FTDistribution2DVoigt* clone() const;
 
     virtual double evaluate(double qx, double qy) const;
 

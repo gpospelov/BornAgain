@@ -17,6 +17,7 @@
 #include "BornAgainNamespace.h"
 #include "ISampleVisitor.h"
 #include "FTDecayFunctions.h"
+#include "Units.h"
 
 using namespace BornAgain;
 

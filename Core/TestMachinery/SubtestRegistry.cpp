@@ -16,7 +16,7 @@
 #include "SubtestRegistry.h"
 #include "BornAgainNamespace.h"
 #include "HardParticles.h"
-
+#include "Units.h"
 
 // ************************************************************************** //
 TestFTDistribution2DRegistry::TestFTDistribution2DRegistry()
@@ -28,7 +28,6 @@ TestFTDistribution2DRegistry::TestFTDistribution2DRegistry()
     add(BornAgain::FTDistribution2DConeType, new FTDistribution2DCone(0.5, 1.0));
     add(BornAgain::FTDistribution2DVoigtType, new FTDistribution2DVoigt(0.5, 1.0, 0.2));
 }
-
 
 // ************************************************************************** //
 TestFormFactorsRegistry::TestFormFactorsRegistry()

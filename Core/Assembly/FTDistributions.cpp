@@ -18,6 +18,7 @@
 #include "IntegratorReal.h"
 #include "MathFunctions.h"
 #include "Numeric.h"
+#include "Units.h"
 
 using namespace BornAgain;
 
@@ -163,6 +164,13 @@ void FTDistribution1DVoigt::init_parameters()
 }
 
 //==============2D====================
+
+IFTDistribution2D::IFTDistribution2D(double coherence_length_x, double coherence_length_y)
+    : m_coherence_length_x(coherence_length_x)
+    , m_coherence_length_y(coherence_length_y)
+    , m_gamma(0.0)
+    , m_delta(Units::PI/2.0)
+{}
 
 void IFTDistribution2D::init_parameters()
 {

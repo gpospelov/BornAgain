@@ -74,6 +74,7 @@ void MultiLayerRoughnessDWBASimulation::runProtected()
 
 double MultiLayerRoughnessDWBASimulation::evaluate(const SimulationElement& sim_element)
 {
+    if (sim_element.getAlphaMean()<0.0) return 0.0;
     kvector_t q = sim_element.getMeanQ();
     double wavelength = sim_element.getWavelength();
     double autocorr(0.0);

@@ -16,13 +16,13 @@
 #ifndef NUMERIC_H
 #define NUMERIC_H
 
-#include <algorithm>
-#include <cmath>
+#include <limits>
 
 //! Floating-point epsilon, tolerances, almost-equal.
 
 namespace Numeric {
 
+    // TODO move initialization (and #include <limits>) to .cpp
 static const double double_epsilon = std::numeric_limits<double>::epsilon();
 
 static const double double_min = std::numeric_limits<double>::min();

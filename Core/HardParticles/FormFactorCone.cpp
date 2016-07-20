@@ -16,6 +16,7 @@
 #include "FormFactorCone.h"
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
+#include "Numeric.h"
 
 //! @brief Cone constructor
 //! @param radius of Cone's base

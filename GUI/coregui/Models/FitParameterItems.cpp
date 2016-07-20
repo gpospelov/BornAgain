@@ -19,6 +19,7 @@
 #include "GUIHelpers.h"
 #include "ModelPath.h"
 #include "ParameterTreeItems.h"
+#include <cmath>
 
 namespace
 {

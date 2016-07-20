@@ -34,21 +34,17 @@ public:
 
     virtual void accept(ISampleVisitor* visitor) const;
 
-    //! @brief Sets size of coherence domain
-    //! @param size: size in lattice direction
-    void setDomainSize(double size);
+    //! Sets size of coherence domain
+    void setDomainSize(double size) { m_domain_size = size; }
 
-    //! @brief Gets size of coherence domain
-    //! @return Size in lattice direction
-    double getDomainSize() const;
+    //! Returns size of coherence domain
+    double getDomainSize() const { return m_domain_size; }
 
-    //! @brief Sets size-spacing coupling parameter
-    //! @param kappa: size-spacing coupling parameter
-    void setKappa(double kappa);
+    //! Sets size-spacing coupling parameter
+    void setKappa(double kappa) { m_kappa = kappa; }
 
-    //! @brief Gets size-spacing coupling parameter
-    //! @return Size-spacing coupling parameter
-    virtual double getKappa() const;
+    //! Gets size-spacing coupling parameter
+    virtual double getKappa() const { return m_kappa; }
 
     virtual double evaluate(const kvector_t q) const;
     //TODO: replace these with strategy pattern for different algorithms

@@ -16,6 +16,7 @@
 #include "FormFactorTruncatedSphere.h"
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
+#include "Numeric.h"
 
 using namespace  BornAgain;
 
@@ -81,8 +82,7 @@ complex_t FormFactorTruncatedSphere::evaluate_for_q(const cvector_t q) const
         return Units::PI/3.*m_radius*m_radius*m_radius
                 *(3.*HdivR -1. - (HdivR - 1.)*(HdivR - 1.)*(HdivR - 1.));
     }
-    else {
-        complex_t integral = mP_integrator->integrate(m_radius-m_height, m_radius);
-        return Units::PI2 * integral * exp_I(q.z()*(m_height-m_radius));
-    }
+    // else
+    complex_t integral = mP_integrator->integrate(m_radius-m_height, m_radius);
+    return Units::PI2 * integral * exp_I(q.z()*(m_height-m_radius));
 }

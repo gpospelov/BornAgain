@@ -3605,7 +3605,7 @@ Returns a clone of this  ISample object.
 Calls the  ISampleVisitor's visit method. 
 ";
 
-%feature("docstring")  FormFactorSphereUniformRadius::getRadius "double FormFactorSphereUniformRadius::getRadius() const
+%feature("docstring")  FormFactorSphereUniformRadius::getRadius "virtual double FormFactorSphereUniformRadius::getRadius() const
 
 Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
@@ -7027,38 +7027,22 @@ Calls ISampleVisitor::visit.
 
 %feature("docstring")  InterferenceFunctionRadialParaCrystal::setDomainSize "void InterferenceFunctionRadialParaCrystal::setDomainSize(double size)
 
-Sets size of coherence domain.
-
-Parameters:
------------
-
-size: 
-size in lattice direction 
+Sets size of coherence domain. 
 ";
 
 %feature("docstring")  InterferenceFunctionRadialParaCrystal::getDomainSize "double InterferenceFunctionRadialParaCrystal::getDomainSize() const
 
-Gets size of coherence domain.
-
-Size in lattice direction 
+Returns size of coherence domain. 
 ";
 
 %feature("docstring")  InterferenceFunctionRadialParaCrystal::setKappa "void InterferenceFunctionRadialParaCrystal::setKappa(double kappa)
 
-Sets size-spacing coupling parameter.
-
-Parameters:
------------
-
-kappa: 
-size-spacing coupling parameter 
+Sets size-spacing coupling parameter. 
 ";
 
-%feature("docstring")  InterferenceFunctionRadialParaCrystal::getKappa "double InterferenceFunctionRadialParaCrystal::getKappa() const
+%feature("docstring")  InterferenceFunctionRadialParaCrystal::getKappa "virtual double InterferenceFunctionRadialParaCrystal::getKappa() const
 
-Gets size-spacing coupling parameter.
-
-Size-spacing coupling parameter 
+Gets size-spacing coupling parameter. 
 ";
 
 %feature("docstring")  InterferenceFunctionRadialParaCrystal::evaluate "double InterferenceFunctionRadialParaCrystal::evaluate(const kvector_t q) const
@@ -13073,7 +13057,7 @@ find bin index which is best match for given value
 %feature("docstring")  VariableBinAxis::getBinCenters "std::vector< double > VariableBinAxis::getBinCenters() const 
 ";
 
-%feature("docstring")  VariableBinAxis::getBinBoundaries "std::vector< double > VariableBinAxis::getBinBoundaries() const 
+%feature("docstring")  VariableBinAxis::getBinBoundaries "std::vector<double> VariableBinAxis::getBinBoundaries() const 
 ";
 
 %feature("docstring")  VariableBinAxis::createClippedAxis "VariableBinAxis * VariableBinAxis::createClippedAxis(double left, double right) const
@@ -15014,6 +14998,9 @@ David N. Williams
 
 
 // File: BasicVector3D_8h.xml
+
+
+// File: Bin_8cpp.xml
 
 
 // File: Bin_8h.xml

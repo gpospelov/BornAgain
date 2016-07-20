@@ -16,6 +16,8 @@
 #include "InterferenceFunctionRadialParaCrystal.h"
 #include "BornAgainNamespace.h"
 #include "ISampleVisitor.h"
+#include "Numeric.h"
+#include <limits>
 
 using namespace BornAgain;
 
@@ -43,8 +45,8 @@ void InterferenceFunctionRadialParaCrystal::init_parameters()
     registerParameter(DomainSize, &m_domain_size);
 }
 
-InterferenceFunctionRadialParaCrystal *InterferenceFunctionRadialParaCrystal::clone() const {
-    InterferenceFunctionRadialParaCrystal *result =
+InterferenceFunctionRadialParaCrystal* InterferenceFunctionRadialParaCrystal::clone() const {
+    InterferenceFunctionRadialParaCrystal* result =
         new InterferenceFunctionRadialParaCrystal(
             m_peak_distance, m_damping_length);
     result->setDomainSize(getDomainSize());
@@ -55,29 +57,9 @@ InterferenceFunctionRadialParaCrystal *InterferenceFunctionRadialParaCrystal::cl
     return result;
 }
 
-void InterferenceFunctionRadialParaCrystal::accept(ISampleVisitor *visitor) const
+void InterferenceFunctionRadialParaCrystal::accept(ISampleVisitor* visitor) const
 {
     visitor->visit(this);
-}
-
-void InterferenceFunctionRadialParaCrystal::setDomainSize(double size)
-{
-    m_domain_size = size;
-}
-
-double InterferenceFunctionRadialParaCrystal::getDomainSize() const
-{
-    return m_domain_size;
-}
-
-void InterferenceFunctionRadialParaCrystal::setKappa(double kappa)
-{
-    m_kappa = kappa;
-}
-
-double InterferenceFunctionRadialParaCrystal::getKappa() const
-{
-    return m_kappa;
 }
 
 double InterferenceFunctionRadialParaCrystal::evaluate(const kvector_t q) const
@@ -140,8 +122,7 @@ void InterferenceFunctionRadialParaCrystal::setProbabilityDistribution(
     }
 }
 
-const IFTDistribution1D
-    *InterferenceFunctionRadialParaCrystal::getProbabilityDistribution() const
+const IFTDistribution1D* InterferenceFunctionRadialParaCrystal::getProbabilityDistribution() const
 {
     return mP_pdf.get();
 }

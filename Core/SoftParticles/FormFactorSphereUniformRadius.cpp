@@ -15,6 +15,7 @@
 
 #include "FormFactorSphereUniformRadius.h"
 #include "BornAgainNamespace.h"
+#include "Numeric.h"
 
 using namespace  BornAgain;
 
@@ -47,26 +48,19 @@ void FormFactorSphereUniformRadius::accept(ISampleVisitor *visitor) const
     visitor->visit(this);
 }
 
-double FormFactorSphereUniformRadius::getRadius() const
-{
-    return m_mean;
-}
-
-complex_t FormFactorSphereUniformRadius::evaluate_for_q(
-        const cvector_t q) const
+complex_t FormFactorSphereUniformRadius::evaluate_for_q(const cvector_t q) const
 {
     double R = m_mean;
     double W = m_full_width;
     double q2 = std::norm(q.x()) + std::norm(q.y()) + std::norm(q.z());
     double q_r = std::sqrt(q2);
-    if (q_r*R < Numeric::double_epsilon) {
+    if (q_r*R < Numeric::double_epsilon)
         return (4.0*Units::PI*R*R*R + Units::PI*R*W*W)/3.0;
-    }
     double qR = q_r*R;
     double qW = q_r*W;
     double nominator = 4*Units::PI*( 4*std::sin(qR)*std::sin(qW/2.0)
-                             - qW*std::cos(qW/2.0)*std::sin(qR)
-                             - 2.0*qR*std::cos(qR)*std::sin(qW/2.0));
+                                     - qW*std::cos(qW/2.0)*std::sin(qR)
+                                     - 2.0*qR*std::cos(qR)*std::sin(qW/2.0) );
     return nominator/(q2*q2*W);
 }
 

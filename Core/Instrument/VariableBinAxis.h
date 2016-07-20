@@ -18,7 +18,6 @@
 
 #include "IAxis.h"
 
-
 //! @class VariableBinAxis
 //! @ingroup tools
 //! @brief Axis with variable bin size.
@@ -37,7 +36,7 @@ public:
 
     VariableBinAxis* clone() const;
 
-    size_t getSize() const;
+    size_t getSize() const { return m_nbins; }
 
     double operator[](size_t index) const;
 
@@ -51,7 +50,7 @@ public:
     size_t findClosestIndex(double value) const;
 
     std::vector<double> getBinCenters() const;
-    std::vector<double> getBinBoundaries() const;
+    std::vector<double> getBinBoundaries() const { return m_bin_boundaries; }
 
     VariableBinAxis* createClippedAxis(double left, double right) const;
 

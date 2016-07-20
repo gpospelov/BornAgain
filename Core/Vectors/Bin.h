@@ -16,9 +16,7 @@
 #ifndef BIN_H
 #define BIN_H
 
-#include "Numeric.h"
 #include "Vectors3D.h"
-#include <iostream>
 
 struct BA_CORE_API_ Bin1D
 {
@@ -29,7 +27,6 @@ struct BA_CORE_API_ Bin1D
     double getMidPoint() const { return (m_lower + m_upper)/2.0; }
     double getBinSize() const { return m_upper - m_lower; }
 };
-
 
 //! @class Bin1DKVector
 //! @ingroup tools_internal
@@ -48,14 +45,6 @@ struct BA_CORE_API_ Bin1DKVector
     kvector_t m_q_upper;  //!< upper bound of the bin
 };
 
-//! creation on Bin1DKVector from alpha and phi bins
-inline Bin1DKVector::Bin1DKVector(double wavelength, const Bin1D& alpha_bin, const Bin1D& phi_bin)
-    : m_q_lower(), m_q_upper()
-{
-    m_q_lower = Geometry::vecOfLambdaAlphaPhi(wavelength, alpha_bin.m_lower, phi_bin.m_lower);
-    m_q_upper = Geometry::vecOfLambdaAlphaPhi(wavelength, alpha_bin.m_upper, phi_bin.m_upper);
-}
-
 //! @class Bin1DCVector
 //! @ingroup tools_internal
 //! @brief An one-dimensional range of cvector_t's
@@ -71,15 +60,5 @@ struct BA_CORE_API_ Bin1DCVector
     cvector_t m_q_lower;  //!< lower bound of the bin
     cvector_t m_q_upper;  //!< upper bound of the bin
 };
-
-//! creation on Bin1DCVector from alpha and phi bins
-inline Bin1DCVector::Bin1DCVector(double wavelength, const Bin1D& alpha_bin, const Bin1D& phi_bin)
-    : m_q_lower(), m_q_upper()
-{
-    m_q_lower = Geometry::vecOfLambdaAlphaPhi(
-        wavelength, alpha_bin.m_lower, phi_bin.m_lower).complex();
-    m_q_upper = Geometry::vecOfLambdaAlphaPhi(
-        wavelength, alpha_bin.m_upper, phi_bin.m_upper).complex();
-}
 
 #endif // BIN_H

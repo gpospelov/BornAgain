@@ -16,9 +16,7 @@
 #ifndef ATTLIMITS_H
 #define ATTLIMITS_H
 
-#include "Numeric.h"
-#include <iostream>
-
+#include <ostream>
 
 //! @class AttLimits
 //! @ingroup fitting
@@ -81,7 +79,7 @@ class BA_CORE_API_ AttLimits
     { return AttLimits(true, false, false, bound_value, 0.); }
 
     //! Creates an object which can have only positive values (>0., zero is not included)
-    static AttLimits positive() { return lowerLimited(Numeric::double_min); }
+    static AttLimits positive();
 
     //! Creates an object which can have only positive values with 0. included
     static AttLimits n_positive() { return lowerLimited(0.); }
@@ -105,7 +103,7 @@ class BA_CORE_API_ AttLimits
     { m.print(ostr); return ostr; }
 
     bool operator==(const AttLimits &other) const;
-    bool operator!=(const AttLimits &other) const;
+    bool operator!=(const AttLimits &other) const { return !(*this == other); }
 
  protected:
     AttLimits(bool has_lower_limit, bool has_upper_limit, bool is_fixed,
@@ -124,26 +122,5 @@ class BA_CORE_API_ AttLimits
 
     void print(std::ostream& ostr) const;
 };
-
-
-inline bool AttLimits::isInRange(double value) const
-{
-    if(hasLowerLimit() && value < m_lower_limit) return false;
-    if(hasUpperLimit() && value >= m_upper_limit) return false;
-    return true;
-}
-
-inline bool AttLimits::operator==(const AttLimits &other) const
-{
-    return (m_has_lower_limit == other.m_has_lower_limit) &&
-            (m_has_upper_limit == other.m_has_upper_limit) &&
-            (m_lower_limit == other.m_lower_limit) &&
-            (m_upper_limit == other.m_upper_limit);
-}
-
-inline bool AttLimits::operator!=(const AttLimits &other) const
-{
-    return !(*this == other);
-}
 
 #endif // ATTLIMITS_H

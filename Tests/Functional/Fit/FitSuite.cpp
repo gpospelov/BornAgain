@@ -16,6 +16,7 @@
 #include "IMinimizerTest.h"
 #include "StandardFitsFactory.h"
 #include <memory>
+#include <iostream>
 
 //! The main function of CoreSuite to run functional tests
 int main(int argc, char **argv)

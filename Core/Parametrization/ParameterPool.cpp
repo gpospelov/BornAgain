@@ -15,9 +15,9 @@
 
 #include "ParameterPool.h"
 #include "Utils.h"
+#include <iostream>
 
-typedef std::map<std::string, RealParameterWrapper > parametermap_t;
-
+typedef std::map<std::string, RealParameterWrapper> parametermap_t;
 
 //! Constructs an empty parameter pool.
 ParameterPool::ParameterPool(IParameterized* parent)

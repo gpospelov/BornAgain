@@ -20,6 +20,7 @@
 #include <QComboBox>
 #include <QDebug>
 #include <QString>
+#include <cmath>
 
 ComponentEditorPrivate::ComponentEditorPrivate(ComponentEditorFlags::PresentationType flags, QWidget *parent)
     : m_browser(0), m_manager(0), m_read_only_manager(0)

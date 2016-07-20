@@ -17,7 +17,6 @@
 #define MATHFUNCTIONS_H
 
 #include "Complex.h"
-#include "Numeric.h"
 #include "Units.h"
 #include <vector>
 
@@ -78,6 +77,8 @@ namespace MathFunctions
 // ************************************************************************** //
 //  Fourier transform and convolution
 // ************************************************************************** //
+
+    // TODO move elsewhere, and rm #include <vector>
 
     enum EFFTDirection { FORWARD_FFT, BACKWARD_FFT };
 

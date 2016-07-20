@@ -14,7 +14,9 @@
 // ************************************************************************** //
 
 #include "CustomBinAxis.h"
+#include "Numeric.h"
 #include <iomanip>
+#include <limits>
 
 CustomBinAxis::CustomBinAxis(const std::string &name, size_t nbins, double start, double end)
     : VariableBinAxis(name, nbins)

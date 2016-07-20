@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "Numeric.h"
+#include <cmath>
 
 //! Floating-point epsilon, tolerances, almost-equal.
 
@@ -24,7 +25,6 @@ bool areAlmostEqual(double a, double b, double tolerance_factor)
 {
     return get_relative_difference(a, b) < tolerance_factor*double_epsilon;
 }
-
 
 //! calculates safe relative difference |(a-b)/b|
 double get_relative_difference(double a, double b)

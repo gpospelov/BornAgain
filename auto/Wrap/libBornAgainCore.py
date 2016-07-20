@@ -3770,7 +3770,7 @@ class VariableBinAxis(IAxis):
         """
         getBinBoundaries(VariableBinAxis self) -> vdouble1d_t
 
-        std::vector< double > VariableBinAxis::getBinBoundaries() const 
+        std::vector<double> VariableBinAxis::getBinBoundaries() const 
 
         """
         return _libBornAgainCore.VariableBinAxis_getBinBoundaries(self)
@@ -12009,7 +12009,7 @@ class FormFactorSphereUniformRadius(IFormFactorBorn):
         """
         getRadius(FormFactorSphereUniformRadius self) -> double
 
-        double FormFactorSphereUniformRadius::getRadius() const
+        virtual double FormFactorSphereUniformRadius::getRadius() const
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -16544,13 +16544,7 @@ class InterferenceFunctionRadialParaCrystal(IInterferenceFunction):
 
         void InterferenceFunctionRadialParaCrystal::setDomainSize(double size)
 
-        Sets size of coherence domain.
-
-        Parameters:
-        -----------
-
-        size: 
-        size in lattice direction 
+        Sets size of coherence domain. 
 
         """
         return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_setDomainSize(self, size)
@@ -16562,9 +16556,7 @@ class InterferenceFunctionRadialParaCrystal(IInterferenceFunction):
 
         double InterferenceFunctionRadialParaCrystal::getDomainSize() const
 
-        Gets size of coherence domain.
-
-        Size in lattice direction 
+        Returns size of coherence domain. 
 
         """
         return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_getDomainSize(self)
@@ -16576,13 +16568,7 @@ class InterferenceFunctionRadialParaCrystal(IInterferenceFunction):
 
         void InterferenceFunctionRadialParaCrystal::setKappa(double kappa)
 
-        Sets size-spacing coupling parameter.
-
-        Parameters:
-        -----------
-
-        kappa: 
-        size-spacing coupling parameter 
+        Sets size-spacing coupling parameter. 
 
         """
         return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_setKappa(self, kappa)
@@ -16592,11 +16578,9 @@ class InterferenceFunctionRadialParaCrystal(IInterferenceFunction):
         """
         getKappa(InterferenceFunctionRadialParaCrystal self) -> double
 
-        double InterferenceFunctionRadialParaCrystal::getKappa() const
+        virtual double InterferenceFunctionRadialParaCrystal::getKappa() const
 
-        Gets size-spacing coupling parameter.
-
-        Size-spacing coupling parameter 
+        Gets size-spacing coupling parameter. 
 
         """
         return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_getKappa(self)

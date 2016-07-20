@@ -14,8 +14,9 @@
 // ************************************************************************** //
 
 #include "FixedBinAxis.h"
+#include "Numeric.h"
 #include <iomanip>
-
+#include <limits>
 
 FixedBinAxis::FixedBinAxis(const std::string &name, size_t nbins, double start, double end)
     : IAxis(name), m_nbins(nbins), m_start(start), m_end(end)
@@ -26,11 +27,6 @@ FixedBinAxis *FixedBinAxis::clone() const
 {
     FixedBinAxis *result = new FixedBinAxis(getName(), m_nbins, m_start, m_end);
     return result;
-}
-
-size_t FixedBinAxis::getSize() const
-{
-    return m_nbins;
 }
 
 double FixedBinAxis::operator[](size_t index) const
@@ -50,21 +46,6 @@ Bin1D FixedBinAxis::getBin(size_t index) const
     double step = (m_end - m_start)/m_nbins;
     Bin1D result( m_start + step*index, m_start + step*(index+1) );
     return result;
-}
-
-double FixedBinAxis::getMin() const
-{
-    return m_start;
-}
-
-double FixedBinAxis::getMax() const
-{
-    return m_end;
-}
-
-double FixedBinAxis::getBinCenter(size_t index) const
-{
-    return (*this)[index];
 }
 
 size_t FixedBinAxis::findClosestIndex(double value) const

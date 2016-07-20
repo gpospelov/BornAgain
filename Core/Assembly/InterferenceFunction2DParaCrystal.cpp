@@ -17,6 +17,8 @@
 #include "BornAgainNamespace.h"
 #include "ISampleVisitor.h"
 #include "IntegratorReal.h"
+#include "Numeric.h"
+#include <limits>
 
 using namespace BornAgain;
 

@@ -16,6 +16,7 @@
 #include "Line.h"
 #include "Bin.h"
 #include "Macros.h"
+#include "Numeric.h"
 GCC_DIAG_OFF(unused-parameter)
 #include <boost/geometry.hpp>
 #include <boost/geometry/geometries/point_xy.hpp>
@@ -25,7 +26,6 @@ using namespace boost::geometry;
 typedef model::d2::point_xy<double> point_t;
 typedef model::box<point_t> box_t;
 typedef model::linestring<point_t> line_t;
-
 
 namespace Geometry {
 

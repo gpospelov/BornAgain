@@ -15,6 +15,7 @@
 
 #include "IParameterized.h"
 #include <memory>
+#include <iostream>
 #include <sstream>
 
 // Copies INamed, but not the parameters.

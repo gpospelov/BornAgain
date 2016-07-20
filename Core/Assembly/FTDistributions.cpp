@@ -17,6 +17,7 @@
 #include "BornAgainNamespace.h"
 #include "IntegratorReal.h"
 #include "MathFunctions.h"
+#include "Numeric.h"
 
 using namespace BornAgain;
 

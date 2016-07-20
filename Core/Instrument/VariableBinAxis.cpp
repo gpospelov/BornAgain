@@ -14,8 +14,9 @@
 // ************************************************************************** //
 
 #include "VariableBinAxis.h"
+#include "Numeric.h"
+#include <algorithm>
 #include <iomanip>
-
 
 VariableBinAxis::VariableBinAxis(
     const std::string &name, size_t nbins, const std::vector<double> &bin_boundaries)
@@ -41,12 +42,6 @@ VariableBinAxis* VariableBinAxis::clone() const
 {
     VariableBinAxis* result = new VariableBinAxis(getName(), m_nbins, m_bin_boundaries);
     return result;
-}
-
-
-size_t VariableBinAxis::getSize() const
-{
-    return m_nbins;
 }
 
 
@@ -110,11 +105,6 @@ std::vector<double> VariableBinAxis::getBinCenters() const
         result[i] = getBin(i).getMidPoint();
     }
     return result;
-}
-
-std::vector<double> VariableBinAxis::getBinBoundaries() const
-{
-    return m_bin_boundaries;
 }
 
 VariableBinAxis* VariableBinAxis::createClippedAxis(double left, double right) const

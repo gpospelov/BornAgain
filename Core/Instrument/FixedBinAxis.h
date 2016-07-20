@@ -36,17 +36,16 @@ public:
 
     FixedBinAxis *clone() const;
 
-    size_t getSize() const;
+    size_t getSize() const { return m_nbins; }
 
     double operator[](size_t index) const;
 
     Bin1D getBin(size_t index) const;
 
-    double getMin() const;
+    double getMin() const { return m_start; }
+    double getMax() const { return m_end; }
 
-    double getMax() const;
-
-    double getBinCenter(size_t index) const;
+    double getBinCenter(size_t index) const { return (*this)[index]; }
 
     size_t findClosestIndex(double value) const;
 

@@ -15,6 +15,7 @@
 
 #include "FormFactorGauss.h"
 #include "BornAgainNamespace.h"
+#include "Numeric.h"
 
 using namespace  BornAgain;
 
@@ -23,7 +24,6 @@ FormFactorGauss::FormFactorGauss(double volume)
     m_height = std::pow(volume, 1.0/3.0);
     m_width = m_height;
     initialize();
-
 }
 
 FormFactorGauss::FormFactorGauss(double width, double height)
@@ -50,7 +50,7 @@ FormFactorGauss* FormFactorGauss::clone() const
     return new FormFactorGauss(m_width, m_height);
 }
 
-void FormFactorGauss::accept(ISampleVisitor *visitor) const
+void FormFactorGauss::accept(ISampleVisitor* visitor) const
 {
     visitor->visit(this);
 }

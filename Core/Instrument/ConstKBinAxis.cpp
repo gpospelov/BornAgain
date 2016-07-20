@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "ConstKBinAxis.h"
+#include "Numeric.h"
 #include <iomanip>
 
 ConstKBinAxis::ConstKBinAxis(const std::string &name, size_t nbins)
@@ -44,12 +45,12 @@ ConstKBinAxis::ConstKBinAxis(const std::string &name, size_t nbins, double start
     setBinBoundaries(bin_boundaries);
 }
 
-ConstKBinAxis *ConstKBinAxis::clone() const
+ConstKBinAxis* ConstKBinAxis::clone() const
 {
     return new ConstKBinAxis(getName(), m_nbins, m_start, m_end);
 }
 
-ConstKBinAxis *ConstKBinAxis::createClippedAxis(double left, double right) const
+ConstKBinAxis* ConstKBinAxis::createClippedAxis(double left, double right) const
 {
     if(left >= right)
         throw Exceptions::LogicErrorException(
@@ -68,7 +69,7 @@ ConstKBinAxis *ConstKBinAxis::createClippedAxis(double left, double right) const
         new_boundaries.push_back(old_boundaries[nbin1 + i]);
     }
 
-    ConstKBinAxis *result = new ConstKBinAxis(getName(), new_nbins);
+    ConstKBinAxis* result = new ConstKBinAxis(getName(), new_nbins);
     result->m_start = new_boundaries.front();
     result->m_end = new_boundaries.back();
     result->setBinBoundaries(new_boundaries);
@@ -78,7 +79,7 @@ ConstKBinAxis *ConstKBinAxis::createClippedAxis(double left, double right) const
 bool ConstKBinAxis::equals(const IAxis& other) const
 {
     if (!IAxis::equals(other)) return false;
-    if (const ConstKBinAxis *otherAxis = dynamic_cast<const ConstKBinAxis *>(&other)) {
+    if (const ConstKBinAxis* otherAxis = dynamic_cast<const ConstKBinAxis*>(&other)) {
         if (getSize() != otherAxis->getSize()) return false;
         if ( !Numeric::areAlmostEqual(m_start, otherAxis->m_start)) return false;
         if ( !Numeric::areAlmostEqual(m_end, otherAxis->m_end)) return false;
@@ -87,7 +88,7 @@ bool ConstKBinAxis::equals(const IAxis& other) const
     return false;
 }
 
-void ConstKBinAxis::print(std::ostream &ostr) const
+void ConstKBinAxis::print(std::ostream& ostr) const
 {
     ostr << "ConstKBinAxis(\"" << m_name << "\", " << getSize() << ", "
          << std::setprecision(std::numeric_limits<double>::digits10+2)

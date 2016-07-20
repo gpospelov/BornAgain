@@ -16,7 +16,6 @@
 #ifndef FORMFACTORSPHEREUNIFORMRADIUS_H
 #define FORMFACTORSPHEREUNIFORMRADIUS_H
 
-
 #include "FormFactorFullSphere.h"
 
 //! @class FormFactorSphereUniformRadius
@@ -32,7 +31,7 @@ public:
 
     virtual void accept(ISampleVisitor *visitor) const;
 
-    virtual double getRadius() const;
+    virtual double getRadius() const { return m_mean; }
 
     virtual complex_t evaluate_for_q(const cvector_t q) const;
 

@@ -17,7 +17,7 @@
 #ifndef INSTRUMENTMODEL_H
 #define INSTRUMENTMODEL_H
 
-#include "SessionModel.h"
+#include "SessionModel.h" // inheriting from
 
 class InstrumentItem;
 

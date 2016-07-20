@@ -17,7 +17,7 @@
 #ifndef TRANSFORMATIONITEM_H
 #define TRANSFORMATIONITEM_H
 
-#include "SessionGraphicsItem.h"
+#include "SessionGraphicsItem.h" // inheriting from
 
 class TransformationItem : public SessionGraphicsItem
 {

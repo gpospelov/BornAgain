@@ -14,10 +14,7 @@
 //
 // ************************************************************************** //
 
-#include <QApplication>
-#include <QCloseEvent>
-#include <QMessageBox>
-#include <QSettings>
+#include "mainwindow.h"
 #include "ApplicationModels.h"
 #include "GUIHelpers.h"
 #include "ImportDataView.h"
@@ -39,7 +36,10 @@
 #include "projectmanager.h"
 #include "stylehelper.h"
 #include "tooltipdatabase.h"
-#include "mainwindow.h"
+#include <QApplication>
+#include <QCloseEvent>
+#include <QMessageBox>
+#include <QSettings>
 
 MainWindow::MainWindow(QWidget *parent)
     : Manhattan::FancyMainWindow(parent)

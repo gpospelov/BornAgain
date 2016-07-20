@@ -17,7 +17,7 @@
 #ifndef MULTILAYERITEM_H
 #define MULTILAYERITEM_H
 
-#include "SessionGraphicsItem.h"
+#include "SessionGraphicsItem.h" // inheriting from
 
 class BA_CORE_API_ MultiLayerItem : public SessionGraphicsItem
 {

@@ -17,7 +17,7 @@
 #ifndef WARNINGMESSAGESERVICE_H
 #define WARNINGMESSAGESERVICE_H
 
-#include "IMessageService.h"
+#include "IMessageService.h" // inheriting from
 #include <QMap>
 #include <QStringList> // need detected by TeamCity
 

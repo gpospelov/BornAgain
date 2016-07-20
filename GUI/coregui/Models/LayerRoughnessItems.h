@@ -18,7 +18,7 @@
 #define LAYERROUGHNESSITEMS_H
 
 
-#include "SessionItem.h"
+#include "SessionItem.h" // inheriting from
 
 class BA_CORE_API_ LayerZeroRoughnessItem : public SessionItem
 {

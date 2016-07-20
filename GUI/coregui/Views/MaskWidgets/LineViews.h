@@ -17,7 +17,7 @@
 #ifndef LINEVIEWS_H
 #define LINEVIEWS_H
 
-#include "IMaskView.h"
+#include "IMaskView.h" // inheriting from
 
 //! This is a view of VerticalLineItem mask
 

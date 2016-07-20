@@ -17,7 +17,7 @@
 #ifndef JOBREALTIMETOOLBAR_H
 #define JOBREALTIMETOOLBAR_H
 
-#include "StyledToolBar.h"
+#include "StyledToolBar.h" // inheriting from
 
 //! The JobRealTimeToolBar class represents a toolbar with buttons for JobRealTimeWidget.
 

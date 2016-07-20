@@ -22,6 +22,7 @@
 #include "MathFunctions.h"
 #include "Precomputed.h"
 #include <iomanip>
+#include <stdexcept> // need overlooked by g++ 5.4
 
 static const complex_t I(0.,1.);
 static const double eps(2e-16);

@@ -16,7 +16,7 @@
 #ifndef FITSTRATEGYADJUSTPARAMETERS_H
 #define FITSTRATEGYADJUSTPARAMETERS_H
 
-#include "IFitStrategy.h"
+#include "IFitStrategy.h" // inheriting from
 #include <vector>
 
 //! @class FitStrategyAdjustParameters

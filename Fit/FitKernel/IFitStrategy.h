@@ -16,7 +16,7 @@
 #ifndef IFITSTRATEGY_H
 #define IFITSTRATEGY_H
 
-#include "INamed.h"
+#include "INamed.h" // inheriting from
 
 class FitKernel;
 

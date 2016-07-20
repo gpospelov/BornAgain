@@ -16,7 +16,7 @@
 #ifndef MINIMIZERTESTS_H
 #define MINIMIZERTESTS_H
 
-#include "IMinimizerTest.h"
+#include "IMinimizerTest.h" // inheriting from
 
 //! basic test of Minuit2/Migrad minimizer
 class Minuit2MigradTest : public IMinimizerTest

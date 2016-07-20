@@ -17,7 +17,7 @@
 #ifndef POLYGONPOINTVIEW_H
 #define POLYGONPOINTVIEW_H
 
-#include "IMaskView.h"
+#include "IMaskView.h" // inheriting from
 
 //! This is a View of polygon point for PolygonMaskItem
 

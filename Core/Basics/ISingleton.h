@@ -18,6 +18,7 @@
 
 #include <iostream>
 #include <mutex>
+#include <stdexcept> // need overlooked by g++ 5.4
 
 //! @class ISingleton
 //! @ingroup tools_internal
@@ -33,7 +34,7 @@ public:
         std::unique_lock<std::mutex> single_lock( single_mutex );
         if( !m_instance) {
             if( m_destroyed )
-                throw std::runtime_error("ISingleton: object was destructed!");
+                throw std::runtime_error("BUG in ISingleton: object was destructed!");
             static T theInstance;
             m_instance = &theInstance;
         }

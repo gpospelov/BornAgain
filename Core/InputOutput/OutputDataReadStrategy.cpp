@@ -13,11 +13,11 @@
 //
 // ************************************************************************** //
 
-
 #include "OutputDataReadStrategy.h"
 #include "OutputData.h"
 #include "OutputDataIOHelper.h"
 #include "TiffHandler.h"
+#include <stdexcept> // need overlooked by g++ 5.4
 
 OutputData<double>* OutputDataReadINTStrategy::readOutputData(std::istream& input_stream)
 {

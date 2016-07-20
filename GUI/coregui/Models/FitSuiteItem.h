@@ -17,7 +17,7 @@
 #ifndef FITSUITEITEM_H
 #define FITSUITEITEM_H
 
-#include "SessionItem.h"
+#include "SessionItem.h" // inheriting from
 
 class FitParameterContainerItem;
 class MinimizerContainerItem;

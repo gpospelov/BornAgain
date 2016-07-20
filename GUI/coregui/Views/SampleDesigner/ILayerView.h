@@ -17,7 +17,7 @@
 #ifndef ILAYERVIEW_H
 #define ILAYERVIEW_H
 
-#include "ConnectableView.h"
+#include "ConnectableView.h" // inheriting from
 
 class MultiLayerView;
 class MultiLayerCandidate;

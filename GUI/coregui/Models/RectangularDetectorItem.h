@@ -17,7 +17,7 @@
 #ifndef RECTANGULARDETECTORITEM_H
 #define RECTANGULARDETECTORITEM_H
 
-#include "SessionItem.h"
+#include "SessionItem.h" // inheriting from
 #include "Vectors3D.h"
 
 class IDetector2D;

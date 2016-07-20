@@ -14,13 +14,13 @@
 //
 // ************************************************************************** //
 
+#include "newprojectdialog.h"
+#include "projectdocument.h"
 #include <QFileDialog>
 #include <QGroupBox>
 #include <QLabel>
 #include <QPushButton>
 #include <QVBoxLayout>
-#include "projectdocument.h"
-#include "newprojectdialog.h"
 
 
 NewProjectDialog::NewProjectDialog(QWidget *parent, const QString &workingDirectory

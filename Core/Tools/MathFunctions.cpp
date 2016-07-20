@@ -20,11 +20,11 @@
 #include <gsl/gsl_sf_erf.h>
 #include <gsl/gsl_sf_expint.h>
 #include <gsl/gsl_sf_trig.h>
+#include <fftw3.h>
 #include <chrono>
 #include <cstring>
-#include <exception> // need detected by TeamCity
-#include <fftw3.h>
 #include <random>
+#include <stdexcept> // need overlooked by g++ 5.4
 
 // ************************************************************************** //
 //  Various functions
@@ -311,9 +311,8 @@ MathFunctions::FastFourierTransform(const std::vector<complex_t> &data,
     // saving data for user
     std::vector<complex_t> outData;
     outData.resize(npx);
-    for (size_t i = 0; i < npx; i++) {
+    for (size_t i = 0; i < npx; i++)
         outData[i] = scale * complex_t(ftResult[i][0], ftResult[i][1]);
-    }
 
     fftw_destroy_plan(plan);
     fftw_free(ftData);
@@ -326,15 +325,13 @@ MathFunctions::FastFourierTransform(const std::vector<complex_t> &data,
 //!   for the discrete fast Fourier transformation library (fftw3);
 //!   transforms real to complex
 
-std::vector<complex_t>
-MathFunctions::FastFourierTransform(const std::vector<double> &data,
-                                    MathFunctions::EFFTDirection ftCase)
+std::vector<complex_t> MathFunctions::FastFourierTransform(
+    const std::vector<double> &data, MathFunctions::EFFTDirection ftCase)
 {
     std::vector<complex_t> cdata;
     cdata.resize(data.size());
-    for (size_t i = 0; i < data.size(); i++) {
+    for (size_t i = 0; i < data.size(); i++)
         cdata[i] = complex_t(data[i], 0);
-    }
     return MathFunctions::FastFourierTransform(cdata, ftCase);
 }
 

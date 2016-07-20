@@ -17,7 +17,7 @@
 #ifndef DISTRIBUTIONITEM_H
 #define DISTRIBUTIONITEM_H
 
-#include "SessionItem.h"
+#include "SessionItem.h" // inheriting from
 
 
 class IDistribution1D;

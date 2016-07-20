@@ -19,8 +19,8 @@
 
 #include "SessionItem.h"
 #include "SessionXML.h"
-#include <QtCore/QXmlStreamWriter>
 #include <QStringList>
+#include <QtCore/QXmlStreamWriter>
 
 class IconProvider;
 

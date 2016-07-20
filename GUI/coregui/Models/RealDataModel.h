@@ -17,7 +17,7 @@
 #ifndef REALDATAMODEL_H
 #define REALDATAMODEL_H
 
-#include "SessionModel.h"
+#include "SessionModel.h" // inheriting from
 
 //! The RealDataModel class is a model to store all imported RealDataItem's.
 

@@ -17,8 +17,8 @@
 #ifndef GROUPITEM_H
 #define GROUPITEM_H
 
+#include "SessionItem.h" // inheriting from
 #include "GroupProperty.h"
-#include "SessionItem.h"
 
 class BA_CORE_API_ GroupItem : public SessionItem
 {

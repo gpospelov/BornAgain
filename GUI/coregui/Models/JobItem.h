@@ -17,7 +17,7 @@
 #ifndef JOBITEM_H
 #define JOBITEM_H
 
-#include "SessionItem.h"
+#include "SessionItem.h" // inheriting from
 class IntensityDataItem;
 class GISASSimulation;
 class MultiLayerItem;

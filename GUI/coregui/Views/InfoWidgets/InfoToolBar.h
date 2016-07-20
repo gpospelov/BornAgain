@@ -17,7 +17,7 @@
 #ifndef INFOTOOLBAR_H
 #define INFOTOOLBAR_H
 
-#include "StyledToolBar.h"
+#include "StyledToolBar.h" // inheriting from
 
 class QToolButton;
 

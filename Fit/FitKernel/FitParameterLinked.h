@@ -16,7 +16,7 @@
 #ifndef FITPARAMETERLINKED_H
 #define FITPARAMETERLINKED_H
 
-#include "FitParameter.h"
+#include "FitParameter.h" // inheriting from
 #include "ParameterPool.h"
 
 

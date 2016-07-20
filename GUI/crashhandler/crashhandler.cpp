@@ -1,6 +1,4 @@
 #include "crashhandler.h"
-
-
 #include <QApplication>
 #include <QDebug>
 

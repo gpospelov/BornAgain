@@ -17,7 +17,7 @@
 #ifndef MATERIALITEM_H
 #define MATERIALITEM_H
 
-#include "SessionItem.h"
+#include "SessionItem.h" // inheriting from
 
 class IMaterial;
 

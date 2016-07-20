@@ -17,8 +17,8 @@
 #ifndef PARTICLEDISTRIBUTIONITEM_H
 #define PARTICLEDISTRIBUTIONITEM_H
 
+#include "SessionGraphicsItem.h" // inheriting from
 #include "ParticleDistribution.h"
-#include "SessionGraphicsItem.h"
 
 
 

@@ -17,7 +17,7 @@
 #ifndef COLORMAPSCENEADAPTOR_H
 #define COLORMAPSCENEADAPTOR_H
 
-#include "ISceneAdaptor.h"
+#include "ISceneAdaptor.h" // inheriting from
 
 class ColorMapPlot;
 

@@ -17,7 +17,7 @@
 #ifndef INTENSITYDATAWIDGET_H
 #define INTENSITYDATAWIDGET_H
 
-#include "SessionItemWidget.h"
+#include "SessionItemWidget.h" // inheriting from
 
 class SessionItem;
 class IntensityDataItem;

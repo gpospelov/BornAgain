@@ -17,7 +17,7 @@
 #ifndef VECTORITEM_H
 #define VECTORITEM_H
 
-#include "SessionItem.h"
+#include "SessionItem.h" // inheriting from
 #include "Vectors3D.h"
 
 class BA_CORE_API_  VectorItem : public SessionItem

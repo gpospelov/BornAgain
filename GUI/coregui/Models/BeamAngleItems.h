@@ -17,7 +17,7 @@
 #ifndef BEAMANGLEITEMS_H
 #define BEAMANGLEITEMS_H
 
-#include "BeamDistributionItem.h"
+#include "BeamDistributionItem.h" // inheriting from
 
 class BA_CORE_API_ BeamAzimuthalAngleItem : public BeamDistributionItem
 {

@@ -17,7 +17,7 @@
 #ifndef REALDATAEDITORWIDGET_H
 #define REALDATAEDITORWIDGET_H
 
-#include "SessionItemWidget.h"
+#include "SessionItemWidget.h" // inheriting from
 
 class SessionItem;
 class IntensityDataWidget;

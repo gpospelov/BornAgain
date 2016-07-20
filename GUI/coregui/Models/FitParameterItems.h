@@ -16,7 +16,7 @@
 #ifndef FITPARAMETERITEMS_H
 #define FITPARAMETERITEMS_H
 
-#include "SessionItem.h"
+#include "SessionItem.h" // inheriting from
 
 
 //! FitParameterItems is a collection of items to define fit parameters in GUI.

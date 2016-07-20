@@ -16,7 +16,7 @@
 #ifndef IMINIMIZERTEST_H
 #define IMINIMIZERTEST_H
 
-#include "IFunctionalTest.h"
+#include "IFunctionalTest.h" // inheriting from
 #include "OutputData.h"
 #include <memory>
 

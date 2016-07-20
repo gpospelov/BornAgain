@@ -14,11 +14,7 @@
 //
 // ************************************************************************** //
 
-#include <QDebug>
-#include <QFileDialog>
-#include <QMessageBox>
-#include <QSettings>
-#include <QStandardPaths>
+#include "projectmanager.h"
 #include "AppSvc.h"
 #include "ApplicationModels.h"
 #include "GUIHelpers.h"
@@ -28,7 +24,11 @@
 #include "mainwindow_constants.h"
 #include "newprojectdialog.h"
 #include "projectdocument.h"
-#include "projectmanager.h"
+#include <QDebug>
+#include <QFileDialog>
+#include <QMessageBox>
+#include <QSettings>
+#include <QStandardPaths>
 
 ProjectManager::ProjectManager(MainWindow *parent)
     : m_mainWindow(parent)

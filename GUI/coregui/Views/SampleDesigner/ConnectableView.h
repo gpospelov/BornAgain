@@ -17,7 +17,7 @@
 #ifndef CONNECTABLEVIEW_H
 #define CONNECTABLEVIEW_H
 
-#include "IView.h"
+#include "IView.h" // inheriting from
 #include "NodeEditorPort.h"
 #include "WinDllMacros.h"
 

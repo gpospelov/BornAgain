@@ -17,6 +17,7 @@
 #include "Exceptions.h"
 #include <iostream>
 #include <sstream>
+#include <stdexcept> // need overlooked by g++ 5.4
 
 MathFunctions::Convolve::Convolve() : m_mode(FFTW_UNDEFINED)
 {

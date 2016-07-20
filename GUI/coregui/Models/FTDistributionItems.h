@@ -18,8 +18,8 @@
 #define FTDISTRIBUTIONITEMS_H
 
 
+#include "SessionItem.h" // inheriting from
 #include "FTDistributions.h"
-#include "SessionItem.h"
 
 
 class BA_CORE_API_ FTDistribution1DItem : public SessionItem

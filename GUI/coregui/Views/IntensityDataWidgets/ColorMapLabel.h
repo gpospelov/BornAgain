@@ -17,7 +17,7 @@
 #ifndef COLORMAPLABEL_H
 #define COLORMAPLABEL_H
 
-#include "StatusLabel.h"
+#include "StatusLabel.h" // inheriting from
 #include <QList>
 
 class ColorMap;

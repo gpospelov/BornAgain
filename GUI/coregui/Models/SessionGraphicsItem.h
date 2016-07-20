@@ -17,7 +17,7 @@
 #ifndef SESSIONGRAPHICSITEM_H
 #define SESSIONGRAPHICSITEM_H
 
-#include "SessionItem.h"
+#include "SessionItem.h" // inheriting from
 
 class BA_CORE_API_ SessionGraphicsItem : public SessionItem
 {

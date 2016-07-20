@@ -16,10 +16,10 @@
 #include "Instrument.h"
 #include "Beam.h"
 #include "ConvolutionDetectorResolution.h"
-#include "SimulationElement.h"
-#include "SphericalDetector.h"
 #include "IDetector2D.h"
 #include "IResolutionFunction2D.h"
+#include "SimulationElement.h"
+#include "SphericalDetector.h"
 
 Instrument::Instrument()
     : IParameterized("Instrument")

@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#include "GUIHelpers.h"
 #include "AppSvc.h"
+#include "GUIHelpers.h"
 
 ProjectManager *AppSvc::projectManager()
 {

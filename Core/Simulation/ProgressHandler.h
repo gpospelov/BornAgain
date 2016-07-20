@@ -16,8 +16,8 @@
 #ifndef PROGRESSHANDLER_H
 #define PROGRESSHANDLER_H
 
-#include <memory>
 #include <functional>
+#include <memory>
 
 class Simulation;
 

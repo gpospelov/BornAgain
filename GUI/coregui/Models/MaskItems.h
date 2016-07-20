@@ -17,7 +17,7 @@
 #ifndef MASKITEMS_H
 #define MASKITEMS_H
 
-#include "SessionItem.h"
+#include "SessionItem.h" // inheriting from
 
 namespace Geometry {
 class IShape2D;

@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "LatticeBuilder.h"
+#include "FTDecayFunctions.h"
 #include "FormFactorCylinder.h"
 #include "HomogeneousMaterial.h"
 #include "InterferenceFunction1DLattice.h"
@@ -21,7 +22,6 @@
 #include "MultiLayer.h"
 #include "Particle.h"
 #include "ParticleLayout.h"
-#include "FTDecayFunctions.h"
 #include "Units.h"
 
 Lattice1DBuilder::Lattice1DBuilder()

@@ -17,7 +17,7 @@
 #ifndef RECTANGLEVIEW_H
 #define RECTANGLEVIEW_H
 
-#include "IMaskView.h"
+#include "IMaskView.h" // inheriting from
 #include "SizeHandleElement.h"
 #include <QMap>
 

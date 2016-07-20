@@ -17,7 +17,7 @@
 #ifndef PARTICLEVIEW_H
 #define PARTICLEVIEW_H
 
-#include "ConnectableView.h"
+#include "ConnectableView.h" // inheriting from
 #include <QPixmap>
 
 //! Class representing view of Particle item

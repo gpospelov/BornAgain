@@ -17,7 +17,7 @@
 #ifndef LATTICETYPEITEMS_H
 #define LATTICETYPEITEMS_H
 
-#include "SessionItem.h"
+#include "SessionItem.h" // inheriting from
 
 class BA_CORE_API_ BasicLatticeTypeItem : public SessionItem
 {

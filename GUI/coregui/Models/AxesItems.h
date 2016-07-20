@@ -17,7 +17,7 @@
 #ifndef AXESITEMS_H
 #define AXESITEMS_H
 
-#include "SessionItem.h"
+#include "SessionItem.h" // inheriting from
 
 class BA_CORE_API_  BasicAxisItem : public SessionItem
 {

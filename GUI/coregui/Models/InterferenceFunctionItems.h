@@ -17,7 +17,7 @@
 #ifndef INTERFERENCEFUNCTIONITEMS_H
 #define INTERFERENCEFUNCTIONITEMS_H
 
-#include "SessionGraphicsItem.h"
+#include "SessionGraphicsItem.h" // inheriting from
 
 
 class BA_CORE_API_ InterferenceFunctionRadialParaCrystalItem : public SessionGraphicsItem

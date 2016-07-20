@@ -16,7 +16,7 @@
 #ifndef IFITOBSERVER_H
 #define IFITOBSERVER_H
 
-#include "IObserver.h"
+#include "IObserver.h" // inheriting from
 class FitSuite;
 
 //! @class IFitObserver

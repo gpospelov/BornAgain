@@ -17,7 +17,7 @@
 #ifndef REALDATAITEM_H
 #define REALDATAITEM_H
 
-#include "SessionItem.h"
+#include "SessionItem.h" // inheriting from
 
 class IntensityDataItem;
 

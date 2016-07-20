@@ -17,7 +17,7 @@
 #ifndef PARAMETERTREEITEMS_H
 #define PARAMETERTREEITEMS_H
 
-#include "SessionItem.h"
+#include "SessionItem.h" // inheriting from
 
 //! ParameterTreeItems is a collection of items necessary to form a tuning tree for
 //! real time widget.

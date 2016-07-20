@@ -18,7 +18,7 @@
 #define MULTILAYERVIEW_H
 
 
-#include "ILayerView.h"
+#include "ILayerView.h" // inheriting from
 
 class DesignerMimeData;
 class QGraphicsSceneDragDropEvent;

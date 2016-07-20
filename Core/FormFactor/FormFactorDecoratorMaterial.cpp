@@ -14,8 +14,8 @@
 // ************************************************************************** //
 
 #include "FormFactorDecoratorMaterial.h"
-#include "ISampleVisitor.h"
 #include "IMaterial.h"
+#include "ISampleVisitor.h"
 #include "Units.h"
 #include "WavevectorInfo.h"
 

@@ -17,7 +17,7 @@
 #ifndef IMPORTDATATOOLBAR_H
 #define IMPORTDATATOOLBAR_H
 
-#include "StyledToolBar.h"
+#include "StyledToolBar.h" // inheriting from
 
 class QAction;
 class RealDataModel;

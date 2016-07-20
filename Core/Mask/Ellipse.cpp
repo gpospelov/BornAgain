@@ -52,31 +52,6 @@ bool Ellipse::contains(const Bin1D &binx, const Bin1D &biny) const
     return contains(binx.getMidPoint(), biny.getMidPoint());
 }
 
-double Ellipse::getCenterX() const
-{
-    return m_xc;
-}
-
-double Ellipse::getCenterY() const
-{
-    return m_yc;
-}
-
-double Ellipse::getRadiusX() const
-{
-    return m_xr;
-}
-
-double Ellipse::getRadiusY() const
-{
-    return m_yr;
-}
-
-double Ellipse::getTheta() const
-{
-    return m_theta;
-}
-
 Ellipse::Ellipse(const Ellipse &other)
     : m_xc(other.m_xc)
     , m_yc(other.m_yc)

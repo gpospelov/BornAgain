@@ -61,7 +61,7 @@ public:
     //! Returns true if the line crosses the area defined by two given bins
     bool contains(const Bin1D &binx, const Bin1D &biny) const;
 
-    double getXpos() const;
+    double getXpos() const { return m_x; }
 
 private:
     VerticalLine(const VerticalLine& other);
@@ -86,7 +86,7 @@ public:
     //! Returns true if the line crosses the area defined by two given bins
     bool contains(const Bin1D &binx, const Bin1D &biny) const;
 
-    double getYpos() const;
+    double getYpos() const { return m_y; }
 
 private:
     HorizontalLine(const HorizontalLine& other);

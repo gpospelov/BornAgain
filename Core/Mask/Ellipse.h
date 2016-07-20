@@ -20,7 +20,6 @@
 
 namespace Geometry {
 
-
 //! @class Ellipse
 //! @ingroup tools
 //! @brief Ellipse shape
@@ -44,11 +43,11 @@ public:
     //! More precisely, if mid point of two bins satisfy this condition.
     bool contains(const Bin1D &binx, const Bin1D &biny) const;
 
-    double getCenterX() const;
-    double getCenterY() const;
-    double getRadiusX() const;
-    double getRadiusY() const;
-    double getTheta() const;
+    double getCenterX() const { return m_xc; }
+    double getCenterY() const { return m_yc; }
+    double getRadiusX() const { return m_xr; }
+    double getRadiusY() const { return m_yr; }
+    double getTheta() const { return m_theta; }
 
 private:
     Ellipse(const Ellipse& other);

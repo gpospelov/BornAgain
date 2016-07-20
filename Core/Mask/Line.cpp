@@ -98,11 +98,6 @@ bool VerticalLine::contains(const Bin1D& binx, const Bin1D& /*biny*/) const
     return false;
 }
 
-double VerticalLine::getXpos() const
-{
-    return m_x;
-}
-
 VerticalLine::VerticalLine(const VerticalLine &other)
     : m_x(other.m_x)
 {
@@ -129,11 +124,6 @@ bool HorizontalLine::contains(const Bin1D& /*binx*/, const Bin1D& biny) const
 {
     if(m_y>=biny.m_lower && m_y <= biny.m_upper) return true;
     return false;
-}
-
-double HorizontalLine::getYpos() const
-{
-    return m_y;
 }
 
 HorizontalLine::HorizontalLine(const HorizontalLine &other)

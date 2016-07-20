@@ -13132,16 +13132,16 @@ C++ includes: WavevectorInfo.h
 // File: classMathFunctions_1_1Convolve_1_1Workspace.xml
 
 
-// File: namespace_0D277.xml
+// File: namespace_0D279.xml
 
 
-// File: namespace_0D338.xml
+// File: namespace_0D340.xml
 
 
-// File: namespace_0D405.xml
+// File: namespace_0D407.xml
 
 
-// File: namespace_0D419.xml
+// File: namespace_0D421.xml
 
 
 // File: namespaceboost_1_1geometry.xml
@@ -13763,6 +13763,12 @@ Returns exp(I*z), where I is the imaginary unit.
 
 
 // File: WinDllMacros_8h.xml
+
+
+// File: Bin_8cpp.xml
+
+
+// File: Bin_8h.xml
 
 
 // File: ConstKBinAxis_8cpp.xml
@@ -14998,12 +15004,6 @@ David N. Williams
 
 
 // File: BasicVector3D_8h.xml
-
-
-// File: Bin_8cpp.xml
-
-
-// File: Bin_8h.xml
 
 
 // File: EigenCore_8h.xml

@@ -18,9 +18,6 @@
 
 #include "HomogeneousMaterial.h" // inheriting from
 
-#ifndef SWIG
-#endif
-
 //! @class HomogeneousMagneticMaterial
 //! @ingroup materials
 //! @brief An homogeneous material with magnetization.
@@ -45,23 +42,14 @@ public:
     virtual HomogeneousMagneticMaterial *clone() const;
 
     //! Get the magnetic field (in Tesla)
-    kvector_t getMagneticField() const
-    {
-        return m_magnetic_field;
-    }
+    kvector_t getMagneticField() const { return m_magnetic_field; }
 
     //! Set the magnetic field (in Tesla)
-    void setMagneticField(const kvector_t magnetic_field)
-    {
-        m_magnetic_field = magnetic_field;
-    }
+    void setMagneticField(const kvector_t magnetic_field) { m_magnetic_field = magnetic_field; }
 
     //! Indicates that the material is not scalar. This means that different
     //! polarization states will be diffracted differently
-    virtual bool isScalarMaterial() const
-    {
-        return false;
-    }
+    virtual bool isScalarMaterial() const { return false; }
 
 #ifndef SWIG
     //! Get the scattering matrix (~potential V) from the material.
@@ -73,11 +61,9 @@ public:
     virtual const IMaterial *createTransformedMaterial(const IRotation &rotation) const;
 
 protected:
-    virtual void print(std::ostream &ostr) const
-    {
+    virtual void print(std::ostream &ostr) const {
         ostr << "HomMagMat:" << getName() << "<" << this << ">{ "
-             << "R=" << m_refractive_index << ", B=" << m_magnetic_field << "}";
-    }
+             << "R=" << m_refractive_index << ", B=" << m_magnetic_field << "}";  }
 
     kvector_t m_magnetic_field; //!< magnetic field in Tesla
 private:

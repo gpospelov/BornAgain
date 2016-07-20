@@ -100,9 +100,8 @@ MultiLayer* MultiLayer::cloneInvertB() const
     newMultiLayer->m_layers_z = m_layers_z;
 
     std::vector<Layer *> layer_buffer;
-    for(size_t i=0; i<m_layers.size(); i++) {
-        layer_buffer.push_back(m_layers[i]->cloneInvertB() );
-    }
+    for(size_t i=0; i<m_layers.size(); i++)
+        layer_buffer.push_back(m_layers[i]->cloneInvertB());
 
     for(size_t i=0; i<m_interfaces.size(); i++) {
         const Layer *topLayer = layer_buffer[i];
@@ -110,16 +109,16 @@ MultiLayer* MultiLayer::cloneInvertB() const
 
         LayerInterface *newInterface(0);
         if(m_interfaces[i]->getRoughness()) {
-            newInterface = LayerInterface::createRoughInterface(topLayer,
-                    bottomLayer, *m_interfaces[i]->getRoughness() );
+            newInterface = LayerInterface::createRoughInterface(
+                topLayer, bottomLayer, *m_interfaces[i]->getRoughness());
         } else {
-            newInterface = LayerInterface::createSmoothInterface(topLayer,
-                    bottomLayer );
+            newInterface = LayerInterface::createSmoothInterface(topLayer, bottomLayer );
         }
         newMultiLayer->addAndRegisterLayer( layer_buffer[i] );
         newMultiLayer->addAndRegisterInterface( newInterface );
     }
-    if(layer_buffer.size()) newMultiLayer->addAndRegisterLayer( layer_buffer.back() );
+    if(layer_buffer.size())
+        newMultiLayer->addAndRegisterLayer( layer_buffer.back() );
 
     newMultiLayer->m_crossCorrLength = m_crossCorrLength;
 
@@ -138,14 +137,12 @@ const LayerInterface *MultiLayer::getLayerTopInterface(size_t i_layer) const
 //! Returns pointer to the bottom interface of the layer.
 const LayerInterface *MultiLayer::getLayerBottomInterface(size_t i_layer) const
 {
-    return i_layer<m_interfaces.size() ?
-        m_interfaces[ check_interface_index(i_layer) ] : 0;
+    return i_layer<m_interfaces.size() ? m_interfaces[ check_interface_index(i_layer) ] : 0;
 }
 
 //! Adds layer with top roughness
 
-void MultiLayer::addLayerWithTopRoughness(
-    const Layer& layer, const LayerRoughness& roughness)
+void MultiLayer::addLayerWithTopRoughness(const Layer& layer, const LayerRoughness& roughness)
 {
     Layer *p_new_layer = layer.clone();
     if (getNumberOfLayers())
@@ -187,15 +184,18 @@ void MultiLayer::addLayer(const Layer& layer)
 //! j,k - indexes of layers in multilayer whose bottom interfaces we are considering
 double MultiLayer::getCrossCorrSpectralFun(const kvector_t kvec, size_t j, size_t k) const
 {
-    if(m_crossCorrLength == 0) return 0.0;
+    if(m_crossCorrLength == 0)
+        return 0.0;
     double z_j = getLayerBottomZ(j);
     double z_k = getLayerBottomZ(k);
     const LayerRoughness *rough_j = getLayerBottomInterface(j)->getRoughness();
     const LayerRoughness *rough_k = getLayerBottomInterface(k)->getRoughness();
-    if( !rough_j || !rough_k ) return 0.0;
+    if( !rough_j || !rough_k )
+        return 0.0;
     double sigma_j = rough_j->getSigma();
     double sigma_k = rough_k->getSigma();
-    if(sigma_j == 0 || sigma_k == 0) return 0.0;
+    if(sigma_j == 0 || sigma_k == 0)
+        return 0.0;
     double corr = 0.5*( (sigma_k/sigma_j)*rough_j->getSpectralFun(kvec) +
                         (sigma_j/sigma_k)*rough_k->getSpectralFun(kvec) ) *
         std::exp( -1*std::abs(z_j-z_k)/m_crossCorrLength );
@@ -285,10 +285,9 @@ size_t MultiLayer::check_interface_index(size_t i_interface) const
 
 bool MultiLayer::requiresMatrixRTCoefficients() const
 {
-    for (size_t i=0; i<this->getNumberOfLayers(); ++i) {
-        const Layer *p_layer = this->getLayer(i);
-        const IMaterial *p_material = p_layer->getMaterial();
-        if (!p_material->isScalarMaterial()) return true;
+    for (auto layer: m_layers) {
+        if (!(layer->getMaterial()->isScalarMaterial()))
+            return true;
     }
     return false;
 }

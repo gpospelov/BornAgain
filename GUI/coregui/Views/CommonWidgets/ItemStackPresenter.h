@@ -17,7 +17,7 @@
 #ifndef ITEMSTACKPRESENTER_H
 #define ITEMSTACKPRESENTER_H
 
-#include "ItemStackWidget.h"
+#include "ItemStackWidget.h" // inheriting from
 #include <QDebug>
 #include <QMap>
 #include <QStackedWidget>

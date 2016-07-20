@@ -22,7 +22,7 @@
 #include <gsl/gsl_sf_trig.h>
 #include <chrono>
 #include <cstring>
-#include <exception> // need detected by TeamCity
+#include <stdexcept> // need overlooked by g++ 5.4
 #include <fftw3.h>
 #include <random>
 

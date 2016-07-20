@@ -17,7 +17,7 @@
 #ifndef LAYERVIEW_H
 #define LAYERVIEW_H
 
-#include "ILayerView.h"
+#include "ILayerView.h" // inheriting from
 
 //! Class that represents view of Layer
 class BA_CORE_API_ LayerView : public ILayerView

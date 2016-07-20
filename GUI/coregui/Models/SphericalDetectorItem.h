@@ -17,7 +17,7 @@
 #ifndef SPHERICALDETECTORITEM_H
 #define SPHERICALDETECTORITEM_H
 
-#include "SessionItem.h"
+#include "SessionItem.h" // inheriting from
 
 class IDetector2D;
 class IResolutionFunction2D;

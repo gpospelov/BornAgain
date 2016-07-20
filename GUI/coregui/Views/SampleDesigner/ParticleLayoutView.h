@@ -17,7 +17,7 @@
 #ifndef PARTICLELAYOUTVIEW_H
 #define PARTICLELAYOUTVIEW_H
 
-#include "ConnectableView.h"
+#include "ConnectableView.h" // inheriting from
 
 class BA_CORE_API_ ParticleLayoutView : public ConnectableView
 {

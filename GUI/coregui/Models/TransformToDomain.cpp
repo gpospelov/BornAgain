@@ -45,8 +45,8 @@
 #include "RotationItems.h"
 #include "SimulationOptionsItem.h"
 #include "TransformationItem.h"
-#include "VectorItem.h"
 #include "Units.h"
+#include "VectorItem.h"
 
 using namespace BornAgain;
 

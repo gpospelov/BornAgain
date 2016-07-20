@@ -17,7 +17,7 @@
 #ifndef FITCOMPARISONWIDGET_H
 #define FITCOMPARISONWIDGET_H
 
-#include "SessionItemWidget.h"
+#include "SessionItemWidget.h" // inheriting from
 #include <QMap>
 
 class JobItem;

@@ -47,8 +47,8 @@
 #include "SphericalDetector.h"
 #include "TransformFromDomain.h"
 #include "TransformationItem.h"
-#include "VectorItem.h"
 #include "Units.h"
+#include "VectorItem.h"
 #include <QDebug>
 
 GUIObjectBuilder::GUIObjectBuilder()

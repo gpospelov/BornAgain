@@ -17,7 +17,7 @@
 #ifndef INTENSITYDATAVIEW_H
 #define INTENSITYDATAVIEW_H
 
-#include "IMaskView.h"
+#include "IMaskView.h" // inheriting from
 #include "SizeHandleElement.h"
 #include <QMap>
 

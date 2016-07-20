@@ -17,7 +17,7 @@
 #ifndef SIMULATIONOPTIONSITEM_H
 #define SIMULATIONOPTIONSITEM_H
 
-#include "SessionItem.h"
+#include "SessionItem.h" // inheriting from
 
 //! The SimulationOptionsItem class holds simulation status (run policy, number of threads,
 //! integration flag). Used in SimulationView to define job settings. When job is started,

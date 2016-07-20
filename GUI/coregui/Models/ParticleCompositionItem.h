@@ -17,8 +17,8 @@
 #ifndef PARTICLECOMPOSITIONITEM_H
 #define PARTICLECOMPOSITIONITEM_H
 
+#include "SessionGraphicsItem.h" // inheriting from
 #include "ParticleComposition.h"
-#include "SessionGraphicsItem.h"
 
 
 class BA_CORE_API_ ParticleCompositionItem : public SessionGraphicsItem

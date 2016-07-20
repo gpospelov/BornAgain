@@ -17,7 +17,7 @@
 #ifndef INSTRUMENTITEM_H
 #define INSTRUMENTITEM_H
 
-#include "SessionItem.h"
+#include "SessionItem.h" // inheriting from
 
 class BeamItem;
 class DetectorItem;

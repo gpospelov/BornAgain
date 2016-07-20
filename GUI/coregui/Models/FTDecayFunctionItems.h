@@ -18,8 +18,8 @@
 #define FTDECAYFUNCTIONITEMS_H
 
 
+#include "SessionItem.h" // inheriting from
 #include "FTDecayFunctions.h"
-#include "SessionItem.h"
 
 
 class BA_CORE_API_ FTDecayFunction1DItem : public SessionItem

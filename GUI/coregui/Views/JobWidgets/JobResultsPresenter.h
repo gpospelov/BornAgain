@@ -17,7 +17,7 @@
 #ifndef JOBRESULTSPRESENTER_H
 #define JOBRESULTSPRESENTER_H
 
-#include "ItemComboWidget.h"
+#include "ItemComboWidget.h" // inheriting from
 
 //! The JobResultsPresenter class is a widget which is able to present results of job (JobItem)
 //! using stack of different widgets and combo box in the right top corner of JobView, to switch

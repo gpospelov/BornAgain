@@ -17,7 +17,7 @@
 #ifndef GUIOBJECTBUILDER_H
 #define GUIOBJECTBUILDER_H
 
-#include "ISampleVisitor.h"
+#include "ISampleVisitor.h" // inheriting from
 #include "MaterialProperty.h"
 
 class IMaterial;

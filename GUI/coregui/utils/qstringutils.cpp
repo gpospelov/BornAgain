@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#include "hostosinfo.h"
 #include "qstringutils.h"
+#include "hostosinfo.h"
 #include <QDir>
 
 namespace Utils

@@ -17,7 +17,7 @@
 #ifndef APPSVC_H
 #define APPSVC_H
 
-#include "ISingleton.h"
+#include "ISingleton.h" // inheriting from
 
 class ProjectManager;
 

@@ -17,7 +17,7 @@
 #ifndef BEAMITEM_H
 #define BEAMITEM_H
 
-#include "SessionItem.h"
+#include "SessionItem.h" // inheriting from
 
 class BA_CORE_API_ BeamItem : public SessionItem
 {

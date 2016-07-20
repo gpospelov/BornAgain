@@ -17,7 +17,7 @@
 #ifndef MASKALLVIEW_H
 #define MASKALLVIEW_H
 
-#include "IMaskView.h"
+#include "IMaskView.h" // inheriting from
 
 //! This is a view of MaskAllItem which covers whole detector plane with mask value=true.
 

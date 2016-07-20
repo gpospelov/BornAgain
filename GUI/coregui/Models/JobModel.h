@@ -16,7 +16,7 @@
 #ifndef JOBMODEL_H
 #define JOBMODEL_H
 
-#include "SessionModel.h"
+#include "SessionModel.h" // inheriting from
 class JobQueueData;
 class JobItem;
 class MultiLayerItem;

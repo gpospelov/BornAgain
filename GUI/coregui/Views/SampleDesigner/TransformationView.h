@@ -18,7 +18,7 @@
 #define TRANSFORMATIONVIEW_H
 
 
-#include "ConnectableView.h"
+#include "ConnectableView.h" // inheriting from
 
 class TransformationView : public ConnectableView
 {

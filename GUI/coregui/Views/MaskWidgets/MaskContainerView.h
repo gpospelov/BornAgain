@@ -17,7 +17,7 @@
 #ifndef MASKCONTAINERVIEW_H
 #define MASKCONTAINERVIEW_H
 
-#include "IMaskView.h"
+#include "IMaskView.h" // inheriting from
 #include "SizeHandleElement.h"
 #include <QMap>
 

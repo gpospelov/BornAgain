@@ -17,7 +17,7 @@
 #ifndef PARAMETERTUNINGMODEL_H
 #define PARAMETERTUNINGMODEL_H
 
-#include "FilterPropertyProxy.h"
+#include "FilterPropertyProxy.h" // inheriting from
 
 class ParameterItem;
 

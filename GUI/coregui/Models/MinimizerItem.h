@@ -17,7 +17,7 @@
 #ifndef MINIMIZERITEM_H
 #define MINIMIZERITEM_H
 
-#include "SessionItem.h"
+#include "SessionItem.h" // inheriting from
 
 class IMinimizer;
 

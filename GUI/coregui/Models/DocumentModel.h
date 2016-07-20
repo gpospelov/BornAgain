@@ -17,7 +17,7 @@
 #ifndef DOCUMENTMODEL_H
 #define DOCUMENTMODEL_H
 
-#include "SessionModel.h"
+#include "SessionModel.h" // inheriting from
 
 class SimulationOptionsItem;
 

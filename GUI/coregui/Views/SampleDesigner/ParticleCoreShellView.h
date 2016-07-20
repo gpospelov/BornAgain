@@ -17,7 +17,7 @@
 #ifndef PARTICLECORESHELLVIEW_H
 #define PARTICLECORESHELLVIEW_H
 
-#include "ConnectableView.h"
+#include "ConnectableView.h" // inheriting from
 
 //! Class representing view of Particle item
 class BA_CORE_API_ ParticleCoreShellView : public ConnectableView

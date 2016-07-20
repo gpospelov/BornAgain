@@ -21,8 +21,8 @@
 #include "SampleBuilderFactory.h"
 #include "SimulationFactory.h"
 #include "Units.h"
-#include <memory>
 #include <boost/format.hpp>
+#include <memory>
 
 IMinimizerTest::TestParameter::TestParameter(
     const std::string& name, double real_value, double start_value)

@@ -17,7 +17,7 @@
 #ifndef COMPONENTBOXEDITOR_H
 #define COMPONENTBOXEDITOR_H
 
-#include "ComponentEditor.h"
+#include "ComponentEditor.h" // inheriting from
 #include "WinDllMacros.h"
 
 //! Special version of editor to show property item as standard qt widgets

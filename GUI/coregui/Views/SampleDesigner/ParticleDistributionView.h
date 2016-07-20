@@ -17,7 +17,7 @@
 #ifndef PARTICLEDISTRIBUTIONVIEW_H
 #define PARTICLEDISTRIBUTIONVIEW_H
 
-#include "ConnectableView.h"
+#include "ConnectableView.h" // inheriting from
 
 //! Class representing view of distributed particle item
 class BA_CORE_API_ ParticleDistributionView : public ConnectableView

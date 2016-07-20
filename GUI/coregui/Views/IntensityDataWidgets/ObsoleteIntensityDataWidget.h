@@ -17,7 +17,7 @@
 #ifndef OBSOLETEINTENSITYDATAWIDGET_H
 #define OBSOLETEINTENSITYDATAWIDGET_H
 
-#include "SessionItemWidget.h"
+#include "SessionItemWidget.h" // inheriting from
 
 class IntensityDataItem;
 class ObsoleteIntensityDataWidgetActions;

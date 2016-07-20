@@ -17,7 +17,7 @@
 #ifndef SAMPLEMODEL_H
 #define SAMPLEMODEL_H
 
-#include "SessionModel.h"
+#include "SessionModel.h" // inheriting from
 
 class MultiLayerItem;
 class BA_CORE_API_ SampleModel : public SessionModel

@@ -17,7 +17,7 @@
 #ifndef MASKMODEL_H
 #define MASKMODEL_H
 
-#include "SessionModel.h"
+#include "SessionModel.h" // inheriting from
 
 class BA_CORE_API_ MaskModel : public SessionModel
 {

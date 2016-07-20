@@ -17,7 +17,7 @@
 #ifndef INTENSITYDATAPROPERTYWIDGET_H
 #define INTENSITYDATAPROPERTYWIDGET_H
 
-#include "SessionItemWidget.h"
+#include "SessionItemWidget.h" // inheriting from
 
 class JobModel;
 class IntensityDataItem;

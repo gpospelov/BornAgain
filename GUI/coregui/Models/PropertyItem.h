@@ -17,7 +17,7 @@
 #ifndef PROPERTYITEM_H
 #define PROPERTYITEM_H
 
-#include "SessionItem.h"
+#include "SessionItem.h" // inheriting from
 
 class BA_CORE_API_ PropertyItem : public SessionItem
 {

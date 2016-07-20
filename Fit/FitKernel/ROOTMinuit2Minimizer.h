@@ -16,8 +16,8 @@
 #ifndef ROOTMINUIT2MINIMIZER_H
 #define ROOTMINUIT2MINIMIZER_H
 
+#include "ROOTMinimizer.h" // inheriting from
 #include "Minuit2/Minuit2Minimizer.h"
-#include "ROOTMinimizer.h"
 
 //! @class ROOTMinuit2Minimizer
 //! @ingroup fitting_internal

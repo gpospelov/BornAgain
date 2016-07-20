@@ -17,7 +17,7 @@
 #ifndef FORMFACTORITEMS_H
 #define FORMFACTORITEMS_H
 
-#include "SessionItem.h"
+#include "SessionItem.h" // inheriting from
 
 
 class IFormFactor;

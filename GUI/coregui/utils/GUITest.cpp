@@ -14,6 +14,7 @@
 //
 // ************************************************************************** //
 
+#include "GUITest.h"
 #include "DocumentModel.h"
 #include "DomainSimulationBuilder.h"
 #include "GISASSimulation.h"
@@ -24,7 +25,6 @@
 #include "MaterialSvc.h"
 #include "SampleModel.h"
 #include "Utils.h"
-#include "GUITest.h"
 
 GUITest::GUITest(const std::string &name, const std::string &description,
                  GISASSimulation *reference_simulation, double threshold)

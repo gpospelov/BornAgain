@@ -17,7 +17,7 @@
 #ifndef POLYGONVIEW_H
 #define POLYGONVIEW_H
 
-#include "IMaskView.h"
+#include "IMaskView.h" // inheriting from
 #include <QPolygonF>
 
 //! This is a View of polygon mask (represented by PolygonItem) on GraphicsScene.

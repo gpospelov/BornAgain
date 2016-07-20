@@ -17,7 +17,7 @@
 #ifndef GUITEST_H
 #define GUITEST_H
 
-#include "IFunctionalTest.h"
+#include "IFunctionalTest.h" // inheriting from
 #include "OutputData.h"
 
 class GISASSimulation;

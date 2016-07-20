@@ -17,7 +17,7 @@
 #ifndef PARTICLELAYOUTITEM_H
 #define PARTICLELAYOUTITEM_H
 
-#include "SessionGraphicsItem.h"
+#include "SessionGraphicsItem.h" // inheriting from
 
 class BA_CORE_API_ ParticleLayoutItem : public SessionGraphicsItem
 {

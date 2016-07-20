@@ -14,13 +14,13 @@
 //
 // ************************************************************************** //
 
+#include "aboutapplicationdialog.h"
+#include "DesignerHelper.h"
+#include "GUIHelpers.h"
 #include <QDate>
 #include <QLabel>
 #include <QPushButton>
 #include <QVBoxLayout>
-#include "DesignerHelper.h"
-#include "GUIHelpers.h"
-#include "aboutapplicationdialog.h"
 
 
 AboutApplicationDialog::AboutApplicationDialog(QWidget *parent)

@@ -17,7 +17,7 @@
 #ifndef LAYERITEM_H
 #define LAYERITEM_H
 
-#include "SessionGraphicsItem.h"
+#include "SessionGraphicsItem.h" // inheriting from
 
 class BA_CORE_API_ LayerItem : public SessionGraphicsItem
 {

@@ -17,7 +17,7 @@
 #ifndef MATERIALMODEL_H
 #define MATERIALMODEL_H
 
-#include "SessionModel.h"
+#include "SessionModel.h" // inheriting from
 
 class MaterialItem;
 class MaterialProperty;

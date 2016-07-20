@@ -16,7 +16,7 @@
 #ifndef FITSTRATEGYADJUSTMINIMIZER_H
 #define FITSTRATEGYADJUSTMINIMIZER_H
 
-#include "IFitStrategy.h"
+#include "IFitStrategy.h" // inheriting from
 #include "IMinimizer.h"
 
 

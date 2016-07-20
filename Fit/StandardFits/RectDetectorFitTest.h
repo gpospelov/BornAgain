@@ -16,7 +16,7 @@
 #ifndef RECTDETECTORFITTEST_H
 #define RECTDETECTORFITTEST_H
 
-#include "IMinimizerTest.h"
+#include "IMinimizerTest.h" // inheriting from
 
 
 //! @class RectDetectorFitTest

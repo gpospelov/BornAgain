@@ -16,7 +16,7 @@
 #ifndef STANDARDFITSFACTORY_H
 #define STANDARDFITSFACTORY_H
 
-#include "IFactory.h"
+#include "IFactory.h" // inheriting from
 
 class IFunctionalTest;
 

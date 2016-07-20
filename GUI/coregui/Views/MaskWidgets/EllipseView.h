@@ -17,7 +17,7 @@
 #ifndef ELLIPSEVIEW_H
 #define ELLIPSEVIEW_H
 
-#include "IMaskView.h"
+#include "IMaskView.h" // inheriting from
 #include "SizeHandleElement.h"
 #include <QMap>
 

@@ -17,7 +17,7 @@
 #ifndef SAMPLETOOLBAR_H
 #define SAMPLETOOLBAR_H
 
-#include "StyledToolBar.h"
+#include "StyledToolBar.h" // inheriting from
 
 class QAction;
 class QToolButton;

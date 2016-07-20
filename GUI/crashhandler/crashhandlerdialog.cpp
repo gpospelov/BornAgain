@@ -1,8 +1,8 @@
 #include "crashhandlerdialog.h"
-#include <QtWidgets>
+#include <QClipboard>
 #include <QPushButton>
 #include <QTextEdit>
-#include <QClipboard>
+#include <QtWidgets>
 
 
 

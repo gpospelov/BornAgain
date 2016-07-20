@@ -17,8 +17,8 @@
 #ifndef GUIHELPERS_H
 #define GUIHELPERS_H
 
-#include <QWidget>
 #include <QStringList>
+#include <QWidget>
 #include <memory>
 
 class JobItem;

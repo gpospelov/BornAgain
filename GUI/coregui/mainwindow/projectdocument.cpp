@@ -14,13 +14,13 @@
 //
 // ************************************************************************** //
 
-#include <QDebug>
-#include <QDir>
-#include <QXmlStreamReader>
+#include "projectdocument.h"
 #include "ApplicationModels.h"
 #include "GUIHelpers.h"
 #include "WarningMessageService.h"
-#include "projectdocument.h"
+#include <QDebug>
+#include <QDir>
+#include <QXmlStreamReader>
 
 namespace {
 const QString OPEN_FILE_ERROR = "OPEN_FILE_ERROR";

@@ -17,7 +17,7 @@
 #ifndef TESTITEM_H
 #define TESTITEM_H
 
-#include "SessionItem.h"
+#include "SessionItem.h" // inheriting from
 
 //! The TestItem class for TestSessionItem unit tests and for checking AwesomePropertyEditor machinery
 class BA_CORE_API_ TestItem : public SessionItem

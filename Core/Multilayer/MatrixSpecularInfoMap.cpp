@@ -29,7 +29,7 @@ MatrixSpecularInfoMap::MatrixSpecularInfoMap(const MultiLayer* multilayer, int l
 MatrixSpecularInfoMap* MatrixSpecularInfoMap::clone() const
 {
     MatrixSpecularInfoMap* result = new MatrixSpecularInfoMap(0, m_layer);
-    if (mP_multilayer.get()){
+    if (mP_multilayer){
         result->mP_multilayer.reset(mP_multilayer->clone());
         result->mP_inverted_multilayer.reset(mP_inverted_multilayer->clone());
     }

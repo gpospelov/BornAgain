@@ -19,7 +19,7 @@
 #include "Units.h"
 #include "WavevectorInfo.h"
 
-FormFactorDecoratorMaterial::FormFactorDecoratorMaterial(const IFormFactor &form_factor)
+FormFactorDecoratorMaterial::FormFactorDecoratorMaterial(const IFormFactor& form_factor)
     : FormFactorDecoratorFactor(form_factor, 1.0),
       mP_material{nullptr},
       mP_ambient_material{nullptr}
@@ -40,28 +40,23 @@ FormFactorDecoratorMaterial* FormFactorDecoratorMaterial::clone() const
     return result;
 }
 
-void FormFactorDecoratorMaterial::setMaterial(const IMaterial &material)
+void FormFactorDecoratorMaterial::setMaterial(const IMaterial& material)
 {
-    if (mP_material.get() != &material) {
+    if (mP_material.get() != &material)
         mP_material.reset(material.clone());
-    }
     m_factor = getRefractiveIndexFactor();
 }
 
-void FormFactorDecoratorMaterial::setAmbientMaterial(const IMaterial &material)
+void FormFactorDecoratorMaterial::setAmbientMaterial(const IMaterial& material)
 {
-    if (mP_ambient_material.get() != &material) {
+    if (mP_ambient_material.get() != &material)
         mP_ambient_material.reset(material.clone());
-    }
     m_factor = getRefractiveIndexFactor();
 }
 
 complex_t FormFactorDecoratorMaterial::getAmbientRefractiveIndex() const
 {
-    if (mP_ambient_material.get()) {
-        return mP_ambient_material->getRefractiveIndex();
-    }
-    return 1.0;
+    return mP_ambient_material ? mP_ambient_material->getRefractiveIndex() : 1.0;
 }
 
 Eigen::Matrix2cd FormFactorDecoratorMaterial::evaluatePol(const WavevectorInfo& wavevectors) const
@@ -82,10 +77,10 @@ Eigen::Matrix2cd FormFactorDecoratorMaterial::evaluatePol(const WavevectorInfo& 
 
 complex_t FormFactorDecoratorMaterial::getRefractiveIndexFactor() const
 {
-    if (mP_material.get() && mP_ambient_material.get()) {
+    if (mP_material && mP_ambient_material) {
         complex_t particle_index = mP_material->getRefractiveIndex();
         complex_t ambient_index = mP_ambient_material->getRefractiveIndex();
-        return (particle_index * particle_index - ambient_index * ambient_index);
+        return particle_index * particle_index - ambient_index * ambient_index;
     } else
         return 1.0;
 }

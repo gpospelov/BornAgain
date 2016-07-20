@@ -128,11 +128,11 @@ std::string OffSpecSimulation::addParametersToExternalPool(std::string path,
     // add parameters of the instrument
     m_instrument.addParametersToExternalPool(new_path, external_pool, -1);
 
-    if (mp_sample_builder.get()) {
+    if (mp_sample_builder) {
        // add parameters of the sample builder
         mp_sample_builder->addParametersToExternalPool(
             new_path, external_pool, -1);
-    } else if (mP_sample.get()) {
+    } else if (mP_sample) {
         // add parameters of the existing sample
         mP_sample->addParametersToExternalPool(new_path, external_pool, -1);
     }

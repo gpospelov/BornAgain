@@ -51,9 +51,8 @@ InterferenceFunctionRadialParaCrystal* InterferenceFunctionRadialParaCrystal::cl
             m_peak_distance, m_damping_length);
     result->setDomainSize(getDomainSize());
     result->setKappa(m_kappa);
-    if (mP_pdf.get()) {
+    if (mP_pdf)
         result->setProbabilityDistribution(*mP_pdf);
-    }
     return result;
 }
 
@@ -64,7 +63,7 @@ void InterferenceFunctionRadialParaCrystal::accept(ISampleVisitor* visitor) cons
 
 double InterferenceFunctionRadialParaCrystal::evaluate(const kvector_t q) const
 {
-    if (!mP_pdf.get()) {
+    if (!mP_pdf) {
         throw Exceptions::NullPointerException("InterferenceFunctionRadialParaCrystal::"
                 "evaluate() -> Error! Probability distribution for "
                 "interference funtion not properly initialized");

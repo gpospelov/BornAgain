@@ -26,7 +26,7 @@ IFormFactor* IParticle::createFormFactor() const
 
 void IParticle::setRotation(const IRotation& rotation)
 {
-    if (!mP_rotation.get()) {
+    if (!mP_rotation) {
         mP_rotation.reset(rotation.clone());
         registerChild(mP_rotation.get());
         return;
@@ -38,7 +38,7 @@ void IParticle::setRotation(const IRotation& rotation)
 
 void IParticle::applyRotation(const IRotation& rotation)
 {
-    if (mP_rotation.get()) {
+    if (mP_rotation) {
         deregisterChild(mP_rotation.get());
         mP_rotation.reset(CreateProduct(rotation, *mP_rotation));
     } else {
@@ -56,13 +56,13 @@ void IParticle::applyTranslation(kvector_t displacement)
 IRotation* IParticle::createComposedRotation(const IRotation* p_rotation) const
 {
     if (p_rotation) {
-        if (mP_rotation.get()) {
+        if (mP_rotation) {
             return CreateProduct(*p_rotation, *mP_rotation);
         } else {
             return p_rotation->clone();
         }
     } else {
-        if (mP_rotation.get()) {
+        if (mP_rotation) {
             return mP_rotation->clone();
         } else {
             return 0;

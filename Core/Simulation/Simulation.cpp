@@ -52,7 +52,7 @@ Simulation::Simulation(const Simulation& other)
     , m_distribution_handler(other.m_distribution_handler)
     , m_progress(other.m_progress)
 {
-    if (other.mP_sample.get())
+    if (other.mP_sample)
         mP_sample.reset(other.mP_sample->clone());
     init_parameters();
 }
@@ -109,7 +109,7 @@ void Simulation::setSample(const ISample& sample)
 
 void Simulation::setSampleBuilder(std::shared_ptr<class ISampleBuilder> p_sample_builder)
 {
-    if (!p_sample_builder.get())
+    if (!p_sample_builder)
         throw Exceptions::NullPointerException("Simulation::setSampleBuilder() -> "
                                    "Error! Attempt to set null sample builder.");
 
@@ -124,10 +124,10 @@ std::string Simulation::addParametersToExternalPool(std::string path, ParameterP
     std::string new_path
         = IParameterized::addParametersToExternalPool(path, external_pool, copy_number);
 
-    if (mp_sample_builder.get()) {
+    if (mp_sample_builder) {
         // add parameters of the sample builder
         mp_sample_builder->addParametersToExternalPool(new_path, external_pool, -1);
-    } else if (mP_sample.get()) {
+    } else if (mP_sample) {
         // add parameters of directly the sample
         mP_sample->addParametersToExternalPool(new_path, external_pool, -1);
     }
@@ -155,7 +155,7 @@ const DistributionHandler& Simulation::getDistributionHandler() const
 
 void Simulation::updateSample()
 {
-    if (mp_sample_builder.get()) {
+    if (mp_sample_builder) {
         ISample *p_new_sample = mp_sample_builder->buildSample();
         std::string builder_type = typeid(*mp_sample_builder).name();
         if (builder_type.find("ISampleBuilder_wrapper") != std::string::npos) {
@@ -202,8 +202,8 @@ void Simulation::runSingleSimulation()
                            << ", n_batches = " << m_options.getNumberOfBatches()
                            << ", current_batch = " << m_options.getCurrentBatch();
 
-        std::vector<std::thread *> threads;
-        std::vector<DWBASimulation *> simulations;
+        std::vector<std::thread*> threads;
+        std::vector<DWBASimulation*> simulations;
 
         // Initialize n simulations.
         int total_batch_elements = batch_end - batch_start;

@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Assembly/InterferenceFunctions.h
-//! @brief     Include all interference function definitions.
+//! @brief     Includes all interference function definitions.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -23,5 +23,3 @@
 #include "InterferenceFunctionRadialParaCrystal.h"
 
 #endif // INTERFERENCEFUNCTIONS_H
-
-

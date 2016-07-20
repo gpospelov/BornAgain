@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "IInterferenceFunctionStrategy.h"
+#include "Bin.h"
 #include "FormFactorInfo.h"
 #include "IFormFactor.h"
 #include "IInterferenceFunction.h"
@@ -25,7 +26,8 @@
 #include "Units.h"
 #include "WavevectorInfo.h"
 
-IInterferenceFunctionStrategy::IInterferenceFunctionStrategy(SimulationOptions sim_params)
+IInterferenceFunctionStrategy::IInterferenceFunctionStrategy(
+    const SimulationOptions& sim_params)
     : mP_iff { nullptr }
     , m_options(sim_params)
 {

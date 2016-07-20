@@ -16,7 +16,6 @@
 #ifndef IINTERFERENCEFUNCTIONSTRATEGY_H
 #define IINTERFERENCEFUNCTIONSTRATEGY_H
 
-#include "Bin.h"
 #include "Complex.h"
 #include "SafePointerVector.h"
 #include "SimulationOptions.h"
@@ -26,6 +25,7 @@
 #include <vector>
 
 template <class T> class IntegratorMCMiser;
+class Bin1DCVector;
 class FormFactorInfo;
 class IInterferenceFunction;
 class LayerSpecularInfo;
@@ -39,7 +39,7 @@ class BA_CORE_API_ IInterferenceFunctionStrategy
 public:
     typedef std::vector<Eigen::Matrix2cd, Eigen::aligned_allocator<Eigen::Matrix2cd> >
         MatrixFFVector;
-    IInterferenceFunctionStrategy(SimulationOptions sim_params);
+    IInterferenceFunctionStrategy(const SimulationOptions& sim_params);
     virtual ~IInterferenceFunctionStrategy();
 
     //! Initializes the object with form factors and interference functions

@@ -16,7 +16,7 @@
 #ifndef HOMOGENEOUSMATERIAL_H
 #define HOMOGENEOUSMATERIAL_H
 
-#include "IMaterial.h"
+#include "IMaterial.h" // inheriting from
 #include <vector>
 
 //! @class HomogeneousMaterial

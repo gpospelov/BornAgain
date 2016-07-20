@@ -16,7 +16,7 @@
 #ifndef FORMFACTORDECORATORROTATION_H
 #define FORMFACTORDECORATORROTATION_H
 
-#include "IFormFactorDecorator.h"
+#include "IFormFactorDecorator.h" // inheriting from
 #include "Rotations.h"
 
 //! @class FormFactorDecoratorRotation

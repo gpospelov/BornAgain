@@ -16,7 +16,7 @@
 #ifndef RECTANGLE_H
 #define RECTANGLE_H
 
-#include "IShape2D.h"
+#include "IShape2D.h" // inheriting from
 
 namespace Geometry {
 

@@ -16,7 +16,7 @@
 #ifndef HISTOGRAM1D_H
 #define HISTOGRAM1D_H
 
-#include "IHistogram.h"
+#include "IHistogram.h" // inheriting from
 
 ////! @class Histogram1D
 ////! @ingroup tools

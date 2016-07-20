@@ -16,7 +16,7 @@
 #ifndef IROUGHNESS_H
 #define IROUGHNESS_H
 
-#include "ISample.h"
+#include "ISample.h" // inheriting from
 
 //! @class IRoughness
 //! @ingroup samples_internal

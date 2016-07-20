@@ -16,7 +16,7 @@
 #ifndef SPECULARMAGNETIC_H
 #define SPECULARMAGNETIC_H
 
-#include "ISimulation.h"
+#include "ISimulation.h" // inheriting from
 #include "MatrixRTCoefficients.h"
 #include "Vectors3D.h"
 #include <vector>

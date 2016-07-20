@@ -16,8 +16,8 @@
 #ifndef MULTILAYERDWBASIMULATION_H
 #define MULTILAYERDWBASIMULATION_H
 
+#include "DWBASimulation.h" // inheriting from
 #include "Complex.h"
-#include "DWBASimulation.h"
 
 class LayerDWBASimulation;
 class MultiLayer;

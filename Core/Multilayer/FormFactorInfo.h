@@ -16,7 +16,7 @@
 #ifndef FORMFACTORINFO_H
 #define FORMFACTORINFO_H
 
-#include "ICloneable.h"
+#include "ICloneable.h" // inheriting from
 
 //! @class FormFactorInfo
 //! @ingroup formfactors_internal

@@ -16,7 +16,7 @@
 #ifndef DISTRIBUTIONS_H
 #define DISTRIBUTIONS_H
 
-#include "IParameterized.h"
+#include "IParameterized.h" // inheriting from
 #include "ParameterSample.h"
 
 

@@ -16,7 +16,7 @@
 #ifndef BOXCOMPOSITIONBUILDER_H
 #define BOXCOMPOSITIONBUILDER_H
 
-#include "ISampleBuilder.h"
+#include "ISampleBuilder.h" // inheriting from
 
 class ISample;
 class HomogeneousMaterial;

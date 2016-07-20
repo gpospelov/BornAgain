@@ -16,7 +16,7 @@
 #ifndef LAYERSPECULARINFO_H
 #define LAYERSPECULARINFO_H
 
-#include "ICloneable.h"
+#include "ICloneable.h" // inheriting from
 #include <memory>
 
 class ISpecularInfoMap;

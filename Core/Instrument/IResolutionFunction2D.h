@@ -16,7 +16,7 @@
 #ifndef IRESOLUTIONFUNCTION2D_H
 #define IRESOLUTIONFUNCTION2D_H
 
-#include "IParameterized.h"
+#include "IParameterized.h" // inheriting from
 
 //! @class IResolutionFunction2D
 //! @ingroup algorithms_internal

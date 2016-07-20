@@ -16,7 +16,7 @@
 #ifndef FORMFACTORDECORATORMULTIPOSITIONFACTOR_H
 #define FORMFACTORDECORATORMULTIPOSITIONFACTOR_H
 
-#include "IFormFactorDecorator.h"
+#include "IFormFactorDecorator.h" // inheriting from
 #include "Vectors3D.h"
 
 //! @class FormFactorDecoratorMultiPositionFactor

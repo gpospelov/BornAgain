@@ -16,7 +16,7 @@
 #ifndef FORMFACTORCONE_H
 #define FORMFACTORCONE_H
 
-#include "IFormFactorBorn.h"
+#include "IFormFactorBorn.h" // inheriting from
 #include "IntegratorComplex.h"
 
 class ISampleVisitor;

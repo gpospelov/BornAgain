@@ -16,7 +16,7 @@
 #ifndef FORMFACTORTRUNCATEDSPHERE_H
 #define FORMFACTORTRUNCATEDSPHERE_H
 
-#include "IFormFactorBorn.h"
+#include "IFormFactorBorn.h" // inheriting from
 #include "IntegratorComplex.h"
 
 //! @class FormFactorTruncatedSphere

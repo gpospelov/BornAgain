@@ -16,7 +16,7 @@
 #ifndef PARTICLECOMPOSITION_H
 #define PARTICLECOMPOSITION_H
 
-#include "IParticle.h"
+#include "IParticle.h" // inheriting from
 
 class IMaterial;
 

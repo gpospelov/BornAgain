@@ -16,7 +16,7 @@
 #ifndef PARAMETERDISTRIBUTION_H
 #define PARAMETERDISTRIBUTION_H
 
-#include "IParameterized.h"
+#include "IParameterized.h" // inheriting from
 #include <memory>
 
 class IDistribution1D;

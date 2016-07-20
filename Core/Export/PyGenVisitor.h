@@ -16,7 +16,7 @@
 #ifndef PYGENVISITOR_H
 #define PYGENVISITOR_H
 
-#include "ISampleVisitor.h"
+#include "ISampleVisitor.h" // inheriting from
 #include <string>
 
 class GISASSimulation;

@@ -16,7 +16,7 @@
 #ifndef FORMFACTORLONGRIPPLE2GAUSS_H
 #define FORMFACTORLONGRIPPLE2GAUSS_H
 
-#include "IFormFactorBorn.h"
+#include "IFormFactorBorn.h" // inheriting from
 
 //! @class FormFactorLongRipple2Gauss
 //! @ingroup formfactors

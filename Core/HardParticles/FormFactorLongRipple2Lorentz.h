@@ -16,7 +16,7 @@
 #ifndef FORMFACTORLONGRIPPLE2LORENTZ_H
 #define FORMFACTORLONGRIPPLE2LORENTZ_H
 
-#include "IFormFactorBorn.h"
+#include "IFormFactorBorn.h" // inheriting from
 
 //! @class FormFactorLongRipple2Lorentz
 //! @ingroup formfactors

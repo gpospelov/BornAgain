@@ -16,7 +16,7 @@
 #ifndef ICLUSTEREDPARTICLES_H
 #define ICLUSTEREDPARTICLES_H
 
-#include "ICompositeSample.h"
+#include "ICompositeSample.h" // inheriting from
 #include "IFormFactor.h"
 #include "Vectors3D.h"
 

@@ -16,7 +16,7 @@
 #ifndef FORMFACTORPYRAMID_H
 #define FORMFACTORPYRAMID_H
 
-#include "FormFactorPolyhedron.h"
+#include "FormFactorPolyhedron.h" // inheriting from
 
 //! @class FormFactorPyramid
 //! @ingroup formfactors

@@ -16,7 +16,7 @@
 #ifndef SIZEDISTRIBUTIONMODELSBUILDER_H
 #define SIZEDISTRIBUTIONMODELSBUILDER_H
 
-#include "ISampleBuilder.h"
+#include "ISampleBuilder.h" // inheriting from
 
 //! @class SizeDistributionDAModelBuilder
 //! @ingroup standard_samples

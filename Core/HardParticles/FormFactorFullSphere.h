@@ -16,7 +16,7 @@
 #ifndef FORMFACTORFULLSPHERE_H
 #define FORMFACTORFULLSPHERE_H
 
-#include "IFormFactorBorn.h"
+#include "IFormFactorBorn.h" // inheriting from
 
 //! @ingroup formfactors
 //! @class FormFactorFullSphere

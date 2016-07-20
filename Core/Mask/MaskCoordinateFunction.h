@@ -17,7 +17,7 @@
 #ifndef MASKCOORDINATEFUNCTION_H
 #define MASKCOORDINATEFUNCTION_H
 
-#include "ICloneable.h"
+#include "ICloneable.h" // inheriting from
 
 
 //! @class MaskCoordinateFunction

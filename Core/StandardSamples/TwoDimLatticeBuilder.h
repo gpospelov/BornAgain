@@ -16,7 +16,7 @@
 #ifndef TWODIMLATTICEBUILDER_H
 #define TWODIMLATTICEBUILDER_H
 
-#include "ISampleBuilder.h"
+#include "ISampleBuilder.h" // inheriting from
 
 //! @class SquareLatticeBuilder
 //! @ingroup standard_samples

@@ -16,8 +16,8 @@
 #ifndef BEAM_H
 #define BEAM_H
 
+#include "IParameterized.h" // inheriting from
 #include "EigenCore.h"
-#include "IParameterized.h"
 #include "Vectors3D.h"
 
 //! @class Beam

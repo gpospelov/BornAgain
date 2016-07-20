@@ -16,7 +16,7 @@
 #ifndef FORMFACTORDECORATORDEBYEWALLER_H
 #define FORMFACTORDECORATORDEBYEWALLER_H
 
-#include "IFormFactorDecorator.h"
+#include "IFormFactorDecorator.h" // inheriting from
 
 //! @class FormFactorDecoratorDebyeWaller
 //! @ingroup formfactors_internal

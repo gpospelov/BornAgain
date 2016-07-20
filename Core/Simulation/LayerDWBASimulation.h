@@ -16,7 +16,7 @@
 #ifndef LAYERDWBASIMULATION_H
 #define LAYERDWBASIMULATION_H
 
-#include "DWBASimulation.h"
+#include "DWBASimulation.h" // inheriting from
 #include "LayerSpecularInfo.h"
 
 class Layer;

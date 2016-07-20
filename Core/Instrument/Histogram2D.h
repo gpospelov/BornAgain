@@ -16,7 +16,7 @@
 #ifndef HISTOGRAM2D_H
 #define HISTOGRAM2D_H
 
-#include "IHistogram.h"
+#include "IHistogram.h" // inheriting from
 
 #ifdef BORNAGAIN_PYTHON
 #ifndef PyObject_HEAD

@@ -16,7 +16,7 @@
 #ifndef SIZESPACINGCORRELATIONAPPROXIMATIONSTRATEGY_H
 #define SIZESPACINGCORRELATIONAPPROXIMATIONSTRATEGY_H
 
-#include "IInterferenceFunctionStrategy.h"
+#include "IInterferenceFunctionStrategy.h" // inheriting from
 
 class SimulationElement;
 

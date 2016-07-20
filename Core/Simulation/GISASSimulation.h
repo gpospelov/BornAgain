@@ -16,8 +16,8 @@
 #ifndef GISASSIMULATION_H
 #define GISASSIMULATION_H
 
+#include "Simulation.h" // inheriting from
 #include "Instrument.h"
-#include "Simulation.h"
 
 class ISample;
 class ISampleBuilder;

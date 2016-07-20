@@ -16,7 +16,7 @@
 #ifndef MULTILAYER_H
 #define MULTILAYER_H
 
-#include "ICompositeSample.h"
+#include "ICompositeSample.h" // inheriting from
 #include "Vectors3D.h"
 
 class GISASSimulation;

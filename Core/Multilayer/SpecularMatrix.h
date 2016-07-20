@@ -16,7 +16,7 @@
 #ifndef SPECULARMATRIX_H
 #define SPECULARMATRIX_H
 
-#include "ISimulation.h"
+#include "ISimulation.h" // inheriting from
 #include "ScalarRTCoefficients.h"
 #include "Vectors3D.h"
 #include <vector>

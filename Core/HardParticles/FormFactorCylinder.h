@@ -16,7 +16,7 @@
 #ifndef FORMFACTORCYLINDER_H
 #define FORMFACTORCYLINDER_H
 
-#include "IFormFactorBorn.h"
+#include "IFormFactorBorn.h" // inheriting from
 
 //! @class FormFactorCylinder
 //! @ingroup formfactors

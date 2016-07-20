@@ -16,7 +16,7 @@
 #ifndef INSTRUMENT_H
 #define INSTRUMENT_H
 
-#include "IParameterized.h"
+#include "IParameterized.h" // inheriting from
 #include "Beam.h"
 #include "IDetector2D.h"
 #include <memory>

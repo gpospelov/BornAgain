@@ -16,7 +16,7 @@
 #ifndef FORMFACTORTRUNCATEDSPHEROID_H
 #define FORMFACTORTRUNCATEDSPHEROID_H
 
-#include "IFormFactorBorn.h"
+#include "IFormFactorBorn.h" // inheriting from
 #include "IntegratorComplex.h"
 
 //! @class FormFactorTruncatedSpheroid

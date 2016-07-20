@@ -16,7 +16,7 @@
 #ifndef PYSUITETEST_H
 #define PYSUITETEST_H
 
-#include "IFunctionalTest.h"
+#include "IFunctionalTest.h" // inheriting from
 #include "OutputData.h"
 
 //! @class PySuiteTest

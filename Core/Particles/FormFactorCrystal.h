@@ -16,7 +16,7 @@
 #ifndef FORMFACTORCRYSTAL_H
 #define FORMFACTORCRYSTAL_H
 
-#include "IFormFactorBorn.h"
+#include "IFormFactorBorn.h" // inheriting from
 #include "Lattice.h"
 
 //! @class FormFactorCrystal

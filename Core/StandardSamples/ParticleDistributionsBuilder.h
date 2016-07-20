@@ -16,7 +16,7 @@
 #ifndef PARTICLEDISTRIBUTIONSBUILDER_H
 #define PARTICLEDISTRIBUTIONSBUILDER_H
 
-#include "ISampleBuilder.h"
+#include "ISampleBuilder.h" // inheriting from
 
 //! @class CylindersWithSizeDistributionBuilder
 //! @ingroup standard_samples

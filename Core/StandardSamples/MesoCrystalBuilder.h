@@ -16,8 +16,8 @@
 #ifndef MESOCRYSTALBUILDER_H
 #define MESOCRYSTALBUILDER_H
 
+#include "ISampleBuilder.h" // inheriting from
 #include "Complex.h"
-#include "ISampleBuilder.h"
 
 class IFormFactor;
 class ISample;

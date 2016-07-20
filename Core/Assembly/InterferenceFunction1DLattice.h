@@ -16,7 +16,7 @@
 #ifndef INTERFERENCEFUNCTION1DLATTICE_H
 #define INTERFERENCEFUNCTION1DLATTICE_H
 
-#include "IInterferenceFunction.h"
+#include "IInterferenceFunction.h" // inheriting from
 #include "Lattice1DParameters.h"
 
 class ISampleVisitor;

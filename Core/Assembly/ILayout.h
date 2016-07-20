@@ -16,7 +16,7 @@
 #ifndef ILAYOUT_H
 #define ILAYOUT_H
 
-#include "ICompositeSample.h"
+#include "ICompositeSample.h" // inheriting from
 #include "SafePointerVector.h"
 
 class IAbstractParticle;

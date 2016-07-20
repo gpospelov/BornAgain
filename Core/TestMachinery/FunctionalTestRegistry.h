@@ -16,8 +16,8 @@
 #ifndef FUNCTIONALTESTREGISTRY_H
 #define FUNCTIONALTESTREGISTRY_H
 
+#include "ISingleton.h" // inheriting from
 #include "FunctionalTestInfo.h"
-#include "ISingleton.h"
 #include <map>
 
 //! @class FunctionalTestRegistry

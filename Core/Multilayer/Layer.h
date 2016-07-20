@@ -16,8 +16,8 @@
 #ifndef LAYER_H
 #define LAYER_H
 
+#include "ICompositeSample.h" // inheriting from
 #include "Complex.h"
-#include "ICompositeSample.h"
 #include "SafePointerVector.h"
 
 class LayerDWBASimulation;

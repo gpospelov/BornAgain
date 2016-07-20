@@ -16,9 +16,9 @@
 #ifndef INTERFERENCEFUNCTION2DPARACRYSTAL_H
 #define INTERFERENCEFUNCTION2DPARACRYSTAL_H
 
+#include "IInterferenceFunction.h" // inheriting from
 #include "Complex.h"
 #include "FTDistributions.h"
-#include "IInterferenceFunction.h"
 #include "Lattice2DParameters.h"
 #include <memory>
 

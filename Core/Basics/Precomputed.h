@@ -16,7 +16,7 @@
 #ifndef PRECOMPUTED_H
 #define PRECOMPUTED_H
 
-#include "ISingleton.h"
+#include "ISingleton.h" // inheriting from
 #include <vector>
 
 //! This class contains precomputed constants.

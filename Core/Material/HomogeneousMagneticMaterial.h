@@ -16,7 +16,7 @@
 #ifndef HOMOGENEOUSMAGNETICMATERIAL_H
 #define HOMOGENEOUSMAGNETICMATERIAL_H
 
-#include "HomogeneousMaterial.h"
+#include "HomogeneousMaterial.h" // inheriting from
 
 #ifndef SWIG
 #endif

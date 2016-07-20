@@ -16,7 +16,7 @@
 #ifndef FORMFACTORDODECAHEDRON_H
 #define FORMFACTORDODECAHEDRON_H
 
-#include "FormFactorPolyhedron.h"
+#include "FormFactorPolyhedron.h" // inheriting from
 
 //! @class FormFactorDodecahedron
 //! @ingroup formfactors

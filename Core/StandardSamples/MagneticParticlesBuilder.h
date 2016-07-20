@@ -16,7 +16,7 @@
 #ifndef MAGNETICPARTICLESBUILDER_H
 #define MAGNETICPARTICLESBUILDER_H
 
-#include "ISampleBuilder.h"
+#include "ISampleBuilder.h" // inheriting from
 
 class ISample;
 

@@ -16,7 +16,7 @@
 #ifndef IFORMFACTORBORN_H
 #define IFORMFACTORBORN_H
 
-#include "IFormFactor.h"
+#include "IFormFactor.h" // inheriting from
 #include "Vectors3D.h"
 
 //! @class IFormFactorBorn

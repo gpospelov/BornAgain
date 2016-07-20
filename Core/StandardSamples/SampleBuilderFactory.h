@@ -16,7 +16,7 @@
 #ifndef SAMPLEBUILDERFACTORY_H
 #define SAMPLEBUILDERFACTORY_H
 
-#include "IFactory.h"
+#include "IFactory.h" // inheriting from
 #include "ISampleBuilder.h"
 
 class ISample;

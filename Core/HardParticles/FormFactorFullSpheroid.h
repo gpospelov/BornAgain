@@ -16,7 +16,7 @@
 #ifndef FORMFACTORFULLSPHEROID_H
 #define FORMFACTORFULLSPHEROID_H
 
-#include "IFormFactorBorn.h"
+#include "IFormFactorBorn.h" // inheriting from
 #include "IntegratorComplex.h"
 
 //! @class FormFactorFullSpheroid

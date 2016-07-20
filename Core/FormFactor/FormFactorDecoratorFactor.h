@@ -16,8 +16,8 @@
 #ifndef FORMFACTORDECORATORFACTOR_H
 #define FORMFACTORDECORATORFACTOR_H
 
+#include "IFormFactorDecorator.h" // inheriting from
 #include "BornAgainNamespace.h"
-#include "IFormFactorDecorator.h"
 
 //! @class FormFactorDecoratorFactor
 //! @ingroup formfactors_internal

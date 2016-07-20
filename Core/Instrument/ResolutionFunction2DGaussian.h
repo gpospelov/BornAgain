@@ -16,7 +16,7 @@
 #ifndef RESOLUTIONFUNCTION2DGAUSSIAN_H
 #define RESOLUTIONFUNCTION2DGAUSSIAN_H
 
-#include "IResolutionFunction2D.h"
+#include "IResolutionFunction2D.h" // inheriting from
 
 //! @class ResolutionFunction2DGaussian
 //! @ingroup algorithms_internal

@@ -16,8 +16,8 @@
 #ifndef RECTANGULARDETECTOR_H
 #define RECTANGULARDETECTOR_H
 
-#include "IDetector2D.h"
-#include "IPixelMap.h"
+#include "IDetector2D.h" // inheriting from
+#include "IPixelMap.h" // inheriting from
 
 //! @class RectangularDetector
 //! @ingroup simulation

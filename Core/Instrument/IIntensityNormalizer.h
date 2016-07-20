@@ -17,7 +17,7 @@
 #ifndef IINTENSITYNORMALIZER_H
 #define IINTENSITYNORMALIZER_H
 
-#include "IParameterized.h"
+#include "IParameterized.h" // inheriting from
 #include "OutputData.h"
 
 

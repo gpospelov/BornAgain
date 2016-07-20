@@ -16,7 +16,7 @@
 #ifndef SIMULATIONFACTORY_H
 #define SIMULATIONFACTORY_H
 
-#include "IFactory.h"
+#include "IFactory.h" // inheriting from
 
 //! @class SimulationFactory
 //! @ingroup standard_samples

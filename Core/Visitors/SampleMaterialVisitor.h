@@ -16,8 +16,8 @@
 #ifndef SAMPLEMATERIALVISITOR_H
 #define SAMPLEMATERIALVISITOR_H
 
+#include "ISampleVisitor.h" // inheriting from
 #include "IMaterial.h"
-#include "ISampleVisitor.h"
 #include <vector>
 
 //! @class SampleMaterialVisitor

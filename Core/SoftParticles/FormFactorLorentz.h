@@ -16,7 +16,7 @@
 #ifndef FORMFACTORLORENTZ_H
 #define FORMFACTORLORENTZ_H
 
-#include "IFormFactorBorn.h"
+#include "IFormFactorBorn.h" // inheriting from
 
 //! @class FormFactorLorentz
 //! @ingroup formfactors

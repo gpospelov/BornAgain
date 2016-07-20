@@ -16,7 +16,7 @@
 #ifndef ROTATIONS_H
 #define ROTATIONS_H
 
-#include "ISample.h"
+#include "ISample.h" // inheriting from
 #include "Transform3D.h"
 
 //! @class IRotation

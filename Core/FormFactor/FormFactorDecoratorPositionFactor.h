@@ -16,7 +16,7 @@
 #ifndef FORMFACTORDECORATORPOSITIONFACTOR_H
 #define FORMFACTORDECORATORPOSITIONFACTOR_H
 
-#include "IFormFactorDecorator.h"
+#include "IFormFactorDecorator.h" // inheriting from
 #include "Vectors3D.h"
 
 //! @class FormFactorDecoratorPositionFactor

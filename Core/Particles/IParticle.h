@@ -16,7 +16,7 @@
 #ifndef IPARTICLE_H
 #define IPARTICLE_H
 
-#include "ICompositeSample.h"
+#include "ICompositeSample.h" // inheriting from
 #include "Rotations.h"
 #include "Vectors3D.h"
 #include <memory>

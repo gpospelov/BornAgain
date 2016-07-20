@@ -16,7 +16,7 @@
 #ifndef LAYERROUGHNESS_H
 #define LAYERROUGHNESS_H
 
-#include "IRoughness.h"
+#include "IRoughness.h" // inheriting from
 #include "Vectors3D.h"
 
 //! @class LayerRoughness

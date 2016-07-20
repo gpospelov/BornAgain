@@ -17,7 +17,7 @@
 #define FIXEDBINAXIS_H
 
 
-#include "IAxis.h"
+#include "IAxis.h" // inheriting from
 
 //! @class FixedBinAxis
 //! @ingroup tools

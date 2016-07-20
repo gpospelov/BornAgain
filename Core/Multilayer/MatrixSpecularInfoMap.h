@@ -16,7 +16,7 @@
 #ifndef MATRIXSPECULARINFOMAP_H
 #define MATRIXSPECULARINFOMAP_H
 
-#include "ISpecularInfoMap.h"
+#include "ISpecularInfoMap.h" // inheriting from
 #include "MatrixRTCoefficients.h"
 #include <memory>
 

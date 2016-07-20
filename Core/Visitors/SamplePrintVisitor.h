@@ -16,7 +16,7 @@
 #ifndef SAMPLEPRINTVISITOR_H
 #define SAMPLEPRINTVISITOR_H
 
-#include "ISampleVisitor.h"
+#include "ISampleVisitor.h" // inheriting from
 #include <string>
 
 //! @class SamplePrintVisitor

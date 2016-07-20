@@ -16,7 +16,7 @@
 #ifndef FORMFACTORDECORATORMATERIAL_H
 #define FORMFACTORDECORATORMATERIAL_H
 
-#include "FormFactorDecoratorFactor.h"
+#include "FormFactorDecoratorFactor.h" // inheriting from
 #include <memory>
 
 class IMaterial;

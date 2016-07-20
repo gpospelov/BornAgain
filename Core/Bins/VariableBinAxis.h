@@ -16,7 +16,7 @@
 #ifndef VARIABLEBINAXIS_H
 #define VARIABLEBINAXIS_H
 
-#include "IAxis.h"
+#include "IAxis.h" // inheriting from
 
 //! @class VariableBinAxis
 //! @ingroup tools

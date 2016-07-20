@@ -16,7 +16,7 @@
 #ifndef FORMFACTORPOLYHEDRON_H
 #define FORMFACTORPOLYHEDRON_H
 
-#include "IFormFactorBorn.h"
+#include "IFormFactorBorn.h" // inheriting from
 #include <memory>
 
 class PolygonalTopology {

@@ -16,7 +16,7 @@
 #ifndef SCALARSPECULARINFOMAP_H
 #define SCALARSPECULARINFOMAP_H
 
-#include "ISpecularInfoMap.h"
+#include "ISpecularInfoMap.h" // inheriting from
 #include "Vectors3D.h"
 
 class MultiLayer;

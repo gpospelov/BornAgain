@@ -17,7 +17,7 @@
 #define CUSTOMBINAXIS_H
 
 
-#include "VariableBinAxis.h"
+#include "VariableBinAxis.h" // inheriting from
 
 //! @class CustomBinAxis
 //! @ingroup tools

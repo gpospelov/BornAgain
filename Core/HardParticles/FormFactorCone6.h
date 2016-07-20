@@ -16,7 +16,7 @@
 #ifndef FORMFACTORCONE6_H
 #define FORMFACTORCONE6_H
 
-#include "FormFactorPolyhedron.h"
+#include "FormFactorPolyhedron.h" // inheriting from
 
 //! @class FormFactorCone6
 //! @ingroup formfactors

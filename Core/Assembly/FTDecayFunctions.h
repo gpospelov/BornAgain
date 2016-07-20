@@ -16,7 +16,7 @@
 #ifndef FTDECAYFUNCTIONS_H
 #define FTDECAYFUNCTIONS_H
 
-#include "IParameterized.h"
+#include "IParameterized.h" // inheriting from
 #include "Units.h"
 
 

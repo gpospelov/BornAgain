@@ -16,8 +16,8 @@
 #ifndef OFFSPECSIMULATION_H
 #define OFFSPECSIMULATION_H
 
+#include "Simulation.h" // inheriting from
 #include "Instrument.h"
-#include "Simulation.h"
 
 class Histogram2D;
 

@@ -16,7 +16,7 @@
 #ifndef FUNCTIONALTESTSUITE_H
 #define FUNCTIONALTESTSUITE_H
 
-#include "INamed.h"
+#include "INamed.h" // inheriting from
 
 class GISASSimulation;
 class IFunctionalTest;

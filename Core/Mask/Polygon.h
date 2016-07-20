@@ -16,7 +16,7 @@
 #ifndef POLYGON_H
 #define POLYGON_H
 
-#include "IShape2D.h"
+#include "IShape2D.h" // inheriting from
 #include <vector>
 
 namespace Geometry {

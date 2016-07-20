@@ -16,7 +16,7 @@
 #ifndef PARTICLELAYOUT_H
 #define PARTICLELAYOUT_H
 
-#include "ILayout.h"
+#include "ILayout.h" // inheriting from
 #include "Vectors3D.h"
 #include <memory>
 

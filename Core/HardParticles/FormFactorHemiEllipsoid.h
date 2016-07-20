@@ -16,7 +16,7 @@
 #ifndef FORMFACTORHEMIELLIPSOID_H
 #define FORMFACTORHEMIELLIPSOID_H
 
-#include "IFormFactorBorn.h"
+#include "IFormFactorBorn.h" // inheriting from
 #include "IntegratorComplex.h"
 
 //! @class FormFactorHemiEllipsoid

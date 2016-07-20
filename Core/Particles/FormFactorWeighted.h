@@ -16,7 +16,7 @@
 #ifndef FORMFACTORWEIGHTED_H
 #define FORMFACTORWEIGHTED_H
 
-#include "IFormFactor.h"
+#include "IFormFactor.h" // inheriting from
 
 //! @class FormFactorWeighted
 //! @ingroup formfactors_internal

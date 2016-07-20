@@ -16,7 +16,7 @@
 #ifndef FORMFACTORTRUNCATEDCUBE_H
 #define FORMFACTORTRUNCATEDCUBE_H
 
-#include "FormFactorPolyhedron.h"
+#include "FormFactorPolyhedron.h" // inheriting from
 
 //! @class FormFactorTruncatedCube
 //! @ingroup formfactors

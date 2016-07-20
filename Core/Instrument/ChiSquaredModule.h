@@ -16,7 +16,7 @@
 #ifndef CHISQUAREDMODULE_H
 #define CHISQUAREDMODULE_H
 
-#include "IChiSquaredModule.h"
+#include "IChiSquaredModule.h" // inheriting from
 
 //! @class ChiSquaredModule
 //! @ingroup algorithms

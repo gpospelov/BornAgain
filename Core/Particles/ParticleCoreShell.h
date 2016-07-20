@@ -16,7 +16,7 @@
 #ifndef PARTICLECORESHELL_H
 #define PARTICLECORESHELL_H
 
-#include "IParticle.h"
+#include "IParticle.h" // inheriting from
 
 class IMaterial;
 class Particle;

@@ -16,7 +16,7 @@
 #ifndef FORMFACTORRIPPLE2_H
 #define FORMFACTORRIPPLE2_H
 
-#include "IFormFactorBorn.h"
+#include "IFormFactorBorn.h" // inheriting from
 
 //! @class FormFactorRipple2
 //! @ingroup formfactors

@@ -16,7 +16,7 @@
 #ifndef CUSTOMMORPHOLOGYBUILDER_H
 #define CUSTOMMORPHOLOGYBUILDER_H
 
-#include "ISampleBuilder.h"
+#include "ISampleBuilder.h" // inheriting from
 
 class ISample;
 

@@ -16,7 +16,7 @@
 #ifndef PARAMETERPOOL_H
 #define PARAMETERPOOL_H
 
-#include "ICloneable.h"
+#include "ICloneable.h" // inheriting from
 #include "RealParameterWrapper.h"
 #include <map>
 #include <vector>

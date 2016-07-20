@@ -16,7 +16,7 @@
 #ifndef INFINITEPLANE_H
 #define INFINITEPLANE_H
 
-#include "IShape2D.h"
+#include "IShape2D.h" // inheriting from
 
 namespace Geometry {
 

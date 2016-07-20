@@ -16,7 +16,7 @@
 #ifndef CRYSTAL_H
 #define CRYSTAL_H
 
-#include "IClusteredParticles.h"
+#include "IClusteredParticles.h" // inheriting from
 #include "Lattice.h"
 #include "Particle.h"
 #include "ParticleComposition.h"

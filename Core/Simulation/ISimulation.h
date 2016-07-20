@@ -16,7 +16,7 @@
 #ifndef ISIMULATION_H
 #define ISIMULATION_H
 
-#include "ICloneable.h"
+#include "ICloneable.h" // inheriting from
 
 //! @class ISimulation
 //! @ingroup algorithms_internal

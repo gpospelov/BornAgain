@@ -16,7 +16,7 @@
 #ifndef LAYERINTERFACE_H
 #define LAYERINTERFACE_H
 
-#include "ICompositeSample.h"
+#include "ICompositeSample.h" // inheriting from
 #include "LayerRoughness.h"
 
 

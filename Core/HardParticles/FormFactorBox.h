@@ -16,7 +16,7 @@
 #ifndef FORMFACTORBOX_H
 #define FORMFACTORBOX_H
 
-#include "IFormFactorBorn.h"
+#include "IFormFactorBorn.h" // inheriting from
 
 //! @class FormFactorBox
 //! @ingroup formfactors

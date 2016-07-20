@@ -16,7 +16,7 @@
 #ifndef FORMFACTORLONGBOXLORENTZ_H
 #define FORMFACTORLONGBOXLORENTZ_H
 
-#include "IFormFactorBorn.h"
+#include "IFormFactorBorn.h" // inheriting from
 
 //! @class FormFactorBox
 //! @ingroup formfactors

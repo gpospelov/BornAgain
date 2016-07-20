@@ -16,8 +16,8 @@
 #ifndef INTERFERENCEFUNCTION2DLATTICE_H
 #define INTERFERENCEFUNCTION2DLATTICE_H
 
+#include "IInterferenceFunction.h" // inheriting from
 #include "FTDecayFunctions.h"
-#include "IInterferenceFunction.h"
 #include "Lattice2DParameters.h"
 
 //! @class InterferenceFunction2DLattice

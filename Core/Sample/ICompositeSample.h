@@ -16,7 +16,7 @@
 #ifndef ICOMPOSITESAMPLE_H
 #define ICOMPOSITESAMPLE_H
 
-#include "ISample.h"
+#include "ISample.h" // inheriting from
 
 class ISampleVisitor;
 

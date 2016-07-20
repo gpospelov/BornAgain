@@ -16,7 +16,7 @@
 #ifndef CONSTKBINAXIS_H
 #define CONSTKBINAXIS_H
 
-#include "VariableBinAxis.h"
+#include "VariableBinAxis.h" // inheriting from
 
 //! @class ConstKBinAxis
 //! @ingroup tools

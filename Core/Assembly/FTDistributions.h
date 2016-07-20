@@ -16,7 +16,7 @@
 #ifndef FTDISTRIBUTIONS_H
 #define FTDISTRIBUTIONS_H
 
-#include "IParameterized.h"
+#include "IParameterized.h" // inheriting from
 #include "Units.h"
 
 

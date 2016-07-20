@@ -16,7 +16,7 @@
 #ifndef ISAMPLEITERATORSTRATEGY_H
 #define ISAMPLEITERATORSTRATEGY_H
 
-#include "ISample.h"
+#include "ISample.h" // inheriting from
 
 
 class IteratorMemento;

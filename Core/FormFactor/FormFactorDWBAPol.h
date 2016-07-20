@@ -16,7 +16,7 @@
 #ifndef FORMFACTORDWBAPOL_H
 #define FORMFACTORDWBAPOL_H
 
-#include "IFormFactor.h"
+#include "IFormFactor.h" // inheriting from
 
 class ILayerRTCoefficients;
 

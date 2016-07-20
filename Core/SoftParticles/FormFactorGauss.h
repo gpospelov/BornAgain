@@ -16,7 +16,7 @@
 #ifndef FORMFACTORGAUSS_H
 #define FORMFACTORGAUSS_H
 
-#include "IFormFactorBorn.h"
+#include "IFormFactorBorn.h" // inheriting from
 
 //! @class FormFactorGauss
 //! @ingroup formfactors

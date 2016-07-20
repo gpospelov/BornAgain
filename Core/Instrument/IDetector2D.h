@@ -16,10 +16,10 @@
 #ifndef IDETECTOR2D_H
 #define IDETECTOR2D_H
 
+#include "IParameterized.h" // inheriting from
 #include "Beam.h"
 #include "DetectorMask.h"
 #include "EigenCore.h"
-#include "IParameterized.h"
 #include "SafePointerVector.h"
 #include "Vectors3D.h"
 #include <memory>

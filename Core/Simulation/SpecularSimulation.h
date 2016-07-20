@@ -16,7 +16,7 @@
 #ifndef SPECULARSIMULATION_H
 #define SPECULARSIMULATION_H
 
-#include "ICloneable.h"
+#include "ICloneable.h" // inheriting from
 #include "ILayerRTCoefficients.h"
 #include "IParameterized.h"
 #include "OutputData.h"

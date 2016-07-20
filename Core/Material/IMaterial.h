@@ -16,9 +16,9 @@
 #ifndef IMATERIAL_H
 #define IMATERIAL_H
 
+#include "INamed.h" // inheriting from
 #include "Complex.h"
 #include "EigenCore.h"
-#include "INamed.h"
 #include "Vectors3D.h"
 
 class IRotation;

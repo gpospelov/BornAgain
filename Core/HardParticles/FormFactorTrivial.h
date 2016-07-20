@@ -16,7 +16,7 @@
 #ifndef FORMFACTORTRIVIAL_H
 #define FORMFACTORTRIVIAL_H
 
-#include "IFormFactorBorn.h"
+#include "IFormFactorBorn.h" // inheriting from
 
 //! @class FormFactorTrivial
 //! @ingroup formfactors

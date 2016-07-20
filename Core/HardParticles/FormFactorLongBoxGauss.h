@@ -16,7 +16,7 @@
 #ifndef FORMFACTORLONGBOXGAUSS_H
 #define FORMFACTORLONGBOXGAUSS_H
 
-#include "IFormFactorBorn.h"
+#include "IFormFactorBorn.h" // inheriting from
 
 //! @class FormFactorBox
 //! @ingroup formfactors

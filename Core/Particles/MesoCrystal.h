@@ -16,7 +16,7 @@
 #ifndef MESOCRYSTAL_H
 #define MESOCRYSTAL_H
 
-#include "IParticle.h"
+#include "IParticle.h" // inheriting from
 
 class IClusteredParticles;
 class IMaterial;

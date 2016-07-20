@@ -16,8 +16,8 @@
 #ifndef MULTILAYERROUGHNESSDWBASIMULATION_H
 #define MULTILAYERROUGHNESSDWBASIMULATION_H
 
+#include "DWBASimulation.h" // inheriting from
 #include "Complex.h"
-#include "DWBASimulation.h"
 
 class LayerSpecularInfo;
 class MultiLayer;

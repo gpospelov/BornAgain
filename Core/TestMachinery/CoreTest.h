@@ -16,7 +16,7 @@
 #ifndef CORETEST_H
 #define CORETEST_H
 
-#include "IFunctionalTest.h"
+#include "IFunctionalTest.h" // inheriting from
 
 template <class T> class OutputData;
 class GISASSimulation;

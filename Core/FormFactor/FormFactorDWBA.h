@@ -16,7 +16,7 @@
 #ifndef FORMFACTORDWBA_H
 #define FORMFACTORDWBA_H
 
-#include "IFormFactorDecorator.h"
+#include "IFormFactorDecorator.h" // inheriting from
 
 class ILayerRTCoefficients;
 

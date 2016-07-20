@@ -16,7 +16,7 @@
 #ifndef ISAMPLEBUILDER_H
 #define ISAMPLEBUILDER_H
 
-#include "IParameterized.h"
+#include "IParameterized.h" // inheriting from
 
 class ISample;
 class IFormFactor;

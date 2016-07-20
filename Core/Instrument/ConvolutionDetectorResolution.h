@@ -16,7 +16,7 @@
 #ifndef CONVOLUTIONDETECTORRESOLUTION_H
 #define CONVOLUTIONDETECTORRESOLUTION_H
 
-#include "IDetectorResolution.h"
+#include "IDetectorResolution.h" // inheriting from
 #include "IResolutionFunction2D.h"
 
 //! @class ConvolutionDetectorResolution

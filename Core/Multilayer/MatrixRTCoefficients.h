@@ -16,7 +16,7 @@
 #ifndef MATRIXRTCOEFFICIENTS_H
 #define MATRIXRTCOEFFICIENTS_H
 
-#include "ILayerRTCoefficients.h"
+#include "ILayerRTCoefficients.h" // inheriting from
 
 
 //! @class MatrixRTCoefficients

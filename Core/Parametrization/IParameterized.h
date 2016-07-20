@@ -16,7 +16,7 @@
 #ifndef IPARAMETERIZED_H
 #define IPARAMETERIZED_H
 
-#include "INamed.h"
+#include "INamed.h" // inheriting from
 #include "ParameterPool.h"
 
 //! @class IParameterized

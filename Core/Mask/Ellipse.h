@@ -16,7 +16,7 @@
 #ifndef ELLIPSE_H
 #define ELLIPSE_H
 
-#include "IShape2D.h"
+#include "IShape2D.h" // inheriting from
 
 namespace Geometry {
 

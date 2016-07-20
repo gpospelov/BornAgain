@@ -16,7 +16,7 @@
 #ifndef INTERFERENCEFUNCTIONNONE_H
 #define INTERFERENCEFUNCTIONNONE_H
 
-#include "IInterferenceFunction.h"
+#include "IInterferenceFunction.h" // inheriting from
 
 //! @class InterferenceFunctionNone
 //! @ingroup interference

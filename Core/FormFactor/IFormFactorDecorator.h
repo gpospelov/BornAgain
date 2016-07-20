@@ -16,7 +16,7 @@
 #ifndef IFORMFACTORDECORATOR_H
 #define IFORMFACTORDECORATOR_H
 
-#include "IFormFactor.h"
+#include "IFormFactor.h" // inheriting from
 
 //! @class IFormFactorDecorator
 //! @ingroup formfactors_internal

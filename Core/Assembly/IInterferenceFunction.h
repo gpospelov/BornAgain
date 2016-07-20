@@ -16,7 +16,7 @@
 #ifndef IINTERFERENCEFUNCTION_H
 #define IINTERFERENCEFUNCTION_H
 
-#include "ISample.h"
+#include "ISample.h" // inheriting from
 #include "Vectors3D.h"
 
 class ISampleVisitor;

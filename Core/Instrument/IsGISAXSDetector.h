@@ -16,7 +16,7 @@
 #ifndef ISGISAXSDETECTOR_H
 #define ISGISAXSDETECTOR_H
 
-#include "SphericalDetector.h"
+#include "SphericalDetector.h" // inheriting from
 
 //! @class IsGISAXSDetector
 //! @ingroup simulation

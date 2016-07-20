@@ -48,6 +48,7 @@
 #include "TransformFromDomain.h"
 #include "TransformationItem.h"
 #include "VectorItem.h"
+#include "Units.h"
 #include <QDebug>
 
 GUIObjectBuilder::GUIObjectBuilder()

@@ -16,6 +16,7 @@
 #include "FormFactorDecoratorPositionFactor.h"
 #include "BornAgainNamespace.h"
 #include "ISampleVisitor.h"
+#include "WavevectorInfo.h"
 
 FormFactorDecoratorPositionFactor::FormFactorDecoratorPositionFactor(
     const IFormFactor& form_factor, kvector_t position)

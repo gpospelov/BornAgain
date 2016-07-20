@@ -16,6 +16,8 @@
 #include "FormFactorDecoratorMaterial.h"
 #include "ISampleVisitor.h"
 #include "IMaterial.h"
+#include "Units.h"
+#include "WavevectorInfo.h"
 
 FormFactorDecoratorMaterial::FormFactorDecoratorMaterial(const IFormFactor &form_factor)
     : FormFactorDecoratorFactor(form_factor, 1.0),
@@ -30,10 +32,9 @@ void FormFactorDecoratorMaterial::accept(ISampleVisitor* visitor) const
     visitor->visit(this);
 }
 
-FormFactorDecoratorMaterial *FormFactorDecoratorMaterial::clone() const
+FormFactorDecoratorMaterial* FormFactorDecoratorMaterial::clone() const
 {
-    FormFactorDecoratorMaterial *result
-        = new FormFactorDecoratorMaterial(*mp_form_factor);
+    FormFactorDecoratorMaterial* result = new FormFactorDecoratorMaterial(*mp_form_factor);
     result->setMaterial(*mP_material);
     result->setAmbientMaterial(*mP_ambient_material);
     return result;

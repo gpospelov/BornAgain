@@ -16,9 +16,7 @@
 #ifndef ISQUAREDFUNCTION_H
 #define ISQUAREDFUNCTION_H
 
-#include "Numeric.h"
-
-
+#include "Numeric.h" // TODO rm this from .h
 
 //! @class ISquaredFunction
 //! @ingroup fitting_internal

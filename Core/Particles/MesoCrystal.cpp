@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "MesoCrystal.h"
+#include "BornAgainNamespace.h"
 #include "FormFactorDecoratorPositionFactor.h"
 #include "FormFactorDecoratorRotation.h"
 #include "IClusteredParticles.h"

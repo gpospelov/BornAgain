@@ -19,7 +19,6 @@
 #include "INamed.h"
 #include "ParameterPool.h"
 
-
 //! @class IParameterized
 //! @ingroup tools_internal
 //! @brief Manage a local parameter pool, and a tree of child pools.

@@ -22,6 +22,7 @@
 #include "MultiLayer.h"
 #include "Particle.h"
 #include "ParticleLayout.h"
+#include "Units.h"
 
 // ----------------------------------------------------------------------------
 // Magnetic cylinders and zero magnetic field

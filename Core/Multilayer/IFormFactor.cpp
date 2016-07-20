@@ -15,6 +15,7 @@
 
 #include "IFormFactor.h"
 #include "ISampleVisitor.h"
+#include "WavevectorInfo.h"
 
 IFormFactor::~IFormFactor() {}
 

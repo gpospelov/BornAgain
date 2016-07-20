@@ -16,13 +16,13 @@
 #ifndef IFORMFACTOR_H
 #define IFORMFACTOR_H
 
+#include "ISample.h" // inheriting from
 #include "Complex.h"
 #include "EigenCore.h"
-#include "ISample.h"
-#include "WavevectorInfo.h"
 
 class IMaterial;
 class ILayerRTCoefficients;
+class WavevectorInfo;
 
 //! @class IFormFactor
 //! @ingroup formfactors_internal

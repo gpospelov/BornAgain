@@ -18,6 +18,7 @@
 
 #include "ICompositeSample.h"
 #include "IFormFactor.h"
+#include "Vectors3D.h"
 
 //! @class IClusteredParticles
 //! @ingroup samples_internal

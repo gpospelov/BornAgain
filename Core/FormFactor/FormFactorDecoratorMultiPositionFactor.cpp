@@ -16,6 +16,7 @@
 #include "FormFactorDecoratorMultiPositionFactor.h"
 #include "BornAgainNamespace.h"
 #include "ISampleVisitor.h"
+#include "WavevectorInfo.h"
 
 FormFactorDecoratorMultiPositionFactor::FormFactorDecoratorMultiPositionFactor(
     const IFormFactor &form_factor, std::vector<kvector_t> positions)
@@ -24,12 +25,12 @@ FormFactorDecoratorMultiPositionFactor::FormFactorDecoratorMultiPositionFactor(
     setName(BornAgain::FormFactorDecoratorMultiPositionFactorType);
 }
 
-FormFactorDecoratorMultiPositionFactor *FormFactorDecoratorMultiPositionFactor::clone() const
+FormFactorDecoratorMultiPositionFactor* FormFactorDecoratorMultiPositionFactor::clone() const
 {
     return new FormFactorDecoratorMultiPositionFactor(*mp_form_factor, m_positions);
 }
 
-void FormFactorDecoratorMultiPositionFactor::accept(ISampleVisitor *visitor) const
+void FormFactorDecoratorMultiPositionFactor::accept(ISampleVisitor* visitor) const
 {
     visitor->visit(this);
 }

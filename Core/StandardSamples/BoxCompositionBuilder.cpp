@@ -21,6 +21,7 @@
 #include "Particle.h"
 #include "ParticleComposition.h"
 #include "ParticleLayout.h"
+#include "Units.h"
 
 BoxCompositionBuilder::BoxCompositionBuilder()
     : m_particleMaterial(new HomogeneousMaterial("Ag", 1.245e-5, 5.419e-7))

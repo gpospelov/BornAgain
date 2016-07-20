@@ -16,6 +16,7 @@
 #include "FormFactorSphereUniformRadius.h"
 #include "BornAgainNamespace.h"
 #include "Numeric.h"
+#include "Units.h"
 
 using namespace  BornAgain;
 

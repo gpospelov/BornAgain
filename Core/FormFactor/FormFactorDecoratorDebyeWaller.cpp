@@ -16,6 +16,7 @@
 #include "FormFactorDecoratorDebyeWaller.h"
 #include "BornAgainNamespace.h"
 #include "ISampleVisitor.h"
+#include "WavevectorInfo.h"
 
 using namespace  BornAgain;
 

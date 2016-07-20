@@ -17,6 +17,7 @@
 #define IFORMFACTORBORN_H
 
 #include "IFormFactor.h"
+#include "Vectors3D.h"
 
 //! @class IFormFactorBorn
 //! @ingroup formfactors_internal

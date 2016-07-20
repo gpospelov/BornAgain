@@ -15,6 +15,7 @@
 
 #include "IFormFactorBorn.h"
 #include "ISampleVisitor.h"
+#include "WavevectorInfo.h"
 
 void IFormFactorBorn::accept(ISampleVisitor* visitor) const { visitor->visit(this); }
 

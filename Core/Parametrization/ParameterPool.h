@@ -21,7 +21,6 @@
 #include <map>
 #include <vector>
 
-
 //! @class ParameterPool
 //! @ingroup tools_internal
 //! @brief Holds a map of pointers to parameters (which must have different names).

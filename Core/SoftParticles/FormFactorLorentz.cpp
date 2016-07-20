@@ -15,6 +15,7 @@
 
 #include "FormFactorLorentz.h"
 #include "BornAgainNamespace.h"
+#include "Units.h"
 
 using namespace  BornAgain;
 

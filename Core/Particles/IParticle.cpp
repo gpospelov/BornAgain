@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "IParticle.h"
+#include "BornAgainNamespace.h"
 #include "FormFactorDecoratorPositionFactor.h"
 
 using namespace BornAgain;

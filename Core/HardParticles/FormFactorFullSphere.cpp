@@ -15,6 +15,7 @@
 
 #include "FormFactorFullSphere.h"
 #include "BornAgainNamespace.h"
+#include "Units.h"
 
 #ifdef POLYHEDRAL_DIAGNOSTIC
 #endif

@@ -18,6 +18,7 @@
 #include "ILayerRTCoefficients.h"
 #include "ISampleVisitor.h"
 #include "LayerSpecularInfo.h"
+#include "WavevectorInfo.h"
 
 FormFactorDWBA::FormFactorDWBA(const IFormFactor& form_factor)
     : IFormFactorDecorator(form_factor)

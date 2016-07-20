@@ -17,6 +17,7 @@
 #define FORMFACTORDECORATORMULTIPOSITIONFACTOR_H
 
 #include "IFormFactorDecorator.h"
+#include "Vectors3D.h"
 
 //! @class FormFactorDecoratorMultiPositionFactor
 //! @ingroup formfactors_internal

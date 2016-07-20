@@ -20,11 +20,11 @@
 #include <gsl/gsl_sf_erf.h>
 #include <gsl/gsl_sf_expint.h>
 #include <gsl/gsl_sf_trig.h>
+#include <fftw3.h>
 #include <chrono>
 #include <cstring>
-#include <stdexcept> // need overlooked by g++ 5.4
-#include <fftw3.h>
 #include <random>
+#include <stdexcept> // need overlooked by g++ 5.4
 
 // ************************************************************************** //
 //  Various functions
@@ -330,9 +330,8 @@ std::vector<complex_t> MathFunctions::FastFourierTransform(
 {
     std::vector<complex_t> cdata;
     cdata.resize(data.size());
-    for (size_t i = 0; i < data.size(); i++) {
+    for (size_t i = 0; i < data.size(); i++)
         cdata[i] = complex_t(data[i], 0);
-    }
     return MathFunctions::FastFourierTransform(cdata, ftCase);
 }
 

@@ -138,6 +138,10 @@ double Layer::getTotalAbundance() const
     return total_abundance;
 }
 
+size_t Layer::getNumberOfLayouts() const {
+    return m_layouts.size();
+}
+
 void Layer::init_parameters()
 {
     clearParameterPool();

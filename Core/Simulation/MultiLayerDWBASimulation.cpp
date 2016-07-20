@@ -19,7 +19,6 @@
 #include "LayerDWBASimulation.h"
 #include "LayerInterface.h"
 #include "LayerRoughness.h"
-#include "Materials.h"
 #include "MatrixSpecularInfoMap.h"
 #include "MessageService.h"
 #include "MultiLayer.h"
@@ -93,7 +92,7 @@ void MultiLayerDWBASimulation::runProtected()
     msglog(MSG::DEBUG2) << "MultiLayerDWBASimulation::runProtected()";
     m_dwba_intensity.setAllTo(0.0);
 
-    if (requiresMatrixRTCoefficients())
+    if (mp_multi_layer->requiresMatrixRTCoefficients())
         collectRTCoefficientsMatrix();
     else
         collectRTCoefficientsScalar();
@@ -111,7 +110,7 @@ void MultiLayerDWBASimulation::runProtected()
         }
     }
 
-    if (!requiresMatrixRTCoefficients() && mp_roughness_dwba_simulation) {
+    if (!mp_multi_layer->requiresMatrixRTCoefficients() && mp_roughness_dwba_simulation) {
         msglog(MSG::DEBUG2) << "MultiLayerDWBASimulation::run() -> roughness";
         mp_roughness_dwba_simulation->init(*mp_simulation, layer_elements.begin(),
                                            layer_elements.end());
@@ -168,14 +167,4 @@ void MultiLayerDWBASimulation::collectRTCoefficientsMatrix()
             }
         }
     } // i_layer
-}
-
-bool MultiLayerDWBASimulation::requiresMatrixRTCoefficients() const
-{
-    for (size_t i=0; i<mp_multi_layer->getNumberOfLayers(); ++i) {
-        const Layer* p_layer = mp_multi_layer->getLayer(i);
-        const IMaterial* p_material = p_layer->getMaterial();
-        if (!p_material->isScalarMaterial()) return true;
-    }
-    return false;
 }

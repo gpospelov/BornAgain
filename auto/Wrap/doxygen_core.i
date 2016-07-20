@@ -13765,6 +13765,37 @@ Returns exp(I*z), where I is the imaginary unit.
 // File: WinDllMacros_8h.xml
 
 
+// File: ConstKBinAxis_8cpp.xml
+
+
+// File: ConstKBinAxis_8h.xml
+
+
+// File: CustomBinAxis_8cpp.xml
+
+
+// File: CustomBinAxis_8h.xml
+
+
+// File: FixedBinAxis_8cpp.xml
+
+
+// File: FixedBinAxis_8h.xml
+
+
+// File: IAxis_8h.xml
+%feature("docstring")  HaveSameNameAndShape "bool HaveSameNameAndShape(const IAxis &left, const IAxis &right)
+
+global helper function for comparison of axes 
+";
+
+
+// File: VariableBinAxis_8cpp.xml
+
+
+// File: VariableBinAxis_8h.xml
+
+
 // File: PyGenTools_8cpp.xml
 
 
@@ -14106,22 +14137,10 @@ The mathematics implemented here is described in full detail in a paper by Joach
 // File: ChiSquaredModule_8h.xml
 
 
-// File: ConstKBinAxis_8cpp.xml
-
-
-// File: ConstKBinAxis_8h.xml
-
-
 // File: ConvolutionDetectorResolution_8cpp.xml
 
 
 // File: ConvolutionDetectorResolution_8h.xml
-
-
-// File: CustomBinAxis_8cpp.xml
-
-
-// File: CustomBinAxis_8h.xml
 
 
 // File: DetectorMask_8cpp.xml
@@ -14130,22 +14149,10 @@ The mathematics implemented here is described in full detail in a paper by Joach
 // File: DetectorMask_8h.xml
 
 
-// File: Ellipse_8cpp.xml
-
-
-// File: Ellipse_8h.xml
-
-
 // File: FitElement_8cpp.xml
 
 
 // File: FitElement_8h.xml
-
-
-// File: FixedBinAxis_8cpp.xml
-
-
-// File: FixedBinAxis_8h.xml
 
 
 // File: Histogram1D_8cpp.xml
@@ -14158,13 +14165,6 @@ The mathematics implemented here is described in full detail in a paper by Joach
 
 
 // File: Histogram2D_8h.xml
-
-
-// File: IAxis_8h.xml
-%feature("docstring")  HaveSameNameAndShape "bool HaveSameNameAndShape(const IAxis &left, const IAxis &right)
-
-global helper function for comparison of axes 
-";
 
 
 // File: IChiSquaredModule_8cpp.xml
@@ -14203,12 +14203,6 @@ global helper function for comparison of axes
 // File: IIntensityNormalizer_8h.xml
 
 
-// File: InfinitePlane_8cpp.xml
-
-
-// File: InfinitePlane_8h.xml
-
-
 // File: Instrument_8cpp.xml
 
 
@@ -14233,16 +14227,7 @@ global helper function for comparison of axes
 // File: IsGISAXSDetector_8h.xml
 
 
-// File: IShape2D_8h.xml
-
-
 // File: ISquaredFunction_8h.xml
-
-
-// File: Line_8cpp.xml
-
-
-// File: Line_8h.xml
 
 
 // File: LLData_8cpp.xml
@@ -14251,18 +14236,6 @@ global helper function for comparison of axes
 // File: LLData_8h.xml
 %feature("docstring")  HaveSameDimensions "bool HaveSameDimensions(const LLData< T > &left, const LLData< T > &right)
 ";
-
-
-// File: Mask_8cpp.xml
-
-
-// File: Mask_8h.xml
-
-
-// File: MaskCoordinateFunction_8cpp.xml
-
-
-// File: MaskCoordinateFunction_8h.xml
 
 
 // File: OutputData_8cpp.xml
@@ -14283,18 +14256,6 @@ global helper function for comparison of axes
 
 
 // File: OutputDataIterator_8h.xml
-
-
-// File: Polygon_8cpp.xml
-
-
-// File: Polygon_8h.xml
-
-
-// File: Rectangle_8cpp.xml
-
-
-// File: Rectangle_8h.xml
 
 
 // File: RectangularDetector_8cpp.xml
@@ -14339,12 +14300,6 @@ Set all element intensities to given value.
 // File: SphericalDetector_8h.xml
 
 
-// File: VariableBinAxis_8cpp.xml
-
-
-// File: VariableBinAxis_8h.xml
-
-
 // File: ISelectionRule_8h.xml
 
 
@@ -14361,6 +14316,51 @@ Set all element intensities to given value.
 
 
 // File: Lattice2DParameters_8h.xml
+
+
+// File: Ellipse_8cpp.xml
+
+
+// File: Ellipse_8h.xml
+
+
+// File: InfinitePlane_8cpp.xml
+
+
+// File: InfinitePlane_8h.xml
+
+
+// File: IShape2D_8h.xml
+
+
+// File: Line_8cpp.xml
+
+
+// File: Line_8h.xml
+
+
+// File: Mask_8cpp.xml
+
+
+// File: Mask_8h.xml
+
+
+// File: MaskCoordinateFunction_8cpp.xml
+
+
+// File: MaskCoordinateFunction_8h.xml
+
+
+// File: Polygon_8cpp.xml
+
+
+// File: Polygon_8h.xml
+
+
+// File: Rectangle_8cpp.xml
+
+
+// File: Rectangle_8h.xml
 
 
 // File: HomogeneousMagneticMaterial_8cpp.xml
@@ -15061,6 +15061,9 @@ David N. Williams
 // File: dir_f2db70b1039b2dc98a7a13a1758f382f.xml
 
 
+// File: dir_0a45a9065b879ef3f106cc24d330f492.xml
+
+
 // File: dir_c6310732a22f63c0c2fc5595561e68f1.xml
 
 
@@ -15080,6 +15083,9 @@ David N. Williams
 
 
 // File: dir_7f8c371d7d9c2d18aea541845cde06e7.xml
+
+
+// File: dir_24998d15d4ee11ef081e71321705b47b.xml
 
 
 // File: dir_0bf70e747e161ad6105733dd3b116e64.xml

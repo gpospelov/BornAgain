@@ -18,22 +18,21 @@
 #include "VariableBinAxis.h"
 #include <memory>
 
-
 Histogram1D::Histogram1D(int nbinsx, double xlow, double xup)
 {
     m_data.addAxis(FixedBinAxis("x-axis", nbinsx, xlow, xup));
 }
 
-Histogram1D::Histogram1D(int nbinsx, const std::vector<double> &xbins)
+Histogram1D::Histogram1D(int nbinsx, const std::vector<double>& xbins)
 {
     m_data.addAxis(VariableBinAxis("x-axis", nbinsx, xbins));
 }
 
-Histogram1D::Histogram1D(const IAxis &axis)
+Histogram1D::Histogram1D(const IAxis& axis)
     : IHistogram(axis)
 {}
 
-Histogram1D::Histogram1D(const OutputData<double> &data)
+Histogram1D::Histogram1D(const OutputData<double>& data)
 {
     init_from_data(data);
 }

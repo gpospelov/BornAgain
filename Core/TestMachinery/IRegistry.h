@@ -16,7 +16,11 @@
 #ifndef IREGISTRY_H
 #define IREGISTRY_H
 
+#include "Exceptions.h"
+#include <map>
 #include <memory>
+#include <string>
+#include <vector>
 
 //! @class IRegistry
 //! @ingroup tools_internal

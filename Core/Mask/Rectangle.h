@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Instrument/Rectangle.h
+//! @file      Core/Mask/Rectangle.h
 //! @brief     Declares class Rectangle.
 //!
 //! @homepage  http://www.bornagainproject.org

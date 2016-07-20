@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      PythonAPI/libBornAgainCore.i
+//! @file      Wrap/swig/libBornAgainCore.i
 //! @brief     SWIG interface file for libBornAgainCore
 //!
 //! @homepage  http://apps.jcns.fz-juelich.de/BornAgain

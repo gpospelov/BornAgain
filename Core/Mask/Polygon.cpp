@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Instrument/Polygon.cpp
+//! @file      Core/Mask/Polygon.cpp
 //! @brief     Implements class Polygon.
 //!
 //! @homepage  http://www.bornagainproject.org

@@ -31,14 +31,14 @@ public:
     FitElement(const FitElement &other);
     FitElement &operator=(const FitElement &other);
 
-    size_t getIndex() const;
-    double getSimulValue() const;
-    double getRealValue() const;
-    double getWeight() const;
-    double getSquaredDifference() const;
-    void setSquaredDifference(double value);
-    double getResidual() const;
-    void setResidual(double value);
+    size_t getIndex() const {  return m_index; }
+    double getSimulValue() const { return m_simul_value; }
+    double getRealValue() const { return m_real_value; }
+    double getWeight() const { return m_weight; }
+    double getSquaredDifference() const { return m_squared_difference; }
+    void setSquaredDifference(double value) { m_squared_difference = value; }
+    double getResidual() const { return m_residual; }
+    void setResidual(double value) { m_residual = value; }
 
 private:
     void swapContent(FitElement &other);
@@ -49,46 +49,5 @@ private:
     double m_squared_difference;
     double m_residual;
 };
-
-
-inline size_t FitElement::getIndex() const
-{
-    return m_index;
-}
-
-inline double FitElement::getSimulValue() const
-{
-    return m_simul_value;
-}
-
-inline double FitElement::getRealValue() const
-{
-    return m_real_value;
-}
-
-inline double FitElement::getWeight() const
-{
-    return m_weight;
-}
-
-inline double FitElement::getSquaredDifference() const
-{
-    return m_squared_difference;
-}
-
-inline void FitElement::setSquaredDifference(double value)
-{
-    m_squared_difference = value;
-}
-
-inline double FitElement::getResidual() const
-{
-    return m_residual;
-}
-
-inline void FitElement::setResidual(double value)
-{
-    m_residual = value;
-}
 
 #endif // FITELEMENT_H

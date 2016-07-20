@@ -41,22 +41,22 @@ public:
     void setCentralK(double wavelength, double alpha_i, double phi_i);
 
     //! Gets the beam intensity in neutrons/sec
-    double getIntensity() const;
+    double getIntensity() const { return m_intensity; }
 
     //! Sets the beam intensity in neutrons/sec
-    void setIntensity(double intensity);
+    void setIntensity(double intensity) { m_intensity = intensity; }
 
     //! Sets the polarization density matrix according to the given Bloch vector
     void setPolarization(const kvector_t bloch_vector);
 
 #ifndef SWIG
     //! Gets the polarization density matrix (in spin basis along z-axis)
-    Eigen::Matrix2cd getPolarization() const;
+    Eigen::Matrix2cd getPolarization() const  { return m_polarization; }
 #endif
 
-    double getWavelength() const;
-    double getAlpha() const;
-    double getPhi() const;
+    double getWavelength() const { return m_wavelength; }
+    double getAlpha() const { return m_alpha; }
+    double getPhi() const { return m_phi; }
 
 protected:
     virtual void print(std::ostream& ostr) const;
@@ -81,37 +81,5 @@ private:
     Eigen::Matrix2cd m_polarization;     //!< polarization density matrix
 #endif
 };
-
-inline double Beam::getIntensity() const
-{
-    return m_intensity;
-}
-
-inline void Beam::setIntensity(double intensity)
-{
-    m_intensity = intensity;
-}
-
-#ifndef SWIG
-inline Eigen::Matrix2cd Beam::getPolarization() const
-{
-    return m_polarization;
-}
-#endif
-
-inline double Beam::getWavelength() const
-{
-    return m_wavelength;
-}
-
-inline double Beam::getAlpha() const
-{
-    return m_alpha;
-}
-
-inline double Beam::getPhi() const
-{
-    return m_phi;
-}
 
 #endif // BEAM_H

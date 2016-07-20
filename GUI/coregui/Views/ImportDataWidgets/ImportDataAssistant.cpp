@@ -16,15 +16,15 @@
 
 #include "ImportDataAssistant.h"
 #include "AppSvc.h"
-#include "projectmanager.h"
+#include "GUIHelpers.h"
 #include "IntensityDataIOFactory.h"
-#include "RealDataItem.h"
 #include "IntensityDataItem.h"
+#include "RealDataItem.h"
+#include "projectmanager.h"
+#include <QDebug>
 #include <QFileDialog>
 #include <QFileInfo>
-#include "GUIHelpers.h"
 #include <QMessageBox>
-#include <QDebug>
 
 namespace {
 //const QString filter_string = "Intensity File (*.int *.int.gz *.tif *.tif.gz *.txt *.txt.gz);;"

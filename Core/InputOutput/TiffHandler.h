@@ -19,8 +19,9 @@
 #ifdef BORNAGAIN_TIFF_SUPPORT
 
 #include "OutputData.h"
-#include <tiffio.h>
 #include <memory>
+#include <tiffio.h>
+#include <tiffio.hxx>
 
 //! @class TiffHandler
 //! @ingroup input_output_internal
@@ -34,9 +35,9 @@ public:
 
     void read(std::istream& input_stream);
 
-    const OutputData<double> *getOutputData() const;
+    const OutputData<double>* getOutputData() const;
 
-    void write(const OutputData<double> &data, std::ostream &output_stream);
+    void write(const OutputData<double>& data, std::ostream& output_stream);
 
 private:
     void read_header();
@@ -46,13 +47,12 @@ private:
     void close();
     void create_output_data();
 
-    TIFF *m_tiff;
+    TIFF* m_tiff;
     size_t m_width;
     size_t m_height;
-    std::unique_ptr<OutputData<double> > m_data;
+    std::unique_ptr<OutputData<double>> m_data;
 };
 
 #endif // BORNAGAIN_TIFF_SUPPORT
 
 #endif // TIFFHANDLER_H
-

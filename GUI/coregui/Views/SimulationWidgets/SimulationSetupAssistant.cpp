@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/SimulationWidgets/SimulationSetupAssistant.cpp
+//! @file      GUI/coregui/Views/SimulationWidgets/SimulationSetupAssistant.cpp
 //! @brief     Implements class SimulationSetupAssistant
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -15,16 +15,16 @@
 // ************************************************************************** //
 
 #include "SimulationSetupAssistant.h"
-#include "SampleValidator.h"
-#include "RealDataItem.h"
-#include "IntensityDataItem.h"
-#include "InstrumentItem.h"
-#include "DetectorItems.h"
 #include "AxesItems.h"
-#include "IDetector2D.h"
+#include "DetectorItems.h"
 #include "IAxis.h"
-#include <QMessageBox>
+#include "IDetector2D.h"
+#include "InstrumentItem.h"
+#include "IntensityDataItem.h"
+#include "RealDataItem.h"
+#include "SampleValidator.h"
 #include <QDebug>
+#include <QMessageBox>
 
 //! Returns true if given setup is valid for submitting the job
 

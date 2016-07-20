@@ -15,10 +15,10 @@
 // ************************************************************************** //
 
 #include "MaterialItem.h"
-#include "MaterialUtils.h"
-#include "RefractiveIndexItem.h"
 #include "GUIHelpers.h"
 #include "HomogeneousMaterial.h"
+#include "MaterialUtils.h"
+#include "RefractiveIndexItem.h"
 #include <QUuid>
 
 

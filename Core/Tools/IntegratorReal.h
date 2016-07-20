@@ -16,7 +16,7 @@
 #ifndef INTEGRATORREAL_H
 #define INTEGRATORREAL_H
 
-#include "gsl/gsl_integration.h"
+#include <gsl/gsl_integration.h>
 #include <memory>
 
 //! Alias template for member function with signature double f(double)

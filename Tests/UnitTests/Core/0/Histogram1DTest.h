@@ -250,5 +250,5 @@ TEST_F(Histogram1DTest, Addition)
 }
 
 
-#endif
+#endif // HISTOGRAM1DTEST_H
 

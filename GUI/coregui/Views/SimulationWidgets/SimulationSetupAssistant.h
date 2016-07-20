@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Views/SimulationWidgets/SimulationSetupAssistant.h
+//! @file      GUI/coregui/Views/SimulationWidgets/SimulationSetupAssistant.h
 //! @brief     Declares class SimulationSetupAssistant
 //!
 //! @homepage  http://www.bornagainproject.org

@@ -16,7 +16,7 @@
 #ifndef PARTICLECOMPOSITIONBUILDER_H
 #define PARTICLECOMPOSITIONBUILDER_H
 
-#include "ISampleBuilder.h"
+#include "ISampleBuilder.h" // inheriting from
 
 //! @class ParticleCompositionBuilder
 //! @ingroup standard_samples

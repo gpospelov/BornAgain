@@ -14,9 +14,9 @@
 // ************************************************************************** //
 
 #include "ROOTMinimizerHelper.h"
-#include "Utils.h"
 #include "Math/GenAlgoOptions.h"
 #include "Math/Minimizer.h"
+#include "Utils.h"
 
 
 // ----------------------------------------------------------------------------

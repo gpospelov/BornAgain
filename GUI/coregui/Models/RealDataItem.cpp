@@ -15,8 +15,8 @@
 // ************************************************************************** //
 
 #include "RealDataItem.h"
-#include "IntensityDataItem.h"
 #include "GUIHelpers.h"
+#include "IntensityDataItem.h"
 
 const QString RealDataItem::T_INTENSITY_DATA = "Intensity data";
 

@@ -16,12 +16,12 @@
 
 #include "MaskAllView.h"
 #include "ColorMapSceneAdaptor.h"
-#include "MaskItems.h"
 #include "MaskEditorHelper.h"
-#include <QPainter>
+#include "MaskItems.h"
 #include <QBrush>
-#include <QStyleOptionGraphicsItem>
 #include <QDebug>
+#include <QPainter>
+#include <QStyleOptionGraphicsItem>
 
 MaskAllView::MaskAllView()
 {

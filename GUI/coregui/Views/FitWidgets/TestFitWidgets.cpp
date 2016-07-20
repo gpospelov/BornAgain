@@ -15,17 +15,17 @@
 // ************************************************************************** //
 
 #include "TestFitWidgets.h"
-#include "mainwindow.h"
-#include "ParameterTuningWidget.h"
-#include "FitParameterWidget.h"
-#include "item_constants.h"
-#include "JobModel.h"
-#include "JobItem.h"
 #include "FitParameterItems.h"
+#include "FitParameterWidget.h"
 #include "FitSuiteItem.h"
-#include <QVBoxLayout>
+#include "JobItem.h"
+#include "JobModel.h"
+#include "ParameterTuningWidget.h"
+#include "item_constants.h"
+#include "mainwindow.h"
 #include <QHBoxLayout>
 #include <QTreeView>
+#include <QVBoxLayout>
 
 TestFitWidgets::TestFitWidgets(MainWindow *mainWindow)
     : QWidget(mainWindow)

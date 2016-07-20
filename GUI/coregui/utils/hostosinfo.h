@@ -17,6 +17,7 @@
 #ifndef HOSTOSINFO_H
 #define HOSTOSINFO_H
 
+#include <QString>
 
 namespace Utils {
 
@@ -120,4 +121,3 @@ BA_CORE_API_ bool HostOsInfo::isAnyUnixHost()
 } // namespace Utils
 
 #endif // HOSTOSINFO_H
-

@@ -74,4 +74,4 @@ TEST_F(FitParameterTest, FitParameterWithValue)
     EXPECT_EQ(1.2, fitParameter.getError());
 }
 
-#endif //FITPARAMETERTEST_H
+#endif // FITPARAMETERTEST_H

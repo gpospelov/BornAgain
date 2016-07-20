@@ -15,8 +15,8 @@
 // ************************************************************************** //
 
 #include "InterferenceFunctionItems.h"
-#include "Units.h"
 #include "BornAgainNamespace.h"
+#include "Units.h"
 
 
 const QString InterferenceFunctionRadialParaCrystalItem::P_PEAK_DISTANCE =

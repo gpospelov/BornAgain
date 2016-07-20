@@ -15,17 +15,17 @@
 // ************************************************************************** //
 
 #include "SessionModelView.h"
-#include "mainwindow.h"
 #include "InstrumentModel.h"
+#include "JobModel.h"
+#include "MaterialModel.h"
 #include "RealDataModel.h"
 #include "SampleModel.h"
-#include "MaterialModel.h"
-#include "JobModel.h"
 #include "SessionModelDelegate.h"
-#include <QVBoxLayout>
+#include "mainwindow.h"
 #include <QToolBar>
 #include <QToolButton>
 #include <QTreeView>
+#include <QVBoxLayout>
 
 
 SessionModelView::ModelTree::ModelTree(SessionModel *model, QTreeView *tree)

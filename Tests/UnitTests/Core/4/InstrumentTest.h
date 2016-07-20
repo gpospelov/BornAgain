@@ -1,5 +1,5 @@
-#ifndef INSTRUMENTTEST_H_
-#define INSTRUMENTTEST_H_
+#ifndef INSTRUMENTTEST_H
+#define INSTRUMENTTEST_H
 
 #include "Units.h"
 #include "Instrument.h"
@@ -65,4 +65,4 @@ TEST_F(InstrumentTest, InstrumentClone)
     EXPECT_EQ( 0.0, clone.getBeamIntensity() );
 }
 
-#endif /* INSTRUMENTTEST_H_ */
+#endif // INSTRUMENTTEST_H

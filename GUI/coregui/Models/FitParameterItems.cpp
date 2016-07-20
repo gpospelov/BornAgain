@@ -16,9 +16,10 @@
 
 #include "FitParameterItems.h"
 #include "ComboProperty.h"
+#include "GUIHelpers.h"
 #include "ModelPath.h"
 #include "ParameterTreeItems.h"
-#include "GUIHelpers.h"
+#include <cmath>
 
 namespace
 {

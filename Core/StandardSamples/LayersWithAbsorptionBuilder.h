@@ -16,6 +16,7 @@
 #ifndef LAYERSWITHABSORPTIONBUILDER_H
 #define LAYERSWITHABSORPTIONBUILDER_H
 
+#include "ISampleBuilder.h" // inheriting from
 
 //! @class LayersWithAbsorptionBuilder
 //! @ingroup standard_samples
@@ -27,9 +28,8 @@
 class BA_CORE_API_ LayersWithAbsorptionBuilder : public ISampleBuilder
 {
 public:
-    LayersWithAbsorptionBuilder();
-    virtual ~LayersWithAbsorptionBuilder();
-
+    LayersWithAbsorptionBuilder() {}
+    virtual ~LayersWithAbsorptionBuilder() {}
     virtual ISample *buildSample() const;
 };
 

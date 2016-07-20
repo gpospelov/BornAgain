@@ -15,10 +15,10 @@
 // ************************************************************************** //
 
 #include "IntensityDataItem.h"
-#include "ComboProperty.h"
 #include "AxesItems.h"
-#include "GUIHelpers.h"
 #include "BornAgainNamespace.h"
+#include "ComboProperty.h"
+#include "GUIHelpers.h"
 
 const QString IntensityDataItem::P_AXES_UNITS = "Axes Units";
 const QString IntensityDataItem::P_TITLE = "Title";

@@ -16,7 +16,7 @@
 #ifndef IFUNCTIONALTEST_H
 #define IFUNCTIONALTEST_H
 
-#include "INamed.h"
+#include "INamed.h" // inheriting from
 #include <map>
 
 //! @class IFunctionalTest

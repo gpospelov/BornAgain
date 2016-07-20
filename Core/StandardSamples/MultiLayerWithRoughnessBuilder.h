@@ -16,7 +16,9 @@
 #ifndef MULTILAYERWITHROUGHNESSBUILDER_H
 #define MULTILAYERWITHROUGHNESSBUILDER_H
 
-#include "ISampleBuilder.h"
+#include "ISampleBuilder.h" // inheriting from
+
+class ISample;
 
 //! @class MultiLayerWithRoughnessBuilder
 //! @ingroup standard_samples
@@ -26,7 +28,7 @@ class BA_CORE_API_ MultiLayerWithRoughnessBuilder : public ISampleBuilder
 {
 public:
     MultiLayerWithRoughnessBuilder();
-    ISample *buildSample() const;
+    ISample* buildSample() const;
 
 protected:
     void init_parameters();

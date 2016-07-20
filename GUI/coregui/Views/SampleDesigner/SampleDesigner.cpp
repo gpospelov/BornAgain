@@ -17,9 +17,9 @@
 #include "SampleDesigner.h"
 #include "DesignerScene.h"
 #include "DesignerView.h"
-#include "MultiLayerView.h"
 #include "FilterPropertyProxy.h"
 #include "ISample.h"
+#include "MultiLayerView.h"
 #include <QDebug>
 
 SampleDesigner::SampleDesigner(QWidget *parent)

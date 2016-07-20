@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/UnitTests/Core/Q/FormFactorSpecializationTest.h
+//! @file      Tests/UnitTests/Core/Numeric/FormFactorSpecializationTest.h
 //! @brief     Unit tests for special cases of particle-shape form factors.
 //!
 //! @homepage  http://bornagainproject.org
@@ -15,14 +15,13 @@
 
 #include "Units.h"
 #include "BornAgainNamespace.h"
-#include "IFormFactorBorn.h"
-#include "ParticleShapes.h"
+#include "HardParticles.h"
 #include "qLoopedTest.h"
 
 class FFSpecializationTest : public QLoopedTest
 {
 public:
-    void test_ff_eq( IFormFactorBorn* p0, IFormFactorBorn* p1, double eps=1e-12) {
+    void test_ff_eq(IFormFactorBorn* p0, IFormFactorBorn* p1, double eps=1e-12) {
         complex_t f0 = p0->evaluate_for_q(q);
         complex_t f1 = p1->evaluate_for_q(q);
         double avge = (std::abs(f0) + std::abs(f1))/2;

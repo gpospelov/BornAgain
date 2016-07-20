@@ -68,13 +68,13 @@ import_array();
 #include "FitSuiteObjects.h"
 #include "FitSuiteParameters.h"
 #include "IChiSquaredModule.h"
+#include "IObserver.h"
 #include "IFitObserver.h"
 #include "IFitStrategy.h"
 #include "IIntensityFunction.h"
 #include "IIntensityNormalizer.h"
 #include "IMinimizer.h"
 #include "INamed.h"
-#include "IObserver.h"
 #include "ISquaredFunction.h"
 #include "MathFunctions.h"
 #include "MinimizerFactory.h"
@@ -88,7 +88,6 @@ import_array();
 %import(module="libBornAgainCore") "ICloneable.h"
 %import(module="libBornAgainCore") "INamed.h"
 %import(module="libBornAgainCore") "IParameterized.h"
-%import(module="libBornAgainCore") "IObserver.h"
 
 // The following goes verbatim from libBornAgainFit.i to libBornAgainFit_wrap.cxx.
 // Note that the order matters, as base classes must be included before derived classes.
@@ -96,6 +95,7 @@ import_array();
 %include "IFactory.h"
 %include "IMinimizer.h"
 %include "IChiSquaredModule.h"
+%include "IObserver.h"
 %include "IFitObserver.h"
 %include "IFitStrategy.h"
 %include "IIntensityFunction.h"

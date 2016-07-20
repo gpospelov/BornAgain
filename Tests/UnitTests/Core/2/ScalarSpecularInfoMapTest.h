@@ -1,23 +1,21 @@
 #ifndef SCALARSPECULARINFOMAPTEST_H
 #define SCALARSPECULARINFOMAPTEST_H
 
+#include "MultiLayer.h"
 #include "Units.h"
 #include "ScalarRTCoefficients.h"
 #include "ScalarSpecularInfoMap.h"
-
+#include "Layer.h"
 #include <memory>
 
 class ScalarSpecularInfoMapTest : public ::testing :: Test
 {
 protected:
     ScalarSpecularInfoMapTest();
-    virtual ~ScalarSpecularInfoMapTest() {
-        delete mp_multilayer;
-    }
+    virtual ~ScalarSpecularInfoMapTest() { delete mp_multilayer; }
 
-    MultiLayer *mp_multilayer;
+    MultiLayer* mp_multilayer;
 };
-
 
 ScalarSpecularInfoMapTest::ScalarSpecularInfoMapTest()
 {
@@ -37,7 +35,7 @@ TEST_F(ScalarSpecularInfoMapTest, getCoefficients)
 {
     ScalarSpecularInfoMap map(mp_multilayer, 0);
     std::unique_ptr<const ScalarRTCoefficients> P_rt_coeffs(
-                map.getOutCoefficients(1.0, 1.0, 2.0*Units::PI));
+        (ScalarRTCoefficients*) map.getOutCoefficients(1.0, 1.0, 2.0*Units::PI));
     complex_t R0 = complex_t(0.1750375, -0.0222467);
     complex_t lambda0 = complex_t(0.841471, 0.0);
     EXPECT_TRUE(nullptr != P_rt_coeffs.get());
@@ -82,6 +80,4 @@ TEST_F(ScalarSpecularInfoMapTest, getCoefficients)
     EXPECT_NEAR(lambda0.imag(), P_rt_coeffs->getScalarKz().imag(), 1e-6);
 }
 
-
-
-#endif //SCALARSPECULARINFOMAPTEST_H
+#endif // SCALARSPECULARINFOMAPTEST_H

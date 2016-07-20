@@ -16,18 +16,18 @@
 
 #include "SimulationDataSelectorWidget.h"
 #include "ApplicationModels.h"
-#include "InstrumentModel.h"
-#include "SampleModel.h"
-#include "RealDataModel.h"
 #include "InstrumentItem.h"
+#include "InstrumentModel.h"
 #include "MultiLayerItem.h"
 #include "RealDataItem.h"
+#include "RealDataModel.h"
+#include "SampleModel.h"
 #include <QComboBox>
+#include <QDebug>
 #include <QFileDialog>
 #include <QGroupBox>
-#include <QVBoxLayout>
 #include <QLabel>
-#include <QDebug>
+#include <QVBoxLayout>
 
 namespace
 {

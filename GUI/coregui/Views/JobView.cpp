@@ -15,14 +15,14 @@
 // ************************************************************************** //
 
 #include "JobView.h"
-#include "JobViewDocks.h"
-#include "JobSelectorWidget.h"
-#include "JobOutputDataWidget.h"
-#include "JobProgressAssistant.h"
-#include "JobModel.h"
-#include "mainwindow.h"
 #include "JobActivityStatusBar.h"
 #include "JobItem.h"
+#include "JobModel.h"
+#include "JobOutputDataWidget.h"
+#include "JobProgressAssistant.h"
+#include "JobSelectorWidget.h"
+#include "JobViewDocks.h"
+#include "mainwindow.h"
 #include <QMenu>
 
 JobView::JobView(MainWindow *mainWindow)

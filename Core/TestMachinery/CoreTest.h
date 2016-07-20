@@ -16,9 +16,9 @@
 #ifndef CORETEST_H
 #define CORETEST_H
 
-#include "OutputData.h"
-#include "IFunctionalTest.h"
+#include "IFunctionalTest.h" // inheriting from
 
+template <class T> class OutputData;
 class GISASSimulation;
 
 //! @class CoreTest
@@ -47,6 +47,6 @@ private:
     OutputData<double>* m_reference;
     double m_difference;
     std::string m_ref_filename;
-    };
+};
 
 #endif // CORETEST_H

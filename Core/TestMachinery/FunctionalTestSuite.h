@@ -16,8 +16,12 @@
 #ifndef FUNCTIONALTESTSUITE_H
 #define FUNCTIONALTESTSUITE_H
 
+#include "INamed.h" // inheriting from
 
-#include "ISampleBuilder.h"
+class GISASSimulation;
+class IFunctionalTest;
+class FunctionalTestInfo;
+class IParameterized;
 
 //! @class FunctionalTestSuite
 //! @brief To execute one functional test of given name.
@@ -36,18 +40,18 @@ public:
 
     int execute(int argc, char** argv);
 
-    virtual class IFunctionalTest* getTest() const = 0; //!< overloaded in (Core|Py|GUI)Suite.cpp
+    virtual IFunctionalTest* getTest() const = 0; //!< overloaded in (Core|Py|GUI)Suite.cpp
 
 protected:
-    virtual class GISASSimulation* getSimulation() const;
+    virtual GISASSimulation* getSimulation() const;
     std::string getTestName() const { return m_test_name; }
     std::string getTestDescription() const;
     double getTestThreshold() const;
 
 private:
-    const class FunctionalTestInfo* m_info;
+    const FunctionalTestInfo* m_info;
     std::string m_test_name;
-    const class IParameterized* m_subtest_item;
+    const IParameterized* m_subtest_item;
 
     int execute_onetest();
     int execute_subtests();

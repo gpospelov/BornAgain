@@ -17,8 +17,8 @@
 #ifndef COMPONENTEDITOR_H
 #define COMPONENTEDITOR_H
 
-#include "WinDllMacros.h"
 #include "ComponentEditorFlags.h"
+#include "WinDllMacros.h"
 #include <QWidget>
 #include <memory>
 

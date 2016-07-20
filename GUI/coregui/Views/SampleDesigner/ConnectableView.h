@@ -17,9 +17,9 @@
 #ifndef CONNECTABLEVIEW_H
 #define CONNECTABLEVIEW_H
 
-#include "WinDllMacros.h"
 #include "IView.h"
 #include "NodeEditorPort.h"
+#include "WinDllMacros.h"
 
 class QPainter;
 class QStyleOptionGraphicsItem;

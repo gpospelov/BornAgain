@@ -15,11 +15,11 @@
 // ************************************************************************** //
 
 #include "MaterialModel.h"
-#include "RefractiveIndexItem.h"
-#include "MaterialUtils.h"
 #include "IconProvider.h"
-#include <QUuid>
+#include "MaterialUtils.h"
+#include "RefractiveIndexItem.h"
 #include <QDebug>
+#include <QUuid>
 
 MaterialModel::MaterialModel(QObject *parent)
     : SessionModel(SessionXML::MaterialModelTag, parent)

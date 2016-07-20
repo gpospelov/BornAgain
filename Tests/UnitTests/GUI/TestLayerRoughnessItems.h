@@ -1,5 +1,5 @@
-#ifndef _LAYERROUGHNESSITEMS_H
-#define _LAYERROUGHNESSITEMS_H
+#ifndef TESTLAYERROUGHNESSITEMS_H
+#define TESTLAYERROUGHNESSITEMS_H
 
 #include <QtTest>
 #include "LayerRoughness.h"
@@ -42,5 +42,5 @@ inline void TestLayerRoughnessItems::test_LayerRoughnessFromDomain()
 }
 
 
-#endif
+#endif // TESTLAYERROUGHNESSITEMS_H
 

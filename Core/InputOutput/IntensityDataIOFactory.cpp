@@ -14,9 +14,9 @@
 // ************************************************************************** //
 
 #include "IntensityDataIOFactory.h"
+#include "IHistogram.h"
 #include "OutputDataReadFactory.h"
 #include "OutputDataWriteFactory.h"
-#include "IHistogram.h"
 
 
 OutputData<double>* IntensityDataIOFactory::readOutputData(const std::string& file_name)

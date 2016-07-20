@@ -14,7 +14,11 @@
 // ************************************************************************** //
 
 #include "MultiLayerWithRoughnessBuilder.h"
+#include "HomogeneousMaterial.h"
+#include "Layer.h"
+#include "LayerRoughness.h"
 #include "MultiLayer.h"
+#include "Units.h"
 
 MultiLayerWithRoughnessBuilder::MultiLayerWithRoughnessBuilder()
     : m_thicknessA(2.5*Units::nanometer)
@@ -40,9 +44,9 @@ void MultiLayerWithRoughnessBuilder::init_parameters()
 }
 
 
-ISample *MultiLayerWithRoughnessBuilder::buildSample() const
+ISample* MultiLayerWithRoughnessBuilder::buildSample() const
 {
-    MultiLayer *multi_layer = new MultiLayer();
+    MultiLayer* multi_layer = new MultiLayer();
     HomogeneousMaterial air_material("Air", 0., 0.);
     HomogeneousMaterial substrate_material("Substrate", 15e-6, 0.0);
     HomogeneousMaterial part_a_material("PartA", 5e-6, 0.0);
@@ -69,4 +73,3 @@ ISample *MultiLayerWithRoughnessBuilder::buildSample() const
     multi_layer->setCrossCorrLength(m_crossCorrLength);
     return multi_layer;
 }
-

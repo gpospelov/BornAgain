@@ -15,8 +15,8 @@
 // ************************************************************************** //
 
 #include "SampleWidgetBox.h"
-#include "widgetbox.h"
 #include "styledbar.h"
+#include "widgetbox.h"
 #include <QVBoxLayout>
 
 #if QT_VERSION < 0x050000

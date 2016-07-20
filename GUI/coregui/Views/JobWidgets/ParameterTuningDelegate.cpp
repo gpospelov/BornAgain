@@ -16,25 +16,25 @@
 
 #include "ParameterTuningDelegate.h"
 #include "GUIHelpers.h"
+#include "ModelPath.h"
 #include "ParameterTreeItems.h"
 #include "ParameterTuningModel.h"
-#include "ModelPath.h"
 #include "SessionModel.h"
-#include <QDebug>
-#include <QPainter>
-#include <QPaintDevice>
-#include <QApplication>
-#include <QWidget>
-#include <QMouseEvent>
-#include <QStyleOptionSlider>
 #include <QAbstractItemModel>
-#include <QRect>
-#include <QItemSelectionModel>
-#include <QHBoxLayout>
+#include <QApplication>
+#include <QDebug>
 #include <QDoubleSpinBox>
+#include <QHBoxLayout>
+#include <QItemSelectionModel>
+#include <QMouseEvent>
+#include <QPaintDevice>
+#include <QPainter>
+#include <QRect>
+#include <QStyleOptionSlider>
+#include <QWidget>
 #include <cmath>
-#include <limits>
 #include <iostream>
+#include <limits>
 
 
 namespace {

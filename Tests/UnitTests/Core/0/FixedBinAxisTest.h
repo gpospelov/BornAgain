@@ -178,4 +178,4 @@ TEST_F(FixedBinAxisTest, ClippedAxis)
 }
 
 
-#endif
+#endif // FIXEDBINAXISTEST_H

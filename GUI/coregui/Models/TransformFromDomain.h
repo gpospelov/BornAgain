@@ -17,62 +17,81 @@
 #ifndef TRANSFORMFROMDOMAIN_H
 #define TRANSFORMFROMDOMAIN_H
 
+#include <QString>
+class BeamDistributionItem;
+class BeamItem;
+class DetectorItem;
+class FormFactorAnisoPyramid;
+class GISASSimulation;
+class InterferenceFunction1DLattice;
+class InterferenceFunction2DLattice;
+class InterferenceFunction2DParaCrystal;
+class InterferenceFunctionRadialParaCrystal;
+class Layer;
+class LayerInterface;
+class LayerRoughness;
+class ParameterDistribution;
+class ParticleDistribution;
+class RectangularDetector;
+class RectangularDetectorItem;
+class SessionItem;
+class SphericalDetector;
+class SphericalDetectorItem;
 
 namespace TransformFromDomain
 {
-BA_CORE_API_ void setItemFromSample(class SessionItem *item,
-                                    const class FormFactorAnisoPyramid *sample);
+BA_CORE_API_ void setItemFromSample(SessionItem *item,
+                                    const FormFactorAnisoPyramid *sample);
 
-BA_CORE_API_ void setItemFromSample(class SessionItem *item,
-                                    const class InterferenceFunctionRadialParaCrystal *sample);
+BA_CORE_API_ void setItemFromSample(SessionItem *item,
+                                    const InterferenceFunctionRadialParaCrystal *sample);
 
-BA_CORE_API_ void setItemFromSample(class SessionItem *item,
-                                    const class InterferenceFunction2DParaCrystal *sample);
+BA_CORE_API_ void setItemFromSample(SessionItem *item,
+                                    const InterferenceFunction2DParaCrystal *sample);
 
-BA_CORE_API_ void setItemFromSample(class SessionItem *item,
-                                    const class InterferenceFunction1DLattice *sample);
+BA_CORE_API_ void setItemFromSample(SessionItem *item,
+                                    const InterferenceFunction1DLattice *sample);
 
-BA_CORE_API_ void setItemFromSample(class SessionItem *item,
-                                    const class InterferenceFunction2DLattice *sample);
+BA_CORE_API_ void setItemFromSample(SessionItem *item,
+                                    const InterferenceFunction2DLattice *sample);
 
-BA_CORE_API_ void setItemFromSample(class SessionItem *layerItem, const class Layer *layer,
-                                    const class LayerInterface *top_interface);
+BA_CORE_API_ void setItemFromSample(SessionItem *layerItem, const Layer *layer,
+                                    const LayerInterface *top_interface);
 
-BA_CORE_API_ void setItemFromSample(class SessionItem *item,
-                                    const class LayerRoughness *sample);
+BA_CORE_API_ void setItemFromSample(SessionItem *item,
+                                    const LayerRoughness *sample);
 
-BA_CORE_API_ void setItemFromSample(class SessionItem *item,
-                                    const class ParticleDistribution *sample);
+BA_CORE_API_ void setItemFromSample(SessionItem *item,
+                                    const ParticleDistribution *sample);
 
-BA_CORE_API_ bool isValidRoughness(const class LayerRoughness *roughness);
+BA_CORE_API_ bool isValidRoughness(const LayerRoughness *roughness);
 
 BA_CORE_API_ bool isSquareLattice(double length1, double length2, double angle);
 
 BA_CORE_API_ bool isHexagonalLattice(double length1, double length2, double angle);
 
-BA_CORE_API_ void setItemFromSample(class BeamItem *beamItem,
-                                    const class GISASSimulation &simulation);
+BA_CORE_API_ void setItemFromSample(BeamItem *beamItem,
+                                    const GISASSimulation &simulation);
 
-BA_CORE_API_ void setItemFromSample(class DetectorItem *detectorItem,
-                                    const class GISASSimulation &simulation);
+BA_CORE_API_ void setItemFromSample(DetectorItem *detectorItem,
+                                    const GISASSimulation &simulation);
 
-BA_CORE_API_ void setItemFromSample(class SphericalDetectorItem *detectorItem,
-                                    const class SphericalDetector &detector);
+BA_CORE_API_ void setItemFromSample(SphericalDetectorItem *detectorItem,
+                                    const SphericalDetector &detector);
 
-BA_CORE_API_ void setItemFromSample(class RectangularDetectorItem *detectorItem,
-                                    const class RectangularDetector &detector);
+BA_CORE_API_ void setItemFromSample(RectangularDetectorItem *detectorItem,
+                                    const RectangularDetector &detector);
 
-BA_CORE_API_ void setDetectorMasks(class DetectorItem *detectorItem,
-                                   const class GISASSimulation &simulation);
+BA_CORE_API_ void setDetectorMasks(DetectorItem *detectorItem,
+                                   const GISASSimulation &simulation);
 
-BA_CORE_API_ void setItemFromSample(class BeamDistributionItem *beamDistributionItem,
-                                    const class ParameterDistribution &parameterDistribution);
+BA_CORE_API_ void setItemFromSample(BeamDistributionItem *beamDistributionItem,
+                                    const ParameterDistribution &parameterDistribution);
 
-BA_CORE_API_ void setItemFromSample(class BeamDistributionItem *beamDistributionItem,
-                                    const class ParameterDistribution &parameterDistribution);
+BA_CORE_API_ void setItemFromSample(BeamDistributionItem *beamDistributionItem,
+                                    const ParameterDistribution &parameterDistribution);
 
-BA_CORE_API_ QString translateParameterNameToGUI(class SessionItem *item,
-                                                 const class QString &par_name);
+BA_CORE_API_ QString translateParameterNameToGUI(SessionItem *item, const QString &par_name);
 }
 
 #endif // TRANSFORMFROMDOMAIN_H

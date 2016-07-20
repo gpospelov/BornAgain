@@ -17,8 +17,8 @@
 #ifndef PARAMETERTUNINGDELEGATE_H
 #define PARAMETERTUNINGDELEGATE_H
 
-#include <QItemDelegate>
 #include "AttLimits.h"
+#include <QItemDelegate>
 #include <memory>
 
 class QDoubleSpinBox;

@@ -2,6 +2,7 @@
 #define HOMOGENEOUSMAGNETICMATERIALTEST_H
 
 #include "HomogeneousMagneticMaterial.h"
+#include "Rotations.h"
 
 class HomogeneousMagneticMaterialTest : public ::testing::Test
 {
@@ -35,7 +36,6 @@ TEST_F(HomogeneousMagneticMaterialTest, HomogeneousMagneticMaterialWithRefIndex)
     EXPECT_EQ(complex_t(3.0,4.0), matrix2(1,0));
     EXPECT_EQ(complex_t(-10.0,12.0), matrix2(1,1));
 
-
     kvector_t magnetism2 = kvector_t(5.0, 6.0, 7.0);
     material.setMagneticField(magnetism2);
     EXPECT_EQ(magnetism2, material.getMagneticField());
@@ -44,7 +44,6 @@ TEST_F(HomogeneousMagneticMaterialTest, HomogeneousMagneticMaterialWithRefIndex)
 
 TEST_F(HomogeneousMagneticMaterialTest, HomogeneousMagneticMaterialWithRefIndexAndMagField)
 {
-
     kvector_t magnetism = kvector_t(3.0, 4.0, 5.0);
     HomogeneousMagneticMaterial material("MagMaterial", 2.0, 2.0, magnetism);
     EXPECT_EQ("MagMaterial", material.getName());
@@ -85,7 +84,6 @@ TEST_F(HomogeneousMagneticMaterialTest, HomogeneousMagneticMaterialTransform)
     EXPECT_EQ(complex_t(0.0, 0.0), matrix(1,0));
     EXPECT_EQ(complex_t(0.0, 0.0), matrix(1,1));
 
-
     delete tMaterial;
 }
 
@@ -115,17 +113,14 @@ TEST_F(HomogeneousMagneticMaterialTest, HomogeneousMagneticMaterialClone)
     clone->setMagneticField(magnetism2);
     EXPECT_EQ(magnetism2, clone->getMagneticField());
 
-
     RotationZ transform(45.*Units::degree);
     const IMaterial * tMaterial = clone->createTransformedMaterial(transform);
 
     EXPECT_EQ("MagMaterial", tMaterial->getName());
     EXPECT_EQ(refIndex2, tMaterial->getRefractiveIndex());
 
-
     delete tMaterial;
     delete clone;
 }
 
-
-#endif //HOMOGENEOUSMAGNETICMATERIALTEST_H
+#endif // HOMOGENEOUSMAGNETICMATERIALTEST_H

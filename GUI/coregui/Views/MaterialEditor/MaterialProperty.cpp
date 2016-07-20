@@ -16,8 +16,8 @@
 
 #include "MaterialProperty.h"
 #include "MaterialItem.h"
-#include "MaterialSvc.h"
 #include "MaterialModel.h"
+#include "MaterialSvc.h"
 
 QString MaterialProperty::getName() const
 {

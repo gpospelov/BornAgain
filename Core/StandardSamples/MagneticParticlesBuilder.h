@@ -16,7 +16,9 @@
 #ifndef MAGNETICPARTICLESBUILDER_H
 #define MAGNETICPARTICLESBUILDER_H
 
-#include "ISampleBuilder.h"
+#include "ISampleBuilder.h" // inheriting from
+
+class ISample;
 
 //! @class MagneticParticleZeroFieldBuilder
 //! @ingroup standard_samples
@@ -26,7 +28,7 @@ class BA_CORE_API_ MagneticParticleZeroFieldBuilder : public ISampleBuilder
 {
 public:
     MagneticParticleZeroFieldBuilder();
-    ISample *buildSample() const;
+    ISample* buildSample() const;
 
 protected:
     void init_parameters();
@@ -44,7 +46,7 @@ class BA_CORE_API_ MagneticCylindersBuilder : public ISampleBuilder
 {
 public:
     MagneticCylindersBuilder();
-    ISample *buildSample() const;
+    ISample* buildSample() const;
 
 protected:
     void init_parameters();
@@ -53,6 +55,5 @@ private:
     double m_cylinder_radius;
     double m_cylinder_height;
 };
-
 
 #endif // MAGNETICPARTICLESBUILDER_H

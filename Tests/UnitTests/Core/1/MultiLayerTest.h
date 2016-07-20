@@ -1,5 +1,5 @@
-#ifndef MLAYERTEST_H
-#define MLAYERTEST_H
+#ifndef MULTILAYERTEST_H
+#define MULTILAYERTEST_H
 
 #include "MultiLayer.h"
 #include "BornAgainNamespace.h"
@@ -8,6 +8,8 @@
 #include "Materials.h"
 #include "Units.h"
 #include "ParticleLayout.h"
+#include "Layer.h"
+#include "LayerInterface.h"
 
 class MultiLayerTest : public ::testing::Test
 {
@@ -573,4 +575,4 @@ TEST_F(MultiLayerTest, MultiLayerZtoIndex)
     EXPECT_EQ(size_t(4), mLayer.zToLayerIndex(-61.0));
 }
 
-#endif
+#endif // MULTILAYERTEST_H

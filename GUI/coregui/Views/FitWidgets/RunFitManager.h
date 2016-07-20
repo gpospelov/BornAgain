@@ -18,9 +18,9 @@
 #define RUNFITMANAGER_H
 
 #include "WinDllMacros.h"
+#include <QObject>
 #include <atomic>
 #include <memory>
-#include <QObject>
 
 class FitSuite;
 

@@ -15,8 +15,8 @@
 // ************************************************************************** //
 
 #include "MinimizerItem.h"
-#include "MinimizerItemCatalogue.h"
 #include "MinimizerFactory.h"
+#include "MinimizerItemCatalogue.h"
 #include <QDebug>
 
 // ----------------------------------------------------------------------------

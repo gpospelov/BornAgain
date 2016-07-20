@@ -17,8 +17,8 @@
 #ifndef ITEMIDFACTORY_H
 #define ITEMIDFACTORY_H
 
-#include <QUuid>
 #include <QMap>
+#include <QUuid>
 
 class SessionItem;
 

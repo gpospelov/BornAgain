@@ -15,13 +15,13 @@
 // ************************************************************************** //
 
 #include "LineViews.h"
-#include "MaskItems.h"
-#include "MaskEditorHelper.h"
 #include "ColorMapSceneAdaptor.h"
-#include <QPainter>
+#include "MaskEditorHelper.h"
+#include "MaskItems.h"
 #include <QCursor>
-#include <QStyleOptionGraphicsItem>
 #include <QDebug>
+#include <QPainter>
+#include <QStyleOptionGraphicsItem>
 
 namespace {
 const double mask_width = 8.0;

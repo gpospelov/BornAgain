@@ -19,9 +19,9 @@
 
 
 #include "WinDllMacros.h"
-#include <QWidget>
 #include <QLabel>
 #include <QMap>
+#include <QWidget>
 
 class SessionItem;
 class DetectorEditorWidget;

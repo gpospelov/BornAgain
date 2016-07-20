@@ -18,8 +18,8 @@
 #define JOBSELECTORACTIONS_H
 
 #include "WinDllMacros.h"
-#include <QObject>
 #include <QModelIndex>
+#include <QObject>
 
 class QAction;
 class JobModel;

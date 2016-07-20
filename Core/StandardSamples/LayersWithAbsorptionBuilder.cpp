@@ -13,20 +13,19 @@
 //
 // ************************************************************************** //
 
-#include "MultiLayer.h"
 #include "LayersWithAbsorptionBuilder.h"
-
-LayersWithAbsorptionBuilder::LayersWithAbsorptionBuilder()
-{
-}
-
-LayersWithAbsorptionBuilder::~LayersWithAbsorptionBuilder()
-{
-}
+#include "HomogeneousMaterial.h"
+#include "Layer.h"
+#include "LayerInterface.h"
+#include "LayerRoughness.h"
+#include "MultiLayer.h"
+#include "Particle.h"
+#include "ParticleLayout.h"
+#include "Units.h"
 
 ISample* LayersWithAbsorptionBuilder::buildSample() const
 {
-    const IFormFactor *form_factor = getFormFactor();
+    const IFormFactor* form_factor = getFormFactor();
     if(!form_factor)
         throw Exceptions::NullPointerException(
             "LayersWithAbsorptionBuilder::buildSample() -> Error. Form factor is not initialized.");

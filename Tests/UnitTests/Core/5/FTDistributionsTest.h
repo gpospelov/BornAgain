@@ -287,4 +287,4 @@ TEST_F(FTDistributionsTest, FTDistribution2DVoigtClone)
     EXPECT_NEAR(-0.6635305, P_clone->evaluate(0.2, 0.5),0.000001);
 }
 
-#endif //FTDISTRIBUTIONSTEST_H
+#endif // FTDISTRIBUTIONSTEST_H

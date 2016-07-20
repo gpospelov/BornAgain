@@ -1,5 +1,5 @@
-#ifndef MASKTEST_H_
-#define MASKTEST_H_
+#ifndef MASKTEST_H
+#define MASKTEST_H
 
 #include "Mask.h"
 #include "OutputData.h"
@@ -294,4 +294,4 @@ TEST_F(MaskTest, CompoundMaskClone)
     delete p_compound_clone;
 }
 
-#endif /* MASKTEST_H_ */
+#endif // MASKTEST_H

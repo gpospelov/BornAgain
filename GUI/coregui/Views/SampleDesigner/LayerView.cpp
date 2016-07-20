@@ -16,14 +16,14 @@
 
 #include "LayerView.h"
 #include "LayerItem.h"
+#include "MaterialProperty.h"
+#include "MultiLayerView.h"
 #include "ParticleLayoutView.h"
 #include "SessionItem.h"
-#include "MaterialProperty.h"
 #include "tooltipdatabase.h"
-#include "MultiLayerView.h"
+#include <QDebug>
 #include <QPainter>
 #include <QStyleOptionGraphicsItem>
-#include <QDebug>
 
 
 

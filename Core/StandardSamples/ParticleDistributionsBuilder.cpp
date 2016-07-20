@@ -14,10 +14,15 @@
 // ************************************************************************** //
 
 #include "ParticleDistributionsBuilder.h"
-#include "MultiLayer.h"
-#include "FormFactorCylinder.h"
 #include "Distributions.h"
+#include "FormFactorCylinder.h"
+#include "HomogeneousMaterial.h"
+#include "Layer.h"
+#include "MultiLayer.h"
+#include "Particle.h"
 #include "ParticleDistribution.h"
+#include "ParticleLayout.h"
+#include "Units.h"
 
 using namespace BornAgain;
 
@@ -142,5 +147,3 @@ ISample *TwoTypesCylindersDistributionBuilder::buildSample() const
 
     return multi_layer;
 }
-
-

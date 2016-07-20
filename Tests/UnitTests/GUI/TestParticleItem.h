@@ -125,4 +125,4 @@ inline void TestParticleItem::test_InitialState()
 
 
 
-#endif
+#endif // TESTPARTICLEITEM_H

@@ -17,10 +17,10 @@
 #ifndef MASKEDITORACTIONS_H
 #define MASKEDITORACTIONS_H
 
-#include "WinDllMacros.h"
 #include "MaskEditorFlags.h"
-#include <QObject>
+#include "WinDllMacros.h"
 #include <QModelIndex>
+#include <QObject>
 
 class QAction;
 class SessionModel;

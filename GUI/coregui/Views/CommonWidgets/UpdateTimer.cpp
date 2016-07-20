@@ -15,8 +15,8 @@
 // ************************************************************************** //
 
 #include "UpdateTimer.h"
-#include <QTimer>
 #include <QDebug>
+#include <QTimer>
 
 namespace {
 const int default_timer_interval_in_msec = 2;

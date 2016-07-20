@@ -17,9 +17,9 @@
 #ifndef SESSIONITEM_H
 #define SESSIONITEM_H
 
-#include "item_constants.h"
-#include "ModelMapper.h"
 #include "AttLimits.h"
+#include "ModelMapper.h"
+#include "item_constants.h"
 #include <QStringList>
 #include <memory>
 

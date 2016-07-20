@@ -14,9 +14,14 @@
 // ************************************************************************** //
 
 #include "MultipleLayoutBuilder.h"
-#include "MultiLayer.h"
 #include "FormFactorCylinder.h"
 #include "FormFactorPrism3.h"
+#include "HomogeneousMaterial.h"
+#include "Layer.h"
+#include "MultiLayer.h"
+#include "Particle.h"
+#include "ParticleLayout.h"
+#include "Units.h"
 
 MultipleLayoutBuilder::MultipleLayoutBuilder()
     : m_cylinder_height(5*Units::nanometer)
@@ -28,7 +33,6 @@ MultipleLayoutBuilder::MultipleLayoutBuilder()
     init_parameters();
 }
 
-
 void MultipleLayoutBuilder::init_parameters()
 {
     clearParameterPool();
@@ -39,10 +43,9 @@ void MultipleLayoutBuilder::init_parameters()
     registerParameter("cylinder_weight", &m_cylinder_weight);
 }
 
-
-ISample *MultipleLayoutBuilder::buildSample() const
+ISample* MultipleLayoutBuilder::buildSample() const
 {
-    MultiLayer *multi_layer = new MultiLayer();
+    MultiLayer* multi_layer = new MultiLayer();
 
     HomogeneousMaterial air_material("Air", 0., 0.);
     HomogeneousMaterial substrate_material("Substrate", 6e-6, 2e-8);
@@ -70,4 +73,3 @@ ISample *MultipleLayoutBuilder::buildSample() const
     multi_layer->addLayer(substrate_layer);
     return multi_layer;
 }
-

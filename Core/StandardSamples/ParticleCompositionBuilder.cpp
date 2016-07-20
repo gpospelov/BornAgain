@@ -15,15 +15,20 @@
 
 #include "ParticleCompositionBuilder.h"
 #include "FormFactorFullSphere.h"
+#include "HomogeneousMaterial.h"
 #include "InterferenceFunction2DLattice.h"
-#include "ParticleComposition.h"
+#include "Layer.h"
 #include "MultiLayer.h"
+#include "Particle.h"
+#include "ParticleComposition.h"
+#include "ParticleLayout.h"
+#include "Units.h"
 
 // --- ParticleCompositionBuilder ---
 
-ISample *ParticleCompositionBuilder::buildSample() const
+ISample* ParticleCompositionBuilder::buildSample() const
 {
-    MultiLayer *multi_layer = new MultiLayer();
+    MultiLayer* multi_layer = new MultiLayer();
 
     HomogeneousMaterial air_material("Air", 0.0, 0.0);
     HomogeneousMaterial substrate_material("Substrate", 6e-6, 2e-8);
@@ -61,4 +66,3 @@ ISample *ParticleCompositionBuilder::buildSample() const
 
     return multi_layer;
 }
-

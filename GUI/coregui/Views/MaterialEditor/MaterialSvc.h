@@ -17,8 +17,8 @@
 #ifndef MATERIALSVC_H
 #define MATERIALSVC_H
 
-#include "WinDllMacros.h"
 #include "MaterialProperty.h"
+#include "WinDllMacros.h"
 #include <QObject>
 
 class MaterialModel;

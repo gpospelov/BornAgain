@@ -33,4 +33,4 @@ inline void TestFormFactorItems::test_AnisoPyramidItem()
     QVERIFY( Numeric::areAlmostEqual(p_ff->getAlpha(), Units::deg2rad(60.0)));
 }
 
-#endif
+#endif // TESTFORMFACTORITEMS_H

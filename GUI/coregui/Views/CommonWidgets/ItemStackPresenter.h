@@ -18,9 +18,9 @@
 #define ITEMSTACKPRESENTER_H
 
 #include "ItemStackWidget.h"
-#include <QStackedWidget>
-#include <QMap>
 #include <QDebug>
+#include <QMap>
+#include <QStackedWidget>
 
 class SessionItem;
 

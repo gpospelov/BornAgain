@@ -13,14 +13,13 @@
 //
 // ************************************************************************** //
 
-
+#include "OutputDataIOHelper.h"
 #include "ConstKBinAxis.h"
 #include "CustomBinAxis.h"
-#include "Utils.h"
-#include "OutputData.h"
 #include "FileSystem.h"
-#include "OutputDataIOHelper.h"
-
+#include "OutputData.h"
+#include "Utils.h"
+#include <iostream>
 
 bool OutputDataIOHelper::isCompressed(const std::string& name)
 {
@@ -31,16 +30,12 @@ bool OutputDataIOHelper::isCompressed(const std::string& name)
 
 bool OutputDataIOHelper::isGZipped(const std::string& name)
 {
-    if ( Utils::FileSystem::GetFileExtension(name) == GzipExtention)
-        return true;
-    return false;
+    return Utils::FileSystem::GetFileExtension(name) == GzipExtention;
 }
 
 bool OutputDataIOHelper::isBZipped(const std::string& name)
 {
-    if ( Utils::FileSystem::GetFileExtension(name) == BzipExtention)
-        return true;
-    return false;
+    return Utils::FileSystem::GetFileExtension(name) == BzipExtention;
 }
 
 
@@ -89,25 +84,15 @@ bool OutputDataIOHelper::isTiffFile(const std::string& file_name)
 //! similar way.
 bool OutputDataIOHelper::isSimilarToFixedBinAxisType(const std::string& line)
 {
-    if(line.find(FixedBinAxisType) != std::string::npos ||
-       line.find(ConstKBinAxisType) != std::string::npos ||
-       line.find(CustomBinAxisType) != std::string::npos)
-    {
-        return true;
-    }
-    return false;
+    return line.find(FixedBinAxisType) != std::string::npos ||
+        line.find(ConstKBinAxisType) != std::string::npos ||
+        line.find(CustomBinAxisType) != std::string::npos;
 }
-
 
 bool OutputDataIOHelper::isVariableBinAxisType(const std::string& line)
 {
-    if(line.find(VariableBinAxisType) != std::string::npos) {
-        return true;
-    } else {
-        return false;
-    }
+    return line.find(VariableBinAxisType) != std::string::npos;
 }
-
 
 
 //! Creates axis of certain type from input stream
@@ -129,7 +114,6 @@ IAxis *OutputDataIOHelper::createAxis(std::istream& input_stream)
                                               "Unknown axis '"+line+"'");
     }
 }
-
 
 //! Create one of FixedBinAxis from string representation
 //! FixedBinAxis("axis0", 10, -1, 1)
@@ -199,8 +183,7 @@ void OutputDataIOHelper::fillOutputData(OutputData<double>* data, std::istream& 
     std::string line;
     data->setAllTo(0.0);
     OutputData<double>::iterator it = data->begin();
-    while( std::getline(input_stream, line) )
-    {
+    while( std::getline(input_stream, line) ) {
         if(line.empty() || line[0] == '#') break;
 
         std::istringstream iss(line);

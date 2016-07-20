@@ -19,8 +19,8 @@
 
 #include "WinDllMacros.h"
 #include <QItemDelegate>
-#include <QRect>
 #include <QMap>
+#include <QRect>
 
 class JobItem;
 

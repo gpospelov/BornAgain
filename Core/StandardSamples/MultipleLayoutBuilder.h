@@ -16,7 +16,9 @@
 #ifndef MULTIPLELAYOUTBUILDER_H
 #define MULTIPLELAYOUTBUILDER_H
 
-#include "ISampleBuilder.h"
+#include "ISampleBuilder.h" // inheriting from
+
+class ISample;
 
 //! @class MultipleLayoutBuilder
 //! @ingroup standard_samples
@@ -27,7 +29,7 @@ class BA_CORE_API_ MultipleLayoutBuilder : public ISampleBuilder
 {
 public:
     MultipleLayoutBuilder();
-    ISample *buildSample() const;
+    ISample* buildSample() const;
 
 protected:
     void init_parameters();

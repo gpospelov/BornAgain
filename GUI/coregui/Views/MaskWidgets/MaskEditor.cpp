@@ -15,26 +15,25 @@
 // ************************************************************************** //
 
 #include "MaskEditor.h"
+#include "GISASSimulation.h"
+#include "GUIHelpers.h"
+#include "ISample.h"
+#include "IntensityDataItem.h"
 #include "MaskEditorActions.h"
 #include "MaskEditorCanvas.h"
 #include "MaskEditorPropertyPanel.h"
 #include "MaskEditorToolBar.h"
 #include "MaskGraphicsScene.h"
 #include "MaskGraphicsView.h"
-#include <QBoxLayout>
-#include <QSplitter>
-#include <QContextMenuEvent>
-#include <QMenu>
-#include <QDebug>
-
-#include "SimulationFactory.h"
-
-#include "SampleBuilderFactory.h"
-#include "IntensityDataItem.h"
-#include "SessionModel.h"
 #include "MaskItems.h"
-#include "GUIHelpers.h"
-
+#include "SampleBuilderFactory.h"
+#include "SessionModel.h"
+#include "SimulationFactory.h"
+#include <QBoxLayout>
+#include <QContextMenuEvent>
+#include <QDebug>
+#include <QMenu>
+#include <QSplitter>
 
 MaskEditor::MaskEditor(QWidget* parent)
     : QMainWindow(parent)

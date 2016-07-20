@@ -15,17 +15,17 @@
 // ************************************************************************** //
 
 #include "SampleView.h"
-#include "mainwindow.h"
-#include "SampleViewComponents.h"
-#include "SampleDesigner.h"
-#include "SampleToolBar.h"
-#include "SamplePropertyWidget.h"
+#include "FilterPropertyProxy.h"
 #include "InfoWidget.h"
 #include "ItemFactory.h"
-#include "FilterPropertyProxy.h"
+#include "SampleDesigner.h"
+#include "SamplePropertyWidget.h"
+#include "SampleToolBar.h"
+#include "SampleViewComponents.h"
+#include "mainwindow.h"
+#include <QDebug>
 #include <QDockWidget>
 #include <QMenu>
-#include <QDebug>
 #include <QTimer>
 
 SampleView::SampleView(MainWindow *mainWindow)

@@ -15,31 +15,31 @@
 // ************************************************************************** //
 
 #include "PythonScriptWidget.h"
+#include "DesignerHelper.h"
+#include "DomainSimulationBuilder.h"
+#include "GISASSimulation.h"
+#include "InstrumentModel.h"
+#include "PyGenTools.h"
 #include "PythonSyntaxHighlighter.h"
 #include "SampleModel.h"
-#include "InstrumentModel.h"
-#include "DesignerHelper.h"
-#include "GISASSimulation.h"
-#include "PyGenTools.h"
-#include "DomainSimulationBuilder.h"
-#include "WarningSignWidget.h"
 #include "SimulationOptionsItem.h"
+#include "WarningSignWidget.h"
 #include "projectdocument.h"
 #include "projectmanager.h"
-#include <QScrollBar>
+#include <QDebug>
+#include <QDir>
+#include <QFile>
+#include <QFileDialog>
 #include <QMessageBox>
-#include <QVBoxLayout>
+#include <QPushButton>
+#include <QScrollBar>
+#include <QStandardPaths>
+#include <QStyle>
+#include <QTextEdit>
+#include <QTextStream>
 #include <QToolBar>
 #include <QToolButton>
-#include <QTextEdit>
-#include <QStyle>
-#include <QPushButton>
-#include <QDir>
-#include <QFileDialog>
-#include <QFile>
-#include <QTextStream>
-#include <QDebug>
-#include <QStandardPaths>
+#include <QVBoxLayout>
 
 
 

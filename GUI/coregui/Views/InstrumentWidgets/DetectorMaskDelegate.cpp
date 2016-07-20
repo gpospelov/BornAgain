@@ -15,16 +15,16 @@
 // ************************************************************************** //
 
 #include "DetectorMaskDelegate.h"
-#include "InstrumentModel.h"
-#include "MaskModel.h"
-#include "DetectorItems.h"
-#include "IntensityDataItem.h"
-#include "OutputData.h"
 #include "AxesItems.h"
+#include "ComboProperty.h"
+#include "DetectorItems.h"
+#include "GUIHelpers.h"
+#include "InstrumentModel.h"
+#include "IntensityDataItem.h"
 #include "MaskEditor.h"
 #include "MaskItems.h"
-#include "GUIHelpers.h"
-#include "ComboProperty.h"
+#include "MaskModel.h"
+#include "OutputData.h"
 #include <QDebug>
 
 DetectorMaskDelegate::DetectorMaskDelegate(QObject *parent)

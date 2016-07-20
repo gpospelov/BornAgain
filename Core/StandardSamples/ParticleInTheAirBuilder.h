@@ -16,7 +16,7 @@
 #ifndef PARTICLEINTHEAIRBUILDER_H
 #define PARTICLEINTHEAIRBUILDER_H
 
-#include "ISampleBuilder.h"
+#include "ISampleBuilder.h" // inheriting from
 
 //! @class ParticleInTheAirBuilder
 //! @ingroup standard_samples
@@ -27,9 +27,8 @@
 class BA_CORE_API_ ParticleInTheAirBuilder : public ISampleBuilder
 {
 public:
-    ParticleInTheAirBuilder();
-    virtual ~ParticleInTheAirBuilder();
-
+    ParticleInTheAirBuilder() {}
+    virtual ~ParticleInTheAirBuilder() {}
     virtual ISample* buildSample() const;
 };
 

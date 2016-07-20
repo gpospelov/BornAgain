@@ -17,10 +17,10 @@
 #ifndef JOBVIEWACTIVITIES_H
 #define JOBVIEWACTIVITIES_H
 
-#include "WinDllMacros.h"
 #include "JobViewFlags.h"
-#include <QStringList>
+#include "WinDllMacros.h"
 #include <QMap>
+#include <QStringList>
 #include <QVector>
 
 //! The JobViewActivities class is a helper static class to get info related to JobView activities

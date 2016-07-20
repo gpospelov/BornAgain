@@ -1,5 +1,5 @@
-#ifndef OUTPUTDATAITERATORTEST_H_
-#define OUTPUTDATAITERATORTEST_H_
+#ifndef OUTPUTDATAITERATORTEST_H
+#define OUTPUTDATAITERATORTEST_H
 
 #include "OutputDataIterator.h"
 
@@ -133,4 +133,4 @@ TEST_F(OutputDataIteratorTest, ConstIterateCompoundMask)
     EXPECT_EQ(it, p_data->end());
 }
 
-#endif /* OUTPUTDATAITERATORTEST_H_ */
+#endif // OUTPUTDATAITERATORTEST_H

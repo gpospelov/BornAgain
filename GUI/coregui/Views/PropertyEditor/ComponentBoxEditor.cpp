@@ -15,8 +15,8 @@
 // ************************************************************************** //
 #include "ComponentBoxEditor.h"
 #include "ComponentEditorPrivate.h"
-#include "SessionModel.h"
 #include "CustomEventFilters.h"
+#include "SessionModel.h"
 #include <QModelIndex>
 
 ComponentBoxEditor::ComponentBoxEditor(QWidget *parent)

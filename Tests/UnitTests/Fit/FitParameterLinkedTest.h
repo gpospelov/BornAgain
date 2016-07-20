@@ -106,4 +106,4 @@ TEST_F(FitParameterLinkedTest, FitParameterLinkedParamPool)
     */
 }
 
-#endif //FITPARAMETERLINKEDTEST_H
+#endif // FITPARAMETERLINKEDTEST_H

@@ -16,7 +16,7 @@
 #ifndef SUBTESTREGISTRY_H
 #define SUBTESTREGISTRY_H
 
-#include "IRegistry.h"
+#include "IRegistry.h" // inheriting from
 #include "FTDistributions.h"
 
 // ************************************************************************** //

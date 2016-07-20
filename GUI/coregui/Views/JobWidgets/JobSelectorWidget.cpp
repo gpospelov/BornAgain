@@ -15,13 +15,13 @@
 // ************************************************************************** //
 
 #include "JobSelectorWidget.h"
-#include "JobModel.h"
-#include "JobSelectorActions.h"
-#include "mainwindow_constants.h"
 #include "JobItem.h"
-#include "JobPropertiesWidget.h"
 #include "JobListWidget.h"
+#include "JobModel.h"
+#include "JobPropertiesWidget.h"
+#include "JobSelectorActions.h"
 #include "StyledToolBar.h"
+#include "mainwindow_constants.h"
 #include "minisplitter.h"
 #include <QHBoxLayout>
 

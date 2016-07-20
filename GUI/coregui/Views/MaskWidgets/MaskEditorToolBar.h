@@ -17,8 +17,8 @@
 #ifndef MASKEDITORTOOLBAR_H
 #define MASKEDITORTOOLBAR_H
 
-#include "WinDllMacros.h"
 #include "MaskEditorFlags.h"
+#include "WinDllMacros.h"
 #include <QToolBar>
 
 class MaskEditorActions;

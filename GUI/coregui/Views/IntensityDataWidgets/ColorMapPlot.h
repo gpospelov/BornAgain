@@ -19,9 +19,9 @@
 
 #include "WinDllMacros.h"
 #include "qcustomplot.h"
-#include <QWidget>
 #include <QMap>
 #include <QPoint>
+#include <QWidget>
 #include <memory>
 
 class IntensityDataItem;

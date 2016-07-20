@@ -15,11 +15,11 @@
 // ************************************************************************** //
 
 #include "SizeHandleElement.h"
-#include "MaskEditorHelper.h"
 #include "ISceneAdaptor.h"
-#include <QPainter>
-#include <QGraphicsSceneHoverEvent>
+#include "MaskEditorHelper.h"
 #include <QDebug>
+#include <QGraphicsSceneHoverEvent>
+#include <QPainter>
 
 namespace {
 QMap<SizeHandleElement::EHandleLocation, Qt::CursorShape> create_cursors_map()

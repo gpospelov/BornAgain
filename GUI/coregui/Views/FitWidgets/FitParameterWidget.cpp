@@ -15,25 +15,25 @@
 // ************************************************************************** //
 
 #include "FitParameterWidget.h"
+#include "CustomEventFilters.h"
+#include "FilterPropertyProxy.h"
+#include "FitParameterHelper.h"
+#include "FitParameterItems.h"
+#include "FitParameterProxyModel.h"
+#include "FitSuiteItem.h"
 #include "JobItem.h"
 #include "JobModel.h"
-#include "FitSuiteItem.h"
-#include "FitParameterItems.h"
-#include "ParameterTuningWidget.h"
-#include "FilterPropertyProxy.h"
-#include "ParameterTreeItems.h"
-#include "FitParameterProxyModel.h"
-#include "FitParameterHelper.h"
-#include "SessionModelDelegate.h"
-#include "CustomEventFilters.h"
 #include "OverlayLabelController.h"
+#include "ParameterTreeItems.h"
+#include "ParameterTuningWidget.h"
+#include "SessionModelDelegate.h"
 #include "mainwindow_constants.h"
+#include <QAction>
+#include <QDebug>
 #include <QMenu>
 #include <QSignalMapper>
 #include <QTreeView>
 #include <QVBoxLayout>
-#include <QAction>
-#include <QDebug>
 
 FitParameterWidget::FitParameterWidget(QWidget *parent)
     : QWidget(parent)

@@ -16,6 +16,10 @@
 #ifndef PARACRYSTALBUILDER_H
 #define PARACRYSTALBUILDER_H
 
+#include "ISampleBuilder.h" // inheriting from
+
+class IFTDistribution2D;
+class ISample;
 
 //! @class RadialParaCrystalBuilder
 //! @ingroup standard_samples

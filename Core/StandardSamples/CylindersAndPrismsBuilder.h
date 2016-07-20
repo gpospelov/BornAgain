@@ -16,7 +16,9 @@
 #ifndef CYLINDERSANDPRISMSBUILDER_H
 #define CYLINDERSANDPRISMSBUILDER_H
 
-#include "ISampleBuilder.h"
+#include "ISampleBuilder.h" // inheriting from
+
+class ISample;
 
 //! @class CylindersAndPrismsBuilder
 //! @ingroup standard_samples

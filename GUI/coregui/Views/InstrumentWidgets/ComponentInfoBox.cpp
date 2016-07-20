@@ -16,8 +16,8 @@
 
 #include "ComponentInfoBox.h"
 #include "ComponentBoxEditor.h"
-#include <QVBoxLayout>
 #include <QGroupBox>
+#include <QVBoxLayout>
 #include <iostream>
 
 ComponentInfoBox::ComponentInfoBox(const QString &title, QWidget *parent)

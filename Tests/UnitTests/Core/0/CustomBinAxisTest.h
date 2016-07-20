@@ -34,4 +34,4 @@ TEST_F(CusomBinAxisTest, IOStream)
 }
 
 
-#endif
+#endif // CUSTOMBINAXISTEST_H

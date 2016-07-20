@@ -12,11 +12,12 @@
 //! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
+
 #ifdef BORNAGAIN_TIFF_SUPPORT
+
 #include "TiffHandler.h"
-#include "Utils.h"
 #include "BornAgainNamespace.h"
-#include <tiffio.hxx>
+#include "Utils.h"
 
 namespace {
 size_t supported_bitPerSample = 32;

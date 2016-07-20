@@ -16,7 +16,9 @@
 #ifndef CYLINDERSBUILDER_H
 #define CYLINDERSBUILDER_H
 
-#include "ISampleBuilder.h"
+#include "ISampleBuilder.h" // inheriting from
+
+class ISample;
 
 //! @class CylindersInDWBABuilder
 //! @ingroup standard_samples
@@ -26,7 +28,7 @@ class BA_CORE_API_ CylindersInDWBABuilder : public ISampleBuilder
 {
 public:
     CylindersInDWBABuilder();
-    ISample *buildSample() const;
+    ISample* buildSample() const;
 
 protected:
     void init_parameters();
@@ -36,7 +38,6 @@ private:
     double m_radius;
 };
 
-
 //! @class CylindersInBABuilder
 //! @ingroup standard_samples
 //! @brief Builds sample: cylinder formfactor in BA (IsGISAXS example #3, part II)
@@ -45,7 +46,7 @@ class BA_CORE_API_ CylindersInBABuilder : public ISampleBuilder
 {
 public:
     CylindersInBABuilder();
-    ISample *buildSample() const;
+    ISample* buildSample() const;
 
 protected:
     void init_parameters();
@@ -63,7 +64,7 @@ class BA_CORE_API_ LargeCylindersInDWBABuilder : public ISampleBuilder
 {
 public:
     LargeCylindersInDWBABuilder();
-    ISample *buildSample() const;
+    ISample* buildSample() const;
 
 protected:
     void init_parameters();
@@ -72,6 +73,5 @@ private:
     double m_height;
     double m_radius;
 };
-
 
 #endif // CYLINDERSBUILDER_H

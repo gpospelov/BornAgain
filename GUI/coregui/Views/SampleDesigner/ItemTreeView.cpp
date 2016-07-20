@@ -15,9 +15,8 @@
 // ************************************************************************** //
 
 #include "ItemTreeView.h"
-#include "SessionModel.h"
 #include "GUIHelpers.h"
-
+#include "SessionModel.h"
 #include <QDragMoveEvent>
 #include <QMimeData>
 

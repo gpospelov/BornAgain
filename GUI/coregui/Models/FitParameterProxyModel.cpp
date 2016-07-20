@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Models/FitParameterAbsModel.cpp
+//! @file      GUI/coregui/Models/FitParameterProxyModel.cpp
 //! @brief     Implements class FitParameterAbsModel
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -15,10 +15,10 @@
 // ************************************************************************** //
 
 #include "FitParameterProxyModel.h"
-#include "FitParameterItems.h"
-#include "JobModel.h"
 #include "FitParameterHelper.h"
+#include "FitParameterItems.h"
 #include "GUIHelpers.h"
+#include "JobModel.h"
 #include "ModelPath.h"
 #include <QMimeData>
 

@@ -19,8 +19,8 @@
 
 #include "WinDllMacros.h"
 #include "qcustomplot.h"
-#include <QString>
 #include <QMap>
+#include <QString>
 
 class IntensityDataItem;
 

@@ -18,8 +18,8 @@
 #define DETECTORMASKDELEGATE_H
 
 #include "WinDllMacros.h"
-#include <QObject>
 #include <QModelIndex>
+#include <QObject>
 
 template <class T> class OutputData;
 

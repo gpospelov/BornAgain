@@ -17,6 +17,7 @@
 #include "FormFactorItems.h"
 #include "FormFactors.h"
 #include "GUIHelpers.h"
+#include "Units.h"
 
 /* ------------------------------------------------ */
 

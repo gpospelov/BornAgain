@@ -16,7 +16,9 @@
 #ifndef CORESHELLPARTICLEBUILDER_H
 #define CORESHELLPARTICLEBUILDER_H
 
-#include "ISampleBuilder.h"
+#include "ISampleBuilder.h" // inheriting from
+
+class ISample;
 
 //! @class CoreShellParticleBuilder
 //! @ingroup standard_samples
@@ -26,7 +28,7 @@ class BA_CORE_API_ CoreShellParticleBuilder : public ISampleBuilder
 {
 public:
     CoreShellParticleBuilder(){}
-    ISample *buildSample() const;
+    ISample* buildSample() const;
 };
 
 
@@ -38,7 +40,7 @@ class BA_CORE_API_ CoreShellBoxRotateZandYBuilder : public ISampleBuilder
 {
 public:
     CoreShellBoxRotateZandYBuilder(){}
-    ISample *buildSample() const;
+    ISample* buildSample() const;
 };
 
 #endif // CORESHELLPARTICLEBUILDER_H

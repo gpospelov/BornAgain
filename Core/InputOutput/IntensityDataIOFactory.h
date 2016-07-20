@@ -16,7 +16,6 @@
 #ifndef INTENSITYDATAIOFACTORY_H
 #define INTENSITYDATAIOFACTORY_H
 
-
 #include <string>
 
 template <class T> class OutputData;

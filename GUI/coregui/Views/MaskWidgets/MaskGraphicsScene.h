@@ -20,8 +20,8 @@
 #include "MaskDrawingContext.h"
 #include "MaskEditorHelper.h"
 #include <QGraphicsScene>
-#include <QModelIndex>
 #include <QMap>
+#include <QModelIndex>
 #include <QSharedPointer>
 
 class SessionModel;

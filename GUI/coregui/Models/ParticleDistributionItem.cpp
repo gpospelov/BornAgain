@@ -15,14 +15,14 @@
 // ************************************************************************** //
 
 #include "ParticleDistributionItem.h"
-#include "ParticleItem.h"
-#include "TransformToDomain.h"
-#include "TransformFromDomain.h"
+#include "ComboProperty.h"
 #include "DistributionItem.h"
 #include "Distributions.h"
-#include "ComboProperty.h"
 #include "GUIHelpers.h"
 #include "ModelPath.h"
+#include "ParticleItem.h"
+#include "TransformFromDomain.h"
+#include "TransformToDomain.h"
 #include <QDebug>
 
 const QString ParticleDistributionItem::P_DISTRIBUTED_PARAMETER = "Distributed parameter";

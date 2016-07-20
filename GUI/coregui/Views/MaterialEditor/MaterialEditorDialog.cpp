@@ -15,15 +15,15 @@
 // ************************************************************************** //
 
 #include "MaterialEditorDialog.h"
-#include "MaterialModel.h"
 #include "MaterialEditor.h"
+#include "MaterialModel.h"
 #include "MaterialUtils.h"
 #include "mainwindow_constants.h"
-#include <QVBoxLayout>
-#include <QPushButton>
 #include <QAction>
 #include <QDebug>
+#include <QPushButton>
 #include <QSettings>
+#include <QVBoxLayout>
 
 namespace {
 const QSize default_dialog_size(512, 400);

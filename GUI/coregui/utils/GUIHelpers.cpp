@@ -18,10 +18,10 @@
 #include "JobItem.h"
 #include "RealDataItem.h"
 #include <QApplication>
+#include <QDateTime>
 #include <QDir>
 #include <QMessageBox>
 #include <QPushButton>
-#include <QDateTime>
 
 namespace GUIHelpers {
 

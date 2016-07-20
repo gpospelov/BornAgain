@@ -15,21 +15,21 @@
 // ************************************************************************** //
 
 #include "PropertyBrowserUtils.h"
-#include "MaterialSvc.h"
 #include "GUIHelpers.h"
-#include <QHBoxLayout>
-#include <QToolButton>
+#include "MaterialSvc.h"
+#include <QColorDialog>
+#include <QComboBox>
+#include <QDebug>
+#include <QDoubleValidator>
 #include <QFileDialog>
 #include <QFocusEvent>
-#include <QLabel>
+#include <QHBoxLayout>
 #include <QIcon>
-#include <QComboBox>
+#include <QLabel>
 #include <QLineEdit>
-#include <QDoubleValidator>
 #include <QPixmap>
 #include <QRgb>
-#include <QColorDialog>
-#include <QDebug>
+#include <QToolButton>
 
 // -----------------------------------------------------------------------------
 // MaterialPropertyEdit

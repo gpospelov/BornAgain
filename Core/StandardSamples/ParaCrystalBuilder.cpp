@@ -13,11 +13,16 @@
 //
 // ************************************************************************** //
 
-#include "MultiLayer.h"
-#include "InterferenceFunctionRadialParaCrystal.h"
-#include "InterferenceFunction2DParaCrystal.h"
-#include "FormFactorCylinder.h"
 #include "ParaCrystalBuilder.h"
+#include "FormFactorCylinder.h"
+#include "HomogeneousMaterial.h"
+#include "InterferenceFunction2DParaCrystal.h"
+#include "InterferenceFunctionRadialParaCrystal.h"
+#include "Layer.h"
+#include "MultiLayer.h"
+#include "Particle.h"
+#include "ParticleLayout.h"
+#include "Units.h"
 
 RadialParaCrystalBuilder::RadialParaCrystalBuilder()
     : m_corr_peak_distance(20.0*Units::nanometer)

@@ -15,13 +15,12 @@
 // ************************************************************************** //
 #include "ComponentEditor.h"
 #include "ComponentEditorPrivate.h"
-#include "qtpropertybrowser.h"
 #include "GUIHelpers.h"
-#include "SessionItem.h"
-#include "SessionModel.h"
 #include "GroupItem.h"
 #include "GroupProperty.h"
-
+#include "SessionItem.h"
+#include "SessionModel.h"
+#include "qtpropertybrowser.h"
 #include <QVBoxLayout>
 #include <QVariant>
 

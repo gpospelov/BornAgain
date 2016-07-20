@@ -14,9 +14,9 @@
 //
 // ************************************************************************** //
 #include "TestComponentView.h"
-#include "mainwindow.h"
-#include "SampleModel.h"
 #include "ComponentEditor.h"
+#include "SampleModel.h"
+#include "mainwindow.h"
 #include <QHBoxLayout>
 #include <QTreeView>
 

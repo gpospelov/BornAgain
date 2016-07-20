@@ -16,7 +16,7 @@
 #ifndef OUTPUTDATAIOHELPER_H
 #define OUTPUTDATAIOHELPER_H
 
-
+#include <string>
 #include <vector>
 
 class IAxis;

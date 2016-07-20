@@ -70,5 +70,5 @@ inline void TestParameterizedItem::test_SelectableGroupProperty()
 }
 
 
-#endif
+#endif // TESTPARAMETERIZEDITEM_H
 

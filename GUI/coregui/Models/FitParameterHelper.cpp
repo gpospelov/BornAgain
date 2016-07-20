@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Models/FitModelHelper.cpp
+//! @file      GUI/coregui/Models/FitParameterHelper.cpp
 //! @brief     Implements class FitModelHelper
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -15,11 +15,11 @@
 // ************************************************************************** //
 
 #include "FitParameterHelper.h"
-#include "JobItem.h"
 #include "FitParameterItems.h"
+#include "JobItem.h"
 #include "JobModel.h"
-#include "ParameterTreeItems.h"
 #include "ModelPath.h"
+#include "ParameterTreeItems.h"
 
 //! Creates fit parameter from given ParameterItem, sets starting value to the value
 //! of ParameterItem, copies link.

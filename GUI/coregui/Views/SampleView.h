@@ -18,9 +18,9 @@
 #define SAMPLEVIEW_H
 
 #include "fancymainwindow.h"
-#include <QTreeView>
 #include <QAction>
 #include <QSignalMapper>
+#include <QTreeView>
 
 
 class MainWindow;

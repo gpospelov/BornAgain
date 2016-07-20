@@ -16,6 +16,9 @@
 #include "FitSuiteParameters.h"
 #include "FitParameterLinked.h"
 #include "MessageService.h"
+#include "Numeric.h"
+#include <cmath>
+#include <iostream>
 
 FitSuiteParameters::FitSuiteParameters()
 {
@@ -26,12 +29,10 @@ FitSuiteParameters::~FitSuiteParameters()
     clear();
 }
 
-
 void FitSuiteParameters::clear()
 {
-    for(parameters_t::iterator it = m_parameters.begin(); it!=m_parameters.end(); ++it) {
+    for(parameters_t::iterator it = m_parameters.begin(); it!=m_parameters.end(); ++it)
         delete (*it);
-    }
     m_parameters.clear();
 }
 
@@ -41,34 +42,36 @@ void FitSuiteParameters::addParameter(const std::string& name, double value, dou
 {
     for(auto par : m_parameters) {
         if( par->getName() == name )
-            throw Exceptions::LogicErrorException("FitSuiteParameters:addtFitParameter() -> Error. "
-                                                  "Existing parameter '"+name+"'");
+            throw Exceptions::LogicErrorException(
+                "FitSuiteParameters:addtFitParameter() -> Error. Existing parameter '"+name+"'");
     }
     m_parameters.push_back(new FitParameterLinked(name, value, step, attlim, error));
 }
 
 //! Returns fit parameter with given name.
-const FitParameter *FitSuiteParameters::getParameter(const std::string& name) const
+const FitParameter* FitSuiteParameters::getParameter(const std::string& name) const
 {
     for(parameters_t::const_iterator it = m_parameters.begin(); it!=m_parameters.end(); ++it) {
-        if( (*it)->getName() == name ) return (*it);
+        if( (*it)->getName() == name )
+            return *it;
     }
     throw Exceptions::LogicErrorException("FitSuiteParameters::getFitParameter() -> "
                                           "Error. No parameter with name '"+name+"'");
 }
 
 
-FitParameter *FitSuiteParameters::getParameter(const std::string& name)
+FitParameter* FitSuiteParameters::getParameter(const std::string& name)
 {
     for(parameters_t::iterator it = m_parameters.begin(); it!=m_parameters.end(); ++it) {
-        if( (*it)->getName() == name ) return (*it);
+        if( (*it)->getName() == name )
+            return *it;
     }
     throw Exceptions::LogicErrorException("FitSuiteParameters::getFitParameter() -> "
                                           "Error. No parameter with name '"+name+"'");
 }
 
 //! Sets values for all defined parameters
-void FitSuiteParameters::setValues(const double *pars_values)
+void FitSuiteParameters::setValues(const double* pars_values)
 {
     if( !valuesAreDifferent(pars_values) ) {
         msglog(MSG::WARNING) << "FitSuiteParameters::setValues() -> Warning! "
@@ -120,47 +123,44 @@ void FitSuiteParameters::setErrors(const std::vector<double>& pars_errors)
              << ", number of parameters expected " << m_parameters.size() << std::endl;
         throw Exceptions::OutOfBoundsException(ostr.str());
     }
-    for(size_t i=0; i<m_parameters.size(); ++i) {
+    for(size_t i=0; i<m_parameters.size(); ++i)
         m_parameters[i]->setError(pars_errors[i]);
-    }
 }
 
 
-std::vector<double > FitSuiteParameters::getValues() const
+std::vector<double> FitSuiteParameters::getValues() const
 {
     std::vector<double > result;
-    for(parameters_t::const_iterator it=m_parameters.begin(); it!=m_parameters.end(); ++it) {
+    for(parameters_t::const_iterator it=m_parameters.begin(); it!=m_parameters.end(); ++it)
         result.push_back((*it)->getValue());
-    }
     return result;
 }
 
-std::vector<double > FitSuiteParameters::getErrors() const
+std::vector<double> FitSuiteParameters::getErrors() const
 {
     std::vector<double > result;
     result.resize(m_parameters.size(), 0.0);
-    for(parameters_t::const_iterator it=m_parameters.begin(); it!=m_parameters.end(); ++it) {
+    for(parameters_t::const_iterator it=m_parameters.begin(); it!=m_parameters.end(); ++it)
         result.push_back((*it)->getError());
-    }
     return result;
 }
 
-FitParameter *FitSuiteParameters::operator[](std::string name)
+FitParameter* FitSuiteParameters::operator[](std::string name)
 {
     return getParameter(name);
 }
 
-const FitParameter *FitSuiteParameters::operator[](std::string name) const
+const FitParameter* FitSuiteParameters::operator[](std::string name) const
 {
     return getParameter(name);
 }
 
-FitParameter *FitSuiteParameters::operator[](size_t index)
+FitParameter* FitSuiteParameters::operator[](size_t index)
 {
     return m_parameters[check_index(index)];
 }
 
-const FitParameter *FitSuiteParameters::operator[](size_t index) const
+const FitParameter* FitSuiteParameters::operator[](size_t index) const
 {
     return m_parameters[check_index(index)];
 }
@@ -169,26 +169,27 @@ size_t FitSuiteParameters::getNfreeParameters() const
 {
     size_t result(0);
     for(parameters_t::const_iterator it=m_parameters.begin(); it!=m_parameters.end(); ++it) {
-        if( !(*it)->isFixed() ) result++;
+        if( !(*it)->isFixed() )
+            result++;
     }
     return result;
 }
 
 //! linking fit parameters with pool parameters
-void FitSuiteParameters::link_to_pool(const ParameterPool *pool)
+void FitSuiteParameters::link_to_pool(const ParameterPool* pool)
 {
     // linking fit parameter with whose pool parameters which match name of fit parameter
     // going through all fit parameters defined
     for(parameters_t::iterator it = m_parameters.begin(); it!= m_parameters.end(); ++it) {
-        FitParameterLinked *par = dynamic_cast<FitParameterLinked *>((*it));
+        FitParameterLinked* par = dynamic_cast<FitParameterLinked*>((*it));
         if( !par ) throw Exceptions::LogicErrorException(
             "FitSuiteParameters::link_to_pool() -> Error! Can't cast to FitParameterLinked.");
         par->addMatchedParametersFromPool(pool);
     }
 }
 
-bool FitSuiteParameters::valuesAreDifferent(const double *pars_values,
-                                             double tolerance_factor) const
+bool FitSuiteParameters::valuesAreDifferent(const double* pars_values,
+                                            double tolerance_factor) const
 {
     size_t index(0);
     for(parameters_t::const_iterator it=m_parameters.begin(); it!=m_parameters.end(); ++it) {
@@ -201,31 +202,26 @@ bool FitSuiteParameters::valuesAreDifferent(const double *pars_values,
 void FitSuiteParameters::printParameters() const
 {
     int npar(0);
-    for(parameters_t::const_iterator it = m_parameters.begin();
-        it!=m_parameters.end(); ++it, ++npar) {
+    for(auto it = m_parameters.begin(); it!=m_parameters.end(); ++it, ++npar)
         std::cout << "   # "<< npar << " " << (*(*it)) << std::endl;
-    }
 }
 
 void FitSuiteParameters::fixAll()
 {
-    for(parameters_t::const_iterator it=m_parameters.begin(); it!=m_parameters.end(); ++it) {
+    for(auto it=m_parameters.begin(); it!=m_parameters.end(); ++it)
         (*it)->setFixed(true);
-    }
 }
 
 void FitSuiteParameters::releaseAll()
 {
-    for(parameters_t::const_iterator it=m_parameters.begin(); it!=m_parameters.end(); ++it) {
+    for(auto it=m_parameters.begin(); it!=m_parameters.end(); ++it)
         (*it)->setFixed(false);
-    }
 }
 
-void FitSuiteParameters::setParametersFixed(const std::vector<std::string> &pars, bool is_fixed)
+void FitSuiteParameters::setParametersFixed(const std::vector<std::string>& pars, bool is_fixed)
 {
-    for(size_t i=0; i<pars.size(); ++i) {
+    for(size_t i=0; i<pars.size(); ++i)
         getParameter(pars[i])->setFixed(is_fixed);
-    }
 }
 
 size_t FitSuiteParameters::check_index(size_t index) const {

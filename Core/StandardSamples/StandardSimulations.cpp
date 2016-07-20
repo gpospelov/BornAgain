@@ -13,18 +13,19 @@
 //
 // ************************************************************************** //
 
-#include "SampleBuilderFactory.h"
-#include "GISASSimulation.h"
-#include "ResolutionFunction2DGaussian.h"
-#include "Distributions.h"
-#include "IsGISAXSDetector.h"
-#include "Rectangle.h"
-#include "Ellipse.h"
-#include "Polygon.h"
-#include "Line.h"
-#include "BornAgainNamespace.h"
-#include "RectangularDetector.h"
 #include "StandardSimulations.h"
+#include "BornAgainNamespace.h"
+#include "Distributions.h"
+#include "Ellipse.h"
+#include "GISASSimulation.h"
+#include "IsGISAXSDetector.h"
+#include "Line.h"
+#include "Polygon.h"
+#include "Rectangle.h"
+#include "RectangularDetector.h"
+#include "ResolutionFunction2DGaussian.h"
+#include "SampleBuilderFactory.h"
+#include "Units.h"
 
 using namespace BornAgain;
 
@@ -36,7 +37,7 @@ const double rdet_width(20.0), rdet_height(18.0), rdet_distance(1000.0);
 GISASSimulation* StandardSimulations::PolarizedDWBAMagCylinders2()
 {
     SampleBuilderFactory factory;
-    std::shared_ptr<class ISampleBuilder> builder(factory.createItem("MagneticCylindersBuilder"));
+    std::shared_ptr<ISampleBuilder> builder(factory.createItem("MagneticCylindersBuilder"));
 
     GISASSimulation* result = new GISASSimulation();
 

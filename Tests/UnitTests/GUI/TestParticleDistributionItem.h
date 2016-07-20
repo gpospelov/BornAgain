@@ -53,4 +53,4 @@ inline void TestParticleDistributionItem::test_AddParticle()
 }
 
 
-#endif
+#endif // TESTPARTICLEDISTRIBUTIONITEM_H

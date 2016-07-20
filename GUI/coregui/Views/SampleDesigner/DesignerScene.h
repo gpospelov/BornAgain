@@ -19,8 +19,8 @@
 
 #include "WinDllMacros.h"
 #include <QGraphicsScene>
-#include <QModelIndex>
 #include <QMap>
+#include <QModelIndex>
 
 class InstrumentModel;
 class SampleModel;

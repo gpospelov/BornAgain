@@ -16,6 +16,9 @@
 #ifndef LATTICEBUILDER_H
 #define LATTICEBUILDER_H
 
+#include "ISampleBuilder.h" // inheriting from
+
+class ISample;
 
 //! @class Lattice1DBuilder
 //! @ingroup standard_samples

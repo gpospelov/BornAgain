@@ -16,8 +16,8 @@
 
 #include "ParameterTuningModel.h"
 #include "FitParameterHelper.h"
-#include "SessionModel.h"
 #include "ParameterTreeItems.h"
+#include "SessionModel.h"
 #include <QDebug>
 #include <QMimeData>
 

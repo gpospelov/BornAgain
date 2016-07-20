@@ -18,8 +18,8 @@
 #define MASKEDITORPROPERTYPANEL_H
 
 #include "MaskEditorFlags.h"
-#include <QWidget>
 #include <QModelIndex>
+#include <QWidget>
 
 class QListView;
 class SessionModel;

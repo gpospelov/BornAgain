@@ -17,7 +17,7 @@
 #include "DistributionItem.h"
 #include "Distributions.h"
 #include "GUIHelpers.h"
-
+#include <cmath>
 
 const QString DistributionItem::P_NUMBER_OF_SAMPLES = "Number of samples";
 const QString DistributionItem::P_SIGMA_FACTOR = "Sigma factor";

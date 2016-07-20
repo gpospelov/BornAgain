@@ -20,7 +20,6 @@
 //! collection of classes extending QtPropertyBrowser functionality
 
 #include "GroupProperty.h"
-
 #include <QtVariantEditorFactory>
 
 class MaterialPropertyEdit;

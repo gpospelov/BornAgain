@@ -15,13 +15,13 @@
 // ************************************************************************** //
 
 #include "ParticleItem.h"
-#include "ParticleCoreShellItem.h"
 #include "FormFactorItems.h"
-#include "MaterialUtils.h"
-#include "VectorItem.h"
-#include "TransformToDomain.h"
 #include "GUIHelpers.h"
+#include "MaterialUtils.h"
 #include "ModelPath.h"
+#include "ParticleCoreShellItem.h"
+#include "TransformToDomain.h"
+#include "VectorItem.h"
 
 
 const QString ParticleItem::P_FORM_FACTOR = "Form Factor";

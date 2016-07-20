@@ -166,4 +166,4 @@ TEST_F(DetectorMaskTest, CopyConstructor)
 }
 
 
-#endif
+#endif // DETECTORMASKTEST_H

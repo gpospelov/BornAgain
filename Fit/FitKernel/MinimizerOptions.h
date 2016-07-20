@@ -16,9 +16,9 @@
 #ifndef MINIMIZEROPTIONS_H
 #define MINIMIZEROPTIONS_H
 #include "Exceptions.h"
-#include <map>
-#include <iostream>
 #include <iomanip>
+#include <iostream>
+#include <map>
 
 //! @class MinimizerOptions
 //! @ingroup fitting

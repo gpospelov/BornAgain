@@ -14,15 +14,20 @@
 // ************************************************************************** //
 
 #include "CoreShellParticleBuilder.h"
-#include "MultiLayer.h"
 #include "FormFactorBox.h"
+#include "Layer.h"
+#include "Materials.h"
+#include "MultiLayer.h"
+#include "Particle.h"
 #include "ParticleCoreShell.h"
+#include "ParticleLayout.h"
+#include "Units.h"
 
 // --- CoreShellParticleBuilder ---
 
-ISample *CoreShellParticleBuilder::buildSample() const
+ISample* CoreShellParticleBuilder::buildSample() const
 {
-    MultiLayer *multi_layer = new MultiLayer();
+    MultiLayer* multi_layer = new MultiLayer();
 
     HomogeneousMaterial air_material("Air", 0.0, 0.0);
 
@@ -52,7 +57,7 @@ ISample *CoreShellParticleBuilder::buildSample() const
 
 // --- CoreShellBoxRotateZandYBuilder ---
 
-ISample *CoreShellBoxRotateZandYBuilder::buildSample() const
+ISample* CoreShellBoxRotateZandYBuilder::buildSample() const
 {
     const double layer_thickness(100.0*Units::nanometer);
 
@@ -86,7 +91,7 @@ ISample *CoreShellBoxRotateZandYBuilder::buildSample() const
     middle_layer.addLayout(layout);
     Layer substrate(mSubstrate);
 
-    MultiLayer *multi_layer = new MultiLayer();
+    MultiLayer* multi_layer = new MultiLayer();
     multi_layer->addLayer(air_layer);
     multi_layer->addLayer(middle_layer);
     multi_layer->addLayer(substrate);

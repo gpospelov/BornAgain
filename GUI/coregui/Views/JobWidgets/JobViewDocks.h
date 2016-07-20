@@ -17,8 +17,8 @@
 #ifndef JOBVIEWDOCKS_H
 #define JOBVIEWDOCKS_H
 
-#include "WinDllMacros.h"
 #include "JobViewFlags.h"
+#include "WinDllMacros.h"
 #include <QObject>
 #include <QVector>
 

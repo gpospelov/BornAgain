@@ -402,4 +402,4 @@ TEST_F(DistributionsTest, DistributionCosineClone)
     EXPECT_EQ(1+Units::PI, list2[1]);
 }
 
-#endif
+#endif // DISTRIBUTIONSTEST_H

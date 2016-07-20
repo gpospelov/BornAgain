@@ -32,4 +32,4 @@ inline void TestGUIHelpers::test_VersionString()
     QCOMPARE(GUIHelpers::isVersionMatchMinimal("0.6.9", min_version), false);
 }
 
-#endif
+#endif // TESTGUIHELPERS_H

@@ -64,5 +64,5 @@ inline void TestParaCrystalItems::test_Para1D_PDFGroupProperty()
     }
 }
 
-#endif
+#endif // TESTPARACRYSTALITEMS_H
 

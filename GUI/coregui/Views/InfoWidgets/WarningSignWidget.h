@@ -18,9 +18,9 @@
 #define WARNINGSIGNWIDGET_H
 
 #include "WinDllMacros.h"
-#include <QWidget>
 #include <QPixmap>
 #include <QString>
+#include <QWidget>
 
 //! The WarningSignWidget is an transparent widget with warning sign pixmap intended to be
 //! overlayed onto other widget at some arbitrary position.

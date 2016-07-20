@@ -21,7 +21,6 @@
 #include "FitSuiteObjects.h"
 #include "FitSuiteParameters.h"
 #include "FitSuiteStrategies.h"
-
 #include <boost/date_time/posix_time/posix_time.hpp>
 #ifndef SWIG
 #include <atomic>
@@ -34,7 +33,9 @@
 class BA_CORE_API_ FitKernel
 {
  public:
-    FitKernel(class FitSuite *fit_suite);
+    FitKernel(class FitSuite* fit_suite);
+    FitKernel& operator=(const FitKernel&) = delete;
+    FitKernel(const FitKernel&) = delete;
     virtual ~FitKernel();
 
     //! Resets most state variables, to get prepared for the next fit
@@ -51,13 +52,13 @@ class BA_CORE_API_ FitKernel
                          double step=0.0, double error=0.0);
 
     //! Adds fit strategy
-    void addFitStrategy(const IFitStrategy &strategy);
+    void addFitStrategy(const IFitStrategy& strategy);
 
     //! Sets minimizer
-    void setMinimizer(class IMinimizer *minimizer);
+    void setMinimizer(class IMinimizer* minimizer);
 
     //! Returns minimizer
-    class IMinimizer *getMinimizer();
+    class IMinimizer* getMinimizer();
 
     //! Runs a fit, which may consist of several minimization rounds
     virtual void runFit();
@@ -66,14 +67,14 @@ class BA_CORE_API_ FitKernel
     void minimize();
 
     //! Returns reference to the kit with data
-    FitSuiteObjects *getFitObjects();
-    const FitSuiteObjects *getFitObjects() const;
+    FitSuiteObjects* getFitObjects();
+    const FitSuiteObjects* getFitObjects() const;
 
     //! Returns reference to fit parameters
-    FitSuiteParameters *getFitParameters();
+    FitSuiteParameters* getFitParameters();
 
     //! Returns reference to fit parameters
-    FitSuiteStrategies *getFitStrategies();
+    FitSuiteStrategies* getFitStrategies();
 
     //! Returns true if the last iteration is done (used by observers to print summary)
     bool isLastIteration() const;
@@ -88,10 +89,10 @@ class BA_CORE_API_ FitKernel
     void printResults() const;
 
     //! Returns current fit options
-    FitOptions &getOptions();
+    FitOptions& getOptions();
 
     //! Sets fit options
-    void setOptions(const FitOptions &fit_options);
+    void setOptions(const FitOptions& fit_options);
 
     //! Returns total wall time in seconds which was spend for run fit
     double getRunTime() const;
@@ -105,9 +106,6 @@ class BA_CORE_API_ FitKernel
     void resetInterrupt();
 
 private:
-    FitKernel& operator=(const FitKernel& );
-    FitKernel(const FitKernel& );
-
     bool check_prerequisites() const;
     void link_fit_parameters();
 
@@ -124,7 +122,7 @@ private:
 #endif
     boost::posix_time::ptime m_start_time;
     boost::posix_time::ptime m_end_time;
-    class FitSuite *m_fit_suite;
+    class FitSuite* m_fit_suite;
 };
 
 #endif // FITKERNEL_H

@@ -13,18 +13,21 @@
 //! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
+
 #include "ApplicationModels.h"
-#include "GUIObjectBuilder.h"
 #include "DocumentModel.h"
+#include "GISASSimulation.h"
+#include "GUIObjectBuilder.h"
+#include "ISample.h"
+#include "IconProvider.h"
+#include "InstrumentModel.h"
+#include "JobItem.h"
+#include "JobModel.h"
 #include "MaterialModel.h"
 #include "MaterialSvc.h"
-#include "InstrumentModel.h"
-#include "SampleModel.h"
 #include "RealDataModel.h"
-#include "JobModel.h"
-#include "IconProvider.h"
 #include "SampleBuilderFactory.h"
-#include "JobItem.h"
+#include "SampleModel.h"
 #include "WarningMessageService.h"
 
 ApplicationModels::ApplicationModels(QObject *parent)
@@ -298,4 +301,3 @@ void ApplicationModels::connectModel(SessionModel *model)
                    SIGNAL(modelChanged()), Qt::UniqueConnection);
     }
 }
-

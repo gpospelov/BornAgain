@@ -16,8 +16,8 @@
 #ifndef FITOBJECT_H
 #define FITOBJECT_H
 
-#include "IParameterized.h"
 #include "FitElement.h"
+#include "IParameterized.h"
 #include "OutputData.h"
 #include <memory>
 

@@ -18,8 +18,8 @@
 #define JOBLISTWIDGET_H
 
 #include "WinDllMacros.h"
-#include <QWidget>
 #include <QModelIndexList>
+#include <QWidget>
 
 class JobModel;
 class JobListViewDelegate;

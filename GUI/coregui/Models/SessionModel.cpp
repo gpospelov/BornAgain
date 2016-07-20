@@ -15,12 +15,12 @@
 // ************************************************************************** //
 
 #include "SessionModel.h"
-#include "ItemFactory.h"
 #include "GUIHelpers.h"
 #include "IconProvider.h"
+#include "ItemFactory.h"
+#include <QDebug>
 #include <QFile>
 #include <QMimeData>
-#include <QDebug>
 
 namespace
 {

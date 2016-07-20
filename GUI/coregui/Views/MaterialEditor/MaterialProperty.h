@@ -17,13 +17,12 @@
 #ifndef MATERIALPROPERTY_H
 #define MATERIALPROPERTY_H
 
+#include "WinDllMacros.h"
 #include <QColor>
-#include <QPixmap>
 #include <QMetaType>
+#include <QPixmap>
 #include <QString>
 #include <QVariant>
-
-#include "WinDllMacros.h"
 
 //! The MaterialProperty class defines unique identifier to help LayerItem, ParticleItem etc
 //! to access materials from MaterialEditor;

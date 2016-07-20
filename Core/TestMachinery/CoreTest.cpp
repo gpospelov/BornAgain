@@ -14,11 +14,11 @@
 // ************************************************************************** //
 
 #include "CoreTest.h"
+#include "FileSystem.h"
 #include "GISASSimulation.h"
 #include "IntensityDataFunctions.h"
-#include "TestConfig.h"
-#include "FileSystem.h"
 #include "IntensityDataIOFactory.h"
+#include "TestConfig.h"
 #include "Utils.h"
 
 CoreTest::CoreTest(

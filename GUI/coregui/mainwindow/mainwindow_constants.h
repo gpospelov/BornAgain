@@ -17,6 +17,7 @@
 #ifndef MAINWINDOW_CONSTANTS_H
 #define MAINWINDOW_CONSTANTS_H
 
+#include <QString>
 
 namespace Constants {
 
@@ -81,4 +82,3 @@ const QString FitComparisonWidgetName = "Fit Data";
 }
 
 #endif // MAINWINDOW_CONSTANTS_H
-

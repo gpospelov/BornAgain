@@ -51,6 +51,9 @@ C++ includes: FitKernel.h
 %feature("docstring")  FitKernel::FitKernel "FitKernel::FitKernel(class FitSuite *fit_suite)
 ";
 
+%feature("docstring")  FitKernel::FitKernel "FitKernel::FitKernel(const FitKernel &)=delete
+";
+
 %feature("docstring")  FitKernel::~FitKernel "FitKernel::~FitKernel()
 ";
 
@@ -569,7 +572,7 @@ Replaces default ChiSquaredModule with new one.
 Adds fit strategy. 
 ";
 
-%feature("docstring")  FitSuite::setMinimizer "void FitSuite::setMinimizer(IMinimizer *minimizer)
+%feature("docstring")  FitSuite::setMinimizer "void FitSuite::setMinimizer(class IMinimizer *minimizer)
 
 Sets minimizer. 
 ";
@@ -1343,6 +1346,45 @@ C++ includes: MinimizerLibrary.h
 ";
 
 
+// File: classIObservable.xml
+%feature("docstring") IObservable "
+
+Observable interface from Observer pattern, for 1:n object dependencies.
+
+C++ includes: IObserver.h
+";
+
+%feature("docstring")  IObservable::~IObservable "virtual IObservable::~IObservable()
+";
+
+%feature("docstring")  IObservable::attachObserver "void IObservable::attachObserver(observer_t obj)
+
+attach observer to the list of observers 
+";
+
+%feature("docstring")  IObservable::notifyObservers "void IObservable::notifyObservers()
+
+notify observers about change in status 
+";
+
+
+// File: classIObserver.xml
+%feature("docstring") IObserver "
+
+Observer interface from Observer pattern, for 1:n object dependencies.
+
+C++ includes: IObserver.h
+";
+
+%feature("docstring")  IObserver::~IObserver "virtual IObserver::~IObserver()
+";
+
+%feature("docstring")  IObserver::notify "virtual void IObserver::notify(IObservable *subject)=0
+
+method which is used by observable subject to notify change in status 
+";
+
+
 // File: classMinimizerCatalogue.xml
 %feature("docstring") MinimizerCatalogue "
 
@@ -2061,6 +2103,12 @@ C++ includes: StandardFitsFactory.h
 
 
 // File: IMinimizer_8h.xml
+
+
+// File: IObserver_8cpp.xml
+
+
+// File: IObserver_8h.xml
 
 
 // File: MinimizerFactory_8cpp.xml

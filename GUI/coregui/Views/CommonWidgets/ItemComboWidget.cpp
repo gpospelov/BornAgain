@@ -17,11 +17,11 @@
 #include "ItemComboWidget.h"
 #include "ItemComboToolBar.h"
 #include "SessionItemWidget.h"
-#include <QStackedWidget>
 #include <QComboBox>
-#include <QVBoxLayout>
-#include <QEvent>
 #include <QDebug>
+#include <QEvent>
+#include <QStackedWidget>
+#include <QVBoxLayout>
 
 ItemComboWidget::ItemComboWidget(QWidget *parent)
     : QWidget(parent)

@@ -255,4 +255,4 @@ TEST_F(VariableBinAxisTest, ClippedAxis)
 
 
 
-#endif
+#endif // VARIABLEBINAXISTEST_H

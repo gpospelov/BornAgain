@@ -15,13 +15,13 @@
 // ************************************************************************** //
 
 #include "ColorMapCanvasEvent.h"
-#include "ColorMapCanvas.h"
 #include "ColorMap.h"
+#include "ColorMapCanvas.h"
 #include "qcustomplot.h"
-#include <QResizeEvent>
+#include <QDebug>
 #include <QLabel>
 #include <QRect>
-#include <QDebug>
+#include <QResizeEvent>
 
 namespace {
 const QString tick_font = "tick-font-key";

@@ -15,9 +15,9 @@
 // ************************************************************************** //
 
 #include "JobProgressAssistant.h"
-#include "mainwindow.h"
 #include "JobModel.h"
 #include "JobQueueData.h"
+#include "mainwindow.h"
 #include "progressbar.h"
 
 JobProgressAssistant::JobProgressAssistant(MainWindow *mainWindow)

@@ -14,21 +14,20 @@
 //
 // ************************************************************************** //
 
-#include "GUITest.h"
+#include "DocumentModel.h"
+#include "DomainSimulationBuilder.h"
+#include "GISASSimulation.h"
 #include "GUIObjectBuilder.h"
 #include "InstrumentModel.h"
-#include "SampleModel.h"
-#include "MaterialSvc.h"
-#include "MaterialModel.h"
 #include "IntensityDataFunctions.h"
-#include "DomainSimulationBuilder.h"
-#include "DocumentModel.h"
+#include "MaterialModel.h"
+#include "MaterialSvc.h"
+#include "SampleModel.h"
 #include "Utils.h"
-
-
+#include "GUITest.h"
 
 GUITest::GUITest(const std::string &name, const std::string &description,
-                                     GISASSimulation *reference_simulation, double threshold)
+                 GISASSimulation *reference_simulation, double threshold)
     : IFunctionalTest(name, description)
     , m_reference_simulation(reference_simulation)
     , m_domain_simulation(0)

@@ -15,22 +15,22 @@
 // ************************************************************************** //
 
 #include "MaskGraphicsScene.h"
-#include "SessionModel.h"
-#include "IntensityDataItem.h"
-#include "MaskGraphicsProxy.h"
-#include "SessionItem.h"
+#include "ColorMapSceneAdaptor.h"
 #include "IMaskView.h"
 #include "ISceneAdaptor.h"
-#include "ColorMapSceneAdaptor.h"
-#include "MaskViewFactory.h"
+#include "IntensityDataItem.h"
 #include "MaskEditorFlags.h"
+#include "MaskGraphicsProxy.h"
 #include "MaskItems.h"
+#include "MaskViewFactory.h"
 #include "PolygonView.h"
+#include "SessionItem.h"
+#include "SessionModel.h"
 #include "item_constants.h"
-#include <QItemSelection>
-#include <QGraphicsItem>
-#include <QLineF>
 #include <QDebug>
+#include <QGraphicsItem>
+#include <QItemSelection>
+#include <QLineF>
 
 namespace {
 const QRectF default_scene_rect(0, 0, 800, 600);

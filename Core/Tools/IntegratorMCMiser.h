@@ -1,3 +1,4 @@
+
 // ************************************************************************** //
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
@@ -16,8 +17,8 @@
 #ifndef INTEGRATORMCMISER_H
 #define INTEGRATORMCMISER_H
 
-#include "gsl/gsl_monte_miser.h"
-
+#include <gsl/gsl_monte_miser.h>
+#include <memory>
 
 //! Alias template for member function with signature double f(double)
 template <class T>

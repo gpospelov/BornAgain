@@ -18,9 +18,9 @@
 #define MASKEDITOR_H
 
 #include "WinDllMacros.h"
-#include <QWidget>
 #include <QMainWindow>
 #include <QModelIndex>
+#include <QWidget>
 
 class MaskEditorPropertyPanel;
 class MaskEditorActions;

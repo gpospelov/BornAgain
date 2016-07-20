@@ -15,8 +15,8 @@
 // ************************************************************************** //
 
 #include "JobViewActivities.h"
-#include "mainwindow_constants.h"
 #include "GUIHelpers.h"
+#include "mainwindow_constants.h"
 
 namespace {
 JobViewActivities::activity_map_t createActivityMap()

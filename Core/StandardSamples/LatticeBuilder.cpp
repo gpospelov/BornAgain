@@ -13,11 +13,16 @@
 //
 // ************************************************************************** //
 
-#include "InterferenceFunction1DLattice.h"
-#include "MultiLayer.h"
-#include "FormFactorCylinder.h"
 #include "LatticeBuilder.h"
-
+#include "FormFactorCylinder.h"
+#include "HomogeneousMaterial.h"
+#include "InterferenceFunction1DLattice.h"
+#include "Layer.h"
+#include "MultiLayer.h"
+#include "Particle.h"
+#include "ParticleLayout.h"
+#include "FTDecayFunctions.h"
+#include "Units.h"
 
 Lattice1DBuilder::Lattice1DBuilder()
     : m_length(20.0*Units::nanometer)
@@ -45,7 +50,7 @@ ISample* Lattice1DBuilder::buildSample() const
     interference_function.setDecayFunction(pdf);
 
     FormFactorCylinder ff_cylinder(m_cylinder_radius, m_cylinder_height);
-    Particle cylinder(particle_material,ff_cylinder);
+    Particle cylinder(particle_material, ff_cylinder);
 
     ParticleLayout particle_layout(cylinder);
     particle_layout.addInterferenceFunction(interference_function);

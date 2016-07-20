@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Models/FitParameterAbsModel.h
+//! @file      GUI/coregui/Models/FitParameterProxyModel.h
 //! @brief     Declares class FitParameterProxyModel
 //!
 //! @homepage  http://www.bornagainproject.org

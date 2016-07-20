@@ -173,5 +173,5 @@ inline void TestSessionModel::test_copyParameterizedItem()
 }
 
 
-#endif
+#endif // TESTSESSIONMODEL_H
 

@@ -15,11 +15,11 @@
 // ************************************************************************** //
 
 #include "JobOutputDataWidget.h"
-#include "JobModel.h"
 #include "JobItem.h"
-#include "ObsoleteIntensityDataWidget.h"
+#include "JobModel.h"
 #include "JobResultsPresenter.h"
 #include "JobViewFlags.h"
+#include "ObsoleteIntensityDataWidget.h"
 #include "mainwindow_constants.h"
 #include <QVBoxLayout>
 

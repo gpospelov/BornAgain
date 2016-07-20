@@ -17,8 +17,8 @@
 #ifndef MASKDRAWINGCONTEXT_H
 #define MASKDRAWINGCONTEXT_H
 
-#include "WinDllMacros.h"
 #include "MaskEditorFlags.h"
+#include "WinDllMacros.h"
 
 //! Helper class for MaskGraphicsScene to hold drawing conditions
 

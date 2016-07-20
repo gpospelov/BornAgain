@@ -264,4 +264,4 @@ TEST_F(RectangularDetectorTest, PerpToReflectedBeamDpos)
 }
 
 
-#endif
+#endif // RECTANGULARDETECTORTEST_H

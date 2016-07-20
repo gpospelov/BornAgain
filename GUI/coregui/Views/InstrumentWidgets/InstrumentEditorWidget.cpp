@@ -15,21 +15,21 @@
 // ************************************************************************** //
 
 #include "InstrumentEditorWidget.h"
-#include "SessionItem.h"
-#include "BeamItem.h"
-#include "DetectorItems.h"
-#include "DetectorEditorWidget.h"
 #include "BeamEditorWidget.h"
+#include "BeamItem.h"
+#include "DetectorEditorWidget.h"
+#include "DetectorItems.h"
 #include "InstrumentComponentsWidget.h"
 #include "InstrumentItem.h"
+#include "SessionItem.h"
 #include <QBoxLayout>
-#include <QGroupBox>
 #include <QComboBox>
+#include <QDebug>
+#include <QEvent>
+#include <QGroupBox>
 #include <QLineEdit>
 #include <QScrollArea>
 #include <QScrollBar>
-#include <QEvent>
-#include <QDebug>
 
 
 class AdjustingScrollArea : public QScrollArea {

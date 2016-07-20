@@ -17,8 +17,8 @@
 #define IFACTORY_H
 
 #include "Exceptions.h"
-#include <map>
 #include <functional>
+#include <map>
 
 //! @class IFactory
 //! @ingroup tools_internal

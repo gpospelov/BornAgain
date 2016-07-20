@@ -15,9 +15,9 @@
 // ************************************************************************** //
 
 #include "MinimizerItemCatalogue.h"
+#include "BornAgainNamespace.h"
 #include "GUIHelpers.h"
 #include "MinimizerItem.h"
-#include "BornAgainNamespace.h"
 
 MinimizerLibrary::Catalogue MinimizerItemCatalogue::m_catalogue = MinimizerLibrary::Catalogue();
 

@@ -16,7 +16,7 @@
 #ifndef RIPPLESBUILDER_H
 #define RIPPLESBUILDER_H
 
-#include "ISampleBuilder.h"
+#include "ISampleBuilder.h" // inheriting from
 
 //! @class CosineRippleBuilder
 //! @ingroup standard_samples

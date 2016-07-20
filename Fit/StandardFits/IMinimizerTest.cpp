@@ -13,25 +13,25 @@
 //
 // ************************************************************************** //
 
-#include "Units.h"
-#include "FitKernel.h"
+#include "IMinimizerTest.h"
+#include "FitSuite.h"
+#include "GISASSimulation.h"
+#include "ISample.h"
+#include "MinimizerFactory.h"
 #include "SampleBuilderFactory.h"
 #include "SimulationFactory.h"
-#include "OutputData.h"
-#include "FitSuite.h"
-#include "IMinimizerTest.h"
-#include "MinimizerFactory.h"
+#include "Units.h"
 #include <memory>
 #include <boost/format.hpp>
 
-IMinimizerTest::TestParameter::TestParameter(const std::string &name, double real_value,
-                                                       double start_value)
+IMinimizerTest::TestParameter::TestParameter(
+    const std::string& name, double real_value, double start_value)
     : m_name(name), m_real_value(real_value), m_start_value(start_value), m_found_value(0.0)
 {
 }
 
-IMinimizerTest::IMinimizerTest(const std::string &minimizer_name,
-                                                   const std::string &minimizer_algorithm)
+IMinimizerTest::IMinimizerTest(const std::string& minimizer_name,
+                               const std::string& minimizer_algorithm)
     : m_minimizer_name(minimizer_name)
     , m_minimizer_algorithm(minimizer_algorithm)
     , m_simulation_name("MiniGISAS")
@@ -95,7 +95,7 @@ std::unique_ptr<FitSuite> IMinimizerTest::createFitSuite()
 {
     std::unique_ptr<FitSuite> result(new FitSuite());
     result->initPrint(10);
-    IMinimizer *minimizer = MinimizerFactory::createMinimizer(
+    IMinimizer* minimizer = MinimizerFactory::createMinimizer(
         m_minimizer_name, m_minimizer_algorithm);
     minimizer->getOptions()->setMaxIterations(200);
     result->setMinimizer(minimizer);
@@ -122,8 +122,8 @@ std::unique_ptr<GISASSimulation> IMinimizerTest::createSimulation()
 }
 
 std::unique_ptr<OutputData<double> > IMinimizerTest::createOutputData(
-    const GISASSimulation *simulation)
+    const GISASSimulation* simulation)
 {
-    std::unique_ptr<OutputData<double> > result(simulation->getDetectorIntensity());
+    std::unique_ptr<OutputData<double>> result(simulation->getDetectorIntensity());
     return result;
 }

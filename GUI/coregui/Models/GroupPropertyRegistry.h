@@ -17,8 +17,8 @@
 #ifndef GROUPPROPERTYREGISTRY_H
 #define GROUPPROPERTYREGISTRY_H
 
-#include "item_constants.h"
 #include "GroupProperty.h"
+#include "item_constants.h"
 
 
 

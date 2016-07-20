@@ -16,8 +16,10 @@
 #ifndef SAMPLEBUILDERFACTORY_H
 #define SAMPLEBUILDERFACTORY_H
 
-#include "IFactory.h"
+#include "IFactory.h" // inheriting from
 #include "ISampleBuilder.h"
+
+class ISample;
 
 //! @class SampleBuilderFactory
 //! @ingroup standard_samples
@@ -27,7 +29,7 @@ class BA_CORE_API_ SampleBuilderFactory : public IFactory<std::string, ISampleBu
 {
 public:
     SampleBuilderFactory();
-    class ISample* createSample(const std::string& name);
+    ISample* createSample(const std::string& name);
 };
 
 #endif // SAMPLEBUILDERFACTORY_H

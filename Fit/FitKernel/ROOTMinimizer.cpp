@@ -14,11 +14,9 @@
 // ************************************************************************** //
 
 #include "ROOTMinimizer.h"
+#include "Math/Minimizer.h"
 #include "ROOTMinimizerFunction.h"
 #include "ROOTMinimizerHelper.h"
-#include "Math/Minimizer.h"
-
-
 
 // ----------------------------------------------------------------------------
 // ROOTMinimizer c-tor
@@ -33,7 +31,6 @@ ROOTMinimizer::ROOTMinimizer(const std::string& minimizer_name, const std::strin
     , m_chi2_func(0)
     , m_gradient_func(0)
 {
-
 }
 
 
@@ -180,6 +177,3 @@ void ROOTMinimizer::propagateOptions()
 }
 
 size_t ROOTMinimizer::check_index(size_t index) const { return index<getNumberOfVariables() ? index : throw Exceptions::OutOfBoundsException("ROOTMinimizer::getErrorOfVariable() -> Wrong number of the variable"); }
-
-
-

@@ -15,16 +15,16 @@
 // ************************************************************************** //
 
 #include "ObsoleteIntensityDataWidget.h"
-#include "ObsoleteIntensityDataPlotWidget.h"
-#include "IntensityDataPropertyWidget.h"
-#include "IntensityDataItem.h"
-#include "JobItem.h"
-#include "ObsoleteIntensityDataWidgetActions.h"
-#include "ModelMapper.h"
 #include "AppSvc.h"
+#include "IntensityDataItem.h"
+#include "IntensityDataPropertyWidget.h"
+#include "JobItem.h"
+#include "ModelMapper.h"
+#include "ObsoleteIntensityDataPlotWidget.h"
+#include "ObsoleteIntensityDataWidgetActions.h"
 #include "projectmanager.h"
-#include <QVBoxLayout>
 #include <QDebug>
+#include <QVBoxLayout>
 
 
 ObsoleteIntensityDataWidget::ObsoleteIntensityDataWidget(QWidget *parent)

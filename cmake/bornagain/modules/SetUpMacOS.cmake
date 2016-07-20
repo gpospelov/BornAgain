@@ -106,7 +106,7 @@ if (CMAKE_SYSTEM_NAME MATCHES Darwin)
     MESSAGE(FATAL_ERROR "There is no setup for this compiler up to now. Don't know waht to do. Stop cmake at this point.")
   endif()
 
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -I${CMAKE_SOURCE_DIR}/Core/Tools -include WinDllMacros.h")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -I${CMAKE_SOURCE_DIR}/Core/Basics -include WinDllMacros.h")
 
 else (CMAKE_SYSTEM_NAME MATCHES Darwin)
   MESSAGE(FATAL_ERROR "There is no setup for this this Apple system up to now. Don't know waht to do. Stop cmake at this point.")

@@ -23,14 +23,14 @@ IFitObserver::IFitObserver(int update_every_nth)
     , m_current_strategy_index(-1)
     , m_strategy_has_changed(false)
 {
-
 }
 
-void IFitObserver::notify(IObservable *subject)
+void IFitObserver::notify(IObservable* subject)
 {
     FitSuite *fit_suite = dynamic_cast<FitSuite *>(subject);
-    if( !fit_suite ) throw Exceptions::NullPointerException("IFitObserver::update() -> Error! "
-                                                "Can't access FitSuite");
+    if( !fit_suite )
+        throw Exceptions::NullPointerException(
+            "IFitObserver::update() -> Error! Can't access FitSuite");
 
     bool needs_update(false);
 
@@ -43,17 +43,19 @@ void IFitObserver::notify(IObservable *subject)
         m_strategy_has_changed = false;
     }
 
-    if( fit_suite->getNumberOfIterations() == 0 ) needs_update = true;  // first iteration
-    if( fit_suite->isLastIteration() ) needs_update = true; // last iteration
-    if( fit_suite->getNumberOfIterations() % m_update_every_nth == 0 ) needs_update = true; // every n'th iteration
+    if( fit_suite->getNumberOfIterations() == 0 )
+        needs_update = true;  // first iteration
+    if( fit_suite->isLastIteration() )
+        needs_update = true; // last iteration
+    if( fit_suite->getNumberOfIterations() % m_update_every_nth == 0 )
+        needs_update = true; // every n'th iteration
 
-    if(needs_update) update(fit_suite);
+    if(needs_update)
+        update(fit_suite);
 }
 
-void IFitObserver::update(FitSuite *fit_suite)
+void IFitObserver::update(FitSuite*)
 {
-    (void)fit_suite;
-    throw Exceptions::NotImplementedException("IFitObserver::update(IObservable *subject) -> Error."
-                                  "Not implemented.");
+    throw Exceptions::NotImplementedException(
+        "IFitObserver::update(IObservable *subject) -> Error. Not implemented.");
 }
-

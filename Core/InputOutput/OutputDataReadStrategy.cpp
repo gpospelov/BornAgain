@@ -14,10 +14,10 @@
 // ************************************************************************** //
 
 
+#include "OutputDataReadStrategy.h"
 #include "OutputData.h"
 #include "OutputDataIOHelper.h"
 #include "TiffHandler.h"
-#include "OutputDataReadStrategy.h"
 
 OutputData<double>* OutputDataReadINTStrategy::readOutputData(std::istream& input_stream)
 {

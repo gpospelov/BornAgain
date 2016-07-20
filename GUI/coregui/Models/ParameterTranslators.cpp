@@ -16,8 +16,8 @@
 
 #include "ParameterTranslators.h"
 #include "ParticleItem.h"
-#include "VectorItem.h"
 #include "RotationItems.h"
+#include "VectorItem.h"
 
 
 PositionTranslator::PositionTranslator()

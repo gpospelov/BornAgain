@@ -14,8 +14,8 @@
 // ************************************************************************** //
 
 #include "MinimizerLibrary.h"
-#include "Exceptions.h"
 #include "BornAgainNamespace.h"
+#include "Exceptions.h"
 
 using namespace MinimizerLibrary;
 

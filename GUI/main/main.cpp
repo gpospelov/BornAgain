@@ -14,16 +14,16 @@
 //
 // ************************************************************************** //
 
+#include "FitProgressInfo.h"
+#include "SplashScreen.h"
 #include "appoptions.h"
 #include "mainwindow.h"
-#include "SplashScreen.h"
-#include "FitProgressInfo.h"
 #include <QApplication>
 #include <QDebug>
-#include <iostream>
-#include <QTime>
 #include <QLocale>
 #include <QMetaType>
+#include <QTime>
+#include <iostream>
 
 void messageHandler(QtMsgType type, const QMessageLogContext &, const QString &msg)
 {

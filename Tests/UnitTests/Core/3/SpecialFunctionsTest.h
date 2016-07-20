@@ -93,4 +93,4 @@ TEST_F(SpecialFunctionsTest, csinc)
     }
 }
 
-#endif //SPECIALFUNCTIONSTEST_H
+#endif // SPECIALFUNCTIONSTEST_H

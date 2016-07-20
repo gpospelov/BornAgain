@@ -44,4 +44,4 @@ TEST_F(DistributionHandlerTest, DistributionHandlerConstructor)
 }
 
 
-#endif
+#endif // DISTRIBUTIONHANDLERTEST_H

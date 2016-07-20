@@ -17,11 +17,11 @@
 #include "MaskGraphicsView.h"
 #include "MaskGraphicsProxy.h"
 #include "MaskGraphicsScene.h"
-#include <QWheelEvent>
+#include <QDebug>
 #include <QGraphicsScene>
 #include <QScrollBar>
 #include <QTransform>
-#include <QDebug>
+#include <QWheelEvent>
 
 namespace {
 const double min_zoom_value = 1.0;

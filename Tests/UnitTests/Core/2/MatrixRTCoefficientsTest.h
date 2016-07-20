@@ -82,4 +82,4 @@ TEST_F(MatrixRTCoefficientsTest, getKz)
     EXPECT_EQ(complex_t(0.0,0.0), vector(1));
 }
 
-#endif //MATRIXRTCOEFFICIENTSTEST_H
+#endif // MATRIXRTCOEFFICIENTSTEST_H

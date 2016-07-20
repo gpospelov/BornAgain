@@ -14,11 +14,15 @@
 // ************************************************************************** //
 
 #include "TwoDimLatticeBuilder.h"
-#include "MultiLayer.h"
-#include "ParticleComposition.h"
 #include "FormFactorCylinder.h"
+#include "HomogeneousMaterial.h"
 #include "InterferenceFunction2DLattice.h"
-
+#include "Layer.h"
+#include "MultiLayer.h"
+#include "Particle.h"
+#include "ParticleComposition.h"
+#include "ParticleLayout.h"
+#include "Units.h"
 
 // -----------------------------------------------------------------------------
 // lattice #1:
@@ -35,7 +39,7 @@ ISample *SquareLatticeBuilder::buildSample() const
     Layer substrate_layer(substrate_material);
 
     std::unique_ptr<InterferenceFunction2DLattice> P_interference_function{
-        InterferenceFunction2DLattice::createSquare(10.0 * Units::nanometer)};
+        InterferenceFunction2DLattice::createSquare(10.0 * Units::nanometer) };
     FTDecayFunction2DCauchy pdf(300.0*Units::nanometer/2.0/Units::PI,
                                100.0*Units::nanometer/2.0/Units::PI);
     P_interference_function->setDecayFunction(pdf);

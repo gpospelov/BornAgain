@@ -17,13 +17,12 @@
 #ifndef MATERIALUTILS_H
 #define MATERIALUTILS_H
 
-#include "MaterialProperty.h"
-#include "MaterialItem.h"
 #include "ColorProperty.h"
-
-#include <memory>
+#include "MaterialItem.h"
+#include "MaterialProperty.h"
 #include <QColor>
 #include <QString>
+#include <memory>
 
 class IMaterial;
 

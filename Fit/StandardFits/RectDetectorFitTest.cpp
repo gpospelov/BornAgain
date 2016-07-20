@@ -15,14 +15,14 @@
 
 #include "RectDetectorFitTest.h"
 #include "GISASSimulation.h"
-#include "RectangularDetector.h"
-#include "Rectangle.h"
 #include "Histogram2D.h"
+#include "Rectangle.h"
+#include "RectangularDetector.h"
+#include "Units.h"
 
 RectDetectorFitTest::RectDetectorFitTest()
     : IMinimizerTest("Minuit2", "Migrad")
 {
-
 }
 
 std::unique_ptr<GISASSimulation> RectDetectorFitTest::createSimulation()

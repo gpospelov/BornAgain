@@ -15,10 +15,10 @@
 // ************************************************************************** //
 
 #include "VerticalSlicePlot.h"
-#include "IntensityDataItem.h"
 #include "AxesItems.h"
-#include "qcustomplot.h"
+#include "IntensityDataItem.h"
 #include "Units.h"
+#include "qcustomplot.h"
 #include <QVBoxLayout>
 
 VerticalSlicePlot::VerticalSlicePlot(QWidget *parent)

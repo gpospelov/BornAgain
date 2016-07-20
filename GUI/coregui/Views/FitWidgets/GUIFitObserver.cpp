@@ -15,14 +15,14 @@
 // ************************************************************************** //
 
 #include "GUIFitObserver.h"
-#include "FitSuite.h"
-#include "IntensityDataItem.h"
 #include "FitParameter.h"
-#include "FitSuiteParameters.h"
 #include "FitProgressInfo.h"
+#include "FitSuite.h"
+#include "FitSuiteParameters.h"
 #include "GUIHelpers.h"
-#include <QVector>
+#include "IntensityDataItem.h"
 #include <QDebug>
+#include <QVector>
 
 
 GUIFitObserver::GUIFitObserver(QObject *parent)

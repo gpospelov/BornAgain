@@ -17,8 +17,8 @@
 #ifndef IMASKVIEW_H
 #define IMASKVIEW_H
 
-#include "WinDllMacros.h"
 #include "MaskEditorHelper.h"
+#include "WinDllMacros.h"
 #include <QGraphicsObject>
 #include <memory>
 

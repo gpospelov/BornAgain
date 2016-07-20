@@ -16,10 +16,9 @@
 #ifndef OUTPUTDATAWRITESTRATEGY_H
 #define OUTPUTDATAWRITESTRATEGY_H
 
-#include <string>
+#include <istream>
 
 template <class T> class OutputData;
-
 
 //! @class IOutputDataWriteStrategy
 //! @ingroup input_output_internal
@@ -52,7 +51,6 @@ public:
     virtual void writeOutputData(const OutputData<double> &data, std::ostream &output_stream);
 };
 
-
 #ifdef BORNAGAIN_TIFF_SUPPORT
 
 class TiffHandler;
@@ -73,5 +71,3 @@ private:
 #endif // BORNAGAIN_TIFF_SUPPORT
 
 #endif // OUTPUTDATAWRITESTRATEGY_H
-
-

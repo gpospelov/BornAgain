@@ -15,16 +15,16 @@
 // ************************************************************************** //
 
 #include "RectangularDetectorWidget.h"
-#include "ComponentBoxEditor.h"
-#include "DetectorItems.h"
-#include "GroupInfoBox.h"
-#include "ExtendedDetectorDialog.h"
-#include "ComponentEditor.h"
 #include "ComboProperty.h"
+#include "ComponentBoxEditor.h"
+#include "ComponentEditor.h"
+#include "DetectorItems.h"
+#include "ExtendedDetectorDialog.h"
+#include "GroupInfoBox.h"
 #include "columnresizer.h"
+#include <QDebug>
 #include <QGroupBox>
 #include <QVBoxLayout>
-#include <QDebug>
 
 RectangularDetectorWidget::RectangularDetectorWidget(ColumnResizer *columnResizer,
                                                      RectangularDetectorItem *detectorItem, QWidget *parent)

@@ -17,8 +17,8 @@
 #ifndef ROTATIONITEMS_H
 #define ROTATIONITEMS_H
 
-#include "SessionItem.h"
 #include "Rotations.h"
+#include "SessionItem.h"
 
 class RotationItem : public SessionItem
 {

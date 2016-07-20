@@ -16,7 +16,9 @@
 #ifndef CUSTOMMORPHOLOGYBUILDER_H
 #define CUSTOMMORPHOLOGYBUILDER_H
 
-#include "ISampleBuilder.h"
+#include "ISampleBuilder.h" // inheriting from
+
+class ISample;
 
 //! @class CustomMorphologyBuilder
 //! @ingroup standard_samples
@@ -25,9 +27,8 @@
 class BA_CORE_API_ CustomMorphologyBuilder : public ISampleBuilder
 {
 public:
-    CustomMorphologyBuilder();
-    ISample *buildSample() const;
+    CustomMorphologyBuilder() {}
+    ISample* buildSample() const;
 };
 
 #endif // CUSTOMMORPHOLOGYBUILDER_H
-

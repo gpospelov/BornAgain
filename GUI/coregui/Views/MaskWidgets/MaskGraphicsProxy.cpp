@@ -15,11 +15,11 @@
 // ************************************************************************** //
 
 #include "MaskGraphicsProxy.h"
-#include <QGraphicsSceneMouseEvent>
 #include "ColorMapPlot.h"
 #include "ColorMapSceneAdaptor.h"
 #include "IntensityDataItem.h"
 #include <QDebug>
+#include <QGraphicsSceneMouseEvent>
 
 MaskGraphicsProxy::MaskGraphicsProxy()
     : m_colorMap(new ColorMapPlot)

@@ -17,8 +17,8 @@
 #ifndef INSTRUMENTVIEW_H
 #define INSTRUMENTVIEW_H
 
-#include <QWidget>
 #include <QMap>
+#include <QWidget>
 
 class MainWindow;
 class InstrumentSelectorWidget;

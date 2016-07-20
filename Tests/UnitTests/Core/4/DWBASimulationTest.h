@@ -1,10 +1,11 @@
 #ifndef DWBASIMULATIONTEST_H
 #define DWBASIMULATIONTEST_H
 
-
 #include "DWBASimulation.h"
 #include "MultiLayer.h"
 #include "OutputDataFunctions.h"
+#include "SimulationElement.h"
+
 class DWBASimulationTest : public ::testing::Test
 {
  protected:
@@ -110,5 +111,4 @@ TEST_F(DWBASimulationTest, InitialState)
 
 //}
 
-
-#endif // DETECTORTEST_H
+#endif // DWBASIMULATIONTEST_H

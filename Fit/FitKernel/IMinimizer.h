@@ -16,13 +16,12 @@
 #ifndef IMINIMIZER_H
 #define IMINIMIZER_H
 
+#include "MinimizerOptions.h"
 #include <functional>
 #include <vector>
-#include "MinimizerOptions.h"
 
 class FitParameter;
 class FitSuiteParameters;
-
 
 //! @class IMinimizer
 //! @ingroup fitting_internal
@@ -32,10 +31,10 @@ class BA_CORE_API_ IMinimizer
 {
  public:
     //! signature of chi squared function to minimize
-    typedef std::function<double(const double *)> function_chi2_t;
+    typedef std::function<double(const double*)> function_chi2_t;
 
     //! signature of gradient to minimize with access to single data element residuals
-    typedef std::function<double(const double *, unsigned int, double *)> function_gradient_t;
+    typedef std::function<double(const double*, unsigned int, double*)> function_gradient_t;
 
     IMinimizer() { }
     virtual ~IMinimizer() { }
@@ -44,7 +43,7 @@ class BA_CORE_API_ IMinimizer
     virtual void minimize();
 
     //! Sets internal minimizer parameter
-    virtual void setParameter(size_t index, const FitParameter *par);
+    virtual void setParameter(size_t index, const FitParameter* par);
 
     //! Sets internal minimizer parameters using external parameter list
     virtual void setParameters(const FitSuiteParameters& parameters);
@@ -83,11 +82,11 @@ class BA_CORE_API_ IMinimizer
     virtual size_t getNCalls() const;
 
     //! return minimizer options
-    virtual MinimizerOptions *getOptions();
-    virtual const MinimizerOptions *getOptions() const;
+    virtual MinimizerOptions* getOptions();
+    virtual const MinimizerOptions* getOptions() const;
 
     //! set minimizer options
-    virtual void setOptions(const MinimizerOptions &options);
+    virtual void setOptions(const MinimizerOptions& options);
 
     //! set minimizer option string
     virtual void setOptionString(const std::string& options);
@@ -173,30 +172,30 @@ inline size_t IMinimizer::getNCalls() const
     throw Exceptions::NotImplementedException("IMinimizer::getNCalls() -> Not implemented.");
 }
 
-inline MinimizerOptions *IMinimizer::getOptions()
+inline MinimizerOptions* IMinimizer::getOptions()
 {
     throw Exceptions::NotImplementedException("IMinimizer::getOptions() -> Not implemented.");
 }
 
-
-inline const MinimizerOptions *IMinimizer::getOptions() const
+inline const MinimizerOptions* IMinimizer::getOptions() const
 {
     throw Exceptions::NotImplementedException("IMinimizer::getOptions() -> Not implemented.");
 }
 
-inline void IMinimizer::setOptions(const MinimizerOptions &/*options*/)
+inline void IMinimizer::setOptions(const MinimizerOptions& /*options*/)
 {
     throw Exceptions::NotImplementedException("IMinimizer::setOptions() -> Not implemented.");
 }
 
-inline void IMinimizer::setOptionString(const std::string &/*options*/)
+inline void IMinimizer::setOptionString(const std::string& /*options*/)
 {
     throw Exceptions::NotImplementedException("IMinimizer::setOptionString() -> Not implemented.");
 }
 
 inline bool IMinimizer::isGradientBasedAgorithm()
 {
-    throw Exceptions::NotImplementedException("IMinimizer::isGradientBasedAlgorithm() -> Not implemented.");
+    throw Exceptions::NotImplementedException(
+        "IMinimizer::isGradientBasedAlgorithm() -> Not implemented.");
 }
 
 inline std::string IMinimizer::getMinimizerName() const
@@ -209,8 +208,4 @@ inline std::string IMinimizer::getAlgorithmName() const
     throw Exceptions::NotImplementedException("IMinimizer::getAlgorithmName() -> Not implemented.");
 }
 
-
-
 #endif // IMINIMIZER_H
-
-

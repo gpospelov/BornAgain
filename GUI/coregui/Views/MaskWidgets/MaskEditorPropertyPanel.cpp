@@ -15,23 +15,22 @@
 // ************************************************************************** //
 
 #include "MaskEditorPropertyPanel.h"
-#include "SessionModel.h"
-#include "MaskEditorFlags.h"
-#include "IntensityDataItem.h"
 #include "AccordionWidget.h"
 #include "ComponentEditor.h"
 #include "ContentPane.h"
-
-#include <QVBoxLayout>
-#include <QListView>
-#include <QItemSelection>
-#include <QModelIndexList>
+#include "IntensityDataItem.h"
+#include "MaskEditorFlags.h"
+#include "SessionModel.h"
 #include <QButtonGroup>
-#include <QToolButton>
-#include <QPushButton>
-#include <QGridLayout>
-#include <QLabel>
 #include <QDebug>
+#include <QGridLayout>
+#include <QItemSelection>
+#include <QLabel>
+#include <QListView>
+#include <QModelIndexList>
+#include <QPushButton>
+#include <QToolButton>
+#include <QVBoxLayout>
 
 MaskEditorPropertyPanel::MaskEditorPropertyPanel(QWidget *parent)
     : QWidget(parent)

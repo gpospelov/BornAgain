@@ -25,19 +25,16 @@ void SampleMaterialVisitor::clear()
 
 void SampleMaterialVisitor::addMaterial(const IMaterial* p_material)
 {
-    if (p_material && std::find(m_materials.begin(), m_materials.end(),
-            p_material) == m_materials.end() ) {
+    if (p_material &&
+        std::find(m_materials.begin(), m_materials.end(), p_material) == m_materials.end() ) {
         m_materials.push_back(p_material);
     }
 }
 
 bool SampleMaterialVisitor::containsMagneticMaterial() const {
-    for (std::vector<const IMaterial *>::const_iterator it = m_materials.begin();
-            it != m_materials.end(); ++it) {
-        if(!(*it)) throw Exceptions::DomainErrorException("SampleMaterialVisitor::"
-                             "containsMagneticMaterial() -> Error.");
-        if (!(*it)->isScalarMaterial()) return true;
-    }
+    for (auto it: m_materials )
+        if (!(it->isScalarMaterial()))
+            return true;
     return false;
 }
 

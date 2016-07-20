@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Assembly/IInterferenceFunction.h
+//! @file      Core/Aggregates/IInterferenceFunction.h
 //! @brief     Declares interface class IInterferenceFunction.
 //!
 //! @homepage  http://www.bornagainproject.org

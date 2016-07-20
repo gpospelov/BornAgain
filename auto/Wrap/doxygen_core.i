@@ -13132,10 +13132,10 @@ C++ includes: WavevectorInfo.h
 // File: classMathFunctions_1_1Convolve_1_1Workspace.xml
 
 
-// File: namespace_0D279.xml
+// File: namespace_0D281.xml
 
 
-// File: namespace_0D340.xml
+// File: namespace_0D342.xml
 
 
 // File: namespace_0D407.xml
@@ -13742,6 +13742,12 @@ Returns exp(I*z), where I is the imaginary unit.
 
 
 // File: SafePointerVector_8h.xml
+
+
+// File: SimulationOptions_8cpp.xml
+
+
+// File: SimulationOptions_8h.xml
 
 
 // File: ThreadInfo_8h.xml
@@ -14712,12 +14718,6 @@ Returns concatenated rotation (first right, then left).
 
 
 // File: Simulation_8h.xml
-
-
-// File: SimulationOptions_8cpp.xml
-
-
-// File: SimulationOptions_8h.xml
 
 
 // File: SpecularSimulation_8cpp.xml

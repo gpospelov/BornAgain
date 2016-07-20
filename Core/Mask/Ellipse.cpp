@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Instrument/Ellipse.cpp
+//! @file      Core/Mask/Ellipse.cpp
 //! @brief     Implements class Ellipse.
 //!
 //! @homepage  http://www.bornagainproject.org

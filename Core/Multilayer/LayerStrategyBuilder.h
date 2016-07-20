@@ -63,8 +63,8 @@ private:
     //! collect the interference function
     void collectInterferenceFunction();
     //! Creates formfactor info for single particle
-    FormFactorInfo *createFormFactorInfo(
-        const IParticle *particle, const IMaterial *p_ambient_material) const;
+    FormFactorInfo* createFormFactorInfo(
+        const IParticle* particle, const IMaterial* p_ambient_material) const;
 
     //! Info about form factors
     SafePointerVector<class FormFactorInfo> m_ff_infos;

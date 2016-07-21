@@ -18,7 +18,8 @@
 #include <memory>
 #include <iostream>
 
-//! The main function of CoreSuite to run functional tests
+//! Runs functional tests.
+
 int main(int argc, char **argv)
 {
     std::string test_name;

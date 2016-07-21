@@ -129,7 +129,7 @@ public:
     void clear();
 
 protected:
-    void addMaterial(const IMaterial *p_material);
+    void addMaterial(const IMaterial* p_material);
     std::vector<const IMaterial*> m_materials;
 };
 

@@ -120,6 +120,4 @@ private:
     void print_default(const ISample*);
 };
 
-
-
 #endif // SAMPLEPRINTVISITOR_H

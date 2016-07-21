@@ -60,7 +60,7 @@ include_directories(
     ${BornAgainCore_INCLUDE_DIRS}
     ${EIGEN3_INCLUDE_DIR}
     ${GSL_INCLUDE_DIR}
-    ${CMAKE_CURRENT_SOURCE_DIR}/../Utils
+    ${CMAKE_CURRENT_SOURCE_DIR}/../TestMachinery
     ${CMAKE_SOURCE_DIR}/Core/Simulation
     )
 

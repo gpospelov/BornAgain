@@ -57,8 +57,9 @@ include_directories(
     ${GSL_INCLUDE_DIR}
 )
 
-add_executable(PySuite PySuite.cpp)
-target_link_libraries(PySuite BornAgainCore)
+add_executable(PyCoreTestSuite PyCoreTestSuite.cpp)
+target_link_libraries(PyCoreTestSuite BornAgainCore)
 foreach(test_case ${test_cases})
-    add_test(PySuite/${test_case} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/PySuite ${test_case})
+    add_test(PyCoreTestSuite/${test_case}
+        ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/PyCoreTestSuite ${test_case})
 endforeach()

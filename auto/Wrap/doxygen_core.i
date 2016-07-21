@@ -4358,7 +4358,7 @@ Used in functional tests (Core|Py|GUI)Suite, where it is subclassed as a singlet
 C++ includes: FunctionalTestSuite.h
 ";
 
-%feature("docstring")  FunctionalTestSuite::FunctionalTestSuite "FunctionalTestSuite::FunctionalTestSuite()
+%feature("docstring")  FunctionalTestSuite::FunctionalTestSuite "FunctionalTestSuite::FunctionalTestSuite(const std::string &name)
 ";
 
 %feature("docstring")  FunctionalTestSuite::~FunctionalTestSuite "virtual FunctionalTestSuite::~FunctionalTestSuite()

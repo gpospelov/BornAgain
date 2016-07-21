@@ -13135,13 +13135,13 @@ C++ includes: WavevectorInfo.h
 // File: namespace_0D281.xml
 
 
-// File: namespace_0D342.xml
+// File: namespace_0D348.xml
 
 
-// File: namespace_0D407.xml
+// File: namespace_0D413.xml
 
 
-// File: namespace_0D421.xml
+// File: namespace_0D427.xml
 
 
 // File: namespaceboost_1_1geometry.xml
@@ -14633,6 +14633,34 @@ Returns concatenated rotation (first right, then left).
 // File: ISampleIteratorStrategy_8h.xml
 
 
+// File: ISampleVisitor_8cpp.xml
+%feature("docstring")  VisitSampleTreePreorder "void VisitSampleTreePreorder(const ISample &sample, ISampleVisitor &visitor)
+";
+
+%feature("docstring")  VisitSampleTreePostorder "void VisitSampleTreePostorder(const ISample &sample, ISampleVisitor &visitor)
+";
+
+
+// File: ISampleVisitor_8h.xml
+%feature("docstring")  VisitSampleTreePreorder "BA_CORE_API_ void VisitSampleTreePreorder(const ISample &sample, ISampleVisitor &visitor)
+";
+
+%feature("docstring")  VisitSampleTreePostorder "BA_CORE_API_ void VisitSampleTreePostorder(const ISample &sample, ISampleVisitor &visitor)
+";
+
+
+// File: SampleMaterialVisitor_8cpp.xml
+
+
+// File: SampleMaterialVisitor_8h.xml
+
+
+// File: SamplePrintVisitor_8cpp.xml
+
+
+// File: SamplePrintVisitor_8h.xml
+
+
 // File: SampleTreeIterator_8cpp.xml
 
 
@@ -15024,44 +15052,13 @@ David N. Williams
 // File: WavevectorInfo_8h.xml
 
 
-// File: ISampleVisitor_8cpp.xml
-%feature("docstring")  VisitSampleTreePreorder "void VisitSampleTreePreorder(const ISample &sample, ISampleVisitor &visitor)
-";
-
-%feature("docstring")  VisitSampleTreePostorder "void VisitSampleTreePostorder(const ISample &sample, ISampleVisitor &visitor)
-";
-
-
-// File: ISampleVisitor_8h.xml
-%feature("docstring")  VisitSampleTreePreorder "BA_CORE_API_ void VisitSampleTreePreorder(const ISample &sample, ISampleVisitor &visitor)
-";
-
-%feature("docstring")  VisitSampleTreePostorder "BA_CORE_API_ void VisitSampleTreePostorder(const ISample &sample, ISampleVisitor &visitor)
-";
-
-
-// File: SampleMaterialVisitor_8cpp.xml
-
-
-// File: SampleMaterialVisitor_8h.xml
-
-
-// File: SamplePrintVisitor_8cpp.xml
-
-
-// File: SamplePrintVisitor_8h.xml
-
-
-// File: todo.xml
-
-
-// File: dir_7316e3e29a8ac59fa6bdde8ded230f2d.xml
+// File: dir_5f1a4a05eca575eab319839347bb4113.xml
 
 
 // File: dir_f2db70b1039b2dc98a7a13a1758f382f.xml
 
 
-// File: dir_0a45a9065b879ef3f106cc24d330f492.xml
+// File: dir_629bf8536959f2975d8caec326cd60c0.xml
 
 
 // File: dir_c6310732a22f63c0c2fc5595561e68f1.xml
@@ -15073,7 +15070,7 @@ David N. Williams
 // File: dir_c8e420540f3cc673520907fed872650b.xml
 
 
-// File: dir_43bf4f843b6e885b1bee2bc28b8e4b1a.xml
+// File: dir_05b265732c0b4c8e8dad02f2f774744b.xml
 
 
 // File: dir_d7044b5fc4daccc5700de9f07da81a11.xml
@@ -15097,7 +15094,7 @@ David N. Williams
 // File: dir_d4e34ce36424db6c5895519defe19e58.xml
 
 
-// File: dir_56f35af5cdc8591a6ab0d4cb14eefef0.xml
+// File: dir_3a34810b9fbc1682c26e767b1a1a5860.xml
 
 
 // File: dir_b68f57b1e17bed671dde6594d8b31be9.xml
@@ -15109,7 +15106,7 @@ David N. Williams
 // File: dir_d7a24665a95cfc15308ebd7b07b5ebd6.xml
 
 
-// File: dir_557b80dddb24360a999b57d02a642987.xml
+// File: dir_bf872a709c84554e66a8525bb546523f.xml
 
 
 // File: dir_5d2259b43612a5a0ff7512df653d7370.xml
@@ -15121,8 +15118,5 @@ David N. Williams
 // File: dir_e120110860f9b345e7b3217e8b15cbb8.xml
 
 
-// File: dir_eab7faf105a6971a8b09ddb5c60d62eb.xml
-
-
-// File: dir_06acaf35e2549d988a99ee5aacf848c8.xml
+// File: dir_19cd2158bba3b9a051f8f27403820580.xml
 

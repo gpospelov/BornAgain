@@ -59,7 +59,7 @@ include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/../../Utils
 )
 
-add_executable(PyCoreTestSuite PyCoreTestSuite.cpp)
+add_executable(PyCoreTestSuite PyCoreTestSuite.cpp PySuiteTest.h PySuiteTest.cpp)
 target_link_libraries(PyCoreTestSuite BornAgainCore BornAgainTestMachinery)
 foreach(test_case ${test_cases})
     add_test(PyCoreTestSuite/${test_case}

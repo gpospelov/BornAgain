@@ -19,12 +19,16 @@
 #include "IRegistry.h" // inheriting from
 #include "FTDistributions.h"
 
+class ISubtestRegistry : public IRegistry<IParameterized>
+{
+};
+
 // ************************************************************************** //
 //! @class TestFTDistribution2DRegistry
 //! @brief Registry with predefined Fourier transformed distributions, for functional tests.
 // ************************************************************************** //
 
-class TestFTDistribution2DRegistry : public IRegistry<IParameterized>
+class TestFTDistribution2DRegistry : public ISubtestRegistry
 {
 public:
     TestFTDistribution2DRegistry();
@@ -35,7 +39,7 @@ public:
 //! @brief Registry with predefined form factors, for functional tests.
 // ************************************************************************** //
 
-class TestFormFactorsRegistry : public IRegistry<IParameterized>
+class TestFormFactorsRegistry : public ISubtestRegistry
 {
 public:
     TestFormFactorsRegistry();

@@ -27,11 +27,11 @@ class BA_CORE_API_ FunctionalTestInfo
 public:
     FunctionalTestInfo();
     FunctionalTestInfo(const std::string& test_name,
-               const std::string& test_description,
-               const std::string& simulation_name,
-               const std::string& sample_builder_name,
-               const std::string& subtest_type,
-               double threshold);
+                       const std::string& test_description,
+                       const std::string& simulation_name,
+                       const std::string& sample_builder_name,
+                       const std::string& subtest_type,
+                       double threshold);
 
     std::string m_test_name;
     std::string m_test_description;

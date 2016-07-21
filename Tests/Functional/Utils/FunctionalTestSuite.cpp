@@ -60,7 +60,7 @@ int FunctionalTestSuite::execute_subtests()
 {
     // initialize subtest registry
     std::vector<std::string> subtest_names;
-    IRegistry<IParameterized>* subtest_registry;
+    ISubtestRegistry* subtest_registry;
     if       (m_info->m_subtest_type == "FormFactorsRegistry") {
         subtest_registry = new TestFormFactorsRegistry;
     } else if(m_info->m_subtest_type == "FTDistributions2DRegistry") {

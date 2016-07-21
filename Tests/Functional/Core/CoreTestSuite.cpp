@@ -16,16 +16,16 @@
 #include "FunctionalTestSuite.h"
 #include "CoreTest.h"
 
-class CoreSuite : public FunctionalTestSuite
+class CoreTestSuite : public FunctionalTestSuite
 {
 public:
-    CoreSuite() { setName("CoreSuite"); }
+    CoreTestSuite() { setName("CoreTestSuite"); }
     IFunctionalTest* getTest() const { return new CoreTest(
             getTestName(), getTestDescription(), getSimulation(), getTestThreshold() ); }
 };
 
-//! The main function of CoreSuite, to run functional tests
+//! The main function of CoreTestSuite, to run functional tests
 int main(int argc, char** argv)
 {
-    return CoreSuite().execute(argc, argv);
+    return CoreTestSuite().execute(argc, argv);
 }

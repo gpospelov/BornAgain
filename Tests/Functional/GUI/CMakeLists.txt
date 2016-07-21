@@ -68,9 +68,9 @@ include_directories(
     ${GSL_INCLUDE_DIR}
 )
 
-add_executable(GUISuite GUISuite.cpp)
-target_link_libraries(GUISuite BornAgainCore BornAgainGUI)
-qt5_use_modules(GUISuite Widgets Core Gui Designer PrintSupport Network)
+add_executable(GUITestSuite GUITestSuite.cpp)
+target_link_libraries(GUITestSuite BornAgainCore BornAgainGUI)
+qt5_use_modules(GUITestSuite Widgets Core Gui Designer PrintSupport Network)
 foreach(test_case ${test_cases})
-    add_test(GUISuite/${test_case} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/GUISuite ${test_case})
+    add_test(GUITestSuite/${test_case} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/GUITestSuite ${test_case})
 endforeach()

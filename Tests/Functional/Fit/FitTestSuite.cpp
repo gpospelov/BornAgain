@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/Fit/FitSuite.cpp
-//! @brief     Implements program FitSuite to run fit functional tests
+//! @file      Tests/Functional/Fit/FitTestSuite.cpp
+//! @brief     Implements program FitTestSuite to run fit functional tests
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

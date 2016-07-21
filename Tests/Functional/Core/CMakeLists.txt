@@ -2,7 +2,7 @@
 # Tests/Functional/Core/CMakeLists.txt
 ############################################################################
 
-# CoreSuite cases:
+# CoreTestSuite cases:
 set(test_cases
     ApproximationDA
     ApproximationLMA
@@ -68,11 +68,12 @@ if(MSVC)
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /EHsc ")
 endif()
 
-# Setup CoreSuite:
-add_executable(CoreSuite CoreSuite.cpp)
-target_link_libraries(CoreSuite BornAgainCore)
+# Setup CoreTestSuite:
+add_executable(CoreTestSuite CoreTestSuite.cpp)
+target_link_libraries(CoreTestSuite BornAgainCore)
 foreach(test_case ${test_cases})
-    add_test(CoreSuite/${test_case} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/CoreSuite ${test_case})
+    add_test(CoreTestSuite/${test_case}
+        ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/CoreTestSuite ${test_case})
 endforeach()
 
 # Setup other tests:

@@ -22,7 +22,7 @@
 
 //! @class FunctionalTestRegistry
 //! @ingroup standard_samples
-//! @brief The registry which holds information about available functional tests.
+//! @brief Handles info on subtests (= standard simulations), and contains hard-coded list of them.
 
 class BA_CORE_API_ FunctionalTestRegistry : public ISingleton<FunctionalTestRegistry>
 {

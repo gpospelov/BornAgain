@@ -19,7 +19,7 @@
 class PySuite : public FunctionalTestSuite
 {
 public:
-    PySuite() { setName("PySuite"); }
+    PySuite() : FunctionalTestSuite("PySuite") {}
     IFunctionalTest* getTest() const { return new PySuiteTest(
             getTestName(), getTestDescription(), getSimulation(), getTestThreshold()); }
 };

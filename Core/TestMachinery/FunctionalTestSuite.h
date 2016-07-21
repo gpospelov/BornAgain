@@ -35,7 +35,7 @@ class IParameterized;
 class BA_CORE_API_ FunctionalTestSuite : public INamed
 {
 public:
-    FunctionalTestSuite() {}
+    FunctionalTestSuite(const std::string& name) : INamed(name) {}
     virtual ~FunctionalTestSuite() {}
 
     int execute(int argc, char** argv);

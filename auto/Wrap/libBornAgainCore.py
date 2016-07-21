@@ -5350,6 +5350,11 @@ class IDistribution1D(IParameterized):
         return _libBornAgainCore.IDistribution1D_generateValues(self, nbr_samples, xmin, xmax)
 
 
+    def getMeanSample(self):
+        """getMeanSample(IDistribution1D self) -> ParameterSample"""
+        return _libBornAgainCore.IDistribution1D_getMeanSample(self)
+
+
     def isDelta(self):
         """
         isDelta(IDistribution1D self) -> bool

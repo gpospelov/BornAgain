@@ -49,8 +49,9 @@ struct BA_CORE_API_ Bin1DKVector
 //! @ingroup tools_internal
 //! @brief An one-dimensional range of cvector_t's
 
-struct BA_CORE_API_ Bin1DCVector
+class BA_CORE_API_ Bin1DCVector
 {
+public:
     Bin1DCVector() : m_q_lower(), m_q_upper() {}
     Bin1DCVector(const cvector_t lower, const cvector_t upper)
         : m_q_lower(lower), m_q_upper(upper) {}

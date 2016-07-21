@@ -26,11 +26,8 @@ std::vector<ParameterSample> IDistribution1D::generateSamples(
     if (nbr_samples == 0)
         throw Exceptions::OutOfBoundsException("IDistribution1D::generateSamples: number "
                                    "of generated samples must be bigger than zero");
-    if (isDelta()) {
-        ParameterSample delta_sample;
-        delta_sample.value = getMean();
-        delta_sample.weight = 1.0;
-        std::vector<ParameterSample> result = { delta_sample };
+    if (isDelta()) {      
+        std::vector<ParameterSample> result = { getMeanSample() };
         return result;
     }
     std::vector<double> sample_values = generateValueList( nbr_samples, sigma_factor, limits);
@@ -44,10 +41,7 @@ std::vector<ParameterSample> IDistribution1D::generateSamples(
         throw Exceptions::OutOfBoundsException("IDistribution1D::generateSamples: number "
                                    "of generated samples must be bigger than zero");
     if (isDelta()) {
-        ParameterSample delta_sample;
-        delta_sample.value = getMean();
-        delta_sample.weight = 1.0;
-        std::vector<ParameterSample> result = { delta_sample };
+        std::vector<ParameterSample> result = { getMeanSample() };
         return result;
     }
     std::vector<double> sample_values = generateValues(nbr_samples, xmin, xmax);
@@ -55,6 +49,29 @@ std::vector<ParameterSample> IDistribution1D::generateSamples(
 }
 
 //! Interface
+std::vector<double> IDistribution1D::generateValues(
+    size_t nbr_samples, double xmin, double xmax) const
+{
+    std::vector<double> result;
+    if (nbr_samples < 2 || xmin == xmax) {
+        result.push_back(getMean());
+    } else {
+        result.resize(nbr_samples);
+        for (size_t i=0; i<nbr_samples; ++i) {
+            result[i] = xmin + i*(xmax-xmin)/(nbr_samples-1.0);
+        }
+    }
+    return result;
+}
+
+ParameterSample IDistribution1D::getMeanSample() const
+{
+    ParameterSample result;
+    result.value = getMean();
+    result.weight = 1.0;
+    return result;
+}
+
 void IDistribution1D::SignalBadInitialization(std::string distribution_name)
 {
     throw Exceptions::ClassInitializationException(
@@ -91,21 +108,6 @@ std::vector<ParameterSample> IDistribution1D::generateSamplesFromValues(
                                     "total probability must be bigger than zero");
     for (size_t i=0; i<sample_values.size(); ++i) {
         result[i].weight /= norm_factor;
-    }
-    return result;
-}
-
-std::vector<double> IDistribution1D::generateValues(
-    size_t nbr_samples, double xmin, double xmax) const
-{
-    std::vector<double> result;
-    if (nbr_samples < 2 || xmin == xmax) {
-        result.push_back(getMean());
-    } else {
-        result.resize(nbr_samples);
-        for (size_t i=0; i<nbr_samples; ++i) {
-            result[i] = xmin + i*(xmax-xmin)/(nbr_samples-1.0);
-        }
     }
     return result;
 }

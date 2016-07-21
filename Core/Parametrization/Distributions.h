@@ -64,6 +64,9 @@ public:
     virtual std::vector<double> generateValues(size_t nbr_samples,
             double xmin, double xmax) const;
 
+    //! generate a single sample containing the mean value and weight 1
+    ParameterSample getMeanSample() const;
+
     //! signals that the distribution is in the limit case of a delta distribution
     virtual bool isDelta() const=0;
 

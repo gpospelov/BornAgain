@@ -66,10 +66,11 @@ include_directories(
     ${BornAgainGUI_INCLUDE_DIRS}
     ${EIGEN3_INCLUDE_DIR}
     ${GSL_INCLUDE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/../Utils
 )
 
-add_executable(GUITestSuite GUITestSuite.cpp)
-target_link_libraries(GUITestSuite BornAgainCore BornAgainGUI)
+add_executable(GUITestSuite GUITestSuite.cpp GUITest.cpp GUITest.h )
+target_link_libraries(GUITestSuite BornAgainCore BornAgainGUI BornAgainTestMachinery)
 qt5_use_modules(GUITestSuite Widgets Core Gui Designer PrintSupport Network)
 foreach(test_case ${test_cases})
     add_test(GUITestSuite/${test_case} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/GUITestSuite ${test_case})

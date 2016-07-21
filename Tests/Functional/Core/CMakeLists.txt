@@ -60,7 +60,9 @@ include_directories(
     ${BornAgainCore_INCLUDE_DIRS}
     ${EIGEN3_INCLUDE_DIR}
     ${GSL_INCLUDE_DIR}
-)
+    ${CMAKE_CURRENT_SOURCE_DIR}/../Utils
+    ${CMAKE_SOURCE_DIR}/Core/Simulation
+    )
 
 # for some reason these flags aren't propagated here by SetUpWindows.cmake
 if(MSVC)
@@ -69,8 +71,8 @@ if(MSVC)
 endif()
 
 # Setup CoreTestSuite:
-add_executable(CoreTestSuite CoreTestSuite.cpp)
-target_link_libraries(CoreTestSuite BornAgainCore)
+add_executable(CoreTestSuite CoreTestSuite.cpp CoreTest.h CoreTest.cpp)
+target_link_libraries(CoreTestSuite BornAgainCore BornAgainTestMachinery)
 foreach(test_case ${test_cases})
     add_test(CoreTestSuite/${test_case}
         ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/CoreTestSuite ${test_case})

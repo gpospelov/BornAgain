@@ -19,8 +19,9 @@
 //! @class ParameterSample
 //! @ingroup algorithms_internal
 //! @brief Represents a sampled parameter value with its weight
-struct ParameterSample
+class ParameterSample
 {
+public:
 	double value;
 	double weight;
 };

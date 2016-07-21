@@ -181,7 +181,7 @@ void ParticleLayout::addAndRegisterAbstractParticle(IAbstractParticle* child)
 //! Adds interference function with simultaneous registration in parent class.
 void ParticleLayout::setAndRegisterInterferenceFunction(IInterferenceFunction* child)
 {
-    if (mP_interference_function.get())
+    if (mP_interference_function)
         deregisterChild(mP_interference_function.get());
     mP_interference_function.reset(child);
     registerChild(child);

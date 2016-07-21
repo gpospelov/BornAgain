@@ -109,8 +109,4 @@ private:
     void initialize();
 };
 
-inline size_t Layer::getNumberOfLayouts() const {
-    return m_layouts.size();
-}
-
 #endif // LAYER_H

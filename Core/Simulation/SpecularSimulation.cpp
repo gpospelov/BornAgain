@@ -75,7 +75,7 @@ void SpecularSimulation::setSample(const ISample &sample)
 
 void SpecularSimulation::setSampleBuilder(std::shared_ptr<ISampleBuilder> sample_builder)
 {
-    if (!sample_builder.get())
+    if (!sample_builder)
         throw Exceptions::NullPointerException("SpecularSimulation::setSampleBuilder() -> "
                                    "Error! Attempt to set null sample builder.");
 
@@ -198,7 +198,7 @@ SpecularSimulation::getLayerRTCoefficients(size_t i_alpha, size_t i_layer) const
 
 void SpecularSimulation::updateSample()
 {
-    if (m_sample_builder.get()) {
+    if (m_sample_builder) {
         ISample *new_sample = m_sample_builder->buildSample();
         std::string builder_type = typeid(*m_sample_builder).name();
         if (builder_type.find("ISampleBuilder_wrapper") != std::string::npos) {

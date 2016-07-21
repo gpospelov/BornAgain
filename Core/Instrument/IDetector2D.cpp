@@ -32,7 +32,7 @@ IDetector2D::IDetector2D(const IDetector2D &other)
       m_analyzer_operator(other.m_analyzer_operator), m_detector_mask(other.m_detector_mask)
 {
     setName(other.getName());
-    if (other.mP_detector_resolution.get())
+    if (other.mP_detector_resolution)
         mP_detector_resolution.reset(other.mP_detector_resolution->clone());
     init_parameters();
 }
@@ -80,7 +80,7 @@ void IDetector2D::applyDetectorResolution(OutputData<double> *p_intensity_map) c
         throw Exceptions::NullPointerException("IDetector2D::applyDetectorResolution() -> "
                                    "Error! Null pointer to intensity map");
     }
-    if (mP_detector_resolution.get()) {
+    if (mP_detector_resolution) {
         mP_detector_resolution->applyDetectorResolution(p_intensity_map);
     } else {
         msglog(MSG::WARNING) << "IDetector2D::applyDetectorResolution() -> "

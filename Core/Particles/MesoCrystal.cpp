@@ -42,7 +42,7 @@ MesoCrystal* MesoCrystal::clone() const
     MesoCrystal* p_result
         = new MesoCrystal(mp_particle_structure->clone(), mp_meso_form_factor->clone());
     p_result->setAbundance(m_abundance);
-    if (mP_rotation.get()) {
+    if (mP_rotation) {
         p_result->setRotation(*mP_rotation);
     }
     p_result->setPosition(m_position);
@@ -54,7 +54,7 @@ MesoCrystal* MesoCrystal::cloneInvertB() const
     MesoCrystal* p_result
         = new MesoCrystal(mp_particle_structure->cloneInvertB(), mp_meso_form_factor->clone());
     p_result->setAbundance(m_abundance);
-    if (mP_rotation.get()) {
+    if (mP_rotation) {
         p_result->setRotation(*mP_rotation);
     }
     p_result->setPosition(m_position);
@@ -96,9 +96,8 @@ const IClusteredParticles* MesoCrystal::getClusteredParticles() const
     return mp_particle_structure;
 }
 
-IFormFactor* MesoCrystal::createTransformationDecoratedFormFactor(const IFormFactor& bare_ff,
-                                                                  const IRotation* p_rotation,
-                                                                  kvector_t translation) const
+IFormFactor* MesoCrystal::createTransformationDecoratedFormFactor(
+    const IFormFactor& bare_ff, const IRotation* p_rotation, kvector_t translation) const
 {
     IFormFactor* p_intermediate;
     if (p_rotation) {

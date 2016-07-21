@@ -2,6 +2,7 @@
 # Tests/Functional/CMakeLists.txt (called from top-level CMakeLists.txt)
 ############################################################################
 
+add_subdirectory(Utils)
 add_subdirectory(Core)
 add_subdirectory(Fit)
 

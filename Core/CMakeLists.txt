@@ -9,8 +9,7 @@ if(POLICY CMP0042)
 endif()
 
 # --- source and include files ---------
-set(include_dirs
-    ${BUILD_INC_DIR}
+set(CORE_SOURCE_DIRS
     ${CMAKE_CURRENT_SOURCE_DIR}/Aggregate
     ${CMAKE_CURRENT_SOURCE_DIR}/Basics
     ${CMAKE_CURRENT_SOURCE_DIR}/Binning
@@ -30,10 +29,13 @@ set(include_dirs
     ${CMAKE_CURRENT_SOURCE_DIR}/Simulation
     ${CMAKE_CURRENT_SOURCE_DIR}/SoftParticle
     ${CMAKE_CURRENT_SOURCE_DIR}/StandardSamples
-    ${CMAKE_CURRENT_SOURCE_DIR}/TestMachinery
     ${CMAKE_CURRENT_SOURCE_DIR}/Tools
     ${CMAKE_CURRENT_SOURCE_DIR}/Vector
     )
+# export for use in functional tests:
+set(CORE_SOURCE_DIRS ${CORE_SOURCE_DIRS} ${EIGEN3_INCLUDE_DIR} PARENT_SCOPE)
+
+set(include_dirs ${BUILD_INC_DIR} ${CORE_SOURCE_DIRS})
 
 include_directories(${include_dirs})
 

@@ -25,10 +25,15 @@ include_directories(
     ${BornAgainFit_INCLUDE_DIRS}
     ${EIGEN3_INCLUDE_DIR}
     ${GSL_INCLUDE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/../Utils
 )
 
-add_executable(FitTestSuite FitTestSuite.cpp)
-target_link_libraries(FitTestSuite BornAgainFit BornAgainCore)
+#file(GLOB source_files "*.cpp")
+#file(GLOB include_files "*.h")
+
+add_executable(FitTestSuite FitTestSuite.cpp IMinimizerTest.cpp  IMinimizerTest.h  MinimizerTests.cpp  MinimizerTests.h RectDetectorFitTest.cpp  RectDetectorFitTest.h  StandardFitsFactory.cpp  StandardFitsFactory.h)
+
+target_link_libraries(FitTestSuite BornAgainFit BornAgainCore BornAgainTestMachinery)
 foreach(test_case ${test_cases})
     add_test(FitTestSuite/${test_case} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/FitTestSuite ${test_case})
 endforeach()

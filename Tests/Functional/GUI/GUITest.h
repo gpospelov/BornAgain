@@ -31,8 +31,8 @@ class GISASSimulation;
 class BA_CORE_API_ GUITest : public IFunctionalTest
 {
 public:
-    GUITest(const std::string &name, const std::string &description,
-                      GISASSimulation *reference_simulation, double threshold);
+    GUITest(const std::string& name, const std::string& description,
+            GISASSimulation* reference_simulation, double threshold);
     virtual ~GUITest();
 
     virtual void runTest();
@@ -40,7 +40,7 @@ public:
 
     const OutputData<double>* getOutputData() const;
 
-    virtual void printResults(std::ostream &ostr) const;
+    virtual void printResults(std::ostream& ostr) const;
 
 private:
     void createDomainSimulation();
@@ -52,4 +52,3 @@ private:
 };
 
 #endif // GUITEST_H
-

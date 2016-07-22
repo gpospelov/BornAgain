@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/TestMachinery/FunctionalTestSuite.h
-//! @brief     Declares class FunctionalTestSuite.
+//! @file      Core/TestMachinery/IStandardTest.h
+//! @brief     Declares class IStandardTest.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -23,8 +23,8 @@ class IFunctionalTest;
 class FunctionalTestInfo;
 class IParameterized;
 
-//! @class FunctionalTestSuite
-//! @brief To execute one functional test of given name.
+//! @class IStandardTest
+//! @brief Base class for Core/PyCore/GUI tests.
 
 //! Used in functional tests (Core|Py|GUI)Suite, where it is subclassed
 //! as a singleton, and called through instance().execute(argc, argv).
@@ -32,11 +32,11 @@ class IParameterized;
 //! When processing execute, dependent classes will call back getTest().
 //! Certain tests have subtests; they will call back getFormFactor() etc.
 
-class BA_CORE_API_ FunctionalTestSuite : public INamed
+class BA_CORE_API_ IStandardTest : public INamed
 {
 public:
-    FunctionalTestSuite(const std::string& name) : INamed(name) {}
-    virtual ~FunctionalTestSuite() {}
+    IStandardTest(const std::string& name) : INamed(name) {}
+    virtual ~IStandardTest() {}
 
     int execute(int argc, char** argv);
 

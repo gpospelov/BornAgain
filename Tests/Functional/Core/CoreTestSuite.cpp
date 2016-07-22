@@ -13,13 +13,13 @@
 //
 // ************************************************************************** //
 
-#include "FunctionalTestSuite.h"
+#include "IStandardTest.h"
 #include "CoreTest.h"
 
-class CoreTestSuite : public FunctionalTestSuite
+class CoreTestSuite : public IStandardTest
 {
 public:
-    CoreTestSuite() : FunctionalTestSuite("CoreTestSuite") {}
+    CoreTestSuite() : IStandardTest("CoreTestSuite") {}
     IFunctionalTest* getTest() const { return new CoreTest(
             getTestName(), getTestDescription(), getSimulation(), getTestThreshold() ); }
 };

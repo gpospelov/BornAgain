@@ -13,13 +13,13 @@
 //
 // ************************************************************************** //
 
-#include "FunctionalTestSuite.h"
+#include "IStandardTest.h"
 #include "PySuiteTest.h"
 
-class PyCoreTestSuite : public FunctionalTestSuite
+class PyCoreTestSuite : public IStandardTest
 {
 public:
-    PyCoreTestSuite() : FunctionalTestSuite("PySuite") {}
+    PyCoreTestSuite() : IStandardTest("PySuite") {}
     IFunctionalTest* getTest() const { return new PySuiteTest(
             getTestName(), getTestDescription(), getSimulation(), getTestThreshold()); }
 };

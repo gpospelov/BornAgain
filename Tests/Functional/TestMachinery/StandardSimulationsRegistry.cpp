@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/TestMachinery/FunctionalTestRegistry.cpp
-//! @brief     Implements class FunctionalTestRegistry.
+//! @file      Core/TestMachinery/StandardSimulationsRegistry.cpp
+//! @brief     Implements class StandardSimulationsRegistry.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,10 +13,10 @@
 //
 // ************************************************************************** //
 
-#include "FunctionalTestRegistry.h"
+#include "StandardSimulationsRegistry.h"
 #include "Utils.h"
 
-FunctionalTestRegistry::FunctionalTestRegistry()
+StandardSimulationsRegistry::StandardSimulationsRegistry()
 {
     add("FormFactors",
         "Test of all form factors defined",
@@ -332,20 +332,20 @@ FunctionalTestRegistry::FunctionalTestRegistry()
         5e-1);
 }
 
-void FunctionalTestRegistry::add(
+void StandardSimulationsRegistry::add(
     const std::string& test_name, const std::string& test_description,
     const std::string& simulation_name, const std::string& sample_builder_name,
     const std::string& subtest_type, double threshold )
 {
     if( m_catalogue.find(test_name) != m_catalogue.end() )
         throw Exceptions::ExistingClassRegistrationException(
-            "FunctionalTestRegistry::add() -> Error. Existing item " + test_name);
-    m_catalogue[test_name] = FunctionalTestInfo(
+            "StandardSimulationsRegistry::add() -> Error. Existing item " + test_name);
+    m_catalogue[test_name] = SimulationInfo(
         test_name, test_description, simulation_name,
         sample_builder_name, subtest_type, threshold);
 }
 
-const FunctionalTestInfo* FunctionalTestRegistry::getItemOrExplain(
+const SimulationInfo* StandardSimulationsRegistry::getItemOrExplain(
     const std::string& test_name, const std::string& suite_name) const
 {
     auto it = m_catalogue.find(test_name);
@@ -360,10 +360,10 @@ const FunctionalTestInfo* FunctionalTestRegistry::getItemOrExplain(
     return &(it->second);
 }
 
-void FunctionalTestRegistry::printCatalogue(std::ostream& ostr) const
+void StandardSimulationsRegistry::printCatalogue(std::ostream& ostr) const
 {
     for(auto it = m_catalogue.begin(); it != m_catalogue.end(); ++it) {
-        FunctionalTestInfo info = it->second;
+        SimulationInfo info = it->second;
         ostr << Utils::AdjustStringLength(info.m_test_name, 20) << " | ";
         ostr << Utils::AdjustStringLength(info.m_test_description, 40) << " | ";
         ostr << info.m_simulation_name << ", ";

@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/TestMachinery/FunctionalTestInfo.h
-//! @brief     Declares class FunctionalTestInfo.
+//! @file      Core/TestMachinery/SimulationInfo.h
+//! @brief     Declares class SimulationInfo.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -18,15 +18,15 @@
 
 #include <string>
 
-//! @class FunctionalTestInfo
+//! @class SimulationInfo
 //! @ingroup standard_samples
 //! @brief Contains all necessary information to compose functional test
 
-class BA_CORE_API_ FunctionalTestInfo
+class BA_CORE_API_ SimulationInfo
 {
 public:
-    FunctionalTestInfo();
-    FunctionalTestInfo(const std::string& test_name,
+    SimulationInfo();
+    SimulationInfo(const std::string& test_name,
                        const std::string& test_description,
                        const std::string& simulation_name,
                        const std::string& sample_builder_name,

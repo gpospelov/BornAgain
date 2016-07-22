@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "IStandardTest.h"
-#include "FunctionalTestRegistry.h"
+#include "StandardSimulationsRegistry.h"
 #include "GISASSimulation.h"
 #include "IFunctionalTest.h"
 #include "SampleBuilderFactory.h"
@@ -32,7 +32,7 @@ int IStandardTest::execute(int argc, char** argv) {
     std::string test_name;
     if(argc > 1)
         test_name = std::string(argv[1]);
-    m_info = FunctionalTestRegistry::instance().getItemOrExplain(test_name, getName());
+    m_info = StandardSimulationsRegistry::instance().getItemOrExplain(test_name, getName());
     if( !m_info )
         return 1;
 

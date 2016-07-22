@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/TestMachinery/FunctionalTestRegistry.h
-//! @brief     Declares class FunctionalTestRegistry.
+//! @file      Core/TestMachinery/StandardSimulationsRegistry.h
+//! @brief     Declares class StandardSimulationsRegistry.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,26 +17,26 @@
 #define FUNCTIONALTESTREGISTRY_H
 
 #include "ISingleton.h" // inheriting from
-#include "FunctionalTestInfo.h"
+#include "SimulationInfo.h"
 #include <map>
 
-//! @class FunctionalTestRegistry
+//! @class StandardSimulationsRegistry
 //! @ingroup standard_samples
 //! @brief Handles info on subtests (= standard simulations), and contains hard-coded list of them.
 
-class BA_CORE_API_ FunctionalTestRegistry : public ISingleton<FunctionalTestRegistry>
+class BA_CORE_API_ StandardSimulationsRegistry : public ISingleton<StandardSimulationsRegistry>
 {
 public:
-    FunctionalTestRegistry();
+    StandardSimulationsRegistry();
     void add(const std::string& test_name, const std::string& test_description,
              const std::string& simulation_name, const std::string& sample_builder_name,
              const std::string& component_registry_name, double threshold);
-    const FunctionalTestInfo* getItemOrExplain(
+    const SimulationInfo* getItemOrExplain(
         const std::string& test_name, const std::string& suite_name) const;
     void printCatalogue(std::ostream& ostr) const;
 
 private:
-    std::map<std::string, FunctionalTestInfo> m_catalogue;
+    std::map<std::string, SimulationInfo> m_catalogue;
 };
 
 #endif // FUNCTIONALTESTREGISTRY_H

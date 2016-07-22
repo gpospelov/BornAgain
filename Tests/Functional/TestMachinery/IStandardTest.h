@@ -20,7 +20,7 @@
 
 class GISASSimulation;
 class IFunctionalTest;
-class FunctionalTestInfo;
+class SimulationInfo;
 class IParameterized;
 
 //! @class IStandardTest
@@ -34,7 +34,7 @@ class IParameterized;
 //!   FooStandardTest().execute(argv,argc),
 //! which is inherited from here. This function,
 //!   IStandardTest::execute(argv,argc)
-//! uses argv[1] to retrieve a set of parameters from FunctionalTestRegistry.
+//! uses argv[1] to retrieve a set of parameters from StandardSimulationsRegistry.
 //! Then it bifurcates into
 //!   IStandardTest::execute_onetest(argv,argc) or
 //!   IStandardTest::execute_subtests(argv,argc)
@@ -45,7 +45,7 @@ class IParameterized;
 //!   test = new FooTest( <parameters> )
 //! is provided by FooTest.cpp.
 //! The arguments in this constructor are callback functions provided by IStandardTest;
-//! they contain information gathered from FunctionalTestRegistry, and possibly from
+//! they contain information gathered from StandardSimulationsRegistry, and possibly from
 //! a subtest registry.
 //! Finally, IStandardTest::execute_... will call
 //!   test->runTest()        // implemented in FooTest
@@ -69,7 +69,7 @@ protected:
     double getTestThreshold() const;
 
 private:
-    const FunctionalTestInfo* m_info;
+    const SimulationInfo* m_info;
     std::string m_test_name;
     const IParameterized* m_subtest_item;
 

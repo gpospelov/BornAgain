@@ -69,9 +69,9 @@ include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/../TestMachinery
 )
 
-add_executable(GUITestSuite GUITestSuite.cpp GUITest.cpp GUITest.h )
-target_link_libraries(GUITestSuite BornAgainCore BornAgainGUI BornAgainTestMachinery)
-qt5_use_modules(GUITestSuite Widgets Core Gui Designer PrintSupport Network)
+add_executable(GUIStandardTest GUIStandardTest.cpp GUITest.cpp GUITest.h )
+target_link_libraries(GUIStandardTest BornAgainCore BornAgainGUI BornAgainTestMachinery)
+qt5_use_modules(GUIStandardTest Widgets Core Gui Designer PrintSupport Network)
 foreach(test_case ${test_cases})
-    add_test(GUITestSuite/${test_case} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/GUITestSuite ${test_case})
+    add_test(GUIStandardTest/${test_case} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/GUIStandardTest ${test_case})
 endforeach()

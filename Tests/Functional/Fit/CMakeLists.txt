@@ -31,9 +31,9 @@ include_directories(
 #file(GLOB source_files "*.cpp")
 #file(GLOB include_files "*.h")
 
-add_executable(FitTestSuite FitTestSuite.cpp IMinimizerTest.cpp  IMinimizerTest.h  MinimizerTests.cpp  MinimizerTests.h RectDetectorFitTest.cpp  RectDetectorFitTest.h  StandardFitsFactory.cpp  StandardFitsFactory.h)
+add_executable(FitTest FitTest.cpp IMinimizerTest.cpp  IMinimizerTest.h  MinimizerTests.cpp  MinimizerTests.h RectDetectorFitTest.cpp  RectDetectorFitTest.h  StandardFitsFactory.cpp  StandardFitsFactory.h)
 
-target_link_libraries(FitTestSuite BornAgainFit BornAgainCore BornAgainTestMachinery)
+target_link_libraries(FitTest BornAgainFit BornAgainCore BornAgainTestMachinery)
 foreach(test_case ${test_cases})
-    add_test(FitTestSuite/${test_case} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/FitTestSuite ${test_case})
+    add_test(FitTest/${test_case} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/FitTest ${test_case})
 endforeach()

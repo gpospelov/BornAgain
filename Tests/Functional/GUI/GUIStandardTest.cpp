@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/GUI/GUITestSuite.cpp
-//! @brief     Implements program GUITestSuite to run gui functional tests
+//! @file      Tests/Functional/GUI/GUIStandardTest.cpp
+//! @brief     Implements program GUIStandardTest to run gui functional tests
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,16 +17,16 @@
 #include "IStandardTest.h"
 #include "GUITest.h"
 
-class GUITestSuite : public IStandardTest
+class GUIStandardTest : public IStandardTest
 {
 public:
-    GUITestSuite() : IStandardTest("GUITestSuite") {}
+    GUIStandardTest() : IStandardTest("GUIStandardTest") {}
     IFunctionalTest* getTest() const { return new GUITest(
             getTestName(), getTestDescription(), getSimulation(), getTestThreshold()); }
 };
 
-//! The main function of GUITestTestSuite, to run functional tests
+//! The main function of GUITestStandardTest, to run functional tests
 int main(int argc, char** argv)
 {
-    return GUITestSuite().execute(argc, argv);
+    return GUIStandardTest().execute(argc, argv);
 }

@@ -28,10 +28,10 @@ class IParameterized;
 
 //! For Foo in {Core, PyCore, GUI}, the functional test mechanism is as follows:
 //!
-//! FooTestSuite is the executable obtained from
-//!   main(argv,argc) in FooTestSuite.cpp,
+//! FooStandardTest is the executable obtained from
+//!   main(argv,argc) in FooStandardTest.cpp,
 //! which runs
-//!   FooTestSuite().execute(argv,argc),
+//!   FooStandardTest().execute(argv,argc),
 //! which is inherited from here. This function,
 //!   IStandardTest::execute(argv,argc)
 //! uses argv[1] to retrieve a set of parameters from FunctionalTestRegistry.
@@ -40,7 +40,7 @@ class IParameterized;
 //!   IStandardTest::execute_subtests(argv,argc)
 //! which will call
 //!   IFunctionalTest::getTest(),
-//! which is the only nontrivial member of FooTestSuite, implemented in FooTestSuite.cpp.
+//! which is the only nontrivial member of FooStandardTest, implemented in FooStandardTest.cpp.
 //! The return value
 //!   test = new FooTest( <parameters> )
 //! is provided by FooTest.cpp.

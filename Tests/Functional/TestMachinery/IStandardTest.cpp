@@ -61,10 +61,10 @@ int IStandardTest::execute_subtests()
     // initialize subtest registry
     std::vector<std::string> subtest_names;
     ISubtestRegistry* subtest_registry;
-    if       (m_info->m_subtest_type == "FormFactorsRegistry") {
-        subtest_registry = new TestFormFactorsRegistry;
-    } else if(m_info->m_subtest_type == "FTDistributions2DRegistry") {
-        subtest_registry = new TestFTDistribution2DRegistry;
+    if       (m_info->m_subtest_type == "FormFactors") {
+        subtest_registry = new SubtestRegistryFormFactor;
+    } else if(m_info->m_subtest_type == "FTDistributions2D") {
+        subtest_registry = new SubtestRegistryFTDistribution2D;
     } else
         throw Exceptions::RuntimeErrorException("IStandardTest -> Error. "
                                     "Unknown factory '"+m_info->m_subtest_type+"'.");

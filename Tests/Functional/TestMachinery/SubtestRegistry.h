@@ -24,25 +24,25 @@ class ISubtestRegistry : public IRegistry<IParameterized>
 };
 
 // ************************************************************************** //
-//! @class TestFTDistribution2DRegistry
+//! @class SubtestRegistryFTDistribution2D
 //! @brief Registry with predefined Fourier transformed distributions, for functional tests.
 // ************************************************************************** //
 
-class TestFTDistribution2DRegistry : public ISubtestRegistry
+class SubtestRegistryFTDistribution2D : public ISubtestRegistry
 {
 public:
-    TestFTDistribution2DRegistry();
+    SubtestRegistryFTDistribution2D();
 };
 
 // ************************************************************************** //
-//! @class TestFormFactorsRegistry
+//! @class SubtestRegistryFormFactor
 //! @brief Registry with predefined form factors, for functional tests.
 // ************************************************************************** //
 
-class TestFormFactorsRegistry : public ISubtestRegistry
+class SubtestRegistryFormFactor : public ISubtestRegistry
 {
 public:
-    TestFormFactorsRegistry();
+    SubtestRegistryFormFactor();
 };
 
 #endif // SUBTESTREGISTRY_H

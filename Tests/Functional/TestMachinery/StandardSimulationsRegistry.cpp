@@ -22,14 +22,14 @@ StandardSimulationsRegistry::StandardSimulationsRegistry()
         "Test of all form factors defined",
         "MiniGISAS",
         "ParticleInTheAirBuilder",
-        "FormFactorsRegistry",
+        "FormFactors",
         2e-10);
 
     add("FormFactorsAbs",
         "Test of all form factors defined, absorption case",
         "MiniGISAS_v2",
         "LayersWithAbsorptionBuilder",
-        "FormFactorsRegistry",
+        "FormFactors",
         2e-10);
 
     add("CylindersAndPrisms",

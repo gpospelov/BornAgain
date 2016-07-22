@@ -28,7 +28,7 @@ class GISASSimulation;
 //! @ingroup standard_samples
 //! @brief Basic class for all minimizer functional tests
 
-class BA_CORE_API_ IMinimizerTest : public IFunctionalTest
+class IMinimizerTest : public IFunctionalTest
 {
 public:
     IMinimizerTest(const std::string &minimizer_name,

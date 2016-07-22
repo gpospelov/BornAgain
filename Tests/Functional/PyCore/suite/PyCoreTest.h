@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/TestMachinery/PySuiteTest.h
-//! @brief     Declares class PySuiteTest
+//! @file      Core/TestMachinery/PyCoreTest.h
+//! @brief     Declares class PyCoreTest
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -19,16 +19,18 @@
 #include "IFunctionalTest.h" // inheriting from
 #include "OutputData.h"
 
-//! @class PySuiteTest
+//! @class PyCoreTest
 //! @ingroup standard_samples
-//! @brief Test whether Python dumps yields the same image as a direct computation.
+//! @brief A functional test of PyCore (the Python wrapper of BornAgain/Core).
+//!   Performs a given standard simulation, both directly and from a Python dump.
+//!   Invoked from PyCoreStandardTest.
 
-class BA_CORE_API_ PySuiteTest : public IFunctionalTest
+class PyCoreTest : public IFunctionalTest
 {
 public:
-    PySuiteTest(const std::string& name, const std::string& description,
+    PyCoreTest(const std::string& name, const std::string& description,
                 class GISASSimulation* reference_simulation, double threshold);
-    virtual ~PySuiteTest();
+    virtual ~PyCoreTest();
 
     virtual void runTest();
     virtual int analyseResults();

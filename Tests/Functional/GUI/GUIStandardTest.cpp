@@ -17,6 +17,7 @@
 #include "IStandardTest.h"
 #include "GUITest.h"
 
+//! Provides a GUITest through a callback mechanism explained in IStandardTest.h.
 class GUIStandardTest : public IStandardTest
 {
 public:
@@ -25,7 +26,7 @@ public:
             getTestName(), getTestDescription(), getSimulation(), getTestThreshold()); }
 };
 
-//! The main function of GUITestStandardTest, to run functional tests
+//! Runs GUITest on a standard simulation indicated by argv[1].
 int main(int argc, char** argv)
 {
     return GUIStandardTest().execute(argc, argv);

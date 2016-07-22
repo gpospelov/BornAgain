@@ -20,9 +20,10 @@
 
 //! @class SimulationInfo
 //! @ingroup standard_samples
-//! @brief Contains all necessary information to compose functional test
+//! @brief Parameter set to describe a simulation example.
+//!   Used for communication from StandardSimulationsRegistry to IStandardTest.
 
-class BA_CORE_API_ SimulationInfo
+class SimulationInfo
 {
 public:
     SimulationInfo();

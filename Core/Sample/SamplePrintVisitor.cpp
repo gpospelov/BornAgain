@@ -78,9 +78,7 @@ void SamplePrintVisitor::visit(const LayerInterface* sample)
 
 void SamplePrintVisitor::visit(const MultiLayer* sample)
 {
-    m_result +=
-        "----------------------------------------"
-        "----------------------------------------\n";
+    m_result += std::string(80, '-')+"\n";
     print_default(sample);
 }
 

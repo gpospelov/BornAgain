@@ -28,7 +28,7 @@ DWBASimulation* ISample::createDWBASimulation() const
     return nullptr;
 }
 
-std::string ISample::to_str()
+std::string ISample::to_str(int indent)
 {
     SamplePrintVisitor visitor;
     VisitSampleTreePreorder(*this, visitor);

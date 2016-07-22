@@ -4087,9 +4087,12 @@ class ISample(ICloneable, IParameterized):
         return _libBornAgainCore.ISample_createDWBASimulation(self)
 
 
-    def to_str(self):
-        """to_str(ISample self) -> std::string"""
-        return _libBornAgainCore.ISample_to_str(self)
+    def to_str(self, indent=0):
+        """
+        to_str(ISample self, int indent=0) -> std::string
+        to_str(ISample self) -> std::string
+        """
+        return _libBornAgainCore.ISample_to_str(self, indent)
 
 
     def getMaterial(self):

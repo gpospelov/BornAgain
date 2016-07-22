@@ -4099,13 +4099,49 @@ class ISample(ICloneable, IParameterized):
         return _libBornAgainCore.ISample_printSampleTree(self)
 
 
+    def getMaterial(self):
+        """
+        getMaterial(ISample self) -> IMaterial
+
+        virtual const IMaterial* ISample::getMaterial() const
+
+        Returns nullptr, unless overwritten to return a specific material. 
+
+        """
+        return _libBornAgainCore.ISample_getMaterial(self)
+
+
+    def getAmbientMaterial(self):
+        """
+        getAmbientMaterial(ISample self) -> IMaterial
+
+        virtual const IMaterial* ISample::getAmbientMaterial() const
+
+        Returns nullptr, unless overwritten to return a specific material. 
+
+        """
+        return _libBornAgainCore.ISample_getAmbientMaterial(self)
+
+
+    def containedMaterials(self):
+        """
+        containedMaterials(ISample self) -> std::set< IMaterial const * >
+
+        std::set< const IMaterial * > ISample::containedMaterials() const
+
+        Returns set of materials contained in this  ISample. Must be reimplemented in derived classes that define a material. 
+
+        """
+        return _libBornAgainCore.ISample_containedMaterials(self)
+
+
     def containsMagneticMaterial(self):
         """
         containsMagneticMaterial(ISample self) -> bool
 
         bool ISample::containsMagneticMaterial() const
 
-        Indicates if this  ISample object contains a material with magnetic properties. 
+        Indicates if this  ISample object contains any material with magnetic properties. 
 
         """
         return _libBornAgainCore.ISample_containsMagneticMaterial(self)
@@ -5056,6 +5092,8 @@ class IClusteredParticles(ICompositeSample):
 
         virtual const IMaterial* IClusteredParticles::getAmbientMaterial() const =0
 
+        Returns nullptr, unless overwritten to return a specific material. 
+
         """
         return _libBornAgainCore.IClusteredParticles_getAmbientMaterial(self)
 
@@ -5158,7 +5196,9 @@ class Crystal(IClusteredParticles):
         """
         getAmbientMaterial(Crystal self) -> IMaterial
 
-        virtual const IMaterial* Crystal::getAmbientMaterial() const 
+        virtual const IMaterial* Crystal::getAmbientMaterial() const
+
+        Returns nullptr, unless overwritten to return a specific material. 
 
         """
         return _libBornAgainCore.Crystal_getAmbientMaterial(self)
@@ -14175,6 +14215,16 @@ class IMaterial(INamed):
         return _libBornAgainCore.IMaterial_isScalarMaterial(self)
 
 
+    def isMagneticMaterial(self):
+        """
+        isMagneticMaterial(IMaterial self) -> bool
+
+        bool IMaterial::isMagneticMaterial() const 
+
+        """
+        return _libBornAgainCore.IMaterial_isMagneticMaterial(self)
+
+
     def getRefractiveIndex(self):
         """
         getRefractiveIndex(IMaterial self) -> complex_t
@@ -17867,7 +17917,7 @@ class Layer(ICompositeSample):
         """
         getMaterial(Layer self) -> IMaterial
 
-        virtual const IMaterial* Layer::getMaterial() const
+        virtual const IMaterial* Layer::getMaterial() const final
 
         Returns layer's material. 
 
@@ -20539,7 +20589,7 @@ class Particle(IParticle):
         """
         setAmbientMaterial(Particle self, IMaterial material)
 
-        void Particle::setAmbientMaterial(const IMaterial &material)
+        void Particle::setAmbientMaterial(const IMaterial &material) final
 
         Sets the refractive index of the ambient material (which influences its scattering power) 
 
@@ -20551,9 +20601,9 @@ class Particle(IParticle):
         """
         getAmbientMaterial(Particle self) -> IMaterial
 
-        const IMaterial * Particle::getAmbientMaterial() const
+        virtual const IMaterial* Particle::getAmbientMaterial() const final
 
-        Returns particle's material. 
+        Returns the ambient material. 
 
         """
         return _libBornAgainCore.Particle_getAmbientMaterial(self)
@@ -20575,7 +20625,7 @@ class Particle(IParticle):
         """
         setMaterial(Particle self, IMaterial material)
 
-        void Particle::setMaterial(const IMaterial &material)
+        void Particle::setMaterial(const IMaterial &material) final
 
         Sets  material. 
 
@@ -20587,7 +20637,7 @@ class Particle(IParticle):
         """
         getMaterial(Particle self) -> IMaterial
 
-        const IMaterial * Particle::getMaterial() const
+        virtual const IMaterial* Particle::getMaterial() const final
 
         Returns particle's material. 
 
@@ -20599,7 +20649,7 @@ class Particle(IParticle):
         """
         getRefractiveIndex(Particle self) -> complex_t
 
-        complex_t Particle::getRefractiveIndex() const
+        complex_t Particle::getRefractiveIndex() const final
 
         Returns refractive index of the particle. 
 
@@ -20623,7 +20673,7 @@ class Particle(IParticle):
         """
         getFormFactor(Particle self) -> IFormFactor
 
-        const IFormFactor * Particle::getFormFactor() const
+        const IFormFactor* Particle::getFormFactor() const
 
         Returns the form factor. 
 

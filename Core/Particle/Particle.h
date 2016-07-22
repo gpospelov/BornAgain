@@ -44,29 +44,29 @@ public:
     virtual void accept(ISampleVisitor* visitor) const;
 
     //! Sets the refractive index of the ambient material (which influences its scattering power)
-    virtual void setAmbientMaterial(const IMaterial& material);
+    virtual void setAmbientMaterial(const IMaterial& material) final;
 
-    //! Returns particle's material.
-    virtual const IMaterial* getAmbientMaterial() const;
+    //! Returns the ambient material.
+    virtual const IMaterial* getAmbientMaterial() const final { return mP_ambient_material.get(); }
 
     //! Create a form factor for this particle with an extra scattering factor
-    virtual IFormFactor* createTransformedFormFactor(const IRotation* p_rotation,
-                                                     kvector_t translation) const;
+    virtual IFormFactor* createTransformedFormFactor(
+        const IRotation* p_rotation, kvector_t translation) const;
 
     //! Sets _material_.
-    virtual void setMaterial(const IMaterial& material);
+    virtual void setMaterial(const IMaterial& material) final;
 
     //! Returns particle's material.
-    virtual const IMaterial* getMaterial() const;
+    virtual const IMaterial* getMaterial() const final { return mP_material.get(); }
 
     //! Returns refractive index of the particle
-    virtual complex_t getRefractiveIndex() const;
+    virtual complex_t getRefractiveIndex() const final;
 
     //! Sets the form factor
     void setFormFactor(const IFormFactor& form_factor);
 
     //! Returns the form factor
-    const IFormFactor* getFormFactor() const;
+    const IFormFactor* getFormFactor() const { return mP_form_factor.get(); }
 
 protected:
     std::unique_ptr<IMaterial> mP_material;

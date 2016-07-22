@@ -18,7 +18,9 @@
 
 #include "IParameterized.h"
 #include "ISampleVisitor.h" // TODO rm
+#include <set>
 
+class IMaterial;
 class ISampleVisitor;
 class DWBASimulation;
 
@@ -44,8 +46,18 @@ public:
     //! Outputs the tree of parameters generated from this ISample object and its descendants.
     virtual void printSampleTree();
 
-    //! Indicates if this ISample object contains a material with magnetic properties.
-    virtual bool containsMagneticMaterial() const;
+    //! Returns nullptr, unless overwritten to return a specific material.
+    virtual const IMaterial* getMaterial() const { return nullptr; }
+
+    //! Returns nullptr, unless overwritten to return a specific material.
+    virtual const IMaterial* getAmbientMaterial() const { return nullptr; }
+
+    //! Returns set of materials contained in this ISample.
+    //! Must be reimplemented in derived classes that define a material.
+    std::set<const IMaterial*> containedMaterials() const;
+
+    //! Indicates if this ISample object contains any material with magnetic properties.
+    bool containsMagneticMaterial() const;
 
     //! Returns a vector of children (const).
     //! Default implementation returns empty vector.

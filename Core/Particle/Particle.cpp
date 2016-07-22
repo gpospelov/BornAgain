@@ -93,11 +93,6 @@ void Particle::setAmbientMaterial(const IMaterial& material)
         mP_ambient_material.reset(material.clone());
 }
 
-const IMaterial* Particle::getAmbientMaterial() const
-{
-    return mP_ambient_material.get();
-}
-
 IFormFactor* Particle::createTransformedFormFactor(const IRotation* p_rotation,
                                                    kvector_t translation) const
 {
@@ -138,11 +133,6 @@ void Particle::setMaterial(const IMaterial& material)
         mP_material.reset(material.clone());
 }
 
-const IMaterial* Particle::getMaterial() const
-{
-    return mP_material.get();
-}
-
 complex_t Particle::getRefractiveIndex() const
 {
     return mP_material ? mP_material->getRefractiveIndex() : 0.0;
@@ -156,11 +146,6 @@ void Particle::setFormFactor(const IFormFactor& form_factor)
         mP_form_factor.reset(form_factor.clone());
         registerChild(mP_form_factor.get());
     }
-}
-
-const IFormFactor* Particle::getFormFactor() const
-{
-    return mP_form_factor.get();
 }
 
 void Particle::initialize()

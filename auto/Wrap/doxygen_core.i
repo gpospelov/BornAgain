@@ -815,7 +815,9 @@ calls the  ISampleVisitor's visit method
 %feature("docstring")  Crystal::setAmbientMaterial "virtual void Crystal::setAmbientMaterial(const IMaterial &material)
 ";
 
-%feature("docstring")  Crystal::getAmbientMaterial "virtual const IMaterial* Crystal::getAmbientMaterial() const 
+%feature("docstring")  Crystal::getAmbientMaterial "virtual const IMaterial* Crystal::getAmbientMaterial() const
+
+Returns nullptr, unless overwritten to return a specific material. 
 ";
 
 %feature("docstring")  Crystal::createTotalFormFactor "IFormFactor * Crystal::createTotalFormFactor(const IFormFactor &meso_crystal_form_factor, const IRotation *p_rotation, kvector_t translation) const
@@ -5060,6 +5062,8 @@ calls the  ISampleVisitor's visit method
 ";
 
 %feature("docstring")  IClusteredParticles::getAmbientMaterial "virtual const IMaterial* IClusteredParticles::getAmbientMaterial() const =0
+
+Returns nullptr, unless overwritten to return a specific material. 
 ";
 
 %feature("docstring")  IClusteredParticles::createTotalFormFactor "virtual IFormFactor* IClusteredParticles::createTotalFormFactor(const IFormFactor &, const IRotation *, kvector_t) const =0
@@ -6267,6 +6271,9 @@ C++ includes: IMaterial.h
 Indicates whether the interaction with the material is scalar. This means that different polarization states will be diffracted equally 
 ";
 
+%feature("docstring")  IMaterial::isMagneticMaterial "bool IMaterial::isMagneticMaterial() const 
+";
+
 %feature("docstring")  IMaterial::getRefractiveIndex "virtual complex_t IMaterial::getRefractiveIndex() const
 
 Return refractive index. 
@@ -7259,9 +7266,24 @@ Returns an  ISimulation if DWBA is required.
 Outputs the tree of parameters generated from this  ISample object and its descendants. 
 ";
 
+%feature("docstring")  ISample::getMaterial "virtual const IMaterial* ISample::getMaterial() const
+
+Returns nullptr, unless overwritten to return a specific material. 
+";
+
+%feature("docstring")  ISample::getAmbientMaterial "virtual const IMaterial* ISample::getAmbientMaterial() const
+
+Returns nullptr, unless overwritten to return a specific material. 
+";
+
+%feature("docstring")  ISample::containedMaterials "std::set< const IMaterial * > ISample::containedMaterials() const
+
+Returns set of materials contained in this  ISample. Must be reimplemented in derived classes that define a material. 
+";
+
 %feature("docstring")  ISample::containsMagneticMaterial "bool ISample::containsMagneticMaterial() const
 
-Indicates if this  ISample object contains a material with magnetic properties. 
+Indicates if this  ISample object contains any material with magnetic properties. 
 ";
 
 %feature("docstring")  ISample::getChildren "std::vector< const ISample * > ISample::getChildren() const
@@ -8030,7 +8052,7 @@ Sets  material of the layer.
 Sets  material and  thickness. 
 ";
 
-%feature("docstring")  Layer::getMaterial "virtual const IMaterial* Layer::getMaterial() const
+%feature("docstring")  Layer::getMaterial "virtual const IMaterial* Layer::getMaterial() const final
 
 Returns layer's material. 
 ";
@@ -9831,14 +9853,14 @@ Returns a clone with inverted magnetic fields.
 calls the  ISampleVisitor's visit method 
 ";
 
-%feature("docstring")  Particle::setAmbientMaterial "void Particle::setAmbientMaterial(const IMaterial &material)
+%feature("docstring")  Particle::setAmbientMaterial "void Particle::setAmbientMaterial(const IMaterial &material) final
 
 Sets the refractive index of the ambient material (which influences its scattering power) 
 ";
 
-%feature("docstring")  Particle::getAmbientMaterial "const IMaterial * Particle::getAmbientMaterial() const
+%feature("docstring")  Particle::getAmbientMaterial "virtual const IMaterial* Particle::getAmbientMaterial() const final
 
-Returns particle's material. 
+Returns the ambient material. 
 ";
 
 %feature("docstring")  Particle::createTransformedFormFactor "IFormFactor * Particle::createTransformedFormFactor(const IRotation *p_rotation, kvector_t translation) const
@@ -9846,17 +9868,17 @@ Returns particle's material.
 Create a form factor for this particle with an extra scattering factor. 
 ";
 
-%feature("docstring")  Particle::setMaterial "void Particle::setMaterial(const IMaterial &material)
+%feature("docstring")  Particle::setMaterial "void Particle::setMaterial(const IMaterial &material) final
 
 Sets  material. 
 ";
 
-%feature("docstring")  Particle::getMaterial "const IMaterial * Particle::getMaterial() const
+%feature("docstring")  Particle::getMaterial "virtual const IMaterial* Particle::getMaterial() const final
 
 Returns particle's material. 
 ";
 
-%feature("docstring")  Particle::getRefractiveIndex "complex_t Particle::getRefractiveIndex() const
+%feature("docstring")  Particle::getRefractiveIndex "complex_t Particle::getRefractiveIndex() const final
 
 Returns refractive index of the particle. 
 ";
@@ -9866,7 +9888,7 @@ Returns refractive index of the particle.
 Sets the form factor. 
 ";
 
-%feature("docstring")  Particle::getFormFactor "const IFormFactor * Particle::getFormFactor() const
+%feature("docstring")  Particle::getFormFactor "const IFormFactor* Particle::getFormFactor() const
 
 Returns the form factor. 
 ";
@@ -11322,237 +11344,6 @@ C++ includes: SampleLabelHandler.h
 ";
 
 
-// File: classSampleMaterialVisitor.xml
-%feature("docstring") SampleMaterialVisitor "
-
-SampleMaterialVisitor retrieves a list of the used materials in a sample.
-
-C++ includes: SampleMaterialVisitor.h
-";
-
-%feature("docstring")  SampleMaterialVisitor::SampleMaterialVisitor "SampleMaterialVisitor::SampleMaterialVisitor()
-";
-
-%feature("docstring")  SampleMaterialVisitor::~SampleMaterialVisitor "virtual SampleMaterialVisitor::~SampleMaterialVisitor()
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const ISample *)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const ICompositeSample *)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const IClusteredParticles *)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const Crystal *)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const ILayout *)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const ParticleLayout *)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const Layer *)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const LayerInterface *)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const MultiLayer *)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const Particle *)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const ParticleDistribution *)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const ParticleComposition *)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const MesoCrystal *)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const ParticleCoreShell *)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const IFormFactor *)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorDWBAPol *)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorWeighted *)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const IFormFactorBorn *)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorAnisoPyramid *)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorBox *)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorCone *)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorCone6 *)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorCrystal *)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorCuboctahedron *)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorCylinder *)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorDodecahedron *)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorEllipsoidalCylinder *)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorFullSphere *)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorFullSpheroid *)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorGauss *)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorHemiEllipsoid *)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorIcosahedron *)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorLongBoxGauss *)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorLongBoxLorentz *)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorLorentz *)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorPrism3 *)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorPrism6 *)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorPyramid *)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorRipple1 *)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorRipple2 *)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorSphereGaussianRadius *)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorSphereLogNormalRadius *)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorTetrahedron *)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorTrivial *)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorTruncatedCube *)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorTruncatedSphere *)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorTruncatedSpheroid *)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const IFormFactorDecorator *)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorDWBA *)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorDecoratorDebyeWaller *)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorDecoratorFactor *)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorDecoratorMaterial *)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorDecoratorMultiPositionFactor *)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorDecoratorPositionFactor *)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorDecoratorRotation *)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const IInterferenceFunction *)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const InterferenceFunction1DLattice *)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const InterferenceFunctionRadialParaCrystal *)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const InterferenceFunction2DLattice *)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const InterferenceFunction2DParaCrystal *)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const InterferenceFunctionNone *)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const IRoughness *)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const LayerRoughness *)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const RotationX *)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const RotationY *)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const RotationZ *)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const RotationEuler *)
-";
-
-%feature("docstring")  SampleMaterialVisitor::getMaterials "std::vector<const IMaterial*> SampleMaterialVisitor::getMaterials() const
-
-return vector of material presented in the sample 
-";
-
-%feature("docstring")  SampleMaterialVisitor::containsMagneticMaterial "bool SampleMaterialVisitor::containsMagneticMaterial() const
-
-return true if contains magnetic materials 
-";
-
-%feature("docstring")  SampleMaterialVisitor::clear "void SampleMaterialVisitor::clear()
-
-clear state of the visitor 
-";
-
-
 // File: classSamplePrintVisitor.xml
 %feature("docstring") SamplePrintVisitor "
 
@@ -12947,10 +12738,10 @@ C++ includes: WavevectorInfo.h
 // File: namespace_0D281.xml
 
 
-// File: namespace_0D348.xml
+// File: namespace_0D346.xml
 
 
-// File: namespace_0D413.xml
+// File: namespace_0D411.xml
 
 
 // File: namespaceboost_1_1geometry.xml
@@ -14456,12 +14247,6 @@ Returns concatenated rotation (first right, then left).
 
 %feature("docstring")  VisitSampleTreePostorder "BA_CORE_API_ void VisitSampleTreePostorder(const ISample &sample, ISampleVisitor &visitor)
 ";
-
-
-// File: SampleMaterialVisitor_8cpp.xml
-
-
-// File: SampleMaterialVisitor_8h.xml
 
 
 // File: SamplePrintVisitor_8cpp.xml

@@ -30,16 +30,17 @@ class IRotation;
 class BA_CORE_API_ IMaterial : public INamed
 {
 public:
-    explicit IMaterial(const std::string &name) : INamed(name) {}
+    explicit IMaterial(const std::string& name) : INamed(name) {}
     virtual ~IMaterial() {}
     virtual IMaterial *clone() const;
 
     //! Indicates whether the interaction with the material is scalar.
-    //! This means that different polarization states will be diffracted
-    //! equally
+    //! This means that different polarization states will be diffracted equally
     virtual bool isScalarMaterial() const { return true; }
 
-    friend std::ostream &operator<<(std::ostream &ostr, const IMaterial &m)
+    bool isMagneticMaterial() const { return !isScalarMaterial(); }
+
+    friend std::ostream& operator<<(std::ostream& ostr, const IMaterial& m)
     {
         m.print(ostr);
         return ostr;
@@ -61,10 +62,10 @@ public:
 #endif
 
     //! Create a new material that is transformed with respect to this one
-    virtual const IMaterial *createTransformedMaterial(const IRotation &rotation) const;
+    virtual const IMaterial *createTransformedMaterial(const IRotation& rotation) const;
 
 protected:
-    virtual void print(std::ostream &ostr) const
+    virtual void print(std::ostream& ostr) const
     {
         ostr << "IMat:" << getName() << "<" << this << ">";
     }

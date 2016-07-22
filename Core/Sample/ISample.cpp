@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "ISample.h"
-#include "SampleMaterialVisitor.h"
+#include "IMaterial.h"
 #include "SamplePrintVisitor.h"
 
 ISample* ISample::cloneInvertB() const
@@ -34,11 +34,25 @@ void ISample::printSampleTree()
     VisitSampleTreePreorder(*this, visitor);
 }
 
+std::set<const IMaterial*> ISample::containedMaterials() const
+{
+    std::set<const IMaterial*> result;
+    if( const IMaterial* material = getMaterial() )
+        result.insert( material );
+    if( const IMaterial* material = getAmbientMaterial() )
+        result.insert( material );
+    for( const ISample* child: getChildren() )
+        for( const IMaterial* material: child->containedMaterials() )
+            result.insert( material );
+    return result;
+}
+
 bool ISample::containsMagneticMaterial() const
 {
-    SampleMaterialVisitor material_vis;
-    VisitSampleTreePreorder(*this, material_vis);
-    return material_vis.containsMagneticMaterial();
+    for( const IMaterial* material: containedMaterials() )
+        if ( material->isMagneticMaterial() )
+            return true;
+    return false;
 }
 
 std::vector<const ISample*> ISample::getChildren() const

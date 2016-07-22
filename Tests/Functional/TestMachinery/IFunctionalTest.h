@@ -21,7 +21,7 @@
 
 //! @class IFunctionalTest
 //! @ingroup standard_samples
-//! @brief Base class for all functional tests
+//! @brief Base class for all functional tests.
 
 class IFunctionalTest : public INamed
 {

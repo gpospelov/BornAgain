@@ -14,17 +14,18 @@
 // ************************************************************************** //
 
 #include "IStandardTest.h"
-#include "PySuiteTest.h"
+#include "PyCoreTest.h"
 
+//! Provides a PyCoreTest through a callback mechanism explained in IStandardTest.h.
 class PyCoreStandardTest : public IStandardTest
 {
 public:
     PyCoreStandardTest() : IStandardTest("PySuite") {}
-    IFunctionalTest* getTest() const { return new PySuiteTest(
+    IFunctionalTest* getTest() const { return new PyCoreTest(
             getTestName(), getTestDescription(), getSimulation(), getTestThreshold()); }
 };
 
-//! The main function of PySuite, to run functional tests
+//! Runs PyCoreTest on a standard simulation indicated by argv[1].
 int main(int argc, char** argv)
 {
     return PyCoreStandardTest().execute(argc, argv);

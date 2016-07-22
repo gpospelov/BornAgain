@@ -24,9 +24,10 @@ class GISASSimulation;
 
 //! @class GUITest
 //! @ingroup standard_samples
-//! @brief GUI functional test  compares results of the reference simulation with
-//! the one obtained through domain->GUI->domain convertion. Normally invoked by
-//! FunctionalMultiTest.
+//! @brief A functional test of the BornAgain GUI.
+//!   Performs a given standard simulation directly, and through domain->GUI->domain,
+//!   and compares results.
+//!   Invoked by GUIStandardTest.
 
 class GUITest : public IFunctionalTest
 {

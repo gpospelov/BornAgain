@@ -22,7 +22,7 @@
 
 //! @class StandardSimulationsRegistry
 //! @ingroup standard_samples
-//! @brief Handles info on subtests (= standard simulations), and contains hard-coded list of them.
+//! @brief Handles simulation infos, and contains hard-coded list of standard simulations.
 
 class StandardSimulationsRegistry : public ISingleton<StandardSimulationsRegistry>
 {

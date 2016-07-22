@@ -16,6 +16,7 @@
 #include "IStandardTest.h"
 #include "CoreTest.h"
 
+//! Provides a CoreTest through a callback mechanism explained in IStandardTest.h.
 class CoreStandardTest : public IStandardTest
 {
 public:
@@ -24,7 +25,7 @@ public:
             getTestName(), getTestDescription(), getSimulation(), getTestThreshold() ); }
 };
 
-//! The main function of CoreStandardTest, to run functional tests
+//! Runs CoreTest on a standard simulation indicated by argv[1].
 int main(int argc, char** argv)
 {
     return CoreStandardTest().execute(argc, argv);

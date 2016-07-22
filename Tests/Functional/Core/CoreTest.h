@@ -23,8 +23,9 @@ class GISASSimulation;
 
 //! @class CoreTest
 //! @ingroup standard_samples
-//! @brief Core functional test  compares results of the standard simulation with
-//! reference intensity data. Normally invoked by FunctionalMultiTest.
+//! @brief A functional test of BornAgain/Core.
+//!   Performs a given standard simulation, and compares results with reference data.
+//!   Invoked from CoreStandardTest.
 
 class CoreTest : public IFunctionalTest
 {

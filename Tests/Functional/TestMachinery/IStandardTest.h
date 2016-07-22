@@ -52,7 +52,7 @@ class IParameterized;
 //!   test->analyseResults() // implemented in FooTest
 //!   test->getTestResult()  // implemented in IFunctionalTest
 
-class BA_CORE_API_ IStandardTest : public INamed
+class IStandardTest : public INamed
 {
 public:
     IStandardTest(const std::string& name) : INamed(name) {}

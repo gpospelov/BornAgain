@@ -23,7 +23,7 @@
 //! @ingroup standard_samples
 //! @brief Base class for all functional tests
 
-class BA_CORE_API_ IFunctionalTest : public INamed
+class IFunctionalTest : public INamed
 {
 public:
     enum ETestResult { SUCCESS, FAILED, FAILED_DIFF, FAILED_NOREF};

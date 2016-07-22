@@ -22,7 +22,7 @@
 //! @ingroup standard_samples
 //! @brief Contains all necessary information to compose functional test
 
-class BA_CORE_API_ SimulationInfo
+class SimulationInfo
 {
 public:
     SimulationInfo();

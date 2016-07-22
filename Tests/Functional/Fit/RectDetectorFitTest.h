@@ -23,7 +23,7 @@
 //! @ingroup standard_samples
 //! @brief Fit of simulation with rectangular detector. The detector is cropped, masks are applied.
 
-class BA_CORE_API_ RectDetectorFitTest : public IMinimizerTest
+class RectDetectorFitTest : public IMinimizerTest
 {
 public:
     RectDetectorFitTest();

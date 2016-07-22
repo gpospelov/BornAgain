@@ -23,7 +23,7 @@
 //! @ingroup standard_samples
 //! @brief Test whether Python dumps yields the same image as a direct computation.
 
-class BA_CORE_API_ PySuiteTest : public IFunctionalTest
+class PySuiteTest : public IFunctionalTest
 {
 public:
     PySuiteTest(const std::string& name, const std::string& description,

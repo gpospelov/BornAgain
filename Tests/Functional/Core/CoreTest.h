@@ -26,7 +26,7 @@ class GISASSimulation;
 //! @brief Core functional test  compares results of the standard simulation with
 //! reference intensity data. Normally invoked by FunctionalMultiTest.
 
-class BA_CORE_API_ CoreTest : public IFunctionalTest
+class CoreTest : public IFunctionalTest
 {
 public:
     CoreTest(

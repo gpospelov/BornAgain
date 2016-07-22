@@ -407,7 +407,7 @@ Gets the polarization density matrix (in spin basis along z-axis)
 ";
 
 
-// File: structBin1DCVector.xml
+// File: classBin1DCVector.xml
 %feature("docstring") Bin1DCVector "
 
 An one-dimensional range of cvector_t's.
@@ -5357,6 +5357,8 @@ vector of generated values
 
 %feature("docstring")  IDistribution1D::generateValues "std::vector< double > IDistribution1D::generateValues(size_t nbr_samples, double xmin, double xmax) const
 
+Interface.
+
 generate list of sample values
 
 Parameters:
@@ -5370,6 +5372,11 @@ xmax:
 start and end value of the generated samples
 
 vector of generated values 
+";
+
+%feature("docstring")  IDistribution1D::getMeanSample "ParameterSample IDistribution1D::getMeanSample() const
+
+generate a single sample containing the mean value and weight 1 
 ";
 
 %feature("docstring")  IDistribution1D::isDelta "virtual bool IDistribution1D::isDelta() const =0
@@ -9780,7 +9787,7 @@ Returns all parameter names.
 ";
 
 
-// File: structParameterSample.xml
+// File: classParameterSample.xml
 %feature("docstring") ParameterSample "
 
 Represents a sampled parameter value with its weight.

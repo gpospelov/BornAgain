@@ -50,7 +50,7 @@ StandardSimulationsRegistry::StandardSimulationsRegistry()
         "Interference function of basic 2D paracrystal with variety of FT distributions",
         "MiniGISAS",
         "Basic2DParaCrystalBuilder",
-        "FTDistributions2DRegistry",
+        "FTDistributions2D",
         2e-10);
 
     add("HexParaCrystal",

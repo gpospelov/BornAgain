@@ -28,11 +28,13 @@ DWBASimulation* ISample::createDWBASimulation() const
     return nullptr;
 }
 
-std::string ISample::to_str(int indent)
+std::string ISample::to_str(int indent) const
 {
-    SamplePrintVisitor visitor;
-    VisitSampleTreePreorder(*this, visitor);
-    return visitor.to_str();
+    std::stringstream ss;
+    ss << std::string(4*indent, '.') << " " << getName() << " " << *getParameterPool() << "\n";
+    for( const ISample* child: getChildren() )
+        ss << child->to_str(indent+1);
+    return ss.str();
 }
 
 std::set<const IMaterial*> ISample::containedMaterials() const

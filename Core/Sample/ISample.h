@@ -44,7 +44,7 @@ public:
     virtual DWBASimulation* createDWBASimulation() const;
 
     //! Outputs the tree of parameters generated from this ISample object and its descendants.
-    std::string to_str(int indent=0);
+    std::string to_str(int indent=0) const;
 
     //! Returns nullptr, unless overwritten to return a specific material.
     virtual const IMaterial* getMaterial() const { return nullptr; }

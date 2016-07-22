@@ -51,7 +51,9 @@ void CoreTest::runTest()
     std::fstream fs("/tmp/StandardSampleTrees.txt", std::ios::out|std::ios::app);
     if( !fs )
         throw std::runtime_error("Cannot open StandardSampleTrees.txt");
+    fs << getName() << ":\n";
     fs << m_simulation->getSample()->to_str();
+    fs << "\n";
     fs.close();
 
     m_ref_filename = BA_REF_DATA_DIR + "/ref_" + getName() + ".int.gz";

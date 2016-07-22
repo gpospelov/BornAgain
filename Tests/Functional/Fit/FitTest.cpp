@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/Fit/FitSuite.cpp
-//! @brief     Implements program FitSuite to run fit functional tests
+//! @file      Tests/Functional/Fit/FitTest.cpp
+//! @brief     Implements program FitTest to run fit functional tests
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -18,7 +18,8 @@
 #include <memory>
 #include <iostream>
 
-//! The main function of CoreSuite to run functional tests
+//! Runs functional tests.
+
 int main(int argc, char **argv)
 {
     std::string test_name;

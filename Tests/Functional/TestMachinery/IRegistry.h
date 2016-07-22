@@ -24,7 +24,7 @@
 
 //! @class IRegistry
 //! @ingroup tools_internal
-//! @brief Templated object registry
+//! @brief Templated object registry.
 
 template<class ValueType>
 class IRegistry

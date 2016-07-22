@@ -19,7 +19,7 @@
 #include "Units.h"
 
 // ************************************************************************** //
-TestFTDistribution2DRegistry::TestFTDistribution2DRegistry()
+SubtestRegistryFTDistribution2D::SubtestRegistryFTDistribution2D()
 // ************************************************************************** //
 {
     add(BornAgain::FTDistribution2DCauchyType, new FTDistribution2DCauchy(0.5, 1.0));
@@ -30,7 +30,7 @@ TestFTDistribution2DRegistry::TestFTDistribution2DRegistry()
 }
 
 // ************************************************************************** //
-TestFormFactorsRegistry::TestFormFactorsRegistry()
+SubtestRegistryFormFactor::SubtestRegistryFormFactor()
 // ************************************************************************** //
 {
     add(BornAgain::FFAnisoPyramidType,

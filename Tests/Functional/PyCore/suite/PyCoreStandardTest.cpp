@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/PyCore/suite/PySuite.cpp
-//! @brief     Implements program PySuite, to run functional tests
+//! @file      Tests/Functional/PyCore/suite/PyCoreStandardTest.cpp
+//! @brief     Implements program PyCoreStandardTest, to run functional tests
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,13 +13,13 @@
 //
 // ************************************************************************** //
 
-#include "FunctionalTestSuite.h"
+#include "IStandardTest.h"
 #include "PySuiteTest.h"
 
-class PySuite : public FunctionalTestSuite
+class PyCoreStandardTest : public IStandardTest
 {
 public:
-    PySuite() { setName("PySuite"); }
+    PyCoreStandardTest() : IStandardTest("PySuite") {}
     IFunctionalTest* getTest() const { return new PySuiteTest(
             getTestName(), getTestDescription(), getSimulation(), getTestThreshold()); }
 };
@@ -27,5 +27,5 @@ public:
 //! The main function of PySuite, to run functional tests
 int main(int argc, char** argv)
 {
-    return PySuite().execute(argc, argv);
+    return PyCoreStandardTest().execute(argc, argv);
 }

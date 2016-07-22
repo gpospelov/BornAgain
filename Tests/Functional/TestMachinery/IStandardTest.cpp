@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/TestMachinery/FunctionalTestSuite.cpp
-//! @brief     Implements class FunctionalTestSuite.
+//! @file      Core/TestMachinery/IStandardTest.cpp
+//! @brief     Implements class IStandardTest.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#include "FunctionalTestSuite.h"
-#include "FunctionalTestRegistry.h"
+#include "IStandardTest.h"
+#include "StandardSimulationsRegistry.h"
 #include "GISASSimulation.h"
 #include "IFunctionalTest.h"
 #include "SampleBuilderFactory.h"
@@ -27,12 +27,12 @@
 
 //! Runs test (name given as command-line argument), and returns 0 for SUCCESS, or error code.
 
-int FunctionalTestSuite::execute(int argc, char** argv) {
+int IStandardTest::execute(int argc, char** argv) {
     // parse command-line arguments and retrieve test info from registry
     std::string test_name;
     if(argc > 1)
         test_name = std::string(argv[1]);
-    m_info = FunctionalTestRegistry::instance().getItemOrExplain(test_name, getName());
+    m_info = StandardSimulationsRegistry::instance().getItemOrExplain(test_name, getName());
     if( !m_info )
         return 1;
 
@@ -44,7 +44,7 @@ int FunctionalTestSuite::execute(int argc, char** argv) {
 
 //! Runs a single test, and returns 0 for SUCCESS, or error code.
 
-int FunctionalTestSuite::execute_onetest()
+int IStandardTest::execute_onetest()
 {
     m_test_name = m_info->m_test_name;
     IFunctionalTest* test( getTest() );
@@ -56,17 +56,17 @@ int FunctionalTestSuite::execute_onetest()
 
 //! Runs all available subtests, and returns 0 if all succeed, or 1 in case of any error.
 
-int FunctionalTestSuite::execute_subtests()
+int IStandardTest::execute_subtests()
 {
     // initialize subtest registry
     std::vector<std::string> subtest_names;
-    IRegistry<IParameterized>* subtest_registry;
-    if       (m_info->m_subtest_type == "FormFactorsRegistry") {
-        subtest_registry = new TestFormFactorsRegistry;
-    } else if(m_info->m_subtest_type == "FTDistributions2DRegistry") {
-        subtest_registry = new TestFTDistribution2DRegistry;
+    ISubtestRegistry* subtest_registry;
+    if       (m_info->m_subtest_type == "FormFactors") {
+        subtest_registry = new SubtestRegistryFormFactor;
+    } else if(m_info->m_subtest_type == "FTDistributions2D") {
+        subtest_registry = new SubtestRegistryFTDistribution2D;
     } else
-        throw Exceptions::RuntimeErrorException("FunctionalTestSuite -> Error. "
+        throw Exceptions::RuntimeErrorException("IStandardTest -> Error. "
                                     "Unknown factory '"+m_info->m_subtest_type+"'.");
     subtest_names = subtest_registry->keys();
     size_t n_subtests = subtest_names.size();
@@ -78,7 +78,7 @@ int FunctionalTestSuite::execute_subtests()
         m_subtest_item = subtest_registry->getItem(subtest_names[i]);
 
         IFunctionalTest* subtest( getTest() );
-        std::cout << "FunctionalTestSuite::execute() -> " << getName()
+        std::cout << "IStandardTest::execute() -> " << getName()
                   << " " << i+1 << "/" << n_subtests << " (" << subtest_names[i] << ")\n";
         subtest->runTest();
         subtest->analyseResults();
@@ -99,7 +99,7 @@ int FunctionalTestSuite::execute_subtests()
 //  Functions called by getTest() in *Suite.cpp
 // ************************************************************************** //
 
-GISASSimulation* FunctionalTestSuite::getSimulation() const
+GISASSimulation* IStandardTest::getSimulation() const
 {
     SimulationFactory sim_registry;
     GISASSimulation* result = sim_registry.createItem(m_info->m_simulation_name);
@@ -113,12 +113,12 @@ GISASSimulation* FunctionalTestSuite::getSimulation() const
 }
 
 //! Constructs functional test description corresponding to the current component.
-std::string FunctionalTestSuite::getTestDescription() const
+std::string IStandardTest::getTestDescription() const
 {
     return m_info->m_test_description;
 }
 
-double FunctionalTestSuite::getTestThreshold() const
+double IStandardTest::getTestThreshold() const
 {
     return m_info->m_threshold;
 }

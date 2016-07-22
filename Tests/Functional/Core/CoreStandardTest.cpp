@@ -13,19 +13,19 @@
 //
 // ************************************************************************** //
 
-#include "FunctionalTestSuite.h"
+#include "IStandardTest.h"
 #include "CoreTest.h"
 
-class CoreSuite : public FunctionalTestSuite
+class CoreStandardTest : public IStandardTest
 {
 public:
-    CoreSuite() { setName("CoreSuite"); }
+    CoreStandardTest() : IStandardTest("CoreStandardTest") {}
     IFunctionalTest* getTest() const { return new CoreTest(
             getTestName(), getTestDescription(), getSimulation(), getTestThreshold() ); }
 };
 
-//! The main function of CoreSuite, to run functional tests
+//! The main function of CoreStandardTest, to run functional tests
 int main(int argc, char** argv)
 {
-    return CoreSuite().execute(argc, argv);
+    return CoreStandardTest().execute(argc, argv);
 }

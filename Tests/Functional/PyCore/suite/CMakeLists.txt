@@ -55,10 +55,13 @@ include_directories(
     ${BornAgainCore_INCLUDE_DIRS}
     ${EIGEN3_INCLUDE_DIR}
     ${GSL_INCLUDE_DIR}
+    ${CMAKE_SOURCE_DIR}/Core/Simulation
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../TestMachinery
 )
 
-add_executable(PySuite PySuite.cpp)
-target_link_libraries(PySuite BornAgainCore)
+add_executable(PyCoreStandardTest PyCoreStandardTest.cpp PySuiteTest.h PySuiteTest.cpp)
+target_link_libraries(PyCoreStandardTest BornAgainCore BornAgainTestMachinery)
 foreach(test_case ${test_cases})
-    add_test(PySuite/${test_case} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/PySuite ${test_case})
+    add_test(PyCoreStandardTest/${test_case}
+        ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/PyCoreStandardTest ${test_case})
 endforeach()

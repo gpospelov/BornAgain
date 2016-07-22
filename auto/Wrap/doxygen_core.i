@@ -768,30 +768,6 @@ C++ includes: CoreShellParticleBuilder.h
 ";
 
 
-// File: classCoreTest.xml
-%feature("docstring") CoreTest "
-
-Core functional test compares results of the standard simulation with reference intensity data. Normally invoked by FunctionalMultiTest.
-
-C++ includes: CoreTest.h
-";
-
-%feature("docstring")  CoreTest::CoreTest "CoreTest::CoreTest(const std::string &name, const std::string &description, GISASSimulation *simulation, double threshold)
-";
-
-%feature("docstring")  CoreTest::~CoreTest "CoreTest::~CoreTest()
-";
-
-%feature("docstring")  CoreTest::runTest "void CoreTest::runTest()
-";
-
-%feature("docstring")  CoreTest::analyseResults "int CoreTest::analyseResults()
-";
-
-%feature("docstring")  CoreTest::printResults "void CoreTest::printResults(std::ostream &ostr) const 
-";
-
-
 // File: classCosineRippleBuilder.xml
 %feature("docstring") CosineRippleBuilder "
 
@@ -4312,69 +4288,6 @@ evaluate Fourier transformed distribution for q in X,Y coordinates the original 
 ";
 
 
-// File: classFunctionalTestInfo.xml
-%feature("docstring") FunctionalTestInfo "
-
-Contains all necessary information to compose functional test.
-
-C++ includes: FunctionalTestInfo.h
-";
-
-%feature("docstring")  FunctionalTestInfo::FunctionalTestInfo "FunctionalTestInfo::FunctionalTestInfo()
-";
-
-%feature("docstring")  FunctionalTestInfo::FunctionalTestInfo "FunctionalTestInfo::FunctionalTestInfo(const std::string &test_name, const std::string &test_description, const std::string &simulation_name, const std::string &sample_builder_name, const std::string &subtest_type, double threshold)
-";
-
-
-// File: classFunctionalTestRegistry.xml
-%feature("docstring") FunctionalTestRegistry "
-
-The registry which holds information about available functional tests.
-
-C++ includes: FunctionalTestRegistry.h
-";
-
-%feature("docstring")  FunctionalTestRegistry::FunctionalTestRegistry "FunctionalTestRegistry::FunctionalTestRegistry()
-";
-
-%feature("docstring")  FunctionalTestRegistry::add "void FunctionalTestRegistry::add(const std::string &test_name, const std::string &test_description, const std::string &simulation_name, const std::string &sample_builder_name, const std::string &component_registry_name, double threshold)
-";
-
-%feature("docstring")  FunctionalTestRegistry::getItemOrExplain "const FunctionalTestInfo * FunctionalTestRegistry::getItemOrExplain(const std::string &test_name, const std::string &suite_name) const 
-";
-
-%feature("docstring")  FunctionalTestRegistry::printCatalogue "void FunctionalTestRegistry::printCatalogue(std::ostream &ostr) const 
-";
-
-
-// File: classFunctionalTestSuite.xml
-%feature("docstring") FunctionalTestSuite "
-
-To execute one functional test of given name.
-
-Used in functional tests (Core|Py|GUI)Suite, where it is subclassed as a singleton, and called through instance().execute(argc, argv). When processing execute, dependent classes will call back  getTest(). Certain tests have subtests; they will call back getFormFactor() etc.
-
-C++ includes: FunctionalTestSuite.h
-";
-
-%feature("docstring")  FunctionalTestSuite::FunctionalTestSuite "FunctionalTestSuite::FunctionalTestSuite()
-";
-
-%feature("docstring")  FunctionalTestSuite::~FunctionalTestSuite "virtual FunctionalTestSuite::~FunctionalTestSuite()
-";
-
-%feature("docstring")  FunctionalTestSuite::execute "int FunctionalTestSuite::execute(int argc, char **argv)
-
-Runs test (name given as command-line argument), and returns 0 for SUCCESS, or error code. 
-";
-
-%feature("docstring")  FunctionalTestSuite::getTest "virtual IFunctionalTest* FunctionalTestSuite::getTest() const =0
-
-overloaded in (Core|Py|GUI)Suite.cpp 
-";
-
-
 // File: classGISASSimulation.xml
 %feature("docstring") GISASSimulation "";
 
@@ -5790,45 +5703,6 @@ C++ includes: FTDistributions.h
 %feature("docstring")  IFTDistribution2D::evaluate "virtual double IFTDistribution2D::evaluate(double qx, double qy) const =0
 
 evaluate Fourier transformed distribution for q in X,Y coordinates the original distribution (in real space) is assumed to be normalized: total integral is equal to 1 
-";
-
-
-// File: classIFunctionalTest.xml
-%feature("docstring") IFunctionalTest "
-
-Base class for all functional tests.
-
-C++ includes: IFunctionalTest.h
-";
-
-%feature("docstring")  IFunctionalTest::IFunctionalTest "IFunctionalTest::IFunctionalTest()
-";
-
-%feature("docstring")  IFunctionalTest::IFunctionalTest "IFunctionalTest::IFunctionalTest(const std::string &name, const std::string &description)
-";
-
-%feature("docstring")  IFunctionalTest::~IFunctionalTest "virtual IFunctionalTest::~IFunctionalTest()
-";
-
-%feature("docstring")  IFunctionalTest::runTest "virtual void IFunctionalTest::runTest()=0
-";
-
-%feature("docstring")  IFunctionalTest::analyseResults "virtual int IFunctionalTest::analyseResults()=0
-";
-
-%feature("docstring")  IFunctionalTest::getDescription "std::string IFunctionalTest::getDescription() const 
-";
-
-%feature("docstring")  IFunctionalTest::setDescription "void IFunctionalTest::setDescription(const std::string &description)
-";
-
-%feature("docstring")  IFunctionalTest::getTestResult "ETestResult IFunctionalTest::getTestResult() const 
-";
-
-%feature("docstring")  IFunctionalTest::getTestResultString "std::string IFunctionalTest::getTestResultString() const 
-";
-
-%feature("docstring")  IFunctionalTest::getFormattedInfoString "std::string IFunctionalTest::getFormattedInfoString() const 
 ";
 
 
@@ -7260,21 +7134,6 @@ C++ includes: IPixelMap.h
 ";
 
 %feature("docstring")  IPixelMap::getSolidAngle "virtual double IPixelMap::getSolidAngle() const =0
-";
-
-
-// File: classIRegistry.xml
-%feature("docstring") IRegistry "
-
-Templated object registry.
-
-C++ includes: IRegistry.h
-";
-
-%feature("docstring")  IRegistry::getItem "const ValueType* IRegistry< ValueType >::getItem(const std::string &key) const 
-";
-
-%feature("docstring")  IRegistry::keys "std::vector<std::string> IRegistry< ValueType >::keys()
 ";
 
 
@@ -10751,36 +10610,6 @@ finalize report to the simulation
 ";
 
 
-// File: classPySuiteTest.xml
-%feature("docstring") PySuiteTest "
-
-Test whether Python dumps yields the same image as a direct computation.
-
-C++ includes: PySuiteTest.h
-";
-
-%feature("docstring")  PySuiteTest::PySuiteTest "PySuiteTest::PySuiteTest(const std::string &name, const std::string &description, class GISASSimulation *reference_simulation, double threshold)
-";
-
-%feature("docstring")  PySuiteTest::~PySuiteTest "PySuiteTest::~PySuiteTest()
-";
-
-%feature("docstring")  PySuiteTest::runTest "void PySuiteTest::runTest()
-";
-
-%feature("docstring")  PySuiteTest::analyseResults "int PySuiteTest::analyseResults()
-";
-
-%feature("docstring")  PySuiteTest::getOutputData "const OutputData<double>* PySuiteTest::getOutputData() const 
-";
-
-%feature("docstring")  PySuiteTest::getDifference "double PySuiteTest::getDifference() const 
-";
-
-%feature("docstring")  PySuiteTest::printResults "void PySuiteTest::printResults(std::ostream &ostr) const 
-";
-
-
 // File: classRadialParaCrystalBuilder.xml
 %feature("docstring") RadialParaCrystalBuilder "
 
@@ -12791,30 +12620,6 @@ Returns current string.
 %feature("docstring") Utils::System "";
 
 
-// File: classTestFormFactorsRegistry.xml
-%feature("docstring") TestFormFactorsRegistry "
-
-Registry with predefined form factors, for functional tests.
-
-C++ includes: SubtestRegistry.h
-";
-
-%feature("docstring")  TestFormFactorsRegistry::TestFormFactorsRegistry "TestFormFactorsRegistry::TestFormFactorsRegistry()
-";
-
-
-// File: classTestFTDistribution2DRegistry.xml
-%feature("docstring") TestFTDistribution2DRegistry "
-
-Registry with predefined Fourier transformed distributions, for functional tests.
-
-C++ includes: SubtestRegistry.h
-";
-
-%feature("docstring")  TestFTDistribution2DRegistry::TestFTDistribution2DRegistry "TestFTDistribution2DRegistry::TestFTDistribution2DRegistry()
-";
-
-
 // File: structThreadInfo.xml
 %feature("docstring") ThreadInfo "
 
@@ -13139,9 +12944,6 @@ C++ includes: WavevectorInfo.h
 
 
 // File: namespace_0D413.xml
-
-
-// File: namespace_0D427.xml
 
 
 // File: namespaceboost_1_1geometry.xml
@@ -14925,51 +14727,6 @@ Returns concatenated rotation (first right, then left).
 // File: TwoDimLatticeBuilder_8h.xml
 
 
-// File: CoreTest_8cpp.xml
-
-
-// File: CoreTest_8h.xml
-
-
-// File: FunctionalTestInfo_8cpp.xml
-
-
-// File: FunctionalTestInfo_8h.xml
-
-
-// File: FunctionalTestRegistry_8cpp.xml
-
-
-// File: FunctionalTestRegistry_8h.xml
-
-
-// File: FunctionalTestSuite_8cpp.xml
-
-
-// File: FunctionalTestSuite_8h.xml
-
-
-// File: IFunctionalTest_8cpp.xml
-
-
-// File: IFunctionalTest_8h.xml
-
-
-// File: IRegistry_8h.xml
-
-
-// File: PySuiteTest_8cpp.xml
-
-
-// File: PySuiteTest_8h.xml
-
-
-// File: SubtestRegistry_8cpp.xml
-
-
-// File: SubtestRegistry_8h.xml
-
-
 // File: AttLimits_8cpp.xml
 
 
@@ -15110,9 +14867,6 @@ David N. Williams
 
 
 // File: dir_5d2259b43612a5a0ff7512df653d7370.xml
-
-
-// File: dir_3699ff1c9496be3df876d73b8d75bc3c.xml
 
 
 // File: dir_e120110860f9b345e7b3217e8b15cbb8.xml

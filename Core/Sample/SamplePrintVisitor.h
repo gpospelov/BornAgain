@@ -27,6 +27,7 @@ class BA_CORE_API_ SamplePrintVisitor : public ISampleVisitor
 {
 public:
     SamplePrintVisitor() {}
+    std::string to_str() { return m_result; }
 
     using ISampleVisitor::visit;
 
@@ -118,6 +119,7 @@ public:
 private:
     std::string get_indent();
     void print_default(const ISample*);
+    std::string m_result;
 };
 
 #endif // SAMPLEPRINTVISITOR_H

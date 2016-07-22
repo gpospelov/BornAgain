@@ -4087,16 +4087,9 @@ class ISample(ICloneable, IParameterized):
         return _libBornAgainCore.ISample_createDWBASimulation(self)
 
 
-    def printSampleTree(self):
-        """
-        printSampleTree(ISample self)
-
-        void ISample::printSampleTree()
-
-        Outputs the tree of parameters generated from this  ISample object and its descendants. 
-
-        """
-        return _libBornAgainCore.ISample_printSampleTree(self)
+    def to_str(self):
+        """to_str(ISample self) -> std::string"""
+        return _libBornAgainCore.ISample_to_str(self)
 
 
     def getMaterial(self):

@@ -26,6 +26,7 @@
 #include "ParticleCoreShell.h"
 #include "ParticleDistribution.h"
 #include "ParticleLayout.h"
+#include <sstream>
 
 void SamplePrintVisitor::visit(const ISample*)
 {
@@ -63,10 +64,11 @@ void SamplePrintVisitor::visit(const ParticleLayout* sample)
 
 void SamplePrintVisitor::visit(const Layer* sample)
 {
-    assert(sample);
-    std::cout << get_indent() << sample->getName() << " "
-              << (sample->getMaterial() ? sample->getMaterial()->getName() : "0_MATERIAL") << " "
-              << sample->getRefractiveIndex() << " " << *sample->getParameterPool() << std::endl;
+    std::stringstream ss;
+    ss << get_indent() << sample->getName() << " "
+       << (sample->getMaterial() ? sample->getMaterial()->getName() : "0_MATERIAL") << " "
+       << sample->getRefractiveIndex() << " " << *sample->getParameterPool() << "\n";
+    m_result += ss.str();
 }
 
 void SamplePrintVisitor::visit(const LayerInterface* sample)
@@ -76,23 +78,24 @@ void SamplePrintVisitor::visit(const LayerInterface* sample)
 
 void SamplePrintVisitor::visit(const MultiLayer* sample)
 {
-    std::cout << "----------------------------------------"
-                 "----------------------------------------" << std::endl;
+    m_result +=
+        "----------------------------------------"
+        "----------------------------------------\n";
     print_default(sample);
 }
 
 void SamplePrintVisitor::visit(const Particle* sample)
 {
-    assert(sample);
-    std::cout << get_indent() << sample->getName() << " "
-              << (sample->getMaterial() ? sample->getMaterial()->getName() : "0_MATERIAL") << " "
-              << sample->getRefractiveIndex() << std::endl;
+    std::stringstream ss;
+    ss << get_indent() << sample->getName() << " "
+       << (sample->getMaterial() ? sample->getMaterial()->getName() : "0_MATERIAL") << " "
+       << sample->getRefractiveIndex() << "\n";
+    m_result += ss.str();
 }
 
 void SamplePrintVisitor::visit(const ParticleDistribution* sample)
 {
-    assert(sample);
-    std::cout << get_indent() << sample->getName() << std::endl;
+    m_result += get_indent() + sample->getName() + "\n";
 }
 
 void SamplePrintVisitor::visit(const ParticleComposition* sample)
@@ -348,7 +351,7 @@ void SamplePrintVisitor::visit(const InterferenceFunctionRadialParaCrystal* samp
 {
     print_default(sample);
     const IFTDistribution1D* pdf = sample->getProbabilityDistribution();
-    std::cout << get_indent() << ".... pdf: " << (*pdf) << std::endl;
+    std::cout << get_indent() << ".... pdf: " << (*pdf) << "\n";
 }
 
 void SamplePrintVisitor::visit(const InterferenceFunction2DLattice* sample)
@@ -360,7 +363,9 @@ void SamplePrintVisitor::visit(const InterferenceFunction2DParaCrystal* sample)
 {
     print_default(sample);
     std::vector<const IFTDistribution2D*> pdfs = sample->getProbabilityDistributions();
-    std::cout << get_indent() << ".... pdfs: " << (*pdfs[0]) << " " << (*pdfs[1]) << std::endl;
+    std::stringstream ss;
+    ss << get_indent() << ".... pdfs: " << (*pdfs[0]) << " " << (*pdfs[1]) << "\n";
+    m_result += ss.str();
 }
 
 void SamplePrintVisitor::visit(const InterferenceFunctionNone* sample)
@@ -415,7 +420,7 @@ std::string SamplePrintVisitor::get_indent()
 //! print default sample information
 void SamplePrintVisitor::print_default(const ISample* sample)
 {
-    assert(sample);
-    std::cout << get_indent() << sample->getName() << " " << (*sample->getParameterPool())
-              << std::endl;
+    std::stringstream ss;
+    ss << get_indent() << sample->getName() << " " << *sample->getParameterPool() << "\n";
+    m_result += ss.str();
 }

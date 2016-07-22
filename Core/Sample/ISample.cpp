@@ -28,10 +28,11 @@ DWBASimulation* ISample::createDWBASimulation() const
     return nullptr;
 }
 
-void ISample::printSampleTree()
+std::string ISample::to_str()
 {
     SamplePrintVisitor visitor;
     VisitSampleTreePreorder(*this, visitor);
+    return visitor.to_str();
 }
 
 std::set<const IMaterial*> ISample::containedMaterials() const

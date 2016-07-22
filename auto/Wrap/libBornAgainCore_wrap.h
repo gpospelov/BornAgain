@@ -107,7 +107,6 @@ public:
     virtual ISample *cloneInvertB() const;
     virtual void accept(ISampleVisitor *p_visitor) const;
     virtual DWBASimulation *createDWBASimulation() const;
-    virtual void printSampleTree();
     virtual IMaterial const *getMaterial() const;
     virtual IMaterial const *getAmbientMaterial() const;
     virtual std::vector< ISample const *,std::allocator< ISample const * > > getChildren() const;
@@ -142,7 +141,7 @@ private:
       return method;
     }
 private:
-    mutable swig::SwigVar_PyObject vtable[12];
+    mutable swig::SwigVar_PyObject vtable[11];
 #endif
 
 };
@@ -218,7 +217,6 @@ public:
     virtual ISample *cloneInvertB() const;
     virtual void accept(ISampleVisitor *visitor) const;
     virtual DWBASimulation *createDWBASimulation() const;
-    virtual void printSampleTree();
     virtual IMaterial const *getMaterial() const;
     virtual IMaterial const *getAmbientMaterial() const;
     virtual std::vector< ISample const *,std::allocator< ISample const * > > getChildren() const;
@@ -258,7 +256,7 @@ private:
       return method;
     }
 private:
-    mutable swig::SwigVar_PyObject vtable[17];
+    mutable swig::SwigVar_PyObject vtable[16];
 #endif
 
 };
@@ -283,7 +281,6 @@ public:
     virtual ISample *cloneInvertB() const;
     virtual void accept(ISampleVisitor *visitor) const;
     virtual DWBASimulation *createDWBASimulation() const;
-    virtual void printSampleTree();
     virtual IMaterial const *getMaterial() const;
     virtual IMaterial const *getAmbientMaterial() const;
     virtual std::vector< ISample const *,std::allocator< ISample const * > > getChildren() const;
@@ -328,7 +325,7 @@ private:
       return method;
     }
 private:
-    mutable swig::SwigVar_PyObject vtable[19];
+    mutable swig::SwigVar_PyObject vtable[18];
 #endif
 
 };

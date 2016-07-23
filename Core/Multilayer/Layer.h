@@ -48,6 +48,9 @@ public:
     //! Calls the ISampleVisitor's visit method
     virtual void accept(class ISampleVisitor* visitor) const;
 
+    //! Returns textual representation of *this and its descendants.
+    virtual std::string to_str(int indent=0) const;
+
     //! Sets layer thickness in nanometers.
     virtual void setThickness(double thickness);
 

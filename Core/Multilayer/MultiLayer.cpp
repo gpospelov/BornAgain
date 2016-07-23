@@ -39,6 +39,11 @@ void MultiLayer::accept(ISampleVisitor *visitor) const
     visitor->visit(this);
 }
 
+std::string MultiLayer::to_str(int indent) const
+{
+    return std::string(80, '-') + "\n" + ISample::to_str(indent);
+}
+
 void MultiLayer::init_parameters()
 {
     clearParameterPool();

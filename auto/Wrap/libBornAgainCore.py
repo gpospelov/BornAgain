@@ -16598,6 +16598,14 @@ class InterferenceFunctionRadialParaCrystal(IInterferenceFunction):
         return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_accept(self, visitor)
 
 
+    def to_str(self, indent=0):
+        """
+        to_str(InterferenceFunctionRadialParaCrystal self, int indent=0) -> std::string
+        to_str(InterferenceFunctionRadialParaCrystal self) -> std::string
+        """
+        return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_to_str(self, indent)
+
+
     def setDomainSize(self, size):
         """
         setDomainSize(InterferenceFunctionRadialParaCrystal self, double size)
@@ -16960,6 +16968,14 @@ class InterferenceFunction2DParaCrystal(IInterferenceFunction):
 
         """
         return _libBornAgainCore.InterferenceFunction2DParaCrystal_accept(self, visitor)
+
+
+    def to_str(self, indent=0):
+        """
+        to_str(InterferenceFunction2DParaCrystal self, int indent=0) -> std::string
+        to_str(InterferenceFunction2DParaCrystal self) -> std::string
+        """
+        return _libBornAgainCore.InterferenceFunction2DParaCrystal_to_str(self, indent)
 
 
     def createSquare(peak_distance, damping_length=0.0, domain_size_1=0.0, domain_size_2=0.0):
@@ -17859,6 +17875,14 @@ class Layer(ICompositeSample):
 
         """
         return _libBornAgainCore.Layer_accept(self, visitor)
+
+
+    def to_str(self, indent=0):
+        """
+        to_str(Layer self, int indent=0) -> std::string
+        to_str(Layer self) -> std::string
+        """
+        return _libBornAgainCore.Layer_to_str(self, indent)
 
 
     def setThickness(self, thickness):
@@ -18917,6 +18941,14 @@ class MultiLayer(ICompositeSample):
 
         """
         return _libBornAgainCore.MultiLayer_accept(self, visitor)
+
+
+    def to_str(self, indent=0):
+        """
+        to_str(MultiLayer self, int indent=0) -> std::string
+        to_str(MultiLayer self) -> std::string
+        """
+        return _libBornAgainCore.MultiLayer_to_str(self, indent)
 
 
     def getNumberOfLayers(self):
@@ -20581,6 +20613,14 @@ class Particle(IParticle):
         return _libBornAgainCore.Particle_accept(self, visitor)
 
 
+    def to_str(self, indent=0):
+        """
+        to_str(Particle self, int indent=0) -> std::string
+        to_str(Particle self) -> std::string
+        """
+        return _libBornAgainCore.Particle_to_str(self, indent)
+
+
     def setAmbientMaterial(self, material):
         """
         setAmbientMaterial(Particle self, IMaterial material)
@@ -21046,6 +21086,14 @@ class ParticleDistribution(IAbstractParticle):
 
         """
         return _libBornAgainCore.ParticleDistribution_accept(self, visitor)
+
+
+    def to_str(self, indent=0):
+        """
+        to_str(ParticleDistribution self, int indent=0) -> std::string
+        to_str(ParticleDistribution self) -> std::string
+        """
+        return _libBornAgainCore.ParticleDistribution_to_str(self, indent)
 
 
     def setAmbientMaterial(self, material):

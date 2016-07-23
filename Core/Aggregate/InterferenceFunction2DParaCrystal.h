@@ -47,6 +47,9 @@ public:
 
     virtual void accept(ISampleVisitor* visitor) const;
 
+    //! Returns textual representation of *this and its descendants.
+    virtual std::string to_str(int indent=0) const;
+
     static InterferenceFunction2DParaCrystal* createSquare(double peak_distance,
                                                            double damping_length = 0.0,
                                                            double domain_size_1 = 0.0,

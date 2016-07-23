@@ -107,6 +107,7 @@ public:
     virtual ISample *cloneInvertB() const;
     virtual void accept(ISampleVisitor *p_visitor) const;
     virtual DWBASimulation *createDWBASimulation() const;
+    virtual std::string to_str(int indent = 0) const;
     virtual IMaterial const *getMaterial() const;
     virtual IMaterial const *getAmbientMaterial() const;
     virtual std::vector< ISample const *,std::allocator< ISample const * > > getChildren() const;
@@ -141,7 +142,7 @@ private:
       return method;
     }
 private:
-    mutable swig::SwigVar_PyObject vtable[11];
+    mutable swig::SwigVar_PyObject vtable[13];
 #endif
 
 };
@@ -217,6 +218,7 @@ public:
     virtual ISample *cloneInvertB() const;
     virtual void accept(ISampleVisitor *visitor) const;
     virtual DWBASimulation *createDWBASimulation() const;
+    virtual std::string to_str(int indent = 0) const;
     virtual IMaterial const *getMaterial() const;
     virtual IMaterial const *getAmbientMaterial() const;
     virtual std::vector< ISample const *,std::allocator< ISample const * > > getChildren() const;
@@ -256,7 +258,7 @@ private:
       return method;
     }
 private:
-    mutable swig::SwigVar_PyObject vtable[16];
+    mutable swig::SwigVar_PyObject vtable[18];
 #endif
 
 };
@@ -281,6 +283,7 @@ public:
     virtual ISample *cloneInvertB() const;
     virtual void accept(ISampleVisitor *visitor) const;
     virtual DWBASimulation *createDWBASimulation() const;
+    virtual std::string to_str(int indent = 0) const;
     virtual IMaterial const *getMaterial() const;
     virtual IMaterial const *getAmbientMaterial() const;
     virtual std::vector< ISample const *,std::allocator< ISample const * > > getChildren() const;
@@ -325,7 +328,7 @@ private:
       return method;
     }
 private:
-    mutable swig::SwigVar_PyObject vtable[18];
+    mutable swig::SwigVar_PyObject vtable[20];
 #endif
 
 };

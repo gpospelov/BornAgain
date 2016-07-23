@@ -69,6 +69,17 @@ void InterferenceFunction2DParaCrystal::accept(ISampleVisitor* visitor) const
     visitor->visit(this);
 }
 
+std::string InterferenceFunction2DParaCrystal::to_str(int indent) const
+{
+    std::stringstream ss;
+    ss << std::string(4*indent, '.') << " " << getName() << " " << *getParameterPool() << "\n";
+    std::vector<const IFTDistribution2D*> pdfs = getProbabilityDistributions();
+    ss << std::string(4*(indent+1), '.') << " pdfs: " << *pdfs[0] << " " << *pdfs[1] << "\n";
+    for( const ISample* child: getChildren() )
+        ss << child->to_str(indent+1);
+    return ss.str();
+}
+
 void InterferenceFunction2DParaCrystal::setProbabilityDistributions(
         const IFTDistribution2D& pdf_1, const IFTDistribution2D& pdf_2)
 {

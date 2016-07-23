@@ -4091,6 +4091,11 @@ class ISample(ICloneable, IParameterized):
         """
         to_str(ISample self, int indent=0) -> std::string
         to_str(ISample self) -> std::string
+
+        std::string ISample::to_str(int indent=0) const
+
+        Returns textual representation of *this and its descendants. 
+
         """
         return _libBornAgainCore.ISample_to_str(self, indent)
 
@@ -16602,6 +16607,11 @@ class InterferenceFunctionRadialParaCrystal(IInterferenceFunction):
         """
         to_str(InterferenceFunctionRadialParaCrystal self, int indent=0) -> std::string
         to_str(InterferenceFunctionRadialParaCrystal self) -> std::string
+
+        std::string InterferenceFunctionRadialParaCrystal::to_str(int indent=0) const
+
+        Returns textual representation of *this and its descendants. 
+
         """
         return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_to_str(self, indent)
 
@@ -16974,6 +16984,11 @@ class InterferenceFunction2DParaCrystal(IInterferenceFunction):
         """
         to_str(InterferenceFunction2DParaCrystal self, int indent=0) -> std::string
         to_str(InterferenceFunction2DParaCrystal self) -> std::string
+
+        std::string InterferenceFunction2DParaCrystal::to_str(int indent=0) const
+
+        Returns textual representation of *this and its descendants. 
+
         """
         return _libBornAgainCore.InterferenceFunction2DParaCrystal_to_str(self, indent)
 
@@ -17881,6 +17896,11 @@ class Layer(ICompositeSample):
         """
         to_str(Layer self, int indent=0) -> std::string
         to_str(Layer self) -> std::string
+
+        std::string Layer::to_str(int indent=0) const
+
+        Returns textual representation of *this and its descendants. 
+
         """
         return _libBornAgainCore.Layer_to_str(self, indent)
 
@@ -18947,6 +18967,11 @@ class MultiLayer(ICompositeSample):
         """
         to_str(MultiLayer self, int indent=0) -> std::string
         to_str(MultiLayer self) -> std::string
+
+        std::string MultiLayer::to_str(int indent=0) const
+
+        Returns textual representation of *this and its descendants. 
+
         """
         return _libBornAgainCore.MultiLayer_to_str(self, indent)
 
@@ -20617,6 +20642,11 @@ class Particle(IParticle):
         """
         to_str(Particle self, int indent=0) -> std::string
         to_str(Particle self) -> std::string
+
+        std::string Particle::to_str(int indent=0) const
+
+        Returns textual representation of *this and its descendants. 
+
         """
         return _libBornAgainCore.Particle_to_str(self, indent)
 
@@ -21092,6 +21122,11 @@ class ParticleDistribution(IAbstractParticle):
         """
         to_str(ParticleDistribution self, int indent=0) -> std::string
         to_str(ParticleDistribution self) -> std::string
+
+        std::string ParticleDistribution::to_str(int indent=0) const
+
+        Returns textual representation of *this and its descendants. 
+
         """
         return _libBornAgainCore.ParticleDistribution_to_str(self, indent)
 

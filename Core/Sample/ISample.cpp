@@ -15,7 +15,6 @@
 
 #include "ISample.h"
 #include "IMaterial.h"
-#include "SamplePrintVisitor.h"
 
 ISample* ISample::cloneInvertB() const
 {

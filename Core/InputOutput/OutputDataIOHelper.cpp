@@ -19,6 +19,7 @@
 #include "FileSystem.h"
 #include "OutputData.h"
 #include "Utils.h"
+#include <iterator>
 #include <iostream>
 
 bool OutputDataIOHelper::isCompressed(const std::string& name)

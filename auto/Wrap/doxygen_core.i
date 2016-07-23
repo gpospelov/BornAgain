@@ -7870,6 +7870,49 @@ C++ includes: FastVector.h
 ";
 
 
+// File: classLabelMap.xml
+%feature("docstring") LabelMap "";
+
+%feature("docstring")  LabelMap::LabelMap "LabelMap< Key >::LabelMap()
+";
+
+%feature("docstring")  LabelMap::~LabelMap "virtual LabelMap< Key >::~LabelMap()
+";
+
+%feature("docstring")  LabelMap::clear "void LabelMap< Key >::clear()
+";
+
+%feature("docstring")  LabelMap::begin "const_iterator LabelMap< Key >::begin() const 
+";
+
+%feature("docstring")  LabelMap::end "const_iterator LabelMap< Key >::end() const 
+";
+
+%feature("docstring")  LabelMap::begin "iterator LabelMap< Key >::begin()
+";
+
+%feature("docstring")  LabelMap::end "iterator LabelMap< Key >::end()
+";
+
+%feature("docstring")  LabelMap::size "size_t LabelMap< Key >::size()
+";
+
+%feature("docstring")  LabelMap::insert "void LabelMap< Key >::insert(const Key &key, const std::string &object)
+";
+
+%feature("docstring")  LabelMap::find "const iterator LabelMap< Key >::find(const Key &key) const 
+";
+
+%feature("docstring")  LabelMap::find "iterator LabelMap< Key >::find(const Key &key)
+";
+
+%feature("docstring")  LabelMap::erase "size_t LabelMap< Key >::erase(const Key &key)
+";
+
+%feature("docstring")  LabelMap::value "const std::string& LabelMap< Key >::value(const Key &key)
+";
+
+
 // File: classLargeCylindersInDWBABuilder.xml
 %feature("docstring") LargeCylindersInDWBABuilder "
 
@@ -9117,54 +9160,6 @@ Adds parameters from local pool to external pool and recursively calls its direc
 %feature("docstring") OMPISimulation "";
 
 %feature("docstring")  OMPISimulation::runSimulation "void OMPISimulation::runSimulation(Simulation *simulation)
-";
-
-
-// File: classUtils_1_1OrderedMap.xml
-%feature("docstring") Utils::OrderedMap "
-
-Ordered map which saves the order of insertion.
-
-C++ includes: Utils.h
-";
-
-%feature("docstring")  Utils::OrderedMap::OrderedMap "Utils::OrderedMap< Key, Object >::OrderedMap()
-";
-
-%feature("docstring")  Utils::OrderedMap::~OrderedMap "virtual Utils::OrderedMap< Key, Object >::~OrderedMap()
-";
-
-%feature("docstring")  Utils::OrderedMap::clear "void Utils::OrderedMap< Key, Object >::clear()
-";
-
-%feature("docstring")  Utils::OrderedMap::begin "const_iterator Utils::OrderedMap< Key, Object >::begin() const 
-";
-
-%feature("docstring")  Utils::OrderedMap::end "const_iterator Utils::OrderedMap< Key, Object >::end() const 
-";
-
-%feature("docstring")  Utils::OrderedMap::begin "iterator Utils::OrderedMap< Key, Object >::begin()
-";
-
-%feature("docstring")  Utils::OrderedMap::end "iterator Utils::OrderedMap< Key, Object >::end()
-";
-
-%feature("docstring")  Utils::OrderedMap::size "size_t Utils::OrderedMap< Key, Object >::size()
-";
-
-%feature("docstring")  Utils::OrderedMap::insert "void Utils::OrderedMap< Key, Object >::insert(const Key &key, const Object &object)
-";
-
-%feature("docstring")  Utils::OrderedMap::find "const iterator Utils::OrderedMap< Key, Object >::find(const Key &key) const 
-";
-
-%feature("docstring")  Utils::OrderedMap::find "iterator Utils::OrderedMap< Key, Object >::find(const Key &key)
-";
-
-%feature("docstring")  Utils::OrderedMap::erase "size_t Utils::OrderedMap< Key, Object >::erase(const Key &key)
-";
-
-%feature("docstring")  Utils::OrderedMap::value "const Object& Utils::OrderedMap< Key, Object >::value(const Key &key)
 ";
 
 
@@ -11257,7 +11252,7 @@ Retrieves a SampleBuilder from the registry, does the build, and returns the res
 // File: classSampleLabelHandler.xml
 %feature("docstring") SampleLabelHandler "
 
-The hadler which construct labels for sample variables during python script generation.
+The handler which construct labels for sample variables during python script generation.
 
 C++ includes: SampleLabelHandler.h
 ";

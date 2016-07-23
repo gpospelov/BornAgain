@@ -15,6 +15,7 @@
 
 #include "IFunctionalTest.h"
 #include "Utils.h"
+#include <sstream>
 
 namespace {
 

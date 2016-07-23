@@ -288,5 +288,5 @@ bool SampleLabelHandler::definesSameMaterial(const IMaterial* left, const IMater
         return false;
     }
     // Return false if one material is magnetic and the other one not
-    else return false;
+    return false;
 }

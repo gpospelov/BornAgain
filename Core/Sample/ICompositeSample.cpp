@@ -16,6 +16,7 @@
 #include "ICompositeSample.h"
 #include "ISampleVisitor.h"
 #include "Utils.h"
+#include <algorithm>
 
 ICompositeSample::~ICompositeSample() {}
 

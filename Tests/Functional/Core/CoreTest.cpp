@@ -21,10 +21,6 @@
 #include "TestConfig.h"
 #include "Utils.h"
 
-#include "ISample.h"
-#include <fstream>
-#include <stdexcept>
-
 CoreTest::CoreTest(
     const std::string& name, const std::string& description, GISASSimulation* simulation,
     double threshold)
@@ -47,14 +43,6 @@ void CoreTest::runTest()
         throw Exceptions::NullPointerException(
             "CoreTest::runTest() -> Error. Uninitialized simulation object.");
     m_simulation->runSimulation();
-    // Provionally, write sample tree to file
-    std::fstream fs("/tmp/StandardSampleTrees.txt", std::ios::out|std::ios::app);
-    if( !fs )
-        throw std::runtime_error("Cannot open StandardSampleTrees.txt");
-    fs << getName() << ":\n";
-    fs << m_simulation->getSample()->to_str();
-    fs << "\n";
-    fs.close();
 
     m_ref_filename = BA_REF_DATA_DIR + "/ref_" + getName() + ".int.gz";
     try {

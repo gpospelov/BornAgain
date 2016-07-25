@@ -169,7 +169,6 @@ public:
     void setLabel(const ParticleDistribution* sample);
 
 private:
-    bool definesSameMaterial(const IMaterial* left, const IMaterial* right) const;
     formfactors_t m_FormFactorLabel;
     interferences_t m_InterferenceFunctionLabel;
     layers_t m_LayerLabel;

@@ -158,7 +158,7 @@ SampleLabelHandler::rotations_t* SampleLabelHandler::getRotationsMap()
 void SampleLabelHandler::insertMaterial(const IMaterial* sample)
 {
     for (auto it=m_MaterialLabel.begin(); it!=m_MaterialLabel.end(); ++it) {
-        if(definesSameMaterial(it->first, sample) ) {
+        if(pEqual(it->first, sample) ) {
             m_MaterialLabel.insert(sample, it->second);
             return;
         }
@@ -248,37 +248,4 @@ void SampleLabelHandler::setLabel(const IRotation* sample)
     std::ostringstream inter;
     inter << "rotation_" << m_RotationsLabel.size()+1;
     m_RotationsLabel.insert(sample, inter.str());
-}
-
-
-bool SampleLabelHandler::definesSameMaterial(const IMaterial* left, const IMaterial* right) const
-{
-    // Non-magnetic materials
-    if (left->isScalarMaterial() && right->isScalarMaterial()) {
-        if (left->getName() == right->getName() &&
-            left->getRefractiveIndex() == right->getRefractiveIndex() ) {
-            return true;
-        }
-        return false;
-    }
-    // Magnetic materials TODO
-    else if (!left->isScalarMaterial() && !right->isScalarMaterial()) {
-        const HomogeneousMagneticMaterial* p_left =
-                dynamic_cast<const HomogeneousMagneticMaterial*>(left);
-        const HomogeneousMagneticMaterial* p_right =
-                dynamic_cast<const HomogeneousMagneticMaterial*>(right);
-        if (!p_left || !p_right) {
-            throw Exceptions::RuntimeErrorException(
-                "SampleLabelHandler::definesSameMaterial: "
-                "non-scalar materials should be of type HomogeneousMagneticMaterial");
-        }
-        if (p_left->getName() == p_right->getName() &&
-            p_left->getRefractiveIndex() == p_right->getRefractiveIndex() &&
-            p_left->getMagneticField() == p_right->getMagneticField() ) {
-            return true;
-        }
-        return false;
-    }
-    // Return false if one material is magnetic and the other one not
-    return false;
 }

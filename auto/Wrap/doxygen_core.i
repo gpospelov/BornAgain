@@ -12417,13 +12417,13 @@ C++ includes: WavevectorInfo.h
 // File: classMathFunctions_1_1Convolve_1_1Workspace.xml
 
 
-// File: namespace_0D281.xml
+// File: namespace_0D267.xml
 
 
-// File: namespace_0D348.xml
+// File: namespace_0D337.xml
 
 
-// File: namespace_0D413.xml
+// File: namespace_0D403.xml
 
 
 // File: namespaceboost_1_1geometry.xml
@@ -12969,19 +12969,10 @@ Returns exp(I*z), where I is the imaginary unit.
 ";
 
 
-// File: CumulativeValue_8h.xml
-
-
 // File: Exceptions_8cpp.xml
 
 
 // File: Exceptions_8h.xml
-
-
-// File: FileSystem_8cpp.xml
-
-
-// File: FileSystem_8h.xml
 
 
 // File: ICloneable_8h.xml
@@ -12999,55 +12990,10 @@ Returns exp(I*z), where I is the imaginary unit.
 // File: Macros_8h.xml
 
 
-// File: MessageService_8cpp.xml
-
-
-// File: MessageService_8h.xml
-
-
-// File: Numeric_8cpp.xml
-
-
-// File: Numeric_8h.xml
-
-
-// File: NumpyUtils_8cpp.xml
-
-
-// File: NumpyUtils_8h.xml
-
-
-// File: Precomputed_8cpp.xml
-
-
-// File: Precomputed_8h.xml
-
-
 // File: SafePointerVector_8h.xml
 
 
-// File: SimulationOptions_8cpp.xml
-
-
-// File: SimulationOptions_8h.xml
-
-
-// File: ThreadInfo_8h.xml
-
-
 // File: Units_8h.xml
-
-
-// File: Utils_8cpp.xml
-
-
-// File: Utils_8h.xml
-
-
-// File: VDouble_8h.xml
-
-
-// File: w32pragma_8h.xml
 
 
 // File: WinDllMacros_8h.xml
@@ -13435,6 +13381,18 @@ The mathematics implemented here is described in full detail in a paper by Joach
 
 
 // File: ConvolutionDetectorResolution_8h.xml
+
+
+// File: Convolve_8cpp.xml
+
+
+// File: Convolve_8h.xml
+
+
+// File: CumulativeValue_8cpp.xml
+
+
+// File: CumulativeValue_8h.xml
 
 
 // File: DetectorMask_8cpp.xml
@@ -13826,6 +13784,15 @@ Set all element intensities to given value.
 // File: RealParameterWrapper_8h.xml
 
 
+// File: SimulationOptions_8cpp.xml
+
+
+// File: SimulationOptions_8h.xml
+
+
+// File: ThreadInfo_8h.xml
+
+
 // File: Crystal_8cpp.xml
 
 
@@ -14099,6 +14066,11 @@ Returns concatenated rotation (first right, then left).
 // File: CylindersBuilder_8h.xml
 
 
+// File: IFactory_8h.xml
+%feature("docstring")  create_new "T* create_new()
+";
+
+
 // File: LatticeBuilder_8cpp.xml
 
 
@@ -14207,13 +14179,10 @@ Returns concatenated rotation (first right, then left).
 // File: TwoDimLatticeBuilder_8h.xml
 
 
-// File: Convolve_8cpp.xml
+// File: FileSystem_8cpp.xml
 
 
-// File: Convolve_8h.xml
-
-
-// File: CumulativeValue_8cpp.xml
+// File: FileSystem_8h.xml
 
 
 // File: fp__exception__glibc__extension_8h.xml
@@ -14230,11 +14199,6 @@ David N. Williams
 ";
 
 %feature("docstring")  fhdl "void fhdl(int sig, siginfo_t *sip, ucontext_t *scp)
-";
-
-
-// File: IFactory_8h.xml
-%feature("docstring")  create_new "T* create_new()
 ";
 
 
@@ -14257,6 +14221,39 @@ David N. Williams
 
 
 // File: MathFunctions_8h.xml
+
+
+// File: MessageService_8cpp.xml
+
+
+// File: MessageService_8h.xml
+
+
+// File: Numeric_8cpp.xml
+
+
+// File: Numeric_8h.xml
+
+
+// File: NumpyUtils_8cpp.xml
+
+
+// File: NumpyUtils_8h.xml
+
+
+// File: Precomputed_8cpp.xml
+
+
+// File: Precomputed_8h.xml
+
+
+// File: Utils_8cpp.xml
+
+
+// File: Utils_8h.xml
+
+
+// File: w32pragma_8h.xml
 
 
 // File: BasicVector3D_8cpp.xml

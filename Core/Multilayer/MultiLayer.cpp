@@ -20,6 +20,7 @@
 #include "Materials.h"
 #include "MessageService.h"
 #include "MultiLayerDWBASimulation.h"
+#include "ParameterPool.h"
 
 using namespace BornAgain;
 
@@ -46,7 +47,7 @@ std::string MultiLayer::to_str(int indent) const
 
 void MultiLayer::init_parameters()
 {
-    clearParameterPool();  // non-trivially needed
+    getParameterPool()->clear(); // non-trivially needed
     registerParameter(CrossCorrelationLength, &m_crossCorrLength);
 }
 
@@ -60,7 +61,7 @@ void MultiLayer::clear() // TODO: understand need
 
     m_layers_z.clear();
 
-    clearParameterPool();
+    getParameterPool()->clear(); // non-trivially needed
 }
 
 MultiLayer *MultiLayer::clone() const

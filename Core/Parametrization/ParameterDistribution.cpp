@@ -39,7 +39,6 @@ ParameterDistribution::ParameterDistribution(const std::string &par_name,
                     "ParameterDistribution::ParameterDistribution() -> Error."
                     "Number of samples can't be zero.");
     }
-    init_parameters();
 }
 
 ParameterDistribution::ParameterDistribution(const std::string &par_name,
@@ -68,7 +67,6 @@ ParameterDistribution::ParameterDistribution(const std::string &par_name,
                     "ParameterDistribution::ParameterDistribution() -> Error."
                     "xmin>=xmax");
     }
-    init_parameters();
 }
 
 
@@ -83,7 +81,6 @@ ParameterDistribution::ParameterDistribution(const ParameterDistribution& other)
     , m_xmax(other.m_xmax)
 {
     mP_distribution.reset(other.mP_distribution->clone());
-    init_parameters();
 }
 
 ParameterDistribution::~ParameterDistribution()
@@ -102,7 +99,6 @@ ParameterDistribution& ParameterDistribution::operator=(
         m_limits = other.m_limits;
         m_xmin = other.m_xmin;
         m_xmax = other.m_xmax;
-        init_parameters();
     }
     return *this;
 }
@@ -122,16 +118,10 @@ size_t ParameterDistribution::getNbrSamples() const
 
 std::vector<ParameterSample> ParameterDistribution::generateSamples() const
 {
-    if(m_xmin < m_xmax) {
+    if(m_xmin < m_xmax)
         return mP_distribution->generateSamples(m_nbr_samples, m_xmin, m_xmax);
-    } else {
+    else
         return mP_distribution->generateSamples(m_nbr_samples, m_sigma_factor, m_limits);
-    }
-}
-
-void ParameterDistribution::init_parameters()
-{
-    clearParameterPool();
 }
 
 const IDistribution1D* ParameterDistribution::getDistribution() const

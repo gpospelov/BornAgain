@@ -1907,18 +1907,6 @@ class IParameterized(INamed):
         return _libBornAgainCore.IParameterized_getParameter(self, name)
 
 
-    def clearParameterPool(self):
-        """
-        clearParameterPool(IParameterized self)
-
-        void IParameterized::clearParameterPool()
-
-        Clears the parameter pool. 
-
-        """
-        return _libBornAgainCore.IParameterized_clearParameterPool(self)
-
-
     def onChange(self):
         """onChange(IParameterized self)"""
         return _libBornAgainCore.IParameterized_onChange(self)

@@ -66,9 +66,6 @@ public:
     double getMinValue() const { return m_xmin; }
     double getMaxValue() const { return m_xmax; }
 
-protected:
-    //! Registers some class members for later access via parameter pool
-    virtual void init_parameters();
 private:
     std::string m_name;
     std::unique_ptr<IDistribution1D> mP_distribution;

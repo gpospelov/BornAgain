@@ -37,7 +37,7 @@ public:
     IParameterized& operator=(const IParameterized& other) = delete;
 
     //! Returns pointer to the parameter pool.
-    const ParameterPool* getParameterPool() const { return m_parameters; }
+    ParameterPool* getParameterPool() const { return m_parameters; }
 
     //! Creates new parameter pool, with all local parameters and those of its children.
     ParameterPool* createParameterTree();
@@ -48,8 +48,6 @@ public:
     void setParameterValue(const std::string& name, double value);
 
     RealParameterWrapper getParameter(const std::string& name) const;
-
-    void clearParameterPool();
 
     friend std::ostream& operator<<(std::ostream& ostr, const IParameterized& m) {
         m.print(ostr);

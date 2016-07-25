@@ -156,7 +156,7 @@ size_t Layer::getNumberOfLayouts() const {
 
 void Layer::init_parameters()
 {
-    clearParameterPool(); // non-trivially needed
+    getParameterPool()->clear(); // non-trivially needed
     registerParameter(Thickness, &m_thickness);
 }
 

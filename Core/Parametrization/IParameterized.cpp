@@ -18,6 +18,17 @@
 #include <memory>
 #include <sstream>
 
+IParameterized::IParameterized(const std::string& name)
+    : INamed(name)
+{
+    m_parameters = new ParameterPool(this);
+}
+
+IParameterized::~IParameterized()
+{
+    delete m_parameters;
+}
+
 ParameterPool* IParameterized::createParameterTree()
 {
     std::unique_ptr<ParameterPool> P_new_pool( new ParameterPool(this) );
@@ -39,7 +50,7 @@ std::string IParameterized::addParametersToExternalPool(
     path += getName() + osCopyNumber.str() + "/";
 
     // copy local parameter to external pool
-    m_parameters.copyToExternalPool(path, external_pool);
+    m_parameters->copyToExternalPool(path, external_pool);
 
     return path;
 }
@@ -54,13 +65,13 @@ void IParameterized::printParameters()
 void IParameterized::registerParameter(
     const std::string& name, double* parpointer, const AttLimits& limits)
 {
-    m_parameters.registerParameter(name, parpointer, limits);
+    m_parameters->registerParameter(name, parpointer, limits);
 }
 
 void IParameterized::setParameterValue(const std::string &name, double value)
 {
     if(name.find('*') == std::string::npos && name.find('/') == std::string::npos) {
-        m_parameters.setParameterValue(name, value);
+        m_parameters->setParameterValue(name, value);
     } else {
         std::unique_ptr<ParameterPool> P_pool { createParameterTree() };
         if(name.find('*') != std::string::npos) {
@@ -80,10 +91,10 @@ RealParameterWrapper IParameterized::getParameter(const std::string& name) const
 //! Clears the parameter pool.
 void IParameterized::clearParameterPool()
 {
-    m_parameters.clear();
+    m_parameters->clear();
 }
 
 void IParameterized::print(std::ostream& ostr) const
 {
-    ostr << "IParameterized:" << getName() << " " << m_parameters;
+    ostr << "IParameterized:" << getName() << " " << *m_parameters;
 }

@@ -26,15 +26,15 @@
 class BA_CORE_API_ IParameterized : public INamed
 {
 public:
-    IParameterized(const std::string& name="") : INamed(name), m_parameters(this) {}
-    IParameterized(const IParameterized& other) : INamed(other), m_parameters(this) {}
-    virtual ~IParameterized() {}
+    IParameterized(const std::string& name="");
+    IParameterized(const IParameterized& other) : IParameterized(other.getName()) {}
+    virtual ~IParameterized();
 
     //! Previously, copied name, but not parameters. Unused. Deleted to prevent misunderstandings.
     IParameterized& operator=(const IParameterized& other) = delete;
 
     //! Returns pointer to the parameter pool.
-    const ParameterPool* getParameterPool() const { return &m_parameters; }
+    const ParameterPool* getParameterPool() const { return m_parameters; }
 
     //! Creates new parameter pool, with all local parameters and those of its children.
     ParameterPool* createParameterTree();
@@ -66,7 +66,7 @@ protected:
     //! default implementation prints "IParameterized:" and the parameter pool
     virtual void print(std::ostream& ostr) const;
 
-    ParameterPool m_parameters; //!< parameter pool
+    ParameterPool* m_parameters; //!< parameter pool
     friend ParameterPool;
     friend RealParameterWrapper;
 };

@@ -129,18 +129,18 @@ public:
     typedef LabelMap<const ParticleDistribution*> particledistributions_t;
 
     SampleLabelHandler() {}
-    formfactors_t* getFormFactorMap();
-    interferences_t* getInterferenceFunctionMap();
-    layers_t* getLayerMap();
-    layouts_t* getParticleLayoutMap();
-    materials_t* getMaterialMap();
-    multilayers_t* getMultiLayerMap();
-    particlecompositions_t* getParticleCompositionMap();
-    particledistributions_t* getParticleDistributionsMap();
-    particles_t* getParticleMap();
-    particlescoreshell_t* getParticleCoreShellMap();
-    rotations_t* getRotationsMap();
-    roughnesses_t* getLayerRoughnessMap();
+    formfactors_t* getFormFactorMap() { return &m_FormFactorLabel; }
+    interferences_t* getInterferenceFunctionMap() { return &m_InterferenceFunctionLabel; }
+    layers_t* getLayerMap() { return &m_LayerLabel; }
+    layouts_t* getParticleLayoutMap() { return &m_ILayoutLabel; }
+    materials_t* getMaterialMap() { return &m_MaterialLabel; }
+    multilayers_t* getMultiLayerMap() { return &m_MultiLayerLabel; }
+    particlecompositions_t* getParticleCompositionMap() { return &m_ParticleCompositionLabel; }
+    particledistributions_t* getParticleDistributionsMap() { return &m_ParticleDistributionLabel; }
+    particles_t* getParticleMap() { return &m_ParticleLabel; }
+    particlescoreshell_t* getParticleCoreShellMap() { return &m_ParticleCoreShellLabel; }
+    rotations_t* getRotationsMap() { return &m_RotationsLabel; }
+    roughnesses_t* getLayerRoughnessMap() { return &m_LayerRoughnessLabel; }
 
     std::string getLabel(const IAbstractParticle* sample);
     std::string getLabel(const IFormFactor* sample);

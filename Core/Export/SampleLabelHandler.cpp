@@ -95,66 +95,6 @@ std::string SampleLabelHandler::getLabel(const IRotation* sample)
     return m_RotationsLabel[sample];
 }
 
-SampleLabelHandler::formfactors_t* SampleLabelHandler::getFormFactorMap()
-{
-    return &m_FormFactorLabel;
-}
-
-SampleLabelHandler::interferences_t* SampleLabelHandler::getInterferenceFunctionMap()
-{
-    return &m_InterferenceFunctionLabel;
-}
-
-SampleLabelHandler::layers_t* SampleLabelHandler::getLayerMap()
-{
-    return &m_LayerLabel;
-}
-
-SampleLabelHandler::roughnesses_t* SampleLabelHandler::getLayerRoughnessMap()
-{
-    return &m_LayerRoughnessLabel;
-}
-
-SampleLabelHandler::materials_t* SampleLabelHandler::getMaterialMap()
-{
-    return &m_MaterialLabel;
-}
-
-SampleLabelHandler::multilayers_t* SampleLabelHandler::getMultiLayerMap()
-{
-    return &m_MultiLayerLabel;
-}
-
-SampleLabelHandler::particles_t* SampleLabelHandler::getParticleMap()
-{
-    return &m_ParticleLabel;
-}
-
-SampleLabelHandler::particlescoreshell_t* SampleLabelHandler::getParticleCoreShellMap()
-{
-    return &m_ParticleCoreShellLabel;
-}
-
-SampleLabelHandler::particledistributions_t* SampleLabelHandler::getParticleDistributionsMap()
-{
-    return &m_ParticleDistributionLabel;
-}
-
-SampleLabelHandler::layouts_t* SampleLabelHandler::getParticleLayoutMap()
-{
-    return &m_ILayoutLabel;
-}
-
-SampleLabelHandler::particlecompositions_t* SampleLabelHandler::getParticleCompositionMap()
-{
-    return &m_ParticleCompositionLabel;
-}
-
-SampleLabelHandler::rotations_t* SampleLabelHandler::getRotationsMap()
-{
-    return &m_RotationsLabel;
-}
-
 void SampleLabelHandler::insertMaterial(const IMaterial* sample)
 {
     for (auto it=m_MaterialLabel.begin(); it!=m_MaterialLabel.end(); ++it) {
@@ -163,7 +103,7 @@ void SampleLabelHandler::insertMaterial(const IMaterial* sample)
             return;
         }
     }
-    // material not found, do insert
+    // material not found => create new label
     std::ostringstream label_stream;
     label_stream << "material_" << m_MaterialLabel.size()+1;
     m_MaterialLabel.insert(sample, label_stream.str());

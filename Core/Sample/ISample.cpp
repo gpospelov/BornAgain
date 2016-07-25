@@ -36,12 +36,12 @@ std::string ISample::to_str(int indent) const
     return ss.str();
 }
 
-//! Auxiliary for ISample::containedMaterials. Unique insertion.
+//! Auxiliary for ISample::containedMaterials. /*Unique*/ insertion.
 void insert_material(std::vector<const IMaterial*>& collection, const IMaterial* material)
 {
     for( auto it: collection )
         if( pEqual(it, material) )
-            ; // TEMPreturn;
+            ; /* return; */ // TEMPORARILY: non-unique insertion!
     collection.push_back( material );
 }
 

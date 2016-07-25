@@ -17,10 +17,11 @@
 #define SAMPLELABELHANDLER_H
 
 #include "Exceptions.h"
-
 #include <cassert>
 #include <list>
 #include <map>
+
+#include <iostream>
 
 class IAbstractParticle;
 class IFormFactor;

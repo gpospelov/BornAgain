@@ -333,14 +333,14 @@ std::string PyGenVisitor::defineGetSimulation(const GISASSimulation* simulation)
 
 std::string PyGenVisitor::defineMaterials() const
 {
-    if (m_label->getMaterialMap()->size() == 0)
+    const auto themap = m_label->getMaterialMap();
+    if (themap->size() == 0)
         return "";
     std::ostringstream result;
     result << std::setprecision(12);
     result << indent() << "# Defining Materials\n";
-    SampleLabelHandler::materials_t::iterator it = m_label->getMaterialMap()->begin();
     std::set<std::string> visitedMaterials;
-    while (it != m_label->getMaterialMap()->end()) {
+    for (auto it=themap->begin(); it!=themap->end(); ++it) {
         if (visitedMaterials.find(it->second) == visitedMaterials.end()) {
             visitedMaterials.insert(it->second);
             const IMaterial* p_material = it->first;
@@ -370,20 +370,19 @@ std::string PyGenVisitor::defineMaterials() const
                        << "magnetic_field)\n";
             }
         }
-        it++;
     }
     return result.str();
 }
 
 std::string PyGenVisitor::defineLayers() const
 {
-    if (m_label->getLayerMap()->size() == 0)
+    const auto themap = m_label->getLayerMap();
+    if (themap->size() == 0)
         return "";
     std::ostringstream result;
     result << std::setprecision(12);
     result << "\n" << indent() << "# Defining Layers\n";
-    SampleLabelHandler::layers_t::iterator it = m_label->getLayerMap()->begin();
-    while (it != m_label->getLayerMap()->end()) {
+    for (auto it=themap->begin(); it != themap->end(); ++it) {
         const Layer* layer = it->first;
         result << indent() << it->second << " = ba.Layer(" <<
             m_label->getLabel(layer->getMaterial());
@@ -391,20 +390,19 @@ std::string PyGenVisitor::defineLayers() const
             result << ", " << layer->getThickness();
         }
         result << ")\n";
-        it++;
     }
     return result.str();
 }
 
 std::string PyGenVisitor::defineFormFactors() const
 {
-    if (m_label->getFormFactorMap()->size() == 0)
+    const auto themap = m_label->getFormFactorMap();
+    if (themap->size() == 0)
         return "";
     std::ostringstream result;
     result << std::setprecision(12);
     result << "\n" << indent() << "# Defining Form Factors\n";
-    SampleLabelHandler::formfactors_t::iterator it = m_label->getFormFactorMap()->begin();
-    while (it != m_label->getFormFactorMap()->end()) {
+    for (auto it=themap->begin(); it!=themap->end(); ++it) {
         const IFormFactor* p_ff = it->first;
         result << indent() << it->second << " = ba.FormFactor" << p_ff->getName() << "(";
 
@@ -563,20 +561,19 @@ std::string PyGenVisitor::defineFormFactors() const
                                 << "Form Factor\n";
             throw Exceptions::NotImplementedException(formFactorException.str());
         }
-        it++;
     }
     return result.str();
 }
 
 std::string PyGenVisitor::defineParticles() const
 {
-    if (m_label->getParticleMap()->size() == 0)
+    const auto themap = m_label->getParticleMap();
+    if (themap->size() == 0)
         return "";
     std::ostringstream result;
     result << std::setprecision(12);
     result << "\n" << indent() << "# Defining Particles\n";
-    SampleLabelHandler::particles_t::iterator it = m_label->getParticleMap()->begin();
-    while (it != m_label->getParticleMap()->end()) {
+    for (auto it=themap->begin(); it!=themap->end(); ++it) {
         const Particle* p_particle = it->first;
         std::string particle_name = it->second;
         result << indent() << particle_name << " = ba.Particle("
@@ -585,22 +582,19 @@ std::string PyGenVisitor::defineParticles() const
         result << ")\n";
         setRotationInformation(p_particle, particle_name, result);
         setPositionInformation(p_particle, particle_name, result);
-        it++;
     }
     return result.str();
 }
 
 std::string PyGenVisitor::defineCoreShellParticles() const
 {
-    if (m_label->getParticleCoreShellMap()->size() == 0)
+    const auto themap = m_label->getParticleCoreShellMap();
+    if (themap->size() == 0)
         return "";
     std::ostringstream result;
     result << std::setprecision(12);
     result << "\n" << indent() << "# Defining Core Shell Particles\n";
-    SampleLabelHandler::particlescoreshell_t::iterator it
-        = m_label->getParticleCoreShellMap()->begin();
-
-    while (it != m_label->getParticleCoreShellMap()->end()) {
+    for (auto it=themap->begin(); it!=themap->end(); ++it) {
         const ParticleCoreShell* p_coreshell = it->first;
         result << "\n" << indent() << it->second << " = ba.ParticleCoreShell("
                << m_label->getLabel(p_coreshell->getShellParticle()) << ", "
@@ -608,24 +602,22 @@ std::string PyGenVisitor::defineCoreShellParticles() const
         std::string core_shell_name = it->second;
         setRotationInformation(p_coreshell, core_shell_name, result);
         setPositionInformation(p_coreshell, core_shell_name, result);
-        it++;
     }
     return result.str();
 }
 
 std::string PyGenVisitor::defineParticleDistributions() const
 {
-    if (m_label->getParticleDistributionsMap()->size() == 0)
+    const auto themap = m_label->getParticleDistributionsMap();
+    if (themap->size() == 0)
         return "";
 
     std::ostringstream result;
     result << std::setprecision(12);
     result << "\n" << indent() << "# Defining particles with parameter following a distribution\n";
-    SampleLabelHandler::particledistributions_t::iterator it
-        = m_label->getParticleDistributionsMap()->begin();
 
     int index(1);
-    while (it != m_label->getParticleDistributionsMap()->end()) {
+    for (auto it=themap->begin(); it!=themap->end(); ++it) {
         ParameterDistribution par_distr = it->first->getParameterDistribution();
 
         // building distribution functions
@@ -656,7 +648,6 @@ std::string PyGenVisitor::defineParticleDistributions() const
 
         result << indent() << it->second << " = ba.ParticleDistribution("
                << m_label->getLabel(it->first->getParticle()) << ", " << s_par_distr.str() << ")\n";
-        it++;
         index++;
     }
     return result.str();
@@ -664,15 +655,13 @@ std::string PyGenVisitor::defineParticleDistributions() const
 
 std::string PyGenVisitor::defineParticleCompositions() const
 {
-    if (m_label->getParticleCompositionMap()->size() == 0)
+    const auto themap = m_label->getParticleCompositionMap();
+    if (themap->size() == 0)
         return "";
     std::ostringstream result;
     result << std::setprecision(12);
     result << "\n" << indent() << "# Defining composition of particles at specific positions\n";
-    SampleLabelHandler::particlecompositions_t::iterator it
-        = m_label->getParticleCompositionMap()->begin();
-
-    while (it != m_label->getParticleCompositionMap()->end()) {
+    for (auto it=themap->begin(); it!=themap->end(); ++it) {
         const ParticleComposition* p_particle_composition = it->first;
         std::string particle_composition_name = it->second;
         result << indent() << particle_composition_name << " = ba.ParticleComposition()\n";
@@ -683,21 +672,19 @@ std::string PyGenVisitor::defineParticleCompositions() const
         }
         setRotationInformation(p_particle_composition, particle_composition_name, result);
         setPositionInformation(p_particle_composition, particle_composition_name, result);
-        it++;
     }
     return result.str();
 }
 
 std::string PyGenVisitor::defineInterferenceFunctions() const
 {
-    if (m_label->getInterferenceFunctionMap()->size() == 0)
+    const auto themap = m_label->getInterferenceFunctionMap();
+    if (themap->size() == 0)
         return "";
     std::ostringstream result;
     result << std::setprecision(12);
     result << "\n" << indent() << "# Defining Interference Functions\n";
-    SampleLabelHandler::interferences_t::iterator it
-        = m_label->getInterferenceFunctionMap()->begin();
-    while (it != m_label->getInterferenceFunctionMap()->end()) {
+    for (auto it=themap->begin(); it!=themap->end(); ++it) {
         const IInterferenceFunction* interference = it->first;
 
         if (const InterferenceFunctionNone* none
@@ -1084,20 +1071,19 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
             throw Exceptions::NotImplementedException(interferenceException.str());
         }
 
-        it++;
     }
     return result.str();
 }
 
 std::string PyGenVisitor::defineParticleLayouts() const
 {
-    if (m_label->getParticleLayoutMap()->size() == 0)
+    const auto themap = m_label->getParticleLayoutMap();
+    if (themap->size() == 0)
         return "";
     std::ostringstream result;
     result << std::setprecision(12);
     result << "\n" << indent() << "# Defining Particle Layouts and adding Particles\n";
-    SampleLabelHandler::layouts_t::iterator it = m_label->getParticleLayoutMap()->begin();
-    while (it != m_label->getParticleLayoutMap()->end()) {
+    for (auto it=themap->begin(); it!=themap->end(); ++it) {
         const ILayout* iLayout = it->first;
         if (const ParticleLayout* particleLayout = dynamic_cast<const ParticleLayout*>(iLayout)) {
             result << indent() << it->second << " = ba.ParticleLayout()\n";
@@ -1130,25 +1116,23 @@ std::string PyGenVisitor::defineParticleLayouts() const
             result << indent() << it->second << ".setTotalParticleSurfaceDensity("
                    << it->first->getTotalParticleSurfaceDensity() << ")\n";
         }
-        it++;
     }
     return result.str();
 }
 
 std::string PyGenVisitor::defineRoughnesses() const
 {
-    if (m_label->getLayerRoughnessMap()->size() == 0)
+    const auto themap = m_label->getLayerRoughnessMap();
+    if (themap->size() == 0)
         return "";
     std::ostringstream result;
     result << std::setprecision(12);
     result << "\n" << indent() << "# Defining Roughness Parameters\n";
-    SampleLabelHandler::roughnesses_t::iterator it = m_label->getLayerRoughnessMap()->begin();
-    while (it != m_label->getLayerRoughnessMap()->end()) {
+    for (auto it=themap->begin(); it!=themap->end(); ++it) {
         result << indent() << it->second << " = ba.LayerRoughness("
                << PyGenTools::printNm(it->first->getSigma()) << ", "
                << it->first->getHurstParameter() << ", "
                << PyGenTools::printNm(it->first->getLatteralCorrLength()) << ")\n";
-        it++;
     }
     return result.str();
 }
@@ -1160,30 +1144,26 @@ std::string PyGenVisitor::addLayoutsToLayers() const
     std::ostringstream result;
     result << std::setprecision(12);
     result << "\n" << indent() << "# Adding layouts to layers";
-    SampleLabelHandler::layers_t::iterator it = m_label->getLayerMap()->begin();
-    while (it != m_label->getLayerMap()->end()) {
+    const auto layermap = m_label->getLayerMap();
+    for (auto it=layermap->begin(); it!=layermap->end(); ++it) {
         const Layer* layer = it->first;
         size_t numberOfLayouts = layer->getNumberOfLayouts();
-        size_t i = 0;
-        while (i < numberOfLayouts) {
+        for(size_t i = 0; i < numberOfLayouts; ++i)
             result << "\n" << indent() << it->second << ".addLayout("
                    << m_label->getLabel(layer->getLayout(i)) << ")\n";
-            i++;
-        }
-        it++;
     }
     return result.str();
 }
 
 std::string PyGenVisitor::defineMultiLayers() const
 {
-    if (m_label->getMultiLayerMap()->size() == 0)
+    const auto themap = m_label->getMultiLayerMap();
+    if (themap->size() == 0)
         return "";
     std::ostringstream result;
     result << std::setprecision(12);
     result << "\n" << indent() << "# Defining Multilayers\n";
-    SampleLabelHandler::multilayers_t::iterator it = m_label->getMultiLayerMap()->begin();
-    while (it != m_label->getMultiLayerMap()->end()) {
+    for (auto it=themap->begin(); it!=themap->end(); ++it) {
         result << indent() << it->second << " = ba.MultiLayer()\n";
 
         size_t numberOfLayers = it->first->getNumberOfLayers();
@@ -1210,7 +1190,6 @@ std::string PyGenVisitor::defineMultiLayers() const
             }
         }
         result << indent() << "return " << it->second << std::endl;
-        it++;
     }
     return result.str();
 }

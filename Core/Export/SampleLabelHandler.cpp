@@ -159,17 +159,14 @@ void SampleLabelHandler::insertMaterial(const IMaterial* sample)
 {
     materials_t::iterator it = m_MaterialLabel.begin();
     materials_t::const_iterator iEnd = m_MaterialLabel.end();
-    while (it != iEnd)
-    {
-        if(definesSameMaterial(it->first, sample) )
-        {
+    while (it != iEnd) {
+        if(definesSameMaterial(it->first, sample) ) {
             m_MaterialLabel.insert(sample, it->second);
             break;
         }
         it++;
     }
-    if(it == iEnd)
-    {
+    if(it == iEnd) {
         std::ostringstream label_stream;
         label_stream << "material_" << m_MaterialLabel.size()+1;
         m_MaterialLabel.insert(sample, label_stream.str());
@@ -208,8 +205,7 @@ void SampleLabelHandler::setLabel(const LayerRoughness* sample)
 {
     if(sample->getSigma() != 0 &&
        sample->getHurstParameter() != 0 &&
-       sample->getLatteralCorrLength() != 0)
-    {
+       sample->getLatteralCorrLength() != 0) {
         std::ostringstream inter;
         inter << "layerRoughness_" << m_LayerRoughnessLabel.size()+1;
         m_LayerRoughnessLabel.insert(sample, inter.str());

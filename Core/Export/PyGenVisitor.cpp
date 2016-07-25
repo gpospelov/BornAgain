@@ -66,147 +66,147 @@ std::string PyGenVisitor::writePyScript(
 
 void PyGenVisitor::visit(const FormFactorAnisoPyramid* sample)
 {
-    m_label->setLabel(sample);
+    m_label->setLabelFormFactor(sample);
 }
 
 void PyGenVisitor::visit(const FormFactorBox* sample)
 {
-    m_label->setLabel(sample);
+    m_label->setLabelFormFactor(sample);
 }
 
 void PyGenVisitor::visit(const FormFactorCone* sample)
 {
-    m_label->setLabel(sample);
+    m_label->setLabelFormFactor(sample);
 }
 
 void PyGenVisitor::visit(const FormFactorCone6* sample)
 {
-    m_label->setLabel(sample);
+    m_label->setLabelFormFactor(sample);
 }
 
 void PyGenVisitor::visit(const FormFactorCuboctahedron* sample)
 {
-    m_label->setLabel(sample);
+    m_label->setLabelFormFactor(sample);
 }
 
 void PyGenVisitor::visit(const FormFactorCylinder* sample)
 {
-    m_label->setLabel(sample);
+    m_label->setLabelFormFactor(sample);
 }
 
 void PyGenVisitor::visit(const FormFactorDodecahedron* sample)
 {
-    m_label->setLabel(sample);
+    m_label->setLabelFormFactor(sample);
 }
 
 void PyGenVisitor::visit(const FormFactorEllipsoidalCylinder* sample)
 {
-    m_label->setLabel(sample);
+    m_label->setLabelFormFactor(sample);
 }
 
 void PyGenVisitor::visit(const FormFactorFullSphere* sample)
 {
-    m_label->setLabel(sample);
+    m_label->setLabelFormFactor(sample);
 }
 
 void PyGenVisitor::visit(const FormFactorFullSpheroid* sample)
 {
-    m_label->setLabel(sample);
+    m_label->setLabelFormFactor(sample);
 }
 
 void PyGenVisitor::visit(const FormFactorGauss* sample)
 {
-    m_label->setLabel(sample);
+    m_label->setLabelFormFactor(sample);
 }
 
 void PyGenVisitor::visit(const FormFactorHemiEllipsoid* sample)
 {
-    m_label->setLabel(sample);
+    m_label->setLabelFormFactor(sample);
 }
 
 void PyGenVisitor::visit(const FormFactorIcosahedron* sample)
 {
-    m_label->setLabel(sample);
+    m_label->setLabelFormFactor(sample);
 }
 
 void PyGenVisitor::visit(const FormFactorLorentz* sample)
 {
-    m_label->setLabel(sample);
+    m_label->setLabelFormFactor(sample);
 }
 
 void PyGenVisitor::visit(const FormFactorPrism3* sample)
 {
-    m_label->setLabel(sample);
+    m_label->setLabelFormFactor(sample);
 }
 
 void PyGenVisitor::visit(const FormFactorPrism6* sample)
 {
-    m_label->setLabel(sample);
+    m_label->setLabelFormFactor(sample);
 }
 
 void PyGenVisitor::visit(const FormFactorPyramid* sample)
 {
-    m_label->setLabel(sample);
+    m_label->setLabelFormFactor(sample);
 }
 
 void PyGenVisitor::visit(const FormFactorRipple1* sample)
 {
-    m_label->setLabel(sample);
+    m_label->setLabelFormFactor(sample);
 }
 
 void PyGenVisitor::visit(const FormFactorRipple2* sample)
 {
-    m_label->setLabel(sample);
+    m_label->setLabelFormFactor(sample);
 }
 
 void PyGenVisitor::visit(const FormFactorTetrahedron* sample)
 {
-    m_label->setLabel(sample);
+    m_label->setLabelFormFactor(sample);
 }
 
 void PyGenVisitor::visit(const FormFactorTruncatedCube* sample)
 {
-    m_label->setLabel(sample);
+    m_label->setLabelFormFactor(sample);
 }
 
 void PyGenVisitor::visit(const FormFactorTruncatedSphere* sample)
 {
-    m_label->setLabel(sample);
+    m_label->setLabelFormFactor(sample);
 }
 
 void PyGenVisitor::visit(const FormFactorTruncatedSpheroid* sample)
 {
-    m_label->setLabel(sample);
+    m_label->setLabelFormFactor(sample);
 }
 
 void PyGenVisitor::visit(const InterferenceFunctionNone* sample)
 {
-    m_label->setLabel(sample);
+    m_label->setLabelInterferenceFunction(sample);
 }
 
 void PyGenVisitor::visit(const InterferenceFunction1DLattice* sample)
 {
-    m_label->setLabel(sample);
+    m_label->setLabelInterferenceFunction(sample);
 }
 
 void PyGenVisitor::visit(const InterferenceFunctionRadialParaCrystal* sample)
 {
-    m_label->setLabel(sample);
+    m_label->setLabelInterferenceFunction(sample);
 }
 
 void PyGenVisitor::visit(const InterferenceFunction2DLattice* sample)
 {
-    m_label->setLabel(sample);
+    m_label->setLabelInterferenceFunction(sample);
 }
 
 void PyGenVisitor::visit(const InterferenceFunction2DParaCrystal* sample)
 {
-    m_label->setLabel(sample);
+    m_label->setLabelInterferenceFunction(sample);
 }
 
 void PyGenVisitor::visit(const Layer* sample)
 {
-    m_label->setLabel(sample);
+    m_label->setLabelLayer(sample);
 }
 
 void PyGenVisitor::visit(const LayerInterface*)
@@ -215,17 +215,17 @@ void PyGenVisitor::visit(const LayerInterface*)
 
 void PyGenVisitor::visit(const LayerRoughness* sample)
 {
-    m_label->setLabel(sample);
+    m_label->setLabelRoughness(sample);
 }
 
 void PyGenVisitor::visit(const MultiLayer* sample)
 {
-    m_label->setLabel(sample);
+    m_label->setLabelMultiLayer(sample);
 }
 
 void PyGenVisitor::visit(const ParticleComposition* sample)
 {
-    m_label->setLabel(sample);
+    m_label->setLabelParticleComposition(sample);
 }
 
 void PyGenVisitor::visit(const MesoCrystal*)
@@ -236,42 +236,42 @@ void PyGenVisitor::visit(const MesoCrystal*)
 
 void PyGenVisitor::visit(const Particle* sample)
 {
-    m_label->setLabel(sample);
+    m_label->setLabelParticle(sample);
 }
 
 void PyGenVisitor::visit(const ParticleDistribution* sample)
 {
-    m_label->setLabel(sample);
+    m_label->setLabelParticleDistribution(sample);
 }
 
 void PyGenVisitor::visit(const ParticleCoreShell* sample)
 {
-    m_label->setLabel(sample);
+    m_label->setLabelParticleCoreShell(sample);
 }
 
 void PyGenVisitor::visit(const ParticleLayout* sample)
 {
-    m_label->setLabel(sample);
+    m_label->setLabelLayout(sample);
 }
 
 void PyGenVisitor::visit(const RotationX* sample)
 {
-    m_label->setLabel(sample);
+    m_label->setLabelRotation(sample);
 }
 
 void PyGenVisitor::visit(const RotationY* sample)
 {
-    m_label->setLabel(sample);
+    m_label->setLabelRotation(sample);
 }
 
 void PyGenVisitor::visit(const RotationZ* sample)
 {
-    m_label->setLabel(sample);
+    m_label->setLabelRotation(sample);
 }
 
 void PyGenVisitor::visit(const RotationEuler* sample)
 {
-    m_label->setLabel(sample);
+    m_label->setLabelRotation(sample);
 }
 
 std::string PyGenVisitor::definePreamble() const

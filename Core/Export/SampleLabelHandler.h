@@ -156,17 +156,17 @@ public:
     std::string getLabelParticleDistribution(const ParticleDistribution* sample);
 
     void insertMaterial(const IMaterial* sample);
-    void setLabel(const IFormFactor* sample);
-    void setLabel(const IInterferenceFunction* sample);
-    void setLabel(const ILayout* sample);
-    void setLabel(const IRotation* sample);
-    void setLabel(const Layer* sample);
-    void setLabel(const LayerRoughness* sample);
-    void setLabel(const MultiLayer* sample);
-    void setLabel(const Particle* sample);
-    void setLabel(const ParticleComposition* sample);
-    void setLabel(const ParticleCoreShell* sample);
-    void setLabel(const ParticleDistribution* sample);
+    void setLabelFormFactor(const IFormFactor* sample);
+    void setLabelInterferenceFunction(const IInterferenceFunction* sample);
+    void setLabelLayout(const ILayout* sample);
+    void setLabelRotation(const IRotation* sample);
+    void setLabelLayer(const Layer* sample);
+    void setLabelRoughness(const LayerRoughness* sample);
+    void setLabelMultiLayer(const MultiLayer* sample);
+    void setLabelParticle(const Particle* sample);
+    void setLabelParticleComposition(const ParticleComposition* sample);
+    void setLabelParticleCoreShell(const ParticleCoreShell* sample);
+    void setLabelParticleDistribution(const ParticleDistribution* sample);
 
 private:
     formfactors_t m_FormFactorLabel;

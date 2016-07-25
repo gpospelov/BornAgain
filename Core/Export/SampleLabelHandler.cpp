@@ -162,15 +162,14 @@ void SampleLabelHandler::insertMaterial(const IMaterial* sample)
     while (it != iEnd) {
         if(definesSameMaterial(it->first, sample) ) {
             m_MaterialLabel.insert(sample, it->second);
-            break;
+            return;
         }
         it++;
     }
-    if(it == iEnd) {
-        std::ostringstream label_stream;
-        label_stream << "material_" << m_MaterialLabel.size()+1;
-        m_MaterialLabel.insert(sample, label_stream.str());
-    }
+    // material not found, do insert
+    std::ostringstream label_stream;
+    label_stream << "material_" << m_MaterialLabel.size()+1;
+    m_MaterialLabel.insert(sample, label_stream.str());
 }
 
 void SampleLabelHandler::setLabel(const IFormFactor* sample)

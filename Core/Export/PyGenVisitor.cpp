@@ -35,9 +35,10 @@
 #include "SphericalDetector.h"
 #include <iomanip>
 
-PyGenVisitor::PyGenVisitor()
+PyGenVisitor::PyGenVisitor(const MultiLayer& multilayer)
     : m_label(new SampleLabelHandler())
 {
+    VisitSampleTreePostorder(multilayer, *this);
 }
 
 PyGenVisitor::~PyGenVisitor()

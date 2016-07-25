@@ -37,14 +37,12 @@ std::string PyGenTools::genPyScript(GISASSimulation* simulation, const std::stri
 {
     simulation->prepareSimulation();
     std::unique_ptr<ISample> sample;
-    if(simulation->getSample()) {
+    if(simulation->getSample())
         sample.reset(simulation->getSample()->clone());
-    } else {
+    else
         sample.reset(simulation->getSampleBuilder()->buildSample());
-    }
-    MultiLayer* multiLayer = dynamic_cast<MultiLayer*>(sample.get());
-    PyGenVisitor visitor;
-    VisitSampleTreePostorder(*multiLayer, visitor);
+    MultiLayer* multilayer = dynamic_cast<MultiLayer*>(sample.get());
+    PyGenVisitor visitor(*multilayer);
     std::ostringstream result;
     result << visitor.writePyScript(simulation, output_filename);
     return result.str();

@@ -25,7 +25,7 @@ class SampleLabelHandler;
 class BA_CORE_API_ PyGenVisitor : public ISampleVisitor
 {
 public:
-    PyGenVisitor();
+    PyGenVisitor(const MultiLayer& multilayer);
     virtual ~PyGenVisitor();
 
     using ISampleVisitor::visit;

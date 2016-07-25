@@ -66,6 +66,20 @@ public:
     //! Returns number of children.
     //! Default implementation returns zero.
     virtual size_t size() const { return 0; }
+
+    template<class T> std::vector<const T*> containedSubclass() const;
 };
+
+template<class T>
+std::vector<const T*> ISample::containedSubclass() const
+{
+    std::vector<const T*> result;
+    if( const T* t = dynamic_cast<const T*>(this) )
+        result.push_back( t );
+    for( const ISample* child: getChildren() )
+        if( const T* t = dynamic_cast<const T*>(child) )
+            result.push_back( t );
+    return result;
+}
 
 #endif // ISAMPLE_H

@@ -40,6 +40,7 @@ PyGenVisitor::PyGenVisitor(const MultiLayer& multilayer)
 {
     for( auto mat: multilayer.containedMaterials() )
         m_label->insertMaterial(mat);
+    auto x = multilayer.containedSubclass<LayerRoughness>();
     VisitSampleTreePostorder(multilayer, *this);
 }
 

@@ -37,7 +37,7 @@ public:
 protected:
     virtual void init_parameters();
 private:
-    ResolutionFunction2DGaussian(const ResolutionFunction2DGaussian& other);
+//    ResolutionFunction2DGaussian(const ResolutionFunction2DGaussian& other);
     ResolutionFunction2DGaussian& operator=(const ResolutionFunction2DGaussian& );
 
     double m_sigma_x;

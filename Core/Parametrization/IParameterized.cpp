@@ -18,15 +18,6 @@
 #include <memory>
 #include <sstream>
 
-// Copies INamed, but not the parameters.
-
-IParameterized& IParameterized::operator=(const IParameterized& other)
-{
-    if( this != &other)
-        INamed::operator=(other);
-    return *this;
-}
-
 ParameterPool* IParameterized::createParameterTree()
 {
     std::unique_ptr<ParameterPool> P_new_pool( new ParameterPool(this) );

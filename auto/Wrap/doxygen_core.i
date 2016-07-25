@@ -7009,10 +7009,7 @@ Manage a local parameter pool, and a tree of child pools.
 C++ includes: IParameterized.h
 ";
 
-%feature("docstring")  IParameterized::IParameterized "IParameterized::IParameterized()
-";
-
-%feature("docstring")  IParameterized::IParameterized "IParameterized::IParameterized(const std::string &name)
+%feature("docstring")  IParameterized::IParameterized "IParameterized::IParameterized(const std::string &name=\"\")
 ";
 
 %feature("docstring")  IParameterized::IParameterized "IParameterized::IParameterized(const IParameterized &other)
@@ -9720,7 +9717,7 @@ get list of linked parameter names
 
 Helper class for constructing parameter patterns.
 
-C++ includes: IParameterized.h
+C++ includes: ParameterPattern.h
 ";
 
 %feature("docstring")  ParameterPattern::ParameterPattern "ParameterPattern::ParameterPattern()
@@ -12429,10 +12426,10 @@ C++ includes: WavevectorInfo.h
 // File: namespace_0D281.xml
 
 
-// File: namespace_0D344.xml
+// File: namespace_0D346.xml
 
 
-// File: namespace_0D409.xml
+// File: namespace_0D411.xml
 
 
 // File: namespaceboost_1_1geometry.xml
@@ -13806,6 +13803,12 @@ Set all element intensities to given value.
 
 
 // File: ParameterDistribution_8h.xml
+
+
+// File: ParameterPattern_8cpp.xml
+
+
+// File: ParameterPattern_8h.xml
 
 
 // File: ParameterPool_8cpp.xml

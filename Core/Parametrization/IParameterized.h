@@ -28,9 +28,10 @@ class BA_CORE_API_ IParameterized : public INamed
 public:
     IParameterized(const std::string& name="") : INamed(name), m_parameters(this) {}
     IParameterized(const IParameterized& other) : INamed(other), m_parameters(this) {}
-    IParameterized& operator=(const IParameterized& other);
-
     virtual ~IParameterized() {}
+
+    //! Previously, copied name, but not parameters. Unused. Deleted to prevent misunderstandings.
+    IParameterized& operator=(const IParameterized& other) = delete;
 
     //! Returns pointer to the parameter pool.
     const ParameterPool* getParameterPool() const { return &m_parameters; }

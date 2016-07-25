@@ -18,7 +18,6 @@
 
 #include "AttLimits.h"
 
-
 class IParameterized;
 
 //! Wrapper to real parameter for remote access to its value and callback abilities
@@ -30,7 +29,7 @@ public:
     // TODO? RealParameterWrapper() = delete;
     explicit RealParameterWrapper(
         IParameterized* parent, double* par, const AttLimits& limits=AttLimits::limitless());
-    RealParameterWrapper(const RealParameterWrapper& other );
+    RealParameterWrapper(const RealParameterWrapper& other);
     RealParameterWrapper& operator=(const RealParameterWrapper& other);
 
     //! Sets value of wrapped parameter and emit signal

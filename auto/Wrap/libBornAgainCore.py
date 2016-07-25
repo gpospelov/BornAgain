@@ -14249,13 +14249,14 @@ class IMaterial(INamed):
         """
         return _libBornAgainCore.IMaterial_createTransformedMaterial(self, rotation)
 
+
+    def __eq__(self, other):
+        """__eq__(IMaterial self, IMaterial other) -> bool"""
+        return _libBornAgainCore.IMaterial___eq__(self, other)
+
 IMaterial_swigregister = _libBornAgainCore.IMaterial_swigregister
 IMaterial_swigregister(IMaterial)
 
-
-def pEqual(left, right):
-    """pEqual(IMaterial left, IMaterial right) -> bool"""
-    return _libBornAgainCore.pEqual(left, right)
 class HomogeneousMaterial(IMaterial):
     """
 

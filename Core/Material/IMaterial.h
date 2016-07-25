@@ -64,13 +64,13 @@ public:
     //! Create a new material that is transformed with respect to this one
     virtual const IMaterial *createTransformedMaterial(const IRotation& rotation) const;
 
+    bool operator==(const IMaterial& other) const;
+
 protected:
     virtual void print(std::ostream& ostr) const
     {
         ostr << "IMat:" << getName() << "<" << this << ">";
     }
 };
-
-bool pEqual(const IMaterial* left, const IMaterial* right);
 
 #endif // IMATERIAL_H

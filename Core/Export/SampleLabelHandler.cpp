@@ -98,7 +98,7 @@ std::string SampleLabelHandler::getLabelRotation(const IRotation* sample)
 void SampleLabelHandler::insertMaterial(const IMaterial* sample)
 {
     for (auto it=m_MaterialLabel.begin(); it!=m_MaterialLabel.end(); ++it) {
-        if(pEqual(it->first, sample) ) {
+        if( *(it->first) == *sample ) {
             m_MaterialLabel.insert(sample, it->second);
             return;
         }

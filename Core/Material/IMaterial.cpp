@@ -45,22 +45,20 @@ Eigen::Matrix2cd IMaterial::getSpecularScatteringMatrix(const kvector_t k) const
 }
 #endif // SWIG
 
-//! Returns true if *left agrees with *right in all parameters.
-bool pEqual(const IMaterial* left, const IMaterial* right)
+//! Returns true if *this agrees with other in all parameters.
+bool IMaterial::operator==(const IMaterial& other) const
 {
-    if( left->getName()!=right->getName() )
+    if( getName()!=other.getName() )
         return false;
-    if( left->getRefractiveIndex().real() != right->getRefractiveIndex().real() )
+    if( getRefractiveIndex().real() != other.getRefractiveIndex().real() )
         return false;
-    if( left->getRefractiveIndex().imag() != right->getRefractiveIndex().imag() )
+    if( getRefractiveIndex().imag() != other.getRefractiveIndex().imag() )
         return false;
-    if( left->isScalarMaterial() != right->isScalarMaterial() )
+    if( isScalarMaterial() != other.isScalarMaterial() )
         return false;
-    auto p_left  = dynamic_cast<const HomogeneousMagneticMaterial*>(left);
-    auto p_right = dynamic_cast<const HomogeneousMagneticMaterial*>(right);
-    if (p_left && p_right) {
-        if( p_left->getMagneticField() != p_right->getMagneticField() )
-            return false;
-    }
+    auto p_this  = dynamic_cast<const HomogeneousMagneticMaterial*>(this);
+    auto p_other = dynamic_cast<const HomogeneousMagneticMaterial*>(&other);
+    if (p_this && p_other && p_this->getMagneticField() != p_other->getMagneticField() )
+        return false;
     return true;
 }

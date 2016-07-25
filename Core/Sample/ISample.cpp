@@ -60,8 +60,14 @@ std::vector<const IMaterial*> ISample::containedMaterials() const
 
 bool ISample::containsMagneticMaterial() const
 {
-    for( const IMaterial* material: containedMaterials() )
-        if ( material->isMagneticMaterial() )
+    if( const IMaterial* material = getMaterial() )
+        if( material->isMagneticMaterial() )
+            return true;
+    if( const IMaterial* material = getAmbientMaterial() )
+        if( material->isMagneticMaterial() )
+            return true;
+    for( const ISample* child: getChildren() )
+        if( child->containsMagneticMaterial() )
             return true;
     return false;
 }

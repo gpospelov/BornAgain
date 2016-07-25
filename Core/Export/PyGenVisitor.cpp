@@ -1436,8 +1436,7 @@ std::string PyGenVisitor::defineRunSimulation() const
 
 std::string PyGenVisitor::indent() const
 {
-    std::string result("    ");
-    return result;
+    return "    ";
 }
 
 void PyGenVisitor::setRotationInformation(

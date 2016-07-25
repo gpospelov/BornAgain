@@ -75,11 +75,10 @@ void IParameterized::setParameterValue(const std::string &name, double value)
         m_parameters->setParameterValue(name, value);
     } else {
         std::unique_ptr<ParameterPool> P_pool { createParameterTree() };
-        if(name.find('*') != std::string::npos) {
+        if(name.find('*') != std::string::npos)
             P_pool->setMatchedParametersValue(name, value);
-        } else {
+        else
             P_pool->setParameterValue(name, value);
-        }
     }
     onChange();
 }

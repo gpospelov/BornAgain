@@ -54,20 +54,20 @@ void RealParameterWrapper::checkNull() const
 {
     if(isNull())
         throw Exceptions::NullPointerException(
-            "RealParameterWrapper::getValue() -> Attempt to access uninitialised pointer.");
+            "BUG in RealParameterWrapper::getValue() -> Attempt to access uninitialised pointer.");
 }
 
 void RealParameterWrapper::setValue(double value)
 {
     checkNull();
-    if(value != *m_data) {
-        if(m_limits.isInRange(value) && !m_limits.isFixed()) {
-            *m_data = value;
-            m_parent->onChange();
-        } else {
-            throw Exceptions::OutOfBoundsException("Value not in range");
-        }
-    }
+    if(value == *m_data)
+        return; // nothing to do
+    if(!m_limits.isInRange(value))
+        throw Exceptions::OutOfBoundsException("Value not in range");
+    if(m_limits.isFixed())
+        throw Exceptions::OutOfBoundsException("Parameter is fixed");
+    *m_data = value;
+    m_parent->onChange();
 }
 
 void RealParameterWrapper::swapContent(RealParameterWrapper& other)

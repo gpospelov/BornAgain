@@ -1373,9 +1373,7 @@ C++ includes: Distributions.h
 %feature("docstring")  DistributionLorentz::~DistributionLorentz "virtual DistributionLorentz::~DistributionLorentz()
 ";
 
-%feature("docstring")  DistributionLorentz::clone "virtual DistributionLorentz* DistributionLorentz::clone() const
-
-clone method 
+%feature("docstring")  DistributionLorentz::clone "virtual DistributionLorentz* DistributionLorentz::clone() const 
 ";
 
 %feature("docstring")  DistributionLorentz::probabilityDensity "double DistributionLorentz::probabilityDensity(double x) const
@@ -5316,9 +5314,7 @@ C++ includes: Distributions.h
 %feature("docstring")  IDistribution1D::~IDistribution1D "virtual IDistribution1D::~IDistribution1D()
 ";
 
-%feature("docstring")  IDistribution1D::clone "virtual IDistribution1D* IDistribution1D::clone() const
-
-clone method 
+%feature("docstring")  IDistribution1D::clone "IDistribution1D * IDistribution1D::clone() const 
 ";
 
 %feature("docstring")  IDistribution1D::probabilityDensity "virtual double IDistribution1D::probabilityDensity(double x) const =0
@@ -7015,7 +7011,7 @@ C++ includes: IParameterized.h
 %feature("docstring")  IParameterized::IParameterized "IParameterized::IParameterized(const IParameterized &other)
 ";
 
-%feature("docstring")  IParameterized::~IParameterized "virtual IParameterized::~IParameterized()
+%feature("docstring")  IParameterized::~IParameterized "IParameterized::~IParameterized()
 ";
 
 %feature("docstring")  IParameterized::getParameterPool "const ParameterPool* IParameterized::getParameterPool() const
@@ -7037,8 +7033,6 @@ Register parameter address in the parameter pool.
 ";
 
 %feature("docstring")  IParameterized::setParameterValue "void IParameterized::setParameterValue(const std::string &name, double value)
-
-Sets the value of the parameter with the given name. 
 ";
 
 %feature("docstring")  IParameterized::getParameter "RealParameterWrapper IParameterized::getParameter(const std::string &name) const
@@ -10090,7 +10084,7 @@ calls the  ISampleVisitor's visit method
 
 %feature("docstring")  ParticleDistribution::to_str "std::string ParticleDistribution::to_str(int indent=0) const
 
-Returns textual representation of *this and its descendants. 
+Returns textual representation of* this and its descendants. 
 ";
 
 %feature("docstring")  ParticleDistribution::setAmbientMaterial "void ParticleDistribution::setAmbientMaterial(const IMaterial &material)
@@ -12426,10 +12420,10 @@ C++ includes: WavevectorInfo.h
 // File: namespace_0D281.xml
 
 
-// File: namespace_0D346.xml
+// File: namespace_0D348.xml
 
 
-// File: namespace_0D411.xml
+// File: namespace_0D413.xml
 
 
 // File: namespaceboost_1_1geometry.xml
@@ -13787,6 +13781,12 @@ Set all element intensities to given value.
 // File: SpecularMatrix_8h.xml
 
 
+// File: AttLimits_8cpp.xml
+
+
+// File: AttLimits_8h.xml
+
+
 // File: Distributions_8cpp.xml
 
 
@@ -14205,12 +14205,6 @@ Returns concatenated rotation (first right, then left).
 
 
 // File: TwoDimLatticeBuilder_8h.xml
-
-
-// File: AttLimits_8cpp.xml
-
-
-// File: AttLimits_8h.xml
 
 
 // File: Convolve_8cpp.xml

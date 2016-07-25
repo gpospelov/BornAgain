@@ -41,11 +41,7 @@ public:
     bool isNull() const { return m_data ? false : true; }
 
     //! throw exception if parameter was not initialized with proper value
-    void checkNull() const {
-        if(isNull())
-            throw Exceptions::NullPointerException(
-                "RealParameterWrapper::getValue() -> Attempt to access uninitialised pointer.");
-    }
+    void checkNull() const;
 
     //! Prints the parameter's address to an output stream
     friend std::ostream& operator<<(std::ostream& ostr, const RealParameterWrapper& p) {

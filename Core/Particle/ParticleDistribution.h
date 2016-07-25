@@ -26,37 +26,37 @@
 class BA_CORE_API_ ParticleDistribution : public IAbstractParticle
 {
 public:
-    ParticleDistribution(const IParticle &prototype, const ParameterDistribution &par_distr);
+    ParticleDistribution(const IParticle& prototype, const ParameterDistribution& par_distr);
 
-    virtual ParticleDistribution *clone() const;
+    virtual ParticleDistribution* clone() const;
 
     //! Returns a clone with inverted magnetic fields
-    virtual ParticleDistribution *cloneInvertB() const;
+    virtual ParticleDistribution* cloneInvertB() const;
 
     //! calls the ISampleVisitor's visit method
-    virtual void accept(ISampleVisitor *visitor) const;
+    virtual void accept(ISampleVisitor* visitor) const;
 
-    //! Returns textual representation of *this and its descendants.
+    //! Returns textual representation of* this and its descendants.
     virtual std::string to_str(int indent=0) const;
 
     //! Sets the refractive index of the ambient material (which influences its
     //! scattering power)
-    virtual void setAmbientMaterial(const IMaterial &material);
+    virtual void setAmbientMaterial(const IMaterial& material);
 
     //! Returns particle's material.
-    virtual const IMaterial *getAmbientMaterial() const;
+    virtual const IMaterial* getAmbientMaterial() const;
 
     //! Initializes list of new particles generated according to a distribution
-    virtual void generateParticles(std::vector<const IParticle *> &particle_vector) const;
+    virtual void generateParticles(std::vector<const IParticle* >& particle_vector) const;
 
     //! Returns the distributed parameter data
     ParameterDistribution getParameterDistribution() const;
 
     //! Returns the parameter pool that can be used for parameter distributions
-    ParameterPool *createDistributedParameterPool() const;
+    ParameterPool* createDistributedParameterPool() const;
 
     //! Returns particle.
-    const IParticle *getParticle() const;
+    const IParticle* getParticle() const;
 
 private:
     std::unique_ptr<IParticle> mP_particle;

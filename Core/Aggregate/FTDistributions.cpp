@@ -18,6 +18,7 @@
 #include "IntegratorReal.h"
 #include "MathFunctions.h"
 #include "Numeric.h"
+#include "ParameterPool.h"
 #include "Units.h"
 
 using namespace BornAgain;

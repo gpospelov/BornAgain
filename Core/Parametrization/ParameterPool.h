@@ -19,6 +19,8 @@
 #include "ICloneable.h" // inheriting from
 #include "RealParameterWrapper.h"
 #include <map>
+#include <ostream>
+#include <string>
 #include <vector>
 
 //! @class ParameterPool

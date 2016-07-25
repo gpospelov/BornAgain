@@ -15,10 +15,16 @@
 
 #include "Distributions.h"
 #include "BornAgainNamespace.h"
+#include "Exceptions.h"
 #include "MathFunctions.h"
 #include "Units.h"
 
 using namespace BornAgain;
+
+IDistribution1D* IDistribution1D::clone() const
+{
+    throw Exceptions::NotImplementedException("IDistribution1D cannot be cloned");
+}
 
 std::vector<ParameterSample> IDistribution1D::generateSamples(
     size_t nbr_samples, double sigma_factor, const AttLimits &limits) const
@@ -26,7 +32,7 @@ std::vector<ParameterSample> IDistribution1D::generateSamples(
     if (nbr_samples == 0)
         throw Exceptions::OutOfBoundsException("IDistribution1D::generateSamples: number "
                                    "of generated samples must be bigger than zero");
-    if (isDelta()) {      
+    if (isDelta()) {
         std::vector<ParameterSample> result = { getMeanSample() };
         return result;
     }

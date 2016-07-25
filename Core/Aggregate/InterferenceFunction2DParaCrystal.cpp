@@ -18,6 +18,7 @@
 #include "ISampleVisitor.h"
 #include "IntegratorReal.h"
 #include "Numeric.h"
+#include "ParameterPool.h"
 #include "Units.h"
 #include <limits>
 

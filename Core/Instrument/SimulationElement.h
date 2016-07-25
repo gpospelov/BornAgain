@@ -21,6 +21,7 @@
 #include "IParameterized.h"
 #include "IPixelMap.h"
 #include <memory>
+#include <vector>
 
 //! @class SimulationElement
 //! @ingroup simulation

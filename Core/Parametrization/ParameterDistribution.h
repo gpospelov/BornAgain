@@ -18,6 +18,7 @@
 
 #include "IParameterized.h" // inheriting from
 #include <memory>
+#include <vector>
 
 class IDistribution1D;
 class ParameterSample;

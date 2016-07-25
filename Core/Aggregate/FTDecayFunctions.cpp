@@ -16,6 +16,7 @@
 #include "FTDecayFunctions.h"
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
+#include "ParameterPool.h"
 #include "Units.h"
 
 using namespace BornAgain;

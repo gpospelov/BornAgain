@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "IParameterized.h"
+#include "ParameterPool.h"
 #include <iostream>
 #include <memory>
 #include <sstream>

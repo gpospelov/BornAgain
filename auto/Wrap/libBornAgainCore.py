@@ -1901,8 +1901,6 @@ class IParameterized(INamed):
 
         void IParameterized::setParameterValue(const std::string &name, double value)
 
-        Sets the value of the parameter with the given name. 
-
         """
         return _libBornAgainCore.IParameterized_setParameterValue(self, name, value)
 
@@ -4657,8 +4655,6 @@ class ISampleBuilder(IParameterized):
 
         void IParameterized::setParameterValue(const std::string &name, double value)
 
-        Sets the value of the parameter with the given name. 
-
         """
         return _libBornAgainCore.ISampleBuilder_setParameterValue(self, name, value)
 
@@ -5204,9 +5200,7 @@ class IDistribution1D(IParameterized):
         """
         clone(IDistribution1D self) -> IDistribution1D
 
-        virtual IDistribution1D* IDistribution1D::clone() const
-
-        clone method 
+        IDistribution1D * IDistribution1D::clone() const 
 
         """
         return _libBornAgainCore.IDistribution1D_clone(self)
@@ -5490,9 +5484,7 @@ class DistributionLorentz(IDistribution1D):
         """
         clone(DistributionLorentz self) -> DistributionLorentz
 
-        virtual DistributionLorentz* DistributionLorentz::clone() const
-
-        clone method 
+        virtual DistributionLorentz* DistributionLorentz::clone() const 
 
         """
         return _libBornAgainCore.DistributionLorentz_clone(self)
@@ -21067,7 +21059,7 @@ class ParticleDistribution(IAbstractParticle):
 
         std::string ParticleDistribution::to_str(int indent=0) const
 
-        Returns textual representation of *this and its descendants. 
+        Returns textual representation of* this and its descendants. 
 
         """
         return _libBornAgainCore.ParticleDistribution_to_str(self, indent)

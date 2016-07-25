@@ -18,7 +18,7 @@
 
 #include "IParameterized.h" // inheriting from
 #include "ParameterSample.h"
-
+#include <vector>
 
 //! @class IDistribution1D
 //! @ingroup algorithms_internal
@@ -29,10 +29,7 @@ public:
     IDistribution1D() {}
     virtual ~IDistribution1D() {}
 
-    //! clone method
-    virtual IDistribution1D* clone() const {
-        throw Exceptions::NotImplementedException("IDistribution1D cannot be cloned");
-    }
+    virtual IDistribution1D* clone() const;
 
     //! get the probability density for value x
     virtual double probabilityDensity(double x) const=0;

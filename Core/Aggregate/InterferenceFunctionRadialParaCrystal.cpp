@@ -17,6 +17,7 @@
 #include "BornAgainNamespace.h"
 #include "ISampleVisitor.h"
 #include "Numeric.h"
+#include "ParameterPool.h"
 #include <limits>
 
 using namespace BornAgain;

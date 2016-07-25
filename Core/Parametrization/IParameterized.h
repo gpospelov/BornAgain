@@ -17,7 +17,10 @@
 #define IPARAMETERIZED_H
 
 #include "INamed.h" // inheriting from
-#include "ParameterPool.h"
+#include "AttLimits.h"
+
+class ParameterPool;
+class RealParameterWrapper;
 
 //! @class IParameterized
 //! @ingroup tools_internal

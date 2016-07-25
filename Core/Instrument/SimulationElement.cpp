@@ -15,6 +15,7 @@
 
 #include "SimulationElement.h"
 #include "IPixelMap.h"
+#include <vector>
 
 SimulationElement::SimulationElement(double wavelength, double alpha_i, double phi_i,
                                      const IPixelMap* pixelmap)

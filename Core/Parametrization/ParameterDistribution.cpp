@@ -15,7 +15,7 @@
 
 #include "ParameterDistribution.h"
 #include "Distributions.h"
-
+#include "Exceptions.h"
 
 ParameterDistribution::ParameterDistribution(const std::string &par_name,
     const IDistribution1D &distribution, size_t nbr_samples,

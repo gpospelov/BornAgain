@@ -20,6 +20,7 @@
 #include "Distributions.h"
 #include "GUIHelpers.h"
 #include "ModelPath.h"
+#include "ParameterPool.h"
 #include "ParticleItem.h"
 #include "TransformFromDomain.h"
 #include "TransformToDomain.h"
@@ -47,14 +48,12 @@ ParticleDistributionItem::ParticleDistributionItem()
     addProperty(P_DISTRIBUTED_PARAMETER, par_prop.getVariant());
     updateParameterList();
     mapper()->setOnAnyChildChange(
-                [this] (SessionItem* item)
-    {
-        // prevent infinit loop when item changes its own properties
-        if (item && item->modelType()== Constants::PropertyType && item->parent() == this)
-            return;
-        updateParameterList();
-    });
-
+        [this] (SessionItem* item) {
+            // prevent infinit loop when item changes its own properties
+            if (item && item->modelType()== Constants::PropertyType && item->parent() == this)
+                return;
+            updateParameterList();
+        } );
 }
 
 ParticleDistributionItem::~ParticleDistributionItem()
@@ -64,14 +63,12 @@ ParticleDistributionItem::~ParticleDistributionItem()
 std::unique_ptr<ParticleDistribution> ParticleDistributionItem::createParticleDistribution() const
 {
     auto children = childItems();
-    if (children.size() == 0) {
+    if (children.size() == 0)
         return nullptr;
-    }
     std::unique_ptr<IParticle> P_particle = TransformToDomain::createIParticle(*getItem());
-    if (!P_particle) {
+    if (!P_particle)
         throw GUIHelpers::Error("DomainObjectBuilder::buildParticleDistribution()"
                                 " -> Error! No correct particle defined");
-    }
     auto distr_item = getGroupItem(ParticleDistributionItem::P_DISTRIBUTION);
     Q_ASSERT(distr_item);
 
@@ -126,7 +123,7 @@ void ParticleDistributionItem::updateParameterList()
 QStringList ParticleDistributionItem::getChildParameterNames() const
 {
     QStringList result;
-    QVector<SessionItem *> children = getItems();
+    QVector<SessionItem*> children = getItems();
     if (children.size() > 1) {
         Q_ASSERT(0);
         qDebug() << "ParticleDistributionItem::getChildParameterNames(): "

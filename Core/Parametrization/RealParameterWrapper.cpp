@@ -13,6 +13,8 @@
 //
 // ************************************************************************** //
 
+#include "RealParameterWrapper.h"
+#include "Exceptions.h"
 #include "IParameterized.h"
 #include <sstream>
 
@@ -45,6 +47,14 @@ RealParameterWrapper& RealParameterWrapper::operator=(const RealParameterWrapper
         tmp.swapContent(*this);
     }
     return *this;
+}
+
+//! throw exception if parameter was not initialized with proper value
+void RealParameterWrapper::checkNull() const
+{
+    if(isNull())
+        throw Exceptions::NullPointerException(
+            "RealParameterWrapper::getValue() -> Attempt to access uninitialised pointer.");
 }
 
 void RealParameterWrapper::setValue(double value)

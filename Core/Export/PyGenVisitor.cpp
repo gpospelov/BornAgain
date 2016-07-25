@@ -35,6 +35,7 @@
 #include "SampleLabelHandler.h"
 #include "SphericalDetector.h"
 #include <iomanip>
+#include <set>
 
 PyGenVisitor::PyGenVisitor(const MultiLayer& multilayer)
     : m_label(new SampleLabelHandler())

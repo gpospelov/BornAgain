@@ -42,8 +42,6 @@ public:
     //! Creates new parameter pool, with all local parameters and those of its children.
     ParameterPool* createParameterTree();
 
-    void printParameters();
-
     void registerParameter(const std::string& name, double* parpointer,
                            const AttLimits& limits = AttLimits::limitless());
 
@@ -58,8 +56,8 @@ public:
         return ostr; }
 
     //! Adds parameters from local pool to external pool and recursively calls its direct children.
-    virtual std::string addParametersToExternalPool(std::string path, ParameterPool* external_pool,
-                                                    int copy_number = -1) const;
+    virtual std::string addParametersToExternalPool(
+        std::string path, ParameterPool* external_pool, int copy_number = -1) const;
 
 protected:
     //! Action to be taken in inherited class when a parameter has changed.
@@ -69,9 +67,8 @@ protected:
     //! default implementation prints "IParameterized:" and the parameter pool
     virtual void print(std::ostream& ostr) const;
 
-    ParameterPool* m_parameters; //!< parameter pool
-    friend ParameterPool;
-    friend RealParameterWrapper;
+    ParameterPool* m_parameters; //!< parameter pool (kind of pointer-to-implementation)
+    friend RealParameterWrapper; // calls onChange()
 };
 
 #endif // IPARAMETERIZED_H

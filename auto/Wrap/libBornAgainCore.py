@@ -1885,16 +1885,6 @@ class IParameterized(INamed):
         return _libBornAgainCore.IParameterized_createParameterTree(self)
 
 
-    def printParameters(self):
-        """
-        printParameters(IParameterized self)
-
-        void IParameterized::printParameters()
-
-        """
-        return _libBornAgainCore.IParameterized_printParameters(self)
-
-
     def setParameterValue(self, name, value):
         """
         setParameterValue(IParameterized self, std::string const & name, double value)

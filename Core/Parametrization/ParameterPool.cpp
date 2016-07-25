@@ -147,8 +147,6 @@ std::vector<std::string> ParameterPool::getParameterNames() const
     return result;
 }
 
-//! Prints content on the screen.
-
 void ParameterPool::print(std::ostream& ostr) const
 {
     const size_t number_of_pars_in_line(12);
@@ -167,7 +165,6 @@ void ParameterPool::print(std::ostream& ostr) const
         ostr << "POOL_0";
     }
 }
-
 
 std::string ParameterPool::get_error_message(const std::string& criteria) const
 {

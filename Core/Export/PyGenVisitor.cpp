@@ -40,7 +40,10 @@ PyGenVisitor::PyGenVisitor(const MultiLayer& multilayer)
 {
     for( auto mat: multilayer.containedMaterials() )
         m_label->insertMaterial(mat);
-    auto x = multilayer.containedSubclass<LayerRoughness>();
+    for( auto x: multilayer.containedSubclass<LayerRoughness>() )
+        m_label->setLabelRoughness(x);
+    for( auto x: multilayer.containedSubclass<IFormFactor>() )
+        m_label->setLabelFormFactor(x);
     VisitSampleTreePostorder(multilayer, *this);
 }
 
@@ -65,119 +68,96 @@ std::string PyGenVisitor::writePyScript(
     return result.str();
 }
 
-void PyGenVisitor::visit(const FormFactorAnisoPyramid* sample)
+void PyGenVisitor::visit(const FormFactorAnisoPyramid*)
 {
-    m_label->setLabelFormFactor(sample);
 }
 
-void PyGenVisitor::visit(const FormFactorBox* sample)
+void PyGenVisitor::visit(const FormFactorBox*)
 {
-    m_label->setLabelFormFactor(sample);
 }
 
-void PyGenVisitor::visit(const FormFactorCone* sample)
+void PyGenVisitor::visit(const FormFactorCone*)
 {
-    m_label->setLabelFormFactor(sample);
 }
 
-void PyGenVisitor::visit(const FormFactorCone6* sample)
+void PyGenVisitor::visit(const FormFactorCone6*)
 {
-    m_label->setLabelFormFactor(sample);
 }
 
-void PyGenVisitor::visit(const FormFactorCuboctahedron* sample)
+void PyGenVisitor::visit(const FormFactorCuboctahedron*)
 {
-    m_label->setLabelFormFactor(sample);
 }
 
-void PyGenVisitor::visit(const FormFactorCylinder* sample)
+void PyGenVisitor::visit(const FormFactorCylinder*)
 {
-    m_label->setLabelFormFactor(sample);
 }
 
-void PyGenVisitor::visit(const FormFactorDodecahedron* sample)
+void PyGenVisitor::visit(const FormFactorDodecahedron*)
 {
-    m_label->setLabelFormFactor(sample);
 }
 
-void PyGenVisitor::visit(const FormFactorEllipsoidalCylinder* sample)
+void PyGenVisitor::visit(const FormFactorEllipsoidalCylinder*)
 {
-    m_label->setLabelFormFactor(sample);
 }
 
-void PyGenVisitor::visit(const FormFactorFullSphere* sample)
+void PyGenVisitor::visit(const FormFactorFullSphere*)
 {
-    m_label->setLabelFormFactor(sample);
 }
 
-void PyGenVisitor::visit(const FormFactorFullSpheroid* sample)
+void PyGenVisitor::visit(const FormFactorFullSpheroid*)
 {
-    m_label->setLabelFormFactor(sample);
 }
 
-void PyGenVisitor::visit(const FormFactorGauss* sample)
+void PyGenVisitor::visit(const FormFactorGauss*)
 {
-    m_label->setLabelFormFactor(sample);
 }
 
-void PyGenVisitor::visit(const FormFactorHemiEllipsoid* sample)
+void PyGenVisitor::visit(const FormFactorHemiEllipsoid*)
 {
-    m_label->setLabelFormFactor(sample);
 }
 
-void PyGenVisitor::visit(const FormFactorIcosahedron* sample)
+void PyGenVisitor::visit(const FormFactorIcosahedron*)
 {
-    m_label->setLabelFormFactor(sample);
 }
 
-void PyGenVisitor::visit(const FormFactorLorentz* sample)
+void PyGenVisitor::visit(const FormFactorLorentz*)
 {
-    m_label->setLabelFormFactor(sample);
 }
 
-void PyGenVisitor::visit(const FormFactorPrism3* sample)
+void PyGenVisitor::visit(const FormFactorPrism3*)
 {
-    m_label->setLabelFormFactor(sample);
 }
 
-void PyGenVisitor::visit(const FormFactorPrism6* sample)
+void PyGenVisitor::visit(const FormFactorPrism6*)
 {
-    m_label->setLabelFormFactor(sample);
 }
 
-void PyGenVisitor::visit(const FormFactorPyramid* sample)
+void PyGenVisitor::visit(const FormFactorPyramid*)
 {
-    m_label->setLabelFormFactor(sample);
 }
 
-void PyGenVisitor::visit(const FormFactorRipple1* sample)
+void PyGenVisitor::visit(const FormFactorRipple1*)
 {
-    m_label->setLabelFormFactor(sample);
 }
 
-void PyGenVisitor::visit(const FormFactorRipple2* sample)
+void PyGenVisitor::visit(const FormFactorRipple2*)
 {
-    m_label->setLabelFormFactor(sample);
 }
 
-void PyGenVisitor::visit(const FormFactorTetrahedron* sample)
+void PyGenVisitor::visit(const FormFactorTetrahedron*)
 {
-    m_label->setLabelFormFactor(sample);
 }
 
-void PyGenVisitor::visit(const FormFactorTruncatedCube* sample)
+void PyGenVisitor::visit(const FormFactorTruncatedCube*)
 {
-    m_label->setLabelFormFactor(sample);
 }
 
-void PyGenVisitor::visit(const FormFactorTruncatedSphere* sample)
+void PyGenVisitor::visit(const FormFactorTruncatedSphere*)
 {
-    m_label->setLabelFormFactor(sample);
 }
 
-void PyGenVisitor::visit(const FormFactorTruncatedSpheroid* sample)
+void PyGenVisitor::visit(const FormFactorTruncatedSpheroid*)
 {
-    m_label->setLabelFormFactor(sample);
 }
 
 void PyGenVisitor::visit(const InterferenceFunctionNone* sample)
@@ -214,9 +194,8 @@ void PyGenVisitor::visit(const LayerInterface*)
 {
 }
 
-void PyGenVisitor::visit(const LayerRoughness* sample)
+void PyGenVisitor::visit(const LayerRoughness*)
 {
-    m_label->setLabelRoughness(sample);
 }
 
 void PyGenVisitor::visit(const MultiLayer* sample)

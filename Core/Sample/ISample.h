@@ -77,7 +77,7 @@ std::vector<const T*> ISample::containedSubclass() const
     if( const T* t = dynamic_cast<const T*>(this) )
         result.push_back( t );
     for( const ISample* child: getChildren() )
-        if( const T* t = dynamic_cast<const T*>(child) )
+        for( const T* t: child->containedSubclass<T>() )
             result.push_back( t );
     return result;
 }

@@ -18,8 +18,8 @@
 
 #include "INamed.h" // inheriting from
 #include "Complex.h"
-#include "EigenCore.h"
 #include "Vectors3D.h"
+#include "EigenCore.h"
 
 class IRotation;
 
@@ -71,28 +71,6 @@ protected:
     }
 };
 
-inline IMaterial *IMaterial::clone() const
-{
-    throw Exceptions::NotImplementedException(
-        "IMaterial is an interface and should not be cloned!");
-}
-
-#ifndef SWIG
-inline Eigen::Matrix2cd IMaterial::getSpecularScatteringMatrix(const kvector_t k) const
-{
-    Eigen::Matrix2cd result;
-    double k_mag2 = k.mag2();
-    double xy_proj2 = k.magxy2() / k_mag2;
-    result = getScatteringMatrix(k_mag2) - xy_proj2 * Eigen::Matrix2cd::Identity();
-    return result;
-}
-
-#endif // SWIG
-
-inline const IMaterial *IMaterial::createTransformedMaterial(const IRotation&) const
-{
-    throw Exceptions::NotImplementedException(
-        "IMaterial is an interface and should not be created!");
-}
+bool pEqual(const IMaterial* left, const IMaterial* right);
 
 #endif // IMATERIAL_H

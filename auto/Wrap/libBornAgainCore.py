@@ -4126,7 +4126,7 @@ class ISample(ICloneable, IParameterized):
 
     def containedMaterials(self):
         """
-        containedMaterials(ISample self) -> std::set< IMaterial const * >
+        containedMaterials(ISample self) -> std::vector< IMaterial const *,std::allocator< IMaterial const * > >
 
         std::set< const IMaterial * > ISample::containedMaterials() const
 
@@ -14252,6 +14252,10 @@ class IMaterial(INamed):
 IMaterial_swigregister = _libBornAgainCore.IMaterial_swigregister
 IMaterial_swigregister(IMaterial)
 
+
+def pEqual(left, right):
+    """pEqual(IMaterial left, IMaterial right) -> bool"""
+    return _libBornAgainCore.pEqual(left, right)
 class HomogeneousMaterial(IMaterial):
     """
 

@@ -52,9 +52,9 @@ public:
     //! Returns nullptr, unless overwritten to return a specific material.
     virtual const IMaterial* getAmbientMaterial() const { return nullptr; }
 
-    //! Returns set of materials contained in this ISample.
+    //! Returns set of unique materials contained in this ISample.
     //! Must be reimplemented in derived classes that define a material.
-    std::set<const IMaterial*> containedMaterials() const;
+    std::vector<const IMaterial*> containedMaterials() const;
 
     //! Indicates if this ISample object contains any material with magnetic properties.
     bool containsMagneticMaterial() const;

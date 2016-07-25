@@ -70,6 +70,7 @@ public:
     template<class T> std::vector<const T*> containedSubclass() const;
 };
 
+//! Returns vector of children of type T.
 template<class T>
 std::vector<const T*> ISample::containedSubclass() const
 {

@@ -24,37 +24,37 @@
 #include "ParticleCoreShell.h"
 #include "ParticleDistribution.h"
 
-std::string SampleLabelHandler::getLabel(const IFormFactor* sample)
+std::string SampleLabelHandler::getLabelFormFactor(const IFormFactor* sample)
 {
     return m_FormFactorLabel[sample];
 }
 
-std::string SampleLabelHandler::getLabel(const IInterferenceFunction* sample)
+std::string SampleLabelHandler::getLabelInterferenceFunction(const IInterferenceFunction* sample)
 {
     return m_InterferenceFunctionLabel[sample];
 }
 
-std::string SampleLabelHandler::getLabel(const IMaterial* sample)
+std::string SampleLabelHandler::getLabelMaterial(const IMaterial* sample)
 {
     return m_MaterialLabel[sample];
 }
 
-std::string SampleLabelHandler::getLabel(const Layer* sample)
+std::string SampleLabelHandler::getLabelLayer(const Layer* sample)
 {
     return m_LayerLabel[sample];
 }
 
-std::string SampleLabelHandler::getLabel(const LayerRoughness* sample)
+std::string SampleLabelHandler::getLabelRoughness(const LayerRoughness* sample)
 {
     return m_LayerRoughnessLabel[sample];
 }
 
-std::string SampleLabelHandler::getLabel(const MultiLayer* sample)
+std::string SampleLabelHandler::getLabelMultiLayer(const MultiLayer* sample)
 {
     return m_MultiLayerLabel[sample];
 }
 
-std::string SampleLabelHandler::getLabel(const IAbstractParticle* sample)
+std::string SampleLabelHandler::getLabelParticle(const IAbstractParticle* sample)
 {
     if (const ParticleCoreShell* core_shell_particle =
             dynamic_cast<const ParticleCoreShell*>(sample))
@@ -70,27 +70,27 @@ std::string SampleLabelHandler::getLabel(const IAbstractParticle* sample)
         "SampleLabelHandler::getLabel: called for unknown IParticle type");
 }
 
-std::string SampleLabelHandler::getLabel(const ParticleCoreShell* sample)
+std::string SampleLabelHandler::getLabelParticleCoreShell(const ParticleCoreShell* sample)
 {
     return m_ParticleCoreShellLabel[sample];
 }
 
-std::string SampleLabelHandler::getLabel(const ParticleDistribution* sample)
+std::string SampleLabelHandler::getLabelParticleDistribution(const ParticleDistribution* sample)
 {
     return m_ParticleDistributionLabel[sample];
 }
 
-std::string SampleLabelHandler::getLabel(const ILayout* sample)
+std::string SampleLabelHandler::getLabelLayout(const ILayout* sample)
 {
     return m_ILayoutLabel[sample];
 }
 
-std::string SampleLabelHandler::getLabel(const ParticleComposition* sample)
+std::string SampleLabelHandler::getLabelParticleComposition(const ParticleComposition* sample)
 {
     return m_ParticleCompositionLabel[sample];
 }
 
-std::string SampleLabelHandler::getLabel(const IRotation* sample)
+std::string SampleLabelHandler::getLabelRotation(const IRotation* sample)
 {
     return m_RotationsLabel[sample];
 }

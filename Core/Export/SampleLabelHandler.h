@@ -142,18 +142,18 @@ public:
     rotations_t* getRotationsMap() { return &m_RotationsLabel; }
     roughnesses_t* getLayerRoughnessMap() { return &m_LayerRoughnessLabel; }
 
-    std::string getLabel(const IAbstractParticle* sample);
-    std::string getLabel(const IFormFactor* sample);
-    std::string getLabel(const IInterferenceFunction* sample);
-    std::string getLabel(const ILayout* sample);
-    std::string getLabel(const IMaterial* sample);
-    std::string getLabel(const IRotation* sample);
-    std::string getLabel(const Layer* sample);
-    std::string getLabel(const LayerRoughness* sample);
-    std::string getLabel(const MultiLayer* sample);
-    std::string getLabel(const ParticleComposition* sample);
-    std::string getLabel(const ParticleCoreShell* sample);
-    std::string getLabel(const ParticleDistribution* sample);
+    std::string getLabelParticle(const IAbstractParticle* sample);
+    std::string getLabelFormFactor(const IFormFactor* sample);
+    std::string getLabelInterferenceFunction(const IInterferenceFunction* sample);
+    std::string getLabelLayout(const ILayout* sample);
+    std::string getLabelMaterial(const IMaterial* sample);
+    std::string getLabelRotation(const IRotation* sample);
+    std::string getLabelLayer(const Layer* sample);
+    std::string getLabelRoughness(const LayerRoughness* sample);
+    std::string getLabelMultiLayer(const MultiLayer* sample);
+    std::string getLabelParticleComposition(const ParticleComposition* sample);
+    std::string getLabelParticleCoreShell(const ParticleCoreShell* sample);
+    std::string getLabelParticleDistribution(const ParticleDistribution* sample);
 
     void insertMaterial(const IMaterial* sample);
     void setLabel(const IFormFactor* sample);

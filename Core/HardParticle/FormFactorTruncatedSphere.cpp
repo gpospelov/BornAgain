@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "FormFactorTruncatedSphere.h"
+#include "AttLimits.h"
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
 #include "Numeric.h"
@@ -49,7 +50,6 @@ bool FormFactorTruncatedSphere::check_initialization() const
 
 void FormFactorTruncatedSphere::init_parameters()
 {
-    clearParameterPool();
     registerParameter(Radius, &m_radius, AttLimits::n_positive());
     registerParameter(Height, &m_height, AttLimits::n_positive());
 }

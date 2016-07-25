@@ -1931,8 +1931,8 @@ class IParameterized(INamed):
 
     def registerParameter(self, *args):
         """
-        registerParameter(IParameterized self, std::string const & name, double * parpointer, AttLimits limits)
         registerParameter(IParameterized self, std::string const & name, double * parpointer)
+        registerParameter(IParameterized self, std::string const & name, double * parpointer, AttLimits limits)
         registerParameter(IParameterized self, std::string const & name, int64_t parpointer, AttLimits limits)
         registerParameter(IParameterized self, std::string const & name, int64_t parpointer)
 

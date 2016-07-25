@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "FormFactorCone.h"
+#include "AttLimits.h"
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
 #include "Numeric.h"
@@ -41,7 +42,6 @@ FormFactorCone::FormFactorCone(double radius, double height, double alpha)
         ostr << "Check for 'height <= radius*tan(alpha)' failed.";
         throw Exceptions::ClassInitializationException(ostr.str());
     }
-    clearParameterPool();
     registerParameter(BornAgain::Radius, &m_radius, AttLimits::n_positive());
     registerParameter(BornAgain::Height, &m_height, AttLimits::n_positive());
     registerParameter(BornAgain::Alpha, & m_alpha, AttLimits::n_positive());

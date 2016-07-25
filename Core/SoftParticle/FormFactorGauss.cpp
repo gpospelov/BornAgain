@@ -14,11 +14,12 @@
 // ************************************************************************** //
 
 #include "FormFactorGauss.h"
+#include "AttLimits.h"
 #include "BornAgainNamespace.h"
 #include "Numeric.h"
 #include "Units.h"
 
-using namespace  BornAgain;
+using namespace BornAgain;
 
 FormFactorGauss::FormFactorGauss(double volume)
 {
@@ -41,7 +42,6 @@ bool FormFactorGauss::check_initialization() const
 
 void FormFactorGauss::init_parameters()
 {
-    clearParameterPool();
     registerParameter(Width, &m_width, AttLimits::n_positive());
     registerParameter(Height, &m_height, AttLimits::n_positive());
 }

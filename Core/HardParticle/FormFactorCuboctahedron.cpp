@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "FormFactorCuboctahedron.h"
+#include "AttLimits.h"
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
 

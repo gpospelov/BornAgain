@@ -14,10 +14,11 @@
 // ************************************************************************** //
 
 #include "FormFactorLongBoxLorentz.h"
+#include "AttLimits.h"
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
 
-using namespace  BornAgain;
+using namespace BornAgain;
 
 FormFactorLongBoxLorentz::FormFactorLongBoxLorentz(double length, double width, double height)
     : m_length(length), m_width(width), m_height(height) {
@@ -54,7 +55,6 @@ bool FormFactorLongBoxLorentz::check_initialization() const
 
 void FormFactorLongBoxLorentz::init_parameters()
 {
-    clearParameterPool();
     registerParameter(Length, &m_length, AttLimits::n_positive());
     registerParameter(Width, &m_width, AttLimits::n_positive());
     registerParameter(Height, &m_height, AttLimits::n_positive());

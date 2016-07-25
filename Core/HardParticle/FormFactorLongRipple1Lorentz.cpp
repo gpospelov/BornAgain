@@ -14,11 +14,12 @@
 // ************************************************************************** //
 
 #include "FormFactorLongRipple1Lorentz.h"
+#include "AttLimits.h"
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
 #include "Units.h"
 
-using namespace  BornAgain;
+using namespace BornAgain;
 
 FormFactorLongRipple1Lorentz::FormFactorLongRipple1Lorentz(
     double length, double width, double height)
@@ -52,7 +53,6 @@ bool FormFactorLongRipple1Lorentz::check_initialization() const
 
 void FormFactorLongRipple1Lorentz::init_parameters()
 {
-    clearParameterPool();
     registerParameter(Width, &m_width, AttLimits::n_positive());
     registerParameter(Height, &m_height, AttLimits::n_positive());
     registerParameter(Length, &m_length, AttLimits::n_positive());

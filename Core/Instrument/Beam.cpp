@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "Beam.h"
+#include "AttLimits.h"
 #include "BornAgainNamespace.h"
 #include "Complex.h"
 
@@ -88,7 +89,6 @@ Eigen::Matrix2cd Beam::calculatePolarization(const kvector_t bloch_vector) const
 
 void Beam::init_parameters()
 {
-    clearParameterPool();
     registerParameter(Intensity, &m_intensity);
     registerParameter(Wavelength, &m_wavelength, AttLimits::positive());
     registerParameter(Alpha, &m_alpha, AttLimits::lowerLimited(0.0));

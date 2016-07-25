@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "FormFactorFullSpheroid.h"
+#include "AttLimits.h"
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
 #include "Numeric.h"
@@ -43,7 +44,6 @@ bool FormFactorFullSpheroid::check_initialization() const
 
 void FormFactorFullSpheroid::init_parameters()
 {
-    clearParameterPool();
     registerParameter(Radius, &m_radius, AttLimits::n_positive());
     registerParameter(Height, &m_height, AttLimits::n_positive());
 }

@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "FormFactorTruncatedSpheroid.h"
+#include "AttLimits.h"
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
 #include "Numeric.h"
@@ -55,7 +56,6 @@ bool FormFactorTruncatedSpheroid::check_initialization() const
 
 void FormFactorTruncatedSpheroid::init_parameters()
 {
-    clearParameterPool();
     registerParameter(Radius, &m_radius, AttLimits::n_positive());
     registerParameter(Height, &m_height, AttLimits::n_positive());
     registerParameter(HeightFlattening, &m_height_flattening, AttLimits::n_positive());

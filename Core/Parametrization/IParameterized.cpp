@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "IParameterized.h"
+#include "AttLimits.h"
 #include "ParameterPool.h"
 #include <iostream>
 #include <memory>
@@ -54,6 +55,12 @@ std::string IParameterized::addParametersToExternalPool(
     m_parameters->copyToExternalPool(path, external_pool);
 
     return path;
+}
+
+//! Register parameter address in the parameter pool; name allows for wildcard '*'
+void IParameterized::registerParameter(const std::string& name, double* parpointer)
+{
+    m_parameters->registerParameter(name, parpointer, AttLimits::limitless());
 }
 
 //! Register parameter address in the parameter pool; name allows for wildcard '*'

@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "FormFactorRipple1.h"
+#include "AttLimits.h"
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
 #include "Units.h"
@@ -53,7 +54,6 @@ bool FormFactorRipple1::check_initialization() const
 
 void FormFactorRipple1::init_parameters()
 {
-    clearParameterPool();
     registerParameter(BornAgain::Width, &m_width, AttLimits::n_positive());
     registerParameter(BornAgain::Height, &m_height, AttLimits::n_positive());
     registerParameter(BornAgain::Length, &m_length, AttLimits::n_positive());

@@ -17,8 +17,8 @@
 #define IPARAMETERIZED_H
 
 #include "INamed.h" // inheriting from
-#include "AttLimits.h"
 
+class AttLimits;
 class ParameterPool;
 class RealParameterWrapper;
 
@@ -42,8 +42,8 @@ public:
     //! Creates new parameter pool, with all local parameters and those of its children.
     ParameterPool* createParameterTree();
 
-    void registerParameter(const std::string& name, double* parpointer,
-                           const AttLimits& limits = AttLimits::limitless());
+    void registerParameter(const std::string& name, double* parpointer);
+    void registerParameter(const std::string& name, double* parpointer, const AttLimits& limits);
 
     void setParameterValue(const std::string& name, double value);
 

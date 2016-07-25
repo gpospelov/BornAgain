@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "FormFactorDecoratorDebyeWaller.h"
+#include "AttLimits.h"
 #include "BornAgainNamespace.h"
 #include "ISampleVisitor.h"
 #include "WavevectorInfo.h"
@@ -61,7 +62,6 @@ bool FormFactorDecoratorDebyeWaller::check_initialization() const
 
 void FormFactorDecoratorDebyeWaller::init_parameters()
 {
-    clearParameterPool();
     registerParameter(HeightDWFactor, &m_h_dw_factor, AttLimits::n_positive());
     registerParameter(RadiusDWFactor, &m_r_dw_factor, AttLimits::n_positive());
 }

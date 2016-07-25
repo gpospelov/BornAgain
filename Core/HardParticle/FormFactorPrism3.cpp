@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "FormFactorPrism3.h"
+#include "AttLimits.h"
 #include "BornAgainNamespace.h"
 
 //! @brief Prism3 constructor

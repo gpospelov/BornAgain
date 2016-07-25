@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "FormFactorCone6.h"
+#include "AttLimits.h"
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
 

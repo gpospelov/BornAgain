@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "FormFactorAnisoPyramid.h"
+#include "AttLimits.h"
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
 

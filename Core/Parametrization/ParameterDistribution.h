@@ -17,6 +17,7 @@
 #define PARAMETERDISTRIBUTION_H
 
 #include "IParameterized.h" // inheriting from
+#include "AttLimits.h"
 #include <memory>
 #include <vector>
 

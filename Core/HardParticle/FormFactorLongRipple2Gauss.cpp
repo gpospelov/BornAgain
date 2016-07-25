@@ -14,10 +14,10 @@
 // ************************************************************************** //
 
 #include "FormFactorLongRipple2Gauss.h"
+#include "AttLimits.h"
 #include "BornAgainNamespace.h"
 
-
-using namespace  BornAgain;
+using namespace BornAgain;
 
 FormFactorLongRipple2Gauss::FormFactorLongRipple2Gauss(
     double length, double width, double height, double asymmetry)
@@ -63,7 +63,6 @@ bool FormFactorLongRipple2Gauss::check_initialization() const
 
 void FormFactorLongRipple2Gauss::init_parameters()
 {
-    clearParameterPool();
     registerParameter(Width, &m_width, AttLimits::n_positive());
     registerParameter(Height, &m_height, AttLimits::n_positive());
     registerParameter(Length, &m_length, AttLimits::n_positive());

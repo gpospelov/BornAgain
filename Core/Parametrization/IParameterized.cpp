@@ -33,10 +33,9 @@ IParameterized::~IParameterized()
 
 ParameterPool* IParameterized::createParameterTree()
 {
-    std::unique_ptr<ParameterPool> P_new_pool( new ParameterPool(this) );
-    std::string path("/");
-    addParametersToExternalPool(path, P_new_pool.get());
-    return P_new_pool.release();
+    auto P_new_pool = new ParameterPool(this);
+    addParametersToExternalPool("/", P_new_pool);
+    return P_new_pool;
 }
 
 //! Copies local parameters to external_pool, under name "path/<name>copy_number/"

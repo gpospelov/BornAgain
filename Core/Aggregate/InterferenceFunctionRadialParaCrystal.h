@@ -34,6 +34,9 @@ public:
 
     virtual void accept(ISampleVisitor* visitor) const;
 
+    //! Returns textual representation of *this and its descendants.
+    virtual std::string to_str(int indent=0) const;
+
     //! Sets size of coherence domain
     void setDomainSize(double size) { m_domain_size = size; }
 

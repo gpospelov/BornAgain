@@ -48,6 +48,9 @@ public:
     //! Calls the ISampleVisitor's visit method
     virtual void accept(class ISampleVisitor* visitor) const;
 
+    //! Returns textual representation of *this and its descendants.
+    virtual std::string to_str(int indent=0) const;
+
     //! Sets layer thickness in nanometers.
     virtual void setThickness(double thickness);
 
@@ -61,7 +64,7 @@ public:
     virtual void setMaterialAndThickness(const IMaterial& material, double thickness);
 
     //! Returns layer's material.
-    virtual const IMaterial* getMaterial() const { return mp_material; }
+    virtual const IMaterial* getMaterial() const final { return mp_material; }
 
     //! Returns refractive index of the layer's material.
     virtual complex_t getRefractiveIndex() const;

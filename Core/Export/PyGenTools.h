@@ -28,6 +28,7 @@ class IDistribution1D;
 namespace PyGenTools {
     BA_CORE_API_ std::string genPyScript(
         GISASSimulation* simulation, const std::string& output_filename);
+
     BA_CORE_API_ std::string getRepresentation(const IDistribution1D* distribution);
     BA_CORE_API_ std::string getRepresentation(
         const std::string& indent, const Geometry::IShape2D* ishape, bool mask_value);

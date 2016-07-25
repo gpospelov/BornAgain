@@ -18,7 +18,9 @@
 
 #include "IParameterized.h"
 #include "ISampleVisitor.h" // TODO rm
+#include <set>
 
+class IMaterial;
 class ISampleVisitor;
 class DWBASimulation;
 
@@ -41,11 +43,21 @@ public:
     //! Returns an ISimulation if DWBA is required.
     virtual DWBASimulation* createDWBASimulation() const;
 
-    //! Outputs the tree of parameters generated from this ISample object and its descendants.
-    virtual void printSampleTree();
+    //! Returns textual representation of *this and its descendants.
+    virtual std::string to_str(int indent=0) const;
 
-    //! Indicates if this ISample object contains a material with magnetic properties.
-    virtual bool containsMagneticMaterial() const;
+    //! Returns nullptr, unless overwritten to return a specific material.
+    virtual const IMaterial* getMaterial() const { return nullptr; }
+
+    //! Returns nullptr, unless overwritten to return a specific material.
+    virtual const IMaterial* getAmbientMaterial() const { return nullptr; }
+
+    //! Returns set of unique materials contained in this ISample.
+    //! Must be reimplemented in derived classes that define a material.
+    std::vector<const IMaterial*> containedMaterials() const;
+
+    //! Indicates if this ISample object contains any material with magnetic properties.
+    bool containsMagneticMaterial() const;
 
     //! Returns a vector of children (const).
     //! Default implementation returns empty vector.
@@ -54,6 +66,20 @@ public:
     //! Returns number of children.
     //! Default implementation returns zero.
     virtual size_t size() const { return 0; }
+
+    template<class T> std::vector<const T*> containedSubclass() const;
 };
+
+template<class T>
+std::vector<const T*> ISample::containedSubclass() const
+{
+    std::vector<const T*> result;
+    if( const T* t = dynamic_cast<const T*>(this) )
+        result.push_back( t );
+    for( const ISample* child: getChildren() )
+        for( const T* t: child->containedSubclass<T>() )
+            result.push_back( t );
+    return result;
+}
 
 #endif // ISAMPLE_H

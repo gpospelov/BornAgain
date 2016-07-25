@@ -36,6 +36,9 @@ public:
     //! calls the ISampleVisitor's visit method
     virtual void accept(ISampleVisitor *visitor) const;
 
+    //! Returns textual representation of *this and its descendants.
+    virtual std::string to_str(int indent=0) const;
+
     //! Sets the refractive index of the ambient material (which influences its
     //! scattering power)
     virtual void setAmbientMaterial(const IMaterial &material);

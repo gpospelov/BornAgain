@@ -230,11 +230,10 @@ QString PySampleWidget::generateCodeSnippet()
 
     foreach(SessionItem *sampleItem, m_sampleModel->topItems()) {
         DomainObjectBuilder builder;
-        PyGenVisitor visitor;
 
         try {
             auto P_multilayer = builder.buildMultiLayer(*sampleItem);
-            VisitSampleTreePostorder(*P_multilayer, visitor);
+            PyGenVisitor visitor(*P_multilayer);
             std::ostringstream ostr;
             ostr << visitor.defineGetSample();
             if(!result.isEmpty()) result.append("\n");
@@ -292,5 +291,3 @@ QString PySampleWidget::getWelcomeMessage()
 
     return result;
 }
-
-

@@ -14,8 +14,7 @@
 // ************************************************************************** //
 
 #include "ISample.h"
-#include "SampleMaterialVisitor.h"
-#include "SamplePrintVisitor.h"
+#include "IMaterial.h"
 
 ISample* ISample::cloneInvertB() const
 {
@@ -28,17 +27,40 @@ DWBASimulation* ISample::createDWBASimulation() const
     return nullptr;
 }
 
-void ISample::printSampleTree()
+std::string ISample::to_str(int indent) const
 {
-    SamplePrintVisitor visitor;
-    VisitSampleTreePreorder(*this, visitor);
+    std::stringstream ss;
+    ss << std::string(4*indent, '.') << " " << getName() << " " << *getParameterPool() << "\n";
+    for( const ISample* child: getChildren() )
+        ss << child->to_str(indent+1);
+    return ss.str();
+}
+
+std::vector<const IMaterial*> ISample::containedMaterials() const
+{
+    std::vector<const IMaterial*> result;
+    if( const IMaterial* material = getMaterial() )
+        result.push_back( material );
+    if( const IMaterial* material = getAmbientMaterial() )
+        result.push_back( material );
+    for( const ISample* child: getChildren() )
+        for( const IMaterial* material: child->containedMaterials() )
+            result.push_back( material );
+    return result;
 }
 
 bool ISample::containsMagneticMaterial() const
 {
-    SampleMaterialVisitor material_vis;
-    VisitSampleTreePreorder(*this, material_vis);
-    return material_vis.containsMagneticMaterial();
+    if( const IMaterial* material = getMaterial() )
+        if( material->isMagneticMaterial() )
+            return true;
+    if( const IMaterial* material = getAmbientMaterial() )
+        if( material->isMagneticMaterial() )
+            return true;
+    for( const ISample* child: getChildren() )
+        if( child->containsMagneticMaterial() )
+            return true;
+    return false;
 }
 
 std::vector<const ISample*> ISample::getChildren() const

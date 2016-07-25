@@ -15,7 +15,9 @@
 
 #include "ParameterPool.h"
 #include "Utils.h"
+#include <cassert>
 #include <iostream>
+#include <sstream>
 
 typedef std::map<std::string, RealParameterWrapper> parametermap_t;
 

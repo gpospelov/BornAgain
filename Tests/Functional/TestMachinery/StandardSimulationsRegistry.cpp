@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "StandardSimulationsRegistry.h"
+#include "Exceptions.h"
 #include "Utils.h"
 
 StandardSimulationsRegistry::StandardSimulationsRegistry()

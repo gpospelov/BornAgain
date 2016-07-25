@@ -87,15 +87,21 @@ void Particle::accept(ISampleVisitor* visitor) const
     visitor->visit(this);
 }
 
+std::string Particle::to_str(int indent) const
+{
+    std::stringstream ss;
+    ss << std::string(4*indent, '.') << " " << getName() << " "
+       << (getMaterial() ? getMaterial()->getName() : "0_MATERIAL") << " "
+       << getRefractiveIndex() << "\n";
+    for( const ISample* child: getChildren() )
+        ss << child->to_str(indent+1);
+    return ss.str();
+}
+
 void Particle::setAmbientMaterial(const IMaterial& material)
 {
     if(mP_ambient_material.get() != &material)
         mP_ambient_material.reset(material.clone());
-}
-
-const IMaterial* Particle::getAmbientMaterial() const
-{
-    return mP_ambient_material.get();
 }
 
 IFormFactor* Particle::createTransformedFormFactor(const IRotation* p_rotation,
@@ -138,11 +144,6 @@ void Particle::setMaterial(const IMaterial& material)
         mP_material.reset(material.clone());
 }
 
-const IMaterial* Particle::getMaterial() const
-{
-    return mP_material.get();
-}
-
 complex_t Particle::getRefractiveIndex() const
 {
     return mP_material ? mP_material->getRefractiveIndex() : 0.0;
@@ -156,11 +157,6 @@ void Particle::setFormFactor(const IFormFactor& form_factor)
         mP_form_factor.reset(form_factor.clone());
         registerChild(mP_form_factor.get());
     }
-}
-
-const IFormFactor* Particle::getFormFactor() const
-{
-    return mP_form_factor.get();
 }
 
 void Particle::initialize()

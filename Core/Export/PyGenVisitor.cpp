@@ -23,6 +23,7 @@
 #include "LayerInterface.h"
 #include "LayerRoughness.h"
 #include "Materials.h"
+#include "MesoCrystal.h"
 #include "MultiLayer.h"
 #include "MultiLayerDWBASimulation.h"
 #include "ParticleCoreShell.h"
@@ -35,9 +36,36 @@
 #include "SphericalDetector.h"
 #include <iomanip>
 
-PyGenVisitor::PyGenVisitor()
+PyGenVisitor::PyGenVisitor(const MultiLayer& multilayer)
     : m_label(new SampleLabelHandler())
 {
+    for( auto mat: multilayer.containedMaterials() )
+        m_label->insertMaterial(mat);
+    for( auto x: multilayer.containedSubclass<Layer>() )
+        m_label->setLabelLayer(x);
+    for( auto x: multilayer.containedSubclass<LayerRoughness>() )
+        m_label->setLabelRoughness(x);
+    for( auto x: multilayer.containedSubclass<MultiLayer>() )
+        m_label->setLabelMultiLayer(x);
+    for( auto x: multilayer.containedSubclass<IFormFactor>() )
+        m_label->setLabelFormFactor(x);
+    for( auto x: multilayer.containedSubclass<IInterferenceFunction>() )
+        m_label->setLabelInterferenceFunction(x);
+    for( auto x: multilayer.containedSubclass<Particle>() )
+        m_label->setLabelParticle(x);
+    for( auto x: multilayer.containedSubclass<ParticleCoreShell>() )
+        m_label->setLabelParticleCoreShell(x);
+    for( auto x: multilayer.containedSubclass<ParticleComposition>() )
+        m_label->setLabelParticleComposition(x);
+    for( auto x: multilayer.containedSubclass<ParticleDistribution>() )
+        m_label->setLabelParticleDistribution(x);
+    for( auto x: multilayer.containedSubclass<ILayout>() )
+        m_label->setLabelLayout(x);
+    for( auto x: multilayer.containedSubclass<IRotation>() )
+        m_label->setLabelRotation(x);
+    if( multilayer.containedSubclass<MesoCrystal>().size() )
+        throw Exceptions::NotImplementedException(
+            "PyGenVisitor: class MesoCrystal not yet supported!");
 }
 
 PyGenVisitor::~PyGenVisitor()
@@ -59,218 +87,6 @@ std::string PyGenVisitor::writePyScript(
     result << "if __name__ == '__main__': \n";
     result << indent() << "runSimulation('" << output_filename << "')";
     return result.str();
-}
-
-void PyGenVisitor::visit(const FormFactorAnisoPyramid* sample)
-{
-    m_label->setLabel(sample);
-}
-
-void PyGenVisitor::visit(const FormFactorBox* sample)
-{
-    m_label->setLabel(sample);
-}
-
-void PyGenVisitor::visit(const FormFactorCone* sample)
-{
-    m_label->setLabel(sample);
-}
-
-void PyGenVisitor::visit(const FormFactorCone6* sample)
-{
-    m_label->setLabel(sample);
-}
-
-void PyGenVisitor::visit(const FormFactorCuboctahedron* sample)
-{
-    m_label->setLabel(sample);
-}
-
-void PyGenVisitor::visit(const FormFactorCylinder* sample)
-{
-    m_label->setLabel(sample);
-}
-
-void PyGenVisitor::visit(const FormFactorDodecahedron* sample)
-{
-    m_label->setLabel(sample);
-}
-
-void PyGenVisitor::visit(const FormFactorEllipsoidalCylinder* sample)
-{
-    m_label->setLabel(sample);
-}
-
-void PyGenVisitor::visit(const FormFactorFullSphere* sample)
-{
-    m_label->setLabel(sample);
-}
-
-void PyGenVisitor::visit(const FormFactorFullSpheroid* sample)
-{
-    m_label->setLabel(sample);
-}
-
-void PyGenVisitor::visit(const FormFactorGauss* sample)
-{
-    m_label->setLabel(sample);
-}
-
-void PyGenVisitor::visit(const FormFactorHemiEllipsoid* sample)
-{
-    m_label->setLabel(sample);
-}
-
-void PyGenVisitor::visit(const FormFactorIcosahedron* sample)
-{
-    m_label->setLabel(sample);
-}
-
-void PyGenVisitor::visit(const FormFactorLorentz* sample)
-{
-    m_label->setLabel(sample);
-}
-
-void PyGenVisitor::visit(const FormFactorPrism3* sample)
-{
-    m_label->setLabel(sample);
-}
-
-void PyGenVisitor::visit(const FormFactorPrism6* sample)
-{
-    m_label->setLabel(sample);
-}
-
-void PyGenVisitor::visit(const FormFactorPyramid* sample)
-{
-    m_label->setLabel(sample);
-}
-
-void PyGenVisitor::visit(const FormFactorRipple1* sample)
-{
-    m_label->setLabel(sample);
-}
-
-void PyGenVisitor::visit(const FormFactorRipple2* sample)
-{
-    m_label->setLabel(sample);
-}
-
-void PyGenVisitor::visit(const FormFactorTetrahedron* sample)
-{
-    m_label->setLabel(sample);
-}
-
-void PyGenVisitor::visit(const FormFactorTruncatedCube* sample)
-{
-    m_label->setLabel(sample);
-}
-
-void PyGenVisitor::visit(const FormFactorTruncatedSphere* sample)
-{
-    m_label->setLabel(sample);
-}
-
-void PyGenVisitor::visit(const FormFactorTruncatedSpheroid* sample)
-{
-    m_label->setLabel(sample);
-}
-
-void PyGenVisitor::visit(const InterferenceFunctionNone* sample)
-{
-    m_label->setLabel(sample);
-}
-
-void PyGenVisitor::visit(const InterferenceFunction1DLattice* sample)
-{
-    m_label->setLabel(sample);
-}
-
-void PyGenVisitor::visit(const InterferenceFunctionRadialParaCrystal* sample)
-{
-    m_label->setLabel(sample);
-}
-
-void PyGenVisitor::visit(const InterferenceFunction2DLattice* sample)
-{
-    m_label->setLabel(sample);
-}
-
-void PyGenVisitor::visit(const InterferenceFunction2DParaCrystal* sample)
-{
-    m_label->setLabel(sample);
-}
-
-void PyGenVisitor::visit(const Layer* sample)
-{
-    m_label->insertMaterial(sample->getMaterial());
-    m_label->setLabel(sample);
-}
-
-void PyGenVisitor::visit(const LayerInterface*)
-{
-}
-
-void PyGenVisitor::visit(const LayerRoughness* sample)
-{
-    m_label->setLabel(sample);
-}
-
-void PyGenVisitor::visit(const MultiLayer* sample)
-{
-    m_label->setLabel(sample);
-}
-
-void PyGenVisitor::visit(const ParticleComposition* sample)
-{
-    m_label->setLabel(sample);
-}
-
-void PyGenVisitor::visit(const MesoCrystal*)
-{
-    throw Exceptions::NotImplementedException("PyGenVisitor::visit(const MesoCrystal* sample): "
-                                              "not implemented!");
-}
-
-void PyGenVisitor::visit(const Particle* sample)
-{
-    m_label->insertMaterial(sample->getMaterial());
-    m_label->setLabel(sample);
-}
-
-void PyGenVisitor::visit(const ParticleDistribution* sample)
-{
-    m_label->setLabel(sample);
-}
-
-void PyGenVisitor::visit(const ParticleCoreShell* sample)
-{
-    m_label->setLabel(sample);
-}
-
-void PyGenVisitor::visit(const ParticleLayout* sample)
-{
-    m_label->setLabel(sample);
-}
-
-void PyGenVisitor::visit(const RotationX* sample)
-{
-    m_label->setLabel(sample);
-}
-
-void PyGenVisitor::visit(const RotationY* sample)
-{
-    m_label->setLabel(sample);
-}
-
-void PyGenVisitor::visit(const RotationZ* sample)
-{
-    m_label->setLabel(sample);
-}
-
-void PyGenVisitor::visit(const RotationEuler* sample)
-{
-    m_label->setLabel(sample);
 }
 
 std::string PyGenVisitor::definePreamble() const
@@ -333,78 +149,76 @@ std::string PyGenVisitor::defineGetSimulation(const GISASSimulation* simulation)
 
 std::string PyGenVisitor::defineMaterials() const
 {
-    if (m_label->getMaterialMap()->size() == 0)
+    const auto themap = m_label->getMaterialMap();
+    if (themap->size() == 0)
         return "";
     std::ostringstream result;
     result << std::setprecision(12);
     result << indent() << "# Defining Materials\n";
-    SampleLabelHandler::materials_t::iterator it = m_label->getMaterialMap()->begin();
     std::set<std::string> visitedMaterials;
-    while (it != m_label->getMaterialMap()->end()) {
-        if (visitedMaterials.find(it->second) == visitedMaterials.end()) {
-            visitedMaterials.insert(it->second);
-            const IMaterial* p_material = it->first;
-            complex_t ri = p_material->getRefractiveIndex();
-            double delta = 1.0 - std::real(ri);
-            double beta = std::imag(ri);
-            if (p_material->isScalarMaterial()) {
-                result << indent() << m_label->getLabel(p_material) <<
-                    " = ba.HomogeneousMaterial(\"" << p_material->getName() <<
-                    "\", " << PyGenTools::printDouble(delta) << ", " <<
-                    PyGenTools::printDouble(beta) << ")\n";
-            } else {
-                const HomogeneousMagneticMaterial* p_mag_material
-                    = dynamic_cast<const HomogeneousMagneticMaterial*>(p_material);
-                if (p_mag_material == 0)
-                    throw Exceptions::RuntimeErrorException(
-                        "PyGenVisitor::defineMaterials: "
-                        "Non scalar material should be of type HomogeneousMagneticMaterial");
-                kvector_t magnetic_field = p_mag_material->getMagneticField();
-                result << indent() << "magnetic_field = kvector_t(" << magnetic_field.x() << ", "
-                       << magnetic_field.y() << ", " << magnetic_field.z() << ", "
-                       << ")\n";
-                result << indent() << m_label->getLabel(p_material)
-                       << " = ba.HomogeneousMagneticMaterial(\"" << p_material->getName();
-                result << "\", " << PyGenTools::printDouble(delta) << ", "
-                       << PyGenTools::printDouble(beta) << ", "
-                       << "magnetic_field)\n";
-            }
+    for (auto it=themap->begin(); it!=themap->end(); ++it) {
+        if (visitedMaterials.find(it->second) != visitedMaterials.end())
+            continue;
+        visitedMaterials.insert(it->second);
+        const IMaterial* p_material = it->first;
+        complex_t ri = p_material->getRefractiveIndex();
+        double delta = 1.0 - std::real(ri);
+        double beta = std::imag(ri);
+        if (p_material->isScalarMaterial()) {
+            result << indent() << m_label->getLabelMaterial(p_material)
+                   << " = ba.HomogeneousMaterial(\"" << p_material->getName()
+                   << "\", " << PyGenTools::printDouble(delta) << ", "
+                   << PyGenTools::printDouble(beta) << ")\n";
+        } else {
+            const HomogeneousMagneticMaterial* p_mag_material
+                = dynamic_cast<const HomogeneousMagneticMaterial*>(p_material);
+            if (p_mag_material == 0)
+                throw Exceptions::RuntimeErrorException(
+                    "PyGenVisitor::defineMaterials: "
+                    "Non scalar material should be of type HomogeneousMagneticMaterial");
+            kvector_t magnetic_field = p_mag_material->getMagneticField();
+            result << indent() << "magnetic_field = kvector_t(" << magnetic_field.x() << ", "
+                   << magnetic_field.y() << ", " << magnetic_field.z() << ", "
+                   << ")\n";
+            result << indent() << m_label->getLabelMaterial(p_material)
+                   << " = ba.HomogeneousMagneticMaterial(\"" << p_material->getName();
+            result << "\", " << PyGenTools::printDouble(delta) << ", "
+                   << PyGenTools::printDouble(beta) << ", "
+                   << "magnetic_field)\n";
         }
-        it++;
     }
     return result.str();
 }
 
 std::string PyGenVisitor::defineLayers() const
 {
-    if (m_label->getLayerMap()->size() == 0)
+    const auto themap = m_label->getLayerMap();
+    if (themap->size() == 0)
         return "";
     std::ostringstream result;
     result << std::setprecision(12);
     result << "\n" << indent() << "# Defining Layers\n";
-    SampleLabelHandler::layers_t::iterator it = m_label->getLayerMap()->begin();
-    while (it != m_label->getLayerMap()->end()) {
+    for (auto it=themap->begin(); it != themap->end(); ++it) {
         const Layer* layer = it->first;
         result << indent() << it->second << " = ba.Layer(" <<
-            m_label->getLabel(layer->getMaterial());
+            m_label->getLabelMaterial(layer->getMaterial());
         if (layer->getThickness() != 0) {
             result << ", " << layer->getThickness();
         }
         result << ")\n";
-        it++;
     }
     return result.str();
 }
 
 std::string PyGenVisitor::defineFormFactors() const
 {
-    if (m_label->getFormFactorMap()->size() == 0)
+    const auto themap = m_label->getFormFactorMap();
+    if (themap->size() == 0)
         return "";
     std::ostringstream result;
     result << std::setprecision(12);
     result << "\n" << indent() << "# Defining Form Factors\n";
-    SampleLabelHandler::formfactors_t::iterator it = m_label->getFormFactorMap()->begin();
-    while (it != m_label->getFormFactorMap()->end()) {
+    for (auto it=themap->begin(); it!=themap->end(); ++it) {
         const IFormFactor* p_ff = it->first;
         result << indent() << it->second << " = ba.FormFactor" << p_ff->getName() << "(";
 
@@ -563,69 +377,63 @@ std::string PyGenVisitor::defineFormFactors() const
                                 << "Form Factor\n";
             throw Exceptions::NotImplementedException(formFactorException.str());
         }
-        it++;
     }
     return result.str();
 }
 
 std::string PyGenVisitor::defineParticles() const
 {
-    if (m_label->getParticleMap()->size() == 0)
+    const auto themap = m_label->getParticleMap();
+    if (themap->size() == 0)
         return "";
     std::ostringstream result;
     result << std::setprecision(12);
     result << "\n" << indent() << "# Defining Particles\n";
-    SampleLabelHandler::particles_t::iterator it = m_label->getParticleMap()->begin();
-    while (it != m_label->getParticleMap()->end()) {
+    for (auto it=themap->begin(); it!=themap->end(); ++it) {
         const Particle* p_particle = it->first;
         std::string particle_name = it->second;
         result << indent() << particle_name << " = ba.Particle("
-               << m_label->getLabel(p_particle->getMaterial()) << ", "
-               << m_label->getLabel(p_particle->getFormFactor());
+               << m_label->getLabelMaterial(p_particle->getMaterial()) << ", "
+               << m_label->getLabelFormFactor(p_particle->getFormFactor());
         result << ")\n";
         setRotationInformation(p_particle, particle_name, result);
         setPositionInformation(p_particle, particle_name, result);
-        it++;
     }
     return result.str();
 }
 
 std::string PyGenVisitor::defineCoreShellParticles() const
 {
-    if (m_label->getParticleCoreShellMap()->size() == 0)
+    const auto themap = m_label->getParticleCoreShellMap();
+    if (themap->size() == 0)
         return "";
     std::ostringstream result;
     result << std::setprecision(12);
     result << "\n" << indent() << "# Defining Core Shell Particles\n";
-    SampleLabelHandler::particlescoreshell_t::iterator it
-        = m_label->getParticleCoreShellMap()->begin();
-
-    while (it != m_label->getParticleCoreShellMap()->end()) {
+    for (auto it=themap->begin(); it!=themap->end(); ++it) {
         const ParticleCoreShell* p_coreshell = it->first;
         result << "\n" << indent() << it->second << " = ba.ParticleCoreShell("
-               << m_label->getLabel(p_coreshell->getShellParticle()) << ", "
-               << m_label->getLabel(p_coreshell->getCoreParticle()) << ")\n";
+               << m_label->getLabelParticle(p_coreshell->getShellParticle()) << ", "
+               << m_label->getLabelParticle(p_coreshell->getCoreParticle()) << ")\n";
         std::string core_shell_name = it->second;
         setRotationInformation(p_coreshell, core_shell_name, result);
         setPositionInformation(p_coreshell, core_shell_name, result);
-        it++;
     }
     return result.str();
 }
 
 std::string PyGenVisitor::defineParticleDistributions() const
 {
-    if (m_label->getParticleDistributionsMap()->size() == 0)
+    const auto themap = m_label->getParticleDistributionsMap();
+    if (themap->size() == 0)
         return "";
 
     std::ostringstream result;
     result << std::setprecision(12);
     result << "\n" << indent() << "# Defining particles with parameter following a distribution\n";
-    SampleLabelHandler::particledistributions_t::iterator it
-        = m_label->getParticleDistributionsMap()->begin();
 
     int index(1);
-    while (it != m_label->getParticleDistributionsMap()->end()) {
+    for (auto it=themap->begin(); it!=themap->end(); ++it) {
         ParameterDistribution par_distr = it->first->getParameterDistribution();
 
         // building distribution functions
@@ -655,8 +463,8 @@ std::string PyGenVisitor::defineParticleDistributions() const
         }
 
         result << indent() << it->second << " = ba.ParticleDistribution("
-               << m_label->getLabel(it->first->getParticle()) << ", " << s_par_distr.str() << ")\n";
-        it++;
+               << m_label->getLabelParticle(it->first->getParticle())
+               << ", " << s_par_distr.str() << ")\n";
         index++;
     }
     return result.str();
@@ -664,40 +472,36 @@ std::string PyGenVisitor::defineParticleDistributions() const
 
 std::string PyGenVisitor::defineParticleCompositions() const
 {
-    if (m_label->getParticleCompositionMap()->size() == 0)
+    const auto themap = m_label->getParticleCompositionMap();
+    if (themap->size() == 0)
         return "";
     std::ostringstream result;
     result << std::setprecision(12);
     result << "\n" << indent() << "# Defining composition of particles at specific positions\n";
-    SampleLabelHandler::particlecompositions_t::iterator it
-        = m_label->getParticleCompositionMap()->begin();
-
-    while (it != m_label->getParticleCompositionMap()->end()) {
+    for (auto it=themap->begin(); it!=themap->end(); ++it) {
         const ParticleComposition* p_particle_composition = it->first;
         std::string particle_composition_name = it->second;
         result << indent() << particle_composition_name << " = ba.ParticleComposition()\n";
         for (size_t i = 0; i < p_particle_composition->getNbrParticles(); ++i) {
             result << indent() << particle_composition_name << ".addParticle("
-                   << m_label->getLabel(p_particle_composition->getParticle(i))
+                   << m_label->getLabelParticle(p_particle_composition->getParticle(i))
             << ")\n";
         }
         setRotationInformation(p_particle_composition, particle_composition_name, result);
         setPositionInformation(p_particle_composition, particle_composition_name, result);
-        it++;
     }
     return result.str();
 }
 
 std::string PyGenVisitor::defineInterferenceFunctions() const
 {
-    if (m_label->getInterferenceFunctionMap()->size() == 0)
+    const auto themap = m_label->getInterferenceFunctionMap();
+    if (themap->size() == 0)
         return "";
     std::ostringstream result;
     result << std::setprecision(12);
     result << "\n" << indent() << "# Defining Interference Functions\n";
-    SampleLabelHandler::interferences_t::iterator it
-        = m_label->getInterferenceFunctionMap()->begin();
-    while (it != m_label->getInterferenceFunctionMap()->end()) {
+    for (auto it=themap->begin(); it!=themap->end(); ++it) {
         const IInterferenceFunction* interference = it->first;
 
         if (const InterferenceFunctionNone* none
@@ -1084,20 +888,19 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
             throw Exceptions::NotImplementedException(interferenceException.str());
         }
 
-        it++;
     }
     return result.str();
 }
 
 std::string PyGenVisitor::defineParticleLayouts() const
 {
-    if (m_label->getParticleLayoutMap()->size() == 0)
+    const auto themap = m_label->getParticleLayoutMap();
+    if (themap->size() == 0)
         return "";
     std::ostringstream result;
     result << std::setprecision(12);
     result << "\n" << indent() << "# Defining Particle Layouts and adding Particles\n";
-    SampleLabelHandler::layouts_t::iterator it = m_label->getParticleLayoutMap()->begin();
-    while (it != m_label->getParticleLayoutMap()->end()) {
+    for (auto it=themap->begin(); it!=themap->end(); ++it) {
         const ILayout* iLayout = it->first;
         if (const ParticleLayout* particleLayout = dynamic_cast<const ParticleLayout*>(iLayout)) {
             result << indent() << it->second << " = ba.ParticleLayout()\n";
@@ -1108,7 +911,7 @@ std::string PyGenVisitor::defineParticleLayouts() const
                 const IAbstractParticle* p_particle = particleLayout->getParticle(particleIndex);
                 double abundance = particleLayout->getAbundanceOfParticle(particleIndex);
                 result << indent() << it->second << ".addParticle("
-                       << m_label->getLabel(p_particle) << ", "
+                       << m_label->getLabelParticle(p_particle) << ", "
                        << PyGenTools::printDouble(abundance) << ")\n";
                 particleIndex++;
             }
@@ -1116,7 +919,7 @@ std::string PyGenVisitor::defineParticleLayouts() const
             const IInterferenceFunction* p_iff = particleLayout->getInterferenceFunction();
             if (p_iff) {
                 result << indent() << it->second << ".addInterferenceFunction("
-                       << m_label->getLabel(p_iff) << ")\n";
+                       << m_label->getLabelInterferenceFunction(p_iff) << ")\n";
             }
 
             switch (particleLayout->getApproximation()) {
@@ -1130,25 +933,23 @@ std::string PyGenVisitor::defineParticleLayouts() const
             result << indent() << it->second << ".setTotalParticleSurfaceDensity("
                    << it->first->getTotalParticleSurfaceDensity() << ")\n";
         }
-        it++;
     }
     return result.str();
 }
 
 std::string PyGenVisitor::defineRoughnesses() const
 {
-    if (m_label->getLayerRoughnessMap()->size() == 0)
+    const auto themap = m_label->getLayerRoughnessMap();
+    if (themap->size() == 0)
         return "";
     std::ostringstream result;
     result << std::setprecision(12);
     result << "\n" << indent() << "# Defining Roughness Parameters\n";
-    SampleLabelHandler::roughnesses_t::iterator it = m_label->getLayerRoughnessMap()->begin();
-    while (it != m_label->getLayerRoughnessMap()->end()) {
+    for (auto it=themap->begin(); it!=themap->end(); ++it) {
         result << indent() << it->second << " = ba.LayerRoughness("
                << PyGenTools::printNm(it->first->getSigma()) << ", "
                << it->first->getHurstParameter() << ", "
                << PyGenTools::printNm(it->first->getLatteralCorrLength()) << ")\n";
-        it++;
     }
     return result.str();
 }
@@ -1160,37 +961,33 @@ std::string PyGenVisitor::addLayoutsToLayers() const
     std::ostringstream result;
     result << std::setprecision(12);
     result << "\n" << indent() << "# Adding layouts to layers";
-    SampleLabelHandler::layers_t::iterator it = m_label->getLayerMap()->begin();
-    while (it != m_label->getLayerMap()->end()) {
+    const auto layermap = m_label->getLayerMap();
+    for (auto it=layermap->begin(); it!=layermap->end(); ++it) {
         const Layer* layer = it->first;
         size_t numberOfLayouts = layer->getNumberOfLayouts();
-        size_t i = 0;
-        while (i < numberOfLayouts) {
+        for(size_t i = 0; i < numberOfLayouts; ++i)
             result << "\n" << indent() << it->second << ".addLayout("
-                   << m_label->getLabel(layer->getLayout(i)) << ")\n";
-            i++;
-        }
-        it++;
+                   << m_label->getLabelLayout(layer->getLayout(i)) << ")\n";
     }
     return result.str();
 }
 
 std::string PyGenVisitor::defineMultiLayers() const
 {
-    if (m_label->getMultiLayerMap()->size() == 0)
+    const auto themap = m_label->getMultiLayerMap();
+    if (themap->size() == 0)
         return "";
     std::ostringstream result;
     result << std::setprecision(12);
     result << "\n" << indent() << "# Defining Multilayers\n";
-    SampleLabelHandler::multilayers_t::iterator it = m_label->getMultiLayerMap()->begin();
-    while (it != m_label->getMultiLayerMap()->end()) {
+    for (auto it=themap->begin(); it!=themap->end(); ++it) {
         result << indent() << it->second << " = ba.MultiLayer()\n";
 
         size_t numberOfLayers = it->first->getNumberOfLayers();
 
         if (numberOfLayers) {
             result << indent() << it->second << ".addLayer("
-                   << m_label->getLabel(it->first->getLayer(0)) << ")\n";
+                   << m_label->getLabelLayer(it->first->getLayer(0)) << ")\n";
 
             size_t layerIndex = 1;
             while (layerIndex != numberOfLayers) {
@@ -1198,19 +995,18 @@ std::string PyGenVisitor::defineMultiLayers() const
                 if (m_label->getLayerRoughnessMap()->find(layerInterface->getRoughness())
                     == m_label->getLayerRoughnessMap()->end()) {
                     result << indent() << it->second << ".addLayer("
-                           << m_label->getLabel(it->first->getLayer(layerIndex)) << ")\n";
+                           << m_label->getLabelLayer(it->first->getLayer(layerIndex)) << ")\n";
                 }
 
                 else {
                     result << indent() << it->second << ".addLayerWithTopRoughness("
-                           << m_label->getLabel(it->first->getLayer(layerIndex)) << ", "
-                           << m_label->getLabel(layerInterface->getRoughness()) << ")\n";
+                           << m_label->getLabelLayer(it->first->getLayer(layerIndex)) << ", "
+                           << m_label->getLabelRoughness(layerInterface->getRoughness()) << ")\n";
                 }
                 layerIndex++;
             }
         }
         result << indent() << "return " << it->second << std::endl;
-        it++;
     }
     return result.str();
 }
@@ -1456,8 +1252,7 @@ std::string PyGenVisitor::defineRunSimulation() const
 
 std::string PyGenVisitor::indent() const
 {
-    std::string result("    ");
-    return result;
+    return "    ";
 }
 
 void PyGenVisitor::setRotationInformation(

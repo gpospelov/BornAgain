@@ -18,8 +18,8 @@
 
 #include "INamed.h" // inheriting from
 #include "Complex.h"
-#include "EigenCore.h"
 #include "Vectors3D.h"
+#include "EigenCore.h"
 
 class IRotation;
 
@@ -30,16 +30,17 @@ class IRotation;
 class BA_CORE_API_ IMaterial : public INamed
 {
 public:
-    explicit IMaterial(const std::string &name) : INamed(name) {}
+    explicit IMaterial(const std::string& name) : INamed(name) {}
     virtual ~IMaterial() {}
     virtual IMaterial *clone() const;
 
     //! Indicates whether the interaction with the material is scalar.
-    //! This means that different polarization states will be diffracted
-    //! equally
+    //! This means that different polarization states will be diffracted equally
     virtual bool isScalarMaterial() const { return true; }
 
-    friend std::ostream &operator<<(std::ostream &ostr, const IMaterial &m)
+    bool isMagneticMaterial() const { return !isScalarMaterial(); }
+
+    friend std::ostream& operator<<(std::ostream& ostr, const IMaterial& m)
     {
         m.print(ostr);
         return ostr;
@@ -61,37 +62,15 @@ public:
 #endif
 
     //! Create a new material that is transformed with respect to this one
-    virtual const IMaterial *createTransformedMaterial(const IRotation &rotation) const;
+    virtual const IMaterial *createTransformedMaterial(const IRotation& rotation) const;
+
+    bool operator==(const IMaterial& other) const;
 
 protected:
-    virtual void print(std::ostream &ostr) const
+    virtual void print(std::ostream& ostr) const
     {
         ostr << "IMat:" << getName() << "<" << this << ">";
     }
 };
-
-inline IMaterial *IMaterial::clone() const
-{
-    throw Exceptions::NotImplementedException(
-        "IMaterial is an interface and should not be cloned!");
-}
-
-#ifndef SWIG
-inline Eigen::Matrix2cd IMaterial::getSpecularScatteringMatrix(const kvector_t k) const
-{
-    Eigen::Matrix2cd result;
-    double k_mag2 = k.mag2();
-    double xy_proj2 = k.magxy2() / k_mag2;
-    result = getScatteringMatrix(k_mag2) - xy_proj2 * Eigen::Matrix2cd::Identity();
-    return result;
-}
-
-#endif // SWIG
-
-inline const IMaterial *IMaterial::createTransformedMaterial(const IRotation&) const
-{
-    throw Exceptions::NotImplementedException(
-        "IMaterial is an interface and should not be created!");
-}
 
 #endif // IMATERIAL_H

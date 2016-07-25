@@ -4087,16 +4087,53 @@ class ISample(ICloneable, IParameterized):
         return _libBornAgainCore.ISample_createDWBASimulation(self)
 
 
-    def printSampleTree(self):
+    def to_str(self, indent=0):
         """
-        printSampleTree(ISample self)
+        to_str(ISample self, int indent=0) -> std::string
+        to_str(ISample self) -> std::string
 
-        void ISample::printSampleTree()
+        std::string ISample::to_str(int indent=0) const
 
-        Outputs the tree of parameters generated from this  ISample object and its descendants. 
+        Returns textual representation of *this and its descendants. 
 
         """
-        return _libBornAgainCore.ISample_printSampleTree(self)
+        return _libBornAgainCore.ISample_to_str(self, indent)
+
+
+    def getMaterial(self):
+        """
+        getMaterial(ISample self) -> IMaterial
+
+        virtual const IMaterial* ISample::getMaterial() const
+
+        Returns nullptr, unless overwritten to return a specific material. 
+
+        """
+        return _libBornAgainCore.ISample_getMaterial(self)
+
+
+    def getAmbientMaterial(self):
+        """
+        getAmbientMaterial(ISample self) -> IMaterial
+
+        virtual const IMaterial* ISample::getAmbientMaterial() const
+
+        Returns nullptr, unless overwritten to return a specific material. 
+
+        """
+        return _libBornAgainCore.ISample_getAmbientMaterial(self)
+
+
+    def containedMaterials(self):
+        """
+        containedMaterials(ISample self) -> std::vector< IMaterial const *,std::allocator< IMaterial const * > >
+
+        std::set< const IMaterial * > ISample::containedMaterials() const
+
+        Returns set of materials contained in this  ISample. Must be reimplemented in derived classes that define a material. 
+
+        """
+        return _libBornAgainCore.ISample_containedMaterials(self)
 
 
     def containsMagneticMaterial(self):
@@ -4105,7 +4142,7 @@ class ISample(ICloneable, IParameterized):
 
         bool ISample::containsMagneticMaterial() const
 
-        Indicates if this  ISample object contains a material with magnetic properties. 
+        Indicates if this  ISample object contains any material with magnetic properties. 
 
         """
         return _libBornAgainCore.ISample_containsMagneticMaterial(self)
@@ -5056,6 +5093,8 @@ class IClusteredParticles(ICompositeSample):
 
         virtual const IMaterial* IClusteredParticles::getAmbientMaterial() const =0
 
+        Returns nullptr, unless overwritten to return a specific material. 
+
         """
         return _libBornAgainCore.IClusteredParticles_getAmbientMaterial(self)
 
@@ -5158,7 +5197,9 @@ class Crystal(IClusteredParticles):
         """
         getAmbientMaterial(Crystal self) -> IMaterial
 
-        virtual const IMaterial* Crystal::getAmbientMaterial() const 
+        virtual const IMaterial* Crystal::getAmbientMaterial() const
+
+        Returns nullptr, unless overwritten to return a specific material. 
 
         """
         return _libBornAgainCore.Crystal_getAmbientMaterial(self)
@@ -14175,6 +14216,16 @@ class IMaterial(INamed):
         return _libBornAgainCore.IMaterial_isScalarMaterial(self)
 
 
+    def isMagneticMaterial(self):
+        """
+        isMagneticMaterial(IMaterial self) -> bool
+
+        bool IMaterial::isMagneticMaterial() const 
+
+        """
+        return _libBornAgainCore.IMaterial_isMagneticMaterial(self)
+
+
     def getRefractiveIndex(self):
         """
         getRefractiveIndex(IMaterial self) -> complex_t
@@ -14197,6 +14248,11 @@ class IMaterial(INamed):
 
         """
         return _libBornAgainCore.IMaterial_createTransformedMaterial(self, rotation)
+
+
+    def __eq__(self, other):
+        """__eq__(IMaterial self, IMaterial other) -> bool"""
+        return _libBornAgainCore.IMaterial___eq__(self, other)
 
 IMaterial_swigregister = _libBornAgainCore.IMaterial_swigregister
 IMaterial_swigregister(IMaterial)
@@ -16552,6 +16608,19 @@ class InterferenceFunctionRadialParaCrystal(IInterferenceFunction):
         return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_accept(self, visitor)
 
 
+    def to_str(self, indent=0):
+        """
+        to_str(InterferenceFunctionRadialParaCrystal self, int indent=0) -> std::string
+        to_str(InterferenceFunctionRadialParaCrystal self) -> std::string
+
+        std::string InterferenceFunctionRadialParaCrystal::to_str(int indent=0) const
+
+        Returns textual representation of *this and its descendants. 
+
+        """
+        return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_to_str(self, indent)
+
+
     def setDomainSize(self, size):
         """
         setDomainSize(InterferenceFunctionRadialParaCrystal self, double size)
@@ -16914,6 +16983,19 @@ class InterferenceFunction2DParaCrystal(IInterferenceFunction):
 
         """
         return _libBornAgainCore.InterferenceFunction2DParaCrystal_accept(self, visitor)
+
+
+    def to_str(self, indent=0):
+        """
+        to_str(InterferenceFunction2DParaCrystal self, int indent=0) -> std::string
+        to_str(InterferenceFunction2DParaCrystal self) -> std::string
+
+        std::string InterferenceFunction2DParaCrystal::to_str(int indent=0) const
+
+        Returns textual representation of *this and its descendants. 
+
+        """
+        return _libBornAgainCore.InterferenceFunction2DParaCrystal_to_str(self, indent)
 
 
     def createSquare(peak_distance, damping_length=0.0, domain_size_1=0.0, domain_size_2=0.0):
@@ -17815,6 +17897,19 @@ class Layer(ICompositeSample):
         return _libBornAgainCore.Layer_accept(self, visitor)
 
 
+    def to_str(self, indent=0):
+        """
+        to_str(Layer self, int indent=0) -> std::string
+        to_str(Layer self) -> std::string
+
+        std::string Layer::to_str(int indent=0) const
+
+        Returns textual representation of *this and its descendants. 
+
+        """
+        return _libBornAgainCore.Layer_to_str(self, indent)
+
+
     def setThickness(self, thickness):
         """
         setThickness(Layer self, double thickness)
@@ -17867,7 +17962,7 @@ class Layer(ICompositeSample):
         """
         getMaterial(Layer self) -> IMaterial
 
-        virtual const IMaterial* Layer::getMaterial() const
+        virtual const IMaterial* Layer::getMaterial() const final
 
         Returns layer's material. 
 
@@ -18871,6 +18966,19 @@ class MultiLayer(ICompositeSample):
 
         """
         return _libBornAgainCore.MultiLayer_accept(self, visitor)
+
+
+    def to_str(self, indent=0):
+        """
+        to_str(MultiLayer self, int indent=0) -> std::string
+        to_str(MultiLayer self) -> std::string
+
+        std::string MultiLayer::to_str(int indent=0) const
+
+        Returns textual representation of *this and its descendants. 
+
+        """
+        return _libBornAgainCore.MultiLayer_to_str(self, indent)
 
 
     def getNumberOfLayers(self):
@@ -20535,11 +20643,24 @@ class Particle(IParticle):
         return _libBornAgainCore.Particle_accept(self, visitor)
 
 
+    def to_str(self, indent=0):
+        """
+        to_str(Particle self, int indent=0) -> std::string
+        to_str(Particle self) -> std::string
+
+        std::string Particle::to_str(int indent=0) const
+
+        Returns textual representation of *this and its descendants. 
+
+        """
+        return _libBornAgainCore.Particle_to_str(self, indent)
+
+
     def setAmbientMaterial(self, material):
         """
         setAmbientMaterial(Particle self, IMaterial material)
 
-        void Particle::setAmbientMaterial(const IMaterial &material)
+        void Particle::setAmbientMaterial(const IMaterial &material) final
 
         Sets the refractive index of the ambient material (which influences its scattering power) 
 
@@ -20551,9 +20672,9 @@ class Particle(IParticle):
         """
         getAmbientMaterial(Particle self) -> IMaterial
 
-        const IMaterial * Particle::getAmbientMaterial() const
+        virtual const IMaterial* Particle::getAmbientMaterial() const final
 
-        Returns particle's material. 
+        Returns the ambient material. 
 
         """
         return _libBornAgainCore.Particle_getAmbientMaterial(self)
@@ -20575,7 +20696,7 @@ class Particle(IParticle):
         """
         setMaterial(Particle self, IMaterial material)
 
-        void Particle::setMaterial(const IMaterial &material)
+        void Particle::setMaterial(const IMaterial &material) final
 
         Sets  material. 
 
@@ -20587,7 +20708,7 @@ class Particle(IParticle):
         """
         getMaterial(Particle self) -> IMaterial
 
-        const IMaterial * Particle::getMaterial() const
+        virtual const IMaterial* Particle::getMaterial() const final
 
         Returns particle's material. 
 
@@ -20599,7 +20720,7 @@ class Particle(IParticle):
         """
         getRefractiveIndex(Particle self) -> complex_t
 
-        complex_t Particle::getRefractiveIndex() const
+        complex_t Particle::getRefractiveIndex() const final
 
         Returns refractive index of the particle. 
 
@@ -20623,7 +20744,7 @@ class Particle(IParticle):
         """
         getFormFactor(Particle self) -> IFormFactor
 
-        const IFormFactor * Particle::getFormFactor() const
+        const IFormFactor* Particle::getFormFactor() const
 
         Returns the form factor. 
 
@@ -21000,6 +21121,19 @@ class ParticleDistribution(IAbstractParticle):
 
         """
         return _libBornAgainCore.ParticleDistribution_accept(self, visitor)
+
+
+    def to_str(self, indent=0):
+        """
+        to_str(ParticleDistribution self, int indent=0) -> std::string
+        to_str(ParticleDistribution self) -> std::string
+
+        std::string ParticleDistribution::to_str(int indent=0) const
+
+        Returns textual representation of *this and its descendants. 
+
+        """
+        return _libBornAgainCore.ParticleDistribution_to_str(self, indent)
 
 
     def setAmbientMaterial(self, material):

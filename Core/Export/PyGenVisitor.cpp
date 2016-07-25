@@ -350,10 +350,10 @@ std::string PyGenVisitor::defineMaterials() const
         double delta = 1.0 - std::real(ri);
         double beta = std::imag(ri);
         if (p_material->isScalarMaterial()) {
-            result << indent() << m_label->getLabelMaterial(p_material) <<
-                " = ba.HomogeneousMaterial(\"" << p_material->getName() <<
-                "\", " << PyGenTools::printDouble(delta) << ", " <<
-                PyGenTools::printDouble(beta) << ")\n";
+            result << indent() << m_label->getLabelMaterial(p_material)
+                   << " = ba.HomogeneousMaterial(\"" << p_material->getName()
+                   << "\", " << PyGenTools::printDouble(delta) << ", "
+                   << PyGenTools::printDouble(beta) << ")\n";
         } else {
             const HomogeneousMagneticMaterial* p_mag_material
                 = dynamic_cast<const HomogeneousMagneticMaterial*>(p_material);

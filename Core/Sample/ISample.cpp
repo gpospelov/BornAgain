@@ -36,25 +36,16 @@ std::string ISample::to_str(int indent) const
     return ss.str();
 }
 
-//! Auxiliary for ISample::containedMaterials. /*Unique*/ insertion.
-void insert_material(std::vector<const IMaterial*>& collection, const IMaterial* material)
-{
-    for( auto it: collection )
-        if( pEqual(it, material) )
-            ; /* return; */ // TEMPORARILY: non-unique insertion!
-    collection.push_back( material );
-}
-
 std::vector<const IMaterial*> ISample::containedMaterials() const
 {
     std::vector<const IMaterial*> result;
     if( const IMaterial* material = getMaterial() )
-        insert_material( result, material );
+        result.push_back( material );
     if( const IMaterial* material = getAmbientMaterial() )
-        insert_material( result, material );
+        result.push_back( material );
     for( const ISample* child: getChildren() )
         for( const IMaterial* material: child->containedMaterials() )
-            insert_material( result, material );
+            result.push_back( material );
     return result;
 }
 

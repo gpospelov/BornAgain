@@ -157,14 +157,11 @@ SampleLabelHandler::rotations_t* SampleLabelHandler::getRotationsMap()
 
 void SampleLabelHandler::insertMaterial(const IMaterial* sample)
 {
-    materials_t::iterator it = m_MaterialLabel.begin();
-    materials_t::const_iterator iEnd = m_MaterialLabel.end();
-    while (it != iEnd) {
+    for (auto it=m_MaterialLabel.begin(); it!=m_MaterialLabel.end(); ++it) {
         if(definesSameMaterial(it->first, sample) ) {
             m_MaterialLabel.insert(sample, it->second);
             return;
         }
-        it++;
     }
     // material not found, do insert
     std::ostringstream label_stream;

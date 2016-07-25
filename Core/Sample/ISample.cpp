@@ -41,7 +41,7 @@ void insert_material(std::vector<const IMaterial*>& collection, const IMaterial*
 {
     for( auto it: collection )
         if( pEqual(it, material) )
-            return;
+            ; // TEMPreturn;
     collection.push_back( material );
 }
 

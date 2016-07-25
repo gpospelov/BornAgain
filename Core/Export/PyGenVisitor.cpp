@@ -38,6 +38,8 @@
 PyGenVisitor::PyGenVisitor(const MultiLayer& multilayer)
     : m_label(new SampleLabelHandler())
 {
+    for( auto mat: multilayer.containedMaterials() )
+        m_label->insertMaterial(mat);
     VisitSampleTreePostorder(multilayer, *this);
 }
 
@@ -204,7 +206,6 @@ void PyGenVisitor::visit(const InterferenceFunction2DParaCrystal* sample)
 
 void PyGenVisitor::visit(const Layer* sample)
 {
-    m_label->insertMaterial(sample->getMaterial());
     m_label->setLabel(sample);
 }
 
@@ -235,7 +236,6 @@ void PyGenVisitor::visit(const MesoCrystal*)
 
 void PyGenVisitor::visit(const Particle* sample)
 {
-    m_label->insertMaterial(sample->getMaterial());
     m_label->setLabel(sample);
 }
 
@@ -342,34 +342,34 @@ std::string PyGenVisitor::defineMaterials() const
     result << indent() << "# Defining Materials\n";
     std::set<std::string> visitedMaterials;
     for (auto it=themap->begin(); it!=themap->end(); ++it) {
-        if (visitedMaterials.find(it->second) == visitedMaterials.end()) {
-            visitedMaterials.insert(it->second);
-            const IMaterial* p_material = it->first;
-            complex_t ri = p_material->getRefractiveIndex();
-            double delta = 1.0 - std::real(ri);
-            double beta = std::imag(ri);
-            if (p_material->isScalarMaterial()) {
-                result << indent() << m_label->getLabel(p_material) <<
-                    " = ba.HomogeneousMaterial(\"" << p_material->getName() <<
-                    "\", " << PyGenTools::printDouble(delta) << ", " <<
-                    PyGenTools::printDouble(beta) << ")\n";
-            } else {
-                const HomogeneousMagneticMaterial* p_mag_material
-                    = dynamic_cast<const HomogeneousMagneticMaterial*>(p_material);
-                if (p_mag_material == 0)
-                    throw Exceptions::RuntimeErrorException(
-                        "PyGenVisitor::defineMaterials: "
-                        "Non scalar material should be of type HomogeneousMagneticMaterial");
-                kvector_t magnetic_field = p_mag_material->getMagneticField();
-                result << indent() << "magnetic_field = kvector_t(" << magnetic_field.x() << ", "
-                       << magnetic_field.y() << ", " << magnetic_field.z() << ", "
-                       << ")\n";
-                result << indent() << m_label->getLabel(p_material)
-                       << " = ba.HomogeneousMagneticMaterial(\"" << p_material->getName();
-                result << "\", " << PyGenTools::printDouble(delta) << ", "
-                       << PyGenTools::printDouble(beta) << ", "
-                       << "magnetic_field)\n";
-            }
+        if (visitedMaterials.find(it->second) != visitedMaterials.end())
+            continue;
+        visitedMaterials.insert(it->second);
+        const IMaterial* p_material = it->first;
+        complex_t ri = p_material->getRefractiveIndex();
+        double delta = 1.0 - std::real(ri);
+        double beta = std::imag(ri);
+        if (p_material->isScalarMaterial()) {
+            result << indent() << m_label->getLabel(p_material) <<
+                " = ba.HomogeneousMaterial(\"" << p_material->getName() <<
+                "\", " << PyGenTools::printDouble(delta) << ", " <<
+                PyGenTools::printDouble(beta) << ")\n";
+        } else {
+            const HomogeneousMagneticMaterial* p_mag_material
+                = dynamic_cast<const HomogeneousMagneticMaterial*>(p_material);
+            if (p_mag_material == 0)
+                throw Exceptions::RuntimeErrorException(
+                    "PyGenVisitor::defineMaterials: "
+                    "Non scalar material should be of type HomogeneousMagneticMaterial");
+            kvector_t magnetic_field = p_mag_material->getMagneticField();
+            result << indent() << "magnetic_field = kvector_t(" << magnetic_field.x() << ", "
+                   << magnetic_field.y() << ", " << magnetic_field.z() << ", "
+                   << ")\n";
+            result << indent() << m_label->getLabel(p_material)
+                   << " = ba.HomogeneousMagneticMaterial(\"" << p_material->getName();
+            result << "\", " << PyGenTools::printDouble(delta) << ", "
+                   << PyGenTools::printDouble(beta) << ", "
+                   << "magnetic_field)\n";
         }
     }
     return result.str();

@@ -99,7 +99,6 @@ InterferenceFunction1DLattice::InterferenceFunction1DLattice(
 
 void InterferenceFunction1DLattice::init_parameters()
 {
-    clearParameterPool();
     registerParameter(Length, &m_lattice_params.m_length);
     registerParameter(Xi, &m_lattice_params.m_xi);
 }

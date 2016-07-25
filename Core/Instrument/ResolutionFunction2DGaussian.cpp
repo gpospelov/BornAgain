@@ -38,7 +38,6 @@ double ResolutionFunction2DGaussian::evaluateCDF(double x, double y) const
 
 void ResolutionFunction2DGaussian::init_parameters()
 {
-    clearParameterPool();
     registerParameter(BornAgain::SigmaX, &m_sigma_x);
     registerParameter(BornAgain::SigmaY, &m_sigma_y);
 }

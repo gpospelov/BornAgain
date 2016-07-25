@@ -33,7 +33,7 @@ RotatedPyramidsBuilder::RotatedPyramidsBuilder()
 
 void RotatedPyramidsBuilder::init_parameters()
 {
-    clearParameterPool();
+
     registerParameter("length", &m_length);
     registerParameter("height", &m_height);
     registerParameter("alpha", &m_alpha);

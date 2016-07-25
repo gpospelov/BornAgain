@@ -46,11 +46,11 @@ std::string MultiLayer::to_str(int indent) const
 
 void MultiLayer::init_parameters()
 {
-    clearParameterPool();
+    clearParameterPool();  // non-trivially needed
     registerParameter(CrossCorrelationLength, &m_crossCorrLength);
 }
 
-void MultiLayer::clear()
+void MultiLayer::clear() // TODO: understand need
 {
     for(size_t i=0; i<m_layers.size(); i++) delete m_layers[i];
     m_layers.clear();

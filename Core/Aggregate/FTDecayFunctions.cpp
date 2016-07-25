@@ -31,7 +31,6 @@ void IFTDecayFunction1D::print(std::ostream &ostr) const
 
 void IFTDecayFunction1D::init_parameters()
 {
-    clearParameterPool();
     registerParameter(Omega, &m_omega);
 }
 
@@ -189,7 +188,6 @@ void IFTDecayFunction2D::print(std::ostream &ostr) const
 
 void IFTDecayFunction2D::init_parameters()
 {
-    clearParameterPool();
     registerParameter(OmegaX, &m_omega_x);
     registerParameter(OmegaY, &m_omega_y);
 }

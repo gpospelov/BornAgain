@@ -188,7 +188,6 @@ InterferenceFunction2DLattice::InterferenceFunction2DLattice(
 
 void InterferenceFunction2DLattice::init_parameters()
 {
-    clearParameterPool();
     registerParameter(LatticeLength1, &m_lattice_params.m_length_1);
     registerParameter(LatticeLength2, &m_lattice_params.m_length_2);
     registerParameter(Alpha, &m_lattice_params.m_angle);

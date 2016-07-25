@@ -36,7 +36,7 @@ CosineRippleBuilder::CosineRippleBuilder()
 
 void CosineRippleBuilder::init_parameters()
 {
-    clearParameterPool();
+
     registerParameter("width", &m_w);
     registerParameter("height", &m_h);
     registerParameter("length", &m_l);
@@ -89,7 +89,7 @@ TriangularRippleBuilder::TriangularRippleBuilder()
 
 void TriangularRippleBuilder::init_parameters()
 {
-    clearParameterPool();
+
     registerParameter("width", &m_w);
     registerParameter("height", &m_h);
     registerParameter("length", &m_l);

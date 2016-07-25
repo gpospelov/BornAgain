@@ -34,7 +34,7 @@ MultiLayerWithRoughnessBuilder::MultiLayerWithRoughnessBuilder()
 
 void MultiLayerWithRoughnessBuilder::init_parameters()
 {
-    clearParameterPool();
+
     registerParameter("thicknessA", &m_thicknessA);
     registerParameter("thicknessB", &m_thicknessB);
     registerParameter("sigma", &m_sigma);

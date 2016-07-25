@@ -39,7 +39,6 @@ InterferenceFunctionRadialParaCrystal::InterferenceFunctionRadialParaCrystal(
 
 void InterferenceFunctionRadialParaCrystal::init_parameters()
 {
-    clearParameterPool();
     registerParameter(PeakDistance, &m_peak_distance);
     registerParameter(DampingLength, &m_damping_length);
     registerParameter(SizeSpaceCoupling, &m_kappa);

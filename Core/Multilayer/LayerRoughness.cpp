@@ -36,7 +36,7 @@ LayerRoughness::LayerRoughness(double sigma, double hurstParameter, double latte
     initialize();
 }
 
-void LayerRoughness::accept(ISampleVisitor *visitor) const
+void LayerRoughness::accept(ISampleVisitor* visitor) const
 {
     visitor->visit(this);
 }
@@ -48,7 +48,6 @@ LayerRoughness* LayerRoughness::clone() const
 
 void LayerRoughness::init_parameters()
 {
-    clearParameterPool();
     registerParameter(Sigma, &m_sigma);
     registerParameter(Hurst, &m_hurstParameter);
     registerParameter(CorrelationLength, &m_latteralCorrLength);

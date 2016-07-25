@@ -32,7 +32,6 @@ void IFTDistribution1D::print(std::ostream& ostr) const
 
 void IFTDistribution1D::init_parameters()
 {
-    clearParameterPool();
     registerParameter(Omega, &m_omega);
 }
 
@@ -175,7 +174,6 @@ IFTDistribution2D::IFTDistribution2D(double coherence_length_x, double coherence
 
 void IFTDistribution2D::init_parameters()
 {
-    clearParameterPool();
     registerParameter(CoherenceLengthX, &m_coherence_length_x);
     registerParameter(CoherenceLengthY, &m_coherence_length_y);
 }

@@ -151,7 +151,6 @@ std::vector<double> DistributionGate::generateValueList(size_t nbr_samples,
 
 void DistributionGate::init_parameters()
 {
-    clearParameterPool();
     registerParameter(Minimum, &m_min);
     registerParameter(Maximum, &m_max);
 }
@@ -203,7 +202,6 @@ std::vector<double> DistributionLorentz::generateValueList(size_t nbr_samples,
 
 void DistributionLorentz::init_parameters()
 {
-    clearParameterPool();
     registerParameter(Mean, &m_mean);
     registerParameter(HWHM, &m_hwhm);
 }
@@ -261,7 +259,6 @@ std::vector<double> DistributionGaussian::generateValueList(size_t nbr_samples,
 
 void DistributionGaussian::init_parameters()
 {
-    clearParameterPool();
     registerParameter(Mean, &m_mean);
     registerParameter(StdDeviation, &m_std_dev);
 }
@@ -330,7 +327,6 @@ std::vector<double> DistributionLogNormal::generateValueList(size_t nbr_samples,
 
 void DistributionLogNormal::init_parameters()
 {
-    clearParameterPool();
     registerParameter(Median, &m_median);
     registerParameter(ScaleParameter, &m_scale_param);
 }
@@ -388,7 +384,6 @@ std::vector<double> DistributionCosine::generateValueList(size_t nbr_samples,
 
 void DistributionCosine::init_parameters()
 {
-    clearParameterPool();
     registerParameter(Mean, &m_mean);
     registerParameter(Sigma, &m_sigma);
 }

@@ -39,8 +39,7 @@ private:
 class SwigDirector_IParameterized : public IParameterized, public Swig::Director {
 
 public:
-    SwigDirector_IParameterized(PyObject *self);
-    SwigDirector_IParameterized(PyObject *self, std::string const &name);
+    SwigDirector_IParameterized(PyObject *self, std::string const &name = "");
     SwigDirector_IParameterized(PyObject *self, IParameterized const &other);
     virtual ~SwigDirector_IParameterized();
     virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number = -1) const;

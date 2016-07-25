@@ -1842,8 +1842,8 @@ class IParameterized(INamed):
 
     def __init__(self, *args):
         """
-        __init__(IParameterized self) -> IParameterized
         __init__(IParameterized self, std::string const & name) -> IParameterized
+        __init__(IParameterized self) -> IParameterized
         __init__(IParameterized self, IParameterized other) -> IParameterized
 
         IParameterized::IParameterized(const IParameterized &other)

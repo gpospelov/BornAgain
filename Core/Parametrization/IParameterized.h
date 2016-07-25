@@ -26,8 +26,7 @@
 class BA_CORE_API_ IParameterized : public INamed
 {
 public:
-    IParameterized() : m_parameters(this) {}
-    IParameterized(const std::string& name) : INamed(name), m_parameters(this) {}
+    IParameterized(const std::string& name="") : INamed(name), m_parameters(this) {}
     IParameterized(const IParameterized& other) : INamed(other), m_parameters(this) {}
     IParameterized& operator=(const IParameterized& other);
 

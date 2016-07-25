@@ -118,7 +118,7 @@ public:
     typedef LabelMap<const IFormFactor*> formfactors_t;
     typedef LabelMap<const IInterferenceFunction*> interferences_t;
     typedef LabelMap<const ILayout*> layouts_t;
-    typedef LabelMap<const IMaterial*> materials_t;
+    typedef std::map<const IMaterial*, std::string> materials_t;
     typedef LabelMap<const IRotation*> rotations_t;
     typedef LabelMap<const Layer*> layers_t;
     typedef LabelMap<const LayerRoughness*> roughnesses_t;

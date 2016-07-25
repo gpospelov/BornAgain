@@ -24,89 +24,87 @@
 #include "ParticleCoreShell.h"
 #include "ParticleDistribution.h"
 
-std::string SampleLabelHandler::getLabelFormFactor(const IFormFactor* sample)
+std::string SampleLabelHandler::getLabelFormFactor(const IFormFactor* ff)
 {
-    return m_FormFactorLabel[sample];
+    return m_FormFactorLabel[ff];
 }
 
-std::string SampleLabelHandler::getLabelInterferenceFunction(const IInterferenceFunction* sample)
+std::string SampleLabelHandler::getLabelInterferenceFunction(const IInterferenceFunction* iff)
 {
-    return m_InterferenceFunctionLabel[sample];
+    return m_InterferenceFunctionLabel[iff];
 }
 
-std::string SampleLabelHandler::getLabelMaterial(const IMaterial* sample)
+std::string SampleLabelHandler::getLabelMaterial(const IMaterial* mat)
 {
-    return m_MaterialLabel[sample];
+    return m_MaterialLabel[mat];
 }
 
-std::string SampleLabelHandler::getLabelLayer(const Layer* sample)
+std::string SampleLabelHandler::getLabelLayer(const Layer* layer)
 {
-    return m_LayerLabel[sample];
+    return m_LayerLabel[layer];
 }
 
-std::string SampleLabelHandler::getLabelRoughness(const LayerRoughness* sample)
+std::string SampleLabelHandler::getLabelRoughness(const LayerRoughness* roughness)
 {
-    return m_LayerRoughnessLabel[sample];
+    return m_LayerRoughnessLabel[roughness];
 }
 
-std::string SampleLabelHandler::getLabelMultiLayer(const MultiLayer* sample)
+std::string SampleLabelHandler::getLabelMultiLayer(const MultiLayer* ml)
 {
-    return m_MultiLayerLabel[sample];
+    return m_MultiLayerLabel[ml];
 }
 
-std::string SampleLabelHandler::getLabelParticle(const IAbstractParticle* sample)
+std::string SampleLabelHandler::getLabelParticle(const IAbstractParticle* particle)
 {
-    if (const ParticleCoreShell* core_shell_particle =
-            dynamic_cast<const ParticleCoreShell*>(sample))
+    if (const auto core_shell_particle = dynamic_cast<const ParticleCoreShell*>(particle))
         return m_ParticleCoreShellLabel[core_shell_particle];
-    if (const Particle* particle = dynamic_cast<const Particle*>(sample))
+    if (const auto particle = dynamic_cast<const Particle*>(particle))
         return m_ParticleLabel[particle];
-    if (const ParticleDistribution* particle = dynamic_cast<const ParticleDistribution*>(sample))
+    if (const auto particle = dynamic_cast<const ParticleDistribution*>(particle))
         return m_ParticleDistributionLabel[particle];
-
-    if (const ParticleComposition* lattice_basis = dynamic_cast<const ParticleComposition*>(sample))
+    if (const auto lattice_basis = dynamic_cast<const ParticleComposition*>(particle))
         return m_ParticleCompositionLabel[lattice_basis];
     throw Exceptions::NotImplementedException(
         "SampleLabelHandler::getLabel: called for unknown IParticle type");
 }
 
-std::string SampleLabelHandler::getLabelParticleCoreShell(const ParticleCoreShell* sample)
+std::string SampleLabelHandler::getLabelParticleCoreShell(const ParticleCoreShell* pcs)
 {
-    return m_ParticleCoreShellLabel[sample];
+    return m_ParticleCoreShellLabel[pcs];
 }
 
-std::string SampleLabelHandler::getLabelParticleDistribution(const ParticleDistribution* sample)
+std::string SampleLabelHandler::getLabelParticleDistribution(const ParticleDistribution* pd)
 {
-    return m_ParticleDistributionLabel[sample];
+    return m_ParticleDistributionLabel[pd];
 }
 
-std::string SampleLabelHandler::getLabelLayout(const ILayout* sample)
+std::string LayoutLabelHandler::getLabelLayout(const ILayout* layout)
 {
-    return m_ILayoutLabel[sample];
+    return m_ILayoutLabel[layout];
 }
 
-std::string SampleLabelHandler::getLabelParticleComposition(const ParticleComposition* sample)
+std::string PcLabelHandler::getLabelParticleComposition(const ParticleComposition* pc)
 {
-    return m_ParticleCompositionLabel[sample];
+    return m_ParticleCompositionLabel[pc];
 }
 
-std::string SampleLabelHandler::getLabelRotation(const IRotation* sample)
+std::string RotLabelHandler::getLabelRotation(const IRotation* rot)
 {
-    return m_RotationsLabel[sample];
+    return m_RotationsLabel[rot];
 }
 
-void SampleLabelHandler::insertMaterial(const IMaterial* sample)
+void MatLabelHandler::insertMaterial(const IMaterial* mat)
 {
     for (auto it=m_MaterialLabel.begin(); it!=m_MaterialLabel.end(); ++it) {
-        if( *(it->first) == *sample ) {
-            m_MaterialLabel.insert(sample, it->second);
+        if( *(it->first) == *mat ) {
+            m_MaterialLabel.insert(std::make_pair(mat, it->second));
             return;
         }
     }
     // material not found => create new label
     std::ostringstream label_stream;
     label_stream << "material_" << m_MaterialLabel.size()+1;
-    m_MaterialLabel.insert(sample, label_stream.str());
+    m_MaterialLabel.insert(std::make_pair(mat, label_stream.str()));
 }
 
 void SampleLabelHandler::setLabelFormFactor(const IFormFactor* sample)

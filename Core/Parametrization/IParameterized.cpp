@@ -44,6 +44,19 @@ std::string IParameterized::addParametersToExternalPool(
     return path;
 }
 
+void IParameterized::printParameters()
+{
+    std::unique_ptr<ParameterPool> P_pool( createParameterTree() );
+    std::cout << *P_pool << std::endl;
+}
+
+//! Register parameter address in the parameter pool
+void IParameterized::registerParameter(
+    const std::string& name, double* parpointer, const AttLimits& limits)
+{
+    m_parameters.registerParameter(name, parpointer, limits);
+}
+
 void IParameterized::setParameterValue(const std::string &name, double value)
 {
     if(name.find('*') == std::string::npos && name.find('/') == std::string::npos) {
@@ -59,10 +72,15 @@ void IParameterized::setParameterValue(const std::string &name, double value)
     onChange();
 }
 
-void IParameterized::printParameters()
+//! Returns parameter wrapper named _name_.
+RealParameterWrapper IParameterized::getParameter(const std::string& name) const {
+    return getParameterPool()->getParameter(name);
+}
+
+//! Clears the parameter pool.
+void IParameterized::clearParameterPool()
 {
-    std::unique_ptr<ParameterPool> P_pool( createParameterTree() );
-    std::cout << *P_pool << std::endl;
+    m_parameters.clear();
 }
 
 void IParameterized::print(std::ostream& ostr) const

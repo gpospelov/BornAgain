@@ -41,20 +41,14 @@ public:
 
     void printParameters();
 
-    //! Register parameter address in the parameter pool
     void registerParameter(const std::string& name, double* parpointer,
-                           const AttLimits& limits = AttLimits::limitless()) {
-        m_parameters.registerParameter(name, parpointer, limits); }
+                           const AttLimits& limits = AttLimits::limitless());
 
-    //! Sets the value of the parameter with the given name.
     void setParameterValue(const std::string& name, double value);
 
-    //! Returns parameter wrapper named _name_.
-    RealParameterWrapper getParameter(const std::string& name) const {
-        return getParameterPool()->getParameter(name); }
+    RealParameterWrapper getParameter(const std::string& name) const;
 
-    //! Clears the parameter pool.
-    void clearParameterPool() { m_parameters.clear(); }
+    void clearParameterPool();
 
     friend std::ostream& operator<<(std::ostream& ostr, const IParameterized& m) {
         m.print(ostr);

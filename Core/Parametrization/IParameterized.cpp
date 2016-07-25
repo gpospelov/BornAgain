@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Parametrization/IParameterized.cpp
-//! @brief     Implements classes IParameterized and ParameterPattern.
+//! @brief     Implements class IParameterized.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -77,16 +77,4 @@ void IParameterized::printParameters()
 void IParameterized::print(std::ostream& ostr) const
 {
     ostr << "IParameterized:" << getName() << " " << m_parameters;
-}
-
-ParameterPattern& ParameterPattern::beginsWith(std::string start_type)
-{
-    m_pattern = start_type;
-    return *this;
-}
-
-ParameterPattern& ParameterPattern::add(std::string object_type)
-{
-    m_pattern = m_pattern + "/" + object_type;
-    return *this;
 }

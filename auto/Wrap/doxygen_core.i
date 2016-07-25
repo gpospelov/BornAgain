@@ -7286,9 +7286,9 @@ Returns nullptr, unless overwritten to return a specific material.
 Returns nullptr, unless overwritten to return a specific material. 
 ";
 
-%feature("docstring")  ISample::containedMaterials "std::set< const IMaterial * > ISample::containedMaterials() const
+%feature("docstring")  ISample::containedMaterials "std::vector< const IMaterial * > ISample::containedMaterials() const
 
-Returns set of materials contained in this  ISample. Must be reimplemented in derived classes that define a material. 
+Returns set of unique materials contained in this  ISample. Must be reimplemented in derived classes that define a material. 
 ";
 
 %feature("docstring")  ISample::containsMagneticMaterial "bool ISample::containsMagneticMaterial() const
@@ -7304,6 +7304,11 @@ Returns a vector of children (const). Default implementation returns empty vecto
 %feature("docstring")  ISample::size "virtual size_t ISample::size() const
 
 Returns number of children. Default implementation returns zero. 
+";
+
+%feature("docstring")  ISample::containedSubclass "std::vector< const T * > ISample::containedSubclass() const
+
+Returns vector of children of type T. 
 ";
 
 
@@ -10516,139 +10521,13 @@ finalize report to the simulation
 // File: classPyGenVisitor.xml
 %feature("docstring") PyGenVisitor "";
 
-%feature("docstring")  PyGenVisitor::PyGenVisitor "PyGenVisitor::PyGenVisitor()
+%feature("docstring")  PyGenVisitor::PyGenVisitor "PyGenVisitor::PyGenVisitor(const MultiLayer &multilayer)
 ";
 
 %feature("docstring")  PyGenVisitor::~PyGenVisitor "PyGenVisitor::~PyGenVisitor()
 ";
 
 %feature("docstring")  PyGenVisitor::writePyScript "std::string PyGenVisitor::writePyScript(const GISASSimulation *simulation, const std::string &output_filename)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorAnisoPyramid *)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorBox *)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorCone *)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorCone6 *)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorCuboctahedron *)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorCylinder *)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorDodecahedron *)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorEllipsoidalCylinder *)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorFullSphere *)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorFullSpheroid *)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorGauss *)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorHemiEllipsoid *)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorIcosahedron *)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorLorentz *)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorPrism3 *)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorPrism6 *)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorPyramid *)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorRipple1 *)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorRipple2 *)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorTetrahedron *)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorTruncatedCube *)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorTruncatedSphere *)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorTruncatedSpheroid *)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const InterferenceFunctionNone *)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const InterferenceFunction1DLattice *)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const InterferenceFunctionRadialParaCrystal *)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const InterferenceFunction2DLattice *)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const InterferenceFunction2DParaCrystal *)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const Layer *)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const LayerInterface *)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const LayerRoughness *)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const MultiLayer *)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const ParticleComposition *)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const MesoCrystal *)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const Particle *)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const ParticleDistribution *)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const ParticleCoreShell *)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const ParticleLayout *)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const RotationX *)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const RotationY *)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const RotationZ *)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const RotationEuler *)
 ";
 
 %feature("docstring")  PyGenVisitor::definePreamble "std::string PyGenVisitor::definePreamble() const 
@@ -11260,112 +11139,112 @@ C++ includes: SampleLabelHandler.h
 %feature("docstring")  SampleLabelHandler::SampleLabelHandler "SampleLabelHandler::SampleLabelHandler()
 ";
 
-%feature("docstring")  SampleLabelHandler::getFormFactorMap "SampleLabelHandler::formfactors_t * SampleLabelHandler::getFormFactorMap()
+%feature("docstring")  SampleLabelHandler::getFormFactorMap "formfactors_t* SampleLabelHandler::getFormFactorMap()
 ";
 
-%feature("docstring")  SampleLabelHandler::getInterferenceFunctionMap "SampleLabelHandler::interferences_t * SampleLabelHandler::getInterferenceFunctionMap()
+%feature("docstring")  SampleLabelHandler::getInterferenceFunctionMap "interferences_t* SampleLabelHandler::getInterferenceFunctionMap()
 ";
 
-%feature("docstring")  SampleLabelHandler::getLayerMap "SampleLabelHandler::layers_t * SampleLabelHandler::getLayerMap()
+%feature("docstring")  SampleLabelHandler::getLayerMap "layers_t* SampleLabelHandler::getLayerMap()
 ";
 
-%feature("docstring")  SampleLabelHandler::getParticleLayoutMap "SampleLabelHandler::layouts_t * SampleLabelHandler::getParticleLayoutMap()
+%feature("docstring")  SampleLabelHandler::getParticleLayoutMap "layouts_t* SampleLabelHandler::getParticleLayoutMap()
 ";
 
-%feature("docstring")  SampleLabelHandler::getMaterialMap "SampleLabelHandler::materials_t * SampleLabelHandler::getMaterialMap()
+%feature("docstring")  SampleLabelHandler::getMaterialMap "materials_t* SampleLabelHandler::getMaterialMap()
 ";
 
-%feature("docstring")  SampleLabelHandler::getMultiLayerMap "SampleLabelHandler::multilayers_t * SampleLabelHandler::getMultiLayerMap()
+%feature("docstring")  SampleLabelHandler::getMultiLayerMap "multilayers_t* SampleLabelHandler::getMultiLayerMap()
 ";
 
-%feature("docstring")  SampleLabelHandler::getParticleCompositionMap "SampleLabelHandler::particlecompositions_t * SampleLabelHandler::getParticleCompositionMap()
+%feature("docstring")  SampleLabelHandler::getParticleCompositionMap "particlecompositions_t* SampleLabelHandler::getParticleCompositionMap()
 ";
 
-%feature("docstring")  SampleLabelHandler::getParticleDistributionsMap "SampleLabelHandler::particledistributions_t * SampleLabelHandler::getParticleDistributionsMap()
+%feature("docstring")  SampleLabelHandler::getParticleDistributionsMap "particledistributions_t* SampleLabelHandler::getParticleDistributionsMap()
 ";
 
-%feature("docstring")  SampleLabelHandler::getParticleMap "SampleLabelHandler::particles_t * SampleLabelHandler::getParticleMap()
+%feature("docstring")  SampleLabelHandler::getParticleMap "particles_t* SampleLabelHandler::getParticleMap()
 ";
 
-%feature("docstring")  SampleLabelHandler::getParticleCoreShellMap "SampleLabelHandler::particlescoreshell_t * SampleLabelHandler::getParticleCoreShellMap()
+%feature("docstring")  SampleLabelHandler::getParticleCoreShellMap "particlescoreshell_t* SampleLabelHandler::getParticleCoreShellMap()
 ";
 
-%feature("docstring")  SampleLabelHandler::getRotationsMap "SampleLabelHandler::rotations_t * SampleLabelHandler::getRotationsMap()
+%feature("docstring")  SampleLabelHandler::getRotationsMap "rotations_t* SampleLabelHandler::getRotationsMap()
 ";
 
-%feature("docstring")  SampleLabelHandler::getLayerRoughnessMap "SampleLabelHandler::roughnesses_t * SampleLabelHandler::getLayerRoughnessMap()
+%feature("docstring")  SampleLabelHandler::getLayerRoughnessMap "roughnesses_t* SampleLabelHandler::getLayerRoughnessMap()
 ";
 
-%feature("docstring")  SampleLabelHandler::getLabel "std::string SampleLabelHandler::getLabel(const IAbstractParticle *sample)
+%feature("docstring")  SampleLabelHandler::getLabelParticle "std::string SampleLabelHandler::getLabelParticle(const IAbstractParticle *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::getLabel "std::string SampleLabelHandler::getLabel(const IFormFactor *sample)
+%feature("docstring")  SampleLabelHandler::getLabelFormFactor "std::string SampleLabelHandler::getLabelFormFactor(const IFormFactor *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::getLabel "std::string SampleLabelHandler::getLabel(const IInterferenceFunction *sample)
+%feature("docstring")  SampleLabelHandler::getLabelInterferenceFunction "std::string SampleLabelHandler::getLabelInterferenceFunction(const IInterferenceFunction *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::getLabel "std::string SampleLabelHandler::getLabel(const ILayout *sample)
+%feature("docstring")  SampleLabelHandler::getLabelLayout "std::string SampleLabelHandler::getLabelLayout(const ILayout *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::getLabel "std::string SampleLabelHandler::getLabel(const IMaterial *sample)
+%feature("docstring")  SampleLabelHandler::getLabelMaterial "std::string SampleLabelHandler::getLabelMaterial(const IMaterial *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::getLabel "std::string SampleLabelHandler::getLabel(const IRotation *sample)
+%feature("docstring")  SampleLabelHandler::getLabelRotation "std::string SampleLabelHandler::getLabelRotation(const IRotation *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::getLabel "std::string SampleLabelHandler::getLabel(const Layer *sample)
+%feature("docstring")  SampleLabelHandler::getLabelLayer "std::string SampleLabelHandler::getLabelLayer(const Layer *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::getLabel "std::string SampleLabelHandler::getLabel(const LayerRoughness *sample)
+%feature("docstring")  SampleLabelHandler::getLabelRoughness "std::string SampleLabelHandler::getLabelRoughness(const LayerRoughness *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::getLabel "std::string SampleLabelHandler::getLabel(const MultiLayer *sample)
+%feature("docstring")  SampleLabelHandler::getLabelMultiLayer "std::string SampleLabelHandler::getLabelMultiLayer(const MultiLayer *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::getLabel "std::string SampleLabelHandler::getLabel(const ParticleComposition *sample)
+%feature("docstring")  SampleLabelHandler::getLabelParticleComposition "std::string SampleLabelHandler::getLabelParticleComposition(const ParticleComposition *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::getLabel "std::string SampleLabelHandler::getLabel(const ParticleCoreShell *sample)
+%feature("docstring")  SampleLabelHandler::getLabelParticleCoreShell "std::string SampleLabelHandler::getLabelParticleCoreShell(const ParticleCoreShell *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::getLabel "std::string SampleLabelHandler::getLabel(const ParticleDistribution *sample)
+%feature("docstring")  SampleLabelHandler::getLabelParticleDistribution "std::string SampleLabelHandler::getLabelParticleDistribution(const ParticleDistribution *sample)
 ";
 
 %feature("docstring")  SampleLabelHandler::insertMaterial "void SampleLabelHandler::insertMaterial(const IMaterial *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::setLabel "void SampleLabelHandler::setLabel(const IFormFactor *sample)
+%feature("docstring")  SampleLabelHandler::setLabelFormFactor "void SampleLabelHandler::setLabelFormFactor(const IFormFactor *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::setLabel "void SampleLabelHandler::setLabel(const IInterferenceFunction *sample)
+%feature("docstring")  SampleLabelHandler::setLabelInterferenceFunction "void SampleLabelHandler::setLabelInterferenceFunction(const IInterferenceFunction *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::setLabel "void SampleLabelHandler::setLabel(const ILayout *sample)
+%feature("docstring")  SampleLabelHandler::setLabelLayout "void SampleLabelHandler::setLabelLayout(const ILayout *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::setLabel "void SampleLabelHandler::setLabel(const IRotation *sample)
+%feature("docstring")  SampleLabelHandler::setLabelRotation "void SampleLabelHandler::setLabelRotation(const IRotation *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::setLabel "void SampleLabelHandler::setLabel(const Layer *sample)
+%feature("docstring")  SampleLabelHandler::setLabelLayer "void SampleLabelHandler::setLabelLayer(const Layer *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::setLabel "void SampleLabelHandler::setLabel(const LayerRoughness *sample)
+%feature("docstring")  SampleLabelHandler::setLabelRoughness "void SampleLabelHandler::setLabelRoughness(const LayerRoughness *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::setLabel "void SampleLabelHandler::setLabel(const MultiLayer *sample)
+%feature("docstring")  SampleLabelHandler::setLabelMultiLayer "void SampleLabelHandler::setLabelMultiLayer(const MultiLayer *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::setLabel "void SampleLabelHandler::setLabel(const Particle *sample)
+%feature("docstring")  SampleLabelHandler::setLabelParticle "void SampleLabelHandler::setLabelParticle(const Particle *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::setLabel "void SampleLabelHandler::setLabel(const ParticleComposition *sample)
+%feature("docstring")  SampleLabelHandler::setLabelParticleComposition "void SampleLabelHandler::setLabelParticleComposition(const ParticleComposition *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::setLabel "void SampleLabelHandler::setLabel(const ParticleCoreShell *sample)
+%feature("docstring")  SampleLabelHandler::setLabelParticleCoreShell "void SampleLabelHandler::setLabelParticleCoreShell(const ParticleCoreShell *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::setLabel "void SampleLabelHandler::setLabel(const ParticleDistribution *sample)
+%feature("docstring")  SampleLabelHandler::setLabelParticleDistribution "void SampleLabelHandler::setLabelParticleDistribution(const ParticleDistribution *sample)
 ";
 
 
@@ -12994,7 +12873,7 @@ Typical IsGISAXS simulation with the detector phi[0,2], theta[0,2].
 
 
 // File: namespaceUtils.xml
-%feature("docstring")  Utils::AdjustStringLength "std::string Utils::AdjustStringLength(std::string name, int length)
+%feature("docstring")  Utils::AdjustStringLength "std::string Utils::AdjustStringLength(const std::string &name, int length)
 ";
 
 %feature("docstring")  Utils::EnableFloatingPointExceptions "void Utils::EnableFloatingPointExceptions()

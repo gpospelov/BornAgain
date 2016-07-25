@@ -39,6 +39,7 @@
 #include "Line.h"
 #include "MaskItems.h"
 #include "ModelPath.h"
+#include "ParameterPattern.h"
 #include "ParticleDistributionItem.h"
 #include "ParticleItem.h"
 #include "Polygon.h"

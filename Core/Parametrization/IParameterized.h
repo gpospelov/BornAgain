@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Parametrization/IParameterized.h
-//! @brief     Declares classes IParameterized and ParameterPattern
+//! @brief     Declares class IParameterized.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -50,8 +50,8 @@ public:
     void setParameterValue(const std::string& name, double value);
 
     //! Returns parameter wrapper named _name_.
-    RealParameterWrapper getParameter(const std::string& name) const
-    { return getParameterPool()->getParameter(name); }
+    RealParameterWrapper getParameter(const std::string& name) const {
+        return getParameterPool()->getParameter(name); }
 
     //! Clears the parameter pool.
     void clearParameterPool() { m_parameters.clear(); }
@@ -75,24 +75,6 @@ protected:
     ParameterPool m_parameters; //!< parameter pool
     friend ParameterPool;
     friend RealParameterWrapper;
-};
-
-//! @class ParameterPattern
-//! @ingroup tools_internal
-//! @brief Helper class for constructing parameter patterns.
-
-class BA_CORE_API_ ParameterPattern
-{
-public:
-    ParameterPattern() {}
-    ParameterPattern(std::string root_object) : m_pattern ( "/" + root_object ) {}
-
-    ParameterPattern& beginsWith(std::string start_type);
-    ParameterPattern& add(std::string object_type);
-
-    std::string toStdString() const { return m_pattern; }
-private:
-    std::string m_pattern;
 };
 
 #endif // IPARAMETERIZED_H

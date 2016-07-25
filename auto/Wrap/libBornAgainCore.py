@@ -1962,69 +1962,6 @@ class IParameterized(INamed):
 IParameterized_swigregister = _libBornAgainCore.IParameterized_swigregister
 IParameterized_swigregister(IParameterized)
 
-class ParameterPattern(_object):
-    """
-
-
-    Helper class for constructing parameter patterns.
-
-    C++ includes: IParameterized.h
-
-    """
-    __swig_setmethods__ = {}
-    __setattr__ = lambda self, name, value: _swig_setattr(self, ParameterPattern, name, value)
-    __swig_getmethods__ = {}
-    __getattr__ = lambda self, name: _swig_getattr(self, ParameterPattern, name)
-    __repr__ = _swig_repr
-
-    def __init__(self, *args):
-        """
-        __init__(ParameterPattern self) -> ParameterPattern
-        __init__(ParameterPattern self, std::string root_object) -> ParameterPattern
-
-        ParameterPattern::ParameterPattern(std::string root_object)
-
-        """
-        this = _libBornAgainCore.new_ParameterPattern(*args)
-        try:
-            self.this.append(this)
-        except:
-            self.this = this
-
-    def beginsWith(self, start_type):
-        """
-        beginsWith(ParameterPattern self, std::string start_type) -> ParameterPattern
-
-        ParameterPattern & ParameterPattern::beginsWith(std::string start_type)
-
-        """
-        return _libBornAgainCore.ParameterPattern_beginsWith(self, start_type)
-
-
-    def add(self, object_type):
-        """
-        add(ParameterPattern self, std::string object_type) -> ParameterPattern
-
-        ParameterPattern & ParameterPattern::add(std::string object_type)
-
-        """
-        return _libBornAgainCore.ParameterPattern_add(self, object_type)
-
-
-    def toStdString(self):
-        """
-        toStdString(ParameterPattern self) -> std::string
-
-        std::string ParameterPattern::toStdString() const 
-
-        """
-        return _libBornAgainCore.ParameterPattern_toStdString(self)
-
-    __swig_destroy__ = _libBornAgainCore.delete_ParameterPattern
-    __del__ = lambda self: None
-ParameterPattern_swigregister = _libBornAgainCore.ParameterPattern_swigregister
-ParameterPattern_swigregister(ParameterPattern)
-
 
 def GetMajorVersionNumber():
     """GetMajorVersionNumber() -> int"""
@@ -4128,9 +4065,9 @@ class ISample(ICloneable, IParameterized):
         """
         containedMaterials(ISample self) -> std::vector< IMaterial const *,std::allocator< IMaterial const * > >
 
-        std::set< const IMaterial * > ISample::containedMaterials() const
+        std::vector< const IMaterial * > ISample::containedMaterials() const
 
-        Returns set of materials contained in this  ISample. Must be reimplemented in derived classes that define a material. 
+        Returns set of unique materials contained in this  ISample. Must be reimplemented in derived classes that define a material. 
 
         """
         return _libBornAgainCore.ISample_containedMaterials(self)

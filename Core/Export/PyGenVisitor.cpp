@@ -23,6 +23,7 @@
 #include "LayerInterface.h"
 #include "LayerRoughness.h"
 #include "Materials.h"
+#include "MesoCrystal.h"
 #include "MultiLayer.h"
 #include "MultiLayerDWBASimulation.h"
 #include "ParticleCoreShell.h"
@@ -40,10 +41,32 @@ PyGenVisitor::PyGenVisitor(const MultiLayer& multilayer)
 {
     for( auto mat: multilayer.containedMaterials() )
         m_label->insertMaterial(mat);
+    for( auto x: multilayer.containedSubclass<Layer>() )
+        m_label->setLabelLayer(x);
     for( auto x: multilayer.containedSubclass<LayerRoughness>() )
         m_label->setLabelRoughness(x);
+    for( auto x: multilayer.containedSubclass<MultiLayer>() )
+        m_label->setLabelMultiLayer(x);
     for( auto x: multilayer.containedSubclass<IFormFactor>() )
         m_label->setLabelFormFactor(x);
+    for( auto x: multilayer.containedSubclass<IInterferenceFunction>() )
+        m_label->setLabelInterferenceFunction(x);
+    for( auto x: multilayer.containedSubclass<Particle>() )
+        m_label->setLabelParticle(x);
+    for( auto x: multilayer.containedSubclass<ParticleCoreShell>() )
+        m_label->setLabelParticleCoreShell(x);
+    for( auto x: multilayer.containedSubclass<ParticleComposition>() )
+        m_label->setLabelParticleComposition(x);
+    for( auto x: multilayer.containedSubclass<ParticleDistribution>() )
+        m_label->setLabelParticleDistribution(x);
+    for( auto x: multilayer.containedSubclass<ILayout>() )
+        m_label->setLabelLayout(x);
+    for( auto x: multilayer.containedSubclass<IRotation>() )
+        m_label->setLabelRotation(x);
+    if( multilayer.containedSubclass<MesoCrystal>().size() )
+        throw Exceptions::NotImplementedException(
+            "PyGenVisitor: class MesoCrystal not yet supported!");
+
     VisitSampleTreePostorder(multilayer, *this);
 }
 
@@ -160,34 +183,28 @@ void PyGenVisitor::visit(const FormFactorTruncatedSpheroid*)
 {
 }
 
-void PyGenVisitor::visit(const InterferenceFunctionNone* sample)
+void PyGenVisitor::visit(const InterferenceFunctionNone*)
 {
-    m_label->setLabelInterferenceFunction(sample);
 }
 
-void PyGenVisitor::visit(const InterferenceFunction1DLattice* sample)
+void PyGenVisitor::visit(const InterferenceFunction1DLattice*)
 {
-    m_label->setLabelInterferenceFunction(sample);
 }
 
-void PyGenVisitor::visit(const InterferenceFunctionRadialParaCrystal* sample)
+void PyGenVisitor::visit(const InterferenceFunctionRadialParaCrystal*)
 {
-    m_label->setLabelInterferenceFunction(sample);
 }
 
-void PyGenVisitor::visit(const InterferenceFunction2DLattice* sample)
+void PyGenVisitor::visit(const InterferenceFunction2DLattice*)
 {
-    m_label->setLabelInterferenceFunction(sample);
 }
 
-void PyGenVisitor::visit(const InterferenceFunction2DParaCrystal* sample)
+void PyGenVisitor::visit(const InterferenceFunction2DParaCrystal*)
 {
-    m_label->setLabelInterferenceFunction(sample);
 }
 
-void PyGenVisitor::visit(const Layer* sample)
+void PyGenVisitor::visit(const Layer*)
 {
-    m_label->setLabelLayer(sample);
 }
 
 void PyGenVisitor::visit(const LayerInterface*)
@@ -198,60 +215,50 @@ void PyGenVisitor::visit(const LayerRoughness*)
 {
 }
 
-void PyGenVisitor::visit(const MultiLayer* sample)
+void PyGenVisitor::visit(const MultiLayer*)
 {
-    m_label->setLabelMultiLayer(sample);
 }
 
-void PyGenVisitor::visit(const ParticleComposition* sample)
+void PyGenVisitor::visit(const ParticleComposition*)
 {
-    m_label->setLabelParticleComposition(sample);
 }
 
 void PyGenVisitor::visit(const MesoCrystal*)
 {
-    throw Exceptions::NotImplementedException("PyGenVisitor::visit(const MesoCrystal* sample): "
+    throw Exceptions::NotImplementedException("PyGenVisitor::visit(const MesoCrystal*): "
                                               "not implemented!");
 }
 
-void PyGenVisitor::visit(const Particle* sample)
+void PyGenVisitor::visit(const Particle*)
 {
-    m_label->setLabelParticle(sample);
 }
 
-void PyGenVisitor::visit(const ParticleDistribution* sample)
+void PyGenVisitor::visit(const ParticleDistribution*)
 {
-    m_label->setLabelParticleDistribution(sample);
 }
 
-void PyGenVisitor::visit(const ParticleCoreShell* sample)
+void PyGenVisitor::visit(const ParticleCoreShell*)
 {
-    m_label->setLabelParticleCoreShell(sample);
 }
 
-void PyGenVisitor::visit(const ParticleLayout* sample)
+void PyGenVisitor::visit(const ParticleLayout*)
 {
-    m_label->setLabelLayout(sample);
 }
 
-void PyGenVisitor::visit(const RotationX* sample)
+void PyGenVisitor::visit(const RotationX*)
 {
-    m_label->setLabelRotation(sample);
 }
 
-void PyGenVisitor::visit(const RotationY* sample)
+void PyGenVisitor::visit(const RotationY*)
 {
-    m_label->setLabelRotation(sample);
 }
 
-void PyGenVisitor::visit(const RotationZ* sample)
+void PyGenVisitor::visit(const RotationZ*)
 {
-    m_label->setLabelRotation(sample);
 }
 
-void PyGenVisitor::visit(const RotationEuler* sample)
+void PyGenVisitor::visit(const RotationEuler*)
 {
-    m_label->setLabelRotation(sample);
 }
 
 std::string PyGenVisitor::definePreamble() const

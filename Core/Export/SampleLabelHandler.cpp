@@ -54,15 +54,15 @@ std::string SampleLabelHandler::getLabelMultiLayer(const MultiLayer* ml)
     return m_MultiLayerLabel[ml];
 }
 
-std::string SampleLabelHandler::getLabelParticle(const IAbstractParticle* particle)
+std::string SampleLabelHandler::getLabelParticle(const IAbstractParticle* absparticle)
 {
-    if (const auto core_shell_particle = dynamic_cast<const ParticleCoreShell*>(particle))
+    if (const auto core_shell_particle = dynamic_cast<const ParticleCoreShell*>(absparticle))
         return m_ParticleCoreShellLabel[core_shell_particle];
-    if (const auto particle = dynamic_cast<const Particle*>(particle))
+    if (const auto particle = dynamic_cast<const Particle*>(absparticle))
         return m_ParticleLabel[particle];
-    if (const auto particle = dynamic_cast<const ParticleDistribution*>(particle))
+    if (const auto particle = dynamic_cast<const ParticleDistribution*>(absparticle))
         return m_ParticleDistributionLabel[particle];
-    if (const auto lattice_basis = dynamic_cast<const ParticleComposition*>(particle))
+    if (const auto lattice_basis = dynamic_cast<const ParticleComposition*>(absparticle))
         return m_ParticleCompositionLabel[lattice_basis];
     throw Exceptions::NotImplementedException(
         "SampleLabelHandler::getLabel: called for unknown IParticle type");
@@ -78,22 +78,22 @@ std::string SampleLabelHandler::getLabelParticleDistribution(const ParticleDistr
     return m_ParticleDistributionLabel[pd];
 }
 
-std::string LayoutLabelHandler::getLabelLayout(const ILayout* layout)
+std::string SampleLabelHandler::getLabelLayout(const ILayout* layout)
 {
     return m_ILayoutLabel[layout];
 }
 
-std::string PcLabelHandler::getLabelParticleComposition(const ParticleComposition* pc)
+std::string SampleLabelHandler::getLabelParticleComposition(const ParticleComposition* pc)
 {
     return m_ParticleCompositionLabel[pc];
 }
 
-std::string RotLabelHandler::getLabelRotation(const IRotation* rot)
+std::string SampleLabelHandler::getLabelRotation(const IRotation* rot)
 {
     return m_RotationsLabel[rot];
 }
 
-void MatLabelHandler::insertMaterial(const IMaterial* mat)
+void SampleLabelHandler::insertMaterial(const IMaterial* mat)
 {
     for (auto it=m_MaterialLabel.begin(); it!=m_MaterialLabel.end(); ++it) {
         if( *(it->first) == *mat ) {

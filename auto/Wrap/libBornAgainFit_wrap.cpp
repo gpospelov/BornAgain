@@ -31834,14 +31834,14 @@ static PyMethodDef SwigMethods[] = {
 		"begin() -> FitSuiteParameters::iterator\n"
 		"FitSuiteParameters_begin(FitSuiteParameters self) -> FitSuiteParameters::const_iterator\n"
 		"\n"
-		"FitSuiteParameters::const_iterator FitSuiteParameters::begin() const \n"
+		"const_iterator FitSuiteParameters::begin() const \n"
 		"\n"
 		""},
 	 { (char *)"FitSuiteParameters_end", _wrap_FitSuiteParameters_end, METH_VARARGS, (char *)"\n"
 		"end() -> FitSuiteParameters::iterator\n"
 		"FitSuiteParameters_end(FitSuiteParameters self) -> FitSuiteParameters::const_iterator\n"
 		"\n"
-		"FitSuiteParameters::const_iterator FitSuiteParameters::end() const \n"
+		"const_iterator FitSuiteParameters::end() const \n"
 		"\n"
 		""},
 	 { (char *)"FitSuiteParameters_link_to_pool", _wrap_FitSuiteParameters_link_to_pool, METH_VARARGS, (char *)"\n"

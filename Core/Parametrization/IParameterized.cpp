@@ -56,6 +56,12 @@ std::string IParameterized::addParametersToExternalPool(
     return path;
 }
 
+void IParameterized::printParameters()
+{
+    std::unique_ptr<ParameterPool> P_pool( createParameterTree() );
+    std::cout << *P_pool << std::endl;
+}
+
 //! Register parameter address in the parameter pool; name allows for wildcard '*'
 void IParameterized::registerParameter(const std::string& name, double* parpointer)
 {

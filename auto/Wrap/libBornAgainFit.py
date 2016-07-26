@@ -3616,7 +3616,7 @@ class FitSuiteParameters(_object):
         begin(FitSuiteParameters self) -> FitSuiteParameters::iterator
         begin(FitSuiteParameters self) -> FitSuiteParameters::const_iterator
 
-        FitSuiteParameters::const_iterator FitSuiteParameters::begin() const 
+        const_iterator FitSuiteParameters::begin() const 
 
         """
         return _libBornAgainFit.FitSuiteParameters_begin(self, *args)
@@ -3627,7 +3627,7 @@ class FitSuiteParameters(_object):
         end(FitSuiteParameters self) -> FitSuiteParameters::iterator
         end(FitSuiteParameters self) -> FitSuiteParameters::const_iterator
 
-        FitSuiteParameters::const_iterator FitSuiteParameters::end() const 
+        const_iterator FitSuiteParameters::end() const 
 
         """
         return _libBornAgainFit.FitSuiteParameters_end(self, *args)

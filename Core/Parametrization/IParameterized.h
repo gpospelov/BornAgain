@@ -42,6 +42,8 @@ public:
     //! Creates new parameter pool, with all local parameters and those of its children.
     ParameterPool* createParameterTree();
 
+    void printParameters();
+
     void registerParameter(const std::string& name, double* parpointer);
     void registerParameter(const std::string& name, double* parpointer, const AttLimits& limits);
 

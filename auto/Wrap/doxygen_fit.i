@@ -941,20 +941,20 @@ Returns number of parameters.
 Adds given  FitParameter to container. 
 ";
 
-%feature("docstring")  FitSuiteParameters::begin "FitSuiteParameters::iterator FitSuiteParameters::begin()
+%feature("docstring")  FitSuiteParameters::begin "iterator FitSuiteParameters::begin()
 
 Returns begin of container. 
 ";
 
-%feature("docstring")  FitSuiteParameters::begin "FitSuiteParameters::const_iterator FitSuiteParameters::begin() const 
+%feature("docstring")  FitSuiteParameters::begin "const_iterator FitSuiteParameters::begin() const 
 ";
 
-%feature("docstring")  FitSuiteParameters::end "FitSuiteParameters::iterator FitSuiteParameters::end()
+%feature("docstring")  FitSuiteParameters::end "iterator FitSuiteParameters::end()
 
 Returns end of container. 
 ";
 
-%feature("docstring")  FitSuiteParameters::end "FitSuiteParameters::const_iterator FitSuiteParameters::end() const 
+%feature("docstring")  FitSuiteParameters::end "const_iterator FitSuiteParameters::end() const 
 ";
 
 %feature("docstring")  FitSuiteParameters::link_to_pool "void FitSuiteParameters::link_to_pool(const ParameterPool *pool)
@@ -1530,7 +1530,7 @@ Prints fit results.
 %feature("docstring")  MinimizerScan::getNbins "size_t MinimizerScan::getNbins() const 
 ";
 
-%feature("docstring")  MinimizerScan::getOutputData "const OutputData<double >* MinimizerScan::getOutputData()
+%feature("docstring")  MinimizerScan::getOutputData "const OutputData<double>* MinimizerScan::getOutputData()
 ";
 
 %feature("docstring")  MinimizerScan::getValueOfVariablesAtMinimum "std::vector< double > MinimizerScan::getValueOfVariablesAtMinimum() const
@@ -1563,12 +1563,12 @@ run minimization
 Sets internal minimizer parameters using external parameter list. 
 ";
 
-%feature("docstring")  MinimizerTest::setChiSquaredFunction "virtual void MinimizerTest::setChiSquaredFunction(function_chi2_t fun_chi2, size_t nparameters)
+%feature("docstring")  MinimizerTest::setChiSquaredFunction "virtual void MinimizerTest::setChiSquaredFunction(function_chi2_t fun_chi2, size_t)
 
 Sets chi squared function to minimize. 
 ";
 
-%feature("docstring")  MinimizerTest::setGradientFunction "virtual void MinimizerTest::setGradientFunction(function_gradient_t fun_gradient, size_t nparameters, size_t ndatasize)
+%feature("docstring")  MinimizerTest::setGradientFunction "virtual void MinimizerTest::setGradientFunction(function_gradient_t, size_t, size_t)
 
 Sets gradient function to minimize. 
 ";
@@ -1961,6 +1961,9 @@ C++ includes: ROOTSimAnMinimizer.h
 
 
 // File: IFitStrategy_8h.xml
+
+
+// File: IMinimizer_8cpp.xml
 
 
 // File: IMinimizer_8h.xml

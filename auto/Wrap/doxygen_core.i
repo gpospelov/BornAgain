@@ -7035,6 +7035,9 @@ Returns pointer to the parameter pool.
 Creates new parameter pool, with all local parameters and those of its children. 
 ";
 
+%feature("docstring")  IParameterized::printParameters "void IParameterized::printParameters()
+";
+
 %feature("docstring")  IParameterized::registerParameter "void IParameterized::registerParameter(const std::string &name, double *parpointer)
 
 Register parameter address in the parameter pool; name allows for wildcard '*'. 

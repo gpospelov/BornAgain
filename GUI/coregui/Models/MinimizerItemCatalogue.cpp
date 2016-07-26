@@ -15,7 +15,7 @@
 // ************************************************************************** //
 
 #include "MinimizerItemCatalogue.h"
-#include "BornAgainNamespace.h"
+#include "AlgorithmNames.h"
 #include "GUIHelpers.h"
 #include "MinimizerItem.h"
 
@@ -42,14 +42,16 @@ ComboProperty MinimizerItemCatalogue::getAlgorithmCombo(const QString &minimizer
 //! FIXME Will be refactored together with MinimizerFactory and MinimizerLibrary (in Sprint32).
 //! !!!
 
-void MinimizerItemCatalogue::domainMinimizerNames(const MinimizerItem *minimizer, std::string &domainName, std::string &domainAlgo)
+void MinimizerItemCatalogue::domainMinimizerNames(
+    const MinimizerItem *minimizer, std::string &domainName, std::string &domainAlgo)
 {
     domainName.clear();;
     domainAlgo.clear();
 
     QString minimizerType = minimizer->modelType();
 
-    ComboProperty combo = minimizer->getItemValue(MinimizerItem::P_ALGORITHMS).value<ComboProperty>();
+    ComboProperty combo = minimizer->getItemValue(MinimizerItem::P_ALGORITHMS)
+        .value<ComboProperty>();
     QString algorithmName = combo.getValue();
 
     if(minimizerType == Constants::MinuitMinimizerType) {
@@ -58,7 +60,7 @@ void MinimizerItemCatalogue::domainMinimizerNames(const MinimizerItem *minimizer
     }
 
     else if(minimizerType == Constants::GSLMinimizerType) {
-        if(algorithmName.toStdString() != BornAgain::LMAAlgorithmType) {
+        if(algorithmName.toStdString() != AlgorithmNames::LMAAlgorithmType) {
             domainName = std::string("GSLMultiMin");
             domainAlgo = algorithmName.toStdString();
         } else {

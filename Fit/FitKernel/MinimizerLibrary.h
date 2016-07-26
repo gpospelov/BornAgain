@@ -32,7 +32,7 @@ namespace MinimizerLibrary {
 class BA_CORE_API_ InfoItem {
 public:
     InfoItem(){}
-    InfoItem(const std::string &itemType, const std::string &itemDescription)
+    InfoItem(const std::string& itemType, const std::string& itemDescription)
         : m_itemType(itemType)
         , m_itemDescription(itemDescription){}
 
@@ -50,7 +50,7 @@ private:
 class BA_CORE_API_ AlgorithmInfo : public InfoItem {
 public:
     AlgorithmInfo(){}
-    AlgorithmInfo(const std::string &algType, const std::string &algDescription);
+    AlgorithmInfo(const std::string& algType, const std::string& algDescription);
 };
 
 //! @class MinimizerInfo
@@ -60,10 +60,10 @@ public:
 class BA_CORE_API_ MinimizerInfo : public InfoItem {
 public:
     MinimizerInfo(){}
-    MinimizerInfo(const std::string &minimizerType, const std::string &minimizerDescription);
+    MinimizerInfo(const std::string& minimizerType, const std::string& minimizerDescription);
 
-    void addAlgorithm(const AlgorithmInfo &algorithm);
-    void addAlgorithm(const std::string &algorithmName, const std::string &algorithmDescription);
+    void addAlgorithm(const AlgorithmInfo& algorithm);
+    void addAlgorithm(const std::string& algorithmName, const std::string& algorithmDescription);
 
     std::list<std::string> algorithmTypes() const;
     std::list<std::string> algorithmDescriptions() const;
@@ -80,13 +80,13 @@ class BA_CORE_API_ Catalogue {
 public:
     Catalogue();
 
-    void addMinimizer(const MinimizerInfo &minimizer);
+    void addMinimizer(const MinimizerInfo& minimizer);
 
-    std::list<std::string> algorithmTypes(const std::string &minimizerType);
-    std::list<std::string> algorithmDescriptions(const std::string &minimizerType);
+    std::list<std::string> algorithmTypes(const std::string& minimizerType);
+    std::list<std::string> algorithmDescriptions(const std::string& minimizerType);
 
 private:
-    MinimizerInfo minimizerInfo(const std::string &minimizerType);
+    MinimizerInfo minimizerInfo(const std::string& minimizerType);
 
     std::map<std::string, MinimizerInfo> m_minimizers;
 };

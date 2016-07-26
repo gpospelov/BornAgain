@@ -75,7 +75,7 @@ void IParameterized::registerParameter(
     m_parameters->registerParameter(name, parpointer, limits);
 }
 
-void IParameterized::setParameterValue(const std::string &name, double value)
+void IParameterized::setParameterValue(const std::string& name, double value)
 {
     if(name.find('*') == std::string::npos && name.find('/') == std::string::npos) {
         m_parameters->setParameterValue(name, value);

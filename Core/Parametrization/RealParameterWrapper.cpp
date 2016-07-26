@@ -26,9 +26,8 @@ RealParameterWrapper::RealParameterWrapper(
 {
     if(par && !m_limits.isInRange(getValue())) {
         std::ostringstream message;
-        message << "RealParameterWrapper::RealParameterWrapper() -> Error. "
-                << "Initial value " << getValue() << " is out of bounds "
-                << limits << std::endl;
+        message << "Initial value " << getValue() << " of parameter " << parent->getName()
+                << " is out of bounds [" << limits << "]\n";
         throw Exceptions::OutOfBoundsException(message.str());
     }
 }

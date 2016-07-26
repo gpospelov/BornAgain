@@ -31,7 +31,7 @@ public:
 
     virtual ~ISimulation() {}
 
-    ISimulation *clone() const;
+    ISimulation* clone() const;
 
     virtual void run() {}
 
@@ -44,16 +44,10 @@ protected:
 
     void setStatus(ESimulationStatus status) { m_status = status; }
 
-    void setRunMessage(const std::string &message) { m_run_message = message; }
+    void setRunMessage(const std::string& message) { m_run_message = message; }
 
     ESimulationStatus m_status;
     std::string m_run_message;
 };
-
-inline ISimulation *ISimulation::clone() const
-{
-    throw Exceptions::NotImplementedException("ISimulation::clone() -> "
-                                  "Error: not implemented exception.");
-}
 
 #endif // ISIMULATION_H

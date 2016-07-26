@@ -23,7 +23,7 @@ MinimizerLibrary::Catalogue MinimizerItemCatalogue::m_catalogue = MinimizerLibra
 
 //! Returns ComboProperty representing list of algorithms defined for given minimizerType.
 
-ComboProperty MinimizerItemCatalogue::getAlgorithmCombo(const QString &minimizerType)
+ComboProperty MinimizerItemCatalogue::getAlgorithmCombo(const QString& minimizerType)
 {
     ComboProperty result;
 
@@ -43,7 +43,7 @@ ComboProperty MinimizerItemCatalogue::getAlgorithmCombo(const QString &minimizer
 //! !!!
 
 void MinimizerItemCatalogue::domainMinimizerNames(
-    const MinimizerItem *minimizer, std::string &domainName, std::string &domainAlgo)
+    const MinimizerItem* minimizer, std::string& domainName, std::string& domainAlgo)
 {
     domainName.clear();;
     domainAlgo.clear();
@@ -60,7 +60,7 @@ void MinimizerItemCatalogue::domainMinimizerNames(
     }
 
     else if(minimizerType == Constants::GSLMinimizerType) {
-        if(algorithmName.toStdString() != AlgorithmNames::LMAAlgorithmType) {
+        if(algorithmName.toStdString() != AlgorithmNames::LMA) {
             domainName = std::string("GSLMultiMin");
             domainAlgo = algorithmName.toStdString();
         } else {

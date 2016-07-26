@@ -67,53 +67,53 @@ std::list<std::string> MinimizerInfo::algorithmDescriptions() const
 Catalogue::Catalogue()
 {
     MinimizerInfo minuit(
-        AlgorithmNames::MinuitMinimizerType,
+        MinimizerNames::Minuit,
         "Minuit2 minimizer from ROOT library");
     minuit.addAlgorithm(
-        AlgorithmNames::MigradAlgorithmType,
+        AlgorithmNames::Migrad,
         "Variable-metric method with inexact line search, best minimizer according to ROOT.");
     minuit.addAlgorithm(
-        AlgorithmNames::SimplexAlgorithmType,
+        AlgorithmNames::Simplex,
         "Simplex method of Nelder and Meadh, "
         "robust against big fluctuations in objective function.");
     minuit.addAlgorithm(
-        AlgorithmNames::CombinedAlgorithmType,
+        AlgorithmNames::Combined,
         "Combination of Migrad and Simplex (if Migrad fails).");
     minuit.addAlgorithm(
-        AlgorithmNames::ScanAlgorithmType,
+        AlgorithmNames::Scan,
         "Simple objective function scan, one parameter at a time.");
     minuit.addAlgorithm(
-        AlgorithmNames::FumiliAlgorithmType,
+        AlgorithmNames::Fumili,
         "Gradient descent minimizer similar to Levenberg-Margquardt, "
         "sometimes can be better than all others.");
     addMinimizer(minuit);
 
     MinimizerInfo gsl(
-        AlgorithmNames::GSLMinimizerType,
+        MinimizerNames::GSL,
         "Set of minimizers from GNU Scientific Library");
     gsl.addAlgorithm(
-        AlgorithmNames::ConjugateFRAlgorithmType,
+        AlgorithmNames::ConjugateFR,
         "Fletcher-Reeves conjugate gradient");
     gsl.addAlgorithm(
-        AlgorithmNames::ConjugatePRAlgorithmType,
+        AlgorithmNames::ConjugatePR,
         "Polak-Ribiere conjugate gradient");
     gsl.addAlgorithm(
-        AlgorithmNames::BFGSAlgorithmType,
+        AlgorithmNames::BFGS,
         "BFGS conjugate gradient");
     gsl.addAlgorithm(
-        AlgorithmNames::BFGS2AlgorithmType,
+        AlgorithmNames::BFGS2,
         "BFGS conjugate gradient (Version 2)");
     gsl.addAlgorithm(
-        AlgorithmNames::LMAAlgorithmType,
+        AlgorithmNames::LMA,
         "Levenberg-Marquardt, often works quite well.");
-//    gsl.addAlgorithm(AlgorithmNames::SimAnAlgorithmType, "Simulated Annealing");
+//    gsl.addAlgorithm(AlgorithmNames::SimAn, "Simulated Annealing");
     addMinimizer(gsl);
 
     MinimizerInfo genetic(
-        AlgorithmNames::GeneticMinimizerType,
+        MinimizerNames::Genetic,
         "TMVA Genetic Algorithm");
     genetic.addAlgorithm(
-        AlgorithmNames::GeneticAlgorithmType,
+        AlgorithmNames::Genetic,
         "TMVA Genetic Algorithm");
     addMinimizer(genetic);
 }

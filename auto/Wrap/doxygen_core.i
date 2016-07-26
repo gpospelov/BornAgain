@@ -10568,7 +10568,7 @@ Wrapper to real parameter for remote access to its value and callback abilities
 C++ includes: RealParameterWrapper.h
 ";
 
-%feature("docstring")  RealParameterWrapper::RealParameterWrapper "RealParameterWrapper::RealParameterWrapper(IParameterized *parent, double *par, const AttLimits &limits=AttLimits::limitless())
+%feature("docstring")  RealParameterWrapper::RealParameterWrapper "RealParameterWrapper::RealParameterWrapper(IParameterized *parent, const std::string &name, double *par, const AttLimits &limits=AttLimits::limitless())
 ";
 
 %feature("docstring")  RealParameterWrapper::RealParameterWrapper "RealParameterWrapper::RealParameterWrapper(const RealParameterWrapper &other)

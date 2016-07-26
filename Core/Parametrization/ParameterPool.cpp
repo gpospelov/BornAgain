@@ -20,12 +20,13 @@
 #include <iostream>
 #include <sstream>
 
-typedef std::map<std::string, RealParameterWrapper> parametermap_t;
+#include "IParameterized.h"
 
 //! Constructs an empty parameter pool.
 ParameterPool::ParameterPool(IParameterized* parent)
     : m_parent(parent), m_map()
-{}
+{
+}
 
 //! Returns a literal clone.
 ParameterPool* ParameterPool::clone() const
@@ -51,19 +52,16 @@ ParameterPool* ParameterPool::cloneWithPrefix(const std::string& prefix) const
 void ParameterPool::registerParameter(const std::string& name,
                                       double* parameter_address, const AttLimits& limits)
 {
-    addParameter(name, RealParameterWrapper(m_parent, parameter_address, limits) );
+    addParameter(name, RealParameterWrapper(m_parent, name, parameter_address, limits) );
 }
 
 //! Low-level routine.
 
 void ParameterPool::addParameter(const std::string& name, RealParameterWrapper par)
 {
-    if ( !m_map.insert(parametermap_t::value_type(name, par)).second ) {
-        print(std::cout);
+    if ( !m_map.insert(std::make_pair(name, par)).second )
         throw Exceptions::RuntimeErrorException(
-            "ParameterPool::addParameter() -> Error! Parameter '"+
-            name+"' is already registered");
-    }
+            "BUG in ParameterPool::addParameter(): Parameter '"+name+"' is already registered");
 }
 
 //! Copy parameters of given pool to the external pool while adding prefix to
@@ -82,8 +80,8 @@ RealParameterWrapper ParameterPool::getParameter(const std::string& name) const
 {
     auto it = m_map.find(name);
     if( it==m_map.end() )
-        throw Exceptions::LogicErrorException("ParameterPool::getParameter() -> Warning."
-                                  " No parameter with name '"+name+"'");
+        throw Exceptions::LogicErrorException(
+            "ParameterPool::getParameter() -> Warning. No parameter with name '"+name+"'");
     return it->second;
 }
 

@@ -13,6 +13,7 @@
 //
 // ************************************************************************** //
 
+#include "Exceptions.h" // TODO mv to .cpp
 #include "VariableBinAxis.h"
 #include "Numeric.h"
 #include <algorithm>

@@ -34,18 +34,10 @@ namespace Geometry {
     }
 };
 
-
 %extend VariableBinAxis {
     double __getitem__(unsigned int i)
     {
         return (*($self))[i];
-    }
-};
-
-%extend IAxis {
-    bool __ne__(const IAxis& rhs)
-    {
-        return !(*$self == rhs);
     }
 };
 

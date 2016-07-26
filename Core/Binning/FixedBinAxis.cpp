@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "FixedBinAxis.h"
+#include "Exceptions.h" // TODO mv to .cpp
 #include "Numeric.h"
 #include <iomanip>
 #include <limits>

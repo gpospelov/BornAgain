@@ -2212,9 +2212,7 @@ class kvector_t(_object):
         """
         unit(kvector_t self) -> kvector_t
 
-        BasicVector3D<T> Geometry::BasicVector3D< T >::unit() const
-
-        Returns unit vector in direction of this. Throws for null vector. 
+        BasicVector3D< std::complex< double > > Geometry::BasicVector3D< std::complex< double > >::unit() const
 
         """
         return _libBornAgainCore.kvector_t_unit(self)
@@ -2669,9 +2667,7 @@ class cvector_t(_object):
         """
         unit(cvector_t self) -> cvector_t
 
-        BasicVector3D<T> Geometry::BasicVector3D< T >::unit() const
-
-        Returns unit vector in direction of this. Throws for null vector. 
+        BasicVector3D< std::complex< double > > Geometry::BasicVector3D< std::complex< double > >::unit() const
 
         """
         return _libBornAgainCore.cvector_t_unit(self)
@@ -3477,6 +3473,16 @@ class IAxis(_object):
         return _libBornAgainCore.IAxis_findClosestIndex(self, value)
 
 
+    def __eq__(self, right):
+        """__eq__(IAxis self, IAxis right) -> bool"""
+        return _libBornAgainCore.IAxis___eq__(self, right)
+
+
+    def __ne__(self, right):
+        """__ne__(IAxis self, IAxis right) -> bool"""
+        return _libBornAgainCore.IAxis___ne__(self, right)
+
+
     def getBinCenters(self):
         """
         getBinCenters(IAxis self) -> vdouble1d_t
@@ -3519,11 +3525,6 @@ class IAxis(_object):
 
         """
         return _libBornAgainCore.IAxis_contains(self, value)
-
-
-    def __ne__(self, rhs):
-        """__ne__(IAxis self, IAxis rhs) -> bool"""
-        return _libBornAgainCore.IAxis___ne__(self, rhs)
 
 IAxis_swigregister = _libBornAgainCore.IAxis_swigregister
 IAxis_swigregister(IAxis)

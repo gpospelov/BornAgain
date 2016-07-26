@@ -313,6 +313,14 @@ Returns squared sine of polar angle.
 Returns this, trivially converted to complex type. 
 ";
 
+%feature("docstring")  Geometry::BasicVector3D::unit "BasicVector3D< double > Geometry::BasicVector3D< double >::unit() const
+
+Returns unit vector in direction of this. Throws for null vector. 
+";
+
+%feature("docstring")  Geometry::BasicVector3D::unit "BasicVector3D< std::complex< double > > Geometry::BasicVector3D< std::complex< double > >::unit() const
+";
+
 %feature("docstring")  Geometry::BasicVector3D::angle "double Geometry::BasicVector3D< double >::angle(const BasicVector3D< double > &v) const
 
 Returns angle with respect to another vector. 
@@ -5013,6 +5021,9 @@ C++ includes: ICloneable.h
 ";
 
 %feature("docstring")  ICloneable::ICloneable "ICloneable::ICloneable()
+";
+
+%feature("docstring")  ICloneable::ICloneable "ICloneable::ICloneable(const ICloneable &)=delete
 ";
 
 %feature("docstring")  ICloneable::~ICloneable "virtual ICloneable::~ICloneable()
@@ -12414,13 +12425,13 @@ C++ includes: WavevectorInfo.h
 // File: classMathFunctions_1_1Convolve_1_1Workspace.xml
 
 
-// File: namespace_0D267.xml
+// File: namespace_0D268.xml
 
 
-// File: namespace_0D337.xml
+// File: namespace_0D339.xml
 
 
-// File: namespace_0D403.xml
+// File: namespace_0D405.xml
 
 
 // File: namespaceboost_1_1geometry.xml
@@ -13018,6 +13029,9 @@ Returns exp(I*z), where I is the imaginary unit.
 
 
 // File: FixedBinAxis_8h.xml
+
+
+// File: IAxis_8cpp.xml
 
 
 // File: IAxis_8h.xml
@@ -13941,6 +13955,9 @@ Returns concatenated rotation (first right, then left).
 
 
 // File: GISASSimulation_8h.xml
+
+
+// File: ISimulation_8cpp.xml
 
 
 // File: ISimulation_8h.xml

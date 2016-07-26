@@ -10,6 +10,12 @@ import glob, re, sys
 def doit( fn ):
     global nchanged, nempty
     fn = re.sub( r'^\./', '', fn )
+    if re.search( r'dev-tools\/', fn ):
+        return
+    if re.search( r'build\/', fn ):
+        return
+    if re.search( r'auto\/', fn ):
+        return
     # print( "File " + fn )
 
     # read in
@@ -17,12 +23,12 @@ def doit( fn ):
     ti = fd.read()
     fd.close
 
-    if not re.search(  r'(//! @file      dev-tools/edit/update-filename.py
+    if not re.search(  r'(//! @file)', ti ):
         print( "no '@file' in " + fn )
         nempty += 1
         return
 
-    tf = re.sub( r'(//! @file      dev-tools/edit/update-filename.py
+    tf = re.sub( r'(//! @file).*', r'\1      '+fn, ti, re.M )
 
     if ti==tf:
         return

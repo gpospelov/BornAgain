@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/Core/CoreSuite.cpp
+//! @file      Tests/Functional/Core/CoreStandardTest.cpp
 //! @brief     Implements program CoreSuite, to run core functional tests
 //!
 //! @homepage  http://www.bornagainproject.org

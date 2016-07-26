@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/utils/WarningLogger.cpp
+//! @file      GUI/coregui/utils/WarningMessageService.cpp
 //! @brief     Defines abstract ILogger interface
 //!
 //! @homepage  http://www.bornagainproject.org

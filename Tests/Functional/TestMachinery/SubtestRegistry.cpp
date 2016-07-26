@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/TestMachinery/SubtestRegistry.cpp
+//! @file      Tests/Functional/TestMachinery/SubtestRegistry.cpp
 //! @brief     Implements different registries for subtests of functional tests.
 //!
 //! @homepage  http://www.bornagainproject.org

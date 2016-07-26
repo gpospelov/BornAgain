@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/HardParticles/FormFactorTetrahedron.cpp
+//! @file      Core/HardParticle/FormFactorTetrahedron.cpp
 //! @brief     Implements class FormFactorTetrahedron.
 //!
 //! @homepage  http://www.bornagainproject.org

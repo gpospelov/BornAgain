@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Aggregates/ILayout.h
+//! @file      Core/Aggregate/ILayout.h
 //! @brief     Declares interface class ILayout.
 //!
 //! @homepage  http://www.bornagainproject.org

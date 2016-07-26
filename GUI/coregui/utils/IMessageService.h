@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/utils/ILogger.h
+//! @file      GUI/coregui/utils/IMessageService.h
 //! @brief     Declares abstract ILogger interface
 //!
 //! @homepage  http://www.bornagainproject.org

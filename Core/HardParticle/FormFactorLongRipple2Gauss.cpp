@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/HardParticles/FormFactorLongRipple2Gauss.cpp
+//! @file      Core/HardParticle/FormFactorLongRipple2Gauss.cpp
 //! @brief     Implements class FormFactorLongRipple2Gauss.
 //!
 //! @homepage  http://www.bornagainproject.org

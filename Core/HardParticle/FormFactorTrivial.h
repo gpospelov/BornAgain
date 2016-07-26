@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/HardParticles/FormFactorTrivial.h
+//! @file      Core/HardParticle/FormFactorTrivial.h
 //! @brief     Declares class FormFactorTrivial.
 //!
 //! @homepage  http://www.bornagainproject.org

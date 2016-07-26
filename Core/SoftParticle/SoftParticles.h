@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/SoftParticles/SoftParticles.h
+//! @file      Core/SoftParticle/SoftParticles.h
 //! @brief     Includes all soft-particle form-factor definitions.
 //!
 //! @homepage  http://www.bornagainproject.org

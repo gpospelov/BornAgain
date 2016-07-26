@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Particles/IFormFactorBorn.h
+//! @file      Core/Particle/IFormFactorBorn.h
 //! @brief     Declares pure virtual interface class IFormFactorBorn.
 //!
 //! @homepage  http://www.bornagainproject.org

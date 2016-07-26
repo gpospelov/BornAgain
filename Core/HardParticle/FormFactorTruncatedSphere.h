@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/HardParticles/FormFactorTruncatedSphere.h
+//! @file      Core/HardParticle/FormFactorTruncatedSphere.h
 //! @brief     Declares class FormFactorTruncatedSphere.
 //!
 //! @homepage  http://www.bornagainproject.org

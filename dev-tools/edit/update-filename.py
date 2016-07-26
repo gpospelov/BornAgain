@@ -17,12 +17,12 @@ def doit( fn ):
     ti = fd.read()
     fd.close
 
-    if not re.search(  r'(//! @file)', ti ):
+    if not re.search(  r'(//! @file      dev-tools/edit/update-filename.py
         print( "no '@file' in " + fn )
         nempty += 1
         return
 
-    tf = re.sub( r'(//! @file).*', r'\1      '+fn, ti, re.M )
+    tf = re.sub( r'(//! @file      dev-tools/edit/update-filename.py
 
     if ti==tf:
         return

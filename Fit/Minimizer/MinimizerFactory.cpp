@@ -14,8 +14,8 @@
 // ************************************************************************** //
 
 #include "MinimizerFactory.h"
-#include "MinimizerScan.h"
-#include "MinimizerTest.h"
+#include "ScanningMinimizer.h"
+#include "TrivialMinimizer.h"
 #include "ROOTGeneticMinimizer.h"
 #include "ROOTLMAMinimizer.h"
 #include "ROOTMinuit2Minimizer.h"
@@ -94,7 +94,7 @@ void MinimizerFactory::printCatalogue()
 }
 
 
-IMinimizer *MinimizerFactory::createMinimizer(
+IMinimizer* MinimizerFactory::createMinimizer(
     const std::string& minimizer, const std::string& algorithm, const std::string& options)
 {
     if( !catalogue.isValid(minimizer, algorithm) ) {
@@ -106,12 +106,12 @@ IMinimizer *MinimizerFactory::createMinimizer(
         throw Exceptions::LogicErrorException(ostr.str());
     }
 
-    IMinimizer *result(0);
+    IMinimizer* result(0);
     if( minimizer == "Test" ) {
-        result = new MinimizerTest();
+        result = new TrivialMinimizer();
 
     } else if( minimizer == "Scan" ) {
-        result = new MinimizerScan();
+        result = new ScanningMinimizer();
 
     } else if( minimizer == "Minuit2" ) {
         result = new ROOTMinuit2Minimizer(minimizer, algorithm);
@@ -149,9 +149,9 @@ IMinimizer *MinimizerFactory::createMinimizer(
 //! This method serves as a kind of 'shallow' clone for minimizer.
 //! The reason why the minimizer doesn't have own clone method is because of complicate structure of
 //! ROOT minimizer internals.
-IMinimizer *MinimizerFactory::createMinimizer(const IMinimizer *other)
+IMinimizer* MinimizerFactory::createMinimizer(const IMinimizer* other)
 {
-    IMinimizer *result = createMinimizer(other->getMinimizerName(), other->getAlgorithmName());
+    IMinimizer* result = createMinimizer(other->getMinimizerName(), other->getAlgorithmName());
     result->setOptions(*other->getOptions());
     return result;
 }

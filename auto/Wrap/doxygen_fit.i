@@ -1470,70 +1470,70 @@ set option value
 ";
 
 
-// File: classMinimizerScan.xml
-%feature("docstring") MinimizerScan "
+// File: classScanningMinimizer.xml
+%feature("docstring") ScanningMinimizer "
 
 Simple scan minimizer looks for minimum of chi2 function on the grid.
 
-C++ includes: MinimizerScan.h
+C++ includes: ScanningMinimizer.h
 ";
 
-%feature("docstring")  MinimizerScan::MinimizerScan "MinimizerScan::MinimizerScan(int nbins=10)
+%feature("docstring")  ScanningMinimizer::MinimizerScan "MinimizerScan::MinimizerScan(int nbins=10)
 ";
 
-%feature("docstring")  MinimizerScan::~MinimizerScan "virtual MinimizerScan::~MinimizerScan()
+%feature("docstring")  ScanningMinimizer::~MinimizerScan "virtual MinimizerScan::~MinimizerScan()
 ";
 
-%feature("docstring")  MinimizerScan::minimize "void MinimizerScan::minimize()
+%feature("docstring")  ScanningMinimizer::minimize "void MinimizerScan::minimize()
 
 Scan minimizer find minimum of chi2 function by equidistant scanning of fit parameters. 
 ";
 
-%feature("docstring")  MinimizerScan::setParameters "void MinimizerScan::setParameters(const FitSuiteParameters &parameters)
+%feature("docstring")  ScanningMinimizer::setParameters "void MinimizerScan::setParameters(const FitSuiteParameters &parameters)
 
 Sets internal minimizer parameters using external parameter list. 
 ";
 
-%feature("docstring")  MinimizerScan::setChiSquaredFunction "void MinimizerScan::setChiSquaredFunction(function_chi2_t fun_chi2, size_t nparameters)
+%feature("docstring")  ScanningMinimizer::setChiSquaredFunction "void MinimizerScan::setChiSquaredFunction(function_chi2_t fun_chi2, size_t nparameters)
 
 Sets chi squared function to minimize. 
 ";
 
-%feature("docstring")  MinimizerScan::setGradientFunction "void MinimizerScan::setGradientFunction(function_gradient_t fun_gradient, size_t nparameters, size_t ndatasize)
+%feature("docstring")  ScanningMinimizer::setGradientFunction "void MinimizerScan::setGradientFunction(function_gradient_t fun_gradient, size_t nparameters, size_t ndatasize)
 
 Sets gradient function to minimize. 
 ";
 
-%feature("docstring")  MinimizerScan::getNumberOfVariables "virtual size_t MinimizerScan::getNumberOfVariables() const
+%feature("docstring")  ScanningMinimizer::getNumberOfVariables "virtual size_t MinimizerScan::getNumberOfVariables() const
 
 Returns number of variables to fit. 
 ";
 
-%feature("docstring")  MinimizerScan::getMinValue "double MinimizerScan::getMinValue() const
+%feature("docstring")  ScanningMinimizer::getMinValue "double MinimizerScan::getMinValue() const
 
 Returns minimum function value. 
 ";
 
-%feature("docstring")  MinimizerScan::getValueOfVariableAtMinimum "double MinimizerScan::getValueOfVariableAtMinimum(size_t i) const
+%feature("docstring")  ScanningMinimizer::getValueOfVariableAtMinimum "double MinimizerScan::getValueOfVariableAtMinimum(size_t i) const
 
 Returns value of the parameter at the minimum. 
 ";
 
-%feature("docstring")  MinimizerScan::printResults "void MinimizerScan::printResults() const
+%feature("docstring")  ScanningMinimizer::printResults "void MinimizerScan::printResults() const
 
 Prints fit results. 
 ";
 
-%feature("docstring")  MinimizerScan::setNbins "void MinimizerScan::setNbins(int nbins)
+%feature("docstring")  ScanningMinimizer::setNbins "void MinimizerScan::setNbins(int nbins)
 ";
 
-%feature("docstring")  MinimizerScan::getNbins "size_t MinimizerScan::getNbins() const 
+%feature("docstring")  ScanningMinimizer::getNbins "size_t MinimizerScan::getNbins() const 
 ";
 
-%feature("docstring")  MinimizerScan::getOutputData "const OutputData<double>* MinimizerScan::getOutputData()
+%feature("docstring")  ScanningMinimizer::getOutputData "const OutputData<double>* MinimizerScan::getOutputData()
 ";
 
-%feature("docstring")  MinimizerScan::getValueOfVariablesAtMinimum "std::vector< double > MinimizerScan::getValueOfVariablesAtMinimum() const
+%feature("docstring")  ScanningMinimizer::getValueOfVariablesAtMinimum "std::vector< double > MinimizerScan::getValueOfVariablesAtMinimum() const
 
 Returns values of parameters at the minimum. 
 ";
@@ -1544,7 +1544,7 @@ Returns values of parameters at the minimum.
 
 Minimizer which calls minimization function once to test whole chain.
 
-C++ includes: MinimizerTest.h
+C++ includes: TrivialMinimizer.h
 ";
 
 %feature("docstring")  MinimizerTest::MinimizerTest "MinimizerTest::MinimizerTest()
@@ -1900,10 +1900,10 @@ C++ includes: ROOTSimAnMinimizer.h
 // File: MinimizerOptions_8h.xml
 
 
-// File: MinimizerScan_8cpp.xml
+// File: ScanningMinimizer_8cpp.xml
 
 
-// File: MinimizerScan_8h.xml
+// File: ScanningMinimizer_8h.xml
 
 
 // File: MinimizerTest_8cpp.xml

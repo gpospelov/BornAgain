@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/FitKernel/MinimizerScan.h
-//! @brief     Declares class MinimizerScan.
+//! @file      Fit/FitKernel/ScanningMinimizer.h
+//! @brief     Declares class ScanningMinimizer.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -21,15 +21,15 @@
 #include "OutputData.h"
 
 
-//! @class MinimizerScan
+//! @class ScanningMinimizer
 //! @ingroup fitting_internal
 //! @brief Simple scan minimizer looks for minimum of chi2 function on the grid
 
-class BA_CORE_API_ MinimizerScan : public IMinimizer
+class BA_CORE_API_ ScanningMinimizer : public IMinimizer
 {
  public:
-    MinimizerScan(int nbins = 10) : m_fcnvalues_map(0), m_nbins(nbins) { }
-    virtual ~MinimizerScan() { delete m_fcnvalues_map; }
+    ScanningMinimizer(int nbins = 10) : m_fcnvalues_map(0), m_nbins(nbins) { }
+    virtual ~ScanningMinimizer() { delete m_fcnvalues_map; }
 
     virtual void minimize();
 

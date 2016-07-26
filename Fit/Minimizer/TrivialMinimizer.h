@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/FitKernel/MinimizerTest.h
-//! @brief     Declares class MinimizerTest.
+//! @file      Fit/FitKernel/TrivialMinimizer.h
+//! @brief     Declares class TrivialMinimizer.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -19,15 +19,15 @@
 #include "IMinimizer.h" // inheriting from
 #include "FitSuiteParameters.h"
 
-//! @class MinimizerTest
+//! @class TrivialMinimizer
 //! @ingroup fitting_internal
 //! @brief Minimizer which calls minimization function once to test whole chain
 
-class BA_CORE_API_ MinimizerTest : public IMinimizer
+class BA_CORE_API_ TrivialMinimizer : public IMinimizer
 {
  public:
-    MinimizerTest() : m_min_value(0) {}
-    virtual ~MinimizerTest(){}
+    TrivialMinimizer() : m_min_value(0) {}
+    virtual ~TrivialMinimizer(){}
 
     virtual void minimize();
 

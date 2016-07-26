@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/FitKernel/MinimizerTest.cpp
-//! @brief     Implements class MinimizerTest.
+//! @file      Fit/FitKernel/TrivialMinimizer.cpp
+//! @brief     Implements class TrivialMinimizer.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,36 +13,36 @@
 //
 // ************************************************************************** //
 
-#include "MinimizerTest.h"
+#include "TrivialMinimizer.h"
 #include "MinimizerOptions.h"
 #include <iostream>
 
 //! run minimization
-void MinimizerTest::minimize()
+void TrivialMinimizer::minimize()
 {
     m_min_value = m_fcn(&m_parameters.getValues()[0]);
 }
 
 //! Returns pointer to the parameters values at the minimum
-double MinimizerTest::getValueOfVariableAtMinimum(size_t index) const
+double TrivialMinimizer::getValueOfVariableAtMinimum(size_t index) const
 {
     return m_parameters[index]->getValue();
 }
 
 //! Returns value of the parameter at the minimum
-std::vector<double > MinimizerTest::getValueOfVariablesAtMinimum() const
+std::vector<double > TrivialMinimizer::getValueOfVariablesAtMinimum() const
 {
     return m_parameters.getValues();
 }
 
-void MinimizerTest::setParameters(const FitSuiteParameters& parameters)
+void TrivialMinimizer::setParameters(const FitSuiteParameters& parameters)
 {
     m_parameters.clear();
     for(size_t i_par = 0; i_par<parameters.size(); ++i_par)
         m_parameters.push_back(new FitParameter( *parameters[i_par] ) );
 }
 
-void MinimizerTest::printResults() const
+void TrivialMinimizer::printResults() const
 {
-    std::cout << "MinimizerTest::printResult() "  << m_min_value << std::endl;
+    std::cout << "TrivialMinimizer::printResult() "  << m_min_value << std::endl;
 }

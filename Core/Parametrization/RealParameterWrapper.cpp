@@ -19,35 +19,27 @@
 #include <sstream>
 
 RealParameterWrapper::RealParameterWrapper(
-    IParameterized* parent, double* par, const AttLimits& limits)
-    : m_parent(parent)
+    const std::string& name, IParameterized* parent, volatile double* par, const AttLimits& limits)
+    : INamed(name)
+    , m_parent(parent)
     , m_data(par)
     , m_limits(limits)
 {
     if(par && !m_limits.isInRange(getValue())) {
         std::ostringstream message;
-        message << "RealParameterWrapper::RealParameterWrapper() -> Error. "
-                << "Initial value " << getValue() << " is out of bounds "
-                << limits << std::endl;
+        message << "Parameter " << fullName() << " has invalid initial value " << getValue()
+                << ": out of bounds [" << limits << "]\n";
         throw Exceptions::OutOfBoundsException(message.str());
     }
 }
 
 RealParameterWrapper::RealParameterWrapper(const RealParameterWrapper& other )
-{
-    m_parent = other.m_parent;
-    m_data = other.m_data;
-    m_limits = other.m_limits;
-}
+    : RealParameterWrapper( other.getName(), other.m_parent, other.m_data, other.m_limits ) {}
 
-RealParameterWrapper& RealParameterWrapper::operator=(const RealParameterWrapper& other)
-{
-    if( this !=& other )  {
-        RealParameterWrapper tmp(other);
-        tmp.swapContent(*this);
-    }
-    return *this;
-}
+//! This constructor takes copies 'other' except for the name.
+RealParameterWrapper::RealParameterWrapper(
+    const std::string& name, const RealParameterWrapper& other)
+    : RealParameterWrapper( name, other.m_parent, other.m_data, other.m_limits ) {}
 
 //! throw exception if parameter was not initialized with proper value
 void RealParameterWrapper::checkNull() const
@@ -62,10 +54,14 @@ void RealParameterWrapper::setValue(double value)
     checkNull();
     if(value == *m_data)
         return; // nothing to do
-    if(!m_limits.isInRange(value))
-        throw Exceptions::OutOfBoundsException("Value not in range");
+    if(!m_limits.isInRange(value)) {
+        std::ostringstream message;
+        message << "Parameter " << fullName() << " has invalid value " << getValue()
+                << ": out of bounds [" << m_limits << "]\n";
+        throw Exceptions::OutOfBoundsException(message.str());
+    }
     if(m_limits.isFixed())
-        throw Exceptions::OutOfBoundsException("Parameter is fixed");
+        throw Exceptions::OutOfBoundsException("Parameter "+fullName()+" is fixed");
     *m_data = value;
     m_parent->onChange();
 }
@@ -73,6 +69,12 @@ void RealParameterWrapper::setValue(double value)
 void RealParameterWrapper::swapContent(RealParameterWrapper& other)
 {
     std::swap(this->m_parent, other.m_parent);
+    std::swap(this->m_name, other.m_name);
     std::swap(this->m_data, other.m_data);
     std::swap(this->m_limits, other.m_limits);
+}
+
+std::string RealParameterWrapper::fullName()
+{
+    return m_parent->getName() + "/" + getName();
 }

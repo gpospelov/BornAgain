@@ -26,6 +26,7 @@ FormFactorPrism6::FormFactorPrism6(const double base_edge, const double height)
 {
     setName(BornAgain::FFPrism6Type);
     registerParameter(BornAgain::BaseEdge, &m_base_edge, AttLimits::n_positive());
+    registerParameter(BornAgain::Height, &m_height, AttLimits::n_positive());
     onChange();
 }
 

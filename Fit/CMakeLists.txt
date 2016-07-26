@@ -9,21 +9,17 @@ if(POLICY CMP0042)
 endif()
 
 # --- source and include files ------
-set(include_dirs
-    ${CMAKE_CURRENT_SOURCE_DIR}/FitKernel
-    ${CMAKE_CURRENT_SOURCE_DIR}/StandardFits
-    )
-include_directories(${include_dirs})
-
-file(GLOB fitkernel_source_files
-    "FitKernel/*.cpp"
-    "StandardFits/*.cpp"
+set(FIT_SOURCE_DIRS
+    ${CMAKE_CURRENT_SOURCE_DIR}/Minimizer
+    ${CMAKE_CURRENT_SOURCE_DIR}/Parameters
+    ${CMAKE_CURRENT_SOURCE_DIR}/RootWrapper
+    ${CMAKE_CURRENT_SOURCE_DIR}/Suite
     )
 
-file(GLOB fitkernel_include_files
-    "FitKernel/*.h"
-    "StandardFits/*.h"
-    )
+set(include_dirs ${BUILD_INC_DIR} ${FIT_SOURCE_DIRS})
+
+file(GLOB fitkernel_source_files */*.cpp)
+file(GLOB fitkernel_include_files */*.h)
 
 set(source_files ${fitkernel_source_files})
 set(include_files ${fitkernel_include_files})
@@ -35,7 +31,7 @@ if(BORNAGAIN_PYTHON)
     include_directories(${AUTO_DIR})
 
     set(include_dirs
-        ${CMAKE_CURRENT_SOURCE_DIR}/FitKernel
+        ${FIT_SOURCE_DIRS}
         ${CMAKE_CURRENT_SOURCE_DIR}/StandardFits
         ${CMAKE_SOURCE_DIR}/Core/Basics
         ${CMAKE_SOURCE_DIR}/Core/Instrument
@@ -74,7 +70,6 @@ if(BORNAGAIN_PYTHON)
         foreach(dir ${include_dirs})
             list(APPEND SWIG_FLAGS "-I${dir}")
         endforeach(dir)
-
 
         add_custom_command (
             OUTPUT ${AUTO_DIR}/libBornAgainFit.py

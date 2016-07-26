@@ -56,11 +56,10 @@ void FormFactorCone6::onChange()
     double r = cot_alpha*2/sqrt(3) * m_height / m_base_edge; // L(top)/L(base)
     if ( r > 1 ) {
         std::ostringstream ostr;
-        ostr << "FormFactorCone6() -> Error in class initialization with parameters";
-        ostr << " base_edge:" << m_base_edge;
-        ostr << " height:" << m_height;
-        ostr << " alpha[rad]:" << m_alpha << "\n\n";
-        ostr << "Incompatible parameters\n";
+        ostr << "Incompatible parameters in Cone6 ";
+        ostr << "(base_edge=" << m_base_edge;
+        ostr << ", height:" << m_height;
+        ostr << ", alpha[rad]:" << m_alpha << ")";
         throw Exceptions::ClassInitializationException(ostr.str());
     }
 

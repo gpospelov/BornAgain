@@ -18,6 +18,7 @@
 #include "Exceptions.h"
 #include "ParameterPool.h"
 #include "ParameterSample.h"
+#include <map>
 
 ParticleDistribution::ParticleDistribution(const IParticle& prototype,
                                            const ParameterDistribution& par_distr)

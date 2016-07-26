@@ -55,11 +55,10 @@ void FormFactorTetrahedron::onChange()
     double r = cot_alpha * 2*std::sqrt(3.) * m_height / m_base_edge; // L(top)/L(base)
     if ( r > 1 ) {
         std::ostringstream ostr;
-        ostr << "FormFactorTetrahedron() -> Error in class initialization with parameters ";
-        ostr << " height:" << m_height;
-        ostr << " base_edge:" << m_base_edge;
-        ostr << " alpha[rad]:" << m_alpha << "\n\n";
-        ostr << "Check for '2.*sqrt(3.) * height <= base_edge*tan(alpha)' failed.";
+        ostr << "Incompatible parameters in Tetrahedron: ";
+        ostr << "(base_edge=" << m_base_edge;
+        ostr << ", height:" << m_height;
+        ostr << ", alpha[rad]:" << m_alpha << ")";
         throw Exceptions::ClassInitializationException(ostr.str());
     }
 

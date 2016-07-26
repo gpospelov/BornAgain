@@ -16,7 +16,9 @@
 #ifndef REALPARAMETERWRAPPER_H
 #define REALPARAMETERWRAPPER_H
 
+#include "INamed.h" // inheriting from
 #include "AttLimits.h"
+#include <string>
 
 class IParameterized;
 
@@ -24,12 +26,13 @@ class IParameterized;
 //! @class RealParameterWrapper
 //! @ingroup tools_internal
 
-class BA_CORE_API_ RealParameterWrapper {
+class BA_CORE_API_ RealParameterWrapper : public INamed {
 public:
     explicit RealParameterWrapper(
-        IParameterized* parent, double* par, const AttLimits& limits=AttLimits::limitless());
+        const std::string& name, IParameterized* parent,
+        volatile double* par, const AttLimits& limits=AttLimits::limitless());
     RealParameterWrapper(const RealParameterWrapper& other);
-    RealParameterWrapper& operator=(const RealParameterWrapper& other);
+    RealParameterWrapper(const std::string& name, const RealParameterWrapper& other);
 
     //! Sets value of wrapped parameter and emit signal
     void setValue(double value);
@@ -57,8 +60,10 @@ private:
     void swapContent(RealParameterWrapper& other);
 
     IParameterized* m_parent; //!< IParametrized object that "owns" this pool
+    std::string m_name;
     volatile double* m_data;
     AttLimits m_limits;
+    std::string fullName(); //!< For use in error messages
 };
 
 #endif // REALPARAMETERWRAPPER_H

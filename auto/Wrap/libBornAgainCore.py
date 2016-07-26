@@ -20410,20 +20410,6 @@ class ParameterPool(ICloneable):
         return _libBornAgainCore.ParameterPool_registerParameter(self, *args)
 
 
-    def addParameter(self, name, par):
-        """
-        addParameter(ParameterPool self, std::string const & name, RealParameterWrapper par)
-
-        void ParameterPool::addParameter(const std::string &name, RealParameterWrapper par)
-
-        Adds parameter to the pool.
-
-        Low-level routine. 
-
-        """
-        return _libBornAgainCore.ParameterPool_addParameter(self, name, par)
-
-
     def getParameter(self, name):
         """
         getParameter(ParameterPool self, std::string const & name) -> RealParameterWrapper
@@ -21422,7 +21408,7 @@ class Polygon(IShape2D):
 Polygon_swigregister = _libBornAgainCore.Polygon_swigregister
 Polygon_swigregister(Polygon)
 
-class RealParameterWrapper(_object):
+class RealParameterWrapper(INamed):
     """
 
 
@@ -21432,18 +21418,25 @@ class RealParameterWrapper(_object):
 
     """
     __swig_setmethods__ = {}
+    for _s in [INamed]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, RealParameterWrapper, name, value)
     __swig_getmethods__ = {}
+    for _s in [INamed]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, RealParameterWrapper, name)
     __repr__ = _swig_repr
 
     def __init__(self, *args):
         """
-        __init__(RealParameterWrapper self, IParameterized parent, double * par, AttLimits limits) -> RealParameterWrapper
-        __init__(RealParameterWrapper self, IParameterized parent, double * par) -> RealParameterWrapper
+        __init__(RealParameterWrapper self, std::string const & name, IParameterized parent, double volatile * par, AttLimits limits) -> RealParameterWrapper
+        __init__(RealParameterWrapper self, std::string const & name, IParameterized parent, double volatile * par) -> RealParameterWrapper
         __init__(RealParameterWrapper self, RealParameterWrapper other) -> RealParameterWrapper
+        __init__(RealParameterWrapper self, std::string const & name, RealParameterWrapper other) -> RealParameterWrapper
 
-        RealParameterWrapper::RealParameterWrapper(const RealParameterWrapper &other)
+        RealParameterWrapper::RealParameterWrapper(const std::string &name, const RealParameterWrapper &other)
+
+        This constructor takes copies 'other' except for the name. 
 
         """
         this = _libBornAgainCore.new_RealParameterWrapper(*args)

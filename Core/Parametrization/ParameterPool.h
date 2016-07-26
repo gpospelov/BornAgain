@@ -18,7 +18,6 @@
 
 #include "ICloneable.h" // inheriting from
 #include "RealParameterWrapper.h"
-#include <map>
 #include <ostream>
 #include <string>
 #include <vector>
@@ -44,17 +43,14 @@ public:
     void copyToExternalPool(const std::string& prefix, ParameterPool* external_pool) const;
 
     //! Deletes parameter map.
-    void clear() { m_map.clear(); }
+    void clear() { m_params.clear(); }
 
     //! Returns size of parameter container.
-    size_t size() const { return m_map.size(); }
+    size_t size() const { return m_params.size(); }
 
     //! Registers a parameter with key _name_ and pointer-to-value _parpointer_.
     void registerParameter(const std::string& name, double* parpointer,
                            const AttLimits& limits=AttLimits::limitless());
-
-    //! Adds parameter to the pool
-    void addParameter(const std::string& name, RealParameterWrapper par);
 
     //! Returns parameter named _name_.
     RealParameterWrapper getParameter(const std::string& name) const;
@@ -81,6 +77,9 @@ private:
     //! prints error message
     std::string get_error_message(const std::string& criteria) const;
 
+    //! Adds parameter to the pool
+    void addParameter(const RealParameterWrapper& par);
+
     //! reports error while finding parameters matching given name
     void report_find_matched_parameters_error(const std::string& pattern) const;
 
@@ -88,7 +87,7 @@ private:
     void report_set_value_error(const std::string& parname, double value) const;
 
     IParameterized* const m_parent; //!< Parametrized object that "owns" this pool
-    std::map<std::string, RealParameterWrapper> m_map;
+    std::vector<RealParameterWrapper> m_params;
 };
 
 #endif // PARAMETERPOOL_H

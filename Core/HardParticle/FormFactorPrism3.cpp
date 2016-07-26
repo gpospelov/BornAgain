@@ -16,6 +16,7 @@
 #include "FormFactorPrism3.h"
 #include "AttLimits.h"
 #include "BornAgainNamespace.h"
+#include <iostream>
 
 //! @brief Prism3 constructor
 //! @param base_edge of hexagonal base
@@ -26,6 +27,7 @@ FormFactorPrism3::FormFactorPrism3(const double base_edge, const double height)
 {
     setName(BornAgain::FFPrism3Type);
     registerParameter(BornAgain::BaseEdge, &m_base_edge, AttLimits::n_positive());
+    registerParameter(BornAgain::Height, &m_height, AttLimits::n_positive());
     onChange();
 }
 

@@ -1876,103 +1876,10 @@ C++ includes: ROOTSimAnMinimizer.h
 // File: AlgorithmNames_8h.xml
 
 
-// File: FitKernel_8cpp.xml
-
-
-// File: FitKernel_8h.xml
-
-
-// File: FitObject_8cpp.xml
-
-
-// File: FitObject_8h.xml
-
-
-// File: FitOptions_8h.xml
-
-
-// File: FitParameter_8cpp.xml
-
-
-// File: FitParameter_8h.xml
-
-
-// File: FitParameterLinked_8cpp.xml
-
-
-// File: FitParameterLinked_8h.xml
-
-
-// File: FitStrategyAdjustMinimizer_8cpp.xml
-
-
-// File: FitStrategyAdjustMinimizer_8h.xml
-
-
-// File: FitStrategyAdjustParameters_8cpp.xml
-
-
-// File: FitStrategyAdjustParameters_8h.xml
-
-
-// File: FitSuite_8cpp.xml
-
-
-// File: FitSuite_8h.xml
-
-
-// File: FitSuiteFunctions_8cpp.xml
-
-
-// File: FitSuiteFunctions_8h.xml
-
-
-// File: FitSuiteObjects_8cpp.xml
-
-
-// File: FitSuiteObjects_8h.xml
-
-
-// File: FitSuiteParameters_8cpp.xml
-
-
-// File: FitSuiteParameters_8h.xml
-
-
-// File: FitSuitePrintObserver_8cpp.xml
-
-
-// File: FitSuitePrintObserver_8h.xml
-
-
-// File: FitSuiteStrategies_8cpp.xml
-
-
-// File: FitSuiteStrategies_8h.xml
-
-
-// File: IFitObserver_8cpp.xml
-
-
-// File: IFitObserver_8h.xml
-
-
-// File: IFitStrategy_8cpp.xml
-
-
-// File: IFitStrategy_8h.xml
-
-
 // File: IMinimizer_8cpp.xml
 
 
 // File: IMinimizer_8h.xml
-
-
-// File: IObserver_8cpp.xml
-
-
-// File: IObserver_8h.xml
 
 
 // File: MinimizerFactory_8cpp.xml
@@ -2003,6 +1910,24 @@ C++ includes: ROOTSimAnMinimizer.h
 
 
 // File: MinimizerTest_8h.xml
+
+
+// File: FitParameter_8cpp.xml
+
+
+// File: FitParameter_8h.xml
+
+
+// File: FitParameterLinked_8cpp.xml
+
+
+// File: FitParameterLinked_8h.xml
+
+
+// File: FitSuiteParameters_8cpp.xml
+
+
+// File: FitSuiteParameters_8h.xml
 
 
 // File: ROOTGeneticMinimizer_8cpp.xml
@@ -2050,8 +1975,92 @@ C++ includes: ROOTSimAnMinimizer.h
 // File: ROOTSimAnMinimizer_8h.xml
 
 
+// File: FitKernel_8cpp.xml
+
+
+// File: FitKernel_8h.xml
+
+
+// File: FitObject_8cpp.xml
+
+
+// File: FitObject_8h.xml
+
+
+// File: FitOptions_8h.xml
+
+
+// File: FitStrategyAdjustMinimizer_8cpp.xml
+
+
+// File: FitStrategyAdjustMinimizer_8h.xml
+
+
+// File: FitStrategyAdjustParameters_8cpp.xml
+
+
+// File: FitStrategyAdjustParameters_8h.xml
+
+
+// File: FitSuite_8cpp.xml
+
+
+// File: FitSuite_8h.xml
+
+
+// File: FitSuiteFunctions_8cpp.xml
+
+
+// File: FitSuiteFunctions_8h.xml
+
+
+// File: FitSuiteObjects_8cpp.xml
+
+
+// File: FitSuiteObjects_8h.xml
+
+
+// File: FitSuitePrintObserver_8cpp.xml
+
+
+// File: FitSuitePrintObserver_8h.xml
+
+
+// File: FitSuiteStrategies_8cpp.xml
+
+
+// File: FitSuiteStrategies_8h.xml
+
+
+// File: IFitObserver_8cpp.xml
+
+
+// File: IFitObserver_8h.xml
+
+
+// File: IFitStrategy_8cpp.xml
+
+
+// File: IFitStrategy_8h.xml
+
+
+// File: IObserver_8cpp.xml
+
+
+// File: IObserver_8h.xml
+
+
 // File: dir_892d84e8d1420bf45a9053cf0eede900.xml
 
 
-// File: dir_4e6c9d4e290828461655ecdd2f34719c.xml
+// File: dir_7c95011753c2f8fb6f2a9c22c1fbdc50.xml
+
+
+// File: dir_17bde39ef6b5d64be6f6883a061c9058.xml
+
+
+// File: dir_3d2dd2c6a4dddd0587ea5f12e3139107.xml
+
+
+// File: dir_2794e2b49ac7cacd65188e59851fd2d5.xml
 

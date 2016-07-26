@@ -124,7 +124,6 @@ private:
     std::vector<PolyhedralFace> m_faces;
     double m_radius;
     double m_volume;
-
 };
 
 
@@ -132,7 +131,7 @@ private:
 
 class BA_CORE_API_ FormFactorPolygonalPrism : public IFormFactorBorn {
 public:
-    FormFactorPolygonalPrism( const double height );
+    FormFactorPolygonalPrism( const double height ) : m_height(height) {}
 
     virtual complex_t evaluate_for_q(const cvector_t q ) const final;
     double getVolume() const;

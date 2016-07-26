@@ -18,8 +18,6 @@
 //! "Form factor (Fourier shape transform) of polygon and polyhedron."
 
 #include "FormFactorPolyhedron.h"
-#include "AttLimits.h"
-#include "BornAgainNamespace.h"
 #include "MathFunctions.h"
 #include "Precomputed.h"
 #include <iomanip>
@@ -578,12 +576,6 @@ void FormFactorPolyhedron::assert_platonic() const
 //**************************************************************************************************
 //  FormFactorPolygonalPrism implementation
 //**************************************************************************************************
-
-FormFactorPolygonalPrism::FormFactorPolygonalPrism(double height)
-    : m_height(height)
-{
-    registerParameter(BornAgain::Height, &m_height, AttLimits::n_positive());
-}
 
 void FormFactorPolygonalPrism::setPrism( bool symmetry_Ci, const std::vector<kvector_t>& vertices )
 {

@@ -17,6 +17,7 @@
 #define ISIMULATION_H
 
 #include "ICloneable.h" // inheriting from
+#include <string>
 
 //! @class ISimulation
 //! @ingroup algorithms_internal

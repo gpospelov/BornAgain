@@ -16,9 +16,6 @@
 #ifndef ICLONEABLE_H
 #define ICLONEABLE_H
 
-#include "Exceptions.h"
-
-
 //! @class ICloneable
 //! @ingroup tools_internal
 //! @brief Interface for objects that must not be copied, except by cloning.
@@ -34,9 +31,9 @@ public:
     ICloneable(const ICloneable&) = delete;
     virtual ~ICloneable() {}
 
-    ICloneable& operator=(const ICloneable& ) = delete;
+    ICloneable& operator=(const ICloneable&) = delete;
 
-    virtual ICloneable *clone() const = 0;
+    virtual ICloneable* clone() const = 0;
 
     //! Used for Python overriding of clone
     virtual void transferToCPP() {}

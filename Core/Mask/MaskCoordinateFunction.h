@@ -18,7 +18,9 @@
 #define MASKCOORDINATEFUNCTION_H
 
 #include "ICloneable.h" // inheriting from
+#include <cstddef>
 
+using std::size_t;
 
 //! @class MaskCoordinateFunction
 //! @ingroup simulation_internal
@@ -28,13 +30,13 @@ class BA_CORE_API_ MaskCoordinateFunction : public ICloneable
 {
 public:
     MaskCoordinateFunction(size_t rank);
-    virtual MaskCoordinateFunction *clone() const;
+    virtual MaskCoordinateFunction* clone() const;
     virtual ~MaskCoordinateFunction() {}
 
-    bool isMasked(size_t rank, const int *coordinates) const;
+    bool isMasked(size_t rank, const int* coordinates) const;
     void setInvertFlag(bool invert) { m_invert = invert; }
 protected:
-    virtual bool isInStandardMaskedArea(const int *coordinates) const;
+    virtual bool isInStandardMaskedArea(const int* coordinates) const;
     size_t m_rank;
     bool m_invert;  //!< if true, the complement is masked instead
 };
@@ -47,16 +49,16 @@ protected:
 class BA_CORE_API_ MaskCoordinateRectangleFunction : public MaskCoordinateFunction
 {
 public:
-    MaskCoordinateRectangleFunction(size_t rank, const int *minima, const int *maxima);
-    virtual MaskCoordinateRectangleFunction *clone() const;
+    MaskCoordinateRectangleFunction(size_t rank, const int* minima, const int* maxima);
+    virtual MaskCoordinateRectangleFunction* clone() const;
     virtual ~MaskCoordinateRectangleFunction();
 
 protected:
-    virtual bool isInStandardMaskedArea(const int *coordinates) const;
+    virtual bool isInStandardMaskedArea(const int* coordinates) const;
 
 private:
-    int *m_minima;
-    int *m_maxima;
+    int* m_minima;
+    int* m_maxima;
 };
 
 //! @class MaskCoordinateEllipseFunction
@@ -66,16 +68,16 @@ private:
 class BA_CORE_API_ MaskCoordinateEllipseFunction : public MaskCoordinateFunction
 {
 public:
-    MaskCoordinateEllipseFunction(size_t rank, const int *center, const int *radii);
-    virtual MaskCoordinateEllipseFunction *clone() const;
+    MaskCoordinateEllipseFunction(size_t rank, const int* center, const int* radii);
+    virtual MaskCoordinateEllipseFunction* clone() const;
     virtual ~MaskCoordinateEllipseFunction();
 
 protected:
-    virtual bool isInStandardMaskedArea(const int *coordinates) const;
+    virtual bool isInStandardMaskedArea(const int* coordinates) const;
 
 private:
-    int *m_center;
-    int *m_radii;
+    int* m_center;
+    int* m_radii;
 };
 
 #endif // MASKCOORDINATEFUNCTION_H

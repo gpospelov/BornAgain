@@ -16,8 +16,12 @@
 #ifndef MASK_H
 #define MASK_H
 
-#include "MaskCoordinateFunction.h"
+#include "ICloneable.h" // inheriting from
+#include <cstddef>
 
+using std::size_t;
+
+class MaskCoordinateFunction;
 
 //! @class Mask
 //! @ingroup simulation_internal
@@ -28,10 +32,10 @@ class BA_CORE_API_ Mask : public ICloneable
 public:
     template <class TValue, class TContainer> friend class OutputDataIterator;
     template <class TValue> friend class OutputData;
-    explicit Mask(Mask *p_submask=0)
+    explicit Mask(Mask* p_submask=0)
         : m_own_index(0), m_max_index(0), mp_submask(p_submask) {}
     virtual ~Mask() { delete mp_submask; }
-    virtual Mask *clone() const;
+    virtual Mask* clone() const;
 
     size_t getFirstValidIndex(size_t start_index);
     size_t getNextIndex(size_t total_index);
@@ -44,7 +48,7 @@ protected:
     virtual bool isMasked(size_t total_index) const;
     size_t m_own_index;
     size_t m_max_index;
-    Mask *mp_submask;
+    Mask* mp_submask;
 private:
     size_t nextSubIndex(size_t total_index);
 };
@@ -57,10 +61,10 @@ private:
 class BA_CORE_API_ MaskIndexModulus : public Mask
 {
 public:
-    MaskIndexModulus(size_t modulus, size_t remainder, Mask *p_submask=0)
+    MaskIndexModulus(size_t modulus, size_t remainder, Mask* p_submask=0)
         : Mask(p_submask), m_modulus(modulus), m_remainder(remainder) {}
     virtual ~MaskIndexModulus() {}
-    virtual MaskIndexModulus *clone() const;
+    virtual MaskIndexModulus* clone() const;
 
 protected:
     virtual bool isMasked(size_t total_index) const;
@@ -78,11 +82,11 @@ private:
 class BA_CORE_API_ MaskCoordinates : public Mask
 {
 public:
-    MaskCoordinates(size_t rank, const int *dims, Mask *p_submask=0);
+    MaskCoordinates(size_t rank, const int* dims, Mask* p_submask=0);
     virtual ~MaskCoordinates();
-    virtual MaskCoordinates *clone() const;
+    virtual MaskCoordinates* clone() const;
 
-    void setMaskCoordinateFunction(MaskCoordinateFunction *p_mask_function);
+    void setMaskCoordinateFunction(MaskCoordinateFunction* p_mask_function);
 
 protected:
     virtual bool isMasked(size_t total_index) const;
@@ -90,9 +94,9 @@ protected:
 private:
     void setCachedCoordinates(size_t index) const;
     size_t m_rank;
-    int *m_dims;
-    mutable int *m_coordinates;
-    MaskCoordinateFunction *mp_mask_function;
+    int* m_dims;
+    mutable int* m_coordinates;
+    MaskCoordinateFunction* mp_mask_function;
 };
 
 #endif // MASK_H

@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "ParameterPool.h"
+#include "Exceptions.h"
 #include "Utils.h"
 #include <cassert>
 #include <iostream>

@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "ISampleIteratorStrategy.h"
+#include "Exceptions.h"
 #include "SampleTreeIterator.h"
 
 void VisitSampleTreePreorder(const ISample& sample, ISampleVisitor& visitor)

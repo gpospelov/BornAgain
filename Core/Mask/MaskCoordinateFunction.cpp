@@ -14,7 +14,10 @@
 // ************************************************************************** //
 
 #include "MaskCoordinateFunction.h"
+#include "Exceptions.h"
+#include <cstddef>
 
+using std::size_t;
 
 MaskCoordinateFunction::MaskCoordinateFunction(size_t rank)
     : m_rank(rank)

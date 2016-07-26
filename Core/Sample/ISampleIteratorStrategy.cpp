@@ -14,8 +14,8 @@
 // ************************************************************************** //
 
 #include "ISampleIteratorStrategy.h"
+#include "Exceptions.h"
 #include "SampleTreeIterator.h"
-
 
 SampleIteratorPreorderStrategy::SampleIteratorPreorderStrategy()
 {
@@ -44,7 +44,7 @@ void SampleIteratorPreorderStrategy::next(IteratorMemento &iterator_stack) const
         throw Exceptions::NullPointerException("CompositeIteratorPreorderStrategy::next(): "
                                    "Error! Null object in the tree of objects");
     }
-    std::vector<const ISample *> children = p_sample->getChildren();
+    std::vector<const ISample*> children = p_sample->getChildren();
     if (children.size()>0) {
         iterator_stack.push_state( IteratorState(children) );
         return;

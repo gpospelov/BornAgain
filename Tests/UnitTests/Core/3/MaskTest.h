@@ -2,8 +2,8 @@
 #define MASKTEST_H
 
 #include "Mask.h"
+#include "MaskCoordinateFunction.h"
 #include "OutputData.h"
-
 
 class MaskTest : public ::testing::Test
 {
@@ -30,7 +30,7 @@ MaskTest::MaskTest()
     int minima[] = { 1, 1 };
     int maxima[] = { 2, 2 };
     MaskCoordinateRectangleFunction* p_rectangle =
-        ew MaskCoordinateRectangleFunction(2, minima, maxima);
+        new MaskCoordinateRectangleFunction(2, minima, maxima);
     p_rectangular_mask->setMaskCoordinateFunction(p_rectangle);
 
     p_ellipse_mask = new MaskCoordinates(2, dims);

@@ -9794,13 +9794,6 @@ Registers a parameter with key  name and pointer-to-value  parpointer.
 Registers parameter with given name. 
 ";
 
-%feature("docstring")  ParameterPool::addParameter "void ParameterPool::addParameter(const std::string &name, RealParameterWrapper par)
-
-Adds parameter to the pool.
-
-Low-level routine. 
-";
-
 %feature("docstring")  ParameterPool::getParameter "RealParameterWrapper ParameterPool::getParameter(const std::string &name) const
 
 Returns parameter named  name.
@@ -10568,10 +10561,15 @@ Wrapper to real parameter for remote access to its value and callback abilities
 C++ includes: RealParameterWrapper.h
 ";
 
-%feature("docstring")  RealParameterWrapper::RealParameterWrapper "RealParameterWrapper::RealParameterWrapper(IParameterized *parent, const std::string &name, double *par, const AttLimits &limits=AttLimits::limitless())
+%feature("docstring")  RealParameterWrapper::RealParameterWrapper "RealParameterWrapper::RealParameterWrapper(const std::string &name, IParameterized *parent, volatile double *par, const AttLimits &limits=AttLimits::limitless())
 ";
 
 %feature("docstring")  RealParameterWrapper::RealParameterWrapper "RealParameterWrapper::RealParameterWrapper(const RealParameterWrapper &other)
+";
+
+%feature("docstring")  RealParameterWrapper::RealParameterWrapper "RealParameterWrapper::RealParameterWrapper(const std::string &name, const RealParameterWrapper &other)
+
+This constructor takes copies 'other' except for the name. 
 ";
 
 %feature("docstring")  RealParameterWrapper::setValue "void RealParameterWrapper::setValue(double value)

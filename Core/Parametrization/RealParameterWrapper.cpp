@@ -19,9 +19,9 @@
 #include <sstream>
 
 RealParameterWrapper::RealParameterWrapper(
-    IParameterized* parent, const std::string& name, double* par, const AttLimits& limits)
-    : m_parent(parent)
-    , m_name(name)
+    const std::string& name, IParameterized* parent, volatile double* par, const AttLimits& limits)
+    : INamed(name)
+    , m_parent(parent)
     , m_data(par)
     , m_limits(limits)
 {
@@ -34,21 +34,12 @@ RealParameterWrapper::RealParameterWrapper(
 }
 
 RealParameterWrapper::RealParameterWrapper(const RealParameterWrapper& other )
-{
-    m_parent = other.m_parent;
-    m_name = other.m_name;
-    m_data = other.m_data;
-    m_limits = other.m_limits;
-}
+    : RealParameterWrapper( other.getName(), other.m_parent, other.m_data, other.m_limits ) {}
 
-RealParameterWrapper& RealParameterWrapper::operator=(const RealParameterWrapper& other)
-{
-    if( this !=& other )  {
-        RealParameterWrapper tmp(other);
-        tmp.swapContent(*this);
-    }
-    return *this;
-}
+//! This constructor takes copies 'other' except for the name.
+RealParameterWrapper::RealParameterWrapper(
+    const std::string& name, const RealParameterWrapper& other)
+    : RealParameterWrapper( name, other.m_parent, other.m_data, other.m_limits ) {}
 
 //! throw exception if parameter was not initialized with proper value
 void RealParameterWrapper::checkNull() const
@@ -85,5 +76,5 @@ void RealParameterWrapper::swapContent(RealParameterWrapper& other)
 
 std::string RealParameterWrapper::fullName()
 {
-    return m_parent->getName() + "/" + m_name;
+    return m_parent->getName() + "/" + getName();
 }

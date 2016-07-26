@@ -18,6 +18,7 @@
 #include "GISASSimulation.h"
 #include "ISample.h"
 #include "MinimizerFactory.h"
+#include "MinimizerOptions.h"
 #include "SampleBuilderFactory.h"
 #include "SimulationFactory.h"
 #include "Units.h"

@@ -29,7 +29,7 @@ public:
     FitSuitePrintObserver(int print_every_nth = 1);
     virtual ~FitSuitePrintObserver() {}
 
-    void update(FitSuite *fit_suite);
+    void update(FitSuite* fit_suite);
 
 protected:
     void printIterationHeader();
@@ -37,11 +37,9 @@ protected:
     void printParameters();
     void printFitResults();
 
-    FitSuite *m_fit_suite;
+    FitSuite* m_fit_suite;
     boost::posix_time::ptime m_start_time;
     boost::posix_time::ptime m_last_call_time;
 };
 
 #endif // FITSUITEPRINTOBSERVER_H
-
-

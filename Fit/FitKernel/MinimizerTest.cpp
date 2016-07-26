@@ -14,6 +14,8 @@
 // ************************************************************************** //
 
 #include "MinimizerTest.h"
+#include "MinimizerOptions.h"
+#include <iostream>
 
 //! run minimization
 void MinimizerTest::minimize()
@@ -36,14 +38,11 @@ std::vector<double > MinimizerTest::getValueOfVariablesAtMinimum() const
 void MinimizerTest::setParameters(const FitSuiteParameters& parameters)
 {
     m_parameters.clear();
-    for(size_t i_par = 0; i_par<parameters.size(); ++i_par) {
+    for(size_t i_par = 0; i_par<parameters.size(); ++i_par)
         m_parameters.push_back(new FitParameter( *parameters[i_par] ) );
-    }
 }
 
 void MinimizerTest::printResults() const
 {
     std::cout << "MinimizerTest::printResult() "  << m_min_value << std::endl;
 }
-
-

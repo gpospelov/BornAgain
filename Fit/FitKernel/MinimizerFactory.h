@@ -18,7 +18,6 @@
 
 #include "IMinimizer.h"
 
-
 //! @class MinimizerFactory
 //! @ingroup fitting
 //! @brief Factory to create minimizers
@@ -26,13 +25,13 @@
 class BA_CORE_API_ MinimizerFactory
 {
  public:
-    static IMinimizer *createMinimizer(
+    static IMinimizer* createMinimizer(
         const std::string& minimizer,
         const std::string& algorithm="",
         const std::string& options="" );
     static void printCatalogue();
     //! Returns copy of minimizer type and settings. No full clone, would be too heavy!
-    static IMinimizer *createMinimizer(const IMinimizer *other);
+    static IMinimizer* createMinimizer(const IMinimizer* other);
 };
 
 #endif // MINIMIZERFACTORY_H

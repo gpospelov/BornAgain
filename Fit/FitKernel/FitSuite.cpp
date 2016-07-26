@@ -16,6 +16,7 @@
 #include "FitSuite.h"
 #include "FitKernel.h"
 #include "FitSuitePrintObserver.h"
+#include "IHistogram.h"
 #include "MinimizerFactory.h"
 
 FitSuite::FitSuite()

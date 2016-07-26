@@ -40,7 +40,8 @@ public:
 
     virtual ~FitStrategyAdjustParameters(){}
 
-    virtual FitStrategyAdjustParameters *clone() const { return new FitStrategyAdjustParameters(*this); }
+    virtual FitStrategyAdjustParameters* clone() const {
+        return new FitStrategyAdjustParameters(*this); }
 
     virtual void execute();
 
@@ -63,8 +64,7 @@ public:
     }
 
     virtual void setPreserveOriginalValues(bool preserve_values) {
-        m_preserve_original_values = preserve_values;
-    }
+        m_preserve_original_values = preserve_values; }
 
     virtual void clear() {
         m_fix_all = false;
@@ -79,8 +79,8 @@ protected:
 
     bool m_fix_all;
     bool m_release_all;
-    std::vector<std::string > m_pars_to_fix;
-    std::vector<std::string > m_pars_to_release;
+    std::vector<std::string> m_pars_to_fix;
+    std::vector<std::string> m_pars_to_release;
     //! if it's true, strategy will set back values of parameters as they were
     //! before minimization round
     bool m_preserve_original_values;
@@ -117,9 +117,7 @@ public:
         m_release_all = true;
     }
 
-    virtual void setFixed(const std::vector<std::string> &pars) {
-        m_pars_to_fix = pars;
-    }
+    virtual void setFixed(const std::vector<std::string> &pars) { m_pars_to_fix = pars; }
 
 };
 
@@ -138,7 +136,7 @@ public:
         m_release_all = false;
     }
 
-    FitStrategyReleaseParameters(const std::vector<std::string > &pars)
+    FitStrategyReleaseParameters(const std::vector<std::string> &pars)
         : FitStrategyAdjustParameters("FixStrategyReleaseParameters")
     {
         m_fix_all = true;
@@ -148,21 +146,15 @@ public:
 
 
     virtual ~FitStrategyReleaseParameters(){}
-    virtual FitStrategyReleaseParameters *clone() const { return new FitStrategyReleaseParameters(*this); }
+    virtual FitStrategyReleaseParameters *clone() const {
+        return new FitStrategyReleaseParameters(*this); }
 
     virtual void clear() {
         FitStrategyAdjustParameters::clear();
         m_fix_all = true;
     }
 
-    virtual void setReleased(const std::vector<std::string> &pars) {
-        m_pars_to_release = pars;
-    }
-
+    virtual void setReleased(const std::vector<std::string> &pars) { m_pars_to_release = pars; }
 };
-
-
-
-
 
 #endif // FITSTRATEGYADJUSTPARAMETERS_H

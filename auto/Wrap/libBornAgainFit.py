@@ -2574,7 +2574,7 @@ class FitObject(libBornAgainCore.IParameterized):
         """
         getRealData(FitObject self) -> OutputData< double > const *
 
-        const OutputData< double > * FitObject::getRealData() const
+        const OutputData<double>* FitObject::getRealData() const
 
         Returns real (experimental) data. 
 
@@ -2586,7 +2586,7 @@ class FitObject(libBornAgainCore.IParameterized):
         """
         getSimulationData(FitObject self) -> OutputData< double > const *
 
-        const OutputData< double > * FitObject::getSimulationData() const
+        const OutputData<double>* FitObject::getSimulationData() const
 
         Returns simulated data. 
 
@@ -2598,7 +2598,7 @@ class FitObject(libBornAgainCore.IParameterized):
         """
         getSimulation(FitObject self) -> GISASSimulation const *
 
-        const GISASSimulation * FitObject::getSimulation() const
+        const GISASSimulation* FitObject::getSimulation() const
 
         Returns simulation. 
 

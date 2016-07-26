@@ -24,7 +24,6 @@ MinimizerOptions::MinimizerOptions()
 {
 }
 
-
 void MinimizerOptions::print_common(std::ostream & os) const
 {
     os << std::setw(24) << std::left << "Tolerance " << " : " << std::setw(15) << m_tolerance << std::endl;

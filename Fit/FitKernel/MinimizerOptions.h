@@ -92,9 +92,9 @@ public:
 
 private:
     template<class M>
-        static void setExistingValue(const std::string& name, M&  opts, const typename M::mapped_type&  value) {
-        typename M::iterator pos;
-        pos = opts.find(name);
+    static void setExistingValue(
+            const std::string& name, M&  opts, const typename M::mapped_type&  value) {
+        auto pos = opts.find(name);
         if (pos == opts.end())
             throw Exceptions::LogicErrorException(
                 "MinimizerOptions::setValue() -> Error! Not existing name '"+name+"'");
@@ -102,9 +102,9 @@ private:
     }
 
     template<class M>
-        static void addNewValue(const std::string& name, M&  opts, const typename M::mapped_type&  value) {
-        typename M::iterator pos;
-        pos = opts.find(name);
+    static void addNewValue(
+            const std::string& name, M&  opts, const typename M::mapped_type&  value) {
+        auto pos = opts.find(name);
         if (pos != opts.end())
             throw Exceptions::LogicErrorException(
                 "MinimizerOptions::addValue() -> Error! Already existing name '"+name+"'");
@@ -112,9 +112,8 @@ private:
     }
 
     template<class M>
-        static const typename M::mapped_type getValue(const std::string& name, const M& opts) {
-        typename M::const_iterator pos;
-        pos = opts.find(name);
+    static const typename M::mapped_type getValue(const std::string& name, const M& opts) {
+        auto pos = opts.find(name);
         if (pos == opts.end())
             throw Exceptions::LogicErrorException(
                 "MinimizerOptions::getValue() -> Error! Not existing name '"+name+"'");
@@ -122,8 +121,8 @@ private:
     }
 
     template<class M>
-        static void print_extra( const M& opts, std::ostream&  os) {
-        for (typename M::const_iterator pos = opts.begin(); pos != opts.end(); ++pos)
+    static void print_extra( const M& opts, std::ostream&  os) {
+        for (auto pos = opts.begin(); pos != opts.end(); ++pos)
             os << std::setw(24) << pos->first << " : " << std::setw(15) << pos->second << std::endl;
     }
 

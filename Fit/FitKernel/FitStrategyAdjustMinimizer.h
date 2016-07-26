@@ -17,8 +17,9 @@
 #define FITSTRATEGYADJUSTMINIMIZER_H
 
 #include "IFitStrategy.h" // inheriting from
-#include "IMinimizer.h"
 
+class IMinimizer;
+class MinimizerOptions;
 
 //! @class FitStrategyAdjustMinimizer
 //! @ingroup fitting
@@ -26,7 +27,7 @@
 
 class BA_CORE_API_ FitStrategyAdjustMinimizer : public IFitStrategy
 {
-public:    
+public:
     FitStrategyAdjustMinimizer();
 
     FitStrategyAdjustMinimizer(const std::string& minimizer_name,
@@ -35,10 +36,10 @@ public:
 
     virtual ~FitStrategyAdjustMinimizer();
 
-    virtual FitStrategyAdjustMinimizer *clone() const;
+    virtual FitStrategyAdjustMinimizer* clone() const;
 
-    IMinimizer *getMinimizer();
-    void setMinimizer(IMinimizer *minimizer);
+    IMinimizer* getMinimizer();
+    void setMinimizer(IMinimizer* minimizer);
 
     void setMinimizer(const std::string& minimizer_name,
                       const std::string& algorithm_name = std::string(),
@@ -46,13 +47,13 @@ public:
 
     virtual void execute();
 
-    virtual MinimizerOptions *getMinimizerOptions();
+    virtual MinimizerOptions* getMinimizerOptions();
 
 protected:
     virtual void print(std::ostream &ostr) const;
 
 private:
-    IMinimizer *m_minimizer;
+    IMinimizer* m_minimizer;
 };
 
 #endif // FITSTRATEGYADJUSTMINIMIZER_H

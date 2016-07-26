@@ -71,9 +71,9 @@ public:
     friend std::ostream& operator<<(std::ostream& ostr, const IAxis& m) {
         m.print(ostr); return ostr; }
 
-    virtual std::vector<double > getBinCenters() const;
+    virtual std::vector<double> getBinCenters() const;
 
-    virtual std::vector<double > getBinBoundaries() const;
+    virtual std::vector<double> getBinBoundaries() const;
 
     //! Creates a new clipped axis
     virtual IAxis* createClippedAxis(double left, double right) const;
@@ -87,8 +87,8 @@ protected:
     std::string m_name;  //!< axis label
 
 private:
-    IAxis(const IAxis& );
-    IAxis& operator=(const IAxis& );
+    IAxis(const IAxis&);
+    IAxis& operator=(const IAxis&);
 };
 
 //! global helper function for comparison of axes

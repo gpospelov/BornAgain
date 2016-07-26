@@ -17,7 +17,7 @@
 #include "projectdocument.h"
 #include "ApplicationModels.h"
 #include "GUIHelpers.h"
-#include "WarningMessageService.h"
+#include "WarningLogger.h"
 #include <QDebug>
 #include <QDir>
 #include <QXmlStreamReader>
@@ -153,7 +153,7 @@ bool ProjectDocument::isModified()
     return m_modified;
 }
 
-void ProjectDocument::setMessageService(WarningMessageService *messageService)
+void ProjectDocument::setLogger(WarningLogger *messageService)
 {
     m_messageService = messageService;
 }

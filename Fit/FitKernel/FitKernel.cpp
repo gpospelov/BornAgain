@@ -15,7 +15,7 @@
 
 #include "FitKernel.h"
 #include "FitSuite.h"
-#include "MessageService.h"
+#include "Logger.h"
 #include "MinimizerFactory.h"
 #include "ParameterPool.h"
 

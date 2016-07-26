@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Basics/MessageService.cpp
+//! @file      Core/Basics/Logger.cpp
 //! @brief     Implement Logger class.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -13,7 +13,7 @@
 //
 // ************************************************************************** //
 
-#include "MessageService.h"
+#include "Logger.h"
 #include "Exceptions.h"
 #include <boost/date_time/posix_time/posix_time.hpp>
 

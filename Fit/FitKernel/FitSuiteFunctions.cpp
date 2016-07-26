@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "FitKernel.h"
-#include "MessageService.h"
+#include "Logger.h"
 
 //! evaluate chi squared value
 double FitSuiteChiSquaredFunction::evaluate(const double *pars)

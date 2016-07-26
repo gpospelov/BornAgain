@@ -18,7 +18,7 @@
 #include "Layer.h"
 #include "LayerInterface.h"
 #include "Materials.h"
-#include "MessageService.h"
+#include "Logger.h"
 #include "MultiLayerDWBASimulation.h"
 #include "ParameterPool.h"
 

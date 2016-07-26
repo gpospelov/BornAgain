@@ -20,7 +20,7 @@
 #include "LayerInterface.h"
 #include "LayerRoughness.h"
 #include "MatrixSpecularInfoMap.h"
-#include "MessageService.h"
+#include "Logger.h"
 #include "MultiLayer.h"
 #include "MultiLayerRoughnessDWBASimulation.h"
 #include "ScalarSpecularInfoMap.h"

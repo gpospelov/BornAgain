@@ -21,7 +21,7 @@
 
 class QIODevice;
 class ApplicationModels;
-class WarningMessageService;
+class WarningLogger;
 
 namespace ProjectDocumentXML
 {
@@ -73,7 +73,7 @@ public:
 
     bool isModified();
 
-    void setMessageService(WarningMessageService *messageService);
+    void setLogger(WarningLogger *messageService);
 
     EDocumentStatus getDocumentStatus() const;
 
@@ -105,7 +105,7 @@ private:
     ApplicationModels *m_applicationModels;
     bool m_modified;
     EDocumentStatus m_documentStatus;
-    WarningMessageService *m_messageService;
+    WarningLogger *m_messageService;
     QString m_currentVersion;
 };
 

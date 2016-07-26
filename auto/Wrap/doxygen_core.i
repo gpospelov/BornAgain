@@ -8458,7 +8458,7 @@ C++ includes: LLData.h
 
 Provides message service.
 
-C++ includes: MessageService.h
+C++ includes: Logger.h
 ";
 
 %feature("docstring")  MSG::Logger::Logger "MSG::Logger::Logger(EMessageLevel level)
@@ -14223,10 +14223,10 @@ David N. Williams
 // File: MathFunctions_8h.xml
 
 
-// File: MessageService_8cpp.xml
+// File: Logger_8cpp.xml
 
 
-// File: MessageService_8h.xml
+// File: Logger_8h.xml
 
 
 // File: Numeric_8cpp.xml

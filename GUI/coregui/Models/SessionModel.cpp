@@ -335,7 +335,7 @@ SessionItem *SessionModel::itemForIndex(const QModelIndex &index) const
     return m_root_item;
 }
 
-void SessionModel::readFrom(QXmlStreamReader *reader, WarningMessageService *messageService)
+void SessionModel::readFrom(QXmlStreamReader *reader, WarningLogger *messageService)
 {
     Q_ASSERT(reader);
 

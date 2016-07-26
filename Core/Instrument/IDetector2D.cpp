@@ -17,7 +17,7 @@
 #include "Beam.h"
 #include "IDetectorResolution.h"
 #include "InfinitePlane.h"
-#include "MessageService.h"
+#include "Logger.h"
 #include "SimulationElement.h"
 
 IDetector2D::IDetector2D()

@@ -18739,7 +18739,7 @@ class Logger(_object):
 
     Provides message service.
 
-    C++ includes: MessageService.h
+    C++ includes: Logger.h
 
     """
     __swig_setmethods__ = {}

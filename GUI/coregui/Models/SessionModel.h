@@ -87,7 +87,7 @@ public:
     // Returns root item if index is not valid
     SessionItem *itemForIndex(const QModelIndex &index) const;
 
-    void readFrom(QXmlStreamReader *reader, WarningMessageService *messageService=0);
+    void readFrom(QXmlStreamReader *reader, WarningLogger *messageService=0);
     void writeTo(QXmlStreamWriter *writer, SessionItem *parent = 0);
 
     SessionItem *moveParameterizedItem(SessionItem *item,

@@ -15,7 +15,7 @@
 
 #include "FitSuiteParameters.h"
 #include "FitParameterLinked.h"
-#include "MessageService.h"
+#include "Logger.h"
 #include "Numeric.h"
 #include <cmath>
 #include <iostream>

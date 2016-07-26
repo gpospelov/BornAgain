@@ -22,7 +22,7 @@
 
 class MainWindow;
 class ProjectDocument;
-class WarningMessageService;
+class WarningLogger;
 
 //! handles activity related to opening/save projects
 class BA_CORE_API_ ProjectManager : public QObject
@@ -78,7 +78,7 @@ private:
 
     QString m_defaultWorkingDirectory;
     QStringList m_recentProjects;
-    WarningMessageService *m_messageService;
+    WarningLogger *m_messageService;
 };
 
 #endif // PROJECTMANAGER_H

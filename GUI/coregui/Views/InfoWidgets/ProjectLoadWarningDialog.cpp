@@ -20,7 +20,7 @@
 #include "GUIMessage.h"
 #include "MessageContainer.h"
 #include "SessionModel.h"
-#include "WarningMessageService.h"
+#include "WarningLogger.h"
 #include <QBoxLayout>
 #include <QDebug>
 #include <QFrame>
@@ -37,7 +37,7 @@ const int top_panel_height = 80;
 }
 
 ProjectLoadWarningDialog::ProjectLoadWarningDialog(QWidget *parent,
-                                                   const WarningMessageService *messageService,
+                                                   const WarningLogger *messageService,
                                                    const QString &documentVersion)
     : QDialog(parent), m_messageService(messageService)
     , m_projectDocumentVersion(documentVersion)
@@ -214,7 +214,7 @@ QTableWidget *ProjectLoadWarningDialog::createTableWidget()
     result->horizontalHeader()->setStretchLastSection(true);
 
     int rowCount(0);
-    for (WarningMessageService::container_t::const_iterator it = m_messageService->begin();
+    for (WarningLogger::container_t::const_iterator it = m_messageService->begin();
          it != m_messageService->end(); ++it) {
         const MessageContainer *messageContainer = it.value();
         for (MessageContainer::const_iterator it = messageContainer->begin();
@@ -237,7 +237,7 @@ int ProjectLoadWarningDialog::getNumberOfTableRows() const
 {
     Q_ASSERT(m_messageService);
     int result(0);
-    for(WarningMessageService::container_t::const_iterator it=m_messageService->begin(); it!=m_messageService->end(); ++it) {
+    for(WarningLogger::container_t::const_iterator it=m_messageService->begin(); it!=m_messageService->end(); ++it) {
         result += it.value()->size();
     }
     return result;
@@ -272,7 +272,7 @@ QStringList ProjectLoadWarningDialog::getModelNames() const
 QLabel *ProjectLoadWarningDialog::createModelStatusLabel(const QString &model_name) const
 {
     QLabel *result = new QLabel("OK");
-    for (WarningMessageService::container_t::const_iterator it = m_messageService->begin();
+    for (WarningLogger::container_t::const_iterator it = m_messageService->begin();
          it != m_messageService->end(); ++it) {
 
         const MessageContainer *messageContainer = it.value();

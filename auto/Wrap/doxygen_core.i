@@ -7014,7 +7014,7 @@ C++ includes: IParameterized.h
 %feature("docstring")  IParameterized::~IParameterized "IParameterized::~IParameterized()
 ";
 
-%feature("docstring")  IParameterized::getParameterPool "const ParameterPool* IParameterized::getParameterPool() const
+%feature("docstring")  IParameterized::getParameterPool "ParameterPool* IParameterized::getParameterPool() const
 
 Returns pointer to the parameter pool. 
 ";
@@ -7024,12 +7024,14 @@ Returns pointer to the parameter pool.
 Creates new parameter pool, with all local parameters and those of its children. 
 ";
 
-%feature("docstring")  IParameterized::printParameters "void IParameterized::printParameters()
+%feature("docstring")  IParameterized::registerParameter "void IParameterized::registerParameter(const std::string &name, double *parpointer)
+
+Register parameter address in the parameter pool; name allows for wildcard '*'. 
 ";
 
-%feature("docstring")  IParameterized::registerParameter "void IParameterized::registerParameter(const std::string &name, double *parpointer, const AttLimits &limits=AttLimits::limitless())
+%feature("docstring")  IParameterized::registerParameter "void IParameterized::registerParameter(const std::string &name, double *parpointer, const AttLimits &limits)
 
-Register parameter address in the parameter pool. 
+Register parameter address in the parameter pool; name allows for wildcard '*'. 
 ";
 
 %feature("docstring")  IParameterized::setParameterValue "void IParameterized::setParameterValue(const std::string &name, double value)
@@ -7038,11 +7040,6 @@ Register parameter address in the parameter pool.
 %feature("docstring")  IParameterized::getParameter "RealParameterWrapper IParameterized::getParameter(const std::string &name) const
 
 Returns parameter wrapper named  name. 
-";
-
-%feature("docstring")  IParameterized::clearParameterPool "void IParameterized::clearParameterPool()
-
-Clears the parameter pool. 
 ";
 
 %feature("docstring")  IParameterized::addParametersToExternalPool "std::string IParameterized::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const
@@ -14217,16 +14214,16 @@ David N. Williams
 ";
 
 
-// File: MathFunctions_8cpp.xml
-
-
-// File: MathFunctions_8h.xml
-
-
 // File: Logger_8cpp.xml
 
 
 // File: Logger_8h.xml
+
+
+// File: MathFunctions_8cpp.xml
+
+
+// File: MathFunctions_8h.xml
 
 
 // File: Numeric_8cpp.xml
@@ -14278,6 +14275,9 @@ David N. Williams
 
 
 // File: WavevectorInfo_8h.xml
+
+
+// File: todo.xml
 
 
 // File: dir_5f1a4a05eca575eab319839347bb4113.xml

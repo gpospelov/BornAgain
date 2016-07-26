@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/utils/WarningMessageService.h
-//! @brief     Declares abstract ILogger interface
+//! @brief     Declares abstract IMessageService interface
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,24 +17,24 @@
 #ifndef WARNINGMESSAGESERVICE_H
 #define WARNINGMESSAGESERVICE_H
 
-#include "ILogger.h" // inheriting from
+#include "IMessageService.h" // inheriting from
 #include <QMap>
 #include <QStringList> // need detected by TeamCity
 
 class MessageContainer;
 class QObject;
 
-//! @class WarningLogger
+//! @class WarningMessageService
 //! @brief The service to collect warning messages from different senders.
 
-class WarningLogger : public ILogger {
+class WarningMessageService : public IMessageService {
 public:
     typedef QMap<QObject *, MessageContainer *> container_t;
     typedef container_t::iterator iterator;
     typedef container_t::const_iterator const_iterator;
 
-    WarningLogger(){}
-    virtual ~WarningLogger();
+    WarningMessageService(){}
+    virtual ~WarningMessageService();
 
     void clear();
 

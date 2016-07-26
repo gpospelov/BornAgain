@@ -19,7 +19,7 @@
 #include "ApplicationModels.h"
 #include "GUIHelpers.h"
 #include "ProjectLoadWarningDialog.h"
-#include "WarningLogger.h"
+#include "WarningMessageService.h"
 #include "mainwindow.h"
 #include "mainwindow_constants.h"
 #include "newprojectdialog.h"
@@ -33,7 +33,7 @@
 ProjectManager::ProjectManager(MainWindow *parent)
     : m_mainWindow(parent)
     , m_project_document(0)
-    , m_messageService(new WarningLogger)
+    , m_messageService(new WarningMessageService)
 
 {
     createNewProject();

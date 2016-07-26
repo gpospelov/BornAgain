@@ -28,7 +28,7 @@
 #include "RealDataModel.h"
 #include "SampleBuilderFactory.h"
 #include "SampleModel.h"
-#include "WarningLogger.h"
+#include "WarningMessageService.h"
 
 ApplicationModels::ApplicationModels(QObject *parent)
     : QObject(parent)
@@ -232,7 +232,7 @@ void ApplicationModels::writeTo(QXmlStreamWriter *writer)
     }
 }
 
-void ApplicationModels::readFrom(QXmlStreamReader *reader, WarningLogger *messageService)
+void ApplicationModels::readFrom(QXmlStreamReader *reader, WarningMessageService *messageService)
 {
     foreach(SessionModel *model, modelList()) {
         if(model->getModelTag() == reader->name()) {

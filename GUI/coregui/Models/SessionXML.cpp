@@ -23,7 +23,7 @@
 #include "MaterialProperty.h"
 #include "ScientificDoubleProperty.h"
 #include "SessionModel.h"
-#include "WarningLogger.h"
+#include "WarningMessageService.h"
 #include <QDebug>
 
 namespace
@@ -147,7 +147,7 @@ void SessionWriter::writeVariant(QXmlStreamWriter *writer, QVariant variant, int
 }
 
 void SessionReader::readItems(QXmlStreamReader *reader, SessionItem *item, const QString &topTag,
-                              WarningLogger *messageService)
+                              WarningMessageService *messageService)
 {
     bool isTopItem = true;
     qDebug() << "SessionModel::readItems()  item:" << item << "topTag:" << topTag;
@@ -244,7 +244,7 @@ void SessionReader::readItems(QXmlStreamReader *reader, SessionItem *item, const
 }
 
 QString SessionReader::readProperty(QXmlStreamReader *reader,
-        SessionItem *item, WarningLogger *messageService)
+        SessionItem *item, WarningMessageService *messageService)
 {
 //    qDebug() << "SessionModel::readProperty() for" << item;
     if (item)
@@ -367,7 +367,7 @@ QString SessionReader::readProperty(QXmlStreamReader *reader,
     return parameter_name;
 }
 
-void SessionReader::report_error(WarningLogger *messageService,
+void SessionReader::report_error(WarningMessageService *messageService,
                                  SessionItem *item, const QString &error_type,
                                  const QString &message)
 {

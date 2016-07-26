@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/utils/IMessageService.h
-//! @brief     Declares abstract ILogger interface
+//! @brief     Declares abstract IMessageService interface
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,14 +17,14 @@
 #ifndef IMESSAGESERVICE_H
 #define IMESSAGESERVICE_H
 
-//! @class ILogger
+//! @class IMessageService
 //! @brief Abstract class for messaging in our GUI
 
 
-class ILogger {
+class IMessageService {
 public:
-    ILogger(){}
-    virtual ~ILogger(){}
+    IMessageService(){}
+    virtual ~IMessageService(){}
 };
 
 #endif // IMESSAGESERVICE_H

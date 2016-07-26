@@ -1865,7 +1865,7 @@ class IParameterized(INamed):
         """
         getParameterPool(IParameterized self) -> ParameterPool
 
-        const ParameterPool* IParameterized::getParameterPool() const
+        ParameterPool* IParameterized::getParameterPool() const
 
         Returns pointer to the parameter pool. 
 
@@ -1924,9 +1924,9 @@ class IParameterized(INamed):
         registerParameter(IParameterized self, std::string const & name, int64_t parpointer, AttLimits limits)
         registerParameter(IParameterized self, std::string const & name, int64_t parpointer)
 
-        void IParameterized::registerParameter(const std::string &name, double *parpointer, const AttLimits &limits=AttLimits::limitless())
+        void IParameterized::registerParameter(const std::string &name, double *parpointer, const AttLimits &limits)
 
-        Register parameter address in the parameter pool. 
+        Register parameter address in the parameter pool; name allows for wildcard '*'. 
 
         """
         return _libBornAgainCore.IParameterized_registerParameter(self, *args)
@@ -4619,9 +4619,9 @@ class ISampleBuilder(IParameterized):
         registerParameter(ISampleBuilder self, std::string const & name, int64_t parpointer, AttLimits limits)
         registerParameter(ISampleBuilder self, std::string const & name, int64_t parpointer)
 
-        void IParameterized::registerParameter(const std::string &name, double *parpointer, const AttLimits &limits=AttLimits::limitless())
+        void IParameterized::registerParameter(const std::string &name, double *parpointer, const AttLimits &limits)
 
-        Register parameter address in the parameter pool. 
+        Register parameter address in the parameter pool; name allows for wildcard '*'. 
 
         """
         return _libBornAgainCore.ISampleBuilder_registerParameter(self, *args)

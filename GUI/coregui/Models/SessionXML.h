@@ -22,7 +22,7 @@
 class QXmlStreamWriter;
 class QXmlStreamReader;
 class SessionItem;
-class WarningLogger;
+class WarningMessageService;
 
 namespace SessionXML {
 const QString ItemMimeType = "application/org.bornagainproject.xml.item.z";
@@ -75,12 +75,12 @@ class BA_CORE_API_ SessionReader
 public:
     static void readItems(QXmlStreamReader *reader, SessionItem *item,
                           const QString &topTag = QString(),
-                          WarningLogger *messageService=0);
+                          WarningMessageService *messageService=0);
 private:
     static QString readProperty(QXmlStreamReader *reader, SessionItem *item,
-                                WarningLogger *messageService=0);
+                                WarningMessageService *messageService=0);
 
-    static void report_error(WarningLogger *messageService, SessionItem *item,
+    static void report_error(WarningMessageService *messageService, SessionItem *item,
                       const QString &error_type, const QString &message);
 };
 

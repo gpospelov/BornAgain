@@ -1858,6 +1858,9 @@ C++ includes: ROOTSimAnMinimizer.h
 ";
 
 
+// File: namespaceAlgorithmNames.xml
+
+
 // File: namespaceBA__ROOT.xml
 
 
@@ -1865,6 +1868,12 @@ C++ includes: ROOTSimAnMinimizer.h
 
 
 // File: namespaceMinimizerLibrary.xml
+
+
+// File: namespaceMinimizerNames.xml
+
+
+// File: AlgorithmNames_8h.xml
 
 
 // File: FitKernel_8cpp.xml

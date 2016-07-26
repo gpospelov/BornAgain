@@ -50,7 +50,7 @@ public:
     void createTestJob();
 
     void writeTo(class QXmlStreamWriter *writer);
-    void readFrom(class QXmlStreamReader *reader, class WarningLogger *messageService);
+    void readFrom(class QXmlStreamReader *reader, class WarningMessageService *messageService);
 
     QList<SessionModel *> modelList();
 

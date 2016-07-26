@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "ICompositeSample.h"
-#include "ISampleVisitor.h"
+#include "Exceptions.h"
 #include "Utils.h"
 #include <algorithm>
 

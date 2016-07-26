@@ -15,10 +15,16 @@
 
 #include "Distributions.h"
 #include "BornAgainNamespace.h"
+#include "Exceptions.h"
 #include "MathFunctions.h"
 #include "Units.h"
 
 using namespace BornAgain;
+
+IDistribution1D* IDistribution1D::clone() const
+{
+    throw Exceptions::NotImplementedException("IDistribution1D cannot be cloned");
+}
 
 std::vector<ParameterSample> IDistribution1D::generateSamples(
     size_t nbr_samples, double sigma_factor, const AttLimits &limits) const
@@ -26,7 +32,7 @@ std::vector<ParameterSample> IDistribution1D::generateSamples(
     if (nbr_samples == 0)
         throw Exceptions::OutOfBoundsException("IDistribution1D::generateSamples: number "
                                    "of generated samples must be bigger than zero");
-    if (isDelta()) {      
+    if (isDelta()) {
         std::vector<ParameterSample> result = { getMeanSample() };
         return result;
     }
@@ -145,7 +151,6 @@ std::vector<double> DistributionGate::generateValueList(size_t nbr_samples,
 
 void DistributionGate::init_parameters()
 {
-    clearParameterPool();
     registerParameter(Minimum, &m_min);
     registerParameter(Maximum, &m_max);
 }
@@ -197,7 +202,6 @@ std::vector<double> DistributionLorentz::generateValueList(size_t nbr_samples,
 
 void DistributionLorentz::init_parameters()
 {
-    clearParameterPool();
     registerParameter(Mean, &m_mean);
     registerParameter(HWHM, &m_hwhm);
 }
@@ -255,7 +259,6 @@ std::vector<double> DistributionGaussian::generateValueList(size_t nbr_samples,
 
 void DistributionGaussian::init_parameters()
 {
-    clearParameterPool();
     registerParameter(Mean, &m_mean);
     registerParameter(StdDeviation, &m_std_dev);
 }
@@ -324,7 +327,6 @@ std::vector<double> DistributionLogNormal::generateValueList(size_t nbr_samples,
 
 void DistributionLogNormal::init_parameters()
 {
-    clearParameterPool();
     registerParameter(Median, &m_median);
     registerParameter(ScaleParameter, &m_scale_param);
 }
@@ -382,7 +384,6 @@ std::vector<double> DistributionCosine::generateValueList(size_t nbr_samples,
 
 void DistributionCosine::init_parameters()
 {
-    clearParameterPool();
     registerParameter(Mean, &m_mean);
     registerParameter(Sigma, &m_sigma);
 }

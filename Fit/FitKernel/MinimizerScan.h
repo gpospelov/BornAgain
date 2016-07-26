@@ -37,7 +37,8 @@ class BA_CORE_API_ MinimizerScan : public IMinimizer
 
     virtual void setChiSquaredFunction(function_chi2_t fun_chi2, size_t nparameters);
 
-    virtual void setGradientFunction(function_gradient_t fun_gradient, size_t nparameters, size_t ndatasize);
+    virtual void setGradientFunction(
+        function_gradient_t fun_gradient, size_t nparameters, size_t ndatasize);
 
     virtual size_t getNumberOfVariables() const { return m_parameters.size(); }
 
@@ -51,21 +52,20 @@ class BA_CORE_API_ MinimizerScan : public IMinimizer
 
     size_t getNbins() const { return m_nbins; }
 
-    const OutputData<double > *getOutputData() { return m_fcnvalues_map; }
+    const OutputData<double>* getOutputData() { return m_fcnvalues_map; }
 
-    virtual std::vector<double > getValueOfVariablesAtMinimum() const;
+    virtual std::vector<double> getValueOfVariablesAtMinimum() const;
 
  private:
 
     void construct_fcnvalues_map();
     void set_parvalues_to_minimum();
 
-    OutputData<double > *m_fcnvalues_map; //! values of minimized function on the grid, axes are limited parameters
+    //! values of minimized function on the grid, axes are limited parameters
+    OutputData<double>* m_fcnvalues_map;
     size_t m_nbins; //! number of bins per one parameter
     FitSuiteParameters m_parameters; //! minimizer parameters
     function_chi2_t m_fcn;
 };
 
 #endif // MINIMIZERSCAN_H
-
-

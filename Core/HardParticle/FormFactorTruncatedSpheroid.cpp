@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/HardParticles/FormFactorTruncatedSpheroid.cpp
+//! @file      Core/HardParticle/FormFactorTruncatedSpheroid.cpp
 //! @brief     Implements class FormFactorTruncatedSpheroid.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -14,7 +14,9 @@
 // ************************************************************************** //
 
 #include "FormFactorTruncatedSpheroid.h"
+#include "AttLimits.h"
 #include "BornAgainNamespace.h"
+#include "Exceptions.h"
 #include "MathFunctions.h"
 #include "Numeric.h"
 #include "Units.h"
@@ -55,7 +57,6 @@ bool FormFactorTruncatedSpheroid::check_initialization() const
 
 void FormFactorTruncatedSpheroid::init_parameters()
 {
-    clearParameterPool();
     registerParameter(Radius, &m_radius, AttLimits::n_positive());
     registerParameter(Height, &m_height, AttLimits::n_positive());
     registerParameter(HeightFlattening, &m_height_flattening, AttLimits::n_positive());

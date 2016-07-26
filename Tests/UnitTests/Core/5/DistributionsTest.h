@@ -4,8 +4,8 @@
 #include "Units.h"
 #include "BornAgainNamespace.h"
 #include "Distributions.h"
+#include "Exceptions.h"
 #include "ParameterSample.h"
-
 #include <cmath>
 #include <memory>
 

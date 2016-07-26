@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/StandardFits/IMinimizerTest.cpp
+//! @file      Tests/Functional/Fit/IMinimizerTest.cpp
 //! @brief     Implements class IMinimizerTest.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -18,6 +18,7 @@
 #include "GISASSimulation.h"
 #include "ISample.h"
 #include "MinimizerFactory.h"
+#include "MinimizerOptions.h"
 #include "SampleBuilderFactory.h"
 #include "SimulationFactory.h"
 #include "Units.h"

@@ -15,7 +15,8 @@
 
 #include "FitSuiteParameters.h"
 #include "FitParameterLinked.h"
-#include "MessageService.h"
+#include "Exceptions.h"
+#include "Logger.h"
 #include "Numeric.h"
 #include <cmath>
 #include <iostream>
@@ -32,7 +33,7 @@ FitSuiteParameters::~FitSuiteParameters()
 void FitSuiteParameters::clear()
 {
     for(parameters_t::iterator it = m_parameters.begin(); it!=m_parameters.end(); ++it)
-        delete (*it);
+        delete *it;
     m_parameters.clear();
 }
 
@@ -130,7 +131,7 @@ void FitSuiteParameters::setErrors(const std::vector<double>& pars_errors)
 
 std::vector<double> FitSuiteParameters::getValues() const
 {
-    std::vector<double > result;
+    std::vector<double> result;
     for(parameters_t::const_iterator it=m_parameters.begin(); it!=m_parameters.end(); ++it)
         result.push_back((*it)->getValue());
     return result;
@@ -138,7 +139,7 @@ std::vector<double> FitSuiteParameters::getValues() const
 
 std::vector<double> FitSuiteParameters::getErrors() const
 {
-    std::vector<double > result;
+    std::vector<double> result;
     result.resize(m_parameters.size(), 0.0);
     for(parameters_t::const_iterator it=m_parameters.begin(); it!=m_parameters.end(); ++it)
         result.push_back((*it)->getError());
@@ -188,8 +189,8 @@ void FitSuiteParameters::link_to_pool(const ParameterPool* pool)
     }
 }
 
-bool FitSuiteParameters::valuesAreDifferent(const double* pars_values,
-                                            double tolerance_factor) const
+bool FitSuiteParameters::valuesAreDifferent(
+    const double* pars_values, double tolerance_factor) const
 {
     size_t index(0);
     for(parameters_t::const_iterator it=m_parameters.begin(); it!=m_parameters.end(); ++it) {

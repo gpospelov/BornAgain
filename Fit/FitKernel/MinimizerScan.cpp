@@ -14,6 +14,8 @@
 // ************************************************************************** //
 
 #include "MinimizerScan.h"
+#include <iostream>
+#include <iomanip>
 
 //! Scan minimizer find minimum of chi2 function by equidistant scanning of fit parameters.
 // Only parameters with defined limits (i.e. AttLimits::limited(left, right) )
@@ -23,7 +25,7 @@ void MinimizerScan::minimize()
     construct_fcnvalues_map();
 
     // scanning values of fit parameters
-    for(OutputData<double>::iterator it = m_fcnvalues_map->begin(); it!=m_fcnvalues_map->end(); ++it) {
+    for(auto it = m_fcnvalues_map->begin(); it!=m_fcnvalues_map->end(); ++it) {
         for(size_t i_axis=0; i_axis<m_fcnvalues_map->getRank(); ++i_axis) {
             size_t xbin = m_fcnvalues_map->getAxisBinIndex(it.getIndex(), i_axis);
             double value = (*m_fcnvalues_map->getAxis(i_axis))[xbin];
@@ -31,7 +33,7 @@ void MinimizerScan::minimize()
             m_parameters.getParameter(parname)->setValue(value);
         }
         std::vector<double> current_values=m_parameters.getValues();
-        (*it) = m_fcn(&current_values[0]); // running simulation
+        *it = m_fcn(&current_values[0]); // running simulation
     }
 
     set_parvalues_to_minimum();
@@ -52,9 +54,10 @@ void MinimizerScan::construct_fcnvalues_map()
             m_fcnvalues_map->addAxis(axis);
         }
     }
-    if( !m_fcnvalues_map->getRank() ) {
-        throw Exceptions::LogicErrorException("MinimizerScan::construct_parameter_map() -> Error! No parameters with TAttLimit::limited(left,right) attribute were found.");
-    }
+    if( !m_fcnvalues_map->getRank() )
+        throw Exceptions::LogicErrorException(
+            "MinimizerScan::construct_parameter_map() -> Error! "
+            "No parameters with TAttLimit::limited(left,right) attribute were found.");
     m_fcnvalues_map->setAllTo(0.0);
 }
 
@@ -76,11 +79,8 @@ double MinimizerScan::getMinValue() const
     return *std::min_element(m_fcnvalues_map->begin(), m_fcnvalues_map->end());
 }
 
-void MinimizerScan::setGradientFunction(function_gradient_t fun_gradient, size_t nparameters, size_t ndatasize)
+void MinimizerScan::setGradientFunction(function_gradient_t, size_t, size_t)
 {
-    (void) fun_gradient;
-    (void) nparameters;
-    (void) ndatasize;
 }
 
 double MinimizerScan::getValueOfVariableAtMinimum(size_t index) const
@@ -97,23 +97,19 @@ void MinimizerScan::printResults() const
     m_parameters.printParameters();
 }
 
-void MinimizerScan::setChiSquaredFunction(function_chi2_t fun_chi2, size_t nparameters)
+void MinimizerScan::setChiSquaredFunction(function_chi2_t fun_chi2, size_t)
 {
-    (void)nparameters;
     m_fcn = fun_chi2;
 }
 
 void MinimizerScan::setParameters(const FitSuiteParameters& parameters)
 {
     m_parameters.clear();
-    for(size_t i_par = 0; i_par<parameters.size(); ++i_par) {
+    for(size_t i_par = 0; i_par<parameters.size(); ++i_par)
         m_parameters.push_back(new FitParameter( *parameters[i_par] ) );
-    }
 }
 
 std::vector<double > MinimizerScan::getValueOfVariablesAtMinimum() const
 {
     return m_parameters.getValues();
 }
-
-

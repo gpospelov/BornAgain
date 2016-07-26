@@ -18,6 +18,7 @@
 
 #include "DWBASimulation.h" // inheriting from
 #include "Complex.h"
+#include <map>
 
 class LayerDWBASimulation;
 class MultiLayer;

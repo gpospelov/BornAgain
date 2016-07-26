@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Vectors/BasicVector3D.h
+//! @file      Core/Vector/BasicVector3D.h
 //! @brief      Declares template class BasicVector3D.
 //!
 //! Forked from CLHEP/Geometry by E. Chernyaev <Evgueni.Tcherniaev@cern.ch>,
@@ -20,7 +20,6 @@
 #ifndef BASICVECTOR3D_H
 #define BASICVECTOR3D_H
 
-#include "Exceptions.h"
 #include <complex>
 
 static const double PI2 = 6.28318530717958647692528676655900577;
@@ -42,12 +41,10 @@ public:
     // -------------------------------------------------------------------------
 
     //! Default constructor.
-    BasicVector3D()
-    { v_[0] = 0.0; v_[1] = 0.0; v_[2] = 0.0; }
+    BasicVector3D() { v_[0] = 0.0; v_[1] = 0.0; v_[2] = 0.0; }
 
     //! Constructor from cartesian components.
-    BasicVector3D(const T x1, const T y1, const T z1)
-    { v_[0] = x1; v_[1] = y1; v_[2] = z1; }
+    BasicVector3D(const T x1, const T y1, const T z1) { v_[0] = x1; v_[1] = y1; v_[2] = z1; }
 
     // -------------------------------------------------------------------------
     // Component access
@@ -82,26 +79,26 @@ public:
     // -------------------------------------------------------------------------
 
     //! Adds other vector to this, and returns result.
-    BasicVector3D<T>& operator+=(const BasicVector3D<T>& v)
-    { v_[0] += v.v_[0]; v_[1] += v.v_[1]; v_[2] += v.v_[2]; return *this; }
+    BasicVector3D<T>& operator+=(const BasicVector3D<T>& v) {
+        v_[0] += v.v_[0]; v_[1] += v.v_[1]; v_[2] += v.v_[2]; return *this; }
 
     //! Subtracts other vector from this, and returns result.
-    BasicVector3D<T>& operator-=(const BasicVector3D<T>& v)
-    { v_[0] -= v.v_[0]; v_[1] -= v.v_[1]; v_[2] -= v.v_[2]; return *this; }
+    BasicVector3D<T>& operator-=(const BasicVector3D<T>& v) {
+        v_[0] -= v.v_[0]; v_[1] -= v.v_[1]; v_[2] -= v.v_[2]; return *this; }
 
 
     //! Multiplies this with a scalar, and returns result.
 #ifndef SWIG
     template<class U>
-    auto operator*=(U a) -> BasicVector3D<decltype(this->x()*a)>&
-    { v_[0] *= a; v_[1] *= a; v_[2] *= a; return *this; }
+    auto operator*=(U a) -> BasicVector3D<decltype(this->x()*a)>& {
+        v_[0] *= a; v_[1] *= a; v_[2] *= a; return *this; }
 #endif // SWIG
 
     //! Divides this by a scalar, and returns result.
 #ifndef SWIG
     template<class U>
-    auto operator/=(U a) -> BasicVector3D<decltype(this->x()*a)>&
-    { v_[0] /= a; v_[1] /= a; v_[2] /= a; return *this; }
+    auto operator/=(U a) -> BasicVector3D<decltype(this->x()*a)>& {
+        v_[0] /= a; v_[1] /= a; v_[2] /= a; return *this; }
 #endif // SWIG
 
     // -------------------------------------------------------------------------
@@ -136,12 +133,7 @@ public:
     double sin2Theta() const;
 
     //! Returns unit vector in direction of this. Throws for null vector.
-    BasicVector3D<T> unit() const {
-        double len = mag();
-        if ( len==0.0 )
-            throw Exceptions::DivisionByZeroException("Cannot normalize zero vector");
-        return BasicVector3D<T>(x()/len, y()/len, z()/len);
-    }
+    BasicVector3D<T> unit() const;
 
     //! Returns this, trivially converted to complex type.
     BasicVector3D<std::complex<double> > complex() const;
@@ -166,8 +158,8 @@ public:
     double angle(const BasicVector3D<T>& v) const;
 
     //! Returns projection of this onto other vector: (this*v)*v/|v|^2.
-    inline BasicVector3D<T> project(const BasicVector3D<T>& v) const
-    { return dot(v)*v/v.mag2(); }
+    inline BasicVector3D<T> project(const BasicVector3D<T>& v) const {
+        return dot(v)*v/v.mag2(); }
 
     // -------------------------------------------------------------------------
     // Rotations

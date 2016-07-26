@@ -14,7 +14,9 @@
 // ************************************************************************** //
 
 #include "ISample.h"
+#include "Exceptions.h"
 #include "IMaterial.h"
+#include "ParameterPool.h"
 
 ISample* ISample::cloneInvertB() const
 {

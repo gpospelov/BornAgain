@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Visitors/ISampleVisitor.cpp
+//! @file      Core/Sample/ISampleVisitor.cpp
 //! @brief     Implements class ISampleVisitor.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "ISampleIteratorStrategy.h"
+#include "Exceptions.h"
 #include "SampleTreeIterator.h"
 
 void VisitSampleTreePreorder(const ISample& sample, ISampleVisitor& visitor)

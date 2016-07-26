@@ -17,6 +17,7 @@
 #include "MinimizerItem.h"
 #include "MinimizerFactory.h"
 #include "MinimizerItemCatalogue.h"
+#include "MinimizerOptions.h"
 #include <QDebug>
 
 // ----------------------------------------------------------------------------
@@ -165,4 +166,3 @@ std::unique_ptr<IMinimizer> GeneticMinimizerItem::createMinimizer() const
 //{
 
 //}
-

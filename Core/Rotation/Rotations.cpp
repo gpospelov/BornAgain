@@ -19,7 +19,7 @@
 
 using namespace BornAgain;
 
-IRotation *IRotation::createRotation(const Geometry::Transform3D &transform)
+IRotation *IRotation::createRotation(const Geometry::Transform3D& transform)
 {
     double alpha, beta, gamma;
     transform.calculateEulerAngles(&alpha, &beta, &gamma);
@@ -50,7 +50,7 @@ bool IRotation::isIdentity() const
 
 //! Returns concatenated rotation (first right, then left).
 
-IRotation *CreateProduct(const IRotation &left, const IRotation &right)
+IRotation *CreateProduct(const IRotation& left, const IRotation& right)
 {
     Geometry::Transform3D tr_left = left.getTransform3D();
     Geometry::Transform3D tr_right = right.getTransform3D();
@@ -99,7 +99,6 @@ Geometry::Transform3D RotationX::getTransform3D() const
 
 void RotationX::init_parameters()
 {
-    clearParameterPool();
     registerParameter(Angle, &m_angle);
 }
 
@@ -144,7 +143,6 @@ Geometry::Transform3D RotationY::getTransform3D() const
 
 void RotationY::init_parameters()
 {
-    clearParameterPool();
     registerParameter(Angle, &m_angle);
 }
 
@@ -189,7 +187,6 @@ Geometry::Transform3D RotationZ::getTransform3D() const
 
 void RotationZ::init_parameters()
 {
-    clearParameterPool();
     registerParameter(Angle, &m_angle);
 }
 
@@ -247,7 +244,6 @@ Geometry::Transform3D RotationEuler::getTransform3D() const
 
 void RotationEuler::init_parameters()
 {
-    clearParameterPool();
     registerParameter(Alpha, &m_alpha);
     registerParameter(Beta, &m_beta);
     registerParameter(Gamma, &m_gamma);

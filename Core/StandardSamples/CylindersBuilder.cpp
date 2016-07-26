@@ -36,7 +36,7 @@ CylindersInDWBABuilder::CylindersInDWBABuilder()
 
 void CylindersInDWBABuilder::init_parameters()
 {
-    clearParameterPool();
+
     registerParameter(BornAgain::Radius, &m_radius);
     registerParameter(BornAgain::Height, &m_height);
 }
@@ -77,7 +77,7 @@ CylindersInBABuilder::CylindersInBABuilder()
 
 void CylindersInBABuilder::init_parameters()
 {
-    clearParameterPool();
+
     registerParameter(BornAgain::Radius, &m_radius);
     registerParameter(BornAgain::Height, &m_height);
 }
@@ -114,7 +114,7 @@ LargeCylindersInDWBABuilder::LargeCylindersInDWBABuilder()
 
 void LargeCylindersInDWBABuilder::init_parameters()
 {
-    clearParameterPool();
+
     registerParameter(BornAgain::Radius, &m_radius);
     registerParameter(BornAgain::Height, &m_height);
 }

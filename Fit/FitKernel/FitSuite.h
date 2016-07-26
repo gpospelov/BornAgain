@@ -17,10 +17,11 @@
 #define FITSUITE_H
 
 #include "AttLimits.h"
-#include "IHistogram.h"
 #include "IObserver.h"
+#include "OutputData.h"
 
 class GISASSimulation;
+class IHistogram;
 class IChiSquaredModule;
 class IFitStrategy;
 class FitSuiteObjects;

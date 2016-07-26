@@ -15,7 +15,7 @@
 
 #include "FitStrategyAdjustParameters.h"
 #include "FitKernel.h"
-#include "MessageService.h"
+#include "Logger.h"
 
 
 FitStrategyAdjustParameters::FitStrategyAdjustParameters(const FitStrategyAdjustParameters &other)

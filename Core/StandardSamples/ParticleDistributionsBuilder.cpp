@@ -19,6 +19,7 @@
 #include "HomogeneousMaterial.h"
 #include "Layer.h"
 #include "MultiLayer.h"
+#include "ParameterPattern.h"
 #include "Particle.h"
 #include "ParticleDistribution.h"
 #include "ParticleLayout.h"
@@ -36,7 +37,7 @@ CylindersWithSizeDistributionBuilder::CylindersWithSizeDistributionBuilder()
 
 void CylindersWithSizeDistributionBuilder::init_parameters()
 {
-    clearParameterPool();
+
     registerParameter(BornAgain::Radius, &m_radius);
     registerParameter(BornAgain::Height, &m_height);
 }
@@ -92,7 +93,7 @@ TwoTypesCylindersDistributionBuilder::TwoTypesCylindersDistributionBuilder()
 
 void TwoTypesCylindersDistributionBuilder::init_parameters()
 {
-    clearParameterPool();
+
     registerParameter("radius1", &m_radius1);
     registerParameter("radius2", &m_radius2);
     registerParameter("height1", &m_height1);

@@ -153,7 +153,7 @@ bool ProjectDocument::isModified()
     return m_modified;
 }
 
-void ProjectDocument::setMessageService(WarningMessageService *messageService)
+void ProjectDocument::setLogger(WarningMessageService *messageService)
 {
     m_messageService = messageService;
 }

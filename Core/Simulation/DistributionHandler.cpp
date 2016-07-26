@@ -14,6 +14,8 @@
 // ************************************************************************** //
 
 #include "DistributionHandler.h"
+#include "Exceptions.h"
+#include "ParameterPool.h"
 #include "ParameterSample.h"
 
 DistributionHandler::DistributionHandler()

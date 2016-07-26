@@ -25,17 +25,9 @@ ResolutionFunction2DGaussian::ResolutionFunction2DGaussian(double sigma_x, doubl
     init_parameters();
 }
 
-ResolutionFunction2DGaussian::ResolutionFunction2DGaussian(
-    const ResolutionFunction2DGaussian& other) : IResolutionFunction2D(other)
+ResolutionFunction2DGaussian* ResolutionFunction2DGaussian::clone() const
 {
-    m_sigma_x = other.m_sigma_x;
-    m_sigma_y = other.m_sigma_y;
-    init_parameters();
-}
-
-ResolutionFunction2DGaussian *ResolutionFunction2DGaussian::clone() const
-{
-    return new ResolutionFunction2DGaussian(*this);
+    return new ResolutionFunction2DGaussian(m_sigma_x, m_sigma_y);
 }
 
 double ResolutionFunction2DGaussian::evaluateCDF(double x, double y) const
@@ -46,7 +38,6 @@ double ResolutionFunction2DGaussian::evaluateCDF(double x, double y) const
 
 void ResolutionFunction2DGaussian::init_parameters()
 {
-    clearParameterPool();
     registerParameter(BornAgain::SigmaX, &m_sigma_x);
     registerParameter(BornAgain::SigmaY, &m_sigma_y);
 }

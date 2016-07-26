@@ -14,27 +14,30 @@
 // ************************************************************************** //
 
 #include "FitParameterLinked.h"
+#include "Exceptions.h"
 
 FitParameterLinked::FitParameterLinked()
 {
 }
 
-FitParameterLinked::FitParameterLinked(const std::string& name, double value, double step, const AttLimits& attlim, double error) : FitParameter(name, value, step, attlim, error)
+FitParameterLinked::FitParameterLinked(
+    const std::string& name, double value, double step, const AttLimits& attlim, double error)
+    : FitParameter(name, value, step, attlim, error)
 {
 }
 
 //! Adds real parameter to the collection
 void FitParameterLinked::addParameter(RealParameterWrapper par)
 {
-    if( !par.isNull() ) {
-        m_pool_parameters.push_back(par);
-    } else {
-        throw Exceptions::LogicErrorException("FitMultiParameter::addParameter() -> Attempt to add null parameter");
-    }
+    if( par.isNull() )
+        throw Exceptions::LogicErrorException(
+            "FitMultiParameter::addParameter() -> Attempt to add null parameter");
+    m_pool_parameters.push_back(par);
 }
 
 //! Adds parameters from pool which match given wildcard
-void FitParameterLinked::addMatchedParametersFromPool(const ParameterPool *pool, const std::string& wildcard)
+void FitParameterLinked::addMatchedParametersFromPool(
+    const ParameterPool* pool, const std::string& wildcard)
 {
     std::string wildcard_to_use = getName();
     if( !wildcard.empty()) wildcard_to_use = wildcard;
@@ -42,9 +45,10 @@ void FitParameterLinked::addMatchedParametersFromPool(const ParameterPool *pool,
     pool_parameters_t matched_pars = pool->getMatchedParameters(wildcard_to_use);
     m_pool_parameters.insert(m_pool_parameters.end(), matched_pars.begin(), matched_pars.end());
 
-    if( matched_pars.empty() ) {
-        throw Exceptions::LogicErrorException("FitMultiParameter::addMatchedParametersFromPool() -> Error! Failed to add anything from pool using wildcard '"+wildcard_to_use+"'");
-    }
+    if( matched_pars.empty() )
+        throw Exceptions::LogicErrorException(
+            "FitMultiParameter::addMatchedParametersFromPool() -> Error! "
+            "Failed to add anything from pool using wildcard '"+wildcard_to_use+"'");
 }
 
 void FitParameterLinked::print(std::ostream& ostr) const
@@ -59,5 +63,3 @@ void FitParameterLinked::print(std::ostream& ostr) const
 //        }
 //    }
 }
-
-

@@ -18,7 +18,6 @@
 
 #include "FitObject.h"
 
-
 class IChiSquaredModule;
 
 //! @class FitSuiteObjects
@@ -70,7 +69,7 @@ class BA_CORE_API_ FitSuiteObjects : public IParameterized
 
     //! Adds parameters from local pool to external pool and call recursion over direct children
     virtual std::string addParametersToExternalPool(
-        std::string path, ParameterPool *external_pool,
+        std::string path, ParameterPool* external_pool,
         int copy_number=-1) const;
 
     void setNfreeParameters(int nfree_parameters );
@@ -86,8 +85,8 @@ class BA_CORE_API_ FitSuiteObjects : public IParameterized
 
  private:
     //! disabled copy constructor and assignment operator
-    FitSuiteObjects& operator=(const FitSuiteObjects& );
-    FitSuiteObjects(const FitSuiteObjects& );
+    FitSuiteObjects& operator=(const FitSuiteObjects&);
+    FitSuiteObjects(const FitSuiteObjects&);
 
     inline size_t check_index(size_t index) const;
 

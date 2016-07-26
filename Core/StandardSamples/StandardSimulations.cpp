@@ -20,6 +20,7 @@
 #include "GISASSimulation.h"
 #include "IsGISAXSDetector.h"
 #include "Line.h"
+#include "ParameterPattern.h"
 #include "Polygon.h"
 #include "Rectangle.h"
 #include "RectangularDetector.h"

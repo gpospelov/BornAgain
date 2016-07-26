@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/HardParticles/FormFactorTruncatedSphere.cpp
+//! @file      Core/HardParticle/FormFactorTruncatedSphere.cpp
 //! @brief     Implements class FormFactorTruncatedSphere.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -14,7 +14,9 @@
 // ************************************************************************** //
 
 #include "FormFactorTruncatedSphere.h"
+#include "AttLimits.h"
 #include "BornAgainNamespace.h"
+#include "Exceptions.h"
 #include "MathFunctions.h"
 #include "Numeric.h"
 #include "Units.h"
@@ -49,7 +51,6 @@ bool FormFactorTruncatedSphere::check_initialization() const
 
 void FormFactorTruncatedSphere::init_parameters()
 {
-    clearParameterPool();
     registerParameter(Radius, &m_radius, AttLimits::n_positive());
     registerParameter(Height, &m_height, AttLimits::n_positive());
 }

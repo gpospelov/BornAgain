@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/HardParticles/FormFactorTrivial.h
+//! @file      Core/HardParticle/FormFactorTrivial.h
 //! @brief     Declares class FormFactorTrivial.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -34,10 +34,6 @@ public:
     virtual double getRadius() const;
 
     virtual complex_t evaluate_for_q(const cvector_t q) const;
-
-protected:
-    virtual bool check_initialization() const;
-    virtual void init_parameters();
 };
 
 #endif // FORMFACTORTRIVIAL_H

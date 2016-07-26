@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/StandardFits/StandardFitsFactory.cpp
+//! @file      Tests/Functional/Fit/StandardFitsFactory.cpp
 //! @brief     Implements class StandardFitsFactory
 //!
 //! @homepage  http://www.bornagainproject.org

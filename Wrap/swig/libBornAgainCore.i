@@ -167,7 +167,7 @@
 #include "Line.h"
 #include "MathFunctions.h"
 #include "MesoCrystal.h"
-#include "MessageService.h"
+#include "Logger.h"
 #include "MultiLayer.h"
 #include "OffSpecSimulation.h"
 #include "OutputData.h"
@@ -192,7 +192,6 @@
 #include "SpecularSimulation.h"
 #include "SphericalDetector.h"
 #include "ThreadInfo.h"
-#include "VDouble.h"
 #include "Vectors3D.h"
 #include "Units.h"
 #include "VariableBinAxis.h"
@@ -218,7 +217,6 @@
 
 %include "Complex.h"
 %include "Units.h"
-%include "VDouble.h"
 %include "Vectors3D.h"
 %include "WavevectorInfo.h"
 
@@ -337,7 +335,7 @@
 %include "Line.h"
 %include "MathFunctions.h"
 %include "MesoCrystal.h"
-%include "MessageService.h"
+%include "Logger.h"
 %include "MultiLayer.h"
 %include "OffSpecSimulation.h"
 %include "IIntensityFunction.h"

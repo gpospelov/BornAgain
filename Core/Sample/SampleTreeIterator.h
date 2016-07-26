@@ -17,6 +17,7 @@
 #define SAMPLETREEITERATOR_H
 
 #include "ICompositeSample.h"
+#include <ostream>
 #include <stack>
 
 //! @class IteratorState
@@ -38,8 +39,8 @@ public:
     friend std::ostream& operator<<(
         std::ostream& output_stream, IteratorState const& iterator_state)
     {
-        return  output_stream << "memento state " << iterator_state.m_position << " "
-                              << iterator_state.m_samples.size();
+        return output_stream << "memento state " << iterator_state.m_position << " "
+                             << iterator_state.m_samples.size();
     }
 
 private:

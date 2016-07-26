@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/TestMachinery/PyCoreTest.h
+//! @file      Tests/Functional/PyCore/suite/PyCoreTest.h
 //! @brief     Declares class PyCoreTest
 //!
 //! @homepage  http://www.bornagainproject.org

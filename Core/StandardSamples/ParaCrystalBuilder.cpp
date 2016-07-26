@@ -65,7 +65,7 @@ ISample* RadialParaCrystalBuilder::buildSample() const
 
 void RadialParaCrystalBuilder::init_parameters()
 {
-    clearParameterPool();
+
     registerParameter("corr_peak_distance", &m_corr_peak_distance);
     registerParameter("corr_width", &m_corr_width);
     registerParameter("corr_length", &m_corr_length);
@@ -171,7 +171,7 @@ ISample* HexParaCrystalBuilder::buildSample() const
 
 void HexParaCrystalBuilder::init_parameters()
 {
-    clearParameterPool();
+
     registerParameter("m_peak_distance", &m_peak_distance);
     registerParameter("m_corr_length", &m_corr_length);
     registerParameter("m_domain_size_1", &m_domain_size_1);

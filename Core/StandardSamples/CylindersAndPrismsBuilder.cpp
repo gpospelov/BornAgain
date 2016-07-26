@@ -35,7 +35,7 @@ CylindersAndPrismsBuilder::CylindersAndPrismsBuilder()
 
 void CylindersAndPrismsBuilder::init_parameters()
 {
-    clearParameterPool();
+
     registerParameter("cylinder_height", &m_cylinder_height);
     registerParameter("cylinder_radius", &m_cylinder_radius);
     registerParameter("prism_height", &m_prism_height);

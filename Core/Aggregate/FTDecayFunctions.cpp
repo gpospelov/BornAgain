@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Aggregates/FTDecayFunctions.cpp
+//! @file      Core/Aggregate/FTDecayFunctions.cpp
 //! @brief     Implements class FTDistribution2DCauchy.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -16,6 +16,7 @@
 #include "FTDecayFunctions.h"
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
+#include "ParameterPool.h"
 #include "Units.h"
 
 using namespace BornAgain;
@@ -30,7 +31,6 @@ void IFTDecayFunction1D::print(std::ostream &ostr) const
 
 void IFTDecayFunction1D::init_parameters()
 {
-    clearParameterPool();
     registerParameter(Omega, &m_omega);
 }
 
@@ -188,7 +188,6 @@ void IFTDecayFunction2D::print(std::ostream &ostr) const
 
 void IFTDecayFunction2D::init_parameters()
 {
-    clearParameterPool();
     registerParameter(OmegaX, &m_omega_x);
     registerParameter(OmegaY, &m_omega_y);
 }

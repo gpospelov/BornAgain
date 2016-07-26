@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/HardParticles/FormFactorFullSphere.cpp
+//! @file      Core/HardParticle/FormFactorFullSphere.cpp
 //! @brief     Implements class FormFactorFullSphere.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -14,11 +14,9 @@
 // ************************************************************************** //
 
 #include "FormFactorFullSphere.h"
+#include "AttLimits.h"
 #include "BornAgainNamespace.h"
 #include "Units.h"
-
-#ifdef POLYHEDRAL_DIAGNOSTIC
-#endif
 
 using namespace  BornAgain;
 
@@ -26,7 +24,6 @@ FormFactorFullSphere::FormFactorFullSphere(double radius)
     : m_radius(radius)
 {
     setName(FFFullSphereType);
-    clearParameterPool();
     registerParameter(Radius, &m_radius, AttLimits::n_positive());
 }
 

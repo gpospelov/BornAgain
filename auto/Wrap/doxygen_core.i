@@ -313,6 +313,14 @@ Returns squared sine of polar angle.
 Returns this, trivially converted to complex type. 
 ";
 
+%feature("docstring")  Geometry::BasicVector3D::unit "BasicVector3D< double > Geometry::BasicVector3D< double >::unit() const
+
+Returns unit vector in direction of this. Throws for null vector. 
+";
+
+%feature("docstring")  Geometry::BasicVector3D::unit "BasicVector3D< std::complex< double > > Geometry::BasicVector3D< std::complex< double > >::unit() const
+";
+
 %feature("docstring")  Geometry::BasicVector3D::angle "double Geometry::BasicVector3D< double >::angle(const BasicVector3D< double > &v) const
 
 Returns angle with respect to another vector. 
@@ -1373,9 +1381,7 @@ C++ includes: Distributions.h
 %feature("docstring")  DistributionLorentz::~DistributionLorentz "virtual DistributionLorentz::~DistributionLorentz()
 ";
 
-%feature("docstring")  DistributionLorentz::clone "virtual DistributionLorentz* DistributionLorentz::clone() const
-
-clone method 
+%feature("docstring")  DistributionLorentz::clone "virtual DistributionLorentz* DistributionLorentz::clone() const 
 ";
 
 %feature("docstring")  DistributionLorentz::probabilityDensity "double DistributionLorentz::probabilityDensity(double x) const
@@ -5017,6 +5023,9 @@ C++ includes: ICloneable.h
 %feature("docstring")  ICloneable::ICloneable "ICloneable::ICloneable()
 ";
 
+%feature("docstring")  ICloneable::ICloneable "ICloneable::ICloneable(const ICloneable &)=delete
+";
+
 %feature("docstring")  ICloneable::~ICloneable "virtual ICloneable::~ICloneable()
 ";
 
@@ -5316,9 +5325,7 @@ C++ includes: Distributions.h
 %feature("docstring")  IDistribution1D::~IDistribution1D "virtual IDistribution1D::~IDistribution1D()
 ";
 
-%feature("docstring")  IDistribution1D::clone "virtual IDistribution1D* IDistribution1D::clone() const
-
-clone method 
+%feature("docstring")  IDistribution1D::clone "IDistribution1D * IDistribution1D::clone() const 
 ";
 
 %feature("docstring")  IDistribution1D::probabilityDensity "virtual double IDistribution1D::probabilityDensity(double x) const =0
@@ -7009,19 +7016,16 @@ Manage a local parameter pool, and a tree of child pools.
 C++ includes: IParameterized.h
 ";
 
-%feature("docstring")  IParameterized::IParameterized "IParameterized::IParameterized()
-";
-
-%feature("docstring")  IParameterized::IParameterized "IParameterized::IParameterized(const std::string &name)
+%feature("docstring")  IParameterized::IParameterized "IParameterized::IParameterized(const std::string &name=\"\")
 ";
 
 %feature("docstring")  IParameterized::IParameterized "IParameterized::IParameterized(const IParameterized &other)
 ";
 
-%feature("docstring")  IParameterized::~IParameterized "virtual IParameterized::~IParameterized()
+%feature("docstring")  IParameterized::~IParameterized "IParameterized::~IParameterized()
 ";
 
-%feature("docstring")  IParameterized::getParameterPool "const ParameterPool* IParameterized::getParameterPool() const
+%feature("docstring")  IParameterized::getParameterPool "ParameterPool* IParameterized::getParameterPool() const
 
 Returns pointer to the parameter pool. 
 ";
@@ -7031,27 +7035,22 @@ Returns pointer to the parameter pool.
 Creates new parameter pool, with all local parameters and those of its children. 
 ";
 
-%feature("docstring")  IParameterized::printParameters "void IParameterized::printParameters()
+%feature("docstring")  IParameterized::registerParameter "void IParameterized::registerParameter(const std::string &name, double *parpointer)
+
+Register parameter address in the parameter pool; name allows for wildcard '*'. 
 ";
 
-%feature("docstring")  IParameterized::registerParameter "void IParameterized::registerParameter(const std::string &name, double *parpointer, const AttLimits &limits=AttLimits::limitless())
+%feature("docstring")  IParameterized::registerParameter "void IParameterized::registerParameter(const std::string &name, double *parpointer, const AttLimits &limits)
 
-Register parameter address in the parameter pool. 
+Register parameter address in the parameter pool; name allows for wildcard '*'. 
 ";
 
 %feature("docstring")  IParameterized::setParameterValue "void IParameterized::setParameterValue(const std::string &name, double value)
-
-Sets the value of the parameter with the given name. 
 ";
 
 %feature("docstring")  IParameterized::getParameter "RealParameterWrapper IParameterized::getParameter(const std::string &name) const
 
 Returns parameter wrapper named  name. 
-";
-
-%feature("docstring")  IParameterized::clearParameterPool "void IParameterized::clearParameterPool()
-
-Clears the parameter pool. 
 ";
 
 %feature("docstring")  IParameterized::addParametersToExternalPool "std::string IParameterized::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const
@@ -7286,9 +7285,9 @@ Returns nullptr, unless overwritten to return a specific material.
 Returns nullptr, unless overwritten to return a specific material. 
 ";
 
-%feature("docstring")  ISample::containedMaterials "std::set< const IMaterial * > ISample::containedMaterials() const
+%feature("docstring")  ISample::containedMaterials "std::vector< const IMaterial * > ISample::containedMaterials() const
 
-Returns set of materials contained in this  ISample. Must be reimplemented in derived classes that define a material. 
+Returns set of unique materials contained in this  ISample. Must be reimplemented in derived classes that define a material. 
 ";
 
 %feature("docstring")  ISample::containsMagneticMaterial "bool ISample::containsMagneticMaterial() const
@@ -7304,6 +7303,11 @@ Returns a vector of children (const). Default implementation returns empty vecto
 %feature("docstring")  ISample::size "virtual size_t ISample::size() const
 
 Returns number of children. Default implementation returns zero. 
+";
+
+%feature("docstring")  ISample::containedSubclass "std::vector< const T * > ISample::containedSubclass() const
+
+Returns vector of children of type T. 
 ";
 
 
@@ -8462,7 +8466,7 @@ C++ includes: LLData.h
 
 Provides message service.
 
-C++ includes: MessageService.h
+C++ includes: Logger.h
 ";
 
 %feature("docstring")  MSG::Logger::Logger "MSG::Logger::Logger(EMessageLevel level)
@@ -9715,7 +9719,7 @@ get list of linked parameter names
 
 Helper class for constructing parameter patterns.
 
-C++ includes: IParameterized.h
+C++ includes: ParameterPattern.h
 ";
 
 %feature("docstring")  ParameterPattern::ParameterPattern "ParameterPattern::ParameterPattern()
@@ -10088,7 +10092,7 @@ calls the  ISampleVisitor's visit method
 
 %feature("docstring")  ParticleDistribution::to_str "std::string ParticleDistribution::to_str(int indent=0) const
 
-Returns textual representation of *this and its descendants. 
+Returns textual representation of* this and its descendants. 
 ";
 
 %feature("docstring")  ParticleDistribution::setAmbientMaterial "void ParticleDistribution::setAmbientMaterial(const IMaterial &material)
@@ -10516,139 +10520,13 @@ finalize report to the simulation
 // File: classPyGenVisitor.xml
 %feature("docstring") PyGenVisitor "";
 
-%feature("docstring")  PyGenVisitor::PyGenVisitor "PyGenVisitor::PyGenVisitor()
+%feature("docstring")  PyGenVisitor::PyGenVisitor "PyGenVisitor::PyGenVisitor(const MultiLayer &multilayer)
 ";
 
 %feature("docstring")  PyGenVisitor::~PyGenVisitor "PyGenVisitor::~PyGenVisitor()
 ";
 
 %feature("docstring")  PyGenVisitor::writePyScript "std::string PyGenVisitor::writePyScript(const GISASSimulation *simulation, const std::string &output_filename)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorAnisoPyramid *)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorBox *)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorCone *)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorCone6 *)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorCuboctahedron *)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorCylinder *)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorDodecahedron *)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorEllipsoidalCylinder *)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorFullSphere *)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorFullSpheroid *)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorGauss *)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorHemiEllipsoid *)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorIcosahedron *)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorLorentz *)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorPrism3 *)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorPrism6 *)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorPyramid *)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorRipple1 *)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorRipple2 *)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorTetrahedron *)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorTruncatedCube *)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorTruncatedSphere *)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorTruncatedSpheroid *)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const InterferenceFunctionNone *)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const InterferenceFunction1DLattice *)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const InterferenceFunctionRadialParaCrystal *)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const InterferenceFunction2DLattice *)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const InterferenceFunction2DParaCrystal *)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const Layer *)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const LayerInterface *)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const LayerRoughness *)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const MultiLayer *)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const ParticleComposition *)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const MesoCrystal *)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const Particle *)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const ParticleDistribution *)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const ParticleCoreShell *)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const ParticleLayout *)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const RotationX *)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const RotationY *)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const RotationZ *)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const RotationEuler *)
 ";
 
 %feature("docstring")  PyGenVisitor::definePreamble "std::string PyGenVisitor::definePreamble() const 
@@ -11260,112 +11138,112 @@ C++ includes: SampleLabelHandler.h
 %feature("docstring")  SampleLabelHandler::SampleLabelHandler "SampleLabelHandler::SampleLabelHandler()
 ";
 
-%feature("docstring")  SampleLabelHandler::getFormFactorMap "SampleLabelHandler::formfactors_t * SampleLabelHandler::getFormFactorMap()
+%feature("docstring")  SampleLabelHandler::getFormFactorMap "formfactors_t* SampleLabelHandler::getFormFactorMap()
 ";
 
-%feature("docstring")  SampleLabelHandler::getInterferenceFunctionMap "SampleLabelHandler::interferences_t * SampleLabelHandler::getInterferenceFunctionMap()
+%feature("docstring")  SampleLabelHandler::getInterferenceFunctionMap "interferences_t* SampleLabelHandler::getInterferenceFunctionMap()
 ";
 
-%feature("docstring")  SampleLabelHandler::getLayerMap "SampleLabelHandler::layers_t * SampleLabelHandler::getLayerMap()
+%feature("docstring")  SampleLabelHandler::getLayerMap "layers_t* SampleLabelHandler::getLayerMap()
 ";
 
-%feature("docstring")  SampleLabelHandler::getParticleLayoutMap "SampleLabelHandler::layouts_t * SampleLabelHandler::getParticleLayoutMap()
+%feature("docstring")  SampleLabelHandler::getParticleLayoutMap "layouts_t* SampleLabelHandler::getParticleLayoutMap()
 ";
 
-%feature("docstring")  SampleLabelHandler::getMaterialMap "SampleLabelHandler::materials_t * SampleLabelHandler::getMaterialMap()
+%feature("docstring")  SampleLabelHandler::getMaterialMap "materials_t* SampleLabelHandler::getMaterialMap()
 ";
 
-%feature("docstring")  SampleLabelHandler::getMultiLayerMap "SampleLabelHandler::multilayers_t * SampleLabelHandler::getMultiLayerMap()
+%feature("docstring")  SampleLabelHandler::getMultiLayerMap "multilayers_t* SampleLabelHandler::getMultiLayerMap()
 ";
 
-%feature("docstring")  SampleLabelHandler::getParticleCompositionMap "SampleLabelHandler::particlecompositions_t * SampleLabelHandler::getParticleCompositionMap()
+%feature("docstring")  SampleLabelHandler::getParticleCompositionMap "particlecompositions_t* SampleLabelHandler::getParticleCompositionMap()
 ";
 
-%feature("docstring")  SampleLabelHandler::getParticleDistributionsMap "SampleLabelHandler::particledistributions_t * SampleLabelHandler::getParticleDistributionsMap()
+%feature("docstring")  SampleLabelHandler::getParticleDistributionsMap "particledistributions_t* SampleLabelHandler::getParticleDistributionsMap()
 ";
 
-%feature("docstring")  SampleLabelHandler::getParticleMap "SampleLabelHandler::particles_t * SampleLabelHandler::getParticleMap()
+%feature("docstring")  SampleLabelHandler::getParticleMap "particles_t* SampleLabelHandler::getParticleMap()
 ";
 
-%feature("docstring")  SampleLabelHandler::getParticleCoreShellMap "SampleLabelHandler::particlescoreshell_t * SampleLabelHandler::getParticleCoreShellMap()
+%feature("docstring")  SampleLabelHandler::getParticleCoreShellMap "particlescoreshell_t* SampleLabelHandler::getParticleCoreShellMap()
 ";
 
-%feature("docstring")  SampleLabelHandler::getRotationsMap "SampleLabelHandler::rotations_t * SampleLabelHandler::getRotationsMap()
+%feature("docstring")  SampleLabelHandler::getRotationsMap "rotations_t* SampleLabelHandler::getRotationsMap()
 ";
 
-%feature("docstring")  SampleLabelHandler::getLayerRoughnessMap "SampleLabelHandler::roughnesses_t * SampleLabelHandler::getLayerRoughnessMap()
+%feature("docstring")  SampleLabelHandler::getLayerRoughnessMap "roughnesses_t* SampleLabelHandler::getLayerRoughnessMap()
 ";
 
-%feature("docstring")  SampleLabelHandler::getLabel "std::string SampleLabelHandler::getLabel(const IAbstractParticle *sample)
+%feature("docstring")  SampleLabelHandler::getLabelParticle "std::string SampleLabelHandler::getLabelParticle(const IAbstractParticle *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::getLabel "std::string SampleLabelHandler::getLabel(const IFormFactor *sample)
+%feature("docstring")  SampleLabelHandler::getLabelFormFactor "std::string SampleLabelHandler::getLabelFormFactor(const IFormFactor *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::getLabel "std::string SampleLabelHandler::getLabel(const IInterferenceFunction *sample)
+%feature("docstring")  SampleLabelHandler::getLabelInterferenceFunction "std::string SampleLabelHandler::getLabelInterferenceFunction(const IInterferenceFunction *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::getLabel "std::string SampleLabelHandler::getLabel(const ILayout *sample)
+%feature("docstring")  SampleLabelHandler::getLabelLayout "std::string SampleLabelHandler::getLabelLayout(const ILayout *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::getLabel "std::string SampleLabelHandler::getLabel(const IMaterial *sample)
+%feature("docstring")  SampleLabelHandler::getLabelMaterial "std::string SampleLabelHandler::getLabelMaterial(const IMaterial *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::getLabel "std::string SampleLabelHandler::getLabel(const IRotation *sample)
+%feature("docstring")  SampleLabelHandler::getLabelRotation "std::string SampleLabelHandler::getLabelRotation(const IRotation *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::getLabel "std::string SampleLabelHandler::getLabel(const Layer *sample)
+%feature("docstring")  SampleLabelHandler::getLabelLayer "std::string SampleLabelHandler::getLabelLayer(const Layer *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::getLabel "std::string SampleLabelHandler::getLabel(const LayerRoughness *sample)
+%feature("docstring")  SampleLabelHandler::getLabelRoughness "std::string SampleLabelHandler::getLabelRoughness(const LayerRoughness *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::getLabel "std::string SampleLabelHandler::getLabel(const MultiLayer *sample)
+%feature("docstring")  SampleLabelHandler::getLabelMultiLayer "std::string SampleLabelHandler::getLabelMultiLayer(const MultiLayer *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::getLabel "std::string SampleLabelHandler::getLabel(const ParticleComposition *sample)
+%feature("docstring")  SampleLabelHandler::getLabelParticleComposition "std::string SampleLabelHandler::getLabelParticleComposition(const ParticleComposition *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::getLabel "std::string SampleLabelHandler::getLabel(const ParticleCoreShell *sample)
+%feature("docstring")  SampleLabelHandler::getLabelParticleCoreShell "std::string SampleLabelHandler::getLabelParticleCoreShell(const ParticleCoreShell *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::getLabel "std::string SampleLabelHandler::getLabel(const ParticleDistribution *sample)
+%feature("docstring")  SampleLabelHandler::getLabelParticleDistribution "std::string SampleLabelHandler::getLabelParticleDistribution(const ParticleDistribution *sample)
 ";
 
 %feature("docstring")  SampleLabelHandler::insertMaterial "void SampleLabelHandler::insertMaterial(const IMaterial *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::setLabel "void SampleLabelHandler::setLabel(const IFormFactor *sample)
+%feature("docstring")  SampleLabelHandler::setLabelFormFactor "void SampleLabelHandler::setLabelFormFactor(const IFormFactor *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::setLabel "void SampleLabelHandler::setLabel(const IInterferenceFunction *sample)
+%feature("docstring")  SampleLabelHandler::setLabelInterferenceFunction "void SampleLabelHandler::setLabelInterferenceFunction(const IInterferenceFunction *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::setLabel "void SampleLabelHandler::setLabel(const ILayout *sample)
+%feature("docstring")  SampleLabelHandler::setLabelLayout "void SampleLabelHandler::setLabelLayout(const ILayout *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::setLabel "void SampleLabelHandler::setLabel(const IRotation *sample)
+%feature("docstring")  SampleLabelHandler::setLabelRotation "void SampleLabelHandler::setLabelRotation(const IRotation *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::setLabel "void SampleLabelHandler::setLabel(const Layer *sample)
+%feature("docstring")  SampleLabelHandler::setLabelLayer "void SampleLabelHandler::setLabelLayer(const Layer *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::setLabel "void SampleLabelHandler::setLabel(const LayerRoughness *sample)
+%feature("docstring")  SampleLabelHandler::setLabelRoughness "void SampleLabelHandler::setLabelRoughness(const LayerRoughness *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::setLabel "void SampleLabelHandler::setLabel(const MultiLayer *sample)
+%feature("docstring")  SampleLabelHandler::setLabelMultiLayer "void SampleLabelHandler::setLabelMultiLayer(const MultiLayer *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::setLabel "void SampleLabelHandler::setLabel(const Particle *sample)
+%feature("docstring")  SampleLabelHandler::setLabelParticle "void SampleLabelHandler::setLabelParticle(const Particle *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::setLabel "void SampleLabelHandler::setLabel(const ParticleComposition *sample)
+%feature("docstring")  SampleLabelHandler::setLabelParticleComposition "void SampleLabelHandler::setLabelParticleComposition(const ParticleComposition *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::setLabel "void SampleLabelHandler::setLabel(const ParticleCoreShell *sample)
+%feature("docstring")  SampleLabelHandler::setLabelParticleCoreShell "void SampleLabelHandler::setLabelParticleCoreShell(const ParticleCoreShell *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::setLabel "void SampleLabelHandler::setLabel(const ParticleDistribution *sample)
+%feature("docstring")  SampleLabelHandler::setLabelParticleDistribution "void SampleLabelHandler::setLabelParticleDistribution(const ParticleDistribution *sample)
 ";
 
 
@@ -12547,13 +12425,13 @@ C++ includes: WavevectorInfo.h
 // File: classMathFunctions_1_1Convolve_1_1Workspace.xml
 
 
-// File: namespace_0D281.xml
+// File: namespace_0D268.xml
 
 
-// File: namespace_0D344.xml
+// File: namespace_0D339.xml
 
 
-// File: namespace_0D409.xml
+// File: namespace_0D405.xml
 
 
 // File: namespaceboost_1_1geometry.xml
@@ -12994,7 +12872,7 @@ Typical IsGISAXS simulation with the detector phi[0,2], theta[0,2].
 
 
 // File: namespaceUtils.xml
-%feature("docstring")  Utils::AdjustStringLength "std::string Utils::AdjustStringLength(std::string name, int length)
+%feature("docstring")  Utils::AdjustStringLength "std::string Utils::AdjustStringLength(const std::string &name, int length)
 ";
 
 %feature("docstring")  Utils::EnableFloatingPointExceptions "void Utils::EnableFloatingPointExceptions()
@@ -13099,19 +12977,10 @@ Returns exp(I*z), where I is the imaginary unit.
 ";
 
 
-// File: CumulativeValue_8h.xml
-
-
 // File: Exceptions_8cpp.xml
 
 
 // File: Exceptions_8h.xml
-
-
-// File: FileSystem_8cpp.xml
-
-
-// File: FileSystem_8h.xml
 
 
 // File: ICloneable_8h.xml
@@ -13129,55 +12998,10 @@ Returns exp(I*z), where I is the imaginary unit.
 // File: Macros_8h.xml
 
 
-// File: MessageService_8cpp.xml
-
-
-// File: MessageService_8h.xml
-
-
-// File: Numeric_8cpp.xml
-
-
-// File: Numeric_8h.xml
-
-
-// File: NumpyUtils_8cpp.xml
-
-
-// File: NumpyUtils_8h.xml
-
-
-// File: Precomputed_8cpp.xml
-
-
-// File: Precomputed_8h.xml
-
-
 // File: SafePointerVector_8h.xml
 
 
-// File: SimulationOptions_8cpp.xml
-
-
-// File: SimulationOptions_8h.xml
-
-
-// File: ThreadInfo_8h.xml
-
-
 // File: Units_8h.xml
-
-
-// File: Utils_8cpp.xml
-
-
-// File: Utils_8h.xml
-
-
-// File: VDouble_8h.xml
-
-
-// File: w32pragma_8h.xml
 
 
 // File: WinDllMacros_8h.xml
@@ -13205,6 +13029,9 @@ Returns exp(I*z), where I is the imaginary unit.
 
 
 // File: FixedBinAxis_8h.xml
+
+
+// File: IAxis_8cpp.xml
 
 
 // File: IAxis_8h.xml
@@ -13567,6 +13394,18 @@ The mathematics implemented here is described in full detail in a paper by Joach
 // File: ConvolutionDetectorResolution_8h.xml
 
 
+// File: Convolve_8cpp.xml
+
+
+// File: Convolve_8h.xml
+
+
+// File: CumulativeValue_8cpp.xml
+
+
+// File: CumulativeValue_8h.xml
+
+
 // File: DetectorMask_8cpp.xml
 
 
@@ -13911,6 +13750,12 @@ Set all element intensities to given value.
 // File: SpecularMatrix_8h.xml
 
 
+// File: AttLimits_8cpp.xml
+
+
+// File: AttLimits_8h.xml
+
+
 // File: Distributions_8cpp.xml
 
 
@@ -13929,6 +13774,12 @@ Set all element intensities to given value.
 // File: ParameterDistribution_8h.xml
 
 
+// File: ParameterPattern_8cpp.xml
+
+
+// File: ParameterPattern_8h.xml
+
+
 // File: ParameterPool_8cpp.xml
 
 
@@ -13942,6 +13793,15 @@ Set all element intensities to given value.
 
 
 // File: RealParameterWrapper_8h.xml
+
+
+// File: SimulationOptions_8cpp.xml
+
+
+// File: SimulationOptions_8h.xml
+
+
+// File: ThreadInfo_8h.xml
 
 
 // File: Crystal_8cpp.xml
@@ -14097,6 +13957,9 @@ Returns concatenated rotation (first right, then left).
 // File: GISASSimulation_8h.xml
 
 
+// File: ISimulation_8cpp.xml
+
+
 // File: ISimulation_8h.xml
 
 
@@ -14217,6 +14080,11 @@ Returns concatenated rotation (first right, then left).
 // File: CylindersBuilder_8h.xml
 
 
+// File: IFactory_8h.xml
+%feature("docstring")  create_new "T* create_new()
+";
+
+
 // File: LatticeBuilder_8cpp.xml
 
 
@@ -14325,19 +14193,10 @@ Returns concatenated rotation (first right, then left).
 // File: TwoDimLatticeBuilder_8h.xml
 
 
-// File: AttLimits_8cpp.xml
+// File: FileSystem_8cpp.xml
 
 
-// File: AttLimits_8h.xml
-
-
-// File: Convolve_8cpp.xml
-
-
-// File: Convolve_8h.xml
-
-
-// File: CumulativeValue_8cpp.xml
+// File: FileSystem_8h.xml
 
 
 // File: fp__exception__glibc__extension_8h.xml
@@ -14357,11 +14216,6 @@ David N. Williams
 ";
 
 
-// File: IFactory_8h.xml
-%feature("docstring")  create_new "T* create_new()
-";
-
-
 // File: IntegratorComplex_8h.xml
 %feature("docstring")  make_integrator_complex "P_integrator_complex<T> make_integrator_complex(const T *object, complex_integrand< T > mem_function)
 ";
@@ -14377,10 +14231,43 @@ David N. Williams
 ";
 
 
+// File: Logger_8cpp.xml
+
+
+// File: Logger_8h.xml
+
+
 // File: MathFunctions_8cpp.xml
 
 
 // File: MathFunctions_8h.xml
+
+
+// File: Numeric_8cpp.xml
+
+
+// File: Numeric_8h.xml
+
+
+// File: NumpyUtils_8cpp.xml
+
+
+// File: NumpyUtils_8h.xml
+
+
+// File: Precomputed_8cpp.xml
+
+
+// File: Precomputed_8h.xml
+
+
+// File: Utils_8cpp.xml
+
+
+// File: Utils_8h.xml
+
+
+// File: w32pragma_8h.xml
 
 
 // File: BasicVector3D_8cpp.xml
@@ -14405,6 +14292,9 @@ David N. Williams
 
 
 // File: WavevectorInfo_8h.xml
+
+
+// File: todo.xml
 
 
 // File: dir_5f1a4a05eca575eab319839347bb4113.xml

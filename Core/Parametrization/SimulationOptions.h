@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Basics/SimulationOptions.h
+//! @file      Core/Parametrization/SimulationOptions.h
 //! @brief     Declares class SimulationOptions.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -17,7 +17,9 @@
 #define SIMULATIONOPTIONS_H
 
 #include "ThreadInfo.h"
+#include <cstddef>
 
+using std::size_t;
 
 //! @class SimulationOptions
 //! @ingroup simulation

@@ -18,8 +18,9 @@
 #include "Layer.h"
 #include "LayerInterface.h"
 #include "Materials.h"
-#include "MessageService.h"
+#include "Logger.h"
 #include "MultiLayerDWBASimulation.h"
+#include "ParameterPool.h"
 
 using namespace BornAgain;
 
@@ -46,11 +47,11 @@ std::string MultiLayer::to_str(int indent) const
 
 void MultiLayer::init_parameters()
 {
-    clearParameterPool();
+    getParameterPool()->clear(); // non-trivially needed
     registerParameter(CrossCorrelationLength, &m_crossCorrLength);
 }
 
-void MultiLayer::clear()
+void MultiLayer::clear() // TODO: understand need
 {
     for(size_t i=0; i<m_layers.size(); i++) delete m_layers[i];
     m_layers.clear();
@@ -60,7 +61,7 @@ void MultiLayer::clear()
 
     m_layers_z.clear();
 
-    clearParameterPool();
+    getParameterPool()->clear(); // non-trivially needed
 }
 
 MultiLayer *MultiLayer::clone() const

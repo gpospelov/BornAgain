@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/HardParticles/FormFactorEllipsoidalCylinder.h
+//! @file      Core/HardParticle/FormFactorEllipsoidalCylinder.h
 //! @brief     Declares class FormFactorEllipsoidalCylinder
 //!
 //! @homepage  http://www.bornagainproject.org

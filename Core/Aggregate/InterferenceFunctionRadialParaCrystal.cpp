@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Aggregates/InterferenceFunctionRadialParaCrystal.cpp
+//! @file      Core/Aggregate/InterferenceFunctionRadialParaCrystal.cpp
 //! @brief     Implements class InterferenceFunctionRadialParaCrystal.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -15,8 +15,10 @@
 
 #include "InterferenceFunctionRadialParaCrystal.h"
 #include "BornAgainNamespace.h"
+#include "Exceptions.h"
 #include "ISampleVisitor.h"
 #include "Numeric.h"
+#include "ParameterPool.h"
 #include <limits>
 
 using namespace BornAgain;
@@ -38,7 +40,6 @@ InterferenceFunctionRadialParaCrystal::InterferenceFunctionRadialParaCrystal(
 
 void InterferenceFunctionRadialParaCrystal::init_parameters()
 {
-    clearParameterPool();
     registerParameter(PeakDistance, &m_peak_distance);
     registerParameter(DampingLength, &m_damping_length);
     registerParameter(SizeSpaceCoupling, &m_kappa);

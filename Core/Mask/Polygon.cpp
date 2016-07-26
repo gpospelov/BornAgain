@@ -15,6 +15,7 @@
 
 #include "Polygon.h"
 #include "Bin.h"
+#include "Exceptions.h"
 #include "Macros.h"
 GCC_DIAG_OFF(unused-parameter)
 #include <boost/geometry.hpp>

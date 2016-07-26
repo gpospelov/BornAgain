@@ -73,7 +73,7 @@ public:
 
     bool isModified();
 
-    void setMessageService(WarningMessageService *messageService);
+    void setLogger(WarningMessageService *messageService);
 
     EDocumentStatus getDocumentStatus() const;
 

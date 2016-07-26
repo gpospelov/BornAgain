@@ -65,7 +65,7 @@ ISample* Lattice1DBuilder::buildSample() const
 
 void Lattice1DBuilder::init_parameters()
 {
-    clearParameterPool();
+
     registerParameter("lattice_length", &m_length);
     registerParameter("lattice_rotation", &m_xi);
     registerParameter("corr_length", &m_corr_length);

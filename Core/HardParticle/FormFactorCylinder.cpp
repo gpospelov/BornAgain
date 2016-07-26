@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/HardParticles/FormFactorCylinder.cpp
+//! @file      Core/HardParticle/FormFactorCylinder.cpp
 //! @brief     Implements class FormFactorCylinder.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "FormFactorCylinder.h"
+#include "AttLimits.h"
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
 #include "Units.h"
@@ -36,7 +37,6 @@ bool FormFactorCylinder::check_initialization() const
 
 void FormFactorCylinder::init_parameters()
 {
-    clearParameterPool();
     registerParameter(Radius, &m_radius, AttLimits::n_positive());
     registerParameter(Height, &m_height, AttLimits::n_positive());
 }

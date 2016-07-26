@@ -17,8 +17,7 @@
 #define DISTRIBUTIONHANDLER_H
 
 #include "ParameterDistribution.h"
-
-
+#include <vector>
 
 //! @class DistributionHandler
 //! @ingroup algorithms_internal

@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/SoftParticles/FormFactorSphereGaussianRadius.cpp
+//! @file      Core/SoftParticle/FormFactorSphereGaussianRadius.cpp
 //! @brief     Implements class FormFactorSphereGaussianRadius.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -14,9 +14,10 @@
 // ************************************************************************** //
 
 #include "FormFactorSphereGaussianRadius.h"
+#include "AttLimits.h"
 #include "BornAgainNamespace.h"
 
-using namespace  BornAgain;
+using namespace BornAgain;
 
 FormFactorSphereGaussianRadius::FormFactorSphereGaussianRadius(double mean,
                                                                double sigma)
@@ -52,8 +53,7 @@ double FormFactorSphereGaussianRadius::getRadius() const
     return m_mean;
 }
 
-complex_t FormFactorSphereGaussianRadius::evaluate_for_q(
-        const cvector_t q) const
+complex_t FormFactorSphereGaussianRadius::evaluate_for_q(const cvector_t q) const
 {
     double q2 = std::norm(q.x()) + std::norm(q.y()) + std::norm(q.z());
     double dw = std::exp(-q2*m_sigma*m_sigma/2.0);
@@ -72,7 +72,6 @@ bool FormFactorSphereGaussianRadius::check_initialization() const
 
 void FormFactorSphereGaussianRadius::init_parameters()
 {
-    clearParameterPool();
     registerParameter(MeanRadius, &m_mean, AttLimits::n_positive());
     registerParameter(SigmaRadius, &m_sigma, AttLimits::n_positive());
 }

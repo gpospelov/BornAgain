@@ -18,6 +18,7 @@
 
 #include "IMinimizer.h" // inheriting from
 #include "FitSuiteParameters.h"
+#include "MinimizerOptions.h"
 
 class ROOTMinimizerChiSquaredFunction;
 class ROOTMinimizerGradientFunction;

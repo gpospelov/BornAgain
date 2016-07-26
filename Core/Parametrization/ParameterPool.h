@@ -19,6 +19,8 @@
 #include "ICloneable.h" // inheriting from
 #include "RealParameterWrapper.h"
 #include <map>
+#include <ostream>
+#include <string>
 #include <vector>
 
 //! @class ParameterPool
@@ -72,7 +74,7 @@ public:
     friend std::ostream& operator<<(std::ostream& ostr, const ParameterPool& obj) {
         obj.print(ostr); return ostr; }
 
-protected:
+private:
     //! Prints parameter pool contents.
     virtual void print(std::ostream& ostr) const;
 

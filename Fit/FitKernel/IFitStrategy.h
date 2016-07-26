@@ -31,10 +31,10 @@ class BA_CORE_API_ IFitStrategy : public INamed
 public:
     IFitStrategy();
     IFitStrategy(const std::string& name);
-    virtual IFitStrategy *clone() const = 0;
+    virtual IFitStrategy* clone() const = 0;
 
     virtual ~IFitStrategy() {};
-    virtual void init(FitKernel *fit_suite);
+    virtual void init(FitKernel* fit_suite);
     virtual void execute() = 0;
 
     friend std::ostream &operator<<(std::ostream &ostr, const IFitStrategy &m)
@@ -46,7 +46,7 @@ public:
 protected:
     virtual void print(std::ostream &ostr) const;
 
-    FitKernel *m_kernel;
+    FitKernel* m_kernel;
     IFitStrategy(const IFitStrategy &other);
 
 private:
@@ -62,7 +62,7 @@ class BA_CORE_API_ FitStrategyDefault : public IFitStrategy
 {
  public:
     FitStrategyDefault();
-    virtual IFitStrategy *clone() const;
+    virtual IFitStrategy* clone() const;
     virtual void execute();
 };
 

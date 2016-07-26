@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/HardParticles/FormFactorAnisoPyramid.h
+//! @file      Core/HardParticle/FormFactorAnisoPyramid.h
 //! @brief     Declares class FormFactorAnisoPyramid
 //!
 //! @homepage  http://www.bornagainproject.org

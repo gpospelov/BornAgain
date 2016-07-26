@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Parametrization/IParameterized.cpp
-//! @brief     Implements classes IParameterized and ParameterPattern.
+//! @brief     Implements class IParameterized.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,25 +14,28 @@
 // ************************************************************************** //
 
 #include "IParameterized.h"
+#include "AttLimits.h"
+#include "ParameterPool.h"
 #include <iostream>
 #include <memory>
 #include <sstream>
 
-// Copies INamed, but not the parameters.
-
-IParameterized& IParameterized::operator=(const IParameterized& other)
+IParameterized::IParameterized(const std::string& name)
+    : INamed(name)
 {
-    if( this != &other)
-        INamed::operator=(other);
-    return *this;
+    m_parameters = new ParameterPool(this);
+}
+
+IParameterized::~IParameterized()
+{
+    delete m_parameters;
 }
 
 ParameterPool* IParameterized::createParameterTree()
 {
-    std::unique_ptr<ParameterPool> P_new_pool( new ParameterPool(this) );
-    std::string path("/");
-    addParametersToExternalPool(path, P_new_pool.get());
-    return P_new_pool.release();
+    auto P_new_pool = new ParameterPool(this);
+    addParametersToExternalPool("/", P_new_pool);
+    return P_new_pool;
 }
 
 //! Copies local parameters to external_pool, under name "path/<name>copy_number/"
@@ -48,45 +51,44 @@ std::string IParameterized::addParametersToExternalPool(
     path += getName() + osCopyNumber.str() + "/";
 
     // copy local parameter to external pool
-    m_parameters.copyToExternalPool(path, external_pool);
+    m_parameters->copyToExternalPool(path, external_pool);
 
     return path;
+}
+
+//! Register parameter address in the parameter pool; name allows for wildcard '*'
+void IParameterized::registerParameter(const std::string& name, double* parpointer)
+{
+    m_parameters->registerParameter(name, parpointer, AttLimits::limitless());
+}
+
+//! Register parameter address in the parameter pool; name allows for wildcard '*'
+void IParameterized::registerParameter(
+    const std::string& name, double* parpointer, const AttLimits& limits)
+{
+    m_parameters->registerParameter(name, parpointer, limits);
 }
 
 void IParameterized::setParameterValue(const std::string &name, double value)
 {
     if(name.find('*') == std::string::npos && name.find('/') == std::string::npos) {
-        m_parameters.setParameterValue(name, value);
+        m_parameters->setParameterValue(name, value);
     } else {
         std::unique_ptr<ParameterPool> P_pool { createParameterTree() };
-        if(name.find('*') != std::string::npos) {
+        if(name.find('*') != std::string::npos)
             P_pool->setMatchedParametersValue(name, value);
-        } else {
+        else
             P_pool->setParameterValue(name, value);
-        }
     }
     onChange();
 }
 
-void IParameterized::printParameters()
-{
-    std::unique_ptr<ParameterPool> P_pool( createParameterTree() );
-    std::cout << *P_pool << std::endl;
+//! Returns parameter wrapper named _name_.
+RealParameterWrapper IParameterized::getParameter(const std::string& name) const {
+    return m_parameters->getParameter(name);
 }
 
 void IParameterized::print(std::ostream& ostr) const
 {
-    ostr << "IParameterized:" << getName() << " " << m_parameters;
-}
-
-ParameterPattern& ParameterPattern::beginsWith(std::string start_type)
-{
-    m_pattern = start_type;
-    return *this;
-}
-
-ParameterPattern& ParameterPattern::add(std::string object_type)
-{
-    m_pattern = m_pattern + "/" + object_type;
-    return *this;
+    ostr << "IParameterized:" << getName() << " " << *m_parameters;
 }

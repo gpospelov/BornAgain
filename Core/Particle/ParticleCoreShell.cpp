@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Particles/ParticleCoreShell.cpp
+//! @file      Core/Particle/ParticleCoreShell.cpp
 //! @brief     Implements class ParticleCoreShell.
 //!
 //! @homepage  http://www.bornagainproject.org

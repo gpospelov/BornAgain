@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/HardParticles/FormFactorCone.cpp
+//! @file      Core/HardParticle/FormFactorCone.cpp
 //! @brief     Implements class FormFactorCone.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -14,7 +14,9 @@
 // ************************************************************************** //
 
 #include "FormFactorCone.h"
+#include "AttLimits.h"
 #include "BornAgainNamespace.h"
+#include "Exceptions.h"
 #include "MathFunctions.h"
 #include "Numeric.h"
 #include "Units.h"
@@ -41,7 +43,6 @@ FormFactorCone::FormFactorCone(double radius, double height, double alpha)
         ostr << "Check for 'height <= radius*tan(alpha)' failed.";
         throw Exceptions::ClassInitializationException(ostr.str());
     }
-    clearParameterPool();
     registerParameter(BornAgain::Radius, &m_radius, AttLimits::n_positive());
     registerParameter(BornAgain::Height, &m_height, AttLimits::n_positive());
     registerParameter(BornAgain::Alpha, & m_alpha, AttLimits::n_positive());

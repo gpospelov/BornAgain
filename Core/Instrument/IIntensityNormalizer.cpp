@@ -17,23 +17,22 @@
 
 void IntensityNormalizer::init_parameters()
 {
-    clearParameterPool();
     registerParameter("scale", &m_scale);
     registerParameter("shift", &m_shift);
 }
 
-IntensityNormalizer *IntensityNormalizer::clone() const
+IntensityNormalizer* IntensityNormalizer::clone() const
 {
-    IntensityNormalizer *result = new IntensityNormalizer(m_scale, m_shift);
+    IntensityNormalizer* result = new IntensityNormalizer(m_scale, m_shift);
     result->setMaximumIntensity(m_max_intensity);
     result->setName(getName());
     return result;
 }
 
-OutputData<double> *IntensityNormalizer::createNormalizedData(
+OutputData<double>* IntensityNormalizer::createNormalizedData(
         const OutputData<double>& data) const
 {
-    OutputData<double > *normalized_data = data.clone();
+    OutputData<double >* normalized_data = data.clone();
     apply(*normalized_data);
     return normalized_data;
 }

@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/HardParticles/FormFactorAnisoPyramid.cpp
+//! @file      Core/HardParticle/FormFactorAnisoPyramid.cpp
 //! @brief     Implements class FormFactorAnisoPyramid.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -14,7 +14,9 @@
 // ************************************************************************** //
 
 #include "FormFactorAnisoPyramid.h"
+#include "AttLimits.h"
 #include "BornAgainNamespace.h"
+#include "Exceptions.h"
 #include "MathFunctions.h"
 
 const PolyhedralTopology FormFactorAnisoPyramid::topology = {

@@ -19,7 +19,6 @@
 #include "IMinimizer.h" // inheriting from
 #include "FitSuiteParameters.h"
 
-
 //! @class MinimizerTest
 //! @ingroup fitting_internal
 //! @brief Minimizer which calls minimization function once to test whole chain
@@ -34,14 +33,9 @@ class BA_CORE_API_ MinimizerTest : public IMinimizer
 
     virtual void setParameters(const FitSuiteParameters& parameters);
 
-    virtual void setChiSquaredFunction(function_chi2_t fun_chi2, size_t nparameters) { (void)nparameters, m_fcn = fun_chi2; }
+    virtual void setChiSquaredFunction(function_chi2_t fun_chi2, size_t) { m_fcn = fun_chi2; }
 
-    virtual void setGradientFunction(function_gradient_t fun_gradient, size_t nparameters, size_t ndatasize)
-    {
-        (void)fun_gradient;
-        (void)nparameters;
-        (void)ndatasize;
-    }
+    virtual void setGradientFunction(function_gradient_t, size_t, size_t) {}
 
     virtual size_t getNumberOfVariables() const { return m_parameters.size(); }
 
@@ -58,5 +52,3 @@ class BA_CORE_API_ MinimizerTest : public IMinimizer
 };
 
 #endif // MINIMIZERTEST_H
-
-

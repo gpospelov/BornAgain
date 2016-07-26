@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Particles/FormFactorCrystal.cpp
+//! @file      Core/Particle/FormFactorCrystal.cpp
 //! @brief     Implements class FormFactorCrystal.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -15,6 +15,7 @@
 
 #include "FormFactorCrystal.h"
 #include "BornAgainNamespace.h"
+#include "Exceptions.h"
 #include "Units.h"
 #include "WavevectorInfo.h"
 
@@ -34,9 +35,9 @@ FormFactorCrystal::~FormFactorCrystal()
     delete mp_meso_form_factor;
 }
 
-FormFactorCrystal *FormFactorCrystal::clone() const
+FormFactorCrystal* FormFactorCrystal::clone() const
 {
-    return new FormFactorCrystal(m_lattice, *mp_basis_form_factor, *mp_meso_form_factor);
+    return new FormFactorCrystal(m_lattice,* mp_basis_form_factor,* mp_meso_form_factor);
 }
 
 double FormFactorCrystal::getVolume() const

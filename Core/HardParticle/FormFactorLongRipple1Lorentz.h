@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/HardParticles/FormFactorLongRipple1Lorentz.h
+//! @file      Core/HardParticle/FormFactorLongRipple1Lorentz.h
 //! @brief     Declares class FormFactorLongRipple1Lorentz.
 //!
 //! @homepage  http://www.bornagainproject.org

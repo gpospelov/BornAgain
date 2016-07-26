@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Particles/ParticleDistribution.cpp
+//! @file      Core/Particle/ParticleDistribution.cpp
 //! @brief     Implements class ParticleDistribution.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -15,10 +15,12 @@
 
 #include "ParticleDistribution.h"
 #include "BornAgainNamespace.h"
+#include "Exceptions.h"
+#include "ParameterPool.h"
 #include "ParameterSample.h"
 
-ParticleDistribution::ParticleDistribution(const IParticle &prototype,
-                                           const ParameterDistribution &par_distr)
+ParticleDistribution::ParticleDistribution(const IParticle& prototype,
+                                           const ParameterDistribution& par_distr)
     : m_par_distribution(par_distr)
 {
     setName(BornAgain::ParticleDistributionType);
@@ -26,21 +28,21 @@ ParticleDistribution::ParticleDistribution(const IParticle &prototype,
     registerChild(mP_particle.get());
 }
 
-ParticleDistribution *ParticleDistribution::clone() const
+ParticleDistribution* ParticleDistribution::clone() const
 {
-    ParticleDistribution *p_result
+    ParticleDistribution* p_result
         = new ParticleDistribution(*mP_particle, m_par_distribution);
     p_result->setAbundance(m_abundance);
     return p_result;
 }
 
-ParticleDistribution *ParticleDistribution::cloneInvertB() const
+ParticleDistribution* ParticleDistribution::cloneInvertB() const
 {
     throw Exceptions::NotImplementedException("ParticleDistribution::"
                                               "cloneInvertB: should never be called");
 }
 
-void ParticleDistribution::accept(ISampleVisitor *visitor) const
+void ParticleDistribution::accept(ISampleVisitor* visitor) const
 {
     visitor->visit(this);
 }
@@ -53,18 +55,18 @@ std::string ParticleDistribution::to_str(int indent) const
         ss << child->to_str(indent+1);
     return ss.str();
 }
-void ParticleDistribution::setAmbientMaterial(const IMaterial &material)
+void ParticleDistribution::setAmbientMaterial(const IMaterial& material)
 {
     mP_particle->setAmbientMaterial(material);
 }
 
-const IMaterial *ParticleDistribution::getAmbientMaterial() const
+const IMaterial* ParticleDistribution::getAmbientMaterial() const
 {
     return mP_particle->getAmbientMaterial();
 }
 
 void ParticleDistribution::generateParticles(
-        std::vector<const IParticle *> &particle_vector) const
+        std::vector<const IParticle*>& particle_vector) const
 {
     std::unique_ptr<ParameterPool> P_pool(createDistributedParameterPool());
     std::string main_par_name = m_par_distribution.getMainParameterName();
@@ -96,7 +98,7 @@ void ParticleDistribution::generateParticles(
     for (size_t i = 0; i < main_par_samples.size(); ++i) {
         ParameterSample main_sample = main_par_samples[i];
         double particle_abundance = getAbundance() * main_sample.weight;
-        IParticle *p_particle_clone = mP_particle->clone();
+        IParticle* p_particle_clone = mP_particle->clone();
         std::unique_ptr<ParameterPool> P_new_pool(p_particle_clone->createParameterTree());
         int changed = P_new_pool->setMatchedParametersValue(main_par_name, main_sample.value);
         if (changed != 1) {
@@ -124,12 +126,12 @@ ParameterDistribution ParticleDistribution::getParameterDistribution() const
     return m_par_distribution;
 }
 
-ParameterPool *ParticleDistribution::createDistributedParameterPool() const
+ParameterPool* ParticleDistribution::createDistributedParameterPool() const
 {
     return mP_particle->createParameterTree();
 }
 
-const IParticle *ParticleDistribution::getParticle() const
+const IParticle* ParticleDistribution::getParticle() const
 {
     return mP_particle.get();
 }

@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Particles/IParticle.h
+//! @file      Core/Particle/IParticle.h
 //! @brief     Declares interface IParticle.
 //!
 //! @homepage  http://www.bornagainproject.org

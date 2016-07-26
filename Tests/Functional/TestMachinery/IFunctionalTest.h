@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/TestMachinery/IFunctionalTest.h
+//! @file      Tests/Functional/TestMachinery/IFunctionalTest.h
 //! @brief     Declares pure virtual base class IFunctionalTest.
 //!
 //! @homepage  http://www.bornagainproject.org

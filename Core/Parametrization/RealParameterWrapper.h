@@ -18,7 +18,6 @@
 
 #include "AttLimits.h"
 
-
 class IParameterized;
 
 //! Wrapper to real parameter for remote access to its value and callback abilities
@@ -27,10 +26,9 @@ class IParameterized;
 
 class BA_CORE_API_ RealParameterWrapper {
 public:
-    // TODO? RealParameterWrapper() = delete;
     explicit RealParameterWrapper(
         IParameterized* parent, double* par, const AttLimits& limits=AttLimits::limitless());
-    RealParameterWrapper(const RealParameterWrapper& other );
+    RealParameterWrapper(const RealParameterWrapper& other);
     RealParameterWrapper& operator=(const RealParameterWrapper& other);
 
     //! Sets value of wrapped parameter and emit signal
@@ -43,11 +41,7 @@ public:
     bool isNull() const { return m_data ? false : true; }
 
     //! throw exception if parameter was not initialized with proper value
-    void checkNull() const {
-        if(isNull())
-            throw Exceptions::NullPointerException(
-                "RealParameterWrapper::getValue() -> Attempt to access uninitialised pointer.");
-    }
+    void checkNull() const;
 
     //! Prints the parameter's address to an output stream
     friend std::ostream& operator<<(std::ostream& ostr, const RealParameterWrapper& p) {

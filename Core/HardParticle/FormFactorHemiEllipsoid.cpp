@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/HardParticles/FormFactorHemiEllipsoid.cpp
+//! @file      Core/HardParticle/FormFactorHemiEllipsoid.cpp
 //! @brief     Implements class FormFactorHemiEllipsoid.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "FormFactorHemiEllipsoid.h"
+#include "AttLimits.h"
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
 #include "Numeric.h"
@@ -45,7 +46,6 @@ bool FormFactorHemiEllipsoid::check_initialization() const
 
 void FormFactorHemiEllipsoid::init_parameters()
 {
-    clearParameterPool();
     registerParameter(RadiusX, &m_radius_x, AttLimits::n_positive());
     registerParameter(RadiusY, & m_radius_y, AttLimits::n_positive());
     registerParameter(Height, &m_height, AttLimits::n_positive());

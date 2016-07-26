@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Aggregates/FTDistributions.cpp
+//! @file      Core/Aggregate/FTDistributions.cpp
 //! @brief     Implements class FTDistribution2DCauchy.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -18,6 +18,7 @@
 #include "IntegratorReal.h"
 #include "MathFunctions.h"
 #include "Numeric.h"
+#include "ParameterPool.h"
 #include "Units.h"
 
 using namespace BornAgain;
@@ -31,7 +32,6 @@ void IFTDistribution1D::print(std::ostream& ostr) const
 
 void IFTDistribution1D::init_parameters()
 {
-    clearParameterPool();
     registerParameter(Omega, &m_omega);
 }
 
@@ -174,7 +174,6 @@ IFTDistribution2D::IFTDistribution2D(double coherence_length_x, double coherence
 
 void IFTDistribution2D::init_parameters()
 {
-    clearParameterPool();
     registerParameter(CoherenceLengthX, &m_coherence_length_x);
     registerParameter(CoherenceLengthY, &m_coherence_length_y);
 }

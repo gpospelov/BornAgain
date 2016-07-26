@@ -10,6 +10,12 @@ import glob, re, sys
 def doit( fn ):
     global nchanged, nempty
     fn = re.sub( r'^\./', '', fn )
+    if re.search( r'dev-tools\/', fn ):
+        return
+    if re.search( r'build\/', fn ):
+        return
+    if re.search( r'auto\/', fn ):
+        return
     # print( "File " + fn )
 
     # read in

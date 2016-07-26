@@ -1842,8 +1842,8 @@ class IParameterized(INamed):
 
     def __init__(self, *args):
         """
-        __init__(IParameterized self) -> IParameterized
         __init__(IParameterized self, std::string const & name) -> IParameterized
+        __init__(IParameterized self) -> IParameterized
         __init__(IParameterized self, IParameterized other) -> IParameterized
 
         IParameterized::IParameterized(const IParameterized &other)
@@ -1865,7 +1865,7 @@ class IParameterized(INamed):
         """
         getParameterPool(IParameterized self) -> ParameterPool
 
-        const ParameterPool* IParameterized::getParameterPool() const
+        ParameterPool* IParameterized::getParameterPool() const
 
         Returns pointer to the parameter pool. 
 
@@ -1885,23 +1885,11 @@ class IParameterized(INamed):
         return _libBornAgainCore.IParameterized_createParameterTree(self)
 
 
-    def printParameters(self):
-        """
-        printParameters(IParameterized self)
-
-        void IParameterized::printParameters()
-
-        """
-        return _libBornAgainCore.IParameterized_printParameters(self)
-
-
     def setParameterValue(self, name, value):
         """
         setParameterValue(IParameterized self, std::string const & name, double value)
 
         void IParameterized::setParameterValue(const std::string &name, double value)
-
-        Sets the value of the parameter with the given name. 
 
         """
         return _libBornAgainCore.IParameterized_setParameterValue(self, name, value)
@@ -1919,18 +1907,6 @@ class IParameterized(INamed):
         return _libBornAgainCore.IParameterized_getParameter(self, name)
 
 
-    def clearParameterPool(self):
-        """
-        clearParameterPool(IParameterized self)
-
-        void IParameterized::clearParameterPool()
-
-        Clears the parameter pool. 
-
-        """
-        return _libBornAgainCore.IParameterized_clearParameterPool(self)
-
-
     def onChange(self):
         """onChange(IParameterized self)"""
         return _libBornAgainCore.IParameterized_onChange(self)
@@ -1943,14 +1919,14 @@ class IParameterized(INamed):
 
     def registerParameter(self, *args):
         """
-        registerParameter(IParameterized self, std::string const & name, double * parpointer, AttLimits limits)
         registerParameter(IParameterized self, std::string const & name, double * parpointer)
+        registerParameter(IParameterized self, std::string const & name, double * parpointer, AttLimits limits)
         registerParameter(IParameterized self, std::string const & name, int64_t parpointer, AttLimits limits)
         registerParameter(IParameterized self, std::string const & name, int64_t parpointer)
 
-        void IParameterized::registerParameter(const std::string &name, double *parpointer, const AttLimits &limits=AttLimits::limitless())
+        void IParameterized::registerParameter(const std::string &name, double *parpointer, const AttLimits &limits)
 
-        Register parameter address in the parameter pool. 
+        Register parameter address in the parameter pool; name allows for wildcard '*'. 
 
         """
         return _libBornAgainCore.IParameterized_registerParameter(self, *args)
@@ -1961,69 +1937,6 @@ class IParameterized(INamed):
         return weakref_proxy(self)
 IParameterized_swigregister = _libBornAgainCore.IParameterized_swigregister
 IParameterized_swigregister(IParameterized)
-
-class ParameterPattern(_object):
-    """
-
-
-    Helper class for constructing parameter patterns.
-
-    C++ includes: IParameterized.h
-
-    """
-    __swig_setmethods__ = {}
-    __setattr__ = lambda self, name, value: _swig_setattr(self, ParameterPattern, name, value)
-    __swig_getmethods__ = {}
-    __getattr__ = lambda self, name: _swig_getattr(self, ParameterPattern, name)
-    __repr__ = _swig_repr
-
-    def __init__(self, *args):
-        """
-        __init__(ParameterPattern self) -> ParameterPattern
-        __init__(ParameterPattern self, std::string root_object) -> ParameterPattern
-
-        ParameterPattern::ParameterPattern(std::string root_object)
-
-        """
-        this = _libBornAgainCore.new_ParameterPattern(*args)
-        try:
-            self.this.append(this)
-        except:
-            self.this = this
-
-    def beginsWith(self, start_type):
-        """
-        beginsWith(ParameterPattern self, std::string start_type) -> ParameterPattern
-
-        ParameterPattern & ParameterPattern::beginsWith(std::string start_type)
-
-        """
-        return _libBornAgainCore.ParameterPattern_beginsWith(self, start_type)
-
-
-    def add(self, object_type):
-        """
-        add(ParameterPattern self, std::string object_type) -> ParameterPattern
-
-        ParameterPattern & ParameterPattern::add(std::string object_type)
-
-        """
-        return _libBornAgainCore.ParameterPattern_add(self, object_type)
-
-
-    def toStdString(self):
-        """
-        toStdString(ParameterPattern self) -> std::string
-
-        std::string ParameterPattern::toStdString() const 
-
-        """
-        return _libBornAgainCore.ParameterPattern_toStdString(self)
-
-    __swig_destroy__ = _libBornAgainCore.delete_ParameterPattern
-    __del__ = lambda self: None
-ParameterPattern_swigregister = _libBornAgainCore.ParameterPattern_swigregister
-ParameterPattern_swigregister(ParameterPattern)
 
 
 def GetMajorVersionNumber():
@@ -2299,9 +2212,7 @@ class kvector_t(_object):
         """
         unit(kvector_t self) -> kvector_t
 
-        BasicVector3D<T> Geometry::BasicVector3D< T >::unit() const
-
-        Returns unit vector in direction of this. Throws for null vector. 
+        BasicVector3D< std::complex< double > > Geometry::BasicVector3D< std::complex< double > >::unit() const
 
         """
         return _libBornAgainCore.kvector_t_unit(self)
@@ -2756,9 +2667,7 @@ class cvector_t(_object):
         """
         unit(cvector_t self) -> cvector_t
 
-        BasicVector3D<T> Geometry::BasicVector3D< T >::unit() const
-
-        Returns unit vector in direction of this. Throws for null vector. 
+        BasicVector3D< std::complex< double > > Geometry::BasicVector3D< std::complex< double > >::unit() const
 
         """
         return _libBornAgainCore.cvector_t_unit(self)
@@ -3564,6 +3473,16 @@ class IAxis(_object):
         return _libBornAgainCore.IAxis_findClosestIndex(self, value)
 
 
+    def __eq__(self, right):
+        """__eq__(IAxis self, IAxis right) -> bool"""
+        return _libBornAgainCore.IAxis___eq__(self, right)
+
+
+    def __ne__(self, right):
+        """__ne__(IAxis self, IAxis right) -> bool"""
+        return _libBornAgainCore.IAxis___ne__(self, right)
+
+
     def getBinCenters(self):
         """
         getBinCenters(IAxis self) -> vdouble1d_t
@@ -3606,11 +3525,6 @@ class IAxis(_object):
 
         """
         return _libBornAgainCore.IAxis_contains(self, value)
-
-
-    def __ne__(self, rhs):
-        """__ne__(IAxis self, IAxis rhs) -> bool"""
-        return _libBornAgainCore.IAxis___ne__(self, rhs)
 
 IAxis_swigregister = _libBornAgainCore.IAxis_swigregister
 IAxis_swigregister(IAxis)
@@ -4128,9 +4042,9 @@ class ISample(ICloneable, IParameterized):
         """
         containedMaterials(ISample self) -> std::vector< IMaterial const *,std::allocator< IMaterial const * > >
 
-        std::set< const IMaterial * > ISample::containedMaterials() const
+        std::vector< const IMaterial * > ISample::containedMaterials() const
 
-        Returns set of materials contained in this  ISample. Must be reimplemented in derived classes that define a material. 
+        Returns set of unique materials contained in this  ISample. Must be reimplemented in derived classes that define a material. 
 
         """
         return _libBornAgainCore.ISample_containedMaterials(self)
@@ -4706,9 +4620,9 @@ class ISampleBuilder(IParameterized):
         registerParameter(ISampleBuilder self, std::string const & name, int64_t parpointer, AttLimits limits)
         registerParameter(ISampleBuilder self, std::string const & name, int64_t parpointer)
 
-        void IParameterized::registerParameter(const std::string &name, double *parpointer, const AttLimits &limits=AttLimits::limitless())
+        void IParameterized::registerParameter(const std::string &name, double *parpointer, const AttLimits &limits)
 
-        Register parameter address in the parameter pool. 
+        Register parameter address in the parameter pool; name allows for wildcard '*'. 
 
         """
         return _libBornAgainCore.ISampleBuilder_registerParameter(self, *args)
@@ -4719,8 +4633,6 @@ class ISampleBuilder(IParameterized):
         setParameterValue(ISampleBuilder self, std::string const & name, double value)
 
         void IParameterized::setParameterValue(const std::string &name, double value)
-
-        Sets the value of the parameter with the given name. 
 
         """
         return _libBornAgainCore.ISampleBuilder_setParameterValue(self, name, value)
@@ -5267,9 +5179,7 @@ class IDistribution1D(IParameterized):
         """
         clone(IDistribution1D self) -> IDistribution1D
 
-        virtual IDistribution1D* IDistribution1D::clone() const
-
-        clone method 
+        IDistribution1D * IDistribution1D::clone() const 
 
         """
         return _libBornAgainCore.IDistribution1D_clone(self)
@@ -5553,9 +5463,7 @@ class DistributionLorentz(IDistribution1D):
         """
         clone(DistributionLorentz self) -> DistributionLorentz
 
-        virtual DistributionLorentz* DistributionLorentz::clone() const
-
-        clone method 
+        virtual DistributionLorentz* DistributionLorentz::clone() const 
 
         """
         return _libBornAgainCore.DistributionLorentz_clone(self)
@@ -18832,7 +18740,7 @@ class Logger(_object):
 
     Provides message service.
 
-    C++ includes: MessageService.h
+    C++ includes: Logger.h
 
     """
     __swig_setmethods__ = {}
@@ -21130,7 +21038,7 @@ class ParticleDistribution(IAbstractParticle):
 
         std::string ParticleDistribution::to_str(int indent=0) const
 
-        Returns textual representation of *this and its descendants. 
+        Returns textual representation of* this and its descendants. 
 
         """
         return _libBornAgainCore.ParticleDistribution_to_str(self, indent)

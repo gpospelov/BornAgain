@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/StandardFits/RectDetectorFitTest.h
+//! @file      Tests/Functional/Fit/RectDetectorFitTest.h
 //! @brief     Declares class RectDetectorFitTest.
 //!
 //! @homepage  http://www.bornagainproject.org

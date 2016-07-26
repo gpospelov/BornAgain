@@ -198,17 +198,17 @@ Detector axes will be adjusted to real data axes, if true
 %feature("docstring")  FitObject::~FitObject "FitObject::~FitObject()
 ";
 
-%feature("docstring")  FitObject::getRealData "const OutputData< double > * FitObject::getRealData() const
+%feature("docstring")  FitObject::getRealData "const OutputData<double>* FitObject::getRealData() const
 
 Returns real (experimental) data. 
 ";
 
-%feature("docstring")  FitObject::getSimulationData "const OutputData< double > * FitObject::getSimulationData() const
+%feature("docstring")  FitObject::getSimulationData "const OutputData<double>* FitObject::getSimulationData() const
 
 Returns simulated data. 
 ";
 
-%feature("docstring")  FitObject::getSimulation "const GISASSimulation * FitObject::getSimulation() const
+%feature("docstring")  FitObject::getSimulation "const GISASSimulation* FitObject::getSimulation() const
 
 Returns simulation. 
 ";
@@ -1858,6 +1858,9 @@ C++ includes: ROOTSimAnMinimizer.h
 ";
 
 
+// File: namespaceAlgorithmNames.xml
+
+
 // File: namespaceBA__ROOT.xml
 
 
@@ -1865,6 +1868,12 @@ C++ includes: ROOTSimAnMinimizer.h
 
 
 // File: namespaceMinimizerLibrary.xml
+
+
+// File: namespaceMinimizerNames.xml
+
+
+// File: AlgorithmNames_8h.xml
 
 
 // File: FitKernel_8cpp.xml

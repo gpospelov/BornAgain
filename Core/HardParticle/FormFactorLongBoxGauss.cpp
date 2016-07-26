@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/HardParticles/FormFactorLongBoxGauss.cpp
+//! @file      Core/HardParticle/FormFactorLongBoxGauss.cpp
 //! @brief     Implements class FormFactorLongBoxGauss.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -14,10 +14,11 @@
 // ************************************************************************** //
 
 #include "FormFactorLongBoxGauss.h"
+#include "AttLimits.h"
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
 
-using namespace  BornAgain;
+using namespace BornAgain;
 
 FormFactorLongBoxGauss::FormFactorLongBoxGauss(double length, double width, double height)
     : m_length(length), m_width(width), m_height(height)
@@ -54,7 +55,6 @@ bool FormFactorLongBoxGauss::check_initialization() const
 
 void FormFactorLongBoxGauss::init_parameters()
 {
-    clearParameterPool();
     registerParameter(Length, &m_length, AttLimits::n_positive());
     registerParameter(Width,  &m_width,  AttLimits::n_positive());
     registerParameter(Height, &m_height, AttLimits::n_positive());

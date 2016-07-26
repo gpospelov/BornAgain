@@ -15,8 +15,8 @@
 
 #include "LayerInterface.h"
 #include "BornAgainNamespace.h"
-#include "MessageService.h"
-
+#include "Exceptions.h"
+#include "Logger.h"
 
 LayerInterface::LayerInterface()
 : m_roughness(0)
@@ -31,41 +31,41 @@ LayerInterface::~LayerInterface()
     delete m_roughness;
 }
 
-LayerInterface *LayerInterface::clone() const
+LayerInterface* LayerInterface::clone() const
 {
     throw Exceptions::NotImplementedException("LayerInterface::clone() -> Not allowed to clone.");
 }
 
-void LayerInterface::accept(ISampleVisitor *visitor) const
+void LayerInterface::accept(ISampleVisitor* visitor) const
 {
     visitor->visit(this);
 }
 
-LayerInterface *LayerInterface::createSmoothInterface(
-    const Layer *p_layer_top, const Layer *p_layer_bottom)
+LayerInterface* LayerInterface::createSmoothInterface(
+    const Layer* p_layer_top, const Layer* p_layer_bottom)
 {
-    LayerInterface *lr = new LayerInterface();
+    LayerInterface* lr = new LayerInterface();
     lr->setLayerTop(p_layer_top);
     lr->setLayerBottom(p_layer_bottom);
     return lr;
 }
 
-LayerInterface *LayerInterface::createRoughInterface(
-    const Layer *p_layer_top, const Layer *p_layer_bottom, const LayerRoughness& roughness)
+LayerInterface* LayerInterface::createRoughInterface(
+    const Layer* p_layer_top, const Layer* p_layer_bottom, const LayerRoughness& roughness)
 {
-    LayerInterface *lr = new LayerInterface();
+    LayerInterface* lr = new LayerInterface();
     lr->setLayerTop(p_layer_top);
     lr->setLayerBottom(p_layer_bottom);
     lr->setRoughness(roughness);
     return lr;
 }
 
-void LayerInterface::setLayerTop(const Layer *p_layer_top)
+void LayerInterface::setLayerTop(const Layer* p_layer_top)
 {
     m_LayerTop = p_layer_top;
 }
 
-void LayerInterface::setLayerBottom(const Layer *p_layer_bottom)
+void LayerInterface::setLayerBottom(const Layer* p_layer_bottom)
 {
     m_LayerBottom = p_layer_bottom;
 }
@@ -84,17 +84,17 @@ void LayerInterface::setRoughness(const LayerRoughness& roughness)
     registerChild(m_roughness);
 }
 
-const LayerRoughness *LayerInterface::getRoughness() const
+const LayerRoughness* LayerInterface::getRoughness() const
 {
     return m_roughness;
 }
 
-const Layer *LayerInterface::getLayerTop() const
+const Layer* LayerInterface::getLayerTop() const
 {
     return m_LayerTop;
 }
 
-const Layer *LayerInterface::getLayerBottom() const
+const Layer* LayerInterface::getLayerBottom() const
 {
     return m_LayerBottom;
 }

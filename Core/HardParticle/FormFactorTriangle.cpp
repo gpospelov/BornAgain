@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/HardParticles/FormFactorTriangle.cpp
+//! @file      Core/HardParticle/FormFactorTriangle.cpp
 //! @brief     Implements class FormFactorTriangle.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "FormFactorTriangle.h"
+#include "AttLimits.h"
 #include "BornAgainNamespace.h"
 
 FormFactorTriangle::FormFactorTriangle(const double base_edge)

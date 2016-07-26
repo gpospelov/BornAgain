@@ -30,9 +30,9 @@ public:
     FitSuiteStrategies();
     virtual ~FitSuiteStrategies();
 
-    void init(FitKernel *fit_suite) { m_kernel = fit_suite; }
+    void init(FitKernel* fit_suite) { m_kernel = fit_suite; }
 
-    void addStrategy(IFitStrategy *strategy);
+    void addStrategy(IFitStrategy* strategy);
 
     void minimize();
 
@@ -42,11 +42,11 @@ public:
 
     void clear();
 
-    IFitStrategy *getCurrentStrategy();
-    
+    IFitStrategy* getCurrentStrategy();
+
 private:
     SafePointerVector<IFitStrategy> m_strategies;
-    FitKernel *m_kernel;
+    FitKernel* m_kernel;
     size_t m_current_strategy_index;
 };
 

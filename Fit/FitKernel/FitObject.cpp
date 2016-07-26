@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "FitObject.h"
+#include "FitElement.h"
 #include "GISASSimulation.h"
 #include "IIntensityNormalizer.h"
 
@@ -32,22 +33,6 @@ FitObject::FitObject(const GISASSimulation& simulation, const OutputData<double 
 FitObject::~FitObject()
 {
 }
-
-const OutputData<double> *FitObject::getRealData() const
-{
-    return m_real_data.get();
-}
-
-const OutputData<double> *FitObject::getSimulationData() const
-{
-    return m_simulation_data.get();
-}
-
-const GISASSimulation *FitObject::getSimulation() const
-{
-    return m_simulation.get();
-}
-
 
 //! Adds parameters from local pool to external pool
 std::string FitObject::addParametersToExternalPool(
@@ -90,8 +75,8 @@ bool FitObject::is_possible_to_adjust_simulation() const
 {
     if(m_simulation->getOutputData()->getRank() != m_real_data->getRank()) return false;
     for(size_t i=0; i<m_real_data->getRank(); ++i) {
-        const IAxis *ra = m_real_data->getAxis(i);
-        const IAxis *sa = m_simulation->getOutputData()->getAxis(i);
+        const IAxis* ra = m_real_data->getAxis(i);
+        const IAxis* sa = m_simulation->getOutputData()->getAxis(i);
         if(ra->getSize() > sa->getSize()) return false;
         if(ra->getMin() < sa->getMin()) return false;
         if(ra->getMax() > sa->getMax()) return false;
@@ -115,11 +100,6 @@ std::string FitObject::get_error_message() const
     return message.str();
 }
 
-double FitObject::getWeight() const
-{
-    return m_weight;
-}
-
 size_t FitObject::getSizeOfData() const
 {
     // FIXME Fix this hell
@@ -130,19 +110,17 @@ size_t FitObject::getSizeOfData() const
 //! Runs simulation and put results (the real and simulated intensities) into
 //! external vector. Masked channels will be excluded from the vector.
 void FitObject::prepareFitElements(std::vector<FitElement> &fit_elements, double weight,
-                                   IIntensityNormalizer *normalizer)
+                                   IIntensityNormalizer* normalizer)
 {
     m_simulation->runSimulation();
     m_simulation_data.reset(m_simulation->getDetectorIntensity());
 
-    if(normalizer) {
+    if(normalizer)
         normalizer->apply(*m_simulation_data.get());
-    }
 
-    const OutputData<bool> *masks(0);
-    if(m_simulation->getInstrument().getDetector()->hasMasks()) {
+    const OutputData<bool>* masks(0);
+    if(m_simulation->getInstrument().getDetector()->hasMasks())
         masks = m_simulation->getInstrument().getDetector()->getDetectorMask()->getMaskData();
-    }
 
     if(masks && m_simulation_data->getAllocatedSize() != masks->getAllocatedSize()) {
         std::ostringstream message;
@@ -162,14 +140,12 @@ void FitObject::prepareFitElements(std::vector<FitElement> &fit_elements, double
 
 //!Creates ChiSquared map from external vector.
 // It is used from Python in one example, didn't find nicer way/place to create such map.
-const OutputData<double> *FitObject::getChiSquaredMap(std::vector<FitElement>::const_iterator first,
-                                                std::vector<FitElement>::const_iterator last) const
+const OutputData<double>* FitObject::getChiSquaredMap(
+    std::vector<FitElement>::const_iterator first,
+    std::vector<FitElement>::const_iterator last) const
 {
     m_chi2_data->setAllTo(0.0);
-    for(std::vector<FitElement>::const_iterator it=first; it!=last; ++it) {
+    for(std::vector<FitElement>::const_iterator it=first; it!=last; ++it)
         (*m_chi2_data)[it->getIndex()] = it->getSquaredDifference();
-
-    }
-
     return m_chi2_data.get();
 }

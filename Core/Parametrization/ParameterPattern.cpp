@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Basics/VDouble.h
-//! @brief     Declares the array types vdouble1d_t, vdouble2d_t.
+//! @file      Core/Parametrization/ParameterPattern.cpp
+//! @brief     Implements class ParameterPattern
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,11 +13,16 @@
 //
 // ************************************************************************** //
 
-#ifndef VDOUBLE_H
-#define VDOUBLE_H
+#include "ParameterPattern.h"
 
+ParameterPattern& ParameterPattern::beginsWith(std::string start_type)
+{
+    m_pattern = start_type;
+    return *this;
+}
 
-typedef std::vector<double> vdouble1d_t;
-typedef std::vector<vdouble1d_t> vdouble2d_t;
-
-#endif // VDOUBLE_H
+ParameterPattern& ParameterPattern::add(std::string object_type)
+{
+    m_pattern = m_pattern + "/" + object_type;
+    return *this;
+}

@@ -47,7 +47,7 @@ MesoCrystalBuilder::MesoCrystalBuilder()
 
 void MesoCrystalBuilder::init_parameters()
 {
-    clearParameterPool();
+
     registerParameter("meso_radius", &m_meso_radius);
     registerParameter("surface_filling_ratio", &m_surface_filling_ratio);
     registerParameter("meso_height", &m_meso_height);

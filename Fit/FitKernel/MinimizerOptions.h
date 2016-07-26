@@ -59,21 +59,27 @@ public:
 
     //! set option value
 
-    void setValue(const std::string &name, double val) { setExistingValue(name, m_RealOpts, val); }
-    void setValue(const std::string &name, int val) { setExistingValue(name, m_IntOpts, val);}
-    void setValue(const std::string &name, const std::string &val) { setExistingValue(name, m_NamOpts, val);}
+    void setValue(const std::string& name, double val) {
+        setExistingValue(name, m_RealOpts, val); }
+    void setValue(const std::string& name, int val) {
+        setExistingValue(name, m_IntOpts, val);}
+    void setValue(const std::string& name, const std::string& val) {
+        setExistingValue(name, m_NamOpts, val);}
 
-    void getValue(const std::string &name, int &val) { val = getIntValue(name); }
-    void getValue(const std::string &name, double &val) { val = getRealValue(name); }
-    void getValue(const std::string &name, std::string &val) { val = getNamedValue(name); }
+    void getValue(const std::string& name, int& val) { val = getIntValue(name); }
+    void getValue(const std::string& name, double& val) { val = getRealValue(name); }
+    void getValue(const std::string& name, std::string& val) { val = getNamedValue(name); }
 
-    void addValue(const std::string &name, double val) { addNewValue(name, m_RealOpts, val); }
-    void addValue(const std::string &name, int val) { addNewValue(name, m_IntOpts, val);}
-    void addValue(const std::string &name, const std::string &val) { addNewValue(name, m_NamOpts, val);}
+    void addValue(const std::string& name, double val) {
+        addNewValue(name, m_RealOpts, val); }
+    void addValue(const std::string& name, int val) {
+        addNewValue(name, m_IntOpts, val);}
+    void addValue(const std::string& name, const std::string& val) {
+        addNewValue(name, m_NamOpts, val);}
 
-    int getIntValue(const std::string &name) { return getValue(name, m_IntOpts); }
-    double getRealValue(const std::string &name) { return getValue(name, m_RealOpts); }
-    std::string getNamedValue(const std::string &name) { return getValue(name, m_NamOpts); }
+    int getIntValue(const std::string& name) { return getValue(name, m_IntOpts); }
+    double getRealValue(const std::string& name) { return getValue(name, m_RealOpts); }
+    std::string getNamedValue(const std::string& name) { return getValue(name, m_NamOpts); }
 
     void print() const {
         print_common(std::cout);
@@ -86,44 +92,41 @@ public:
 
 private:
     template<class M>
-    static void setExistingValue(const std::string &name, M & opts, const typename M::mapped_type & value) {
-       typename M::iterator pos;
-       pos = opts.find(name);
-       if (pos != opts.end()) {
-           pos->second = value;
-       } else {
-           throw Exceptions::LogicErrorException("MinimizerOptions::setValue() -> Error! Not existing name '"+name+"'");
-       }
+    static void setExistingValue(
+            const std::string& name, M&  opts, const typename M::mapped_type&  value) {
+        auto pos = opts.find(name);
+        if (pos == opts.end())
+            throw Exceptions::LogicErrorException(
+                "MinimizerOptions::setValue() -> Error! Not existing name '"+name+"'");
+        pos->second = value;
     }
 
     template<class M>
-    static void addNewValue(const std::string &name, M & opts, const typename M::mapped_type & value) {
-       typename M::iterator pos;
-       pos = opts.find(name);
-       if (pos != opts.end()) {
-           throw Exceptions::LogicErrorException("MinimizerOptions::addValue() -> Error! Already existing name '"+name+"'");
-       } else {
-           opts.insert(typename M::value_type(name, value) );
-       }
+    static void addNewValue(
+            const std::string& name, M&  opts, const typename M::mapped_type&  value) {
+        auto pos = opts.find(name);
+        if (pos != opts.end())
+            throw Exceptions::LogicErrorException(
+                "MinimizerOptions::addValue() -> Error! Already existing name '"+name+"'");
+        opts.insert(typename M::value_type(name, value) );
     }
 
     template<class M>
-    static const typename M::mapped_type getValue(const std::string &  name, const M & opts) {
-       typename M::const_iterator pos;
-       pos = opts.find(name);
-       if (pos == opts.end()) {
-           throw Exceptions::LogicErrorException("MinimizerOptions::getValue() -> Error! Not existing name '"+name+"'");
-       }
-       return  (*pos).second;
+    static const typename M::mapped_type getValue(const std::string& name, const M& opts) {
+        auto pos = opts.find(name);
+        if (pos == opts.end())
+            throw Exceptions::LogicErrorException(
+                "MinimizerOptions::getValue() -> Error! Not existing name '"+name+"'");
+        return pos->second;
     }
 
     template<class M>
-    static void print_extra( const M & opts, std::ostream & os) {
-       for (typename M::const_iterator pos = opts.begin(); pos != opts.end(); ++pos)
-          os << std::setw(24) << pos->first << " : " << std::setw(15) << pos->second << std::endl;
+    static void print_extra( const M& opts, std::ostream&  os) {
+        for (auto pos = opts.begin(); pos != opts.end(); ++pos)
+            os << std::setw(24) << pos->first << " : " << std::setw(15) << pos->second << std::endl;
     }
 
-    void print_common(std::ostream & os) const;
+    void print_common(std::ostream& os) const;
 
     double m_tolerance; //!< Tolerance on the function value at the minimum.
     //!< the default tolerance value is 0.01 and the minimization will stop
@@ -147,6 +150,5 @@ private:
     std::map<std::string, int> m_IntOpts; //!< map of the integer options
     std::map<std::string, std::string> m_NamOpts; //!< map of the named options
 };
-
 
 #endif // MINIMIZEROPTIONS_H

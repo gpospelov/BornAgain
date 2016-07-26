@@ -2,6 +2,7 @@
 #define FIXEDBINAXISTEST_H
 
 #include "FixedBinAxis.h"
+#include "Exceptions.h"
 #include "OutputDataIOHelper.h"
 #include <iostream>
 
@@ -9,9 +10,7 @@ class FixedBinAxisTest: public ::testing::Test
 {
 protected:
     FixedBinAxisTest() {}
-
 };
-
 
 TEST_F(FixedBinAxisTest, IndexedAccessor)
 {

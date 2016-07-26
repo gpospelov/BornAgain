@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/SoftParticles/FormFactorSphereUniformRadius.cpp
+//! @file      Core/SoftParticle/FormFactorSphereUniformRadius.cpp
 //! @brief     Implements class FormFactorSphereUniformRadius.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -14,11 +14,13 @@
 // ************************************************************************** //
 
 #include "FormFactorSphereUniformRadius.h"
+#include "AttLimits.h"
 #include "BornAgainNamespace.h"
+#include "Exceptions.h"
 #include "Numeric.h"
 #include "Units.h"
 
-using namespace  BornAgain;
+using namespace BornAgain;
 
 FormFactorSphereUniformRadius::FormFactorSphereUniformRadius(double mean,
         double full_width)
@@ -72,7 +74,6 @@ bool FormFactorSphereUniformRadius::check_initialization() const
 
 void FormFactorSphereUniformRadius::init_parameters()
 {
-    clearParameterPool();
     registerParameter(MeanRadius, &m_mean, AttLimits::n_positive());
     registerParameter(FullWidth, &m_full_width, AttLimits::n_positive());
 }

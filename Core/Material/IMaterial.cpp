@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "IMaterial.h"
+#include "Exceptions.h"
 #include "HomogeneousMagneticMaterial.h"
 
 IMaterial *IMaterial::clone() const

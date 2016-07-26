@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/HardParticles/FormFactorBox.cpp
+//! @file      Core/HardParticle/FormFactorBox.cpp
 //! @brief     Implements class FormFactorBox.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "FormFactorBox.h"
+#include "AttLimits.h"
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
 
@@ -46,7 +47,6 @@ complex_t FormFactorBox::evaluate_for_q(const cvector_t q) const
 
 void FormFactorBox::init_parameters()
 {
-    clearParameterPool();
     registerParameter(Length, &m_length, AttLimits::n_positive());
     registerParameter(Width,  &m_width,  AttLimits::n_positive());
     registerParameter(Height, &m_height, AttLimits::n_positive());

@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/HardParticles/FormFactorPolyhedron.cpp
+//! @file      Core/HardParticle/FormFactorPolyhedron.cpp
 //! @brief     Implements class FormFactorPolyhedron, FormFactorPrism, and auxiliary classes.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -18,6 +18,7 @@
 //! "Form factor (Fourier shape transform) of polygon and polyhedron."
 
 #include "FormFactorPolyhedron.h"
+#include "AttLimits.h"
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
 #include "Precomputed.h"
@@ -26,9 +27,6 @@
 
 static const complex_t I(0.,1.);
 static const double eps(2e-16);
-
-#ifdef POLYHEDRAL_DIAGNOSTIC
-#endif
 
 double PolyhedralFace::qpa_limit_series = 3e-2;
 int PolyhedralFace::n_limit_series = 20;

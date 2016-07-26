@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Aggregates/InterferenceFunction2DParaCrystal.cpp
+//! @file      Core/Aggregate/InterferenceFunction2DParaCrystal.cpp
 //! @brief     Implements class InterferenceFunction2DParaCrystal.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -15,9 +15,11 @@
 
 #include "InterferenceFunction2DParaCrystal.h"
 #include "BornAgainNamespace.h"
+#include "Exceptions.h"
 #include "ISampleVisitor.h"
 #include "IntegratorReal.h"
 #include "Numeric.h"
+#include "ParameterPool.h"
 #include "Units.h"
 #include <limits>
 
@@ -158,7 +160,6 @@ void InterferenceFunction2DParaCrystal::transformToPrincipalAxes(
 
 void InterferenceFunction2DParaCrystal::init_parameters()
 {
-    clearParameterPool();
     registerParameter(LatticeLength1, &m_lattice_params.m_length_1);
     registerParameter(LatticeLength2, &m_lattice_params.m_length_2);
     registerParameter(Alpha, &m_lattice_params.m_angle);

@@ -16,9 +16,10 @@
 #ifndef ISAMPLE_H
 #define ISAMPLE_H
 
-#include "IParameterized.h"
+#include "ICloneable.h" // inheriting from
+#include "IParameterized.h" // inheriting from
 #include "ISampleVisitor.h" // TODO rm
-#include <set>
+#include <vector>
 
 class IMaterial;
 class ISampleVisitor;

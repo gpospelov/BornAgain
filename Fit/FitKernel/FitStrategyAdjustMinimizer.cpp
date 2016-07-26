@@ -15,8 +15,9 @@
 
 #include "FitStrategyAdjustMinimizer.h"
 #include "FitKernel.h"
+#include "IMinimizer.h"
 #include "MinimizerFactory.h"
-
+#include "MinimizerOptions.h"
 
 FitStrategyAdjustMinimizer::FitStrategyAdjustMinimizer()
     : IFitStrategy("FitStrategyAdjustMinimizer"), m_minimizer(nullptr)
@@ -37,20 +38,20 @@ FitStrategyAdjustMinimizer::~FitStrategyAdjustMinimizer()
 }
 
 // partial clone
-FitStrategyAdjustMinimizer *FitStrategyAdjustMinimizer::clone() const
+FitStrategyAdjustMinimizer* FitStrategyAdjustMinimizer::clone() const
 {
-    FitStrategyAdjustMinimizer *result = new FitStrategyAdjustMinimizer();
+    FitStrategyAdjustMinimizer* result = new FitStrategyAdjustMinimizer();
     result->setName(getName());
     result->setMinimizer( MinimizerFactory::createMinimizer(m_minimizer));
     return result;
 }
 
-IMinimizer *FitStrategyAdjustMinimizer::getMinimizer()
+IMinimizer* FitStrategyAdjustMinimizer::getMinimizer()
 {
     return m_minimizer;
 }
 
-void FitStrategyAdjustMinimizer::setMinimizer(IMinimizer *minimizer)
+void FitStrategyAdjustMinimizer::setMinimizer(IMinimizer* minimizer)
 {
     m_minimizer = minimizer;
 }
@@ -59,8 +60,8 @@ void FitStrategyAdjustMinimizer::setMinimizer(const std::string &minimizer_name,
                                               const std::string &algorithm_name,
                                               const std::string &minimizer_options)
 {
-    setMinimizer(MinimizerFactory::createMinimizer(minimizer_name, algorithm_name,
-                                                              minimizer_options));
+    setMinimizer(MinimizerFactory::createMinimizer(
+                     minimizer_name, algorithm_name, minimizer_options));
 }
 
 void FitStrategyAdjustMinimizer::execute()
@@ -73,7 +74,7 @@ void FitStrategyAdjustMinimizer::execute()
     //m_fit_suite->printResults();
 }
 
-MinimizerOptions *FitStrategyAdjustMinimizer::getMinimizerOptions()
+MinimizerOptions* FitStrategyAdjustMinimizer::getMinimizerOptions()
 {
     if(!m_minimizer)
         return nullptr;
@@ -85,9 +86,7 @@ void FitStrategyAdjustMinimizer::print(std::ostream &ostr) const
     ostr << "FitStrategy/AdjustMinimizer: ";
     if(m_minimizer) {
         ostr << m_minimizer->getMinimizerName();
-        if(m_minimizer->getAlgorithmName().size()) {
+        if(m_minimizer->getAlgorithmName().size())
             ostr << "(" << m_minimizer->getAlgorithmName() << ")";
-        }
     }
 }
-

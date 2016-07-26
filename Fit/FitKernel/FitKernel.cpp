@@ -15,11 +15,11 @@
 
 #include "FitKernel.h"
 #include "FitSuite.h"
-#include "MessageService.h"
+#include "Logger.h"
 #include "MinimizerFactory.h"
+#include "ParameterPool.h"
 
-
-FitKernel::FitKernel(FitSuite *fit_suite)
+FitKernel::FitKernel(FitSuite* fit_suite)
     : m_minimizer(MinimizerFactory::createMinimizer("Minuit2", "Migrad"))
     , m_is_last_iteration(false)
     , m_is_interrupted(false)
@@ -47,7 +47,7 @@ void FitKernel::clear()
 
 //! Adds pair of (simulation, real data) for consecutive simulation
 void FitKernel::addSimulationAndRealData(const GISASSimulation& simulation,
-                                         const OutputData<double >& real_data, double weight)
+                                         const OutputData<double>& real_data, double weight)
 {
     m_fit_objects.add(simulation, real_data, weight);
 }
@@ -69,7 +69,8 @@ void FitKernel::addFitStrategy(const IFitStrategy &strategy)
 void FitKernel::setMinimizer(IMinimizer *minimizer)
 {
     if(!minimizer) {
-        msglog(MSG::ERROR) << "FitSuite::setMinimizer() -> Error. Attempt to set nullptr minimizer.";
+        msglog(MSG::ERROR)
+            << "FitSuite::setMinimizer() -> Error. Attempt to set nullptr minimizer.";
     }
     m_minimizer.reset(minimizer);
 }
@@ -104,7 +105,8 @@ void FitKernel::runFit()
 void FitKernel::minimize()
 {
     // initialize minimizer with fitting functions
-    IMinimizer::function_chi2_t fun_chi2 =  [&] (const double* pars) {return m_function_chi2.evaluate(pars);};
+    IMinimizer::function_chi2_t fun_chi2 =
+        [&] (const double* pars) {return m_function_chi2.evaluate(pars);};
     m_minimizer->setChiSquaredFunction( fun_chi2, m_fit_parameters.size());
 
     IMinimizer::function_gradient_t fun_gradient =
@@ -112,7 +114,8 @@ void FitKernel::minimize()
         {
             return m_function_gradient.evaluate(pars, index, gradients);
         };
-    m_minimizer->setGradientFunction( fun_gradient, m_fit_parameters.size(), m_fit_objects.getSizeOfDataSet() );
+    m_minimizer->setGradientFunction(
+        fun_gradient, m_fit_parameters.size(), m_fit_objects.getSizeOfDataSet() );
 
     // initialize minimizer's parameters with the list of local fit parameters
     m_minimizer->setParameters(m_fit_parameters);
@@ -161,7 +164,8 @@ size_t FitKernel::getNCalls() const
 {
     //return m_minimizer->getNCalls();
     // I don't know which function Minimizer calls (chi2 or gradient)
-    return (m_function_chi2.getNCalls() ? m_function_chi2.getNCalls() : m_function_gradient.getNCalls());
+    return m_function_chi2.getNCalls() ?
+        m_function_chi2.getNCalls() : m_function_gradient.getNCalls();
 }
 
 size_t FitKernel::getCurrentStrategyIndex() const

@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Aggregates/InterferenceFunction2DLattice.cpp
+//! @file      Core/Aggregate/InterferenceFunction2DLattice.cpp
 //! @brief     Implements class InterferenceFunction2DLattice.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -15,6 +15,7 @@
 
 #include "InterferenceFunction2DLattice.h"
 #include "BornAgainNamespace.h"
+#include "Exceptions.h"
 #include "Macros.h"
 #include "ISampleVisitor.h"
 #include "Units.h"
@@ -188,7 +189,6 @@ InterferenceFunction2DLattice::InterferenceFunction2DLattice(
 
 void InterferenceFunction2DLattice::init_parameters()
 {
-    clearParameterPool();
     registerParameter(LatticeLength1, &m_lattice_params.m_length_1);
     registerParameter(LatticeLength2, &m_lattice_params.m_length_2);
     registerParameter(Alpha, &m_lattice_params.m_angle);

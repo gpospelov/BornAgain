@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/HardParticles/FormFactorCuboctahedron.cpp
+//! @file      Core/HardParticle/FormFactorCuboctahedron.cpp
 //! @brief     Implements class FormFactorCuboctahedron.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -14,7 +14,9 @@
 // ************************************************************************** //
 
 #include "FormFactorCuboctahedron.h"
+#include "AttLimits.h"
 #include "BornAgainNamespace.h"
+#include "Exceptions.h"
 #include "MathFunctions.h"
 
 const PolyhedralTopology FormFactorCuboctahedron::topology = {

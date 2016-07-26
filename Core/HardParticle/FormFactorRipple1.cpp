@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/HardParticles/FormFactorRipple1.cpp
+//! @file      Core/HardParticle/FormFactorRipple1.cpp
 //! @brief     Implements class FormFactorRipple1.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -14,7 +14,9 @@
 // ************************************************************************** //
 
 #include "FormFactorRipple1.h"
+#include "AttLimits.h"
 #include "BornAgainNamespace.h"
+#include "Exceptions.h"
 #include "MathFunctions.h"
 #include "Units.h"
 
@@ -53,7 +55,6 @@ bool FormFactorRipple1::check_initialization() const
 
 void FormFactorRipple1::init_parameters()
 {
-    clearParameterPool();
     registerParameter(BornAgain::Width, &m_width, AttLimits::n_positive());
     registerParameter(BornAgain::Height, &m_height, AttLimits::n_positive());
     registerParameter(BornAgain::Length, &m_length, AttLimits::n_positive());

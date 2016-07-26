@@ -37,7 +37,7 @@ MagneticParticleZeroFieldBuilder::MagneticParticleZeroFieldBuilder()
 
 void MagneticParticleZeroFieldBuilder::init_parameters()
 {
-    clearParameterPool();
+
     registerParameter("cylinder_radius", &m_cylinder_radius);
     registerParameter("cylinder_height", &m_cylinder_height);
 }
@@ -78,7 +78,7 @@ MagneticCylindersBuilder::MagneticCylindersBuilder()
 
 void MagneticCylindersBuilder::init_parameters()
 {
-    clearParameterPool();
+
     registerParameter("cylinder_radius", &m_cylinder_radius);
     registerParameter("cylinder_height", &m_cylinder_height);
 }

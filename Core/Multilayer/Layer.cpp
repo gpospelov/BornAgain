@@ -19,6 +19,7 @@
 #include "IInterferenceFunction.h"
 #include "ISampleVisitor.h"
 #include "Materials.h"
+#include "ParameterPool.h"
 #include "ParticleLayout.h"
 
 using namespace BornAgain;
@@ -155,7 +156,7 @@ size_t Layer::getNumberOfLayouts() const {
 
 void Layer::init_parameters()
 {
-    clearParameterPool();
+    getParameterPool()->clear(); // non-trivially needed
     registerParameter(Thickness, &m_thickness);
 }
 

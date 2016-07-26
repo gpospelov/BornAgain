@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/SoftParticles/FormFactorLorentz.cpp
+//! @file      Core/SoftParticle/FormFactorLorentz.cpp
 //! @brief     Implements class FormFactorLorentz.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -14,10 +14,11 @@
 // ************************************************************************** //
 
 #include "FormFactorLorentz.h"
+#include "AttLimits.h"
 #include "BornAgainNamespace.h"
 #include "Units.h"
 
-using namespace  BornAgain;
+using namespace BornAgain;
 
 FormFactorLorentz::FormFactorLorentz(double volume)
 {
@@ -41,7 +42,6 @@ bool FormFactorLorentz::check_initialization() const
 
 void FormFactorLorentz::init_parameters()
 {
-    clearParameterPool();
     registerParameter(Width, &m_width, AttLimits::n_positive());
     registerParameter(Height, &m_height, AttLimits::n_positive());
 }

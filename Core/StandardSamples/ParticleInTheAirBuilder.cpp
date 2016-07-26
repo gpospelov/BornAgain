@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "ParticleInTheAirBuilder.h"
+#include "Exceptions.h"
 #include "HomogeneousMaterial.h"
 #include "Layer.h"
 #include "MultiLayer.h"

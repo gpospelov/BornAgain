@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Aggregates/ParticleLayout.cpp
+//! @file      Core/Aggregate/ParticleLayout.cpp
 //! @brief     Implements class ParticleLayout.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "ParticleLayout.h"
+#include "Exceptions.h"
 #include "IInterferenceFunction.h"
 #include "ISampleVisitor.h"
 #include "Particle.h"

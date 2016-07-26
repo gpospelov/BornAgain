@@ -20,6 +20,7 @@
 #include "InterferenceFunctionRadialParaCrystal.h"
 #include "Layer.h"
 #include "MultiLayer.h"
+#include "ParameterPattern.h"
 #include "Particle.h"
 #include "ParticleDistribution.h"
 #include "ParticleLayout.h"

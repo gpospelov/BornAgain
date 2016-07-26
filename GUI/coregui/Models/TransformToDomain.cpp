@@ -37,6 +37,7 @@
 #include "MaskItems.h"
 #include "MaterialUtils.h"
 #include "MultiLayerItem.h"
+#include "ParameterPattern.h"
 #include "ParticleCompositionItem.h"
 #include "ParticleCoreShellItem.h"
 #include "ParticleDistributionItem.h"

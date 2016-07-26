@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "ParticleLayout.h"
+#include "Exceptions.h"
 #include "IInterferenceFunction.h"
 #include "ISampleVisitor.h"
 #include "Particle.h"

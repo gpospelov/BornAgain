@@ -17,7 +17,9 @@
 #define SIMULATIONOPTIONS_H
 
 #include "ThreadInfo.h"
+#include <cstddef>
 
+using std::size_t;
 
 //! @class SimulationOptions
 //! @ingroup simulation

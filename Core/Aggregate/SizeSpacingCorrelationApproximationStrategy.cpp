@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "SizeSpacingCorrelationApproximationStrategy.h"
+#include "Exceptions.h"
 #include "FormFactorInfo.h"
 #include "IFormFactor.h"
 #include "InterferenceFunctionRadialParaCrystal.h"
@@ -26,7 +27,7 @@ SizeSpacingCorrelationApproximationStrategy::SizeSpacingCorrelationApproximation
 }
 
 void SizeSpacingCorrelationApproximationStrategy::init(
-    const SafePointerVector<FormFactorInfo> &form_factor_infos, const IInterferenceFunction &iff)
+    const SafePointerVector<FormFactorInfo>& form_factor_infos, const IInterferenceFunction &iff)
 {
     IInterferenceFunctionStrategy::init(form_factor_infos, iff);
     if (!checkVectorSizes())
@@ -36,7 +37,7 @@ void SizeSpacingCorrelationApproximationStrategy::init(
 }
 
 double SizeSpacingCorrelationApproximationStrategy::evaluateForList(
-    const SimulationElement& sim_element, const std::vector<complex_t> &ff_list) const
+    const SimulationElement& sim_element, const std::vector<complex_t>& ff_list) const
 {
     double qp = getqp(sim_element.getMeanQ());
     double diffuse_intensity = 0.0;

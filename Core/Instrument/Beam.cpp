@@ -17,6 +17,7 @@
 #include "AttLimits.h"
 #include "BornAgainNamespace.h"
 #include "Complex.h"
+#include "Exceptions.h"
 
 using namespace BornAgain;
 

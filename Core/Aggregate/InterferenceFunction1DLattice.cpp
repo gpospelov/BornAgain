@@ -15,6 +15,7 @@
 
 #include "InterferenceFunction1DLattice.h"
 #include "BornAgainNamespace.h"
+#include "Exceptions.h"
 #include "FTDecayFunctions.h"
 #include "ISampleVisitor.h"
 #include "Units.h"

@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "LayersWithAbsorptionBuilder.h"
+#include "Exceptions.h"
 #include "HomogeneousMaterial.h"
 #include "Layer.h"
 #include "LayerInterface.h"

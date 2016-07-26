@@ -16,6 +16,7 @@
 #include "FormFactorLongRipple1Lorentz.h"
 #include "AttLimits.h"
 #include "BornAgainNamespace.h"
+#include "Exceptions.h"
 #include "MathFunctions.h"
 #include "Units.h"
 

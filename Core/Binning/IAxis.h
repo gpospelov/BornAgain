@@ -17,6 +17,7 @@
 #define IAXIS_H
 
 #include "Bin.h"
+#include "Exceptions.h" // TODO mv to .cpp
 #include <vector>
 
 //! @class IAxis

@@ -15,6 +15,7 @@
 
 #include "Ellipse.h"
 #include "Bin.h"
+#include "Exceptions.h"
 
 namespace Geometry {
 
@@ -34,7 +35,7 @@ Ellipse::Ellipse(double xcenter, double ycenter, double xradius, double yradius,
     }
 }
 
-Ellipse *Ellipse::clone() const
+Ellipse* Ellipse::clone() const
 {
     return new Ellipse(*this);
 }

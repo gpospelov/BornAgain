@@ -15,6 +15,7 @@
 
 #include "Rectangle.h"
 #include "Bin.h"
+#include "Exceptions.h"
 
 namespace Geometry {
 

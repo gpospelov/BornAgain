@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "IFormFactor.h"
+#include "Exceptions.h"
 #include "ISampleVisitor.h"
 #include "WavevectorInfo.h"
 

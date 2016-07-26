@@ -16,6 +16,7 @@
 #include "FormFactorCone6.h"
 #include "AttLimits.h"
 #include "BornAgainNamespace.h"
+#include "Exceptions.h"
 #include "MathFunctions.h"
 
 const PolyhedralTopology FormFactorCone6::topology = {

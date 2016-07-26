@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "ISample.h"
+#include "Exceptions.h"
 #include "IMaterial.h"
 #include "ParameterPool.h"
 

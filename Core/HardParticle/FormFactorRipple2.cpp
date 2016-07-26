@@ -16,6 +16,7 @@
 #include "FormFactorRipple2.h"
 #include "AttLimits.h"
 #include "BornAgainNamespace.h"
+#include "Exceptions.h"
 #include "MathFunctions.h"
 
 using namespace BornAgain;

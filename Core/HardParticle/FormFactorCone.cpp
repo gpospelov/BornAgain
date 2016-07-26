@@ -16,6 +16,7 @@
 #include "FormFactorCone.h"
 #include "AttLimits.h"
 #include "BornAgainNamespace.h"
+#include "Exceptions.h"
 #include "MathFunctions.h"
 #include "Numeric.h"
 #include "Units.h"

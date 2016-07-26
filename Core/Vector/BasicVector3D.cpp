@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "BasicVector3D.h"
+#include "Exceptions.h"
 
 typedef std::complex<double> complex_t;
 
@@ -73,6 +74,24 @@ BasicVector3D<std::complex<double>> BasicVector3D<double>::complex() const
     return BasicVector3D<std::complex<double>>( v_[0], v_[1], v_[2] );
 }
 
+//! Returns unit vector in direction of this. Throws for null vector.
+template<>
+BasicVector3D<double> BasicVector3D<double>::unit() const
+{
+    double len = mag();
+    if ( len==0.0 )
+        throw Exceptions::DivisionByZeroException("Cannot normalize zero vector");
+    return BasicVector3D<double>(x()/len, y()/len, z()/len);
+}
+
+template<>
+BasicVector3D<std::complex<double>> BasicVector3D<std::complex<double>>::unit() const
+{
+    double len = mag();
+    if ( len==0.0 )
+        throw Exceptions::DivisionByZeroException("Cannot normalize zero vector");
+    return BasicVector3D<std::complex<double>>(x()/len, y()/len, z()/len);
+}
 
 // -----------------------------------------------------------------------------
 // Combine two vectors

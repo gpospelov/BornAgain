@@ -16,6 +16,7 @@
 #include "FormFactorLongRipple2Lorentz.h"
 #include "AttLimits.h"
 #include "BornAgainNamespace.h"
+#include "Exceptions.h"
 
 using namespace BornAgain;
 

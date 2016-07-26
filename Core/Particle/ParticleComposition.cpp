@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "ParticleComposition.h"
+#include "Exceptions.h"
 #include "FormFactors.h"
 #include "Materials.h"
 #include "ParticleDistribution.h"

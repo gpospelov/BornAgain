@@ -15,6 +15,7 @@
 
 #include "ParticleDistribution.h"
 #include "BornAgainNamespace.h"
+#include "Exceptions.h"
 #include "ParameterPool.h"
 #include "ParameterSample.h"
 

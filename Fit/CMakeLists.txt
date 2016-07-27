@@ -10,13 +10,13 @@ endif()
 
 # --- source and include files ------
 set(FIT_SOURCE_DIRS
+    ${CMAKE_CURRENT_SOURCE_DIR}/Utils
     ${CMAKE_CURRENT_SOURCE_DIR}/Minimizer
     ${CMAKE_CURRENT_SOURCE_DIR}/Parameters
     ${CMAKE_CURRENT_SOURCE_DIR}/RootWrapper
-    ${CMAKE_CURRENT_SOURCE_DIR}/Suite
     )
 
-set(include_dirs ${BUILD_INC_DIR} ${FIT_SOURCE_DIRS})
+set(include_dirs ${BUILD_INC_DIR} ${CMAKE_SOURCE_DIR}/Wrap ${FIT_SOURCE_DIRS})
 
 file(GLOB fitkernel_source_files */*.cpp)
 file(GLOB fitkernel_include_files */*.h)
@@ -30,18 +30,8 @@ if(BORNAGAIN_PYTHON)
     file(MAKE_DIRECTORY ${AUTO_DIR})
     include_directories(${AUTO_DIR})
 
-    set(include_dirs
-        ${FIT_SOURCE_DIRS}
-        ${CMAKE_CURRENT_SOURCE_DIR}/StandardFits
-        ${CMAKE_SOURCE_DIR}/Core/Basics
-        ${CMAKE_SOURCE_DIR}/Core/Instrument
-        ${CMAKE_SOURCE_DIR}/Core/Parametrization
-        ${CMAKE_SOURCE_DIR}/Core/Simulation
-        ${CMAKE_SOURCE_DIR}/Core/StandardSamples
-        ${CMAKE_SOURCE_DIR}/Core/Tools
-        ${CMAKE_SOURCE_DIR}/Core/InputOutput
-        )
-    include_directories(${include_dirs})
+    set(swig_include_dirs ${CMAKE_SOURCE_DIR}/Wrap ${FIT_SOURCE_DIRS})
+    include_directories(${swig_include_dirs})
 
     if(BORNAGAIN_GENERATE_BINDINGS)
 
@@ -67,7 +57,7 @@ if(BORNAGAIN_PYTHON)
         set(swig_dependencies ${swig_dependencies} ${AUTO_DIR}/doxygen_fit.i)
 
         set(SWIG_FLAGS "-c++;-python;-o;${AUTO_DIR}/libBornAgainFit_wrap.cpp;-outdir;${TMP_DIR}")
-        foreach(dir ${include_dirs})
+        foreach(dir ${swig_include_dirs})
             list(APPEND SWIG_FLAGS "-I${dir}")
         endforeach(dir)
 
@@ -106,11 +96,7 @@ if(WIN32)
 endif()
 
 # --- making library ---------
-add_library(
-    ${library_name}
-    SHARED
-    ${source_files} ${include_files}
-    )
+add_library(${library_name} SHARED ${source_files})
 set_Target_properties(${library_name} PROPERTIES PREFIX ${libprefix} SUFFIX ${libsuffix})
 set(${library_name}_LIBRARY_TYPE SHARED)
 
@@ -124,7 +110,6 @@ set(${library_name}_LIBRARY ${library_name} PARENT_SCOPE)
 
 # --- dependencies ---------
 include_directories(
-    ${BornAgainCore_INCLUDE_DIRS}
     ${Boost_INCLUDE_DIRS}
     ${EIGEN3_INCLUDE_DIR}
     ${RootMinimizers_INCLUDE_DIRS}
@@ -133,7 +118,6 @@ include_directories(
 
 target_link_libraries(
     ${library_name}
-    ${BornAgainCore_LIBRARY}
     ${Boost_LIBRARIES}
     ${RootMinimizers_LIBRARY}
     ${GSL_LIBRARIES}
@@ -168,10 +152,7 @@ endif()
 if(APPLE AND BORNAGAIN_APPLE_BUNDLE)
     #    set(link_flags "-Wl,-rpath,@loader_path/../..")
     set(link_flags "-Wl,-rpath,@loader_path/../../Frameworks")
-    set_target_properties(${library_name}
-        PROPERTIES
-        LINK_FLAGS ${link_flags}
-        )
+    set_target_properties(${library_name} PROPERTIES LINK_FLAGS ${link_flags})
 endif()
 
 # -----------------------------------------------

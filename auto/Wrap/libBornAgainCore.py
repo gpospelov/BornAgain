@@ -1895,6 +1895,19 @@ class IParameterized(INamed):
         return _libBornAgainCore.IParameterized_printParameters(self)
 
 
+    def registerParameter(self, *args):
+        """
+        registerParameter(IParameterized self, std::string const & name, double * parpointer)
+        registerParameter(IParameterized self, std::string const & name, double * parpointer, AttLimits limits)
+
+        void IParameterized::registerParameter(const std::string &name, double *parpointer, const AttLimits &limits)
+
+        Register parameter address in the parameter pool; name allows for wildcard '*'. 
+
+        """
+        return _libBornAgainCore.IParameterized_registerParameter(self, *args)
+
+
     def setParameterValue(self, name, value):
         """
         setParameterValue(IParameterized self, std::string const & name, double value)
@@ -1925,21 +1938,6 @@ class IParameterized(INamed):
     def _print(self, ostr):
         """_print(IParameterized self, std::ostream & ostr)"""
         return _libBornAgainCore.IParameterized__print(self, ostr)
-
-
-    def registerParameter(self, *args):
-        """
-        registerParameter(IParameterized self, std::string const & name, double * parpointer)
-        registerParameter(IParameterized self, std::string const & name, double * parpointer, AttLimits limits)
-        registerParameter(IParameterized self, std::string const & name, int64_t parpointer, AttLimits limits)
-        registerParameter(IParameterized self, std::string const & name, int64_t parpointer)
-
-        void IParameterized::registerParameter(const std::string &name, double *parpointer, const AttLimits &limits)
-
-        Register parameter address in the parameter pool; name allows for wildcard '*'. 
-
-        """
-        return _libBornAgainCore.IParameterized_registerParameter(self, *args)
 
     def __disown__(self):
         self.this.disown()
@@ -4542,6 +4540,1708 @@ class swig_dummy_type_const_isample_vector(_object):
     __del__ = lambda self: None
 swig_dummy_type_const_isample_vector_swigregister = _libBornAgainCore.swig_dummy_type_const_isample_vector_swigregister
 swig_dummy_type_const_isample_vector_swigregister(swig_dummy_type_const_isample_vector)
+
+class IChiSquaredModule(ICloneable):
+    """
+
+
+    Interface for  ChiSquaredModule for chi2 calculations. Until BornAgain-1.1, there was another child, ChiSquaredFrequency.
+
+    C++ includes: IChiSquaredModule.h
+
+    """
+    __swig_setmethods__ = {}
+    for _s in [ICloneable]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, IChiSquaredModule, name, value)
+    __swig_getmethods__ = {}
+    for _s in [ICloneable]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, IChiSquaredModule, name)
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainCore.delete_IChiSquaredModule
+    __del__ = lambda self: None
+
+    def clone(self):
+        """
+        clone(IChiSquaredModule self) -> IChiSquaredModule
+
+        virtual IChiSquaredModule* IChiSquaredModule::clone() const =0
+
+        clone method 
+
+        """
+        return _libBornAgainCore.IChiSquaredModule_clone(self)
+
+
+    def getSquaredFunction(self):
+        """
+        getSquaredFunction(IChiSquaredModule self) -> ISquaredFunction
+
+        const ISquaredFunction* IChiSquaredModule::getSquaredFunction() const
+
+        Returns squared function. 
+
+        """
+        return _libBornAgainCore.IChiSquaredModule_getSquaredFunction(self)
+
+
+    def setChiSquaredFunction(self, *args):
+        """
+        setChiSquaredFunction(IChiSquaredModule self, ISquaredFunction squared_function)
+        setChiSquaredFunction(IChiSquaredModule self, ISquaredFunction squared_function)
+
+        void IChiSquaredModule::setChiSquaredFunction(const ISquaredFunction &squared_function)
+
+        """
+        return _libBornAgainCore.IChiSquaredModule_setChiSquaredFunction(self, *args)
+
+
+    def getIntensityNormalizer(self, *args):
+        """
+        getIntensityNormalizer(IChiSquaredModule self) -> IIntensityNormalizer
+        getIntensityNormalizer(IChiSquaredModule self) -> IIntensityNormalizer
+
+        virtual IIntensityNormalizer* IChiSquaredModule::getIntensityNormalizer()
+
+        Returns data normalizer, non-const version needed to set internals. 
+
+        """
+        return _libBornAgainCore.IChiSquaredModule_getIntensityNormalizer(self, *args)
+
+
+    def setIntensityNormalizer(self, data_normalizer):
+        """
+        setIntensityNormalizer(IChiSquaredModule self, IIntensityNormalizer data_normalizer)
+
+        void IChiSquaredModule::setIntensityNormalizer(const IIntensityNormalizer &data_normalizer)
+
+        Sets data normalizer. 
+
+        """
+        return _libBornAgainCore.IChiSquaredModule_setIntensityNormalizer(self, data_normalizer)
+
+
+    def getIntensityFunction(self):
+        """
+        getIntensityFunction(IChiSquaredModule self) -> IIntensityFunction
+
+        virtual const IIntensityFunction* IChiSquaredModule::getIntensityFunction() const
+
+        Returns data rescaler. 
+
+        """
+        return _libBornAgainCore.IChiSquaredModule_getIntensityFunction(self)
+
+
+    def setIntensityFunction(self, intensity_function):
+        """
+        setIntensityFunction(IChiSquaredModule self, IIntensityFunction intensity_function)
+
+        void IChiSquaredModule::setIntensityFunction(const IIntensityFunction &intensity_function)
+
+        Sets data rescaler. 
+
+        """
+        return _libBornAgainCore.IChiSquaredModule_setIntensityFunction(self, intensity_function)
+
+
+    def processFitElements(self, arg2, arg3):
+        """
+        processFitElements(IChiSquaredModule self, std::vector< FitElement,std::allocator< FitElement > >::iterator arg2, std::vector< FitElement,std::allocator< FitElement > >::iterator arg3)
+
+        virtual void IChiSquaredModule::processFitElements(std::vector< FitElement >::iterator, std::vector< FitElement >::iterator)
+
+        """
+        return _libBornAgainCore.IChiSquaredModule_processFitElements(self, arg2, arg3)
+
+IChiSquaredModule_swigregister = _libBornAgainCore.IChiSquaredModule_swigregister
+IChiSquaredModule_swigregister(IChiSquaredModule)
+
+class IObserver(_object):
+    """Proxy of C++ IObserver class"""
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, IObserver, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, IObserver, name)
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainCore.delete_IObserver
+    __del__ = lambda self: None
+
+    def notify(self, subject):
+        """notify(IObserver self, IObservable subject)"""
+        return _libBornAgainCore.IObserver_notify(self, subject)
+
+IObserver_swigregister = _libBornAgainCore.IObserver_swigregister
+IObserver_swigregister(IObserver)
+
+class IObservable(_object):
+    """Proxy of C++ IObservable class"""
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, IObservable, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, IObservable, name)
+    __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainCore.delete_IObservable
+    __del__ = lambda self: None
+
+    def attachObserver(self, obj):
+        """attachObserver(IObservable self, IObservable::observer_t obj)"""
+        return _libBornAgainCore.IObservable_attachObserver(self, obj)
+
+
+    def notifyObservers(self):
+        """notifyObservers(IObservable self)"""
+        return _libBornAgainCore.IObservable_notifyObservers(self)
+
+
+    def __init__(self):
+        """__init__(IObservable self) -> IObservable"""
+        if self.__class__ == IObservable:
+            _self = None
+        else:
+            _self = self
+        this = _libBornAgainCore.new_IObservable(_self, )
+        try:
+            self.this.append(this)
+        except:
+            self.this = this
+    def __disown__(self):
+        self.this.disown()
+        _libBornAgainCore.disown_IObservable(self)
+        return weakref_proxy(self)
+IObservable_swigregister = _libBornAgainCore.IObservable_swigregister
+IObservable_swigregister(IObservable)
+
+class IFitObserver(IObserver):
+    """Proxy of C++ IFitObserver class"""
+    __swig_setmethods__ = {}
+    for _s in [IObserver]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, IFitObserver, name, value)
+    __swig_getmethods__ = {}
+    for _s in [IObserver]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, IFitObserver, name)
+    __repr__ = _swig_repr
+
+    def __init__(self, update_every_nth):
+        """__init__(IFitObserver self, int update_every_nth) -> IFitObserver"""
+        if self.__class__ == IFitObserver:
+            _self = None
+        else:
+            _self = self
+        this = _libBornAgainCore.new_IFitObserver(_self, update_every_nth)
+        try:
+            self.this.append(this)
+        except:
+            self.this = this
+
+    def notify(self, subject):
+        """notify(IFitObserver self, IObservable subject)"""
+        return _libBornAgainCore.IFitObserver_notify(self, subject)
+
+
+    def update(self, fit_suite):
+        """update(IFitObserver self, FitSuite fit_suite)"""
+        return _libBornAgainCore.IFitObserver_update(self, fit_suite)
+
+    __swig_destroy__ = _libBornAgainCore.delete_IFitObserver
+    __del__ = lambda self: None
+    def __disown__(self):
+        self.this.disown()
+        _libBornAgainCore.disown_IFitObserver(self)
+        return weakref_proxy(self)
+IFitObserver_swigregister = _libBornAgainCore.IFitObserver_swigregister
+IFitObserver_swigregister(IFitObserver)
+
+class IFitStrategy(INamed):
+    """Proxy of C++ IFitStrategy class"""
+    __swig_setmethods__ = {}
+    for _s in [INamed]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, IFitStrategy, name, value)
+    __swig_getmethods__ = {}
+    for _s in [INamed]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, IFitStrategy, name)
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+
+    def clone(self):
+        """clone(IFitStrategy self) -> IFitStrategy"""
+        return _libBornAgainCore.IFitStrategy_clone(self)
+
+    __swig_destroy__ = _libBornAgainCore.delete_IFitStrategy
+    __del__ = lambda self: None
+
+    def init(self, fit_suite):
+        """init(IFitStrategy self, FitKernel * fit_suite)"""
+        return _libBornAgainCore.IFitStrategy_init(self, fit_suite)
+
+
+    def execute(self):
+        """execute(IFitStrategy self)"""
+        return _libBornAgainCore.IFitStrategy_execute(self)
+
+IFitStrategy_swigregister = _libBornAgainCore.IFitStrategy_swigregister
+IFitStrategy_swigregister(IFitStrategy)
+
+class FitStrategyDefault(IFitStrategy):
+    """Proxy of C++ FitStrategyDefault class"""
+    __swig_setmethods__ = {}
+    for _s in [IFitStrategy]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, FitStrategyDefault, name, value)
+    __swig_getmethods__ = {}
+    for _s in [IFitStrategy]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, FitStrategyDefault, name)
+    __repr__ = _swig_repr
+
+    def __init__(self):
+        """__init__(FitStrategyDefault self) -> FitStrategyDefault"""
+        this = _libBornAgainCore.new_FitStrategyDefault()
+        try:
+            self.this.append(this)
+        except:
+            self.this = this
+
+    def clone(self):
+        """clone(FitStrategyDefault self) -> IFitStrategy"""
+        return _libBornAgainCore.FitStrategyDefault_clone(self)
+
+
+    def execute(self):
+        """execute(FitStrategyDefault self)"""
+        return _libBornAgainCore.FitStrategyDefault_execute(self)
+
+    __swig_destroy__ = _libBornAgainCore.delete_FitStrategyDefault
+    __del__ = lambda self: None
+FitStrategyDefault_swigregister = _libBornAgainCore.FitStrategyDefault_swigregister
+FitStrategyDefault_swigregister(FitStrategyDefault)
+
+class IIntensityFunction(_object):
+    """
+
+
+    Interface for applying arbitrary function to the measured intensity.
+
+    C++ includes: IIntensityFunction.h
+
+    """
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, IIntensityFunction, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, IIntensityFunction, name)
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainCore.delete_IIntensityFunction
+    __del__ = lambda self: None
+
+    def clone(self):
+        """
+        clone(IIntensityFunction self) -> IIntensityFunction
+
+        virtual IIntensityFunction* IIntensityFunction::clone() const =0
+
+        """
+        return _libBornAgainCore.IIntensityFunction_clone(self)
+
+
+    def evaluate(self, value):
+        """
+        evaluate(IIntensityFunction self, double value) -> double
+
+        virtual double IIntensityFunction::evaluate(double value) const =0
+
+        """
+        return _libBornAgainCore.IIntensityFunction_evaluate(self, value)
+
+IIntensityFunction_swigregister = _libBornAgainCore.IIntensityFunction_swigregister
+IIntensityFunction_swigregister(IIntensityFunction)
+
+class IntensityFunctionLog(IIntensityFunction):
+    """
+
+
+    Algorithm for applying log function to the measured intensity.
+
+    C++ includes: IIntensityFunction.h
+
+    """
+    __swig_setmethods__ = {}
+    for _s in [IIntensityFunction]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, IntensityFunctionLog, name, value)
+    __swig_getmethods__ = {}
+    for _s in [IIntensityFunction]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, IntensityFunctionLog, name)
+    __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainCore.delete_IntensityFunctionLog
+    __del__ = lambda self: None
+
+    def clone(self):
+        """
+        clone(IntensityFunctionLog self) -> IntensityFunctionLog
+
+        virtual IntensityFunctionLog* IntensityFunctionLog::clone() const 
+
+        """
+        return _libBornAgainCore.IntensityFunctionLog_clone(self)
+
+
+    def evaluate(self, value):
+        """
+        evaluate(IntensityFunctionLog self, double value) -> double
+
+        double IntensityFunctionLog::evaluate(double value) const 
+
+        """
+        return _libBornAgainCore.IntensityFunctionLog_evaluate(self, value)
+
+
+    def __init__(self):
+        """
+        __init__(IntensityFunctionLog self) -> IntensityFunctionLog
+
+
+
+        Algorithm for applying log function to the measured intensity.
+
+        C++ includes: IIntensityFunction.h
+
+        """
+        this = _libBornAgainCore.new_IntensityFunctionLog()
+        try:
+            self.this.append(this)
+        except:
+            self.this = this
+IntensityFunctionLog_swigregister = _libBornAgainCore.IntensityFunctionLog_swigregister
+IntensityFunctionLog_swigregister(IntensityFunctionLog)
+
+class IntensityFunctionSqrt(IIntensityFunction):
+    """
+
+
+    Algorithm for applying sqrt function to the measured intensity.
+
+    C++ includes: IIntensityFunction.h
+
+    """
+    __swig_setmethods__ = {}
+    for _s in [IIntensityFunction]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, IntensityFunctionSqrt, name, value)
+    __swig_getmethods__ = {}
+    for _s in [IIntensityFunction]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, IntensityFunctionSqrt, name)
+    __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainCore.delete_IntensityFunctionSqrt
+    __del__ = lambda self: None
+
+    def clone(self):
+        """
+        clone(IntensityFunctionSqrt self) -> IntensityFunctionSqrt
+
+        virtual IntensityFunctionSqrt* IntensityFunctionSqrt::clone() const 
+
+        """
+        return _libBornAgainCore.IntensityFunctionSqrt_clone(self)
+
+
+    def evaluate(self, value):
+        """
+        evaluate(IntensityFunctionSqrt self, double value) -> double
+
+        double IntensityFunctionSqrt::evaluate(double value) const 
+
+        """
+        return _libBornAgainCore.IntensityFunctionSqrt_evaluate(self, value)
+
+
+    def __init__(self):
+        """
+        __init__(IntensityFunctionSqrt self) -> IntensityFunctionSqrt
+
+
+
+        Algorithm for applying sqrt function to the measured intensity.
+
+        C++ includes: IIntensityFunction.h
+
+        """
+        this = _libBornAgainCore.new_IntensityFunctionSqrt()
+        try:
+            self.this.append(this)
+        except:
+            self.this = this
+IntensityFunctionSqrt_swigregister = _libBornAgainCore.IntensityFunctionSqrt_swigregister
+IntensityFunctionSqrt_swigregister(IntensityFunctionSqrt)
+
+class IIntensityNormalizer(IParameterized):
+    """
+
+
+    Interface to  OutputData normalizers.
+
+    C++ includes: IIntensityNormalizer.h
+
+    """
+    __swig_setmethods__ = {}
+    for _s in [IParameterized]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, IIntensityNormalizer, name, value)
+    __swig_getmethods__ = {}
+    for _s in [IParameterized]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, IIntensityNormalizer, name)
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainCore.delete_IIntensityNormalizer
+    __del__ = lambda self: None
+
+    def clone(self):
+        """
+        clone(IIntensityNormalizer self) -> IIntensityNormalizer
+
+        virtual IIntensityNormalizer* IIntensityNormalizer::clone() const =0
+
+        """
+        return _libBornAgainCore.IIntensityNormalizer_clone(self)
+
+
+    def createNormalizedData(self, data):
+        """
+        createNormalizedData(IIntensityNormalizer self, IntensityData data) -> IntensityData
+
+        virtual OutputData<double>* IIntensityNormalizer::createNormalizedData(const OutputData< double > &data) const =0
+
+        """
+        return _libBornAgainCore.IIntensityNormalizer_createNormalizedData(self, data)
+
+
+    def apply(self, data):
+        """
+        apply(IIntensityNormalizer self, IntensityData data)
+
+        virtual void IIntensityNormalizer::apply(OutputData< double > &data) const =0
+
+        """
+        return _libBornAgainCore.IIntensityNormalizer_apply(self, data)
+
+
+    def setMaximumIntensity(self, arg2):
+        """
+        setMaximumIntensity(IIntensityNormalizer self, double arg2)
+
+        virtual void IIntensityNormalizer::setMaximumIntensity(double)=0
+
+        """
+        return _libBornAgainCore.IIntensityNormalizer_setMaximumIntensity(self, arg2)
+
+IIntensityNormalizer_swigregister = _libBornAgainCore.IIntensityNormalizer_swigregister
+IIntensityNormalizer_swigregister(IIntensityNormalizer)
+
+class IntensityNormalizer(IIntensityNormalizer):
+    """
+
+
+    Standard  OutputData normalizer, with configurable max_intensity.
+
+    C++ includes: IIntensityNormalizer.h
+
+    """
+    __swig_setmethods__ = {}
+    for _s in [IIntensityNormalizer]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, IntensityNormalizer, name, value)
+    __swig_getmethods__ = {}
+    for _s in [IIntensityNormalizer]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, IntensityNormalizer, name)
+    __repr__ = _swig_repr
+
+    def __init__(self, scale=1.0, shift=0.0):
+        """
+        __init__(IntensityNormalizer self, double scale=1.0, double shift=0.0) -> IntensityNormalizer
+        __init__(IntensityNormalizer self, double scale=1.0) -> IntensityNormalizer
+        __init__(IntensityNormalizer self) -> IntensityNormalizer
+
+        IntensityNormalizer::IntensityNormalizer(double scale=1.0, double shift=0.0)
+
+        """
+        this = _libBornAgainCore.new_IntensityNormalizer(scale, shift)
+        try:
+            self.this.append(this)
+        except:
+            self.this = this
+    __swig_destroy__ = _libBornAgainCore.delete_IntensityNormalizer
+    __del__ = lambda self: None
+
+    def clone(self):
+        """
+        clone(IntensityNormalizer self) -> IntensityNormalizer
+
+        IntensityNormalizer * IntensityNormalizer::clone() const 
+
+        """
+        return _libBornAgainCore.IntensityNormalizer_clone(self)
+
+
+    def createNormalizedData(self, data):
+        """
+        createNormalizedData(IntensityNormalizer self, IntensityData data) -> IntensityData
+
+        OutputData< double > * IntensityNormalizer::createNormalizedData(const OutputData< double > &data) const 
+
+        """
+        return _libBornAgainCore.IntensityNormalizer_createNormalizedData(self, data)
+
+
+    def apply(self, data):
+        """
+        apply(IntensityNormalizer self, IntensityData data)
+
+        void IntensityNormalizer::apply(OutputData< double > &data) const 
+
+        """
+        return _libBornAgainCore.IntensityNormalizer_apply(self, data)
+
+
+    def setMaximumIntensity(self, max_intensity):
+        """
+        setMaximumIntensity(IntensityNormalizer self, double max_intensity)
+
+        virtual void IntensityNormalizer::setMaximumIntensity(double max_intensity)
+
+        """
+        return _libBornAgainCore.IntensityNormalizer_setMaximumIntensity(self, max_intensity)
+
+IntensityNormalizer_swigregister = _libBornAgainCore.IntensityNormalizer_swigregister
+IntensityNormalizer_swigregister(IntensityNormalizer)
+
+class IntensityScaleAndShiftNormalizer(IntensityNormalizer):
+    """
+
+
+    Simplified  OutputData normalizer, with max_intensity=1.
+
+    C++ includes: IIntensityNormalizer.h
+
+    """
+    __swig_setmethods__ = {}
+    for _s in [IntensityNormalizer]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, IntensityScaleAndShiftNormalizer, name, value)
+    __swig_getmethods__ = {}
+    for _s in [IntensityNormalizer]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, IntensityScaleAndShiftNormalizer, name)
+    __repr__ = _swig_repr
+
+    def __init__(self, scale=1.0, shift=0.0):
+        """
+        __init__(IntensityScaleAndShiftNormalizer self, double scale=1.0, double shift=0.0) -> IntensityScaleAndShiftNormalizer
+        __init__(IntensityScaleAndShiftNormalizer self, double scale=1.0) -> IntensityScaleAndShiftNormalizer
+        __init__(IntensityScaleAndShiftNormalizer self) -> IntensityScaleAndShiftNormalizer
+
+        IntensityScaleAndShiftNormalizer::IntensityScaleAndShiftNormalizer(double scale=1.0, double shift=0.0)
+
+        """
+        this = _libBornAgainCore.new_IntensityScaleAndShiftNormalizer(scale, shift)
+        try:
+            self.this.append(this)
+        except:
+            self.this = this
+    __swig_destroy__ = _libBornAgainCore.delete_IntensityScaleAndShiftNormalizer
+    __del__ = lambda self: None
+
+    def setMaximumIntensity(self, max_intensity):
+        """
+        setMaximumIntensity(IntensityScaleAndShiftNormalizer self, double max_intensity)
+
+        virtual void IntensityScaleAndShiftNormalizer::setMaximumIntensity(double max_intensity)
+
+        """
+        return _libBornAgainCore.IntensityScaleAndShiftNormalizer_setMaximumIntensity(self, max_intensity)
+
+
+    def clone(self):
+        """
+        clone(IntensityScaleAndShiftNormalizer self) -> IntensityScaleAndShiftNormalizer
+
+        virtual IntensityScaleAndShiftNormalizer* IntensityScaleAndShiftNormalizer::clone() const 
+
+        """
+        return _libBornAgainCore.IntensityScaleAndShiftNormalizer_clone(self)
+
+IntensityScaleAndShiftNormalizer_swigregister = _libBornAgainCore.IntensityScaleAndShiftNormalizer_swigregister
+IntensityScaleAndShiftNormalizer_swigregister(IntensityScaleAndShiftNormalizer)
+
+class ISquaredFunction(_object):
+    """
+
+
+    Interface providing measures for deviation between two values.
+
+    Used By  ChiSquaredModule for chi2 calculations
+
+    C++ includes: ISquaredFunction.h
+
+    """
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, ISquaredFunction, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, ISquaredFunction, name)
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainCore.delete_ISquaredFunction
+    __del__ = lambda self: None
+
+    def clone(self):
+        """
+        clone(ISquaredFunction self) -> ISquaredFunction
+
+        virtual ISquaredFunction* ISquaredFunction::clone() const =0
+
+        """
+        return _libBornAgainCore.ISquaredFunction_clone(self)
+
+
+    def calculateSquaredDifference(self, real_value, simulated_value):
+        """
+        calculateSquaredDifference(ISquaredFunction self, double real_value, double simulated_value) -> double
+
+        virtual double ISquaredFunction::calculateSquaredDifference(double real_value, double simulated_value) const =0
+
+        """
+        return _libBornAgainCore.ISquaredFunction_calculateSquaredDifference(self, real_value, simulated_value)
+
+
+    def calculateSquaredError(self, real_value, simulated_value=0.0):
+        """
+        calculateSquaredError(ISquaredFunction self, double real_value, double simulated_value=0.0) -> double
+        calculateSquaredError(ISquaredFunction self, double real_value) -> double
+
+        virtual double ISquaredFunction::calculateSquaredError(double real_value, double simulated_value=0.0) const =0
+
+        """
+        return _libBornAgainCore.ISquaredFunction_calculateSquaredError(self, real_value, simulated_value)
+
+ISquaredFunction_swigregister = _libBornAgainCore.ISquaredFunction_swigregister
+ISquaredFunction_swigregister(ISquaredFunction)
+
+class SquaredFunctionDefault(ISquaredFunction):
+    """
+
+
+    Squared difference between two values.
+
+    value = (a-b)*(a-b)/norm, where norm = max(b, 1.0) a - simulated values, b - real_values
+
+    C++ includes: ISquaredFunction.h
+
+    """
+    __swig_setmethods__ = {}
+    for _s in [ISquaredFunction]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, SquaredFunctionDefault, name, value)
+    __swig_getmethods__ = {}
+    for _s in [ISquaredFunction]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, SquaredFunctionDefault, name)
+    __repr__ = _swig_repr
+
+    def __init__(self):
+        """
+        __init__(SquaredFunctionDefault self) -> SquaredFunctionDefault
+
+        SquaredFunctionDefault::SquaredFunctionDefault()
+
+        """
+        this = _libBornAgainCore.new_SquaredFunctionDefault()
+        try:
+            self.this.append(this)
+        except:
+            self.this = this
+    __swig_destroy__ = _libBornAgainCore.delete_SquaredFunctionDefault
+    __del__ = lambda self: None
+
+    def clone(self):
+        """
+        clone(SquaredFunctionDefault self) -> SquaredFunctionDefault
+
+        virtual SquaredFunctionDefault* SquaredFunctionDefault::clone() const 
+
+        """
+        return _libBornAgainCore.SquaredFunctionDefault_clone(self)
+
+
+    def calculateSquaredDifference(self, real_value, simulated_value):
+        """
+        calculateSquaredDifference(SquaredFunctionDefault self, double real_value, double simulated_value) -> double
+
+        virtual double SquaredFunctionDefault::calculateSquaredDifference(double real_value, double simulated_value) const 
+
+        """
+        return _libBornAgainCore.SquaredFunctionDefault_calculateSquaredDifference(self, real_value, simulated_value)
+
+
+    def calculateSquaredError(self, real_value, simulated_value=0):
+        """
+        calculateSquaredError(SquaredFunctionDefault self, double real_value, double simulated_value=0) -> double
+        calculateSquaredError(SquaredFunctionDefault self, double real_value) -> double
+
+        virtual double SquaredFunctionDefault::calculateSquaredError(double real_value, double simulated_value=0) const 
+
+        """
+        return _libBornAgainCore.SquaredFunctionDefault_calculateSquaredError(self, real_value, simulated_value)
+
+SquaredFunctionDefault_swigregister = _libBornAgainCore.SquaredFunctionDefault_swigregister
+SquaredFunctionDefault_swigregister(SquaredFunctionDefault)
+
+class SquaredFunctionSimError(ISquaredFunction):
+    """
+
+
+    Squared difference between two values.
+
+    value = (a-b)*(a-b)/norm, where norm = max(a, 1.0) a - simulated values, b - real_values
+
+    C++ includes: ISquaredFunction.h
+
+    """
+    __swig_setmethods__ = {}
+    for _s in [ISquaredFunction]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, SquaredFunctionSimError, name, value)
+    __swig_getmethods__ = {}
+    for _s in [ISquaredFunction]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, SquaredFunctionSimError, name)
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainCore.delete_SquaredFunctionSimError
+    __del__ = lambda self: None
+
+    def clone(self):
+        """
+        clone(SquaredFunctionSimError self) -> SquaredFunctionSimError
+
+        virtual SquaredFunctionSimError* SquaredFunctionSimError::clone() const 
+
+        """
+        return _libBornAgainCore.SquaredFunctionSimError_clone(self)
+
+
+    def calculateSquaredDifference(self, real_value, simulated_value):
+        """
+        calculateSquaredDifference(SquaredFunctionSimError self, double real_value, double simulated_value) -> double
+
+        virtual double SquaredFunctionSimError::calculateSquaredDifference(double real_value, double simulated_value) const 
+
+        """
+        return _libBornAgainCore.SquaredFunctionSimError_calculateSquaredDifference(self, real_value, simulated_value)
+
+
+    def calculateSquaredError(self, arg2, simulated_value):
+        """
+        calculateSquaredError(SquaredFunctionSimError self, double arg2, double simulated_value) -> double
+
+        virtual double SquaredFunctionSimError::calculateSquaredError(double, double simulated_value) const 
+
+        """
+        return _libBornAgainCore.SquaredFunctionSimError_calculateSquaredError(self, arg2, simulated_value)
+
+SquaredFunctionSimError_swigregister = _libBornAgainCore.SquaredFunctionSimError_swigregister
+SquaredFunctionSimError_swigregister(SquaredFunctionSimError)
+
+class SquaredFunctionMeanSquaredError(ISquaredFunction):
+    """
+
+
+    Squared difference between two values normalized by mean squared error.
+
+    value = (a-b)*(a-b)/norm, where norm = sqrt(sigma1*sigma1 + sigma2*sigma2), sigma1=max(a, 1.0), sigma2=max(b,1.0)
+
+    C++ includes: ISquaredFunction.h
+
+    """
+    __swig_setmethods__ = {}
+    for _s in [ISquaredFunction]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, SquaredFunctionMeanSquaredError, name, value)
+    __swig_getmethods__ = {}
+    for _s in [ISquaredFunction]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, SquaredFunctionMeanSquaredError, name)
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainCore.delete_SquaredFunctionMeanSquaredError
+    __del__ = lambda self: None
+
+    def clone(self):
+        """
+        clone(SquaredFunctionMeanSquaredError self) -> SquaredFunctionMeanSquaredError
+
+        virtual SquaredFunctionMeanSquaredError* SquaredFunctionMeanSquaredError::clone() const 
+
+        """
+        return _libBornAgainCore.SquaredFunctionMeanSquaredError_clone(self)
+
+
+    def calculateSquaredDifference(self, real_value, simulated_value):
+        """
+        calculateSquaredDifference(SquaredFunctionMeanSquaredError self, double real_value, double simulated_value) -> double
+
+        virtual double SquaredFunctionMeanSquaredError::calculateSquaredDifference(double real_value, double simulated_value) const 
+
+        """
+        return _libBornAgainCore.SquaredFunctionMeanSquaredError_calculateSquaredDifference(self, real_value, simulated_value)
+
+
+    def calculateSquaredError(self, real_value, simulated_value):
+        """
+        calculateSquaredError(SquaredFunctionMeanSquaredError self, double real_value, double simulated_value) -> double
+
+        virtual double SquaredFunctionMeanSquaredError::calculateSquaredError(double real_value, double simulated_value) const 
+
+        """
+        return _libBornAgainCore.SquaredFunctionMeanSquaredError_calculateSquaredError(self, real_value, simulated_value)
+
+SquaredFunctionMeanSquaredError_swigregister = _libBornAgainCore.SquaredFunctionMeanSquaredError_swigregister
+SquaredFunctionMeanSquaredError_swigregister(SquaredFunctionMeanSquaredError)
+
+class SquaredFunctionSystematicError(ISquaredFunction):
+    """
+
+
+    Squared difference between two values normalized by systematic error.
+
+    value = (a-b)*(a-b)/norm, where norm = max(error, 1.0), error = b + (epsilon*b)**2
+
+    C++ includes: ISquaredFunction.h
+
+    """
+    __swig_setmethods__ = {}
+    for _s in [ISquaredFunction]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, SquaredFunctionSystematicError, name, value)
+    __swig_getmethods__ = {}
+    for _s in [ISquaredFunction]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, SquaredFunctionSystematicError, name)
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainCore.delete_SquaredFunctionSystematicError
+    __del__ = lambda self: None
+
+    def clone(self):
+        """
+        clone(SquaredFunctionSystematicError self) -> SquaredFunctionSystematicError
+
+        virtual SquaredFunctionSystematicError* SquaredFunctionSystematicError::clone() const 
+
+        """
+        return _libBornAgainCore.SquaredFunctionSystematicError_clone(self)
+
+
+    def calculateSquaredDifference(self, real_value, simulated_value):
+        """
+        calculateSquaredDifference(SquaredFunctionSystematicError self, double real_value, double simulated_value) -> double
+
+        virtual double SquaredFunctionSystematicError::calculateSquaredDifference(double real_value, double simulated_value) const 
+
+        """
+        return _libBornAgainCore.SquaredFunctionSystematicError_calculateSquaredDifference(self, real_value, simulated_value)
+
+
+    def calculateSquaredError(self, real_value, arg3):
+        """
+        calculateSquaredError(SquaredFunctionSystematicError self, double real_value, double arg3) -> double
+
+        virtual double SquaredFunctionSystematicError::calculateSquaredError(double real_value, double) const 
+
+        """
+        return _libBornAgainCore.SquaredFunctionSystematicError_calculateSquaredError(self, real_value, arg3)
+
+SquaredFunctionSystematicError_swigregister = _libBornAgainCore.SquaredFunctionSystematicError_swigregister
+SquaredFunctionSystematicError_swigregister(SquaredFunctionSystematicError)
+
+class SquaredFunctionGaussianError(ISquaredFunction):
+    """
+
+
+    Squared difference between two values with gaussian error.
+
+    value = (a-b)*(a-b)/norm, where norm = sigma*sigma, sigma - is set by user
+
+    C++ includes: ISquaredFunction.h
+
+    """
+    __swig_setmethods__ = {}
+    for _s in [ISquaredFunction]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, SquaredFunctionGaussianError, name, value)
+    __swig_getmethods__ = {}
+    for _s in [ISquaredFunction]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, SquaredFunctionGaussianError, name)
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainCore.delete_SquaredFunctionGaussianError
+    __del__ = lambda self: None
+
+    def clone(self):
+        """
+        clone(SquaredFunctionGaussianError self) -> SquaredFunctionGaussianError
+
+        virtual SquaredFunctionGaussianError* SquaredFunctionGaussianError::clone() const 
+
+        """
+        return _libBornAgainCore.SquaredFunctionGaussianError_clone(self)
+
+
+    def calculateSquaredDifference(self, real_value, simulated_value):
+        """
+        calculateSquaredDifference(SquaredFunctionGaussianError self, double real_value, double simulated_value) -> double
+
+        virtual double SquaredFunctionGaussianError::calculateSquaredDifference(double real_value, double simulated_value) const 
+
+        """
+        return _libBornAgainCore.SquaredFunctionGaussianError_calculateSquaredDifference(self, real_value, simulated_value)
+
+
+    def calculateSquaredError(self, arg2, arg3):
+        """
+        calculateSquaredError(SquaredFunctionGaussianError self, double arg2, double arg3) -> double
+
+        virtual double SquaredFunctionGaussianError::calculateSquaredError(double, double) const 
+
+        """
+        return _libBornAgainCore.SquaredFunctionGaussianError_calculateSquaredError(self, arg2, arg3)
+
+SquaredFunctionGaussianError_swigregister = _libBornAgainCore.SquaredFunctionGaussianError_swigregister
+SquaredFunctionGaussianError_swigregister(SquaredFunctionGaussianError)
+
+class ChiSquaredModule(IChiSquaredModule):
+    """
+
+
+    Calculation of chi2 between two data sets.
+
+    C++ includes: ChiSquaredModule.h
+
+    """
+    __swig_setmethods__ = {}
+    for _s in [IChiSquaredModule]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, ChiSquaredModule, name, value)
+    __swig_getmethods__ = {}
+    for _s in [IChiSquaredModule]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, ChiSquaredModule, name)
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        """
+        __init__(ChiSquaredModule self) -> ChiSquaredModule
+        __init__(ChiSquaredModule self, ChiSquaredModule other) -> ChiSquaredModule
+
+        ChiSquaredModule::ChiSquaredModule(const ChiSquaredModule &other)
+
+        """
+        this = _libBornAgainCore.new_ChiSquaredModule(*args)
+        try:
+            self.this.append(this)
+        except:
+            self.this = this
+    __swig_destroy__ = _libBornAgainCore.delete_ChiSquaredModule
+    __del__ = lambda self: None
+
+    def clone(self):
+        """
+        clone(ChiSquaredModule self) -> ChiSquaredModule
+
+        virtual ChiSquaredModule* ChiSquaredModule::clone() const
+
+        clone method 
+
+        """
+        return _libBornAgainCore.ChiSquaredModule_clone(self)
+
+
+    def processFitElements(self, first, last):
+        """
+        processFitElements(ChiSquaredModule self, std::vector< FitElement,std::allocator< FitElement > >::iterator first, std::vector< FitElement,std::allocator< FitElement > >::iterator last)
+
+        void ChiSquaredModule::processFitElements(std::vector< FitElement >::iterator first, std::vector< FitElement >::iterator last)
+
+        """
+        return _libBornAgainCore.ChiSquaredModule_processFitElements(self, first, last)
+
+ChiSquaredModule_swigregister = _libBornAgainCore.ChiSquaredModule_swigregister
+ChiSquaredModule_swigregister(ChiSquaredModule)
+
+class FitObject(IParameterized):
+    """Proxy of C++ FitObject class"""
+    __swig_setmethods__ = {}
+    for _s in [IParameterized]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, FitObject, name, value)
+    __swig_getmethods__ = {}
+    for _s in [IParameterized]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, FitObject, name)
+    __repr__ = _swig_repr
+
+    def __init__(self, simulation, real_data, weight=1, adjust_detector_to_data=True):
+        """
+        __init__(FitObject self, GISASSimulation simulation, IntensityData real_data, double weight=1, bool adjust_detector_to_data=True) -> FitObject
+        __init__(FitObject self, GISASSimulation simulation, IntensityData real_data, double weight=1) -> FitObject
+        __init__(FitObject self, GISASSimulation simulation, IntensityData real_data) -> FitObject
+        """
+        this = _libBornAgainCore.new_FitObject(simulation, real_data, weight, adjust_detector_to_data)
+        try:
+            self.this.append(this)
+        except:
+            self.this = this
+    __swig_destroy__ = _libBornAgainCore.delete_FitObject
+    __del__ = lambda self: None
+
+    def getRealData(self):
+        """getRealData(FitObject self) -> IntensityData"""
+        return _libBornAgainCore.FitObject_getRealData(self)
+
+
+    def getSimulationData(self):
+        """getSimulationData(FitObject self) -> IntensityData"""
+        return _libBornAgainCore.FitObject_getSimulationData(self)
+
+
+    def getSimulation(self):
+        """getSimulation(FitObject self) -> GISASSimulation"""
+        return _libBornAgainCore.FitObject_getSimulation(self)
+
+
+    def getWeight(self):
+        """getWeight(FitObject self) -> double"""
+        return _libBornAgainCore.FitObject_getWeight(self)
+
+
+    def getSizeOfData(self):
+        """getSizeOfData(FitObject self) -> size_t"""
+        return _libBornAgainCore.FitObject_getSizeOfData(self)
+
+
+    def prepareFitElements(self, fit_elements, weight, normalizer=None):
+        """
+        prepareFitElements(FitObject self, std::vector< FitElement,std::allocator< FitElement > > & fit_elements, double weight, IIntensityNormalizer normalizer=None)
+        prepareFitElements(FitObject self, std::vector< FitElement,std::allocator< FitElement > > & fit_elements, double weight)
+        """
+        return _libBornAgainCore.FitObject_prepareFitElements(self, fit_elements, weight, normalizer)
+
+
+    def getChiSquaredMap(self, first, last):
+        """getChiSquaredMap(FitObject self, std::vector< FitElement,std::allocator< FitElement > >::const_iterator first, std::vector< FitElement,std::allocator< FitElement > >::const_iterator last) -> IntensityData"""
+        return _libBornAgainCore.FitObject_getChiSquaredMap(self, first, last)
+
+FitObject_swigregister = _libBornAgainCore.FitObject_swigregister
+FitObject_swigregister(FitObject)
+
+class FitOptions(_object):
+    """Proxy of C++ FitOptions class"""
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, FitOptions, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, FitOptions, name)
+    __repr__ = _swig_repr
+
+    def __init__(self):
+        """__init__(FitOptions self) -> FitOptions"""
+        this = _libBornAgainCore.new_FitOptions()
+        try:
+            self.this.append(this)
+        except:
+            self.this = this
+    __swig_destroy__ = _libBornAgainCore.delete_FitOptions
+    __del__ = lambda self: None
+
+    def getDerivEpsilon(self):
+        """getDerivEpsilon(FitOptions self) -> double"""
+        return _libBornAgainCore.FitOptions_getDerivEpsilon(self)
+
+
+    def setDerivEpsilon(self, deriv_epsilon):
+        """setDerivEpsilon(FitOptions self, double deriv_epsilon)"""
+        return _libBornAgainCore.FitOptions_setDerivEpsilon(self, deriv_epsilon)
+
+
+    def getStepFactor(self):
+        """getStepFactor(FitOptions self) -> double"""
+        return _libBornAgainCore.FitOptions_getStepFactor(self)
+
+
+    def setStepFactor(self, step_factor):
+        """setStepFactor(FitOptions self, double step_factor)"""
+        return _libBornAgainCore.FitOptions_setStepFactor(self, step_factor)
+
+FitOptions_swigregister = _libBornAgainCore.FitOptions_swigregister
+FitOptions_swigregister(FitOptions)
+
+class FitSuite(IObservable):
+    """Proxy of C++ FitSuite class"""
+    __swig_setmethods__ = {}
+    for _s in [IObservable]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, FitSuite, name, value)
+    __swig_getmethods__ = {}
+    for _s in [IObservable]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, FitSuite, name)
+    __repr__ = _swig_repr
+
+    def __init__(self):
+        """__init__(FitSuite self) -> FitSuite"""
+        this = _libBornAgainCore.new_FitSuite()
+        try:
+            self.this.append(this)
+        except:
+            self.this = this
+    __swig_destroy__ = _libBornAgainCore.delete_FitSuite
+    __del__ = lambda self: None
+
+    def addSimulationAndRealData(self, *args):
+        """
+        addSimulationAndRealData(FitSuite self, GISASSimulation simulation, IntensityData real_data, double weight=1)
+        addSimulationAndRealData(FitSuite self, GISASSimulation simulation, IntensityData real_data)
+        addSimulationAndRealData(FitSuite self, GISASSimulation simulation, IHistogram real_data, double weight=1)
+        addSimulationAndRealData(FitSuite self, GISASSimulation simulation, IHistogram real_data)
+        """
+        return _libBornAgainCore.FitSuite_addSimulationAndRealData(self, *args)
+
+
+    def addFitParameter(self, *args):
+        """
+        addFitParameter(FitSuite self, std::string const & name, double value, AttLimits attlim, double step=0.0)
+        addFitParameter(FitSuite self, std::string const & name, double value, AttLimits attlim)
+        addFitParameter(FitSuite self, std::string const & name, double value)
+        """
+        return _libBornAgainCore.FitSuite_addFitParameter(self, *args)
+
+
+    def setChiSquaredModule(self, chi2_module):
+        """setChiSquaredModule(FitSuite self, IChiSquaredModule chi2_module)"""
+        return _libBornAgainCore.FitSuite_setChiSquaredModule(self, chi2_module)
+
+
+    def addFitStrategy(self, strategy):
+        """addFitStrategy(FitSuite self, IFitStrategy strategy)"""
+        return _libBornAgainCore.FitSuite_addFitStrategy(self, strategy)
+
+
+    def setMinimizer(self, *args):
+        """
+        setMinimizer(FitSuite self, std::string const & minimizer_name, std::string const & algorithm_name, std::string const & minimizer_options)
+        setMinimizer(FitSuite self, std::string const & minimizer_name, std::string const & algorithm_name)
+        setMinimizer(FitSuite self, std::string const & minimizer_name)
+        setMinimizer(FitSuite self, IMinimizer * minimizer)
+        """
+        return _libBornAgainCore.FitSuite_setMinimizer(self, *args)
+
+
+    def getMinimizer(self):
+        """getMinimizer(FitSuite self) -> IMinimizer *"""
+        return _libBornAgainCore.FitSuite_getMinimizer(self)
+
+
+    def initPrint(self, print_every_nth):
+        """initPrint(FitSuite self, int print_every_nth)"""
+        return _libBornAgainCore.FitSuite_initPrint(self, print_every_nth)
+
+
+    def fixAllParameters(self):
+        """fixAllParameters(FitSuite self)"""
+        return _libBornAgainCore.FitSuite_fixAllParameters(self)
+
+
+    def releaseAllParameters(self):
+        """releaseAllParameters(FitSuite self)"""
+        return _libBornAgainCore.FitSuite_releaseAllParameters(self)
+
+
+    def setParametersFixed(self, pars, is_fixed):
+        """setParametersFixed(FitSuite self, vector_string_t pars, bool is_fixed)"""
+        return _libBornAgainCore.FitSuite_setParametersFixed(self, pars, is_fixed)
+
+
+    def runFit(self):
+        """runFit(FitSuite self)"""
+        return _libBornAgainCore.FitSuite_runFit(self)
+
+
+    def getNumberOfFitObjects(self):
+        """getNumberOfFitObjects(FitSuite self) -> int"""
+        return _libBornAgainCore.FitSuite_getNumberOfFitObjects(self)
+
+
+    def getRealData(self, i_item=0):
+        """
+        getRealData(FitSuite self, size_t i_item=0) -> IHistogram
+        getRealData(FitSuite self) -> IHistogram
+        """
+        return _libBornAgainCore.FitSuite_getRealData(self, i_item)
+
+
+    def getSimulationData(self, i_item=0):
+        """
+        getSimulationData(FitSuite self, size_t i_item=0) -> IHistogram
+        getSimulationData(FitSuite self) -> IHistogram
+        """
+        return _libBornAgainCore.FitSuite_getSimulationData(self, i_item)
+
+
+    def getChiSquaredMap(self, i_item=0):
+        """
+        getChiSquaredMap(FitSuite self, size_t i_item=0) -> IHistogram
+        getChiSquaredMap(FitSuite self) -> IHistogram
+        """
+        return _libBornAgainCore.FitSuite_getChiSquaredMap(self, i_item)
+
+
+    def getFitObjects(self):
+        """getFitObjects(FitSuite self) -> FitSuiteObjects"""
+        return _libBornAgainCore.FitSuite_getFitObjects(self)
+
+
+    def getFitParameters(self):
+        """getFitParameters(FitSuite self) -> FitSuiteParameters *"""
+        return _libBornAgainCore.FitSuite_getFitParameters(self)
+
+
+    def getFitStrategies(self):
+        """getFitStrategies(FitSuite self) -> FitSuiteStrategies *"""
+        return _libBornAgainCore.FitSuite_getFitStrategies(self)
+
+
+    def isLastIteration(self):
+        """isLastIteration(FitSuite self) -> bool"""
+        return _libBornAgainCore.FitSuite_isLastIteration(self)
+
+
+    def getNumberOfIterations(self):
+        """getNumberOfIterations(FitSuite self) -> size_t"""
+        return _libBornAgainCore.FitSuite_getNumberOfIterations(self)
+
+
+    def getCurrentStrategyIndex(self):
+        """getCurrentStrategyIndex(FitSuite self) -> size_t"""
+        return _libBornAgainCore.FitSuite_getCurrentStrategyIndex(self)
+
+
+    def printResults(self):
+        """printResults(FitSuite self)"""
+        return _libBornAgainCore.FitSuite_printResults(self)
+
+
+    def getChi2(self):
+        """getChi2(FitSuite self) -> double"""
+        return _libBornAgainCore.FitSuite_getChi2(self)
+
+
+    def interruptFitting(self):
+        """interruptFitting(FitSuite self)"""
+        return _libBornAgainCore.FitSuite_interruptFitting(self)
+
+
+    def resetInterrupt(self):
+        """resetInterrupt(FitSuite self)"""
+        return _libBornAgainCore.FitSuite_resetInterrupt(self)
+
+
+    def isInterrupted(self):
+        """isInterrupted(FitSuite self) -> bool"""
+        return _libBornAgainCore.FitSuite_isInterrupted(self)
+
+
+    def getRealOutputData(self, i_item=0):
+        """
+        getRealOutputData(FitSuite self, size_t i_item=0) -> IntensityData
+        getRealOutputData(FitSuite self) -> IntensityData
+        """
+        return _libBornAgainCore.FitSuite_getRealOutputData(self, i_item)
+
+
+    def getSimulationOutputData(self, i_item=0):
+        """
+        getSimulationOutputData(FitSuite self, size_t i_item=0) -> IntensityData
+        getSimulationOutputData(FitSuite self) -> IntensityData
+        """
+        return _libBornAgainCore.FitSuite_getSimulationOutputData(self, i_item)
+
+
+    def getChiSquaredOutputData(self, i_item=0):
+        """
+        getChiSquaredOutputData(FitSuite self, size_t i_item=0) -> IntensityData
+        getChiSquaredOutputData(FitSuite self) -> IntensityData
+        """
+        return _libBornAgainCore.FitSuite_getChiSquaredOutputData(self, i_item)
+
+FitSuite_swigregister = _libBornAgainCore.FitSuite_swigregister
+FitSuite_swigregister(FitSuite)
+
+class FitSuiteObjects(IParameterized):
+    """Proxy of C++ FitSuiteObjects class"""
+    __swig_setmethods__ = {}
+    for _s in [IParameterized]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, FitSuiteObjects, name, value)
+    __swig_getmethods__ = {}
+    for _s in [IParameterized]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, FitSuiteObjects, name)
+    __repr__ = _swig_repr
+
+    def __init__(self):
+        """__init__(FitSuiteObjects self) -> FitSuiteObjects"""
+        this = _libBornAgainCore.new_FitSuiteObjects()
+        try:
+            self.this.append(this)
+        except:
+            self.this = this
+    __swig_destroy__ = _libBornAgainCore.delete_FitSuiteObjects
+    __del__ = lambda self: None
+
+    def add(self, simulation, real_data, weight=1.0):
+        """
+        add(FitSuiteObjects self, GISASSimulation simulation, IntensityData real_data, double weight=1.0)
+        add(FitSuiteObjects self, GISASSimulation simulation, IntensityData real_data)
+        """
+        return _libBornAgainCore.FitSuiteObjects_add(self, simulation, real_data, weight)
+
+
+    def getNumberOfFitObjects(self):
+        """getNumberOfFitObjects(FitSuiteObjects self) -> size_t"""
+        return _libBornAgainCore.FitSuiteObjects_getNumberOfFitObjects(self)
+
+
+    def getSizeOfDataSet(self):
+        """getSizeOfDataSet(FitSuiteObjects self) -> size_t"""
+        return _libBornAgainCore.FitSuiteObjects_getSizeOfDataSet(self)
+
+
+    def setChiSquaredModule(self, chi2_module):
+        """setChiSquaredModule(FitSuiteObjects self, IChiSquaredModule chi2_module)"""
+        return _libBornAgainCore.FitSuiteObjects_setChiSquaredModule(self, chi2_module)
+
+
+    def getRealData(self, i_item=0):
+        """
+        getRealData(FitSuiteObjects self, size_t i_item=0) -> IntensityData
+        getRealData(FitSuiteObjects self) -> IntensityData
+        """
+        return _libBornAgainCore.FitSuiteObjects_getRealData(self, i_item)
+
+
+    def getSimulationData(self, i_item=0):
+        """
+        getSimulationData(FitSuiteObjects self, size_t i_item=0) -> IntensityData
+        getSimulationData(FitSuiteObjects self) -> IntensityData
+        """
+        return _libBornAgainCore.FitSuiteObjects_getSimulationData(self, i_item)
+
+
+    def getChiSquaredMap(self, i_item=0):
+        """
+        getChiSquaredMap(FitSuiteObjects self, size_t i_item=0) -> IntensityData
+        getChiSquaredMap(FitSuiteObjects self) -> IntensityData
+        """
+        return _libBornAgainCore.FitSuiteObjects_getChiSquaredMap(self, i_item)
+
+
+    def runSimulations(self):
+        """runSimulations(FitSuiteObjects self)"""
+        return _libBornAgainCore.FitSuiteObjects_runSimulations(self)
+
+
+    def getChiSquaredValue(self):
+        """getChiSquaredValue(FitSuiteObjects self) -> double"""
+        return _libBornAgainCore.FitSuiteObjects_getChiSquaredValue(self)
+
+
+    def getResidualValue(self, global_index):
+        """getResidualValue(FitSuiteObjects self, size_t global_index) -> double"""
+        return _libBornAgainCore.FitSuiteObjects_getResidualValue(self, global_index)
+
+
+    def setNfreeParameters(self, nfree_parameters):
+        """setNfreeParameters(FitSuiteObjects self, int nfree_parameters)"""
+        return _libBornAgainCore.FitSuiteObjects_setNfreeParameters(self, nfree_parameters)
+
+
+    def clear(self):
+        """clear(FitSuiteObjects self)"""
+        return _libBornAgainCore.FitSuiteObjects_clear(self)
+
+FitSuiteObjects_swigregister = _libBornAgainCore.FitSuiteObjects_swigregister
+FitSuiteObjects_swigregister(FitSuiteObjects)
+
+
+def StandardNormal(x):
+    """
+    StandardNormal(double x) -> double
+
+    double MathFunctions::StandardNormal(double x)
+
+    """
+    return _libBornAgainCore.StandardNormal(x)
+
+def Gaussian(x, average, std_dev):
+    """
+    Gaussian(double x, double average, double std_dev) -> double
+
+    double MathFunctions::Gaussian(double x, double average, double std_dev)
+
+    """
+    return _libBornAgainCore.Gaussian(x, average, std_dev)
+
+def IntegratedGaussian(x, average, std_dev):
+    """
+    IntegratedGaussian(double x, double average, double std_dev) -> double
+
+    double MathFunctions::IntegratedGaussian(double x, double average, double std_dev)
+
+    """
+    return _libBornAgainCore.IntegratedGaussian(x, average, std_dev)
+
+def cot(x):
+    """
+    cot(double x) -> double
+
+    double MathFunctions::cot(double x)
+
+    cotangent function:  $cot(x)\\equiv1/tan(x)$
+
+    """
+    return _libBornAgainCore.cot(x)
+
+def Si(x):
+    """
+    Si(double x) -> double
+
+    double MathFunctions::Si(double x)
+
+    Sine integral function:  $Si(x)\\equiv\\int_0^x du \\sin(u)/u$. 
+
+    """
+    return _libBornAgainCore.Si(x)
+
+def sinc(*args):
+    """
+    sinc(double x) -> double
+    sinc(complex_t const z) -> complex_t
+
+    complex_t MathFunctions::sinc(const complex_t z)
+
+    Complex sinc function:  $sinc(x)\\equiv\\sin(x)/x$. 
+
+    """
+    return _libBornAgainCore.sinc(*args)
+
+def tanhc(z):
+    """
+    tanhc(complex_t const z) -> complex_t
+
+    complex_t MathFunctions::tanhc(const complex_t z)
+
+    Complex tanhc function:  $tanhc(x)\\equiv\\tanh(x)/x$. 
+
+    """
+    return _libBornAgainCore.tanhc(z)
+
+def Laue(z, N):
+    """
+    Laue(complex_t const z, size_t N) -> complex_t
+
+    complex_t MathFunctions::Laue(const complex_t z, size_t N)
+
+    """
+    return _libBornAgainCore.Laue(z, N)
+
+def Bessel_J0(*args):
+    """
+    Bessel_J0(double x) -> double
+    Bessel_J0(complex_t const z) -> complex_t
+
+    complex_t MathFunctions::Bessel_J0(const complex_t z)
+
+    Complex Bessel function of the first kind and order 0. 
+
+    """
+    return _libBornAgainCore.Bessel_J0(*args)
+
+def Bessel_J1(*args):
+    """
+    Bessel_J1(double x) -> double
+    Bessel_J1(complex_t const z) -> complex_t
+
+    complex_t MathFunctions::Bessel_J1(const complex_t z)
+
+    Complex Bessel function of the first kind and order 1. 
+
+    """
+    return _libBornAgainCore.Bessel_J1(*args)
+
+def Bessel_J1c(*args):
+    """
+    Bessel_J1c(double x) -> double
+    Bessel_J1c(complex_t const z) -> complex_t
+
+    complex_t MathFunctions::Bessel_J1c(const complex_t z)
+
+    Complex Bessel function Bessel_J1(x)/x. 
+
+    """
+    return _libBornAgainCore.Bessel_J1c(*args)
+
+_libBornAgainCore.FORWARD_FFT_swigconstant(_libBornAgainCore)
+FORWARD_FFT = _libBornAgainCore.FORWARD_FFT
+
+_libBornAgainCore.BACKWARD_FFT_swigconstant(_libBornAgainCore)
+BACKWARD_FFT = _libBornAgainCore.BACKWARD_FFT
+
+def FastFourierTransform(*args):
+    """
+    FastFourierTransform(vector_complex_t data, MathFunctions::EFFTDirection tcase) -> vector_complex_t
+    FastFourierTransform(vdouble1d_t data, MathFunctions::EFFTDirection tcase) -> vector_complex_t
+
+    std::vector< complex_t > MathFunctions::FastFourierTransform(const std::vector< double > &data, EFFTDirection tcase)
+
+    simple (and unoptimized) wrapper function for the discrete fast Fourier transformation library (fftw3); transforms real to complex 
+
+    """
+    return _libBornAgainCore.FastFourierTransform(*args)
+
+def ConvolveFFT(signal, resfunc):
+    """
+    ConvolveFFT(vdouble1d_t signal, vdouble1d_t resfunc) -> vector_complex_t
+
+    std::vector< complex_t > MathFunctions::ConvolveFFT(const std::vector< double > &signal, const std::vector< double > &resfunc)
+
+    convolution of two real vectors of equal size 
+
+    """
+    return _libBornAgainCore.ConvolveFFT(signal, resfunc)
+
+def GenerateUniformRandom():
+    """
+    GenerateUniformRandom() -> double
+
+    double MathFunctions::GenerateUniformRandom()
+
+    """
+    return _libBornAgainCore.GenerateUniformRandom()
+
+def GenerateStandardNormalRandom():
+    """
+    GenerateStandardNormalRandom() -> double
+
+    double MathFunctions::GenerateStandardNormalRandom()
+
+    """
+    return _libBornAgainCore.GenerateStandardNormalRandom()
+
+def GenerateNormalRandom(average, std_dev):
+    """
+    GenerateNormalRandom(double average, double std_dev) -> double
+
+    double MathFunctions::GenerateNormalRandom(double average, double std_dev)
+
+    """
+    return _libBornAgainCore.GenerateNormalRandom(average, std_dev)
+class FitStrategyAdjustMinimizer(IFitStrategy):
+    """Proxy of C++ FitStrategyAdjustMinimizer class"""
+    __swig_setmethods__ = {}
+    for _s in [IFitStrategy]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, FitStrategyAdjustMinimizer, name, value)
+    __swig_getmethods__ = {}
+    for _s in [IFitStrategy]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, FitStrategyAdjustMinimizer, name)
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        """
+        __init__(FitStrategyAdjustMinimizer self) -> FitStrategyAdjustMinimizer
+        __init__(FitStrategyAdjustMinimizer self, std::string const & minimizer_name, std::string const & algorithm_name, std::string const & minimizer_options) -> FitStrategyAdjustMinimizer
+        __init__(FitStrategyAdjustMinimizer self, std::string const & minimizer_name, std::string const & algorithm_name) -> FitStrategyAdjustMinimizer
+        __init__(FitStrategyAdjustMinimizer self, std::string const & minimizer_name) -> FitStrategyAdjustMinimizer
+        """
+        this = _libBornAgainCore.new_FitStrategyAdjustMinimizer(*args)
+        try:
+            self.this.append(this)
+        except:
+            self.this = this
+    __swig_destroy__ = _libBornAgainCore.delete_FitStrategyAdjustMinimizer
+    __del__ = lambda self: None
+
+    def clone(self):
+        """clone(FitStrategyAdjustMinimizer self) -> FitStrategyAdjustMinimizer"""
+        return _libBornAgainCore.FitStrategyAdjustMinimizer_clone(self)
+
+
+    def getMinimizer(self):
+        """getMinimizer(FitStrategyAdjustMinimizer self) -> IMinimizer *"""
+        return _libBornAgainCore.FitStrategyAdjustMinimizer_getMinimizer(self)
+
+
+    def setMinimizer(self, *args):
+        """
+        setMinimizer(FitStrategyAdjustMinimizer self, IMinimizer * minimizer)
+        setMinimizer(FitStrategyAdjustMinimizer self, std::string const & minimizer_name, std::string const & algorithm_name, std::string const & minimizer_options)
+        setMinimizer(FitStrategyAdjustMinimizer self, std::string const & minimizer_name, std::string const & algorithm_name)
+        setMinimizer(FitStrategyAdjustMinimizer self, std::string const & minimizer_name)
+        """
+        return _libBornAgainCore.FitStrategyAdjustMinimizer_setMinimizer(self, *args)
+
+
+    def execute(self):
+        """execute(FitStrategyAdjustMinimizer self)"""
+        return _libBornAgainCore.FitStrategyAdjustMinimizer_execute(self)
+
+
+    def getMinimizerOptions(self):
+        """getMinimizerOptions(FitStrategyAdjustMinimizer self) -> MinimizerOptions *"""
+        return _libBornAgainCore.FitStrategyAdjustMinimizer_getMinimizerOptions(self)
+
+FitStrategyAdjustMinimizer_swigregister = _libBornAgainCore.FitStrategyAdjustMinimizer_swigregister
+FitStrategyAdjustMinimizer_swigregister(FitStrategyAdjustMinimizer)
 
 class ISampleBuilder(IParameterized):
     """
@@ -18430,179 +20130,6 @@ class HorizontalLine(IShape2D):
 HorizontalLine_swigregister = _libBornAgainCore.HorizontalLine_swigregister
 HorizontalLine_swigregister(HorizontalLine)
 
-
-def StandardNormal(x):
-    """
-    StandardNormal(double x) -> double
-
-    double MathFunctions::StandardNormal(double x)
-
-    """
-    return _libBornAgainCore.StandardNormal(x)
-
-def Gaussian(x, average, std_dev):
-    """
-    Gaussian(double x, double average, double std_dev) -> double
-
-    double MathFunctions::Gaussian(double x, double average, double std_dev)
-
-    """
-    return _libBornAgainCore.Gaussian(x, average, std_dev)
-
-def IntegratedGaussian(x, average, std_dev):
-    """
-    IntegratedGaussian(double x, double average, double std_dev) -> double
-
-    double MathFunctions::IntegratedGaussian(double x, double average, double std_dev)
-
-    """
-    return _libBornAgainCore.IntegratedGaussian(x, average, std_dev)
-
-def cot(x):
-    """
-    cot(double x) -> double
-
-    double MathFunctions::cot(double x)
-
-    cotangent function:  $cot(x)\\equiv1/tan(x)$
-
-    """
-    return _libBornAgainCore.cot(x)
-
-def Si(x):
-    """
-    Si(double x) -> double
-
-    double MathFunctions::Si(double x)
-
-    Sine integral function:  $Si(x)\\equiv\\int_0^x du \\sin(u)/u$. 
-
-    """
-    return _libBornAgainCore.Si(x)
-
-def sinc(*args):
-    """
-    sinc(double x) -> double
-    sinc(complex_t const z) -> complex_t
-
-    complex_t MathFunctions::sinc(const complex_t z)
-
-    Complex sinc function:  $sinc(x)\\equiv\\sin(x)/x$. 
-
-    """
-    return _libBornAgainCore.sinc(*args)
-
-def tanhc(z):
-    """
-    tanhc(complex_t const z) -> complex_t
-
-    complex_t MathFunctions::tanhc(const complex_t z)
-
-    Complex tanhc function:  $tanhc(x)\\equiv\\tanh(x)/x$. 
-
-    """
-    return _libBornAgainCore.tanhc(z)
-
-def Laue(z, N):
-    """
-    Laue(complex_t const z, size_t N) -> complex_t
-
-    complex_t MathFunctions::Laue(const complex_t z, size_t N)
-
-    """
-    return _libBornAgainCore.Laue(z, N)
-
-def Bessel_J0(*args):
-    """
-    Bessel_J0(double x) -> double
-    Bessel_J0(complex_t const z) -> complex_t
-
-    complex_t MathFunctions::Bessel_J0(const complex_t z)
-
-    Complex Bessel function of the first kind and order 0. 
-
-    """
-    return _libBornAgainCore.Bessel_J0(*args)
-
-def Bessel_J1(*args):
-    """
-    Bessel_J1(double x) -> double
-    Bessel_J1(complex_t const z) -> complex_t
-
-    complex_t MathFunctions::Bessel_J1(const complex_t z)
-
-    Complex Bessel function of the first kind and order 1. 
-
-    """
-    return _libBornAgainCore.Bessel_J1(*args)
-
-def Bessel_J1c(*args):
-    """
-    Bessel_J1c(double x) -> double
-    Bessel_J1c(complex_t const z) -> complex_t
-
-    complex_t MathFunctions::Bessel_J1c(const complex_t z)
-
-    Complex Bessel function Bessel_J1(x)/x. 
-
-    """
-    return _libBornAgainCore.Bessel_J1c(*args)
-
-_libBornAgainCore.FORWARD_FFT_swigconstant(_libBornAgainCore)
-FORWARD_FFT = _libBornAgainCore.FORWARD_FFT
-
-_libBornAgainCore.BACKWARD_FFT_swigconstant(_libBornAgainCore)
-BACKWARD_FFT = _libBornAgainCore.BACKWARD_FFT
-
-def FastFourierTransform(*args):
-    """
-    FastFourierTransform(vector_complex_t data, MathFunctions::EFFTDirection tcase) -> vector_complex_t
-    FastFourierTransform(vdouble1d_t data, MathFunctions::EFFTDirection tcase) -> vector_complex_t
-
-    std::vector< complex_t > MathFunctions::FastFourierTransform(const std::vector< double > &data, EFFTDirection tcase)
-
-    simple (and unoptimized) wrapper function for the discrete fast Fourier transformation library (fftw3); transforms real to complex 
-
-    """
-    return _libBornAgainCore.FastFourierTransform(*args)
-
-def ConvolveFFT(signal, resfunc):
-    """
-    ConvolveFFT(vdouble1d_t signal, vdouble1d_t resfunc) -> vector_complex_t
-
-    std::vector< complex_t > MathFunctions::ConvolveFFT(const std::vector< double > &signal, const std::vector< double > &resfunc)
-
-    convolution of two real vectors of equal size 
-
-    """
-    return _libBornAgainCore.ConvolveFFT(signal, resfunc)
-
-def GenerateUniformRandom():
-    """
-    GenerateUniformRandom() -> double
-
-    double MathFunctions::GenerateUniformRandom()
-
-    """
-    return _libBornAgainCore.GenerateUniformRandom()
-
-def GenerateStandardNormalRandom():
-    """
-    GenerateStandardNormalRandom() -> double
-
-    double MathFunctions::GenerateStandardNormalRandom()
-
-    """
-    return _libBornAgainCore.GenerateStandardNormalRandom()
-
-def GenerateNormalRandom(average, std_dev):
-    """
-    GenerateNormalRandom(double average, double std_dev) -> double
-
-    double MathFunctions::GenerateNormalRandom(double average, double std_dev)
-
-    """
-    return _libBornAgainCore.GenerateNormalRandom(average, std_dev)
 class MesoCrystal(IParticle):
     """
 
@@ -19381,168 +20908,6 @@ class OffSpecSimulation(Simulation):
 
 OffSpecSimulation_swigregister = _libBornAgainCore.OffSpecSimulation_swigregister
 OffSpecSimulation_swigregister(OffSpecSimulation)
-
-class IIntensityFunction(_object):
-    """
-
-
-    Interface for applying arbitrary function to the measured intensity.
-
-    C++ includes: IIntensityFunction.h
-
-    """
-    __swig_setmethods__ = {}
-    __setattr__ = lambda self, name, value: _swig_setattr(self, IIntensityFunction, name, value)
-    __swig_getmethods__ = {}
-    __getattr__ = lambda self, name: _swig_getattr(self, IIntensityFunction, name)
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined - class is abstract")
-    __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainCore.delete_IIntensityFunction
-    __del__ = lambda self: None
-
-    def clone(self):
-        """
-        clone(IIntensityFunction self) -> IIntensityFunction
-
-        virtual IIntensityFunction* IIntensityFunction::clone() const =0
-
-        """
-        return _libBornAgainCore.IIntensityFunction_clone(self)
-
-
-    def evaluate(self, value):
-        """
-        evaluate(IIntensityFunction self, double value) -> double
-
-        virtual double IIntensityFunction::evaluate(double value) const =0
-
-        """
-        return _libBornAgainCore.IIntensityFunction_evaluate(self, value)
-
-IIntensityFunction_swigregister = _libBornAgainCore.IIntensityFunction_swigregister
-IIntensityFunction_swigregister(IIntensityFunction)
-
-class IntensityFunctionLog(IIntensityFunction):
-    """
-
-
-    Algorithm for applying log function to the measured intensity.
-
-    C++ includes: IIntensityFunction.h
-
-    """
-    __swig_setmethods__ = {}
-    for _s in [IIntensityFunction]:
-        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
-    __setattr__ = lambda self, name, value: _swig_setattr(self, IntensityFunctionLog, name, value)
-    __swig_getmethods__ = {}
-    for _s in [IIntensityFunction]:
-        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
-    __getattr__ = lambda self, name: _swig_getattr(self, IntensityFunctionLog, name)
-    __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainCore.delete_IntensityFunctionLog
-    __del__ = lambda self: None
-
-    def clone(self):
-        """
-        clone(IntensityFunctionLog self) -> IntensityFunctionLog
-
-        virtual IntensityFunctionLog* IntensityFunctionLog::clone() const 
-
-        """
-        return _libBornAgainCore.IntensityFunctionLog_clone(self)
-
-
-    def evaluate(self, value):
-        """
-        evaluate(IntensityFunctionLog self, double value) -> double
-
-        double IntensityFunctionLog::evaluate(double value) const 
-
-        """
-        return _libBornAgainCore.IntensityFunctionLog_evaluate(self, value)
-
-
-    def __init__(self):
-        """
-        __init__(IntensityFunctionLog self) -> IntensityFunctionLog
-
-
-
-        Algorithm for applying log function to the measured intensity.
-
-        C++ includes: IIntensityFunction.h
-
-        """
-        this = _libBornAgainCore.new_IntensityFunctionLog()
-        try:
-            self.this.append(this)
-        except:
-            self.this = this
-IntensityFunctionLog_swigregister = _libBornAgainCore.IntensityFunctionLog_swigregister
-IntensityFunctionLog_swigregister(IntensityFunctionLog)
-
-class IntensityFunctionSqrt(IIntensityFunction):
-    """
-
-
-    Algorithm for applying sqrt function to the measured intensity.
-
-    C++ includes: IIntensityFunction.h
-
-    """
-    __swig_setmethods__ = {}
-    for _s in [IIntensityFunction]:
-        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
-    __setattr__ = lambda self, name, value: _swig_setattr(self, IntensityFunctionSqrt, name, value)
-    __swig_getmethods__ = {}
-    for _s in [IIntensityFunction]:
-        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
-    __getattr__ = lambda self, name: _swig_getattr(self, IntensityFunctionSqrt, name)
-    __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainCore.delete_IntensityFunctionSqrt
-    __del__ = lambda self: None
-
-    def clone(self):
-        """
-        clone(IntensityFunctionSqrt self) -> IntensityFunctionSqrt
-
-        virtual IntensityFunctionSqrt* IntensityFunctionSqrt::clone() const 
-
-        """
-        return _libBornAgainCore.IntensityFunctionSqrt_clone(self)
-
-
-    def evaluate(self, value):
-        """
-        evaluate(IntensityFunctionSqrt self, double value) -> double
-
-        double IntensityFunctionSqrt::evaluate(double value) const 
-
-        """
-        return _libBornAgainCore.IntensityFunctionSqrt_evaluate(self, value)
-
-
-    def __init__(self):
-        """
-        __init__(IntensityFunctionSqrt self) -> IntensityFunctionSqrt
-
-
-
-        Algorithm for applying sqrt function to the measured intensity.
-
-        C++ includes: IIntensityFunction.h
-
-        """
-        this = _libBornAgainCore.new_IntensityFunctionSqrt()
-        try:
-            self.this.append(this)
-        except:
-            self.this = this
-IntensityFunctionSqrt_swigregister = _libBornAgainCore.IntensityFunctionSqrt_swigregister
-IntensityFunctionSqrt_swigregister(IntensityFunctionSqrt)
 
 class IntensityData(_object):
     """

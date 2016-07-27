@@ -19,7 +19,7 @@ set(CMAKE_C_FLAGS_RELWITHDEBINFO   "-O2 -g")
 set(CMAKE_C_FLAGS_RELEASE          "-O3")
 set(CMAKE_C_FLAGS_DEBUG            "-g")
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -I${CMAKE_SOURCE_DIR}/Core/Basics -include WinDllMacros.h")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -I${CMAKE_SOURCE_DIR}/Wrap -include WinDllMacros.h")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pipe ${BIT_ENVIRONMENT} -Wall -W -Woverloaded-virtual -fPIC")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -pipe ${BIT_ENVIRONMENT} -Wall -W -fPIC")
 set(CMAKE_SHARED_LINKER_FLAGS "-Wl,--no-undefined")

@@ -18,8 +18,6 @@
 
 #include "IMinimizer.h" // inheriting from
 #include "FitSuiteParameters.h"
-#include "OutputData.h"
-
 
 //! @class ScanningMinimizer
 //! @ingroup fitting_internal
@@ -51,8 +49,6 @@ class BA_CORE_API_ ScanningMinimizer : public IMinimizer
     void setNbins(int nbins) { m_nbins = nbins; }
 
     size_t getNbins() const { return m_nbins; }
-
-    const OutputData<double>* getOutputData() { return m_fcnvalues_map; }
 
     virtual std::vector<double> getValueOfVariablesAtMinimum() const;
 

@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "MinimizerFactory.h"
-#include "ScanningMinimizer.h"
+// #include "ScanningMinimizer.h"
 #include "TrivialMinimizer.h"
 #include "ROOTGeneticMinimizer.h"
 #include "ROOTLMAMinimizer.h"
@@ -110,8 +110,10 @@ IMinimizer* MinimizerFactory::createMinimizer(
     if( minimizer == "Test" ) {
         result = new TrivialMinimizer();
 
+        /* temporarily disabled
     } else if( minimizer == "Scan" ) {
         result = new ScanningMinimizer();
+        */
 
     } else if( minimizer == "Minuit2" ) {
         result = new ROOTMinuit2Minimizer(minimizer, algorithm);

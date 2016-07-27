@@ -29,8 +29,7 @@
 class BA_CORE_API_ ParameterPool : public ICloneable
 {
 public:
-    ParameterPool(IParameterized* parent);
-    ParameterPool() = delete;
+    explicit ParameterPool(IParameterized* parent);
     virtual ~ParameterPool() {}
 
     //! Returns a literal clone.

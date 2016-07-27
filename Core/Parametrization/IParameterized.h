@@ -30,11 +30,11 @@ class BA_CORE_API_ IParameterized : public INamed
 {
 public:
     IParameterized(const std::string& name="");
-    IParameterized(const IParameterized& other) : IParameterized(other.getName()) {}
+    IParameterized(const IParameterized& other);
     virtual ~IParameterized();
 
     //! Previously, copied name, but not parameters. Unused. Deleted to prevent misunderstandings.
-    IParameterized& operator=(const IParameterized& other) = delete;
+    IParameterized operator=(const IParameterized& other) = delete;
 
     //! Returns pointer to the parameter pool.
     ParameterPool* getParameterPool() const { return m_parameters; }
@@ -57,7 +57,7 @@ public:
 
     //! Adds parameters from local pool to external pool and recursively calls its direct children.
     virtual std::string addParametersToExternalPool(
-        std::string path, ParameterPool* external_pool, int copy_number = -1) const;
+        std::string path, ParameterPool* external_pool, int copy_number=-1) const;
 
 protected:
     //! Action to be taken in inherited class when a parameter has changed.

@@ -19,11 +19,19 @@
 #include <iostream>
 #include <memory>
 #include <sstream>
+#include <stdexcept>
 
 IParameterized::IParameterized(const std::string& name)
     : INamed(name)
 {
     m_parameters = new ParameterPool(this);
+}
+
+IParameterized::IParameterized(const IParameterized& other)
+    : IParameterized(other.getName())
+{
+    if( other.getParameterPool()->size() )
+        throw std::runtime_error( "BUG: not prepared to copy parameters of " + getName() );
 }
 
 IParameterized::~IParameterized()

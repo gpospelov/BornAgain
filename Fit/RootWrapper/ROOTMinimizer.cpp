@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "ROOTMinimizer.h"
+#include "FitParameter.h"
 #include "Math/Minimizer.h"
 #include "ROOTMinimizerFunction.h"
 #include "ROOTMinimizerHelper.h"

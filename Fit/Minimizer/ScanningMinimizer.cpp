@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "ScanningMinimizer.h"
+#include "FitParameter.h"
 #include <iostream>
 #include <iomanip>
 

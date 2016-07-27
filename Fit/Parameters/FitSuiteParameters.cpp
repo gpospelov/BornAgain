@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "FitSuiteParameters.h"
+#include "FitParameter.h"
 #include "FitParameterLinked.h"
 #include "Exceptions.h"
 #include "Logger.h"

@@ -26,6 +26,11 @@
 #include <atomic>
 #endif
 
+class AttLimits;
+class FitSuite;
+class GISASSimulation;
+class IMinimizer;
+
 //! @class FitKernel
 //! @ingroup fitting_internal
 //! @brief Fitting kernel for FitSuite
@@ -42,23 +47,24 @@ class BA_CORE_API_ FitKernel
     void clear();
 
     //! Adds pair of (simulation, real data) for consecutive simulation
-    void addSimulationAndRealData(const class GISASSimulation& simulation,
+    void addSimulationAndRealData(const GISASSimulation& simulation,
                                   const OutputData<double>& real_data,
                                   double weight);
 
     //! Adds fit parameter
+    void addFitParameter(const std::string& name, double value);
+    //! Adds fit parameter
     void addFitParameter(const std::string& name, double value,
-                         const AttLimits& attlim=AttLimits::limitless(),
-                         double step=0.0, double error=0.0);
+                         const AttLimits& attlim, double step=0.0, double error=0.0);
 
     //! Adds fit strategy
     void addFitStrategy(const IFitStrategy& strategy);
 
     //! Sets minimizer
-    void setMinimizer(class IMinimizer* minimizer);
+    void setMinimizer(IMinimizer* minimizer);
 
     //! Returns minimizer
-    class IMinimizer* getMinimizer();
+    IMinimizer* getMinimizer();
 
     //! Runs a fit, which may consist of several minimization rounds
     virtual void runFit();
@@ -122,7 +128,7 @@ private:
 #endif
     boost::posix_time::ptime m_start_time;
     boost::posix_time::ptime m_end_time;
-    class FitSuite* m_fit_suite;
+    FitSuite* m_fit_suite;
 };
 
 #endif // FITKERNEL_H

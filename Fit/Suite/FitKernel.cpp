@@ -13,6 +13,7 @@
 //
 // ************************************************************************** //
 
+#include "AttLimits.h"
 #include "FitKernel.h"
 #include "FitSuite.h"
 #include "Logger.h"
@@ -53,6 +54,12 @@ void FitKernel::addSimulationAndRealData(const GISASSimulation& simulation,
 }
 
 //! Adds fit parameter, step is calculated from initial parameter value
+void FitKernel::addFitParameter(const std::string& name, double value)
+{
+    addFitParameter(name, value, AttLimits::limitless());
+}
+
+//! Adds fit parameter, step is calculated from initial parameter value
 void FitKernel::addFitParameter(const std::string& name, double value, const AttLimits& attlim,
                                 double step, double error)
 {
@@ -61,12 +68,12 @@ void FitKernel::addFitParameter(const std::string& name, double value, const Att
     m_fit_parameters.addParameter(name, value, step, attlim, error);
 }
 
-void FitKernel::addFitStrategy(const IFitStrategy &strategy)
+void FitKernel::addFitStrategy(const IFitStrategy& strategy)
 {
     m_fit_strategies.addStrategy(strategy.clone());
 }
 
-void FitKernel::setMinimizer(IMinimizer *minimizer)
+void FitKernel::setMinimizer(IMinimizer* minimizer)
 {
     if(!minimizer) {
         msglog(MSG::ERROR)
@@ -75,7 +82,7 @@ void FitKernel::setMinimizer(IMinimizer *minimizer)
     m_minimizer.reset(minimizer);
 }
 
-IMinimizer *FitKernel::getMinimizer()
+IMinimizer* FitKernel::getMinimizer()
 {
     return m_minimizer.get();
 }
@@ -110,7 +117,7 @@ void FitKernel::minimize()
     m_minimizer->setChiSquaredFunction( fun_chi2, m_fit_parameters.size());
 
     IMinimizer::function_gradient_t fun_gradient =
-        [&] (const double *pars, unsigned int index, double *gradients)
+        [&] (const double* pars, unsigned int index, double* gradients)
         {
             return m_function_gradient.evaluate(pars, index, gradients);
         };
@@ -134,22 +141,22 @@ void FitKernel::minimize()
     m_fit_objects.runSimulations(); // we run simulation once again for best values found
 }
 
-FitSuiteObjects *FitKernel::getFitObjects()
+FitSuiteObjects* FitKernel::getFitObjects()
 {
     return &m_fit_objects;
 }
 
-const FitSuiteObjects *FitKernel::getFitObjects() const
+const FitSuiteObjects* FitKernel::getFitObjects() const
 {
     return &m_fit_objects;
 }
 
-FitSuiteParameters *FitKernel::getFitParameters()
+FitSuiteParameters* FitKernel::getFitParameters()
 {
     return &m_fit_parameters;
 }
 
-FitSuiteStrategies *FitKernel::getFitStrategies()
+FitSuiteStrategies* FitKernel::getFitStrategies()
 {
     return &m_fit_strategies;
 }
@@ -201,12 +208,12 @@ void FitKernel::printResults() const
     m_minimizer->printResults();
 }
 
-FitOptions &FitKernel::getOptions()
+FitOptions& FitKernel::getOptions()
 {
     return m_fit_options;
 }
 
-void FitKernel::setOptions(const FitOptions &fit_options)
+void FitKernel::setOptions(const FitOptions& fit_options)
 {
     m_fit_options = fit_options;
 }

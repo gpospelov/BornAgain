@@ -16,9 +16,11 @@
 #ifndef FITSUITEPARAMETERS_H
 #define FITSUITEPARAMETERS_H
 
-#include "FitParameter.h"
 #include <vector>
+#include <string>
 
+class AttLimits;
+class FitParameter;
 class ParameterPool;
 
 //! @class FitSuiteParameters

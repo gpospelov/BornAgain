@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "TrivialMinimizer.h"
-#include "MinimizerOptions.h"
+#include "FitParameter.h"
 #include <iostream>
 
 //! run minimization

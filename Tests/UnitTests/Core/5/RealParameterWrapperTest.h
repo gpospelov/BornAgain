@@ -2,17 +2,17 @@
 #define REALPARAMETERWRAPPERTEST_H
 
 #include "IParameterized.h"
-#include "RealParameterWrapper.h"
+#include "RealParameter.h"
 #include "Exceptions.h"
 
-class RealParameterWrapperTest : public ::testing::Test
+class RealParameterTest : public ::testing::Test
 {
  protected:
-    RealParameterWrapperTest() {}
-    virtual ~RealParameterWrapperTest() {}
+    RealParameterTest() {}
+    virtual ~RealParameterTest() {}
 };
 
-TEST_F(RealParameterWrapperTest, ParameterAccess)
+TEST_F(RealParameterTest, ParameterAccess)
 {
     class ParametrizedObject : public IParameterized
     {
@@ -29,13 +29,13 @@ TEST_F(RealParameterWrapperTest, ParameterAccess)
     ParametrizedObject obj1;
 
     EXPECT_EQ( obj1.m_par1, 17. );
-    RealParameterWrapper* par11 = obj1.getParameter("par1");
+    RealParameter* par11 = obj1.getParameter("par1");
     EXPECT_EQ( obj1.m_par1, par11->getValue() );
 
-    RealParameterWrapper* par12 = par11;
+    RealParameter* par12 = par11;
     EXPECT_EQ( obj1.m_par1, par12->getValue() );
 
-    RealParameterWrapper* par13 = obj1.getParameterPool()->getParameter("par1");
+    RealParameter* par13 = obj1.getParameterPool()->getParameter("par1");
     EXPECT_EQ( obj1.m_par1, par13->getValue() );
 
     obj1.m_par1 = 2;
@@ -49,7 +49,7 @@ TEST_F(RealParameterWrapperTest, ParameterAccess)
     EXPECT_EQ( par12->getValue(), par11->getValue() );
     EXPECT_TRUE( obj1.m_changed );
 
-    std::vector<RealParameterWrapper> parameters;
+    std::vector<RealParameter> parameters;
     parameters.push_back(*par11);
     parameters.push_back(*par12);
     parameters[0].setValue(3.0);
@@ -57,7 +57,7 @@ TEST_F(RealParameterWrapperTest, ParameterAccess)
     EXPECT_EQ( parameters[1].getValue(), 3. );
 }
 
-TEST_F(RealParameterWrapperTest, LimitedParameter)
+TEST_F(RealParameterTest, LimitedParameter)
 {
     class ParametrizedObject : public IParameterized
     {
@@ -79,13 +79,13 @@ TEST_F(RealParameterWrapperTest, LimitedParameter)
     ParametrizedObject obj1(15., AttLimits::limited(10, 20));
     EXPECT_EQ(obj1.m_par, 15.);
 
-    RealParameterWrapper* par1 = obj1.getParameterPool()->getParameter("par");
+    RealParameter* par1 = obj1.getParameterPool()->getParameter("par");
     par1->setValue(16.0);
     EXPECT_EQ(obj1.m_par, 16.);
     EXPECT_THROW(par1->setValue(21.0), Exceptions::OutOfBoundsException);
     EXPECT_EQ(obj1.m_par, 16.);
 
-    RealParameterWrapper* par2(par1);
+    RealParameter* par2(par1);
     EXPECT_TRUE(par1->getAttLimits() == par2->getAttLimits());
     EXPECT_TRUE(*par1 == *par2);
 

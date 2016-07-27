@@ -17,7 +17,7 @@
 #define PARAMETERPOOL_H
 
 #include "ICloneable.h" // inheriting from
-#include "RealParameterWrapper.h" // TODO -> .h
+#include "RealParameter.h" // TODO -> .h
 #include <ostream>
 #include <string>
 #include <vector>
@@ -52,13 +52,13 @@ public:
                            const AttLimits& limits=AttLimits::limitless());
 
     //! Returns parameter named _name_.
-    RealParameterWrapper* getParameter(const std::string& name);
+    RealParameter* getParameter(const std::string& name);
 
     //! Returns parameter named _name_.
-    const RealParameterWrapper* getParameter(const std::string& name) const;
+    const RealParameter* getParameter(const std::string& name) const;
 
     //! Returns vector of parameters which fit pattern
-    std::vector<RealParameterWrapper*> getMatchedParameters(const std::string& wildcards) const;
+    std::vector<RealParameter*> getMatchedParameters(const std::string& wildcards) const;
 
     //! Sets parameter value
     void setParameterValue(const std::string& name, double value);
@@ -80,7 +80,7 @@ private:
     std::string get_error_message(const std::string& criteria) const;
 
     //! Adds parameter to the pool
-    void addParameter(RealParameterWrapper* par);
+    void addParameter(RealParameter* par);
 
     //! reports error while finding parameters matching given name
     void report_find_matched_parameters_error(const std::string& pattern) const;
@@ -89,7 +89,7 @@ private:
     void report_set_value_error(const std::string& parname, double value) const;
 
     IParameterized* const m_parent; //!< Parametrized object that "owns" this pool
-    std::vector<RealParameterWrapper*> m_params;
+    std::vector<RealParameter*> m_params;
 };
 
 #endif // PARAMETERPOOL_H

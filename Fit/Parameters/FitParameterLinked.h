@@ -20,7 +20,7 @@
 #include <vector>
 
 class ParameterPool;
-class RealParameterWrapper;
+class RealParameter;
 
 //! @class FitParameterLinked
 //! @ingroup fitting_internal
@@ -40,7 +40,7 @@ class BA_CORE_API_ FitParameterLinked : public FitParameter
     virtual void setValue(double value);
 
     //! Adds real parameter to the collection
-    virtual void addParameter(RealParameterWrapper* par);
+    virtual void addParameter(RealParameter* par);
 
     //! Adds parameters from pool which match given wildcard
     virtual void addMatchedParametersFromPool(
@@ -54,7 +54,7 @@ class BA_CORE_API_ FitParameterLinked : public FitParameter
     //! Prints class
     void print(std::ostream& ostr) const;
 
-    std::vector<RealParameterWrapper*> m_pool_parameters; //! collection of parameters from parameter pools
+    std::vector<RealParameter*> m_pool_parameters; //! collection of parameters from parameter pools
 };
 
 #endif // FITPARAMETERLINKED_H

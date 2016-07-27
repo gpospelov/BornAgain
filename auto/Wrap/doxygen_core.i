@@ -7051,9 +7051,9 @@ Register parameter address in the parameter pool; name allows for wildcard '*'.
 %feature("docstring")  IParameterized::setParameterValue "void IParameterized::setParameterValue(const std::string &name, double value)
 ";
 
-%feature("docstring")  IParameterized::getParameter "RealParameterWrapper IParameterized::getParameter(const std::string &name) const
+%feature("docstring")  IParameterized::getParameter "RealParameter * IParameterized::getParameter(const std::string &name) const
 
-Returns parameter wrapper named  name. 
+Returns parameter with given 'name'. 
 ";
 
 %feature("docstring")  IParameterized::addParametersToExternalPool "std::string IParameterized::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const
@@ -9754,10 +9754,7 @@ C++ includes: ParameterPool.h
 Constructs an empty parameter pool. 
 ";
 
-%feature("docstring")  ParameterPool::ParameterPool "ParameterPool::ParameterPool()=delete
-";
-
-%feature("docstring")  ParameterPool::~ParameterPool "virtual ParameterPool::~ParameterPool()
+%feature("docstring")  ParameterPool::~ParameterPool "ParameterPool::~ParameterPool()
 ";
 
 %feature("docstring")  ParameterPool::clone "ParameterPool * ParameterPool::clone() const
@@ -9794,14 +9791,21 @@ Registers a parameter with key  name and pointer-to-value  parpointer.
 Registers parameter with given name. 
 ";
 
-%feature("docstring")  ParameterPool::getParameter "RealParameterWrapper ParameterPool::getParameter(const std::string &name) const
+%feature("docstring")  ParameterPool::getParameter "RealParameter * ParameterPool::getParameter(const std::string &name)
 
 Returns parameter named  name.
 
 Returns parameter with given name. 
 ";
 
-%feature("docstring")  ParameterPool::getMatchedParameters "std::vector< RealParameterWrapper > ParameterPool::getMatchedParameters(const std::string &wildcards) const
+%feature("docstring")  ParameterPool::getParameter "const RealParameter * ParameterPool::getParameter(const std::string &name) const
+
+Returns parameter named  name.
+
+Returns parameter with given name. 
+";
+
+%feature("docstring")  ParameterPool::getMatchedParameters "std::vector< RealParameter * > ParameterPool::getMatchedParameters(const std::string &wildcards) const
 
 Returns vector of parameters which fit pattern. 
 ";
@@ -10553,46 +10557,46 @@ C++ includes: ParaCrystalBuilder.h
 ";
 
 
-// File: classRealParameterWrapper.xml
-%feature("docstring") RealParameterWrapper "
+// File: classRealParameter.xml
+%feature("docstring") RealParameter "
 
 Wrapper to real parameter for remote access to its value and callback abilities
 
-C++ includes: RealParameterWrapper.h
+C++ includes: RealParameter.h
 ";
 
-%feature("docstring")  RealParameterWrapper::RealParameterWrapper "RealParameterWrapper::RealParameterWrapper(const std::string &name, IParameterized *parent, volatile double *par, const AttLimits &limits=AttLimits::limitless())
+%feature("docstring")  RealParameter::RealParameter "RealParameter::RealParameter(const std::string &name, IParameterized *parent, volatile double *par, const AttLimits &limits=AttLimits::limitless())
 ";
 
-%feature("docstring")  RealParameterWrapper::RealParameterWrapper "RealParameterWrapper::RealParameterWrapper(const RealParameterWrapper &other)
+%feature("docstring")  RealParameter::RealParameter "RealParameter::RealParameter(const RealParameter &other)
 ";
 
-%feature("docstring")  RealParameterWrapper::RealParameterWrapper "RealParameterWrapper::RealParameterWrapper(const std::string &name, const RealParameterWrapper &other)
+%feature("docstring")  RealParameter::RealParameter "RealParameter::RealParameter(const std::string &name, const RealParameter &other)
 
 This constructor takes copies 'other' except for the name. 
 ";
 
-%feature("docstring")  RealParameterWrapper::setValue "void RealParameterWrapper::setValue(double value)
+%feature("docstring")  RealParameter::setValue "void RealParameter::setValue(double value)
 
 Sets value of wrapped parameter and emit signal. 
 ";
 
-%feature("docstring")  RealParameterWrapper::getValue "double RealParameterWrapper::getValue() const
+%feature("docstring")  RealParameter::getValue "double RealParameter::getValue() const
 
 Returns value of wrapped parameter. 
 ";
 
-%feature("docstring")  RealParameterWrapper::isNull "bool RealParameterWrapper::isNull() const
+%feature("docstring")  RealParameter::isNull "bool RealParameter::isNull() const
 
 Returns true if wrapped parameter was not initialized with proper real value. 
 ";
 
-%feature("docstring")  RealParameterWrapper::checkNull "void RealParameterWrapper::checkNull() const
+%feature("docstring")  RealParameter::checkNull "void RealParameter::checkNull() const
 
 throw exception if parameter was not initialized with proper value 
 ";
 
-%feature("docstring")  RealParameterWrapper::getAttLimits "AttLimits RealParameterWrapper::getAttLimits() const 
+%feature("docstring")  RealParameter::getAttLimits "AttLimits RealParameter::getAttLimits() const 
 ";
 
 
@@ -13790,10 +13794,10 @@ Set all element intensities to given value.
 // File: ParameterSample_8h.xml
 
 
-// File: RealParameterWrapper_8cpp.xml
+// File: RealParameter_8cpp.xml
 
 
-// File: RealParameterWrapper_8h.xml
+// File: RealParameter_8h.xml
 
 
 // File: SimulationOptions_8cpp.xml

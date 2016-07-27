@@ -16,7 +16,7 @@
 #include "FitParameterLinked.h"
 #include "Exceptions.h"
 #include "ParameterPool.h"
-#include "RealParameterWrapper.h"
+#include "RealParameter.h"
 
 FitParameterLinked::FitParameterLinked()
 {
@@ -42,12 +42,12 @@ void FitParameterLinked::setValue(double value) {
 }
 
 //! Adds real parameter to the collection
-void FitParameterLinked::addParameter(RealParameterWrapper* par)
+void FitParameterLinked::addParameter(RealParameter* par)
 {
     if( par->isNull() )
         throw Exceptions::LogicErrorException(
             "FitMultiParameter::addParameter() -> Attempt to add null parameter");
-    m_pool_parameters.push_back(new RealParameterWrapper(*par));
+    m_pool_parameters.push_back(new RealParameter(*par));
 }
 
 //! Adds parameters from pool which match given wildcard
@@ -58,7 +58,7 @@ void FitParameterLinked::addMatchedParametersFromPool(
     if( !wildcard.empty())
         wildcard_to_use = wildcard;
     for (auto* par: pool->getMatchedParameters(wildcard_to_use))
-        m_pool_parameters.push_back(new RealParameterWrapper(*par));
+        m_pool_parameters.push_back(new RealParameter(*par));
     if( m_pool_parameters.empty() )
         throw Exceptions::LogicErrorException(
             "FitMultiParameter::addMatchedParametersFromPool() -> Error! "

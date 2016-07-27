@@ -98,7 +98,7 @@ void IParameterized::setParameterValue(const std::string& name, double value)
 }
 
 //! Returns parameter with given 'name'.
-RealParameterWrapper* IParameterized::getParameter(const std::string& name) const {
+RealParameter* IParameterized::getParameter(const std::string& name) const {
     return m_parameters->getParameter(name);
 }
 

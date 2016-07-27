@@ -20,7 +20,7 @@
 
 class AttLimits;
 class ParameterPool;
-class RealParameterWrapper;
+class RealParameter;
 
 //! @class IParameterized
 //! @ingroup tools_internal
@@ -49,7 +49,7 @@ public:
 
     void setParameterValue(const std::string& name, double value);
 
-    RealParameterWrapper* getParameter(const std::string& name) const;
+    RealParameter* getParameter(const std::string& name) const;
 
     friend std::ostream& operator<<(std::ostream& ostr, const IParameterized& m) {
         m.print(ostr);
@@ -68,7 +68,7 @@ protected:
     virtual void print(std::ostream& ostr) const;
 
     ParameterPool* m_parameters; //!< parameter pool (kind of pointer-to-implementation)
-    friend RealParameterWrapper; // calls onChange()
+    friend RealParameter; // calls onChange()
 };
 
 #endif // IPARAMETERIZED_H

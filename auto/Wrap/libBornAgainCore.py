@@ -1907,11 +1907,11 @@ class IParameterized(INamed):
 
     def getParameter(self, name):
         """
-        getParameter(IParameterized self, std::string const & name) -> RealParameterWrapper
+        getParameter(IParameterized self, std::string const & name) -> RealParameter
 
-        RealParameterWrapper IParameterized::getParameter(const std::string &name) const
+        RealParameter * IParameterized::getParameter(const std::string &name) const
 
-        Returns parameter wrapper named  name. 
+        Returns parameter with given 'name'. 
 
         """
         return _libBornAgainCore.IParameterized_getParameter(self, name)
@@ -20322,7 +20322,9 @@ class ParameterPool(ICloneable):
         """
         __init__(ParameterPool self, IParameterized parent) -> ParameterPool
 
-        ParameterPool::ParameterPool()=delete
+        ParameterPool::ParameterPool(IParameterized *parent)
+
+        Constructs an empty parameter pool. 
 
         """
         this = _libBornAgainCore.new_ParameterPool(parent)
@@ -20412,10 +20414,10 @@ class ParameterPool(ICloneable):
 
     def getParameter(self, *args):
         """
-        getParameter(ParameterPool self, std::string const & name) -> RealParameterWrapper
-        getParameter(ParameterPool self, std::string const & name) -> RealParameterWrapper
+        getParameter(ParameterPool self, std::string const & name) -> RealParameter
+        getParameter(ParameterPool self, std::string const & name) -> RealParameter
 
-        RealParameterWrapper ParameterPool::getParameter(const std::string &name) const
+        const RealParameter * ParameterPool::getParameter(const std::string &name) const
 
         Returns parameter named  name.
 
@@ -20427,9 +20429,9 @@ class ParameterPool(ICloneable):
 
     def getMatchedParameters(self, wildcards):
         """
-        getMatchedParameters(ParameterPool self, std::string const & wildcards) -> std::vector< RealParameterWrapper *,std::allocator< RealParameterWrapper * > >
+        getMatchedParameters(ParameterPool self, std::string const & wildcards) -> std::vector< RealParameter *,std::allocator< RealParameter * > >
 
-        std::vector< RealParameterWrapper > ParameterPool::getMatchedParameters(const std::string &wildcards) const
+        std::vector< RealParameter * > ParameterPool::getMatchedParameters(const std::string &wildcards) const
 
         Returns vector of parameters which fit pattern. 
 
@@ -21409,38 +21411,38 @@ class Polygon(IShape2D):
 Polygon_swigregister = _libBornAgainCore.Polygon_swigregister
 Polygon_swigregister(Polygon)
 
-class RealParameterWrapper(INamed):
+class RealParameter(INamed):
     """
 
 
     Wrapper to real parameter for remote access to its value and callback abilities
 
-    C++ includes: RealParameterWrapper.h
+    C++ includes: RealParameter.h
 
     """
     __swig_setmethods__ = {}
     for _s in [INamed]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
-    __setattr__ = lambda self, name, value: _swig_setattr(self, RealParameterWrapper, name, value)
+    __setattr__ = lambda self, name, value: _swig_setattr(self, RealParameter, name, value)
     __swig_getmethods__ = {}
     for _s in [INamed]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
-    __getattr__ = lambda self, name: _swig_getattr(self, RealParameterWrapper, name)
+    __getattr__ = lambda self, name: _swig_getattr(self, RealParameter, name)
     __repr__ = _swig_repr
 
     def __init__(self, *args):
         """
-        __init__(RealParameterWrapper self, std::string const & name, IParameterized parent, double volatile * par, AttLimits limits) -> RealParameterWrapper
-        __init__(RealParameterWrapper self, std::string const & name, IParameterized parent, double volatile * par) -> RealParameterWrapper
-        __init__(RealParameterWrapper self, RealParameterWrapper other) -> RealParameterWrapper
-        __init__(RealParameterWrapper self, std::string const & name, RealParameterWrapper other) -> RealParameterWrapper
+        __init__(RealParameter self, std::string const & name, IParameterized parent, double volatile * par, AttLimits limits) -> RealParameter
+        __init__(RealParameter self, std::string const & name, IParameterized parent, double volatile * par) -> RealParameter
+        __init__(RealParameter self, RealParameter other) -> RealParameter
+        __init__(RealParameter self, std::string const & name, RealParameter other) -> RealParameter
 
-        RealParameterWrapper::RealParameterWrapper(const std::string &name, const RealParameterWrapper &other)
+        RealParameter::RealParameter(const std::string &name, const RealParameter &other)
 
         This constructor takes copies 'other' except for the name. 
 
         """
-        this = _libBornAgainCore.new_RealParameterWrapper(*args)
+        this = _libBornAgainCore.new_RealParameter(*args)
         try:
             self.this.append(this)
         except:
@@ -21448,75 +21450,75 @@ class RealParameterWrapper(INamed):
 
     def setValue(self, value):
         """
-        setValue(RealParameterWrapper self, double value)
+        setValue(RealParameter self, double value)
 
-        void RealParameterWrapper::setValue(double value)
+        void RealParameter::setValue(double value)
 
         Sets value of wrapped parameter and emit signal. 
 
         """
-        return _libBornAgainCore.RealParameterWrapper_setValue(self, value)
+        return _libBornAgainCore.RealParameter_setValue(self, value)
 
 
     def getValue(self):
         """
-        getValue(RealParameterWrapper self) -> double
+        getValue(RealParameter self) -> double
 
-        double RealParameterWrapper::getValue() const
+        double RealParameter::getValue() const
 
         Returns value of wrapped parameter. 
 
         """
-        return _libBornAgainCore.RealParameterWrapper_getValue(self)
+        return _libBornAgainCore.RealParameter_getValue(self)
 
 
     def isNull(self):
         """
-        isNull(RealParameterWrapper self) -> bool
+        isNull(RealParameter self) -> bool
 
-        bool RealParameterWrapper::isNull() const
+        bool RealParameter::isNull() const
 
         Returns true if wrapped parameter was not initialized with proper real value. 
 
         """
-        return _libBornAgainCore.RealParameterWrapper_isNull(self)
+        return _libBornAgainCore.RealParameter_isNull(self)
 
 
     def checkNull(self):
         """
-        checkNull(RealParameterWrapper self)
+        checkNull(RealParameter self)
 
-        void RealParameterWrapper::checkNull() const
+        void RealParameter::checkNull() const
 
         throw exception if parameter was not initialized with proper value 
 
         """
-        return _libBornAgainCore.RealParameterWrapper_checkNull(self)
+        return _libBornAgainCore.RealParameter_checkNull(self)
 
 
     def getAttLimits(self):
         """
-        getAttLimits(RealParameterWrapper self) -> AttLimits
+        getAttLimits(RealParameter self) -> AttLimits
 
-        AttLimits RealParameterWrapper::getAttLimits() const 
+        AttLimits RealParameter::getAttLimits() const 
 
         """
-        return _libBornAgainCore.RealParameterWrapper_getAttLimits(self)
+        return _libBornAgainCore.RealParameter_getAttLimits(self)
 
 
     def __eq__(self, other):
-        """__eq__(RealParameterWrapper self, RealParameterWrapper other) -> bool"""
-        return _libBornAgainCore.RealParameterWrapper___eq__(self, other)
+        """__eq__(RealParameter self, RealParameter other) -> bool"""
+        return _libBornAgainCore.RealParameter___eq__(self, other)
 
 
     def __ne__(self, other):
-        """__ne__(RealParameterWrapper self, RealParameterWrapper other) -> bool"""
-        return _libBornAgainCore.RealParameterWrapper___ne__(self, other)
+        """__ne__(RealParameter self, RealParameter other) -> bool"""
+        return _libBornAgainCore.RealParameter___ne__(self, other)
 
-    __swig_destroy__ = _libBornAgainCore.delete_RealParameterWrapper
+    __swig_destroy__ = _libBornAgainCore.delete_RealParameter
     __del__ = lambda self: None
-RealParameterWrapper_swigregister = _libBornAgainCore.RealParameterWrapper_swigregister
-RealParameterWrapper_swigregister(RealParameterWrapper)
+RealParameter_swigregister = _libBornAgainCore.RealParameter_swigregister
+RealParameter_swigregister(RealParameter)
 
 class Rectangle(IShape2D):
     """

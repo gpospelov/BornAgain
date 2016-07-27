@@ -63,9 +63,9 @@ TEST_F(FitParameterLinkedTest, FitParameterLinkedParamPool)
     ParametrizedObject obj2(3., 4.);
     ParametrizedObject obj3(5., 6.);
 
-    RealParameterWrapper* par11(obj1.getParameter("1"));
-    RealParameterWrapper* par21(obj2.getParameter("1"));
-    RealParameterWrapper* par32(obj3.getParameter("2"));
+    RealParameter* par11(obj1.getParameter("1"));
+    RealParameter* par21(obj2.getParameter("1"));
+    RealParameter* par32(obj3.getParameter("2"));
 
     FitParameterLinked linked;
     linked.addParameter(par11);

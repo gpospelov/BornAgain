@@ -330,15 +330,18 @@ C++ includes: FitParameterLinked.h
 %feature("docstring")  FitParameterLinked::FitParameterLinked "FitParameterLinked::FitParameterLinked(const std::string &name, double value, double step, const AttLimits &attlim=AttLimits::limitless(), double error=0.0)
 ";
 
-%feature("docstring")  FitParameterLinked::~FitParameterLinked "virtual FitParameterLinked::~FitParameterLinked()
+%feature("docstring")  FitParameterLinked::FitParameterLinked "FitParameterLinked::FitParameterLinked(const FitParameterLinked &)=delete
 ";
 
-%feature("docstring")  FitParameterLinked::setValue "virtual void FitParameterLinked::setValue(double value)
-
-Sets given value for all binded parameters. 
+%feature("docstring")  FitParameterLinked::~FitParameterLinked "FitParameterLinked::~FitParameterLinked()
 ";
 
-%feature("docstring")  FitParameterLinked::addParameter "void FitParameterLinked::addParameter(RealParameterWrapper par)
+%feature("docstring")  FitParameterLinked::setValue "void FitParameterLinked::setValue(double value)
+
+Sets given value for all bound parameters. 
+";
+
+%feature("docstring")  FitParameterLinked::addParameter "void FitParameterLinked::addParameter(RealParameter *par)
 
 Adds real parameter to the collection. 
 ";
@@ -900,12 +903,12 @@ Clears all defined parameters.
 Adds fit parameter. 
 ";
 
-%feature("docstring")  FitSuiteParameters::getParameter "const FitParameter * FitSuiteParameters::getParameter(const std::string &name) const
+%feature("docstring")  FitSuiteParameters::getFitParameter "const FitParameter * FitSuiteParameters::getFitParameter(const std::string &name) const
 
 Returns fit parameter with given name. 
 ";
 
-%feature("docstring")  FitSuiteParameters::getParameter "FitParameter * FitSuiteParameters::getParameter(const std::string &name)
+%feature("docstring")  FitSuiteParameters::getFitParameter "FitParameter * FitSuiteParameters::getFitParameter(const std::string &name)
 ";
 
 %feature("docstring")  FitSuiteParameters::setValues "void FitSuiteParameters::setValues(const double *pars_values)
@@ -1470,130 +1473,6 @@ set option value
 ";
 
 
-// File: classScanningMinimizer.xml
-%feature("docstring") ScanningMinimizer "
-
-Simple scan minimizer looks for minimum of chi2 function on the grid.
-
-C++ includes: ScanningMinimizer.h
-";
-
-%feature("docstring")  ScanningMinimizer::MinimizerScan "MinimizerScan::MinimizerScan(int nbins=10)
-";
-
-%feature("docstring")  ScanningMinimizer::~MinimizerScan "virtual MinimizerScan::~MinimizerScan()
-";
-
-%feature("docstring")  ScanningMinimizer::minimize "void MinimizerScan::minimize()
-
-Scan minimizer find minimum of chi2 function by equidistant scanning of fit parameters. 
-";
-
-%feature("docstring")  ScanningMinimizer::setParameters "void MinimizerScan::setParameters(const FitSuiteParameters &parameters)
-
-Sets internal minimizer parameters using external parameter list. 
-";
-
-%feature("docstring")  ScanningMinimizer::setChiSquaredFunction "void MinimizerScan::setChiSquaredFunction(function_chi2_t fun_chi2, size_t nparameters)
-
-Sets chi squared function to minimize. 
-";
-
-%feature("docstring")  ScanningMinimizer::setGradientFunction "void MinimizerScan::setGradientFunction(function_gradient_t fun_gradient, size_t nparameters, size_t ndatasize)
-
-Sets gradient function to minimize. 
-";
-
-%feature("docstring")  ScanningMinimizer::getNumberOfVariables "virtual size_t MinimizerScan::getNumberOfVariables() const
-
-Returns number of variables to fit. 
-";
-
-%feature("docstring")  ScanningMinimizer::getMinValue "double MinimizerScan::getMinValue() const
-
-Returns minimum function value. 
-";
-
-%feature("docstring")  ScanningMinimizer::getValueOfVariableAtMinimum "double MinimizerScan::getValueOfVariableAtMinimum(size_t i) const
-
-Returns value of the parameter at the minimum. 
-";
-
-%feature("docstring")  ScanningMinimizer::printResults "void MinimizerScan::printResults() const
-
-Prints fit results. 
-";
-
-%feature("docstring")  ScanningMinimizer::setNbins "void MinimizerScan::setNbins(int nbins)
-";
-
-%feature("docstring")  ScanningMinimizer::getNbins "size_t MinimizerScan::getNbins() const 
-";
-
-%feature("docstring")  ScanningMinimizer::getOutputData "const OutputData<double>* MinimizerScan::getOutputData()
-";
-
-%feature("docstring")  ScanningMinimizer::getValueOfVariablesAtMinimum "std::vector< double > MinimizerScan::getValueOfVariablesAtMinimum() const
-
-Returns values of parameters at the minimum. 
-";
-
-
-// File: classMinimizerTest.xml
-%feature("docstring") MinimizerTest "
-
-Minimizer which calls minimization function once to test whole chain.
-
-C++ includes: TrivialMinimizer.h
-";
-
-%feature("docstring")  MinimizerTest::MinimizerTest "MinimizerTest::MinimizerTest()
-";
-
-%feature("docstring")  MinimizerTest::~MinimizerTest "virtual MinimizerTest::~MinimizerTest()
-";
-
-%feature("docstring")  MinimizerTest::minimize "void MinimizerTest::minimize()
-
-run minimization 
-";
-
-%feature("docstring")  MinimizerTest::setParameters "void MinimizerTest::setParameters(const FitSuiteParameters &parameters)
-
-Sets internal minimizer parameters using external parameter list. 
-";
-
-%feature("docstring")  MinimizerTest::setChiSquaredFunction "virtual void MinimizerTest::setChiSquaredFunction(function_chi2_t fun_chi2, size_t)
-
-Sets chi squared function to minimize. 
-";
-
-%feature("docstring")  MinimizerTest::setGradientFunction "virtual void MinimizerTest::setGradientFunction(function_gradient_t, size_t, size_t)
-
-Sets gradient function to minimize. 
-";
-
-%feature("docstring")  MinimizerTest::getNumberOfVariables "virtual size_t MinimizerTest::getNumberOfVariables() const
-
-Returns number of variables to fit. 
-";
-
-%feature("docstring")  MinimizerTest::getValueOfVariableAtMinimum "double MinimizerTest::getValueOfVariableAtMinimum(size_t index) const
-
-Returns pointer to the parameters values at the minimum. 
-";
-
-%feature("docstring")  MinimizerTest::getValueOfVariablesAtMinimum "std::vector< double > MinimizerTest::getValueOfVariablesAtMinimum() const
-
-Returns value of the parameter at the minimum. 
-";
-
-%feature("docstring")  MinimizerTest::printResults "void MinimizerTest::printResults() const
-
-Prints fit results. 
-";
-
-
 // File: classROOTGeneticMinimizer.xml
 %feature("docstring") ROOTGeneticMinimizer "
 
@@ -1858,6 +1737,130 @@ C++ includes: ROOTSimAnMinimizer.h
 ";
 
 
+// File: classScanningMinimizer.xml
+%feature("docstring") ScanningMinimizer "
+
+Simple scan minimizer looks for minimum of chi2 function on the grid.
+
+C++ includes: ScanningMinimizer.h
+";
+
+%feature("docstring")  ScanningMinimizer::ScanningMinimizer "ScanningMinimizer::ScanningMinimizer(int nbins=10)
+";
+
+%feature("docstring")  ScanningMinimizer::~ScanningMinimizer "virtual ScanningMinimizer::~ScanningMinimizer()
+";
+
+%feature("docstring")  ScanningMinimizer::minimize "void ScanningMinimizer::minimize()
+
+Scan minimizer find minimum of chi2 function by equidistant scanning of fit parameters. 
+";
+
+%feature("docstring")  ScanningMinimizer::setParameters "void ScanningMinimizer::setParameters(const FitSuiteParameters &parameters)
+
+Sets internal minimizer parameters using external parameter list. 
+";
+
+%feature("docstring")  ScanningMinimizer::setChiSquaredFunction "void ScanningMinimizer::setChiSquaredFunction(function_chi2_t fun_chi2, size_t nparameters)
+
+Sets chi squared function to minimize. 
+";
+
+%feature("docstring")  ScanningMinimizer::setGradientFunction "void ScanningMinimizer::setGradientFunction(function_gradient_t fun_gradient, size_t nparameters, size_t ndatasize)
+
+Sets gradient function to minimize. 
+";
+
+%feature("docstring")  ScanningMinimizer::getNumberOfVariables "virtual size_t ScanningMinimizer::getNumberOfVariables() const
+
+Returns number of variables to fit. 
+";
+
+%feature("docstring")  ScanningMinimizer::getMinValue "double ScanningMinimizer::getMinValue() const
+
+Returns minimum function value. 
+";
+
+%feature("docstring")  ScanningMinimizer::getValueOfVariableAtMinimum "double ScanningMinimizer::getValueOfVariableAtMinimum(size_t i) const
+
+Returns value of the parameter at the minimum. 
+";
+
+%feature("docstring")  ScanningMinimizer::printResults "void ScanningMinimizer::printResults() const
+
+Prints fit results. 
+";
+
+%feature("docstring")  ScanningMinimizer::setNbins "void ScanningMinimizer::setNbins(int nbins)
+";
+
+%feature("docstring")  ScanningMinimizer::getNbins "size_t ScanningMinimizer::getNbins() const 
+";
+
+%feature("docstring")  ScanningMinimizer::getOutputData "const OutputData<double>* ScanningMinimizer::getOutputData()
+";
+
+%feature("docstring")  ScanningMinimizer::getValueOfVariablesAtMinimum "std::vector< double > ScanningMinimizer::getValueOfVariablesAtMinimum() const
+
+Returns values of parameters at the minimum. 
+";
+
+
+// File: classTrivialMinimizer.xml
+%feature("docstring") TrivialMinimizer "
+
+Minimizer which calls minimization function once to test whole chain.
+
+C++ includes: TrivialMinimizer.h
+";
+
+%feature("docstring")  TrivialMinimizer::TrivialMinimizer "TrivialMinimizer::TrivialMinimizer()
+";
+
+%feature("docstring")  TrivialMinimizer::~TrivialMinimizer "virtual TrivialMinimizer::~TrivialMinimizer()
+";
+
+%feature("docstring")  TrivialMinimizer::minimize "void TrivialMinimizer::minimize()
+
+run minimization 
+";
+
+%feature("docstring")  TrivialMinimizer::setParameters "void TrivialMinimizer::setParameters(const FitSuiteParameters &parameters)
+
+Sets internal minimizer parameters using external parameter list. 
+";
+
+%feature("docstring")  TrivialMinimizer::setChiSquaredFunction "virtual void TrivialMinimizer::setChiSquaredFunction(function_chi2_t fun_chi2, size_t)
+
+Sets chi squared function to minimize. 
+";
+
+%feature("docstring")  TrivialMinimizer::setGradientFunction "virtual void TrivialMinimizer::setGradientFunction(function_gradient_t, size_t, size_t)
+
+Sets gradient function to minimize. 
+";
+
+%feature("docstring")  TrivialMinimizer::getNumberOfVariables "virtual size_t TrivialMinimizer::getNumberOfVariables() const
+
+Returns number of variables to fit. 
+";
+
+%feature("docstring")  TrivialMinimizer::getValueOfVariableAtMinimum "double TrivialMinimizer::getValueOfVariableAtMinimum(size_t index) const
+
+Returns pointer to the parameters values at the minimum. 
+";
+
+%feature("docstring")  TrivialMinimizer::getValueOfVariablesAtMinimum "std::vector< double > TrivialMinimizer::getValueOfVariablesAtMinimum() const
+
+Returns value of the parameter at the minimum. 
+";
+
+%feature("docstring")  TrivialMinimizer::printResults "void TrivialMinimizer::printResults() const
+
+Prints fit results. 
+";
+
+
 // File: namespaceAlgorithmNames.xml
 
 
@@ -1906,10 +1909,10 @@ C++ includes: ROOTSimAnMinimizer.h
 // File: ScanningMinimizer_8h.xml
 
 
-// File: MinimizerTest_8cpp.xml
+// File: TrivialMinimizer_8cpp.xml
 
 
-// File: MinimizerTest_8h.xml
+// File: TrivialMinimizer_8h.xml
 
 
 // File: FitParameter_8cpp.xml

@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Parametrization/RealParameterWrapper.h
-//! @brief     Declares class RealParameterWrapper.
+//! @file      Core/Parametrization/RealParameter.h
+//! @brief     Declares class RealParameter.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -23,16 +23,16 @@
 class IParameterized;
 
 //! Wrapper to real parameter for remote access to its value and callback abilities
-//! @class RealParameterWrapper
+//! @class RealParameter
 //! @ingroup tools_internal
 
-class BA_CORE_API_ RealParameterWrapper : public INamed {
+class BA_CORE_API_ RealParameter : public INamed {
 public:
-    explicit RealParameterWrapper(
+    explicit RealParameter(
         const std::string& name, IParameterized* parent,
         volatile double* par, const AttLimits& limits=AttLimits::limitless());
-    RealParameterWrapper(const RealParameterWrapper& other);
-    RealParameterWrapper(const std::string& name, const RealParameterWrapper& other);
+    RealParameter(const RealParameter& other);
+    RealParameter(const std::string& name, const RealParameter& other);
 
     //! Sets value of wrapped parameter and emit signal
     void setValue(double value);
@@ -47,17 +47,17 @@ public:
     void checkNull() const;
 
     //! Prints the parameter's address to an output stream
-    friend std::ostream& operator<<(std::ostream& ostr, const RealParameterWrapper& p) {
+    friend std::ostream& operator<<(std::ostream& ostr, const RealParameter& p) {
         ostr << p.m_data; return ostr; }
 
     AttLimits getAttLimits() const { return m_limits; }
 
-    bool operator==(const RealParameterWrapper &other) const {
+    bool operator==(const RealParameter &other) const {
         return (m_limits == other.m_limits) && (m_data == other.m_data); }
-    bool operator!=(const RealParameterWrapper &other) const { return !(*this == other); }
+    bool operator!=(const RealParameter &other) const { return !(*this == other); }
 
 private:
-    void swapContent(RealParameterWrapper& other);
+    void swapContent(RealParameter& other);
 
     IParameterized* m_parent; //!< IParametrized object that "owns" this pool
     std::string m_name;

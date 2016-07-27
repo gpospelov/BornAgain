@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Parametrization/RealParameterWrapper.cpp
-//! @brief     Implements class RealParameterWrapper.
+//! @file      Core/Parametrization/RealParameter.cpp
+//! @brief     Implements class RealParameter.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,12 +13,12 @@
 //
 // ************************************************************************** //
 
-#include "RealParameterWrapper.h"
+#include "RealParameter.h"
 #include "Exceptions.h"
 #include "IParameterized.h"
 #include <sstream>
 
-RealParameterWrapper::RealParameterWrapper(
+RealParameter::RealParameter(
     const std::string& name, IParameterized* parent, volatile double* par, const AttLimits& limits)
     : INamed(name)
     , m_parent(parent)
@@ -33,23 +33,23 @@ RealParameterWrapper::RealParameterWrapper(
     }
 }
 
-RealParameterWrapper::RealParameterWrapper(const RealParameterWrapper& other )
-    : RealParameterWrapper( other.getName(), other.m_parent, other.m_data, other.m_limits ) {}
+RealParameter::RealParameter(const RealParameter& other )
+    : RealParameter( other.getName(), other.m_parent, other.m_data, other.m_limits ) {}
 
 //! This constructor takes copies 'other' except for the name.
-RealParameterWrapper::RealParameterWrapper(
-    const std::string& name, const RealParameterWrapper& other)
-    : RealParameterWrapper( name, other.m_parent, other.m_data, other.m_limits ) {}
+RealParameter::RealParameter(
+    const std::string& name, const RealParameter& other)
+    : RealParameter( name, other.m_parent, other.m_data, other.m_limits ) {}
 
 //! throw exception if parameter was not initialized with proper value
-void RealParameterWrapper::checkNull() const
+void RealParameter::checkNull() const
 {
     if(isNull())
         throw Exceptions::NullPointerException(
-            "BUG in RealParameterWrapper::getValue() -> Attempt to access uninitialised pointer.");
+            "BUG in RealParameter::getValue() -> Attempt to access uninitialised pointer.");
 }
 
-void RealParameterWrapper::setValue(double value)
+void RealParameter::setValue(double value)
 {
     checkNull();
     if(value == *m_data)
@@ -66,7 +66,7 @@ void RealParameterWrapper::setValue(double value)
     m_parent->onChange();
 }
 
-void RealParameterWrapper::swapContent(RealParameterWrapper& other)
+void RealParameter::swapContent(RealParameter& other)
 {
     std::swap(this->m_parent, other.m_parent);
     std::swap(this->m_name, other.m_name);
@@ -74,7 +74,7 @@ void RealParameterWrapper::swapContent(RealParameterWrapper& other)
     std::swap(this->m_limits, other.m_limits);
 }
 
-std::string RealParameterWrapper::fullName()
+std::string RealParameter::fullName()
 {
     return m_parent->getName() + "/" + getName();
 }

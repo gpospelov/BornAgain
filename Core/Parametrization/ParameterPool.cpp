@@ -49,7 +49,7 @@ ParameterPool* ParameterPool::cloneWithPrefix(const std::string& prefix) const
 {
     ParameterPool* new_pool = new ParameterPool(m_parent);
     for (const auto* par: m_params)
-        new_pool->addParameter( new RealParameterWrapper( prefix + par->getName(), *par ) );
+        new_pool->addParameter( new RealParameter( prefix + par->getName(), *par ) );
     return new_pool;
 }
 
@@ -66,12 +66,12 @@ void ParameterPool::clear()
 void ParameterPool::registerParameter(
     const std::string& name, double* parameter_address, const AttLimits& limits)
 {
-    addParameter(new RealParameterWrapper(name, m_parent, parameter_address, limits) );
+    addParameter(new RealParameter(name, m_parent, parameter_address, limits) );
 }
 
 //! Low-level routine.
 
-void ParameterPool::addParameter(RealParameterWrapper* newPar)
+void ParameterPool::addParameter(RealParameter* newPar)
 {
     for (const auto* par: m_params )
         if( par->getName()==newPar->getName() )
@@ -88,12 +88,12 @@ void ParameterPool::copyToExternalPool(
     const std::string& prefix, ParameterPool* external_pool) const
 {
     for (auto* par: m_params)
-        external_pool->addParameter(new RealParameterWrapper(prefix+par->getName(), *par));
+        external_pool->addParameter(new RealParameter(prefix+par->getName(), *par));
 }
 
 //! Returns parameter with given name.
 
-const RealParameterWrapper* ParameterPool::getParameter(const std::string& name) const
+const RealParameter* ParameterPool::getParameter(const std::string& name) const
 {
     for (const auto* par: m_params )
         if( par->getName()==name )
@@ -104,7 +104,7 @@ const RealParameterWrapper* ParameterPool::getParameter(const std::string& name)
 
 //! Returns parameter with given name.
 
-RealParameterWrapper* ParameterPool::getParameter(const std::string& name)
+RealParameter* ParameterPool::getParameter(const std::string& name)
 {
     for (auto* par: m_params )
         if( par->getName()==name )
@@ -115,10 +115,10 @@ RealParameterWrapper* ParameterPool::getParameter(const std::string& name)
 
 //! Returns vector of parameters which fit pattern.
 
-std::vector<RealParameterWrapper*> ParameterPool::getMatchedParameters(
+std::vector<RealParameter*> ParameterPool::getMatchedParameters(
     const std::string& wildcards) const
 {
-    std::vector<RealParameterWrapper*> selected_parameters;
+    std::vector<RealParameter*> selected_parameters;
     // loop over all parameters in the pool
     for (auto* par: m_params)
         if( Utils::String::MatchPattern( par->getName(), wildcards ) )
@@ -132,7 +132,7 @@ std::vector<RealParameterWrapper*> ParameterPool::getMatchedParameters(
 
 void ParameterPool::setParameterValue(const std::string& name, double value)
 {
-    RealParameterWrapper* x = getParameter(name);
+    RealParameter* x = getParameter(name);
     if( x->isNull() )
         throw Exceptions::LogicErrorException(
             "ParameterPool::setParameterValue() -> Error! Unitialized parameter '"+name+"'.");

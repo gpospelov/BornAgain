@@ -3533,6 +3533,9 @@ class FitSuiteParameters(_object):
         """
         getFitParameter(FitSuiteParameters self, std::string const & name) -> FitParameter
         getFitParameter(FitSuiteParameters self, std::string const & name) -> FitParameter
+
+        FitParameter * FitSuiteParameters::getFitParameter(const std::string &name)
+
         """
         return _libBornAgainFit.FitSuiteParameters_getFitParameter(self, *args)
 

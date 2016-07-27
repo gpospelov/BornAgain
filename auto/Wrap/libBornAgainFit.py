@@ -3529,15 +3529,12 @@ class FitSuiteParameters(_object):
         return _libBornAgainFit.FitSuiteParameters_addParameter(self, name, value, step, attlim, error)
 
 
-    def getParameter(self, *args):
+    def getFitParameter(self, *args):
         """
-        getParameter(FitSuiteParameters self, std::string const & name) -> FitParameter
-        getParameter(FitSuiteParameters self, std::string const & name) -> FitParameter
-
-        FitParameter * FitSuiteParameters::getParameter(const std::string &name)
-
+        getFitParameter(FitSuiteParameters self, std::string const & name) -> FitParameter
+        getFitParameter(FitSuiteParameters self, std::string const & name) -> FitParameter
         """
-        return _libBornAgainFit.FitSuiteParameters_getParameter(self, *args)
+        return _libBornAgainFit.FitSuiteParameters_getFitParameter(self, *args)
 
 
     def setValues(self, *args):

@@ -54,13 +54,13 @@ void FitStrategyAdjustParameters::execute()
     // fixing dedicated list of fit parameters
     for(std::vector<std::string >::iterator it = m_pars_to_fix.begin(); it!= m_pars_to_fix.end(); ++it) {
         msglog(MSG::DEBUG2) << "FitSuiteStrategyAdjustParameters::execute() -> fixing " << (*it);
-        fitParameters->getParameter((*it))->setFixed(true);
+        fitParameters->getFitParameter((*it))->setFixed(true);
     }
 
     // releasing dedicated list of fit parameters
     for(std::vector<std::string >::iterator it = m_pars_to_release.begin(); it!= m_pars_to_release.end(); ++it) {
         msglog(MSG::DEBUG2) << "FitSuiteStrategyAdjustParameters::execute() -> releasing " << (*it);
-        fitParameters->getParameter((*it))->setFixed(false);
+        fitParameters->getFitParameter((*it))->setFixed(false);
     }
 
     // saving original param values

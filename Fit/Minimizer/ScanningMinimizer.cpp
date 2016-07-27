@@ -30,7 +30,7 @@ void ScanningMinimizer::minimize()
             size_t xbin = m_fcnvalues_map->getAxisBinIndex(it.getIndex(), i_axis);
             double value = (*m_fcnvalues_map->getAxis(i_axis))[xbin];
             std::string parname = m_fcnvalues_map->getAxis(i_axis)->getName();
-            m_parameters.getParameter(parname)->setValue(value);
+            m_parameters.getFitParameter(parname)->setValue(value);
         }
         std::vector<double> current_values=m_parameters.getValues();
         *it = m_fcn(&current_values[0]); // running simulation
@@ -69,7 +69,7 @@ void ScanningMinimizer::set_parvalues_to_minimum()
         size_t xbin = m_fcnvalues_map->getAxisBinIndex(it.getIndex(), i_axis);
         double value = (*m_fcnvalues_map->getAxis(i_axis))[xbin];
         std::string parname = m_fcnvalues_map->getAxis(i_axis)->getName();
-        m_parameters.getParameter(parname)->setValue(value);
+        m_parameters.getFitParameter(parname)->setValue(value);
     }
 }
 

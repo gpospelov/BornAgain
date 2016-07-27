@@ -50,7 +50,7 @@ void FitSuiteParameters::addParameter(const std::string& name, double value, dou
 }
 
 //! Returns fit parameter with given name.
-const FitParameter* FitSuiteParameters::getParameter(const std::string& name) const
+const FitParameter* FitSuiteParameters::getFitParameter(const std::string& name) const
 {
     for(parameters_t::const_iterator it = m_parameters.begin(); it!=m_parameters.end(); ++it) {
         if( (*it)->getName() == name )
@@ -61,7 +61,7 @@ const FitParameter* FitSuiteParameters::getParameter(const std::string& name) co
 }
 
 
-FitParameter* FitSuiteParameters::getParameter(const std::string& name)
+FitParameter* FitSuiteParameters::getFitParameter(const std::string& name)
 {
     for(parameters_t::iterator it = m_parameters.begin(); it!=m_parameters.end(); ++it) {
         if( (*it)->getName() == name )
@@ -148,12 +148,12 @@ std::vector<double> FitSuiteParameters::getErrors() const
 
 FitParameter* FitSuiteParameters::operator[](std::string name)
 {
-    return getParameter(name);
+    return getFitParameter(name);
 }
 
 const FitParameter* FitSuiteParameters::operator[](std::string name) const
 {
-    return getParameter(name);
+    return getFitParameter(name);
 }
 
 FitParameter* FitSuiteParameters::operator[](size_t index)
@@ -222,7 +222,7 @@ void FitSuiteParameters::releaseAll()
 void FitSuiteParameters::setParametersFixed(const std::vector<std::string>& pars, bool is_fixed)
 {
     for(size_t i=0; i<pars.size(); ++i)
-        getParameter(pars[i])->setFixed(is_fixed);
+        getFitParameter(pars[i])->setFixed(is_fixed);
 }
 
 size_t FitSuiteParameters::check_index(size_t index) const {

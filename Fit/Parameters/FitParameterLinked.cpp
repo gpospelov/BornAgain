@@ -15,6 +15,7 @@
 
 #include "FitParameterLinked.h"
 #include "Exceptions.h"
+#include "ParameterPool.h"
 
 FitParameterLinked::FitParameterLinked()
 {

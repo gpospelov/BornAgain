@@ -17,7 +17,10 @@
 #define FITPARAMETERLINKED_H
 
 #include "FitParameter.h" // inheriting from
-#include "ParameterPool.h"
+#include "RealParameterWrapper.h"
+#include <vector>
+
+class ParameterPool;
 
 //! @class FitParameterLinked
 //! @ingroup fitting_internal

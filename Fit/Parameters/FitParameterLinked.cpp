@@ -16,6 +16,7 @@
 #include "FitParameterLinked.h"
 #include "Exceptions.h"
 #include "ParameterPool.h"
+#include "RealParameterWrapper.h"
 
 FitParameterLinked::FitParameterLinked()
 {
@@ -27,20 +28,26 @@ FitParameterLinked::FitParameterLinked(
 {
 }
 
+FitParameterLinked::~FitParameterLinked()
+{
+    for (auto* par: m_pool_parameters)
+        delete par;
+}
+
 //! Sets given value for all bound parameters
 void FitParameterLinked::setValue(double value) {
     FitParameter::setValue(value);
-    for(auto& par: m_pool_parameters)
-        par.setValue(value);
+    for(auto* par: m_pool_parameters)
+        par->setValue(value);
 }
 
 //! Adds real parameter to the collection
-void FitParameterLinked::addParameter(RealParameterWrapper par)
+void FitParameterLinked::addParameter(RealParameterWrapper* par)
 {
-    if( par.isNull() )
+    if( par->isNull() )
         throw Exceptions::LogicErrorException(
             "FitMultiParameter::addParameter() -> Attempt to add null parameter");
-    m_pool_parameters.push_back(par);
+    m_pool_parameters.push_back(new RealParameterWrapper(*par));
 }
 
 //! Adds parameters from pool which match given wildcard
@@ -48,11 +55,10 @@ void FitParameterLinked::addMatchedParametersFromPool(
     const ParameterPool* pool, const std::string& wildcard)
 {
     std::string wildcard_to_use = getName();
-    if( !wildcard.empty()) wildcard_to_use = wildcard;
-
-    for (auto par: pool->getMatchedParameters(wildcard_to_use) )
-        m_pool_parameters.push_back(*par);
-
+    if( !wildcard.empty())
+        wildcard_to_use = wildcard;
+    for (auto* par: pool->getMatchedParameters(wildcard_to_use))
+        m_pool_parameters.push_back(new RealParameterWrapper(*par));
     if( m_pool_parameters.empty() )
         throw Exceptions::LogicErrorException(
             "FitMultiParameter::addMatchedParametersFromPool() -> Error! "

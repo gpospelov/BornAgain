@@ -68,9 +68,9 @@ TEST_F(FitParameterLinkedTest, FitParameterLinkedParamPool)
     RealParameterWrapper* par32(obj3.getParameter("2"));
 
     FitParameterLinked linked;
-    linked.addParameter(*par11);
-    linked.addParameter(*par21);
-    linked.addParameter(*par32);
+    linked.addParameter(par11);
+    linked.addParameter(par21);
+    linked.addParameter(par32);
 
     linked.setValue(11.2);
     EXPECT_EQ(linked.getValue(), 11.2);

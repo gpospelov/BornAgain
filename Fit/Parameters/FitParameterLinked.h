@@ -32,6 +32,8 @@ class BA_CORE_API_ FitParameterLinked : public FitParameter
     FitParameterLinked();
     FitParameterLinked(const std::string& name, double value, double step,
                        const AttLimits& attlim=AttLimits::limitless(), double error=0.0);
+    FitParameterLinked(const FitParameterLinked&) = delete;
+    FitParameterLinked& operator=(const FitParameterLinked&) = delete;
     virtual ~FitParameterLinked();
 
     //! Sets given value for all bound parameters
@@ -48,15 +50,11 @@ class BA_CORE_API_ FitParameterLinked : public FitParameter
     friend std::ostream& operator<<(std::ostream& ostr, const FitParameterLinked& m) {
         m.print(ostr); return ostr; }
 
- protected:
+ private:
     //! Prints class
     void print(std::ostream& ostr) const;
 
     std::vector<RealParameterWrapper*> m_pool_parameters; //! collection of parameters from parameter pools
-
- private:
-    FitParameterLinked(const FitParameterLinked& );
-    FitParameterLinked& operator=(const FitParameterLinked& );
 };
 
 #endif // FITPARAMETERLINKED_H

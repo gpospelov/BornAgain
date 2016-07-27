@@ -16,7 +16,6 @@
 #ifndef PARAMETERPOOL_H
 #define PARAMETERPOOL_H
 
-#include "ICloneable.h" // inheriting from
 #include "RealParameter.h" // TODO -> .h
 #include <ostream>
 #include <string>
@@ -26,10 +25,12 @@
 //! @ingroup tools_internal
 //! @brief Holds a map of pointers to parameters (which must have different names).
 
-class BA_CORE_API_ ParameterPool : public ICloneable
+class BA_CORE_API_ ParameterPool
 {
 public:
     explicit ParameterPool(IParameterized* parent);
+    ParameterPool(const ParameterPool&) = delete;
+    ParameterPool& operator=(const ParameterPool&) = delete;
     virtual ~ParameterPool();
 
     //! Returns a literal clone.

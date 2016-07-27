@@ -1724,52 +1724,6 @@ def AttLimits_fixed():
     """AttLimits_fixed() -> AttLimits"""
     return _libBornAgainFit.AttLimits_fixed()
 
-class ICloneable(_object):
-    """
-
-
-    Interface for objects that must not be copied, except by cloning.
-
-    This virtual base class disables the copy constructor and the operator= in all its child classes. Child classes should provide clone().
-
-    C++ includes: ICloneable.h
-
-    """
-    __swig_setmethods__ = {}
-    __setattr__ = lambda self, name, value: _swig_setattr(self, ICloneable, name, value)
-    __swig_getmethods__ = {}
-    __getattr__ = lambda self, name: _swig_getattr(self, ICloneable, name)
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined - class is abstract")
-    __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainFit.delete_ICloneable
-    __del__ = lambda self: None
-
-    def clone(self):
-        """
-        clone(ICloneable self) -> ICloneable
-
-        virtual ICloneable* ICloneable::clone() const =0
-
-        """
-        return _libBornAgainFit.ICloneable_clone(self)
-
-
-    def transferToCPP(self):
-        """
-        transferToCPP(ICloneable self)
-
-        virtual void ICloneable::transferToCPP()
-
-        Used for Python overriding of clone. 
-
-        """
-        return _libBornAgainFit.ICloneable_transferToCPP(self)
-
-ICloneable_swigregister = _libBornAgainFit.ICloneable_swigregister
-ICloneable_swigregister(ICloneable)
-
 class INamed(_object):
     """
 

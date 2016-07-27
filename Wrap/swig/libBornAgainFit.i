@@ -61,7 +61,6 @@ import_array();
 %import "WinDllMacros.h"
 
 %{
-#include "ICloneable.h"
 #include "IParameterized.h"
 #include "INamed.h"
 
@@ -76,7 +75,6 @@ import_array();
 // Note that the order matters, as base classes must be included before derived classes.
 
 %include "AttLimits.h"
-%include "ICloneable.h"
 %include "INamed.h"
 %include "IParameterized.h"
 

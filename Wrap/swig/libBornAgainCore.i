@@ -132,6 +132,7 @@
 #include "Histogram2D.h"
 #include "HomogeneousMagneticMaterial.h"
 #include "HomogeneousMaterial.h"
+#include "ICloneable.h"
 #include "IClusteredParticles.h"
 #include "ICompositeSample.h"
 #include "IDetector2D.h"
@@ -218,12 +219,12 @@
 // Note that the order matters, as base classes must be included before derived classes.
 
 %import(module="libBornAgainFit") "AttLimits.h"
-%import(module="libBornAgainFit") "ICloneable.h"
 %import(module="libBornAgainFit") "INamed.h"
 %import(module="libBornAgainFit") "IParameterized.h"
 
 %include "BAVersion.h"
 %include "BasicVector3D.h"
+%include "ICloneable.h"
 
 // SWIG does not automatically instantiate templates, so we declare these by hand
 %template(kvector_t) Geometry::BasicVector3D<double >;

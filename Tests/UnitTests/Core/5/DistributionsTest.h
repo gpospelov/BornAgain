@@ -5,6 +5,7 @@
 #include "BornAgainNamespace.h"
 #include "Distributions.h"
 #include "Exceptions.h"
+#include "RealParameter.h"
 #include "ParameterSample.h"
 #include <cmath>
 #include <memory>

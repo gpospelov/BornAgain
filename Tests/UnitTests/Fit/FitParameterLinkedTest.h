@@ -2,6 +2,7 @@
 #define FITPARAMETERLINKEDTEST_H
 
 #include "IParameterized.h"
+#include "RealParameter.h"
 #include "ParameterPool.h"
 #include "FitParameterLinked.h"
 

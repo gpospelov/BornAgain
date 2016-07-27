@@ -16,10 +16,13 @@
 #ifndef PARAMETERPOOL_H
 #define PARAMETERPOOL_H
 
-#include "RealParameter.h" // TODO -> .h
 #include <ostream>
 #include <string>
 #include <vector>
+
+class AttLimits;
+class IParameterized;
+class RealParameter;
 
 //! @class ParameterPool
 //! @ingroup tools_internal
@@ -49,8 +52,10 @@ public:
     size_t size() const { return m_params.size(); }
 
     //! Registers a parameter with key _name_ and pointer-to-value _parpointer_.
-    void registerParameter(const std::string& name, double* parpointer,
-                           const AttLimits& limits=AttLimits::limitless());
+    void registerParameter(const std::string& name, double* parpointer);
+
+    //! Registers a parameter with key _name_ and pointer-to-value _parpointer_.
+    void registerParameter(const std::string& name, double* parpointer, const AttLimits& limits);
 
     //! Returns parameter named _name_.
     RealParameter* getParameter(const std::string& name);

@@ -14,6 +14,8 @@
 // ************************************************************************** //
 
 #include "ParameterPool.h"
+#include "AttLimits.h"
+#include "RealParameter.h"
 #include "Exceptions.h"
 #include "Utils.h"
 #include <algorithm>
@@ -59,6 +61,12 @@ void ParameterPool::clear()
     for(auto* par: m_params)
         delete par;
     m_params.clear();
+}
+
+//! Registers parameter with given name.
+void ParameterPool::registerParameter(const std::string& name, double* parpointer)
+{
+    registerParameter(name, parpointer, AttLimits::limitless());
 }
 
 //! Registers parameter with given name.

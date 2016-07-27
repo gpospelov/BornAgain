@@ -1474,6 +1474,36 @@ def toComplexVector(real_vector):
 
     """
     return _libBornAgainCore.toComplexVector(real_vector)
+class ICloneable(_object):
+    """Proxy of C++ ICloneable class"""
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, ICloneable, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, ICloneable, name)
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainCore.delete_ICloneable
+    __del__ = lambda self: None
+
+    def clone(self):
+        """clone(ICloneable self) -> ICloneable"""
+        return _libBornAgainCore.ICloneable_clone(self)
+
+
+    def transferToCPP(self):
+        """transferToCPP(ICloneable self)"""
+        return self.__disown__()
+
+ICloneable_swigregister = _libBornAgainCore.ICloneable_swigregister
+ICloneable_swigregister(ICloneable)
+cvar = _libBornAgainCore.cvar
+major_version_number = cvar.major_version_number
+minor_version_number = cvar.minor_version_number
+patch_version_number = cvar.patch_version_number
+PI2 = cvar.PI2
+
 class kvector_t(_object):
     """
 
@@ -1763,11 +1793,6 @@ class kvector_t(_object):
     __del__ = lambda self: None
 kvector_t_swigregister = _libBornAgainCore.kvector_t_swigregister
 kvector_t_swigregister(kvector_t)
-cvar = _libBornAgainCore.cvar
-major_version_number = cvar.major_version_number
-minor_version_number = cvar.minor_version_number
-patch_version_number = cvar.patch_version_number
-PI2 = cvar.PI2
 
 class vector_kvector_t(_object):
     """Proxy of C++ std::vector<(Geometry::BasicVector3D<(double)>)> class"""
@@ -3378,7 +3403,7 @@ class CustomBinAxis(VariableBinAxis):
 CustomBinAxis_swigregister = _libBornAgainCore.CustomBinAxis_swigregister
 CustomBinAxis_swigregister(CustomBinAxis)
 
-class IShape2D(libBornAgainFit.ICloneable):
+class IShape2D(ICloneable):
     """
 
 
@@ -3388,11 +3413,11 @@ class IShape2D(libBornAgainFit.ICloneable):
 
     """
     __swig_setmethods__ = {}
-    for _s in [libBornAgainFit.ICloneable]:
+    for _s in [ICloneable]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, IShape2D, name, value)
     __swig_getmethods__ = {}
-    for _s in [libBornAgainFit.ICloneable]:
+    for _s in [ICloneable]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, IShape2D, name)
 
@@ -3427,7 +3452,7 @@ class IShape2D(libBornAgainFit.ICloneable):
 IShape2D_swigregister = _libBornAgainCore.IShape2D_swigregister
 IShape2D_swigregister(IShape2D)
 
-class ISample(libBornAgainFit.ICloneable, libBornAgainFit.IParameterized):
+class ISample(ICloneable, libBornAgainFit.IParameterized):
     """
 
 
@@ -3437,11 +3462,11 @@ class ISample(libBornAgainFit.ICloneable, libBornAgainFit.IParameterized):
 
     """
     __swig_setmethods__ = {}
-    for _s in [libBornAgainFit.ICloneable, libBornAgainFit.IParameterized]:
+    for _s in [ICloneable, libBornAgainFit.IParameterized]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, ISample, name, value)
     __swig_getmethods__ = {}
-    for _s in [libBornAgainFit.ICloneable, libBornAgainFit.IParameterized]:
+    for _s in [ICloneable, libBornAgainFit.IParameterized]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, ISample, name)
     __repr__ = _swig_repr
@@ -4026,7 +4051,7 @@ class swig_dummy_type_const_isample_vector(_object):
 swig_dummy_type_const_isample_vector_swigregister = _libBornAgainCore.swig_dummy_type_const_isample_vector_swigregister
 swig_dummy_type_const_isample_vector_swigregister(swig_dummy_type_const_isample_vector)
 
-class IChiSquaredModule(libBornAgainFit.ICloneable):
+class IChiSquaredModule(ICloneable):
     """
 
 
@@ -4036,11 +4061,11 @@ class IChiSquaredModule(libBornAgainFit.ICloneable):
 
     """
     __swig_setmethods__ = {}
-    for _s in [libBornAgainFit.ICloneable]:
+    for _s in [ICloneable]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, IChiSquaredModule, name, value)
     __swig_getmethods__ = {}
-    for _s in [libBornAgainFit.ICloneable]:
+    for _s in [ICloneable]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, IChiSquaredModule, name)
 
@@ -14367,7 +14392,7 @@ class FormFactorWeighted(IFormFactor):
 FormFactorWeighted_swigregister = _libBornAgainCore.FormFactorWeighted_swigregister
 FormFactorWeighted_swigregister(FormFactorWeighted)
 
-class Simulation(libBornAgainFit.ICloneable, libBornAgainFit.IParameterized):
+class Simulation(ICloneable, libBornAgainFit.IParameterized):
     """
 
 
@@ -14377,11 +14402,11 @@ class Simulation(libBornAgainFit.ICloneable, libBornAgainFit.IParameterized):
 
     """
     __swig_setmethods__ = {}
-    for _s in [libBornAgainFit.ICloneable, libBornAgainFit.IParameterized]:
+    for _s in [ICloneable, libBornAgainFit.IParameterized]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, Simulation, name, value)
     __swig_getmethods__ = {}
-    for _s in [libBornAgainFit.ICloneable, libBornAgainFit.IParameterized]:
+    for _s in [ICloneable, libBornAgainFit.IParameterized]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, Simulation, name)
 
@@ -16417,7 +16442,7 @@ class IDetector2D(libBornAgainFit.IParameterized):
 IDetector2D_swigregister = _libBornAgainCore.IDetector2D_swigregister
 IDetector2D_swigregister(IDetector2D)
 
-class IDetectorResolution(libBornAgainFit.ICloneable, libBornAgainFit.IParameterized):
+class IDetectorResolution(ICloneable, libBornAgainFit.IParameterized):
     """
 
 
@@ -16427,11 +16452,11 @@ class IDetectorResolution(libBornAgainFit.ICloneable, libBornAgainFit.IParameter
 
     """
     __swig_setmethods__ = {}
-    for _s in [libBornAgainFit.ICloneable, libBornAgainFit.IParameterized]:
+    for _s in [ICloneable, libBornAgainFit.IParameterized]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, IDetectorResolution, name, value)
     __swig_getmethods__ = {}
-    for _s in [libBornAgainFit.ICloneable, libBornAgainFit.IParameterized]:
+    for _s in [ICloneable, libBornAgainFit.IParameterized]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, IDetectorResolution, name)
 
@@ -21703,15 +21728,11 @@ class ParameterDistribution(libBornAgainFit.IParameterized):
 ParameterDistribution_swigregister = _libBornAgainCore.ParameterDistribution_swigregister
 ParameterDistribution_swigregister(ParameterDistribution)
 
-class ParameterPool(libBornAgainFit.ICloneable):
+class ParameterPool(_object):
     """Proxy of C++ ParameterPool class"""
     __swig_setmethods__ = {}
-    for _s in [libBornAgainFit.ICloneable]:
-        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, ParameterPool, name, value)
     __swig_getmethods__ = {}
-    for _s in [libBornAgainFit.ICloneable]:
-        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, ParameterPool, name)
     __repr__ = _swig_repr
 
@@ -23338,7 +23359,7 @@ class ResolutionFunction2DGaussian(IResolutionFunction2D):
 ResolutionFunction2DGaussian_swigregister = _libBornAgainCore.ResolutionFunction2DGaussian_swigregister
 ResolutionFunction2DGaussian_swigregister(ResolutionFunction2DGaussian)
 
-class SpecularSimulation(libBornAgainFit.ICloneable, libBornAgainFit.IParameterized):
+class SpecularSimulation(ICloneable, libBornAgainFit.IParameterized):
     """
 
 
@@ -23348,11 +23369,11 @@ class SpecularSimulation(libBornAgainFit.ICloneable, libBornAgainFit.IParameteri
 
     """
     __swig_setmethods__ = {}
-    for _s in [libBornAgainFit.ICloneable, libBornAgainFit.IParameterized]:
+    for _s in [ICloneable, libBornAgainFit.IParameterized]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, SpecularSimulation, name, value)
     __swig_getmethods__ = {}
-    for _s in [libBornAgainFit.ICloneable, libBornAgainFit.IParameterized]:
+    for _s in [ICloneable, libBornAgainFit.IParameterized]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, SpecularSimulation, name)
     __repr__ = _swig_repr

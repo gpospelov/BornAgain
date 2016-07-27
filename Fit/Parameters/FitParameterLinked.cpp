@@ -42,10 +42,10 @@ void FitParameterLinked::addMatchedParametersFromPool(
     std::string wildcard_to_use = getName();
     if( !wildcard.empty()) wildcard_to_use = wildcard;
 
-    pool_parameters_t matched_pars = pool->getMatchedParameters(wildcard_to_use);
-    m_pool_parameters.insert(m_pool_parameters.end(), matched_pars.begin(), matched_pars.end());
+    for (auto par: pool->getMatchedParameters(wildcard_to_use) )
+        m_pool_parameters.push_back(*par);
 
-    if( matched_pars.empty() )
+    if( m_pool_parameters.empty() )
         throw Exceptions::LogicErrorException(
             "FitMultiParameter::addMatchedParametersFromPool() -> Error! "
             "Failed to add anything from pool using wildcard '"+wildcard_to_use+"'");

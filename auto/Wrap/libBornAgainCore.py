@@ -20427,7 +20427,7 @@ class ParameterPool(ICloneable):
 
     def getMatchedParameters(self, wildcards):
         """
-        getMatchedParameters(ParameterPool self, std::string const & wildcards) -> std::vector< RealParameterWrapper,std::allocator< RealParameterWrapper > >
+        getMatchedParameters(ParameterPool self, std::string const & wildcards) -> std::vector< RealParameterWrapper *,std::allocator< RealParameterWrapper * > >
 
         std::vector< RealParameterWrapper > ParameterPool::getMatchedParameters(const std::string &wildcards) const
 

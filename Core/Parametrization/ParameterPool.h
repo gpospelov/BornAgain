@@ -17,7 +17,7 @@
 #define PARAMETERPOOL_H
 
 #include "ICloneable.h" // inheriting from
-#include "RealParameterWrapper.h"
+#include "RealParameterWrapper.h" // TODO -> .h
 #include <ostream>
 #include <string>
 #include <vector>
@@ -30,7 +30,7 @@ class BA_CORE_API_ ParameterPool : public ICloneable
 {
 public:
     explicit ParameterPool(IParameterized* parent);
-    virtual ~ParameterPool() {}
+    virtual ~ParameterPool();
 
     //! Returns a literal clone.
     ParameterPool* clone() const;
@@ -42,7 +42,7 @@ public:
     void copyToExternalPool(const std::string& prefix, ParameterPool* external_pool) const;
 
     //! Deletes parameter map.
-    void clear() { m_params.clear(); }
+    void clear();
 
     //! Returns size of parameter container.
     size_t size() const { return m_params.size(); }
@@ -58,7 +58,7 @@ public:
     const RealParameterWrapper* getParameter(const std::string& name) const;
 
     //! Returns vector of parameters which fit pattern
-    std::vector<RealParameterWrapper> getMatchedParameters(const std::string& wildcards) const;
+    std::vector<RealParameterWrapper*> getMatchedParameters(const std::string& wildcards) const;
 
     //! Sets parameter value
     void setParameterValue(const std::string& name, double value);
@@ -80,7 +80,7 @@ private:
     std::string get_error_message(const std::string& criteria) const;
 
     //! Adds parameter to the pool
-    void addParameter(const RealParameterWrapper& par);
+    void addParameter(RealParameterWrapper* par);
 
     //! reports error while finding parameters matching given name
     void report_find_matched_parameters_error(const std::string& pattern) const;
@@ -89,7 +89,7 @@ private:
     void report_set_value_error(const std::string& parname, double value) const;
 
     IParameterized* const m_parent; //!< Parametrized object that "owns" this pool
-    std::vector<RealParameterWrapper> m_params;
+    std::vector<RealParameterWrapper*> m_params;
 };
 
 #endif // PARAMETERPOOL_H

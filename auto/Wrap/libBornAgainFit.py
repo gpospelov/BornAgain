@@ -1430,7 +1430,524 @@ class vector_string_t(_object):
 vector_string_t_swigregister = _libBornAgainFit.vector_string_t_swigregister
 vector_string_t_swigregister(vector_string_t)
 
-import libBornAgainFit
+class AttLimits(_object):
+    """
+
+
+    Attributes and limits for a fit parameter. Currently, the only attribute is fixed/free.
+
+    C++ includes: AttLimits.h
+
+    """
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, AttLimits, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, AttLimits, name)
+    __repr__ = _swig_repr
+
+    def __init__(self):
+        """
+        __init__(AttLimits self) -> AttLimits
+
+        AttLimits::AttLimits()
+
+        """
+        this = _libBornAgainFit.new_AttLimits()
+        try:
+            self.this.append(this)
+        except:
+            self.this = this
+
+    def hasLowerLimit(self):
+        """
+        hasLowerLimit(AttLimits self) -> bool
+
+        bool AttLimits::hasLowerLimit() const
+
+        if has lower limit 
+
+        """
+        return _libBornAgainFit.AttLimits_hasLowerLimit(self)
+
+
+    def getLowerLimit(self):
+        """
+        getLowerLimit(AttLimits self) -> double
+
+        double AttLimits::getLowerLimit() const
+
+        Returns lower limit. 
+
+        """
+        return _libBornAgainFit.AttLimits_getLowerLimit(self)
+
+
+    def setLowerLimit(self, value):
+        """
+        setLowerLimit(AttLimits self, double value)
+
+        void AttLimits::setLowerLimit(double value)
+
+        Sets lower limit. 
+
+        """
+        return _libBornAgainFit.AttLimits_setLowerLimit(self, value)
+
+
+    def removeLowerLimit(self):
+        """
+        removeLowerLimit(AttLimits self)
+
+        void AttLimits::removeLowerLimit()
+
+        remove lower limit 
+
+        """
+        return _libBornAgainFit.AttLimits_removeLowerLimit(self)
+
+
+    def hasUpperLimit(self):
+        """
+        hasUpperLimit(AttLimits self) -> bool
+
+        bool AttLimits::hasUpperLimit() const
+
+        if has upper limit 
+
+        """
+        return _libBornAgainFit.AttLimits_hasUpperLimit(self)
+
+
+    def getUpperLimit(self):
+        """
+        getUpperLimit(AttLimits self) -> double
+
+        double AttLimits::getUpperLimit() const
+
+        Returns upper limit. 
+
+        """
+        return _libBornAgainFit.AttLimits_getUpperLimit(self)
+
+
+    def setUpperLimit(self, value):
+        """
+        setUpperLimit(AttLimits self, double value)
+
+        void AttLimits::setUpperLimit(double value)
+
+        Sets upper limit. 
+
+        """
+        return _libBornAgainFit.AttLimits_setUpperLimit(self, value)
+
+
+    def removeUpperLimit(self):
+        """
+        removeUpperLimit(AttLimits self)
+
+        void AttLimits::removeUpperLimit()
+
+        remove upper limit 
+
+        """
+        return _libBornAgainFit.AttLimits_removeUpperLimit(self)
+
+
+    def hasLowerAndUpperLimits(self):
+        """
+        hasLowerAndUpperLimits(AttLimits self) -> bool
+
+        bool AttLimits::hasLowerAndUpperLimits() const
+
+        if has lower and upper limit 
+
+        """
+        return _libBornAgainFit.AttLimits_hasLowerAndUpperLimits(self)
+
+
+    def setFixed(self, is_fixed):
+        """
+        setFixed(AttLimits self, bool is_fixed)
+
+        void AttLimits::setFixed(bool is_fixed)
+
+        Sets object fixed. 
+
+        """
+        return _libBornAgainFit.AttLimits_setFixed(self, is_fixed)
+
+
+    def isFixed(self):
+        """
+        isFixed(AttLimits self) -> bool
+
+        bool AttLimits::isFixed() const
+
+        if object is fixed at some value 
+
+        """
+        return _libBornAgainFit.AttLimits_isFixed(self)
+
+
+    def setLimits(self, xmin, xmax):
+        """
+        setLimits(AttLimits self, double xmin, double xmax)
+
+        void AttLimits::setLimits(double xmin, double xmax)
+
+        Sets lower and upper limits. 
+
+        """
+        return _libBornAgainFit.AttLimits_setLimits(self, xmin, xmax)
+
+
+    def removeLimits(self):
+        """
+        removeLimits(AttLimits self)
+
+        void AttLimits::removeLimits()
+
+        remove limits 
+
+        """
+        return _libBornAgainFit.AttLimits_removeLimits(self)
+
+
+    def isInRange(self, value):
+        """
+        isInRange(AttLimits self, double value) -> bool
+
+        bool AttLimits::isInRange(double value) const
+
+        returns true if proposed value is in limits range 
+
+        """
+        return _libBornAgainFit.AttLimits_isInRange(self, value)
+
+
+    def lowerLimited(bound_value):
+        """lowerLimited(double bound_value) -> AttLimits"""
+        return _libBornAgainFit.AttLimits_lowerLimited(bound_value)
+
+    if _newclass:
+        lowerLimited = staticmethod(lowerLimited)
+    __swig_getmethods__["lowerLimited"] = lambda x: lowerLimited
+
+    def positive():
+        """positive() -> AttLimits"""
+        return _libBornAgainFit.AttLimits_positive()
+
+    if _newclass:
+        positive = staticmethod(positive)
+    __swig_getmethods__["positive"] = lambda x: positive
+
+    def n_positive():
+        """n_positive() -> AttLimits"""
+        return _libBornAgainFit.AttLimits_n_positive()
+
+    if _newclass:
+        n_positive = staticmethod(n_positive)
+    __swig_getmethods__["n_positive"] = lambda x: n_positive
+
+    def upperLimited(bound_value):
+        """upperLimited(double bound_value) -> AttLimits"""
+        return _libBornAgainFit.AttLimits_upperLimited(bound_value)
+
+    if _newclass:
+        upperLimited = staticmethod(upperLimited)
+    __swig_getmethods__["upperLimited"] = lambda x: upperLimited
+
+    def limited(left_bound_value, right_bound_value):
+        """limited(double left_bound_value, double right_bound_value) -> AttLimits"""
+        return _libBornAgainFit.AttLimits_limited(left_bound_value, right_bound_value)
+
+    if _newclass:
+        limited = staticmethod(limited)
+    __swig_getmethods__["limited"] = lambda x: limited
+
+    def limitless():
+        """limitless() -> AttLimits"""
+        return _libBornAgainFit.AttLimits_limitless()
+
+    if _newclass:
+        limitless = staticmethod(limitless)
+    __swig_getmethods__["limitless"] = lambda x: limitless
+
+    def fixed():
+        """fixed() -> AttLimits"""
+        return _libBornAgainFit.AttLimits_fixed()
+
+    if _newclass:
+        fixed = staticmethod(fixed)
+    __swig_getmethods__["fixed"] = lambda x: fixed
+
+    def __eq__(self, other):
+        """__eq__(AttLimits self, AttLimits other) -> bool"""
+        return _libBornAgainFit.AttLimits___eq__(self, other)
+
+
+    def __ne__(self, other):
+        """__ne__(AttLimits self, AttLimits other) -> bool"""
+        return _libBornAgainFit.AttLimits___ne__(self, other)
+
+    __swig_destroy__ = _libBornAgainFit.delete_AttLimits
+    __del__ = lambda self: None
+AttLimits_swigregister = _libBornAgainFit.AttLimits_swigregister
+AttLimits_swigregister(AttLimits)
+
+def AttLimits_lowerLimited(bound_value):
+    """AttLimits_lowerLimited(double bound_value) -> AttLimits"""
+    return _libBornAgainFit.AttLimits_lowerLimited(bound_value)
+
+def AttLimits_positive():
+    """AttLimits_positive() -> AttLimits"""
+    return _libBornAgainFit.AttLimits_positive()
+
+def AttLimits_n_positive():
+    """AttLimits_n_positive() -> AttLimits"""
+    return _libBornAgainFit.AttLimits_n_positive()
+
+def AttLimits_upperLimited(bound_value):
+    """AttLimits_upperLimited(double bound_value) -> AttLimits"""
+    return _libBornAgainFit.AttLimits_upperLimited(bound_value)
+
+def AttLimits_limited(left_bound_value, right_bound_value):
+    """AttLimits_limited(double left_bound_value, double right_bound_value) -> AttLimits"""
+    return _libBornAgainFit.AttLimits_limited(left_bound_value, right_bound_value)
+
+def AttLimits_limitless():
+    """AttLimits_limitless() -> AttLimits"""
+    return _libBornAgainFit.AttLimits_limitless()
+
+def AttLimits_fixed():
+    """AttLimits_fixed() -> AttLimits"""
+    return _libBornAgainFit.AttLimits_fixed()
+
+class ICloneable(_object):
+    """
+
+
+    Interface for objects that must not be copied, except by cloning.
+
+    This virtual base class disables the copy constructor and the operator= in all its child classes. Child classes should provide clone().
+
+    C++ includes: ICloneable.h
+
+    """
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, ICloneable, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, ICloneable, name)
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainFit.delete_ICloneable
+    __del__ = lambda self: None
+
+    def clone(self):
+        """
+        clone(ICloneable self) -> ICloneable
+
+        virtual ICloneable* ICloneable::clone() const =0
+
+        """
+        return _libBornAgainFit.ICloneable_clone(self)
+
+
+    def transferToCPP(self):
+        """
+        transferToCPP(ICloneable self)
+
+        virtual void ICloneable::transferToCPP()
+
+        Used for Python overriding of clone. 
+
+        """
+        return _libBornAgainFit.ICloneable_transferToCPP(self)
+
+ICloneable_swigregister = _libBornAgainFit.ICloneable_swigregister
+ICloneable_swigregister(ICloneable)
+
+class INamed(_object):
+    """
+
+
+    Interface for named objects.
+
+    C++ includes: INamed.h
+
+    """
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, INamed, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, INamed, name)
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        """
+        __init__(INamed self) -> INamed
+        __init__(INamed self, std::string const & name) -> INamed
+
+        INamed::INamed(const std::string &name)
+
+        """
+        if self.__class__ == INamed:
+            _self = None
+        else:
+            _self = self
+        this = _libBornAgainFit.new_INamed(_self, *args)
+        try:
+            self.this.append(this)
+        except:
+            self.this = this
+    __swig_destroy__ = _libBornAgainFit.delete_INamed
+    __del__ = lambda self: None
+
+    def getName(self):
+        """
+        getName(INamed self) -> std::string
+
+        std::string INamed::getName() const 
+
+        """
+        return _libBornAgainFit.INamed_getName(self)
+
+    def __disown__(self):
+        self.this.disown()
+        _libBornAgainFit.disown_INamed(self)
+        return weakref_proxy(self)
+INamed_swigregister = _libBornAgainFit.INamed_swigregister
+INamed_swigregister(INamed)
+
+class IParameterized(INamed):
+    """
+
+
+    Manage a local parameter pool, and a tree of child pools.
+
+    C++ includes: IParameterized.h
+
+    """
+    __swig_setmethods__ = {}
+    for _s in [INamed]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, IParameterized, name, value)
+    __swig_getmethods__ = {}
+    for _s in [INamed]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, IParameterized, name)
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        """
+        __init__(IParameterized self, std::string const & name) -> IParameterized
+        __init__(IParameterized self) -> IParameterized
+        __init__(IParameterized self, IParameterized other) -> IParameterized
+
+        IParameterized::IParameterized(const IParameterized &other)
+
+        """
+        if self.__class__ == IParameterized:
+            _self = None
+        else:
+            _self = self
+        this = _libBornAgainFit.new_IParameterized(_self, *args)
+        try:
+            self.this.append(this)
+        except:
+            self.this = this
+    __swig_destroy__ = _libBornAgainFit.delete_IParameterized
+    __del__ = lambda self: None
+
+    def getParameterPool(self):
+        """
+        getParameterPool(IParameterized self) -> ParameterPool *
+
+        ParameterPool* IParameterized::getParameterPool() const
+
+        Returns pointer to the parameter pool. 
+
+        """
+        return _libBornAgainFit.IParameterized_getParameterPool(self)
+
+
+    def createParameterTree(self):
+        """
+        createParameterTree(IParameterized self) -> ParameterPool *
+
+        ParameterPool * IParameterized::createParameterTree()
+
+        Creates new parameter pool, with all local parameters and those of its children. 
+
+        """
+        return _libBornAgainFit.IParameterized_createParameterTree(self)
+
+
+    def printParameters(self):
+        """
+        printParameters(IParameterized self)
+
+        void IParameterized::printParameters()
+
+        """
+        return _libBornAgainFit.IParameterized_printParameters(self)
+
+
+    def setParameterValue(self, name, value):
+        """
+        setParameterValue(IParameterized self, std::string const & name, double value)
+
+        void IParameterized::setParameterValue(const std::string &name, double value)
+
+        """
+        return _libBornAgainFit.IParameterized_setParameterValue(self, name, value)
+
+
+    def getParameter(self, name):
+        """
+        getParameter(IParameterized self, std::string const & name) -> RealParameter *
+
+        RealParameter * IParameterized::getParameter(const std::string &name) const
+
+        Returns parameter with given 'name'. 
+
+        """
+        return _libBornAgainFit.IParameterized_getParameter(self, name)
+
+
+    def onChange(self):
+        """onChange(IParameterized self)"""
+        return _libBornAgainFit.IParameterized_onChange(self)
+
+
+    def _print(self, ostr):
+        """_print(IParameterized self, std::ostream & ostr)"""
+        return _libBornAgainFit.IParameterized__print(self, ostr)
+
+
+    def registerParameter(self, *args):
+        """
+        registerParameter(IParameterized self, std::string const & name, double * parpointer)
+        registerParameter(IParameterized self, std::string const & name, double * parpointer, AttLimits limits)
+        registerParameter(IParameterized self, std::string const & name, int64_t parpointer, AttLimits limits)
+        registerParameter(IParameterized self, std::string const & name, int64_t parpointer)
+
+        void IParameterized::registerParameter(const std::string &name, double *parpointer, const AttLimits &limits)
+
+        Register parameter address in the parameter pool; name allows for wildcard '*'. 
+
+        """
+        return _libBornAgainFit.IParameterized_registerParameter(self, *args)
+
+    def __disown__(self):
+        self.this.disown()
+        _libBornAgainFit.disown_IParameterized(self)
+        return weakref_proxy(self)
+IParameterized_swigregister = _libBornAgainFit.IParameterized_swigregister
+IParameterized_swigregister(IParameterized)
+
 class IMinimizer(_object):
     """
 
@@ -1818,7 +2335,7 @@ class FitSuiteParameters(_object):
     """
 
 
-    Holds vector of parameters for  FitSuite.
+    Holds vector of parameters for FitSuite.
 
     C++ includes: FitSuiteParameters.h
 

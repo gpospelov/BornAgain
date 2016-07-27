@@ -72,11 +72,6 @@ import_array();
 #include "MinimizerOptions.h"
 %}
 
-%import(module="libBornAgainFit") "AttLimits.h"
-%import(module="libBornAgainFit") "ICloneable.h"
-%import(module="libBornAgainFit") "INamed.h"
-%import(module="libBornAgainFit") "IParameterized.h"
-
  // The following goes verbatim from libBornAgainFit.i to libBornAgainFit_wrap.cxx.
 // Note that the order matters, as base classes must be included before derived classes.
 

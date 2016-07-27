@@ -26,88 +26,6 @@
 ";
 
 
-// File: classAttLimits.xml
-%feature("docstring") AttLimits "
-
-Attributes and limits for a fit parameter. Currently, the only attribute is fixed/free.
-
-C++ includes: AttLimits.h
-";
-
-%feature("docstring")  AttLimits::AttLimits "AttLimits::AttLimits()
-";
-
-%feature("docstring")  AttLimits::hasLowerLimit "bool AttLimits::hasLowerLimit() const
-
-if has lower limit 
-";
-
-%feature("docstring")  AttLimits::getLowerLimit "double AttLimits::getLowerLimit() const
-
-Returns lower limit. 
-";
-
-%feature("docstring")  AttLimits::setLowerLimit "void AttLimits::setLowerLimit(double value)
-
-Sets lower limit. 
-";
-
-%feature("docstring")  AttLimits::removeLowerLimit "void AttLimits::removeLowerLimit()
-
-remove lower limit 
-";
-
-%feature("docstring")  AttLimits::hasUpperLimit "bool AttLimits::hasUpperLimit() const
-
-if has upper limit 
-";
-
-%feature("docstring")  AttLimits::getUpperLimit "double AttLimits::getUpperLimit() const
-
-Returns upper limit. 
-";
-
-%feature("docstring")  AttLimits::setUpperLimit "void AttLimits::setUpperLimit(double value)
-
-Sets upper limit. 
-";
-
-%feature("docstring")  AttLimits::removeUpperLimit "void AttLimits::removeUpperLimit()
-
-remove upper limit 
-";
-
-%feature("docstring")  AttLimits::hasLowerAndUpperLimits "bool AttLimits::hasLowerAndUpperLimits() const
-
-if has lower and upper limit 
-";
-
-%feature("docstring")  AttLimits::setFixed "void AttLimits::setFixed(bool is_fixed)
-
-Sets object fixed. 
-";
-
-%feature("docstring")  AttLimits::isFixed "bool AttLimits::isFixed() const
-
-if object is fixed at some value 
-";
-
-%feature("docstring")  AttLimits::setLimits "void AttLimits::setLimits(double xmin, double xmax)
-
-Sets lower and upper limits. 
-";
-
-%feature("docstring")  AttLimits::removeLimits "void AttLimits::removeLimits()
-
-remove limits 
-";
-
-%feature("docstring")  AttLimits::isInRange "bool AttLimits::isInRange(double value) const
-
-returns true if proposed value is in limits range 
-";
-
-
 // File: classBasic2DParaCrystalBuilder.xml
 %feature("docstring") Basic2DParaCrystalBuilder "
 
@@ -557,21 +475,21 @@ C++ includes: BoxCompositionBuilder.h
 ";
 
 
-// File: structIntegratorMCMiser_1_1CallBackHolder.xml
-%feature("docstring") IntegratorMCMiser::CallBackHolder "
-
-structure holding the object and possible extra parameters
-
-C++ includes: IntegratorMCMiser.h
-";
-
-
 // File: structIntegratorReal_1_1CallBackHolder.xml
 %feature("docstring") IntegratorReal::CallBackHolder "
 
 structure holding the object and possible extra parameters
 
 C++ includes: IntegratorReal.h
+";
+
+
+// File: structIntegratorMCMiser_1_1CallBackHolder.xml
+%feature("docstring") IntegratorMCMiser::CallBackHolder "
+
+structure holding the object and possible extra parameters
+
+C++ includes: IntegratorMCMiser.h
 ";
 
 
@@ -613,13 +531,6 @@ clone method
 ";
 
 %feature("docstring")  ChiSquaredModule::processFitElements "void ChiSquaredModule::processFitElements(std::vector< FitElement >::iterator first, std::vector< FitElement >::iterator last)
-";
-
-
-// File: classExceptions_1_1ClassInitializationException.xml
-%feature("docstring") Exceptions::ClassInitializationException "";
-
-%feature("docstring")  Exceptions::ClassInitializationException::ClassInitializationException "Exceptions::ClassInitializationException::ClassInitializationException(const std::string &message)
 ";
 
 
@@ -1016,13 +927,6 @@ C++ includes: ParticleDistributionsBuilder.h
 ";
 
 
-// File: classExceptions_1_1DeadReferenceException.xml
-%feature("docstring") Exceptions::DeadReferenceException "";
-
-%feature("docstring")  Exceptions::DeadReferenceException::DeadReferenceException "Exceptions::DeadReferenceException::DeadReferenceException(const std::string &message)
-";
-
-
 // File: classDecoratedLayerDWBASimulation.xml
 %feature("docstring") DecoratedLayerDWBASimulation "
 
@@ -1410,20 +1314,6 @@ signals that the distribution is in the limit case of a delta distribution
 ";
 
 
-// File: classExceptions_1_1DivisionByZeroException.xml
-%feature("docstring") Exceptions::DivisionByZeroException "";
-
-%feature("docstring")  Exceptions::DivisionByZeroException::DivisionByZeroException "Exceptions::DivisionByZeroException::DivisionByZeroException(const std::string &message)
-";
-
-
-// File: classExceptions_1_1DomainErrorException.xml
-%feature("docstring") Exceptions::DomainErrorException "";
-
-%feature("docstring")  Exceptions::DomainErrorException::DomainErrorException "Exceptions::DomainErrorException::DomainErrorException(const std::string &message)
-";
-
-
 // File: classDWBADiffuseReflection.xml
 %feature("docstring") DWBADiffuseReflection "
 
@@ -1548,27 +1438,6 @@ Returns true if area defined by two bins is inside or on border of ellipse. More
 ";
 
 
-// File: classExceptions_1_1ExistingClassRegistrationException.xml
-%feature("docstring") Exceptions::ExistingClassRegistrationException "";
-
-%feature("docstring")  Exceptions::ExistingClassRegistrationException::ExistingClassRegistrationException "Exceptions::ExistingClassRegistrationException::ExistingClassRegistrationException(const std::string &message)
-";
-
-
-// File: classExceptions_1_1FileIsBadException.xml
-%feature("docstring") Exceptions::FileIsBadException "";
-
-%feature("docstring")  Exceptions::FileIsBadException::FileIsBadException "Exceptions::FileIsBadException::FileIsBadException(const std::string &message)
-";
-
-
-// File: classExceptions_1_1FileNotIsOpenException.xml
-%feature("docstring") Exceptions::FileNotIsOpenException "";
-
-%feature("docstring")  Exceptions::FileNotIsOpenException::FileNotIsOpenException "Exceptions::FileNotIsOpenException::FileNotIsOpenException(const std::string &message)
-";
-
-
 // File: classUtils_1_1FileSystem.xml
 %feature("docstring") Utils::FileSystem "
 
@@ -1617,6 +1486,824 @@ C++ includes: FitElement.h
 ";
 
 %feature("docstring")  FitElement::setResidual "void FitElement::setResidual(double value)
+";
+
+
+// File: classFitKernel.xml
+%feature("docstring") FitKernel "
+
+Fitting kernel for  FitSuite.
+
+C++ includes: FitKernel.h
+";
+
+%feature("docstring")  FitKernel::FitKernel "FitKernel::FitKernel(class FitSuite *fit_suite)
+";
+
+%feature("docstring")  FitKernel::FitKernel "FitKernel::FitKernel(const FitKernel &)=delete
+";
+
+%feature("docstring")  FitKernel::~FitKernel "FitKernel::~FitKernel()
+";
+
+%feature("docstring")  FitKernel::clear "void FitKernel::clear()
+
+Resets most state variables, to get prepared for the next fit.
+
+clear all data 
+";
+
+%feature("docstring")  FitKernel::addSimulationAndRealData "void FitKernel::addSimulationAndRealData(const GISASSimulation &simulation, const OutputData< double > &real_data, double weight)
+
+Adds pair of (simulation, real data) for consecutive simulation. 
+";
+
+%feature("docstring")  FitKernel::addFitParameter "void FitKernel::addFitParameter(const std::string &name, double value)
+
+Adds fit parameter.
+
+Adds fit parameter, step is calculated from initial parameter value. 
+";
+
+%feature("docstring")  FitKernel::addFitParameter "void FitKernel::addFitParameter(const std::string &name, double value, const AttLimits &attlim, double step=0.0, double error=0.0)
+
+Adds fit parameter.
+
+Adds fit parameter, step is calculated from initial parameter value. 
+";
+
+%feature("docstring")  FitKernel::addFitStrategy "void FitKernel::addFitStrategy(const IFitStrategy &strategy)
+
+Adds fit strategy. 
+";
+
+%feature("docstring")  FitKernel::setMinimizer "void FitKernel::setMinimizer(IMinimizer *minimizer)
+
+Sets minimizer. 
+";
+
+%feature("docstring")  FitKernel::getMinimizer "IMinimizer * FitKernel::getMinimizer()
+
+Returns minimizer. 
+";
+
+%feature("docstring")  FitKernel::runFit "void FitKernel::runFit()
+
+Runs a fit, which may consist of several minimization rounds. 
+";
+
+%feature("docstring")  FitKernel::minimize "void FitKernel::minimize()
+
+Runs a single minimization round (called by FitSuiteStrategy) 
+";
+
+%feature("docstring")  FitKernel::getFitObjects "FitSuiteObjects * FitKernel::getFitObjects()
+
+Returns reference to the kit with data. 
+";
+
+%feature("docstring")  FitKernel::getFitObjects "const FitSuiteObjects * FitKernel::getFitObjects() const 
+";
+
+%feature("docstring")  FitKernel::getFitParameters "FitSuiteParameters * FitKernel::getFitParameters()
+
+Returns reference to fit parameters. 
+";
+
+%feature("docstring")  FitKernel::getFitStrategies "FitSuiteStrategies * FitKernel::getFitStrategies()
+
+Returns reference to fit parameters. 
+";
+
+%feature("docstring")  FitKernel::isLastIteration "bool FitKernel::isLastIteration() const
+
+Returns true if the last iteration is done (used by observers to print summary) 
+";
+
+%feature("docstring")  FitKernel::getNCalls "size_t FitKernel::getNCalls() const
+
+Returns current number of minimization function calls. 
+";
+
+%feature("docstring")  FitKernel::getCurrentStrategyIndex "size_t FitKernel::getCurrentStrategyIndex() const
+
+Returns the number of current strategy. 
+";
+
+%feature("docstring")  FitKernel::printResults "void FitKernel::printResults() const
+
+Prints fit results to stdout. 
+";
+
+%feature("docstring")  FitKernel::getOptions "FitOptions & FitKernel::getOptions()
+
+Returns current fit options. 
+";
+
+%feature("docstring")  FitKernel::setOptions "void FitKernel::setOptions(const FitOptions &fit_options)
+
+Sets fit options. 
+";
+
+%feature("docstring")  FitKernel::getRunTime "double FitKernel::getRunTime() const
+
+Returns total wall time in seconds which was spend for run fit. 
+";
+
+%feature("docstring")  FitKernel::notifyObservers "void FitKernel::notifyObservers()
+";
+
+%feature("docstring")  FitKernel::isInterrupted "bool FitKernel::isInterrupted() const 
+";
+
+%feature("docstring")  FitKernel::interruptFitting "void FitKernel::interruptFitting()
+";
+
+%feature("docstring")  FitKernel::resetInterrupt "void FitKernel::resetInterrupt()
+";
+
+
+// File: classFitObject.xml
+%feature("docstring") FitObject "
+
+Holds simulation description and real data to run the fit.
+
+C++ includes: FitObject.h
+";
+
+%feature("docstring")  FitObject::FitObject "FitObject::FitObject(const GISASSimulation &simulation, const OutputData< double > &real_data, double weight=1, bool adjust_detector_to_data=true)
+
+FitObject constructor
+
+Parameters:
+-----------
+
+simulation: 
+The simulation to eun
+
+real_data: 
+The real data
+
+weight: 
+Weight of dataset in chi2 calculations
+
+adjust_detector_to_data: 
+Detector axes will be adjusted to real data axes, if true 
+";
+
+%feature("docstring")  FitObject::~FitObject "FitObject::~FitObject()
+";
+
+%feature("docstring")  FitObject::getRealData "const OutputData<double>* FitObject::getRealData() const
+
+Returns real (experimental) data. 
+";
+
+%feature("docstring")  FitObject::getSimulationData "const OutputData<double>* FitObject::getSimulationData() const
+
+Returns simulated data. 
+";
+
+%feature("docstring")  FitObject::getSimulation "const GISASSimulation* FitObject::getSimulation() const
+
+Returns simulation. 
+";
+
+%feature("docstring")  FitObject::getWeight "double FitObject::getWeight() const
+
+Returns weight of data set in chi2 calculations. 
+";
+
+%feature("docstring")  FitObject::getSizeOfData "size_t FitObject::getSizeOfData() const
+
+Returns the size of the data. It is equal to the number of non-masked detector channels which will participate in chi2 calculations. 
+";
+
+%feature("docstring")  FitObject::prepareFitElements "void FitObject::prepareFitElements(std::vector< FitElement > &fit_elements, double weight, IIntensityNormalizer *normalizer=0)
+
+Runs simulation and put results (the real and simulated intensities) into external vector. Masked channels will be excluded from the vector. 
+";
+
+%feature("docstring")  FitObject::getChiSquaredMap "const OutputData< double > * FitObject::getChiSquaredMap(std::vector< FitElement >::const_iterator first, std::vector< FitElement >::const_iterator last) const
+
+Creates ChiSquared map from external vector. 
+";
+
+%feature("docstring")  FitObject::addParametersToExternalPool "std::string FitObject::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const
+
+Adds parameters from local pool to external pool and recursively calls its direct children.
+
+Adds parameters from local pool to external pool. 
+";
+
+
+// File: classFitOptions.xml
+%feature("docstring") FitOptions "
+
+General fitting options.
+
+C++ includes: FitOptions.h
+";
+
+%feature("docstring")  FitOptions::FitOptions "FitOptions::FitOptions()
+";
+
+%feature("docstring")  FitOptions::~FitOptions "FitOptions::~FitOptions()
+";
+
+%feature("docstring")  FitOptions::getDerivEpsilon "double FitOptions::getDerivEpsilon() const 
+";
+
+%feature("docstring")  FitOptions::setDerivEpsilon "void FitOptions::setDerivEpsilon(double deriv_epsilon)
+";
+
+%feature("docstring")  FitOptions::getStepFactor "double FitOptions::getStepFactor() const 
+";
+
+%feature("docstring")  FitOptions::setStepFactor "void FitOptions::setStepFactor(double step_factor)
+";
+
+
+// File: classFitStrategyAdjustMinimizer.xml
+%feature("docstring") FitStrategyAdjustMinimizer "
+
+Strategy modifies mimimizer settings before running minimization round.
+
+C++ includes: FitStrategyAdjustMinimizer.h
+";
+
+%feature("docstring")  FitStrategyAdjustMinimizer::FitStrategyAdjustMinimizer "FitStrategyAdjustMinimizer::FitStrategyAdjustMinimizer()
+";
+
+%feature("docstring")  FitStrategyAdjustMinimizer::FitStrategyAdjustMinimizer "FitStrategyAdjustMinimizer::FitStrategyAdjustMinimizer(const std::string &minimizer_name, const std::string &algorithm_name=std::string(), const std::string &minimizer_options=std::string())
+";
+
+%feature("docstring")  FitStrategyAdjustMinimizer::~FitStrategyAdjustMinimizer "FitStrategyAdjustMinimizer::~FitStrategyAdjustMinimizer()
+";
+
+%feature("docstring")  FitStrategyAdjustMinimizer::clone "FitStrategyAdjustMinimizer * FitStrategyAdjustMinimizer::clone() const 
+";
+
+%feature("docstring")  FitStrategyAdjustMinimizer::getMinimizer "IMinimizer * FitStrategyAdjustMinimizer::getMinimizer()
+";
+
+%feature("docstring")  FitStrategyAdjustMinimizer::setMinimizer "void FitStrategyAdjustMinimizer::setMinimizer(IMinimizer *minimizer)
+";
+
+%feature("docstring")  FitStrategyAdjustMinimizer::setMinimizer "void FitStrategyAdjustMinimizer::setMinimizer(const std::string &minimizer_name, const std::string &algorithm_name=std::string(), const std::string &minimizer_options=std::string())
+";
+
+%feature("docstring")  FitStrategyAdjustMinimizer::execute "void FitStrategyAdjustMinimizer::execute()
+";
+
+%feature("docstring")  FitStrategyAdjustMinimizer::getMinimizerOptions "MinimizerOptions * FitStrategyAdjustMinimizer::getMinimizerOptions()
+";
+
+
+// File: classFitStrategyAdjustParameters.xml
+%feature("docstring") FitStrategyAdjustParameters "
+
+Strategy which fixes/releases fit parameters and call minimizer.
+
+C++ includes: FitStrategyAdjustParameters.h
+";
+
+%feature("docstring")  FitStrategyAdjustParameters::FitStrategyAdjustParameters "FitStrategyAdjustParameters::FitStrategyAdjustParameters(const std::string &name)
+";
+
+%feature("docstring")  FitStrategyAdjustParameters::FitStrategyAdjustParameters "FitStrategyAdjustParameters::FitStrategyAdjustParameters()
+";
+
+%feature("docstring")  FitStrategyAdjustParameters::~FitStrategyAdjustParameters "virtual FitStrategyAdjustParameters::~FitStrategyAdjustParameters()
+";
+
+%feature("docstring")  FitStrategyAdjustParameters::clone "virtual FitStrategyAdjustParameters* FitStrategyAdjustParameters::clone() const 
+";
+
+%feature("docstring")  FitStrategyAdjustParameters::execute "void FitStrategyAdjustParameters::execute()
+
+strategy which fixes/releases fit parameters and then call minimizer 
+";
+
+%feature("docstring")  FitStrategyAdjustParameters::fix_all "virtual FitStrategyAdjustParameters& FitStrategyAdjustParameters::fix_all()
+";
+
+%feature("docstring")  FitStrategyAdjustParameters::release_all "virtual FitStrategyAdjustParameters& FitStrategyAdjustParameters::release_all()
+";
+
+%feature("docstring")  FitStrategyAdjustParameters::fix "virtual FitStrategyAdjustParameters& FitStrategyAdjustParameters::fix(std::string parname)
+";
+
+%feature("docstring")  FitStrategyAdjustParameters::release "virtual FitStrategyAdjustParameters& FitStrategyAdjustParameters::release(std::string parname)
+";
+
+%feature("docstring")  FitStrategyAdjustParameters::setPreserveOriginalValues "virtual void FitStrategyAdjustParameters::setPreserveOriginalValues(bool preserve_values)
+";
+
+%feature("docstring")  FitStrategyAdjustParameters::clear "virtual void FitStrategyAdjustParameters::clear()
+";
+
+
+// File: classFitStrategyDefault.xml
+%feature("docstring") FitStrategyDefault "
+
+Default fit strategy just let  FitSuite to run it's minimization round.
+
+C++ includes: IFitStrategy.h
+";
+
+%feature("docstring")  FitStrategyDefault::FitStrategyDefault "FitStrategyDefault::FitStrategyDefault()
+";
+
+%feature("docstring")  FitStrategyDefault::clone "IFitStrategy * FitStrategyDefault::clone() const 
+";
+
+%feature("docstring")  FitStrategyDefault::execute "void FitStrategyDefault::execute()
+";
+
+
+// File: classFitStrategyFixParameters.xml
+%feature("docstring") FitStrategyFixParameters "
+
+Strategy which fixes certain fit parameters leaving other released.
+
+C++ includes: FitStrategyAdjustParameters.h
+";
+
+%feature("docstring")  FitStrategyFixParameters::FitStrategyFixParameters "FitStrategyFixParameters::FitStrategyFixParameters()
+";
+
+%feature("docstring")  FitStrategyFixParameters::FitStrategyFixParameters "FitStrategyFixParameters::FitStrategyFixParameters(const std::vector< std::string > &pars)
+";
+
+%feature("docstring")  FitStrategyFixParameters::~FitStrategyFixParameters "virtual FitStrategyFixParameters::~FitStrategyFixParameters()
+";
+
+%feature("docstring")  FitStrategyFixParameters::clone "virtual FitStrategyFixParameters* FitStrategyFixParameters::clone() const 
+";
+
+%feature("docstring")  FitStrategyFixParameters::clear "virtual void FitStrategyFixParameters::clear()
+";
+
+%feature("docstring")  FitStrategyFixParameters::setFixed "virtual void FitStrategyFixParameters::setFixed(const std::vector< std::string > &pars)
+";
+
+
+// File: classFitStrategyReleaseParameters.xml
+%feature("docstring") FitStrategyReleaseParameters "
+
+Strategy which releases certain fit parameters leaving other fixed.
+
+C++ includes: FitStrategyAdjustParameters.h
+";
+
+%feature("docstring")  FitStrategyReleaseParameters::FitStrategyReleaseParameters "FitStrategyReleaseParameters::FitStrategyReleaseParameters()
+";
+
+%feature("docstring")  FitStrategyReleaseParameters::FitStrategyReleaseParameters "FitStrategyReleaseParameters::FitStrategyReleaseParameters(const std::vector< std::string > &pars)
+";
+
+%feature("docstring")  FitStrategyReleaseParameters::~FitStrategyReleaseParameters "virtual FitStrategyReleaseParameters::~FitStrategyReleaseParameters()
+";
+
+%feature("docstring")  FitStrategyReleaseParameters::clone "virtual FitStrategyReleaseParameters* FitStrategyReleaseParameters::clone() const 
+";
+
+%feature("docstring")  FitStrategyReleaseParameters::clear "virtual void FitStrategyReleaseParameters::clear()
+";
+
+%feature("docstring")  FitStrategyReleaseParameters::setReleased "virtual void FitStrategyReleaseParameters::setReleased(const std::vector< std::string > &pars)
+";
+
+
+// File: classFitSuite.xml
+%feature("docstring") FitSuite "
+
+User interface class that wraps all fit methods.
+
+C++ includes: FitSuite.h
+";
+
+%feature("docstring")  FitSuite::FitSuite "FitSuite::FitSuite()
+";
+
+%feature("docstring")  FitSuite::~FitSuite "FitSuite::~FitSuite()
+";
+
+%feature("docstring")  FitSuite::addSimulationAndRealData "void FitSuite::addSimulationAndRealData(const GISASSimulation &simulation, const OutputData< double > &real_data, double weight=1)
+
+Assigns pair of (simulation, real data) for fitting. More than one pair can be added. 
+";
+
+%feature("docstring")  FitSuite::addSimulationAndRealData "void FitSuite::addSimulationAndRealData(const GISASSimulation &simulation, const IHistogram &real_data, double weight=1)
+
+Assigns pair of (simulation, real data) for fitting. More than one pair can be added. 
+";
+
+%feature("docstring")  FitSuite::addFitParameter "void FitSuite::addFitParameter(const std::string &name, double value, const AttLimits &attlim=AttLimits::limitless(), double step=0.0)
+
+Adds fit parameter
+
+Parameters:
+-----------
+
+name: 
+The name of fit parameter
+
+value: 
+Parameter's starting value
+
+attlim: 
+Limits attribute
+
+step: 
+Initial parameter's step (some minimizers don't use it) 
+";
+
+%feature("docstring")  FitSuite::setMinimizer "void FitSuite::setMinimizer(const std::string &minimizer_name, const std::string &algorithm_name=std::string(), const std::string &minimizer_options=std::string())
+
+Sets minimizer with given name and algorithm type
+
+Parameters:
+-----------
+
+minimizer_name: 
+The name of the minimizer
+
+algorithm_name: 
+Optional name of the minimizer's algorithm
+
+minimizer_options: 
+Optional string with additional minimizer settings 
+";
+
+%feature("docstring")  FitSuite::setChiSquaredModule "void FitSuite::setChiSquaredModule(const IChiSquaredModule &chi2_module)
+
+Replaces default  ChiSquaredModule with new one. 
+";
+
+%feature("docstring")  FitSuite::addFitStrategy "void FitSuite::addFitStrategy(const IFitStrategy &strategy)
+
+Adds fit strategy. 
+";
+
+%feature("docstring")  FitSuite::setMinimizer "void FitSuite::setMinimizer(class IMinimizer *minimizer)
+
+Sets minimizer. 
+";
+
+%feature("docstring")  FitSuite::getMinimizer "IMinimizer * FitSuite::getMinimizer()
+
+Returns minimizer. 
+";
+
+%feature("docstring")  FitSuite::initPrint "void FitSuite::initPrint(int print_every_nth)
+
+Initializes printing to standard output during the fitting. Prints also the summary when completed.
+
+Parameters:
+-----------
+
+print_every_nth: 
+Print every n'th iteration 
+";
+
+%feature("docstring")  FitSuite::fixAllParameters "void FitSuite::fixAllParameters()
+
+Set all parameters to fixed. 
+";
+
+%feature("docstring")  FitSuite::releaseAllParameters "void FitSuite::releaseAllParameters()
+
+Set all parameters to released. 
+";
+
+%feature("docstring")  FitSuite::setParametersFixed "void FitSuite::setParametersFixed(const std::vector< std::string > &pars, bool is_fixed)
+
+Set fixed flag for parameters from the list. 
+";
+
+%feature("docstring")  FitSuite::runFit "void FitSuite::runFit()
+
+main method to run the fitting 
+";
+
+%feature("docstring")  FitSuite::getNumberOfFitObjects "int FitSuite::getNumberOfFitObjects() const
+
+Returns number of fit objects, where fit object stands for (real, simulated) pair. 
+";
+
+%feature("docstring")  FitSuite::getRealData "IHistogram * FitSuite::getRealData(size_t i_item=0) const
+
+returns real data histogram
+
+Parameters:
+-----------
+
+i_item: 
+The index of fit object 
+";
+
+%feature("docstring")  FitSuite::getSimulationData "IHistogram * FitSuite::getSimulationData(size_t i_item=0) const
+
+returns simulated data histogram
+
+Parameters:
+-----------
+
+i_item: 
+The index of fit object 
+";
+
+%feature("docstring")  FitSuite::getChiSquaredMap "IHistogram * FitSuite::getChiSquaredMap(size_t i_item=0) const
+
+returns chi2 histogram calculated for (real, simulated) data pair
+
+Parameters:
+-----------
+
+i_item: 
+The index of fit object 
+";
+
+%feature("docstring")  FitSuite::getFitObjects "FitSuiteObjects * FitSuite::getFitObjects()
+
+returns  FitObject (pair of simulation/real data) 
+";
+
+%feature("docstring")  FitSuite::getFitParameters "FitSuiteParameters * FitSuite::getFitParameters()
+
+Returns reference to fit parameters. 
+";
+
+%feature("docstring")  FitSuite::getFitStrategies "FitSuiteStrategies * FitSuite::getFitStrategies()
+
+Returns reference to fit parameters. 
+";
+
+%feature("docstring")  FitSuite::isLastIteration "bool FitSuite::isLastIteration() const
+
+if the last iteration is done (used by observers to print summary) 
+";
+
+%feature("docstring")  FitSuite::getNumberOfIterations "size_t FitSuite::getNumberOfIterations() const
+
+Returns current number of minimization function calls. 
+";
+
+%feature("docstring")  FitSuite::getCurrentStrategyIndex "size_t FitSuite::getCurrentStrategyIndex() const
+
+Returns the number of current strategy. 
+";
+
+%feature("docstring")  FitSuite::printResults "void FitSuite::printResults() const 
+";
+
+%feature("docstring")  FitSuite::getChi2 "double FitSuite::getChi2() const
+
+Returns minimum chi squared value found. 
+";
+
+%feature("docstring")  FitSuite::getOptions "FitOptions & FitSuite::getOptions()
+
+Returns general setting of fit kernel. 
+";
+
+%feature("docstring")  FitSuite::setOptions "void FitSuite::setOptions(const FitOptions &fit_options)
+
+Sets general setting of fit kernel. 
+";
+
+%feature("docstring")  FitSuite::interruptFitting "void FitSuite::interruptFitting()
+";
+
+%feature("docstring")  FitSuite::resetInterrupt "void FitSuite::resetInterrupt()
+";
+
+%feature("docstring")  FitSuite::isInterrupted "bool FitSuite::isInterrupted()
+";
+
+%feature("docstring")  FitSuite::getRealOutputData "const OutputData< double > * FitSuite::getRealOutputData(size_t i_item=0) const 
+";
+
+%feature("docstring")  FitSuite::getSimulationOutputData "const OutputData< double > * FitSuite::getSimulationOutputData(size_t i_item=0) const 
+";
+
+%feature("docstring")  FitSuite::getChiSquaredOutputData "const OutputData< double > * FitSuite::getChiSquaredOutputData(size_t i_item=0) const 
+";
+
+
+// File: classFitSuiteChiSquaredFunction.xml
+%feature("docstring") FitSuiteChiSquaredFunction "
+
+Chi squared fitting function for minimizer.
+
+C++ includes: FitSuiteFunctions.h
+";
+
+%feature("docstring")  FitSuiteChiSquaredFunction::FitSuiteChiSquaredFunction "FitSuiteChiSquaredFunction::FitSuiteChiSquaredFunction()
+";
+
+%feature("docstring")  FitSuiteChiSquaredFunction::~FitSuiteChiSquaredFunction "virtual FitSuiteChiSquaredFunction::~FitSuiteChiSquaredFunction()
+";
+
+%feature("docstring")  FitSuiteChiSquaredFunction::evaluate "double FitSuiteChiSquaredFunction::evaluate(const double *pars)
+
+evaluate method for chi2 value called directly from the minimizer
+
+evaluate chi squared value 
+";
+
+
+// File: classFitSuiteGradientFunction.xml
+%feature("docstring") FitSuiteGradientFunction "
+
+Gradient fitting function for minimizer.
+
+C++ includes: FitSuiteFunctions.h
+";
+
+%feature("docstring")  FitSuiteGradientFunction::FitSuiteGradientFunction "FitSuiteGradientFunction::FitSuiteGradientFunction()
+";
+
+%feature("docstring")  FitSuiteGradientFunction::~FitSuiteGradientFunction "virtual FitSuiteGradientFunction::~FitSuiteGradientFunction()
+";
+
+%feature("docstring")  FitSuiteGradientFunction::evaluate "double FitSuiteGradientFunction::evaluate(const double *pars, unsigned int index, double *gradients)
+
+evaluate method for gradients and residuals called directly from the minimizer
+
+evaluate residual and derivative for given data element 
+";
+
+%feature("docstring")  FitSuiteGradientFunction::getNCallsTotal "virtual size_t FitSuiteGradientFunction::getNCallsTotal() const 
+";
+
+%feature("docstring")  FitSuiteGradientFunction::getNCallsGradient "virtual size_t FitSuiteGradientFunction::getNCallsGradient() const 
+";
+
+
+// File: classFitSuiteObjects.xml
+%feature("docstring") FitSuiteObjects "
+
+The class containing vector of  FitObject (simulation and real data) to fit.
+
+C++ includes: FitSuiteObjects.h
+";
+
+%feature("docstring")  FitSuiteObjects::FitSuiteObjects "FitSuiteObjects::FitSuiteObjects()
+";
+
+%feature("docstring")  FitSuiteObjects::~FitSuiteObjects "FitSuiteObjects::~FitSuiteObjects()
+";
+
+%feature("docstring")  FitSuiteObjects::add "void FitSuiteObjects::add(const GISASSimulation &simulation, const OutputData< double > &real_data, double weight=1.0)
+
+Adds to kit pair of (simulation, real data) for consecutive simulation. 
+";
+
+%feature("docstring")  FitSuiteObjects::getNumberOfFitObjects "size_t FitSuiteObjects::getNumberOfFitObjects() const
+
+Returns number of fit objects (simulation/real data pairs) 
+";
+
+%feature("docstring")  FitSuiteObjects::getSizeOfDataSet "size_t FitSuiteObjects::getSizeOfDataSet() const
+
+Returns total number of data points (number of all non-masked channels in all fit objects)
+
+Returns total number of data points. 
+";
+
+%feature("docstring")  FitSuiteObjects::setChiSquaredModule "void FitSuiteObjects::setChiSquaredModule(const IChiSquaredModule &chi2_module)
+
+Replaces default  ChiSquaredModule with new one. 
+";
+
+%feature("docstring")  FitSuiteObjects::getRealData "const OutputData< double > * FitSuiteObjects::getRealData(size_t i_item=0) const
+
+Returns real data from corresponding  FitObject
+
+Parameters:
+-----------
+
+i_item: 
+Index of  FitObject
+";
+
+%feature("docstring")  FitSuiteObjects::getSimulationData "const OutputData< double > * FitSuiteObjects::getSimulationData(size_t i_item=0) const
+
+Returns simulated data from corresponding  FitObject
+
+Parameters:
+-----------
+
+i_item: 
+Index of  FitObject
+";
+
+%feature("docstring")  FitSuiteObjects::getChiSquaredMap "const OutputData< double > * FitSuiteObjects::getChiSquaredMap(size_t i_item=0) const
+
+Returns new chi-squared map from corresponding  FitObject
+
+Parameters:
+-----------
+
+i_item: 
+Index of  FitObject
+";
+
+%feature("docstring")  FitSuiteObjects::runSimulations "void FitSuiteObjects::runSimulations()
+
+run all simulation defined in fit pairs
+
+loop through all defined simulations and run them 
+";
+
+%feature("docstring")  FitSuiteObjects::getChiSquaredValue "double FitSuiteObjects::getChiSquaredValue() const
+
+Returns chi2 calculated over whole dataset. 
+";
+
+%feature("docstring")  FitSuiteObjects::getResidualValue "double FitSuiteObjects::getResidualValue(size_t global_index)
+
+Returns residuals for single data element
+
+Parameters:
+-----------
+
+global_index: 
+index accross all element in  FitElement vector 
+";
+
+%feature("docstring")  FitSuiteObjects::addParametersToExternalPool "std::string FitSuiteObjects::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const
+
+Adds parameters from local pool to external pool and call recursion over direct children.
+
+Adds parameters from local pool to external pool. 
+";
+
+%feature("docstring")  FitSuiteObjects::setNfreeParameters "void FitSuiteObjects::setNfreeParameters(int nfree_parameters)
+";
+
+%feature("docstring")  FitSuiteObjects::clear "void FitSuiteObjects::clear()
+
+clear all data 
+";
+
+
+// File: classFitSuitePrintObserver.xml
+%feature("docstring") FitSuitePrintObserver "
+
+Prints fit progress at the end of each  FitSuite's iteration.
+
+C++ includes: FitSuitePrintObserver.h
+";
+
+%feature("docstring")  FitSuitePrintObserver::FitSuitePrintObserver "FitSuitePrintObserver::FitSuitePrintObserver(int print_every_nth=1)
+";
+
+%feature("docstring")  FitSuitePrintObserver::~FitSuitePrintObserver "virtual FitSuitePrintObserver::~FitSuitePrintObserver()
+";
+
+%feature("docstring")  FitSuitePrintObserver::update "void FitSuitePrintObserver::update(FitSuite *fit_suite)
+
+Here Onserver will do actuall job when he thinks that it is a right moment. 
+";
+
+
+// File: classFitSuiteStrategies.xml
+%feature("docstring") FitSuiteStrategies "
+
+Collection of strategies to fit.
+
+C++ includes: FitSuiteStrategies.h
+";
+
+%feature("docstring")  FitSuiteStrategies::FitSuiteStrategies "FitSuiteStrategies::FitSuiteStrategies()
+";
+
+%feature("docstring")  FitSuiteStrategies::~FitSuiteStrategies "FitSuiteStrategies::~FitSuiteStrategies()
+";
+
+%feature("docstring")  FitSuiteStrategies::init "void FitSuiteStrategies::init(FitKernel *fit_suite)
+";
+
+%feature("docstring")  FitSuiteStrategies::addStrategy "void FitSuiteStrategies::addStrategy(IFitStrategy *strategy)
+";
+
+%feature("docstring")  FitSuiteStrategies::minimize "void FitSuiteStrategies::minimize()
+";
+
+%feature("docstring")  FitSuiteStrategies::getCurrentStrategyIndex "size_t FitSuiteStrategies::getCurrentStrategyIndex() const 
+";
+
+%feature("docstring")  FitSuiteStrategies::size "size_t FitSuiteStrategies::size() const 
+";
+
+%feature("docstring")  FitSuiteStrategies::clear "void FitSuiteStrategies::clear()
+";
+
+%feature("docstring")  FitSuiteStrategies::getCurrentStrategy "IFitStrategy * FitSuiteStrategies::getCurrentStrategy()
 ";
 
 
@@ -1693,13 +2380,6 @@ find bin index which is best match for given value
 %feature("docstring")  FixedBinAxis::createClippedAxis "FixedBinAxis * FixedBinAxis::createClippedAxis(double left, double right) const
 
 Creates a new clipped axis. 
-";
-
-
-// File: classExceptions_1_1FormatErrorException.xml
-%feature("docstring") Exceptions::FormatErrorException "";
-
-%feature("docstring")  Exceptions::FormatErrorException::FormatErrorException "Exceptions::FormatErrorException::FormatErrorException(const std::string &message)
 ";
 
 
@@ -3214,8 +3894,6 @@ C++ includes: FormFactorPolyhedron.h
 ";
 
 %feature("docstring")  FormFactorPolyhedron::onChange "virtual void FormFactorPolyhedron::onChange()=0
-
-Action to be taken in inherited class when a parameter has changed. 
 ";
 
 %feature("docstring")  FormFactorPolyhedron::evaluate_for_q "complex_t FormFactorPolyhedron::evaluate_for_q(const cvector_t q) const final
@@ -5010,34 +5688,6 @@ Sets data rescaler.
 ";
 
 
-// File: classICloneable.xml
-%feature("docstring") ICloneable "
-
-Interface for objects that must not be copied, except by cloning.
-
-This virtual base class disables the copy constructor and the operator= in all its child classes. Child classes should provide clone().
-
-C++ includes: ICloneable.h
-";
-
-%feature("docstring")  ICloneable::ICloneable "ICloneable::ICloneable()
-";
-
-%feature("docstring")  ICloneable::ICloneable "ICloneable::ICloneable(const ICloneable &)=delete
-";
-
-%feature("docstring")  ICloneable::~ICloneable "virtual ICloneable::~ICloneable()
-";
-
-%feature("docstring")  ICloneable::clone "virtual ICloneable* ICloneable::clone() const =0
-";
-
-%feature("docstring")  ICloneable::transferToCPP "virtual void ICloneable::transferToCPP()
-
-Used for Python overriding of clone. 
-";
-
-
 // File: classIClusteredParticles.xml
 %feature("docstring") IClusteredParticles "
 
@@ -5440,6 +6090,78 @@ Returns number of registered objects.
 ";
 
 %feature("docstring")  IFactory::end "const_iterator IFactory< Key, AbstractProduct >::end() const 
+";
+
+
+// File: classIFitObserver.xml
+%feature("docstring") IFitObserver "
+
+Base class for all fit observers. Calls update method in following cases: first iteration, every n-th iteration, last iteration and when fit strategy has changed.
+
+C++ includes: IFitObserver.h
+";
+
+%feature("docstring")  IFitObserver::IFitObserver "IFitObserver::IFitObserver(int update_every_nth)
+";
+
+%feature("docstring")  IFitObserver::notify "void IFitObserver::notify(IObservable *subject)
+
+The method used by Ovservable when he wants to be observed by this. 
+";
+
+%feature("docstring")  IFitObserver::update "void IFitObserver::update(FitSuite *fit_suite)
+
+Here Onserver will do actuall job when he thinks that it is a right moment. 
+";
+
+
+// File: classIFitStrategy.xml
+%feature("docstring") IFitStrategy "
+
+Interface to concrete fit strategy.
+
+Concrete implementation should manipulate with fit parameters/data and then call minimizer.
+
+C++ includes: IFitStrategy.h
+";
+
+%feature("docstring")  IFitStrategy::IFitStrategy "IFitStrategy::IFitStrategy()
+";
+
+%feature("docstring")  IFitStrategy::IFitStrategy "IFitStrategy::IFitStrategy(const std::string &name)
+";
+
+%feature("docstring")  IFitStrategy::clone "virtual IFitStrategy* IFitStrategy::clone() const =0
+";
+
+%feature("docstring")  IFitStrategy::~IFitStrategy "virtual IFitStrategy::~IFitStrategy()
+";
+
+%feature("docstring")  IFitStrategy::init "void IFitStrategy::init(FitKernel *fit_suite)
+";
+
+%feature("docstring")  IFitStrategy::execute "virtual void IFitStrategy::execute()=0
+";
+
+
+// File: classIFitSuiteFunction.xml
+%feature("docstring") IFitSuiteFunction "
+
+Fitting functions interface to be used by Minimizer.
+
+C++ includes: FitSuiteFunctions.h
+";
+
+%feature("docstring")  IFitSuiteFunction::IFitSuiteFunction "IFitSuiteFunction::IFitSuiteFunction()
+";
+
+%feature("docstring")  IFitSuiteFunction::~IFitSuiteFunction "virtual IFitSuiteFunction::~IFitSuiteFunction()
+";
+
+%feature("docstring")  IFitSuiteFunction::init "virtual void IFitSuiteFunction::init(FitKernel *fit_suite)
+";
+
+%feature("docstring")  IFitSuiteFunction::getNCalls "virtual size_t IFitSuiteFunction::getNCalls() const 
 ";
 
 
@@ -6302,27 +7024,6 @@ Create a new material that is transformed with respect to this one.
 ";
 
 
-// File: classINamed.xml
-%feature("docstring") INamed "
-
-Interface for named objects.
-
-C++ includes: INamed.h
-";
-
-%feature("docstring")  INamed::INamed "INamed::INamed()
-";
-
-%feature("docstring")  INamed::INamed "INamed::INamed(const std::string &name)
-";
-
-%feature("docstring")  INamed::~INamed "virtual INamed::~INamed()
-";
-
-%feature("docstring")  INamed::getName "std::string INamed::getName() const 
-";
-
-
 // File: classGeometry_1_1InfinitePlane.xml
 %feature("docstring") Geometry::InfinitePlane "
 
@@ -6975,6 +7676,45 @@ Gets the Fourier transformed probability distribution of the nearest particle.
 ";
 
 
+// File: classIObservable.xml
+%feature("docstring") IObservable "
+
+Observable interface from Observer pattern, for 1:n object dependencies.
+
+C++ includes: IObserver.h
+";
+
+%feature("docstring")  IObservable::~IObservable "virtual IObservable::~IObservable()
+";
+
+%feature("docstring")  IObservable::attachObserver "void IObservable::attachObserver(observer_t obj)
+
+attach observer to the list of observers 
+";
+
+%feature("docstring")  IObservable::notifyObservers "void IObservable::notifyObservers()
+
+notify observers about change in status 
+";
+
+
+// File: classIObserver.xml
+%feature("docstring") IObserver "
+
+Observer interface from Observer pattern, for 1:n object dependencies.
+
+C++ includes: IObserver.h
+";
+
+%feature("docstring")  IObserver::~IObserver "virtual IObserver::~IObserver()
+";
+
+%feature("docstring")  IObserver::notify "virtual void IObserver::notify(IObservable *subject)=0
+
+method which is used by observable subject to notify change in status 
+";
+
+
 // File: classIOutputDataReadStrategy.xml
 %feature("docstring") IOutputDataReadStrategy "
 
@@ -7005,62 +7745,6 @@ C++ includes: OutputDataWriteStrategy.h
 ";
 
 %feature("docstring")  IOutputDataWriteStrategy::writeOutputData "virtual void IOutputDataWriteStrategy::writeOutputData(const OutputData< double > &data, std::ostream &output_stream)=0
-";
-
-
-// File: classIParameterized.xml
-%feature("docstring") IParameterized "
-
-Manage a local parameter pool, and a tree of child pools.
-
-C++ includes: IParameterized.h
-";
-
-%feature("docstring")  IParameterized::IParameterized "IParameterized::IParameterized(const std::string &name=\"\")
-";
-
-%feature("docstring")  IParameterized::IParameterized "IParameterized::IParameterized(const IParameterized &other)
-";
-
-%feature("docstring")  IParameterized::~IParameterized "IParameterized::~IParameterized()
-";
-
-%feature("docstring")  IParameterized::getParameterPool "ParameterPool* IParameterized::getParameterPool() const
-
-Returns pointer to the parameter pool. 
-";
-
-%feature("docstring")  IParameterized::createParameterTree "ParameterPool * IParameterized::createParameterTree()
-
-Creates new parameter pool, with all local parameters and those of its children. 
-";
-
-%feature("docstring")  IParameterized::printParameters "void IParameterized::printParameters()
-";
-
-%feature("docstring")  IParameterized::registerParameter "void IParameterized::registerParameter(const std::string &name, double *parpointer)
-
-Register parameter address in the parameter pool; name allows for wildcard '*'. 
-";
-
-%feature("docstring")  IParameterized::registerParameter "void IParameterized::registerParameter(const std::string &name, double *parpointer, const AttLimits &limits)
-
-Register parameter address in the parameter pool; name allows for wildcard '*'. 
-";
-
-%feature("docstring")  IParameterized::setParameterValue "void IParameterized::setParameterValue(const std::string &name, double value)
-";
-
-%feature("docstring")  IParameterized::getParameter "RealParameter * IParameterized::getParameter(const std::string &name) const
-
-Returns parameter with given 'name'. 
-";
-
-%feature("docstring")  IParameterized::addParametersToExternalPool "std::string IParameterized::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const
-
-Adds parameters from local pool to external pool and recursively calls its direct children.
-
-Copies local parameters to external_pool, under name \"path/<name>copy_number/\". 
 ";
 
 
@@ -8464,34 +9148,6 @@ C++ includes: LLData.h
 ";
 
 
-// File: classMSG_1_1Logger.xml
-%feature("docstring") MSG::Logger "
-
-Provides message service.
-
-C++ includes: Logger.h
-";
-
-%feature("docstring")  MSG::Logger::Logger "MSG::Logger::Logger(EMessageLevel level)
-";
-
-%feature("docstring")  MSG::Logger::~Logger "MSG::Logger::~Logger()
-";
-
-%feature("docstring")  MSG::Logger::NowTime "std::string MSG::Logger::NowTime()
-";
-
-%feature("docstring")  MSG::Logger::ToString "const std::string & MSG::Logger::ToString(EMessageLevel level)
-";
-
-
-// File: classExceptions_1_1LogicErrorException.xml
-%feature("docstring") Exceptions::LogicErrorException "";
-
-%feature("docstring")  Exceptions::LogicErrorException::LogicErrorException "Exceptions::LogicErrorException::LogicErrorException(const std::string &message)
-";
-
-
 // File: classMagneticCylindersBuilder.xml
 %feature("docstring") MagneticCylindersBuilder "
 
@@ -9045,20 +9701,6 @@ C++ includes: MultipleLayoutBuilder.h
 ";
 
 
-// File: classExceptions_1_1NotImplementedException.xml
-%feature("docstring") Exceptions::NotImplementedException "";
-
-%feature("docstring")  Exceptions::NotImplementedException::NotImplementedException "Exceptions::NotImplementedException::NotImplementedException(const std::string &message)
-";
-
-
-// File: classExceptions_1_1NullPointerException.xml
-%feature("docstring") Exceptions::NullPointerException "";
-
-%feature("docstring")  Exceptions::NullPointerException::NullPointerException "Exceptions::NullPointerException::NullPointerException(const std::string &message)
-";
-
-
 // File: classOffSpecSimulation.xml
 %feature("docstring") OffSpecSimulation "
 
@@ -9167,13 +9809,6 @@ Adds parameters from local pool to external pool and recursively calls its direc
 %feature("docstring") OMPISimulation "";
 
 %feature("docstring")  OMPISimulation::runSimulation "void OMPISimulation::runSimulation(Simulation *simulation)
-";
-
-
-// File: classExceptions_1_1OutOfBoundsException.xml
-%feature("docstring") Exceptions::OutOfBoundsException "";
-
-%feature("docstring")  Exceptions::OutOfBoundsException::OutOfBoundsException "Exceptions::OutOfBoundsException::OutOfBoundsException(const std::string &message)
 ";
 
 
@@ -9738,93 +10373,6 @@ C++ includes: ParameterPattern.h
 ";
 
 %feature("docstring")  ParameterPattern::toStdString "std::string ParameterPattern::toStdString() const 
-";
-
-
-// File: classParameterPool.xml
-%feature("docstring") ParameterPool "
-
-Holds a map of pointers to parameters (which must have different names).
-
-C++ includes: ParameterPool.h
-";
-
-%feature("docstring")  ParameterPool::ParameterPool "ParameterPool::ParameterPool(IParameterized *parent)
-
-Constructs an empty parameter pool. 
-";
-
-%feature("docstring")  ParameterPool::~ParameterPool "ParameterPool::~ParameterPool()
-";
-
-%feature("docstring")  ParameterPool::clone "ParameterPool * ParameterPool::clone() const
-
-Returns a literal clone. 
-";
-
-%feature("docstring")  ParameterPool::cloneWithPrefix "ParameterPool * ParameterPool::cloneWithPrefix(const std::string &prefix) const
-
-Returns a clone with  prefix added to every parameter key. 
-";
-
-%feature("docstring")  ParameterPool::copyToExternalPool "void ParameterPool::copyToExternalPool(const std::string &prefix, ParameterPool *external_pool) const
-
-Copies parameters to  external_pool, adding  prefix to every key.
-
-Copy parameters of given pool to the external pool while adding prefix to local parameter keys 
-";
-
-%feature("docstring")  ParameterPool::clear "void ParameterPool::clear()
-
-Deletes parameter map. 
-";
-
-%feature("docstring")  ParameterPool::size "size_t ParameterPool::size() const
-
-Returns size of parameter container. 
-";
-
-%feature("docstring")  ParameterPool::registerParameter "void ParameterPool::registerParameter(const std::string &name, double *parpointer, const AttLimits &limits=AttLimits::limitless())
-
-Registers a parameter with key  name and pointer-to-value  parpointer.
-
-Registers parameter with given name. 
-";
-
-%feature("docstring")  ParameterPool::getParameter "RealParameter * ParameterPool::getParameter(const std::string &name)
-
-Returns parameter named  name.
-
-Returns parameter with given name. 
-";
-
-%feature("docstring")  ParameterPool::getParameter "const RealParameter * ParameterPool::getParameter(const std::string &name) const
-
-Returns parameter named  name.
-
-Returns parameter with given name. 
-";
-
-%feature("docstring")  ParameterPool::getMatchedParameters "std::vector< RealParameter * > ParameterPool::getMatchedParameters(const std::string &wildcards) const
-
-Returns vector of parameters which fit pattern. 
-";
-
-%feature("docstring")  ParameterPool::setParameterValue "void ParameterPool::setParameterValue(const std::string &name, double value)
-
-Sets parameter value. 
-";
-
-%feature("docstring")  ParameterPool::setMatchedParametersValue "int ParameterPool::setMatchedParametersValue(const std::string &wildcards, double value)
-
-Sets parameter value, return number of changed parameters.
-
-Sets parameter value. 
-";
-
-%feature("docstring")  ParameterPool::getParameterNames "std::vector< std::string > ParameterPool::getParameterNames() const
-
-Returns all parameter names. 
 ";
 
 
@@ -10557,49 +11105,6 @@ C++ includes: ParaCrystalBuilder.h
 ";
 
 
-// File: classRealParameter.xml
-%feature("docstring") RealParameter "
-
-Wrapper to real parameter for remote access to its value and callback abilities
-
-C++ includes: RealParameter.h
-";
-
-%feature("docstring")  RealParameter::RealParameter "RealParameter::RealParameter(const std::string &name, IParameterized *parent, volatile double *par, const AttLimits &limits=AttLimits::limitless())
-";
-
-%feature("docstring")  RealParameter::RealParameter "RealParameter::RealParameter(const RealParameter &other)
-";
-
-%feature("docstring")  RealParameter::RealParameter "RealParameter::RealParameter(const std::string &name, const RealParameter &other)
-
-This constructor takes copies 'other' except for the name. 
-";
-
-%feature("docstring")  RealParameter::setValue "void RealParameter::setValue(double value)
-
-Sets value of wrapped parameter and emit signal. 
-";
-
-%feature("docstring")  RealParameter::getValue "double RealParameter::getValue() const
-
-Returns value of wrapped parameter. 
-";
-
-%feature("docstring")  RealParameter::isNull "bool RealParameter::isNull() const
-
-Returns true if wrapped parameter was not initialized with proper real value. 
-";
-
-%feature("docstring")  RealParameter::checkNull "void RealParameter::checkNull() const
-
-throw exception if parameter was not initialized with proper value 
-";
-
-%feature("docstring")  RealParameter::getAttLimits "AttLimits RealParameter::getAttLimits() const 
-";
-
-
 // File: classGeometry_1_1Rectangle.xml
 %feature("docstring") Geometry::Rectangle "
 
@@ -11011,13 +11516,6 @@ Returns transformation.
 ";
 
 
-// File: classExceptions_1_1RuntimeErrorException.xml
-%feature("docstring") Exceptions::RuntimeErrorException "";
-
-%feature("docstring")  Exceptions::RuntimeErrorException::RuntimeErrorException "Exceptions::RuntimeErrorException::RuntimeErrorException(const std::string &message)
-";
-
-
 // File: classSafePointerVector.xml
 %feature("docstring") SafePointerVector "
 
@@ -11369,13 +11867,6 @@ Retrieves the amplitude coefficients for the given angles.
 %feature("docstring")  ScalarSpecularInfoMap::getInCoefficients "const ILayerRTCoefficients * ScalarSpecularInfoMap::getInCoefficients(double alpha_i, double phi_i, double wavelength) const
 
 Retrieves the amplitude coefficients for the given angles. 
-";
-
-
-// File: classExceptions_1_1SelfReferenceException.xml
-%feature("docstring") Exceptions::SelfReferenceException "";
-
-%feature("docstring")  Exceptions::SelfReferenceException::SelfReferenceException "Exceptions::SelfReferenceException::SelfReferenceException(const std::string &message)
 ";
 
 
@@ -12067,52 +12558,6 @@ C++ includes: TwoDimLatticeBuilder.h
 ";
 
 
-// File: classUtils_1_1String.xml
-%feature("docstring") Utils::String "
-
-Collection of utilities for std::string.
-
-C++ includes: Utils.h
-";
-
-
-// File: classUtils_1_1StringUsageMap.xml
-%feature("docstring") Utils::StringUsageMap "
-
-Control how often a string is used.
-
-C++ includes: Utils.h
-";
-
-%feature("docstring")  Utils::StringUsageMap::StringUsageMap "Utils::StringUsageMap::StringUsageMap()
-";
-
-%feature("docstring")  Utils::StringUsageMap::~StringUsageMap "Utils::StringUsageMap::~StringUsageMap()
-";
-
-%feature("docstring")  Utils::StringUsageMap::add "void Utils::StringUsageMap::add(std::string name)
-
-Adds string to the map to count number of times it was used. 
-";
-
-%feature("docstring")  Utils::StringUsageMap::begin "iterator_t Utils::StringUsageMap::begin()
-
-access to the map of strings 
-";
-
-%feature("docstring")  Utils::StringUsageMap::end "iterator_t Utils::StringUsageMap::end()
-";
-
-%feature("docstring")  Utils::StringUsageMap::get_current "std::string Utils::StringUsageMap::get_current() const
-
-Returns current string. 
-";
-
-
-// File: classUtils_1_1System.xml
-%feature("docstring") Utils::System "";
-
-
 // File: structThreadInfo.xml
 %feature("docstring") ThreadInfo "
 
@@ -12284,13 +12729,6 @@ C++ includes: ParticleDistributionsBuilder.h
 ";
 
 
-// File: classExceptions_1_1UnknownClassRegistrationException.xml
-%feature("docstring") Exceptions::UnknownClassRegistrationException "";
-
-%feature("docstring")  Exceptions::UnknownClassRegistrationException::UnknownClassRegistrationException "Exceptions::UnknownClassRegistrationException::UnknownClassRegistrationException(const std::string &message)
-";
-
-
 // File: classVariableBinAxis.xml
 %feature("docstring") VariableBinAxis "
 
@@ -12430,24 +12868,19 @@ C++ includes: WavevectorInfo.h
 // File: classMathFunctions_1_1Convolve_1_1Workspace.xml
 
 
-// File: namespace_0D268.xml
+// File: namespace_0D288.xml
 
 
-// File: namespace_0D339.xml
+// File: namespace_0D351.xml
 
 
-// File: namespace_0D405.xml
+// File: namespace_0D417.xml
 
 
 // File: namespaceboost_1_1geometry.xml
 
 
 // File: namespaceBornAgain.xml
-
-
-// File: namespaceExceptions.xml
-%feature("docstring")  Exceptions::LogExceptionMessage "void Exceptions::LogExceptionMessage(const std::string &message)
-";
 
 
 // File: namespaceFormFactorTools.xml
@@ -12588,26 +13021,6 @@ convolution of two real vectors of equal size
 ";
 
 %feature("docstring")  MathFunctions::GenerateNormalRandom "double MathFunctions::GenerateNormalRandom(double average, double std_dev)
-";
-
-
-// File: namespaceMSG.xml
-%feature("docstring")  MSG::SetLevel "BA_CORE_API_ void MSG::SetLevel(EMessageLevel level)
-";
-
-%feature("docstring")  MSG::SetLevel "BA_CORE_API_ void MSG::SetLevel(const std::string &levelname)
-";
-
-
-// File: namespaceNumeric.xml
-%feature("docstring")  Numeric::areAlmostEqual "bool BA_CORE_API_ Numeric::areAlmostEqual(double a, double b, double tolerance_factor)
-
-compare two doubles 
-";
-
-%feature("docstring")  Numeric::get_relative_difference "double BA_CORE_API_ Numeric::get_relative_difference(double a, double b)
-
-calculates safe relative difference |(a-b)/b| 
 ";
 
 
@@ -12877,13 +13290,6 @@ Typical IsGISAXS simulation with the detector phi[0,2], theta[0,2].
 
 
 // File: namespaceUtils.xml
-%feature("docstring")  Utils::AdjustStringLength "std::string Utils::AdjustStringLength(const std::string &name, int length)
-";
-
-%feature("docstring")  Utils::EnableFloatingPointExceptions "void Utils::EnableFloatingPointExceptions()
-
-enables exception throw in the case of NaN, Inf 
-";
 
 
 // File: DecouplingApproximationStrategy_8cpp.xml
@@ -12982,18 +13388,6 @@ Returns exp(I*z), where I is the imaginary unit.
 ";
 
 
-// File: Exceptions_8cpp.xml
-
-
-// File: Exceptions_8h.xml
-
-
-// File: ICloneable_8h.xml
-
-
-// File: INamed_8h.xml
-
-
 // File: IShareable_8h.xml
 
 
@@ -13007,9 +13401,6 @@ Returns exp(I*z), where I is the imaginary unit.
 
 
 // File: Units_8h.xml
-
-
-// File: WinDllMacros_8h.xml
 
 
 // File: Bin_8cpp.xml
@@ -13068,6 +13459,81 @@ global helper function for comparison of axes
 
 
 // File: SampleLabelHandler_8h.xml
+
+
+// File: FitKernel_8cpp.xml
+
+
+// File: FitKernel_8h.xml
+
+
+// File: FitObject_8cpp.xml
+
+
+// File: FitObject_8h.xml
+
+
+// File: FitOptions_8h.xml
+
+
+// File: FitStrategyAdjustMinimizer_8cpp.xml
+
+
+// File: FitStrategyAdjustMinimizer_8h.xml
+
+
+// File: FitStrategyAdjustParameters_8cpp.xml
+
+
+// File: FitStrategyAdjustParameters_8h.xml
+
+
+// File: FitSuite_8cpp.xml
+
+
+// File: FitSuite_8h.xml
+
+
+// File: FitSuiteFunctions_8cpp.xml
+
+
+// File: FitSuiteFunctions_8h.xml
+
+
+// File: FitSuiteObjects_8cpp.xml
+
+
+// File: FitSuiteObjects_8h.xml
+
+
+// File: FitSuitePrintObserver_8cpp.xml
+
+
+// File: FitSuitePrintObserver_8h.xml
+
+
+// File: FitSuiteStrategies_8cpp.xml
+
+
+// File: FitSuiteStrategies_8h.xml
+
+
+// File: IFitObserver_8cpp.xml
+
+
+// File: IFitObserver_8h.xml
+
+
+// File: IFitStrategy_8cpp.xml
+
+
+// File: IFitStrategy_8h.xml
+
+
+// File: IObserver_8cpp.xml
+
+
+// File: IObserver_8h.xml
 
 
 // File: FormFactorDecoratorDebyeWaller_8cpp.xml
@@ -13755,22 +14221,10 @@ Set all element intensities to given value.
 // File: SpecularMatrix_8h.xml
 
 
-// File: AttLimits_8cpp.xml
-
-
-// File: AttLimits_8h.xml
-
-
 // File: Distributions_8cpp.xml
 
 
 // File: Distributions_8h.xml
-
-
-// File: IParameterized_8cpp.xml
-
-
-// File: IParameterized_8h.xml
 
 
 // File: ParameterDistribution_8cpp.xml
@@ -13785,19 +14239,7 @@ Set all element intensities to given value.
 // File: ParameterPattern_8h.xml
 
 
-// File: ParameterPool_8cpp.xml
-
-
-// File: ParameterPool_8h.xml
-
-
 // File: ParameterSample_8h.xml
-
-
-// File: RealParameter_8cpp.xml
-
-
-// File: RealParameter_8h.xml
 
 
 // File: SimulationOptions_8cpp.xml
@@ -14236,22 +14678,10 @@ David N. Williams
 ";
 
 
-// File: Logger_8cpp.xml
-
-
-// File: Logger_8h.xml
-
-
 // File: MathFunctions_8cpp.xml
 
 
 // File: MathFunctions_8h.xml
-
-
-// File: Numeric_8cpp.xml
-
-
-// File: Numeric_8h.xml
 
 
 // File: NumpyUtils_8cpp.xml
@@ -14264,12 +14694,6 @@ David N. Williams
 
 
 // File: Precomputed_8h.xml
-
-
-// File: Utils_8cpp.xml
-
-
-// File: Utils_8h.xml
 
 
 // File: w32pragma_8h.xml
@@ -14315,6 +14739,9 @@ David N. Williams
 
 
 // File: dir_cca9b87b2505f372a6ce58947a507789.xml
+
+
+// File: dir_4470199ae7eb44153ffe31d163ed0f28.xml
 
 
 // File: dir_c8e420540f3cc673520907fed872650b.xml

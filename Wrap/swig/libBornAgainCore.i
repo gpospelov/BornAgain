@@ -217,10 +217,10 @@
 // The following goes verbatim from libBornAgainCore.i to libBornAgainCore_wrap.cxx.
 // Note that the order matters, as base classes must be included before derived classes.
 
-%include "AttLimits.h"
-%include "ICloneable.h"
-%include "INamed.h"
-%include "IParameterized.h"
+%import(module="libBornAgainFit") "AttLimits.h"
+%import(module="libBornAgainFit") "ICloneable.h"
+%import(module="libBornAgainFit") "INamed.h"
+%import(module="libBornAgainFit") "IParameterized.h"
 
 %include "BAVersion.h"
 %include "BasicVector3D.h"

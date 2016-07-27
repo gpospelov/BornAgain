@@ -20410,8 +20410,9 @@ class ParameterPool(ICloneable):
         return _libBornAgainCore.ParameterPool_registerParameter(self, *args)
 
 
-    def getParameter(self, name):
+    def getParameter(self, *args):
         """
+        getParameter(ParameterPool self, std::string const & name) -> RealParameterWrapper
         getParameter(ParameterPool self, std::string const & name) -> RealParameterWrapper
 
         RealParameterWrapper ParameterPool::getParameter(const std::string &name) const
@@ -20421,7 +20422,7 @@ class ParameterPool(ICloneable):
         Returns parameter with given name. 
 
         """
-        return _libBornAgainCore.ParameterPool_getParameter(self, name)
+        return _libBornAgainCore.ParameterPool_getParameter(self, *args)
 
 
     def getMatchedParameters(self, wildcards):

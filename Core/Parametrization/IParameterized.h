@@ -49,7 +49,7 @@ public:
 
     void setParameterValue(const std::string& name, double value);
 
-    RealParameterWrapper getParameter(const std::string& name) const;
+    RealParameterWrapper* getParameter(const std::string& name) const;
 
     friend std::ostream& operator<<(std::ostream& ostr, const IParameterized& m) {
         m.print(ostr);

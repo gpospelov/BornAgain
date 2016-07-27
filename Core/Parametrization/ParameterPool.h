@@ -52,7 +52,10 @@ public:
                            const AttLimits& limits=AttLimits::limitless());
 
     //! Returns parameter named _name_.
-    RealParameterWrapper getParameter(const std::string& name) const;
+    RealParameterWrapper* getParameter(const std::string& name);
+
+    //! Returns parameter named _name_.
+    const RealParameterWrapper* getParameter(const std::string& name) const;
 
     //! Returns vector of parameters which fit pattern
     std::vector<RealParameterWrapper> getMatchedParameters(const std::string& wildcards) const;

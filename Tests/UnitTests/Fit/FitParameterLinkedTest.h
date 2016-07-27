@@ -63,23 +63,23 @@ TEST_F(FitParameterLinkedTest, FitParameterLinkedParamPool)
     ParametrizedObject obj2(3., 4.);
     ParametrizedObject obj3(5., 6.);
 
-    RealParameterWrapper par11(obj1.getParameter("1"));
-    RealParameterWrapper par21(obj2.getParameter("1"));
-    RealParameterWrapper par32(obj3.getParameter("2"));
+    RealParameterWrapper* par11(obj1.getParameter("1"));
+    RealParameterWrapper* par21(obj2.getParameter("1"));
+    RealParameterWrapper* par32(obj3.getParameter("2"));
 
     FitParameterLinked linked;
-    linked.addParameter(par11);
-    linked.addParameter(par21);
-    linked.addParameter(par32);
+    linked.addParameter(*par11);
+    linked.addParameter(*par21);
+    linked.addParameter(*par32);
 
     linked.setValue(11.2);
     EXPECT_EQ(linked.getValue(), 11.2);
-    EXPECT_EQ(obj1.getParameter("1").getValue(), 11.2);
-    EXPECT_EQ(obj1.getParameter("2").getValue(), 2);
-    EXPECT_EQ(obj2.getParameter("1").getValue(), 11.2);
-    EXPECT_EQ(obj2.getParameter("2").getValue(), 4);
-    EXPECT_EQ(obj3.getParameter("1").getValue(), 5);
-    EXPECT_EQ(obj3.getParameter("2").getValue(), 11.2);
+    EXPECT_EQ(obj1.getParameter("1")->getValue(), 11.2);
+    EXPECT_EQ(obj1.getParameter("2")->getValue(), 2);
+    EXPECT_EQ(obj2.getParameter("1")->getValue(), 11.2);
+    EXPECT_EQ(obj2.getParameter("2")->getValue(), 4);
+    EXPECT_EQ(obj3.getParameter("1")->getValue(), 5);
+    EXPECT_EQ(obj3.getParameter("2")->getValue(), 11.2);
 
     /* I need to understand a use case before I can restore this test - JWu apr16
     ParameterPool* pool( obj3.getParameterPool() );

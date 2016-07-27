@@ -80,11 +80,22 @@ void ParameterPool::copyToExternalPool(
 
 //! Returns parameter with given name.
 
-RealParameterWrapper ParameterPool::getParameter(const std::string& name) const
+const RealParameterWrapper* ParameterPool::getParameter(const std::string& name) const
 {
     for (const auto& par: m_params )
         if( par.getName()==name )
-            return par;
+            return &par;
+    throw Exceptions::LogicErrorException(
+        "ParameterPool::getParameter() -> Warning. No parameter with name '"+name+"'");
+}
+
+//! Returns parameter with given name.
+
+RealParameterWrapper* ParameterPool::getParameter(const std::string& name)
+{
+    for (auto& par: m_params )
+        if( par.getName()==name )
+            return &par;
     throw Exceptions::LogicErrorException(
         "ParameterPool::getParameter() -> Warning. No parameter with name '"+name+"'");
 }
@@ -108,12 +119,12 @@ std::vector<RealParameterWrapper> ParameterPool::getMatchedParameters(
 
 void ParameterPool::setParameterValue(const std::string& name, double value)
 {
-    RealParameterWrapper x = getParameter(name);
-    if( x.isNull() )
+    RealParameterWrapper* x = getParameter(name);
+    if( x->isNull() )
         throw Exceptions::LogicErrorException(
             "ParameterPool::setParameterValue() -> Error! Unitialized parameter '"+name+"'.");
     try {
-        x.setValue(value);
+        x->setValue(value);
     } catch(Exceptions::RuntimeErrorException) {
         report_set_value_error(name, value);
     }
@@ -193,8 +204,7 @@ void ParameterPool::report_set_value_error(const std::string& parname, double va
     ostr << "ParameterPool::set_value_error() -> Attempt to set value " << value;
     ostr << " for parameter '" << parname << "' failed. Out of bounds?";
     try {
-        const auto& par = getParameter( parname );
-        ostr << " Parameter limits " << par.getAttLimits() << ".\n";
+        ostr << " Parameter limits " << getParameter(parname)->getAttLimits() << ".\n";
     } catch (...) {
         throw Exceptions::LogicErrorException(
             "DOUBLE BUG in ParameterPool: cannot even report the error");

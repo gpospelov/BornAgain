@@ -79,10 +79,8 @@ TEST_F(DistributionsTest, DistributionGateConstructor)
 TEST_F(DistributionsTest, DistributionGateParameters)
 {
     DistributionGate gate(2.0, 3.0);
-    /* TEMPORARILY DISABLED getParameterPool()
-    EXPECT_EQ(gate.getMin(), gate.getParameterPool()->getParameter(BornAgain::Minimum).getValue());
-    EXPECT_EQ(gate.getMax(), gate.getParameterPool()->getParameter(BornAgain::Maximum).getValue());
-    */
+    EXPECT_EQ(gate.getMin(), gate.getParameter(BornAgain::Minimum)->getValue());
+    EXPECT_EQ(gate.getMax(), gate.getParameter(BornAgain::Maximum)->getValue());
 }
 
 TEST_F(DistributionsTest, DistributionGateClone)

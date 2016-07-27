@@ -7,6 +7,7 @@ import math
 from utils import get_reference_data
 
 from libBornAgainCore import *
+from libBornAgainFit import * # TODO remove this once ICloneable is back in Core/
 
 phi_min, phi_max = -1.0, 1.0
 alpha_min, alpha_max = 0.0, 2.0

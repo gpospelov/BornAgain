@@ -1,8 +1,7 @@
 
-
 // fix SWIG warning 509, certain C++ overloads create ambiguities in Python
-%ignore ParticleLayout::addInterferenceFunction(IInterferenceFunction *);
-%ignore ParticleLayout::addInterferenceFunction(const IInterferenceFunction *);
+%ignore ParticleLayout::addInterferenceFunction(IInterferenceFunction*);
+%ignore ParticleLayout::addInterferenceFunction(const IInterferenceFunction*);
 %ignore MesoCrystal::MesoCrystal(IClusteredParticles*, IFormFactor*);
 %ignore MesoCrystal::MesoCrystal(const IClusteredParticles*, const IFormFactor*);
 %ignore Instrument::setDetectorResolutionFunction(IResolutionFunction2D*);
@@ -45,15 +44,15 @@ namespace Geometry {
 
 
 // need this to play nicely with ctypes
-%ignore ISampleBuilder::registerParameter(const std::string &, double*, const AttLimits&);
-%ignore ISampleBuilder::registerParameter(const std::string &, double*);
+%ignore ISampleBuilder::registerParameter(const std::string&, double*, const AttLimits&);
+%ignore ISampleBuilder::registerParameter(const std::string&, double*);
 %ignore IParameterized::addParametersToExternalPool(std::string, ParameterPool*, int) const;
 %ignore IParameterized::addParametersToExternalPool(std::string, ParameterPool*) const;
 %ignore ISampleBuilder::addParametersToExternalPool(std::string, ParameterPool*, int) const;
 %ignore ISampleBuilder::addParametersToExternalPool(std::string, ParameterPool*) const;
 
 // ignored to avoid error (todo: check whether this is really necessary)
-%ignore Crystal::getTransformedLattice(const IRotation *) const;
+%ignore Crystal::getTransformedLattice(const IRotation*) const;
 
 // taken from dev-tools/python-bindings/settings_fit.py
 %ignore FitSuite::setOptions(const FitOptions&);

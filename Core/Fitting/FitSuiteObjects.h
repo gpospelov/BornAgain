@@ -37,7 +37,7 @@ class BA_CORE_API_ FitSuiteObjects : public IParameterized
              double weight = 1.0);
 
     //! Returns number of fit objects (simulation/real data pairs)
-    size_t getNumberOfFitObjects() const;
+    size_t getNumberOfFitObjects() const { return m_fit_objects.size(); }
 
     //! Returns total number of data points (number of all non-masked channels in all fit objects)
     size_t getSizeOfDataSet() const;
@@ -47,21 +47,21 @@ class BA_CORE_API_ FitSuiteObjects : public IParameterized
 
     //! Returns real data from corresponding FitObject
     //! @param i_item Index of FitObject
-    const OutputData<double> * getRealData(size_t i_item = 0) const;
+    const OutputData<double>* getRealData(size_t i_item = 0) const;
 
     //! Returns simulated data from corresponding FitObject
     //! @param i_item Index of FitObject
-    const OutputData<double> * getSimulationData(size_t i_item = 0) const;
+    const OutputData<double>* getSimulationData(size_t i_item = 0) const;
 
     //! Returns new chi-squared map from corresponding FitObject
     //! @param i_item Index of FitObject
-    const OutputData<double> * getChiSquaredMap(size_t i_item = 0) const;
+    const OutputData<double>* getChiSquaredMap(size_t i_item = 0) const;
 
     //! run all simulation defined in fit pairs
     void runSimulations();
 
     //! Returns chi2 calculated over whole dataset
-    double getChiSquaredValue() const;
+    double getChiSquaredValue() const { return m_chi_squared_value; }
 
     //! Returns residuals for single data element
     //! @param global_index index accross all element in FitElement vector
@@ -69,10 +69,9 @@ class BA_CORE_API_ FitSuiteObjects : public IParameterized
 
     //! Adds parameters from local pool to external pool and call recursion over direct children
     virtual std::string addParametersToExternalPool(
-        std::string path, ParameterPool* external_pool,
-        int copy_number=-1) const;
+        std::string path, ParameterPool* external_pool, int copy_number=-1) const;
 
-    void setNfreeParameters(int nfree_parameters );
+    void setNfreeParameters(int nfree_parameters) { m_nfree_parameters = nfree_parameters; }
 
     //! clear all data
     void clear();

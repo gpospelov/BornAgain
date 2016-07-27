@@ -38,7 +38,7 @@ IFitStrategy *FitSuiteStrategies::getCurrentStrategy()
     return m_strategies[m_current_strategy_index];
 }
 
-void FitSuiteStrategies::addStrategy(IFitStrategy *strategy)
+void FitSuiteStrategies::addStrategy(IFitStrategy* strategy)
 {
     assert(m_kernel);
     strategy->init(m_kernel);
@@ -52,7 +52,8 @@ void FitSuiteStrategies::minimize()
          m_kernel->minimize();
     } else {
         for(auto it=m_strategies.begin(); it!=m_strategies.end(); ++it) {
-            //msglog(MSG::INFO) << "FitSuiteStrategies::minimize() -> Running strategy #" << m_current_strategy_index << " '" << (*it)->getName() << "'";
+            //msglog(MSG::INFO) << "FitSuiteStrategies::minimize() -> Running strategy #"
+            // << m_current_strategy_index << " '" << (*it)->getName() << "'";
             (*it)->execute();
             ++m_current_strategy_index;
         }

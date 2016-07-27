@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Fit/FitKernel/IFitStrategy.cpp
-//! @brief     Implements class IFitStrategy.
+//! @brief     Implements classes IFitStrategy and FitStrategyDefault
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -25,7 +25,7 @@ IFitStrategy::IFitStrategy(const std::string &name)
 {
 }
 
-void IFitStrategy::init(FitKernel *fit_suite)
+void IFitStrategy::init(FitKernel* fit_suite)
 {
     m_kernel = fit_suite;
 }
@@ -48,7 +48,7 @@ FitStrategyDefault::FitStrategyDefault()
 {
 }
 
-IFitStrategy *FitStrategyDefault::clone() const
+IFitStrategy* FitStrategyDefault::clone() const
 {
     return new FitStrategyDefault();
 }
@@ -56,7 +56,8 @@ IFitStrategy *FitStrategyDefault::clone() const
 void FitStrategyDefault::execute()
 {
     if( !m_kernel )
-        throw Exceptions::NullPointerException("FitStrategyDefault::execute() -> FitSuite doesn't exists");
+        throw Exceptions::NullPointerException(
+            "FitStrategyDefault::execute() -> FitSuite doesn't exists");
 
     // calling minimization
     m_kernel->minimize();

@@ -102,8 +102,9 @@ std::string FitObject::get_error_message() const
 
 size_t FitObject::getSizeOfData() const
 {
-    // FIXME Fix this hell
-    size_t result = m_real_data->getAllocatedSize() - m_simulation->getInstrument().getDetector()->getDetectorMask()->getNumberOfMaskedChannels();
+    // TODO Fix this hell
+    size_t result = m_real_data->getAllocatedSize() -
+        m_simulation->getInstrument().getDetector()->getDetectorMask()->getNumberOfMaskedChannels();
     return result;
 }
 

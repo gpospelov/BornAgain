@@ -199,8 +199,10 @@ void FitKernel::resetInterrupt()
 void FitKernel::printResults() const
 {
     std::cout << std::endl;
-    std::cout << "--- FitSuite::printResults -----------------------------------------------------" << std::endl;
-    std::cout << " Chi2:" << std::scientific << std::setprecision(8) << m_fit_objects.getChiSquaredValue()
+    std::cout
+        << "--- FitSuite::printResults -----------------------------------------------------\n";
+    std::cout << " Chi2:" << std::scientific << std::setprecision(8)
+              << m_fit_objects.getChiSquaredValue()
               << "    chi2.NCall:" << m_function_chi2.getNCalls()
               << "  grad.NCall:" << m_function_gradient.getNCalls() << ","
               << m_function_gradient.getNCallsGradient() << ","
@@ -233,14 +235,14 @@ void FitKernel::notifyObservers()
 bool FitKernel::check_prerequisites() const
 {
     if( !m_minimizer ) throw Exceptions::LogicErrorException(
-                "FitSuite::check_prerequisites() -> Error! No minimizer found.");
+        "FitSuite::check_prerequisites() -> Error! No minimizer found.");
     if( !m_fit_objects.getNumberOfFitObjects() ) throw Exceptions::LogicErrorException(
-                "FitSuite::check_prerequisites() -> Error! No simulation/data description defined");
+        "FitSuite::check_prerequisites() -> Error! No simulation/data description defined");
     if( !m_fit_parameters.size() ) throw Exceptions::LogicErrorException(
-                "FitSuite::check_prerequisites() -> Error! No fit parameters defined");
+        "FitSuite::check_prerequisites() -> Error! No fit parameters defined");
     if( m_fit_objects.getSizeOfDataSet() == 0) throw Exceptions::LogicErrorException(
-                "FitSuite::check_prerequisites() -> Error! No elements to fit. "
-                "Looks like whole detector is masked.");
+        "FitSuite::check_prerequisites() -> Error! No elements to fit. "
+        "Looks like whole detector is masked.");
     return true;
 }
 

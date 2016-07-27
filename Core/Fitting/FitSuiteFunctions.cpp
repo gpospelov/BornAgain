@@ -17,10 +17,9 @@
 #include "Logger.h"
 
 //! evaluate chi squared value
-double FitSuiteChiSquaredFunction::evaluate(const double *pars)
+double FitSuiteChiSquaredFunction::evaluate(const double* pars)
 {
     assert(m_kernel != nullptr);
-
     if (m_kernel->isInterrupted())
         throw Exceptions::RuntimeErrorException("Fitting was interrupted by the user.");
 
@@ -35,10 +34,10 @@ double FitSuiteChiSquaredFunction::evaluate(const double *pars)
 //! evaluate residual and derivative for given data element
 // (calculations are done for all dataset when index==0, when index!=0 already
 // calculated data just returned
-double FitSuiteGradientFunction::evaluate(const double *pars, unsigned int index, double *gradients)
+double FitSuiteGradientFunction::evaluate(
+    const double* pars, unsigned int index, double* gradients)
 {
     assert(m_kernel != nullptr);
-
     if (m_kernel->isInterrupted())
         throw Exceptions::RuntimeErrorException("Fitting was interrupted by the user.");
 
@@ -49,16 +48,16 @@ double FitSuiteGradientFunction::evaluate(const double *pars, unsigned int index
     verify_arrays();
     verify_minimizer_logic(parameters_changed, (int)index);
 
-    if(parameters_changed) calculate_residuals(pars);
+    if(parameters_changed)
+        calculate_residuals(pars);
 
     if(gradients) {
         if(index == 0 || parameters_changed ) {
             calculate_gradients(pars);
             m_ncalls_gradient++;
         }
-        for(size_t i_par=0; i_par<m_npars; ++i_par) {
+        for(size_t i_par=0; i_par<m_npars; ++i_par)
             gradients[i_par] = m_gradients[i_par][index];
-        }
     }
 
     m_ncalls_total++;
@@ -72,47 +71,52 @@ double FitSuiteGradientFunction::evaluate(const double *pars, unsigned int index
 
 void FitSuiteGradientFunction::verify_arrays()
 {
-    if( m_npars != m_kernel->getFitParameters()->size() || m_ndatasize != m_kernel->getFitObjects()->getSizeOfDataSet() ) {
+    if( m_npars != m_kernel->getFitParameters()->size() ||
+        m_ndatasize != m_kernel->getFitObjects()->getSizeOfDataSet() ) {
         m_npars = m_kernel->getFitParameters()->size();
         m_ndatasize = m_kernel->getFitObjects()->getSizeOfDataSet();
         m_residuals.clear();
         m_residuals.resize(m_ndatasize, 0.0);
         m_gradients.clear();
         m_gradients.resize(m_npars);
-        for(size_t i_par=0; i_par<m_npars; ++i_par) {
+        for(size_t i_par=0; i_par<m_npars; ++i_par)
             m_gradients[i_par].resize(m_ndatasize, 0.0);
-        }
     }
 }
 
-void FitSuiteGradientFunction::verify_minimizer_logic(bool parameters_have_changed, int current_index)
+void FitSuiteGradientFunction::verify_minimizer_logic(
+    bool parameters_have_changed, int current_index)
 {
     int index_difference = current_index - m_prev_index;
     if(index_difference != 1 && (current_index!=0 && int(m_prev_index)!= int(m_ndatasize-1) ) ) {
-        msglog(MSG::WARNING) << "FitSuiteGradientFunction::verify_minimizer_logic() -> Warning! Non sequential access to elements.";
-        msglog(MSG::WARNING) << " current_index:" << current_index << " prev_index:" << m_prev_index;
+        msglog(MSG::WARNING) << "FitSuiteGradientFunction::verify_minimizer_logic() -> Warning! "
+                             << "Non sequential access to elements.";
+        msglog(MSG::WARNING) << " current_index:" << current_index
+                             << " prev_index:" << m_prev_index;
     }
     if(parameters_have_changed && current_index != 0) {
-        msglog(MSG::WARNING) << "FitSuiteGradientFunction::verify_minimizer_logic() -> Warning! Parameters have changed while current_index!=0";
-        msglog(MSG::WARNING) << " current_index:" << current_index << " prev_index:" << m_prev_index;
+        msglog(MSG::WARNING) << "FitSuiteGradientFunction::verify_minimizer_logic() -> Warning! "
+                             << "Parameters have changed while current_index!=0";
+        msglog(MSG::WARNING) << " current_index:" << current_index
+                             << " prev_index:" << m_prev_index;
     }
     if(parameters_have_changed && current_index == m_prev_index) {
-        msglog(MSG::WARNING) << "FitSuiteGradientFunction::verify_minimizer_logic() -> Warning! Parameters have changed while index remained the same";
-        msglog(MSG::WARNING) << " current_index:" << current_index << " prev_index:" << m_prev_index;
+        msglog(MSG::WARNING) << "FitSuiteGradientFunction::verify_minimizer_logic() -> Warning! "
+                             << "Parameters have changed while index remained the same";
+        msglog(MSG::WARNING) << " current_index:" << current_index <<
+            " prev_index:" << m_prev_index;
     }
     m_prev_index = current_index;
 }
 
-void FitSuiteGradientFunction::calculate_residuals(const double *pars)
+void FitSuiteGradientFunction::calculate_residuals(const double* pars)
 {
     runSimulation(pars);
-    for(size_t i_data=0; i_data<m_ndatasize; ++i_data) {
+    for(size_t i_data=0; i_data<m_ndatasize; ++i_data)
         m_residuals[i_data] = m_kernel->getFitObjects()->getResidualValue(i_data);
-    }
-
 }
 
-void FitSuiteGradientFunction::calculate_gradients(const double *pars)
+void FitSuiteGradientFunction::calculate_gradients(const double* pars)
 {
     // FIXME get kEps from outside fit_suite->getMinimizer()->getPrecision();
     const double kEps = 1.0E-9; // Good for Fumili
@@ -127,13 +131,10 @@ void FitSuiteGradientFunction::calculate_gradients(const double *pars)
 
         std::vector<double> residuals2;
         residuals2.resize(m_ndatasize);
-        for(size_t i_data=0; i_data<m_ndatasize; ++i_data) {
+        for(size_t i_data=0; i_data<m_ndatasize; ++i_data)
             residuals2[i_data] = m_kernel->getFitObjects()->getResidualValue(i_data);
-        }
-
-        for(size_t i_data=0; i_data <m_ndatasize; ++i_data) {
+        for(size_t i_data=0; i_data <m_ndatasize; ++i_data)
             m_gradients[i_par][i_data] = (residuals2[i_data] - m_residuals[i_data])/kEps;
-        }
     }
     // returning back old parameters
     m_kernel->getFitParameters()->setValues(pars);
@@ -141,7 +142,7 @@ void FitSuiteGradientFunction::calculate_gradients(const double *pars)
 
 }
 
-void FitSuiteGradientFunction::runSimulation(const double *pars){
+void FitSuiteGradientFunction::runSimulation(const double* pars){
     assert(m_kernel);
     m_kernel->getFitParameters()->setValues(pars);
     m_kernel->getFitObjects()->runSimulations();

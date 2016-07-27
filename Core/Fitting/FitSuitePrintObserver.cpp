@@ -26,7 +26,7 @@ FitSuitePrintObserver::FitSuitePrintObserver(int print_every_nth)
     m_last_call_time = boost::posix_time::second_clock::local_time();
 }
 
-void FitSuitePrintObserver::update(FitSuite *fit_suite)
+void FitSuitePrintObserver::update(FitSuite* fit_suite)
 {
     m_fit_suite = fit_suite;
 
@@ -36,18 +36,19 @@ void FitSuitePrintObserver::update(FitSuite *fit_suite)
     }
 
     if(m_strategy_has_changed) {
-        std::cout << "-------------------------------------------------------------------------------" << std::endl;
+        std::cout <<
+            "-------------------------------------------------------------------------------\n";
         std::cout << (*m_fit_suite->getFitStrategies()->getCurrentStrategy()) << std::endl;
-        std::cout << "-------------------------------------------------------------------------------" << std::endl;
+        std::cout <<
+            "-------------------------------------------------------------------------------\n";
     }
 
     printIterationHeader();
     printWallTime();
     printParameters();
 
-    if(fit_suite->isLastIteration()) {
+    if(fit_suite->isLastIteration())
         printFitResults();
-    }
 }
 
 void FitSuitePrintObserver::printIterationHeader()
@@ -85,4 +86,3 @@ void FitSuitePrintObserver::printFitResults()
               << diff.total_milliseconds()/1000. << " sec." <<std::endl;
     std::cout << std::endl;
 }
-

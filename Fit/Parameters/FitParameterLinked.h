@@ -34,12 +34,8 @@ class BA_CORE_API_ FitParameterLinked : public FitParameter
                        const AttLimits& attlim=AttLimits::limitless(), double error=0.0);
     virtual ~FitParameterLinked(){}
 
-    //! Sets given value for all binded parameters
-    virtual void setValue(double value) {
-        FitParameter::setValue(value);
-        for(auto it=m_pool_parameters.begin(); it!=m_pool_parameters.end(); ++it)
-            it->setValue(value);
-    }
+    //! Sets given value for all bound parameters
+    virtual void setValue(double value);
 
     //! Adds real parameter to the collection
     virtual void addParameter(RealParameterWrapper par);

@@ -27,6 +27,13 @@ FitParameterLinked::FitParameterLinked(
 {
 }
 
+//! Sets given value for all bound parameters
+void FitParameterLinked::setValue(double value) {
+    FitParameter::setValue(value);
+    for(auto& par: m_pool_parameters)
+        par.setValue(value);
+}
+
 //! Adds real parameter to the collection
 void FitParameterLinked::addParameter(RealParameterWrapper par)
 {

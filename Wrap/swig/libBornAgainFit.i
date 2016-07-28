@@ -61,7 +61,6 @@ import_array();
 %import "WinDllMacros.h"
 
 %{
-#include "IParameterized.h"
 #include "INamed.h"
 
 #include "FitParameter.h"
@@ -71,19 +70,16 @@ import_array();
 #include "MinimizerOptions.h"
 %}
 
- // The following goes verbatim from libBornAgainFit.i to libBornAgainFit_wrap.cxx.
+// The following goes verbatim from libBornAgainFit.i to libBornAgainFit_wrap.cxx.
 // Note that the order matters, as base classes must be included before derived classes.
 
 %include "AttLimits.h"
 %include "INamed.h"
-%include "IParameterized.h"
 
 %include "IMinimizer.h"
 %include "FitParameter.h"
 %include "FitSuiteParameters.h"
 %include "MinimizerOptions.h"
 %include "MinimizerFactory.h"
- //%include "StandardFitsFactory.h"
- //%template(StandardFitsFactory) IFactory<IStandardFits>;
 
 %include "extendFit.i"

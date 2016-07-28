@@ -26,13 +26,15 @@ class ParameterPool;
 //! @class RealParameter
 //! @ingroup tools_internal
 
-class BA_CORE_API_ RealParameter : public INamed {
+class BA_CORE_API_ RealParameter {
 public:
     explicit RealParameter(
         const std::string& name, ParameterPool* parent,
         volatile double* par, const AttLimits& limits=AttLimits::limitless());
     RealParameter(const RealParameter& other);
     RealParameter(const std::string& name, const RealParameter& other);
+
+    std::string getName() const { return m_name; }
 
     //! Sets value of wrapped parameter and emit signal
     void setValue(double value);
@@ -57,10 +59,8 @@ public:
     bool operator!=(const RealParameter &other) const { return !(*this == other); }
 
 private:
-    void swapContent(RealParameter& other);
-
-    ParameterPool* m_parent; //!< "owns" this parameter
     std::string m_name;
+    ParameterPool* m_parent; //!< "owns" this parameter
     volatile double* m_data;
     AttLimits m_limits;
     std::string fullName(); //!< For use in error messages

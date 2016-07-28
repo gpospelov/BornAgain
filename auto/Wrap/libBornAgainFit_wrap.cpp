@@ -3420,56 +3420,53 @@ namespace Swig {
 #define SWIGTYPE_p_FitSuiteParameters swig_types[2]
 #define SWIGTYPE_p_IMinimizer swig_types[3]
 #define SWIGTYPE_p_INamed swig_types[4]
-#define SWIGTYPE_p_IParameterized swig_types[5]
-#define SWIGTYPE_p_MinimizerFactory swig_types[6]
-#define SWIGTYPE_p_MinimizerOptions swig_types[7]
-#define SWIGTYPE_p_ParameterPool swig_types[8]
-#define SWIGTYPE_p_RealParameter swig_types[9]
-#define SWIGTYPE_p_allocator_type swig_types[10]
-#define SWIGTYPE_p_char swig_types[11]
-#define SWIGTYPE_p_const_iterator swig_types[12]
-#define SWIGTYPE_p_difference_type swig_types[13]
-#define SWIGTYPE_p_double swig_types[14]
-#define SWIGTYPE_p_function_chi2_t swig_types[15]
-#define SWIGTYPE_p_function_gradient_t swig_types[16]
-#define SWIGTYPE_p_int swig_types[17]
-#define SWIGTYPE_p_iterator swig_types[18]
-#define SWIGTYPE_p_long_long swig_types[19]
-#define SWIGTYPE_p_p_PyObject swig_types[20]
-#define SWIGTYPE_p_parameters_t swig_types[21]
-#define SWIGTYPE_p_short swig_types[22]
-#define SWIGTYPE_p_signed_char swig_types[23]
-#define SWIGTYPE_p_size_type swig_types[24]
-#define SWIGTYPE_p_std__allocatorT_double_t swig_types[25]
-#define SWIGTYPE_p_std__allocatorT_int_t swig_types[26]
-#define SWIGTYPE_p_std__allocatorT_std__complexT_double_t_t swig_types[27]
-#define SWIGTYPE_p_std__allocatorT_std__string_t swig_types[28]
-#define SWIGTYPE_p_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t swig_types[29]
-#define SWIGTYPE_p_std__allocatorT_unsigned_long_t swig_types[30]
-#define SWIGTYPE_p_std__functionT_double_fdouble_const_pF_t swig_types[31]
-#define SWIGTYPE_p_std__functionT_double_fdouble_const_p_unsigned_int_double_pF_t swig_types[32]
-#define SWIGTYPE_p_std__invalid_argument swig_types[33]
-#define SWIGTYPE_p_std__ostream swig_types[34]
-#define SWIGTYPE_p_std__shared_ptrT_IFitObserver_t swig_types[35]
-#define SWIGTYPE_p_std__shared_ptrT_IObserver_t swig_types[36]
-#define SWIGTYPE_p_std__shared_ptrT_ISampleBuilder_t swig_types[37]
-#define SWIGTYPE_p_std__string swig_types[38]
-#define SWIGTYPE_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__const_iterator swig_types[39]
-#define SWIGTYPE_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__iterator swig_types[40]
-#define SWIGTYPE_p_std__vectorT_double_std__allocatorT_double_t_t swig_types[41]
-#define SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t swig_types[42]
-#define SWIGTYPE_p_std__vectorT_std__complexT_double_t_std__allocatorT_std__complexT_double_t_t_t swig_types[43]
-#define SWIGTYPE_p_std__vectorT_std__string_std__allocatorT_std__string_t_t swig_types[44]
-#define SWIGTYPE_p_std__vectorT_std__vectorT_double_std__allocatorT_double_t_t_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t_t swig_types[45]
-#define SWIGTYPE_p_std__vectorT_unsigned_long_std__allocatorT_unsigned_long_t_t swig_types[46]
-#define SWIGTYPE_p_swig__SwigPyIterator swig_types[47]
-#define SWIGTYPE_p_unsigned_char swig_types[48]
-#define SWIGTYPE_p_unsigned_int swig_types[49]
-#define SWIGTYPE_p_unsigned_long_long swig_types[50]
-#define SWIGTYPE_p_unsigned_short swig_types[51]
-#define SWIGTYPE_p_value_type swig_types[52]
-static swig_type_info *swig_types[54];
-static swig_module_info swig_module = {swig_types, 53, 0, 0, 0, 0};
+#define SWIGTYPE_p_MinimizerFactory swig_types[5]
+#define SWIGTYPE_p_MinimizerOptions swig_types[6]
+#define SWIGTYPE_p_ParameterPool swig_types[7]
+#define SWIGTYPE_p_allocator_type swig_types[8]
+#define SWIGTYPE_p_char swig_types[9]
+#define SWIGTYPE_p_const_iterator swig_types[10]
+#define SWIGTYPE_p_difference_type swig_types[11]
+#define SWIGTYPE_p_double swig_types[12]
+#define SWIGTYPE_p_function_chi2_t swig_types[13]
+#define SWIGTYPE_p_function_gradient_t swig_types[14]
+#define SWIGTYPE_p_int swig_types[15]
+#define SWIGTYPE_p_iterator swig_types[16]
+#define SWIGTYPE_p_long_long swig_types[17]
+#define SWIGTYPE_p_p_PyObject swig_types[18]
+#define SWIGTYPE_p_parameters_t swig_types[19]
+#define SWIGTYPE_p_short swig_types[20]
+#define SWIGTYPE_p_signed_char swig_types[21]
+#define SWIGTYPE_p_size_type swig_types[22]
+#define SWIGTYPE_p_std__allocatorT_double_t swig_types[23]
+#define SWIGTYPE_p_std__allocatorT_int_t swig_types[24]
+#define SWIGTYPE_p_std__allocatorT_std__complexT_double_t_t swig_types[25]
+#define SWIGTYPE_p_std__allocatorT_std__string_t swig_types[26]
+#define SWIGTYPE_p_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t swig_types[27]
+#define SWIGTYPE_p_std__allocatorT_unsigned_long_t swig_types[28]
+#define SWIGTYPE_p_std__functionT_double_fdouble_const_pF_t swig_types[29]
+#define SWIGTYPE_p_std__functionT_double_fdouble_const_p_unsigned_int_double_pF_t swig_types[30]
+#define SWIGTYPE_p_std__invalid_argument swig_types[31]
+#define SWIGTYPE_p_std__shared_ptrT_IFitObserver_t swig_types[32]
+#define SWIGTYPE_p_std__shared_ptrT_IObserver_t swig_types[33]
+#define SWIGTYPE_p_std__shared_ptrT_ISampleBuilder_t swig_types[34]
+#define SWIGTYPE_p_std__string swig_types[35]
+#define SWIGTYPE_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__const_iterator swig_types[36]
+#define SWIGTYPE_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__iterator swig_types[37]
+#define SWIGTYPE_p_std__vectorT_double_std__allocatorT_double_t_t swig_types[38]
+#define SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t swig_types[39]
+#define SWIGTYPE_p_std__vectorT_std__complexT_double_t_std__allocatorT_std__complexT_double_t_t_t swig_types[40]
+#define SWIGTYPE_p_std__vectorT_std__string_std__allocatorT_std__string_t_t swig_types[41]
+#define SWIGTYPE_p_std__vectorT_std__vectorT_double_std__allocatorT_double_t_t_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t_t swig_types[42]
+#define SWIGTYPE_p_std__vectorT_unsigned_long_std__allocatorT_unsigned_long_t_t swig_types[43]
+#define SWIGTYPE_p_swig__SwigPyIterator swig_types[44]
+#define SWIGTYPE_p_unsigned_char swig_types[45]
+#define SWIGTYPE_p_unsigned_int swig_types[46]
+#define SWIGTYPE_p_unsigned_long_long swig_types[47]
+#define SWIGTYPE_p_unsigned_short swig_types[48]
+#define SWIGTYPE_p_value_type swig_types[49]
+static swig_type_info *swig_types[51];
+static swig_module_info swig_module = {swig_types, 50, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -6012,7 +6009,6 @@ SWIGINTERN void std_vector_Sl_std_string_Sg__insert__SWIG_1(std::vector< std::st
 #include <numpy/arrayobject.h>
 
 
-#include "IParameterized.h"
 #include "INamed.h"
 
 #include "FitParameter.h"
@@ -6035,46 +6031,6 @@ SWIG_AsVal_bool (PyObject *obj, bool *val)
   return SWIG_OK;
 }
 
-
-SWIGINTERN int
-SWIG_AsVal_long_SS_long (PyObject *obj, long long *val)
-{
-  int res = SWIG_TypeError;
-  if (PyLong_Check(obj)) {
-    long long v = PyLong_AsLongLong(obj);
-    if (!PyErr_Occurred()) {
-      if (val) *val = v;
-      return SWIG_OK;
-    } else {
-      PyErr_Clear();
-    }
-  } else {
-    long v;
-    res = SWIG_AsVal_long (obj,&v);
-    if (SWIG_IsOK(res)) {
-      if (val) *val = v;
-      return res;
-    }
-  }
-#ifdef SWIG_PYTHON_CAST_MODE
-  {
-    const double mant_max = 1LL << DBL_MANT_DIG;
-    const double mant_min = -mant_max;
-    double d;
-    res = SWIG_AsVal_double (obj,&d);
-    if (SWIG_IsOK(res) && SWIG_CanCastAsInteger(&d, mant_min, mant_max)) {
-      if (val) *val = (long long)(d);
-      return SWIG_AddCast(res);
-    }
-    res = SWIG_TypeError;
-  }
-#endif
-  return res;
-}
-
-SWIGINTERN void IParameterized_registerParameter__SWIG_2(IParameterized *self,std::string const &name,int64_t parpointer,AttLimits const &limits=AttLimits::limitless()){
-        return (*(self)).registerParameter(name, (double*)parpointer, limits);
-    }
 SWIGINTERN FitParameter const *FitSuiteParameters___getitem____SWIG_0(FitSuiteParameters const *self,std::string name){
         return (*(self))[name];
     }
@@ -6105,76 +6061,6 @@ SwigDirector_INamed::SwigDirector_INamed(PyObject *self, std::string const &name
 
 SwigDirector_INamed::~SwigDirector_INamed() {
 }
-
-SwigDirector_IParameterized::SwigDirector_IParameterized(PyObject *self, std::string const &name): IParameterized(name), Swig::Director(self) {
-  SWIG_DIRECTOR_RGTR((IParameterized *)this, this); 
-}
-
-
-
-
-SwigDirector_IParameterized::SwigDirector_IParameterized(PyObject *self, IParameterized const &other): IParameterized(other), Swig::Director(self) {
-  SWIG_DIRECTOR_RGTR((IParameterized *)this, this); 
-}
-
-
-
-
-SwigDirector_IParameterized::~SwigDirector_IParameterized() {
-}
-
-std::string SwigDirector_IParameterized::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number) const {
-  return IParameterized::addParametersToExternalPool(path,external_pool,copy_number);
-}
-
-
-void SwigDirector_IParameterized::onChange() {
-  swig_set_inner("onChange", true);
-  if (!swig_get_self()) {
-    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IParameterized.__init__.");
-  }
-#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
-  const size_t swig_method_index = 0;
-  const char * const swig_method_name = "onChange";
-  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
-  swig::SwigVar_PyObject result = PyObject_CallFunction(method, NULL, NULL);
-#else
-  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *) "onChange", NULL);
-#endif
-  swig_set_inner("onChange", false);
-  if (!result) {
-    PyObject *error = PyErr_Occurred();
-    if (error) {
-      Swig::DirectorMethodException::raise("Error detected when calling 'IParameterized.onChange'");
-    }
-  }
-}
-
-
-void SwigDirector_IParameterized::print(std::ostream &ostr) const {
-  swig::SwigVar_PyObject obj0;
-  obj0 = SWIG_NewPointerObj(SWIG_as_voidptr(&ostr), SWIGTYPE_p_std__ostream,  0 );
-  swig_set_inner("print", true);
-  if (!swig_get_self()) {
-    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IParameterized.__init__.");
-  }
-#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
-  const size_t swig_method_index = 1;
-  const char * const swig_method_name = "_print";
-  PyObject* method = swig_get_method(swig_method_index, swig_method_name);
-  swig::SwigVar_PyObject result = PyObject_CallFunction(method, (char *)"(O)" ,(PyObject *)obj0);
-#else
-  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *)"_print", (char *)"(O)" ,(PyObject *)obj0);
-#endif
-  swig_set_inner("print", false);
-  if (!result) {
-    PyObject *error = PyErr_Occurred();
-    if (error) {
-      Swig::DirectorMethodException::raise("Error detected when calling 'IParameterized._print'");
-    }
-  }
-}
-
 
 #ifdef __cplusplus
 extern "C" {
@@ -19356,758 +19242,6 @@ SWIGINTERN PyObject *INamed_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObjec
   return SWIG_Py_Void();
 }
 
-SWIGINTERN PyObject *_wrap_new_IParameterized__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  PyObject *arg1 = (PyObject *) 0 ;
-  std::string *arg2 = 0 ;
-  int res2 = SWIG_OLDOBJ ;
-  PyObject * obj0 = 0 ;
-  PyObject * obj1 = 0 ;
-  IParameterized *result = 0 ;
-  
-  if (!PyArg_ParseTuple(args,(char *)"OO:new_IParameterized",&obj0,&obj1)) SWIG_fail;
-  arg1 = obj0;
-  {
-    std::string *ptr = (std::string *)0;
-    res2 = SWIG_AsPtr_std_string(obj1, &ptr);
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "new_IParameterized" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_IParameterized" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    arg2 = ptr;
-  }
-  if ( arg1 != Py_None ) {
-    /* subclassed */
-    result = (IParameterized *)new SwigDirector_IParameterized(arg1,(std::string const &)*arg2); 
-  } else {
-    result = (IParameterized *)new IParameterized((std::string const &)*arg2); 
-  }
-  
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IParameterized, SWIG_POINTER_NEW |  0 );
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  return resultobj;
-fail:
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_new_IParameterized__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  PyObject *arg1 = (PyObject *) 0 ;
-  PyObject * obj0 = 0 ;
-  IParameterized *result = 0 ;
-  
-  if (!PyArg_ParseTuple(args,(char *)"O:new_IParameterized",&obj0)) SWIG_fail;
-  arg1 = obj0;
-  if ( arg1 != Py_None ) {
-    /* subclassed */
-    result = (IParameterized *)new SwigDirector_IParameterized(arg1); 
-  } else {
-    result = (IParameterized *)new IParameterized(); 
-  }
-  
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IParameterized, SWIG_POINTER_NEW |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_new_IParameterized__SWIG_2(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  PyObject *arg1 = (PyObject *) 0 ;
-  IParameterized *arg2 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  PyObject * obj0 = 0 ;
-  PyObject * obj1 = 0 ;
-  IParameterized *result = 0 ;
-  
-  if (!PyArg_ParseTuple(args,(char *)"OO:new_IParameterized",&obj0,&obj1)) SWIG_fail;
-  arg1 = obj0;
-  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_IParameterized,  0  | 0);
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "new_IParameterized" "', argument " "2"" of type '" "IParameterized const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_IParameterized" "', argument " "2"" of type '" "IParameterized const &""'"); 
-  }
-  arg2 = reinterpret_cast< IParameterized * >(argp2);
-  if ( arg1 != Py_None ) {
-    /* subclassed */
-    result = (IParameterized *)new SwigDirector_IParameterized(arg1,(IParameterized const &)*arg2); 
-  } else {
-    result = (IParameterized *)new IParameterized((IParameterized const &)*arg2); 
-  }
-  
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IParameterized, SWIG_POINTER_NEW |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_new_IParameterized(PyObject *self, PyObject *args) {
-  int argc;
-  PyObject *argv[3] = {
-    0
-  };
-  int ii;
-  
-  if (!PyTuple_Check(args)) SWIG_fail;
-  argc = args ? (int)PyObject_Length(args) : 0;
-  for (ii = 0; (ii < 2) && (ii < argc); ii++) {
-    argv[ii] = PyTuple_GET_ITEM(args,ii);
-  }
-  if (argc == 1) {
-    int _v;
-    _v = (argv[0] != 0);
-    if (_v) {
-      return _wrap_new_IParameterized__SWIG_1(self, args);
-    }
-  }
-  if (argc == 2) {
-    int _v;
-    _v = (argv[0] != 0);
-    if (_v) {
-      int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_IParameterized, 0);
-      _v = SWIG_CheckState(res);
-      if (_v) {
-        return _wrap_new_IParameterized__SWIG_2(self, args);
-      }
-    }
-  }
-  if (argc == 2) {
-    int _v;
-    _v = (argv[0] != 0);
-    if (_v) {
-      int res = SWIG_AsPtr_std_string(argv[1], (std::string**)(0));
-      _v = SWIG_CheckState(res);
-      if (_v) {
-        return _wrap_new_IParameterized__SWIG_0(self, args);
-      }
-    }
-  }
-  
-fail:
-  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'new_IParameterized'.\n"
-    "  Possible C/C++ prototypes are:\n"
-    "    IParameterized::IParameterized(std::string const &)\n"
-    "    IParameterized::IParameterized()\n"
-    "    IParameterized::IParameterized(PyObject *,IParameterized const &)\n");
-  return 0;
-}
-
-
-SWIGINTERN PyObject *_wrap_delete_IParameterized(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IParameterized *arg1 = (IParameterized *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj0 = 0 ;
-  
-  if (!PyArg_ParseTuple(args,(char *)"O:delete_IParameterized",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IParameterized, SWIG_POINTER_DISOWN |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_IParameterized" "', argument " "1"" of type '" "IParameterized *""'"); 
-  }
-  arg1 = reinterpret_cast< IParameterized * >(argp1);
-  delete arg1;
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IParameterized_getParameterPool(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IParameterized *arg1 = (IParameterized *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj0 = 0 ;
-  ParameterPool *result = 0 ;
-  
-  if (!PyArg_ParseTuple(args,(char *)"O:IParameterized_getParameterPool",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IParameterized, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IParameterized_getParameterPool" "', argument " "1"" of type '" "IParameterized const *""'"); 
-  }
-  arg1 = reinterpret_cast< IParameterized * >(argp1);
-  result = (ParameterPool *)((IParameterized const *)arg1)->getParameterPool();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_ParameterPool, 0 |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IParameterized_createParameterTree(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IParameterized *arg1 = (IParameterized *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj0 = 0 ;
-  ParameterPool *result = 0 ;
-  
-  if (!PyArg_ParseTuple(args,(char *)"O:IParameterized_createParameterTree",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IParameterized, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IParameterized_createParameterTree" "', argument " "1"" of type '" "IParameterized *""'"); 
-  }
-  arg1 = reinterpret_cast< IParameterized * >(argp1);
-  result = (ParameterPool *)(arg1)->createParameterTree();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_ParameterPool, 0 |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IParameterized_printParameters(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IParameterized *arg1 = (IParameterized *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj0 = 0 ;
-  
-  if (!PyArg_ParseTuple(args,(char *)"O:IParameterized_printParameters",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IParameterized, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IParameterized_printParameters" "', argument " "1"" of type '" "IParameterized *""'"); 
-  }
-  arg1 = reinterpret_cast< IParameterized * >(argp1);
-  (arg1)->printParameters();
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IParameterized_registerParameter__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IParameterized *arg1 = (IParameterized *) 0 ;
-  std::string *arg2 = 0 ;
-  double *arg3 = (double *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int res2 = SWIG_OLDOBJ ;
-  void *argp3 = 0 ;
-  int res3 = 0 ;
-  PyObject * obj0 = 0 ;
-  PyObject * obj1 = 0 ;
-  PyObject * obj2 = 0 ;
-  
-  if (!PyArg_ParseTuple(args,(char *)"OOO:IParameterized_registerParameter",&obj0,&obj1,&obj2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IParameterized, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IParameterized_registerParameter" "', argument " "1"" of type '" "IParameterized *""'"); 
-  }
-  arg1 = reinterpret_cast< IParameterized * >(argp1);
-  {
-    std::string *ptr = (std::string *)0;
-    res2 = SWIG_AsPtr_std_string(obj1, &ptr);
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IParameterized_registerParameter" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IParameterized_registerParameter" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    arg2 = ptr;
-  }
-  res3 = SWIG_ConvertPtr(obj2, &argp3,SWIGTYPE_p_double, 0 |  0 );
-  if (!SWIG_IsOK(res3)) {
-    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "IParameterized_registerParameter" "', argument " "3"" of type '" "double *""'"); 
-  }
-  arg3 = reinterpret_cast< double * >(argp3);
-  (arg1)->registerParameter((std::string const &)*arg2,arg3);
-  resultobj = SWIG_Py_Void();
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  return resultobj;
-fail:
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IParameterized_registerParameter__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IParameterized *arg1 = (IParameterized *) 0 ;
-  std::string *arg2 = 0 ;
-  double *arg3 = (double *) 0 ;
-  AttLimits *arg4 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int res2 = SWIG_OLDOBJ ;
-  void *argp3 = 0 ;
-  int res3 = 0 ;
-  void *argp4 = 0 ;
-  int res4 = 0 ;
-  PyObject * obj0 = 0 ;
-  PyObject * obj1 = 0 ;
-  PyObject * obj2 = 0 ;
-  PyObject * obj3 = 0 ;
-  
-  if (!PyArg_ParseTuple(args,(char *)"OOOO:IParameterized_registerParameter",&obj0,&obj1,&obj2,&obj3)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IParameterized, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IParameterized_registerParameter" "', argument " "1"" of type '" "IParameterized *""'"); 
-  }
-  arg1 = reinterpret_cast< IParameterized * >(argp1);
-  {
-    std::string *ptr = (std::string *)0;
-    res2 = SWIG_AsPtr_std_string(obj1, &ptr);
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IParameterized_registerParameter" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IParameterized_registerParameter" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    arg2 = ptr;
-  }
-  res3 = SWIG_ConvertPtr(obj2, &argp3,SWIGTYPE_p_double, 0 |  0 );
-  if (!SWIG_IsOK(res3)) {
-    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "IParameterized_registerParameter" "', argument " "3"" of type '" "double *""'"); 
-  }
-  arg3 = reinterpret_cast< double * >(argp3);
-  res4 = SWIG_ConvertPtr(obj3, &argp4, SWIGTYPE_p_AttLimits,  0  | 0);
-  if (!SWIG_IsOK(res4)) {
-    SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "IParameterized_registerParameter" "', argument " "4"" of type '" "AttLimits const &""'"); 
-  }
-  if (!argp4) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IParameterized_registerParameter" "', argument " "4"" of type '" "AttLimits const &""'"); 
-  }
-  arg4 = reinterpret_cast< AttLimits * >(argp4);
-  (arg1)->registerParameter((std::string const &)*arg2,arg3,(AttLimits const &)*arg4);
-  resultobj = SWIG_Py_Void();
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  return resultobj;
-fail:
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IParameterized_setParameterValue(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IParameterized *arg1 = (IParameterized *) 0 ;
-  std::string *arg2 = 0 ;
-  double arg3 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int res2 = SWIG_OLDOBJ ;
-  double val3 ;
-  int ecode3 = 0 ;
-  PyObject * obj0 = 0 ;
-  PyObject * obj1 = 0 ;
-  PyObject * obj2 = 0 ;
-  
-  if (!PyArg_ParseTuple(args,(char *)"OOO:IParameterized_setParameterValue",&obj0,&obj1,&obj2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IParameterized, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IParameterized_setParameterValue" "', argument " "1"" of type '" "IParameterized *""'"); 
-  }
-  arg1 = reinterpret_cast< IParameterized * >(argp1);
-  {
-    std::string *ptr = (std::string *)0;
-    res2 = SWIG_AsPtr_std_string(obj1, &ptr);
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IParameterized_setParameterValue" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IParameterized_setParameterValue" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    arg2 = ptr;
-  }
-  ecode3 = SWIG_AsVal_double(obj2, &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "IParameterized_setParameterValue" "', argument " "3"" of type '" "double""'");
-  } 
-  arg3 = static_cast< double >(val3);
-  (arg1)->setParameterValue((std::string const &)*arg2,arg3);
-  resultobj = SWIG_Py_Void();
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  return resultobj;
-fail:
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IParameterized_getParameter(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IParameterized *arg1 = (IParameterized *) 0 ;
-  std::string *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int res2 = SWIG_OLDOBJ ;
-  PyObject * obj0 = 0 ;
-  PyObject * obj1 = 0 ;
-  RealParameter *result = 0 ;
-  
-  if (!PyArg_ParseTuple(args,(char *)"OO:IParameterized_getParameter",&obj0,&obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IParameterized, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IParameterized_getParameter" "', argument " "1"" of type '" "IParameterized const *""'"); 
-  }
-  arg1 = reinterpret_cast< IParameterized * >(argp1);
-  {
-    std::string *ptr = (std::string *)0;
-    res2 = SWIG_AsPtr_std_string(obj1, &ptr);
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IParameterized_getParameter" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IParameterized_getParameter" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    arg2 = ptr;
-  }
-  result = (RealParameter *)((IParameterized const *)arg1)->getParameter((std::string const &)*arg2);
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_RealParameter, 0 |  0 );
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  return resultobj;
-fail:
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IParameterized_onChange(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IParameterized *arg1 = (IParameterized *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj0 = 0 ;
-  Swig::Director *director = 0;
-  bool upcall = false;
-  SwigDirector_IParameterized *darg = 0;
-  
-  if (!PyArg_ParseTuple(args,(char *)"O:IParameterized_onChange",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IParameterized, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IParameterized_onChange" "', argument " "1"" of type '" "IParameterized *""'"); 
-  }
-  arg1 = reinterpret_cast< IParameterized * >(argp1);
-  director = SWIG_DIRECTOR_CAST(arg1);
-  if (!director || !(director->swig_get_inner("onChange"))) {
-    SWIG_SetErrorMsg(PyExc_RuntimeError,"accessing protected member onChange");
-    SWIG_fail;
-  }
-  upcall = (director && (director->swig_get_self()==obj0));
-  try {
-    darg = dynamic_cast<SwigDirector_IParameterized *>(arg1);
-    if (upcall) {
-      (darg)->onChangeSwigPublic();
-    } else {
-      (darg)->onChange();
-    }
-  } catch (Swig::DirectorException&) {
-    SWIG_fail;
-  }
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IParameterized__print(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IParameterized *arg1 = (IParameterized *) 0 ;
-  std::ostream *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  PyObject * obj0 = 0 ;
-  PyObject * obj1 = 0 ;
-  Swig::Director *director = 0;
-  bool upcall = false;
-  SwigDirector_IParameterized *darg = 0;
-  
-  if (!PyArg_ParseTuple(args,(char *)"OO:IParameterized__print",&obj0,&obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IParameterized, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IParameterized__print" "', argument " "1"" of type '" "IParameterized const *""'"); 
-  }
-  arg1 = reinterpret_cast< IParameterized * >(argp1);
-  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_std__ostream,  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IParameterized__print" "', argument " "2"" of type '" "std::ostream &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IParameterized__print" "', argument " "2"" of type '" "std::ostream &""'"); 
-  }
-  arg2 = reinterpret_cast< std::ostream * >(argp2);
-  director = SWIG_DIRECTOR_CAST(arg1);
-  if (!director || !(director->swig_get_inner("print"))) {
-    SWIG_SetErrorMsg(PyExc_RuntimeError,"accessing protected member print");
-    SWIG_fail;
-  }
-  upcall = (director && (director->swig_get_self()==obj0));
-  try {
-    darg = dynamic_cast<SwigDirector_IParameterized *>(arg1);
-    if (upcall) {
-      ((SwigDirector_IParameterized const *)darg)->printSwigPublic(*arg2);
-    } else {
-      ((SwigDirector_IParameterized const *)darg)->print(*arg2);
-    }
-  } catch (Swig::DirectorException&) {
-    SWIG_fail;
-  }
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IParameterized_registerParameter__SWIG_2(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IParameterized *arg1 = (IParameterized *) 0 ;
-  std::string *arg2 = 0 ;
-  int64_t arg3 ;
-  AttLimits *arg4 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int res2 = SWIG_OLDOBJ ;
-  long long val3 ;
-  int ecode3 = 0 ;
-  void *argp4 = 0 ;
-  int res4 = 0 ;
-  PyObject * obj0 = 0 ;
-  PyObject * obj1 = 0 ;
-  PyObject * obj2 = 0 ;
-  PyObject * obj3 = 0 ;
-  
-  if (!PyArg_ParseTuple(args,(char *)"OOOO:IParameterized_registerParameter",&obj0,&obj1,&obj2,&obj3)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IParameterized, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IParameterized_registerParameter" "', argument " "1"" of type '" "IParameterized *""'"); 
-  }
-  arg1 = reinterpret_cast< IParameterized * >(argp1);
-  {
-    std::string *ptr = (std::string *)0;
-    res2 = SWIG_AsPtr_std_string(obj1, &ptr);
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IParameterized_registerParameter" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IParameterized_registerParameter" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    arg2 = ptr;
-  }
-  ecode3 = SWIG_AsVal_long_SS_long(obj2, &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "IParameterized_registerParameter" "', argument " "3"" of type '" "int64_t""'");
-  } 
-  arg3 = static_cast< int64_t >(val3);
-  res4 = SWIG_ConvertPtr(obj3, &argp4, SWIGTYPE_p_AttLimits,  0  | 0);
-  if (!SWIG_IsOK(res4)) {
-    SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "IParameterized_registerParameter" "', argument " "4"" of type '" "AttLimits const &""'"); 
-  }
-  if (!argp4) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IParameterized_registerParameter" "', argument " "4"" of type '" "AttLimits const &""'"); 
-  }
-  arg4 = reinterpret_cast< AttLimits * >(argp4);
-  IParameterized_registerParameter__SWIG_2(arg1,(std::string const &)*arg2,arg3,(AttLimits const &)*arg4);
-  resultobj = SWIG_Py_Void();
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  return resultobj;
-fail:
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IParameterized_registerParameter__SWIG_3(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IParameterized *arg1 = (IParameterized *) 0 ;
-  std::string *arg2 = 0 ;
-  int64_t arg3 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int res2 = SWIG_OLDOBJ ;
-  long long val3 ;
-  int ecode3 = 0 ;
-  PyObject * obj0 = 0 ;
-  PyObject * obj1 = 0 ;
-  PyObject * obj2 = 0 ;
-  
-  if (!PyArg_ParseTuple(args,(char *)"OOO:IParameterized_registerParameter",&obj0,&obj1,&obj2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IParameterized, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IParameterized_registerParameter" "', argument " "1"" of type '" "IParameterized *""'"); 
-  }
-  arg1 = reinterpret_cast< IParameterized * >(argp1);
-  {
-    std::string *ptr = (std::string *)0;
-    res2 = SWIG_AsPtr_std_string(obj1, &ptr);
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IParameterized_registerParameter" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IParameterized_registerParameter" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    arg2 = ptr;
-  }
-  ecode3 = SWIG_AsVal_long_SS_long(obj2, &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "IParameterized_registerParameter" "', argument " "3"" of type '" "int64_t""'");
-  } 
-  arg3 = static_cast< int64_t >(val3);
-  IParameterized_registerParameter__SWIG_2(arg1,(std::string const &)*arg2,arg3);
-  resultobj = SWIG_Py_Void();
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  return resultobj;
-fail:
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IParameterized_registerParameter(PyObject *self, PyObject *args) {
-  int argc;
-  PyObject *argv[5] = {
-    0
-  };
-  int ii;
-  
-  if (!PyTuple_Check(args)) SWIG_fail;
-  argc = args ? (int)PyObject_Length(args) : 0;
-  for (ii = 0; (ii < 4) && (ii < argc); ii++) {
-    argv[ii] = PyTuple_GET_ITEM(args,ii);
-  }
-  if (argc == 3) {
-    int _v;
-    void *vptr = 0;
-    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_IParameterized, 0);
-    _v = SWIG_CheckState(res);
-    if (_v) {
-      int res = SWIG_AsPtr_std_string(argv[1], (std::string**)(0));
-      _v = SWIG_CheckState(res);
-      if (_v) {
-        void *vptr = 0;
-        int res = SWIG_ConvertPtr(argv[2], &vptr, SWIGTYPE_p_double, 0);
-        _v = SWIG_CheckState(res);
-        if (_v) {
-          return _wrap_IParameterized_registerParameter__SWIG_0(self, args);
-        }
-      }
-    }
-  }
-  if (argc == 3) {
-    int _v;
-    void *vptr = 0;
-    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_IParameterized, 0);
-    _v = SWIG_CheckState(res);
-    if (_v) {
-      int res = SWIG_AsPtr_std_string(argv[1], (std::string**)(0));
-      _v = SWIG_CheckState(res);
-      if (_v) {
-        {
-          int res = SWIG_AsVal_long_SS_long(argv[2], NULL);
-          _v = SWIG_CheckState(res);
-        }
-        if (_v) {
-          return _wrap_IParameterized_registerParameter__SWIG_3(self, args);
-        }
-      }
-    }
-  }
-  if (argc == 4) {
-    int _v;
-    void *vptr = 0;
-    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_IParameterized, 0);
-    _v = SWIG_CheckState(res);
-    if (_v) {
-      int res = SWIG_AsPtr_std_string(argv[1], (std::string**)(0));
-      _v = SWIG_CheckState(res);
-      if (_v) {
-        void *vptr = 0;
-        int res = SWIG_ConvertPtr(argv[2], &vptr, SWIGTYPE_p_double, 0);
-        _v = SWIG_CheckState(res);
-        if (_v) {
-          int res = SWIG_ConvertPtr(argv[3], 0, SWIGTYPE_p_AttLimits, 0);
-          _v = SWIG_CheckState(res);
-          if (_v) {
-            return _wrap_IParameterized_registerParameter__SWIG_1(self, args);
-          }
-        }
-      }
-    }
-  }
-  if (argc == 4) {
-    int _v;
-    void *vptr = 0;
-    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_IParameterized, 0);
-    _v = SWIG_CheckState(res);
-    if (_v) {
-      int res = SWIG_AsPtr_std_string(argv[1], (std::string**)(0));
-      _v = SWIG_CheckState(res);
-      if (_v) {
-        {
-          int res = SWIG_AsVal_long_SS_long(argv[2], NULL);
-          _v = SWIG_CheckState(res);
-        }
-        if (_v) {
-          int res = SWIG_ConvertPtr(argv[3], 0, SWIGTYPE_p_AttLimits, 0);
-          _v = SWIG_CheckState(res);
-          if (_v) {
-            return _wrap_IParameterized_registerParameter__SWIG_2(self, args);
-          }
-        }
-      }
-    }
-  }
-  
-fail:
-  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'IParameterized_registerParameter'.\n"
-    "  Possible C/C++ prototypes are:\n"
-    "    IParameterized::registerParameter(std::string const &,double *)\n"
-    "    IParameterized::registerParameter(std::string const &,double *,AttLimits const &)\n"
-    "    IParameterized::registerParameter(std::string const &,int64_t,AttLimits const &)\n"
-    "    IParameterized::registerParameter(std::string const &,int64_t)\n");
-  return 0;
-}
-
-
-SWIGINTERN PyObject *_wrap_disown_IParameterized(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IParameterized *arg1 = (IParameterized *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj0 = 0 ;
-  
-  if (!PyArg_ParseTuple(args,(char *)"O:disown_IParameterized",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IParameterized, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "disown_IParameterized" "', argument " "1"" of type '" "IParameterized *""'"); 
-  }
-  arg1 = reinterpret_cast< IParameterized * >(argp1);
-  {
-    Swig::Director *director = SWIG_DIRECTOR_CAST(arg1);
-    if (director) director->swig_disown();
-  }
-  
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *IParameterized_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *obj;
-  if (!PyArg_ParseTuple(args,(char*)"O:swigregister", &obj)) return NULL;
-  SWIG_TypeNewClientData(SWIGTYPE_p_IParameterized, SWIG_NewClientData(obj));
-  return SWIG_Py_Void();
-}
-
 SWIGINTERN PyObject *_wrap_new_IMinimizer(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   IMinimizer *result = 0 ;
@@ -24469,71 +23603,6 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { (char *)"disown_INamed", _wrap_disown_INamed, METH_VARARGS, NULL},
 	 { (char *)"INamed_swigregister", INamed_swigregister, METH_VARARGS, NULL},
-	 { (char *)"new_IParameterized", _wrap_new_IParameterized, METH_VARARGS, (char *)"\n"
-		"IParameterized(std::string const & name)\n"
-		"IParameterized()\n"
-		"new_IParameterized(PyObject * arg2, IParameterized other) -> IParameterized\n"
-		"\n"
-		"IParameterized::IParameterized(const IParameterized &other)\n"
-		"\n"
-		""},
-	 { (char *)"delete_IParameterized", _wrap_delete_IParameterized, METH_VARARGS, (char *)"\n"
-		"delete_IParameterized(IParameterized self)\n"
-		"\n"
-		"IParameterized::~IParameterized()\n"
-		"\n"
-		""},
-	 { (char *)"IParameterized_getParameterPool", _wrap_IParameterized_getParameterPool, METH_VARARGS, (char *)"\n"
-		"IParameterized_getParameterPool(IParameterized self) -> ParameterPool *\n"
-		"\n"
-		"ParameterPool* IParameterized::getParameterPool() const\n"
-		"\n"
-		"Returns pointer to the parameter pool. \n"
-		"\n"
-		""},
-	 { (char *)"IParameterized_createParameterTree", _wrap_IParameterized_createParameterTree, METH_VARARGS, (char *)"\n"
-		"IParameterized_createParameterTree(IParameterized self) -> ParameterPool *\n"
-		"\n"
-		"ParameterPool * IParameterized::createParameterTree()\n"
-		"\n"
-		"Creates new parameter pool, with all local parameters and those of its children. \n"
-		"\n"
-		""},
-	 { (char *)"IParameterized_printParameters", _wrap_IParameterized_printParameters, METH_VARARGS, (char *)"\n"
-		"IParameterized_printParameters(IParameterized self)\n"
-		"\n"
-		"void IParameterized::printParameters()\n"
-		"\n"
-		""},
-	 { (char *)"IParameterized_setParameterValue", _wrap_IParameterized_setParameterValue, METH_VARARGS, (char *)"\n"
-		"IParameterized_setParameterValue(IParameterized self, std::string const & name, double value)\n"
-		"\n"
-		"void IParameterized::setParameterValue(const std::string &name, double value)\n"
-		"\n"
-		""},
-	 { (char *)"IParameterized_getParameter", _wrap_IParameterized_getParameter, METH_VARARGS, (char *)"\n"
-		"IParameterized_getParameter(IParameterized self, std::string const & name) -> RealParameter *\n"
-		"\n"
-		"RealParameter * IParameterized::getParameter(const std::string &name) const\n"
-		"\n"
-		"Returns parameter with given 'name'. \n"
-		"\n"
-		""},
-	 { (char *)"IParameterized_onChange", _wrap_IParameterized_onChange, METH_VARARGS, (char *)"IParameterized_onChange(IParameterized self)"},
-	 { (char *)"IParameterized__print", _wrap_IParameterized__print, METH_VARARGS, (char *)"IParameterized__print(IParameterized self, std::ostream & ostr)"},
-	 { (char *)"IParameterized_registerParameter", _wrap_IParameterized_registerParameter, METH_VARARGS, (char *)"\n"
-		"registerParameter(std::string const & name, double * parpointer)\n"
-		"registerParameter(std::string const & name, double * parpointer, AttLimits limits)\n"
-		"registerParameter(std::string const & name, int64_t parpointer, AttLimits limits)\n"
-		"IParameterized_registerParameter(IParameterized self, std::string const & name, int64_t parpointer)\n"
-		"\n"
-		"void IParameterized::registerParameter(const std::string &name, double *parpointer, const AttLimits &limits)\n"
-		"\n"
-		"Register parameter address in the parameter pool; name allows for wildcard '*'. \n"
-		"\n"
-		""},
-	 { (char *)"disown_IParameterized", _wrap_disown_IParameterized, METH_VARARGS, NULL},
-	 { (char *)"IParameterized_swigregister", IParameterized_swigregister, METH_VARARGS, NULL},
 	 { (char *)"new_IMinimizer", _wrap_new_IMinimizer, METH_VARARGS, (char *)"\n"
 		"new_IMinimizer() -> IMinimizer\n"
 		"\n"
@@ -25104,19 +24173,14 @@ static void *_p_FitParameterTo_p_AttLimits(void *x, int *SWIGUNUSEDPARM(newmemor
 static void *_p_FitParameterTo_p_INamed(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((INamed *)  ((FitParameter *) x));
 }
-static void *_p_IParameterizedTo_p_INamed(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((INamed *)  ((IParameterized *) x));
-}
 static swig_type_info _swigt__p_AttLimits = {"_p_AttLimits", "AttLimits *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_FitParameter = {"_p_FitParameter", "FitParameter *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_FitSuiteParameters = {"_p_FitSuiteParameters", "FitSuiteParameters *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IMinimizer = {"_p_IMinimizer", "IMinimizer *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_INamed = {"_p_INamed", "INamed *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_IParameterized = {"_p_IParameterized", "IParameterized *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_MinimizerFactory = {"_p_MinimizerFactory", "MinimizerFactory *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_MinimizerOptions = {"_p_MinimizerOptions", "MinimizerOptions *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_ParameterPool = {"_p_ParameterPool", "ParameterPool *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_RealParameter = {"_p_RealParameter", "RealParameter *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_allocator_type = {"_p_allocator_type", "allocator_type *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_char = {"_p_char", "char *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_const_iterator = {"_p_const_iterator", "const_iterator *", 0, 0, (void*)0, 0};
@@ -25141,7 +24205,6 @@ static swig_type_info _swigt__p_std__allocatorT_unsigned_long_t = {"_p_std__allo
 static swig_type_info _swigt__p_std__functionT_double_fdouble_const_pF_t = {"_p_std__functionT_double_fdouble_const_pF_t", "std::function< double (double const *) > *|IMinimizer::function_chi2_t *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__functionT_double_fdouble_const_p_unsigned_int_double_pF_t = {"_p_std__functionT_double_fdouble_const_p_unsigned_int_double_pF_t", "IMinimizer::function_gradient_t *|std::function< double (double const *,unsigned int,double *) > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__invalid_argument = {"_p_std__invalid_argument", "std::invalid_argument *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_std__ostream = {"_p_std__ostream", "std::ostream *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__shared_ptrT_IFitObserver_t = {"_p_std__shared_ptrT_IFitObserver_t", "std::shared_ptr< IFitObserver > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__shared_ptrT_IObserver_t = {"_p_std__shared_ptrT_IObserver_t", "std::shared_ptr< IObserver > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__shared_ptrT_ISampleBuilder_t = {"_p_std__shared_ptrT_ISampleBuilder_t", "std::shared_ptr< ISampleBuilder > *", 0, 0, (void*)0, 0};
@@ -25167,11 +24230,9 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_FitSuiteParameters,
   &_swigt__p_IMinimizer,
   &_swigt__p_INamed,
-  &_swigt__p_IParameterized,
   &_swigt__p_MinimizerFactory,
   &_swigt__p_MinimizerOptions,
   &_swigt__p_ParameterPool,
-  &_swigt__p_RealParameter,
   &_swigt__p_allocator_type,
   &_swigt__p_char,
   &_swigt__p_const_iterator,
@@ -25196,7 +24257,6 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_std__functionT_double_fdouble_const_pF_t,
   &_swigt__p_std__functionT_double_fdouble_const_p_unsigned_int_double_pF_t,
   &_swigt__p_std__invalid_argument,
-  &_swigt__p_std__ostream,
   &_swigt__p_std__shared_ptrT_IFitObserver_t,
   &_swigt__p_std__shared_ptrT_IObserver_t,
   &_swigt__p_std__shared_ptrT_ISampleBuilder_t,
@@ -25221,12 +24281,10 @@ static swig_cast_info _swigc__p_AttLimits[] = {  {&_swigt__p_FitParameter, _p_Fi
 static swig_cast_info _swigc__p_FitParameter[] = {  {&_swigt__p_FitParameter, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_FitSuiteParameters[] = {  {&_swigt__p_FitSuiteParameters, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IMinimizer[] = {  {&_swigt__p_IMinimizer, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_INamed[] = {  {&_swigt__p_INamed, 0, 0, 0},  {&_swigt__p_FitParameter, _p_FitParameterTo_p_INamed, 0, 0},  {&_swigt__p_IParameterized, _p_IParameterizedTo_p_INamed, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_IParameterized[] = {  {&_swigt__p_IParameterized, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_INamed[] = {  {&_swigt__p_INamed, 0, 0, 0},  {&_swigt__p_FitParameter, _p_FitParameterTo_p_INamed, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_MinimizerFactory[] = {  {&_swigt__p_MinimizerFactory, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_MinimizerOptions[] = {  {&_swigt__p_MinimizerOptions, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_ParameterPool[] = {  {&_swigt__p_ParameterPool, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_RealParameter[] = {  {&_swigt__p_RealParameter, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_allocator_type[] = {  {&_swigt__p_allocator_type, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_char[] = {  {&_swigt__p_char, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_const_iterator[] = {  {&_swigt__p_const_iterator, 0, 0, 0},{0, 0, 0, 0}};
@@ -25251,7 +24309,6 @@ static swig_cast_info _swigc__p_std__allocatorT_unsigned_long_t[] = {  {&_swigt_
 static swig_cast_info _swigc__p_std__functionT_double_fdouble_const_pF_t[] = {  {&_swigt__p_std__functionT_double_fdouble_const_pF_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__functionT_double_fdouble_const_p_unsigned_int_double_pF_t[] = {  {&_swigt__p_std__functionT_double_fdouble_const_p_unsigned_int_double_pF_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__invalid_argument[] = {  {&_swigt__p_std__invalid_argument, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_std__ostream[] = {  {&_swigt__p_std__ostream, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__shared_ptrT_IFitObserver_t[] = {  {&_swigt__p_std__shared_ptrT_IFitObserver_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__shared_ptrT_IObserver_t[] = {  {&_swigt__p_std__shared_ptrT_IObserver_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__shared_ptrT_ISampleBuilder_t[] = {  {&_swigt__p_std__shared_ptrT_ISampleBuilder_t, 0, 0, 0},{0, 0, 0, 0}};
@@ -25277,11 +24334,9 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_FitSuiteParameters,
   _swigc__p_IMinimizer,
   _swigc__p_INamed,
-  _swigc__p_IParameterized,
   _swigc__p_MinimizerFactory,
   _swigc__p_MinimizerOptions,
   _swigc__p_ParameterPool,
-  _swigc__p_RealParameter,
   _swigc__p_allocator_type,
   _swigc__p_char,
   _swigc__p_const_iterator,
@@ -25306,7 +24361,6 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_std__functionT_double_fdouble_const_pF_t,
   _swigc__p_std__functionT_double_fdouble_const_p_unsigned_int_double_pF_t,
   _swigc__p_std__invalid_argument,
-  _swigc__p_std__ostream,
   _swigc__p_std__shared_ptrT_IFitObserver_t,
   _swigc__p_std__shared_ptrT_IObserver_t,
   _swigc__p_std__shared_ptrT_ISampleBuilder_t,

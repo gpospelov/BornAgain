@@ -16,7 +16,6 @@
 #ifndef PARAMETERPOOL_H
 #define PARAMETERPOOL_H
 
-#include "INamed.h" // inheriting from
 #include <functional>
 #include <ostream>
 #include <string>
@@ -29,7 +28,7 @@ class RealParameter;
 //! @ingroup tools_internal
 //! @brief Holds a map of pointers to parameters (which must have different names).
 
-class BA_CORE_API_ ParameterPool : public INamed
+class BA_CORE_API_ ParameterPool
 {
 public:
     explicit ParameterPool(const std::string& name, std::function<void()> onChange);
@@ -48,6 +47,8 @@ public:
 
     //! Deletes parameter map.
     void clear();
+
+    std::string getName() const { return m_name; }
 
     //! Returns number of parameters in the pool.
     size_t size() const { return m_params.size(); }
@@ -98,6 +99,9 @@ private:
 
     //! reports error while setting parname to given value
     void report_set_value_error(const std::string& parname, double value) const;
+
+    //! The name of this pool, ought to be the name of the owning IParameterized.
+    std::string m_name;
 
     //! The parameters in this pool.
     std::vector<RealParameter*> m_params;

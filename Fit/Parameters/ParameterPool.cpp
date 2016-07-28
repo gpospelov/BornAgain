@@ -25,7 +25,7 @@
 
 //! Constructs an empty parameter pool.
 ParameterPool::ParameterPool(const std::string& name, std::function<void()>onChange)
-    : INamed(name)
+    : m_name(name)
     , m_onChange(onChange)
 {
 }
@@ -38,7 +38,7 @@ ParameterPool::~ParameterPool()
 //! Returns a literal clone.
 ParameterPool* ParameterPool::clone() const
 {
-    ParameterPool* new_pool = new ParameterPool(getName(), m_onChange);
+    ParameterPool* new_pool = new ParameterPool(m_name, m_onChange);
     new_pool->m_params = m_params;
     return new_pool;
 }
@@ -48,7 +48,7 @@ ParameterPool* ParameterPool::clone() const
 
 ParameterPool* ParameterPool::cloneWithPrefix(const std::string& prefix) const
 {
-    ParameterPool* new_pool = new ParameterPool(getName(), m_onChange);
+    ParameterPool* new_pool = new ParameterPool(m_name, m_onChange);
     for (const auto* par: m_params)
         new_pool->addParameter( new RealParameter( prefix + par->getName(), *par ) );
     return new_pool;

@@ -20,7 +20,7 @@
 
 RealParameter::RealParameter(
     const std::string& name, ParameterPool* parent, volatile double* par, const AttLimits& limits)
-    : INamed(name)
+    : m_name(name)
     , m_parent(parent)
     , m_data(par)
     , m_limits(limits)
@@ -64,14 +64,6 @@ void RealParameter::setValue(double value)
         throw Exceptions::OutOfBoundsException("Parameter "+fullName()+" is fixed");
     *m_data = value;
     m_parent->onChange();
-}
-
-void RealParameter::swapContent(RealParameter& other)
-{
-    std::swap(this->m_parent, other.m_parent);
-    std::swap(this->m_name, other.m_name);
-    std::swap(this->m_data, other.m_data);
-    std::swap(this->m_limits, other.m_limits);
 }
 
 std::string RealParameter::fullName()

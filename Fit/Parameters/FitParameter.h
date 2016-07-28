@@ -16,20 +16,22 @@
 #ifndef FITPARAMETER_H
 #define FITPARAMETER_H
 
-#include "INamed.h" // inheriting from
 #include "AttLimits.h"
+#include <string>
 
 //! @class FitParameter
 //! @ingroup fitting_internal
 //! @brief Parameter with value, error and limits for fitting routines.
 
-class BA_CORE_API_ FitParameter : public INamed, public AttLimits
+class BA_CORE_API_ FitParameter : public AttLimits
 {
  public:
     FitParameter();
     FitParameter(const std::string& name, double value, double step=0.0,
                  const AttLimits& limits=AttLimits::limitless(), double error=0.0);
     virtual ~FitParameter(){}
+
+    std::string getName() const { return m_name; }
 
     //! Sets value of parameter
     virtual void setValue(double value) { m_value = value;}
@@ -54,9 +56,10 @@ class BA_CORE_API_ FitParameter : public INamed, public AttLimits
     //! Prints class
     void print(std::ostream& ostr) const;
 
-    double m_value; //! parameter value
-    double m_step;  //! parameter step size
-    double m_error; //! parameter error
+    std::string m_name;
+    double m_value;
+    double m_step;
+    double m_error;
 };
 
 #endif // FITPARAMETER_H

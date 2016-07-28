@@ -1724,57 +1724,6 @@ def AttLimits_fixed():
     """AttLimits_fixed() -> AttLimits"""
     return _libBornAgainFit.AttLimits_fixed()
 
-class INamed(_object):
-    """
-
-
-    Interface for named objects.
-
-    C++ includes: INamed.h
-
-    """
-    __swig_setmethods__ = {}
-    __setattr__ = lambda self, name, value: _swig_setattr(self, INamed, name, value)
-    __swig_getmethods__ = {}
-    __getattr__ = lambda self, name: _swig_getattr(self, INamed, name)
-    __repr__ = _swig_repr
-
-    def __init__(self, *args):
-        """
-        __init__(INamed self) -> INamed
-        __init__(INamed self, std::string const & name) -> INamed
-
-        INamed::INamed(const std::string &name)
-
-        """
-        if self.__class__ == INamed:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainFit.new_INamed(_self, *args)
-        try:
-            self.this.append(this)
-        except:
-            self.this = this
-    __swig_destroy__ = _libBornAgainFit.delete_INamed
-    __del__ = lambda self: None
-
-    def getName(self):
-        """
-        getName(INamed self) -> std::string
-
-        std::string INamed::getName() const 
-
-        """
-        return _libBornAgainFit.INamed_getName(self)
-
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainFit.disown_INamed(self)
-        return weakref_proxy(self)
-INamed_swigregister = _libBornAgainFit.INamed_swigregister
-INamed_swigregister(INamed)
-
 class IMinimizer(_object):
     """
 
@@ -2046,7 +1995,7 @@ class IMinimizer(_object):
 IMinimizer_swigregister = _libBornAgainFit.IMinimizer_swigregister
 IMinimizer_swigregister(IMinimizer)
 
-class FitParameter(INamed, AttLimits):
+class FitParameter(AttLimits):
     """
 
 
@@ -2056,11 +2005,11 @@ class FitParameter(INamed, AttLimits):
 
     """
     __swig_setmethods__ = {}
-    for _s in [INamed, AttLimits]:
+    for _s in [AttLimits]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, FitParameter, name, value)
     __swig_getmethods__ = {}
-    for _s in [INamed, AttLimits]:
+    for _s in [AttLimits]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, FitParameter, name)
     __repr__ = _swig_repr
@@ -2083,6 +2032,11 @@ class FitParameter(INamed, AttLimits):
             self.this = this
     __swig_destroy__ = _libBornAgainFit.delete_FitParameter
     __del__ = lambda self: None
+
+    def getName(self):
+        """getName(FitParameter self) -> std::string"""
+        return _libBornAgainFit.FitParameter_getName(self)
+
 
     def setValue(self, value):
         """

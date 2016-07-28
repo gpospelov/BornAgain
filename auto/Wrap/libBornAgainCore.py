@@ -1525,14 +1525,72 @@ minor_version_number = cvar.minor_version_number
 patch_version_number = cvar.patch_version_number
 PI2 = cvar.PI2
 
-class IParameterized(libBornAgainFit.INamed):
-    """Proxy of C++ IParameterized class"""
+class INamed(_object):
+    """
+
+
+    Interface for named objects.
+
+    C++ includes: INamed.h
+
+    """
     __swig_setmethods__ = {}
-    for _s in [libBornAgainFit.INamed]:
+    __setattr__ = lambda self, name, value: _swig_setattr(self, INamed, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, INamed, name)
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        """
+        __init__(INamed self) -> INamed
+        __init__(INamed self, std::string const & name) -> INamed
+
+        INamed::INamed(const std::string &name)
+
+        """
+        if self.__class__ == INamed:
+            _self = None
+        else:
+            _self = self
+        this = _libBornAgainCore.new_INamed(_self, *args)
+        try:
+            self.this.append(this)
+        except:
+            self.this = this
+    __swig_destroy__ = _libBornAgainCore.delete_INamed
+    __del__ = lambda self: None
+
+    def getName(self):
+        """
+        getName(INamed self) -> std::string
+
+        std::string INamed::getName() const 
+
+        """
+        return _libBornAgainCore.INamed_getName(self)
+
+    def __disown__(self):
+        self.this.disown()
+        _libBornAgainCore.disown_INamed(self)
+        return weakref_proxy(self)
+INamed_swigregister = _libBornAgainCore.INamed_swigregister
+INamed_swigregister(INamed)
+
+class IParameterized(INamed):
+    """
+
+
+    Manage a local parameter pool, and a tree of child pools.
+
+    C++ includes: IParameterized.h
+
+    """
+    __swig_setmethods__ = {}
+    for _s in [INamed]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, IParameterized, name, value)
     __swig_getmethods__ = {}
-    for _s in [libBornAgainFit.INamed]:
+    for _s in [INamed]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, IParameterized, name)
     __repr__ = _swig_repr
@@ -1542,6 +1600,9 @@ class IParameterized(libBornAgainFit.INamed):
         __init__(IParameterized self, std::string const & name) -> IParameterized
         __init__(IParameterized self) -> IParameterized
         __init__(IParameterized self, IParameterized other) -> IParameterized
+
+        IParameterized::IParameterized(const IParameterized &other)
+
         """
         if self.__class__ == IParameterized:
             _self = None
@@ -1556,27 +1617,58 @@ class IParameterized(libBornAgainFit.INamed):
     __del__ = lambda self: None
 
     def getParameterPool(self):
-        """getParameterPool(IParameterized self) -> ParameterPool"""
+        """
+        getParameterPool(IParameterized self) -> ParameterPool
+
+        ParameterPool* IParameterized::getParameterPool() const
+
+        Returns pointer to the parameter pool. 
+
+        """
         return _libBornAgainCore.IParameterized_getParameterPool(self)
 
 
     def createParameterTree(self):
-        """createParameterTree(IParameterized self) -> ParameterPool"""
+        """
+        createParameterTree(IParameterized self) -> ParameterPool
+
+        ParameterPool * IParameterized::createParameterTree()
+
+        Creates new parameter pool, with all local parameters and those of its children. 
+
+        """
         return _libBornAgainCore.IParameterized_createParameterTree(self)
 
 
     def printParameters(self):
-        """printParameters(IParameterized self)"""
+        """
+        printParameters(IParameterized self)
+
+        void IParameterized::printParameters()
+
+        """
         return _libBornAgainCore.IParameterized_printParameters(self)
 
 
     def setParameterValue(self, name, value):
-        """setParameterValue(IParameterized self, std::string const & name, double value)"""
+        """
+        setParameterValue(IParameterized self, std::string const & name, double value)
+
+        void IParameterized::setParameterValue(const std::string &name, double value)
+
+        """
         return _libBornAgainCore.IParameterized_setParameterValue(self, name, value)
 
 
     def getParameter(self, name):
-        """getParameter(IParameterized self, std::string const & name) -> RealParameter"""
+        """
+        getParameter(IParameterized self, std::string const & name) -> RealParameter
+
+        RealParameter * IParameterized::getParameter(const std::string &name) const
+
+        Returns parameter with given 'name'. 
+
+        """
         return _libBornAgainCore.IParameterized_getParameter(self, name)
 
 
@@ -1596,6 +1688,11 @@ class IParameterized(libBornAgainFit.INamed):
         registerParameter(IParameterized self, std::string const & name, double * parpointer, AttLimits limits)
         registerParameter(IParameterized self, std::string const & name, int64_t parpointer, AttLimits limits)
         registerParameter(IParameterized self, std::string const & name, int64_t parpointer)
+
+        void IParameterized::registerParameter(const std::string &name, double *parpointer, const AttLimits &limits)
+
+        Register parameter address in the parameter pool; name allows for wildcard '*'. 
+
         """
         return _libBornAgainCore.IParameterized_registerParameter(self, *args)
 
@@ -4443,7 +4540,7 @@ class IFitObserver(IObserver):
 IFitObserver_swigregister = _libBornAgainCore.IFitObserver_swigregister
 IFitObserver_swigregister(IFitObserver)
 
-class IFitStrategy(libBornAgainFit.INamed):
+class IFitStrategy(INamed):
     """
 
 
@@ -4455,11 +4552,11 @@ class IFitStrategy(libBornAgainFit.INamed):
 
     """
     __swig_setmethods__ = {}
-    for _s in [libBornAgainFit.INamed]:
+    for _s in [INamed]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, IFitStrategy, name, value)
     __swig_getmethods__ = {}
-    for _s in [libBornAgainFit.INamed]:
+    for _s in [INamed]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, IFitStrategy, name)
 
@@ -6532,12 +6629,22 @@ class ISampleBuilder(IParameterized):
         """
         registerParameter(ISampleBuilder self, std::string const & name, int64_t parpointer, AttLimits limits)
         registerParameter(ISampleBuilder self, std::string const & name, int64_t parpointer)
+
+        void IParameterized::registerParameter(const std::string &name, double *parpointer, const AttLimits &limits)
+
+        Register parameter address in the parameter pool; name allows for wildcard '*'. 
+
         """
         return _libBornAgainCore.ISampleBuilder_registerParameter(self, *args)
 
 
     def setParameterValue(self, name, value):
-        """setParameterValue(ISampleBuilder self, std::string const & name, double value)"""
+        """
+        setParameterValue(ISampleBuilder self, std::string const & name, double value)
+
+        void IParameterized::setParameterValue(const std::string &name, double value)
+
+        """
         return _libBornAgainCore.ISampleBuilder_setParameterValue(self, name, value)
 
     def __disown__(self):
@@ -10358,6 +10465,8 @@ class FormFactorPolyhedron(IFormFactorBorn):
         onChange(FormFactorPolyhedron self)
 
         virtual void FormFactorPolyhedron::onChange()=0
+
+        Action to be taken in inherited class when a parameter has changed. 
 
         """
         return _libBornAgainCore.FormFactorPolyhedron_onChange(self)
@@ -15969,7 +16078,7 @@ def Histogram2D_dynamicCast(pHistogram):
     """Histogram2D_dynamicCast(IHistogram pHistogram) -> Histogram2D"""
     return _libBornAgainCore.Histogram2D_dynamicCast(pHistogram)
 
-class IMaterial(libBornAgainFit.INamed):
+class IMaterial(INamed):
     """
 
 
@@ -15979,11 +16088,11 @@ class IMaterial(libBornAgainFit.INamed):
 
     """
     __swig_setmethods__ = {}
-    for _s in [libBornAgainFit.INamed]:
+    for _s in [INamed]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, IMaterial, name, value)
     __swig_getmethods__ = {}
-    for _s in [libBornAgainFit.INamed]:
+    for _s in [INamed]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, IMaterial, name)
     __repr__ = _swig_repr
@@ -21830,15 +21939,11 @@ class ParameterDistribution(IParameterized):
 ParameterDistribution_swigregister = _libBornAgainCore.ParameterDistribution_swigregister
 ParameterDistribution_swigregister(ParameterDistribution)
 
-class ParameterPool(libBornAgainFit.INamed):
+class ParameterPool(_object):
     """Proxy of C++ ParameterPool class"""
     __swig_setmethods__ = {}
-    for _s in [libBornAgainFit.INamed]:
-        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, ParameterPool, name, value)
     __swig_getmethods__ = {}
-    for _s in [libBornAgainFit.INamed]:
-        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, ParameterPool, name)
     __repr__ = _swig_repr
 
@@ -21870,6 +21975,11 @@ class ParameterPool(libBornAgainFit.INamed):
     def clear(self):
         """clear(ParameterPool self)"""
         return _libBornAgainCore.ParameterPool_clear(self)
+
+
+    def getName(self):
+        """getName(ParameterPool self) -> std::string"""
+        return _libBornAgainCore.ParameterPool_getName(self)
 
 
     def size(self):
@@ -22847,15 +22957,11 @@ class Polygon(IShape2D):
 Polygon_swigregister = _libBornAgainCore.Polygon_swigregister
 Polygon_swigregister(Polygon)
 
-class RealParameter(libBornAgainFit.INamed):
+class RealParameter(_object):
     """Proxy of C++ RealParameter class"""
     __swig_setmethods__ = {}
-    for _s in [libBornAgainFit.INamed]:
-        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, RealParameter, name, value)
     __swig_getmethods__ = {}
-    for _s in [libBornAgainFit.INamed]:
-        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, RealParameter, name)
     __repr__ = _swig_repr
 
@@ -22871,6 +22977,11 @@ class RealParameter(libBornAgainFit.INamed):
             self.this.append(this)
         except:
             self.this = this
+
+    def getName(self):
+        """getName(RealParameter self) -> std::string"""
+        return _libBornAgainCore.RealParameter_getName(self)
+
 
     def setValue(self, value):
         """setValue(RealParameter self, double value)"""

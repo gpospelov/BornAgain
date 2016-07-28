@@ -145,6 +145,7 @@
 #include "IInterferenceFunction.h"
 #include "ILayout.h"
 #include "IMaterial.h"
+#include "INamed.h"
 #include "IObserver.h"
 #include "IParameterized.h"
 #include "IParticle.h"
@@ -220,11 +221,11 @@
 // Note that the order matters, as base classes must be included before derived classes.
 
 %import(module="libBornAgainFit") "AttLimits.h"
-%import(module="libBornAgainFit") "INamed.h"
 
 %include "BAVersion.h"
 %include "BasicVector3D.h"
 %include "ICloneable.h"
+%include "INamed.h"
 %include "IParameterized.h"
 
 // SWIG does not automatically instantiate templates, so we declare these by hand

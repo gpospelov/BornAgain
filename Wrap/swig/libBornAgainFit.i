@@ -61,8 +61,6 @@ import_array();
 %import "WinDllMacros.h"
 
 %{
-#include "INamed.h"
-
 #include "FitParameter.h"
 #include "FitSuiteParameters.h"
 #include "IMinimizer.h"
@@ -74,7 +72,6 @@ import_array();
 // Note that the order matters, as base classes must be included before derived classes.
 
 %include "AttLimits.h"
-%include "INamed.h"
 
 %include "IMinimizer.h"
 %include "FitParameter.h"

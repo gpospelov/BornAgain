@@ -3419,54 +3419,53 @@ namespace Swig {
 #define SWIGTYPE_p_FitParameter swig_types[1]
 #define SWIGTYPE_p_FitSuiteParameters swig_types[2]
 #define SWIGTYPE_p_IMinimizer swig_types[3]
-#define SWIGTYPE_p_INamed swig_types[4]
-#define SWIGTYPE_p_MinimizerFactory swig_types[5]
-#define SWIGTYPE_p_MinimizerOptions swig_types[6]
-#define SWIGTYPE_p_ParameterPool swig_types[7]
-#define SWIGTYPE_p_allocator_type swig_types[8]
-#define SWIGTYPE_p_char swig_types[9]
-#define SWIGTYPE_p_const_iterator swig_types[10]
-#define SWIGTYPE_p_difference_type swig_types[11]
-#define SWIGTYPE_p_double swig_types[12]
-#define SWIGTYPE_p_function_chi2_t swig_types[13]
-#define SWIGTYPE_p_function_gradient_t swig_types[14]
-#define SWIGTYPE_p_int swig_types[15]
-#define SWIGTYPE_p_iterator swig_types[16]
-#define SWIGTYPE_p_long_long swig_types[17]
-#define SWIGTYPE_p_p_PyObject swig_types[18]
-#define SWIGTYPE_p_parameters_t swig_types[19]
-#define SWIGTYPE_p_short swig_types[20]
-#define SWIGTYPE_p_signed_char swig_types[21]
-#define SWIGTYPE_p_size_type swig_types[22]
-#define SWIGTYPE_p_std__allocatorT_double_t swig_types[23]
-#define SWIGTYPE_p_std__allocatorT_int_t swig_types[24]
-#define SWIGTYPE_p_std__allocatorT_std__complexT_double_t_t swig_types[25]
-#define SWIGTYPE_p_std__allocatorT_std__string_t swig_types[26]
-#define SWIGTYPE_p_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t swig_types[27]
-#define SWIGTYPE_p_std__allocatorT_unsigned_long_t swig_types[28]
-#define SWIGTYPE_p_std__functionT_double_fdouble_const_pF_t swig_types[29]
-#define SWIGTYPE_p_std__functionT_double_fdouble_const_p_unsigned_int_double_pF_t swig_types[30]
-#define SWIGTYPE_p_std__invalid_argument swig_types[31]
-#define SWIGTYPE_p_std__shared_ptrT_IFitObserver_t swig_types[32]
-#define SWIGTYPE_p_std__shared_ptrT_IObserver_t swig_types[33]
-#define SWIGTYPE_p_std__shared_ptrT_ISampleBuilder_t swig_types[34]
-#define SWIGTYPE_p_std__string swig_types[35]
-#define SWIGTYPE_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__const_iterator swig_types[36]
-#define SWIGTYPE_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__iterator swig_types[37]
-#define SWIGTYPE_p_std__vectorT_double_std__allocatorT_double_t_t swig_types[38]
-#define SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t swig_types[39]
-#define SWIGTYPE_p_std__vectorT_std__complexT_double_t_std__allocatorT_std__complexT_double_t_t_t swig_types[40]
-#define SWIGTYPE_p_std__vectorT_std__string_std__allocatorT_std__string_t_t swig_types[41]
-#define SWIGTYPE_p_std__vectorT_std__vectorT_double_std__allocatorT_double_t_t_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t_t swig_types[42]
-#define SWIGTYPE_p_std__vectorT_unsigned_long_std__allocatorT_unsigned_long_t_t swig_types[43]
-#define SWIGTYPE_p_swig__SwigPyIterator swig_types[44]
-#define SWIGTYPE_p_unsigned_char swig_types[45]
-#define SWIGTYPE_p_unsigned_int swig_types[46]
-#define SWIGTYPE_p_unsigned_long_long swig_types[47]
-#define SWIGTYPE_p_unsigned_short swig_types[48]
-#define SWIGTYPE_p_value_type swig_types[49]
-static swig_type_info *swig_types[51];
-static swig_module_info swig_module = {swig_types, 50, 0, 0, 0, 0};
+#define SWIGTYPE_p_MinimizerFactory swig_types[4]
+#define SWIGTYPE_p_MinimizerOptions swig_types[5]
+#define SWIGTYPE_p_ParameterPool swig_types[6]
+#define SWIGTYPE_p_allocator_type swig_types[7]
+#define SWIGTYPE_p_char swig_types[8]
+#define SWIGTYPE_p_const_iterator swig_types[9]
+#define SWIGTYPE_p_difference_type swig_types[10]
+#define SWIGTYPE_p_double swig_types[11]
+#define SWIGTYPE_p_function_chi2_t swig_types[12]
+#define SWIGTYPE_p_function_gradient_t swig_types[13]
+#define SWIGTYPE_p_int swig_types[14]
+#define SWIGTYPE_p_iterator swig_types[15]
+#define SWIGTYPE_p_long_long swig_types[16]
+#define SWIGTYPE_p_p_PyObject swig_types[17]
+#define SWIGTYPE_p_parameters_t swig_types[18]
+#define SWIGTYPE_p_short swig_types[19]
+#define SWIGTYPE_p_signed_char swig_types[20]
+#define SWIGTYPE_p_size_type swig_types[21]
+#define SWIGTYPE_p_std__allocatorT_double_t swig_types[22]
+#define SWIGTYPE_p_std__allocatorT_int_t swig_types[23]
+#define SWIGTYPE_p_std__allocatorT_std__complexT_double_t_t swig_types[24]
+#define SWIGTYPE_p_std__allocatorT_std__string_t swig_types[25]
+#define SWIGTYPE_p_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t swig_types[26]
+#define SWIGTYPE_p_std__allocatorT_unsigned_long_t swig_types[27]
+#define SWIGTYPE_p_std__functionT_double_fdouble_const_pF_t swig_types[28]
+#define SWIGTYPE_p_std__functionT_double_fdouble_const_p_unsigned_int_double_pF_t swig_types[29]
+#define SWIGTYPE_p_std__invalid_argument swig_types[30]
+#define SWIGTYPE_p_std__shared_ptrT_IFitObserver_t swig_types[31]
+#define SWIGTYPE_p_std__shared_ptrT_IObserver_t swig_types[32]
+#define SWIGTYPE_p_std__shared_ptrT_ISampleBuilder_t swig_types[33]
+#define SWIGTYPE_p_std__string swig_types[34]
+#define SWIGTYPE_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__const_iterator swig_types[35]
+#define SWIGTYPE_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__iterator swig_types[36]
+#define SWIGTYPE_p_std__vectorT_double_std__allocatorT_double_t_t swig_types[37]
+#define SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t swig_types[38]
+#define SWIGTYPE_p_std__vectorT_std__complexT_double_t_std__allocatorT_std__complexT_double_t_t_t swig_types[39]
+#define SWIGTYPE_p_std__vectorT_std__string_std__allocatorT_std__string_t_t swig_types[40]
+#define SWIGTYPE_p_std__vectorT_std__vectorT_double_std__allocatorT_double_t_t_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t_t swig_types[41]
+#define SWIGTYPE_p_std__vectorT_unsigned_long_std__allocatorT_unsigned_long_t_t swig_types[42]
+#define SWIGTYPE_p_swig__SwigPyIterator swig_types[43]
+#define SWIGTYPE_p_unsigned_char swig_types[44]
+#define SWIGTYPE_p_unsigned_int swig_types[45]
+#define SWIGTYPE_p_unsigned_long_long swig_types[46]
+#define SWIGTYPE_p_unsigned_short swig_types[47]
+#define SWIGTYPE_p_value_type swig_types[48]
+static swig_type_info *swig_types[50];
+static swig_module_info swig_module = {swig_types, 49, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -6009,8 +6008,6 @@ SWIGINTERN void std_vector_Sl_std_string_Sg__insert__SWIG_1(std::vector< std::st
 #include <numpy/arrayobject.h>
 
 
-#include "INamed.h"
-
 #include "FitParameter.h"
 #include "FitSuiteParameters.h"
 #include "IMinimizer.h"
@@ -6044,23 +6041,6 @@ SWIGINTERN FitParameter const *FitSuiteParameters___getitem____SWIG_1(FitSuitePa
  * --------------------------------------------------- */
 
 #include "libBornAgainFit_wrap.h"
-
-SwigDirector_INamed::SwigDirector_INamed(PyObject *self): INamed(), Swig::Director(self) {
-  SWIG_DIRECTOR_RGTR((INamed *)this, this); 
-}
-
-
-
-
-SwigDirector_INamed::SwigDirector_INamed(PyObject *self, std::string const &name): INamed(name), Swig::Director(self) {
-  SWIG_DIRECTOR_RGTR((INamed *)this, this); 
-}
-
-
-
-
-SwigDirector_INamed::~SwigDirector_INamed() {
-}
 
 #ifdef __cplusplus
 extern "C" {
@@ -19067,181 +19047,6 @@ SWIGINTERN PyObject *AttLimits_swigregister(PyObject *SWIGUNUSEDPARM(self), PyOb
   return SWIG_Py_Void();
 }
 
-SWIGINTERN PyObject *_wrap_new_INamed__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  PyObject *arg1 = (PyObject *) 0 ;
-  PyObject * obj0 = 0 ;
-  INamed *result = 0 ;
-  
-  if (!PyArg_ParseTuple(args,(char *)"O:new_INamed",&obj0)) SWIG_fail;
-  arg1 = obj0;
-  if ( arg1 != Py_None ) {
-    /* subclassed */
-    result = (INamed *)new SwigDirector_INamed(arg1); 
-  } else {
-    result = (INamed *)new INamed(); 
-  }
-  
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_INamed, SWIG_POINTER_NEW |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_new_INamed__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  PyObject *arg1 = (PyObject *) 0 ;
-  std::string *arg2 = 0 ;
-  int res2 = SWIG_OLDOBJ ;
-  PyObject * obj0 = 0 ;
-  PyObject * obj1 = 0 ;
-  INamed *result = 0 ;
-  
-  if (!PyArg_ParseTuple(args,(char *)"OO:new_INamed",&obj0,&obj1)) SWIG_fail;
-  arg1 = obj0;
-  {
-    std::string *ptr = (std::string *)0;
-    res2 = SWIG_AsPtr_std_string(obj1, &ptr);
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "new_INamed" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_INamed" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    arg2 = ptr;
-  }
-  if ( arg1 != Py_None ) {
-    /* subclassed */
-    result = (INamed *)new SwigDirector_INamed(arg1,(std::string const &)*arg2); 
-  } else {
-    result = (INamed *)new INamed((std::string const &)*arg2); 
-  }
-  
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_INamed, SWIG_POINTER_NEW |  0 );
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  return resultobj;
-fail:
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_new_INamed(PyObject *self, PyObject *args) {
-  int argc;
-  PyObject *argv[3] = {
-    0
-  };
-  int ii;
-  
-  if (!PyTuple_Check(args)) SWIG_fail;
-  argc = args ? (int)PyObject_Length(args) : 0;
-  for (ii = 0; (ii < 2) && (ii < argc); ii++) {
-    argv[ii] = PyTuple_GET_ITEM(args,ii);
-  }
-  if (argc == 1) {
-    int _v;
-    _v = (argv[0] != 0);
-    if (_v) {
-      return _wrap_new_INamed__SWIG_0(self, args);
-    }
-  }
-  if (argc == 2) {
-    int _v;
-    _v = (argv[0] != 0);
-    if (_v) {
-      int res = SWIG_AsPtr_std_string(argv[1], (std::string**)(0));
-      _v = SWIG_CheckState(res);
-      if (_v) {
-        return _wrap_new_INamed__SWIG_1(self, args);
-      }
-    }
-  }
-  
-fail:
-  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'new_INamed'.\n"
-    "  Possible C/C++ prototypes are:\n"
-    "    INamed::INamed()\n"
-    "    INamed::INamed(PyObject *,std::string const &)\n");
-  return 0;
-}
-
-
-SWIGINTERN PyObject *_wrap_delete_INamed(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  INamed *arg1 = (INamed *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj0 = 0 ;
-  
-  if (!PyArg_ParseTuple(args,(char *)"O:delete_INamed",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_INamed, SWIG_POINTER_DISOWN |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_INamed" "', argument " "1"" of type '" "INamed *""'"); 
-  }
-  arg1 = reinterpret_cast< INamed * >(argp1);
-  delete arg1;
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_INamed_getName(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  INamed *arg1 = (INamed *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj0 = 0 ;
-  std::string result;
-  
-  if (!PyArg_ParseTuple(args,(char *)"O:INamed_getName",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_INamed, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "INamed_getName" "', argument " "1"" of type '" "INamed const *""'"); 
-  }
-  arg1 = reinterpret_cast< INamed * >(argp1);
-  result = ((INamed const *)arg1)->getName();
-  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_disown_INamed(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  INamed *arg1 = (INamed *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj0 = 0 ;
-  
-  if (!PyArg_ParseTuple(args,(char *)"O:disown_INamed",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_INamed, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "disown_INamed" "', argument " "1"" of type '" "INamed *""'"); 
-  }
-  arg1 = reinterpret_cast< INamed * >(argp1);
-  {
-    Swig::Director *director = SWIG_DIRECTOR_CAST(arg1);
-    if (director) director->swig_disown();
-  }
-  
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *INamed_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *obj;
-  if (!PyArg_ParseTuple(args,(char*)"O:swigregister", &obj)) return NULL;
-  SWIG_TypeNewClientData(SWIGTYPE_p_INamed, SWIG_NewClientData(obj));
-  return SWIG_Py_Void();
-}
-
 SWIGINTERN PyObject *_wrap_new_IMinimizer(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   IMinimizer *result = 0 ;
@@ -20269,6 +20074,28 @@ SWIGINTERN PyObject *_wrap_delete_FitParameter(PyObject *SWIGUNUSEDPARM(self), P
   arg1 = reinterpret_cast< FitParameter * >(argp1);
   delete arg1;
   resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_FitParameter_getName(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  FitParameter *arg1 = (FitParameter *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  std::string result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:FitParameter_getName",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitParameter, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitParameter_getName" "', argument " "1"" of type '" "FitParameter const *""'"); 
+  }
+  arg1 = reinterpret_cast< FitParameter * >(argp1);
+  result = ((FitParameter const *)arg1)->getName();
+  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
   return resultobj;
 fail:
   return NULL;
@@ -23582,27 +23409,6 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"AttLimits___ne__", _wrap_AttLimits___ne__, METH_VARARGS, (char *)"AttLimits___ne__(AttLimits self, AttLimits other) -> bool"},
 	 { (char *)"delete_AttLimits", _wrap_delete_AttLimits, METH_VARARGS, (char *)"delete_AttLimits(AttLimits self)"},
 	 { (char *)"AttLimits_swigregister", AttLimits_swigregister, METH_VARARGS, NULL},
-	 { (char *)"new_INamed", _wrap_new_INamed, METH_VARARGS, (char *)"\n"
-		"INamed()\n"
-		"new_INamed(PyObject * arg2, std::string const & name) -> INamed\n"
-		"\n"
-		"INamed::INamed(const std::string &name)\n"
-		"\n"
-		""},
-	 { (char *)"delete_INamed", _wrap_delete_INamed, METH_VARARGS, (char *)"\n"
-		"delete_INamed(INamed self)\n"
-		"\n"
-		"virtual INamed::~INamed()\n"
-		"\n"
-		""},
-	 { (char *)"INamed_getName", _wrap_INamed_getName, METH_VARARGS, (char *)"\n"
-		"INamed_getName(INamed self) -> std::string\n"
-		"\n"
-		"std::string INamed::getName() const \n"
-		"\n"
-		""},
-	 { (char *)"disown_INamed", _wrap_disown_INamed, METH_VARARGS, NULL},
-	 { (char *)"INamed_swigregister", INamed_swigregister, METH_VARARGS, NULL},
 	 { (char *)"new_IMinimizer", _wrap_new_IMinimizer, METH_VARARGS, (char *)"\n"
 		"new_IMinimizer() -> IMinimizer\n"
 		"\n"
@@ -23791,6 +23597,7 @@ static PyMethodDef SwigMethods[] = {
 		"virtual FitParameter::~FitParameter()\n"
 		"\n"
 		""},
+	 { (char *)"FitParameter_getName", _wrap_FitParameter_getName, METH_VARARGS, (char *)"FitParameter_getName(FitParameter self) -> std::string"},
 	 { (char *)"FitParameter_setValue", _wrap_FitParameter_setValue, METH_VARARGS, (char *)"\n"
 		"FitParameter_setValue(FitParameter self, double value)\n"
 		"\n"
@@ -24170,14 +23977,10 @@ static PyMethodDef SwigMethods[] = {
 static void *_p_FitParameterTo_p_AttLimits(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((AttLimits *)  ((FitParameter *) x));
 }
-static void *_p_FitParameterTo_p_INamed(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((INamed *)  ((FitParameter *) x));
-}
 static swig_type_info _swigt__p_AttLimits = {"_p_AttLimits", "AttLimits *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_FitParameter = {"_p_FitParameter", "FitParameter *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_FitSuiteParameters = {"_p_FitSuiteParameters", "FitSuiteParameters *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IMinimizer = {"_p_IMinimizer", "IMinimizer *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_INamed = {"_p_INamed", "INamed *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_MinimizerFactory = {"_p_MinimizerFactory", "MinimizerFactory *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_MinimizerOptions = {"_p_MinimizerOptions", "MinimizerOptions *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_ParameterPool = {"_p_ParameterPool", "ParameterPool *", 0, 0, (void*)0, 0};
@@ -24229,7 +24032,6 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_FitParameter,
   &_swigt__p_FitSuiteParameters,
   &_swigt__p_IMinimizer,
-  &_swigt__p_INamed,
   &_swigt__p_MinimizerFactory,
   &_swigt__p_MinimizerOptions,
   &_swigt__p_ParameterPool,
@@ -24281,7 +24083,6 @@ static swig_cast_info _swigc__p_AttLimits[] = {  {&_swigt__p_FitParameter, _p_Fi
 static swig_cast_info _swigc__p_FitParameter[] = {  {&_swigt__p_FitParameter, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_FitSuiteParameters[] = {  {&_swigt__p_FitSuiteParameters, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IMinimizer[] = {  {&_swigt__p_IMinimizer, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_INamed[] = {  {&_swigt__p_INamed, 0, 0, 0},  {&_swigt__p_FitParameter, _p_FitParameterTo_p_INamed, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_MinimizerFactory[] = {  {&_swigt__p_MinimizerFactory, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_MinimizerOptions[] = {  {&_swigt__p_MinimizerOptions, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_ParameterPool[] = {  {&_swigt__p_ParameterPool, 0, 0, 0},{0, 0, 0, 0}};
@@ -24333,7 +24134,6 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_FitParameter,
   _swigc__p_FitSuiteParameters,
   _swigc__p_IMinimizer,
-  _swigc__p_INamed,
   _swigc__p_MinimizerFactory,
   _swigc__p_MinimizerOptions,
   _swigc__p_ParameterPool,

@@ -499,27 +499,6 @@ return name of the minimization algorithm
 ";
 
 
-// File: classINamed.xml
-%feature("docstring") INamed "
-
-Interface for named objects.
-
-C++ includes: INamed.h
-";
-
-%feature("docstring")  INamed::INamed "INamed::INamed()
-";
-
-%feature("docstring")  INamed::INamed "INamed::INamed(const std::string &name)
-";
-
-%feature("docstring")  INamed::~INamed "virtual INamed::~INamed()
-";
-
-%feature("docstring")  INamed::getName "std::string INamed::getName() const 
-";
-
-
 // File: classMinimizerLibrary_1_1InfoItem.xml
 %feature("docstring") MinimizerLibrary::InfoItem "
 
@@ -538,62 +517,6 @@ C++ includes: MinimizerLibrary.h
 ";
 
 %feature("docstring")  MinimizerLibrary::InfoItem::getDescription "std::string MinimizerLibrary::InfoItem::getDescription() const 
-";
-
-
-// File: classIParameterized.xml
-%feature("docstring") IParameterized "
-
-Manage a local parameter pool, and a tree of child pools.
-
-C++ includes: IParameterized.h
-";
-
-%feature("docstring")  IParameterized::IParameterized "IParameterized::IParameterized(const std::string &name=\"\")
-";
-
-%feature("docstring")  IParameterized::IParameterized "IParameterized::IParameterized(const IParameterized &other)
-";
-
-%feature("docstring")  IParameterized::~IParameterized "IParameterized::~IParameterized()
-";
-
-%feature("docstring")  IParameterized::getParameterPool "ParameterPool* IParameterized::getParameterPool() const
-
-Returns pointer to the parameter pool. 
-";
-
-%feature("docstring")  IParameterized::createParameterTree "ParameterPool * IParameterized::createParameterTree()
-
-Creates new parameter pool, with all local parameters and those of its children. 
-";
-
-%feature("docstring")  IParameterized::printParameters "void IParameterized::printParameters()
-";
-
-%feature("docstring")  IParameterized::registerParameter "void IParameterized::registerParameter(const std::string &name, double *parpointer)
-
-Register parameter address in the parameter pool; name allows for wildcard '*'. 
-";
-
-%feature("docstring")  IParameterized::registerParameter "void IParameterized::registerParameter(const std::string &name, double *parpointer, const AttLimits &limits)
-
-Register parameter address in the parameter pool; name allows for wildcard '*'. 
-";
-
-%feature("docstring")  IParameterized::setParameterValue "void IParameterized::setParameterValue(const std::string &name, double value)
-";
-
-%feature("docstring")  IParameterized::getParameter "RealParameter * IParameterized::getParameter(const std::string &name) const
-
-Returns parameter with given 'name'. 
-";
-
-%feature("docstring")  IParameterized::addParametersToExternalPool "std::string IParameterized::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const
-
-Adds parameters from local pool to external pool and recursively calls its direct children.
-
-Copies local parameters to external_pool, under name \"path/<name>copy_number/\". 
 ";
 
 
@@ -823,7 +746,7 @@ Holds a map of pointers to parameters (which must have different names).
 C++ includes: ParameterPool.h
 ";
 
-%feature("docstring")  ParameterPool::ParameterPool "ParameterPool::ParameterPool(IParameterized *parent)
+%feature("docstring")  ParameterPool::ParameterPool "ParameterPool::ParameterPool(const std::string &name, std::function< void()> onChange)
 
 Constructs an empty parameter pool. 
 ";
@@ -856,9 +779,12 @@ Copy parameters of given pool to the external pool while adding prefix to local 
 Deletes parameter map. 
 ";
 
+%feature("docstring")  ParameterPool::getName "std::string ParameterPool::getName() const 
+";
+
 %feature("docstring")  ParameterPool::size "size_t ParameterPool::size() const
 
-Returns size of parameter container. 
+Returns number of parameters in the pool. 
 ";
 
 %feature("docstring")  ParameterPool::registerParameter "void ParameterPool::registerParameter(const std::string &name, double *parpointer)
@@ -920,7 +846,7 @@ Wrapper to real parameter for remote access to its value and callback abilities
 C++ includes: RealParameter.h
 ";
 
-%feature("docstring")  RealParameter::RealParameter "RealParameter::RealParameter(const std::string &name, IParameterized *parent, volatile double *par, const AttLimits &limits=AttLimits::limitless())
+%feature("docstring")  RealParameter::RealParameter "RealParameter::RealParameter(const std::string &name, ParameterPool *parent, volatile double *par, const AttLimits &limits=AttLimits::limitless())
 ";
 
 %feature("docstring")  RealParameter::RealParameter "RealParameter::RealParameter(const RealParameter &other)
@@ -929,6 +855,9 @@ C++ includes: RealParameter.h
 %feature("docstring")  RealParameter::RealParameter "RealParameter::RealParameter(const std::string &name, const RealParameter &other)
 
 This constructor takes copies 'other' except for the name. 
+";
+
+%feature("docstring")  RealParameter::getName "std::string RealParameter::getName() const 
 ";
 
 %feature("docstring")  RealParameter::setValue "void RealParameter::setValue(double value)
@@ -1446,15 +1375,6 @@ enables exception throw in the case of NaN, Inf
 
 
 // File: FitSuiteParameters_8h.xml
-
-
-// File: INamed_8h.xml
-
-
-// File: IParameterized_8cpp.xml
-
-
-// File: IParameterized_8h.xml
 
 
 // File: ParameterPool_8cpp.xml

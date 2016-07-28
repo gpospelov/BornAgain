@@ -16,7 +16,6 @@
 #ifndef REALPARAMETERWRAPPER_H
 #define REALPARAMETERWRAPPER_H
 
-#include "INamed.h" // inheriting from
 #include "AttLimits.h"
 #include <string>
 

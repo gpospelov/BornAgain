@@ -17,7 +17,7 @@
 #include "AttLimits.h"
 #include "RealParameter.h"
 #include "Exceptions.h"
-#include "Utils.h"
+#include "StringUtils.h"
 #include <algorithm>
 #include <cassert>
 #include <iostream>
@@ -128,7 +128,7 @@ std::vector<RealParameter*> ParameterPool::getMatchedParameters(
     std::vector<RealParameter*> selected_parameters;
     // loop over all parameters in the pool
     for (auto* par: m_params)
-        if( Utils::String::MatchPattern( par->getName(), wildcards ) )
+        if( StringUtils::matchesPattern( par->getName(), wildcards ) )
             selected_parameters.push_back(par);
     if( selected_parameters.empty() )
         report_find_matched_parameters_error(wildcards);
@@ -156,7 +156,7 @@ int ParameterPool::setMatchedParametersValue(const std::string& wildcards, doubl
 {
     int npars(0);
     for (auto* par: m_params) {
-        if( Utils::String::MatchPattern( par->getName(), wildcards ) ) {
+        if( StringUtils::matchesPattern( par->getName(), wildcards ) ) {
             try {
                 par->setValue(value);
                 npars++;

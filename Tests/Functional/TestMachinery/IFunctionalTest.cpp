@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "IFunctionalTest.h"
-#include "Utils.h"
+#include "StringUtils.h"
 #include <sstream>
 
 namespace {
@@ -58,8 +58,8 @@ std::string IFunctionalTest::getTestResultString() const
 std::string IFunctionalTest::getFormattedInfoString() const
 {
     std::ostringstream ostr;
-    ostr << Utils::AdjustStringLength(getName(), width_name);
-    ostr << Utils::AdjustStringLength(getDescription(), width_description);
-    ostr << Utils::AdjustStringLength(getTestResultString(), width_result);
+    ostr << StringUtils::padRight(getName(), width_name);
+    ostr << StringUtils::padRight(getDescription(), width_description);
+    ostr << StringUtils::padRight(getTestResultString(), width_result);
     return ostr.str();
 }

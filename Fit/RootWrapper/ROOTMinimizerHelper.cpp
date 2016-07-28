@@ -16,8 +16,7 @@
 #include "ROOTMinimizerHelper.h"
 #include "Math/GenAlgoOptions.h"
 #include "Math/Minimizer.h"
-#include "Utils.h"
-
+#include "StringUtils.h"
 
 // ----------------------------------------------------------------------------
 // translate text with options into appropriate calls of minimizer's set method
@@ -191,8 +190,12 @@ void ROOTMinimizerHelper::printStatus(const BA_ROOT::Math::Minimizer *minimizer)
 //    if(m_chi2_func) {
 //        std::cout << std::setw(25) << std::left << "  NCallsChi2 "                 << ": " << m_chi2_func->NCalls() << std::endl;
 //    }
-    std::cout << std::setw(25) << std::left << "  MinValue"               << ": " << std::scientific << std::setprecision(8) << minimizer->MinValue() << std::endl;
-    std::cout << std::setw(25) << std::left << "  Edm"                    << ": " << std::scientific << std::setprecision(8) << minimizer->Edm() << std::endl;
+    std::cout << std::setw(25) << std::left << "  MinValue"
+              << ": " << std::scientific << std::setprecision(8)
+              << minimizer->MinValue() << std::endl;
+    std::cout << std::setw(25) << std::left << "  Edm"
+              << ": " << std::scientific << std::setprecision(8)
+              << minimizer->Edm() << std::endl;
 //     Status code of minimizer is updated according to the following convention (in case Hesse failed)
 //     status += 100*hesseStatus where hesse status is:
 //     status = 1 : hesse failed
@@ -203,10 +206,12 @@ void ROOTMinimizerHelper::printStatus(const BA_ROOT::Math::Minimizer *minimizer)
 
 void ROOTMinimizerHelper::printVariables(const BA_ROOT::Math::Minimizer *minimizer)
 {
-    std::cout << "--- Variables ------------------------------------------------------------------" << std::endl;
+    std::cout
+        << "--- Variables ------------------------------------------------------------------\n";
     std::cout << std::setw(25) << std::left << "  NumberOfVariables"      << ": "
               << minimizer->NFree() << " (free), " << minimizer->NDim() << " (total) " << std::endl;
-    std::cout << std::setw(25) << std::left << "  Errors"      << ": " << (minimizer->Errors() ? "yes, see below" : "no access") << std::endl;
+    std::cout << std::setw(25) << std::left << "  Errors"
+              << ": " << (minimizer->Errors() ? "yes, see below" : "no access") << std::endl;
     std::cout << "      " << std::setw(5) << std::left << "Npar"
               << std::setw(39) << std::left << " Name"
               << std::setw(14) << "Value"
@@ -216,10 +221,12 @@ void ROOTMinimizerHelper::printVariables(const BA_ROOT::Math::Minimizer *minimiz
     for(size_t i=0; i<minimizer->NDim(); ++i) {
         double error = (minimizer->Errors() ? minimizer->Errors()[i] : 0.0);
         std::cout << "      " << std::setw(5) << std::left << i
-                  << std::setw(38) << std::left << Utils::AdjustStringLength(minimizer->VariableName((int)i), 38) << " "
-                  << std::setw(14) << std::left << std::scientific << std::setprecision(6) << std::left << minimizer->X()[i]
-                  << std::setw(14) << std::left << std::scientific << std::setprecision(6) << std::left << error
-                  << std::setw(14) << std::left << std::scientific << std::setprecision(6) << std::left << minimizer->GlobalCC((int)i) << std::endl;
+                  << std::setw(38) << std::left
+                  << StringUtils::padRight(minimizer->VariableName((int)i), 38) << " "
+                  << std::setw(14) << std::left << std::scientific << std::setprecision(6)
+                  << std::left << minimizer->X()[i]
+                  << std::left << error
+                  << minimizer->GlobalCC((int)i) << std::endl;
     }
     // correlation between parameters
     std::cout << "--- Correlations----------------------------------------------------------------" << std::endl;
@@ -231,4 +238,3 @@ void ROOTMinimizerHelper::printVariables(const BA_ROOT::Math::Minimizer *minimiz
         std::cout << std::endl;
     }
 }
-

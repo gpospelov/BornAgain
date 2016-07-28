@@ -33,11 +33,8 @@ public:
     //! where doubles are rounded according to the precision
     static std::string round_doubles(const std::string& str, int precision);
 
-    //! Returns true if text matches pattern with wildcards '*' and '?'.
-    static bool MatchPattern(const std::string& text, std::string wildcardPattern);
-
     //! Split string into vector of string using delimeter.
-    static std::vector<std::string> Split(const std::string& text, const std::string& delimeter);
+    static std::vector<std::string> split(const std::string& text, const std::string& delimeter);
 
     //! replace all occurences of items from string text with delimeter
     static void replaceItemsFromString(std::string& text, const std::vector<std::string>& items,
@@ -88,13 +85,6 @@ private:
     nstringmap_t m_nstringmap;
 };
 
-
-inline std::string AdjustStringLength(const std::string& name, int length)
-{
-    std::string result = name;
-    result.resize(length,' ');
-    return result;
-}
 
 class BA_CORE_API_ System
 {

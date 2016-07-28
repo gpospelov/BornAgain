@@ -16,10 +16,7 @@
 #include "Utils.h"
 #include <boost/algorithm/string.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
-#include <boost/regex.hpp>
 #include <thread>
-
-
 
 #ifdef DEBUG_FPE
 #ifdef Q_OS_MAC
@@ -45,56 +42,20 @@ std::string Utils::String::round_doubles(const std::string& str, int precision)
     return newline;
 }
 
-//! Returns true if text matches pattern with wildcards '*' and '?'.
+//! Returns token vector obtained by splitting string at delimiters.
 
-bool Utils::String::MatchPattern(
-    const std::string& text, std::string wildcardPattern)
-{
-    bool caseSensitive(true);
-
-    // escape all regex special characters, except '?' and '*'
-    boost::replace_all(wildcardPattern, "\\", "\\\\");
-    boost::replace_all(wildcardPattern, "^", "\\^");
-    boost::replace_all(wildcardPattern, ".", "\\.");
-    boost::replace_all(wildcardPattern, "$", "\\$");
-    boost::replace_all(wildcardPattern, "|", "\\|");
-    boost::replace_all(wildcardPattern, "(", "\\(");
-    boost::replace_all(wildcardPattern, ")", "\\)");
-    boost::replace_all(wildcardPattern, "[", "\\[");
-    boost::replace_all(wildcardPattern, "]", "\\]");
-    boost::replace_all(wildcardPattern, "+", "\\+");
-    boost::replace_all(wildcardPattern, "/", "\\/");
-
-    // Convert chars '*?' to their regex equivalents
-    boost::replace_all(wildcardPattern, "?", ".");
-    boost::replace_all(wildcardPattern, "*", ".*");
-
-    // constructing regexp pattern
-    wildcardPattern = "^" + wildcardPattern + "$";
-    boost::regex pattern(wildcardPattern,
-                         caseSensitive ? boost::regex::normal : boost::regex::icase);
-
-    // applaying match
-    return boost::regex_match(text, pattern);
-}
-
-//! Split string into vector of string using delimeter.
-
-std::vector<std::string> Utils::String::Split(
-    const std::string& text, const std::string& delimeter)
+std::vector<std::string> Utils::String::split(const std::string& text, const std::string& delimiter)
 {
     std::vector<std::string> tokens;
-    boost::split(tokens, text, boost::is_any_of(delimeter));
+    boost::split(tokens, text, boost::is_any_of(delimiter));
     return tokens;
 }
-
 
 void Utils::String::replaceItemsFromString(
     std::string &text, const std::vector<std::string> &items, const std::string &replacement)
 {
-    for(size_t i=0; i<items.size(); ++i) {
+    for(size_t i=0; i<items.size(); ++i)
         boost::replace_all(text, items[i], replacement);
-    }
 }
 
 std::string Utils::String::getScientificDoubleString(double value, size_t precision)

@@ -13,6 +13,8 @@
 //
 // ************************************************************************** //
 
+#include "FitSuiteStrategies.h"
+#include <cassert>
 #include "FitKernel.h"
 
 FitSuiteStrategies::FitSuiteStrategies()

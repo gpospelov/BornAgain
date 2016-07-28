@@ -13,7 +13,9 @@
 //
 // ************************************************************************** //
 
+#include "IFitStrategy.h"
 #include "FitKernel.h"
+#include "Exceptions.h"
 
 IFitStrategy::IFitStrategy()
     : m_kernel(nullptr)

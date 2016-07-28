@@ -50,7 +50,7 @@ public:
     virtual void generateParticles(std::vector<const IParticle* >& particle_vector) const;
 
     //! Returns the distributed parameter data
-    ParameterDistribution getParameterDistribution() const;
+    ParameterDistribution getParameterDistribution() const { return m_par_distribution; }
 
     //! Returns the parameter pool that can be used for parameter distributions
     ParameterPool* createDistributedParameterPool() const;

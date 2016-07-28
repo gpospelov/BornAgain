@@ -16,9 +16,11 @@
 #ifndef FITSUITEPARAMETERS_H
 #define FITSUITEPARAMETERS_H
 
-#include "FitParameter.h"
 #include <vector>
+#include <string>
 
+class AttLimits;
+class FitParameter;
 class ParameterPool;
 
 //! @class FitSuiteParameters
@@ -43,8 +45,8 @@ class BA_CORE_API_ FitSuiteParameters
                       const AttLimits& attlim, double error=0.0);
 
     //! Returns fit parameter with given name.
-    const FitParameter* getParameter(const std::string& name) const;
-    FitParameter* getParameter(const std::string& name);
+    const FitParameter* getFitParameter(const std::string& name) const;
+    FitParameter* getFitParameter(const std::string& name);
 
     //! Sets values for all defined parameters.
     void setValues(const double* pars_values);

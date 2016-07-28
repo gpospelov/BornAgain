@@ -14,6 +14,7 @@ set(CORE_SOURCE_DIRS
     ${CMAKE_CURRENT_SOURCE_DIR}/Basics
     ${CMAKE_CURRENT_SOURCE_DIR}/Binning
     ${CMAKE_CURRENT_SOURCE_DIR}/Export
+    ${CMAKE_CURRENT_SOURCE_DIR}/Fitting
     ${CMAKE_CURRENT_SOURCE_DIR}/FormFactor
     ${CMAKE_CURRENT_SOURCE_DIR}/InputOutput
     ${CMAKE_CURRENT_SOURCE_DIR}/Instrument
@@ -35,7 +36,14 @@ set(CORE_SOURCE_DIRS
 # export for use in functional tests:
 set(CORE_SOURCE_DIRS ${CORE_SOURCE_DIRS} ${EIGEN3_INCLUDE_DIR} PARENT_SCOPE)
 
-set(include_dirs ${BUILD_INC_DIR} ${CORE_SOURCE_DIRS})
+set(include_dirs
+    ${BUILD_INC_DIR}
+    ${CMAKE_SOURCE_DIR}/Wrap
+    ${CMAKE_SOURCE_DIR}/Fit/Utils
+    ${CMAKE_SOURCE_DIR}/Fit/Minimizer
+    ${CMAKE_SOURCE_DIR}/Fit/Parameters
+    ${CORE_SOURCE_DIRS}
+    )
 
 include_directories(${include_dirs})
 
@@ -121,11 +129,7 @@ endif()
 
 
 # --- making library ---------
-add_library(
-    ${library_name}
-    SHARED
-    ${source_files} ${include_files}
-    )
+add_library(${library_name} SHARED ${source_files})
 
 set_Target_properties(${library_name} PROPERTIES PREFIX ${libprefix} SUFFIX ${libsuffix})
 set(${library_name}_LIBRARY_TYPE SHARED)
@@ -142,7 +146,7 @@ set(${library_name}_LIBRARY ${library_name} PARENT_SCOPE)
 
 # --- external dependencies ---------
 
-target_link_libraries(${library_name} ${CMAKE_THREAD_LIBS_INIT})
+target_link_libraries(${library_name} ${BornAgainFit_LIBRARY} ${CMAKE_THREAD_LIBS_INIT})
 
 if(BORNAGAIN_TIFF_SUPPORT)
     add_definitions(-DBORNAGAIN_TIFF_SUPPORT)

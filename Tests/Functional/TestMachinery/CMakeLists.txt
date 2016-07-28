@@ -9,7 +9,10 @@ if(POLICY CMP0042)
 endif()
 
 # --- source and include files ---------
-set(include_dirs ${BUILD_INC_DIR} ${CORE_SOURCE_DIRS})
+set(include_dirs ${BUILD_INC_DIR} ${CORE_SOURCE_DIRS}
+    ${CMAKE_SOURCE_DIR}/Fit/Parameters # for INamed.h
+    ${CMAKE_SOURCE_DIR}/Fit/Utils
+    )
 
 include_directories(${include_dirs})
 
@@ -42,10 +45,7 @@ target_link_libraries(${library_name} ${BornAgainCore_LIBRARY} ${CMAKE_THREAD_LI
 
 if(APPLE AND BORNAGAIN_APPLE_BUNDLE)
     set(link_flags "-Wl,-rpath,@loader_path/../../Frameworks")
-    set_target_properties(${library_name}
-        PROPERTIES
-        LINK_FLAGS ${link_flags}
-        )
+    set_target_properties(${library_name} PROPERTIES LINK_FLAGS ${link_flags})
 endif()
 
 # --- installation ---------

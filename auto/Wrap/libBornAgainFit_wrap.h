@@ -15,13 +15,12 @@
 #include <string>
 
 
-class SwigDirector_IObservable : public IObservable, public Swig::Director {
+class SwigDirector_INamed : public INamed, public Swig::Director {
 
 public:
-    SwigDirector_IObservable(PyObject *self);
-    virtual ~SwigDirector_IObservable();
-    virtual void attachObserver(IObservable::observer_t obj);
-    virtual void notifyObservers();
+    SwigDirector_INamed(PyObject *self);
+    SwigDirector_INamed(PyObject *self, std::string const &name);
+    virtual ~SwigDirector_INamed();
 
 /* Internal director utilities */
 public:
@@ -34,37 +33,24 @@ public:
     }
 private:
     mutable std::map<std::string, bool> swig_inner;
-
-#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
-/* VTable implementation */
-    PyObject *swig_get_method(size_t method_index, const char *method_name) const {
-      PyObject *method = vtable[method_index];
-      if (!method) {
-        swig::SwigVar_PyObject name = SWIG_Python_str_FromChar(method_name);
-        method = PyObject_GetAttr(swig_get_self(), name);
-        if (!method) {
-          std::string msg = "Method in class IObservable doesn't exist, undefined ";
-          msg += method_name;
-          Swig::DirectorMethodException::raise(msg.c_str());
-        }
-        vtable[method_index] = method;
-      }
-      return method;
-    }
-private:
-    mutable swig::SwigVar_PyObject vtable[2];
-#endif
-
 };
 
 
-class SwigDirector_IFitObserver : public IFitObserver, public Swig::Director {
+class SwigDirector_IParameterized : public IParameterized, public Swig::Director {
 
 public:
-    SwigDirector_IFitObserver(PyObject *self, int update_every_nth);
-    virtual ~SwigDirector_IFitObserver();
-    virtual void notify(IObservable *subject);
-    virtual void update(FitSuite *fit_suite);
+    SwigDirector_IParameterized(PyObject *self, std::string const &name = "");
+    SwigDirector_IParameterized(PyObject *self, IParameterized const &other);
+    virtual ~SwigDirector_IParameterized();
+    virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number = -1) const;
+    virtual void onChange();
+    virtual void onChangeSwigPublic() {
+      IParameterized::onChange();
+    }
+    virtual void print(std::ostream &ostr) const;
+    virtual void printSwigPublic(std::ostream &ostr) const {
+      IParameterized::print(ostr);
+    }
 
 /* Internal director utilities */
 public:
@@ -86,7 +72,7 @@ private:
         swig::SwigVar_PyObject name = SWIG_Python_str_FromChar(method_name);
         method = PyObject_GetAttr(swig_get_self(), name);
         if (!method) {
-          std::string msg = "Method in class IFitObserver doesn't exist, undefined ";
+          std::string msg = "Method in class IParameterized doesn't exist, undefined ";
           msg += method_name;
           Swig::DirectorMethodException::raise(msg.c_str());
         }

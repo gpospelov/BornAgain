@@ -17,7 +17,10 @@
 #define FITPARAMETERLINKED_H
 
 #include "FitParameter.h" // inheriting from
-#include "ParameterPool.h"
+#include <vector>
+
+class ParameterPool;
+class RealParameter;
 
 //! @class FitParameterLinked
 //! @ingroup fitting_internal
@@ -26,22 +29,18 @@
 class BA_CORE_API_ FitParameterLinked : public FitParameter
 {
  public:
-    typedef std::vector<RealParameterWrapper > pool_parameters_t;
-
     FitParameterLinked();
     FitParameterLinked(const std::string& name, double value, double step,
                        const AttLimits& attlim=AttLimits::limitless(), double error=0.0);
-    virtual ~FitParameterLinked(){}
+    FitParameterLinked(const FitParameterLinked&) = delete;
+    FitParameterLinked& operator=(const FitParameterLinked&) = delete;
+    virtual ~FitParameterLinked();
 
-    //! Sets given value for all binded parameters
-    virtual void setValue(double value) {
-        FitParameter::setValue(value);
-        for(auto it=m_pool_parameters.begin(); it!=m_pool_parameters.end(); ++it)
-            it->setValue(value);
-    }
+    //! Sets given value for all bound parameters
+    virtual void setValue(double value);
 
     //! Adds real parameter to the collection
-    virtual void addParameter(RealParameterWrapper par);
+    virtual void addParameter(RealParameter* par);
 
     //! Adds parameters from pool which match given wildcard
     virtual void addMatchedParametersFromPool(
@@ -51,15 +50,11 @@ class BA_CORE_API_ FitParameterLinked : public FitParameter
     friend std::ostream& operator<<(std::ostream& ostr, const FitParameterLinked& m) {
         m.print(ostr); return ostr; }
 
- protected:
+ private:
     //! Prints class
     void print(std::ostream& ostr) const;
 
-    pool_parameters_t m_pool_parameters; //! collection of parameters from parameter pools
-
- private:
-    FitParameterLinked(const FitParameterLinked& );
-    FitParameterLinked& operator=(const FitParameterLinked& );
+    std::vector<RealParameter*> m_pool_parameters; //! collection of parameters from parameter pools
 };
 
 #endif // FITPARAMETERLINKED_H

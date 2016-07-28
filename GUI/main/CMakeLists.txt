@@ -10,6 +10,7 @@ include_directories(
     ${BornAgainGUI_INCLUDE_DIRS}
     ${ManhattanStyle_INCLUDE_DIRS}
     ${GSL_INCLUDE_DIR}
+    ${CMAKE_SOURCE_DIR}/Core/Basics
 )
 set(source_files main.cpp appoptions.cpp)
 set(include_files appoptions.h)
@@ -48,7 +49,6 @@ endif()
 add_executable(${executable_name}
                ${executable_options}
                ${source_files}
-               ${include_files}
                ${system_addons})
 
 

@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "ROOTGeneticMinimizer.h"
-
+#include "FitParameter.h"
 
 ROOTGeneticMinimizer::ROOTGeneticMinimizer(const std::string& minimizer_name, const std::string& algo_type)
   : ROOTMinimizer(minimizer_name, algo_type)
@@ -70,4 +70,3 @@ void ROOTGeneticMinimizer::propagateOptions()
 
     m_genetic_minimizer->SetParameters(pars);
 }
-

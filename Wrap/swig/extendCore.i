@@ -41,15 +41,6 @@ namespace Geometry {
     }
 };
 
-%extend IParameterized {
-    virtual void registerParameter(
-        const std::string &name, int64_t parpointer,
-        const AttLimits& limits = AttLimits::limitless())
-    {
-        return (*($self)).registerParameter(name, (double*)parpointer, limits);
-    }
-};
-
 %extend ISampleBuilder {
     virtual void registerParameter(
         const std::string &name, int64_t parpointer,

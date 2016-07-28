@@ -18,7 +18,7 @@
 #  STAGE=0: test run at compile time
 #  STAGE=1: test run upon "ctest"="make check"
 
-function(WRAP_GTEST TEST_NAME GLOBPATTERN LINK_LIB STAGE)
+function(WRAP_GTEST TEST_NAME GLOBPATTERN LINK_LIBS STAGE)
     include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
 
     file(GLOB INCLUDE_FILES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} ${GLOBPATTERN})
@@ -39,7 +39,8 @@ function(WRAP_GTEST TEST_NAME GLOBPATTERN LINK_LIB STAGE)
 
     set(EXE ${TEST_NAME})
     add_executable(${EXE} ${TEST_SRC})
-    target_link_libraries(${EXE} gtest ${LINK_LIB})
+
+    target_link_libraries(${EXE} gtest ${LINK_LIBS})
 
     # Build executable in lib directory,
     # to prevent problems with finding libBornAgainCore.dll under Windows

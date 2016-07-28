@@ -381,34 +381,6 @@ Set fixed flag for parameters from the list.
 ";
 
 
-// File: classICloneable.xml
-%feature("docstring") ICloneable "
-
-Interface for objects that must not be copied, except by cloning.
-
-This virtual base class disables the copy constructor and the operator= in all its child classes. Child classes should provide clone().
-
-C++ includes: ICloneable.h
-";
-
-%feature("docstring")  ICloneable::ICloneable "ICloneable::ICloneable()
-";
-
-%feature("docstring")  ICloneable::ICloneable "ICloneable::ICloneable(const ICloneable &)=delete
-";
-
-%feature("docstring")  ICloneable::~ICloneable "virtual ICloneable::~ICloneable()
-";
-
-%feature("docstring")  ICloneable::clone "virtual ICloneable* ICloneable::clone() const =0
-";
-
-%feature("docstring")  ICloneable::transferToCPP "virtual void ICloneable::transferToCPP()
-
-Used for Python overriding of clone. 
-";
-
-
 // File: classIMinimizer.xml
 %feature("docstring") IMinimizer "
 
@@ -856,6 +828,9 @@ C++ includes: ParameterPool.h
 Constructs an empty parameter pool. 
 ";
 
+%feature("docstring")  ParameterPool::ParameterPool "ParameterPool::ParameterPool(const ParameterPool &)=delete
+";
+
 %feature("docstring")  ParameterPool::~ParameterPool "ParameterPool::~ParameterPool()
 ";
 
@@ -886,7 +861,14 @@ Deletes parameter map.
 Returns size of parameter container. 
 ";
 
-%feature("docstring")  ParameterPool::registerParameter "void ParameterPool::registerParameter(const std::string &name, double *parpointer, const AttLimits &limits=AttLimits::limitless())
+%feature("docstring")  ParameterPool::registerParameter "void ParameterPool::registerParameter(const std::string &name, double *parpointer)
+
+Registers a parameter with key  name and pointer-to-value  parpointer.
+
+Registers parameter with given name. 
+";
+
+%feature("docstring")  ParameterPool::registerParameter "void ParameterPool::registerParameter(const std::string &name, double *parpointer, const AttLimits &limits)
 
 Registers a parameter with key  name and pointer-to-value  parpointer.
 
@@ -1536,9 +1518,6 @@ enables exception throw in the case of NaN, Inf
 
 
 // File: Exceptions_8h.xml
-
-
-// File: ICloneable_8h.xml
 
 
 // File: Logger_8cpp.xml

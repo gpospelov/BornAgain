@@ -1475,7 +1475,16 @@ def toComplexVector(real_vector):
     """
     return _libBornAgainCore.toComplexVector(real_vector)
 class ICloneable(_object):
-    """Proxy of C++ ICloneable class"""
+    """
+
+
+    Interface for objects that must not be copied, except by cloning.
+
+    This virtual base class disables the copy constructor and the operator= in all its child classes. Child classes should provide clone().
+
+    C++ includes: ICloneable.h
+
+    """
     __swig_setmethods__ = {}
     __setattr__ = lambda self, name, value: _swig_setattr(self, ICloneable, name, value)
     __swig_getmethods__ = {}
@@ -1488,12 +1497,24 @@ class ICloneable(_object):
     __del__ = lambda self: None
 
     def clone(self):
-        """clone(ICloneable self) -> ICloneable"""
+        """
+        clone(ICloneable self) -> ICloneable
+
+        virtual ICloneable* ICloneable::clone() const =0
+
+        """
         return _libBornAgainCore.ICloneable_clone(self)
 
 
     def transferToCPP(self):
-        """transferToCPP(ICloneable self)"""
+        """
+        transferToCPP(ICloneable self)
+
+        virtual void ICloneable::transferToCPP()
+
+        Used for Python overriding of clone. 
+
+        """
         return self.__disown__()
 
 ICloneable_swigregister = _libBornAgainCore.ICloneable_swigregister
@@ -21773,8 +21794,8 @@ class ParameterPool(_object):
 
     def registerParameter(self, *args):
         """
-        registerParameter(ParameterPool self, std::string const & name, double * parpointer, AttLimits limits)
         registerParameter(ParameterPool self, std::string const & name, double * parpointer)
+        registerParameter(ParameterPool self, std::string const & name, double * parpointer, AttLimits limits)
         """
         return _libBornAgainCore.ParameterPool_registerParameter(self, *args)
 

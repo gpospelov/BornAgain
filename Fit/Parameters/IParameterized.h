@@ -68,7 +68,7 @@ protected:
     virtual void print(std::ostream& ostr) const;
 
     ParameterPool* m_parameters; //!< parameter pool (kind of pointer-to-implementation)
-    friend RealParameter; // calls onChange()
+    friend RealParameter; // calls onChange() // TODO remove when resolving #1542
 };
 
 #endif // IPARAMETERIZED_H

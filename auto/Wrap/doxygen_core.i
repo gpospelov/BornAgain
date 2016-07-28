@@ -475,21 +475,21 @@ C++ includes: BoxCompositionBuilder.h
 ";
 
 
-// File: structIntegratorReal_1_1CallBackHolder.xml
-%feature("docstring") IntegratorReal::CallBackHolder "
-
-structure holding the object and possible extra parameters
-
-C++ includes: IntegratorReal.h
-";
-
-
 // File: structIntegratorMCMiser_1_1CallBackHolder.xml
 %feature("docstring") IntegratorMCMiser::CallBackHolder "
 
 structure holding the object and possible extra parameters
 
 C++ includes: IntegratorMCMiser.h
+";
+
+
+// File: structIntegratorReal_1_1CallBackHolder.xml
+%feature("docstring") IntegratorReal::CallBackHolder "
+
+structure holding the object and possible extra parameters
+
+C++ includes: IntegratorReal.h
 ";
 
 
@@ -5685,6 +5685,34 @@ Sets data rescaler.
 ";
 
 %feature("docstring")  IChiSquaredModule::processFitElements "virtual void IChiSquaredModule::processFitElements(std::vector< FitElement >::iterator, std::vector< FitElement >::iterator)
+";
+
+
+// File: classICloneable.xml
+%feature("docstring") ICloneable "
+
+Interface for objects that must not be copied, except by cloning.
+
+This virtual base class disables the copy constructor and the operator= in all its child classes. Child classes should provide clone().
+
+C++ includes: ICloneable.h
+";
+
+%feature("docstring")  ICloneable::ICloneable "ICloneable::ICloneable()
+";
+
+%feature("docstring")  ICloneable::ICloneable "ICloneable::ICloneable(const ICloneable &)=delete
+";
+
+%feature("docstring")  ICloneable::~ICloneable "virtual ICloneable::~ICloneable()
+";
+
+%feature("docstring")  ICloneable::clone "virtual ICloneable* ICloneable::clone() const =0
+";
+
+%feature("docstring")  ICloneable::transferToCPP "virtual void ICloneable::transferToCPP()
+
+Used for Python overriding of clone. 
 ";
 
 
@@ -12868,13 +12896,13 @@ C++ includes: WavevectorInfo.h
 // File: classMathFunctions_1_1Convolve_1_1Workspace.xml
 
 
-// File: namespace_0D288.xml
+// File: namespace_0D289.xml
 
 
-// File: namespace_0D351.xml
+// File: namespace_0D352.xml
 
 
-// File: namespace_0D417.xml
+// File: namespace_0D418.xml
 
 
 // File: namespaceboost_1_1geometry.xml
@@ -13386,6 +13414,9 @@ Returns product I*z, where I is the imaginary unit.
 
 Returns exp(I*z), where I is the imaginary unit. 
 ";
+
+
+// File: ICloneable_8h.xml
 
 
 // File: IShareable_8h.xml

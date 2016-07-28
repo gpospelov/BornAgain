@@ -4,8 +4,6 @@
 #include "TRange.h"
 #include <algorithm>
 
-
-
 class TRangeTest : public ::testing::Test
 {
  protected:
@@ -93,6 +91,5 @@ TEST_F(TRangeTest, TSampledRangeNSamples)
     EXPECT_EQ((size_t)5000, floatSampledRange->getNSamples());
     EXPECT_EQ((size_t)6000, doubleSampledRange->getNSamples());
 }
-
 
 #endif // TRANGETEST_H

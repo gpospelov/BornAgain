@@ -21761,9 +21761,9 @@ class ParameterPool(libBornAgainFit.INamed):
     __getattr__ = lambda self, name: _swig_getattr(self, ParameterPool, name)
     __repr__ = _swig_repr
 
-    def __init__(self, name, parent):
-        """__init__(ParameterPool self, std::string const & name, IParameterized parent) -> ParameterPool"""
-        this = _libBornAgainCore.new_ParameterPool(name, parent)
+    def __init__(self, name, onChange):
+        """__init__(ParameterPool self, std::string const & name, std::function< void () > onChange) -> ParameterPool"""
+        this = _libBornAgainCore.new_ParameterPool(name, onChange)
         try:
             self.this.append(this)
         except:

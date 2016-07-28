@@ -21948,7 +21948,7 @@ class ParameterPool(_object):
     __repr__ = _swig_repr
 
     def __init__(self, name, onChange):
-        """__init__(ParameterPool self, std::string const & name, std::function< void () > onChange) -> ParameterPool"""
+        """__init__(ParameterPool self, std::string const & name, std::function< void () > const & onChange) -> ParameterPool"""
         this = _libBornAgainCore.new_ParameterPool(name, onChange)
         try:
             self.this.append(this)

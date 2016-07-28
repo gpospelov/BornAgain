@@ -31,7 +31,7 @@ class RealParameter;
 class BA_CORE_API_ ParameterPool
 {
 public:
-    explicit ParameterPool(const std::string& name, std::function<void()> onChange);
+    explicit ParameterPool(const std::string& name, const std::function<void()>& onChange);
     ParameterPool(const ParameterPool&) = delete;
     ParameterPool& operator=(const ParameterPool&) = delete;
     virtual ~ParameterPool();

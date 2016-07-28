@@ -20,13 +20,11 @@
 #include "MinimizerFactory.h"
 
 FitSuite::FitSuite()
-    : m_kernel(new FitKernel(this))
-{
-}
+    : m_kernel(new FitKernel(std::bind(&FitSuite::notifyObservers, this)))
+{}
 
 FitSuite::~FitSuite()
-{
-}
+{}
 
 void FitSuite::addSimulationAndRealData(const GISASSimulation &simulation,
                                         const OutputData<double> &real_data, double weight)

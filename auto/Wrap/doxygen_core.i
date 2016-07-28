@@ -1546,7 +1546,7 @@ Fitting kernel for  FitSuite.
 C++ includes: FitKernel.h
 ";
 
-%feature("docstring")  FitKernel::FitKernel "FitKernel::FitKernel(class FitSuite *fit_suite)
+%feature("docstring")  FitKernel::FitKernel "FitKernel::FitKernel(const std::function< void()> &notifyObservers)
 ";
 
 %feature("docstring")  FitKernel::FitKernel "FitKernel::FitKernel(const FitKernel &)=delete

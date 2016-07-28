@@ -24,7 +24,7 @@
 #include <sstream>
 
 //! Constructs an empty parameter pool.
-ParameterPool::ParameterPool(const std::string& name, std::function<void()>onChange)
+ParameterPool::ParameterPool(const std::string& name, const std::function<void()>& onChange)
     : m_name(name)
     , m_onChange(onChange)
 {

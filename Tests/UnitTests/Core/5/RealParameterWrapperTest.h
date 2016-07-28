@@ -3,7 +3,7 @@
 
 #include "IParameterized.h"
 #include "RealParameter.h"
-#include "Exceptions.h"
+#include <stdexcept>
 
 class RealParameterTest : public ::testing::Test
 {
@@ -72,9 +72,9 @@ TEST_F(RealParameterTest, LimitedParameter)
         bool m_changed;
     };
 
-    EXPECT_THROW(ParametrizedObject(7., AttLimits::limited(10., 20.)), Exceptions::OutOfBoundsException);
-    EXPECT_THROW(ParametrizedObject(1., AttLimits::lowerLimited(2.0)), Exceptions::OutOfBoundsException);
-    EXPECT_THROW(ParametrizedObject(1., AttLimits::upperLimited(0.0)), Exceptions::OutOfBoundsException);
+    EXPECT_THROW(ParametrizedObject(7., AttLimits::limited(10., 20.)), std::runtime_error);
+    EXPECT_THROW(ParametrizedObject(1., AttLimits::lowerLimited(2.0)), std::runtime_error);
+    EXPECT_THROW(ParametrizedObject(1., AttLimits::upperLimited(0.0)), std::runtime_error);
 
     ParametrizedObject obj1(15., AttLimits::limited(10, 20));
     EXPECT_EQ(obj1.m_par, 15.);
@@ -82,14 +82,14 @@ TEST_F(RealParameterTest, LimitedParameter)
     RealParameter* par1 = obj1.getParameterPool()->getParameter("par");
     par1->setValue(16.0);
     EXPECT_EQ(obj1.m_par, 16.);
-    EXPECT_THROW(par1->setValue(21.0), Exceptions::OutOfBoundsException);
+    EXPECT_THROW(par1->setValue(21.0), std::runtime_error);
     EXPECT_EQ(obj1.m_par, 16.);
 
     RealParameter* par2(par1);
     EXPECT_TRUE(par1->getAttLimits() == par2->getAttLimits());
     EXPECT_TRUE(*par1 == *par2);
 
-    EXPECT_THROW(par2->setValue(21.0), Exceptions::OutOfBoundsException);
+    EXPECT_THROW(par2->setValue(21.0), std::runtime_error);
     EXPECT_EQ(par2->getValue(), 16.);
 
     par1->setValue(11.0);

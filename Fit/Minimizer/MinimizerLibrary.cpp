@@ -15,7 +15,7 @@
 
 #include "MinimizerLibrary.h"
 #include "AlgorithmNames.h"
-#include "Exceptions.h"
+#include <stdexcept>
 
 using namespace MinimizerLibrary;
 
@@ -123,7 +123,7 @@ Catalogue::Catalogue()
 void Catalogue::addMinimizer(const MinimizerInfo& minimizer)
 {
     if(m_minimizers.find(minimizer.getType())!=m_minimizers.end())
-        throw Exceptions::LogicErrorException(
+        throw std::runtime_error(
             "BUG in Catalogue::addMinimizer() -> Error. "
             "Attempt to add twice minimizer '" + minimizer.getType() + "'");
     m_minimizers[minimizer.getType()] = minimizer;
@@ -149,7 +149,7 @@ MinimizerLibrary::MinimizerInfo Catalogue::minimizerInfo(const std::string& mini
 {
     auto it = m_minimizers.find(minimizerType);
     if(it == m_minimizers.end())
-        throw Exceptions::LogicErrorException(
+        throw std::runtime_error(
             "Catalogue::addMinimizer() -> Error. Non existing minimizer " + minimizerType);
     return m_minimizers[minimizerType];
 }

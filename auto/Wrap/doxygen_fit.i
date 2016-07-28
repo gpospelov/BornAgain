@@ -122,55 +122,6 @@ Returns list of algorithm descriptions for given minimizer type.
 ";
 
 
-// File: classExceptions_1_1ClassInitializationException.xml
-%feature("docstring") Exceptions::ClassInitializationException "";
-
-%feature("docstring")  Exceptions::ClassInitializationException::ClassInitializationException "Exceptions::ClassInitializationException::ClassInitializationException(const std::string &message)
-";
-
-
-// File: classExceptions_1_1DeadReferenceException.xml
-%feature("docstring") Exceptions::DeadReferenceException "";
-
-%feature("docstring")  Exceptions::DeadReferenceException::DeadReferenceException "Exceptions::DeadReferenceException::DeadReferenceException(const std::string &message)
-";
-
-
-// File: classExceptions_1_1DivisionByZeroException.xml
-%feature("docstring") Exceptions::DivisionByZeroException "";
-
-%feature("docstring")  Exceptions::DivisionByZeroException::DivisionByZeroException "Exceptions::DivisionByZeroException::DivisionByZeroException(const std::string &message)
-";
-
-
-// File: classExceptions_1_1DomainErrorException.xml
-%feature("docstring") Exceptions::DomainErrorException "";
-
-%feature("docstring")  Exceptions::DomainErrorException::DomainErrorException "Exceptions::DomainErrorException::DomainErrorException(const std::string &message)
-";
-
-
-// File: classExceptions_1_1ExistingClassRegistrationException.xml
-%feature("docstring") Exceptions::ExistingClassRegistrationException "";
-
-%feature("docstring")  Exceptions::ExistingClassRegistrationException::ExistingClassRegistrationException "Exceptions::ExistingClassRegistrationException::ExistingClassRegistrationException(const std::string &message)
-";
-
-
-// File: classExceptions_1_1FileIsBadException.xml
-%feature("docstring") Exceptions::FileIsBadException "";
-
-%feature("docstring")  Exceptions::FileIsBadException::FileIsBadException "Exceptions::FileIsBadException::FileIsBadException(const std::string &message)
-";
-
-
-// File: classExceptions_1_1FileNotIsOpenException.xml
-%feature("docstring") Exceptions::FileNotIsOpenException "";
-
-%feature("docstring")  Exceptions::FileNotIsOpenException::FileNotIsOpenException "Exceptions::FileNotIsOpenException::FileNotIsOpenException(const std::string &message)
-";
-
-
 // File: classFitParameter.xml
 %feature("docstring") FitParameter "
 
@@ -186,6 +137,9 @@ C++ includes: FitParameter.h
 ";
 
 %feature("docstring")  FitParameter::~FitParameter "virtual FitParameter::~FitParameter()
+";
+
+%feature("docstring")  FitParameter::getName "std::string FitParameter::getName() const 
 ";
 
 %feature("docstring")  FitParameter::setValue "virtual void FitParameter::setValue(double value)
@@ -374,13 +328,6 @@ Set fixed flag for parameters from the list.
 ";
 
 
-// File: classExceptions_1_1FormatErrorException.xml
-%feature("docstring") Exceptions::FormatErrorException "";
-
-%feature("docstring")  Exceptions::FormatErrorException::FormatErrorException "Exceptions::FormatErrorException::FormatErrorException(const std::string &message)
-";
-
-
 // File: classIMinimizer.xml
 %feature("docstring") IMinimizer "
 
@@ -538,13 +485,6 @@ C++ includes: Logger.h
 ";
 
 %feature("docstring")  MSG::Logger::ToString "const std::string & MSG::Logger::ToString(EMessageLevel level)
-";
-
-
-// File: classExceptions_1_1LogicErrorException.xml
-%feature("docstring") Exceptions::LogicErrorException "";
-
-%feature("docstring")  Exceptions::LogicErrorException::LogicErrorException "Exceptions::LogicErrorException::LogicErrorException(const std::string &message)
 ";
 
 
@@ -714,27 +654,6 @@ set option value
 ";
 
 %feature("docstring")  MinimizerOptions::print "void MinimizerOptions::print() const 
-";
-
-
-// File: classExceptions_1_1NotImplementedException.xml
-%feature("docstring") Exceptions::NotImplementedException "";
-
-%feature("docstring")  Exceptions::NotImplementedException::NotImplementedException "Exceptions::NotImplementedException::NotImplementedException(const std::string &message)
-";
-
-
-// File: classExceptions_1_1NullPointerException.xml
-%feature("docstring") Exceptions::NullPointerException "";
-
-%feature("docstring")  Exceptions::NullPointerException::NullPointerException "Exceptions::NullPointerException::NullPointerException(const std::string &message)
-";
-
-
-// File: classExceptions_1_1OutOfBoundsException.xml
-%feature("docstring") Exceptions::OutOfBoundsException "";
-
-%feature("docstring")  Exceptions::OutOfBoundsException::OutOfBoundsException "Exceptions::OutOfBoundsException::OutOfBoundsException(const std::string &message)
 ";
 
 
@@ -1148,66 +1067,6 @@ C++ includes: ROOTSimAnMinimizer.h
 ";
 
 
-// File: classExceptions_1_1RuntimeErrorException.xml
-%feature("docstring") Exceptions::RuntimeErrorException "";
-
-%feature("docstring")  Exceptions::RuntimeErrorException::RuntimeErrorException "Exceptions::RuntimeErrorException::RuntimeErrorException(const std::string &message)
-";
-
-
-// File: classExceptions_1_1SelfReferenceException.xml
-%feature("docstring") Exceptions::SelfReferenceException "";
-
-%feature("docstring")  Exceptions::SelfReferenceException::SelfReferenceException "Exceptions::SelfReferenceException::SelfReferenceException(const std::string &message)
-";
-
-
-// File: classUtils_1_1String.xml
-%feature("docstring") Utils::String "
-
-Collection of utilities for std::string.
-
-C++ includes: Utils.h
-";
-
-
-// File: classUtils_1_1StringUsageMap.xml
-%feature("docstring") Utils::StringUsageMap "
-
-Control how often a string is used.
-
-C++ includes: Utils.h
-";
-
-%feature("docstring")  Utils::StringUsageMap::StringUsageMap "Utils::StringUsageMap::StringUsageMap()
-";
-
-%feature("docstring")  Utils::StringUsageMap::~StringUsageMap "Utils::StringUsageMap::~StringUsageMap()
-";
-
-%feature("docstring")  Utils::StringUsageMap::add "void Utils::StringUsageMap::add(std::string name)
-
-Adds string to the map to count number of times it was used. 
-";
-
-%feature("docstring")  Utils::StringUsageMap::begin "iterator_t Utils::StringUsageMap::begin()
-
-access to the map of strings 
-";
-
-%feature("docstring")  Utils::StringUsageMap::end "iterator_t Utils::StringUsageMap::end()
-";
-
-%feature("docstring")  Utils::StringUsageMap::get_current "std::string Utils::StringUsageMap::get_current() const
-
-Returns current string. 
-";
-
-
-// File: classUtils_1_1System.xml
-%feature("docstring") Utils::System "";
-
-
 // File: classTrivialMinimizer.xml
 %feature("docstring") TrivialMinimizer "
 
@@ -1263,13 +1122,6 @@ Prints fit results.
 ";
 
 
-// File: classExceptions_1_1UnknownClassRegistrationException.xml
-%feature("docstring") Exceptions::UnknownClassRegistrationException "";
-
-%feature("docstring")  Exceptions::UnknownClassRegistrationException::UnknownClassRegistrationException "Exceptions::UnknownClassRegistrationException::UnknownClassRegistrationException(const std::string &message)
-";
-
-
 // File: namespaceAlgorithmNames.xml
 
 
@@ -1277,11 +1129,6 @@ Prints fit results.
 
 
 // File: namespaceBA__ROOT_1_1Math.xml
-
-
-// File: namespaceExceptions.xml
-%feature("docstring")  Exceptions::LogExceptionMessage "void Exceptions::LogExceptionMessage(const std::string &message)
-";
 
 
 // File: namespaceMinimizerLibrary.xml
@@ -1310,13 +1157,15 @@ calculates safe relative difference |(a-b)/b|
 ";
 
 
-// File: namespaceUtils.xml
-%feature("docstring")  Utils::AdjustStringLength "std::string Utils::AdjustStringLength(const std::string &name, int length)
+// File: namespaceStringUtils.xml
+%feature("docstring")  StringUtils::matchesPattern "bool StringUtils::matchesPattern(const std::string &text, const std::string &wildcardPattern)
+
+Returns true if text matches pattern with wildcards '*' and '?'. 
 ";
 
-%feature("docstring")  Utils::EnableFloatingPointExceptions "void Utils::EnableFloatingPointExceptions()
+%feature("docstring")  StringUtils::padRight "std::string StringUtils::padRight(const std::string &name, int length)
 
-enables exception throw in the case of NaN, Inf 
+Returns string right-padded with blanks. 
 ";
 
 
@@ -1434,12 +1283,6 @@ enables exception throw in the case of NaN, Inf
 // File: ROOTSimAnMinimizer_8h.xml
 
 
-// File: Exceptions_8cpp.xml
-
-
-// File: Exceptions_8h.xml
-
-
 // File: Logger_8cpp.xml
 
 
@@ -1452,10 +1295,10 @@ enables exception throw in the case of NaN, Inf
 // File: Numeric_8h.xml
 
 
-// File: Utils_8cpp.xml
+// File: StringUtils_8cpp.xml
 
 
-// File: Utils_8h.xml
+// File: StringUtils_8h.xml
 
 
 // File: dir_892d84e8d1420bf45a9053cf0eede900.xml

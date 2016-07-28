@@ -2034,7 +2034,12 @@ class FitParameter(AttLimits):
     __del__ = lambda self: None
 
     def getName(self):
-        """getName(FitParameter self) -> std::string"""
+        """
+        getName(FitParameter self) -> std::string
+
+        std::string FitParameter::getName() const 
+
+        """
         return _libBornAgainFit.FitParameter_getName(self)
 
 

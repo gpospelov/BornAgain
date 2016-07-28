@@ -60,16 +60,6 @@ LayerInterface* LayerInterface::createRoughInterface(
     return lr;
 }
 
-void LayerInterface::setLayerTop(const Layer* p_layer_top)
-{
-    m_LayerTop = p_layer_top;
-}
-
-void LayerInterface::setLayerBottom(const Layer* p_layer_bottom)
-{
-    m_LayerBottom = p_layer_bottom;
-}
-
 void LayerInterface::setRoughness(const LayerRoughness& roughness)
 {
     if(m_roughness) {
@@ -82,21 +72,6 @@ void LayerInterface::setRoughness(const LayerRoughness& roughness)
     //m_roughness = new LayerRoughness(roughness);
     m_roughness = roughness.clone();
     registerChild(m_roughness);
-}
-
-const LayerRoughness* LayerInterface::getRoughness() const
-{
-    return m_roughness;
-}
-
-const Layer* LayerInterface::getLayerTop() const
-{
-    return m_LayerTop;
-}
-
-const Layer* LayerInterface::getLayerBottom() const
-{
-    return m_LayerBottom;
 }
 
 void LayerInterface::print(std::ostream& ostr) const

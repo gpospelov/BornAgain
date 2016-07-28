@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "FitParameterLinked.h"
-#include "Exceptions.h"
+#include <stdexcept>
 #include "ParameterPool.h"
 #include "RealParameter.h"
 
@@ -45,7 +45,7 @@ void FitParameterLinked::setValue(double value) {
 void FitParameterLinked::addParameter(RealParameter* par)
 {
     if( par->isNull() )
-        throw Exceptions::LogicErrorException(
+        throw std::runtime_error(
             "FitMultiParameter::addParameter() -> Attempt to add null parameter");
     m_pool_parameters.push_back(new RealParameter(*par));
 }
@@ -60,7 +60,7 @@ void FitParameterLinked::addMatchedParametersFromPool(
     for (auto* par: pool->getMatchedParameters(wildcard_to_use))
         m_pool_parameters.push_back(new RealParameter(*par));
     if( m_pool_parameters.empty() )
-        throw Exceptions::LogicErrorException(
+        throw std::runtime_error(
             "FitMultiParameter::addMatchedParametersFromPool() -> Error! "
             "Failed to add anything from pool using wildcard '"+wildcard_to_use+"'");
 }

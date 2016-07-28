@@ -24,7 +24,7 @@
 IParameterized::IParameterized(const std::string& name)
     : INamed(name)
 {
-    m_parameters = new ParameterPool(this);
+    m_parameters = new ParameterPool(name, this);
 }
 
 IParameterized::IParameterized(const IParameterized& other)
@@ -41,7 +41,7 @@ IParameterized::~IParameterized()
 
 ParameterPool* IParameterized::createParameterTree()
 {
-    auto P_new_pool = new ParameterPool(this);
+    auto P_new_pool = new ParameterPool(getName(), this);
     addParametersToExternalPool("/", P_new_pool);
     return P_new_pool;
 }

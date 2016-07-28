@@ -16,6 +16,7 @@
 #ifndef PARAMETERPOOL_H
 #define PARAMETERPOOL_H
 
+#include "INamed.h" // inheriting from
 #include <ostream>
 #include <string>
 #include <vector>
@@ -28,10 +29,10 @@ class RealParameter;
 //! @ingroup tools_internal
 //! @brief Holds a map of pointers to parameters (which must have different names).
 
-class BA_CORE_API_ ParameterPool
+class BA_CORE_API_ ParameterPool : public INamed
 {
 public:
-    explicit ParameterPool(IParameterized* parent);
+    explicit ParameterPool(const std::string& name, IParameterized* parent);
     ParameterPool(const ParameterPool&) = delete;
     ParameterPool& operator=(const ParameterPool&) = delete;
     virtual ~ParameterPool();
@@ -78,6 +79,10 @@ public:
     friend std::ostream& operator<<(std::ostream& ostr, const ParameterPool& obj) {
         obj.print(ostr); return ostr; }
 
+protected:
+    //! Action to be taken in inherited class when a parameter has changed.
+    void onChange() const;
+
 private:
     //! Prints parameter pool contents.
     virtual void print(std::ostream& ostr) const;
@@ -96,6 +101,8 @@ private:
 
     IParameterized* const m_parent; //!< Parametrized object that "owns" this pool
     std::vector<RealParameter*> m_params;
+
+    friend RealParameter; // calls onChange() // TODO remove when resolving #1542
 };
 
 #endif // PARAMETERPOOL_H

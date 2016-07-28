@@ -26,8 +26,9 @@
 #include "IParameterized.h"
 
 //! Constructs an empty parameter pool.
-ParameterPool::ParameterPool(IParameterized* parent)
-    : m_parent(parent)
+ParameterPool::ParameterPool(const std::string& name, IParameterized* parent)
+    : INamed(name)
+    , m_parent(parent)
 {
 }
 
@@ -39,7 +40,7 @@ ParameterPool::~ParameterPool()
 //! Returns a literal clone.
 ParameterPool* ParameterPool::clone() const
 {
-    ParameterPool* new_pool = new ParameterPool(m_parent);
+    ParameterPool* new_pool = new ParameterPool(getName(), m_parent);
     new_pool->m_params = m_params;
     return new_pool;
 }
@@ -49,7 +50,7 @@ ParameterPool* ParameterPool::clone() const
 
 ParameterPool* ParameterPool::cloneWithPrefix(const std::string& prefix) const
 {
-    ParameterPool* new_pool = new ParameterPool(m_parent);
+    ParameterPool* new_pool = new ParameterPool(getName(), m_parent);
     for (const auto* par: m_params)
         new_pool->addParameter( new RealParameter( prefix + par->getName(), *par ) );
     return new_pool;
@@ -74,7 +75,7 @@ void ParameterPool::registerParameter(const std::string& name, double* parpointe
 void ParameterPool::registerParameter(
     const std::string& name, double* parameter_address, const AttLimits& limits)
 {
-    addParameter(new RealParameter(name, m_parent, parameter_address, limits) );
+    addParameter(new RealParameter(name, this, parameter_address, limits) );
 }
 
 //! Low-level routine.
@@ -177,6 +178,11 @@ std::vector<std::string> ParameterPool::getParameterNames() const
     for (const auto* par: m_params)
         result.push_back(par->getName());
     return result;
+}
+
+void ParameterPool::onChange() const
+{
+    m_parent->onChange();
 }
 
 void ParameterPool::print(std::ostream& ostr) const

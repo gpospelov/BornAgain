@@ -15,11 +15,11 @@
 
 #include "RealParameter.h"
 #include "Exceptions.h"
-#include "IParameterized.h"
+#include "ParameterPool.h"
 #include <sstream>
 
 RealParameter::RealParameter(
-    const std::string& name, IParameterized* parent, volatile double* par, const AttLimits& limits)
+    const std::string& name, ParameterPool* parent, volatile double* par, const AttLimits& limits)
     : INamed(name)
     , m_parent(parent)
     , m_data(par)

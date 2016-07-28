@@ -21749,17 +21749,21 @@ class ParameterDistribution(libBornAgainFit.IParameterized):
 ParameterDistribution_swigregister = _libBornAgainCore.ParameterDistribution_swigregister
 ParameterDistribution_swigregister(ParameterDistribution)
 
-class ParameterPool(_object):
+class ParameterPool(libBornAgainFit.INamed):
     """Proxy of C++ ParameterPool class"""
     __swig_setmethods__ = {}
+    for _s in [libBornAgainFit.INamed]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, ParameterPool, name, value)
     __swig_getmethods__ = {}
+    for _s in [libBornAgainFit.INamed]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, ParameterPool, name)
     __repr__ = _swig_repr
 
-    def __init__(self, parent):
-        """__init__(ParameterPool self, IParameterized parent) -> ParameterPool"""
-        this = _libBornAgainCore.new_ParameterPool(parent)
+    def __init__(self, name, parent):
+        """__init__(ParameterPool self, std::string const & name, IParameterized parent) -> ParameterPool"""
+        this = _libBornAgainCore.new_ParameterPool(name, parent)
         try:
             self.this.append(this)
         except:
@@ -22776,8 +22780,8 @@ class RealParameter(libBornAgainFit.INamed):
 
     def __init__(self, *args):
         """
-        __init__(RealParameter self, std::string const & name, IParameterized parent, double volatile * par, AttLimits limits) -> RealParameter
-        __init__(RealParameter self, std::string const & name, IParameterized parent, double volatile * par) -> RealParameter
+        __init__(RealParameter self, std::string const & name, ParameterPool parent, double volatile * par, AttLimits limits) -> RealParameter
+        __init__(RealParameter self, std::string const & name, ParameterPool parent, double volatile * par) -> RealParameter
         __init__(RealParameter self, RealParameter other) -> RealParameter
         __init__(RealParameter self, std::string const & name, RealParameter other) -> RealParameter
         """

@@ -18,106 +18,106 @@
 
 void IMinimizer::minimize()
 {
-    throw Exceptions::NotImplementedException("IMinimizer::minimize() -> Not implemented.");
+    throw std::runtime_error("IMinimizer::minimize() -> Not implemented.");
 }
 
 void IMinimizer::setParameter(size_t /*index*/, const FitParameter* /*par*/)
 {
-    throw Exceptions::NotImplementedException("IMinimizer::setParameter() -> Not implemented.");
+    throw std::runtime_error("IMinimizer::setParameter() -> Not implemented.");
 }
 
 void IMinimizer::setParameters(const FitSuiteParameters& /*parameters*/)
 {
-    throw Exceptions::NotImplementedException("IMinimizer::setParameters() -> Not implemented.");
+    throw std::runtime_error("IMinimizer::setParameters() -> Not implemented.");
 }
 
 void IMinimizer::setChiSquaredFunction(function_chi2_t /*fun_chi2*/, size_t /*nparameters*/)
 {
-    throw Exceptions::NotImplementedException("IMinimizer::setChiSquaredFunction() -> Not implemented.");
+    throw std::runtime_error("IMinimizer::setChiSquaredFunction() -> Not implemented.");
 }
 
 void IMinimizer::setGradientFunction(function_gradient_t /*fun_gradient*/, size_t /*nparameters*/, size_t /*ndatasize*/)
 {
-    throw Exceptions::NotImplementedException("IMinimizer::setGradientFunction() -> Not implemented.");
+    throw std::runtime_error("IMinimizer::setGradientFunction() -> Not implemented.");
 }
 
 size_t IMinimizer::getNumberOfVariables() const
 {
-    throw Exceptions::NotImplementedException("IMinimizer::getNumberOfVariables() -> Not implemented.");
+    throw std::runtime_error("IMinimizer::getNumberOfVariables() -> Not implemented.");
 }
 
 double IMinimizer::getMinValue() const
 {
-    throw Exceptions::NotImplementedException("IMinimizer::getMinValue() -> Not implemented.");
+    throw std::runtime_error("IMinimizer::getMinValue() -> Not implemented.");
 }
 
 double IMinimizer::getValueOfVariableAtMinimum(size_t /*index*/) const
 {
-    throw Exceptions::NotImplementedException("IMinimizer::getValueOfVariableAtMinimum() -> Not implemented.");
+    throw std::runtime_error("IMinimizer::getValueOfVariableAtMinimum() -> Not implemented.");
 }
 
 std::vector<double > IMinimizer::getValueOfVariablesAtMinimum() const
 {
-    throw Exceptions::NotImplementedException("IMinimizer::getValueOfVariablesAtMinimum() -> Not implemented.");
+    throw std::runtime_error("IMinimizer::getValueOfVariablesAtMinimum() -> Not implemented.");
 }
 
 double IMinimizer::getErrorOfVariable(size_t /*index*/) const
 {
-    throw Exceptions::NotImplementedException("IMinimizer::getErrorOfVariable() -> Not implemented.");
+    throw std::runtime_error("IMinimizer::getErrorOfVariable() -> Not implemented.");
 }
 
 std::vector<double> IMinimizer::getErrorOfVariables() const
 {
-    throw Exceptions::NotImplementedException("IMinimizer::getErrorOfVariables() -> Not implemented.");
+    throw std::runtime_error("IMinimizer::getErrorOfVariables() -> Not implemented.");
 }
 
 void IMinimizer::clear()
 {
-    throw Exceptions::NotImplementedException("IMinimizer::clear() -> Not implemented.");
+    throw std::runtime_error("IMinimizer::clear() -> Not implemented.");
 }
 
 void IMinimizer::printResults() const
 {
-    throw Exceptions::NotImplementedException("IMinimizer::printResults() -> Not implemented.");
+    throw std::runtime_error("IMinimizer::printResults() -> Not implemented.");
 }
 
 size_t IMinimizer::getNCalls() const
 {
-    throw Exceptions::NotImplementedException("IMinimizer::getNCalls() -> Not implemented.");
+    throw std::runtime_error("IMinimizer::getNCalls() -> Not implemented.");
 }
 
 MinimizerOptions* IMinimizer::getOptions()
 {
-    throw Exceptions::NotImplementedException("IMinimizer::getOptions() -> Not implemented.");
+    throw std::runtime_error("IMinimizer::getOptions() -> Not implemented.");
 }
 
 const MinimizerOptions* IMinimizer::getOptions() const
 {
-    throw Exceptions::NotImplementedException("IMinimizer::getOptions() -> Not implemented.");
+    throw std::runtime_error("IMinimizer::getOptions() -> Not implemented.");
 }
 
 void IMinimizer::setOptions(const MinimizerOptions& /*options*/)
 {
-    throw Exceptions::NotImplementedException("IMinimizer::setOptions() -> Not implemented.");
+    throw std::runtime_error("IMinimizer::setOptions() -> Not implemented.");
 }
 
 void IMinimizer::setOptionString(const std::string& /*options*/)
 {
-    throw Exceptions::NotImplementedException("IMinimizer::setOptionString() -> Not implemented.");
+    throw std::runtime_error("IMinimizer::setOptionString() -> Not implemented.");
 }
 
 bool IMinimizer::isGradientBasedAgorithm()
 {
-    throw Exceptions::NotImplementedException(
+    throw std::runtime_error(
         "IMinimizer::isGradientBasedAlgorithm() -> Not implemented.");
 }
 
 std::string IMinimizer::getMinimizerName() const
 {
-    throw Exceptions::NotImplementedException("IMinimizer::getMinimizerName() -> Not implemented.");
+    throw std::runtime_error("IMinimizer::getMinimizerName() -> Not implemented.");
 }
 
 std::string IMinimizer::getAlgorithmName() const
 {
-    throw Exceptions::NotImplementedException("IMinimizer::getAlgorithmName() -> Not implemented.");
+    throw std::runtime_error("IMinimizer::getAlgorithmName() -> Not implemented.");
 }

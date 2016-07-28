@@ -1,4 +1,5 @@
 #include "MinimizerOptions.h"
+#include <stdexcept>
 
 class MinimizerOptionsTest : public ::testing::Test
 {
@@ -8,7 +9,6 @@ class MinimizerOptionsTest : public ::testing::Test
 
 };
 
-
 TEST_F(MinimizerOptionsTest, InitialState)
 {
     MinimizerOptions options;
@@ -17,9 +17,8 @@ TEST_F(MinimizerOptionsTest, InitialState)
     EXPECT_EQ(0, options.getMaxIterations());
     EXPECT_EQ(0, options.getMaxFunctionCalls());
 
-    ASSERT_THROW(options.setValue("some_value",1.0), Exceptions::LogicErrorException);
+    ASSERT_THROW(options.setValue("some_value",1.0), std::runtime_error);
 }
-
 
 TEST_F(MinimizerOptionsTest, SetValues)
 {
@@ -38,12 +37,12 @@ TEST_F(MinimizerOptionsTest, SetValues)
     options.addValue("some_double",9.9);
     options.addValue("some_string","xxx");
 
-    ASSERT_THROW(options.addValue("some_int",1), Exceptions::LogicErrorException);
+    ASSERT_THROW(options.addValue("some_int",1), std::runtime_error);
     EXPECT_EQ(options.getIntValue("some_int"), 1);
     EXPECT_EQ(options.getRealValue("some_double"), 9.9);
     EXPECT_EQ(options.getNamedValue("some_string"), "xxx");
 
-    ASSERT_THROW(options.getIntValue("some_int2"), Exceptions::LogicErrorException);
+    ASSERT_THROW(options.getIntValue("some_int2"), std::runtime_error);
 
     MinimizerOptions opt2 = options;
     EXPECT_EQ(0.02, opt2.getTolerance());
@@ -54,4 +53,3 @@ TEST_F(MinimizerOptionsTest, SetValues)
     EXPECT_EQ(opt2.getRealValue("some_double"), 9.9);
     EXPECT_EQ(opt2.getNamedValue("some_string"), "xxx");
 }
-

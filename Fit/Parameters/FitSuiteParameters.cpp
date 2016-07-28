@@ -16,7 +16,7 @@
 #include "FitSuiteParameters.h"
 #include "FitParameter.h"
 #include "FitParameterLinked.h"
-#include "Exceptions.h"
+#include <stdexcept>
 #include "Logger.h"
 #include "Numeric.h"
 #include <cmath>
@@ -44,7 +44,7 @@ void FitSuiteParameters::addParameter(const std::string& name, double value, dou
 {
     for(auto par : m_parameters) {
         if( par->getName() == name )
-            throw Exceptions::LogicErrorException(
+            throw std::runtime_error(
                 "FitSuiteParameters:addtFitParameter() -> Error. Existing parameter '"+name+"'");
     }
     m_parameters.push_back(new FitParameterLinked(name, value, step, attlim, error));
@@ -57,7 +57,7 @@ const FitParameter* FitSuiteParameters::getFitParameter(const std::string& name)
         if( (*it)->getName() == name )
             return *it;
     }
-    throw Exceptions::LogicErrorException("FitSuiteParameters::getFitParameter() -> "
+    throw std::runtime_error("FitSuiteParameters::getFitParameter() -> "
                                           "Error. No parameter with name '"+name+"'");
 }
 
@@ -68,7 +68,7 @@ FitParameter* FitSuiteParameters::getFitParameter(const std::string& name)
         if( (*it)->getName() == name )
             return *it;
     }
-    throw Exceptions::LogicErrorException("FitSuiteParameters::getFitParameter() -> "
+    throw std::runtime_error("FitSuiteParameters::getFitParameter() -> "
                                           "Error. No parameter with name '"+name+"'");
 }
 
@@ -89,12 +89,12 @@ void FitSuiteParameters::setValues(const double* pars_values)
     size_t index(0);
     for(parameters_t::iterator it=m_parameters.begin(); it!=m_parameters.end(); ++it) {
         if( std::isnan(pars_values[index]) ) {
-            throw Exceptions::LogicErrorException(
+            throw std::runtime_error(
                 "FitSuiteParameters::setValues() -> Error."
                 " Attempt to set nan '"+(*it)->getName() + std::string("'."));
         }
         if( std::isinf(pars_values[index]) ) {
-            throw Exceptions::LogicErrorException("FitSuiteParameters::setValues() -> Error. "
+            throw std::runtime_error("FitSuiteParameters::setValues() -> Error. "
                                                   "Attempt to set inf '" +
                                                   (*it)->getName()  + std::string("'."));
         }
@@ -110,7 +110,7 @@ void FitSuiteParameters::setValues(const std::vector<double>& pars_values)
         ostr << "FitSuiteParameters::setValues() -> Wrong size of array with parameter values "
              << pars_values.size()
              << ", number of parameters expected " << m_parameters.size() << std::endl;
-        throw Exceptions::OutOfBoundsException(ostr.str());
+        throw std::runtime_error(ostr.str());
     }
     setValues(&pars_values[0]);
 }
@@ -123,7 +123,7 @@ void FitSuiteParameters::setErrors(const std::vector<double>& pars_errors)
         ostr << "FitSuiteParameters::setErrors() -> Wrong size of array with parameter errors "
              << pars_errors.size()
              << ", number of parameters expected " << m_parameters.size() << std::endl;
-        throw Exceptions::OutOfBoundsException(ostr.str());
+        throw std::runtime_error(ostr.str());
     }
     for(size_t i=0; i<m_parameters.size(); ++i)
         m_parameters[i]->setError(pars_errors[i]);
@@ -184,7 +184,7 @@ void FitSuiteParameters::link_to_pool(const ParameterPool* pool)
     // going through all fit parameters defined
     for(parameters_t::iterator it = m_parameters.begin(); it!= m_parameters.end(); ++it) {
         FitParameterLinked* par = dynamic_cast<FitParameterLinked*>((*it));
-        if( !par ) throw Exceptions::LogicErrorException(
+        if( !par ) throw std::runtime_error(
             "FitSuiteParameters::link_to_pool() -> Error! Can't cast to FitParameterLinked.");
         par->addMatchedParametersFromPool(pool);
     }
@@ -228,7 +228,7 @@ void FitSuiteParameters::setParametersFixed(const std::vector<std::string>& pars
 
 size_t FitSuiteParameters::check_index(size_t index) const {
     if( index >= m_parameters.size() )
-        throw Exceptions::OutOfBoundsException(
+        throw std::runtime_error(
             "FitSuiteParameters::check_index() -> Index out of bounds");
     return index;
 }

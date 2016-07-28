@@ -534,6 +534,13 @@ clone method
 ";
 
 
+// File: classExceptions_1_1ClassInitializationException.xml
+%feature("docstring") Exceptions::ClassInitializationException "";
+
+%feature("docstring")  Exceptions::ClassInitializationException::ClassInitializationException "Exceptions::ClassInitializationException::ClassInitializationException(const std::string &message)
+";
+
+
 // File: classConstKBinAxis.xml
 %feature("docstring") ConstKBinAxis "
 
@@ -927,6 +934,13 @@ C++ includes: ParticleDistributionsBuilder.h
 ";
 
 
+// File: classExceptions_1_1DeadReferenceException.xml
+%feature("docstring") Exceptions::DeadReferenceException "";
+
+%feature("docstring")  Exceptions::DeadReferenceException::DeadReferenceException "Exceptions::DeadReferenceException::DeadReferenceException(const std::string &message)
+";
+
+
 // File: classDecoratedLayerDWBASimulation.xml
 %feature("docstring") DecoratedLayerDWBASimulation "
 
@@ -1314,6 +1328,20 @@ signals that the distribution is in the limit case of a delta distribution
 ";
 
 
+// File: classExceptions_1_1DivisionByZeroException.xml
+%feature("docstring") Exceptions::DivisionByZeroException "";
+
+%feature("docstring")  Exceptions::DivisionByZeroException::DivisionByZeroException "Exceptions::DivisionByZeroException::DivisionByZeroException(const std::string &message)
+";
+
+
+// File: classExceptions_1_1DomainErrorException.xml
+%feature("docstring") Exceptions::DomainErrorException "";
+
+%feature("docstring")  Exceptions::DomainErrorException::DomainErrorException "Exceptions::DomainErrorException::DomainErrorException(const std::string &message)
+";
+
+
 // File: classDWBADiffuseReflection.xml
 %feature("docstring") DWBADiffuseReflection "
 
@@ -1435,6 +1463,27 @@ Returns true if area defined by two bins is inside or on border of ellipse. More
 ";
 
 %feature("docstring")  Geometry::Ellipse::getTheta "double Geometry::Ellipse::getTheta() const 
+";
+
+
+// File: classExceptions_1_1ExistingClassRegistrationException.xml
+%feature("docstring") Exceptions::ExistingClassRegistrationException "";
+
+%feature("docstring")  Exceptions::ExistingClassRegistrationException::ExistingClassRegistrationException "Exceptions::ExistingClassRegistrationException::ExistingClassRegistrationException(const std::string &message)
+";
+
+
+// File: classExceptions_1_1FileIsBadException.xml
+%feature("docstring") Exceptions::FileIsBadException "";
+
+%feature("docstring")  Exceptions::FileIsBadException::FileIsBadException "Exceptions::FileIsBadException::FileIsBadException(const std::string &message)
+";
+
+
+// File: classExceptions_1_1FileNotIsOpenException.xml
+%feature("docstring") Exceptions::FileNotIsOpenException "";
+
+%feature("docstring")  Exceptions::FileNotIsOpenException::FileNotIsOpenException "Exceptions::FileNotIsOpenException::FileNotIsOpenException(const std::string &message)
 ";
 
 
@@ -2380,6 +2429,13 @@ find bin index which is best match for given value
 %feature("docstring")  FixedBinAxis::createClippedAxis "FixedBinAxis * FixedBinAxis::createClippedAxis(double left, double right) const
 
 Creates a new clipped axis. 
+";
+
+
+// File: classExceptions_1_1FormatErrorException.xml
+%feature("docstring") Exceptions::FormatErrorException "";
+
+%feature("docstring")  Exceptions::FormatErrorException::FormatErrorException "Exceptions::FormatErrorException::FormatErrorException(const std::string &message)
 ";
 
 
@@ -9255,6 +9311,13 @@ C++ includes: LLData.h
 ";
 
 
+// File: classExceptions_1_1LogicErrorException.xml
+%feature("docstring") Exceptions::LogicErrorException "";
+
+%feature("docstring")  Exceptions::LogicErrorException::LogicErrorException "Exceptions::LogicErrorException::LogicErrorException(const std::string &message)
+";
+
+
 // File: classMagneticCylindersBuilder.xml
 %feature("docstring") MagneticCylindersBuilder "
 
@@ -9808,6 +9871,20 @@ C++ includes: MultipleLayoutBuilder.h
 ";
 
 
+// File: classExceptions_1_1NotImplementedException.xml
+%feature("docstring") Exceptions::NotImplementedException "";
+
+%feature("docstring")  Exceptions::NotImplementedException::NotImplementedException "Exceptions::NotImplementedException::NotImplementedException(const std::string &message)
+";
+
+
+// File: classExceptions_1_1NullPointerException.xml
+%feature("docstring") Exceptions::NullPointerException "";
+
+%feature("docstring")  Exceptions::NullPointerException::NullPointerException "Exceptions::NullPointerException::NullPointerException(const std::string &message)
+";
+
+
 // File: classOffSpecSimulation.xml
 %feature("docstring") OffSpecSimulation "
 
@@ -9916,6 +9993,13 @@ Adds parameters from local pool to external pool and recursively calls its direc
 %feature("docstring") OMPISimulation "";
 
 %feature("docstring")  OMPISimulation::runSimulation "void OMPISimulation::runSimulation(Simulation *simulation)
+";
+
+
+// File: classExceptions_1_1OutOfBoundsException.xml
+%feature("docstring") Exceptions::OutOfBoundsException "";
+
+%feature("docstring")  Exceptions::OutOfBoundsException::OutOfBoundsException "Exceptions::OutOfBoundsException::OutOfBoundsException(const std::string &message)
 ";
 
 
@@ -11623,6 +11707,13 @@ Returns transformation.
 ";
 
 
+// File: classExceptions_1_1RuntimeErrorException.xml
+%feature("docstring") Exceptions::RuntimeErrorException "";
+
+%feature("docstring")  Exceptions::RuntimeErrorException::RuntimeErrorException "Exceptions::RuntimeErrorException::RuntimeErrorException(const std::string &message)
+";
+
+
 // File: classSafePointerVector.xml
 %feature("docstring") SafePointerVector "
 
@@ -11974,6 +12065,13 @@ Retrieves the amplitude coefficients for the given angles.
 %feature("docstring")  ScalarSpecularInfoMap::getInCoefficients "const ILayerRTCoefficients * ScalarSpecularInfoMap::getInCoefficients(double alpha_i, double phi_i, double wavelength) const
 
 Retrieves the amplitude coefficients for the given angles. 
+";
+
+
+// File: classExceptions_1_1SelfReferenceException.xml
+%feature("docstring") Exceptions::SelfReferenceException "";
+
+%feature("docstring")  Exceptions::SelfReferenceException::SelfReferenceException "Exceptions::SelfReferenceException::SelfReferenceException(const std::string &message)
 ";
 
 
@@ -12882,6 +12980,13 @@ C++ includes: ParticleDistributionsBuilder.h
 ";
 
 
+// File: classExceptions_1_1UnknownClassRegistrationException.xml
+%feature("docstring") Exceptions::UnknownClassRegistrationException "";
+
+%feature("docstring")  Exceptions::UnknownClassRegistrationException::UnknownClassRegistrationException "Exceptions::UnknownClassRegistrationException::UnknownClassRegistrationException(const std::string &message)
+";
+
+
 // File: classVariableBinAxis.xml
 %feature("docstring") VariableBinAxis "
 
@@ -13021,19 +13126,24 @@ C++ includes: WavevectorInfo.h
 // File: classMathFunctions_1_1Convolve_1_1Workspace.xml
 
 
-// File: namespace_0D289.xml
+// File: namespace_0D291.xml
 
 
-// File: namespace_0D355.xml
+// File: namespace_0D357.xml
 
 
-// File: namespace_0D421.xml
+// File: namespace_0D423.xml
 
 
 // File: namespaceboost_1_1geometry.xml
 
 
 // File: namespaceBornAgain.xml
+
+
+// File: namespaceExceptions.xml
+%feature("docstring")  Exceptions::LogExceptionMessage "void Exceptions::LogExceptionMessage(const std::string &message)
+";
 
 
 // File: namespaceFormFactorTools.xml
@@ -13543,6 +13653,12 @@ Returns product I*z, where I is the imaginary unit.
 
 Returns exp(I*z), where I is the imaginary unit. 
 ";
+
+
+// File: Exceptions_8cpp.xml
+
+
+// File: Exceptions_8h.xml
 
 
 // File: ICloneable_8h.xml

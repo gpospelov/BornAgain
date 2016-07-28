@@ -1557,20 +1557,20 @@ Runs a fit, which may consist of several minimization rounds.
 Runs a single minimization round (called by FitSuiteStrategy) 
 ";
 
-%feature("docstring")  FitKernel::getFitObjects "FitSuiteObjects * FitKernel::getFitObjects()
+%feature("docstring")  FitKernel::getFitObjects "FitSuiteObjects* FitKernel::getFitObjects()
 
 Returns reference to the kit with data. 
 ";
 
-%feature("docstring")  FitKernel::getFitObjects "const FitSuiteObjects * FitKernel::getFitObjects() const 
+%feature("docstring")  FitKernel::getFitObjects "const FitSuiteObjects* FitKernel::getFitObjects() const 
 ";
 
-%feature("docstring")  FitKernel::getFitParameters "FitSuiteParameters * FitKernel::getFitParameters()
+%feature("docstring")  FitKernel::getFitParameters "FitSuiteParameters* FitKernel::getFitParameters()
 
 Returns reference to fit parameters. 
 ";
 
-%feature("docstring")  FitKernel::getFitStrategies "FitSuiteStrategies * FitKernel::getFitStrategies()
+%feature("docstring")  FitKernel::getFitStrategies "FitSuiteStrategies* FitKernel::getFitStrategies()
 
 Returns reference to fit parameters. 
 ";
@@ -1595,7 +1595,7 @@ Returns the number of current strategy.
 Prints fit results to stdout. 
 ";
 
-%feature("docstring")  FitKernel::getOptions "FitOptions & FitKernel::getOptions()
+%feature("docstring")  FitKernel::getOptions "FitOptions& FitKernel::getOptions()
 
 Returns current fit options. 
 ";
@@ -1613,13 +1613,13 @@ Returns total wall time in seconds which was spend for run fit.
 %feature("docstring")  FitKernel::notifyObservers "void FitKernel::notifyObservers()
 ";
 
-%feature("docstring")  FitKernel::isInterrupted "bool FitKernel::isInterrupted() const 
-";
-
 %feature("docstring")  FitKernel::interruptFitting "void FitKernel::interruptFitting()
 ";
 
 %feature("docstring")  FitKernel::resetInterrupt "void FitKernel::resetInterrupt()
+";
+
+%feature("docstring")  FitKernel::isInterrupted "bool FitKernel::isInterrupted() const 
 ";
 
 
@@ -9023,17 +9023,17 @@ Sets links to the layers above and below the interface.
 Sets roughness of the interface. 
 ";
 
-%feature("docstring")  LayerInterface::getRoughness "const LayerRoughness * LayerInterface::getRoughness() const
+%feature("docstring")  LayerInterface::getRoughness "const LayerRoughness* LayerInterface::getRoughness() const
 
 Returns roughness of the interface. 
 ";
 
-%feature("docstring")  LayerInterface::getLayerTop "const Layer * LayerInterface::getLayerTop() const
+%feature("docstring")  LayerInterface::getLayerTop "const Layer* LayerInterface::getLayerTop() const
 
 Returns top layer. 
 ";
 
-%feature("docstring")  LayerInterface::getLayerBottom "const Layer * LayerInterface::getLayerBottom() const
+%feature("docstring")  LayerInterface::getLayerBottom "const Layer* LayerInterface::getLayerBottom() const
 
 Returns bottom layer. 
 ";
@@ -12665,6 +12665,52 @@ C++ includes: TwoDimLatticeBuilder.h
 ";
 
 
+// File: classUtils_1_1String.xml
+%feature("docstring") Utils::String "
+
+Collection of utilities for std::string.
+
+C++ includes: Utils.h
+";
+
+
+// File: classUtils_1_1StringUsageMap.xml
+%feature("docstring") Utils::StringUsageMap "
+
+Control how often a string is used.
+
+C++ includes: Utils.h
+";
+
+%feature("docstring")  Utils::StringUsageMap::StringUsageMap "Utils::StringUsageMap::StringUsageMap()
+";
+
+%feature("docstring")  Utils::StringUsageMap::~StringUsageMap "Utils::StringUsageMap::~StringUsageMap()
+";
+
+%feature("docstring")  Utils::StringUsageMap::add "void Utils::StringUsageMap::add(std::string name)
+
+Adds string to the map to count number of times it was used. 
+";
+
+%feature("docstring")  Utils::StringUsageMap::begin "iterator_t Utils::StringUsageMap::begin()
+
+access to the map of strings 
+";
+
+%feature("docstring")  Utils::StringUsageMap::end "iterator_t Utils::StringUsageMap::end()
+";
+
+%feature("docstring")  Utils::StringUsageMap::get_current "std::string Utils::StringUsageMap::get_current() const
+
+Returns current string. 
+";
+
+
+// File: classUtils_1_1System.xml
+%feature("docstring") Utils::System "";
+
+
 // File: structThreadInfo.xml
 %feature("docstring") ThreadInfo "
 
@@ -13397,6 +13443,10 @@ Typical IsGISAXS simulation with the detector phi[0,2], theta[0,2].
 
 
 // File: namespaceUtils.xml
+%feature("docstring")  Utils::EnableFloatingPointExceptions "void Utils::EnableFloatingPointExceptions()
+
+enables exception throw in the case of NaN, Inf 
+";
 
 
 // File: DecouplingApproximationStrategy_8cpp.xml
@@ -14813,6 +14863,12 @@ David N. Williams
 
 
 // File: Precomputed_8h.xml
+
+
+// File: Utils_8cpp.xml
+
+
+// File: Utils_8h.xml
 
 
 // File: w32pragma_8h.xml

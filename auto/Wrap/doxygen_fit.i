@@ -188,6 +188,9 @@ C++ includes: FitParameter.h
 %feature("docstring")  FitParameter::~FitParameter "virtual FitParameter::~FitParameter()
 ";
 
+%feature("docstring")  FitParameter::getName "std::string FitParameter::getName() const 
+";
+
 %feature("docstring")  FitParameter::setValue "virtual void FitParameter::setValue(double value)
 
 Sets value of parameter. 
@@ -1162,52 +1165,6 @@ C++ includes: ROOTSimAnMinimizer.h
 ";
 
 
-// File: classUtils_1_1String.xml
-%feature("docstring") Utils::String "
-
-Collection of utilities for std::string.
-
-C++ includes: Utils.h
-";
-
-
-// File: classUtils_1_1StringUsageMap.xml
-%feature("docstring") Utils::StringUsageMap "
-
-Control how often a string is used.
-
-C++ includes: Utils.h
-";
-
-%feature("docstring")  Utils::StringUsageMap::StringUsageMap "Utils::StringUsageMap::StringUsageMap()
-";
-
-%feature("docstring")  Utils::StringUsageMap::~StringUsageMap "Utils::StringUsageMap::~StringUsageMap()
-";
-
-%feature("docstring")  Utils::StringUsageMap::add "void Utils::StringUsageMap::add(std::string name)
-
-Adds string to the map to count number of times it was used. 
-";
-
-%feature("docstring")  Utils::StringUsageMap::begin "iterator_t Utils::StringUsageMap::begin()
-
-access to the map of strings 
-";
-
-%feature("docstring")  Utils::StringUsageMap::end "iterator_t Utils::StringUsageMap::end()
-";
-
-%feature("docstring")  Utils::StringUsageMap::get_current "std::string Utils::StringUsageMap::get_current() const
-
-Returns current string. 
-";
-
-
-// File: classUtils_1_1System.xml
-%feature("docstring") Utils::System "";
-
-
 // File: classTrivialMinimizer.xml
 %feature("docstring") TrivialMinimizer "
 
@@ -1310,13 +1267,15 @@ calculates safe relative difference |(a-b)/b|
 ";
 
 
-// File: namespaceUtils.xml
-%feature("docstring")  Utils::AdjustStringLength "std::string Utils::AdjustStringLength(const std::string &name, int length)
+// File: namespaceStringUtils.xml
+%feature("docstring")  StringUtils::matchesPattern "bool StringUtils::matchesPattern(const std::string &text, const std::string &wildcardPattern)
+
+Returns true if text matches pattern with wildcards '*' and '?'. 
 ";
 
-%feature("docstring")  Utils::EnableFloatingPointExceptions "void Utils::EnableFloatingPointExceptions()
+%feature("docstring")  StringUtils::padRight "std::string StringUtils::padRight(const std::string &name, int length)
 
-enables exception throw in the case of NaN, Inf 
+Returns string right-padded with blanks. 
 ";
 
 
@@ -1452,10 +1411,10 @@ enables exception throw in the case of NaN, Inf
 // File: Numeric_8h.xml
 
 
-// File: Utils_8cpp.xml
+// File: StringUtils_8cpp.xml
 
 
-// File: Utils_8h.xml
+// File: StringUtils_8h.xml
 
 
 // File: dir_892d84e8d1420bf45a9053cf0eede900.xml

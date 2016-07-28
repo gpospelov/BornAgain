@@ -73,17 +73,17 @@ class BA_CORE_API_ FitKernel
     void minimize();
 
     //! Returns reference to the kit with data
-    FitSuiteObjects* getFitObjects();
-    const FitSuiteObjects* getFitObjects() const;
+    FitSuiteObjects* getFitObjects() { return &m_fit_objects; }
+    const FitSuiteObjects* getFitObjects() const { return &m_fit_objects; }
 
     //! Returns reference to fit parameters
-    FitSuiteParameters* getFitParameters();
+    FitSuiteParameters* getFitParameters() { return &m_fit_parameters; }
 
     //! Returns reference to fit parameters
-    FitSuiteStrategies* getFitStrategies();
+    FitSuiteStrategies* getFitStrategies() { return &m_fit_strategies; }
 
     //! Returns true if the last iteration is done (used by observers to print summary)
-    bool isLastIteration() const;
+    bool isLastIteration() const { return m_is_last_iteration; }
 
     //! Returns current number of minimization function calls
     size_t getNCalls() const;
@@ -95,21 +95,19 @@ class BA_CORE_API_ FitKernel
     void printResults() const;
 
     //! Returns current fit options
-    FitOptions& getOptions();
+    FitOptions& getOptions() { return m_fit_options; }
 
     //! Sets fit options
-    void setOptions(const FitOptions& fit_options);
+    void setOptions(const FitOptions& fit_options) { m_fit_options = fit_options; }
 
     //! Returns total wall time in seconds which was spend for run fit
     double getRunTime() const;
 
     void notifyObservers();
 
-    bool isInterrupted() const;
-
-    void interruptFitting();
-
-    void resetInterrupt();
+    void interruptFitting() { m_is_interrupted = true; }
+    void resetInterrupt() { m_is_interrupted = false; }
+    bool isInterrupted() const { return m_is_interrupted; }
 
 private:
     bool check_prerequisites() const;

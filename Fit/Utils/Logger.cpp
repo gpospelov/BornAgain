@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "Logger.h"
-#include "Exceptions.h"
+#include <stdexcept>
 #include <boost/date_time/posix_time/posix_time.hpp>
 
 std::vector<std::string> MSG::Logger::m_level_names =
@@ -92,7 +92,7 @@ void Logger::SetLevel(const std::string& levelname)
         }
         ++index;
     }
-    throw Exceptions::LogicErrorException(
+    throw std::runtime_error(
         "Logger::SetLevel() -> Error! There is no message level '"+levelname+"'");
 }
 

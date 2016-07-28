@@ -14,9 +14,11 @@
 // ************************************************************************** //
 
 #include "FitStrategyAdjustParameters.h"
-#include "FitParameter.h"
 #include "FitKernel.h"
+#include "FitParameter.h"
+#include "FitSuiteParameters.h"
 #include "Logger.h"
+#include "Exceptions.h"
 
 FitStrategyAdjustParameters::FitStrategyAdjustParameters(const FitStrategyAdjustParameters &other)
     : IFitStrategy(other)
@@ -34,33 +36,33 @@ void FitStrategyAdjustParameters::execute()
     if( !m_kernel )
         throw Exceptions::NullPointerException(
             "FitSuiteStrategyAdjustParameters::execute() -> FitSuite doesn't exists");
-    FitSuiteParameters *fitParameters = m_kernel->getFitParameters();
+    FitSuiteParameters* fitParameters = m_kernel->getFitParameters();
 
     // fixing all parameters at they current values
     if( m_fix_all ) {
-        for(auto it = fitParameters->begin(); it!=fitParameters->end(); ++it)
-            (*it)->setFixed(true);
+        for(auto par: *fitParameters)
+            par->setFixed(true);
     }
 
     // releasing all parameters
     if( m_release_all ) {
-        for(auto it = fitParameters->begin(); it!=fitParameters->end(); ++it) {
+        for(auto par: *fitParameters) {
             msglog(MSG::DEBUG2) << "FitSuiteStrategyAdjustParameters::execute() -> releasing "
-                                << (*it)->getName();
-            (*it)->setFixed(false);
+                                << par->getName();
+            par->setFixed(false);
         }
     }
 
     // fixing dedicated list of fit parameters
-    for(auto it = m_pars_to_fix.begin(); it!= m_pars_to_fix.end(); ++it) {
-        msglog(MSG::DEBUG2) << "FitSuiteStrategyAdjustParameters::execute() -> fixing " << (*it);
-        fitParameters->getFitParameter((*it))->setFixed(true);
+    for(auto name: m_pars_to_fix) {
+        msglog(MSG::DEBUG2) << "FitSuiteStrategyAdjustParameters::execute() -> fixing " << name;
+        fitParameters->getFitParameter(name)->setFixed(true);
     }
 
     // releasing dedicated list of fit parameters
-    for(auto it = m_pars_to_release.begin(); it!= m_pars_to_release.end(); ++it) {
-        msglog(MSG::DEBUG2) << "FitSuiteStrategyAdjustParameters::execute() -> releasing " << (*it);
-        fitParameters->getFitParameter((*it))->setFixed(false);
+    for(auto name: m_pars_to_release) {
+        msglog(MSG::DEBUG2) << "FitSuiteStrategyAdjustParameters::execute() -> releasing " << name;
+        fitParameters->getFitParameter(name)->setFixed(false);
     }
 
     // saving original param values

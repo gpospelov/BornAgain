@@ -19,6 +19,7 @@
 #include "Logger.h"
 #include "MinimizerFactory.h"
 #include "ParameterPool.h"
+#include <stdexcept>
 
 FitKernel::FitKernel(FitSuite* fit_suite)
     : m_minimizer(MinimizerFactory::createMinimizer("Minuit2", "Migrad"))
@@ -75,10 +76,9 @@ void FitKernel::addFitStrategy(const IFitStrategy& strategy)
 
 void FitKernel::setMinimizer(IMinimizer* minimizer)
 {
-    if(!minimizer) {
-        msglog(MSG::ERROR)
-            << "FitSuite::setMinimizer() -> Error. Attempt to set nullptr minimizer.";
-    }
+    if(!minimizer)
+        throw std::runtime_error(
+            "FitSuite::setMinimizer() -> Error. Attempt to set nullptr minimizer");
     m_minimizer.reset(minimizer);
 }
 
@@ -89,7 +89,7 @@ IMinimizer* FitKernel::getMinimizer()
 
 void FitKernel::runFit()
 {
-    m_start_time =  boost::posix_time::microsec_clock::local_time();
+    m_start_time = boost::posix_time::microsec_clock::local_time();
 
     // check if all prerequisites are fullfilled before starting minimization
     check_prerequisites();
@@ -141,31 +141,6 @@ void FitKernel::minimize()
     m_fit_objects.runSimulations(); // we run simulation once again for best values found
 }
 
-FitSuiteObjects* FitKernel::getFitObjects()
-{
-    return &m_fit_objects;
-}
-
-const FitSuiteObjects* FitKernel::getFitObjects() const
-{
-    return &m_fit_objects;
-}
-
-FitSuiteParameters* FitKernel::getFitParameters()
-{
-    return &m_fit_parameters;
-}
-
-FitSuiteStrategies* FitKernel::getFitStrategies()
-{
-    return &m_fit_strategies;
-}
-
-bool FitKernel::isLastIteration() const
-{
-    return m_is_last_iteration;
-}
-
 // get current number of minimization function calls
 size_t FitKernel::getNCalls() const
 {
@@ -178,21 +153,6 @@ size_t FitKernel::getNCalls() const
 size_t FitKernel::getCurrentStrategyIndex() const
 {
     return m_fit_strategies.getCurrentStrategyIndex();
-}
-
-bool FitKernel::isInterrupted() const
-{
-    return m_is_interrupted;
-}
-
-void FitKernel::interruptFitting()
-{
-    m_is_interrupted = true;
-}
-
-void FitKernel::resetInterrupt()
-{
-    m_is_interrupted = false;
 }
 
 // results to stdout
@@ -210,16 +170,6 @@ void FitKernel::printResults() const
     m_minimizer->printResults();
 }
 
-FitOptions& FitKernel::getOptions()
-{
-    return m_fit_options;
-}
-
-void FitKernel::setOptions(const FitOptions& fit_options)
-{
-    m_fit_options = fit_options;
-}
-
 double FitKernel::getRunTime() const
 {
     boost::posix_time::time_duration diff = m_end_time - m_start_time;
@@ -230,7 +180,6 @@ void FitKernel::notifyObservers()
 {
     m_fit_suite->notifyObservers();
 }
-
 
 bool FitKernel::check_prerequisites() const
 {

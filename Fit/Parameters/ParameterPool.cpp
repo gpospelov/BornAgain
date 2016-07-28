@@ -16,7 +16,7 @@
 #include "ParameterPool.h"
 #include "AttLimits.h"
 #include "RealParameter.h"
-#include "Exceptions.h"
+#include <stdexcept>
 #include "StringUtils.h"
 #include <algorithm>
 #include <cassert>
@@ -82,7 +82,7 @@ void ParameterPool::addParameter(RealParameter* newPar)
 {
     for (const auto* par: m_params )
         if( par->getName()==newPar->getName() )
-            throw Exceptions::RuntimeErrorException(
+            throw std::runtime_error(
                 "BUG in ParameterPool::addParameter(): "
                 "Parameter '"+newPar->getName()+"' is already registered");
     m_params.push_back(newPar);
@@ -105,7 +105,7 @@ const RealParameter* ParameterPool::getParameter(const std::string& name) const
     for (const auto* par: m_params )
         if( par->getName()==name )
             return par;
-    throw Exceptions::LogicErrorException(
+    throw std::runtime_error(
         "ParameterPool::getParameter() -> Warning. No parameter with name '"+name+"'");
 }
 
@@ -116,7 +116,7 @@ RealParameter* ParameterPool::getParameter(const std::string& name)
     for (auto* par: m_params )
         if( par->getName()==name )
             return par;
-    throw Exceptions::LogicErrorException(
+    throw std::runtime_error(
         "ParameterPool::getParameter() -> Warning. No parameter with name '"+name+"'");
 }
 
@@ -141,11 +141,11 @@ void ParameterPool::setParameterValue(const std::string& name, double value)
 {
     RealParameter* x = getParameter(name);
     if( x->isNull() )
-        throw Exceptions::LogicErrorException(
+        throw std::runtime_error(
             "ParameterPool::setParameterValue() -> Error! Unitialized parameter '"+name+"'.");
     try {
         x->setValue(value);
-    } catch(Exceptions::RuntimeErrorException) {
+    } catch(std::runtime_error) {
         report_set_value_error(name, value);
     }
 }
@@ -160,7 +160,7 @@ int ParameterPool::setMatchedParametersValue(const std::string& wildcards, doubl
             try {
                 par->setValue(value);
                 npars++;
-            } catch(Exceptions::RuntimeErrorException) {
+            } catch(std::runtime_error) {
                 report_set_value_error(par->getName(), value);
             }
         }
@@ -215,7 +215,7 @@ void ParameterPool::report_find_matched_parameters_error(const std::string& patt
        << "' have been found. Existing keys are:" << std::endl;
     for (const auto* par: m_params)
         ostr << "'" << par->getName() << "'\n";
-    throw Exceptions::LogicErrorException(ostr.str());
+    throw std::runtime_error(ostr.str());
 }
 
 void ParameterPool::report_set_value_error(const std::string& parname, double value) const
@@ -226,8 +226,8 @@ void ParameterPool::report_set_value_error(const std::string& parname, double va
     try {
         ostr << " Parameter limits " << getParameter(parname)->getAttLimits() << ".\n";
     } catch (...) {
-        throw Exceptions::LogicErrorException(
+        throw std::runtime_error(
             "DOUBLE BUG in ParameterPool: cannot even report the error");
     }
-    throw Exceptions::LogicErrorException(ostr.str());
+    throw std::runtime_error(ostr.str());
 }

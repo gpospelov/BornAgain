@@ -45,7 +45,7 @@ void ROOTGeneticMinimizer::setParameter(size_t index, const FitParameter *par)
         ostr << "ROOTGeneticMinimizer::setParameter() -> Error! ";
         ostr << "Genetic minimizer requires either fixed or limited AttLimits::limited(left,right) parameter. ";
         ostr << " Parameter name '" << par->getName() << "', isFixed():" << par->isFixed() << " hasLowerandUpperLimits:" << par->hasLowerAndUpperLimits();
-        throw Exceptions::LogicErrorException(ostr.str());
+        throw std::runtime_error(ostr.str());
     }
     ROOTMinimizer::setParameter(index, par);
 }

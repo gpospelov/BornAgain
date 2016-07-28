@@ -45,7 +45,7 @@
 //    }
 
 //    if( !success ) {
-//        throw Exceptions::LogicErrorException("ROOTMinimizerOptionsHelper::processCommand() -> Error! Can't parse command '"+command+"'");
+//        throw std::runtime_error("ROOTMinimizerOptionsHelper::processCommand() -> Error! Can't parse command '"+command+"'");
 //    }
 
 //    return success;

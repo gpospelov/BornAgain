@@ -15,7 +15,7 @@
 
 #ifndef MINIMIZEROPTIONS_H
 #define MINIMIZEROPTIONS_H
-#include "Exceptions.h"
+#include <stdexcept>
 #include <iomanip>
 #include <iostream>
 #include <map>
@@ -93,20 +93,20 @@ public:
 private:
     template<class M>
     static void setExistingValue(
-            const std::string& name, M&  opts, const typename M::mapped_type&  value) {
+            const std::string& name, M& opts, const typename M::mapped_type& value) {
         auto pos = opts.find(name);
         if (pos == opts.end())
-            throw Exceptions::LogicErrorException(
+            throw std::runtime_error(
                 "MinimizerOptions::setValue() -> Error! Not existing name '"+name+"'");
         pos->second = value;
     }
 
     template<class M>
     static void addNewValue(
-            const std::string& name, M&  opts, const typename M::mapped_type&  value) {
+            const std::string& name, M& opts, const typename M::mapped_type& value) {
         auto pos = opts.find(name);
         if (pos != opts.end())
-            throw Exceptions::LogicErrorException(
+            throw std::runtime_error(
                 "MinimizerOptions::addValue() -> Error! Already existing name '"+name+"'");
         opts.insert(typename M::value_type(name, value) );
     }
@@ -115,13 +115,13 @@ private:
     static const typename M::mapped_type getValue(const std::string& name, const M& opts) {
         auto pos = opts.find(name);
         if (pos == opts.end())
-            throw Exceptions::LogicErrorException(
+            throw std::runtime_error(
                 "MinimizerOptions::getValue() -> Error! Not existing name '"+name+"'");
         return pos->second;
     }
 
     template<class M>
-    static void print_extra( const M& opts, std::ostream&  os) {
+    static void print_extra( const M& opts, std::ostream& os) {
         for (auto pos = opts.begin(); pos != opts.end(); ++pos)
             os << std::setw(24) << pos->first << " : " << std::setw(15) << pos->second << std::endl;
     }

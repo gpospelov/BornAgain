@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "RealParameter.h"
-#include "Exceptions.h"
+#include <stdexcept>
 #include "ParameterPool.h"
 #include <sstream>
 
@@ -29,7 +29,7 @@ RealParameter::RealParameter(
         std::ostringstream message;
         message << "Parameter " << fullName() << " has invalid initial value " << getValue()
                 << ": out of bounds [" << limits << "]\n";
-        throw Exceptions::OutOfBoundsException(message.str());
+        throw std::runtime_error(message.str());
     }
 }
 
@@ -45,7 +45,7 @@ RealParameter::RealParameter(
 void RealParameter::checkNull() const
 {
     if(isNull())
-        throw Exceptions::NullPointerException(
+        throw std::runtime_error(
             "BUG in RealParameter::getValue() -> Attempt to access uninitialised pointer.");
 }
 
@@ -58,10 +58,10 @@ void RealParameter::setValue(double value)
         std::ostringstream message;
         message << "Parameter " << fullName() << " has invalid value " << getValue()
                 << ": out of bounds [" << m_limits << "]\n";
-        throw Exceptions::OutOfBoundsException(message.str());
+        throw std::runtime_error(message.str());
     }
     if(m_limits.isFixed())
-        throw Exceptions::OutOfBoundsException("Parameter "+fullName()+" is fixed");
+        throw std::runtime_error("Parameter "+fullName()+" is fixed");
     *m_data = value;
     m_parent->onChange();
 }

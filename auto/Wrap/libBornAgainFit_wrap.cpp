@@ -23597,7 +23597,12 @@ static PyMethodDef SwigMethods[] = {
 		"virtual FitParameter::~FitParameter()\n"
 		"\n"
 		""},
-	 { (char *)"FitParameter_getName", _wrap_FitParameter_getName, METH_VARARGS, (char *)"FitParameter_getName(FitParameter self) -> std::string"},
+	 { (char *)"FitParameter_getName", _wrap_FitParameter_getName, METH_VARARGS, (char *)"\n"
+		"FitParameter_getName(FitParameter self) -> std::string\n"
+		"\n"
+		"std::string FitParameter::getName() const \n"
+		"\n"
+		""},
 	 { (char *)"FitParameter_setValue", _wrap_FitParameter_setValue, METH_VARARGS, (char *)"\n"
 		"FitParameter_setValue(FitParameter self, double value)\n"
 		"\n"

@@ -15,10 +15,9 @@
 
 #include "OMPISimulation.h"
 #include "OutputDataFunctions.h"
+#include "Logger.h"
 
 #ifdef BORNAGAIN_OPENMPI
-
-
 
 void OMPISimulation::runSimulation(Simulation * simulation)
 {
@@ -80,7 +79,6 @@ void OMPISimulation::runSimulation(Simulation * simulation)
         simulation->m_intensity_map.setRawDataVector(sum_of_raw);
     }
 }
-
 
 #else
 // -----------------------------------------------------------------------------

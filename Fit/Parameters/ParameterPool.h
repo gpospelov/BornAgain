@@ -16,12 +16,12 @@
 #ifndef PARAMETERPOOL_H
 #define PARAMETERPOOL_H
 
+#include <functional>
 #include <ostream>
 #include <string>
 #include <vector>
 
 class AttLimits;
-class IParameterized;
 class RealParameter;
 
 //! @class ParameterPool
@@ -31,7 +31,7 @@ class RealParameter;
 class BA_CORE_API_ ParameterPool
 {
 public:
-    explicit ParameterPool(IParameterized* parent);
+    explicit ParameterPool(const std::string& name, std::function<void()> onChange);
     ParameterPool(const ParameterPool&) = delete;
     ParameterPool& operator=(const ParameterPool&) = delete;
     virtual ~ParameterPool();
@@ -48,7 +48,9 @@ public:
     //! Deletes parameter map.
     void clear();
 
-    //! Returns size of parameter container.
+    std::string getName() const { return m_name; }
+
+    //! Returns number of parameters in the pool.
     size_t size() const { return m_params.size(); }
 
     //! Registers a parameter with key _name_ and pointer-to-value _parpointer_.
@@ -78,6 +80,10 @@ public:
     friend std::ostream& operator<<(std::ostream& ostr, const ParameterPool& obj) {
         obj.print(ostr); return ostr; }
 
+protected:
+    //! Called from RealParameter, calls back to owning IParameterized.
+    void onChange() const { m_onChange(); }
+
 private:
     //! Prints parameter pool contents.
     virtual void print(std::ostream& ostr) const;
@@ -94,8 +100,16 @@ private:
     //! reports error while setting parname to given value
     void report_set_value_error(const std::string& parname, double value) const;
 
-    IParameterized* const m_parent; //!< Parametrized object that "owns" this pool
+    //! The name of this pool, ought to be the name of the owning IParameterized.
+    std::string m_name;
+
+    //! The parameters in this pool.
     std::vector<RealParameter*> m_params;
+
+    //!< Callback to the owning IParameterized, called whenever a parameter has changed.
+    std::function<void()> m_onChange;
+
+    friend RealParameter; //!< allow call of onChange().
 };
 
 #endif // PARAMETERPOOL_H

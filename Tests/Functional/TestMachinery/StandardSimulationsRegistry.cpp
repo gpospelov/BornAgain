@@ -15,7 +15,7 @@
 
 #include "StandardSimulationsRegistry.h"
 #include "Exceptions.h"
-#include "Utils.h"
+#include "StringUtils.h"
 
 StandardSimulationsRegistry::StandardSimulationsRegistry()
 {
@@ -365,8 +365,8 @@ void StandardSimulationsRegistry::printCatalogue(std::ostream& ostr) const
 {
     for(auto it = m_catalogue.begin(); it != m_catalogue.end(); ++it) {
         SimulationInfo info = it->second;
-        ostr << Utils::AdjustStringLength(info.m_test_name, 20) << " | ";
-        ostr << Utils::AdjustStringLength(info.m_test_description, 40) << " | ";
+        ostr << StringUtils::padRight(info.m_test_name, 20) << " | ";
+        ostr << StringUtils::padRight(info.m_test_description, 40) << " | ";
         ostr << info.m_simulation_name << ", ";
         ostr << info.m_sample_builder_name << ", ";
         ostr << info.m_subtest_type;

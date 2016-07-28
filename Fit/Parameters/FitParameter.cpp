@@ -19,9 +19,10 @@
 FitParameter::FitParameter() : m_value(0), m_step(0), m_error(0)
 { }
 
-FitParameter::FitParameter(const std::string& name, double value, double step, const AttLimits& attlimits, double error)
-    : INamed(name)
-    , AttLimits(attlimits)
+FitParameter::FitParameter(
+    const std::string& name, double value, double step, const AttLimits& attlimits, double error)
+    : AttLimits(attlimits)
+    , m_name(name)
     , m_value(value)
     , m_step(step)
     , m_error(error)
@@ -30,10 +31,8 @@ FitParameter::FitParameter(const std::string& name, double value, double step, c
 void FitParameter::print(std::ostream& ostr) const
 {
     const int max_length_of_name(40);
-    std::string adjusted_name = getName();
+    std::string adjusted_name = m_name;
     adjusted_name.resize(max_length_of_name,' ');
     ostr << adjusted_name << std::scientific << std::setprecision(8) << m_value << "  ";
     AttLimits::print(ostr);
 }
-
-

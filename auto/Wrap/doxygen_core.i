@@ -3894,6 +3894,8 @@ C++ includes: FormFactorPolyhedron.h
 ";
 
 %feature("docstring")  FormFactorPolyhedron::onChange "virtual void FormFactorPolyhedron::onChange()=0
+
+Action to be taken in inherited class when a parameter has changed. 
 ";
 
 %feature("docstring")  FormFactorPolyhedron::evaluate_for_q "complex_t FormFactorPolyhedron::evaluate_for_q(const cvector_t q) const final
@@ -7052,6 +7054,27 @@ Create a new material that is transformed with respect to this one.
 ";
 
 
+// File: classINamed.xml
+%feature("docstring") INamed "
+
+Interface for named objects.
+
+C++ includes: INamed.h
+";
+
+%feature("docstring")  INamed::INamed "INamed::INamed()
+";
+
+%feature("docstring")  INamed::INamed "INamed::INamed(const std::string &name)
+";
+
+%feature("docstring")  INamed::~INamed "virtual INamed::~INamed()
+";
+
+%feature("docstring")  INamed::getName "std::string INamed::getName() const 
+";
+
+
 // File: classGeometry_1_1InfinitePlane.xml
 %feature("docstring") Geometry::InfinitePlane "
 
@@ -7773,6 +7796,62 @@ C++ includes: OutputDataWriteStrategy.h
 ";
 
 %feature("docstring")  IOutputDataWriteStrategy::writeOutputData "virtual void IOutputDataWriteStrategy::writeOutputData(const OutputData< double > &data, std::ostream &output_stream)=0
+";
+
+
+// File: classIParameterized.xml
+%feature("docstring") IParameterized "
+
+Manage a local parameter pool, and a tree of child pools.
+
+C++ includes: IParameterized.h
+";
+
+%feature("docstring")  IParameterized::IParameterized "IParameterized::IParameterized(const std::string &name=\"\")
+";
+
+%feature("docstring")  IParameterized::IParameterized "IParameterized::IParameterized(const IParameterized &other)
+";
+
+%feature("docstring")  IParameterized::~IParameterized "IParameterized::~IParameterized()
+";
+
+%feature("docstring")  IParameterized::getParameterPool "ParameterPool* IParameterized::getParameterPool() const
+
+Returns pointer to the parameter pool. 
+";
+
+%feature("docstring")  IParameterized::createParameterTree "ParameterPool * IParameterized::createParameterTree()
+
+Creates new parameter pool, with all local parameters and those of its children. 
+";
+
+%feature("docstring")  IParameterized::printParameters "void IParameterized::printParameters()
+";
+
+%feature("docstring")  IParameterized::registerParameter "void IParameterized::registerParameter(const std::string &name, double *parpointer)
+
+Register parameter address in the parameter pool; name allows for wildcard '*'. 
+";
+
+%feature("docstring")  IParameterized::registerParameter "void IParameterized::registerParameter(const std::string &name, double *parpointer, const AttLimits &limits)
+
+Register parameter address in the parameter pool; name allows for wildcard '*'. 
+";
+
+%feature("docstring")  IParameterized::setParameterValue "void IParameterized::setParameterValue(const std::string &name, double value)
+";
+
+%feature("docstring")  IParameterized::getParameter "RealParameter * IParameterized::getParameter(const std::string &name) const
+
+Returns parameter with given 'name'. 
+";
+
+%feature("docstring")  IParameterized::addParametersToExternalPool "std::string IParameterized::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const
+
+Adds parameters from local pool to external pool and recursively calls its direct children.
+
+Copies local parameters to external_pool, under name \"path/<name>copy_number/\". 
 ";
 
 
@@ -12899,10 +12978,10 @@ C++ includes: WavevectorInfo.h
 // File: namespace_0D289.xml
 
 
-// File: namespace_0D352.xml
+// File: namespace_0D355.xml
 
 
-// File: namespace_0D418.xml
+// File: namespace_0D421.xml
 
 
 // File: namespaceboost_1_1geometry.xml
@@ -14256,6 +14335,15 @@ Set all element intensities to given value.
 
 
 // File: Distributions_8h.xml
+
+
+// File: INamed_8h.xml
+
+
+// File: IParameterized_8cpp.xml
+
+
+// File: IParameterized_8h.xml
 
 
 // File: ParameterDistribution_8cpp.xml

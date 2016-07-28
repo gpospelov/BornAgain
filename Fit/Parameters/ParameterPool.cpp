@@ -17,17 +17,16 @@
 #include "AttLimits.h"
 #include "RealParameter.h"
 #include "Exceptions.h"
-#include "Utils.h"
+#include "StringUtils.h"
 #include <algorithm>
 #include <cassert>
 #include <iostream>
 #include <sstream>
 
-#include "IParameterized.h"
-
 //! Constructs an empty parameter pool.
-ParameterPool::ParameterPool(IParameterized* parent)
-    : m_parent(parent)
+ParameterPool::ParameterPool(const std::string& name, std::function<void()>onChange)
+    : m_name(name)
+    , m_onChange(onChange)
 {
 }
 
@@ -39,7 +38,7 @@ ParameterPool::~ParameterPool()
 //! Returns a literal clone.
 ParameterPool* ParameterPool::clone() const
 {
-    ParameterPool* new_pool = new ParameterPool(m_parent);
+    ParameterPool* new_pool = new ParameterPool(m_name, m_onChange);
     new_pool->m_params = m_params;
     return new_pool;
 }
@@ -49,7 +48,7 @@ ParameterPool* ParameterPool::clone() const
 
 ParameterPool* ParameterPool::cloneWithPrefix(const std::string& prefix) const
 {
-    ParameterPool* new_pool = new ParameterPool(m_parent);
+    ParameterPool* new_pool = new ParameterPool(m_name, m_onChange);
     for (const auto* par: m_params)
         new_pool->addParameter( new RealParameter( prefix + par->getName(), *par ) );
     return new_pool;
@@ -74,7 +73,7 @@ void ParameterPool::registerParameter(const std::string& name, double* parpointe
 void ParameterPool::registerParameter(
     const std::string& name, double* parameter_address, const AttLimits& limits)
 {
-    addParameter(new RealParameter(name, m_parent, parameter_address, limits) );
+    addParameter(new RealParameter(name, this, parameter_address, limits) );
 }
 
 //! Low-level routine.
@@ -129,7 +128,7 @@ std::vector<RealParameter*> ParameterPool::getMatchedParameters(
     std::vector<RealParameter*> selected_parameters;
     // loop over all parameters in the pool
     for (auto* par: m_params)
-        if( Utils::String::MatchPattern( par->getName(), wildcards ) )
+        if( StringUtils::matchesPattern( par->getName(), wildcards ) )
             selected_parameters.push_back(par);
     if( selected_parameters.empty() )
         report_find_matched_parameters_error(wildcards);
@@ -157,7 +156,7 @@ int ParameterPool::setMatchedParametersValue(const std::string& wildcards, doubl
 {
     int npars(0);
     for (auto* par: m_params) {
-        if( Utils::String::MatchPattern( par->getName(), wildcards ) ) {
+        if( StringUtils::matchesPattern( par->getName(), wildcards ) ) {
             try {
                 par->setValue(value);
                 npars++;

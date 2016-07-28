@@ -1724,184 +1724,6 @@ def AttLimits_fixed():
     """AttLimits_fixed() -> AttLimits"""
     return _libBornAgainFit.AttLimits_fixed()
 
-class INamed(_object):
-    """
-
-
-    Interface for named objects.
-
-    C++ includes: INamed.h
-
-    """
-    __swig_setmethods__ = {}
-    __setattr__ = lambda self, name, value: _swig_setattr(self, INamed, name, value)
-    __swig_getmethods__ = {}
-    __getattr__ = lambda self, name: _swig_getattr(self, INamed, name)
-    __repr__ = _swig_repr
-
-    def __init__(self, *args):
-        """
-        __init__(INamed self) -> INamed
-        __init__(INamed self, std::string const & name) -> INamed
-
-        INamed::INamed(const std::string &name)
-
-        """
-        if self.__class__ == INamed:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainFit.new_INamed(_self, *args)
-        try:
-            self.this.append(this)
-        except:
-            self.this = this
-    __swig_destroy__ = _libBornAgainFit.delete_INamed
-    __del__ = lambda self: None
-
-    def getName(self):
-        """
-        getName(INamed self) -> std::string
-
-        std::string INamed::getName() const 
-
-        """
-        return _libBornAgainFit.INamed_getName(self)
-
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainFit.disown_INamed(self)
-        return weakref_proxy(self)
-INamed_swigregister = _libBornAgainFit.INamed_swigregister
-INamed_swigregister(INamed)
-
-class IParameterized(INamed):
-    """
-
-
-    Manage a local parameter pool, and a tree of child pools.
-
-    C++ includes: IParameterized.h
-
-    """
-    __swig_setmethods__ = {}
-    for _s in [INamed]:
-        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
-    __setattr__ = lambda self, name, value: _swig_setattr(self, IParameterized, name, value)
-    __swig_getmethods__ = {}
-    for _s in [INamed]:
-        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
-    __getattr__ = lambda self, name: _swig_getattr(self, IParameterized, name)
-    __repr__ = _swig_repr
-
-    def __init__(self, *args):
-        """
-        __init__(IParameterized self, std::string const & name) -> IParameterized
-        __init__(IParameterized self) -> IParameterized
-        __init__(IParameterized self, IParameterized other) -> IParameterized
-
-        IParameterized::IParameterized(const IParameterized &other)
-
-        """
-        if self.__class__ == IParameterized:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainFit.new_IParameterized(_self, *args)
-        try:
-            self.this.append(this)
-        except:
-            self.this = this
-    __swig_destroy__ = _libBornAgainFit.delete_IParameterized
-    __del__ = lambda self: None
-
-    def getParameterPool(self):
-        """
-        getParameterPool(IParameterized self) -> ParameterPool *
-
-        ParameterPool* IParameterized::getParameterPool() const
-
-        Returns pointer to the parameter pool. 
-
-        """
-        return _libBornAgainFit.IParameterized_getParameterPool(self)
-
-
-    def createParameterTree(self):
-        """
-        createParameterTree(IParameterized self) -> ParameterPool *
-
-        ParameterPool * IParameterized::createParameterTree()
-
-        Creates new parameter pool, with all local parameters and those of its children. 
-
-        """
-        return _libBornAgainFit.IParameterized_createParameterTree(self)
-
-
-    def printParameters(self):
-        """
-        printParameters(IParameterized self)
-
-        void IParameterized::printParameters()
-
-        """
-        return _libBornAgainFit.IParameterized_printParameters(self)
-
-
-    def setParameterValue(self, name, value):
-        """
-        setParameterValue(IParameterized self, std::string const & name, double value)
-
-        void IParameterized::setParameterValue(const std::string &name, double value)
-
-        """
-        return _libBornAgainFit.IParameterized_setParameterValue(self, name, value)
-
-
-    def getParameter(self, name):
-        """
-        getParameter(IParameterized self, std::string const & name) -> RealParameter *
-
-        RealParameter * IParameterized::getParameter(const std::string &name) const
-
-        Returns parameter with given 'name'. 
-
-        """
-        return _libBornAgainFit.IParameterized_getParameter(self, name)
-
-
-    def onChange(self):
-        """onChange(IParameterized self)"""
-        return _libBornAgainFit.IParameterized_onChange(self)
-
-
-    def _print(self, ostr):
-        """_print(IParameterized self, std::ostream & ostr)"""
-        return _libBornAgainFit.IParameterized__print(self, ostr)
-
-
-    def registerParameter(self, *args):
-        """
-        registerParameter(IParameterized self, std::string const & name, double * parpointer)
-        registerParameter(IParameterized self, std::string const & name, double * parpointer, AttLimits limits)
-        registerParameter(IParameterized self, std::string const & name, int64_t parpointer, AttLimits limits)
-        registerParameter(IParameterized self, std::string const & name, int64_t parpointer)
-
-        void IParameterized::registerParameter(const std::string &name, double *parpointer, const AttLimits &limits)
-
-        Register parameter address in the parameter pool; name allows for wildcard '*'. 
-
-        """
-        return _libBornAgainFit.IParameterized_registerParameter(self, *args)
-
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainFit.disown_IParameterized(self)
-        return weakref_proxy(self)
-IParameterized_swigregister = _libBornAgainFit.IParameterized_swigregister
-IParameterized_swigregister(IParameterized)
-
 class IMinimizer(_object):
     """
 
@@ -2173,7 +1995,7 @@ class IMinimizer(_object):
 IMinimizer_swigregister = _libBornAgainFit.IMinimizer_swigregister
 IMinimizer_swigregister(IMinimizer)
 
-class FitParameter(INamed, AttLimits):
+class FitParameter(AttLimits):
     """
 
 
@@ -2183,11 +2005,11 @@ class FitParameter(INamed, AttLimits):
 
     """
     __swig_setmethods__ = {}
-    for _s in [INamed, AttLimits]:
+    for _s in [AttLimits]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, FitParameter, name, value)
     __swig_getmethods__ = {}
-    for _s in [INamed, AttLimits]:
+    for _s in [AttLimits]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, FitParameter, name)
     __repr__ = _swig_repr
@@ -2210,6 +2032,11 @@ class FitParameter(INamed, AttLimits):
             self.this = this
     __swig_destroy__ = _libBornAgainFit.delete_FitParameter
     __del__ = lambda self: None
+
+    def getName(self):
+        """getName(FitParameter self) -> std::string"""
+        return _libBornAgainFit.FitParameter_getName(self)
+
 
     def setValue(self, value):
         """

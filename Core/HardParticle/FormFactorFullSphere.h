@@ -28,13 +28,15 @@ public:
     //! @param radius of Sphere
     FormFactorFullSphere(double radius);
 
-    virtual FormFactorFullSphere *clone() const;
+    FormFactorFullSphere *clone() const;
 
-    virtual void accept(ISampleVisitor *visitor) const;
+    virtual void accept(ISampleVisitor *visitor) const final;
 
-    virtual double getRadius() const { return m_radius; }
+    double getRadius() const { return m_radius; }
 
-    virtual complex_t evaluate_for_q(const cvector_t q) const;
+    virtual double getRadialExtension() const final { return m_radius; }
+
+    virtual complex_t evaluate_for_q(const cvector_t q) const final;
 
 private:
     double m_radius;

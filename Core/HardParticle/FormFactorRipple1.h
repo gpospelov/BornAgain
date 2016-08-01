@@ -33,17 +33,17 @@ public:
     FormFactorRipple1(double length, double width, double height);
     virtual ~FormFactorRipple1();
 
-    virtual FormFactorRipple1 *clone() const;
+    FormFactorRipple1 *clone() const;
 
-    virtual void accept(ISampleVisitor *visitor) const;
+    virtual void accept(ISampleVisitor *visitor) const final;
 
     double getLength() const { return m_length; }
     double getHeight() const { return m_height; }
     double getWidth() const { return m_width; }
 
-    virtual double getRadius() const;
+    virtual double getRadialExtension() const final;
 
-    virtual complex_t evaluate_for_q(const cvector_t q) const;
+    virtual complex_t evaluate_for_q(const cvector_t q) const final;
 
 protected:
     virtual bool check_initialization() const;

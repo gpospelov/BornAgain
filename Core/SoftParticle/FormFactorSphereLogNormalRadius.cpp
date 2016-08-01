@@ -43,12 +43,12 @@ FormFactorSphereLogNormalRadius::~FormFactorSphereLogNormalRadius()
     delete mp_distribution;
 }
 
-void FormFactorSphereLogNormalRadius::accept(ISampleVisitor *visitor) const
+void FormFactorSphereLogNormalRadius::accept(ISampleVisitor* visitor) const
 {
     visitor->visit(this);
 }
 
-double FormFactorSphereLogNormalRadius::getRadius() const
+double FormFactorSphereLogNormalRadius::getRadialExtension() const
 {
     return m_mean;
 }

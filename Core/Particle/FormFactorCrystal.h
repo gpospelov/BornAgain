@@ -37,7 +37,7 @@ public:
 
     virtual double getVolume() const;
 
-    virtual double getRadius() const;
+    virtual double getRadialExtension() const;
 
     virtual complex_t evaluate(const WavevectorInfo& wavevectors) const;
 

@@ -80,7 +80,7 @@ void FormFactorLongRipple2Gauss::accept(ISampleVisitor *visitor) const
     visitor->visit(this);
 }
 
-double FormFactorLongRipple2Gauss::getRadius() const
+double FormFactorLongRipple2Gauss::getRadialExtension() const
 {
     return ( m_width + m_length ) / 4.0;
 }

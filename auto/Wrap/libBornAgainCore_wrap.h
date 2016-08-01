@@ -311,7 +311,7 @@ public:
     virtual void setAmbientMaterial(IMaterial const &arg0);
     virtual complex_t evaluate(WavevectorInfo const &wavevectors) const;
     virtual double getVolume() const;
-    virtual double getRadius() const;
+    virtual double getRadialExtension() const;
     virtual void setSpecularInfo(ILayerRTCoefficients const *arg0, ILayerRTCoefficients const *arg1);
 
 /* Internal director utilities */
@@ -376,7 +376,7 @@ public:
     virtual void setAmbientMaterial(IMaterial const &arg0);
     virtual complex_t evaluate(WavevectorInfo const &wavevectors) const;
     virtual double getVolume() const;
-    virtual double getRadius() const;
+    virtual double getRadialExtension() const;
     virtual void setSpecularInfo(ILayerRTCoefficients const *arg0, ILayerRTCoefficients const *arg1);
     virtual complex_t evaluate_for_q(cvector_t const q) const;
     virtual bool check_initialization() const;

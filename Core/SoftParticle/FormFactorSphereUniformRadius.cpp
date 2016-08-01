@@ -33,7 +33,6 @@ FormFactorSphereUniformRadius::FormFactorSphereUniformRadius(double mean,
                 " mean radius must be bigger than the half width");
     }
     setName(FormFactorSphereUniformRadiusType);
-    check_initialization();
     init_parameters();
 }
 
@@ -42,11 +41,7 @@ FormFactorSphereUniformRadius* FormFactorSphereUniformRadius::clone() const
     return new FormFactorSphereUniformRadius(m_mean, m_full_width);
 }
 
-FormFactorSphereUniformRadius::~FormFactorSphereUniformRadius()
-{
-}
-
-void FormFactorSphereUniformRadius::accept(ISampleVisitor *visitor) const
+void FormFactorSphereUniformRadius::accept(ISampleVisitor* visitor) const
 {
     visitor->visit(this);
 }
@@ -67,11 +62,6 @@ complex_t FormFactorSphereUniformRadius::evaluate_for_q(const cvector_t q) const
     return nominator/(q2*q2*W);
 }
 
-bool FormFactorSphereUniformRadius::check_initialization() const
-{
-    return true;
-}
-
 void FormFactorSphereUniformRadius::init_parameters()
 {
     registerParameter(MeanRadius, &m_mean, AttLimits::n_positive());
@@ -80,7 +70,9 @@ void FormFactorSphereUniformRadius::init_parameters()
 
 bool FormFactorSphereUniformRadius::checkParameters() const
 {
-    if (m_full_width<=0.0) return false;
-    if (2.0*m_mean<m_full_width) return false;
+    if (m_full_width<=0.0)
+        return false;
+    if (2.0*m_mean<m_full_width)
+        return false;
     return true;
 }

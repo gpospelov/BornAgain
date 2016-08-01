@@ -32,7 +32,7 @@ void FormFactorTrivial::accept(ISampleVisitor* visitor) const
     visitor->visit(this);
 }
 
-double FormFactorTrivial::getRadius() const
+double FormFactorTrivial::getRadialExtension() const
 {
     return 1.0;
 }

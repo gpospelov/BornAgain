@@ -35,8 +35,6 @@ public:
 
     virtual double getVolume() const;
 
-    virtual double getRadius() const;
-
     virtual complex_t evaluate(const WavevectorInfo& wavevectors) const;
 
 #ifndef SWIG

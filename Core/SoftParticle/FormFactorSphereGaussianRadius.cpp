@@ -19,8 +19,7 @@
 
 using namespace BornAgain;
 
-FormFactorSphereGaussianRadius::FormFactorSphereGaussianRadius(double mean,
-                                                               double sigma)
+FormFactorSphereGaussianRadius::FormFactorSphereGaussianRadius(double mean, double sigma)
 : m_mean(mean)
 , m_sigma(sigma)
 , m_mean_r3(0.0)
@@ -29,7 +28,6 @@ FormFactorSphereGaussianRadius::FormFactorSphereGaussianRadius(double mean,
     setName(FormFactorSphereGaussianRadiusType);
     m_mean_r3 = calculateMeanR3();
     p_ff_sphere = new FormFactorFullSphere(m_mean_r3);
-    check_initialization();
     init_parameters();
 }
 
@@ -43,12 +41,12 @@ FormFactorSphereGaussianRadius::~FormFactorSphereGaussianRadius()
     delete p_ff_sphere;
 }
 
-void FormFactorSphereGaussianRadius::accept(ISampleVisitor *visitor) const
+void FormFactorSphereGaussianRadius::accept(ISampleVisitor* visitor) const
 {
     visitor->visit(this);
 }
 
-double FormFactorSphereGaussianRadius::getRadius() const
+double FormFactorSphereGaussianRadius::getRadialExtension() const
 {
     return m_mean;
 }
@@ -63,11 +61,6 @@ complex_t FormFactorSphereGaussianRadius::evaluate_for_q(const cvector_t q) cons
 double FormFactorSphereGaussianRadius::calculateMeanR3() const
 {
     return std::pow(m_mean*(m_mean*m_mean+3.0*m_sigma*m_sigma),1.0/3.0);
-}
-
-bool FormFactorSphereGaussianRadius::check_initialization() const
-{
-    return true;
 }
 
 void FormFactorSphereGaussianRadius::init_parameters()

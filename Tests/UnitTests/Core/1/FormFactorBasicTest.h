@@ -49,7 +49,7 @@ protected:
         V = real(ff0);
         EXPECT_NEAR( p->getVolume(), V, 3e-16*V );
 
-        R = p->getRadius();
+        R = p->getRadialExtension();
         if ( R*R*R<V/20 || R*R*R>20*V ) {
             std::cerr<<"WARNING: very elongated particle, or wrong radius; some tests disabled\n";
             std::cerr<<std::setprecision(16)<<"  V  ="<<V<<"\n  R^3="<<R*R*R<<"\n";
@@ -132,7 +132,7 @@ TEST_F(FormFactorBasicTest, Box)
     EXPECT_EQ(BornAgain::FFBoxType, box.getName());
     EXPECT_EQ(7., box.getWidth());
     EXPECT_EQ(5., box.getHeight());
-    EXPECT_EQ(3., box.getRadius());
+    EXPECT_EQ(3., box.getRadialExtension());
     EXPECT_DOUBLE_EQ(volume, box.getVolume());
 
     test_ff( &box );

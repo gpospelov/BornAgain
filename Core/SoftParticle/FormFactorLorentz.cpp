@@ -51,12 +51,12 @@ FormFactorLorentz* FormFactorLorentz::clone() const
     return new FormFactorLorentz(m_width, m_height);
 }
 
-void FormFactorLorentz::accept(ISampleVisitor *visitor) const
+void FormFactorLorentz::accept(ISampleVisitor* visitor) const
 {
     visitor->visit(this);
 }
 
-double FormFactorLorentz::getRadius() const
+double FormFactorLorentz::getRadialExtension() const
 {
     return m_width / 2.0;
 }

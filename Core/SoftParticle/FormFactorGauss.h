@@ -28,17 +28,17 @@ public:
     FormFactorGauss(double volume);
     FormFactorGauss(double width, double height);
     virtual ~FormFactorGauss() {}
-    virtual FormFactorGauss *clone() const;
+    FormFactorGauss *clone() const;
 
-    virtual void accept(ISampleVisitor *visitor) const;
+    virtual void accept(ISampleVisitor *visitor) const final;
 
-    virtual complex_t evaluate_for_q(const cvector_t q) const;
-
-    //! Returns height
-    double getHeight() const;
+    double getWidth() const { return m_width; }
+    double getHeight() const { return m_height; }
 
     //! Returns width
-    virtual double getRadius() const;
+    virtual double getRadialExtension() const final { return m_width; }
+
+    virtual complex_t evaluate_for_q(const cvector_t q) const final;
 
 protected:
     virtual bool check_initialization() const;
@@ -51,16 +51,4 @@ private:
     void initialize();
 };
 
-inline double FormFactorGauss::getHeight() const
-{
-    return m_height;
-}
-
-inline double FormFactorGauss::getRadius() const
-{
-    return m_width;
-}
-
 #endif // FORMFACTORGAUSS_H
-
-

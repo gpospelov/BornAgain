@@ -69,7 +69,7 @@ void FormFactorLongRipple1Lorentz::accept(ISampleVisitor* visitor) const
     visitor->visit(this);
 }
 
-double FormFactorLongRipple1Lorentz::getRadius() const
+double FormFactorLongRipple1Lorentz::getRadialExtension() const
 {
     return ( m_width + m_length ) / 4.0;
 }

@@ -46,7 +46,7 @@ public:
 
     //! Returns the (approximate in some cases) radial size of the particle of this
     //! form factor's shape. This is used for SSCA calculations
-    virtual double getRadius() const;
+    virtual double getRadialExtension() const;
 
     //! Sets reflection/transmission info for scalar DWBA simulation
     virtual void setSpecularInfo(const ILayerRTCoefficients* p_in_coeffs,

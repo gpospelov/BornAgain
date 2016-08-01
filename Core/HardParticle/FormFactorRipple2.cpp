@@ -70,7 +70,7 @@ void FormFactorRipple2::init_parameters()
     registerParameter(AsymmetryLength, &m_d);
 }
 
-FormFactorRipple2 *FormFactorRipple2::clone() const
+FormFactorRipple2* FormFactorRipple2::clone() const
 {
     return new FormFactorRipple2(m_length, m_width, m_height, m_d);
 }
@@ -80,7 +80,7 @@ void FormFactorRipple2::accept(ISampleVisitor *visitor) const
     visitor->visit(this);
 }
 
-double FormFactorRipple2::getRadius() const
+double FormFactorRipple2::getRadialExtension() const
 {
     return ( m_width + m_length ) / 4.0;
 }

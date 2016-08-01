@@ -187,11 +187,11 @@ SizeSpacingCorrelationApproximationStrategy::getCharacteristicSizeCoupling(doubl
 }
 
 complex_t
-SizeSpacingCorrelationApproximationStrategy::calculatePositionOffsetPhase(double qp, double kappa,
-                                                                          size_t index) const
+SizeSpacingCorrelationApproximationStrategy::calculatePositionOffsetPhase(
+    double qp, double kappa, size_t index) const
 {
     return std::exp(complex_t(0.0, 1.0) * kappa * qp
-                    * (m_ff_infos[index]->mp_ff->getRadius() - m_mean_radius));
+                    * (m_ff_infos[index]->mp_ff->getRadialExtension() - m_mean_radius));
 }
 
 double SizeSpacingCorrelationApproximationStrategy::getqp(const kvector_t q) const
@@ -206,7 +206,7 @@ void SizeSpacingCorrelationApproximationStrategy::initMeanRadius()
     m_mean_radius = 0.0;
     double total_abundance = 0.0;
     for (size_t i = 0; i < m_ff_infos.size(); ++i) {
-        m_mean_radius += m_ff_infos[i]->m_abundance * m_ff_infos[i]->mp_ff->getRadius();
+        m_mean_radius += m_ff_infos[i]->m_abundance * m_ff_infos[i]->mp_ff->getRadialExtension();
         total_abundance += m_ff_infos[i]->m_abundance;
     }
     if (total_abundance > 0.0)

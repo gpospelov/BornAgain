@@ -28,16 +28,16 @@ public:
     FormFactorLorentz(double volume);
     FormFactorLorentz(double width, double height);
 
-    virtual FormFactorLorentz *clone() const;
+    FormFactorLorentz *clone() const;
 
-    virtual void accept(ISampleVisitor *visitor) const;
+    virtual void accept(ISampleVisitor *visitor) const final;
 
-    double getHeight() const { return m_height; }
     double getWidth() const { return m_width; }
+    double getHeight() const { return m_height; }
 
-    virtual double getRadius() const;
+    virtual double getRadialExtension() const final;
 
-    virtual complex_t evaluate_for_q(const cvector_t q) const;
+    virtual complex_t evaluate_for_q(const cvector_t q) const final;
 
 protected:
     virtual bool check_initialization() const;

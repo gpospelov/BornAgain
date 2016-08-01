@@ -45,9 +45,9 @@ double FormFactorCrystal::getVolume() const
     return mp_meso_form_factor->getVolume();
 }
 
-double FormFactorCrystal::getRadius() const
+double FormFactorCrystal::getRadialExtension() const
 {
-    return mp_meso_form_factor->getRadius();
+    return mp_meso_form_factor->getRadialExtension();
 }
 
 complex_t FormFactorCrystal::evaluate_for_q(const cvector_t) const

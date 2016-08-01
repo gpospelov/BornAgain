@@ -60,7 +60,7 @@ void FormFactorLongRipple1Gauss::init_parameters()
     registerParameter(Length, &m_length, AttLimits::n_positive());
 }
 
-FormFactorLongRipple1Gauss *FormFactorLongRipple1Gauss::clone() const
+FormFactorLongRipple1Gauss* FormFactorLongRipple1Gauss::clone() const
 {
     return new FormFactorLongRipple1Gauss(m_length, m_width, m_height);
 }
@@ -70,7 +70,7 @@ void FormFactorLongRipple1Gauss::accept(ISampleVisitor *visitor) const
     visitor->visit(this);
 }
 
-double FormFactorLongRipple1Gauss::getRadius() const
+double FormFactorLongRipple1Gauss::getRadialExtension() const
 {
     return ( m_width + m_length ) / 4.0;
 }

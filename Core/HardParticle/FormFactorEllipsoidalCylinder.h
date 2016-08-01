@@ -31,17 +31,17 @@ public:
     //! @param height of Ellipsoidal Cylinder
     FormFactorEllipsoidalCylinder(double radius_x, double radius_y, double height);
 
-    virtual FormFactorEllipsoidalCylinder* clone() const;
+    FormFactorEllipsoidalCylinder* clone() const;
 
-    virtual void accept(ISampleVisitor* visitor) const;
+    virtual void accept(ISampleVisitor* visitor) const final;
 
     double getRadiusX() const { return m_radius_x; }
     double getRadiusY() const { return m_radius_y; }
     double getHeight() const { return m_height; }
 
-    virtual double getRadius() const;
+    virtual double getRadialExtension() const final;
 
-    virtual complex_t evaluate_for_q(const cvector_t q) const;
+    virtual complex_t evaluate_for_q(const cvector_t q) const final;
 
 protected:
     virtual bool check_initialization() const;

@@ -61,7 +61,7 @@ void FormFactorHemiEllipsoid::accept(ISampleVisitor *visitor) const
     visitor->visit(this);
 }
 
-double FormFactorHemiEllipsoid::getRadius() const
+double FormFactorHemiEllipsoid::getRadialExtension() const
 {
     return ( m_radius_x + m_radius_y ) / 2.0;
 }

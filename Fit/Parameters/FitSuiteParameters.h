@@ -61,7 +61,7 @@ class BA_CORE_API_ FitSuiteParameters
     void setErrors(const std::vector<double >& pars_errors);
 
     //! Returns errors of all defined parameters.
-    std::vector<double > getErrors() const;
+    std::vector<double> getErrors() const;
 
     //! Returns number of parameters.
     size_t size() const { return m_parameters.size(); }
@@ -105,7 +105,7 @@ class BA_CORE_API_ FitSuiteParameters
 
  private:
     size_t check_index(size_t index) const;
-    parameters_t m_parameters; //!< collection of fit parameters
+    std::vector<FitParameter*> m_parameters; //!< collection of fit parameters
 };
 
 #endif // FITSUITEPARAMETERS_H

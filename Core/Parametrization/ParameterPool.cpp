@@ -139,12 +139,12 @@ std::vector<RealParameter*> ParameterPool::getMatchedParameters(
 
 void ParameterPool::setParameterValue(const std::string& name, double value)
 {
-    RealParameter* x = getParameter(name);
-    if( x->isNull() )
+    RealParameter* par = getParameter(name);
+    if( par->isNull() )
         throw std::runtime_error(
             "ParameterPool::setParameterValue() -> Error! Unitialized parameter '"+name+"'.");
     try {
-        x->setValue(value);
+        par->setValue(value);
     } catch(std::runtime_error) {
         report_set_value_error(name, value);
     }

@@ -45,9 +45,8 @@ ROOTMinimizer::~ROOTMinimizer()
 void ROOTMinimizer::setParameters(const FitSuiteParameters& parameters)
 {
     size_t index(0);
-    for(FitSuiteParameters::const_iterator it=parameters.begin(); it!=parameters.end(); ++it) {
-        setParameter(index++, (*it) );
-    }
+    for (auto par: parameters)
+        setParameter(index++, par );
     if( parameters.size() != getNumberOfVariables())  {
         std::ostringstream ostr;
         ostr << "ROOTMinimizer::setParameters() -> Error! Number of variables defined in minimizer (" << getNumberOfVariables() << ") ";

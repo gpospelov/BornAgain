@@ -34,19 +34,19 @@ class BA_CORE_API_ FitParameter : public AttLimits
     std::string getName() const { return m_name; }
 
     //! Sets value of parameter
-    virtual void setValue(double value) { m_value = value;}
+    virtual void setValue(double value) { m_value = value; }
     //! Returns value of parameter
-    virtual double getValue() const { return m_value;}
+    virtual double getValue() const { return m_value; }
 
     //! Sets parameter step for minimizer
     virtual void setStep(double value) { m_step = value; }
     //! Returns parameter step for minimizer
-    virtual double getStep() const { return m_step;}
+    virtual double getStep() const { return m_step; }
 
     //! Sets parameter error
     virtual void setError(double value) { m_error = value; }
     //! Returns parameter step for minimizer
-    virtual double getError() const { return m_error;}
+    virtual double getError() const { return m_error; }
 
     //! Prints class
     friend std::ostream& operator<<(std::ostream& ostr, const FitParameter& m) {

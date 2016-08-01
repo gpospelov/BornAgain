@@ -49,15 +49,15 @@ public:
 
     //! @brief get the internal structure, which is in principle unbounded in
     //! space (e.g. an infinite crystal)
-    const IClusteredParticles* getClusteredParticles() const;
+    const IClusteredParticles* getClusteredParticles() const { return mp_particle_structure; }
 
 private:
     //! Creates a form factor decorated with the IParticle's position/rotation
     IFormFactor* createTransformationDecoratedFormFactor(
         const IFormFactor& bare_ff, const IRotation* p_rotation, kvector_t translation) const;
 
-    IClusteredParticles* mp_particle_structure;
-    IFormFactor* mp_meso_form_factor;
+    IClusteredParticles* mp_particle_structure; //!< Currently, always of type Crystal
+    IFormFactor* mp_meso_form_factor; //!< Outer shape of this mesocrystal
     void initialize();
 };
 

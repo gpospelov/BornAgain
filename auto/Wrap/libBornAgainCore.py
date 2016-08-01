@@ -6960,8 +6960,6 @@ class IClusteredParticles(ICompositeSample):
     def __init__(self, *args, **kwargs):
         raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainCore.delete_IClusteredParticles
-    __del__ = lambda self: None
 
     def clone(self):
         """
@@ -7032,6 +7030,8 @@ class IClusteredParticles(ICompositeSample):
         """
         return _libBornAgainCore.IClusteredParticles_createTotalFormFactor(self, arg2, arg3, arg4)
 
+    __swig_destroy__ = _libBornAgainCore.delete_IClusteredParticles
+    __del__ = lambda self: None
 IClusteredParticles_swigregister = _libBornAgainCore.IClusteredParticles_swigregister
 IClusteredParticles_swigregister(IClusteredParticles)
 

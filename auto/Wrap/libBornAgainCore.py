@@ -6943,7 +6943,7 @@ class IClusteredParticles(ICompositeSample):
     """
 
 
-    An ordered assembly of particles.
+    An ordered assembly of particles. Currently, the only child class is  Crystal.
 
     C++ includes: IClusteredParticles.h
 
@@ -6965,9 +6965,9 @@ class IClusteredParticles(ICompositeSample):
         """
         clone(IClusteredParticles self) -> IClusteredParticles
 
-        virtual IClusteredParticles* IClusteredParticles::clone() const =0
+        IClusteredParticles* IClusteredParticles::clone() const =0
 
-        clone method to allow for polymorphic copying 
+        Returns a clone of this  ISample object. 
 
         """
         return _libBornAgainCore.IClusteredParticles_clone(self)
@@ -7039,7 +7039,7 @@ class Crystal(IClusteredParticles):
     """
 
 
-    A crystal structure with a form factor as a basis.
+    A crystal structure with a  ParticleComposition as a basis. Used in  MesoCrystal, where it is given an outer shape.
 
     C++ includes: Crystal.h
 
@@ -7075,7 +7075,7 @@ class Crystal(IClusteredParticles):
 
         Crystal * Crystal::clone() const
 
-        clone method to allow for polymorphic copying 
+        Returns a clone of this  ISample object. 
 
         """
         return _libBornAgainCore.Crystal_clone(self)
@@ -9699,7 +9699,14 @@ class IFormFactor(ISample):
 
 
     def getRadialExtension(self):
-        """getRadialExtension(IFormFactor self) -> double"""
+        """
+        getRadialExtension(IFormFactor self) -> double
+
+        virtual double IFormFactor::getRadialExtension() const =0
+
+        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+
+        """
         return _libBornAgainCore.IFormFactor_getRadialExtension(self)
 
 
@@ -10100,7 +10107,7 @@ class IFormFactorDecorator(IFormFactor):
         """
         setAmbientMaterial(IFormFactorDecorator self, IMaterial material)
 
-        void IFormFactorDecorator::setAmbientMaterial(const IMaterial &material)
+        virtual void IFormFactorDecorator::setAmbientMaterial(const IMaterial &material)
 
         Passes the refractive index of the ambient material in which this particle is embedded. 
 
@@ -10112,7 +10119,7 @@ class IFormFactorDecorator(IFormFactor):
         """
         getVolume(IFormFactorDecorator self) -> double
 
-        double IFormFactorDecorator::getVolume() const
+        virtual double IFormFactorDecorator::getVolume() const
 
         Returns the total volume of the particle of this form factor's shape. 
 
@@ -10121,7 +10128,14 @@ class IFormFactorDecorator(IFormFactor):
 
 
     def getRadialExtension(self):
-        """getRadialExtension(IFormFactorDecorator self) -> double"""
+        """
+        getRadialExtension(IFormFactorDecorator self) -> double
+
+        virtual double IFormFactorDecorator::getRadialExtension() const
+
+        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+
+        """
         return _libBornAgainCore.IFormFactorDecorator_getRadialExtension(self)
 
 IFormFactorDecorator_swigregister = _libBornAgainCore.IFormFactorDecorator_swigregister
@@ -10486,7 +10500,7 @@ class FormFactorPolyhedron(IFormFactorBorn):
         """
         getVolume(FormFactorPolyhedron self) -> double
 
-        virtual double FormFactorPolyhedron::getVolume() const final
+        double FormFactorPolyhedron::getVolume() const final
 
         Returns the total volume of the particle of this form factor's shape. 
 
@@ -10495,7 +10509,14 @@ class FormFactorPolyhedron(IFormFactorBorn):
 
 
     def getRadialExtension(self):
-        """getRadialExtension(FormFactorPolyhedron self) -> double"""
+        """
+        getRadialExtension(FormFactorPolyhedron self) -> double
+
+        double FormFactorPolyhedron::getRadialExtension() const final
+
+        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+
+        """
         return _libBornAgainCore.FormFactorPolyhedron_getRadialExtension(self)
 
 
@@ -10572,7 +10593,14 @@ class FormFactorPolygonalPrism(IFormFactorBorn):
 
 
     def getRadialExtension(self):
-        """getRadialExtension(FormFactorPolygonalPrism self) -> double"""
+        """
+        getRadialExtension(FormFactorPolygonalPrism self) -> double
+
+        double FormFactorPolygonalPrism::getRadialExtension() const final
+
+        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+
+        """
         return _libBornAgainCore.FormFactorPolygonalPrism_getRadialExtension(self)
 
     __swig_destroy__ = _libBornAgainCore.delete_FormFactorPolygonalPrism
@@ -10633,7 +10661,14 @@ class FormFactorPolygonalSurface(IFormFactorBorn):
 
 
     def getRadialExtension(self):
-        """getRadialExtension(FormFactorPolygonalSurface self) -> double"""
+        """
+        getRadialExtension(FormFactorPolygonalSurface self) -> double
+
+        double FormFactorPolygonalSurface::getRadialExtension() const final
+
+        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+
+        """
         return _libBornAgainCore.FormFactorPolygonalSurface_getRadialExtension(self)
 
     __swig_destroy__ = _libBornAgainCore.delete_FormFactorPolygonalSurface
@@ -10822,7 +10857,7 @@ class FormFactorBox(IFormFactorBorn):
         """
         accept(FormFactorBox self, ISampleVisitor visitor)
 
-        void FormFactorBox::accept(ISampleVisitor *visitor) const
+        void FormFactorBox::accept(ISampleVisitor *visitor) const final
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -10861,7 +10896,14 @@ class FormFactorBox(IFormFactorBorn):
 
 
     def getRadialExtension(self):
-        """getRadialExtension(FormFactorBox self) -> double"""
+        """
+        getRadialExtension(FormFactorBox self) -> double
+
+        double FormFactorBox::getRadialExtension() const final
+
+        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+
+        """
         return _libBornAgainCore.FormFactorBox_getRadialExtension(self)
 
 
@@ -10869,7 +10911,7 @@ class FormFactorBox(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorBox self, cvector_t q) -> complex_t
 
-        complex_t FormFactorBox::evaluate_for_q(const cvector_t q) const
+        complex_t FormFactorBox::evaluate_for_q(const cvector_t q) const final
 
         evaluate scattering amplitude for complex wavevector
 
@@ -10951,7 +10993,7 @@ class FormFactorCone(IFormFactorBorn):
         """
         accept(FormFactorCone self, ISampleVisitor visitor)
 
-        void FormFactorCone::accept(ISampleVisitor *visitor) const
+        void FormFactorCone::accept(ISampleVisitor *visitor) const final
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -10983,16 +11025,21 @@ class FormFactorCone(IFormFactorBorn):
         """
         getRadius(FormFactorCone self) -> double
 
-        virtual double FormFactorCone::getRadius() const
-
-        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+        double FormFactorCone::getRadius() const 
 
         """
         return _libBornAgainCore.FormFactorCone_getRadius(self)
 
 
     def getRadialExtension(self):
-        """getRadialExtension(FormFactorCone self) -> double"""
+        """
+        getRadialExtension(FormFactorCone self) -> double
+
+        double FormFactorCone::getRadialExtension() const final
+
+        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+
+        """
         return _libBornAgainCore.FormFactorCone_getRadialExtension(self)
 
 
@@ -11000,7 +11047,7 @@ class FormFactorCone(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorCone self, cvector_t q) -> complex_t
 
-        complex_t FormFactorCone::evaluate_for_q(const cvector_t q) const
+        complex_t FormFactorCone::evaluate_for_q(const cvector_t q) const final
 
         evaluate scattering amplitude for complex wavevector
 
@@ -11124,7 +11171,7 @@ class FormFactorCrystal(IFormFactorBorn):
     """
 
 
-    The formfactor for mesocrystals with a bulk crystal structure of particles.
+    The formfactor of a  MesoCrystal.
 
     C++ includes: FormFactorCrystal.h
 
@@ -11170,7 +11217,7 @@ class FormFactorCrystal(IFormFactorBorn):
         """
         accept(FormFactorCrystal self, ISampleVisitor visitor)
 
-        virtual void FormFactorCrystal::accept(ISampleVisitor *visitor) const
+        void FormFactorCrystal::accept(ISampleVisitor *visitor) const final
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -11182,7 +11229,7 @@ class FormFactorCrystal(IFormFactorBorn):
         """
         getVolume(FormFactorCrystal self) -> double
 
-        double FormFactorCrystal::getVolume() const
+        double FormFactorCrystal::getVolume() const final
 
         Returns the total volume of the particle of this form factor's shape. 
 
@@ -11191,7 +11238,14 @@ class FormFactorCrystal(IFormFactorBorn):
 
 
     def getRadialExtension(self):
-        """getRadialExtension(FormFactorCrystal self) -> double"""
+        """
+        getRadialExtension(FormFactorCrystal self) -> double
+
+        double FormFactorCrystal::getRadialExtension() const final
+
+        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+
+        """
         return _libBornAgainCore.FormFactorCrystal_getRadialExtension(self)
 
 
@@ -11199,7 +11253,7 @@ class FormFactorCrystal(IFormFactorBorn):
         """
         evaluate(FormFactorCrystal self, WavevectorInfo wavevectors) -> complex_t
 
-        complex_t FormFactorCrystal::evaluate(const WavevectorInfo &wavevectors) const
+        complex_t FormFactorCrystal::evaluate(const WavevectorInfo &wavevectors) const final
 
         Returns scattering amplitude for complex wavevector bin. 
 
@@ -11405,7 +11459,7 @@ class FormFactorCylinder(IFormFactorBorn):
         """
         accept(FormFactorCylinder self, ISampleVisitor visitor)
 
-        void FormFactorCylinder::accept(ISampleVisitor *visitor) const
+        void FormFactorCylinder::accept(ISampleVisitor *visitor) const final
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -11427,16 +11481,21 @@ class FormFactorCylinder(IFormFactorBorn):
         """
         getRadius(FormFactorCylinder self) -> double
 
-        virtual double FormFactorCylinder::getRadius() const
-
-        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+        double FormFactorCylinder::getRadius() const 
 
         """
         return _libBornAgainCore.FormFactorCylinder_getRadius(self)
 
 
     def getRadialExtension(self):
-        """getRadialExtension(FormFactorCylinder self) -> double"""
+        """
+        getRadialExtension(FormFactorCylinder self) -> double
+
+        double FormFactorCylinder::getRadialExtension() const final
+
+        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+
+        """
         return _libBornAgainCore.FormFactorCylinder_getRadialExtension(self)
 
 
@@ -11444,7 +11503,7 @@ class FormFactorCylinder(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorCylinder self, cvector_t q) -> complex_t
 
-        complex_t FormFactorCylinder::evaluate_for_q(const cvector_t q) const
+        complex_t FormFactorCylinder::evaluate_for_q(const cvector_t q) const final
 
         evaluate scattering amplitude for complex wavevector
 
@@ -11675,7 +11734,7 @@ class FormFactorEllipsoidalCylinder(IFormFactorBorn):
         """
         accept(FormFactorEllipsoidalCylinder self, ISampleVisitor visitor)
 
-        void FormFactorEllipsoidalCylinder::accept(ISampleVisitor *visitor) const
+        void FormFactorEllipsoidalCylinder::accept(ISampleVisitor *visitor) const final
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -11714,7 +11773,14 @@ class FormFactorEllipsoidalCylinder(IFormFactorBorn):
 
 
     def getRadialExtension(self):
-        """getRadialExtension(FormFactorEllipsoidalCylinder self) -> double"""
+        """
+        getRadialExtension(FormFactorEllipsoidalCylinder self) -> double
+
+        double FormFactorEllipsoidalCylinder::getRadialExtension() const final
+
+        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+
+        """
         return _libBornAgainCore.FormFactorEllipsoidalCylinder_getRadialExtension(self)
 
 
@@ -11722,7 +11788,7 @@ class FormFactorEllipsoidalCylinder(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorEllipsoidalCylinder self, cvector_t q) -> complex_t
 
-        complex_t FormFactorEllipsoidalCylinder::evaluate_for_q(const cvector_t q) const
+        complex_t FormFactorEllipsoidalCylinder::evaluate_for_q(const cvector_t q) const final
 
         evaluate scattering amplitude for complex wavevector
 
@@ -11796,7 +11862,7 @@ class FormFactorFullSphere(IFormFactorBorn):
         """
         accept(FormFactorFullSphere self, ISampleVisitor visitor)
 
-        void FormFactorFullSphere::accept(ISampleVisitor *visitor) const
+        void FormFactorFullSphere::accept(ISampleVisitor *visitor) const final
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -11808,16 +11874,21 @@ class FormFactorFullSphere(IFormFactorBorn):
         """
         getRadius(FormFactorFullSphere self) -> double
 
-        virtual double FormFactorFullSphere::getRadius() const
-
-        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+        double FormFactorFullSphere::getRadius() const 
 
         """
         return _libBornAgainCore.FormFactorFullSphere_getRadius(self)
 
 
     def getRadialExtension(self):
-        """getRadialExtension(FormFactorFullSphere self) -> double"""
+        """
+        getRadialExtension(FormFactorFullSphere self) -> double
+
+        double FormFactorFullSphere::getRadialExtension() const final
+
+        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+
+        """
         return _libBornAgainCore.FormFactorFullSphere_getRadialExtension(self)
 
 
@@ -11825,7 +11896,7 @@ class FormFactorFullSphere(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorFullSphere self, cvector_t q) -> complex_t
 
-        complex_t FormFactorFullSphere::evaluate_for_q(const cvector_t q) const
+        complex_t FormFactorFullSphere::evaluate_for_q(const cvector_t q) const final
 
         evaluate scattering amplitude for complex wavevector
 
@@ -11902,7 +11973,7 @@ class FormFactorFullSpheroid(IFormFactorBorn):
         """
         accept(FormFactorFullSpheroid self, ISampleVisitor visitor)
 
-        void FormFactorFullSpheroid::accept(ISampleVisitor *visitor) const
+        void FormFactorFullSpheroid::accept(ISampleVisitor *visitor) const final
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -11924,16 +11995,21 @@ class FormFactorFullSpheroid(IFormFactorBorn):
         """
         getRadius(FormFactorFullSpheroid self) -> double
 
-        virtual double FormFactorFullSpheroid::getRadius() const
-
-        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+        double FormFactorFullSpheroid::getRadius() const 
 
         """
         return _libBornAgainCore.FormFactorFullSpheroid_getRadius(self)
 
 
     def getRadialExtension(self):
-        """getRadialExtension(FormFactorFullSpheroid self) -> double"""
+        """
+        getRadialExtension(FormFactorFullSpheroid self) -> double
+
+        double FormFactorFullSpheroid::getRadialExtension() const final
+
+        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+
+        """
         return _libBornAgainCore.FormFactorFullSpheroid_getRadialExtension(self)
 
 
@@ -11941,7 +12017,7 @@ class FormFactorFullSpheroid(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorFullSpheroid self, cvector_t q) -> complex_t
 
-        complex_t FormFactorFullSpheroid::evaluate_for_q(const cvector_t q) const
+        complex_t FormFactorFullSpheroid::evaluate_for_q(const cvector_t q) const final
 
         evaluate scattering amplitude for complex wavevector
 
@@ -12010,7 +12086,7 @@ class FormFactorGauss(IFormFactorBorn):
         """
         accept(FormFactorGauss self, ISampleVisitor visitor)
 
-        void FormFactorGauss::accept(ISampleVisitor *visitor) const
+        void FormFactorGauss::accept(ISampleVisitor *visitor) const final
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -12019,7 +12095,12 @@ class FormFactorGauss(IFormFactorBorn):
 
 
     def getWidth(self):
-        """getWidth(FormFactorGauss self) -> double"""
+        """
+        getWidth(FormFactorGauss self) -> double
+
+        double FormFactorGauss::getWidth() const 
+
+        """
         return _libBornAgainCore.FormFactorGauss_getWidth(self)
 
 
@@ -12027,16 +12108,21 @@ class FormFactorGauss(IFormFactorBorn):
         """
         getHeight(FormFactorGauss self) -> double
 
-        double FormFactorGauss::getHeight() const
-
-        Returns height. 
+        double FormFactorGauss::getHeight() const 
 
         """
         return _libBornAgainCore.FormFactorGauss_getHeight(self)
 
 
     def getRadialExtension(self):
-        """getRadialExtension(FormFactorGauss self) -> double"""
+        """
+        getRadialExtension(FormFactorGauss self) -> double
+
+        double FormFactorGauss::getRadialExtension() const final
+
+        Returns width. 
+
+        """
         return _libBornAgainCore.FormFactorGauss_getRadialExtension(self)
 
 
@@ -12044,7 +12130,7 @@ class FormFactorGauss(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorGauss self, cvector_t q) -> complex_t
 
-        complex_t FormFactorGauss::evaluate_for_q(const cvector_t q) const
+        complex_t FormFactorGauss::evaluate_for_q(const cvector_t q) const final
 
         evaluate scattering amplitude for complex wavevector
 
@@ -12124,7 +12210,7 @@ class FormFactorHemiEllipsoid(IFormFactorBorn):
         """
         accept(FormFactorHemiEllipsoid self, ISampleVisitor visitor)
 
-        void FormFactorHemiEllipsoid::accept(ISampleVisitor *visitor) const
+        void FormFactorHemiEllipsoid::accept(ISampleVisitor *visitor) const final
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -12163,7 +12249,14 @@ class FormFactorHemiEllipsoid(IFormFactorBorn):
 
 
     def getRadialExtension(self):
-        """getRadialExtension(FormFactorHemiEllipsoid self) -> double"""
+        """
+        getRadialExtension(FormFactorHemiEllipsoid self) -> double
+
+        double FormFactorHemiEllipsoid::getRadialExtension() const final
+
+        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+
+        """
         return _libBornAgainCore.FormFactorHemiEllipsoid_getRadialExtension(self)
 
 
@@ -12171,7 +12264,7 @@ class FormFactorHemiEllipsoid(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorHemiEllipsoid self, cvector_t q) -> complex_t
 
-        complex_t FormFactorHemiEllipsoid::evaluate_for_q(const cvector_t q) const
+        complex_t FormFactorHemiEllipsoid::evaluate_for_q(const cvector_t q) const final
 
         evaluate scattering amplitude for complex wavevector
 
@@ -12312,7 +12405,7 @@ class FormFactorLongBoxGauss(IFormFactorBorn):
         """
         accept(FormFactorLongBoxGauss self, ISampleVisitor visitor)
 
-        void FormFactorLongBoxGauss::accept(ISampleVisitor *visitor) const
+        void FormFactorLongBoxGauss::accept(ISampleVisitor *visitor) const final
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -12351,7 +12444,14 @@ class FormFactorLongBoxGauss(IFormFactorBorn):
 
 
     def getRadialExtension(self):
-        """getRadialExtension(FormFactorLongBoxGauss self) -> double"""
+        """
+        getRadialExtension(FormFactorLongBoxGauss self) -> double
+
+        double FormFactorLongBoxGauss::getRadialExtension() const final
+
+        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+
+        """
         return _libBornAgainCore.FormFactorLongBoxGauss_getRadialExtension(self)
 
 
@@ -12359,7 +12459,7 @@ class FormFactorLongBoxGauss(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorLongBoxGauss self, cvector_t q) -> complex_t
 
-        complex_t FormFactorLongBoxGauss::evaluate_for_q(const cvector_t q) const
+        complex_t FormFactorLongBoxGauss::evaluate_for_q(const cvector_t q) const final
 
         evaluate scattering amplitude for complex wavevector
 
@@ -12432,7 +12532,7 @@ class FormFactorLongBoxLorentz(IFormFactorBorn):
         """
         accept(FormFactorLongBoxLorentz self, ISampleVisitor visitor)
 
-        void FormFactorLongBoxLorentz::accept(ISampleVisitor *visitor) const
+        void FormFactorLongBoxLorentz::accept(ISampleVisitor *visitor) const final
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -12471,7 +12571,14 @@ class FormFactorLongBoxLorentz(IFormFactorBorn):
 
 
     def getRadialExtension(self):
-        """getRadialExtension(FormFactorLongBoxLorentz self) -> double"""
+        """
+        getRadialExtension(FormFactorLongBoxLorentz self) -> double
+
+        double FormFactorLongBoxLorentz::getRadialExtension() const final
+
+        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+
+        """
         return _libBornAgainCore.FormFactorLongBoxLorentz_getRadialExtension(self)
 
 
@@ -12479,7 +12586,7 @@ class FormFactorLongBoxLorentz(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorLongBoxLorentz self, cvector_t q) -> complex_t
 
-        complex_t FormFactorLongBoxLorentz::evaluate_for_q(const cvector_t q) const
+        complex_t FormFactorLongBoxLorentz::evaluate_for_q(const cvector_t q) const final
 
         evaluate scattering amplitude for complex wavevector
 
@@ -12561,7 +12668,7 @@ class FormFactorLongRipple1Gauss(IFormFactorBorn):
         """
         accept(FormFactorLongRipple1Gauss self, ISampleVisitor visitor)
 
-        void FormFactorLongRipple1Gauss::accept(ISampleVisitor *visitor) const
+        void FormFactorLongRipple1Gauss::accept(ISampleVisitor *visitor) const final
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -12600,7 +12707,14 @@ class FormFactorLongRipple1Gauss(IFormFactorBorn):
 
 
     def getRadialExtension(self):
-        """getRadialExtension(FormFactorLongRipple1Gauss self) -> double"""
+        """
+        getRadialExtension(FormFactorLongRipple1Gauss self) -> double
+
+        double FormFactorLongRipple1Gauss::getRadialExtension() const final
+
+        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+
+        """
         return _libBornAgainCore.FormFactorLongRipple1Gauss_getRadialExtension(self)
 
 
@@ -12608,7 +12722,7 @@ class FormFactorLongRipple1Gauss(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorLongRipple1Gauss self, cvector_t q) -> complex_t
 
-        complex_t FormFactorLongRipple1Gauss::evaluate_for_q(const cvector_t q) const
+        complex_t FormFactorLongRipple1Gauss::evaluate_for_q(const cvector_t q) const final
 
         Complex formfactor. 
 
@@ -12682,7 +12796,7 @@ class FormFactorLongRipple1Lorentz(IFormFactorBorn):
         """
         accept(FormFactorLongRipple1Lorentz self, ISampleVisitor visitor)
 
-        void FormFactorLongRipple1Lorentz::accept(ISampleVisitor *visitor) const
+        void FormFactorLongRipple1Lorentz::accept(ISampleVisitor *visitor) const final
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -12691,7 +12805,14 @@ class FormFactorLongRipple1Lorentz(IFormFactorBorn):
 
 
     def getRadialExtension(self):
-        """getRadialExtension(FormFactorLongRipple1Lorentz self) -> double"""
+        """
+        getRadialExtension(FormFactorLongRipple1Lorentz self) -> double
+
+        double FormFactorLongRipple1Lorentz::getRadialExtension() const final
+
+        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+
+        """
         return _libBornAgainCore.FormFactorLongRipple1Lorentz_getRadialExtension(self)
 
 
@@ -12729,7 +12850,7 @@ class FormFactorLongRipple1Lorentz(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorLongRipple1Lorentz self, cvector_t q) -> complex_t
 
-        complex_t FormFactorLongRipple1Lorentz::evaluate_for_q(const cvector_t q) const
+        complex_t FormFactorLongRipple1Lorentz::evaluate_for_q(const cvector_t q) const final
 
         Complex formfactor. 
 
@@ -12806,7 +12927,7 @@ class FormFactorLongRipple2Gauss(IFormFactorBorn):
         """
         accept(FormFactorLongRipple2Gauss self, ISampleVisitor visitor)
 
-        void FormFactorLongRipple2Gauss::accept(ISampleVisitor *visitor) const
+        void FormFactorLongRipple2Gauss::accept(ISampleVisitor *visitor) const final
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -12855,7 +12976,14 @@ class FormFactorLongRipple2Gauss(IFormFactorBorn):
 
 
     def getRadialExtension(self):
-        """getRadialExtension(FormFactorLongRipple2Gauss self) -> double"""
+        """
+        getRadialExtension(FormFactorLongRipple2Gauss self) -> double
+
+        double FormFactorLongRipple2Gauss::getRadialExtension() const final
+
+        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+
+        """
         return _libBornAgainCore.FormFactorLongRipple2Gauss_getRadialExtension(self)
 
 
@@ -12863,7 +12991,7 @@ class FormFactorLongRipple2Gauss(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorLongRipple2Gauss self, cvector_t q) -> complex_t
 
-        complex_t FormFactorLongRipple2Gauss::evaluate_for_q(const cvector_t q) const
+        complex_t FormFactorLongRipple2Gauss::evaluate_for_q(const cvector_t q) const final
 
         Complex formfactor. 
 
@@ -12940,7 +13068,7 @@ class FormFactorLongRipple2Lorentz(IFormFactorBorn):
         """
         accept(FormFactorLongRipple2Lorentz self, ISampleVisitor visitor)
 
-        void FormFactorLongRipple2Lorentz::accept(ISampleVisitor *visitor) const
+        void FormFactorLongRipple2Lorentz::accept(ISampleVisitor *visitor) const final
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -12989,7 +13117,14 @@ class FormFactorLongRipple2Lorentz(IFormFactorBorn):
 
 
     def getRadialExtension(self):
-        """getRadialExtension(FormFactorLongRipple2Lorentz self) -> double"""
+        """
+        getRadialExtension(FormFactorLongRipple2Lorentz self) -> double
+
+        double FormFactorLongRipple2Lorentz::getRadialExtension() const final
+
+        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+
+        """
         return _libBornAgainCore.FormFactorLongRipple2Lorentz_getRadialExtension(self)
 
 
@@ -12997,7 +13132,7 @@ class FormFactorLongRipple2Lorentz(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorLongRipple2Lorentz self, cvector_t q) -> complex_t
 
-        complex_t FormFactorLongRipple2Lorentz::evaluate_for_q(const cvector_t q) const
+        complex_t FormFactorLongRipple2Lorentz::evaluate_for_q(const cvector_t q) const final
 
         Complex formfactor. 
 
@@ -13056,7 +13191,7 @@ class FormFactorLorentz(IFormFactorBorn):
         """
         accept(FormFactorLorentz self, ISampleVisitor visitor)
 
-        void FormFactorLorentz::accept(ISampleVisitor *visitor) const
+        void FormFactorLorentz::accept(ISampleVisitor *visitor) const final
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -13085,7 +13220,14 @@ class FormFactorLorentz(IFormFactorBorn):
 
 
     def getRadialExtension(self):
-        """getRadialExtension(FormFactorLorentz self) -> double"""
+        """
+        getRadialExtension(FormFactorLorentz self) -> double
+
+        double FormFactorLorentz::getRadialExtension() const final
+
+        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+
+        """
         return _libBornAgainCore.FormFactorLorentz_getRadialExtension(self)
 
 
@@ -13093,7 +13235,7 @@ class FormFactorLorentz(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorLorentz self, cvector_t q) -> complex_t
 
-        complex_t FormFactorLorentz::evaluate_for_q(const cvector_t q) const
+        complex_t FormFactorLorentz::evaluate_for_q(const cvector_t q) const final
 
         evaluate scattering amplitude for complex wavevector
 
@@ -13441,7 +13583,7 @@ class FormFactorRipple1(IFormFactorBorn):
         """
         accept(FormFactorRipple1 self, ISampleVisitor visitor)
 
-        void FormFactorRipple1::accept(ISampleVisitor *visitor) const
+        void FormFactorRipple1::accept(ISampleVisitor *visitor) const final
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -13480,7 +13622,14 @@ class FormFactorRipple1(IFormFactorBorn):
 
 
     def getRadialExtension(self):
-        """getRadialExtension(FormFactorRipple1 self) -> double"""
+        """
+        getRadialExtension(FormFactorRipple1 self) -> double
+
+        double FormFactorRipple1::getRadialExtension() const final
+
+        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+
+        """
         return _libBornAgainCore.FormFactorRipple1_getRadialExtension(self)
 
 
@@ -13488,7 +13637,7 @@ class FormFactorRipple1(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorRipple1 self, cvector_t q) -> complex_t
 
-        complex_t FormFactorRipple1::evaluate_for_q(const cvector_t q) const
+        complex_t FormFactorRipple1::evaluate_for_q(const cvector_t q) const final
 
         Complex formfactor. 
 
@@ -13565,7 +13714,7 @@ class FormFactorRipple2(IFormFactorBorn):
         """
         accept(FormFactorRipple2 self, ISampleVisitor visitor)
 
-        void FormFactorRipple2::accept(ISampleVisitor *visitor) const
+        void FormFactorRipple2::accept(ISampleVisitor *visitor) const final
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -13614,7 +13763,14 @@ class FormFactorRipple2(IFormFactorBorn):
 
 
     def getRadialExtension(self):
-        """getRadialExtension(FormFactorRipple2 self) -> double"""
+        """
+        getRadialExtension(FormFactorRipple2 self) -> double
+
+        double FormFactorRipple2::getRadialExtension() const final
+
+        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+
+        """
         return _libBornAgainCore.FormFactorRipple2_getRadialExtension(self)
 
 
@@ -13622,7 +13778,7 @@ class FormFactorRipple2(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorRipple2 self, cvector_t q) -> complex_t
 
-        complex_t FormFactorRipple2::evaluate_for_q(const cvector_t q) const
+        complex_t FormFactorRipple2::evaluate_for_q(const cvector_t q) const final
 
         Complex formfactor. 
 
@@ -13682,7 +13838,7 @@ class FormFactorSphereGaussianRadius(IFormFactorBorn):
         """
         accept(FormFactorSphereGaussianRadius self, ISampleVisitor visitor)
 
-        void FormFactorSphereGaussianRadius::accept(ISampleVisitor *visitor) const
+        void FormFactorSphereGaussianRadius::accept(ISampleVisitor *visitor) const final
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -13691,7 +13847,14 @@ class FormFactorSphereGaussianRadius(IFormFactorBorn):
 
 
     def getRadialExtension(self):
-        """getRadialExtension(FormFactorSphereGaussianRadius self) -> double"""
+        """
+        getRadialExtension(FormFactorSphereGaussianRadius self) -> double
+
+        double FormFactorSphereGaussianRadius::getRadialExtension() const final
+
+        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+
+        """
         return _libBornAgainCore.FormFactorSphereGaussianRadius_getRadialExtension(self)
 
 
@@ -13699,7 +13862,7 @@ class FormFactorSphereGaussianRadius(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorSphereGaussianRadius self, cvector_t q) -> complex_t
 
-        complex_t FormFactorSphereGaussianRadius::evaluate_for_q(const cvector_t q) const
+        complex_t FormFactorSphereGaussianRadius::evaluate_for_q(const cvector_t q) const final
 
         evaluate scattering amplitude for complex wavevector
 
@@ -13774,7 +13937,14 @@ class FormFactorSphereLogNormalRadius(IFormFactorBorn):
 
 
     def getRadialExtension(self):
-        """getRadialExtension(FormFactorSphereLogNormalRadius self) -> double"""
+        """
+        getRadialExtension(FormFactorSphereLogNormalRadius self) -> double
+
+        double FormFactorSphereLogNormalRadius::getRadialExtension() const
+
+        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+
+        """
         return _libBornAgainCore.FormFactorSphereLogNormalRadius_getRadialExtension(self)
 
 
@@ -13846,7 +14016,7 @@ class FormFactorSphereUniformRadius(IFormFactorBorn):
         """
         accept(FormFactorSphereUniformRadius self, ISampleVisitor visitor)
 
-        void FormFactorSphereUniformRadius::accept(ISampleVisitor *visitor) const
+        void FormFactorSphereUniformRadius::accept(ISampleVisitor *visitor) const final
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -13855,7 +14025,14 @@ class FormFactorSphereUniformRadius(IFormFactorBorn):
 
 
     def getRadialExtension(self):
-        """getRadialExtension(FormFactorSphereUniformRadius self) -> double"""
+        """
+        getRadialExtension(FormFactorSphereUniformRadius self) -> double
+
+        double FormFactorSphereUniformRadius::getRadialExtension() const final
+
+        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+
+        """
         return _libBornAgainCore.FormFactorSphereUniformRadius_getRadialExtension(self)
 
 
@@ -13863,7 +14040,7 @@ class FormFactorSphereUniformRadius(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorSphereUniformRadius self, cvector_t q) -> complex_t
 
-        complex_t FormFactorSphereUniformRadius::evaluate_for_q(const cvector_t q) const
+        complex_t FormFactorSphereUniformRadius::evaluate_for_q(const cvector_t q) const final
 
         evaluate scattering amplitude for complex wavevector
 
@@ -14033,7 +14210,7 @@ class FormFactorTrivial(IFormFactorBorn):
         """
         accept(FormFactorTrivial self, ISampleVisitor visitor)
 
-        void FormFactorTrivial::accept(ISampleVisitor *visitor) const
+        void FormFactorTrivial::accept(ISampleVisitor *visitor) const final
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -14042,7 +14219,14 @@ class FormFactorTrivial(IFormFactorBorn):
 
 
     def getRadialExtension(self):
-        """getRadialExtension(FormFactorTrivial self) -> double"""
+        """
+        getRadialExtension(FormFactorTrivial self) -> double
+
+        double FormFactorTrivial::getRadialExtension() const final
+
+        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+
+        """
         return _libBornAgainCore.FormFactorTrivial_getRadialExtension(self)
 
 
@@ -14050,7 +14234,7 @@ class FormFactorTrivial(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorTrivial self, cvector_t q) -> complex_t
 
-        complex_t FormFactorTrivial::evaluate_for_q(const cvector_t q) const
+        complex_t FormFactorTrivial::evaluate_for_q(const cvector_t q) const final
 
         evaluate scattering amplitude for complex wavevector
 
@@ -14218,7 +14402,7 @@ class FormFactorTruncatedSphere(IFormFactorBorn):
         """
         accept(FormFactorTruncatedSphere self, ISampleVisitor visitor)
 
-        void FormFactorTruncatedSphere::accept(ISampleVisitor *visitor) const
+        void FormFactorTruncatedSphere::accept(ISampleVisitor *visitor) const final
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -14240,16 +14424,21 @@ class FormFactorTruncatedSphere(IFormFactorBorn):
         """
         getRadius(FormFactorTruncatedSphere self) -> double
 
-        virtual double FormFactorTruncatedSphere::getRadius() const
-
-        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+        double FormFactorTruncatedSphere::getRadius() const 
 
         """
         return _libBornAgainCore.FormFactorTruncatedSphere_getRadius(self)
 
 
     def getRadialExtension(self):
-        """getRadialExtension(FormFactorTruncatedSphere self) -> double"""
+        """
+        getRadialExtension(FormFactorTruncatedSphere self) -> double
+
+        double FormFactorTruncatedSphere::getRadialExtension() const final
+
+        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+
+        """
         return _libBornAgainCore.FormFactorTruncatedSphere_getRadialExtension(self)
 
 FormFactorTruncatedSphere_swigregister = _libBornAgainCore.FormFactorTruncatedSphere_swigregister
@@ -14305,7 +14494,7 @@ class FormFactorTruncatedSpheroid(IFormFactorBorn):
         """
         accept(FormFactorTruncatedSpheroid self, ISampleVisitor visitor)
 
-        void FormFactorTruncatedSpheroid::accept(ISampleVisitor *visitor) const
+        void FormFactorTruncatedSpheroid::accept(ISampleVisitor *visitor) const final
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -14317,9 +14506,7 @@ class FormFactorTruncatedSpheroid(IFormFactorBorn):
         """
         getRadius(FormFactorTruncatedSpheroid self) -> double
 
-        virtual double FormFactorTruncatedSpheroid::getRadius() const
-
-        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+        double FormFactorTruncatedSpheroid::getRadius() const 
 
         """
         return _libBornAgainCore.FormFactorTruncatedSpheroid_getRadius(self)
@@ -14346,7 +14533,14 @@ class FormFactorTruncatedSpheroid(IFormFactorBorn):
 
 
     def getRadialExtension(self):
-        """getRadialExtension(FormFactorTruncatedSpheroid self) -> double"""
+        """
+        getRadialExtension(FormFactorTruncatedSpheroid self) -> double
+
+        double FormFactorTruncatedSpheroid::getRadialExtension() const final
+
+        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+
+        """
         return _libBornAgainCore.FormFactorTruncatedSpheroid_getRadialExtension(self)
 
 
@@ -14354,7 +14548,7 @@ class FormFactorTruncatedSpheroid(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorTruncatedSpheroid self, cvector_t q) -> complex_t
 
-        complex_t FormFactorTruncatedSpheroid::evaluate_for_q(const cvector_t q) const
+        complex_t FormFactorTruncatedSpheroid::evaluate_for_q(const cvector_t q) const final
 
         evaluate scattering amplitude for complex wavevector
 
@@ -14429,7 +14623,14 @@ class FormFactorWeighted(IFormFactor):
 
 
     def getRadialExtension(self):
-        """getRadialExtension(FormFactorWeighted self) -> double"""
+        """
+        getRadialExtension(FormFactorWeighted self) -> double
+
+        double FormFactorWeighted::getRadialExtension() const
+
+        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+
+        """
         return _libBornAgainCore.FormFactorWeighted_getRadialExtension(self)
 
 
@@ -19747,7 +19948,7 @@ class Layer(ICompositeSample):
         """
         getMaterial(Layer self) -> IMaterial
 
-        virtual const IMaterial* Layer::getMaterial() const final
+        const IMaterial* Layer::getMaterial() const final
 
         Returns layer's material. 
 
@@ -20407,7 +20608,7 @@ class MesoCrystal(IParticle):
         """
         getClusteredParticles(MesoCrystal self) -> IClusteredParticles
 
-        const IClusteredParticles * MesoCrystal::getClusteredParticles() const
+        const IClusteredParticles* MesoCrystal::getClusteredParticles() const
 
         get the internal structure, which is in principle unbounded in space (e.g. an infinite crystal) 
 
@@ -21992,7 +22193,7 @@ class Particle(IParticle):
         """
         getAmbientMaterial(Particle self) -> IMaterial
 
-        virtual const IMaterial* Particle::getAmbientMaterial() const final
+        const IMaterial* Particle::getAmbientMaterial() const final
 
         Returns the ambient material. 
 
@@ -22016,7 +22217,7 @@ class Particle(IParticle):
         """
         setMaterial(Particle self, IMaterial material)
 
-        void Particle::setMaterial(const IMaterial &material) final
+        void Particle::setMaterial(const IMaterial &material)
 
         Sets  material. 
 
@@ -22028,7 +22229,7 @@ class Particle(IParticle):
         """
         getMaterial(Particle self) -> IMaterial
 
-        virtual const IMaterial* Particle::getMaterial() const final
+        const IMaterial* Particle::getMaterial() const
 
         Returns particle's material. 
 
@@ -22040,7 +22241,7 @@ class Particle(IParticle):
         """
         getRefractiveIndex(Particle self) -> complex_t
 
-        complex_t Particle::getRefractiveIndex() const final
+        complex_t Particle::getRefractiveIndex() const
 
         Returns refractive index of the particle. 
 

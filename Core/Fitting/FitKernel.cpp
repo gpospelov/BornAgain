@@ -13,19 +13,18 @@
 //
 // ************************************************************************** //
 
-#include "AttLimits.h"
 #include "FitKernel.h"
-#include "FitSuite.h"
+#include "AttLimits.h"
 #include "Logger.h"
 #include "MinimizerFactory.h"
 #include "ParameterPool.h"
 #include <stdexcept>
 
-FitKernel::FitKernel(FitSuite* fit_suite)
+FitKernel::FitKernel(const std::function<void()>& notifyObservers)
     : m_minimizer(MinimizerFactory::createMinimizer("Minuit2", "Migrad"))
     , m_is_last_iteration(false)
     , m_is_interrupted(false)
-    , m_fit_suite(fit_suite)
+    , m_notifyObservers(notifyObservers)
 {
     m_function_chi2.init(this);
     m_function_gradient.init(this);
@@ -178,7 +177,7 @@ double FitKernel::getRunTime() const
 
 void FitKernel::notifyObservers()
 {
-    m_fit_suite->notifyObservers();
+    m_notifyObservers();
 }
 
 bool FitKernel::check_prerequisites() const

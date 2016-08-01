@@ -60,17 +60,17 @@ void FormFactorRipple1::init_parameters()
     registerParameter(BornAgain::Length, &m_length, AttLimits::n_positive());
 }
 
-FormFactorRipple1 *FormFactorRipple1::clone() const
+FormFactorRipple1* FormFactorRipple1::clone() const
 {
     return new FormFactorRipple1(m_length, m_width, m_height);
 }
 
-void FormFactorRipple1::accept(ISampleVisitor *visitor) const
+void FormFactorRipple1::accept(ISampleVisitor* visitor) const
 {
     visitor->visit(this);
 }
 
-double FormFactorRipple1::getRadius() const
+double FormFactorRipple1::getRadialExtension() const
 {
     return ( m_width + m_length ) / 4.0;
 }

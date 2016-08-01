@@ -26,17 +26,17 @@ class BA_CORE_API_ FormFactorSphereGaussianRadius : public IFormFactorBorn
 {
 public:
     FormFactorSphereGaussianRadius(double mean, double sigma);
-    virtual FormFactorSphereGaussianRadius *clone() const;
     virtual ~FormFactorSphereGaussianRadius();
 
-    virtual void accept(ISampleVisitor *visitor) const;
+    FormFactorSphereGaussianRadius* clone() const;
 
-    virtual double getRadius() const;
+    virtual void accept(ISampleVisitor* visitor) const final;
 
-    virtual complex_t evaluate_for_q(const cvector_t q) const;
+    virtual double getRadialExtension() const final;
+
+    virtual complex_t evaluate_for_q(const cvector_t q) const final;
 
 protected:
-    virtual bool check_initialization() const;
     virtual void init_parameters();
 
 private:
@@ -45,9 +45,7 @@ private:
     double m_mean; //!< This is the mean radius
     double m_sigma;
     double m_mean_r3; //!< This is the radius that gives the mean volume
-    FormFactorFullSphere *p_ff_sphere;
+    FormFactorFullSphere* p_ff_sphere;
 };
 
 #endif // FORMFACTORSPHEREGAUSSIANRADIUS_H
-
-

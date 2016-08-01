@@ -35,15 +35,15 @@ void FormFactorDWBAPol::accept(ISampleVisitor* visitor) const { visitor->visit(t
 
 FormFactorDWBAPol* FormFactorDWBAPol::clone() const
 {
-    FormFactorDWBAPol *p_result = new FormFactorDWBAPol(*mp_form_factor);
+    FormFactorDWBAPol* p_result = new FormFactorDWBAPol(*mp_form_factor);
     p_result->setSpecularInfo(mp_in_coeffs, mp_out_coeffs);
     return p_result;
 }
 
 complex_t FormFactorDWBAPol::evaluate(const WavevectorInfo&) const
 {
-    throw Exceptions::NotImplementedException("FormFactorDWBAPol::evaluate: "
-            "should never be called for matrix interactions");
+    throw Exceptions::NotImplementedException(
+        "FormFactorDWBAPol::evaluate: should never be called for matrix interactions");
 }
 
 Eigen::Matrix2cd FormFactorDWBAPol::evaluatePol(const WavevectorInfo& wavevectors) const
@@ -59,18 +59,12 @@ Eigen::Matrix2cd FormFactorDWBAPol::evaluatePol(const WavevectorInfo& wavevector
 
 double FormFactorDWBAPol::getVolume() const
 {
-    if (mp_form_factor) {
-        return mp_form_factor->getVolume();
-    }
-    return 0.0;
+    return mp_form_factor ? mp_form_factor->getVolume() : 0;
 }
 
-double FormFactorDWBAPol::getRadius() const
+double FormFactorDWBAPol::getRadialExtension() const
 {
-    if (mp_form_factor) {
-        return mp_form_factor->getRadius();
-    }
-    return 0.0;
+    return mp_form_factor ? mp_form_factor->getRadialExtension() : 0;
 }
 
 void FormFactorDWBAPol::setSpecularInfo(const ILayerRTCoefficients* p_in_coeffs,

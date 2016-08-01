@@ -33,7 +33,7 @@ public:
 
     virtual void accept(ISampleVisitor* visitor) const;
 
-    virtual double getRadius() const;
+    virtual double getRadialExtension() const;
 
     void addFormFactor(const IFormFactor& form_factor, double weight=1.0);
 

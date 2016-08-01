@@ -287,10 +287,10 @@ std::string PyGenVisitor::defineFormFactors() const
         }
 
         else if (const FormFactorGauss* gauss = dynamic_cast<const FormFactorGauss*>(p_ff)) {
-            if (gauss->getRadius() == gauss->getHeight()) {
+            if (gauss->getWidth() == gauss->getHeight()) {
                 result << PyGenTools::printDouble(gauss->getVolume()) << "*(nanometer)**3)\n";
             } else {
-                result << PyGenTools::printNm(gauss->getRadius()) << ", "
+                result << PyGenTools::printNm(gauss->getWidth()) << ", "
                        << PyGenTools::printNm(gauss->getHeight()) << ")\n";
             }
         }
@@ -308,11 +308,11 @@ std::string PyGenVisitor::defineFormFactors() const
         }
 
         else if (const FormFactorLorentz* lorentz = dynamic_cast<const FormFactorLorentz*>(p_ff)) {
-            if (lorentz->getRadius() == lorentz->getHeight()) {
+            if (lorentz->getWidth() == lorentz->getHeight()) {
                 result << PyGenTools::printDouble(lorentz->getVolume()) << "*(nanometer)**3)\n";
 
             } else {
-                result << PyGenTools::printNm(lorentz->getRadius()) << ", "
+                result << PyGenTools::printNm(lorentz->getWidth()) << ", "
                        << PyGenTools::printNm(lorentz->getHeight()) << ")\n";
             }
         }

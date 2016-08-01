@@ -107,7 +107,7 @@ public:
     complex_t evaluate_centered( const cvector_t q ) const;
 
     virtual double getVolume() const final { return m_volume; }
-    virtual double getRadius() const final { return m_radius; }
+    virtual double getRadialExtension() const final { return m_radius; }
     void assert_platonic() const;
 
 protected:
@@ -136,7 +136,7 @@ public:
     virtual complex_t evaluate_for_q(const cvector_t q ) const final;
     double getVolume() const;
     double getHeight() const { return m_height; }
-    virtual double getRadius() const final { return std::sqrt(m_base->area()); }
+    virtual double getRadialExtension() const final { return std::sqrt(m_base->area()); }
 
 protected:
     std::unique_ptr<PolyhedralFace> m_base;
@@ -153,7 +153,7 @@ public:
 
     virtual complex_t evaluate_for_q(const cvector_t q ) const final;
     double getVolume() const { return 0; }
-    virtual double getRadius() const final { return std::sqrt(m_base->area()); }
+    virtual double getRadialExtension() const final { return std::sqrt(m_base->area()); }
 
 protected:
     std::unique_ptr<PolyhedralFace> m_base;

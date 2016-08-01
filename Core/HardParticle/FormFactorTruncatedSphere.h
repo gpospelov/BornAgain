@@ -32,11 +32,14 @@ public:
     FormFactorTruncatedSphere(double radius, double height);
     virtual ~FormFactorTruncatedSphere();
 
-    virtual FormFactorTruncatedSphere *clone() const;
-    virtual void accept(ISampleVisitor *visitor) const;
+    FormFactorTruncatedSphere *clone() const;
 
-    virtual double getRadius() const { return m_radius; }
+    virtual void accept(ISampleVisitor *visitor) const final;
+
     double getHeight() const { return m_height; }
+    double getRadius() const { return m_radius; }
+
+    virtual double getRadialExtension() const final { return m_radius; }
 
 protected:
     virtual bool check_initialization() const;

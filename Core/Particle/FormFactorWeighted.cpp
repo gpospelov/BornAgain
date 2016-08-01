@@ -32,29 +32,25 @@ FormFactorWeighted::~FormFactorWeighted()
 FormFactorWeighted* FormFactorWeighted::clone() const
 {
     FormFactorWeighted *result = new FormFactorWeighted();
-    for (size_t index=0; index<m_form_factors.size(); ++index) {
+    for (size_t index=0; index<m_form_factors.size(); ++index)
         result->addFormFactor(*m_form_factors[index], m_weights[index]);
-    }
     return result;
 }
 
-void FormFactorWeighted::accept(ISampleVisitor *visitor) const
+void FormFactorWeighted::accept(ISampleVisitor* visitor) const
 {
     visitor->visit(this);
 }
 
-double FormFactorWeighted::getRadius() const
+double FormFactorWeighted::getRadialExtension() const
 {
     double result { 0.0 };
-    for (size_t index=0; index<m_form_factors.size(); ++index) {
-        double radius = m_form_factors[index]->getRadius();
-        result += m_weights[index]*radius;
-    }
+    for (size_t index=0; index<m_form_factors.size(); ++index)
+        result += m_weights[index] * m_form_factors[index]->getRadialExtension();
     return result;
 }
 
-void FormFactorWeighted::addFormFactor(const IFormFactor& form_factor,
-                                       double weight)
+void FormFactorWeighted::addFormFactor(const IFormFactor& form_factor, double weight)
 {
     m_form_factors.push_back(form_factor.clone());
     m_weights.push_back(weight);
@@ -62,28 +58,22 @@ void FormFactorWeighted::addFormFactor(const IFormFactor& form_factor,
 
 void FormFactorWeighted::setAmbientMaterial(const IMaterial& material)
 {
-    for (size_t index=0; index<m_form_factors.size(); ++index) {
+    for (size_t index=0; index<m_form_factors.size(); ++index)
         m_form_factors[index]->setAmbientMaterial(material);
-    }
 }
 
 complex_t FormFactorWeighted::evaluate(const WavevectorInfo& wavevectors) const
 {
     complex_t result(0.0, 0.0);
-    for (size_t index=0; index<m_form_factors.size(); ++index) {
-        complex_t ff_evaluate = m_form_factors[index]->evaluate(wavevectors);
-        result += m_weights[index]*ff_evaluate;
-    }
+    for (size_t index=0; index<m_form_factors.size(); ++index)
+        result += m_weights[index] * m_form_factors[index]->evaluate(wavevectors);
     return result;
 }
 
 Eigen::Matrix2cd FormFactorWeighted::evaluatePol(const WavevectorInfo& wavevectors) const
 {
     Eigen::Matrix2cd result = Eigen::Matrix2cd::Zero();
-    for (size_t index=0; index<m_form_factors.size(); ++index) {
-        Eigen::Matrix2cd ff_evaluate = m_form_factors[index]->evaluatePol(wavevectors);
-        result += m_weights[index]*ff_evaluate;
-    }
+    for (size_t index=0; index<m_form_factors.size(); ++index)
+        result += m_weights[index] * m_form_factors[index]->evaluatePol(wavevectors);
     return result;
 }
-

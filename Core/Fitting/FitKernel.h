@@ -22,12 +22,12 @@
 #include "FitSuiteParameters.h"
 #include "FitSuiteStrategies.h"
 #include <boost/date_time/posix_time/posix_time.hpp>
+#include <functional>
 #ifndef SWIG
 #include <atomic>
 #endif
 
 class AttLimits;
-class FitSuite;
 class GISASSimulation;
 class IMinimizer;
 
@@ -38,7 +38,7 @@ class IMinimizer;
 class BA_CORE_API_ FitKernel
 {
  public:
-    FitKernel(class FitSuite* fit_suite);
+    FitKernel(const std::function<void()>& notifyObservers);
     FitKernel& operator=(const FitKernel&) = delete;
     FitKernel(const FitKernel&) = delete;
     virtual ~FitKernel();
@@ -126,7 +126,7 @@ private:
 #endif
     boost::posix_time::ptime m_start_time;
     boost::posix_time::ptime m_end_time;
-    FitSuite* m_fit_suite;
+    std::function<void()> m_notifyObservers;
 };
 
 #endif // FITKERNEL_H

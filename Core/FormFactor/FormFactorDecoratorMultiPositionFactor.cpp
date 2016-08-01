@@ -41,11 +41,6 @@ double FormFactorDecoratorMultiPositionFactor::getVolume() const
     return nbr_particles * IFormFactorDecorator::getVolume();
 }
 
-double FormFactorDecoratorMultiPositionFactor::getRadius() const
-{
-    return IFormFactorDecorator::getRadius();
-}
-
 complex_t FormFactorDecoratorMultiPositionFactor::evaluate(const WavevectorInfo& wavevectors) const
 {
     cvector_t q = wavevectors.getQ();

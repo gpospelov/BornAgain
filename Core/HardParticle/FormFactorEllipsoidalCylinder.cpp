@@ -42,7 +42,7 @@ void FormFactorEllipsoidalCylinder::accept(ISampleVisitor* visitor) const
     visitor->visit(this);
 }
 
-double FormFactorEllipsoidalCylinder::getRadius() const
+double FormFactorEllipsoidalCylinder::getRadialExtension() const
 {
     return ( m_radius_x + m_radius_y ) / 2.0;
 }

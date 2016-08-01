@@ -665,7 +665,7 @@ Holds a map of pointers to parameters (which must have different names).
 C++ includes: ParameterPool.h
 ";
 
-%feature("docstring")  ParameterPool::ParameterPool "ParameterPool::ParameterPool(const std::string &name, std::function< void()> onChange)
+%feature("docstring")  ParameterPool::ParameterPool "ParameterPool::ParameterPool(const std::string &name, const std::function< void()> &onChange)
 
 Constructs an empty parameter pool. 
 ";

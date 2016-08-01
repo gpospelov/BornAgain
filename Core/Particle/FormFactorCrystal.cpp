@@ -19,8 +19,8 @@
 #include "Units.h"
 #include "WavevectorInfo.h"
 
-FormFactorCrystal::FormFactorCrystal(const Lattice &lattice, const IFormFactor &basis_form_factor,
-                                     const IFormFactor &meso_form_factor)
+FormFactorCrystal::FormFactorCrystal(const Lattice& lattice, const IFormFactor& basis_form_factor,
+                                     const IFormFactor& meso_form_factor)
     : m_lattice(lattice),
       mp_basis_form_factor(basis_form_factor.clone()),
       mp_meso_form_factor(meso_form_factor.clone())
@@ -37,7 +37,7 @@ FormFactorCrystal::~FormFactorCrystal()
 
 FormFactorCrystal* FormFactorCrystal::clone() const
 {
-    return new FormFactorCrystal(m_lattice,* mp_basis_form_factor,* mp_meso_form_factor);
+    return new FormFactorCrystal(m_lattice, *mp_basis_form_factor, *mp_meso_form_factor);
 }
 
 double FormFactorCrystal::getVolume() const
@@ -45,9 +45,9 @@ double FormFactorCrystal::getVolume() const
     return mp_meso_form_factor->getVolume();
 }
 
-double FormFactorCrystal::getRadius() const
+double FormFactorCrystal::getRadialExtension() const
 {
-    return mp_meso_form_factor->getRadius();
+    return mp_meso_form_factor->getRadialExtension();
 }
 
 complex_t FormFactorCrystal::evaluate_for_q(const cvector_t) const
@@ -71,13 +71,12 @@ complex_t FormFactorCrystal::evaluate(const WavevectorInfo& wavevectors) const
 
     // perform convolution on these lattice vectors
     complex_t result(0.0, 0.0);
-    for (KVectorContainer::const_iterator it = rec_vectors.begin(); it != rec_vectors.end(); ++it) {
-        cvector_t q_i((*it).x(), (*it).y(), (*it).z());
+    for (const auto& rec: rec_vectors) {
+        cvector_t q_i = rec.complex();
         cvector_t min_q_i= -q_i;
         cvector_t q_i_min_q = q_i - q;
         WavevectorInfo basis_wavevectors(k_zero, min_q_i, wavevectors.getWavelength());
-        complex_t basis_factor
-            = mp_basis_form_factor->evaluate(basis_wavevectors);
+        complex_t basis_factor = mp_basis_form_factor->evaluate(basis_wavevectors);
         WavevectorInfo meso_wavevectors(k_zero, q_i_min_q, wavevectors.getWavelength());
         complex_t meso_factor = mp_meso_form_factor->evaluate(meso_wavevectors);
         result += basis_factor * meso_factor;
@@ -103,13 +102,12 @@ Eigen::Matrix2cd FormFactorCrystal::evaluatePol(const WavevectorInfo& wavevector
 
     // perform convolution on these lattice vectors
     Eigen::Matrix2cd result = Eigen::Matrix2cd::Zero();
-    for (KVectorContainer::const_iterator it = rec_vectors.begin(); it != rec_vectors.end(); ++it) {
-        cvector_t q_i((*it).x(), (*it).y(), (*it).z());
+    for (auto rec: rec_vectors) {
+        cvector_t q_i = rec.complex();
         cvector_t min_q_i= -q_i;
         cvector_t q_i_min_q = q_i - q;
         WavevectorInfo basis_wavevectors(k_zero, min_q_i, wavevectors.getWavelength());
-        Eigen::Matrix2cd basis_factor
-            = mp_basis_form_factor->evaluatePol(basis_wavevectors);
+        Eigen::Matrix2cd basis_factor = mp_basis_form_factor->evaluatePol(basis_wavevectors);
         WavevectorInfo meso_wavevectors(k_zero, q_i_min_q, wavevectors.getWavelength());
         complex_t meso_factor = mp_meso_form_factor->evaluate(meso_wavevectors);
         result += basis_factor * meso_factor;

@@ -27,20 +27,11 @@ FormFactorFullSpheroid::FormFactorFullSpheroid(double radius, double height )
     setName(FFFullSpheroidType);
     m_radius = radius;
     m_height = height;
-    check_initialization();
     init_parameters();
 
     mP_integrator = make_integrator_complex(this, &FormFactorFullSpheroid::Integrand);
 }
 
-FormFactorFullSpheroid::~FormFactorFullSpheroid()
-{
-}
-
-bool FormFactorFullSpheroid::check_initialization() const
-{
-    return true;
-}
 
 void FormFactorFullSpheroid::init_parameters()
 {
@@ -53,7 +44,7 @@ FormFactorFullSpheroid* FormFactorFullSpheroid::clone() const
    return new FormFactorFullSpheroid(m_radius, m_height);
 }
 
-void FormFactorFullSpheroid::accept(ISampleVisitor *visitor) const
+void FormFactorFullSpheroid::accept(ISampleVisitor* visitor) const
 {
     visitor->visit(this);
 }

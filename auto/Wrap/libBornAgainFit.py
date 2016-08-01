@@ -2159,17 +2159,21 @@ class FitSuiteParameters(_object):
         return _libBornAgainFit.FitSuiteParameters_clear(self)
 
 
-    def addParameter(self, name, value, step, attlim, error=0.0):
+    def addParameter(self, par):
         """
-        addParameter(FitSuiteParameters self, std::string const & name, double value, double step, AttLimits attlim, double error=0.0)
-        addParameter(FitSuiteParameters self, std::string const & name, double value, double step, AttLimits attlim)
+        addParameter(FitSuiteParameters self, FitParameter par)
 
         void FitSuiteParameters::addParameter(const std::string &name, double value, double step, const AttLimits &attlim, double error=0.0)
 
         Adds fit parameter. 
 
         """
-        return _libBornAgainFit.FitSuiteParameters_addParameter(self, name, value, step, attlim, error)
+        return _libBornAgainFit.FitSuiteParameters_addParameter(self, par)
+
+
+    def getParameters(self):
+        """getParameters(FitSuiteParameters self) -> std::vector< FitParameter *,std::allocator< FitParameter * > >"""
+        return _libBornAgainFit.FitSuiteParameters_getParameters(self)
 
 
     def getFitParameter(self, *args):
@@ -2274,20 +2278,6 @@ class FitSuiteParameters(_object):
 
         """
         return _libBornAgainFit.FitSuiteParameters_end(self, *args)
-
-
-    def link_to_pool(self, pool):
-        """
-        link_to_pool(FitSuiteParameters self, ParameterPool const * pool)
-
-        void FitSuiteParameters::link_to_pool(const ParameterPool *pool)
-
-        Links fit parameters with pool parameters.
-
-        linking fit parameters with pool parameters 
-
-        """
-        return _libBornAgainFit.FitSuiteParameters_link_to_pool(self, pool)
 
 
     def getNfreeParameters(self):

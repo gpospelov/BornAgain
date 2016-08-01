@@ -15,6 +15,8 @@
 
 #include "FitKernel.h"
 #include "AttLimits.h"
+#include "FitParameter.h"
+#include "FitParameterLinked.h"
 #include "Logger.h"
 #include "MinimizerFactory.h"
 #include "ParameterPool.h"
@@ -65,7 +67,12 @@ void FitKernel::addFitParameter(const std::string& name, double value, const Att
 {
     if(step <=0.0)
         step = value * getOptions().getStepFactor();
-    m_fit_parameters.addParameter(name, value, step, attlim, error);
+    for(auto par: m_fit_parameters.getParameters()) {
+        if( par->getName() == name )
+            throw std::runtime_error(
+                "FitSuiteParameters:addtFitParameter() -> Error. Existing parameter '"+name+"'");
+    }
+    m_fit_parameters.addParameter(new FitParameterLinked(name, value, step, attlim, error));
 }
 
 void FitKernel::addFitStrategy(const IFitStrategy& strategy)
@@ -198,7 +205,13 @@ bool FitKernel::check_prerequisites() const
 void FitKernel::link_fit_parameters()
 {
     const std::unique_ptr<ParameterPool> pool(m_fit_objects.createParameterTree());
-    m_fit_parameters.link_to_pool(pool.get());
+    for (auto par: m_fit_parameters.getParameters()) {
+        FitParameterLinked* linkedPar = dynamic_cast<FitParameterLinked*>(par);
+        if( !linkedPar )
+            throw std::runtime_error(
+                "FitKernel::link_fit_parameters() -> Error! Can't cast to FitParameterLinked.");
+        linkedPar->addMatchedParametersFromPool(pool.get());
+    }
     msglog(MSG::DEBUG2) << "FitSuite::link_fit_parameters() -> Parameter pool:";
     msglog(MSG::DEBUG2) << *pool;
 }

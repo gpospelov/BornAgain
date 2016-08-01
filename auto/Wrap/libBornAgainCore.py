@@ -22008,7 +22008,14 @@ ParameterDistribution_swigregister = _libBornAgainCore.ParameterDistribution_swi
 ParameterDistribution_swigregister(ParameterDistribution)
 
 class ParameterPool(_object):
-    """Proxy of C++ ParameterPool class"""
+    """
+
+
+    Holds a map of pointers to parameters (which must have different names).
+
+    C++ includes: ParameterPool.h
+
+    """
     __swig_setmethods__ = {}
     __setattr__ = lambda self, name, value: _swig_setattr(self, ParameterPool, name, value)
     __swig_getmethods__ = {}
@@ -22016,7 +22023,12 @@ class ParameterPool(_object):
     __repr__ = _swig_repr
 
     def __init__(self, name, onChange):
-        """__init__(ParameterPool self, std::string const & name, std::function< void () > const & onChange) -> ParameterPool"""
+        """
+        __init__(ParameterPool self, std::string const & name, std::function< void () > const & onChange) -> ParameterPool
+
+        ParameterPool::ParameterPool(const ParameterPool &)=delete
+
+        """
         this = _libBornAgainCore.new_ParameterPool(name, onChange)
         try:
             self.this.append(this)
@@ -22026,32 +22038,74 @@ class ParameterPool(_object):
     __del__ = lambda self: None
 
     def clone(self):
-        """clone(ParameterPool self) -> ParameterPool"""
+        """
+        clone(ParameterPool self) -> ParameterPool
+
+        ParameterPool * ParameterPool::clone() const
+
+        Returns a literal clone. 
+
+        """
         return _libBornAgainCore.ParameterPool_clone(self)
 
 
     def cloneWithPrefix(self, prefix):
-        """cloneWithPrefix(ParameterPool self, std::string const & prefix) -> ParameterPool"""
+        """
+        cloneWithPrefix(ParameterPool self, std::string const & prefix) -> ParameterPool
+
+        ParameterPool * ParameterPool::cloneWithPrefix(const std::string &prefix) const
+
+        Returns a clone with  prefix added to every parameter key. 
+
+        """
         return _libBornAgainCore.ParameterPool_cloneWithPrefix(self, prefix)
 
 
     def copyToExternalPool(self, prefix, external_pool):
-        """copyToExternalPool(ParameterPool self, std::string const & prefix, ParameterPool external_pool)"""
+        """
+        copyToExternalPool(ParameterPool self, std::string const & prefix, ParameterPool external_pool)
+
+        void ParameterPool::copyToExternalPool(const std::string &prefix, ParameterPool *external_pool) const
+
+        Copies parameters to  external_pool, adding  prefix to every key.
+
+        Copy parameters of given pool to the external pool while adding prefix to local parameter keys 
+
+        """
         return _libBornAgainCore.ParameterPool_copyToExternalPool(self, prefix, external_pool)
 
 
     def clear(self):
-        """clear(ParameterPool self)"""
+        """
+        clear(ParameterPool self)
+
+        void ParameterPool::clear()
+
+        Deletes parameter map. 
+
+        """
         return _libBornAgainCore.ParameterPool_clear(self)
 
 
     def getName(self):
-        """getName(ParameterPool self) -> std::string"""
+        """
+        getName(ParameterPool self) -> std::string
+
+        std::string ParameterPool::getName() const 
+
+        """
         return _libBornAgainCore.ParameterPool_getName(self)
 
 
     def size(self):
-        """size(ParameterPool self) -> size_t"""
+        """
+        size(ParameterPool self) -> size_t
+
+        size_t ParameterPool::size() const
+
+        Returns number of parameters in the pool. 
+
+        """
         return _libBornAgainCore.ParameterPool_size(self)
 
 
@@ -22059,6 +22113,13 @@ class ParameterPool(_object):
         """
         registerParameter(ParameterPool self, std::string const & name, double * parpointer)
         registerParameter(ParameterPool self, std::string const & name, double * parpointer, AttLimits limits)
+
+        void ParameterPool::registerParameter(const std::string &name, double *parpointer, const AttLimits &limits)
+
+        Registers a parameter with key  name and pointer-to-value  parpointer.
+
+        Registers parameter with given name. 
+
         """
         return _libBornAgainCore.ParameterPool_registerParameter(self, *args)
 
@@ -22067,27 +22128,64 @@ class ParameterPool(_object):
         """
         getParameter(ParameterPool self, std::string const & name) -> RealParameter
         getParameter(ParameterPool self, std::string const & name) -> RealParameter
+
+        const RealParameter * ParameterPool::getParameter(const std::string &name) const
+
+        Returns parameter named  name.
+
+        Returns parameter with given name. 
+
         """
         return _libBornAgainCore.ParameterPool_getParameter(self, *args)
 
 
     def getMatchedParameters(self, wildcards):
-        """getMatchedParameters(ParameterPool self, std::string const & wildcards) -> std::vector< RealParameter *,std::allocator< RealParameter * > >"""
+        """
+        getMatchedParameters(ParameterPool self, std::string const & wildcards) -> std::vector< RealParameter *,std::allocator< RealParameter * > >
+
+        std::vector< RealParameter * > ParameterPool::getMatchedParameters(const std::string &wildcards) const
+
+        Returns vector of parameters which fit pattern. 
+
+        """
         return _libBornAgainCore.ParameterPool_getMatchedParameters(self, wildcards)
 
 
     def setParameterValue(self, name, value):
-        """setParameterValue(ParameterPool self, std::string const & name, double value)"""
+        """
+        setParameterValue(ParameterPool self, std::string const & name, double value)
+
+        void ParameterPool::setParameterValue(const std::string &name, double value)
+
+        Sets parameter value. 
+
+        """
         return _libBornAgainCore.ParameterPool_setParameterValue(self, name, value)
 
 
     def setMatchedParametersValue(self, wildcards, value):
-        """setMatchedParametersValue(ParameterPool self, std::string const & wildcards, double value) -> int"""
+        """
+        setMatchedParametersValue(ParameterPool self, std::string const & wildcards, double value) -> int
+
+        int ParameterPool::setMatchedParametersValue(const std::string &wildcards, double value)
+
+        Sets parameter value, return number of changed parameters.
+
+        Sets parameter value. 
+
+        """
         return _libBornAgainCore.ParameterPool_setMatchedParametersValue(self, wildcards, value)
 
 
     def getParameterNames(self):
-        """getParameterNames(ParameterPool self) -> vector_string_t"""
+        """
+        getParameterNames(ParameterPool self) -> vector_string_t
+
+        std::vector< std::string > ParameterPool::getParameterNames() const
+
+        Returns all parameter names. 
+
+        """
         return _libBornAgainCore.ParameterPool_getParameterNames(self)
 
 ParameterPool_swigregister = _libBornAgainCore.ParameterPool_swigregister
@@ -23026,7 +23124,14 @@ Polygon_swigregister = _libBornAgainCore.Polygon_swigregister
 Polygon_swigregister(Polygon)
 
 class RealParameter(_object):
-    """Proxy of C++ RealParameter class"""
+    """
+
+
+    Wrapper to real parameter for remote access to its value and callback abilities
+
+    C++ includes: RealParameter.h
+
+    """
     __swig_setmethods__ = {}
     __setattr__ = lambda self, name, value: _swig_setattr(self, RealParameter, name, value)
     __swig_getmethods__ = {}
@@ -23039,6 +23144,11 @@ class RealParameter(_object):
         __init__(RealParameter self, std::string const & name, ParameterPool parent, double volatile * par) -> RealParameter
         __init__(RealParameter self, RealParameter other) -> RealParameter
         __init__(RealParameter self, std::string const & name, RealParameter other) -> RealParameter
+
+        RealParameter::RealParameter(const std::string &name, const RealParameter &other)
+
+        This constructor takes copies 'other' except for the name. 
+
         """
         this = _libBornAgainCore.new_RealParameter(*args)
         try:
@@ -23047,32 +23157,70 @@ class RealParameter(_object):
             self.this = this
 
     def getName(self):
-        """getName(RealParameter self) -> std::string"""
+        """
+        getName(RealParameter self) -> std::string
+
+        std::string RealParameter::getName() const 
+
+        """
         return _libBornAgainCore.RealParameter_getName(self)
 
 
     def setValue(self, value):
-        """setValue(RealParameter self, double value)"""
+        """
+        setValue(RealParameter self, double value)
+
+        void RealParameter::setValue(double value)
+
+        Sets value of wrapped parameter and emit signal. 
+
+        """
         return _libBornAgainCore.RealParameter_setValue(self, value)
 
 
     def getValue(self):
-        """getValue(RealParameter self) -> double"""
+        """
+        getValue(RealParameter self) -> double
+
+        double RealParameter::getValue() const
+
+        Returns value of wrapped parameter. 
+
+        """
         return _libBornAgainCore.RealParameter_getValue(self)
 
 
     def isNull(self):
-        """isNull(RealParameter self) -> bool"""
+        """
+        isNull(RealParameter self) -> bool
+
+        bool RealParameter::isNull() const
+
+        Returns true if wrapped parameter was not initialized with proper real value. 
+
+        """
         return _libBornAgainCore.RealParameter_isNull(self)
 
 
     def checkNull(self):
-        """checkNull(RealParameter self)"""
+        """
+        checkNull(RealParameter self)
+
+        void RealParameter::checkNull() const
+
+        throw exception if parameter was not initialized with proper value 
+
+        """
         return _libBornAgainCore.RealParameter_checkNull(self)
 
 
     def getAttLimits(self):
-        """getAttLimits(RealParameter self) -> AttLimits"""
+        """
+        getAttLimits(RealParameter self) -> AttLimits
+
+        AttLimits RealParameter::getAttLimits() const 
+
+        """
         return _libBornAgainCore.RealParameter_getAttLimits(self)
 
 

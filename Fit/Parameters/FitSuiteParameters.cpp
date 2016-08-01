@@ -15,7 +15,6 @@
 
 #include "FitSuiteParameters.h"
 #include "FitParameter.h"
-#include "FitParameterLinked.h"
 #include <stdexcept>
 #include "Logger.h"
 #include "Numeric.h"
@@ -36,18 +35,6 @@ void FitSuiteParameters::clear()
     for(auto par: m_parameters)
         delete par;
     m_parameters.clear();
-}
-
-//! Adds fit parameter
-void FitSuiteParameters::addParameter(const std::string& name, double value, double step,
-                                      const AttLimits& attlim, double error)
-{
-    for(auto par: m_parameters) {
-        if( par->getName() == name )
-            throw std::runtime_error(
-                "FitSuiteParameters:addtFitParameter() -> Error. Existing parameter '"+name+"'");
-    }
-    m_parameters.push_back(new FitParameterLinked(name, value, step, attlim, error));
 }
 
 //! Returns fit parameter with given name.
@@ -170,19 +157,6 @@ size_t FitSuiteParameters::getNfreeParameters() const
         if( par->isFixed() )
             result++;
     return result;
-}
-
-//! linking fit parameters with pool parameters
-void FitSuiteParameters::link_to_pool(const ParameterPool* pool)
-{
-    // linking fit parameter with whose pool parameters which match name of fit parameter
-    // going through all fit parameters defined
-    for (auto par: m_parameters) {
-        FitParameterLinked* linkedPar = dynamic_cast<FitParameterLinked*>(par);
-        if( !linkedPar ) throw std::runtime_error(
-            "FitSuiteParameters::link_to_pool() -> Error! Can't cast to FitParameterLinked.");
-        linkedPar->addMatchedParametersFromPool(pool);
-    }
 }
 
 bool FitSuiteParameters::valuesAreDifferent(

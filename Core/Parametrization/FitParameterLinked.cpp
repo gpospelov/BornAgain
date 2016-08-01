@@ -68,10 +68,11 @@ void FitParameterLinked::addMatchedParametersFromPool(
 void FitParameterLinked::print(std::ostream& ostr) const
 {
     FitParameter::print(ostr);
-    ostr << "FitParameterLinked '" << getName() << "'" << " value:" << m_value << " collsize:" << m_pool_parameters.size();
+    ostr << "FitParameterLinked '" << getName() << "'" << " value:" << m_value
+         << " collsize:" << m_pool_parameters.size();
 //    if(m_parametercoll.size() ) {
 //        ostr << " addresses: ";
-//        for(parametercoll_t::const_iterator it=m_parametercoll.begin(); it!=m_parametercoll.end(); it++) {
+//        for(auto it=m_parametercoll.begin(); it!=m_parametercoll.end(); it++) {
 //            parameter_t par = (*it);
 //            ostr << par << " ";
 //        }

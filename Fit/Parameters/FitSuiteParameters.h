@@ -41,8 +41,10 @@ class BA_CORE_API_ FitSuiteParameters
     void clear();
 
     //! Adds fit parameter.
-    void addParameter(const std::string& name, double value, double step,
-                      const AttLimits& attlim, double error=0.0);
+    void addParameter(FitParameter* par) { m_parameters.push_back( par ); }
+
+    //! Returns all parameters
+    std::vector<FitParameter*> getParameters() { return m_parameters; }
 
     //! Returns fit parameter with given name.
     const FitParameter* getFitParameter(const std::string& name) const;
@@ -82,9 +84,6 @@ class BA_CORE_API_ FitSuiteParameters
     //! Access to parameters by parameter name.
     const FitParameter* operator[](std::string name) const;
     FitParameter* operator[](std::string name);
-
-    //! Links fit parameters with pool parameters.
-    void link_to_pool(const ParameterPool* pool);
 
     //! Returns number of free parameters.
     size_t getNfreeParameters() const;

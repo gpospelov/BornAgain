@@ -136,7 +136,7 @@ public:
     BasicVector3D<T> unit() const;
 
     //! Returns this, trivially converted to complex type.
-    BasicVector3D<std::complex<double> > complex() const;
+    BasicVector3D<std::complex<double>> complex() const;
 
     // -------------------------------------------------------------------------
     // Functions of this and another vector
@@ -298,18 +298,18 @@ inline auto BasicVector3D<T>::cross(const BasicVector3D<U> &v) const
 
 template<> BA_CORE_API_ BasicVector3D<double> BasicVector3D<double>::conj() const;
 
-template<> BA_CORE_API_ BasicVector3D<std::complex<double> >
-	BasicVector3D<std::complex<double> >::conj() const;
+template<> BA_CORE_API_ BasicVector3D<std::complex<double>>
+	BasicVector3D<std::complex<double>>::conj() const;
 
 template<> BA_CORE_API_ double BasicVector3D<double>::phi() const;
 
 template<> BA_CORE_API_ double BasicVector3D<double>::theta() const;
 
 //! \todo Replace by member function complex()
-BA_CORE_API_ BasicVector3D<std::complex<double> > toComplexVector(
+BA_CORE_API_ BasicVector3D<std::complex<double>> toComplexVector(
         const BasicVector3D<double>& real_vector);
 
-template<> BA_CORE_API_ BasicVector3D<std::complex<double> > BasicVector3D<double>::complex() const;
+template<> BA_CORE_API_ BasicVector3D<std::complex<double>> BasicVector3D<double>::complex() const;
 
 }  // namespace Geometry
 

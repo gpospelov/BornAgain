@@ -31,9 +31,9 @@ public:
 
     virtual ~FormFactorCrystal();
 
-    virtual FormFactorCrystal *clone() const;
+    virtual FormFactorCrystal* clone() const;
 
-    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
+    virtual void accept(ISampleVisitor* visitor) const { visitor->visit(this); }
 
     virtual double getVolume() const;
 
@@ -51,8 +51,8 @@ private:
     void calculateLargestReciprocalDistance();
 
     Lattice m_lattice;
-    IFormFactor *mp_basis_form_factor;
-    IFormFactor *mp_meso_form_factor;
+    IFormFactor* mp_basis_form_factor;
+    IFormFactor* mp_meso_form_factor;
     double m_max_rec_length;
 };
 

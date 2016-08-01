@@ -30,14 +30,14 @@ public:
 
     FormFactorLorentz *clone() const;
 
-    virtual void accept(ISampleVisitor *visitor) const final;
+    void accept(ISampleVisitor *visitor) const final;
 
     double getWidth() const { return m_width; }
     double getHeight() const { return m_height; }
 
-    virtual double getRadialExtension() const final;
+    double getRadialExtension() const final;
 
-    virtual complex_t evaluate_for_q(const cvector_t q) const final;
+    complex_t evaluate_for_q(const cvector_t q) const final;
 
 protected:
     virtual bool check_initialization() const;

@@ -64,7 +64,7 @@ public:
     virtual void setMaterialAndThickness(const IMaterial& material, double thickness);
 
     //! Returns layer's material.
-    virtual const IMaterial* getMaterial() const final { return mp_material; }
+    const IMaterial* getMaterial() const final { return mp_material; }
 
     //! Returns refractive index of the layer's material.
     virtual complex_t getRefractiveIndex() const;

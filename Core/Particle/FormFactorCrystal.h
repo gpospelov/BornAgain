@@ -33,13 +33,13 @@ public:
 
     FormFactorCrystal* clone() const;
 
-    virtual void accept(ISampleVisitor* visitor) const final { visitor->visit(this); }
+    void accept(ISampleVisitor* visitor) const final { visitor->visit(this); }
 
-    virtual double getVolume() const final;
+    double getVolume() const final;
 
-    virtual double getRadialExtension() const final;
+    double getRadialExtension() const final;
 
-    virtual complex_t evaluate(const WavevectorInfo& wavevectors) const final;
+    complex_t evaluate(const WavevectorInfo& wavevectors) const final;
 
 #ifndef SWIG
     virtual Eigen::Matrix2cd evaluatePol(const WavevectorInfo& wavevectors) const;

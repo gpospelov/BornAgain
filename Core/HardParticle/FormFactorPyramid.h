@@ -26,8 +26,8 @@ class BA_CORE_API_ FormFactorPyramid : public FormFactorPolyhedron
 public:
     FormFactorPyramid(double base_edge, double height, double alpha);
 
-    virtual FormFactorPyramid* clone() const final;
-    virtual void accept(ISampleVisitor *visitor) const final;
+    FormFactorPyramid* clone() const final;
+    void accept(ISampleVisitor *visitor) const final;
 
     double getHeight() const { return m_height; }
     double getBaseEdge() const { return m_base_edge; }
@@ -35,7 +35,7 @@ public:
 
 private:
     static const PolyhedralTopology topology;
-    virtual void onChange() final;
+    void onChange() final;
 
     double m_base_edge;
     double m_height;

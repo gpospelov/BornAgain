@@ -32,15 +32,15 @@ public:
 
     FormFactorTruncatedSpheroid* clone() const;
 
-    virtual void accept(ISampleVisitor* visitor) const final;
+    void accept(ISampleVisitor* visitor) const final;
 
     double getRadius() const { return m_radius; }
     double getHeight() const { return m_height; }
     double getHeightFlattening() const { return m_height_flattening; }
 
-    virtual double getRadialExtension() const final { return m_radius; }
+    double getRadialExtension() const final { return m_radius; }
 
-    virtual complex_t evaluate_for_q(const cvector_t q) const final;
+    complex_t evaluate_for_q(const cvector_t q) const final;
 
 protected:
     virtual bool check_initialization() const;

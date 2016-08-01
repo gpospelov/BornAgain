@@ -29,11 +29,11 @@ public:
 
     FormFactorTrivial* clone() const;
 
-    virtual void accept(ISampleVisitor* visitor) const final;
+    void accept(ISampleVisitor* visitor) const final;
 
-    virtual double getRadialExtension() const final;
+    double getRadialExtension() const final;
 
-    virtual complex_t evaluate_for_q(const cvector_t q) const final;
+    complex_t evaluate_for_q(const cvector_t q) const final;
 };
 
 #endif // FORMFACTORTRIVIAL_H

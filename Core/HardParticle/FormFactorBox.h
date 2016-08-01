@@ -33,15 +33,15 @@ public:
 
     FormFactorBox *clone() const;
 
-    virtual void accept(ISampleVisitor *visitor) const final;
+    void accept(ISampleVisitor *visitor) const final;
 
     double getLength() const { return m_length; }
     double getHeight() const { return m_height; }
     double getWidth() const { return m_width; }
 
-    virtual double getRadialExtension() const final { return m_length/2.0; }
+    double getRadialExtension() const final { return m_length/2.0; }
 
-    virtual complex_t evaluate_for_q(const cvector_t q) const final;
+    complex_t evaluate_for_q(const cvector_t q) const final;
 
 protected:
     virtual void init_parameters();

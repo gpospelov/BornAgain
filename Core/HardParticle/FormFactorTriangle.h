@@ -32,7 +32,7 @@ public:
     double getBaseEdge() const { return m_base_edge; }
 
 private:
-    virtual void onChange() final;
+    void onChange() final;
     double m_base_edge;
 };
 

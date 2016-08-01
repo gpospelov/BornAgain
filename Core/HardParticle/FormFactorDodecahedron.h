@@ -29,14 +29,14 @@ public:
     //! @param edge length
     FormFactorDodecahedron(double edge);
 
-    virtual FormFactorDodecahedron *clone() const final;
-    virtual void accept(ISampleVisitor *visitor) const final;
+    FormFactorDodecahedron *clone() const final;
+    void accept(ISampleVisitor *visitor) const final;
 
     double getEdge() const { return m_edge; }
 
 private:
     static const PolyhedralTopology topology;
-    virtual void onChange() final;
+    void onChange() final;
     double m_edge;
 };
 

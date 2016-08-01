@@ -36,15 +36,15 @@ public:
 
     FormFactorLongRipple1Gauss* clone() const;
 
-    virtual void accept(ISampleVisitor* visitor) const final;
+    void accept(ISampleVisitor* visitor) const final;
 
     double getHeight() const { return m_height; }
     double getWidth() const { return m_width; }
     double getLength() const { return m_length; }
 
-    virtual double getRadialExtension() const final;
+    double getRadialExtension() const final;
 
-    virtual complex_t evaluate_for_q(const cvector_t q) const final;
+    complex_t evaluate_for_q(const cvector_t q) const final;
 
 protected:
     virtual bool check_initialization() const;

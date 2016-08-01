@@ -36,7 +36,7 @@ public:
 
 private:
     static const PolyhedralTopology topology;
-    virtual void onChange() final;
+    void onChange() final;
     double m_base_edge;
     double m_height;
     double m_alpha;

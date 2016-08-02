@@ -350,9 +350,7 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
     for (auto it=themap->begin(); it!=themap->end(); ++it) {
         const IInterferenceFunction* interference = it->first;
 
-        if (const InterferenceFunctionNone* none
-            = dynamic_cast<const InterferenceFunctionNone*>(interference)) {
-            (void)none;
+        if (dynamic_cast<const InterferenceFunctionNone*>(interference)) {
             result << indent() << it->second << " = ba.InterferenceFunctionNone()\n";
         }
 

@@ -362,35 +362,9 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
 
             const IFTDecayFunction1D* pdf = oneDLattice->getDecayFunction();
 
-            if (const auto* f = dynamic_cast<const FTDecayFunction1DVoigt*>(pdf)) {
-                result << indent() << it->second << "_pdf  = ba.FTDecayFunction1DVoigt("
-                       << PyGenTools::printDouble(f->getOmega()) << ", "
-                       << PyGenTools::printDouble(f->getEta()) << ")\n";
-            }
-
             if (pdf->getOmega() != 0.0) {
-                if (const auto* f = dynamic_cast<const FTDecayFunction1DCauchy*>(pdf)) {
-                    result << indent() << it->second << "_pdf  = ba.FTDecayFunction1DCauchy("
-                           << PyGenTools::printDouble(f->getOmega()) << ")\n";
-                }
-
-                else if (const auto* f = dynamic_cast<const FTDecayFunction1DGauss*>(pdf)) {
-                    result << indent() << it->second << "_pdf  = ba.FTDecayFunction1DGauss("
-                           << PyGenTools::printDouble(f->getOmega()) << ")\n";
-                }
-
-                else if (const auto* f = dynamic_cast<const FTDecayFunction1DTriangle*>(pdf)) {
-                    result << indent() << it->second << "_pdf  = ba.FTDecayFunction1DTriangle("
-                           << PyGenTools::printDouble(f->getOmega()) << ")\n";
-                }
-
-                else {
-                    std::ostringstream pdfException;
-                    pdfException << "\n" << pdf->getName() << " :: Not Casted To Any "
-                                 << "Decay Function\n";
-                    throw Exceptions::NotImplementedException(pdfException.str());
-                }
-
+                result << indent() << it->second << "_pdf  = ba." << pdf->getName()
+                       << "(" << PyGenTools::argumentList(pdf) << ")\n";
                 result << indent() << it->second << ".setDecayFunction(" << it->second << "_pdf)\n";
             }
         }
@@ -413,45 +387,9 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
 
             const IFTDistribution1D* pdf = oneDParaCrystal->getProbabilityDistribution();
 
-            if (const auto* f = dynamic_cast<const FTDistribution1DVoigt*>(pdf)) {
-                result << indent() << it->second << "_pdf  = ba.FTDistribution1DVoigt("
-                       << PyGenTools::printDouble(f->getOmega()) << ", "
-                       << PyGenTools::printDouble(f->getEta()) << ")\n";
-            }
-
             if (pdf->getOmega() != 0.0) {
-                if (const auto* f = dynamic_cast<const FTDistribution1DCauchy*>(pdf)) {
-                    result << indent() << it->second << "_pdf  = ba.FTDistribution1DCauchy("
-                           << PyGenTools::printDouble(f->getOmega()) << ")\n";
-                }
-
-                else if (const auto* f = dynamic_cast<const FTDistribution1DCosine*>(pdf)) {
-                    result << indent() << it->second << "_pdf  = ba.FTDistribution1DCosine("
-                           << PyGenTools::printDouble(f->getOmega()) << ")\n";
-                }
-
-                else if (const auto* f = dynamic_cast<const FTDistribution1DGate*>(pdf)) {
-                    result << indent() << it->second << "_pdf  = ba.FTDistribution1DGate("
-                           << PyGenTools::printDouble(f->getOmega()) << ")\n";
-                }
-
-                else if (const auto* f = dynamic_cast<const FTDistribution1DGauss*>(pdf)) {
-                    result << indent() << it->second << "_pdf  = ba.FTDistribution1DGauss("
-                           << PyGenTools::printDouble(f->getOmega()) << ")\n";
-                }
-
-                else if (const auto* f = dynamic_cast<const FTDistribution1DTriangle*>(pdf)) {
-                    result << indent() << it->second << "_pdf  = ba.FTDistribution1DTriangle("
-                           << PyGenTools::printDouble(f->getOmega()) << ")\n";
-                }
-
-                else {
-                    std::ostringstream pdfException;
-                    pdfException << "\n" << pdf->getName() << " :: Not Casted To Any "
-                                 << "Probability Distribution Function\n";
-                    throw Exceptions::NotImplementedException(pdfException.str());
-                }
-
+                result << indent() << it->second << "_pdf  = ba." << pdf->getName()
+                       << "(" << PyGenTools::argumentList(pdf) << ")\n";
                 result << indent() << it->second << ".setProbabilityDistribution(" << it->second
                        << "_pdf)\n";
             }

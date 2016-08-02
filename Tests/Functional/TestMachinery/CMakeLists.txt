@@ -9,7 +9,7 @@ if(POLICY CMP0042)
 endif()
 
 # --- source and include files ---------
-set(include_dirs ${BUILD_INC_DIR} ${CORE_SOURCE_DIRS}
+set(include_dirs ${BUILD_INC_DIR} ${CORE_SOURCE_DIRS} ${GSL_INCLUDE_DIR}
     ${CMAKE_SOURCE_DIR}/Fit/Parameters # for INamed.h
     ${CMAKE_SOURCE_DIR}/Fit/Utils
     )

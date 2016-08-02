@@ -39,10 +39,8 @@ public:
 
     virtual ~Instrument();
 
-    //! Returns the beam data
-    Beam getBeam() const { return m_beam; }
-
-    //! Sets the beam data
+    Beam& getBeam() { return m_beam; }
+    const Beam& getBeam() const { return m_beam; }
     void setBeam(const Beam& beam);
 
     //! Sets the beam wavelength and incoming angles

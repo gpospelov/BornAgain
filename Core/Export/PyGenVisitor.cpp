@@ -17,7 +17,7 @@
 #include "Beam.h"
 #include "ConvolutionDetectorResolution.h"
 #include "Crystal.h"
-#include "FormFactors.h"
+#include "IFormFactor.h"
 #include "InterferenceFunctions.h"
 #include "Layer.h"
 #include "LayerInterface.h"
@@ -793,9 +793,7 @@ std::string PyGenVisitor::defineRoughnesses() const
     result << "\n" << indent() << "# Defining Roughness Parameters\n";
     for (auto it=themap->begin(); it!=themap->end(); ++it) {
         result << indent() << it->second << " = ba.LayerRoughness("
-               << PyGenTools::printNm(it->first->getSigma()) << ", "
-               << it->first->getHurstParameter() << ", "
-               << PyGenTools::printNm(it->first->getLatteralCorrLength()) << ")\n";
+               <<  PyGenTools::argumentList(it->first) << ")\n";
     }
     return result.str();
 }
@@ -946,10 +944,8 @@ std::string PyGenVisitor::defineDetectorResolutionFunction(const GISASSimulation
     const IDetector2D* detector = simulation->getInstrument().getDetector();
 
     if (const IDetectorResolution* p_resfunc = detector->getDetectorResolutionFunction()) {
-        if (const ConvolutionDetectorResolution* p_convfunc
-            = dynamic_cast<const ConvolutionDetectorResolution*>(p_resfunc)) {
-            if (const ResolutionFunction2DGaussian* resfunc
-                = dynamic_cast<const ResolutionFunction2DGaussian*>(
+        if ( auto* p_convfunc = dynamic_cast<const ConvolutionDetectorResolution*>(p_resfunc)) {
+            if (auto* resfunc = dynamic_cast<const ResolutionFunction2DGaussian*>(
                     p_convfunc->getResolutionFunction2D())) {
 
                 result << indent() << "simulation.setDetectorResolutionFunction(";
@@ -982,15 +978,13 @@ std::string PyGenVisitor::defineBeam(const GISASSimulation* simulation) const
     std::ostringstream result;
     result << std::setprecision(12);
     // result << indent() << "# Defining Beam Parameters\n";
-    result << indent() << "simulation.setBeamParameters(";
-    result << PyGenTools::printNm(simulation->getInstrument().getBeam().getWavelength()) << ", "
-           << PyGenTools::printDegrees(simulation->getInstrument().getBeam().getAlpha()) << ", "
-           << PyGenTools::printDegrees(simulation->getInstrument().getBeam().getPhi()) << ")\n";
-    double beam_intensity = simulation->getInstrument().getBeamIntensity();
-    if(beam_intensity > 0.0) {
+    const Beam& beam = simulation->getInstrument().getBeam();
+    result << indent() << "simulation.setBeamParameters("
+           << PyGenTools::argumentList(&beam) << ")\n";
+    double beam_intensity = beam.getIntensity();
+    if(beam_intensity > 0.0)
         result << indent() << "simulation.setBeamIntensity("
                << PyGenTools::printScientificDouble(beam_intensity) << ")\n";
-    }
     return result.str();
 }
 

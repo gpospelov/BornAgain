@@ -18308,8 +18308,9 @@ class Instrument(IParameterized):
     __swig_destroy__ = _libBornAgainCore.delete_Instrument
     __del__ = lambda self: None
 
-    def getBeam(self):
+    def getBeam(self, *args):
         """
+        getBeam(Instrument self) -> Beam
         getBeam(Instrument self) -> Beam
 
         Beam Instrument::getBeam() const
@@ -18317,7 +18318,7 @@ class Instrument(IParameterized):
         Returns the beam data. 
 
         """
-        return _libBornAgainCore.Instrument_getBeam(self)
+        return _libBornAgainCore.Instrument_getBeam(self, *args)
 
 
     def setBeam(self, beam):

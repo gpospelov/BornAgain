@@ -65,9 +65,9 @@ class IntensityDataTest(unittest.TestCase):
         #self.assertEqual(2.0, data.getAxis(1).getMax())
         #self.assertEqual(11, len(data.getAxis(0).getVector()))
 
-    def test_axis_ownership(self):
-        axis0 = get_axis()
-        self.assertEqual(10, axis0.getSize())
+#    def test_axis_ownership(self):
+#        axis0 = get_axis()
+#        self.assertEqual(10, axis0.getSize())
 
     def test_numpy_array(self):
         data = IntensityData()

@@ -7238,14 +7238,13 @@ C++ includes: Instrument.h
 %feature("docstring")  Instrument::~Instrument "Instrument::~Instrument()
 ";
 
-%feature("docstring")  Instrument::getBeam "Beam Instrument::getBeam() const
+%feature("docstring")  Instrument::getBeam "Beam& Instrument::getBeam()
+";
 
-Returns the beam data. 
+%feature("docstring")  Instrument::getBeam "const Beam& Instrument::getBeam() const 
 ";
 
 %feature("docstring")  Instrument::setBeam "void Instrument::setBeam(const Beam &beam)
-
-Sets the beam data. 
 ";
 
 %feature("docstring")  Instrument::setBeamParameters "void Instrument::setBeamParameters(double wavelength, double alpha_i, double phi_i)

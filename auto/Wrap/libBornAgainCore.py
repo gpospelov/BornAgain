@@ -18313,9 +18313,7 @@ class Instrument(IParameterized):
         getBeam(Instrument self) -> Beam
         getBeam(Instrument self) -> Beam
 
-        Beam Instrument::getBeam() const
-
-        Returns the beam data. 
+        const Beam& Instrument::getBeam() const 
 
         """
         return _libBornAgainCore.Instrument_getBeam(self, *args)
@@ -18326,8 +18324,6 @@ class Instrument(IParameterized):
         setBeam(Instrument self, Beam beam)
 
         void Instrument::setBeam(const Beam &beam)
-
-        Sets the beam data. 
 
         """
         return _libBornAgainCore.Instrument_setBeam(self, beam)

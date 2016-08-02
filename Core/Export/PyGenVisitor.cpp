@@ -950,7 +950,9 @@ std::string PyGenVisitor::defineBeam(const GISASSimulation* simulation) const
     // result << indent() << "# Defining Beam Parameters\n";
     const Beam& beam = simulation->getInstrument().getBeam();
     result << indent() << "simulation.setBeamParameters("
-           << PyGenTools::argumentList(&beam) << ")\n";
+           << PyGenTools::printNm(beam.getWavelength()) << ", "
+           << PyGenTools::printDegrees(beam.getAlpha()) << ", "
+           << PyGenTools::printDegrees(beam.getPhi()) << ")\n";
     double beam_intensity = beam.getIntensity();
     if(beam_intensity > 0.0)
         result << indent() << "simulation.setBeamIntensity("

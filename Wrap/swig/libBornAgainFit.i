@@ -90,6 +90,11 @@ import_array();
 %import(module="libBornAgainCore") "IParameterized.h"
 %import(module="libBornAgainCore") "IObserver.h"
 
+// ownership
+%newobject FitSuite::getRealData(size_t i_item = 0) const;
+%newobject FitSuite::getSimulationData(size_t i_item = 0) const;
+%newobject FitSuite::getChiSquaredMap(size_t i_item = 0) const;
+
 // The following goes verbatim from libBornAgainFit.i to libBornAgainFit_wrap.cxx.
 // Note that the order matters, as base classes must be included before derived classes.
 

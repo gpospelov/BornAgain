@@ -17,10 +17,9 @@
 #define PARTICLE_H
 
 #include "IParticle.h" // inheriting from
+#include "IMaterial.h"
 #include "FormFactorDecoratorMaterial.h"
 #include "FormFactorDecoratorRotation.h"
-
-class IMaterial;
 
 //! @class Particle
 //! @ingroup samples

@@ -27,6 +27,10 @@ FormFactorDecoratorMaterial::FormFactorDecoratorMaterial(const IFormFactor& form
     setName(BornAgain::FormFactorDecoratorMaterialType);
 }
 
+FormFactorDecoratorMaterial::~FormFactorDecoratorMaterial()
+{
+}
+
 void FormFactorDecoratorMaterial::accept(ISampleVisitor* visitor) const
 {
     visitor->visit(this);

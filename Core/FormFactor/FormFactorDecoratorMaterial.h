@@ -31,6 +31,8 @@ class BA_CORE_API_ FormFactorDecoratorMaterial : public FormFactorDecoratorFacto
 public:
     FormFactorDecoratorMaterial(const IFormFactor& form_factor);
 
+	virtual ~FormFactorDecoratorMaterial();
+
     virtual FormFactorDecoratorMaterial* clone() const;
 
     virtual void accept(ISampleVisitor* visitor) const;

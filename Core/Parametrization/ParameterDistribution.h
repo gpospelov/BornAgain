@@ -18,11 +18,11 @@
 
 #include "IParameterized.h" // inheriting from
 #include "AttLimits.h"
+#include "ParameterSample.h"
 #include <memory>
 #include <vector>
 
 class IDistribution1D;
-class ParameterSample;
 
 class BA_CORE_API_ ParameterDistribution : public IParameterized
 {

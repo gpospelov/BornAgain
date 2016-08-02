@@ -9428,14 +9428,16 @@ class FTDistribution2DCauchy(IFTDistribution2D):
     __getattr__ = lambda self, name: _swig_getattr(self, FTDistribution2DCauchy, name)
     __repr__ = _swig_repr
 
-    def __init__(self, coherence_length_x, coherence_length_y):
+    def __init__(self, *args):
         """
+        __init__(FTDistribution2DCauchy self, double coherence_length_x, double coherence_length_y, double gamma=0, double delta) -> FTDistribution2DCauchy
+        __init__(FTDistribution2DCauchy self, double coherence_length_x, double coherence_length_y, double gamma=0) -> FTDistribution2DCauchy
         __init__(FTDistribution2DCauchy self, double coherence_length_x, double coherence_length_y) -> FTDistribution2DCauchy
 
         FTDistribution2DCauchy::FTDistribution2DCauchy(double coherence_length_x, double coherence_length_y)
 
         """
-        this = _libBornAgainCore.new_FTDistribution2DCauchy(coherence_length_x, coherence_length_y)
+        this = _libBornAgainCore.new_FTDistribution2DCauchy(*args)
         try:
             self.this.append(this)
         except:
@@ -9486,14 +9488,16 @@ class FTDistribution2DGauss(IFTDistribution2D):
     __getattr__ = lambda self, name: _swig_getattr(self, FTDistribution2DGauss, name)
     __repr__ = _swig_repr
 
-    def __init__(self, coherence_length_x, coherence_length_y):
+    def __init__(self, *args):
         """
+        __init__(FTDistribution2DGauss self, double coherence_length_x, double coherence_length_y, double gamma=0, double delta) -> FTDistribution2DGauss
+        __init__(FTDistribution2DGauss self, double coherence_length_x, double coherence_length_y, double gamma=0) -> FTDistribution2DGauss
         __init__(FTDistribution2DGauss self, double coherence_length_x, double coherence_length_y) -> FTDistribution2DGauss
 
         FTDistribution2DGauss::FTDistribution2DGauss(double coherence_length_x, double coherence_length_y)
 
         """
-        this = _libBornAgainCore.new_FTDistribution2DGauss(coherence_length_x, coherence_length_y)
+        this = _libBornAgainCore.new_FTDistribution2DGauss(*args)
         try:
             self.this.append(this)
         except:
@@ -9544,14 +9548,16 @@ class FTDistribution2DGate(IFTDistribution2D):
     __getattr__ = lambda self, name: _swig_getattr(self, FTDistribution2DGate, name)
     __repr__ = _swig_repr
 
-    def __init__(self, coherence_length_x, coherence_length_y):
+    def __init__(self, *args):
         """
+        __init__(FTDistribution2DGate self, double coherence_length_x, double coherence_length_y, double gamma=0, double delta) -> FTDistribution2DGate
+        __init__(FTDistribution2DGate self, double coherence_length_x, double coherence_length_y, double gamma=0) -> FTDistribution2DGate
         __init__(FTDistribution2DGate self, double coherence_length_x, double coherence_length_y) -> FTDistribution2DGate
 
         FTDistribution2DGate::FTDistribution2DGate(double coherence_length_x, double coherence_length_y)
 
         """
-        this = _libBornAgainCore.new_FTDistribution2DGate(coherence_length_x, coherence_length_y)
+        this = _libBornAgainCore.new_FTDistribution2DGate(*args)
         try:
             self.this.append(this)
         except:
@@ -9602,14 +9608,16 @@ class FTDistribution2DCone(IFTDistribution2D):
     __getattr__ = lambda self, name: _swig_getattr(self, FTDistribution2DCone, name)
     __repr__ = _swig_repr
 
-    def __init__(self, coherence_length_x, coherence_length_y):
+    def __init__(self, *args):
         """
+        __init__(FTDistribution2DCone self, double coherence_length_x, double coherence_length_y, double gamma=0, double delta) -> FTDistribution2DCone
+        __init__(FTDistribution2DCone self, double coherence_length_x, double coherence_length_y, double gamma=0) -> FTDistribution2DCone
         __init__(FTDistribution2DCone self, double coherence_length_x, double coherence_length_y) -> FTDistribution2DCone
 
         FTDistribution2DCone::FTDistribution2DCone(double coherence_length_x, double coherence_length_y)
 
         """
-        this = _libBornAgainCore.new_FTDistribution2DCone(coherence_length_x, coherence_length_y)
+        this = _libBornAgainCore.new_FTDistribution2DCone(*args)
         try:
             self.this.append(this)
         except:
@@ -9660,14 +9668,16 @@ class FTDistribution2DVoigt(IFTDistribution2D):
     __getattr__ = lambda self, name: _swig_getattr(self, FTDistribution2DVoigt, name)
     __repr__ = _swig_repr
 
-    def __init__(self, coherence_length_x, coherence_length_y, eta):
+    def __init__(self, *args):
         """
+        __init__(FTDistribution2DVoigt self, double coherence_length_x, double coherence_length_y, double eta, double gamma=0, double delta) -> FTDistribution2DVoigt
+        __init__(FTDistribution2DVoigt self, double coherence_length_x, double coherence_length_y, double eta, double gamma=0) -> FTDistribution2DVoigt
         __init__(FTDistribution2DVoigt self, double coherence_length_x, double coherence_length_y, double eta) -> FTDistribution2DVoigt
 
         FTDistribution2DVoigt::FTDistribution2DVoigt(double coherence_length_x, double coherence_length_y, double eta)
 
         """
-        this = _libBornAgainCore.new_FTDistribution2DVoigt(coherence_length_x, coherence_length_y, eta)
+        this = _libBornAgainCore.new_FTDistribution2DVoigt(*args)
         try:
             self.this.append(this)
         except:

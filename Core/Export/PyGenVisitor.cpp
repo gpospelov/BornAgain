@@ -495,9 +495,8 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
                            << PyGenTools::printNm(domainSize[1]) << ")\n";
                 }
 
-                if (twoDParaCrystal->getIntegrationOverXi() == true) {
+                if (twoDParaCrystal->getIntegrationOverXi() == true)
                     result << indent() << it->second << ".setIntegrationOverXi(True)\n";
-                }
             }
 
             std::vector<const IFTDistribution2D*> pdf_vector
@@ -671,11 +670,9 @@ std::string PyGenVisitor::defineParticleLayouts() const
                 particleIndex++;
             }
 
-            const IInterferenceFunction* p_iff = particleLayout->getInterferenceFunction();
-            if (p_iff) {
+            if( const IInterferenceFunction* p_iff = particleLayout->getInterferenceFunction() )
                 result << indent() << it->second << ".addInterferenceFunction("
                        << m_label->getLabelInterferenceFunction(p_iff) << ")\n";
-            }
 
             switch (particleLayout->getApproximation()) {
             case ILayout::DA:

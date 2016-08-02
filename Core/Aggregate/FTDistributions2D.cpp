@@ -19,19 +19,21 @@
 #include "MathFunctions.h"
 #include "Numeric.h"
 #include "ParameterPool.h"
-#include "Units.h"
 
-IFTDistribution2D::IFTDistribution2D(double coherence_length_x, double coherence_length_y)
+IFTDistribution2D::IFTDistribution2D(
+    double coherence_length_x, double coherence_length_y, double gamma, double delta)
     : m_coherence_length_x(coherence_length_x)
     , m_coherence_length_y(coherence_length_y)
-    , m_gamma(0.0)
-    , m_delta(Units::PI/2.0)
+    , m_gamma(gamma)
+    , m_delta(delta)
 {}
 
 void IFTDistribution2D::init_parameters()
 {
     registerNonnegativeLength(BornAgain::CoherenceLengthX, &m_coherence_length_x);
     registerNonnegativeLength(BornAgain::CoherenceLengthY, &m_coherence_length_y);
+    registerLimitedAngle("gamma", &m_gamma, -180, 180);
+    registerLimitedAngle("delta", &m_delta, 0, 180);
 }
 
 void IFTDistribution2D::print(std::ostream& ostr) const
@@ -40,104 +42,65 @@ void IFTDistribution2D::print(std::ostream& ostr) const
 }
 
 
-FTDistribution2DCauchy::FTDistribution2DCauchy(double coherence_length_x,
-        double coherence_length_y)
-: IFTDistribution2D(coherence_length_x, coherence_length_y)
+FTDistribution2DCauchy::FTDistribution2DCauchy(
+    double coherence_length_x, double coherence_length_y, double gamma, double delta)
+    : IFTDistribution2D(coherence_length_x, coherence_length_y, gamma, delta)
 {
     setName(BornAgain::FTDistribution2DCauchyType);
     init_parameters();
 }
 
-FTDistribution2DCauchy *FTDistribution2DCauchy::clone() const
-{
-    FTDistribution2DCauchy *p_clone
-        = new FTDistribution2DCauchy(m_coherence_length_x, m_coherence_length_y);
-    p_clone->setGamma(m_gamma);
-    return p_clone;
-}
-
 double FTDistribution2DCauchy::evaluate(double qx, double qy) const
 {
-    double sum_sq = qx*qx*m_coherence_length_x*m_coherence_length_x
-            + qy*qy*m_coherence_length_y*m_coherence_length_y;
-    return std::pow(1.0 + sum_sq, -1.5);
+    return std::pow(1.0 + sumsq(qx,qy), -1.5);
 }
 
 
-FTDistribution2DGauss::FTDistribution2DGauss(double coherence_length_x,
-        double coherence_length_y)
-: IFTDistribution2D(coherence_length_x, coherence_length_y)
+FTDistribution2DGauss::FTDistribution2DGauss(
+    double coherence_length_x, double coherence_length_y, double gamma, double delta)
+    : IFTDistribution2D(coherence_length_x, coherence_length_y, gamma, delta)
 {
     setName(BornAgain::FTDistribution2DGaussType);
     init_parameters();
 }
 
-FTDistribution2DGauss* FTDistribution2DGauss::clone() const
-{
-    FTDistribution2DGauss *p_clone = new FTDistribution2DGauss(
-            m_coherence_length_x, m_coherence_length_y);
-    p_clone->setGamma(m_gamma);
-    return p_clone;
-}
-
 double FTDistribution2DGauss::evaluate(double qx, double qy) const
 {
-    double sum_sq = qx*qx*m_coherence_length_x*m_coherence_length_x
-            + qy*qy*m_coherence_length_y*m_coherence_length_y;
-    return std::exp(-sum_sq/2.0);
+    return std::exp(-sumsq(qx,qy)/2);
 }
 
 
-FTDistribution2DGate::FTDistribution2DGate(double coherence_length_x,
-        double coherence_length_y)
-: IFTDistribution2D(coherence_length_x, coherence_length_y)
+FTDistribution2DGate::FTDistribution2DGate(
+    double coherence_length_x, double coherence_length_y, double gamma, double delta)
+    : IFTDistribution2D(coherence_length_x, coherence_length_y, gamma, delta)
 {
     setName(BornAgain::FTDistribution2DGateType);
     init_parameters();
 }
 
-FTDistribution2DGate* FTDistribution2DGate::clone() const
-{
-    FTDistribution2DGate *p_clone = new FTDistribution2DGate(
-            m_coherence_length_x, m_coherence_length_y);
-    p_clone->setGamma(m_gamma);
-    return p_clone;
-}
-
 double FTDistribution2DGate::evaluate(double qx, double qy) const
 {
-    double scaled_q = std::sqrt(qx*qx*m_coherence_length_x*m_coherence_length_x
-            + qy*qy*m_coherence_length_y*m_coherence_length_y);
+    double scaled_q = std::sqrt(sumsq(qx,qy));
     return MathFunctions::Bessel_J1c(scaled_q)*2.0;
 }
 
 
-FTDistribution2DCone::FTDistribution2DCone(double coherence_length_x,
-        double coherence_length_y)
-    : IFTDistribution2D(coherence_length_x, coherence_length_y)
+FTDistribution2DCone::FTDistribution2DCone(
+    double coherence_length_x, double coherence_length_y, double gamma, double delta)
+    : IFTDistribution2D(coherence_length_x, coherence_length_y, gamma, delta)
 {
     setName(BornAgain::FTDistribution2DConeType);
     init_parameters();
 }
 
-FTDistribution2DCone* FTDistribution2DCone::clone() const
-{
-    FTDistribution2DCone *p_clone = new FTDistribution2DCone(
-            m_coherence_length_x, m_coherence_length_y);
-    p_clone->setGamma(m_gamma);
-    return p_clone;
-}
-
 double FTDistribution2DCone::evaluate(double qx, double qy) const
 {
-    double scaled_q = std::sqrt(qx*qx*m_coherence_length_x*m_coherence_length_x
-            + qy*qy*m_coherence_length_y*m_coherence_length_y);
+    double scaled_q = std::sqrt(sumsq(qx,qy));
     if (scaled_q<Numeric::double_epsilon)
         return 1.0 - 3.0*scaled_q*scaled_q/40.0;
     auto integrator = make_integrator_real(this, &FTDistribution2DCone::coneIntegrand2);
     double integral = integrator->integrate(0.0, scaled_q);
-    return 6.0*(MathFunctions::Bessel_J1c(scaled_q)
-                - integral/scaled_q/scaled_q/scaled_q);
+    return 6.0*(MathFunctions::Bessel_J1c(scaled_q) - integral/scaled_q/scaled_q/scaled_q);
 }
 
 double FTDistribution2DCone::coneIntegrand2(double value) const
@@ -146,32 +109,20 @@ double FTDistribution2DCone::coneIntegrand2(double value) const
 }
 
 
-FTDistribution2DVoigt::FTDistribution2DVoigt(double coherence_length_x,
-        double coherence_length_y, double eta)
-    : IFTDistribution2D(coherence_length_x, coherence_length_y), m_eta(eta)
+FTDistribution2DVoigt::FTDistribution2DVoigt(
+    double coherence_length_x, double coherence_length_y, double eta, double gamma, double delta)
+    : IFTDistribution2D(coherence_length_x, coherence_length_y, gamma, delta), m_eta(eta)
 {
     setName(BornAgain::FTDistribution2DVoigtType);
-    init_parameters();
-}
-
-FTDistribution2DVoigt* FTDistribution2DVoigt::clone() const
-{
-    FTDistribution2DVoigt *p_clone = new FTDistribution2DVoigt(
-            m_coherence_length_x, m_coherence_length_y, m_eta);
-    p_clone->setGamma(m_gamma);
-    return p_clone;
+    registerNonnegativeLength(BornAgain::CoherenceLengthX, &m_coherence_length_x);
+    registerNonnegativeLength(BornAgain::CoherenceLengthY, &m_coherence_length_y);
+    registerUnlimitedScalar(BornAgain::Eta, &m_eta);
+    registerLimitedAngle("gamma", &m_gamma, -180, 180);
+    registerLimitedAngle("delta", &m_delta, -180, 180);
 }
 
 double FTDistribution2DVoigt::evaluate(double qx, double qy) const
 {
-    double sum_sq = qx*qx*m_coherence_length_x*m_coherence_length_x
-            + qy*qy*m_coherence_length_y*m_coherence_length_y;
-    return m_eta*std::exp(-sum_sq/2.0)
-            + (1.0 - m_eta)*std::pow(1.0 + sum_sq, -1.5);
-}
-
-void FTDistribution2DVoigt::init_parameters()
-{
-    IFTDistribution2D::init_parameters();
-    registerUnlimitedScalar(BornAgain::Eta, &m_eta);
+    double sum_sq = sumsq(qx,qy);
+    return m_eta*std::exp(-sum_sq/2) + (1.0 - m_eta)*std::pow(1.0 + sum_sq, -1.5);
 }

@@ -17,6 +17,7 @@
 #define FTDISTRIBUTIONS2D_H
 
 #include "IParameterized.h" // inheriting from
+#include "Units.h"
 
 // ************************************************************************** //
 //! @class IFTDistribution2D
@@ -27,24 +28,18 @@
 class BA_CORE_API_ IFTDistribution2D : public IParameterized
 {
 public:
-    IFTDistribution2D(double coherence_length_x, double coherence_length_y);
+    IFTDistribution2D(double coherence_length_x, double coherence_length_y,
+                      double gamma=0, double delta=Units::PID2);
     virtual ~IFTDistribution2D() {}
 
     virtual IFTDistribution2D* clone() const=0;
 
-    // set angle between first lattice vector and X-axis of distribution (both in direct space)
     void setGamma(double gamma) { m_gamma = gamma; }
-
-    // get angle between first lattice vector and X-axis of distribution (both in direct space)
     double getGamma() const { return m_gamma; }
 
-    // get angle between X- and Y-axis of distribution (in direct space)
     double getDelta() const { return m_delta; }
 
-    // get coherence length in X-direction
     double getCoherenceLengthX() const { return m_coherence_length_x; }
-
-    // get coherence length in Y-direction
     double getCoherenceLengthY() const { return m_coherence_length_y; }
 
     //! evaluate Fourier transformed distribution for q in X,Y coordinates
@@ -56,11 +51,18 @@ public:
         m.print(ostr); return ostr; }
 
 protected:
+    double sumsq( double qx, double qy) const {
+        return qx*qx*m_coherence_length_x*m_coherence_length_x +
+            qy*qy*m_coherence_length_y*m_coherence_length_y; }
+
     virtual void print(std::ostream& ostr) const;
-    virtual void init_parameters();
-    double m_coherence_length_x;
-    double m_coherence_length_y;
+    void init_parameters();
+
+    double m_coherence_length_x; //!< Coherence length in X-direction.
+    double m_coherence_length_y; //!< Coherence length in Y-direction.
+    //! Angle in direct space between first lattice vector and X-axis of distribution.
     double m_gamma;
+    //! Angle in direct space between X- and Y-axis of distribution.
     double m_delta;
 };
 
@@ -75,10 +77,14 @@ protected:
 class BA_CORE_API_ FTDistribution2DCauchy : public IFTDistribution2D
 {
 public:
-    FTDistribution2DCauchy(double coherence_length_x, double coherence_length_y);
+    FTDistribution2DCauchy(double coherence_length_x, double coherence_length_y,
+                           double gamma=0, double delta=Units::PID2);
+
     virtual ~FTDistribution2DCauchy() {}
 
-    virtual FTDistribution2DCauchy* clone() const;
+    FTDistribution2DCauchy* clone() const final {
+        return new FTDistribution2DCauchy(
+            m_coherence_length_x, m_coherence_length_y, m_gamma, m_delta); }
 
     virtual double evaluate(double qx, double qy) const;
 };
@@ -94,10 +100,14 @@ public:
 class BA_CORE_API_ FTDistribution2DGauss : public IFTDistribution2D
 {
 public:
-    FTDistribution2DGauss(double coherence_length_x, double coherence_length_y);
+    FTDistribution2DGauss(double coherence_length_x, double coherence_length_y,
+                          double gamma=0, double delta=Units::PID2);
+
     virtual ~FTDistribution2DGauss() {}
 
-    virtual FTDistribution2DGauss* clone() const;
+    FTDistribution2DGauss* clone() const final {
+        return new FTDistribution2DGauss(
+            m_coherence_length_x, m_coherence_length_y, m_gamma, m_delta); }
 
     virtual double evaluate(double qx, double qy) const;
 };
@@ -113,10 +123,14 @@ public:
 class BA_CORE_API_ FTDistribution2DGate : public IFTDistribution2D
 {
 public:
-    FTDistribution2DGate(double coherence_length_x, double coherence_length_y);
+    FTDistribution2DGate(double coherence_length_x, double coherence_length_y,
+                         double gamma=0, double delta=Units::PID2);
+
     virtual ~FTDistribution2DGate() {}
 
-    virtual FTDistribution2DGate* clone() const;
+    FTDistribution2DGate* clone() const final {
+        return new FTDistribution2DGate(
+            m_coherence_length_x, m_coherence_length_y, m_gamma, m_delta); }
 
     virtual double evaluate(double qx, double qy) const;
 };
@@ -132,10 +146,14 @@ public:
 class BA_CORE_API_ FTDistribution2DCone : public IFTDistribution2D
 {
 public:
-    FTDistribution2DCone(double coherence_length_x, double coherence_length_y);
+    FTDistribution2DCone(double coherence_length_x, double coherence_length_y,
+                         double gamma=0, double delta=Units::PID2);
+
     virtual ~FTDistribution2DCone() {}
 
-    virtual FTDistribution2DCone* clone() const;
+    FTDistribution2DCone* clone() const final {
+        return new FTDistribution2DCone(
+            m_coherence_length_x, m_coherence_length_y, m_gamma, m_delta); }
 
     virtual double evaluate(double qx, double qy) const;
 
@@ -155,17 +173,19 @@ private:
 class BA_CORE_API_ FTDistribution2DVoigt : public IFTDistribution2D
 {
 public:
-    FTDistribution2DVoigt(double coherence_length_x, double coherence_length_y, double eta);
+    FTDistribution2DVoigt(double coherence_length_x, double coherence_length_y,
+                          double eta, double gamma=0, double delta=Units::PID2);
     virtual ~FTDistribution2DVoigt() {}
 
-    virtual FTDistribution2DVoigt* clone() const;
+    FTDistribution2DVoigt* clone() const final {
+        return new FTDistribution2DVoigt(
+            m_coherence_length_x, m_coherence_length_y, m_eta, m_gamma, m_delta); }
 
     virtual double evaluate(double qx, double qy) const;
 
     virtual double getEta() const { return m_eta;}
 
 protected:
-    virtual void init_parameters();
     double m_eta;
 };
 

@@ -18895,30 +18895,6 @@ class InterferenceFunctionRadialParaCrystal(IInterferenceFunction):
         return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_to_str(self, indent)
 
 
-    def setDomainSize(self, size):
-        """
-        setDomainSize(InterferenceFunctionRadialParaCrystal self, double size)
-
-        void InterferenceFunctionRadialParaCrystal::setDomainSize(double size)
-
-        Sets size of coherence domain. 
-
-        """
-        return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_setDomainSize(self, size)
-
-
-    def getDomainSize(self):
-        """
-        getDomainSize(InterferenceFunctionRadialParaCrystal self) -> double
-
-        double InterferenceFunctionRadialParaCrystal::getDomainSize() const
-
-        Returns size of coherence domain. 
-
-        """
-        return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_getDomainSize(self)
-
-
     def setKappa(self, kappa):
         """
         setKappa(InterferenceFunctionRadialParaCrystal self, double kappa)
@@ -18941,6 +18917,30 @@ class InterferenceFunctionRadialParaCrystal(IInterferenceFunction):
 
         """
         return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_getKappa(self)
+
+
+    def setDomainSize(self, size):
+        """
+        setDomainSize(InterferenceFunctionRadialParaCrystal self, double size)
+
+        void InterferenceFunctionRadialParaCrystal::setDomainSize(double size)
+
+        Sets size of coherence domain. 
+
+        """
+        return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_setDomainSize(self, size)
+
+
+    def getDomainSize(self):
+        """
+        getDomainSize(InterferenceFunctionRadialParaCrystal self) -> double
+
+        double InterferenceFunctionRadialParaCrystal::getDomainSize() const
+
+        Returns size of coherence domain. 
+
+        """
+        return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_getDomainSize(self)
 
 
     def evaluate(self, q):

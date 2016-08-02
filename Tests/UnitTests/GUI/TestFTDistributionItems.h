@@ -4,7 +4,7 @@
 #include <QtTest>
 #include "TransformToDomain.h"
 #include "TransformFromDomain.h"
-#include "FTDistributions.h"
+#include "FTDistributions1D.h"
 #include "FTDistributionItems.h"
 
 class TestFTDistributionItems : public QObject {

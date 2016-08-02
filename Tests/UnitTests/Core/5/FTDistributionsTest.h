@@ -1,7 +1,8 @@
 #ifndef FTDISTRIBUTIONSTEST_H
 #define FTDISTRIBUTIONSTEST_H
 
-#include "FTDistributions.h"
+#include "FTDistributions1D.h"
+#include "FTDistributions2D.h"
 #include "BornAgainNamespace.h"
 
 #include <memory>

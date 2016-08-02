@@ -18,7 +18,7 @@
 
 #include "IInterferenceFunction.h" // inheriting from
 #include "Complex.h"
-#include "FTDistributions.h"
+#include "FTDistributions2D.h"
 #include "Lattice2DParameters.h"
 #include <memory>
 

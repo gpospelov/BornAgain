@@ -19,7 +19,8 @@
 
 
 #include "SessionItem.h" // inheriting from
-#include "FTDistributions.h"
+#include "FTDistributions1D.h"
+#include "FTDistributions2D.h"
 
 
 class BA_CORE_API_ FTDistribution1DItem : public SessionItem
@@ -145,4 +146,3 @@ public:
 
 
 #endif // FTDISTRIBUTIONITEMS_H
-

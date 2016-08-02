@@ -18,7 +18,7 @@
 
 #include "IInterferenceFunction.h" // inheriting from
 #include "Complex.h"
-#include "FTDistributions.h"
+#include "FTDistributions1D.h"
 #include <memory>
 
 //! @class InterferenceFunctionRadialParaCrystal

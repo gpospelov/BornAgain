@@ -31,11 +31,10 @@ class BA_CORE_API_ FormFactorCone : public IFormFactorBorn
 {
 public:
     FormFactorCone(double radius, double height,  double alpha);
-    virtual ~FormFactorCone();
+    virtual ~FormFactorCone() {}
 
-    FormFactorCone* clone() const;
-
-    void accept(ISampleVisitor* visitor) const final;
+    FormFactorCone* clone() const { return new FormFactorCone(m_radius, m_height, m_alpha); }
+    void accept(ISampleVisitor* visitor) const final { visitor->visit(this); }
 
     double getHeight() const { return m_height; }
     double getAlpha() const { return m_alpha; }

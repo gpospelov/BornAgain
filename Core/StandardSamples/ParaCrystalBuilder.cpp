@@ -65,12 +65,11 @@ ISample* RadialParaCrystalBuilder::buildSample() const
 
 void RadialParaCrystalBuilder::init_parameters()
 {
-
-    registerParameter("corr_peak_distance", &m_corr_peak_distance);
-    registerParameter("corr_width", &m_corr_width);
-    registerParameter("corr_length", &m_corr_length);
-    registerParameter("cylinder_height", &m_cylinder_height);
-    registerParameter("cylinder_radius", &m_cylinder_radius);
+    registerNonnegativeLength("corr_peak_distance", &m_corr_peak_distance);
+    registerNonnegativeLength("corr_width", &m_corr_width);
+    registerNonnegativeLength("corr_length", &m_corr_length);
+    registerNonnegativeLength("cylinder_height", &m_cylinder_height);
+    registerNonnegativeLength("cylinder_radius", &m_cylinder_radius);
 }
 
 // -----------------------------------------------------------------------------
@@ -172,12 +171,12 @@ ISample* HexParaCrystalBuilder::buildSample() const
 void HexParaCrystalBuilder::init_parameters()
 {
 
-    registerParameter("m_peak_distance", &m_peak_distance);
-    registerParameter("m_corr_length", &m_corr_length);
-    registerParameter("m_domain_size_1", &m_domain_size_1);
-    registerParameter("m_domain_size_2", &m_domain_size_2);
-    registerParameter("cylinder_height", &m_cylinder_height);
-    registerParameter("cylinder_radius", &m_cylinder_radius);
+    registerNonnegativeLength("m_peak_distance", &m_peak_distance);
+    registerNonnegativeLength("m_corr_length", &m_corr_length);
+    registerNonnegativeLength("m_domain_size_1", &m_domain_size_1);
+    registerNonnegativeLength("m_domain_size_2", &m_domain_size_2);
+    registerNonnegativeLength("cylinder_height", &m_cylinder_height);
+    registerNonnegativeLength("cylinder_radius", &m_cylinder_radius);
 }
 
 // -----------------------------------------------------------------------------

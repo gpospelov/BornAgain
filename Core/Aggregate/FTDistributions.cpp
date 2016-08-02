@@ -32,7 +32,7 @@ void IFTDistribution1D::print(std::ostream& ostr) const
 
 void IFTDistribution1D::init_parameters()
 {
-    registerParameter(Omega, &m_omega);
+    registerUnlimitedScalar(Omega, &m_omega);
 }
 
 
@@ -160,7 +160,7 @@ double FTDistribution1DVoigt::evaluate(double q) const
 void FTDistribution1DVoigt::init_parameters()
 {
     IFTDistribution1D::init_parameters();
-    registerParameter(Eta, &m_eta);
+    registerUnlimitedScalar(Eta, &m_eta);
 }
 
 //==============2D====================
@@ -174,8 +174,8 @@ IFTDistribution2D::IFTDistribution2D(double coherence_length_x, double coherence
 
 void IFTDistribution2D::init_parameters()
 {
-    registerParameter(CoherenceLengthX, &m_coherence_length_x);
-    registerParameter(CoherenceLengthY, &m_coherence_length_y);
+    registerNonnegativeLength(CoherenceLengthX, &m_coherence_length_x);
+    registerNonnegativeLength(CoherenceLengthY, &m_coherence_length_y);
 }
 
 void IFTDistribution2D::print(std::ostream& ostr) const
@@ -314,5 +314,5 @@ double FTDistribution2DVoigt::evaluate(double qx, double qy) const
 void FTDistribution2DVoigt::init_parameters()
 {
     IFTDistribution2D::init_parameters();
-    registerParameter(Eta, &m_eta);
+    registerUnlimitedScalar(Eta, &m_eta);
 }

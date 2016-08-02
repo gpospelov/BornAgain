@@ -34,9 +34,9 @@ public:
 
     virtual ~FormFactorRipple2() { }
 
-    FormFactorRipple2 *clone() const;
-
-    void accept(ISampleVisitor *visitor) const final;
+    FormFactorRipple2 *clone() const{
+        return new FormFactorRipple2(m_length, m_width, m_height, m_d); }
+    void accept(ISampleVisitor *visitor) const final { visitor->visit(this); }
 
     double getHeight() const { return m_height; }
     double getWidth() const { return m_width; }
@@ -49,7 +49,6 @@ public:
 
 protected:
     virtual bool check_initialization() const;
-    virtual void init_parameters();
 
 private:
     double m_width;

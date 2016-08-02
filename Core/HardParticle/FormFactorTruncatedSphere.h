@@ -32,9 +32,9 @@ public:
     FormFactorTruncatedSphere(double radius, double height);
     virtual ~FormFactorTruncatedSphere();
 
-    FormFactorTruncatedSphere *clone() const;
-
-    void accept(ISampleVisitor *visitor) const final;
+    FormFactorTruncatedSphere *clone() const {
+        return new FormFactorTruncatedSphere(m_radius, m_height); }
+    void accept(ISampleVisitor *visitor) const final { visitor->visit(this); }
 
     double getHeight() const { return m_height; }
     double getRadius() const { return m_radius; }
@@ -43,7 +43,6 @@ public:
 
 protected:
     virtual bool check_initialization() const;
-    virtual void init_parameters();
     virtual complex_t evaluate_for_q(const cvector_t q) const;
 
 private:

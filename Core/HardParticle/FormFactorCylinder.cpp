@@ -14,41 +14,16 @@
 // ************************************************************************** //
 
 #include "FormFactorCylinder.h"
-#include "AttLimits.h"
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
 #include "Units.h"
 
-using namespace  BornAgain;
-
 FormFactorCylinder::FormFactorCylinder(double radius, double height)
+    : m_radius(radius), m_height(height)
 {
-    setName(FFCylinderType);
-    m_radius = radius;
-    m_height = height;
-    check_initialization();
-    init_parameters();
-}
-
-bool FormFactorCylinder::check_initialization() const
-{
-    return true;
-}
-
-void FormFactorCylinder::init_parameters()
-{
-    registerParameter(Radius, &m_radius, AttLimits::n_positive());
-    registerParameter(Height, &m_height, AttLimits::n_positive());
-}
-
-FormFactorCylinder* FormFactorCylinder::clone() const
-{
-    return new FormFactorCylinder(m_radius, m_height);
-}
-
-void FormFactorCylinder::accept(ISampleVisitor *visitor) const
-{
-    visitor->visit(this);
+    setName(BornAgain::FFCylinderType);
+    registerNonnegativeLength(BornAgain::Radius, &m_radius);
+    registerNonnegativeLength(BornAgain::Height, &m_height);
 }
 
 complex_t FormFactorCylinder::evaluate_for_q(const cvector_t q) const

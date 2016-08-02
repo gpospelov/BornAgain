@@ -47,19 +47,18 @@ MesoCrystalBuilder::MesoCrystalBuilder()
 
 void MesoCrystalBuilder::init_parameters()
 {
-
-    registerParameter("meso_radius", &m_meso_radius);
-    registerParameter("surface_filling_ratio", &m_surface_filling_ratio);
-    registerParameter("meso_height", &m_meso_height);
-    registerParameter("sigma_meso_height", &m_sigma_meso_height);
-    registerParameter("sigma_meso_radius", &m_sigma_meso_radius);
-    registerParameter("lattice_length_a", &m_lattice_length_a);
-    registerParameter("lattice_length_c", &m_lattice_length_c);
-    registerParameter("nanoparticle_radius", &m_nanoparticle_radius);
-    registerParameter("sigma_nanoparticle_radius", &m_sigma_nanoparticle_radius);
-    registerParameter("sigma_lattice_length_a", &m_sigma_lattice_length_a);
-    registerParameter("roughness", &m_roughness);
-    registerParameter("nphi_rotations", &m_nphi_rotations);
+    registerNonnegativeLength("meso_radius", &m_meso_radius);
+    registerNonnegativeScalar("surface_filling_ratio", &m_surface_filling_ratio);
+    registerNonnegativeLength("meso_height", &m_meso_height);
+    registerNonnegativeLength("sigma_meso_height", &m_sigma_meso_height);
+    registerNonnegativeLength("sigma_meso_radius", &m_sigma_meso_radius);
+    registerNonnegativeLength("lattice_length_a", &m_lattice_length_a);
+    registerNonnegativeLength("lattice_length_c", &m_lattice_length_c);
+    registerNonnegativeLength("nanoparticle_radius", &m_nanoparticle_radius);
+    registerNonnegativeLength("sigma_nanoparticle_radius", &m_sigma_nanoparticle_radius);
+    registerNonnegativeLength("sigma_lattice_length_a", &m_sigma_lattice_length_a);
+    registerNonnegativeLength("roughness", &m_roughness);
+    registerNonnegativeScalar("nphi_rotations", &m_nphi_rotations);
 }
 
 

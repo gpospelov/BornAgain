@@ -30,9 +30,9 @@ public:
     //! @param height of Cylinder
     FormFactorCylinder(double radius, double height);
     virtual ~FormFactorCylinder() {}
-    FormFactorCylinder *clone() const;
 
-    void accept(ISampleVisitor *visitor) const final;
+    FormFactorCylinder *clone() const { return new FormFactorCylinder(m_radius, m_height); }
+    void accept(ISampleVisitor *visitor) const final { visitor->visit(this); }
 
     double getHeight() const { return m_height; }
     double getRadius() const { return m_radius; }
@@ -40,10 +40,6 @@ public:
     double getRadialExtension() const final { return m_radius; }
 
     complex_t evaluate_for_q(const cvector_t q) const final;
-
-protected:
-    virtual bool check_initialization() const;
-    virtual void init_parameters();
 
 private:
     double m_radius;

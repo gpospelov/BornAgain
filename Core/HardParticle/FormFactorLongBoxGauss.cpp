@@ -14,28 +14,16 @@
 // ************************************************************************** //
 
 #include "FormFactorLongBoxGauss.h"
-#include "AttLimits.h"
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
-
-using namespace BornAgain;
 
 FormFactorLongBoxGauss::FormFactorLongBoxGauss(double length, double width, double height)
     : m_length(length), m_width(width), m_height(height)
 {
-    setName(FFLongBoxGaussType);
-    check_initialization();
-    init_parameters();
-}
-
-FormFactorLongBoxGauss *FormFactorLongBoxGauss::clone() const
-{
-    return new FormFactorLongBoxGauss(m_length, m_width, m_height);
-}
-
-void FormFactorLongBoxGauss::accept(ISampleVisitor *visitor) const
-{
-    visitor->visit(this);
+    setName(BornAgain::FFLongBoxGaussType);
+    registerNonnegativeLength(BornAgain::Length, &m_length);
+    registerNonnegativeLength(BornAgain::Width, &m_width);
+    registerNonnegativeLength(BornAgain::Height, &m_height);
 }
 
 complex_t FormFactorLongBoxGauss::evaluate_for_q(const cvector_t q) const
@@ -46,16 +34,4 @@ complex_t FormFactorLongBoxGauss::evaluate_for_q(const cvector_t q) const
 
     return m_height * m_length * m_width * exp_I(qzHdiv2) * std::exp(-qxL2)
            * MathFunctions::sinc(qyWdiv2) * MathFunctions::sinc(qzHdiv2);
-}
-
-bool FormFactorLongBoxGauss::check_initialization() const
-{
-    return true;
-}
-
-void FormFactorLongBoxGauss::init_parameters()
-{
-    registerParameter(Length, &m_length, AttLimits::n_positive());
-    registerParameter(Width,  &m_width,  AttLimits::n_positive());
-    registerParameter(Height, &m_height, AttLimits::n_positive());
 }

@@ -36,17 +36,16 @@ CosineRippleBuilder::CosineRippleBuilder()
 
 void CosineRippleBuilder::init_parameters()
 {
-
-    registerParameter("width", &m_w);
-    registerParameter("height", &m_h);
-    registerParameter("length", &m_l);
-    registerParameter("interf_distance", &m_interf_distance);
-    registerParameter("interf_width", &m_interf_width);
+    registerNonnegativeLength("width", &m_w);
+    registerNonnegativeLength("height", &m_h);
+    registerNonnegativeLength("length", &m_l);
+    registerNonnegativeLength("interf_distance", &m_interf_distance);
+    registerNonnegativeLength("interf_width", &m_interf_width);
 }
 
-ISample *CosineRippleBuilder::buildSample() const
+ISample* CosineRippleBuilder::buildSample() const
 {
-    MultiLayer *p_multi_layer = new MultiLayer();
+    MultiLayer* p_multi_layer = new MultiLayer();
 
     HomogeneousMaterial air_material("Air", 0.0, 0.0);
     HomogeneousMaterial substrate_material("Substrate", 6e-6, 2e-8);
@@ -90,17 +89,17 @@ TriangularRippleBuilder::TriangularRippleBuilder()
 void TriangularRippleBuilder::init_parameters()
 {
 
-    registerParameter("width", &m_w);
-    registerParameter("height", &m_h);
-    registerParameter("length", &m_l);
-    registerParameter("asymetry", &m_d);
-    registerParameter("interf_distance", &m_interf_distance);
-    registerParameter("interf_width", &m_interf_width);
+    registerNonnegativeLength("width", &m_w);
+    registerNonnegativeLength("height", &m_h);
+    registerNonnegativeLength("length", &m_l);
+    registerUnlimitedScalar  ("asymetry", &m_d);
+    registerNonnegativeLength("interf_distance", &m_interf_distance);
+    registerNonnegativeLength("interf_width", &m_interf_width);
 }
 
-ISample *TriangularRippleBuilder::buildSample() const
+ISample* TriangularRippleBuilder::buildSample() const
 {
-    MultiLayer *p_multi_layer = new MultiLayer();
+    MultiLayer* p_multi_layer = new MultiLayer();
 
     HomogeneousMaterial air_material("Air", 0.0, 0.0);
     HomogeneousMaterial substrate_material("Substrate", 6e-6, 2e-8);

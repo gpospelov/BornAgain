@@ -14,7 +14,6 @@
 // ************************************************************************** //
 
 #include "FormFactorAnisoPyramid.h"
-#include "AttLimits.h"
 #include "BornAgainNamespace.h"
 #include "Exceptions.h"
 #include "MathFunctions.h"
@@ -44,10 +43,10 @@ FormFactorAnisoPyramid::FormFactorAnisoPyramid(
     , m_alpha(alpha)
 {
     setName(BornAgain::FFAnisoPyramidType);
-    registerParameter(BornAgain::Length, &m_length, AttLimits::n_positive());
-    registerParameter(BornAgain::Width, &m_width, AttLimits::n_positive());
-    registerParameter(BornAgain::Height, &m_height, AttLimits::n_positive());
-    registerParameter(BornAgain::Alpha, &m_alpha, AttLimits::n_positive());
+    registerNonnegativeLength(BornAgain::Length, &m_length);
+    registerNonnegativeLength(BornAgain::Width, &m_width);
+    registerNonnegativeLength(BornAgain::Height, &m_height);
+    registerLimitedAngle(BornAgain::Alpha, &m_alpha, 0, 180);
     onChange();
 }
 
@@ -87,14 +86,4 @@ void FormFactorAnisoPyramid::onChange()
         {  d, -w, m_height-zcom },
         {  d,  w, m_height-zcom },
         { -d,  w, m_height-zcom } } );
-}
-
-FormFactorAnisoPyramid* FormFactorAnisoPyramid::clone() const
-{
-    return new FormFactorAnisoPyramid(m_length, m_width, m_height, m_alpha);
-}
-
-void FormFactorAnisoPyramid::accept(ISampleVisitor *visitor) const
-{
-    visitor->visit(this);
 }

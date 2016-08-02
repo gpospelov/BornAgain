@@ -14,7 +14,6 @@
 // ************************************************************************** //
 
 #include "FormFactorPrism6.h"
-#include "AttLimits.h"
 #include "BornAgainNamespace.h"
 
 //! @brief Prism6 constructor
@@ -25,8 +24,8 @@ FormFactorPrism6::FormFactorPrism6(const double base_edge, const double height)
     , m_base_edge(base_edge)
 {
     setName(BornAgain::FFPrism6Type);
-    registerParameter(BornAgain::BaseEdge, &m_base_edge, AttLimits::n_positive());
-    registerParameter(BornAgain::Height, &m_height, AttLimits::n_positive());
+    registerNonnegativeLength(BornAgain::BaseEdge, &m_base_edge);
+    registerNonnegativeLength(BornAgain::Height, &m_height);
     onChange();
 }
 
@@ -43,14 +42,4 @@ void FormFactorPrism6::onChange()
         { -ac, -as, 0. },
         {  ac, -as, 0. } };
     setPrism( true, V );
-}
-
-FormFactorPrism6* FormFactorPrism6::clone() const
-{
-    return new FormFactorPrism6(m_base_edge, m_height);
-}
-
-void FormFactorPrism6::accept(ISampleVisitor *visitor) const
-{
-    visitor->visit(this);
 }

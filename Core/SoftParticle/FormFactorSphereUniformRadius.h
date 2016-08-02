@@ -27,16 +27,13 @@ class BA_CORE_API_ FormFactorSphereUniformRadius : public IFormFactorBorn
 public:
     FormFactorSphereUniformRadius(double mean, double full_width);
 
-    FormFactorSphereUniformRadius *clone() const;
-
-    void accept(ISampleVisitor *visitor) const final;
+    FormFactorSphereUniformRadius *clone() const {
+        return new FormFactorSphereUniformRadius(m_mean, m_full_width); }
+    void accept(ISampleVisitor *visitor) const final { visitor->visit(this); }
 
     double getRadialExtension() const final { return m_mean; }
 
     complex_t evaluate_for_q(const cvector_t q) const final;
-
-protected:
-    virtual void init_parameters();
 
 private:
     bool checkParameters() const;

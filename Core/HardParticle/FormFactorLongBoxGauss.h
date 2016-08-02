@@ -31,9 +31,9 @@ public:
     //! @param height of Box
     FormFactorLongBoxGauss( double length, double width, double height);
 
-    FormFactorLongBoxGauss *clone() const;
-
-    void accept(ISampleVisitor *visitor) const final;
+    FormFactorLongBoxGauss *clone() const {
+        return new FormFactorLongBoxGauss(m_length, m_width, m_height); }
+    void accept(ISampleVisitor *visitor) const final { visitor->visit(this); }
 
     double getLength() const { return m_length; }
     double getHeight() const { return m_height; }
@@ -41,10 +41,6 @@ public:
     double getRadialExtension() const final{ return m_length/2.0; }
 
     complex_t evaluate_for_q(const cvector_t q) const final;
-
-protected:
-    virtual bool check_initialization() const;
-    virtual void init_parameters();
 
 private:
     double m_length;

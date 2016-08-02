@@ -27,8 +27,9 @@ class BA_CORE_API_ FormFactorTruncatedCube : public FormFactorPolyhedron
 public:
     FormFactorTruncatedCube(double length, double removed_length);
 
-    FormFactorTruncatedCube *clone() const final;
-    void accept(ISampleVisitor *visitor) const final;
+    FormFactorTruncatedCube *clone() const final {
+        return new FormFactorTruncatedCube(m_length, m_removed_length); }
+    void accept(ISampleVisitor *visitor) const final { visitor->visit(this); }
 
     double getLength() const { return m_length; }
     double getRemovedLength() const { return m_removed_length; }

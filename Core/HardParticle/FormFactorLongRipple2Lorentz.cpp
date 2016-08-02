@@ -14,22 +14,19 @@
 // ************************************************************************** //
 
 #include "FormFactorLongRipple2Lorentz.h"
-#include "AttLimits.h"
 #include "BornAgainNamespace.h"
 #include "Exceptions.h"
 
-using namespace BornAgain;
-
 FormFactorLongRipple2Lorentz::FormFactorLongRipple2Lorentz(
     double length, double width, double height, double asymetry)
-    : m_width(width)
-    , m_height(height)
-    , m_length(length)
-    , m_d(asymetry)
+    : m_length(length), m_width(width), m_height(height), m_d(asymetry)
 {
-    setName(FFLongRipple2LorentzType);
+    setName(BornAgain::FFLongRipple2LorentzType);
     check_initialization();
-    init_parameters();
+    registerNonnegativeLength(BornAgain::Width, &m_width);
+    registerNonnegativeLength(BornAgain::Height, &m_height);
+    registerNonnegativeLength(BornAgain::Length, &m_length);
+    registerUnlimitedLength(BornAgain::AsymmetryLength, &m_d);
 }
 
 bool FormFactorLongRipple2Lorentz::check_initialization() const
@@ -60,24 +57,6 @@ bool FormFactorLongRipple2Lorentz::check_initialization() const
         throw Exceptions::ClassInitializationException(ostr.str());
     }
     return result;
-}
-
-void FormFactorLongRipple2Lorentz::init_parameters()
-{
-    registerParameter(Width, &m_width, AttLimits::n_positive());
-    registerParameter(Height, &m_height, AttLimits::n_positive());
-    registerParameter(Length, &m_length, AttLimits::n_positive());
-    registerParameter(AsymmetryLength, &m_d);
-}
-
-FormFactorLongRipple2Lorentz* FormFactorLongRipple2Lorentz::clone() const
-{
-    return new FormFactorLongRipple2Lorentz(m_length, m_width, m_height, m_d);
-}
-
-void FormFactorLongRipple2Lorentz::accept(ISampleVisitor* visitor) const
-{
-    visitor->visit(this);
 }
 
 double FormFactorLongRipple2Lorentz::getRadialExtension() const

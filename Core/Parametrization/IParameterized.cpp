@@ -71,18 +71,68 @@ void IParameterized::printParameters()
     std::cout << *P_pool << std::endl;
 }
 
-//! Register parameter address in the parameter pool; name allows for wildcard '*'
-void IParameterized::registerParameter(const std::string& name, double* parpointer)
+void IParameterized::registerUnlimitedAngle(const std::string& name, double* data)
 {
-    m_pool->addParameter( new Scalar( name, m_pool, parpointer, AttLimits::limitless() ) );
+    registerAngle(name, data, AttLimits::limitless());
 }
 
-//! Register parameter address in the parameter pool; name allows for wildcard '*'
-void IParameterized::registerParameter(
-    const std::string& name, double* parpointer, const AttLimits& limits)
+void IParameterized::registerLimitedAngle(
+    const std::string& name, double* data, double lower_limit, double upper_limit)
 {
-    m_pool->addParameter( new Scalar( name, m_pool, parpointer, limits) );
+    registerAngle(name, data, AttLimits::limited( lower_limit, upper_limit ));
 }
+
+
+void IParameterized::registerUnlimitedScalar(const std::string& name, double* data)
+{
+    registerScalar(name, data, AttLimits::limitless());
+}
+
+void IParameterized::registerPositiveScalar(const std::string& name, double* data)
+{
+    registerScalar(name, data, AttLimits::positive());
+}
+
+void IParameterized::registerNonnegativeScalar(const std::string& name, double* data)
+{
+    registerScalar(name, data, AttLimits::n_positive());
+}
+
+
+void IParameterized::registerUnlimitedLength(const std::string& name, double* data)
+{
+    registerLength(name, data, AttLimits::limitless());
+}
+
+void IParameterized::registerPositiveLength(const std::string& name, double* data)
+{
+    registerLength(name, data, AttLimits::positive());
+}
+
+void IParameterized::registerNonnegativeLength(const std::string& name, double* data)
+{
+    registerLength(name, data, AttLimits::n_positive());
+}
+
+
+void IParameterized::registerAngle(
+    const std::string& name, double* data, const AttLimits& limits)
+{
+    m_pool->addParameter( new Angle( name, m_pool, data, limits) );
+}
+
+void IParameterized::registerScalar(
+    const std::string& name, double* data, const AttLimits& limits)
+{
+    m_pool->addParameter( new Scalar( name, m_pool, data, limits) );
+}
+
+void IParameterized::registerLength(
+    const std::string& name, double* data, const AttLimits& limits)
+{
+    m_pool->addParameter( new Scalar( name, m_pool, data, limits) );
+}
+
 
 void IParameterized::setParameterValue(const std::string& name, double value)
 {

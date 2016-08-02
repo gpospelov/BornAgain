@@ -26,8 +26,9 @@ class BA_CORE_API_ FormFactorAnisoPyramid : public FormFactorPolyhedron
 public:
     FormFactorAnisoPyramid(double length, double width, double height, double alpha);
 
-    FormFactorAnisoPyramid* clone() const final;
-    void accept(ISampleVisitor *visitor) const final;
+    FormFactorAnisoPyramid* clone() const final {
+        return new FormFactorAnisoPyramid(m_length, m_width, m_height, m_alpha); }
+    void accept(ISampleVisitor *visitor) const final { visitor->visit(this); }
 
     double getLength() const { return m_length; }
     double getWidth()  const { return m_width; }

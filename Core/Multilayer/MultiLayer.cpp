@@ -22,22 +22,15 @@
 #include "MultiLayerDWBASimulation.h"
 #include "ParameterPool.h"
 
-using namespace BornAgain;
-
 MultiLayer::MultiLayer() : m_crossCorrLength(0)
 {
-    setName(MultiLayerType);
+    setName(BornAgain::MultiLayerType);
     init_parameters();
 }
 
 MultiLayer::~MultiLayer()
 {
     clear();
-}
-
-void MultiLayer::accept(ISampleVisitor* visitor) const
-{
-    visitor->visit(this);
 }
 
 std::string MultiLayer::to_str(int indent) const
@@ -48,7 +41,7 @@ std::string MultiLayer::to_str(int indent) const
 void MultiLayer::init_parameters()
 {
     getParameterPool()->clear(); // non-trivially needed
-    registerParameter(CrossCorrelationLength, &m_crossCorrLength);
+    registerNonnegativeLength(BornAgain::CrossCorrelationLength, &m_crossCorrLength);
 }
 
 void MultiLayer::clear() // TODO: understand need
@@ -226,7 +219,8 @@ DWBASimulation* MultiLayer::createDWBASimulation() const
 int MultiLayer::getIndexOfLayer(const Layer* layer) const
 {
     for (size_t i=0; i<getNumberOfLayers(); ++i)
-        if(layer == m_layers[i]) return i;
+        if (layer == m_layers[i])
+            return i;
     return -1;
 }
 

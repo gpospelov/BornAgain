@@ -46,7 +46,7 @@ public:
     virtual Layer* cloneInvertB() const;
 
     //! Calls the ISampleVisitor's visit method
-    virtual void accept(class ISampleVisitor* visitor) const;
+    void accept(class ISampleVisitor* visitor) const final { visitor->visit(this); }
 
     //! Returns textual representation of *this and its descendants.
     virtual std::string to_str(int indent=0) const;
@@ -108,6 +108,7 @@ protected:
     IMaterial* mp_material;   //!< pointer to the material
     SafePointerVector<class ILayout> m_layouts; //!< independent layouts in this layer
     size_t mn_layers;
+
 private:
     void initialize();
 };

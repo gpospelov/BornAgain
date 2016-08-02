@@ -31,11 +31,10 @@ public:
     //! @param width of cosine cross section
     //! @param height of cosine cross section
     FormFactorRipple1(double length, double width, double height);
-    virtual ~FormFactorRipple1();
+    virtual ~FormFactorRipple1() {}
 
-    FormFactorRipple1 *clone() const;
-
-    void accept(ISampleVisitor *visitor) const final;
+    FormFactorRipple1* clone() const { return new FormFactorRipple1(m_length, m_width, m_height); }
+    void accept(ISampleVisitor* visitor) const final { visitor->visit(this); }
 
     double getLength() const { return m_length; }
     double getHeight() const { return m_height; }
@@ -47,7 +46,6 @@ public:
 
 protected:
     virtual bool check_initialization() const;
-    virtual void init_parameters();
 
 private:
     complex_t Integrand(double u) const;

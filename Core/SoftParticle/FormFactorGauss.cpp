@@ -14,12 +14,9 @@
 // ************************************************************************** //
 
 #include "FormFactorGauss.h"
-#include "AttLimits.h"
 #include "BornAgainNamespace.h"
 #include "Numeric.h"
 #include "Units.h"
-
-using namespace BornAgain;
 
 FormFactorGauss::FormFactorGauss(double volume)
 {
@@ -33,27 +30,6 @@ FormFactorGauss::FormFactorGauss(double width, double height)
     m_width = width;
     m_height = height;
     initialize();
-}
-
-bool FormFactorGauss::check_initialization() const
-{
-    return true;
-}
-
-void FormFactorGauss::init_parameters()
-{
-    registerParameter(Width, &m_width, AttLimits::n_positive());
-    registerParameter(Height, &m_height, AttLimits::n_positive());
-}
-
-FormFactorGauss* FormFactorGauss::clone() const
-{
-    return new FormFactorGauss(m_width, m_height);
-}
-
-void FormFactorGauss::accept(ISampleVisitor* visitor) const
-{
-    visitor->visit(this);
 }
 
 complex_t FormFactorGauss::evaluate_for_q(const cvector_t q) const
@@ -77,8 +53,8 @@ complex_t FormFactorGauss::evaluate_for_q(const cvector_t q) const
 
 void FormFactorGauss::initialize()
 {
-    setName(FFGaussType);
-    check_initialization();
-    init_parameters();
+    setName(BornAgain::FFGaussType);
+    registerNonnegativeLength(BornAgain::Width, &m_width);
+    registerNonnegativeLength(BornAgain::Height, &m_height);
     m_max_ql = std::sqrt(-4 * Units::PI * std::log(Numeric::double_min) / 3.0);
 }

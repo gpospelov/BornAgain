@@ -14,28 +14,22 @@
 // ************************************************************************** //
 
 #include "FormFactorLongRipple1Lorentz.h"
-#include "AttLimits.h"
 #include "BornAgainNamespace.h"
 #include "Exceptions.h"
 #include "MathFunctions.h"
 #include "Units.h"
 
-using namespace BornAgain;
-
 FormFactorLongRipple1Lorentz::FormFactorLongRipple1Lorentz(
     double length, double width, double height)
-    : m_width(width)
-    , m_height(height)
-    , m_length(length)
+    : m_length(length), m_width(width), m_height(height)
 {
-    setName(FFLongRipple1LorentzType);
+    setName(BornAgain::FFLongRipple1LorentzType);
     check_initialization();
-    init_parameters();
-
+    registerNonnegativeLength(BornAgain::Length, &m_length);
+    registerNonnegativeLength(BornAgain::Width, &m_width);
+    registerNonnegativeLength(BornAgain::Height, &m_height);
     mP_integrator = make_integrator_complex(this, &FormFactorLongRipple1Lorentz::Integrand);
 }
-
-FormFactorLongRipple1Lorentz::~FormFactorLongRipple1Lorentz() {}
 
 bool FormFactorLongRipple1Lorentz::check_initialization() const
 {
@@ -50,23 +44,6 @@ bool FormFactorLongRipple1Lorentz::check_initialization() const
         throw Exceptions::ClassInitializationException(ostr.str());
     }
     return result;
-}
-
-void FormFactorLongRipple1Lorentz::init_parameters()
-{
-    registerParameter(Width, &m_width, AttLimits::n_positive());
-    registerParameter(Height, &m_height, AttLimits::n_positive());
-    registerParameter(Length, &m_length, AttLimits::n_positive());
-}
-
-FormFactorLongRipple1Lorentz* FormFactorLongRipple1Lorentz::clone() const
-{
-    return new FormFactorLongRipple1Lorentz(m_length, m_width, m_height);
-}
-
-void FormFactorLongRipple1Lorentz::accept(ISampleVisitor* visitor) const
-{
-    visitor->visit(this);
 }
 
 double FormFactorLongRipple1Lorentz::getRadialExtension() const

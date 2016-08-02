@@ -189,10 +189,10 @@ InterferenceFunction2DLattice::InterferenceFunction2DLattice(
 
 void InterferenceFunction2DLattice::init_parameters()
 {
-    registerParameter(LatticeLength1, &m_lattice_params.m_length_1);
-    registerParameter(LatticeLength2, &m_lattice_params.m_length_2);
-    registerParameter(Alpha, &m_lattice_params.m_angle);
-    registerParameter(Xi, &m_lattice_params.m_xi);
+    registerPositiveLength(LatticeLength1, &m_lattice_params.m_length_1);
+    registerPositiveLength(LatticeLength2, &m_lattice_params.m_length_2);
+    registerUnlimitedAngle(Alpha, &m_lattice_params.m_angle);
+    registerUnlimitedAngle(Xi, &m_lattice_params.m_xi);
 }
 
 void InterferenceFunction2DLattice::initialize_rec_vectors()
@@ -207,10 +207,10 @@ void InterferenceFunction2DLattice::initialize_rec_vectors()
     double binv = Units::PI2 / m_lattice_params.m_length_2 / sinalpha;
     double xi = m_lattice_params.m_xi;
     double xialpha = xi + m_lattice_params.m_angle;
-    m_asx = ainv * std::sin(xialpha);
+    m_asx = +ainv * std::sin(xialpha);
     m_asy = -ainv * std::cos(xialpha);
     m_bsx = -binv * std::sin(xi);
-    m_bsy = binv * std::cos(xi);
+    m_bsy = +binv * std::cos(xi);
 }
 
 void InterferenceFunction2DLattice::initialize_calc_factors(double coherence_length_x,

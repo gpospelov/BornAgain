@@ -21,7 +21,7 @@ FormFactorTriangle::FormFactorTriangle(const double base_edge)
     : m_base_edge( base_edge )
 {
     setName("Triangle");
-    registerParameter(BornAgain::BaseEdge, &m_base_edge, AttLimits::n_positive());
+    registerNonnegativeLength(BornAgain::BaseEdge, &m_base_edge);
     onChange();
 }
 
@@ -36,14 +36,4 @@ void FormFactorTriangle::onChange()
         { -ac, -as, 0. },
         {  ah,  0., 0. } };
     m_base = std::unique_ptr<PolyhedralFace>( new PolyhedralFace( { V[0], V[1], V[2] }, false ) );
-}
-
-FormFactorTriangle* FormFactorTriangle::clone() const
-{
-    return new FormFactorTriangle(m_base_edge);
-}
-
-void FormFactorTriangle::accept(ISampleVisitor *visitor) const
-{
-    visitor->visit(this);
 }

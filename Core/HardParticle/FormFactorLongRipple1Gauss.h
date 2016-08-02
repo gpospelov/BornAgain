@@ -31,12 +31,11 @@ public:
     //! @param width of cosine cross section
     //! @param height of cosine cross section
     FormFactorLongRipple1Gauss(double length, double width, double height);
+    virtual ~FormFactorLongRipple1Gauss() {}
 
-    virtual ~FormFactorLongRipple1Gauss();
-
-    FormFactorLongRipple1Gauss* clone() const;
-
-    void accept(ISampleVisitor* visitor) const final;
+    FormFactorLongRipple1Gauss* clone() const {
+        return new FormFactorLongRipple1Gauss(m_length, m_width, m_height); }
+    void accept(ISampleVisitor* visitor) const final { visitor->visit(this); }
 
     double getHeight() const { return m_height; }
     double getWidth() const { return m_width; }
@@ -48,14 +47,13 @@ public:
 
 protected:
     virtual bool check_initialization() const;
-    virtual void init_parameters();
 
 private:
     complex_t Integrand(double Z) const;
 
+    double m_length;
     double m_width;
     double m_height;
-    double m_length;
     mutable cvector_t m_q;
 
 #ifndef SWIG

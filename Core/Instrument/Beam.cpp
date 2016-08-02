@@ -14,26 +14,31 @@
 // ************************************************************************** //
 
 #include "Beam.h"
-#include "AttLimits.h"
 #include "BornAgainNamespace.h"
 #include "Complex.h"
 #include "Exceptions.h"
 
-using namespace BornAgain;
-
 Beam::Beam() : m_wavelength(1.0), m_alpha(0.0), m_phi(0.0), m_intensity(0.0)
 {
-    setName(BeamType);
+    setName(BornAgain::BeamType);
     init_parameters();
     initPolarization();
 }
 
-Beam::Beam(const Beam &other)
+Beam::Beam(const Beam& other)
     : IParameterized(), m_wavelength(other.m_wavelength), m_alpha(other.m_alpha),
       m_phi(other.m_phi), m_intensity(other.m_intensity), m_polarization(other.m_polarization)
 {
     setName(other.getName());
     init_parameters();
+}
+
+void Beam::init_parameters()
+{
+    registerNonnegativeScalar(BornAgain::Intensity, &m_intensity);
+    registerNonnegativeLength(BornAgain::Wavelength, &m_wavelength);
+    registerLimitedAngle(BornAgain::Alpha, &m_alpha, 0, 180);
+    registerLimitedAngle(BornAgain::Phi, &m_phi, -90, 90);
 }
 
 Beam &Beam::operator=(const Beam &other)
@@ -88,15 +93,7 @@ Eigen::Matrix2cd Beam::calculatePolarization(const kvector_t bloch_vector) const
     return result;
 }
 
-void Beam::init_parameters()
-{
-    registerParameter(Intensity, &m_intensity);
-    registerParameter(Wavelength, &m_wavelength, AttLimits::positive());
-    registerParameter(Alpha, &m_alpha, AttLimits::lowerLimited(0.0));
-    registerParameter(Phi, &m_phi);
-}
-
-void Beam::swapContent(Beam &other)
+void Beam::swapContent(Beam& other)
 {
     std::swap(m_wavelength, other.m_wavelength);
     std::swap(m_alpha, other.m_alpha);
@@ -111,7 +108,7 @@ void Beam::initPolarization()
     setPolarization(zero);
 }
 
-void Beam::print(std::ostream &ostr) const
+void Beam::print(std::ostream& ostr) const
 {
     ostr << "Beam: '" << getName() << "' " << getParameterPool();
 }

@@ -26,8 +26,8 @@ class BA_CORE_API_ FormFactorTriangle : public FormFactorPolygonalSurface
 public:
     FormFactorTriangle(const double base_edge);
 
-    virtual FormFactorTriangle* clone() const;
-    virtual void accept(ISampleVisitor* visitor) const;
+    virtual FormFactorTriangle* clone() const { return new FormFactorTriangle(m_base_edge); }
+    virtual void accept(ISampleVisitor* visitor) const { visitor->visit(this); }
 
     double getBaseEdge() const { return m_base_edge; }
 

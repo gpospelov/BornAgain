@@ -14,7 +14,6 @@
 // ************************************************************************** //
 
 #include "FormFactorCone6.h"
-#include "AttLimits.h"
 #include "BornAgainNamespace.h"
 #include "Exceptions.h"
 #include "MathFunctions.h"
@@ -42,9 +41,9 @@ FormFactorCone6::FormFactorCone6(double base_edge, double height, double alpha)
     , m_alpha(alpha)
 {
     setName(BornAgain::FFCone6Type);
-    registerParameter(BornAgain::BaseEdge, &m_base_edge, AttLimits::n_positive());
-    registerParameter(BornAgain::Height, &m_height, AttLimits::n_positive());
-    registerParameter(BornAgain::Alpha, &m_alpha, AttLimits::n_positive());
+    registerNonnegativeLength(BornAgain::BaseEdge, &m_base_edge);
+    registerNonnegativeLength(BornAgain::Height, &m_height);
+    registerLimitedAngle(BornAgain::Alpha, &m_alpha, 0, 180);
     onChange();
 }
 
@@ -87,14 +86,4 @@ void FormFactorCone6::onChange()
         { -b,   0., m_height-zcom },
         { -bs, -bc, m_height-zcom },
         {  bs, -bc, m_height-zcom } } );
-}
-
-FormFactorCone6* FormFactorCone6::clone() const
-{
-   return new FormFactorCone6(m_base_edge, m_height, m_alpha);
-}
-
-void FormFactorCone6::accept(ISampleVisitor *visitor) const
-{
-    visitor->visit(this);
 }

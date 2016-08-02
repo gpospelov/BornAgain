@@ -14,11 +14,8 @@
 // ************************************************************************** //
 
 #include "FormFactorLongRipple2Gauss.h"
-#include "AttLimits.h"
 #include "BornAgainNamespace.h"
 #include "Exceptions.h"
-
-using namespace BornAgain;
 
 FormFactorLongRipple2Gauss::FormFactorLongRipple2Gauss(
     double length, double width, double height, double asymmetry)
@@ -27,9 +24,12 @@ FormFactorLongRipple2Gauss::FormFactorLongRipple2Gauss(
     , m_length(length)
     , m_d(asymmetry)
 {
-    setName(FFLongRipple2GaussType);
+    setName(BornAgain::FFLongRipple2GaussType);
     check_initialization();
-    init_parameters();
+    registerNonnegativeLength(BornAgain::Width, &m_width);
+    registerNonnegativeLength(BornAgain::Height, &m_height);
+    registerNonnegativeLength(BornAgain::Length, &m_length);
+    registerUnlimitedLength(BornAgain::AsymmetryLength, &m_d);
 }
 
 bool FormFactorLongRipple2Gauss::check_initialization() const
@@ -60,24 +60,6 @@ bool FormFactorLongRipple2Gauss::check_initialization() const
         throw Exceptions::ClassInitializationException(ostr.str());
     }
     return result;
-}
-
-void FormFactorLongRipple2Gauss::init_parameters()
-{
-    registerParameter(Width, &m_width, AttLimits::n_positive());
-    registerParameter(Height, &m_height, AttLimits::n_positive());
-    registerParameter(Length, &m_length, AttLimits::n_positive());
-    registerParameter(AsymmetryLength, &m_d);
-}
-
-FormFactorLongRipple2Gauss *FormFactorLongRipple2Gauss::clone() const
-{
-    return new FormFactorLongRipple2Gauss(m_length, m_width, m_height, m_d);
-}
-
-void FormFactorLongRipple2Gauss::accept(ISampleVisitor *visitor) const
-{
-    visitor->visit(this);
 }
 
 double FormFactorLongRipple2Gauss::getRadialExtension() const

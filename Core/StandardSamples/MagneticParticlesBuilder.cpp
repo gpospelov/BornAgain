@@ -37,9 +37,8 @@ MagneticParticleZeroFieldBuilder::MagneticParticleZeroFieldBuilder()
 
 void MagneticParticleZeroFieldBuilder::init_parameters()
 {
-
-    registerParameter("cylinder_radius", &m_cylinder_radius);
-    registerParameter("cylinder_height", &m_cylinder_height);
+    registerNonnegativeLength("cylinder_radius", &m_cylinder_radius);
+    registerNonnegativeLength("cylinder_height", &m_cylinder_height);
 }
 
 ISample* MagneticParticleZeroFieldBuilder::buildSample() const
@@ -79,8 +78,8 @@ MagneticCylindersBuilder::MagneticCylindersBuilder()
 void MagneticCylindersBuilder::init_parameters()
 {
 
-    registerParameter("cylinder_radius", &m_cylinder_radius);
-    registerParameter("cylinder_height", &m_cylinder_height);
+    registerNonnegativeLength("cylinder_radius", &m_cylinder_radius);
+    registerNonnegativeLength("cylinder_height", &m_cylinder_height);
 }
 
 ISample* MagneticCylindersBuilder::buildSample() const

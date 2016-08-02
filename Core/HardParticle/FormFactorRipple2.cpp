@@ -14,12 +14,9 @@
 // ************************************************************************** //
 
 #include "FormFactorRipple2.h"
-#include "AttLimits.h"
 #include "BornAgainNamespace.h"
 #include "Exceptions.h"
 #include "MathFunctions.h"
-
-using namespace BornAgain;
 
 FormFactorRipple2::FormFactorRipple2(double length, double width, double height, double asymetry)
     : m_width(width)
@@ -27,9 +24,12 @@ FormFactorRipple2::FormFactorRipple2(double length, double width, double height,
     , m_length(length)
     , m_d(asymetry)
 {
-    setName(FFRipple2Type);
+    setName(BornAgain::FFRipple2Type);
     check_initialization();
-    init_parameters();
+    registerNonnegativeLength(BornAgain::Width, &m_width);
+    registerNonnegativeLength(BornAgain::Height, &m_height);
+    registerNonnegativeLength(BornAgain::Length, &m_length);
+    registerUnlimitedLength(BornAgain::AsymmetryLength, &m_d);
 }
 
 bool FormFactorRipple2::check_initialization() const
@@ -60,24 +60,6 @@ bool FormFactorRipple2::check_initialization() const
         throw Exceptions::ClassInitializationException(ostr.str());
     }
     return result;
-}
-
-void FormFactorRipple2::init_parameters()
-{
-    registerParameter(Width, &m_width, AttLimits::n_positive());
-    registerParameter(Height, &m_height, AttLimits::n_positive());
-    registerParameter(Length, &m_length, AttLimits::n_positive());
-    registerParameter(AsymmetryLength, &m_d);
-}
-
-FormFactorRipple2* FormFactorRipple2::clone() const
-{
-    return new FormFactorRipple2(m_length, m_width, m_height, m_d);
-}
-
-void FormFactorRipple2::accept(ISampleVisitor *visitor) const
-{
-    visitor->visit(this);
 }
 
 double FormFactorRipple2::getRadialExtension() const

@@ -14,39 +14,18 @@
 // ************************************************************************** //
 
 #include "FormFactorFullSpheroid.h"
-#include "AttLimits.h"
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
 #include "Numeric.h"
 #include "Units.h"
 
-using namespace  BornAgain;
-
 FormFactorFullSpheroid::FormFactorFullSpheroid(double radius, double height )
+    : m_radius(radius), m_height(height)
 {
-    setName(FFFullSpheroidType);
-    m_radius = radius;
-    m_height = height;
-    init_parameters();
-
+    setName(BornAgain::FFFullSpheroidType);
+    registerNonnegativeLength(BornAgain::Radius, &m_radius);
+    registerNonnegativeLength(BornAgain::Height, &m_height);
     mP_integrator = make_integrator_complex(this, &FormFactorFullSpheroid::Integrand);
-}
-
-
-void FormFactorFullSpheroid::init_parameters()
-{
-    registerParameter(Radius, &m_radius, AttLimits::n_positive());
-    registerParameter(Height, &m_height, AttLimits::n_positive());
-}
-
-FormFactorFullSpheroid* FormFactorFullSpheroid::clone() const
-{
-   return new FormFactorFullSpheroid(m_radius, m_height);
-}
-
-void FormFactorFullSpheroid::accept(ISampleVisitor* visitor) const
-{
-    visitor->visit(this);
 }
 
 //! Integrand for complex formfactor.

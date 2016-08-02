@@ -31,12 +31,11 @@ public:
     //! @param radius_y half length of the other horizontal main axes
     //! @param height of Hemi Ellipsoid
     FormFactorHemiEllipsoid(double radius_x, double radius_y, double height);
+    virtual ~FormFactorHemiEllipsoid() {}
 
-    virtual ~FormFactorHemiEllipsoid();
-
-    FormFactorHemiEllipsoid* clone() const;
-
-    void accept(ISampleVisitor *visitor) const final;
+    FormFactorHemiEllipsoid* clone() const {
+        return new FormFactorHemiEllipsoid(m_radius_x, m_radius_y, m_height); }
+    void accept(ISampleVisitor *visitor) const final { visitor->visit(this); }
 
     double getHeight() const { return m_height; }
     double getRadiusX() const { return m_radius_x; }
@@ -45,10 +44,6 @@ public:
     double getRadialExtension() const final;
 
     complex_t evaluate_for_q (const cvector_t q) const final;
-
-protected:
-    virtual bool check_initialization() const;
-    virtual void init_parameters();
 
 private:
     complex_t Integrand(double Z) const;

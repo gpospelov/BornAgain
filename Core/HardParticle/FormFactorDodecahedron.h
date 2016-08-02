@@ -29,8 +29,8 @@ public:
     //! @param edge length
     FormFactorDodecahedron(double edge);
 
-    FormFactorDodecahedron *clone() const final;
-    void accept(ISampleVisitor *visitor) const final;
+    FormFactorDodecahedron *clone() const final { return new FormFactorDodecahedron(m_edge); }
+    void accept(ISampleVisitor *visitor) const final { visitor->visit(this); }
 
     double getEdge() const { return m_edge; }
 

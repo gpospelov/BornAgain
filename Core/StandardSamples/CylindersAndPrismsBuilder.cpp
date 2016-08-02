@@ -36,11 +36,11 @@ CylindersAndPrismsBuilder::CylindersAndPrismsBuilder()
 void CylindersAndPrismsBuilder::init_parameters()
 {
 
-    registerParameter("cylinder_height", &m_cylinder_height);
-    registerParameter("cylinder_radius", &m_cylinder_radius);
-    registerParameter("prism_height", &m_prism_height);
-    registerParameter("prism_length", &m_prism_length);
-    registerParameter("cylinder_weight", &m_cylinder_weight);
+    registerNonnegativeLength("cylinder_height", &m_cylinder_height);
+    registerNonnegativeLength("cylinder_radius", &m_cylinder_radius);
+    registerNonnegativeLength("prism_height", &m_prism_height);
+    registerNonnegativeLength("prism_length", &m_prism_length);
+    registerNonnegativeScalar("cylinder_weight", &m_cylinder_weight);
 }
 
 ISample* CylindersAndPrismsBuilder::buildSample() const

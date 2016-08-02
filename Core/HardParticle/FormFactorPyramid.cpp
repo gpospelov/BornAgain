@@ -14,7 +14,6 @@
 // ************************************************************************** //
 
 #include "FormFactorPyramid.h"
-#include "AttLimits.h"
 #include "BornAgainNamespace.h"
 #include "Exceptions.h"
 #include "MathFunctions.h"
@@ -41,9 +40,9 @@ FormFactorPyramid::FormFactorPyramid(double base_edge, double height, double alp
     , m_alpha(alpha)
 {
     setName(BornAgain::FFPyramidType);
-    registerParameter(BornAgain::BaseEdge, &m_base_edge, AttLimits::n_positive());
-    registerParameter(BornAgain::Height, &m_height, AttLimits::n_positive());
-    registerParameter(BornAgain::Alpha, &m_alpha, AttLimits::n_positive());
+    registerNonnegativeLength(BornAgain::BaseEdge, &m_base_edge);
+    registerNonnegativeLength(BornAgain::Height, &m_height);
+    registerLimitedAngle(BornAgain::Alpha, &m_alpha, 0, 180);
     onChange();
 }
 
@@ -79,14 +78,4 @@ void FormFactorPyramid::onChange()
             {  b, -b, m_height-zcom },
             {  b,  b, m_height-zcom },
             { -b,  b, m_height-zcom } } );
-}
-
-FormFactorPyramid* FormFactorPyramid::clone() const
-{
-   return new FormFactorPyramid(m_base_edge, m_height, m_alpha);
-}
-
-void FormFactorPyramid::accept(ISampleVisitor *visitor) const
-{
-    visitor->visit(this);
 }

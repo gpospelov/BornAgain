@@ -27,8 +27,8 @@ class BA_CORE_API_ FormFactorIcosahedron : public FormFactorPolyhedron
 public:
     FormFactorIcosahedron(double edge);
 
-    FormFactorIcosahedron *clone() const final;
-    void accept(ISampleVisitor *visitor) const final;
+    FormFactorIcosahedron *clone() const final { return new FormFactorIcosahedron(m_edge); }
+    void accept(ISampleVisitor *visitor) const final { visitor->visit(this); }
 
     double getEdge() const { return m_edge; }
 

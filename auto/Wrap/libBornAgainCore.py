@@ -1650,6 +1650,46 @@ class IParameterized(INamed):
         return _libBornAgainCore.IParameterized_printParameters(self)
 
 
+    def registerUnlimitedAngle(self, name, parpointer):
+        """registerUnlimitedAngle(IParameterized self, std::string const & name, double * parpointer)"""
+        return _libBornAgainCore.IParameterized_registerUnlimitedAngle(self, name, parpointer)
+
+
+    def registerLimitedAngle(self, name, parpointer, lower_limit, upper_limit):
+        """registerLimitedAngle(IParameterized self, std::string const & name, double * parpointer, double lower_limit, double upper_limit)"""
+        return _libBornAgainCore.IParameterized_registerLimitedAngle(self, name, parpointer, lower_limit, upper_limit)
+
+
+    def registerUnlimitedLength(self, name, parpointer):
+        """registerUnlimitedLength(IParameterized self, std::string const & name, double * parpointer)"""
+        return _libBornAgainCore.IParameterized_registerUnlimitedLength(self, name, parpointer)
+
+
+    def registerPositiveLength(self, name, parpointer):
+        """registerPositiveLength(IParameterized self, std::string const & name, double * parpointer)"""
+        return _libBornAgainCore.IParameterized_registerPositiveLength(self, name, parpointer)
+
+
+    def registerNonnegativeLength(self, name, parpointer):
+        """registerNonnegativeLength(IParameterized self, std::string const & name, double * parpointer)"""
+        return _libBornAgainCore.IParameterized_registerNonnegativeLength(self, name, parpointer)
+
+
+    def registerUnlimitedScalar(self, name, parpointer):
+        """registerUnlimitedScalar(IParameterized self, std::string const & name, double * parpointer)"""
+        return _libBornAgainCore.IParameterized_registerUnlimitedScalar(self, name, parpointer)
+
+
+    def registerPositiveScalar(self, name, parpointer):
+        """registerPositiveScalar(IParameterized self, std::string const & name, double * parpointer)"""
+        return _libBornAgainCore.IParameterized_registerPositiveScalar(self, name, parpointer)
+
+
+    def registerNonnegativeScalar(self, name, parpointer):
+        """registerNonnegativeScalar(IParameterized self, std::string const & name, double * parpointer)"""
+        return _libBornAgainCore.IParameterized_registerNonnegativeScalar(self, name, parpointer)
+
+
     def setParameterValue(self, name, value):
         """
         setParameterValue(IParameterized self, std::string const & name, double value)
@@ -1680,21 +1720,6 @@ class IParameterized(INamed):
     def _print(self, ostr):
         """_print(IParameterized self, std::ostream & ostr)"""
         return _libBornAgainCore.IParameterized__print(self, ostr)
-
-
-    def registerParameter(self, *args):
-        """
-        registerParameter(IParameterized self, std::string const & name, double * parpointer)
-        registerParameter(IParameterized self, std::string const & name, double * parpointer, AttLimits limits)
-        registerParameter(IParameterized self, std::string const & name, int64_t parpointer, AttLimits limits)
-        registerParameter(IParameterized self, std::string const & name, int64_t parpointer)
-
-        void IParameterized::registerParameter(const std::string &name, double *parpointer, const AttLimits &limits)
-
-        Register parameter address in the parameter pool; name allows for wildcard '*'. 
-
-        """
-        return _libBornAgainCore.IParameterized_registerParameter(self, *args)
 
     def __disown__(self):
         self.this.disown()
@@ -6625,17 +6650,44 @@ class ISampleBuilder(IParameterized):
         return _libBornAgainCore.ISampleBuilder_getFTDistribution2D(self)
 
 
-    def registerParameter(self, *args):
-        """
-        registerParameter(ISampleBuilder self, std::string const & name, int64_t parpointer, AttLimits limits)
-        registerParameter(ISampleBuilder self, std::string const & name, int64_t parpointer)
+    def registerUnlimitedAngle(self, name, parpointer):
+        """registerUnlimitedAngle(ISampleBuilder self, std::string const & name, int64_t parpointer)"""
+        return _libBornAgainCore.ISampleBuilder_registerUnlimitedAngle(self, name, parpointer)
 
-        void IParameterized::registerParameter(const std::string &name, double *parpointer, const AttLimits &limits)
 
-        Register parameter address in the parameter pool; name allows for wildcard '*'. 
+    def registerLimitedAngle(self, name, parpointer, lower_bound, upper_bound):
+        """registerLimitedAngle(ISampleBuilder self, std::string const & name, int64_t parpointer, double lower_bound, double upper_bound)"""
+        return _libBornAgainCore.ISampleBuilder_registerLimitedAngle(self, name, parpointer, lower_bound, upper_bound)
 
-        """
-        return _libBornAgainCore.ISampleBuilder_registerParameter(self, *args)
+
+    def registerUnlimitedLength(self, name, parpointer):
+        """registerUnlimitedLength(ISampleBuilder self, std::string const & name, int64_t parpointer)"""
+        return _libBornAgainCore.ISampleBuilder_registerUnlimitedLength(self, name, parpointer)
+
+
+    def registerNonnegativeLength(self, name, parpointer):
+        """registerNonnegativeLength(ISampleBuilder self, std::string const & name, int64_t parpointer)"""
+        return _libBornAgainCore.ISampleBuilder_registerNonnegativeLength(self, name, parpointer)
+
+
+    def registerPositiveLength(self, name, parpointer):
+        """registerPositiveLength(ISampleBuilder self, std::string const & name, int64_t parpointer)"""
+        return _libBornAgainCore.ISampleBuilder_registerPositiveLength(self, name, parpointer)
+
+
+    def registerUnlimitedScalar(self, name, parpointer):
+        """registerUnlimitedScalar(ISampleBuilder self, std::string const & name, int64_t parpointer)"""
+        return _libBornAgainCore.ISampleBuilder_registerUnlimitedScalar(self, name, parpointer)
+
+
+    def registerNonnegativeScalar(self, name, parpointer):
+        """registerNonnegativeScalar(ISampleBuilder self, std::string const & name, int64_t parpointer)"""
+        return _libBornAgainCore.ISampleBuilder_registerNonnegativeScalar(self, name, parpointer)
+
+
+    def registerPositiveScalar(self, name, parpointer):
+        """registerPositiveScalar(ISampleBuilder self, std::string const & name, int64_t parpointer)"""
+        return _libBornAgainCore.ISampleBuilder_registerPositiveScalar(self, name, parpointer)
 
 
     def setParameterValue(self, name, value):
@@ -12067,8 +12119,6 @@ class FormFactorGauss(IFormFactorBorn):
             self.this.append(this)
         except:
             self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_FormFactorGauss
-    __del__ = lambda self: None
 
     def clone(self):
         """
@@ -12143,6 +12193,8 @@ class FormFactorGauss(IFormFactorBorn):
         """
         return _libBornAgainCore.FormFactorGauss_evaluate_for_q(self, q)
 
+    __swig_destroy__ = _libBornAgainCore.delete_FormFactorGauss
+    __del__ = lambda self: None
 FormFactorGauss_swigregister = _libBornAgainCore.FormFactorGauss_swigregister
 FormFactorGauss_swigregister(FormFactorGauss)
 
@@ -13909,6 +13961,8 @@ class FormFactorSphereLogNormalRadius(IFormFactorBorn):
             self.this.append(this)
         except:
             self.this = this
+    __swig_destroy__ = _libBornAgainCore.delete_FormFactorSphereLogNormalRadius
+    __del__ = lambda self: None
 
     def clone(self):
         """
@@ -13921,8 +13975,6 @@ class FormFactorSphereLogNormalRadius(IFormFactorBorn):
         """
         return _libBornAgainCore.FormFactorSphereLogNormalRadius_clone(self)
 
-    __swig_destroy__ = _libBornAgainCore.delete_FormFactorSphereLogNormalRadius
-    __del__ = lambda self: None
 
     def accept(self, visitor):
         """
@@ -17538,16 +17590,6 @@ class RotationX(IRotation):
         return _libBornAgainCore.RotationX_createInverse(self)
 
 
-    def getAngle(self):
-        """
-        getAngle(RotationX self) -> double
-
-        double RotationX::getAngle() const 
-
-        """
-        return _libBornAgainCore.RotationX_getAngle(self)
-
-
     def accept(self, visitor):
         """
         accept(RotationX self, ISampleVisitor visitor)
@@ -17558,6 +17600,16 @@ class RotationX(IRotation):
 
         """
         return _libBornAgainCore.RotationX_accept(self, visitor)
+
+
+    def getAngle(self):
+        """
+        getAngle(RotationX self) -> double
+
+        double RotationX::getAngle() const 
+
+        """
+        return _libBornAgainCore.RotationX_getAngle(self)
 
 
     def getTransform3D(self):
@@ -17637,16 +17689,6 @@ class RotationY(IRotation):
         return _libBornAgainCore.RotationY_createInverse(self)
 
 
-    def getAngle(self):
-        """
-        getAngle(RotationY self) -> double
-
-        double RotationY::getAngle() const 
-
-        """
-        return _libBornAgainCore.RotationY_getAngle(self)
-
-
     def accept(self, visitor):
         """
         accept(RotationY self, ISampleVisitor visitor)
@@ -17657,6 +17699,16 @@ class RotationY(IRotation):
 
         """
         return _libBornAgainCore.RotationY_accept(self, visitor)
+
+
+    def getAngle(self):
+        """
+        getAngle(RotationY self) -> double
+
+        double RotationY::getAngle() const 
+
+        """
+        return _libBornAgainCore.RotationY_getAngle(self)
 
 
     def getTransform3D(self):
@@ -17737,16 +17789,6 @@ class RotationZ(IRotation):
         return _libBornAgainCore.RotationZ_createInverse(self)
 
 
-    def getAngle(self):
-        """
-        getAngle(RotationZ self) -> double
-
-        double RotationZ::getAngle() const 
-
-        """
-        return _libBornAgainCore.RotationZ_getAngle(self)
-
-
     def accept(self, visitor):
         """
         accept(RotationZ self, ISampleVisitor visitor)
@@ -17757,6 +17799,16 @@ class RotationZ(IRotation):
 
         """
         return _libBornAgainCore.RotationZ_accept(self, visitor)
+
+
+    def getAngle(self):
+        """
+        getAngle(RotationZ self) -> double
+
+        double RotationZ::getAngle() const 
+
+        """
+        return _libBornAgainCore.RotationZ_getAngle(self)
 
 
     def getTransform3D(self):
@@ -17836,6 +17888,18 @@ class RotationEuler(IRotation):
         return _libBornAgainCore.RotationEuler_createInverse(self)
 
 
+    def accept(self, visitor):
+        """
+        accept(RotationEuler self, ISampleVisitor visitor)
+
+        void RotationEuler::accept(class ISampleVisitor *visitor) const
+
+        Calls the  ISampleVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.RotationEuler_accept(self, visitor)
+
+
     def getAlpha(self):
         """
         getAlpha(RotationEuler self) -> double
@@ -17864,18 +17928,6 @@ class RotationEuler(IRotation):
 
         """
         return _libBornAgainCore.RotationEuler_getGamma(self)
-
-
-    def accept(self, visitor):
-        """
-        accept(RotationEuler self, ISampleVisitor visitor)
-
-        void RotationEuler::accept(class ISampleVisitor *visitor) const
-
-        Calls the  ISampleVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.RotationEuler_accept(self, visitor)
 
 
     def getTransform3D(self):

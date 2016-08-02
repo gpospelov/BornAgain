@@ -14,7 +14,6 @@
 // ************************************************************************** //
 
 #include "FormFactorCuboctahedron.h"
-#include "AttLimits.h"
 #include "BornAgainNamespace.h"
 #include "Exceptions.h"
 #include "MathFunctions.h"
@@ -48,10 +47,10 @@ FormFactorCuboctahedron::FormFactorCuboctahedron(
     , m_alpha(alpha)
 {
     setName(BornAgain::FFCuboctahedronType);
-    registerParameter(BornAgain::Height, &m_height, AttLimits::n_positive());
-    registerParameter(BornAgain::HeightRatio, &m_height_ratio, AttLimits::n_positive());
-    registerParameter(BornAgain::Length, &m_length, AttLimits::n_positive());
-    registerParameter(BornAgain::Alpha, &m_alpha, AttLimits::n_positive());
+    registerNonnegativeLength(BornAgain::Height, &m_height);
+    registerNonnegativeLength(BornAgain::HeightRatio, &m_height_ratio);
+    registerNonnegativeLength(BornAgain::Length, &m_length);
+    registerLimitedAngle(BornAgain::Alpha, &m_alpha, 0, 180);
     onChange();
 }
 
@@ -99,14 +98,4 @@ void FormFactorCuboctahedron::onChange()
             {  c, -c, zc },
             {  c,  c, zc },
             { -c,  c, zc } } );
-}
-
-FormFactorCuboctahedron* FormFactorCuboctahedron::clone() const
-{
-    return new FormFactorCuboctahedron(m_length, m_height, m_height_ratio, m_alpha);
-}
-
-void FormFactorCuboctahedron::accept(ISampleVisitor *visitor) const
-{
-    visitor->visit(this);
 }

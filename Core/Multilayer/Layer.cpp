@@ -22,8 +22,6 @@
 #include "ParameterPool.h"
 #include "ParticleLayout.h"
 
-using namespace BornAgain;
-
 Layer::Layer() : m_thickness(0), mp_material(0)
 {
     initialize();
@@ -67,11 +65,6 @@ Layer* Layer::cloneInvertB() const
     p_clone->setNumberOfLayers(getNumberOfLayers());
     p_clone->init_parameters();
     return p_clone;
-}
-
-void Layer::accept(ISampleVisitor* visitor) const
-{
-    visitor->visit(this);
 }
 
 std::string Layer::to_str(int indent) const
@@ -157,7 +150,7 @@ size_t Layer::getNumberOfLayouts() const {
 void Layer::init_parameters()
 {
     getParameterPool()->clear(); // non-trivially needed
-    registerParameter(Thickness, &m_thickness);
+    registerNonnegativeLength(BornAgain::Thickness, &m_thickness);
 }
 
 //! Prints description.
@@ -177,6 +170,6 @@ void Layer::addLayoutPtr(ILayout* layout)
 
 void Layer::initialize()
 {
-    setName(LayerType);
+    setName(BornAgain::LayerType);
     init_parameters();
 }

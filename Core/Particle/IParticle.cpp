@@ -65,7 +65,7 @@ IRotation* IParticle::createComposedRotation(const IRotation* p_rotation) const
         if (mP_rotation) {
             return mP_rotation->clone();
         } else {
-            return 0;
+            return nullptr;
         }
     }
 }
@@ -83,19 +83,9 @@ kvector_t IParticle::getComposedTranslation(
 
 void IParticle::registerPosition()
 {
-    registerParameter(PositionX, &m_position[0]);
-    registerParameter(PositionY, &m_position[1]);
-    registerParameter(PositionZ, &m_position[2]);
-}
-
-void IAbstractParticle::accept(ISampleVisitor* visitor) const
-{
-    visitor->visit(this);
-}
-
-void IParticle::accept(ISampleVisitor* visitor) const
-{
-    visitor->visit(this);
+    registerUnlimitedLength(PositionX, &m_position[0]);
+    registerUnlimitedLength(PositionY, &m_position[1]);
+    registerUnlimitedLength(PositionZ, &m_position[2]);
 }
 
 const IRotation* IParticle::getRotation() const

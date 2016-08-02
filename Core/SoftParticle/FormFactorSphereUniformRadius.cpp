@@ -14,36 +14,23 @@
 // ************************************************************************** //
 
 #include "FormFactorSphereUniformRadius.h"
-#include "AttLimits.h"
 #include "BornAgainNamespace.h"
 #include "Exceptions.h"
 #include "Numeric.h"
 #include "Units.h"
 
-using namespace BornAgain;
-
 FormFactorSphereUniformRadius::FormFactorSphereUniformRadius(double mean,
         double full_width)
-: m_mean(mean)
-, m_full_width(full_width)
+    : m_mean(mean)
+    , m_full_width(full_width)
 {
-    if(!checkParameters()) {
+    if(!checkParameters())
         throw Exceptions::ClassInitializationException(
                 "FormFactorSphereUniformRadius::FormFactorSphereUniformRadius:"
                 " mean radius must be bigger than the half width");
-    }
-    setName(FormFactorSphereUniformRadiusType);
-    init_parameters();
-}
-
-FormFactorSphereUniformRadius* FormFactorSphereUniformRadius::clone() const
-{
-    return new FormFactorSphereUniformRadius(m_mean, m_full_width);
-}
-
-void FormFactorSphereUniformRadius::accept(ISampleVisitor* visitor) const
-{
-    visitor->visit(this);
+    setName(BornAgain::FormFactorSphereUniformRadiusType);
+    registerNonnegativeLength(BornAgain::MeanRadius, &m_mean);
+    registerNonnegativeLength(BornAgain::FullWidth, &m_full_width);
 }
 
 complex_t FormFactorSphereUniformRadius::evaluate_for_q(const cvector_t q) const
@@ -60,12 +47,6 @@ complex_t FormFactorSphereUniformRadius::evaluate_for_q(const cvector_t q) const
                                      - qW*std::cos(qW/2.0)*std::sin(qR)
                                      - 2.0*qR*std::cos(qR)*std::sin(qW/2.0) );
     return nominator/(q2*q2*W);
-}
-
-void FormFactorSphereUniformRadius::init_parameters()
-{
-    registerParameter(MeanRadius, &m_mean, AttLimits::n_positive());
-    registerParameter(FullWidth, &m_full_width, AttLimits::n_positive());
 }
 
 bool FormFactorSphereUniformRadius::checkParameters() const

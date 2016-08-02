@@ -20,6 +20,13 @@
 
 using namespace BornAgain;
 
+FormFactorLorentz::FormFactorLorentz(double width, double height)
+{
+    m_width = width;
+    m_height = height;
+    initialize();
+}
+
 FormFactorLorentz::FormFactorLorentz(double volume)
 {
     double R = std::pow(volume, 1.0/3.0);
@@ -28,33 +35,6 @@ FormFactorLorentz::FormFactorLorentz(double volume)
     initialize();
 }
 
-FormFactorLorentz::FormFactorLorentz(double width, double height)
-{
-    m_width = width;
-    m_height = height;
-    initialize();
-}
-
-bool FormFactorLorentz::check_initialization() const
-{
-    return true;
-}
-
-void FormFactorLorentz::init_parameters()
-{
-    registerParameter(Width, &m_width, AttLimits::n_positive());
-    registerParameter(Height, &m_height, AttLimits::n_positive());
-}
-
-FormFactorLorentz* FormFactorLorentz::clone() const
-{
-    return new FormFactorLorentz(m_width, m_height);
-}
-
-void FormFactorLorentz::accept(ISampleVisitor* visitor) const
-{
-    visitor->visit(this);
-}
 
 double FormFactorLorentz::getRadialExtension() const
 {
@@ -78,7 +58,7 @@ complex_t FormFactorLorentz::evaluate_for_q(const cvector_t q) const
 
 void FormFactorLorentz::initialize()
 {
-    setName(FFLorentzType);
-    check_initialization();
-    init_parameters();
+    setName(BornAgain::FFLorentzType);
+    registerNonnegativeLength(BornAgain::Width, &m_width);
+    registerNonnegativeLength(BornAgain::Height, &m_height);
 }

@@ -44,8 +44,17 @@ public:
 
     void printParameters();
 
-    void registerParameter(const std::string& name, double* parpointer);
-    void registerParameter(const std::string& name, double* parpointer, const AttLimits& limits);
+    void registerUnlimitedAngle(const std::string& name, double* parpointer);
+    void registerLimitedAngle(const std::string& name, double* parpointer,
+                              double lower_limit, double upper_limit);
+
+    void registerUnlimitedLength(const std::string& name, double* parpointer);
+    void registerPositiveLength(const std::string& name, double* parpointer);
+    void registerNonnegativeLength(const std::string& name, double* parpointer);
+
+    void registerUnlimitedScalar(const std::string& name, double* parpointer);
+    void registerPositiveScalar(const std::string& name, double* parpointer);
+    void registerNonnegativeScalar(const std::string& name, double* parpointer);
 
     void setParameterValue(const std::string& name, double value);
 
@@ -68,6 +77,10 @@ protected:
     virtual void print(std::ostream& ostr) const;
 
 private:
+    void registerAngle(const std::string& name, double* parpointer, const AttLimits& limits);
+    void registerScalar(const std::string& name, double* parpointer, const AttLimits& limits);
+    void registerLength(const std::string& name, double* parpointer, const AttLimits& limits);
+
     ParameterPool* m_pool; //!< parameter pool (kind of pointer-to-implementation)
 };
 

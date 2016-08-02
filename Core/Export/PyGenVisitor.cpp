@@ -462,135 +462,15 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
 
             std::vector<const IFTDistribution2D*> pdf_vector
                 = twoDParaCrystal->getProbabilityDistributions();
-            const IFTDistribution2D* pdf_1 = pdf_vector[0];
+            const IFTDistribution2D* pdf = pdf_vector[0];
 
-            if (const auto* f = dynamic_cast<const FTDistribution2DCauchy*>(pdf_1)) {
-                result << indent() << it->second << "_pdf_1  = ba.FTDistribution2DCauchy("
-                       << PyGenTools::printNm(f->getCoherenceLengthX()) << ", "
-                       << PyGenTools::printNm(f->getCoherenceLengthY()) << ")\n";
+            result << indent() << it->second << "_pdf_1  = ba." << pdf->getName()
+                   << "(" << PyGenTools::argumentList(pdf) << ")\n";
 
-                if (f->getGamma() != 0.0) {
-                    result << indent() << it->second << "_pdf_1.setGamma("
-                           << PyGenTools::printDegrees(f->getGamma()) << ")\n";
-                }
-            }
+            pdf = pdf_vector[1];
 
-            else if (const auto* f = dynamic_cast<const FTDistribution2DCone*>(pdf_1)) {
-                result << indent() << it->second << "_pdf_1  = ba.FTDistribution2DCone("
-                       << PyGenTools::printNm(f->getCoherenceLengthX()) << ", "
-                       << PyGenTools::printNm(f->getCoherenceLengthY()) << ")\n";
-
-                if (f->getGamma() != 0.0) {
-                    result << indent() << it->second << "_pdf_1.setGamma("
-                           << PyGenTools::printDegrees(f->getGamma()) << ")\n";
-                }
-            }
-
-            else if (const auto* f = dynamic_cast<const FTDistribution2DGate*>(pdf_1)) {
-                result << indent() << it->second << "_pdf_1  = ba.FTDistribution2DGate("
-                       << PyGenTools::printNm(f->getCoherenceLengthX()) << ", "
-                       << PyGenTools::printNm(f->getCoherenceLengthY()) << ")\n";
-
-                if (f->getGamma() != 0.0) {
-                    result << indent() << it->second << "_pdf_1.setGamma("
-                           << PyGenTools::printDegrees(f->getGamma()) << ")\n";
-                }
-            }
-
-            else if (const auto* f = dynamic_cast<const FTDistribution2DGauss*>(pdf_1)) {
-                result << indent() << it->second << "_pdf_1  = ba.FTDistribution2DGauss("
-                       << PyGenTools::printNm(f->getCoherenceLengthX()) << ", "
-                       << PyGenTools::printNm(f->getCoherenceLengthY()) << ")\n";
-
-                if (f->getGamma() != 0.0) {
-                    result << indent() << it->second << "_pdf_1.setGamma("
-                           << PyGenTools::printDegrees(f->getGamma()) << ")\n";
-                }
-            }
-
-            else if (const auto* f = dynamic_cast<const FTDistribution2DVoigt*>(pdf_1)) {
-                result << indent() << it->second << "_pdf_1  = ba.FTDistribution2DVoigt("
-                       << PyGenTools::printNm(f->getCoherenceLengthX()) << ", "
-                       << PyGenTools::printNm(f->getCoherenceLengthY()) << ", "
-                       << PyGenTools::printDouble(f->getEta()) << ")\n";
-
-                if (f->getGamma() != 0.0) {
-                    result << indent() << it->second << "_pdf_1.setGamma("
-                           << PyGenTools::printDegrees(f->getGamma()) << ")\n";
-                }
-            }
-
-            else {
-                std::ostringstream pdfException;
-                pdfException << "\n" << pdf_1->getName() << " :: Not Casted To Any "
-                             << "Probability Distribution Function\n";
-                throw Exceptions::NotImplementedException(pdfException.str());
-            }
-
-            const IFTDistribution2D* pdf_2 = pdf_vector[1];
-
-            if (const auto* f = dynamic_cast<const FTDistribution2DCauchy*>(pdf_2)) {
-                result << indent() << it->second << "_pdf_2   = ba.FTDistribution2DCauchy("
-                       << PyGenTools::printNm(f->getCoherenceLengthX()) << ", "
-                       << PyGenTools::printNm(f->getCoherenceLengthY()) << ")\n";
-
-                if (f->getGamma() != 0.0) {
-                    result << indent() << it->second << "_pdf_2.setGamma("
-                           << PyGenTools::printDegrees(f->getGamma()) << ")\n";
-                }
-            }
-
-            else if (const auto* f = dynamic_cast<const FTDistribution2DCone*>(pdf_2)) {
-                result << indent() << it->second << "_pdf_2   = ba.FTDistribution2DCone("
-                       << PyGenTools::printNm(f->getCoherenceLengthX()) << ", "
-                       << PyGenTools::printNm(f->getCoherenceLengthY()) << ")\n";
-
-                if (f->getGamma() != 0.0) {
-                    result << indent() << it->second << "_pdf_2.setGamma("
-                           << PyGenTools::printDegrees(f->getGamma()) << ")\n";
-                }
-            }
-
-            else if (const auto* f = dynamic_cast<const FTDistribution2DGate*>(pdf_2)) {
-                result << indent() << it->second << "_pdf_2   = ba.FTDistribution2DGate("
-                       << PyGenTools::printNm(f->getCoherenceLengthX()) << ", "
-                       << PyGenTools::printNm(f->getCoherenceLengthY()) << ")\n";
-
-                if (f->getGamma() != 0.0) {
-                    result << indent() << it->second << "_pdf_2.setGamma("
-                           << PyGenTools::printDegrees(f->getGamma()) << ")\n";
-                }
-            }
-
-            else if (const auto* f = dynamic_cast<const FTDistribution2DGauss*>(pdf_2)) {
-                result << indent() << it->second << "_pdf_2 = ba.FTDistribution2DGauss("
-                       << PyGenTools::printNm(f->getCoherenceLengthX()) << ", "
-                       << PyGenTools::printNm(f->getCoherenceLengthY()) << ")\n";
-
-                if (f->getGamma() != 0.0) {
-                    result << indent() << it->second << "_pdf_2.setGamma("
-                           << PyGenTools::printDegrees(f->getGamma()) << ")\n";
-                }
-            }
-
-            else if (const auto* f = dynamic_cast<const FTDistribution2DVoigt*>(pdf_2)) {
-                result << indent() << it->second << "_pdf_2 = ba.FTDistribution2DVoigt("
-                       << PyGenTools::printNm(f->getCoherenceLengthX()) << ", "
-                       << PyGenTools::printNm(f->getCoherenceLengthY()) << ", "
-                       << PyGenTools::printDouble(f->getEta()) << ")\n";
-
-                if (f->getGamma() != 0.0) {
-                    result << indent() << it->second << "_pdf_2.setGamma("
-                           << PyGenTools::printDegrees(f->getGamma()) << ")\n";
-                }
-            }
-
-            else {
-                std::ostringstream pdfException;
-                pdfException << "\n" << pdf_2->getName() << " :: Not Casted To Any "
-                             << "Probability Distribution Function\n";
-                throw Exceptions::NotImplementedException(pdfException.str());
-            }
+            result << indent() << it->second << "_pdf_2  = ba." << pdf->getName()
+                   << "(" << PyGenTools::argumentList(pdf) << ")\n";
 
             result << indent() << it->second << ".setProbabilityDistributions(" << it->second
                    << "_pdf_1, " << it->second << "_pdf_2)\n";

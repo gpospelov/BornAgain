@@ -73,6 +73,7 @@
 #include "ConstKBinAxis.h"
 #include "Crystal.h"
 #include "CustomBinAxis.h"
+#include "DetectorMask.h"
 #include "Distributions.h"
 #include "Ellipse.h"
 #include "FTDecayFunctions.h"
@@ -210,6 +211,8 @@
 %newobject IntensityDataIOFactory::readOutputData(const std::string& file_name);
 %newobject IntensityDataIOFactory::readIntensityData(const std::string& file_name);
 
+%newobject DetectorMask::createHistogram() const;
+
 // The following goes verbatim from libBornAgainCore.i to libBornAgainCore_wrap.cxx.
 // Note that the order matters, as base classes must be included before derived classes.
 
@@ -255,6 +258,7 @@
 %include "IClusteredParticles.h"
 %include "Crystal.h"
 %include "Distributions.h"
+%include "DetectorMask.h"
 %include "Ellipse.h"
 %include "FTDecayFunctions.h"
 %include "FTDistributions.h"

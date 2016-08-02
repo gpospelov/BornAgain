@@ -62,6 +62,9 @@ public:
     //! Returns parameter named _name_.
     const RealParameter* getParameter(const std::string& name) const;
 
+    //! Returns full vector of parameters
+    const std::vector<RealParameter*> getParameters() const { return m_params; }
+
     //! Returns vector of parameters which fit pattern
     std::vector<RealParameter*> getMatchedParameters(const std::string& wildcards) const;
 

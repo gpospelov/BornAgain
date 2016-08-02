@@ -107,8 +107,7 @@ RealParameter* ParameterPool::getParameter(const std::string& name)
 
 //! Returns vector of parameters which fit pattern.
 
-std::vector<RealParameter*> ParameterPool::getMatchedParameters(
-    const std::string& wildcards) const
+std::vector<RealParameter*> ParameterPool::getMatchedParameters(const std::string& wildcards) const
 {
     std::vector<RealParameter*> selected_parameters;
     // loop over all parameters in the pool

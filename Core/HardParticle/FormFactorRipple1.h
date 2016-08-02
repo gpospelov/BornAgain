@@ -50,9 +50,9 @@ protected:
 private:
     complex_t Integrand(double u) const;
 
+    double m_length;
     double m_width;
     double m_height;
-    double m_length;
 
     mutable complex_t m_ay;
     mutable complex_t m_az;

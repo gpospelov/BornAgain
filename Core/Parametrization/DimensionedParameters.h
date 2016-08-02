@@ -18,7 +18,7 @@
 
 #include "RealParameter.h" // inheriting from
 
-//! A parameter of physical dimension "angle". Values are in rad? deg? TODO clarify
+//! A parameter of physical dimension "angle".
 
 class Angle : public RealParameter
 {
@@ -30,7 +30,7 @@ public:
     virtual Angle* clone( const std::string& new_name="" ) const {
         return new Angle( new_name!="" ? new_name : m_name, m_parent, m_data, m_limits ); }
 
-    std::string unit() const final { return "deg"; }
+    std::string unit() const final { return "rad"; }
 };
 
 //! A parameter of physical dimension "length". Values are in nm.

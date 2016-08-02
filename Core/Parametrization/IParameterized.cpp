@@ -130,7 +130,7 @@ void IParameterized::registerScalar(
 void IParameterized::registerLength(
     const std::string& name, double* data, const AttLimits& limits)
 {
-    m_pool->addParameter( new Scalar( name, m_pool, data, limits) );
+    m_pool->addParameter( new Length( name, m_pool, data, limits) );
 }
 
 

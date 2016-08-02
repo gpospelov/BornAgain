@@ -19,16 +19,13 @@
 #include "MathFunctions.h"
 
 FormFactorRipple2::FormFactorRipple2(double length, double width, double height, double asymetry)
-    : m_width(width)
-    , m_height(height)
-    , m_length(length)
-    , m_d(asymetry)
+    : m_length(length), m_width(width), m_height(height), m_d(asymetry)
 {
     setName(BornAgain::FFRipple2Type);
     check_initialization();
+    registerNonnegativeLength(BornAgain::Length, &m_length);
     registerNonnegativeLength(BornAgain::Width, &m_width);
     registerNonnegativeLength(BornAgain::Height, &m_height);
-    registerNonnegativeLength(BornAgain::Length, &m_length);
     registerUnlimitedLength(BornAgain::AsymmetryLength, &m_d);
 }
 

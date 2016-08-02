@@ -22181,6 +22181,11 @@ class ParameterPool(_object):
         return _libBornAgainCore.ParameterPool_getParameter(self, *args)
 
 
+    def getParameters(self):
+        """getParameters(ParameterPool self) -> std::vector< RealParameter *,std::allocator< RealParameter * > > const"""
+        return _libBornAgainCore.ParameterPool_getParameters(self)
+
+
     def getMatchedParameters(self, wildcards):
         """
         getMatchedParameters(ParameterPool self, std::string const & wildcards) -> std::vector< RealParameter *,std::allocator< RealParameter * > >

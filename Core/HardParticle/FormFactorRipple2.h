@@ -51,9 +51,9 @@ protected:
     virtual bool check_initialization() const;
 
 private:
+    double m_length;
     double m_width;
     double m_height;
-    double m_length;
     double m_d;
     mutable cvector_t m_q;
 };

@@ -281,7 +281,7 @@ IDetector2D::EAxesUnits RectangularDetector::getDefaultAxesUnits() const
 
 void RectangularDetector::print(std::ostream& ostr) const
 {
-    ostr << "RectangularDetector: '" << getName() << "' " << m_parameters;
+    ostr << "RectangularDetector: '" << getName() << "' " << getParameterPool();
     for (size_t i = 0; i < m_axes.size(); ++i)
         ostr << "    IAxis:" << *m_axes[i] << std::endl;
 }

@@ -22109,19 +22109,9 @@ class ParameterPool(_object):
         return _libBornAgainCore.ParameterPool_size(self)
 
 
-    def registerParameter(self, *args):
-        """
-        registerParameter(ParameterPool self, std::string const & name, double * parpointer)
-        registerParameter(ParameterPool self, std::string const & name, double * parpointer, AttLimits limits)
-
-        void ParameterPool::registerParameter(const std::string &name, double *parpointer, const AttLimits &limits)
-
-        Registers a parameter with key  name and pointer-to-value  parpointer.
-
-        Registers parameter with given name. 
-
-        """
-        return _libBornAgainCore.ParameterPool_registerParameter(self, *args)
+    def addParameter(self, par):
+        """addParameter(ParameterPool self, RealParameter par)"""
+        return _libBornAgainCore.ParameterPool_addParameter(self, par)
 
 
     def getParameter(self, *args):
@@ -23123,7 +23113,7 @@ class Polygon(IShape2D):
 Polygon_swigregister = _libBornAgainCore.Polygon_swigregister
 Polygon_swigregister(Polygon)
 
-class RealParameter(_object):
+class RealParameter(INamed):
     """
 
 
@@ -23133,37 +23123,26 @@ class RealParameter(_object):
 
     """
     __swig_setmethods__ = {}
+    for _s in [INamed]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, RealParameter, name, value)
     __swig_getmethods__ = {}
+    for _s in [INamed]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, RealParameter, name)
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainCore.delete_RealParameter
+    __del__ = lambda self: None
 
-    def __init__(self, *args):
+    def clone(self, *args):
         """
-        __init__(RealParameter self, std::string const & name, ParameterPool parent, double volatile * par, AttLimits limits) -> RealParameter
-        __init__(RealParameter self, std::string const & name, ParameterPool parent, double volatile * par) -> RealParameter
-        __init__(RealParameter self, RealParameter other) -> RealParameter
-        __init__(RealParameter self, std::string const & name, RealParameter other) -> RealParameter
-
-        RealParameter::RealParameter(const std::string &name, const RealParameter &other)
-
-        This constructor takes copies 'other' except for the name. 
-
+        clone(RealParameter self, std::string const & new_name) -> RealParameter
+        clone(RealParameter self) -> RealParameter
         """
-        this = _libBornAgainCore.new_RealParameter(*args)
-        try:
-            self.this.append(this)
-        except:
-            self.this = this
-
-    def getName(self):
-        """
-        getName(RealParameter self) -> std::string
-
-        std::string RealParameter::getName() const 
-
-        """
-        return _libBornAgainCore.RealParameter_getName(self)
+        return _libBornAgainCore.RealParameter_clone(self, *args)
 
 
     def setValue(self, value):
@@ -23233,8 +23212,11 @@ class RealParameter(_object):
         """__ne__(RealParameter self, RealParameter other) -> bool"""
         return _libBornAgainCore.RealParameter___ne__(self, other)
 
-    __swig_destroy__ = _libBornAgainCore.delete_RealParameter
-    __del__ = lambda self: None
+
+    def unit(self):
+        """unit(RealParameter self) -> std::string"""
+        return _libBornAgainCore.RealParameter_unit(self)
+
 RealParameter_swigregister = _libBornAgainCore.RealParameter_swigregister
 RealParameter_swigregister(RealParameter)
 

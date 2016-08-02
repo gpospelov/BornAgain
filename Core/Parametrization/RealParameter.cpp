@@ -20,7 +20,7 @@
 
 RealParameter::RealParameter(
     const std::string& name, ParameterPool* parent, volatile double* par, const AttLimits& limits)
-    : m_name(name)
+    : INamed(name)
     , m_parent(parent)
     , m_data(par)
     , m_limits(limits)
@@ -37,8 +37,7 @@ RealParameter::RealParameter(const RealParameter& other )
     : RealParameter( other.getName(), other.m_parent, other.m_data, other.m_limits ) {}
 
 //! This constructor takes copies 'other' except for the name.
-RealParameter::RealParameter(
-    const std::string& name, const RealParameter& other)
+RealParameter::RealParameter(const std::string& name, const RealParameter& other)
     : RealParameter( name, other.m_parent, other.m_data, other.m_limits ) {}
 
 //! throw exception if parameter was not initialized with proper value

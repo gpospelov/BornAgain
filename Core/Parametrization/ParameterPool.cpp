@@ -43,14 +43,12 @@ ParameterPool* ParameterPool::clone() const
     return new_pool;
 }
 
-
 //! Returns a clone with _prefix_ added to every parameter key.
 
 ParameterPool* ParameterPool::cloneWithPrefix(const std::string& prefix) const
 {
     ParameterPool* new_pool = new ParameterPool(m_name, m_onChange);
-    for (const auto* par: m_params)
-        new_pool->addParameter( new RealParameter( prefix + par->getName(), *par ) );
+    copyToExternalPool( prefix, new_pool );
     return new_pool;
 }
 
@@ -60,20 +58,6 @@ void ParameterPool::clear()
     for(auto* par: m_params)
         delete par;
     m_params.clear();
-}
-
-//! Registers parameter with given name.
-void ParameterPool::registerParameter(const std::string& name, double* parpointer)
-{
-    registerParameter(name, parpointer, AttLimits::limitless());
-}
-
-//! Registers parameter with given name.
-
-void ParameterPool::registerParameter(
-    const std::string& name, double* parameter_address, const AttLimits& limits)
-{
-    addParameter(new RealParameter(name, this, parameter_address, limits) );
 }
 
 //! Low-level routine.
@@ -91,11 +75,12 @@ void ParameterPool::addParameter(RealParameter* newPar)
 //! Copy parameters of given pool to the external pool while adding prefix to
 //! local parameter keys
 
-void ParameterPool::copyToExternalPool(
-    const std::string& prefix, ParameterPool* external_pool) const
+void ParameterPool::copyToExternalPool(const std::string& prefix, ParameterPool* other_pool) const
 {
-    for (auto* par: m_params)
-        external_pool->addParameter(new RealParameter(prefix+par->getName(), *par));
+    for (const auto* par: m_params) {
+        RealParameter* new_par = par->clone( prefix + par->getName() );
+        other_pool->addParameter( new_par );
+    }
 }
 
 //! Returns parameter with given name.

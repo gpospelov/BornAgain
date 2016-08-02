@@ -49,12 +49,12 @@ TEST_F(RealParameterTest, ParameterAccess)
     EXPECT_EQ( par12->getValue(), par11->getValue() );
     EXPECT_TRUE( obj1.m_changed );
 
-    std::vector<RealParameter> parameters;
-    parameters.push_back(*par11);
-    parameters.push_back(*par12);
-    parameters[0].setValue(3.0);
+    std::vector<RealParameter*> parameters;
+    parameters.push_back(par11);
+    parameters.push_back(par12);
+    parameters[0]->setValue(3.0);
     EXPECT_EQ( obj1.m_par1, 3. );
-    EXPECT_EQ( parameters[1].getValue(), 3. );
+    EXPECT_EQ( parameters[1]->getValue(), 3. );
 }
 
 TEST_F(RealParameterTest, LimitedParameter)

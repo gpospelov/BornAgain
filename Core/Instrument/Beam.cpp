@@ -98,11 +98,11 @@ void Beam::init_parameters()
 
 void Beam::swapContent(Beam &other)
 {
-    std::swap(this->m_wavelength, other.m_wavelength);
-    std::swap(this->m_alpha, other.m_alpha);
-    std::swap(this->m_phi, other.m_phi);
-    std::swap(this->m_intensity, other.m_intensity);
-    std::swap(this->m_polarization, other.m_polarization);
+    std::swap(m_wavelength, other.m_wavelength);
+    std::swap(m_alpha, other.m_alpha);
+    std::swap(m_phi, other.m_phi);
+    std::swap(m_intensity, other.m_intensity);
+    std::swap(m_polarization, other.m_polarization);
 }
 
 void Beam::initPolarization()
@@ -113,5 +113,5 @@ void Beam::initPolarization()
 
 void Beam::print(std::ostream &ostr) const
 {
-    ostr << "Beam: '" << getName() << "' " << m_parameters;
+    ostr << "Beam: '" << getName() << "' " << getParameterPool();
 }

@@ -139,7 +139,7 @@ OutputData<double>* Instrument::getDetectorIntensity(
 
 void Instrument::print(std::ostream& ostr) const
 {
-    ostr << "Instrument: '" << getName() << "' " << m_parameters << std::endl;
+    ostr << "Instrument: '" << getName() << "' " << getParameterPool() << std::endl;
     ostr << "    " << m_beam << std::endl;
     ostr << "    " << *mP_detector << std::endl;
 }

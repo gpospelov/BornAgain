@@ -47,7 +47,7 @@ void FitParameterLinked::addParameter(RealParameter* par)
     if( par->isNull() )
         throw std::runtime_error(
             "FitMultiParameter::addParameter() -> Attempt to add null parameter");
-    m_pool_parameters.push_back(new RealParameter(*par));
+    m_pool_parameters.push_back(par->clone());
 }
 
 //! Adds parameters from pool which match given wildcard
@@ -58,7 +58,7 @@ void FitParameterLinked::addMatchedParametersFromPool(
     if( !wildcard.empty())
         wildcard_to_use = wildcard;
     for (auto* par: pool->getMatchedParameters(wildcard_to_use))
-        m_pool_parameters.push_back(new RealParameter(*par));
+        m_pool_parameters.push_back(par->clone());
     if( m_pool_parameters.empty() )
         throw std::runtime_error(
             "FitMultiParameter::addMatchedParametersFromPool() -> Error! "

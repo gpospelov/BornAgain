@@ -16,6 +16,7 @@
 #ifndef REALPARAMETERWRAPPER_H
 #define REALPARAMETERWRAPPER_H
 
+#include "INamed.h" // inheriting from
 #include "AttLimits.h"
 #include <string>
 
@@ -25,15 +26,16 @@ class ParameterPool;
 //! @class RealParameter
 //! @ingroup tools_internal
 
-class BA_CORE_API_ RealParameter {
+class BA_CORE_API_ RealParameter : public INamed {
 public:
     explicit RealParameter(
         const std::string& name, ParameterPool* parent,
         volatile double* par, const AttLimits& limits=AttLimits::limitless());
     RealParameter(const RealParameter& other);
     RealParameter(const std::string& name, const RealParameter& other);
+    virtual ~RealParameter() {}
 
-    std::string getName() const { return m_name; }
+    virtual RealParameter* clone( const std::string& new_name="" ) const = 0;
 
     //! Sets value of wrapped parameter and emit signal
     void setValue(double value);
@@ -57,7 +59,9 @@ public:
         return (m_limits == other.m_limits) && (m_data == other.m_data); }
     bool operator!=(const RealParameter &other) const { return !(*this == other); }
 
-private:
+    virtual std::string unit() const = 0;
+
+protected:
     std::string m_name;
     ParameterPool* m_parent; //!< "owns" this parameter
     volatile double* m_data;

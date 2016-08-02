@@ -53,11 +53,8 @@ public:
     //! Returns number of parameters in the pool.
     size_t size() const { return m_params.size(); }
 
-    //! Registers a parameter with key _name_ and pointer-to-value _parpointer_.
-    void registerParameter(const std::string& name, double* parpointer);
-
-    //! Registers a parameter with key _name_ and pointer-to-value _parpointer_.
-    void registerParameter(const std::string& name, double* parpointer, const AttLimits& limits);
+    //! Adds parameter to the pool
+    void addParameter(RealParameter* par);
 
     //! Returns parameter named _name_.
     RealParameter* getParameter(const std::string& name);
@@ -90,9 +87,6 @@ private:
 
     //! prints error message
     std::string get_error_message(const std::string& criteria) const;
-
-    //! Adds parameter to the pool
-    void addParameter(RealParameter* par);
 
     //! reports error while finding parameters matching given name
     void report_find_matched_parameters_error(const std::string& pattern) const;

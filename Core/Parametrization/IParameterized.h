@@ -37,7 +37,7 @@ public:
     IParameterized operator=(const IParameterized& other) = delete;
 
     //! Returns pointer to the parameter pool.
-    ParameterPool* getParameterPool() const { return m_parameters; }
+    ParameterPool* getParameterPool() const { return m_pool; }
 
     //! Creates new parameter pool, with all local parameters and those of its children.
     ParameterPool* createParameterTree();
@@ -67,7 +67,8 @@ protected:
     //! default implementation prints "IParameterized:" and the parameter pool
     virtual void print(std::ostream& ostr) const;
 
-    ParameterPool* m_parameters; //!< parameter pool (kind of pointer-to-implementation)
+private:
+    ParameterPool* m_pool; //!< parameter pool (kind of pointer-to-implementation)
 };
 
 #endif // IPARAMETERIZED_H

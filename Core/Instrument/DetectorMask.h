@@ -22,6 +22,7 @@
 
 class IDetector2D;
 template <class T> class OutputData;
+class Histogram2D;
 
 
 //! @class DetectorMask
@@ -50,6 +51,8 @@ public:
     bool getMask(size_t index) const;
 
     const OutputData<bool>* getMaskData() const;
+
+    Histogram2D *createHistogram() const;
 
     //! remove all masks and return object to initial state
     void removeMasks();

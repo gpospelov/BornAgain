@@ -46,3 +46,30 @@ void TrivialMinimizer::printResults() const
 {
     std::cout << "TrivialMinimizer::printResult() "  << m_min_value << std::endl;
 }
+
+std::vector<double> TrivialMinimizer::getErrorOfVariables() const
+{
+    std::vector<double> result;
+    result.resize(m_parameters.size());
+    return result;
+}
+
+std::string TrivialMinimizer::getMinimizerName() const
+{
+    return std::string("Test");
+}
+
+std::string TrivialMinimizer::getAlgorithmName() const
+{
+    return std::string();
+}
+
+MinimizerOptions *TrivialMinimizer::getOptions()
+{
+    return nullptr;
+}
+
+const MinimizerOptions *TrivialMinimizer::getOptions() const
+{
+    return nullptr;
+}

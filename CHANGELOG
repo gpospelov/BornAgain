@@ -1,3 +1,7 @@
+BornAgain-1.6.2, released 2016.07.15
+  > Hotfix:
+  * Bug #1558: Memory leakages in Python on Simulation::getIntensityData call
+
 BornAgain-1.6.1, released 2016.07.15
   > Hotfix:
   * Bug #1499: GUI Segmentation fault if layer is too thick

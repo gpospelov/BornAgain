@@ -45,6 +45,15 @@ class BA_CORE_API_ TrivialMinimizer : public IMinimizer
 
     virtual void printResults() const;
 
+    virtual std::vector<double >  getErrorOfVariables() const;
+
+    virtual std::string getMinimizerName() const;
+
+    virtual std::string getAlgorithmName() const;
+
+    virtual MinimizerOptions *getOptions();
+    virtual const MinimizerOptions *getOptions() const;
+
  private:
     double m_min_value;
     FitSuiteParameters m_parameters; //! minimizer parameters

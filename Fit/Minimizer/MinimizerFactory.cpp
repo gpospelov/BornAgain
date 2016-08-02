@@ -46,7 +46,7 @@ private:
 MinimizerCatalogue::MinimizerCatalogue()
 {
     // our minimizers
-    //m_data["Test"]        = {""};
+    m_data["Test"]        = {""};
     //m_data["Scan"]        = {""};
     // ROOT minimizers
     //m_data["Minuit"]      = {"Migrad", "Simplex", "Combined", "Scan"};
@@ -153,7 +153,8 @@ IMinimizer* MinimizerFactory::createMinimizer(
 //! ROOT minimizer internals.
 IMinimizer* MinimizerFactory::createMinimizer(const IMinimizer* other)
 {
-    IMinimizer* result = createMinimizer(other->getMinimizerName(), other->getAlgorithmName());
-    result->setOptions(*other->getOptions());
+    IMinimizer *result = createMinimizer(other->getMinimizerName(), other->getAlgorithmName());
+    if(other->getOptions())
+        result->setOptions(*other->getOptions());
     return result;
 }

@@ -61,6 +61,8 @@ public:
     const IDetector2D* getDetector() const;
     IDetector2D* getDetector();
 
+    const DetectorMask *getDetectorMask() const;
+
     //! Returns a detector axis
     const IAxis& getDetectorAxis(size_t index) const;
 

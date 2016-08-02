@@ -150,6 +150,11 @@ void Instrument::setBeamParameters(double wavelength, double alpha_i, double phi
     if(mP_detector) initDetector();
 }
 
+const DetectorMask *Instrument::getDetectorMask() const
+{
+    return getDetector()->getDetectorMask();
+}
+
 void Instrument::setBeam(const Beam &beam)
 {
     m_beam = beam;

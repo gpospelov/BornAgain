@@ -24,6 +24,8 @@ class ISampleBuilder;
 class IHistogram;
 class Histogram2D;
 
+class Histogram2D;
+
 //! @class Simulation
 //! @ingroup simulation
 //! @brief Main class to run the simulation.

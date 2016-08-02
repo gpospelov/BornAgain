@@ -57,11 +57,6 @@ InterferenceFunctionRadialParaCrystal* InterferenceFunctionRadialParaCrystal::cl
     return result;
 }
 
-void InterferenceFunctionRadialParaCrystal::accept(ISampleVisitor* visitor) const
-{
-    visitor->visit(this);
-}
-
 std::string InterferenceFunctionRadialParaCrystal::to_str(int indent) const
 {
     std::stringstream ss;
@@ -118,31 +113,13 @@ complex_t InterferenceFunctionRadialParaCrystal::FTPDF(double qpar) const
     complex_t phase = exp_I(qpar*m_peak_distance);
     double amplitude = mP_pdf->evaluate(qpar);
     complex_t result = phase*amplitude;
-    if (m_use_damping_length) {
+    if (m_use_damping_length)
         result *= std::exp(-m_peak_distance/m_damping_length);
-    }
     return result;
 }
 
-void InterferenceFunctionRadialParaCrystal::setProbabilityDistribution(
-        const IFTDistribution1D &pdf)
+void InterferenceFunctionRadialParaCrystal::setProbabilityDistribution(const IFTDistribution1D &pdf)
 {
-    if (mP_pdf.get() != &pdf) {
+    if (mP_pdf.get() != &pdf)
         mP_pdf.reset(pdf.clone());
-    }
-}
-
-const IFTDistribution1D* InterferenceFunctionRadialParaCrystal::getProbabilityDistribution() const
-{
-    return mP_pdf.get();
-}
-
-double InterferenceFunctionRadialParaCrystal::getPeakDistance() const
-{
-    return m_peak_distance;
-}
-
-double InterferenceFunctionRadialParaCrystal::getDampingLength() const
-{
-    return m_damping_length;
 }

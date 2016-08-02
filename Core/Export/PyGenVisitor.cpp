@@ -222,7 +222,7 @@ std::string PyGenVisitor::defineFormFactors() const
     for (auto it=themap->begin(); it!=themap->end(); ++it) {
         const IFormFactor* p_ff = it->first;
         result << indent() << it->second << " = ba.FormFactor" << p_ff->getName() << "("
-               << PyGenTools::argumentList(p_ff) << ")";
+               << PyGenTools::argumentList(p_ff) << ")\n";
     }
     return result.str();
 }
@@ -761,10 +761,9 @@ std::string PyGenVisitor::defineRoughnesses() const
     std::ostringstream result;
     result << std::setprecision(12);
     result << "\n" << indent() << "# Defining Roughness Parameters\n";
-    for (auto it=themap->begin(); it!=themap->end(); ++it) {
+    for (auto it=themap->begin(); it!=themap->end(); ++it)
         result << indent() << it->second << " = ba.LayerRoughness("
                <<  PyGenTools::argumentList(it->first) << ")\n";
-    }
     return result.str();
 }
 

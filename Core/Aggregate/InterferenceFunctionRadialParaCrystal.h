@@ -32,44 +32,36 @@ public:
     virtual ~InterferenceFunctionRadialParaCrystal() {}
     virtual InterferenceFunctionRadialParaCrystal* clone() const;
 
-    virtual void accept(ISampleVisitor* visitor) const;
+    void accept(ISampleVisitor* visitor) const final { visitor->visit(this); }
 
     //! Returns textual representation of *this and its descendants.
     virtual std::string to_str(int indent=0) const;
 
-    //! Sets size of coherence domain
-    void setDomainSize(double size) { m_domain_size = size; }
-
-    //! Returns size of coherence domain
-    double getDomainSize() const { return m_domain_size; }
-
-    //! Sets size-spacing coupling parameter
     void setKappa(double kappa) { m_kappa = kappa; }
-
-    //! Gets size-spacing coupling parameter
     virtual double getKappa() const { return m_kappa; }
+
+    void setDomainSize(double size) { m_domain_size = size; }
+    double getDomainSize() const { return m_domain_size; }
 
     virtual double evaluate(const kvector_t q) const;
     //TODO: replace these with strategy pattern for different algorithms
     complex_t FTPDF(double qpar) const;
 
-    //! Sets the Fourier transformed probability distribution of the nearest particle
     void setProbabilityDistribution(const IFTDistribution1D& pdf);
+    const IFTDistribution1D* getProbabilityDistribution() const { return mP_pdf.get(); }
 
-    //! Gets the Fourier transformed probability distribution of the nearest particle
-    const IFTDistribution1D* getProbabilityDistribution() const;
+    double getPeakDistance() const { return m_peak_distance; }
 
-    double getPeakDistance() const;
-
-    double getDampingLength() const;
+    double getDampingLength() const { return m_damping_length; }
 
 protected:
     double m_peak_distance; //!< the distance to the first neighbor peak
     double m_damping_length; //!< damping length of paracrystal
-    std::unique_ptr<IFTDistribution1D> mP_pdf; //!< pdf of nearest particle
+    //! Fourier transformed probability distribution of the nearest particle
+    std::unique_ptr<IFTDistribution1D> mP_pdf;
     bool m_use_damping_length;
-    double m_kappa;
-    double m_domain_size;
+    double m_kappa; //!< Size-spacing coupling parameter
+    double m_domain_size; //!< Size of coherence domain
 
 private:
     //! Registers some class members for later access via parameter pool

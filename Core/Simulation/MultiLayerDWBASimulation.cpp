@@ -28,6 +28,8 @@
 #include "SpecularMagnetic.h"
 #include "SpecularMatrix.h"
 
+#include <iterator>
+
 MultiLayerDWBASimulation::MultiLayerDWBASimulation(const MultiLayer* p_multi_layer)
   : mp_roughness_dwba_simulation(0)
 {

@@ -18,6 +18,7 @@
 #include <stdexcept>
 #include <iomanip>
 #include <iostream>
+#include <string>
 #include <map>
 
 //! @class MinimizerOptions

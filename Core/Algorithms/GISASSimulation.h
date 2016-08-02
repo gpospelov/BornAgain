@@ -23,6 +23,8 @@
 #include "Simulation.h"
 #include "EigenCore.h"
 
+class Histogram2D;
+
 //! @class Simulation
 //! @ingroup simulation
 //! @brief Main class to run the simulation.
@@ -53,7 +55,7 @@ public:
 
     //! Returns clone of the detector intensity map with detector resolution applied in the form
     //! of 2D histogram.
-    class Histogram2D* getIntensityData(
+    Histogram2D* getIntensityData(
         IDetector2D::EAxesUnits units_type = IDetector2D::DEFAULT) const;
 
     //! Sets the instrument containing beam and detector information

@@ -199,6 +199,17 @@
 #include "WavevectorInfo.h"
 %}
 
+// ownership
+
+%newobject GISASSimulation::getIntensityData(IDetector2D::EAxesUnits units_type = IDetector2D::DEFAULT) const;
+%newobject GISASSimulation::getDetectorIntensity(IDetector2D::EAxesUnits units_type = IDetector2D::DEFAULT) const;
+
+%newobject OffSpecSimulation::getIntensityData(IDetector2D::EAxesUnits units_type = IDetector2D::DEFAULT) const;
+%newobject OffSpecSimulation::getDetectorIntensity(IDetector2D::EAxesUnits units_type = IDetector2D::DEFAULT) const;
+
+%newobject IntensityDataIOFactory::readOutputData(const std::string& file_name);
+%newobject IntensityDataIOFactory::readIntensityData(const std::string& file_name);
+
 // The following goes verbatim from libBornAgainCore.i to libBornAgainCore_wrap.cxx.
 // Note that the order matters, as base classes must be included before derived classes.
 

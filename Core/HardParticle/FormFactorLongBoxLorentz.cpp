@@ -14,28 +14,16 @@
 // ************************************************************************** //
 
 #include "FormFactorLongBoxLorentz.h"
-#include "AttLimits.h"
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
 
-using namespace BornAgain;
-
 FormFactorLongBoxLorentz::FormFactorLongBoxLorentz(double length, double width, double height)
-    : m_length(length), m_width(width), m_height(height) {
-
-    setName(FFLongBoxLorentzType);
-    check_initialization();
-    init_parameters();
-}
-
-FormFactorLongBoxLorentz *FormFactorLongBoxLorentz::clone() const
+    : m_length(length), m_width(width), m_height(height)
 {
-    return new FormFactorLongBoxLorentz(m_length, m_width, m_height);
-}
-
-void FormFactorLongBoxLorentz::accept(ISampleVisitor *visitor) const
-{
-    visitor->visit(this);
+    setName(BornAgain::FFLongBoxLorentzType);
+    registerNonnegativeLength(BornAgain::Length, &m_length);
+    registerNonnegativeLength(BornAgain::Width, &m_width);
+    registerNonnegativeLength(BornAgain::Height, &m_height);
 }
 
 complex_t FormFactorLongBoxLorentz::evaluate_for_q(const cvector_t q) const
@@ -46,16 +34,4 @@ complex_t FormFactorLongBoxLorentz::evaluate_for_q(const cvector_t q) const
 
     return m_height * m_length * m_width * std::exp(complex_t(0., 1.) * qzHdiv2) / (1.0 + qxL2)
            * MathFunctions::sinc(qyWdiv2) * MathFunctions::sinc(qzHdiv2);
-}
-
-bool FormFactorLongBoxLorentz::check_initialization() const
-{
-    return true;
-}
-
-void FormFactorLongBoxLorentz::init_parameters()
-{
-    registerParameter(Length, &m_length, AttLimits::n_positive());
-    registerParameter(Width, &m_width, AttLimits::n_positive());
-    registerParameter(Height, &m_height, AttLimits::n_positive());
 }

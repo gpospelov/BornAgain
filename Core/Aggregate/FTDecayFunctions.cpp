@@ -31,7 +31,7 @@ void IFTDecayFunction1D::print(std::ostream &ostr) const
 
 void IFTDecayFunction1D::init_parameters()
 {
-    registerParameter(Omega, &m_omega);
+    registerUnlimitedScalar(Omega, &m_omega);
 }
 
 FTDecayFunction1DCauchy::FTDecayFunction1DCauchy(double omega)
@@ -116,7 +116,7 @@ double FTDecayFunction1DVoigt::evaluate(double q) const
 void FTDecayFunction1DVoigt::init_parameters()
 {
     IFTDecayFunction1D::init_parameters();
-    registerParameter(Eta, &m_eta);
+    registerUnlimitedScalar(Eta, &m_eta);
 }
 
 /* Commented out decay functions: see header for rationale
@@ -188,8 +188,8 @@ void IFTDecayFunction2D::print(std::ostream &ostr) const
 
 void IFTDecayFunction2D::init_parameters()
 {
-    registerParameter(OmegaX, &m_omega_x);
-    registerParameter(OmegaY, &m_omega_y);
+    registerNonnegativeLength(OmegaX, &m_omega_x);
+    registerNonnegativeLength(OmegaY, &m_omega_y);
 }
 
 FTDecayFunction2DCauchy::FTDecayFunction2DCauchy(double decay_length_x, double decay_length_y)
@@ -258,5 +258,5 @@ double FTDecayFunction2DVoigt::evaluate(double qx, double qy) const
 void FTDecayFunction2DVoigt::init_parameters()
 {
     IFTDecayFunction2D::init_parameters();
-    registerParameter(Eta, &m_eta);
+    registerUnlimitedScalar(Eta, &m_eta);
 }

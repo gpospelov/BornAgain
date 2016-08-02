@@ -45,8 +45,7 @@ public:
     MultiLayer();
     virtual ~MultiLayer();
 
-    //! calls the ISampleVisitor's visit method
-    virtual void accept(ISampleVisitor* visitor) const;
+    virtual void accept(ISampleVisitor* visitor) const { visitor->visit(this); }
 
     //! Returns textual representation of *this and its descendants.
     virtual std::string to_str(int indent=0) const;

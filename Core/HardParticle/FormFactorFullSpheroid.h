@@ -32,19 +32,15 @@ public:
 
     FormFactorFullSpheroid(double radius, double height);
 
-    FormFactorFullSpheroid *clone() const;
-
-    virtual void accept(ISampleVisitor *visitor) const final;
+    FormFactorFullSpheroid* clone() const { return new FormFactorFullSpheroid(m_radius, m_height); }
+    void accept(ISampleVisitor* visitor) const final { visitor->visit(this); }
 
     double getHeight() const { return m_height; }
     double getRadius() const { return m_radius; }
 
-    virtual double getRadialExtension() const final { return m_radius; }
+    double getRadialExtension() const final { return m_radius; }
 
-    virtual complex_t evaluate_for_q(const cvector_t q) const final;
-
-protected:
-    virtual void init_parameters();
+    complex_t evaluate_for_q(const cvector_t q) const final;
 
 private:
     complex_t Integrand(double Z) const;

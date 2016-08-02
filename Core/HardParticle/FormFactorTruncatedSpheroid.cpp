@@ -14,30 +14,22 @@
 // ************************************************************************** //
 
 #include "FormFactorTruncatedSpheroid.h"
-#include "AttLimits.h"
 #include "BornAgainNamespace.h"
 #include "Exceptions.h"
 #include "MathFunctions.h"
 #include "Numeric.h"
 #include "Units.h"
 
-using namespace  BornAgain;
-
-FormFactorTruncatedSpheroid::FormFactorTruncatedSpheroid(double radius, double height,
-                                                         double height_flattening)
+FormFactorTruncatedSpheroid::FormFactorTruncatedSpheroid(
+    double radius, double height, double height_flattening)
+    : m_radius(radius), m_height(height), m_height_flattening(height_flattening)
 {
-    setName(FFTruncatedSpheroidType);
-    m_radius = radius;
-    m_height = height;
-    m_height_flattening = height_flattening;
+    setName(BornAgain::FFTruncatedSpheroidType);
     check_initialization();
-    init_parameters();
-
+    registerNonnegativeLength(BornAgain::Radius, &m_radius);
+    registerNonnegativeLength(BornAgain::Height, &m_height);
+    registerNonnegativeScalar(BornAgain::HeightFlattening, &m_height_flattening);
     mP_integrator = make_integrator_complex(this, &FormFactorTruncatedSpheroid::Integrand);
-}
-
-FormFactorTruncatedSpheroid::~FormFactorTruncatedSpheroid()
-{
 }
 
 bool FormFactorTruncatedSpheroid::check_initialization() const
@@ -53,23 +45,6 @@ bool FormFactorTruncatedSpheroid::check_initialization() const
         throw Exceptions::ClassInitializationException(ostr.str());
     }
     return result;
-}
-
-void FormFactorTruncatedSpheroid::init_parameters()
-{
-    registerParameter(Radius, &m_radius, AttLimits::n_positive());
-    registerParameter(Height, &m_height, AttLimits::n_positive());
-    registerParameter(HeightFlattening, &m_height_flattening, AttLimits::n_positive());
-}
-
-FormFactorTruncatedSpheroid* FormFactorTruncatedSpheroid::clone() const
-{
-   return new FormFactorTruncatedSpheroid(m_radius, m_height, m_height_flattening);
-}
-
-void FormFactorTruncatedSpheroid::accept(ISampleVisitor *visitor) const
-{
-    visitor->visit(this);
 }
 
 //! Integrand for complex formfactor.

@@ -33,10 +33,9 @@ public:
     LayerRoughness();
     LayerRoughness(double sigma, double hurstParameter, double latteralCorrLength);
 
-    LayerRoughness* clone() const;
-
-    //! Calls the ISampleVisitor's visit method
-    virtual void accept(ISampleVisitor* visitor) const;
+    LayerRoughness* clone() const {
+        return new LayerRoughness(m_sigma, m_hurstParameter, m_latteralCorrLength); }
+    virtual void accept(ISampleVisitor* visitor) const { visitor->visit(this); }
 
     //! Returns power spectral density of the surface roughness
     double getSpectralFun(const kvector_t kvec) const;
@@ -63,10 +62,6 @@ public:
     friend std::ostream& operator<<(std::ostream& ostr, /*const*/ LayerRoughness& m);
 
 protected:
-    //! Registers some class members for later access via parameter pool
-    virtual void init_parameters();
-
-    //! Prints class
     void print(std::ostream& ostr) const;
 
     double m_sigma;                //!< rms of roughness

@@ -1,11 +1,11 @@
-%extend IParameterized {
-    virtual void registerParameter(
-        const std::string &name, int64_t parpointer,
-        const AttLimits& limits = AttLimits::limitless())
-    {
-        return (*($self)).registerParameter(name, (double*)parpointer, limits);
-    }
-};
+//%extend IParameterized {
+//    virtual void registerParameter(
+//        const std::string &name, int64_t parpointer,
+//        const AttLimits& limits = AttLimits::limitless())
+//    {
+//        return (*($self)).registerParameter(name, (double*)parpointer, limits);
+//    }
+//};
 
 namespace Geometry {
     %extend BasicVector3D<double> {
@@ -51,12 +51,26 @@ namespace Geometry {
 };
 
 %extend ISampleBuilder {
-    virtual void registerParameter(
-        const std::string &name, int64_t parpointer,
-        const AttLimits& limits = AttLimits::limitless())
-    {
-        return (*($self)).registerParameter(name, (double*)parpointer, limits);
-    }
+    virtual void registerUnlimitedAngle(const std::string &name, int64_t parpointer) {
+        return (*($self)).registerUnlimitedAngle(name, (double*)parpointer); }
+    virtual void registerLimitedAngle(const std::string &name, int64_t parpointer,
+                                      double lower_bound, double upper_bound) {
+        return (*($self)).registerLimitedAngle(name, (double*)parpointer, lower_bound, upper_bound); }
+
+    virtual void registerUnlimitedLength(const std::string &name, int64_t parpointer) {
+        return (*($self)).registerUnlimitedLength(name, (double*)parpointer); }
+    virtual void registerNonnegativeLength(const std::string &name, int64_t parpointer) {
+        return (*($self)).registerNonnegativeLength(name, (double*)parpointer); }
+    virtual void registerPositiveLength(const std::string &name, int64_t parpointer) {
+        return (*($self)).registerPositiveLength(name, (double*)parpointer); }
+
+    virtual void registerUnlimitedScalar(const std::string &name, int64_t parpointer) {
+        return (*($self)).registerUnlimitedScalar(name, (double*)parpointer); }
+    virtual void registerNonnegativeScalar(const std::string &name, int64_t parpointer) {
+        return (*($self)).registerNonnegativeScalar(name, (double*)parpointer); }
+    virtual void registerPositiveScalar(const std::string &name, int64_t parpointer) {
+        return (*($self)).registerPositiveScalar(name, (double*)parpointer); }
+
     virtual void setParameterValue(const std::string &name, double value)
     {
         dynamic_cast<IParameterized*>($self)->setParameterValue(name, value);

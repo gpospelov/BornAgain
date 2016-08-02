@@ -162,7 +162,7 @@ IPixelMap* SphericalDetector::createPixelMap(size_t index) const
 
 void SphericalDetector::print(std::ostream& ostr) const
 {
-    ostr << "SphericalDetector: '" << getName() << "' " << m_parameters;
+    ostr << "SphericalDetector: '" << getName() << "' " << getParameterPool();
     for (size_t i = 0; i < m_axes.size(); ++i) {
         ostr << "    IAxis:" << *m_axes[i] << std::endl;
     }

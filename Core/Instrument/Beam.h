@@ -61,14 +61,12 @@ public:
 protected:
     virtual void print(std::ostream& ostr) const;
 
-    //! Registers some class members for later access via parameter pool
-    virtual void init_parameters();
-
 private:
-    //! Swap method.
+    void init_parameters();
+
     void swapContent(Beam& other);
 
-    //! Initialize polarization (for constructors).
+    //! Initializes polarization (for constructors).
     void initPolarization();
 
 #ifndef SWIG

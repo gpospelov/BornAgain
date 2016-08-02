@@ -29,13 +29,12 @@ public:
 
     virtual double evaluateCDF(double x, double y) const;
 
-    ResolutionFunction2DGaussian *clone() const;
+    ResolutionFunction2DGaussian *clone() const {
+        return new ResolutionFunction2DGaussian(m_sigma_x, m_sigma_y); }
 
     double getSigmaX() const { return m_sigma_x; }
     double getSigmaY() const { return m_sigma_y; }
 
-protected:
-    virtual void init_parameters();
 private:
 //    ResolutionFunction2DGaussian(const ResolutionFunction2DGaussian& other);
     ResolutionFunction2DGaussian& operator=(const ResolutionFunction2DGaussian& );

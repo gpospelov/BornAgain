@@ -65,10 +65,9 @@ ISample* Lattice1DBuilder::buildSample() const
 
 void Lattice1DBuilder::init_parameters()
 {
-
-    registerParameter("lattice_length", &m_length);
-    registerParameter("lattice_rotation", &m_xi);
-    registerParameter("corr_length", &m_corr_length);
-    registerParameter("cylinder_height", &m_cylinder_height);
-    registerParameter("cylinder_radius", &m_cylinder_radius);
+    registerNonnegativeLength("lattice_length", &m_length);
+    registerUnlimitedAngle("lattice_rotation", &m_xi);
+    registerNonnegativeLength("corr_length", &m_corr_length);
+    registerNonnegativeLength("cylinder_height", &m_cylinder_height);
+    registerNonnegativeLength("cylinder_radius", &m_cylinder_radius);
 }

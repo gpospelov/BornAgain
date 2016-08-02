@@ -14,7 +14,6 @@
 // ************************************************************************** //
 
 #include "FormFactorPrism3.h"
-#include "AttLimits.h"
 #include "BornAgainNamespace.h"
 #include <iostream>
 
@@ -22,12 +21,11 @@
 //! @param base_edge of hexagonal base
 //! @param height of Prism3
 FormFactorPrism3::FormFactorPrism3(const double base_edge, const double height)
-    : FormFactorPolygonalPrism( height )
-    , m_base_edge( base_edge )
+    : FormFactorPolygonalPrism( height ), m_base_edge( base_edge )
 {
     setName(BornAgain::FFPrism3Type);
-    registerParameter(BornAgain::BaseEdge, &m_base_edge, AttLimits::n_positive());
-    registerParameter(BornAgain::Height, &m_height, AttLimits::n_positive());
+    registerNonnegativeLength(BornAgain::BaseEdge, &m_base_edge);
+    registerNonnegativeLength(BornAgain::Height, &m_height);
     onChange();
 }
 
@@ -42,14 +40,4 @@ void FormFactorPrism3::onChange()
         { -ac, -as, 0. },
         {  ah,  0., 0. } };
     setPrism( false, V );
-}
-
-FormFactorPrism3* FormFactorPrism3::clone() const
-{
-    return new FormFactorPrism3(m_base_edge, m_height);
-}
-
-void FormFactorPrism3::accept(ISampleVisitor *visitor) const
-{
-    visitor->visit(this);
 }

@@ -39,7 +39,7 @@ public:
     virtual IAbstractParticle* cloneInvertB() const = 0;
 
     //! calls the ISampleVisitor's visit method
-    virtual void accept(ISampleVisitor* visitor) const;
+    virtual void accept(ISampleVisitor* visitor) const { visitor->visit(this); }
 
     //! Sets the refractive index of the ambient material (which influences its scattering power)
     virtual void setAmbientMaterial(const IMaterial&) {}
@@ -71,7 +71,7 @@ public:
     virtual IParticle* cloneInvertB() const = 0;
 
     //! calls the ISampleVisitor's visit method
-    virtual void accept(class ISampleVisitor* visitor) const;
+    virtual void accept(class ISampleVisitor* visitor) const { visitor->visit(this); }
 
     //! Create a form factor for this particle
     IFormFactor* createFormFactor() const;

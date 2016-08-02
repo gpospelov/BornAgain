@@ -55,7 +55,7 @@ IsGISAXSDetector *IsGISAXSDetector::clone() const
 
 void IsGISAXSDetector::print(std::ostream &ostr) const
 {
-    ostr << "IsGISAXSDetector: '" << getName() << "' " << m_parameters;
+    ostr << "IsGISAXSDetector: '" << getName() << "' " << getParameterPool();
     for (size_t i = 0; i < m_axes.size(); ++i) {
         ostr << "    IAxis:" << *m_axes[i] << std::endl;
     }

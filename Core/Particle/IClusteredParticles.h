@@ -22,16 +22,14 @@
 
 //! @class IClusteredParticles
 //! @ingroup samples_internal
-//! @brief An ordered assembly of particles
+//! @brief An ordered assembly of particles. Currently, the only child class is Crystal.
 
 class BA_CORE_API_ IClusteredParticles : public ICompositeSample
 {
 public:
     IClusteredParticles() {}
-    virtual ~IClusteredParticles() {}
 
-    //! clone method to allow for polymorphic copying
-    virtual IClusteredParticles* clone() const  = 0;
+    IClusteredParticles* clone() const = 0;
 
     //! Returns a clone with inverted magnetic fields
     virtual IClusteredParticles* cloneInvertB() const = 0;

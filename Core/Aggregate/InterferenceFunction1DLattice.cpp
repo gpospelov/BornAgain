@@ -100,8 +100,8 @@ InterferenceFunction1DLattice::InterferenceFunction1DLattice(
 
 void InterferenceFunction1DLattice::init_parameters()
 {
-    registerParameter(Length, &m_lattice_params.m_length);
-    registerParameter(Xi, &m_lattice_params.m_xi);
+    registerPositiveLength(Length, &m_lattice_params.m_length);
+    registerUnlimitedAngle(Xi, &m_lattice_params.m_xi);
 }
 
 Lattice1DParameters InterferenceFunction1DLattice::getLatticeParameters() const

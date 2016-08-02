@@ -27,15 +27,16 @@ class BA_CORE_API_ FormFactorTruncatedCube : public FormFactorPolyhedron
 public:
     FormFactorTruncatedCube(double length, double removed_length);
 
-    virtual FormFactorTruncatedCube *clone() const final;
-    virtual void accept(ISampleVisitor *visitor) const final;
+    FormFactorTruncatedCube *clone() const final {
+        return new FormFactorTruncatedCube(m_length, m_removed_length); }
+    void accept(ISampleVisitor *visitor) const final { visitor->visit(this); }
 
     double getLength() const { return m_length; }
     double getRemovedLength() const { return m_removed_length; }
 
 private:
     static const PolyhedralTopology topology;
-    virtual void onChange() final;
+    void onChange() final;
     double m_length;
     double m_removed_length;
 };

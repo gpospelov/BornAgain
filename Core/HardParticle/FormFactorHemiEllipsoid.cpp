@@ -14,51 +14,19 @@
 // ************************************************************************** //
 
 #include "FormFactorHemiEllipsoid.h"
-#include "AttLimits.h"
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
 #include "Numeric.h"
 #include "Units.h"
 
-using namespace  BornAgain;
-
-FormFactorHemiEllipsoid::FormFactorHemiEllipsoid(
-    double radius_a, double radius_b, double height)
+FormFactorHemiEllipsoid::FormFactorHemiEllipsoid(double radius_x, double radius_y, double height)
+    : m_radius_x(radius_x), m_radius_y(radius_y), m_height(height)
 {
-    setName(FFHemiEllipsoidType);
-    m_radius_x = radius_a;
-    m_radius_y  = radius_b;
-    m_height = height;
-    check_initialization();
-    init_parameters();
-
+    setName(BornAgain::FFHemiEllipsoidType);
+    registerNonnegativeLength(BornAgain::RadiusX, &m_radius_x);
+    registerNonnegativeLength(BornAgain::RadiusY, & m_radius_y);
+    registerNonnegativeLength(BornAgain::Height, &m_height);
     mP_integrator = make_integrator_complex(this, &FormFactorHemiEllipsoid::Integrand);
-}
-
-FormFactorHemiEllipsoid::~FormFactorHemiEllipsoid()
-{
-}
-
-bool FormFactorHemiEllipsoid::check_initialization() const
-{
-    return true;
-}
-
-void FormFactorHemiEllipsoid::init_parameters()
-{
-    registerParameter(RadiusX, &m_radius_x, AttLimits::n_positive());
-    registerParameter(RadiusY, & m_radius_y, AttLimits::n_positive());
-    registerParameter(Height, &m_height, AttLimits::n_positive());
-}
-
-FormFactorHemiEllipsoid* FormFactorHemiEllipsoid::clone() const
-{
-   return new FormFactorHemiEllipsoid(m_radius_x,  m_radius_y, m_height);
-}
-
-void FormFactorHemiEllipsoid::accept(ISampleVisitor *visitor) const
-{
-    visitor->visit(this);
 }
 
 double FormFactorHemiEllipsoid::getRadialExtension() const

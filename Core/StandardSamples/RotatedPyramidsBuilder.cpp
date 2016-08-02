@@ -33,11 +33,10 @@ RotatedPyramidsBuilder::RotatedPyramidsBuilder()
 
 void RotatedPyramidsBuilder::init_parameters()
 {
-
-    registerParameter("length", &m_length);
-    registerParameter("height", &m_height);
-    registerParameter("alpha", &m_alpha);
-    registerParameter("zangle", &m_zangle);
+    registerNonnegativeLength("length", &m_length);
+    registerNonnegativeLength("height", &m_height);
+    registerUnlimitedAngle("alpha", &m_alpha);
+    registerUnlimitedAngle("zangle", &m_zangle);
 }
 
 ISample* RotatedPyramidsBuilder::buildSample() const

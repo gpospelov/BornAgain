@@ -38,7 +38,9 @@ class BA_CORE_API_ FitSuite : public IObservable
 {
 public:
     FitSuite();
+    FitSuite(const FitSuite&) = delete;
     ~FitSuite();
+    FitSuite& operator=(const FitSuite&) = delete;
 
     // ------------------------------------------------------------------------
     // Fitting setup
@@ -154,8 +156,6 @@ public:
     const OutputData<double>* getChiSquaredOutputData(size_t i_item = 0) const;
 
 private:
-    FitSuite& operator=(const FitSuite&);
-    FitSuite(const FitSuite&);
     std::unique_ptr<FitKernel> m_kernel;
 };
 

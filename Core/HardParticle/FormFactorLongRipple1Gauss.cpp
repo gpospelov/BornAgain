@@ -20,22 +20,15 @@
 #include "MathFunctions.h"
 #include "Units.h"
 
-using namespace BornAgain;
-
 FormFactorLongRipple1Gauss::FormFactorLongRipple1Gauss(double length, double width, double height)
-    : m_width(width)
-    , m_height(height)
-    , m_length(length)
+    : m_length(length), m_width(width), m_height(height)
 {
-    setName(FFLongRipple1GaussType);
+    setName(BornAgain::FFLongRipple1GaussType);
     check_initialization();
-    init_parameters();
-
+    registerNonnegativeLength(BornAgain::Length, &m_length);
+    registerNonnegativeLength(BornAgain::Width, &m_width);
+    registerNonnegativeLength(BornAgain::Height, &m_height);
     mP_integrator = make_integrator_complex(this, &FormFactorLongRipple1Gauss::Integrand);
-}
-
-FormFactorLongRipple1Gauss::~FormFactorLongRipple1Gauss()
-{
 }
 
 bool FormFactorLongRipple1Gauss::check_initialization() const
@@ -51,23 +44,6 @@ bool FormFactorLongRipple1Gauss::check_initialization() const
         throw Exceptions::ClassInitializationException(ostr.str());
     }
     return result;
-}
-
-void FormFactorLongRipple1Gauss::init_parameters()
-{
-    registerParameter(Width, &m_width, AttLimits::n_positive());
-    registerParameter(Height, &m_height, AttLimits::n_positive());
-    registerParameter(Length, &m_length, AttLimits::n_positive());
-}
-
-FormFactorLongRipple1Gauss* FormFactorLongRipple1Gauss::clone() const
-{
-    return new FormFactorLongRipple1Gauss(m_length, m_width, m_height);
-}
-
-void FormFactorLongRipple1Gauss::accept(ISampleVisitor *visitor) const
-{
-    visitor->visit(this);
 }
 
 double FormFactorLongRipple1Gauss::getRadialExtension() const

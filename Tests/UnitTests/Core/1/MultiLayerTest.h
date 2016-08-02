@@ -44,8 +44,8 @@ TEST_F(MultiLayerTest, BasicProperty)
     EXPECT_EQ(size_t(0), mLayer.getNumberOfInterfaces());
 
     //set parameter
-    mLayer.setParameterValue(BornAgain::CrossCorrelationLength, -2.54);
-    EXPECT_EQ(-2.54,mLayer.getCrossCorrLength());
+    mLayer.setParameterValue(BornAgain::CrossCorrelationLength, 2.54);
+    EXPECT_EQ(2.54,mLayer.getCrossCorrLength());
 
     // adding layers
     mLayer.addLayer(topLayer);
@@ -381,7 +381,7 @@ TEST_F(MultiLayerTest, WithRoughness)
 
 TEST_F(MultiLayerTest, CloneWithRoughness)
 {
-    LayerRoughness lr0(-2.1, 7.3, -12.1);
+    LayerRoughness lr0(-2.1, 7.3, 12.1);
     LayerRoughness lr1(1.1, -7.3, 0.1);
 
     mLayer.addLayer(topLayer);
@@ -400,7 +400,7 @@ TEST_F(MultiLayerTest, CloneWithRoughness)
 
     EXPECT_EQ( -2.1, roughness0->getSigma());
     EXPECT_EQ(  7.3, roughness0->getHurstParameter());
-    EXPECT_EQ(-12.1, roughness0->getLatteralCorrLength());
+    EXPECT_EQ( 12.1, roughness0->getLatteralCorrLength());
 
     EXPECT_EQ(  1.1, roughness1->getSigma());
     EXPECT_EQ( -7.3, roughness1->getHurstParameter());
@@ -415,7 +415,7 @@ TEST_F(MultiLayerTest, CloneInvertBWithRoughness)
     Layer layer2(stone, 5*Units::nanometer);
 
     //LayerRoughness(double sigma, double hurstParameter, double latteralCorrLength);
-    LayerRoughness lr0(-2.1, 7.3, -12.1);
+    LayerRoughness lr0(-2.1, 7.3,  12.1);
     LayerRoughness lr1(1.1, -7.3, 0.1);
 
     mLayer.addLayer(topLayer);
@@ -431,7 +431,7 @@ TEST_F(MultiLayerTest, CloneInvertBWithRoughness)
 
     EXPECT_EQ( -2.1, roughness0->getSigma());
     EXPECT_EQ(  7.3, roughness0->getHurstParameter());
-    EXPECT_EQ(-12.1, roughness0->getLatteralCorrLength());
+    EXPECT_EQ( 12.1, roughness0->getLatteralCorrLength());
 
     EXPECT_EQ(  1.1, roughness1->getSigma());
     EXPECT_EQ( -7.3, roughness1->getHurstParameter());

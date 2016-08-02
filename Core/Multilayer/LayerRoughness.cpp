@@ -18,8 +18,6 @@
 #include "ISampleVisitor.h"
 #include "Units.h"
 
-using namespace BornAgain;
-
 LayerRoughness::LayerRoughness()
     : m_sigma(0)
     , m_hurstParameter(0)
@@ -36,21 +34,12 @@ LayerRoughness::LayerRoughness(double sigma, double hurstParameter, double latte
     initialize();
 }
 
-void LayerRoughness::accept(ISampleVisitor* visitor) const
+void LayerRoughness::initialize()
 {
-    visitor->visit(this);
-}
-
-LayerRoughness* LayerRoughness::clone() const
-{
-    return new LayerRoughness(m_sigma, m_hurstParameter, m_latteralCorrLength);
-}
-
-void LayerRoughness::init_parameters()
-{
-    registerParameter(Sigma, &m_sigma);
-    registerParameter(Hurst, &m_hurstParameter);
-    registerParameter(CorrelationLength, &m_latteralCorrLength);
+    setName(BornAgain::LayerBasicRoughnessType);
+    registerUnlimitedScalar(BornAgain::Sigma, &m_sigma);
+    registerUnlimitedScalar(BornAgain::Hurst, &m_hurstParameter);
+    registerNonnegativeLength(BornAgain::CorrelationLength, &m_latteralCorrLength);
 }
 
 
@@ -91,10 +80,4 @@ void LayerRoughness::print(std::ostream& ostr) const
 {
     ISample::print(ostr);
     ostr << "-->LayerRoughness{ sigma=" << m_sigma << "}";
-}
-
-void LayerRoughness::initialize()
-{
-    setName(LayerBasicRoughnessType);
-    init_parameters();
 }

@@ -20,13 +20,17 @@
 #include "IInterferenceFunction.h"
 #include "IShape2D.h"
 #include "InfinitePlane.h"
+#include "IParameterized.h"
 #include "Line.h"
 #include "Macros.h"
 #include "MultiLayer.h"
+#include "ParameterPool.h"
 #include "Polygon.h"
 #include "PyGenVisitor.h"
+#include "RealParameter.h"
 #include "Rectangle.h"
 #include "Units.h"
+#include "Utils.h"
 #include <iomanip>
 GCC_DIAG_OFF(missing-field-initializers)
 GCC_DIAG_OFF(unused-parameter)
@@ -238,4 +242,23 @@ bool PyGenTools::isDefaultDirection(const kvector_t direction)
         Numeric::areAlmostEqual(direction.z(),  0.0) )
         return true;
     return false;
+}
+
+//! Returns parameter value, followed by its unit multiplicator (like "* nm").
+
+std::string PyGenTools::valueTimesUnit(const RealParameter* par)
+{
+    if (par->unit()=="rad")
+        return PyGenTools::printDegrees(par->getValue());
+    return PyGenTools::printDouble(par->getValue()) + ( par->unit()=="" ? "" : ("*"+par->unit()) );
+}
+
+//! Returns comma-separated list of parameter values, including unit multiplicator (like "* nm").
+
+std::string PyGenTools::argumentList(const IParameterized* ip)
+{
+    std::vector<std::string> args;
+    for(const auto* par: ip->getParameterPool()->getParameters())
+        args.push_back( valueTimesUnit(par) );
+    return Utils::String::join( args, ", " );
 }

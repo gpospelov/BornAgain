@@ -24,7 +24,8 @@
 
 //! @class Crystal
 //! @ingroup samples
-//! @brief A crystal structure with a form factor as a basis.
+//! @brief A crystal structure with a ParticleComposition as a basis.
+//!   Used in MesoCrystal, where it is given an outer shape.
 
 class BA_CORE_API_ Crystal : public IClusteredParticles
 {

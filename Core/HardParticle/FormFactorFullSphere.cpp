@@ -14,27 +14,14 @@
 // ************************************************************************** //
 
 #include "FormFactorFullSphere.h"
-#include "AttLimits.h"
 #include "BornAgainNamespace.h"
 #include "Units.h"
-
-using namespace  BornAgain;
 
 FormFactorFullSphere::FormFactorFullSphere(double radius)
     : m_radius(radius)
 {
-    setName(FFFullSphereType);
-    registerParameter(Radius, &m_radius, AttLimits::n_positive());
-}
-
-FormFactorFullSphere* FormFactorFullSphere::clone() const
-{
-    return new FormFactorFullSphere(m_radius);
-}
-
-void FormFactorFullSphere::accept(ISampleVisitor *visitor) const
-{
-    visitor->visit(this);
+    setName(BornAgain::FFFullSphereType);
+    registerNonnegativeLength(BornAgain::Radius, &m_radius);
 }
 
 complex_t FormFactorFullSphere::evaluate_for_q(const cvector_t q) const

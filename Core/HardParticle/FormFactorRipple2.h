@@ -34,27 +34,26 @@ public:
 
     virtual ~FormFactorRipple2() { }
 
-    FormFactorRipple2 *clone() const;
-
-    virtual void accept(ISampleVisitor *visitor) const final;
+    FormFactorRipple2 *clone() const{
+        return new FormFactorRipple2(m_length, m_width, m_height, m_d); }
+    void accept(ISampleVisitor *visitor) const final { visitor->visit(this); }
 
     double getHeight() const { return m_height; }
     double getWidth() const { return m_width; }
     double getLength() const { return m_length; }
     double getAsymmetry() const { return m_d; }
 
-    virtual double getRadialExtension() const final;
+    double getRadialExtension() const final;
 
-    virtual complex_t evaluate_for_q(const cvector_t q) const final;
+    complex_t evaluate_for_q(const cvector_t q) const final;
 
 protected:
     virtual bool check_initialization() const;
-    virtual void init_parameters();
 
 private:
+    double m_length;
     double m_width;
     double m_height;
-    double m_length;
     double m_d;
     mutable cvector_t m_q;
 };

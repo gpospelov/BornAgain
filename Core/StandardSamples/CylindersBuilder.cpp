@@ -36,9 +36,8 @@ CylindersInDWBABuilder::CylindersInDWBABuilder()
 
 void CylindersInDWBABuilder::init_parameters()
 {
-
-    registerParameter(BornAgain::Radius, &m_radius);
-    registerParameter(BornAgain::Height, &m_height);
+    registerNonnegativeLength(BornAgain::Radius, &m_radius);
+    registerNonnegativeLength(BornAgain::Height, &m_height);
 }
 
 ISample* CylindersInDWBABuilder::buildSample() const
@@ -77,9 +76,8 @@ CylindersInBABuilder::CylindersInBABuilder()
 
 void CylindersInBABuilder::init_parameters()
 {
-
-    registerParameter(BornAgain::Radius, &m_radius);
-    registerParameter(BornAgain::Height, &m_height);
+    registerNonnegativeLength(BornAgain::Radius, &m_radius);
+    registerNonnegativeLength(BornAgain::Height, &m_height);
 }
 
 ISample* CylindersInBABuilder::buildSample() const
@@ -115,8 +113,8 @@ LargeCylindersInDWBABuilder::LargeCylindersInDWBABuilder()
 void LargeCylindersInDWBABuilder::init_parameters()
 {
 
-    registerParameter(BornAgain::Radius, &m_radius);
-    registerParameter(BornAgain::Height, &m_height);
+    registerNonnegativeLength(BornAgain::Radius, &m_radius);
+    registerNonnegativeLength(BornAgain::Height, &m_height);
 }
 
 ISample* LargeCylindersInDWBABuilder::buildSample() const

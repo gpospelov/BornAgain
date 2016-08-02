@@ -44,8 +44,8 @@ FormFactorTruncatedCube::FormFactorTruncatedCube(double length, double removed_l
     , m_removed_length(removed_length)
 {
     setName(BornAgain::FFTruncatedCubeType);
-    registerParameter(BornAgain::Length, &m_length);
-    registerParameter(BornAgain::RemovedLength, &m_removed_length);
+    registerNonnegativeLength(BornAgain::Length, &m_length);
+    registerNonnegativeLength(BornAgain::RemovedLength, &m_removed_length);
     onChange();
 }
 
@@ -88,14 +88,4 @@ void FormFactorTruncatedCube::onChange()
         {  a-b,  a  ,  a   },
         {  a  ,  a-b,  a   },
         {  a  ,  a  ,  a-b } } );
-}
-
-FormFactorTruncatedCube* FormFactorTruncatedCube::clone() const
-{
-    return new FormFactorTruncatedCube(m_length, m_removed_length);
-}
-
-void FormFactorTruncatedCube::accept(ISampleVisitor* visitor) const
-{
-    visitor->visit(this);
 }

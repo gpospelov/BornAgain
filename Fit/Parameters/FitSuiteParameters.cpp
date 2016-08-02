@@ -15,7 +15,6 @@
 
 #include "FitSuiteParameters.h"
 #include "FitParameter.h"
-#include "FitParameterLinked.h"
 #include <stdexcept>
 #include "Logger.h"
 #include "Numeric.h"
@@ -33,28 +32,16 @@ FitSuiteParameters::~FitSuiteParameters()
 
 void FitSuiteParameters::clear()
 {
-    for(auto par: m_parameters)
+    for (auto par: m_parameters)
         delete par;
     m_parameters.clear();
-}
-
-//! Adds fit parameter
-void FitSuiteParameters::addParameter(const std::string& name, double value, double step,
-                                      const AttLimits& attlim, double error)
-{
-    for(auto par: m_parameters) {
-        if( par->getName() == name )
-            throw std::runtime_error(
-                "FitSuiteParameters:addtFitParameter() -> Error. Existing parameter '"+name+"'");
-    }
-    m_parameters.push_back(new FitParameterLinked(name, value, step, attlim, error));
 }
 
 //! Returns fit parameter with given name.
 const FitParameter* FitSuiteParameters::getFitParameter(const std::string& name) const
 {
-    for(auto par: m_parameters)
-        if( par->getName() == name )
+    for (auto par: m_parameters)
+        if (par->getName() == name)
             return par;
     throw std::runtime_error("FitSuiteParameters::getFitParameter() -> "
                              "Error. No parameter with name '"+name+"'");
@@ -64,10 +51,10 @@ const FitParameter* FitSuiteParameters::getFitParameter(const std::string& name)
 FitParameter* FitSuiteParameters::getFitParameter(const std::string& name)
 {
     for (auto par: m_parameters)
-        if( par->getName() == name )
+        if (par->getName() == name)
             return par;
     throw std::runtime_error("FitSuiteParameters::getFitParameter() -> "
-                                          "Error. No parameter with name '"+name+"'");
+                             "Error. No parameter with name '"+name+"'");
 }
 
 //! Sets values for all defined parameters
@@ -86,11 +73,11 @@ void FitSuiteParameters::setValues(const double* pars_values)
 
     size_t index(0);
     for (auto par: m_parameters) {
-        if( std::isnan(pars_values[index]) )
+        if (std::isnan(pars_values[index]))
             throw std::runtime_error(
                 "FitSuiteParameters::setValues() -> Error."
                 " Attempt to set nan '"+par->getName() + std::string("'."));
-        if( std::isinf(pars_values[index]) )
+        if (std::isinf(pars_values[index]))
             throw std::runtime_error(
                 "FitSuiteParameters::setValues() -> Error. Attempt to set inf '" +
                 par->getName()  + std::string("'."));
@@ -101,7 +88,7 @@ void FitSuiteParameters::setValues(const double* pars_values)
 
 void FitSuiteParameters::setValues(const std::vector<double>& pars_values)
 {
-    if(pars_values.size() != m_parameters.size() ) {
+    if (pars_values.size() != m_parameters.size()) {
         std::ostringstream ostr;
         ostr << "FitSuiteParameters::setValues() -> Wrong size of array with parameter values "
              << pars_values.size()
@@ -114,14 +101,14 @@ void FitSuiteParameters::setValues(const std::vector<double>& pars_values)
 
 void FitSuiteParameters::setErrors(const std::vector<double>& pars_errors)
 {
-    if(pars_errors.size() != m_parameters.size() ) {
+    if (pars_errors.size() != m_parameters.size()) {
         std::ostringstream ostr;
         ostr << "FitSuiteParameters::setErrors() -> Wrong size of array with parameter errors "
              << pars_errors.size()
              << ", number of parameters expected " << m_parameters.size() << std::endl;
         throw std::runtime_error(ostr.str());
     }
-    for(size_t i=0; i<m_parameters.size(); ++i)
+    for (size_t i=0; i<m_parameters.size(); ++i)
         m_parameters[i]->setError(pars_errors[i]);
 }
 
@@ -167,22 +154,9 @@ size_t FitSuiteParameters::getNfreeParameters() const
 {
     size_t result(0);
     for (auto par: m_parameters)
-        if( par->isFixed() )
+        if (par->isFixed())
             result++;
     return result;
-}
-
-//! linking fit parameters with pool parameters
-void FitSuiteParameters::link_to_pool(const ParameterPool* pool)
-{
-    // linking fit parameter with whose pool parameters which match name of fit parameter
-    // going through all fit parameters defined
-    for (auto par: m_parameters) {
-        FitParameterLinked* linkedPar = dynamic_cast<FitParameterLinked*>(par);
-        if( !linkedPar ) throw std::runtime_error(
-            "FitSuiteParameters::link_to_pool() -> Error! Can't cast to FitParameterLinked.");
-        linkedPar->addMatchedParametersFromPool(pool);
-    }
 }
 
 bool FitSuiteParameters::valuesAreDifferent(
@@ -217,12 +191,12 @@ void FitSuiteParameters::releaseAll()
 
 void FitSuiteParameters::setParametersFixed(const std::vector<std::string>& pars, bool is_fixed)
 {
-    for(auto par: pars)
+    for (auto par: pars)
         getFitParameter(par)->setFixed(is_fixed);
 }
 
 size_t FitSuiteParameters::check_index(size_t index) const {
-    if( index >= m_parameters.size() )
+    if (index >= m_parameters.size())
         throw std::runtime_error(
             "FitSuiteParameters::check_index() -> Index out of bounds");
     return index;

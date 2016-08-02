@@ -28,7 +28,8 @@ FormFactorSphereGaussianRadius::FormFactorSphereGaussianRadius(double mean, doub
     setName(FormFactorSphereGaussianRadiusType);
     m_mean_r3 = calculateMeanR3();
     p_ff_sphere = new FormFactorFullSphere(m_mean_r3);
-    init_parameters();
+    registerNonnegativeLength(BornAgain::MeanRadius, &m_mean);
+    registerNonnegativeLength(BornAgain::SigmaRadius, &m_sigma);
 }
 
 FormFactorSphereGaussianRadius* FormFactorSphereGaussianRadius::clone() const
@@ -65,6 +66,4 @@ double FormFactorSphereGaussianRadius::calculateMeanR3() const
 
 void FormFactorSphereGaussianRadius::init_parameters()
 {
-    registerParameter(MeanRadius, &m_mean, AttLimits::n_positive());
-    registerParameter(SigmaRadius, &m_sigma, AttLimits::n_positive());
 }

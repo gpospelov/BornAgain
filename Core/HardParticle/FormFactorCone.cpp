@@ -14,7 +14,6 @@
 // ************************************************************************** //
 
 #include "FormFactorCone.h"
-#include "AttLimits.h"
 #include "BornAgainNamespace.h"
 #include "Exceptions.h"
 #include "MathFunctions.h"
@@ -26,11 +25,9 @@
 //! @param height of Cone
 //! @param alpha in radians between base and facet
 FormFactorCone::FormFactorCone(double radius, double height, double alpha)
+    : m_radius(radius), m_height(height), m_alpha(alpha)
 {
     setName(BornAgain::FFConeType);
-    m_radius = radius;
-    m_height = height;
-    m_alpha = alpha;
     m_cot_alpha = MathFunctions::cot(m_alpha);
     if( !std::isfinite(m_cot_alpha) || m_cot_alpha<0 )
         throw Exceptions::OutOfBoundsException("pyramid angle alpha out of bounds");
@@ -43,23 +40,11 @@ FormFactorCone::FormFactorCone(double radius, double height, double alpha)
         ostr << "Check for 'height <= radius*tan(alpha)' failed.";
         throw Exceptions::ClassInitializationException(ostr.str());
     }
-    registerParameter(BornAgain::Radius, &m_radius, AttLimits::n_positive());
-    registerParameter(BornAgain::Height, &m_height, AttLimits::n_positive());
-    registerParameter(BornAgain::Alpha, & m_alpha, AttLimits::n_positive());
+    registerNonnegativeLength(BornAgain::Radius, &m_radius);
+    registerNonnegativeLength(BornAgain::Height, &m_height);
+    registerLimitedAngle(BornAgain::Alpha, & m_alpha, 0, 180);
 
     mP_integrator = make_integrator_complex(this, &FormFactorCone::Integrand);
-}
-
-FormFactorCone::~FormFactorCone() {}
-
-FormFactorCone* FormFactorCone::clone() const
-{
-   return new FormFactorCone(m_radius, m_height, m_alpha);
-}
-
-void FormFactorCone::accept(ISampleVisitor* visitor) const
-{
-    visitor->visit(this);
 }
 
 //! Integrand for complex formfactor.

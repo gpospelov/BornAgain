@@ -27,24 +27,22 @@ class BA_CORE_API_ FormFactorTruncatedSpheroid : public IFormFactorBorn
 {
 public:
     FormFactorTruncatedSpheroid(double radius, double height, double height_flattening);
+    virtual ~FormFactorTruncatedSpheroid() {}
 
-    virtual ~FormFactorTruncatedSpheroid();
-
-    FormFactorTruncatedSpheroid* clone() const;
-
-    virtual void accept(ISampleVisitor* visitor) const final;
+    FormFactorTruncatedSpheroid* clone() const {
+        return new FormFactorTruncatedSpheroid(m_radius, m_height, m_height_flattening); }
+    void accept(ISampleVisitor* visitor) const final { visitor->visit(this); }
 
     double getRadius() const { return m_radius; }
     double getHeight() const { return m_height; }
     double getHeightFlattening() const { return m_height_flattening; }
 
-    virtual double getRadialExtension() const final { return m_radius; }
+    double getRadialExtension() const final { return m_radius; }
 
-    virtual complex_t evaluate_for_q(const cvector_t q) const final;
+    complex_t evaluate_for_q(const cvector_t q) const final;
 
 protected:
     virtual bool check_initialization() const;
-    virtual void init_parameters();
 
 private:
 

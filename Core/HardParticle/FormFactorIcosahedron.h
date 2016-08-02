@@ -27,14 +27,14 @@ class BA_CORE_API_ FormFactorIcosahedron : public FormFactorPolyhedron
 public:
     FormFactorIcosahedron(double edge);
 
-    virtual FormFactorIcosahedron *clone() const final;
-    virtual void accept(ISampleVisitor *visitor) const final;
+    FormFactorIcosahedron *clone() const final { return new FormFactorIcosahedron(m_edge); }
+    void accept(ISampleVisitor *visitor) const final { visitor->visit(this); }
 
     double getEdge() const { return m_edge; }
 
 private:
     static const PolyhedralTopology topology;
-    virtual void onChange() final;
+    void onChange() final;
     double m_edge;
 };
 

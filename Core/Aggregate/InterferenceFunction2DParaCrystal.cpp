@@ -137,9 +137,8 @@ InterferenceFunction2DParaCrystal* InterferenceFunction2DParaCrystal::createSqua
 InterferenceFunction2DParaCrystal* InterferenceFunction2DParaCrystal::createHexagonal(
     double peak_distance, double damping_length, double domain_size_1, double domain_size_2)
 {
-    InterferenceFunction2DParaCrystal* p_new =
-            new InterferenceFunction2DParaCrystal(peak_distance, peak_distance,
-                    2.0*Units::PI/3.0, 0.0, damping_length);
+    auto p_new = new InterferenceFunction2DParaCrystal(
+        peak_distance, peak_distance, 2.0*Units::PI/3.0, 0.0, damping_length);
     p_new->setDomainSizes(domain_size_1, domain_size_2);
     p_new->setIntegrationOverXi(true);
     return p_new;
@@ -160,13 +159,13 @@ void InterferenceFunction2DParaCrystal::transformToPrincipalAxes(
 
 void InterferenceFunction2DParaCrystal::init_parameters()
 {
-    registerParameter(LatticeLength1, &m_lattice_params.m_length_1);
-    registerParameter(LatticeLength2, &m_lattice_params.m_length_2);
-    registerParameter(Alpha, &m_lattice_params.m_angle);
-    registerParameter(Xi, &m_lattice_params.m_xi);
-    registerParameter(DampingLength, &m_damping_length);
-    registerParameter(DomainSize1, &m_domain_sizes[0]);
-    registerParameter(DomainSize2, &m_domain_sizes[1]);
+    registerPositiveLength(LatticeLength1, &m_lattice_params.m_length_1);
+    registerPositiveLength(LatticeLength2, &m_lattice_params.m_length_2);
+    registerUnlimitedAngle(Alpha, &m_lattice_params.m_angle);
+    registerUnlimitedAngle(Xi, &m_lattice_params.m_xi);
+    registerNonnegativeLength(DampingLength, &m_damping_length);
+    registerNonnegativeLength(DomainSize1, &m_domain_sizes[0]);
+    registerNonnegativeLength(DomainSize2, &m_domain_sizes[1]);
 }
 
 double InterferenceFunction2DParaCrystal::interferenceForXi(double xi) const

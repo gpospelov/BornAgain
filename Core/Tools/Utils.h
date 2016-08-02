@@ -42,6 +42,9 @@ public:
 
     //! return string representing scientific double with given precision
     static std::string getScientificDoubleString(double value, size_t precision = 4);
+
+    //! Returns string obtain by joining vector elements
+    static std::string join(std::vector<std::string> joinable, std::string joint);
 };
 
 

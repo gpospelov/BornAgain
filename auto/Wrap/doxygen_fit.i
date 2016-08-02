@@ -173,42 +173,6 @@ Returns parameter step for minimizer.
 ";
 
 
-// File: classFitParameterLinked.xml
-%feature("docstring") FitParameterLinked "
-
-Provide simultaneous access for several real parameters from parameter pool.
-
-C++ includes: FitParameterLinked.h
-";
-
-%feature("docstring")  FitParameterLinked::FitParameterLinked "FitParameterLinked::FitParameterLinked()
-";
-
-%feature("docstring")  FitParameterLinked::FitParameterLinked "FitParameterLinked::FitParameterLinked(const std::string &name, double value, double step, const AttLimits &attlim=AttLimits::limitless(), double error=0.0)
-";
-
-%feature("docstring")  FitParameterLinked::FitParameterLinked "FitParameterLinked::FitParameterLinked(const FitParameterLinked &)=delete
-";
-
-%feature("docstring")  FitParameterLinked::~FitParameterLinked "FitParameterLinked::~FitParameterLinked()
-";
-
-%feature("docstring")  FitParameterLinked::setValue "void FitParameterLinked::setValue(double value)
-
-Sets given value for all bound parameters. 
-";
-
-%feature("docstring")  FitParameterLinked::addParameter "void FitParameterLinked::addParameter(RealParameter *par)
-
-Adds real parameter to the collection. 
-";
-
-%feature("docstring")  FitParameterLinked::addMatchedParametersFromPool "void FitParameterLinked::addMatchedParametersFromPool(const ParameterPool *pool, const std::string &wildcard=std::string())
-
-Adds parameters from pool which match given wildcard. 
-";
-
-
 // File: classFitSuiteParameters.xml
 %feature("docstring") FitSuiteParameters "
 
@@ -228,9 +192,14 @@ C++ includes: FitSuiteParameters.h
 Clears all defined parameters. 
 ";
 
-%feature("docstring")  FitSuiteParameters::addParameter "void FitSuiteParameters::addParameter(const std::string &name, double value, double step, const AttLimits &attlim, double error=0.0)
+%feature("docstring")  FitSuiteParameters::addParameter "void FitSuiteParameters::addParameter(FitParameter *par)
 
 Adds fit parameter. 
+";
+
+%feature("docstring")  FitSuiteParameters::getParameters "std::vector<FitParameter*> FitSuiteParameters::getParameters()
+
+Returns all parameters. 
 ";
 
 %feature("docstring")  FitSuiteParameters::getFitParameter "const FitParameter * FitSuiteParameters::getFitParameter(const std::string &name) const
@@ -288,13 +257,6 @@ Returns end of container.
 ";
 
 %feature("docstring")  FitSuiteParameters::end "const_iterator FitSuiteParameters::end() const 
-";
-
-%feature("docstring")  FitSuiteParameters::link_to_pool "void FitSuiteParameters::link_to_pool(const ParameterPool *pool)
-
-Links fit parameters with pool parameters.
-
-linking fit parameters with pool parameters 
 ";
 
 %feature("docstring")  FitSuiteParameters::getNfreeParameters "size_t FitSuiteParameters::getNfreeParameters() const
@@ -657,152 +619,6 @@ set option value
 ";
 
 
-// File: classParameterPool.xml
-%feature("docstring") ParameterPool "
-
-Holds a map of pointers to parameters (which must have different names).
-
-C++ includes: ParameterPool.h
-";
-
-%feature("docstring")  ParameterPool::ParameterPool "ParameterPool::ParameterPool(const std::string &name, const std::function< void()> &onChange)
-
-Constructs an empty parameter pool. 
-";
-
-%feature("docstring")  ParameterPool::ParameterPool "ParameterPool::ParameterPool(const ParameterPool &)=delete
-";
-
-%feature("docstring")  ParameterPool::~ParameterPool "ParameterPool::~ParameterPool()
-";
-
-%feature("docstring")  ParameterPool::clone "ParameterPool * ParameterPool::clone() const
-
-Returns a literal clone. 
-";
-
-%feature("docstring")  ParameterPool::cloneWithPrefix "ParameterPool * ParameterPool::cloneWithPrefix(const std::string &prefix) const
-
-Returns a clone with  prefix added to every parameter key. 
-";
-
-%feature("docstring")  ParameterPool::copyToExternalPool "void ParameterPool::copyToExternalPool(const std::string &prefix, ParameterPool *external_pool) const
-
-Copies parameters to  external_pool, adding  prefix to every key.
-
-Copy parameters of given pool to the external pool while adding prefix to local parameter keys 
-";
-
-%feature("docstring")  ParameterPool::clear "void ParameterPool::clear()
-
-Deletes parameter map. 
-";
-
-%feature("docstring")  ParameterPool::getName "std::string ParameterPool::getName() const 
-";
-
-%feature("docstring")  ParameterPool::size "size_t ParameterPool::size() const
-
-Returns number of parameters in the pool. 
-";
-
-%feature("docstring")  ParameterPool::registerParameter "void ParameterPool::registerParameter(const std::string &name, double *parpointer)
-
-Registers a parameter with key  name and pointer-to-value  parpointer.
-
-Registers parameter with given name. 
-";
-
-%feature("docstring")  ParameterPool::registerParameter "void ParameterPool::registerParameter(const std::string &name, double *parpointer, const AttLimits &limits)
-
-Registers a parameter with key  name and pointer-to-value  parpointer.
-
-Registers parameter with given name. 
-";
-
-%feature("docstring")  ParameterPool::getParameter "RealParameter * ParameterPool::getParameter(const std::string &name)
-
-Returns parameter named  name.
-
-Returns parameter with given name. 
-";
-
-%feature("docstring")  ParameterPool::getParameter "const RealParameter * ParameterPool::getParameter(const std::string &name) const
-
-Returns parameter named  name.
-
-Returns parameter with given name. 
-";
-
-%feature("docstring")  ParameterPool::getMatchedParameters "std::vector< RealParameter * > ParameterPool::getMatchedParameters(const std::string &wildcards) const
-
-Returns vector of parameters which fit pattern. 
-";
-
-%feature("docstring")  ParameterPool::setParameterValue "void ParameterPool::setParameterValue(const std::string &name, double value)
-
-Sets parameter value. 
-";
-
-%feature("docstring")  ParameterPool::setMatchedParametersValue "int ParameterPool::setMatchedParametersValue(const std::string &wildcards, double value)
-
-Sets parameter value, return number of changed parameters.
-
-Sets parameter value. 
-";
-
-%feature("docstring")  ParameterPool::getParameterNames "std::vector< std::string > ParameterPool::getParameterNames() const
-
-Returns all parameter names. 
-";
-
-
-// File: classRealParameter.xml
-%feature("docstring") RealParameter "
-
-Wrapper to real parameter for remote access to its value and callback abilities
-
-C++ includes: RealParameter.h
-";
-
-%feature("docstring")  RealParameter::RealParameter "RealParameter::RealParameter(const std::string &name, ParameterPool *parent, volatile double *par, const AttLimits &limits=AttLimits::limitless())
-";
-
-%feature("docstring")  RealParameter::RealParameter "RealParameter::RealParameter(const RealParameter &other)
-";
-
-%feature("docstring")  RealParameter::RealParameter "RealParameter::RealParameter(const std::string &name, const RealParameter &other)
-
-This constructor takes copies 'other' except for the name. 
-";
-
-%feature("docstring")  RealParameter::getName "std::string RealParameter::getName() const 
-";
-
-%feature("docstring")  RealParameter::setValue "void RealParameter::setValue(double value)
-
-Sets value of wrapped parameter and emit signal. 
-";
-
-%feature("docstring")  RealParameter::getValue "double RealParameter::getValue() const
-
-Returns value of wrapped parameter. 
-";
-
-%feature("docstring")  RealParameter::isNull "bool RealParameter::isNull() const
-
-Returns true if wrapped parameter was not initialized with proper real value. 
-";
-
-%feature("docstring")  RealParameter::checkNull "void RealParameter::checkNull() const
-
-throw exception if parameter was not initialized with proper value 
-";
-
-%feature("docstring")  RealParameter::getAttLimits "AttLimits RealParameter::getAttLimits() const 
-";
-
-
 // File: classROOTGeneticMinimizer.xml
 %feature("docstring") ROOTGeneticMinimizer "
 
@@ -1121,6 +937,29 @@ Returns value of the parameter at the minimum.
 Prints fit results. 
 ";
 
+%feature("docstring")  TrivialMinimizer::getErrorOfVariables "std::vector< double > TrivialMinimizer::getErrorOfVariables() const
+
+Returns errors of variables at minimum. 
+";
+
+%feature("docstring")  TrivialMinimizer::getMinimizerName "std::string TrivialMinimizer::getMinimizerName() const
+
+return name of the minimizer 
+";
+
+%feature("docstring")  TrivialMinimizer::getAlgorithmName "std::string TrivialMinimizer::getAlgorithmName() const
+
+return name of the minimization algorithm 
+";
+
+%feature("docstring")  TrivialMinimizer::getOptions "MinimizerOptions * TrivialMinimizer::getOptions()
+
+return minimizer options 
+";
+
+%feature("docstring")  TrivialMinimizer::getOptions "const MinimizerOptions * TrivialMinimizer::getOptions() const 
+";
+
 
 // File: namespaceAlgorithmNames.xml
 
@@ -1214,28 +1053,10 @@ Returns string right-padded with blanks.
 // File: FitParameter_8h.xml
 
 
-// File: FitParameterLinked_8cpp.xml
-
-
-// File: FitParameterLinked_8h.xml
-
-
 // File: FitSuiteParameters_8cpp.xml
 
 
 // File: FitSuiteParameters_8h.xml
-
-
-// File: ParameterPool_8cpp.xml
-
-
-// File: ParameterPool_8h.xml
-
-
-// File: RealParameter_8cpp.xml
-
-
-// File: RealParameter_8h.xml
 
 
 // File: ROOTGeneticMinimizer_8cpp.xml

@@ -27,8 +27,9 @@ class BA_CORE_API_ FormFactorTetrahedron : public FormFactorPolyhedron
 public:
     FormFactorTetrahedron(double base_edge, double height, double alpha);
 
-    virtual FormFactorTetrahedron *clone() const;
-    virtual void accept(ISampleVisitor *visitor) const;
+    virtual FormFactorTetrahedron *clone() const {
+        return new FormFactorTetrahedron(m_base_edge, m_height, m_alpha); }
+    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
 
     double getBaseEdge() const { return m_base_edge; }
     double getHeight() const { return m_height; }
@@ -36,7 +37,7 @@ public:
 
 private:
     static const PolyhedralTopology topology;
-    virtual void onChange() final;
+    void onChange() final;
     double m_base_edge;
     double m_height;
     double m_alpha;

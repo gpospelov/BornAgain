@@ -37,9 +37,8 @@ CylindersWithSizeDistributionBuilder::CylindersWithSizeDistributionBuilder()
 
 void CylindersWithSizeDistributionBuilder::init_parameters()
 {
-
-    registerParameter(BornAgain::Radius, &m_radius);
-    registerParameter(BornAgain::Height, &m_height);
+    registerNonnegativeLength(BornAgain::Radius, &m_radius);
+    registerNonnegativeLength(BornAgain::Height, &m_height);
 }
 
 
@@ -93,13 +92,12 @@ TwoTypesCylindersDistributionBuilder::TwoTypesCylindersDistributionBuilder()
 
 void TwoTypesCylindersDistributionBuilder::init_parameters()
 {
-
-    registerParameter("radius1", &m_radius1);
-    registerParameter("radius2", &m_radius2);
-    registerParameter("height1", &m_height1);
-    registerParameter("height2", &m_height2);
-    registerParameter("sigma1_ratio", &m_sigma1_ratio);
-    registerParameter("sigma2_ratio", &m_sigma2_ratio);
+    registerNonnegativeLength("radius1", &m_radius1);
+    registerNonnegativeLength("radius2", &m_radius2);
+    registerNonnegativeLength("height1", &m_height1);
+    registerNonnegativeLength("height2", &m_height2);
+    registerNonnegativeScalar("sigma1_ratio", &m_sigma1_ratio);
+    registerNonnegativeScalar("sigma2_ratio", &m_sigma2_ratio);
 }
 
 
@@ -108,7 +106,7 @@ ISample *TwoTypesCylindersDistributionBuilder::buildSample() const
     MultiLayer *multi_layer = new MultiLayer();
 
     HomogeneousMaterial air_material("Air", 0.0, 0.0);
-    HomogeneousMaterial particle_material ("Particle", 6e-4, 2e-8);
+    HomogeneousMaterial particle_material("Particle", 6e-4, 2e-8);
 
     Layer air_layer(air_material);
 

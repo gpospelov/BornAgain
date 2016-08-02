@@ -14,7 +14,6 @@
 // ************************************************************************** //
 
 #include "FormFactorTetrahedron.h"
-#include "AttLimits.h"
 #include "BornAgainNamespace.h"
 #include "Exceptions.h"
 #include "MathFunctions.h"
@@ -41,9 +40,9 @@ FormFactorTetrahedron::FormFactorTetrahedron(double base_edge, double height, do
     , m_alpha(alpha)
 {
     setName(BornAgain::FFTetrahedronType);
-    registerParameter(BornAgain::Height, &m_height, AttLimits::n_positive());
-    registerParameter(BornAgain::BaseEdge, &m_base_edge, AttLimits::n_positive());
-    registerParameter(BornAgain::Alpha, &m_alpha, AttLimits::n_positive());
+    registerNonnegativeLength(BornAgain::BaseEdge, &m_base_edge);
+    registerNonnegativeLength(BornAgain::Height, &m_height);
+    registerLimitedAngle(BornAgain::Alpha, &m_alpha, 0, 180);
     onChange();
 }
 
@@ -82,14 +81,4 @@ void FormFactorTetrahedron::onChange()
             { -bc,  bs, m_height-zcom },
             { -bc, -bs, m_height-zcom },
             {  bh,  0., m_height-zcom } } );
-}
-
-FormFactorTetrahedron* FormFactorTetrahedron::clone() const
-{
-    return new FormFactorTetrahedron(m_base_edge, m_height, m_alpha);
-}
-
-void FormFactorTetrahedron::accept(ISampleVisitor *visitor) const
-{
-    visitor->visit(this);
 }

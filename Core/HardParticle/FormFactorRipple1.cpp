@@ -23,19 +23,14 @@
 static complex_t I(0.,1.);
 
 FormFactorRipple1::FormFactorRipple1(double length, double width, double height)
-    : m_width(width)
-    , m_height(height)
-    , m_length(length)
+    : m_length(length), m_width(width), m_height(height)
 {
     setName(BornAgain::FFRipple1Type);
     check_initialization();
-    init_parameters();
-
+    registerNonnegativeLength(BornAgain::Length, &m_length);
+    registerNonnegativeLength(BornAgain::Width, &m_width);
+    registerNonnegativeLength(BornAgain::Height, &m_height);
     mP_integrator = make_integrator_complex(this, &FormFactorRipple1::Integrand);
-}
-
-FormFactorRipple1::~FormFactorRipple1()
-{
 }
 
 bool FormFactorRipple1::check_initialization() const
@@ -51,23 +46,6 @@ bool FormFactorRipple1::check_initialization() const
         throw Exceptions::ClassInitializationException(ostr.str());
     }
     return result;
-}
-
-void FormFactorRipple1::init_parameters()
-{
-    registerParameter(BornAgain::Width, &m_width, AttLimits::n_positive());
-    registerParameter(BornAgain::Height, &m_height, AttLimits::n_positive());
-    registerParameter(BornAgain::Length, &m_length, AttLimits::n_positive());
-}
-
-FormFactorRipple1* FormFactorRipple1::clone() const
-{
-    return new FormFactorRipple1(m_length, m_width, m_height);
-}
-
-void FormFactorRipple1::accept(ISampleVisitor* visitor) const
-{
-    visitor->visit(this);
 }
 
 double FormFactorRipple1::getRadialExtension() const

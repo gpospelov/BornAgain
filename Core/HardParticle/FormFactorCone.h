@@ -31,19 +31,18 @@ class BA_CORE_API_ FormFactorCone : public IFormFactorBorn
 {
 public:
     FormFactorCone(double radius, double height,  double alpha);
-    virtual ~FormFactorCone();
+    virtual ~FormFactorCone() {}
 
-    FormFactorCone* clone() const;
-
-    virtual void accept(ISampleVisitor* visitor) const final;
+    FormFactorCone* clone() const { return new FormFactorCone(m_radius, m_height, m_alpha); }
+    void accept(ISampleVisitor* visitor) const final { visitor->visit(this); }
 
     double getHeight() const { return m_height; }
     double getAlpha() const { return m_alpha; }
     double getRadius() const { return m_radius; }
 
-    virtual double getRadialExtension() const final { return m_radius; }
+    double getRadialExtension() const final { return m_radius; }
 
-    virtual complex_t evaluate_for_q (const cvector_t q) const final;
+    complex_t evaluate_for_q (const cvector_t q) const final;
 
 private:
     complex_t Integrand(double Z) const;

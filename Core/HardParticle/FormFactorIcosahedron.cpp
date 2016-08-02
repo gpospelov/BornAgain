@@ -52,7 +52,7 @@ FormFactorIcosahedron::FormFactorIcosahedron(double edge)
     , m_edge(edge)
 {
     setName(BornAgain::FFIcosahedronType);
-    registerParameter(BornAgain::Edge, &m_edge);
+    registerNonnegativeLength(BornAgain::Edge, &m_edge);
     onChange();
 }
 
@@ -73,14 +73,4 @@ void FormFactorIcosahedron::onChange()
         {   0.288675134594813*a,                 0.5*a,  0.7557613140761708*a},
         {   0.288675134594813*a,                -0.5*a,  0.7557613140761708*a} } );
     assert_platonic();
-}
-
-FormFactorIcosahedron* FormFactorIcosahedron::clone() const
-{
-    return new FormFactorIcosahedron(m_edge);
-}
-
-void FormFactorIcosahedron::accept(ISampleVisitor *visitor) const
-{
-    visitor->visit(this);
 }

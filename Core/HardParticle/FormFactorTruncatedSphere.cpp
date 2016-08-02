@@ -24,13 +24,12 @@
 using namespace  BornAgain;
 
 FormFactorTruncatedSphere::FormFactorTruncatedSphere(double radius, double height)
-    : m_radius(radius)
-    , m_height(height)
+    : m_radius(radius), m_height(height)
 {
     setName(FFTruncatedSphereType);
     check_initialization();
-    init_parameters();
-
+    registerNonnegativeLength(Radius, &m_radius);
+    registerNonnegativeLength(Height, &m_height);
     mP_integrator = make_integrator_complex(this, &FormFactorTruncatedSphere::Integrand);
 }
 
@@ -47,22 +46,6 @@ bool FormFactorTruncatedSphere::check_initialization() const
         throw Exceptions::ClassInitializationException(ostr.str());
     }
     return result;
-}
-
-void FormFactorTruncatedSphere::init_parameters()
-{
-    registerParameter(Radius, &m_radius, AttLimits::n_positive());
-    registerParameter(Height, &m_height, AttLimits::n_positive());
-}
-
-FormFactorTruncatedSphere *FormFactorTruncatedSphere::clone() const
-{
-    return new FormFactorTruncatedSphere(m_radius, m_height);
-}
-
-void FormFactorTruncatedSphere::accept(ISampleVisitor *visitor) const
-{
-    visitor->visit(this);
 }
 
 //! Integrand for complex formfactor.

@@ -14,27 +14,16 @@
 // ************************************************************************** //
 
 #include "FormFactorBox.h"
-#include "AttLimits.h"
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
-
-using namespace  BornAgain;
 
 FormFactorBox::FormFactorBox(double length, double width, double height)
     : m_length(length), m_width(width), m_height(height)
 {
-    setName(FFBoxType);
-    init_parameters();
-}
-
-FormFactorBox *FormFactorBox::clone() const
-{
-    return new FormFactorBox(m_length, m_width, m_height);
-}
-
-void FormFactorBox::accept(ISampleVisitor *visitor) const
-{
-    visitor->visit(this);
+    setName(BornAgain::FFBoxType);
+    registerNonnegativeLength(BornAgain::Length, &m_length);
+    registerNonnegativeLength(BornAgain::Width,  &m_width);
+    registerNonnegativeLength(BornAgain::Height, &m_height);
 }
 
 complex_t FormFactorBox::evaluate_for_q(const cvector_t q) const
@@ -43,11 +32,4 @@ complex_t FormFactorBox::evaluate_for_q(const cvector_t q) const
     return m_height*m_length*m_width *
         MathFunctions::sinc(m_length/2*q.x()) *  MathFunctions::sinc(m_width/2*q.y()) *
         MathFunctions::sinc(qzHdiv2) * exp_I(qzHdiv2);
-}
-
-void FormFactorBox::init_parameters()
-{
-    registerParameter(Length, &m_length, AttLimits::n_positive());
-    registerParameter(Width,  &m_width,  AttLimits::n_positive());
-    registerParameter(Height, &m_height, AttLimits::n_positive());
 }

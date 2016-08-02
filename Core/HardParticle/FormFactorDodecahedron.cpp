@@ -42,7 +42,7 @@ FormFactorDodecahedron::FormFactorDodecahedron(double edge)
     , m_edge(edge)
 {
     setName(BornAgain::FFDodecahedronType);
-    registerParameter(BornAgain::Edge, &m_edge);
+    registerNonnegativeLength(BornAgain::Edge, &m_edge);
     onChange();
 }
 
@@ -71,14 +71,4 @@ void FormFactorDodecahedron::onChange()
         {  0.6881909602355868*a,                 0.5*a,   1.113516364411607*a},
         { -0.2628655560595668*a,  0.8090169943749473*a,   1.113516364411607*a} } );
     assert_platonic();
-}
-
-FormFactorDodecahedron* FormFactorDodecahedron::clone() const
-{
-    return new FormFactorDodecahedron(m_edge);
-}
-
-void FormFactorDodecahedron::accept(ISampleVisitor *visitor) const
-{
-    visitor->visit(this);
 }

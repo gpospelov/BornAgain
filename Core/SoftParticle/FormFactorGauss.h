@@ -27,22 +27,17 @@ class BA_CORE_API_ FormFactorGauss : public IFormFactorBorn
 public:
     FormFactorGauss(double volume);
     FormFactorGauss(double width, double height);
-    virtual ~FormFactorGauss() {}
-    FormFactorGauss *clone() const;
 
-    virtual void accept(ISampleVisitor *visitor) const final;
+    FormFactorGauss* clone() const { return new FormFactorGauss(m_width, m_height); }
+    void accept(ISampleVisitor* visitor) const final { visitor->visit(this); }
 
     double getWidth() const { return m_width; }
     double getHeight() const { return m_height; }
 
     //! Returns width
-    virtual double getRadialExtension() const final { return m_width; }
+    double getRadialExtension() const final { return m_width; }
 
-    virtual complex_t evaluate_for_q(const cvector_t q) const final;
-
-protected:
-    virtual bool check_initialization() const;
-    virtual void init_parameters();
+    complex_t evaluate_for_q(const cvector_t q) const final;
 
 private:
     double m_width;

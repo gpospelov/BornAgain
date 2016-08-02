@@ -26,7 +26,7 @@ class BA_CORE_API_ CosineRippleBuilder : public ISampleBuilder
 {
 public:
     CosineRippleBuilder();
-    ISample *buildSample() const;
+    ISample* buildSample() const;
 
 protected:
     void init_parameters();
@@ -50,7 +50,7 @@ class BA_CORE_API_ TriangularRippleBuilder : public ISampleBuilder
 {
 public:
     TriangularRippleBuilder();
-    ISample *buildSample() const;
+    ISample* buildSample() const;
 
 protected:
     void init_parameters();

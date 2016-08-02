@@ -16,6 +16,7 @@
 #include "IParameterized.h"
 #include "AttLimits.h"
 #include "ParameterPool.h"
+#include "DimensionedParameters.h"
 #include <iostream>
 #include <memory>
 #include <sstream>
@@ -24,7 +25,7 @@
 IParameterized::IParameterized(const std::string& name)
     : INamed(name)
 {
-    m_parameters = new ParameterPool( name, std::bind(&IParameterized::onChange, this) );
+    m_pool = new ParameterPool( name, std::bind(&IParameterized::onChange, this) );
 }
 
 IParameterized::IParameterized(const IParameterized& other)
@@ -36,7 +37,7 @@ IParameterized::IParameterized(const IParameterized& other)
 
 IParameterized::~IParameterized()
 {
-    delete m_parameters;
+    delete m_pool;
 }
 
 ParameterPool* IParameterized::createParameterTree()
@@ -59,7 +60,7 @@ std::string IParameterized::addParametersToExternalPool(
     path += getName() + osCopyNumber.str() + "/";
 
     // copy local parameter to external pool
-    m_parameters->copyToExternalPool(path, external_pool);
+    m_pool->copyToExternalPool(path, external_pool);
 
     return path;
 }
@@ -70,23 +71,73 @@ void IParameterized::printParameters()
     std::cout << *P_pool << std::endl;
 }
 
-//! Register parameter address in the parameter pool; name allows for wildcard '*'
-void IParameterized::registerParameter(const std::string& name, double* parpointer)
+void IParameterized::registerUnlimitedAngle(const std::string& name, double* data)
 {
-    m_parameters->registerParameter(name, parpointer, AttLimits::limitless());
+    registerAngle(name, data, AttLimits::limitless());
 }
 
-//! Register parameter address in the parameter pool; name allows for wildcard '*'
-void IParameterized::registerParameter(
-    const std::string& name, double* parpointer, const AttLimits& limits)
+void IParameterized::registerLimitedAngle(
+    const std::string& name, double* data, double lower_limit, double upper_limit)
 {
-    m_parameters->registerParameter(name, parpointer, limits);
+    registerAngle(name, data, AttLimits::limited( lower_limit, upper_limit ));
 }
+
+
+void IParameterized::registerUnlimitedScalar(const std::string& name, double* data)
+{
+    registerScalar(name, data, AttLimits::limitless());
+}
+
+void IParameterized::registerPositiveScalar(const std::string& name, double* data)
+{
+    registerScalar(name, data, AttLimits::positive());
+}
+
+void IParameterized::registerNonnegativeScalar(const std::string& name, double* data)
+{
+    registerScalar(name, data, AttLimits::n_positive());
+}
+
+
+void IParameterized::registerUnlimitedLength(const std::string& name, double* data)
+{
+    registerLength(name, data, AttLimits::limitless());
+}
+
+void IParameterized::registerPositiveLength(const std::string& name, double* data)
+{
+    registerLength(name, data, AttLimits::positive());
+}
+
+void IParameterized::registerNonnegativeLength(const std::string& name, double* data)
+{
+    registerLength(name, data, AttLimits::n_positive());
+}
+
+
+void IParameterized::registerAngle(
+    const std::string& name, double* data, const AttLimits& limits)
+{
+    m_pool->addParameter( new Angle( name, m_pool, data, limits) );
+}
+
+void IParameterized::registerScalar(
+    const std::string& name, double* data, const AttLimits& limits)
+{
+    m_pool->addParameter( new Scalar( name, m_pool, data, limits) );
+}
+
+void IParameterized::registerLength(
+    const std::string& name, double* data, const AttLimits& limits)
+{
+    m_pool->addParameter( new Length( name, m_pool, data, limits) );
+}
+
 
 void IParameterized::setParameterValue(const std::string& name, double value)
 {
     if(name.find('*') == std::string::npos && name.find('/') == std::string::npos) {
-        m_parameters->setParameterValue(name, value);
+        m_pool->setParameterValue(name, value);
     } else {
         std::unique_ptr<ParameterPool> P_pool { createParameterTree() };
         if(name.find('*') != std::string::npos)
@@ -99,10 +150,10 @@ void IParameterized::setParameterValue(const std::string& name, double value)
 
 //! Returns parameter with given 'name'.
 RealParameter* IParameterized::getParameter(const std::string& name) const {
-    return m_parameters->getParameter(name);
+    return m_pool->getParameter(name);
 }
 
 void IParameterized::print(std::ostream& ostr) const
 {
-    ostr << "IParameterized:" << getName() << " " << *m_parameters;
+    ostr << "IParameterized:" << getName() << " " << *m_pool;
 }

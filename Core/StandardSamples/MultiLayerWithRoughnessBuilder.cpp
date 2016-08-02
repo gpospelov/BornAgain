@@ -34,13 +34,12 @@ MultiLayerWithRoughnessBuilder::MultiLayerWithRoughnessBuilder()
 
 void MultiLayerWithRoughnessBuilder::init_parameters()
 {
-
-    registerParameter("thicknessA", &m_thicknessA);
-    registerParameter("thicknessB", &m_thicknessB);
-    registerParameter("sigma", &m_sigma);
-    registerParameter("hurst", &m_hurst);
-    registerParameter("latteralCorrLength", &m_latteralCorrLength);
-    registerParameter("crossCorrLength", &m_crossCorrLength);
+    registerNonnegativeLength("thicknessA", &m_thicknessA);
+    registerNonnegativeLength("thicknessB", &m_thicknessB);
+    registerNonnegativeLength("sigma", &m_sigma);
+    registerUnlimitedScalar  ("hurst", &m_hurst);
+    registerNonnegativeLength("latteralCorrLength", &m_latteralCorrLength);
+    registerNonnegativeLength("crossCorrLength", &m_crossCorrLength);
 }
 
 

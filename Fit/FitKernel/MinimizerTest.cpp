@@ -47,4 +47,31 @@ void MinimizerTest::printResults() const
     std::cout << "MinimizerTest::printResult() "  << m_min_value << std::endl;
 }
 
+std::vector<double> MinimizerTest::getErrorOfVariables() const
+{
+    std::vector<double> result;
+    result.resize(m_parameters.size());
+    return result;
+}
+
+std::string MinimizerTest::getMinimizerName() const
+{
+    return std::string("Test");
+}
+
+std::string MinimizerTest::getAlgorithmName() const
+{
+    return std::string();
+}
+
+MinimizerOptions *MinimizerTest::getOptions()
+{
+    return nullptr;
+}
+
+const MinimizerOptions *MinimizerTest::getOptions() const
+{
+    return nullptr;
+}
+
 

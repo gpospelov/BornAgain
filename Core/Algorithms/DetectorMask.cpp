@@ -17,6 +17,7 @@
 #include "IDetector2D.h"
 #include "IShape2D.h"
 #include "BornAgainNamespace.h"
+#include "Histogram2D.h"
 
 
 // InfinitePlane, Line, VerticalLine, HorizontalLine
@@ -91,6 +92,16 @@ bool DetectorMask::getMask(size_t index) const
 const OutputData<bool> *DetectorMask::getMaskData() const
 {
     return &m_mask_data;
+}
+
+Histogram2D *DetectorMask::createHistogram() const
+{
+    OutputData<double> data;
+    data.copyShapeFrom(m_mask_data);
+    for(size_t i=0; i<m_mask_data.getAllocatedSize(); ++i) {
+        data[i] = static_cast<double>(m_mask_data[i]);
+    }
+    return dynamic_cast<Histogram2D *>(IHistogram::createHistogram(data));
 }
 
 void DetectorMask::removeMasks()

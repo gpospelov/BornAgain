@@ -5670,7 +5670,7 @@ SWIG_AsVal_std_complex_Sl_double_Sg_  (PyObject *o, std::complex<double>* val)
 
 
 SWIGINTERNINLINE PyObject*
-SWIG_From_std_complex_Sl_double_Sg_  (/*@SWIG:/opt/share/swig/3.0.8/typemaps/swigmacros.swg,104,%ifcplusplus@*/
+SWIG_From_std_complex_Sl_double_Sg_  (/*@SWIG:/home/pospelov/software/local/share/swig/3.0.8/typemaps/swigmacros.swg,104,%ifcplusplus@*/
 
 const std::complex<double>&
 
@@ -24585,7 +24585,7 @@ SWIGINTERN PyObject *_wrap_FitSuite_getRealData__SWIG_0(PyObject *SWIGUNUSEDPARM
   } 
   arg2 = static_cast< size_t >(val2);
   result = (IHistogram *)((FitSuite const *)arg1)->getRealData(arg2);
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IHistogram, 0 |  0 );
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IHistogram, SWIG_POINTER_OWN |  0 );
   return resultobj;
 fail:
   return NULL;
@@ -24607,7 +24607,7 @@ SWIGINTERN PyObject *_wrap_FitSuite_getRealData__SWIG_1(PyObject *SWIGUNUSEDPARM
   }
   arg1 = reinterpret_cast< FitSuite * >(argp1);
   result = (IHistogram *)((FitSuite const *)arg1)->getRealData();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IHistogram, 0 |  0 );
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IHistogram, SWIG_POINTER_OWN |  0 );
   return resultobj;
 fail:
   return NULL;
@@ -24684,7 +24684,7 @@ SWIGINTERN PyObject *_wrap_FitSuite_getSimulationData__SWIG_0(PyObject *SWIGUNUS
   } 
   arg2 = static_cast< size_t >(val2);
   result = (IHistogram *)((FitSuite const *)arg1)->getSimulationData(arg2);
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IHistogram, 0 |  0 );
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IHistogram, SWIG_POINTER_OWN |  0 );
   return resultobj;
 fail:
   return NULL;
@@ -24706,7 +24706,7 @@ SWIGINTERN PyObject *_wrap_FitSuite_getSimulationData__SWIG_1(PyObject *SWIGUNUS
   }
   arg1 = reinterpret_cast< FitSuite * >(argp1);
   result = (IHistogram *)((FitSuite const *)arg1)->getSimulationData();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IHistogram, 0 |  0 );
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IHistogram, SWIG_POINTER_OWN |  0 );
   return resultobj;
 fail:
   return NULL;
@@ -24783,7 +24783,7 @@ SWIGINTERN PyObject *_wrap_FitSuite_getChiSquaredMap__SWIG_0(PyObject *SWIGUNUSE
   } 
   arg2 = static_cast< size_t >(val2);
   result = (IHistogram *)((FitSuite const *)arg1)->getChiSquaredMap(arg2);
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IHistogram, 0 |  0 );
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IHistogram, SWIG_POINTER_OWN |  0 );
   return resultobj;
 fail:
   return NULL;
@@ -24805,7 +24805,7 @@ SWIGINTERN PyObject *_wrap_FitSuite_getChiSquaredMap__SWIG_1(PyObject *SWIGUNUSE
   }
   arg1 = reinterpret_cast< FitSuite * >(argp1);
   result = (IHistogram *)((FitSuite const *)arg1)->getChiSquaredMap();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IHistogram, 0 |  0 );
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IHistogram, SWIG_POINTER_OWN |  0 );
   return resultobj;
 fail:
   return NULL;

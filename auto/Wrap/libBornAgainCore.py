@@ -5383,6 +5383,11 @@ class IDistribution1D(IParameterized):
         """
         return _libBornAgainCore.IDistribution1D_generateValues(self, nbr_samples, xmin, xmax)
 
+
+    def isDelta(self):
+        """isDelta(IDistribution1D self) -> bool"""
+        return _libBornAgainCore.IDistribution1D_isDelta(self)
+
 IDistribution1D_swigregister = _libBornAgainCore.IDistribution1D_swigregister
 IDistribution1D_swigregister(IDistribution1D)
 
@@ -5494,6 +5499,11 @@ class DistributionGate(IDistribution1D):
         """
         return _libBornAgainCore.DistributionGate_generateValueList(self, *args)
 
+
+    def isDelta(self):
+        """isDelta(DistributionGate self) -> bool"""
+        return _libBornAgainCore.DistributionGate_isDelta(self)
+
 DistributionGate_swigregister = _libBornAgainCore.DistributionGate_swigregister
 DistributionGate_swigregister(DistributionGate)
 
@@ -5593,6 +5603,11 @@ class DistributionLorentz(IDistribution1D):
         """
         return _libBornAgainCore.DistributionLorentz_generateValueList(self, *args)
 
+
+    def isDelta(self):
+        """isDelta(DistributionLorentz self) -> bool"""
+        return _libBornAgainCore.DistributionLorentz_isDelta(self)
+
 DistributionLorentz_swigregister = _libBornAgainCore.DistributionLorentz_swigregister
 DistributionLorentz_swigregister(DistributionLorentz)
 
@@ -5691,6 +5706,11 @@ class DistributionGaussian(IDistribution1D):
 
         """
         return _libBornAgainCore.DistributionGaussian_generateValueList(self, *args)
+
+
+    def isDelta(self):
+        """isDelta(DistributionGaussian self) -> bool"""
+        return _libBornAgainCore.DistributionGaussian_isDelta(self)
 
 DistributionGaussian_swigregister = _libBornAgainCore.DistributionGaussian_swigregister
 DistributionGaussian_swigregister(DistributionGaussian)
@@ -5803,6 +5823,11 @@ class DistributionLogNormal(IDistribution1D):
         """
         return _libBornAgainCore.DistributionLogNormal_generateValueList(self, *args)
 
+
+    def isDelta(self):
+        """isDelta(DistributionLogNormal self) -> bool"""
+        return _libBornAgainCore.DistributionLogNormal_isDelta(self)
+
 DistributionLogNormal_swigregister = _libBornAgainCore.DistributionLogNormal_swigregister
 DistributionLogNormal_swigregister(DistributionLogNormal)
 
@@ -5902,8 +5927,158 @@ class DistributionCosine(IDistribution1D):
         """
         return _libBornAgainCore.DistributionCosine_generateValueList(self, *args)
 
+
+    def isDelta(self):
+        """isDelta(DistributionCosine self) -> bool"""
+        return _libBornAgainCore.DistributionCosine_isDelta(self)
+
 DistributionCosine_swigregister = _libBornAgainCore.DistributionCosine_swigregister
 DistributionCosine_swigregister(DistributionCosine)
+
+class DetectorMask(_object):
+    """
+
+
+    The container with all masks.
+
+    C++ includes: DetectorMask.h
+
+    """
+
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, DetectorMask, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, DetectorMask, name)
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        """
+        __init__(DetectorMask self) -> DetectorMask
+        __init__(DetectorMask self, DetectorMask other) -> DetectorMask
+
+        DetectorMask::DetectorMask(const DetectorMask &other)
+
+        """
+        this = _libBornAgainCore.new_DetectorMask(*args)
+        try:
+            self.this.append(this)
+        except Exception:
+            self.this = this
+
+    def addMask(self, shape, mask_value):
+        """
+        addMask(DetectorMask self, IShape2D shape, bool mask_value)
+
+        void DetectorMask::addMask(const Geometry::IShape2D &shape, bool mask_value)
+
+        Add mask to the stack of detector masks. The value "true" means that the area will be excluded from the analysis.
+
+        Parameters:
+        -----------
+
+        shape: 
+        The shape of mask.
+
+        mask_value: 
+        The value of mask 
+
+        """
+        return _libBornAgainCore.DetectorMask_addMask(self, shape, mask_value)
+
+
+    def initMaskData(self, *args):
+        """
+        initMaskData(DetectorMask self, IDetector2D detector)
+        initMaskData(DetectorMask self, IntensityData data)
+
+        void DetectorMask::initMaskData(const OutputData< double > &data)
+
+        """
+        return _libBornAgainCore.DetectorMask_initMaskData(self, *args)
+
+
+    def getMask(self, index):
+        """
+        getMask(DetectorMask self, size_t index) -> bool
+
+        bool DetectorMask::getMask(size_t index) const 
+
+        """
+        return _libBornAgainCore.DetectorMask_getMask(self, index)
+
+
+    def getMaskData(self):
+        """
+        getMaskData(DetectorMask self) -> OutputData< bool > const *
+
+        const OutputData< bool > * DetectorMask::getMaskData() const 
+
+        """
+        return _libBornAgainCore.DetectorMask_getMaskData(self)
+
+
+    def createHistogram(self):
+        """createHistogram(DetectorMask self) -> Histogram2D"""
+        return _libBornAgainCore.DetectorMask_createHistogram(self)
+
+
+    def removeMasks(self):
+        """
+        removeMasks(DetectorMask self)
+
+        void DetectorMask::removeMasks()
+
+        remove all masks and return object to initial state 
+
+        """
+        return _libBornAgainCore.DetectorMask_removeMasks(self)
+
+
+    def hasMasks(self):
+        """
+        hasMasks(DetectorMask self) -> bool
+
+        bool DetectorMask::hasMasks() const
+
+        returns true if has masks 
+
+        """
+        return _libBornAgainCore.DetectorMask_hasMasks(self)
+
+
+    def getNumberOfMaskedChannels(self):
+        """
+        getNumberOfMaskedChannels(DetectorMask self) -> int
+
+        int DetectorMask::getNumberOfMaskedChannels() const 
+
+        """
+        return _libBornAgainCore.DetectorMask_getNumberOfMaskedChannels(self)
+
+
+    def getNumberOfMasks(self):
+        """
+        getNumberOfMasks(DetectorMask self) -> size_t
+
+        size_t DetectorMask::getNumberOfMasks() const 
+
+        """
+        return _libBornAgainCore.DetectorMask_getNumberOfMasks(self)
+
+
+    def getMaskShape(self, mask_index, mask_value):
+        """
+        getMaskShape(DetectorMask self, size_t mask_index, bool & mask_value) -> IShape2D
+
+        const Geometry::IShape2D * DetectorMask::getMaskShape(size_t mask_index, bool &mask_value) const 
+
+        """
+        return _libBornAgainCore.DetectorMask_getMaskShape(self, mask_index, mask_value)
+
+    __swig_destroy__ = _libBornAgainCore.delete_DetectorMask
+    __del__ = lambda self: None
+DetectorMask_swigregister = _libBornAgainCore.DetectorMask_swigregister
+DetectorMask_swigregister(DetectorMask)
 
 class Ellipse(IShape2D):
     """
@@ -14686,7 +14861,7 @@ class IDetector2D(IParameterized):
 
     def getDetectorMask(self):
         """
-        getDetectorMask(IDetector2D self) -> DetectorMask const *
+        getDetectorMask(IDetector2D self) -> DetectorMask
 
         const DetectorMask * IDetector2D::getDetectorMask() const 
 
@@ -16267,6 +16442,11 @@ class Instrument(IParameterized):
 
         """
         return _libBornAgainCore.Instrument_getDetector(self, *args)
+
+
+    def getDetectorMask(self):
+        """getDetectorMask(Instrument self) -> DetectorMask"""
+        return _libBornAgainCore.Instrument_getDetectorMask(self)
 
 
     def getDetectorAxis(self, index):

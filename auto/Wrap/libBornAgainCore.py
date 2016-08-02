@@ -8734,14 +8734,16 @@ class FTDecayFunction2DCauchy(IFTDecayFunction2D):
     __getattr__ = lambda self, name: _swig_getattr(self, FTDecayFunction2DCauchy, name)
     __repr__ = _swig_repr
 
-    def __init__(self, decay_length_x, decay_length_y):
+    def __init__(self, *args):
         """
+        __init__(FTDecayFunction2DCauchy self, double decay_length_x, double decay_length_y, double gamma=0, double delta) -> FTDecayFunction2DCauchy
+        __init__(FTDecayFunction2DCauchy self, double decay_length_x, double decay_length_y, double gamma=0) -> FTDecayFunction2DCauchy
         __init__(FTDecayFunction2DCauchy self, double decay_length_x, double decay_length_y) -> FTDecayFunction2DCauchy
 
         FTDecayFunction2DCauchy::FTDecayFunction2DCauchy(double decay_length_x, double decay_length_y)
 
         """
-        this = _libBornAgainCore.new_FTDecayFunction2DCauchy(decay_length_x, decay_length_y)
+        this = _libBornAgainCore.new_FTDecayFunction2DCauchy(*args)
         try:
             self.this.append(this)
         except:
@@ -8792,14 +8794,16 @@ class FTDecayFunction2DGauss(IFTDecayFunction2D):
     __getattr__ = lambda self, name: _swig_getattr(self, FTDecayFunction2DGauss, name)
     __repr__ = _swig_repr
 
-    def __init__(self, decay_length_x, decay_length_y):
+    def __init__(self, *args):
         """
+        __init__(FTDecayFunction2DGauss self, double decay_length_x, double decay_length_y, double gamma=0, double delta) -> FTDecayFunction2DGauss
+        __init__(FTDecayFunction2DGauss self, double decay_length_x, double decay_length_y, double gamma=0) -> FTDecayFunction2DGauss
         __init__(FTDecayFunction2DGauss self, double decay_length_x, double decay_length_y) -> FTDecayFunction2DGauss
 
         FTDecayFunction2DGauss::FTDecayFunction2DGauss(double decay_length_x, double decay_length_y)
 
         """
-        this = _libBornAgainCore.new_FTDecayFunction2DGauss(decay_length_x, decay_length_y)
+        this = _libBornAgainCore.new_FTDecayFunction2DGauss(*args)
         try:
             self.this.append(this)
         except:
@@ -8850,14 +8854,16 @@ class FTDecayFunction2DVoigt(IFTDecayFunction2D):
     __getattr__ = lambda self, name: _swig_getattr(self, FTDecayFunction2DVoigt, name)
     __repr__ = _swig_repr
 
-    def __init__(self, decay_length_x, decay_length_y, eta):
+    def __init__(self, *args):
         """
+        __init__(FTDecayFunction2DVoigt self, double decay_length_x, double decay_length_y, double eta, double gamma=0, double delta) -> FTDecayFunction2DVoigt
+        __init__(FTDecayFunction2DVoigt self, double decay_length_x, double decay_length_y, double eta, double gamma=0) -> FTDecayFunction2DVoigt
         __init__(FTDecayFunction2DVoigt self, double decay_length_x, double decay_length_y, double eta) -> FTDecayFunction2DVoigt
 
         FTDecayFunction2DVoigt::FTDecayFunction2DVoigt(double decay_length_x, double decay_length_y, double eta)
 
         """
-        this = _libBornAgainCore.new_FTDecayFunction2DVoigt(decay_length_x, decay_length_y, eta)
+        this = _libBornAgainCore.new_FTDecayFunction2DVoigt(*args)
         try:
             self.this.append(this)
         except:

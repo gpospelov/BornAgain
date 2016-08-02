@@ -17,6 +17,7 @@
 #define FTDECAYFUNCTIONS_H
 
 #include "IParameterized.h" // inheriting from
+#include "Units.h"
 
 //! @class IFTDecayFunction1D
 //! @ingroup algorithms_internal
@@ -27,7 +28,7 @@ public:
     IFTDecayFunction1D(double omega) : m_omega(omega) {}
     virtual ~IFTDecayFunction1D() {}
 
-    virtual IFTDecayFunction1D *clone() const=0;
+    virtual IFTDecayFunction1D* clone() const=0;
     virtual double evaluate(double q) const=0;
     void setOmega(double omega) { m_omega = omega; }
     double getOmega() const { return m_omega; }
@@ -51,7 +52,8 @@ public:
     FTDecayFunction1DCauchy(double omega);
     virtual ~FTDecayFunction1DCauchy() {}
 
-    virtual FTDecayFunction1DCauchy *clone() const;
+    virtual FTDecayFunction1DCauchy* clone() const {
+        return new FTDecayFunction1DCauchy(m_omega); }
 
     virtual double evaluate(double q) const;
 };
@@ -66,7 +68,8 @@ public:
     FTDecayFunction1DGauss(double omega);
     virtual ~FTDecayFunction1DGauss() {}
 
-    virtual FTDecayFunction1DGauss *clone() const;
+    virtual FTDecayFunction1DGauss* clone() const {
+        return new FTDecayFunction1DGauss(m_omega); }
 
     virtual double evaluate(double q) const;
 };
@@ -82,7 +85,8 @@ public:
     FTDecayFunction1DTriangle(double omega);
     virtual ~FTDecayFunction1DTriangle() {}
 
-    virtual FTDecayFunction1DTriangle *clone() const;
+    virtual FTDecayFunction1DTriangle* clone() const {
+        return new FTDecayFunction1DTriangle(m_omega); }
 
     virtual double evaluate(double q) const;
 };
@@ -98,7 +102,8 @@ public:
     FTDecayFunction1DVoigt(double omega, double eta);
     virtual ~FTDecayFunction1DVoigt() {}
 
-    virtual FTDecayFunction1DVoigt *clone() const;
+    virtual FTDecayFunction1DVoigt* clone() const {
+        return new FTDecayFunction1DVoigt(m_omega, m_eta); }
 
     virtual double evaluate(double q) const;
 
@@ -142,7 +147,7 @@ public:
     FTDecayFunction1DCosine(double omega);
     virtual ~FTDecayFunction1DCosine() {}
 
-    virtual FTDecayFunction1DCosine *clone() const;
+    virtual FTDecayFunction1DCosine* clone() const;
 
     virtual double evaluate(double q) const;
 };
@@ -154,10 +159,11 @@ public:
 class BA_CORE_API_ IFTDecayFunction2D : public IParameterized
 {
 public:
-    IFTDecayFunction2D(double decay_length_x, double decay_length_y);
+    IFTDecayFunction2D(double decay_length_x, double decay_length_y,
+                       double gamma=0, double delta=Units::PID2);
     virtual ~IFTDecayFunction2D() {}
 
-    virtual IFTDecayFunction2D *clone() const=0;
+    virtual IFTDecayFunction2D* clone() const=0;
 
     //! set angle between first lattice vector and X-axis of distribution (both in direct space)
     void setGamma(double gamma) { m_gamma = gamma; }
@@ -202,10 +208,13 @@ protected:
 class BA_CORE_API_ FTDecayFunction2DCauchy : public IFTDecayFunction2D
 {
 public:
-    FTDecayFunction2DCauchy(double decay_length_x, double decay_length_y);
+    FTDecayFunction2DCauchy(double decay_length_x, double decay_length_y,
+                            double gamma=0, double delta=Units::PID2);
+
     virtual ~FTDecayFunction2DCauchy() {}
 
-    virtual FTDecayFunction2DCauchy *clone() const;
+    virtual FTDecayFunction2DCauchy* clone() const {
+        return new FTDecayFunction2DCauchy(m_omega_x, m_omega_y, m_gamma, m_delta); }
 
     virtual double evaluate(double qx, double qy) const;
 };
@@ -219,10 +228,14 @@ public:
 class BA_CORE_API_ FTDecayFunction2DGauss : public IFTDecayFunction2D
 {
 public:
-    FTDecayFunction2DGauss(double decay_length_x, double decay_length_y);
+    FTDecayFunction2DGauss(double decay_length_x, double decay_length_y,
+                           double gamma=0, double delta=Units::PID2);
+
     virtual ~FTDecayFunction2DGauss() {}
 
-    virtual FTDecayFunction2DGauss *clone() const;
+    virtual FTDecayFunction2DGauss* clone() const {
+        return new FTDecayFunction2DGauss(m_omega_x, m_omega_y, m_gamma, m_delta); }
+
 
     virtual double evaluate(double qx, double qy) const;
 };
@@ -234,10 +247,13 @@ public:
 class BA_CORE_API_ FTDecayFunction2DVoigt : public IFTDecayFunction2D
 {
 public:
-    FTDecayFunction2DVoigt(double decay_length_x, double decay_length_y, double eta);
+    FTDecayFunction2DVoigt(double decay_length_x, double decay_length_y, double eta,
+                           double gamma=0, double delta=Units::PID2);
+
     virtual ~FTDecayFunction2DVoigt() {}
 
-    virtual FTDecayFunction2DVoigt *clone() const;
+    virtual FTDecayFunction2DVoigt* clone() const {
+        return new FTDecayFunction2DVoigt(m_omega_x, m_omega_y, m_eta, m_gamma, m_delta); }
 
     virtual double evaluate(double qx, double qy) const;
 

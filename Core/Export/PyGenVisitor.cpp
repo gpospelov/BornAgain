@@ -406,47 +406,8 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
 
             const IFTDecayFunction2D* pdf = twoDLattice->getDecayFunction();
 
-            if (const auto* f = dynamic_cast<const FTDecayFunction2DCauchy*>(pdf)) {
-                result << indent() << it->second << "_pdf  = ba.FTDecayFunction2DCauchy("
-                       << PyGenTools::printNm(f->getDecayLengthX()) << ", "
-                       << PyGenTools::printNm(f->getDecayLengthY()) << ")\n";
-                if (f->getGamma() != 0.0) {
-                    result << indent() << it->second << "_pdf"
-                           << ".setGamma(" << PyGenTools::printDegrees(f->getGamma())
-                           << ")\n";
-                }
-            }
-
-            else if (const auto* f = dynamic_cast<const FTDecayFunction2DGauss*>(pdf)) {
-                result << indent() << it->second << "_pdf  = ba.FTDecayFunction2DGauss("
-                       << PyGenTools::printNm(f->getDecayLengthX()) << ", "
-                       << PyGenTools::printNm(f->getDecayLengthY()) << ")\n";
-
-                if (f->getGamma() != 0.0) {
-                    result << indent() << it->second << "_pdf"
-                           << ".setGamma(" << PyGenTools::printDegrees(f->getGamma()) << ")\n";
-                }
-            }
-
-            else if (const auto* f = dynamic_cast<const FTDecayFunction2DVoigt*>(pdf)) {
-                result << indent() << it->second << "_pdf  = ba.FTDecayFunction2DVoigt("
-                       << PyGenTools::printNm(f->getDecayLengthX()) << ", "
-                       << PyGenTools::printNm(f->getDecayLengthY()) << ", "
-                       << PyGenTools::printDouble(f->getEta()) << ")\n";
-
-                if (f->getGamma() != 0.0) {
-                    result << indent() << it->second << "_pdf"
-                           << ".setGamma(" << PyGenTools::printDegrees(f->getGamma()) << ")\n";
-                }
-            }
-
-            else {
-                std::ostringstream pdfException;
-                pdfException << "\n" << pdf->getName() << " :: Not Casted To Any "
-                             << "Probability Distribution Function\n";
-                throw Exceptions::NotImplementedException(pdfException.str());
-            }
-
+            result << indent() << it->second << "_pdf  = ba." << pdf->getName()
+                   << "(" << PyGenTools::argumentList(pdf) << ")\n";
             result << indent() << it->second << ".setDecayFunction(" << it->second << "_pdf)\n";
         }
 

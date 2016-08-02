@@ -32,8 +32,8 @@ void IFTDistribution2D::init_parameters()
 {
     registerNonnegativeLength(BornAgain::CoherenceLengthX, &m_coherence_length_x);
     registerNonnegativeLength(BornAgain::CoherenceLengthY, &m_coherence_length_y);
-    registerLimitedAngle("gamma", &m_gamma, -180, 180);
-    registerLimitedAngle("delta", &m_delta, 0, 180);
+    registerLimitedAngle(BornAgain::Gamma, &m_gamma, -180, 180);
+    registerLimitedAngle(BornAgain::Delta, &m_delta, 0, 180);
 }
 
 void IFTDistribution2D::print(std::ostream& ostr) const
@@ -117,8 +117,8 @@ FTDistribution2DVoigt::FTDistribution2DVoigt(
     registerNonnegativeLength(BornAgain::CoherenceLengthX, &m_coherence_length_x);
     registerNonnegativeLength(BornAgain::CoherenceLengthY, &m_coherence_length_y);
     registerUnlimitedScalar(BornAgain::Eta, &m_eta);
-    registerLimitedAngle("gamma", &m_gamma, -180, 180);
-    registerLimitedAngle("delta", &m_delta, -180, 180);
+    registerLimitedAngle("Gamma", &m_gamma, -180, 180);
+    registerLimitedAngle("Delta", &m_delta, -180, 180);
 }
 
 double FTDistribution2DVoigt::evaluate(double qx, double qy) const

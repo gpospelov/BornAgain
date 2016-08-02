@@ -41,7 +41,7 @@ ISample *SquareLatticeBuilder::buildSample() const
     std::unique_ptr<InterferenceFunction2DLattice> P_interference_function{
         InterferenceFunction2DLattice::createSquare(10.0 * Units::nanometer) };
     FTDecayFunction2DCauchy pdf(300.0*Units::nanometer/2.0/Units::PI,
-                               100.0*Units::nanometer/2.0/Units::PI);
+                                100.0*Units::nanometer/2.0/Units::PI);
     P_interference_function->setDecayFunction(pdf);
 
     // particles
@@ -78,7 +78,7 @@ ISample *CenteredSquareLatticeBuilder::buildSample() const
     InterferenceFunction2DLattice interference_function(10.0*Units::nanometer,
             10.0*Units::nanometer, Units::PI/2.0);
     FTDecayFunction2DCauchy pdf(300.0*Units::nanometer/2.0/Units::PI,
-                               100.0*Units::nanometer/2.0/Units::PI);
+                                100.0*Units::nanometer/2.0/Units::PI);
     interference_function.setDecayFunction(pdf);
 
     FormFactorCylinder ff_cyl(5.0*Units::nanometer, 5.0*Units::nanometer);

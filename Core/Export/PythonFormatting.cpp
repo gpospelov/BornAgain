@@ -55,6 +55,8 @@ std::string PythonFormatting::simulationToPython(
 
 namespace PythonFormatting {
 
+//! Returns fixed Python code snippet that defines the function "runSimulation".
+
 std::string getRepresentation(const IDistribution1D* distribution)
 {
      std::ostringstream result;

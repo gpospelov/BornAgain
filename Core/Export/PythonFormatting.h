@@ -43,8 +43,8 @@ namespace PythonFormatting {
     BA_CORE_API_ bool isHexagonal(double length1, double length2, double angle);
     BA_CORE_API_ std::string printKvector(const kvector_t value);
     BA_CORE_API_ bool isDefaultDirection(const kvector_t direction);
-    std::string valueTimesUnit(const RealParameter* par);
-    std::string argumentList(const IParameterized* ip);
+    BA_CORE_API_ std::string valueTimesUnit(const RealParameter* par);
+    BA_CORE_API_ std::string argumentList(const IParameterized* ip);
 }
 
 #endif // PYTHONFORMATTING_H

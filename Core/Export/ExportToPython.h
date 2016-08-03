@@ -56,7 +56,6 @@ private:
     std::string defineMasks(const GISASSimulation* simulation) const;
     std::string defineSimulationOptions(const GISASSimulation* simulation) const;
     std::string definePlotting(const GISASSimulation* simulation) const;
-    std::string defineRunSimulation() const;
 
     std::string indent() const;
     void setRotationInformation(const IParticle* particle, std::string particle_name,

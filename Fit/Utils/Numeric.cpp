@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Tools/Numeric.cpp
+//! @file      Fit/Utils/Numeric.cpp
 //! @brief     Implements "almost equal" in namespace Numeric.
 //!
 //! @homepage  http://www.bornagainproject.org

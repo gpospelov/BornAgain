@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/FitKernel/FitObject.cpp
+//! @file      Core/Fitting/FitObject.cpp
 //! @brief     Implements class FitObject.
 //!
 //! @homepage  http://www.bornagainproject.org

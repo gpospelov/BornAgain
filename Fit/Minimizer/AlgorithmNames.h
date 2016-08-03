@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/FitKernel/AlgorithmNames.h
+//! @file      Fit/Minimizer/AlgorithmNames.h
 //! @brief     Declares namespace AlgorithmNames.
 //!
 //! @homepage  http://www.bornagainproject.org

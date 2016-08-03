@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MESSAGESERVICE_H
-#define MESSAGESERVICE_H
+#ifndef LOGGER_H
+#define LOGGER_H
 
 #include <iomanip>
 #include <sstream>
@@ -71,6 +71,6 @@ else MSG::Logger(level)
 
 
 
-#endif // MESSAGESERVICE_H
+#endif // LOGGER_H
 
 

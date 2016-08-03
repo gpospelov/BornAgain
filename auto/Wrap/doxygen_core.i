@@ -1494,6 +1494,31 @@ Returns true if area defined by two bins is inside or on border of ellipse. More
 ";
 
 
+// File: classExportToPython.xml
+%feature("docstring") ExportToPython "";
+
+%feature("docstring")  ExportToPython::ExportToPython "ExportToPython::ExportToPython(const MultiLayer &multilayer)
+";
+
+%feature("docstring")  ExportToPython::~ExportToPython "ExportToPython::~ExportToPython()
+";
+
+%feature("docstring")  ExportToPython::writePyScript "std::string ExportToPython::writePyScript(const GISASSimulation *simulation, const std::string &output_filename)
+";
+
+%feature("docstring")  ExportToPython::definePreamble "std::string ExportToPython::definePreamble() const 
+";
+
+%feature("docstring")  ExportToPython::defineGetSimulation "std::string ExportToPython::defineGetSimulation(const GISASSimulation *simulation) const 
+";
+
+%feature("docstring")  ExportToPython::defineGetSample "std::string ExportToPython::defineGetSample() const 
+";
+
+%feature("docstring")  ExportToPython::defineMaterials "std::string ExportToPython::defineMaterials() const 
+";
+
+
 // File: classExceptions_1_1FileIsBadException.xml
 %feature("docstring") Exceptions::FileIsBadException "";
 
@@ -4708,7 +4733,7 @@ C++ includes: FTDecayFunctions.h
 %feature("docstring")  FTDecayFunction1DCauchy::~FTDecayFunction1DCauchy "virtual FTDecayFunction1DCauchy::~FTDecayFunction1DCauchy()
 ";
 
-%feature("docstring")  FTDecayFunction1DCauchy::clone "FTDecayFunction1DCauchy * FTDecayFunction1DCauchy::clone() const 
+%feature("docstring")  FTDecayFunction1DCauchy::clone "virtual FTDecayFunction1DCauchy* FTDecayFunction1DCauchy::clone() const 
 ";
 
 %feature("docstring")  FTDecayFunction1DCauchy::evaluate "double FTDecayFunction1DCauchy::evaluate(double q) const 
@@ -4729,7 +4754,7 @@ C++ includes: FTDecayFunctions.h
 %feature("docstring")  FTDecayFunction1DGauss::~FTDecayFunction1DGauss "virtual FTDecayFunction1DGauss::~FTDecayFunction1DGauss()
 ";
 
-%feature("docstring")  FTDecayFunction1DGauss::clone "FTDecayFunction1DGauss * FTDecayFunction1DGauss::clone() const 
+%feature("docstring")  FTDecayFunction1DGauss::clone "virtual FTDecayFunction1DGauss* FTDecayFunction1DGauss::clone() const 
 ";
 
 %feature("docstring")  FTDecayFunction1DGauss::evaluate "double FTDecayFunction1DGauss::evaluate(double q) const 
@@ -4750,7 +4775,7 @@ C++ includes: FTDecayFunctions.h
 %feature("docstring")  FTDecayFunction1DTriangle::~FTDecayFunction1DTriangle "virtual FTDecayFunction1DTriangle::~FTDecayFunction1DTriangle()
 ";
 
-%feature("docstring")  FTDecayFunction1DTriangle::clone "FTDecayFunction1DTriangle * FTDecayFunction1DTriangle::clone() const 
+%feature("docstring")  FTDecayFunction1DTriangle::clone "virtual FTDecayFunction1DTriangle* FTDecayFunction1DTriangle::clone() const 
 ";
 
 %feature("docstring")  FTDecayFunction1DTriangle::evaluate "double FTDecayFunction1DTriangle::evaluate(double q) const 
@@ -4771,7 +4796,7 @@ C++ includes: FTDecayFunctions.h
 %feature("docstring")  FTDecayFunction1DVoigt::~FTDecayFunction1DVoigt "virtual FTDecayFunction1DVoigt::~FTDecayFunction1DVoigt()
 ";
 
-%feature("docstring")  FTDecayFunction1DVoigt::clone "FTDecayFunction1DVoigt * FTDecayFunction1DVoigt::clone() const 
+%feature("docstring")  FTDecayFunction1DVoigt::clone "virtual FTDecayFunction1DVoigt* FTDecayFunction1DVoigt::clone() const 
 ";
 
 %feature("docstring")  FTDecayFunction1DVoigt::evaluate "double FTDecayFunction1DVoigt::evaluate(double q) const 
@@ -4789,13 +4814,13 @@ C++ includes: FTDecayFunctions.h
 C++ includes: FTDecayFunctions.h
 ";
 
-%feature("docstring")  FTDecayFunction2DCauchy::FTDecayFunction2DCauchy "FTDecayFunction2DCauchy::FTDecayFunction2DCauchy(double decay_length_x, double decay_length_y)
+%feature("docstring")  FTDecayFunction2DCauchy::FTDecayFunction2DCauchy "FTDecayFunction2DCauchy::FTDecayFunction2DCauchy(double decay_length_x, double decay_length_y, double gamma=0, double delta=Units::PID2)
 ";
 
 %feature("docstring")  FTDecayFunction2DCauchy::~FTDecayFunction2DCauchy "virtual FTDecayFunction2DCauchy::~FTDecayFunction2DCauchy()
 ";
 
-%feature("docstring")  FTDecayFunction2DCauchy::clone "FTDecayFunction2DCauchy * FTDecayFunction2DCauchy::clone() const 
+%feature("docstring")  FTDecayFunction2DCauchy::clone "virtual FTDecayFunction2DCauchy* FTDecayFunction2DCauchy::clone() const 
 ";
 
 %feature("docstring")  FTDecayFunction2DCauchy::evaluate "double FTDecayFunction2DCauchy::evaluate(double qx, double qy) const
@@ -4812,13 +4837,13 @@ evaluate Fourier transformed decay function for q in X,Y coordinates
 C++ includes: FTDecayFunctions.h
 ";
 
-%feature("docstring")  FTDecayFunction2DGauss::FTDecayFunction2DGauss "FTDecayFunction2DGauss::FTDecayFunction2DGauss(double decay_length_x, double decay_length_y)
+%feature("docstring")  FTDecayFunction2DGauss::FTDecayFunction2DGauss "FTDecayFunction2DGauss::FTDecayFunction2DGauss(double decay_length_x, double decay_length_y, double gamma=0, double delta=Units::PID2)
 ";
 
 %feature("docstring")  FTDecayFunction2DGauss::~FTDecayFunction2DGauss "virtual FTDecayFunction2DGauss::~FTDecayFunction2DGauss()
 ";
 
-%feature("docstring")  FTDecayFunction2DGauss::clone "FTDecayFunction2DGauss * FTDecayFunction2DGauss::clone() const 
+%feature("docstring")  FTDecayFunction2DGauss::clone "virtual FTDecayFunction2DGauss* FTDecayFunction2DGauss::clone() const 
 ";
 
 %feature("docstring")  FTDecayFunction2DGauss::evaluate "double FTDecayFunction2DGauss::evaluate(double qx, double qy) const
@@ -4835,13 +4860,13 @@ evaluate Fourier transformed decay function for q in X,Y coordinates
 C++ includes: FTDecayFunctions.h
 ";
 
-%feature("docstring")  FTDecayFunction2DVoigt::FTDecayFunction2DVoigt "FTDecayFunction2DVoigt::FTDecayFunction2DVoigt(double decay_length_x, double decay_length_y, double eta)
+%feature("docstring")  FTDecayFunction2DVoigt::FTDecayFunction2DVoigt "FTDecayFunction2DVoigt::FTDecayFunction2DVoigt(double decay_length_x, double decay_length_y, double eta, double gamma=0, double delta=Units::PID2)
 ";
 
 %feature("docstring")  FTDecayFunction2DVoigt::~FTDecayFunction2DVoigt "virtual FTDecayFunction2DVoigt::~FTDecayFunction2DVoigt()
 ";
 
-%feature("docstring")  FTDecayFunction2DVoigt::clone "FTDecayFunction2DVoigt * FTDecayFunction2DVoigt::clone() const 
+%feature("docstring")  FTDecayFunction2DVoigt::clone "virtual FTDecayFunction2DVoigt* FTDecayFunction2DVoigt::clone() const 
 ";
 
 %feature("docstring")  FTDecayFunction2DVoigt::evaluate "double FTDecayFunction2DVoigt::evaluate(double qx, double qy) const
@@ -4856,9 +4881,9 @@ evaluate Fourier transformed decay function for q in X,Y coordinates
 // File: classFTDistribution1DCauchy.xml
 %feature("docstring") FTDistribution1DCauchy "
 
-1 dimensional Cauchy distribution in Fourier space. Corresponds to a normalized exp(-|x|) in real space
+1 dimensional Cauchy distribution in Fourier space. Corresponds to a normalized exp(-|x|) in real space.
 
-C++ includes: FTDistributions.h
+C++ includes: FTDistributions1D.h
 ";
 
 %feature("docstring")  FTDistribution1DCauchy::FTDistribution1DCauchy "FTDistribution1DCauchy::FTDistribution1DCauchy(double omega)
@@ -4877,9 +4902,9 @@ C++ includes: FTDistributions.h
 // File: classFTDistribution1DCosine.xml
 %feature("docstring") FTDistribution1DCosine "
 
-1 dimensional triangle distribution in Fourier space. Corresponds to a normalized 1+cos(pi*x/omega) if |x|<omega (and 0 otherwise) in real space
+1 dimensional triangle distribution in Fourier space. Corresponds to a normalized 1+cos(pi*x/omega) if |x|<omega (and 0 otherwise) in real space.
 
-C++ includes: FTDistributions.h
+C++ includes: FTDistributions1D.h
 ";
 
 %feature("docstring")  FTDistribution1DCosine::FTDistribution1DCosine "FTDistribution1DCosine::FTDistribution1DCosine(double omega)
@@ -4898,9 +4923,9 @@ C++ includes: FTDistributions.h
 // File: classFTDistribution1DGate.xml
 %feature("docstring") FTDistribution1DGate "
 
-1 dimensional Gate distribution in Fourier space. Corresponds to a normalized constant if |x|<omega (and 0 otherwise) in real space
+1 dimensional Gate distribution in Fourier space. Corresponds to a normalized constant if |x|<omega (and 0 otherwise) in real space.
 
-C++ includes: FTDistributions.h
+C++ includes: FTDistributions1D.h
 ";
 
 %feature("docstring")  FTDistribution1DGate::FTDistribution1DGate "FTDistribution1DGate::FTDistribution1DGate(double omega)
@@ -4919,9 +4944,9 @@ C++ includes: FTDistributions.h
 // File: classFTDistribution1DGauss.xml
 %feature("docstring") FTDistribution1DGauss "
 
-1 dimensional Gauss distribution in Fourier space. Corresponds to a normalized exp(-x^2) in real space
+1 dimensional Gauss distribution in Fourier space. Corresponds to a normalized exp(-x^2) in real space.
 
-C++ includes: FTDistributions.h
+C++ includes: FTDistributions1D.h
 ";
 
 %feature("docstring")  FTDistribution1DGauss::FTDistribution1DGauss "FTDistribution1DGauss::FTDistribution1DGauss(double omega)
@@ -4940,9 +4965,9 @@ C++ includes: FTDistributions.h
 // File: classFTDistribution1DTriangle.xml
 %feature("docstring") FTDistribution1DTriangle "
 
-1 dimensional triangle distribution in Fourier space. Corresponds to a normalized 1-|x|/omega if |x|<omega (and 0 otherwise) in real space
+1 dimensional triangle distribution in Fourier space. Corresponds to a normalized 1-|x|/omega if |x|<omega (and 0 otherwise) in real space.
 
-C++ includes: FTDistributions.h
+C++ includes: FTDistributions1D.h
 ";
 
 %feature("docstring")  FTDistribution1DTriangle::FTDistribution1DTriangle "FTDistribution1DTriangle::FTDistribution1DTriangle(double omega)
@@ -4963,7 +4988,7 @@ C++ includes: FTDistributions.h
 
 1 dimensional Voigt distribution in Fourier space. Corresponds to eta*Gauss + (1-eta)*Cauchy
 
-C++ includes: FTDistributions.h
+C++ includes: FTDistributions1D.h
 ";
 
 %feature("docstring")  FTDistribution1DVoigt::FTDistribution1DVoigt "FTDistribution1DVoigt::FTDistribution1DVoigt(double omega, double eta)
@@ -4987,16 +5012,16 @@ C++ includes: FTDistributions.h
 
 2 dimensional Cauchy distribution in Fourier space. Corresponds to a normalized exp(-r) in real space with  $r=\\\\sqrt{(\\\\frac{x}{\\\\omega_x})^2 + (\\\\frac{y}{\\\\omega_y})^2}$
 
-C++ includes: FTDistributions.h
+C++ includes: FTDistributions2D.h
 ";
 
-%feature("docstring")  FTDistribution2DCauchy::FTDistribution2DCauchy "FTDistribution2DCauchy::FTDistribution2DCauchy(double coherence_length_x, double coherence_length_y)
+%feature("docstring")  FTDistribution2DCauchy::FTDistribution2DCauchy "FTDistribution2DCauchy::FTDistribution2DCauchy(double coherence_length_x, double coherence_length_y, double gamma=0, double delta=Units::PID2)
 ";
 
 %feature("docstring")  FTDistribution2DCauchy::~FTDistribution2DCauchy "virtual FTDistribution2DCauchy::~FTDistribution2DCauchy()
 ";
 
-%feature("docstring")  FTDistribution2DCauchy::clone "FTDistribution2DCauchy * FTDistribution2DCauchy::clone() const 
+%feature("docstring")  FTDistribution2DCauchy::clone "FTDistribution2DCauchy* FTDistribution2DCauchy::clone() const final
 ";
 
 %feature("docstring")  FTDistribution2DCauchy::evaluate "double FTDistribution2DCauchy::evaluate(double qx, double qy) const
@@ -5010,16 +5035,16 @@ evaluate Fourier transformed distribution for q in X,Y coordinates the original 
 
 2 dimensional cone distribution in Fourier space. Corresponds to 1-r if r<1 (and 0 otherwise) in real space with  $r=\\\\sqrt{(\\\\frac{x}{\\\\omega_x})^2 + (\\\\frac{y}{\\\\omega_y})^2}$
 
-C++ includes: FTDistributions.h
+C++ includes: FTDistributions2D.h
 ";
 
-%feature("docstring")  FTDistribution2DCone::FTDistribution2DCone "FTDistribution2DCone::FTDistribution2DCone(double coherence_length_x, double coherence_length_y)
+%feature("docstring")  FTDistribution2DCone::FTDistribution2DCone "FTDistribution2DCone::FTDistribution2DCone(double coherence_length_x, double coherence_length_y, double gamma=0, double delta=Units::PID2)
 ";
 
 %feature("docstring")  FTDistribution2DCone::~FTDistribution2DCone "virtual FTDistribution2DCone::~FTDistribution2DCone()
 ";
 
-%feature("docstring")  FTDistribution2DCone::clone "FTDistribution2DCone * FTDistribution2DCone::clone() const 
+%feature("docstring")  FTDistribution2DCone::clone "FTDistribution2DCone* FTDistribution2DCone::clone() const final
 ";
 
 %feature("docstring")  FTDistribution2DCone::evaluate "double FTDistribution2DCone::evaluate(double qx, double qy) const
@@ -5033,16 +5058,16 @@ evaluate Fourier transformed distribution for q in X,Y coordinates the original 
 
 2 dimensional gate distribution in Fourier space Corresponds to normalized constant if r<1 (and 0 otherwise) in real space. with  $r=\\\\sqrt{(\\\\frac{x}{\\\\omega_x})^2 + (\\\\frac{y}{\\\\omega_y})^2}$
 
-C++ includes: FTDistributions.h
+C++ includes: FTDistributions2D.h
 ";
 
-%feature("docstring")  FTDistribution2DGate::FTDistribution2DGate "FTDistribution2DGate::FTDistribution2DGate(double coherence_length_x, double coherence_length_y)
+%feature("docstring")  FTDistribution2DGate::FTDistribution2DGate "FTDistribution2DGate::FTDistribution2DGate(double coherence_length_x, double coherence_length_y, double gamma=0, double delta=Units::PID2)
 ";
 
 %feature("docstring")  FTDistribution2DGate::~FTDistribution2DGate "virtual FTDistribution2DGate::~FTDistribution2DGate()
 ";
 
-%feature("docstring")  FTDistribution2DGate::clone "FTDistribution2DGate * FTDistribution2DGate::clone() const 
+%feature("docstring")  FTDistribution2DGate::clone "FTDistribution2DGate* FTDistribution2DGate::clone() const final
 ";
 
 %feature("docstring")  FTDistribution2DGate::evaluate "double FTDistribution2DGate::evaluate(double qx, double qy) const
@@ -5056,16 +5081,16 @@ evaluate Fourier transformed distribution for q in X,Y coordinates the original 
 
 2 dimensional Gauss distribution in Fourier space. Corresponds to normalized exp(-r^2/2) in real space with  $r=\\\\sqrt{(\\\\frac{x}{\\\\omega_x})^2 + (\\\\frac{y}{\\\\omega_y})^2}$
 
-C++ includes: FTDistributions.h
+C++ includes: FTDistributions2D.h
 ";
 
-%feature("docstring")  FTDistribution2DGauss::FTDistribution2DGauss "FTDistribution2DGauss::FTDistribution2DGauss(double coherence_length_x, double coherence_length_y)
+%feature("docstring")  FTDistribution2DGauss::FTDistribution2DGauss "FTDistribution2DGauss::FTDistribution2DGauss(double coherence_length_x, double coherence_length_y, double gamma=0, double delta=Units::PID2)
 ";
 
 %feature("docstring")  FTDistribution2DGauss::~FTDistribution2DGauss "virtual FTDistribution2DGauss::~FTDistribution2DGauss()
 ";
 
-%feature("docstring")  FTDistribution2DGauss::clone "FTDistribution2DGauss * FTDistribution2DGauss::clone() const 
+%feature("docstring")  FTDistribution2DGauss::clone "FTDistribution2DGauss* FTDistribution2DGauss::clone() const final
 ";
 
 %feature("docstring")  FTDistribution2DGauss::evaluate "double FTDistribution2DGauss::evaluate(double qx, double qy) const
@@ -5079,16 +5104,16 @@ evaluate Fourier transformed distribution for q in X,Y coordinates the original 
 
 2 dimensional Voigt distribution in Fourier space. Corresponds to eta*Gauss + (1-eta)*Cauchy
 
-C++ includes: FTDistributions.h
+C++ includes: FTDistributions2D.h
 ";
 
-%feature("docstring")  FTDistribution2DVoigt::FTDistribution2DVoigt "FTDistribution2DVoigt::FTDistribution2DVoigt(double coherence_length_x, double coherence_length_y, double eta)
+%feature("docstring")  FTDistribution2DVoigt::FTDistribution2DVoigt "FTDistribution2DVoigt::FTDistribution2DVoigt(double coherence_length_x, double coherence_length_y, double eta, double gamma=0, double delta=Units::PID2)
 ";
 
 %feature("docstring")  FTDistribution2DVoigt::~FTDistribution2DVoigt "virtual FTDistribution2DVoigt::~FTDistribution2DVoigt()
 ";
 
-%feature("docstring")  FTDistribution2DVoigt::clone "FTDistribution2DVoigt * FTDistribution2DVoigt::clone() const 
+%feature("docstring")  FTDistribution2DVoigt::clone "FTDistribution2DVoigt* FTDistribution2DVoigt::clone() const final
 ";
 
 %feature("docstring")  FTDistribution2DVoigt::evaluate "double FTDistribution2DVoigt::evaluate(double qx, double qy) const
@@ -6487,7 +6512,7 @@ Interface for 2 dimensional decay function in reciprocal space.
 C++ includes: FTDecayFunctions.h
 ";
 
-%feature("docstring")  IFTDecayFunction2D::IFTDecayFunction2D "IFTDecayFunction2D::IFTDecayFunction2D(double decay_length_x, double decay_length_y)
+%feature("docstring")  IFTDecayFunction2D::IFTDecayFunction2D "IFTDecayFunction2D::IFTDecayFunction2D(double decay_length_x, double decay_length_y, double gamma=0, double delta=Units::PID2)
 ";
 
 %feature("docstring")  IFTDecayFunction2D::~IFTDecayFunction2D "virtual IFTDecayFunction2D::~IFTDecayFunction2D()
@@ -6537,7 +6562,7 @@ transform back to a*, b* basis:
 
 Interface for 1 dimensional distributions in Fourier space.
 
-C++ includes: FTDistributions.h
+C++ includes: FTDistributions1D.h
 ";
 
 %feature("docstring")  IFTDistribution1D::IFTDistribution1D "IFTDistribution1D::IFTDistribution1D(double omega)
@@ -6564,10 +6589,10 @@ C++ includes: FTDistributions.h
 
 Interface for 2 dimensional distributions in Fourier space.
 
-C++ includes: FTDistributions.h
+C++ includes: FTDistributions2D.h
 ";
 
-%feature("docstring")  IFTDistribution2D::IFTDistribution2D "IFTDistribution2D::IFTDistribution2D(double coherence_length_x, double coherence_length_y)
+%feature("docstring")  IFTDistribution2D::IFTDistribution2D "IFTDistribution2D::IFTDistribution2D(double coherence_length_x, double coherence_length_y, double gamma=0, double delta=Units::PID2)
 ";
 
 %feature("docstring")  IFTDistribution2D::~IFTDistribution2D "virtual IFTDistribution2D::~IFTDistribution2D()
@@ -7795,7 +7820,7 @@ C++ includes: InterferenceFunctionRadialParaCrystal.h
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  InterferenceFunctionRadialParaCrystal::accept "void InterferenceFunctionRadialParaCrystal::accept(ISampleVisitor *visitor) const
+%feature("docstring")  InterferenceFunctionRadialParaCrystal::accept "void InterferenceFunctionRadialParaCrystal::accept(ISampleVisitor *visitor) const final
 
 Calls ISampleVisitor::visit. 
 ";
@@ -7805,24 +7830,18 @@ Calls ISampleVisitor::visit.
 Returns textual representation of *this and its descendants. 
 ";
 
-%feature("docstring")  InterferenceFunctionRadialParaCrystal::setDomainSize "void InterferenceFunctionRadialParaCrystal::setDomainSize(double size)
-
-Sets size of coherence domain. 
-";
-
-%feature("docstring")  InterferenceFunctionRadialParaCrystal::getDomainSize "double InterferenceFunctionRadialParaCrystal::getDomainSize() const
-
-Returns size of coherence domain. 
-";
-
 %feature("docstring")  InterferenceFunctionRadialParaCrystal::setKappa "void InterferenceFunctionRadialParaCrystal::setKappa(double kappa)
-
-Sets size-spacing coupling parameter. 
 ";
 
 %feature("docstring")  InterferenceFunctionRadialParaCrystal::getKappa "virtual double InterferenceFunctionRadialParaCrystal::getKappa() const
 
-Gets size-spacing coupling parameter. 
+Retrieves the size-distance coupling constant (default 0.0) 
+";
+
+%feature("docstring")  InterferenceFunctionRadialParaCrystal::setDomainSize "void InterferenceFunctionRadialParaCrystal::setDomainSize(double size)
+";
+
+%feature("docstring")  InterferenceFunctionRadialParaCrystal::getDomainSize "double InterferenceFunctionRadialParaCrystal::getDomainSize() const 
 ";
 
 %feature("docstring")  InterferenceFunctionRadialParaCrystal::evaluate "double InterferenceFunctionRadialParaCrystal::evaluate(const kvector_t q) const
@@ -7834,13 +7853,9 @@ Evaluates the interference function for a given wavevector transfer (only the re
 ";
 
 %feature("docstring")  InterferenceFunctionRadialParaCrystal::setProbabilityDistribution "void InterferenceFunctionRadialParaCrystal::setProbabilityDistribution(const IFTDistribution1D &pdf)
-
-Sets the Fourier transformed probability distribution of the nearest particle. 
 ";
 
-%feature("docstring")  InterferenceFunctionRadialParaCrystal::getProbabilityDistribution "const IFTDistribution1D * InterferenceFunctionRadialParaCrystal::getProbabilityDistribution() const
-
-Gets the Fourier transformed probability distribution of the nearest particle. 
+%feature("docstring")  InterferenceFunctionRadialParaCrystal::getProbabilityDistribution "const IFTDistribution1D* InterferenceFunctionRadialParaCrystal::getProbabilityDistribution() const 
 ";
 
 %feature("docstring")  InterferenceFunctionRadialParaCrystal::getPeakDistance "double InterferenceFunctionRadialParaCrystal::getPeakDistance() const 
@@ -11453,31 +11468,6 @@ finalize report to the simulation
 ";
 
 
-// File: classExportToPython.xml
-%feature("docstring") ExportToPython "";
-
-%feature("docstring")  ExportToPython::ExportToPython "ExportToPython::ExportToPython(const MultiLayer &multilayer)
-";
-
-%feature("docstring")  ExportToPython::~ExportToPython "ExportToPython::~ExportToPython()
-";
-
-%feature("docstring")  ExportToPython::writePyScript "std::string ExportToPython::writePyScript(const GISASSimulation *simulation, const std::string &output_filename)
-";
-
-%feature("docstring")  ExportToPython::definePreamble "std::string ExportToPython::definePreamble() const 
-";
-
-%feature("docstring")  ExportToPython::defineGetSimulation "std::string ExportToPython::defineGetSimulation(const GISASSimulation *simulation) const 
-";
-
-%feature("docstring")  ExportToPython::defineGetSample "std::string ExportToPython::defineGetSample() const 
-";
-
-%feature("docstring")  ExportToPython::defineMaterials "std::string ExportToPython::defineMaterials() const 
-";
-
-
 // File: classRadialParaCrystalBuilder.xml
 %feature("docstring") RadialParaCrystalBuilder "
 
@@ -13393,13 +13383,13 @@ C++ includes: WavevectorInfo.h
 // File: classMathFunctions_1_1Convolve_1_1Workspace.xml
 
 
-// File: namespace_0D291.xml
+// File: namespace_0D293.xml
 
 
-// File: namespace_0D364.xml
+// File: namespace_0D366.xml
 
 
-// File: namespace_0D430.xml
+// File: namespace_0D432.xml
 
 
 // File: namespaceboost_1_1geometry.xml
@@ -13848,10 +13838,16 @@ enables exception throw in the case of NaN, Inf
 // File: FTDecayFunctions_8h.xml
 
 
-// File: FTDistributions_8cpp.xml
+// File: FTDistributions1D_8cpp.xml
 
 
-// File: FTDistributions_8h.xml
+// File: FTDistributions1D_8h.xml
+
+
+// File: FTDistributions2D_8cpp.xml
+
+
+// File: FTDistributions2D_8h.xml
 
 
 // File: IInterferenceFunction_8cpp.xml
@@ -13996,16 +13992,16 @@ global helper function for comparison of axes
 // File: VariableBinAxis_8h.xml
 
 
-// File: PythonFormatting_8cpp.xml
-
-
-// File: PythonFormatting_8h.xml
-
-
 // File: ExportToPython_8cpp.xml
 
 
 // File: ExportToPython_8h.xml
+
+
+// File: PythonFormatting_8cpp.xml
+
+
+// File: PythonFormatting_8h.xml
 
 
 // File: SampleLabelHandler_8cpp.xml

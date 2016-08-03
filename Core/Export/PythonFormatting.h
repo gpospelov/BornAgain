@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef PYGENTOOLS_H
-#define PYGENTOOLS_H
+#ifndef PYTHONFORMATTING_H
+#define PYTHONFORMATTING_H
 
 #include "Vectors3D.h"
 #include <string>
@@ -47,4 +47,4 @@ namespace PythonFormatting {
     std::string argumentList(const IParameterized* ip);
 }
 
-#endif // PYGENTOOLS_H
+#endif // PYTHONFORMATTING_H

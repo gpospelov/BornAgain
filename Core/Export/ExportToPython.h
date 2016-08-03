@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef PYGENVISITOR_H
-#define PYGENVISITOR_H
+#ifndef EXPORTTOPYTHON_H
+#define EXPORTTOPYTHON_H
 
 #include "ISampleVisitor.h" // inheriting from
 #include <string>
@@ -64,4 +64,4 @@ private:
                                 std::ostringstream& result) const;
 };
 
-#endif // PYGENVISITOR_H
+#endif // EXPORTTOPYTHON_H

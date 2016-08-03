@@ -8399,7 +8399,7 @@ class FTDecayFunction1DCauchy(IFTDecayFunction1D):
         """
         clone(FTDecayFunction1DCauchy self) -> FTDecayFunction1DCauchy
 
-        FTDecayFunction1DCauchy * FTDecayFunction1DCauchy::clone() const 
+        virtual FTDecayFunction1DCauchy* FTDecayFunction1DCauchy::clone() const 
 
         """
         return _libBornAgainCore.FTDecayFunction1DCauchy_clone(self)
@@ -8455,7 +8455,7 @@ class FTDecayFunction1DGauss(IFTDecayFunction1D):
         """
         clone(FTDecayFunction1DGauss self) -> FTDecayFunction1DGauss
 
-        FTDecayFunction1DGauss * FTDecayFunction1DGauss::clone() const 
+        virtual FTDecayFunction1DGauss* FTDecayFunction1DGauss::clone() const 
 
         """
         return _libBornAgainCore.FTDecayFunction1DGauss_clone(self)
@@ -8511,7 +8511,7 @@ class FTDecayFunction1DTriangle(IFTDecayFunction1D):
         """
         clone(FTDecayFunction1DTriangle self) -> FTDecayFunction1DTriangle
 
-        FTDecayFunction1DTriangle * FTDecayFunction1DTriangle::clone() const 
+        virtual FTDecayFunction1DTriangle* FTDecayFunction1DTriangle::clone() const 
 
         """
         return _libBornAgainCore.FTDecayFunction1DTriangle_clone(self)
@@ -8567,7 +8567,7 @@ class FTDecayFunction1DVoigt(IFTDecayFunction1D):
         """
         clone(FTDecayFunction1DVoigt self) -> FTDecayFunction1DVoigt
 
-        FTDecayFunction1DVoigt * FTDecayFunction1DVoigt::clone() const 
+        virtual FTDecayFunction1DVoigt* FTDecayFunction1DVoigt::clone() const 
 
         """
         return _libBornAgainCore.FTDecayFunction1DVoigt_clone(self)
@@ -8740,7 +8740,7 @@ class FTDecayFunction2DCauchy(IFTDecayFunction2D):
         __init__(FTDecayFunction2DCauchy self, double decay_length_x, double decay_length_y, double gamma=0) -> FTDecayFunction2DCauchy
         __init__(FTDecayFunction2DCauchy self, double decay_length_x, double decay_length_y) -> FTDecayFunction2DCauchy
 
-        FTDecayFunction2DCauchy::FTDecayFunction2DCauchy(double decay_length_x, double decay_length_y)
+        FTDecayFunction2DCauchy::FTDecayFunction2DCauchy(double decay_length_x, double decay_length_y, double gamma=0, double delta=Units::PID2)
 
         """
         this = _libBornAgainCore.new_FTDecayFunction2DCauchy(*args)
@@ -8755,7 +8755,7 @@ class FTDecayFunction2DCauchy(IFTDecayFunction2D):
         """
         clone(FTDecayFunction2DCauchy self) -> FTDecayFunction2DCauchy
 
-        FTDecayFunction2DCauchy * FTDecayFunction2DCauchy::clone() const 
+        virtual FTDecayFunction2DCauchy* FTDecayFunction2DCauchy::clone() const 
 
         """
         return _libBornAgainCore.FTDecayFunction2DCauchy_clone(self)
@@ -8800,7 +8800,7 @@ class FTDecayFunction2DGauss(IFTDecayFunction2D):
         __init__(FTDecayFunction2DGauss self, double decay_length_x, double decay_length_y, double gamma=0) -> FTDecayFunction2DGauss
         __init__(FTDecayFunction2DGauss self, double decay_length_x, double decay_length_y) -> FTDecayFunction2DGauss
 
-        FTDecayFunction2DGauss::FTDecayFunction2DGauss(double decay_length_x, double decay_length_y)
+        FTDecayFunction2DGauss::FTDecayFunction2DGauss(double decay_length_x, double decay_length_y, double gamma=0, double delta=Units::PID2)
 
         """
         this = _libBornAgainCore.new_FTDecayFunction2DGauss(*args)
@@ -8815,7 +8815,7 @@ class FTDecayFunction2DGauss(IFTDecayFunction2D):
         """
         clone(FTDecayFunction2DGauss self) -> FTDecayFunction2DGauss
 
-        FTDecayFunction2DGauss * FTDecayFunction2DGauss::clone() const 
+        virtual FTDecayFunction2DGauss* FTDecayFunction2DGauss::clone() const 
 
         """
         return _libBornAgainCore.FTDecayFunction2DGauss_clone(self)
@@ -8860,7 +8860,7 @@ class FTDecayFunction2DVoigt(IFTDecayFunction2D):
         __init__(FTDecayFunction2DVoigt self, double decay_length_x, double decay_length_y, double eta, double gamma=0) -> FTDecayFunction2DVoigt
         __init__(FTDecayFunction2DVoigt self, double decay_length_x, double decay_length_y, double eta) -> FTDecayFunction2DVoigt
 
-        FTDecayFunction2DVoigt::FTDecayFunction2DVoigt(double decay_length_x, double decay_length_y, double eta)
+        FTDecayFunction2DVoigt::FTDecayFunction2DVoigt(double decay_length_x, double decay_length_y, double eta, double gamma=0, double delta=Units::PID2)
 
         """
         this = _libBornAgainCore.new_FTDecayFunction2DVoigt(*args)
@@ -8875,7 +8875,7 @@ class FTDecayFunction2DVoigt(IFTDecayFunction2D):
         """
         clone(FTDecayFunction2DVoigt self) -> FTDecayFunction2DVoigt
 
-        FTDecayFunction2DVoigt * FTDecayFunction2DVoigt::clone() const 
+        virtual FTDecayFunction2DVoigt* FTDecayFunction2DVoigt::clone() const 
 
         """
         return _libBornAgainCore.FTDecayFunction2DVoigt_clone(self)
@@ -8911,7 +8911,7 @@ class IFTDistribution1D(IParameterized):
 
     Interface for 1 dimensional distributions in Fourier space.
 
-    C++ includes: FTDistributions.h
+    C++ includes: FTDistributions1D.h
 
     """
     __swig_setmethods__ = {}
@@ -8975,9 +8975,9 @@ class FTDistribution1DCauchy(IFTDistribution1D):
     """
 
 
-    1 dimensional Cauchy distribution in Fourier space. Corresponds to a normalized exp(-|x|) in real space
+    1 dimensional Cauchy distribution in Fourier space. Corresponds to a normalized exp(-|x|) in real space.
 
-    C++ includes: FTDistributions.h
+    C++ includes: FTDistributions1D.h
 
     """
     __swig_setmethods__ = {}
@@ -9031,9 +9031,9 @@ class FTDistribution1DGauss(IFTDistribution1D):
     """
 
 
-    1 dimensional Gauss distribution in Fourier space. Corresponds to a normalized exp(-x^2) in real space
+    1 dimensional Gauss distribution in Fourier space. Corresponds to a normalized exp(-x^2) in real space.
 
-    C++ includes: FTDistributions.h
+    C++ includes: FTDistributions1D.h
 
     """
     __swig_setmethods__ = {}
@@ -9087,9 +9087,9 @@ class FTDistribution1DGate(IFTDistribution1D):
     """
 
 
-    1 dimensional Gate distribution in Fourier space. Corresponds to a normalized constant if |x|<omega (and 0 otherwise) in real space
+    1 dimensional Gate distribution in Fourier space. Corresponds to a normalized constant if |x|<omega (and 0 otherwise) in real space.
 
-    C++ includes: FTDistributions.h
+    C++ includes: FTDistributions1D.h
 
     """
     __swig_setmethods__ = {}
@@ -9143,9 +9143,9 @@ class FTDistribution1DTriangle(IFTDistribution1D):
     """
 
 
-    1 dimensional triangle distribution in Fourier space. Corresponds to a normalized 1-|x|/omega if |x|<omega (and 0 otherwise) in real space
+    1 dimensional triangle distribution in Fourier space. Corresponds to a normalized 1-|x|/omega if |x|<omega (and 0 otherwise) in real space.
 
-    C++ includes: FTDistributions.h
+    C++ includes: FTDistributions1D.h
 
     """
     __swig_setmethods__ = {}
@@ -9199,9 +9199,9 @@ class FTDistribution1DCosine(IFTDistribution1D):
     """
 
 
-    1 dimensional triangle distribution in Fourier space. Corresponds to a normalized 1+cos(pi*x/omega) if |x|<omega (and 0 otherwise) in real space
+    1 dimensional triangle distribution in Fourier space. Corresponds to a normalized 1+cos(pi*x/omega) if |x|<omega (and 0 otherwise) in real space.
 
-    C++ includes: FTDistributions.h
+    C++ includes: FTDistributions1D.h
 
     """
     __swig_setmethods__ = {}
@@ -9257,7 +9257,7 @@ class FTDistribution1DVoigt(IFTDistribution1D):
 
     1 dimensional Voigt distribution in Fourier space. Corresponds to eta*Gauss + (1-eta)*Cauchy
 
-    C++ includes: FTDistributions.h
+    C++ includes: FTDistributions1D.h
 
     """
     __swig_setmethods__ = {}
@@ -9323,7 +9323,7 @@ class IFTDistribution2D(IParameterized):
 
     Interface for 2 dimensional distributions in Fourier space.
 
-    C++ includes: FTDistributions.h
+    C++ includes: FTDistributions2D.h
 
     """
     __swig_setmethods__ = {}
@@ -9421,7 +9421,7 @@ class FTDistribution2DCauchy(IFTDistribution2D):
 
     2 dimensional Cauchy distribution in Fourier space. Corresponds to a normalized exp(-r) in real space with  $r=\\sqrt{(\\frac{x}{\\omega_x})^2 + (\\frac{y}{\\omega_y})^2}$
 
-    C++ includes: FTDistributions.h
+    C++ includes: FTDistributions2D.h
 
     """
     __swig_setmethods__ = {}
@@ -9440,7 +9440,7 @@ class FTDistribution2DCauchy(IFTDistribution2D):
         __init__(FTDistribution2DCauchy self, double coherence_length_x, double coherence_length_y, double gamma=0) -> FTDistribution2DCauchy
         __init__(FTDistribution2DCauchy self, double coherence_length_x, double coherence_length_y) -> FTDistribution2DCauchy
 
-        FTDistribution2DCauchy::FTDistribution2DCauchy(double coherence_length_x, double coherence_length_y)
+        FTDistribution2DCauchy::FTDistribution2DCauchy(double coherence_length_x, double coherence_length_y, double gamma=0, double delta=Units::PID2)
 
         """
         this = _libBornAgainCore.new_FTDistribution2DCauchy(*args)
@@ -9455,7 +9455,7 @@ class FTDistribution2DCauchy(IFTDistribution2D):
         """
         clone(FTDistribution2DCauchy self) -> FTDistribution2DCauchy
 
-        FTDistribution2DCauchy * FTDistribution2DCauchy::clone() const 
+        FTDistribution2DCauchy* FTDistribution2DCauchy::clone() const final
 
         """
         return _libBornAgainCore.FTDistribution2DCauchy_clone(self)
@@ -9481,7 +9481,7 @@ class FTDistribution2DGauss(IFTDistribution2D):
 
     2 dimensional Gauss distribution in Fourier space. Corresponds to normalized exp(-r^2/2) in real space with  $r=\\sqrt{(\\frac{x}{\\omega_x})^2 + (\\frac{y}{\\omega_y})^2}$
 
-    C++ includes: FTDistributions.h
+    C++ includes: FTDistributions2D.h
 
     """
     __swig_setmethods__ = {}
@@ -9500,7 +9500,7 @@ class FTDistribution2DGauss(IFTDistribution2D):
         __init__(FTDistribution2DGauss self, double coherence_length_x, double coherence_length_y, double gamma=0) -> FTDistribution2DGauss
         __init__(FTDistribution2DGauss self, double coherence_length_x, double coherence_length_y) -> FTDistribution2DGauss
 
-        FTDistribution2DGauss::FTDistribution2DGauss(double coherence_length_x, double coherence_length_y)
+        FTDistribution2DGauss::FTDistribution2DGauss(double coherence_length_x, double coherence_length_y, double gamma=0, double delta=Units::PID2)
 
         """
         this = _libBornAgainCore.new_FTDistribution2DGauss(*args)
@@ -9515,7 +9515,7 @@ class FTDistribution2DGauss(IFTDistribution2D):
         """
         clone(FTDistribution2DGauss self) -> FTDistribution2DGauss
 
-        FTDistribution2DGauss * FTDistribution2DGauss::clone() const 
+        FTDistribution2DGauss* FTDistribution2DGauss::clone() const final
 
         """
         return _libBornAgainCore.FTDistribution2DGauss_clone(self)
@@ -9541,7 +9541,7 @@ class FTDistribution2DGate(IFTDistribution2D):
 
     2 dimensional gate distribution in Fourier space Corresponds to normalized constant if r<1 (and 0 otherwise) in real space. with  $r=\\sqrt{(\\frac{x}{\\omega_x})^2 + (\\frac{y}{\\omega_y})^2}$
 
-    C++ includes: FTDistributions.h
+    C++ includes: FTDistributions2D.h
 
     """
     __swig_setmethods__ = {}
@@ -9560,7 +9560,7 @@ class FTDistribution2DGate(IFTDistribution2D):
         __init__(FTDistribution2DGate self, double coherence_length_x, double coherence_length_y, double gamma=0) -> FTDistribution2DGate
         __init__(FTDistribution2DGate self, double coherence_length_x, double coherence_length_y) -> FTDistribution2DGate
 
-        FTDistribution2DGate::FTDistribution2DGate(double coherence_length_x, double coherence_length_y)
+        FTDistribution2DGate::FTDistribution2DGate(double coherence_length_x, double coherence_length_y, double gamma=0, double delta=Units::PID2)
 
         """
         this = _libBornAgainCore.new_FTDistribution2DGate(*args)
@@ -9575,7 +9575,7 @@ class FTDistribution2DGate(IFTDistribution2D):
         """
         clone(FTDistribution2DGate self) -> FTDistribution2DGate
 
-        FTDistribution2DGate * FTDistribution2DGate::clone() const 
+        FTDistribution2DGate* FTDistribution2DGate::clone() const final
 
         """
         return _libBornAgainCore.FTDistribution2DGate_clone(self)
@@ -9601,7 +9601,7 @@ class FTDistribution2DCone(IFTDistribution2D):
 
     2 dimensional cone distribution in Fourier space. Corresponds to 1-r if r<1 (and 0 otherwise) in real space with  $r=\\sqrt{(\\frac{x}{\\omega_x})^2 + (\\frac{y}{\\omega_y})^2}$
 
-    C++ includes: FTDistributions.h
+    C++ includes: FTDistributions2D.h
 
     """
     __swig_setmethods__ = {}
@@ -9620,7 +9620,7 @@ class FTDistribution2DCone(IFTDistribution2D):
         __init__(FTDistribution2DCone self, double coherence_length_x, double coherence_length_y, double gamma=0) -> FTDistribution2DCone
         __init__(FTDistribution2DCone self, double coherence_length_x, double coherence_length_y) -> FTDistribution2DCone
 
-        FTDistribution2DCone::FTDistribution2DCone(double coherence_length_x, double coherence_length_y)
+        FTDistribution2DCone::FTDistribution2DCone(double coherence_length_x, double coherence_length_y, double gamma=0, double delta=Units::PID2)
 
         """
         this = _libBornAgainCore.new_FTDistribution2DCone(*args)
@@ -9635,7 +9635,7 @@ class FTDistribution2DCone(IFTDistribution2D):
         """
         clone(FTDistribution2DCone self) -> FTDistribution2DCone
 
-        FTDistribution2DCone * FTDistribution2DCone::clone() const 
+        FTDistribution2DCone* FTDistribution2DCone::clone() const final
 
         """
         return _libBornAgainCore.FTDistribution2DCone_clone(self)
@@ -9661,7 +9661,7 @@ class FTDistribution2DVoigt(IFTDistribution2D):
 
     2 dimensional Voigt distribution in Fourier space. Corresponds to eta*Gauss + (1-eta)*Cauchy
 
-    C++ includes: FTDistributions.h
+    C++ includes: FTDistributions2D.h
 
     """
     __swig_setmethods__ = {}
@@ -9680,7 +9680,7 @@ class FTDistribution2DVoigt(IFTDistribution2D):
         __init__(FTDistribution2DVoigt self, double coherence_length_x, double coherence_length_y, double eta, double gamma=0) -> FTDistribution2DVoigt
         __init__(FTDistribution2DVoigt self, double coherence_length_x, double coherence_length_y, double eta) -> FTDistribution2DVoigt
 
-        FTDistribution2DVoigt::FTDistribution2DVoigt(double coherence_length_x, double coherence_length_y, double eta)
+        FTDistribution2DVoigt::FTDistribution2DVoigt(double coherence_length_x, double coherence_length_y, double eta, double gamma=0, double delta=Units::PID2)
 
         """
         this = _libBornAgainCore.new_FTDistribution2DVoigt(*args)
@@ -9695,7 +9695,7 @@ class FTDistribution2DVoigt(IFTDistribution2D):
         """
         clone(FTDistribution2DVoigt self) -> FTDistribution2DVoigt
 
-        FTDistribution2DVoigt * FTDistribution2DVoigt::clone() const 
+        FTDistribution2DVoigt* FTDistribution2DVoigt::clone() const final
 
         """
         return _libBornAgainCore.FTDistribution2DVoigt_clone(self)
@@ -18890,7 +18890,7 @@ class InterferenceFunctionRadialParaCrystal(IInterferenceFunction):
         """
         accept(InterferenceFunctionRadialParaCrystal self, ISampleVisitor visitor)
 
-        void InterferenceFunctionRadialParaCrystal::accept(ISampleVisitor *visitor) const
+        void InterferenceFunctionRadialParaCrystal::accept(ISampleVisitor *visitor) const final
 
         Calls ISampleVisitor::visit. 
 
@@ -18917,8 +18917,6 @@ class InterferenceFunctionRadialParaCrystal(IInterferenceFunction):
 
         void InterferenceFunctionRadialParaCrystal::setKappa(double kappa)
 
-        Sets size-spacing coupling parameter. 
-
         """
         return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_setKappa(self, kappa)
 
@@ -18929,7 +18927,7 @@ class InterferenceFunctionRadialParaCrystal(IInterferenceFunction):
 
         virtual double InterferenceFunctionRadialParaCrystal::getKappa() const
 
-        Gets size-spacing coupling parameter. 
+        Retrieves the size-distance coupling constant (default 0.0) 
 
         """
         return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_getKappa(self)
@@ -18941,8 +18939,6 @@ class InterferenceFunctionRadialParaCrystal(IInterferenceFunction):
 
         void InterferenceFunctionRadialParaCrystal::setDomainSize(double size)
 
-        Sets size of coherence domain. 
-
         """
         return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_setDomainSize(self, size)
 
@@ -18951,9 +18947,7 @@ class InterferenceFunctionRadialParaCrystal(IInterferenceFunction):
         """
         getDomainSize(InterferenceFunctionRadialParaCrystal self) -> double
 
-        double InterferenceFunctionRadialParaCrystal::getDomainSize() const
-
-        Returns size of coherence domain. 
+        double InterferenceFunctionRadialParaCrystal::getDomainSize() const 
 
         """
         return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_getDomainSize(self)
@@ -18987,8 +18981,6 @@ class InterferenceFunctionRadialParaCrystal(IInterferenceFunction):
 
         void InterferenceFunctionRadialParaCrystal::setProbabilityDistribution(const IFTDistribution1D &pdf)
 
-        Sets the Fourier transformed probability distribution of the nearest particle. 
-
         """
         return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_setProbabilityDistribution(self, pdf)
 
@@ -18997,9 +18989,7 @@ class InterferenceFunctionRadialParaCrystal(IInterferenceFunction):
         """
         getProbabilityDistribution(InterferenceFunctionRadialParaCrystal self) -> IFTDistribution1D
 
-        const IFTDistribution1D * InterferenceFunctionRadialParaCrystal::getProbabilityDistribution() const
-
-        Gets the Fourier transformed probability distribution of the nearest particle. 
+        const IFTDistribution1D* InterferenceFunctionRadialParaCrystal::getProbabilityDistribution() const 
 
         """
         return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_getProbabilityDistribution(self)

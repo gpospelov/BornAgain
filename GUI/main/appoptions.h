@@ -70,4 +70,4 @@ private:
 
 
 
-#endif
+#endif // APPOPTIONS_H

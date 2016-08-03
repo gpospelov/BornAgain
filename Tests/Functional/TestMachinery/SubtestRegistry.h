@@ -17,7 +17,7 @@
 #define SUBTESTREGISTRY_H
 
 #include "IRegistry.h" // inheriting from
-#include "FTDistributions.h"
+#include "FTDistributions2D.h"
 
 class ISubtestRegistry : public IRegistry<IParameterized>
 {

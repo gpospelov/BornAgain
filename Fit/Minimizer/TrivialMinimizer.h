@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/FitKernel/TrivialMinimizer.h
+//! @file      Fit/Minimizer/TrivialMinimizer.h
 //! @brief     Declares class TrivialMinimizer.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MINIMIZERTEST_H
-#define MINIMIZERTEST_H
+#ifndef TRIVIALMINIMIZER_H
+#define TRIVIALMINIMIZER_H
 
 #include "IMinimizer.h" // inheriting from
 #include "FitSuiteParameters.h"
@@ -60,4 +60,4 @@ class BA_CORE_API_ TrivialMinimizer : public IMinimizer
     function_chi2_t m_fcn;
 };
 
-#endif // MINIMIZERTEST_H
+#endif // TRIVIALMINIMIZER_H

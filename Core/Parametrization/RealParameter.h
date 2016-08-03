@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef REALPARAMETERWRAPPER_H
-#define REALPARAMETERWRAPPER_H
+#ifndef REALPARAMETER_H
+#define REALPARAMETER_H
 
 #include "INamed.h" // inheriting from
 #include "AttLimits.h"
@@ -69,4 +69,4 @@ protected:
     std::string fullName(); //!< For use in error messages
 };
 
-#endif // REALPARAMETERWRAPPER_H
+#endif // REALPARAMETER_H

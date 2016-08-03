@@ -170,6 +170,7 @@ const std::string Angle = "Angle";
 const std::string Alpha = "Alpha";
 const std::string Beta = "Beta";
 const std::string Gamma = "Gamma";
+const std::string Delta = "Delta";
 const std::string Phi = "Phi";
 const std::string Xi = "Xi";
 const std::string Minimum = "Min";

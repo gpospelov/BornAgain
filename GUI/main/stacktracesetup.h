@@ -8,4 +8,4 @@ public:
 };
 
 
-#endif
+#endif // STACKTRACESETUP_H

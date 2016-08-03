@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#ifndef TOOLTIP_DATABASE
-#define TOOLTIP_DATABASE
+#ifndef TOOLTIPDATABASE_H
+#define TOOLTIPDATABASE_H
 
 #include <QObject>
 
@@ -56,7 +56,4 @@ private:
     static QMap<QString, QString > m_tagToToolTip;
 };
 
-
-
-#endif
-
+#endif // TOOLTIPDATABASE_H

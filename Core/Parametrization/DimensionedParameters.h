@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DIMPAR_H
-#define DIMPAR_H
+#ifndef DIMENSIONEDPARAMETERS_H
+#define DIMENSIONEDPARAMETERS_H
 
 #include "RealParameter.h" // inheriting from
 
@@ -63,4 +63,4 @@ public:
     std::string unit() const final { return ""; }
 };
 
-#endif // DIMPAR_H
+#endif // DIMENSIONEDPARAMETERS_H

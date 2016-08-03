@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "ISampleBuilder.h"
-#include "FTDistributions.h"
+#include "FTDistributions2D.h"
 #include "IFormFactor.h"
 
 const IFormFactor* ISampleBuilder::getFormFactor() const

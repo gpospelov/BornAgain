@@ -1495,7 +1495,12 @@ Returns true if area defined by two bins is inside or on border of ellipse. More
 
 
 // File: classExportToPython.xml
-%feature("docstring") ExportToPython "";
+%feature("docstring") ExportToPython "
+
+Write a Python script that allows to run the current simulation.
+
+C++ includes: ExportToPython.h
+";
 
 %feature("docstring")  ExportToPython::ExportToPython "ExportToPython::ExportToPython(const MultiLayer &multilayer)
 ";
@@ -1504,18 +1509,6 @@ Returns true if area defined by two bins is inside or on border of ellipse. More
 ";
 
 %feature("docstring")  ExportToPython::writePyScript "std::string ExportToPython::writePyScript(const GISASSimulation *simulation, const std::string &output_filename)
-";
-
-%feature("docstring")  ExportToPython::definePreamble "std::string ExportToPython::definePreamble() const 
-";
-
-%feature("docstring")  ExportToPython::defineGetSimulation "std::string ExportToPython::defineGetSimulation(const GISASSimulation *simulation) const 
-";
-
-%feature("docstring")  ExportToPython::defineGetSample "std::string ExportToPython::defineGetSample() const 
-";
-
-%feature("docstring")  ExportToPython::defineMaterials "std::string ExportToPython::defineMaterials() const 
 ";
 
 

@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Export/ExportToPython.h
-//! @brief     Declares ExportToPython class.
+//! @brief     Declares class ExportToPython.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -22,6 +22,8 @@
 class GISASSimulation;
 class SampleLabelHandler;
 
+//! Write a Python script that allows to run the current simulation.
+
 class BA_CORE_API_ ExportToPython
 {
 public:
@@ -30,12 +32,12 @@ public:
 
     std::string writePyScript(
         const GISASSimulation* simulation, const std::string& output_filename);
+
+private:
     std::string definePreamble() const;
     std::string defineGetSimulation(const GISASSimulation* simulation) const;
     std::string defineGetSample() const;
     std::string defineMaterials() const;
-
-private:
     std::string defineLayers() const;
     std::string defineFormFactors() const;
     std::string defineParticles() const;

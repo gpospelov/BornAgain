@@ -29,7 +29,7 @@ void IFTDecayFunction1D::print(std::ostream &ostr) const
 
 void IFTDecayFunction1D::init_parameters()
 {
-    registerUnlimitedScalar(Omega, &m_omega);
+    registerUnlimitedScalar(BornAgain::Omega, &m_omega);
 }
 
 FTDecayFunction1DCauchy::FTDecayFunction1DCauchy(double omega)
@@ -89,7 +89,7 @@ double FTDecayFunction1DVoigt::evaluate(double q) const
 void FTDecayFunction1DVoigt::init_parameters()
 {
     IFTDecayFunction1D::init_parameters();
-    registerUnlimitedScalar(Eta, &m_eta);
+    registerUnlimitedScalar(BornAgain::Eta, &m_eta);
 }
 
 /* Commented out decay functions: see header for rationale
@@ -150,10 +150,10 @@ void IFTDecayFunction2D::print(std::ostream &ostr) const
 
 void IFTDecayFunction2D::init_parameters()
 {
-    registerNonnegativeLength(OmegaX, &m_omega_x);
-    registerNonnegativeLength(OmegaY, &m_omega_y);
-    registerLimitedAngle("Gamma", &m_gamma, -180, 180);
-    registerLimitedAngle("Delta", &m_delta, -180, 180);
+    registerNonnegativeLength(BornAgain::OmegaX, &m_omega_x);
+    registerNonnegativeLength(BornAgain::OmegaY, &m_omega_y);
+    registerLimitedAngle(BornAgain::Gamma, &m_gamma, -180, 180);
+    registerLimitedAngle(BornAgain::Delta, &m_delta, -180, 180);
 }
 
 FTDecayFunction2DCauchy::FTDecayFunction2DCauchy(
@@ -201,9 +201,9 @@ double FTDecayFunction2DVoigt::evaluate(double qx, double qy) const
 
 void FTDecayFunction2DVoigt::init_parameters()
 {
-    registerNonnegativeLength(OmegaX, &m_omega_x);
-    registerNonnegativeLength(OmegaY, &m_omega_y);
-    registerUnlimitedScalar(Eta, &m_eta);
-    registerLimitedAngle("Gamma", &m_gamma, -180, 180);
-    registerLimitedAngle("Delta", &m_delta, -180, 180);
+    registerNonnegativeLength(BornAgain::OmegaX, &m_omega_x);
+    registerNonnegativeLength(BornAgain::OmegaY, &m_omega_y);
+    registerUnlimitedScalar(BornAgain::Eta, &m_eta);
+    registerLimitedAngle(BornAgain::Gamma, &m_gamma, -180, 180);
+    registerLimitedAngle(BornAgain::Delta, &m_delta, -180, 180);
 }

@@ -26,12 +26,11 @@ class BA_CORE_API_ FormFactorInfo : public ICloneable
 {
 public:
     FormFactorInfo()
-        : mp_ff(0), m_pos_x(0.0), m_pos_y(0.0), m_abundance(0.0) {}
+        : mp_ff(0), m_abundance(0.0) {}
     virtual ~FormFactorInfo();
     /* out-of-place implementation required due to IFormFactor */
-    virtual FormFactorInfo *clone() const;
-    class IFormFactor *mp_ff;
-    double m_pos_x, m_pos_y;
+    virtual FormFactorInfo* clone() const;
+    class IFormFactor* mp_ff;
     double m_abundance;
 };
 

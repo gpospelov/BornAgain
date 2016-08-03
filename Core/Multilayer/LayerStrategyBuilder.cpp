@@ -3,8 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Multilayer/LayerStrategyBuilder.cpp
-//! @brief     Implements classes LayerStrategyBuilder and
-//!              FormFactorInfo
+//! @brief     Implements class LayerStrategyBuilder.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -135,24 +134,6 @@ FormFactorInfo* LayerStrategyBuilder::createFormFactorInfo(
     p_result->mp_ff = p_ff_framework;
     // Other info (position and abundance)
     kvector_t position = P_particle_clone->getPosition();
-    p_result->m_pos_x = position.x();
-    p_result->m_pos_y = position.y();
     p_result->m_abundance = particle->getAbundance();
-    return p_result;
-}
-
-// =============================================================================
-// Implementation of FormFactorInfo
-// =============================================================================
-
-FormFactorInfo::~FormFactorInfo() { delete mp_ff; }
-
-FormFactorInfo* FormFactorInfo::clone() const
-{
-    FormFactorInfo* p_result = new FormFactorInfo();
-    p_result->m_abundance = m_abundance;
-    p_result->m_pos_x = m_pos_x;
-    p_result->m_pos_y = m_pos_y;
-    p_result->mp_ff = mp_ff->clone();
     return p_result;
 }

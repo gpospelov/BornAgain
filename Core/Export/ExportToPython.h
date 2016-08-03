@@ -58,12 +58,13 @@ private:
     std::string definePlotting(const GISASSimulation* simulation) const;
     std::string defineRunSimulation() const;
 
-    SampleLabelHandler* m_label;
     std::string indent() const;
     void setRotationInformation(const IParticle* particle, std::string particle_name,
                                 std::ostringstream& result) const;
     void setPositionInformation(const IParticle* particle, std::string particle_name,
                                 std::ostringstream& result) const;
+
+    SampleLabelHandler* m_label;
 };
 
 #endif // EXPORTTOPYTHON_H

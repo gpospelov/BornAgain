@@ -240,11 +240,10 @@ std::string printKvector(const kvector_t value)
 //! returns true if it is (0, -1, 0) vector
 bool isDefaultDirection(const kvector_t direction)
 {
-    if( Numeric::areAlmostEqual(direction.x(),  0.0) &&
+    return
+        Numeric::areAlmostEqual(direction.x(),  0.0) &&
         Numeric::areAlmostEqual(direction.y(), -1.0) &&
-        Numeric::areAlmostEqual(direction.z(),  0.0) )
-        return true;
-    return false;
+        Numeric::areAlmostEqual(direction.z(),  0.0);
 }
 
 //! Returns parameter value, followed by its unit multiplicator (like "* nm").

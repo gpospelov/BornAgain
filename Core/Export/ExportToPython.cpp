@@ -42,30 +42,30 @@ using namespace PythonFormatting;
 ExportToPython::ExportToPython(const MultiLayer& multilayer)
     : m_label(new SampleLabelHandler())
 {
-    for( auto mat: multilayer.containedMaterials() )
-        m_label->insertMaterial(mat);
+    for( auto x: multilayer.containedMaterials() )
+        m_label->insertMaterial(x);
     for( auto x: multilayer.containedSubclass<Layer>() )
-        m_label->setLabelLayer(x);
+        m_label->insertLayer(x);
     for( auto x: multilayer.containedSubclass<LayerRoughness>() )
-        m_label->setLabelRoughness(x);
+        m_label->insertRoughness(x);
     for( auto x: multilayer.containedSubclass<MultiLayer>() )
-        m_label->setLabelMultiLayer(x);
+        m_label->insertMultiLayer(x);
     for( auto x: multilayer.containedSubclass<IFormFactor>() )
-        m_label->setLabelFormFactor(x);
+        m_label->insertFormFactor(x);
     for( auto x: multilayer.containedSubclass<IInterferenceFunction>() )
-        m_label->setLabelInterferenceFunction(x);
+        m_label->insertInterferenceFunction(x);
     for( auto x: multilayer.containedSubclass<Particle>() )
-        m_label->setLabelParticle(x);
+        m_label->insertParticle(x);
     for( auto x: multilayer.containedSubclass<ParticleCoreShell>() )
-        m_label->setLabelParticleCoreShell(x);
+        m_label->insertParticleCoreShell(x);
     for( auto x: multilayer.containedSubclass<ParticleComposition>() )
-        m_label->setLabelParticleComposition(x);
+        m_label->insertParticleComposition(x);
     for( auto x: multilayer.containedSubclass<ParticleDistribution>() )
-        m_label->setLabelParticleDistribution(x);
+        m_label->insertParticleDistribution(x);
     for( auto x: multilayer.containedSubclass<ILayout>() )
-        m_label->setLabelLayout(x);
+        m_label->insertLayout(x);
     for( auto x: multilayer.containedSubclass<IRotation>() )
-        m_label->setLabelRotation(x);
+        m_label->insertRotation(x);
     if( multilayer.containedSubclass<MesoCrystal>().size() )
         throw Exceptions::NotImplementedException(
             "ExportToPython: class MesoCrystal not yet supported!");
@@ -351,9 +351,8 @@ std::string ExportToPython::defineInterferenceFunctions() const
     for (auto it=themap->begin(); it!=themap->end(); ++it) {
         const IInterferenceFunction* interference = it->first;
 
-        if (dynamic_cast<const InterferenceFunctionNone*>(interference)) {
+        if (dynamic_cast<const InterferenceFunctionNone*>(interference))
             result << indent() << it->second << " = ba.InterferenceFunctionNone()\n";
-        }
 
         else if (const auto* oneDLattice
                  = dynamic_cast<const InterferenceFunction1DLattice*>(interference)) {
@@ -582,16 +581,13 @@ std::string ExportToPython::defineMultiLayers() const
             while (layerIndex != numberOfLayers) {
                 const LayerInterface* layerInterface = it->first->getLayerInterface(layerIndex - 1);
                 if (m_label->getLayerRoughnessMap()->find(layerInterface->getRoughness())
-                    == m_label->getLayerRoughnessMap()->end()) {
+                    == m_label->getLayerRoughnessMap()->end())
                     result << indent() << it->second << ".addLayer("
                            << m_label->getLabelLayer(it->first->getLayer(layerIndex)) << ")\n";
-                }
-
-                else {
+                else
                     result << indent() << it->second << ".addLayerWithTopRoughness("
                            << m_label->getLabelLayer(it->first->getLayer(layerIndex)) << ", "
                            << m_label->getLabelRoughness(layerInterface->getRoughness()) << ")\n";
-                }
                 layerIndex++;
             }
         }
@@ -633,11 +629,9 @@ std::string ExportToPython::defineDetector(const GISASSimulation* simulation) co
                    << printKvector(detector->getNormalVector()) << ", "
                    << printDouble(detector->getU0()) << ", "
                    << printDouble(detector->getV0());
-            if(isDefaultDirection(detector->getDirectionVector())) {
-                result << ")\n";
-            } else {
-                result << ", " << printKvector(detector->getDirectionVector()) << ")\n";
-            }
+            if(!isDefaultDirection(detector->getDirectionVector()))
+                result << ", " << printKvector(detector->getDirectionVector());
+            result << ")\n";
 
         } else if (detector->getDetectorArrangment()
                    == RectangularDetector::PERPENDICULAR_TO_SAMPLE) {
@@ -683,7 +677,8 @@ std::string ExportToPython::defineDetector(const GISASSimulation* simulation) co
     return result.str();
 }
 
-std::string ExportToPython::defineDetectorResolutionFunction(const GISASSimulation* simulation) const
+std::string ExportToPython::defineDetectorResolutionFunction(
+    const GISASSimulation* simulation) const
 {
     std::ostringstream result;
     const IDetector2D* detector = simulation->getInstrument().getDetector();

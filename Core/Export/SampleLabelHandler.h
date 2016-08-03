@@ -98,7 +98,7 @@ public:
         if(mit == m_map.end())
             throw Exceptions::RuntimeErrorException("LabelMap::value() -> No such key");
         const_iterator it = mit->second;
-        return (*it).second;
+        return it->second;
     }
 
     const std::string& operator[](const Key& key) { return value(key); }
@@ -156,17 +156,17 @@ public:
     std::string getLabelParticleDistribution(const ParticleDistribution* sample);
 
     void insertMaterial(const IMaterial* sample);
-    void setLabelFormFactor(const IFormFactor* sample);
-    void setLabelInterferenceFunction(const IInterferenceFunction* sample);
-    void setLabelLayout(const ILayout* sample);
-    void setLabelRotation(const IRotation* sample);
-    void setLabelLayer(const Layer* sample);
-    void setLabelRoughness(const LayerRoughness* sample);
-    void setLabelMultiLayer(const MultiLayer* sample);
-    void setLabelParticle(const Particle* sample);
-    void setLabelParticleComposition(const ParticleComposition* sample);
-    void setLabelParticleCoreShell(const ParticleCoreShell* sample);
-    void setLabelParticleDistribution(const ParticleDistribution* sample);
+    void insertFormFactor(const IFormFactor* sample);
+    void insertInterferenceFunction(const IInterferenceFunction* sample);
+    void insertLayout(const ILayout* sample);
+    void insertRotation(const IRotation* sample);
+    void insertLayer(const Layer* sample);
+    void insertRoughness(const LayerRoughness* sample);
+    void insertMultiLayer(const MultiLayer* sample);
+    void insertParticle(const Particle* sample);
+    void insertParticleComposition(const ParticleComposition* sample);
+    void insertParticleCoreShell(const ParticleCoreShell* sample);
+    void insertParticleDistribution(const ParticleDistribution* sample);
 
 private:
     formfactors_t m_FormFactorLabel;

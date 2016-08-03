@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Export/PyGenTools.h
-//! @brief     Declares PyGenTools namespace.
+//! @file      Core/Export/PythonFormatting.h
+//! @brief     Declares PythonFormatting namespace.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -27,7 +27,7 @@ class IDistribution1D;
 class IParameterized;
 class RealParameter;
 
-namespace PyGenTools {
+namespace PythonFormatting {
     BA_CORE_API_ std::string genPyScript(
         GISASSimulation* simulation, const std::string& output_filename);
 

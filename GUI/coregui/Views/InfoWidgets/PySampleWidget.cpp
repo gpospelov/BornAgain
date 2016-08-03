@@ -19,7 +19,7 @@
 #include "DomainObjectBuilder.h"
 #include "InstrumentModel.h"
 #include "MultiLayer.h"
-#include "PyGenVisitor.h"
+#include "ExportToPython.h"
 #include "PythonSyntaxHighlighter.h"
 #include "SampleModel.h"
 #include "WarningSignWidget.h"
@@ -233,7 +233,7 @@ QString PySampleWidget::generateCodeSnippet()
 
         try {
             auto P_multilayer = builder.buildMultiLayer(*sampleItem);
-            PyGenVisitor visitor(*P_multilayer);
+            ExportToPython visitor(*P_multilayer);
             std::ostringstream ostr;
             ostr << visitor.defineGetSample();
             if(!result.isEmpty()) result.append("\n");

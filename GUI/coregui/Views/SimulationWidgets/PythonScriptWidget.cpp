@@ -19,7 +19,7 @@
 #include "DomainSimulationBuilder.h"
 #include "GISASSimulation.h"
 #include "InstrumentModel.h"
-#include "PyGenTools.h"
+#include "PythonFormatting.h"
 #include "PythonSyntaxHighlighter.h"
 #include "SampleModel.h"
 #include "SimulationOptionsItem.h"
@@ -103,7 +103,7 @@ void PythonScriptWidget::generatePythonScript(const MultiLayerItem *sampleItem,
             DomainSimulationBuilder::getSimulation(sampleItem, instrumentItem, optionItem));
 
         QString code = QString::fromStdString(
-            PyGenTools::genPyScript(P_simulation.get(), "output"));
+            PythonFormatting::genPyScript(P_simulation.get(), "output"));
         m_textEdit->clear();
         m_textEdit->setText(code);
 

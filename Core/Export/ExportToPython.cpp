@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Export/PyGenVisitor.cpp
-//! @brief     Implements standard mix-in PyGenVisitor.
+//! @file      Core/Export/ExportToPython.cpp
+//! @brief     Implements standard mix-in ExportToPython.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,7 +13,7 @@
 //
 // ************************************************************************** //
 
-#include "PyGenVisitor.h"
+#include "ExportToPython.h"
 #include "Beam.h"
 #include "ConvolutionDetectorResolution.h"
 #include "Crystal.h"
@@ -29,7 +29,7 @@
 #include "ParticleCoreShell.h"
 #include "ParticleDistribution.h"
 #include "ParticleLayout.h"
-#include "PyGenTools.h"
+#include "PythonFormatting.h"
 #include "RectangularDetector.h"
 #include "ResolutionFunction2DGaussian.h"
 #include "SampleLabelHandler.h"
@@ -37,7 +37,7 @@
 #include <iomanip>
 #include <set>
 
-PyGenVisitor::PyGenVisitor(const MultiLayer& multilayer)
+ExportToPython::ExportToPython(const MultiLayer& multilayer)
     : m_label(new SampleLabelHandler())
 {
     for( auto mat: multilayer.containedMaterials() )
@@ -66,15 +66,15 @@ PyGenVisitor::PyGenVisitor(const MultiLayer& multilayer)
         m_label->setLabelRotation(x);
     if( multilayer.containedSubclass<MesoCrystal>().size() )
         throw Exceptions::NotImplementedException(
-            "PyGenVisitor: class MesoCrystal not yet supported!");
+            "ExportToPython: class MesoCrystal not yet supported!");
 }
 
-PyGenVisitor::~PyGenVisitor()
+ExportToPython::~ExportToPython()
 {
     delete m_label;
 }
 
-std::string PyGenVisitor::writePyScript(
+std::string ExportToPython::writePyScript(
     const GISASSimulation* simulation, const std::string& output_filename)
 {
     std::ostringstream result;
@@ -90,7 +90,7 @@ std::string PyGenVisitor::writePyScript(
     return result.str();
 }
 
-std::string PyGenVisitor::definePreamble() const
+std::string ExportToPython::definePreamble() const
 {
     std::ostringstream result;
     result << "import numpy\n"
@@ -111,7 +111,7 @@ std::string PyGenVisitor::definePreamble() const
     return result.str();
 }
 
-std::string PyGenVisitor::defineGetSample() const
+std::string ExportToPython::defineGetSample() const
 {
     std::ostringstream result;
     result << "def getSample():\n";
@@ -132,7 +132,7 @@ std::string PyGenVisitor::defineGetSample() const
     return result.str();
 }
 
-std::string PyGenVisitor::defineGetSimulation(const GISASSimulation* simulation) const
+std::string ExportToPython::defineGetSimulation(const GISASSimulation* simulation) const
 {
     std::ostringstream result;
     result << "def getSimulation():\n";
@@ -148,7 +148,7 @@ std::string PyGenVisitor::defineGetSimulation(const GISASSimulation* simulation)
     return result.str();
 }
 
-std::string PyGenVisitor::defineMaterials() const
+std::string ExportToPython::defineMaterials() const
 {
     const auto themap = m_label->getMaterialMap();
     if (themap->size() == 0)
@@ -168,14 +168,14 @@ std::string PyGenVisitor::defineMaterials() const
         if (p_material->isScalarMaterial()) {
             result << indent() << m_label->getLabelMaterial(p_material)
                    << " = ba.HomogeneousMaterial(\"" << p_material->getName()
-                   << "\", " << PyGenTools::printDouble(delta) << ", "
-                   << PyGenTools::printDouble(beta) << ")\n";
+                   << "\", " << PythonFormatting::printDouble(delta) << ", "
+                   << PythonFormatting::printDouble(beta) << ")\n";
         } else {
             const HomogeneousMagneticMaterial* p_mag_material
                 = dynamic_cast<const HomogeneousMagneticMaterial*>(p_material);
             if (p_mag_material == 0)
                 throw Exceptions::RuntimeErrorException(
-                    "PyGenVisitor::defineMaterials: "
+                    "ExportToPython::defineMaterials: "
                     "Non scalar material should be of type HomogeneousMagneticMaterial");
             kvector_t magnetic_field = p_mag_material->getMagneticField();
             result << indent() << "magnetic_field = kvector_t(" << magnetic_field.x() << ", "
@@ -183,15 +183,15 @@ std::string PyGenVisitor::defineMaterials() const
                    << ")\n";
             result << indent() << m_label->getLabelMaterial(p_material)
                    << " = ba.HomogeneousMagneticMaterial(\"" << p_material->getName();
-            result << "\", " << PyGenTools::printDouble(delta) << ", "
-                   << PyGenTools::printDouble(beta) << ", "
+            result << "\", " << PythonFormatting::printDouble(delta) << ", "
+                   << PythonFormatting::printDouble(beta) << ", "
                    << "magnetic_field)\n";
         }
     }
     return result.str();
 }
 
-std::string PyGenVisitor::defineLayers() const
+std::string ExportToPython::defineLayers() const
 {
     const auto themap = m_label->getLayerMap();
     if (themap->size() == 0)
@@ -211,7 +211,7 @@ std::string PyGenVisitor::defineLayers() const
     return result.str();
 }
 
-std::string PyGenVisitor::defineFormFactors() const
+std::string ExportToPython::defineFormFactors() const
 {
     const auto themap = m_label->getFormFactorMap();
     if (themap->size() == 0)
@@ -222,12 +222,12 @@ std::string PyGenVisitor::defineFormFactors() const
     for (auto it=themap->begin(); it!=themap->end(); ++it) {
         const IFormFactor* p_ff = it->first;
         result << indent() << it->second << " = ba.FormFactor" << p_ff->getName() << "("
-               << PyGenTools::argumentList(p_ff) << ")\n";
+               << PythonFormatting::argumentList(p_ff) << ")\n";
     }
     return result.str();
 }
 
-std::string PyGenVisitor::defineParticles() const
+std::string ExportToPython::defineParticles() const
 {
     const auto themap = m_label->getParticleMap();
     if (themap->size() == 0)
@@ -248,7 +248,7 @@ std::string PyGenVisitor::defineParticles() const
     return result.str();
 }
 
-std::string PyGenVisitor::defineCoreShellParticles() const
+std::string ExportToPython::defineCoreShellParticles() const
 {
     const auto themap = m_label->getParticleCoreShellMap();
     if (themap->size() == 0)
@@ -268,7 +268,7 @@ std::string PyGenVisitor::defineCoreShellParticles() const
     return result.str();
 }
 
-std::string PyGenVisitor::defineParticleDistributions() const
+std::string ExportToPython::defineParticleDistributions() const
 {
     const auto themap = m_label->getParticleDistributionsMap();
     if (themap->size() == 0)
@@ -287,7 +287,7 @@ std::string PyGenVisitor::defineParticleDistributions() const
         s_distr << "distr_" << index;
 
         result << indent() << s_distr.str() << " = ba."
-               << PyGenTools::getRepresentation(par_distr.getDistribution()) << "\n";
+               << PythonFormatting::getRepresentation(par_distr.getDistribution()) << "\n";
 
         // building parameter distribution
         std::stringstream s_par_distr;
@@ -296,7 +296,7 @@ std::string PyGenVisitor::defineParticleDistributions() const
         result << indent() << s_par_distr.str() << " = ba.ParameterDistribution("
                << "\"" << par_distr.getMainParameterName() << "\""
                << ", " << s_distr.str() << ", " << par_distr.getNbrSamples() << ", "
-               << PyGenTools::printDouble(par_distr.getSigmaFactor()) << ")\n";
+               << PythonFormatting::printDouble(par_distr.getSigmaFactor()) << ")\n";
 
         // linked parameters
         std::vector<std::string> linked_pars = par_distr.getLinkedParameterNames();
@@ -315,7 +315,7 @@ std::string PyGenVisitor::defineParticleDistributions() const
     return result.str();
 }
 
-std::string PyGenVisitor::defineParticleCompositions() const
+std::string ExportToPython::defineParticleCompositions() const
 {
     const auto themap = m_label->getParticleCompositionMap();
     if (themap->size() == 0)
@@ -338,7 +338,7 @@ std::string PyGenVisitor::defineParticleCompositions() const
     return result.str();
 }
 
-std::string PyGenVisitor::defineInterferenceFunctions() const
+std::string ExportToPython::defineInterferenceFunctions() const
 {
     const auto themap = m_label->getInterferenceFunctionMap();
     if (themap->size() == 0)
@@ -357,14 +357,14 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
                  = dynamic_cast<const InterferenceFunction1DLattice*>(interference)) {
             const Lattice1DParameters latticeParameters = oneDLattice->getLatticeParameters();
             result << indent() << it->second << " = ba.InterferenceFunction1DLattice("
-                   << PyGenTools::printNm(latticeParameters.m_length) << ", "
-                   << PyGenTools::printDegrees(latticeParameters.m_xi) << ")\n";
+                   << PythonFormatting::printNm(latticeParameters.m_length) << ", "
+                   << PythonFormatting::printDegrees(latticeParameters.m_xi) << ")\n";
 
             const IFTDecayFunction1D* pdf = oneDLattice->getDecayFunction();
 
             if (pdf->getOmega() != 0.0) {
                 result << indent() << it->second << "_pdf  = ba." << pdf->getName()
-                       << "(" << PyGenTools::argumentList(pdf) << ")\n";
+                       << "(" << PythonFormatting::argumentList(pdf) << ")\n";
                 result << indent() << it->second << ".setDecayFunction(" << it->second << "_pdf)\n";
             }
         }
@@ -372,24 +372,22 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
         else if (const auto* oneDParaCrystal
                  = dynamic_cast<const InterferenceFunctionRadialParaCrystal*>(interference)) {
             result << indent() << it->second << " = ba.InterferenceFunctionRadialParaCrystal("
-                   << PyGenTools::printNm(oneDParaCrystal->getPeakDistance()) << ", "
-                   << PyGenTools::printNm(oneDParaCrystal->getDampingLength()) << ")\n";
+                   << PythonFormatting::printNm(oneDParaCrystal->getPeakDistance()) << ", "
+                   << PythonFormatting::printNm(oneDParaCrystal->getDampingLength()) << ")\n";
 
-            if (oneDParaCrystal->getKappa() != 0.0) {
+            if (oneDParaCrystal->getKappa() != 0.0)
                 result << indent() << it->second << ".setKappa("
-                       << PyGenTools::printDouble(oneDParaCrystal->getKappa()) << ")\n";
-            }
+                       << PythonFormatting::printDouble(oneDParaCrystal->getKappa()) << ")\n";
 
-            if (oneDParaCrystal->getDomainSize() != 0.0) {
+            if (oneDParaCrystal->getDomainSize() != 0.0)
                 result << indent() << it->second << ".setDomainSize("
-                       << PyGenTools::printDouble(oneDParaCrystal->getDomainSize()) << ")\n";
-            }
+                       << PythonFormatting::printDouble(oneDParaCrystal->getDomainSize()) << ")\n";
 
             const IFTDistribution1D* pdf = oneDParaCrystal->getProbabilityDistribution();
 
             if (pdf->getOmega() != 0.0) {
                 result << indent() << it->second << "_pdf  = ba." << pdf->getName()
-                       << "(" << PyGenTools::argumentList(pdf) << ")\n";
+                       << "(" << PythonFormatting::argumentList(pdf) << ")\n";
                 result << indent() << it->second << ".setProbabilityDistribution(" << it->second
                        << "_pdf)\n";
             }
@@ -399,61 +397,61 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
                  = dynamic_cast<const InterferenceFunction2DLattice*>(interference)) {
             const Lattice2DParameters latticeParameters = twoDLattice->getLatticeParameters();
             result << indent() << it->second << " = ba.InterferenceFunction2DLattice("
-                   << PyGenTools::printNm(latticeParameters.m_length_1) << ", "
-                   << PyGenTools::printNm(latticeParameters.m_length_2) << ", "
-                   << PyGenTools::printDegrees(latticeParameters.m_angle) << ", "
-                   << PyGenTools::printDegrees(latticeParameters.m_xi) << ")\n";
+                   << PythonFormatting::printNm(latticeParameters.m_length_1) << ", "
+                   << PythonFormatting::printNm(latticeParameters.m_length_2) << ", "
+                   << PythonFormatting::printDegrees(latticeParameters.m_angle) << ", "
+                   << PythonFormatting::printDegrees(latticeParameters.m_xi) << ")\n";
 
             const IFTDecayFunction2D* pdf = twoDLattice->getDecayFunction();
 
             result << indent() << it->second << "_pdf  = ba." << pdf->getName()
-                   << "(" << PyGenTools::argumentList(pdf) << ")\n";
+                   << "(" << PythonFormatting::argumentList(pdf) << ")\n";
             result << indent() << it->second << ".setDecayFunction(" << it->second << "_pdf)\n";
         }
 
         else if (const auto* twoDParaCrystal
                  = dynamic_cast<const InterferenceFunction2DParaCrystal*>(interference)) {
             std::vector<double> domainSize = twoDParaCrystal->getDomainSizes();
-            if (PyGenTools::isSquare(twoDParaCrystal->getLatticeParameters().m_length_1,
+            if (PythonFormatting::isSquare(twoDParaCrystal->getLatticeParameters().m_length_1,
                                      twoDParaCrystal->getLatticeParameters().m_length_2,
                                      twoDParaCrystal->getLatticeParameters().m_angle)) {
                 result << indent() << it->second
                        << " = ba.InterferenceFunction2DParaCrystal.createSquare("
-                       << PyGenTools::printNm(twoDParaCrystal->getLatticeParameters().m_length_1)
+                       << PythonFormatting::printNm(twoDParaCrystal->getLatticeParameters().m_length_1)
                        << ", "
-                       << PyGenTools::printNm(twoDParaCrystal->getDampingLength()) << ", "
-                       << PyGenTools::printNm(domainSize[0]) << ", "
-                       << PyGenTools::printNm(domainSize[1]) << ")\n";
+                       << PythonFormatting::printNm(twoDParaCrystal->getDampingLength()) << ", "
+                       << PythonFormatting::printNm(domainSize[0]) << ", "
+                       << PythonFormatting::printNm(domainSize[1]) << ")\n";
             }
 
-            else if (PyGenTools::isHexagonal(twoDParaCrystal->getLatticeParameters().m_length_1,
+            else if (PythonFormatting::isHexagonal(twoDParaCrystal->getLatticeParameters().m_length_1,
                                              twoDParaCrystal->getLatticeParameters().m_length_2,
                                              twoDParaCrystal->getLatticeParameters().m_angle)) {
                 result << indent() << it->second
                        << " = ba.InterferenceFunction2DParaCrystal.createHexagonal("
-                       << PyGenTools::printNm(twoDParaCrystal->getLatticeParameters().m_length_1)
+                       << PythonFormatting::printNm(twoDParaCrystal->getLatticeParameters().m_length_1)
                        << ", "
-                       << PyGenTools::printNm(twoDParaCrystal->getDampingLength()) << ", "
-                       << PyGenTools::printNm(domainSize[0]) << ", "
-                       << PyGenTools::printNm(domainSize[1]) << ")\n";
+                       << PythonFormatting::printNm(twoDParaCrystal->getDampingLength()) << ", "
+                       << PythonFormatting::printNm(domainSize[0]) << ", "
+                       << PythonFormatting::printNm(domainSize[1]) << ")\n";
             }
 
             else {
                 result << indent() << it->second << " = ba.InterferenceFunction2DParaCrystal("
-                       << PyGenTools::printNm(twoDParaCrystal->getLatticeParameters().m_length_1)
+                       << PythonFormatting::printNm(twoDParaCrystal->getLatticeParameters().m_length_1)
                        << ", "
-                       << PyGenTools::printNm(twoDParaCrystal->getLatticeParameters().m_length_2)
+                       << PythonFormatting::printNm(twoDParaCrystal->getLatticeParameters().m_length_2)
                        << ", "
-                       << PyGenTools::printDegrees(twoDParaCrystal->getLatticeParameters().m_angle)
+                       << PythonFormatting::printDegrees(twoDParaCrystal->getLatticeParameters().m_angle)
                        << ", "
-                       << PyGenTools::printDegrees(twoDParaCrystal->getLatticeParameters().m_xi)
+                       << PythonFormatting::printDegrees(twoDParaCrystal->getLatticeParameters().m_xi)
                        << ", "
-                       << PyGenTools::printNm(twoDParaCrystal->getDampingLength()) << ")\n";
+                       << PythonFormatting::printNm(twoDParaCrystal->getDampingLength()) << ")\n";
 
                 if (domainSize[0] != 0 || domainSize[1] != 0) {
                     result << indent() << it->second << ".setDomainSizes("
-                           << PyGenTools::printNm(domainSize[0]) << ", "
-                           << PyGenTools::printNm(domainSize[1]) << ")\n";
+                           << PythonFormatting::printNm(domainSize[0]) << ", "
+                           << PythonFormatting::printNm(domainSize[1]) << ")\n";
                 }
 
                 if (twoDParaCrystal->getIntegrationOverXi() == true)
@@ -465,12 +463,12 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
             const IFTDistribution2D* pdf = pdf_vector[0];
 
             result << indent() << it->second << "_pdf_1  = ba." << pdf->getName()
-                   << "(" << PyGenTools::argumentList(pdf) << ")\n";
+                   << "(" << PythonFormatting::argumentList(pdf) << ")\n";
 
             pdf = pdf_vector[1];
 
             result << indent() << it->second << "_pdf_2  = ba." << pdf->getName()
-                   << "(" << PyGenTools::argumentList(pdf) << ")\n";
+                   << "(" << PythonFormatting::argumentList(pdf) << ")\n";
 
             result << indent() << it->second << ".setProbabilityDistributions(" << it->second
                    << "_pdf_1, " << it->second << "_pdf_2)\n";
@@ -487,7 +485,7 @@ std::string PyGenVisitor::defineInterferenceFunctions() const
     return result.str();
 }
 
-std::string PyGenVisitor::defineParticleLayouts() const
+std::string ExportToPython::defineParticleLayouts() const
 {
     const auto themap = m_label->getParticleLayoutMap();
     if (themap->size() == 0)
@@ -507,7 +505,7 @@ std::string PyGenVisitor::defineParticleLayouts() const
                 double abundance = particleLayout->getAbundanceOfParticle(particleIndex);
                 result << indent() << it->second << ".addParticle("
                        << m_label->getLabelParticle(p_particle) << ", "
-                       << PyGenTools::printDouble(abundance) << ")\n";
+                       << PythonFormatting::printDouble(abundance) << ")\n";
                 particleIndex++;
             }
 
@@ -529,7 +527,7 @@ std::string PyGenVisitor::defineParticleLayouts() const
     return result.str();
 }
 
-std::string PyGenVisitor::defineRoughnesses() const
+std::string ExportToPython::defineRoughnesses() const
 {
     const auto themap = m_label->getLayerRoughnessMap();
     if (themap->size() == 0)
@@ -539,11 +537,11 @@ std::string PyGenVisitor::defineRoughnesses() const
     result << "\n" << indent() << "# Defining Roughness Parameters\n";
     for (auto it=themap->begin(); it!=themap->end(); ++it)
         result << indent() << it->second << " = ba.LayerRoughness("
-               <<  PyGenTools::argumentList(it->first) << ")\n";
+               <<  PythonFormatting::argumentList(it->first) << ")\n";
     return result.str();
 }
 
-std::string PyGenVisitor::addLayoutsToLayers() const
+std::string ExportToPython::addLayoutsToLayers() const
 {
     if (m_label->getParticleLayoutMap()->size() == 0)
         return "";
@@ -561,7 +559,7 @@ std::string PyGenVisitor::addLayoutsToLayers() const
     return result.str();
 }
 
-std::string PyGenVisitor::defineMultiLayers() const
+std::string ExportToPython::defineMultiLayers() const
 {
     const auto themap = m_label->getMultiLayerMap();
     if (themap->size() == 0)
@@ -600,12 +598,12 @@ std::string PyGenVisitor::defineMultiLayers() const
     return result.str();
 }
 
-std::string PyGenVisitor::defineDetector(const GISASSimulation* simulation) const
+std::string ExportToPython::defineDetector(const GISASSimulation* simulation) const
 {
     const IDetector2D* iDetector = simulation->getInstrument().getDetector();
 
     if (iDetector->getDimension() != 2)
-        throw Exceptions::RuntimeErrorException("PyGenVisitor::defineDetector: "
+        throw Exceptions::RuntimeErrorException("ExportToPython::defineDetector: "
                                                 "detector must be two-dimensional for GISAS");
 
     std::ostringstream result;
@@ -616,8 +614,8 @@ std::string PyGenVisitor::defineDetector(const GISASSimulation* simulation) cons
         for(size_t index=0; index<detector->getDimension(); ++index) {
             if (index != 0) result << ", ";
             result << detector->getAxis(index).getSize() << ", "
-                   << PyGenTools::printDegrees(detector->getAxis(index).getMin()) << ", "
-                   << PyGenTools::printDegrees(detector->getAxis(index).getMax());
+                   << PythonFormatting::printDegrees(detector->getAxis(index).getMin()) << ", "
+                   << PythonFormatting::printDegrees(detector->getAxis(index).getMax());
         }
         result << ")\n";
 
@@ -625,65 +623,65 @@ std::string PyGenVisitor::defineDetector(const GISASSimulation* simulation) cons
         result << indent() << "\n";
         result << indent() << "detector = ba.RectangularDetector("
                << detector->getNbinsX() << ", "
-               << PyGenTools::printDouble(detector->getWidth()) << ", "
+               << PythonFormatting::printDouble(detector->getWidth()) << ", "
                << detector->getNbinsY() << ", "
-               << PyGenTools::printDouble(detector->getHeight()) << ")\n";
+               << PythonFormatting::printDouble(detector->getHeight()) << ")\n";
         if(detector->getDetectorArrangment() == RectangularDetector::GENERIC) {
             result << indent() << "detector.setPosition("
-                   << PyGenTools::printKvector(detector->getNormalVector()) << ", "
-                   << PyGenTools::printDouble(detector->getU0()) << ", "
-                   << PyGenTools::printDouble(detector->getV0());
-            if(PyGenTools::isDefaultDirection(detector->getDirectionVector())) {
+                   << PythonFormatting::printKvector(detector->getNormalVector()) << ", "
+                   << PythonFormatting::printDouble(detector->getU0()) << ", "
+                   << PythonFormatting::printDouble(detector->getV0());
+            if(PythonFormatting::isDefaultDirection(detector->getDirectionVector())) {
                 result << ")\n";
             } else {
-                result << ", " << PyGenTools::printKvector(detector->getDirectionVector()) << ")\n";
+                result << ", " << PythonFormatting::printKvector(detector->getDirectionVector()) << ")\n";
             }
 
         } else if (detector->getDetectorArrangment()
                    == RectangularDetector::PERPENDICULAR_TO_SAMPLE) {
             result << indent() << "detector.setPerpendicularToSampleX("
-                   << PyGenTools::printDouble(detector->getDistance()) << ", "
-                   << PyGenTools::printDouble(detector->getU0()) << ", "
-                   << PyGenTools::printDouble(detector->getV0()) << ")\n";
+                   << PythonFormatting::printDouble(detector->getDistance()) << ", "
+                   << PythonFormatting::printDouble(detector->getU0()) << ", "
+                   << PythonFormatting::printDouble(detector->getV0()) << ")\n";
 
         } else if (detector->getDetectorArrangment()
                    == RectangularDetector::PERPENDICULAR_TO_DIRECT_BEAM) {
             result << indent() << "detector.setPerpendicularToDirectBeam("
-                   << PyGenTools::printDouble(detector->getDistance()) << ", "
-                   << PyGenTools::printDouble(detector->getU0()) << ", "
-                   << PyGenTools::printDouble(detector->getV0()) << ")\n";
+                   << PythonFormatting::printDouble(detector->getDistance()) << ", "
+                   << PythonFormatting::printDouble(detector->getU0()) << ", "
+                   << PythonFormatting::printDouble(detector->getV0()) << ")\n";
 
         } else if (detector->getDetectorArrangment()
                    == RectangularDetector::PERPENDICULAR_TO_REFLECTED_BEAM) {
             result << indent() << "detector.setPerpendicularToReflectedBeam("
-                   << PyGenTools::printDouble(detector->getDistance()) << ", "
-                   << PyGenTools::printDouble(detector->getU0()) << ", "
-                   << PyGenTools::printDouble(detector->getV0()) << ")\n";
+                   << PythonFormatting::printDouble(detector->getDistance()) << ", "
+                   << PythonFormatting::printDouble(detector->getU0()) << ", "
+                   << PythonFormatting::printDouble(detector->getV0()) << ")\n";
 
 
         } else if (detector->getDetectorArrangment()
                    == RectangularDetector::PERPENDICULAR_TO_REFLECTED_BEAM_DPOS) {
             result << indent() << "detector.setPerpendicularToReflectedBeam("
-                   << PyGenTools::printDouble(detector->getDistance()) << ")\n";
+                   << PythonFormatting::printDouble(detector->getDistance()) << ")\n";
             result << indent() << "detector.setDirectBeamPosition("
-                   << PyGenTools::printDouble(detector->getDirectBeamU0()) << ", "
-                   << PyGenTools::printDouble(detector->getDirectBeamV0()) << ")\n";
+                   << PythonFormatting::printDouble(detector->getDirectBeamU0()) << ", "
+                   << PythonFormatting::printDouble(detector->getDirectBeamV0()) << ")\n";
 
         } else {
             throw Exceptions::RuntimeErrorException(
-                "PyGenVisitor::defineDetector: unknown alignment");
+                "ExportToPython::defineDetector: unknown alignment");
         }
 
         result << indent() << "simulation.setDetector(detector)\n\n";
     }
 
     else
-        throw Exceptions::RuntimeErrorException("PyGenVisitor::defineDetector: unknown detector");
+        throw Exceptions::RuntimeErrorException("ExportToPython::defineDetector: unknown detector");
 
     return result.str();
 }
 
-std::string PyGenVisitor::defineDetectorResolutionFunction(const GISASSimulation* simulation) const
+std::string ExportToPython::defineDetectorResolutionFunction(const GISASSimulation* simulation) const
 {
     std::ostringstream result;
     const IDetector2D* detector = simulation->getInstrument().getDetector();
@@ -696,20 +694,20 @@ std::string PyGenVisitor::defineDetectorResolutionFunction(const GISASSimulation
                 result << indent() << "simulation.setDetectorResolutionFunction(";
                 result << "ba.ResolutionFunction2DGaussian(";
                 if(detector->getDefaultAxesUnits() == IDetector2D::RADIANS) {
-                    result << PyGenTools::printDegrees(resfunc->getSigmaX()) << ", ";
-                    result << PyGenTools::printDegrees(resfunc->getSigmaY()) << "))\n";
+                    result << PythonFormatting::printDegrees(resfunc->getSigmaX()) << ", ";
+                    result << PythonFormatting::printDegrees(resfunc->getSigmaY()) << "))\n";
                 } else {
-                    result << PyGenTools::printDouble(resfunc->getSigmaX()) << ", ";
-                    result << PyGenTools::printDouble(resfunc->getSigmaY()) << "))\n";
+                    result << PythonFormatting::printDouble(resfunc->getSigmaX()) << ", ";
+                    result << PythonFormatting::printDouble(resfunc->getSigmaY()) << "))\n";
                 }
 
             } else {
-                std::string message("PyGenVisitor::defineDetectorResolutionFunction() -> Error.");
+                std::string message("ExportToPython::defineDetectorResolutionFunction() -> Error.");
                 message += "Unknown detector resolution function";
                 throw Exceptions::RuntimeErrorException(message);
             }
         } else {
-            std::string message("PyGenVisitor::defineDetectorResolutionFunction() -> Error.");
+            std::string message("ExportToPython::defineDetectorResolutionFunction() -> Error.");
             message += "Not a ConvolutionDetectorResolution function";
             throw Exceptions::RuntimeErrorException(message);
         }
@@ -718,24 +716,24 @@ std::string PyGenVisitor::defineDetectorResolutionFunction(const GISASSimulation
     return result.str();
 }
 
-std::string PyGenVisitor::defineBeam(const GISASSimulation* simulation) const
+std::string ExportToPython::defineBeam(const GISASSimulation* simulation) const
 {
     std::ostringstream result;
     result << std::setprecision(12);
     // result << indent() << "# Defining Beam Parameters\n";
     const Beam& beam = simulation->getInstrument().getBeam();
     result << indent() << "simulation.setBeamParameters("
-           << PyGenTools::printNm(beam.getWavelength()) << ", "
-           << PyGenTools::printDegrees(beam.getAlpha()) << ", "
-           << PyGenTools::printDegrees(beam.getPhi()) << ")\n";
+           << PythonFormatting::printNm(beam.getWavelength()) << ", "
+           << PythonFormatting::printDegrees(beam.getAlpha()) << ", "
+           << PythonFormatting::printDegrees(beam.getPhi()) << ")\n";
     double beam_intensity = beam.getIntensity();
     if(beam_intensity > 0.0)
         result << indent() << "simulation.setBeamIntensity("
-               << PyGenTools::printScientificDouble(beam_intensity) << ")\n";
+               << PythonFormatting::printScientificDouble(beam_intensity) << ")\n";
     return result.str();
 }
 
-std::string PyGenVisitor::defineParameterDistributions(const GISASSimulation* simulation) const
+std::string ExportToPython::defineParameterDistributions(const GISASSimulation* simulation) const
 {
     std::ostringstream result;
     const std::vector<ParameterDistribution>& distributions =
@@ -747,15 +745,15 @@ std::string PyGenVisitor::defineParameterDistributions(const GISASSimulation* si
         double sigma_factor = distributions[i].getSigmaFactor();
         const IDistribution1D* p_distr = distributions[i].getDistribution();
         result << indent() << "distribution_" << i+1 << " = ba."
-               << PyGenTools::getRepresentation(p_distr) << "\n";
+               << PythonFormatting::getRepresentation(p_distr) << "\n";
         result << indent() << "simulation.addParameterDistribution(\"" << main_par_name << "\", "
                << "distribution_" << i+1 << ", " << nbr_samples << ", "
-               << PyGenTools::printDouble(sigma_factor) << ")\n";
+               << PythonFormatting::printDouble(sigma_factor) << ")\n";
     }
     return result.str();
 }
 
-std::string PyGenVisitor::defineMasks(const GISASSimulation* simulation) const
+std::string ExportToPython::defineMasks(const GISASSimulation* simulation) const
 {
     std::ostringstream result;
     result << std::setprecision(12);
@@ -767,7 +765,7 @@ std::string PyGenVisitor::defineMasks(const GISASSimulation* simulation) const
         for(size_t i_mask=0; i_mask<detectorMask->getNumberOfMasks(); ++i_mask) {
             bool mask_value(false);
             const Geometry::IShape2D* shape = detectorMask->getMaskShape(i_mask, mask_value);
-            result << PyGenTools::getRepresentation(indent(), shape, mask_value);
+            result << PythonFormatting::getRepresentation(indent(), shape, mask_value);
         }
         result << "\n";
     }
@@ -775,7 +773,7 @@ std::string PyGenVisitor::defineMasks(const GISASSimulation* simulation) const
     return result.str();
 }
 
-std::string PyGenVisitor::defineSimulationOptions(const GISASSimulation* simulation) const
+std::string ExportToPython::defineSimulationOptions(const GISASSimulation* simulation) const
 {
     std::ostringstream result;
     result << std::setprecision(12);
@@ -793,7 +791,7 @@ std::string PyGenVisitor::defineSimulationOptions(const GISASSimulation* simulat
     return result.str();
 }
 
-std::string PyGenVisitor::definePlotting(const GISASSimulation* simulation) const
+std::string ExportToPython::definePlotting(const GISASSimulation* simulation) const
 {
     std::ostringstream result;
     result << std::setprecision(12);
@@ -809,9 +807,9 @@ std::string PyGenVisitor::definePlotting(const GISASSimulation* simulation) cons
         if (index != 0) {
             result << ", ";
         }
-        result << PyGenTools::printDegrees(
+        result << PythonFormatting::printDegrees(
                       simulation->getInstrument().getDetectorAxis(index).getMin()) << ", "
-               << PyGenTools::printDegrees(
+               << PythonFormatting::printDegrees(
                       simulation->getInstrument().getDetectorAxis(index).getMax());
         index++;
     }
@@ -821,7 +819,7 @@ std::string PyGenVisitor::definePlotting(const GISASSimulation* simulation) cons
     return result.str();
 }
 
-std::string PyGenVisitor::defineRunSimulation() const
+std::string ExportToPython::defineRunSimulation() const
 {
     std::ostringstream result;
     result << "def runSimulation(filename = ''):\n";
@@ -837,12 +835,12 @@ std::string PyGenVisitor::defineRunSimulation() const
     return result.str();
 }
 
-std::string PyGenVisitor::indent() const
+std::string ExportToPython::indent() const
 {
     return "    ";
 }
 
-void PyGenVisitor::setRotationInformation(
+void ExportToPython::setRotationInformation(
     const IParticle* p_particle, std::string name, std::ostringstream& result) const
 {
     if (p_particle->getRotation()) {
@@ -851,20 +849,20 @@ void PyGenVisitor::setRotationInformation(
         switch (p_particle->getRotation()->getTransform3D().getRotationType()) {
         case Geometry::Transform3D::EULER:
             result << indent() << name << "_rotation = ba.RotationEuler("
-                   << PyGenTools::printDegrees(alpha) << ", " << PyGenTools::printDegrees(beta)
-                   << ", " << PyGenTools::printDegrees(gamma) << ")\n";
+                   << PythonFormatting::printDegrees(alpha) << ", " << PythonFormatting::printDegrees(beta)
+                   << ", " << PythonFormatting::printDegrees(gamma) << ")\n";
             break;
         case Geometry::Transform3D::XAXIS:
             result << indent() << name << "_rotation = ba.RotationX("
-                   << PyGenTools::printDegrees(beta) << ")\n";
+                   << PythonFormatting::printDegrees(beta) << ")\n";
             break;
         case Geometry::Transform3D::YAXIS:
             result << indent() << name << "_rotation = ba.RotationY("
-                   << PyGenTools::printDegrees(gamma) << ")\n";
+                   << PythonFormatting::printDegrees(gamma) << ")\n";
             break;
         case Geometry::Transform3D::ZAXIS:
             result << indent() << name << "_rotation = ba.RotationZ("
-                   << PyGenTools::printDegrees(alpha) << ")\n";
+                   << PythonFormatting::printDegrees(alpha) << ")\n";
             break;
         default:
             break;
@@ -873,7 +871,7 @@ void PyGenVisitor::setRotationInformation(
     }
 }
 
-void PyGenVisitor::setPositionInformation(
+void ExportToPython::setPositionInformation(
     const IParticle* p_particle, std::string name, std::ostringstream& result) const
 {
     kvector_t pos = p_particle->getPosition();
@@ -882,9 +880,9 @@ void PyGenVisitor::setPositionInformation(
     if (has_position_info) {
         result << indent() << name
                << "_position = kvector_t("
-               << PyGenTools::printNm(pos.x()) << ", "
-               << PyGenTools::printNm(pos.y()) << ", "
-               << PyGenTools::printNm(pos.z()) << ")\n";
+               << PythonFormatting::printNm(pos.x()) << ", "
+               << PythonFormatting::printNm(pos.y()) << ", "
+               << PythonFormatting::printNm(pos.z()) << ")\n";
 
         result << indent()
                << name << ".setPosition("

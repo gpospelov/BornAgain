@@ -11453,28 +11453,28 @@ finalize report to the simulation
 ";
 
 
-// File: classPyGenVisitor.xml
-%feature("docstring") PyGenVisitor "";
+// File: classExportToPython.xml
+%feature("docstring") ExportToPython "";
 
-%feature("docstring")  PyGenVisitor::PyGenVisitor "PyGenVisitor::PyGenVisitor(const MultiLayer &multilayer)
+%feature("docstring")  ExportToPython::ExportToPython "ExportToPython::ExportToPython(const MultiLayer &multilayer)
 ";
 
-%feature("docstring")  PyGenVisitor::~PyGenVisitor "PyGenVisitor::~PyGenVisitor()
+%feature("docstring")  ExportToPython::~ExportToPython "ExportToPython::~ExportToPython()
 ";
 
-%feature("docstring")  PyGenVisitor::writePyScript "std::string PyGenVisitor::writePyScript(const GISASSimulation *simulation, const std::string &output_filename)
+%feature("docstring")  ExportToPython::writePyScript "std::string ExportToPython::writePyScript(const GISASSimulation *simulation, const std::string &output_filename)
 ";
 
-%feature("docstring")  PyGenVisitor::definePreamble "std::string PyGenVisitor::definePreamble() const 
+%feature("docstring")  ExportToPython::definePreamble "std::string ExportToPython::definePreamble() const 
 ";
 
-%feature("docstring")  PyGenVisitor::defineGetSimulation "std::string PyGenVisitor::defineGetSimulation(const GISASSimulation *simulation) const 
+%feature("docstring")  ExportToPython::defineGetSimulation "std::string ExportToPython::defineGetSimulation(const GISASSimulation *simulation) const 
 ";
 
-%feature("docstring")  PyGenVisitor::defineGetSample "std::string PyGenVisitor::defineGetSample() const 
+%feature("docstring")  ExportToPython::defineGetSample "std::string ExportToPython::defineGetSample() const 
 ";
 
-%feature("docstring")  PyGenVisitor::defineMaterials "std::string PyGenVisitor::defineMaterials() const 
+%feature("docstring")  ExportToPython::defineMaterials "std::string ExportToPython::defineMaterials() const 
 ";
 
 
@@ -13699,51 +13699,51 @@ Parse double values from string to vector of double.
 ";
 
 
-// File: namespacePyGenTools.xml
-%feature("docstring")  PyGenTools::genPyScript "std::string PyGenTools::genPyScript(GISASSimulation *simulation, const std::string &output_filename)
+// File: namespacePythonFormatting.xml
+%feature("docstring")  PythonFormatting::genPyScript "std::string PythonFormatting::genPyScript(GISASSimulation *simulation, const std::string &output_filename)
 ";
 
-%feature("docstring")  PyGenTools::getRepresentation "std::string PyGenTools::getRepresentation(const IDistribution1D *distribution)
+%feature("docstring")  PythonFormatting::getRepresentation "std::string PythonFormatting::getRepresentation(const IDistribution1D *distribution)
 ";
 
-%feature("docstring")  PyGenTools::getRepresentation "std::string PyGenTools::getRepresentation(const std::string &indent, const Geometry::IShape2D *ishape, bool mask_value)
+%feature("docstring")  PythonFormatting::getRepresentation "std::string PythonFormatting::getRepresentation(const std::string &indent, const Geometry::IShape2D *ishape, bool mask_value)
 ";
 
-%feature("docstring")  PyGenTools::printBool "std::string PyGenTools::printBool(double value)
+%feature("docstring")  PythonFormatting::printBool "std::string PythonFormatting::printBool(double value)
 ";
 
-%feature("docstring")  PyGenTools::printDouble "std::string PyGenTools::printDouble(double input)
+%feature("docstring")  PythonFormatting::printDouble "std::string PythonFormatting::printDouble(double input)
 ";
 
-%feature("docstring")  PyGenTools::printNm "std::string PyGenTools::printNm(double input)
+%feature("docstring")  PythonFormatting::printNm "std::string PythonFormatting::printNm(double input)
 ";
 
-%feature("docstring")  PyGenTools::printScientificDouble "std::string PyGenTools::printScientificDouble(double input)
+%feature("docstring")  PythonFormatting::printScientificDouble "std::string PythonFormatting::printScientificDouble(double input)
 ";
 
-%feature("docstring")  PyGenTools::printDegrees "std::string PyGenTools::printDegrees(double input)
+%feature("docstring")  PythonFormatting::printDegrees "std::string PythonFormatting::printDegrees(double input)
 ";
 
-%feature("docstring")  PyGenTools::isSquare "bool PyGenTools::isSquare(double length1, double length2, double angle)
+%feature("docstring")  PythonFormatting::isSquare "bool PythonFormatting::isSquare(double length1, double length2, double angle)
 ";
 
-%feature("docstring")  PyGenTools::isHexagonal "bool PyGenTools::isHexagonal(double length1, double length2, double angle)
+%feature("docstring")  PythonFormatting::isHexagonal "bool PythonFormatting::isHexagonal(double length1, double length2, double angle)
 ";
 
-%feature("docstring")  PyGenTools::printKvector "std::string PyGenTools::printKvector(const kvector_t value)
+%feature("docstring")  PythonFormatting::printKvector "std::string PythonFormatting::printKvector(const kvector_t value)
 ";
 
-%feature("docstring")  PyGenTools::isDefaultDirection "bool PyGenTools::isDefaultDirection(const kvector_t direction)
+%feature("docstring")  PythonFormatting::isDefaultDirection "bool PythonFormatting::isDefaultDirection(const kvector_t direction)
 
 returns true if it is (0, -1, 0) vector 
 ";
 
-%feature("docstring")  PyGenTools::valueTimesUnit "std::string PyGenTools::valueTimesUnit(const RealParameter *par)
+%feature("docstring")  PythonFormatting::valueTimesUnit "std::string PythonFormatting::valueTimesUnit(const RealParameter *par)
 
 Returns parameter value, followed by its unit multiplicator (like \"* nm\"). 
 ";
 
-%feature("docstring")  PyGenTools::argumentList "std::string PyGenTools::argumentList(const IParameterized *ip)
+%feature("docstring")  PythonFormatting::argumentList "std::string PythonFormatting::argumentList(const IParameterized *ip)
 
 Returns comma-separated list of parameter values, including unit multiplicator (like \"* nm\"). 
 ";
@@ -13996,16 +13996,16 @@ global helper function for comparison of axes
 // File: VariableBinAxis_8h.xml
 
 
-// File: PyGenTools_8cpp.xml
+// File: PythonFormatting_8cpp.xml
 
 
-// File: PyGenTools_8h.xml
+// File: PythonFormatting_8h.xml
 
 
-// File: PyGenVisitor_8cpp.xml
+// File: ExportToPython_8cpp.xml
 
 
-// File: PyGenVisitor_8h.xml
+// File: ExportToPython_8h.xml
 
 
 // File: SampleLabelHandler_8cpp.xml

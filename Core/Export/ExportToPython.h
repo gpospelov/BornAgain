@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Export/PyGenVisitor.h
-//! @brief     Declares PyGenVisitor class.
+//! @file      Core/Export/ExportToPython.h
+//! @brief     Declares ExportToPython class.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -22,11 +22,11 @@
 class GISASSimulation;
 class SampleLabelHandler;
 
-class BA_CORE_API_ PyGenVisitor
+class BA_CORE_API_ ExportToPython
 {
 public:
-    PyGenVisitor(const MultiLayer& multilayer);
-    virtual ~PyGenVisitor();
+    ExportToPython(const MultiLayer& multilayer);
+    virtual ~ExportToPython();
 
     std::string writePyScript(
         const GISASSimulation* simulation, const std::string& output_filename);

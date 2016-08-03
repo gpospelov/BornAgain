@@ -37,6 +37,8 @@
 #include <iomanip>
 #include <set>
 
+using namespace PythonFormatting;
+
 ExportToPython::ExportToPython(const MultiLayer& multilayer)
     : m_label(new SampleLabelHandler())
 {
@@ -168,8 +170,8 @@ std::string ExportToPython::defineMaterials() const
         if (p_material->isScalarMaterial()) {
             result << indent() << m_label->getLabelMaterial(p_material)
                    << " = ba.HomogeneousMaterial(\"" << p_material->getName()
-                   << "\", " << PythonFormatting::printDouble(delta) << ", "
-                   << PythonFormatting::printDouble(beta) << ")\n";
+                   << "\", " << printDouble(delta) << ", "
+                   << printDouble(beta) << ")\n";
         } else {
             const HomogeneousMagneticMaterial* p_mag_material
                 = dynamic_cast<const HomogeneousMagneticMaterial*>(p_material);
@@ -183,8 +185,8 @@ std::string ExportToPython::defineMaterials() const
                    << ")\n";
             result << indent() << m_label->getLabelMaterial(p_material)
                    << " = ba.HomogeneousMagneticMaterial(\"" << p_material->getName();
-            result << "\", " << PythonFormatting::printDouble(delta) << ", "
-                   << PythonFormatting::printDouble(beta) << ", "
+            result << "\", " << printDouble(delta) << ", "
+                   << printDouble(beta) << ", "
                    << "magnetic_field)\n";
         }
     }
@@ -222,7 +224,7 @@ std::string ExportToPython::defineFormFactors() const
     for (auto it=themap->begin(); it!=themap->end(); ++it) {
         const IFormFactor* p_ff = it->first;
         result << indent() << it->second << " = ba.FormFactor" << p_ff->getName() << "("
-               << PythonFormatting::argumentList(p_ff) << ")\n";
+               << argumentList(p_ff) << ")\n";
     }
     return result.str();
 }
@@ -287,7 +289,7 @@ std::string ExportToPython::defineParticleDistributions() const
         s_distr << "distr_" << index;
 
         result << indent() << s_distr.str() << " = ba."
-               << PythonFormatting::getRepresentation(par_distr.getDistribution()) << "\n";
+               << getRepresentation(par_distr.getDistribution()) << "\n";
 
         // building parameter distribution
         std::stringstream s_par_distr;
@@ -296,7 +298,7 @@ std::string ExportToPython::defineParticleDistributions() const
         result << indent() << s_par_distr.str() << " = ba.ParameterDistribution("
                << "\"" << par_distr.getMainParameterName() << "\""
                << ", " << s_distr.str() << ", " << par_distr.getNbrSamples() << ", "
-               << PythonFormatting::printDouble(par_distr.getSigmaFactor()) << ")\n";
+               << printDouble(par_distr.getSigmaFactor()) << ")\n";
 
         // linked parameters
         std::vector<std::string> linked_pars = par_distr.getLinkedParameterNames();
@@ -357,14 +359,14 @@ std::string ExportToPython::defineInterferenceFunctions() const
                  = dynamic_cast<const InterferenceFunction1DLattice*>(interference)) {
             const Lattice1DParameters latticeParameters = oneDLattice->getLatticeParameters();
             result << indent() << it->second << " = ba.InterferenceFunction1DLattice("
-                   << PythonFormatting::printNm(latticeParameters.m_length) << ", "
-                   << PythonFormatting::printDegrees(latticeParameters.m_xi) << ")\n";
+                   << printNm(latticeParameters.m_length) << ", "
+                   << printDegrees(latticeParameters.m_xi) << ")\n";
 
             const IFTDecayFunction1D* pdf = oneDLattice->getDecayFunction();
 
             if (pdf->getOmega() != 0.0) {
                 result << indent() << it->second << "_pdf  = ba." << pdf->getName()
-                       << "(" << PythonFormatting::argumentList(pdf) << ")\n";
+                       << "(" << argumentList(pdf) << ")\n";
                 result << indent() << it->second << ".setDecayFunction(" << it->second << "_pdf)\n";
             }
         }
@@ -372,22 +374,22 @@ std::string ExportToPython::defineInterferenceFunctions() const
         else if (const auto* oneDParaCrystal
                  = dynamic_cast<const InterferenceFunctionRadialParaCrystal*>(interference)) {
             result << indent() << it->second << " = ba.InterferenceFunctionRadialParaCrystal("
-                   << PythonFormatting::printNm(oneDParaCrystal->getPeakDistance()) << ", "
-                   << PythonFormatting::printNm(oneDParaCrystal->getDampingLength()) << ")\n";
+                   << printNm(oneDParaCrystal->getPeakDistance()) << ", "
+                   << printNm(oneDParaCrystal->getDampingLength()) << ")\n";
 
             if (oneDParaCrystal->getKappa() != 0.0)
                 result << indent() << it->second << ".setKappa("
-                       << PythonFormatting::printDouble(oneDParaCrystal->getKappa()) << ")\n";
+                       << printDouble(oneDParaCrystal->getKappa()) << ")\n";
 
             if (oneDParaCrystal->getDomainSize() != 0.0)
                 result << indent() << it->second << ".setDomainSize("
-                       << PythonFormatting::printDouble(oneDParaCrystal->getDomainSize()) << ")\n";
+                       << printDouble(oneDParaCrystal->getDomainSize()) << ")\n";
 
             const IFTDistribution1D* pdf = oneDParaCrystal->getProbabilityDistribution();
 
             if (pdf->getOmega() != 0.0) {
                 result << indent() << it->second << "_pdf  = ba." << pdf->getName()
-                       << "(" << PythonFormatting::argumentList(pdf) << ")\n";
+                       << "(" << argumentList(pdf) << ")\n";
                 result << indent() << it->second << ".setProbabilityDistribution(" << it->second
                        << "_pdf)\n";
             }
@@ -397,61 +399,61 @@ std::string ExportToPython::defineInterferenceFunctions() const
                  = dynamic_cast<const InterferenceFunction2DLattice*>(interference)) {
             const Lattice2DParameters latticeParameters = twoDLattice->getLatticeParameters();
             result << indent() << it->second << " = ba.InterferenceFunction2DLattice("
-                   << PythonFormatting::printNm(latticeParameters.m_length_1) << ", "
-                   << PythonFormatting::printNm(latticeParameters.m_length_2) << ", "
-                   << PythonFormatting::printDegrees(latticeParameters.m_angle) << ", "
-                   << PythonFormatting::printDegrees(latticeParameters.m_xi) << ")\n";
+                   << printNm(latticeParameters.m_length_1) << ", "
+                   << printNm(latticeParameters.m_length_2) << ", "
+                   << printDegrees(latticeParameters.m_angle) << ", "
+                   << printDegrees(latticeParameters.m_xi) << ")\n";
 
             const IFTDecayFunction2D* pdf = twoDLattice->getDecayFunction();
 
             result << indent() << it->second << "_pdf  = ba." << pdf->getName()
-                   << "(" << PythonFormatting::argumentList(pdf) << ")\n";
+                   << "(" << argumentList(pdf) << ")\n";
             result << indent() << it->second << ".setDecayFunction(" << it->second << "_pdf)\n";
         }
 
         else if (const auto* twoDParaCrystal
                  = dynamic_cast<const InterferenceFunction2DParaCrystal*>(interference)) {
             std::vector<double> domainSize = twoDParaCrystal->getDomainSizes();
-            if (PythonFormatting::isSquare(twoDParaCrystal->getLatticeParameters().m_length_1,
+            if (isSquare(twoDParaCrystal->getLatticeParameters().m_length_1,
                                      twoDParaCrystal->getLatticeParameters().m_length_2,
                                      twoDParaCrystal->getLatticeParameters().m_angle)) {
                 result << indent() << it->second
                        << " = ba.InterferenceFunction2DParaCrystal.createSquare("
-                       << PythonFormatting::printNm(twoDParaCrystal->getLatticeParameters().m_length_1)
+                       << printNm(twoDParaCrystal->getLatticeParameters().m_length_1)
                        << ", "
-                       << PythonFormatting::printNm(twoDParaCrystal->getDampingLength()) << ", "
-                       << PythonFormatting::printNm(domainSize[0]) << ", "
-                       << PythonFormatting::printNm(domainSize[1]) << ")\n";
+                       << printNm(twoDParaCrystal->getDampingLength()) << ", "
+                       << printNm(domainSize[0]) << ", "
+                       << printNm(domainSize[1]) << ")\n";
             }
 
-            else if (PythonFormatting::isHexagonal(twoDParaCrystal->getLatticeParameters().m_length_1,
+            else if (isHexagonal(twoDParaCrystal->getLatticeParameters().m_length_1,
                                              twoDParaCrystal->getLatticeParameters().m_length_2,
                                              twoDParaCrystal->getLatticeParameters().m_angle)) {
                 result << indent() << it->second
                        << " = ba.InterferenceFunction2DParaCrystal.createHexagonal("
-                       << PythonFormatting::printNm(twoDParaCrystal->getLatticeParameters().m_length_1)
+                       << printNm(twoDParaCrystal->getLatticeParameters().m_length_1)
                        << ", "
-                       << PythonFormatting::printNm(twoDParaCrystal->getDampingLength()) << ", "
-                       << PythonFormatting::printNm(domainSize[0]) << ", "
-                       << PythonFormatting::printNm(domainSize[1]) << ")\n";
+                       << printNm(twoDParaCrystal->getDampingLength()) << ", "
+                       << printNm(domainSize[0]) << ", "
+                       << printNm(domainSize[1]) << ")\n";
             }
 
             else {
                 result << indent() << it->second << " = ba.InterferenceFunction2DParaCrystal("
-                       << PythonFormatting::printNm(twoDParaCrystal->getLatticeParameters().m_length_1)
+                       << printNm(twoDParaCrystal->getLatticeParameters().m_length_1)
                        << ", "
-                       << PythonFormatting::printNm(twoDParaCrystal->getLatticeParameters().m_length_2)
+                       << printNm(twoDParaCrystal->getLatticeParameters().m_length_2)
                        << ", "
-                       << PythonFormatting::printDegrees(twoDParaCrystal->getLatticeParameters().m_angle)
+                       << printDegrees(twoDParaCrystal->getLatticeParameters().m_angle)
                        << ", "
-                       << PythonFormatting::printDegrees(twoDParaCrystal->getLatticeParameters().m_xi)
+                       << printDegrees(twoDParaCrystal->getLatticeParameters().m_xi)
                        << ", "
-                       << PythonFormatting::printNm(twoDParaCrystal->getDampingLength()) << ")\n";
+                       << printNm(twoDParaCrystal->getDampingLength()) << ")\n";
 
                 if (domainSize[0] != 0 || domainSize[1] != 0) {
                     result << indent() << it->second << ".setDomainSizes("
-                           << PythonFormatting::printNm(domainSize[0]) << ", "
-                           << PythonFormatting::printNm(domainSize[1]) << ")\n";
+                           << printNm(domainSize[0]) << ", "
+                           << printNm(domainSize[1]) << ")\n";
                 }
 
                 if (twoDParaCrystal->getIntegrationOverXi() == true)
@@ -463,12 +465,12 @@ std::string ExportToPython::defineInterferenceFunctions() const
             const IFTDistribution2D* pdf = pdf_vector[0];
 
             result << indent() << it->second << "_pdf_1  = ba." << pdf->getName()
-                   << "(" << PythonFormatting::argumentList(pdf) << ")\n";
+                   << "(" << argumentList(pdf) << ")\n";
 
             pdf = pdf_vector[1];
 
             result << indent() << it->second << "_pdf_2  = ba." << pdf->getName()
-                   << "(" << PythonFormatting::argumentList(pdf) << ")\n";
+                   << "(" << argumentList(pdf) << ")\n";
 
             result << indent() << it->second << ".setProbabilityDistributions(" << it->second
                    << "_pdf_1, " << it->second << "_pdf_2)\n";
@@ -505,7 +507,7 @@ std::string ExportToPython::defineParticleLayouts() const
                 double abundance = particleLayout->getAbundanceOfParticle(particleIndex);
                 result << indent() << it->second << ".addParticle("
                        << m_label->getLabelParticle(p_particle) << ", "
-                       << PythonFormatting::printDouble(abundance) << ")\n";
+                       << printDouble(abundance) << ")\n";
                 particleIndex++;
             }
 
@@ -537,7 +539,7 @@ std::string ExportToPython::defineRoughnesses() const
     result << "\n" << indent() << "# Defining Roughness Parameters\n";
     for (auto it=themap->begin(); it!=themap->end(); ++it)
         result << indent() << it->second << " = ba.LayerRoughness("
-               <<  PythonFormatting::argumentList(it->first) << ")\n";
+               <<  argumentList(it->first) << ")\n";
     return result.str();
 }
 
@@ -614,8 +616,8 @@ std::string ExportToPython::defineDetector(const GISASSimulation* simulation) co
         for(size_t index=0; index<detector->getDimension(); ++index) {
             if (index != 0) result << ", ";
             result << detector->getAxis(index).getSize() << ", "
-                   << PythonFormatting::printDegrees(detector->getAxis(index).getMin()) << ", "
-                   << PythonFormatting::printDegrees(detector->getAxis(index).getMax());
+                   << printDegrees(detector->getAxis(index).getMin()) << ", "
+                   << printDegrees(detector->getAxis(index).getMax());
         }
         result << ")\n";
 
@@ -623,49 +625,49 @@ std::string ExportToPython::defineDetector(const GISASSimulation* simulation) co
         result << indent() << "\n";
         result << indent() << "detector = ba.RectangularDetector("
                << detector->getNbinsX() << ", "
-               << PythonFormatting::printDouble(detector->getWidth()) << ", "
+               << printDouble(detector->getWidth()) << ", "
                << detector->getNbinsY() << ", "
-               << PythonFormatting::printDouble(detector->getHeight()) << ")\n";
+               << printDouble(detector->getHeight()) << ")\n";
         if(detector->getDetectorArrangment() == RectangularDetector::GENERIC) {
             result << indent() << "detector.setPosition("
-                   << PythonFormatting::printKvector(detector->getNormalVector()) << ", "
-                   << PythonFormatting::printDouble(detector->getU0()) << ", "
-                   << PythonFormatting::printDouble(detector->getV0());
-            if(PythonFormatting::isDefaultDirection(detector->getDirectionVector())) {
+                   << printKvector(detector->getNormalVector()) << ", "
+                   << printDouble(detector->getU0()) << ", "
+                   << printDouble(detector->getV0());
+            if(isDefaultDirection(detector->getDirectionVector())) {
                 result << ")\n";
             } else {
-                result << ", " << PythonFormatting::printKvector(detector->getDirectionVector()) << ")\n";
+                result << ", " << printKvector(detector->getDirectionVector()) << ")\n";
             }
 
         } else if (detector->getDetectorArrangment()
                    == RectangularDetector::PERPENDICULAR_TO_SAMPLE) {
             result << indent() << "detector.setPerpendicularToSampleX("
-                   << PythonFormatting::printDouble(detector->getDistance()) << ", "
-                   << PythonFormatting::printDouble(detector->getU0()) << ", "
-                   << PythonFormatting::printDouble(detector->getV0()) << ")\n";
+                   << printDouble(detector->getDistance()) << ", "
+                   << printDouble(detector->getU0()) << ", "
+                   << printDouble(detector->getV0()) << ")\n";
 
         } else if (detector->getDetectorArrangment()
                    == RectangularDetector::PERPENDICULAR_TO_DIRECT_BEAM) {
             result << indent() << "detector.setPerpendicularToDirectBeam("
-                   << PythonFormatting::printDouble(detector->getDistance()) << ", "
-                   << PythonFormatting::printDouble(detector->getU0()) << ", "
-                   << PythonFormatting::printDouble(detector->getV0()) << ")\n";
+                   << printDouble(detector->getDistance()) << ", "
+                   << printDouble(detector->getU0()) << ", "
+                   << printDouble(detector->getV0()) << ")\n";
 
         } else if (detector->getDetectorArrangment()
                    == RectangularDetector::PERPENDICULAR_TO_REFLECTED_BEAM) {
             result << indent() << "detector.setPerpendicularToReflectedBeam("
-                   << PythonFormatting::printDouble(detector->getDistance()) << ", "
-                   << PythonFormatting::printDouble(detector->getU0()) << ", "
-                   << PythonFormatting::printDouble(detector->getV0()) << ")\n";
+                   << printDouble(detector->getDistance()) << ", "
+                   << printDouble(detector->getU0()) << ", "
+                   << printDouble(detector->getV0()) << ")\n";
 
 
         } else if (detector->getDetectorArrangment()
                    == RectangularDetector::PERPENDICULAR_TO_REFLECTED_BEAM_DPOS) {
             result << indent() << "detector.setPerpendicularToReflectedBeam("
-                   << PythonFormatting::printDouble(detector->getDistance()) << ")\n";
+                   << printDouble(detector->getDistance()) << ")\n";
             result << indent() << "detector.setDirectBeamPosition("
-                   << PythonFormatting::printDouble(detector->getDirectBeamU0()) << ", "
-                   << PythonFormatting::printDouble(detector->getDirectBeamV0()) << ")\n";
+                   << printDouble(detector->getDirectBeamU0()) << ", "
+                   << printDouble(detector->getDirectBeamV0()) << ")\n";
 
         } else {
             throw Exceptions::RuntimeErrorException(
@@ -694,11 +696,11 @@ std::string ExportToPython::defineDetectorResolutionFunction(const GISASSimulati
                 result << indent() << "simulation.setDetectorResolutionFunction(";
                 result << "ba.ResolutionFunction2DGaussian(";
                 if(detector->getDefaultAxesUnits() == IDetector2D::RADIANS) {
-                    result << PythonFormatting::printDegrees(resfunc->getSigmaX()) << ", ";
-                    result << PythonFormatting::printDegrees(resfunc->getSigmaY()) << "))\n";
+                    result << printDegrees(resfunc->getSigmaX()) << ", ";
+                    result << printDegrees(resfunc->getSigmaY()) << "))\n";
                 } else {
-                    result << PythonFormatting::printDouble(resfunc->getSigmaX()) << ", ";
-                    result << PythonFormatting::printDouble(resfunc->getSigmaY()) << "))\n";
+                    result << printDouble(resfunc->getSigmaX()) << ", ";
+                    result << printDouble(resfunc->getSigmaY()) << "))\n";
                 }
 
             } else {
@@ -723,13 +725,13 @@ std::string ExportToPython::defineBeam(const GISASSimulation* simulation) const
     // result << indent() << "# Defining Beam Parameters\n";
     const Beam& beam = simulation->getInstrument().getBeam();
     result << indent() << "simulation.setBeamParameters("
-           << PythonFormatting::printNm(beam.getWavelength()) << ", "
-           << PythonFormatting::printDegrees(beam.getAlpha()) << ", "
-           << PythonFormatting::printDegrees(beam.getPhi()) << ")\n";
+           << printNm(beam.getWavelength()) << ", "
+           << printDegrees(beam.getAlpha()) << ", "
+           << printDegrees(beam.getPhi()) << ")\n";
     double beam_intensity = beam.getIntensity();
     if(beam_intensity > 0.0)
         result << indent() << "simulation.setBeamIntensity("
-               << PythonFormatting::printScientificDouble(beam_intensity) << ")\n";
+               << printScientificDouble(beam_intensity) << ")\n";
     return result.str();
 }
 
@@ -745,10 +747,10 @@ std::string ExportToPython::defineParameterDistributions(const GISASSimulation* 
         double sigma_factor = distributions[i].getSigmaFactor();
         const IDistribution1D* p_distr = distributions[i].getDistribution();
         result << indent() << "distribution_" << i+1 << " = ba."
-               << PythonFormatting::getRepresentation(p_distr) << "\n";
+               << getRepresentation(p_distr) << "\n";
         result << indent() << "simulation.addParameterDistribution(\"" << main_par_name << "\", "
                << "distribution_" << i+1 << ", " << nbr_samples << ", "
-               << PythonFormatting::printDouble(sigma_factor) << ")\n";
+               << printDouble(sigma_factor) << ")\n";
     }
     return result.str();
 }
@@ -765,7 +767,7 @@ std::string ExportToPython::defineMasks(const GISASSimulation* simulation) const
         for(size_t i_mask=0; i_mask<detectorMask->getNumberOfMasks(); ++i_mask) {
             bool mask_value(false);
             const Geometry::IShape2D* shape = detectorMask->getMaskShape(i_mask, mask_value);
-            result << PythonFormatting::getRepresentation(indent(), shape, mask_value);
+            result << getRepresentation(indent(), shape, mask_value);
         }
         result << "\n";
     }
@@ -807,9 +809,9 @@ std::string ExportToPython::definePlotting(const GISASSimulation* simulation) co
         if (index != 0) {
             result << ", ";
         }
-        result << PythonFormatting::printDegrees(
+        result << printDegrees(
                       simulation->getInstrument().getDetectorAxis(index).getMin()) << ", "
-               << PythonFormatting::printDegrees(
+               << printDegrees(
                       simulation->getInstrument().getDetectorAxis(index).getMax());
         index++;
     }
@@ -849,20 +851,20 @@ void ExportToPython::setRotationInformation(
         switch (p_particle->getRotation()->getTransform3D().getRotationType()) {
         case Geometry::Transform3D::EULER:
             result << indent() << name << "_rotation = ba.RotationEuler("
-                   << PythonFormatting::printDegrees(alpha) << ", " << PythonFormatting::printDegrees(beta)
-                   << ", " << PythonFormatting::printDegrees(gamma) << ")\n";
+                   << printDegrees(alpha) << ", " << printDegrees(beta)
+                   << ", " << printDegrees(gamma) << ")\n";
             break;
         case Geometry::Transform3D::XAXIS:
             result << indent() << name << "_rotation = ba.RotationX("
-                   << PythonFormatting::printDegrees(beta) << ")\n";
+                   << printDegrees(beta) << ")\n";
             break;
         case Geometry::Transform3D::YAXIS:
             result << indent() << name << "_rotation = ba.RotationY("
-                   << PythonFormatting::printDegrees(gamma) << ")\n";
+                   << printDegrees(gamma) << ")\n";
             break;
         case Geometry::Transform3D::ZAXIS:
             result << indent() << name << "_rotation = ba.RotationZ("
-                   << PythonFormatting::printDegrees(alpha) << ")\n";
+                   << printDegrees(alpha) << ")\n";
             break;
         default:
             break;
@@ -880,9 +882,9 @@ void ExportToPython::setPositionInformation(
     if (has_position_info) {
         result << indent() << name
                << "_position = kvector_t("
-               << PythonFormatting::printNm(pos.x()) << ", "
-               << PythonFormatting::printNm(pos.y()) << ", "
-               << PythonFormatting::printNm(pos.z()) << ")\n";
+               << printNm(pos.x()) << ", "
+               << printNm(pos.y()) << ", "
+               << printNm(pos.z()) << ")\n";
 
         result << indent()
                << name << ".setPosition("

@@ -37,7 +37,10 @@ GCC_DIAG_OFF(unused-parameter)
 GCC_DIAG_ON(unused-parameter)
 GCC_DIAG_ON(missing-field-initializers)
 
-std::string PythonFormatting::genPyScript(GISASSimulation* simulation, const std::string& output_filename)
+namespace PythonFormatting {
+
+std::string genPyScript(
+    GISASSimulation* simulation, const std::string& output_filename)
 {
     simulation->prepareSimulation();
     std::unique_ptr<ISample> sample;
@@ -52,7 +55,7 @@ std::string PythonFormatting::genPyScript(GISASSimulation* simulation, const std
     return result.str();
 }
 
-std::string PythonFormatting::getRepresentation(const IDistribution1D* distribution)
+std::string getRepresentation(const IDistribution1D* distribution)
 {
      std::ostringstream result;
      result << std::setprecision(12);
@@ -60,42 +63,42 @@ std::string PythonFormatting::getRepresentation(const IDistribution1D* distribut
      if     (const DistributionGate* d =
              dynamic_cast<const DistributionGate*>(distribution)) {
         result << "DistributionGate("
-               << PythonFormatting::printDouble(d->getMin()) << ", "
-               << PythonFormatting::printDouble(d->getMax()) << ")";
+               << printDouble(d->getMin()) << ", "
+               << printDouble(d->getMax()) << ")";
      }
      else if(const DistributionLorentz* d =
              dynamic_cast<const DistributionLorentz*>(distribution)) {
          result << "DistributionLorentz("
-                << PythonFormatting::printDouble(d->getMean()) << ", "
-                << PythonFormatting::printDouble(d->getHWHM()) << ")";
+                << printDouble(d->getMean()) << ", "
+                << printDouble(d->getHWHM()) << ")";
      }
      else if(const DistributionGaussian* d =
              dynamic_cast<const DistributionGaussian*>(distribution)) {
          result << "DistributionGaussian("
-                << PythonFormatting::printDouble(d->getMean()) << ", "
-                << PythonFormatting::printDouble(d->getStdDev()) << ")";
+                << printDouble(d->getMean()) << ", "
+                << printDouble(d->getStdDev()) << ")";
      }
      else if(const DistributionLogNormal* d =
              dynamic_cast<const DistributionLogNormal*>(distribution)) {
          result << "DistributionLogNormal("
-                << PythonFormatting::printDouble(d->getMedian()) << ", "
-                << PythonFormatting::printDouble(d->getScalePar()) << ")";
+                << printDouble(d->getMedian()) << ", "
+                << printDouble(d->getScalePar()) << ")";
      }
      else if(const DistributionCosine* d =
              dynamic_cast<const DistributionCosine*>(distribution)) {
          result << "DistributionCosine("
-                << PythonFormatting::printDouble(d->getMean()) << ", "
-                << PythonFormatting::printDouble(d->getSigma()) << ")";
+                << printDouble(d->getMean()) << ", "
+                << printDouble(d->getSigma()) << ")";
      }
      else {
          throw Exceptions::RuntimeErrorException(
-            "PythonFormatting::getRepresentation(const IDistribution1D* distribution) "
+            "getRepresentation(const IDistribution1D* distribution) "
             "-> Error. Unknown distribution type");
      }
      return result.str();
 }
 
-std::string PythonFormatting::getRepresentation(
+std::string getRepresentation(
     const std::string& indent, const Geometry::IShape2D* ishape, bool mask_value)
 {     std::ostringstream result;
       result << std::setprecision(12);
@@ -103,22 +106,22 @@ std::string PythonFormatting::getRepresentation(
     if(const Geometry::Ellipse* shape = dynamic_cast<const Geometry::Ellipse*>(ishape)) {
         result << indent << "simulation.addMask(";
         result << "ba.Ellipse("
-               << PythonFormatting::printDegrees(shape->getCenterX()) << ", "
-               << PythonFormatting::printDegrees(shape->getCenterY()) << ", "
-               << PythonFormatting::printDegrees(shape->getRadiusX()) << ", "
-               << PythonFormatting::printDegrees(shape->getRadiusY());
-        if(shape->getTheta() != 0.0) result << ", " << PythonFormatting::printDegrees(shape->getTheta());
-        result << "), " << PythonFormatting::printBool(mask_value) << ")\n";
+               << printDegrees(shape->getCenterX()) << ", "
+               << printDegrees(shape->getCenterY()) << ", "
+               << printDegrees(shape->getRadiusX()) << ", "
+               << printDegrees(shape->getRadiusY());
+        if(shape->getTheta() != 0.0) result << ", " << printDegrees(shape->getTheta());
+        result << "), " << printBool(mask_value) << ")\n";
     }
 
     else if(const Geometry::Rectangle* shape = dynamic_cast<const Geometry::Rectangle*>(ishape)) {
         result << indent << "simulation.addMask(";
         result << "ba.Rectangle("
-               << PythonFormatting::printDegrees(shape->getXlow()) << ", "
-               << PythonFormatting::printDegrees(shape->getYlow()) << ", "
-               << PythonFormatting::printDegrees(shape->getXup()) << ", "
-               << PythonFormatting::printDegrees(shape->getYup()) << "), "
-               << PythonFormatting::printBool(mask_value) << ")\n";
+               << printDegrees(shape->getXlow()) << ", "
+               << printDegrees(shape->getYlow()) << ", "
+               << printDegrees(shape->getXup()) << ", "
+               << printDegrees(shape->getYup()) << "), "
+               << printBool(mask_value) << ")\n";
     }
 
     else if(const Geometry::Polygon* shape = dynamic_cast<const Geometry::Polygon*>(ishape)) {
@@ -126,29 +129,29 @@ std::string PythonFormatting::getRepresentation(
         shape->getPoints(xpos, ypos);
         result << indent << "points = [";
         for(size_t i=0; i<xpos.size(); ++i) {
-            result << "[" << PythonFormatting::printDegrees(xpos[i]) << ", " <<
-                PythonFormatting::printDegrees(ypos[i]) << "]";
+            result << "[" << printDegrees(xpos[i]) << ", " <<
+                printDegrees(ypos[i]) << "]";
             if(i!= xpos.size()-1) result << ", ";
         }
         result << "]\n";
         result << indent << "simulation.addMask(" <<
-            "ba.Polygon(points), " << PythonFormatting::printBool(mask_value) << ")\n";
+            "ba.Polygon(points), " << printBool(mask_value) << ")\n";
     }
 
     else if(const Geometry::VerticalLine* shape =
             dynamic_cast<const Geometry::VerticalLine*>(ishape)) {
         result << indent << "simulation.addMask(";
         result << "ba.VerticalLine("
-               << PythonFormatting::printDegrees(shape->getXpos()) << "), "
-               << PythonFormatting::printBool(mask_value) << ")\n";
+               << printDegrees(shape->getXpos()) << "), "
+               << printBool(mask_value) << ")\n";
     }
 
     else if(const Geometry::HorizontalLine* shape =
             dynamic_cast<const Geometry::HorizontalLine*>(ishape)) {
         result << indent << "simulation.addMask(";
         result << "ba.HorizontalLine("
-               << PythonFormatting::printDegrees(shape->getYpos()) << "), "
-               << PythonFormatting::printBool(mask_value) << ")\n";
+               << printDegrees(shape->getYpos()) << "), "
+               << printBool(mask_value) << ")\n";
     }
 
     else if(dynamic_cast<const Geometry::InfinitePlane*>(ishape)) {
@@ -157,12 +160,12 @@ std::string PythonFormatting::getRepresentation(
     return result.str();
 }
 
-std::string PythonFormatting::printBool(double value)
+std::string printBool(double value)
 {
     return value ? "True" : "False";
 }
 
-std::string PythonFormatting::printDouble(double input)
+std::string printDouble(double input)
 {
     std::ostringstream inter;
     inter << std::setprecision(12);
@@ -176,16 +179,16 @@ std::string PythonFormatting::printDouble(double input)
     return inter.str();
 }
 
-std::string PythonFormatting::printNm(double input)
+std::string printNm(double input)
 {
     std::ostringstream inter;
     inter << std::setprecision(12);
-    inter << PythonFormatting::printDouble(input) << "*nm";
+    inter << printDouble(input) << "*nm";
     return inter.str();
 }
 
 // 1.000000e+07 -> 1.0e+07
-std::string PythonFormatting::printScientificDouble(double input)
+std::string printScientificDouble(double input)
 {
     std::ostringstream inter;
     inter << std::scientific;
@@ -203,7 +206,7 @@ std::string PythonFormatting::printScientificDouble(double input)
     return part1+part2;
 }
 
-std::string PythonFormatting::printDegrees(double input)
+std::string printDegrees(double input)
 {
     std::ostringstream inter;
     inter << std::setprecision(11);
@@ -215,27 +218,27 @@ std::string PythonFormatting::printDegrees(double input)
     return inter.str();
 }
 
-bool PythonFormatting::isSquare(double length1, double length2, double angle)
+bool isSquare(double length1, double length2, double angle)
 {
     return length1==length2 && Numeric::areAlmostEqual(angle, Units::PI/2.0);
 }
 
-bool PythonFormatting::isHexagonal(double length1, double length2, double angle)
+bool isHexagonal(double length1, double length2, double angle)
 {
     return length1==length2 && Numeric::areAlmostEqual(angle, 2*Units::PI/3.0);
 }
 
-std::string PythonFormatting::printKvector(const kvector_t value)
+std::string printKvector(const kvector_t value)
 {
     std::ostringstream result;
-    result << "kvector_t(" << PythonFormatting::printDouble(value.x()) << ", "
-           << PythonFormatting::printDouble(value.y()) << ", "
-           << PythonFormatting::printDouble(value.z()) << ")";
+    result << "kvector_t(" << printDouble(value.x()) << ", "
+           << printDouble(value.y()) << ", "
+           << printDouble(value.z()) << ")";
     return result.str();
 }
 
 //! returns true if it is (0, -1, 0) vector
-bool PythonFormatting::isDefaultDirection(const kvector_t direction)
+bool isDefaultDirection(const kvector_t direction)
 {
     if( Numeric::areAlmostEqual(direction.x(),  0.0) &&
         Numeric::areAlmostEqual(direction.y(), -1.0) &&
@@ -246,19 +249,21 @@ bool PythonFormatting::isDefaultDirection(const kvector_t direction)
 
 //! Returns parameter value, followed by its unit multiplicator (like "* nm").
 
-std::string PythonFormatting::valueTimesUnit(const RealParameter* par)
+std::string valueTimesUnit(const RealParameter* par)
 {
     if (par->unit()=="rad")
-        return PythonFormatting::printDegrees(par->getValue());
-    return PythonFormatting::printDouble(par->getValue()) + ( par->unit()=="" ? "" : ("*"+par->unit()) );
+        return printDegrees(par->getValue());
+    return printDouble(par->getValue()) + ( par->unit()=="" ? "" : ("*"+par->unit()) );
 }
 
 //! Returns comma-separated list of parameter values, including unit multiplicator (like "* nm").
 
-std::string PythonFormatting::argumentList(const IParameterized* ip)
+std::string argumentList(const IParameterized* ip)
 {
     std::vector<std::string> args;
     for(const auto* par: ip->getParameterPool()->getParameters())
         args.push_back( valueTimesUnit(par) );
     return Utils::String::join( args, ", " );
 }
+
+} // namespace PythonFormatting

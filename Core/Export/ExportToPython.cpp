@@ -76,8 +76,10 @@ ExportToPython::~ExportToPython()
     delete m_label;
 }
 
-std::string ExportToPython::writePyScript(
-    const GISASSimulation* simulation, const std::string& output_filename)
+//! Returns a Python script that sets up a simulation and runs it if invoked as main program.
+
+std::string ExportToPython::simulationToPythonLowlevel(
+    const GISASSimulation* simulation, const std::string& simulation_output_filename)
 {
     std::ostringstream result;
     result << definePreamble();
@@ -88,7 +90,7 @@ std::string ExportToPython::writePyScript(
     result << defineRunSimulation();
 
     result << "if __name__ == '__main__': \n";
-    result << indent() << "runSimulation('" << output_filename << "')";
+    result << indent() << "runSimulation('" << simulation_output_filename << "')";
     return result.str();
 }
 
@@ -776,15 +778,12 @@ std::string ExportToPython::defineSimulationOptions(const GISASSimulation* simul
     result << std::setprecision(12);
 
     const SimulationOptions& options = simulation->getOptions();
-    if(options.getHardwareConcurrency() != options.getNumberOfThreads()) {
+    if(options.getHardwareConcurrency() != options.getNumberOfThreads())
         result << indent() << "simulation.getOptions().setNumberOfThreads("
                << options.getNumberOfThreads() << ")\n";
-    }
-    if(options.isIntegrate()) {
+    if(options.isIntegrate())
         result << indent() << "simulation.getOptions().setMonteCarloIntegration(True, "
                << options.getMcPoints() << ")\n";
-    }
-
     return result.str();
 }
 

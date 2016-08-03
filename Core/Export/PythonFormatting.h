@@ -28,8 +28,8 @@ class IParameterized;
 class RealParameter;
 
 namespace PythonFormatting {
-    BA_CORE_API_ std::string genPyScript(
-        GISASSimulation* simulation, const std::string& output_filename);
+    BA_CORE_API_ std::string simulationToPython(
+        GISASSimulation* simulation, const std::string& simulation_output_filename);
 
     BA_CORE_API_ std::string getRepresentation(const IDistribution1D* distribution);
     BA_CORE_API_ std::string getRepresentation(

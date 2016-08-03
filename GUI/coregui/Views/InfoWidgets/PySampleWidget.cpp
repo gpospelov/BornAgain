@@ -274,7 +274,6 @@ QPoint PySampleWidget::getPositionForWarningSign()
             x -= vertical->width();
     }
 
-
     return QPoint(x, y);
 }
 

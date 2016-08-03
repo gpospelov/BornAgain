@@ -37,10 +37,8 @@ GCC_DIAG_OFF(unused-parameter)
 GCC_DIAG_ON(unused-parameter)
 GCC_DIAG_ON(missing-field-initializers)
 
-namespace PythonFormatting {
-
-std::string genPyScript(
-    GISASSimulation* simulation, const std::string& output_filename)
+std::string PythonFormatting::simulationToPython(
+    GISASSimulation* simulation, const std::string& simulation_output_filename)
 {
     simulation->prepareSimulation();
     std::unique_ptr<ISample> sample;
@@ -51,9 +49,11 @@ std::string genPyScript(
     MultiLayer* multilayer = dynamic_cast<MultiLayer*>(sample.get());
     ExportToPython visitor(*multilayer);
     std::ostringstream result;
-    result << visitor.writePyScript(simulation, output_filename);
+    result << visitor.simulationToPythonLowlevel(simulation, simulation_output_filename);
     return result.str();
 }
+
+namespace PythonFormatting {
 
 std::string getRepresentation(const IDistribution1D* distribution)
 {

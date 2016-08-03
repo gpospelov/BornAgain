@@ -32,11 +32,11 @@ public:
 
     std::string writePyScript(
         const GISASSimulation* simulation, const std::string& output_filename);
+    std::string defineGetSample() const;
 
 private:
     std::string definePreamble() const;
     std::string defineGetSimulation(const GISASSimulation* simulation) const;
-    std::string defineGetSample() const;
     std::string defineMaterials() const;
     std::string defineLayers() const;
     std::string defineFormFactors() const;

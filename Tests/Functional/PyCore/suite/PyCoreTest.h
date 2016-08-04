@@ -33,7 +33,6 @@ public:
     virtual ~PyCoreTest();
 
     virtual void runTest();
-    virtual int analyseResults();
 
     const OutputData<double>* getOutputData() const;
 

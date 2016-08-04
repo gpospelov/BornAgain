@@ -33,7 +33,6 @@ public:
     virtual ~IFunctionalTest() {}
 
     virtual void runTest() = 0;
-    virtual int analyseResults() = 0;
 
     std::string getDescription() const { return m_description; }
     void setDescription(const std::string& description) { m_description = description; }

@@ -36,7 +36,6 @@ public:
     virtual ~IMinimizerTest(){}
 
     void runTest();
-    int analyseResults();
 
     class TestParameter
     {
@@ -48,7 +47,7 @@ public:
         double m_found_value; //!< the value found during the fit
     };
 
-    void setParameterTolerance(double value);
+    void setParameterTolerance(double value) { m_parameter_tolerance = value; }
 
 protected:
     virtual std::unique_ptr<FitSuite> createFitSuite();

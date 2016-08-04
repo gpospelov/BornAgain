@@ -33,8 +33,7 @@ GUITest::GUITest(const std::string &name, const std::string &description,
     , m_domain_simulation(0)
     , m_threshold(threshold)
     , m_difference(0)
-{
-}
+{}
 
 GUITest::~GUITest()
 {
@@ -44,26 +43,21 @@ GUITest::~GUITest()
 
 void GUITest::runTest()
 {
-    if (!m_reference_simulation) {
+    if (!m_reference_simulation)
         throw Exceptions::NullPointerException(
             "GUITest::runTest() -> Error. Uninitialized simulation object.");
-    }
 
     m_reference_simulation->runSimulation();
 
     createDomainSimulation();
     m_domain_simulation->runSimulation();
-}
 
-int GUITest::analyseResults()
-{
     const std::unique_ptr<OutputData<double> > P_domain_data(
                 m_domain_simulation->getDetectorIntensity());
     const std::unique_ptr<OutputData<double> > P_reference_data(
         m_reference_simulation->getDetectorIntensity());
     m_difference = IntensityDataFunctions::getRelativeDifference(*P_domain_data, *P_reference_data);
     m_result = (m_difference > m_threshold ? FAILED_DIFF : SUCCESS);
-    return m_result;
 }
 
 void GUITest::printResults(std::ostream &ostr) const

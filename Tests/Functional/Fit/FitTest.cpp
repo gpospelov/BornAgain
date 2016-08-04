@@ -36,5 +36,5 @@ int main(int argc, char **argv)
 
     const std::unique_ptr<IFunctionalTest> test(catalogue.createTest(test_name));
     test->runTest();
-    return test->analyseResults();
+    return test->getTestResult();
 }

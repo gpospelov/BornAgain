@@ -51,10 +51,6 @@ void CoreTest::runTest()
         m_reference = nullptr;
         std::cout << "proceed without reference after catching error [" << ex.what() << "]\n";
     }
-}
-
-int CoreTest::analyseResults()
-{
     // Run simulation.
     const std::unique_ptr<OutputData<double>>
         result_data(m_simulation->getDetectorIntensity());
@@ -72,8 +68,6 @@ int CoreTest::analyseResults()
         IntensityDataIOFactory::writeOutputData(
             *(getIntensityData()), getSimulationResultsFileNameAndPath());
     }
-
-    return m_result;
 }
 
 void CoreTest::printResults(std::ostream& ostr) const

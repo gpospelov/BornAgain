@@ -132,8 +132,7 @@ FormFactorInfo* LayerStrategyBuilder::createFormFactorInfo(
         p_ff_framework = P_ff_particle->clone();
     }
     p_result->mp_ff = p_ff_framework;
-    // Other info (position and abundance)
-    kvector_t position = P_particle_clone->getPosition();
+    // Other info (abundance)
     p_result->m_abundance = particle->getAbundance();
     return p_result;
 }

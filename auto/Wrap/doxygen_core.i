@@ -1508,7 +1508,7 @@ C++ includes: ExportToPython.h
 %feature("docstring")  ExportToPython::~ExportToPython "ExportToPython::~ExportToPython()
 ";
 
-%feature("docstring")  ExportToPython::simulationToPythonLowlevel "std::string ExportToPython::simulationToPythonLowlevel(const GISASSimulation *simulation, const std::string &simulation_output_filename)
+%feature("docstring")  ExportToPython::simulationToPythonLowlevel "std::string ExportToPython::simulationToPythonLowlevel(const GISASSimulation *simulation)
 
 Returns a Python script that sets up a simulation and runs it if invoked as main program. 
 ";
@@ -13397,8 +13397,6 @@ C++ includes: WavevectorInfo.h
 
 
 // File: namespaceCodeSnippet.xml
-%feature("docstring")  CodeSnippet::mainProgram "std::string CodeSnippet::mainProgram(const std::string &simulation_output_filename)
-";
 
 
 // File: namespaceExceptions.xml
@@ -13740,7 +13738,7 @@ Returns parameter value, followed by its unit multiplicator (like \"* nm\").
 Returns comma-separated list of parameter values, including unit multiplicator (like \"* nm\"). 
 ";
 
-%feature("docstring")  PythonFormatting::simulationToPython "std::string PythonFormatting::simulationToPython(GISASSimulation *simulation, const std::string &simulation_output_filename)
+%feature("docstring")  PythonFormatting::simulationToPython "std::string PythonFormatting::simulationToPython(GISASSimulation *simulation)
 ";
 
 

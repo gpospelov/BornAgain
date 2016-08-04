@@ -601,7 +601,6 @@ std::string ExportToPython::defineMultiLayers() const
             }
         }
         result << indent() << "return " << it->second << "\n";
-        //result << indent() << "return None\n";// TEMP << it->second << "\n";
     }
     return result.str();
 }

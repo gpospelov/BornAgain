@@ -101,7 +101,7 @@ void PythonScriptWidget::generatePythonScript(const MultiLayerItem *sampleItem,
             DomainSimulationBuilder::getSimulation(sampleItem, instrumentItem, optionItem));
 
         QString code = QString::fromStdString(
-            PythonFormatting::simulationToPython(P_simulation.get(), "output"));
+            PythonFormatting::simulationToPython(P_simulation.get()));
         m_textEdit->clear();
         m_textEdit->setText(code);
 

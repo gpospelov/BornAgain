@@ -37,8 +37,7 @@ GCC_DIAG_OFF(unused-parameter)
 GCC_DIAG_ON(unused-parameter)
 GCC_DIAG_ON(missing-field-initializers)
 
-std::string PythonFormatting::simulationToPython(
-    GISASSimulation* simulation, const std::string& simulation_output_filename)
+std::string PythonFormatting::simulationToPython(GISASSimulation* simulation)
 {
     simulation->prepareSimulation();
     std::unique_ptr<ISample> sample;
@@ -49,7 +48,7 @@ std::string PythonFormatting::simulationToPython(
     MultiLayer* multilayer = dynamic_cast<MultiLayer*>(sample.get());
     ExportToPython visitor(*multilayer);
     std::ostringstream result;
-    result << visitor.simulationToPythonLowlevel(simulation, simulation_output_filename);
+    result << visitor.simulationToPythonLowlevel(simulation);
     return result.str();
 }
 

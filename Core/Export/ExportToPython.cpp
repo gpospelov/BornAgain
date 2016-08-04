@@ -41,7 +41,7 @@
 namespace CodeSnippet {
 
     const std::string preamble =
-        "import numpy\n"
+        "import numpy, sys\n"
         "#NOTE: Uncomment the next import statements for plotting\n"
         "#import matplotlib\n"
         "#from matplotlib import pyplot as plt\n"
@@ -49,21 +49,28 @@ namespace CodeSnippet {
         "from bornagain import deg, angstrom, nm, kvector_t\n\n";
 
     const std::string defineRunSimulation =
-        "def runSimulation(filename = ''):\n"
+        "def runSimulation():\n"
         "    # Run Simulation\n"
         "    sample = getSample()\n"
         "    simulation = getSimulation()\n"
         "    simulation.setSample(sample)\n"
         "    simulation.runSimulation()\n"
-        "    if filename != '':\n"
-        "        ba.IntensityDataIOFactory.writeIntensityData("
-        "simulation.getIntensityData(), filename + '.int')\n"
+        "    return simulation\n"
         "\n\n";
 
-    std::string mainProgram(const std::string& simulation_output_filename) {
-        return
-            "if __name__ == '__main__': \n"
-            "    runSimulation('" + simulation_output_filename + "')\n"; }
+    const std::string mainProgram =
+        "if __name__ == '__main__': \n"
+        "    if len(sys.argv)<=1:\n"
+        "        print('Usage:')\n"
+        "        print('    '+sys.argv[0]+' -p         # to plot simulation result')\n"
+        "        print('    '+sys.argv[0]+' <filename> # to save results to file')\n"
+        "        sys.exit(1)\n"
+        "    simulation = runSimulation()\n"
+        "    if sys.argv[1] != '-p':\n"
+        "        ba.IntensityDataIOFactory.writeIntensityData(\n"
+        "            simulation.getIntensityData(), sys.argv[1])\n"
+        "    else:\n"
+        "        plotSimulation(simulation)\n";
 
 } // namespace CodeSnippet
 
@@ -108,15 +115,14 @@ ExportToPython::~ExportToPython()
 
 //! Returns a Python script that sets up a simulation and runs it if invoked as main program.
 
-std::string ExportToPython::simulationToPythonLowlevel(
-    const GISASSimulation* simulation, const std::string& simulation_output_filename)
+std::string ExportToPython::simulationToPythonLowlevel(const GISASSimulation* simulation)
 {
     return CodeSnippet::preamble
         + defineGetSample()
         + defineGetSimulation(simulation)
         + definePlotting(simulation)
         + CodeSnippet::defineRunSimulation
-        + CodeSnippet::mainProgram(simulation_output_filename);
+        + CodeSnippet::mainProgram;
 }
 
 std::string ExportToPython::defineGetSimulation(const GISASSimulation* simulation) const
@@ -594,8 +600,8 @@ std::string ExportToPython::defineMultiLayers() const
                 layerIndex++;
             }
         }
-        //       result << indent() << "return " << it->second << "\n";
-        result << indent() << "return None\n";// TEMP << it->second << "\n";
+        result << indent() << "return " << it->second << "\n";
+        //result << indent() << "return None\n";// TEMP << it->second << "\n";
     }
     return result.str();
 }
@@ -795,9 +801,12 @@ std::string ExportToPython::definePlotting(const GISASSimulation* simulation) co
     result << std::setprecision(12);
     //    result << "#NOTE: Uncomment the next function for plotting\n";
     //    result << "#NOTE: This requires the presence of matplotlib library\n";
-    result << "def plotSimulation(simulation):\n";
-    result << "" << indent() << "result = simulation.getIntensityData()\n";
-    result << "" << indent() << "im = plt.imshow(result.getArray(), "
+    result <<
+        "def plotSimulation(simulation):\n"
+        "    import matplotlib.colors\n"
+        "    from matplotlib import pyplot as plt\n"
+        "    result = simulation.getIntensityData()\n"
+        "    im = plt.imshow(result.getArray(), "
            << "norm=matplotlib.colors.LogNorm(1, result.getMaximum()), extent=[";
     const Instrument& instrument = simulation->getInstrument();
     std::vector<std::string> entries;
@@ -805,8 +814,9 @@ std::string ExportToPython::definePlotting(const GISASSimulation* simulation) co
         entries.push_back( printDegrees(instrument.getDetectorAxis(i).getMin()) + ", " +
                            printDegrees(instrument.getDetectorAxis(i).getMax()) );
     result << Utils::String::join( entries, ", " ) << "]) \n";
-    result << indent() << "plt.colorbar(im)\n";
-    result << indent() << "plt.show()\n\n\n";
+    result <<
+        "    plt.colorbar(im)\n"
+        "    plt.show()\n\n\n";
     return result.str();
 }
 

@@ -30,8 +30,7 @@ public:
     ExportToPython(const MultiLayer& multilayer);
     virtual ~ExportToPython();
 
-    std::string simulationToPythonLowlevel(
-        const GISASSimulation* simulation, const std::string& simulation_output_filename);
+    std::string simulationToPythonLowlevel(const GISASSimulation* simulation);
     std::string defineGetSample() const;
 
 private:

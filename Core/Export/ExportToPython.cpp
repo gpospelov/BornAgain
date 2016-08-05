@@ -48,14 +48,14 @@ namespace CodeSnippet {
         "import bornagain as ba\n"
         "from bornagain import deg, angstrom, nm, kvector_t\n\n";
 
-    const std::string defineRunSimulation =
-        "def runSimulation():\n"
+    const std::string defineSimulate =
+        "def simulate():\n"
         "    # Run Simulation\n"
         "    sample = getSample()\n"
         "    simulation = getSimulation()\n"
         "    simulation.setSample(sample)\n"
         "    simulation.runSimulation()\n"
-        "    return simulation\n"
+        "    return simulation.getIntensityData()\n"
         "\n\n";
 
     const std::string mainProgram =
@@ -65,12 +65,11 @@ namespace CodeSnippet {
         "        print('    '+sys.argv[0]+' -p         # to plot simulation result')\n"
         "        print('    '+sys.argv[0]+' <filename> # to save results to file')\n"
         "        sys.exit(1)\n"
-        "    simulation = runSimulation()\n"
+        "    intensities = simulate()\n"
         "    if sys.argv[1] != '-p':\n"
-        "        ba.IntensityDataIOFactory.writeIntensityData(\n"
-        "            simulation.getIntensityData(), sys.argv[1])\n"
+        "        ba.IntensityDataIOFactory.writeIntensityData(intensities, sys.argv[1])\n"
         "    else:\n"
-        "        plotSimulation(simulation)\n";
+        "        plot(intensities)\n";
 
 } // namespace CodeSnippet
 
@@ -120,8 +119,8 @@ std::string ExportToPython::simulationToPythonLowlevel(const GISASSimulation* si
     return CodeSnippet::preamble
         + defineGetSample()
         + defineGetSimulation(simulation)
-        + definePlotting(simulation)
-        + CodeSnippet::defineRunSimulation
+        + definePlot(simulation)
+        + CodeSnippet::defineSimulate
         + CodeSnippet::mainProgram;
 }
 
@@ -794,19 +793,18 @@ std::string ExportToPython::defineSimulationOptions(const GISASSimulation* simul
     return result.str();
 }
 
-std::string ExportToPython::definePlotting(const GISASSimulation* simulation) const
+std::string ExportToPython::definePlot(const GISASSimulation* simulation) const
 {
     std::ostringstream result;
     result << std::setprecision(12);
     //    result << "#NOTE: Uncomment the next function for plotting\n";
     //    result << "#NOTE: This requires the presence of matplotlib library\n";
     result <<
-        "def plotSimulation(simulation):\n"
+        "def plot(intensities):\n"
         "    import matplotlib.colors\n"
         "    from matplotlib import pyplot as plt\n"
-        "    result = simulation.getIntensityData()\n"
-        "    im = plt.imshow(result.getArray(), "
-           << "norm=matplotlib.colors.LogNorm(1, result.getMaximum()), extent=[";
+        "    im = plt.imshow(intensities.getArray(), "
+           << "norm=matplotlib.colors.LogNorm(1, intensities.getMaximum()), extent=[";
     const Instrument& instrument = simulation->getInstrument();
     std::vector<std::string> entries;
     for (size_t i=0; i<instrument.getDetectorDimension(); ++ i)

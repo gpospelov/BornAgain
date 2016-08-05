@@ -24545,27 +24545,6 @@ SimulationFactory_swigregister(SimulationFactory)
 #
 #  **************************************************************************  #
 
-def getFilenameOrPlotflag():
-    import sys
-    if len(sys.argv)<=1:
-        print("Usage:")
-        print("  " + sys.argv[0] + " -p                           # to plot results")
-        print("  " + sys.argv[0] + " <filename without extension> # to save results")
-        sys.exit()
-    return sys.argv[1]
-
-def simulateThenPlotOrSave(simulate, plot):
-    """
-    Runs a simulation. Then plots the function or saves the result,
-    depending on the command-line argument argv[1].
-    """
-    arg = getFilenameOrPlotflag()
-    result = simulate()
-    if arg != '-p':
-        IntensityDataIOFactory.writeIntensityData(result, arg+".int")
-    else:
-        plot(result)
-
 def standardIntensityPlot(result):
     """
     Plots intensity map.
@@ -24583,6 +24562,37 @@ def standardIntensityPlot(result):
     plt.xlabel(r'$\phi_f (^{\circ})$', fontsize=16)
     plt.ylabel(r'$\alpha_f (^{\circ})$', fontsize=16)
     plt.show()
+
+def standardIntensitySave(result, filename):
+    if type(result) is dict:
+        for name,data in result:
+            IntensityDataIOFactory.writeIntensityData(
+                result, filename+"."+name+".int")
+    else:
+        IntensityDataIOFactory.writeIntensityData(result, filename+".int")
+
+def getFilenameOrPlotflag():
+    import sys
+    if len(sys.argv)<=1:
+        print("Usage:")
+        print("  " + sys.argv[0] + " -p                           # to plot results")
+        print("  " + sys.argv[0] + " <filename without extension> # to save results")
+        sys.exit()
+    return sys.argv[1]
+
+def simulateThenPlotOrSave(
+        simulate, plot=standardIntensityPlot, save=standardIntensitySave):
+    """
+    Runs a simulation. Then plots the function or saves the result,
+    depending on the command-line argument argv[1].
+    """
+    arg = getFilenameOrPlotflag()
+    result = simulate()
+    if arg != '-p':
+        save(result, arg)
+        IntensityDataIOFactory.writeIntensityData(result, arg+".int")
+    else:
+        plot(result)
 
 
 # This file is compatible with both classic and new-style classes.

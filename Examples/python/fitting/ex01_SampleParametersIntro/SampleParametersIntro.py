@@ -58,7 +58,7 @@ def simulate():
 
     sample = get_sample()
     print("The tree structure of the sample")
-    sample.printSampleTree()
+    print( sample.to_str() )
 
     print("The sample contains following parameters ('name':value)")
     sample.printParameters()

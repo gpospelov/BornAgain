@@ -59,7 +59,7 @@ def get_simulation():
     return simulation
 
 
-def plot_as_colormap.ist, Title, xLabel, yLabel):
+def plot_as_colormap(hist, Title, xLabel, yLabel):
     """
     Simple plot of intensity data as color map
     """
@@ -78,34 +78,36 @@ def plot_as_colormap.ist, Title, xLabel, yLabel):
 
 def simulate():
     """
-    Run two simulations for two different detectors and plot results
+    Runs simulation and returns intensity map.
     """
     sample = get_sample()
     simulation = get_simulation()
     simulation.setSample(sample)
-    simulation.runSimulation()
+    return simulation.runSimulation()
 
+
+def plot_and_run_more_simulations(result):
     fig = plt.figure(figsize=(12.80, 10.24))
 
     plt.subplot(2, 2, 1)
     # default units for rectangular detector are millimeters
-    return simulation.getIntensityData()
-    plot_as_colormap.esult, "In default units",
+
+    plot_as_colormap(result, "In default units",
                      r'$X_{mm}$', r'$Y_{mm}$')
 
     plt.subplot(2, 2, 2)
-    return simulation.getIntensityData(ba.IDetector2D.NBINS)
-    plot_as_colormap.esult, "In number of bins",
+    result = simulation.getIntensityData(ba.IDetector2D.NBINS)
+    plot_as_colormap(result, "In number of bins",
                      r'$X_{nbins}$', r'$Y_{nbins}$')
 
     plt.subplot(2, 2, 3)
-    return simulation.getIntensityData(ba.IDetector2D.DEGREES)
-    plot_as_colormap.esult, "In degs",
+    result = simulation.getIntensityData(ba.IDetector2D.DEGREES)
+    plot_as_colormap(result, "In degs",
                      r'$\phi_f ^{\circ}$', r'$\alpha_f ^{\circ}$')
 
     plt.subplot(2, 2, 4)
-    return simulation.getIntensityData(ba.IDetector2D.QYQZ)
-    plot_as_colormap.esult, "Q-space",
+    result = simulation.getIntensityData(ba.IDetector2D.QYQZ)
+    plot_as_colormap(result, "Q-space",
                      r'$Q_{y} [1/nm]$', r'$Q_{z} [1/nm]$')
 
     plt.subplots_adjust(left=0.07, right=0.97, top=0.9, bottom=0.1, hspace=0.25)
@@ -113,4 +115,4 @@ def simulate():
 
 
 if __name__ == '__main__':
-    ba.simulateThenPlotOrSave(simulate, ba.standardIntensityPlot)
+    ba.simulateThenPlotOrSave(simulate, plot_and_run_more_simulations)

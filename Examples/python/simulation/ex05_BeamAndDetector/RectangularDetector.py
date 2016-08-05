@@ -146,4 +146,5 @@ def simulate():
     plot_results(result_sph, result_rect)
 
 if __name__ == '__main__':
-    ba.simulateThenPlotOrSave(simulate, ba.standardIntensityPlot)
+    simulate()
+    # ba.simulateThenPlotOrSave(simulate, ba.standardIntensityPlot)

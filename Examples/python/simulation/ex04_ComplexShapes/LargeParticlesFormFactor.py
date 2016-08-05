@@ -81,11 +81,9 @@ def plot(result, nframe, title):
     cb.set_label(r'Intensity (arb. u.)', size=16)
     plt.xlabel(r'$\phi_f (^{\circ})$', fontsize=16)
     plt.ylabel(r'$\alpha_f (^{\circ})$', fontsize=16)
-    plt.text(0.0, 2.1,
-             title,
-             horizontalalignment='center',
-             verticalalignment='center',
-             fontsize=13)
+    plt.text(0.0, 2.1, title, horizontalalignment='center',
+             verticalalignment='center',  fontsize=13)
+
 
 if __name__ == '__main__':
     """

@@ -4,11 +4,11 @@ The standard "Cylinders in DWBA" sample is used to setup the simulation.
 """
 import math
 import numpy
-import matplotlib
 import random
-from matplotlib import pyplot as plt
 import bornagain as ba
 from bornagain import deg, angstrom, nm
+import matplotlib
+from matplotlib import pyplot as plt
 
 phi_min, phi_max = -2.0, 2.0
 alpha_min, alpha_max = 0.0, 2.0
@@ -50,7 +50,7 @@ def get_simulation():
     return simulation
 
 
-def plot_as_colormap.ist, zmin=None, zmax=None):
+def plot_as_colormap(hist, zmin=None, zmax=None):
     """
     Simple plot of intensity data as color map
     """
@@ -71,12 +71,12 @@ def plot_as_colormap.ist, zmin=None, zmax=None):
     plt.ylabel(r'$\alpha_f ^{\circ}$', fontsize=16)
 
 
-def plot_cropped_map.ist):
+def plot_cropped_map(hist):
     """
     Plot cropped version of intensity data
     """
     crop = hist.crop(-1.0*deg, 0.5*deg, 1.0*deg, 1.0*deg)
-    plot_as_colormap.rop)
+    plot_as_colormap(crop)
 
 
 def get_noisy_image(hist):
@@ -100,7 +100,7 @@ def plot_relative_difference(hist):
     """
     noisy = get_noisy_image(hist)
     diff = noisy.relativeDifferenceHistogram(hist)
-    plot_as_colormap.iff, zmin=1e-03, zmax=10)
+    plot_as_colormap(diff, zmin=1e-03, zmax=10)
 
 
 def plot_slices(hist):
@@ -148,7 +148,7 @@ def save_to_file(result):
     result.save("result.txt.bz2")
 
 
-def plot_results(result):
+def plot(result):
     """
     Runs different plotting functions one by one
     to demonstrate trivial data presentation tasks.
@@ -157,11 +157,11 @@ def plot_results(result):
     fig = plt.figure(figsize=(12.80, 10.24))
 
     plt.subplot(2, 2, 1)
-    plot_as_colormap.esult)
-    plt.title("Intensity as colormap.
+    plot_as_colormap(result)
+    plt.title("Intensity as colormap")
 
     plt.subplot(2, 2, 2)
-    plot_cropped_map.esult)
+    plot_cropped_map(result)
     plt.title("Cropping")
 
     plt.subplot(2, 2, 3)
@@ -188,8 +188,6 @@ def simulate():
     simulation.runSimulation()
     return simulation.getIntensityData()
 
-    plot_results(result)
-
 
 if __name__ == '__main__':
-    ba.simulateThenPlotOrSave(simulate, ba.standardIntensityPlot)
+    ba.simulateThenPlotOrSave(simulate, plot)

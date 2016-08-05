@@ -27,7 +27,8 @@
 #include <cstdlib>
 #include <fstream>
 
-PyPersistenceTest::PyPersistenceTest(const std::string& directory, const std::string& name)
+PyPersistenceTest::PyPersistenceTest(
+    const std::string& directory, const std::string& name)
     : IFunctionalTest(name, "persistence test on script "+name)
     , m_directory(directory)
     , m_threshold(2e-10)

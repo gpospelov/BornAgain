@@ -101,13 +101,8 @@ if __name__ == '__main__':
     """
     Runs one simulation for each form factor, and plots results on a single canvas.
     """
-    if len(sys.argv)<2:
-        print( "Usage:" )
-        print( "  " + sys.argv[0] + " -p                           # to plot results" )
-        print( "  " + sys.argv[0] + " <filename without extension> # to save results" )
-        sys.exit()
-
-    if sys.argv[1] == "-p":
+    arg = ba.getFilenameOrPlotflag()
+    if arg == "-p":
         import matplotlib
         from matplotlib import pyplot as plt
         plt.figure(figsize=(12.80, 10.24))
@@ -122,6 +117,6 @@ if __name__ == '__main__':
         for ff in formfactors:
             name = ff.__class__.__name__.replace("FormFactor","")
             intensities = simulate(ff)
-            fname = "%s.%s.int" % (sys.argv[1], name)
+            fname = "%s.%s.int" % (arg, name)
             ba.IntensityDataIOFactory.writeIntensityData(intensities, fname)
             print("Stored intensity map in " + fname)

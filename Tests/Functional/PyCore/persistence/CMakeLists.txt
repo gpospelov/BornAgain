@@ -2,7 +2,7 @@
 # Tests/Functional/PyCore/suite/CMakeLists.txt
 ############################################################################
 
-file(GLOB PY_EXAMPLES "${PY_EXAMPLES_DIR}/*/ex*/*.py")
+file(GLOB PY_EXAMPLES "${PY_EXAMPLES_DIR}/simulation/ex*/*.py")
 
 # for some reason these flags doesn't propagated here by SetUpWindows.cmake
 if(MSVC)

@@ -60,7 +60,7 @@ namespace CodeSnippet {
 
     const std::string mainProgram =
         "if __name__ == '__main__': \n"
-        "    ba.simulate_then_plot_or_save(simulate, plot)\n";
+        "    ba.simulateThenPlotOrSave(simulate, plot)\n";
 
 } // namespace CodeSnippet
 

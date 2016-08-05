@@ -63,4 +63,4 @@ def simulate():
 
 
 if __name__ == '__main__':
-    ba.simulateThenPlotOrSave(simulate, standardIntensityPlot)
+    ba.simulateThenPlotOrSave(simulate, ba.standardIntensityPlot)

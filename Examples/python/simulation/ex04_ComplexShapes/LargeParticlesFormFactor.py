@@ -90,11 +90,7 @@ if __name__ == '__main__':
     Runs one simulation for each condition, and plots results on a single canvas.
     Conditions are small and large cylinders, with and without integration.
     """
-    if len(sys.argv)<2:
-        print( "Usage:" )
-        print( "  " + sys.argv[0] + " -p                           # to plot results" )
-        print( "  " + sys.argv[0] + " <filename without extension> # to save results" )
-        sys.exit()
+    arg = ba.getFilenameOrPlotflag()
 
     # conditions to define cylinders scale factor and Monte-Carlo integration flag
     conditions = [
@@ -112,7 +108,7 @@ if __name__ == '__main__':
          'integration': True,  'max': 1e+12}
     ]
 
-    if sys.argv[1] == "-p":
+    if arg == "-p":
         import matplotlib
         from matplotlib import pyplot as plt
         plt.figure(figsize=(12.80, 10.24))
@@ -126,6 +122,6 @@ if __name__ == '__main__':
     else:
         for condi in conditions:
             intensities = simulate(condi)
-            fname = "%s.%s.int" % (sys.argv[1], condi['name'])
+            fname = "%s.%s.int" % (arg, condi['name'])
             ba.IntensityDataIOFactory.writeIntensityData(intensities, fname)
             print("Stored intensity map in " + fname)

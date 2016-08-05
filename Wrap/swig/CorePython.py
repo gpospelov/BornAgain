@@ -16,19 +16,24 @@
 #
 #  **************************************************************************  #
 
-def simulateThenPlotOrSave(simulate, plot):
-    """
-    Runs a simulation. Then plots the function or saves the result, depending on given argument.
-    """
+def getFilenameOrPlotflag():
     import sys
     if len(sys.argv)<=1:
-        print('Usage:')
-        print('    '+sys.argv[0]+' -p      # to plot result')
-        print('    '+sys.argv[0]+' <fname> # to save result in <fname>.int')
-        sys.exit(1)
+        print("Usage:")
+        print("  " + sys.argv[0] + " -p                           # to plot results")
+        print("  " + sys.argv[0] + " <filename without extension> # to save results")
+        sys.exit()
+    return sys.argv[1]
+
+def simulateThenPlotOrSave(simulate, plot):
+    """
+    Runs a simulation. Then plots the function or saves the result,
+    depending on the command-line argument argv[1].
+    """
+    arg = getFilenameOrPlotflag()
     result = simulate()
-    if sys.argv[1] != '-p':
-        IntensityDataIOFactory.writeIntensityData(result, sys.argv[1]+".int")
+    if arg != '-p':
+        IntensityDataIOFactory.writeIntensityData(result, arg+".int")
     else:
         plot(result)
 

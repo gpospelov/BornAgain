@@ -3,13 +3,6 @@ BornAgain plot utils
 '''
 
 from __future__ import print_function
-
-try:
-    import matplotlib
-    from matplotlib import pyplot as plt
-except ImportError:
-    print("bornagain/__init__.py -> Error. Can't import matplotlib.")
-
 from bornagain import deg as deg
 from bornagain import IFitObserver as IFitObserver
 
@@ -23,10 +16,13 @@ class DefaultFitObserver(IFitObserver):
 
     def __init__(self, draw_every_nth=10):
         IFitObserver.__init__(self, draw_every_nth)
+
+        import matplotlib
+        from matplotlib import pyplot as plt
+
         self.fig = plt.figure(figsize=(10.25, 7.69))
         self.fig.canvas.draw()
         plt.ion()
-
 
     def plot(self, data, title, nplot, min=1, max=1e6):
         plt.subplot(2, 2, nplot)

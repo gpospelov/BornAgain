@@ -44,7 +44,7 @@ void CoreTest::runTest()
             "CoreTest::runTest() -> Error. Uninitialized simulation object.");
     m_simulation->runSimulation();
 
-    m_ref_filename = BA_REF_DATA_DIR + "/ref_" + getName() + ".int.gz";
+    m_ref_filename = REFERENCE_DIR + "/StandardSuite/ref_" + getName() + ".int.gz";
     try {
         m_reference = IntensityDataIOFactory::readOutputData( m_ref_filename );
     } catch(const std::exception& ex) {

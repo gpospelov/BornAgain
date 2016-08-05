@@ -18,7 +18,7 @@
 
 const std::string BUILD_LIB_DIR( "@CMAKE_LIBRARY_OUTPUT_DIRECTORY@" );
 const std::string BUILD_BIN_DIR( "@CMAKE_RUNTIME_OUTPUT_DIRECTORY@" );
-const std::string BA_REF_DATA_DIR( "@BA_REF_DATA_DIR@" );
+const std::string REFERENCE_DIR( "@REFERENCE_DIR@" );
 const std::string BUILD_TMP_DIR( "@BUILD_TMP_DIR@" );
 const std::string FAILED_TESTS_DIR( "@FAILED_TESTS_DIR@" );
 

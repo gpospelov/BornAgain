@@ -38,15 +38,16 @@ PyPersistenceTest::PyPersistenceTest(
 void PyPersistenceTest::runTest()
 {
     // Prepare output file
-    std::string output_filename = BUILD_TMP_DIR + "/" + getName() + ".int";
-    std::remove( output_filename.c_str() );
-    std::cout << "Removed old data set " << output_filename << "." << std::endl/*sic*/;
+    std::string output_name = BUILD_TMP_DIR + "/" + getName();
+    std::string output_path = output_name + ".int";
+    std::remove( output_path.c_str() );
+    std::cout << "Removed old data set " << output_path << "." << std::endl/*sic*/;
 
     // Run Python script
     std::string py_filename( m_directory + "/" + getName() + ".py" );
     std::string command =
         "PYTHONPATH=" + BUILD_LIB_DIR + " " +
-        BORNAGAIN_PYTHON_EXE + " " + py_filename + " " + output_filename;
+        BORNAGAIN_PYTHON_EXE + " " + py_filename + " " + output_name;
     std::cout << "Now running command '" << command << "'." << std::endl/*sic*/;
     int ret = std::system(command.c_str());
     if (ret!=0) {
@@ -55,24 +56,24 @@ void PyPersistenceTest::runTest()
         return;
     }
 
-    m_result = SUCCESS;
-    return;
-/*
+    // Read back simulation result
+    const OutputData<double>* data = IntensityDataIOFactory::readOutputData( output_path );
 
-    // Run direct simulation
-    std::cout <<
-        "Now going to directly run the simulation, and to compare with result from Py script.\n";
-    assert(m_reference_simulation);
-    m_reference_simulation->runSimulation();
-    const std::unique_ptr<OutputData<double> > P_reference_data(
-        m_reference_simulation->getDetectorIntensity());
+    // Read reference data
+    std::string ref_filename = REFERENCE_DIR + "/Persistence/" + getName() + ".int.gz";
+    const OutputData<double>* reference;
+    try {
+        reference = IntensityDataIOFactory::readOutputData( ref_filename );
+    } catch(const std::exception& ex) {
+        std::cerr << "Cannot read reference file " << ref_filename << "\n";
+        m_result = FAILED;
+        return;
+    }
 
-    // Compare results
-    const std::unique_ptr<OutputData<double> > P_domain_data(
-        IntensityDataIOFactory::readOutputData(m_output_filename));
-    m_difference = IntensityDataFunctions::getRelativeDifference(*P_domain_data, *P_reference_data);
+    // Compare data
+    m_difference = IntensityDataFunctions::getRelativeDifference(*data, *reference);
     m_result = m_difference > m_threshold ? FAILED_DIFF : SUCCESS;
-*/
+    return;
 }
 
 void PyPersistenceTest::printResults(std::ostream& ostr) const

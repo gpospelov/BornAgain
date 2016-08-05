@@ -33,7 +33,7 @@ endif()
 # source directory paths
 # -----------------------------------------------------------------------------
 
-set(BA_REF_DATA_DIR ${CMAKE_SOURCE_DIR}/Tests/ReferenceData/BornAgain)
+set(REFERENCE_DIR ${CMAKE_SOURCE_DIR}/Tests/ReferenceData)
 set(PY_EXAMPLES_DIR ${CMAKE_SOURCE_DIR}/Examples/python)
 
 # -----------------------------------------------------------------------------

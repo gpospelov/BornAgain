@@ -7,14 +7,15 @@
 
 int main(int, char**)
 {
+    const std::string trunc = REFERENCE_DIR + "/Special/polmagcylinders2_reference_";
     const std::unique_ptr<OutputData<double> > P_reference00(IntensityDataIOFactory::readOutputData(
-        BA_REF_DATA_DIR + "/polmagcylinders2_reference_00.int.gz"));
+        trunc + "00.int.gz"));
     const std::unique_ptr<OutputData<double> > P_reference01(IntensityDataIOFactory::readOutputData(
-        BA_REF_DATA_DIR + "/polmagcylinders2_reference_01.int.gz"));
+        trunc + "01.int.gz"));
     const std::unique_ptr<OutputData<double> > P_reference10(IntensityDataIOFactory::readOutputData(
-        BA_REF_DATA_DIR + "/polmagcylinders2_reference_10.int.gz"));
+        trunc + "10.int.gz"));
     const std::unique_ptr<OutputData<double> > P_reference11(IntensityDataIOFactory::readOutputData(
-        BA_REF_DATA_DIR + "/polmagcylinders2_reference_11.int.gz"));
+        trunc + "11.int.gz"));
 
     SimulationFactory sim_registry;
     GISASSimulation* simulation = sim_registry.createItem("polmagcylinders2");

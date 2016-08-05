@@ -2,8 +2,6 @@
 R and T coefficients in multilayer, ba.Specular simulation.
 """
 import numpy
-import matplotlib
-from matplotlib import pyplot as plt
 import bornagain as ba
 from bornagain import deg, angstrom, nm
 
@@ -65,12 +63,17 @@ def simulate():
     simulation.runSimulation()
     return simulation
 
+
 def plot(simulation):
-    # plotting results for several selected layers
+    """
+    Plots results for several selected layers
+    """
+    import matplotlib
+    from matplotlib import pyplot as plt
+    fig = plt.figure(figsize=(12.80, 10.24))
+
     selected_layers = [0, 1, 20, 21]
     alpha_angles = simulation.getAlphaAxis().getBinCenters()
-
-    fig = plt.figure(figsize=(12.80, 10.24))
 
     nplot = 1
     for layer_index in selected_layers:

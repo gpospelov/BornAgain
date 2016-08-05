@@ -3,8 +3,6 @@ Simulation with rectangular detector. Pilatus3-1M detector is used as an example
 Results will be compared against simulation with spherical detector.
 """
 import numpy
-import matplotlib
-from matplotlib import pyplot as plt
 import bornagain as ba
 from bornagain import deg, angstrom, nm
 
@@ -79,11 +77,13 @@ def plot(result):
     """
     Plots results of two simulations and their relative difference on one canvas
     """
+    import matplotlib
+    from matplotlib import pyplot as plt
+    fig = plt.figure(figsize=(13.6, 5.12))
+
     result_sph  = result['spherical']
     result_rect = result['rectangular']
     result_diff = result['difference']
-
-    fig = plt.figure(figsize=(13.6, 5.12))
 
     # showing  result of spherical detector simulation
     plt.subplot(1, 3, 1)

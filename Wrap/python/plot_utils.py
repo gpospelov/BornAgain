@@ -15,7 +15,8 @@ from bornagain import IFitObserver as IFitObserver
 
 class DefaultFitObserver(IFitObserver):
     """
-    Draws fit progress every nth iteration. This class  has to be attached to FitSuite via attachObserver method.
+    Draws fit progress every nth iteration. This class has to be attached to
+    FitSuite via attachObserver method.
     FitSuite kernel will call DrawObserver's update() method every n'th iteration.
     It is up to the user what to do here.
     """

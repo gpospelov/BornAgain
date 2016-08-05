@@ -42,9 +42,6 @@ namespace CodeSnippet {
 
     const std::string preamble =
         "import numpy\n"
-        "#NOTE: Uncomment the next import statements for plotting\n"
-        "#import matplotlib\n"
-        "#from matplotlib import pyplot as plt\n"
         "import bornagain as ba\n"
         "from bornagain import deg, angstrom, nm, kvector_t\n\n";
 
@@ -787,15 +784,12 @@ std::string ExportToPython::defineSimulationOptions(const GISASSimulation* simul
 std::string ExportToPython::definePlot(const GISASSimulation* simulation) const
 {
     std::ostringstream result;
-    result << std::setprecision(12);
-    //    result << "#NOTE: Uncomment the next function for plotting\n";
-    //    result << "#NOTE: This requires the presence of matplotlib library\n";
-    result <<
+    result << std::setprecision(12) <<
         "def plot(intensities):\n"
         "    import matplotlib.colors\n"
         "    from matplotlib import pyplot as plt\n"
         "    im = plt.imshow(intensities.getArray(), "
-           << "norm=matplotlib.colors.LogNorm(1, intensities.getMaximum()), extent=[";
+        "norm=matplotlib.colors.LogNorm(1, intensities.getMaximum()), extent=[";
     const Instrument& instrument = simulation->getInstrument();
     std::vector<std::string> entries;
     for (size_t i=0; i<instrument.getDetectorDimension(); ++ i)

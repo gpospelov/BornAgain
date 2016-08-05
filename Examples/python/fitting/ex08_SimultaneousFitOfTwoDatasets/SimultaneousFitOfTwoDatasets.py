@@ -75,7 +75,7 @@ def create_real_data(incident_alpha):
 class DrawObserver(ba.IFitObserver):
     """
     Draws fit progress every nth iteration. Real data, simulated data
-    and chi2 map.ill be shown for both datasets.
+    and chi2 map will be shown for both datasets.
     """
     def __init__(self, draw_every_nth=10):
         ba.IFitObserver.__init__(self, draw_every_nth)
@@ -83,7 +83,7 @@ class DrawObserver(ba.IFitObserver):
         self.fig.canvas.draw()
         plt.ion()
 
-    def plot_colormap.elf, data, title, min=1, max=1e6):
+    def plot_colormap(self, data, title, min=1, max=1e6):
         im = plt.imshow(
             data.getArray(),
             norm=matplotlib.colors.LogNorm(min, max),
@@ -97,16 +97,16 @@ class DrawObserver(ba.IFitObserver):
         for i_dataset in range(0, fit_suite.getNumberOfFitObjects()):
             real_data = fit_suite.getRealData(i_dataset)
             simul_data = fit_suite.getSimulationData(i_dataset)
-            chi2_map. fit_suite.getChiSquaredMap(i_dataset)
+            chi2_map = fit_suite.getChiSquaredMap(i_dataset)
 
             plt.subplot(canvas[i_dataset*3])
-            self.plot_colormap.eal_data, "\"Real\" data - #"+str(i_dataset+1),
+            self.plot_colormap(real_data, "\"Real\" data - #"+str(i_dataset+1),
                                min=1.0, max=real_data.getMaximum())
             plt.subplot(canvas[1+i_dataset*3])
-            self.plot_colormap.imul_data, "Simulated data - #"+str(i_dataset+1),
+            self.plot_colormap(simul_data, "Simulated data - #"+str(i_dataset+1),
                                min=1.0, max=real_data.getMaximum())
             plt.subplot(canvas[2+i_dataset*3])
-            self.plot_colormap.hi2_map, "Chi2 map - #"+str(i_dataset+1),
+            self.plot_colormap(chi2_map, "Chi2 map - #"+str(i_dataset+1),
                                min=0.001, max=10.0)
 
     def plot_fit_parameters(self, fit_suite, canvas):

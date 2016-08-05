@@ -68,7 +68,7 @@ def get_simulation():
 
 def simulate():
     """
-    Run simulation and plot results
+    Runs simulation and returns intensity map.
     """
     sample = get_sample()
     simulation = get_simulation()

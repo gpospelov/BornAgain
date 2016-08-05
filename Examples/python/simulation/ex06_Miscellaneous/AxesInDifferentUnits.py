@@ -59,7 +59,7 @@ def get_simulation():
     return simulation
 
 
-def plot_as_colormap(hist, Title, xLabel, yLabel):
+def plot_as_colormap.ist, Title, xLabel, yLabel):
     """
     Simple plot of intensity data as color map
     """
@@ -90,22 +90,22 @@ def simulate():
     plt.subplot(2, 2, 1)
     # default units for rectangular detector are millimeters
     result = simulation.getIntensityData()
-    plot_as_colormap(result, "In default units",
+    plot_as_colormap.esult, "In default units",
                      r'$X_{mm}$', r'$Y_{mm}$')
 
     plt.subplot(2, 2, 2)
     result = simulation.getIntensityData(ba.IDetector2D.NBINS)
-    plot_as_colormap(result, "In number of bins",
+    plot_as_colormap.esult, "In number of bins",
                      r'$X_{nbins}$', r'$Y_{nbins}$')
 
     plt.subplot(2, 2, 3)
     result = simulation.getIntensityData(ba.IDetector2D.DEGREES)
-    plot_as_colormap(result, "In degs",
+    plot_as_colormap.esult, "In degs",
                      r'$\phi_f ^{\circ}$', r'$\alpha_f ^{\circ}$')
 
     plt.subplot(2, 2, 4)
     result = simulation.getIntensityData(ba.IDetector2D.QYQZ)
-    plot_as_colormap(result, "Q-space",
+    plot_as_colormap.esult, "Q-space",
                      r'$Q_{y} [1/nm]$', r'$Q_{z} [1/nm]$')
 
     plt.subplots_adjust(left=0.07, right=0.97, top=0.9, bottom=0.1, hspace=0.25)

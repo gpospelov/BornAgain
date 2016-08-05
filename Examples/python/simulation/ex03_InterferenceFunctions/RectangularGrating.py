@@ -66,7 +66,7 @@ def get_simulation(monte_carlo_integration=True):
 
 def simulate():
     """
-    Run simulation and plot results
+    Runs simulation and returns intensity map.
     """
     sample = get_sample(lattice_rotation_angle=45.0*deg)
     simulation = get_simulation(monte_carlo_integration=True)

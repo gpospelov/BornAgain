@@ -2,8 +2,6 @@
 Cylinder formfactor in Born approximation
 """
 import numpy, sys
-import matplotlib
-from matplotlib import pyplot as plt
 import bornagain as ba
 from bornagain import deg, angstrom, nm
 
@@ -47,15 +45,21 @@ def get_simulation():
 
 def simulate():
     """
-    Run simulation and plot results
+    Runs simulation and returns intensity map.
     """
     sample = get_sample()
     simulation = get_simulation()
     simulation.setSample(sample)
     simulation.runSimulation()
-    result = simulation.getIntensityData()
+    return simulation.getIntensityData()
 
-    # showing the result
+
+def plot(result):
+    """
+    Plots intensity map.
+    """
+    import matplotlib
+    from matplotlib import pyplot as plt
     im = plt.imshow(
         result.getArray(),
         norm=matplotlib.colors.LogNorm(1.0, result.getMaximum()),
@@ -68,6 +72,14 @@ def simulate():
     plt.ylabel(r'$\alpha_f (^{\circ})$', fontsize=16)
     plt.show()
 
-
 if __name__ == '__main__':
-    simulate()
+    if len(sys.argv)<=1:
+        print('Usage:')
+        print('    '+sys.argv[0]+' -p      # to plot result')
+        print('    '+sys.argv[0]+' <fname> # to save result in <fname>.int')
+        sys.exit(1)
+    result = simulate()
+    if sys.argv[1] != '-p':
+        ba.IntensityDataIOFactory.writeIntensityData(result, sys.argv[1]+".int")
+    else:
+        plot(result)

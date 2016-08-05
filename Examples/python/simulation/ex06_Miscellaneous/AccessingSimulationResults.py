@@ -50,7 +50,7 @@ def get_simulation():
     return simulation
 
 
-def plot_as_colormap(hist, zmin=None, zmax=None):
+def plot_as_colormap.ist, zmin=None, zmax=None):
     """
     Simple plot of intensity data as color map
     """
@@ -71,12 +71,12 @@ def plot_as_colormap(hist, zmin=None, zmax=None):
     plt.ylabel(r'$\alpha_f ^{\circ}$', fontsize=16)
 
 
-def plot_cropped_map(hist):
+def plot_cropped_map.ist):
     """
     Plot cropped version of intensity data
     """
     crop = hist.crop(-1.0*deg, 0.5*deg, 1.0*deg, 1.0*deg)
-    plot_as_colormap(crop)
+    plot_as_colormap.rop)
 
 
 def get_noisy_image(hist):
@@ -100,7 +100,7 @@ def plot_relative_difference(hist):
     """
     noisy = get_noisy_image(hist)
     diff = noisy.relativeDifferenceHistogram(hist)
-    plot_as_colormap(diff, zmin=1e-03, zmax=10)
+    plot_as_colormap.iff, zmin=1e-03, zmax=10)
 
 
 def plot_slices(hist):
@@ -157,11 +157,11 @@ def plot_results(result):
     fig = plt.figure(figsize=(12.80, 10.24))
 
     plt.subplot(2, 2, 1)
-    plot_as_colormap(result)
-    plt.title("Intensity as colormap")
+    plot_as_colormap.esult)
+    plt.title("Intensity as colormap.
 
     plt.subplot(2, 2, 2)
-    plot_cropped_map(result)
+    plot_cropped_map.esult)
     plt.title("Cropping")
 
     plt.subplot(2, 2, 3)
@@ -180,7 +180,7 @@ def plot_results(result):
 
 def simulate():
     """
-    Run simulation and plot results
+    Runs simulation and returns intensity map.
     """
     sample = get_sample()
     simulation = get_simulation()

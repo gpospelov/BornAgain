@@ -114,7 +114,7 @@ if __name__ == '__main__':
         for nplot in range(len(formfactors)):
             ff = formfactors[nplot]
             name = ff.__class__.__name__.replace("FormFactor","")
-            print("Generating intensity map for " + name)
+            print("Generating intensity map.or " + name)
             intensities = simulate(ff)
             plot(intensities, nplot+1, name)
         plt.show()
@@ -124,4 +124,4 @@ if __name__ == '__main__':
             intensities = simulate(ff)
             fname = "%s.%s.int" % (sys.argv[1], name)
             ba.IntensityDataIOFactory.writeIntensityData(intensities, fname)
-            print("Stored intensity map in " + fname)
+            print("Stored intensity map.n " + fname)

@@ -53,7 +53,7 @@ def get_simulation():
 
 def simulate():
     """
-    Run simulation and plot results
+    Runs simulation and returns resulting intensity map.
     """
     sample = get_sample()
     simulation = get_simulation()
@@ -62,6 +62,9 @@ def simulate():
     return simulation.getIntensityData()
 
 def plot(result):
+    """
+    Plots intensity map.
+    """
     import matplotlib
     from matplotlib import pyplot as plt
     im = plt.imshow(
@@ -79,11 +82,11 @@ def plot(result):
 if __name__ == '__main__':
     if len(sys.argv)<=1:
         print('Usage:')
-        print('    '+sys.argv[0]+' -p         # to plot simulation result')
-        print('    '+sys.argv[0]+' <filename> # to save results to file')
+        print('    '+sys.argv[0]+' -p      # to plot result')
+        print('    '+sys.argv[0]+' <fname> # to save result in <fname>.int')
         sys.exit(1)
-    intensities = simulate()
+    result = simulate()
     if sys.argv[1] != '-p':
-        ba.IntensityDataIOFactory.writeIntensityData(intensities, sys.argv[1]+".int")
+        ba.IntensityDataIOFactory.writeIntensityData(result, sys.argv[1]+".int")
     else:
-        plot(intensities)
+        plot(result)

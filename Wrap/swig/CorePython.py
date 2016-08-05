@@ -35,14 +35,22 @@ def standardIntensityPlot(result):
     plt.show()
 
 def standardIntensitySave(result, filename):
+    """
+    Saves simulation result, which must be in an intensity map,
+    or a dictionary of such maps.
+    """
     if type(result) is dict:
-        for name,data in result:
+        for name,data in result.iteritems():
             IntensityDataIOFactory.writeIntensityData(
-                result, filename+"."+name+".int")
+                data, filename+"."+name+".int")
     else:
         IntensityDataIOFactory.writeIntensityData(result, filename+".int")
 
 def getFilenameOrPlotflag():
+    """
+    Used at beginning of main program, this function returns a filename or a flag
+    obtained from the command-line argument, or prints a help message and exit.
+    """
     import sys
     if len(sys.argv)<=1:
         print("Usage:")
@@ -61,7 +69,6 @@ def simulateThenPlotOrSave(
     result = simulate()
     if arg != '-p':
         save(result, arg)
-        IntensityDataIOFactory.writeIntensityData(result, arg+".int")
     else:
         plot(result)
 

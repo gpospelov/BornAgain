@@ -57,13 +57,15 @@ def get_simulation():
 
 def simulate():
     """
-    Runs simulation and returns intensity map.
+    Runs simulation and returns it.
     """
     sample = get_sample()
     simulation = get_simulation()
     simulation.setSample(sample)
     simulation.runSimulation()
+    return simulation
 
+def plot(simulation):
     # plotting results for several selected layers
     selected_layers = [0, 1, 20, 21]
     alpha_angles = simulation.getAlphaAxis().getBinCenters()
@@ -92,5 +94,8 @@ def simulate():
     plt.show()
 
 
+def save(simulation, filename):
+    print("Not yet saving anything")
+
 if __name__ == '__main__':
-    simulate()
+    ba.simulateThenPlotOrSave(simulate, plot, save)

@@ -149,7 +149,8 @@ def simulate():
     simulation.runSimulation()
     result['rectangular'] = simulation.getIntensityData()
 
-    result['difference'] = result_sph.relativeDifferenceHistogram(result_rect)
+    result['difference'] = result['spherical'].relativeDifferenceHistogram(
+        result['rectangular'])
 
     return result
 

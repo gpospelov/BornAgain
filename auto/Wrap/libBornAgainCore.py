@@ -24565,9 +24565,9 @@ def standardIntensityPlot(result):
 
 def standardIntensitySave(result, filename):
     if type(result) is dict:
-        for name,data in result:
+        for name,data in result.iteritems():
             IntensityDataIOFactory.writeIntensityData(
-                result, filename+"."+name+".int")
+                data, filename+"."+name+".int")
     else:
         IntensityDataIOFactory.writeIntensityData(result, filename+".int")
 
@@ -24590,7 +24590,6 @@ def simulateThenPlotOrSave(
     result = simulate()
     if arg != '-p':
         save(result, arg)
-        IntensityDataIOFactory.writeIntensityData(result, arg+".int")
     else:
         plot(result)
 

@@ -118,8 +118,7 @@ class DrawObserver(ba.IFitObserver):
                   nplot=1, min=1.0, max=real_data.getMaximum())
         self.plot(fit_suite.getSimulationData(), "Simulated data",
                   nplot=2, min=1.0, max=real_data.getMaximum())
-        self.plot(fit_suite.getChiSquaredMap(), "Chi2 map.
-
+        self.plot(fit_suite.getChiSquaredMap(), "Chi2 map",
                   nplot=3, min=0.001, max=10.0)
 
         plt.subplot(2, 2, 4)

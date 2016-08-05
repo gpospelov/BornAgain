@@ -76,22 +76,20 @@ def plot_as_colormap(hist, Title, xLabel, yLabel):
     plt.title(Title)
 
 
-def simulate():
+def run_simulation():
     """
-    Runs simulation and returns intensity map.
+    Run two simulations for two different detectors and plot results
     """
     sample = get_sample()
     simulation = get_simulation()
     simulation.setSample(sample)
-    return simulation.runSimulation()
+    simulation.runSimulation()
 
-
-def plot_and_run_more_simulations(result):
     fig = plt.figure(figsize=(12.80, 10.24))
 
     plt.subplot(2, 2, 1)
     # default units for rectangular detector are millimeters
-
+    result = simulation.getIntensityData()
     plot_as_colormap(result, "In default units",
                      r'$X_{mm}$', r'$Y_{mm}$')
 
@@ -115,4 +113,4 @@ def plot_and_run_more_simulations(result):
 
 
 if __name__ == '__main__':
-    ba.simulateThenPlotOrSave(simulate, plot_and_run_more_simulations)
+    run_simulation()

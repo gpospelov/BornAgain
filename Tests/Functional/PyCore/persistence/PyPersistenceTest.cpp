@@ -45,7 +45,8 @@ void PyPersistenceTest::runTest()
     // Run Python script
     std::string py_filename( m_directory + "/" + getName() + ".py" );
     std::string command =
-        std::string(BORNAGAIN_PYTHON_EXE) + " " + py_filename + " " + output_filename;
+        "PYTHONPATH=" + BUILD_LIB_DIR + " " +
+        BORNAGAIN_PYTHON_EXE + " " + py_filename + " " + output_filename;
     std::cout << "Now running command '" << command << "'." << std::endl/*sic*/;
     int ret = std::system(command.c_str());
     if (ret!=0) {

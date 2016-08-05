@@ -39,3 +39,6 @@ for line in text_in:
 fd = open(out_name, "w")
 fd.write( "\n".join( text_out ) )
 fd.close()
+
+def simulate_then_plot_or_save():
+    print("JAA!")

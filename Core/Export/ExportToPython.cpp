@@ -41,7 +41,7 @@
 namespace CodeSnippet {
 
     const std::string preamble =
-        "import numpy, sys\n"
+        "import numpy\n"
         "#NOTE: Uncomment the next import statements for plotting\n"
         "#import matplotlib\n"
         "#from matplotlib import pyplot as plt\n"
@@ -60,16 +60,7 @@ namespace CodeSnippet {
 
     const std::string mainProgram =
         "if __name__ == '__main__': \n"
-        "    if len(sys.argv)<=1:\n"
-        "        print('Usage:')\n"
-        "        print('    '+sys.argv[0]+' -p                           # to plot result')\n"
-        "        print('    '+sys.argv[0]+' <filename without extension> # to save result')\n"
-        "        sys.exit(1)\n"
-        "    intensities = simulate()\n"
-        "    if sys.argv[1] != '-p':\n"
-        "        ba.IntensityDataIOFactory.writeIntensityData(intensities, sys.argv[1]+'.int')\n"
-        "    else:\n"
-        "        plot(intensities)\n";
+        "    ba.simulate_then_plot_or_save(simulate, plot)\n";
 
 } // namespace CodeSnippet
 

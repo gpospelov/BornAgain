@@ -2,8 +2,6 @@
 Cylinder formfactor in DWBA
 """
 import numpy, sys
-import matplotlib
-from matplotlib import pyplot as plt
 import bornagain as ba
 from bornagain import deg, angstrom, nm
 
@@ -55,9 +53,14 @@ def simulate():
     simulation = get_simulation()
     simulation.setSample(sample)
     simulation.runSimulation()
-    result = simulation.getIntensityData()
+    return simulation.getIntensityData()
 
-    # showing the result
+def plot(result):
+    """
+    Plots intensity map.
+    """
+    import matplotlib
+    from matplotlib import pyplot as plt
     im = plt.imshow(
         result.getArray(),
         norm=matplotlib.colors.LogNorm(1.0, result.getMaximum()),
@@ -72,4 +75,4 @@ def simulate():
 
 
 if __name__ == '__main__':
-    simulate()
+    ba.simulate_then_plot_or_save(simulate, plot)

@@ -24527,5 +24527,24 @@ class SimulationFactory(_object):
 SimulationFactory_swigregister = _libBornAgainCore.SimulationFactory_swigregister
 SimulationFactory_swigregister(SimulationFactory)
 
+
+
+def simulate_then_plot_or_save(simulate, plot):
+    """
+    Runs a simulation. Then plots the function or saves the result, depending on given argument.
+    """
+    import sys
+    if len(sys.argv)<=1:
+        print('Usage:')
+        print('    '+sys.argv[0]+' -p      # to plot result')
+        print('    '+sys.argv[0]+' <fname> # to save result in <fname>.int')
+        sys.exit(1)
+    result = simulate()
+    if sys.argv[1] != '-p':
+        IntensityDataIOFactory.writeIntensityData(result, sys.argv[1]+".int")
+    else:
+        plot(result)
+
+
 # This file is compatible with both classic and new-style classes.
 

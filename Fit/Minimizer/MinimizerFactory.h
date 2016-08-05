@@ -17,6 +17,7 @@
 #define MINIMIZERFACTORY_H
 
 #include "IMinimizer.h"
+#include <string>
 
 //! @class MinimizerFactory
 //! @ingroup fitting

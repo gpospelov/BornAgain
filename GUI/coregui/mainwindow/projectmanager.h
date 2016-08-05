@@ -17,8 +17,9 @@
 #ifndef PROJECTMANAGER_H
 #define PROJECTMANAGER_H
 
+#include "WinDllMacros.h"
 #include <QObject>
-#include <QStringList> // need detected by TeamCity
+#include <QStringList>
 
 class MainWindow;
 class ProjectDocument;

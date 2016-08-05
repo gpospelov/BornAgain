@@ -17,11 +17,11 @@
 #ifndef NEWPROJECTDIALOG_H
 #define NEWPROJECTDIALOG_H
 
+#include "WinDllMacros.h"
 #include <QDialog>
 #include <QLineEdit>
 
 class QLabel;
-
 
 //! new project dialog window
 class BA_CORE_API_ NewProjectDialog : public QDialog

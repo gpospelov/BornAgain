@@ -17,6 +17,7 @@
 #ifndef FITPARAMETERPROXYMODEL_H
 #define FITPARAMETERPROXYMODEL_H
 
+#include "WinDllMacros.h"
 #include <QAbstractItemModel>
 #include <QStringList>
 

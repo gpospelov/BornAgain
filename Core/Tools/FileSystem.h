@@ -16,6 +16,7 @@
 #ifndef FILESYSTEM_H
 #define FILESYSTEM_H
 
+#include "WinDllMacros.h"
 #include <string>
 
 //! Utilities to deal with file system.

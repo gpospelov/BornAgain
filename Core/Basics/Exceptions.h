@@ -16,6 +16,7 @@
 #ifndef EXCEPTIONS_H
 #define EXCEPTIONS_H
 
+#include "WinDllMacros.h"
 #include <stdexcept>
 #include <string>
 

@@ -15,11 +15,14 @@
 
 #ifndef MINIMIZEROPTIONS_H
 #define MINIMIZEROPTIONS_H
+
 #include <stdexcept>
 #include <iomanip>
 #include <iostream>
 #include <string>
 #include <map>
+
+#include "WinDllMacros.h"
 
 //! @class MinimizerOptions
 //! @ingroup fitting

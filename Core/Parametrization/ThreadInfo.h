@@ -16,6 +16,8 @@
 #ifndef THREADINFO_H
 #define THREADINFO_H
 
+#include "WinDllMacros.h"
+
 //! @class ThreadInfo
 //! @ingroup simulation
 //! @brief Information to run simulation with dedicated number of threads

@@ -16,6 +16,7 @@
 #ifndef PARAMETERPOOL_H
 #define PARAMETERPOOL_H
 
+#include "WinDllMacros.h"
 #include <functional>
 #include <ostream>
 #include <string>

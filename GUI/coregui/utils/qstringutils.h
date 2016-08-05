@@ -17,6 +17,7 @@
 #ifndef QSTRINGUTILS_H
 #define QSTRINGUTILS_H
 
+#include "WinDllMacros.h"
 #include <QString>
 
 namespace Utils

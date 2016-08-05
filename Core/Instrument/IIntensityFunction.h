@@ -17,6 +17,8 @@
 #ifndef IINTENSITYFUNCTION_H
 #define IINTENSITYFUNCTION_H
 
+#include "WinDllMacros.h"
+
 //! @class IIntensityFunction
 //! @ingroup algorithms_internal
 //! @brief Interface for applying arbitrary function to the measured intensity

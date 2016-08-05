@@ -17,6 +17,7 @@
 #ifndef JOBVIEW_H
 #define JOBVIEW_H
 
+#include "WinDllMacros.h"
 #include "fancymainwindow.h"
 
 class MainWindow;

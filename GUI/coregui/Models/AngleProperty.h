@@ -17,6 +17,7 @@
 #ifndef ANGLEPROPERTY_H
 #define ANGLEPROPERTY_H
 
+#include "WinDllMacros.h"
 #include <QStringList>
 #include <QVariant>
 

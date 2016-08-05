@@ -16,7 +16,7 @@
 #ifndef FILTERPROPERTYPROXY_H
 #define FILTERPROPERTYPROXY_H
 
-
+#include "WinDllMacros.h"
 #include <QSortFilterProxyModel>
 
 //!

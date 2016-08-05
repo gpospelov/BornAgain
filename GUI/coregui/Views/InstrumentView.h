@@ -17,6 +17,7 @@
 #ifndef INSTRUMENTVIEW_H
 #define INSTRUMENTVIEW_H
 
+#include "WinDllMacros.h"
 #include <QMap>
 #include <QWidget>
 

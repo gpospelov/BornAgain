@@ -17,6 +17,7 @@
 #ifndef SESSIONMODELDELEGATE_H
 #define SESSIONMODELDELEGATE_H
 
+#include "WinDllMacros.h"
 #include <QStyledItemDelegate>
 
 class ComboProperty;

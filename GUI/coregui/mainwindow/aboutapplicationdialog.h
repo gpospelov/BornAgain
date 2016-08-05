@@ -17,10 +17,8 @@
 #ifndef ABOUTAPPLICATIONDIALOG_H
 #define ABOUTAPPLICATIONDIALOG_H
 
+#include "WinDllMacros.h"
 #include <QDialog>
-
-
-
 
 //! new project dialog window
 class BA_CORE_API_ AboutApplicationDialog : public QDialog
@@ -28,7 +26,6 @@ class BA_CORE_API_ AboutApplicationDialog : public QDialog
     Q_OBJECT
 public:
     AboutApplicationDialog(QWidget *parent = 0);
-
 
 private:
     QPushButton *m_closeButton;

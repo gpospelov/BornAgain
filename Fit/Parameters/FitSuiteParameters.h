@@ -16,6 +16,7 @@
 #ifndef FITSUITEPARAMETERS_H
 #define FITSUITEPARAMETERS_H
 
+#include "WinDllMacros.h"
 #include <vector>
 #include <string>
 

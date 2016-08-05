@@ -16,6 +16,8 @@
 #ifndef ICLONEABLE_H
 #define ICLONEABLE_H
 
+#include "WinDllMacros.h"
+
 //! @class ICloneable
 //! @ingroup tools_internal
 //! @brief Interface for objects that must not be copied, except by cloning.

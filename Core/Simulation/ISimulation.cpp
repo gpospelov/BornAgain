@@ -16,7 +16,7 @@
 #include "ISimulation.h"
 #include "Exceptions.h"
 
-inline ISimulation* ISimulation::clone() const
+ISimulation* ISimulation::clone() const
 {
     throw Exceptions::NotImplementedException(
         "ISimulation::clone() -> Error: not implemented exception.");

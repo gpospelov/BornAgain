@@ -17,6 +17,7 @@
 #ifndef FITSUITEFUNCTIONS_H
 #define FITSUITEFUNCTIONS_H
 
+#include "WinDllMacros.h"
 #include <vector>
 using std::size_t;
 

@@ -16,6 +16,7 @@
 #ifndef PRECOMPUTED_H
 #define PRECOMPUTED_H
 
+#include "WinDllMacros.h"
 #include "ISingleton.h" // inheriting from
 #include <vector>
 

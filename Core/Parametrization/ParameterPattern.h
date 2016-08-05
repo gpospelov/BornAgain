@@ -16,6 +16,7 @@
 #ifndef PARAMETERPATTERN_H
 #define PARAMETERPATTERN_H
 
+#include "WinDllMacros.h"
 #include <string>
 
 //! @class ParameterPattern

@@ -17,6 +17,7 @@
 #ifndef MODELPATH_H
 #define MODELPATH_H
 
+#include "WinDllMacros.h"
 #include "ParameterTranslators.h"
 #include <memory>
 #include <vector>

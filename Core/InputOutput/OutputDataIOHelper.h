@@ -16,6 +16,7 @@
 #ifndef OUTPUTDATAIOHELPER_H
 #define OUTPUTDATAIOHELPER_H
 
+#include "WinDllMacros.h"
 #include <string>
 #include <vector>
 

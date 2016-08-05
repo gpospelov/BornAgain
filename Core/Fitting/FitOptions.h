@@ -16,7 +16,7 @@
 #ifndef FITOPTIONS_H
 #define FITOPTIONS_H
 
-
+#include "WinDllMacros.h"
 
 //! @class FitOptions
 //! @ingroup fitting

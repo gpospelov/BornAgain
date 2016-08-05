@@ -16,6 +16,7 @@
 #ifndef IMINIMIZER_H
 #define IMINIMIZER_H
 
+#include "WinDllMacros.h"
 #include <functional>
 #include <vector>
 

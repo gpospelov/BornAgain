@@ -2,7 +2,7 @@
 Simulation with rectangular detector. Pilatus3-1M detector is used as an example.
 Results will be compared against simulation with spherical detector.
 """
-import numpy
+import numpy, sys
 import matplotlib
 from matplotlib import pyplot as plt
 import bornagain as ba
@@ -125,7 +125,7 @@ def plot_results(result_sph, result_rect):
     plt.show()
 
 
-def run_simulation():
+def simulate():
     """
     Run two simulations for two different detectors and plot results
     """
@@ -146,4 +146,4 @@ def run_simulation():
     plot_results(result_sph, result_rect)
 
 if __name__ == '__main__':
-    run_simulation()
+    simulate()

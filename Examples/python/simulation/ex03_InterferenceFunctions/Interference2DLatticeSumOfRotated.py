@@ -1,5 +1,5 @@
 # 2D lattice with different disorder (IsGISAXS example #6), sum of rotated lattices
-import numpy
+import numpy, sys
 import matplotlib
 from matplotlib import pyplot as plt
 import bornagain as ba
@@ -54,7 +54,7 @@ def get_simulation():
     return simulation
 
 
-def run_simulation():
+def simulate():
     """
     Runs several simulations,
     sums intensities from different rotated lattices,
@@ -100,4 +100,4 @@ def run_simulation():
 
 
 if __name__ == '__main__':
-    run_simulation()
+    simulate()

@@ -1,9 +1,7 @@
 """
 Mixture of cylinders and prisms without interference
 """
-import numpy
-import matplotlib
-from matplotlib import pyplot as plt
+import numpy, sys
 import bornagain as ba
 from bornagain import deg, angstrom, nm
 
@@ -53,7 +51,7 @@ def get_simulation():
     return simulation
 
 
-def run_simulation():
+def simulate():
     """
     Run simulation and plot results
     """
@@ -61,8 +59,11 @@ def run_simulation():
     simulation = get_simulation()
     simulation.setSample(sample)
     simulation.runSimulation()
-    result = simulation.getIntensityData()
+    return simulation.getIntensityData()
 
+def plot(result):
+    import matplotlib
+    from matplotlib import pyplot as plt
     im = plt.imshow(
         result.getArray(),
         norm=matplotlib.colors.LogNorm(1.0, result.getMaximum()),
@@ -75,6 +76,14 @@ def run_simulation():
     plt.ylabel(r'$\alpha_f (^{\circ})$', fontsize=16)
     plt.show()
 
-
 if __name__ == '__main__':
-    run_simulation()
+    if len(sys.argv)<=1:
+        print('Usage:')
+        print('    '+sys.argv[0]+' -p         # to plot simulation result')
+        print('    '+sys.argv[0]+' <filename> # to save results to file')
+        sys.exit(1)
+    intensities = simulate()
+    if sys.argv[1] != '-p':
+        ba.IntensityDataIOFactory.writeIntensityData(intensities, sys.argv[1]+".int")
+    else:
+        plot(intensities)

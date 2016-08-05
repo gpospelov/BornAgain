@@ -2,7 +2,7 @@
 In this example we demonstrate how to plot simulation results with
 axes in different units (nbins, mm, degs and QyQz).
 """
-import numpy
+import numpy, sys
 import matplotlib
 from matplotlib import pyplot as plt
 import bornagain as ba
@@ -76,7 +76,7 @@ def plot_as_colormap(hist, Title, xLabel, yLabel):
     plt.title(Title)
 
 
-def run_simulation():
+def simulate():
     """
     Run two simulations for two different detectors and plot results
     """
@@ -113,4 +113,4 @@ def run_simulation():
 
 
 if __name__ == '__main__':
-    run_simulation()
+    simulate()

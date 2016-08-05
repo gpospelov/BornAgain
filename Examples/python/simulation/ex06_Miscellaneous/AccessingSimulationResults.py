@@ -3,7 +3,7 @@ Extended example for simulation results treatment (cropping, slicing, exporting)
 The standard "Cylinders in DWBA" sample is used to setup the simulation.
 """
 import math
-import numpy
+import numpy, sys
 import matplotlib
 import random
 from matplotlib import pyplot as plt
@@ -178,7 +178,7 @@ def plot_results(result):
     plt.show()
 
 
-def run_simulation():
+def simulate():
     """
     Run simulation and plot results
     """
@@ -192,4 +192,4 @@ def run_simulation():
 
 
 if __name__ == '__main__':
-    run_simulation()
+    simulate()

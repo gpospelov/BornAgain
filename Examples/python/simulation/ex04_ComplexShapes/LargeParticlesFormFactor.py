@@ -6,7 +6,7 @@ oscillates rapidly within one detector bin and analytical calculations
 (performed for the bin center) give completely wrong intensity pattern.
 In this case Monte-Carlo integration over detector bin should be used.
 """
-import numpy
+import numpy, sys
 import matplotlib
 from matplotlib import pyplot as plt
 import bornagain as ba
@@ -57,7 +57,7 @@ def get_simulation(integration_flag):
     return simulation
 
 
-def run_simulation():
+def simulate():
     """
     Runs simulation and plots 4 results:
 for small and large cylinders, with and without integration
@@ -112,4 +112,4 @@ for small and large cylinders, with and without integration
 
 
 if __name__ == '__main__':
-    run_simulation()
+    simulate()

@@ -1,7 +1,7 @@
 """
 Mixture cylinder particles with different size distribution
 """
-import numpy
+import numpy, sys
 import matplotlib
 from matplotlib import pyplot as plt
 import bornagain as ba
@@ -75,7 +75,7 @@ def get_simulation():
     return simulation
 
 
-def run_simulation():
+def simulate():
     """
     Run simulation and plot results
     """
@@ -100,4 +100,4 @@ def run_simulation():
 
 
 if __name__ == '__main__':
-    run_simulation()
+    simulate()

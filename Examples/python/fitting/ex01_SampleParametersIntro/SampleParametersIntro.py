@@ -51,7 +51,7 @@ def get_simulation():
     return simulation
 
 
-def run_simulations():
+def simulates():
     """
     Runs simulations for the sample with different sample parameters.
     """
@@ -119,5 +119,5 @@ def draw_results(results):
 
 
 if __name__ == '__main__':
-    results = run_simulations()
+    results = simulates()
     draw_results(results)

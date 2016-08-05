@@ -9,7 +9,7 @@ import math
 import random
 import bornagain as ba
 from bornagain import deg, angstrom, nm
-import numpy
+import numpy, sys
 
 phi_slice_value = 0.0*deg  # position of vertical slice
 alpha_slice_value = 0.2*deg  # position of horizontal slice

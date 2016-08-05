@@ -3,7 +3,7 @@ Real life example: experiment at GALAXY
 """
 import matplotlib
 from matplotlib import pyplot as plt
-import numpy
+import numpy, sys
 import bornagain as ba
 from SampleBuilder import MySampleBuilder
 

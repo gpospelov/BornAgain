@@ -62,12 +62,12 @@ namespace CodeSnippet {
         "if __name__ == '__main__': \n"
         "    if len(sys.argv)<=1:\n"
         "        print('Usage:')\n"
-        "        print('    '+sys.argv[0]+' -p         # to plot simulation result')\n"
-        "        print('    '+sys.argv[0]+' <filename> # to save results to file')\n"
+        "        print('    '+sys.argv[0]+' -p                           # to plot result')\n"
+        "        print('    '+sys.argv[0]+' <filename without extension> # to save result')\n"
         "        sys.exit(1)\n"
         "    intensities = simulate()\n"
         "    if sys.argv[1] != '-p':\n"
-        "        ba.IntensityDataIOFactory.writeIntensityData(intensities, sys.argv[1])\n"
+        "        ba.IntensityDataIOFactory.writeIntensityData(intensities, sys.argv[1]+'.int')\n"
         "    else:\n"
         "        plot(intensities)\n";
 

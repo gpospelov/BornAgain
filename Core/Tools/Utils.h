@@ -44,7 +44,10 @@ public:
     static std::string getScientificDoubleString(double value, size_t precision = 4);
 
     //! Returns string obtain by joining vector elements
-    static std::string join(std::vector<std::string> joinable, std::string joint);
+    static std::string join(const std::vector<std::string>& joinable, const std::string& joint);
+
+    //! Returns flattened filename, i.e. all directory separator ('/' or '\') are replaced by '_'.
+    static std::string flatFilename(const std::string& filename);
 };
 
 

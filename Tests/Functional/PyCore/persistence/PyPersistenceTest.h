@@ -28,8 +28,8 @@
 class PyPersistenceTest : public IFunctionalTest
 {
 public:
-    PyPersistenceTest(const std::string& name);
-    ~PyPersistenceTest() final;
+    PyPersistenceTest(const std::string& directory, const std::string& name);
+    ~PyPersistenceTest() final {}
 
     void runTest() final;
 
@@ -40,14 +40,9 @@ public:
     void printResults(std::ostream& ostr) const final;
 
 private:
-    std::string getPySuiteFileNameAndPath() const;
-
-    class GISASSimulation* m_reference_simulation;
-    class GISASSimulation* m_domain_simulation;
+    std::string m_directory;
     double m_threshold;
     double m_difference;
-    std::string m_pyscript_filename;
-    std::string m_output_filename;
 };
 
 #endif // PYSUITETEST_H

@@ -20,11 +20,11 @@
 //! Runs PyPersistenceTest on a standard simulation indicated by argv[1].
 int main(int argc, char** argv)
 {
-    if(argc<2){
-        std::cout << "Usage: " << argv[0] << " <scriptname>.py\n";
+    if(argc<3){
+        std::cout << "Usage: " << argv[0] << " <directory> <script name without extension .py>\n";
         std::exit(1);
     }
-    PyPersistenceTest test(argv[1]);
+    PyPersistenceTest test(argv[1], argv[2]);
     test.runTest();
     std::cout << test << "\n";
     return test.getTestResult();

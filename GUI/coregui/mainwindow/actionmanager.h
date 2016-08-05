@@ -17,6 +17,7 @@
 #ifndef ACTIONMANAGER_H
 #define ACTIONMANAGER_H
 
+#include "WinDllMacros.h"
 #include <QObject>
 
 class QMenu;

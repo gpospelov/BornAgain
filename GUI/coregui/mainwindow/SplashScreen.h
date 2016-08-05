@@ -17,6 +17,7 @@
 #ifndef SPLASHSCREEN_H
 #define SPLASHSCREEN_H
 
+#include "WinDllMacros.h"
 #include <QSplashScreen>
 
 class BA_CORE_API_ SplashScreen : public QSplashScreen

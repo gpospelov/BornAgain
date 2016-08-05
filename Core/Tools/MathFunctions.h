@@ -16,6 +16,7 @@
 #ifndef MATHFUNCTIONS_H
 #define MATHFUNCTIONS_H
 
+#include "WinDllMacros.h"
 #include "Complex.h"
 #include <vector>
 

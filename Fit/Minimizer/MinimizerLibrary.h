@@ -16,6 +16,7 @@
 #ifndef MINIMIZERLIBRARY_H
 #define MINIMIZERLIBRARY_H
 
+#include "WinDllMacros.h"
 #include <list>
 #include <map>
 #include <string>

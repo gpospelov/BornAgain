@@ -17,6 +17,7 @@
 #ifndef FITPARAMETERHELPER_H
 #define FITPARAMETERHELPER_H
 
+#include "WinDllMacros.h"
 #include <QStringList>
 
 class ParameterItem;

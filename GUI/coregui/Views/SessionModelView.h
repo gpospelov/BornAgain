@@ -17,6 +17,7 @@
 #ifndef SESSIONMODELVIEW_H
 #define SESSIONMODELVIEW_H
 
+#include "WinDllMacros.h"
 #include <QWidget>
 
 class MainWindow;

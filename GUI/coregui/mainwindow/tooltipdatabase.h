@@ -17,6 +17,7 @@
 #ifndef TOOLTIPDATABASE_H
 #define TOOLTIPDATABASE_H
 
+#include "WinDllMacros.h"
 #include <QObject>
 
 namespace ToolTipsXML {

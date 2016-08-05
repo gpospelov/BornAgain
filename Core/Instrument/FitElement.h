@@ -16,6 +16,7 @@
 #ifndef FITELEMENT_H
 #define FITELEMENT_H
 
+#include "WinDllMacros.h"
 #include <cstddef>
 
 //! @class FitElement

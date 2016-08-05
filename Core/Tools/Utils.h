@@ -16,6 +16,7 @@
 #ifndef UTILS_H
 #define UTILS_H
 
+#include "WinDllMacros.h"
 #include <map>
 #include <string>
 #include <vector>

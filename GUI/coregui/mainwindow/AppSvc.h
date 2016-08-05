@@ -18,6 +18,7 @@
 #define APPSVC_H
 
 #include "ISingleton.h" // inheriting from
+#include "WinDllMacros.h"
 
 class ProjectManager;
 

@@ -16,6 +16,7 @@
 #ifndef ATTLIMITS_H
 #define ATTLIMITS_H
 
+#include "WinDllMacros.h"
 #include <ostream>
 
 //! @class AttLimits

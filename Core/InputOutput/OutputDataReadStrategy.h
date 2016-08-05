@@ -16,6 +16,7 @@
 #ifndef OUTPUTDATAREADSTRATEGY_H
 #define OUTPUTDATAREADSTRATEGY_H
 
+#include "WinDllMacros.h"
 #include <istream>
 
 template <class T> class OutputData;

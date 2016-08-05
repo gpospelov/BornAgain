@@ -17,7 +17,9 @@
 #ifndef TRANSFORMFROMDOMAIN_H
 #define TRANSFORMFROMDOMAIN_H
 
+#include "WinDllMacros.h"
 #include <QString>
+
 class BeamDistributionItem;
 class BeamItem;
 class DetectorItem;

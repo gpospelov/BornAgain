@@ -17,6 +17,7 @@
 #ifndef COLORPROPERTY_H
 #define COLORPROPERTY_H
 
+#include "WinDllMacros.h"
 #include <QPixmap>
 #include <QVariant>
 

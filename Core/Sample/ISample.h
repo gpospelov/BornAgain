@@ -18,7 +18,7 @@
 
 #include "ICloneable.h" // inheriting from
 #include "IParameterized.h" // inheriting from
-#include "ISampleVisitor.h" // TODO rm
+#include "ISampleVisitor.h"
 #include <vector>
 
 class IMaterial;

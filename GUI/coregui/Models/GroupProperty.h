@@ -17,6 +17,7 @@
 #ifndef GROUPPROPERTY_H
 #define GROUPPROPERTY_H
 
+#include "WinDllMacros.h"
 #include <QSharedPointer>
 #include <QStringList>
 

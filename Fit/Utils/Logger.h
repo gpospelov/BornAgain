@@ -16,6 +16,7 @@
 #ifndef LOGGER_H
 #define LOGGER_H
 
+#include "WinDllMacros.h"
 #include <iomanip>
 #include <sstream>
 #include <vector>

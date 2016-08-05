@@ -17,6 +17,7 @@
 #ifndef PROJECTDOCUMENT_H
 #define PROJECTDOCUMENT_H
 
+#include "WinDllMacros.h"
 #include <QObject>
 
 class QIODevice;

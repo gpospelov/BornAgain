@@ -17,6 +17,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "WinDllMacros.h"
 #include "fancymainwindow.h"
 
 namespace Manhattan {

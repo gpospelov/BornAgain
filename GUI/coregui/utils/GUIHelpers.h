@@ -17,6 +17,7 @@
 #ifndef GUIHELPERS_H
 #define GUIHELPERS_H
 
+#include "WinDllMacros.h"
 #include <QStringList>
 #include <QWidget>
 #include <memory>

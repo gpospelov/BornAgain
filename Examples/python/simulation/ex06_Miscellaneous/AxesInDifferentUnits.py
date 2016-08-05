@@ -3,8 +3,6 @@ In this example we demonstrate how to plot simulation results with
 axes in different units (nbins, mm, degs and QyQz).
 """
 import numpy
-import matplotlib
-from matplotlib import pyplot as plt
 import bornagain as ba
 from bornagain import deg, angstrom, nm
 
@@ -91,6 +89,8 @@ def plot(simulation):
     """
     Plots simulation results for different detectors.
     """
+    import matplotlib
+    from matplotlib import pyplot as plt
     fig = plt.figure(figsize=(12.80, 10.24))
 
     plt.subplot(2, 2, 1)

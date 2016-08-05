@@ -104,20 +104,20 @@ if(BORNAGAIN_PYTHON)
 
     add_custom_target (
         ${library_name}_python
-        COMMAND ${CMAKE_COMMAND} -E copy ${AUTO_DIR}/libBornAgainCore.py ${CMAKE_BINARY_DIR}/lib/libBornAgainCore.py
+        COMMAND ${CMAKE_COMMAND} -E copy
+            ${AUTO_DIR}/libBornAgainCore.py ${CMAKE_BINARY_DIR}/lib/libBornAgainCore.py
         DEPENDS ${AUTO_DIR}/libBornAgainCore.py
         )
 
-    # manually add: if does not exist, will be created by swig
     list(APPEND source_files "${AUTO_DIR}/libBornAgainCore_wrap.cpp")
-    #list(APPEND include_files "${AUTO_DIR}/libBornAgainCore_wrap.h")
 
     configure_file(${WRAP_DIR}/python/plot_utils.py
                    ${CMAKE_BINARY_DIR}/lib/bornagain/plot_utils.py COPYONLY)
-    # variable BA_MODULES_IMPORT_PATH must be set
+
     set(BA_MODULES_IMPORT_PATH "..")
     if(BORNAGAIN_APPLE_BUNDLE)
-        set(BA_MODULES_IMPORT_PATH lib/BornAgain-${BornAgain_VERSION_MAJOR}.${BornAgain_VERSION_MINOR})
+        set(BA_MODULES_IMPORT_PATH
+            lib/BornAgain-${BornAgain_VERSION_MAJOR}.${BornAgain_VERSION_MINOR})
     endif()
     configure_file("${WRAP_DIR}/python/__init__.py.in"
                    "${CMAKE_BINARY_DIR}/lib/bornagain/__init__.py" @ONLY)

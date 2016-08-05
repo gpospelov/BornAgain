@@ -7,8 +7,6 @@ import numpy
 import random
 import bornagain as ba
 from bornagain import deg, angstrom, nm
-import matplotlib
-from matplotlib import pyplot as plt
 
 phi_min, phi_max = -2.0, 2.0
 alpha_min, alpha_max = 0.0, 2.0
@@ -153,6 +151,8 @@ def plot(result):
     Runs different plotting functions one by one
     to demonstrate trivial data presentation tasks.
     """
+    import matplotlib
+    from matplotlib import pyplot as plt
 
     fig = plt.figure(figsize=(12.80, 10.24))
 

@@ -33,10 +33,10 @@ public:
     CoreTest(
         const std::string& name, const std::string& description, GISASSimulation* simulation,
         double threshold);
-    virtual ~CoreTest();
+    ~CoreTest() final;
 
-    virtual void runTest();
-    virtual void printResults(std::ostream& ostr) const;
+    void runTest() final;
+    void printResults(std::ostream& ostr) const final;
 
 private:
     std::string getSimulationResultsFileNameAndPath() const;

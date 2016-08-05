@@ -20,7 +20,7 @@
 class PyExportStandardTest : public IStandardTest
 {
 public:
-    PyExportStandardTest() : IStandardTest("PySuite") {}
+    PyExportStandardTest() : IStandardTest("PyExport") {}
     IFunctionalTest* getTest() const { return new PyExportTest(
             getTestName(), getTestDescription(), getSimulation(), getTestThreshold()); }
 };

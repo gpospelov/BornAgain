@@ -13,7 +13,7 @@
 //
 // ************************************************************************** //
 
-#include "IMinimizerTest.h"
+#include "IFunctionalTest.h"
 #include "StandardFitsFactory.h"
 #include <memory>
 #include <iostream>

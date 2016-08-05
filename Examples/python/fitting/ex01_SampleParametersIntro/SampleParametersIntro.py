@@ -51,14 +51,14 @@ def get_simulation():
     return simulation
 
 
-def run_simulations():
+def simulate():
     """
     Runs simulations for the sample with different sample parameters.
     """
 
     sample = get_sample()
     print("The tree structure of the sample")
-    sample.printSampleTree()
+    print( sample.to_str() )
 
     print("The sample contains following parameters ('name':value)")
     sample.printParameters()
@@ -102,7 +102,7 @@ def run_simulations():
     return results
 
 
-def draw_results(results):
+def plot(results):
     """
     Draw results of several simulations on canvas
     """
@@ -119,5 +119,5 @@ def draw_results(results):
 
 
 if __name__ == '__main__':
-    results = run_simulations()
+    results = simulate()
     draw_results(results)

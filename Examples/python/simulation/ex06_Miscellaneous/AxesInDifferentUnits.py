@@ -76,15 +76,21 @@ def plot_as_colormap(hist, Title, xLabel, yLabel):
     plt.title(Title)
 
 
-def run_simulation():
+def simulate():
     """
-    Run two simulations for two different detectors and plot results
+    Run simulation and returns it.
     """
     sample = get_sample()
     simulation = get_simulation()
     simulation.setSample(sample)
     simulation.runSimulation()
+    return simulation
 
+
+def plot(simulation):
+    """
+    Plots simulation results for different detectors.
+    """
     fig = plt.figure(figsize=(12.80, 10.24))
 
     plt.subplot(2, 2, 1)
@@ -112,5 +118,9 @@ def run_simulation():
     plt.show()
 
 
+def save(simulation, filename):
+    print("Not yet saving anything")
+
+
 if __name__ == '__main__':
-    run_simulation()
+    ba.simulateThenPlotOrSave(simulate, plot, save)

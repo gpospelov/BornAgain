@@ -7,8 +7,9 @@ add_subdirectory(Core)
 add_subdirectory(Fit)
 
 if(BORNAGAIN_PYTHON)
-    add_subdirectory(PyCore/scripts)
-    add_subdirectory(PyCore/suite)
+    add_subdirectory(PyCore/legacy)
+    add_subdirectory(PyCore/export)
+    add_subdirectory(PyCore/persistence)
     add_subdirectory(PyFit)
 endif()
 

@@ -55,15 +55,17 @@ def get_simulation():
     return simulation
 
 
-def run_simulation():
+def simulate():
     """
-    Run simulation and plot results
+    Runs simulation and returns it.
     """
     sample = get_sample()
     simulation = get_simulation()
     simulation.setSample(sample)
     simulation.runSimulation()
+    return simulation
 
+def plot(simulation):
     # plotting results for several selected layers
     selected_layers = [0, 1, 20, 21]
     alpha_angles = simulation.getAlphaAxis().getBinCenters()
@@ -92,5 +94,8 @@ def run_simulation():
     plt.show()
 
 
+def save(simulation, filename):
+    print("Not yet saving anything")
+
 if __name__ == '__main__':
-    run_simulation()
+    ba.simulateThenPlotOrSave(simulate, plot, save)

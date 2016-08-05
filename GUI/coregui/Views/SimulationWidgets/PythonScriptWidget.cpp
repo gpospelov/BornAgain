@@ -41,8 +41,6 @@
 #include <QToolButton>
 #include <QVBoxLayout>
 
-
-
 PythonScriptWidget::PythonScriptWidget(QWidget *parent)
     : QDialog(parent)
     , m_toolBar(0)
@@ -103,7 +101,7 @@ void PythonScriptWidget::generatePythonScript(const MultiLayerItem *sampleItem,
             DomainSimulationBuilder::getSimulation(sampleItem, instrumentItem, optionItem));
 
         QString code = QString::fromStdString(
-            PythonFormatting::genPyScript(P_simulation.get(), "output"));
+            PythonFormatting::simulationToPython(P_simulation.get()));
         m_textEdit->clear();
         m_textEdit->setText(code);
 
@@ -120,7 +118,6 @@ void PythonScriptWidget::generatePythonScript(const MultiLayerItem *sampleItem,
         m_warningSign->setPosition(pos.x(), pos.y());
         m_warningSign->show();
     }
-
 }
 
 //! adjusts position of warning label on widget move

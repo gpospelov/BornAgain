@@ -68,10 +68,8 @@ void IMinimizerTest::runTest()
     for (size_t i = 0; i < m_parameters.size(); ++i) {
         m_parameters[i].m_found_value = fitSuite->getMinimizer()->getValueOfVariableAtMinimum(i);
     }
-}
 
-int IMinimizerTest::analyseResults()
-{
+    // analyze results
     for (size_t i = 0; i < m_parameters.size(); ++i) {
         double diff = std::abs(m_parameters[i].m_found_value - m_parameters[i].m_real_value)
                       / m_parameters[i].m_real_value;
@@ -82,15 +80,7 @@ int IMinimizerTest::analyseResults()
     }
 
     std::cout << getName() << " | " << getDescription() << " | " << getTestResultString() << "\n";
-
-    return m_result;
 }
-
-void IMinimizerTest::setParameterTolerance(double value)
-{
-    m_parameter_tolerance = value;
-}
-
 
 std::unique_ptr<FitSuite> IMinimizerTest::createFitSuite()
 {

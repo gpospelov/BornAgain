@@ -59,9 +59,9 @@ include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/../../TestMachinery
 )
 
-add_executable(PyCoreStandardTest PyCoreStandardTest.cpp PyCoreTest.h PyCoreTest.cpp)
-target_link_libraries(PyCoreStandardTest BornAgainCore BornAgainTestMachinery)
+add_executable(PyExportStandardTest PyExportStandardTest.cpp PyExportTest.h PyExportTest.cpp)
+target_link_libraries(PyExportStandardTest BornAgainCore BornAgainTestMachinery)
 foreach(test_case ${test_cases})
-    add_test(PyCoreStandardTest/${test_case}
-        ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/PyCoreStandardTest ${test_case})
+    add_test(PyExportStandardTest/${test_case}
+        ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/PyExportStandardTest ${test_case})
 endforeach()

@@ -416,3 +416,5 @@
 //%include "SimulationFactory.h"
 
 %include "extendCore.i"
+
+%include "CorePython.py"

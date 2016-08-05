@@ -1508,7 +1508,12 @@ C++ includes: ExportToPython.h
 %feature("docstring")  ExportToPython::~ExportToPython "ExportToPython::~ExportToPython()
 ";
 
-%feature("docstring")  ExportToPython::writePyScript "std::string ExportToPython::writePyScript(const GISASSimulation *simulation, const std::string &output_filename)
+%feature("docstring")  ExportToPython::simulationToPythonLowlevel "std::string ExportToPython::simulationToPythonLowlevel(const GISASSimulation *simulation)
+
+Returns a Python script that sets up a simulation and runs it if invoked as main program. 
+";
+
+%feature("docstring")  ExportToPython::defineGetSample "std::string ExportToPython::defineGetSample() const 
 ";
 
 
@@ -12146,37 +12151,37 @@ C++ includes: SampleLabelHandler.h
 %feature("docstring")  SampleLabelHandler::insertMaterial "void SampleLabelHandler::insertMaterial(const IMaterial *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::setLabelFormFactor "void SampleLabelHandler::setLabelFormFactor(const IFormFactor *sample)
+%feature("docstring")  SampleLabelHandler::insertFormFactor "void SampleLabelHandler::insertFormFactor(const IFormFactor *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::setLabelInterferenceFunction "void SampleLabelHandler::setLabelInterferenceFunction(const IInterferenceFunction *sample)
+%feature("docstring")  SampleLabelHandler::insertInterferenceFunction "void SampleLabelHandler::insertInterferenceFunction(const IInterferenceFunction *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::setLabelLayout "void SampleLabelHandler::setLabelLayout(const ILayout *sample)
+%feature("docstring")  SampleLabelHandler::insertLayout "void SampleLabelHandler::insertLayout(const ILayout *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::setLabelRotation "void SampleLabelHandler::setLabelRotation(const IRotation *sample)
+%feature("docstring")  SampleLabelHandler::insertRotation "void SampleLabelHandler::insertRotation(const IRotation *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::setLabelLayer "void SampleLabelHandler::setLabelLayer(const Layer *sample)
+%feature("docstring")  SampleLabelHandler::insertLayer "void SampleLabelHandler::insertLayer(const Layer *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::setLabelRoughness "void SampleLabelHandler::setLabelRoughness(const LayerRoughness *sample)
+%feature("docstring")  SampleLabelHandler::insertRoughness "void SampleLabelHandler::insertRoughness(const LayerRoughness *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::setLabelMultiLayer "void SampleLabelHandler::setLabelMultiLayer(const MultiLayer *sample)
+%feature("docstring")  SampleLabelHandler::insertMultiLayer "void SampleLabelHandler::insertMultiLayer(const MultiLayer *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::setLabelParticle "void SampleLabelHandler::setLabelParticle(const Particle *sample)
+%feature("docstring")  SampleLabelHandler::insertParticle "void SampleLabelHandler::insertParticle(const Particle *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::setLabelParticleComposition "void SampleLabelHandler::setLabelParticleComposition(const ParticleComposition *sample)
+%feature("docstring")  SampleLabelHandler::insertParticleComposition "void SampleLabelHandler::insertParticleComposition(const ParticleComposition *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::setLabelParticleCoreShell "void SampleLabelHandler::setLabelParticleCoreShell(const ParticleCoreShell *sample)
+%feature("docstring")  SampleLabelHandler::insertParticleCoreShell "void SampleLabelHandler::insertParticleCoreShell(const ParticleCoreShell *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::setLabelParticleDistribution "void SampleLabelHandler::setLabelParticleDistribution(const ParticleDistribution *sample)
+%feature("docstring")  SampleLabelHandler::insertParticleDistribution "void SampleLabelHandler::insertParticleDistribution(const ParticleDistribution *sample)
 ";
 
 
@@ -13376,19 +13381,22 @@ C++ includes: WavevectorInfo.h
 // File: classMathFunctions_1_1Convolve_1_1Workspace.xml
 
 
-// File: namespace_0D293.xml
+// File: namespace_0D294.xml
 
 
-// File: namespace_0D366.xml
+// File: namespace_0D367.xml
 
 
-// File: namespace_0D432.xml
+// File: namespace_0D433.xml
 
 
 // File: namespaceboost_1_1geometry.xml
 
 
 // File: namespaceBornAgain.xml
+
+
+// File: namespaceCodeSnippet.xml
 
 
 // File: namespaceExceptions.xml
@@ -13683,52 +13691,54 @@ Parse double values from string to vector of double.
 
 
 // File: namespacePythonFormatting.xml
-%feature("docstring")  PythonFormatting::genPyScript "std::string PythonFormatting::genPyScript(GISASSimulation *simulation, const std::string &output_filename)
+%feature("docstring")  PythonFormatting::getRepresentation "BA_CORE_API_ std::string PythonFormatting::getRepresentation(const IDistribution1D *distribution)
+
+Returns fixed Python code snippet that defines the function \"runSimulation\". 
 ";
 
-%feature("docstring")  PythonFormatting::getRepresentation "std::string PythonFormatting::getRepresentation(const IDistribution1D *distribution)
+%feature("docstring")  PythonFormatting::getRepresentation "BA_CORE_API_ std::string PythonFormatting::getRepresentation(const std::string &indent, const Geometry::IShape2D *ishape, bool mask_value)
 ";
 
-%feature("docstring")  PythonFormatting::getRepresentation "std::string PythonFormatting::getRepresentation(const std::string &indent, const Geometry::IShape2D *ishape, bool mask_value)
+%feature("docstring")  PythonFormatting::printBool "BA_CORE_API_ std::string PythonFormatting::printBool(double value)
 ";
 
-%feature("docstring")  PythonFormatting::printBool "std::string PythonFormatting::printBool(double value)
+%feature("docstring")  PythonFormatting::printDouble "BA_CORE_API_ std::string PythonFormatting::printDouble(double input)
 ";
 
-%feature("docstring")  PythonFormatting::printDouble "std::string PythonFormatting::printDouble(double input)
+%feature("docstring")  PythonFormatting::printNm "BA_CORE_API_ std::string PythonFormatting::printNm(double input)
 ";
 
-%feature("docstring")  PythonFormatting::printNm "std::string PythonFormatting::printNm(double input)
+%feature("docstring")  PythonFormatting::printScientificDouble "BA_CORE_API_ std::string PythonFormatting::printScientificDouble(double input)
 ";
 
-%feature("docstring")  PythonFormatting::printScientificDouble "std::string PythonFormatting::printScientificDouble(double input)
+%feature("docstring")  PythonFormatting::printDegrees "BA_CORE_API_ std::string PythonFormatting::printDegrees(double input)
 ";
 
-%feature("docstring")  PythonFormatting::printDegrees "std::string PythonFormatting::printDegrees(double input)
+%feature("docstring")  PythonFormatting::isSquare "BA_CORE_API_ bool PythonFormatting::isSquare(double length1, double length2, double angle)
 ";
 
-%feature("docstring")  PythonFormatting::isSquare "bool PythonFormatting::isSquare(double length1, double length2, double angle)
+%feature("docstring")  PythonFormatting::isHexagonal "BA_CORE_API_ bool PythonFormatting::isHexagonal(double length1, double length2, double angle)
 ";
 
-%feature("docstring")  PythonFormatting::isHexagonal "bool PythonFormatting::isHexagonal(double length1, double length2, double angle)
+%feature("docstring")  PythonFormatting::printKvector "BA_CORE_API_ std::string PythonFormatting::printKvector(const kvector_t value)
 ";
 
-%feature("docstring")  PythonFormatting::printKvector "std::string PythonFormatting::printKvector(const kvector_t value)
-";
-
-%feature("docstring")  PythonFormatting::isDefaultDirection "bool PythonFormatting::isDefaultDirection(const kvector_t direction)
+%feature("docstring")  PythonFormatting::isDefaultDirection "BA_CORE_API_ bool PythonFormatting::isDefaultDirection(const kvector_t direction)
 
 returns true if it is (0, -1, 0) vector 
 ";
 
-%feature("docstring")  PythonFormatting::valueTimesUnit "std::string PythonFormatting::valueTimesUnit(const RealParameter *par)
+%feature("docstring")  PythonFormatting::valueTimesUnit "BA_CORE_API_ std::string PythonFormatting::valueTimesUnit(const RealParameter *par)
 
 Returns parameter value, followed by its unit multiplicator (like \"* nm\"). 
 ";
 
-%feature("docstring")  PythonFormatting::argumentList "std::string PythonFormatting::argumentList(const IParameterized *ip)
+%feature("docstring")  PythonFormatting::argumentList "BA_CORE_API_ std::string PythonFormatting::argumentList(const IParameterized *ip)
 
 Returns comma-separated list of parameter values, including unit multiplicator (like \"* nm\"). 
+";
+
+%feature("docstring")  PythonFormatting::simulationToPython "std::string PythonFormatting::simulationToPython(GISASSimulation *simulation)
 ";
 
 
@@ -14658,6 +14668,9 @@ Set all element intensities to given value.
 
 
 // File: Materials_8h.xml
+
+
+// File: FormFactorInfo_8cpp.xml
 
 
 // File: FormFactorInfo_8h.xml

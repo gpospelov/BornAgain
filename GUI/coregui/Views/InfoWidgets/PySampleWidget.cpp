@@ -230,7 +230,6 @@ QString PySampleWidget::generateCodeSnippet()
 
     foreach(SessionItem *sampleItem, m_sampleModel->topItems()) {
         DomainObjectBuilder builder;
-
         try {
             auto P_multilayer = builder.buildMultiLayer(*sampleItem);
             ExportToPython visitor(*P_multilayer);
@@ -250,7 +249,6 @@ QString PySampleWidget::generateCodeSnippet()
             QPoint pos = getPositionForWarningSign();
             m_warningSign->setPosition(pos.x(), pos.y());
             m_warningSign->show();
-
         }
     }
 
@@ -261,7 +259,7 @@ QString PySampleWidget::generateCodeSnippet()
 //! be adjusted according to the visibility of scroll bars
 QPoint PySampleWidget::getPositionForWarningSign()
 {
-    int x = width()-warning_sign_xpos;
+    int x = width() -warning_sign_xpos;
     int y = height()-warning_sign_ypos;
 
     if(QScrollBar *horizontal = m_textEdit->horizontalScrollBar()) {
@@ -273,7 +271,6 @@ QPoint PySampleWidget::getPositionForWarningSign()
         if(vertical->isVisible())
             x -= vertical->width();
     }
-
 
     return QPoint(x, y);
 }

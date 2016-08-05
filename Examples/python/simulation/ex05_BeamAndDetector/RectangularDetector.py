@@ -75,10 +75,14 @@ def get_simulation():
     return simulation
 
 
-def plot_results(result_sph, result_rect):
+def plot(result):
     """
     Plots results of two simulations and their relative difference on one canvas
     """
+    result_sph  = result['spherical']
+    result_rect = result['rectangular']
+    result_diff = result['difference']
+
     fig = plt.figure(figsize=(13.6, 5.12))
 
     # showing  result of spherical detector simulation
@@ -109,12 +113,12 @@ def plot_results(result_sph, result_rect):
 
     # show relative difference between two plots (sph[i]-rect[i])/rect[i]
     # for every detector pixel
-    diff = result_sph.relativeDifferenceHistogram(result_rect)
     plt.subplot(1, 3, 3)
     im = plt.imshow(
-        diff.getArray(),
+        result_diff.getArray(),
         norm=matplotlib.colors.LogNorm(1e-06, 1.0),
-        extent=[diff.getXmin(), diff.getXmax(), diff.getYmin(), diff.getYmax()],
+        extent=[result_diff.getXmin(), result_diff.getXmax(),
+                result_diff.getYmin(), result_diff.getYmax()],
         aspect='auto')
     cb = plt.colorbar(im, pad=0.025)
     plt.xlabel('X, mm', fontsize=12)
@@ -125,10 +129,12 @@ def plot_results(result_sph, result_rect):
     plt.show()
 
 
-def run_simulation():
+def simulate():
     """
     Run two simulations for two different detectors and plot results
     """
+    result = {}
+
     sample = get_sample()
     simulation = get_simulation()
     simulation.setSample(sample)
@@ -136,14 +142,17 @@ def run_simulation():
     # runs simulation for spherical detector
     simulation.setDetector(get_spherical_detector())
     simulation.runSimulation()
-    result_sph = simulation.getIntensityData()
+    result['spherical'] = simulation.getIntensityData()
 
     # runs simulation for rectangular detector
     simulation.setDetector(get_rectangular_detector())
     simulation.runSimulation()
-    result_rect = simulation.getIntensityData()
+    result['rectangular'] = simulation.getIntensityData()
 
-    plot_results(result_sph, result_rect)
+    result['difference'] = result['spherical'].relativeDifferenceHistogram(
+        result['rectangular'])
+
+    return result
 
 if __name__ == '__main__':
-    run_simulation()
+    ba.simulateThenPlotOrSave(simulate, plot)

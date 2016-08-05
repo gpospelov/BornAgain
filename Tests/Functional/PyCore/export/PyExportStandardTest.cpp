@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/PyCore/suite/PyCoreStandardTest.cpp
-//! @brief     Implements program PyCoreStandardTest, to run functional tests
+//! @file      Tests/Functional/PyCore/suite/PyExportStandardTest.cpp
+//! @brief     Implements program PyExportStandardTest, to run functional tests
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,19 +14,19 @@
 // ************************************************************************** //
 
 #include "IStandardTest.h"
-#include "PyCoreTest.h"
+#include "PyExportTest.h"
 
-//! Provides a PyCoreTest through a callback mechanism explained in IStandardTest.h.
-class PyCoreStandardTest : public IStandardTest
+//! Provides a PyExportTest through a callback mechanism explained in IStandardTest.h.
+class PyExportStandardTest : public IStandardTest
 {
 public:
-    PyCoreStandardTest() : IStandardTest("PySuite") {}
-    IFunctionalTest* getTest() const { return new PyCoreTest(
+    PyExportStandardTest() : IStandardTest("PyExport") {}
+    IFunctionalTest* getTest() const { return new PyExportTest(
             getTestName(), getTestDescription(), getSimulation(), getTestThreshold()); }
 };
 
-//! Runs PyCoreTest on a standard simulation indicated by argv[1].
+//! Runs PyExportTest on a standard simulation indicated by argv[1].
 int main(int argc, char** argv)
 {
-    return PyCoreStandardTest().execute(argc, argv);
+    return PyExportStandardTest().execute(argc, argv);
 }

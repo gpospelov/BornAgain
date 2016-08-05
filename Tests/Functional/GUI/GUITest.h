@@ -37,7 +37,6 @@ public:
     virtual ~GUITest();
 
     virtual void runTest();
-    virtual int analyseResults();
 
     const OutputData<double>* getOutputData() const;
 
@@ -46,8 +45,8 @@ public:
 private:
     void createDomainSimulation();
 
-    GISASSimulation *m_reference_simulation;
-    GISASSimulation *m_domain_simulation;
+    GISASSimulation* m_reference_simulation;
+    GISASSimulation* m_domain_simulation;
     double m_threshold;
     double m_difference;
 };

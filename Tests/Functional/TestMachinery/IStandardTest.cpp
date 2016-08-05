@@ -49,7 +49,6 @@ int IStandardTest::execute_onetest()
     m_test_name = m_info->m_test_name;
     IFunctionalTest* test( getTest() );
     test->runTest();
-    test->analyseResults();
     std::cout << *test << "\n";
     return test->getTestResult();
 }
@@ -81,7 +80,6 @@ int IStandardTest::execute_subtests()
         std::cout << "IStandardTest::execute() -> " << getName()
                   << " " << i+1 << "/" << n_subtests << " (" << subtest_names[i] << ")\n";
         subtest->runTest();
-        subtest->analyseResults();
         std::cout << *subtest << "\n";
         if (subtest->getTestResult())
             ++number_of_failed_tests;

@@ -34,8 +34,35 @@
 #include "ResolutionFunction2DGaussian.h"
 #include "SampleLabelHandler.h"
 #include "SphericalDetector.h"
+#include "Utils.h"
 #include <iomanip>
 #include <set>
+
+namespace CodeSnippet {
+
+    const std::string preamble =
+        "import numpy\n"
+        "#NOTE: Uncomment the next import statements for plotting\n"
+        "#import matplotlib\n"
+        "#from matplotlib import pyplot as plt\n"
+        "import bornagain as ba\n"
+        "from bornagain import deg, angstrom, nm, kvector_t\n\n";
+
+    const std::string defineSimulate =
+        "def simulate():\n"
+        "    # Run Simulation\n"
+        "    sample = getSample()\n"
+        "    simulation = getSimulation()\n"
+        "    simulation.setSample(sample)\n"
+        "    simulation.runSimulation()\n"
+        "    return simulation.getIntensityData()\n"
+        "\n\n";
+
+    const std::string mainProgram =
+        "if __name__ == '__main__': \n"
+        "    ba.simulateThenPlotOrSave(simulate, plot)\n";
+
+} // namespace CodeSnippet
 
 using namespace PythonFormatting;
 
@@ -76,62 +103,16 @@ ExportToPython::~ExportToPython()
     delete m_label;
 }
 
-std::string ExportToPython::writePyScript(
-    const GISASSimulation* simulation, const std::string& output_filename)
+//! Returns a Python script that sets up a simulation and runs it if invoked as main program.
+
+std::string ExportToPython::simulationToPythonLowlevel(const GISASSimulation* simulation)
 {
-    std::ostringstream result;
-    result << definePreamble();
-
-    result << defineGetSample();
-    result << defineGetSimulation(simulation);
-    result << definePlotting(simulation);
-    result << defineRunSimulation();
-
-    result << "if __name__ == '__main__': \n";
-    result << indent() << "runSimulation('" << output_filename << "')";
-    return result.str();
-}
-
-std::string ExportToPython::definePreamble() const
-{
-    std::ostringstream result;
-    result << "import numpy\n"
-           << "#NOTE: Uncomment the next import statements for plotting\n"
-           << "#import matplotlib\n"
-           << "#from matplotlib import pyplot as plt\n"
-           << "import bornagain as ba\n"
-           << "from bornagain import deg, angstrom, nm, kvector_t\n"
-           << "\n\n";
-
-    //    result << "#NOTE: All the ANGLES are displayed in RADIANS\n\n";
-    //    result << "#NOTE: Running this Script by default will write output data"
-    //           << "to <TODO: UPDATE THIS> file\n";
-    //    result << "#NOTE: To avoid writing data to a file, delete the argument('output')"
-    //           << "given to runSimulation in __main__\n";
-    //    result << "#NOTE: To read data from a file use the command:"
-    //           << "IntensityDataIOFactory.readIntensityData(fileName))\n\n";
-    return result.str();
-}
-
-std::string ExportToPython::defineGetSample() const
-{
-    std::ostringstream result;
-    result << "def getSample():\n";
-    result << defineMaterials();
-    result << defineLayers();
-    result << defineFormFactors();
-    result << defineParticles();
-    result << defineCoreShellParticles();
-    result << defineParticleCompositions();
-    result << defineParticleDistributions();
-    result << defineInterferenceFunctions();
-    result << defineParticleLayouts();
-    result << defineRoughnesses();
-    result << addLayoutsToLayers();
-    result << defineMultiLayers();
-    result << std::endl;
-    result << std::endl;
-    return result.str();
+    return CodeSnippet::preamble
+        + defineGetSample()
+        + defineGetSimulation(simulation)
+        + definePlot(simulation)
+        + CodeSnippet::defineSimulate
+        + CodeSnippet::mainProgram;
 }
 
 std::string ExportToPython::defineGetSimulation(const GISASSimulation* simulation) const
@@ -150,11 +131,29 @@ std::string ExportToPython::defineGetSimulation(const GISASSimulation* simulatio
     return result.str();
 }
 
+std::string ExportToPython::defineGetSample() const
+{
+    return "def getSample():\n"
+        + defineMaterials()
+        + defineLayers()
+        + defineFormFactors()
+        + defineParticles()
+        + defineCoreShellParticles()
+        + defineParticleCompositions()
+        + defineParticleDistributions()
+        + defineInterferenceFunctions()
+        + defineParticleLayouts()
+        + defineRoughnesses()
+        + addLayoutsToLayers()
+        + defineMultiLayers()
+        + "\n";
+}
+
 std::string ExportToPython::defineMaterials() const
 {
     const auto themap = m_label->getMaterialMap();
     if (themap->size() == 0)
-        return "";
+        return "# No Materials.\n\n";
     std::ostringstream result;
     result << std::setprecision(12);
     result << indent() << "# Defining Materials\n";
@@ -197,7 +196,7 @@ std::string ExportToPython::defineLayers() const
 {
     const auto themap = m_label->getLayerMap();
     if (themap->size() == 0)
-        return "";
+        return "# No Layers.\n\n";
     std::ostringstream result;
     result << std::setprecision(12);
     result << "\n" << indent() << "# Defining Layers\n";
@@ -564,7 +563,7 @@ std::string ExportToPython::defineMultiLayers() const
 {
     const auto themap = m_label->getMultiLayerMap();
     if (themap->size() == 0)
-        return "";
+        return "# No MultiLayers.\n\n";
     std::ostringstream result;
     result << std::setprecision(12);
     result << "\n" << indent() << "# Defining Multilayers\n";
@@ -591,7 +590,7 @@ std::string ExportToPython::defineMultiLayers() const
                 layerIndex++;
             }
         }
-        result << indent() << "return " << it->second << std::endl;
+        result << indent() << "return " << it->second << "\n";
     }
     return result.str();
 }
@@ -776,59 +775,36 @@ std::string ExportToPython::defineSimulationOptions(const GISASSimulation* simul
     result << std::setprecision(12);
 
     const SimulationOptions& options = simulation->getOptions();
-    if(options.getHardwareConcurrency() != options.getNumberOfThreads()) {
+    if(options.getHardwareConcurrency() != options.getNumberOfThreads())
         result << indent() << "simulation.getOptions().setNumberOfThreads("
                << options.getNumberOfThreads() << ")\n";
-    }
-    if(options.isIntegrate()) {
+    if(options.isIntegrate())
         result << indent() << "simulation.getOptions().setMonteCarloIntegration(True, "
                << options.getMcPoints() << ")\n";
-    }
-
     return result.str();
 }
 
-std::string ExportToPython::definePlotting(const GISASSimulation* simulation) const
+std::string ExportToPython::definePlot(const GISASSimulation* simulation) const
 {
     std::ostringstream result;
     result << std::setprecision(12);
     //    result << "#NOTE: Uncomment the next function for plotting\n";
     //    result << "#NOTE: This requires the presence of matplotlib library\n";
-    result << "def plotSimulation(simulation):\n";
-    result << "" << indent() << "result = simulation.getIntensityData()\n";
-    result << "" << indent() << "im = plt.imshow(result.getArray(), "
-           << "norm=matplotlib.colors.LogNorm(1, result.getMaximum()), extent=[";
-    size_t index = 0;
-    size_t numberOfDetectorDimensions = simulation->getInstrument().getDetectorDimension();
-    while (index < numberOfDetectorDimensions) {
-        if (index != 0) {
-            result << ", ";
-        }
-        result << printDegrees(
-                      simulation->getInstrument().getDetectorAxis(index).getMin()) << ", "
-               << printDegrees(
-                      simulation->getInstrument().getDetectorAxis(index).getMax());
-        index++;
-    }
-    result << "]) \n";
-    result << indent() << "plt.colorbar(im)\n";
-    result << indent() << "plt.show()\n\n\n";
-    return result.str();
-}
-
-std::string ExportToPython::defineRunSimulation() const
-{
-    std::ostringstream result;
-    result << "def runSimulation(filename = ''):\n";
-    //    result << "def runSimulation():\n";
-    result << indent() << "# Run Simulation\n";
-    result << indent() << "sample = getSample()\n";
-    result << indent() << "simulation = getSimulation()\n";
-    result << indent() << "simulation.setSample(sample)\n";
-    result << indent() << "simulation.runSimulation()\n";
-    result << indent() << "if filename != '':\n";
-    result << indent() << indent() << "ba.IntensityDataIOFactory.writeIntensityData(simulation."
-           << "getIntensityData(), filename + '.int')\n\n\n";
+    result <<
+        "def plot(intensities):\n"
+        "    import matplotlib.colors\n"
+        "    from matplotlib import pyplot as plt\n"
+        "    im = plt.imshow(intensities.getArray(), "
+           << "norm=matplotlib.colors.LogNorm(1, intensities.getMaximum()), extent=[";
+    const Instrument& instrument = simulation->getInstrument();
+    std::vector<std::string> entries;
+    for (size_t i=0; i<instrument.getDetectorDimension(); ++ i)
+        entries.push_back( printDegrees(instrument.getDetectorAxis(i).getMin()) + ", " +
+                           printDegrees(instrument.getDetectorAxis(i).getMax()) );
+    result << Utils::String::join( entries, ", " ) << "]) \n";
+    result <<
+        "    plt.colorbar(im)\n"
+        "    plt.show()\n\n\n";
     return result.str();
 }
 

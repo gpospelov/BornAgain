@@ -2,8 +2,6 @@
 Mixture cylinder particles with different size distribution
 """
 import numpy
-import matplotlib
-from matplotlib import pyplot as plt
 import bornagain as ba
 from bornagain import deg, angstrom, nm
 
@@ -75,29 +73,16 @@ def get_simulation():
     return simulation
 
 
-def run_simulation():
+def simulate():
     """
-    Run simulation and plot results
+    Runs simulation and returns intensity map.
     """
     sample = get_sample()
     simulation = get_simulation()
     simulation.setSample(sample)
     simulation.runSimulation()
-    result = simulation.getIntensityData()
-
-    # showing the result
-    im = plt.imshow(
-        result.getArray(),
-        norm=matplotlib.colors.LogNorm(1.0, result.getMaximum()),
-        extent=[result.getXmin()/deg, result.getXmax()/deg,
-                result.getYmin()/deg, result.getYmax()/deg],
-        aspect='auto')
-    cb = plt.colorbar(im)
-    cb.set_label(r'Intensity (arb. u.)', size=16)
-    plt.xlabel(r'$\phi_f (^{\circ})$', fontsize=16)
-    plt.ylabel(r'$\alpha_f (^{\circ})$', fontsize=16)
-    plt.show()
+    return simulation.getIntensityData()
 
 
 if __name__ == '__main__':
-    run_simulation()
+    ba.simulateThenPlotOrSave(simulate)

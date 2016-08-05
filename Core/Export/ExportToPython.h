@@ -30,8 +30,7 @@ public:
     ExportToPython(const MultiLayer& multilayer);
     virtual ~ExportToPython();
 
-    std::string writePyScript(
-        const GISASSimulation* simulation, const std::string& output_filename);
+    std::string simulationToPythonLowlevel(const GISASSimulation* simulation);
     std::string defineGetSample() const;
 
 private:
@@ -55,8 +54,7 @@ private:
     std::string defineParameterDistributions(const GISASSimulation* simulation) const;
     std::string defineMasks(const GISASSimulation* simulation) const;
     std::string defineSimulationOptions(const GISASSimulation* simulation) const;
-    std::string definePlotting(const GISASSimulation* simulation) const;
-    std::string defineRunSimulation() const;
+    std::string definePlot(const GISASSimulation* simulation) const;
 
     std::string indent() const;
     void setRotationInformation(const IParticle* particle, std::string particle_name,

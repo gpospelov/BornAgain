@@ -67,13 +67,23 @@ std::string Utils::String::getScientificDoubleString(double value, size_t precis
     return svalue.str();
 }
 
-std::string Utils::String::join(std::vector<std::string> joinable, std::string joint)
+std::string Utils::String::join(const std::vector<std::string>& joinable, const std::string& joint)
 {
     std::string result;
     size_t n = joinable.size();
     for(size_t i=0; i<n-1; ++i)
         result += joinable[i] + joint;
     result += joinable[n-1];
+    return result;
+}
+
+//! Returns flattened filename, i.e. all directory separator ('/' or '\') are replaced by '_'.
+std::string Utils::String::flatFilename(const std::string& fname)
+{
+    std::string result = fname;
+    for (size_t i=0; i<result.size(); ++i)
+        if (result[i]=='/' || result[i]=='\\')
+            result[i] = '_';
     return result;
 }
 

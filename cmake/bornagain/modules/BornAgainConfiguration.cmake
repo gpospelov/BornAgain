@@ -30,10 +30,11 @@ if(CMAKE_BUILD_TYPE STREQUAL Release)
 endif()
 
 # -----------------------------------------------------------------------------
-# source directories
+# source directory paths
 # -----------------------------------------------------------------------------
 
 set(BA_REF_DATA_DIR ${CMAKE_SOURCE_DIR}/Tests/ReferenceData/BornAgain)
+set(PY_EXAMPLES_DIR ${CMAKE_SOURCE_DIR}/Examples/python)
 
 # -----------------------------------------------------------------------------
 # cmake runtime output configuration

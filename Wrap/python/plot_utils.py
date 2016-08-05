@@ -1,6 +1,17 @@
+#  **************************************************************************  #
 '''
-BornAgain plot utils
+#   BornAgain: simulate and fit scattering at grazing incidence
+#
+#   @file      Wrap/python.plot_utils
+#   @brief     Python extensions of the SWIG-generated Python module bornagain.
+#
+#   @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+#   @license   GNU General Public License v3 or higher (see COPYING)
+#   @copyright Forschungszentrum Juelich GmbH 2016
+#   @authors   Scientific Computing Group at MLZ Garching
+#   @authors   J. Fisher, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 '''
+#  **************************************************************************  #
 
 from __future__ import print_function
 from bornagain import deg as deg

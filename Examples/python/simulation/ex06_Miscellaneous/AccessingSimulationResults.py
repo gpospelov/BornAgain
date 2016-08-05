@@ -3,7 +3,7 @@ Extended example for simulation results treatment (cropping, slicing, exporting)
 The standard "Cylinders in DWBA" sample is used to setup the simulation.
 """
 import math
-import numpy, sys
+import numpy
 import matplotlib
 import random
 from matplotlib import pyplot as plt
@@ -186,10 +186,10 @@ def simulate():
     simulation = get_simulation()
     simulation.setSample(sample)
     simulation.runSimulation()
-    result = simulation.getIntensityData()
+    return simulation.getIntensityData()
 
     plot_results(result)
 
 
 if __name__ == '__main__':
-    simulate()
+    ba.simulateThenPlotOrSave(simulate, ba.standardIntensityPlot)

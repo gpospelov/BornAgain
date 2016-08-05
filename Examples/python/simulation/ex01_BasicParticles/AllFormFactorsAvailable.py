@@ -1,7 +1,7 @@
 """
 All formfactors available in BornAgain in the Born Approximation
 """
-import numpy, sys
+import numpy
 import bornagain as ba
 from bornagain import deg, angstrom
 
@@ -114,7 +114,7 @@ if __name__ == '__main__':
         for nplot in range(len(formfactors)):
             ff = formfactors[nplot]
             name = ff.__class__.__name__.replace("FormFactor","")
-            print("Generating intensity map.or " + name)
+            print("Generating intensity map for " + name)
             intensities = simulate(ff)
             plot(intensities, nplot+1, name)
         plt.show()
@@ -124,4 +124,4 @@ if __name__ == '__main__':
             intensities = simulate(ff)
             fname = "%s.%s.int" % (sys.argv[1], name)
             ba.IntensityDataIOFactory.writeIntensityData(intensities, fname)
-            print("Stored intensity map.n " + fname)
+            print("Stored intensity map in " + fname)

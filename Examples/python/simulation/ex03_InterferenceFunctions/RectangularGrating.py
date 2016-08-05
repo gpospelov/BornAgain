@@ -3,9 +3,7 @@ Simulation of grating using very long boxes and 1D lattice.
 Monte-carlo integration is used to get rid of
 large-particle form factor oscillations.
 """
-import numpy, sys
-import matplotlib
-from matplotlib import pyplot as plt
+import numpy
 import bornagain as ba
 from bornagain import deg, angstrom, nm
 
@@ -72,21 +70,8 @@ def simulate():
     simulation = get_simulation(monte_carlo_integration=True)
     simulation.setSample(sample)
     simulation.runSimulation()
-    result = simulation.getIntensityData()
-
-    # showing the result
-    im = plt.imshow(
-        result.getArray(),
-        norm=matplotlib.colors.LogNorm(1.0, result.getMaximum()),
-        extent=[result.getXmin()/deg, result.getXmax()/deg,
-                result.getYmin()/deg, result.getYmax()/deg],
-        aspect='auto')
-    cb = plt.colorbar(im)
-    cb.set_label(r'Intensity (arb. u.)', size=16)
-    plt.xlabel(r'$\phi_f (^{\circ})$', fontsize=16)
-    plt.ylabel(r'$\alpha_f (^{\circ})$', fontsize=16)
-    plt.show()
+    return simulation.getIntensityData()
 
 
 if __name__ == '__main__':
-    simulate()
+    ba.simulateThenPlotOrSave(simulate, ba.standardIntensityPlot)

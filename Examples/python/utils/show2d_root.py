@@ -5,7 +5,7 @@
 from __future__ import print_function
 import argparse
 import os
-import numpy, sys
+import numpy
 import ROOT
 from pylab import *
 

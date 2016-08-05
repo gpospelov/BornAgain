@@ -2,7 +2,7 @@
 In this example we demonstrate how to plot simulation results with
 axes in different units (nbins, mm, degs and QyQz).
 """
-import numpy, sys
+import numpy
 import matplotlib
 from matplotlib import pyplot as plt
 import bornagain as ba
@@ -89,22 +89,22 @@ def simulate():
 
     plt.subplot(2, 2, 1)
     # default units for rectangular detector are millimeters
-    result = simulation.getIntensityData()
+    return simulation.getIntensityData()
     plot_as_colormap.esult, "In default units",
                      r'$X_{mm}$', r'$Y_{mm}$')
 
     plt.subplot(2, 2, 2)
-    result = simulation.getIntensityData(ba.IDetector2D.NBINS)
+    return simulation.getIntensityData(ba.IDetector2D.NBINS)
     plot_as_colormap.esult, "In number of bins",
                      r'$X_{nbins}$', r'$Y_{nbins}$')
 
     plt.subplot(2, 2, 3)
-    result = simulation.getIntensityData(ba.IDetector2D.DEGREES)
+    return simulation.getIntensityData(ba.IDetector2D.DEGREES)
     plot_as_colormap.esult, "In degs",
                      r'$\phi_f ^{\circ}$', r'$\alpha_f ^{\circ}$')
 
     plt.subplot(2, 2, 4)
-    result = simulation.getIntensityData(ba.IDetector2D.QYQZ)
+    return simulation.getIntensityData(ba.IDetector2D.QYQZ)
     plot_as_colormap.esult, "Q-space",
                      r'$Q_{y} [1/nm]$', r'$Q_{z} [1/nm]$')
 
@@ -113,4 +113,4 @@ def simulate():
 
 
 if __name__ == '__main__':
-    simulate()
+    ba.simulateThenPlotOrSave(simulate, ba.standardIntensityPlot)

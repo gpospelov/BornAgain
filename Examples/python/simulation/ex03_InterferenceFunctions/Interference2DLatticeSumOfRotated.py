@@ -1,7 +1,5 @@
 # 2D lattice with different disorder (IsGISAXS example #6), sum of rotated lattices
-import numpy, sys
-import matplotlib
-from matplotlib import pyplot as plt
+import numpy
 import bornagain as ba
 from bornagain import deg, angstrom, nm
 
@@ -83,21 +81,8 @@ def simulate():
         OutputData_total += single_output
     OutputData_total.scale(1.0/total_weight)
 
-    result = OutputData_total
-
-    # showing the result
-    im = plt.imshow(
-        result.getArray(),
-        norm=matplotlib.colors.LogNorm(1.0, result.getMaximum()),
-        extent=[result.getXmin()/deg, result.getXmax()/deg,
-                result.getYmin()/deg, result.getYmax()/deg],
-        aspect='auto')
-    cb = plt.colorbar(im)
-    cb.set_label(r'Intensity (arb. u.)', size=16)
-    plt.xlabel(r'$\phi_f (^{\circ})$', fontsize=16)
-    plt.ylabel(r'$\alpha_f (^{\circ})$', fontsize=16)
-    plt.show()
+    return OutputData_total
 
 
 if __name__ == '__main__':
-    simulate()
+    ba.simulateThenPlotOrSave(simulate, ba.standardIntensityPlot)

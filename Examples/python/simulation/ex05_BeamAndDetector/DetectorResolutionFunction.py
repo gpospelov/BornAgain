@@ -1,7 +1,7 @@
 """
 Cylinder form factor in DWBA with detector resolution function applied
 """
-import numpy, sys
+import numpy
 import matplotlib
 from matplotlib import pyplot as plt
 import bornagain as ba
@@ -59,7 +59,7 @@ def simulate():
     simulation.setSample(sample)
     simulation.printParameters()
     simulation.runSimulation()
-    result = simulation.getIntensityData()
+    return simulation.getIntensityData()
 
     # showing the result
     im = plt.imshow(
@@ -76,4 +76,4 @@ def simulate():
 
 
 if __name__ == '__main__':
-    simulate()
+    ba.simulateThenPlotOrSave(simulate, ba.standardIntensityPlot)

@@ -1,7 +1,7 @@
 """
 R and T coefficients in multilayer, ba.Specular simulation.
 """
-import numpy, sys
+import numpy
 import matplotlib
 from matplotlib import pyplot as plt
 import bornagain as ba
@@ -93,4 +93,4 @@ def simulate():
 
 
 if __name__ == '__main__':
-    simulate()
+    ba.simulateThenPlotOrSave(simulate, ba.standardIntensityPlot)

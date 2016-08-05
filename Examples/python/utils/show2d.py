@@ -13,7 +13,7 @@ import os
 cdict = {'red':   ((0.0, 0.0, 0.0), (0.5, 0.0, 0.0), (1.0, 1.0, 1.0)),
          'green': ((0.0, 0.0, 0.0), (0.5, 0.0, 0.0), (1.0, 1.0, 1.0)),
          'blue':  ((0.0, 0.0, 0.0), (0.5, 1.0, 1.0), (1.0, 1.0, 1.0))}
-blue_cmap. matplotlib.colors.LinearSegmentedColormap('blue_map', cdict, 256)
+blue_cmap = matplotlib.colors.LinearSegmentedColormap('blue_map', cdict, 256)
 
 
 def PlotNumpyArray(a, zmin = 1, zmax = None):
@@ -26,8 +26,8 @@ def PlotNumpyArray(a, zmin = 1, zmax = None):
     dataarray=np.flipud(np.transpose(a))
     plt.xlabel(r'$\phi_f$', fontsize=20)
     plt.ylabel(r'$\alpha_f$', fontsize=20)
-    # Use one of the predefined colormap.or the above defined 'blue_cmap':
-    im=plt.imshow(dataarray, norm=LogNorm(), vmax=zmax, cmap.m.jet) #, interpolation='none')
+    # Use one of the predefined colormaps or the above defined 'blue_cmap':
+    im=plt.imshow(dataarray, norm=LogNorm(), vmax=zmax, cmap=cm.jet) #, interpolation='none')
     plt.gca().axes.get_xaxis().set_ticks([])
     plt.gca().axes.get_yaxis().set_ticks([])
     plt.colorbar(im)
@@ -74,4 +74,3 @@ if __name__ == '__main__':
     print('Maximum value of data: ', a.flatten().max())
 
     PlotNumpyArray(a, zmin, zmax)
-

@@ -2,11 +2,7 @@
 # Tests/Functional/PyCore/suite/CMakeLists.txt
 ############################################################################
 
-set(test_cases
-    ApproximationDA
-    ApproximationLMA
-    ToBeReplacedByGlob
-)
+file(GLOB PY_EXAMPLES RELATIVE ${PY_EXAMPLES_DIR} "${PY_EXAMPLES_DIR}/*/ex*/*.py")
 
 # for some reason these flags doesn't propagated here by SetUpWindows.cmake
 if(MSVC)
@@ -23,7 +19,7 @@ include_directories(
 
 add_executable(PyPersistenceTest RunPyPersistenceTest.cpp PyPersistenceTest.h PyPersistenceTest.cpp)
 target_link_libraries(PyPersistenceTest BornAgainCore BornAgainTestMachinery)
-foreach(test_case ${test_cases})
-    add_test(PyPersistenceTest/${test_case}
-        ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/PyPersistenceTest ${test_case})
+foreach(pyex ${PY_EXAMPLES})
+    add_test(PyPersistenceTest/${pyex}
+        ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/PyPersistenceTest ${pyex})
 endforeach()

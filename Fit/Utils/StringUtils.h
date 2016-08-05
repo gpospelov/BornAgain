@@ -16,15 +16,16 @@
 #ifndef STRINGUTILS_H
 #define STRINGUTILS_H
 
+#include "WinDllMacros.h"
 #include <string>
 #include <vector>
 
 namespace StringUtils {
 
     //! Returns true if text matches pattern with wildcards '*' and '?'.
-    bool matchesPattern(const std::string& text, const std::string& wildcardPattern);
+    BA_CORE_API_ bool matchesPattern(const std::string& text, const std::string& wildcardPattern);
 
-    std::string padRight(const std::string& name, int length);
+    BA_CORE_API_ std::string padRight(const std::string& name, int length);
 
 } // namespace StringUtils
 

@@ -36,8 +36,7 @@ def get_reference_data(filename):
     """
     read and return reference data from file
     """
-    return IntensityDataIOFactory.readIntensityData(
-        "@REFERENCE_DIR@/legacy/"+filename)
+    return IntensityDataIOFactory.readIntensityData("@REFERENCE_DIR@/legacy/"+filename)
 
 
 def get_simulation_MiniGISAS(sample = None):

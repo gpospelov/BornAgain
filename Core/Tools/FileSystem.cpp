@@ -17,6 +17,7 @@
 #include "Exceptions.h"
 #include <boost/filesystem.hpp>
 #include <cassert>
+#include <glob.h>
 
 std::string Utils::FileSystem::m_argv0_path = std::string();
 std::string Utils::FileSystem::m_reference_data_dir = std::string();
@@ -85,4 +86,16 @@ std::string Utils::FileSystem::GetJoinPath(const std::string &spath1, const std:
     boost::filesystem::path full_path = path1 / path2;
 
     return full_path.string();
+}
+
+//! Returns file names that agree with glob pattern.
+std::vector<std::string> Utils::FileSystem::glob(const std::string& pattern)
+{
+    glob_t glob_result;
+    ::glob(pattern.c_str(), GLOB_TILDE, NULL, &glob_result);
+    std::vector<std::string> ret;
+    for(unsigned int i=0; i<glob_result.gl_pathc; ++i)
+        ret.push_back(std::string(glob_result.gl_pathv[i]));
+    globfree(&glob_result);
+    return ret;
 }

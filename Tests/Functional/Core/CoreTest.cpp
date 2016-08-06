@@ -18,9 +18,7 @@
 #include "GISASSimulation.h"
 #include "IntensityDataFunctions.h"
 #include "IntensityDataIOFactory.h"
-#include "TestConfig.h"
 #include "Utils.h"
-#include <cassert>
 
 CoreTest::CoreTest(
     const std::string& name, const std::string& description, GISASSimulation* simulation,
@@ -29,8 +27,7 @@ CoreTest::CoreTest(
     , m_simulation(simulation)
     , m_threshold(threshold)
     , m_difference(0)
-{
-}
+{}
 
 CoreTest::~CoreTest()
 {
@@ -44,7 +41,7 @@ void CoreTest::runTest()
     m_simulation->runSimulation();
 
     assert(CORE_STD_REF_DIR!="");
-    m_ref_filename = CORE_STD_REF_DIR + "/" + getName() + ".int.gz";
+    m_ref_filename = Utils::FileSystem::GetJoinPath(CORE_STD_REF_DIR, getName() + ".int.gz");
     try {
         m_reference = IntensityDataIOFactory::readOutputData( m_ref_filename );
     } catch(const std::exception& ex) {

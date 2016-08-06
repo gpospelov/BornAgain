@@ -21,7 +21,6 @@
 #include "IntensityDataIOFactory.h"
 #include "PythonFormatting.h"
 #include "SimulationFactory.h"
-#include "TestConfig.h"
 #include "TestUtils.h"
 #include "Utils.h"
 #include <cstdio>
@@ -40,7 +39,7 @@ PyPersistenceTest::PyPersistenceTest(
 void PyPersistenceTest::runTest()
 {
     // Set output data filename stem, and remove old output files
-    std::string dat_stem = PYPERSIST_TMP_DIR + "/" + getName();
+    std::string dat_stem = Utils::FileSystem::GetJoinPath(PYPERSIST_TMP_DIR, getName());
     for (const std::string& fname: TestUtils::glob(dat_stem+".*.int")) {
         std::remove( fname.c_str() );
         std::cout << "Removed old result " << fname.c_str() << "." << std::endl/*sic*/;
@@ -49,7 +48,7 @@ void PyPersistenceTest::runTest()
     // Run Python script
     std::string py_filename( m_directory + "/" + getName() + ".py" );
     std::string command =
-        "PYTHONPATH=" + BUILD_LIB_DIR + " " +
+        std::string("PYTHONPATH=") + BUILD_LIB_DIR + " " +
         BORNAGAIN_PYTHON_EXE + " " + py_filename + " " + dat_stem;
     std::cout << "Now running command '" << command << "'." << std::endl/*sic*/;
     int ret = std::system(command.c_str());
@@ -73,7 +72,7 @@ void PyPersistenceTest::runTest()
 
 
     // Read reference files
-    std::string ref_stem = PYPERSIST_REF_DIR + "/" + getName();
+    std::string ref_stem = Utils::FileSystem::GetJoinPath(PYPERSIST_REF_DIR, getName());
     std::map<const std::string, const OutputData<double>*> ref;
     for (const std::string& fname: TestUtils::glob(ref_stem+".*.int.gz"))
         ref.insert(make_pair(Utils::String::split(fname,".")[1],

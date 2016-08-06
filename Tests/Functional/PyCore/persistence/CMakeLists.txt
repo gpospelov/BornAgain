@@ -1,10 +1,13 @@
 ############################################################################
-# Tests/Functional/PyCore/suite/CMakeLists.txt
+# Tests/Functional/PyCore/presistence/CMakeLists.txt
 ############################################################################
 
 set(PYPERSIST_REF_DIR ${REFERENCE_DIR}/PyPersist)
 set(PYPERSIST_TMP_DIR ${BUILD_REF_DIR}/PyPersist)
 file(MAKE_DIRECTORY ${PYPERSIST_TMP_DIR})
+
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DPYPERSIST_TMP_DIR=\\\"${PYPERSIST_TMP_DIR}\\\"")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DPYPERSIST_REF_DIR=\\\"${PYPERSIST_REF_DIR}\\\"")
 
 file(GLOB PY_EXAMPLES "${PY_EXAMPLES_DIR}/simulation/ex*/*.py")
 

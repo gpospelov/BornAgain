@@ -16,6 +16,7 @@
 #include "FileSystem.h"
 #include "Exceptions.h"
 #include <boost/filesystem.hpp>
+#include <cassert>
 
 std::string Utils::FileSystem::m_argv0_path = std::string();
 std::string Utils::FileSystem::m_reference_data_dir = std::string();
@@ -71,12 +72,14 @@ std::string Utils::FileSystem::GetFileExtension(const std::string& name)
 
 bool Utils::FileSystem::CreateDirectory(const std::string &dir_name)
 {
-    boost::filesystem::path dir(dir_name);
-    return boost::filesystem::create_directory(dir);
+    assert(dir_name!="");
+    return boost::filesystem::create_directory(dir_name);
 }
 
 std::string Utils::FileSystem::GetJoinPath(const std::string &spath1, const std::string &spath2)
 {
+    assert(spath1!="");
+    assert(spath2!="");
     boost::filesystem::path path1(spath1);
     boost::filesystem::path path2(spath2);
     boost::filesystem::path full_path = path1 / path2;

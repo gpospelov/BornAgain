@@ -2,6 +2,10 @@
 # Tests/Functional/PyCore/suite/CMakeLists.txt
 ############################################################################
 
+set(PYPERSIST_REF_DIR ${REFERENCE_DIR}/PyPersist)
+set(PYPERSIST_TMP_DIR ${BUILD_REF_DIR}/PyPersist)
+file(MAKE_DIRECTORY ${PYPERSIST_TMP_DIR})
+
 file(GLOB PY_EXAMPLES "${PY_EXAMPLES_DIR}/simulation/ex*/*.py")
 
 # for some reason these flags doesn't propagated here by SetUpWindows.cmake

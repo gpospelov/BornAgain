@@ -44,7 +44,7 @@ void CoreTest::runTest()
             "CoreTest::runTest() -> Error. Uninitialized simulation object.");
     m_simulation->runSimulation();
 
-    m_ref_filename = REFERENCE_DIR + "/StandardSuite/ref_" + getName() + ".int.gz";
+    m_ref_filename = CORE_STD_REF_DIR + "/" + getName() + ".int.gz";
     try {
         m_reference = IntensityDataIOFactory::readOutputData( m_ref_filename );
     } catch(const std::exception& ex) {
@@ -64,7 +64,7 @@ void CoreTest::runTest()
     }
     // Save simulation if different from reference.
     if (getTestResult() != SUCCESS) {
-        Utils::FileSystem::CreateDirectory(FAILED_TESTS_DIR);
+        Utils::FileSystem::CreateDirectory(CORE_STD_TMP_DIR);
         IntensityDataIOFactory::writeOutputData(
             *(getIntensityData()), getSimulationResultsFileNameAndPath());
     }
@@ -93,7 +93,7 @@ void CoreTest::printResults(std::ostream& ostr) const
 std::string CoreTest::getSimulationResultsFileNameAndPath() const
 {
     std::string result = Utils::FileSystem::GetJoinPath(
-        FAILED_TESTS_DIR, "ref_" + getName() + ".int.gz");
+        CORE_STD_TMP_DIR, getName() + ".int.gz");
     return result;
 }
 

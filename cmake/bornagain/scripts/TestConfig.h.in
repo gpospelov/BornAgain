@@ -18,8 +18,15 @@
 
 const std::string BUILD_LIB_DIR( "@CMAKE_LIBRARY_OUTPUT_DIRECTORY@" );
 const std::string BUILD_BIN_DIR( "@CMAKE_RUNTIME_OUTPUT_DIRECTORY@" );
-const std::string REFERENCE_DIR( "@REFERENCE_DIR@" );
-const std::string BUILD_TMP_DIR( "@BUILD_TMP_DIR@" );
-const std::string FAILED_TESTS_DIR( "@FAILED_TESTS_DIR@" );
+
+const std::string CORE_STD_TMP_DIR( "@CORE_STD_TMP_DIR@" );
+const std::string CORE_STD_REF_DIR( "@CORE_STD_REF_DIR@" );
+
+const std::string CORE_SPECIAL_REF_DIR( "@CORE_SPECIAL_REF_DIR@" );
+
+const std::string PYEXPORT_TMP_DIR( "@PYEXPORT_TMP_DIR@" );
+
+const std::string PYPERSIST_TMP_DIR( "@PYPERSIST_TMP_DIR@" );
+const std::string PYPERSIST_REF_DIR( "@PYPERSIST_REF_DIR@" );
 
 #endif // TEST_CONFIG_H

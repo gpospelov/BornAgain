@@ -40,7 +40,7 @@ PyPersistenceTest::PyPersistenceTest(
 void PyPersistenceTest::runTest()
 {
     // Set output data filename stem, and remove old output files
-    std::string dat_stem = BUILD_TMP_DIR + "/" + getName();
+    std::string dat_stem = PYPERSIST_TMP_DIR + "/" + getName();
     for (const std::string& fname: TestUtils::glob(dat_stem+".*.int")) {
         std::remove( fname.c_str() );
         std::cout << "Removed old result " << fname.c_str() << "." << std::endl/*sic*/;
@@ -73,8 +73,7 @@ void PyPersistenceTest::runTest()
 
 
     // Read reference files
-    std::string ref_dir = REFERENCE_DIR + "/Persistence/";
-    std::string ref_stem = ref_dir + getName();
+    std::string ref_stem = PYPERSIST_REF_DIR + "/" + getName();
     std::map<const std::string, const OutputData<double>*> ref;
     for (const std::string& fname: TestUtils::glob(ref_stem+".*.int.gz"))
         ref.insert(make_pair(Utils::String::split(fname,".")[1],
@@ -85,14 +84,14 @@ void PyPersistenceTest::runTest()
     for( auto const& it: dat ) {
         if( ref.find(it.first)==ref.end() ) {
             std::cerr << "For test output " << (dat_stem+"."+it.first+".int")
-                      << " there is no reference file in " << ref_dir << "\n";
+                      << " there is no reference file in " << PYPERSIST_REF_DIR << "\n";
             m_result = FAILED;
         }
     }
     for( auto const& it: ref ) {
         if( dat.find(it.first)==dat.end() ) {
             std::cerr << "For reference file " << (ref_stem+"."+it.first+".int.gz")
-                      << " there is no test output in " << BUILD_TMP_DIR << "\n";
+                      << " there is no test output in " << PYPERSIST_TMP_DIR << "\n";
             m_result = FAILED;
         }
     }

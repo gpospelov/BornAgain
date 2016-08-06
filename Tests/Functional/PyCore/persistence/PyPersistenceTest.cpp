@@ -46,7 +46,7 @@ void PyPersistenceTest::runTest()
     }
 
     // Run Python script
-    std::string py_filename( m_directory + "/" + getName() + ".py" );
+    std::string py_filename = Utils::FileSystem::GetJoinPath(m_directory, getName() + ".py");
     std::string command =
         std::string("PYTHONPATH=") + BUILD_LIB_DIR + " " +
         BORNAGAIN_PYTHON_EXE + " " + py_filename + " " + dat_stem;

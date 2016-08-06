@@ -40,7 +40,6 @@ void CoreTest::runTest()
     assert(m_simulation);
     m_simulation->runSimulation();
 
-    assert(CORE_STD_REF_DIR!="");
     m_ref_filename = Utils::FileSystem::GetJoinPath(CORE_STD_REF_DIR, getName() + ".int.gz");
     try {
         m_reference = IntensityDataIOFactory::readOutputData( m_ref_filename );

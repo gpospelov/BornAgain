@@ -20,6 +20,7 @@
 #include "IntensityDataIOFactory.h"
 #include "TestConfig.h"
 #include "Utils.h"
+#include <cassert>
 
 CoreTest::CoreTest(
     const std::string& name, const std::string& description, GISASSimulation* simulation,
@@ -39,11 +40,10 @@ CoreTest::~CoreTest()
 
 void CoreTest::runTest()
 {
-    if (!m_simulation)
-        throw Exceptions::NullPointerException(
-            "CoreTest::runTest() -> Error. Uninitialized simulation object.");
+    assert(m_simulation);
     m_simulation->runSimulation();
 
+    assert(CORE_STD_REF_DIR!="");
     m_ref_filename = CORE_STD_REF_DIR + "/" + getName() + ".int.gz";
     try {
         m_reference = IntensityDataIOFactory::readOutputData( m_ref_filename );

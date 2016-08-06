@@ -130,7 +130,6 @@ endif()
 
 configure_file(${TEMPLATE_DIR}/CTestCustom.cmake.in ${CMAKE_BINARY_DIR}/CTestCustom.cmake)
 
-configure_file(${TEMPLATE_DIR}/TestConfig.h.in ${BUILD_INC_DIR}/TestConfig.h @ONLY)
 configure_file(${TEMPLATE_DIR}/BAPython.h.in ${BUILD_INC_DIR}/BAPython.h @ONLY)
 configure_file(${TEMPLATE_DIR}/BAVersion.h.in  ${BUILD_INC_DIR}/BAVersion.h @ONLY)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -I${BUILD_INC_DIR}")

@@ -3,7 +3,7 @@
 ############################################################################
 
 set(CORE_STD_OUT_DIR ${BUILD_REF_DIR}/StandardSuite)
-set(CORE_STD_REF_DIR ${REFERECNCE_DIR}/StandardSuite)
+set(CORE_STD_REF_DIR ${REFERENCE_DIR}/StandardSuite)
 set(CORE_SPECIAL_OUT_DIR ${BUILD_REF_DIR}/Special)
 
 # CoreStandardTest cases:

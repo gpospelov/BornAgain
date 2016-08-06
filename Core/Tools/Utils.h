@@ -92,7 +92,6 @@ private:
     nstringmap_t m_nstringmap;
 };
 
-
 class BA_CORE_API_ System
 {
 public:
@@ -102,6 +101,7 @@ public:
 
 //! enables exception throw in the case of NaN, Inf
 BA_CORE_API_ void EnableFloatingPointExceptions();
-}
+
+} // namespace Utils
 
 #endif // UTILS_H

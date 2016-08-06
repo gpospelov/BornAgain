@@ -17,6 +17,7 @@
 #include <boost/algorithm/string.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <thread>
+#include <glob.h>
 
 #ifdef DEBUG_FPE
 #ifdef Q_OS_MAC
@@ -85,6 +86,11 @@ std::string Utils::String::flatFilename(const std::string& fname)
         if (result[i]=='/' || result[i]=='\\')
             result[i] = '_';
     return result;
+}
+
+//! Returns file names that agree with glob pattern.
+std::vector<std::string> glob(const std::string& pattern)
+{
 }
 
 int Utils::System::getThreadHardwareConcurrency()

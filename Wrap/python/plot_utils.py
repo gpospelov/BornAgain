@@ -46,7 +46,7 @@ def standardIntensitySave(result, filename):
             ba.IntensityDataIOFactory.writeIntensityData(
                 data, filename+"."+name+".int")
     else:
-        ba.IntensityDataIOFactory.writeIntensityData(result, filename+".int")
+        ba.IntensityDataIOFactory.writeIntensityData(result, filename+".ref.int")
 
 def getFilenameOrPlotflag():
     """

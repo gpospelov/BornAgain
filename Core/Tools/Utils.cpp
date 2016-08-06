@@ -78,21 +78,6 @@ std::string Utils::String::join(const std::vector<std::string>& joinable, const 
     return result;
 }
 
-//! Returns flattened filename, i.e. all directory separator ('/' or '\') are replaced by '_'.
-std::string Utils::String::flatFilename(const std::string& fname)
-{
-    std::string result = fname;
-    for (size_t i=0; i<result.size(); ++i)
-        if (result[i]=='/' || result[i]=='\\')
-            result[i] = '_';
-    return result;
-}
-
-//! Returns file names that agree with glob pattern.
-std::vector<std::string> glob(const std::string& pattern)
-{
-}
-
 int Utils::System::getThreadHardwareConcurrency()
 {
     return std::thread::hardware_concurrency();

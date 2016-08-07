@@ -2,9 +2,9 @@
 # Tests/Functional/Core/CMakeLists.txt
 ############################################################################
 
-set(CORE_STD_OUT_DIR ${BUILD_REF_DIR}/StandardSuite)
-set(CORE_STD_REF_DIR ${REFERENCE_DIR}/StandardSuite)
-set(CORE_SPECIAL_OUT_DIR ${BUILD_REF_DIR}/Special)
+set(CORE_STD_OUT_DIR     ${BUILD_REF_DIR}/StandardSuite)
+set(CORE_STD_REF_DIR     ${REFERENCE_DIR}/StandardSuite)
+set(CORE_SPECIAL_REF_DIR ${REFERENCE_DIR}/Special)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DCORE_STD_TMP_DIR=\\\"${CORE_STD_TMP_DIR}\\\"")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DCORE_STD_REF_DIR=\\\"${CORE_STD_REF_DIR}\\\"")

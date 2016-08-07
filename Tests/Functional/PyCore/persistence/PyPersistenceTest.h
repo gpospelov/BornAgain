@@ -37,6 +37,10 @@ public:
 
     double getDifference() const { return m_difference; }
 
+    bool compareFilePair(const std::string& dat_fname, const std::string& ref_fname);
+    bool compareIntensityPair(const std::string& dat_fname, const std::string& ref_fname);
+    bool compareYamlPair(const std::string& dat_fname, const std::string& ref_fname);
+
     void printResults(std::ostream& ostr) const final;
 
 private:

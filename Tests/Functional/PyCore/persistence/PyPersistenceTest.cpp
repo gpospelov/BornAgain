@@ -25,6 +25,7 @@
 #include <cstdio>
 #include <cstdlib>
 #include <fstream>
+#include <sstream>
 #include <map>
 
 PyPersistenceTest::PyPersistenceTest(
@@ -57,7 +58,7 @@ void PyPersistenceTest::runTest()
         return;
     }
 
-    // Read back simulation results
+    // Glob simulation results
     std::map<const std::string, const std::string> dat;
     std::string dat_pattern = dat_stem + ".*.*";
     for (const std::string& fname: Utils::FileSystem::glob(dat_pattern))
@@ -71,7 +72,7 @@ void PyPersistenceTest::runTest()
     }
 
 
-    // Read reference files
+    // Glob reference files
     std::string ref_stem = Utils::FileSystem::GetJoinPath(PYPERSIST_REF_DIR, getName());
     std::map<const std::string, const std::string> ref;
     for (const std::string& fname: Utils::FileSystem::glob(ref_stem+".*.*.gz"))
@@ -98,24 +99,62 @@ void PyPersistenceTest::runTest()
     if (m_result==FAILED)
         return;
 
+    // Compare file pairs
+    for( auto const& it: dat )
+        if (!compareFilePair( it.second, ref[it.first] ) )
+            m_result = FAILED_DIFF;
+}
 
-//    const OutputData<double>* dat = IntensityDataIOFactory::readOutputData( fname );
+//! Returns true if test output and reference file agree.
+bool PyPersistenceTest::compareFilePair(
+    const std::string& dat_fname, const std::string& ref_fname)
+{
+    const std::string extension = Utils::String::split(dat_fname, ".")[2];
+    if      ( extension=="int" )
+        return compareIntensityPair( dat_fname, ref_fname );
+    if ( extension=="yaml" )
+        return compareYamlPair( dat_fname, ref_fname );
+    std::cerr << "Unsupported file type '" << extension << "' in comparison of "
+              << dat_fname << " and " << ref_fname << "\n";
+    return false;
+}
 
+//! Returns true if intensity maps from test output and reference file agree reasonably.
+bool PyPersistenceTest::compareIntensityPair(
+    const std::string& dat_fname, const std::string& ref_fname)
+{
+    const OutputData<double>* dat = IntensityDataIOFactory::readOutputData( dat_fname );
+    const OutputData<double>* ref = IntensityDataIOFactory::readOutputData( ref_fname );
+    m_difference = IntensityDataFunctions::getRelativeDifference(*dat, *ref);
+    return m_difference <= m_threshold;
+}
 
-    /*
-    const OutputData<double>* reference;
-    try {
-        reference = IntensityDataIOFactory::readOutputData( ref_filename );
-    } catch(const std::exception& ex) {
-        std::cerr << "Cannot read reference file " << ref_filename << "\n";
-        m_result = FAILED;
-        return;
+//! Returns true if YAML files from test output and reference agree.
+bool PyPersistenceTest::compareYamlPair(
+    const std::string& dat_fname, const std::string& ref_fname)
+{
+    std::fstream fdat(dat_fname);
+    std::fstream fref(ref_fname);
+    for( size_t i = 1; ; ++i ) {
+        std::string datline;
+        std::string refline;
+        std::getline(fdat, datline);
+        std::getline(fref, refline);
+        if (datline!=refline) {
+            std::cerr << "Line " << i << " of " << dat_fname << " and " << ref_fname
+                      << " differs:\n";
+            std::cerr << "dat: '" << datline << "'\n";
+            std::cerr << "ref: '" << refline << "'\n";
+            return false;
+        }
+        if (fdat.eof() && fref.eof())
+            break;
+        if (fdat.eof() || fref.eof()) {
+            std::cerr << "File length of " << dat_fname << " and " << ref_fname << " differs.\n";
+            return false;
+        }
     }
-
-    // Compare data
-    m_difference = IntensityDataFunctions::getRelativeDifference(*data, *reference);
-    m_result = m_difference > m_threshold ? FAILED_DIFF : SUCCESS;
-    */
+    return true;
 }
 
 void PyPersistenceTest::printResults(std::ostream& ostr) const

@@ -33,6 +33,8 @@ public:
     LLData<T>& operator=(const LLData<T>& right);
     ~LLData();
 
+    LLData<double> meanValues() const;
+
     // accessors
     T& operator[](size_t i);
     const T& operator[](size_t i) const;
@@ -92,7 +94,8 @@ inline LLData<T>::LLData(size_t rank, const int* dimensions)
     allocate(rank, dimensions);
 }
 
-template<class T> LLData<T>::LLData(const LLData<T>& right)
+template<class T>
+LLData<T>::LLData(const LLData<T>& right)
     : m_rank(0)
     , m_dims(0)
     , m_data_array(0)
@@ -103,7 +106,8 @@ template<class T> LLData<T>::LLData(const LLData<T>& right)
     }
 }
 
-template<class T> LLData<T>::~LLData()
+template<class T>
+LLData<T>::~LLData()
 {
     clear();
 }

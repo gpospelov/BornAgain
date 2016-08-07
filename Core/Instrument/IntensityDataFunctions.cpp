@@ -19,54 +19,44 @@
 #include <memory>
 
 double IntensityDataFunctions::getRelativeDifference(
-        const OutputData<double> &result, const OutputData<double> &reference)
+    const IHistogram &dat, const IHistogram &ref)
+{
+    return getRelativeDifference(
+        *std::unique_ptr<OutputData<double>>(dat.getData().meanValues()),
+        *std::unique_ptr<OutputData<double>>(ref.getData().meanValues()) );
+}
+
+//! Returns relative difference between two data sets sum(dat[i] - ref[i])/ref[i]).
+double IntensityDataFunctions::getRelativeDifference(
+        const OutputData<double>& dat, const OutputData<double>& ref)
 {
     double diff = 0.0;
-    for(size_t i=0; i<result.getAllocatedSize(); ++i) {
-        diff+= Numeric::get_relative_difference(result[i], reference[i]);
-    }
-    diff /= result.getAllocatedSize();
+    for(size_t i=0; i<dat.getAllocatedSize(); ++i)
+        diff += Numeric::get_relative_difference(dat[i], ref[i]);
+    diff /= dat.getAllocatedSize();
 
-    if (std::isnan(diff)) throw Exceptions::RuntimeErrorException("diff=NaN!");
+    if (std::isnan(diff))
+        throw Exceptions::RuntimeErrorException("diff=NaN!");
     return diff;
 }
 
-OutputData<double> *
-IntensityDataFunctions::createRelativeDifferenceData(const OutputData<double> &data,
-                                                     const OutputData<double> &reference)
+OutputData<double>*
+IntensityDataFunctions::createRelativeDifferenceData(const OutputData<double>& data,
+                                                     const OutputData<double>& reference)
 {
-    if(!data.hasSameDimensions(reference)) {
+    if(!data.hasSameDimensions(reference))
         throw Exceptions::RuntimeErrorException(
             "IntensityDataFunctions::createRelativeDifferenceData() -> "
             "Error. Different dimensions of data and reference.");
-    }
-
     OutputData<double> *result = reference.clone();
-    for(size_t i=0; i<result->getAllocatedSize(); ++i) {
+    for(size_t i=0; i<result->getAllocatedSize(); ++i)
         (*result)[i] = Numeric::get_relative_difference(data[i], reference[i]);
-    }
     return result;
 }
 
-double IntensityDataFunctions::getRelativeDifference(
-    const IHistogram &result, const IHistogram &reference)
-{
-    if(!result.hasSameDimensions(reference))
-        throw Exceptions::LogicErrorException(
-            "IntensityDataFunctions::getRelativeDifference() -> Error. "
-            "Histograms have different dimensions.");
 
-    double summ(0.0);
-    for(size_t i=0; i<result.getTotalNumberOfBins(); ++i) {
-        summ += Numeric::get_relative_difference(result.getBinContent(i),
-                                                 reference.getBinContent(i));
-    }
-    return summ/result.getTotalNumberOfBins();
-}
-
-
-OutputData<double> *IntensityDataFunctions::createClippedDataSet(
-        const OutputData<double> &origin, double x1, double y1, double x2, double y2)
+OutputData<double>* IntensityDataFunctions::createClippedDataSet(
+        const OutputData<double>& origin, double x1, double y1, double x2, double y2)
 {
     if (origin.getRank() != 2)
         throw Exceptions::LogicErrorException(
@@ -77,11 +67,10 @@ OutputData<double> *IntensityDataFunctions::createClippedDataSet(
     for(size_t i_axis=0; i_axis<origin.getRank(); i_axis++) {
         const IAxis *axis = origin.getAxis(i_axis);
         IAxis *new_axis;
-        if(i_axis == 0) {
+        if(i_axis == 0)
             new_axis = axis->createClippedAxis(x1, x2);
-        } else {
+        else
             new_axis = axis->createClippedAxis(y1, y2);
-        }
         result->addAxis(*new_axis);
         delete new_axis;
     }
@@ -104,8 +93,8 @@ OutputData<double> *IntensityDataFunctions::createClippedDataSet(
     return result;
 }
 
-OutputData<double> *IntensityDataFunctions::applyDetectorResolution(
-    const OutputData<double> &origin, const IResolutionFunction2D &resolution_function)
+OutputData<double>* IntensityDataFunctions::applyDetectorResolution(
+    const OutputData<double>& origin, const IResolutionFunction2D& resolution_function)
 {
     if (origin.getRank() != 2)
         throw Exceptions::LogicErrorException(

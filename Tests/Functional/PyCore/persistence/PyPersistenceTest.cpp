@@ -71,7 +71,6 @@ void PyPersistenceTest::runTest()
         return;
     }
 
-
     // Glob reference files
     std::string ref_stem = Utils::FileSystem::GetJoinPath(PYPERSIST_REF_DIR, getName());
     std::map<const std::string, const std::string> ref;

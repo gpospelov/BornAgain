@@ -27,25 +27,22 @@ class IHistogram;
 class  BA_CORE_API_ IntensityDataFunctions
 {
 public:
-    //! Returns relative difference between two data sets
-    //! sum(result[i] - reference[i])/reference[i])
-    static double getRelativeDifference(const OutputData<double> &result,
-                         const OutputData<double> &reference);
+    static double getRelativeDifference(
+        const IHistogram& dat, const IHistogram& ref);
 
-    static OutputData<double> *createRelativeDifferenceData(const OutputData<double> &data,
-                                                            const OutputData<double> &reference);
+    static double getRelativeDifference(
+        const OutputData<double>& dat, const OutputData<double>& ref);
 
-    static double getRelativeDifference(const IHistogram &result,
-                         const IHistogram &reference);
+    static OutputData<double>* createRelativeDifferenceData(
+        const OutputData<double>& data, const OutputData<double>& reference);
 
     //! Returns new IntensityData objects which axes clipped to represent the specified rectangle
-    static OutputData<double> *createClippedDataSet(
-        const OutputData<double> &origin, double x1, double y1, double x2, double y2);
+    static OutputData<double>* createClippedDataSet(
+        const OutputData<double>& origin, double x1, double y1, double x2, double y2);
 
     //! Applies detector resolution function and returns new IntensityData object
-    static OutputData<double> *applyDetectorResolution(
-        const OutputData<double> &origin, const IResolutionFunction2D &resolution_function);
-
+    static OutputData<double>* applyDetectorResolution(
+        const OutputData<double>& origin, const IResolutionFunction2D& resolution_function);
 };
 
 #endif // INTENSITYDATAFUNCTIONS_H

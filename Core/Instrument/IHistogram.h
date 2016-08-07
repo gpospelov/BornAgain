@@ -97,25 +97,28 @@ public:
 
     //! Returns x-axis bin index for given globalbin. For 1D histograms returned value conicide
     //! with globalbin value.
-    int getXaxisIndex(size_t globalbin) const;
+    int getXaxisIndex(size_t i) const;
 
     //! Returns y-axis bin index for given globalbin (for 2D histograms).
-    int getYaxisIndex(size_t globalbin) const;
+    int getYaxisIndex(size_t i) const;
 
     //! @brief Returns the value on x-axis corresponding to the global bin index.
     //! @param globalbin The global bin index
     //! @return The center of corresponding bin of the axis
-    double getXaxisValue(size_t globalbin);
+    double getXaxisValue(size_t i);
 
     //! @brief Returns the value on y-axis corresponding to the 2D histogram global bin index.
     //! @param globalbin The global bin index
     //! @return The center of corresponding bin of the axis
-    double getYaxisValue(size_t globalbin);
+    double getYaxisValue(size_t i);
 
     //! @brief Returns content (accumulated value) of the bin with given index.
     //! @param globalbin The global bin index
     //! @return The value accumulated by the bin (integral)
-    double getBinContent(size_t globalbin) const;
+    double getBinContent(size_t i) const;
+
+    const OutputData<CumulativeValue>& getData() const { return m_data; }
+    OutputData<CumulativeValue>& getData() { return m_data; }
 
     //! @brief Returns content (accumulated value) of the 2D histogram bin with given indices.
     //! @param binx x-axis bin index
@@ -124,25 +127,25 @@ public:
     double getBinContent(size_t binx, size_t biny) const;
 
     //! Sets content of the bin corresponding to the globalbin number
-    void setBinContent(size_t globalbin, double value);
+    void setBinContent(size_t i, double value);
 
     //! Add the value to the bin
-    void addBinContent(size_t globalbin, double value);
+    void addBinContent(size_t i, double value);
 
     //! Returns error of the bin with given index.
-    double getBinError(size_t globalbin) const;
+    double getBinError(size_t i) const;
 
     //! Returns error of the bin with given indices (for 2D histograms).
     double getBinError(size_t binx, size_t biny) const;
 
     //! Returns average value in the bin with given index.
-    double getBinAverage(size_t globalbin) const;
+    double getBinAverage(size_t i) const;
 
     //! Returns average value of the bin with given indices (for 2D histograms).
     double getBinAverage(size_t binx, size_t biny) const;
 
     //! Returns number of entries in the bin with given index.
-    int getBinNumberOfEntries(size_t globalbin) const;
+    int getBinNumberOfEntries(size_t i) const;
 
     //! Returns number of entries in the bin with given indices (for 2D histograms).
     int getBinNumberOfEntries(size_t binx, size_t biny) const;
@@ -210,7 +213,7 @@ protected:
     void check_x_axis() const;
     void check_y_axis() const;
     void init_from_data(const OutputData<double>& source);
-    double getBinData(size_t globalbin, DataType dataType) const;
+    double getBinData(size_t i, DataType dataType) const;
     std::vector<double> getDataVector(DataType dataType) const;
     void copyContentFrom(const IHistogram& other);
     OutputData<CumulativeValue> m_data;

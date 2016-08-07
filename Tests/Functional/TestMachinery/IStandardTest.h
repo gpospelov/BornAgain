@@ -63,11 +63,9 @@ public:
     virtual IFunctionalTest* getTest() const = 0; //!< overloaded in (Core|Py|GUI)Suite.cpp
 
 protected:
-    double m_threshold;
-
     virtual GISASSimulation* getSimulation() const;
     std::string getTestDescription() const;
-    double getTestThreshold() const { return m_threshold; }
+    virtual double getTestThreshold() const;
 
 private:
     const SimulationInfo* m_info;

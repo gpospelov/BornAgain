@@ -42,7 +42,6 @@ public:
 
 protected:
     std::string m_description;
-    double m_threshold;
     ETestResult m_result;
     static std::map<ETestResult, std::string> m_result_to_string;
 };

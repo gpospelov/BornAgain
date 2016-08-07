@@ -97,6 +97,8 @@ bool IStandardTest::execute_subtests()
 
 std::string IStandardTest::getTestDescription() const { return m_info->m_test_description; }
 
+double IStandardTest::getTestThreshold() const { return m_info->m_threshold; }
+
 GISASSimulation* IStandardTest::getSimulation() const
 {
     SimulationFactory sim_registry;

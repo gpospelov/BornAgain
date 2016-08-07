@@ -36,17 +36,41 @@ def standardIntensityPlot(result):
     plt.ylabel(r'$\alpha_f (^{\circ})$', fontsize=16)
     plt.show()
 
-def standardIntensitySave(result, filename):
+
+def standardIntensitySave(filename, result):
     """
     Saves simulation result, which must be in an intensity map,
     or a dictionary of such maps.
     """
-    if type(result) is dict:
-        for name,data in result.iteritems():
-            ba.IntensityDataIOFactory.writeIntensityData(
-                data, filename+"."+name+".int")
-    else:
-        ba.IntensityDataIOFactory.writeIntensityData(result, filename+".ref.int")
+    ba.IntensityDataIOFactory.writeIntensityData(result, filename+".int")
+
+
+def yamlDump(filename, data):
+    """
+    Saves an arbitrary hierarchical data set as YAML-formatted text file.
+    """
+#     import yaml
+#     global yaml
+#     class ImprovedDumper(Dumper):
+#         pass
+#     def odict_representer(dumper, data):
+#         return dumper.represent_mapping(
+#             yaml.resolver.BaseResolver.DEFAULT_MAPPING_TAG,
+#             data.items())
+#     def flowseq_representer(dumper, data):
+#         return dumper.represent_sequence(
+#             yaml.resolver.BaseResolver.DEFAULT_SEQUENCE_TAG,
+#             data,
+#             flow_style=True )
+#     ImprovedDumper.add_representer(OrderedDict, odict_representer)
+#     ImprovedDumper.add_representer(FlowSeq, flowseq_representer)
+    with open(filename+".yaml", "w") as f:
+        f.write(data)
+# TODO
+#        f.write(yaml.dump(data, None, ImprovedDumper,
+#                          allow_unicode=True, encoding='utf-8',
+#                          default_flow_style=False, indent=4, width=70))
+
 
 def getFilenameOrPlotflag():
     """
@@ -61,6 +85,7 @@ def getFilenameOrPlotflag():
         sys.exit()
     return sys.argv[1]
 
+
 def simulateThenPlotOrSave(
         simulate, plot=standardIntensityPlot, save=standardIntensitySave):
     """
@@ -69,10 +94,16 @@ def simulateThenPlotOrSave(
     """
     arg = getFilenameOrPlotflag()
     result = simulate()
-    if arg != '-p':
-        save(result, arg)
-    else:
+    if arg == '-p':
         plot(result)
+        return
+    # save result
+    if type(result) is dict:
+        for name, subresult in result.iteritems():
+            save(arg+"."+name, subresult)
+    else:
+        save(arg+".ref", result)
+
 
 class DefaultFitObserver(IFitObserver):
     """

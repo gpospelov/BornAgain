@@ -39,7 +39,7 @@ void PyPersistenceTest::runTest()
 {
     // Set output data filename stem, and remove old output files
     std::string dat_stem = Utils::FileSystem::GetJoinPath(PYPERSIST_TMP_DIR, getName());
-    for (const std::string& fname: Utils::FileSystem::glob(dat_stem+".*.int")) {
+    for (const std::string& fname: Utils::FileSystem::glob(dat_stem+".*.*")) {
         std::remove( fname.c_str() );
         std::cout << "Removed old result " << fname.c_str() << "." << std::endl/*sic*/;
     }
@@ -58,11 +58,12 @@ void PyPersistenceTest::runTest()
     }
 
     // Read back simulation results
-    std::map<const std::string, const OutputData<double>*> dat;
-    std::string dat_pattern = dat_stem + ".*.int";
+    std::map<const std::string, const std::string> dat;
+    std::string dat_pattern = dat_stem + ".*.*";
     for (const std::string& fname: Utils::FileSystem::glob(dat_pattern))
-        dat.insert(make_pair(Utils::String::split(fname,".")[1],
-                             IntensityDataIOFactory::readOutputData( fname )));
+        dat.insert(make_pair(Utils::String::split(fname,".")[1]+"."+
+                             Utils::String::split(fname,".")[2],
+                             fname));
     if (dat.size()==0) {
         std::cerr << "There is no test output of form " << dat_pattern << "\n";
         m_result = FAILED;
@@ -72,29 +73,34 @@ void PyPersistenceTest::runTest()
 
     // Read reference files
     std::string ref_stem = Utils::FileSystem::GetJoinPath(PYPERSIST_REF_DIR, getName());
-    std::map<const std::string, const OutputData<double>*> ref;
-    for (const std::string& fname: Utils::FileSystem::glob(ref_stem+".*.int.gz"))
-        ref.insert(make_pair(Utils::String::split(fname,".")[1],
-                             IntensityDataIOFactory::readOutputData( fname )));
+    std::map<const std::string, const std::string> ref;
+    for (const std::string& fname: Utils::FileSystem::glob(ref_stem+".*.*.gz"))
+        ref.insert(make_pair(Utils::String::split(fname,".")[1]+"."+
+                             Utils::String::split(fname,".")[2],
+                             fname));
 
     // Compare file lists
     m_result = SUCCESS;
     for( auto const& it: dat ) {
         if( ref.find(it.first)==ref.end() ) {
-            std::cerr << "For test output " << (dat_stem+"."+it.first+".int")
+            std::cerr << "For test output " << it.second
                       << " there is no reference file in " << PYPERSIST_REF_DIR << "\n";
             m_result = FAILED;
         }
     }
     for( auto const& it: ref ) {
         if( dat.find(it.first)==dat.end() ) {
-            std::cerr << "For reference file " << (ref_stem+"."+it.first+".int.gz")
+            std::cerr << "For reference file " << it.second
                       << " there is no test output in " << PYPERSIST_TMP_DIR << "\n";
             m_result = FAILED;
         }
     }
     if (m_result==FAILED)
         return;
+
+
+//    const OutputData<double>* dat = IntensityDataIOFactory::readOutputData( fname );
+
 
     /*
     const OutputData<double>* reference;

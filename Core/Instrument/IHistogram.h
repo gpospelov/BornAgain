@@ -52,7 +52,7 @@ public:
     virtual IHistogram *clone() const = 0;
 
     //! Returns number of histogram dimensions.
-    virtual size_t getRank() const;
+    virtual size_t getRank() const = 0;
 
     //! Returns total number of histogram bins. For 2D histograms the result will be the product
     //! of bin numbers along X and Y axes.

@@ -16,6 +16,7 @@
 #include "Histogram1D.h"
 #include "Histogram2D.h"
 #include "IntensityDataIOFactory.h"
+#include "Numeric.h"
 #include <memory>
 
 IHistogram::IHistogram()
@@ -36,12 +37,6 @@ IHistogram::IHistogram(const IAxis& axis_x, const IAxis& axis_y)
 {
     m_data.addAxis(axis_x);
     m_data.addAxis(axis_y);
-}
-
-size_t IHistogram::getRank() const
-{
-    throw Exceptions::NotImplementedException("IHistogram::getRank() -> Error. Not implemented.");
-    return 0;
 }
 
 size_t IHistogram::getTotalNumberOfBins() const
@@ -356,13 +351,12 @@ const IHistogram& IHistogram::operator+=(const IHistogram& right)
     if(!hasSameDimensions(right))
         throw Exceptions::LogicErrorException(
             "IHistogram::operator+=() -> Error. Histograms have different dimension");
-
     for(size_t i=0; i<getTotalNumberOfBins(); ++i)
         addBinContent(i, right.getBinContent(i));
-
     return *this;
 }
 
+// TODO merge with IntensityDataFunctions::createRelativeDifferenceData
 IHistogram* IHistogram::relativeDifferenceHistogram(const IHistogram& rhs)
 {
     if(!hasSameDimensions(rhs))

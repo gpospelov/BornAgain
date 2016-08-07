@@ -16,15 +16,8 @@
 #include "IntensityDataFunctions.h"
 #include "ConvolutionDetectorResolution.h"
 #include "IHistogram.h"
+#include "Numeric.h"
 #include <memory>
-
-double IntensityDataFunctions::getRelativeDifference(
-    const IHistogram &dat, const IHistogram &ref)
-{
-    return getRelativeDifference(
-        *std::unique_ptr<OutputData<double>>(dat.getData().meanValues()),
-        *std::unique_ptr<OutputData<double>>(ref.getData().meanValues()) );
-}
 
 //! Returns relative difference between two data sets sum(dat[i] - ref[i])/ref[i]).
 double IntensityDataFunctions::getRelativeDifference(
@@ -40,6 +33,15 @@ double IntensityDataFunctions::getRelativeDifference(
     return diff;
 }
 
+double IntensityDataFunctions::getRelativeDifference(
+    const IHistogram &dat, const IHistogram &ref)
+{
+    return getRelativeDifference(
+        *std::unique_ptr<OutputData<double>>(dat.getData().meanValues()),
+        *std::unique_ptr<OutputData<double>>(ref.getData().meanValues()) );
+}
+
+// TODO merge with IHistogram::relativeDifferenceHistogram(
 OutputData<double>*
 IntensityDataFunctions::createRelativeDifferenceData(const OutputData<double>& data,
                                                      const OutputData<double>& reference)

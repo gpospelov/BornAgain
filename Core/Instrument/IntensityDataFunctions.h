@@ -28,10 +28,10 @@ class  BA_CORE_API_ IntensityDataFunctions
 {
 public:
     static double getRelativeDifference(
-        const IHistogram& dat, const IHistogram& ref);
+        const OutputData<double>& dat, const OutputData<double>& ref);
 
     static double getRelativeDifference(
-        const OutputData<double>& dat, const OutputData<double>& ref);
+        const IHistogram& dat, const IHistogram& ref);
 
     static OutputData<double>* createRelativeDifferenceData(
         const OutputData<double>& data, const OutputData<double>& reference);

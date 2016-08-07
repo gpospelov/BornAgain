@@ -23,10 +23,8 @@
 CoreTest::CoreTest(
     const std::string& name, const std::string& description, GISASSimulation* simulation,
     double threshold)
-    : IFunctionalTest(name, description)
+    : IReferencedTest(name, description, threshold)
     , m_simulation(simulation)
-    , m_threshold(threshold)
-    , m_difference(0)
 {}
 
 CoreTest::~CoreTest()
@@ -45,57 +43,28 @@ void CoreTest::runTest()
         m_reference = IntensityDataIOFactory::readOutputData( m_ref_filename );
     } catch(const std::exception& ex) {
         m_reference = nullptr;
-        std::cout << "proceed without reference after catching error [" << ex.what() << "]\n";
+        std::cout << "No reference found, but we proceed with the simulation to create a new one."
+                  << std::endl /*sic*/;
     }
     // Run simulation.
     const std::unique_ptr<OutputData<double>>
         result_data(m_simulation->getDetectorIntensity());
     // Compare with reference if available.
-    if (!m_reference) {
+    if (!m_reference)
         m_result = FAILED_NOREF;
-    } else {
-        m_difference = IntensityDataFunctions::getRelativeDifference(
-            *result_data.get(), *m_reference);
-        m_result = m_difference > m_threshold ? FAILED_DIFF : SUCCESS;
-    }
+    else
+        m_result = compareIntensityMaps(*result_data.get(), *m_reference);
     // Save simulation if different from reference.
     if (getTestResult() != SUCCESS) {
-        Utils::FileSystem::CreateDirectory(CORE_STD_TMP_DIR);
+        Utils::FileSystem::CreateDirectory(CORE_STD_OUT_DIR);
+        std::string out_fname = Utils::FileSystem::GetJoinPath(
+            CORE_STD_OUT_DIR, getName() + ".int");
         IntensityDataIOFactory::writeOutputData(
-            *(getIntensityData()), getSimulationResultsFileNameAndPath());
+            *m_simulation->getDetectorIntensity(), out_fname);
+        std::cout << "New simulation result stored in " << out_fname << ".\n"
+                  << "To visualize an intensity map, use " << BUILD_BIN_DIR << "/view1.py;"
+                  << "   to plot a difference image, use " << BUILD_BIN_DIR << "/view2.py.\n"
+                  << "If the new result is correct, then gzip it and move it to "
+                  << CORE_STD_REF_DIR << "/.\n";
     }
-}
-
-void CoreTest::printResults(std::ostream& ostr) const
-{
-    ostr << getFormattedInfoString();
-    ostr << Utils::String::getScientificDoubleString(m_difference);
-
-    if (getTestResult() != SUCCESS) {
-        ostr << "\n"
-             << "--> simulation result stored in " << getSimulationResultsFileNameAndPath() << "\n";
-        if (m_reference) {
-            ostr << "    differs from reference data " << m_ref_filename << "\n"
-                 << "    (to inspect such images, use " << BUILD_BIN_DIR << "/view1.py;"
-                 << " for a difference image, " << BUILD_BIN_DIR << "/view2.py)\n";
-        } else {
-            ostr << "    (to inspect the image, use " << BUILD_BIN_DIR << "/view1.py)\n"
-                 << "    reference should have been in " << m_ref_filename << "\n";
-        }
-    }
-}
-
-//! Constructs file name to save results. Strip gzip extention if necessary.
-std::string CoreTest::getSimulationResultsFileNameAndPath() const
-{
-    std::string result = Utils::FileSystem::GetJoinPath(
-        CORE_STD_TMP_DIR, getName() + ".int.gz");
-    return result;
-}
-
-OutputData<double>* CoreTest::getIntensityData() const
-{
-    if (m_simulation)
-        return m_simulation->getDetectorIntensity();
-    return nullptr;
 }

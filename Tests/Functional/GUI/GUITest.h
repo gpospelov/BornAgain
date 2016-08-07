@@ -17,7 +17,7 @@
 #ifndef GUITEST_H
 #define GUITEST_H
 
-#include "IFunctionalTest.h" // inheriting from
+#include "IReferencedTest.h" // inheriting from
 #include "OutputData.h"
 
 class GISASSimulation;
@@ -29,26 +29,20 @@ class GISASSimulation;
 //!   and compares results.
 //!   Invoked by GUIStandardTest.
 
-class GUITest : public IFunctionalTest
+class GUITest : public IReferencedTest
 {
 public:
     GUITest(const std::string& name, const std::string& description,
             GISASSimulation* reference_simulation, double threshold);
     virtual ~GUITest();
 
-    virtual void runTest();
-
-    const OutputData<double>* getOutputData() const;
-
-    virtual void printResults(std::ostream& ostr) const;
+    void runTest() final;
 
 private:
     void createDomainSimulation();
 
     GISASSimulation* m_reference_simulation;
     GISASSimulation* m_domain_simulation;
-    double m_threshold;
-    double m_difference;
 };
 
 #endif // GUITEST_H

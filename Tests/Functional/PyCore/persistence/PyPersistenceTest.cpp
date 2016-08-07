@@ -30,16 +30,14 @@
 
 PyPersistenceTest::PyPersistenceTest(
     const std::string& directory, const std::string& name)
-    : IFunctionalTest(name, "persistence test on script "+name)
+    : IReferencedTest(name, "persistence test on script "+name, 2e-10)
     , m_directory(directory)
-    , m_threshold(2e-10)
-    , m_difference(0)
 {}
 
 void PyPersistenceTest::runTest()
 {
     // Set output data filename stem, and remove old output files
-    std::string dat_stem = Utils::FileSystem::GetJoinPath(PYPERSIST_TMP_DIR, getName());
+    std::string dat_stem = Utils::FileSystem::GetJoinPath(PYPERSIST_OUT_DIR, getName());
     for (const std::string& fname: Utils::FileSystem::glob(dat_stem+".*.*")) {
         std::remove( fname.c_str() );
         std::cout << "Removed old result " << fname.c_str() << "." << std::endl/*sic*/;
@@ -91,7 +89,7 @@ void PyPersistenceTest::runTest()
     for( auto const& it: ref ) {
         if( dat.find(it.first)==dat.end() ) {
             std::cerr << "For reference file " << it.second
-                      << " there is no test output in " << PYPERSIST_TMP_DIR << "\n";
+                      << " there is no test output in " << PYPERSIST_OUT_DIR << "\n";
             m_result = FAILED;
         }
     }
@@ -124,8 +122,7 @@ bool PyPersistenceTest::compareIntensityPair(
 {
     const OutputData<double>* dat = IntensityDataIOFactory::readOutputData( dat_fname );
     const OutputData<double>* ref = IntensityDataIOFactory::readOutputData( ref_fname );
-    m_difference = IntensityDataFunctions::getRelativeDifference(*dat, *ref);
-    return m_difference <= m_threshold;
+    return compareIntensityMaps(*dat, *ref)==SUCCESS;
 }
 
 //! Returns true if YAML files from test output and reference agree.
@@ -154,10 +151,4 @@ bool PyPersistenceTest::compareYamlPair(
         }
     }
     return true;
-}
-
-void PyPersistenceTest::printResults(std::ostream& ostr) const
-{
-    ostr << getFormattedInfoString();
-    ostr << Utils::String::getScientificDoubleString(m_difference);
 }

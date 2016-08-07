@@ -25,9 +25,9 @@
 //  Test execution
 // ************************************************************************** //
 
-//! Runs test (name given as command-line argument), and returns 0 for SUCCESS, or error code.
+//! Runs test (name given as command-line argument), and returns 0 for SUCCESS.
 
-int IStandardTest::execute(int argc, char** argv) {
+bool IStandardTest::execute(int argc, char** argv) {
     // parse command-line arguments and retrieve test info from registry
     std::string test_name;
     if(argc > 1)
@@ -44,18 +44,17 @@ int IStandardTest::execute(int argc, char** argv) {
 
 //! Runs a single test, and returns 0 for SUCCESS, or error code.
 
-int IStandardTest::execute_onetest()
+bool IStandardTest::execute_onetest()
 {
-    m_test_name = m_info->m_test_name;
+    setName( m_info->m_test_name );
     IFunctionalTest* test( getTest() );
     test->runTest();
-    std::cout << *test << "\n";
     return test->getTestResult();
 }
 
 //! Runs all available subtests, and returns 0 if all succeed, or 1 in case of any error.
 
-int IStandardTest::execute_subtests()
+bool IStandardTest::execute_subtests()
 {
     // initialize subtest registry
     std::vector<std::string> subtest_names;
@@ -73,14 +72,13 @@ int IStandardTest::execute_subtests()
     // run and analyze subtests
     int number_of_failed_tests = 0;
     for (size_t i = 0; i < n_subtests; ++i) {
-        m_test_name = m_info->m_test_name + "_" + subtest_names[i];
+        setName( m_info->m_test_name + "_" + subtest_names[i] );
         m_subtest_item = subtest_registry->getItem(subtest_names[i]);
 
         IFunctionalTest* subtest( getTest() );
         std::cout << "IStandardTest::execute() -> " << getName()
                   << " " << i+1 << "/" << n_subtests << " (" << subtest_names[i] << ")\n";
         subtest->runTest();
-        std::cout << *subtest << "\n";
         if (subtest->getTestResult())
             ++number_of_failed_tests;
         delete subtest;
@@ -97,6 +95,8 @@ int IStandardTest::execute_subtests()
 //  Functions called by getTest() in *Suite.cpp
 // ************************************************************************** //
 
+std::string IStandardTest::getTestDescription() const { return m_info->m_test_description; }
+
 GISASSimulation* IStandardTest::getSimulation() const
 {
     SimulationFactory sim_registry;
@@ -108,15 +108,4 @@ GISASSimulation* IStandardTest::getSimulation() const
         sample_builder->set_subtest(m_subtest_item);
     result->setSampleBuilder(sample_builder);
     return result;
-}
-
-//! Constructs functional test description corresponding to the current component.
-std::string IStandardTest::getTestDescription() const
-{
-    return m_info->m_test_description;
-}
-
-double IStandardTest::getTestThreshold() const
-{
-    return m_info->m_threshold;
 }

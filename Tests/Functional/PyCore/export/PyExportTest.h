@@ -16,7 +16,7 @@
 #ifndef PYSUITETEST_H
 #define PYSUITETEST_H
 
-#include "IFunctionalTest.h" // inheriting from
+#include "IReferencedTest.h" // inheriting from
 #include "OutputData.h"
 
 //! @class PyExportTest
@@ -25,28 +25,20 @@
 //!   Performs a given standard simulation, both directly and from a Python dump.
 //!   Invoked from PyExportStandardTest.
 
-class PyExportTest : public IFunctionalTest
+class PyExportTest : public IReferencedTest
 {
 public:
     PyExportTest(const std::string& name, const std::string& description,
-                class GISASSimulation* reference_simulation, double threshold);
+                 class GISASSimulation* reference_simulation, double threshold);
     virtual ~PyExportTest();
 
-    virtual void runTest();
-
-    const OutputData<double>* getOutputData() const;
-
-    double getDifference() const { return m_difference; }
-
-    virtual void printResults(std::ostream& ostr) const;
+    void runTest() final;
 
 private:
     std::string getPySuiteFileNameAndPath() const;
 
     class GISASSimulation* m_reference_simulation;
     class GISASSimulation* m_domain_simulation;
-    double m_threshold;
-    double m_difference;
 };
 
 #endif // PYSUITETEST_H

@@ -54,12 +54,3 @@ std::string IFunctionalTest::getTestResultString() const
 {
     return m_result_to_string[m_result];
 }
-
-std::string IFunctionalTest::getFormattedInfoString() const
-{
-    std::ostringstream ostr;
-    ostr << StringUtils::padRight(getName(), width_name);
-    ostr << StringUtils::padRight(getDescription(), width_description);
-    ostr << StringUtils::padRight(getTestResultString(), width_result);
-    return ostr.str();
-}

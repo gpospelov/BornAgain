@@ -58,23 +58,23 @@ public:
     IStandardTest(const std::string& name) : INamed(name) {}
     virtual ~IStandardTest() {}
 
-    int execute(int argc, char** argv);
+    bool execute(int argc, char** argv);
 
     virtual IFunctionalTest* getTest() const = 0; //!< overloaded in (Core|Py|GUI)Suite.cpp
 
 protected:
+    double m_threshold;
+
     virtual GISASSimulation* getSimulation() const;
-    std::string getTestName() const { return m_test_name; }
     std::string getTestDescription() const;
-    double getTestThreshold() const;
+    double getTestThreshold() const { return m_threshold; }
 
 private:
     const SimulationInfo* m_info;
-    std::string m_test_name;
     const IParameterized* m_subtest_item;
 
-    int execute_onetest();
-    int execute_subtests();
+    bool execute_onetest();
+    bool execute_subtests();
 };
 
 #endif // FUNCTIONALTESTSUITE_H

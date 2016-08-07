@@ -30,11 +30,9 @@
 PyExportTest::PyExportTest(
     const std::string& name, const std::string& description,
     GISASSimulation* reference_simulation, double threshold)
-    : IFunctionalTest(name, description)
+    : IReferencedTest(name, description, threshold)
     , m_reference_simulation(reference_simulation)
-    , m_domain_simulation(0)
-    , m_threshold(threshold)
-    , m_difference(0)
+    , m_domain_simulation(nullptr)
 {
 }
 
@@ -85,12 +83,5 @@ void PyExportTest::runTest()
     // Compare results
     const std::unique_ptr<OutputData<double> > P_domain_data(
         IntensityDataIOFactory::readOutputData(output_path));
-    m_difference = IntensityDataFunctions::getRelativeDifference(*P_domain_data, *P_reference_data);
-    m_result = m_difference > m_threshold ? FAILED_DIFF : SUCCESS;
-}
-
-void PyExportTest::printResults(std::ostream& ostr) const
-{
-    ostr << getFormattedInfoString();
-    ostr << Utils::String::getScientificDoubleString(m_difference);
+    m_result = compareIntensityMaps(*P_domain_data, *P_reference_data);
 }

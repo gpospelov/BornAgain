@@ -22,7 +22,7 @@ class PyExportStandardTest : public IStandardTest
 public:
     PyExportStandardTest() : IStandardTest("PyExport") {}
     IFunctionalTest* getTest() const { return new PyExportTest(
-            getTestName(), getTestDescription(), getSimulation(), getTestThreshold()); }
+            getName(), getTestDescription(), getSimulation(), getTestThreshold()); }
 };
 
 //! Runs PyExportTest on a standard simulation indicated by argv[1].

@@ -75,7 +75,7 @@ void PyPersistenceTest::runTest()
     // Glob reference files
     std::string ref_stem = Utils::FileSystem::GetJoinPath(PYPERSIST_REF_DIR, getName());
     std::map<const std::string, const std::string> ref;
-    for (const std::string& fname: Utils::FileSystem::glob(ref_stem+".*.*.gz"))
+    for (const std::string& fname: Utils::FileSystem::glob(ref_stem+".*.*"))
         ref.insert(make_pair(Utils::String::split(fname,".")[1]+"."+
                              Utils::String::split(fname,".")[2],
                              fname));

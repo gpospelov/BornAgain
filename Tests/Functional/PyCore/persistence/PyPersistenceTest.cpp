@@ -29,8 +29,8 @@
 #include <map>
 
 PyPersistenceTest::PyPersistenceTest(
-    const std::string& directory, const std::string& name)
-    : IReferencedTest(name, "persistence test on script "+name, 2e-10)
+    const std::string& directory, const std::string& name, double threshold)
+    : IReferencedTest(name, "persistence test on script "+name, threshold)
     , m_directory(directory)
 {}
 

@@ -36,5 +36,5 @@ foreach(script ${PY_EXAMPLES})
         continue()
     endif()
     add_test(PyPersistenceTest/${script_name}
-        ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/PyPersistenceTest ${script_dir} ${script_name})
+        ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/PyPersistenceTest ${script_dir} ${script_name} 2e-10)
 endforeach()

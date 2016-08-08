@@ -62,18 +62,15 @@ public:
     StringUsageMap(){}
     ~StringUsageMap(){}
 
-    //! Adds string to the map to count number of times it was used
+    //! Adds string to the map, or increments usage counter
     void add(std::string name)
     {
         m_current_string = name;
         iterator_t it = m_nstringmap.find(name);
-        if(it != m_nstringmap.end() ) {
-            // such string already exists, incremeting usage counter
+        if (it != m_nstringmap.end() )
             (*it).second++;
-        } else {
-            // such string doesnt exist, insert it with counter=1
+        else
             m_nstringmap.insert(nstringmap_t::value_type(name,1));
-        }
     }
 
     //! access to the map of strings

@@ -54,15 +54,3 @@ TEST_F(MinimizerOptionsTest, SetValues)
     EXPECT_EQ(opt2.getRealValue("some_double"), 9.9);
     EXPECT_EQ(opt2.getNamedValue("some_string"), "xxx");
 }
-
-
-TEST_F(MinimizerOptionsTest, Minuit2Minimizer)
-{
-    EXPECT_EQ(1,1);
-
-    Minuit2Minimizer *minim = new Minuit2Minimizer();
-    std::cout << "XXX" << minim->minimizerName() << " " << minim->algorithmName() << std::endl;
-
-
-
-}

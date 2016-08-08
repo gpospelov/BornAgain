@@ -85,6 +85,4 @@ TEST_F(MinimizerOptionTest, Assignment)
     EXPECT_EQ(double_value, copy.getDefault<double>());
 }
 
-
-
 #endif

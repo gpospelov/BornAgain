@@ -32,7 +32,7 @@ public:
     SimulationOptions();
 
     bool isIntegrate() const;
-    size_t getMcPoints() const;
+    size_t getMcPoints() const { return m_mc_points; }
 
     //! @brief Enables/disables MonetCarlo integration
     //! @param flag If true, MonteCarlo integration will be used, otherwise analytical calculations
@@ -53,9 +53,11 @@ public:
     int getCurrentBatch() const;
 
     //! @brief Sets the batch and thread information to be used
-    void setThreadInfo(const ThreadInfo &thread_info);
+    void setThreadInfo(const ThreadInfo& thread_info) { m_thread_info = thread_info; }
 
     int getHardwareConcurrency() const;
+
+    double getDefaultVariability() const;
 
 private:
     bool m_mc_integration;

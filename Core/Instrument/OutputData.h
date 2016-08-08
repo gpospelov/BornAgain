@@ -133,6 +133,9 @@ public:
     //! Remove all masks
     void removeAllMasks();
 
+    void setVariability(double variability) { m_variability = variability; }
+    double getVariability() const { return m_variability; }
+
     // ---------------------------------
     // coordinate and index functions
     // ---------------------------------
@@ -267,6 +270,7 @@ private:
     SafePointerVector<IAxis> m_value_axes;
     LLData<T>* mp_ll_data;
     Mask* mp_mask;
+    double m_variability;
 };
 
 /* ***************************************************************************/
@@ -276,8 +280,9 @@ private:
 template <class T>
 OutputData<T>::OutputData()
     : m_value_axes()
-    , mp_ll_data(0)
-    , mp_mask(0)
+    , mp_ll_data(nullptr)
+    , mp_mask(nullptr)
+    , m_variability(2e-10)
 {
     allocate();
 }
@@ -290,12 +295,13 @@ template <class T> OutputData<T>::~OutputData() {
 template <class T>
 OutputData<T>* OutputData<T>::clone() const
 {
-    OutputData<T>* p_result = new OutputData<T>();
-    p_result->m_value_axes = m_value_axes;
-    (*p_result->mp_ll_data) = *mp_ll_data;
+    OutputData<T>* ret = new OutputData<T>();
+    ret->m_value_axes = m_value_axes;
+    (*ret->mp_ll_data) = *mp_ll_data;
     if (mp_mask)
-        p_result->mp_mask = mp_mask->clone();
-    return p_result;
+        ret->mp_mask = mp_mask->clone();
+    ret->setVariability(m_variability);
+    return ret;
 }
 
 template <class T>
@@ -309,6 +315,7 @@ void OutputData<T>::copyFrom(const OutputData<T>& other)
         mp_ll_data = new LLData<T>(*other.mp_ll_data);
     if (other.getMask())
         mp_mask = other.getMask()->clone();
+    m_variability = other.getVariability();
 }
 
 template <class T>
@@ -321,6 +328,7 @@ void OutputData<T>::copyShapeFrom(const OutputData<U>& other)
         addAxis(*other.getAxis(i));
     if (other.getMask())
         mp_mask = other.getMask()->clone();
+    m_variability = other.getVariability();
 }
 
 template <class T>
@@ -329,8 +337,10 @@ OutputData<double>* OutputData<T>::meanValues() const
     auto ret = new OutputData<double>();
     ret->copyShapeFrom(*this);
     ret->allocate();
+    ret->setVariability(m_variability);
     for (size_t i=0; i<mp_ll_data->getTotalSize(); ++i)
         (*ret)[i] = getValue(i);
+    ret->setVariability(m_variability);
     return ret;
 }
 
@@ -702,14 +712,13 @@ inline void OutputData<T>::setRawDataArray(const T* source)
 //! Returns true if object have same dimensions
 template<class T>
 template<class U>
-inline bool OutputData<T>::hasSameDimensions(
-    const OutputData<U>& right) const
+inline bool OutputData<T>::hasSameDimensions(const OutputData<U>& right) const
 {
-    if(!isInitialized()) return false;
-    if(!right.isInitialized()) return false;
-    if(getRank() != right.getRank()) return false;
-    for(size_t i_axis=0; i_axis<getRank(); ++i_axis)
-        if(getAxis(i_axis)->getSize() != right.getAxis(i_axis)->getSize()) return false;
+    if (!isInitialized()) return false;
+    if (!right.isInitialized()) return false;
+    if (getRank() != right.getRank()) return false;
+    for (size_t i_axis=0; i_axis<getRank(); ++i_axis)
+        if (getAxis(i_axis)->getSize() != right.getAxis(i_axis)->getSize()) return false;
     return true;
 }
 
@@ -718,16 +727,17 @@ template<class T>
 template<class U>
 bool OutputData<T>::hasSameShape(const OutputData<U>& right) const
 {
-    if(!hasSameDimensions(right)) return false;
+    if (!hasSameDimensions(right)) return false;
 
     for (size_t i=0; i<m_value_axes.size(); ++i)
-        if( !HaveSameNameAndShape(*getAxis(i), *right.getAxis(i))) return false;
+        if (!HaveSameNameAndShape(*getAxis(i), *right.getAxis(i))) return false;
     return true;
 }
 
 //! returns data as Python numpy array
 #ifdef BORNAGAIN_PYTHON
-template<> PyObject* OutputData<double>::getArray() const;
+template<>
+PyObject* OutputData<double>::getArray() const;
 #endif
 
 #endif // OUTPUTDATA_H

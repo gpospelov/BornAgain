@@ -15309,6 +15309,11 @@ class SimulationOptions(_object):
         """
         return _libBornAgainCore.SimulationOptions_getHardwareConcurrency(self)
 
+
+    def getDefaultVariability(self):
+        """getDefaultVariability(SimulationOptions self) -> double"""
+        return _libBornAgainCore.SimulationOptions_getDefaultVariability(self)
+
     __swig_destroy__ = _libBornAgainCore.delete_SimulationOptions
     __del__ = lambda self: None
 SimulationOptions_swigregister = _libBornAgainCore.SimulationOptions_swigregister
@@ -21789,6 +21794,16 @@ class IntensityData(_object):
 
         """
         return _libBornAgainCore.IntensityData_removeAllMasks(self)
+
+
+    def setVariability(self, variability):
+        """setVariability(IntensityData self, double variability)"""
+        return _libBornAgainCore.IntensityData_setVariability(self, variability)
+
+
+    def getVariability(self):
+        """getVariability(IntensityData self) -> double"""
+        return _libBornAgainCore.IntensityData_getVariability(self)
 
 
     def getAxesBinIndices(self, global_index):

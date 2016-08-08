@@ -26,7 +26,7 @@
 #include <iostream>
 
 template<>
-PyObject *OutputData<double>::getArray() const
+PyObject* OutputData<double>::getArray() const
 {
     std::vector<size_t > dimensions;
     for (size_t i=0; i<getRank(); i++)

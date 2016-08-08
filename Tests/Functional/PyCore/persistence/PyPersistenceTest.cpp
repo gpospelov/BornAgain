@@ -29,8 +29,8 @@
 #include <map>
 
 PyPersistenceTest::PyPersistenceTest(
-    const std::string& directory, const std::string& name, double threshold)
-    : IReferencedTest(name, "persistence test on script "+name, threshold)
+    const std::string& directory, const std::string& name)
+    : IReferencedTest(name, "persistence test on script "+name, 2e-10)
     , m_directory(directory)
 {}
 
@@ -40,7 +40,7 @@ void PyPersistenceTest::runTest()
     std::string dat_stem = Utils::FileSystem::GetJoinPath(PYPERSIST_OUT_DIR, getName());
     for (const std::string& fname: Utils::FileSystem::glob(dat_stem+".*.*")) {
         std::remove( fname.c_str() );
-        std::cout << "Removed old result " << fname.c_str() << "." << std::endl/*sic*/;
+        std::cout << "Removed old output " << fname.c_str() << ".\n";
     }
 
     // Run Python script
@@ -48,7 +48,7 @@ void PyPersistenceTest::runTest()
     std::string command =
         std::string("PYTHONPATH=") + BUILD_LIB_DIR + " " +
         BORNAGAIN_PYTHON_EXE + " " + py_filename + " " + dat_stem;
-    std::cout << "Now running command '" << command << "'." << std::endl/*sic*/;
+    std::cout << command << std::endl/*sic*/; // flush output before calling std::system
     int ret = std::system(command.c_str());
     if (ret!=0) {
         std::cerr << "Command returned non-zero value " << ret << ".\n";
@@ -106,13 +106,13 @@ void PyPersistenceTest::runTest()
 bool PyPersistenceTest::compareFilePair(
     const std::string& dat_fname, const std::string& ref_fname)
 {
+    std::cout << "Comparing dat='" << dat_fname << "' with ref='" << ref_fname << "':\n";
     const std::string extension = Utils::String::split(dat_fname, ".")[2];
     if      ( extension=="int" )
         return compareIntensityPair( dat_fname, ref_fname );
     if ( extension=="yaml" )
         return compareYamlPair( dat_fname, ref_fname );
-    std::cerr << "Unsupported file type '" << extension << "' in comparison of "
-              << dat_fname << " and " << ref_fname << "\n";
+    std::cerr << "Failed: Unsupported file type '" << extension << "'.\n";
     return false;
 }
 
@@ -150,5 +150,6 @@ bool PyPersistenceTest::compareYamlPair(
             return false;
         }
     }
+    std::cout << "Files fully agree.\n";
     return true;
 }

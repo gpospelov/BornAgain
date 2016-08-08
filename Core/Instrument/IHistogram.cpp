@@ -219,7 +219,7 @@ double IHistogram::integral() const
 #ifdef BORNAGAIN_PYTHON
 PyObject* IHistogram::getArray(DataType dataType) const
 {
-    const std::unique_ptr<OutputData<double> > data(createOutputData(dataType));
+    const std::unique_ptr<OutputData<double>> data(createOutputData(dataType));
     return data->getArray();
 }
 #endif // BORNAGAIN_PYTHON

@@ -35,9 +35,7 @@ CoreTest::~CoreTest()
 
 void CoreTest::runTest()
 {
-    assert(m_simulation);
-    m_simulation->runSimulation();
-
+    // Load reference if available
     m_ref_filename = Utils::FileSystem::GetJoinPath(CORE_STD_REF_DIR, getName() + ".int.gz");
     try {
         m_reference = IntensityDataIOFactory::readOutputData( m_ref_filename );
@@ -47,8 +45,10 @@ void CoreTest::runTest()
                   << std::endl /*sic*/;
     }
     // Run simulation.
-    const std::unique_ptr<OutputData<double>>
-        result_data(m_simulation->getDetectorIntensity());
+    assert(m_simulation);
+    m_simulation->runSimulation();
+    const std::unique_ptr<OutputData<double>> result_data(m_simulation->getDetectorIntensity());
+    result_data->setVariability(m_threshold);
     // Compare with reference if available.
     if (!m_reference)
         m_result = FAILED_NOREF;
@@ -59,8 +59,7 @@ void CoreTest::runTest()
         Utils::FileSystem::CreateDirectory(CORE_STD_OUT_DIR);
         std::string out_fname = Utils::FileSystem::GetJoinPath(
             CORE_STD_OUT_DIR, getName() + ".int");
-        IntensityDataIOFactory::writeOutputData(
-            *m_simulation->getDetectorIntensity(), out_fname);
+        IntensityDataIOFactory::writeOutputData(*result_data, out_fname);
         std::cout << "New simulation result stored in " << out_fname << ".\n"
                   << "To visualize an intensity map, use " << BUILD_BIN_DIR << "/view1.py;"
                   << "   to plot a difference image, use " << BUILD_BIN_DIR << "/view2.py.\n"

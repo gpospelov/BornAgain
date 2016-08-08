@@ -12,6 +12,7 @@
 //! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
+
 #include "OutputDataReader.h"
 #include "OutputData.h"
 #include "OutputDataIOHelper.h"
@@ -20,8 +21,7 @@
 
 OutputDataReader::OutputDataReader(const std::string& file_name)
     : m_file_name(file_name)
-{
-}
+{}
 
 OutputData<double>* OutputDataReader::getOutputData()
 {
@@ -53,7 +53,7 @@ void OutputDataReader::setStrategy(IOutputDataReadStrategy* read_strategy)
     m_read_strategy.reset(read_strategy);
 }
 
-OutputData<double >* OutputDataReader::getFromFilteredStream(std::istream& input_stream)
+OutputData<double>* OutputDataReader::getFromFilteredStream(std::istream& input_stream)
 {
     boost::iostreams::filtering_streambuf<boost::iostreams::input> input_filtered;
     if (OutputDataIOHelper::isGZipped(m_file_name))

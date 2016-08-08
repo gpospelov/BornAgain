@@ -28,7 +28,7 @@
 class PyPersistenceTest : public IReferencedTest
 {
 public:
-    PyPersistenceTest(const std::string& directory, const std::string& name, double threshold);
+    PyPersistenceTest(const std::string& directory, const std::string& name);
     ~PyPersistenceTest() final {}
 
     void runTest() final;

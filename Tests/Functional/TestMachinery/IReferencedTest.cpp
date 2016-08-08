@@ -20,13 +20,20 @@
 IFunctionalTest::ETestResult IReferencedTest::compareIntensityMaps(
     const OutputData<double>& dat, const OutputData<double>& ref)
 {
+    if( dat.getVariability() != ref.getVariability() ) {
+        std::cerr << "Failed: reproducibility threshold has changed from "
+                  << ref.getVariability()
+                  << " to " << dat.getVariability() << "." << std::endl;
+        return FAILED_DIFF;
+    }
+    double threshold = ref.getVariability();
     double diff = IntensityDataFunctions::getRelativeDifference(dat, ref);
-    if ( diff > m_threshold) {
+    if ( diff > threshold ) {
         std::cerr << "Failed: Relative difference between dat and ref = " << diff
-                  << " is above threshold = " << m_threshold << "." << std::endl;
+                  << " is above reproducibility threshold = " << threshold << "." << std::endl;
         return FAILED_DIFF;
     }
     std::cout << "Relative difference between dat and ref = " << diff
-                  << " is within threshold = " << m_threshold << "." << std::endl;
+                  << " is within reproducibility threshold = " << threshold << "." << std::endl;
     return SUCCESS;
 }

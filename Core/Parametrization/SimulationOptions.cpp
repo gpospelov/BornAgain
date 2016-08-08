@@ -28,11 +28,6 @@ bool SimulationOptions::isIntegrate() const
     return m_mc_integration && m_mc_points>1;
 }
 
-size_t SimulationOptions::getMcPoints() const
-{
-    return m_mc_points;
-}
-
 void SimulationOptions::setMonteCarloIntegration(bool flag, size_t mc_points)
 {
     m_mc_integration = flag;
@@ -74,13 +69,12 @@ int SimulationOptions::getCurrentBatch() const
     return m_thread_info.current_batch;
 }
 
-void SimulationOptions::setThreadInfo(const ThreadInfo &thread_info)
-{
-    m_thread_info = thread_info;
-}
-
 int SimulationOptions::getHardwareConcurrency() const
 {
     return (int)std::thread::hardware_concurrency();
 }
 
+double SimulationOptions::getDefaultVariability() const
+{
+    return isIntegrate() ? 0.5 : 2e-10;
+}

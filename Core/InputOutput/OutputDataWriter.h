@@ -33,7 +33,7 @@ public:
     void writeOutputData(const OutputData<double >& data);
 
     //! Sets concrete writing strategy
-    void setStrategy(IOutputDataWriteStrategy *write_strategy);
+    void setStrategy(IOutputDataWriteStrategy* write_strategy);
 
 private:
     std::string m_file_name;
@@ -41,5 +41,3 @@ private:
 };
 
 #endif // OUTPUTDATAWRITER_H
-
-

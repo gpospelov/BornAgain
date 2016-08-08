@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/PyCore/suite/PyPersistenceTest.cpp
+//! @file      Tests/Functional/PyCore/persistence/PyPersistenceTest.cpp
 //! @brief     Implements class PyPersistenceTest
 //!
 //! @homepage  http://www.bornagainproject.org

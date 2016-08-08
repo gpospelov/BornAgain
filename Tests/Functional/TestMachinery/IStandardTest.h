@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FUNCTIONALTESTSUITE_H
-#define FUNCTIONALTESTSUITE_H
+#ifndef ISTANDARDTEST_H
+#define ISTANDARDTEST_H
 
 #include "INamed.h" // inheriting from
 
@@ -75,4 +75,4 @@ private:
     bool execute_subtests();
 };
 
-#endif // FUNCTIONALTESTSUITE_H
+#endif // ISTANDARDTEST_H

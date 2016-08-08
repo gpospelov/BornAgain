@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/PyCore/suite/PyExportTest.h
+//! @file      Tests/Functional/PyCore/export/PyExportTest.h
 //! @brief     Declares class PyExportTest
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef PYSUITETEST_H
-#define PYSUITETEST_H
+#ifndef PYEXPORTTEST_H
+#define PYEXPORTTEST_H
 
 #include "IReferencedTest.h" // inheriting from
 #include "OutputData.h"
@@ -41,4 +41,4 @@ private:
     class GISASSimulation* m_domain_simulation;
 };
 
-#endif // PYSUITETEST_H
+#endif // PYEXPORTTEST_H

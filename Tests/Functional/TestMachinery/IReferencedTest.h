@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Referenced/TestMachinery/IReferencedTest.h
+//! @file      Tests/Functional/TestMachinery/IReferencedTest.h
 //! @brief     Declares pure virtual base class IReferencedTest.
 //!
 //! @homepage  http://www.bornagainproject.org

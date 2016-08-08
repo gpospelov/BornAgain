@@ -21,6 +21,7 @@
 #include "ROOTMinuit2Minimizer.h"
 #include "ROOTMultiMinMinimizer.h"
 #include "ROOTSimAnMinimizer.h"
+#include "Minuit2Minimizer.h"
 
 // ************************************************************************** //
 // auxiliary class MinimizerCatalogue
@@ -108,7 +109,8 @@ IMinimizer* MinimizerFactory::createMinimizer(
 
     IMinimizer* result(0);
     if( minimizer == "Test" ) {
-        result = new TrivialMinimizer();
+        //result = new TrivialMinimizer();
+        result = new Minuit2Minimizer();
 
         /* temporarily disabled
     } else if( minimizer == "Scan" ) {

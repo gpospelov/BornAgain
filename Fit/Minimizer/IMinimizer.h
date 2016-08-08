@@ -17,6 +17,7 @@
 #define IMINIMIZER_H
 
 #include "WinDllMacros.h"
+#include "Configurable.h"
 #include <functional>
 #include <vector>
 
@@ -28,7 +29,7 @@ class MinimizerOptions;
 //! @ingroup fitting_internal
 //! @brief Common interface for all kind minimizer's
 
-class BA_CORE_API_ IMinimizer
+class BA_CORE_API_ IMinimizer : public Configurable
 {
  public:
     //! signature of chi squared function to minimize

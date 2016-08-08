@@ -19,16 +19,69 @@
 #include "WinDllMacros.h"
 #include "MinimizerOption.h"
 #include <map>
+#include <vector>
+#include <memory>
+#include <exception>
+
+//! @class Configurable
+//! @ingroup fitting_internal
+//! @brief The Configurable class is a base for storing (int,double,string) options.
 
 class BA_CORE_API_ Configurable {
 
 public:
+    typedef std::shared_ptr<MinimizerOption> option_t;
 
-//    void addOption(std::string &optionName, );
+    Configurable(){}
+    Configurable(const Configurable &other);
+    Configurable& operator=(const Configurable& other);
+
+    template<class T>
+    option_t addOption(const std::string &optionName, T value,
+                       const std::string &description = std::string());
+
+    option_t option(const std::string &optionName);
+
+    template<class T>
+    T optionValue(const std::string &optionName);
+
+    //! Sets the value of option. Option should hold same value type already.
+    template<class T>
+    void setOptionValue(const std::string& optionName, T value);
 
 private:
-    std::vector<MinimizerOption> m_options;
-
+    bool exists(const std::string &name);
+    void swapContent(Configurable& other);
+    std::vector<std::shared_ptr<MinimizerOption>> m_options;
 };
+
+template<class T>
+Configurable::option_t Configurable::addOption(const std::string &optionName, T value,
+                                 const std::string &description)
+{
+    if(exists(optionName))
+        throw std::runtime_error("Configurable::addOption() -> Error. Option '" + optionName +
+                                 "' exists.");
+
+    option_t result(new MinimizerOption(optionName, value, description));
+    m_options.push_back(result);
+    return result;
+}
+
+template<class T>
+T Configurable::optionValue(const std::string &optionName)
+{
+    return option(optionName)->get<T>();
+}
+
+template<class T>
+void Configurable::setOptionValue(const std::string& optionName, T value)
+{
+    option(optionName)->value() = value;
+    if(option(optionName)->value().which() != option(optionName)->defaultValue().which())
+        throw std::runtime_error("Configurable::setOptionValue() -> Error. Attempt to set different"
+                                 "type to option '"+optionName+"'");
+}
+
 
 #endif

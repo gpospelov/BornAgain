@@ -16,6 +16,8 @@
 #ifndef ALGORITHMNAMES_H
 #define ALGORITHMNAMES_H
 
+#include <string>
+
 namespace MinimizerNames {
 
 const std::string Minuit = "MinuitMinimizer";

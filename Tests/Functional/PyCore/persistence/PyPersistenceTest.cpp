@@ -45,8 +45,7 @@ void PyPersistenceTest::runTest()
 
     // Run Python script
     std::string py_filename = Utils::FileSystem::GetJoinPath(m_directory, getName() + ".py");
-    std::string command =
-        std::string("PYTHONPATH=") + BUILD_LIB_DIR + " " +
+    std::string command = std::string("PYTHONPATH=") + BUILD_LIB_DIR + " " +
         BORNAGAIN_PYTHON_EXE + " " + py_filename + " " + dat_stem;
     std::cout << command << std::endl/*sic*/; // flush output before calling std::system
     int ret = std::system(command.c_str());
@@ -103,8 +102,7 @@ void PyPersistenceTest::runTest()
 }
 
 //! Returns true if test output and reference file agree.
-bool PyPersistenceTest::compareFilePair(
-    const std::string& dat_fname, const std::string& ref_fname)
+bool PyPersistenceTest::compareFilePair(const std::string& dat_fname, const std::string& ref_fname)
 {
     std::cout << "Comparing dat='" << dat_fname << "' with ref='" << ref_fname << "':\n";
     const std::string extension = Utils::String::split(dat_fname, ".")[2];
@@ -126,8 +124,7 @@ bool PyPersistenceTest::compareIntensityPair(
 }
 
 //! Returns true if YAML files from test output and reference agree.
-bool PyPersistenceTest::compareYamlPair(
-    const std::string& dat_fname, const std::string& ref_fname)
+bool PyPersistenceTest::compareYamlPair(const std::string& dat_fname, const std::string& ref_fname)
 {
     std::fstream fdat(dat_fname);
     std::fstream fref(ref_fname);

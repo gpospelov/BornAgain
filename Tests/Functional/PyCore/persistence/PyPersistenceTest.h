@@ -21,9 +21,8 @@
 
 //! @class PyPersistenceTest
 //! @ingroup standard_samples
-//! @brief A functional test of PyCore (the Python wrapper of BornAgain/Core).
-//!   Performs a given standard simulation, both directly and from a Python dump.
-//!   Invoked from PyPersistenceStandardTest.
+//! @brief A functional test that runs a Python script and compares its output with a reference.
+//!   Invoked from RunPyPersistenceTest.
 
 class PyPersistenceTest : public IReferencedTest
 {

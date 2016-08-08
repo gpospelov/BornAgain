@@ -2,6 +2,15 @@
 # Tests/Functional/Core/CMakeLists.txt
 ############################################################################
 
+set(CORE_STD_OUT_DIR     ${BUILD_REF_DIR}/StandardSuite)
+set(CORE_STD_REF_DIR     ${REFERENCE_DIR}/StandardSuite)
+set(CORE_SPECIAL_REF_DIR ${REFERENCE_DIR}/Special)
+
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DCORE_STD_OUT_DIR=\\\"${CORE_STD_OUT_DIR}\\\"")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DCORE_STD_REF_DIR=\\\"${CORE_STD_REF_DIR}\\\"")
+
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DCORE_SPECIAL_REF_DIR=\\\"${CORE_SPECIAL_REF_DIR}\\\"")
+
 # CoreStandardTest cases:
 set(test_cases
     ApproximationDA

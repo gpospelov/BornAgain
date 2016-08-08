@@ -29,7 +29,7 @@ double IgnoreDenormalized(double value)
     return value;
 }
 
-void WriteOutputDataDoubles(const OutputData<double> &data, std::ostream &output_stream,
+void WriteOutputDataDoubles(const OutputData<double>& data, std::ostream& output_stream,
                             size_t n_columns)
 {
     OutputData<double>::const_iterator it = data.begin();
@@ -47,29 +47,30 @@ void WriteOutputDataDoubles(const OutputData<double> &data, std::ostream &output
     }
 }
 
-void OutputDataWriteINTStrategy::writeOutputData(const OutputData<double> &data,
-                                               std::ostream &output_stream)
+void OutputDataWriteINTStrategy::writeOutputData(const OutputData<double>& data,
+                                               std::ostream& output_stream)
 {
-    output_stream << "# BornAgain Intensity Data" << std::endl;
+    output_stream << "# BornAgain Intensity Data\n\n";
+
+    output_stream << "# reproducibility\n" << data.getVariability() << "\n";
 
     for(size_t i=0; i<data.getRank(); ++i) {
         const IAxis *axis = data.getAxis(i);
         output_stream << std::endl;
-        output_stream << "# axis-" << i << std::endl;
-        output_stream << (*axis) << std::endl;
+        output_stream << "# axis-" << i << "\n";
+        output_stream << (*axis) << "\n";
     }
     size_t n_columns = data.getAxis(data.getRank()-1)->getSize();
 
-    output_stream << std::endl;
-    output_stream << "# data" << std::endl;
+    output_stream << "\n# data\n";
     WriteOutputDataDoubles(data, output_stream, n_columns);
     output_stream << std::endl;
 }
 
 // ----------------------------------------------------------------------------
 
-void OutputDataWriteNumpyTXTStrategy::writeOutputData(const OutputData<double> &data,
-                                                      std::ostream &output_stream)
+void OutputDataWriteNumpyTXTStrategy::writeOutputData(const OutputData<double>& data,
+                                                      std::ostream& output_stream)
 {
     if(data.getRank() != 2)
         throw Exceptions::LogicErrorException(
@@ -103,8 +104,8 @@ OutputDataWriteTiffStrategy::~OutputDataWriteTiffStrategy()
     delete m_d;
 }
 
-void OutputDataWriteTiffStrategy::writeOutputData(const OutputData<double> &data,
-                                                  std::ostream &output_stream)
+void OutputDataWriteTiffStrategy::writeOutputData(const OutputData<double>& data,
+                                                  std::ostream& output_stream)
 {
     m_d->write(data, output_stream);
 }

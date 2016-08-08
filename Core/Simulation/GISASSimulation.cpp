@@ -61,12 +61,14 @@ int GISASSimulation::getNumberOfSimulationElements() const
 
 OutputData<double>* GISASSimulation::getDetectorIntensity(IDetector2D::EAxesUnits units_type) const
 {
-    return m_instrument.getDetectorIntensity(m_intensity_map, units_type);
+    OutputData<double>* ret = m_instrument.getDetectorIntensity(m_intensity_map, units_type);
+    ret->setVariability( m_options.getDefaultVariability() );
+    return ret;
 }
 
 Histogram2D* GISASSimulation::getIntensityData(IDetector2D::EAxesUnits units_type) const
 {
-    const std::unique_ptr<OutputData<double> > data(getDetectorIntensity(units_type));
+    const std::unique_ptr<OutputData<double>> data(getDetectorIntensity(units_type));
     return new Histogram2D(*data);
 }
 

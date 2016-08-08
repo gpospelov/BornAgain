@@ -15309,6 +15309,11 @@ class SimulationOptions(_object):
         """
         return _libBornAgainCore.SimulationOptions_getHardwareConcurrency(self)
 
+
+    def getDefaultVariability(self):
+        """getDefaultVariability(SimulationOptions self) -> double"""
+        return _libBornAgainCore.SimulationOptions_getDefaultVariability(self)
+
     __swig_destroy__ = _libBornAgainCore.delete_SimulationOptions
     __del__ = lambda self: None
 SimulationOptions_swigregister = _libBornAgainCore.SimulationOptions_swigregister
@@ -15807,33 +15812,33 @@ class IHistogram(_object):
         return _libBornAgainCore.IHistogram_findGlobalBin(self, x, y)
 
 
-    def getXaxisIndex(self, globalbin):
+    def getXaxisIndex(self, i):
         """
-        getXaxisIndex(IHistogram self, size_t globalbin) -> int
+        getXaxisIndex(IHistogram self, size_t i) -> int
 
         int IHistogram::getXaxisIndex(size_t globalbin) const
 
         Returns x-axis bin index for given globalbin. For 1D histograms returned value conicide with globalbin value. 
 
         """
-        return _libBornAgainCore.IHistogram_getXaxisIndex(self, globalbin)
+        return _libBornAgainCore.IHistogram_getXaxisIndex(self, i)
 
 
-    def getYaxisIndex(self, globalbin):
+    def getYaxisIndex(self, i):
         """
-        getYaxisIndex(IHistogram self, size_t globalbin) -> int
+        getYaxisIndex(IHistogram self, size_t i) -> int
 
         int IHistogram::getYaxisIndex(size_t globalbin) const
 
         Returns y-axis bin index for given globalbin (for 2D histograms). 
 
         """
-        return _libBornAgainCore.IHistogram_getYaxisIndex(self, globalbin)
+        return _libBornAgainCore.IHistogram_getYaxisIndex(self, i)
 
 
-    def getXaxisValue(self, globalbin):
+    def getXaxisValue(self, i):
         """
-        getXaxisValue(IHistogram self, size_t globalbin) -> double
+        getXaxisValue(IHistogram self, size_t i) -> double
 
         double IHistogram::getXaxisValue(size_t globalbin)
 
@@ -15848,12 +15853,12 @@ class IHistogram(_object):
         The center of corresponding bin of the axis 
 
         """
-        return _libBornAgainCore.IHistogram_getXaxisValue(self, globalbin)
+        return _libBornAgainCore.IHistogram_getXaxisValue(self, i)
 
 
-    def getYaxisValue(self, globalbin):
+    def getYaxisValue(self, i):
         """
-        getYaxisValue(IHistogram self, size_t globalbin) -> double
+        getYaxisValue(IHistogram self, size_t i) -> double
 
         double IHistogram::getYaxisValue(size_t globalbin)
 
@@ -15868,12 +15873,20 @@ class IHistogram(_object):
         The center of corresponding bin of the axis 
 
         """
-        return _libBornAgainCore.IHistogram_getYaxisValue(self, globalbin)
+        return _libBornAgainCore.IHistogram_getYaxisValue(self, i)
+
+
+    def getData(self, *args):
+        """
+        getData(IHistogram self) -> OutputData< CumulativeValue > const
+        getData(IHistogram self) -> OutputData< CumulativeValue > &
+        """
+        return _libBornAgainCore.IHistogram_getData(self, *args)
 
 
     def getBinContent(self, *args):
         """
-        getBinContent(IHistogram self, size_t globalbin) -> double
+        getBinContent(IHistogram self, size_t i) -> double
         getBinContent(IHistogram self, size_t binx, size_t biny) -> double
 
         double IHistogram::getBinContent(size_t binx, size_t biny) const
@@ -15895,33 +15908,33 @@ class IHistogram(_object):
         return _libBornAgainCore.IHistogram_getBinContent(self, *args)
 
 
-    def setBinContent(self, globalbin, value):
+    def setBinContent(self, i, value):
         """
-        setBinContent(IHistogram self, size_t globalbin, double value)
+        setBinContent(IHistogram self, size_t i, double value)
 
         void IHistogram::setBinContent(size_t globalbin, double value)
 
         Sets content of the bin corresponding to the globalbin number. 
 
         """
-        return _libBornAgainCore.IHistogram_setBinContent(self, globalbin, value)
+        return _libBornAgainCore.IHistogram_setBinContent(self, i, value)
 
 
-    def addBinContent(self, globalbin, value):
+    def addBinContent(self, i, value):
         """
-        addBinContent(IHistogram self, size_t globalbin, double value)
+        addBinContent(IHistogram self, size_t i, double value)
 
         void IHistogram::addBinContent(size_t globalbin, double value)
 
         Add the value to the bin. 
 
         """
-        return _libBornAgainCore.IHistogram_addBinContent(self, globalbin, value)
+        return _libBornAgainCore.IHistogram_addBinContent(self, i, value)
 
 
     def getBinError(self, *args):
         """
-        getBinError(IHistogram self, size_t globalbin) -> double
+        getBinError(IHistogram self, size_t i) -> double
         getBinError(IHistogram self, size_t binx, size_t biny) -> double
 
         double IHistogram::getBinError(size_t binx, size_t biny) const
@@ -15934,7 +15947,7 @@ class IHistogram(_object):
 
     def getBinAverage(self, *args):
         """
-        getBinAverage(IHistogram self, size_t globalbin) -> double
+        getBinAverage(IHistogram self, size_t i) -> double
         getBinAverage(IHistogram self, size_t binx, size_t biny) -> double
 
         double IHistogram::getBinAverage(size_t binx, size_t biny) const
@@ -15947,7 +15960,7 @@ class IHistogram(_object):
 
     def getBinNumberOfEntries(self, *args):
         """
-        getBinNumberOfEntries(IHistogram self, size_t globalbin) -> int
+        getBinNumberOfEntries(IHistogram self, size_t i) -> int
         getBinNumberOfEntries(IHistogram self, size_t binx, size_t biny) -> int
 
         int IHistogram::getBinNumberOfEntries(size_t binx, size_t biny) const
@@ -18563,6 +18576,17 @@ class IntensityDataFunctions(_object):
     __getattr__ = lambda self, name: _swig_getattr(self, IntensityDataFunctions, name)
     __repr__ = _swig_repr
 
+    def getRelativeDifference(*args):
+        """
+        getRelativeDifference(IntensityData dat, IntensityData ref) -> double
+        getRelativeDifference(IHistogram dat, IHistogram ref) -> double
+        """
+        return _libBornAgainCore.IntensityDataFunctions_getRelativeDifference(*args)
+
+    if _newclass:
+        getRelativeDifference = staticmethod(getRelativeDifference)
+    __swig_getmethods__["getRelativeDifference"] = lambda x: getRelativeDifference
+
     def createRelativeDifferenceData(data, reference):
         """createRelativeDifferenceData(IntensityData data, IntensityData reference) -> IntensityData"""
         return _libBornAgainCore.IntensityDataFunctions_createRelativeDifferenceData(data, reference)
@@ -18570,17 +18594,6 @@ class IntensityDataFunctions(_object):
     if _newclass:
         createRelativeDifferenceData = staticmethod(createRelativeDifferenceData)
     __swig_getmethods__["createRelativeDifferenceData"] = lambda x: createRelativeDifferenceData
-
-    def getRelativeDifference(*args):
-        """
-        getRelativeDifference(IntensityData result, IntensityData reference) -> double
-        getRelativeDifference(IHistogram result, IHistogram reference) -> double
-        """
-        return _libBornAgainCore.IntensityDataFunctions_getRelativeDifference(*args)
-
-    if _newclass:
-        getRelativeDifference = staticmethod(getRelativeDifference)
-    __swig_getmethods__["getRelativeDifference"] = lambda x: getRelativeDifference
 
     def createClippedDataSet(origin, x1, y1, x2, y2):
         """createClippedDataSet(IntensityData origin, double x1, double y1, double x2, double y2) -> IntensityData"""
@@ -18619,16 +18632,16 @@ class IntensityDataFunctions(_object):
 IntensityDataFunctions_swigregister = _libBornAgainCore.IntensityDataFunctions_swigregister
 IntensityDataFunctions_swigregister(IntensityDataFunctions)
 
+def IntensityDataFunctions_getRelativeDifference(*args):
+    """
+    getRelativeDifference(IntensityData dat, IntensityData ref) -> double
+    IntensityDataFunctions_getRelativeDifference(IHistogram dat, IHistogram ref) -> double
+    """
+    return _libBornAgainCore.IntensityDataFunctions_getRelativeDifference(*args)
+
 def IntensityDataFunctions_createRelativeDifferenceData(data, reference):
     """IntensityDataFunctions_createRelativeDifferenceData(IntensityData data, IntensityData reference) -> IntensityData"""
     return _libBornAgainCore.IntensityDataFunctions_createRelativeDifferenceData(data, reference)
-
-def IntensityDataFunctions_getRelativeDifference(*args):
-    """
-    getRelativeDifference(IntensityData result, IntensityData reference) -> double
-    IntensityDataFunctions_getRelativeDifference(IHistogram result, IHistogram reference) -> double
-    """
-    return _libBornAgainCore.IntensityDataFunctions_getRelativeDifference(*args)
 
 def IntensityDataFunctions_createClippedDataSet(origin, x1, y1, x2, y2):
     """IntensityDataFunctions_createClippedDataSet(IntensityData origin, double x1, double y1, double x2, double y2) -> IntensityData"""
@@ -21596,6 +21609,11 @@ class IntensityData(_object):
         return _libBornAgainCore.IntensityData_copyFrom(self, x)
 
 
+    def meanValues(self):
+        """meanValues(IntensityData self) -> IntensityData"""
+        return _libBornAgainCore.IntensityData_meanValues(self)
+
+
     def addAxis(self, *args):
         """
         addAxis(IntensityData self, IAxis new_axis)
@@ -21776,6 +21794,16 @@ class IntensityData(_object):
 
         """
         return _libBornAgainCore.IntensityData_removeAllMasks(self)
+
+
+    def setVariability(self, variability):
+        """setVariability(IntensityData self, double variability)"""
+        return _libBornAgainCore.IntensityData_setVariability(self, variability)
+
+
+    def getVariability(self):
+        """getVariability(IntensityData self) -> double"""
+        return _libBornAgainCore.IntensityData_getVariability(self)
 
 
     def getAxesBinIndices(self, global_index):
@@ -22022,6 +22050,11 @@ class IntensityData(_object):
         return _libBornAgainCore.IntensityData___imul__(self, right)
 
 
+    def getValue(self, index):
+        """getValue(IntensityData self, size_t index) -> double"""
+        return _libBornAgainCore.IntensityData_getValue(self, index)
+
+
     def getArray(self):
         """getArray(IntensityData self) -> PyObject *"""
         return _libBornAgainCore.IntensityData_getArray(self)
@@ -22039,6 +22072,11 @@ class IntensityData(_object):
 
         """
         return _libBornAgainCore.IntensityData_isInitialized(self)
+
+
+    def allocate(self):
+        """allocate(IntensityData self)"""
+        return _libBornAgainCore.IntensityData_allocate(self)
 
 
     def __getitem__(self, i):
@@ -24526,26 +24564,6 @@ class SimulationFactory(_object):
 
 SimulationFactory_swigregister = _libBornAgainCore.SimulationFactory_swigregister
 SimulationFactory_swigregister(SimulationFactory)
-
-
-
-#  **************************************************************************  #
-#
-#   BornAgain: simulate and fit scattering at grazing incidence
-#
-#   @file      Wrap/swig/CorePython.py
-#   @brief     Python extensions of the SWIG-genrated Python module bornagain.
-#              This file is included by libBornAgainCore.i.
-#
-#   @homepage  http://apps.jcns.fz-juelich.de/BornAgain
-#   @license   GNU General Public License v3 or higher (see COPYING)
-#   @copyright Forschungszentrum Juelich GmbH 2016
-#   @authors   Scientific Computing Group at MLZ Garching
-#   @authors   J. Fisher, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
-#
-#  **************************************************************************  #
-
-
 
 # This file is compatible with both classic and new-style classes.
 

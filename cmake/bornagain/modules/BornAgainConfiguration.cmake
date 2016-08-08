@@ -33,7 +33,7 @@ endif()
 # source directory paths
 # -----------------------------------------------------------------------------
 
-set(BA_REF_DATA_DIR ${CMAKE_SOURCE_DIR}/Tests/ReferenceData/BornAgain)
+set(REFERENCE_DIR ${CMAKE_SOURCE_DIR}/Tests/ReferenceData)
 set(PY_EXAMPLES_DIR ${CMAKE_SOURCE_DIR}/Examples/python)
 
 # -----------------------------------------------------------------------------
@@ -45,10 +45,8 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
 set(BUILD_VAR_DIR ${CMAKE_BINARY_DIR}/var)
-set(BUILD_TMP_DIR ${CMAKE_BINARY_DIR}/tmp)
 set(BUILD_INC_DIR ${CMAKE_BINARY_DIR}/inc)
 set(BUILD_SRC_DIR ${CMAKE_BINARY_DIR}/src)
-set(FAILED_TESTS_DIR ${CMAKE_BINARY_DIR}/tmp) # no longer 00_failed_tests
 configure_file("${TEMPLATE_DIR}/auto_README.in" "${CMAKE_SOURCE_DIR}/auto/README" @ONLY)
 
 file(MAKE_DIRECTORY ${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
@@ -56,10 +54,8 @@ file(MAKE_DIRECTORY ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/bornagain)
 file(MAKE_DIRECTORY ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/exec)
 file(MAKE_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
 file(MAKE_DIRECTORY ${BUILD_VAR_DIR})
-file(MAKE_DIRECTORY ${BUILD_TMP_DIR})
 file(MAKE_DIRECTORY ${BUILD_INC_DIR})
 file(MAKE_DIRECTORY ${BUILD_SRC_DIR})
-file(MAKE_DIRECTORY ${FAILED_TESTS_DIR})
 
 # -----------------------------------------------------------------------------
 # file extensions
@@ -134,7 +130,6 @@ endif()
 
 configure_file(${TEMPLATE_DIR}/CTestCustom.cmake.in ${CMAKE_BINARY_DIR}/CTestCustom.cmake)
 
-configure_file(${TEMPLATE_DIR}/TestConfig.h.in ${BUILD_INC_DIR}/TestConfig.h @ONLY)
 configure_file(${TEMPLATE_DIR}/BAPython.h.in ${BUILD_INC_DIR}/BAPython.h @ONLY)
 configure_file(${TEMPLATE_DIR}/BAVersion.h.in  ${BUILD_INC_DIR}/BAVersion.h @ONLY)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -I${BUILD_INC_DIR}")

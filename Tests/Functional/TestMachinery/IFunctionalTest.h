@@ -40,16 +40,7 @@ public:
     ETestResult getTestResult() const { return m_result; }
     std::string getTestResultString() const;
 
-    std::string getFormattedInfoString() const;
-
-    friend std::ostream& operator<<(std::ostream& ostr, const IFunctionalTest& m) {
-        m.printResults(ostr);
-        return ostr;
-    }
-
 protected:
-    virtual void printResults(std::ostream& ostr) const { ostr << getFormattedInfoString(); }
-
     std::string m_description;
     ETestResult m_result;
     static std::map<ETestResult, std::string> m_result_to_string;

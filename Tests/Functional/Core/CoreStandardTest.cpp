@@ -22,7 +22,7 @@ class CoreStandardTest : public IStandardTest
 public:
     CoreStandardTest() : IStandardTest("CoreStandardTest") {}
     IFunctionalTest* getTest() const { return new CoreTest(
-            getTestName(), getTestDescription(), getSimulation(), getTestThreshold() ); }
+            getName(), getTestDescription(), getSimulation(), getTestThreshold() ); }
 };
 
 //! Runs CoreTest on a standard simulation indicated by argv[1].

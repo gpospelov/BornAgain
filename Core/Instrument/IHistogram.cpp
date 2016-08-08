@@ -16,6 +16,7 @@
 #include "Histogram1D.h"
 #include "Histogram2D.h"
 #include "IntensityDataIOFactory.h"
+#include "Numeric.h"
 #include <memory>
 
 IHistogram::IHistogram()
@@ -36,12 +37,6 @@ IHistogram::IHistogram(const IAxis& axis_x, const IAxis& axis_y)
 {
     m_data.addAxis(axis_x);
     m_data.addAxis(axis_y);
-}
-
-size_t IHistogram::getRank() const
-{
-    throw Exceptions::NotImplementedException("IHistogram::getRank() -> Error. Not implemented.");
-    return 0;
 }
 
 size_t IHistogram::getTotalNumberOfBins() const
@@ -107,31 +102,31 @@ size_t IHistogram::findGlobalBin(double x, double y) const
     return m_data.findGlobalIndex(coordinates);
 }
 
-int IHistogram::getXaxisIndex(size_t globalbin) const
+int IHistogram::getXaxisIndex(size_t i) const
 {
-    return m_data.getAxisBinIndex(globalbin, 0);
+    return m_data.getAxisBinIndex(i, 0);
 }
 
-int IHistogram::getYaxisIndex(size_t globalbin) const
+int IHistogram::getYaxisIndex(size_t i) const
 {
-    return m_data.getAxisBinIndex(globalbin, 1);
+    return m_data.getAxisBinIndex(i, 1);
 }
 
-double IHistogram::getXaxisValue(size_t globalbin)
+double IHistogram::getXaxisValue(size_t i)
 {
     check_x_axis();
-    return m_data.getAxisValue(globalbin, 0);
+    return m_data.getAxisValue(i, 0);
 }
 
-double IHistogram::getYaxisValue(size_t globalbin)
+double IHistogram::getYaxisValue(size_t i)
 {
     check_y_axis();
-    return m_data.getAxisValue(globalbin, 1);
+    return m_data.getAxisValue(i, 1);
 }
 
-double IHistogram::getBinContent(size_t globalbin) const
+double IHistogram::getBinContent(size_t i) const
 {
-    return m_data[globalbin].getContent();
+    return m_data[i].getContent();
 }
 
 double IHistogram::getBinContent(size_t binx, size_t biny) const
@@ -139,19 +134,19 @@ double IHistogram::getBinContent(size_t binx, size_t biny) const
     return getBinContent(getGlobalBin(binx, biny));
 }
 
-void IHistogram::setBinContent(size_t globalbin, double value)
+void IHistogram::setBinContent(size_t i, double value)
 {
-    m_data[globalbin].setContent(value);
+    m_data[i].setContent(value);
 }
 
-void IHistogram::addBinContent(size_t globalbin, double value)
+void IHistogram::addBinContent(size_t i, double value)
 {
-    m_data[globalbin].add(value);
+    m_data[i].add(value);
 }
 
-double IHistogram::getBinError(size_t globalbin) const
+double IHistogram::getBinError(size_t i) const
 {
-    return m_data[globalbin].getRMS();
+    return m_data[i].getRMS();
 }
 
 double IHistogram::getBinError(size_t binx, size_t biny) const
@@ -159,9 +154,9 @@ double IHistogram::getBinError(size_t binx, size_t biny) const
     return getBinError(getGlobalBin(binx, biny));
 }
 
-double IHistogram::getBinAverage(size_t globalbin) const
+double IHistogram::getBinAverage(size_t i) const
 {
-    return m_data[globalbin].getAverage();
+    return m_data[i].getAverage();
 }
 
 double IHistogram::getBinAverage(size_t binx, size_t biny) const
@@ -169,9 +164,9 @@ double IHistogram::getBinAverage(size_t binx, size_t biny) const
     return getBinAverage(getGlobalBin(binx, biny));
 }
 
-int IHistogram::getBinNumberOfEntries(size_t globalbin) const
+int IHistogram::getBinNumberOfEntries(size_t i) const
 {
-    return m_data[globalbin].getNumberOfEntries();
+    return m_data[i].getNumberOfEntries();
 }
 
 int IHistogram::getBinNumberOfEntries(size_t binx, size_t biny) const
@@ -224,7 +219,7 @@ double IHistogram::integral() const
 #ifdef BORNAGAIN_PYTHON
 PyObject* IHistogram::getArray(DataType dataType) const
 {
-    const std::unique_ptr<OutputData<double> > data(createOutputData(dataType));
+    const std::unique_ptr<OutputData<double>> data(createOutputData(dataType));
     return data->getArray();
 }
 #endif // BORNAGAIN_PYTHON
@@ -291,16 +286,16 @@ void IHistogram::init_from_data(const OutputData<double>& source)
 }
 
 //! returns data of requested type for globalbin number
-double IHistogram::getBinData(size_t globalbin, IHistogram::DataType dataType) const
+double IHistogram::getBinData(size_t i, IHistogram::DataType dataType) const
 {
     if(dataType == DataType::INTEGRAL) {
-        return getBinContent(globalbin);
+        return getBinContent(i);
     } else if(dataType == DataType::AVERAGE) {
-        return getBinAverage(globalbin);
+        return getBinAverage(i);
     } else if(dataType == DataType::STANDARD_ERROR) {
-        return getBinError(globalbin);
+        return getBinError(i);
     } else if(dataType == DataType::NENTRIES) {
-        return getBinNumberOfEntries(globalbin);
+        return getBinNumberOfEntries(i);
     } else
         throw Exceptions::LogicErrorException(
             "IHistogram::getBinData() -> Error. Unknown data type.");
@@ -356,13 +351,12 @@ const IHistogram& IHistogram::operator+=(const IHistogram& right)
     if(!hasSameDimensions(right))
         throw Exceptions::LogicErrorException(
             "IHistogram::operator+=() -> Error. Histograms have different dimension");
-
-    for(size_t globalbin=0; globalbin<getTotalNumberOfBins(); ++globalbin)
-        addBinContent(globalbin, right.getBinContent(globalbin));
-
+    for(size_t i=0; i<getTotalNumberOfBins(); ++i)
+        addBinContent(i, right.getBinContent(i));
     return *this;
 }
 
+// TODO merge with IntensityDataFunctions::createRelativeDifferenceData
 IHistogram* IHistogram::relativeDifferenceHistogram(const IHistogram& rhs)
 {
     if(!hasSameDimensions(rhs))

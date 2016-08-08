@@ -97,8 +97,9 @@ def plot(simulation):
     plt.show()
 
 
-def save(simulation, filename):
-    print("Not yet saving anything")
+def save(filename, simulation):
+    ba.yamlDump(filename, "Simulation passed")
+
 
 if __name__ == '__main__':
     ba.simulateThenPlotOrSave(simulate, plot, save)

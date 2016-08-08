@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/PyCore/suite/PyExportStandardTest.cpp
+//! @file      Tests/Functional/PyCore/export/PyExportStandardTest.cpp
 //! @brief     Implements program PyExportStandardTest, to run functional tests
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -22,7 +22,7 @@ class PyExportStandardTest : public IStandardTest
 public:
     PyExportStandardTest() : IStandardTest("PyExport") {}
     IFunctionalTest* getTest() const { return new PyExportTest(
-            getTestName(), getTestDescription(), getSimulation(), getTestThreshold()); }
+            getName(), getTestDescription(), getSimulation(), getTestThreshold()); }
 };
 
 //! Runs PyExportTest on a standard simulation indicated by argv[1].

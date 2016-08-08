@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FUNCTIONALTESTREGISTRY_H
-#define FUNCTIONALTESTREGISTRY_H
+#ifndef STANDARDSIMULATIONSREGISTRY_H
+#define STANDARDSIMULATIONSREGISTRY_H
 
 #include "ISingleton.h" // inheriting from
 #include "SimulationInfo.h"
@@ -39,4 +39,4 @@ private:
     std::map<std::string, SimulationInfo> m_catalogue;
 };
 
-#endif // FUNCTIONALTESTREGISTRY_H
+#endif // STANDARDSIMULATIONSREGISTRY_H

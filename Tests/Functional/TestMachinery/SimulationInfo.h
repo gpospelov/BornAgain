@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FUNCTIONALTESTINFO_H
-#define FUNCTIONALTESTINFO_H
+#ifndef SIMULATIONINFO_H
+#define SIMULATIONINFO_H
 
 #include <string>
 
@@ -42,4 +42,4 @@ public:
     double m_threshold;
 };
 
-#endif // FUNCTIONALTESTINFO_H
+#endif // SIMULATIONINFO_H

@@ -18,6 +18,7 @@
 
 #include "WinDllMacros.h"
 #include <string>
+#include <vector>
 
 //! Utilities to deal with file system.
 
@@ -56,6 +57,9 @@ public:
 
     //! join paths together
     static std::string GetJoinPath(const std::string& spath1, const std::string& spath2);
+
+    //! Returns file names that agree with glob pattern.
+    static std::vector<std::string> glob(const std::string& pattern);
 
 private:
     //! value of argv[0], i.e. the path from working directory to executable module

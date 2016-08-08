@@ -2,19 +2,21 @@
 #include "IntensityDataFunctions.h"
 #include "IntensityDataIOFactory.h"
 #include "SimulationFactory.h"
-#include "TestConfig.h"
+#include "FileSystem.h"
 #include <memory>
 
 int main(int, char**)
 {
-    const std::unique_ptr<OutputData<double> > P_reference00(IntensityDataIOFactory::readOutputData(
-        BA_REF_DATA_DIR + "/polmagcylinders2_reference_00.int.gz"));
-    const std::unique_ptr<OutputData<double> > P_reference01(IntensityDataIOFactory::readOutputData(
-        BA_REF_DATA_DIR + "/polmagcylinders2_reference_01.int.gz"));
-    const std::unique_ptr<OutputData<double> > P_reference10(IntensityDataIOFactory::readOutputData(
-        BA_REF_DATA_DIR + "/polmagcylinders2_reference_10.int.gz"));
-    const std::unique_ptr<OutputData<double> > P_reference11(IntensityDataIOFactory::readOutputData(
-        BA_REF_DATA_DIR + "/polmagcylinders2_reference_11.int.gz"));
+    const std::string trunc = Utils::FileSystem::GetJoinPath(CORE_SPECIAL_REF_DIR,
+                                                             "/polmagcylinders2_reference_");
+    const std::unique_ptr<OutputData<double> >
+        P_reference00(IntensityDataIOFactory::readOutputData(trunc + "00.int.gz"));
+    const std::unique_ptr<OutputData<double> >
+        P_reference01(IntensityDataIOFactory::readOutputData(trunc + "01.int.gz"));
+    const std::unique_ptr<OutputData<double> >
+        P_reference10(IntensityDataIOFactory::readOutputData(trunc + "10.int.gz"));
+    const std::unique_ptr<OutputData<double> >
+        P_reference11(IntensityDataIOFactory::readOutputData(trunc + "11.int.gz"));
 
     SimulationFactory sim_registry;
     GISASSimulation* simulation = sim_registry.createItem("polmagcylinders2");

@@ -17,6 +17,7 @@
 #include <boost/algorithm/string.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <thread>
+#include <glob.h>
 
 #ifdef DEBUG_FPE
 #ifdef Q_OS_MAC
@@ -74,16 +75,6 @@ std::string Utils::String::join(const std::vector<std::string>& joinable, const 
     for(size_t i=0; i<n-1; ++i)
         result += joinable[i] + joint;
     result += joinable[n-1];
-    return result;
-}
-
-//! Returns flattened filename, i.e. all directory separator ('/' or '\') are replaced by '_'.
-std::string Utils::String::flatFilename(const std::string& fname)
-{
-    std::string result = fname;
-    for (size_t i=0; i<result.size(); ++i)
-        if (result[i]=='/' || result[i]=='\\')
-            result[i] = '_';
     return result;
 }
 

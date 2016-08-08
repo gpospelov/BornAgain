@@ -58,7 +58,6 @@ def get_simulation(monte_carlo_integration=True):
                                      200, alpha_min*deg, alpha_max*deg)
     simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
     simulation.getOptions().setMonteCarloIntegration(True, 100)
-
     return simulation
 
 
@@ -70,8 +69,8 @@ def simulate():
     simulation = get_simulation(monte_carlo_integration=True)
     simulation.setSample(sample)
     simulation.runSimulation()
-    return simulation.getIntensityData()
-
+    result = simulation.getIntensityData()
+    return result
 
 if __name__ == '__main__':
     ba.simulateThenPlotOrSave(simulate)

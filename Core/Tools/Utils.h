@@ -46,9 +46,6 @@ public:
 
     //! Returns string obtain by joining vector elements
     static std::string join(const std::vector<std::string>& joinable, const std::string& joint);
-
-    //! Returns flattened filename, i.e. all directory separator ('/' or '\') are replaced by '_'.
-    static std::string flatFilename(const std::string& filename);
 };
 
 
@@ -65,18 +62,15 @@ public:
     StringUsageMap(){}
     ~StringUsageMap(){}
 
-    //! Adds string to the map to count number of times it was used
+    //! Adds string to the map, or increments usage counter
     void add(std::string name)
     {
         m_current_string = name;
         iterator_t it = m_nstringmap.find(name);
-        if(it != m_nstringmap.end() ) {
-            // such string already exists, incremeting usage counter
+        if (it != m_nstringmap.end() )
             (*it).second++;
-        } else {
-            // such string doesnt exist, insert it with counter=1
+        else
             m_nstringmap.insert(nstringmap_t::value_type(name,1));
-        }
     }
 
     //! access to the map of strings
@@ -92,7 +86,6 @@ private:
     nstringmap_t m_nstringmap;
 };
 
-
 class BA_CORE_API_ System
 {
 public:
@@ -102,6 +95,7 @@ public:
 
 //! enables exception throw in the case of NaN, Inf
 BA_CORE_API_ void EnableFloatingPointExceptions();
-}
+
+} // namespace Utils
 
 #endif // UTILS_H

@@ -2,6 +2,11 @@
 # Tests/Functional/PyCore/suite/CMakeLists.txt
 ############################################################################
 
+set(PYEXPORT_TMP_DIR ${BUILD_REF_DIR}/PyExport)
+file(MAKE_DIRECTORY ${PYEXPORT_TMP_DIR})
+
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DPYEXPORT_TMP_DIR=\\\"${PYEXPORT_TMP_DIR}\\\"")
+
 set(test_cases
     ApproximationDA
     ApproximationLMA

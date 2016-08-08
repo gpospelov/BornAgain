@@ -16,7 +16,7 @@
 #ifndef CORETEST_H
 #define CORETEST_H
 
-#include "IFunctionalTest.h" // inheriting from
+#include "IReferencedTest.h" // inheriting from
 
 template <class T> class OutputData;
 class GISASSimulation;
@@ -27,25 +27,18 @@ class GISASSimulation;
 //!   Performs a given standard simulation, and compares results with reference data.
 //!   Invoked from CoreStandardTest.
 
-class CoreTest : public IFunctionalTest
+class CoreTest : public IReferencedTest
 {
 public:
-    CoreTest(
-        const std::string& name, const std::string& description, GISASSimulation* simulation,
-        double threshold);
+    CoreTest(const std::string& name, const std::string& description,
+             GISASSimulation* simulation, double threshold);
     ~CoreTest() final;
 
     void runTest() final;
-    void printResults(std::ostream& ostr) const final;
 
 private:
-    std::string getSimulationResultsFileNameAndPath() const;
-    OutputData<double>* getIntensityData() const;
-
     GISASSimulation* m_simulation;
-    double m_threshold;
     OutputData<double>* m_reference;
-    double m_difference;
     std::string m_ref_filename;
 };
 

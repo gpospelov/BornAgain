@@ -1,5 +1,5 @@
-#ifndef UTILSTEST_H
-#define UTILSTEST_H
+#ifndef LABELMAPTEST_H
+#define LABELMAPTEST_H
 
 #include "SampleLabelHandler.h"
 #include "INamed.h"
@@ -153,4 +153,4 @@ TEST_F(LabelMapTest, LabelMapReInsert)
     EXPECT_EQ(omap.value(P_n2.get()), "99.0");
 }
 
-#endif // UTILSTEST_H
+#endif // LABELMAPTEST_H

@@ -300,7 +300,7 @@ inline auto BasicVector3D<T>::cross(const BasicVector3D<U> &v) const
 template<> BA_CORE_API_ BasicVector3D<double> BasicVector3D<double>::conj() const;
 
 template<> BA_CORE_API_ BasicVector3D<std::complex<double>>
-	BasicVector3D<std::complex<double>>::conj() const;
+    BasicVector3D<std::complex<double>>::conj() const;
 
 template<> BA_CORE_API_ double BasicVector3D<double>::phi() const;
 
@@ -311,6 +311,9 @@ BA_CORE_API_ BasicVector3D<std::complex<double>> toComplexVector(
         const BasicVector3D<double>& real_vector);
 
 template<> BA_CORE_API_ BasicVector3D<std::complex<double>> BasicVector3D<double>::complex() const;
+
+template<> BA_CORE_API_ BasicVector3D<std::complex<double>>
+    BasicVector3D<std::complex<double>>::unit() const;
 
 }  // namespace Geometry
 

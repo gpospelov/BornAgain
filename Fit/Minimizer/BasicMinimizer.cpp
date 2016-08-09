@@ -37,3 +37,8 @@ void BasicMinimizer::setAlgorithmName(const std::string &algorithmName)
     m_algorithmName = algorithmName;
 }
 
+void BasicMinimizer::propagateOptions()
+{
+
+}
+

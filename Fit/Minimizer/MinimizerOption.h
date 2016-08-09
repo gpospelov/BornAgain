@@ -24,7 +24,7 @@
 //! @ingroup fitting_internal
 //! @brief The MinimizerOption class is intended to store a single option for minimization
 //! algorithm. Int, double, string values are available.
-//! Relies on https://github.com/mapbox/variant
+//! Relies on https://github.com/mapbox/variant, will be switched to std::variant in C++-17.
 
 class BA_CORE_API_ MinimizerOption
 {

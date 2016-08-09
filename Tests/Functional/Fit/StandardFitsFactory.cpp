@@ -16,6 +16,7 @@
 #include "StandardFitsFactory.h"
 #include "MinimizerTests.h"
 #include "RectDetectorFitTest.h"
+#include "ExperimentalFitTest.h"
 #include <boost/format.hpp>
 
 StandardFitsFactory::StandardFitsFactory()
@@ -59,6 +60,11 @@ StandardFitsFactory::StandardFitsFactory()
         "RectDetectorFit",
         create_new<RectDetectorFitTest>,
         "Fit of rectangular detector, with crop and masks applied");
+
+    registerItem(
+        "ExperimentalFit",
+        create_new<ExperimentalFitTest>,
+        "Experimental fit on the way to refactoring");
 }
 
 IFunctionalTest* StandardFitsFactory::createTest(const std::string& test_name)

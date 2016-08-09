@@ -28,6 +28,7 @@ class BA_CORE_API_ BasicMinimizer : public IMinimizer
 public:
     explicit BasicMinimizer(const std::string &minimizerName,
                             const std::string &algorithmName = std::string());
+    virtual ~BasicMinimizer(){}
 
     //! Returns name of the minimizer.
     std::string minimizerName() const;
@@ -37,6 +38,9 @@ public:
 
     //! Sets minimization algorithm.
     void setAlgorithmName(const std::string &algorithmName);
+
+protected:
+   virtual void propagateOptions();
 
 private:
     std::string m_minimizerName;

@@ -33,6 +33,7 @@ Configurable &Configurable::operator=(const Configurable &other)
 
 Configurable::option_t Configurable::option(const std::string &optionName)
 {
+//    const_cast<option_t >(static_cast<const Configurable*>(this)->option(optionName));
     for(auto option: m_options) {
         if(option->name() == optionName)
             return option;
@@ -40,6 +41,18 @@ Configurable::option_t Configurable::option(const std::string &optionName)
 
     throw std::runtime_error("Configurable::getOption() -> Error. No option with name '"
                              + optionName + "'.");
+}
+
+const Configurable::option_t Configurable::option(const std::string &optionName) const
+{
+    for(const option_t option: m_options) {
+        if(option->name() == optionName)
+            return option;
+    }
+
+    throw std::runtime_error("Configurable::getOption() -> Error. No option with name '"
+                             + optionName + "'.");
+
 }
 
 bool Configurable::exists(const std::string &name)

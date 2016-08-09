@@ -41,9 +41,10 @@ public:
                        const std::string &description = std::string());
 
     option_t option(const std::string &optionName);
+    const option_t option(const std::string &optionName) const;
 
     template<class T>
-    T optionValue(const std::string &optionName);
+    T optionValue(const std::string &optionName) const;
 
     //! Sets the value of option. Option should hold same value type already.
     template<class T>
@@ -69,7 +70,7 @@ Configurable::option_t Configurable::addOption(const std::string &optionName, T 
 }
 
 template<class T>
-T Configurable::optionValue(const std::string &optionName)
+T Configurable::optionValue(const std::string &optionName) const
 {
     return option(optionName)->get<T>();
 }

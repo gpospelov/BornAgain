@@ -103,39 +103,39 @@ void PyPersistenceTest::runTest()
 }
 
 //! Returns true if test output and reference file agree.
-bool PyPersistenceTest::compareFilePair(const std::string& dat_fname, const std::string& ref_fname)
+bool PyPersistenceTest::compareFilePair(const std::string& dat_fpath, const std::string& ref_fpath)
 {
-    std::cout << "Comparing dat='" << dat_fname << "' with ref='" << ref_fname << "':\n";
-    const std::string extension = Utils::String::split(dat_fname, ".")[2];
+    std::cout << "Comparing dat='" << dat_fpath << "' with ref='" << ref_fpath << "':\n";
+    const std::string extension = Utils::String::split(FileSystem::filename(dat_fpath), ".")[2];
     if      ( extension=="int" )
-        return compareIntensityPair( dat_fname, ref_fname );
+        return compareIntensityPair( dat_fpath, ref_fpath );
     if ( extension=="yaml" )
-        return compareYamlPair( dat_fname, ref_fname );
+        return compareYamlPair( dat_fpath, ref_fpath );
     std::cerr << "Failed: Unsupported file type '" << extension << "'.\n";
     return false;
 }
 
 //! Returns true if intensity maps from test output and reference file agree reasonably.
 bool PyPersistenceTest::compareIntensityPair(
-    const std::string& dat_fname, const std::string& ref_fname)
+    const std::string& dat_fpath, const std::string& ref_fpath)
 {
-    const OutputData<double>* dat = IntensityDataIOFactory::readOutputData( dat_fname );
-    const OutputData<double>* ref = IntensityDataIOFactory::readOutputData( ref_fname );
+    const OutputData<double>* dat = IntensityDataIOFactory::readOutputData( dat_fpath );
+    const OutputData<double>* ref = IntensityDataIOFactory::readOutputData( ref_fpath );
     return compareIntensityMaps(*dat, *ref)==SUCCESS;
 }
 
 //! Returns true if YAML files from test output and reference agree.
-bool PyPersistenceTest::compareYamlPair(const std::string& dat_fname, const std::string& ref_fname)
+bool PyPersistenceTest::compareYamlPair(const std::string& dat_fpath, const std::string& ref_fpath)
 {
-    std::fstream fdat(dat_fname);
-    std::fstream fref(ref_fname);
+    std::fstream fdat(dat_fpath);
+    std::fstream fref(ref_fpath);
     for( size_t i = 1; ; ++i ) {
         std::string datline;
         std::string refline;
         std::getline(fdat, datline);
         std::getline(fref, refline);
         if (datline!=refline) {
-            std::cerr << "Line " << i << " of " << dat_fname << " and " << ref_fname
+            std::cerr << "Line " << i << " of " << dat_fpath << " and " << ref_fpath
                       << " differs:\n";
             std::cerr << "dat: '" << datline << "'\n";
             std::cerr << "ref: '" << refline << "'\n";
@@ -144,7 +144,7 @@ bool PyPersistenceTest::compareYamlPair(const std::string& dat_fname, const std:
         if (fdat.eof() && fref.eof())
             break;
         if (fdat.eof() || fref.eof()) {
-            std::cerr << "File length of " << dat_fname << " and " << ref_fname << " differs.\n";
+            std::cerr << "File length of " << dat_fpath << " and " << ref_fpath << " differs.\n";
             return false;
         }
     }

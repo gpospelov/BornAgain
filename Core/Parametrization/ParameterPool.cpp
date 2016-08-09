@@ -67,7 +67,7 @@ void ParameterPool::addParameter(RealParameter* newPar)
     for (const auto* par: m_params )
         if( par->getName()==newPar->getName() )
             throw std::runtime_error(
-                "BUG in ParameterPool::addParameter(): "
+                "Bug in ParameterPool::addParameter(): "
                 "Parameter '"+newPar->getName()+"' is already registered");
     m_params.push_back(newPar);
 }
@@ -210,8 +210,7 @@ void ParameterPool::report_set_value_error(const std::string& parname, double va
     try {
         ostr << " Parameter limits " << getParameter(parname)->getAttLimits() << ".\n";
     } catch (...) {
-        throw std::runtime_error(
-            "DOUBLE BUG in ParameterPool: cannot even report the error");
+        throw std::runtime_error("Bug de luxe in ParameterPool: cannot even report the error");
     }
     throw std::runtime_error(ostr.str());
 }

@@ -21,23 +21,3 @@ FormFactorTrivial::FormFactorTrivial()
 {
     setName(BornAgain::FormFactorTrivialType);
 }
-
-FormFactorTrivial* FormFactorTrivial::clone() const
-{
-    return new FormFactorTrivial();
-}
-
-void FormFactorTrivial::accept(ISampleVisitor* visitor) const
-{
-    visitor->visit(this);
-}
-
-double FormFactorTrivial::getRadialExtension() const
-{
-    return 1.0;
-}
-
-complex_t FormFactorTrivial::evaluate_for_q(const cvector_t) const
-{
-    return 1.0;
-}

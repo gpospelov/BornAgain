@@ -277,6 +277,9 @@ Returns angle with respect to another vector.
 %feature("docstring")  Geometry::BasicVector3D::complex "BA_CORE_API_ BasicVector3D< std::complex< double > > Geometry::BasicVector3D< double >::complex() const
 ";
 
+%feature("docstring")  Geometry::BasicVector3D::unit "BA_CORE_API_ BasicVector3D< std::complex< double > > Geometry::BasicVector3D< std::complex< double > >::unit() const
+";
+
 
 // File: classBeam.xml
 %feature("docstring") Beam "
@@ -1528,15 +1531,6 @@ Returns a Python script that sets up a simulation and runs it if invoked as main
 %feature("docstring") Exceptions::FileNotIsOpenException "";
 
 %feature("docstring")  Exceptions::FileNotIsOpenException::FileNotIsOpenException "Exceptions::FileNotIsOpenException::FileNotIsOpenException(const std::string &message)
-";
-
-
-// File: classUtils_1_1FileSystem.xml
-%feature("docstring") Utils::FileSystem "
-
-Class collecting utilities to work with file system.
-
-C++ includes: FileSystem.h
 ";
 
 
@@ -4508,7 +4502,7 @@ C++ includes: FormFactorTrivial.h
 %feature("docstring")  FormFactorTrivial::FormFactorTrivial "FormFactorTrivial::FormFactorTrivial()
 ";
 
-%feature("docstring")  FormFactorTrivial::clone "FormFactorTrivial * FormFactorTrivial::clone() const
+%feature("docstring")  FormFactorTrivial::clone "FormFactorTrivial* FormFactorTrivial::clone() const
 
 Returns a clone of this  ISample object. 
 ";
@@ -4523,7 +4517,7 @@ Calls the  ISampleVisitor's visit method.
 Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
 
-%feature("docstring")  FormFactorTrivial::evaluate_for_q "complex_t FormFactorTrivial::evaluate_for_q(const cvector_t q) const final
+%feature("docstring")  FormFactorTrivial::evaluate_for_q "complex_t FormFactorTrivial::evaluate_for_q(const cvector_t) const final
 
 evaluate scattering amplitude for complex wavevector
 
@@ -6646,7 +6640,7 @@ C++ includes: IHistogram.h
 %feature("docstring")  IHistogram::clone "virtual IHistogram* IHistogram::clone() const =0
 ";
 
-%feature("docstring")  IHistogram::getRank "size_t IHistogram::getRank() const
+%feature("docstring")  IHistogram::getRank "virtual size_t IHistogram::getRank() const =0
 
 Returns number of histogram dimensions. 
 ";
@@ -6728,17 +6722,17 @@ Value on y-axis (for 2D histograms)
 Closest global bin index 
 ";
 
-%feature("docstring")  IHistogram::getXaxisIndex "int IHistogram::getXaxisIndex(size_t globalbin) const
+%feature("docstring")  IHistogram::getXaxisIndex "int IHistogram::getXaxisIndex(size_t i) const
 
 Returns x-axis bin index for given globalbin. For 1D histograms returned value conicide with globalbin value. 
 ";
 
-%feature("docstring")  IHistogram::getYaxisIndex "int IHistogram::getYaxisIndex(size_t globalbin) const
+%feature("docstring")  IHistogram::getYaxisIndex "int IHistogram::getYaxisIndex(size_t i) const
 
 Returns y-axis bin index for given globalbin (for 2D histograms). 
 ";
 
-%feature("docstring")  IHistogram::getXaxisValue "double IHistogram::getXaxisValue(size_t globalbin)
+%feature("docstring")  IHistogram::getXaxisValue "double IHistogram::getXaxisValue(size_t i)
 
 Returns the value on x-axis corresponding to the global bin index.
 
@@ -6751,7 +6745,7 @@ The global bin index
 The center of corresponding bin of the axis 
 ";
 
-%feature("docstring")  IHistogram::getYaxisValue "double IHistogram::getYaxisValue(size_t globalbin)
+%feature("docstring")  IHistogram::getYaxisValue "double IHistogram::getYaxisValue(size_t i)
 
 Returns the value on y-axis corresponding to the 2D histogram global bin index.
 
@@ -6764,7 +6758,7 @@ The global bin index
 The center of corresponding bin of the axis 
 ";
 
-%feature("docstring")  IHistogram::getBinContent "double IHistogram::getBinContent(size_t globalbin) const
+%feature("docstring")  IHistogram::getBinContent "double IHistogram::getBinContent(size_t i) const
 
 Returns content (accumulated value) of the bin with given index.
 
@@ -6775,6 +6769,12 @@ globalbin:
 The global bin index
 
 The value accumulated by the bin (integral) 
+";
+
+%feature("docstring")  IHistogram::getData "const OutputData<CumulativeValue>& IHistogram::getData() const 
+";
+
+%feature("docstring")  IHistogram::getData "OutputData<CumulativeValue>& IHistogram::getData()
 ";
 
 %feature("docstring")  IHistogram::getBinContent "double IHistogram::getBinContent(size_t binx, size_t biny) const
@@ -6793,17 +6793,17 @@ y-axis bin index
 The value accumulated by the bin (integral) 
 ";
 
-%feature("docstring")  IHistogram::setBinContent "void IHistogram::setBinContent(size_t globalbin, double value)
+%feature("docstring")  IHistogram::setBinContent "void IHistogram::setBinContent(size_t i, double value)
 
 Sets content of the bin corresponding to the globalbin number. 
 ";
 
-%feature("docstring")  IHistogram::addBinContent "void IHistogram::addBinContent(size_t globalbin, double value)
+%feature("docstring")  IHistogram::addBinContent "void IHistogram::addBinContent(size_t i, double value)
 
 Add the value to the bin. 
 ";
 
-%feature("docstring")  IHistogram::getBinError "double IHistogram::getBinError(size_t globalbin) const
+%feature("docstring")  IHistogram::getBinError "double IHistogram::getBinError(size_t i) const
 
 Returns error of the bin with given index. 
 ";
@@ -6813,7 +6813,7 @@ Returns error of the bin with given index.
 Returns error of the bin with given indices (for 2D histograms). 
 ";
 
-%feature("docstring")  IHistogram::getBinAverage "double IHistogram::getBinAverage(size_t globalbin) const
+%feature("docstring")  IHistogram::getBinAverage "double IHistogram::getBinAverage(size_t i) const
 
 Returns average value in the bin with given index. 
 ";
@@ -6823,7 +6823,7 @@ Returns average value in the bin with given index.
 Returns average value of the bin with given indices (for 2D histograms). 
 ";
 
-%feature("docstring")  IHistogram::getBinNumberOfEntries "int IHistogram::getBinNumberOfEntries(size_t globalbin) const
+%feature("docstring")  IHistogram::getBinNumberOfEntries "int IHistogram::getBinNumberOfEntries(size_t i) const
 
 Returns number of entries in the bin with given index. 
 ";
@@ -9398,6 +9398,9 @@ C++ includes: LLData.h
 %feature("docstring")  LLData::~LLData "LLData< T >::~LLData()
 ";
 
+%feature("docstring")  LLData::meanValues "LLData<double> LLData< T >::meanValues() const 
+";
+
 %feature("docstring")  LLData::atCoordinate "T & LLData< T >::atCoordinate(int *coordinate)
 ";
 
@@ -10141,6 +10144,9 @@ C++ includes: OutputData.h
 %feature("docstring")  OutputData::copyShapeFrom "void OutputData< T >::copyShapeFrom(const OutputData< U > &other)
 ";
 
+%feature("docstring")  OutputData::meanValues "OutputData< double > * OutputData< T >::meanValues() const 
+";
+
 %feature("docstring")  OutputData::addAxis "void OutputData< T >::addAxis(const IAxis &new_axis)
 ";
 
@@ -10230,6 +10236,12 @@ Adds mask that will be used by iterators.
 %feature("docstring")  OutputData::removeAllMasks "void OutputData< T >::removeAllMasks()
 
 Remove all masks. 
+";
+
+%feature("docstring")  OutputData::setVariability "void OutputData< T >::setVariability(double variability)
+";
+
+%feature("docstring")  OutputData::getVariability "double OutputData< T >::getVariability() const 
 ";
 
 %feature("docstring")  OutputData::getAxesBinIndices "std::vector< int > OutputData< T >::getAxesBinIndices(size_t global_index) const
@@ -10410,6 +10422,11 @@ Sets new values to raw data vector.
 Sets new values to raw data array. 
 ";
 
+%feature("docstring")  OutputData::getValue "double OutputData< T >::getValue(size_t index) const
+
+Returns value or summed value, depending on T. 
+";
+
 %feature("docstring")  OutputData::hasSameDimensions "bool OutputData< T >::hasSameDimensions(const OutputData< U > &right) const
 
 Returns true if object have same dimensions and number of axes bins.
@@ -10429,6 +10446,11 @@ Returns true if object have same dimensions and shape of axis.
 returns data as Python numpy array
 
 returns true if object is correctly initialized 
+";
+
+%feature("docstring")  OutputData::allocate "void OutputData< T >::allocate()
+
+memory allocation for current dimensions configuration 
 ";
 
 
@@ -12629,6 +12651,9 @@ Sets the batch and thread information to be used.
 %feature("docstring")  SimulationOptions::getHardwareConcurrency "int SimulationOptions::getHardwareConcurrency() const 
 ";
 
+%feature("docstring")  SimulationOptions::getDefaultVariability "double SimulationOptions::getDefaultVariability() const 
+";
+
 
 // File: classSizeDistributionDAModelBuilder.xml
 %feature("docstring") SizeDistributionDAModelBuilder "
@@ -13043,7 +13068,7 @@ C++ includes: Utils.h
 
 %feature("docstring")  Utils::StringUsageMap::add "void Utils::StringUsageMap::add(std::string name)
 
-Adds string to the map to count number of times it was used. 
+Adds string to the map, or increments usage counter. 
 ";
 
 %feature("docstring")  Utils::StringUsageMap::begin "iterator_t Utils::StringUsageMap::begin()
@@ -13401,6 +13426,38 @@ C++ includes: WavevectorInfo.h
 
 // File: namespaceExceptions.xml
 %feature("docstring")  Exceptions::LogExceptionMessage "void Exceptions::LogExceptionMessage(const std::string &message)
+";
+
+
+// File: namespaceFileSystem.xml
+%feature("docstring")  FileSystem::GetWorkingPath "std::string FileSystem::GetWorkingPath()
+
+Returns path to the current (working) directory. 
+";
+
+%feature("docstring")  FileSystem::GetHomePath "std::string FileSystem::GetHomePath()
+
+Returns path to BornAgain home directory. 
+";
+
+%feature("docstring")  FileSystem::GetFileExtension "std::string FileSystem::GetFileExtension(const std::string &name)
+
+Returns file extension. 
+";
+
+%feature("docstring")  FileSystem::CreateDirectory "bool FileSystem::CreateDirectory(const std::string &dir_name)
+
+creates directory in current directory 
+";
+
+%feature("docstring")  FileSystem::GetJoinPath "std::string FileSystem::GetJoinPath(const std::string &spath1, const std::string &spath2)
+
+join paths together 
+";
+
+%feature("docstring")  FileSystem::glob "std::vector< std::string > FileSystem::glob(const std::string &pattern)
+
+Returns file names that agree with glob pattern. 
 ";
 
 

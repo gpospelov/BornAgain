@@ -566,7 +566,7 @@ void FormFactorPolyhedron::assert_platonic() const
     pyramidal_volume /= m_faces.size();
     for( const auto& Gk: m_faces )
         if (std::abs(Gk.pyramidalVolume()-pyramidal_volume) > 160*eps*pyramidal_volume) {
-            std::cerr<<std::setprecision(16)<<"BUG: pyr_volume(this face)="<<
+            std::cerr<<std::setprecision(16)<<"Bug: pyr_volume(this face)="<<
                 Gk.pyramidalVolume()<<" vs pyr_volume(avge)="<<pyramidal_volume<<"\n";
             throw std::runtime_error("Deviant pyramidal volume in "+getName());
         }

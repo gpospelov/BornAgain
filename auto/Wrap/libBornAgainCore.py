@@ -1999,7 +1999,7 @@ class kvector_t(_object):
         """
         unit(kvector_t self) -> kvector_t
 
-        BasicVector3D< std::complex< double > > Geometry::BasicVector3D< std::complex< double > >::unit() const
+        BA_CORE_API_ BasicVector3D< std::complex< double > > Geometry::BasicVector3D< std::complex< double > >::unit() const
 
         """
         return _libBornAgainCore.kvector_t_unit(self)
@@ -2449,7 +2449,7 @@ class cvector_t(_object):
         """
         unit(cvector_t self) -> cvector_t
 
-        BasicVector3D< std::complex< double > > Geometry::BasicVector3D< std::complex< double > >::unit() const
+        BA_CORE_API_ BasicVector3D< std::complex< double > > Geometry::BasicVector3D< std::complex< double > >::unit() const
 
         """
         return _libBornAgainCore.cvector_t_unit(self)
@@ -14495,7 +14495,7 @@ class FormFactorTrivial(IFormFactorBorn):
         """
         clone(FormFactorTrivial self) -> FormFactorTrivial
 
-        FormFactorTrivial * FormFactorTrivial::clone() const
+        FormFactorTrivial* FormFactorTrivial::clone() const
 
         Returns a clone of this  ISample object. 
 
@@ -14527,11 +14527,11 @@ class FormFactorTrivial(IFormFactorBorn):
         return _libBornAgainCore.FormFactorTrivial_getRadialExtension(self)
 
 
-    def evaluate_for_q(self, q):
+    def evaluate_for_q(self, arg2):
         """
-        evaluate_for_q(FormFactorTrivial self, cvector_t q) -> complex_t
+        evaluate_for_q(FormFactorTrivial self, cvector_t arg2) -> complex_t
 
-        complex_t FormFactorTrivial::evaluate_for_q(const cvector_t q) const final
+        complex_t FormFactorTrivial::evaluate_for_q(const cvector_t) const final
 
         evaluate scattering amplitude for complex wavevector
 
@@ -14542,7 +14542,7 @@ class FormFactorTrivial(IFormFactorBorn):
         wavevector transfer q=k_i-k_f 
 
         """
-        return _libBornAgainCore.FormFactorTrivial_evaluate_for_q(self, q)
+        return _libBornAgainCore.FormFactorTrivial_evaluate_for_q(self, arg2)
 
     __swig_destroy__ = _libBornAgainCore.delete_FormFactorTrivial
     __del__ = lambda self: None
@@ -15311,7 +15311,12 @@ class SimulationOptions(_object):
 
 
     def getDefaultVariability(self):
-        """getDefaultVariability(SimulationOptions self) -> double"""
+        """
+        getDefaultVariability(SimulationOptions self) -> double
+
+        double SimulationOptions::getDefaultVariability() const 
+
+        """
         return _libBornAgainCore.SimulationOptions_getDefaultVariability(self)
 
     __swig_destroy__ = _libBornAgainCore.delete_SimulationOptions
@@ -15649,7 +15654,7 @@ class IHistogram(_object):
         """
         getRank(IHistogram self) -> size_t
 
-        size_t IHistogram::getRank() const
+        virtual size_t IHistogram::getRank() const =0
 
         Returns number of histogram dimensions. 
 
@@ -15816,7 +15821,7 @@ class IHistogram(_object):
         """
         getXaxisIndex(IHistogram self, size_t i) -> int
 
-        int IHistogram::getXaxisIndex(size_t globalbin) const
+        int IHistogram::getXaxisIndex(size_t i) const
 
         Returns x-axis bin index for given globalbin. For 1D histograms returned value conicide with globalbin value. 
 
@@ -15828,7 +15833,7 @@ class IHistogram(_object):
         """
         getYaxisIndex(IHistogram self, size_t i) -> int
 
-        int IHistogram::getYaxisIndex(size_t globalbin) const
+        int IHistogram::getYaxisIndex(size_t i) const
 
         Returns y-axis bin index for given globalbin (for 2D histograms). 
 
@@ -15840,7 +15845,7 @@ class IHistogram(_object):
         """
         getXaxisValue(IHistogram self, size_t i) -> double
 
-        double IHistogram::getXaxisValue(size_t globalbin)
+        double IHistogram::getXaxisValue(size_t i)
 
         Returns the value on x-axis corresponding to the global bin index.
 
@@ -15860,7 +15865,7 @@ class IHistogram(_object):
         """
         getYaxisValue(IHistogram self, size_t i) -> double
 
-        double IHistogram::getYaxisValue(size_t globalbin)
+        double IHistogram::getYaxisValue(size_t i)
 
         Returns the value on y-axis corresponding to the 2D histogram global bin index.
 
@@ -15880,6 +15885,9 @@ class IHistogram(_object):
         """
         getData(IHistogram self) -> OutputData< CumulativeValue > const
         getData(IHistogram self) -> OutputData< CumulativeValue > &
+
+        OutputData<CumulativeValue>& IHistogram::getData()
+
         """
         return _libBornAgainCore.IHistogram_getData(self, *args)
 
@@ -15912,7 +15920,7 @@ class IHistogram(_object):
         """
         setBinContent(IHistogram self, size_t i, double value)
 
-        void IHistogram::setBinContent(size_t globalbin, double value)
+        void IHistogram::setBinContent(size_t i, double value)
 
         Sets content of the bin corresponding to the globalbin number. 
 
@@ -15924,7 +15932,7 @@ class IHistogram(_object):
         """
         addBinContent(IHistogram self, size_t i, double value)
 
-        void IHistogram::addBinContent(size_t globalbin, double value)
+        void IHistogram::addBinContent(size_t i, double value)
 
         Add the value to the bin. 
 
@@ -21610,7 +21618,12 @@ class IntensityData(_object):
 
 
     def meanValues(self):
-        """meanValues(IntensityData self) -> IntensityData"""
+        """
+        meanValues(IntensityData self) -> IntensityData
+
+        OutputData< double > * OutputData< T >::meanValues() const 
+
+        """
         return _libBornAgainCore.IntensityData_meanValues(self)
 
 
@@ -21797,12 +21810,22 @@ class IntensityData(_object):
 
 
     def setVariability(self, variability):
-        """setVariability(IntensityData self, double variability)"""
+        """
+        setVariability(IntensityData self, double variability)
+
+        void OutputData< T >::setVariability(double variability)
+
+        """
         return _libBornAgainCore.IntensityData_setVariability(self, variability)
 
 
     def getVariability(self):
-        """getVariability(IntensityData self) -> double"""
+        """
+        getVariability(IntensityData self) -> double
+
+        double OutputData< T >::getVariability() const 
+
+        """
         return _libBornAgainCore.IntensityData_getVariability(self)
 
 
@@ -22051,7 +22074,14 @@ class IntensityData(_object):
 
 
     def getValue(self, index):
-        """getValue(IntensityData self, size_t index) -> double"""
+        """
+        getValue(IntensityData self, size_t index) -> double
+
+        double OutputData< T >::getValue(size_t index) const
+
+        Returns value or summed value, depending on T. 
+
+        """
         return _libBornAgainCore.IntensityData_getValue(self, index)
 
 
@@ -22075,7 +22105,14 @@ class IntensityData(_object):
 
 
     def allocate(self):
-        """allocate(IntensityData self)"""
+        """
+        allocate(IntensityData self)
+
+        void OutputData< T >::allocate()
+
+        memory allocation for current dimensions configuration 
+
+        """
         return _libBornAgainCore.IntensityData_allocate(self)
 
 

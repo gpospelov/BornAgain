@@ -45,7 +45,7 @@ void RealParameter::checkNull() const
 {
     if(isNull())
         throw std::runtime_error(
-            "BUG in RealParameter::getValue() -> Attempt to access uninitialised pointer.");
+            "Bug in RealParameter::getValue() -> Attempt to access uninitialised pointer.");
 }
 
 void RealParameter::setValue(double value)

@@ -9,26 +9,28 @@ if (NUMPY_INCLUDE_DIR)
 endif (NUMPY_INCLUDE_DIR)
 
 if(NOT Numpy_FIND_QUIETLY)
-EXEC_PROGRAM ("${PYTHON_EXECUTABLE}"
-  ARGS "-c \"import numpy; print(numpy.get_include())\""
-  OUTPUT_VARIABLE NUMPY_INCLUDE_DIR
-  RETURN_VALUE NUMPY_NOT_FOUND)
+    execute_process(COMMAND ${PYTHON_EXECUTABLE} -c "import numpy; print(numpy.get_include())"
+        OUTPUT_VARIABLE NUMPY_INCLUDE_DIR
+        RESULT_VARIABLE NUMPY_NOT_FOUND
+        OUTPUT_STRIP_TRAILING_WHITESPACE)
 endif()
 
 if (NUMPY_INCLUDE_DIR MATCHES "Traceback")
     # Did not successfully include numpy
+    message(ERROR "Unexpected NUMPY_INCLUDE_DIR='${NUMPY_INCLUDE_DIR}'.")
     set(NUMPY_FOUND FALSE)
 else()
     # successful
+    message(STATUS "Found NUMPY_INCLUDE_DIR='${NUMPY_INCLUDE_DIR}'.")
     if(NOT EXISTS ${NUMPY_INCLUDE_DIR}/numpy/arrayobject.h)
         message(STATUS "Can't find numpy/arrayobject.h, please install python-numpy-devel package")
     else()
         set (NUMPY_FOUND TRUE)
         set (NUMPY_INCLUDE_DIR ${NUMPY_INCLUDE_DIR} CACHE STRING "Numpy include path")
-        EXEC_PROGRAM ("${PYTHON_EXECUTABLE}"
-        ARGS "-c \"import numpy; print(numpy.__version__)\""
-        OUTPUT_VARIABLE numpy_version_number
-        RETURN_VALUE numpy_return_value)
+        execute_process(COMMAND ${PYTHON_EXECUTABLE} -c "import numpy; print(numpy.__version__)"
+            OUTPUT_VARIABLE numpy_version_number
+            RESULT_VARIABLE numpy_return_value
+            OUTPUT_STRIP_TRAILING_WHITESPACE)
     endif()
 endif()
 

@@ -4,7 +4,9 @@
 
 #----Test if clang setup works----------------------------------------------------------------------
 if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
-    exec_program(${CMAKE_C_COMPILER} ARGS "-v" OUTPUT_VARIABLE _clang_version_info)
+    execute_process(COMMAND ${CMAKE_C_COMPILER} -v
+        OUTPUT_VARIABLE _clang_version_info
+        OUTPUT_STRIP_TRAILING_WHITESPACE)
     string(REGEX REPLACE "^.*[ ]([0-9]+)\\.[0-9].*$" "\\1" CLANG_MAJOR "${_clang_version_info}")
     string(REGEX REPLACE "^.*[ ][0-9]+\\.([0-9]).*$" "\\1" CLANG_MINOR "${_clang_version_info}")
 else()
@@ -14,7 +16,9 @@ endif()
 
 #---Obtain the major and minor version of the GNU compiler------------------------------------------
 if (CMAKE_COMPILER_IS_GNUCXX)
-    exec_program(${CMAKE_C_COMPILER} ARGS "-dumpversion" OUTPUT_VARIABLE _gcc_version_info)
+    execute_process(COMMAND ${CMAKE_C_COMPILER} -dumpversion
+        OUTPUT_VARIABLE _gcc_version_info
+        OUTPUT_STRIP_TRAILING_WHITESPACE)
     string(REGEX REPLACE "^([0-9]+).*$"                   "\\1" GCC_MAJOR ${_gcc_version_info})
     string(REGEX REPLACE "^[0-9]+\\.([0-9]+).*$"          "\\1" GCC_MINOR ${_gcc_version_info})
     string(REGEX REPLACE "^[0-9]+\\.[0-9]+\\.([0-9]+).*$" "\\1" GCC_PATCH ${_gcc_version_info})

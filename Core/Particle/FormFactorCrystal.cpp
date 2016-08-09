@@ -53,7 +53,7 @@ double FormFactorCrystal::getRadialExtension() const
 complex_t FormFactorCrystal::evaluate_for_q(const cvector_t) const
 {
     throw Exceptions::LogicErrorException(
-        "BUG: evaluate_for_q() should never be called explicitly for FormFactorCrystal");
+        "Bug: evaluate_for_q() should never be called explicitly for FormFactorCrystal");
 }
 
 complex_t FormFactorCrystal::evaluate(const WavevectorInfo& wavevectors) const

@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/JobWidgets/JobMessagePanel.h
-//! @brief     Declares class JobMessagePanel
+//! @brief     Defines class JobMessagePanel
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,7 +17,7 @@
 #ifndef JOBMESSAGEPANEL_H
 #define JOBMESSAGEPANEL_H
 
-#include "InfoPanel.h" // inheriting from
+#include "InfoPanel.h"
 #include <QColor>
 
 class QTextEdit;

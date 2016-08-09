@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Particle/FormFactorWeighted.h
-//! @brief     Declares class FormFactorWeighted.
+//! @brief     Defines class FormFactorWeighted.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 #ifndef FORMFACTORWEIGHTED_H
 #define FORMFACTORWEIGHTED_H
 
-#include "IFormFactor.h" // inheriting from
+#include "IFormFactor.h"
 
 //! @class FormFactorWeighted
 //! @ingroup formfactors_internal

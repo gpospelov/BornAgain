@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Tests/Functional/GUI/GUITest.h
-//! @brief     Declares class GUITest
+//! @brief     Defines class GUITest
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,7 +17,7 @@
 #ifndef GUITEST_H
 #define GUITEST_H
 
-#include "IReferencedTest.h" // inheriting from
+#include "IReferencedTest.h"
 #include "OutputData.h"
 
 class GISASSimulation;

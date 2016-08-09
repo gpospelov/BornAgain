@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Mask/Mask.h
-//! @brief     Declares classes Mask, MaskIndexModulus, MaskCoordinates.
+//! @brief     Defines classes Mask, MaskIndexModulus, MaskCoordinates.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 #ifndef MASK_H
 #define MASK_H
 
-#include "ICloneable.h" // inheriting from
+#include "ICloneable.h"
 #include <cstddef>
 
 using std::size_t;

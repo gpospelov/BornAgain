@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Models/JobModel.h
-//! @brief     Declares class JobModel
+//! @brief     Defines class JobModel
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 #ifndef JOBMODEL_H
 #define JOBMODEL_H
 
-#include "SessionModel.h" // inheriting from
+#include "SessionModel.h"
 class JobQueueData;
 class JobItem;
 class MultiLayerItem;

@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/CommonWidgets/InfoPanelToolBar.h
-//! @brief     Declares class InfoPanelToolBar
+//! @brief     Defines class InfoPanelToolBar
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,7 +17,7 @@
 #ifndef INFOPANELTOOLBAR_H
 #define INFOPANELTOOLBAR_H
 
-#include "StyledToolBar.h" // inheriting from
+#include "StyledToolBar.h"
 
 class QToolButton;
 

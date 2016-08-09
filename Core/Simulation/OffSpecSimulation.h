@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Simulation/OffSpecSimulation.h
-//! @brief     Declares class OffSpecSimulation.
+//! @brief     Defines class OffSpecSimulation.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 #ifndef OFFSPECSIMULATION_H
 #define OFFSPECSIMULATION_H
 
-#include "Simulation.h" // inheriting from
+#include "Simulation.h"
 #include "Instrument.h"
 
 class Histogram2D;

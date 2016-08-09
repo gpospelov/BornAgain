@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Simulation/SpecularSimulation.h
-//! @brief     Declares class SpecularSimulation.
+//! @brief     Defines class SpecularSimulation.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 #ifndef SPECULARSIMULATION_H
 #define SPECULARSIMULATION_H
 
-#include "ICloneable.h" // inheriting from
+#include "ICloneable.h"
 #include "ILayerRTCoefficients.h"
 #include "IParameterized.h"
 #include "OutputData.h"

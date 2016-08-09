@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/InfoWidgets/ProjectLoadWarningDialog.h
-//! @brief     Declares class ProjectLoadWarningDialog
+//! @brief     Defines class ProjectLoadWarningDialog
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Instrument/IIntensityNormalizer.h
-//! @brief     Declares classes IOutputDataNormalizer,
+//! @brief     Defines classes IOutputDataNormalizer,
 //!              OutputDataNormalizer, OutputDataSimpleNormalizer.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -17,7 +17,7 @@
 #ifndef IINTENSITYNORMALIZER_H
 #define IINTENSITYNORMALIZER_H
 
-#include "IParameterized.h" // inheriting from
+#include "IParameterized.h"
 #include "OutputData.h"
 
 

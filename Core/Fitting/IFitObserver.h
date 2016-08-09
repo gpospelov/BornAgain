@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Fitting/IFitObserver.h
-//! @brief     Declares class IFitObserver.
+//! @brief     Defines class IFitObserver.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 #ifndef IFITOBSERVER_H
 #define IFITOBSERVER_H
 
-#include "IObserver.h" // inheriting from
+#include "IObserver.h"
 class FitSuite;
 
 //! @class IFitObserver

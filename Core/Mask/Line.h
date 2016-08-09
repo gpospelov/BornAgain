@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Mask/Line.h
-//! @brief     Declares class Line.
+//! @brief     Defines class Line.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 #ifndef LINE_H
 #define LINE_H
 
-#include "IShape2D.h" // inheriting from
+#include "IShape2D.h"
 
 namespace Geometry {
 

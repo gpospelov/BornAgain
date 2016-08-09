@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Particle/Crystal.h
-//! @brief     Declares class Crystal.
+//! @brief     Defines class Crystal.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 #ifndef CRYSTAL_H
 #define CRYSTAL_H
 
-#include "IClusteredParticles.h" // inheriting from
+#include "IClusteredParticles.h"
 #include "Lattice.h"
 #include "Particle.h"
 #include "ParticleComposition.h"

@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Models/MinimizerItem.h
-//! @brief     Declares MinimizerItem class
+//! @brief     Defines MinimizerItem class
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,7 +17,7 @@
 #ifndef MINIMIZERITEM_H
 #define MINIMIZERITEM_H
 
-#include "SessionItem.h" // inheriting from
+#include "SessionItem.h"
 
 class IMinimizer;
 

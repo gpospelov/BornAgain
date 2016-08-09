@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Tests/Functional/Core/CoreTest.h
-//! @brief     Declares class CoreTest.
+//! @brief     Defines class CoreTest.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 #ifndef CORETEST_H
 #define CORETEST_H
 
-#include "IReferencedTest.h" // inheriting from
+#include "IReferencedTest.h"
 
 template <class T> class OutputData;
 class GISASSimulation;

@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Tests/UnitTests/GUI/verify_throw_macro.h
-//! @brief     Declares macro to test exception throw
+//! @brief     Defines macro to test exception throw
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

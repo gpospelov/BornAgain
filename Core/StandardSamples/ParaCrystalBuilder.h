@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/StandardSamples/ParaCrystalBuilder.h
-//! @brief     Declares classes of ParaCrystalBuilder family.
+//! @brief     Defines classes of ParaCrystalBuilder family.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 #ifndef PARACRYSTALBUILDER_H
 #define PARACRYSTALBUILDER_H
 
-#include "ISampleBuilder.h" // inheriting from
+#include "ISampleBuilder.h"
 
 class IFTDistribution2D;
 class ISample;

@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Simulation/DWBASimulation.h
-//! @brief     Declares class DWBASimulation.
+//! @brief     Defines class DWBASimulation.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 #ifndef DWBASIMULATION_H
 #define DWBASIMULATION_H
 
-#include "ISimulation.h" // inheriting from
+#include "ISimulation.h"
 #include "GISASSimulation.h"
 #include "ProgressHandlerDWBA.h"
 

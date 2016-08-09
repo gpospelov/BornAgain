@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/HardParticle/FormFactorTruncatedCube.h
-//! @brief     Declares class FormFactorTruncatedCube.
+//! @brief     Defines class FormFactorTruncatedCube.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 #ifndef FORMFACTORTRUNCATEDCUBE_H
 #define FORMFACTORTRUNCATEDCUBE_H
 
-#include "FormFactorPolyhedron.h" // inheriting from
+#include "FormFactorPolyhedron.h"
 
 //! @class FormFactorTruncatedCube
 //! @ingroup formfactors

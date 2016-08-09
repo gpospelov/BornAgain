@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Tests/Functional/Fit/IMinimizerTest.h
-//! @brief     Declares class IMinimizerTest.
+//! @brief     Defines class IMinimizerTest.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 #ifndef IMINIMIZERTEST_H
 #define IMINIMIZERTEST_H
 
-#include "IFunctionalTest.h" // inheriting from
+#include "IFunctionalTest.h"
 #include "OutputData.h"
 #include <memory>
 

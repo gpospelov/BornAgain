@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Parametrization/FitParameterLinked.h
-//! @brief     Declares class FitParameterLinked.
+//! @brief     Defines class FitParameterLinked.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 #ifndef FITPARAMETERLINKED_H
 #define FITPARAMETERLINKED_H
 
-#include "FitParameter.h" // inheriting from
+#include "FitParameter.h"
 #include <vector>
 
 class ParameterPool;

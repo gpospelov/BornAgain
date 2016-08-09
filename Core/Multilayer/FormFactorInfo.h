@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Multilayer/FormFactorInfo.h
-//! @brief     Declares class FormFactorInfo.
+//! @brief     Defines class FormFactorInfo.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 #ifndef FORMFACTORINFO_H
 #define FORMFACTORINFO_H
 
-#include "ICloneable.h" // inheriting from
+#include "ICloneable.h"
 
 //! @class FormFactorInfo
 //! @ingroup formfactors_internal

@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Aggregate/FTDistributions1D.h
-//! @brief     Declares interface class IFTDistribution1D, and children thereof
+//! @brief     Defines interface class IFTDistribution1D, and children thereof
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 #ifndef FTDISTRIBUTIONS1D_H
 #define FTDISTRIBUTIONS1D_H
 
-#include "IParameterized.h" // inheriting from
+#include "IParameterized.h"
 
 // ************************************************************************** //
 //! @class IFTDistribution1D

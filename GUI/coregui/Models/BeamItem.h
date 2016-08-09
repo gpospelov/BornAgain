@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Models/BeamItem.h
-//! @brief     Declares class BeamItem
+//! @brief     Defines class BeamItem
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,7 +17,7 @@
 #ifndef BEAMITEM_H
 #define BEAMITEM_H
 
-#include "SessionItem.h" // inheriting from
+#include "SessionItem.h"
 
 class BA_CORE_API_ BeamItem : public SessionItem
 {

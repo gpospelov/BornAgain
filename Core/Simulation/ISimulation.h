@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Simulation/ISimulation.h
-//! @brief     Declares interface class ISimulation.
+//! @brief     Defines interface class ISimulation.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 #ifndef ISIMULATION_H
 #define ISIMULATION_H
 
-#include "ICloneable.h" // inheriting from
+#include "ICloneable.h"
 #include <string>
 
 //! @class ISimulation

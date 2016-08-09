@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Models/SampleModel.h
-//! @brief     Declares class SampleModel
+//! @brief     Defines class SampleModel
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,7 +17,7 @@
 #ifndef SAMPLEMODEL_H
 #define SAMPLEMODEL_H
 
-#include "SessionModel.h" // inheriting from
+#include "SessionModel.h"
 
 class MultiLayerItem;
 class BA_CORE_API_ SampleModel : public SessionModel

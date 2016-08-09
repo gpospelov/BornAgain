@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/MaskWidgets/MaskAllView.h
-//! @brief     Declares MaskAllView class
+//! @brief     Defines MaskAllView class
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,7 +17,7 @@
 #ifndef MASKALLVIEW_H
 #define MASKALLVIEW_H
 
-#include "IMaskView.h" // inheriting from
+#include "IMaskView.h"
 
 //! This is a view of MaskAllItem which covers whole detector plane with mask value=true.
 

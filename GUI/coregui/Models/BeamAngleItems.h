@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Models/BeamAngleItems.h
-//! @brief     Declares class BeamAngleItems
+//! @brief     Defines class BeamAngleItems
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,7 +17,7 @@
 #ifndef BEAMANGLEITEMS_H
 #define BEAMANGLEITEMS_H
 
-#include "BeamDistributionItem.h" // inheriting from
+#include "BeamDistributionItem.h"
 
 class BA_CORE_API_ BeamAzimuthalAngleItem : public BeamDistributionItem
 {

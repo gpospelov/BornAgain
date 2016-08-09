@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Lattice/Lattice1DParameters.h
-//! @brief     Declares class Lattice1DParameters.
+//! @brief     Defines class Lattice1DParameters.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

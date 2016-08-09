@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Models/JobItem.h
-//! @brief     Declares class JobItem
+//! @brief     Defines class JobItem
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,7 +17,7 @@
 #ifndef JOBITEM_H
 #define JOBITEM_H
 
-#include "SessionItem.h" // inheriting from
+#include "SessionItem.h"
 class IntensityDataItem;
 class GISASSimulation;
 class MultiLayerItem;

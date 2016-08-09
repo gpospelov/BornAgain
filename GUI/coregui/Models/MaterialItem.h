@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Models/MaterialItem.h
-//! @brief     Declares class MaterialItem
+//! @brief     Defines class MaterialItem
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,7 +17,7 @@
 #ifndef MATERIALITEM_H
 #define MATERIALITEM_H
 
-#include "SessionItem.h" // inheriting from
+#include "SessionItem.h"
 
 class IMaterial;
 

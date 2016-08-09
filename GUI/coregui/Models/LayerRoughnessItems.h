@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Models/LayerRoughnessItems.h
-//! @brief     Declares classes LayerRoughnessItems
+//! @brief     Defines classes LayerRoughnessItems
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -18,7 +18,7 @@
 #define LAYERROUGHNESSITEMS_H
 
 
-#include "SessionItem.h" // inheriting from
+#include "SessionItem.h"
 
 class BA_CORE_API_ LayerZeroRoughnessItem : public SessionItem
 {

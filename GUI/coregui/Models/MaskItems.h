@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Models/MaskItems.h
-//! @brief     Declares MaskItems classes
+//! @brief     Defines MaskItems classes
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,7 +17,7 @@
 #ifndef MASKITEMS_H
 #define MASKITEMS_H
 
-#include "SessionItem.h" // inheriting from
+#include "SessionItem.h"
 
 namespace Geometry {
 class IShape2D;

@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/MaskWidgets/EllipseView.h
-//! @brief     Declares EllipseView class
+//! @brief     Defines EllipseView class
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,7 +17,7 @@
 #ifndef ELLIPSEVIEW_H
 #define ELLIPSEVIEW_H
 
-#include "IMaskView.h" // inheriting from
+#include "IMaskView.h"
 #include "SizeHandleElement.h"
 #include <QMap>
 

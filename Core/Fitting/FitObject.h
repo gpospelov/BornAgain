@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Fitting/FitObject.h
-//! @brief     Declares class FitObject.
+//! @brief     Defines class FitObject.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 #ifndef FITOBJECT_H
 #define FITOBJECT_H
 
-#include "IParameterized.h" // inheriting from
+#include "IParameterized.h"
 #include "OutputData.h"
 #include <memory>
 

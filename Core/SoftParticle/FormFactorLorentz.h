@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/SoftParticle/FormFactorLorentz.h
-//! @brief     Declares class FormFactorLorentz.
+//! @brief     Defines class FormFactorLorentz.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 #ifndef FORMFACTORLORENTZ_H
 #define FORMFACTORLORENTZ_H
 
-#include "IFormFactorBorn.h" // inheriting from
+#include "IFormFactorBorn.h"
 
 //! @class FormFactorLorentz
 //! @ingroup formfactors

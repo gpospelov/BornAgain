@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/MaskWidgets/RectangleView.h
-//! @brief     Declares RectangleView class
+//! @brief     Defines RectangleView class
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,7 +17,7 @@
 #ifndef RECTANGLEVIEW_H
 #define RECTANGLEVIEW_H
 
-#include "IMaskView.h" // inheriting from
+#include "IMaskView.h"
 #include "SizeHandleElement.h"
 #include <QMap>
 

@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/HardParticle/FormFactorDodecahedron.h
-//! @brief     Declares class FormFactorDodecahedron.
+//! @brief     Defines class FormFactorDodecahedron.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 #ifndef FORMFACTORDODECAHEDRON_H
 #define FORMFACTORDODECAHEDRON_H
 
-#include "FormFactorPolyhedron.h" // inheriting from
+#include "FormFactorPolyhedron.h"
 
 //! @class FormFactorDodecahedron
 //! @ingroup formfactors

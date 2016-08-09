@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Models/TransformFromDomain.h
-//! @brief     Declares namespace TransformFromDomain
+//! @brief     Defines namespace TransformFromDomain
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

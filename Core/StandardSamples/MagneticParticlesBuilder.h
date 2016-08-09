@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/StandardSamples/MagneticParticlesBuilder.h
-//! @brief     Declares class to build magnetic samples
+//! @brief     Defines class to build magnetic samples
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 #ifndef MAGNETICPARTICLESBUILDER_H
 #define MAGNETICPARTICLESBUILDER_H
 
-#include "ISampleBuilder.h" // inheriting from
+#include "ISampleBuilder.h"
 
 class ISample;
 

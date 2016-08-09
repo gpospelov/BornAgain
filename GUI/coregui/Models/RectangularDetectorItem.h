@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Models/RectangularDetectorItem.h
-//! @brief     Declares class RectangularDetectorItem
+//! @brief     Defines class RectangularDetectorItem
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,7 +17,7 @@
 #ifndef RECTANGULARDETECTORITEM_H
 #define RECTANGULARDETECTORITEM_H
 
-#include "SessionItem.h" // inheriting from
+#include "SessionItem.h"
 #include "Vectors3D.h"
 
 class IDetector2D;

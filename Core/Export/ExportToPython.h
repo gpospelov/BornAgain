@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Export/ExportToPython.h
-//! @brief     Declares class ExportToPython.
+//! @brief     Defines class ExportToPython.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 #ifndef EXPORTTOPYTHON_H
 #define EXPORTTOPYTHON_H
 
-#include "ISampleVisitor.h" // inheriting from
+#include "ISampleVisitor.h"
 #include <string>
 
 class GISASSimulation;

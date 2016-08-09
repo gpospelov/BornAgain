@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Mask/IShape2D.h
-//! @brief     Declares basic class for all 2D shapes.
+//! @brief     Defines basic class for all 2D shapes.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 #ifndef ISHAPE2D_H
 #define ISHAPE2D_H
 
-#include "ICloneable.h" // inheriting from
+#include "ICloneable.h"
 #include <iostream>
 
 struct Bin1D;

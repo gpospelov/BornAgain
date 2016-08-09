@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Instrument/SphericalDetector.h
-//! @brief     Declares class SphericalDetector.
+//! @brief     Defines class SphericalDetector.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,8 +16,8 @@
 #ifndef SPHERICALDETECTOR_H
 #define SPHERICALDETECTOR_H
 
-#include "IDetector2D.h" // inheriting from
-#include "IPixelMap.h" // inheriting from
+#include "IDetector2D.h"
+#include "IPixelMap.h"
 
 //! @class SphericalDetector
 //! @ingroup simulation

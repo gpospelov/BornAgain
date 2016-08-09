@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Aggregate/SizeSpacingCorrelationApproximationStrategy.h
-//! @brief     Declares class SizeSpacingCorrelationApproximationStrategy.
+//! @brief     Defines class SizeSpacingCorrelationApproximationStrategy.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 #ifndef SIZESPACINGCORRELATIONAPPROXIMATIONSTRATEGY_H
 #define SIZESPACINGCORRELATIONAPPROXIMATIONSTRATEGY_H
 
-#include "IInterferenceFunctionStrategy.h" // inheriting from
+#include "IInterferenceFunctionStrategy.h"
 
 class SimulationElement;
 

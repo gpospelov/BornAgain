@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Mask/MaskCoordinateFunction.h
-//! @brief     Declares classes MaskCoordinateFunction,
+//! @brief     Defines classes MaskCoordinateFunction,
 //!              MaskCoordinateRectangleFunction, MaskCoordinateEllipseFunction
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -17,7 +17,7 @@
 #ifndef MASKCOORDINATEFUNCTION_H
 #define MASKCOORDINATEFUNCTION_H
 
-#include "ICloneable.h" // inheriting from
+#include "ICloneable.h"
 #include <cstddef>
 
 using std::size_t;

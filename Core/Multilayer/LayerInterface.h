@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Multilayer/LayerInterface.h
-//! @brief     Declares class LayerInterface.
+//! @brief     Defines class LayerInterface.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 #ifndef LAYERINTERFACE_H
 #define LAYERINTERFACE_H
 
-#include "ICompositeSample.h" // inheriting from
+#include "ICompositeSample.h"
 #include "LayerRoughness.h"
 
 

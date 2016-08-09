@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Instrument/ChiSquaredModule.h
-//! @brief     Declares class ChiSquaredModule.
+//! @brief     Defines class ChiSquaredModule.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 #ifndef CHISQUAREDMODULE_H
 #define CHISQUAREDMODULE_H
 
-#include "IChiSquaredModule.h" // inheriting from
+#include "IChiSquaredModule.h"
 
 //! @class ChiSquaredModule
 //! @ingroup algorithms

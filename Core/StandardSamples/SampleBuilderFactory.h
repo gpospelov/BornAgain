@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/StandardSamples/SampleBuilderFactory.h
-//! @brief     Declares class SampleBuilderFactory.
+//! @brief     Defines class SampleBuilderFactory.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 #ifndef SAMPLEBUILDERFACTORY_H
 #define SAMPLEBUILDERFACTORY_H
 
-#include "IFactory.h" // inheriting from
+#include "IFactory.h"
 #include "ISampleBuilder.h"
 
 class ISample;

@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/HardParticle/FormFactorBox.h
-//! @brief     Declares class FormFactorBox.
+//! @brief     Defines class FormFactorBox.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 #ifndef FORMFACTORBOX_H
 #define FORMFACTORBOX_H
 
-#include "IFormFactorBorn.h" // inheriting from
+#include "IFormFactorBorn.h"
 
 //! @class FormFactorBox
 //! @ingroup formfactors

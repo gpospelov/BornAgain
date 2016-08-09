@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Models/ParameterTranslators.h
-//! @brief     Declares interface IParameterTranslator and subclasses
+//! @brief     Defines interface IParameterTranslator and subclasses
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

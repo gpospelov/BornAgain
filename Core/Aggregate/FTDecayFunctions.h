@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Aggregate/FTDecayFunctions.h
-//! @brief     Declares classes IFTDecayFunction1D, IFTDecayFunction2D,
+//! @brief     Defines classes IFTDecayFunction1D, IFTDecayFunction2D,
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 #ifndef FTDECAYFUNCTIONS_H
 #define FTDECAYFUNCTIONS_H
 
-#include "IParameterized.h" // inheriting from
+#include "IParameterized.h"
 #include "Units.h"
 
 //! @class IFTDecayFunction1D

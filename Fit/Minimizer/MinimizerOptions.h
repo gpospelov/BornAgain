@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Fit/Minimizer/MinimizerOptions.h
-//! @brief     Declares class MinimizerOptions.
+//! @brief     Defines class MinimizerOptions.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

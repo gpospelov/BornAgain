@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Fit/RootWrapper/ROOTMinimizerFunction.h
-//! @brief     Declares classes ROOTMinimizerChiSquaredFunction and ROOTMinimizerGradientFunction
+//! @brief     Defines classes ROOTMinimizerChiSquaredFunction and ROOTMinimizerGradientFunction
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

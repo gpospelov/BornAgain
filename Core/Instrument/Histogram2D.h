@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Instrument/Histogram2D.h
-//! @brief     Declares class Histogram2D.
+//! @brief     Defines class Histogram2D.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 #ifndef HISTOGRAM2D_H
 #define HISTOGRAM2D_H
 
-#include "IHistogram.h" // inheriting from
+#include "IHistogram.h"
 
 #ifdef BORNAGAIN_PYTHON
 #ifndef PyObject_HEAD

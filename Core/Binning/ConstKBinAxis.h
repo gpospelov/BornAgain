@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Binning/ConstKBinAxis.h
-//! @brief     Declares class ConstKBinAxis.
+//! @brief     Defines class ConstKBinAxis.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 #ifndef CONSTKBINAXIS_H
 #define CONSTKBINAXIS_H
 
-#include "VariableBinAxis.h" // inheriting from
+#include "VariableBinAxis.h"
 
 //! @class ConstKBinAxis
 //! @ingroup tools

@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Simulation/GISASSimulation.h
-//! @brief     Declares class GISASSimulation.
+//! @brief     Defines class GISASSimulation.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 #ifndef GISASSIMULATION_H
 #define GISASSIMULATION_H
 
-#include "Simulation.h" // inheriting from
+#include "Simulation.h"
 #include "Instrument.h"
 
 class ISample;

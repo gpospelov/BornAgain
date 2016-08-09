@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Rotation/Rotations.h
-//! @brief     Declares IRotation classes.
+//! @brief     Defines IRotation classes.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 #ifndef ROTATIONS_H
 #define ROTATIONS_H
 
-#include "ISample.h" // inheriting from
+#include "ISample.h"
 #include "Transform3D.h"
 
 //! @class IRotation

@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/AccordionWidget/ClickableFrame.h
-//! @brief     Declares AccordionWidget class
+//! @brief     Defines AccordionWidget class
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

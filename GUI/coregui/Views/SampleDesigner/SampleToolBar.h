@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/SampleDesigner/SampleToolBar.h
-//! @brief     Declares class SampleToolBar
+//! @brief     Defines class SampleToolBar
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,7 +17,7 @@
 #ifndef SAMPLETOOLBAR_H
 #define SAMPLETOOLBAR_H
 
-#include "StyledToolBar.h" // inheriting from
+#include "StyledToolBar.h"
 
 class QAction;
 class QToolButton;

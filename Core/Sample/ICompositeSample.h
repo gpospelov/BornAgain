@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Sample/ICompositeSample.h
-//! @brief     Declares interface class ICompositeSample.
+//! @brief     Defines interface class ICompositeSample.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 #ifndef ICOMPOSITESAMPLE_H
 #define ICOMPOSITESAMPLE_H
 
-#include "ISample.h" // inheriting from
+#include "ISample.h"
 
 class ISampleVisitor;
 

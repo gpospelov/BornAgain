@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Models/ParameterTreeItems.h
-//! @brief     Declares classes for ParameterTreeItems
+//! @brief     Defines classes for ParameterTreeItems
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,7 +17,7 @@
 #ifndef PARAMETERTREEITEMS_H
 #define PARAMETERTREEITEMS_H
 
-#include "SessionItem.h" // inheriting from
+#include "SessionItem.h"
 
 //! ParameterTreeItems is a collection of items necessary to form a tuning tree for
 //! real time widget.

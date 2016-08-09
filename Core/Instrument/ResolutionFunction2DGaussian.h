@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Instrument/ResolutionFunction2DGaussian.h
-//! @brief     Declares class ResolutionFunction2DGaussian.
+//! @brief     Defines class ResolutionFunction2DGaussian.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 #ifndef RESOLUTIONFUNCTION2DGAUSSIAN_H
 #define RESOLUTIONFUNCTION2DGAUSSIAN_H
 
-#include "IResolutionFunction2D.h" // inheriting from
+#include "IResolutionFunction2D.h"
 
 //! @class ResolutionFunction2DGaussian
 //! @ingroup algorithms_internal

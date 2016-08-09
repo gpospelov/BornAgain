@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Tests/Functional/TestMachinery/SimulationInfo.h
-//! @brief     Declares class SimulationInfo.
+//! @brief     Defines class SimulationInfo.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

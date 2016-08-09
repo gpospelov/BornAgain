@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Models/InterferenceFunctionItems.h
-//! @brief     Declares InterferenceFunctionItems's classes
+//! @brief     Defines InterferenceFunctionItems's classes
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,7 +17,7 @@
 #ifndef INTERFERENCEFUNCTIONITEMS_H
 #define INTERFERENCEFUNCTIONITEMS_H
 
-#include "SessionGraphicsItem.h" // inheriting from
+#include "SessionGraphicsItem.h"
 
 
 class BA_CORE_API_ InterferenceFunctionRadialParaCrystalItem : public SessionGraphicsItem

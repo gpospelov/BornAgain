@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Multilayer/MatrixSpecularInfoMap.h
-//! @brief     Declares class MatrixSpecularInfoMap.
+//! @brief     Defines class MatrixSpecularInfoMap.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 #ifndef MATRIXSPECULARINFOMAP_H
 #define MATRIXSPECULARINFOMAP_H
 
-#include "ISpecularInfoMap.h" // inheriting from
+#include "ISpecularInfoMap.h"
 #include "MatrixRTCoefficients.h"
 #include <memory>
 

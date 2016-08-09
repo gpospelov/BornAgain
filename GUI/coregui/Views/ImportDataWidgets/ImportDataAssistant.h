@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/ImportDataWidgets/ImportDataAssistant.h
-//! @brief     Declares class ImportDataAssistant
+//! @brief     Defines class ImportDataAssistant
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

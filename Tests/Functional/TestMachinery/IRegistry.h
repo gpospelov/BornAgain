@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Tests/Functional/TestMachinery/IRegistry.h
-//! @brief     Declares templated registry for ICloneable objects
+//! @brief     Defines templated registry for ICloneable objects
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

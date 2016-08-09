@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Wrap/WinDllMacros.h
-//! @brief     Declares macroses for building dll.
+//! @brief     Defines macroses for building dll.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

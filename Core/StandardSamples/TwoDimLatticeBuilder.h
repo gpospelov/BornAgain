@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/StandardSamples/TwoDimLatticeBuilder.h
-//! @brief     Declares class IsGISAXS06Builder.
+//! @brief     Defines class IsGISAXS06Builder.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 #ifndef TWODIMLATTICEBUILDER_H
 #define TWODIMLATTICEBUILDER_H
 
-#include "ISampleBuilder.h" // inheriting from
+#include "ISampleBuilder.h"
 
 //! @class SquareLatticeBuilder
 //! @ingroup standard_samples

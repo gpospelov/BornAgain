@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/SampleDesigner/ParticleCoreShellView.h
-//! @brief     Declares class ParticleCoreShellView
+//! @brief     Defines class ParticleCoreShellView
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,7 +17,7 @@
 #ifndef PARTICLECORESHELLVIEW_H
 #define PARTICLECORESHELLVIEW_H
 
-#include "ConnectableView.h" // inheriting from
+#include "ConnectableView.h"
 
 //! Class representing view of Particle item
 class BA_CORE_API_ ParticleCoreShellView : public ConnectableView

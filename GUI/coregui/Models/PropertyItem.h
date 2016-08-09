@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Models/PropertyItem.h
-//! @brief     Declares class PropertyItem
+//! @brief     Defines class PropertyItem
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,7 +17,7 @@
 #ifndef PROPERTYITEM_H
 #define PROPERTYITEM_H
 
-#include "SessionItem.h" // inheriting from
+#include "SessionItem.h"
 
 class BA_CORE_API_ PropertyItem : public SessionItem
 {

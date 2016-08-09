@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/StandardSamples/BoxCompositionBuilder.h
-//! @brief     Declares classes of BoxCompositionBuilder family.
+//! @brief     Defines classes of BoxCompositionBuilder family.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 #ifndef BOXCOMPOSITIONBUILDER_H
 #define BOXCOMPOSITIONBUILDER_H
 
-#include "ISampleBuilder.h" // inheriting from
+#include "ISampleBuilder.h"
 
 class ISample;
 class HomogeneousMaterial;

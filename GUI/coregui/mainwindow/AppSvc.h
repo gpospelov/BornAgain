@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/mainwindow/AppSvc.h
-//! @brief     Declares class AppSvc
+//! @brief     Defines class AppSvc
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,7 +17,7 @@
 #ifndef APPSVC_H
 #define APPSVC_H
 
-#include "ISingleton.h" // inheriting from
+#include "ISingleton.h"
 #include "WinDllMacros.h"
 
 class ProjectManager;

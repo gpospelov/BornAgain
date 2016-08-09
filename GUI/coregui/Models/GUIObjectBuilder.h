@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Models/GUIObjectBuilder.h
-//! @brief     Declares class GUIObjectBuilder
+//! @brief     Defines class GUIObjectBuilder
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,7 +17,7 @@
 #ifndef GUIOBJECTBUILDER_H
 #define GUIOBJECTBUILDER_H
 
-#include "ISampleVisitor.h" // inheriting from
+#include "ISampleVisitor.h"
 #include "MaterialProperty.h"
 
 class IMaterial;

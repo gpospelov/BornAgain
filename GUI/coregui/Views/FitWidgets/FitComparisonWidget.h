@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/FitWidgets/FitComparisonWidget.h
-//! @brief     Declares class FitComparisonWidget
+//! @brief     Defines class FitComparisonWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,7 +17,7 @@
 #ifndef FITCOMPARISONWIDGET_H
 #define FITCOMPARISONWIDGET_H
 
-#include "SessionItemWidget.h" // inheriting from
+#include "SessionItemWidget.h"
 #include <QMap>
 
 class JobItem;

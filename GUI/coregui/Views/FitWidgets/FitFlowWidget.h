@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/FitWidgets/FitFlowWidget.h
-//! @brief     Declares class FitFlowWidget
+//! @brief     Defines class FitFlowWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

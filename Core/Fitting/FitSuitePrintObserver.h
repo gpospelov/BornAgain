@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Fitting/FitSuitePrintObserver.h
-//! @brief     Declares class FitSuitePrintObserver.
+//! @brief     Defines class FitSuitePrintObserver.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 #ifndef FITSUITEPRINTOBSERVER_H
 #define FITSUITEPRINTOBSERVER_H
 
-#include "IFitObserver.h" // inheriting from
+#include "IFitObserver.h"
 #include <boost/date_time/posix_time/posix_time.hpp>
 
 //! @class FitSuitePrintObserver

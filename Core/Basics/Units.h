@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Basics/Units.h
-//! @brief     Declares some unit conversion factors and other constants in namespace Units.
+//! @brief     Defines some unit conversion factors and other constants in namespace Units.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

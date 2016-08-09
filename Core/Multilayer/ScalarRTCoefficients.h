@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Multilayer/ScalarRTCoefficients.h
-//! @brief     Declares class ScalarRTCoefficients.
+//! @brief     Defines class ScalarRTCoefficients.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 #ifndef SCALARRTCOEFFICIENTS_H
 #define SCALARRTCOEFFICIENTS_H
 
-#include "ILayerRTCoefficients.h" // inheriting from
+#include "ILayerRTCoefficients.h"
 #include "Complex.h"
 #include "EigenCore.h"
 

@@ -8,6 +8,7 @@ find_package(Threads REQUIRED)
 find_package(Eigen3 REQUIRED)
 find_package(FFTW REQUIRED)
 find_package(GSL REQUIRED) # revert this when issue 1404 is resolved
+find_package(YamlCpp05 REQUIRED)
 
 # --- Boost ---
 set(Boost_NO_BOOST_CMAKE ON) # prevent shortcut

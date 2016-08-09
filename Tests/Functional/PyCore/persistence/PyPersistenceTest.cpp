@@ -79,15 +79,15 @@ void PyPersistenceTest::runTest()
     }
     // Compare file lists
     m_result = SUCCESS;
-    for( auto const& it: dat ) {
-        if( ref.find(it.first)==ref.end() ) {
+    for (auto const& it: dat) {
+        if (ref.find(it.first)==ref.end()) {
             std::cerr << "For test output " << it.second
                       << " there is no reference file in " << PYPERSIST_REF_DIR << "\n";
             m_result = FAILED;
         }
     }
-    for( auto const& it: ref ) {
-        if( dat.find(it.first)==dat.end() ) {
+    for (auto const& it: ref) {
+        if (dat.find(it.first)==dat.end()) {
             std::cerr << "For reference file " << it.second
                       << " there is no test output in " << PYPERSIST_OUT_DIR << "\n";
             m_result = FAILED;
@@ -97,7 +97,7 @@ void PyPersistenceTest::runTest()
         return;
 
     // Compare file pairs
-    for( auto const& it: dat )
+    for (auto const& it: dat)
         if (!compareFilePair( it.second, ref[it.first] ) )
             m_result = FAILED_DIFF;
 }
@@ -129,7 +129,12 @@ bool PyPersistenceTest::compareYamlPair(const std::string& dat_fpath, const std:
 {
     std::fstream fdat(dat_fpath);
     std::fstream fref(ref_fpath);
-    for( size_t i = 1; ; ++i ) {
+    const YAML::Node& dat = YAML::Load(fdat);
+    const YAML::Node& ref = YAML::Load(fref);
+    return compareYamlNode( YAML::Load(fdat), YAML::Load(fref) );
+}
+
+    for (size_t i = 1; ; ++i) {
         std::string datline;
         std::string refline;
         std::getline(fdat, datline);

@@ -47,6 +47,8 @@ def standardIntensitySave(filename, result):
     """
     ba.IntensityDataIOFactory.writeIntensityData(result, filename+".int")
 
+class FlowSeq( list ):
+    pass
 
 def yamlDump(filename, data):
     """
@@ -55,8 +57,6 @@ def yamlDump(filename, data):
     import yaml
     global yaml
     from collections import OrderedDict
-    class FlowSeq( list ):
-        pass
     class ImprovedDumper(yaml.Dumper):
         pass
     def odict_representer(dumper, data):

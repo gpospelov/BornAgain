@@ -58,6 +58,7 @@ if(BORNAGAIN_PYTHON OR BORNAGAIN_GUI)
     endif()
     message(STATUS "Found Python libraries version ${PYTHONLIBS_VERSION_STRING} at ${PYTHON_LIBRARIES}; includes at ${PYTHON_INCLUDE_DIRS}")
     find_package(Numpy REQUIRED)
+    find_package(PyYaml REQUIRED)
 endif()
 
 # --- Swig ---

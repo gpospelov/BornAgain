@@ -27,6 +27,9 @@ class ExperimentalFitTest : public IMinimizerTest
 public:
     ExperimentalFitTest();
 
+protected:
+    virtual std::unique_ptr<FitSuite> createFitSuite();
+
 };
 
 #endif // EXPERIMENTALFITTEST_H

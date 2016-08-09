@@ -107,3 +107,8 @@ void Minuit2Minimizer::propagateOptions()
     m_minuit2_minimizer->SetPrintLevel(printLevel());
 }
 
+const BasicMinimizer::root_minimizer_t *Minuit2Minimizer::rootMinimizer() const
+{
+    return m_minuit2_minimizer.get();
+}
+

@@ -27,6 +27,7 @@ include_directories(
     ${EIGEN3_INCLUDE_DIR}
     ${GSL_INCLUDE_DIR}
     ${CMAKE_CURRENT_SOURCE_DIR}/../TestMachinery
+    ${RootMinimizers_INCLUDE_DIRS}
 )
 
 #file(GLOB source_files "*.cpp")

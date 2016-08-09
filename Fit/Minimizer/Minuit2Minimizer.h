@@ -68,6 +68,7 @@ public:
 
 protected:
     void propagateOptions();
+    const root_minimizer_t* rootMinimizer() const;
 
 private:
     std::unique_ptr<BA_ROOT::Minuit2::Minuit2Minimizer> m_minuit2_minimizer;

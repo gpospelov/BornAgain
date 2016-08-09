@@ -14,13 +14,27 @@
 // ************************************************************************** //
 
 #include "ExperimentalFitTest.h"
-#include "GISASSimulation.h"
-#include "Histogram2D.h"
-#include "Rectangle.h"
-#include "RectangularDetector.h"
-#include "Units.h"
+#include "Minuit2Minimizer.h"
+#include "FitSuite.h"
 
 ExperimentalFitTest::ExperimentalFitTest()
     : IMinimizerTest("Minuit2", "Migrad")
 {
+}
+
+std::unique_ptr<FitSuite> ExperimentalFitTest::createFitSuite()
+{
+    std::unique_ptr<FitSuite> result(new FitSuite());
+    result->initPrint(10);
+    IMinimizer* minimizer = new Minuit2Minimizer();
+
+    result->setMinimizer(minimizer);
+
+    for (size_t i = 0; i < m_parameters.size(); ++i) {
+        result->addFitParameter(
+            m_parameters[i].m_name, m_parameters[i].m_start_value,
+            AttLimits::lowerLimited(0.01), m_parameters[i].m_start_value / 100.);
+    }
+    return result;
+
 }

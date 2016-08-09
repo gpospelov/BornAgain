@@ -14,6 +14,8 @@
 // ************************************************************************** //
 
 #include "Configurable.h"
+#include <sstream>
+#include <variant_io.hpp>
 
 //! Returns true if option with such name already exists.
 Configurable::Configurable(const Configurable &other)
@@ -33,7 +35,6 @@ Configurable &Configurable::operator=(const Configurable &other)
 
 Configurable::option_t Configurable::option(const std::string &optionName)
 {
-//    const_cast<option_t >(static_cast<const Configurable*>(this)->option(optionName));
     for(auto option: m_options) {
         if(option->name() == optionName)
             return option;
@@ -53,6 +54,15 @@ const Configurable::option_t Configurable::option(const std::string &optionName)
     throw std::runtime_error("Configurable::getOption() -> Error. No option with name '"
                              + optionName + "'.");
 
+}
+
+std::string Configurable::toOptionString(const std::string &delimeter) const
+{
+    std::ostringstream result;
+    for(auto option: m_options) {
+        result << option->name() << std::string("=") << option->value() << delimeter;
+    }
+    return result.str();
 }
 
 bool Configurable::exists(const std::string &name)

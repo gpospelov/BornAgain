@@ -50,6 +50,9 @@ public:
     template<class T>
     void setOptionValue(const std::string& optionName, T value);
 
+    //! Returns string with all options using given delimeter
+    std::string toOptionString(const std::string &delimeter=";") const;
+
 private:
     bool exists(const std::string &name);
     void swapContent(Configurable& other);

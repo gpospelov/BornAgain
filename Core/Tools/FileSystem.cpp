@@ -19,20 +19,6 @@
 #include <cassert>
 #include <glob.h>
 
-std::string Utils::FileSystem::m_argv0_path = std::string();
-std::string Utils::FileSystem::m_reference_data_dir = std::string();
-
-void Utils::FileSystem::SetArgvPath(const std::string& argv0)
-{
-    m_argv0_path = argv0;
-}
-
-std::string Utils::FileSystem::GetArgvPath()
-{
-    return m_argv0_path;
-}
-
-
 //! Returns path to the current (working) directory.
 
 std::string Utils::FileSystem::GetWorkingPath()
@@ -46,21 +32,6 @@ std::string Utils::FileSystem::GetHomePath()
 {
     throw Exceptions::NotImplementedException(
         "Utils::FileSystem::GetHomePath()-> Not implemented anymore...");
-}
-
-std::string Utils::FileSystem::GetPathToExecutable(const std::string& argv0)
-{
-    std::string result = boost::filesystem::canonical( argv0.c_str() ).parent_path().string();
-    return result;
-}
-
-
-std::string Utils::FileSystem::GetPathToData(
-    const std::string& rel_data_path, const std::string& argv0)
-{
-    std::string result = (boost::filesystem::canonical( argv0.c_str() ).parent_path() /
-                          boost::filesystem::path(rel_data_path)).string();
-    return result;
 }
 
 //! Returns file extension.

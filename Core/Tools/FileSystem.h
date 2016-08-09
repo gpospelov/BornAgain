@@ -37,20 +37,8 @@ public:
     //! Returns path to BornAgain home directory
     static std::string GetHomePath();
 
-    //! Sets relative path from working directory to executable module.
-    //! The value is known only from argv[0] and should be set from outside
-    static void SetArgvPath(const std::string& argv0);
-    static std::string GetArgvPath();
-
     //! Returns file extension
     static std::string GetFileExtension(const std::string& name);
-
-    //! returns path to executable
-    static std::string GetPathToExecutable(const std::string& argv0=GetArgvPath());
-
-    //! returns absolute path to data taking into acount location of executable
-    static std::string GetPathToData(
-        const std::string& rel_data_path, const std::string& argv0=GetArgvPath());
 
     //! creates directory in current directory
     static bool CreateDirectory(const std::string& dir_name);
@@ -60,12 +48,6 @@ public:
 
     //! Returns file names that agree with glob pattern.
     static std::vector<std::string> glob(const std::string& pattern);
-
-private:
-    //! value of argv[0], i.e. the path from working directory to executable module
-    //! including the name of executable module
-    static std::string m_argv0_path;
-    static std::string m_reference_data_dir;
 };
 
 }

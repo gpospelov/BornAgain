@@ -22,7 +22,7 @@
 
 //! Utilities to deal with file system.
 
-namespace  FileSystem {
+namespace FileSystem {
 
     //! Returns path to the current (working) directory
     std::string GetWorkingPath();
@@ -38,6 +38,9 @@ namespace  FileSystem {
 
     //! join paths together
     std::string GetJoinPath(const std::string& spath1, const std::string& spath2);
+
+    //! Returns path without directory part ("Foo/Bar/Doz.int.gz" -> "Doz.int.gz")
+    std::string filename(const std::string& path);
 
     //! Returns file names that agree with glob pattern.
     std::vector<std::string> glob(const std::string& pattern);

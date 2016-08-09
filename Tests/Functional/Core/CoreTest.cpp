@@ -36,7 +36,7 @@ CoreTest::~CoreTest()
 void CoreTest::runTest()
 {
     // Load reference if available
-    m_ref_filename = Utils::FileSystem::GetJoinPath(CORE_STD_REF_DIR, getName() + ".int.gz");
+    m_ref_filename = FileSystem::GetJoinPath(CORE_STD_REF_DIR, getName() + ".int.gz");
     try {
         m_reference = IntensityDataIOFactory::readOutputData( m_ref_filename );
     } catch(const std::exception& ex) {
@@ -56,8 +56,8 @@ void CoreTest::runTest()
         m_result = compareIntensityMaps(*result_data.get(), *m_reference);
     // Save simulation if different from reference.
     if (getTestResult() != SUCCESS) {
-        Utils::FileSystem::CreateDirectory(CORE_STD_OUT_DIR);
-        std::string out_fname = Utils::FileSystem::GetJoinPath(
+        FileSystem::CreateDirectory(CORE_STD_OUT_DIR);
+        std::string out_fname = FileSystem::GetJoinPath(
             CORE_STD_OUT_DIR, getName() + ".int");
         IntensityDataIOFactory::writeOutputData(*result_data, out_fname);
         std::cout << "New simulation result stored in " << out_fname << ".\n"

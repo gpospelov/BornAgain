@@ -22,34 +22,26 @@
 
 //! Utilities to deal with file system.
 
-namespace Utils {
+namespace  FileSystem {
 
-//! @class FileSystem
-//! @ingroup tools_internal
-//! @brief Class collecting utilities to work with file system.
-
-class BA_CORE_API_ FileSystem
-{
-public:
     //! Returns path to the current (working) directory
-    static std::string GetWorkingPath();
+    std::string GetWorkingPath();
 
     //! Returns path to BornAgain home directory
-    static std::string GetHomePath();
+    std::string GetHomePath();
 
     //! Returns file extension
-    static std::string GetFileExtension(const std::string& name);
+    std::string GetFileExtension(const std::string& name);
 
     //! creates directory in current directory
-    static bool CreateDirectory(const std::string& dir_name);
+    bool CreateDirectory(const std::string& dir_name);
 
     //! join paths together
-    static std::string GetJoinPath(const std::string& spath1, const std::string& spath2);
+    std::string GetJoinPath(const std::string& spath1, const std::string& spath2);
 
     //! Returns file names that agree with glob pattern.
-    static std::vector<std::string> glob(const std::string& pattern);
-};
+    std::vector<std::string> glob(const std::string& pattern);
 
-}
+} // namespace FileSystem
 
 #endif // FILESYSTEM_H

@@ -45,7 +45,7 @@ PyExportTest::~PyExportTest()
 void PyExportTest::runTest()
 {
     // Generate Python script
-    std::string pyscript_filename = Utils::FileSystem::GetJoinPath(PYEXPORT_TMP_DIR,
+    std::string pyscript_filename = FileSystem::GetJoinPath(PYEXPORT_TMP_DIR,
                                                                    getName() + ".py");
     std::ostringstream ostr;
     ostr << PythonFormatting::simulationToPython(m_reference_simulation);
@@ -57,7 +57,7 @@ void PyExportTest::runTest()
         // the system calls 'remove' and 'system' may break the order of output lines.
 
     // Run Python script
-    std::string output_name = Utils::FileSystem::GetJoinPath(PYEXPORT_TMP_DIR, getName());
+    std::string output_name = FileSystem::GetJoinPath(PYEXPORT_TMP_DIR, getName());
     std::string output_path = output_name + ".ref.int";
     std::remove( output_path.c_str() );
     std::cout << "Removed old data set " << output_path << "." << std::endl/*sic*/;

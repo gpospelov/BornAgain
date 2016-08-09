@@ -37,14 +37,14 @@ PyPersistenceTest::PyPersistenceTest(
 void PyPersistenceTest::runTest()
 {
     // Set output data filename stem, and remove old output files
-    std::string dat_stem = Utils::FileSystem::GetJoinPath(PYPERSIST_OUT_DIR, getName());
-    for (const std::string& fname: Utils::FileSystem::glob(dat_stem+".*.*")) {
+    std::string dat_stem = FileSystem::GetJoinPath(PYPERSIST_OUT_DIR, getName());
+    for (const std::string& fname: FileSystem::glob(dat_stem+".*.*")) {
         std::remove( fname.c_str() );
         std::cout << "Removed old output " << fname.c_str() << ".\n";
     }
 
     // Run Python script
-    std::string py_filename = Utils::FileSystem::GetJoinPath(m_directory, getName() + ".py");
+    std::string py_filename = FileSystem::GetJoinPath(m_directory, getName() + ".py");
     std::string command =
         std::string("PYTHONPATH=") + BUILD_LIB_DIR + " " +
         BORNAGAIN_PYTHON_EXE + " " + py_filename + " " + dat_stem;
@@ -59,7 +59,7 @@ void PyPersistenceTest::runTest()
     // Glob simulation results
     std::map<const std::string, const std::string> dat;
     std::string dat_pattern = dat_stem + ".*.*";
-    for (const std::string& fname: Utils::FileSystem::glob(dat_pattern))
+    for (const std::string& fname: FileSystem::glob(dat_pattern))
         dat.insert(make_pair(Utils::String::split(fname,".")[1]+"."+
                              Utils::String::split(fname,".")[2],
                              fname));
@@ -70,9 +70,9 @@ void PyPersistenceTest::runTest()
     }
 
     // Glob reference files
-    std::string ref_stem = Utils::FileSystem::GetJoinPath(PYPERSIST_REF_DIR, getName());
+    std::string ref_stem = FileSystem::GetJoinPath(PYPERSIST_REF_DIR, getName());
     std::map<const std::string, const std::string> ref;
-    for (const std::string& fname: Utils::FileSystem::glob(ref_stem+".*.*"))
+    for (const std::string& fname: FileSystem::glob(ref_stem+".*.*"))
         ref.insert(make_pair(Utils::String::split(fname,".")[1]+"."+
                              Utils::String::split(fname,".")[2],
                              fname));

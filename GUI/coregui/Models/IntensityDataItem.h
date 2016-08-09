@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Models/IntensityDataItem.h
-//! @brief     Declares class IntensityDataItem
+//! @brief     Defines class IntensityDataItem
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,7 +17,7 @@
 #ifndef INTENSITYDATAITEM_H
 #define INTENSITYDATAITEM_H
 
-#include "SessionItem.h" // inheriting from
+#include "SessionItem.h"
 #include "IDetector2D.h"
 
 class BasicAxisItem;

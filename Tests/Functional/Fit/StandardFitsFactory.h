@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Tests/Functional/Fit/StandardFitsFactory.h
-//! @brief     Declares class StandardFitsFactory
+//! @brief     Defines class StandardFitsFactory
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 #ifndef STANDARDFITSFACTORY_H
 #define STANDARDFITSFACTORY_H
 
-#include "IFactory.h" // inheriting from
+#include "IFactory.h"
 
 class IFunctionalTest;
 

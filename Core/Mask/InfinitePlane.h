@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Mask/InfinitePlane.h
-//! @brief     Declares class InfinitePlane.
+//! @brief     Defines class InfinitePlane.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 #ifndef INFINITEPLANE_H
 #define INFINITEPLANE_H
 
-#include "IShape2D.h" // inheriting from
+#include "IShape2D.h"
 
 namespace Geometry {
 

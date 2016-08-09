@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Simulation/LayerDWBASimulation.h
-//! @brief     Declares class LayerDWBASimulation.
+//! @brief     Defines class LayerDWBASimulation.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 #ifndef LAYERDWBASIMULATION_H
 #define LAYERDWBASIMULATION_H
 
-#include "DWBASimulation.h" // inheriting from
+#include "DWBASimulation.h"
 #include "LayerSpecularInfo.h"
 
 class Layer;

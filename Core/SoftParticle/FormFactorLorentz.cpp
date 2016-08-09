@@ -16,7 +16,7 @@
 #include "FormFactorLorentz.h"
 #include "AttLimits.h"
 #include "BornAgainNamespace.h"
-#include "Units.h"
+#include "Pi.h"
 
 using namespace BornAgain;
 
@@ -43,7 +43,7 @@ double FormFactorLorentz::getRadialExtension() const
 
 complex_t FormFactorLorentz::evaluate_for_q(const cvector_t q) const
 {
-    static const double sigma2 = 4.0*std::pow(Units::PI, 2.0/3.0);
+    static const double sigma2 = 4.0*std::pow(Pi::PI, 2.0/3.0);
     double R = m_width;
     double H = m_height;
 

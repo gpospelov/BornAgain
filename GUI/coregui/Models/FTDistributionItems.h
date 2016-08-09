@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Models/FTDistributionItems.h
-//! @brief     Declares FTDistribution1DItem's classes
+//! @brief     Defines FTDistribution1DItem's classes
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -18,7 +18,7 @@
 #define FTDISTRIBUTIONITEMS_H
 
 
-#include "SessionItem.h" // inheriting from
+#include "SessionItem.h"
 #include "FTDistributions1D.h"
 #include "FTDistributions2D.h"
 

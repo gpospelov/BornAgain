@@ -18,7 +18,7 @@
 #include "Exceptions.h"
 #include "MathFunctions.h"
 #include "Numeric.h"
-#include "Units.h"
+#include "Pi.h"
 
 //! @brief Cone constructor
 //! @param radius of Cone's base
@@ -64,10 +64,10 @@ complex_t FormFactorCone::evaluate_for_q(const cvector_t q) const
         double tga = std::tan(m_alpha);
         double HdivRtga = H/tga/R; // TODO preclude division by zero WAITING fuller refactoring
 
-        return  Units::PI/3.0*tga*R*R*R*
+        return  Pi::PI/3.0*tga*R*R*R*
                 (1.0 - (1.0 - HdivRtga)*(1.0 - HdivRtga)*(1.0 - HdivRtga));
     } else {
         complex_t integral = mP_integrator->integrate(0., m_height);
-        return Units::PI2*integral;
+        return Pi::PI2*integral;
     }
 }

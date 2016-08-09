@@ -16,7 +16,7 @@
 #include "FormFactorDecoratorMaterial.h"
 #include "IMaterial.h"
 #include "ISampleVisitor.h"
-#include "Units.h"
+#include "Pi.h"
 #include "WavevectorInfo.h"
 
 FormFactorDecoratorMaterial::FormFactorDecoratorMaterial(const IFormFactor& form_factor)
@@ -72,7 +72,7 @@ Eigen::Matrix2cd FormFactorDecoratorMaterial::evaluatePol(const WavevectorInfo& 
     time_reverse_conj(1, 0) = -1.0;
     // the interaction and time reversal taken together:
     double wavelength = wavevectors.getWavelength();
-    double k_mag2 = 4.0 * Units::PI * Units::PI / wavelength / wavelength;
+    double k_mag2 = 4.0 * Pi::PI * Pi::PI / wavelength / wavelength;
     Eigen::Matrix2cd V_eff = time_reverse_conj
                              * (mP_material->getScatteringMatrix(k_mag2)
                                 - mP_ambient_material->getScatteringMatrix(k_mag2));

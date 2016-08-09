@@ -2787,10 +2787,6 @@ class WavevectorInfo(_object):
     __del__ = lambda self: None
 WavevectorInfo_swigregister = _libBornAgainCore.WavevectorInfo_swigregister
 WavevectorInfo_swigregister(WavevectorInfo)
-PI = cvar.PI
-PID2 = cvar.PID2
-PID4 = cvar.PID4
-PI_SQR = cvar.PI_SQR
 nanometer = cvar.nanometer
 angstrom = cvar.angstrom
 micrometer = cvar.micrometer
@@ -8740,7 +8736,7 @@ class FTDecayFunction2DCauchy(IFTDecayFunction2D):
         __init__(FTDecayFunction2DCauchy self, double decay_length_x, double decay_length_y, double gamma=0) -> FTDecayFunction2DCauchy
         __init__(FTDecayFunction2DCauchy self, double decay_length_x, double decay_length_y) -> FTDecayFunction2DCauchy
 
-        FTDecayFunction2DCauchy::FTDecayFunction2DCauchy(double decay_length_x, double decay_length_y, double gamma=0, double delta=Units::PID2)
+        FTDecayFunction2DCauchy::FTDecayFunction2DCauchy(double decay_length_x, double decay_length_y, double gamma=0, double delta=Pi::PID2)
 
         """
         this = _libBornAgainCore.new_FTDecayFunction2DCauchy(*args)
@@ -8800,7 +8796,7 @@ class FTDecayFunction2DGauss(IFTDecayFunction2D):
         __init__(FTDecayFunction2DGauss self, double decay_length_x, double decay_length_y, double gamma=0) -> FTDecayFunction2DGauss
         __init__(FTDecayFunction2DGauss self, double decay_length_x, double decay_length_y) -> FTDecayFunction2DGauss
 
-        FTDecayFunction2DGauss::FTDecayFunction2DGauss(double decay_length_x, double decay_length_y, double gamma=0, double delta=Units::PID2)
+        FTDecayFunction2DGauss::FTDecayFunction2DGauss(double decay_length_x, double decay_length_y, double gamma=0, double delta=Pi::PID2)
 
         """
         this = _libBornAgainCore.new_FTDecayFunction2DGauss(*args)
@@ -8860,7 +8856,7 @@ class FTDecayFunction2DVoigt(IFTDecayFunction2D):
         __init__(FTDecayFunction2DVoigt self, double decay_length_x, double decay_length_y, double eta, double gamma=0) -> FTDecayFunction2DVoigt
         __init__(FTDecayFunction2DVoigt self, double decay_length_x, double decay_length_y, double eta) -> FTDecayFunction2DVoigt
 
-        FTDecayFunction2DVoigt::FTDecayFunction2DVoigt(double decay_length_x, double decay_length_y, double eta, double gamma=0, double delta=Units::PID2)
+        FTDecayFunction2DVoigt::FTDecayFunction2DVoigt(double decay_length_x, double decay_length_y, double eta, double gamma=0, double delta=Pi::PID2)
 
         """
         this = _libBornAgainCore.new_FTDecayFunction2DVoigt(*args)
@@ -9440,7 +9436,7 @@ class FTDistribution2DCauchy(IFTDistribution2D):
         __init__(FTDistribution2DCauchy self, double coherence_length_x, double coherence_length_y, double gamma=0) -> FTDistribution2DCauchy
         __init__(FTDistribution2DCauchy self, double coherence_length_x, double coherence_length_y) -> FTDistribution2DCauchy
 
-        FTDistribution2DCauchy::FTDistribution2DCauchy(double coherence_length_x, double coherence_length_y, double gamma=0, double delta=Units::PID2)
+        FTDistribution2DCauchy::FTDistribution2DCauchy(double coherence_length_x, double coherence_length_y, double gamma=0, double delta=Pi::PID2)
 
         """
         this = _libBornAgainCore.new_FTDistribution2DCauchy(*args)
@@ -9500,7 +9496,7 @@ class FTDistribution2DGauss(IFTDistribution2D):
         __init__(FTDistribution2DGauss self, double coherence_length_x, double coherence_length_y, double gamma=0) -> FTDistribution2DGauss
         __init__(FTDistribution2DGauss self, double coherence_length_x, double coherence_length_y) -> FTDistribution2DGauss
 
-        FTDistribution2DGauss::FTDistribution2DGauss(double coherence_length_x, double coherence_length_y, double gamma=0, double delta=Units::PID2)
+        FTDistribution2DGauss::FTDistribution2DGauss(double coherence_length_x, double coherence_length_y, double gamma=0, double delta=Pi::PID2)
 
         """
         this = _libBornAgainCore.new_FTDistribution2DGauss(*args)
@@ -9560,7 +9556,7 @@ class FTDistribution2DGate(IFTDistribution2D):
         __init__(FTDistribution2DGate self, double coherence_length_x, double coherence_length_y, double gamma=0) -> FTDistribution2DGate
         __init__(FTDistribution2DGate self, double coherence_length_x, double coherence_length_y) -> FTDistribution2DGate
 
-        FTDistribution2DGate::FTDistribution2DGate(double coherence_length_x, double coherence_length_y, double gamma=0, double delta=Units::PID2)
+        FTDistribution2DGate::FTDistribution2DGate(double coherence_length_x, double coherence_length_y, double gamma=0, double delta=Pi::PID2)
 
         """
         this = _libBornAgainCore.new_FTDistribution2DGate(*args)
@@ -9620,7 +9616,7 @@ class FTDistribution2DCone(IFTDistribution2D):
         __init__(FTDistribution2DCone self, double coherence_length_x, double coherence_length_y, double gamma=0) -> FTDistribution2DCone
         __init__(FTDistribution2DCone self, double coherence_length_x, double coherence_length_y) -> FTDistribution2DCone
 
-        FTDistribution2DCone::FTDistribution2DCone(double coherence_length_x, double coherence_length_y, double gamma=0, double delta=Units::PID2)
+        FTDistribution2DCone::FTDistribution2DCone(double coherence_length_x, double coherence_length_y, double gamma=0, double delta=Pi::PID2)
 
         """
         this = _libBornAgainCore.new_FTDistribution2DCone(*args)
@@ -9680,7 +9676,7 @@ class FTDistribution2DVoigt(IFTDistribution2D):
         __init__(FTDistribution2DVoigt self, double coherence_length_x, double coherence_length_y, double eta, double gamma=0) -> FTDistribution2DVoigt
         __init__(FTDistribution2DVoigt self, double coherence_length_x, double coherence_length_y, double eta) -> FTDistribution2DVoigt
 
-        FTDistribution2DVoigt::FTDistribution2DVoigt(double coherence_length_x, double coherence_length_y, double eta, double gamma=0, double delta=Units::PID2)
+        FTDistribution2DVoigt::FTDistribution2DVoigt(double coherence_length_x, double coherence_length_y, double eta, double gamma=0, double delta=Pi::PID2)
 
         """
         this = _libBornAgainCore.new_FTDistribution2DVoigt(*args)

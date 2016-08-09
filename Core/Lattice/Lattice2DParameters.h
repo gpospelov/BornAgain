@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Lattice/Lattice2DParameters.h
-//! @brief     Declares class Lattice2DParameters.
+//! @brief     Defines class Lattice2DParameters.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

@@ -16,7 +16,7 @@
 #include "FormFactorGauss.h"
 #include "BornAgainNamespace.h"
 #include "Numeric.h"
-#include "Units.h"
+#include "Pi.h"
 
 FormFactorGauss::FormFactorGauss(double volume)
 {
@@ -45,8 +45,8 @@ complex_t FormFactorGauss::evaluate_for_q(const cvector_t q) const
     if (std::abs(qyr) > m_max_ql)
         return 0.0;
 
-    complex_t z_part = exp_I(qzHdiv2) * m_height * std::exp(-qzh * qzh / 4.0 / Units::PI);
-    double radial_part = m_width * m_width * std::exp(-(qxr * qxr + qyr * qyr) / 4.0 / Units::PI);
+    complex_t z_part = exp_I(qzHdiv2) * m_height * std::exp(-qzh * qzh / 4.0 / Pi::PI);
+    double radial_part = m_width * m_width * std::exp(-(qxr * qxr + qyr * qyr) / 4.0 / Pi::PI);
     complex_t result = radial_part * z_part;
     return result;
 }
@@ -56,5 +56,5 @@ void FormFactorGauss::initialize()
     setName(BornAgain::FFGaussType);
     registerNonnegativeLength(BornAgain::Width, &m_width);
     registerNonnegativeLength(BornAgain::Height, &m_height);
-    m_max_ql = std::sqrt(-4 * Units::PI * std::log(Numeric::double_min) / 3.0);
+    m_max_ql = std::sqrt(-4 * Pi::PI * std::log(Numeric::double_min) / 3.0);
 }

@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Fit/Minimizer/TrivialMinimizer.h
-//! @brief     Declares class TrivialMinimizer.
+//! @brief     Defines class TrivialMinimizer.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 #ifndef TRIVIALMINIMIZER_H
 #define TRIVIALMINIMIZER_H
 
-#include "IMinimizer.h" // inheriting from
+#include "IMinimizer.h"
 #include "FitSuiteParameters.h"
 
 //! @class TrivialMinimizer

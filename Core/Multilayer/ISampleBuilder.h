@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Multilayer/ISampleBuilder.h
-//! @brief     Declares pure virtual base class ISampleBuilder.
+//! @brief     Defines pure virtual base class ISampleBuilder.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 #ifndef ISAMPLEBUILDER_H
 #define ISAMPLEBUILDER_H
 
-#include "IParameterized.h" // inheriting from
+#include "IParameterized.h"
 
 class ISample;
 class IFormFactor;

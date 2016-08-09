@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Models/RealDataModel.h
-//! @brief     Declares class RealDataModel
+//! @brief     Defines class RealDataModel
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,7 +17,7 @@
 #ifndef REALDATAMODEL_H
 #define REALDATAMODEL_H
 
-#include "SessionModel.h" // inheriting from
+#include "SessionModel.h"
 
 //! The RealDataModel class is a model to store all imported RealDataItem's.
 

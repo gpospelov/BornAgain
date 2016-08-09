@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Sample/ISample.h
-//! @brief     Declares interface class ISample.
+//! @brief     Defines interface class ISample.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,8 +16,8 @@
 #ifndef ISAMPLE_H
 #define ISAMPLE_H
 
-#include "ICloneable.h" // inheriting from
-#include "IParameterized.h" // inheriting from
+#include "ICloneable.h"
+#include "IParameterized.h"
 #include "ISampleVisitor.h"
 #include <vector>
 

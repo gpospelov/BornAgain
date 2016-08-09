@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/FormFactor/FormFactorDecoratorMaterial.h
-//! @brief     Declares class FormFactorDecoratorMaterial.
+//! @brief     Defines class FormFactorDecoratorMaterial.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 #ifndef FORMFACTORDECORATORMATERIAL_H
 #define FORMFACTORDECORATORMATERIAL_H
 
-#include "FormFactorDecoratorFactor.h" // inheriting from
+#include "FormFactorDecoratorFactor.h"
 #include <memory>
 
 class IMaterial;

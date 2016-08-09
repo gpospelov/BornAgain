@@ -4806,7 +4806,7 @@ C++ includes: FTDecayFunctions.h
 C++ includes: FTDecayFunctions.h
 ";
 
-%feature("docstring")  FTDecayFunction2DCauchy::FTDecayFunction2DCauchy "FTDecayFunction2DCauchy::FTDecayFunction2DCauchy(double decay_length_x, double decay_length_y, double gamma=0, double delta=Units::PID2)
+%feature("docstring")  FTDecayFunction2DCauchy::FTDecayFunction2DCauchy "FTDecayFunction2DCauchy::FTDecayFunction2DCauchy(double decay_length_x, double decay_length_y, double gamma=0, double delta=Pi::PID2)
 ";
 
 %feature("docstring")  FTDecayFunction2DCauchy::~FTDecayFunction2DCauchy "virtual FTDecayFunction2DCauchy::~FTDecayFunction2DCauchy()
@@ -4829,7 +4829,7 @@ evaluate Fourier transformed decay function for q in X,Y coordinates
 C++ includes: FTDecayFunctions.h
 ";
 
-%feature("docstring")  FTDecayFunction2DGauss::FTDecayFunction2DGauss "FTDecayFunction2DGauss::FTDecayFunction2DGauss(double decay_length_x, double decay_length_y, double gamma=0, double delta=Units::PID2)
+%feature("docstring")  FTDecayFunction2DGauss::FTDecayFunction2DGauss "FTDecayFunction2DGauss::FTDecayFunction2DGauss(double decay_length_x, double decay_length_y, double gamma=0, double delta=Pi::PID2)
 ";
 
 %feature("docstring")  FTDecayFunction2DGauss::~FTDecayFunction2DGauss "virtual FTDecayFunction2DGauss::~FTDecayFunction2DGauss()
@@ -4852,7 +4852,7 @@ evaluate Fourier transformed decay function for q in X,Y coordinates
 C++ includes: FTDecayFunctions.h
 ";
 
-%feature("docstring")  FTDecayFunction2DVoigt::FTDecayFunction2DVoigt "FTDecayFunction2DVoigt::FTDecayFunction2DVoigt(double decay_length_x, double decay_length_y, double eta, double gamma=0, double delta=Units::PID2)
+%feature("docstring")  FTDecayFunction2DVoigt::FTDecayFunction2DVoigt "FTDecayFunction2DVoigt::FTDecayFunction2DVoigt(double decay_length_x, double decay_length_y, double eta, double gamma=0, double delta=Pi::PID2)
 ";
 
 %feature("docstring")  FTDecayFunction2DVoigt::~FTDecayFunction2DVoigt "virtual FTDecayFunction2DVoigt::~FTDecayFunction2DVoigt()
@@ -5007,7 +5007,7 @@ C++ includes: FTDistributions1D.h
 C++ includes: FTDistributions2D.h
 ";
 
-%feature("docstring")  FTDistribution2DCauchy::FTDistribution2DCauchy "FTDistribution2DCauchy::FTDistribution2DCauchy(double coherence_length_x, double coherence_length_y, double gamma=0, double delta=Units::PID2)
+%feature("docstring")  FTDistribution2DCauchy::FTDistribution2DCauchy "FTDistribution2DCauchy::FTDistribution2DCauchy(double coherence_length_x, double coherence_length_y, double gamma=0, double delta=Pi::PID2)
 ";
 
 %feature("docstring")  FTDistribution2DCauchy::~FTDistribution2DCauchy "virtual FTDistribution2DCauchy::~FTDistribution2DCauchy()
@@ -5030,7 +5030,7 @@ evaluate Fourier transformed distribution for q in X,Y coordinates the original 
 C++ includes: FTDistributions2D.h
 ";
 
-%feature("docstring")  FTDistribution2DCone::FTDistribution2DCone "FTDistribution2DCone::FTDistribution2DCone(double coherence_length_x, double coherence_length_y, double gamma=0, double delta=Units::PID2)
+%feature("docstring")  FTDistribution2DCone::FTDistribution2DCone "FTDistribution2DCone::FTDistribution2DCone(double coherence_length_x, double coherence_length_y, double gamma=0, double delta=Pi::PID2)
 ";
 
 %feature("docstring")  FTDistribution2DCone::~FTDistribution2DCone "virtual FTDistribution2DCone::~FTDistribution2DCone()
@@ -5053,7 +5053,7 @@ evaluate Fourier transformed distribution for q in X,Y coordinates the original 
 C++ includes: FTDistributions2D.h
 ";
 
-%feature("docstring")  FTDistribution2DGate::FTDistribution2DGate "FTDistribution2DGate::FTDistribution2DGate(double coherence_length_x, double coherence_length_y, double gamma=0, double delta=Units::PID2)
+%feature("docstring")  FTDistribution2DGate::FTDistribution2DGate "FTDistribution2DGate::FTDistribution2DGate(double coherence_length_x, double coherence_length_y, double gamma=0, double delta=Pi::PID2)
 ";
 
 %feature("docstring")  FTDistribution2DGate::~FTDistribution2DGate "virtual FTDistribution2DGate::~FTDistribution2DGate()
@@ -5076,7 +5076,7 @@ evaluate Fourier transformed distribution for q in X,Y coordinates the original 
 C++ includes: FTDistributions2D.h
 ";
 
-%feature("docstring")  FTDistribution2DGauss::FTDistribution2DGauss "FTDistribution2DGauss::FTDistribution2DGauss(double coherence_length_x, double coherence_length_y, double gamma=0, double delta=Units::PID2)
+%feature("docstring")  FTDistribution2DGauss::FTDistribution2DGauss "FTDistribution2DGauss::FTDistribution2DGauss(double coherence_length_x, double coherence_length_y, double gamma=0, double delta=Pi::PID2)
 ";
 
 %feature("docstring")  FTDistribution2DGauss::~FTDistribution2DGauss "virtual FTDistribution2DGauss::~FTDistribution2DGauss()
@@ -5099,7 +5099,7 @@ evaluate Fourier transformed distribution for q in X,Y coordinates the original 
 C++ includes: FTDistributions2D.h
 ";
 
-%feature("docstring")  FTDistribution2DVoigt::FTDistribution2DVoigt "FTDistribution2DVoigt::FTDistribution2DVoigt(double coherence_length_x, double coherence_length_y, double eta, double gamma=0, double delta=Units::PID2)
+%feature("docstring")  FTDistribution2DVoigt::FTDistribution2DVoigt "FTDistribution2DVoigt::FTDistribution2DVoigt(double coherence_length_x, double coherence_length_y, double eta, double gamma=0, double delta=Pi::PID2)
 ";
 
 %feature("docstring")  FTDistribution2DVoigt::~FTDistribution2DVoigt "virtual FTDistribution2DVoigt::~FTDistribution2DVoigt()
@@ -6504,7 +6504,7 @@ Interface for 2 dimensional decay function in reciprocal space.
 C++ includes: FTDecayFunctions.h
 ";
 
-%feature("docstring")  IFTDecayFunction2D::IFTDecayFunction2D "IFTDecayFunction2D::IFTDecayFunction2D(double decay_length_x, double decay_length_y, double gamma=0, double delta=Units::PID2)
+%feature("docstring")  IFTDecayFunction2D::IFTDecayFunction2D "IFTDecayFunction2D::IFTDecayFunction2D(double decay_length_x, double decay_length_y, double gamma=0, double delta=Pi::PID2)
 ";
 
 %feature("docstring")  IFTDecayFunction2D::~IFTDecayFunction2D "virtual IFTDecayFunction2D::~IFTDecayFunction2D()
@@ -6584,7 +6584,7 @@ Interface for 2 dimensional distributions in Fourier space.
 C++ includes: FTDistributions2D.h
 ";
 
-%feature("docstring")  IFTDistribution2D::IFTDistribution2D "IFTDistribution2D::IFTDistribution2D(double coherence_length_x, double coherence_length_y, double gamma=0, double delta=Units::PID2)
+%feature("docstring")  IFTDistribution2D::IFTDistribution2D "IFTDistribution2D::IFTDistribution2D(double coherence_length_x, double coherence_length_y, double gamma=0, double delta=Pi::PID2)
 ";
 
 %feature("docstring")  IFTDistribution2D::~IFTDistribution2D "virtual IFTDistribution2D::~IFTDistribution2D()
@@ -13406,13 +13406,13 @@ C++ includes: WavevectorInfo.h
 // File: classMathFunctions_1_1Convolve_1_1Workspace.xml
 
 
-// File: namespace_0D294.xml
+// File: namespace_0D295.xml
 
 
-// File: namespace_0D367.xml
+// File: namespace_0D368.xml
 
 
-// File: namespace_0D433.xml
+// File: namespace_0D434.xml
 
 
 // File: namespaceboost_1_1geometry.xml
@@ -13453,6 +13453,11 @@ creates directory in current directory
 %feature("docstring")  FileSystem::GetJoinPath "std::string FileSystem::GetJoinPath(const std::string &spath1, const std::string &spath2)
 
 join paths together 
+";
+
+%feature("docstring")  FileSystem::filename "std::string FileSystem::filename(const std::string &path)
+
+Returns path without directory part (\"Foo/Bar/Doz.int.gz\" -> \"Doz.int.gz\") 
 ";
 
 %feature("docstring")  FileSystem::glob "std::vector< std::string > FileSystem::glob(const std::string &pattern)
@@ -13747,6 +13752,9 @@ Parse double values from string to vector of double.
 ";
 
 
+// File: namespacePi.xml
+
+
 // File: namespacePythonFormatting.xml
 %feature("docstring")  PythonFormatting::getRepresentation "BA_CORE_API_ std::string PythonFormatting::getRepresentation(const IDistribution1D *distribution)
 
@@ -14004,6 +14012,9 @@ Returns exp(I*z), where I is the imaginary unit.
 
 
 // File: Macros_8h.xml
+
+
+// File: Pi_8h.xml
 
 
 // File: SafePointerVector_8h.xml

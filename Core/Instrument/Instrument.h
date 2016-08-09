@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Instrument/Instrument.h
-//! @brief     Declares class Instrument.
+//! @brief     Defines class Instrument.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 #ifndef INSTRUMENT_H
 #define INSTRUMENT_H
 
-#include "IParameterized.h" // inheriting from
+#include "IParameterized.h"
 #include "Beam.h"
 #include "IDetector2D.h"
 #include <memory>

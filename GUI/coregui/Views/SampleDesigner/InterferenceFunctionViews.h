@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/SampleDesigner/InterferenceFunctionViews.h
-//! @brief     Declares classes InterferenceFunctionViews
+//! @brief     Defines classes InterferenceFunctionViews
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -18,7 +18,7 @@
 #define INTERFERENCEFUNCTIONVIEWS_H
 
 
-#include "ConnectableView.h" // inheriting from
+#include "ConnectableView.h"
 
 class BA_CORE_API_ InterferenceFunctionRadialParaCrystalView : public ConnectableView
 {

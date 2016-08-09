@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/HardParticle/FormFactorLongRipple1Gauss.h
-//! @brief     Declares class FormFactorLongRipple1Gauss.
+//! @brief     Defines class FormFactorLongRipple1Gauss.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 #ifndef FORMFACTORLONGRIPPLE1GAUSS_H
 #define FORMFACTORLONGRIPPLE1GAUSS_H
 
-#include "IFormFactorBorn.h" // inheriting from
+#include "IFormFactorBorn.h"
 #include "IntegratorComplex.h"
 
 //! @class FormFactorLongRipple1Gauss

@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Mask/Polygon.h
-//! @brief     Declares class Polygon.
+//! @brief     Defines class Polygon.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 #ifndef POLYGON_H
 #define POLYGON_H
 
-#include "IShape2D.h" // inheriting from
+#include "IShape2D.h"
 #include <vector>
 
 namespace Geometry {

@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/HardParticle/FormFactorCone.h
-//! @brief     Declares class FormFactorCone
+//! @brief     Defines class FormFactorCone
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 #ifndef FORMFACTORCONE_H
 #define FORMFACTORCONE_H
 
-#include "IFormFactorBorn.h" // inheriting from
+#include "IFormFactorBorn.h"
 #include "IntegratorComplex.h"
 
 class ISampleVisitor;

@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/ImportDataWidgets/RealDataEditorWidget.h
-//! @brief     Declares class RealDataEditorWidget
+//! @brief     Defines class RealDataEditorWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,7 +17,7 @@
 #ifndef REALDATAEDITORWIDGET_H
 #define REALDATAEDITORWIDGET_H
 
-#include "SessionItemWidget.h" // inheriting from
+#include "SessionItemWidget.h"
 
 class SessionItem;
 class IntensityDataWidget;

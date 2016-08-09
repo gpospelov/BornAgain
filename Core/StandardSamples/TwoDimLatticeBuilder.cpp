@@ -40,8 +40,8 @@ ISample *SquareLatticeBuilder::buildSample() const
 
     std::unique_ptr<InterferenceFunction2DLattice> P_interference_function{
         InterferenceFunction2DLattice::createSquare(10.0 * Units::nanometer) };
-    FTDecayFunction2DCauchy pdf(300.0*Units::nanometer/2.0/Units::PI,
-                                100.0*Units::nanometer/2.0/Units::PI);
+    FTDecayFunction2DCauchy pdf(300.0*Units::nanometer/2.0/Pi::PI,
+                                100.0*Units::nanometer/2.0/Pi::PI);
     P_interference_function->setDecayFunction(pdf);
 
     // particles
@@ -76,9 +76,9 @@ ISample *CenteredSquareLatticeBuilder::buildSample() const
     Layer substrate_layer(substrate_material);
 
     InterferenceFunction2DLattice interference_function(10.0*Units::nanometer,
-            10.0*Units::nanometer, Units::PI/2.0);
-    FTDecayFunction2DCauchy pdf(300.0*Units::nanometer/2.0/Units::PI,
-                                100.0*Units::nanometer/2.0/Units::PI);
+            10.0*Units::nanometer, Pi::PI/2.0);
+    FTDecayFunction2DCauchy pdf(300.0*Units::nanometer/2.0/Pi::PI,
+                                100.0*Units::nanometer/2.0/Pi::PI);
     interference_function.setDecayFunction(pdf);
 
     FormFactorCylinder ff_cyl(5.0*Units::nanometer, 5.0*Units::nanometer);
@@ -119,8 +119,8 @@ ISample *RotatedSquareLatticeBuilder::buildSample() const
 
     std::unique_ptr<InterferenceFunction2DLattice> P_interference_function{
         InterferenceFunction2DLattice::createSquare(10.0 * Units::nanometer, 30.0 * Units::degree)};
-    FTDecayFunction2DCauchy pdf(300.0*Units::nanometer/2.0/Units::PI,
-                               100.0*Units::nanometer/2.0/Units::PI);
+    FTDecayFunction2DCauchy pdf(300.0*Units::nanometer/2.0/Pi::PI,
+                               100.0*Units::nanometer/2.0/Pi::PI);
     pdf.setGamma(30.0*Units::degree);
     P_interference_function->setDecayFunction(pdf);
 

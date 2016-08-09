@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Tests/Functional/TestMachinery/StandardSimulationsRegistry.h
-//! @brief     Declares class StandardSimulationsRegistry.
+//! @brief     Defines class StandardSimulationsRegistry.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 #ifndef STANDARDSIMULATIONSREGISTRY_H
 #define STANDARDSIMULATIONSREGISTRY_H
 
-#include "ISingleton.h" // inheriting from
+#include "ISingleton.h"
 #include "SimulationInfo.h"
 #include <map>
 

@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Aggregate/FTDecayFunctions.h
-//! @brief     Declares classes IFTDecayFunction1D, IFTDecayFunction2D,
+//! @brief     Defines classes IFTDecayFunction1D, IFTDecayFunction2D,
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,8 +16,8 @@
 #ifndef FTDECAYFUNCTIONS_H
 #define FTDECAYFUNCTIONS_H
 
-#include "IParameterized.h" // inheriting from
-#include "Units.h"
+#include "IParameterized.h"
+#include "Pi.h"
 
 //! @class IFTDecayFunction1D
 //! @ingroup algorithms_internal
@@ -160,7 +160,7 @@ class BA_CORE_API_ IFTDecayFunction2D : public IParameterized
 {
 public:
     IFTDecayFunction2D(double decay_length_x, double decay_length_y,
-                       double gamma=0, double delta=Units::PID2);
+                       double gamma=0, double delta=Pi::PID2);
     virtual ~IFTDecayFunction2D() {}
 
     virtual IFTDecayFunction2D* clone() const=0;
@@ -209,7 +209,7 @@ class BA_CORE_API_ FTDecayFunction2DCauchy : public IFTDecayFunction2D
 {
 public:
     FTDecayFunction2DCauchy(double decay_length_x, double decay_length_y,
-                            double gamma=0, double delta=Units::PID2);
+                            double gamma=0, double delta=Pi::PID2);
 
     virtual ~FTDecayFunction2DCauchy() {}
 
@@ -229,7 +229,7 @@ class BA_CORE_API_ FTDecayFunction2DGauss : public IFTDecayFunction2D
 {
 public:
     FTDecayFunction2DGauss(double decay_length_x, double decay_length_y,
-                           double gamma=0, double delta=Units::PID2);
+                           double gamma=0, double delta=Pi::PID2);
 
     virtual ~FTDecayFunction2DGauss() {}
 
@@ -248,7 +248,7 @@ class BA_CORE_API_ FTDecayFunction2DVoigt : public IFTDecayFunction2D
 {
 public:
     FTDecayFunction2DVoigt(double decay_length_x, double decay_length_y, double eta,
-                           double gamma=0, double delta=Units::PID2);
+                           double gamma=0, double delta=Pi::PID2);
 
     virtual ~FTDecayFunction2DVoigt() {}
 

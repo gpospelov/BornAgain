@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/HardParticle/FormFactorPyramid.h
-//! @brief     Declares class FormFactorPyramid
+//! @brief     Defines class FormFactorPyramid
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 #ifndef FORMFACTORPYRAMID_H
 #define FORMFACTORPYRAMID_H
 
-#include "FormFactorPolyhedron.h" // inheriting from
+#include "FormFactorPolyhedron.h"
 
 //! @class FormFactorPyramid
 //! @ingroup formfactors

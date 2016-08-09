@@ -59,6 +59,12 @@ std::string FileSystem::GetJoinPath(const std::string &spath1, const std::string
     return full_path.string();
 }
 
+//! Returns path without directory part ("Foo/Bar/Doz.int.gz" -> "Doz.int.gz")
+std::string FileSystem::filename(const std::string& path)
+{
+    return boost::filesystem::path(path).filename().string();
+}
+
 //! Returns file names that agree with glob pattern.
 std::vector<std::string> FileSystem::glob(const std::string& pattern)
 {

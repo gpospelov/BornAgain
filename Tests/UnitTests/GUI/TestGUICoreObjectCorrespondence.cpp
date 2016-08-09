@@ -6,7 +6,6 @@
 #include "InterferenceFunctionItems.h"
 #include "Units.h"
 
-
 void TestGUICoreObjectCorrespondence::test_AnisoPyramid()
 {
     AnisoPyramidItem gui_anisopyramid;

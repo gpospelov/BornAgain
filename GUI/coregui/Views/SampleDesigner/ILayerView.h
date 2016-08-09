@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/SampleDesigner/ILayerView.h
-//! @brief     Declares class ILayerView
+//! @brief     Defines class ILayerView
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,7 +17,7 @@
 #ifndef ILAYERVIEW_H
 #define ILAYERVIEW_H
 
-#include "ConnectableView.h" // inheriting from
+#include "ConnectableView.h"
 
 class MultiLayerView;
 class MultiLayerCandidate;

@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Instrument/Beam.h
-//! @brief     Declares class Beam.
+//! @brief     Defines class Beam.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 #ifndef BEAM_H
 #define BEAM_H
 
-#include "IParameterized.h" // inheriting from
+#include "IParameterized.h"
 #include "EigenCore.h"
 #include "Vectors3D.h"
 

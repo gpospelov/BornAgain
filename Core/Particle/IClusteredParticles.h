@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Particle/IClusteredParticles.h
-//! @brief     Declares class IClusteredParticles.
+//! @brief     Defines class IClusteredParticles.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 #ifndef ICLUSTEREDPARTICLES_H
 #define ICLUSTEREDPARTICLES_H
 
-#include "ICompositeSample.h" // inheriting from
+#include "ICompositeSample.h"
 #include "IFormFactor.h"
 #include "Vectors3D.h"
 

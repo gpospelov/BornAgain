@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Particle/TRange.h
-//! @brief     Declares and implements template classes TRange and TSampledRange.
+//! @brief     Defines and implements template classes TRange and TSampledRange.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

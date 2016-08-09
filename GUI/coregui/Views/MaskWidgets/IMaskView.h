@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/MaskWidgets/IMaskView.h
-//! @brief     Declares interface class IMaskView for all masks on graphics scene
+//! @brief     Defines interface class IMaskView for all masks on graphics scene
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

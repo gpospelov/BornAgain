@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Tests/UnitTests/Core/3/SpecialFunctionsTest.h
-//! @brief     Declares unit test for Form factors.
+//! @brief     Defines unit test for Form factors.
 //!
 //! @homepage  http://bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,6 +17,7 @@
 #define SPECIALFUNCTIONSTEST_H
 
 #include "MathFunctions.h"
+#include "Pi.h"
 
 #define EXPECT_CNEAR(a,b,epsi) \
   EXPECT_NEAR((a).real(),(b).real(),epsi); EXPECT_NEAR((a).imag(),(b).imag(),epsi);
@@ -65,7 +66,7 @@ TEST_F(SpecialFunctionsTest, csinc)
     const double eps = 4.7e-16; // more than twice the machine precision
 
     for( int i=0; i<24; ++i ) {
-        double ph = 2*M_PI*i/24;
+        double ph = Pi::PI2*i/24;
         //std::cout << "---------------------------------------------------------------------\n";
         //std::cout << "phase = " << ph << "\n";
         EXPECT_EQ( MathFunctions::sinc(complex_t(0,0)),       complex_t(1.,0.) );

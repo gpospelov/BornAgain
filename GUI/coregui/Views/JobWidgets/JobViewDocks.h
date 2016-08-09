@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/JobWidgets/JobViewDocks.h
-//! @brief     Declares class JobViewDocks
+//! @brief     Defines class JobViewDocks
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

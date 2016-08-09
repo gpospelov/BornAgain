@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Sample/ISampleIteratorStrategy.h
-//! @brief     Declares strategies for the class SampleTreeIterator.
+//! @brief     Defines strategies for the class SampleTreeIterator.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 #ifndef ISAMPLEITERATORSTRATEGY_H
 #define ISAMPLEITERATORSTRATEGY_H
 
-#include "ISample.h" // inheriting from
+#include "ISample.h"
 
 class IteratorMemento;
 

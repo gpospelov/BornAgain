@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Material/HomogeneousMagneticMaterial.h
-//! @brief     Declares class HomogeneousMagneticMaterial
+//! @brief     Defines class HomogeneousMagneticMaterial
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 #ifndef HOMOGENEOUSMAGNETICMATERIAL_H
 #define HOMOGENEOUSMAGNETICMATERIAL_H
 
-#include "HomogeneousMaterial.h" // inheriting from
+#include "HomogeneousMaterial.h"
 
 //! @class HomogeneousMagneticMaterial
 //! @ingroup materials

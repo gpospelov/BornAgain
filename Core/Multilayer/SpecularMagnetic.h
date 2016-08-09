@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Multilayer/SpecularMagnetic.h
-//! @brief     Declares class SpecularMagnetic.
+//! @brief     Defines class SpecularMagnetic.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 #ifndef SPECULARMAGNETIC_H
 #define SPECULARMAGNETIC_H
 
-#include "ISimulation.h" // inheriting from
+#include "ISimulation.h"
 #include "MatrixRTCoefficients.h"
 #include "Vectors3D.h"
 #include <vector>

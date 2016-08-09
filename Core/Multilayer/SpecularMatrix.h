@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Multilayer/SpecularMatrix.h
-//! @brief     Declares class SpecularMatrix.
+//! @brief     Defines class SpecularMatrix.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 #ifndef SPECULARMATRIX_H
 #define SPECULARMATRIX_H
 
-#include "ISimulation.h" // inheriting from
+#include "ISimulation.h"
 #include "ScalarRTCoefficients.h"
 #include "Vectors3D.h"
 #include <vector>

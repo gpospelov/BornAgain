@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/IntensityDataWidgets/VerticalSlicePlot.h
-//! @brief     Declares class VerticalSlicePlot
+//! @brief     Defines class VerticalSlicePlot
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

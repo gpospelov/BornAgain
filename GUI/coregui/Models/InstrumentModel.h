@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Models/InstrumentModel.h
-//! @brief     Declares class InstrumentModel
+//! @brief     Defines class InstrumentModel
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,7 +17,7 @@
 #ifndef INSTRUMENTMODEL_H
 #define INSTRUMENTMODEL_H
 
-#include "SessionModel.h" // inheriting from
+#include "SessionModel.h"
 
 class InstrumentItem;
 

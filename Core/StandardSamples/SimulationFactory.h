@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/StandardSamples/SimulationFactory.h
-//! @brief     Declares class SimulationFactory.
+//! @brief     Defines class SimulationFactory.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 #ifndef SIMULATIONFACTORY_H
 #define SIMULATIONFACTORY_H
 
-#include "IFactory.h" // inheriting from
+#include "IFactory.h"
 
 //! @class SimulationFactory
 //! @ingroup standard_samples

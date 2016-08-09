@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Models/FormFactorItems.h
-//! @brief     Declares FormFactorItems classes
+//! @brief     Defines FormFactorItems classes
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,7 +17,7 @@
 #ifndef FORMFACTORITEMS_H
 #define FORMFACTORITEMS_H
 
-#include "SessionItem.h" // inheriting from
+#include "SessionItem.h"
 
 
 class IFormFactor;

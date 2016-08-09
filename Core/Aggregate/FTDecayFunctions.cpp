@@ -17,7 +17,7 @@
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
 #include "ParameterPool.h"
-#include "Units.h"
+#include "Pi.h"
 
 //===============1D======================
 
@@ -55,7 +55,7 @@ FTDecayFunction1DGauss::FTDecayFunction1DGauss(double omega)
 double FTDecayFunction1DGauss::evaluate(double q) const
 {
     double sum_sq = q*q*m_omega*m_omega;
-    return m_omega*std::sqrt(Units::PI2)*std::exp(-sum_sq/2.0);
+    return m_omega*std::sqrt(Pi::PI2)*std::exp(-sum_sq/2.0);
 }
 
 FTDecayFunction1DTriangle::FTDecayFunction1DTriangle(double omega)
@@ -82,7 +82,7 @@ FTDecayFunction1DVoigt::FTDecayFunction1DVoigt(double omega, double eta)
 double FTDecayFunction1DVoigt::evaluate(double q) const
 {
     double sum_sq = q*q*m_omega*m_omega;
-    return m_eta*m_omega*std::sqrt(Units::PI2)*std::exp(-sum_sq/2.0)
+    return m_eta*m_omega*std::sqrt(Pi::PI2)*std::exp(-sum_sq/2.0)
             + (1.0 - m_eta)*m_omega*2.0/(1.0 + sum_sq);
 }
 
@@ -115,11 +115,11 @@ FTDecayFunction1DCosine::FTDecayFunction1DCosine(double omega)
 double FTDecayFunction1DCosine::evaluate(double q) const
 {
     double qw = std::abs(q*m_omega);
-    if (std::abs(qw/Units::PI-1.0) < Numeric::double_epsilon) {
+    if (std::abs(qw/Pi::PI-1.0) < Numeric::double_epsilon) {
         return m_omega/2.0;
     }
     else {
-        return m_omega*MathFunctions::Sinc(qw)/(1.0-qw*qw/Units::PI/Units::PI);
+        return m_omega*MathFunctions::Sinc(qw)/(1.0-qw*qw/Pi::PI/Pi::PI);
     }
 }
 */
@@ -137,7 +137,7 @@ IFTDecayFunction2D::IFTDecayFunction2D(
 void IFTDecayFunction2D::transformToStarBasis(double qX, double qY, double alpha,
                                               double a, double b, double &qa, double &qb) const
 {
-    double prefactor = 1.0/Units::PI2; // divide by sin(m_delta)
+    double prefactor = 1.0/Pi::PI2; // divide by sin(m_delta)
                                      // for unnormalized X*,Y* basis
     qa = a*prefactor*( std::sin(m_gamma+m_delta)*qX - std::sin(m_gamma)*qY );
     qb = b*prefactor*( -std::sin(alpha-m_gamma-m_delta)*qX + std::sin(alpha-m_gamma)*qY );
@@ -167,7 +167,7 @@ FTDecayFunction2DCauchy::FTDecayFunction2DCauchy(
 double FTDecayFunction2DCauchy::evaluate(double qx, double qy) const
 {
     double sum_sq = qx*qx*m_omega_x*m_omega_x + qy*qy*m_omega_y*m_omega_y;
-    return Units::PI2*m_omega_x*m_omega_y*std::pow(1.0 + sum_sq, -1.5);
+    return Pi::PI2*m_omega_x*m_omega_y*std::pow(1.0 + sum_sq, -1.5);
 }
 
 FTDecayFunction2DGauss::FTDecayFunction2DGauss(
@@ -181,7 +181,7 @@ FTDecayFunction2DGauss::FTDecayFunction2DGauss(
 double FTDecayFunction2DGauss::evaluate(double qx, double qy) const
 {
     double sum_sq = qx*qx*m_omega_x*m_omega_x + qy*qy*m_omega_y*m_omega_y;
-    return Units::PI2*m_omega_x*m_omega_y*std::exp(-sum_sq/2.0);
+    return Pi::PI2*m_omega_x*m_omega_y*std::exp(-sum_sq/2.0);
 }
 
 FTDecayFunction2DVoigt::FTDecayFunction2DVoigt(
@@ -195,7 +195,7 @@ FTDecayFunction2DVoigt::FTDecayFunction2DVoigt(
 double FTDecayFunction2DVoigt::evaluate(double qx, double qy) const
 {
     double sum_sq = qx*qx*m_omega_x*m_omega_x + qy*qy*m_omega_y*m_omega_y;
-    return Units::PI2*m_omega_x*m_omega_y*(m_eta*std::exp(-sum_sq/2.0)
+    return Pi::PI2*m_omega_x*m_omega_y*(m_eta*std::exp(-sum_sq/2.0)
                                            + (1.0-m_eta)*std::pow(1.0 + sum_sq, -1.5));
 }
 

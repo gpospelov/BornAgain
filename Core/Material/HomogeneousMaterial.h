@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Material/HomogeneousMaterial.h
-//! @brief     Declares and implements class HomogeneousMaterial.
+//! @brief     Defines and implements class HomogeneousMaterial.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 #ifndef HOMOGENEOUSMATERIAL_H
 #define HOMOGENEOUSMATERIAL_H
 
-#include "IMaterial.h" // inheriting from
+#include "IMaterial.h"
 #include <vector>
 
 //! @class HomogeneousMaterial

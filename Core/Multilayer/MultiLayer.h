@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Multilayer/MultiLayer.h
-//! @brief     Declares class MultiLayer.
+//! @brief     Defines class MultiLayer.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 #ifndef MULTILAYER_H
 #define MULTILAYER_H
 
-#include "ICompositeSample.h" // inheriting from
+#include "ICompositeSample.h"
 #include "Vectors3D.h"
 
 class GISASSimulation;

@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/StandardSamples/SizeDistributionModelsBuilder.h
-//! @brief     Declares various sample builder classes to test DA, LMA, SSCA approximations
+//! @brief     Defines various sample builder classes to test DA, LMA, SSCA approximations
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 #ifndef SIZEDISTRIBUTIONMODELSBUILDER_H
 #define SIZEDISTRIBUTIONMODELSBUILDER_H
 
-#include "ISampleBuilder.h" // inheriting from
+#include "ISampleBuilder.h"
 
 //! @class SizeDistributionDAModelBuilder
 //! @ingroup standard_samples

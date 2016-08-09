@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/SampleDesigner/ParticleDistributionView.h
-//! @brief     Declares class ParticleDistributionView
+//! @brief     Defines class ParticleDistributionView
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,7 +17,7 @@
 #ifndef PARTICLEDISTRIBUTIONVIEW_H
 #define PARTICLEDISTRIBUTIONVIEW_H
 
-#include "ConnectableView.h" // inheriting from
+#include "ConnectableView.h"
 
 //! Class representing view of distributed particle item
 class BA_CORE_API_ ParticleDistributionView : public ConnectableView

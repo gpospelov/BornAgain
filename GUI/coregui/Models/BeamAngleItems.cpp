@@ -19,7 +19,6 @@
 #include "GUIHelpers.h"
 #include "Units.h"
 
-
 BeamInclinationAngleItem::BeamInclinationAngleItem()
     : BeamDistributionItem(Constants::BeamInclinationAngleType)
 {

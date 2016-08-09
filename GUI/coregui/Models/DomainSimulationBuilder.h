@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Models/DomainSimulationBuilder.h
-//! @brief     Declares class DomainSimulationBuilder
+//! @brief     Defines class DomainSimulationBuilder
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

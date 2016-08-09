@@ -16,7 +16,7 @@
 #ifndef DIMENSIONEDPARAMETERS_H
 #define DIMENSIONEDPARAMETERS_H
 
-#include "RealParameter.h" // inheriting from
+#include "RealParameter.h"
 
 //! A parameter of physical dimension "angle".
 

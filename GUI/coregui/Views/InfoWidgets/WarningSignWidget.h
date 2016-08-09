@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/InfoWidgets/WarningSignWidget.h
-//! @brief     Declares class WarningSignWidget
+//! @brief     Defines class WarningSignWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

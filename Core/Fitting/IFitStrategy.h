@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Fitting/IFitStrategy.h
-//! @brief     Declares interface class IFitStrategy, and class FitStrategyDefault
+//! @brief     Defines interface class IFitStrategy, and class FitStrategyDefault
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 #ifndef IFITSTRATEGY_H
 #define IFITSTRATEGY_H
 
-#include "INamed.h" // inheriting from
+#include "INamed.h"
 
 class FitKernel;
 

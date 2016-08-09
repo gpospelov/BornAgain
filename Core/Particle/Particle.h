@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Particle/Particle.h
-//! @brief     Declares class Particle.
+//! @brief     Defines class Particle.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 #ifndef PARTICLE_H
 #define PARTICLE_H
 
-#include "IParticle.h" // inheriting from
+#include "IParticle.h"
 #include "IMaterial.h"
 #include "FormFactorDecoratorMaterial.h"
 #include "FormFactorDecoratorRotation.h"

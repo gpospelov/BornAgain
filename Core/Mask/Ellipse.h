@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Mask/Ellipse.h
-//! @brief     Declares class Rectangle.
+//! @brief     Defines class Rectangle.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 #ifndef ELLIPSE_H
 #define ELLIPSE_H
 
-#include "IShape2D.h" // inheriting from
+#include "IShape2D.h"
 
 namespace Geometry {
 

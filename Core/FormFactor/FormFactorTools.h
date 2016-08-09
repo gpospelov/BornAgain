@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/FormFactor/FormFactorTools.h
-//! @brief     Declares global functions that facilitate IFormFactor handling.
+//! @brief     Defines global functions that facilitate IFormFactor handling.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

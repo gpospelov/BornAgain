@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/utils/IMessageService.h
-//! @brief     Declares abstract IMessageService interface
+//! @brief     Defines abstract IMessageService interface
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

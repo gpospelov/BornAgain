@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/utils/WarningMessageService.h
-//! @brief     Declares abstract IMessageService interface
+//! @brief     Defines abstract IMessageService interface
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,7 +17,7 @@
 #ifndef WARNINGMESSAGESERVICE_H
 #define WARNINGMESSAGESERVICE_H
 
-#include "IMessageService.h" // inheriting from
+#include "IMessageService.h"
 #include <QMap>
 #include <QStringList> // need detected by TeamCity
 

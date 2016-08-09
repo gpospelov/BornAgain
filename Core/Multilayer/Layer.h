@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Multilayer/Layer.h
-//! @brief     Declares class Layer.
+//! @brief     Defines class Layer.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 #ifndef LAYER_H
 #define LAYER_H
 
-#include "ICompositeSample.h" // inheriting from
+#include "ICompositeSample.h"
 #include "Complex.h"
 #include "SafePointerVector.h"
 

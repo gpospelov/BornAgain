@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Models/VectorItem.h
-//! @brief     Declares class VectorItem
+//! @brief     Defines class VectorItem
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,7 +17,7 @@
 #ifndef VECTORITEM_H
 #define VECTORITEM_H
 
-#include "SessionItem.h" // inheriting from
+#include "SessionItem.h"
 #include "Vectors3D.h"
 
 class BA_CORE_API_  VectorItem : public SessionItem

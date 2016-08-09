@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Tests/Functional/Fit/MinimizerTests.h
-//! @brief     Declares classes MinimizerTests.
+//! @brief     Defines classes MinimizerTests.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 #ifndef MINIMIZERTESTS_H
 #define MINIMIZERTESTS_H
 
-#include "IMinimizerTest.h" // inheriting from
+#include "IMinimizerTest.h"
 
 //! basic test of Minuit2/Migrad minimizer
 class Minuit2MigradTest : public IMinimizerTest

@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Models/LatticeTypeItems.h
-//! @brief     Declares classes LatticeTypeItems
+//! @brief     Defines classes LatticeTypeItems
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,7 +17,7 @@
 #ifndef LATTICETYPEITEMS_H
 #define LATTICETYPEITEMS_H
 
-#include "SessionItem.h" // inheriting from
+#include "SessionItem.h"
 
 class BA_CORE_API_ BasicLatticeTypeItem : public SessionItem
 {

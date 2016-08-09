@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Models/ParameterTuningModel.h
-//! @brief     Declares class ParameterTuningModel
+//! @brief     Defines class ParameterTuningModel
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,7 +17,7 @@
 #ifndef PARAMETERTUNINGMODEL_H
 #define PARAMETERTUNINGMODEL_H
 
-#include "FilterPropertyProxy.h" // inheriting from
+#include "FilterPropertyProxy.h"
 
 class ParameterItem;
 

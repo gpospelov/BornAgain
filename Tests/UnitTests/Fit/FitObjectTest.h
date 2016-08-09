@@ -1,10 +1,10 @@
 #ifndef FITOBJECTTEST_H
 #define FITOBJECTTEST_H
 
-#include "Units.h"
 #include "FitObject.h"
 #include "GISASSimulation.h"
 #include "BornAgainNamespace.h"
+#include "Units.h"
 #include <iostream>
 #include "gtest/gtest.h"
 
@@ -16,8 +16,6 @@ class FitObjectTest : public ::testing::Test
     virtual ~FitObjectTest(){}
 
 };
-
-
 
 TEST_F(FitObjectTest, Initialization)
 {
@@ -43,8 +41,5 @@ TEST_F(FitObjectTest, Initialization)
     EXPECT_EQ(nullptr, obj.getSimulationData());
     EXPECT_TRUE(obj.getSimulation()->getOutputData()->hasSameShape(*obj.getRealData()));
 }
-
-
-
 
 #endif // FITOBJECTTEST_H

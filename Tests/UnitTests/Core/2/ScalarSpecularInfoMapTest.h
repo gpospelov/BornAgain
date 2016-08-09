@@ -2,7 +2,7 @@
 #define SCALARSPECULARINFOMAPTEST_H
 
 #include "MultiLayer.h"
-#include "Units.h"
+#include "Pi.h"
 #include "ScalarRTCoefficients.h"
 #include "ScalarSpecularInfoMap.h"
 #include "Layer.h"
@@ -35,7 +35,7 @@ TEST_F(ScalarSpecularInfoMapTest, getCoefficients)
 {
     ScalarSpecularInfoMap map(mp_multilayer, 0);
     std::unique_ptr<const ScalarRTCoefficients> P_rt_coeffs(
-        (ScalarRTCoefficients*) map.getOutCoefficients(1.0, 1.0, 2.0*Units::PI));
+        (ScalarRTCoefficients*) map.getOutCoefficients(1.0, 1.0, 2.0*Pi::PI));
     complex_t R0 = complex_t(0.1750375, -0.0222467);
     complex_t lambda0 = complex_t(0.841471, 0.0);
     EXPECT_TRUE(nullptr != P_rt_coeffs.get());

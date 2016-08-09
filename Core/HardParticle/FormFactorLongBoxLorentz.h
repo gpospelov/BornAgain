@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/HardParticle/FormFactorLongBoxLorentz.h
-//! @brief     Declares class FormFactorLongBoxLorentz.
+//! @brief     Defines class FormFactorLongBoxLorentz.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 #ifndef FORMFACTORLONGBOXLORENTZ_H
 #define FORMFACTORLONGBOXLORENTZ_H
 
-#include "IFormFactorBorn.h" // inheriting from
+#include "IFormFactorBorn.h"
 
 //! @class FormFactorBox
 //! @ingroup formfactors

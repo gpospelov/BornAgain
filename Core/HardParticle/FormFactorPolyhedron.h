@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/HardParticle/FormFactorPolyhedron.h
-//! @brief     Declares class FormFactorPolyhedron, FormFactorPrism, and auxiliary classes.
+//! @brief     Defines class FormFactorPolyhedron, FormFactorPrism, and auxiliary classes.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 #ifndef FORMFACTORPOLYHEDRON_H
 #define FORMFACTORPOLYHEDRON_H
 
-#include "IFormFactorBorn.h" // inheriting from
+#include "IFormFactorBorn.h"
 #include <memory>
 
 class PolygonalTopology {

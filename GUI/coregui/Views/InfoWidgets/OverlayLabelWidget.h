@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/InfoWidgets/OverlayLabelWidget.h
-//! @brief     Declares class OverlayLabelWidget
+//! @brief     Defines class OverlayLabelWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

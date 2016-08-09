@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Fit/Utils/Numeric.h
-//! @brief     Declares constants and "almost equal" in namespace Numeric.
+//! @brief     Defines constants and "almost equal" in namespace Numeric.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

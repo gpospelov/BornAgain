@@ -13,7 +13,7 @@
 //
 // ************************************************************************** //
 
-#include "Units.h"
+#include "Pi.h"
 #include "BornAgainNamespace.h"
 #include "HardParticles.h"
 #include "qLoopedTest.h"
@@ -43,7 +43,7 @@ TEST_P(FFSymmetryTest, Prism3)
     if( skip_q( 1e-99, 2e2 ) )
         return;
     FormFactorPrism3 p(.83, .45);
-    test_qq_eq( &p, q, q.rotatedZ(Units::PI2/3) );
+    test_qq_eq( &p, q, q.rotatedZ(Pi::PI2/3) );
 }
 
 TEST_P(FFSymmetryTest, Prism6)
@@ -51,8 +51,8 @@ TEST_P(FFSymmetryTest, Prism6)
     if( skip_q( 1e-99, 2e3 ) )
         return;
     FormFactorPrism6 p(1.33, .42);
-    test_qq_eq( &p, q, q.rotatedZ( Units::PI/3),  1e-12 );
-    test_qq_eq( &p, q, q.rotatedZ(-Units::PI2/3), 3.8e-12 );
+    test_qq_eq( &p, q, q.rotatedZ( Pi::PI/3),  1e-12 );
+    test_qq_eq( &p, q, q.rotatedZ(-Pi::PI2/3), 3.8e-12 );
 }
 
 TEST_P(FFSymmetryTest, Tetrahedron)
@@ -60,7 +60,7 @@ TEST_P(FFSymmetryTest, Tetrahedron)
     if( skip_q( 1e-99, 2e2 ) )
         return;
     FormFactorTetrahedron p(8.43, .25, .53);
-    test_qq_eq( &p, q, q.rotatedZ(Units::PI2/3), 6e-12 );
+    test_qq_eq( &p, q, q.rotatedZ(Pi::PI2/3), 6e-12 );
     // Linux: 3e-12, relaxed for Mac
 }
 
@@ -69,15 +69,15 @@ TEST_P(FFSymmetryTest, Cone6_flat)
     if( skip_q( 1e-99, 2e2) ) // TODO for larger q, imag(ff) is nan
         return;
     FormFactorCone6 p(4.3, .09, .1);
-    test_qq_eq( &p, q, q.rotatedZ(-Units::PI/3), 3.8e-12 );
+    test_qq_eq( &p, q, q.rotatedZ(-Pi::PI/3), 3.8e-12 );
 }
 
 TEST_P(FFSymmetryTest, Cone6_steep)
 {
     if( skip_q( 1e-99, 2e2) ) // TODO for larger q, imag(ff) is nan
         return;
-    FormFactorCone6 p(.23, 3.5, .999*Units::PI/2);
-    test_qq_eq( &p, q, q.rotatedZ(-Units::PI/3), 2.5e-12 );
+    FormFactorCone6 p(.23, 3.5, .999*Pi::PI/2);
+    test_qq_eq( &p, q, q.rotatedZ(-Pi::PI/3), 2.5e-12 );
 }
 
 //*********** spheroids ***************
@@ -96,7 +96,7 @@ TEST_P(FFSymmetryTest, TruncatedSphere)
     if( skip_q( 1e-99, 2e2 ) )
         return;
     FormFactorTruncatedSphere p(.79, .34);
-    test_qq_eq( &p, q, q.rotatedZ(Units::PI/3.13698), 1e-10 );
+    test_qq_eq( &p, q, q.rotatedZ(Pi::PI/3.13698), 1e-10 );
 }
 
 // ****** TODO: tests that do not pass for the full q range *********

@@ -17,7 +17,7 @@
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
 #include "Numeric.h"
-#include "Units.h"
+#include "Pi.h"
 
 FormFactorFullSpheroid::FormFactorFullSpheroid(double radius, double height )
     : m_radius(radius), m_height(height)
@@ -49,9 +49,9 @@ complex_t FormFactorFullSpheroid::evaluate_for_q(const cvector_t q) const
     m_q = q;
 
     if (std::abs(m_q.mag()) <= Numeric::double_epsilon) {
-        return Units::PI2*R*R*H/3.;
+        return Pi::PI2*R*R*H/3.;
     } else {
         complex_t qzH_half = H/2*q.z();
-        return 4 * Units::PI * mP_integrator->integrate(0.0, H/2.0) * exp_I(qzH_half);
+        return 4 * Pi::PI * mP_integrator->integrate(0.0, H/2.0) * exp_I(qzH_half);
     }
 }

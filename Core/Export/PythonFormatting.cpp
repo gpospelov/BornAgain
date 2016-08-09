@@ -29,8 +29,9 @@
 #include "ExportToPython.h"
 #include "RealParameter.h"
 #include "Rectangle.h"
-#include "Units.h"
+#include "Pi.h"
 #include "Utils.h"
+#include "Units.h"
 #include <iomanip>
 GCC_DIAG_OFF(missing-field-initializers)
 GCC_DIAG_OFF(unused-parameter)
@@ -211,8 +212,7 @@ std::string printDegrees(double input)
 {
     std::ostringstream inter;
     inter << std::setprecision(11);
-    double in_degrees = input*180.0/M_PI;
-    inter << in_degrees;
+    inter << Units::rad2deg(input);
     if(inter.str().find('e') == std::string::npos && inter.str().find('.') == std::string::npos)
         inter << ".0";
     inter << "*deg";
@@ -221,12 +221,12 @@ std::string printDegrees(double input)
 
 bool isSquare(double length1, double length2, double angle)
 {
-    return length1==length2 && Numeric::areAlmostEqual(angle, Units::PI/2.0);
+    return length1==length2 && Numeric::areAlmostEqual(angle, Pi::PID2);
 }
 
 bool isHexagonal(double length1, double length2, double angle)
 {
-    return length1==length2 && Numeric::areAlmostEqual(angle, 2*Units::PI/3.0);
+    return length1==length2 && Numeric::areAlmostEqual(angle, Pi::PI2/3.0);
 }
 
 std::string printKvector(const kvector_t value)

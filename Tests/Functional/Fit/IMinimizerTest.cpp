@@ -49,9 +49,8 @@ IMinimizerTest::IMinimizerTest(const std::string& minimizer_name,
 void IMinimizerTest::runTest()
 {
     std::unique_ptr<ISample> sample(createSample());
-    for (size_t i = 0; i < m_parameters.size(); ++i) {
+    for (size_t i = 0; i < m_parameters.size(); ++i)
         sample->setParameterValue(m_parameters[i].m_name, m_parameters[i].m_real_value);
-    }
 
     std::unique_ptr<GISASSimulation> simulation(createSimulation());
     simulation->setSample(*sample.get());
@@ -65,9 +64,8 @@ void IMinimizerTest::runTest()
     // run fit
     fitSuite->runFit();
 
-    for (size_t i = 0; i < m_parameters.size(); ++i) {
+    for (size_t i = 0; i < m_parameters.size(); ++i)
         m_parameters[i].m_found_value = fitSuite->getMinimizer()->getValueOfVariableAtMinimum(i);
-    }
 
     // analyze results
     for (size_t i = 0; i < m_parameters.size(); ++i) {

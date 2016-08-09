@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Multilayer/IRoughness.h
-//! @brief     Defines interface class IRoughness.
+//! @file      Core/Basics/Pi.h
+//! @brief     Defines PI and related mathematical constants.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,21 +13,16 @@
 //
 // ************************************************************************** //
 
-#ifndef IROUGHNESS_H
-#define IROUGHNESS_H
+#ifndef PI_H
+#define PI_H
 
-#include "ISample.h"
+namespace Pi {
 
-//! @class IRoughness
-//! @ingroup samples_internal
-//! @brief Interface to equip an interface with a roughness.
+static const double PI   = 3.14159265358979323846264338327950288;
+static const double PI2  = 6.28318530717958647692528676655900577;
+static const double PID2 = 1.57079632679489661923132169163975144;
+static const double PID4 = PI/4.0;
 
-class BA_CORE_API_ IRoughness : public ISample
-{
-public:
-    IRoughness() {}
-    virtual ~IRoughness() {}
-    virtual void accept(ISampleVisitor *visitor) const;
-};
+} // namespace Pi
 
-#endif // IROUGHNESS_H
+#endif // PI_H

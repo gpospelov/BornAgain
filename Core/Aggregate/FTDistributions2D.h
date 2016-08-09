@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Aggregate/FTDistributions2D.h
-//! @brief     Declares interface class IFTDistribution2D, and children thereof.
+//! @brief     Defines interface class IFTDistribution2D, and children thereof.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,8 +16,8 @@
 #ifndef FTDISTRIBUTIONS2D_H
 #define FTDISTRIBUTIONS2D_H
 
-#include "IParameterized.h" // inheriting from
-#include "Units.h"
+#include "IParameterized.h"
+#include "Pi.h"
 
 // ************************************************************************** //
 //! @class IFTDistribution2D
@@ -29,7 +29,7 @@ class BA_CORE_API_ IFTDistribution2D : public IParameterized
 {
 public:
     IFTDistribution2D(double coherence_length_x, double coherence_length_y,
-                      double gamma=0, double delta=Units::PID2);
+                      double gamma=0, double delta=Pi::PID2);
     virtual ~IFTDistribution2D() {}
 
     virtual IFTDistribution2D* clone() const=0;
@@ -78,7 +78,7 @@ class BA_CORE_API_ FTDistribution2DCauchy : public IFTDistribution2D
 {
 public:
     FTDistribution2DCauchy(double coherence_length_x, double coherence_length_y,
-                           double gamma=0, double delta=Units::PID2);
+                           double gamma=0, double delta=Pi::PID2);
 
     virtual ~FTDistribution2DCauchy() {}
 
@@ -101,7 +101,7 @@ class BA_CORE_API_ FTDistribution2DGauss : public IFTDistribution2D
 {
 public:
     FTDistribution2DGauss(double coherence_length_x, double coherence_length_y,
-                          double gamma=0, double delta=Units::PID2);
+                          double gamma=0, double delta=Pi::PID2);
 
     virtual ~FTDistribution2DGauss() {}
 
@@ -124,7 +124,7 @@ class BA_CORE_API_ FTDistribution2DGate : public IFTDistribution2D
 {
 public:
     FTDistribution2DGate(double coherence_length_x, double coherence_length_y,
-                         double gamma=0, double delta=Units::PID2);
+                         double gamma=0, double delta=Pi::PID2);
 
     virtual ~FTDistribution2DGate() {}
 
@@ -147,7 +147,7 @@ class BA_CORE_API_ FTDistribution2DCone : public IFTDistribution2D
 {
 public:
     FTDistribution2DCone(double coherence_length_x, double coherence_length_y,
-                         double gamma=0, double delta=Units::PID2);
+                         double gamma=0, double delta=Pi::PID2);
 
     virtual ~FTDistribution2DCone() {}
 
@@ -174,7 +174,7 @@ class BA_CORE_API_ FTDistribution2DVoigt : public IFTDistribution2D
 {
 public:
     FTDistribution2DVoigt(double coherence_length_x, double coherence_length_y,
-                          double eta, double gamma=0, double delta=Units::PID2);
+                          double eta, double gamma=0, double delta=Pi::PID2);
     virtual ~FTDistribution2DVoigt() {}
 
     FTDistribution2DVoigt* clone() const final {

@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/JobWidgets/JobRealTimeToolBar.h
-//! @brief     Declares class JobRealTimeToolBar
+//! @brief     Defines class JobRealTimeToolBar
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,7 +17,7 @@
 #ifndef JOBREALTIMETOOLBAR_H
 #define JOBREALTIMETOOLBAR_H
 
-#include "StyledToolBar.h" // inheriting from
+#include "StyledToolBar.h"
 
 //! The JobRealTimeToolBar class represents a toolbar with buttons for JobRealTimeWidget.
 

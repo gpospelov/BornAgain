@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Tests/Functional/TestMachinery/SubtestRegistry.h
-//! @brief     Declares different registries for subtests of functional tests.
+//! @brief     Defines different registries for subtests of functional tests.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 #ifndef SUBTESTREGISTRY_H
 #define SUBTESTREGISTRY_H
 
-#include "IRegistry.h" // inheriting from
+#include "IRegistry.h"
 #include "FTDistributions2D.h"
 
 class ISubtestRegistry : public IRegistry<IParameterized>

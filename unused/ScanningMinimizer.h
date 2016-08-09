@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      unused/ScanningMinimizer.h
-//! @brief     Declares class ScanningMinimizer.
+//! @brief     Defines class ScanningMinimizer.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 #ifndef MINIMIZERSCAN_H
 #define MINIMIZERSCAN_H
 
-#include "IMinimizer.h" // inheriting from
+#include "IMinimizer.h"
 #include "FitSuiteParameters.h"
 
 //! @class ScanningMinimizer

@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/FormFactor/FormFactorDWBA.h
-//! @brief     Declares class FormFactorDWBA.
+//! @brief     Defines class FormFactorDWBA.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 #ifndef FORMFACTORDWBA_H
 #define FORMFACTORDWBA_H
 
-#include "IFormFactorDecorator.h" // inheriting from
+#include "IFormFactorDecorator.h"
 
 class ILayerRTCoefficients;
 

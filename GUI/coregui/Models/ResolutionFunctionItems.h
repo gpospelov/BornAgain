@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Models/ResolutionFunctionItems.h
-//! @brief     Declares family of ResolutionFunctionItem
+//! @brief     Defines family of ResolutionFunctionItem
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,7 +17,7 @@
 #ifndef RESOLUTIONFUNCTIONITEMS_H
 #define RESOLUTIONFUNCTIONITEMS_H
 
-#include "SessionItem.h" // inheriting from
+#include "SessionItem.h"
 #include "ResolutionFunction2DGaussian.h"
 
 

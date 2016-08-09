@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/FitWidgets/HistogramPlot.h
-//! @brief     Declares class HistogramPlot
+//! @brief     Defines class HistogramPlot
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Models/MultiLayerItem.h
-//! @brief     Declares class MultiLayerItem
+//! @brief     Defines class MultiLayerItem
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,7 +17,7 @@
 #ifndef MULTILAYERITEM_H
 #define MULTILAYERITEM_H
 
-#include "SessionGraphicsItem.h" // inheriting from
+#include "SessionGraphicsItem.h"
 
 class BA_CORE_API_ MultiLayerItem : public SessionGraphicsItem
 {

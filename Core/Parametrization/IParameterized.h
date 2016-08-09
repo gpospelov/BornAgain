@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Parametrization/IParameterized.h
-//! @brief     Declares class IParameterized.
+//! @brief     Defines class IParameterized.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 #ifndef IPARAMETERIZED_H
 #define IPARAMETERIZED_H
 
-#include "INamed.h" // inheriting from
+#include "INamed.h"
 
 class AttLimits;
 class ParameterPool;

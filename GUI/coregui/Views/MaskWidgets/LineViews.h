@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/MaskWidgets/LineViews.h
-//! @brief     Declares classes VerticalLineView and HorizontalLineView
+//! @brief     Defines classes VerticalLineView and HorizontalLineView
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,7 +17,7 @@
 #ifndef LINEVIEWS_H
 #define LINEVIEWS_H
 
-#include "IMaskView.h" // inheriting from
+#include "IMaskView.h"
 
 //! This is a view of VerticalLineItem mask
 

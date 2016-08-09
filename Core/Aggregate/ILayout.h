@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Aggregate/ILayout.h
-//! @brief     Declares interface class ILayout.
+//! @brief     Defines interface class ILayout.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 #ifndef ILAYOUT_H
 #define ILAYOUT_H
 
-#include "ICompositeSample.h" // inheriting from
+#include "ICompositeSample.h"
 #include "SafePointerVector.h"
 
 class IAbstractParticle;

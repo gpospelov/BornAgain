@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Models/MaskModel.h
-//! @brief     Declares MaskModel classes
+//! @brief     Defines MaskModel classes
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,7 +17,7 @@
 #ifndef MASKMODEL_H
 #define MASKMODEL_H
 
-#include "SessionModel.h" // inheriting from
+#include "SessionModel.h"
 
 class BA_CORE_API_ MaskModel : public SessionModel
 {

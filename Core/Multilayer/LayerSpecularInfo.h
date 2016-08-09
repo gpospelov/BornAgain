@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Multilayer/LayerSpecularInfo.h
-//! @brief     Declares class LayerSpecularInfo.
+//! @brief     Defines class LayerSpecularInfo.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 #ifndef LAYERSPECULARINFO_H
 #define LAYERSPECULARINFO_H
 
-#include "ICloneable.h" // inheriting from
+#include "ICloneable.h"
 #include <memory>
 
 class ISpecularInfoMap;

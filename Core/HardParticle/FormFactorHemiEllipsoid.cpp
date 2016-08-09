@@ -17,7 +17,7 @@
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
 #include "Numeric.h"
-#include "Units.h"
+#include "Pi.h"
 
 FormFactorHemiEllipsoid::FormFactorHemiEllipsoid(double radius_x, double radius_y, double height)
     : m_radius_x(radius_x), m_radius_y(radius_y), m_height(height)
@@ -61,8 +61,8 @@ complex_t FormFactorHemiEllipsoid::evaluate_for_q(const cvector_t q) const
      double H = m_height;
 
      if (std::abs(m_q.mag()) <= Numeric::double_epsilon) {
-         return Units::PI2*R*W*H/3.;
+         return Pi::PI2*R*W*H/3.;
      } else {
-         return Units::PI2*mP_integrator->integrate(0.,H );
+         return Pi::PI2*mP_integrator->integrate(0.,H );
      }
 }

@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Binning/VariableBinAxis.h
-//! @brief     Declares class VariableBinAxis.
+//! @brief     Defines class VariableBinAxis.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 #ifndef VARIABLEBINAXIS_H
 #define VARIABLEBINAXIS_H
 
-#include "IAxis.h" // inheriting from
+#include "IAxis.h"
 
 //! @class VariableBinAxis
 //! @ingroup tools

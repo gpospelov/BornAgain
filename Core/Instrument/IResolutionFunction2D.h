@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Instrument/IResolutionFunction2D.h
-//! @brief     Declares interface class IResolutionFunction2D.
+//! @brief     Defines interface class IResolutionFunction2D.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 #ifndef IRESOLUTIONFUNCTION2D_H
 #define IRESOLUTIONFUNCTION2D_H
 
-#include "IParameterized.h" // inheriting from
+#include "IParameterized.h"
 
 //! @class IResolutionFunction2D
 //! @ingroup algorithms_internal

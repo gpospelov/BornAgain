@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Tests/Functional/TestMachinery/IStandardTest.h
-//! @brief     Declares class IStandardTest.
+//! @brief     Defines class IStandardTest.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 #ifndef ISTANDARDTEST_H
 #define ISTANDARDTEST_H
 
-#include "INamed.h" // inheriting from
+#include "INamed.h"
 
 class GISASSimulation;
 class IFunctionalTest;

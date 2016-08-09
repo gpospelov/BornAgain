@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Binning/FixedBinAxis.h
-//! @brief     Declares class FixedBinAxis.
+//! @brief     Defines class FixedBinAxis.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,7 +17,7 @@
 #define FIXEDBINAXIS_H
 
 
-#include "IAxis.h" // inheriting from
+#include "IAxis.h"
 
 //! @class FixedBinAxis
 //! @ingroup tools

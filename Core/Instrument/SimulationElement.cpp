@@ -15,6 +15,7 @@
 
 #include "SimulationElement.h"
 #include "IPixelMap.h"
+#include "Pi.h"
 #include <vector>
 
 SimulationElement::SimulationElement(double wavelength, double alpha_i, double phi_i,
@@ -76,13 +77,13 @@ kvector_t SimulationElement::getQ(double x, double y) const
 
 void SimulationElement::swapContent(SimulationElement &other)
 {
-    std::swap(this->m_wavelength, other.m_wavelength);
-    std::swap(this->m_alpha_i, other.m_alpha_i);
-    std::swap(this->m_phi_i, other.m_phi_i);
-    std::swap(this->m_intensity, other.m_intensity);
-    std::swap(this->m_polarization, other.m_polarization);
-    std::swap(this->m_analyzer_operator, other.m_analyzer_operator);
-    std::swap(this->mP_pixel_map, other.mP_pixel_map);
+    std::swap(m_wavelength, other.m_wavelength);
+    std::swap(m_alpha_i, other.m_alpha_i);
+    std::swap(m_phi_i, other.m_phi_i);
+    std::swap(m_intensity, other.m_intensity);
+    std::swap(m_polarization, other.m_polarization);
+    std::swap(m_analyzer_operator, other.m_analyzer_operator);
+    std::swap(mP_pixel_map, other.mP_pixel_map);
 }
 
 void SimulationElement::initPolarization()
@@ -93,7 +94,7 @@ void SimulationElement::initPolarization()
 
 double SimulationElement::getAlpha(double x, double y) const
 {
-    return M_PI_2 - getK(x,y).theta();
+    return Pi::PID2 - getK(x,y).theta();
 }
 
 double SimulationElement::getPhi(double x, double y) const

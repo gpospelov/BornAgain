@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Models/InstrumentItem.h
-//! @brief     Declares class InstrumentItem
+//! @brief     Defines class InstrumentItem
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,7 +17,7 @@
 #ifndef INSTRUMENTITEM_H
 #define INSTRUMENTITEM_H
 
-#include "SessionItem.h" // inheriting from
+#include "SessionItem.h"
 
 class BeamItem;
 class DetectorItem;

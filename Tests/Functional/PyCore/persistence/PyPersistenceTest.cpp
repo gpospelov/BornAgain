@@ -58,10 +58,11 @@ void PyPersistenceTest::runTest()
     // Glob simulation results
     std::map<const std::string, const std::string> dat;
     std::string dat_pattern = dat_stem + ".*.*";
-    for (const std::string& fname: FileSystem::glob(dat_pattern))
-        dat.insert(make_pair(Utils::String::split(fname,".")[1]+"."+
-                             Utils::String::split(fname,".")[2],
-                             fname));
+    for (const std::string& fpath: FileSystem::glob(dat_pattern)) {
+        std::vector<std::string> fname_segments =
+            Utils::String::split(FileSystem::filename(fpath), ".");
+        dat.insert(make_pair(fname_segments[1]+"."+fname_segments[2], fpath));
+    }
     if (dat.size()==0) {
         std::cerr << "There is no test output of form " << dat_pattern << "\n";
         m_result = FAILED;
@@ -71,11 +72,11 @@ void PyPersistenceTest::runTest()
     // Glob reference files
     std::string ref_stem = FileSystem::GetJoinPath(PYPERSIST_REF_DIR, getName());
     std::map<const std::string, const std::string> ref;
-    for (const std::string& fname: FileSystem::glob(ref_stem+".*.*"))
-        ref.insert(make_pair(Utils::String::split(fname,".")[1]+"."+
-                             Utils::String::split(fname,".")[2],
-                             fname));
-
+    for (const std::string& fpath: FileSystem::glob(ref_stem+".*.*")) {
+        std::vector<std::string> fname_segments =
+            Utils::String::split(FileSystem::filename(fpath), ".");
+        ref.insert(make_pair(fname_segments[1]+"."+fname_segments[2], fpath));
+    }
     // Compare file lists
     m_result = SUCCESS;
     for( auto const& it: dat ) {

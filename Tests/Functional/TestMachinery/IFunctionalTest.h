@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Tests/Functional/TestMachinery/IFunctionalTest.h
-//! @brief     Declares pure virtual base class IFunctionalTest.
+//! @brief     Defines pure virtual base class IFunctionalTest.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 #ifndef IFUNCTIONALTEST_H
 #define IFUNCTIONALTEST_H
 
-#include "INamed.h" // inheriting from
+#include "INamed.h"
 #include <map>
 
 //! @class IFunctionalTest

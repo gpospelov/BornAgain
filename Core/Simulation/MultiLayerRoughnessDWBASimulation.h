@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Simulation/MultiLayerRoughnessDWBASimulation.h
-//! @brief     Declares class MultiLayerRoughnessDWBASimulation.
+//! @brief     Defines class MultiLayerRoughnessDWBASimulation.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 #ifndef MULTILAYERROUGHNESSDWBASIMULATION_H
 #define MULTILAYERROUGHNESSDWBASIMULATION_H
 
-#include "DWBASimulation.h" // inheriting from
+#include "DWBASimulation.h"
 #include "Complex.h"
 
 class LayerSpecularInfo;

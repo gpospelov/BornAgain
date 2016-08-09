@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/MaskWidgets/PolygonView.h
-//! @brief     Declares PolygonView class
+//! @brief     Defines PolygonView class
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,7 +17,7 @@
 #ifndef POLYGONVIEW_H
 #define POLYGONVIEW_H
 
-#include "IMaskView.h" // inheriting from
+#include "IMaskView.h"
 #include <QPolygonF>
 
 //! This is a View of polygon mask (represented by PolygonItem) on GraphicsScene.

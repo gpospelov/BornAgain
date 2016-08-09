@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Tests/Functional/PyCore/export/PyExportTest.h
-//! @brief     Declares class PyExportTest
+//! @brief     Defines class PyExportTest
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 #ifndef PYEXPORTTEST_H
 #define PYEXPORTTEST_H
 
-#include "IReferencedTest.h" // inheriting from
+#include "IReferencedTest.h"
 #include "OutputData.h"
 
 //! @class PyExportTest

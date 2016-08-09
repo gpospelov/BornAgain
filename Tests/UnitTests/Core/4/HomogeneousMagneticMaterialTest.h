@@ -3,6 +3,7 @@
 
 #include "HomogeneousMagneticMaterial.h"
 #include "Rotations.h"
+#include "Units.h"
 
 class HomogeneousMagneticMaterialTest : public ::testing::Test
 {
@@ -39,7 +40,6 @@ TEST_F(HomogeneousMagneticMaterialTest, HomogeneousMagneticMaterialWithRefIndex)
     kvector_t magnetism2 = kvector_t(5.0, 6.0, 7.0);
     material.setMagneticField(magnetism2);
     EXPECT_EQ(magnetism2, material.getMagneticField());
-
 }
 
 TEST_F(HomogeneousMagneticMaterialTest, HomogeneousMagneticMaterialWithRefIndexAndMagField)
@@ -63,7 +63,6 @@ TEST_F(HomogeneousMagneticMaterialTest, HomogeneousMagneticMaterialWithRefIndexA
     kvector_t magnetism2 = kvector_t(5.0, 6.0, 7.0);
     material.setMagneticField(magnetism2);
     EXPECT_EQ(magnetism2, material.getMagneticField());
-
 }
 
 TEST_F(HomogeneousMagneticMaterialTest, HomogeneousMagneticMaterialTransform)

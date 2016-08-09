@@ -18,7 +18,7 @@
 #include "LayerInterface.h"
 #include "MathFunctions.h"
 #include "MultiLayer.h"
-#include "Units.h"
+#include "Pi.h"
 
 namespace {
     const complex_t imag_unit = complex_t(0.0, 1.0);
@@ -110,7 +110,7 @@ bool calculateUpFromLayer(SpecularMatrix::MultiLayerCoeff_t& coeff, const MultiL
             if(sigma > 0.0) {
                 // since there is a roughness, compute one diagonal matrix element p00;
                 // the other element is p11 = 1/p00.
-                double sigeff = std::pow(Units::PID2, 1.5)*sigma*k.mag();
+                double sigeff = std::pow(Pi::PID2, 1.5)*sigma*k.mag();
                 roughness_factor = sqrt(
                             MathFunctions::tanhc(sigeff*coeff[i+1].lambda) /
                             MathFunctions::tanhc(sigeff*coeff[i  ].lambda) );

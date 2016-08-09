@@ -16,7 +16,7 @@
 #include "FormFactorCrystal.h"
 #include "BornAgainNamespace.h"
 #include "Exceptions.h"
-#include "Units.h"
+#include "Pi.h"
 #include "WavevectorInfo.h"
 
 FormFactorCrystal::FormFactorCrystal(const Lattice& lattice, const IFormFactor& basis_form_factor,
@@ -124,6 +124,6 @@ void FormFactorCrystal::calculateLargestReciprocalDistance()
     kvector_t a2 = m_lattice.getBasisVectorB();
     kvector_t a3 = m_lattice.getBasisVectorC();
 
-    m_max_rec_length = std::max(Units::PI / a1.mag(), Units::PI / a2.mag());
-    m_max_rec_length = std::max(m_max_rec_length, Units::PI / a3.mag());
+    m_max_rec_length = std::max(Pi::PI / a1.mag(), Pi::PI / a2.mag());
+    m_max_rec_length = std::max(m_max_rec_length, Pi::PI / a3.mag());
 }

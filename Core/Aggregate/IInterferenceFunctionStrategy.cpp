@@ -22,7 +22,7 @@
 #include "LayerSpecularInfo.h"
 #include "ScalarRTCoefficients.h"
 #include "SimulationElement.h"
-#include "Units.h"
+#include "Pi.h"
 #include "WavevectorInfo.h"
 
 IInterferenceFunctionStrategy::IInterferenceFunctionStrategy(
@@ -76,7 +76,7 @@ void IInterferenceFunctionStrategy::calculateFormFactorList(
     clearFormFactorLists();
 
     double wavelength = sim_element.getWavelength();
-    double wavevector_scattering_factor = Units::PI/wavelength/wavelength;
+    double wavevector_scattering_factor = Pi::PI/wavelength/wavelength;
     double alpha_i = sim_element.getAlphaI();
     double phi_i = sim_element.getPhiI();
     cvector_t k_i = Geometry::vecOfLambdaAlphaPhi(wavelength, alpha_i, phi_i).complex();
@@ -99,7 +99,7 @@ void IInterferenceFunctionStrategy::calculateFormFactorLists(
     clearFormFactorLists();
 
     double wavelength = sim_element.getWavelength();
-    double wavevector_scattering_factor = Units::PI/wavelength/wavelength;
+    double wavevector_scattering_factor = Pi::PI/wavelength/wavelength;
     double alpha_i = sim_element.getAlphaI();
     double phi_i = sim_element.getPhiI();
     cvector_t k_i = Geometry::vecOfLambdaAlphaPhi(wavelength, alpha_i, phi_i).complex();

@@ -17,7 +17,7 @@
 #include "BornAgainNamespace.h"
 #include "Exceptions.h"
 #include "MathFunctions.h"
-#include "Units.h"
+#include "Pi.h"
 
 using namespace BornAgain;
 
@@ -187,7 +187,7 @@ DistributionLorentz::DistributionLorentz(double mean, double hwhm) : m_mean(mean
 double DistributionLorentz::probabilityDensity(double x) const
 {
     if (m_hwhm == 0.0) return x==m_mean ? 1.0 : 0.0;
-    return m_hwhm/(m_hwhm*m_hwhm + (x-m_mean)*(x-m_mean))/Units::PI;
+    return m_hwhm/(m_hwhm*m_hwhm + (x-m_mean)*(x-m_mean))/Pi::PI;
 }
 
 std::vector<double> DistributionLorentz::generateValueList(size_t nbr_samples,
@@ -244,7 +244,7 @@ double DistributionGaussian::probabilityDensity(double x) const
     if (m_std_dev == 0.0) return x==m_mean ? 1.0 : 0.0;
     double exponential = std::exp(-(x-m_mean)*(x-m_mean)
             /(2.0*m_std_dev*m_std_dev));
-    return exponential/m_std_dev/std::sqrt(Units::PI2);
+    return exponential/m_std_dev/std::sqrt(Pi::PI2);
 }
 
 std::vector<double> DistributionGaussian::generateValueList(size_t nbr_samples,
@@ -300,7 +300,7 @@ double DistributionLogNormal::probabilityDensity(double x) const
 {
     if (m_scale_param==0.0) return x==m_median ? 1.0 : 0.0;
     double t = std::log(x/m_median)/m_scale_param;
-    return std::exp(-t*t/2.0)/(x*m_scale_param*std::sqrt(Units::PI2));
+    return std::exp(-t*t/2.0)/(x*m_scale_param*std::sqrt(Pi::PI2));
 }
 
 double DistributionLogNormal::getMean() const
@@ -368,16 +368,16 @@ DistributionCosine::DistributionCosine(double mean, double sigma)
 double DistributionCosine::probabilityDensity(double x) const
 {
     if (m_sigma == 0.0) return x==m_mean ? 1.0 : 0.0;
-    if (std::abs(x-m_mean)>Units::PI*m_sigma) return 0.0;
-    return (1.0 + std::cos((x-m_mean)/m_sigma))/(m_sigma*Units::PI2);
+    if (std::abs(x-m_mean)>Pi::PI*m_sigma) return 0.0;
+    return (1.0 + std::cos((x-m_mean)/m_sigma))/(m_sigma*Pi::PI2);
 }
 
 std::vector<double> DistributionCosine::generateValueList(size_t nbr_samples,
         double sigma_factor, const AttLimits &limits) const
 {
     if (sigma_factor <= 0.0 || sigma_factor > 2.0) sigma_factor = 2.0;
-    double xmin = m_mean - sigma_factor*m_sigma*Units::PID2;
-    double xmax = m_mean + sigma_factor*m_sigma*Units::PID2;
+    double xmin = m_mean - sigma_factor*m_sigma*Pi::PID2;
+    double xmax = m_mean + sigma_factor*m_sigma*Pi::PID2;
     adjustMinMaxForLimits(xmin, xmax, limits);
     return generateValues(nbr_samples, xmin, xmax);
 }

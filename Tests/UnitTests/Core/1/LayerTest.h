@@ -4,8 +4,8 @@
 #include "Layer.h"
 #include "HomogeneousMaterial.h"
 #include "Materials.h"
-#include "Units.h"
 #include "ParticleLayout.h"
+#include "Units.h"
 
 class LayerTest : public ::testing::Test
 {
@@ -14,7 +14,6 @@ class LayerTest : public ::testing::Test
     virtual ~LayerTest(){}
 
 };
-
 
 
 TEST_F(LayerTest, LayerInitialState)

@@ -51,18 +51,6 @@ AngleProperty::AngleProperty(double angle_value, const QString &angle_units)
 }
 
 
-//AngleProperty::AngleUnits AngleProperty::getUnits() const
-//{
-//    return m_angle_units;
-//}
-
-
-//void AngleProperty::setUnits(AngleUnits units)
-//{
-//    m_angle_units = units;
-//}
-
-
 QString AngleProperty::getUnits() const
 {
 //    return m_labels[m_angle_units];

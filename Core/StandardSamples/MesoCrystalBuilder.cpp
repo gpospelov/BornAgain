@@ -26,6 +26,7 @@
 #include "MesoCrystal.h"
 #include "MultiLayer.h"
 #include "ParticleLayout.h"
+#include "Pi.h"
 #include "Units.h"
 
 MesoCrystalBuilder::MesoCrystalBuilder()
@@ -66,7 +67,7 @@ void MesoCrystalBuilder::init_parameters()
 ISample* MesoCrystalBuilder::buildSample() const
 {
     // create mesocrystal
-    double surface_density = m_surface_filling_ratio/Units::PI/m_meso_radius/m_meso_radius;
+    double surface_density = m_surface_filling_ratio/Pi::PI/m_meso_radius/m_meso_radius;
 //    complex_t n_particle(1.0-1.55e-5, 1.37e-6); // data from Artur
     // data from http://henke.lbl.gov/optical_constants/getdb2.html
     complex_t n_particle(1.0-2.84e-5, 4.7e-7);
@@ -99,7 +100,7 @@ ISample* MesoCrystalBuilder::buildSample() const
 //    double alpha_step = 5.0*Units::degree/n_alpha_rotation_steps;
 //    double alpha_start = - (n_alpha_rotation_steps/2.0)*alpha_step;
 
-    double phi_step = 2*Units::PI/3.0/n_max_phi_rotation_steps;
+    double phi_step = 2*Pi::PI/3.0/n_max_phi_rotation_steps;
     double phi_start = 0.0;
     for (size_t i=0; i<n_max_phi_rotation_steps; ++i) {
         for (size_t j=0; j<n_alpha_rotation_steps; ++j) {

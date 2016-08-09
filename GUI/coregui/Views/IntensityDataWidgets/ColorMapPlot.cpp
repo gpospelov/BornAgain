@@ -19,7 +19,7 @@
 #include "ColorMapHelper.h"
 #include "GUIHelpers.h"
 #include "IntensityDataItem.h"
-#include "Units.h"
+#include "Pi.h"
 #include "UpdateTimer.h"
 #include <QDebug>
 

@@ -22,7 +22,7 @@
 #include "LayerSpecularInfo.h"
 #include "MultiLayer.h"
 #include "SimulationElement.h"
-#include "Units.h"
+#include "Pi.h"
 
 // Diffuse scattering from rough interfaces is modelled after
 // Phys. Rev. B, vol. 51 (4), p. 2311 (1995)
@@ -118,7 +118,7 @@ double MultiLayerRoughnessDWBASimulation::evaluate(const SimulationElement& sim_
     }
 
     //! @TODO clarify complex vs double
-    return (autocorr+crosscorr.real())*Units::PI/4./wavelength/wavelength;
+    return (autocorr+crosscorr.real())*Pi::PI/4./wavelength/wavelength;
 }
 
 complex_t MultiLayerRoughnessDWBASimulation::get_refractive_term(size_t ilayer) const

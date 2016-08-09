@@ -19,7 +19,7 @@
 #include "MathFunctions.h"
 #include "Numeric.h"
 #include "ParameterPool.h"
-#include "Units.h"
+#include "Pi.h"
 
 void IFTDistribution1D::print(std::ostream& ostr) const
 {
@@ -123,11 +123,11 @@ FTDistribution1DCosine *FTDistribution1DCosine::clone() const
 double FTDistribution1DCosine::evaluate(double q) const
 {
     double qw = std::abs(q*m_omega);
-    if (std::abs(qw/Units::PI-1.0) < Numeric::double_epsilon) {
+    if (std::abs(qw/Pi::PI-1.0) < Numeric::double_epsilon) {
         return 0.5;
     }
     else {
-        return MathFunctions::sinc(qw)/(1.0-qw*qw/Units::PI/Units::PI);
+        return MathFunctions::sinc(qw)/(1.0-qw*qw/Pi::PI/Pi::PI);
     }
 }
 

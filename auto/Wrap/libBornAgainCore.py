@@ -2787,10 +2787,6 @@ class WavevectorInfo(_object):
     __del__ = lambda self: None
 WavevectorInfo_swigregister = _libBornAgainCore.WavevectorInfo_swigregister
 WavevectorInfo_swigregister(WavevectorInfo)
-PI = cvar.PI
-PID2 = cvar.PID2
-PID4 = cvar.PID4
-PI_SQR = cvar.PI_SQR
 nanometer = cvar.nanometer
 angstrom = cvar.angstrom
 micrometer = cvar.micrometer

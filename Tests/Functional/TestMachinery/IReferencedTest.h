@@ -37,7 +37,8 @@ public:
 protected:
     double m_threshold;
 
-    ETestResult compareIntensityMaps(const OutputData<double>& dat, const OutputData<double>& ref);
+    ETestResult compareIntensityMaps(
+        const OutputData<double>& dat, const OutputData<double>& ref) const;
 };
 
 #endif // IREFERENCEDTEST_H

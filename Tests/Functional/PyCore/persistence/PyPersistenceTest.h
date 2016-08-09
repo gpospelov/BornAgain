@@ -19,6 +19,10 @@
 #include "IReferencedTest.h"
 #include "OutputData.h"
 
+namespace YAML {
+    class Node;
+}
+
 //! @class PyPersistenceTest
 //! @ingroup standard_samples
 //! @brief A functional test that runs a Python script and compares its output with a reference.
@@ -32,12 +36,17 @@ public:
 
     void runTest() final;
 
-    bool compareFilePair(const std::string& dat_fname, const std::string& ref_fname);
-    bool compareIntensityPair(const std::string& dat_fname, const std::string& ref_fname);
-    bool compareYamlPair(const std::string& dat_fname, const std::string& ref_fname);
-
 private:
     std::string m_directory;
+
+    bool compareFilePair(
+        const std::string& dat_fname, const std::string& ref_fname) const;
+    bool compareIntensityPair(
+        const std::string& dat_fname, const std::string& ref_fname) const;
+    bool compareYamlPair(
+        const std::string& dat_fname, const std::string& ref_fname) const;
+    bool compareYamlNode(
+        const YAML::Node& dat, const YAML::Node& ref) const;
 };
 
 #endif // PYPERSISTENCETEST_H

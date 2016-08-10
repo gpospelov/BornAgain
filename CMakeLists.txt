@@ -51,7 +51,6 @@ if(ZERO_TOLERANCE)
 endif()
 include(BornAgainConfiguration)
 include(GeneratePythonDocs)
-include(GoogletestWrapper)
 include(PyExamplesLineLength)
 include(CheckCode)
 

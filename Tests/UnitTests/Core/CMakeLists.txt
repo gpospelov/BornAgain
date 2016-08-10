@@ -2,14 +2,22 @@
 # CMakeLists.txt file for building and running unit tests
 ############################################################################
 
+include(GoogletestWrapper)
+
+# qtcreator prefers relative paths for project includes
+foreach(subdir ${CORE_SUBDIRS})
+    include_directories(../../../Core/${subdir})
+endforeach()
 include_directories(
-    ${BornAgainCore_INCLUDE_DIRS}
+    ../../../Fit/Utils
+    ../../../Fit/Parameters
+    ../utilities/
     ${Boost_INCLUDE_DIRS}
     ${EIGEN3_INCLUDE_DIR}
     ${GSL_INCLUDE_DIR}
-    ../utilities/
-    )
-
+    ${gtest_SOURCE_DIR}
+    ${gtest_SOURCE_DIR}/include
+ )
 if(BORNAGAIN_OPENMPI)
     include_directories(${MPI_INCLUDE_PATH})
 endif()

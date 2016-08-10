@@ -9,32 +9,19 @@ if(POLICY CMP0042)
 endif()
 
 # --- source and include files ---------
-set(CORE_SOURCE_DIRS
-    ${CMAKE_CURRENT_SOURCE_DIR}/Aggregate
-    ${CMAKE_CURRENT_SOURCE_DIR}/Basics
-    ${CMAKE_CURRENT_SOURCE_DIR}/Binning
-    ${CMAKE_CURRENT_SOURCE_DIR}/Export
-    ${CMAKE_CURRENT_SOURCE_DIR}/Fitting
-    ${CMAKE_CURRENT_SOURCE_DIR}/FormFactor
-    ${CMAKE_CURRENT_SOURCE_DIR}/InputOutput
-    ${CMAKE_CURRENT_SOURCE_DIR}/Instrument
-    ${CMAKE_CURRENT_SOURCE_DIR}/HardParticle
-    ${CMAKE_CURRENT_SOURCE_DIR}/Lattice
-    ${CMAKE_CURRENT_SOURCE_DIR}/Material
-    ${CMAKE_CURRENT_SOURCE_DIR}/Mask
-    ${CMAKE_CURRENT_SOURCE_DIR}/Multilayer
-    ${CMAKE_CURRENT_SOURCE_DIR}/Parametrization
-    ${CMAKE_CURRENT_SOURCE_DIR}/Particle
-    ${CMAKE_CURRENT_SOURCE_DIR}/Rotation
-    ${CMAKE_CURRENT_SOURCE_DIR}/Sample
-    ${CMAKE_CURRENT_SOURCE_DIR}/Simulation
-    ${CMAKE_CURRENT_SOURCE_DIR}/SoftParticle
-    ${CMAKE_CURRENT_SOURCE_DIR}/StandardSamples
-    ${CMAKE_CURRENT_SOURCE_DIR}/Tools
-    ${CMAKE_CURRENT_SOURCE_DIR}/Vector
-    )
+
+include(GlobDirectories)
+GLOB_DIRECTORIES(CORE_SUBDIRS)
+
+set(CORE_SOURCE_DIRS "")
+foreach(subdir ${CORE_SUBDIRS})
+    list(APPEND CORE_SOURCE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/${subdir}")
+endforeach()
+
 # export for use in functional tests:
 set(CORE_SOURCE_DIRS ${CORE_SOURCE_DIRS} ${EIGEN3_INCLUDE_DIR} PARENT_SCOPE)
+# export for use in unit tests:
+set(CORE_SUBDIRS ${CORE_SUBDIRS} PARENT_SCOPE)
 
 set(include_dirs
     ${BUILD_INC_DIR}

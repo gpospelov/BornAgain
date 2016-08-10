@@ -19,7 +19,6 @@
 #  STAGE=1: test run upon "ctest"="make check"
 
 function(WRAP_GTEST TEST_NAME GLOBPATTERN LINK_LIBS STAGE)
-    include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
 
     file(GLOB INCLUDE_FILES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} ${GLOBPATTERN})
     list(SORT INCLUDE_FILES)

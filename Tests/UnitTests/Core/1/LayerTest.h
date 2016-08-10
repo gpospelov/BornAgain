@@ -12,7 +12,6 @@ class LayerTest : public ::testing::Test
  protected:
     LayerTest(){}
     virtual ~LayerTest(){}
-
 };
 
 

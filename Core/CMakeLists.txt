@@ -20,8 +20,6 @@ endforeach()
 
 # export for use in functional tests:
 set(CORE_SOURCE_DIRS ${CORE_SOURCE_DIRS} ${EIGEN3_INCLUDE_DIR} PARENT_SCOPE)
-# export for use in unit tests:
-set(CORE_SUBDIRS ${CORE_SUBDIRS} PARENT_SCOPE)
 
 set(include_dirs
     ${BUILD_INC_DIR}

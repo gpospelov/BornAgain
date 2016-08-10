@@ -5,13 +5,9 @@
 include(GoogletestWrapper)
 
 # qtcreator prefers relative paths for project includes
-foreach(subdir ${CORE_SUBDIRS})
-    include_directories(../../../Core/${subdir})
-endforeach()
 include_directories(
-    ../../../Fit/Utils
-    ../../../Fit/Parameters
-    ../utilities/
+    ../utilities
+    ${BornAgainCore_INCLUDE_DIRS}
     ${Boost_INCLUDE_DIRS}
     ${EIGEN3_INCLUDE_DIR}
     ${GSL_INCLUDE_DIR}

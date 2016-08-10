@@ -47,9 +47,9 @@ void PyPersistenceTest::runTest()
     }
 
     // Run Python script
-    std::string py_filename = FileSystem::GetJoinPath(m_directory, getName() + ".py");
+    std::string pyscript_filename = FileSystem::GetJoinPath(m_directory, getName() + ".py");
     std::string command = std::string("PYTHONPATH=") + BUILD_LIB_DIR + " " +
-        BORNAGAIN_PYTHON_EXE + " " + py_filename + " " + dat_stem;
+        BORNAGAIN_PYTHON_EXE + " " + pyscript_filename + " " + dat_stem;
     std::cout << command << std::endl/*sic*/; // flush output before calling std::system
     int ret = std::system(command.c_str());
     if (ret!=0) {

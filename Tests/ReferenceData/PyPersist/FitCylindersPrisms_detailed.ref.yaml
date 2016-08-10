@@ -1,0 +1,12 @@
+-   name: '*Cylinder/Height'
+    value: 4.999739444610035
+    error: 0.0749023091925527
+-   name: '*Cylinder/Radius'
+    value: 5.000345846927552
+    error: 0.031199085431953932
+-   name: '*Prism3/Height'
+    value: 5.048065756420844
+    error: 0.7702999481046429
+-   name: '*Prism3/BaseEdge'
+    value: 4.963390868840989
+    error: 0.420810939938121

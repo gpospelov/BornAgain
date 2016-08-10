@@ -20356,7 +20356,7 @@ SWIGINTERN PyObject *_wrap_FitSuiteParameters_getParameters(PyObject *SWIGUNUSED
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
-  SwigValueWrapper< std::vector< FitParameter *,std::allocator< FitParameter * > > > result;
+  std::vector< FitParameter *,std::allocator< FitParameter * > > *result = 0 ;
   
   if (!PyArg_ParseTuple(args,(char *)"O:FitSuiteParameters_getParameters",&obj0)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitSuiteParameters, 0 |  0 );
@@ -20364,8 +20364,8 @@ SWIGINTERN PyObject *_wrap_FitSuiteParameters_getParameters(PyObject *SWIGUNUSED
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitSuiteParameters_getParameters" "', argument " "1"" of type '" "FitSuiteParameters *""'"); 
   }
   arg1 = reinterpret_cast< FitSuiteParameters * >(argp1);
-  result = (arg1)->getParameters();
-  resultobj = SWIG_NewPointerObj((new std::vector< FitParameter *,std::allocator< FitParameter * > >(static_cast< const std::vector< FitParameter *,std::allocator< FitParameter * > >& >(result))), SWIGTYPE_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t, SWIG_POINTER_OWN |  0 );
+  result = (std::vector< FitParameter *,std::allocator< FitParameter * > > *) &(arg1)->getParameters();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t, 0 |  0 );
   return resultobj;
 fail:
   return NULL;
@@ -23474,7 +23474,7 @@ static PyMethodDef SwigMethods[] = {
 		"\n"
 		""},
 	 { (char *)"FitSuiteParameters_getParameters", _wrap_FitSuiteParameters_getParameters, METH_VARARGS, (char *)"\n"
-		"FitSuiteParameters_getParameters(FitSuiteParameters self) -> std::vector< FitParameter *,std::allocator< FitParameter * > >\n"
+		"FitSuiteParameters_getParameters(FitSuiteParameters self) -> std::vector< FitParameter *,std::allocator< FitParameter * > > &\n"
 		"\n"
 		"std::vector<FitParameter*> FitSuiteParameters::getParameters()\n"
 		"\n"

@@ -2173,7 +2173,7 @@ class FitSuiteParameters(_object):
 
     def getParameters(self):
         """
-        getParameters(FitSuiteParameters self) -> std::vector< FitParameter *,std::allocator< FitParameter * > >
+        getParameters(FitSuiteParameters self) -> std::vector< FitParameter *,std::allocator< FitParameter * > > &
 
         std::vector<FitParameter*> FitSuiteParameters::getParameters()
 

@@ -20,12 +20,12 @@
 #include "IntensityDataIOFactory.h"
 #include "PythonFormatting.h"
 #include "SimulationFactory.h"
-#include "Numeric.h"
 #include "Utils.h"
 #include <yaml-cpp/yaml.h>
 #include <cstdio>
 #include <fstream>
 #include <sstream>
+#include <iomanip>
 
 PyPersistenceTest::PyPersistenceTest(
     const std::string& directory, const std::string& name)
@@ -143,7 +143,6 @@ bool PyPersistenceTest::compareYamlPair(
 //! The investigation is performed recursively, iterating over all lists and maps.
 bool PyPersistenceTest::compareYamlNode(const YAML::Node& dat, const YAML::Node& ref)
 {
-//    std::cout << "DEBUG: " << dat.as<std::string>() << " vs " << ref.as<std::string>() << "\n";
     if (dat.Type() != ref.Type()) {
         std::cerr << "YAML node type differs: " << dat.Type() << " vs " << ref.Type() << "\n";
         return false;
@@ -153,44 +152,44 @@ bool PyPersistenceTest::compareYamlNode(const YAML::Node& dat, const YAML::Node&
     else if (dat.Type()==YAML::NodeType::Null)
         throw std::runtime_error("Invalid node type 'Null' in YAML tree");
     else if (dat.Type()==YAML::NodeType::Sequence) {
-        auto it_dat=dat.begin();
-        auto it_ref=ref.begin();
-        for (size_t idx=0; ; ++it_dat, ++it_ref, ++idx) {
-            if (it_dat==dat.end() || it_ref==ref.end()) {
-                if (!(it_dat==dat.end() && it_ref==ref.end())) {
-                    std::cerr << "lists have different length\n";
-                    return false;
-                }
-                return true; // regular exit
-            }
-            // now recurse into the node
-            if (!compareYamlNode(*it_dat, *it_ref)) {
-                std::cerr << "at list position " << idx << "\n";
+        if (dat.size()!=ref.size()) {
+            std::cerr << "lists have different length\n";
+            return false;
+        }
+        for (size_t i=0; i<dat.size(); ++i) {
+            if (!compareYamlNode(dat[i], ref[i])) {
+                std::cerr << "at list position " << i << "\n";
                 return false;
             }
         }
     } else if (dat.Type()==YAML::NodeType::Map) {
-        auto it_dat=dat.begin();
-        auto it_ref=ref.begin();
-        for ( ; ; ++it_dat, ++it_ref) {
-            if (it_dat==dat.end() || it_ref==ref.end()) {
-                if (!(it_dat==dat.end() && it_ref==ref.end())) {
-                    std::cerr << "maps have different length\n";
-                    return false;
-                }
-                return true; // regular exit
-            }
-            // now recurse into the node
-            if (!compareYamlNode(it_dat->second, it_ref->second)) {
-                std::cerr << "at map entry [" << it_dat->first << "]\n";
+        for (const auto& it_ref: ref) {
+            const YAML::Node& datval = dat[it_ref.first.as<std::string>()];
+            if (!datval) {
+                std::cerr << "map entry [" << it_ref.first << "] has no correspondence in dat\n";
                 return false;
             }
         }
+        for (const auto& it_dat: dat) {
+            const YAML::Node& refval = ref[it_dat.first.as<std::string>()];
+            if (!refval) {
+                std::cerr << "map entry [" << it_dat.first << "] has no correspondence in ref\n";
+                return false;
+            }
+            if (!compareYamlNode(it_dat.second, refval)) {
+                std::cerr << "at map entry [" << it_dat.first << "]\n";
+                return false;
+            }
+        }
+        return true;
     } else if (dat.Type()==YAML::NodeType::Scalar) {
         if (dat.as<std::string>() == ref.as<std::string>())
             return true;
         try {
-            if (!Numeric::areAlmostEqual( dat.as<double>(), ref.as<double>(), 1e-1 )) {
+            double d = dat.as<double>();
+            double r = ref.as<double>();
+            const double tol = 1e-1;
+            if (abs(d-r)>(abs(d)+abs(r))*tol) {
                 std::cerr << "numbers differ: " << dat << " vs " << ref << "\n";
                 return false;
             }

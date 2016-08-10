@@ -39,25 +39,28 @@ bool PyPersistenceTest::runTest()
     std::string dat_stem = FileSystem::GetJoinPath(PYPERSIST_OUT_DIR, getName());
     std::string ref_stem = FileSystem::GetJoinPath(PYPERSIST_REF_DIR, getName());
 
+    // Remove old output
     for (const std::string& fname: FileSystem::glob(dat_stem+".*.*")) {
         std::remove( fname.c_str() );
         std::cout << "Removed old output " << fname.c_str() << "\n";
     }
 
-    std::string pyscript_filename = FileSystem::GetJoinPath(m_directory, getName() + ".py");
+    // Run Python script
+    std::string pyscript_filename = FileSystem::GetJoinPath(m_directory, getName()+".py");
     if (!runPython(pyscript_filename + " " + dat_stem))
         return false;
 
+    // Retrieve new output and reference files
     std::map<const std::string, const std::string> dat = glob2map(dat_stem);
     std::map<const std::string, const std::string> ref = glob2map(ref_stem);
     if (dat.size()==0) {
         std::cerr << "There is no test output of form " << dat_stem << ".*.*\n";
         return false;
     }
-
     if (!compareFileMaps(dat, ref))
         return false;
 
+    // Compare files one by one
     for (auto const& it: dat)
         if (!compareFilePair( it.second, ref[it.first] ) )
             return false;
@@ -83,8 +86,8 @@ bool PyPersistenceTest::compareFileMaps(
     const std::map<const std::string, const std::string>& dat,
     const std::map<const std::string, const std::string>& ref)
 {
-    // Compare file lists
     bool success = true;
+    // All dat files present in ref?
     for (auto const& it: dat) {
         if (ref.find(it.first)==ref.end()) {
             std::cerr << "For test output " << it.second
@@ -92,6 +95,7 @@ bool PyPersistenceTest::compareFileMaps(
             success = false;
         }
     }
+    // All ref files present in dat?
     for (auto const& it: ref) {
         if (dat.find(it.first)==dat.end()) {
             std::cerr << "For reference file " << it.second

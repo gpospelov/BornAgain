@@ -20,6 +20,9 @@
 #include "LLData.h"
 #include "OutputDataIterator.h"
 #include "SafePointerVector.h"
+#include "ThreadInfo.h"
+#include <sstream>
+#include <cassert>
 
 #ifdef BORNAGAIN_PYTHON
 #ifndef PyObject_HEAD
@@ -27,14 +30,6 @@ struct _object;
 typedef _object PyObject;
 #endif
 #endif
-
-#include "FixedBinAxis.h"
-#include "LLData.h"
-#include "OutputDataIterator.h"
-#include "SafePointerVector.h"
-#include "ThreadInfo.h"
-#include <sstream>
-#include <cassert>
 
 using std::size_t;
 

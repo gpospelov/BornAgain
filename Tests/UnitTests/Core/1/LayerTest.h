@@ -12,9 +12,7 @@ class LayerTest : public ::testing::Test
  protected:
     LayerTest(){}
     virtual ~LayerTest(){}
-
 };
-
 
 TEST_F(LayerTest, LayerInitialState)
 {
@@ -40,7 +38,6 @@ TEST_F(LayerTest, LayerInitialState)
 
     delete new_layer;
 }
-
 
 TEST_F(LayerTest, LayerGetAndSet)
 {

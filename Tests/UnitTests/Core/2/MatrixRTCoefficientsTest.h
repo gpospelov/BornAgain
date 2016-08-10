@@ -3,7 +3,6 @@
 
 #include "MatrixRTCoefficients.h"
 
-
 class MatrixRTCoefficientsTest : public ::testing :: Test
 {
 protected:
@@ -15,7 +14,6 @@ protected:
 
 MatrixRTCoefficientsTest::MatrixRTCoefficientsTest()
 {
-
 }
 
 TEST_F(MatrixRTCoefficientsTest, T1plus)

@@ -3,16 +3,15 @@
 ############################################################################
 
 include_directories(
-    ${Boost_INCLUDE_DIRS}
     ${BornAgainCore_INCLUDE_DIRS}
     ${BornAgainFit_INCLUDE_DIRS}
     ${EIGEN3_INCLUDE_DIR}
-    ${GSL_INCLUDE_DIR}
+    ${RootMinimizers_INCLUDE_DIRS}
 )
 
 if(BORNAGAIN_OPENMPI)
     include_directories(${MPI_INCLUDE_PATH})
 endif()
 
-#message(WARNING "Some unit tests disabled")
 WRAP_GTEST(TestFit0 "*.h" ${BornAgainCore_LIBRARY} 0)
+

@@ -1,4 +1,5 @@
 #include "MinimizerOptions.h"
+#include "Minuit2Minimizer.h"
 #include <stdexcept>
 
 class MinimizerOptionsTest : public ::testing::Test

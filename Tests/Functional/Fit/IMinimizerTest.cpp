@@ -64,8 +64,9 @@ void IMinimizerTest::runTest()
     // run fit
     fitSuite->runFit();
 
+    std::vector<double> valuesAtMinimum = fitSuite->getMinimizer()->getValueOfVariablesAtMinimum();
     for (size_t i = 0; i < m_parameters.size(); ++i)
-        m_parameters[i].m_found_value = fitSuite->getMinimizer()->getValueOfVariableAtMinimum(i);
+        m_parameters[i].m_found_value = valuesAtMinimum[i];
 
     // analyze results
     for (size_t i = 0; i < m_parameters.size(); ++i) {

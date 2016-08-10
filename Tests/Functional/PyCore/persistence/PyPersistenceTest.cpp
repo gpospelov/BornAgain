@@ -26,8 +26,6 @@
 #include <cstdio>
 #include <fstream>
 #include <sstream>
-#include <map>
-#include <string>
 
 PyPersistenceTest::PyPersistenceTest(
     const std::string& directory, const std::string& name)
@@ -38,42 +36,28 @@ PyPersistenceTest::PyPersistenceTest(
 //! Runs a Python script, and returns true if the output of the script agrees with reference data.
 void PyPersistenceTest::runTest()
 {
-    // Set output data filename stem, and remove old output files
     std::string dat_stem = FileSystem::GetJoinPath(PYPERSIST_OUT_DIR, getName());
+    std::string ref_stem = FileSystem::GetJoinPath(PYPERSIST_REF_DIR, getName());
+
     for (const std::string& fname: FileSystem::glob(dat_stem+".*.*")) {
         std::remove( fname.c_str() );
         std::cout << "Removed old output " << fname.c_str() << "\n";
     }
 
-    // Run Python script
     std::string pyscript_filename = FileSystem::GetJoinPath(m_directory, getName() + ".py");
     if (!runPython(pyscript_filename + " " + dat_stem)) {
         m_result = FAILED;
         return;
     }
 
-    // Glob simulation results
-    std::map<const std::string, const std::string> dat;
-    std::string dat_pattern = dat_stem + ".*.*";
-    for (const std::string& fpath: FileSystem::glob(dat_pattern)) {
-        std::vector<std::string> fname_segments =
-            Utils::String::split(FileSystem::filename(fpath), ".");
-        dat.insert(make_pair(fname_segments[1]+"."+fname_segments[2], fpath));
-    }
+    std::map<const std::string, const std::string> dat = glob2map(dat_stem);
+    std::map<const std::string, const std::string> ref = glob2map(ref_stem);
     if (dat.size()==0) {
-        std::cerr << "There is no test output of form " << dat_pattern << "\n";
+        std::cerr << "There is no test output of form " << dat_stem << ".*.*\n";
         m_result = FAILED;
         return;
     }
 
-    // Glob reference files
-    std::string ref_stem = FileSystem::GetJoinPath(PYPERSIST_REF_DIR, getName());
-    std::map<const std::string, const std::string> ref;
-    for (const std::string& fpath: FileSystem::glob(ref_stem+".*.*")) {
-        std::vector<std::string> fname_segments =
-            Utils::String::split(FileSystem::filename(fpath), ".");
-        ref.insert(make_pair(fname_segments[1]+"."+fname_segments[2], fpath));
-    }
     // Compare file lists
     m_result = SUCCESS;
     for (auto const& it: dat) {
@@ -99,9 +83,23 @@ void PyPersistenceTest::runTest()
             m_result = FAILED_DIFF;
 }
 
+//! Globs for files of form *.<key1>.<key2>[.*], and returns a map with keys of the form
+//! <key1>.<key2>, and values containing full file paths.
+std::map<const std::string, const std::string>
+PyPersistenceTest::glob2map(const std::string& stem)
+{
+    std::map<const std::string, const std::string> ret;
+    for (const std::string& fpath: FileSystem::glob(stem+".*.*")) {
+        std::vector<std::string> fname_segments =
+            Utils::String::split(FileSystem::filename(fpath), ".");
+        ret.insert(make_pair(fname_segments[1]+"."+fname_segments[2], fpath));
+    }
+    return ret;
+}
+
 //! Returns true if test output and reference file agree.
 bool PyPersistenceTest::compareFilePair(
-    const std::string& dat_fpath, const std::string& ref_fpath) const
+    const std::string& dat_fpath, const std::string& ref_fpath)
 {
     std::cout << "Comparing dat='" << dat_fpath << "' with ref='" << ref_fpath << "':\n";
     const std::string extension = Utils::String::split(FileSystem::filename(dat_fpath), ".")[2];
@@ -115,7 +113,7 @@ bool PyPersistenceTest::compareFilePair(
 
 //! Returns true if intensity maps from test output and reference file agree reasonably.
 bool PyPersistenceTest::compareIntensityPair(
-    const std::string& dat_fpath, const std::string& ref_fpath) const
+    const std::string& dat_fpath, const std::string& ref_fpath)
 {
     const OutputData<double>* dat = IntensityDataIOFactory::readOutputData( dat_fpath );
     const OutputData<double>* ref = IntensityDataIOFactory::readOutputData( ref_fpath );
@@ -124,7 +122,7 @@ bool PyPersistenceTest::compareIntensityPair(
 
 //! Returns true if YAML files from test output and reference agree.
 bool PyPersistenceTest::compareYamlPair(
-    const std::string& dat_fpath, const std::string& ref_fpath) const
+    const std::string& dat_fpath, const std::string& ref_fpath)
 {
     std::fstream fdat(dat_fpath);
     std::fstream fref(ref_fpath);
@@ -134,7 +132,7 @@ bool PyPersistenceTest::compareYamlPair(
 //! Returns true if all entries of the two YAML files agree.
 //! Floating-point entries must agree within a certain tolerance.
 //! The investigation is performed recursively, iterating over all lists and maps.
-bool PyPersistenceTest::compareYamlNode(const YAML::Node& dat, const YAML::Node& ref) const
+bool PyPersistenceTest::compareYamlNode(const YAML::Node& dat, const YAML::Node& ref)
 {
 //    std::cout << "DEBUG: " << dat.as<std::string>() << " vs " << ref.as<std::string>() << "\n";
     if (dat.Type() != ref.Type()) {

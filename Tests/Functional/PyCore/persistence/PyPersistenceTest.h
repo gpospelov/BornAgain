@@ -18,6 +18,8 @@
 
 #include "IReferencedTest.h"
 #include "OutputData.h"
+#include <map>
+#include <string>
 
 namespace YAML {
     class Node;
@@ -39,14 +41,16 @@ public:
 private:
     std::string m_directory;
 
-    bool compareFilePair(
-        const std::string& dat_fname, const std::string& ref_fname) const;
-    bool compareIntensityPair(
-        const std::string& dat_fname, const std::string& ref_fname) const;
-    bool compareYamlPair(
-        const std::string& dat_fname, const std::string& ref_fname) const;
-    bool compareYamlNode(
-        const YAML::Node& dat, const YAML::Node& ref) const;
+    static std::map<const std::string, const std::string> glob2map(const std::string& pattern);
+
+    static bool compareFilePair(
+        const std::string& dat_fname, const std::string& ref_fname);
+    static bool compareIntensityPair(
+        const std::string& dat_fname, const std::string& ref_fname);
+    static bool compareYamlPair(
+        const std::string& dat_fname, const std::string& ref_fname);
+    static bool compareYamlNode(
+        const YAML::Node& dat, const YAML::Node& ref);
 };
 
 #endif // PYPERSISTENCETEST_H

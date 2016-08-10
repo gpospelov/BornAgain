@@ -19,7 +19,7 @@
 #include <cstdlib>
 
 IFunctionalTest::ETestResult IReferencedTest::compareIntensityMaps(
-    const OutputData<double>& dat, const OutputData<double>& ref) const
+    const OutputData<double>& dat, const OutputData<double>& ref)
 {
     if( dat.getVariability() != ref.getVariability() ) {
         std::cerr << "Failed: reproducibility threshold has changed from "

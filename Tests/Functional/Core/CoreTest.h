@@ -38,6 +38,7 @@ public:
 
 private:
     GISASSimulation* m_simulation;
+    OutputData<double>* m_reference;
 };
 
 #endif // CORETEST_H

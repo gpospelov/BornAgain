@@ -73,12 +73,13 @@ bool IStandardTest::execute_subtests()
     for (size_t i = 0; i < n_subtests; ++i) {
         setName( m_info->m_test_name + "_" + subtest_names[i] );
         m_subtest_item = subtest_registry->getItem(subtest_names[i]);
-
         IFunctionalTest* subtest( getTest() );
         std::cout << "IStandardTest::execute() -> " << getName()
                   << " " << i+1 << "/" << n_subtests << " (" << subtest_names[i] << ")\n";
+        if(!subtest->runTest()) {
             ++number_of_failed_tests;
-        delete subtest;
+            delete subtest;
+        }
     }
     delete subtest_registry;
 

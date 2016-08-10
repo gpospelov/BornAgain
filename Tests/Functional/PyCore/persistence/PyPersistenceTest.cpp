@@ -34,7 +34,7 @@ PyPersistenceTest::PyPersistenceTest(
 {}
 
 //! Runs a Python script, and returns true if the output of the script agrees with reference data.
-void PyPersistenceTest::runTest()
+bool PyPersistenceTest::runTest()
 {
     std::string dat_stem = FileSystem::GetJoinPath(PYPERSIST_OUT_DIR, getName());
     std::string ref_stem = FileSystem::GetJoinPath(PYPERSIST_REF_DIR, getName());
@@ -122,7 +122,7 @@ bool PyPersistenceTest::compareIntensityPair(
 {
     const OutputData<double>* dat = IntensityDataIOFactory::readOutputData( dat_fpath );
     const OutputData<double>* ref = IntensityDataIOFactory::readOutputData( ref_fpath );
-    return compareIntensityMaps(*dat, *ref)==SUCCESS;
+    return compareIntensityMaps(*dat, *ref);
 }
 
 //! Returns true if YAML files from test output and reference agree.

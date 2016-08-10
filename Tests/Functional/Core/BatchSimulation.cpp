@@ -6,7 +6,7 @@
 #include <iostream>
 #include <memory>
 
-int TestBatchSimulation()
+bool TestBatchSimulation()
 {
     SimulationFactory sim_registry;
     const std::unique_ptr<GISASSimulation> simulation(sim_registry.createItem("MiniGISAS"));
@@ -44,5 +44,5 @@ int TestBatchSimulation()
 
 int main(int, char**)
 {
-    return TestBatchSimulation();
+    return TestBatchSimulation() ? 0 : 1;
 }

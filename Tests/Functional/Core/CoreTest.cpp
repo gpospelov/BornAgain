@@ -36,7 +36,6 @@ CoreTest::~CoreTest()
 bool CoreTest::runTest()
 {
     // Load reference if available
-    OutputData<double>* m_reference;
     try {
         m_reference = IntensityDataIOFactory::readOutputData(
             FileSystem::GetJoinPath(CORE_STD_REF_DIR, getName() + ".int.gz"));

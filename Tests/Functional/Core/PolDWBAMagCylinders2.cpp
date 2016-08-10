@@ -55,7 +55,8 @@ int main(int, char**)
 
     // Assess result.
     bool status_ok(true);
-    if( diff > threshold ) status_ok=false;
+    if( diff > threshold )
+        status_ok=false;
 
     std::cout << " diff " << diff << std::endl;
     std::cout << "polmagcylinders2" << " " << "Magnetic cylinders with non-zero magnetic field"

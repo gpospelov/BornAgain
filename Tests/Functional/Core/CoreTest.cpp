@@ -33,29 +33,29 @@ CoreTest::~CoreTest()
     delete m_reference;
 }
 
-void CoreTest::runTest()
+bool CoreTest::runTest()
 {
     // Load reference if available
-    m_ref_filename = FileSystem::GetJoinPath(CORE_STD_REF_DIR, getName() + ".int.gz");
     try {
-        m_reference = IntensityDataIOFactory::readOutputData( m_ref_filename );
+        m_reference = IntensityDataIOFactory::readOutputData(
+            FileSystem::GetJoinPath(CORE_STD_REF_DIR, getName() + ".int.gz"));
     } catch(const std::exception& ex) {
         m_reference = nullptr;
-        std::cout << "No reference found, but we proceed with the simulation to create a new one."
-                  << std::endl /*sic*/;
+        std::cout << "No reference found, but we proceed with the simulation to create a new one\n";
     }
+
     // Run simulation.
     assert(m_simulation);
     m_simulation->runSimulation();
     const std::unique_ptr<OutputData<double>> result_data(m_simulation->getDetectorIntensity());
     result_data->setVariability(m_threshold);
+
     // Compare with reference if available.
-    if (!m_reference)
-        m_result = FAILED_NOREF;
-    else
-        m_result = compareIntensityMaps(*result_data.get(), *m_reference);
+    bool success = false;
+    if (m_reference)
+        success = compareIntensityMaps(*result_data.get(), *m_reference);
     // Save simulation if different from reference.
-    if (getTestResult() != SUCCESS) {
+    if (!success) {
         FileSystem::CreateDirectory(CORE_STD_OUT_DIR);
         std::string out_fname = FileSystem::GetJoinPath(
             CORE_STD_OUT_DIR, getName() + ".int");
@@ -66,4 +66,5 @@ void CoreTest::runTest()
                   << "If the new result is correct, then gzip it and move it to "
                   << CORE_STD_REF_DIR << "/.\n";
     }
+    return success;
 }

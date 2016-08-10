@@ -1,10 +1,12 @@
 """
-Working with sample parameters
+Working with sample parameters.
+
+This example shows how to create a sample with fixed parameters, and then change
+these parameters on the fly during runtime. The example doesn't contain any
+fitting; it serves as a gentle introduction to other fitting examples.
 """
 
 from __future__ import print_function
-import matplotlib
-from matplotlib import pyplot as plt
 import bornagain as ba
 from bornagain import deg, angstrom, nm
 
@@ -65,13 +67,13 @@ def simulate():
 
     simulation = get_simulation()
 
-    results = []
+    results = {}
 
     # simulation #1
     # initial sample is used
     simulation.setSample(sample)
     simulation.runSimulation()
-    results.append(simulation.getIntensityData())
+    results[0] = simulation.getIntensityData()
 
     # simulation #2
     # one sample parameter (cylinder height) is changed using exact parameter name
@@ -81,23 +83,22 @@ def simulate():
 
     simulation.setSample(sample)
     simulation.runSimulation()
-    results.append(simulation.getIntensityData())
+    results[1] = simulation.getIntensityData()
 
     # simulation #3
     # all parameters matching criteria will be changed (cylinder height in this case)
     sample.setParameterValue("*/Cylinder/Height", 100.0*nm)
     simulation.setSample(sample)
     simulation.runSimulation()
-    results.append(simulation.getIntensityData())
+    results[2] = simulation.getIntensityData()
 
     # simulation #4
     # all parameters which are matching criteria will be changed
     sample.setParameterValue("*/Cylinder/Height", 10.0*nm)
-    # set ba.FormFactorPrism3/half_side and ba.FormFactorPrism3/height to 10 nm
     sample.setParameterValue("*/Prism3/*", 10.0*nm)
     simulation.setSample(sample)
     simulation.runSimulation()
-    results.append(simulation.getIntensityData())
+    results[3] = simulation.getIntensityData()
 
     return results
 
@@ -106,18 +107,18 @@ def plot(results):
     """
     Draw results of several simulations on canvas
     """
+    import matplotlib
+    from matplotlib import pyplot as plt
     plt.figure(1)
-    for nplot, hist in enumerate(results):
+    for nplot, hist in results.iteritems():
         plt.subplot(2, 2, nplot+1)
         plt.imshow(
             hist.getArray(),
             norm=matplotlib.colors.LogNorm(1, hist.getMaximum()),
             extent=[hist.getXmin()/deg, hist.getXmax()/deg,
                     hist.getYmin()/deg, hist.getYmax()/deg])
-
     plt.show()
 
 
 if __name__ == '__main__':
-    results = simulate()
-    draw_results(results)
+    ba.simulateThenPlotOrSave(simulate, plot)

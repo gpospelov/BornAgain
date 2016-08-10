@@ -29,5 +29,5 @@ public:
 //! Runs GUITest on a standard simulation indicated by argv[1].
 int main(int argc, char** argv)
 {
-    return GUIStandardTest().execute(argc, argv);
+    return GUIStandardTest().execute(argc, argv) ? 0 : 1;
 }

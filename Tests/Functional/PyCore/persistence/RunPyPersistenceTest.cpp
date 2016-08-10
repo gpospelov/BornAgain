@@ -28,6 +28,5 @@ int main(int argc, char** argv)
         std::exit(1);
     }
     PyPersistenceTest test(argv[1], argv[2]);
-    test.runTest();
-    return test.getTestResult();
+    return test.runTest() ? 0 : 1;
 }

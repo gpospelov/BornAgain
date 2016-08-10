@@ -18,6 +18,12 @@
 
 #include "IReferencedTest.h"
 #include "OutputData.h"
+#include <map>
+#include <string>
+
+namespace YAML {
+    class Node;
+}
 
 //! @class PyPersistenceTest
 //! @ingroup standard_samples
@@ -30,14 +36,24 @@ public:
     PyPersistenceTest(const std::string& directory, const std::string& name);
     ~PyPersistenceTest() final {}
 
-    void runTest() final;
-
-    bool compareFilePair(const std::string& dat_fname, const std::string& ref_fname);
-    bool compareIntensityPair(const std::string& dat_fname, const std::string& ref_fname);
-    bool compareYamlPair(const std::string& dat_fname, const std::string& ref_fname);
+    bool runTest() final;
 
 private:
     std::string m_directory;
+
+    static std::map<const std::string, const std::string> glob2map(const std::string& pattern);
+
+    bool compareFileMaps(
+        const std::map<const std::string, const std::string>& dat,
+        const std::map<const std::string, const std::string>& ref);
+    static bool compareFilePair(
+        const std::string& dat_fname, const std::string& ref_fname);
+    static bool compareIntensityPair(
+        const std::string& dat_fname, const std::string& ref_fname);
+    static bool compareYamlPair(
+        const std::string& dat_fname, const std::string& ref_fname);
+    static bool compareYamlNode(
+        const YAML::Node& dat, const YAML::Node& ref);
 };
 
 #endif // PYPERSISTENCETEST_H

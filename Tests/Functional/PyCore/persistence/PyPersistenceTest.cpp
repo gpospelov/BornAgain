@@ -14,7 +14,6 @@
 // ************************************************************************** //
 
 #include "PyPersistenceTest.h"
-#include "BAPython.h"
 #include "FileSystem.h"
 #include "GISASSimulation.h"
 #include "IntensityDataFunctions.h"
@@ -22,11 +21,11 @@
 #include "PythonFormatting.h"
 #include "SimulationFactory.h"
 #include "Utils.h"
+#include <yaml-cpp/yaml.h>
 #include <cstdio>
-#include <cstdlib>
 #include <fstream>
 #include <sstream>
-#include <map>
+#include <iomanip>
 
 PyPersistenceTest::PyPersistenceTest(
     const std::string& directory, const std::string& name)
@@ -34,76 +33,82 @@ PyPersistenceTest::PyPersistenceTest(
     , m_directory(directory)
 {}
 
-void PyPersistenceTest::runTest()
+//! Runs a Python script, and returns true if the output of the script agrees with reference data.
+bool PyPersistenceTest::runTest()
 {
-    // Set output data filename stem, and remove old output files
     std::string dat_stem = FileSystem::GetJoinPath(PYPERSIST_OUT_DIR, getName());
+    std::string ref_stem = FileSystem::GetJoinPath(PYPERSIST_REF_DIR, getName());
+
+    // Remove old output
     for (const std::string& fname: FileSystem::glob(dat_stem+".*.*")) {
         std::remove( fname.c_str() );
-        std::cout << "Removed old output " << fname.c_str() << ".\n";
+        std::cout << "Removed old output " << fname.c_str() << "\n";
     }
 
     // Run Python script
-    std::string py_filename = FileSystem::GetJoinPath(m_directory, getName() + ".py");
-    std::string command = std::string("PYTHONPATH=") + BUILD_LIB_DIR + " " +
-        BORNAGAIN_PYTHON_EXE + " " + py_filename + " " + dat_stem;
-    std::cout << command << std::endl/*sic*/; // flush output before calling std::system
-    int ret = std::system(command.c_str());
-    if (ret!=0) {
-        std::cerr << "Command returned non-zero value " << ret << ".\n";
-        m_result = FAILED;
-        return;
-    }
+    std::string pyscript_filename = FileSystem::GetJoinPath(m_directory, getName()+".py");
+    if (!runPython(pyscript_filename + " " + dat_stem))
+        return false;
 
-    // Glob simulation results
-    std::map<const std::string, const std::string> dat;
-    std::string dat_pattern = dat_stem + ".*.*";
-    for (const std::string& fpath: FileSystem::glob(dat_pattern)) {
-        std::vector<std::string> fname_segments =
-            Utils::String::split(FileSystem::filename(fpath), ".");
-        dat.insert(make_pair(fname_segments[1]+"."+fname_segments[2], fpath));
-    }
+    // Retrieve new output and reference files
+    std::map<const std::string, const std::string> dat = glob2map(dat_stem);
+    std::map<const std::string, const std::string> ref = glob2map(ref_stem);
     if (dat.size()==0) {
-        std::cerr << "There is no test output of form " << dat_pattern << "\n";
-        m_result = FAILED;
-        return;
+        std::cerr << "There is no test output of form " << dat_stem << ".*.*\n";
+        return false;
     }
+    if (!compareFileMaps(dat, ref))
+        return false;
 
-    // Glob reference files
-    std::string ref_stem = FileSystem::GetJoinPath(PYPERSIST_REF_DIR, getName());
-    std::map<const std::string, const std::string> ref;
-    for (const std::string& fpath: FileSystem::glob(ref_stem+".*.*")) {
+    // Compare files one by one
+    for (auto const& it: dat)
+        if (!compareFilePair( it.second, ref[it.first] ) )
+            return false;
+    return true;
+}
+
+//! Globs for files of form *.<key1>.<key2>[.*], and returns a map with keys of the form
+//! <key1>.<key2>, and values containing full file paths.
+std::map<const std::string, const std::string>
+PyPersistenceTest::glob2map(const std::string& stem)
+{
+    std::map<const std::string, const std::string> ret;
+    for (const std::string& fpath: FileSystem::glob(stem+".*.*")) {
         std::vector<std::string> fname_segments =
             Utils::String::split(FileSystem::filename(fpath), ".");
-        ref.insert(make_pair(fname_segments[1]+"."+fname_segments[2], fpath));
+        ret.insert(make_pair(fname_segments[1]+"."+fname_segments[2], fpath));
     }
-    // Compare file lists
-    m_result = SUCCESS;
-    for( auto const& it: dat ) {
-        if( ref.find(it.first)==ref.end() ) {
+    return ret;
+}
+
+//! Returns true if two file maps have the same set of keys.
+bool PyPersistenceTest::compareFileMaps(
+    const std::map<const std::string, const std::string>& dat,
+    const std::map<const std::string, const std::string>& ref)
+{
+    bool success = true;
+    // All dat files present in ref?
+    for (auto const& it: dat) {
+        if (ref.find(it.first)==ref.end()) {
             std::cerr << "For test output " << it.second
                       << " there is no reference file in " << PYPERSIST_REF_DIR << "\n";
-            m_result = FAILED;
+            success = false;
         }
     }
-    for( auto const& it: ref ) {
-        if( dat.find(it.first)==dat.end() ) {
+    // All ref files present in dat?
+    for (auto const& it: ref) {
+        if (dat.find(it.first)==dat.end()) {
             std::cerr << "For reference file " << it.second
                       << " there is no test output in " << PYPERSIST_OUT_DIR << "\n";
-            m_result = FAILED;
+            success = false;
         }
     }
-    if (m_result==FAILED)
-        return;
-
-    // Compare file pairs
-    for( auto const& it: dat )
-        if (!compareFilePair( it.second, ref[it.first] ) )
-            m_result = FAILED_DIFF;
+    return success;
 }
 
 //! Returns true if test output and reference file agree.
-bool PyPersistenceTest::compareFilePair(const std::string& dat_fpath, const std::string& ref_fpath)
+bool PyPersistenceTest::compareFilePair(
+    const std::string& dat_fpath, const std::string& ref_fpath)
 {
     std::cout << "Comparing dat='" << dat_fpath << "' with ref='" << ref_fpath << "':\n";
     const std::string extension = Utils::String::split(FileSystem::filename(dat_fpath), ".")[2];
@@ -111,7 +116,7 @@ bool PyPersistenceTest::compareFilePair(const std::string& dat_fpath, const std:
         return compareIntensityPair( dat_fpath, ref_fpath );
     if ( extension=="yaml" )
         return compareYamlPair( dat_fpath, ref_fpath );
-    std::cerr << "Failed: Unsupported file type '" << extension << "'.\n";
+    std::cerr << "Failed: Unsupported file type '" << extension << "'\n";
     return false;
 }
 
@@ -121,33 +126,79 @@ bool PyPersistenceTest::compareIntensityPair(
 {
     const OutputData<double>* dat = IntensityDataIOFactory::readOutputData( dat_fpath );
     const OutputData<double>* ref = IntensityDataIOFactory::readOutputData( ref_fpath );
-    return compareIntensityMaps(*dat, *ref)==SUCCESS;
+    return compareIntensityMaps(*dat, *ref);
 }
 
 //! Returns true if YAML files from test output and reference agree.
-bool PyPersistenceTest::compareYamlPair(const std::string& dat_fpath, const std::string& ref_fpath)
+bool PyPersistenceTest::compareYamlPair(
+    const std::string& dat_fpath, const std::string& ref_fpath)
 {
     std::fstream fdat(dat_fpath);
     std::fstream fref(ref_fpath);
-    for( size_t i = 1; ; ++i ) {
-        std::string datline;
-        std::string refline;
-        std::getline(fdat, datline);
-        std::getline(fref, refline);
-        if (datline!=refline) {
-            std::cerr << "Line " << i << " of " << dat_fpath << " and " << ref_fpath
-                      << " differs:\n";
-            std::cerr << "dat: '" << datline << "'\n";
-            std::cerr << "ref: '" << refline << "'\n";
-            return false;
-        }
-        if (fdat.eof() && fref.eof())
-            break;
-        if (fdat.eof() || fref.eof()) {
-            std::cerr << "File length of " << dat_fpath << " and " << ref_fpath << " differs.\n";
-            return false;
-        }
+    return compareYamlNode( YAML::Load(fdat), YAML::Load(fref) );
+}
+
+//! Returns true if all entries of the two YAML files agree.
+//! Floating-point entries must agree within a certain tolerance.
+//! The investigation is performed recursively, iterating over all lists and maps.
+bool PyPersistenceTest::compareYamlNode(const YAML::Node& dat, const YAML::Node& ref)
+{
+    if (dat.Type() != ref.Type()) {
+        std::cerr << "YAML node type differs: " << dat.Type() << " vs " << ref.Type() << "\n";
+        return false;
     }
-    std::cout << "Files fully agree.\n";
+    if      (dat.Type()==YAML::NodeType::Undefined)
+        throw std::runtime_error("Invalid node type 'Undefined' in YAML tree");
+    else if (dat.Type()==YAML::NodeType::Null)
+        throw std::runtime_error("Invalid node type 'Null' in YAML tree");
+    else if (dat.Type()==YAML::NodeType::Sequence) {
+        if (dat.size()!=ref.size()) {
+            std::cerr << "lists have different length\n";
+            return false;
+        }
+        for (size_t i=0; i<dat.size(); ++i) {
+            if (!compareYamlNode(dat[i], ref[i])) {
+                std::cerr << "at list position " << i << "\n";
+                return false;
+            }
+        }
+    } else if (dat.Type()==YAML::NodeType::Map) {
+        for (const auto& it_ref: ref) {
+            const YAML::Node& datval = dat[it_ref.first.as<std::string>()];
+            if (!datval) {
+                std::cerr << "map entry [" << it_ref.first << "] has no correspondence in dat\n";
+                return false;
+            }
+        }
+        for (const auto& it_dat: dat) {
+            const YAML::Node& refval = ref[it_dat.first.as<std::string>()];
+            if (!refval) {
+                std::cerr << "map entry [" << it_dat.first << "] has no correspondence in ref\n";
+                return false;
+            }
+            if (!compareYamlNode(it_dat.second, refval)) {
+                std::cerr << "at map entry [" << it_dat.first << "]\n";
+                return false;
+            }
+        }
+        return true;
+    } else if (dat.Type()==YAML::NodeType::Scalar) {
+        if (dat.as<std::string>() == ref.as<std::string>())
+            return true;
+        try {
+            double d = dat.as<double>();
+            double r = ref.as<double>();
+            const double tol = 1e-1;
+            if (abs(d-r)>(abs(d)+abs(r))*tol) {
+                std::cerr << "numbers differ: " << dat << " vs " << ref << "\n";
+                return false;
+            }
+            return true;
+        } catch(...) {
+            std::cerr << "scalar entries differ: '" << dat << "' vs '" << ref << "'\n";
+            return false;
+        }
+    } else
+        throw std::runtime_error("Bug in PyPersistenceTest::compareYamlNode: unexpected node type");
     return true;
 }

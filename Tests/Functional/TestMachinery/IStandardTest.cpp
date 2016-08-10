@@ -25,7 +25,7 @@
 //  Test execution
 // ************************************************************************** //
 
-//! Runs test (name given as command-line argument), and returns 0 for SUCCESS.
+//! Runs test (name given as command-line argument), and returns true when successful
 
 bool IStandardTest::execute(int argc, char** argv) {
     // parse command-line arguments and retrieve test info from registry
@@ -34,7 +34,7 @@ bool IStandardTest::execute(int argc, char** argv) {
         test_name = std::string(argv[1]);
     m_info = StandardSimulationsRegistry::instance().getItemOrExplain(test_name, getName());
     if( !m_info )
-        return 1;
+        throw Exceptions::RuntimeErrorException("IStandardTest -> Error in look up.");
 
     if (m_info->m_subtest_type == "None")
         return execute_onetest();
@@ -42,17 +42,16 @@ bool IStandardTest::execute(int argc, char** argv) {
         return execute_subtests();
 }
 
-//! Runs a single test, and returns 0 for SUCCESS, or error code.
+//! Runs a single test, and returns true when successful
 
 bool IStandardTest::execute_onetest()
 {
     setName( m_info->m_test_name );
     IFunctionalTest* test( getTest() );
-    test->runTest();
-    return test->getTestResult();
+    return test->runTest();
 }
 
-//! Runs all available subtests, and returns 0 if all succeed, or 1 in case of any error.
+//! Runs all available subtests, and returns true if all succeed
 
 bool IStandardTest::execute_subtests()
 {
@@ -74,21 +73,20 @@ bool IStandardTest::execute_subtests()
     for (size_t i = 0; i < n_subtests; ++i) {
         setName( m_info->m_test_name + "_" + subtest_names[i] );
         m_subtest_item = subtest_registry->getItem(subtest_names[i]);
-
         IFunctionalTest* subtest( getTest() );
         std::cout << "IStandardTest::execute() -> " << getName()
                   << " " << i+1 << "/" << n_subtests << " (" << subtest_names[i] << ")\n";
-        subtest->runTest();
-        if (subtest->getTestResult())
+        if(!subtest->runTest()) {
             ++number_of_failed_tests;
-        delete subtest;
+            delete subtest;
+        }
     }
     delete subtest_registry;
 
     // report overall result
     std::cout << "summary: " << number_of_failed_tests << " of " << n_subtests <<
         " subtests failed\n";
-    return number_of_failed_tests>0;
+    return number_of_failed_tests==0;
 }
 
 // ************************************************************************** //

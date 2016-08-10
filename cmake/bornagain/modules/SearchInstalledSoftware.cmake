@@ -8,6 +8,7 @@ find_package(Threads REQUIRED)
 find_package(Eigen3 REQUIRED)
 find_package(FFTW REQUIRED)
 find_package(GSL REQUIRED) # revert this when issue 1404 is resolved
+find_package(YamlCpp05 REQUIRED)
 
 # --- Boost ---
 set(Boost_NO_BOOST_CMAKE ON) # prevent shortcut
@@ -58,6 +59,7 @@ if(BORNAGAIN_PYTHON OR BORNAGAIN_GUI)
     endif()
     message(STATUS "Found Python libraries version ${PYTHONLIBS_VERSION_STRING} at ${PYTHON_LIBRARIES}; includes at ${PYTHON_INCLUDE_DIRS}")
     find_package(Numpy REQUIRED)
+    find_package(PyYaml REQUIRED)
 endif()
 
 # --- Swig ---

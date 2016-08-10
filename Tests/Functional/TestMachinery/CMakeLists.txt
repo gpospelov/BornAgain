@@ -23,6 +23,7 @@ if(WIN32)
     SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DBA_CORE_BUILD_DLL")
 endif()
 
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DPYTHON_EXECUTABLE=\\\"${PYTHON_EXECUTABLE}\\\"")
 
 # --- making library ---------
 add_library(
@@ -41,7 +42,11 @@ set(${library_name}_LIBRARY ${library_name} PARENT_SCOPE)
 
 # --- external dependencies ---------
 
-target_link_libraries(${library_name} ${BornAgainCore_LIBRARY} ${CMAKE_THREAD_LIBS_INIT})
+target_link_libraries(${library_name}
+    ${BornAgainCore_LIBRARY}
+    ${CMAKE_THREAD_LIBS_INIT}
+    ${YAMLCPP_LIBRARY}
+    )
 
 if(APPLE AND BORNAGAIN_APPLE_BUNDLE)
     set(link_flags "-Wl,-rpath,@loader_path/../../Frameworks")

@@ -9,7 +9,11 @@ file(MAKE_DIRECTORY ${PYPERSIST_OUT_DIR})
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DPYPERSIST_OUT_DIR=\\\"${PYPERSIST_OUT_DIR}\\\"")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DPYPERSIST_REF_DIR=\\\"${PYPERSIST_REF_DIR}\\\"")
 
-file(GLOB PY_EXAMPLES "${PY_EXAMPLES_DIR}/simulation/ex*/*.py")
+file(GLOB PY_EXAMPLES
+    "${PY_EXAMPLES_DIR}/simulation/ex*/*.py"
+    "${PY_EXAMPLES_DIR}/fitting/ex01*/*.py"
+    "${PY_EXAMPLES_DIR}/fitting/ex02*/FitCylindersPrisms_detailed.py"
+    )
 
 # for some reason these flags doesn't propagated here by SetUpWindows.cmake
 if(MSVC)

@@ -35,7 +35,7 @@ public:
                              const std::string &minimizer_algorithm = std::string());
     virtual ~IMinimizerTest(){}
 
-    void runTest();
+    bool runTest() final;
 
     class TestParameter
     {
@@ -53,7 +53,7 @@ protected:
     virtual std::unique_ptr<FitSuite> createFitSuite();
     virtual std::unique_ptr<ISample> createSample();
     virtual std::unique_ptr<GISASSimulation> createSimulation();
-    virtual std::unique_ptr<OutputData<double> > createOutputData(const GISASSimulation *simulation);
+    virtual std::unique_ptr<OutputData<double>> createOutputData(const GISASSimulation* simulation);
 
     std::vector<TestParameter> m_parameters;
     std::string m_minimizer_name;

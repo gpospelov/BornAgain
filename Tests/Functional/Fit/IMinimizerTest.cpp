@@ -46,7 +46,7 @@ IMinimizerTest::IMinimizerTest(const std::string& minimizer_name,
 }
 
 
-void IMinimizerTest::runTest()
+bool IMinimizerTest::runTest()
 {
     std::unique_ptr<ISample> sample(createSample());
     for (size_t i = 0; i < m_parameters.size(); ++i)
@@ -69,16 +69,17 @@ void IMinimizerTest::runTest()
         m_parameters[i].m_found_value = valuesAtMinimum[i];
 
     // analyze results
+    bool success = true;
     for (size_t i = 0; i < m_parameters.size(); ++i) {
         double diff = std::abs(m_parameters[i].m_found_value - m_parameters[i].m_real_value)
                       / m_parameters[i].m_real_value;
         if (diff > m_parameter_tolerance)
-            m_result = FAILED;
-        std::cout << boost::format("%|12t| %-10s : %-6.4f (diff %6.4g) \n") %
-                     m_parameters[i].m_name % m_parameters[i].m_found_value % diff;
+            success = false;
+        std::cout << boost::format("%|12t| %-10s : %-6.4f (diff %6.4g) %s\n") %
+            m_parameters[i].m_name % m_parameters[i].m_found_value % diff %
+            (success ? "OK" : "FAILED");
     }
-
-    std::cout << getName() << " | " << getDescription() << " | " << getTestResultString() << "\n";
+    return success;
 }
 
 std::unique_ptr<FitSuite> IMinimizerTest::createFitSuite()
@@ -89,11 +90,10 @@ std::unique_ptr<FitSuite> IMinimizerTest::createFitSuite()
         m_minimizer_name, m_minimizer_algorithm);
     minimizer->getOptions()->setMaxIterations(200);
     result->setMinimizer(minimizer);
-    for (size_t i = 0; i < m_parameters.size(); ++i) {
+    for (size_t i = 0; i < m_parameters.size(); ++i)
         result->addFitParameter(
             m_parameters[i].m_name, m_parameters[i].m_start_value,
             AttLimits::lowerLimited(0.01), m_parameters[i].m_start_value / 100.);
-    }
     return result;
 }
 

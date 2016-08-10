@@ -6,8 +6,6 @@ Please take a note, that performance here is determined
 by poor performance of matplotlib drawing routines.
 """
 
-import matplotlib
-from matplotlib import pyplot as plt
 import math
 import random
 import bornagain as ba
@@ -95,6 +93,9 @@ class DrawObserver(ba.IFitObserver):
     """
 
     def __init__(self, draw_every_nth=10):
+        import matplotlib
+        from matplotlib import pyplot as plt
+        global matplotlib, plt
         ba.IFitObserver.__init__(self, draw_every_nth)
         self.fig = plt.figure(figsize=(10.25, 7.69))
         self.fig.canvas.draw()
@@ -140,9 +141,9 @@ class DrawObserver(ba.IFitObserver):
             plt.ioff()
 
 
-def run_fitting():
+def create_fit():
     """
-    main function to run fitting
+    Setup simulation and fit
     """
 
     sample = get_sample()
@@ -160,9 +161,6 @@ def run_fitting():
 
     fit_suite.initPrint(10)
 
-    draw_observer = DrawObserver(draw_every_nth=10)
-    fit_suite.attachObserver(draw_observer)
-
     # setting fitting parameters with starting values
     fit_suite.addFitParameter("*Cylinder/Height", 4.*nm,
                               ba.AttLimits.lowerLimited(0.01))
@@ -173,16 +171,30 @@ def run_fitting():
     fit_suite.addFitParameter("*Prism3/BaseEdge", 12.*nm,
                               ba.AttLimits.lowerLimited(0.01))
 
-    # running fit
-    fit_suite.runFit()
-
-    print("Fitting completed.")
-    print("chi2:", fit_suite.getChi2())
-    fitpars = fit_suite.getFitParameters()
-    for i in range(0, fitpars.size()):
-        print(fitpars[i].getName(), fitpars[i].getValue(), fitpars[i].getError())
+    return fit_suite
 
 
 if __name__ == '__main__':
-    run_fitting()
-    plt.show()
+    arg = ba.getFilenameOrPlotflag()
+    fit_suite = create_fit()
+    if arg == "-p":
+        draw_observer = DrawObserver(draw_every_nth=10)
+        fit_suite.attachObserver(draw_observer)
+        plt.show()
+        fit_suite.runFit()
+        print("Fitting completed.")
+        print("chi2:", fit_suite.getChi2())
+        fitpars = fit_suite.getFitParameters()
+        for i in range(fitpars.size()): # workaround #1588
+            par = fitpars[i]
+            print(par.getName(), par.getValue(), par.getError())
+    else:
+        fit_suite.runFit()
+        fitpars = fit_suite.getFitParameters()
+        pars = [ fitpars[i] for i in range(fitpars.size()) ] # workaround #1588
+        fitpars = fit_suite.getFitParameters().getParameters()
+        from collections import OrderedDict
+        out = [ OrderedDict([('name', par.getName()),
+                             ('value', par.getValue()),
+                             ('error', par.getError())]) for par in pars ]
+        ba.yamlDump(arg+".ref", out)

@@ -19,6 +19,7 @@
 #include "IFunctionalTest.h"
 #include "OutputData.h"
 #include <map>
+#include <string>
 
 //! @class IReferencedTest
 //! @ingroup standard_samples
@@ -32,12 +33,14 @@ public:
         : IFunctionalTest(name, description), m_threshold(threshold) {}
     virtual ~IReferencedTest() {}
 
-    virtual void runTest() = 0;
+    bool runTest() = 0;
 
 protected:
     double m_threshold;
 
-    ETestResult compareIntensityMaps(const OutputData<double>& dat, const OutputData<double>& ref);
+    static bool compareIntensityMaps(const OutputData<double>& dat, const OutputData<double>& ref);
+
+    static bool runPython(const std::string& py_command);
 };
 
 #endif // IREFERENCEDTEST_H

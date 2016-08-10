@@ -14,7 +14,6 @@
 // ************************************************************************** //
 
 #include "PyExportTest.h"
-#include "BAPython.h"
 #include "FileSystem.h"
 #include "GISASSimulation.h"
 #include "IntensityDataFunctions.h"
@@ -24,7 +23,6 @@
 #include "Utils.h"
 #include <cassert>
 #include <cstdio>
-#include <cstdlib>
 #include <fstream>
 
 PyExportTest::PyExportTest(
@@ -42,40 +40,29 @@ PyExportTest::~PyExportTest()
     delete m_domain_simulation;
 }
 
-void PyExportTest::runTest()
+//! Runs simulation via a Python script and directly, and returns true if the results agree.
+bool PyExportTest::runTest()
 {
-    // Generate Python script
-    std::string pyscript_filename = FileSystem::GetJoinPath(PYEXPORT_TMP_DIR,
-                                                                   getName() + ".py");
-    std::ostringstream ostr;
-    ostr << PythonFormatting::simulationToPython(m_reference_simulation);
-    std::ofstream pythonFile(pyscript_filename);
-    pythonFile << ostr.str();
-    pythonFile.close();
-    std::cout << "Generated Python script " << pyscript_filename <<"." << std::endl/*sic*/;
-        // Here we are using std::endl instead of "\n" in order to flush because otherwise
-        // the system calls 'remove' and 'system' may break the order of output lines.
-
-    // Run Python script
+    // Set output data filename, and remove old output files
     std::string output_name = FileSystem::GetJoinPath(PYEXPORT_TMP_DIR, getName());
     std::string output_path = output_name + ".ref.int";
     std::remove( output_path.c_str() );
-    std::cout << "Removed old data set " << output_path << "." << std::endl/*sic*/;
+    std::cout << "Removed old output " << output_path << "n";
+
+    // Generate Python script
+    std::string pyscript_filename = FileSystem::GetJoinPath(PYEXPORT_TMP_DIR, getName() + ".py");
+    std::ofstream pythonFile(pyscript_filename);
+    pythonFile << PythonFormatting::simulationToPython(m_reference_simulation);
+    pythonFile.close();
+
+    // Run Python script
     assert(std::string(BUILD_LIB_DIR)!="");
-    std::string command =
-        std::string("PYTHONPATH=") + BUILD_LIB_DIR + " " +
-        BORNAGAIN_PYTHON_EXE + " " + pyscript_filename + " " + output_name;
-    std::cout << "Now running command '" << command << "'." << std::endl/*sic*/;
-    int ret = std::system(command.c_str()); // run python script
-    if (ret!=0) {
-        std::cerr << "Command returned non-zero value " << ret << ".\n";
-        m_result = FAILED;
-        return;
-    }
+    if (!runPython(pyscript_filename + " " + output_name))
+        return false;
 
     // Run direct simulation
     std::cout <<
-        "Now going to directly run the simulation, and to compare with result from Py script.\n";
+        "Now going to directly run the simulation, and to compare with result from Py script\n";
     m_reference_simulation->runSimulation();
     const std::unique_ptr<OutputData<double> > P_reference_data(
         m_reference_simulation->getDetectorIntensity());
@@ -83,5 +70,5 @@ void PyExportTest::runTest()
     // Compare results
     const std::unique_ptr<OutputData<double> > P_domain_data(
         IntensityDataIOFactory::readOutputData(output_path));
-    m_result = compareIntensityMaps(*P_domain_data, *P_reference_data);
+    return compareIntensityMaps(*P_domain_data, *P_reference_data);
 }

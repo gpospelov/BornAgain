@@ -28,5 +28,5 @@ public:
 //! Runs CoreTest on a standard simulation indicated by argv[1].
 int main(int argc, char** argv)
 {
-    return CoreStandardTest().execute(argc, argv);
+    return CoreStandardTest().execute(argc, argv) ? 0 : 1;
 }

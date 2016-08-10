@@ -43,7 +43,7 @@ void PyPersistenceTest::runTest()
     std::string dat_stem = FileSystem::GetJoinPath(PYPERSIST_OUT_DIR, getName());
     for (const std::string& fname: FileSystem::glob(dat_stem+".*.*")) {
         std::remove( fname.c_str() );
-        std::cout << "Removed old output " << fname.c_str() << ".\n";
+        std::cout << "Removed old output " << fname.c_str() << "\n";
     }
 
     // Run Python script
@@ -53,7 +53,7 @@ void PyPersistenceTest::runTest()
     std::cout << command << std::endl/*sic*/; // flush output before calling std::system
     int ret = std::system(command.c_str());
     if (ret!=0) {
-        std::cerr << "Command returned non-zero value " << ret << ".\n";
+        std::cerr << "Command returned non-zero value " << ret << "\n";
         m_result = FAILED;
         return;
     }
@@ -115,7 +115,7 @@ bool PyPersistenceTest::compareFilePair(
         return compareIntensityPair( dat_fpath, ref_fpath );
     if ( extension=="yaml" )
         return compareYamlPair( dat_fpath, ref_fpath );
-    std::cerr << "Failed: Unsupported file type '" << extension << "'.\n";
+    std::cerr << "Failed: Unsupported file type '" << extension << "'\n";
     return false;
 }
 

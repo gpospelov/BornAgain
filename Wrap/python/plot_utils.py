@@ -104,7 +104,7 @@ def simulateThenPlotOrSave(
     # save result
     if type(result) is dict:
         for name, subresult in result.iteritems():
-            save(arg+"."+name, subresult)
+            save(arg+"."+str(name), subresult)
     else:
         save(arg+".ref", result)
 

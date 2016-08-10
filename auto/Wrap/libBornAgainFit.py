@@ -2175,7 +2175,7 @@ class FitSuiteParameters(_object):
         """
         getParameters(FitSuiteParameters self) -> std::vector< FitParameter *,std::allocator< FitParameter * > > &
 
-        std::vector<FitParameter*> FitSuiteParameters::getParameters()
+        std::vector<FitParameter*>& FitSuiteParameters::getParameters()
 
         Returns all parameters. 
 

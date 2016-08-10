@@ -98,6 +98,84 @@ returns true if proposed value is in limits range
 ";
 
 
+// File: classBasicMinimizer.xml
+%feature("docstring") BasicMinimizer "
+
+The  BasicMinimizer class is a base for all minimizers.
+
+C++ includes: BasicMinimizer.h
+";
+
+%feature("docstring")  BasicMinimizer::BasicMinimizer "BasicMinimizer::BasicMinimizer(const std::string &minimizerName, const std::string &algorithmName=std::string())
+";
+
+%feature("docstring")  BasicMinimizer::~BasicMinimizer "BasicMinimizer::~BasicMinimizer()
+";
+
+%feature("docstring")  BasicMinimizer::minimize "void BasicMinimizer::minimize()
+
+run minimization 
+";
+
+%feature("docstring")  BasicMinimizer::minimizerName "std::string BasicMinimizer::minimizerName() const
+
+Returns name of the minimizer. 
+";
+
+%feature("docstring")  BasicMinimizer::algorithmName "std::string BasicMinimizer::algorithmName() const
+
+Returns name of the minimization algorithm. 
+";
+
+%feature("docstring")  BasicMinimizer::setAlgorithmName "void BasicMinimizer::setAlgorithmName(const std::string &algorithmName)
+
+Sets minimization algorithm. 
+";
+
+%feature("docstring")  BasicMinimizer::setParameter "void BasicMinimizer::setParameter(size_t index, const FitParameter *par)
+
+Sets internal minimizer parameter. 
+";
+
+%feature("docstring")  BasicMinimizer::setParameters "void BasicMinimizer::setParameters(const FitSuiteParameters &parameters)
+
+Sets internal minimizer parameters using external parameter list. 
+";
+
+%feature("docstring")  BasicMinimizer::setChiSquaredFunction "void BasicMinimizer::setChiSquaredFunction(function_chi2_t fun_chi2, size_t nparameters)
+
+Sets chi squared function to minimize. 
+";
+
+%feature("docstring")  BasicMinimizer::setGradientFunction "void BasicMinimizer::setGradientFunction(function_gradient_t fun_gradient, size_t nparameters, size_t ndatasize)
+
+Sets gradient function to minimize. 
+";
+
+%feature("docstring")  BasicMinimizer::isGradientBasedAgorithm "virtual bool BasicMinimizer::isGradientBasedAgorithm()
+
+Returns true if type of algorithm is Levenberg-Marquardt or similar. 
+";
+
+%feature("docstring")  BasicMinimizer::getValueOfVariablesAtMinimum "std::vector< double > BasicMinimizer::getValueOfVariablesAtMinimum() const
+
+Returns values of parameters at the minimum. 
+";
+
+%feature("docstring")  BasicMinimizer::getErrorOfVariables "std::vector< double > BasicMinimizer::getErrorOfVariables() const
+
+Returns errors of variables at minimum. 
+";
+
+%feature("docstring")  BasicMinimizer::printResults "void BasicMinimizer::printResults() const
+
+Prints fit results. 
+";
+
+%feature("docstring")  BasicMinimizer::toResultString "std::string BasicMinimizer::toResultString() const 
+";
+
+
 // File: classMinimizerLibrary_1_1Catalogue.xml
 %feature("docstring") MinimizerLibrary::Catalogue "";
 
@@ -119,6 +197,45 @@ Returns list of algorithm types for given minimizer type.
 %feature("docstring")  MinimizerLibrary::Catalogue::algorithmDescriptions "std::list< std::string > Catalogue::algorithmDescriptions(const std::string &minimizerType)
 
 Returns list of algorithm descriptions for given minimizer type. 
+";
+
+
+// File: classConfigurable.xml
+%feature("docstring") Configurable "
+
+The  Configurable class is a base for storing (int,double,string) options.
+
+C++ includes: Configurable.h
+";
+
+%feature("docstring")  Configurable::Configurable "Configurable::Configurable()
+";
+
+%feature("docstring")  Configurable::Configurable "Configurable::Configurable(const Configurable &other)
+
+Returns true if option with such name already exists. 
+";
+
+%feature("docstring")  Configurable::addOption "Configurable::option_t Configurable::addOption(const std::string &optionName, T value, const std::string &description=std::string())
+";
+
+%feature("docstring")  Configurable::option "Configurable::option_t Configurable::option(const std::string &optionName)
+";
+
+%feature("docstring")  Configurable::option "const Configurable::option_t Configurable::option(const std::string &optionName) const 
+";
+
+%feature("docstring")  Configurable::optionValue "T Configurable::optionValue(const std::string &optionName) const 
+";
+
+%feature("docstring")  Configurable::setOptionValue "void Configurable::setOptionValue(const std::string &optionName, T value)
+
+Sets the value of option. Option should hold same value type already. 
+";
+
+%feature("docstring")  Configurable::toOptionString "std::string Configurable::toOptionString(const std::string &delimeter=\";\") const
+
+Returns string with all options using given delimeter. 
 ";
 
 
@@ -197,7 +314,7 @@ Clears all defined parameters.
 Adds fit parameter. 
 ";
 
-%feature("docstring")  FitSuiteParameters::getParameters "std::vector<FitParameter*> FitSuiteParameters::getParameters()
+%feature("docstring")  FitSuiteParameters::getParameters "std::vector<FitParameter*>& FitSuiteParameters::getParameters()
 
 Returns all parameters. 
 ";
@@ -511,6 +628,46 @@ Returns list of string with description of all available algorithms.
 ";
 
 
+// File: classMinimizerOption.xml
+%feature("docstring") MinimizerOption "
+
+The  MinimizerOption class is intended to store a single option for minimization algorithm. Int, double, string values are available. Relies on https://github.com/mapbox/variant, will be switched to std::variant in C++-17.
+
+C++ includes: MinimizerOption.h
+";
+
+%feature("docstring")  MinimizerOption::MinimizerOption "MinimizerOption::MinimizerOption(const std::string &name=std::string())
+";
+
+%feature("docstring")  MinimizerOption::MinimizerOption "MinimizerOption::MinimizerOption(const std::string &name, const T &t, const std::string &descripion=std::string())
+";
+
+%feature("docstring")  MinimizerOption::name "std::string MinimizerOption::name() const 
+";
+
+%feature("docstring")  MinimizerOption::description "std::string MinimizerOption::description() const 
+";
+
+%feature("docstring")  MinimizerOption::setDescription "void MinimizerOption::setDescription(const std::string &description)
+";
+
+%feature("docstring")  MinimizerOption::value "MinimizerOption::variant_t & MinimizerOption::value()
+";
+
+%feature("docstring")  MinimizerOption::defaultValue "MinimizerOption::variant_t & MinimizerOption::defaultValue()
+";
+
+%feature("docstring")  MinimizerOption::get "T MinimizerOption::get() const
+
+Returns the option's value. 
+";
+
+%feature("docstring")  MinimizerOption::getDefault "T MinimizerOption::getDefault() const
+
+Returns the option's default value (i.e. used during construction) 
+";
+
+
 // File: classMinimizerOptions.xml
 %feature("docstring") MinimizerOptions "
 
@@ -616,6 +773,61 @@ set option value
 ";
 
 %feature("docstring")  MinimizerOptions::print "void MinimizerOptions::print() const 
+";
+
+
+// File: classMinuit2Minimizer.xml
+%feature("docstring") Minuit2Minimizer "
+
+The  Minuit2Minimizer class is a wrapper for ROOT Minuit2 minimizer See Minuit2 user manual https://root.cern.ch/root/htmldoc/guides/minuit2/Minuit2.pdf.
+
+C++ includes: Minuit2Minimizer.h
+";
+
+%feature("docstring")  Minuit2Minimizer::Minuit2Minimizer "Minuit2Minimizer::Minuit2Minimizer()
+";
+
+%feature("docstring")  Minuit2Minimizer::~Minuit2Minimizer "Minuit2Minimizer::~Minuit2Minimizer()
+";
+
+%feature("docstring")  Minuit2Minimizer::setStrategy "void Minuit2Minimizer::setStrategy(int value)
+
+Sets minimization strategy (0-low, 1-medium, 2-high minimization quality). At low quality number of function calls will be economized. Default value is 1. 
+";
+
+%feature("docstring")  Minuit2Minimizer::strategy "int Minuit2Minimizer::strategy() const 
+";
+
+%feature("docstring")  Minuit2Minimizer::setErrorDefinition "void Minuit2Minimizer::setErrorDefinition(double value)
+
+Sets error definition factor for parameter error calculation. If objective function (OF) is the usual chisquare function and if the user wants the usual one-standard-deviation errors, then the error definition should be 1.0. If OF is a negative-log-likelihood function, then 0.5. If OF is a chisquare, but the user wants two-standard-deviation errors, 4.0. Default value is 1.0. 
+";
+
+%feature("docstring")  Minuit2Minimizer::errorDefinition "double Minuit2Minimizer::errorDefinition() const
+
+Sets tolerance on the function value at the minimum. Minimization will stop when the estimated vertical distance to the minimum (EDM) is less than 0.001*tolerance*ErrorDef. Here ErrorDef=1.0 for chi squared fit and ErrorDef=0.5 for negative log likelihood fit. Default value is 0.01. 
+";
+
+%feature("docstring")  Minuit2Minimizer::setTolerance "void Minuit2Minimizer::setTolerance(double value)
+";
+
+%feature("docstring")  Minuit2Minimizer::tolerance "double Minuit2Minimizer::tolerance() const
+
+Sets relative floating point arithmetic precision. Should be adjusted when the user knows that objectiove function value is not calculated to the nominal machine accuracy. Typical values are between 10^-5 and 10^-14. Default value is -1.0 (minimizer specific will be used). 
+";
+
+%feature("docstring")  Minuit2Minimizer::setPrecision "void Minuit2Minimizer::setPrecision(double value)
+";
+
+%feature("docstring")  Minuit2Minimizer::precision "double Minuit2Minimizer::precision() const 
+";
+
+%feature("docstring")  Minuit2Minimizer::setPrintLevel "void Minuit2Minimizer::setPrintLevel(int value)
+
+Sets minimizer internal print level. Default value is 0 (silent). 
+";
+
+%feature("docstring")  Minuit2Minimizer::printLevel "int Minuit2Minimizer::printLevel() const 
 ";
 
 
@@ -961,6 +1173,9 @@ return minimizer options
 ";
 
 
+// File: namespace_0D15.xml
+
+
 // File: namespaceAlgorithmNames.xml
 
 
@@ -1011,6 +1226,18 @@ Returns string right-padded with blanks.
 // File: AlgorithmNames_8h.xml
 
 
+// File: BasicMinimizer_8cpp.xml
+
+
+// File: BasicMinimizer_8h.xml
+
+
+// File: Configurable_8cpp.xml
+
+
+// File: Configurable_8h.xml
+
+
 // File: IMinimizer_8cpp.xml
 
 
@@ -1029,10 +1256,22 @@ Returns string right-padded with blanks.
 // File: MinimizerLibrary_8h.xml
 
 
+// File: MinimizerOption_8cpp.xml
+
+
+// File: MinimizerOption_8h.xml
+
+
 // File: MinimizerOptions_8cpp.xml
 
 
 // File: MinimizerOptions_8h.xml
+
+
+// File: Minuit2Minimizer_8cpp.xml
+
+
+// File: Minuit2Minimizer_8h.xml
 
 
 // File: TrivialMinimizer_8cpp.xml

@@ -23476,7 +23476,7 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"FitSuiteParameters_getParameters", _wrap_FitSuiteParameters_getParameters, METH_VARARGS, (char *)"\n"
 		"FitSuiteParameters_getParameters(FitSuiteParameters self) -> std::vector< FitParameter *,std::allocator< FitParameter * > > &\n"
 		"\n"
-		"std::vector<FitParameter*> FitSuiteParameters::getParameters()\n"
+		"std::vector<FitParameter*>& FitSuiteParameters::getParameters()\n"
 		"\n"
 		"Returns all parameters. \n"
 		"\n"

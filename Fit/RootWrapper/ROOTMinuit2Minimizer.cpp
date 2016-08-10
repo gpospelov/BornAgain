@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "ROOTMinuit2Minimizer.h"
-
+#include <string>
 
 ROOTMinuit2Minimizer::ROOTMinuit2Minimizer(const std::string& minimizer_name, const std::string& algo_type)
     : ROOTMinimizer(minimizer_name, algo_type)
@@ -24,6 +24,8 @@ ROOTMinuit2Minimizer::ROOTMinuit2Minimizer(const std::string& minimizer_name, co
 
     m_options.addValue("Strategy", 1);
     m_options.addValue("ErrorDef", 1);
+
+//    addOption(std::string("xxx"), 1.0);
 
 }
 

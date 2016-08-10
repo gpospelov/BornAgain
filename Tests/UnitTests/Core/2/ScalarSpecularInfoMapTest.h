@@ -2,10 +2,11 @@
 #define SCALARSPECULARINFOMAPTEST_H
 
 #include "MultiLayer.h"
+#include "HomogeneousMaterial.h"
+#include "Layer.h"
 #include "Pi.h"
 #include "ScalarRTCoefficients.h"
 #include "ScalarSpecularInfoMap.h"
-#include "Layer.h"
 #include <memory>
 
 class ScalarSpecularInfoMapTest : public ::testing :: Test

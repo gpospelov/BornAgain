@@ -20,11 +20,8 @@
 
 namespace Materials {
 
-IMaterial *createInvertedMaterial(const IMaterial *material);
-
+IMaterial* createInvertedMaterial(const IMaterial *material);
 
 }
-
-
 
 #endif // MATERIALS_H

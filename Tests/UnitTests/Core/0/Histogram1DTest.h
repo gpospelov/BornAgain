@@ -249,6 +249,4 @@ TEST_F(Histogram1DTest, Addition)
     }
 }
 
-
 #endif // HISTOGRAM1DTEST_H
-

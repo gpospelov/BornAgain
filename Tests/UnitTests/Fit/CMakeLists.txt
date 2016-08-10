@@ -2,16 +2,18 @@
 # CMakeLists.txt file for building and running unit tests
 ############################################################################
 
+include(AddGTest)
+
 include_directories(
     ${BornAgainCore_INCLUDE_DIRS}
     ${BornAgainFit_INCLUDE_DIRS}
     ${EIGEN3_INCLUDE_DIR}
     ${RootMinimizers_INCLUDE_DIRS}
-)
-
+    ${gtest_SOURCE_DIR}
+    ${gtest_SOURCE_DIR}/include
+    )
 if(BORNAGAIN_OPENMPI)
     include_directories(${MPI_INCLUDE_PATH})
 endif()
 
-WRAP_GTEST(TestFit0 "*.h" ${BornAgainCore_LIBRARY} 0)
-
+ADD_GTEST(Fit "0" BornAgainCore 0)

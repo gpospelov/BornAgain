@@ -6,7 +6,7 @@
 #include "ISampleBuilder.h"
 #include "Exceptions.h"
 #include "FixedBinAxis.h"
-#include "Pi.h"
+#include "Units.h"
 #include "Layer.h"
 #include <iostream>
 
@@ -40,7 +40,6 @@ SpecularSimulationTest::SpecularSimulationTest()
     multilayer.addLayer(layer1);
     multilayer.addLayer(layer2);
 }
-
 
 TEST_F(SpecularSimulationTest, InitialState)
 {

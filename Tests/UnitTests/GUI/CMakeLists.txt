@@ -25,9 +25,7 @@ set(CMAKE_AUTOMOC ON)
 
 add_executable(TestGUI ${source_files} ${include_files})
 
-target_link_libraries(TestGUI
-    ${BornAgainGUI_LIBRARY}
-)
+target_link_libraries(TestGUI ${BornAgainGUI_LIBRARY})
 
 qt5_use_modules(TestGUI Widgets Core Gui Designer PrintSupport Network Test)
 

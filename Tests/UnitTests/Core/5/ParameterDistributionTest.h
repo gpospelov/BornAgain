@@ -3,6 +3,7 @@
 
 #include "ParameterDistribution.h"
 #include "Distributions.h"
+#include "Exceptions.h"
 #include "ParameterSample.h"
 #include "IParameterized.h"
 #include <cmath>

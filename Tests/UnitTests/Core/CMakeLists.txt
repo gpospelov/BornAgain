@@ -2,7 +2,7 @@
 # CMakeLists.txt file for building and running unit tests
 ############################################################################
 
-include(GoogletestWrapper)
+include(AddGTest)
 
 # qtcreator prefers relative paths for project includes
 include_directories(
@@ -13,18 +13,19 @@ include_directories(
     ${GSL_INCLUDE_DIR}
     ${gtest_SOURCE_DIR}
     ${gtest_SOURCE_DIR}/include
- )
+    )
 if(BORNAGAIN_OPENMPI)
     include_directories(${MPI_INCLUDE_PATH})
 endif()
 
-WRAP_GTEST(TestCore0 "0/*.h" ${BornAgainCore_LIBRARY} 0)
-WRAP_GTEST(TestCore1 "1/*.h" ${BornAgainCore_LIBRARY} 0)
-WRAP_GTEST(TestCore2 "2/*.h" ${BornAgainCore_LIBRARY} 0)
-WRAP_GTEST(TestCore3 "3/*.h" ${BornAgainCore_LIBRARY} 0)
-WRAP_GTEST(TestCore4 "4/*.h" ${BornAgainCore_LIBRARY} 0)
-WRAP_GTEST(TestCore5 "5/*.h" ${BornAgainCore_LIBRARY} 0)
-WRAP_GTEST(TestCore6 "6/*.h" ${BornAgainCore_LIBRARY} 0)
+set(libs BornAgainCore)
 
-WRAP_GTEST(TestCoreFFspec Numeric/FormFactorSpecializationTest.h ${BornAgainCore_LIBRARY} 1)
-WRAP_GTEST(TestCoreFFsym  Numeric/FormFactorSymmetryTest.h       ${BornAgainCore_LIBRARY} 1)
+ADD_GTEST(Core "0"        ${libs} 0)
+ADD_GTEST(Core "1"        ${libs} 0)
+ADD_GTEST(Core "2"        ${libs} 0)
+ADD_GTEST(Core "3"        ${libs} 0)
+ADD_GTEST(Core "4"        ${libs} 0)
+ADD_GTEST(Core "5"        ${libs} 0)
+ADD_GTEST(Core "6"        ${libs} 0)
+ADD_GTEST(Core "Numeric0" ${libs} 1)
+ADD_GTEST(Core "Numeric1" ${libs} 1)

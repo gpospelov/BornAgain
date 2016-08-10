@@ -39,7 +39,7 @@ GUITest::~GUITest()
     delete m_domain_simulation;
 }
 
-void GUITest::runTest()
+bool GUITest::runTest()
 {
     if (!m_reference_simulation)
         throw Exceptions::NullPointerException(
@@ -54,7 +54,7 @@ void GUITest::runTest()
                 m_domain_simulation->getDetectorIntensity());
     const std::unique_ptr<OutputData<double> > P_reference_data(
         m_reference_simulation->getDetectorIntensity());
-    m_result = compareIntensityMaps(*P_domain_data, *P_reference_data);
+    return compareIntensityMaps(*P_domain_data, *P_reference_data);
 }
 
 //! returns new simulation from

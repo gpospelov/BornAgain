@@ -34,12 +34,10 @@ public:
              GISASSimulation* simulation, double threshold);
     ~CoreTest() final;
 
-    void runTest() final;
+    bool runTest() final;
 
 private:
     GISASSimulation* m_simulation;
-    OutputData<double>* m_reference;
-    std::string m_ref_filename;
 };
 
 #endif // CORETEST_H

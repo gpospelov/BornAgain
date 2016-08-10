@@ -29,21 +29,16 @@ int TestBatchSimulation()
         threadInfo.n_batches = n_batches;
         threadInfo.current_batch = i_batch;
         batch->getOptions().setThreadInfo(threadInfo);
-
         batch->runSimulation();
         *result += *batch->getOutputData();
     }
 
-
     double diff = IntensityDataFunctions::getRelativeDifference(*result, *reference);
 
     std::cout << "BatchSimulation" << " " << "Running simulations in batch mode" << " " << diff
-              << " " << (diff>threshold ? "[FAILED]" : "[OK]") << std::endl;
+              << " " << (diff>threshold ? "[FAILED]" : "[OK]") << "\n";
 
-    if( diff > threshold )
-        return IFunctionalTest::FAILED;
-
-    return IFunctionalTest::SUCCESS;
+    return diff <= threshold;
 }
 
 

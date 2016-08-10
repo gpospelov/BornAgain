@@ -45,42 +45,23 @@ void PyPersistenceTest::runTest()
     }
 
     std::string pyscript_filename = FileSystem::GetJoinPath(m_directory, getName() + ".py");
-    if (!runPython(pyscript_filename + " " + dat_stem)) {
-        m_result = FAILED;
-        return;
-    }
+    if (!runPython(pyscript_filename + " " + dat_stem))
+        return false;
 
     std::map<const std::string, const std::string> dat = glob2map(dat_stem);
     std::map<const std::string, const std::string> ref = glob2map(ref_stem);
     if (dat.size()==0) {
         std::cerr << "There is no test output of form " << dat_stem << ".*.*\n";
-        m_result = FAILED;
-        return;
+        return false;
     }
 
-    // Compare file lists
-    m_result = SUCCESS;
-    for (auto const& it: dat) {
-        if (ref.find(it.first)==ref.end()) {
-            std::cerr << "For test output " << it.second
-                      << " there is no reference file in " << PYPERSIST_REF_DIR << "\n";
-            m_result = FAILED;
-        }
-    }
-    for (auto const& it: ref) {
-        if (dat.find(it.first)==dat.end()) {
-            std::cerr << "For reference file " << it.second
-                      << " there is no test output in " << PYPERSIST_OUT_DIR << "\n";
-            m_result = FAILED;
-        }
-    }
-    if (m_result==FAILED)
-        return;
+    if (!compareFileMaps(dat, ref))
+        return false;
 
-    // Compare file pairs
     for (auto const& it: dat)
         if (!compareFilePair( it.second, ref[it.first] ) )
-            m_result = FAILED_DIFF;
+            return false;
+    return true;
 }
 
 //! Globs for files of form *.<key1>.<key2>[.*], and returns a map with keys of the form
@@ -95,6 +76,30 @@ PyPersistenceTest::glob2map(const std::string& stem)
         ret.insert(make_pair(fname_segments[1]+"."+fname_segments[2], fpath));
     }
     return ret;
+}
+
+//! Returns true if two file maps have the same set of keys.
+bool PyPersistenceTest::compareFileMaps(
+    const std::map<const std::string, const std::string>& dat,
+    const std::map<const std::string, const std::string>& ref)
+{
+    // Compare file lists
+    bool success = true;
+    for (auto const& it: dat) {
+        if (ref.find(it.first)==ref.end()) {
+            std::cerr << "For test output " << it.second
+                      << " there is no reference file in " << PYPERSIST_REF_DIR << "\n";
+            success = false;
+        }
+    }
+    for (auto const& it: ref) {
+        if (dat.find(it.first)==dat.end()) {
+            std::cerr << "For reference file " << it.second
+                      << " there is no test output in " << PYPERSIST_OUT_DIR << "\n";
+            success = false;
+        }
+    }
+    return success;
 }
 
 //! Returns true if test output and reference file agree.

@@ -18,25 +18,26 @@
 #include <iostream>
 #include <cstdlib>
 
-IFunctionalTest::ETestResult IReferencedTest::compareIntensityMaps(
+//! Compares two intensity maps, and returns true unless they disagree beyond thier variability.
+bool IReferencedTest::compareIntensityMaps(
     const OutputData<double>& dat, const OutputData<double>& ref)
 {
     if( dat.getVariability() != ref.getVariability() ) {
         std::cerr << "Failed: reproducibility threshold has changed from "
                   << ref.getVariability()
                   << " to " << dat.getVariability() << "\n";
-        return FAILED_DIFF;
+        return false;
     }
     double threshold = ref.getVariability();
     double diff = IntensityDataFunctions::getRelativeDifference(dat, ref);
     if ( diff > threshold ) {
         std::cerr << "Failed: Relative difference between dat and ref = " << diff
                   << " is above reproducibility threshold = " << threshold << "\n";
-        return FAILED_DIFF;
+        return false;
     }
     std::cout << "Relative difference between dat and ref = " << diff
               << " is within reproducibility threshold = " << threshold << "\n";
-    return SUCCESS;
+    return true;
 }
 
 #ifdef PYTHON_EXECUTABLE

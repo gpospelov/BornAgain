@@ -36,7 +36,7 @@ public:
             GISASSimulation* reference_simulation, double threshold);
     virtual ~GUITest();
 
-    void runTest() final;
+    bool runTest() final;
 
 private:
     void createDomainSimulation();

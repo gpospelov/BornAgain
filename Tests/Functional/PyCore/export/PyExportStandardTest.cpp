@@ -28,5 +28,5 @@ public:
 //! Runs PyExportTest on a standard simulation indicated by argv[1].
 int main(int argc, char** argv)
 {
-    return PyExportStandardTest().execute(argc, argv);
+    return PyExportStandardTest().execute(argc, argv) ? 0 : 1;
 }

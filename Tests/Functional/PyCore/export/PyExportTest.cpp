@@ -41,7 +41,7 @@ PyExportTest::~PyExportTest()
 }
 
 //! Runs simulation via a Python script and directly, and returns true if the results agree.
-void PyExportTest::runTest()
+bool PyExportTest::runTest()
 {
     // Set output data filename, and remove old output files
     std::string output_name = FileSystem::GetJoinPath(PYEXPORT_TMP_DIR, getName());
@@ -57,10 +57,8 @@ void PyExportTest::runTest()
 
     // Run Python script
     assert(std::string(BUILD_LIB_DIR)!="");
-    if (!runPython(pyscript_filename + " " + output_name)) {
-        m_result = FAILED;
-        return;
-    }
+    if (!runPython(pyscript_filename + " " + output_name))
+        return false;
 
     // Run direct simulation
     std::cout <<
@@ -72,5 +70,5 @@ void PyExportTest::runTest()
     // Compare results
     const std::unique_ptr<OutputData<double> > P_domain_data(
         IntensityDataIOFactory::readOutputData(output_path));
-    m_result = compareIntensityMaps(*P_domain_data, *P_reference_data);
+    return compareIntensityMaps(*P_domain_data, *P_reference_data);
 }

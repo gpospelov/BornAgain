@@ -32,7 +32,7 @@ public:
                  class GISASSimulation* reference_simulation, double threshold);
     virtual ~PyExportTest();
 
-    void runTest() final;
+    bool runTest() final;
 
 private:
     std::string getPySuiteFileNameAndPath() const;

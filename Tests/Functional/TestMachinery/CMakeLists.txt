@@ -23,6 +23,7 @@ if(WIN32)
     SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DBA_CORE_BUILD_DLL")
 endif()
 
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DPYTHON_EXECUTABLE=\\\"${PYTHON_EXECUTABLE}\\\"")
 
 # --- making library ---------
 add_library(

@@ -14,7 +14,6 @@
 // ************************************************************************** //
 
 #include "PyPersistenceTest.h"
-#include "BAPython.h"
 #include "FileSystem.h"
 #include "GISASSimulation.h"
 #include "IntensityDataFunctions.h"
@@ -25,7 +24,6 @@
 #include "Utils.h"
 #include <yaml-cpp/yaml.h>
 #include <cstdio>
-#include <cstdlib>
 #include <fstream>
 #include <sstream>
 #include <map>
@@ -37,6 +35,7 @@ PyPersistenceTest::PyPersistenceTest(
     , m_directory(directory)
 {}
 
+//! Runs a Python script, and returns true if the output of the script agrees with reference data.
 void PyPersistenceTest::runTest()
 {
     // Set output data filename stem, and remove old output files
@@ -48,12 +47,7 @@ void PyPersistenceTest::runTest()
 
     // Run Python script
     std::string pyscript_filename = FileSystem::GetJoinPath(m_directory, getName() + ".py");
-    std::string command = std::string("PYTHONPATH=") + BUILD_LIB_DIR + " " +
-        BORNAGAIN_PYTHON_EXE + " " + pyscript_filename + " " + dat_stem;
-    std::cout << command << std::endl/*sic*/; // flush output before calling std::system
-    int ret = std::system(command.c_str());
-    if (ret!=0) {
-        std::cerr << "Command returned non-zero value " << ret << "\n";
+    if (!runPython(pyscript_filename + " " + dat_stem)) {
         m_result = FAILED;
         return;
     }

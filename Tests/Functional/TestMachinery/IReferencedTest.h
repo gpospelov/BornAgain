@@ -19,6 +19,7 @@
 #include "IFunctionalTest.h"
 #include "OutputData.h"
 #include <map>
+#include <string>
 
 //! @class IReferencedTest
 //! @ingroup standard_samples
@@ -39,6 +40,8 @@ protected:
 
     ETestResult compareIntensityMaps(
         const OutputData<double>& dat, const OutputData<double>& ref) const;
+
+    static bool runPython(const std::string& py_command);
 };
 
 #endif // IREFERENCEDTEST_H

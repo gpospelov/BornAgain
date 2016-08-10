@@ -14,7 +14,6 @@
 // ************************************************************************** //
 
 #include "PyExportTest.h"
-#include "BAPython.h"
 #include "FileSystem.h"
 #include "GISASSimulation.h"
 #include "IntensityDataFunctions.h"
@@ -24,7 +23,6 @@
 #include "Utils.h"
 #include <cassert>
 #include <cstdio>
-#include <cstdlib>
 #include <fstream>
 
 PyExportTest::PyExportTest(
@@ -42,6 +40,7 @@ PyExportTest::~PyExportTest()
     delete m_domain_simulation;
 }
 
+//! Runs simulation via a Python script and directly, and returns true if the results agree.
 void PyExportTest::runTest()
 {
     // Set output data filename, and remove old output files
@@ -58,12 +57,7 @@ void PyExportTest::runTest()
 
     // Run Python script
     assert(std::string(BUILD_LIB_DIR)!="");
-    std::string command = std::string("PYTHONPATH=") + BUILD_LIB_DIR + " " +
-        BORNAGAIN_PYTHON_EXE + " " + pyscript_filename + " " + output_name;
-    std::cout << command << std::endl/*sic*/; // flush output before calling std::system
-    int ret = std::system(command.c_str()); // run python script
-    if (ret!=0) {
-        std::cerr << "Command returned non-zero value " << ret << "\n";
+    if (!runPython(pyscript_filename + " " + output_name)) {
         m_result = FAILED;
         return;
     }

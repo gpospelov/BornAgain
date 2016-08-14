@@ -1,6 +1,5 @@
-/*! 
-\mainpage 
-
+/*!
+\mainpage
 
 C++ API Reference of <a href="http://www.bornagainproject.org">BornAgain Project</a>, a software to simulate and fit grazing incidence small angle scattering.
 
@@ -12,20 +11,17 @@ C++ API Reference of <a href="http://www.bornagainproject.org">BornAgain Project
 </ul>
 
 
-<B> License: </B> 
+<B> License: </B>
 <BR>
 GNU General Public License v3 or higher
 <BR>
-Copyright Forschungszentrum Jülich GmbH 2015
+Copyright Forschungszentrum Jülich GmbH 2015-
 
 
-<B> Authors:  </B> 
+<B> Authors:  </B>
 <BR>
 Scientific Computing Group at MLZ Garching:
 <BR>
-C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
-
-
-
+J. Burle, C. Durniak, J. M. Fisher, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 
 */

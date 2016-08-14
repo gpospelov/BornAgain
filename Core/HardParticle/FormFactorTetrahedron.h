@@ -18,9 +18,8 @@
 
 #include "FormFactorPolyhedron.h"
 
-//! @class FormFactorTetrahedron
-//! @ingroup formfactors
-//! @brief The formfactor of tetrahedron.
+//! @ingroup hardParticle
+//! @brief   A frustum with equilateral trigonal base.
 
 class BA_CORE_API_ FormFactorTetrahedron : public FormFactorPolyhedron
 {

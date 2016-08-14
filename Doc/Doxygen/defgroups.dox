@@ -1,4 +1,4 @@
-/*! 
+/*!
 
 \defgroup simulation Simulation description
 @brief Classes to describe beam, detector and run the simulation.
@@ -10,8 +10,14 @@
 @brief Classes to describe magnetic and non-magnetic materials.
 
 \defgroup formfactors Available formfactors
-@brief Available form factors. 
-@image html Table_3Dshapes1.png "Schematic views of available form factors" 
+@brief Available form factors.
+@image html Table_3Dshapes1.png "Schematic views of available form factors"
+
+\defgroup hardParticle Hard particles
+@brief Three-dimenensional shapes, to model hard particles
+
+\defgroup legacyGrating Ripples
+@brief Ripples, for modelling gratings
 
 \defgroup interference Interference functions
 @brief Available interference functions.

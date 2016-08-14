@@ -16,9 +16,6 @@
 #include "FormFactorPrism6.h"
 #include "BornAgainNamespace.h"
 
-//! @brief Prism6 constructor
-//! @param base_edge of hexagonal base
-//! @param height of Prism6
 FormFactorPrism6::FormFactorPrism6(const double base_edge, const double height)
     : FormFactorPolygonalPrism( height )
     , m_base_edge(base_edge)

@@ -19,16 +19,12 @@
 #include "IFormFactorBorn.h"
 #include "IntegratorComplex.h"
 
-//! @class FormFactorTruncatedSphere
-//! @ingroup formfactors
-//! @brief The formfactor of a truncated Sphere.
+//! @brief   A truncated Sphere.
+//! @ingroup hardParticle
 
 class BA_CORE_API_ FormFactorTruncatedSphere : public IFormFactorBorn
 {
 public:
-    //! @brief TruncatedSphere constructor
-    //! @param radius of Truncated Sphere
-    //! @param height of Truncated Sphere
     FormFactorTruncatedSphere(double radius, double height);
     virtual ~FormFactorTruncatedSphere();
 

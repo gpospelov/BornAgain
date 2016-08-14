@@ -35,7 +35,7 @@ const PolyhedralTopology FormFactorTruncatedCube::topology = {
         { { 12,15,16,22, 21,18,19,13 }, true }
     }, true };
 
-//! @param length of the full cube
+//! @param length         of the full cube
 //! @param removed_length as removed from each edge of the cube
 
 FormFactorTruncatedCube::FormFactorTruncatedCube(double length, double removed_length)

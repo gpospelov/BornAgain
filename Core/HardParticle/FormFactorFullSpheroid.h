@@ -19,17 +19,12 @@
 #include "IFormFactorBorn.h"
 #include "IntegratorComplex.h"
 
-//! @class FormFactorFullSpheroid
-//! @ingroup formfactors
-//! @brief The formfactor of a full spheroid.
+//! @brief   A full spheroid (an ellipsoid with two equal axes, hence with circular cross section)
+//! @ingroup hardParticle
 
 class BA_CORE_API_ FormFactorFullSpheroid : public IFormFactorBorn
 {
 public:
-    //! @brief Full Spheroid constructor
-    //! @param radius of spheroid
-    //! @param height of spheroid
-
     FormFactorFullSpheroid(double radius, double height);
 
     FormFactorFullSpheroid* clone() const { return new FormFactorFullSpheroid(m_radius, m_height); }

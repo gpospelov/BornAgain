@@ -19,14 +19,12 @@
 #include "IFormFactorBorn.h"
 #include "IntegratorComplex.h"
 
-class ISampleVisitor;
-
 // Forward declaration to prevent IntegratorComplex.h to be parsed for Python API:
 template <class T> class IntegratorComplex;
 
-//! @class FormFactorCone
-//! @ingroup formfactors
-//! @brief The formfactor of a cone.
+//! @brief   A conical frustum (cone truncated parallel to the base) with circular base.
+//! @ingroup hardParticle
+
 class BA_CORE_API_ FormFactorCone : public IFormFactorBorn
 {
 public:

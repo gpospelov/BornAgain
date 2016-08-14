@@ -1,45 +1,49 @@
-/*! 
+/*!
 \page userapi User API
 
 Here is a list of classes grouped in several categories to create the sample, describe scattering geometry, run the simulation and perform fitting.
 
 <ul>
-<li> \ref simulation "Simulation" <BR>
+<li> \ref simulation "Simulation" <br>
 List of classes to describe beam, detector and run the simulation
-<li> \ref samples "Samples" <BR> 
+<li> \ref samples "Samples" <br>
 List of classes to describe scattering sample
-<li> \ref materials "Materials" <BR>
+<li> \ref materials "Materials" <br>
 Classes to describe magnetic and non-magnetic materials
-<li> \ref formfactors "Form factors" <BR> 
+<li> \ref formfactors "Form factors" <br>
 List of form factors available
-<li> \ref interference "Interference functions" <BR> 
+     <ul>
+     <li> \ref hardParticle "Hard particles"<br>Three-dimenensional particle shapes
+     <li> \ref softParticle "Soft particles"<br>Three-dimenensional particle models with smoothly decaying scattering-length distribution
+     <li> \ref legacyGrating "Ripples"<br>Ripples, for modelling gratings
+     </ul>
+<li> \ref interference "Interference functions" <br>
 List of implemented interference functions
-<li> \ref algorithms "Algorithms and functions" <BR> 
+<li> \ref algorithms "Algorithms and functions" <br>
 Additional routines
-<li> \ref tools "Tools" <BR> 
+<li> \ref tools "Tools" <br>
 Different tools mainly to deal with intensity data
-<li> \ref input_output "Input and output" <BR> 
+<li> \ref input_output "Input and output" <br>
 Various routines to write intensity data on disk and to import user data.
-<li> \ref fitting "Fitting" <BR> 
+<li> \ref fitting "Fitting" <br>
 Fitting routines
 </ul>
-<BR>
+<br>
 
 Here is a list of additional classes from internal API.
 <ul>
-<li> \ref simulation_internal "Simulation (internal)" <BR>
-<li> \ref samples_internal "Samples (internal)" <BR> 
-<li> \ref materials_internal "Materials (internal)" <BR>
-<li> \ref formfactors_internal "Form factors (internal)" <BR> 
-<li> \ref interference_internal "Interference functions (internal)" 
-<li> \ref algorithms_internal "Algorithms (internal)" <BR> 
-<li> \ref tools_internal "Tools (internal)" <BR> 
-<li> \ref input_output_internal "Input/output (internal)" <BR> 
-<li> \ref fitting_internal "Fitting (internal)" <BR> 
+<li> \ref simulation_internal "Simulation (internal)" <br>
+<li> \ref samples_internal "Samples (internal)" <br>
+<li> \ref materials_internal "Materials (internal)" <br>
+<li> \ref formfactors_internal "Form factors (internal)" <br>
+<li> \ref interference_internal "Interference functions (internal)"
+<li> \ref algorithms_internal "Algorithms (internal)" <br>
+<li> \ref tools_internal "Tools (internal)" <br>
+<li> \ref input_output_internal "Input/output (internal)" <br>
+<li> \ref fitting_internal "Fitting (internal)" <br>
 </ul>
 
 
 
 
 */
-

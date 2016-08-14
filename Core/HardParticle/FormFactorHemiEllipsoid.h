@@ -19,17 +19,12 @@
 #include "IFormFactorBorn.h"
 #include "IntegratorComplex.h"
 
-//! @class FormFactorHemiEllipsoid
-//! @ingroup formfactors
-//! @brief The formfactor of an hemi ellipsoid.
+//! @brief   An hemi ellipsoid, obtained by a cut in the plane spanned by two principal axes.
+//! @ingroup hardParticle
 
 class BA_CORE_API_ FormFactorHemiEllipsoid : public IFormFactorBorn
 {
 public:
-    //! @brief Hemi Ellipsoid constructor
-    //! @param radius_x half length of one horizontal main axes
-    //! @param radius_y half length of the other horizontal main axes
-    //! @param height of Hemi Ellipsoid
     FormFactorHemiEllipsoid(double radius_x, double radius_y, double height);
     virtual ~FormFactorHemiEllipsoid() {}
 

@@ -18,18 +18,16 @@
 
 #include "IFormFactorBorn.h"
 
-//! @ingroup formfactors
-//! @class FormFactorFullSphere
-//! @brief The formfactor of a sphere.
+//! @brief   A full sphere.
+//! @ingroup hardParticle
+
 class BA_CORE_API_ FormFactorFullSphere : public IFormFactorBorn
 {
 public:
-    //! @brief Full Sphere constructor
-    //! @param radius of Sphere
     FormFactorFullSphere(double radius);
 
-    FormFactorFullSphere *clone() const{ return new FormFactorFullSphere(m_radius); }
-    void accept(ISampleVisitor *visitor) const final { visitor->visit(this); }
+    FormFactorFullSphere* clone() const{ return new FormFactorFullSphere(m_radius); }
+    void accept(ISampleVisitor* visitor) const final { visitor->visit(this); }
 
     double getRadius() const { return m_radius; }
 

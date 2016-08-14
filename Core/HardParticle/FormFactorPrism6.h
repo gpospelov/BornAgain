@@ -17,9 +17,8 @@
 #define FORMFACTORPRISM6_H
 #include "FormFactorPolyhedron.h"
 
-//! @class FormFactorPrism6
-//! @ingroup formfactors
-//! @brief The formfactor of a prism based on a regular hexagonal.
+//! @brief   A prism based on a regular hexagonal.
+//! @ingroup hardParticle
 
 class BA_CORE_API_ FormFactorPrism6 : public FormFactorPolygonalPrism
 {

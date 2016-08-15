@@ -18,7 +18,7 @@
 
 #include "FormFactorPolyhedron.h"
 
-//! @brief   A regular icosahedron.
+//! A regular icosahedron.
 //! @ingroup hardParticle
 
 class BA_CORE_API_ FormFactorIcosahedron : public FormFactorPolyhedron

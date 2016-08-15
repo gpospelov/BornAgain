@@ -22,7 +22,7 @@
 // Forward declaration to prevent IntegratorComplex.h to be parsed for Python API:
 template <class T> class IntegratorComplex;
 
-//! @brief   A conical frustum (cone truncated parallel to the base) with circular base.
+//! A conical frustum (cone truncated parallel to the base) with circular base.
 //! @ingroup hardParticle
 
 class BA_CORE_API_ FormFactorCone : public IFormFactorBorn

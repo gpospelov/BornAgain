@@ -18,7 +18,7 @@
 
 #include "IFormFactorBorn.h"
 
-//! @brief   A dot, with trivial formfactor F(q)=1.
+//! A dot, with trivial formfactor F(q)=1.
 //! @ingroup hardParticle
 
 class BA_CORE_API_ FormFactorTrivial : public IFormFactorBorn

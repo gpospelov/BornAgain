@@ -18,8 +18,8 @@
 
 #include "FormFactorPolyhedron.h"
 
+//! A frustum with equilateral trigonal base.
 //! @ingroup hardParticle
-//! @brief   A frustum with equilateral trigonal base.
 
 class BA_CORE_API_ FormFactorTetrahedron : public FormFactorPolyhedron
 {

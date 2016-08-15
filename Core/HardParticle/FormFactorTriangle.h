@@ -17,7 +17,7 @@
 #define FORMFACTORTRIANGLE_H
 #include "FormFactorPolyhedron.h"
 
-//! @brief A planar equilateral triangle, for testing form factor computations.
+//! A planar equilateral triangle, for testing form factor computations.
 
 class BA_CORE_API_ FormFactorTriangle : public FormFactorPolygonalSurface
 {

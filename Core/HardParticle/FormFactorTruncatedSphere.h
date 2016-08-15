@@ -19,7 +19,7 @@
 #include "IFormFactorBorn.h"
 #include "IntegratorComplex.h"
 
-//! @brief   A truncated Sphere.
+//! A truncated Sphere.
 //! @ingroup hardParticle
 
 class BA_CORE_API_ FormFactorTruncatedSphere : public IFormFactorBorn

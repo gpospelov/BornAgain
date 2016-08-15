@@ -19,7 +19,8 @@
 #include "IFormFactorBorn.h"
 #include "IntegratorComplex.h"
 
-//! @brief   An hemi ellipsoid, obtained by a cut in the plane spanned by two principal axes.
+//! An hemi ellipsoid,
+//!   obtained by truncating a full ellipsoid in the middle plane spanned by two principal axes.
 //! @ingroup hardParticle
 
 class BA_CORE_API_ FormFactorHemiEllipsoid : public IFormFactorBorn

@@ -16,6 +16,9 @@
 \defgroup hardParticle Hard particles
 @brief Three-dimenensional shapes, to model hard particles
 
+\defgroup softParticle Soft particles
+@brief Particles with smooth scattering-length distributions.
+
 \defgroup legacyGrating Ripples
 @brief Ripples, for modelling gratings
 

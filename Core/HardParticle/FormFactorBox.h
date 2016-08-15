@@ -18,7 +18,7 @@
 
 #include "IFormFactorBorn.h"
 
-//! @brief   A rectangular prism (parallelepiped).
+//! A rectangular prism (parallelepiped).
 //! @ingroup hardParticle
 
 class BA_CORE_API_ FormFactorBox : public IFormFactorBorn

@@ -18,18 +18,17 @@
 
 #include "FormFactorFullSphere.h"
 
-//! @class FormFactorSphereUniformRadius
-//! @ingroup formfactors
-//! @brief Integrated full sphere form factor over a uniform distribution of radii.
+//! Integrated full sphere form factor over a uniform distribution of radii.
+//! @ingroup softParticle
 
 class BA_CORE_API_ FormFactorSphereUniformRadius : public IFormFactorBorn
 {
 public:
     FormFactorSphereUniformRadius(double mean, double full_width);
 
-    FormFactorSphereUniformRadius *clone() const {
+    FormFactorSphereUniformRadius* clone() const {
         return new FormFactorSphereUniformRadius(m_mean, m_full_width); }
-    void accept(ISampleVisitor *visitor) const final { visitor->visit(this); }
+    void accept(ISampleVisitor* visitor) const final { visitor->visit(this); }
 
     double getRadialExtension() const final { return m_mean; }
 

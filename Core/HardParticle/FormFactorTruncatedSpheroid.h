@@ -19,8 +19,8 @@
 #include "IFormFactorBorn.h"
 #include "IntegratorComplex.h"
 
-//! @brief   A spheroid, i.e. an ellipsoid with two equal axis, truncated by a plane perpendicular
-//!            to the third axis.
+//! A truncated spheroid.
+//! An ellipsoid with two equal axis, truncated by a plane perpendicular to the third axis.
 //! @ingroup hardParticle
 
 class BA_CORE_API_ FormFactorTruncatedSpheroid : public IFormFactorBorn

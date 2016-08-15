@@ -18,7 +18,7 @@
 
 #include "FormFactorPolyhedron.h"
 
-//! @brief   A frustum with a quadratic base.
+//! A frustum with a quadratic base.
 //! @ingroup hardParticle
 
 class BA_CORE_API_ FormFactorPyramid : public FormFactorPolyhedron

@@ -19,8 +19,8 @@
 #include "IFormFactorBorn.h"
 #include "IntegratorComplex.h"
 
+//! The formfactor for a cosine ripple.
 //! @ingroup legacyGrating
-//! @brief The formfactor for a cosine ripple.
 
 class BA_CORE_API_ FormFactorLongRipple1Lorentz : public IFormFactorBorn
 {

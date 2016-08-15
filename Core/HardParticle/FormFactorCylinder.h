@@ -18,7 +18,7 @@
 
 #include "IFormFactorBorn.h"
 
-//! @brief   A circular cylinder.
+//! A circular cylinder.
 //! @ingroup hardParticle
 
 class BA_CORE_API_ FormFactorCylinder : public IFormFactorBorn

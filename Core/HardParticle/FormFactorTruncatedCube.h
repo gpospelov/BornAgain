@@ -18,7 +18,7 @@
 
 #include "FormFactorPolyhedron.h"
 
-//! @brief   A cube, with tetrahedral truncation of all edges.
+//! A cube, with tetrahedral truncation of all edges.
 //! @ingroup hardParticle
 
 class BA_CORE_API_ FormFactorTruncatedCube : public FormFactorPolyhedron

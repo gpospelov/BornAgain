@@ -19,7 +19,7 @@
 #include "IFormFactorBorn.h"
 #include "IntegratorComplex.h"
 
-//! @brief   A full spheroid (an ellipsoid with two equal axes, hence with circular cross section)
+//! A full spheroid (an ellipsoid with two equal axes, hence with circular cross section)
 //! @ingroup hardParticle
 
 class BA_CORE_API_ FormFactorFullSpheroid : public IFormFactorBorn

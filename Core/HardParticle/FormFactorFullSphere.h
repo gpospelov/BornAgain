@@ -18,7 +18,7 @@
 
 #include "IFormFactorBorn.h"
 
-//! @brief   A full sphere.
+//! A full sphere.
 //! @ingroup hardParticle
 
 class BA_CORE_API_ FormFactorFullSphere : public IFormFactorBorn

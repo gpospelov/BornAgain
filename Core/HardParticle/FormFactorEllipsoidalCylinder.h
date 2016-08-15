@@ -18,7 +18,7 @@
 
 #include "IFormFactorBorn.h"
 
-//! @brief   A cylinder with ellipsoidal base.
+//! A cylinder with elliptical base.
 //! @ingroup hardParticle
 
 class BA_CORE_API_ FormFactorEllipsoidalCylinder : public IFormFactorBorn

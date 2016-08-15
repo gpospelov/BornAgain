@@ -18,8 +18,8 @@
 
 #include "IFormFactorBorn.h"
 
+//! The formfactor for a triangular ripple.
 //! @ingroup legacyGrating
-//! @brief The formfactor for a triangular ripple.
 
 class BA_CORE_API_ FormFactorLongRipple2Lorentz : public IFormFactorBorn
 {

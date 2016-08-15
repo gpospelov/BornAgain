@@ -21,9 +21,8 @@
 
 class Histogram2D;
 
-//! @class OffSpecSimulation
+//! Main class to run an off-specular simulation.
 //! @ingroup simulation
-//! @brief Main class to run an off-specular simulation.
 
 class BA_CORE_API_ OffSpecSimulation : public Simulation
 {
@@ -111,6 +110,7 @@ protected:
     Instrument m_instrument;
     IAxis* mp_alpha_i_axis;
     OutputData<double> m_intensity_map;
+
 private:
     //! Normalize, apply detector resolution and transfer detector image corresponding to
     //! alpha_i = mp_alpha_i_axis->getBin(index)

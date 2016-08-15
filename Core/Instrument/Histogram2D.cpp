@@ -33,9 +33,7 @@ Histogram2D::Histogram2D(
 
 Histogram2D::Histogram2D(const IAxis &axis_x, const IAxis &axis_y)
     : IHistogram(axis_x, axis_y)
-{
-
-}
+{}
 
 Histogram2D::Histogram2D(const OutputData<double>& data)
 {
@@ -51,12 +49,7 @@ int Histogram2D::fill(double x, double y, double weight)
 {
     if(x < getXaxis()->getMin() || x >= getXaxis()->getMax()) return -1;
     if(y < getYaxis()->getMin() || y >= getYaxis()->getMax()) return -1;
-
-    std::vector<double> coordinates;
-    coordinates.push_back(x);
-    coordinates.push_back(y);
-
-    size_t index = m_data.findGlobalIndex(coordinates);
+    size_t index = m_data.findGlobalIndex( {x,y} );
     m_data[index].add(weight);
     return (int)index;
 }

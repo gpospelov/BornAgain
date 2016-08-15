@@ -28,9 +28,8 @@ typedef _object PyObject;
 
 class Histogram1D;
 
-//! @class IHistogram
+//! Base class for 1D and 2D histograms holding values of double type.
 //! @ingroup tools
-//! @brief Base class for 1D and 2D histograms holding values of double type
 
 class BA_CORE_API_ IHistogram
 {
@@ -49,7 +48,7 @@ public:
     IHistogram(const IAxis& axis_x);
     IHistogram(const IAxis& axis_x, const IAxis& axis_y);
 
-    virtual IHistogram *clone() const = 0;
+    virtual IHistogram* clone() const = 0;
 
     //! Returns number of histogram dimensions.
     virtual size_t getRank() const = 0;
@@ -59,10 +58,10 @@ public:
     size_t getTotalNumberOfBins() const;
 
     //! returns x-axis
-    const IAxis *getXaxis() const;
+    const IAxis* getXaxis() const;
 
     //! returns y-axis for 2D histograms
-    const IAxis *getYaxis() const;
+    const IAxis* getYaxis() const;
 
     //! Returns x-axis min (lower edge of first bin).
     double getXmin() const;
@@ -174,19 +173,19 @@ public:
 
 #ifdef BORNAGAIN_PYTHON
     //! Returns numpy array with bin content (accumulated values)
-    PyObject *getArray(DataType dataType = DataType::INTEGRAL) const;
+    PyObject* getArray(DataType dataType = DataType::INTEGRAL) const;
 #endif
 
     //! Reset histogram content (axes remains)
     void reset();
 
-    static IHistogram *createHistogram(const OutputData<double>& source);
+    static IHistogram* createHistogram(const OutputData<double>& source);
 
     //! create new histogram from file content
-    static IHistogram *createFrom(const std::string& filename);
+    static IHistogram* createFrom(const std::string& filename);
 
     //! creates new OutputData with histogram's shape and values corresponding to DataType
-    OutputData<double> *createOutputData(DataType dataType = DataType::INTEGRAL) const;
+    OutputData<double>* createOutputData(DataType dataType = DataType::INTEGRAL) const;
 
     //! Returns true if objects a) have same dimensions b) bin boundaries of axes coincide
     bool hasSameShape(const IHistogram& other) const;
@@ -198,7 +197,7 @@ public:
     const IHistogram& operator+=(const IHistogram& right);
 
     //! returns histogram representing relative difference of two histograms.
-    IHistogram *relativeDifferenceHistogram(const IHistogram& rhs);
+    IHistogram* relativeDifferenceHistogram(const IHistogram& rhs);
 
     //! Saves histogram in file
     //! Following formats are available: *.txt, *.tif, *.int (*.txt.gz, *.tif.gz, *.int.gz)

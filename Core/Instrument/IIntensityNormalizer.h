@@ -21,29 +21,27 @@
 #include "OutputData.h"
 
 
-//! @class IIntensityNormalizer
+//! Interface to OutputData normalizers.
 //! @ingroup algorithms_internal
-//! @brief Interface to OutputData normalizers.
 
 class BA_CORE_API_ IIntensityNormalizer : public IParameterized
 {
 public:
     virtual ~IIntensityNormalizer() {}
 
-    virtual IIntensityNormalizer*clone() const=0;
+    virtual IIntensityNormalizer* clone() const=0;
 
-    virtual OutputData<double> *createNormalizedData(
+    virtual OutputData<double>* createNormalizedData(
             const OutputData<double>& data) const=0;
 
-    virtual void apply(OutputData<double> &data) const=0;
+    virtual void apply(OutputData<double>& data) const=0;
 
-    virtual void setMaximumIntensity(double ) = 0;
+    virtual void setMaximumIntensity(double) =0;
 };
 
 
-//! @class IntensityNormalizer
+//! Standard OutputData normalizer, with configurable max_intensity.
 //! @ingroup algorithms_internal
-//! @brief Standard OutputData normalizer, with configurable max_intensity.
 
 class BA_CORE_API_ IntensityNormalizer : public IIntensityNormalizer
 {
@@ -57,18 +55,18 @@ public:
 
     virtual ~IntensityNormalizer() {}
 
-    virtual IntensityNormalizer *clone() const;
+    virtual IntensityNormalizer* clone() const;
 
-    virtual OutputData<double> *createNormalizedData(const OutputData<double >& data) const;
+    virtual OutputData<double>* createNormalizedData(const OutputData<double >& data) const;
 
-    virtual void apply(OutputData<double> &data) const;
+    void apply(OutputData<double>& data) const final;
 
     virtual void setMaximumIntensity(double max_intensity) {
         m_max_intensity = max_intensity; }
 
 protected:
     //! Registers some class members for later access via parameter pool
-    virtual void init_parameters();
+    void init_parameters();
 
     double m_scale;
     double m_shift;
@@ -76,23 +74,21 @@ protected:
 };
 
 
-//! @class IntensityScaleAndShiftNormalizer
+//! Simplified OutputData normalizer, with max_intensity=1.
 //! @ingroup algorithms_internal
-//! @brief Simplified OutputData normalizer, with max_intensity=1.
 
 class BA_CORE_API_ IntensityScaleAndShiftNormalizer : public IntensityNormalizer
 {
 public:
     IntensityScaleAndShiftNormalizer(double scale=1.0, double shift=0.0)
-    : IntensityNormalizer(scale, shift) { m_max_intensity = 1.0; }
+        : IntensityNormalizer(scale, shift) { m_max_intensity = 1.0; }
 
-    virtual ~IntensityScaleAndShiftNormalizer() {}
+    ~IntensityScaleAndShiftNormalizer() final {}
 
-    virtual void setMaximumIntensity(double max_intensity)
-    { (void)max_intensity; }
+    void setMaximumIntensity(double) final {}
 
-    virtual IntensityScaleAndShiftNormalizer *clone() const
-    { return new IntensityScaleAndShiftNormalizer(m_scale, m_shift); }
+    IntensityScaleAndShiftNormalizer* clone() const final {
+        return new IntensityScaleAndShiftNormalizer(m_scale, m_shift); }
 };
 
 #endif // IINTENSITYNORMALIZER_H

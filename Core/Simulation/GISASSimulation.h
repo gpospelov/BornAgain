@@ -24,11 +24,8 @@ class ISampleBuilder;
 class IHistogram;
 class Histogram2D;
 
-class Histogram2D;
-
-//! @class Simulation
+//! Main class to run the simulation.
 //! @ingroup simulation
-//! @brief Main class to run the simulation.
 
 class BA_CORE_API_ GISASSimulation : public Simulation
 {
@@ -79,7 +76,7 @@ public:
     void setDetector(const IDetector2D& detector);
 
     //! Sets detector parameters using axes of output data
-    void setDetectorParameters(const OutputData<double> &output_data);
+    void setDetectorParameters(const OutputData<double>& output_data);
     void setDetectorParameters(const IHistogram& histogram);
 
     //! Sets spherical detector parameters using angle ranges
@@ -116,7 +113,7 @@ public:
     void maskAll();
 
     //! Adds parameters from local pool to external pool and recursively calls its direct children.
-    virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool,
+    virtual std::string addParametersToExternalPool(std::string path, ParameterPool* external_pool,
                                                     int copy_number = -1) const;
 
 protected:
@@ -141,6 +138,7 @@ protected:
     // extra components describing a GISAS experiment and its simulation:
     Instrument m_instrument;
     OutputData<double> m_intensity_map;
+
 private:
     void initialize();
 };

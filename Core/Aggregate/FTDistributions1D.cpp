@@ -100,7 +100,7 @@ double FTDistribution1DCosine::evaluate(double q) const
 
 FTDistribution1DVoigt::FTDistribution1DVoigt(double omega, double eta)
     : IFTDistribution1D(omega)
-, m_eta(eta)
+    , m_eta(eta)
 {
     setName(BornAgain::FTDistribution1DVoigtType);
     init_parameters();
@@ -109,8 +109,7 @@ FTDistribution1DVoigt::FTDistribution1DVoigt(double omega, double eta)
 double FTDistribution1DVoigt::evaluate(double q) const
 {
     double sum_sq = q*q*m_omega*m_omega;
-    return m_eta*std::exp(-sum_sq/2.0)
-            + (1.0 - m_eta)*1.0/(1.0 + sum_sq);
+    return m_eta*std::exp(-sum_sq/2.0) + (1.0 - m_eta)*1.0/(1.0 + sum_sq);
 }
 
 void FTDistribution1DVoigt::init_parameters()

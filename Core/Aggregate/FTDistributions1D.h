@@ -18,8 +18,8 @@
 
 #include "IParameterized.h"
 
-//! Interface for a one-dimensional distribution function,
-//!   with evaluate(q) returning the Fourier transform, normalized so that evaluate(0)=1.
+//! Interface for a one-dimensional distribution, with normalization adjusted so that
+//! the Fourier transform evaluate(q) is a decay function that starts at evaluate(0)=1.
 //! @ingroup algorithms_internal
 
 class BA_CORE_API_ IFTDistribution1D : public IParameterized
@@ -28,7 +28,11 @@ public:
     IFTDistribution1D(double omega) : m_omega(omega) {}
 
     virtual IFTDistribution1D* clone() const=0;
+
+    //! Returns Fourier transform of this distribution;
+    //! is a decay function starting at evaluate(0)=1.
     virtual double evaluate(double q) const=0;
+
     void setOmega(double omega) { m_omega = omega; }
     double getOmega() const { return m_omega; }
 
@@ -42,8 +46,8 @@ protected:
 };
 
 
-//! One-dimensional Cauchy distribution in Fourier space;
-//! corresponds to a normalized exp(-|x|) in real space.
+//! Exponential IFTDistribution1D exp(-|omega*x|);
+//! its Fourier transform evaluate(q) is a Cauchy-Lorentzian starting at evaluate(0)=1.
 //! @ingroup algorithms
 
 class BA_CORE_API_ FTDistribution1DCauchy : public IFTDistribution1D
@@ -55,8 +59,8 @@ public:
 };
 
 
-//! One-dimensional Gauss distribution in Fourier space;
-//! corresponds to a normalized exp(-x^2) in real space.
+//! Gaussian IFTDistribution1D;
+//! its Fourier transform evaluate(q) is a Gaussian starting at evaluate(0)=1.
 //! @ingroup algorithms
 
 class BA_CORE_API_ FTDistribution1DGauss : public IFTDistribution1D
@@ -68,8 +72,8 @@ public:
 };
 
 
-//! One-dimensional Gate distribution in Fourier space;
-//! corresponds to a normalized constant if |x|<omega (and 0 otherwise) in real space.
+//! Square gate IFTDistribution1D;
+//! its Fourier transform evaluate(q) is a sinc function starting at evaluate(0)=1.
 //! @ingroup algorithms
 
 class BA_CORE_API_ FTDistribution1DGate : public IFTDistribution1D
@@ -81,8 +85,8 @@ public:
 };
 
 
-//! One-dimensional triangle distribution in Fourier space;
-//! corresponds to a normalized 1-|x|/omega if |x|<omega (and 0 otherwise) in real space.
+//! Triangle IFTDistribution1D [1-|x|/omega if |x|<omega, and 0 otherwise];
+//! its Fourier transform evaluate(q) is a squared sinc function starting at evaluate(0)=1.
 //! @ingroup algorithms
 
 class BA_CORE_API_ FTDistribution1DTriangle : public IFTDistribution1D
@@ -95,8 +99,9 @@ public:
 };
 
 
-//! One-dimensional triangle distribution in Fourier space;
-//! corresponds to a normalized 1+cos(pi*x/omega) if |x|<omega (and 0 otherwise) in real space.
+//! IFTDistribution1D consisting of one cosine wave
+//! [1+cos(pi*x/omega) if |x|<omega, and 0 otherwise];
+//! its Fourier transform evaluate(q) starts at evaluate(0)=1.
 //! @ingroup algorithms
 
 class BA_CORE_API_ FTDistribution1DCosine : public IFTDistribution1D
@@ -108,8 +113,9 @@ public:
 };
 
 
-//! One-dimensional pseudo-Voigt distribution in Fourier space;
-//! corresponds to eta*Gauss + (1-eta)*Cauchy.
+//! IFTDistribution1D that provides a Fourier transform evaluate(q) in form
+//! of a pseudo-Voigt decay function eta*Gauss + (1-eta)*Cauchy, with both components
+//! starting at 1 for q=0.
 //! @ingroup algorithms
 
 class BA_CORE_API_ FTDistribution1DVoigt : public IFTDistribution1D

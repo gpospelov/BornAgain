@@ -99,7 +99,7 @@ double FTDistribution1DCosine::evaluate(double q) const
 }
 
 FTDistribution1DVoigt::FTDistribution1DVoigt(double omega, double eta)
-: IFTDistribution1D(omega)
+    : IFTDistribution1D(omega)
 , m_eta(eta)
 {
     setName(BornAgain::FTDistribution1DVoigtType);

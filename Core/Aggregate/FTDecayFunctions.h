@@ -20,7 +20,9 @@
 #include "Pi.h"
 
 
-//! Interface for one-dimensional decay function in reciprocal space.
+//! Interface for a one-dimensional decay function,
+//!   with evaluate(q) returning the Fourier transform,
+//!   normalized to \f$\int dq\; {\rm evaluate}(q) = 1\f$.
 //! @ingroup algorithms_internal
 class BA_CORE_API_ IFTDecayFunction1D : public IParameterized
 {

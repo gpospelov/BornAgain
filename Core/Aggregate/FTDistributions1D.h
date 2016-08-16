@@ -18,7 +18,8 @@
 
 #include "IParameterized.h"
 
-//! Interface for one-dimensional distributions in Fourier space.
+//! Interface for a one-dimensional distribution function,
+//!   with evaluate(q) returning the Fourier transform, normalized so that evaluate(0)=1.
 //! @ingroup algorithms_internal
 
 class BA_CORE_API_ IFTDistribution1D : public IParameterized

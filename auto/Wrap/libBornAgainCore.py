@@ -18888,8 +18888,6 @@ class InterferenceFunctionRadialParaCrystal(IInterferenceFunction):
             self.this.append(this)
         except:
             self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_InterferenceFunctionRadialParaCrystal
-    __del__ = lambda self: None
 
     def clone(self):
         """
@@ -19031,6 +19029,8 @@ class InterferenceFunctionRadialParaCrystal(IInterferenceFunction):
         """
         return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_getDampingLength(self)
 
+    __swig_destroy__ = _libBornAgainCore.delete_InterferenceFunctionRadialParaCrystal
+    __del__ = lambda self: None
 InterferenceFunctionRadialParaCrystal_swigregister = _libBornAgainCore.InterferenceFunctionRadialParaCrystal_swigregister
 InterferenceFunctionRadialParaCrystal_swigregister(InterferenceFunctionRadialParaCrystal)
 
@@ -19523,16 +19523,16 @@ class InterferenceFunctionNone(IInterferenceFunction):
         return _libBornAgainCore.InterferenceFunctionNone_accept(self, visitor)
 
 
-    def evaluate(self, q):
+    def evaluate(self, arg2):
         """
-        evaluate(InterferenceFunctionNone self, kvector_t q) -> double
+        evaluate(InterferenceFunctionNone self, kvector_t arg2) -> double
 
         double InterferenceFunctionNone::evaluate(const kvector_t q) const
 
         Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
 
         """
-        return _libBornAgainCore.InterferenceFunctionNone_evaluate(self, q)
+        return _libBornAgainCore.InterferenceFunctionNone_evaluate(self, arg2)
 
     __swig_destroy__ = _libBornAgainCore.delete_InterferenceFunctionNone
     __del__ = lambda self: None

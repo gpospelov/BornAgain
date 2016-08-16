@@ -18,20 +18,19 @@
 
 #include "IInterferenceFunction.h"
 
-//! @class InterferenceFunctionNone
+//! Default interference function (i.e. absence of any interference).
 //! @ingroup interference
-//! @brief Default interference function (i.e. absence of any interference)
 
 class BA_CORE_API_ InterferenceFunctionNone : public IInterferenceFunction
 {
 public:
     InterferenceFunctionNone();
 
-    virtual InterferenceFunctionNone *clone() const;
+    InterferenceFunctionNone* clone() const final { return new InterferenceFunctionNone(); }
 
-    virtual void accept(ISampleVisitor *visitor) const;
+    void accept(ISampleVisitor* visitor) const final { visitor->visit(this); }
 
-    virtual double evaluate(const kvector_t q) const;
+    double evaluate(const kvector_t) const final { return 1; }
 };
 
 #endif // INTERFERENCEFUNCTIONNONE_H

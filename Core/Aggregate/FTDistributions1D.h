@@ -18,11 +18,8 @@
 
 #include "IParameterized.h"
 
-// ************************************************************************** //
-//! @class IFTDistribution1D
-// ************************************************************************** //
+//! Interface for one-dimensional distributions in Fourier space.
 //! @ingroup algorithms_internal
-//! @brief Interface for 1 dimensional distributions in Fourier space
 
 class BA_CORE_API_ IFTDistribution1D : public IParameterized
 {
@@ -44,12 +41,10 @@ protected:
     double m_omega;
 };
 
-// ************************************************************************** //
-//! @class FTDistribution1DCauchy
-// ************************************************************************** //
+
+//! One-dimensional Cauchy distribution in Fourier space;
+//! corresponds to a normalized exp(-|x|) in real space.
 //! @ingroup algorithms
-//! @brief 1 dimensional Cauchy distribution in Fourier space.
-//! Corresponds to a normalized exp(-|x|) in real space.
 
 class BA_CORE_API_ FTDistribution1DCauchy : public IFTDistribution1D
 {
@@ -62,12 +57,10 @@ public:
     virtual double evaluate(double q) const;
 };
 
-// ************************************************************************** //
-//! @class FTDistribution1DGauss
-// ************************************************************************** //
+
+//! One-dimensional Gauss distribution in Fourier space;
+//! corresponds to a normalized exp(-x^2) in real space.
 //! @ingroup algorithms
-//! @brief 1 dimensional Gauss distribution in Fourier space.
-//! Corresponds to a normalized exp(-x^2) in real space.
 
 class BA_CORE_API_ FTDistribution1DGauss : public IFTDistribution1D
 {
@@ -80,12 +73,10 @@ public:
     virtual double evaluate(double q) const;
 };
 
-// ************************************************************************** //
-//! @class FTDistribution1DGate
-// ************************************************************************** //
+
+//! One-dimensional Gate distribution in Fourier space;
+//! corresponds to a normalized constant if |x|<omega (and 0 otherwise) in real space.
 //! @ingroup algorithms
-//! @brief 1 dimensional Gate distribution in Fourier space.
-//! Corresponds to a normalized constant if |x|<omega (and 0 otherwise) in real space.
 
 class BA_CORE_API_ FTDistribution1DGate : public IFTDistribution1D
 {
@@ -98,12 +89,10 @@ public:
     virtual double evaluate(double q) const;
 };
 
-// ************************************************************************** //
-//! @class FTDistribution1DTriangle
-// ************************************************************************** //
+
+//! One-dimensional triangle distribution in Fourier space;
+//! corresponds to a normalized 1-|x|/omega if |x|<omega (and 0 otherwise) in real space.
 //! @ingroup algorithms
-//! @brief 1 dimensional triangle distribution in Fourier space.
-//! Corresponds to a normalized 1-|x|/omega if |x|<omega (and 0 otherwise) in real space.
 
 class BA_CORE_API_ FTDistribution1DTriangle : public IFTDistribution1D
 {
@@ -116,12 +105,10 @@ public:
     virtual double evaluate(double q) const;
 };
 
-// ************************************************************************** //
-//! @class FTDistribution1DCosine
-// ************************************************************************** //
+
+//! One-dimensional triangle distribution in Fourier space;
+//! corresponds to a normalized 1+cos(pi*x/omega) if |x|<omega (and 0 otherwise) in real space.
 //! @ingroup algorithms
-//! @brief 1 dimensional triangle distribution in Fourier space.
-//! Corresponds to a normalized 1+cos(pi*x/omega) if |x|<omega (and 0 otherwise) in real space.
 
 class BA_CORE_API_ FTDistribution1DCosine : public IFTDistribution1D
 {
@@ -134,12 +121,10 @@ public:
     virtual double evaluate(double q) const;
 };
 
-// ************************************************************************** //
-//! @class FTDistribution1DVoigt
-// ************************************************************************** //
+
+//! One-dimensional pseudo-Voigt distribution in Fourier space;
+//! corresponds to eta*Gauss + (1-eta)*Cauchy.
 //! @ingroup algorithms
-//! @brief 1 dimensional Voigt distribution in Fourier space.
-//! Corresponds to eta*Gauss + (1-eta)*Cauchy
 
 class BA_CORE_API_ FTDistribution1DVoigt : public IFTDistribution1D
 {

@@ -52,11 +52,6 @@ InterferenceFunction2DLattice* InterferenceFunction2DLattice::clone() const
     return result;
 }
 
-void InterferenceFunction2DLattice::accept(ISampleVisitor* visitor) const
-{
-    visitor->visit(this);
-}
-
 InterferenceFunction2DLattice* InterferenceFunction2DLattice::createSquare(double lattice_length,
                                                                            double xi)
 {
@@ -89,11 +84,6 @@ void InterferenceFunction2DLattice::setDecayFunction(const IFTDecayFunction2D &p
     initialize_calc_factors(omega_x, omega_y);
 }
 
-const IFTDecayFunction2D* InterferenceFunction2DLattice::getDecayFunction() const
-{
-    return mp_pdf;
-}
-
 double InterferenceFunction2DLattice::evaluate(const kvector_t q) const
 {
     if (!mp_pdf)
@@ -113,11 +103,6 @@ double InterferenceFunction2DLattice::evaluate(const kvector_t q) const
         }
     }
     return result;
-}
-
-Lattice2DParameters InterferenceFunction2DLattice::getLatticeParameters() const
-{
-    return m_lattice_params;
 }
 
 std::string InterferenceFunction2DLattice::addParametersToExternalPool(
@@ -163,9 +148,8 @@ void InterferenceFunction2DLattice::transformToPrincipalAxes(double qx, double q
     q_pa_2 = qx * std::cos(gamma + delta) + qy * std::sin(gamma + delta);
 }
 
-void InterferenceFunction2DLattice::calculateReciprocalVectorFraction(double qx, double qy,
-                                                                      double &qx_frac,
-                                                                      double &qy_frac) const
+void InterferenceFunction2DLattice::calculateReciprocalVectorFraction(
+    double qx, double qy, double &qx_frac, double &qy_frac) const
 {
     double a = m_lattice_params.m_length_1;
     double b = m_lattice_params.m_length_2;

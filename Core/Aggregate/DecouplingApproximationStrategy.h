@@ -20,35 +20,29 @@
 
 class SimulationElement;
 
-//! @class DecouplingApproximationStrategy
+//! Strategy for implementing decoupling approximation.
 //! @ingroup algorithms_internal
-//! @brief Strategy for implementing decoupling approximation
 
 class BA_CORE_API_ DecouplingApproximationStrategy : public IInterferenceFunctionStrategy
 {
 public:
     DecouplingApproximationStrategy(SimulationOptions sim_params)
         : IInterferenceFunctionStrategy(sim_params)
-    {
-    }
-
+    {}
     virtual ~DecouplingApproximationStrategy() {}
 
-    void init(const SafePointerVector<FormFactorInfo> &form_factor_infos,
+    void init(const SafePointerVector<FormFactorInfo>& form_factor_infos,
               const IInterferenceFunction& iff);
 
 protected:
     //! Evaluates the intensity for given list of evaluated form factors
     double evaluateForList(const SimulationElement& sim_element,
-                           const std::vector<complex_t> &ff_list) const;
+                           const std::vector<complex_t>& ff_list) const;
 
     //! Evaluates the intensity for given list of evaluated form factors
     //! in the presence of polarization of beam and detector
     double evaluateForMatrixList(const SimulationElement& sim_element,
-                                 const MatrixFFVector &ff_list) const;
-
-private:
-    bool checkVectorSizes() const;
+                                 const matrixFFVector_t& ff_list) const;
 };
 
 #endif // DECOUPLINGAPPROXIMATIONSTRATEGY_H

@@ -21,9 +21,8 @@
 
 class ISampleVisitor;
 
-//! @class IInterferenceFunction
+//! Interface to interference functions.
 //! @ingroup interference_internal
-//! @brief Interface to interference functions.
 
 class BA_CORE_API_ IInterferenceFunction : public ISample
 {

@@ -19,9 +19,9 @@
 #include "IParameterized.h"
 #include "Pi.h"
 
-//! @class IFTDecayFunction1D
+
+//! Interface for one-dimensional decay function in reciprocal space.
 //! @ingroup algorithms_internal
-//! @brief Interface for 1 dimensional decay function in reciprocal space
 class BA_CORE_API_ IFTDecayFunction1D : public IParameterized
 {
 public:
@@ -33,8 +33,8 @@ public:
     void setOmega(double omega) { m_omega = omega; }
     double getOmega() const { return m_omega; }
 
-    friend std::ostream& operator<<(std::ostream& ostr, const IFTDecayFunction1D& m)
-    { m.print(ostr); return ostr; }
+    friend std::ostream& operator<<(std::ostream& ostr, const IFTDecayFunction1D& m) {
+        m.print(ostr); return ostr; }
 
 protected:
     virtual void print(std::ostream& ostr) const;
@@ -42,10 +42,10 @@ protected:
     double m_omega;
 };
 
-//! @class FTDecayFunction1DCauchy
+
+//! One-dimensional Cauchy decay function in reciprocal space;
+//! corresponds to exp(-|x|/omega) in real space.
 //! @ingroup algorithms
-//! @brief 1 dimensional Cauchy decay function in reciprocal space.
-//! Corresponds to exp(-|x|/omega) in real space
 class BA_CORE_API_ FTDecayFunction1DCauchy : public IFTDecayFunction1D
 {
 public:
@@ -58,10 +58,10 @@ public:
     virtual double evaluate(double q) const;
 };
 
-//! @class FTDecayFunction1DGauss
+
+//! One-dimensional Gauss decay function in reciprocal space;
+//! corresponds to exp[-x^2/(2*omega^2)] in real space.
 //! @ingroup algorithms
-//! @brief 1 dimensional Gauss decay function in reciprocal space.
-//! Corresponds to exp[-x^2/(2*omega^2)] in real space
 class BA_CORE_API_ FTDecayFunction1DGauss : public IFTDecayFunction1D
 {
 public:
@@ -74,11 +74,10 @@ public:
     virtual double evaluate(double q) const;
 };
 
-//! @class FTDecayFunction1DTriangle
+
+//! One-dimensional triangle decay function in reciprocal space;
+//! corresponds to 1-|x|/omega if |x|<omega (and 0 otherwise) in real space.
 //! @ingroup algorithms
-//! @brief 1 dimensional triangle decay function in reciprocal space.
-//! Corresponds to 1-|x|/omega if |x|<omega (and 0 otherwise)
-//! in real space
 class BA_CORE_API_ FTDecayFunction1DTriangle : public IFTDecayFunction1D
 {
 public:
@@ -92,10 +91,9 @@ public:
 };
 
 
-//! @class FTDecayFunction1DVoigt
+//! One-dimensional pseudo-Voigt decay function in reciprocal space;
+//! corresponds to eta*Gauss + (1-eta)*Cauchy.
 //! @ingroup algorithms
-//! @brief 1 dimensional Voigt decay function in reciprocal space.
-//! Corresponds to eta*Gauss + (1-eta)*Cauchy
 class BA_CORE_API_ FTDecayFunction1DVoigt : public IFTDecayFunction1D
 {
 public:
@@ -114,48 +112,9 @@ protected:
     double m_eta;
 };
 
-/* The commented decay functions give negative values in parts of the reciprocal space
- * From the physical perspective, only the exponential decay is possible (Cauchy), but
- * we left the Gaussian, Triangle and Voigt functions as a choice to experiment (these always give
- * positive values in reciprocal space)
 
-//! @class FTDecayFunction1DGate
-//! @ingroup algorithms
-//! @brief 1 dimensional Gate decay function in reciprocal space.
-//! Corresponds to the constant 1 if |x|<omega (and 0 otherwise)
-//! in real space
-class BA_CORE_API_ FTDecayFunction1DGate : public IFTDecayFunction1D
-{
-public:
-    FTDecayFunction1DGate(double omega);
-    virtual ~FTDecayFunction1DGate() {}
-
-    virtual FTDecayFunction1DGate *clone() const;
-
-    virtual double evaluate(double q) const;
-};
-
-
-//! @class FTDecayFunction1DCosine
-//! @ingroup algorithms
-//! @brief 1 dimensional triangle decay function in reciprocal space.
-//! Corresponds to a  [1+cos(pi*x/omega)]/2 if |x|<omega (and 0 otherwise)
-//! in real space
-class BA_CORE_API_ FTDecayFunction1DCosine : public IFTDecayFunction1D
-{
-public:
-    FTDecayFunction1DCosine(double omega);
-    virtual ~FTDecayFunction1DCosine() {}
-
-    virtual FTDecayFunction1DCosine* clone() const;
-
-    virtual double evaluate(double q) const;
-};
-*/
-
-//! @class IFTDecayFunction2D
+//! Interface for two-dimensional decay function in reciprocal space.
 //! @ingroup algorithms_internal
-//! @brief Interface for 2 dimensional decay function in reciprocal space.
 class BA_CORE_API_ IFTDecayFunction2D : public IParameterized
 {
 public:
@@ -200,11 +159,10 @@ protected:
 };
 
 
-//! @class FTDecayFunction2DCauchy
+//! Two-dimensional Cauchy decay function in reciprocal space;
+//! corresponds to exp(-r) in real space,
+//! with \f$r=\sqrt{(\frac{x}{\omega_x})^2 + (\frac{y}{\omega_y})^2}\f$.
 //! @ingroup algorithms
-//! @brief 2 dimensional Cauchy decay function in reciprocal space.
-//! Corresponds to exp(-r) in real space
-//! with \f$r=\sqrt{(\frac{x}{\omega_x})^2 + (\frac{y}{\omega_y})^2}\f$
 class BA_CORE_API_ FTDecayFunction2DCauchy : public IFTDecayFunction2D
 {
 public:
@@ -220,11 +178,10 @@ public:
 };
 
 
-//! @class FTDecayFunction2DGauss
+//! Two-dimensional Gauss decay function in reciprocal space;
+//! corresponds to exp(-r^2/2) in real space,
+//! with \f$r=\sqrt{(\frac{x}{\omega_x})^2 + (\frac{y}{\omega_y})^2}\f$.
 //! @ingroup algorithms
-//! @brief 2 dimensional Gauss decay function in reciprocal space.
-//! Corresponds to exp(-r^2/2) in real space
-//! with \f$r=\sqrt{(\frac{x}{\omega_x})^2 + (\frac{y}{\omega_y})^2}\f$
 class BA_CORE_API_ FTDecayFunction2DGauss : public IFTDecayFunction2D
 {
 public:
@@ -240,10 +197,9 @@ public:
     virtual double evaluate(double qx, double qy) const;
 };
 
-//! @class FTDecayFunction2DVoigt
+//! Two-dimensional pseudo-Voigt decay function in reciprocal space;
+//! corresponds to eta*Gauss + (1-eta)*Cauchy.
 //! @ingroup algorithms
-//! @brief 2 dimensional Voigt decay function in reciprocal space.
-//! Corresponds to eta*Gauss + (1-eta)*Cauchy
 class BA_CORE_API_ FTDecayFunction2DVoigt : public IFTDecayFunction2D
 {
 public:

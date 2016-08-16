@@ -19,11 +19,9 @@
 #include "IParameterized.h"
 #include "Pi.h"
 
-// ************************************************************************** //
-//! @class IFTDistribution2D
-// ************************************************************************** //
+
+//! Interface for two-dimensional distributions in Fourier space.
 //! @ingroup algorithms_internal
-//! @brief Interface for 2 dimensional distributions in Fourier space.
 
 class BA_CORE_API_ IFTDistribution2D : public IParameterized
 {
@@ -66,13 +64,11 @@ protected:
     double m_delta;
 };
 
-// ************************************************************************** //
-//! @class FTDistribution2DCauchy
-// ************************************************************************** //
+
+//! Two-dimensional Cauchy distribution in Fourier space;
+//! corresponds to a normalized exp(-r) in real space,
+//! with \f$r=\sqrt{(\frac{x}{\omega_x})^2 + (\frac{y}{\omega_y})^2}\f$.
 //! @ingroup algorithms
-//! @brief 2 dimensional Cauchy distribution in Fourier space.
-//! Corresponds to a normalized exp(-r) in real space
-//! with \f$r=\sqrt{(\frac{x}{\omega_x})^2 + (\frac{y}{\omega_y})^2}\f$
 
 class BA_CORE_API_ FTDistribution2DCauchy : public IFTDistribution2D
 {
@@ -89,13 +85,11 @@ public:
     virtual double evaluate(double qx, double qy) const;
 };
 
-// ************************************************************************** //
-//! @class FTDistribution2DGauss
-// ************************************************************************** //
+
+//! Two-dimensional Gauss distribution in Fourier space;
+//! corresponds to normalized exp(-r^2/2) in real space
+//! with \f$r=\sqrt{(\frac{x}{\omega_x})^2 + (\frac{y}{\omega_y})^2}\f$.
 //! @ingroup algorithms
-//! @brief 2 dimensional Gauss distribution in Fourier space.
-//! Corresponds to normalized exp(-r^2/2) in real space
-//! with \f$r=\sqrt{(\frac{x}{\omega_x})^2 + (\frac{y}{\omega_y})^2}\f$
 
 class BA_CORE_API_ FTDistribution2DGauss : public IFTDistribution2D
 {
@@ -112,13 +106,11 @@ public:
     virtual double evaluate(double qx, double qy) const;
 };
 
-// ************************************************************************** //
-//! @class FTDistribution2DGate
-// ************************************************************************** //
+
+//! Two-dimensional gate distribution in Fourier space;
+//! corresponds to normalized constant if r<1 (and 0 otherwise) in real space,
+//! with \f$r=\sqrt{(\frac{x}{\omega_x})^2 + (\frac{y}{\omega_y})^2}\f$.
 //! @ingroup algorithms
-//! @brief 2 dimensional gate distribution in Fourier space
-//! Corresponds to normalized constant if r<1 (and 0 otherwise) in real space.
-//! with \f$r=\sqrt{(\frac{x}{\omega_x})^2 + (\frac{y}{\omega_y})^2}\f$
 
 class BA_CORE_API_ FTDistribution2DGate : public IFTDistribution2D
 {
@@ -135,13 +127,11 @@ public:
     virtual double evaluate(double qx, double qy) const;
 };
 
-// ************************************************************************** //
-//! @class FTDistribution2DCone
-// ************************************************************************** //
+
+//! Two-dimensional cone distribution in Fourier space;
+//! corresponds to 1-r if r<1 (and 0 otherwise) in real space
+//! with \f$r=\sqrt{(\frac{x}{\omega_x})^2 + (\frac{y}{\omega_y})^2}\f$.
 //! @ingroup algorithms
-//! @brief 2 dimensional cone distribution in Fourier space.
-//! Corresponds to 1-r if r<1 (and 0 otherwise) in real space
-//! with \f$r=\sqrt{(\frac{x}{\omega_x})^2 + (\frac{y}{\omega_y})^2}\f$
 
 class BA_CORE_API_ FTDistribution2DCone : public IFTDistribution2D
 {
@@ -163,12 +153,10 @@ private:
     double coneIntegrand2(double value) const;
 };
 
-// ************************************************************************** //
-//! @class FTDistribution2DVoigt
-// ************************************************************************** //
+
+//! Two-dimensional Voigt distribution in Fourier space;
+//! corresponds to eta*Gauss + (1-eta)*Cauchy
 //! @ingroup algorithms
-//! @brief 2 dimensional Voigt distribution in Fourier space.
-//! Corresponds to eta*Gauss + (1-eta)*Cauchy
 
 class BA_CORE_API_ FTDistribution2DVoigt : public IFTDistribution2D
 {

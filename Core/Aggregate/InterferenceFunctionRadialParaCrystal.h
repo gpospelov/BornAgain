@@ -21,29 +21,27 @@
 #include "FTDistributions1D.h"
 #include <memory>
 
-//! @class InterferenceFunctionRadialParaCrystal
+//! Interference function of radial paracrystal.
 //! @ingroup interference
-//! @brief Interference function of radial paracrystal.
 
 class BA_CORE_API_ InterferenceFunctionRadialParaCrystal : public IInterferenceFunction
 {
 public:
     InterferenceFunctionRadialParaCrystal(double peak_distance, double damping_length=0.0);
-    virtual ~InterferenceFunctionRadialParaCrystal() {}
-    virtual InterferenceFunctionRadialParaCrystal* clone() const;
+    InterferenceFunctionRadialParaCrystal* clone() const final;
 
     void accept(ISampleVisitor* visitor) const final { visitor->visit(this); }
 
     //! Returns textual representation of *this and its descendants.
-    virtual std::string to_str(int indent=0) const;
+    std::string to_str(int indent=0) const final;
 
     void setKappa(double kappa) { m_kappa = kappa; }
-    virtual double getKappa() const { return m_kappa; }
+    double getKappa() const final { return m_kappa; }
 
     void setDomainSize(double size) { m_domain_size = size; }
     double getDomainSize() const { return m_domain_size; }
 
-    virtual double evaluate(const kvector_t q) const;
+    double evaluate(const kvector_t q) const final;
     //TODO: replace these with strategy pattern for different algorithms
     complex_t FTPDF(double qpar) const;
 
@@ -65,7 +63,7 @@ protected:
 
 private:
     //! Registers some class members for later access via parameter pool
-    virtual void init_parameters();
+    void init_parameters();
 };
 
 #endif // INTERFERENCEFUNCTIONRADIALPARACRYSTAL_H

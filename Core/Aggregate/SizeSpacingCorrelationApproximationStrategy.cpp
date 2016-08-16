@@ -30,7 +30,7 @@ void SizeSpacingCorrelationApproximationStrategy::init(
     const SafePointerVector<FormFactorInfo>& form_factor_infos, const IInterferenceFunction &iff)
 {
     IInterferenceFunctionStrategy::init(form_factor_infos, iff);
-    if (!checkVectorSizes())
+    if (m_ff_infos.size()==0)
         throw Exceptions::ClassInitializationException(
             "No formfactors for Size-Spacing Correlation Approximation.");
     initMeanRadius();
@@ -61,7 +61,7 @@ double SizeSpacingCorrelationApproximationStrategy::evaluateForList(
 }
 
 double SizeSpacingCorrelationApproximationStrategy::evaluateForMatrixList(
-    const SimulationElement& sim_element, const MatrixFFVector &ff_list) const
+    const SimulationElement& sim_element, const matrixFFVector_t& ff_list) const
 {
     double qp = getqp(sim_element.getMeanQ());
     Eigen::Matrix2cd diffuse_matrix = Eigen::Matrix2cd::Zero();
@@ -89,12 +89,6 @@ double SizeSpacingCorrelationApproximationStrategy::evaluateForMatrixList(
     return total_abundance * (diffuse_trace + interference_trace);
 }
 
-bool SizeSpacingCorrelationApproximationStrategy::checkVectorSizes() const
-{
-    size_t n_ffs = m_ff_infos.size();
-    return (n_ffs > 0);
-}
-
 complex_t SizeSpacingCorrelationApproximationStrategy::getMeanCharacteristicFF(
     const kvector_t q, const std::vector<complex_t> &ff_list) const
 {
@@ -112,7 +106,7 @@ complex_t SizeSpacingCorrelationApproximationStrategy::getMeanCharacteristicFF(
 }
 
 Eigen::Matrix2cd SizeSpacingCorrelationApproximationStrategy::getMeanCharacteristicMatrixFF(
-    const kvector_t q, const MatrixFFVector &ff_list) const
+    const kvector_t q, const matrixFFVector_t& ff_list) const
 {
     double qp = getqp(q);
     Eigen::Matrix2cd result = Eigen::Matrix2cd::Zero();
@@ -128,7 +122,7 @@ Eigen::Matrix2cd SizeSpacingCorrelationApproximationStrategy::getMeanCharacteris
 }
 
 complex_t SizeSpacingCorrelationApproximationStrategy::getMeanConjCharacteristicFF(
-    const kvector_t q, const std::vector<complex_t> &ff_list) const
+    const kvector_t q, const std::vector<complex_t>& ff_list) const
 {
     double qp = getqp(q);
     complex_t result(0.0, 0.0);
@@ -144,7 +138,7 @@ complex_t SizeSpacingCorrelationApproximationStrategy::getMeanConjCharacteristic
 }
 
 Eigen::Matrix2cd SizeSpacingCorrelationApproximationStrategy::getMeanConjCharacteristicMatrixFF(
-    const kvector_t q, const MatrixFFVector &ff_list) const
+    const kvector_t q, const matrixFFVector_t& ff_list) const
 {
     double qp = getqp(q);
     Eigen::Matrix2cd result = Eigen::Matrix2cd::Zero();

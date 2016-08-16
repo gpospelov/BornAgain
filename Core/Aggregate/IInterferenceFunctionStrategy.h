@@ -31,14 +31,15 @@ class IInterferenceFunction;
 class LayerSpecularInfo;
 class SimulationElement;
 
-//! @class IInterferenceFunctionStrategy
+//! Algorithm to apply one of interference function strategies (LMA, SCCA etc).
 //! @ingroup algorithms_internal
-//! @brief Algorithm to apply one of interference function strategies (LMA, SCCA etc)
+
 class BA_CORE_API_ IInterferenceFunctionStrategy
 {
 public:
-    typedef std::vector<Eigen::Matrix2cd, Eigen::aligned_allocator<Eigen::Matrix2cd> >
-        MatrixFFVector;
+    typedef std::vector<Eigen::Matrix2cd, Eigen::aligned_allocator<Eigen::Matrix2cd>>
+        matrixFFVector_t;
+
     IInterferenceFunctionStrategy(const SimulationOptions& sim_params);
     virtual ~IInterferenceFunctionStrategy();
 
@@ -63,7 +64,7 @@ protected:
     //! Evaluates the intensity for given list of evaluated form factors
     //! in the presence of polarization of beam and detector
     virtual double evaluateForMatrixList(const SimulationElement& sim_element,
-                                         const MatrixFFVector& ff_list) const = 0;
+                                         const matrixFFVector_t& ff_list) const = 0;
 
     SafePointerVector<FormFactorInfo> m_ff_infos;          //!< form factor info
     std::unique_ptr<IInterferenceFunction> mP_iff;       //!< interference function
@@ -100,7 +101,7 @@ private:
     mutable std::vector<complex_t> m_ff;
 
     //! cached polarized form factors
-    mutable MatrixFFVector m_ff_pol;
+    mutable matrixFFVector_t m_ff_pol;
 
 #ifndef SWIG
     std::unique_ptr<IntegratorMCMiser<IInterferenceFunctionStrategy>> mP_integrator;

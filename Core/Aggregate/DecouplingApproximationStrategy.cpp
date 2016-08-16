@@ -25,23 +25,22 @@
 #include <iostream>
 
 void DecouplingApproximationStrategy::init(
-    const SafePointerVector<FormFactorInfo> &form_factor_infos, const IInterferenceFunction& iff)
+    const SafePointerVector<FormFactorInfo>& form_factor_infos, const IInterferenceFunction& iff)
 {
     IInterferenceFunctionStrategy::init(form_factor_infos, iff);
-    if (!checkVectorSizes())
+    if (m_ff_infos.size()==0)
         throw Exceptions::ClassInitializationException(
             "No formfactors for Decoupling Approximation.");
 }
 
 double DecouplingApproximationStrategy::evaluateForList(
-    const SimulationElement& sim_element, const std::vector<complex_t> &ff_list) const
+    const SimulationElement& sim_element, const std::vector<complex_t>& ff_list) const
 {
     double intensity = 0.0;
     complex_t amplitude = complex_t(0.0, 0.0);
     double total_abundance = 0.0;
-    for (size_t i = 0; i < m_ff_infos.size(); ++i) {
+    for (size_t i = 0; i < m_ff_infos.size(); ++i)
         total_abundance += m_ff_infos[i]->m_abundance;
-    }
     if (total_abundance <= 0.0)
         return 0.0;
     for (size_t i = 0; i < m_ff_infos.size(); ++i) {
@@ -51,7 +50,7 @@ double DecouplingApproximationStrategy::evaluateForList(
                 "DecouplingApproximationStrategy::evaluateForList() -> Error! Amplitude is NaN");
         double fraction = m_ff_infos[i]->m_abundance / total_abundance;
         amplitude += fraction * ff;
-        intensity += fraction * (std::norm(ff));
+        intensity += fraction * std::norm(ff);
     }
     double amplitude_norm = std::norm(amplitude);
     double itf_function = mP_iff->evaluate(sim_element.getMeanQ());
@@ -59,15 +58,14 @@ double DecouplingApproximationStrategy::evaluateForList(
 }
 
 double DecouplingApproximationStrategy::evaluateForMatrixList(const SimulationElement& sim_element,
-                                                              const MatrixFFVector &ff_list) const
+                                                              const matrixFFVector_t& ff_list) const
 {
     Eigen::Matrix2cd mean_intensity = Eigen::Matrix2cd::Zero();
     Eigen::Matrix2cd mean_amplitude = Eigen::Matrix2cd::Zero();
 
     double total_abundance = 0.0;
-    for (size_t i = 0; i < m_ff_infos.size(); ++i) {
+    for (size_t i = 0; i < m_ff_infos.size(); ++i)
         total_abundance += m_ff_infos[i]->m_abundance;
-    }
     if (total_abundance <= 0.0)
         return 0.0;
     for (size_t i = 0; i < m_ff_infos.size(); ++i) {
@@ -87,10 +85,4 @@ double DecouplingApproximationStrategy::evaluateForMatrixList(const SimulationEl
     double intensity_trace = std::abs(intensity_matrix.trace());
     double itf_function = mP_iff->evaluate(sim_element.getMeanQ());
     return total_abundance * (intensity_trace + amplitude_trace * (itf_function - 1.0));
-}
-
-bool DecouplingApproximationStrategy::checkVectorSizes() const
-{
-    size_t n_ffs = m_ff_infos.size();
-    return (n_ffs > 0);
 }

@@ -55,9 +55,8 @@ void IInterferenceFunctionStrategy::setSpecularInfo(const LayerSpecularInfo& spe
 
 double IInterferenceFunctionStrategy::evaluate(const SimulationElement& sim_element) const
 {
-    if (m_options.isIntegrate() && (sim_element.getSolidAngle() > 0.0)) {
+    if (m_options.isIntegrate() && (sim_element.getSolidAngle() > 0.0))
         return MCIntegratedEvaluate(sim_element);
-    }
     calculateFormFactorList(sim_element);
     return evaluateForList(sim_element, m_ff);
 }

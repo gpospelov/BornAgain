@@ -23,7 +23,7 @@
 //! Interface for a one-dimensional decay function,
 //!   with evaluate(q) returning the Fourier transform,
 //!   normalized to \f$\int dq\; {\rm evaluate}(q) = 1\f$.
-//! @ingroup algorithms_internal
+//! @ingroup distribution_internal
 class BA_CORE_API_ IFTDecayFunction1D : public IParameterized
 {
 public:
@@ -44,7 +44,7 @@ protected:
 
 //! One-dimensional Cauchy decay function in reciprocal space;
 //! corresponds to exp(-|x|/omega) in real space.
-//! @ingroup algorithms
+//! @ingroup decayFT
 class BA_CORE_API_ FTDecayFunction1DCauchy : public IFTDecayFunction1D
 {
 public:
@@ -57,7 +57,7 @@ public:
 
 //! One-dimensional Gauss decay function in reciprocal space;
 //! corresponds to exp[-x^2/(2*omega^2)] in real space.
-//! @ingroup algorithms
+//! @ingroup decayFT
 class BA_CORE_API_ FTDecayFunction1DGauss : public IFTDecayFunction1D
 {
 public:
@@ -70,7 +70,7 @@ public:
 
 //! One-dimensional triangle decay function in reciprocal space;
 //! corresponds to 1-|x|/omega if |x|<omega (and 0 otherwise) in real space.
-//! @ingroup algorithms
+//! @ingroup decayFT
 class BA_CORE_API_ FTDecayFunction1DTriangle : public IFTDecayFunction1D
 {
 public:
@@ -83,7 +83,7 @@ public:
 
 //! One-dimensional pseudo-Voigt decay function in reciprocal space;
 //! corresponds to eta*Gauss + (1-eta)*Cauchy.
-//! @ingroup algorithms
+//! @ingroup decayFT
 class BA_CORE_API_ FTDecayFunction1DVoigt : public IFTDecayFunction1D
 {
 public:
@@ -99,7 +99,7 @@ protected:
 
 
 //! Interface for two-dimensional decay function in reciprocal space.
-//! @ingroup algorithms_internal
+//! @ingroup decayFT_internal
 class BA_CORE_API_ IFTDecayFunction2D : public IParameterized
 {
 public:
@@ -145,7 +145,7 @@ protected:
 //! Two-dimensional Cauchy decay function in reciprocal space;
 //! corresponds to exp(-r) in real space,
 //! with \f$r=\sqrt{(\frac{x}{\omega_x})^2 + (\frac{y}{\omega_y})^2}\f$.
-//! @ingroup algorithms
+//! @ingroup decayFT
 class BA_CORE_API_ FTDecayFunction2DCauchy : public IFTDecayFunction2D
 {
 public:
@@ -161,7 +161,7 @@ public:
 //! Two-dimensional Gauss decay function in reciprocal space;
 //! corresponds to exp(-r^2/2) in real space,
 //! with \f$r=\sqrt{(\frac{x}{\omega_x})^2 + (\frac{y}{\omega_y})^2}\f$.
-//! @ingroup algorithms
+//! @ingroup decayFT
 class BA_CORE_API_ FTDecayFunction2DGauss : public IFTDecayFunction2D
 {
 public:
@@ -175,7 +175,7 @@ public:
 
 //! Two-dimensional pseudo-Voigt decay function in reciprocal space;
 //! corresponds to eta*Gauss + (1-eta)*Cauchy.
-//! @ingroup algorithms
+//! @ingroup decayFT
 class BA_CORE_API_ FTDecayFunction2DVoigt : public IFTDecayFunction2D
 {
 public:

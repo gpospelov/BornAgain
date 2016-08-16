@@ -17,10 +17,13 @@ List of form factors available
      <li> \ref softParticle "Soft particles"<br>Three-dimenensional particle models with smoothly decaying scattering-length distribution
      <li> \ref legacyGrating "Ripples"<br>Ripples, for modelling gratings
      </ul>
-<li> \ref interference "Interference functions" <br>
-List of implemented interference functions
-<li> \ref algorithms "Algorithms and functions" <br>
-Additional routines
+<li> \ref distribution "Distribution, decay, and interference functions"<br>
+     <ul>
+     <li> \ref interference "Interference functions"
+     <li> \ref decayFT "Fourier-space decay functions"
+     <li> \ref distributionFT  "Fourier-space distribution functions"
+     <li> \ref paramDistribution "Parameter distributions"
+     </ul>
 <li> \ref tools "Tools" <br>
 Different tools mainly to deal with intensity data
 <li> \ref input_output "Input and output" <br>
@@ -32,18 +35,14 @@ Fitting routines
 
 Here is a list of additional classes from internal API.
 <ul>
-<li> \ref simulation_internal "Simulation (internal)" <br>
-<li> \ref samples_internal "Samples (internal)" <br>
-<li> \ref materials_internal "Materials (internal)" <br>
-<li> \ref formfactors_internal "Form factors (internal)" <br>
-<li> \ref interference_internal "Interference functions (internal)"
-<li> \ref algorithms_internal "Algorithms (internal)" <br>
-<li> \ref tools_internal "Tools (internal)" <br>
-<li> \ref input_output_internal "Input/output (internal)" <br>
-<li> \ref fitting_internal "Fitting (internal)" <br>
+<li> \ref simulation_internal "Simulation internals" <br>
+<li> \ref samples_internal "Samples internals" <br>
+<li> \ref materials_internal "Materials internals" <br>
+<li> \ref formfactors_internal "Form factors internals" <br>
+<li> \ref distribution_internal "Distribution function internals"
+<li> \ref tools_internal "Tools internals" <br>
+<li> \ref input_output_internal "Input/output internals" <br>
+<li> \ref fitting_internal "Fitting internals" <br>
 </ul>
-
-
-
 
 */

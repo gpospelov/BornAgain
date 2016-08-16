@@ -25,12 +25,14 @@
 \defgroup interference Interference functions
 @brief Available interference functions.
 
-\defgroup algorithms Algorithms
-@brief Additional routines.
-
 \defgroup fitting Fitting
 @brief Classes to fit the data.
 
+\defgroup decayFT Fourier-space decay functions
+
+\defgroup distributionFT Fourier-space distribution functions
+
+\defgroup paramDistribution Parameter distributions
 
 \defgroup simulation_internal Simulation internals
 @brief Simulation internal classes.
@@ -44,11 +46,8 @@
 \defgroup formfactors_internal    Formfactor internals
 @brief Form factor internal classes.
 
-\defgroup interference_internal Interference function internals
-@brief Interference functions internal classes.
-
-\defgroup algorithms_internal Algorithm internals
-@brief Algorithms internal classes.
+\defgroup distribution_internal Distribution and decay function internals
+@brief Distribution and decay function interface classes.
 
 \defgroup fitting_internal Fitting internals
 @brief Fitting internal classes.

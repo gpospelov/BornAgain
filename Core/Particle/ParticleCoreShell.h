@@ -21,9 +21,8 @@
 class IMaterial;
 class Particle;
 
-//! @ParticleCoreShell
+//! A particle with a core/shell geometry.
 //! @ingroup samples
-//! @brief A particle with a core/shell geometry
 
 class BA_CORE_API_ ParticleCoreShell : public IParticle
 {
@@ -31,35 +30,35 @@ public:
     ParticleCoreShell(const Particle& shell, const Particle& core,
             kvector_t relative_core_position=kvector_t(0.0, 0.0, 0.0));
     virtual ~ParticleCoreShell();
-    virtual ParticleCoreShell *clone() const;
+    virtual ParticleCoreShell* clone() const;
 
     //! Returns a clone with inverted magnetic fields
-    virtual ParticleCoreShell *cloneInvertB() const;
+    virtual ParticleCoreShell* cloneInvertB() const;
 
     //! Calls the ISampleVisitor's visit method
-    virtual void accept(ISampleVisitor *visitor) const;
+    virtual void accept(ISampleVisitor* visitor) const;
 
     //! Sets the refractive index of the ambient material (which influences its scattering power)
     virtual void setAmbientMaterial(const IMaterial& material);
     virtual const IMaterial* getAmbientMaterial() const;
 
     //! Create a form factor for this particle with an extra scattering factor
-    virtual IFormFactor *createTransformedFormFactor(const IRotation* p_rotation,
+    virtual IFormFactor* createTransformedFormFactor(const IRotation* p_rotation,
                                                      kvector_t translation) const;
 
     //! Returns the core particle
-    const Particle *getCoreParticle() const;
+    const Particle* getCoreParticle() const;
 
     //! Returns the shell particle
-    const Particle *getShellParticle() const;
+    const Particle* getShellParticle() const;
 
 protected:
     void addAndRegisterCore(const Particle &core, kvector_t relative_core_position);
     void addAndRegisterShell(const Particle &shell);
 
     ParticleCoreShell();
-    Particle *mp_shell;
-    Particle *mp_core;
+    Particle* mp_shell;
+    Particle* mp_core;
 };
 
 #endif // PARTICLECORESHELL_H

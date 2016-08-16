@@ -110,7 +110,7 @@ def plot(results):
     import matplotlib
     from matplotlib import pyplot as plt
     plt.figure(1)
-    for nplot, hist in results.iteritems():
+    for nplot, hist in results.items():
         plt.subplot(2, 2, nplot+1)
         plt.imshow(
             hist.getArray(),

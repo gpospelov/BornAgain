@@ -106,11 +106,10 @@ class RotationY;
 class RotationZ;
 class RotationEuler;
 
-//! @ISampleVisitor
+//! Visitor interface to visit ISample objects.
 //! @ingroup samples_internal
-//! @brief Visitor interface to visit ISample objects
-//!
-//! From visitor pattern to achieve double dispatch
+
+//! From visitor pattern to achieve double dispatch.
 
 class BA_CORE_API_ ISampleVisitor
 {

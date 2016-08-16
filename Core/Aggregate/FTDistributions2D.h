@@ -21,7 +21,7 @@
 
 
 //! Interface for two-dimensional distributions in Fourier space.
-//! @ingroup algorithms_internal
+//! @ingroup distribution_internal
 
 class BA_CORE_API_ IFTDistribution2D : public IParameterized
 {
@@ -66,7 +66,7 @@ protected:
 //! Two-dimensional Cauchy distribution in Fourier space;
 //! corresponds to a normalized exp(-r) in real space,
 //! with \f$r=\sqrt{(\frac{x}{\omega_x})^2 + (\frac{y}{\omega_y})^2}\f$.
-//! @ingroup algorithms
+//! @ingroup distributionFT
 
 class BA_CORE_API_ FTDistribution2DCauchy : public IFTDistribution2D
 {
@@ -83,7 +83,7 @@ public:
 //! Two-dimensional Gauss distribution in Fourier space;
 //! corresponds to normalized exp(-r^2/2) in real space
 //! with \f$r=\sqrt{(\frac{x}{\omega_x})^2 + (\frac{y}{\omega_y})^2}\f$.
-//! @ingroup algorithms
+//! @ingroup distributionFT
 
 class BA_CORE_API_ FTDistribution2DGauss : public IFTDistribution2D
 {
@@ -100,7 +100,7 @@ public:
 //! Two-dimensional gate distribution in Fourier space;
 //! corresponds to normalized constant if r<1 (and 0 otherwise) in real space,
 //! with \f$r=\sqrt{(\frac{x}{\omega_x})^2 + (\frac{y}{\omega_y})^2}\f$.
-//! @ingroup algorithms
+//! @ingroup distributionFT
 
 class BA_CORE_API_ FTDistribution2DGate : public IFTDistribution2D
 {
@@ -117,7 +117,7 @@ public:
 //! Two-dimensional cone distribution in Fourier space;
 //! corresponds to 1-r if r<1 (and 0 otherwise) in real space
 //! with \f$r=\sqrt{(\frac{x}{\omega_x})^2 + (\frac{y}{\omega_y})^2}\f$.
-//! @ingroup algorithms
+//! @ingroup distributionFT
 
 class BA_CORE_API_ FTDistribution2DCone : public IFTDistribution2D
 {
@@ -138,7 +138,7 @@ private:
 
 //! Two-dimensional Voigt distribution in Fourier space;
 //! corresponds to eta*Gauss + (1-eta)*Cauchy
-//! @ingroup algorithms
+//! @ingroup distributionFT
 
 class BA_CORE_API_ FTDistribution2DVoigt : public IFTDistribution2D
 {

@@ -20,7 +20,7 @@
 
 //! Interface for a one-dimensional distribution, with normalization adjusted so that
 //! the Fourier transform evaluate(q) is a decay function that starts at evaluate(0)=1.
-//! @ingroup algorithms_internal
+//! @ingroup distribution_internal
 
 class BA_CORE_API_ IFTDistribution1D : public IParameterized
 {
@@ -48,7 +48,7 @@ protected:
 
 //! Exponential IFTDistribution1D exp(-|omega*x|);
 //! its Fourier transform evaluate(q) is a Cauchy-Lorentzian starting at evaluate(0)=1.
-//! @ingroup algorithms
+//! @ingroup distributionFT
 
 class BA_CORE_API_ FTDistribution1DCauchy : public IFTDistribution1D
 {
@@ -61,7 +61,7 @@ public:
 
 //! Gaussian IFTDistribution1D;
 //! its Fourier transform evaluate(q) is a Gaussian starting at evaluate(0)=1.
-//! @ingroup algorithms
+//! @ingroup distributionFT
 
 class BA_CORE_API_ FTDistribution1DGauss : public IFTDistribution1D
 {
@@ -74,7 +74,7 @@ public:
 
 //! Square gate IFTDistribution1D;
 //! its Fourier transform evaluate(q) is a sinc function starting at evaluate(0)=1.
-//! @ingroup algorithms
+//! @ingroup distributionFT
 
 class BA_CORE_API_ FTDistribution1DGate : public IFTDistribution1D
 {
@@ -87,7 +87,7 @@ public:
 
 //! Triangle IFTDistribution1D [1-|x|/omega if |x|<omega, and 0 otherwise];
 //! its Fourier transform evaluate(q) is a squared sinc function starting at evaluate(0)=1.
-//! @ingroup algorithms
+//! @ingroup distributionFT
 
 class BA_CORE_API_ FTDistribution1DTriangle : public IFTDistribution1D
 {
@@ -102,7 +102,7 @@ public:
 //! IFTDistribution1D consisting of one cosine wave
 //! [1+cos(pi*x/omega) if |x|<omega, and 0 otherwise];
 //! its Fourier transform evaluate(q) starts at evaluate(0)=1.
-//! @ingroup algorithms
+//! @ingroup distributionFT
 
 class BA_CORE_API_ FTDistribution1DCosine : public IFTDistribution1D
 {
@@ -116,7 +116,7 @@ public:
 //! IFTDistribution1D that provides a Fourier transform evaluate(q) in form
 //! of a pseudo-Voigt decay function eta*Gauss + (1-eta)*Cauchy, with both components
 //! starting at 1 for q=0.
-//! @ingroup algorithms
+//! @ingroup distributionFT
 
 class BA_CORE_API_ FTDistribution1DVoigt : public IFTDistribution1D
 {

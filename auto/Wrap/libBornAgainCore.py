@@ -5057,14 +5057,14 @@ class IntensityScaleAndShiftNormalizer(IntensityNormalizer):
     __swig_destroy__ = _libBornAgainCore.delete_IntensityScaleAndShiftNormalizer
     __del__ = lambda self: None
 
-    def setMaximumIntensity(self, max_intensity):
+    def setMaximumIntensity(self, arg2):
         """
-        setMaximumIntensity(IntensityScaleAndShiftNormalizer self, double max_intensity)
+        setMaximumIntensity(IntensityScaleAndShiftNormalizer self, double arg2)
 
         virtual void IntensityScaleAndShiftNormalizer::setMaximumIntensity(double max_intensity)
 
         """
-        return _libBornAgainCore.IntensityScaleAndShiftNormalizer_setMaximumIntensity(self, max_intensity)
+        return _libBornAgainCore.IntensityScaleAndShiftNormalizer_setMaximumIntensity(self, arg2)
 
 
     def clone(self):

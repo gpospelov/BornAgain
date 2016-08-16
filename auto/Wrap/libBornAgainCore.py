@@ -5757,11 +5757,12 @@ class FitSuite(IObservable):
 
     def addFitParameter(self, *args):
         """
-        addFitParameter(FitSuite self, std::string const & name, double value, AttLimits attlim, double step=0.0)
-        addFitParameter(FitSuite self, std::string const & name, double value, AttLimits attlim)
+        addFitParameter(FitSuite self, std::string const & name, double value, Limits lim, Attributes attr, double step=0.0)
+        addFitParameter(FitSuite self, std::string const & name, double value, Limits lim, Attributes attr)
+        addFitParameter(FitSuite self, std::string const & name, double value, Limits lim)
         addFitParameter(FitSuite self, std::string const & name, double value)
 
-        void FitSuite::addFitParameter(const std::string &name, double value, const AttLimits &attlim=AttLimits::limitless(), double step=0.0)
+        void FitSuite::addFitParameter(const std::string &name, double value, const Limits &attlim=Limits::limitless(), double step=0.0)
 
         Adds fit parameter
 
@@ -7349,7 +7350,7 @@ class IDistribution1D(IParameterized):
 
     def generateSamples(self, *args):
         """
-        generateSamples(IDistribution1D self, size_t nbr_samples, double sigma_factor=0.0, AttLimits limits) -> std::vector< ParameterSample,std::allocator< ParameterSample > >
+        generateSamples(IDistribution1D self, size_t nbr_samples, double sigma_factor=0.0, Limits limits) -> std::vector< ParameterSample,std::allocator< ParameterSample > >
         generateSamples(IDistribution1D self, size_t nbr_samples, double sigma_factor=0.0) -> std::vector< ParameterSample,std::allocator< ParameterSample > >
         generateSamples(IDistribution1D self, size_t nbr_samples) -> std::vector< ParameterSample,std::allocator< ParameterSample > >
         generateSamples(IDistribution1D self, size_t nbr_samples, double xmin, double xmax) -> std::vector< ParameterSample,std::allocator< ParameterSample > >
@@ -7364,10 +7365,10 @@ class IDistribution1D(IParameterized):
 
     def generateValueList(self, *args):
         """
-        generateValueList(IDistribution1D self, size_t nbr_samples, double sigma_factor, AttLimits limits) -> vdouble1d_t
+        generateValueList(IDistribution1D self, size_t nbr_samples, double sigma_factor, Limits limits) -> vdouble1d_t
         generateValueList(IDistribution1D self, size_t nbr_samples, double sigma_factor) -> vdouble1d_t
 
-        virtual std::vector<double> IDistribution1D::generateValueList(size_t nbr_samples, double sigma_factor, const AttLimits &limits=AttLimits()) const =0
+        virtual std::vector<double> IDistribution1D::generateValueList(size_t nbr_samples, double sigma_factor, const Limits &limits=Limits()) const =0
 
         generate list of sample values
 
@@ -7537,10 +7538,10 @@ class DistributionGate(IDistribution1D):
 
     def generateValueList(self, *args):
         """
-        generateValueList(DistributionGate self, size_t nbr_samples, double sigma_factor, AttLimits limits) -> vdouble1d_t
+        generateValueList(DistributionGate self, size_t nbr_samples, double sigma_factor, Limits limits) -> vdouble1d_t
         generateValueList(DistributionGate self, size_t nbr_samples, double sigma_factor) -> vdouble1d_t
 
-        std::vector< double > DistributionGate::generateValueList(size_t nbr_samples, double sigma_factor, const AttLimits &limits=AttLimits()) const
+        std::vector< double > DistributionGate::generateValueList(size_t nbr_samples, double sigma_factor, const Limits &limits=Limits()) const
 
         Returns list of sample values. 
 
@@ -7645,10 +7646,10 @@ class DistributionLorentz(IDistribution1D):
 
     def generateValueList(self, *args):
         """
-        generateValueList(DistributionLorentz self, size_t nbr_samples, double sigma_factor, AttLimits limits) -> vdouble1d_t
+        generateValueList(DistributionLorentz self, size_t nbr_samples, double sigma_factor, Limits limits) -> vdouble1d_t
         generateValueList(DistributionLorentz self, size_t nbr_samples, double sigma_factor) -> vdouble1d_t
 
-        std::vector< double > DistributionLorentz::generateValueList(size_t nbr_samples, double sigma_factor, const AttLimits &limits=AttLimits()) const
+        std::vector< double > DistributionLorentz::generateValueList(size_t nbr_samples, double sigma_factor, const Limits &limits=Limits()) const
 
         generate list of sample values 
 
@@ -7755,10 +7756,10 @@ class DistributionGaussian(IDistribution1D):
 
     def generateValueList(self, *args):
         """
-        generateValueList(DistributionGaussian self, size_t nbr_samples, double sigma_factor, AttLimits limits) -> vdouble1d_t
+        generateValueList(DistributionGaussian self, size_t nbr_samples, double sigma_factor, Limits limits) -> vdouble1d_t
         generateValueList(DistributionGaussian self, size_t nbr_samples, double sigma_factor) -> vdouble1d_t
 
-        std::vector< double > DistributionGaussian::generateValueList(size_t nbr_samples, double sigma_factor, const AttLimits &limits=AttLimits()) const
+        std::vector< double > DistributionGaussian::generateValueList(size_t nbr_samples, double sigma_factor, const Limits &limits=Limits()) const
 
         generate list of sample values 
 
@@ -7877,10 +7878,10 @@ class DistributionLogNormal(IDistribution1D):
 
     def generateValueList(self, *args):
         """
-        generateValueList(DistributionLogNormal self, size_t nbr_samples, double sigma_factor, AttLimits limits) -> vdouble1d_t
+        generateValueList(DistributionLogNormal self, size_t nbr_samples, double sigma_factor, Limits limits) -> vdouble1d_t
         generateValueList(DistributionLogNormal self, size_t nbr_samples, double sigma_factor) -> vdouble1d_t
 
-        std::vector< double > DistributionLogNormal::generateValueList(size_t nbr_samples, double sigma_factor, const AttLimits &limits=AttLimits()) const
+        std::vector< double > DistributionLogNormal::generateValueList(size_t nbr_samples, double sigma_factor, const Limits &limits=Limits()) const
 
         generate list of sample values 
 
@@ -7987,10 +7988,10 @@ class DistributionCosine(IDistribution1D):
 
     def generateValueList(self, *args):
         """
-        generateValueList(DistributionCosine self, size_t nbr_samples, double sigma_factor, AttLimits limits) -> vdouble1d_t
+        generateValueList(DistributionCosine self, size_t nbr_samples, double sigma_factor, Limits limits) -> vdouble1d_t
         generateValueList(DistributionCosine self, size_t nbr_samples, double sigma_factor) -> vdouble1d_t
 
-        std::vector< double > DistributionCosine::generateValueList(size_t nbr_samples, double sigma_factor, const AttLimits &limits=AttLimits()) const
+        std::vector< double > DistributionCosine::generateValueList(size_t nbr_samples, double sigma_factor, const Limits &limits=Limits()) const
 
         generate list of sample values 
 
@@ -15113,7 +15114,7 @@ class Simulation(ICloneable, IParameterized):
 
     def addParameterDistribution(self, *args):
         """
-        addParameterDistribution(Simulation self, std::string const & param_name, IDistribution1D distribution, size_t nbr_samples, double sigma_factor=0.0, AttLimits limits)
+        addParameterDistribution(Simulation self, std::string const & param_name, IDistribution1D distribution, size_t nbr_samples, double sigma_factor=0.0, Limits limits)
         addParameterDistribution(Simulation self, std::string const & param_name, IDistribution1D distribution, size_t nbr_samples, double sigma_factor=0.0)
         addParameterDistribution(Simulation self, std::string const & param_name, IDistribution1D distribution, size_t nbr_samples)
         addParameterDistribution(Simulation self, ParameterDistribution par_distr)
@@ -22243,7 +22244,7 @@ class ParameterDistribution(IParameterized):
 
     def __init__(self, *args):
         """
-        __init__(ParameterDistribution self, std::string const & par_name, IDistribution1D distribution, size_t nbr_samples, double sigma_factor=0.0, AttLimits limits) -> ParameterDistribution
+        __init__(ParameterDistribution self, std::string const & par_name, IDistribution1D distribution, size_t nbr_samples, double sigma_factor=0.0, Limits limits) -> ParameterDistribution
         __init__(ParameterDistribution self, std::string const & par_name, IDistribution1D distribution, size_t nbr_samples, double sigma_factor=0.0) -> ParameterDistribution
         __init__(ParameterDistribution self, std::string const & par_name, IDistribution1D distribution, size_t nbr_samples) -> ParameterDistribution
         __init__(ParameterDistribution self, std::string const & par_name, IDistribution1D distribution, size_t nbr_samples, double xmin, double xmax) -> ParameterDistribution
@@ -22342,9 +22343,9 @@ class ParameterDistribution(IParameterized):
 
     def getLimits(self):
         """
-        getLimits(ParameterDistribution self) -> AttLimits
+        getLimits(ParameterDistribution self) -> Limits
 
-        AttLimits ParameterDistribution::getLimits() const 
+        Limits ParameterDistribution::getLimits() const 
 
         """
         return _libBornAgainCore.ParameterDistribution_getLimits(self)
@@ -23582,14 +23583,14 @@ class RealParameter(INamed):
         return _libBornAgainCore.RealParameter_checkNull(self)
 
 
-    def getAttLimits(self):
+    def getLimits(self):
         """
-        getAttLimits(RealParameter self) -> AttLimits
+        getLimits(RealParameter self) -> Limits
 
-        AttLimits RealParameter::getAttLimits() const 
+        Limits RealParameter::getLimits() const 
 
         """
-        return _libBornAgainCore.RealParameter_getAttLimits(self)
+        return _libBornAgainCore.RealParameter_getLimits(self)
 
 
     def __eq__(self, other):

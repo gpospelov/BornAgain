@@ -27,7 +27,7 @@ IDistribution1D* IDistribution1D::clone() const
 }
 
 std::vector<ParameterSample> IDistribution1D::generateSamples(
-    size_t nbr_samples, double sigma_factor, const AttLimits &limits) const
+    size_t nbr_samples, double sigma_factor, const Limits &limits) const
 {
     if (nbr_samples == 0)
         throw Exceptions::OutOfBoundsException("IDistribution1D::generateSamples: number "
@@ -85,7 +85,7 @@ void IDistribution1D::SignalBadInitialization(std::string distribution_name)
 }
 
 void IDistribution1D::adjustMinMaxForLimits(
-    double &xmin, double &xmax, const AttLimits &limits) const
+    double &xmin, double &xmax, const Limits &limits) const
 {
     if(limits.hasLowerLimit() && xmin < limits.getLowerLimit()) xmin = limits.getLowerLimit();
     if(limits.hasUpperLimit() && xmax > limits.getUpperLimit()) xmax = limits.getUpperLimit();
@@ -142,7 +142,7 @@ double DistributionGate::probabilityDensity(double x) const
 }
 
 std::vector<double> DistributionGate::generateValueList(size_t nbr_samples,
-        double sigma_factor, const AttLimits &limits) const
+        double sigma_factor, const Limits &limits) const
 {
     (void)sigma_factor;
     (void)limits;
@@ -191,7 +191,7 @@ double DistributionLorentz::probabilityDensity(double x) const
 }
 
 std::vector<double> DistributionLorentz::generateValueList(size_t nbr_samples,
-        double sigma_factor, const AttLimits &limits) const
+        double sigma_factor, const Limits &limits) const
 {
     if (sigma_factor <= 0.0) sigma_factor = 2.0;
     double xmin = m_mean - sigma_factor*m_hwhm;
@@ -248,7 +248,7 @@ double DistributionGaussian::probabilityDensity(double x) const
 }
 
 std::vector<double> DistributionGaussian::generateValueList(size_t nbr_samples,
-        double sigma_factor, const AttLimits &limits) const
+        double sigma_factor, const Limits &limits) const
 {
     if (sigma_factor <= 0.0) sigma_factor = 2.0;
     double xmin = m_mean - sigma_factor*m_std_dev;
@@ -310,7 +310,7 @@ double DistributionLogNormal::getMean() const
 }
 
 std::vector<double> DistributionLogNormal::generateValueList(size_t nbr_samples,
-        double sigma_factor, const AttLimits &limits) const
+        double sigma_factor, const Limits &limits) const
 {
     if(nbr_samples < 2) {
         std::vector<double> result;
@@ -373,7 +373,7 @@ double DistributionCosine::probabilityDensity(double x) const
 }
 
 std::vector<double> DistributionCosine::generateValueList(size_t nbr_samples,
-        double sigma_factor, const AttLimits &limits) const
+        double sigma_factor, const Limits &limits) const
 {
     if (sigma_factor <= 0.0 || sigma_factor > 2.0) sigma_factor = 2.0;
     double xmin = m_mean - sigma_factor*m_sigma*Pi::PID2;

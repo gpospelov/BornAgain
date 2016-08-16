@@ -17,7 +17,7 @@
 #ifndef PARAMETERTUNINGDELEGATE_H
 #define PARAMETERTUNINGDELEGATE_H
 
-#include "AttLimits.h"
+#include "Limits.h"
 #include <QItemDelegate>
 #include <memory>
 
@@ -35,7 +35,7 @@ public:
     public:
         SliderData();
         void setRangeFactor(double range_factor);
-        void setItemLimits(const AttLimits &item_limits);
+        void setItemLimits(const Limits &item_limits);
         int value_to_slider(double value);
         double slider_to_value(int slider);
         int m_smin;
@@ -43,7 +43,7 @@ public:
         double m_rmin;
         double m_rmax;
         double m_range_factor;
-        AttLimits m_item_limits;
+        Limits m_item_limits;
     };
 
 

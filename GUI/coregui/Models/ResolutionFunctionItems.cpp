@@ -43,10 +43,10 @@ ResolutionFunction2DGaussianItem::ResolutionFunction2DGaussianItem()
     : ResolutionFunctionItem(Constants::ResolutionFunction2DGaussianType)
 {
     addProperty(P_SIGMA_X, 0.02);
-    getItem(P_SIGMA_X)->setLimits(AttLimits::lowerLimited(0.0));
+    getItem(P_SIGMA_X)->setLimits(Limits::lowerLimited(0.0));
     getItem(P_SIGMA_X)->setDecimals(3);
     addProperty(P_SIGMA_Y, 0.02);
-    getItem(P_SIGMA_Y)->setLimits(AttLimits::lowerLimited(0.0));
+    getItem(P_SIGMA_Y)->setLimits(Limits::lowerLimited(0.0));
     getItem(P_SIGMA_Y)->setDecimals(3);
 }
 

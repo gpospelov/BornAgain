@@ -93,7 +93,7 @@ std::unique_ptr<FitSuite> IMinimizerTest::createFitSuite()
     for (size_t i = 0; i < m_parameters.size(); ++i)
         result->addFitParameter(
             m_parameters[i].m_name, m_parameters[i].m_start_value,
-            AttLimits::lowerLimited(0.01), m_parameters[i].m_start_value / 100.);
+            Limits::lowerLimited(0.01), Attributes::free(), m_parameters[i].m_start_value / 100.);
     return result;
 }
 

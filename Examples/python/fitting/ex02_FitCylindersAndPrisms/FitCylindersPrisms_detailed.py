@@ -163,13 +163,13 @@ def create_fit():
 
     # setting fitting parameters with starting values
     fit_suite.addFitParameter("*Cylinder/Height", 4.*nm,
-                              ba.AttLimits.lowerLimited(0.01))
+                              ba.Limits.lowerLimited(0.01))
     fit_suite.addFitParameter("*Cylinder/Radius", 6.*nm,
-                              ba.AttLimits.lowerLimited(0.01))
+                              ba.Limits.lowerLimited(0.01))
     fit_suite.addFitParameter("*Prism3/Height", 4.*nm,
-                              ba.AttLimits.lowerLimited(0.01))
+                              ba.Limits.lowerLimited(0.01))
     fit_suite.addFitParameter("*Prism3/BaseEdge", 12.*nm,
-                              ba.AttLimits.lowerLimited(0.01))
+                              ba.Limits.lowerLimited(0.01))
 
     return fit_suite
 

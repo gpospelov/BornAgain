@@ -18,7 +18,7 @@
 
 #include "INamed.h"
 
-class AttLimits;
+class Limits;
 class ParameterPool;
 class RealParameter;
 
@@ -77,9 +77,9 @@ protected:
     virtual void print(std::ostream& ostr) const;
 
 private:
-    void registerAngle(const std::string& name, double* parpointer, const AttLimits& limits);
-    void registerScalar(const std::string& name, double* parpointer, const AttLimits& limits);
-    void registerLength(const std::string& name, double* parpointer, const AttLimits& limits);
+    void registerAngle(const std::string& name, double* parpointer, const Limits& limits);
+    void registerScalar(const std::string& name, double* parpointer, const Limits& limits);
+    void registerLength(const std::string& name, double* parpointer, const Limits& limits);
 
     ParameterPool* m_pool; //!< parameter pool (kind of pointer-to-implementation)
 };

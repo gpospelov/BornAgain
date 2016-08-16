@@ -73,12 +73,12 @@ def run_fitting():
 
     # setting fitting parameters with starting values
     fit_suite.addFitParameter(
-        "*radius", 5.0*ba.nm, ba.AttLimits.limited(4.0, 6.0),
+        "*radius", 5.0*ba.nm, ba.Limits.limited(4.0, 6.0),
         0.1*ba.nm)
     fit_suite.addFitParameter(
-        "*sigma", 0.55, ba.AttLimits.limited(0.2, 0.8), 0.01*ba.nm)
+        "*sigma", 0.55, ba.Limits.limited(0.2, 0.8), 0.01*ba.nm)
     fit_suite.addFitParameter(
-        "*distance", 27.*ba.nm, ba.AttLimits.limited(20, 70),
+        "*distance", 27.*ba.nm, ba.Limits.limited(20, 70),
         0.1*ba.nm)
 
     use_two_minimizers_strategy = False

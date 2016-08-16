@@ -18,15 +18,11 @@
 #include "ParameterPool.h"
 #include "RealParameter.h"
 
-FitParameterLinked::FitParameterLinked()
-{
-}
-
 FitParameterLinked::FitParameterLinked(
-    const std::string& name, double value, double step, const AttLimits& attlim, double error)
-    : FitParameter(name, value, step, attlim, error)
-{
-}
+    const std::string& name, double value, double step, const Limits& lim,
+    const Attributes& attr, double error)
+    : FitParameter(name, value, step, lim, attr, error)
+{}
 
 FitParameterLinked::~FitParameterLinked()
 {

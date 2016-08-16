@@ -1,12 +1,3 @@
-//%extend IParameterized {
-//    virtual void registerParameter(
-//        const std::string &name, int64_t parpointer,
-//        const AttLimits& limits = AttLimits::limitless())
-//    {
-//        return (*($self)).registerParameter(name, (double*)parpointer, limits);
-//    }
-//};
-
 namespace Geometry {
     %extend BasicVector3D<double> {
         BasicVector3D<double> __add__(const BasicVector3D<double>& rhs) const

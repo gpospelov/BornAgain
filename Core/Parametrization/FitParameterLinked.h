@@ -29,9 +29,10 @@ class RealParameter;
 class BA_CORE_API_ FitParameterLinked : public FitParameter
 {
  public:
-    FitParameterLinked();
-    FitParameterLinked(const std::string& name, double value, double step,
-                       const AttLimits& attlim=AttLimits::limitless(), double error=0.0);
+    FitParameterLinked() {}
+    FitParameterLinked(
+        const std::string& name, double value, double step, const Limits& lim=Limits::limitless(),
+        const Attributes& attr=Attributes::free(), double error=0.0);
     FitParameterLinked(const FitParameterLinked&) = delete;
     FitParameterLinked& operator=(const FitParameterLinked&) = delete;
     virtual ~FitParameterLinked();

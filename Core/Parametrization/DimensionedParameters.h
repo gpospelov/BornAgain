@@ -24,7 +24,7 @@ class Angle : public RealParameter
 {
 public:
     Angle(const std::string& name, ParameterPool* parent, volatile double* par,
-          const AttLimits& limits)
+          const Limits& limits)
         : RealParameter( name, parent, par, limits ) {}
 
     virtual Angle* clone( const std::string& new_name="" ) const {
@@ -39,7 +39,7 @@ class Length : public RealParameter
 {
 public:
     Length(const std::string& name, ParameterPool* parent, volatile double* par,
-           const AttLimits& limits)
+           const Limits& limits)
         : RealParameter( name, parent, par, limits ) {}
 
     virtual Length* clone( const std::string& new_name="" ) const {
@@ -54,7 +54,7 @@ class Scalar : public RealParameter
 {
 public:
     Scalar(const std::string& name, ParameterPool* parent, volatile double* par,
-           const AttLimits& limits)
+           const Limits& limits)
         : RealParameter( name, parent, par, limits ) {}
 
     virtual Scalar* clone( const std::string& new_name="" ) const {

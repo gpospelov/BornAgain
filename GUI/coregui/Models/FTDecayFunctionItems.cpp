@@ -70,7 +70,7 @@ FTDecayFunction1DVoigtItem::FTDecayFunction1DVoigtItem()
     : FTDecayFunction1DItem(FTDecayFunction1DVoigtType)
 {
     addProperty(P_DECAY_LENGTH, 1000.0);
-    addProperty(P_ETA, 0.5)->setLimits(AttLimits::limited(0.0, 1.0));
+    addProperty(P_ETA, 0.5)->setLimits(Limits::limited(0.0, 1.0));
 }
 
 IFTDecayFunction1D* FTDecayFunction1DVoigtItem::createFTDecayFunction() const
@@ -119,7 +119,7 @@ FTDecayFunction2DVoigtItem::FTDecayFunction2DVoigtItem()
 {
     addProperty(P_DECAY_LENGTH_X, 1000.0);
     addProperty(P_DECAY_LENGTH_Y, 1000.0);
-    addProperty(P_ETA, 0.5)->setLimits(AttLimits::limited(0.0, 1.0));
+    addProperty(P_ETA, 0.5)->setLimits(Limits::limited(0.0, 1.0));
 }
 
 IFTDecayFunction2D* FTDecayFunction2DVoigtItem::createFTDecayFunction() const

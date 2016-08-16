@@ -17,7 +17,7 @@
 #define DISTRIBUTIONS_H
 
 #include "IParameterized.h"
-#include "AttLimits.h"
+#include "Limits.h"
 #include "ParameterSample.h"
 #include <vector>
 
@@ -41,7 +41,7 @@ public:
     //! generate list of sampled values with their weight
     //! xmin, xmax for sample generations are deduced from sigma_factor and possible limits
     std::vector<ParameterSample> generateSamples(
-        size_t nbr_samples, double sigma_factor=0.0, const AttLimits& limits = AttLimits()) const;
+        size_t nbr_samples, double sigma_factor=0.0, const Limits& limits = Limits()) const;
 
     //! generate list of sampled values with their weight within given xmin, xmax
     std::vector<ParameterSample> generateSamples(
@@ -53,7 +53,7 @@ public:
     //! @param limits
     //! @return vector of generated values
     virtual std::vector<double> generateValueList(size_t nbr_samples,
-            double sigma_factor, const AttLimits& limits = AttLimits()) const=0;
+            double sigma_factor, const Limits& limits = Limits()) const=0;
 
     //! generate list of sample values
     //! @param nbr_samples number of values to generate
@@ -72,7 +72,7 @@ protected:
     static void SignalBadInitialization(std::string distribution_name);
 
     //! modifies xmin and xmax if they are outside of limits
-    void adjustMinMaxForLimits(double& xmin, double& xmax, const AttLimits& limits) const;
+    void adjustMinMaxForLimits(double& xmin, double& xmax, const Limits& limits) const;
 
     //! generate list of sampled values with their weight from value list
     std::vector<ParameterSample> generateSamplesFromValues(
@@ -106,7 +106,7 @@ public:
 
     //! Returns list of sample values
     virtual std::vector<double> generateValueList(
-        size_t nbr_samples, double sigma_factor, const AttLimits& limits = AttLimits()) const;
+        size_t nbr_samples, double sigma_factor, const Limits& limits = Limits()) const;
 
     //! signals that the distribution is in the limit case of a delta distribution
     virtual bool isDelta() const;
@@ -146,7 +146,7 @@ public:
 
     //! generate list of sample values
     virtual std::vector<double> generateValueList(
-        size_t nbr_samples, double sigma_factor, const AttLimits& limits = AttLimits()) const;
+        size_t nbr_samples, double sigma_factor, const Limits& limits = Limits()) const;
 
     //! signals that the distribution is in the limit case of a delta distribution
     virtual bool isDelta() const;
@@ -188,7 +188,7 @@ public:
 
     //! generate list of sample values
     virtual std::vector<double> generateValueList(size_t nbr_samples,
-            double sigma_factor, const AttLimits& limits = AttLimits()) const;
+            double sigma_factor, const Limits& limits = Limits()) const;
 
     //! signals that the distribution is in the limit case of a delta distribution
     virtual bool isDelta() const;
@@ -233,7 +233,7 @@ public:
 
     //! generate list of sample values
     virtual std::vector<double> generateValueList(
-        size_t nbr_samples, double sigma_factor, const AttLimits& limits = AttLimits()) const;
+        size_t nbr_samples, double sigma_factor, const Limits& limits = Limits()) const;
 
     //! signals that the distribution is in the limit case of a delta distribution
     virtual bool isDelta() const;
@@ -274,7 +274,7 @@ public:
 
     //! generate list of sample values
     virtual std::vector<double> generateValueList(
-        size_t nbr_samples, double sigma_factor, const AttLimits& limits = AttLimits()) const;
+        size_t nbr_samples, double sigma_factor, const Limits& limits = Limits()) const;
 
     //! signals that the distribution is in the limit case of a delta distribution
     virtual bool isDelta() const;

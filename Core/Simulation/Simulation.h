@@ -77,7 +77,7 @@ public:
     //! add a sampled parameter distribution
     void addParameterDistribution(
         const std::string& param_name, const IDistribution1D& distribution, size_t nbr_samples,
-        double sigma_factor=0.0, const AttLimits& limits = AttLimits());
+        double sigma_factor=0.0, const Limits& limits = Limits());
 
     //! add a sampled parameter distribution
     void addParameterDistribution(const ParameterDistribution& par_distr);

@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "FormFactorRipple1.h"
-#include "AttLimits.h"
+#include "Limits.h"
 #include "BornAgainNamespace.h"
 #include "Exceptions.h"
 #include "MathFunctions.h"

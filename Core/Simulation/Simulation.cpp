@@ -138,7 +138,7 @@ std::string Simulation::addParametersToExternalPool(std::string path, ParameterP
 
 void Simulation::addParameterDistribution(const std::string& param_name,
                                           const IDistribution1D& distribution, size_t nbr_samples,
-                                          double sigma_factor, const AttLimits& limits)
+                                          double sigma_factor, const Limits& limits)
 {
     m_distribution_handler.addParameterDistribution(param_name, distribution, nbr_samples,
                                                     sigma_factor, limits);

@@ -16,83 +16,83 @@ C++ includes: MinimizerLibrary.h
 ";
 
 
-// File: classAttLimits.xml
-%feature("docstring") AttLimits "
+// File: classLimits.xml
+%feature("docstring") Limits "
 
 Attributes and limits for a fit parameter. Currently, the only attribute is fixed/free.
 
-C++ includes: AttLimits.h
+C++ includes: Limits.h
 ";
 
-%feature("docstring")  AttLimits::AttLimits "AttLimits::AttLimits()
+%feature("docstring")  Limits::Limits "Limits::Limits()
 ";
 
-%feature("docstring")  AttLimits::hasLowerLimit "bool AttLimits::hasLowerLimit() const
+%feature("docstring")  Limits::hasLowerLimit "bool Limits::hasLowerLimit() const
 
 if has lower limit 
 ";
 
-%feature("docstring")  AttLimits::getLowerLimit "double AttLimits::getLowerLimit() const
+%feature("docstring")  Limits::getLowerLimit "double Limits::getLowerLimit() const
 
 Returns lower limit. 
 ";
 
-%feature("docstring")  AttLimits::setLowerLimit "void AttLimits::setLowerLimit(double value)
+%feature("docstring")  Limits::setLowerLimit "void Limits::setLowerLimit(double value)
 
 Sets lower limit. 
 ";
 
-%feature("docstring")  AttLimits::removeLowerLimit "void AttLimits::removeLowerLimit()
+%feature("docstring")  Limits::removeLowerLimit "void Limits::removeLowerLimit()
 
 remove lower limit 
 ";
 
-%feature("docstring")  AttLimits::hasUpperLimit "bool AttLimits::hasUpperLimit() const
+%feature("docstring")  Limits::hasUpperLimit "bool Limits::hasUpperLimit() const
 
 if has upper limit 
 ";
 
-%feature("docstring")  AttLimits::getUpperLimit "double AttLimits::getUpperLimit() const
+%feature("docstring")  Limits::getUpperLimit "double Limits::getUpperLimit() const
 
 Returns upper limit. 
 ";
 
-%feature("docstring")  AttLimits::setUpperLimit "void AttLimits::setUpperLimit(double value)
+%feature("docstring")  Limits::setUpperLimit "void Limits::setUpperLimit(double value)
 
 Sets upper limit. 
 ";
 
-%feature("docstring")  AttLimits::removeUpperLimit "void AttLimits::removeUpperLimit()
+%feature("docstring")  Limits::removeUpperLimit "void Limits::removeUpperLimit()
 
 remove upper limit 
 ";
 
-%feature("docstring")  AttLimits::hasLowerAndUpperLimits "bool AttLimits::hasLowerAndUpperLimits() const
+%feature("docstring")  Limits::hasLowerAndUpperLimits "bool Limits::hasLowerAndUpperLimits() const
 
 if has lower and upper limit 
 ";
 
-%feature("docstring")  AttLimits::setFixed "void AttLimits::setFixed(bool is_fixed)
+%feature("docstring")  Limits::setFixed "void Limits::setFixed(bool is_fixed)
 
 Sets object fixed. 
 ";
 
-%feature("docstring")  AttLimits::isFixed "bool AttLimits::isFixed() const
+%feature("docstring")  Limits::isFixed "bool Limits::isFixed() const
 
 if object is fixed at some value 
 ";
 
-%feature("docstring")  AttLimits::setLimits "void AttLimits::setLimits(double xmin, double xmax)
+%feature("docstring")  Limits::setLimits "void Limits::setLimits(double xmin, double xmax)
 
 Sets lower and upper limits. 
 ";
 
-%feature("docstring")  AttLimits::removeLimits "void AttLimits::removeLimits()
+%feature("docstring")  Limits::removeLimits "void Limits::removeLimits()
 
 remove limits 
 ";
 
-%feature("docstring")  AttLimits::isInRange "bool AttLimits::isInRange(double value) const
+%feature("docstring")  Limits::isInRange "bool Limits::isInRange(double value) const
 
 returns true if proposed value is in limits range 
 ";
@@ -250,7 +250,7 @@ C++ includes: FitParameter.h
 %feature("docstring")  FitParameter::FitParameter "FitParameter::FitParameter()
 ";
 
-%feature("docstring")  FitParameter::FitParameter "FitParameter::FitParameter(const std::string &name, double value, double step=0.0, const AttLimits &limits=AttLimits::limitless(), double error=0.0)
+%feature("docstring")  FitParameter::FitParameter "FitParameter::FitParameter(const std::string &name, double value, double step=0.0, const Limits &limits=Limits::limitless(), double error=0.0)
 ";
 
 %feature("docstring")  FitParameter::~FitParameter "virtual FitParameter::~FitParameter()
@@ -1280,10 +1280,10 @@ Returns string right-padded with blanks.
 // File: TrivialMinimizer_8h.xml
 
 
-// File: AttLimits_8cpp.xml
+// File: Limits_8cpp.xml
 
 
-// File: AttLimits_8h.xml
+// File: Limits_8h.xml
 
 
 // File: FitParameter_8cpp.xml

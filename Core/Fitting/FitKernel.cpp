@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "FitKernel.h"
-#include "AttLimits.h"
+#include "Limits.h"
 #include "FitParameter.h"
 #include "FitParameterLinked.h"
 #include "Logger.h"
@@ -58,12 +58,12 @@ void FitKernel::addSimulationAndRealData(const GISASSimulation& simulation,
 //! Adds fit parameter, step is calculated from initial parameter value
 void FitKernel::addFitParameter(const std::string& name, double value)
 {
-    addFitParameter(name, value, AttLimits::limitless());
+    addFitParameter(name, value, Limits::limitless(), Attributes::free());
 }
 
 //! Adds fit parameter, step is calculated from initial parameter value
-void FitKernel::addFitParameter(const std::string& name, double value, const AttLimits& attlim,
-                                double step, double error)
+void FitKernel::addFitParameter(const std::string& name, double value, const Limits& lim,
+                                const Attributes& attr, double step, double error)
 {
     if(step <=0.0)
         step = value * getOptions().getStepFactor();
@@ -72,7 +72,7 @@ void FitKernel::addFitParameter(const std::string& name, double value, const Att
             throw std::runtime_error(
                 "FitSuiteParameters:addtFitParameter() -> Error. Existing parameter '"+name+"'");
     }
-    m_fit_parameters.addParameter(new FitParameterLinked(name, value, step, attlim, error));
+    m_fit_parameters.addParameter(new FitParameterLinked(name, value, step, lim, attr, error));
 }
 
 void FitKernel::addFitStrategy(const IFitStrategy& strategy)

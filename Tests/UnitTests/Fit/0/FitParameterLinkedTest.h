@@ -32,9 +32,9 @@ TEST_F(FitParameterLinkedTest, FitParameterLinkedInitial)
 
 TEST_F(FitParameterLinkedTest, FitParameterLinkedWithValue)
 {
-    AttLimits attLimits = AttLimits::limited(-10.0, 2.0);
+    Limits limits = Limits::limited(-10.0, 2.0);
 
-    FitParameterLinked fitParameter("FitPL", 2.0, 0.2, attLimits, 0.01);
+    FitParameterLinked fitParameter("FitPL", 2.0, 0.2, limits, Attributes::free(), 0.01);
 
     EXPECT_EQ("FitPL", fitParameter.getName());
     EXPECT_EQ(2.0, fitParameter.getValue());

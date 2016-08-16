@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "FormFactorLorentz.h"
-#include "AttLimits.h"
+#include "Limits.h"
 #include "BornAgainNamespace.h"
 #include "Pi.h"
 

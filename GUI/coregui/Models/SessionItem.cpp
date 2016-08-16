@@ -46,7 +46,7 @@ SessionItem::SessionItem(const QString &modelType)
     setData(SessionModel::ModelTypeRole, modelType);
     setDisplayName(modelType);
     setDecimals(3);
-    setLimits(AttLimits::lowerLimited(0.0));
+    setLimits(Limits::lowerLimited(0.0));
 }
 
 //! Destructor deletes all its children and request parent to delete this item.
@@ -756,14 +756,14 @@ bool SessionItem::isEditable() const
 
 // more roles
 
-AttLimits SessionItem::limits() const
+Limits SessionItem::limits() const
 {
-    return data(SessionModel::LimitsRole).value<AttLimits>();
+    return data(SessionModel::LimitsRole).value<Limits>();
 }
 
-void SessionItem::setLimits(const AttLimits &value)
+void SessionItem::setLimits(const Limits &value)
 {
-    this->setData(SessionModel::LimitsRole, QVariant::fromValue<AttLimits>(value));
+    this->setData(SessionModel::LimitsRole, QVariant::fromValue<Limits>(value));
 }
 
 int SessionItem::decimals() const

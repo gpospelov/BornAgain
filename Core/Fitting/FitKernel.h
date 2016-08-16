@@ -27,7 +27,8 @@
 #include <atomic>
 #endif
 
-class AttLimits;
+class Attributes;
+class Limits;
 class GISASSimulation;
 class IMinimizer;
 
@@ -55,7 +56,8 @@ class BA_CORE_API_ FitKernel
     void addFitParameter(const std::string& name, double value);
     //! Adds fit parameter
     void addFitParameter(const std::string& name, double value,
-                         const AttLimits& attlim, double step=0.0, double error=0.0);
+                         const Limits& lim, const Attributes& attr,
+                         double step=0.0, double error=0.0);
 
     //! Adds fit strategy
     void addFitStrategy(const IFitStrategy& strategy);

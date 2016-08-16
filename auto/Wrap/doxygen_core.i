@@ -9,7 +9,7 @@ A parameter of physical dimension \"angle\".
 C++ includes: DimensionedParameters.h
 ";
 
-%feature("docstring")  Angle::Angle "Angle::Angle(const std::string &name, ParameterPool *parent, volatile double *par, const AttLimits &limits)
+%feature("docstring")  Angle::Angle "Angle::Angle(const std::string &name, ParameterPool *parent, volatile double *par, const Limits &limits)
 ";
 
 %feature("docstring")  Angle::clone "virtual Angle* Angle::clone(const std::string &new_name=\"\") const 
@@ -1105,7 +1105,7 @@ Returns the mean of the distribution.
 Returns the sigma parameter of the distribution. 
 ";
 
-%feature("docstring")  DistributionCosine::generateValueList "std::vector< double > DistributionCosine::generateValueList(size_t nbr_samples, double sigma_factor, const AttLimits &limits=AttLimits()) const
+%feature("docstring")  DistributionCosine::generateValueList "std::vector< double > DistributionCosine::generateValueList(size_t nbr_samples, double sigma_factor, const Limits &limits=Limits()) const
 
 generate list of sample values 
 ";
@@ -1158,7 +1158,7 @@ Returns the minimum value of the distribution.
 Returns the maximum value of the distribution. 
 ";
 
-%feature("docstring")  DistributionGate::generateValueList "std::vector< double > DistributionGate::generateValueList(size_t nbr_samples, double sigma_factor, const AttLimits &limits=AttLimits()) const
+%feature("docstring")  DistributionGate::generateValueList "std::vector< double > DistributionGate::generateValueList(size_t nbr_samples, double sigma_factor, const Limits &limits=Limits()) const
 
 Returns list of sample values. 
 ";
@@ -1206,7 +1206,7 @@ Returns the mean of the distribution.
 Returns the standard deviation. 
 ";
 
-%feature("docstring")  DistributionGaussian::generateValueList "std::vector< double > DistributionGaussian::generateValueList(size_t nbr_samples, double sigma_factor, const AttLimits &limits=AttLimits()) const
+%feature("docstring")  DistributionGaussian::generateValueList "std::vector< double > DistributionGaussian::generateValueList(size_t nbr_samples, double sigma_factor, const Limits &limits=Limits()) const
 
 generate list of sample values 
 ";
@@ -1231,7 +1231,7 @@ C++ includes: DistributionHandler.h
 %feature("docstring")  DistributionHandler::~DistributionHandler "DistributionHandler::~DistributionHandler()
 ";
 
-%feature("docstring")  DistributionHandler::addParameterDistribution "void DistributionHandler::addParameterDistribution(const std::string &param_name, const IDistribution1D &distribution, size_t nbr_samples, double sigma_factor=0.0, const AttLimits &limits=AttLimits())
+%feature("docstring")  DistributionHandler::addParameterDistribution "void DistributionHandler::addParameterDistribution(const std::string &param_name, const IDistribution1D &distribution, size_t nbr_samples, double sigma_factor=0.0, const Limits &limits=Limits())
 
 add a sampled parameter distribution 
 ";
@@ -1295,7 +1295,7 @@ Returns the median of the distribution.
 Returns the scale parameter of the distribution. 
 ";
 
-%feature("docstring")  DistributionLogNormal::generateValueList "std::vector< double > DistributionLogNormal::generateValueList(size_t nbr_samples, double sigma_factor, const AttLimits &limits=AttLimits()) const
+%feature("docstring")  DistributionLogNormal::generateValueList "std::vector< double > DistributionLogNormal::generateValueList(size_t nbr_samples, double sigma_factor, const Limits &limits=Limits()) const
 
 generate list of sample values 
 ";
@@ -1341,7 +1341,7 @@ Returns the mean of the distribution.
 Returns the half width at half maximum. 
 ";
 
-%feature("docstring")  DistributionLorentz::generateValueList "std::vector< double > DistributionLorentz::generateValueList(size_t nbr_samples, double sigma_factor, const AttLimits &limits=AttLimits()) const
+%feature("docstring")  DistributionLorentz::generateValueList "std::vector< double > DistributionLorentz::generateValueList(size_t nbr_samples, double sigma_factor, const Limits &limits=Limits()) const
 
 generate list of sample values 
 ";
@@ -1612,7 +1612,7 @@ Adds fit parameter.
 Adds fit parameter, step is calculated from initial parameter value. 
 ";
 
-%feature("docstring")  FitKernel::addFitParameter "void FitKernel::addFitParameter(const std::string &name, double value, const AttLimits &attlim, double step=0.0, double error=0.0)
+%feature("docstring")  FitKernel::addFitParameter "void FitKernel::addFitParameter(const std::string &name, double value, const Limits &attlim, double step=0.0, double error=0.0)
 
 Adds fit parameter.
 
@@ -1822,7 +1822,7 @@ C++ includes: FitParameterLinked.h
 %feature("docstring")  FitParameterLinked::FitParameterLinked "FitParameterLinked::FitParameterLinked()
 ";
 
-%feature("docstring")  FitParameterLinked::FitParameterLinked "FitParameterLinked::FitParameterLinked(const std::string &name, double value, double step, const AttLimits &attlim=AttLimits::limitless(), double error=0.0)
+%feature("docstring")  FitParameterLinked::FitParameterLinked "FitParameterLinked::FitParameterLinked(const std::string &name, double value, double step, const Limits &attlim=Limits::limitless(), double error=0.0)
 ";
 
 %feature("docstring")  FitParameterLinked::FitParameterLinked "FitParameterLinked::FitParameterLinked(const FitParameterLinked &)=delete
@@ -2026,7 +2026,7 @@ Assigns pair of (simulation, real data) for fitting. More than one pair can be a
 Assigns pair of (simulation, real data) for fitting. More than one pair can be added. 
 ";
 
-%feature("docstring")  FitSuite::addFitParameter "void FitSuite::addFitParameter(const std::string &name, double value, const AttLimits &attlim=AttLimits::limitless(), double step=0.0)
+%feature("docstring")  FitSuite::addFitParameter "void FitSuite::addFitParameter(const std::string &name, double value, const Limits &attlim=Limits::limitless(), double step=0.0)
 
 Adds fit parameter
 
@@ -6156,7 +6156,7 @@ get the probability density for value x
 get the mean of the distribution 
 ";
 
-%feature("docstring")  IDistribution1D::generateSamples "std::vector< ParameterSample > IDistribution1D::generateSamples(size_t nbr_samples, double sigma_factor=0.0, const AttLimits &limits=AttLimits()) const
+%feature("docstring")  IDistribution1D::generateSamples "std::vector< ParameterSample > IDistribution1D::generateSamples(size_t nbr_samples, double sigma_factor=0.0, const Limits &limits=Limits()) const
 
 generate list of sampled values with their weight xmin, xmax for sample generations are deduced from sigma_factor and possible limits 
 ";
@@ -6166,7 +6166,7 @@ generate list of sampled values with their weight xmin, xmax for sample generati
 generate list of sampled values with their weight within given xmin, xmax 
 ";
 
-%feature("docstring")  IDistribution1D::generateValueList "virtual std::vector<double> IDistribution1D::generateValueList(size_t nbr_samples, double sigma_factor, const AttLimits &limits=AttLimits()) const =0
+%feature("docstring")  IDistribution1D::generateValueList "virtual std::vector<double> IDistribution1D::generateValueList(size_t nbr_samples, double sigma_factor, const Limits &limits=Limits()) const =0
 
 generate list of sample values
 
@@ -9344,7 +9344,7 @@ A parameter of physical dimension \"length\". Values are in nm.
 C++ includes: DimensionedParameters.h
 ";
 
-%feature("docstring")  Length::Length "Length::Length(const std::string &name, ParameterPool *parent, volatile double *par, const AttLimits &limits)
+%feature("docstring")  Length::Length "Length::Length(const std::string &name, ParameterPool *parent, volatile double *par, const Limits &limits)
 ";
 
 %feature("docstring")  Length::clone "virtual Length* Length::clone(const std::string &new_name=\"\") const 
@@ -10624,7 +10624,7 @@ Sets concrete writing strategy.
 // File: classParameterDistribution.xml
 %feature("docstring") ParameterDistribution "";
 
-%feature("docstring")  ParameterDistribution::ParameterDistribution "ParameterDistribution::ParameterDistribution(const std::string &par_name, const IDistribution1D &distribution, size_t nbr_samples, double sigma_factor=0.0, const AttLimits &limits=AttLimits())
+%feature("docstring")  ParameterDistribution::ParameterDistribution "ParameterDistribution::ParameterDistribution(const std::string &par_name, const IDistribution1D &distribution, size_t nbr_samples, double sigma_factor=0.0, const Limits &limits=Limits())
 ";
 
 %feature("docstring")  ParameterDistribution::ParameterDistribution "ParameterDistribution::ParameterDistribution(const std::string &par_name, const IDistribution1D &distribution, size_t nbr_samples, double xmin, double xmax)
@@ -10667,7 +10667,7 @@ generate list of sampled values with their weight
 get list of linked parameter names 
 ";
 
-%feature("docstring")  ParameterDistribution::getLimits "AttLimits ParameterDistribution::getLimits() const 
+%feature("docstring")  ParameterDistribution::getLimits "Limits ParameterDistribution::getLimits() const 
 ";
 
 %feature("docstring")  ParameterDistribution::getMinValue "double ParameterDistribution::getMinValue() const 
@@ -11511,7 +11511,7 @@ Wrapper to real parameter for remote access to its value and callback abilities
 C++ includes: RealParameter.h
 ";
 
-%feature("docstring")  RealParameter::RealParameter "RealParameter::RealParameter(const std::string &name, ParameterPool *parent, volatile double *par, const AttLimits &limits=AttLimits::limitless())
+%feature("docstring")  RealParameter::RealParameter "RealParameter::RealParameter(const std::string &name, ParameterPool *parent, volatile double *par, const Limits &limits=Limits::limitless())
 ";
 
 %feature("docstring")  RealParameter::RealParameter "RealParameter::RealParameter(const RealParameter &other)
@@ -11548,7 +11548,7 @@ Returns true if wrapped parameter was not initialized with proper real value.
 throw exception if parameter was not initialized with proper value 
 ";
 
-%feature("docstring")  RealParameter::getAttLimits "AttLimits RealParameter::getAttLimits() const 
+%feature("docstring")  RealParameter::getLimits "Limits RealParameter::getLimits() const 
 ";
 
 %feature("docstring")  RealParameter::unit "virtual std::string RealParameter::unit() const =0
@@ -12247,7 +12247,7 @@ A parameter of that is physically dimensionless.
 C++ includes: DimensionedParameters.h
 ";
 
-%feature("docstring")  Scalar::Scalar "Scalar::Scalar(const std::string &name, ParameterPool *parent, volatile double *par, const AttLimits &limits)
+%feature("docstring")  Scalar::Scalar "Scalar::Scalar(const std::string &name, ParameterPool *parent, volatile double *par, const Limits &limits)
 ";
 
 %feature("docstring")  Scalar::clone "virtual Scalar* Scalar::clone(const std::string &new_name=\"\") const 
@@ -12450,7 +12450,7 @@ Clone simulated intensity map.
 Adds parameters from local to external pool, and call recursion over direct children. 
 ";
 
-%feature("docstring")  Simulation::addParameterDistribution "void Simulation::addParameterDistribution(const std::string &param_name, const IDistribution1D &distribution, size_t nbr_samples, double sigma_factor=0.0, const AttLimits &limits=AttLimits())
+%feature("docstring")  Simulation::addParameterDistribution "void Simulation::addParameterDistribution(const std::string &param_name, const IDistribution1D &distribution, size_t nbr_samples, double sigma_factor=0.0, const Limits &limits=Limits())
 
 add a sampled parameter distribution 
 ";

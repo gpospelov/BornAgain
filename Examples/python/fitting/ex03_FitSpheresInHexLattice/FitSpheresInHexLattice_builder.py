@@ -115,9 +115,9 @@ def run_fitting():
     fit_suite.attachObserver(draw_observer)
 
     # setting fitting parameters with starting values
-    fit_suite.addFitParameter("*radius", 8.*nm, ba.AttLimits.limited(4., 12.))
+    fit_suite.addFitParameter("*radius", 8.*nm, ba.Limits.limited(4., 12.))
     fit_suite.addFitParameter("*lattice_constant",
-                              8.*nm, ba.AttLimits.limited(4., 12.))
+                              8.*nm, ba.Limits.limited(4., 12.))
 
     # running fit
     fit_suite.runFit()

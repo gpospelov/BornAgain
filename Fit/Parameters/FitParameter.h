@@ -16,19 +16,22 @@
 #ifndef FITPARAMETER_H
 #define FITPARAMETER_H
 
-#include "AttLimits.h"
+#include "Attributes.h"
+#include "Limits.h"
 #include <string>
 
 //! @class FitParameter
 //! @ingroup fitting_internal
 //! @brief Parameter with value, error and limits for fitting routines.
 
-class BA_CORE_API_ FitParameter : public AttLimits
+class BA_CORE_API_ FitParameter : public Limits, public Attributes
 {
  public:
     FitParameter();
-    FitParameter(const std::string& name, double value, double step=0.0,
-                 const AttLimits& limits=AttLimits::limitless(), double error=0.0);
+    FitParameter(
+        const std::string& name, double value, double step=0.0,
+        const Limits& limits=Limits::limitless(), const Attributes& attr=Attributes::free(),
+        double error=0.0);
     virtual ~FitParameter(){}
 
     std::string getName() const { return m_name; }

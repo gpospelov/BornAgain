@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "ParameterPool.h"
-#include "AttLimits.h"
+#include "Limits.h"
 #include "RealParameter.h"
 #include <stdexcept>
 #include "StringUtils.h"
@@ -208,7 +208,7 @@ void ParameterPool::report_set_value_error(const std::string& parname, double va
     ostr << "ParameterPool::set_value_error() -> Attempt to set value " << value;
     ostr << " for parameter '" << parname << "' failed. Out of bounds?";
     try {
-        ostr << " Parameter limits " << getParameter(parname)->getAttLimits() << ".\n";
+        ostr << " Parameter limits " << getParameter(parname)->getLimits() << ".\n";
     } catch (...) {
         throw std::runtime_error("Bug de luxe in ParameterPool: cannot even report the error");
     }

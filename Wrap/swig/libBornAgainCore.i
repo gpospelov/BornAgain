@@ -66,7 +66,6 @@
 %import "WinDllMacros.h"
 
 %{
-#include "AttLimits.h"
 #include "BAVersion.h"
 #include "BasicVector3D.h"
 #include "Beam.h"
@@ -235,7 +234,8 @@
 // The following goes verbatim from libBornAgainCore.i to libBornAgainCore_wrap.cxx.
 // Note that the order matters, as base classes must be included before derived classes.
 
-%import(module="libBornAgainFit") "AttLimits.h"
+%import(module="libBornAgainFit") "Attributes.h"
+%import(module="libBornAgainFit") "Limits.h"
 
 %include "BAVersion.h"
 %include "BasicVector3D.h"

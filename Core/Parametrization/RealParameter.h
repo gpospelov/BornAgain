@@ -17,7 +17,8 @@
 #define REALPARAMETER_H
 
 #include "INamed.h"
-#include "AttLimits.h"
+#include "Attributes.h"
+#include "Limits.h"
 #include <string>
 
 class ParameterPool;
@@ -30,7 +31,8 @@ class BA_CORE_API_ RealParameter : public INamed {
 public:
     explicit RealParameter(
         const std::string& name, ParameterPool* parent,
-        volatile double* par, const AttLimits& limits=AttLimits::limitless());
+        volatile double* par, const Limits& limits=Limits::limitless(),
+        const Attributes& attr=Attributes::free());
     RealParameter(const RealParameter& other);
     RealParameter(const std::string& name, const RealParameter& other);
     virtual ~RealParameter() {}
@@ -53,7 +55,7 @@ public:
     friend std::ostream& operator<<(std::ostream& ostr, const RealParameter& p) {
         ostr << p.m_data; return ostr; }
 
-    AttLimits getAttLimits() const { return m_limits; }
+    Limits getLimits() const { return m_limits; }
 
     bool operator==(const RealParameter &other) const {
         return (m_limits == other.m_limits) && (m_data == other.m_data); }
@@ -65,7 +67,8 @@ protected:
     std::string m_name;
     ParameterPool* m_parent; //!< "owns" this parameter
     volatile double* m_data;
-    AttLimits m_limits;
+    Limits m_limits;
+    Attributes m_attr;
     std::string fullName(); //!< For use in error messages
 };
 

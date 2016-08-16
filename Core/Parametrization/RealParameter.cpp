@@ -18,12 +18,13 @@
 #include "ParameterPool.h"
 #include <sstream>
 
-RealParameter::RealParameter(
-    const std::string& name, ParameterPool* parent, volatile double* par, const AttLimits& limits)
+RealParameter::RealParameter(const std::string& name, ParameterPool* parent,
+                             volatile double* par, const Limits& limits, const Attributes& attr)
     : INamed(name)
     , m_parent(parent)
     , m_data(par)
     , m_limits(limits)
+    , m_attr(attr)
 {
     if(par && !m_limits.isInRange(getValue())) {
         std::ostringstream message;
@@ -59,7 +60,7 @@ void RealParameter::setValue(double value)
                 << ": out of bounds [" << m_limits << "]\n";
         throw std::runtime_error(message.str());
     }
-    if(m_limits.isFixed())
+    if(m_attr.isFixed())
         throw std::runtime_error("Parameter "+fullName()+" is fixed");
     *m_data = value;
     m_parent->onChange();

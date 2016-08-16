@@ -25,7 +25,6 @@ class BA_CORE_API_ IFTDistribution1D : public IParameterized
 {
 public:
     IFTDistribution1D(double omega) : m_omega(omega) {}
-    virtual ~IFTDistribution1D() {}
 
     virtual IFTDistribution1D* clone() const=0;
     virtual double evaluate(double q) const=0;
@@ -50,11 +49,8 @@ class BA_CORE_API_ FTDistribution1DCauchy : public IFTDistribution1D
 {
 public:
     FTDistribution1DCauchy(double omega);
-    virtual ~FTDistribution1DCauchy() {}
-
-    virtual FTDistribution1DCauchy* clone() const;
-
-    virtual double evaluate(double q) const;
+    FTDistribution1DCauchy* clone() const final { return new FTDistribution1DCauchy(m_omega); }
+    double evaluate(double q) const final;
 };
 
 
@@ -66,11 +62,8 @@ class BA_CORE_API_ FTDistribution1DGauss : public IFTDistribution1D
 {
 public:
     FTDistribution1DGauss(double omega);
-    virtual ~FTDistribution1DGauss() {}
-
-    virtual FTDistribution1DGauss* clone() const;
-
-    virtual double evaluate(double q) const;
+    FTDistribution1DGauss* clone() const final { return new FTDistribution1DGauss(m_omega); }
+    double evaluate(double q) const final;
 };
 
 
@@ -82,11 +75,8 @@ class BA_CORE_API_ FTDistribution1DGate : public IFTDistribution1D
 {
 public:
     FTDistribution1DGate(double omega);
-    virtual ~FTDistribution1DGate() {}
-
-    virtual FTDistribution1DGate* clone() const;
-
-    virtual double evaluate(double q) const;
+    FTDistribution1DGate* clone() const final { return new FTDistribution1DGate(m_omega); }
+    double evaluate(double q) const final;
 };
 
 
@@ -99,10 +89,8 @@ class BA_CORE_API_ FTDistribution1DTriangle : public IFTDistribution1D
 public:
     FTDistribution1DTriangle(double omega);
     virtual ~FTDistribution1DTriangle() {}
-
-    virtual FTDistribution1DTriangle* clone() const;
-
-    virtual double evaluate(double q) const;
+    FTDistribution1DTriangle* clone() const final { return new FTDistribution1DTriangle(m_omega); }
+    double evaluate(double q) const final;
 };
 
 
@@ -114,11 +102,8 @@ class BA_CORE_API_ FTDistribution1DCosine : public IFTDistribution1D
 {
 public:
     FTDistribution1DCosine(double omega);
-    virtual ~FTDistribution1DCosine() {}
-
-    virtual FTDistribution1DCosine* clone() const;
-
-    virtual double evaluate(double q) const;
+    FTDistribution1DCosine* clone() const final { return new FTDistribution1DCosine(m_omega); }
+    double evaluate(double q) const final;
 };
 
 
@@ -130,14 +115,10 @@ class BA_CORE_API_ FTDistribution1DVoigt : public IFTDistribution1D
 {
 public:
     FTDistribution1DVoigt(double omega, double eta);
-    virtual ~FTDistribution1DVoigt() {}
-
-    virtual FTDistribution1DVoigt* clone() const;
-
-    virtual double evaluate(double q) const;
-
-    virtual double getEta() const { return m_eta;}
-
+    FTDistribution1DVoigt* clone() const final {
+        return new FTDistribution1DVoigt(m_omega, m_eta); }
+    double evaluate(double q) const final;
+    double getEta() const { return m_eta;}
 protected:
     virtual void init_parameters();
     double m_eta;

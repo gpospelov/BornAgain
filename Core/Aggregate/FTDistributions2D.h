@@ -28,8 +28,6 @@ class BA_CORE_API_ IFTDistribution2D : public IParameterized
 public:
     IFTDistribution2D(double coherence_length_x, double coherence_length_y,
                       double gamma=0, double delta=Pi::PID2);
-    virtual ~IFTDistribution2D() {}
-
     virtual IFTDistribution2D* clone() const=0;
 
     void setGamma(double gamma) { m_gamma = gamma; }
@@ -75,14 +73,10 @@ class BA_CORE_API_ FTDistribution2DCauchy : public IFTDistribution2D
 public:
     FTDistribution2DCauchy(double coherence_length_x, double coherence_length_y,
                            double gamma=0, double delta=Pi::PID2);
-
-    virtual ~FTDistribution2DCauchy() {}
-
     FTDistribution2DCauchy* clone() const final {
         return new FTDistribution2DCauchy(
             m_coherence_length_x, m_coherence_length_y, m_gamma, m_delta); }
-
-    virtual double evaluate(double qx, double qy) const;
+    double evaluate(double qx, double qy) const final;
 };
 
 
@@ -96,14 +90,10 @@ class BA_CORE_API_ FTDistribution2DGauss : public IFTDistribution2D
 public:
     FTDistribution2DGauss(double coherence_length_x, double coherence_length_y,
                           double gamma=0, double delta=Pi::PID2);
-
-    virtual ~FTDistribution2DGauss() {}
-
     FTDistribution2DGauss* clone() const final {
         return new FTDistribution2DGauss(
             m_coherence_length_x, m_coherence_length_y, m_gamma, m_delta); }
-
-    virtual double evaluate(double qx, double qy) const;
+    double evaluate(double qx, double qy) const final;
 };
 
 
@@ -117,14 +107,10 @@ class BA_CORE_API_ FTDistribution2DGate : public IFTDistribution2D
 public:
     FTDistribution2DGate(double coherence_length_x, double coherence_length_y,
                          double gamma=0, double delta=Pi::PID2);
-
-    virtual ~FTDistribution2DGate() {}
-
     FTDistribution2DGate* clone() const final {
         return new FTDistribution2DGate(
             m_coherence_length_x, m_coherence_length_y, m_gamma, m_delta); }
-
-    virtual double evaluate(double qx, double qy) const;
+    double evaluate(double qx, double qy) const final;
 };
 
 
@@ -138,14 +124,10 @@ class BA_CORE_API_ FTDistribution2DCone : public IFTDistribution2D
 public:
     FTDistribution2DCone(double coherence_length_x, double coherence_length_y,
                          double gamma=0, double delta=Pi::PID2);
-
-    virtual ~FTDistribution2DCone() {}
-
     FTDistribution2DCone* clone() const final {
         return new FTDistribution2DCone(
             m_coherence_length_x, m_coherence_length_y, m_gamma, m_delta); }
-
-    virtual double evaluate(double qx, double qy) const;
+    double evaluate(double qx, double qy) const final;
 
 private:
     //! second part of the integrand:
@@ -163,15 +145,11 @@ class BA_CORE_API_ FTDistribution2DVoigt : public IFTDistribution2D
 public:
     FTDistribution2DVoigt(double coherence_length_x, double coherence_length_y,
                           double eta, double gamma=0, double delta=Pi::PID2);
-    virtual ~FTDistribution2DVoigt() {}
-
     FTDistribution2DVoigt* clone() const final {
         return new FTDistribution2DVoigt(
             m_coherence_length_x, m_coherence_length_y, m_eta, m_gamma, m_delta); }
-
-    virtual double evaluate(double qx, double qy) const;
-
-    virtual double getEta() const { return m_eta;}
+    double evaluate(double qx, double qy) const final;
+    double getEta() const { return m_eta;}
 
 protected:
     double m_eta;

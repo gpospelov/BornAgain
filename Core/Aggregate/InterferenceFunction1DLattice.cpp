@@ -22,9 +22,8 @@
 
 using namespace BornAgain;
 
-//! @brief constructor
-//! @param length Lattice length
-//! @param xi rotation of lattice with respect to x-axis
+//! @param length: Lattice length
+//! @param xi: rotation of lattice with respect to x-axis
 InterferenceFunction1DLattice::InterferenceFunction1DLattice(double length, double xi)
     : mp_pdf(0), m_na(0)
 {
@@ -45,11 +44,6 @@ InterferenceFunction1DLattice* InterferenceFunction1DLattice::clone() const
     if (mp_pdf)
         result->setDecayFunction(*mp_pdf);
     return result;
-}
-
-void InterferenceFunction1DLattice::accept(ISampleVisitor* visitor) const
-{
-    visitor->visit(this);
 }
 
 void InterferenceFunction1DLattice::setDecayFunction(const IFTDecayFunction1D& pdf)
@@ -102,14 +96,4 @@ void InterferenceFunction1DLattice::init_parameters()
 {
     registerPositiveLength(Length, &m_lattice_params.m_length);
     registerUnlimitedAngle(Xi, &m_lattice_params.m_xi);
-}
-
-Lattice1DParameters InterferenceFunction1DLattice::getLatticeParameters() const
-{
-    return m_lattice_params;
-}
-
-const IFTDecayFunction1D* InterferenceFunction1DLattice::getDecayFunction() const
-{
-    return mp_pdf;
 }

@@ -19,12 +19,10 @@
 #include "IDetectorResolution.h"
 #include "IResolutionFunction2D.h"
 
-//! @class ConvolutionDetectorResolution
-//! @ingroup algorithms
-//! @brief Convolutes the intensity in 1 or 2 dimensions with a resolution function.
-//!
-//! Limitation: this class assumes that the data points are evenly
-//! distributed on each axis
+//! Convolutes the intensity in 1 or 2 dimensions with a resolution function.
+//! @ingroup simulation
+
+//! Limitation: this class assumes that the data points are evenly distributed on each axis
 
 class BA_CORE_API_ ConvolutionDetectorResolution : public IDetectorResolution
 {

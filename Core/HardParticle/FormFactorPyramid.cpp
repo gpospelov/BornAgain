@@ -28,10 +28,9 @@ const PolyhedralTopology FormFactorPyramid::topology = {
         { { 4, 5, 6, 7 }, true  }  // TODO -> true
     }, false };
 
-//! @brief Pyramid constructor
-//! @param base_edge of one side of Pyramid's square base
-//! @param height of Pyramid
-//! @param alpha dihedral angle in radians between base and facet
+//! @param base_edge of one side of the square base
+//! @param height    of the frustum
+//! @param alpha:    dihedral angle in radians between base and facet
 
 FormFactorPyramid::FormFactorPyramid(double base_edge, double height, double alpha)
     : FormFactorPolyhedron()

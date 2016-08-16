@@ -19,52 +19,48 @@
 #include "IShape2D.h"
 #include "OutputData.h"
 
-
 class IDetector2D;
 template <class T> class OutputData;
 class Histogram2D;
 
-
-//! @class DetectorMask
+//! Collection of detector masks.
 //! @ingroup simulation
-//! @brief The container with all masks
 
 class BA_CORE_API_ DetectorMask
 {
 public:
     DetectorMask();
-    DetectorMask(const DetectorMask &other);
-    DetectorMask &operator=(const DetectorMask &other);
+    DetectorMask(const DetectorMask& other);
+    DetectorMask& operator=(const DetectorMask& other);
 
-    //! Add mask to the stack of detector masks. The value "true" means that the area will
-    //! be excluded from the analysis.
+    //! Add mask to the stack of detector masks.
+    //! The value "true" means that the area will be excluded from the analysis.
     //! @param shape The shape of mask.
     //! @param mask_value The value of mask
-    void addMask(const Geometry::IShape2D &shape, bool mask_value);
+    void addMask(const Geometry::IShape2D& shape, bool mask_value);
 
     //! Init the map of masks for the given detector plane
-    void initMaskData(const IDetector2D &detector);
+    void initMaskData(const IDetector2D& detector);
 
-    void initMaskData(const OutputData<double > &data);
-
+    void initMaskData(const OutputData<double>& data);
 
     bool getMask(size_t index) const;
 
-    const OutputData<bool>* getMaskData() const;
+    const OutputData<bool>* getMaskData() const { return &m_mask_data; }
 
-    Histogram2D *createHistogram() const;
+    Histogram2D* createHistogram() const;
 
     //! remove all masks and return object to initial state
     void removeMasks();
 
     //! returns true if has masks
-    bool hasMasks() const;
+    bool hasMasks() const { return getNumberOfMasks()>0; }
 
-    int getNumberOfMaskedChannels() const;
+    int getNumberOfMaskedChannels() const { return m_number_of_masked_channels; }
 
     size_t getNumberOfMasks() const;
 
-    const Geometry::IShape2D *getMaskShape(size_t mask_index, bool &mask_value) const;
+    const Geometry::IShape2D* getMaskShape(size_t mask_index, bool& mask_value) const;
 
 private:
     void process_masks();
@@ -76,4 +72,3 @@ private:
 };
 
 #endif // DETECTORMASK_H
-

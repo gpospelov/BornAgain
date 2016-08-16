@@ -129,19 +129,14 @@ const IAbstractParticle* ParticleLayout::getParticle(size_t index) const
 SafePointerVector<const IParticle> ParticleLayout::getParticles() const
 {
     SafePointerVector<const IParticle> particle_vector;
-    for (SafePointerVector<IAbstractParticle>::const_iterator it = m_particles.begin();
-         it != m_particles.end(); ++it) {
-        const IAbstractParticle* p_particle = (*it);
-        const ParticleDistribution* p_part_distr
-                = dynamic_cast<const ParticleDistribution*>(p_particle);
-        const IParticle* p_iparticle = dynamic_cast<const IParticle*>(p_particle);
-        if (p_part_distr) {
+    for (auto particle: m_particles) {
+        if (const auto* p_part_distr = dynamic_cast<const ParticleDistribution*>(particle)) {
             std::vector<const IParticle*> generated_particles;
             p_part_distr->generateParticles(generated_particles);
             for (size_t i = 0; i < generated_particles.size(); ++i) {
                 particle_vector.push_back(generated_particles[i]);
             }
-        } else if (p_iparticle) {
+        } else if (const auto* p_iparticle = dynamic_cast<const IParticle*>(particle)) {
             particle_vector.push_back(p_iparticle->clone());
         }
     }
@@ -168,8 +163,7 @@ double ParticleLayout::getTotalParticleSurfaceDensity() const
 {
     double iff_density =
         mP_interference_function ? mP_interference_function->getParticleDensity() : 0.0;
-    return iff_density > 0.0 ? iff_density
-                             : m_total_particle_density;
+    return iff_density > 0.0 ? iff_density : m_total_particle_density;
 }
 
 //! Adds particle information with simultaneous registration in parent class.

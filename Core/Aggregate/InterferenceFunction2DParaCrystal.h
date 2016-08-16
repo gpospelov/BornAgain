@@ -25,30 +25,23 @@
 template <class T> class IntegratorReal;
 class IFTDistribution2D;
 
-//! @class InterferenceFunction2DParaCrystal
+//! Interference function of 2D paracrystal.
 //! @ingroup interference
-//! @brief Interference function of 2D paracrystal.
+
 class BA_CORE_API_ InterferenceFunction2DParaCrystal : public IInterferenceFunction
 {
 public:
-
-    //! @brief constructor of 2D paracrystal interference function
-    //! @param length_1 Length of first lattice basis vector.
-    //! @param length_2 Length of second lattice basis vector.
-    //! @param alpha_lattice Angle between the lattice basis vectors.
-    //! @param xi Angle between first basis vector and the x-axis of incoming beam.
-    //! @param damping_length Damping length for removing delta function singularity at q=0.
     InterferenceFunction2DParaCrystal(double length_1, double length_2, double alpha_lattice,
                                       double xi = 0.0, double damping_length = 0.0);
 
-    virtual ~InterferenceFunction2DParaCrystal();
+    ~InterferenceFunction2DParaCrystal() final;
 
-    virtual InterferenceFunction2DParaCrystal* clone() const;
+    InterferenceFunction2DParaCrystal* clone() const final;
 
-    virtual void accept(ISampleVisitor* visitor) const;
+    void accept(ISampleVisitor* visitor) const final { visitor->visit(this); }
 
     //! Returns textual representation of *this and its descendants.
-    virtual std::string to_str(int indent=0) const;
+    std::string to_str(int indent=0) const final;
 
     static InterferenceFunction2DParaCrystal* createSquare(double peak_distance,
                                                            double damping_length = 0.0,
@@ -72,7 +65,7 @@ public:
                                      const IFTDistribution2D& pdf_2);
 
 
-    virtual double evaluate(const kvector_t q) const;
+    double evaluate(const kvector_t q) const final;
 
     std::vector<double> getDomainSizes() const;
     std::vector<const IFTDistribution2D*> getProbabilityDistributions() const;
@@ -88,11 +81,11 @@ public:
                                                     int copy_number = -1) const;
 
     //! Returns the particle density associated with this 2d paracrystal lattice
-    virtual double getParticleDensity() const;
+    double getParticleDensity() const final;
 
 protected:
     //! Registers some class members for later access via parameter pool
-    virtual void init_parameters();
+    void init_parameters();
 
     void transformToPrincipalAxes(double qx, double qy, double gamma, double delta, double& q_pa_1,
                                   double& q_pa_2) const;

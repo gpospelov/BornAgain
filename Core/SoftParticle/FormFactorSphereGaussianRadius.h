@@ -18,9 +18,8 @@
 
 #include "FormFactorFullSphere.h"
 
-//! @class FormFactorSphereGaussianRadius
-//! @ingroup formfactors
-//! @brief The formfactor of sphere with gaussian radius distribution.
+//! A sphere with gaussian radius distribution.
+//! @ingroup softParticle
 
 class BA_CORE_API_ FormFactorSphereGaussianRadius : public IFormFactorBorn
 {

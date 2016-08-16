@@ -18,9 +18,8 @@
 
 #include "IFormFactorBorn.h"
 
-//! @class FormFactorTrivial
-//! @ingroup formfactors
-//! @brief A uniform formfactor F(q)=1, for development purposes.
+//! A dot, with trivial formfactor F(q)=1.
+//! @ingroup hardParticle
 
 class BA_CORE_API_ FormFactorTrivial : public IFormFactorBorn
 {

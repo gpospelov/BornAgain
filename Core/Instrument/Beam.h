@@ -20,9 +20,8 @@
 #include "EigenCore.h"
 #include "Vectors3D.h"
 
-//! @class Beam
+//! Ideal collimated beam defined by wavelength, direction and intensity.
 //! @ingroup simulation
-//! @brief Ideal collimated beam defined by wavelength, direction and intensity.
 
 class BA_CORE_API_ Beam : public IParameterized
 {
@@ -33,14 +32,13 @@ public:
 
     virtual ~Beam() {}
 
-    //! Get the value of the wavevector
+    //! Returns the wavevector
     kvector_t getCentralK() const;
 
-    //! Sets the value of the incoming wavevector in terms of wavelength
-    //! and incoming angles
+    //! Sets the wavevector in terms of wavelength and incoming angles
     void setCentralK(double wavelength, double alpha_i, double phi_i);
 
-    //! Gets the beam intensity in neutrons/sec
+    //! Returns the beam intensity in neutrons/sec
     double getIntensity() const { return m_intensity; }
 
     //! Sets the beam intensity in neutrons/sec
@@ -50,7 +48,7 @@ public:
     void setPolarization(const kvector_t bloch_vector);
 
 #ifndef SWIG
-    //! Gets the polarization density matrix (in spin basis along z-axis)
+    //! Returns the polarization density matrix (in spin basis along z-axis)
     Eigen::Matrix2cd getPolarization() const  { return m_polarization; }
 #endif
 

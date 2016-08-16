@@ -25,9 +25,8 @@ class IInterferenceFunction;
 class IParticle;
 class ISampleVisitor;
 
-//! @class ParticleLayout
+//! Decorator class that adds particles to ISample objects.
 //! @ingroup samples
-//! @brief Decorator class that adds particles to ISample objects
 
 class BA_CORE_API_ ParticleLayout : public ILayout
 {

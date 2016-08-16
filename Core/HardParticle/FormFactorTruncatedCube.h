@@ -18,18 +18,17 @@
 
 #include "FormFactorPolyhedron.h"
 
-//! @class FormFactorTruncatedCube
-//! @ingroup formfactors
-//! @brief The formfactor of a truncated cube.
+//! A cube, with tetrahedral truncation of all edges.
+//! @ingroup hardParticle
 
 class BA_CORE_API_ FormFactorTruncatedCube : public FormFactorPolyhedron
 {
 public:
     FormFactorTruncatedCube(double length, double removed_length);
 
-    FormFactorTruncatedCube *clone() const final {
+    FormFactorTruncatedCube*clone() const final {
         return new FormFactorTruncatedCube(m_length, m_removed_length); }
-    void accept(ISampleVisitor *visitor) const final { visitor->visit(this); }
+    void accept(ISampleVisitor*visitor) const final { visitor->visit(this); }
 
     double getLength() const { return m_length; }
     double getRemovedLength() const { return m_removed_length; }

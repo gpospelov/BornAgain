@@ -30,7 +30,7 @@ public:
     OutputDataWriter(const std::string& file_name);
 
     //! write output data to file
-    void writeOutputData(const OutputData<double >& data);
+    void writeOutputData(const OutputData<double>& data);
 
     //! Sets concrete writing strategy
     void setStrategy(IOutputDataWriteStrategy* write_strategy);

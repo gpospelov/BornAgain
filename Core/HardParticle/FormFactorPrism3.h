@@ -17,9 +17,8 @@
 #define FORMFACTORPRISM3_H
 #include "FormFactorPolyhedron.h"
 
-//! @class FormFactorPrism3
-//! @ingroup formfactors
-//! @brief The formfactor of a prism based on an equilateral triangle.
+//! A prism based on an equilateral triangle.
+//! @ingroup hardParticle
 
 class BA_CORE_API_ FormFactorPrism3 : public FormFactorPolygonalPrism
 {

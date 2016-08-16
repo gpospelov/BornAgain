@@ -57,14 +57,12 @@ kvector_t Beam::getCentralK() const
 
 void Beam::setCentralK(double wavelength, double alpha_i, double phi_i)
 {
-    if (wavelength <= 0.0) {
+    if (wavelength <= 0.0)
         throw Exceptions::ClassInitializationException(
             "Beam::setCentralK() -> Error. Wavelength can't be negative or zero.");
-    }
-    if (alpha_i < 0.0) {
+    if (alpha_i < 0.0)
         throw Exceptions::ClassInitializationException(
             "Beam::setCentralK() -> Error. Inclination angle alpha_i can't be negative.");
-    }
     m_wavelength = wavelength;
     m_alpha = alpha_i;
     m_phi = phi_i;
@@ -72,11 +70,10 @@ void Beam::setCentralK(double wavelength, double alpha_i, double phi_i)
 
 void Beam::setPolarization(const kvector_t bloch_vector)
 {
-    if (bloch_vector.mag() > 1.0) {
-        throw Exceptions::ClassInitializationException("Beam::setPolarization: The given Bloch "
-                                                       "vector cannot represent a real physical "
-                                                       "ensemble");
-    }
+    if (bloch_vector.mag() > 1.0)
+        throw Exceptions::ClassInitializationException(
+            "Beam::setPolarization: "
+            "The given Bloch vector cannot represent a real physical ensemble");
     m_polarization = calculatePolarization(bloch_vector);
 }
 

@@ -45,10 +45,8 @@ complex_t FormFactorGauss::evaluate_for_q(const cvector_t q) const
     if (std::abs(qyr) > m_max_ql)
         return 0.0;
 
-    complex_t z_part = exp_I(qzHdiv2) * m_height * std::exp(-qzh * qzh / 4.0 / Pi::PI);
-    double radial_part = m_width * m_width * std::exp(-(qxr * qxr + qyr * qyr) / 4.0 / Pi::PI);
-    complex_t result = radial_part * z_part;
-    return result;
+    return exp_I(qzHdiv2) * m_height * m_width * m_width *
+        std::exp(-(qxr*qxr + qyr*qyr + qzh*qzh) / 4.0 / Pi::PI);
 }
 
 void FormFactorGauss::initialize()

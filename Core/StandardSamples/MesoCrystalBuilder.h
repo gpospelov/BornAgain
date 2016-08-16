@@ -24,10 +24,8 @@ class ISample;
 class Lattice;
 class MesoCrystal;
 
-//! @MesoCrystalBuilder
+//! Builds sample: mesocrystals of cylindrical shape composed by spherical nanoparticles.
 //! @ingroup standard_samples
-//! @brief Builds sample: mesocrystals of cylindrical shape composed by
-//! spherical nanoparticles.
 
 class BA_CORE_API_ MesoCrystalBuilder : public ISampleBuilder
 {

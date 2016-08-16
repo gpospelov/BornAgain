@@ -33,9 +33,12 @@ typedef _object PyObject;
 
 using std::size_t;
 
-//! @class OutputData
+//! Template class to store data of any type in multi-dimensional space.
 //! @ingroup tools
-//! @brief Template class to store data of any type in multi-dimensional space.
+
+//! Used with data type double to hold simulation results.
+//! Used with data type CumulativeValue in IHistogram classes.
+//! Used with data type bool to hold a detector mask (-> class DetectorMask)
 
 template <class T>
 class OutputData

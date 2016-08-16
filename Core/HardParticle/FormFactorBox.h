@@ -18,22 +18,17 @@
 
 #include "IFormFactorBorn.h"
 
-//! @class FormFactorBox
-//! @ingroup formfactors
-//! @brief The formfactor for a rectangular box.
+//! A rectangular prism (parallelepiped).
+//! @ingroup hardParticle
 
 class BA_CORE_API_ FormFactorBox : public IFormFactorBorn
 {
 public:
-    //! @brief Box constructor
-    //! @param length of Box's base
-    //! @param width of Box's base
-    //! @param height of Box
     FormFactorBox( double length, double width, double height);
 
-    FormFactorBox *clone() const { return new FormFactorBox(m_length, m_width, m_height); }
+    FormFactorBox* clone() const { return new FormFactorBox(m_length, m_width, m_height); }
 
-    void accept(ISampleVisitor *visitor) const final { visitor->visit(this); }
+    void accept(ISampleVisitor* visitor) const final { visitor->visit(this); }
 
     double getLength() const { return m_length; }
     double getHeight() const { return m_height; }

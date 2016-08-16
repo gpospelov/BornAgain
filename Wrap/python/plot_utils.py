@@ -73,7 +73,7 @@ def yamlDump(filename, data):
     with open(filename+".yaml", "w") as f:
         f.write(yaml.dump(data, None, ImprovedDumper,
                           allow_unicode=True, encoding='utf-8',
-                          default_flow_style=False, indent=4, width=70))
+                          default_flow_style=False, indent=4, width=70).decode('utf-8'))
 
 
 def getFilenameOrPlotflag():
@@ -103,7 +103,7 @@ def simulateThenPlotOrSave(
         return
     # save result
     if type(result) is dict:
-        for name, subresult in result.iteritems():
+        for name, subresult in result.items(): # inefficient under Py2, but good enough
             save(arg+"."+str(name), subresult)
     else:
         save(arg+".ref", result)

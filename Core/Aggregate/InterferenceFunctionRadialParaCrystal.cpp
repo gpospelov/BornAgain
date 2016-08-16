@@ -32,9 +32,8 @@ InterferenceFunctionRadialParaCrystal::InterferenceFunctionRadialParaCrystal(
     , m_domain_size(0.0)
 {
     setName(InterferenceFunctionRadialParaCrystalType);
-    if (m_damping_length==0.0) {
+    if (m_damping_length==0.0)
         m_use_damping_length = false;
-    }
     init_parameters();
 }
 
@@ -69,11 +68,10 @@ std::string InterferenceFunctionRadialParaCrystal::to_str(int indent) const
 
 double InterferenceFunctionRadialParaCrystal::evaluate(const kvector_t q) const
 {
-    if (!mP_pdf) {
+    if (!mP_pdf)
         throw Exceptions::NullPointerException("InterferenceFunctionRadialParaCrystal::"
                 "evaluate() -> Error! Probability distribution for "
                 "interference funtion not properly initialized");
-    }
     double result=0.0;
     double qxr = q.x();
     double qyr = q.y();
@@ -98,9 +96,9 @@ double InterferenceFunctionRadialParaCrystal::evaluate(const kvector_t q) const
             if (std::abs(fp)==0.0
              || std::log(std::abs(fp))*nd < std::log(std::numeric_limits<double>::min())) {
                             tmp = 0.0;
-                        } else {
-                            tmp = std::pow(fp,n);
-                        }
+            } else {
+                tmp = std::pow(fp,n);
+            }
             complex_t intermediate = fp/(1.0-fp) - fp*(1.0-tmp)/nd/(1.0-fp)/(1.0-fp);
             result = 1.0 + 2.0*intermediate.real();
         }

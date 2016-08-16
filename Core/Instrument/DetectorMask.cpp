@@ -84,19 +84,13 @@ bool DetectorMask::getMask(size_t index) const
     return m_mask_data[index];
 }
 
-const OutputData<bool>* DetectorMask::getMaskData() const
-{
-    return &m_mask_data;
-}
-
-Histogram2D *DetectorMask::createHistogram() const
+Histogram2D* DetectorMask::createHistogram() const
 {
     OutputData<double> data;
     data.copyShapeFrom(m_mask_data);
-    for(size_t i=0; i<m_mask_data.getAllocatedSize(); ++i) {
+    for(size_t i=0; i<m_mask_data.getAllocatedSize(); ++i)
         data[i] = static_cast<double>(m_mask_data[i]);
-    }
-    return dynamic_cast<Histogram2D *>(IHistogram::createHistogram(data));
+    return dynamic_cast<Histogram2D*>(IHistogram::createHistogram(data));
 }
 
 void DetectorMask::removeMasks()
@@ -106,16 +100,6 @@ void DetectorMask::removeMasks()
     m_mask_data.clear();
 }
 
-bool DetectorMask::hasMasks() const
-{
-    return m_shapes.size() ? true : false;
-}
-
-int DetectorMask::getNumberOfMaskedChannels() const
-{
-    return m_number_of_masked_channels;
-}
-
 size_t DetectorMask::getNumberOfMasks() const
 {
     return m_shapes.size();
@@ -123,17 +107,17 @@ size_t DetectorMask::getNumberOfMasks() const
 
 const Geometry::IShape2D* DetectorMask::getMaskShape(size_t mask_index, bool& mask_value) const
 {
-    if(mask_index < getNumberOfMasks()) {
-        mask_value = m_mask_of_shape[mask_index];
-        return m_shapes[mask_index];
-    }
-    return 0;
+    if(mask_index >= getNumberOfMasks())
+        return nullptr;
+    mask_value = m_mask_of_shape[mask_index];
+    return m_shapes[mask_index];
 }
 
 void DetectorMask::process_masks()
 {
     m_mask_data.setAllTo(false);
-    if(!m_shapes.size()) return;
+    if(!m_shapes.size())
+        return;
 
     m_number_of_masked_channels = 0;
     for(size_t index=0; index<m_mask_data.getAllocatedSize(); ++index) {
@@ -144,12 +128,13 @@ void DetectorMask::process_masks()
         for(size_t i_shape=m_shapes.size(); i_shape>0; --i_shape) {
             const Geometry::IShape2D* shape = m_shapes[i_shape-1];
             if(shape->contains(binx, biny)) {
-                if(m_mask_of_shape[i_shape-1]) is_masked = true;
+                if(m_mask_of_shape[i_shape-1])
+                    is_masked = true;
                 m_mask_data[index] = m_mask_of_shape[i_shape-1];
-                // if given index is covered by the shape, stop looking further
-                break;
+                break; // index is covered by the shape, stop looking further
             }
         }
-        if(is_masked) ++m_number_of_masked_channels;
+        if(is_masked)
+            ++m_number_of_masked_channels;
     }
 }

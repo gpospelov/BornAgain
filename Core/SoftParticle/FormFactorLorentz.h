@@ -18,9 +18,8 @@
 
 #include "IFormFactorBorn.h"
 
-//! @class FormFactorLorentz
-//! @ingroup formfactors
-//! @brief The formfactor of a lorentzian.
+//! The formfactor of a lorentzian.
+//! @ingroup softParticle
 
 class BA_CORE_API_ FormFactorLorentz : public IFormFactorBorn
 {

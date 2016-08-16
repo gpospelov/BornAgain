@@ -25,6 +25,11 @@
 
 using namespace BornAgain;
 
+//! @param length_1 Length of first lattice basis vector.
+//! @param length_2 Length of second lattice basis vector.
+//! @param alpha_lattice Angle between the lattice basis vectors.
+//! @param xi Angle between first basis vector and the x-axis of incoming beam.
+//! @param damping_length Damping length for removing delta function singularity at q=0.
 InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal(
         double length_1, double length_2, double alpha_lattice, double xi, double damping_length)
     : m_integrate_xi(false)
@@ -40,9 +45,8 @@ InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal(
     m_domain_sizes[0] = 0.0;
     m_domain_sizes[1] = 0.0;
     setName(InterferenceFunction2DParaCrystalType);
-    if (m_damping_length==0.0) {
+    if (m_damping_length==0.0)
         m_use_damping_length = false;
-    }
     init_parameters();
     mP_integrator = make_integrator_real(
         this, &InterferenceFunction2DParaCrystal::interferenceForXi);
@@ -64,11 +68,6 @@ InterferenceFunction2DParaCrystal* InterferenceFunction2DParaCrystal::clone() co
         result->setProbabilityDistributions(*m_pdfs[0], *m_pdfs[1]);
     result->setIntegrationOverXi(m_integrate_xi);
     return result;
-}
-
-void InterferenceFunction2DParaCrystal::accept(ISampleVisitor* visitor) const
-{
-    visitor->visit(this);
 }
 
 std::string InterferenceFunction2DParaCrystal::to_str(int indent) const
@@ -178,16 +177,14 @@ double InterferenceFunction2DParaCrystal::interferenceForXi(double xi) const
 double InterferenceFunction2DParaCrystal::interference1D(
     double qx, double qy, double xi, size_t index) const
 {
-    if (index > 1) {
+    if (index > 1)
         throw Exceptions::OutOfBoundsException("InterferenceFunction2DParaCrystal::"
                 "interference1D() -> Error! Index of interference function "
                 "probability must be < 2");
-    }
-    if (!m_pdfs[0] || !m_pdfs[1]) {
+    if (!m_pdfs[0] || !m_pdfs[1])
         throw Exceptions::NullPointerException("InterferenceFunction2DParaCrystal::"
                 "interference1D() -> Error! Probability distributions for "
                 "interference funtion not properly initialized");
-    }
     double result;
     double length = index ? m_lattice_params.m_length_2 : m_lattice_params.m_length_1;
     int n = (int)std::abs(m_domain_sizes[index]/length);
@@ -196,16 +193,14 @@ double InterferenceFunction2DParaCrystal::interference1D(
     if (n<1) {
         result = ((1.0 + fp)/(1.0 - fp)).real();
     } else {
-        if (std::norm(1.0-fp) < Numeric::double_epsilon ) {
+        if (std::norm(1.0-fp) < Numeric::double_epsilon )
             result = nd;
-        }
         // for (1-fp)*nd small, take the series expansion to second order in nd*(1-fp)
         else if (std::abs(1.0-fp)*nd < 2e-4) {
             complex_t intermediate = (nd-1.0)/2.0 + (nd*nd-1.0)*(fp-1.0)/6.0
                     + (nd*nd*nd-2.0*nd*nd-nd+2.0)*(fp-1.0)*(fp-1.0)/24.0;
             result = 1.0 + 2.0*intermediate.real();
-        }
-        else {
+        } else {
             complex_t tmp;
             if (std::abs(fp)==0.0
              || std::log(std::abs(fp))*nd < std::log(std::numeric_limits<double>::min())) {

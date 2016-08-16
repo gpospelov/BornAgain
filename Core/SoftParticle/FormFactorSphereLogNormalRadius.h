@@ -21,9 +21,8 @@
 
 class DistributionLogNormal;
 
-//! @class FormFactorSphereLogNormalRadius
-//! @ingroup formfactors
-//! @brief The formfactor of sphere with log normal radius distribution.
+//! A sphere with log normal radius distribution.
+//! @ingroup softParticle
 
 class BA_CORE_API_ FormFactorSphereLogNormalRadius : public IFormFactorBorn
 {
@@ -31,9 +30,9 @@ public:
     FormFactorSphereLogNormalRadius(double mean, double scale_param, size_t n_samples);
     virtual ~FormFactorSphereLogNormalRadius();
 
-    virtual FormFactorSphereLogNormalRadius *clone() const {
+    virtual FormFactorSphereLogNormalRadius* clone() const {
         return new FormFactorSphereLogNormalRadius(m_mean, m_scale_param, m_n_samples); }
-    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
+    virtual void accept(ISampleVisitor* visitor) const { visitor->visit(this); }
 
     virtual double getRadialExtension() const;
 
@@ -44,7 +43,7 @@ private:
     double m_scale_param;
     size_t m_n_samples;
 
-    DistributionLogNormal *mp_distribution;
+    DistributionLogNormal* mp_distribution;
 
     SafePointerVector<IFormFactorBorn> m_form_factors;
     std::vector<double> m_probabilities;

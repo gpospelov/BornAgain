@@ -18,17 +18,12 @@
 
 #include "IFormFactorBorn.h"
 
-//! @class FormFactorEllipsoidalCylinder
-//! @ingroup formfactors
-//! @brief The formfactor of an ellipsoidal cylinder.
+//! A cylinder with elliptical base.
+//! @ingroup hardParticle
 
 class BA_CORE_API_ FormFactorEllipsoidalCylinder : public IFormFactorBorn
 {
 public:
-    //! @brief Ellipsoidal Cylinder constructor
-    //! @param radius_x half length of one horizontal main axes
-    //! @param radius_y half length of the other horizontal main axes
-    //! @param height of Ellipsoidal Cylinder
     FormFactorEllipsoidalCylinder(double radius_x, double radius_y, double height);
 
     FormFactorEllipsoidalCylinder* clone() const {

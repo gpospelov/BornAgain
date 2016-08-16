@@ -5057,14 +5057,14 @@ class IntensityScaleAndShiftNormalizer(IntensityNormalizer):
     __swig_destroy__ = _libBornAgainCore.delete_IntensityScaleAndShiftNormalizer
     __del__ = lambda self: None
 
-    def setMaximumIntensity(self, max_intensity):
+    def setMaximumIntensity(self, arg2):
         """
-        setMaximumIntensity(IntensityScaleAndShiftNormalizer self, double max_intensity)
+        setMaximumIntensity(IntensityScaleAndShiftNormalizer self, double arg2)
 
         virtual void IntensityScaleAndShiftNormalizer::setMaximumIntensity(double max_intensity)
 
         """
-        return _libBornAgainCore.IntensityScaleAndShiftNormalizer_setMaximumIntensity(self, max_intensity)
+        return _libBornAgainCore.IntensityScaleAndShiftNormalizer_setMaximumIntensity(self, arg2)
 
 
     def clone(self):
@@ -8312,8 +8312,6 @@ class IFTDecayFunction1D(IParameterized):
     def __init__(self, *args, **kwargs):
         raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainCore.delete_IFTDecayFunction1D
-    __del__ = lambda self: None
 
     def clone(self):
         """
@@ -8354,6 +8352,8 @@ class IFTDecayFunction1D(IParameterized):
         """
         return _libBornAgainCore.IFTDecayFunction1D_getOmega(self)
 
+    __swig_destroy__ = _libBornAgainCore.delete_IFTDecayFunction1D
+    __del__ = lambda self: None
 IFTDecayFunction1D_swigregister = _libBornAgainCore.IFTDecayFunction1D_swigregister
 IFTDecayFunction1D_swigregister(IFTDecayFunction1D)
 
@@ -8388,8 +8388,6 @@ class FTDecayFunction1DCauchy(IFTDecayFunction1D):
             self.this.append(this)
         except:
             self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_FTDecayFunction1DCauchy
-    __del__ = lambda self: None
 
     def clone(self):
         """
@@ -8410,6 +8408,8 @@ class FTDecayFunction1DCauchy(IFTDecayFunction1D):
         """
         return _libBornAgainCore.FTDecayFunction1DCauchy_evaluate(self, q)
 
+    __swig_destroy__ = _libBornAgainCore.delete_FTDecayFunction1DCauchy
+    __del__ = lambda self: None
 FTDecayFunction1DCauchy_swigregister = _libBornAgainCore.FTDecayFunction1DCauchy_swigregister
 FTDecayFunction1DCauchy_swigregister(FTDecayFunction1DCauchy)
 
@@ -8444,8 +8444,6 @@ class FTDecayFunction1DGauss(IFTDecayFunction1D):
             self.this.append(this)
         except:
             self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_FTDecayFunction1DGauss
-    __del__ = lambda self: None
 
     def clone(self):
         """
@@ -8466,6 +8464,8 @@ class FTDecayFunction1DGauss(IFTDecayFunction1D):
         """
         return _libBornAgainCore.FTDecayFunction1DGauss_evaluate(self, q)
 
+    __swig_destroy__ = _libBornAgainCore.delete_FTDecayFunction1DGauss
+    __del__ = lambda self: None
 FTDecayFunction1DGauss_swigregister = _libBornAgainCore.FTDecayFunction1DGauss_swigregister
 FTDecayFunction1DGauss_swigregister(FTDecayFunction1DGauss)
 
@@ -8500,8 +8500,6 @@ class FTDecayFunction1DTriangle(IFTDecayFunction1D):
             self.this.append(this)
         except:
             self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_FTDecayFunction1DTriangle
-    __del__ = lambda self: None
 
     def clone(self):
         """
@@ -8522,6 +8520,8 @@ class FTDecayFunction1DTriangle(IFTDecayFunction1D):
         """
         return _libBornAgainCore.FTDecayFunction1DTriangle_evaluate(self, q)
 
+    __swig_destroy__ = _libBornAgainCore.delete_FTDecayFunction1DTriangle
+    __del__ = lambda self: None
 FTDecayFunction1DTriangle_swigregister = _libBornAgainCore.FTDecayFunction1DTriangle_swigregister
 FTDecayFunction1DTriangle_swigregister(FTDecayFunction1DTriangle)
 
@@ -8556,8 +8556,6 @@ class FTDecayFunction1DVoigt(IFTDecayFunction1D):
             self.this.append(this)
         except:
             self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_FTDecayFunction1DVoigt
-    __del__ = lambda self: None
 
     def clone(self):
         """
@@ -8588,6 +8586,8 @@ class FTDecayFunction1DVoigt(IFTDecayFunction1D):
         """
         return _libBornAgainCore.FTDecayFunction1DVoigt_getEta(self)
 
+    __swig_destroy__ = _libBornAgainCore.delete_FTDecayFunction1DVoigt
+    __del__ = lambda self: None
 FTDecayFunction1DVoigt_swigregister = _libBornAgainCore.FTDecayFunction1DVoigt_swigregister
 FTDecayFunction1DVoigt_swigregister(FTDecayFunction1DVoigt)
 
@@ -8612,8 +8612,6 @@ class IFTDecayFunction2D(IParameterized):
     def __init__(self, *args, **kwargs):
         raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainCore.delete_IFTDecayFunction2D
-    __del__ = lambda self: None
 
     def clone(self):
         """
@@ -8708,6 +8706,8 @@ class IFTDecayFunction2D(IParameterized):
         """
         return _libBornAgainCore.IFTDecayFunction2D_transformToStarBasis(self, qX, qY, alpha, a, b, qa, qb)
 
+    __swig_destroy__ = _libBornAgainCore.delete_IFTDecayFunction2D
+    __del__ = lambda self: None
 IFTDecayFunction2D_swigregister = _libBornAgainCore.IFTDecayFunction2D_swigregister
 IFTDecayFunction2D_swigregister(IFTDecayFunction2D)
 
@@ -8744,8 +8744,6 @@ class FTDecayFunction2DCauchy(IFTDecayFunction2D):
             self.this.append(this)
         except:
             self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_FTDecayFunction2DCauchy
-    __del__ = lambda self: None
 
     def clone(self):
         """
@@ -8768,6 +8766,8 @@ class FTDecayFunction2DCauchy(IFTDecayFunction2D):
         """
         return _libBornAgainCore.FTDecayFunction2DCauchy_evaluate(self, qx, qy)
 
+    __swig_destroy__ = _libBornAgainCore.delete_FTDecayFunction2DCauchy
+    __del__ = lambda self: None
 FTDecayFunction2DCauchy_swigregister = _libBornAgainCore.FTDecayFunction2DCauchy_swigregister
 FTDecayFunction2DCauchy_swigregister(FTDecayFunction2DCauchy)
 
@@ -8804,8 +8804,6 @@ class FTDecayFunction2DGauss(IFTDecayFunction2D):
             self.this.append(this)
         except:
             self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_FTDecayFunction2DGauss
-    __del__ = lambda self: None
 
     def clone(self):
         """
@@ -8828,6 +8826,8 @@ class FTDecayFunction2DGauss(IFTDecayFunction2D):
         """
         return _libBornAgainCore.FTDecayFunction2DGauss_evaluate(self, qx, qy)
 
+    __swig_destroy__ = _libBornAgainCore.delete_FTDecayFunction2DGauss
+    __del__ = lambda self: None
 FTDecayFunction2DGauss_swigregister = _libBornAgainCore.FTDecayFunction2DGauss_swigregister
 FTDecayFunction2DGauss_swigregister(FTDecayFunction2DGauss)
 
@@ -8864,8 +8864,6 @@ class FTDecayFunction2DVoigt(IFTDecayFunction2D):
             self.this.append(this)
         except:
             self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_FTDecayFunction2DVoigt
-    __del__ = lambda self: None
 
     def clone(self):
         """
@@ -8898,6 +8896,8 @@ class FTDecayFunction2DVoigt(IFTDecayFunction2D):
         """
         return _libBornAgainCore.FTDecayFunction2DVoigt_getEta(self)
 
+    __swig_destroy__ = _libBornAgainCore.delete_FTDecayFunction2DVoigt
+    __del__ = lambda self: None
 FTDecayFunction2DVoigt_swigregister = _libBornAgainCore.FTDecayFunction2DVoigt_swigregister
 FTDecayFunction2DVoigt_swigregister(FTDecayFunction2DVoigt)
 
@@ -8922,8 +8922,6 @@ class IFTDistribution1D(IParameterized):
     def __init__(self, *args, **kwargs):
         raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainCore.delete_IFTDistribution1D
-    __del__ = lambda self: None
 
     def clone(self):
         """
@@ -8964,6 +8962,8 @@ class IFTDistribution1D(IParameterized):
         """
         return _libBornAgainCore.IFTDistribution1D_getOmega(self)
 
+    __swig_destroy__ = _libBornAgainCore.delete_IFTDistribution1D
+    __del__ = lambda self: None
 IFTDistribution1D_swigregister = _libBornAgainCore.IFTDistribution1D_swigregister
 IFTDistribution1D_swigregister(IFTDistribution1D)
 
@@ -8998,8 +8998,6 @@ class FTDistribution1DCauchy(IFTDistribution1D):
             self.this.append(this)
         except:
             self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_FTDistribution1DCauchy
-    __del__ = lambda self: None
 
     def clone(self):
         """
@@ -9020,6 +9018,8 @@ class FTDistribution1DCauchy(IFTDistribution1D):
         """
         return _libBornAgainCore.FTDistribution1DCauchy_evaluate(self, q)
 
+    __swig_destroy__ = _libBornAgainCore.delete_FTDistribution1DCauchy
+    __del__ = lambda self: None
 FTDistribution1DCauchy_swigregister = _libBornAgainCore.FTDistribution1DCauchy_swigregister
 FTDistribution1DCauchy_swigregister(FTDistribution1DCauchy)
 
@@ -9054,8 +9054,6 @@ class FTDistribution1DGauss(IFTDistribution1D):
             self.this.append(this)
         except:
             self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_FTDistribution1DGauss
-    __del__ = lambda self: None
 
     def clone(self):
         """
@@ -9076,6 +9074,8 @@ class FTDistribution1DGauss(IFTDistribution1D):
         """
         return _libBornAgainCore.FTDistribution1DGauss_evaluate(self, q)
 
+    __swig_destroy__ = _libBornAgainCore.delete_FTDistribution1DGauss
+    __del__ = lambda self: None
 FTDistribution1DGauss_swigregister = _libBornAgainCore.FTDistribution1DGauss_swigregister
 FTDistribution1DGauss_swigregister(FTDistribution1DGauss)
 
@@ -9110,8 +9110,6 @@ class FTDistribution1DGate(IFTDistribution1D):
             self.this.append(this)
         except:
             self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_FTDistribution1DGate
-    __del__ = lambda self: None
 
     def clone(self):
         """
@@ -9132,6 +9130,8 @@ class FTDistribution1DGate(IFTDistribution1D):
         """
         return _libBornAgainCore.FTDistribution1DGate_evaluate(self, q)
 
+    __swig_destroy__ = _libBornAgainCore.delete_FTDistribution1DGate
+    __del__ = lambda self: None
 FTDistribution1DGate_swigregister = _libBornAgainCore.FTDistribution1DGate_swigregister
 FTDistribution1DGate_swigregister(FTDistribution1DGate)
 
@@ -9222,8 +9222,6 @@ class FTDistribution1DCosine(IFTDistribution1D):
             self.this.append(this)
         except:
             self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_FTDistribution1DCosine
-    __del__ = lambda self: None
 
     def clone(self):
         """
@@ -9244,6 +9242,8 @@ class FTDistribution1DCosine(IFTDistribution1D):
         """
         return _libBornAgainCore.FTDistribution1DCosine_evaluate(self, q)
 
+    __swig_destroy__ = _libBornAgainCore.delete_FTDistribution1DCosine
+    __del__ = lambda self: None
 FTDistribution1DCosine_swigregister = _libBornAgainCore.FTDistribution1DCosine_swigregister
 FTDistribution1DCosine_swigregister(FTDistribution1DCosine)
 
@@ -9278,8 +9278,6 @@ class FTDistribution1DVoigt(IFTDistribution1D):
             self.this.append(this)
         except:
             self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_FTDistribution1DVoigt
-    __del__ = lambda self: None
 
     def clone(self):
         """
@@ -9310,6 +9308,8 @@ class FTDistribution1DVoigt(IFTDistribution1D):
         """
         return _libBornAgainCore.FTDistribution1DVoigt_getEta(self)
 
+    __swig_destroy__ = _libBornAgainCore.delete_FTDistribution1DVoigt
+    __del__ = lambda self: None
 FTDistribution1DVoigt_swigregister = _libBornAgainCore.FTDistribution1DVoigt_swigregister
 FTDistribution1DVoigt_swigregister(FTDistribution1DVoigt)
 
@@ -9334,8 +9334,6 @@ class IFTDistribution2D(IParameterized):
     def __init__(self, *args, **kwargs):
         raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainCore.delete_IFTDistribution2D
-    __del__ = lambda self: None
 
     def clone(self):
         """
@@ -9408,6 +9406,8 @@ class IFTDistribution2D(IParameterized):
         """
         return _libBornAgainCore.IFTDistribution2D_evaluate(self, qx, qy)
 
+    __swig_destroy__ = _libBornAgainCore.delete_IFTDistribution2D
+    __del__ = lambda self: None
 IFTDistribution2D_swigregister = _libBornAgainCore.IFTDistribution2D_swigregister
 IFTDistribution2D_swigregister(IFTDistribution2D)
 
@@ -9444,8 +9444,6 @@ class FTDistribution2DCauchy(IFTDistribution2D):
             self.this.append(this)
         except:
             self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_FTDistribution2DCauchy
-    __del__ = lambda self: None
 
     def clone(self):
         """
@@ -9468,6 +9466,8 @@ class FTDistribution2DCauchy(IFTDistribution2D):
         """
         return _libBornAgainCore.FTDistribution2DCauchy_evaluate(self, qx, qy)
 
+    __swig_destroy__ = _libBornAgainCore.delete_FTDistribution2DCauchy
+    __del__ = lambda self: None
 FTDistribution2DCauchy_swigregister = _libBornAgainCore.FTDistribution2DCauchy_swigregister
 FTDistribution2DCauchy_swigregister(FTDistribution2DCauchy)
 
@@ -9504,8 +9504,6 @@ class FTDistribution2DGauss(IFTDistribution2D):
             self.this.append(this)
         except:
             self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_FTDistribution2DGauss
-    __del__ = lambda self: None
 
     def clone(self):
         """
@@ -9528,6 +9526,8 @@ class FTDistribution2DGauss(IFTDistribution2D):
         """
         return _libBornAgainCore.FTDistribution2DGauss_evaluate(self, qx, qy)
 
+    __swig_destroy__ = _libBornAgainCore.delete_FTDistribution2DGauss
+    __del__ = lambda self: None
 FTDistribution2DGauss_swigregister = _libBornAgainCore.FTDistribution2DGauss_swigregister
 FTDistribution2DGauss_swigregister(FTDistribution2DGauss)
 
@@ -9564,8 +9564,6 @@ class FTDistribution2DGate(IFTDistribution2D):
             self.this.append(this)
         except:
             self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_FTDistribution2DGate
-    __del__ = lambda self: None
 
     def clone(self):
         """
@@ -9588,6 +9586,8 @@ class FTDistribution2DGate(IFTDistribution2D):
         """
         return _libBornAgainCore.FTDistribution2DGate_evaluate(self, qx, qy)
 
+    __swig_destroy__ = _libBornAgainCore.delete_FTDistribution2DGate
+    __del__ = lambda self: None
 FTDistribution2DGate_swigregister = _libBornAgainCore.FTDistribution2DGate_swigregister
 FTDistribution2DGate_swigregister(FTDistribution2DGate)
 
@@ -9624,8 +9624,6 @@ class FTDistribution2DCone(IFTDistribution2D):
             self.this.append(this)
         except:
             self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_FTDistribution2DCone
-    __del__ = lambda self: None
 
     def clone(self):
         """
@@ -9648,6 +9646,8 @@ class FTDistribution2DCone(IFTDistribution2D):
         """
         return _libBornAgainCore.FTDistribution2DCone_evaluate(self, qx, qy)
 
+    __swig_destroy__ = _libBornAgainCore.delete_FTDistribution2DCone
+    __del__ = lambda self: None
 FTDistribution2DCone_swigregister = _libBornAgainCore.FTDistribution2DCone_swigregister
 FTDistribution2DCone_swigregister(FTDistribution2DCone)
 
@@ -9684,8 +9684,6 @@ class FTDistribution2DVoigt(IFTDistribution2D):
             self.this.append(this)
         except:
             self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_FTDistribution2DVoigt
-    __del__ = lambda self: None
 
     def clone(self):
         """
@@ -9718,6 +9716,8 @@ class FTDistribution2DVoigt(IFTDistribution2D):
         """
         return _libBornAgainCore.FTDistribution2DVoigt_getEta(self)
 
+    __swig_destroy__ = _libBornAgainCore.delete_FTDistribution2DVoigt
+    __del__ = lambda self: None
 FTDistribution2DVoigt_swigregister = _libBornAgainCore.FTDistribution2DVoigt_swigregister
 FTDistribution2DVoigt_swigregister(FTDistribution2DVoigt)
 
@@ -18888,8 +18888,6 @@ class InterferenceFunctionRadialParaCrystal(IInterferenceFunction):
             self.this.append(this)
         except:
             self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_InterferenceFunctionRadialParaCrystal
-    __del__ = lambda self: None
 
     def clone(self):
         """
@@ -19031,6 +19029,8 @@ class InterferenceFunctionRadialParaCrystal(IInterferenceFunction):
         """
         return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_getDampingLength(self)
 
+    __swig_destroy__ = _libBornAgainCore.delete_InterferenceFunctionRadialParaCrystal
+    __del__ = lambda self: None
 InterferenceFunctionRadialParaCrystal_swigregister = _libBornAgainCore.InterferenceFunctionRadialParaCrystal_swigregister
 InterferenceFunctionRadialParaCrystal_swigregister(InterferenceFunctionRadialParaCrystal)
 
@@ -19523,16 +19523,16 @@ class InterferenceFunctionNone(IInterferenceFunction):
         return _libBornAgainCore.InterferenceFunctionNone_accept(self, visitor)
 
 
-    def evaluate(self, q):
+    def evaluate(self, arg2):
         """
-        evaluate(InterferenceFunctionNone self, kvector_t q) -> double
+        evaluate(InterferenceFunctionNone self, kvector_t arg2) -> double
 
         double InterferenceFunctionNone::evaluate(const kvector_t q) const
 
         Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
 
         """
-        return _libBornAgainCore.InterferenceFunctionNone_evaluate(self, q)
+        return _libBornAgainCore.InterferenceFunctionNone_evaluate(self, arg2)
 
     __swig_destroy__ = _libBornAgainCore.delete_InterferenceFunctionNone
     __del__ = lambda self: None

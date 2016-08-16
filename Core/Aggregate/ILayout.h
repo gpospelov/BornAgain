@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Aggregate/ILayout.h
-//! @brief     Defines interface class ILayout.
+//! @brief     Defines and implements interface class ILayout.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -25,9 +25,8 @@ class ILayout;
 class IParticle;
 class IRotation;
 
-//! @class ILayout
+//! Interface to equip a sample component with various properties.
 //! @ingroup samples_internal
-//! @brief Interface to equip a sample component with various properties.
 
 class BA_CORE_API_ ILayout : public ICompositeSample
 {
@@ -59,7 +58,7 @@ public:
     virtual double getAbundanceOfParticle(size_t index) const=0;
 
     /// Get total abundance of all particles
-    double getTotalAbundance() const;
+    double getTotalAbundance() const; // implemented below
 
     //! Returns interference function
     virtual const IInterferenceFunction* getInterferenceFunction() const=0;
@@ -71,10 +70,11 @@ public:
     virtual void setTotalParticleSurfaceDensity(double particle_density)=0;
 
     //! Gets the used approximation for particles and interference functions
-    EInterferenceApproximation getApproximation() const;
+    EInterferenceApproximation getApproximation() const { return me_approx; }
 
     //! Sets the used approximation for particles and interference functions
-    void setApproximation(EInterferenceApproximation approximation);
+    void setApproximation(EInterferenceApproximation approximation) {
+        me_approx = approximation; }
 
 private:
     ///< Approximation used for combining particles and interference functions
@@ -88,16 +88,6 @@ inline double ILayout::getTotalAbundance() const
     for (size_t i=0; i<getNumberOfParticles(); ++i)
         total_abundance += getAbundanceOfParticle(i);
     return total_abundance;
-}
-
-inline ILayout::EInterferenceApproximation ILayout::getApproximation() const
-{
-    return me_approx;
-}
-
-inline void ILayout::setApproximation(ILayout::EInterferenceApproximation approximation)
-{
-    me_approx = approximation;
 }
 
 #endif // ILAYOUT_H

@@ -25,9 +25,8 @@ typedef _object PyObject;
 #endif
 #endif
 
-////! @class Histogram2D
-////! @ingroup tools
-////! @brief Two dimensional histogram
+//! Two dimensional histogram.
+//! @ingroup tools
 
 class BA_CORE_API_ Histogram2D : public IHistogram
 {

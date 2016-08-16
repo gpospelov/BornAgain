@@ -19,11 +19,14 @@
 #include "IFormFactorBorn.h"
 #include <memory>
 
+//! For internal use in PolyhedralFace.
 class PolygonalTopology {
 public:
     std::vector<int> vertexIndices;
     bool symmetry_S2;
 };
+
+//! For internal use in FormFactorPolyhedron.
 class PolyhedralTopology {
 public:
     std::vector<PolygonalTopology> faces;

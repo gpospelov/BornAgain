@@ -22,27 +22,26 @@
 class ISampleVisitor;
 class IFTDecayFunction1D;
 
-//! @class InterferenceFunction1DLattice
+//! Interference function of 1D lattice.
 //! @ingroup interference
-//! @brief Interference function of 1D lattice
 
 class BA_CORE_API_ InterferenceFunction1DLattice : public IInterferenceFunction
 {
 public:
     InterferenceFunction1DLattice(double length, double xi);
-    virtual ~InterferenceFunction1DLattice();
+    ~InterferenceFunction1DLattice() final;
 
-    virtual InterferenceFunction1DLattice* clone() const;
+    InterferenceFunction1DLattice* clone() const final;
 
-    virtual void accept(ISampleVisitor* visitor) const;
+    void accept(ISampleVisitor* visitor) const final { visitor->visit(this); }
 
     void setDecayFunction(const IFTDecayFunction1D& pdf);
 
-    Lattice1DParameters getLatticeParameters() const;
+    Lattice1DParameters getLatticeParameters() const { return m_lattice_params; }
 
-    const IFTDecayFunction1D* getDecayFunction() const;
+    const IFTDecayFunction1D* getDecayFunction() const { return mp_pdf; }
 
-    virtual double evaluate(const kvector_t q) const;
+    double evaluate(const kvector_t q) const final;
 
 protected:
     Lattice1DParameters m_lattice_params;
@@ -52,7 +51,7 @@ protected:
 private:
     InterferenceFunction1DLattice(const Lattice1DParameters& lattice_params);
     //! Registers some class members for later access via parameter pool
-    virtual void init_parameters();
+    void init_parameters();
 
     int m_na; //!< determines the number of reciprocal lattice points to use
 };

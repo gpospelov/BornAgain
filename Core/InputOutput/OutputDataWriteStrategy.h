@@ -40,7 +40,7 @@ public:
 class OutputDataWriteINTStrategy : public IOutputDataWriteStrategy
 {
 public:
-    virtual void writeOutputData(const OutputData<double> &data, std::ostream &output_stream);
+    virtual void writeOutputData(const OutputData<double>& data, std::ostream& output_stream);
 };
 
 //! @class OutputDataWriteNumpyTXTStrategy
@@ -49,7 +49,7 @@ public:
 class OutputDataWriteNumpyTXTStrategy : public IOutputDataWriteStrategy
 {
 public:
-    virtual void writeOutputData(const OutputData<double> &data, std::ostream &output_stream);
+    virtual void writeOutputData(const OutputData<double>& data, std::ostream& output_stream);
 };
 
 #ifdef BORNAGAIN_TIFF_SUPPORT
@@ -64,9 +64,9 @@ class OutputDataWriteTiffStrategy : public IOutputDataWriteStrategy
 public:
     OutputDataWriteTiffStrategy();
     virtual ~OutputDataWriteTiffStrategy();
-    virtual void writeOutputData(const OutputData<double> &data, std::ostream &output_stream);
+    virtual void writeOutputData(const OutputData<double>& data, std::ostream& output_stream);
 private:
-    TiffHandler *m_d;
+    TiffHandler* m_d;
 };
 
 #endif // BORNAGAIN_TIFF_SUPPORT

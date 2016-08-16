@@ -19,6 +19,8 @@
 #include "Numeric.h"
 #include "Pi.h"
 
+//! @param radius of the two equal axes
+//! @param height total height of the spheroid, i.e. twice the radius of the third axis
 FormFactorFullSpheroid::FormFactorFullSpheroid(double radius, double height )
     : m_radius(radius), m_height(height)
 {

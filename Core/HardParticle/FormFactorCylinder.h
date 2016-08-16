@@ -18,21 +18,17 @@
 
 #include "IFormFactorBorn.h"
 
-//! @class FormFactorCylinder
-//! @ingroup formfactors
-//! @brief The formfactor of a cylinder.
+//! A circular cylinder.
+//! @ingroup hardParticle
 
 class BA_CORE_API_ FormFactorCylinder : public IFormFactorBorn
 {
 public:
-    //! @brief Cylinder constructor
-    //! @param radius of Cylinder's base
-    //! @param height of Cylinder
     FormFactorCylinder(double radius, double height);
     virtual ~FormFactorCylinder() {}
 
-    FormFactorCylinder *clone() const { return new FormFactorCylinder(m_radius, m_height); }
-    void accept(ISampleVisitor *visitor) const final { visitor->visit(this); }
+    FormFactorCylinder* clone() const { return new FormFactorCylinder(m_radius, m_height); }
+    void accept(ISampleVisitor* visitor) const final { visitor->visit(this); }
 
     double getHeight() const { return m_height; }
     double getRadius() const { return m_radius; }

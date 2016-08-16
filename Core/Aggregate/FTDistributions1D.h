@@ -18,20 +18,21 @@
 
 #include "IParameterized.h"
 
-// ************************************************************************** //
-//! @class IFTDistribution1D
-// ************************************************************************** //
-//! @ingroup algorithms_internal
-//! @brief Interface for 1 dimensional distributions in Fourier space
+//! Interface for a one-dimensional distribution, with normalization adjusted so that
+//! the Fourier transform evaluate(q) is a decay function that starts at evaluate(0)=1.
+//! @ingroup distribution_internal
 
 class BA_CORE_API_ IFTDistribution1D : public IParameterized
 {
 public:
     IFTDistribution1D(double omega) : m_omega(omega) {}
-    virtual ~IFTDistribution1D() {}
 
     virtual IFTDistribution1D* clone() const=0;
+
+    //! Returns Fourier transform of this distribution;
+    //! is a decay function starting at evaluate(0)=1.
     virtual double evaluate(double q) const=0;
+
     void setOmega(double omega) { m_omega = omega; }
     double getOmega() const { return m_omega; }
 
@@ -44,115 +45,87 @@ protected:
     double m_omega;
 };
 
-// ************************************************************************** //
-//! @class FTDistribution1DCauchy
-// ************************************************************************** //
-//! @ingroup algorithms
-//! @brief 1 dimensional Cauchy distribution in Fourier space.
-//! Corresponds to a normalized exp(-|x|) in real space.
+
+//! Exponential IFTDistribution1D exp(-|omega*x|);
+//! its Fourier transform evaluate(q) is a Cauchy-Lorentzian starting at evaluate(0)=1.
+//! @ingroup distributionFT
 
 class BA_CORE_API_ FTDistribution1DCauchy : public IFTDistribution1D
 {
 public:
     FTDistribution1DCauchy(double omega);
-    virtual ~FTDistribution1DCauchy() {}
-
-    virtual FTDistribution1DCauchy* clone() const;
-
-    virtual double evaluate(double q) const;
+    FTDistribution1DCauchy* clone() const final { return new FTDistribution1DCauchy(m_omega); }
+    double evaluate(double q) const final;
 };
 
-// ************************************************************************** //
-//! @class FTDistribution1DGauss
-// ************************************************************************** //
-//! @ingroup algorithms
-//! @brief 1 dimensional Gauss distribution in Fourier space.
-//! Corresponds to a normalized exp(-x^2) in real space.
+
+//! Gaussian IFTDistribution1D;
+//! its Fourier transform evaluate(q) is a Gaussian starting at evaluate(0)=1.
+//! @ingroup distributionFT
 
 class BA_CORE_API_ FTDistribution1DGauss : public IFTDistribution1D
 {
 public:
     FTDistribution1DGauss(double omega);
-    virtual ~FTDistribution1DGauss() {}
-
-    virtual FTDistribution1DGauss* clone() const;
-
-    virtual double evaluate(double q) const;
+    FTDistribution1DGauss* clone() const final { return new FTDistribution1DGauss(m_omega); }
+    double evaluate(double q) const final;
 };
 
-// ************************************************************************** //
-//! @class FTDistribution1DGate
-// ************************************************************************** //
-//! @ingroup algorithms
-//! @brief 1 dimensional Gate distribution in Fourier space.
-//! Corresponds to a normalized constant if |x|<omega (and 0 otherwise) in real space.
+
+//! Square gate IFTDistribution1D;
+//! its Fourier transform evaluate(q) is a sinc function starting at evaluate(0)=1.
+//! @ingroup distributionFT
 
 class BA_CORE_API_ FTDistribution1DGate : public IFTDistribution1D
 {
 public:
     FTDistribution1DGate(double omega);
-    virtual ~FTDistribution1DGate() {}
-
-    virtual FTDistribution1DGate* clone() const;
-
-    virtual double evaluate(double q) const;
+    FTDistribution1DGate* clone() const final { return new FTDistribution1DGate(m_omega); }
+    double evaluate(double q) const final;
 };
 
-// ************************************************************************** //
-//! @class FTDistribution1DTriangle
-// ************************************************************************** //
-//! @ingroup algorithms
-//! @brief 1 dimensional triangle distribution in Fourier space.
-//! Corresponds to a normalized 1-|x|/omega if |x|<omega (and 0 otherwise) in real space.
+
+//! Triangle IFTDistribution1D [1-|x|/omega if |x|<omega, and 0 otherwise];
+//! its Fourier transform evaluate(q) is a squared sinc function starting at evaluate(0)=1.
+//! @ingroup distributionFT
 
 class BA_CORE_API_ FTDistribution1DTriangle : public IFTDistribution1D
 {
 public:
     FTDistribution1DTriangle(double omega);
     virtual ~FTDistribution1DTriangle() {}
-
-    virtual FTDistribution1DTriangle* clone() const;
-
-    virtual double evaluate(double q) const;
+    FTDistribution1DTriangle* clone() const final { return new FTDistribution1DTriangle(m_omega); }
+    double evaluate(double q) const final;
 };
 
-// ************************************************************************** //
-//! @class FTDistribution1DCosine
-// ************************************************************************** //
-//! @ingroup algorithms
-//! @brief 1 dimensional triangle distribution in Fourier space.
-//! Corresponds to a normalized 1+cos(pi*x/omega) if |x|<omega (and 0 otherwise) in real space.
+
+//! IFTDistribution1D consisting of one cosine wave
+//! [1+cos(pi*x/omega) if |x|<omega, and 0 otherwise];
+//! its Fourier transform evaluate(q) starts at evaluate(0)=1.
+//! @ingroup distributionFT
 
 class BA_CORE_API_ FTDistribution1DCosine : public IFTDistribution1D
 {
 public:
     FTDistribution1DCosine(double omega);
-    virtual ~FTDistribution1DCosine() {}
-
-    virtual FTDistribution1DCosine* clone() const;
-
-    virtual double evaluate(double q) const;
+    FTDistribution1DCosine* clone() const final { return new FTDistribution1DCosine(m_omega); }
+    double evaluate(double q) const final;
 };
 
-// ************************************************************************** //
-//! @class FTDistribution1DVoigt
-// ************************************************************************** //
-//! @ingroup algorithms
-//! @brief 1 dimensional Voigt distribution in Fourier space.
-//! Corresponds to eta*Gauss + (1-eta)*Cauchy
+
+//! IFTDistribution1D that provides a Fourier transform evaluate(q) in form
+//! of a pseudo-Voigt decay function eta*Gauss + (1-eta)*Cauchy, with both components
+//! starting at 1 for q=0.
+//! @ingroup distributionFT
 
 class BA_CORE_API_ FTDistribution1DVoigt : public IFTDistribution1D
 {
 public:
     FTDistribution1DVoigt(double omega, double eta);
-    virtual ~FTDistribution1DVoigt() {}
-
-    virtual FTDistribution1DVoigt* clone() const;
-
-    virtual double evaluate(double q) const;
-
-    virtual double getEta() const { return m_eta;}
-
+    FTDistribution1DVoigt* clone() const final {
+        return new FTDistribution1DVoigt(m_omega, m_eta); }
+    double evaluate(double q) const final;
+    double getEta() const { return m_eta;}
 protected:
     virtual void init_parameters();
     double m_eta;

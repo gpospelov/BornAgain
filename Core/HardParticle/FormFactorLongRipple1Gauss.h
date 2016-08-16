@@ -19,9 +19,8 @@
 #include "IFormFactorBorn.h"
 #include "IntegratorComplex.h"
 
-//! @class FormFactorLongRipple1Gauss
-//! @ingroup formfactors
-//! @brief The formfactor for a cosine ripple.
+//! The formfactor for a cosine ripple.
+//! @ingroup legacyGrating
 
 class BA_CORE_API_ FormFactorLongRipple1Gauss : public IFormFactorBorn
 {

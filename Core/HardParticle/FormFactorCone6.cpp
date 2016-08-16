@@ -30,10 +30,9 @@ const PolyhedralTopology FormFactorCone6::topology = {
         { {  6,  7,  8,  9, 10, 11 }, true }
     }, false };
 
-//! Cone6 constructor
 //! @param base_edge of hexagonal base
-//! @param height of Cone6
-//! @param alpha dihedral angle in radians between base and facet
+//! @param height    of frustum
+//! @param alpha     dihedral angle in radians between base and facet
 FormFactorCone6::FormFactorCone6(double base_edge, double height, double alpha)
     : FormFactorPolyhedron()
     , m_base_edge(base_edge)

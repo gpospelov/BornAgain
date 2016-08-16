@@ -38,13 +38,10 @@ GISASSimulation::GISASSimulation(std::shared_ptr<ISampleBuilder> p_sample_builde
 
 void GISASSimulation::prepareSimulation()
 {
-    if(m_instrument.getDetectorDimension() != 2) {
+    if (m_instrument.getDetectorDimension() != 2)
         throw Exceptions::LogicErrorException("GISASSimulation::prepareSimulation() "
                 "-> Error. The detector was not properly configured.");
-    }
-
     getInstrument().initDetector();
-
     Simulation::prepareSimulation();
 }
 
@@ -80,12 +77,9 @@ void GISASSimulation::setInstrument(const Instrument& instrument)
 
 void GISASSimulation::setBeamParameters(double wavelength, double alpha_i, double phi_i)
 {
-    if (wavelength<=0.0) {
+    if (wavelength<=0.0)
         throw Exceptions::ClassInitializationException(
-                "Simulation::setBeamParameters() "
-                "-> Error. Incoming wavelength <= 0.");
-    }
-
+            "Simulation::setBeamParameters() -> Error. Incoming wavelength <= 0.");
     m_instrument.setBeamParameters(wavelength, alpha_i, phi_i);
 }
 
@@ -201,10 +195,9 @@ void GISASSimulation::initSimulationElementVector()
 void GISASSimulation::transferResultsToIntensityMap()
 {
     size_t detector_dimension = m_instrument.getDetectorDimension();
-    if (detector_dimension!=2) {
+    if (detector_dimension!=2)
         throw Exceptions::RuntimeErrorException("GISASSimulation::transferResultsToIntensityMap: "
                                     "detector is not two-dimensional");
-    }
     updateIntensityMap();
 
     size_t element_index(0);
@@ -223,9 +216,8 @@ void GISASSimulation::updateIntensityMap()
 {
     m_intensity_map.clear();
     size_t detector_dimension = m_instrument.getDetectorDimension();
-    for (size_t dim=0; dim<detector_dimension; ++dim) {
+    for (size_t dim=0; dim<detector_dimension; ++dim)
         m_intensity_map.addAxis(m_instrument.getDetectorAxis(dim));
-    }
     m_intensity_map.setAllTo(0.);
 }
 

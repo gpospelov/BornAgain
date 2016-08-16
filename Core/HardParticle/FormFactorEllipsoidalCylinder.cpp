@@ -18,6 +18,9 @@
 #include "MathFunctions.h"
 #include "Pi.h"
 
+//! @param radius_x half length of one horizontal main axes
+//! @param radius_y half length of the other horizontal main axes
+//! @param height
 FormFactorEllipsoidalCylinder::FormFactorEllipsoidalCylinder(
     double radius_x, double radius_y, double height)
     : m_radius_x(radius_x), m_radius_y(radius_y), m_height(height)

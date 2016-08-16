@@ -21,9 +21,9 @@
 #include "ParameterSample.h"
 #include <vector>
 
-//! @class IDistribution1D
-//! @ingroup algorithms_internal
-//! @brief Interface for 1 dimensional distributions
+//! Interface for 1 dimensional distributions.
+//! @ingroup distribution_internal
+
 class BA_CORE_API_ IDistribution1D : public IParameterized
 {
 public:
@@ -53,14 +53,13 @@ public:
     //! @param limits
     //! @return vector of generated values
     virtual std::vector<double> generateValueList(size_t nbr_samples,
-            double sigma_factor, const AttLimits &limits = AttLimits()) const=0;
+            double sigma_factor, const AttLimits& limits = AttLimits()) const=0;
 
     //! generate list of sample values
     //! @param nbr_samples number of values to generate
     //! @param xmin, xmax start and end value of the generated samples
     //! @return vector of generated values
-    virtual std::vector<double> generateValues(size_t nbr_samples,
-            double xmin, double xmax) const;
+    virtual std::vector<double> generateValues(size_t nbr_samples, double xmin, double xmax) const;
 
     //! generate a single sample containing the mean value and weight 1
     ParameterSample getMeanSample() const;
@@ -80,9 +79,9 @@ protected:
         const std::vector<double>& sample_values) const;
 };
 
-//! @class DistributionGate
-//! @ingroup algorithms
-//! @brief uniform distribution function with half width hwhm
+
+//! Uniform distribution function with half width hwhm.
+//! @ingroup paramDistribution
 class BA_CORE_API_ DistributionGate : public IDistribution1D
 {
 public:
@@ -91,17 +90,13 @@ public:
     virtual ~DistributionGate() {}
 
     //! clone method
-    virtual DistributionGate* clone() const {
-        return new DistributionGate(m_min, m_max);
-    }
+    virtual DistributionGate* clone() const { return new DistributionGate(m_min, m_max); }
 
     //! get the probability density for value x
     virtual double probabilityDensity(double x) const;
 
     //! get the mean of the distribution
-    virtual double getMean() const {
-        return (m_min+m_max)/2.0;
-    }
+    virtual double getMean() const { return (m_min+m_max)/2.0; }
 
     //! Returns the minimum value of the distribution
     double getMin() const { return m_min; }
@@ -111,7 +106,7 @@ public:
 
     //! Returns list of sample values
     virtual std::vector<double> generateValueList(
-        size_t nbr_samples, double sigma_factor, const AttLimits &limits = AttLimits()) const;
+        size_t nbr_samples, double sigma_factor, const AttLimits& limits = AttLimits()) const;
 
     //! signals that the distribution is in the limit case of a delta distribution
     virtual bool isDelta() const;
@@ -127,9 +122,10 @@ private:
     double m_max;
 };
 
-//! @class DistributionLorentz
-//! @ingroup algorithms
-//! @brief Lorentz distribution with half width hwhm
+
+//! Lorentz distribution with half width hwhm.
+//! @ingroup paramDistribution
+
 class BA_CORE_API_ DistributionLorentz : public IDistribution1D
 {
 public:
@@ -137,9 +133,7 @@ public:
     DistributionLorentz(double mean, double hwhm);
     virtual ~DistributionLorentz() {}
 
-    virtual DistributionLorentz* clone() const {
-        return new DistributionLorentz(m_mean, m_hwhm);
-    }
+    virtual DistributionLorentz* clone() const { return new DistributionLorentz(m_mean, m_hwhm); }
 
     //! get the probability density for value x
     virtual double probabilityDensity(double x) const;
@@ -152,7 +146,7 @@ public:
 
     //! generate list of sample values
     virtual std::vector<double> generateValueList(
-        size_t nbr_samples, double sigma_factor, const AttLimits &limits = AttLimits()) const;
+        size_t nbr_samples, double sigma_factor, const AttLimits& limits = AttLimits()) const;
 
     //! signals that the distribution is in the limit case of a delta distribution
     virtual bool isDelta() const;
@@ -168,9 +162,10 @@ private:
     double m_hwhm;
 };
 
-//! @class DistributionGaussian
-//! @ingroup algorithms
-//! @brief Gaussian distribution with standard deviation std_dev
+
+//! Gaussian distribution with standard deviation std_dev.
+//! @ingroup paramDistribution
+
 class BA_CORE_API_ DistributionGaussian: public IDistribution1D
 {
 public:
@@ -180,8 +175,7 @@ public:
 
     //! clone method
     virtual DistributionGaussian* clone() const {
-        return new DistributionGaussian(m_mean, m_std_dev);
-    }
+        return new DistributionGaussian(m_mean, m_std_dev); }
 
     //! get the probability density for value x
     virtual double probabilityDensity(double x) const;
@@ -194,7 +188,7 @@ public:
 
     //! generate list of sample values
     virtual std::vector<double> generateValueList(size_t nbr_samples,
-            double sigma_factor, const AttLimits &limits = AttLimits()) const;
+            double sigma_factor, const AttLimits& limits = AttLimits()) const;
 
     //! signals that the distribution is in the limit case of a delta distribution
     virtual bool isDelta() const;
@@ -210,9 +204,10 @@ private:
     double m_std_dev;
 };
 
-//! @class DistributionLogNormal
-//! @ingroup algorithms
-//! @brief Log-normal distribution
+
+//! Log-normal distribution.
+//! @ingroup paramDistribution
+
 class BA_CORE_API_ DistributionLogNormal: public IDistribution1D
 {
 public:
@@ -222,8 +217,7 @@ public:
 
     //! clone method
     virtual DistributionLogNormal* clone() const {
-        return new DistributionLogNormal(m_median, m_scale_param);
-    }
+        return new DistributionLogNormal(m_median, m_scale_param); }
 
     //! get the probability density for value x
     virtual double probabilityDensity(double x) const;
@@ -239,7 +233,7 @@ public:
 
     //! generate list of sample values
     virtual std::vector<double> generateValueList(
-        size_t nbr_samples, double sigma_factor, const AttLimits &limits = AttLimits()) const;
+        size_t nbr_samples, double sigma_factor, const AttLimits& limits = AttLimits()) const;
 
     //! signals that the distribution is in the limit case of a delta distribution
     virtual bool isDelta() const;
@@ -255,9 +249,10 @@ private:
     double m_scale_param;
 };
 
-//! @class DistributionCosine
-//! @ingroup algorithms
-//! @brief Cosine distribution
+
+//! Cosine distribution.
+//! @ingroup paramDistribution
+
 class BA_CORE_API_ DistributionCosine: public IDistribution1D
 {
 public:
@@ -266,9 +261,7 @@ public:
     virtual ~DistributionCosine() {}
 
     //! clone method
-    virtual DistributionCosine* clone() const {
-        return new DistributionCosine(m_mean, m_sigma);
-    }
+    virtual DistributionCosine* clone() const { return new DistributionCosine(m_mean, m_sigma); }
 
     //! get the probability density for value x
     virtual double probabilityDensity(double x) const;
@@ -281,7 +274,7 @@ public:
 
     //! generate list of sample values
     virtual std::vector<double> generateValueList(
-        size_t nbr_samples, double sigma_factor, const AttLimits &limits = AttLimits()) const;
+        size_t nbr_samples, double sigma_factor, const AttLimits& limits = AttLimits()) const;
 
     //! signals that the distribution is in the limit case of a delta distribution
     virtual bool isDelta() const;

@@ -18,9 +18,8 @@
 
 #include "FormFactorPolyhedron.h"
 
-//! @class FormFactorCuboctahedron
-//! @ingroup formfactors
-//! @brief The formfactor of a cuboctahedron.
+//! A truncated bifrustum with quadratic base.
+//! @ingroup hardParticle
 
 class BA_CORE_API_ FormFactorCuboctahedron : public FormFactorPolyhedron
 {

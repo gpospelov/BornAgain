@@ -32,12 +32,10 @@ const PolyhedralTopology FormFactorCuboctahedron::topology = {
         { {  8,  9, 10, 11 }, true  }
     }, false };
 
-//! @brief Cuboctahedron constructor
-//! @param length of one side of Cuboctahedron's square base
-//! @param height of bottom of Cuboctahedron
-//! @param height_ratio: height top part/height bottom part
-//! @param alpha: angle in radians between base and facet
-
+//! @param length        of one side of the square base
+//! @param height        of bottom frustum
+//! @param height_ratio: ratio of heights of top to bottom frustum
+//! @param alpha:        dihedral angle in radians between base and facet
 FormFactorCuboctahedron::FormFactorCuboctahedron(
     double length, double height, double height_ratio, double alpha)
     : FormFactorPolyhedron()

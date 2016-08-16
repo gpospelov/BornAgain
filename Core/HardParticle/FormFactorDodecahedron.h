@@ -18,9 +18,8 @@
 
 #include "FormFactorPolyhedron.h"
 
-//! @class FormFactorDodecahedron
-//! @ingroup formfactors
-//! @brief The formfactor of a regular dodecahedron.
+//! A regular dodecahedron.
+//! @ingroup hardParticle
 
 class BA_CORE_API_ FormFactorDodecahedron : public FormFactorPolyhedron
 {

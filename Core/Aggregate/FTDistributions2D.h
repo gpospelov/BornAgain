@@ -19,19 +19,15 @@
 #include "IParameterized.h"
 #include "Pi.h"
 
-// ************************************************************************** //
-//! @class IFTDistribution2D
-// ************************************************************************** //
-//! @ingroup algorithms_internal
-//! @brief Interface for 2 dimensional distributions in Fourier space.
+
+//! Interface for two-dimensional distributions in Fourier space.
+//! @ingroup distribution_internal
 
 class BA_CORE_API_ IFTDistribution2D : public IParameterized
 {
 public:
     IFTDistribution2D(double coherence_length_x, double coherence_length_y,
                       double gamma=0, double delta=Pi::PID2);
-    virtual ~IFTDistribution2D() {}
-
     virtual IFTDistribution2D* clone() const=0;
 
     void setGamma(double gamma) { m_gamma = gamma; }
@@ -66,96 +62,72 @@ protected:
     double m_delta;
 };
 
-// ************************************************************************** //
-//! @class FTDistribution2DCauchy
-// ************************************************************************** //
-//! @ingroup algorithms
-//! @brief 2 dimensional Cauchy distribution in Fourier space.
-//! Corresponds to a normalized exp(-r) in real space
-//! with \f$r=\sqrt{(\frac{x}{\omega_x})^2 + (\frac{y}{\omega_y})^2}\f$
+
+//! Two-dimensional Cauchy distribution in Fourier space;
+//! corresponds to a normalized exp(-r) in real space,
+//! with \f$r=\sqrt{(\frac{x}{\omega_x})^2 + (\frac{y}{\omega_y})^2}\f$.
+//! @ingroup distributionFT
 
 class BA_CORE_API_ FTDistribution2DCauchy : public IFTDistribution2D
 {
 public:
     FTDistribution2DCauchy(double coherence_length_x, double coherence_length_y,
                            double gamma=0, double delta=Pi::PID2);
-
-    virtual ~FTDistribution2DCauchy() {}
-
     FTDistribution2DCauchy* clone() const final {
         return new FTDistribution2DCauchy(
             m_coherence_length_x, m_coherence_length_y, m_gamma, m_delta); }
-
-    virtual double evaluate(double qx, double qy) const;
+    double evaluate(double qx, double qy) const final;
 };
 
-// ************************************************************************** //
-//! @class FTDistribution2DGauss
-// ************************************************************************** //
-//! @ingroup algorithms
-//! @brief 2 dimensional Gauss distribution in Fourier space.
-//! Corresponds to normalized exp(-r^2/2) in real space
-//! with \f$r=\sqrt{(\frac{x}{\omega_x})^2 + (\frac{y}{\omega_y})^2}\f$
+
+//! Two-dimensional Gauss distribution in Fourier space;
+//! corresponds to normalized exp(-r^2/2) in real space
+//! with \f$r=\sqrt{(\frac{x}{\omega_x})^2 + (\frac{y}{\omega_y})^2}\f$.
+//! @ingroup distributionFT
 
 class BA_CORE_API_ FTDistribution2DGauss : public IFTDistribution2D
 {
 public:
     FTDistribution2DGauss(double coherence_length_x, double coherence_length_y,
                           double gamma=0, double delta=Pi::PID2);
-
-    virtual ~FTDistribution2DGauss() {}
-
     FTDistribution2DGauss* clone() const final {
         return new FTDistribution2DGauss(
             m_coherence_length_x, m_coherence_length_y, m_gamma, m_delta); }
-
-    virtual double evaluate(double qx, double qy) const;
+    double evaluate(double qx, double qy) const final;
 };
 
-// ************************************************************************** //
-//! @class FTDistribution2DGate
-// ************************************************************************** //
-//! @ingroup algorithms
-//! @brief 2 dimensional gate distribution in Fourier space
-//! Corresponds to normalized constant if r<1 (and 0 otherwise) in real space.
-//! with \f$r=\sqrt{(\frac{x}{\omega_x})^2 + (\frac{y}{\omega_y})^2}\f$
+
+//! Two-dimensional gate distribution in Fourier space;
+//! corresponds to normalized constant if r<1 (and 0 otherwise) in real space,
+//! with \f$r=\sqrt{(\frac{x}{\omega_x})^2 + (\frac{y}{\omega_y})^2}\f$.
+//! @ingroup distributionFT
 
 class BA_CORE_API_ FTDistribution2DGate : public IFTDistribution2D
 {
 public:
     FTDistribution2DGate(double coherence_length_x, double coherence_length_y,
                          double gamma=0, double delta=Pi::PID2);
-
-    virtual ~FTDistribution2DGate() {}
-
     FTDistribution2DGate* clone() const final {
         return new FTDistribution2DGate(
             m_coherence_length_x, m_coherence_length_y, m_gamma, m_delta); }
-
-    virtual double evaluate(double qx, double qy) const;
+    double evaluate(double qx, double qy) const final;
 };
 
-// ************************************************************************** //
-//! @class FTDistribution2DCone
-// ************************************************************************** //
-//! @ingroup algorithms
-//! @brief 2 dimensional cone distribution in Fourier space.
-//! Corresponds to 1-r if r<1 (and 0 otherwise) in real space
-//! with \f$r=\sqrt{(\frac{x}{\omega_x})^2 + (\frac{y}{\omega_y})^2}\f$
+
+//! Two-dimensional cone distribution in Fourier space;
+//! corresponds to 1-r if r<1 (and 0 otherwise) in real space
+//! with \f$r=\sqrt{(\frac{x}{\omega_x})^2 + (\frac{y}{\omega_y})^2}\f$.
+//! @ingroup distributionFT
 
 class BA_CORE_API_ FTDistribution2DCone : public IFTDistribution2D
 {
 public:
     FTDistribution2DCone(double coherence_length_x, double coherence_length_y,
                          double gamma=0, double delta=Pi::PID2);
-
-    virtual ~FTDistribution2DCone() {}
-
     FTDistribution2DCone* clone() const final {
         return new FTDistribution2DCone(
             m_coherence_length_x, m_coherence_length_y, m_gamma, m_delta); }
-
-    virtual double evaluate(double qx, double qy) const;
+    double evaluate(double qx, double qy) const final;
 
 private:
     //! second part of the integrand:
@@ -163,27 +135,21 @@ private:
     double coneIntegrand2(double value) const;
 };
 
-// ************************************************************************** //
-//! @class FTDistribution2DVoigt
-// ************************************************************************** //
-//! @ingroup algorithms
-//! @brief 2 dimensional Voigt distribution in Fourier space.
-//! Corresponds to eta*Gauss + (1-eta)*Cauchy
+
+//! Two-dimensional Voigt distribution in Fourier space;
+//! corresponds to eta*Gauss + (1-eta)*Cauchy
+//! @ingroup distributionFT
 
 class BA_CORE_API_ FTDistribution2DVoigt : public IFTDistribution2D
 {
 public:
     FTDistribution2DVoigt(double coherence_length_x, double coherence_length_y,
                           double eta, double gamma=0, double delta=Pi::PID2);
-    virtual ~FTDistribution2DVoigt() {}
-
     FTDistribution2DVoigt* clone() const final {
         return new FTDistribution2DVoigt(
             m_coherence_length_x, m_coherence_length_y, m_eta, m_gamma, m_delta); }
-
-    virtual double evaluate(double qx, double qy) const;
-
-    virtual double getEta() const { return m_eta;}
+    double evaluate(double qx, double qy) const final;
+    double getEta() const { return m_eta;}
 
 protected:
     double m_eta;

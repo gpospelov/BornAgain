@@ -18,9 +18,9 @@
 
 #include "FormFactorPolyhedron.h"
 
-//! @class FormFactorAnisoPyramid
-//! @ingroup formfactors
-//! @brief The formfactor of a quadratic pyramid
+//! A frustum (truncated pyramid) with rectangular base.
+//! @ingroup hardParticle
+
 class BA_CORE_API_ FormFactorAnisoPyramid : public FormFactorPolyhedron
 {
 public:
@@ -28,7 +28,7 @@ public:
 
     FormFactorAnisoPyramid* clone() const final {
         return new FormFactorAnisoPyramid(m_length, m_width, m_height, m_alpha); }
-    void accept(ISampleVisitor *visitor) const final { visitor->visit(this); }
+    void accept(ISampleVisitor* visitor) const final { visitor->visit(this); }
 
     double getLength() const { return m_length; }
     double getWidth()  const { return m_width; }

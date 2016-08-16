@@ -20,10 +20,9 @@
 #include "Numeric.h"
 #include "Pi.h"
 
-//! @brief Cone constructor
-//! @param radius of Cone's base
-//! @param height of Cone
-//! @param alpha in radians between base and facet
+//! @param radius of circular base
+//! @param height of frustum
+//! @param alpha  angle in radians between base and lateral surface
 FormFactorCone::FormFactorCone(double radius, double height, double alpha)
     : m_radius(radius), m_height(height), m_alpha(alpha)
 {

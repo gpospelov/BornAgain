@@ -18,9 +18,9 @@
 
 #include "FormFactorPolyhedron.h"
 
-//! @class FormFactorCone6
-//! @ingroup formfactors
-//! @brief The formfactor of a cone6.
+//! A frustum (truncated pyramid) with regular hexagonal base.
+//! @ingroup hardParticle
+
 class BA_CORE_API_ FormFactorCone6 : public FormFactorPolyhedron
 {
 public:

@@ -19,7 +19,7 @@
 #include "boost_streams.h"
 #include <fstream>
 
-OutputDataWriter::OutputDataWriter(const std::string &file_name)
+OutputDataWriter::OutputDataWriter(const std::string& file_name)
     : m_file_name(file_name)
 {
 }

@@ -18,6 +18,7 @@
 #include "MathFunctions.h"
 #include "Numeric.h"
 #include "Pi.h"
+#include "RealParameter.h"
 
 //! @param radius of the two equal axes
 //! @param height total height of the spheroid, i.e. twice the radius of the third axis

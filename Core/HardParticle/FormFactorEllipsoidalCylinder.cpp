@@ -17,6 +17,7 @@
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
 #include "Pi.h"
+#include "RealParameter.h"
 
 //! @param radius_x half length of one horizontal main axes
 //! @param radius_y half length of the other horizontal main axes

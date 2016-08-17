@@ -20,6 +20,7 @@
 #include "Numeric.h"
 #include "ParameterPool.h"
 #include "Pi.h"
+#include "RealParameter.h"
 
 void IFTDistribution1D::print(std::ostream& ostr) const
 {

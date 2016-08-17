@@ -16,6 +16,7 @@
 #include "FormFactorLongBoxLorentz.h"
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
+#include "RealParameter.h"
 
 FormFactorLongBoxLorentz::FormFactorLongBoxLorentz(double length, double width, double height)
     : m_length(length), m_width(width), m_height(height)

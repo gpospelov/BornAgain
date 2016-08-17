@@ -6619,26 +6619,6 @@ class ISampleBuilder(IParameterized):
         return _libBornAgainCore.ISampleBuilder_registerParameter(self, name, parpointer)
 
 
-    def registerNonnegativeLength(self, name, parpointer):
-        """
-        registerNonnegativeLength(ISampleBuilder self, std::string const & name, int64_t parpointer)
-
-        void IParameterized::registerNonnegativeLength(const std::string &name, double *parpointer)
-
-        """
-        return _libBornAgainCore.ISampleBuilder_registerNonnegativeLength(self, name, parpointer)
-
-
-    def registerNonnegativeScalar(self, name, parpointer):
-        """
-        registerNonnegativeScalar(ISampleBuilder self, std::string const & name, int64_t parpointer)
-
-        void IParameterized::registerNonnegativeScalar(const std::string &name, double *parpointer)
-
-        """
-        return _libBornAgainCore.ISampleBuilder_registerNonnegativeScalar(self, name, parpointer)
-
-
     def setParameterValue(self, name, value):
         """
         setParameterValue(ISampleBuilder self, std::string const & name, double value)

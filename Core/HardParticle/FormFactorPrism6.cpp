@@ -15,6 +15,7 @@
 
 #include "FormFactorPrism6.h"
 #include "BornAgainNamespace.h"
+#include "RealParameter.h"
 
 FormFactorPrism6::FormFactorPrism6(const double base_edge, const double height)
     : FormFactorPolygonalPrism( height )

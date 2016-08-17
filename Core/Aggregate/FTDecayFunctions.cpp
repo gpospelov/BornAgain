@@ -17,8 +17,8 @@
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
 #include "ParameterPool.h"
-#include "RealParameter.h"
 #include "Pi.h"
+#include "RealParameter.h"
 
 //===============1D======================
 

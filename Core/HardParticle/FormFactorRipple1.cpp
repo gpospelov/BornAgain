@@ -14,11 +14,12 @@
 // ************************************************************************** //
 
 #include "FormFactorRipple1.h"
-#include "Limits.h"
 #include "BornAgainNamespace.h"
 #include "Exceptions.h"
+#include "Limits.h"
 #include "MathFunctions.h"
 #include "Pi.h"
+#include "RealParameter.h"
 
 static complex_t I(0.,1.);
 

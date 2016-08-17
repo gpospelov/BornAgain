@@ -17,8 +17,8 @@
 #include "BornAgainNamespace.h"
 #include "Exceptions.h"
 #include "MathFunctions.h"
-#include "RealParameter.h"
 #include "Pi.h"
+#include "RealParameter.h"
 
 const PolyhedralTopology FormFactorAnisoPyramid::topology = {
     {

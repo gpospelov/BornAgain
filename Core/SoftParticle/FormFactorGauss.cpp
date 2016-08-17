@@ -17,6 +17,7 @@
 #include "BornAgainNamespace.h"
 #include "Numeric.h"
 #include "Pi.h"
+#include "RealParameter.h"
 
 FormFactorGauss::FormFactorGauss(double volume)
 {

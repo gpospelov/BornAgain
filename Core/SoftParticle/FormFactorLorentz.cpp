@@ -14,9 +14,10 @@
 // ************************************************************************** //
 
 #include "FormFactorLorentz.h"
-#include "Limits.h"
 #include "BornAgainNamespace.h"
+#include "Limits.h"
 #include "Pi.h"
+#include "RealParameter.h"
 
 using namespace BornAgain;
 

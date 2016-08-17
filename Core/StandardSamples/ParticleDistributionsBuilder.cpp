@@ -23,6 +23,7 @@
 #include "Particle.h"
 #include "ParticleDistribution.h"
 #include "ParticleLayout.h"
+#include "RealParameter.h"
 #include "Units.h"
 
 using namespace BornAgain;
@@ -96,8 +97,8 @@ void TwoTypesCylindersDistributionBuilder::init_parameters()
     registerParameter("radius2", &m_radius2).setUnit("nm").setNonnegative();
     registerParameter("height1", &m_height1).setUnit("nm").setNonnegative();
     registerParameter("height2", &m_height2).setUnit("nm").setNonnegative();
-    registerNonnegativeScalar("sigma1_ratio", &m_sigma1_ratio);
-    registerNonnegativeScalar("sigma2_ratio", &m_sigma2_ratio);
+    registerParameter("sigma1_ratio", &m_sigma1_ratio).setNonnegative();
+    registerParameter("sigma2_ratio", &m_sigma2_ratio).setNonnegative();
 }
 
 

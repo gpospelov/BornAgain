@@ -16,6 +16,7 @@
 #include "FormFactorBox.h"
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
+#include "RealParameter.h"
 
 //! @param length of rectangular base
 //! @param width  of rectangular base

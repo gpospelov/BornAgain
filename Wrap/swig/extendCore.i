@@ -27,16 +27,10 @@ namespace Geometry {
 };
 
 %extend ISampleBuilder {
-    virtual RealParameter& registerParameter(const std::string &name, int64_t parpointer) {
-        return (*($self)).registerParameter(name, (double*)parpointer); }
+    virtual RealParameter* registerParameter(const std::string& name, int64_t parpointer) {
+        return &((*($self)).registerParameter(name, (double*)parpointer)); }
 
-    virtual void registerNonnegativeLength(const std::string &name, int64_t parpointer) {
-        return (*($self)).registerNonnegativeLength(name, (double*)parpointer); }
-
-    virtual void registerNonnegativeScalar(const std::string &name, int64_t parpointer) {
-        return (*($self)).registerNonnegativeScalar(name, (double*)parpointer); }
-
-    virtual void setParameterValue(const std::string &name, double value) {
+    virtual void setParameterValue(const std::string& name, double value) {
         dynamic_cast<IParameterized*>($self)->setParameterValue(name, value); }
 };
 

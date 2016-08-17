@@ -18,8 +18,8 @@
 #include "Exceptions.h"
 #include "MathFunctions.h"
 #include "Numeric.h"
-#include "RealParameter.h"
 #include "Pi.h"
+#include "RealParameter.h"
 
 //! @param radius of circular base
 //! @param height of frustum

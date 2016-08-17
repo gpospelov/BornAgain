@@ -17,6 +17,7 @@
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
 #include "Pi.h"
+#include "RealParameter.h"
 
 FormFactorCylinder::FormFactorCylinder(double radius, double height)
     : m_radius(radius), m_height(height)

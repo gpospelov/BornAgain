@@ -15,6 +15,7 @@
 
 #include "FormFactorPrism3.h"
 #include "BornAgainNamespace.h"
+#include "RealParameter.h"
 #include <iostream>
 
 FormFactorPrism3::FormFactorPrism3(const double base_edge, const double height)

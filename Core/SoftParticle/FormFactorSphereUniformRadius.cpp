@@ -18,6 +18,7 @@
 #include "Exceptions.h"
 #include "Numeric.h"
 #include "Pi.h"
+#include "RealParameter.h"
 
 FormFactorSphereUniformRadius::FormFactorSphereUniformRadius(double mean,
         double full_width)

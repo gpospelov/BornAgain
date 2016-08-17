@@ -14,11 +14,12 @@
 // ************************************************************************** //
 
 #include "FormFactorLongRipple1Gauss.h"
-#include "Limits.h"
 #include "BornAgainNamespace.h"
 #include "Exceptions.h"
+#include "Limits.h"
 #include "MathFunctions.h"
 #include "Pi.h"
+#include "RealParameter.h"
 
 FormFactorLongRipple1Gauss::FormFactorLongRipple1Gauss(double length, double width, double height)
     : m_length(length), m_width(width), m_height(height)

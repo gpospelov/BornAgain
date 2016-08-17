@@ -19,6 +19,7 @@
 #include "MathFunctions.h"
 #include "Numeric.h"
 #include "Pi.h"
+#include "RealParameter.h"
 
 FormFactorTruncatedSpheroid::FormFactorTruncatedSpheroid(
     double radius, double height, double height_flattening)
@@ -28,7 +29,7 @@ FormFactorTruncatedSpheroid::FormFactorTruncatedSpheroid(
     check_initialization();
     registerParameter(BornAgain::Radius, &m_radius).setUnit("nm").setNonnegative();
     registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
-    registerNonnegativeScalar(BornAgain::HeightFlattening, &m_height_flattening);
+    registerParameter(BornAgain::HeightFlattening, &m_height_flattening).setNonnegative();
     mP_integrator = make_integrator_complex(this, &FormFactorTruncatedSpheroid::Integrand);
 }
 

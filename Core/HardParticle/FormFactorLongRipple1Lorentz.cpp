@@ -18,6 +18,7 @@
 #include "Exceptions.h"
 #include "MathFunctions.h"
 #include "Pi.h"
+#include "RealParameter.h"
 
 FormFactorLongRipple1Lorentz::FormFactorLongRipple1Lorentz(
     double length, double width, double height)

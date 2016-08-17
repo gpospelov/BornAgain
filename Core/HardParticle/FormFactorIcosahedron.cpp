@@ -15,6 +15,7 @@
 
 #include "FormFactorIcosahedron.h"
 #include "BornAgainNamespace.h"
+#include "RealParameter.h"
 
 const PolyhedralTopology FormFactorIcosahedron::topology = {
     {

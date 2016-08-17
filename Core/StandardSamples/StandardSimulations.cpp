@@ -22,6 +22,7 @@
 #include "Line.h"
 #include "ParameterPattern.h"
 #include "Polygon.h"
+#include "RealParameter.h"
 #include "Rectangle.h"
 #include "RectangularDetector.h"
 #include "ResolutionFunction2DGaussian.h"

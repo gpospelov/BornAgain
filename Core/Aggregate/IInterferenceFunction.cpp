@@ -15,6 +15,7 @@
 
 #include "IInterferenceFunction.h"
 #include "ISampleVisitor.h"
+#include "RealParameter.h"
 
 IInterferenceFunction::~IInterferenceFunction() {}
 

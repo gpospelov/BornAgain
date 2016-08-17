@@ -22,6 +22,7 @@
 #include "Particle.h"
 #include "ParticleComposition.h"
 #include "ParticleLayout.h"
+#include "RealParameter.h"
 #include "Units.h"
 
 // -----------------------------------------------------------------------------

@@ -40,7 +40,7 @@ public:
 
     virtual ~Layer();
 
-    virtual Layer* clone() const;
+    Layer* clone() const final { return new Layer(*this); }
 
     //! Returns a clone with inverted magnetic fields
     virtual Layer* cloneInvertB() const;
@@ -76,7 +76,7 @@ public:
     virtual void addLayout(const ILayout& decoration);
 
     //! gets number of layouts present
-    size_t getNumberOfLayouts() const;
+    size_t getNumberOfLayouts() const { return m_layouts.size(); }
 
     //! returns particle decoration
     virtual const ILayout* getLayout(size_t i) const;

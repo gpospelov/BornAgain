@@ -19,6 +19,7 @@
 #include "ISampleVisitor.h"
 #include "Numeric.h"
 #include "ParameterPool.h"
+#include "RealParameter.h"
 #include <limits>
 
 using namespace BornAgain;
@@ -41,7 +42,7 @@ void InterferenceFunctionRadialParaCrystal::init_parameters()
 {
     registerParameter(PeakDistance, &m_peak_distance).setUnit("nm").setNonnegative();
     registerParameter(DampingLength, &m_damping_length).setUnit("nm").setNonnegative();
-    registerNonnegativeScalar(SizeSpaceCoupling, &m_kappa);
+    registerParameter(SizeSpaceCoupling, &m_kappa).setNonnegative();
     registerParameter(DomainSize, &m_domain_size).setUnit("nm").setNonnegative();
 }
 

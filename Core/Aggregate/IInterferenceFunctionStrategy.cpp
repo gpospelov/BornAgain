@@ -20,9 +20,10 @@
 #include "IntegratorMCMiser.h"
 #include "Layer.h"
 #include "LayerSpecularInfo.h"
+#include "Pi.h"
+#include "RealParameter.h"
 #include "ScalarRTCoefficients.h"
 #include "SimulationElement.h"
-#include "Pi.h"
 #include "WavevectorInfo.h"
 
 IInterferenceFunctionStrategy::IInterferenceFunctionStrategy(

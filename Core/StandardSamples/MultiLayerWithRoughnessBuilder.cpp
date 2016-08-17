@@ -18,6 +18,7 @@
 #include "Layer.h"
 #include "LayerRoughness.h"
 #include "MultiLayer.h"
+#include "RealParameter.h"
 #include "Units.h"
 
 MultiLayerWithRoughnessBuilder::MultiLayerWithRoughnessBuilder()

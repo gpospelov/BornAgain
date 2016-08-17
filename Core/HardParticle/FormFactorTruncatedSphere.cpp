@@ -14,12 +14,13 @@
 // ************************************************************************** //
 
 #include "FormFactorTruncatedSphere.h"
-#include "Limits.h"
 #include "BornAgainNamespace.h"
 #include "Exceptions.h"
+#include "Limits.h"
 #include "MathFunctions.h"
 #include "Numeric.h"
 #include "Pi.h"
+#include "RealParameter.h"
 
 using namespace  BornAgain;
 

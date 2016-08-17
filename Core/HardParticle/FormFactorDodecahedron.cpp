@@ -15,6 +15,7 @@
 
 #include "FormFactorDodecahedron.h"
 #include "BornAgainNamespace.h"
+#include "RealParameter.h"
 
 const PolyhedralTopology FormFactorDodecahedron::topology = {
     {

@@ -20,6 +20,7 @@
 #include "FormFactorPolyhedron.h"
 #include "MathFunctions.h"
 #include "Precomputed.h"
+#include "RealParameter.h"
 #include <iomanip>
 #include <stdexcept> // need overlooked by g++ 5.4
 

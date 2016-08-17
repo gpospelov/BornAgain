@@ -32,7 +32,6 @@ public:
     IParameterized(const IParameterized& other);
     virtual ~IParameterized();
 
-    //! Previously, copied name, but not parameters. Unused. Deleted to prevent misunderstandings.
     IParameterized operator=(const IParameterized& other) = delete;
 
     //! Returns pointer to the parameter pool.

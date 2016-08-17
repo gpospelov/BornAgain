@@ -20,6 +20,7 @@
 #include "Layer.h"
 #include "LayerSpecularInfo.h"
 #include "MathFunctions.h"
+#include "RealParameter.h"
 #include "SimulationElement.h"
 #include <cassert>
 #include <iostream>

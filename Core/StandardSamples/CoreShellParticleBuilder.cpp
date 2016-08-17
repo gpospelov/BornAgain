@@ -21,6 +21,7 @@
 #include "Particle.h"
 #include "ParticleCoreShell.h"
 #include "ParticleLayout.h"
+#include "RealParameter.h"
 #include "Units.h"
 
 // --- CoreShellParticleBuilder ---

@@ -16,6 +16,7 @@
 #include "FormFactorSphereLogNormalRadius.h"
 #include "BornAgainNamespace.h"
 #include "Distributions.h"
+#include "RealParameter.h"
 
 FormFactorSphereLogNormalRadius::FormFactorSphereLogNormalRadius(
         double mean, double scale_param, size_t n_samples)

@@ -20,8 +20,8 @@
 #include "IntegratorReal.h"
 #include "Numeric.h"
 #include "ParameterPool.h"
-#include "RealParameter.h"
 #include "Pi.h"
+#include "RealParameter.h"
 #include <limits>
 
 using namespace BornAgain;

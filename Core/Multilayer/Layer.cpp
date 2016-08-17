@@ -21,6 +21,7 @@
 #include "Materials.h"
 #include "ParameterPool.h"
 #include "ParticleLayout.h"
+#include "RealParameter.h"
 
 Layer::Layer() : m_thickness(0), mp_material(0)
 {
@@ -48,11 +49,6 @@ Layer::Layer(const Layer& other) : ICompositeSample()
 Layer::~Layer()
 {
     delete mp_material;
-}
-
-Layer* Layer::clone() const
-{
-    return new Layer(*this);
 }
 
 Layer* Layer::cloneInvertB() const
@@ -141,10 +137,6 @@ double Layer::getTotalAbundance() const
     for (size_t i=0; i<getNumberOfLayouts(); ++i)
         total_abundance += getLayout(i)->getTotalAbundance();
     return total_abundance;
-}
-
-size_t Layer::getNumberOfLayouts() const {
-    return m_layouts.size();
 }
 
 void Layer::init_parameters()

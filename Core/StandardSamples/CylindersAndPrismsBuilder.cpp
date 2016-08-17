@@ -21,6 +21,7 @@
 #include "MultiLayer.h"
 #include "Particle.h"
 #include "ParticleLayout.h"
+#include "RealParameter.h"
 #include "Units.h"
 
 CylindersAndPrismsBuilder::CylindersAndPrismsBuilder()
@@ -40,7 +41,7 @@ void CylindersAndPrismsBuilder::init_parameters()
     registerParameter("cylinder_radius", &m_cylinder_radius).setUnit("nm").setNonnegative();
     registerParameter("prism_height", &m_prism_height).setUnit("nm").setNonnegative();
     registerParameter("prism_length", &m_prism_length).setUnit("nm").setNonnegative();
-    registerNonnegativeScalar("cylinder_weight", &m_cylinder_weight);
+    registerParameter("cylinder_weight", &m_cylinder_weight).setNonnegative();
 }
 
 ISample* CylindersAndPrismsBuilder::buildSample() const

@@ -57,7 +57,10 @@ public:
     friend std::ostream& operator<<(std::ostream& ostr, const RealParameter& p) {
         ostr << p.m_data; return ostr; }
 
+    RealParameter& setLimits(const Limits& limits) { m_limits = limits; return *this; }
     Limits getLimits() const { return m_limits; }
+
+    RealParameter& setLimited(double lower, double upper);
 
     bool operator==(const RealParameter &other) const {
         return (m_limits == other.m_limits) && (m_data == other.m_data); }

@@ -17,6 +17,8 @@
 #include "BornAgainNamespace.h"
 #include "Exceptions.h"
 #include "MathFunctions.h"
+#include "RealParameter.h"
+#include "Pi.h"
 
 const PolyhedralTopology FormFactorTetrahedron::topology = {
     {
@@ -41,7 +43,7 @@ FormFactorTetrahedron::FormFactorTetrahedron(double base_edge, double height, do
     setName(BornAgain::FFTetrahedronType);
     registerNonnegativeLength(BornAgain::BaseEdge, &m_base_edge);
     registerNonnegativeLength(BornAgain::Height, &m_height);
-    registerLimitedAngle(BornAgain::Alpha, &m_alpha, 0, 180);
+    registerParameter(BornAgain::Alpha, &m_alpha).setUnit("rad").setLimited(0., Pi::PID2);
     onChange();
 }
 

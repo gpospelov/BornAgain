@@ -80,6 +80,12 @@ void RealParameter::setValue(double value)
     m_parent->onChange();
 }
 
+RealParameter& RealParameter::setLimited(double lower, double upper)
+{
+    setLimits( Limits::limited(lower, upper) );
+    return *this;
+}
+
 std::string RealParameter::fullName()
 {
     return m_parent->getName() + "/" + getName();

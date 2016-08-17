@@ -20,37 +20,18 @@
 #include "FitSuiteParameters.h"
 
 
-BasicMinimizer::BasicMinimizer(const std::string &minimizerName, const std::string &algorithmName)
+BasicMinimizer::BasicMinimizer(const std::string& minimizerName, const std::string& algorithmName)
     : m_minimizerName(minimizerName)
     , m_algorithmName(algorithmName)
-{
-
-}
+{}
 
 BasicMinimizer::~BasicMinimizer()
-{
-
-}
+{}
 
 void BasicMinimizer::minimize()
 {
     propagateOptions();
     rootMinimizer()->Minimize();
-}
-
-std::string BasicMinimizer::minimizerName() const
-{
-    return m_minimizerName;
-}
-
-std::string BasicMinimizer::algorithmName() const
-{
-    return m_algorithmName;
-}
-
-void BasicMinimizer::setAlgorithmName(const std::string &algorithmName)
-{
-    m_algorithmName = algorithmName;
 }
 
 void BasicMinimizer::setParameter(size_t index, const FitParameter *par)
@@ -59,35 +40,28 @@ void BasicMinimizer::setParameter(size_t index, const FitParameter *par)
     if (par->isFixed()) {
         success = rootMinimizer()->SetFixedVariable((int)index, par->getName().c_str(),
                                                     par->getValue());
-
     }
-
     else if (par->hasLowerAndUpperLimits()) {
         success = rootMinimizer()->SetLimitedVariable((int)index, par->getName().c_str(),
                                                       par->getValue(), par->getStep(),
                                                       par->getLowerLimit(), par->getUpperLimit());
     }
-
     else if (par->hasLowerLimit() && !par->hasUpperLimit()) {
         success = rootMinimizer()->SetLowerLimitedVariable((int)index, par->getName().c_str(),
                                                            par->getValue(), par->getStep(),
                                                            par->getLowerLimit());
     }
-
     else if (par->hasUpperLimit() && !par->hasLowerLimit()) {
         success = rootMinimizer()->SetUpperLimitedVariable((int)index, par->getName().c_str(),
                                                            par->getValue(), par->getStep(),
                                                            par->getUpperLimit());
     }
-
     else if (!par->hasUpperLimit() && !par->hasLowerLimit() && !par->isFixed()) {
         success = rootMinimizer()->SetVariable((int)index, par->getName().c_str(), par->getValue(),
                                                par->getStep());
     }
-
-    else {
+    else
         throw std::runtime_error("BasicMinimizer::setParameter() -> Error! Unexpected parameter.");
-    }
 
     if( !success ) {
         std::ostringstream ostr;
@@ -97,7 +71,7 @@ void BasicMinimizer::setParameter(size_t index, const FitParameter *par)
     }
 }
 
-void BasicMinimizer::setParameters(const FitSuiteParameters &parameters)
+void BasicMinimizer::setParameters(const FitSuiteParameters& parameters)
 {
     size_t index(0);
     for (auto par: parameters)
@@ -115,18 +89,21 @@ void BasicMinimizer::setParameters(const FitSuiteParameters &parameters)
 void BasicMinimizer::setChiSquaredFunction(IMinimizer::function_chi2_t fun_chi2, size_t nparameters)
 {
     m_chi2_func.reset(new ROOTMinimizerChiSquaredFunction(fun_chi2, (int)nparameters));
-    if( !isGradientBasedAgorithm() ) rootMinimizer()->SetFunction(*m_chi2_func);
+    if (!isGradientBasedAgorithm())
+        rootMinimizer()->SetFunction(*m_chi2_func);
 }
 
-void BasicMinimizer::setGradientFunction(IMinimizer::function_gradient_t fun_gradient, size_t nparameters, size_t ndatasize)
+void BasicMinimizer::setGradientFunction(
+    IMinimizer::function_gradient_t fun_gradient, size_t nparameters, size_t ndatasize)
 {
     m_gradient_func.reset(new ROOTMinimizerGradientFunction(fun_gradient, nparameters, ndatasize));
-    if( isGradientBasedAgorithm() ) rootMinimizer()->SetFunction(*m_gradient_func);
+    if (isGradientBasedAgorithm())
+        rootMinimizer()->SetFunction(*m_gradient_func);
 }
 
 std::vector<double> BasicMinimizer::getValueOfVariablesAtMinimum() const
 {
-    std::vector<double > result;
+    std::vector<double> result;
     result.resize(fitParameterCount(), 0.0);
     std::copy(rootMinimizer()->X(), rootMinimizer()->X()+fitParameterCount(), result.begin());
     return result;
@@ -136,9 +113,9 @@ std::vector<double> BasicMinimizer::getErrorOfVariables() const
 {
     std::vector<double > result;
     result.resize(fitParameterCount(), 0.0);
-    if(rootMinimizer()->Errors() != 0 ) {
-        std::copy(rootMinimizer()->Errors(), rootMinimizer()->Errors()+fitParameterCount(), result.begin());
-    }
+    if(rootMinimizer()->Errors() != 0 )
+        std::copy(rootMinimizer()->Errors(), rootMinimizer()->Errors()+fitParameterCount(),
+                  result.begin());
     return result;
 }
 
@@ -165,4 +142,3 @@ BasicMinimizer::root_minimizer_t *BasicMinimizer::rootMinimizer()
 {
     return const_cast<root_minimizer_t *>(static_cast<const BasicMinimizer*>(this)->rootMinimizer());
 }
-

@@ -41,23 +41,20 @@ class BA_CORE_API_ ROOTMinimizer : public IMinimizer
 
     virtual void minimize();
 
-    virtual void setParameter(size_t index, const FitParameter *par);
+    virtual void setParameter(size_t index, const FitParameter* par);
 
     virtual void setParameters(const FitSuiteParameters& parameters);
 
     virtual void setChiSquaredFunction(function_chi2_t fun_chi2, size_t nparameters);
 
-    virtual void setGradientFunction(function_gradient_t fun_gradient, size_t nparameters, size_t ndatasize);
+    virtual void setGradientFunction(
+        function_gradient_t fun_gradient, size_t nparameters, size_t ndatasize);
 
     virtual size_t getNumberOfVariables() const;
 
     virtual double getMinValue() const;
 
-    virtual double getValueOfVariableAtMinimum(size_t i) const;
-
     virtual std::vector<double> getValueOfVariablesAtMinimum() const;
-
-    virtual double getErrorOfVariable(size_t i) const;
 
     virtual std::vector<double> getErrorOfVariables() const;
 
@@ -68,18 +65,18 @@ class BA_CORE_API_ ROOTMinimizer : public IMinimizer
     virtual size_t getNCalls() const;
 
     //! return minimizer options
-    virtual MinimizerOptions *getOptions();
-    virtual const MinimizerOptions *getOptions() const;
+    virtual MinimizerOptions* getOptions();
+    virtual const MinimizerOptions* getOptions() const;
 
     //! set minimizer options
     virtual void setOptions(const MinimizerOptions &options);
 
     //! Returns created minimizer
-    BA_ROOT::Math::Minimizer *getROOTMinimizer();
-    const BA_ROOT::Math::Minimizer *getROOTMinimizer() const;
+    BA_ROOT::Math::Minimizer* getROOTMinimizer();
+    const BA_ROOT::Math::Minimizer* getROOTMinimizer() const;
 
     //! Returns true if type of algorithm is Levenberg-Marquardt or similar
-    virtual bool isGradientBasedAgorithm() { return false;}
+    virtual bool isGradientBasedAgorithm() { return false; }
 
     //! return name of the minimizer
     virtual std::string getMinimizerName() const;
@@ -97,9 +94,9 @@ class BA_CORE_API_ ROOTMinimizer : public IMinimizer
 
     std::string m_minimizer_name;
     std::string m_algo_type;
-    BA_ROOT::Math::Minimizer *m_root_minimizer;
-    ROOTMinimizerChiSquaredFunction *m_chi2_func;
-    ROOTMinimizerGradientFunction *m_gradient_func;
+    BA_ROOT::Math::Minimizer* m_root_minimizer;
+    ROOTMinimizerChiSquaredFunction* m_chi2_func;
+    ROOTMinimizerGradientFunction* m_gradient_func;
     MinimizerOptions m_options;
 };
 

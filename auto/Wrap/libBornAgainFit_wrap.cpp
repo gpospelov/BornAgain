@@ -19497,19 +19497,6 @@ SWIGINTERN PyObject *Configurable_swigregister(PyObject *SWIGUNUSEDPARM(self), P
   return SWIG_Py_Void();
 }
 
-SWIGINTERN PyObject *_wrap_new_IMinimizer(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IMinimizer *result = 0 ;
-  
-  if (!PyArg_ParseTuple(args,(char *)":new_IMinimizer")) SWIG_fail;
-  result = (IMinimizer *)new IMinimizer();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IMinimizer, SWIG_POINTER_NEW |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_delete_IMinimizer(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   IMinimizer *arg1 = (IMinimizer *) 0 ;
@@ -19545,45 +19532,6 @@ SWIGINTERN PyObject *_wrap_IMinimizer_minimize(PyObject *SWIGUNUSEDPARM(self), P
   }
   arg1 = reinterpret_cast< IMinimizer * >(argp1);
   (arg1)->minimize();
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IMinimizer_setParameter(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IMinimizer *arg1 = (IMinimizer *) 0 ;
-  size_t arg2 ;
-  FitParameter *arg3 = (FitParameter *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  size_t val2 ;
-  int ecode2 = 0 ;
-  void *argp3 = 0 ;
-  int res3 = 0 ;
-  PyObject * obj0 = 0 ;
-  PyObject * obj1 = 0 ;
-  PyObject * obj2 = 0 ;
-  
-  if (!PyArg_ParseTuple(args,(char *)"OOO:IMinimizer_setParameter",&obj0,&obj1,&obj2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IMinimizer, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IMinimizer_setParameter" "', argument " "1"" of type '" "IMinimizer *""'"); 
-  }
-  arg1 = reinterpret_cast< IMinimizer * >(argp1);
-  ecode2 = SWIG_AsVal_size_t(obj1, &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IMinimizer_setParameter" "', argument " "2"" of type '" "size_t""'");
-  } 
-  arg2 = static_cast< size_t >(val2);
-  res3 = SWIG_ConvertPtr(obj2, &argp3,SWIGTYPE_p_FitParameter, 0 |  0 );
-  if (!SWIG_IsOK(res3)) {
-    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "IMinimizer_setParameter" "', argument " "3"" of type '" "FitParameter const *""'"); 
-  }
-  arg3 = reinterpret_cast< FitParameter * >(argp3);
-  (arg1)->setParameter(arg2,(FitParameter const *)arg3);
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -19749,59 +19697,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IMinimizer_getMinValue(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IMinimizer *arg1 = (IMinimizer *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj0 = 0 ;
-  double result;
-  
-  if (!PyArg_ParseTuple(args,(char *)"O:IMinimizer_getMinValue",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IMinimizer, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IMinimizer_getMinValue" "', argument " "1"" of type '" "IMinimizer const *""'"); 
-  }
-  arg1 = reinterpret_cast< IMinimizer * >(argp1);
-  result = (double)((IMinimizer const *)arg1)->getMinValue();
-  resultobj = SWIG_From_double(static_cast< double >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IMinimizer_getValueOfVariableAtMinimum(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IMinimizer *arg1 = (IMinimizer *) 0 ;
-  size_t arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  size_t val2 ;
-  int ecode2 = 0 ;
-  PyObject * obj0 = 0 ;
-  PyObject * obj1 = 0 ;
-  double result;
-  
-  if (!PyArg_ParseTuple(args,(char *)"OO:IMinimizer_getValueOfVariableAtMinimum",&obj0,&obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IMinimizer, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IMinimizer_getValueOfVariableAtMinimum" "', argument " "1"" of type '" "IMinimizer const *""'"); 
-  }
-  arg1 = reinterpret_cast< IMinimizer * >(argp1);
-  ecode2 = SWIG_AsVal_size_t(obj1, &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IMinimizer_getValueOfVariableAtMinimum" "', argument " "2"" of type '" "size_t""'");
-  } 
-  arg2 = static_cast< size_t >(val2);
-  result = (double)((IMinimizer const *)arg1)->getValueOfVariableAtMinimum(arg2);
-  resultobj = SWIG_From_double(static_cast< double >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_IMinimizer_getValueOfVariablesAtMinimum(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   IMinimizer *arg1 = (IMinimizer *) 0 ;
@@ -19824,37 +19719,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IMinimizer_getErrorOfVariable(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IMinimizer *arg1 = (IMinimizer *) 0 ;
-  size_t arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  size_t val2 ;
-  int ecode2 = 0 ;
-  PyObject * obj0 = 0 ;
-  PyObject * obj1 = 0 ;
-  double result;
-  
-  if (!PyArg_ParseTuple(args,(char *)"OO:IMinimizer_getErrorOfVariable",&obj0,&obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IMinimizer, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IMinimizer_getErrorOfVariable" "', argument " "1"" of type '" "IMinimizer const *""'"); 
-  }
-  arg1 = reinterpret_cast< IMinimizer * >(argp1);
-  ecode2 = SWIG_AsVal_size_t(obj1, &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IMinimizer_getErrorOfVariable" "', argument " "2"" of type '" "size_t""'");
-  } 
-  arg2 = static_cast< size_t >(val2);
-  result = (double)((IMinimizer const *)arg1)->getErrorOfVariable(arg2);
-  resultobj = SWIG_From_double(static_cast< double >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_IMinimizer_getErrorOfVariables(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   IMinimizer *arg1 = (IMinimizer *) 0 ;
@@ -19871,27 +19735,6 @@ SWIGINTERN PyObject *_wrap_IMinimizer_getErrorOfVariables(PyObject *SWIGUNUSEDPA
   arg1 = reinterpret_cast< IMinimizer * >(argp1);
   result = ((IMinimizer const *)arg1)->getErrorOfVariables();
   resultobj = swig::from(static_cast< std::vector<double,std::allocator< double > > >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IMinimizer_clear(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IMinimizer *arg1 = (IMinimizer *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj0 = 0 ;
-  
-  if (!PyArg_ParseTuple(args,(char *)"O:IMinimizer_clear",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IMinimizer, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IMinimizer_clear" "', argument " "1"" of type '" "IMinimizer *""'"); 
-  }
-  arg1 = reinterpret_cast< IMinimizer * >(argp1);
-  (arg1)->clear();
-  resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
   return NULL;
@@ -23772,12 +23615,6 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { (char *)"delete_Configurable", _wrap_delete_Configurable, METH_VARARGS, (char *)"delete_Configurable(Configurable self)"},
 	 { (char *)"Configurable_swigregister", Configurable_swigregister, METH_VARARGS, NULL},
-	 { (char *)"new_IMinimizer", _wrap_new_IMinimizer, METH_VARARGS, (char *)"\n"
-		"new_IMinimizer() -> IMinimizer\n"
-		"\n"
-		"IMinimizer::IMinimizer()\n"
-		"\n"
-		""},
 	 { (char *)"delete_IMinimizer", _wrap_delete_IMinimizer, METH_VARARGS, (char *)"\n"
 		"delete_IMinimizer(IMinimizer self)\n"
 		"\n"
@@ -23790,14 +23627,6 @@ static PyMethodDef SwigMethods[] = {
 		"void IMinimizer::minimize()\n"
 		"\n"
 		"run minimization \n"
-		"\n"
-		""},
-	 { (char *)"IMinimizer_setParameter", _wrap_IMinimizer_setParameter, METH_VARARGS, (char *)"\n"
-		"IMinimizer_setParameter(IMinimizer self, size_t index, FitParameter par)\n"
-		"\n"
-		"void IMinimizer::setParameter(size_t index, const FitParameter *par)\n"
-		"\n"
-		"Sets internal minimizer parameter. \n"
 		"\n"
 		""},
 	 { (char *)"IMinimizer_setParameters", _wrap_IMinimizer_setParameters, METH_VARARGS, (char *)"\n"
@@ -23832,22 +23661,6 @@ static PyMethodDef SwigMethods[] = {
 		"Returns number of variables to fit. \n"
 		"\n"
 		""},
-	 { (char *)"IMinimizer_getMinValue", _wrap_IMinimizer_getMinValue, METH_VARARGS, (char *)"\n"
-		"IMinimizer_getMinValue(IMinimizer self) -> double\n"
-		"\n"
-		"double IMinimizer::getMinValue() const\n"
-		"\n"
-		"Returns minimum function value. \n"
-		"\n"
-		""},
-	 { (char *)"IMinimizer_getValueOfVariableAtMinimum", _wrap_IMinimizer_getValueOfVariableAtMinimum, METH_VARARGS, (char *)"\n"
-		"IMinimizer_getValueOfVariableAtMinimum(IMinimizer self, size_t index) -> double\n"
-		"\n"
-		"double IMinimizer::getValueOfVariableAtMinimum(size_t index) const\n"
-		"\n"
-		"Returns value of the parameter at the minimum. \n"
-		"\n"
-		""},
 	 { (char *)"IMinimizer_getValueOfVariablesAtMinimum", _wrap_IMinimizer_getValueOfVariablesAtMinimum, METH_VARARGS, (char *)"\n"
 		"IMinimizer_getValueOfVariablesAtMinimum(IMinimizer self) -> vdouble1d_t\n"
 		"\n"
@@ -23856,28 +23669,12 @@ static PyMethodDef SwigMethods[] = {
 		"Returns values of parameters at the minimum. \n"
 		"\n"
 		""},
-	 { (char *)"IMinimizer_getErrorOfVariable", _wrap_IMinimizer_getErrorOfVariable, METH_VARARGS, (char *)"\n"
-		"IMinimizer_getErrorOfVariable(IMinimizer self, size_t index) -> double\n"
-		"\n"
-		"double IMinimizer::getErrorOfVariable(size_t index) const\n"
-		"\n"
-		"Returns error of variable at minimum. \n"
-		"\n"
-		""},
 	 { (char *)"IMinimizer_getErrorOfVariables", _wrap_IMinimizer_getErrorOfVariables, METH_VARARGS, (char *)"\n"
 		"IMinimizer_getErrorOfVariables(IMinimizer self) -> vdouble1d_t\n"
 		"\n"
 		"std::vector< double > IMinimizer::getErrorOfVariables() const\n"
 		"\n"
 		"Returns errors of variables at minimum. \n"
-		"\n"
-		""},
-	 { (char *)"IMinimizer_clear", _wrap_IMinimizer_clear, METH_VARARGS, (char *)"\n"
-		"IMinimizer_clear(IMinimizer self)\n"
-		"\n"
-		"void IMinimizer::clear()\n"
-		"\n"
-		"clear resources (parameters) for consecutives minimizations \n"
 		"\n"
 		""},
 	 { (char *)"IMinimizer_printResults", _wrap_IMinimizer_printResults, METH_VARARGS, (char *)"\n"
@@ -23904,7 +23701,7 @@ static PyMethodDef SwigMethods[] = {
 		"\n"
 		""},
 	 { (char *)"IMinimizer_setOptions", _wrap_IMinimizer_setOptions, METH_VARARGS, (char *)"\n"
-		"IMinimizer_setOptions(IMinimizer self, MinimizerOptions options)\n"
+		"IMinimizer_setOptions(IMinimizer self, MinimizerOptions arg3)\n"
 		"\n"
 		"void IMinimizer::setOptions(const MinimizerOptions &options)\n"
 		"\n"
@@ -23912,7 +23709,7 @@ static PyMethodDef SwigMethods[] = {
 		"\n"
 		""},
 	 { (char *)"IMinimizer_setOptionString", _wrap_IMinimizer_setOptionString, METH_VARARGS, (char *)"\n"
-		"IMinimizer_setOptionString(IMinimizer self, std::string const & options)\n"
+		"IMinimizer_setOptionString(IMinimizer self, std::string const & arg3)\n"
 		"\n"
 		"void IMinimizer::setOptionString(const std::string &options)\n"
 		"\n"

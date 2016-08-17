@@ -81,15 +81,6 @@ double ScanningMinimizer::getMinValue() const
     return *std::min_element(m_fcnvalues_map->begin(), m_fcnvalues_map->end());
 }
 
-void ScanningMinimizer::setGradientFunction(function_gradient_t, size_t, size_t)
-{
-}
-
-double ScanningMinimizer::getValueOfVariableAtMinimum(size_t index) const
-{
-    return m_parameters[index]->getValue();
-}
-
 void ScanningMinimizer::printResults() const
 {
     std::cout << "--- ScanningMinimizer ------------------------------------" << std::endl;

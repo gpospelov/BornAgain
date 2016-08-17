@@ -20,9 +20,8 @@
 #include <functional>
 #include <map>
 
-//! @class IFactory
+//! Base class for all factories.
 //! @ingroup tools_internal
-//! @brief Base class for all factories.
 
 template<class Key, class AbstractProduct >
 class IFactory
@@ -51,22 +50,15 @@ public:
         return (it->second)();
     }
 
-    //! Registers object's creation function
-    bool registerItem(const Key& item_key, CreateItemCallback CreateFn) {
-        if( m_callbacks.find(item_key) != m_callbacks.end() )
-            throw Exceptions::ExistingClassRegistrationException(
-                    "IFactory::registerItem() -> Panic! Already registered item key");
-        return m_callbacks.insert( typename CallbackMap_t::value_type(item_key, CreateFn)).second;
-    }
-
     //! Registers object's creation function and store object description
     bool registerItem(const Key& item_key, CreateItemCallback CreateFn,
-                      const std::string& itemDescription) {
-        if( m_callbacks.find(item_key) != m_callbacks.end() )
+                      const std::string& itemDescription="") {
+        if (m_callbacks.find(item_key) != m_callbacks.end())
             throw Exceptions::ExistingClassRegistrationException(
                     "IFactory::registerItem() -> Panic! Already registered item key");
-        m_descriptions.insert( typename DescriptionMap_t::value_type(item_key, itemDescription));
-        return m_callbacks.insert( typename CallbackMap_t::value_type(item_key, CreateFn)).second;
+        if (itemDescription!="")
+            m_descriptions.insert(make_pair(item_key, itemDescription));
+        return m_callbacks.insert(make_pair(item_key, CreateFn)).second;
     }
 
     ~IFactory() {}
@@ -74,10 +66,7 @@ public:
     //! Returns number of registered objects
     size_t getNumberOfRegistered() const { return m_callbacks.size(); }
 
-    iterator begin() { return m_descriptions.begin(); }
     const_iterator begin() const { return m_descriptions.begin(); }
-
-    iterator end() { return m_descriptions.end(); }
     const_iterator end() const { return m_descriptions.end(); }
 
 protected:

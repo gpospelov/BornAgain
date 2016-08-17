@@ -1651,7 +1651,12 @@ class IParameterized(INamed):
 
 
     def registerParameter(self, name, parpointer):
-        """registerParameter(IParameterized self, std::string const & name, double * parpointer) -> RealParameter"""
+        """
+        registerParameter(IParameterized self, std::string const & name, double * parpointer) -> RealParameter
+
+        RealParameter & IParameterized::registerParameter(const std::string &name, double *parpointer)
+
+        """
         return _libBornAgainCore.IParameterized_registerParameter(self, name, parpointer)
 
 
@@ -6615,7 +6620,12 @@ class ISampleBuilder(IParameterized):
 
 
     def registerParameter(self, name, parpointer):
-        """registerParameter(ISampleBuilder self, std::string const & name, int64_t parpointer) -> RealParameter"""
+        """
+        registerParameter(ISampleBuilder self, std::string const & name, int64_t parpointer) -> RealParameter
+
+        RealParameter & IParameterized::registerParameter(const std::string &name, double *parpointer)
+
+        """
         return _libBornAgainCore.ISampleBuilder_registerParameter(self, name, parpointer)
 
 
@@ -8058,7 +8068,7 @@ class Ellipse(IShape2D):
         Radius along y-axis
 
         theta: 
-         Angle of  Ellipse rotation in radians 
+        Angle of  Ellipse rotation in radians 
 
         """
         this = _libBornAgainCore.new_Ellipse(xcenter, ycenter, xradius, yradius, theta)
@@ -11727,7 +11737,7 @@ class FormFactorDecoratorDebyeWaller(IFormFactorDecorator):
         """
         clone(FormFactorDecoratorDebyeWaller self) -> FormFactorDecoratorDebyeWaller
 
-        FormFactorDecoratorDebyeWaller * FormFactorDecoratorDebyeWaller::clone() const
+        FormFactorDecoratorDebyeWaller* FormFactorDecoratorDebyeWaller::clone() const final
 
         Returns a clone of this  ISample object. 
 
@@ -11739,7 +11749,7 @@ class FormFactorDecoratorDebyeWaller(IFormFactorDecorator):
         """
         accept(FormFactorDecoratorDebyeWaller self, ISampleVisitor visitor)
 
-        void FormFactorDecoratorDebyeWaller::accept(ISampleVisitor *visitor) const
+        void FormFactorDecoratorDebyeWaller::accept(ISampleVisitor *visitor) const final
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -13193,8 +13203,6 @@ class FormFactorLongRipple2Lorentz(IFormFactorBorn):
         __init__(FormFactorLongRipple2Lorentz self, double length, double width, double height, double asymmetry) -> FormFactorLongRipple2Lorentz
 
         FormFactorLongRipple2Lorentz::FormFactorLongRipple2Lorentz(double length, double width, double height, double asymmetry)
-
-        FormFactorLongRipple2Lorentz constructor.
 
         Parameters:
         -----------
@@ -18910,8 +18918,6 @@ class InterferenceFunction2DLattice(IInterferenceFunction):
 
         InterferenceFunction2DLattice::InterferenceFunction2DLattice(double length_1, double length_2, double angle, double xi=0.0)
 
-        contructor
-
         Parameters:
         -----------
 
@@ -19083,16 +19089,16 @@ class InterferenceFunction2DParaCrystal(IInterferenceFunction):
         -----------
 
         length_1: 
-         Length of first lattice basis vector.
+        Length of first lattice basis vector.
 
         length_2: 
-         Length of second lattice basis vector.
+        Length of second lattice basis vector.
 
         alpha_lattice: 
-         Angle between the lattice basis vectors.
+        Angle between the lattice basis vectors.
 
         xi: 
-         Angle between first basis vector and the x-axis of incoming beam.
+        Angle between first basis vector and the x-axis of incoming beam.
 
         damping_length: 
         Damping length for removing delta function singularity at q=0. 
@@ -20010,7 +20016,7 @@ class Layer(ICompositeSample):
         """
         clone(Layer self) -> Layer
 
-        Layer * Layer::clone() const
+        Layer* Layer::clone() const final
 
         Returns a clone of this  ISample object. 
 
@@ -22224,7 +22230,9 @@ class ParameterPool(_object):
     """
 
 
-    Holds a map of pointers to parameters (which must have different names).
+    Holds a map of pointers to parameters.Used in  IParameterized, which has a member ParameterPool* m_pool. So this is pimpl (pointer to implementation) idiom, with  ParameterPool providing the implementation of all the nontrivial functionality of  IParameterized.
+
+    Parameter names must be unique since we use them as map keys.
 
     C++ includes: ParameterPool.h
 
@@ -22268,7 +22276,7 @@ class ParameterPool(_object):
 
         ParameterPool * ParameterPool::cloneWithPrefix(const std::string &prefix) const
 
-        Returns a clone with  prefix added to every parameter key. 
+        Returns a clone with  prefix prepended to every parameter key. 
 
         """
         return _libBornAgainCore.ParameterPool_cloneWithPrefix(self, prefix)
@@ -22280,9 +22288,7 @@ class ParameterPool(_object):
 
         void ParameterPool::copyToExternalPool(const std::string &prefix, ParameterPool *external_pool) const
 
-        Copies parameters to  external_pool, adding  prefix to every key.
-
-        Copy parameters of given pool to the external pool while adding prefix to local parameter keys 
+        Copies parameters of given pool to  other pool, prepeding  prefix to the parameter names. 
 
         """
         return _libBornAgainCore.ParameterPool_copyToExternalPool(self, prefix, external_pool)
@@ -22294,7 +22300,7 @@ class ParameterPool(_object):
 
         void ParameterPool::clear()
 
-        Deletes parameter map. 
+        Clears the parameter map. 
 
         """
         return _libBornAgainCore.ParameterPool_clear(self)
@@ -22326,11 +22332,11 @@ class ParameterPool(_object):
         """
         addParameter(ParameterPool self, RealParameter par) -> RealParameter
 
-        void ParameterPool::addParameter(RealParameter *par)
+        RealParameter & ParameterPool::addParameter(RealParameter *par)
 
-        Adds parameter to the pool.
+        Adds parameter to the pool, and returns reference to the input pointer.
 
-        Low-level routine. 
+        Returning the input pointer allows us to concatenate function calls like pool->addParameter( new  RealParameter(...) ).setLimits(-1,+1).setFixed().setUnit("nm") 
 
         """
         return _libBornAgainCore.ParameterPool_addParameter(self, par)
@@ -22343,9 +22349,7 @@ class ParameterPool(_object):
 
         const RealParameter * ParameterPool::getParameter(const std::string &name) const
 
-        Returns parameter named  name.
-
-        Returns parameter with given name. 
+        Returns parameter with given  name. 
 
         """
         return _libBornAgainCore.ParameterPool_getParameter(self, *args)
@@ -22369,7 +22373,7 @@ class ParameterPool(_object):
 
         std::vector< RealParameter * > ParameterPool::getMatchedParameters(const std::string &wildcards) const
 
-        Returns vector of parameters which fit pattern. 
+        Returns vector of parameters that match the  pattern (wildcards '*' allowed). 
 
         """
         return _libBornAgainCore.ParameterPool_getMatchedParameters(self, wildcards)
@@ -22393,8 +22397,6 @@ class ParameterPool(_object):
 
         int ParameterPool::setMatchedParametersValue(const std::string &wildcards, double value)
 
-        Sets parameter value, return number of changed parameters.
-
         Sets parameter value. 
 
         """
@@ -22405,9 +22407,7 @@ class ParameterPool(_object):
         """
         getParameterNames(ParameterPool self) -> vector_string_t
 
-        std::vector< std::string > ParameterPool::getParameterNames() const
-
-        Returns all parameter names. 
+        std::vector< std::string > ParameterPool::getParameterNames() const 
 
         """
         return _libBornAgainCore.ParameterPool_getParameterNames(self)
@@ -23390,7 +23390,7 @@ class RealParameter(INamed):
         clone(RealParameter self, std::string const & new_name) -> RealParameter
         clone(RealParameter self) -> RealParameter
 
-        virtual RealParameter* RealParameter::clone(const std::string &new_name="") const =0
+        RealParameter * RealParameter::clone(const std::string &new_name="") const 
 
         """
         return _libBornAgainCore.RealParameter_clone(self, *args)
@@ -23421,7 +23421,12 @@ class RealParameter(INamed):
 
 
     def setUnit(self, name):
-        """setUnit(RealParameter self, std::string const & name) -> RealParameter"""
+        """
+        setUnit(RealParameter self, std::string const & name) -> RealParameter
+
+        RealParameter& RealParameter::setUnit(const std::string &name)
+
+        """
         return _libBornAgainCore.RealParameter_setUnit(self, name)
 
 
@@ -23450,7 +23455,12 @@ class RealParameter(INamed):
 
 
     def setLimits(self, limits):
-        """setLimits(RealParameter self, Limits limits) -> RealParameter"""
+        """
+        setLimits(RealParameter self, Limits limits) -> RealParameter
+
+        RealParameter& RealParameter::setLimits(const Limits &limits)
+
+        """
         return _libBornAgainCore.RealParameter_setLimits(self, limits)
 
 
@@ -23465,17 +23475,32 @@ class RealParameter(INamed):
 
 
     def setLimited(self, lower, upper):
-        """setLimited(RealParameter self, double lower, double upper) -> RealParameter"""
+        """
+        setLimited(RealParameter self, double lower, double upper) -> RealParameter
+
+        RealParameter & RealParameter::setLimited(double lower, double upper)
+
+        """
         return _libBornAgainCore.RealParameter_setLimited(self, lower, upper)
 
 
     def setPositive(self):
-        """setPositive(RealParameter self) -> RealParameter"""
+        """
+        setPositive(RealParameter self) -> RealParameter
+
+        RealParameter & RealParameter::setPositive()
+
+        """
         return _libBornAgainCore.RealParameter_setPositive(self)
 
 
     def setNonnegative(self):
-        """setNonnegative(RealParameter self) -> RealParameter"""
+        """
+        setNonnegative(RealParameter self) -> RealParameter
+
+        RealParameter & RealParameter::setNonnegative()
+
+        """
         return _libBornAgainCore.RealParameter_setNonnegative(self)
 
 
@@ -23493,7 +23518,7 @@ class RealParameter(INamed):
         """
         unit(RealParameter self) -> std::string
 
-        virtual std::string RealParameter::unit() const =0
+        std::string RealParameter::unit() const 
 
         """
         return _libBornAgainCore.RealParameter_unit(self)
@@ -24350,7 +24375,7 @@ class SampleBuilderFactory(_object):
         registerItem(SampleBuilderFactory self, std::string const & item_key, IFactory< std::string,ISampleBuilder >::CreateItemCallback CreateFn, std::string const & itemDescription) -> bool
         registerItem(SampleBuilderFactory self, std::string const & item_key, IFactory< std::string,ISampleBuilder >::CreateItemCallback CreateFn) -> bool
 
-        bool IFactory< Key, AbstractProduct >::registerItem(const Key &item_key, CreateItemCallback CreateFn, const std::string &itemDescription)
+        bool IFactory< Key, AbstractProduct >::registerItem(const Key &item_key, CreateItemCallback CreateFn, const std::string &itemDescription="")
 
         Registers object's creation function and store object description. 
 
@@ -24439,7 +24464,7 @@ class SimulationFactory(_object):
         registerItem(SimulationFactory self, std::string const & item_key, IFactory< std::string,GISASSimulation >::CreateItemCallback CreateFn, std::string const & itemDescription) -> bool
         registerItem(SimulationFactory self, std::string const & item_key, IFactory< std::string,GISASSimulation >::CreateItemCallback CreateFn) -> bool
 
-        bool IFactory< Key, AbstractProduct >::registerItem(const Key &item_key, CreateItemCallback CreateFn, const std::string &itemDescription)
+        bool IFactory< Key, AbstractProduct >::registerItem(const Key &item_key, CreateItemCallback CreateFn, const std::string &itemDescription="")
 
         Registers object's creation function and store object description. 
 

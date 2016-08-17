@@ -92,20 +92,36 @@ std::string getRepresentation(const IDistribution1D* distribution)
                 << printDouble(d->getMean()) << ", "
                 << printDouble(d->getSigma()) << ")";
      }
-     else {
+     else
          throw Exceptions::RuntimeErrorException(
             "getRepresentation(const IDistribution1D* distribution) "
             "-> Error. Unknown distribution type");
-     }
      return result.str();
 }
 
 std::string getRepresentation(
     const std::string& indent, const Geometry::IShape2D* ishape, bool mask_value)
-{     std::ostringstream result;
-      result << std::setprecision(12);
+{
+    std::ostringstream result;
+    result << std::setprecision(12);
 
-    if(const Geometry::Ellipse* shape = dynamic_cast<const Geometry::Ellipse*>(ishape)) {
+    if (const Geometry::Polygon* shape = dynamic_cast<const Geometry::Polygon*>(ishape)) {
+        std::vector<double> xpos, ypos;
+        shape->getPoints(xpos, ypos);
+        result << indent << "points = [";
+        for(size_t i=0; i<xpos.size(); ++i) {
+            result << "[" << printDegrees(xpos[i]) << ", " <<
+                printDegrees(ypos[i]) << "]";
+            if(i!= xpos.size()-1) result << ", ";
+        }
+        result << "]\n";
+        result << indent << "simulation.addMask(" <<
+            "ba.Polygon(points), " << printBool(mask_value) << ")\n";
+
+    } else if(dynamic_cast<const Geometry::InfinitePlane*>(ishape)) {
+        result << indent << "simulation.maskAll()\n";
+
+    } else if(const Geometry::Ellipse* shape = dynamic_cast<const Geometry::Ellipse*>(ishape)) {
         result << indent << "simulation.addMask(";
         result << "ba.Ellipse("
                << printDegrees(shape->getCenterX()) << ", "
@@ -126,20 +142,6 @@ std::string getRepresentation(
                << printBool(mask_value) << ")\n";
     }
 
-    else if(const Geometry::Polygon* shape = dynamic_cast<const Geometry::Polygon*>(ishape)) {
-        std::vector<double> xpos, ypos;
-        shape->getPoints(xpos, ypos);
-        result << indent << "points = [";
-        for(size_t i=0; i<xpos.size(); ++i) {
-            result << "[" << printDegrees(xpos[i]) << ", " <<
-                printDegrees(ypos[i]) << "]";
-            if(i!= xpos.size()-1) result << ", ";
-        }
-        result << "]\n";
-        result << indent << "simulation.addMask(" <<
-            "ba.Polygon(points), " << printBool(mask_value) << ")\n";
-    }
-
     else if(const Geometry::VerticalLine* shape =
             dynamic_cast<const Geometry::VerticalLine*>(ishape)) {
         result << indent << "simulation.addMask(";
@@ -154,11 +156,11 @@ std::string getRepresentation(
         result << "ba.HorizontalLine("
                << printDegrees(shape->getYpos()) << "), "
                << printBool(mask_value) << ")\n";
-    }
 
-    else if(dynamic_cast<const Geometry::InfinitePlane*>(ishape)) {
-        result << indent << "simulation.maskAll()\n";
-    }
+    } else
+        throw Exceptions::RuntimeErrorException(
+            "getRepresentation(const IShape2D*) -> Error. Unknown shape");
+
     return result.str();
 }
 
@@ -176,7 +178,7 @@ std::string printDouble(double input)
         return inter.str();
     }
     inter << input;
-    if(inter.str().find('e') == std::string::npos && inter.str().find('.') == std::string::npos)
+    if (inter.str().find('e') == std::string::npos && inter.str().find('.') == std::string::npos)
         inter << ".0";
     return inter.str();
 }
@@ -197,13 +199,14 @@ std::string printScientificDouble(double input)
     inter << input;
 
     std::string::size_type pos = inter.str().find('e');
-    if(pos == std::string::npos) return inter.str();
+    if (pos == std::string::npos)
+        return inter.str();
 
     std::string part1 = inter.str().substr(0, pos);
     std::string part2 = inter.str().substr(pos, std::string::npos);
 
     part1.erase(part1.find_last_not_of('0') + 1, std::string::npos);
-    if(part1.back() == '.') part1 += "0";
+    if (part1.back() == '.') part1 += "0";
 
     return part1+part2;
 }
@@ -211,9 +214,8 @@ std::string printScientificDouble(double input)
 std::string printDegrees(double input)
 {
     std::ostringstream inter;
-    inter << std::setprecision(11);
-    inter << Units::rad2deg(input);
-    if(inter.str().find('e') == std::string::npos && inter.str().find('.') == std::string::npos)
+    inter << std::setprecision(11) << Units::rad2deg(input);
+    if (inter.str().find('e') == std::string::npos && inter.str().find('.') == std::string::npos)
         inter << ".0";
     inter << "*deg";
     return inter.str();
@@ -232,7 +234,8 @@ bool isHexagonal(double length1, double length2, double angle)
 std::string printKvector(const kvector_t value)
 {
     std::ostringstream result;
-    result << "kvector_t(" << printDouble(value.x()) << ", "
+    result << "kvector_t("
+           << printDouble(value.x()) << ", "
            << printDouble(value.y()) << ", "
            << printDouble(value.z()) << ")";
     return result.str();

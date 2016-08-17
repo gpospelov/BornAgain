@@ -26,31 +26,19 @@ namespace Geometry {
 
 class  BA_CORE_API_ Ellipse : public IShape2D {
 public:
-    //! Ellipse constructor
-    //! @param xcenter x-coordinate of Ellipse's center
-    //! @param ycenter y-coordinate of Ellipse's center
-    //! @param xradius Radius along x-axis
-    //! @param yradius Radius along y-axis
-    //! @param theta Angle of Ellipse rotation in radians
     Ellipse(double xcenter, double ycenter, double xradius, double yradius, double theta = 0.0);
+    Ellipse *clone() const { return new Ellipse(m_xc, m_yc, m_xr, m_yr, m_theta); }
 
-    Ellipse *clone() const;
-
-    //! Returns true if given point is inside or on border of ellipse
     bool contains(double x, double y) const;
-
-    //! Returns true if area defined by two bins is inside or on border of ellipse.
-    //! More precisely, if mid point of two bins satisfy this condition.
     bool contains(const Bin1D &binx, const Bin1D &biny) const;
 
     double getCenterX() const { return m_xc; }
     double getCenterY() const { return m_yc; }
     double getRadiusX() const { return m_xr; }
     double getRadiusY() const { return m_yr; }
-    double getTheta() const { return m_theta; }
+    double getTheta()   const { return m_theta; }
 
 private:
-    Ellipse(const Ellipse& other);
     double m_xc, m_yc, m_xr, m_yr, m_theta;
 };
 

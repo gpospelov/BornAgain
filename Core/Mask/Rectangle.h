@@ -20,36 +20,25 @@
 
 namespace Geometry {
 
-//! @class Rectangle
-//! @ingroup tools
-//! @brief The rectangle shape having its axis aligned to the (non-rotated) coordinate system.
+//! The rectangle shape having its axis aligned to the (non-rotated) coordinate system.
+//! @ingroup mask
 
-class BA_CORE_API_  Rectangle : public IShape2D {
+class BA_CORE_API_ Rectangle : public IShape2D {
 public:
-    //! Rectangle constructor with lower left and upper right coordinates
-    //! @param xlow x-coordinate of lower left corner
-    //! @param ylow y-coordinate of lower left corner
-    //! @param xup x-coordinate of upper right corner
-    //! @param yup y-coordinate of upper right corner
     Rectangle(double xlow, double ylow, double xup, double yup);
+    Rectangle* clone() const { return new Rectangle(m_xlow, m_ylow, m_xup, m_yup); }
 
-    Rectangle* clone() const;
-
-    //! Returns true if given point is inside or on border of rectangle
     bool contains(double x, double y) const;
-
-    //! Returns true if mid point of two bins is inside rectangle.
     bool contains(const Bin1D &binx, const Bin1D &biny) const;
 
     double getArea() const;
 
-    double getXlow() const;
-    double getYlow() const;
-    double getXup() const;
-    double getYup() const;
+    double getXlow() const { return m_xlow; }
+    double getYlow() const { return m_ylow; }
+    double getXup()  const { return m_xup; }
+    double getYup()  const { return m_yup; }
 
 private:
-    Rectangle(const Rectangle& other);
     double m_xlow, m_ylow, m_xup, m_yup;
 };
 

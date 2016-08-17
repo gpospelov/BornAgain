@@ -1778,7 +1778,7 @@ class Configurable(_object):
     """
 
 
-    The  Configurable class is a base for storing (int,double,string) options.
+    A base class for storing (int,double,string) options.
 
     C++ includes: Configurable.h
 
@@ -1837,7 +1837,7 @@ class IMinimizer(Configurable):
     """
 
 
-    Common interface for all kind minimizer's.
+    Common interface for all kind minimizers.
 
     C++ includes: IMinimizer.h
 
@@ -1861,7 +1861,7 @@ class IMinimizer(Configurable):
         """
         minimize(IMinimizer self)
 
-        void IMinimizer::minimize()
+        virtual void IMinimizer::minimize()=0
 
         run minimization 
 
@@ -1873,9 +1873,11 @@ class IMinimizer(Configurable):
         """
         setParameters(IMinimizer self, FitSuiteParameters parameters)
 
-        void IMinimizer::setParameters(const FitSuiteParameters &parameters)
+        virtual void IMinimizer::setParameters(const FitSuiteParameters &parameters)=0
 
-        Sets internal minimizer parameters using external parameter list. 
+        Sets internal minimizer parameter.
+
+        Sets internal minimizer parameters using external parameter list 
 
         """
         return _libBornAgainFit.IMinimizer_setParameters(self, parameters)
@@ -1885,7 +1887,7 @@ class IMinimizer(Configurable):
         """
         setChiSquaredFunction(IMinimizer self, IMinimizer::function_chi2_t fun_chi2, size_t nparameters)
 
-        void IMinimizer::setChiSquaredFunction(function_chi2_t fun_chi2, size_t nparameters)
+        virtual void IMinimizer::setChiSquaredFunction(function_chi2_t fun_chi2, size_t nparameters)=0
 
         Sets chi squared function to minimize. 
 
@@ -1897,7 +1899,7 @@ class IMinimizer(Configurable):
         """
         setGradientFunction(IMinimizer self, IMinimizer::function_gradient_t fun_gradient, size_t nparameters, size_t ndatasize)
 
-        void IMinimizer::setGradientFunction(function_gradient_t fun_gradient, size_t nparameters, size_t ndatasize)
+        virtual void IMinimizer::setGradientFunction(function_gradient_t fun_gradient, size_t nparameters, size_t ndatasize)=0
 
         Sets gradient function to minimize. 
 
@@ -1909,7 +1911,7 @@ class IMinimizer(Configurable):
         """
         getNumberOfVariables(IMinimizer self) -> size_t
 
-        size_t IMinimizer::getNumberOfVariables() const
+        virtual size_t IMinimizer::getNumberOfVariables() const =0
 
         Returns number of variables to fit. 
 
@@ -1921,9 +1923,11 @@ class IMinimizer(Configurable):
         """
         getValueOfVariablesAtMinimum(IMinimizer self) -> vdouble1d_t
 
-        std::vector< double > IMinimizer::getValueOfVariablesAtMinimum() const
+        virtual std::vector<double> IMinimizer::getValueOfVariablesAtMinimum() const =0
 
-        Returns values of parameters at the minimum. 
+        Returns minimum function value.
+
+        Returns values of parameters at the minimum 
 
         """
         return _libBornAgainFit.IMinimizer_getValueOfVariablesAtMinimum(self)
@@ -1933,7 +1937,7 @@ class IMinimizer(Configurable):
         """
         getErrorOfVariables(IMinimizer self) -> vdouble1d_t
 
-        std::vector< double > IMinimizer::getErrorOfVariables() const
+        virtual std::vector<double> IMinimizer::getErrorOfVariables() const =0
 
         Returns errors of variables at minimum. 
 
@@ -1945,9 +1949,11 @@ class IMinimizer(Configurable):
         """
         printResults(IMinimizer self)
 
-        void IMinimizer::printResults() const
+        virtual void IMinimizer::printResults() const =0
 
-        Prints fit results. 
+        clear resources (parameters) for consecutives minimizations
+
+        Prints fit results 
 
         """
         return _libBornAgainFit.IMinimizer_printResults(self)
@@ -1957,7 +1963,7 @@ class IMinimizer(Configurable):
         """
         getNCalls(IMinimizer self) -> size_t
 
-        size_t IMinimizer::getNCalls() const
+        virtual size_t IMinimizer::getNCalls() const
 
         Returns number of calls of minimized function. 
 
@@ -1970,7 +1976,7 @@ class IMinimizer(Configurable):
         getOptions(IMinimizer self) -> MinimizerOptions
         getOptions(IMinimizer self) -> MinimizerOptions
 
-        const MinimizerOptions * IMinimizer::getOptions() const 
+        virtual const MinimizerOptions* IMinimizer::getOptions() const 
 
         """
         return _libBornAgainFit.IMinimizer_getOptions(self, *args)
@@ -1980,7 +1986,7 @@ class IMinimizer(Configurable):
         """
         setOptions(IMinimizer self, MinimizerOptions arg2)
 
-        void IMinimizer::setOptions(const MinimizerOptions &options)
+        virtual void IMinimizer::setOptions(const MinimizerOptions &)
 
         set minimizer options 
 
@@ -1992,7 +1998,7 @@ class IMinimizer(Configurable):
         """
         setOptionString(IMinimizer self, std::string const & arg2)
 
-        void IMinimizer::setOptionString(const std::string &options)
+        virtual void IMinimizer::setOptionString(const std::string &)
 
         set minimizer option string 
 
@@ -2004,7 +2010,7 @@ class IMinimizer(Configurable):
         """
         isGradientBasedAgorithm(IMinimizer self) -> bool
 
-        bool IMinimizer::isGradientBasedAgorithm()
+        virtual bool IMinimizer::isGradientBasedAgorithm()
 
         Returns true if type of algorithm is Levenberg-Marquardt or similar. 
 
@@ -2016,7 +2022,7 @@ class IMinimizer(Configurable):
         """
         getMinimizerName(IMinimizer self) -> std::string
 
-        std::string IMinimizer::getMinimizerName() const
+        virtual std::string IMinimizer::getMinimizerName() const =0
 
         return name of the minimizer 
 
@@ -2028,7 +2034,7 @@ class IMinimizer(Configurable):
         """
         getAlgorithmName(IMinimizer self) -> std::string
 
-        std::string IMinimizer::getAlgorithmName() const
+        virtual std::string IMinimizer::getAlgorithmName() const =0
 
         return name of the minimization algorithm 
 
@@ -2153,7 +2159,7 @@ class FitSuiteParameters(_object):
     """
 
 
-    Holds vector of parameters for FitSuite.
+    Vector of parameters, for FitSuite
 
     C++ includes: FitSuiteParameters.h
 
@@ -2192,12 +2198,26 @@ class FitSuiteParameters(_object):
 
 
     def addFitParameter(self, par):
-        """addFitParameter(FitSuiteParameters self, FitParameter par)"""
+        """
+        addFitParameter(FitSuiteParameters self, FitParameter par)
+
+        void FitSuiteParameters::addFitParameter(FitParameter *par)
+
+        Adds fit parameter. 
+
+        """
         return _libBornAgainFit.FitSuiteParameters_addFitParameter(self, par)
 
 
     def getFitParameters(self):
-        """getFitParameters(FitSuiteParameters self) -> std::vector< FitParameter *,std::allocator< FitParameter * > > &"""
+        """
+        getFitParameters(FitSuiteParameters self) -> std::vector< FitParameter *,std::allocator< FitParameter * > > &
+
+        std::vector<FitParameter*>& FitSuiteParameters::getFitParameters()
+
+        Returns all parameters. 
+
+        """
         return _libBornAgainFit.FitSuiteParameters_getFitParameters(self)
 
 
@@ -2276,7 +2296,7 @@ class FitSuiteParameters(_object):
         begin(FitSuiteParameters self) -> std::vector< FitParameter *,std::allocator< FitParameter * > >::iterator
         begin(FitSuiteParameters self) -> std::vector< FitParameter *,std::allocator< FitParameter * > >::const_iterator
 
-        const_iterator FitSuiteParameters::begin() const 
+        std::vector<FitParameter*>::const_iterator FitSuiteParameters::begin() const 
 
         """
         return _libBornAgainFit.FitSuiteParameters_begin(self, *args)
@@ -2287,14 +2307,21 @@ class FitSuiteParameters(_object):
         end(FitSuiteParameters self) -> std::vector< FitParameter *,std::allocator< FitParameter * > >::iterator
         end(FitSuiteParameters self) -> std::vector< FitParameter *,std::allocator< FitParameter * > >::const_iterator
 
-        const_iterator FitSuiteParameters::end() const 
+        std::vector<FitParameter*>::const_iterator FitSuiteParameters::end() const 
 
         """
         return _libBornAgainFit.FitSuiteParameters_end(self, *args)
 
 
     def numberOfFreeFitParameters(self):
-        """numberOfFreeFitParameters(FitSuiteParameters self) -> size_t"""
+        """
+        numberOfFreeFitParameters(FitSuiteParameters self) -> size_t
+
+        size_t FitSuiteParameters::numberOfFreeFitParameters() const
+
+        Returns number of free parameters. 
+
+        """
         return _libBornAgainFit.FitSuiteParameters_numberOfFreeFitParameters(self)
 
 
@@ -2312,7 +2339,14 @@ class FitSuiteParameters(_object):
 
 
     def printFitParameters(self):
-        """printFitParameters(FitSuiteParameters self)"""
+        """
+        printFitParameters(FitSuiteParameters self)
+
+        void FitSuiteParameters::printFitParameters() const
+
+        Print defined parameters. 
+
+        """
         return _libBornAgainFit.FitSuiteParameters_printFitParameters(self)
 
 
@@ -2341,7 +2375,14 @@ class FitSuiteParameters(_object):
 
 
     def setFixed(self, pars, is_fixed):
-        """setFixed(FitSuiteParameters self, vector_string_t pars, bool is_fixed)"""
+        """
+        setFixed(FitSuiteParameters self, vector_string_t pars, bool is_fixed)
+
+        void FitSuiteParameters::setFixed(const std::vector< std::string > &pars, bool is_fixed)
+
+        Set fixed flag for parameters from the list. 
+
+        """
         return _libBornAgainFit.FitSuiteParameters_setFixed(self, pars, is_fixed)
 
 

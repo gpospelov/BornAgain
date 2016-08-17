@@ -22,9 +22,8 @@
 
 using std::size_t;
 
-//! @class MaskCoordinateFunction
+//! Base class for all kind of OutputData's masks.
 //! @ingroup simulation_internal
-//! @brief Base class for all kind of OutputData's masks
 
 class BA_CORE_API_ MaskCoordinateFunction : public ICloneable
 {
@@ -42,9 +41,8 @@ protected:
 };
 
 
-//! @class MaskCoordinateRectangleFunction
+//! Rectangular mask for OutputData.
 //! @ingroup simulation_internal
-//! @brief Rectangular mask for OutputData
 
 class BA_CORE_API_ MaskCoordinateRectangleFunction : public MaskCoordinateFunction
 {
@@ -61,9 +59,8 @@ private:
     int* m_maxima;
 };
 
-//! @class MaskCoordinateEllipseFunction
+//! Ellipse shaped mask for OutputData.
 //! @ingroup simulation_internal
-//! @brief Ellipse shaped mask for OutputData
 
 class BA_CORE_API_ MaskCoordinateEllipseFunction : public MaskCoordinateFunction
 {

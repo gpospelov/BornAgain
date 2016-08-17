@@ -20,22 +20,16 @@
 
 namespace Geometry {
 
-
-//! @class InfinitePlane
+//! The infinite plane is used for masking everything once and forever.
 //! @ingroup tools
-//! @brief The infinite plane is used in masking to mask everythin once and forever.
 
-class BA_CORE_API_  InfinitePlane : public IShape2D {
+class BA_CORE_API_ InfinitePlane : public IShape2D {
 public:
-    InfinitePlane(){}
+    InfinitePlane() : IShape2D("InfinitePlane") {}
+    InfinitePlane *clone() const { return new InfinitePlane(); }
 
-    InfinitePlane *clone() const;
-
-    //! Returns true if given point is inside or on border of rectangle
-    bool contains(double x, double y) const;
-
-    //! Returns true if mid point of two bins is inside rectangle.
-    bool contains(const Bin1D &binx, const Bin1D &biny) const;
+    bool contains(double, double) const { return true; }
+    bool contains(const Bin1D&, const Bin1D&) const { return true; }
 };
 
 } // namespace Geometry

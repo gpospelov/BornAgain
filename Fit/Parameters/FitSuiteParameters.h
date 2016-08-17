@@ -30,7 +30,7 @@ class ParameterPool;
 class BA_CORE_API_ FitSuiteParameters
 {
  public:
-    FitSuiteParameters();
+    FitSuiteParameters() {}
     ~FitSuiteParameters();
 
     //! Clears all defined parameters.

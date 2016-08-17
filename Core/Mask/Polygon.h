@@ -23,47 +23,34 @@ namespace Geometry {
 
 class PolygonPrivate;
 
-//! @class Polygon
-//! @ingroup tools
-//! @brief The polygon in 2D space
+//! A polygon in 2D space.
+//! @ingroup mask
+
+//! Polygon defined by two arrays with x and y coordinates of points.
+//! Sizes of arrays should coincide.  If polygon is unclosed (the last point
+//! doesn't repeat the first one), it will be closed automatically.
 
 class BA_CORE_API_ Polygon : public IShape2D {
 public:
-    //! Polygon defined by two arrays with x and y coordinates of points.
-    //! Sizes of arrays should coincide.  If polygon is unclosed (the last point
-    //! doesn't repeat the first one), it will be closed automatically.
-    //! @param x Vector of x-coordinates of polygon points.
-    //! @param y Vector of y-coordinates of polygon points.
-    Polygon(std::vector<double > x, std::vector<double> y);
-
-    //! Polygon defined by two  dimensional array with (x,y) coordinates of polygon points.
-    //! The size of second dimension should be 2. If polygon is unclosed (the last point
-    //! doesn't repeat the first one), it will be closed automatically.
-    //! @param points Two dimensional vector of (x,y) coordinates of polygon points.
-    Polygon(std::vector<std::vector<double> > points);
+    Polygon(const std::vector<double>& x, const std::vector<double>& y);
+    Polygon(const std::vector<std::vector<double>>& points);
+    Polygon(const PolygonPrivate* d);
 
     virtual ~Polygon();
 
-    virtual Polygon* clone() const;
+    virtual Polygon* clone() const { return new Polygon(m_d); }
 
-    //! Returns true if given point is inside or on border of polygon
     virtual bool contains(double x, double y) const;
-
-    //! Returns true if area defined by two bins is inside or on border of polygon.
-    //! More precisely, if mid point of two bins satisfy this condition.
     virtual bool contains(const Bin1D &binx, const Bin1D &biny) const;
 
     double getArea() const;
 
-    void getPoints(std::vector<double> &xpos, std::vector<double> &ypos) const;
+    void getPoints(std::vector<double>& xpos, std::vector<double>& ypos) const;
 
 protected:
-    virtual void print(std::ostream &ostr) const;
+    virtual void print(std::ostream& ostr) const;
 
 private:
-    Polygon(const Polygon& other);
-    const Polygon& operator=(const Polygon& );
-
     PolygonPrivate* m_d;
 };
 

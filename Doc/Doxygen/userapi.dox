@@ -6,6 +6,9 @@ Here is a list of classes grouped in several categories to create the sample, de
 <ul>
 <li> \ref simulation "Simulation" <br>
 List of classes to describe beam, detector and run the simulation
+     <ul>
+     <li> \ref mask "Detector masks"
+     </ul>
 <li> \ref samples "Samples" <br>
 List of classes to describe scattering sample
 <li> \ref materials "Materials" <br>

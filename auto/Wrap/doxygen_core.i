@@ -1,24 +1,6 @@
 
 // File: index.xml
 
-// File: classAngle.xml
-%feature("docstring") Angle "
-
-A parameter of physical dimension \"angle\".
-
-C++ includes: DimensionedParameters.h
-";
-
-%feature("docstring")  Angle::Angle "Angle::Angle(const std::string &name, ParameterPool *parent, volatile double *par, const Limits &limits)
-";
-
-%feature("docstring")  Angle::clone "virtual Angle* Angle::clone(const std::string &new_name=\"\") const 
-";
-
-%feature("docstring")  Angle::unit "std::string Angle::unit() const final
-";
-
-
 // File: classAngularPixelMap.xml
 %feature("docstring") AngularPixelMap "";
 
@@ -1458,7 +1440,7 @@ yradius:
 Radius along y-axis
 
 theta: 
- Angle of  Ellipse rotation in radians 
+Angle of  Ellipse rotation in radians 
 ";
 
 %feature("docstring")  Geometry::Ellipse::clone "Ellipse * Geometry::Ellipse::clone() const 
@@ -2899,15 +2881,12 @@ Isotropic Debye-Waller factor.
 Anisotropic Debye-Waller factor. 
 ";
 
-%feature("docstring")  FormFactorDecoratorDebyeWaller::~FormFactorDecoratorDebyeWaller "virtual FormFactorDecoratorDebyeWaller::~FormFactorDecoratorDebyeWaller()
-";
-
-%feature("docstring")  FormFactorDecoratorDebyeWaller::clone "FormFactorDecoratorDebyeWaller * FormFactorDecoratorDebyeWaller::clone() const
+%feature("docstring")  FormFactorDecoratorDebyeWaller::clone "FormFactorDecoratorDebyeWaller* FormFactorDecoratorDebyeWaller::clone() const final
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  FormFactorDecoratorDebyeWaller::accept "void FormFactorDecoratorDebyeWaller::accept(ISampleVisitor *visitor) const
+%feature("docstring")  FormFactorDecoratorDebyeWaller::accept "void FormFactorDecoratorDebyeWaller::accept(ISampleVisitor *visitor) const final
 
 Calls the  ISampleVisitor's visit method. 
 ";
@@ -3827,8 +3806,6 @@ C++ includes: FormFactorLongRipple2Lorentz.h
 ";
 
 %feature("docstring")  FormFactorLongRipple2Lorentz::FormFactorLongRipple2Lorentz "FormFactorLongRipple2Lorentz::FormFactorLongRipple2Lorentz(double length, double width, double height, double asymmetry)
-
-FormFactorLongRipple2Lorentz constructor.
 
 Parameters:
 -----------
@@ -6138,12 +6115,7 @@ C++ includes: IFactory.h
 Creates object by calling creation function corresponded to given identifier. 
 ";
 
-%feature("docstring")  IFactory::registerItem "bool IFactory< Key, AbstractProduct >::registerItem(const Key &item_key, CreateItemCallback CreateFn)
-
-Registers object's creation function. 
-";
-
-%feature("docstring")  IFactory::registerItem "bool IFactory< Key, AbstractProduct >::registerItem(const Key &item_key, CreateItemCallback CreateFn, const std::string &itemDescription)
+%feature("docstring")  IFactory::registerItem "bool IFactory< Key, AbstractProduct >::registerItem(const Key &item_key, CreateItemCallback CreateFn, const std::string &itemDescription=\"\")
 
 Registers object's creation function and store object description. 
 ";
@@ -6156,13 +6128,7 @@ Registers object's creation function and store object description.
 Returns number of registered objects. 
 ";
 
-%feature("docstring")  IFactory::begin "iterator IFactory< Key, AbstractProduct >::begin()
-";
-
 %feature("docstring")  IFactory::begin "const_iterator IFactory< Key, AbstractProduct >::begin() const 
-";
-
-%feature("docstring")  IFactory::end "iterator IFactory< Key, AbstractProduct >::end()
 ";
 
 %feature("docstring")  IFactory::end "const_iterator IFactory< Key, AbstractProduct >::end() const 
@@ -7501,8 +7467,6 @@ C++ includes: InterferenceFunction2DLattice.h
 
 %feature("docstring")  InterferenceFunction2DLattice::InterferenceFunction2DLattice "InterferenceFunction2DLattice::InterferenceFunction2DLattice(double length_1, double length_2, double angle, double xi=0.0)
 
-contructor
-
 Parameters:
 -----------
 
@@ -7571,16 +7535,16 @@ Parameters:
 -----------
 
 length_1: 
- Length of first lattice basis vector.
+Length of first lattice basis vector.
 
 length_2: 
- Length of second lattice basis vector.
+Length of second lattice basis vector.
 
 alpha_lattice: 
- Angle between the lattice basis vectors.
+Angle between the lattice basis vectors.
 
 xi: 
- Angle between first basis vector and the x-axis of incoming beam.
+Angle between first basis vector and the x-axis of incoming beam.
 
 damping_length: 
 Damping length for removing delta function singularity at q=0. 
@@ -7856,28 +7820,7 @@ Creates new parameter pool, with all local parameters and those of its children.
 %feature("docstring")  IParameterized::printParameters "void IParameterized::printParameters()
 ";
 
-%feature("docstring")  IParameterized::registerUnlimitedAngle "void IParameterized::registerUnlimitedAngle(const std::string &name, double *parpointer)
-";
-
-%feature("docstring")  IParameterized::registerLimitedAngle "void IParameterized::registerLimitedAngle(const std::string &name, double *parpointer, double lower_limit, double upper_limit)
-";
-
-%feature("docstring")  IParameterized::registerUnlimitedLength "void IParameterized::registerUnlimitedLength(const std::string &name, double *parpointer)
-";
-
-%feature("docstring")  IParameterized::registerPositiveLength "void IParameterized::registerPositiveLength(const std::string &name, double *parpointer)
-";
-
-%feature("docstring")  IParameterized::registerNonnegativeLength "void IParameterized::registerNonnegativeLength(const std::string &name, double *parpointer)
-";
-
-%feature("docstring")  IParameterized::registerUnlimitedScalar "void IParameterized::registerUnlimitedScalar(const std::string &name, double *parpointer)
-";
-
-%feature("docstring")  IParameterized::registerPositiveScalar "void IParameterized::registerPositiveScalar(const std::string &name, double *parpointer)
-";
-
-%feature("docstring")  IParameterized::registerNonnegativeScalar "void IParameterized::registerNonnegativeScalar(const std::string &name, double *parpointer)
+%feature("docstring")  IParameterized::registerParameter "RealParameter & IParameterized::registerParameter(const std::string &name, double *parpointer)
 ";
 
 %feature("docstring")  IParameterized::setParameterValue "void IParameterized::setParameterValue(const std::string &name, double value)
@@ -8909,7 +8852,7 @@ Constructs layer made of  material with  thickness in nanometers and decoration.
 %feature("docstring")  Layer::~Layer "Layer::~Layer()
 ";
 
-%feature("docstring")  Layer::clone "Layer * Layer::clone() const
+%feature("docstring")  Layer::clone "Layer* Layer::clone() const final
 
 Returns a clone of this  ISample object. 
 ";
@@ -9224,24 +9167,6 @@ C++ includes: LayersWithAbsorptionBuilder.h
 ";
 
 %feature("docstring")  LayersWithAbsorptionBuilder::buildSample "ISample * LayersWithAbsorptionBuilder::buildSample() const 
-";
-
-
-// File: classLength.xml
-%feature("docstring") Length "
-
-A parameter of physical dimension \"length\". Values are in nm.
-
-C++ includes: DimensionedParameters.h
-";
-
-%feature("docstring")  Length::Length "Length::Length(const std::string &name, ParameterPool *parent, volatile double *par, const Limits &limits)
-";
-
-%feature("docstring")  Length::clone "virtual Length* Length::clone(const std::string &new_name=\"\") const 
-";
-
-%feature("docstring")  Length::unit "std::string Length::unit() const final
 ";
 
 
@@ -10595,7 +10520,9 @@ C++ includes: ParameterPattern.h
 // File: classParameterPool.xml
 %feature("docstring") ParameterPool "
 
-Holds a map of pointers to parameters (which must have different names).
+Holds a map of pointers to parameters.Used in  IParameterized, which has a member ParameterPool* m_pool. So this is pimpl (pointer to implementation) idiom, with  ParameterPool providing the implementation of all the nontrivial functionality of  IParameterized.
+
+Parameter names must be unique since we use them as map keys.
 
 C++ includes: ParameterPool.h
 ";
@@ -10618,19 +10545,17 @@ Returns a literal clone.
 
 %feature("docstring")  ParameterPool::cloneWithPrefix "ParameterPool * ParameterPool::cloneWithPrefix(const std::string &prefix) const
 
-Returns a clone with  prefix added to every parameter key. 
+Returns a clone with  prefix prepended to every parameter key. 
 ";
 
 %feature("docstring")  ParameterPool::copyToExternalPool "void ParameterPool::copyToExternalPool(const std::string &prefix, ParameterPool *external_pool) const
 
-Copies parameters to  external_pool, adding  prefix to every key.
-
-Copy parameters of given pool to the external pool while adding prefix to local parameter keys 
+Copies parameters of given pool to  other pool, prepeding  prefix to the parameter names. 
 ";
 
 %feature("docstring")  ParameterPool::clear "void ParameterPool::clear()
 
-Deletes parameter map. 
+Clears the parameter map. 
 ";
 
 %feature("docstring")  ParameterPool::getName "std::string ParameterPool::getName() const 
@@ -10641,25 +10566,21 @@ Deletes parameter map.
 Returns number of parameters in the pool. 
 ";
 
-%feature("docstring")  ParameterPool::addParameter "void ParameterPool::addParameter(RealParameter *par)
+%feature("docstring")  ParameterPool::addParameter "RealParameter & ParameterPool::addParameter(RealParameter *par)
 
-Adds parameter to the pool.
+Adds parameter to the pool, and returns reference to the input pointer.
 
-Low-level routine. 
+Returning the input pointer allows us to concatenate function calls like pool->addParameter( new  RealParameter(...) ).setLimits(-1,+1).setFixed().setUnit(\"nm\") 
 ";
 
 %feature("docstring")  ParameterPool::getParameter "RealParameter * ParameterPool::getParameter(const std::string &name)
 
-Returns parameter named  name.
-
-Returns parameter with given name. 
+Returns parameter with given  name. 
 ";
 
 %feature("docstring")  ParameterPool::getParameter "const RealParameter * ParameterPool::getParameter(const std::string &name) const
 
-Returns parameter named  name.
-
-Returns parameter with given name. 
+Returns parameter with given  name. 
 ";
 
 %feature("docstring")  ParameterPool::getParameters "const std::vector<RealParameter*> ParameterPool::getParameters() const
@@ -10669,7 +10590,7 @@ Returns full vector of parameters.
 
 %feature("docstring")  ParameterPool::getMatchedParameters "std::vector< RealParameter * > ParameterPool::getMatchedParameters(const std::string &wildcards) const
 
-Returns vector of parameters which fit pattern. 
+Returns vector of parameters that match the  pattern (wildcards '*' allowed). 
 ";
 
 %feature("docstring")  ParameterPool::setParameterValue "void ParameterPool::setParameterValue(const std::string &name, double value)
@@ -10679,14 +10600,10 @@ Sets parameter value.
 
 %feature("docstring")  ParameterPool::setMatchedParametersValue "int ParameterPool::setMatchedParametersValue(const std::string &wildcards, double value)
 
-Sets parameter value, return number of changed parameters.
-
 Sets parameter value. 
 ";
 
-%feature("docstring")  ParameterPool::getParameterNames "std::vector< std::string > ParameterPool::getParameterNames() const
-
-Returns all parameter names. 
+%feature("docstring")  ParameterPool::getParameterNames "std::vector< std::string > ParameterPool::getParameterNames() const 
 ";
 
 
@@ -11423,10 +11340,7 @@ C++ includes: RealParameter.h
 This constructor takes copies 'other' except for the name. 
 ";
 
-%feature("docstring")  RealParameter::~RealParameter "virtual RealParameter::~RealParameter()
-";
-
-%feature("docstring")  RealParameter::clone "virtual RealParameter* RealParameter::clone(const std::string &new_name=\"\") const =0
+%feature("docstring")  RealParameter::clone "RealParameter * RealParameter::clone(const std::string &new_name=\"\") const 
 ";
 
 %feature("docstring")  RealParameter::setValue "void RealParameter::setValue(double value)
@@ -11439,6 +11353,9 @@ Sets value of wrapped parameter and emit signal.
 Returns value of wrapped parameter. 
 ";
 
+%feature("docstring")  RealParameter::setUnit "RealParameter& RealParameter::setUnit(const std::string &name)
+";
+
 %feature("docstring")  RealParameter::isNull "bool RealParameter::isNull() const
 
 Returns true if wrapped parameter was not initialized with proper real value. 
@@ -11449,10 +11366,22 @@ Returns true if wrapped parameter was not initialized with proper real value.
 throw exception if parameter was not initialized with proper value 
 ";
 
+%feature("docstring")  RealParameter::setLimits "RealParameter& RealParameter::setLimits(const Limits &limits)
+";
+
 %feature("docstring")  RealParameter::getLimits "Limits RealParameter::getLimits() const 
 ";
 
-%feature("docstring")  RealParameter::unit "virtual std::string RealParameter::unit() const =0
+%feature("docstring")  RealParameter::setLimited "RealParameter & RealParameter::setLimited(double lower, double upper)
+";
+
+%feature("docstring")  RealParameter::setPositive "RealParameter & RealParameter::setPositive()
+";
+
+%feature("docstring")  RealParameter::setNonnegative "RealParameter & RealParameter::setNonnegative()
+";
+
+%feature("docstring")  RealParameter::unit "std::string RealParameter::unit() const 
 ";
 
 
@@ -12137,24 +12066,6 @@ C++ includes: SampleTreeIterator.h
 ";
 
 %feature("docstring")  SampleTreeIterator::getLevel "size_t SampleTreeIterator< Strategy >::getLevel() const 
-";
-
-
-// File: classScalar.xml
-%feature("docstring") Scalar "
-
-A parameter of that is physically dimensionless.
-
-C++ includes: DimensionedParameters.h
-";
-
-%feature("docstring")  Scalar::Scalar "Scalar::Scalar(const std::string &name, ParameterPool *parent, volatile double *par, const Limits &limits)
-";
-
-%feature("docstring")  Scalar::clone "virtual Scalar* Scalar::clone(const std::string &new_name=\"\") const 
-";
-
-%feature("docstring")  Scalar::unit "std::string Scalar::unit() const final
 ";
 
 
@@ -13161,6 +13072,21 @@ C++ includes: ParticleDistributionsBuilder.h
 ";
 
 
+// File: classUnit.xml
+%feature("docstring") Unit "
+
+A physical unit.
+
+C++ includes: Unit.h
+";
+
+%feature("docstring")  Unit::Unit "Unit::Unit(const std::string &name=\"\")
+";
+
+%feature("docstring")  Unit::setUnit "void Unit::setUnit(const std::string &name)
+";
+
+
 // File: classExceptions_1_1UnknownClassRegistrationException.xml
 %feature("docstring") Exceptions::UnknownClassRegistrationException "";
 
@@ -13307,13 +13233,13 @@ C++ includes: WavevectorInfo.h
 // File: classMathFunctions_1_1Convolve_1_1Workspace.xml
 
 
-// File: namespace_0D296.xml
+// File: namespace_0D298.xml
 
 
-// File: namespace_0D368.xml
+// File: namespace_0D371.xml
 
 
-// File: namespace_0D434.xml
+// File: namespace_0D437.xml
 
 
 // File: namespaceboost_1_1geometry.xml
@@ -13331,16 +13257,6 @@ C++ includes: WavevectorInfo.h
 
 
 // File: namespaceFileSystem.xml
-%feature("docstring")  FileSystem::GetWorkingPath "std::string FileSystem::GetWorkingPath()
-
-Returns path to the current (working) directory. 
-";
-
-%feature("docstring")  FileSystem::GetHomePath "std::string FileSystem::GetHomePath()
-
-Returns path to BornAgain home directory. 
-";
-
 %feature("docstring")  FileSystem::GetFileExtension "std::string FileSystem::GetFileExtension(const std::string &name)
 
 Returns file extension. 
@@ -14496,6 +14412,12 @@ The mathematics implemented here is described in full detail in a paper by Joach
 ";
 
 
+// File: NumpyUtils_8cpp.xml
+
+
+// File: NumpyUtils_8h.xml
+
+
 // File: OutputData_8cpp.xml
 
 
@@ -14748,9 +14670,6 @@ Set all element intensities to given value.
 // File: SpecularMatrix_8h.xml
 
 
-// File: DimensionedParameters_8h.xml
-
-
 // File: Distributions_8cpp.xml
 
 
@@ -14800,6 +14719,12 @@ Set all element intensities to given value.
 
 
 // File: ThreadInfo_8h.xml
+
+
+// File: Unit_8cpp.xml
+
+
+// File: Unit_8h.xml
 
 
 // File: Units_8h.xml
@@ -15236,12 +15161,6 @@ David N. Williams
 
 
 // File: MathFunctions_8h.xml
-
-
-// File: NumpyUtils_8cpp.xml
-
-
-// File: NumpyUtils_8h.xml
 
 
 // File: Precomputed_8cpp.xml

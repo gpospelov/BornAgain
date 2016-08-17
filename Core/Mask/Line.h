@@ -20,79 +20,56 @@
 
 namespace Geometry {
 
-
-//! @class Line
-//! @ingroup tools
-//! @brief The line segment
+//! A line segment.
+//! @ingroup mask
 
 class  BA_CORE_API_ Line : public IShape2D {
 public:
-    //! Line segment constructor
     Line(double x1, double y1, double x2, double y2);
+    Line *clone() const { return new Line(m_x1, m_y1, m_x2, m_y2); }
 
-    Line *clone() const;
-
-    //! Returns true if given point is on this line segment
     bool contains(double x, double y) const;
-
-    //! Returns true if the line crosses the area defined by two given bins
     bool contains(const Bin1D &binx, const Bin1D &biny) const;
 
 private:
-    Line(const Line& other);
     double m_x1, m_y1, m_x2, m_y2;
 };
 
-//! @class VerticalLine
-//! @ingroup tools
-//! @brief Vertical infinite line
+
+//! An infinite vertical line.
+//! @ingroup mask
 
 class BA_CORE_API_ VerticalLine : public IShape2D {
 public:
-    //! Infinite vertical line constructor
-    //! @param x The value at which it crosses x-axes
     VerticalLine(double x);
+    VerticalLine *clone() const { return new VerticalLine(m_x); }
 
-    VerticalLine *clone() const;
-
-    //! Returns true if given point is on this line segment (y is unused)
     bool contains(double x, double y) const;
-
-    //! Returns true if the line crosses the area defined by two given bins
     bool contains(const Bin1D &binx, const Bin1D &biny) const;
 
     double getXpos() const { return m_x; }
 
 private:
-    VerticalLine(const VerticalLine& other);
     double m_x;
 };
 
-//! @class HorizontalLine
-//! @ingroup tools
-//! @brief Horizontal infinite line
+
+//! An infinite horizontal line.
+//! @ingroup mask
 
 class BA_CORE_API_ HorizontalLine : public IShape2D {
 public:
-    //! Infinite vertical line constructor
-    //! @param y The value at which it crosses y-axes
     HorizontalLine(double y);
+    HorizontalLine *clone() const { return new HorizontalLine(m_y); }
 
-    HorizontalLine *clone() const;
-
-    //! Returns true if given point is on this line segment
     bool contains(double x, double y) const;
-
-    //! Returns true if the line crosses the area defined by two given bins
     bool contains(const Bin1D &binx, const Bin1D &biny) const;
 
     double getYpos() const { return m_y; }
 
 private:
-    HorizontalLine(const HorizontalLine& other);
     double m_y;
 };
-
 
 } // namespace Geometry
 

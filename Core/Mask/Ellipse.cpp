@@ -19,25 +19,23 @@
 
 namespace Geometry {
 
+//! @param xcenter x-coordinate of Ellipse's center
+//! @param ycenter y-coordinate of Ellipse's center
+//! @param xradius Radius along x-axis
+//! @param yradius Radius along y-axis
+//! @param theta Angle of Ellipse rotation in radians
 Ellipse::Ellipse(double xcenter, double ycenter, double xradius, double yradius, double theta)
-    : m_xc(xcenter)
+    : IShape2D("Ellipse")
+    , m_xc(xcenter)
     , m_yc(ycenter)
     , m_xr(xradius)
     , m_yr(yradius)
     , m_theta(theta)
 {
-    if(xradius <= 0.0 || yradius <= 0.0) {
-        std::ostringstream message;
-        message <<
+    if(xradius <= 0.0 || yradius <= 0.0)
+        throw Exceptions::LogicErrorException(
             "Ellipse::Ellipse(double xcenter, double ycenter, double xradius, double yradius) "
-            "-> Error. Radius can't be negative\n";
-        throw Exceptions::LogicErrorException(message.str());
-    }
-}
-
-Ellipse* Ellipse::clone() const
-{
-    return new Ellipse(*this);
+            "-> Error. Radius can't be negative\n");
 }
 
 bool Ellipse::contains(double x, double y) const
@@ -45,21 +43,14 @@ bool Ellipse::contains(double x, double y) const
     double u = std::cos(m_theta)*(x-m_xc) + std::sin(m_theta)*(y-m_yc);
     double v = -std::sin(m_theta)*(x-m_xc) + std::cos(m_theta)*(y-m_yc);
     double d = (u/m_xr)*(u/m_xr) + (v/m_yr)*(v/m_yr);
-    return (d<=1 ? true : false);
+    return d<=1;
 }
 
+//! Returns true if area defined by two bins is inside or on border of ellipse;
+//! more precisely, if mid point of two bins satisfy this condition.
 bool Ellipse::contains(const Bin1D &binx, const Bin1D &biny) const
 {
     return contains(binx.getMidPoint(), biny.getMidPoint());
-}
-
-Ellipse::Ellipse(const Ellipse &other)
-    : m_xc(other.m_xc)
-    , m_yc(other.m_yc)
-    , m_xr(other.m_xr)
-    , m_yr(other.m_yr)
-    , m_theta(other.m_theta)
-{
 }
 
 } // namespace Geometry

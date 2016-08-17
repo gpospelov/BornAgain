@@ -21,9 +21,6 @@
 #include <cmath>
 #include <iostream>
 
-FitSuiteParameters::FitSuiteParameters()
-{
-}
 
 FitSuiteParameters::~FitSuiteParameters()
 {

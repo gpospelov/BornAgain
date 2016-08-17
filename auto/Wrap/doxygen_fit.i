@@ -53,29 +53,27 @@ C++ includes: BasicMinimizer.h
 run minimization 
 ";
 
-%feature("docstring")  BasicMinimizer::minimizerName "std::string BasicMinimizer::minimizerName() const
+%feature("docstring")  BasicMinimizer::getMinimizerName "std::string BasicMinimizer::getMinimizerName() const final
 
-Returns name of the minimizer. 
+return name of the minimizer 
 ";
 
-%feature("docstring")  BasicMinimizer::algorithmName "std::string BasicMinimizer::algorithmName() const
+%feature("docstring")  BasicMinimizer::getAlgorithmName "std::string BasicMinimizer::getAlgorithmName() const final
 
-Returns name of the minimization algorithm. 
+return name of the minimization algorithm 
 ";
 
 %feature("docstring")  BasicMinimizer::setAlgorithmName "void BasicMinimizer::setAlgorithmName(const std::string &algorithmName)
-
-Sets minimization algorithm. 
 ";
 
 %feature("docstring")  BasicMinimizer::setParameter "void BasicMinimizer::setParameter(size_t index, const FitParameter *par)
-
-Sets internal minimizer parameter. 
 ";
 
 %feature("docstring")  BasicMinimizer::setParameters "void BasicMinimizer::setParameters(const FitSuiteParameters &parameters)
 
-Sets internal minimizer parameters using external parameter list. 
+Sets internal minimizer parameter.
+
+Sets internal minimizer parameters using external parameter list 
 ";
 
 %feature("docstring")  BasicMinimizer::setChiSquaredFunction "void BasicMinimizer::setChiSquaredFunction(function_chi2_t fun_chi2, size_t nparameters)
@@ -88,14 +86,16 @@ Sets chi squared function to minimize.
 Sets gradient function to minimize. 
 ";
 
-%feature("docstring")  BasicMinimizer::isGradientBasedAgorithm "virtual bool BasicMinimizer::isGradientBasedAgorithm()
+%feature("docstring")  BasicMinimizer::getNumberOfVariables "size_t BasicMinimizer::getNumberOfVariables() const
 
-Returns true if type of algorithm is Levenberg-Marquardt or similar. 
+Returns number of variables to fit. 
 ";
 
 %feature("docstring")  BasicMinimizer::getValueOfVariablesAtMinimum "std::vector< double > BasicMinimizer::getValueOfVariablesAtMinimum() const
 
-Returns values of parameters at the minimum. 
+Returns minimum function value.
+
+Returns values of parameters at the minimum 
 ";
 
 %feature("docstring")  BasicMinimizer::getErrorOfVariables "std::vector< double > BasicMinimizer::getErrorOfVariables() const
@@ -105,10 +105,17 @@ Returns errors of variables at minimum.
 
 %feature("docstring")  BasicMinimizer::printResults "void BasicMinimizer::printResults() const
 
-Prints fit results. 
+clear resources (parameters) for consecutives minimizations
+
+Prints fit results 
 ";
 
 %feature("docstring")  BasicMinimizer::toResultString "std::string BasicMinimizer::toResultString() const 
+";
+
+%feature("docstring")  BasicMinimizer::isGradientBasedAgorithm "virtual bool BasicMinimizer::isGradientBasedAgorithm()
+
+Returns true if type of algorithm is Levenberg-Marquardt or similar. 
 ";
 
 
@@ -139,7 +146,7 @@ Returns list of algorithm descriptions for given minimizer type.
 // File: classConfigurable.xml
 %feature("docstring") Configurable "
 
-The  Configurable class is a base for storing (int,double,string) options.
+A base class for storing (int,double,string) options.
 
 C++ includes: Configurable.h
 ";
@@ -217,7 +224,7 @@ C++ includes: FitParameter.h
 // File: classFitSuiteParameters.xml
 %feature("docstring") FitSuiteParameters "
 
-Holds vector of parameters for FitSuite.
+Vector of parameters, for FitSuite
 
 C++ includes: FitSuiteParameters.h
 ";
@@ -233,12 +240,12 @@ C++ includes: FitSuiteParameters.h
 Clears all defined parameters. 
 ";
 
-%feature("docstring")  FitSuiteParameters::addParameter "void FitSuiteParameters::addParameter(FitParameter *par)
+%feature("docstring")  FitSuiteParameters::addFitParameter "void FitSuiteParameters::addFitParameter(FitParameter *par)
 
 Adds fit parameter. 
 ";
 
-%feature("docstring")  FitSuiteParameters::getParameters "std::vector<FitParameter*>& FitSuiteParameters::getParameters()
+%feature("docstring")  FitSuiteParameters::getFitParameters "std::vector<FitParameter*>& FitSuiteParameters::getFitParameters()
 
 Returns all parameters. 
 ";
@@ -279,28 +286,23 @@ Returns errors of all defined parameters.
 Returns number of parameters. 
 ";
 
-%feature("docstring")  FitSuiteParameters::push_back "void FitSuiteParameters::push_back(FitParameter *par)
-
-Adds given  FitParameter to container. 
-";
-
-%feature("docstring")  FitSuiteParameters::begin "iterator FitSuiteParameters::begin()
+%feature("docstring")  FitSuiteParameters::begin "std::vector<FitParameter*>::iterator FitSuiteParameters::begin()
 
 Returns begin of container. 
 ";
 
-%feature("docstring")  FitSuiteParameters::begin "const_iterator FitSuiteParameters::begin() const 
+%feature("docstring")  FitSuiteParameters::begin "std::vector<FitParameter*>::const_iterator FitSuiteParameters::begin() const 
 ";
 
-%feature("docstring")  FitSuiteParameters::end "iterator FitSuiteParameters::end()
+%feature("docstring")  FitSuiteParameters::end "std::vector<FitParameter*>::iterator FitSuiteParameters::end()
 
 Returns end of container. 
 ";
 
-%feature("docstring")  FitSuiteParameters::end "const_iterator FitSuiteParameters::end() const 
+%feature("docstring")  FitSuiteParameters::end "std::vector<FitParameter*>::const_iterator FitSuiteParameters::end() const 
 ";
 
-%feature("docstring")  FitSuiteParameters::getNfreeParameters "size_t FitSuiteParameters::getNfreeParameters() const
+%feature("docstring")  FitSuiteParameters::numberOfFreeFitParameters "size_t FitSuiteParameters::numberOfFreeFitParameters() const
 
 Returns number of free parameters. 
 ";
@@ -310,7 +312,7 @@ Returns number of free parameters.
 Returns true if parameters already have the given values. 
 ";
 
-%feature("docstring")  FitSuiteParameters::printParameters "void FitSuiteParameters::printParameters() const
+%feature("docstring")  FitSuiteParameters::printFitParameters "void FitSuiteParameters::printFitParameters() const
 
 Print defined parameters. 
 ";
@@ -325,7 +327,7 @@ Fix all parameters.
 Release all parameters. 
 ";
 
-%feature("docstring")  FitSuiteParameters::setParametersFixed "void FitSuiteParameters::setParametersFixed(const std::vector< std::string > &pars, bool is_fixed)
+%feature("docstring")  FitSuiteParameters::setFixed "void FitSuiteParameters::setFixed(const std::vector< std::string > &pars, bool is_fixed)
 
 Set fixed flag for parameters from the list. 
 ";
@@ -334,7 +336,7 @@ Set fixed flag for parameters from the list.
 // File: classIMinimizer.xml
 %feature("docstring") IMinimizer "
 
-Common interface for all kind minimizer's.
+Common interface for all kind minimizers.
 
 C++ includes: IMinimizer.h
 ";
@@ -345,105 +347,86 @@ C++ includes: IMinimizer.h
 %feature("docstring")  IMinimizer::~IMinimizer "virtual IMinimizer::~IMinimizer()
 ";
 
-%feature("docstring")  IMinimizer::minimize "void IMinimizer::minimize()
+%feature("docstring")  IMinimizer::minimize "virtual void IMinimizer::minimize()=0
 
 run minimization 
 ";
 
-%feature("docstring")  IMinimizer::setParameter "void IMinimizer::setParameter(size_t index, const FitParameter *par)
+%feature("docstring")  IMinimizer::setParameters "virtual void IMinimizer::setParameters(const FitSuiteParameters &parameters)=0
 
-Sets internal minimizer parameter. 
+Sets internal minimizer parameter.
+
+Sets internal minimizer parameters using external parameter list 
 ";
 
-%feature("docstring")  IMinimizer::setParameters "void IMinimizer::setParameters(const FitSuiteParameters &parameters)
-
-Sets internal minimizer parameters using external parameter list. 
-";
-
-%feature("docstring")  IMinimizer::setChiSquaredFunction "void IMinimizer::setChiSquaredFunction(function_chi2_t fun_chi2, size_t nparameters)
+%feature("docstring")  IMinimizer::setChiSquaredFunction "virtual void IMinimizer::setChiSquaredFunction(function_chi2_t fun_chi2, size_t nparameters)=0
 
 Sets chi squared function to minimize. 
 ";
 
-%feature("docstring")  IMinimizer::setGradientFunction "void IMinimizer::setGradientFunction(function_gradient_t fun_gradient, size_t nparameters, size_t ndatasize)
+%feature("docstring")  IMinimizer::setGradientFunction "virtual void IMinimizer::setGradientFunction(function_gradient_t fun_gradient, size_t nparameters, size_t ndatasize)=0
 
 Sets gradient function to minimize. 
 ";
 
-%feature("docstring")  IMinimizer::getNumberOfVariables "size_t IMinimizer::getNumberOfVariables() const
+%feature("docstring")  IMinimizer::getNumberOfVariables "virtual size_t IMinimizer::getNumberOfVariables() const =0
 
 Returns number of variables to fit. 
 ";
 
-%feature("docstring")  IMinimizer::getMinValue "double IMinimizer::getMinValue() const
+%feature("docstring")  IMinimizer::getValueOfVariablesAtMinimum "virtual std::vector<double> IMinimizer::getValueOfVariablesAtMinimum() const =0
 
-Returns minimum function value. 
+Returns minimum function value.
+
+Returns values of parameters at the minimum 
 ";
 
-%feature("docstring")  IMinimizer::getValueOfVariableAtMinimum "double IMinimizer::getValueOfVariableAtMinimum(size_t index) const
-
-Returns value of the parameter at the minimum. 
-";
-
-%feature("docstring")  IMinimizer::getValueOfVariablesAtMinimum "std::vector< double > IMinimizer::getValueOfVariablesAtMinimum() const
-
-Returns values of parameters at the minimum. 
-";
-
-%feature("docstring")  IMinimizer::getErrorOfVariable "double IMinimizer::getErrorOfVariable(size_t index) const
-
-Returns error of variable at minimum. 
-";
-
-%feature("docstring")  IMinimizer::getErrorOfVariables "std::vector< double > IMinimizer::getErrorOfVariables() const
+%feature("docstring")  IMinimizer::getErrorOfVariables "virtual std::vector<double> IMinimizer::getErrorOfVariables() const =0
 
 Returns errors of variables at minimum. 
 ";
 
-%feature("docstring")  IMinimizer::clear "void IMinimizer::clear()
+%feature("docstring")  IMinimizer::printResults "virtual void IMinimizer::printResults() const =0
 
-clear resources (parameters) for consecutives minimizations 
+clear resources (parameters) for consecutives minimizations
+
+Prints fit results 
 ";
 
-%feature("docstring")  IMinimizer::printResults "void IMinimizer::printResults() const
-
-Prints fit results. 
-";
-
-%feature("docstring")  IMinimizer::getNCalls "size_t IMinimizer::getNCalls() const
+%feature("docstring")  IMinimizer::getNCalls "virtual size_t IMinimizer::getNCalls() const
 
 Returns number of calls of minimized function. 
 ";
 
-%feature("docstring")  IMinimizer::getOptions "MinimizerOptions * IMinimizer::getOptions()
+%feature("docstring")  IMinimizer::getOptions "virtual MinimizerOptions* IMinimizer::getOptions()
 
 return minimizer options 
 ";
 
-%feature("docstring")  IMinimizer::getOptions "const MinimizerOptions * IMinimizer::getOptions() const 
+%feature("docstring")  IMinimizer::getOptions "virtual const MinimizerOptions* IMinimizer::getOptions() const 
 ";
 
-%feature("docstring")  IMinimizer::setOptions "void IMinimizer::setOptions(const MinimizerOptions &options)
+%feature("docstring")  IMinimizer::setOptions "virtual void IMinimizer::setOptions(const MinimizerOptions &)
 
 set minimizer options 
 ";
 
-%feature("docstring")  IMinimizer::setOptionString "void IMinimizer::setOptionString(const std::string &options)
+%feature("docstring")  IMinimizer::setOptionString "virtual void IMinimizer::setOptionString(const std::string &)
 
 set minimizer option string 
 ";
 
-%feature("docstring")  IMinimizer::isGradientBasedAgorithm "bool IMinimizer::isGradientBasedAgorithm()
+%feature("docstring")  IMinimizer::isGradientBasedAgorithm "virtual bool IMinimizer::isGradientBasedAgorithm()
 
 Returns true if type of algorithm is Levenberg-Marquardt or similar. 
 ";
 
-%feature("docstring")  IMinimizer::getMinimizerName "std::string IMinimizer::getMinimizerName() const
+%feature("docstring")  IMinimizer::getMinimizerName "virtual std::string IMinimizer::getMinimizerName() const =0
 
 return name of the minimizer 
 ";
 
-%feature("docstring")  IMinimizer::getAlgorithmName "std::string IMinimizer::getAlgorithmName() const
+%feature("docstring")  IMinimizer::getAlgorithmName "virtual std::string IMinimizer::getAlgorithmName() const =0
 
 return name of the minimization algorithm 
 ";
@@ -842,8 +825,6 @@ C++ includes: ROOTGeneticMinimizer.h
 ";
 
 %feature("docstring")  ROOTGeneticMinimizer::setParameter "void ROOTGeneticMinimizer::setParameter(size_t index, const FitParameter *par)
-
-Sets internal minimizer parameter. 
 ";
 
 
@@ -887,13 +868,13 @@ run minimization
 ";
 
 %feature("docstring")  ROOTMinimizer::setParameter "void ROOTMinimizer::setParameter(size_t index, const FitParameter *par)
-
-Sets internal minimizer parameter. 
 ";
 
 %feature("docstring")  ROOTMinimizer::setParameters "void ROOTMinimizer::setParameters(const FitSuiteParameters &parameters)
 
-Sets internal minimizer parameters using external parameter list. 
+Sets internal minimizer parameter.
+
+Sets internal minimizer parameters using external parameter list 
 ";
 
 %feature("docstring")  ROOTMinimizer::setChiSquaredFunction "void ROOTMinimizer::setChiSquaredFunction(function_chi2_t fun_chi2, size_t nparameters)
@@ -911,24 +892,14 @@ Sets gradient function to minimize.
 Returns number of variables to fit. 
 ";
 
-%feature("docstring")  ROOTMinimizer::getMinValue "double ROOTMinimizer::getMinValue() const
-
-Returns minimum function value. 
-";
-
-%feature("docstring")  ROOTMinimizer::getValueOfVariableAtMinimum "double ROOTMinimizer::getValueOfVariableAtMinimum(size_t i) const
-
-Returns value of the parameter at the minimum. 
+%feature("docstring")  ROOTMinimizer::getMinValue "double ROOTMinimizer::getMinValue() const 
 ";
 
 %feature("docstring")  ROOTMinimizer::getValueOfVariablesAtMinimum "std::vector< double > ROOTMinimizer::getValueOfVariablesAtMinimum() const
 
-Returns values of parameters at the minimum. 
-";
+Returns minimum function value.
 
-%feature("docstring")  ROOTMinimizer::getErrorOfVariable "double ROOTMinimizer::getErrorOfVariable(size_t i) const
-
-Returns error of variable at minimum. 
+Returns values of parameters at the minimum 
 ";
 
 %feature("docstring")  ROOTMinimizer::getErrorOfVariables "std::vector< double > ROOTMinimizer::getErrorOfVariables() const
@@ -938,12 +909,12 @@ Returns errors of variables at minimum.
 
 %feature("docstring")  ROOTMinimizer::printResults "void ROOTMinimizer::printResults() const
 
-Prints fit results. 
+clear resources (parameters) for consecutives minimizations
+
+Prints fit results 
 ";
 
 %feature("docstring")  ROOTMinimizer::clear "void ROOTMinimizer::clear()
-
-clear resources (parameters) for consecutives minimizations 
 ";
 
 %feature("docstring")  ROOTMinimizer::getNCalls "size_t ROOTMinimizer::getNCalls() const
@@ -1102,74 +1073,73 @@ C++ includes: TrivialMinimizer.h
 %feature("docstring")  TrivialMinimizer::TrivialMinimizer "TrivialMinimizer::TrivialMinimizer()
 ";
 
-%feature("docstring")  TrivialMinimizer::~TrivialMinimizer "virtual TrivialMinimizer::~TrivialMinimizer()
+%feature("docstring")  TrivialMinimizer::~TrivialMinimizer "TrivialMinimizer::~TrivialMinimizer() final
 ";
 
-%feature("docstring")  TrivialMinimizer::minimize "void TrivialMinimizer::minimize()
+%feature("docstring")  TrivialMinimizer::minimize "void TrivialMinimizer::minimize() final
 
 run minimization 
 ";
 
-%feature("docstring")  TrivialMinimizer::setParameters "void TrivialMinimizer::setParameters(const FitSuiteParameters &parameters)
+%feature("docstring")  TrivialMinimizer::setParameters "void TrivialMinimizer::setParameters(const FitSuiteParameters &parameters) final
 
-Sets internal minimizer parameters using external parameter list. 
+Sets internal minimizer parameter.
+
+Sets internal minimizer parameters using external parameter list 
 ";
 
-%feature("docstring")  TrivialMinimizer::setChiSquaredFunction "virtual void TrivialMinimizer::setChiSquaredFunction(function_chi2_t fun_chi2, size_t)
+%feature("docstring")  TrivialMinimizer::setChiSquaredFunction "void TrivialMinimizer::setChiSquaredFunction(function_chi2_t fun_chi2, size_t) final
 
 Sets chi squared function to minimize. 
 ";
 
-%feature("docstring")  TrivialMinimizer::setGradientFunction "virtual void TrivialMinimizer::setGradientFunction(function_gradient_t, size_t, size_t)
+%feature("docstring")  TrivialMinimizer::setGradientFunction "void TrivialMinimizer::setGradientFunction(function_gradient_t, size_t, size_t) final
 
 Sets gradient function to minimize. 
 ";
 
-%feature("docstring")  TrivialMinimizer::getNumberOfVariables "virtual size_t TrivialMinimizer::getNumberOfVariables() const
+%feature("docstring")  TrivialMinimizer::getNumberOfVariables "size_t TrivialMinimizer::getNumberOfVariables() const final
 
 Returns number of variables to fit. 
 ";
 
-%feature("docstring")  TrivialMinimizer::getValueOfVariableAtMinimum "double TrivialMinimizer::getValueOfVariableAtMinimum(size_t index) const
-
-Returns pointer to the parameters values at the minimum. 
-";
-
-%feature("docstring")  TrivialMinimizer::getValueOfVariablesAtMinimum "std::vector< double > TrivialMinimizer::getValueOfVariablesAtMinimum() const
+%feature("docstring")  TrivialMinimizer::getValueOfVariablesAtMinimum "std::vector< double > TrivialMinimizer::getValueOfVariablesAtMinimum() const final
 
 Returns value of the parameter at the minimum. 
 ";
 
-%feature("docstring")  TrivialMinimizer::printResults "void TrivialMinimizer::printResults() const
-
-Prints fit results. 
-";
-
-%feature("docstring")  TrivialMinimizer::getErrorOfVariables "std::vector< double > TrivialMinimizer::getErrorOfVariables() const
+%feature("docstring")  TrivialMinimizer::getErrorOfVariables "std::vector< double > TrivialMinimizer::getErrorOfVariables() const final
 
 Returns errors of variables at minimum. 
 ";
 
-%feature("docstring")  TrivialMinimizer::getMinimizerName "std::string TrivialMinimizer::getMinimizerName() const
+%feature("docstring")  TrivialMinimizer::printResults "void TrivialMinimizer::printResults() const final
+
+clear resources (parameters) for consecutives minimizations
+
+Prints fit results 
+";
+
+%feature("docstring")  TrivialMinimizer::getMinimizerName "std::string TrivialMinimizer::getMinimizerName() const final
 
 return name of the minimizer 
 ";
 
-%feature("docstring")  TrivialMinimizer::getAlgorithmName "std::string TrivialMinimizer::getAlgorithmName() const
+%feature("docstring")  TrivialMinimizer::getAlgorithmName "std::string TrivialMinimizer::getAlgorithmName() const final
 
 return name of the minimization algorithm 
 ";
 
-%feature("docstring")  TrivialMinimizer::getOptions "MinimizerOptions * TrivialMinimizer::getOptions()
+%feature("docstring")  TrivialMinimizer::getOptions "MinimizerOptions* TrivialMinimizer::getOptions() final
 
 return minimizer options 
 ";
 
-%feature("docstring")  TrivialMinimizer::getOptions "const MinimizerOptions * TrivialMinimizer::getOptions() const 
+%feature("docstring")  TrivialMinimizer::getOptions "const MinimizerOptions* TrivialMinimizer::getOptions() const final
 ";
 
 
-// File: namespace_0D15.xml
+// File: namespace_0D14.xml
 
 
 // File: namespaceAlgorithmNames.xml
@@ -1232,9 +1202,6 @@ Returns string right-padded with blanks.
 
 
 // File: Configurable_8h.xml
-
-
-// File: IMinimizer_8cpp.xml
 
 
 // File: IMinimizer_8h.xml

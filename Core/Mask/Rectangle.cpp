@@ -19,7 +19,12 @@
 
 namespace Geometry {
 
+//! @param xlow x-coordinate of lower left corner
+//! @param ylow y-coordinate of lower left corner
+//! @param xup x-coordinate of upper right corner
+//! @param yup y-coordinate of upper right corner
 Rectangle::Rectangle(double xlow, double ylow, double xup, double yup)
+    : IShape2D("Rectangle")
 {
     if(xup <= xlow) {
         std::ostringstream message;
@@ -39,15 +44,9 @@ Rectangle::Rectangle(double xlow, double ylow, double xup, double yup)
     m_yup = yup;
 }
 
-Rectangle *Rectangle::clone() const
-{
-    return new Rectangle(*this);
-}
-
 bool Rectangle::contains(double x, double y) const
 {
-    if(x <= m_xup && x >= m_xlow && y <= m_yup && y >= m_ylow) return true;
-    return false;
+    return x <= m_xup && x >= m_xlow && y <= m_yup && y >= m_ylow;
 }
 
 bool Rectangle::contains(const Bin1D &binx, const Bin1D &biny) const
@@ -58,35 +57,6 @@ bool Rectangle::contains(const Bin1D &binx, const Bin1D &biny) const
 double Rectangle::getArea() const
 {
     return (m_xup-m_xlow)*(m_yup-m_ylow);
-}
-
-double Rectangle::getXlow() const
-{
-    return m_xlow;
-}
-
-double Rectangle::getYlow() const
-{
-    return m_ylow;
-}
-
-double Rectangle::getXup() const
-{
-    return m_xup;
-}
-
-double Rectangle::getYup() const
-{
-    return m_yup;
-}
-
-Rectangle::Rectangle(const Rectangle &other)
-    : m_xlow(other.m_xlow)
-    , m_ylow(other.m_ylow)
-    , m_xup(other.m_xup)
-    , m_yup(other.m_yup)
-{
-
 }
 
 } // namespace Geometry

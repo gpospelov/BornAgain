@@ -3,6 +3,9 @@
 \defgroup simulation Simulation description
 @brief Classes to describe beam, detector and run the simulation.
 
+\defgroup mask Detector masks
+@brief Classes to construct a two-dimensional mask.
+
 \defgroup samples Samples
 @brief Classes to describe experimental sample.
 

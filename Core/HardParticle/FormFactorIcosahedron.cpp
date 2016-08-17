@@ -52,7 +52,7 @@ FormFactorIcosahedron::FormFactorIcosahedron(double edge)
     , m_edge(edge)
 {
     setName(BornAgain::FFIcosahedronType);
-    registerNonnegativeLength(BornAgain::Edge, &m_edge);
+    registerParameter(BornAgain::Edge, &m_edge).setUnit("nm").setNonnegative();
     onChange();
 }
 

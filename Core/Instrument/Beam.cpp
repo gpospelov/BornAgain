@@ -38,7 +38,7 @@ Beam::Beam(const Beam& other)
 void Beam::init_parameters()
 {
     registerNonnegativeScalar(BornAgain::Intensity, &m_intensity);
-    registerNonnegativeLength(BornAgain::Wavelength, &m_wavelength);
+    registerParameter(BornAgain::Wavelength, &m_wavelength).setUnit("nm").setNonnegative();
     registerParameter(BornAgain::Alpha, &m_alpha).setUnit("rad").setLimited(0, Pi::PID2);
     registerParameter(BornAgain::Phi,   &m_phi  ).setUnit("rad").setLimited(-Pi::PID2, Pi::PID2);
 }

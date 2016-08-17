@@ -39,7 +39,7 @@ void LayerRoughness::initialize()
     setName(BornAgain::LayerBasicRoughnessType);
     registerParameter(BornAgain::Sigma, &m_sigma);
     registerParameter(BornAgain::Hurst, &m_hurstParameter);
-    registerNonnegativeLength(BornAgain::CorrelationLength, &m_latteralCorrLength);
+    registerParameter(BornAgain::CorrelationLength, &m_latteralCorrLength).setUnit("nm").setNonnegative();
 }
 
 

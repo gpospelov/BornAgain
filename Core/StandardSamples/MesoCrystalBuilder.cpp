@@ -48,17 +48,17 @@ MesoCrystalBuilder::MesoCrystalBuilder()
 
 void MesoCrystalBuilder::init_parameters()
 {
-    registerNonnegativeLength("meso_radius", &m_meso_radius);
+    registerParameter("meso_radius", &m_meso_radius).setUnit("nm").setNonnegative();
     registerNonnegativeScalar("surface_filling_ratio", &m_surface_filling_ratio);
-    registerNonnegativeLength("meso_height", &m_meso_height);
-    registerNonnegativeLength("sigma_meso_height", &m_sigma_meso_height);
-    registerNonnegativeLength("sigma_meso_radius", &m_sigma_meso_radius);
-    registerNonnegativeLength("lattice_length_a", &m_lattice_length_a);
-    registerNonnegativeLength("lattice_length_c", &m_lattice_length_c);
-    registerNonnegativeLength("nanoparticle_radius", &m_nanoparticle_radius);
-    registerNonnegativeLength("sigma_nanoparticle_radius", &m_sigma_nanoparticle_radius);
-    registerNonnegativeLength("sigma_lattice_length_a", &m_sigma_lattice_length_a);
-    registerNonnegativeLength("roughness", &m_roughness);
+    registerParameter("meso_height", &m_meso_height).setUnit("nm").setNonnegative();
+    registerParameter("sigma_meso_height", &m_sigma_meso_height).setUnit("nm").setNonnegative();
+    registerParameter("sigma_meso_radius", &m_sigma_meso_radius).setUnit("nm").setNonnegative();
+    registerParameter("lattice_length_a", &m_lattice_length_a).setUnit("nm").setNonnegative();
+    registerParameter("lattice_length_c", &m_lattice_length_c).setUnit("nm").setNonnegative();
+    registerParameter("nanoparticle_radius", &m_nanoparticle_radius).setUnit("nm").setNonnegative();
+    registerParameter("sigma_nanoparticle_radius", &m_sigma_nanoparticle_radius).setUnit("nm").setNonnegative();
+    registerParameter("sigma_lattice_length_a", &m_sigma_lattice_length_a).setUnit("nm").setNonnegative();
+    registerParameter("roughness", &m_roughness).setUnit("nm").setNonnegative();
     registerNonnegativeScalar("nphi_rotations", &m_nphi_rotations);
 }
 

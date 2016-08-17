@@ -21,8 +21,8 @@ FormFactorPrism3::FormFactorPrism3(const double base_edge, const double height)
     : FormFactorPolygonalPrism( height ), m_base_edge( base_edge )
 {
     setName(BornAgain::FFPrism3Type);
-    registerNonnegativeLength(BornAgain::BaseEdge, &m_base_edge);
-    registerNonnegativeLength(BornAgain::Height, &m_height);
+    registerParameter(BornAgain::BaseEdge, &m_base_edge).setUnit("nm").setNonnegative();
+    registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
     onChange();
 }
 

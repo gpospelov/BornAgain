@@ -26,8 +26,8 @@ FormFactorTruncatedSpheroid::FormFactorTruncatedSpheroid(
 {
     setName(BornAgain::FFTruncatedSpheroidType);
     check_initialization();
-    registerNonnegativeLength(BornAgain::Radius, &m_radius);
-    registerNonnegativeLength(BornAgain::Height, &m_height);
+    registerParameter(BornAgain::Radius, &m_radius).setUnit("nm").setNonnegative();
+    registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
     registerNonnegativeScalar(BornAgain::HeightFlattening, &m_height_flattening);
     mP_integrator = make_integrator_complex(this, &FormFactorTruncatedSpheroid::Integrand);
 }

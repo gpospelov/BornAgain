@@ -21,7 +21,7 @@ FormFactorTriangle::FormFactorTriangle(const double base_edge)
     : m_base_edge( base_edge )
 {
     setName("Triangle");
-    registerNonnegativeLength(BornAgain::BaseEdge, &m_base_edge);
+    registerParameter(BornAgain::BaseEdge, &m_base_edge).setUnit("nm").setNonnegative();
     onChange();
 }
 

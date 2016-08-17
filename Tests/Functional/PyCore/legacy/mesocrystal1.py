@@ -33,17 +33,17 @@ class MySampleBuilder(ISampleBuilder):
         self.surface_filling_ratio = ctypes.c_double(1.7286e-01)
         self.roughness = ctypes.c_double(2.8746e+01*nanometer)
         # register parameters
-        self.registerNonnegativeLength("lattice_length_a", ctypes.addressof(self.lattice_length_a) )
-        self.registerNonnegativeLength("lattice_length_c", ctypes.addressof(self.lattice_length_c) )
-        self.registerNonnegativeLength("nanoparticle_radius", ctypes.addressof(self.nanoparticle_radius) )
-        self.registerNonnegativeLength("sigma_nanoparticle_radius", ctypes.addressof(self.sigma_nanoparticle_radius) )
-        self.registerNonnegativeLength("meso_height", ctypes.addressof(self.meso_height) )
-        self.registerNonnegativeLength("meso_radius",  ctypes.addressof(self.meso_radius) )
-        self.registerNonnegativeLength("sigma_meso_height", ctypes.addressof(self.sigma_meso_height) )
-        self.registerNonnegativeLength("sigma_meso_radius", ctypes.addressof(self.sigma_meso_radius) )
-        self.registerNonnegativeLength("sigma_lattice_length_a", ctypes.addressof(self.sigma_lattice_length_a) )
+        self.registerParameter("lattice_length_a", ctypes.addressof(self.lattice_length_a).setUnit("nm").setNonnegative() )
+        self.registerParameter("lattice_length_c", ctypes.addressof(self.lattice_length_c).setUnit("nm").setNonnegative() )
+        self.registerParameter("nanoparticle_radius", ctypes.addressof(self.nanoparticle_radius).setUnit("nm").setNonnegative() )
+        self.registerParameter("sigma_nanoparticle_radius", ctypes.addressof(self.sigma_nanoparticle_radius).setUnit("nm").setNonnegative() )
+        self.registerParameter("meso_height", ctypes.addressof(self.meso_height).setUnit("nm").setNonnegative() )
+        self.registerParameter("meso_radius",  ctypes.addressof(self.meso_radius).setUnit("nm").setNonnegative() )
+        self.registerParameter("sigma_meso_height", ctypes.addressof(self.sigma_meso_height).setUnit("nm").setNonnegative() )
+        self.registerParameter("sigma_meso_radius", ctypes.addressof(self.sigma_meso_radius).setUnit("nm").setNonnegative() )
+        self.registerParameter("sigma_lattice_length_a", ctypes.addressof(self.sigma_lattice_length_a).setUnit("nm").setNonnegative() )
         self.registerNonnegativeScalar("surface_filling_ratio", ctypes.addressof(self.surface_filling_ratio) )
-        self.registerNonnegativeLength("roughness", ctypes.addressof(self.roughness) )
+        self.registerParameter("roughness", ctypes.addressof(self.roughness).setUnit("nm").setNonnegative() )
 
     # -------------------------------------------------------------------------
     # constructs the sample for current values of parameters

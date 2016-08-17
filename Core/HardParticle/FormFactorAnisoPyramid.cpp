@@ -43,9 +43,9 @@ FormFactorAnisoPyramid::FormFactorAnisoPyramid(
     , m_alpha(alpha)
 {
     setName(BornAgain::FFAnisoPyramidType);
-    registerNonnegativeLength(BornAgain::Length, &m_length);
-    registerNonnegativeLength(BornAgain::Width, &m_width);
-    registerNonnegativeLength(BornAgain::Height, &m_height);
+    registerParameter(BornAgain::Length, &m_length).setUnit("nm").setNonnegative();
+    registerParameter(BornAgain::Width, &m_width).setUnit("nm").setNonnegative();
+    registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
     registerParameter(BornAgain::Alpha, & m_alpha).setUnit("rad").setLimited(0., Pi::PID2);
     onChange();
 }

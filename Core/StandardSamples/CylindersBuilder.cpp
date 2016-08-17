@@ -36,8 +36,8 @@ CylindersInDWBABuilder::CylindersInDWBABuilder()
 
 void CylindersInDWBABuilder::init_parameters()
 {
-    registerNonnegativeLength(BornAgain::Radius, &m_radius);
-    registerNonnegativeLength(BornAgain::Height, &m_height);
+    registerParameter(BornAgain::Radius, &m_radius).setUnit("nm").setNonnegative();
+    registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
 }
 
 ISample* CylindersInDWBABuilder::buildSample() const
@@ -76,8 +76,8 @@ CylindersInBABuilder::CylindersInBABuilder()
 
 void CylindersInBABuilder::init_parameters()
 {
-    registerNonnegativeLength(BornAgain::Radius, &m_radius);
-    registerNonnegativeLength(BornAgain::Height, &m_height);
+    registerParameter(BornAgain::Radius, &m_radius).setUnit("nm").setNonnegative();
+    registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
 }
 
 ISample* CylindersInBABuilder::buildSample() const
@@ -113,8 +113,8 @@ LargeCylindersInDWBABuilder::LargeCylindersInDWBABuilder()
 void LargeCylindersInDWBABuilder::init_parameters()
 {
 
-    registerNonnegativeLength(BornAgain::Radius, &m_radius);
-    registerNonnegativeLength(BornAgain::Height, &m_height);
+    registerParameter(BornAgain::Radius, &m_radius).setUnit("nm").setNonnegative();
+    registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
 }
 
 ISample* LargeCylindersInDWBABuilder::buildSample() const

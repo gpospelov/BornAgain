@@ -150,7 +150,7 @@ size_t Layer::getNumberOfLayouts() const {
 void Layer::init_parameters()
 {
     getParameterPool()->clear(); // non-trivially needed
-    registerNonnegativeLength(BornAgain::Thickness, &m_thickness);
+    registerParameter(BornAgain::Thickness, &m_thickness).setUnit("nm").setNonnegative();
 }
 
 //! Prints description.

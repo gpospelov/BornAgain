@@ -32,8 +32,8 @@ IFTDistribution2D::IFTDistribution2D(
 
 void IFTDistribution2D::init_parameters()
 {
-    registerNonnegativeLength(BornAgain::CoherenceLengthX, &m_coherence_length_x);
-    registerNonnegativeLength(BornAgain::CoherenceLengthY, &m_coherence_length_y);
+    registerParameter(BornAgain::CoherenceLengthX, &m_coherence_length_x).setUnit("nm").setNonnegative();
+    registerParameter(BornAgain::CoherenceLengthY, &m_coherence_length_y).setUnit("nm").setNonnegative();
     registerParameter(BornAgain::Gamma, &m_gamma).setUnit("rad").setLimited(-Pi::PID2, Pi::PID2);
     registerParameter(BornAgain::Delta, &m_delta).setUnit("rad").setLimited(0, Pi::PI);
 }
@@ -116,8 +116,8 @@ FTDistribution2DVoigt::FTDistribution2DVoigt(
     : IFTDistribution2D(coherence_length_x, coherence_length_y, gamma, delta), m_eta(eta)
 {
     setName(BornAgain::FTDistribution2DVoigtType);
-    registerNonnegativeLength(BornAgain::CoherenceLengthX, &m_coherence_length_x);
-    registerNonnegativeLength(BornAgain::CoherenceLengthY, &m_coherence_length_y);
+    registerParameter(BornAgain::CoherenceLengthX, &m_coherence_length_x).setUnit("nm").setNonnegative();
+    registerParameter(BornAgain::CoherenceLengthY, &m_coherence_length_y).setUnit("nm").setNonnegative();
     registerParameter(BornAgain::Eta, &m_eta);
     registerParameter("Gamma", &m_gamma).setUnit("rad").setLimited(-Pi::PID2, Pi::PID2);
     registerParameter("Delta", &m_delta).setUnit("rad").setLimited(0, Pi::PI);

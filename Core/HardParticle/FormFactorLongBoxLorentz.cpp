@@ -21,9 +21,9 @@ FormFactorLongBoxLorentz::FormFactorLongBoxLorentz(double length, double width, 
     : m_length(length), m_width(width), m_height(height)
 {
     setName(BornAgain::FFLongBoxLorentzType);
-    registerNonnegativeLength(BornAgain::Length, &m_length);
-    registerNonnegativeLength(BornAgain::Width, &m_width);
-    registerNonnegativeLength(BornAgain::Height, &m_height);
+    registerParameter(BornAgain::Length, &m_length).setUnit("nm").setNonnegative();
+    registerParameter(BornAgain::Width, &m_width).setUnit("nm").setNonnegative();
+    registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
 }
 
 complex_t FormFactorLongBoxLorentz::evaluate_for_q(const cvector_t q) const

@@ -36,11 +36,11 @@ CosineRippleBuilder::CosineRippleBuilder()
 
 void CosineRippleBuilder::init_parameters()
 {
-    registerNonnegativeLength("width", &m_w);
-    registerNonnegativeLength("height", &m_h);
-    registerNonnegativeLength("length", &m_l);
-    registerNonnegativeLength("interf_distance", &m_interf_distance);
-    registerNonnegativeLength("interf_width", &m_interf_width);
+    registerParameter("width", &m_w).setUnit("nm").setNonnegative();
+    registerParameter("height", &m_h).setUnit("nm").setNonnegative();
+    registerParameter("length", &m_l).setUnit("nm").setNonnegative();
+    registerParameter("interf_distance", &m_interf_distance).setUnit("nm").setNonnegative();
+    registerParameter("interf_width", &m_interf_width).setUnit("nm").setNonnegative();
 }
 
 ISample* CosineRippleBuilder::buildSample() const
@@ -89,12 +89,12 @@ TriangularRippleBuilder::TriangularRippleBuilder()
 void TriangularRippleBuilder::init_parameters()
 {
 
-    registerNonnegativeLength("width", &m_w);
-    registerNonnegativeLength("height", &m_h);
-    registerNonnegativeLength("length", &m_l);
+    registerParameter("width", &m_w).setUnit("nm").setNonnegative();
+    registerParameter("height", &m_h).setUnit("nm").setNonnegative();
+    registerParameter("length", &m_l).setUnit("nm").setNonnegative();
     registerParameter  ("asymetry", &m_d);
-    registerNonnegativeLength("interf_distance", &m_interf_distance);
-    registerNonnegativeLength("interf_width", &m_interf_width);
+    registerParameter("interf_distance", &m_interf_distance).setUnit("nm").setNonnegative();
+    registerParameter("interf_width", &m_interf_width).setUnit("nm").setNonnegative();
 }
 
 ISample* TriangularRippleBuilder::buildSample() const

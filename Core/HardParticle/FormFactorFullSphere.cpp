@@ -21,7 +21,7 @@ FormFactorFullSphere::FormFactorFullSphere(double radius)
     : m_radius(radius)
 {
     setName(BornAgain::FFFullSphereType);
-    registerNonnegativeLength(BornAgain::Radius, &m_radius);
+    registerParameter(BornAgain::Radius, &m_radius).setUnit("nm").setNonnegative();
 }
 
 complex_t FormFactorFullSphere::evaluate_for_q(const cvector_t q) const

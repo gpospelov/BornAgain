@@ -25,8 +25,8 @@ FormFactorFullSpheroid::FormFactorFullSpheroid(double radius, double height )
     : m_radius(radius), m_height(height)
 {
     setName(BornAgain::FFFullSpheroidType);
-    registerNonnegativeLength(BornAgain::Radius, &m_radius);
-    registerNonnegativeLength(BornAgain::Height, &m_height);
+    registerParameter(BornAgain::Radius, &m_radius).setUnit("nm").setNonnegative();
+    registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
     mP_integrator = make_integrator_complex(this, &FormFactorFullSpheroid::Integrand);
 }
 

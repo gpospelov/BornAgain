@@ -40,8 +40,8 @@ FormFactorCone::FormFactorCone(double radius, double height, double alpha)
         ostr << "Check for 'height <= radius*tan(alpha)' failed.";
         throw Exceptions::ClassInitializationException(ostr.str());
     }
-    registerNonnegativeLength(BornAgain::Radius, &m_radius);
-    registerNonnegativeLength(BornAgain::Height, &m_height);
+    registerParameter(BornAgain::Radius, &m_radius).setUnit("nm").setNonnegative();
+    registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
     registerParameter(BornAgain::Alpha, & m_alpha).setUnit("rad").setLimited(0., Pi::PID2);
 
     mP_integrator = make_integrator_complex(this, &FormFactorCone::Integrand);

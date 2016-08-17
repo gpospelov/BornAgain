@@ -25,9 +25,9 @@ FormFactorLongRipple1Lorentz::FormFactorLongRipple1Lorentz(
 {
     setName(BornAgain::FFLongRipple1LorentzType);
     check_initialization();
-    registerNonnegativeLength(BornAgain::Length, &m_length);
-    registerNonnegativeLength(BornAgain::Width, &m_width);
-    registerNonnegativeLength(BornAgain::Height, &m_height);
+    registerParameter(BornAgain::Length, &m_length).setUnit("nm").setNonnegative();
+    registerParameter(BornAgain::Width, &m_width).setUnit("nm").setNonnegative();
+    registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
     mP_integrator = make_integrator_complex(this, &FormFactorLongRipple1Lorentz::Integrand);
 }
 

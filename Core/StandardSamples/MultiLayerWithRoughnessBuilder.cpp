@@ -34,12 +34,12 @@ MultiLayerWithRoughnessBuilder::MultiLayerWithRoughnessBuilder()
 
 void MultiLayerWithRoughnessBuilder::init_parameters()
 {
-    registerNonnegativeLength("thicknessA", &m_thicknessA);
-    registerNonnegativeLength("thicknessB", &m_thicknessB);
-    registerNonnegativeLength("sigma", &m_sigma);
+    registerParameter("thicknessA", &m_thicknessA).setUnit("nm").setNonnegative();
+    registerParameter("thicknessB", &m_thicknessB).setUnit("nm").setNonnegative();
+    registerParameter("sigma", &m_sigma).setUnit("nm").setNonnegative();
     registerParameter  ("hurst", &m_hurst);
-    registerNonnegativeLength("latteralCorrLength", &m_latteralCorrLength);
-    registerNonnegativeLength("crossCorrLength", &m_crossCorrLength);
+    registerParameter("latteralCorrLength", &m_latteralCorrLength).setUnit("nm").setNonnegative();
+    registerParameter("crossCorrLength", &m_crossCorrLength).setUnit("nm").setNonnegative();
 }
 
 

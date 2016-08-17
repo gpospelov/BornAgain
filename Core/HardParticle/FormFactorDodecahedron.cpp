@@ -42,7 +42,7 @@ FormFactorDodecahedron::FormFactorDodecahedron(double edge)
     , m_edge(edge)
 {
     setName(BornAgain::FFDodecahedronType);
-    registerNonnegativeLength(BornAgain::Edge, &m_edge);
+    registerParameter(BornAgain::Edge, &m_edge).setUnit("nm").setNonnegative();
     onChange();
 }
 

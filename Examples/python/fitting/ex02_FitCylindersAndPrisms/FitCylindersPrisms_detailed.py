@@ -67,7 +67,7 @@ def create_real_data():
             noisy_amplitude = 0.1
         real_data.setBinContent(i, noisy_amplitude)
 
-    # ucomment line to save generated data on disk
+    # uncomment line to save generated data on disk
     #IntensityDataIOFactory.writeIntensityData(
     #  real_data, 'refdata_fitcylinderprisms.int')
     return real_data
@@ -192,7 +192,6 @@ if __name__ == '__main__':
         fit_suite.runFit()
         fitpars = fit_suite.getFitParameters()
         pars = [ fitpars[i] for i in range(fitpars.size()) ] # workaround #1588
-        fitpars = fit_suite.getFitParameters().getParameters()
         from collections import OrderedDict
         out = [ OrderedDict([('name', par.getName()),
                              ('value', par.getValue()),

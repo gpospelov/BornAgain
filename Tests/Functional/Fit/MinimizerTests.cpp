@@ -57,10 +57,10 @@ std::unique_ptr<FitSuite> GSLSimulatedAnnealingTest::createFitSuite()
     minimizer->getOptions()->setMaxIterations(10);
     minimizer->getOptions()->setValue("t_min", 1.0);
     result->setMinimizer(minimizer);
-    for (size_t i = 0; i < m_parameters.size(); ++i)
-        result->addFitParameter(m_parameters[i].m_name, m_parameters[i].m_start_value,
-                                Limits::limited(4.0, 6.0), Attributes::free(),
-                                m_parameters[i].m_start_value / 100.);
+    for (const auto& par: m_parameters)
+        result->addFitParameter(
+            par.m_name, par.m_start_value,
+            Limits::limited(4.0, 6.0), Attributes::free(), par.m_start_value/100.);
     return result;
 }
 
@@ -79,9 +79,9 @@ std::unique_ptr<FitSuite> GeneticTest::createFitSuite()
     minimizer->getOptions()->setMaxIterations(1);
     minimizer->getOptions()->setValue("RandomSeed",1);
     result->setMinimizer(minimizer);
-    for (size_t i = 0; i < m_parameters.size(); ++i)
-        result->addFitParameter(m_parameters[i].m_name, m_parameters[i].m_start_value,
-                                Limits::limited(4.0, 6.0), Attributes::free(),
-                                m_parameters[i].m_start_value / 100.);
+    for (const auto& par: m_parameters)
+        result->addFitParameter(
+            par.m_name, par.m_start_value,
+            Limits::limited(4.0, 6.0), Attributes::free(), par.m_start_value/100.);
     return result;
 }

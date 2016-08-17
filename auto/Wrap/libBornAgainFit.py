@@ -1431,7 +1431,14 @@ vector_string_t_swigregister = _libBornAgainFit.vector_string_t_swigregister
 vector_string_t_swigregister(vector_string_t)
 
 class Attributes(_object):
-    """Proxy of C++ Attributes class"""
+    """
+
+
+    Attributes for a fit parameter. Currently, the only attribute is fixed/free.
+
+    C++ includes: Attributes.h
+
+    """
     __swig_setmethods__ = {}
     __setattr__ = lambda self, name, value: _swig_setattr(self, Attributes, name, value)
     __swig_getmethods__ = {}
@@ -1439,7 +1446,12 @@ class Attributes(_object):
     __repr__ = _swig_repr
 
     def __init__(self):
-        """__init__(Attributes self) -> Attributes"""
+        """
+        __init__(Attributes self) -> Attributes
+
+        Attributes::Attributes()
+
+        """
         this = _libBornAgainFit.new_Attributes()
         try:
             self.this.append(this)
@@ -1463,12 +1475,22 @@ class Attributes(_object):
     __swig_getmethods__["free"] = lambda x: free
 
     def setFixed(self, is_fixed):
-        """setFixed(Attributes self, bool is_fixed)"""
+        """
+        setFixed(Attributes self, bool is_fixed)
+
+        void Attributes::setFixed(bool is_fixed)
+
+        """
         return _libBornAgainFit.Attributes_setFixed(self, is_fixed)
 
 
     def isFixed(self):
-        """isFixed(Attributes self) -> bool"""
+        """
+        isFixed(Attributes self) -> bool
+
+        bool Attributes::isFixed() const 
+
+        """
         return _libBornAgainFit.Attributes_isFixed(self)
 
 
@@ -1498,7 +1520,7 @@ class Limits(_object):
     """
 
 
-    Attributes and limits for a fit parameter. Currently, the only attribute is fixed/free.
+    Limits for a fit parameter.
 
     C++ includes: Limits.h
 
@@ -2051,7 +2073,7 @@ class FitParameter(Limits, Attributes):
         __init__(FitParameter self, std::string const & name, double value, double step=0.0) -> FitParameter
         __init__(FitParameter self, std::string const & name, double value) -> FitParameter
 
-        FitParameter::FitParameter(const std::string &name, double value, double step=0.0, const Limits &limits=Limits::limitless(), double error=0.0)
+        FitParameter::FitParameter(const std::string &name, double value, double step=0.0, const Limits &limits=Limits::limitless(), const Attributes &attr=Attributes::free(), double error=0.0)
 
         """
         this = _libBornAgainFit.new_FitParameter(*args)

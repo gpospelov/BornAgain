@@ -23312,11 +23312,26 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"vector_string_t_capacity", _wrap_vector_string_t_capacity, METH_VARARGS, (char *)"vector_string_t_capacity(vector_string_t self) -> std::vector< std::string >::size_type"},
 	 { (char *)"delete_vector_string_t", _wrap_delete_vector_string_t, METH_VARARGS, (char *)"delete_vector_string_t(vector_string_t self)"},
 	 { (char *)"vector_string_t_swigregister", vector_string_t_swigregister, METH_VARARGS, NULL},
-	 { (char *)"new_Attributes", _wrap_new_Attributes, METH_VARARGS, (char *)"new_Attributes() -> Attributes"},
+	 { (char *)"new_Attributes", _wrap_new_Attributes, METH_VARARGS, (char *)"\n"
+		"new_Attributes() -> Attributes\n"
+		"\n"
+		"Attributes::Attributes()\n"
+		"\n"
+		""},
 	 { (char *)"Attributes_fixed", _wrap_Attributes_fixed, METH_VARARGS, (char *)"Attributes_fixed() -> Attributes"},
 	 { (char *)"Attributes_free", _wrap_Attributes_free, METH_VARARGS, (char *)"Attributes_free() -> Attributes"},
-	 { (char *)"Attributes_setFixed", _wrap_Attributes_setFixed, METH_VARARGS, (char *)"Attributes_setFixed(Attributes self, bool is_fixed)"},
-	 { (char *)"Attributes_isFixed", _wrap_Attributes_isFixed, METH_VARARGS, (char *)"Attributes_isFixed(Attributes self) -> bool"},
+	 { (char *)"Attributes_setFixed", _wrap_Attributes_setFixed, METH_VARARGS, (char *)"\n"
+		"Attributes_setFixed(Attributes self, bool is_fixed)\n"
+		"\n"
+		"void Attributes::setFixed(bool is_fixed)\n"
+		"\n"
+		""},
+	 { (char *)"Attributes_isFixed", _wrap_Attributes_isFixed, METH_VARARGS, (char *)"\n"
+		"Attributes_isFixed(Attributes self) -> bool\n"
+		"\n"
+		"bool Attributes::isFixed() const \n"
+		"\n"
+		""},
 	 { (char *)"Attributes___eq__", _wrap_Attributes___eq__, METH_VARARGS, (char *)"Attributes___eq__(Attributes self, Attributes other) -> bool"},
 	 { (char *)"Attributes___ne__", _wrap_Attributes___ne__, METH_VARARGS, (char *)"Attributes___ne__(Attributes self, Attributes other) -> bool"},
 	 { (char *)"delete_Attributes", _wrap_delete_Attributes, METH_VARARGS, (char *)"delete_Attributes(Attributes self)"},
@@ -23613,7 +23628,7 @@ static PyMethodDef SwigMethods[] = {
 		"FitParameter(std::string const & name, double value, double step=0.0)\n"
 		"new_FitParameter(std::string const & name, double value) -> FitParameter\n"
 		"\n"
-		"FitParameter::FitParameter(const std::string &name, double value, double step=0.0, const Limits &limits=Limits::limitless(), double error=0.0)\n"
+		"FitParameter::FitParameter(const std::string &name, double value, double step=0.0, const Limits &limits=Limits::limitless(), const Attributes &attr=Attributes::free(), double error=0.0)\n"
 		"\n"
 		""},
 	 { (char *)"delete_FitParameter", _wrap_delete_FitParameter, METH_VARARGS, (char *)"\n"

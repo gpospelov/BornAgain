@@ -16,85 +16,21 @@ C++ includes: MinimizerLibrary.h
 ";
 
 
-// File: classLimits.xml
-%feature("docstring") Limits "
+// File: classAttributes.xml
+%feature("docstring") Attributes "
 
-Attributes and limits for a fit parameter. Currently, the only attribute is fixed/free.
+Attributes for a fit parameter. Currently, the only attribute is fixed/free.
 
-C++ includes: Limits.h
+C++ includes: Attributes.h
 ";
 
-%feature("docstring")  Limits::Limits "Limits::Limits()
+%feature("docstring")  Attributes::Attributes "Attributes::Attributes()
 ";
 
-%feature("docstring")  Limits::hasLowerLimit "bool Limits::hasLowerLimit() const
-
-if has lower limit 
+%feature("docstring")  Attributes::setFixed "void Attributes::setFixed(bool is_fixed)
 ";
 
-%feature("docstring")  Limits::getLowerLimit "double Limits::getLowerLimit() const
-
-Returns lower limit. 
-";
-
-%feature("docstring")  Limits::setLowerLimit "void Limits::setLowerLimit(double value)
-
-Sets lower limit. 
-";
-
-%feature("docstring")  Limits::removeLowerLimit "void Limits::removeLowerLimit()
-
-remove lower limit 
-";
-
-%feature("docstring")  Limits::hasUpperLimit "bool Limits::hasUpperLimit() const
-
-if has upper limit 
-";
-
-%feature("docstring")  Limits::getUpperLimit "double Limits::getUpperLimit() const
-
-Returns upper limit. 
-";
-
-%feature("docstring")  Limits::setUpperLimit "void Limits::setUpperLimit(double value)
-
-Sets upper limit. 
-";
-
-%feature("docstring")  Limits::removeUpperLimit "void Limits::removeUpperLimit()
-
-remove upper limit 
-";
-
-%feature("docstring")  Limits::hasLowerAndUpperLimits "bool Limits::hasLowerAndUpperLimits() const
-
-if has lower and upper limit 
-";
-
-%feature("docstring")  Limits::setFixed "void Limits::setFixed(bool is_fixed)
-
-Sets object fixed. 
-";
-
-%feature("docstring")  Limits::isFixed "bool Limits::isFixed() const
-
-if object is fixed at some value 
-";
-
-%feature("docstring")  Limits::setLimits "void Limits::setLimits(double xmin, double xmax)
-
-Sets lower and upper limits. 
-";
-
-%feature("docstring")  Limits::removeLimits "void Limits::removeLimits()
-
-remove limits 
-";
-
-%feature("docstring")  Limits::isInRange "bool Limits::isInRange(double value) const
-
-returns true if proposed value is in limits range 
+%feature("docstring")  Attributes::isFixed "bool Attributes::isFixed() const 
 ";
 
 
@@ -250,7 +186,7 @@ C++ includes: FitParameter.h
 %feature("docstring")  FitParameter::FitParameter "FitParameter::FitParameter()
 ";
 
-%feature("docstring")  FitParameter::FitParameter "FitParameter::FitParameter(const std::string &name, double value, double step=0.0, const Limits &limits=Limits::limitless(), double error=0.0)
+%feature("docstring")  FitParameter::FitParameter "FitParameter::FitParameter(const std::string &name, double value, double step=0.0, const Limits &limits=Limits::limitless(), const Attributes &attr=Attributes::free(), double error=0.0)
 ";
 
 %feature("docstring")  FitParameter::~FitParameter "virtual FitParameter::~FitParameter()
@@ -543,6 +479,78 @@ C++ includes: MinimizerLibrary.h
 ";
 
 %feature("docstring")  MinimizerLibrary::InfoItem::getDescription "std::string MinimizerLibrary::InfoItem::getDescription() const 
+";
+
+
+// File: classLimits.xml
+%feature("docstring") Limits "
+
+Limits for a fit parameter.
+
+C++ includes: Limits.h
+";
+
+%feature("docstring")  Limits::Limits "Limits::Limits()
+";
+
+%feature("docstring")  Limits::hasLowerLimit "bool Limits::hasLowerLimit() const
+
+if has lower limit 
+";
+
+%feature("docstring")  Limits::getLowerLimit "double Limits::getLowerLimit() const
+
+Returns lower limit. 
+";
+
+%feature("docstring")  Limits::setLowerLimit "void Limits::setLowerLimit(double value)
+
+Sets lower limit. 
+";
+
+%feature("docstring")  Limits::removeLowerLimit "void Limits::removeLowerLimit()
+
+remove lower limit 
+";
+
+%feature("docstring")  Limits::hasUpperLimit "bool Limits::hasUpperLimit() const
+
+if has upper limit 
+";
+
+%feature("docstring")  Limits::getUpperLimit "double Limits::getUpperLimit() const
+
+Returns upper limit. 
+";
+
+%feature("docstring")  Limits::setUpperLimit "void Limits::setUpperLimit(double value)
+
+Sets upper limit. 
+";
+
+%feature("docstring")  Limits::removeUpperLimit "void Limits::removeUpperLimit()
+
+remove upper limit 
+";
+
+%feature("docstring")  Limits::hasLowerAndUpperLimits "bool Limits::hasLowerAndUpperLimits() const
+
+if has lower and upper limit 
+";
+
+%feature("docstring")  Limits::setLimits "void Limits::setLimits(double xmin, double xmax)
+
+Sets lower and upper limits. 
+";
+
+%feature("docstring")  Limits::removeLimits "void Limits::removeLimits()
+
+remove limits 
+";
+
+%feature("docstring")  Limits::isInRange "bool Limits::isInRange(double value) const
+
+returns true if proposed value is in limits range 
 ";
 
 
@@ -1280,10 +1288,7 @@ Returns string right-padded with blanks.
 // File: TrivialMinimizer_8h.xml
 
 
-// File: Limits_8cpp.xml
-
-
-// File: Limits_8h.xml
+// File: Attributes_8h.xml
 
 
 // File: FitParameter_8cpp.xml
@@ -1296,6 +1301,12 @@ Returns string right-padded with blanks.
 
 
 // File: FitSuiteParameters_8h.xml
+
+
+// File: Limits_8cpp.xml
+
+
+// File: Limits_8h.xml
 
 
 // File: ROOTGeneticMinimizer_8cpp.xml

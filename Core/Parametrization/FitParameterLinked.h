@@ -22,9 +22,8 @@
 class ParameterPool;
 class RealParameter;
 
-//! @class FitParameterLinked
+//! Fittable parameter, linked to other parameters from pools.
 //! @ingroup fitting_internal
-//! @brief Provide simultaneous access for several real parameters from parameter pool
 
 class BA_CORE_API_ FitParameterLinked : public FitParameter
 {
@@ -35,27 +34,22 @@ class BA_CORE_API_ FitParameterLinked : public FitParameter
         const Attributes& attr=Attributes::free(), double error=0.0);
     FitParameterLinked(const FitParameterLinked&) = delete;
     FitParameterLinked& operator=(const FitParameterLinked&) = delete;
-    virtual ~FitParameterLinked();
+    ~FitParameterLinked() final;
 
-    //! Sets given value for all bound parameters
-    virtual void setValue(double value);
+    void setValue(double value) final;
 
-    //! Adds real parameter to the collection
-    virtual void addParameter(RealParameter* par);
+    void addParameter(RealParameter* par);
 
-    //! Adds parameters from pool which match given wildcard
-    virtual void addMatchedParametersFromPool(
+    void addMatchedParametersFromPool(
         const ParameterPool* pool, const std::string& wildcard = std::string());
 
-    //! Prints class
     friend std::ostream& operator<<(std::ostream& ostr, const FitParameterLinked& m) {
         m.print(ostr); return ostr; }
 
  private:
-    //! Prints class
     void print(std::ostream& ostr) const;
 
-    std::vector<RealParameter*> m_pool_parameters; //! collection of parameters from parameter pools
+    std::vector<RealParameter*> m_pool_parameters; //!< linked parameters from pools
 };
 
 #endif // FITPARAMETERLINKED_H

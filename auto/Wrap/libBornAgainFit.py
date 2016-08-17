@@ -1774,7 +1774,66 @@ def Limits_limitless():
     """Limits_limitless() -> Limits"""
     return _libBornAgainFit.Limits_limitless()
 
-class IMinimizer(_object):
+class Configurable(_object):
+    """
+
+
+    The  Configurable class is a base for storing (int,double,string) options.
+
+    C++ includes: Configurable.h
+
+    """
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, Configurable, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, Configurable, name)
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        """
+        __init__(Configurable self) -> Configurable
+        __init__(Configurable self, Configurable other) -> Configurable
+
+        Configurable::Configurable(const Configurable &other)
+
+        Returns true if option with such name already exists. 
+
+        """
+        this = _libBornAgainFit.new_Configurable(*args)
+        try:
+            self.this.append(this)
+        except:
+            self.this = this
+
+    def option(self, *args):
+        """
+        option(Configurable self, std::string const & optionName) -> Configurable::option_t
+        option(Configurable self, std::string const & optionName) -> Configurable::option_t const
+
+        const Configurable::option_t Configurable::option(const std::string &optionName) const 
+
+        """
+        return _libBornAgainFit.Configurable_option(self, *args)
+
+
+    def toOptionString(self, *args):
+        """
+        toOptionString(Configurable self, std::string const & delimeter) -> std::string
+        toOptionString(Configurable self) -> std::string
+
+        std::string Configurable::toOptionString(const std::string &delimeter=";") const
+
+        Returns string with all options using given delimeter. 
+
+        """
+        return _libBornAgainFit.Configurable_toOptionString(self, *args)
+
+    __swig_destroy__ = _libBornAgainFit.delete_Configurable
+    __del__ = lambda self: None
+Configurable_swigregister = _libBornAgainFit.Configurable_swigregister
+Configurable_swigregister(Configurable)
+
+class IMinimizer(Configurable):
     """
 
 
@@ -1784,8 +1843,12 @@ class IMinimizer(_object):
 
     """
     __swig_setmethods__ = {}
+    for _s in [Configurable]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, IMinimizer, name, value)
     __swig_getmethods__ = {}
+    for _s in [Configurable]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, IMinimizer, name)
     __repr__ = _swig_repr
 
@@ -2198,28 +2261,14 @@ class FitSuiteParameters(_object):
         return _libBornAgainFit.FitSuiteParameters_clear(self)
 
 
-    def addParameter(self, par):
-        """
-        addParameter(FitSuiteParameters self, FitParameter par)
-
-        void FitSuiteParameters::addParameter(FitParameter *par)
-
-        Adds fit parameter. 
-
-        """
-        return _libBornAgainFit.FitSuiteParameters_addParameter(self, par)
+    def addFitParameter(self, par):
+        """addFitParameter(FitSuiteParameters self, FitParameter par)"""
+        return _libBornAgainFit.FitSuiteParameters_addFitParameter(self, par)
 
 
-    def getParameters(self):
-        """
-        getParameters(FitSuiteParameters self) -> std::vector< FitParameter *,std::allocator< FitParameter * > > &
-
-        std::vector<FitParameter*>& FitSuiteParameters::getParameters()
-
-        Returns all parameters. 
-
-        """
-        return _libBornAgainFit.FitSuiteParameters_getParameters(self)
+    def getFitParameters(self):
+        """getFitParameters(FitSuiteParameters self) -> std::vector< FitParameter *,std::allocator< FitParameter * > > &"""
+        return _libBornAgainFit.FitSuiteParameters_getFitParameters(self)
 
 
     def getFitParameter(self, *args):
@@ -2292,22 +2341,10 @@ class FitSuiteParameters(_object):
         return _libBornAgainFit.FitSuiteParameters_size(self)
 
 
-    def push_back(self, par):
-        """
-        push_back(FitSuiteParameters self, FitParameter par)
-
-        void FitSuiteParameters::push_back(FitParameter *par)
-
-        Adds given  FitParameter to container. 
-
-        """
-        return _libBornAgainFit.FitSuiteParameters_push_back(self, par)
-
-
     def begin(self, *args):
         """
-        begin(FitSuiteParameters self) -> FitSuiteParameters::iterator
-        begin(FitSuiteParameters self) -> FitSuiteParameters::const_iterator
+        begin(FitSuiteParameters self) -> std::vector< FitParameter *,std::allocator< FitParameter * > >::iterator
+        begin(FitSuiteParameters self) -> std::vector< FitParameter *,std::allocator< FitParameter * > >::const_iterator
 
         const_iterator FitSuiteParameters::begin() const 
 
@@ -2317,8 +2354,8 @@ class FitSuiteParameters(_object):
 
     def end(self, *args):
         """
-        end(FitSuiteParameters self) -> FitSuiteParameters::iterator
-        end(FitSuiteParameters self) -> FitSuiteParameters::const_iterator
+        end(FitSuiteParameters self) -> std::vector< FitParameter *,std::allocator< FitParameter * > >::iterator
+        end(FitSuiteParameters self) -> std::vector< FitParameter *,std::allocator< FitParameter * > >::const_iterator
 
         const_iterator FitSuiteParameters::end() const 
 
@@ -2326,16 +2363,9 @@ class FitSuiteParameters(_object):
         return _libBornAgainFit.FitSuiteParameters_end(self, *args)
 
 
-    def getNfreeParameters(self):
-        """
-        getNfreeParameters(FitSuiteParameters self) -> size_t
-
-        size_t FitSuiteParameters::getNfreeParameters() const
-
-        Returns number of free parameters. 
-
-        """
-        return _libBornAgainFit.FitSuiteParameters_getNfreeParameters(self)
+    def numberOfFreeFitParameters(self):
+        """numberOfFreeFitParameters(FitSuiteParameters self) -> size_t"""
+        return _libBornAgainFit.FitSuiteParameters_numberOfFreeFitParameters(self)
 
 
     def valuesAreDifferent(self, pars_valuers, tolerance_factor=1.0):
@@ -2351,16 +2381,9 @@ class FitSuiteParameters(_object):
         return _libBornAgainFit.FitSuiteParameters_valuesAreDifferent(self, pars_valuers, tolerance_factor)
 
 
-    def printParameters(self):
-        """
-        printParameters(FitSuiteParameters self)
-
-        void FitSuiteParameters::printParameters() const
-
-        Print defined parameters. 
-
-        """
-        return _libBornAgainFit.FitSuiteParameters_printParameters(self)
+    def printFitParameters(self):
+        """printFitParameters(FitSuiteParameters self)"""
+        return _libBornAgainFit.FitSuiteParameters_printFitParameters(self)
 
 
     def fixAll(self):
@@ -2387,16 +2410,9 @@ class FitSuiteParameters(_object):
         return _libBornAgainFit.FitSuiteParameters_releaseAll(self)
 
 
-    def setParametersFixed(self, pars, is_fixed):
-        """
-        setParametersFixed(FitSuiteParameters self, vector_string_t pars, bool is_fixed)
-
-        void FitSuiteParameters::setParametersFixed(const std::vector< std::string > &pars, bool is_fixed)
-
-        Set fixed flag for parameters from the list. 
-
-        """
-        return _libBornAgainFit.FitSuiteParameters_setParametersFixed(self, pars, is_fixed)
+    def setFixed(self, pars, is_fixed):
+        """setFixed(FitSuiteParameters self, vector_string_t pars, bool is_fixed)"""
+        return _libBornAgainFit.FitSuiteParameters_setFixed(self, pars, is_fixed)
 
 
     def __getitem__(self, *args):

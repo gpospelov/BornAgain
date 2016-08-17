@@ -91,7 +91,7 @@ void FitSuite::releaseAllParameters()
 
 void FitSuite::setParametersFixed(const std::vector<std::string>& pars, bool is_fixed)
 {
-    getFitParameters()->setParametersFixed(pars, is_fixed);
+    getFitParameters()->setFixed(pars, is_fixed);
 }
 
 void FitSuite::runFit()

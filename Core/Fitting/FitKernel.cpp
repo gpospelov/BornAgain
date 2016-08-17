@@ -67,12 +67,12 @@ void FitKernel::addFitParameter(const std::string& name, double value, const Lim
 {
     if(step <=0.0)
         step = value * getOptions().getStepFactor();
-    for(auto par: m_fit_parameters.getParameters()) {
+    for(auto par: m_fit_parameters.getFitParameters()) {
         if( par->getName() == name )
             throw std::runtime_error(
                 "FitSuiteParameters:addtFitParameter() -> Error. Existing parameter '"+name+"'");
     }
-    m_fit_parameters.addParameter(new FitParameterLinked(name, value, step, lim, attr, error));
+    m_fit_parameters.addFitParameter(new FitParameterLinked(name, value, step, lim, attr, error));
 }
 
 void FitKernel::addFitStrategy(const IFitStrategy& strategy)
@@ -129,7 +129,7 @@ void FitKernel::minimize()
     m_minimizer->setParameters(m_fit_parameters);
 
     // setting number of free parameters for proper chi2 normalization
-    m_fit_objects.setNfreeParameters((int)m_fit_parameters.getNfreeParameters());
+    m_fit_objects.setNfreeParameters((int)m_fit_parameters.numberOfFreeFitParameters());
 
     // minimize
     try {
@@ -195,7 +195,7 @@ bool FitKernel::check_prerequisites() const
 void FitKernel::link_fit_parameters()
 {
     const std::unique_ptr<ParameterPool> pool(m_fit_objects.createParameterTree());
-    for (auto par: m_fit_parameters.getParameters()) {
+    for (auto par: m_fit_parameters.getFitParameters()) {
         FitParameterLinked* linkedPar = dynamic_cast<FitParameterLinked*>(par);
         if( !linkedPar )
             throw std::runtime_error(

@@ -79,6 +79,7 @@ import_array();
 %include "Attributes.h"
 %include "Limits.h"
 
+%include "Configurable.h"
 %include "IMinimizer.h"
 %include "FitParameter.h"
 %include "FitSuiteParameters.h"

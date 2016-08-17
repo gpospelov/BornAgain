@@ -19,7 +19,6 @@
 #include "FitParameter.h"
 #include "FitSuiteParameters.h"
 
-
 BasicMinimizer::BasicMinimizer(const std::string& minimizerName, const std::string& algorithmName)
     : m_minimizerName(minimizerName)
     , m_algorithmName(algorithmName)
@@ -138,7 +137,8 @@ int BasicMinimizer::fitParameterCount() const
     return rootMinimizer()->NDim();
 }
 
-BasicMinimizer::root_minimizer_t *BasicMinimizer::rootMinimizer()
+BasicMinimizer::root_minimizer_t* BasicMinimizer::rootMinimizer()
 {
-    return const_cast<root_minimizer_t *>(static_cast<const BasicMinimizer*>(this)->rootMinimizer());
+    return const_cast<root_minimizer_t*>(
+        static_cast<const BasicMinimizer*>(this)->rootMinimizer());
 }

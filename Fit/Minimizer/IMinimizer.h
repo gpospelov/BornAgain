@@ -25,9 +25,8 @@ class FitParameter;
 class FitSuiteParameters;
 class MinimizerOptions;
 
-//! @class IMinimizer
+//! Common interface for all kind minimizers.
 //! @ingroup fitting_internal
-//! @brief Common interface for all kind minimizer's
 
 class BA_CORE_API_ IMinimizer : public Configurable
 {

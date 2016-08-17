@@ -38,6 +38,8 @@
 #include <iomanip>
 #include <set>
 
+using namespace PythonFormatting;
+
 namespace CodeSnippet {
 
     const std::string preamble =
@@ -60,8 +62,6 @@ namespace CodeSnippet {
         "    ba.simulateThenPlotOrSave(simulate, plot)\n";
 
 } // namespace CodeSnippet
-
-using namespace PythonFormatting;
 
 ExportToPython::ExportToPython(const MultiLayer& multilayer)
     : m_label(new SampleLabelHandler())
@@ -201,9 +201,8 @@ std::string ExportToPython::defineLayers() const
         const Layer* layer = it->first;
         result << indent() << it->second << " = ba.Layer(" <<
             m_label->getLabelMaterial(layer->getMaterial());
-        if (layer->getThickness() != 0) {
+        if (layer->getThickness() != 0)
             result << ", " << layer->getThickness();
-        }
         result << ")\n";
     }
     return result.str();
@@ -238,8 +237,7 @@ std::string ExportToPython::defineParticles() const
         std::string particle_name = it->second;
         result << indent() << particle_name << " = ba.Particle("
                << m_label->getLabelMaterial(p_particle->getMaterial()) << ", "
-               << m_label->getLabelFormFactor(p_particle->getFormFactor());
-        result << ")\n";
+               << m_label->getLabelFormFactor(p_particle->getFormFactor()) << ")\n";
         setRotationInformation(p_particle, particle_name, result);
         setPositionInformation(p_particle, particle_name, result);
     }
@@ -659,15 +657,13 @@ std::string ExportToPython::defineDetector(const GISASSimulation* simulation) co
                    << printDouble(detector->getDirectBeamU0()) << ", "
                    << printDouble(detector->getDirectBeamV0()) << ")\n";
 
-        } else {
+        } else
             throw Exceptions::RuntimeErrorException(
                 "ExportToPython::defineDetector: unknown alignment");
-        }
 
         result << indent() << "simulation.setDetector(detector)\n\n";
-    }
 
-    else
+    } else
         throw Exceptions::RuntimeErrorException("ExportToPython::defineDetector: unknown detector");
 
     return result.str();
@@ -683,7 +679,6 @@ std::string ExportToPython::defineDetectorResolutionFunction(
         if ( auto* p_convfunc = dynamic_cast<const ConvolutionDetectorResolution*>(p_resfunc)) {
             if (auto* resfunc = dynamic_cast<const ResolutionFunction2DGaussian*>(
                     p_convfunc->getResolutionFunction2D())) {
-
                 result << indent() << "simulation.setDetectorResolutionFunction(";
                 result << "ba.ResolutionFunction2DGaussian(";
                 if(detector->getDefaultAxesUnits() == IDetector2D::RADIANS) {
@@ -693,17 +688,15 @@ std::string ExportToPython::defineDetectorResolutionFunction(
                     result << printDouble(resfunc->getSigmaX()) << ", ";
                     result << printDouble(resfunc->getSigmaY()) << "))\n";
                 }
-
             } else {
-                std::string message("ExportToPython::defineDetectorResolutionFunction() -> Error.");
-                message += "Unknown detector resolution function";
-                throw Exceptions::RuntimeErrorException(message);
+                throw Exceptions::RuntimeErrorException(
+                    "ExportToPython::defineDetectorResolutionFunction() -> Error. "
+                    "Unknown detector resolution function");
             }
-        } else {
-            std::string message("ExportToPython::defineDetectorResolutionFunction() -> Error.");
-            message += "Not a ConvolutionDetectorResolution function";
-            throw Exceptions::RuntimeErrorException(message);
-        }
+        } else
+            throw Exceptions::RuntimeErrorException(
+                "ExportToPython::defineDetectorResolutionFunction() -> Error. "
+                "Not a ConvolutionDetectorResolution function");
     }
 
     return result.str();

@@ -35,14 +35,11 @@ class BA_CORE_API_ ScanningMinimizer : public IMinimizer
 
     virtual void setChiSquaredFunction(function_chi2_t fun_chi2, size_t nparameters);
 
-    virtual void setGradientFunction(
-        function_gradient_t fun_gradient, size_t nparameters, size_t ndatasize);
+    virtual void setGradientFunction(function_gradient_t, size_t, size_t) {}
 
     virtual size_t getNumberOfVariables() const { return m_parameters.size(); }
 
     virtual double getMinValue() const;
-
-    virtual double getValueOfVariableAtMinimum(size_t i) const;
 
     virtual void printResults() const;
 

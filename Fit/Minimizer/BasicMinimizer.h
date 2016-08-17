@@ -28,9 +28,8 @@ class Minimizer;
 }
 }
 
-//! @class BasicMinimizer
+//! The BasicMinimizer class is a base for all minimizers.
 //! @ingroup fitting_internal
-//! @brief The BasicMinimizer class is a base for all minimizers
 
 class BA_CORE_API_ BasicMinimizer : public IMinimizer
 {
@@ -43,21 +42,13 @@ public:
 
     virtual void minimize();
 
-
-    //! Returns name of the minimizer.
-    std::string minimizerName() const;
-
-    //! Returns name of the minimization algorithm.
-    std::string algorithmName() const;
-
-    //! Sets minimization algorithm.
-    void setAlgorithmName(const std::string &algorithmName);
-
+    std::string getMinimizerName() const final { return m_minimizerName; }
+    std::string getAlgorithmName() const final { return m_algorithmName; }
+    void setAlgorithmName(const std::string &algorithmName) { m_algorithmName = algorithmName; }
 
     virtual void setParameter(size_t index, const FitParameter *par);
 
     virtual void setParameters(const FitSuiteParameters& parameters);
-
 
     //! Sets chi squared function to minimize
     virtual void setChiSquaredFunction(function_chi2_t fun_chi2, size_t nparameters);
@@ -66,9 +57,7 @@ public:
     virtual void setGradientFunction(
         function_gradient_t fun_gradient, size_t nparameters, size_t ndatasize);
 
-
-    virtual bool isGradientBasedAgorithm() { return false;}
-
+    size_t getNumberOfVariables() const { return fitParameterCount(); }
 
     virtual std::vector<double> getValueOfVariablesAtMinimum() const;
     virtual std::vector<double> getErrorOfVariables() const;
@@ -77,6 +66,7 @@ public:
 
     std::string toResultString() const;
 
+    virtual bool isGradientBasedAgorithm() { return false; }
 
 protected:
     int fitParameterCount() const;
@@ -93,4 +83,3 @@ private:
 };
 
 #endif // BASICMINIMIZER_H
-

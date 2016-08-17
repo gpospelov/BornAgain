@@ -1850,20 +1850,10 @@ class IMinimizer(Configurable):
     for _s in [Configurable]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, IMinimizer, name)
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
-
-    def __init__(self):
-        """
-        __init__(IMinimizer self) -> IMinimizer
-
-        IMinimizer::IMinimizer()
-
-        """
-        this = _libBornAgainFit.new_IMinimizer()
-        try:
-            self.this.append(this)
-        except:
-            self.this = this
     __swig_destroy__ = _libBornAgainFit.delete_IMinimizer
     __del__ = lambda self: None
 
@@ -1877,18 +1867,6 @@ class IMinimizer(Configurable):
 
         """
         return _libBornAgainFit.IMinimizer_minimize(self)
-
-
-    def setParameter(self, index, par):
-        """
-        setParameter(IMinimizer self, size_t index, FitParameter par)
-
-        void IMinimizer::setParameter(size_t index, const FitParameter *par)
-
-        Sets internal minimizer parameter. 
-
-        """
-        return _libBornAgainFit.IMinimizer_setParameter(self, index, par)
 
 
     def setParameters(self, parameters):
@@ -1939,30 +1917,6 @@ class IMinimizer(Configurable):
         return _libBornAgainFit.IMinimizer_getNumberOfVariables(self)
 
 
-    def getMinValue(self):
-        """
-        getMinValue(IMinimizer self) -> double
-
-        double IMinimizer::getMinValue() const
-
-        Returns minimum function value. 
-
-        """
-        return _libBornAgainFit.IMinimizer_getMinValue(self)
-
-
-    def getValueOfVariableAtMinimum(self, index):
-        """
-        getValueOfVariableAtMinimum(IMinimizer self, size_t index) -> double
-
-        double IMinimizer::getValueOfVariableAtMinimum(size_t index) const
-
-        Returns value of the parameter at the minimum. 
-
-        """
-        return _libBornAgainFit.IMinimizer_getValueOfVariableAtMinimum(self, index)
-
-
     def getValueOfVariablesAtMinimum(self):
         """
         getValueOfVariablesAtMinimum(IMinimizer self) -> vdouble1d_t
@@ -1975,18 +1929,6 @@ class IMinimizer(Configurable):
         return _libBornAgainFit.IMinimizer_getValueOfVariablesAtMinimum(self)
 
 
-    def getErrorOfVariable(self, index):
-        """
-        getErrorOfVariable(IMinimizer self, size_t index) -> double
-
-        double IMinimizer::getErrorOfVariable(size_t index) const
-
-        Returns error of variable at minimum. 
-
-        """
-        return _libBornAgainFit.IMinimizer_getErrorOfVariable(self, index)
-
-
     def getErrorOfVariables(self):
         """
         getErrorOfVariables(IMinimizer self) -> vdouble1d_t
@@ -1997,18 +1939,6 @@ class IMinimizer(Configurable):
 
         """
         return _libBornAgainFit.IMinimizer_getErrorOfVariables(self)
-
-
-    def clear(self):
-        """
-        clear(IMinimizer self)
-
-        void IMinimizer::clear()
-
-        clear resources (parameters) for consecutives minimizations 
-
-        """
-        return _libBornAgainFit.IMinimizer_clear(self)
 
 
     def printResults(self):
@@ -2046,28 +1976,28 @@ class IMinimizer(Configurable):
         return _libBornAgainFit.IMinimizer_getOptions(self, *args)
 
 
-    def setOptions(self, options):
+    def setOptions(self, arg2):
         """
-        setOptions(IMinimizer self, MinimizerOptions options)
+        setOptions(IMinimizer self, MinimizerOptions arg2)
 
         void IMinimizer::setOptions(const MinimizerOptions &options)
 
         set minimizer options 
 
         """
-        return _libBornAgainFit.IMinimizer_setOptions(self, options)
+        return _libBornAgainFit.IMinimizer_setOptions(self, arg2)
 
 
-    def setOptionString(self, options):
+    def setOptionString(self, arg2):
         """
-        setOptionString(IMinimizer self, std::string const & options)
+        setOptionString(IMinimizer self, std::string const & arg2)
 
         void IMinimizer::setOptionString(const std::string &options)
 
         set minimizer option string 
 
         """
-        return _libBornAgainFit.IMinimizer_setOptionString(self, options)
+        return _libBornAgainFit.IMinimizer_setOptionString(self, arg2)
 
 
     def isGradientBasedAgorithm(self):

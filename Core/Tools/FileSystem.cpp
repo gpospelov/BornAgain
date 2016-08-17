@@ -19,21 +19,6 @@
 #include <cassert>
 #include <glob.h>
 
-//! Returns path to the current (working) directory.
-
-std::string FileSystem::GetWorkingPath()
-{
-    return boost::filesystem::current_path().string();
-}
-
-//! Returns path to BornAgain home directory.
-
-std::string FileSystem::GetHomePath()
-{
-    throw Exceptions::NotImplementedException(
-        "FileSystem::GetHomePath()-> Not implemented anymore...");
-}
-
 //! Returns file extension.
 
 std::string FileSystem::GetFileExtension(const std::string& name)

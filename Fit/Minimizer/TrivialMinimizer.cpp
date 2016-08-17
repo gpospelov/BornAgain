@@ -23,12 +23,6 @@ void TrivialMinimizer::minimize()
     m_min_value = m_fcn(&m_parameters.getValues()[0]);
 }
 
-//! Returns pointer to the parameters values at the minimum
-double TrivialMinimizer::getValueOfVariableAtMinimum(size_t index) const
-{
-    return m_parameters[index]->getValue();
-}
-
 //! Returns value of the parameter at the minimum
 std::vector<double > TrivialMinimizer::getValueOfVariablesAtMinimum() const
 {
@@ -52,24 +46,4 @@ std::vector<double> TrivialMinimizer::getErrorOfVariables() const
     std::vector<double> result;
     result.resize(m_parameters.size());
     return result;
-}
-
-std::string TrivialMinimizer::getMinimizerName() const
-{
-    return std::string("Test");
-}
-
-std::string TrivialMinimizer::getAlgorithmName() const
-{
-    return std::string();
-}
-
-MinimizerOptions *TrivialMinimizer::getOptions()
-{
-    return nullptr;
-}
-
-const MinimizerOptions *TrivialMinimizer::getOptions() const
-{
-    return nullptr;
 }

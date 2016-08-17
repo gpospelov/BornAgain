@@ -24,25 +24,6 @@
 #endif
 #endif
 
-//! Round double numbers in string to given precision.
-
-//! If precision is 6, then 7.2908527770e+03 -> 7.290853e+03.
-//! This method is used to compare IsGisaxs and our ASCII files
-//! at equal precision.
-//!
-std::string Utils::String::round_doubles(const std::string& str, int precision)
-{
-    std::string newline;
-    std::istringstream is0(str.c_str());
-    double number;
-    while( is0 >> number ) {
-        std::ostringstream os;
-        os << std::scientific << std::setprecision(precision) << number;
-        newline += os.str() + std::string("    ");
-    }
-    return newline;
-}
-
 //! Returns token vector obtained by splitting string at delimiters.
 
 std::vector<std::string> Utils::String::split(const std::string& text, const std::string& delimiter)
@@ -57,15 +38,6 @@ void Utils::String::replaceItemsFromString(
 {
     for(size_t i=0; i<items.size(); ++i)
         boost::replace_all(text, items[i], replacement);
-}
-
-std::string Utils::String::getScientificDoubleString(double value, size_t precision)
-{
-    std::ostringstream svalue;
-    size_t total_width = precision+5;
-    svalue << std::setw(total_width) << std::left << std::scientific << std::setprecision(precision)
-           << value;
-    return svalue.str();
 }
 
 std::string Utils::String::join(const std::vector<std::string>& joinable, const std::string& joint)

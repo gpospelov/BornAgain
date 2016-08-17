@@ -30,19 +30,12 @@ namespace Utils {
 class BA_CORE_API_ String
 {
 public:
-    //! assuming that string consist of doubles return new string
-    //! where doubles are rounded according to the precision
-    static std::string round_doubles(const std::string& str, int precision);
-
     //! Split string into vector of string using delimeter.
     static std::vector<std::string> split(const std::string& text, const std::string& delimeter);
 
     //! replace all occurences of items from string text with delimeter
     static void replaceItemsFromString(std::string& text, const std::vector<std::string>& items,
                                        const std::string& replacement=std::string(""));
-
-    //! return string representing scientific double with given precision
-    static std::string getScientificDoubleString(double value, size_t precision = 4);
 
     //! Returns string obtain by joining vector elements
     static std::string join(const std::vector<std::string>& joinable, const std::string& joint);

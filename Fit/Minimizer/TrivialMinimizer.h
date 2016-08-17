@@ -27,32 +27,29 @@ class BA_CORE_API_ TrivialMinimizer : public IMinimizer
 {
  public:
     TrivialMinimizer() : m_min_value(0) {}
-    virtual ~TrivialMinimizer(){}
+    ~TrivialMinimizer() final {}
 
-    virtual void minimize();
+    void minimize() final;
 
-    virtual void setParameters(const FitSuiteParameters& parameters);
+    void setParameters(const FitSuiteParameters& parameters) final;
 
-    virtual void setChiSquaredFunction(function_chi2_t fun_chi2, size_t) { m_fcn = fun_chi2; }
+    void setChiSquaredFunction(function_chi2_t fun_chi2, size_t) final { m_fcn = fun_chi2 ; }
 
-    virtual void setGradientFunction(function_gradient_t, size_t, size_t) {}
+    void setGradientFunction(function_gradient_t, size_t, size_t) final {}
 
-    virtual size_t getNumberOfVariables() const { return m_parameters.size(); }
+    size_t getNumberOfVariables() const final { return m_parameters.size(); }
 
-    virtual double getValueOfVariableAtMinimum(size_t index) const;
+    std::vector<double> getValueOfVariablesAtMinimum() const final;
 
-    virtual std::vector<double > getValueOfVariablesAtMinimum() const;
+    std::vector<double> getErrorOfVariables() const final;
 
-    virtual void printResults() const;
+    void printResults() const final;
 
-    virtual std::vector<double >  getErrorOfVariables() const;
+    std::string getMinimizerName() const final { return "Test"; }
+    std::string getAlgorithmName() const final { return ""; }
 
-    virtual std::string getMinimizerName() const;
-
-    virtual std::string getAlgorithmName() const;
-
-    virtual MinimizerOptions *getOptions();
-    virtual const MinimizerOptions *getOptions() const;
+    MinimizerOptions* getOptions() final { return nullptr; }
+    const MinimizerOptions* getOptions() const final { return nullptr; }
 
  private:
     double m_min_value;

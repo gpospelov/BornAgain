@@ -24347,8 +24347,8 @@ class SampleBuilderFactory(_object):
 
     def registerItem(self, *args):
         """
-        registerItem(SampleBuilderFactory self, std::string const & item_key, IFactory< std::string,ISampleBuilder >::CreateItemCallback CreateFn) -> bool
         registerItem(SampleBuilderFactory self, std::string const & item_key, IFactory< std::string,ISampleBuilder >::CreateItemCallback CreateFn, std::string const & itemDescription) -> bool
+        registerItem(SampleBuilderFactory self, std::string const & item_key, IFactory< std::string,ISampleBuilder >::CreateItemCallback CreateFn) -> bool
 
         bool IFactory< Key, AbstractProduct >::registerItem(const Key &item_key, CreateItemCallback CreateFn, const std::string &itemDescription)
 
@@ -24372,26 +24372,24 @@ class SampleBuilderFactory(_object):
         return _libBornAgainCore.SampleBuilderFactory_getNumberOfRegistered(self)
 
 
-    def begin(self, *args):
+    def begin(self):
         """
-        begin(SampleBuilderFactory self) -> IFactory< std::string,ISampleBuilder >::iterator
         begin(SampleBuilderFactory self) -> IFactory< std::string,ISampleBuilder >::const_iterator
 
         const_iterator IFactory< Key, AbstractProduct >::begin() const 
 
         """
-        return _libBornAgainCore.SampleBuilderFactory_begin(self, *args)
+        return _libBornAgainCore.SampleBuilderFactory_begin(self)
 
 
-    def end(self, *args):
+    def end(self):
         """
-        end(SampleBuilderFactory self) -> IFactory< std::string,ISampleBuilder >::iterator
         end(SampleBuilderFactory self) -> IFactory< std::string,ISampleBuilder >::const_iterator
 
         const_iterator IFactory< Key, AbstractProduct >::end() const 
 
         """
-        return _libBornAgainCore.SampleBuilderFactory_end(self, *args)
+        return _libBornAgainCore.SampleBuilderFactory_end(self)
 
 SampleBuilderFactory_swigregister = _libBornAgainCore.SampleBuilderFactory_swigregister
 SampleBuilderFactory_swigregister(SampleBuilderFactory)
@@ -24438,8 +24436,8 @@ class SimulationFactory(_object):
 
     def registerItem(self, *args):
         """
-        registerItem(SimulationFactory self, std::string const & item_key, IFactory< std::string,GISASSimulation >::CreateItemCallback CreateFn) -> bool
         registerItem(SimulationFactory self, std::string const & item_key, IFactory< std::string,GISASSimulation >::CreateItemCallback CreateFn, std::string const & itemDescription) -> bool
+        registerItem(SimulationFactory self, std::string const & item_key, IFactory< std::string,GISASSimulation >::CreateItemCallback CreateFn) -> bool
 
         bool IFactory< Key, AbstractProduct >::registerItem(const Key &item_key, CreateItemCallback CreateFn, const std::string &itemDescription)
 
@@ -24463,26 +24461,24 @@ class SimulationFactory(_object):
         return _libBornAgainCore.SimulationFactory_getNumberOfRegistered(self)
 
 
-    def begin(self, *args):
+    def begin(self):
         """
-        begin(SimulationFactory self) -> IFactory< std::string,GISASSimulation >::iterator
         begin(SimulationFactory self) -> IFactory< std::string,GISASSimulation >::const_iterator
 
         const_iterator IFactory< Key, AbstractProduct >::begin() const 
 
         """
-        return _libBornAgainCore.SimulationFactory_begin(self, *args)
+        return _libBornAgainCore.SimulationFactory_begin(self)
 
 
-    def end(self, *args):
+    def end(self):
         """
-        end(SimulationFactory self) -> IFactory< std::string,GISASSimulation >::iterator
         end(SimulationFactory self) -> IFactory< std::string,GISASSimulation >::const_iterator
 
         const_iterator IFactory< Key, AbstractProduct >::end() const 
 
         """
-        return _libBornAgainCore.SimulationFactory_end(self, *args)
+        return _libBornAgainCore.SimulationFactory_end(self)
 
 SimulationFactory_swigregister = _libBornAgainCore.SimulationFactory_swigregister
 SimulationFactory_swigregister(SimulationFactory)

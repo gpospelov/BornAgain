@@ -23,45 +23,44 @@
 #include <memory>
 #include <exception>
 
-//! @class Configurable
+//! A base class for storing (int,double,string) options.
 //! @ingroup fitting_internal
-//! @brief The Configurable class is a base for storing (int,double,string) options.
 
 class BA_CORE_API_ Configurable {
 
 public:
     typedef std::shared_ptr<MinimizerOption> option_t;
 
-    Configurable(){}
-    Configurable(const Configurable &other);
+    Configurable() {}
+    Configurable(const Configurable& other);
     Configurable& operator=(const Configurable& other);
 
     template<class T>
-    option_t addOption(const std::string &optionName, T value,
-                       const std::string &description = std::string());
+    option_t addOption(const std::string& optionName, T value,
+                       const std::string& description = std::string());
 
-    option_t option(const std::string &optionName);
-    const option_t option(const std::string &optionName) const;
+    option_t option(const std::string& optionName);
+    const option_t option(const std::string& optionName) const;
 
     template<class T>
-    T optionValue(const std::string &optionName) const;
+    T optionValue(const std::string& optionName) const;
 
     //! Sets the value of option. Option should hold same value type already.
     template<class T>
     void setOptionValue(const std::string& optionName, T value);
 
     //! Returns string with all options using given delimeter
-    std::string toOptionString(const std::string &delimeter=";") const;
+    std::string toOptionString(const std::string& delimeter=";") const;
 
 private:
-    bool exists(const std::string &name);
+    bool exists(const std::string& name);
     void swapContent(Configurable& other);
     std::vector<std::shared_ptr<MinimizerOption>> m_options;
 };
 
 template<class T>
-Configurable::option_t Configurable::addOption(const std::string &optionName, T value,
-                                 const std::string &description)
+Configurable::option_t Configurable::addOption(const std::string& optionName, T value,
+                                 const std::string& description)
 {
     if(exists(optionName))
         throw std::runtime_error("Configurable::addOption() -> Error. Option '" + optionName +
@@ -73,7 +72,7 @@ Configurable::option_t Configurable::addOption(const std::string &optionName, T 
 }
 
 template<class T>
-T Configurable::optionValue(const std::string &optionName) const
+T Configurable::optionValue(const std::string& optionName) const
 {
     return option(optionName)->get<T>();
 }
@@ -86,6 +85,5 @@ void Configurable::setOptionValue(const std::string& optionName, T value)
         throw std::runtime_error("Configurable::setOptionValue() -> Error. Attempt to set different"
                                  "type to option '"+optionName+"'");
 }
-
 
 #endif // CONFIGURABLE_H

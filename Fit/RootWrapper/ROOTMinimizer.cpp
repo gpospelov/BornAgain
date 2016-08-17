@@ -31,9 +31,7 @@ ROOTMinimizer::ROOTMinimizer(const std::string& minimizer_name, const std::strin
     , m_root_minimizer(0)
     , m_chi2_func(0)
     , m_gradient_func(0)
-{
-}
-
+{}
 
 ROOTMinimizer::~ROOTMinimizer()
 {
@@ -55,8 +53,7 @@ void ROOTMinimizer::setParameters(const FitSuiteParameters& parameters)
     }
 }
 
-
-void ROOTMinimizer::setParameter(size_t index, const FitParameter *par)
+void ROOTMinimizer::setParameter(size_t index, const FitParameter* par)
 {
     bool success;
     if( par->isFixed() ) {
@@ -82,35 +79,32 @@ void ROOTMinimizer::setParameter(size_t index, const FitParameter *par)
     }
 }
 
-
 void ROOTMinimizer::minimize()
 {
     propagateOptions();
     m_root_minimizer->Minimize();
 }
 
-
 void ROOTMinimizer::setChiSquaredFunction(function_chi2_t fun_chi2, size_t nparameters)
 {
     delete m_chi2_func;
     m_chi2_func = new ROOTMinimizerChiSquaredFunction(fun_chi2, (int)nparameters);
-    if( !isGradientBasedAgorithm() ) m_root_minimizer->SetFunction(*m_chi2_func);
+    if (!isGradientBasedAgorithm())
+        m_root_minimizer->SetFunction(*m_chi2_func);
 }
 
-
-void ROOTMinimizer::setGradientFunction(function_gradient_t fun_gradient, size_t nparameters, size_t ndatasize)
+void ROOTMinimizer::setGradientFunction(
+    function_gradient_t fun_gradient, size_t nparameters, size_t ndatasize)
 {
     delete m_gradient_func;
     m_gradient_func = new ROOTMinimizerGradientFunction(fun_gradient, nparameters, ndatasize);
-    if( isGradientBasedAgorithm() ) m_root_minimizer->SetFunction(*m_gradient_func);
+    if (isGradientBasedAgorithm())
+        m_root_minimizer->SetFunction(*m_gradient_func);
 }
 
 size_t ROOTMinimizer::getNumberOfVariables() const { return m_root_minimizer->NDim(); }
 
 double ROOTMinimizer::getMinValue() const { return m_root_minimizer->MinValue(); }
-
-double ROOTMinimizer::getValueOfVariableAtMinimum(size_t i) const {return m_root_minimizer->X()[check_index(i)]; }
-
 
 std::vector<double > ROOTMinimizer::getValueOfVariablesAtMinimum() const
 {
@@ -120,19 +114,15 @@ std::vector<double > ROOTMinimizer::getValueOfVariablesAtMinimum() const
     return result;
 }
 
-double ROOTMinimizer::getErrorOfVariable(size_t i) const { return (m_root_minimizer->Errors() == 0? 0 : m_root_minimizer->Errors()[check_index(i)]); }
-
-
 std::vector<double > ROOTMinimizer::getErrorOfVariables() const
 {
     std::vector<double > result;
     result.resize(getNumberOfVariables(), 0.0);
-    if(m_root_minimizer->Errors() != 0 ) {
-        std::copy(m_root_minimizer->Errors(), m_root_minimizer->Errors()+getNumberOfVariables(), result.begin());
-    }
+    if(m_root_minimizer->Errors() != 0 )
+        std::copy(m_root_minimizer->Errors(), m_root_minimizer->Errors()+getNumberOfVariables(),
+                  result.begin());
     return result;
 }
-
 
 void ROOTMinimizer::printResults() const
 {
@@ -141,15 +131,14 @@ void ROOTMinimizer::printResults() const
 
 void ROOTMinimizer::clear() { m_root_minimizer->Clear(); }
 
-
 size_t ROOTMinimizer::getNCalls() const
 {
     return m_root_minimizer->NCalls();
 }
 
-MinimizerOptions *ROOTMinimizer::getOptions() { return &m_options; }
+MinimizerOptions* ROOTMinimizer::getOptions() { return &m_options; }
 
-const MinimizerOptions *ROOTMinimizer::getOptions() const { return &m_options; }
+const MinimizerOptions* ROOTMinimizer::getOptions() const { return &m_options; }
 
 
 void ROOTMinimizer::setOptions(const MinimizerOptions &options)
@@ -158,9 +147,9 @@ void ROOTMinimizer::setOptions(const MinimizerOptions &options)
     propagateOptions();
 }
 
-BA_ROOT::Math::Minimizer *ROOTMinimizer::getROOTMinimizer() { return m_root_minimizer; }
+BA_ROOT::Math::Minimizer* ROOTMinimizer::getROOTMinimizer() { return m_root_minimizer; }
 
-const BA_ROOT::Math::Minimizer *ROOTMinimizer::getROOTMinimizer() const { return m_root_minimizer; }
+const BA_ROOT::Math::Minimizer* ROOTMinimizer::getROOTMinimizer() const { return m_root_minimizer; }
 
 std::string ROOTMinimizer::getMinimizerName() const { return m_minimizer_name; }
 
@@ -176,4 +165,8 @@ void ROOTMinimizer::propagateOptions()
     m_root_minimizer->SetPrintLevel(m_options.getPrintLevel());
 }
 
-size_t ROOTMinimizer::check_index(size_t index) const { return index<getNumberOfVariables() ? index : throw std::runtime_error("ROOTMinimizer::getErrorOfVariable() -> Wrong number of the variable"); }
+size_t ROOTMinimizer::check_index(size_t index) const {
+    return index<getNumberOfVariables() ? index :
+        throw std::runtime_error(
+            "ROOTMinimizer::getErrorOfVariable() -> Wrong number of the variable");
+}

@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DIMENSIONEDPARAMETERS_H
-#define DIMENSIONEDPARAMETERS_H
+#ifndef UNIT_H
+#define UNIT_H
 
 #include "INamed.h"
 #include <string>
@@ -28,4 +28,4 @@ public:
     void setUnit(const std::string& name);
 };
 
-#endif // DIMENSIONEDPARAMETERS_H
+#endif // UNIT_H

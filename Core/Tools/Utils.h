@@ -30,10 +30,6 @@ namespace Utils {
 class BA_CORE_API_ String
 {
 public:
-    //! assuming that string consist of doubles return new string
-    //! where doubles are rounded according to the precision
-    static std::string round_doubles(const std::string& str, int precision);
-
     //! Split string into vector of string using delimeter.
     static std::vector<std::string> split(const std::string& text, const std::string& delimeter);
 

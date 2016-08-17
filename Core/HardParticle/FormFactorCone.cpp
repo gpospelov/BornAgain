@@ -18,6 +18,7 @@
 #include "Exceptions.h"
 #include "MathFunctions.h"
 #include "Numeric.h"
+#include "RealParameter.h"
 #include "Pi.h"
 
 //! @param radius of circular base
@@ -41,7 +42,7 @@ FormFactorCone::FormFactorCone(double radius, double height, double alpha)
     }
     registerNonnegativeLength(BornAgain::Radius, &m_radius);
     registerNonnegativeLength(BornAgain::Height, &m_height);
-    registerLimitedAngle(BornAgain::Alpha, & m_alpha, 0, 180);
+    registerParameter(BornAgain::Alpha, & m_alpha).setUnit("rad").setLimited(0., Pi::PID2);
 
     mP_integrator = make_integrator_complex(this, &FormFactorCone::Integrand);
 }

@@ -17,6 +17,8 @@
 #include "BornAgainNamespace.h"
 #include "Exceptions.h"
 #include "MathFunctions.h"
+#include "RealParameter.h"
+#include "Pi.h"
 
 const PolyhedralTopology FormFactorCuboctahedron::topology = {
     {
@@ -48,7 +50,7 @@ FormFactorCuboctahedron::FormFactorCuboctahedron(
     registerNonnegativeLength(BornAgain::Length, &m_length);
     registerNonnegativeLength(BornAgain::Height, &m_height);
     registerNonnegativeLength(BornAgain::HeightRatio, &m_height_ratio);
-    registerLimitedAngle(BornAgain::Alpha, &m_alpha, 0, 180);
+    registerParameter(BornAgain::Alpha, & m_alpha).setUnit("rad").setLimited(0., Pi::PID2);
     onChange();
 }
 

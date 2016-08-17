@@ -22,8 +22,8 @@ protected:
     protected:
         virtual void init_parameters()
         {
-            registerUnlimitedScalar("par1",&m_real_par1);
-            registerUnlimitedScalar("par2",&m_real_par2);
+            registerParameter("par1",&m_real_par1);
+            registerParameter("par2",&m_real_par2);
         }
     };
     ParameterizedObject m_parameterized;

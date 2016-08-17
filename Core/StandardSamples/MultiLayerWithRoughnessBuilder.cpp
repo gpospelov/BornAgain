@@ -37,7 +37,7 @@ void MultiLayerWithRoughnessBuilder::init_parameters()
     registerNonnegativeLength("thicknessA", &m_thicknessA);
     registerNonnegativeLength("thicknessB", &m_thicknessB);
     registerNonnegativeLength("sigma", &m_sigma);
-    registerUnlimitedScalar  ("hurst", &m_hurst);
+    registerParameter  ("hurst", &m_hurst);
     registerNonnegativeLength("latteralCorrLength", &m_latteralCorrLength);
     registerNonnegativeLength("crossCorrLength", &m_crossCorrLength);
 }

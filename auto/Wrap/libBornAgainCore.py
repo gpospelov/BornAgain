@@ -1650,6 +1650,11 @@ class IParameterized(INamed):
         return _libBornAgainCore.IParameterized_printParameters(self)
 
 
+    def registerParameter(self, name, parpointer):
+        """registerParameter(IParameterized self, std::string const & name, double * parpointer) -> RealParameter"""
+        return _libBornAgainCore.IParameterized_registerParameter(self, name, parpointer)
+
+
     def registerUnlimitedAngle(self, name, parpointer):
         """
         registerUnlimitedAngle(IParameterized self, std::string const & name, double * parpointer)
@@ -1658,16 +1663,6 @@ class IParameterized(INamed):
 
         """
         return _libBornAgainCore.IParameterized_registerUnlimitedAngle(self, name, parpointer)
-
-
-    def registerLimitedAngle(self, name, parpointer, lower_limit, upper_limit):
-        """
-        registerLimitedAngle(IParameterized self, std::string const & name, double * parpointer, double lower_limit, double upper_limit)
-
-        void IParameterized::registerLimitedAngle(const std::string &name, double *parpointer, double lower_limit, double upper_limit)
-
-        """
-        return _libBornAgainCore.IParameterized_registerLimitedAngle(self, name, parpointer, lower_limit, upper_limit)
 
 
     def registerUnlimitedLength(self, name, parpointer):
@@ -1698,16 +1693,6 @@ class IParameterized(INamed):
 
         """
         return _libBornAgainCore.IParameterized_registerNonnegativeLength(self, name, parpointer)
-
-
-    def registerUnlimitedScalar(self, name, parpointer):
-        """
-        registerUnlimitedScalar(IParameterized self, std::string const & name, double * parpointer)
-
-        void IParameterized::registerUnlimitedScalar(const std::string &name, double *parpointer)
-
-        """
-        return _libBornAgainCore.IParameterized_registerUnlimitedScalar(self, name, parpointer)
 
 
     def registerPositiveScalar(self, name, parpointer):
@@ -6689,6 +6674,11 @@ class ISampleBuilder(IParameterized):
         return _libBornAgainCore.ISampleBuilder_getFTDistribution2D(self)
 
 
+    def registerParameter(self, name, parpointer):
+        """registerParameter(ISampleBuilder self, std::string const & name, int64_t parpointer) -> RealParameter"""
+        return _libBornAgainCore.ISampleBuilder_registerParameter(self, name, parpointer)
+
+
     def registerUnlimitedAngle(self, name, parpointer):
         """
         registerUnlimitedAngle(ISampleBuilder self, std::string const & name, int64_t parpointer)
@@ -6697,16 +6687,6 @@ class ISampleBuilder(IParameterized):
 
         """
         return _libBornAgainCore.ISampleBuilder_registerUnlimitedAngle(self, name, parpointer)
-
-
-    def registerLimitedAngle(self, name, parpointer, lower_bound, upper_bound):
-        """
-        registerLimitedAngle(ISampleBuilder self, std::string const & name, int64_t parpointer, double lower_bound, double upper_bound)
-
-        void IParameterized::registerLimitedAngle(const std::string &name, double *parpointer, double lower_limit, double upper_limit)
-
-        """
-        return _libBornAgainCore.ISampleBuilder_registerLimitedAngle(self, name, parpointer, lower_bound, upper_bound)
 
 
     def registerUnlimitedLength(self, name, parpointer):
@@ -6737,16 +6717,6 @@ class ISampleBuilder(IParameterized):
 
         """
         return _libBornAgainCore.ISampleBuilder_registerPositiveLength(self, name, parpointer)
-
-
-    def registerUnlimitedScalar(self, name, parpointer):
-        """
-        registerUnlimitedScalar(ISampleBuilder self, std::string const & name, int64_t parpointer)
-
-        void IParameterized::registerUnlimitedScalar(const std::string &name, double *parpointer)
-
-        """
-        return _libBornAgainCore.ISampleBuilder_registerUnlimitedScalar(self, name, parpointer)
 
 
     def registerNonnegativeScalar(self, name, parpointer):
@@ -22474,7 +22444,7 @@ class ParameterPool(_object):
 
     def addParameter(self, par):
         """
-        addParameter(ParameterPool self, RealParameter par)
+        addParameter(ParameterPool self, RealParameter par) -> RealParameter
 
         void ParameterPool::addParameter(RealParameter *par)
 
@@ -23514,12 +23484,26 @@ class RealParameter(INamed):
     for _s in [INamed]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, RealParameter, name)
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainCore.delete_RealParameter
-    __del__ = lambda self: None
+
+    def __init__(self, *args):
+        """
+        __init__(RealParameter self, std::string const & name, ParameterPool parent, double volatile * par, Limits limits, Attributes attr) -> RealParameter
+        __init__(RealParameter self, std::string const & name, ParameterPool parent, double volatile * par, Limits limits) -> RealParameter
+        __init__(RealParameter self, std::string const & name, ParameterPool parent, double volatile * par) -> RealParameter
+        __init__(RealParameter self, RealParameter other) -> RealParameter
+        __init__(RealParameter self, std::string const & name, RealParameter other) -> RealParameter
+
+        RealParameter::RealParameter(const std::string &name, const RealParameter &other)
+
+        This constructor takes copies 'other' except for the name. 
+
+        """
+        this = _libBornAgainCore.new_RealParameter(*args)
+        try:
+            self.this.append(this)
+        except:
+            self.this = this
 
     def clone(self, *args):
         """
@@ -23556,6 +23540,11 @@ class RealParameter(INamed):
         return _libBornAgainCore.RealParameter_getValue(self)
 
 
+    def setUnit(self, name):
+        """setUnit(RealParameter self, std::string const & name) -> RealParameter"""
+        return _libBornAgainCore.RealParameter_setUnit(self, name)
+
+
     def isNull(self):
         """
         isNull(RealParameter self) -> bool
@@ -23580,6 +23569,11 @@ class RealParameter(INamed):
         return _libBornAgainCore.RealParameter_checkNull(self)
 
 
+    def setLimits(self, limits):
+        """setLimits(RealParameter self, Limits limits) -> RealParameter"""
+        return _libBornAgainCore.RealParameter_setLimits(self, limits)
+
+
     def getLimits(self):
         """
         getLimits(RealParameter self) -> Limits
@@ -23588,6 +23582,11 @@ class RealParameter(INamed):
 
         """
         return _libBornAgainCore.RealParameter_getLimits(self)
+
+
+    def setLimited(self, lower, upper):
+        """setLimited(RealParameter self, double lower, double upper) -> RealParameter"""
+        return _libBornAgainCore.RealParameter_setLimited(self, lower, upper)
 
 
     def __eq__(self, other):
@@ -23609,6 +23608,8 @@ class RealParameter(INamed):
         """
         return _libBornAgainCore.RealParameter_unit(self)
 
+    __swig_destroy__ = _libBornAgainCore.delete_RealParameter
+    __del__ = lambda self: None
 RealParameter_swigregister = _libBornAgainCore.RealParameter_swigregister
 RealParameter_swigregister(RealParameter)
 

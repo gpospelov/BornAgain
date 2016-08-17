@@ -17,8 +17,8 @@
 
 void IntensityNormalizer::init_parameters()
 {
-    registerUnlimitedScalar("scale", &m_scale);
-    registerUnlimitedScalar("shift", &m_shift);
+    registerParameter("scale", &m_scale);
+    registerParameter("shift", &m_shift);
 }
 
 IntensityNormalizer* IntensityNormalizer::clone() const

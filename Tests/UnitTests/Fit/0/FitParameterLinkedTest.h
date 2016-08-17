@@ -52,8 +52,8 @@ TEST_F(FitParameterLinkedTest, FitParameterLinkedParamPool)
     public:
         ParametrizedObject(double p1, double p2) : m1(p1), m2(p2)
         {
-            registerUnlimitedScalar("1", &m1);
-            registerUnlimitedScalar("2", &m2);
+            registerParameter("1", &m1);
+            registerParameter("2", &m2);
         }
         virtual void onChange() final {}
         double m1, m2;

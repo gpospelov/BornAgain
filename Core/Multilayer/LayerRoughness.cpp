@@ -37,8 +37,8 @@ LayerRoughness::LayerRoughness(double sigma, double hurstParameter, double latte
 void LayerRoughness::initialize()
 {
     setName(BornAgain::LayerBasicRoughnessType);
-    registerUnlimitedScalar(BornAgain::Sigma, &m_sigma);
-    registerUnlimitedScalar(BornAgain::Hurst, &m_hurstParameter);
+    registerParameter(BornAgain::Sigma, &m_sigma);
+    registerParameter(BornAgain::Hurst, &m_hurstParameter);
     registerNonnegativeLength(BornAgain::CorrelationLength, &m_latteralCorrLength);
 }
 

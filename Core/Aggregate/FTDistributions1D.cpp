@@ -28,7 +28,7 @@ void IFTDistribution1D::print(std::ostream& ostr) const
 
 void IFTDistribution1D::init_parameters()
 {
-    registerUnlimitedScalar(BornAgain::Omega, &m_omega);
+    registerParameter(BornAgain::Omega, &m_omega);
 }
 
 
@@ -115,5 +115,5 @@ double FTDistribution1DVoigt::evaluate(double q) const
 void FTDistribution1DVoigt::init_parameters()
 {
     IFTDistribution1D::init_parameters();
-    registerUnlimitedScalar(BornAgain::Eta, &m_eta);
+    registerParameter(BornAgain::Eta, &m_eta);
 }

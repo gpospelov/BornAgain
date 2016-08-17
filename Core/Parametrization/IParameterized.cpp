@@ -81,17 +81,6 @@ void IParameterized::registerUnlimitedAngle(const std::string& name, double* dat
     registerAngle(name, data, Limits::limitless());
 }
 
-void IParameterized::registerLimitedAngle(
-    const std::string& name, double* data, double lower_limit, double upper_limit)
-{
-    registerAngle(name, data, Limits::limited( lower_limit, upper_limit ));
-}
-
-
-void IParameterized::registerUnlimitedScalar(const std::string& name, double* data)
-{
-    registerScalar(name, data, Limits::limitless());
-}
 
 void IParameterized::registerPositiveScalar(const std::string& name, double* data)
 {

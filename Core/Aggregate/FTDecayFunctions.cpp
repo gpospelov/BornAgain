@@ -17,6 +17,7 @@
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
 #include "ParameterPool.h"
+#include "RealParameter.h"
 #include "Pi.h"
 
 //===============1D======================
@@ -29,7 +30,7 @@ void IFTDecayFunction1D::print(std::ostream &ostr) const
 
 void IFTDecayFunction1D::init_parameters()
 {
-    registerUnlimitedScalar(BornAgain::Omega, &m_omega);
+    registerParameter(BornAgain::Omega, &m_omega);
 }
 
 FTDecayFunction1DCauchy::FTDecayFunction1DCauchy(double omega)
@@ -89,7 +90,7 @@ double FTDecayFunction1DVoigt::evaluate(double q) const
 void FTDecayFunction1DVoigt::init_parameters()
 {
     IFTDecayFunction1D::init_parameters();
-    registerUnlimitedScalar(BornAgain::Eta, &m_eta);
+    registerParameter(BornAgain::Eta, &m_eta);
 }
 
 /* Commented out decay functions: see header for rationale
@@ -152,8 +153,8 @@ void IFTDecayFunction2D::init_parameters()
 {
     registerNonnegativeLength(BornAgain::OmegaX, &m_omega_x);
     registerNonnegativeLength(BornAgain::OmegaY, &m_omega_y);
-    registerLimitedAngle(BornAgain::Gamma, &m_gamma, -180, 180);
-    registerLimitedAngle(BornAgain::Delta, &m_delta, -180, 180);
+    registerParameter(BornAgain::Gamma, &m_gamma).setUnit("rad").setLimited(-Pi::PID2, Pi::PID2);
+    registerParameter(BornAgain::Delta, &m_delta).setUnit("rad").setLimited(0, Pi::PI);
 }
 
 FTDecayFunction2DCauchy::FTDecayFunction2DCauchy(
@@ -203,7 +204,7 @@ void FTDecayFunction2DVoigt::init_parameters()
 {
     registerNonnegativeLength(BornAgain::OmegaX, &m_omega_x);
     registerNonnegativeLength(BornAgain::OmegaY, &m_omega_y);
-    registerUnlimitedScalar(BornAgain::Eta, &m_eta);
-    registerLimitedAngle(BornAgain::Gamma, &m_gamma, -180, 180);
-    registerLimitedAngle(BornAgain::Delta, &m_delta, -180, 180);
+    registerParameter(BornAgain::Eta, &m_eta);
+    registerParameter(BornAgain::Gamma, &m_gamma).setUnit("rad").setLimited(-Pi::PID2, Pi::PID2);
+    registerParameter(BornAgain::Delta, &m_delta).setUnit("rad").setLimited(0, Pi::PI);
 }

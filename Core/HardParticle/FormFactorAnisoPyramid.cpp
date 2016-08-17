@@ -17,6 +17,8 @@
 #include "BornAgainNamespace.h"
 #include "Exceptions.h"
 #include "MathFunctions.h"
+#include "RealParameter.h"
+#include "Pi.h"
 
 const PolyhedralTopology FormFactorAnisoPyramid::topology = {
     {
@@ -44,7 +46,7 @@ FormFactorAnisoPyramid::FormFactorAnisoPyramid(
     registerNonnegativeLength(BornAgain::Length, &m_length);
     registerNonnegativeLength(BornAgain::Width, &m_width);
     registerNonnegativeLength(BornAgain::Height, &m_height);
-    registerLimitedAngle(BornAgain::Alpha, &m_alpha, 0, 180);
+    registerParameter(BornAgain::Alpha, & m_alpha).setUnit("rad").setLimited(0., Pi::PID2);
     onChange();
 }
 

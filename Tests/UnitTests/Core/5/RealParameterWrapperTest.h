@@ -20,7 +20,7 @@ TEST_F(RealParameterTest, ParameterAccess)
         ParametrizedObject()
             : m_par1(17), m_changed(false)
         {
-            registerUnlimitedScalar("par1", &m_par1);
+            registerParameter("par1", &m_par1);
         }
         virtual void onChange() final { m_changed = true; }
         double m_par1;
@@ -67,7 +67,7 @@ TEST_F(RealParameterTest, LimitedParameter)
         ParametrizedObject(double p, const Limits& lim)
             : m_par(p), m_changed(false)
         {
-            registerUnlimitedScalar("par", &m_par, lim);
+            registerParameter("par", &m_par, lim);
         }
         virtual void onChange() final { m_changed = true; }
         double m_par;

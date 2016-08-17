@@ -151,8 +151,8 @@ std::vector<double> DistributionGate::generateValueList(size_t nbr_samples,
 
 void DistributionGate::init_parameters()
 {
-    registerUnlimitedScalar(Minimum, &m_min);
-    registerUnlimitedScalar(Maximum, &m_max);
+    registerParameter(Minimum, &m_min);
+    registerParameter(Maximum, &m_max);
 }
 
 bool DistributionGate::isDelta() const
@@ -202,8 +202,8 @@ std::vector<double> DistributionLorentz::generateValueList(size_t nbr_samples,
 
 void DistributionLorentz::init_parameters()
 {
-    registerUnlimitedScalar(Mean, &m_mean);
-    registerUnlimitedScalar(HWHM, &m_hwhm);
+    registerParameter(Mean, &m_mean);
+    registerParameter(HWHM, &m_hwhm);
 }
 
 bool DistributionLorentz::isDelta() const
@@ -259,8 +259,8 @@ std::vector<double> DistributionGaussian::generateValueList(size_t nbr_samples,
 
 void DistributionGaussian::init_parameters()
 {
-    registerUnlimitedScalar(Mean, &m_mean);
-    registerUnlimitedScalar(StdDeviation, &m_std_dev);
+    registerParameter(Mean, &m_mean);
+    registerParameter(StdDeviation, &m_std_dev);
 }
 
 bool DistributionGaussian::isDelta() const
@@ -327,8 +327,8 @@ std::vector<double> DistributionLogNormal::generateValueList(size_t nbr_samples,
 
 void DistributionLogNormal::init_parameters()
 {
-    registerUnlimitedScalar(Median, &m_median);
-    registerUnlimitedScalar(ScaleParameter, &m_scale_param);
+    registerParameter(Median, &m_median);
+    registerParameter(ScaleParameter, &m_scale_param);
 }
 
 bool DistributionLogNormal::isDelta() const
@@ -384,8 +384,8 @@ std::vector<double> DistributionCosine::generateValueList(size_t nbr_samples,
 
 void DistributionCosine::init_parameters()
 {
-    registerUnlimitedScalar(Mean, &m_mean);
-    registerUnlimitedScalar(Sigma, &m_sigma);
+    registerParameter(Mean, &m_mean);
+    registerParameter(Sigma, &m_sigma);
 }
 
 bool DistributionCosine::isDelta() const

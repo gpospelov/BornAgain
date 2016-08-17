@@ -27,7 +27,7 @@ FormFactorSphereLogNormalRadius::FormFactorSphereLogNormalRadius(
     setName(BornAgain::FormFactorSphereLogNormalRadiusType);
     mp_distribution = new DistributionLogNormal(mean, scale_param);
     registerNonnegativeLength(BornAgain::MeanRadius, &m_mean);
-    registerUnlimitedScalar(BornAgain::ScaleParameter, &m_scale_param);
+    registerParameter(BornAgain::ScaleParameter, &m_scale_param);
     if (!mp_distribution) return;
     // Init vectors:
     m_form_factors.clear();

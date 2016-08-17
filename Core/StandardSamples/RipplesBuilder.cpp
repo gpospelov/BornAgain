@@ -92,7 +92,7 @@ void TriangularRippleBuilder::init_parameters()
     registerNonnegativeLength("width", &m_w);
     registerNonnegativeLength("height", &m_h);
     registerNonnegativeLength("length", &m_l);
-    registerUnlimitedScalar  ("asymetry", &m_d);
+    registerParameter  ("asymetry", &m_d);
     registerNonnegativeLength("interf_distance", &m_interf_distance);
     registerNonnegativeLength("interf_width", &m_interf_width);
 }

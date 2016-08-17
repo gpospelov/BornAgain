@@ -75,7 +75,7 @@ class BA_CORE_API_ Limits
     static Limits positive();
 
     //! Creates an object which can have only positive values with 0. included
-    static Limits n_positive() { return lowerLimited(0.); }
+    static Limits nonnegative() { return lowerLimited(0.); }
 
     //! Creates an object bounded from the right
     static Limits upperLimited(double bound_value) { return Limits(false, true, 0., bound_value); }

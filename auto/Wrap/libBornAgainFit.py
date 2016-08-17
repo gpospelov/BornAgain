@@ -1704,13 +1704,13 @@ class Limits(_object):
         positive = staticmethod(positive)
     __swig_getmethods__["positive"] = lambda x: positive
 
-    def n_positive():
-        """n_positive() -> Limits"""
-        return _libBornAgainFit.Limits_n_positive()
+    def nonnegative():
+        """nonnegative() -> Limits"""
+        return _libBornAgainFit.Limits_nonnegative()
 
     if _newclass:
-        n_positive = staticmethod(n_positive)
-    __swig_getmethods__["n_positive"] = lambda x: n_positive
+        nonnegative = staticmethod(nonnegative)
+    __swig_getmethods__["nonnegative"] = lambda x: nonnegative
 
     def upperLimited(bound_value):
         """upperLimited(double bound_value) -> Limits"""
@@ -1758,9 +1758,9 @@ def Limits_positive():
     """Limits_positive() -> Limits"""
     return _libBornAgainFit.Limits_positive()
 
-def Limits_n_positive():
-    """Limits_n_positive() -> Limits"""
-    return _libBornAgainFit.Limits_n_positive()
+def Limits_nonnegative():
+    """Limits_nonnegative() -> Limits"""
+    return _libBornAgainFit.Limits_nonnegative()
 
 def Limits_upperLimited(bound_value):
     """Limits_upperLimited(double bound_value) -> Limits"""

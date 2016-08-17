@@ -11842,8 +11842,6 @@ class FormFactorDecoratorDebyeWaller(IFormFactorDecorator):
             self.this.append(this)
         except:
             self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_FormFactorDecoratorDebyeWaller
-    __del__ = lambda self: None
 
     def clone(self):
         """
@@ -11880,6 +11878,8 @@ class FormFactorDecoratorDebyeWaller(IFormFactorDecorator):
         """
         return _libBornAgainCore.FormFactorDecoratorDebyeWaller_evaluate(self, wavevectors)
 
+    __swig_destroy__ = _libBornAgainCore.delete_FormFactorDecoratorDebyeWaller
+    __del__ = lambda self: None
 FormFactorDecoratorDebyeWaller_swigregister = _libBornAgainCore.FormFactorDecoratorDebyeWaller_swigregister
 FormFactorDecoratorDebyeWaller_swigregister(FormFactorDecoratorDebyeWaller)
 
@@ -23587,6 +23587,16 @@ class RealParameter(INamed):
     def setLimited(self, lower, upper):
         """setLimited(RealParameter self, double lower, double upper) -> RealParameter"""
         return _libBornAgainCore.RealParameter_setLimited(self, lower, upper)
+
+
+    def setPositive(self):
+        """setPositive(RealParameter self) -> RealParameter"""
+        return _libBornAgainCore.RealParameter_setPositive(self)
+
+
+    def setNonnegative(self):
+        """setNonnegative(RealParameter self) -> RealParameter"""
+        return _libBornAgainCore.RealParameter_setNonnegative(self)
 
 
     def __eq__(self, other):

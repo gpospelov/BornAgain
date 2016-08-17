@@ -18995,12 +18995,12 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Limits_n_positive(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_Limits_nonnegative(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   Limits result;
   
-  if (!PyArg_ParseTuple(args,(char *)":Limits_n_positive")) SWIG_fail;
-  result = Limits::n_positive();
+  if (!PyArg_ParseTuple(args,(char *)":Limits_nonnegative")) SWIG_fail;
+  result = Limits::nonnegative();
   resultobj = SWIG_NewPointerObj((new Limits(static_cast< const Limits& >(result))), SWIGTYPE_p_Limits, SWIG_POINTER_OWN |  0 );
   return resultobj;
 fail:
@@ -23737,7 +23737,7 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { (char *)"Limits_lowerLimited", _wrap_Limits_lowerLimited, METH_VARARGS, (char *)"Limits_lowerLimited(double bound_value) -> Limits"},
 	 { (char *)"Limits_positive", _wrap_Limits_positive, METH_VARARGS, (char *)"Limits_positive() -> Limits"},
-	 { (char *)"Limits_n_positive", _wrap_Limits_n_positive, METH_VARARGS, (char *)"Limits_n_positive() -> Limits"},
+	 { (char *)"Limits_nonnegative", _wrap_Limits_nonnegative, METH_VARARGS, (char *)"Limits_nonnegative() -> Limits"},
 	 { (char *)"Limits_upperLimited", _wrap_Limits_upperLimited, METH_VARARGS, (char *)"Limits_upperLimited(double bound_value) -> Limits"},
 	 { (char *)"Limits_limited", _wrap_Limits_limited, METH_VARARGS, (char *)"Limits_limited(double left_bound_value, double right_bound_value) -> Limits"},
 	 { (char *)"Limits_limitless", _wrap_Limits_limitless, METH_VARARGS, (char *)"Limits_limitless() -> Limits"},

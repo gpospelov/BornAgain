@@ -18,31 +18,20 @@
 #include "ISampleVisitor.h"
 #include "WavevectorInfo.h"
 
-using namespace  BornAgain;
-
-FormFactorDecoratorDebyeWaller::FormFactorDecoratorDebyeWaller(const IFormFactor &form_factor,
-                                                               double dw_factor)
-    : IFormFactorDecorator(form_factor), m_h_dw_factor(dw_factor), m_r_dw_factor(dw_factor)
+FormFactorDecoratorDebyeWaller::FormFactorDecoratorDebyeWaller(
+    const IFormFactor& form_factor, double dw_factor)
+    : IFormFactorDecorator(form_factor),
+      m_h_dw_factor(dw_factor), m_r_dw_factor(dw_factor)
 {
     initialize();
 }
 
-FormFactorDecoratorDebyeWaller::FormFactorDecoratorDebyeWaller(const IFormFactor &form_factor,
-                                                               double dw_h_factor,
-                                                               double dw_r_factor)
-    : IFormFactorDecorator(form_factor), m_h_dw_factor(dw_h_factor), m_r_dw_factor(dw_r_factor)
+FormFactorDecoratorDebyeWaller::FormFactorDecoratorDebyeWaller(
+    const IFormFactor& form_factor, double dw_h_factor, double dw_r_factor)
+    : IFormFactorDecorator(form_factor),
+      m_h_dw_factor(dw_h_factor), m_r_dw_factor(dw_r_factor)
 {
     initialize();
-}
-
-void FormFactorDecoratorDebyeWaller::accept(ISampleVisitor *visitor) const
-{
-    visitor->visit(this);
-}
-
-FormFactorDecoratorDebyeWaller *FormFactorDecoratorDebyeWaller::clone() const
-{
-    return new FormFactorDecoratorDebyeWaller(*mp_form_factor, m_h_dw_factor, m_r_dw_factor);
 }
 
 complex_t FormFactorDecoratorDebyeWaller::evaluate(const WavevectorInfo& wavevectors) const
@@ -54,20 +43,14 @@ complex_t FormFactorDecoratorDebyeWaller::evaluate(const WavevectorInfo& wavevec
     return dw * mp_form_factor->evaluate(wavevectors);
 }
 
-bool FormFactorDecoratorDebyeWaller::check_initialization() const
-{
-    return true;
-}
-
 void FormFactorDecoratorDebyeWaller::init_parameters()
 {
-    registerPositiveScalar(HeightDWFactor, &m_h_dw_factor);
-    registerPositiveScalar(RadiusDWFactor, &m_r_dw_factor);
+    registerPositiveScalar(BornAgain::HeightDWFactor, &m_h_dw_factor);
+    registerPositiveScalar(BornAgain::RadiusDWFactor, &m_r_dw_factor);
 }
 
 void FormFactorDecoratorDebyeWaller::initialize()
 {
-    setName(FormFactorDecoratorDebyeWallerType);
-    check_initialization();
+    setName(BornAgain::FormFactorDecoratorDebyeWallerType);
     init_parameters();
 }

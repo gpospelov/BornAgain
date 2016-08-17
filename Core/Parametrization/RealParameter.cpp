@@ -86,6 +86,18 @@ RealParameter& RealParameter::setLimited(double lower, double upper)
     return *this;
 }
 
+RealParameter& RealParameter::setPositive()
+{
+    setLimits( Limits::positive() );
+    return *this;
+}
+
+RealParameter& RealParameter::setNonnegative()
+{
+    setLimits( Limits::nonnegative() );
+    return *this;
+}
+
 std::string RealParameter::fullName()
 {
     return m_parent->getName() + "/" + getName();

@@ -61,6 +61,8 @@ public:
     Limits getLimits() const { return m_limits; }
 
     RealParameter& setLimited(double lower, double upper);
+    RealParameter& setPositive();
+    RealParameter& setNonnegative();
 
     bool operator==(const RealParameter &other) const {
         return (m_limits == other.m_limits) && (m_data == other.m_data); }

@@ -31,17 +31,15 @@ public:
     //! Anisotropic Debye-Waller factor.
     FormFactorDecoratorDebyeWaller(const IFormFactor& form_factor, double dw_h_factor,
                                    double dw_r_factor);
+//    ~FormFactorDecoratorDebyeWaller() final {}
+    FormFactorDecoratorDebyeWaller* clone() const final {
+        return new FormFactorDecoratorDebyeWaller(*mp_form_factor, m_h_dw_factor, m_r_dw_factor); }
 
-    virtual ~FormFactorDecoratorDebyeWaller() {}
-
-    virtual FormFactorDecoratorDebyeWaller* clone() const;
-
-    virtual void accept(ISampleVisitor* visitor) const;
+    void accept(ISampleVisitor* visitor) const final { visitor->visit(this); }
 
     virtual complex_t evaluate(const WavevectorInfo& wavevectors) const;
 
 protected:
-    virtual bool check_initialization() const;
     virtual void init_parameters();
 
 private:

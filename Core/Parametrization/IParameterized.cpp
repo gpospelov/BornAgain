@@ -89,7 +89,7 @@ void IParameterized::registerPositiveScalar(const std::string& name, double* dat
 
 void IParameterized::registerNonnegativeScalar(const std::string& name, double* data)
 {
-    registerScalar(name, data, Limits::n_positive());
+    registerScalar(name, data, Limits::nonnegative());
 }
 
 
@@ -105,12 +105,11 @@ void IParameterized::registerPositiveLength(const std::string& name, double* dat
 
 void IParameterized::registerNonnegativeLength(const std::string& name, double* data)
 {
-    registerLength(name, data, Limits::n_positive());
+    registerLength(name, data, Limits::nonnegative());
 }
 
 
-void IParameterized::registerAngle(
-    const std::string& name, double* data, const Limits& limits)
+void IParameterized::registerAngle(const std::string& name, double* data, const Limits& limits)
 {
     m_pool->addParameter( new RealParameter( name, m_pool, data, limits) ).setUnit("rad");
 }

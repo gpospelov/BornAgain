@@ -40,15 +40,6 @@ void Utils::String::replaceItemsFromString(
         boost::replace_all(text, items[i], replacement);
 }
 
-std::string Utils::String::getScientificDoubleString(double value, size_t precision)
-{
-    std::ostringstream svalue;
-    size_t total_width = precision+5;
-    svalue << std::setw(total_width) << std::left << std::scientific << std::setprecision(precision)
-           << value;
-    return svalue.str();
-}
-
 std::string Utils::String::join(const std::vector<std::string>& joinable, const std::string& joint)
 {
     std::string result;

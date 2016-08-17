@@ -37,9 +37,6 @@ public:
     static void replaceItemsFromString(std::string& text, const std::vector<std::string>& items,
                                        const std::string& replacement=std::string(""));
 
-    //! return string representing scientific double with given precision
-    static std::string getScientificDoubleString(double value, size_t precision = 4);
-
     //! Returns string obtain by joining vector elements
     static std::string join(const std::vector<std::string>& joinable, const std::string& joint);
 };

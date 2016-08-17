@@ -26,7 +26,7 @@ BeamInclinationAngleItem::BeamInclinationAngleItem()
     SessionItem *distribution = dynamic_cast<DistributionNoneItem *>(getGroupItem(P_DISTRIBUTION));
     Q_ASSERT(distribution);
     auto value = distribution->getItem(DistributionNoneItem::P_VALUE);
-    value->setLimits(AttLimits::limited(0.0, 90.0));
+    value->setLimits(Limits::limited(0.0, 90.0));
     value->setDecimals(3);
     value->setValue(0.2);
 }
@@ -48,7 +48,7 @@ BeamAzimuthalAngleItem::BeamAzimuthalAngleItem()
     SessionItem *distribution = dynamic_cast<DistributionNoneItem *>(getGroupItem(P_DISTRIBUTION));
     Q_ASSERT(distribution);
     auto value = distribution->getItem(DistributionNoneItem::P_VALUE);
-    value->setLimits(AttLimits::limited(-90.0, 90.0));
+    value->setLimits(Limits::limited(-90.0, 90.0));
     value->setDecimals(3);
     value->setValue(0.0);
 }

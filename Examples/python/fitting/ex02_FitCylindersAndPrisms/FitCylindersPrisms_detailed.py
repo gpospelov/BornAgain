@@ -67,7 +67,7 @@ def create_real_data():
             noisy_amplitude = 0.1
         real_data.setBinContent(i, noisy_amplitude)
 
-    # ucomment line to save generated data on disk
+    # uncomment line to save generated data on disk
     #IntensityDataIOFactory.writeIntensityData(
     #  real_data, 'refdata_fitcylinderprisms.int')
     return real_data
@@ -163,13 +163,13 @@ def create_fit():
 
     # setting fitting parameters with starting values
     fit_suite.addFitParameter("*Cylinder/Height", 4.*nm,
-                              ba.AttLimits.lowerLimited(0.01))
+                              ba.Limits.lowerLimited(0.01))
     fit_suite.addFitParameter("*Cylinder/Radius", 6.*nm,
-                              ba.AttLimits.lowerLimited(0.01))
+                              ba.Limits.lowerLimited(0.01))
     fit_suite.addFitParameter("*Prism3/Height", 4.*nm,
-                              ba.AttLimits.lowerLimited(0.01))
+                              ba.Limits.lowerLimited(0.01))
     fit_suite.addFitParameter("*Prism3/BaseEdge", 12.*nm,
-                              ba.AttLimits.lowerLimited(0.01))
+                              ba.Limits.lowerLimited(0.01))
 
     return fit_suite
 
@@ -192,7 +192,6 @@ if __name__ == '__main__':
         fit_suite.runFit()
         fitpars = fit_suite.getFitParameters()
         pars = [ fitpars[i] for i in range(fitpars.size()) ] # workaround #1588
-        fitpars = fit_suite.getFitParameters().getParameters()
         from collections import OrderedDict
         out = [ OrderedDict([('name', par.getName()),
                              ('value', par.getValue()),

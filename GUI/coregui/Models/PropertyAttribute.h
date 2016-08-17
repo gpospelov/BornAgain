@@ -18,7 +18,7 @@
 #define PROPERTYATTRIBUTE_H
 
 
-#include "AttLimits.h"
+#include "Limits.h"
 #include <QMetaType>
 #include <QString>
 
@@ -38,19 +38,19 @@ public:
     Q_DECLARE_FLAGS(Appearance, EAppearance)
 
     PropertyAttribute(Appearance appearance = VISIBLE,
-                      const AttLimits &limits = AttLimits::lowerLimited(0.0),
+                      const Limits &limits = Limits::lowerLimited(0.0),
                       int decimals = 2, const QString &label = QString(),
                       const QString &tooltip = QString());
 
-    PropertyAttribute(const AttLimits &limits, int decimals=2);
+    PropertyAttribute(const Limits &limits, int decimals=2);
 
     static PropertyAttribute labeled(const QString &label);
 
     Appearance getAppearance() const;
     void setAppearance(PropertyAttribute::Appearance appearance);
 
-    AttLimits getLimits() const;
-    PropertyAttribute& setLimits(const AttLimits &limits);
+    Limits getLimits() const;
+    PropertyAttribute& setLimits(const Limits &limits);
     PropertyAttribute& lowerLimited(double value);
     PropertyAttribute& upperLimited(double value);
     PropertyAttribute& limited(double left_bound_value, double right_bound_value);
@@ -82,7 +82,7 @@ public:
 
 private:
     Appearance m_appearance;
-    AttLimits m_limits;
+    Limits m_limits;
     int m_decimals; // number of digits
     QString m_label;
     QString m_tooltip;

@@ -17,7 +17,9 @@
 #define REALPARAMETER_H
 
 #include "INamed.h"
-#include "AttLimits.h"
+#include "Attributes.h"
+#include "Limits.h"
+#include "Unit.h"
 #include <string>
 
 class ParameterPool;
@@ -30,18 +32,20 @@ class BA_CORE_API_ RealParameter : public INamed {
 public:
     explicit RealParameter(
         const std::string& name, ParameterPool* parent,
-        volatile double* par, const AttLimits& limits=AttLimits::limitless());
+        volatile double* par, const Limits& limits=Limits::limitless(),
+        const Attributes& attr=Attributes::free());
     RealParameter(const RealParameter& other);
     RealParameter(const std::string& name, const RealParameter& other);
-    virtual ~RealParameter() {}
 
-    virtual RealParameter* clone( const std::string& new_name="" ) const = 0;
+    RealParameter* clone( const std::string& new_name="" ) const;
 
     //! Sets value of wrapped parameter and emit signal
     void setValue(double value);
 
     //! Returns value of wrapped parameter
     double getValue() const { checkNull(); return *m_data; }
+
+    RealParameter& setUnit(const std::string& name) { m_unit.setUnit(name); return *this; }
 
     //! Returns true if wrapped parameter was not initialized with proper real value
     bool isNull() const { return m_data ? false : true; }
@@ -53,19 +57,26 @@ public:
     friend std::ostream& operator<<(std::ostream& ostr, const RealParameter& p) {
         ostr << p.m_data; return ostr; }
 
-    AttLimits getAttLimits() const { return m_limits; }
+    RealParameter& setLimits(const Limits& limits) { m_limits = limits; return *this; }
+    Limits getLimits() const { return m_limits; }
+
+    RealParameter& setLimited(double lower, double upper);
+    RealParameter& setPositive();
+    RealParameter& setNonnegative();
 
     bool operator==(const RealParameter &other) const {
         return (m_limits == other.m_limits) && (m_data == other.m_data); }
     bool operator!=(const RealParameter &other) const { return !(*this == other); }
 
-    virtual std::string unit() const = 0;
+    std::string unit() const { return m_unit.getName(); }
 
 protected:
     std::string m_name;
     ParameterPool* m_parent; //!< "owns" this parameter
     volatile double* m_data;
-    AttLimits m_limits;
+    Unit m_unit;
+    Limits m_limits;
+    Attributes m_attr;
     std::string fullName(); //!< For use in error messages
 };
 

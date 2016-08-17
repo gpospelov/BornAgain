@@ -17,6 +17,7 @@
 #include "BornAgainNamespace.h"
 #include "ISampleVisitor.h"
 #include "Pi.h"
+#include "RealParameter.h"
 
 LayerRoughness::LayerRoughness()
     : m_sigma(0)
@@ -37,9 +38,10 @@ LayerRoughness::LayerRoughness(double sigma, double hurstParameter, double latte
 void LayerRoughness::initialize()
 {
     setName(BornAgain::LayerBasicRoughnessType);
-    registerUnlimitedScalar(BornAgain::Sigma, &m_sigma);
-    registerUnlimitedScalar(BornAgain::Hurst, &m_hurstParameter);
-    registerNonnegativeLength(BornAgain::CorrelationLength, &m_latteralCorrLength);
+    registerParameter(BornAgain::Sigma, &m_sigma);
+    registerParameter(BornAgain::Hurst, &m_hurstParameter);
+    registerParameter(BornAgain::CorrelationLength, &m_latteralCorrLength).
+        setUnit("nm").setNonnegative();
 }
 
 

@@ -12,4 +12,4 @@
 #include "HomogeneousMagneticMaterialTest.h"
 #include "Shape2DTest.h"
 #include "GISASSimulationTest.h"
-#include "AttLimitsTest.h"
+#include "LimitsTest.h"

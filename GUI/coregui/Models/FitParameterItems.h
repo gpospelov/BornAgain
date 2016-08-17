@@ -46,9 +46,9 @@ public:
     static const QString T_LINK;
     explicit FitParameterItem();
 
-    void initMinMaxValues(const AttLimits &limits);
+    void initMinMaxValues(const Limits &limits);
 
-    AttLimits getLimits();
+    Limits getLimits();
 
 private:
     void onTypeChange();

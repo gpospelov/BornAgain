@@ -15,6 +15,7 @@
 
 #include "FormFactorTrivial.h"
 #include "BornAgainNamespace.h"
+#include "RealParameter.h"
 
 
 FormFactorTrivial::FormFactorTrivial()

@@ -15,6 +15,7 @@
 
 #include "SimulationFactory.h"
 #include "GISASSimulation.h"
+#include "RealParameter.h"
 #include "StandardSimulations.h"
 
 SimulationFactory::SimulationFactory()

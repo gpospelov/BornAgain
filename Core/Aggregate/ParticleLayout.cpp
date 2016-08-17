@@ -19,6 +19,7 @@
 #include "ISampleVisitor.h"
 #include "Particle.h"
 #include "ParticleDistribution.h"
+#include "RealParameter.h"
 #include "SizeSpacingCorrelationApproximationStrategy.h"
 #include <iomanip>
 

@@ -58,7 +58,7 @@ void ParameterTuningDelegate::SliderData::setRangeFactor(double range_factor)
     m_range_factor = range_factor;
 }
 
-void ParameterTuningDelegate::SliderData::setItemLimits(const AttLimits &item_limits)
+void ParameterTuningDelegate::SliderData::setItemLimits(const Limits &item_limits)
 {
     m_item_limits = item_limits;
 }
@@ -156,7 +156,7 @@ QWidget *ParameterTuningDelegate::createEditor(QWidget *parent,
         if(!m_currentItem)
             return nullptr;
 
-        AttLimits limits = m_currentItem->getLinkedItem()->limits();
+        Limits limits = m_currentItem->getLinkedItem()->limits();
 
         // initializing value box
         m_valueBox = new QDoubleSpinBox();

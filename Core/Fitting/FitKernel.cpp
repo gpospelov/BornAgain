@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "FitKernel.h"
-#include "AttLimits.h"
+#include "Limits.h"
 #include "FitParameter.h"
 #include "FitParameterLinked.h"
 #include "Logger.h"
@@ -38,7 +38,7 @@ FitKernel::~FitKernel()
     clear();
 }
 
-//! clear all data
+//! Clears all data.
 void FitKernel::clear()
 {
     m_fit_objects.clear();
@@ -58,21 +58,21 @@ void FitKernel::addSimulationAndRealData(const GISASSimulation& simulation,
 //! Adds fit parameter, step is calculated from initial parameter value
 void FitKernel::addFitParameter(const std::string& name, double value)
 {
-    addFitParameter(name, value, AttLimits::limitless());
+    addFitParameter(name, value, Limits::limitless(), Attributes::free());
 }
 
 //! Adds fit parameter, step is calculated from initial parameter value
-void FitKernel::addFitParameter(const std::string& name, double value, const AttLimits& attlim,
-                                double step, double error)
+void FitKernel::addFitParameter(const std::string& name, double value, const Limits& lim,
+                                const Attributes& attr, double step, double error)
 {
     if(step <=0.0)
         step = value * getOptions().getStepFactor();
-    for(auto par: m_fit_parameters.getParameters()) {
+    for(auto par: m_fit_parameters.getFitParameters()) {
         if( par->getName() == name )
             throw std::runtime_error(
                 "FitSuiteParameters:addtFitParameter() -> Error. Existing parameter '"+name+"'");
     }
-    m_fit_parameters.addParameter(new FitParameterLinked(name, value, step, attlim, error));
+    m_fit_parameters.addFitParameter(new FitParameterLinked(name, value, step, lim, attr, error));
 }
 
 void FitKernel::addFitStrategy(const IFitStrategy& strategy)
@@ -86,11 +86,6 @@ void FitKernel::setMinimizer(IMinimizer* minimizer)
         throw std::runtime_error(
             "FitSuite::setMinimizer() -> Error. Attempt to set nullptr minimizer");
     m_minimizer.reset(minimizer);
-}
-
-IMinimizer* FitKernel::getMinimizer()
-{
-    return m_minimizer.get();
 }
 
 void FitKernel::runFit()
@@ -134,7 +129,7 @@ void FitKernel::minimize()
     m_minimizer->setParameters(m_fit_parameters);
 
     // setting number of free parameters for proper chi2 normalization
-    m_fit_objects.setNfreeParameters((int)m_fit_parameters.getNfreeParameters());
+    m_fit_objects.setNfreeParameters((int)m_fit_parameters.numberOfFreeFitParameters());
 
     // minimize
     try {
@@ -182,11 +177,6 @@ double FitKernel::getRunTime() const
     return diff.total_milliseconds()/1000.;
 }
 
-void FitKernel::notifyObservers()
-{
-    m_notifyObservers();
-}
-
 bool FitKernel::check_prerequisites() const
 {
     if( !m_minimizer ) throw Exceptions::LogicErrorException(
@@ -205,7 +195,7 @@ bool FitKernel::check_prerequisites() const
 void FitKernel::link_fit_parameters()
 {
     const std::unique_ptr<ParameterPool> pool(m_fit_objects.createParameterTree());
-    for (auto par: m_fit_parameters.getParameters()) {
+    for (auto par: m_fit_parameters.getFitParameters()) {
         FitParameterLinked* linkedPar = dynamic_cast<FitParameterLinked*>(par);
         if( !linkedPar )
             throw std::runtime_error(

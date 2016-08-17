@@ -177,8 +177,8 @@ TEST_F(DistributionsTest, DistributionLorentzSamples)
     EXPECT_EQ(samples[1].weight, d2/(d1+d2+d3));
     EXPECT_EQ(samples[2].weight, d3/(d1+d2+d3));
 
-    // with AttLimits
-    samples = distr.generateSamples(nbr_samples, sigma_factor, AttLimits::lowerLimited(0.99));
+    // with Limits
+    samples = distr.generateSamples(nbr_samples, sigma_factor, Limits::lowerLimited(0.99));
     EXPECT_EQ(samples[0].value, 0.99);
     EXPECT_EQ(samples[1].value, samples[0].value + (samples[2].value - samples[0].value)/2.0);
     EXPECT_EQ(samples[2].value, 1.0 + sigma_factor*0.1);

@@ -29,6 +29,7 @@
 #include "ParticleCompositionBuilder.h"
 #include "ParticleDistributionsBuilder.h"
 #include "ParticleInTheAirBuilder.h"
+#include "RealParameter.h"
 #include "RipplesBuilder.h"
 #include "RotatedPyramidsBuilder.h"
 #include "SizeDistributionModelsBuilder.h"

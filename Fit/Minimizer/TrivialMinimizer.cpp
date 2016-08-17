@@ -39,7 +39,7 @@ void TrivialMinimizer::setParameters(const FitSuiteParameters& parameters)
 {
     m_parameters.clear();
     for(size_t i_par = 0; i_par<parameters.size(); ++i_par)
-        m_parameters.push_back(new FitParameter( *parameters[i_par] ) );
+        m_parameters.addFitParameter(new FitParameter( *parameters[i_par] ) );
 }
 
 void TrivialMinimizer::printResults() const

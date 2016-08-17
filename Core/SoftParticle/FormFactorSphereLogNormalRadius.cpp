@@ -16,6 +16,7 @@
 #include "FormFactorSphereLogNormalRadius.h"
 #include "BornAgainNamespace.h"
 #include "Distributions.h"
+#include "RealParameter.h"
 
 FormFactorSphereLogNormalRadius::FormFactorSphereLogNormalRadius(
         double mean, double scale_param, size_t n_samples)
@@ -26,8 +27,8 @@ FormFactorSphereLogNormalRadius::FormFactorSphereLogNormalRadius(
 {
     setName(BornAgain::FormFactorSphereLogNormalRadiusType);
     mp_distribution = new DistributionLogNormal(mean, scale_param);
-    registerNonnegativeLength(BornAgain::MeanRadius, &m_mean);
-    registerUnlimitedScalar(BornAgain::ScaleParameter, &m_scale_param);
+    registerParameter(BornAgain::MeanRadius, &m_mean).setUnit("nm").setNonnegative();
+    registerParameter(BornAgain::ScaleParameter, &m_scale_param);
     if (!mp_distribution) return;
     // Init vectors:
     m_form_factors.clear();

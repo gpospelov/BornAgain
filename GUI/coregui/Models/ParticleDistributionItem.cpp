@@ -35,7 +35,7 @@ ParticleDistributionItem::ParticleDistributionItem()
     : SessionGraphicsItem(Constants::ParticleDistributionType)
 {
     addProperty(ParticleItem::P_ABUNDANCE, 1.0);
-    getItem(ParticleItem::P_ABUNDANCE)->setLimits(AttLimits::limited(0.0, 1.0));
+    getItem(ParticleItem::P_ABUNDANCE)->setLimits(Limits::limited(0.0, 1.0));
     getItem(ParticleItem::P_ABUNDANCE)->setDecimals(3);
 
     addGroupProperty(P_DISTRIBUTION, Constants::DistributionGroup);

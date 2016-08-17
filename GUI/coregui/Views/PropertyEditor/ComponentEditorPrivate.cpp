@@ -220,7 +220,7 @@ void ComponentEditorPrivate::updatePropertyAppearance(QtVariantProperty *propert
     int type = GUIHelpers::getVariantType(prop_value);
 
     if (type == QVariant::Double) {
-        AttLimits limits = attribute.getLimits();
+        Limits limits = attribute.getLimits();
         if (limits.hasLowerLimit())
             property->setAttribute(QStringLiteral("minimum"), limits.getLowerLimit());
         if (limits.hasUpperLimit())
@@ -229,7 +229,7 @@ void ComponentEditorPrivate::updatePropertyAppearance(QtVariantProperty *propert
         property->setAttribute(QStringLiteral("singleStep"),
                                1. / std::pow(10., attribute.getDecimals() - 1));
     } else if (type == QVariant::Int) {
-        AttLimits limits = attribute.getLimits();
+        Limits limits = attribute.getLimits();
         if (limits.hasLowerLimit())
             property->setAttribute(QStringLiteral("minimum"), int(limits.getLowerLimit()));
         if (limits.hasUpperLimit())

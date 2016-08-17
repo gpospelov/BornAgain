@@ -27,7 +27,7 @@ IDistribution1D* IDistribution1D::clone() const
 }
 
 std::vector<ParameterSample> IDistribution1D::generateSamples(
-    size_t nbr_samples, double sigma_factor, const AttLimits &limits) const
+    size_t nbr_samples, double sigma_factor, const Limits &limits) const
 {
     if (nbr_samples == 0)
         throw Exceptions::OutOfBoundsException("IDistribution1D::generateSamples: number "
@@ -85,7 +85,7 @@ void IDistribution1D::SignalBadInitialization(std::string distribution_name)
 }
 
 void IDistribution1D::adjustMinMaxForLimits(
-    double &xmin, double &xmax, const AttLimits &limits) const
+    double &xmin, double &xmax, const Limits &limits) const
 {
     if(limits.hasLowerLimit() && xmin < limits.getLowerLimit()) xmin = limits.getLowerLimit();
     if(limits.hasUpperLimit() && xmax > limits.getUpperLimit()) xmax = limits.getUpperLimit();
@@ -142,7 +142,7 @@ double DistributionGate::probabilityDensity(double x) const
 }
 
 std::vector<double> DistributionGate::generateValueList(size_t nbr_samples,
-        double sigma_factor, const AttLimits &limits) const
+        double sigma_factor, const Limits &limits) const
 {
     (void)sigma_factor;
     (void)limits;
@@ -151,8 +151,8 @@ std::vector<double> DistributionGate::generateValueList(size_t nbr_samples,
 
 void DistributionGate::init_parameters()
 {
-    registerUnlimitedScalar(Minimum, &m_min);
-    registerUnlimitedScalar(Maximum, &m_max);
+    registerParameter(Minimum, &m_min);
+    registerParameter(Maximum, &m_max);
 }
 
 bool DistributionGate::isDelta() const
@@ -191,7 +191,7 @@ double DistributionLorentz::probabilityDensity(double x) const
 }
 
 std::vector<double> DistributionLorentz::generateValueList(size_t nbr_samples,
-        double sigma_factor, const AttLimits &limits) const
+        double sigma_factor, const Limits &limits) const
 {
     if (sigma_factor <= 0.0) sigma_factor = 2.0;
     double xmin = m_mean - sigma_factor*m_hwhm;
@@ -202,8 +202,8 @@ std::vector<double> DistributionLorentz::generateValueList(size_t nbr_samples,
 
 void DistributionLorentz::init_parameters()
 {
-    registerUnlimitedScalar(Mean, &m_mean);
-    registerUnlimitedScalar(HWHM, &m_hwhm);
+    registerParameter(Mean, &m_mean);
+    registerParameter(HWHM, &m_hwhm);
 }
 
 bool DistributionLorentz::isDelta() const
@@ -248,7 +248,7 @@ double DistributionGaussian::probabilityDensity(double x) const
 }
 
 std::vector<double> DistributionGaussian::generateValueList(size_t nbr_samples,
-        double sigma_factor, const AttLimits &limits) const
+        double sigma_factor, const Limits &limits) const
 {
     if (sigma_factor <= 0.0) sigma_factor = 2.0;
     double xmin = m_mean - sigma_factor*m_std_dev;
@@ -259,8 +259,8 @@ std::vector<double> DistributionGaussian::generateValueList(size_t nbr_samples,
 
 void DistributionGaussian::init_parameters()
 {
-    registerUnlimitedScalar(Mean, &m_mean);
-    registerUnlimitedScalar(StdDeviation, &m_std_dev);
+    registerParameter(Mean, &m_mean);
+    registerParameter(StdDeviation, &m_std_dev);
 }
 
 bool DistributionGaussian::isDelta() const
@@ -310,7 +310,7 @@ double DistributionLogNormal::getMean() const
 }
 
 std::vector<double> DistributionLogNormal::generateValueList(size_t nbr_samples,
-        double sigma_factor, const AttLimits &limits) const
+        double sigma_factor, const Limits &limits) const
 {
     if(nbr_samples < 2) {
         std::vector<double> result;
@@ -327,8 +327,8 @@ std::vector<double> DistributionLogNormal::generateValueList(size_t nbr_samples,
 
 void DistributionLogNormal::init_parameters()
 {
-    registerUnlimitedScalar(Median, &m_median);
-    registerUnlimitedScalar(ScaleParameter, &m_scale_param);
+    registerParameter(Median, &m_median);
+    registerParameter(ScaleParameter, &m_scale_param);
 }
 
 bool DistributionLogNormal::isDelta() const
@@ -373,7 +373,7 @@ double DistributionCosine::probabilityDensity(double x) const
 }
 
 std::vector<double> DistributionCosine::generateValueList(size_t nbr_samples,
-        double sigma_factor, const AttLimits &limits) const
+        double sigma_factor, const Limits &limits) const
 {
     if (sigma_factor <= 0.0 || sigma_factor > 2.0) sigma_factor = 2.0;
     double xmin = m_mean - sigma_factor*m_sigma*Pi::PID2;
@@ -384,8 +384,8 @@ std::vector<double> DistributionCosine::generateValueList(size_t nbr_samples,
 
 void DistributionCosine::init_parameters()
 {
-    registerUnlimitedScalar(Mean, &m_mean);
-    registerUnlimitedScalar(Sigma, &m_sigma);
+    registerParameter(Mean, &m_mean);
+    registerParameter(Sigma, &m_sigma);
 }
 
 bool DistributionCosine::isDelta() const

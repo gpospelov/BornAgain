@@ -39,10 +39,10 @@ void FitSuite::addSimulationAndRealData(const GISASSimulation& simulation,
     m_kernel->addSimulationAndRealData(simulation, *data, weight);
 }
 
-void FitSuite::addFitParameter(const std::string& name, double value, const AttLimits& attlim,
-                               double step)
+void FitSuite::addFitParameter(const std::string& name, double value, const Limits& lim,
+                               const Attributes& attr, double step)
 {
-    m_kernel->addFitParameter(name, value, attlim, step);
+    m_kernel->addFitParameter(name, value, lim, attr, step);
 }
 
 void FitSuite::setMinimizer(const std::string& minimizer_name, const std::string& algorithm_name,
@@ -91,7 +91,7 @@ void FitSuite::releaseAllParameters()
 
 void FitSuite::setParametersFixed(const std::vector<std::string>& pars, bool is_fixed)
 {
-    getFitParameters()->setParametersFixed(pars, is_fixed);
+    getFitParameters()->setFixed(pars, is_fixed);
 }
 
 void FitSuite::runFit()

@@ -16,47 +16,51 @@
 #include "FormFactorLongRipple2Lorentz.h"
 #include "BornAgainNamespace.h"
 #include "Exceptions.h"
+#include "RealParameter.h"
 
+//! @param length of Ripple2
+//! @param width of triangular cross section
+//! @param height of triangular cross section
+//! @param asymmetry length of triangular cross section
 FormFactorLongRipple2Lorentz::FormFactorLongRipple2Lorentz(
     double length, double width, double height, double asymetry)
     : m_length(length), m_width(width), m_height(height), m_d(asymetry)
 {
     setName(BornAgain::FFLongRipple2LorentzType);
-    check_initialization();
-    registerNonnegativeLength(BornAgain::Width, &m_width);
-    registerNonnegativeLength(BornAgain::Height, &m_height);
-    registerNonnegativeLength(BornAgain::Length, &m_length);
-    registerUnlimitedLength(BornAgain::AsymmetryLength, &m_d);
+    registerParameter(BornAgain::Width, &m_width      ).setUnit("nm").setNonnegative();
+    registerParameter(BornAgain::Height, &m_height    ).setUnit("nm").setNonnegative();
+    registerParameter(BornAgain::Length, &m_length    ).setUnit("nm").setNonnegative();
+    registerParameter(BornAgain::AsymmetryLength, &m_d).setUnit("nm");
 }
 
-bool FormFactorLongRipple2Lorentz::check_initialization() const
+void FormFactorLongRipple2Lorentz::check_parameters() const
 {
-    bool result(true);
+    bool ok = true;
     std::string message;
     if(-1*m_width > 2.*m_d) {
-        result = false;
+        ok = false;
         message = std::string("Check for '-1*width <= 2.*asymmetry' failed.");
     }
     if(m_width < 2.*m_d) {
-        result = false;
+        ok = false;
         message = std::string("Check for 'width >= 2.*asymmetry' failed.");
     }
     if(m_height <=0) {
-        result = false;
+        ok = false;
         message = std::string("Check for 'height > 0' failed.");
     }
 
-    if(!result) {
-        std::ostringstream ostr;
-        ostr << "FormFactorLongRipple2Lorentz() -> Error in class initialization with parameters ";
-        ostr << " width:" << m_width;
-        ostr << " height:" << m_height;
-        ostr << " length:" << m_length;
-        ostr << " asymmetry:" << m_d << "\n\n";
-        ostr << message;
-        throw Exceptions::ClassInitializationException(ostr.str());
-    }
-    return result;
+    if(ok)
+        return;
+
+    std::ostringstream ostr;
+    ostr << "FormFactorLongRipple2Lorentz() -> Error in class initialization with parameters ";
+    ostr << " width:" << m_width;
+    ostr << " height:" << m_height;
+    ostr << " length:" << m_length;
+    ostr << " asymmetry:" << m_d << "\n\n";
+    ostr << message;
+    throw Exceptions::ClassInitializationException(ostr.str());
 }
 
 double FormFactorLongRipple2Lorentz::getRadialExtension() const
@@ -67,6 +71,8 @@ double FormFactorLongRipple2Lorentz::getRadialExtension() const
 //! Complex formfactor.
 complex_t FormFactorLongRipple2Lorentz::evaluate_for_q(const cvector_t q) const
 {
+    check_parameters();
+
     m_q = q;
 
     complex_t qxL2 = 2.5*std::pow(m_length * q.x(), 2);

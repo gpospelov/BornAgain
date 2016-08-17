@@ -102,14 +102,14 @@ TEST_F(ParameterPoolTest, SetMatchedParametersValue)
     EXPECT_EQ( double(4.0), pool.getParameter("xx_z").getValue());
 }
 
-TEST_F(ParameterPoolTest, AttLimitsOnParameterValue)
+TEST_F(ParameterPoolTest, LimitsOnParameterValue)
 {
     double x(0.0);
     ParameterPool pool;
 
-    EXPECT_THROW(pool.registerParameter("xx_x", &x, AttLimits::limited(1.0, 2.0)), Exceptions::OutOfBoundsException);
+    EXPECT_THROW(pool.registerParameter("xx_x", &x, Limits::limited(1.0, 2.0)), Exceptions::OutOfBoundsException);
 
-    pool.registerParameter("xx_x", &x, AttLimits::limited(-1.0, 1.0));
+    pool.registerParameter("xx_x", &x, Limits::limited(-1.0, 1.0));
 
     EXPECT_TRUE(pool.setParameterValue("xx_x", 0.5));
     EXPECT_EQ(0.5, x);

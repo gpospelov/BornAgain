@@ -88,4 +88,4 @@ void Configurable::setOptionValue(const std::string& optionName, T value)
 }
 
 
-#endif
+#endif // CONFIGURABLE_H

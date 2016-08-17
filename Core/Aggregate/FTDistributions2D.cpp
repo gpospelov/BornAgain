@@ -19,6 +19,8 @@
 #include "MathFunctions.h"
 #include "Numeric.h"
 #include "ParameterPool.h"
+#include "Pi.h"
+#include "RealParameter.h"
 
 IFTDistribution2D::IFTDistribution2D(
     double coherence_length_x, double coherence_length_y, double gamma, double delta)
@@ -30,10 +32,12 @@ IFTDistribution2D::IFTDistribution2D(
 
 void IFTDistribution2D::init_parameters()
 {
-    registerNonnegativeLength(BornAgain::CoherenceLengthX, &m_coherence_length_x);
-    registerNonnegativeLength(BornAgain::CoherenceLengthY, &m_coherence_length_y);
-    registerLimitedAngle(BornAgain::Gamma, &m_gamma, -180, 180);
-    registerLimitedAngle(BornAgain::Delta, &m_delta, 0, 180);
+    registerParameter(BornAgain::CoherenceLengthX, &m_coherence_length_x).
+        setUnit("nm").setNonnegative();
+    registerParameter(BornAgain::CoherenceLengthY, &m_coherence_length_y).
+        setUnit("nm").setNonnegative();
+    registerParameter(BornAgain::Gamma, &m_gamma).setUnit("rad").setLimited(-Pi::PID2, Pi::PID2);
+    registerParameter(BornAgain::Delta, &m_delta).setUnit("rad").setLimited(0, Pi::PI);
 }
 
 void IFTDistribution2D::print(std::ostream& ostr) const
@@ -114,11 +118,13 @@ FTDistribution2DVoigt::FTDistribution2DVoigt(
     : IFTDistribution2D(coherence_length_x, coherence_length_y, gamma, delta), m_eta(eta)
 {
     setName(BornAgain::FTDistribution2DVoigtType);
-    registerNonnegativeLength(BornAgain::CoherenceLengthX, &m_coherence_length_x);
-    registerNonnegativeLength(BornAgain::CoherenceLengthY, &m_coherence_length_y);
-    registerUnlimitedScalar(BornAgain::Eta, &m_eta);
-    registerLimitedAngle("Gamma", &m_gamma, -180, 180);
-    registerLimitedAngle("Delta", &m_delta, -180, 180);
+    registerParameter(BornAgain::CoherenceLengthX, &m_coherence_length_x).
+        setUnit("nm").setNonnegative();
+    registerParameter(BornAgain::CoherenceLengthY, &m_coherence_length_y).
+        setUnit("nm").setNonnegative();
+    registerParameter(BornAgain::Eta, &m_eta);
+    registerParameter("Gamma", &m_gamma).setUnit("rad").setLimited(-Pi::PID2, Pi::PID2);
+    registerParameter("Delta", &m_delta).setUnit("rad").setLimited(0, Pi::PI);
 }
 
 double FTDistribution2DVoigt::evaluate(double qx, double qy) const

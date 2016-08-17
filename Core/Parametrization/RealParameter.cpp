@@ -18,12 +18,13 @@
 #include "ParameterPool.h"
 #include <sstream>
 
-RealParameter::RealParameter(
-    const std::string& name, ParameterPool* parent, volatile double* par, const AttLimits& limits)
+RealParameter::RealParameter(const std::string& name, ParameterPool* parent,
+                             volatile double* par, const Limits& limits, const Attributes& attr)
     : INamed(name)
     , m_parent(parent)
     , m_data(par)
     , m_limits(limits)
+    , m_attr(attr)
 {
     if(par && !m_limits.isInRange(getValue())) {
         std::ostringstream message;
@@ -34,11 +35,25 @@ RealParameter::RealParameter(
 }
 
 RealParameter::RealParameter(const RealParameter& other )
-    : RealParameter( other.getName(), other.m_parent, other.m_data, other.m_limits ) {}
+    : RealParameter( other.getName(), other.m_parent, other.m_data, other.m_limits )
+{
+    setUnit(other.unit());
+}
 
 //! This constructor takes copies 'other' except for the name.
 RealParameter::RealParameter(const std::string& name, const RealParameter& other)
-    : RealParameter( name, other.m_parent, other.m_data, other.m_limits ) {}
+    : RealParameter( name, other.m_parent, other.m_data, other.m_limits )
+{
+    setUnit(other.unit());
+}
+
+RealParameter* RealParameter::clone(const std::string& new_name) const
+{
+    auto* ret = new RealParameter( new_name!="" ? new_name : m_name, m_parent, m_data, m_limits );
+    ret->setUnit(unit());
+    return ret;
+}
+
 
 //! throw exception if parameter was not initialized with proper value
 void RealParameter::checkNull() const
@@ -59,10 +74,28 @@ void RealParameter::setValue(double value)
                 << ": out of bounds [" << m_limits << "]\n";
         throw std::runtime_error(message.str());
     }
-    if(m_limits.isFixed())
+    if(m_attr.isFixed())
         throw std::runtime_error("Parameter "+fullName()+" is fixed");
     *m_data = value;
     m_parent->onChange();
+}
+
+RealParameter& RealParameter::setLimited(double lower, double upper)
+{
+    setLimits( Limits::limited(lower, upper) );
+    return *this;
+}
+
+RealParameter& RealParameter::setPositive()
+{
+    setLimits( Limits::positive() );
+    return *this;
+}
+
+RealParameter& RealParameter::setNonnegative()
+{
+    setLimits( Limits::nonnegative() );
+    return *this;
 }
 
 std::string RealParameter::fullName()

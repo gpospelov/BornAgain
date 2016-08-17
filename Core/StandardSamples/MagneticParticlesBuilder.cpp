@@ -22,6 +22,7 @@
 #include "MultiLayer.h"
 #include "Particle.h"
 #include "ParticleLayout.h"
+#include "RealParameter.h"
 #include "Units.h"
 
 // ----------------------------------------------------------------------------
@@ -37,8 +38,8 @@ MagneticParticleZeroFieldBuilder::MagneticParticleZeroFieldBuilder()
 
 void MagneticParticleZeroFieldBuilder::init_parameters()
 {
-    registerNonnegativeLength("cylinder_radius", &m_cylinder_radius);
-    registerNonnegativeLength("cylinder_height", &m_cylinder_height);
+    registerParameter("cylinder_radius", &m_cylinder_radius).setUnit("nm").setNonnegative();
+    registerParameter("cylinder_height", &m_cylinder_height).setUnit("nm").setNonnegative();
 }
 
 ISample* MagneticParticleZeroFieldBuilder::buildSample() const
@@ -78,8 +79,8 @@ MagneticCylindersBuilder::MagneticCylindersBuilder()
 void MagneticCylindersBuilder::init_parameters()
 {
 
-    registerNonnegativeLength("cylinder_radius", &m_cylinder_radius);
-    registerNonnegativeLength("cylinder_height", &m_cylinder_height);
+    registerParameter("cylinder_radius", &m_cylinder_radius).setUnit("nm").setNonnegative();
+    registerParameter("cylinder_height", &m_cylinder_height).setUnit("nm").setNonnegative();
 }
 
 ISample* MagneticCylindersBuilder::buildSample() const

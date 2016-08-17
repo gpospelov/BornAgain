@@ -36,7 +36,7 @@ ParticleItem::ParticleItem()
     addGroupProperty(P_FORM_FACTOR, Constants::FormFactorGroup);
     addProperty(P_MATERIAL,
                      MaterialUtils::getDefaultMaterialProperty().getVariant());
-    addProperty(P_ABUNDANCE, 1.0)->setLimits(AttLimits::limited(0.0, 1.0));
+    addProperty(P_ABUNDANCE, 1.0)->setLimits(Limits::limited(0.0, 1.0));
     getItem(P_ABUNDANCE)->setDecimals(3);
     addGroupProperty(P_POSITION, Constants::VectorType);
     PositionTranslator position_translator;

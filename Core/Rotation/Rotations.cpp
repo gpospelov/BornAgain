@@ -16,6 +16,7 @@
 #include "Rotations.h"
 #include "BornAgainNamespace.h"
 #include "ISampleVisitor.h"
+#include "RealParameter.h"
 
 IRotation* IRotation::createRotation(const Geometry::Transform3D& transform)
 {
@@ -57,7 +58,7 @@ RotationX::RotationX(double angle)
     : m_angle(angle)
 {
     setName(BornAgain::XRotationType);
-    registerUnlimitedAngle(BornAgain::Angle, &m_angle);
+    registerParameter(BornAgain::Angle, &m_angle).setUnit("rad");
 }
 
 Geometry::Transform3D RotationX::getTransform3D() const
@@ -71,7 +72,7 @@ RotationY::RotationY(double angle)
     : m_angle(angle)
 {
     setName(BornAgain::YRotationType);
-    registerUnlimitedAngle(BornAgain::Angle, &m_angle);
+    registerParameter(BornAgain::Angle, &m_angle).setUnit("rad");
 }
 
 Geometry::Transform3D RotationY::getTransform3D() const
@@ -85,7 +86,7 @@ RotationZ::RotationZ(double angle)
     : m_angle(angle)
 {
     setName(BornAgain::ZRotationType);
-    registerUnlimitedAngle(BornAgain::Angle, &m_angle);
+    registerParameter(BornAgain::Angle, &m_angle).setUnit("rad");
 }
 
 Geometry::Transform3D RotationZ::getTransform3D() const
@@ -99,9 +100,9 @@ RotationEuler::RotationEuler(double alpha, double beta, double gamma)
     : m_alpha(alpha), m_beta(beta), m_gamma(gamma)
 {
     setName(BornAgain::EulerRotationType);
-    registerUnlimitedAngle(BornAgain::Alpha, &m_alpha);
-    registerUnlimitedAngle(BornAgain::Beta, &m_beta);
-    registerUnlimitedAngle(BornAgain::Gamma, &m_gamma);
+    registerParameter(BornAgain::Alpha, &m_alpha).setUnit("rad");
+    registerParameter(BornAgain::Beta, &m_beta  ).setUnit("rad");
+    registerParameter(BornAgain::Gamma, &m_gamma).setUnit("rad");
 }
 
 IRotation* RotationEuler::createInverse() const

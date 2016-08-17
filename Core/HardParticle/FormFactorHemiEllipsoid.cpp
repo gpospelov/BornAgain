@@ -18,6 +18,7 @@
 #include "MathFunctions.h"
 #include "Numeric.h"
 #include "Pi.h"
+#include "RealParameter.h"
 
 //! @param radius_x half length of one horizontal main axes
 //! @param radius_y half length of the other horizontal main axes
@@ -26,9 +27,9 @@ FormFactorHemiEllipsoid::FormFactorHemiEllipsoid(double radius_x, double radius_
     : m_radius_x(radius_x), m_radius_y(radius_y), m_height(height)
 {
     setName(BornAgain::FFHemiEllipsoidType);
-    registerNonnegativeLength(BornAgain::RadiusX, &m_radius_x);
-    registerNonnegativeLength(BornAgain::RadiusY, & m_radius_y);
-    registerNonnegativeLength(BornAgain::Height, &m_height);
+    registerParameter(BornAgain::RadiusX, &m_radius_x).setUnit("nm").setNonnegative();
+    registerParameter(BornAgain::RadiusY, & m_radius_y).setUnit("nm").setNonnegative();
+    registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
     mP_integrator = make_integrator_complex(this, &FormFactorHemiEllipsoid::Integrand);
 }
 

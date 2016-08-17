@@ -20,32 +20,27 @@
 #include <vector>
 #include <string>
 
-class AttLimits;
+class Limits;
 class FitParameter;
 class ParameterPool;
 
-//! @class FitSuiteParameters
+//! Vector of parameters, for FitSuite
 //! @ingroup fitting_internal
-//! @brief Holds vector of parameters for FitSuite
 
 class BA_CORE_API_ FitSuiteParameters
 {
  public:
-    typedef std::vector<FitParameter*> parameters_t;
-    typedef parameters_t::iterator iterator;
-    typedef parameters_t::const_iterator const_iterator;
-
     FitSuiteParameters();
-    virtual ~FitSuiteParameters();
+    ~FitSuiteParameters();
 
     //! Clears all defined parameters.
     void clear();
 
     //! Adds fit parameter.
-    void addParameter(FitParameter* par) { m_parameters.push_back( par ); }
+    void addFitParameter(FitParameter* par) { m_parameters.push_back( par ); }
 
     //! Returns all parameters
-    std::vector<FitParameter*>& getParameters() { return m_parameters; }
+    std::vector<FitParameter*>& getFitParameters() { return m_parameters; }
 
     //! Returns fit parameter with given name.
     const FitParameter* getFitParameter(const std::string& name) const;
@@ -67,16 +62,13 @@ class BA_CORE_API_ FitSuiteParameters
     //! Returns number of parameters.
     size_t size() const { return m_parameters.size(); }
 
-    //! Adds given FitParameter to container.
-    void push_back(FitParameter* par) { m_parameters.push_back(par); }
-
     //! Returns begin of container.
-    iterator begin() { return m_parameters.begin(); }
-    const_iterator begin() const { return m_parameters.begin(); }
+    std::vector<FitParameter*>::iterator begin() { return m_parameters.begin(); }
+    std::vector<FitParameter*>::const_iterator begin() const { return m_parameters.begin(); }
 
     //! Returns end of container.
-    iterator end() { return m_parameters.end(); }
-    const_iterator end() const { return m_parameters.end(); }
+    std::vector<FitParameter*>::iterator end() { return m_parameters.end(); }
+    std::vector<FitParameter*>::const_iterator end() const { return m_parameters.end(); }
 
     //! Indexed access to parameters.
     const FitParameter* operator[](size_t index) const;
@@ -87,13 +79,13 @@ class BA_CORE_API_ FitSuiteParameters
     FitParameter* operator[](std::string name);
 
     //! Returns number of free parameters.
-    size_t getNfreeParameters() const;
+    size_t numberOfFreeFitParameters() const;
 
     //! Returns true if parameters already have the given values.
     bool valuesAreDifferent(const double* pars_valuers, double tolerance_factor=1.0) const;
 
     //! Print defined parameters.
-    void printParameters() const;
+    void printFitParameters() const;
 
     //! Fix all parameters.
     void fixAll();
@@ -102,7 +94,7 @@ class BA_CORE_API_ FitSuiteParameters
     void releaseAll();
 
     //! Set fixed flag for parameters from the list.
-    void setParametersFixed(const std::vector<std::string> &pars, bool is_fixed);
+    void setFixed(const std::vector<std::string>& pars, bool is_fixed);
 
  private:
     size_t check_index(size_t index) const;

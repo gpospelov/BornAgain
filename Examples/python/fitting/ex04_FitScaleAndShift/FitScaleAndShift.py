@@ -110,13 +110,13 @@ def run_fitting():
 
     # setting fitting parameters with starting values
     fit_suite.addFitParameter("*/Cylinder/Radius", 6.*nm,
-                              ba.AttLimits.limited(4., 8.))
+                              ba.Limits.limited(4., 8.))
     fit_suite.addFitParameter("*/Cylinder/Height", 9.*nm,
-                              ba.AttLimits.limited(8., 12.))
+                              ba.Limits.limited(8., 12.))
     fit_suite.addFitParameter("*/Normalizer/scale", 1.5,
-                              ba.AttLimits.limited(1.0, 3.0))
+                              ba.Limits.limited(1.0, 3.0))
     fit_suite.addFitParameter("*/Normalizer/shift", 50.,
-                              ba.AttLimits.limited(1, 500.))
+                              ba.Limits.limited(1, 500.))
 
     # running fit
     fit_suite.runFit()

@@ -18,13 +18,12 @@
 
 #include "INamed.h"
 
-class AttLimits;
+class Limits;
 class ParameterPool;
 class RealParameter;
 
-//! @class IParameterized
+//! Manages a local parameter pool, and a tree of child pools.
 //! @ingroup tools_internal
-//! @brief Manage a local parameter pool, and a tree of child pools.
 
 class BA_CORE_API_ IParameterized : public INamed
 {
@@ -33,7 +32,6 @@ public:
     IParameterized(const IParameterized& other);
     virtual ~IParameterized();
 
-    //! Previously, copied name, but not parameters. Unused. Deleted to prevent misunderstandings.
     IParameterized operator=(const IParameterized& other) = delete;
 
     //! Returns pointer to the parameter pool.
@@ -44,25 +42,14 @@ public:
 
     void printParameters();
 
-    void registerUnlimitedAngle(const std::string& name, double* parpointer);
-    void registerLimitedAngle(const std::string& name, double* parpointer,
-                              double lower_limit, double upper_limit);
-
-    void registerUnlimitedLength(const std::string& name, double* parpointer);
-    void registerPositiveLength(const std::string& name, double* parpointer);
-    void registerNonnegativeLength(const std::string& name, double* parpointer);
-
-    void registerUnlimitedScalar(const std::string& name, double* parpointer);
-    void registerPositiveScalar(const std::string& name, double* parpointer);
-    void registerNonnegativeScalar(const std::string& name, double* parpointer);
+    RealParameter& registerParameter(const std::string& name, double* parpointer);
 
     void setParameterValue(const std::string& name, double value);
 
     RealParameter* getParameter(const std::string& name) const;
 
     friend std::ostream& operator<<(std::ostream& ostr, const IParameterized& m) {
-        m.print(ostr);
-        return ostr; }
+        m.print(ostr); return ostr; }
 
     //! Adds parameters from local pool to external pool and recursively calls its direct children.
     virtual std::string addParametersToExternalPool(
@@ -77,10 +64,6 @@ protected:
     virtual void print(std::ostream& ostr) const;
 
 private:
-    void registerAngle(const std::string& name, double* parpointer, const AttLimits& limits);
-    void registerScalar(const std::string& name, double* parpointer, const AttLimits& limits);
-    void registerLength(const std::string& name, double* parpointer, const AttLimits& limits);
-
     ParameterPool* m_pool; //!< parameter pool (kind of pointer-to-implementation)
 };
 

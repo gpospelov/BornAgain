@@ -17,6 +17,8 @@
 #include "BornAgainNamespace.h"
 #include "Complex.h"
 #include "Exceptions.h"
+#include "RealParameter.h"
+#include "Pi.h"
 
 Beam::Beam() : m_wavelength(1.0), m_alpha(0.0), m_phi(0.0), m_intensity(0.0)
 {
@@ -35,10 +37,10 @@ Beam::Beam(const Beam& other)
 
 void Beam::init_parameters()
 {
-    registerNonnegativeScalar(BornAgain::Intensity, &m_intensity);
-    registerNonnegativeLength(BornAgain::Wavelength, &m_wavelength);
-    registerLimitedAngle(BornAgain::Alpha, &m_alpha, 0, 180);
-    registerLimitedAngle(BornAgain::Phi, &m_phi, -90, 90);
+    registerParameter(BornAgain::Intensity, &m_intensity).setNonnegative();
+    registerParameter(BornAgain::Wavelength, &m_wavelength).setUnit("nm").setNonnegative();
+    registerParameter(BornAgain::Alpha, &m_alpha).setUnit("rad").setLimited(0, Pi::PID2);
+    registerParameter(BornAgain::Phi,   &m_phi  ).setUnit("rad").setLimited(-Pi::PID2, Pi::PID2);
 }
 
 Beam &Beam::operator=(const Beam &other)

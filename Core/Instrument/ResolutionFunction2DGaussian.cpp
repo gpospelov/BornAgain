@@ -16,14 +16,15 @@
 #include "ResolutionFunction2DGaussian.h"
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
+#include "RealParameter.h"
 
 ResolutionFunction2DGaussian::ResolutionFunction2DGaussian(double sigma_x, double sigma_y)
     : m_sigma_x(sigma_x), m_sigma_y(sigma_y)
 {
     setName(BornAgain::ResolutionFunction2D);
     // TODO clarify dimension [if detector->getDefaultAxesUnits()==RADIANS then degrees??]
-    registerNonnegativeScalar(BornAgain::SigmaX, &m_sigma_x);
-    registerNonnegativeScalar(BornAgain::SigmaY, &m_sigma_y);
+    registerParameter(BornAgain::SigmaX, &m_sigma_x).setNonnegative();
+    registerParameter(BornAgain::SigmaY, &m_sigma_y).setNonnegative();
 }
 
 double ResolutionFunction2DGaussian::evaluateCDF(double x, double y) const

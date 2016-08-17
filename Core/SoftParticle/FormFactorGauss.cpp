@@ -17,6 +17,7 @@
 #include "BornAgainNamespace.h"
 #include "Numeric.h"
 #include "Pi.h"
+#include "RealParameter.h"
 
 FormFactorGauss::FormFactorGauss(double volume)
 {
@@ -52,7 +53,7 @@ complex_t FormFactorGauss::evaluate_for_q(const cvector_t q) const
 void FormFactorGauss::initialize()
 {
     setName(BornAgain::FFGaussType);
-    registerNonnegativeLength(BornAgain::Width, &m_width);
-    registerNonnegativeLength(BornAgain::Height, &m_height);
+    registerParameter(BornAgain::Width, &m_width).setUnit("nm").setNonnegative();
+    registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
     m_max_ql = std::sqrt(-4 * Pi::PI * std::log(Numeric::double_min) / 3.0);
 }

@@ -17,13 +17,14 @@
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
 #include "Pi.h"
+#include "RealParameter.h"
 
 FormFactorCylinder::FormFactorCylinder(double radius, double height)
     : m_radius(radius), m_height(height)
 {
     setName(BornAgain::FFCylinderType);
-    registerNonnegativeLength(BornAgain::Radius, &m_radius);
-    registerNonnegativeLength(BornAgain::Height, &m_height);
+    registerParameter(BornAgain::Radius, &m_radius).setUnit("nm").setNonnegative();
+    registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
 }
 
 complex_t FormFactorCylinder::evaluate_for_q(const cvector_t q) const

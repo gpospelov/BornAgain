@@ -14,9 +14,9 @@
 // ************************************************************************** //
 
 #include "IParameterized.h"
-#include "AttLimits.h"
+#include "Limits.h"
 #include "ParameterPool.h"
-#include "DimensionedParameters.h"
+#include "RealParameter.h"
 #include <iostream>
 #include <memory>
 #include <sstream>
@@ -71,68 +71,10 @@ void IParameterized::printParameters()
     std::cout << *P_pool << std::endl;
 }
 
-void IParameterized::registerUnlimitedAngle(const std::string& name, double* data)
+RealParameter& IParameterized::registerParameter(const std::string& name, double* data)
 {
-    registerAngle(name, data, AttLimits::limitless());
+    return m_pool->addParameter( new RealParameter( name, m_pool, data ) );
 }
-
-void IParameterized::registerLimitedAngle(
-    const std::string& name, double* data, double lower_limit, double upper_limit)
-{
-    registerAngle(name, data, AttLimits::limited( lower_limit, upper_limit ));
-}
-
-
-void IParameterized::registerUnlimitedScalar(const std::string& name, double* data)
-{
-    registerScalar(name, data, AttLimits::limitless());
-}
-
-void IParameterized::registerPositiveScalar(const std::string& name, double* data)
-{
-    registerScalar(name, data, AttLimits::positive());
-}
-
-void IParameterized::registerNonnegativeScalar(const std::string& name, double* data)
-{
-    registerScalar(name, data, AttLimits::n_positive());
-}
-
-
-void IParameterized::registerUnlimitedLength(const std::string& name, double* data)
-{
-    registerLength(name, data, AttLimits::limitless());
-}
-
-void IParameterized::registerPositiveLength(const std::string& name, double* data)
-{
-    registerLength(name, data, AttLimits::positive());
-}
-
-void IParameterized::registerNonnegativeLength(const std::string& name, double* data)
-{
-    registerLength(name, data, AttLimits::n_positive());
-}
-
-
-void IParameterized::registerAngle(
-    const std::string& name, double* data, const AttLimits& limits)
-{
-    m_pool->addParameter( new Angle( name, m_pool, data, limits) );
-}
-
-void IParameterized::registerScalar(
-    const std::string& name, double* data, const AttLimits& limits)
-{
-    m_pool->addParameter( new Scalar( name, m_pool, data, limits) );
-}
-
-void IParameterized::registerLength(
-    const std::string& name, double* data, const AttLimits& limits)
-{
-    m_pool->addParameter( new Length( name, m_pool, data, limits) );
-}
-
 
 void IParameterized::setParameterValue(const std::string& name, double value)
 {

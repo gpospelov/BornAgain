@@ -1580,7 +1580,7 @@ class IParameterized(INamed):
     """
 
 
-    Manage a local parameter pool, and a tree of child pools.
+    Manages a local parameter pool, and a tree of child pools.
 
     C++ includes: IParameterized.h
 
@@ -1650,84 +1650,9 @@ class IParameterized(INamed):
         return _libBornAgainCore.IParameterized_printParameters(self)
 
 
-    def registerUnlimitedAngle(self, name, parpointer):
-        """
-        registerUnlimitedAngle(IParameterized self, std::string const & name, double * parpointer)
-
-        void IParameterized::registerUnlimitedAngle(const std::string &name, double *parpointer)
-
-        """
-        return _libBornAgainCore.IParameterized_registerUnlimitedAngle(self, name, parpointer)
-
-
-    def registerLimitedAngle(self, name, parpointer, lower_limit, upper_limit):
-        """
-        registerLimitedAngle(IParameterized self, std::string const & name, double * parpointer, double lower_limit, double upper_limit)
-
-        void IParameterized::registerLimitedAngle(const std::string &name, double *parpointer, double lower_limit, double upper_limit)
-
-        """
-        return _libBornAgainCore.IParameterized_registerLimitedAngle(self, name, parpointer, lower_limit, upper_limit)
-
-
-    def registerUnlimitedLength(self, name, parpointer):
-        """
-        registerUnlimitedLength(IParameterized self, std::string const & name, double * parpointer)
-
-        void IParameterized::registerUnlimitedLength(const std::string &name, double *parpointer)
-
-        """
-        return _libBornAgainCore.IParameterized_registerUnlimitedLength(self, name, parpointer)
-
-
-    def registerPositiveLength(self, name, parpointer):
-        """
-        registerPositiveLength(IParameterized self, std::string const & name, double * parpointer)
-
-        void IParameterized::registerPositiveLength(const std::string &name, double *parpointer)
-
-        """
-        return _libBornAgainCore.IParameterized_registerPositiveLength(self, name, parpointer)
-
-
-    def registerNonnegativeLength(self, name, parpointer):
-        """
-        registerNonnegativeLength(IParameterized self, std::string const & name, double * parpointer)
-
-        void IParameterized::registerNonnegativeLength(const std::string &name, double *parpointer)
-
-        """
-        return _libBornAgainCore.IParameterized_registerNonnegativeLength(self, name, parpointer)
-
-
-    def registerUnlimitedScalar(self, name, parpointer):
-        """
-        registerUnlimitedScalar(IParameterized self, std::string const & name, double * parpointer)
-
-        void IParameterized::registerUnlimitedScalar(const std::string &name, double *parpointer)
-
-        """
-        return _libBornAgainCore.IParameterized_registerUnlimitedScalar(self, name, parpointer)
-
-
-    def registerPositiveScalar(self, name, parpointer):
-        """
-        registerPositiveScalar(IParameterized self, std::string const & name, double * parpointer)
-
-        void IParameterized::registerPositiveScalar(const std::string &name, double *parpointer)
-
-        """
-        return _libBornAgainCore.IParameterized_registerPositiveScalar(self, name, parpointer)
-
-
-    def registerNonnegativeScalar(self, name, parpointer):
-        """
-        registerNonnegativeScalar(IParameterized self, std::string const & name, double * parpointer)
-
-        void IParameterized::registerNonnegativeScalar(const std::string &name, double *parpointer)
-
-        """
-        return _libBornAgainCore.IParameterized_registerNonnegativeScalar(self, name, parpointer)
+    def registerParameter(self, name, parpointer):
+        """registerParameter(IParameterized self, std::string const & name, double * parpointer) -> RealParameter"""
+        return _libBornAgainCore.IParameterized_registerParameter(self, name, parpointer)
 
 
     def setParameterValue(self, name, value):
@@ -2845,7 +2770,7 @@ class Beam(IParameterized):
 
         kvector_t Beam::getCentralK() const
 
-        Get the value of the wavevector. 
+        Returns the wavevector. 
 
         """
         return _libBornAgainCore.Beam_getCentralK(self)
@@ -2857,7 +2782,7 @@ class Beam(IParameterized):
 
         void Beam::setCentralK(double wavelength, double alpha_i, double phi_i)
 
-        Sets the value of the incoming wavevector in terms of wavelength and incoming angles 
+        Sets the wavevector in terms of wavelength and incoming angles. 
 
         """
         return _libBornAgainCore.Beam_setCentralK(self, wavelength, alpha_i, phi_i)
@@ -2869,7 +2794,7 @@ class Beam(IParameterized):
 
         double Beam::getIntensity() const
 
-        Gets the beam intensity in neutrons/sec. 
+        Returns the beam intensity in neutrons/sec. 
 
         """
         return _libBornAgainCore.Beam_getIntensity(self)
@@ -4315,7 +4240,9 @@ class IChiSquaredModule(ICloneable):
     """
 
 
-    Interface for  ChiSquaredModule for chi2 calculations. Until BornAgain-1.1, there was another child, ChiSquaredFrequency.
+    Interface for  ChiSquaredModule for chi2 calculations.
+
+    Until BornAgain-1.1, there was another child, ChiSquaredFrequency.
 
     C++ includes: IChiSquaredModule.h
 
@@ -5003,7 +4930,7 @@ class IntensityNormalizer(IIntensityNormalizer):
         """
         apply(IntensityNormalizer self, IntensityData data)
 
-        void IntensityNormalizer::apply(OutputData< double > &data) const 
+        void IntensityNormalizer::apply(OutputData< double > &data) const final
 
         """
         return _libBornAgainCore.IntensityNormalizer_apply(self, data)
@@ -5061,7 +4988,7 @@ class IntensityScaleAndShiftNormalizer(IntensityNormalizer):
         """
         setMaximumIntensity(IntensityScaleAndShiftNormalizer self, double arg2)
 
-        virtual void IntensityScaleAndShiftNormalizer::setMaximumIntensity(double max_intensity)
+        void IntensityScaleAndShiftNormalizer::setMaximumIntensity(double) final
 
         """
         return _libBornAgainCore.IntensityScaleAndShiftNormalizer_setMaximumIntensity(self, arg2)
@@ -5071,7 +4998,7 @@ class IntensityScaleAndShiftNormalizer(IntensityNormalizer):
         """
         clone(IntensityScaleAndShiftNormalizer self) -> IntensityScaleAndShiftNormalizer
 
-        virtual IntensityScaleAndShiftNormalizer* IntensityScaleAndShiftNormalizer::clone() const 
+        IntensityScaleAndShiftNormalizer* IntensityScaleAndShiftNormalizer::clone() const final
 
         """
         return _libBornAgainCore.IntensityScaleAndShiftNormalizer_clone(self)
@@ -5757,11 +5684,12 @@ class FitSuite(IObservable):
 
     def addFitParameter(self, *args):
         """
-        addFitParameter(FitSuite self, std::string const & name, double value, AttLimits attlim, double step=0.0)
-        addFitParameter(FitSuite self, std::string const & name, double value, AttLimits attlim)
+        addFitParameter(FitSuite self, std::string const & name, double value, Limits lim, Attributes attr, double step=0.0)
+        addFitParameter(FitSuite self, std::string const & name, double value, Limits lim, Attributes attr)
+        addFitParameter(FitSuite self, std::string const & name, double value, Limits lim)
         addFitParameter(FitSuite self, std::string const & name, double value)
 
-        void FitSuite::addFitParameter(const std::string &name, double value, const AttLimits &attlim=AttLimits::limitless(), double step=0.0)
+        void FitSuite::addFitParameter(const std::string &name, double value, const Limits &lim=Limits::limitless(), const Attributes &attr=Attributes::free(), double step=0.0)
 
         Adds fit parameter
 
@@ -6686,84 +6614,9 @@ class ISampleBuilder(IParameterized):
         return _libBornAgainCore.ISampleBuilder_getFTDistribution2D(self)
 
 
-    def registerUnlimitedAngle(self, name, parpointer):
-        """
-        registerUnlimitedAngle(ISampleBuilder self, std::string const & name, int64_t parpointer)
-
-        void IParameterized::registerUnlimitedAngle(const std::string &name, double *parpointer)
-
-        """
-        return _libBornAgainCore.ISampleBuilder_registerUnlimitedAngle(self, name, parpointer)
-
-
-    def registerLimitedAngle(self, name, parpointer, lower_bound, upper_bound):
-        """
-        registerLimitedAngle(ISampleBuilder self, std::string const & name, int64_t parpointer, double lower_bound, double upper_bound)
-
-        void IParameterized::registerLimitedAngle(const std::string &name, double *parpointer, double lower_limit, double upper_limit)
-
-        """
-        return _libBornAgainCore.ISampleBuilder_registerLimitedAngle(self, name, parpointer, lower_bound, upper_bound)
-
-
-    def registerUnlimitedLength(self, name, parpointer):
-        """
-        registerUnlimitedLength(ISampleBuilder self, std::string const & name, int64_t parpointer)
-
-        void IParameterized::registerUnlimitedLength(const std::string &name, double *parpointer)
-
-        """
-        return _libBornAgainCore.ISampleBuilder_registerUnlimitedLength(self, name, parpointer)
-
-
-    def registerNonnegativeLength(self, name, parpointer):
-        """
-        registerNonnegativeLength(ISampleBuilder self, std::string const & name, int64_t parpointer)
-
-        void IParameterized::registerNonnegativeLength(const std::string &name, double *parpointer)
-
-        """
-        return _libBornAgainCore.ISampleBuilder_registerNonnegativeLength(self, name, parpointer)
-
-
-    def registerPositiveLength(self, name, parpointer):
-        """
-        registerPositiveLength(ISampleBuilder self, std::string const & name, int64_t parpointer)
-
-        void IParameterized::registerPositiveLength(const std::string &name, double *parpointer)
-
-        """
-        return _libBornAgainCore.ISampleBuilder_registerPositiveLength(self, name, parpointer)
-
-
-    def registerUnlimitedScalar(self, name, parpointer):
-        """
-        registerUnlimitedScalar(ISampleBuilder self, std::string const & name, int64_t parpointer)
-
-        void IParameterized::registerUnlimitedScalar(const std::string &name, double *parpointer)
-
-        """
-        return _libBornAgainCore.ISampleBuilder_registerUnlimitedScalar(self, name, parpointer)
-
-
-    def registerNonnegativeScalar(self, name, parpointer):
-        """
-        registerNonnegativeScalar(ISampleBuilder self, std::string const & name, int64_t parpointer)
-
-        void IParameterized::registerNonnegativeScalar(const std::string &name, double *parpointer)
-
-        """
-        return _libBornAgainCore.ISampleBuilder_registerNonnegativeScalar(self, name, parpointer)
-
-
-    def registerPositiveScalar(self, name, parpointer):
-        """
-        registerPositiveScalar(ISampleBuilder self, std::string const & name, int64_t parpointer)
-
-        void IParameterized::registerPositiveScalar(const std::string &name, double *parpointer)
-
-        """
-        return _libBornAgainCore.ISampleBuilder_registerPositiveScalar(self, name, parpointer)
+    def registerParameter(self, name, parpointer):
+        """registerParameter(ISampleBuilder self, std::string const & name, int64_t parpointer) -> RealParameter"""
+        return _libBornAgainCore.ISampleBuilder_registerParameter(self, name, parpointer)
 
 
     def setParameterValue(self, name, value):
@@ -6796,9 +6649,9 @@ class ISampleVisitor(_object):
     """
 
 
-    Visitor interface to visit  ISample objects.
+    From visitor pattern to achieve double dispatch.
 
-    From visitor pattern to achieve double dispatch
+    Visitor interface to visit  ISample objects.
 
     C++ includes: ISampleVisitor.h
 
@@ -7349,7 +7202,7 @@ class IDistribution1D(IParameterized):
 
     def generateSamples(self, *args):
         """
-        generateSamples(IDistribution1D self, size_t nbr_samples, double sigma_factor=0.0, AttLimits limits) -> std::vector< ParameterSample,std::allocator< ParameterSample > >
+        generateSamples(IDistribution1D self, size_t nbr_samples, double sigma_factor=0.0, Limits limits) -> std::vector< ParameterSample,std::allocator< ParameterSample > >
         generateSamples(IDistribution1D self, size_t nbr_samples, double sigma_factor=0.0) -> std::vector< ParameterSample,std::allocator< ParameterSample > >
         generateSamples(IDistribution1D self, size_t nbr_samples) -> std::vector< ParameterSample,std::allocator< ParameterSample > >
         generateSamples(IDistribution1D self, size_t nbr_samples, double xmin, double xmax) -> std::vector< ParameterSample,std::allocator< ParameterSample > >
@@ -7364,10 +7217,10 @@ class IDistribution1D(IParameterized):
 
     def generateValueList(self, *args):
         """
-        generateValueList(IDistribution1D self, size_t nbr_samples, double sigma_factor, AttLimits limits) -> vdouble1d_t
+        generateValueList(IDistribution1D self, size_t nbr_samples, double sigma_factor, Limits limits) -> vdouble1d_t
         generateValueList(IDistribution1D self, size_t nbr_samples, double sigma_factor) -> vdouble1d_t
 
-        virtual std::vector<double> IDistribution1D::generateValueList(size_t nbr_samples, double sigma_factor, const AttLimits &limits=AttLimits()) const =0
+        virtual std::vector<double> IDistribution1D::generateValueList(size_t nbr_samples, double sigma_factor, const Limits &limits=Limits()) const =0
 
         generate list of sample values
 
@@ -7444,7 +7297,7 @@ class DistributionGate(IDistribution1D):
     """
 
 
-    uniform distribution function with half width hwhm
+    Uniform distribution function with half width hwhm.
 
     C++ includes: Distributions.h
 
@@ -7537,10 +7390,10 @@ class DistributionGate(IDistribution1D):
 
     def generateValueList(self, *args):
         """
-        generateValueList(DistributionGate self, size_t nbr_samples, double sigma_factor, AttLimits limits) -> vdouble1d_t
+        generateValueList(DistributionGate self, size_t nbr_samples, double sigma_factor, Limits limits) -> vdouble1d_t
         generateValueList(DistributionGate self, size_t nbr_samples, double sigma_factor) -> vdouble1d_t
 
-        std::vector< double > DistributionGate::generateValueList(size_t nbr_samples, double sigma_factor, const AttLimits &limits=AttLimits()) const
+        std::vector< double > DistributionGate::generateValueList(size_t nbr_samples, double sigma_factor, const Limits &limits=Limits()) const
 
         Returns list of sample values. 
 
@@ -7645,10 +7498,10 @@ class DistributionLorentz(IDistribution1D):
 
     def generateValueList(self, *args):
         """
-        generateValueList(DistributionLorentz self, size_t nbr_samples, double sigma_factor, AttLimits limits) -> vdouble1d_t
+        generateValueList(DistributionLorentz self, size_t nbr_samples, double sigma_factor, Limits limits) -> vdouble1d_t
         generateValueList(DistributionLorentz self, size_t nbr_samples, double sigma_factor) -> vdouble1d_t
 
-        std::vector< double > DistributionLorentz::generateValueList(size_t nbr_samples, double sigma_factor, const AttLimits &limits=AttLimits()) const
+        std::vector< double > DistributionLorentz::generateValueList(size_t nbr_samples, double sigma_factor, const Limits &limits=Limits()) const
 
         generate list of sample values 
 
@@ -7755,10 +7608,10 @@ class DistributionGaussian(IDistribution1D):
 
     def generateValueList(self, *args):
         """
-        generateValueList(DistributionGaussian self, size_t nbr_samples, double sigma_factor, AttLimits limits) -> vdouble1d_t
+        generateValueList(DistributionGaussian self, size_t nbr_samples, double sigma_factor, Limits limits) -> vdouble1d_t
         generateValueList(DistributionGaussian self, size_t nbr_samples, double sigma_factor) -> vdouble1d_t
 
-        std::vector< double > DistributionGaussian::generateValueList(size_t nbr_samples, double sigma_factor, const AttLimits &limits=AttLimits()) const
+        std::vector< double > DistributionGaussian::generateValueList(size_t nbr_samples, double sigma_factor, const Limits &limits=Limits()) const
 
         generate list of sample values 
 
@@ -7877,10 +7730,10 @@ class DistributionLogNormal(IDistribution1D):
 
     def generateValueList(self, *args):
         """
-        generateValueList(DistributionLogNormal self, size_t nbr_samples, double sigma_factor, AttLimits limits) -> vdouble1d_t
+        generateValueList(DistributionLogNormal self, size_t nbr_samples, double sigma_factor, Limits limits) -> vdouble1d_t
         generateValueList(DistributionLogNormal self, size_t nbr_samples, double sigma_factor) -> vdouble1d_t
 
-        std::vector< double > DistributionLogNormal::generateValueList(size_t nbr_samples, double sigma_factor, const AttLimits &limits=AttLimits()) const
+        std::vector< double > DistributionLogNormal::generateValueList(size_t nbr_samples, double sigma_factor, const Limits &limits=Limits()) const
 
         generate list of sample values 
 
@@ -7987,10 +7840,10 @@ class DistributionCosine(IDistribution1D):
 
     def generateValueList(self, *args):
         """
-        generateValueList(DistributionCosine self, size_t nbr_samples, double sigma_factor, AttLimits limits) -> vdouble1d_t
+        generateValueList(DistributionCosine self, size_t nbr_samples, double sigma_factor, Limits limits) -> vdouble1d_t
         generateValueList(DistributionCosine self, size_t nbr_samples, double sigma_factor) -> vdouble1d_t
 
-        std::vector< double > DistributionCosine::generateValueList(size_t nbr_samples, double sigma_factor, const AttLimits &limits=AttLimits()) const
+        std::vector< double > DistributionCosine::generateValueList(size_t nbr_samples, double sigma_factor, const Limits &limits=Limits()) const
 
         generate list of sample values 
 
@@ -8016,7 +7869,7 @@ class DetectorMask(_object):
     """
 
 
-    The container with all masks.
+    Collection of detector masks.
 
     C++ includes: DetectorMask.h
 
@@ -8087,7 +7940,7 @@ class DetectorMask(_object):
         """
         getMaskData(DetectorMask self) -> OutputData< bool > const *
 
-        const OutputData< bool > * DetectorMask::getMaskData() const 
+        const OutputData<bool>* DetectorMask::getMaskData() const 
 
         """
         return _libBornAgainCore.DetectorMask_getMaskData(self)
@@ -8295,7 +8148,7 @@ class IFTDecayFunction1D(IParameterized):
     """
 
 
-    Interface for 1 dimensional decay function in reciprocal space.
+    Interface for a one-dimensional decay function, with evaluate(q) returning the Fourier transform, normalized to  $\\int dq\\; {\\rm evaluate}(q) = 1$.
 
     C++ includes: FTDecayFunctions.h
 
@@ -8361,7 +8214,7 @@ class FTDecayFunction1DCauchy(IFTDecayFunction1D):
     """
 
 
-    1 dimensional Cauchy decay function in reciprocal space. Corresponds to exp(-|x|/omega) in real space
+    One-dimensional Cauchy decay function in reciprocal space; corresponds to exp(-|x|/omega) in real space.
 
     C++ includes: FTDecayFunctions.h
 
@@ -8403,7 +8256,7 @@ class FTDecayFunction1DCauchy(IFTDecayFunction1D):
         """
         evaluate(FTDecayFunction1DCauchy self, double q) -> double
 
-        double FTDecayFunction1DCauchy::evaluate(double q) const 
+        double FTDecayFunction1DCauchy::evaluate(double q) const final
 
         """
         return _libBornAgainCore.FTDecayFunction1DCauchy_evaluate(self, q)
@@ -8417,7 +8270,7 @@ class FTDecayFunction1DGauss(IFTDecayFunction1D):
     """
 
 
-    1 dimensional Gauss decay function in reciprocal space. Corresponds to exp[-x^2/(2*omega^2)] in real space
+    One-dimensional Gauss decay function in reciprocal space; corresponds to exp[-x^2/(2*omega^2)] in real space.
 
     C++ includes: FTDecayFunctions.h
 
@@ -8459,7 +8312,7 @@ class FTDecayFunction1DGauss(IFTDecayFunction1D):
         """
         evaluate(FTDecayFunction1DGauss self, double q) -> double
 
-        double FTDecayFunction1DGauss::evaluate(double q) const 
+        double FTDecayFunction1DGauss::evaluate(double q) const final
 
         """
         return _libBornAgainCore.FTDecayFunction1DGauss_evaluate(self, q)
@@ -8473,7 +8326,7 @@ class FTDecayFunction1DTriangle(IFTDecayFunction1D):
     """
 
 
-    1 dimensional triangle decay function in reciprocal space. Corresponds to 1-|x|/omega if |x|<omega (and 0 otherwise) in real space
+    One-dimensional triangle decay function in reciprocal space; corresponds to 1-|x|/omega if |x|<omega (and 0 otherwise) in real space.
 
     C++ includes: FTDecayFunctions.h
 
@@ -8515,7 +8368,7 @@ class FTDecayFunction1DTriangle(IFTDecayFunction1D):
         """
         evaluate(FTDecayFunction1DTriangle self, double q) -> double
 
-        double FTDecayFunction1DTriangle::evaluate(double q) const 
+        double FTDecayFunction1DTriangle::evaluate(double q) const final
 
         """
         return _libBornAgainCore.FTDecayFunction1DTriangle_evaluate(self, q)
@@ -8529,7 +8382,7 @@ class FTDecayFunction1DVoigt(IFTDecayFunction1D):
     """
 
 
-    1 dimensional Voigt decay function in reciprocal space. Corresponds to eta*Gauss + (1-eta)*Cauchy
+    One-dimensional pseudo-Voigt decay function in reciprocal space; corresponds to eta*Gauss + (1-eta)*Cauchy.
 
     C++ includes: FTDecayFunctions.h
 
@@ -8571,7 +8424,7 @@ class FTDecayFunction1DVoigt(IFTDecayFunction1D):
         """
         evaluate(FTDecayFunction1DVoigt self, double q) -> double
 
-        double FTDecayFunction1DVoigt::evaluate(double q) const 
+        double FTDecayFunction1DVoigt::evaluate(double q) const final
 
         """
         return _libBornAgainCore.FTDecayFunction1DVoigt_evaluate(self, q)
@@ -8581,7 +8434,7 @@ class FTDecayFunction1DVoigt(IFTDecayFunction1D):
         """
         getEta(FTDecayFunction1DVoigt self) -> double
 
-        virtual double FTDecayFunction1DVoigt::getEta() const 
+        double FTDecayFunction1DVoigt::getEta() const 
 
         """
         return _libBornAgainCore.FTDecayFunction1DVoigt_getEta(self)
@@ -8595,7 +8448,7 @@ class IFTDecayFunction2D(IParameterized):
     """
 
 
-    Interface for 2 dimensional decay function in reciprocal space.
+    Interface for two-dimensional decay function in reciprocal space.
 
     C++ includes: FTDecayFunctions.h
 
@@ -8715,7 +8568,7 @@ class FTDecayFunction2DCauchy(IFTDecayFunction2D):
     """
 
 
-    2 dimensional Cauchy decay function in reciprocal space. Corresponds to exp(-r) in real space with  $r=\\sqrt{(\\frac{x}{\\omega_x})^2 + (\\frac{y}{\\omega_y})^2}$
+    Two-dimensional Cauchy decay function in reciprocal space; corresponds to exp(-r) in real space, with  $r=\\sqrt{(\\frac{x}{\\omega_x})^2 + (\\frac{y}{\\omega_y})^2}$.
 
     C++ includes: FTDecayFunctions.h
 
@@ -8759,7 +8612,7 @@ class FTDecayFunction2DCauchy(IFTDecayFunction2D):
         """
         evaluate(FTDecayFunction2DCauchy self, double qx, double qy) -> double
 
-        double FTDecayFunction2DCauchy::evaluate(double qx, double qy) const
+        double FTDecayFunction2DCauchy::evaluate(double qx, double qy) const final
 
         evaluate Fourier transformed decay function for q in X,Y coordinates 
 
@@ -8775,7 +8628,7 @@ class FTDecayFunction2DGauss(IFTDecayFunction2D):
     """
 
 
-    2 dimensional Gauss decay function in reciprocal space. Corresponds to exp(-r^2/2) in real space with  $r=\\sqrt{(\\frac{x}{\\omega_x})^2 + (\\frac{y}{\\omega_y})^2}$
+    Two-dimensional Gauss decay function in reciprocal space; corresponds to exp(-r^2/2) in real space, with  $r=\\sqrt{(\\frac{x}{\\omega_x})^2 + (\\frac{y}{\\omega_y})^2}$.
 
     C++ includes: FTDecayFunctions.h
 
@@ -8819,7 +8672,7 @@ class FTDecayFunction2DGauss(IFTDecayFunction2D):
         """
         evaluate(FTDecayFunction2DGauss self, double qx, double qy) -> double
 
-        double FTDecayFunction2DGauss::evaluate(double qx, double qy) const
+        double FTDecayFunction2DGauss::evaluate(double qx, double qy) const final
 
         evaluate Fourier transformed decay function for q in X,Y coordinates 
 
@@ -8835,7 +8688,7 @@ class FTDecayFunction2DVoigt(IFTDecayFunction2D):
     """
 
 
-    2 dimensional Voigt decay function in reciprocal space. Corresponds to eta*Gauss + (1-eta)*Cauchy
+    Two-dimensional pseudo-Voigt decay function in reciprocal space; corresponds to eta*Gauss + (1-eta)*Cauchy.
 
     C++ includes: FTDecayFunctions.h
 
@@ -8879,7 +8732,7 @@ class FTDecayFunction2DVoigt(IFTDecayFunction2D):
         """
         evaluate(FTDecayFunction2DVoigt self, double qx, double qy) -> double
 
-        double FTDecayFunction2DVoigt::evaluate(double qx, double qy) const
+        double FTDecayFunction2DVoigt::evaluate(double qx, double qy) const final
 
         evaluate Fourier transformed decay function for q in X,Y coordinates 
 
@@ -8905,7 +8758,7 @@ class IFTDistribution1D(IParameterized):
     """
 
 
-    Interface for 1 dimensional distributions in Fourier space.
+    Interface for a one-dimensional distribution, with normalization adjusted so that the Fourier transform evaluate(q) is a decay function that starts at evaluate(0)=1.
 
     C++ includes: FTDistributions1D.h
 
@@ -8939,6 +8792,8 @@ class IFTDistribution1D(IParameterized):
 
         virtual double IFTDistribution1D::evaluate(double q) const =0
 
+        Returns Fourier transform of this distribution; is a decay function starting at evaluate(0)=1. 
+
         """
         return _libBornAgainCore.IFTDistribution1D_evaluate(self, q)
 
@@ -8971,7 +8826,7 @@ class FTDistribution1DCauchy(IFTDistribution1D):
     """
 
 
-    1 dimensional Cauchy distribution in Fourier space. Corresponds to a normalized exp(-|x|) in real space.
+    Exponential  IFTDistribution1D exp(-|omega*x|); its Fourier transform evaluate(q) is a Cauchy-Lorentzian starting at evaluate(0)=1.
 
     C++ includes: FTDistributions1D.h
 
@@ -9003,7 +8858,7 @@ class FTDistribution1DCauchy(IFTDistribution1D):
         """
         clone(FTDistribution1DCauchy self) -> FTDistribution1DCauchy
 
-        FTDistribution1DCauchy * FTDistribution1DCauchy::clone() const 
+        FTDistribution1DCauchy* FTDistribution1DCauchy::clone() const final
 
         """
         return _libBornAgainCore.FTDistribution1DCauchy_clone(self)
@@ -9013,7 +8868,9 @@ class FTDistribution1DCauchy(IFTDistribution1D):
         """
         evaluate(FTDistribution1DCauchy self, double q) -> double
 
-        double FTDistribution1DCauchy::evaluate(double q) const 
+        double FTDistribution1DCauchy::evaluate(double q) const final
+
+        Returns Fourier transform of this distribution; is a decay function starting at evaluate(0)=1. 
 
         """
         return _libBornAgainCore.FTDistribution1DCauchy_evaluate(self, q)
@@ -9027,7 +8884,7 @@ class FTDistribution1DGauss(IFTDistribution1D):
     """
 
 
-    1 dimensional Gauss distribution in Fourier space. Corresponds to a normalized exp(-x^2) in real space.
+    Gaussian  IFTDistribution1D; its Fourier transform evaluate(q) is a Gaussian starting at evaluate(0)=1.
 
     C++ includes: FTDistributions1D.h
 
@@ -9059,7 +8916,7 @@ class FTDistribution1DGauss(IFTDistribution1D):
         """
         clone(FTDistribution1DGauss self) -> FTDistribution1DGauss
 
-        FTDistribution1DGauss * FTDistribution1DGauss::clone() const 
+        FTDistribution1DGauss* FTDistribution1DGauss::clone() const final
 
         """
         return _libBornAgainCore.FTDistribution1DGauss_clone(self)
@@ -9069,7 +8926,9 @@ class FTDistribution1DGauss(IFTDistribution1D):
         """
         evaluate(FTDistribution1DGauss self, double q) -> double
 
-        double FTDistribution1DGauss::evaluate(double q) const 
+        double FTDistribution1DGauss::evaluate(double q) const final
+
+        Returns Fourier transform of this distribution; is a decay function starting at evaluate(0)=1. 
 
         """
         return _libBornAgainCore.FTDistribution1DGauss_evaluate(self, q)
@@ -9083,7 +8942,7 @@ class FTDistribution1DGate(IFTDistribution1D):
     """
 
 
-    1 dimensional Gate distribution in Fourier space. Corresponds to a normalized constant if |x|<omega (and 0 otherwise) in real space.
+    Square gate  IFTDistribution1D; its Fourier transform evaluate(q) is a sinc function starting at evaluate(0)=1.
 
     C++ includes: FTDistributions1D.h
 
@@ -9115,7 +8974,7 @@ class FTDistribution1DGate(IFTDistribution1D):
         """
         clone(FTDistribution1DGate self) -> FTDistribution1DGate
 
-        FTDistribution1DGate * FTDistribution1DGate::clone() const 
+        FTDistribution1DGate* FTDistribution1DGate::clone() const final
 
         """
         return _libBornAgainCore.FTDistribution1DGate_clone(self)
@@ -9125,7 +8984,9 @@ class FTDistribution1DGate(IFTDistribution1D):
         """
         evaluate(FTDistribution1DGate self, double q) -> double
 
-        double FTDistribution1DGate::evaluate(double q) const 
+        double FTDistribution1DGate::evaluate(double q) const final
+
+        Returns Fourier transform of this distribution; is a decay function starting at evaluate(0)=1. 
 
         """
         return _libBornAgainCore.FTDistribution1DGate_evaluate(self, q)
@@ -9139,7 +9000,7 @@ class FTDistribution1DTriangle(IFTDistribution1D):
     """
 
 
-    1 dimensional triangle distribution in Fourier space. Corresponds to a normalized 1-|x|/omega if |x|<omega (and 0 otherwise) in real space.
+    Triangle  IFTDistribution1D [1-|x|/omega if |x|<omega, and 0 otherwise]; its Fourier transform evaluate(q) is a squared sinc function starting at evaluate(0)=1.
 
     C++ includes: FTDistributions1D.h
 
@@ -9173,7 +9034,7 @@ class FTDistribution1DTriangle(IFTDistribution1D):
         """
         clone(FTDistribution1DTriangle self) -> FTDistribution1DTriangle
 
-        FTDistribution1DTriangle * FTDistribution1DTriangle::clone() const 
+        FTDistribution1DTriangle* FTDistribution1DTriangle::clone() const final
 
         """
         return _libBornAgainCore.FTDistribution1DTriangle_clone(self)
@@ -9183,7 +9044,9 @@ class FTDistribution1DTriangle(IFTDistribution1D):
         """
         evaluate(FTDistribution1DTriangle self, double q) -> double
 
-        double FTDistribution1DTriangle::evaluate(double q) const 
+        double FTDistribution1DTriangle::evaluate(double q) const final
+
+        Returns Fourier transform of this distribution; is a decay function starting at evaluate(0)=1. 
 
         """
         return _libBornAgainCore.FTDistribution1DTriangle_evaluate(self, q)
@@ -9195,7 +9058,7 @@ class FTDistribution1DCosine(IFTDistribution1D):
     """
 
 
-    1 dimensional triangle distribution in Fourier space. Corresponds to a normalized 1+cos(pi*x/omega) if |x|<omega (and 0 otherwise) in real space.
+    IFTDistribution1D consisting of one cosine wave [1+cos(pi*x/omega) if |x|<omega, and 0 otherwise]; its Fourier transform evaluate(q) starts at evaluate(0)=1.
 
     C++ includes: FTDistributions1D.h
 
@@ -9227,7 +9090,7 @@ class FTDistribution1DCosine(IFTDistribution1D):
         """
         clone(FTDistribution1DCosine self) -> FTDistribution1DCosine
 
-        FTDistribution1DCosine * FTDistribution1DCosine::clone() const 
+        FTDistribution1DCosine* FTDistribution1DCosine::clone() const final
 
         """
         return _libBornAgainCore.FTDistribution1DCosine_clone(self)
@@ -9237,7 +9100,9 @@ class FTDistribution1DCosine(IFTDistribution1D):
         """
         evaluate(FTDistribution1DCosine self, double q) -> double
 
-        double FTDistribution1DCosine::evaluate(double q) const 
+        double FTDistribution1DCosine::evaluate(double q) const final
+
+        Returns Fourier transform of this distribution; is a decay function starting at evaluate(0)=1. 
 
         """
         return _libBornAgainCore.FTDistribution1DCosine_evaluate(self, q)
@@ -9251,7 +9116,7 @@ class FTDistribution1DVoigt(IFTDistribution1D):
     """
 
 
-    1 dimensional Voigt distribution in Fourier space. Corresponds to eta*Gauss + (1-eta)*Cauchy
+    IFTDistribution1D that provides a Fourier transform evaluate(q) in form of a pseudo-Voigt decay function eta*Gauss + (1-eta)*Cauchy, with both components starting at 1 for q=0.
 
     C++ includes: FTDistributions1D.h
 
@@ -9283,7 +9148,7 @@ class FTDistribution1DVoigt(IFTDistribution1D):
         """
         clone(FTDistribution1DVoigt self) -> FTDistribution1DVoigt
 
-        FTDistribution1DVoigt * FTDistribution1DVoigt::clone() const 
+        FTDistribution1DVoigt* FTDistribution1DVoigt::clone() const final
 
         """
         return _libBornAgainCore.FTDistribution1DVoigt_clone(self)
@@ -9293,7 +9158,9 @@ class FTDistribution1DVoigt(IFTDistribution1D):
         """
         evaluate(FTDistribution1DVoigt self, double q) -> double
 
-        double FTDistribution1DVoigt::evaluate(double q) const 
+        double FTDistribution1DVoigt::evaluate(double q) const final
+
+        Returns Fourier transform of this distribution; is a decay function starting at evaluate(0)=1. 
 
         """
         return _libBornAgainCore.FTDistribution1DVoigt_evaluate(self, q)
@@ -9303,7 +9170,7 @@ class FTDistribution1DVoigt(IFTDistribution1D):
         """
         getEta(FTDistribution1DVoigt self) -> double
 
-        virtual double FTDistribution1DVoigt::getEta() const 
+        double FTDistribution1DVoigt::getEta() const 
 
         """
         return _libBornAgainCore.FTDistribution1DVoigt_getEta(self)
@@ -9317,7 +9184,7 @@ class IFTDistribution2D(IParameterized):
     """
 
 
-    Interface for 2 dimensional distributions in Fourier space.
+    Interface for two-dimensional distributions in Fourier space.
 
     C++ includes: FTDistributions2D.h
 
@@ -9415,7 +9282,7 @@ class FTDistribution2DCauchy(IFTDistribution2D):
     """
 
 
-    2 dimensional Cauchy distribution in Fourier space. Corresponds to a normalized exp(-r) in real space with  $r=\\sqrt{(\\frac{x}{\\omega_x})^2 + (\\frac{y}{\\omega_y})^2}$
+    Two-dimensional Cauchy distribution in Fourier space; corresponds to a normalized exp(-r) in real space, with  $r=\\sqrt{(\\frac{x}{\\omega_x})^2 + (\\frac{y}{\\omega_y})^2}$.
 
     C++ includes: FTDistributions2D.h
 
@@ -9459,7 +9326,7 @@ class FTDistribution2DCauchy(IFTDistribution2D):
         """
         evaluate(FTDistribution2DCauchy self, double qx, double qy) -> double
 
-        double FTDistribution2DCauchy::evaluate(double qx, double qy) const
+        double FTDistribution2DCauchy::evaluate(double qx, double qy) const final
 
         evaluate Fourier transformed distribution for q in X,Y coordinates the original distribution (in real space) is assumed to be normalized: total integral is equal to 1 
 
@@ -9475,7 +9342,7 @@ class FTDistribution2DGauss(IFTDistribution2D):
     """
 
 
-    2 dimensional Gauss distribution in Fourier space. Corresponds to normalized exp(-r^2/2) in real space with  $r=\\sqrt{(\\frac{x}{\\omega_x})^2 + (\\frac{y}{\\omega_y})^2}$
+    Two-dimensional Gauss distribution in Fourier space; corresponds to normalized exp(-r^2/2) in real space with  $r=\\sqrt{(\\frac{x}{\\omega_x})^2 + (\\frac{y}{\\omega_y})^2}$.
 
     C++ includes: FTDistributions2D.h
 
@@ -9519,7 +9386,7 @@ class FTDistribution2DGauss(IFTDistribution2D):
         """
         evaluate(FTDistribution2DGauss self, double qx, double qy) -> double
 
-        double FTDistribution2DGauss::evaluate(double qx, double qy) const
+        double FTDistribution2DGauss::evaluate(double qx, double qy) const final
 
         evaluate Fourier transformed distribution for q in X,Y coordinates the original distribution (in real space) is assumed to be normalized: total integral is equal to 1 
 
@@ -9535,7 +9402,7 @@ class FTDistribution2DGate(IFTDistribution2D):
     """
 
 
-    2 dimensional gate distribution in Fourier space Corresponds to normalized constant if r<1 (and 0 otherwise) in real space. with  $r=\\sqrt{(\\frac{x}{\\omega_x})^2 + (\\frac{y}{\\omega_y})^2}$
+    Two-dimensional gate distribution in Fourier space; corresponds to normalized constant if r<1 (and 0 otherwise) in real space, with  $r=\\sqrt{(\\frac{x}{\\omega_x})^2 + (\\frac{y}{\\omega_y})^2}$.
 
     C++ includes: FTDistributions2D.h
 
@@ -9579,7 +9446,7 @@ class FTDistribution2DGate(IFTDistribution2D):
         """
         evaluate(FTDistribution2DGate self, double qx, double qy) -> double
 
-        double FTDistribution2DGate::evaluate(double qx, double qy) const
+        double FTDistribution2DGate::evaluate(double qx, double qy) const final
 
         evaluate Fourier transformed distribution for q in X,Y coordinates the original distribution (in real space) is assumed to be normalized: total integral is equal to 1 
 
@@ -9595,7 +9462,7 @@ class FTDistribution2DCone(IFTDistribution2D):
     """
 
 
-    2 dimensional cone distribution in Fourier space. Corresponds to 1-r if r<1 (and 0 otherwise) in real space with  $r=\\sqrt{(\\frac{x}{\\omega_x})^2 + (\\frac{y}{\\omega_y})^2}$
+    Two-dimensional cone distribution in Fourier space; corresponds to 1-r if r<1 (and 0 otherwise) in real space with  $r=\\sqrt{(\\frac{x}{\\omega_x})^2 + (\\frac{y}{\\omega_y})^2}$.
 
     C++ includes: FTDistributions2D.h
 
@@ -9639,7 +9506,7 @@ class FTDistribution2DCone(IFTDistribution2D):
         """
         evaluate(FTDistribution2DCone self, double qx, double qy) -> double
 
-        double FTDistribution2DCone::evaluate(double qx, double qy) const
+        double FTDistribution2DCone::evaluate(double qx, double qy) const final
 
         evaluate Fourier transformed distribution for q in X,Y coordinates the original distribution (in real space) is assumed to be normalized: total integral is equal to 1 
 
@@ -9655,7 +9522,7 @@ class FTDistribution2DVoigt(IFTDistribution2D):
     """
 
 
-    2 dimensional Voigt distribution in Fourier space. Corresponds to eta*Gauss + (1-eta)*Cauchy
+    Two-dimensional Voigt distribution in Fourier space; corresponds to eta*Gauss + (1-eta)*Cauchy
 
     C++ includes: FTDistributions2D.h
 
@@ -9699,7 +9566,7 @@ class FTDistribution2DVoigt(IFTDistribution2D):
         """
         evaluate(FTDistribution2DVoigt self, double qx, double qy) -> double
 
-        double FTDistribution2DVoigt::evaluate(double qx, double qy) const
+        double FTDistribution2DVoigt::evaluate(double qx, double qy) const final
 
         evaluate Fourier transformed distribution for q in X,Y coordinates the original distribution (in real space) is assumed to be normalized: total integral is equal to 1 
 
@@ -9711,7 +9578,7 @@ class FTDistribution2DVoigt(IFTDistribution2D):
         """
         getEta(FTDistribution2DVoigt self) -> double
 
-        virtual double FTDistribution2DVoigt::getEta() const 
+        double FTDistribution2DVoigt::getEta() const 
 
         """
         return _libBornAgainCore.FTDistribution2DVoigt_getEta(self)
@@ -10435,7 +10302,14 @@ IFormFactorDecorator_swigregister = _libBornAgainCore.IFormFactorDecorator_swigr
 IFormFactorDecorator_swigregister(IFormFactorDecorator)
 
 class PolygonalTopology(_object):
-    """Proxy of C++ PolygonalTopology class"""
+    """
+
+
+    For internal use in  PolyhedralFace.
+
+    C++ includes: FormFactorPolyhedron.h
+
+    """
     __swig_setmethods__ = {}
     __setattr__ = lambda self, name, value: _swig_setattr(self, PolygonalTopology, name, value)
     __swig_getmethods__ = {}
@@ -10451,7 +10325,16 @@ class PolygonalTopology(_object):
         symmetry_S2 = _swig_property(_libBornAgainCore.PolygonalTopology_symmetry_S2_get, _libBornAgainCore.PolygonalTopology_symmetry_S2_set)
 
     def __init__(self):
-        """__init__(PolygonalTopology self) -> PolygonalTopology"""
+        """
+        __init__(PolygonalTopology self) -> PolygonalTopology
+
+
+
+        For internal use in  PolyhedralFace.
+
+        C++ includes: FormFactorPolyhedron.h
+
+        """
         this = _libBornAgainCore.new_PolygonalTopology()
         try:
             self.this.append(this)
@@ -10463,7 +10346,14 @@ PolygonalTopology_swigregister = _libBornAgainCore.PolygonalTopology_swigregiste
 PolygonalTopology_swigregister(PolygonalTopology)
 
 class PolyhedralTopology(_object):
-    """Proxy of C++ PolyhedralTopology class"""
+    """
+
+
+    For internal use in  FormFactorPolyhedron.
+
+    C++ includes: FormFactorPolyhedron.h
+
+    """
     __swig_setmethods__ = {}
     __setattr__ = lambda self, name, value: _swig_setattr(self, PolyhedralTopology, name, value)
     __swig_getmethods__ = {}
@@ -10479,7 +10369,16 @@ class PolyhedralTopology(_object):
         symmetry_Ci = _swig_property(_libBornAgainCore.PolyhedralTopology_symmetry_Ci_get, _libBornAgainCore.PolyhedralTopology_symmetry_Ci_set)
 
     def __init__(self):
-        """__init__(PolyhedralTopology self) -> PolyhedralTopology"""
+        """
+        __init__(PolyhedralTopology self) -> PolyhedralTopology
+
+
+
+        For internal use in  FormFactorPolyhedron.
+
+        C++ includes: FormFactorPolyhedron.h
+
+        """
         this = _libBornAgainCore.new_PolyhedralTopology()
         try:
             self.this.append(this)
@@ -10973,7 +10872,7 @@ class FormFactorAnisoPyramid(FormFactorPolyhedron):
     """
 
 
-    The formfactor of a quadratic pyramid.
+    A frustum (truncated pyramid) with rectangular base.
 
     C++ includes: FormFactorAnisoPyramid.h
 
@@ -10994,19 +10893,17 @@ class FormFactorAnisoPyramid(FormFactorPolyhedron):
 
         FormFactorAnisoPyramid::FormFactorAnisoPyramid(double length, double width, double height, double alpha)
 
-        Pyramid constructor.
-
         Parameters:
         -----------
 
         length: 
-        of one side of Pyramid's rectangular base
+        of one side of the rectangular base
 
         width: 
-        of other side of Pyramid's rectangular base
+        of other side of the rectangular base
 
         height: 
-        of Pyramid
+        of frustum
 
         alpha: 
         dihedral angle in radians between base and facet 
@@ -11090,9 +10987,7 @@ class FormFactorBox(IFormFactorBorn):
     """
 
 
-    The formfactor for a rectangular box.
-
-    The formfactor for a long rectangular box.
+    A rectangular prism (parallelepiped).
 
     C++ includes: FormFactorBox.h
 
@@ -11113,19 +11008,17 @@ class FormFactorBox(IFormFactorBorn):
 
         FormFactorBox::FormFactorBox(double length, double width, double height)
 
-        Box constructor.
-
         Parameters:
         -----------
 
         length: 
-        of Box's base
+        of rectangular base
 
         width: 
-        of Box's base
+        of rectangular base
 
         height: 
-        of Box 
+        of prism 
 
         """
         this = _libBornAgainCore.new_FormFactorBox(length, width, height)
@@ -11226,7 +11119,7 @@ class FormFactorCone(IFormFactorBorn):
     """
 
 
-    The formfactor of a cone.
+    A conical frustum (cone truncated parallel to the base) with circular base.
 
     C++ includes: FormFactorCone.h
 
@@ -11247,19 +11140,17 @@ class FormFactorCone(IFormFactorBorn):
 
         FormFactorCone::FormFactorCone(double radius, double height, double alpha)
 
-        Cone constructor.
-
         Parameters:
         -----------
 
         radius: 
-        of Cone's base
+        of circular base
 
         height: 
-        of Cone
+        of frustum
 
         alpha: 
-        in radians between base and facet 
+        angle in radians between base and lateral surface 
 
         """
         this = _libBornAgainCore.new_FormFactorCone(radius, height, alpha)
@@ -11360,7 +11251,7 @@ class FormFactorCone6(FormFactorPolyhedron):
     """
 
 
-    The formfactor of a cone6.
+    A frustum (truncated pyramid) with regular hexagonal base.
 
     C++ includes: FormFactorCone6.h
 
@@ -11381,8 +11272,6 @@ class FormFactorCone6(FormFactorPolyhedron):
 
         FormFactorCone6::FormFactorCone6(double base_edge, double height, double alpha)
 
-        Cone6 constructor
-
         Parameters:
         -----------
 
@@ -11390,7 +11279,7 @@ class FormFactorCone6(FormFactorPolyhedron):
         of hexagonal base
 
         height: 
-        of Cone6
+        of frustum
 
         alpha: 
         dihedral angle in radians between base and facet 
@@ -11578,7 +11467,7 @@ class FormFactorCuboctahedron(FormFactorPolyhedron):
     """
 
 
-    The formfactor of a cuboctahedron.
+    A truncated bifrustum with quadratic base.
 
     C++ includes: FormFactorCuboctahedron.h
 
@@ -11599,22 +11488,20 @@ class FormFactorCuboctahedron(FormFactorPolyhedron):
 
         FormFactorCuboctahedron::FormFactorCuboctahedron(double length, double height, double height_ratio, double alpha)
 
-        Cuboctahedron constructor.
-
         Parameters:
         -----------
 
         length: 
-        of one side of Cuboctahedron's square base
+        of one side of the square base
 
         height: 
-        of bottom of Cuboctahedron
+        of bottom frustum
 
         height_ratio: 
-        height top part/height bottom part
+        ratio of heights of top to bottom frustum
 
         alpha: 
-        angle in radians between base and facet 
+        dihedral angle in radians between base and facet 
 
         """
         this = _libBornAgainCore.new_FormFactorCuboctahedron(length, height, height_ratio, alpha)
@@ -11695,7 +11582,7 @@ class FormFactorCylinder(IFormFactorBorn):
     """
 
 
-    The formfactor of a cylinder.
+    A circular cylinder.
 
     C++ includes: FormFactorCylinder.h
 
@@ -11715,17 +11602,6 @@ class FormFactorCylinder(IFormFactorBorn):
         __init__(FormFactorCylinder self, double radius, double height) -> FormFactorCylinder
 
         FormFactorCylinder::FormFactorCylinder(double radius, double height)
-
-        Cylinder constructor.
-
-        Parameters:
-        -----------
-
-        radius: 
-        of Cylinder's base
-
-        height: 
-        of Cylinder 
 
         """
         this = _libBornAgainCore.new_FormFactorCylinder(radius, height)
@@ -11846,8 +11722,6 @@ class FormFactorDecoratorDebyeWaller(IFormFactorDecorator):
             self.this.append(this)
         except:
             self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_FormFactorDecoratorDebyeWaller
-    __del__ = lambda self: None
 
     def clone(self):
         """
@@ -11884,6 +11758,8 @@ class FormFactorDecoratorDebyeWaller(IFormFactorDecorator):
         """
         return _libBornAgainCore.FormFactorDecoratorDebyeWaller_evaluate(self, wavevectors)
 
+    __swig_destroy__ = _libBornAgainCore.delete_FormFactorDecoratorDebyeWaller
+    __del__ = lambda self: None
 FormFactorDecoratorDebyeWaller_swigregister = _libBornAgainCore.FormFactorDecoratorDebyeWaller_swigregister
 FormFactorDecoratorDebyeWaller_swigregister(FormFactorDecoratorDebyeWaller)
 
@@ -11891,7 +11767,7 @@ class FormFactorDodecahedron(FormFactorPolyhedron):
     """
 
 
-    The formfactor of a regular dodecahedron.
+    A regular dodecahedron.
 
     C++ includes: FormFactorDodecahedron.h
 
@@ -11969,7 +11845,7 @@ class FormFactorEllipsoidalCylinder(IFormFactorBorn):
     """
 
 
-    The formfactor of an ellipsoidal cylinder.
+    A cylinder with elliptical base.
 
     C++ includes: FormFactorEllipsoidalCylinder.h
 
@@ -11990,8 +11866,6 @@ class FormFactorEllipsoidalCylinder(IFormFactorBorn):
 
         FormFactorEllipsoidalCylinder::FormFactorEllipsoidalCylinder(double radius_x, double radius_y, double height)
 
-        Ellipsoidal Cylinder constructor.
-
         Parameters:
         -----------
 
@@ -12002,7 +11876,6 @@ class FormFactorEllipsoidalCylinder(IFormFactorBorn):
         half length of the other horizontal main axes
 
         height: 
-        of Ellipsoidal Cylinder 
 
         """
         this = _libBornAgainCore.new_FormFactorEllipsoidalCylinder(radius_x, radius_y, height)
@@ -12103,7 +11976,7 @@ class FormFactorFullSphere(IFormFactorBorn):
     """
 
 
-    The formfactor of a sphere.
+    A full sphere.
 
     C++ includes: FormFactorFullSphere.h
 
@@ -12123,14 +11996,6 @@ class FormFactorFullSphere(IFormFactorBorn):
         __init__(FormFactorFullSphere self, double radius) -> FormFactorFullSphere
 
         FormFactorFullSphere::FormFactorFullSphere(double radius)
-
-        Full Sphere constructor.
-
-        Parameters:
-        -----------
-
-        radius: 
-        of Sphere 
 
         """
         this = _libBornAgainCore.new_FormFactorFullSphere(radius)
@@ -12211,7 +12076,7 @@ class FormFactorFullSpheroid(IFormFactorBorn):
     """
 
 
-    The formfactor of a full spheroid.
+    A full spheroid (an ellipsoid with two equal axes, hence with circular cross section)
 
     C++ includes: FormFactorFullSpheroid.h
 
@@ -12232,16 +12097,14 @@ class FormFactorFullSpheroid(IFormFactorBorn):
 
         FormFactorFullSpheroid::FormFactorFullSpheroid(double radius, double height)
 
-        Full Spheroid constructor.
-
         Parameters:
         -----------
 
         radius: 
-        of spheroid
+        of the two equal axes
 
         height: 
-        of spheroid 
+        total height of the spheroid, i.e. twice the radius of the third axis 
 
         """
         this = _libBornAgainCore.new_FormFactorFullSpheroid(radius, height)
@@ -12443,7 +12306,7 @@ class FormFactorHemiEllipsoid(IFormFactorBorn):
     """
 
 
-    The formfactor of an hemi ellipsoid.
+    An hemi ellipsoid, obtained by truncating a full ellipsoid in the middle plane spanned by two principal axes.
 
     C++ includes: FormFactorHemiEllipsoid.h
 
@@ -12464,8 +12327,6 @@ class FormFactorHemiEllipsoid(IFormFactorBorn):
 
         FormFactorHemiEllipsoid::FormFactorHemiEllipsoid(double radius_x, double radius_y, double height)
 
-        Hemi Ellipsoid constructor.
-
         Parameters:
         -----------
 
@@ -12476,7 +12337,7 @@ class FormFactorHemiEllipsoid(IFormFactorBorn):
         half length of the other horizontal main axes
 
         height: 
-        of Hemi Ellipsoid 
+        of the hemi ellipsoid 
 
         """
         this = _libBornAgainCore.new_FormFactorHemiEllipsoid(radius_x, radius_y, height)
@@ -12577,7 +12438,7 @@ class FormFactorIcosahedron(FormFactorPolyhedron):
     """
 
 
-    The formfactor of a regular icosahedron.
+    A regular icosahedron.
 
     C++ includes: FormFactorIcosahedron.h
 
@@ -12644,7 +12505,14 @@ FormFactorIcosahedron_swigregister = _libBornAgainCore.FormFactorIcosahedron_swi
 FormFactorIcosahedron_swigregister(FormFactorIcosahedron)
 
 class FormFactorLongBoxGauss(IFormFactorBorn):
-    """Proxy of C++ FormFactorLongBoxGauss class"""
+    """
+
+
+    The formfactor for a long rectangular box.
+
+    C++ includes: FormFactorLongBoxGauss.h
+
+    """
     __swig_setmethods__ = {}
     for _s in [IFormFactorBorn]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
@@ -12771,7 +12639,14 @@ FormFactorLongBoxGauss_swigregister = _libBornAgainCore.FormFactorLongBoxGauss_s
 FormFactorLongBoxGauss_swigregister(FormFactorLongBoxGauss)
 
 class FormFactorLongBoxLorentz(IFormFactorBorn):
-    """Proxy of C++ FormFactorLongBoxLorentz class"""
+    """
+
+
+    The formfactor for a long rectangular box.
+
+    C++ includes: FormFactorLongBoxLorentz.h
+
+    """
     __swig_setmethods__ = {}
     for _s in [IFormFactorBorn]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
@@ -13550,7 +13425,7 @@ class FormFactorPrism3(FormFactorPolygonalPrism):
     """
 
 
-    The formfactor of a prism based on an equilateral triangle.
+    A prism based on an equilateral triangle.
 
     C++ includes: FormFactorPrism3.h
 
@@ -13570,17 +13445,6 @@ class FormFactorPrism3(FormFactorPolygonalPrism):
         __init__(FormFactorPrism3 self, double const base_edge, double const height) -> FormFactorPrism3
 
         FormFactorPrism3::FormFactorPrism3(const double base_edge, const double height)
-
-        Prism3 constructor.
-
-        Parameters:
-        -----------
-
-        base_edge: 
-        of hexagonal base
-
-        height: 
-        of Prism3 
 
         """
         this = _libBornAgainCore.new_FormFactorPrism3(base_edge, height)
@@ -13631,7 +13495,7 @@ class FormFactorPrism6(FormFactorPolygonalPrism):
     """
 
 
-    The formfactor of a prism based on a regular hexagonal.
+    A prism based on a regular hexagonal.
 
     C++ includes: FormFactorPrism6.h
 
@@ -13651,17 +13515,6 @@ class FormFactorPrism6(FormFactorPolygonalPrism):
         __init__(FormFactorPrism6 self, double const base_edge, double const height) -> FormFactorPrism6
 
         FormFactorPrism6::FormFactorPrism6(const double base_edge, const double height)
-
-        Prism6 constructor.
-
-        Parameters:
-        -----------
-
-        base_edge: 
-        of hexagonal base
-
-        height: 
-        of Prism6 
 
         """
         this = _libBornAgainCore.new_FormFactorPrism6(base_edge, height)
@@ -13712,7 +13565,7 @@ class FormFactorPyramid(FormFactorPolyhedron):
     """
 
 
-    The formfactor of a quadratic pyramid.
+    A frustum with a quadratic base.
 
     C++ includes: FormFactorPyramid.h
 
@@ -13733,16 +13586,14 @@ class FormFactorPyramid(FormFactorPolyhedron):
 
         FormFactorPyramid::FormFactorPyramid(double base_edge, double height, double alpha)
 
-        Pyramid constructor.
-
         Parameters:
         -----------
 
         base_edge: 
-        of one side of Pyramid's square base
+        of one side of the square base
 
         height: 
-        of Pyramid
+        of the frustum
 
         alpha: 
         dihedral angle in radians between base and facet 
@@ -14085,7 +13936,7 @@ class FormFactorSphereGaussianRadius(IFormFactorBorn):
     """
 
 
-    The formfactor of sphere with gaussian radius distribution.
+    A sphere with gaussian radius distribution.
 
     C++ includes: FormFactorSphereGaussianRadius.h
 
@@ -14175,7 +14026,7 @@ class FormFactorSphereLogNormalRadius(IFormFactorBorn):
     """
 
 
-    The formfactor of sphere with log normal radius distribution.
+    A sphere with log normal radius distribution.
 
     C++ includes: FormFactorSphereLogNormalRadius.h
 
@@ -14355,7 +14206,7 @@ class FormFactorTetrahedron(FormFactorPolyhedron):
     """
 
 
-    The formfactor of tetrahedron.
+    A frustum with equilateral trigonal base.
 
     C++ includes: FormFactorTetrahedron.h
 
@@ -14376,16 +14227,14 @@ class FormFactorTetrahedron(FormFactorPolyhedron):
 
         FormFactorTetrahedron::FormFactorTetrahedron(double base_edge, double height, double alpha)
 
-        Tetrahedron constructor.
-
         Parameters:
         -----------
 
         base_edge: 
-        of a side of Tetrahedron's base
+        of a side of the base
 
         height: 
-        of Tetrahedron
+        of the frustum
 
         alpha: 
         dihedral angle in radians between base and facet 
@@ -14459,7 +14308,7 @@ class FormFactorTrivial(IFormFactorBorn):
     """
 
 
-    A uniform formfactor F(q)=1, for development purposes.
+    A dot, with trivial formfactor F(q)=1.
 
     C++ includes: FormFactorTrivial.h
 
@@ -14549,7 +14398,7 @@ class FormFactorTruncatedCube(FormFactorPolyhedron):
     """
 
 
-    The formfactor of a truncated cube.
+    A cube, with tetrahedral truncation of all edges.
 
     C++ includes: FormFactorTruncatedCube.h
 
@@ -14638,7 +14487,7 @@ class FormFactorTruncatedSphere(IFormFactorBorn):
     """
 
 
-    The formfactor of a truncated Sphere.
+    A truncated Sphere.
 
     C++ includes: FormFactorTruncatedSphere.h
 
@@ -14658,17 +14507,6 @@ class FormFactorTruncatedSphere(IFormFactorBorn):
         __init__(FormFactorTruncatedSphere self, double radius, double height) -> FormFactorTruncatedSphere
 
         FormFactorTruncatedSphere::FormFactorTruncatedSphere(double radius, double height)
-
-        TruncatedSphere constructor.
-
-        Parameters:
-        -----------
-
-        radius: 
-        of Truncated Sphere
-
-        height: 
-        of Truncated Sphere 
 
         """
         this = _libBornAgainCore.new_FormFactorTruncatedSphere(radius, height)
@@ -14741,7 +14579,7 @@ class FormFactorTruncatedSpheroid(IFormFactorBorn):
     """
 
 
-    The formfactor of a truncated spheroid.
+    A truncated spheroid. An ellipsoid with two equal axis, truncated by a plane perpendicular to the third axis.
 
     C++ includes: FormFactorTruncatedSpheroid.h
 
@@ -14970,7 +14808,7 @@ class Simulation(ICloneable, IParameterized):
 
     Main class to run the simulation.
 
-    C++ includes: GISASSimulation.h
+    C++ includes: Simulation.h
 
     """
     __swig_setmethods__ = {}
@@ -15113,7 +14951,7 @@ class Simulation(ICloneable, IParameterized):
 
     def addParameterDistribution(self, *args):
         """
-        addParameterDistribution(Simulation self, std::string const & param_name, IDistribution1D distribution, size_t nbr_samples, double sigma_factor=0.0, AttLimits limits)
+        addParameterDistribution(Simulation self, std::string const & param_name, IDistribution1D distribution, size_t nbr_samples, double sigma_factor=0.0, Limits limits)
         addParameterDistribution(Simulation self, std::string const & param_name, IDistribution1D distribution, size_t nbr_samples, double sigma_factor=0.0)
         addParameterDistribution(Simulation self, std::string const & param_name, IDistribution1D distribution, size_t nbr_samples)
         addParameterDistribution(Simulation self, ParameterDistribution par_distr)
@@ -15321,7 +15159,14 @@ SimulationOptions_swigregister = _libBornAgainCore.SimulationOptions_swigregiste
 SimulationOptions_swigregister(SimulationOptions)
 
 class GISASSimulation(Simulation):
-    """Proxy of C++ GISASSimulation class"""
+    """
+
+
+    Main class to run the simulation.
+
+    C++ includes: GISASSimulation.h
+
+    """
     __swig_setmethods__ = {}
     for _s in [Simulation]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
@@ -16320,7 +16165,14 @@ def Histogram1D_dynamicCast(pHistogram):
     return _libBornAgainCore.Histogram1D_dynamicCast(pHistogram)
 
 class Histogram2D(IHistogram):
-    """Proxy of C++ Histogram2D class"""
+    """
+
+
+    Two dimensional histogram.
+
+    C++ includes: Histogram2D.h
+
+    """
     __swig_setmethods__ = {}
     for _s in [IHistogram]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
@@ -17331,7 +17183,7 @@ class ILayout(ICompositeSample):
         """
         getApproximation(ILayout self) -> ILayout::EInterferenceApproximation
 
-        ILayout::EInterferenceApproximation ILayout::getApproximation() const
+        EInterferenceApproximation ILayout::getApproximation() const
 
         Gets the used approximation for particles and interference functions. 
 
@@ -18768,8 +18620,6 @@ class InterferenceFunction1DLattice(IInterferenceFunction):
 
         InterferenceFunction1DLattice::InterferenceFunction1DLattice(double length, double xi)
 
-        constructor
-
         Parameters:
         -----------
 
@@ -18792,7 +18642,7 @@ class InterferenceFunction1DLattice(IInterferenceFunction):
         """
         clone(InterferenceFunction1DLattice self) -> InterferenceFunction1DLattice
 
-        InterferenceFunction1DLattice * InterferenceFunction1DLattice::clone() const
+        InterferenceFunction1DLattice * InterferenceFunction1DLattice::clone() const final
 
         Returns a clone of this  ISample object. 
 
@@ -18804,7 +18654,7 @@ class InterferenceFunction1DLattice(IInterferenceFunction):
         """
         accept(InterferenceFunction1DLattice self, ISampleVisitor visitor)
 
-        void InterferenceFunction1DLattice::accept(ISampleVisitor *visitor) const
+        void InterferenceFunction1DLattice::accept(ISampleVisitor *visitor) const final
 
         Calls ISampleVisitor::visit. 
 
@@ -18836,7 +18686,7 @@ class InterferenceFunction1DLattice(IInterferenceFunction):
         """
         getDecayFunction(InterferenceFunction1DLattice self) -> IFTDecayFunction1D
 
-        const IFTDecayFunction1D * InterferenceFunction1DLattice::getDecayFunction() const 
+        const IFTDecayFunction1D* InterferenceFunction1DLattice::getDecayFunction() const 
 
         """
         return _libBornAgainCore.InterferenceFunction1DLattice_getDecayFunction(self)
@@ -18846,7 +18696,7 @@ class InterferenceFunction1DLattice(IInterferenceFunction):
         """
         evaluate(InterferenceFunction1DLattice self, kvector_t q) -> double
 
-        double InterferenceFunction1DLattice::evaluate(const kvector_t q) const
+        double InterferenceFunction1DLattice::evaluate(const kvector_t q) const final
 
         Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
 
@@ -18893,7 +18743,7 @@ class InterferenceFunctionRadialParaCrystal(IInterferenceFunction):
         """
         clone(InterferenceFunctionRadialParaCrystal self) -> InterferenceFunctionRadialParaCrystal
 
-        InterferenceFunctionRadialParaCrystal * InterferenceFunctionRadialParaCrystal::clone() const
+        InterferenceFunctionRadialParaCrystal * InterferenceFunctionRadialParaCrystal::clone() const final
 
         Returns a clone of this  ISample object. 
 
@@ -18918,7 +18768,7 @@ class InterferenceFunctionRadialParaCrystal(IInterferenceFunction):
         to_str(InterferenceFunctionRadialParaCrystal self, int indent=0) -> std::string
         to_str(InterferenceFunctionRadialParaCrystal self) -> std::string
 
-        std::string InterferenceFunctionRadialParaCrystal::to_str(int indent=0) const
+        std::string InterferenceFunctionRadialParaCrystal::to_str(int indent=0) const final
 
         Returns textual representation of *this and its descendants. 
 
@@ -18940,7 +18790,7 @@ class InterferenceFunctionRadialParaCrystal(IInterferenceFunction):
         """
         getKappa(InterferenceFunctionRadialParaCrystal self) -> double
 
-        virtual double InterferenceFunctionRadialParaCrystal::getKappa() const
+        double InterferenceFunctionRadialParaCrystal::getKappa() const final
 
         Retrieves the size-distance coupling constant (default 0.0) 
 
@@ -18972,7 +18822,7 @@ class InterferenceFunctionRadialParaCrystal(IInterferenceFunction):
         """
         evaluate(InterferenceFunctionRadialParaCrystal self, kvector_t q) -> double
 
-        double InterferenceFunctionRadialParaCrystal::evaluate(const kvector_t q) const
+        double InterferenceFunctionRadialParaCrystal::evaluate(const kvector_t q) const final
 
         Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
 
@@ -19090,7 +18940,7 @@ class InterferenceFunction2DLattice(IInterferenceFunction):
         """
         clone(InterferenceFunction2DLattice self) -> InterferenceFunction2DLattice
 
-        InterferenceFunction2DLattice * InterferenceFunction2DLattice::clone() const
+        InterferenceFunction2DLattice * InterferenceFunction2DLattice::clone() const final
 
         Returns a clone of this  ISample object. 
 
@@ -19102,7 +18952,7 @@ class InterferenceFunction2DLattice(IInterferenceFunction):
         """
         accept(InterferenceFunction2DLattice self, ISampleVisitor visitor)
 
-        void InterferenceFunction2DLattice::accept(ISampleVisitor *visitor) const
+        void InterferenceFunction2DLattice::accept(ISampleVisitor *visitor) const final
 
         Calls ISampleVisitor::visit. 
 
@@ -19146,7 +18996,7 @@ class InterferenceFunction2DLattice(IInterferenceFunction):
         """
         getDecayFunction(InterferenceFunction2DLattice self) -> IFTDecayFunction2D
 
-        const IFTDecayFunction2D * InterferenceFunction2DLattice::getDecayFunction() const 
+        const IFTDecayFunction2D* InterferenceFunction2DLattice::getDecayFunction() const 
 
         """
         return _libBornAgainCore.InterferenceFunction2DLattice_getDecayFunction(self)
@@ -19156,7 +19006,7 @@ class InterferenceFunction2DLattice(IInterferenceFunction):
         """
         evaluate(InterferenceFunction2DLattice self, kvector_t q) -> double
 
-        double InterferenceFunction2DLattice::evaluate(const kvector_t q) const
+        double InterferenceFunction2DLattice::evaluate(const kvector_t q) const final
 
         Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
 
@@ -19178,7 +19028,7 @@ class InterferenceFunction2DLattice(IInterferenceFunction):
         """
         getParticleDensity(InterferenceFunction2DLattice self) -> double
 
-        double InterferenceFunction2DLattice::getParticleDensity() const
+        double InterferenceFunction2DLattice::getParticleDensity() const final
 
         Returns the particle density associated with this 2d lattice. 
 
@@ -19229,8 +19079,6 @@ class InterferenceFunction2DParaCrystal(IInterferenceFunction):
 
         InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal(double length_1, double length_2, double alpha_lattice, double xi=0.0, double damping_length=0.0)
 
-        constructor of 2D paracrystal interference function
-
         Parameters:
         -----------
 
@@ -19262,7 +19110,7 @@ class InterferenceFunction2DParaCrystal(IInterferenceFunction):
         """
         clone(InterferenceFunction2DParaCrystal self) -> InterferenceFunction2DParaCrystal
 
-        InterferenceFunction2DParaCrystal * InterferenceFunction2DParaCrystal::clone() const
+        InterferenceFunction2DParaCrystal * InterferenceFunction2DParaCrystal::clone() const final
 
         Returns a clone of this  ISample object. 
 
@@ -19274,7 +19122,7 @@ class InterferenceFunction2DParaCrystal(IInterferenceFunction):
         """
         accept(InterferenceFunction2DParaCrystal self, ISampleVisitor visitor)
 
-        void InterferenceFunction2DParaCrystal::accept(ISampleVisitor *visitor) const
+        void InterferenceFunction2DParaCrystal::accept(ISampleVisitor *visitor) const final
 
         Calls ISampleVisitor::visit. 
 
@@ -19287,7 +19135,7 @@ class InterferenceFunction2DParaCrystal(IInterferenceFunction):
         to_str(InterferenceFunction2DParaCrystal self, int indent=0) -> std::string
         to_str(InterferenceFunction2DParaCrystal self) -> std::string
 
-        std::string InterferenceFunction2DParaCrystal::to_str(int indent=0) const
+        std::string InterferenceFunction2DParaCrystal::to_str(int indent=0) const final
 
         Returns textual representation of *this and its descendants. 
 
@@ -19367,7 +19215,7 @@ class InterferenceFunction2DParaCrystal(IInterferenceFunction):
         """
         evaluate(InterferenceFunction2DParaCrystal self, kvector_t q) -> double
 
-        double InterferenceFunction2DParaCrystal::evaluate(const kvector_t q) const
+        double InterferenceFunction2DParaCrystal::evaluate(const kvector_t q) const final
 
         Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
 
@@ -19439,7 +19287,7 @@ class InterferenceFunction2DParaCrystal(IInterferenceFunction):
         """
         getParticleDensity(InterferenceFunction2DParaCrystal self) -> double
 
-        double InterferenceFunction2DParaCrystal::getParticleDensity() const
+        double InterferenceFunction2DParaCrystal::getParticleDensity() const final
 
         Returns the particle density associated with this 2d paracrystal lattice. 
 
@@ -19471,7 +19319,7 @@ class InterferenceFunctionNone(IInterferenceFunction):
     """
 
 
-    Default interference function (i.e. absence of any interference)
+    Default interference function (i.e. absence of any interference).
 
     C++ includes: InterferenceFunctionNone.h
 
@@ -19503,7 +19351,7 @@ class InterferenceFunctionNone(IInterferenceFunction):
         """
         clone(InterferenceFunctionNone self) -> InterferenceFunctionNone
 
-        InterferenceFunctionNone * InterferenceFunctionNone::clone() const
+        InterferenceFunctionNone* InterferenceFunctionNone::clone() const final
 
         Returns a clone of this  ISample object. 
 
@@ -19515,7 +19363,7 @@ class InterferenceFunctionNone(IInterferenceFunction):
         """
         accept(InterferenceFunctionNone self, ISampleVisitor visitor)
 
-        void InterferenceFunctionNone::accept(ISampleVisitor *visitor) const
+        void InterferenceFunctionNone::accept(ISampleVisitor *visitor) const final
 
         Calls ISampleVisitor::visit. 
 
@@ -19527,7 +19375,7 @@ class InterferenceFunctionNone(IInterferenceFunction):
         """
         evaluate(InterferenceFunctionNone self, kvector_t arg2) -> double
 
-        double InterferenceFunctionNone::evaluate(const kvector_t q) const
+        double InterferenceFunctionNone::evaluate(const kvector_t) const final
 
         Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
 
@@ -21567,7 +21415,7 @@ class IntensityData(_object):
     """
 
 
-    Template class to store data of any type in multi-dimensional space.
+    Template class to store data of any type in multi-dimensional space.Used with data type double to hold simulation results. Used with data type  CumulativeValue in  IHistogram classes. Used with data type bool to hold a detector mask (-> class  DetectorMask)
 
     C++ includes: OutputData.h
 
@@ -22243,7 +22091,7 @@ class ParameterDistribution(IParameterized):
 
     def __init__(self, *args):
         """
-        __init__(ParameterDistribution self, std::string const & par_name, IDistribution1D distribution, size_t nbr_samples, double sigma_factor=0.0, AttLimits limits) -> ParameterDistribution
+        __init__(ParameterDistribution self, std::string const & par_name, IDistribution1D distribution, size_t nbr_samples, double sigma_factor=0.0, Limits limits) -> ParameterDistribution
         __init__(ParameterDistribution self, std::string const & par_name, IDistribution1D distribution, size_t nbr_samples, double sigma_factor=0.0) -> ParameterDistribution
         __init__(ParameterDistribution self, std::string const & par_name, IDistribution1D distribution, size_t nbr_samples) -> ParameterDistribution
         __init__(ParameterDistribution self, std::string const & par_name, IDistribution1D distribution, size_t nbr_samples, double xmin, double xmax) -> ParameterDistribution
@@ -22342,9 +22190,9 @@ class ParameterDistribution(IParameterized):
 
     def getLimits(self):
         """
-        getLimits(ParameterDistribution self) -> AttLimits
+        getLimits(ParameterDistribution self) -> Limits
 
-        AttLimits ParameterDistribution::getLimits() const 
+        Limits ParameterDistribution::getLimits() const 
 
         """
         return _libBornAgainCore.ParameterDistribution_getLimits(self)
@@ -22476,7 +22324,7 @@ class ParameterPool(_object):
 
     def addParameter(self, par):
         """
-        addParameter(ParameterPool self, RealParameter par)
+        addParameter(ParameterPool self, RealParameter par) -> RealParameter
 
         void ParameterPool::addParameter(RealParameter *par)
 
@@ -23516,12 +23364,26 @@ class RealParameter(INamed):
     for _s in [INamed]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, RealParameter, name)
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainCore.delete_RealParameter
-    __del__ = lambda self: None
+
+    def __init__(self, *args):
+        """
+        __init__(RealParameter self, std::string const & name, ParameterPool parent, double volatile * par, Limits limits, Attributes attr) -> RealParameter
+        __init__(RealParameter self, std::string const & name, ParameterPool parent, double volatile * par, Limits limits) -> RealParameter
+        __init__(RealParameter self, std::string const & name, ParameterPool parent, double volatile * par) -> RealParameter
+        __init__(RealParameter self, RealParameter other) -> RealParameter
+        __init__(RealParameter self, std::string const & name, RealParameter other) -> RealParameter
+
+        RealParameter::RealParameter(const std::string &name, const RealParameter &other)
+
+        This constructor takes copies 'other' except for the name. 
+
+        """
+        this = _libBornAgainCore.new_RealParameter(*args)
+        try:
+            self.this.append(this)
+        except:
+            self.this = this
 
     def clone(self, *args):
         """
@@ -23558,6 +23420,11 @@ class RealParameter(INamed):
         return _libBornAgainCore.RealParameter_getValue(self)
 
 
+    def setUnit(self, name):
+        """setUnit(RealParameter self, std::string const & name) -> RealParameter"""
+        return _libBornAgainCore.RealParameter_setUnit(self, name)
+
+
     def isNull(self):
         """
         isNull(RealParameter self) -> bool
@@ -23582,14 +23449,34 @@ class RealParameter(INamed):
         return _libBornAgainCore.RealParameter_checkNull(self)
 
 
-    def getAttLimits(self):
-        """
-        getAttLimits(RealParameter self) -> AttLimits
+    def setLimits(self, limits):
+        """setLimits(RealParameter self, Limits limits) -> RealParameter"""
+        return _libBornAgainCore.RealParameter_setLimits(self, limits)
 
-        AttLimits RealParameter::getAttLimits() const 
+
+    def getLimits(self):
+        """
+        getLimits(RealParameter self) -> Limits
+
+        Limits RealParameter::getLimits() const 
 
         """
-        return _libBornAgainCore.RealParameter_getAttLimits(self)
+        return _libBornAgainCore.RealParameter_getLimits(self)
+
+
+    def setLimited(self, lower, upper):
+        """setLimited(RealParameter self, double lower, double upper) -> RealParameter"""
+        return _libBornAgainCore.RealParameter_setLimited(self, lower, upper)
+
+
+    def setPositive(self):
+        """setPositive(RealParameter self) -> RealParameter"""
+        return _libBornAgainCore.RealParameter_setPositive(self)
+
+
+    def setNonnegative(self):
+        """setNonnegative(RealParameter self) -> RealParameter"""
+        return _libBornAgainCore.RealParameter_setNonnegative(self)
 
 
     def __eq__(self, other):
@@ -23611,6 +23498,8 @@ class RealParameter(INamed):
         """
         return _libBornAgainCore.RealParameter_unit(self)
 
+    __swig_destroy__ = _libBornAgainCore.delete_RealParameter
+    __del__ = lambda self: None
 RealParameter_swigregister = _libBornAgainCore.RealParameter_swigregister
 RealParameter_swigregister(RealParameter)
 

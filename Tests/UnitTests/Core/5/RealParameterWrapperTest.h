@@ -20,7 +20,7 @@ TEST_F(RealParameterTest, ParameterAccess)
         ParametrizedObject()
             : m_par1(17), m_changed(false)
         {
-            registerUnlimitedScalar("par1", &m_par1);
+            registerParameter("par1", &m_par1);
         }
         virtual void onChange() final { m_changed = true; }
         double m_par1;
@@ -64,21 +64,21 @@ TEST_F(RealParameterTest, LimitedParameter)
     class ParametrizedObject : public IParameterized
     {
     public:
-        ParametrizedObject(double p, const AttLimits& lim)
+        ParametrizedObject(double p, const Limits& lim)
             : m_par(p), m_changed(false)
         {
-            registerUnlimitedScalar("par", &m_par, lim);
+            registerParameter("par", &m_par, lim);
         }
         virtual void onChange() final { m_changed = true; }
         double m_par;
         bool m_changed;
     };
 
-    EXPECT_THROW(ParametrizedObject(7., AttLimits::limited(10., 20.)), std::runtime_error);
-    EXPECT_THROW(ParametrizedObject(1., AttLimits::lowerLimited(2.0)), std::runtime_error);
-    EXPECT_THROW(ParametrizedObject(1., AttLimits::upperLimited(0.0)), std::runtime_error);
+    EXPECT_THROW(ParametrizedObject(7., Limits::limited(10., 20.)), std::runtime_error);
+    EXPECT_THROW(ParametrizedObject(1., Limits::lowerLimited(2.0)), std::runtime_error);
+    EXPECT_THROW(ParametrizedObject(1., Limits::upperLimited(0.0)), std::runtime_error);
 
-    ParametrizedObject obj1(15., AttLimits::limited(10, 20));
+    ParametrizedObject obj1(15., Limits::limited(10, 20));
     EXPECT_EQ(obj1.m_par, 15.);
 
     RealParameter* par1 = obj1.getParameterPool()->getParameter("par");
@@ -88,7 +88,7 @@ TEST_F(RealParameterTest, LimitedParameter)
     EXPECT_EQ(obj1.m_par, 16.);
 
     RealParameter* par2(par1);
-    EXPECT_TRUE(par1->getAttLimits() == par2->getAttLimits());
+    EXPECT_TRUE(par1->getLimits() == par2->getLimits());
     EXPECT_TRUE(*par1 == *par2);
 
     EXPECT_THROW(par2->setValue(21.0), std::runtime_error);

@@ -14,8 +14,9 @@
 // ************************************************************************** //
 
 #include "FormFactorSphereGaussianRadius.h"
-#include "AttLimits.h"
 #include "BornAgainNamespace.h"
+#include "Limits.h"
+#include "RealParameter.h"
 
 using namespace BornAgain;
 
@@ -28,8 +29,8 @@ FormFactorSphereGaussianRadius::FormFactorSphereGaussianRadius(double mean, doub
     setName(FormFactorSphereGaussianRadiusType);
     m_mean_r3 = calculateMeanR3();
     p_ff_sphere = new FormFactorFullSphere(m_mean_r3);
-    registerNonnegativeLength(BornAgain::MeanRadius, &m_mean);
-    registerNonnegativeLength(BornAgain::SigmaRadius, &m_sigma);
+    registerParameter(BornAgain::MeanRadius, &m_mean).setUnit("nm").setNonnegative();
+    registerParameter(BornAgain::SigmaRadius, &m_sigma).setUnit("nm").setNonnegative();
 }
 
 FormFactorSphereGaussianRadius* FormFactorSphereGaussianRadius::clone() const

@@ -48,15 +48,15 @@ def runTest():
     fitSuite.setMinimizer("Minuit2", "Combined")
     fitSuite.initPrint(10)
     fitSuite.addFitParameter(
-        "*SampleBuilder/cylinder_height",  4*nanometer,  AttLimits.lowerLimited(0.01) )
+        "*SampleBuilder/cylinder_height",  4*nanometer,  Limits.lowerLimited(0.01) )
     fitSuite.addFitParameter(
-        "*SampleBuilder/cylinder_radius",  6*nanometer,  AttLimits.lowerLimited(0.01) )
+        "*SampleBuilder/cylinder_radius",  6*nanometer,  Limits.lowerLimited(0.01) )
     fitSuite.addFitParameter(
-        "*SampleBuilder/prism3_half_side", 4*nanometer,  AttLimits.lowerLimited(0.01) )
+        "*SampleBuilder/prism3_half_side", 4*nanometer,  Limits.lowerLimited(0.01) )
     fitSuite.addFitParameter(
-        "*SampleBuilder/prism3_height",    6*nanometer,  AttLimits.lowerLimited(0.01) )
+        "*SampleBuilder/prism3_height",    6*nanometer,  Limits.lowerLimited(0.01) )
     fitSuite.addFitParameter(
-        "*SampleBuilder/cylinder_ratio", 0.2, AttLimits.fixed())
+        "*SampleBuilder/cylinder_ratio", 0.2, Limits.limitless(), Attributes.fixed())
 
     # chiModule = ChiSquaredModule()
     # chiModule.setChiSquaredFunction( SquaredFunctionMeanSquaredError() )
@@ -118,11 +118,16 @@ class MySampleBuilder(ISampleBuilder):
         self.prism3_height = ctypes.c_double(5.0*nanometer)
         self.cylinder_ratio = ctypes.c_double(0.2)
         # register parameters
-        self.registerNonnegativeLength("cylinder_height", ctypes.addressof(self.cylinder_height) )
-        self.registerNonnegativeLength("cylinder_radius", ctypes.addressof(self.cylinder_radius) )
-        self.registerNonnegativeLength("prism3_half_side", ctypes.addressof(self.prism3_half_side) )
-        self.registerNonnegativeLength("prism3_height", ctypes.addressof(self.prism3_height) )
-        self.registerNonnegativeScalar("cylinder_ratio", ctypes.addressof(self.cylinder_ratio) )
+        self.registerParameter("cylinder_height", ctypes.addressof(self.cylinder_height)).\
+            setUnit("nm").setNonnegative()
+        self.registerParameter("cylinder_radius", ctypes.addressof(self.cylinder_radius)).\
+            setUnit("nm").setNonnegative()
+        self.registerParameter("prism3_half_side", ctypes.addressof(self.prism3_half_side)).\
+            setUnit("nm").setNonnegative()
+        self.registerParameter("prism3_height", ctypes.addressof(self.prism3_height)).\
+            setUnit("nm").setNonnegative()
+        self.registerParameter("cylinder_ratio", ctypes.addressof(self.cylinder_ratio) ).\
+            setNonnegative()
 
     # constructs the sample for current values of parameters
     def buildSample(self):

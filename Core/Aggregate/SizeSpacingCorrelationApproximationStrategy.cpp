@@ -18,6 +18,7 @@
 #include "FormFactorInfo.h"
 #include "IFormFactor.h"
 #include "InterferenceFunctionRadialParaCrystal.h"
+#include "RealParameter.h"
 #include "SimulationElement.h"
 
 SizeSpacingCorrelationApproximationStrategy::SizeSpacingCorrelationApproximationStrategy(

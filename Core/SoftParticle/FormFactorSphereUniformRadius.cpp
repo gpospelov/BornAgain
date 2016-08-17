@@ -18,6 +18,7 @@
 #include "Exceptions.h"
 #include "Numeric.h"
 #include "Pi.h"
+#include "RealParameter.h"
 
 FormFactorSphereUniformRadius::FormFactorSphereUniformRadius(double mean,
         double full_width)
@@ -29,8 +30,8 @@ FormFactorSphereUniformRadius::FormFactorSphereUniformRadius(double mean,
                 "FormFactorSphereUniformRadius::FormFactorSphereUniformRadius:"
                 " mean radius must be bigger than the half width");
     setName(BornAgain::FormFactorSphereUniformRadiusType);
-    registerNonnegativeLength(BornAgain::MeanRadius, &m_mean);
-    registerNonnegativeLength(BornAgain::FullWidth, &m_full_width);
+    registerParameter(BornAgain::MeanRadius, &m_mean).setUnit("nm").setNonnegative();
+    registerParameter(BornAgain::FullWidth, &m_full_width).setUnit("nm").setNonnegative();
 }
 
 complex_t FormFactorSphereUniformRadius::evaluate_for_q(const cvector_t q) const

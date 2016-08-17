@@ -14,12 +14,13 @@
 // ************************************************************************** //
 
 #include "FormFactorTruncatedSphere.h"
-#include "AttLimits.h"
 #include "BornAgainNamespace.h"
 #include "Exceptions.h"
+#include "Limits.h"
 #include "MathFunctions.h"
 #include "Numeric.h"
 #include "Pi.h"
+#include "RealParameter.h"
 
 using namespace  BornAgain;
 
@@ -28,8 +29,8 @@ FormFactorTruncatedSphere::FormFactorTruncatedSphere(double radius, double heigh
 {
     setName(FFTruncatedSphereType);
     check_initialization();
-    registerNonnegativeLength(Radius, &m_radius);
-    registerNonnegativeLength(Height, &m_height);
+    registerParameter(Radius, &m_radius).setUnit("nm").setNonnegative();
+    registerParameter(Height, &m_height).setUnit("nm").setNonnegative();
     mP_integrator = make_integrator_complex(this, &FormFactorTruncatedSphere::Integrand);
 }
 

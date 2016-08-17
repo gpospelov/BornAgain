@@ -19,6 +19,7 @@
 #include "FTDecayFunctions.h"
 #include "ISampleVisitor.h"
 #include "Pi.h"
+#include "RealParameter.h"
 
 using namespace BornAgain;
 
@@ -94,6 +95,6 @@ InterferenceFunction1DLattice::InterferenceFunction1DLattice(
 
 void InterferenceFunction1DLattice::init_parameters()
 {
-    registerPositiveLength(Length, &m_lattice_params.m_length);
-    registerUnlimitedAngle(Xi, &m_lattice_params.m_xi);
+    registerParameter(Length, &m_lattice_params.m_length).setUnit("nm").setNonnegative();
+    registerParameter(Xi, &m_lattice_params.m_xi).setUnit("rad");
 }

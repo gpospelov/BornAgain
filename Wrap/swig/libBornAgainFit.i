@@ -76,8 +76,10 @@ import_array();
 // The following goes verbatim from libBornAgainFit.i to libBornAgainFit_wrap.cxx.
 // Note that the order matters, as base classes must be included before derived classes.
 
-%include "AttLimits.h"
+%include "Attributes.h"
+%include "Limits.h"
 
+%include "Configurable.h"
 %include "IMinimizer.h"
 %include "FitParameter.h"
 %include "FitSuiteParameters.h"

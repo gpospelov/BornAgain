@@ -199,10 +199,10 @@ def run_fitting():
     fit_suite.attachObserver(draw_observer)
 
     # setting fitting parameters with starting values
-    fit_suite.addFitParameter("*Cylinder/Height", 2.*nanometer, AttLimits.limited(0.01, 10.0))
-    fit_suite.addFitParameter("*Cylinder/Radius", 2.*nanometer, AttLimits.limited(0.01, 10.0))
-    fit_suite.addFitParameter("*Prism3/Height", 2.*nanometer, AttLimits.limited(0.01, 10.0))
-    fit_suite.addFitParameter("*Prism3/Length", 2.*nanometer, AttLimits.limited(0.01, 10.0))
+    fit_suite.addFitParameter("*Cylinder/Height", 2.*nanometer, Limits.limited(0.01, 10.0))
+    fit_suite.addFitParameter("*Cylinder/Radius", 2.*nanometer, Limits.limited(0.01, 10.0))
+    fit_suite.addFitParameter("*Prism3/Height", 2.*nanometer, Limits.limited(0.01, 10.0))
+    fit_suite.addFitParameter("*Prism3/Length", 2.*nanometer, Limits.limited(0.01, 10.0))
 
     # # Now we create first fig strategy which will run first minimization round using Genetic minimizer.
     # # Genetic minimizer is able to explore large parameter space without being trapped by some local minima.

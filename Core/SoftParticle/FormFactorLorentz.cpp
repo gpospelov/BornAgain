@@ -14,9 +14,10 @@
 // ************************************************************************** //
 
 #include "FormFactorLorentz.h"
-#include "AttLimits.h"
 #include "BornAgainNamespace.h"
+#include "Limits.h"
 #include "Pi.h"
+#include "RealParameter.h"
 
 using namespace BornAgain;
 
@@ -59,6 +60,6 @@ complex_t FormFactorLorentz::evaluate_for_q(const cvector_t q) const
 void FormFactorLorentz::initialize()
 {
     setName(BornAgain::FFLorentzType);
-    registerNonnegativeLength(BornAgain::Width, &m_width);
-    registerNonnegativeLength(BornAgain::Height, &m_height);
+    registerParameter(BornAgain::Width, &m_width).setUnit("nm").setNonnegative();
+    registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
 }

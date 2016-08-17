@@ -150,7 +150,7 @@ const FitParameter* FitSuiteParameters::operator[](size_t index) const
     return m_parameters[check_index(index)];
 }
 
-size_t FitSuiteParameters::getNfreeParameters() const
+size_t FitSuiteParameters::numberOfFreeFitParameters() const
 {
     size_t result(0);
     for (auto par: m_parameters)
@@ -170,7 +170,7 @@ bool FitSuiteParameters::valuesAreDifferent(
     return false;
 }
 
-void FitSuiteParameters::printParameters() const
+void FitSuiteParameters::printFitParameters() const
 {
     int npar(0);
     for (auto par: m_parameters)
@@ -189,7 +189,7 @@ void FitSuiteParameters::releaseAll()
         par->setFixed(false);
 }
 
-void FitSuiteParameters::setParametersFixed(const std::vector<std::string>& pars, bool is_fixed)
+void FitSuiteParameters::setFixed(const std::vector<std::string>& pars, bool is_fixed)
 {
     for (auto par: pars)
         getFitParameter(par)->setFixed(is_fixed);

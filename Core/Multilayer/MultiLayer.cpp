@@ -21,6 +21,7 @@
 #include "Materials.h"
 #include "MultiLayerDWBASimulation.h"
 #include "ParameterPool.h"
+#include "RealParameter.h"
 
 MultiLayer::MultiLayer() : m_crossCorrLength(0)
 {
@@ -41,7 +42,8 @@ std::string MultiLayer::to_str(int indent) const
 void MultiLayer::init_parameters()
 {
     getParameterPool()->clear(); // non-trivially needed
-    registerNonnegativeLength(BornAgain::CrossCorrelationLength, &m_crossCorrLength);
+    registerParameter(BornAgain::CrossCorrelationLength, &m_crossCorrLength).
+        setUnit("nm").setNonnegative();
 }
 
 void MultiLayer::clear() // TODO: understand need

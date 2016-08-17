@@ -23,6 +23,7 @@
 #include "Particle.h"
 #include "ParticleDistribution.h"
 #include "ParticleLayout.h"
+#include "RealParameter.h"
 #include "Units.h"
 
 using namespace BornAgain;
@@ -37,8 +38,8 @@ CylindersWithSizeDistributionBuilder::CylindersWithSizeDistributionBuilder()
 
 void CylindersWithSizeDistributionBuilder::init_parameters()
 {
-    registerNonnegativeLength(BornAgain::Radius, &m_radius);
-    registerNonnegativeLength(BornAgain::Height, &m_height);
+    registerParameter(BornAgain::Radius, &m_radius).setUnit("nm").setNonnegative();
+    registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
 }
 
 
@@ -92,12 +93,12 @@ TwoTypesCylindersDistributionBuilder::TwoTypesCylindersDistributionBuilder()
 
 void TwoTypesCylindersDistributionBuilder::init_parameters()
 {
-    registerNonnegativeLength("radius1", &m_radius1);
-    registerNonnegativeLength("radius2", &m_radius2);
-    registerNonnegativeLength("height1", &m_height1);
-    registerNonnegativeLength("height2", &m_height2);
-    registerNonnegativeScalar("sigma1_ratio", &m_sigma1_ratio);
-    registerNonnegativeScalar("sigma2_ratio", &m_sigma2_ratio);
+    registerParameter("radius1", &m_radius1).setUnit("nm").setNonnegative();
+    registerParameter("radius2", &m_radius2).setUnit("nm").setNonnegative();
+    registerParameter("height1", &m_height1).setUnit("nm").setNonnegative();
+    registerParameter("height2", &m_height2).setUnit("nm").setNonnegative();
+    registerParameter("sigma1_ratio", &m_sigma1_ratio).setNonnegative();
+    registerParameter("sigma2_ratio", &m_sigma2_ratio).setNonnegative();
 }
 
 

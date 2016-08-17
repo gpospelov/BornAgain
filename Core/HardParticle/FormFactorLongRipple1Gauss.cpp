@@ -14,20 +14,21 @@
 // ************************************************************************** //
 
 #include "FormFactorLongRipple1Gauss.h"
-#include "AttLimits.h"
 #include "BornAgainNamespace.h"
 #include "Exceptions.h"
+#include "Limits.h"
 #include "MathFunctions.h"
 #include "Pi.h"
+#include "RealParameter.h"
 
 FormFactorLongRipple1Gauss::FormFactorLongRipple1Gauss(double length, double width, double height)
     : m_length(length), m_width(width), m_height(height)
 {
     setName(BornAgain::FFLongRipple1GaussType);
     check_initialization();
-    registerNonnegativeLength(BornAgain::Length, &m_length);
-    registerNonnegativeLength(BornAgain::Width, &m_width);
-    registerNonnegativeLength(BornAgain::Height, &m_height);
+    registerParameter(BornAgain::Length, &m_length).setUnit("nm").setNonnegative();
+    registerParameter(BornAgain::Width, &m_width).setUnit("nm").setNonnegative();
+    registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
     mP_integrator = make_integrator_complex(this, &FormFactorLongRipple1Gauss::Integrand);
 }
 

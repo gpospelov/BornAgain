@@ -1597,7 +1597,7 @@ C++ includes: FitKernel.h
 
 Resets most state variables, to get prepared for the next fit.
 
-clear all data 
+Clears all data. 
 ";
 
 %feature("docstring")  FitKernel::addSimulationAndRealData "void FitKernel::addSimulationAndRealData(const GISASSimulation &simulation, const OutputData< double > &real_data, double weight)
@@ -1629,7 +1629,7 @@ Adds fit strategy.
 Sets minimizer. 
 ";
 
-%feature("docstring")  FitKernel::getMinimizer "IMinimizer * FitKernel::getMinimizer()
+%feature("docstring")  FitKernel::getMinimizer "IMinimizer* FitKernel::getMinimizer()
 
 Returns minimizer. 
 ";
@@ -1814,7 +1814,7 @@ C++ includes: FitOptions.h
 // File: classFitParameterLinked.xml
 %feature("docstring") FitParameterLinked "
 
-Provide simultaneous access for several real parameters from parameter pool.
+Fittable parameter, linked to other parameters from pools.
 
 C++ includes: FitParameterLinked.h
 ";
@@ -1828,10 +1828,10 @@ C++ includes: FitParameterLinked.h
 %feature("docstring")  FitParameterLinked::FitParameterLinked "FitParameterLinked::FitParameterLinked(const FitParameterLinked &)=delete
 ";
 
-%feature("docstring")  FitParameterLinked::~FitParameterLinked "FitParameterLinked::~FitParameterLinked()
+%feature("docstring")  FitParameterLinked::~FitParameterLinked "FitParameterLinked::~FitParameterLinked() final
 ";
 
-%feature("docstring")  FitParameterLinked::setValue "void FitParameterLinked::setValue(double value)
+%feature("docstring")  FitParameterLinked::setValue "void FitParameterLinked::setValue(double value) final
 
 Sets given value for all bound parameters. 
 ";
@@ -7829,7 +7829,7 @@ C++ includes: OutputDataWriteStrategy.h
 // File: classIParameterized.xml
 %feature("docstring") IParameterized "
 
-Manage a local parameter pool, and a tree of child pools.
+Manages a local parameter pool, and a tree of child pools.
 
 C++ includes: IParameterized.h
 ";
@@ -13307,7 +13307,7 @@ C++ includes: WavevectorInfo.h
 // File: classMathFunctions_1_1Convolve_1_1Workspace.xml
 
 
-// File: namespace_0D294.xml
+// File: namespace_0D296.xml
 
 
 // File: namespace_0D368.xml
@@ -13992,6 +13992,12 @@ global helper function for comparison of axes
 
 
 // File: FitOptions_8h.xml
+
+
+// File: FitParameterLinked_8cpp.xml
+
+
+// File: FitParameterLinked_8h.xml
 
 
 // File: FitStrategyAdjustMinimizer_8cpp.xml
@@ -14749,12 +14755,6 @@ Set all element intensities to given value.
 
 
 // File: Distributions_8h.xml
-
-
-// File: FitParameterLinked_8cpp.xml
-
-
-// File: FitParameterLinked_8h.xml
 
 
 // File: INamed_8h.xml

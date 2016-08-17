@@ -1580,7 +1580,7 @@ class IParameterized(INamed):
     """
 
 
-    Manage a local parameter pool, and a tree of child pools.
+    Manages a local parameter pool, and a tree of child pools.
 
     C++ includes: IParameterized.h
 

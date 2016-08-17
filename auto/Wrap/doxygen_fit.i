@@ -178,7 +178,7 @@ Returns string with all options using given delimeter.
 // File: classFitParameter.xml
 %feature("docstring") FitParameter "
 
-Parameter with value, error and limits for fitting routines.
+Fittable parameter with value, error, step, limits, and fixed flag.
 
 C++ includes: FitParameter.h
 ";
@@ -196,33 +196,21 @@ C++ includes: FitParameter.h
 ";
 
 %feature("docstring")  FitParameter::setValue "virtual void FitParameter::setValue(double value)
-
-Sets value of parameter. 
 ";
 
-%feature("docstring")  FitParameter::getValue "virtual double FitParameter::getValue() const
-
-Returns value of parameter. 
+%feature("docstring")  FitParameter::getValue "double FitParameter::getValue() const 
 ";
 
-%feature("docstring")  FitParameter::setStep "virtual void FitParameter::setStep(double value)
-
-Sets parameter step for minimizer. 
+%feature("docstring")  FitParameter::setStep "void FitParameter::setStep(double value)
 ";
 
-%feature("docstring")  FitParameter::getStep "virtual double FitParameter::getStep() const
-
-Returns parameter step for minimizer. 
+%feature("docstring")  FitParameter::getStep "double FitParameter::getStep() const 
 ";
 
-%feature("docstring")  FitParameter::setError "virtual void FitParameter::setError(double value)
-
-Sets parameter error. 
+%feature("docstring")  FitParameter::setError "void FitParameter::setError(double value)
 ";
 
-%feature("docstring")  FitParameter::getError "virtual double FitParameter::getError() const
-
-Returns parameter step for minimizer. 
+%feature("docstring")  FitParameter::getError "double FitParameter::getError() const 
 ";
 
 

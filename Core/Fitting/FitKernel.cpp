@@ -38,7 +38,7 @@ FitKernel::~FitKernel()
     clear();
 }
 
-//! clear all data
+//! Clears all data.
 void FitKernel::clear()
 {
     m_fit_objects.clear();
@@ -86,11 +86,6 @@ void FitKernel::setMinimizer(IMinimizer* minimizer)
         throw std::runtime_error(
             "FitSuite::setMinimizer() -> Error. Attempt to set nullptr minimizer");
     m_minimizer.reset(minimizer);
-}
-
-IMinimizer* FitKernel::getMinimizer()
-{
-    return m_minimizer.get();
 }
 
 void FitKernel::runFit()
@@ -180,11 +175,6 @@ double FitKernel::getRunTime() const
 {
     boost::posix_time::time_duration diff = m_end_time - m_start_time;
     return diff.total_milliseconds()/1000.;
-}
-
-void FitKernel::notifyObservers()
-{
-    m_notifyObservers();
 }
 
 bool FitKernel::check_prerequisites() const

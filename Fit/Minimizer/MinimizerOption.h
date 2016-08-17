@@ -82,5 +82,5 @@ T MinimizerOption::getDefault() const
     return m_default_value.get<T>();
 }
 
-#endif
+#endif // MINIMIZEROPTION_H
 

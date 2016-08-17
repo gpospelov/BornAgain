@@ -92,5 +92,5 @@ private:
     std::unique_ptr<ROOTMinimizerGradientFunction> m_gradient_func;
 };
 
-#endif
+#endif // BASICMINIMIZER_H
 

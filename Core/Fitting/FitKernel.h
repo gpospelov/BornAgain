@@ -32,9 +32,8 @@ class Limits;
 class GISASSimulation;
 class IMinimizer;
 
-//! @class FitKernel
+//! Fitting kernel for FitSuite.
 //! @ingroup fitting_internal
-//! @brief Fitting kernel for FitSuite
 
 class BA_CORE_API_ FitKernel
 {
@@ -66,7 +65,7 @@ class BA_CORE_API_ FitKernel
     void setMinimizer(IMinimizer* minimizer);
 
     //! Returns minimizer
-    IMinimizer* getMinimizer();
+    IMinimizer* getMinimizer() { return m_minimizer.get(); }
 
     //! Runs a fit, which may consist of several minimization rounds
     virtual void runFit();
@@ -105,7 +104,7 @@ class BA_CORE_API_ FitKernel
     //! Returns total wall time in seconds which was spend for run fit
     double getRunTime() const;
 
-    void notifyObservers();
+    void notifyObservers() { m_notifyObservers(); }
 
     void interruptFitting() { m_is_interrupted = true; }
     void resetInterrupt() { m_is_interrupted = false; }

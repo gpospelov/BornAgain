@@ -2049,7 +2049,7 @@ class FitParameter(Limits, Attributes):
     """
 
 
-    Parameter with value, error and limits for fitting routines.
+    Fittable parameter with value, error, step, limits, and fixed flag.
 
     C++ includes: FitParameter.h
 
@@ -2100,8 +2100,6 @@ class FitParameter(Limits, Attributes):
 
         virtual void FitParameter::setValue(double value)
 
-        Sets value of parameter. 
-
         """
         return _libBornAgainFit.FitParameter_setValue(self, value)
 
@@ -2110,9 +2108,7 @@ class FitParameter(Limits, Attributes):
         """
         getValue(FitParameter self) -> double
 
-        virtual double FitParameter::getValue() const
-
-        Returns value of parameter. 
+        double FitParameter::getValue() const 
 
         """
         return _libBornAgainFit.FitParameter_getValue(self)
@@ -2122,9 +2118,7 @@ class FitParameter(Limits, Attributes):
         """
         setStep(FitParameter self, double value)
 
-        virtual void FitParameter::setStep(double value)
-
-        Sets parameter step for minimizer. 
+        void FitParameter::setStep(double value)
 
         """
         return _libBornAgainFit.FitParameter_setStep(self, value)
@@ -2134,9 +2128,7 @@ class FitParameter(Limits, Attributes):
         """
         getStep(FitParameter self) -> double
 
-        virtual double FitParameter::getStep() const
-
-        Returns parameter step for minimizer. 
+        double FitParameter::getStep() const 
 
         """
         return _libBornAgainFit.FitParameter_getStep(self)
@@ -2146,9 +2138,7 @@ class FitParameter(Limits, Attributes):
         """
         setError(FitParameter self, double value)
 
-        virtual void FitParameter::setError(double value)
-
-        Sets parameter error. 
+        void FitParameter::setError(double value)
 
         """
         return _libBornAgainFit.FitParameter_setError(self, value)
@@ -2158,9 +2148,7 @@ class FitParameter(Limits, Attributes):
         """
         getError(FitParameter self) -> double
 
-        virtual double FitParameter::getError() const
-
-        Returns parameter step for minimizer. 
+        double FitParameter::getError() const 
 
         """
         return _libBornAgainFit.FitParameter_getError(self)

@@ -24,9 +24,8 @@ class Limits;
 class FitParameter;
 class ParameterPool;
 
-//! @class FitSuiteParameters
+//! Vector of parameters, for FitSuite
 //! @ingroup fitting_internal
-//! @brief Holds vector of parameters for FitSuite
 
 class BA_CORE_API_ FitSuiteParameters
 {

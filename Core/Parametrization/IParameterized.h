@@ -22,9 +22,8 @@ class Limits;
 class ParameterPool;
 class RealParameter;
 
-//! @class IParameterized
+//! Manages a local parameter pool, and a tree of child pools.
 //! @ingroup tools_internal
-//! @brief Manage a local parameter pool, and a tree of child pools.
 
 class BA_CORE_API_ IParameterized : public INamed
 {

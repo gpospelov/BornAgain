@@ -74,4 +74,4 @@ private:
     std::unique_ptr<BA_ROOT::Minuit2::Minuit2Minimizer> m_minuit2_minimizer;
 };
 
-#endif
+#endif // MINUIT2MINIMIZER_H

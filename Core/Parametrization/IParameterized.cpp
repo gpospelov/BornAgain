@@ -16,7 +16,7 @@
 #include "IParameterized.h"
 #include "Limits.h"
 #include "ParameterPool.h"
-#include "DimensionedParameters.h"
+#include "RealParameter.h"
 #include <iostream>
 #include <memory>
 #include <sstream>
@@ -71,6 +71,11 @@ void IParameterized::printParameters()
     std::cout << *P_pool << std::endl;
 }
 
+RealParameter& IParameterized::registerParameter(const std::string& name, double* data)
+{
+    return m_pool->addParameter( new RealParameter( name, m_pool, data ) );
+}
+
 void IParameterized::registerUnlimitedAngle(const std::string& name, double* data)
 {
     registerAngle(name, data, Limits::limitless());
@@ -118,19 +123,19 @@ void IParameterized::registerNonnegativeLength(const std::string& name, double* 
 void IParameterized::registerAngle(
     const std::string& name, double* data, const Limits& limits)
 {
-    m_pool->addParameter( new Angle( name, m_pool, data, limits) );
+    m_pool->addParameter( new RealParameter( name, m_pool, data, limits) ).setUnit("rad");
 }
 
 void IParameterized::registerScalar(
     const std::string& name, double* data, const Limits& limits)
 {
-    m_pool->addParameter( new Scalar( name, m_pool, data, limits) );
+    m_pool->addParameter( new RealParameter( name, m_pool, data, limits) ).setUnit("");
 }
 
 void IParameterized::registerLength(
     const std::string& name, double* data, const Limits& limits)
 {
-    m_pool->addParameter( new Length( name, m_pool, data, limits) );
+    m_pool->addParameter( new RealParameter( name, m_pool, data, limits) ).setUnit("nm");
 }
 
 

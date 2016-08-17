@@ -19,6 +19,7 @@
 #include "INamed.h"
 #include "Attributes.h"
 #include "Limits.h"
+#include "Unit.h"
 #include <string>
 
 class ParameterPool;
@@ -35,15 +36,16 @@ public:
         const Attributes& attr=Attributes::free());
     RealParameter(const RealParameter& other);
     RealParameter(const std::string& name, const RealParameter& other);
-    virtual ~RealParameter() {}
 
-    virtual RealParameter* clone( const std::string& new_name="" ) const = 0;
+    RealParameter* clone( const std::string& new_name="" ) const;
 
     //! Sets value of wrapped parameter and emit signal
     void setValue(double value);
 
     //! Returns value of wrapped parameter
     double getValue() const { checkNull(); return *m_data; }
+
+    RealParameter& setUnit(const std::string& name) { m_unit.setUnit(name); return *this; }
 
     //! Returns true if wrapped parameter was not initialized with proper real value
     bool isNull() const { return m_data ? false : true; }
@@ -61,12 +63,13 @@ public:
         return (m_limits == other.m_limits) && (m_data == other.m_data); }
     bool operator!=(const RealParameter &other) const { return !(*this == other); }
 
-    virtual std::string unit() const = 0;
+    std::string unit() const { return m_unit.getName(); }
 
 protected:
     std::string m_name;
     ParameterPool* m_parent; //!< "owns" this parameter
     volatile double* m_data;
+    Unit m_unit;
     Limits m_limits;
     Attributes m_attr;
     std::string fullName(); //!< For use in error messages

@@ -43,6 +43,8 @@ public:
 
     void printParameters();
 
+    RealParameter& registerParameter(const std::string& name, double* parpointer);
+
     void registerUnlimitedAngle(const std::string& name, double* parpointer);
     void registerLimitedAngle(const std::string& name, double* parpointer,
                               double lower_limit, double upper_limit);
@@ -60,8 +62,7 @@ public:
     RealParameter* getParameter(const std::string& name) const;
 
     friend std::ostream& operator<<(std::ostream& ostr, const IParameterized& m) {
-        m.print(ostr);
-        return ostr; }
+        m.print(ostr); return ostr; }
 
     //! Adds parameters from local pool to external pool and recursively calls its direct children.
     virtual std::string addParametersToExternalPool(

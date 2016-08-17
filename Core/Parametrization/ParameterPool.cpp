@@ -24,11 +24,11 @@
 #include <sstream>
 
 //! Constructs an empty parameter pool.
+
 ParameterPool::ParameterPool(const std::string& name, const std::function<void()>& onChange)
     : m_name(name)
     , m_onChange(onChange)
-{
-}
+{}
 
 ParameterPool::~ParameterPool()
 {
@@ -36,6 +36,7 @@ ParameterPool::~ParameterPool()
 }
 
 //! Returns a literal clone.
+
 ParameterPool* ParameterPool::clone() const
 {
     ParameterPool* new_pool = new ParameterPool(m_name, m_onChange);
@@ -43,7 +44,7 @@ ParameterPool* ParameterPool::clone() const
     return new_pool;
 }
 
-//! Returns a clone with _prefix_ added to every parameter key.
+//! Returns a clone with _prefix_ prepended to every parameter key.
 
 ParameterPool* ParameterPool::cloneWithPrefix(const std::string& prefix) const
 {
@@ -52,7 +53,8 @@ ParameterPool* ParameterPool::cloneWithPrefix(const std::string& prefix) const
     return new_pool;
 }
 
-//! Deletes parameter map.
+//! Clears the parameter map.
+
 void ParameterPool::clear()
 {
     for(auto* par: m_params)
@@ -60,9 +62,12 @@ void ParameterPool::clear()
     m_params.clear();
 }
 
-//! Low-level routine.
+//! Adds parameter to the pool, and returns reference to the input pointer.
 
-void ParameterPool::addParameter(RealParameter* newPar)
+//! Returning the input pointer allows us to concatenate function calls like
+//! pool->addParameter( new RealParameter(...) ).setLimits(-1,+1).setFixed().setUnit("nm")
+
+RealParameter& ParameterPool::addParameter(RealParameter* newPar)
 {
     for (const auto* par: m_params )
         if( par->getName()==newPar->getName() )
@@ -70,10 +75,10 @@ void ParameterPool::addParameter(RealParameter* newPar)
                 "Bug in ParameterPool::addParameter(): "
                 "Parameter '"+newPar->getName()+"' is already registered");
     m_params.push_back(newPar);
+    return *newPar;
 }
 
-//! Copy parameters of given pool to the external pool while adding prefix to
-//! local parameter keys
+//! Copies parameters of given pool to _other_ pool, prepeding _prefix_ to the parameter names.
 
 void ParameterPool::copyToExternalPool(const std::string& prefix, ParameterPool* other_pool) const
 {
@@ -83,7 +88,7 @@ void ParameterPool::copyToExternalPool(const std::string& prefix, ParameterPool*
     }
 }
 
-//! Returns parameter with given name.
+//! Returns parameter with given _name_.
 
 const RealParameter* ParameterPool::getParameter(const std::string& name) const
 {
@@ -94,7 +99,7 @@ const RealParameter* ParameterPool::getParameter(const std::string& name) const
         "ParameterPool::getParameter() -> Warning. No parameter with name '"+name+"'");
 }
 
-//! Returns parameter with given name.
+//! Returns parameter with given _name_.
 
 RealParameter* ParameterPool::getParameter(const std::string& name)
 {
@@ -105,17 +110,17 @@ RealParameter* ParameterPool::getParameter(const std::string& name)
         "ParameterPool::getParameter() -> Warning. No parameter with name '"+name+"'");
 }
 
-//! Returns vector of parameters which fit pattern.
+//! Returns vector of parameters that match the _pattern_ (wildcards '*' allowed).
 
-std::vector<RealParameter*> ParameterPool::getMatchedParameters(const std::string& wildcards) const
+std::vector<RealParameter*> ParameterPool::getMatchedParameters(const std::string& pattern) const
 {
     std::vector<RealParameter*> selected_parameters;
     // loop over all parameters in the pool
     for (auto* par: m_params)
-        if( StringUtils::matchesPattern( par->getName(), wildcards ) )
+        if( StringUtils::matchesPattern( par->getName(), pattern ) )
             selected_parameters.push_back(par);
     if( selected_parameters.empty() )
-        report_find_matched_parameters_error(wildcards);
+        report_find_matched_parameters_error(pattern);
     return selected_parameters;
 }
 
@@ -136,11 +141,11 @@ void ParameterPool::setParameterValue(const std::string& name, double value)
 
 //! Sets parameter value.
 
-int ParameterPool::setMatchedParametersValue(const std::string& wildcards, double value)
+int ParameterPool::setMatchedParametersValue(const std::string& pattern, double value)
 {
     int npars(0);
     for (auto* par: m_params) {
-        if( StringUtils::matchesPattern( par->getName(), wildcards ) ) {
+        if( StringUtils::matchesPattern( par->getName(), pattern ) ) {
             try {
                 par->setValue(value);
                 npars++;
@@ -150,7 +155,7 @@ int ParameterPool::setMatchedParametersValue(const std::string& wildcards, doubl
         }
     }
     if(npars == 0)
-        report_find_matched_parameters_error(wildcards);
+        report_find_matched_parameters_error(pattern);
     return npars;
 }
 
@@ -191,6 +196,7 @@ std::string ParameterPool::get_error_message(const std::string& criteria) const
     return ostr.str();
 }
 
+//! reports error while finding parameters matching given name.
 void ParameterPool::report_find_matched_parameters_error(const std::string& pattern) const
 {
     std::ostringstream ostr;
@@ -202,6 +208,7 @@ void ParameterPool::report_find_matched_parameters_error(const std::string& patt
     throw std::runtime_error(ostr.str());
 }
 
+//! Reports error while setting parname to given value.
 void ParameterPool::report_set_value_error(const std::string& parname, double value) const
 {
     std::ostringstream ostr;

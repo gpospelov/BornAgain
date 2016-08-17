@@ -25,9 +25,14 @@
 class Limits;
 class RealParameter;
 
-//! @class ParameterPool
+//! Holds a map of pointers to parameters.
 //! @ingroup tools_internal
-//! @brief Holds a map of pointers to parameters (which must have different names).
+
+//! Used in IParameterized, which has a member ParameterPool* m_pool.
+//! So this is pimpl (pointer to implementation) idiom, with ParameterPool providing the
+//! implementation of all the nontrivial functionality of IParameterized.
+//!
+//! Parameter names must be unique since we use them as map keys.
 
 class BA_CORE_API_ ParameterPool
 {
@@ -37,16 +42,11 @@ public:
     ParameterPool& operator=(const ParameterPool&) = delete;
     virtual ~ParameterPool();
 
-    //! Returns a literal clone.
     ParameterPool* clone() const;
-
-    //! Returns a clone with _prefix_ added to every parameter key.
     ParameterPool* cloneWithPrefix(const std::string& prefix) const;
 
-    //! Copies parameters to _external_pool_, adding _prefix_ to every key.
     void copyToExternalPool(const std::string& prefix, ParameterPool* external_pool) const;
 
-    //! Deletes parameter map.
     void clear();
 
     std::string getName() const { return m_name; }
@@ -54,28 +54,21 @@ public:
     //! Returns number of parameters in the pool.
     size_t size() const { return m_params.size(); }
 
-    //! Adds parameter to the pool
-    void addParameter(RealParameter* par);
+    RealParameter& addParameter(RealParameter* par);
 
-    //! Returns parameter named _name_.
     RealParameter* getParameter(const std::string& name);
 
-    //! Returns parameter named _name_.
     const RealParameter* getParameter(const std::string& name) const;
 
-    //! Returns full vector of parameters
+    //! Returns full vector of parameters.
     const std::vector<RealParameter*> getParameters() const { return m_params; }
 
-    //! Returns vector of parameters which fit pattern
     std::vector<RealParameter*> getMatchedParameters(const std::string& wildcards) const;
 
-    //! Sets parameter value
     void setParameterValue(const std::string& name, double value);
 
-    //! Sets parameter value, return number of changed parameters
     int setMatchedParametersValue(const std::string& wildcards, double value);
 
-    //! Returns all parameter names
     std::vector<std::string> getParameterNames() const;
 
     friend std::ostream& operator<<(std::ostream& ostr, const ParameterPool& obj) {
@@ -86,26 +79,15 @@ protected:
     void onChange() const { m_onChange(); }
 
 private:
-    //! Prints parameter pool contents.
     virtual void print(std::ostream& ostr) const;
 
-    //! prints error message
     std::string get_error_message(const std::string& criteria) const;
-
-    //! reports error while finding parameters matching given name
     void report_find_matched_parameters_error(const std::string& pattern) const;
-
-    //! reports error while setting parname to given value
     void report_set_value_error(const std::string& parname, double value) const;
 
-    //! The name of this pool, ought to be the name of the owning IParameterized.
-    std::string m_name;
-
-    //! The parameters in this pool.
-    std::vector<RealParameter*> m_params;
-
-    //!< Callback to the owning IParameterized, called whenever a parameter has changed.
-    std::function<void()> m_onChange;
+    std::string m_name; //!< The name of this pool, should be that of the owning IParameterized.
+    std::vector<RealParameter*> m_params;     //!< The parameters in this pool.
+    std::function<void()> m_onChange; //!< To be called whenever a parameter has changed.
 
     friend RealParameter; //!< allow call of onChange().
 };

@@ -35,11 +35,25 @@ RealParameter::RealParameter(const std::string& name, ParameterPool* parent,
 }
 
 RealParameter::RealParameter(const RealParameter& other )
-    : RealParameter( other.getName(), other.m_parent, other.m_data, other.m_limits ) {}
+    : RealParameter( other.getName(), other.m_parent, other.m_data, other.m_limits )
+{
+    setUnit(other.unit());
+}
 
 //! This constructor takes copies 'other' except for the name.
 RealParameter::RealParameter(const std::string& name, const RealParameter& other)
-    : RealParameter( name, other.m_parent, other.m_data, other.m_limits ) {}
+    : RealParameter( name, other.m_parent, other.m_data, other.m_limits )
+{
+    setUnit(other.unit());
+}
+
+RealParameter* RealParameter::clone(const std::string& new_name) const
+{
+    auto* ret = new RealParameter( new_name!="" ? new_name : m_name, m_parent, m_data, m_limits );
+    ret->setUnit(unit());
+    return ret;
+}
+
 
 //! throw exception if parameter was not initialized with proper value
 void RealParameter::checkNull() const

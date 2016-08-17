@@ -24,12 +24,6 @@
 
 namespace FileSystem {
 
-    //! Returns path to the current (working) directory
-    std::string GetWorkingPath();
-
-    //! Returns path to BornAgain home directory
-    std::string GetHomePath();
-
     //! Returns file extension
     std::string GetFileExtension(const std::string& name);
 

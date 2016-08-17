@@ -16,6 +16,7 @@
 #include "IParticle.h"
 #include "BornAgainNamespace.h"
 #include "FormFactorDecoratorPositionFactor.h"
+#include "RealParameter.h"
 
 using namespace BornAgain;
 
@@ -56,17 +57,15 @@ void IParticle::applyTranslation(kvector_t displacement)
 IRotation* IParticle::createComposedRotation(const IRotation* p_rotation) const
 {
     if (p_rotation) {
-        if (mP_rotation) {
+        if (mP_rotation)
             return CreateProduct(*p_rotation, *mP_rotation);
-        } else {
+        else
             return p_rotation->clone();
-        }
     } else {
-        if (mP_rotation) {
+        if (mP_rotation)
             return mP_rotation->clone();
-        } else {
+        else
             return nullptr;
-        }
     }
 }
 
@@ -83,9 +82,9 @@ kvector_t IParticle::getComposedTranslation(
 
 void IParticle::registerPosition()
 {
-    registerUnlimitedLength(PositionX, &m_position[0]);
-    registerUnlimitedLength(PositionY, &m_position[1]);
-    registerUnlimitedLength(PositionZ, &m_position[2]);
+    registerParameter(PositionX, &m_position[0]).setUnit("nm");
+    registerParameter(PositionY, &m_position[1]).setUnit("nm");
+    registerParameter(PositionZ, &m_position[2]).setUnit("nm");
 }
 
 const IRotation* IParticle::getRotation() const

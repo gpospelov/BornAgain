@@ -26,11 +26,6 @@
 class BA_CORE_API_ InterferenceFunction2DLattice : public IInterferenceFunction
 {
 public:
-    //! @brief contructor
-    //! @param length_1 Lattice length 1
-    //! @param length_2 Lattice length 2
-    //! @param angle angle between lattice vectors
-    //! @param xi rotation of lattice with respect to x-axis
     InterferenceFunction2DLattice(double length_1, double length_2, double angle, double xi=0.0);
     ~InterferenceFunction2DLattice() final;
 

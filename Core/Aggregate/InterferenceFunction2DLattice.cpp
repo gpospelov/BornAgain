@@ -19,6 +19,7 @@
 #include "Macros.h"
 #include "ISampleVisitor.h"
 #include "Pi.h"
+#include "RealParameter.h"
 
 GCC_DIAG_OFF(unused-parameter)
 #include <boost/math/special_functions/round.hpp>
@@ -26,8 +27,12 @@ GCC_DIAG_ON(unused-parameter)
 
 using namespace BornAgain;
 
-InterferenceFunction2DLattice::InterferenceFunction2DLattice(double length_1, double length_2,
-                                                             double angle, double xi)
+//! @param length_1 Lattice length 1
+//! @param length_2 Lattice length 2
+//! @param angle angle between lattice vectors
+//! @param xi rotation of lattice with respect to x-axis
+InterferenceFunction2DLattice::InterferenceFunction2DLattice(
+    double length_1, double length_2, double angle, double xi)
     : mp_pdf(0), m_na(0), m_nb(0)
 {
     m_lattice_params.m_length_1 = length_1;
@@ -52,8 +57,8 @@ InterferenceFunction2DLattice* InterferenceFunction2DLattice::clone() const
     return result;
 }
 
-InterferenceFunction2DLattice* InterferenceFunction2DLattice::createSquare(double lattice_length,
-                                                                           double xi)
+InterferenceFunction2DLattice* InterferenceFunction2DLattice::createSquare(
+    double lattice_length, double xi)
 {
     Lattice2DParameters lattice_params;
     lattice_params.m_length_1 = lattice_length;
@@ -63,8 +68,8 @@ InterferenceFunction2DLattice* InterferenceFunction2DLattice::createSquare(doubl
     return new InterferenceFunction2DLattice(lattice_params);
 }
 
-InterferenceFunction2DLattice* InterferenceFunction2DLattice::createHexagonal(double lattice_length,
-                                                                              double xi)
+InterferenceFunction2DLattice* InterferenceFunction2DLattice::createHexagonal(
+    double lattice_length, double xi)
 {
     Lattice2DParameters lattice_params;
     lattice_params.m_length_1 = lattice_length;
@@ -140,9 +145,8 @@ double InterferenceFunction2DLattice::interferenceAtOneRecLatticePoint(double qx
     return mp_pdf->evaluate(qp1, qp2);
 }
 
-void InterferenceFunction2DLattice::transformToPrincipalAxes(double qx, double qy, double gamma,
-                                                             double delta, double &q_pa_1,
-                                                             double &q_pa_2) const
+void InterferenceFunction2DLattice::transformToPrincipalAxes(
+    double qx, double qy, double gamma, double delta, double &q_pa_1, double &q_pa_2) const
 {
     q_pa_1 = qx * std::cos(gamma) + qy * std::sin(gamma);
     q_pa_2 = qx * std::cos(gamma + delta) + qy * std::sin(gamma + delta);
@@ -173,10 +177,10 @@ InterferenceFunction2DLattice::InterferenceFunction2DLattice(
 
 void InterferenceFunction2DLattice::init_parameters()
 {
-    registerPositiveLength(LatticeLength1, &m_lattice_params.m_length_1);
-    registerPositiveLength(LatticeLength2, &m_lattice_params.m_length_2);
-    registerUnlimitedAngle(Alpha, &m_lattice_params.m_angle);
-    registerUnlimitedAngle(Xi, &m_lattice_params.m_xi);
+    registerParameter(LatticeLength1, &m_lattice_params.m_length_1).setUnit("nm").setPositive();
+    registerParameter(LatticeLength2, &m_lattice_params.m_length_2).setUnit("nm").setPositive();
+    registerParameter(Alpha, &m_lattice_params.m_angle).setUnit("rad");
+    registerParameter(Xi,    &m_lattice_params.m_xi   ).setUnit("rad");
 }
 
 void InterferenceFunction2DLattice::initialize_rec_vectors()

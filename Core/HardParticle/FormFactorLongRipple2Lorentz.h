@@ -24,11 +24,6 @@
 class BA_CORE_API_ FormFactorLongRipple2Lorentz : public IFormFactorBorn
 {
 public:
-    //! @brief FormFactorLongRipple2Lorentz constructor
-    //! @param length of Ripple2
-    //! @param width of triangular cross section
-    //! @param height of triangular cross section
-    //! @param asymmetry length of triangular cross section
     FormFactorLongRipple2Lorentz(double length, double width, double height, double asymmetry);
     virtual ~FormFactorLongRipple2Lorentz() {}
 
@@ -45,10 +40,9 @@ public:
 
     complex_t evaluate_for_q(const cvector_t q) const final;
 
-protected:
-    virtual bool check_initialization() const;
-
 private:
+    void check_parameters() const;
+
     double m_length;
     double m_width;
     double m_height;

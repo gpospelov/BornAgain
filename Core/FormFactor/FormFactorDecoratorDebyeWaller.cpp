@@ -17,6 +17,7 @@
 #include "BornAgainNamespace.h"
 #include "ISampleVisitor.h"
 #include "WavevectorInfo.h"
+#include "RealParameter.h"
 
 FormFactorDecoratorDebyeWaller::FormFactorDecoratorDebyeWaller(
     const IFormFactor& form_factor, double dw_factor)
@@ -45,8 +46,8 @@ complex_t FormFactorDecoratorDebyeWaller::evaluate(const WavevectorInfo& wavevec
 
 void FormFactorDecoratorDebyeWaller::init_parameters()
 {
-    registerPositiveScalar(BornAgain::HeightDWFactor, &m_h_dw_factor);
-    registerPositiveScalar(BornAgain::RadiusDWFactor, &m_r_dw_factor);
+    registerParameter(BornAgain::HeightDWFactor, &m_h_dw_factor).setPositive();
+    registerParameter(BornAgain::RadiusDWFactor, &m_r_dw_factor).setPositive();
 }
 
 void FormFactorDecoratorDebyeWaller::initialize()

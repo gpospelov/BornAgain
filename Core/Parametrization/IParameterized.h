@@ -45,15 +45,6 @@ public:
 
     RealParameter& registerParameter(const std::string& name, double* parpointer);
 
-    void registerUnlimitedAngle(const std::string& name, double* parpointer);
-
-    void registerUnlimitedLength(const std::string& name, double* parpointer);
-    void registerPositiveLength(const std::string& name, double* parpointer);
-    void registerNonnegativeLength(const std::string& name, double* parpointer);
-
-    void registerPositiveScalar(const std::string& name, double* parpointer);
-    void registerNonnegativeScalar(const std::string& name, double* parpointer);
-
     void setParameterValue(const std::string& name, double value);
 
     RealParameter* getParameter(const std::string& name) const;
@@ -74,10 +65,6 @@ protected:
     virtual void print(std::ostream& ostr) const;
 
 private:
-    void registerAngle(const std::string& name, double* parpointer, const Limits& limits);
-    void registerScalar(const std::string& name, double* parpointer, const Limits& limits);
-    void registerLength(const std::string& name, double* parpointer, const Limits& limits);
-
     ParameterPool* m_pool; //!< parameter pool (kind of pointer-to-implementation)
 };
 

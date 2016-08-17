@@ -23,6 +23,7 @@
 #include "Particle.h"
 #include "ParticleLayout.h"
 #include "Units.h"
+#include "RealParameter.h"
 
 Lattice1DBuilder::Lattice1DBuilder()
     : m_length(20.0*Units::nanometer)
@@ -65,9 +66,9 @@ ISample* Lattice1DBuilder::buildSample() const
 
 void Lattice1DBuilder::init_parameters()
 {
-    registerNonnegativeLength("lattice_length", &m_length);
-    registerUnlimitedAngle("lattice_rotation", &m_xi);
-    registerNonnegativeLength("corr_length", &m_corr_length);
-    registerNonnegativeLength("cylinder_height", &m_cylinder_height);
-    registerNonnegativeLength("cylinder_radius", &m_cylinder_radius);
+    registerParameter("lattice_length", &m_length).setUnit("nm").setNonnegative();
+    registerParameter("lattice_rotation", &m_xi).setUnit("rad");
+    registerParameter("corr_length", &m_corr_length).setUnit("nm").setNonnegative();
+    registerParameter("cylinder_height", &m_cylinder_height).setUnit("nm").setNonnegative();
+    registerParameter("cylinder_radius", &m_cylinder_radius).setUnit("nm").setNonnegative();
 }

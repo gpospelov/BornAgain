@@ -1655,66 +1655,6 @@ class IParameterized(INamed):
         return _libBornAgainCore.IParameterized_registerParameter(self, name, parpointer)
 
 
-    def registerUnlimitedAngle(self, name, parpointer):
-        """
-        registerUnlimitedAngle(IParameterized self, std::string const & name, double * parpointer)
-
-        void IParameterized::registerUnlimitedAngle(const std::string &name, double *parpointer)
-
-        """
-        return _libBornAgainCore.IParameterized_registerUnlimitedAngle(self, name, parpointer)
-
-
-    def registerUnlimitedLength(self, name, parpointer):
-        """
-        registerUnlimitedLength(IParameterized self, std::string const & name, double * parpointer)
-
-        void IParameterized::registerUnlimitedLength(const std::string &name, double *parpointer)
-
-        """
-        return _libBornAgainCore.IParameterized_registerUnlimitedLength(self, name, parpointer)
-
-
-    def registerPositiveLength(self, name, parpointer):
-        """
-        registerPositiveLength(IParameterized self, std::string const & name, double * parpointer)
-
-        void IParameterized::registerPositiveLength(const std::string &name, double *parpointer)
-
-        """
-        return _libBornAgainCore.IParameterized_registerPositiveLength(self, name, parpointer)
-
-
-    def registerNonnegativeLength(self, name, parpointer):
-        """
-        registerNonnegativeLength(IParameterized self, std::string const & name, double * parpointer)
-
-        void IParameterized::registerNonnegativeLength(const std::string &name, double *parpointer)
-
-        """
-        return _libBornAgainCore.IParameterized_registerNonnegativeLength(self, name, parpointer)
-
-
-    def registerPositiveScalar(self, name, parpointer):
-        """
-        registerPositiveScalar(IParameterized self, std::string const & name, double * parpointer)
-
-        void IParameterized::registerPositiveScalar(const std::string &name, double *parpointer)
-
-        """
-        return _libBornAgainCore.IParameterized_registerPositiveScalar(self, name, parpointer)
-
-
-    def registerNonnegativeScalar(self, name, parpointer):
-        """
-        registerNonnegativeScalar(IParameterized self, std::string const & name, double * parpointer)
-
-        void IParameterized::registerNonnegativeScalar(const std::string &name, double *parpointer)
-
-        """
-        return _libBornAgainCore.IParameterized_registerNonnegativeScalar(self, name, parpointer)
-
-
     def setParameterValue(self, name, value):
         """
         setParameterValue(IParameterized self, std::string const & name, double value)
@@ -6679,26 +6619,6 @@ class ISampleBuilder(IParameterized):
         return _libBornAgainCore.ISampleBuilder_registerParameter(self, name, parpointer)
 
 
-    def registerUnlimitedAngle(self, name, parpointer):
-        """
-        registerUnlimitedAngle(ISampleBuilder self, std::string const & name, int64_t parpointer)
-
-        void IParameterized::registerUnlimitedAngle(const std::string &name, double *parpointer)
-
-        """
-        return _libBornAgainCore.ISampleBuilder_registerUnlimitedAngle(self, name, parpointer)
-
-
-    def registerUnlimitedLength(self, name, parpointer):
-        """
-        registerUnlimitedLength(ISampleBuilder self, std::string const & name, int64_t parpointer)
-
-        void IParameterized::registerUnlimitedLength(const std::string &name, double *parpointer)
-
-        """
-        return _libBornAgainCore.ISampleBuilder_registerUnlimitedLength(self, name, parpointer)
-
-
     def registerNonnegativeLength(self, name, parpointer):
         """
         registerNonnegativeLength(ISampleBuilder self, std::string const & name, int64_t parpointer)
@@ -6709,16 +6629,6 @@ class ISampleBuilder(IParameterized):
         return _libBornAgainCore.ISampleBuilder_registerNonnegativeLength(self, name, parpointer)
 
 
-    def registerPositiveLength(self, name, parpointer):
-        """
-        registerPositiveLength(ISampleBuilder self, std::string const & name, int64_t parpointer)
-
-        void IParameterized::registerPositiveLength(const std::string &name, double *parpointer)
-
-        """
-        return _libBornAgainCore.ISampleBuilder_registerPositiveLength(self, name, parpointer)
-
-
     def registerNonnegativeScalar(self, name, parpointer):
         """
         registerNonnegativeScalar(ISampleBuilder self, std::string const & name, int64_t parpointer)
@@ -6727,16 +6637,6 @@ class ISampleBuilder(IParameterized):
 
         """
         return _libBornAgainCore.ISampleBuilder_registerNonnegativeScalar(self, name, parpointer)
-
-
-    def registerPositiveScalar(self, name, parpointer):
-        """
-        registerPositiveScalar(ISampleBuilder self, std::string const & name, int64_t parpointer)
-
-        void IParameterized::registerPositiveScalar(const std::string &name, double *parpointer)
-
-        """
-        return _libBornAgainCore.ISampleBuilder_registerPositiveScalar(self, name, parpointer)
 
 
     def setParameterValue(self, name, value):

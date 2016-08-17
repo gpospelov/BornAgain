@@ -76,57 +76,6 @@ RealParameter& IParameterized::registerParameter(const std::string& name, double
     return m_pool->addParameter( new RealParameter( name, m_pool, data ) );
 }
 
-void IParameterized::registerUnlimitedAngle(const std::string& name, double* data)
-{
-    registerAngle(name, data, Limits::limitless());
-}
-
-
-void IParameterized::registerPositiveScalar(const std::string& name, double* data)
-{
-    registerScalar(name, data, Limits::positive());
-}
-
-void IParameterized::registerNonnegativeScalar(const std::string& name, double* data)
-{
-    registerScalar(name, data, Limits::nonnegative());
-}
-
-
-void IParameterized::registerUnlimitedLength(const std::string& name, double* data)
-{
-    registerLength(name, data, Limits::limitless());
-}
-
-void IParameterized::registerPositiveLength(const std::string& name, double* data)
-{
-    registerLength(name, data, Limits::positive());
-}
-
-void IParameterized::registerNonnegativeLength(const std::string& name, double* data)
-{
-    registerLength(name, data, Limits::nonnegative());
-}
-
-
-void IParameterized::registerAngle(const std::string& name, double* data, const Limits& limits)
-{
-    m_pool->addParameter( new RealParameter( name, m_pool, data, limits) ).setUnit("rad");
-}
-
-void IParameterized::registerScalar(
-    const std::string& name, double* data, const Limits& limits)
-{
-    m_pool->addParameter( new RealParameter( name, m_pool, data, limits) ).setUnit("");
-}
-
-void IParameterized::registerLength(
-    const std::string& name, double* data, const Limits& limits)
-{
-    m_pool->addParameter( new RealParameter( name, m_pool, data, limits) ).setUnit("nm");
-}
-
-
 void IParameterized::setParameterValue(const std::string& name, double value)
 {
     if(name.find('*') == std::string::npos && name.find('/') == std::string::npos) {

@@ -21,6 +21,7 @@
 #include "Particle.h"
 #include "ParticleLayout.h"
 #include "Units.h"
+#include "RealParameter.h"
 
 RotatedPyramidsBuilder::RotatedPyramidsBuilder()
     : m_length(10*Units::nanometer)
@@ -33,10 +34,10 @@ RotatedPyramidsBuilder::RotatedPyramidsBuilder()
 
 void RotatedPyramidsBuilder::init_parameters()
 {
-    registerNonnegativeLength("length", &m_length);
-    registerNonnegativeLength("height", &m_height);
-    registerUnlimitedAngle("alpha", &m_alpha);
-    registerUnlimitedAngle("zangle", &m_zangle);
+    registerParameter("length", &m_length).setUnit("nm").setNonnegative();
+    registerParameter("height", &m_height).setUnit("nm").setNonnegative();
+    registerParameter("alpha", &m_alpha  ).setUnit("rad");
+    registerParameter("zangle", &m_zangle).setUnit("rad");
 }
 
 ISample* RotatedPyramidsBuilder::buildSample() const

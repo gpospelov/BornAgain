@@ -30,20 +30,11 @@ namespace Geometry {
     virtual RealParameter& registerParameter(const std::string &name, int64_t parpointer) {
         return (*($self)).registerParameter(name, (double*)parpointer); }
 
-    virtual void registerUnlimitedAngle(const std::string &name, int64_t parpointer) {
-        return (*($self)).registerUnlimitedAngle(name, (double*)parpointer); }
-
-    virtual void registerUnlimitedLength(const std::string &name, int64_t parpointer) {
-        return (*($self)).registerUnlimitedLength(name, (double*)parpointer); }
     virtual void registerNonnegativeLength(const std::string &name, int64_t parpointer) {
         return (*($self)).registerNonnegativeLength(name, (double*)parpointer); }
-    virtual void registerPositiveLength(const std::string &name, int64_t parpointer) {
-        return (*($self)).registerPositiveLength(name, (double*)parpointer); }
 
     virtual void registerNonnegativeScalar(const std::string &name, int64_t parpointer) {
         return (*($self)).registerNonnegativeScalar(name, (double*)parpointer); }
-    virtual void registerPositiveScalar(const std::string &name, int64_t parpointer) {
-        return (*($self)).registerPositiveScalar(name, (double*)parpointer); }
 
     virtual void setParameterValue(const std::string &name, double value) {
         dynamic_cast<IParameterized*>($self)->setParameterValue(name, value); }

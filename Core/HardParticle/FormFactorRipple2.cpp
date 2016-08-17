@@ -17,16 +17,17 @@
 #include "BornAgainNamespace.h"
 #include "Exceptions.h"
 #include "MathFunctions.h"
+#include "RealParameter.h"
 
 FormFactorRipple2::FormFactorRipple2(double length, double width, double height, double asymetry)
     : m_length(length), m_width(width), m_height(height), m_d(asymetry)
 {
     setName(BornAgain::FFRipple2Type);
     check_initialization();
-    registerNonnegativeLength(BornAgain::Length, &m_length);
-    registerNonnegativeLength(BornAgain::Width, &m_width);
-    registerNonnegativeLength(BornAgain::Height, &m_height);
-    registerUnlimitedLength(BornAgain::AsymmetryLength, &m_d);
+    registerParameter(BornAgain::Length, &m_length    ).setUnit("nm").setNonnegative();
+    registerParameter(BornAgain::Width, &m_width      ).setUnit("nm").setNonnegative();
+    registerParameter(BornAgain::Height, &m_height    ).setUnit("nm").setNonnegative();
+    registerParameter(BornAgain::AsymmetryLength, &m_d).setUnit("nm");
 }
 
 bool FormFactorRipple2::check_initialization() const

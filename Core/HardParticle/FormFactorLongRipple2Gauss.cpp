@@ -16,6 +16,7 @@
 #include "FormFactorLongRipple2Gauss.h"
 #include "BornAgainNamespace.h"
 #include "Exceptions.h"
+#include "RealParameter.h"
 
 FormFactorLongRipple2Gauss::FormFactorLongRipple2Gauss(
     double length, double width, double height, double asymmetry)
@@ -26,10 +27,10 @@ FormFactorLongRipple2Gauss::FormFactorLongRipple2Gauss(
 {
     setName(BornAgain::FFLongRipple2GaussType);
     check_initialization();
-    registerNonnegativeLength(BornAgain::Width, &m_width);
-    registerNonnegativeLength(BornAgain::Height, &m_height);
-    registerNonnegativeLength(BornAgain::Length, &m_length);
-    registerUnlimitedLength(BornAgain::AsymmetryLength, &m_d);
+    registerParameter(BornAgain::Width, &m_width      ).setUnit("nm").setNonnegative();
+    registerParameter(BornAgain::Height, &m_height    ).setUnit("nm").setNonnegative();
+    registerParameter(BornAgain::Length, &m_length    ).setUnit("nm").setNonnegative();
+    registerParameter(BornAgain::AsymmetryLength, &m_d).setUnit("nm");
 }
 
 bool FormFactorLongRipple2Gauss::check_initialization() const

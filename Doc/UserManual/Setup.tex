@@ -151,14 +151,18 @@
 \makeatletter
 % patch showidx
 \def\@showidx#1{%
-  \insert\indexbox{\tiny % patched here
-    \hsize3\marginparwidth
+  \insert\indexbox{\tiny
+    \hsize2\marginparwidth
     \hangindent\marginparsep \parindent\z@
-    \everypar{}\let\par\@@par %\parfillskip\@flushglue
+    \everypar{}\let\par\@@par \parfillskip\@flushglue
     \lineskip\normallineskip
-    \baselineskip .8\normalbaselineskip %\sloppy
-    %\raggedright \leavevmode
-    #1\relax}}
+    \baselineskip .8\normalbaselineskip\sloppy
+    \raggedright \leavevmode
+    \vrule \@height .7\normalbaselineskip \@width \z@\relax
+        #1\relax
+    \vrule \@height \z@ \@depth .3\normalbaselineskip \@width \z@}}
+\def\@mkidx{\smash{\hbox{\raise3cm\vbox to \z@{\hbox{\@rightidx\box\indexbox}\vss}}}}
+\def\@rightidx{\hskip\columnwidth \hskip\marginparsep}
 \makeatother
 
 

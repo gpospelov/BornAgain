@@ -13,7 +13,7 @@
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\chapter{Small-angle scattering and the Born approximation}  \label{SSas}
+\chapter{Foundations of small-angle scattering}  \label{SSas}
 \chaptermark{Small-angle scattering}
 
 \index{Small-angle scattering|(}%
@@ -31,11 +31,10 @@ The standard description of scattering in first order Born approximation
 is introduced in a way that is suitable subsequent modification
 into the distorted wave Born approximation
 needed for grazing-incidence small-angle scattering (\Cref{SBornApprox}).
-% TODO RESTORE REF
-% Finally, we discuss how the physical scattering law
-% (the double differential cross section
-% as function of the scattering vector~$\q$)
-% relates to the experimental detector image (Sec.\ref{SdetImg}).
+
+Finally, we discuss how the physical scattering law
+(the double differential cross section as function of the scattering vector~$\q$)
+relates to the experimental detector image (Sec.\ref{SdetImg}).
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -245,7 +244,8 @@ with
 \begin{equation}\label{EChiDef}
   \chi(\r) \coloneqq  \frac{K^2}{4\pi}\left(1-n^2(\r)\right).
 \end{equation}
-\nomenclature[1χ030 2r040]{$\chi(\r)$}{Perturbative potential, for neutrons equal to the scattering-length density~$\rho_s$}%
+\nomenclature[1χ030 2r040]{$\chi(\r)$}{Perturbative potential,
+for neutrons equal to the scattering-length density~$\rho_s$}%
 This definition just compensates \cref{EnRefrIndx} so that $\chi=\rho_s$.
 In the following, we prefer the notation~$\chi$
 and the appellation \E{perturbative potential}
@@ -346,7 +346,8 @@ This allows us to expand
   \doteq r - \frac{\r\,\r'}{r}
   \equiv r - \frac{\k_\tf \r'}{K},
 \end{equation}
-\nomenclature[2f000]{f}{Subscript ``final'', for outgoing waves scattered into the direction of the detector}%
+\nomenclature[2f000]{f}{Subscript ``final'',
+for outgoing waves scattered into the direction of the detector}%
 \nomenclature[2k040]{$\k$}{wavevector}
 where we have introduced the outgoing wavevector
 \begin{equation}
@@ -359,12 +360,14 @@ and obtain in leading order the far-field Green function
   G_\text{far}(\r,\r')
   = \frac{\e^{iKr}}{4\pi r}\psi^*_\tf(\r')
 \end{equation}
-\nomenclature[2g134 2far]{$G_\text{far}(\r,\r')$}{Far-field approximation to the Green function $G(\r,\r')$}
+\nomenclature[2g134 2far]{$G_\text{far}(\r,\r')$}
+  {Far-field approximation to the Green function $G(\r,\r')$}
 where
 \begin{equation}
   \psi_\tf(\r) \coloneqq  \e^{i\k_\tf \r}
 \end{equation}
-\nomenclature[1ψ034 2f000 2r040]{$\psi_\tf(\r)$}{Plane wave propagating from the sample towards the detector}%
+\nomenclature[1ψ034 2f000 2r040]{$\psi_\tf(\r)$}
+  {Plane wave propagating from the sample towards the detector}%
 is a plane wave propagating towards the detector,
 and $\psi^*$ designates the complex conjugate of $\psi$.
 With respect to $\r$, $G_\text{far}$ is an outgoing spherical wave.
@@ -376,14 +379,16 @@ becomes in the far-field approximation
   = \frac{\e^{iKr}}{r}
     \bra \psi_\tf|\chi|\psi_\ti\ket,
 \end{equation}
-\nomenclature[1ψ034 2s000 2far]{$\psi_\text{s,far}(\r)$}{Far-field approximation to the scattered wavefunction $\psi_\text{s}(\r)$}%
+\nomenclature[1ψ034 2s000 2far]{$\psi_\text{s,far}(\r)$}
+  {Far-field approximation to the scattered wavefunction $\psi_\text{s}(\r)$}%
 where we used Dirac notation for the transition matrix element
 \index{Transition matrix}%
 \begin{equation}\label{Etrama}
   \bra \psi_\tf|\chi|\psi_\ti\ket
   \coloneqq  \int\!\d^3r\, \psi^*_\tf(\r)\chi(\r)\psi_\ti(\r).
 \end{equation}
-\nomenclature[0$\langle$0]{{$\bra\ldots\vert\ldots\vert\ldots\ket$}}{Matrix element, defined as a volume integral}%
+\nomenclature[0$\langle$0]{{$\bra\ldots\vert\ldots\vert\ldots\ket$}}
+  {Matrix element, defined as a volume integral}%
 In order to reconcile conflicting sign conventions,
 we will in the following rather use its complex conjugate
 $\bra \psi_\ti|\chi|\psi_\tf\ket = \bra \psi_\tf|\chi|\psi_\ti\ket^*$.
@@ -400,7 +405,8 @@ the matrix element takes the form
   = \int\!\d^3r\, {\rm e}^{i\q\r}\chi(\r)
   \eqqcolon \chi(\q),
 \end{equation}
-\nomenclature[1χ030 2q040]{$\chi(\v{q})$}{Fourier transform of the perturbation potential $\chi(\r)$}%
+\nomenclature[1χ030 2q040]{$\chi(\v{q})$}
+  {Fourier transform of the perturbation potential $\chi(\r)$}%
 where we have introduced the \E{scattering vector}\footnote
 {With this choice of sign,
 \index{Sign convention!scattering vector}%
@@ -470,7 +476,8 @@ With \cref{EsandwichC}, the scattered flux at the detector is
     {\left|\bra\psi_\ti|\chi|\psi_\tf\ket\right|}^2.
 \end{equation}
 From \cref{Exsectiondef} we obtain
-the generic differential cross section of elastic scattering in first order Born approximation,
+the generic differential cross section
+of elastic scattering in first order Born approximation,
 \Emph{
 \begin{equation}\label{Exsection}
   \frac{\d\sigma}{\d\Omega}
@@ -544,6 +551,8 @@ The projection of $(\alpha_\tf,\phi_\tf)$ into
 the detector plane~$(y,z)$ is known as the \E{gnomonic projection}.
 \index{Gnomonic projection}%
 \index{Projection!wave vector to pixel coordinate}%
+\index{Mapping!wave vector to pixel coordinate}%
+\index{Transformation!wave vector to pixel coordinate}%
 From elementary trigonometry one finds
 \begin{equation}\label{Eyzdet}
   \begin{array}{lcl}
@@ -612,34 +621,6 @@ The wavevector $\q_{ij}$ can then be determined through the following steps:
 where the first step is mathematically trivial,
 but requires an experimental calibration of the origin of the $(x,y)$ scale.
 
-The solid angle under which a detector pixel
-is illuminated from the sample is in linear approximation
-\begin{equation}
-  \Delta\Omega
-  = \cos\alpha_\tf\:\Delta\alpha_\tf\,\Delta\phi_\tf
-  = \cos\alpha_\tf
-    \left|\frac{\partial(\alpha_\tf,\phi_\tf)}{\partial(y,z)}\right|
-    \Delta y \,\Delta z
-  = \cos^3\!\alpha_\tf\, \cos^3\!\phi_\tf\: \frac{\Delta y \,\Delta z}{L^2}.
-\end{equation}
-\index{Detector!illumination angle correction factor}%
-\index{Illumination!detector}%
-Altogether,
-the expected count rate in detector pixel $(i,j)$ is proportional to
-\begin{equation}\label{EItrafo_cos}
-  I_{ij} = \cos^3\!\alpha_\tf\, \cos^3\!\phi_\tf\:
-          \frac{\partial\sigma}{\partial\Omega}(\q_{ij}),
-\end{equation}
-where we have omitted constant factors $L^{-2}$, $\Delta y$ and $\Delta z$.
-Using pixel coordinates instead of angles, this can be rewritten as
-\Emph{%
-\begin{equation}\label{EItrafo_pix}
-  I_{ij} = \left( 1+\frac{y^2+z^2}{L^2}\right)^{-3/2}
-          \frac{\partial\sigma}{\partial\Omega}\bigl(\q_{ij}(y,z)\bigr).
-\end{equation}
-\vspace*{-2pt}}
-%(usually as the centre between the transmitted
-%and the specularly reflected beam spot).
 
 %-------------------------------------------------------------------------------
 \begin{figure}[t]
@@ -667,12 +648,17 @@ For $y,z\ll L$, however, nonlinear terms loose importance.
 \includegraphics[width=1\textwidth]{fig/ff2/ff_det_box.pdf}
 \end{center}
 \caption{Simulated detector image for small-angle scattering from
-uncorrelated rectangular prisms.
+uncorrelated cuboids (right rectangular prisms).
+  \index{Box (form factor)}
+  \index{Cuboid (form factor)}
+  \index{Prism (form factor)!reactangular (Box)}
+  \index{FormFactorBox@\Code{FormFactorBox}}
 The incoming wavelength is 0.1~nm.
 The prisms have edge lengths $L_y=L_z=10$~nm;
 the length $L_x$, in beam direction, is varied as shown above the plots.
-The circular modulation is comes from a factor $\sinc(q_x L_x/2)$ in the prism form factor,
-with $q_x$ given by~\cref{Eqxasy}.}
+\index{Circular modulation!of detector image as function of $q_x$}
+The circular modulation comes from a factor $\sinc(q_x L_x/2)$
+in the cuboid form factor, with $q_x$ given by~\cref{Eqxasy}.}
 \label{Fdetbox}
 \end{figure}
 %-------------------------------------------------------------------------------
@@ -725,7 +711,7 @@ with respect to a specific experimental setup,
 users may wish to transform detector images
 towards the physical coordinates $q_y$ and~$q_z$.
 As shown in \cref{Fconstp},
-this would yield a barrel-shaped ilumminated area
+this would yield a barrel-shaped illuminated area
 in the $q_y$,~$q_z$~plane.
 
 \Note{\indent Transforming detector images
@@ -739,6 +725,39 @@ All work is done in terms of reduced pixel coordinates $y/L$ and~$z/L$.
 Corrections are applied to the simulated, not to the measured data.}
 
 \Work{\indent \ldots show how to plot $q$ grid on top of detector image \ldots}
+
+%===============================================================================
+\subsection{Intensity transformation}
+%===============================================================================
+
+The solid angle under which a detector pixel
+is illuminated from the sample is in linear approximation
+\begin{equation}
+  \Delta\Omega
+  = \cos\alpha_\tf\:\Delta\alpha_\tf\,\Delta\phi_\tf
+  = \cos\alpha_\tf
+    \left|\frac{\partial(\alpha_\tf,\phi_\tf)}{\partial(y,z)}\right|
+    \Delta y \,\Delta z
+  = \cos^3\!\alpha_\tf\, \cos^3\!\phi_\tf\: \frac{\Delta y \,\Delta z}{L^2}.
+\end{equation}
+\index{Detector!illumination angle correction factor}%
+\index{Illumination!detector}%
+Altogether,
+the expected count rate in detector pixel $(i,j)$ is proportional to
+\begin{equation}\label{EItrafo_cos}
+  I_{ij} = \cos^3\!\alpha_\tf\, \cos^3\!\phi_\tf\:
+          \frac{\partial\sigma}{\partial\Omega}(\q_{ij}),
+\end{equation}
+where we have omitted constant factors $L^{-2}$, $\Delta y$ and $\Delta z$.
+Using pixel coordinates instead of angles, this can be rewritten as
+\Emph{%
+\begin{equation}\label{EItrafo_pix}
+  I_{ij} = \left( 1+\frac{y^2+z^2}{L^2}\right)^{-3/2}
+          \frac{\partial\sigma}{\partial\Omega}\bigl(\q_{ij}(y,z)\bigr).
+\end{equation}
+\vspace*{-2pt}}
+%(usually as the centre between the transmitted
+%and the specularly reflected beam spot).
 
 %Tradition wants that raw data be \E{treated} or \E{reduced}
 %before they are \E{analyzed}.

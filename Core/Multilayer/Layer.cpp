@@ -15,7 +15,7 @@
 
 #include "Layer.h"
 #include "BornAgainNamespace.h"
-#include "DecoratedLayerDWBASimulation.h"
+#include "Exceptions.h"
 #include "IInterferenceFunction.h"
 #include "ISampleVisitor.h"
 #include "Materials.h"
@@ -115,13 +115,6 @@ const ILayout* Layer::getLayout(size_t i) const
     if (i>=m_layouts.size())
         return nullptr;
     return m_layouts[i];
-}
-
-LayerDWBASimulation* Layer::createLayoutSimulation(size_t layout_index) const
-{
-    if (getNumberOfLayouts()==0 || layout_index>=getNumberOfLayouts())
-        return nullptr;
-    return new DecoratedLayerDWBASimulation(this, layout_index);
 }
 
 double Layer::getTotalParticleSurfaceDensity(size_t layout_index) const

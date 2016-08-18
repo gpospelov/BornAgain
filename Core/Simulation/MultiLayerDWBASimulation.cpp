@@ -15,6 +15,7 @@
 
 #include "MultiLayerDWBASimulation.h"
 #include "BornAgainNamespace.h"
+#include "DecoratedLayerDWBASimulation.h"
 #include "Layer.h"
 #include "LayerDWBASimulation.h"
 #include "LayerInterface.h"
@@ -51,12 +52,10 @@ void MultiLayerDWBASimulation::init(const Simulation& simulation,
     for (size_t i=0; i<mp_multi_layer->getNumberOfLayers(); ++i) {
         for (size_t j=0; j<mp_multi_layer->getLayer(i)->getNumberOfLayouts(); ++j) {
             LayerDWBASimulation* p_layer_dwba_sim =
-                mp_multi_layer->getLayer(i)->createLayoutSimulation(j);
+                new DecoratedLayerDWBASimulation(mp_multi_layer->getLayer(i), j);
             if (p_layer_dwba_sim) {
-                if (m_layer_dwba_simulations_map.find(i) == m_layer_dwba_simulations_map.end()) {
-                    m_layer_dwba_simulations_map[i] =
-                            SafePointerVector<LayerDWBASimulation>();
-                }
+                if (m_layer_dwba_simulations_map.find(i) == m_layer_dwba_simulations_map.end())
+                    m_layer_dwba_simulations_map[i] = SafePointerVector<LayerDWBASimulation>();
                 m_layer_dwba_simulations_map[i].push_back(p_layer_dwba_sim);
             }
         }
@@ -65,8 +64,7 @@ void MultiLayerDWBASimulation::init(const Simulation& simulation,
     // scattering from rough surfaces in DWBA
     for (size_t i=0; i<mp_multi_layer->getNumberOfInterfaces(); ++i) {
         if(mp_multi_layer->getLayerInterface(i)->getRoughness() ) {
-            mp_roughness_dwba_simulation =
-                new MultiLayerRoughnessDWBASimulation(mp_multi_layer);
+            mp_roughness_dwba_simulation = new MultiLayerRoughnessDWBASimulation(mp_multi_layer);
             break;
         }
     }

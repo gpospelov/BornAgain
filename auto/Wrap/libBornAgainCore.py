@@ -20150,18 +20150,6 @@ class Layer(ICompositeSample):
         return _libBornAgainCore.Layer_hasDWBASimulation(self)
 
 
-    def createLayoutSimulation(self, layout_index):
-        """
-        createLayoutSimulation(Layer self, size_t layout_index) -> LayerDWBASimulation *
-
-        LayerDWBASimulation * Layer::createLayoutSimulation(size_t layout_index) const
-
-        creates and returns a  LayerDWBASimulation for the given layout 
-
-        """
-        return _libBornAgainCore.Layer_createLayoutSimulation(self, layout_index)
-
-
     def getTotalParticleSurfaceDensity(self, layout_index):
         """
         getTotalParticleSurfaceDensity(Layer self, size_t layout_index) -> double

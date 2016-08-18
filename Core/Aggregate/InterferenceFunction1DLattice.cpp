@@ -24,7 +24,12 @@
 //! @param length: Lattice length
 //! @param xi: rotation of lattice with respect to x-axis
 InterferenceFunction1DLattice::InterferenceFunction1DLattice(double length, double xi)
-    : m_lattice_params(length, xi), mp_pdf(nullptr), m_na(0)
+    : InterferenceFunction1DLattice(Lattice1DParameters(length, xi))
+{}
+
+InterferenceFunction1DLattice::InterferenceFunction1DLattice(
+    const Lattice1DParameters& lattice_params)
+    : m_lattice_params(lattice_params), mp_pdf(nullptr), m_na(0)
 {
     setName(BornAgain::InterferenceFunction1DLatticeType);
     init_parameters();
@@ -79,14 +84,6 @@ double InterferenceFunction1DLattice::evaluate(const kvector_t q) const
         result += mp_pdf->evaluate(qx);
     }
     return result/a;
-}
-
-InterferenceFunction1DLattice::InterferenceFunction1DLattice(
-    const Lattice1DParameters& lattice_params)
-    : m_lattice_params(lattice_params), mp_pdf(nullptr), m_na(0)
-{
-    setName(BornAgain::InterferenceFunction1DLatticeType);
-    init_parameters();
 }
 
 void InterferenceFunction1DLattice::init_parameters()

@@ -45,7 +45,6 @@ public:
 
 private:
     InterferenceFunction1DLattice(const Lattice1DParameters& lattice_params);
-    //! Registers some class members for later access via parameter pool
     void init_parameters();
 
     Lattice1DParameters m_lattice_params;

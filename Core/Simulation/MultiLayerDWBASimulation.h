@@ -24,10 +24,8 @@ class LayerDWBASimulation;
 class MultiLayer;
 class MultiLayerRoughnessDWBASimulation;
 
-//! @class MultiLayerDWBASimulation
+//! Performs a DWBA calculation with given sample and simulation parameters
 //! @ingroup algorithms_internal
-//! @brief This is the class that will perform a DWBA calculation with the given
-//! sample and simulation parameters
 
 class BA_CORE_API_ MultiLayerDWBASimulation : public DWBASimulation
 {
@@ -35,11 +33,9 @@ public:
     MultiLayerDWBASimulation(const MultiLayer* p_multi_layer);
     virtual ~MultiLayerDWBASimulation();
 
-    MultiLayerDWBASimulation* clone() const
-    {
+    MultiLayerDWBASimulation* clone() const {
         throw Exceptions::NotImplementedException(
-            "MultiLayerDWBASimulation::clone() -> Error: not implemented");
-    }
+            "MultiLayerDWBASimulation::clone() -> Error: not implemented"); }
 
     virtual void init(const Simulation& simulation,
                       std::vector<SimulationElement>::iterator begin_it,

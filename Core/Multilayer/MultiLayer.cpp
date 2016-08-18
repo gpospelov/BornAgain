@@ -15,11 +15,11 @@
 
 #include "MultiLayer.h"
 #include "BornAgainNamespace.h"
+#include "Exceptions.h"
 #include "Layer.h"
 #include "LayerInterface.h"
 #include "Logger.h"
 #include "Materials.h"
-#include "MultiLayerDWBASimulation.h"
 #include "ParameterPool.h"
 #include "RealParameter.h"
 
@@ -210,11 +210,6 @@ void MultiLayer::setLayerThickness(size_t i_layer, double thickness)
         m_layers_z.push_back(
             m_layers_z.back() -
             m_layers[ check_layer_index(il) ]->getThickness() );
-}
-
-DWBASimulation* MultiLayer::createDWBASimulation() const
-{
-    return new MultiLayerDWBASimulation(this);
 }
 
 int MultiLayer::getIndexOfLayer(const Layer* layer) const

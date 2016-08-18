@@ -21105,18 +21105,6 @@ class MultiLayer(ICompositeSample):
         return _libBornAgainCore.MultiLayer_setLayerThickness(self, i_layer, thickness)
 
 
-    def createDWBASimulation(self):
-        """
-        createDWBASimulation(MultiLayer self) -> DWBASimulation *
-
-        DWBASimulation * MultiLayer::createDWBASimulation() const
-
-        look for the presence of DWBA terms (e.g. included particles) and return  ISimulation if needed 
-
-        """
-        return _libBornAgainCore.MultiLayer_createDWBASimulation(self)
-
-
     def getIndexOfLayer(self, layer):
         """
         getIndexOfLayer(MultiLayer self, Layer layer) -> int

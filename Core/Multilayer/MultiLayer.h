@@ -19,7 +19,6 @@
 #include "ICompositeSample.h"
 #include "Vectors3D.h"
 
-class DWBASimulation;
 class Layer;
 class LayerInterface;
 class LayerRoughness;
@@ -105,10 +104,6 @@ public:
     //! Prints class
     friend std::ostream& operator << (std::ostream& ostr, const MultiLayer& m) {
         m.print(ostr); return ostr; }
-
-    //! look for the presence of DWBA terms (e.g. included particles)
-    //! and return ISimulation if needed
-    DWBASimulation* createDWBASimulation() const;
 
     //! returns layer index
     int getIndexOfLayer(const Layer* layer) const;

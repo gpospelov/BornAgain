@@ -17,6 +17,7 @@
 #include "DWBASimulation.h"
 #include "IMultiLayerBuilder.h"
 #include "MultiLayer.h"
+#include "MultiLayerDWBASimulation.h"
 #include "Logger.h"
 #include "OMPISimulation.h"
 #include "ParameterPool.h"
@@ -186,7 +187,8 @@ void Simulation::runSingleSimulation()
 
     if (m_options.getNumberOfThreads() == 1) {
         // Single thread.
-        std::unique_ptr<DWBASimulation> P_dwba_simulation(mP_sample->createDWBASimulation());
+        std::unique_ptr<DWBASimulation> P_dwba_simulation(
+            new MultiLayerDWBASimulation(mP_sample.get()));
         verifyDWBASimulation(P_dwba_simulation.get());
         P_dwba_simulation->init(*this, batch_start, batch_end);
         P_dwba_simulation->run(); // the work is done here
@@ -213,31 +215,31 @@ void Simulation::runSingleSimulation()
         if (total_batch_elements % m_options.getNumberOfThreads()) ++element_thread_step;
 
         for (int i_thread = 0; i_thread < m_options.getNumberOfThreads(); ++i_thread) {
-            if (i_thread*element_thread_step >= total_batch_elements) break;
-            DWBASimulation* p_dwba_simulation = mP_sample->createDWBASimulation();
+            if (i_thread*element_thread_step >= total_batch_elements)
+                break;
+            // TODO: why a plain pointer here, and a unique pointer in the single-thread case?
+            DWBASimulation* p_dwba_simulation = new MultiLayerDWBASimulation(mP_sample.get());
+
             verifyDWBASimulation(p_dwba_simulation);
             std::vector<SimulationElement>::iterator begin_it = batch_start
                                                                 + i_thread * element_thread_step;
             std::vector<SimulationElement>::iterator end_it;
-            int end_thread_index = (i_thread + 1)*element_thread_step;
-            if (end_thread_index >= total_batch_elements) {
+            int end_thread_index = (i_thread+1) * element_thread_step;
+            if (end_thread_index >= total_batch_elements)
                 end_it = batch_end;
-            } else {
+            else
                 end_it = batch_start + end_thread_index;
-            }
             p_dwba_simulation->init(*this, begin_it, end_it);
             simulations.push_back(p_dwba_simulation);
         }
 
         // Run simulations in n threads.
-        for (auto it = simulations.begin(); it != simulations.end(); ++it) {
+        for (auto it = simulations.begin(); it != simulations.end(); ++it)
             threads.push_back(new std::thread([] (DWBASimulation* p_sim) {p_sim->run();} , *it));
-        }
 
         // Wait for threads to complete.
-        for (size_t i = 0; i < threads.size(); ++i) {
+        for (size_t i = 0; i < threads.size(); ++i)
             threads[i]->join();
-        }
 
         // Merge simulated data.
         bool isSuccess(true);

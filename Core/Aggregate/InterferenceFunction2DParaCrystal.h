@@ -83,7 +83,7 @@ public:
     //! Returns the particle density associated with this 2d paracrystal lattice
     double getParticleDensity() const final;
 
-protected:
+private:
     //! Registers some class members for later access via parameter pool
     void init_parameters();
 
@@ -97,7 +97,6 @@ protected:
     bool m_use_damping_length; //!< Flag that determines if the damping length should be used.
     double m_domain_sizes[2]; //!< Coherence domain sizes
 
-private:
     //! Returns interference function for fixed angle xi.
     double interferenceForXi(double xi) const;
 

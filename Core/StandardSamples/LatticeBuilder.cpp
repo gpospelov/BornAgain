@@ -35,7 +35,7 @@ Lattice1DBuilder::Lattice1DBuilder()
     init_parameters();
 }
 
-ISample* Lattice1DBuilder::buildSample() const
+MultiLayer* Lattice1DBuilder::buildSample() const
 {
     MultiLayer* multi_layer = new MultiLayer();
 

@@ -27,7 +27,7 @@
 
 // --- ParticleCompositionBuilder ---
 
-ISample* ParticleCompositionBuilder::buildSample() const
+MultiLayer* ParticleCompositionBuilder::buildSample() const
 {
     MultiLayer* multi_layer = new MultiLayer();
 

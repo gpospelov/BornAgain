@@ -18,13 +18,12 @@
 
 #include "IParameterized.h"
 
-class ISample;
+class MultiLayer;
 class IFormFactor;
 class IFTDistribution2D;
 
-//! @class ISampleBuilder
+//! Interface to the class capable to build samples to simulate.
 //! @ingroup simulation_internal
-//! @brief Interface to the class capable to build samples to simulate
 
 class BA_CORE_API_ ISampleBuilder : public IParameterized
 {
@@ -32,7 +31,7 @@ public:
     ISampleBuilder() : IParameterized("SampleBuilder") {}
     virtual ~ISampleBuilder() {}
 
-    virtual ISample* buildSample() const = 0;
+    virtual MultiLayer* buildSample() const = 0;
 
     void set_subtest(const IParameterized* subtest_item) { m_subtest_item = subtest_item; }
     const IParameterized* m_subtest_item;

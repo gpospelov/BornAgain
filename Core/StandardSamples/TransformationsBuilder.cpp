@@ -23,7 +23,7 @@
 #include "RealParameter.h"
 #include "Units.h"
 
-ISample* TransformBoxBuilder::buildSample() const
+MultiLayer* TransformBoxBuilder::buildSample() const
 {
     HomogeneousMaterial mAmbience("Air", 0.0, 0.0);
     HomogeneousMaterial mMiddle("Teflon", 2.900e-6, 6.019e-9);

@@ -19,7 +19,7 @@
 #include "IFactory.h"
 #include "ISampleBuilder.h"
 
-class ISample;
+class MultiLayer;
 
 //! @class SampleBuilderFactory
 //! @ingroup standard_samples
@@ -29,7 +29,7 @@ class BA_CORE_API_ SampleBuilderFactory : public IFactory<std::string, ISampleBu
 {
 public:
     SampleBuilderFactory();
-    ISample* createSample(const std::string& name);
+    MultiLayer* createSample(const std::string& name);
 };
 
 #endif // SAMPLEBUILDERFACTORY_H

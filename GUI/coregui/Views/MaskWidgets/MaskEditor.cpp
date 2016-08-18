@@ -17,7 +17,6 @@
 #include "MaskEditor.h"
 #include "GISASSimulation.h"
 #include "GUIHelpers.h"
-#include "ISample.h"
 #include "IntensityDataItem.h"
 #include "MaskEditorActions.h"
 #include "MaskEditorCanvas.h"
@@ -26,6 +25,7 @@
 #include "MaskGraphicsScene.h"
 #include "MaskGraphicsView.h"
 #include "MaskItems.h"
+#include "MultiLayer.h"
 #include "SampleBuilderFactory.h"
 #include "SessionModel.h"
 #include "SimulationFactory.h"
@@ -94,7 +94,8 @@ void MaskEditor::init_test_model()
     const std::unique_ptr<GISASSimulation> simulation(simRegistry.createItem("BasicGISAS"));
 
     SampleBuilderFactory sampleFactory;
-    const std::unique_ptr<ISample> sample(sampleFactory.createSample("CylindersAndPrismsBuilder"));
+    const std::unique_ptr<MultiLayer> sample(
+        sampleFactory.createSample("CylindersAndPrismsBuilder"));
 
     simulation->setSample(*sample.get());
     simulation->runSimulation();

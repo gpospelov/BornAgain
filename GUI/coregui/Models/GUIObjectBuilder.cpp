@@ -28,6 +28,7 @@
 #include "GUIHelpers.h"
 #include "IMaterial.h"
 #include "InstrumentModel.h"
+#include "ISampleBuilder.h"
 #include "Layer.h"
 #include "LayerItem.h"
 #include "MaterialModel.h"

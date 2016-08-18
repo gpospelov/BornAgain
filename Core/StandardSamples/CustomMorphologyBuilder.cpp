@@ -23,7 +23,7 @@
 #include "RealParameter.h"
 #include "Units.h"
 
-ISample* CustomMorphologyBuilder::buildSample() const
+MultiLayer* CustomMorphologyBuilder::buildSample() const
 {
     MultiLayer* multi_layer = new MultiLayer();
 

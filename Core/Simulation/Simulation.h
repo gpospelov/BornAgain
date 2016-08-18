@@ -18,25 +18,23 @@
 
 #include "DistributionHandler.h"
 #include "IDetector2D.h"
-#include "ISampleBuilder.h"
 #include "ProgressHandler.h"
 #include "SimulationOptions.h"
 
 template<class T> class OutputData;
 class DWBASimulation;
-class ISample;
+class MultiLayer;
 class ISampleBuilder;
 class ProgressHandlerDWBA;
 
-//! @class Simulation
+//! Main class to run the simulation.
 //! @ingroup simulation
-//! @brief Main class to run the simulation.
 
 class BA_CORE_API_ Simulation : public ICloneable, public IParameterized
 {
 public:
     Simulation();
-    Simulation(const ISample& p_sample);
+    Simulation(const MultiLayer& p_sample);
     Simulation(std::shared_ptr<ISampleBuilder> p_sample_builder);
     virtual ~Simulation();
 
@@ -52,10 +50,10 @@ public:
     void runOMPISimulation();
 
     //! Sets the sample to be tested
-    void setSample(const ISample& sample);
+    void setSample(const MultiLayer& sample);
 
     //! Returns the sample
-    ISample* getSample() const { return mP_sample.get(); }
+    MultiLayer* getSample() const { return mP_sample.get(); }
 
     //! Sets the sample builder
     void setSampleBuilder(std::shared_ptr<ISampleBuilder> sample_builder);
@@ -134,7 +132,7 @@ protected:
     //! Returns the end iterator of simulation elements for the current batch
     std::vector<SimulationElement>::iterator getBatchEnd(int n_batches, int current_batch);
 
-    std::unique_ptr<ISample> mP_sample;
+    std::unique_ptr<MultiLayer> mP_sample;
     std::shared_ptr<ISampleBuilder> mp_sample_builder;
     SimulationOptions m_options;
     DistributionHandler m_distribution_handler;

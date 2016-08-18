@@ -29,7 +29,7 @@
 
 using namespace BornAgain;
 
-ISample* SizeDistributionDAModelBuilder::buildSample() const
+MultiLayer* SizeDistributionDAModelBuilder::buildSample() const
 {
         MultiLayer* multi_layer = new MultiLayer();
 
@@ -72,7 +72,7 @@ ISample* SizeDistributionDAModelBuilder::buildSample() const
 
 // ----------------------------------------------------------------------------
 
-ISample* SizeDistributionLMAModelBuilder::buildSample() const
+MultiLayer* SizeDistributionLMAModelBuilder::buildSample() const
 {
     MultiLayer* multi_layer = new MultiLayer();
 
@@ -125,7 +125,7 @@ ISample* SizeDistributionLMAModelBuilder::buildSample() const
 
 // ----------------------------------------------------------------------------
 
-ISample* SizeDistributionSSCAModelBuilder::buildSample() const
+MultiLayer* SizeDistributionSSCAModelBuilder::buildSample() const
 {
     MultiLayer *multi_layer = new MultiLayer();
 
@@ -171,7 +171,7 @@ ISample* SizeDistributionSSCAModelBuilder::buildSample() const
 
 // ----------------------------------------------------------------------------
 
-ISample* CylindersInSSCABuilder::buildSample() const
+MultiLayer* CylindersInSSCABuilder::buildSample() const
 {
     MultiLayer* multi_layer = new MultiLayer();
 

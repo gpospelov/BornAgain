@@ -16,7 +16,8 @@
 #include "GISASSimulation.h"
 #include "BornAgainNamespace.h"
 #include "Histogram2D.h"
-#include "ISample.h"
+#include "ISampleBuilder.h"
+#include "MultiLayer.h"
 #include "SimulationElement.h"
 
 GISASSimulation::GISASSimulation()
@@ -24,7 +25,7 @@ GISASSimulation::GISASSimulation()
     initialize();
 }
 
-GISASSimulation::GISASSimulation(const ISample& p_sample)
+GISASSimulation::GISASSimulation(const MultiLayer& p_sample)
     : Simulation(p_sample)
 {
     initialize();

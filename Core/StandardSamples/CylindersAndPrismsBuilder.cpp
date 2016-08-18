@@ -44,7 +44,7 @@ void CylindersAndPrismsBuilder::init_parameters()
     registerParameter("cylinder_weight", &m_cylinder_weight).setNonnegative();
 }
 
-ISample* CylindersAndPrismsBuilder::buildSample() const
+MultiLayer* CylindersAndPrismsBuilder::buildSample() const
 {
     MultiLayer* multi_layer = new MultiLayer();
 

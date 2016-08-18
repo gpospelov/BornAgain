@@ -6577,7 +6577,7 @@ class ISampleBuilder(IParameterized):
 
     def buildSample(self):
         """
-        buildSample(ISampleBuilder self) -> ISample
+        buildSample(ISampleBuilder self) -> MultiLayer
 
         virtual ISample* ISampleBuilder::buildSample() const =0
 
@@ -14884,7 +14884,7 @@ class Simulation(ICloneable, IParameterized):
 
     def setSample(self, sample):
         """
-        setSample(Simulation self, ISample sample)
+        setSample(Simulation self, MultiLayer sample)
 
         void Simulation::setSample(const ISample &sample)
 
@@ -14898,7 +14898,7 @@ class Simulation(ICloneable, IParameterized):
 
     def getSample(self):
         """
-        getSample(Simulation self) -> ISample
+        getSample(Simulation self) -> MultiLayer
 
         ISample* Simulation::getSample() const
 
@@ -15188,7 +15188,7 @@ class GISASSimulation(Simulation):
     def __init__(self, *args):
         """
         __init__(GISASSimulation self) -> GISASSimulation
-        __init__(GISASSimulation self, ISample p_sample) -> GISASSimulation
+        __init__(GISASSimulation self, MultiLayer p_sample) -> GISASSimulation
         __init__(GISASSimulation self, std::shared_ptr< ISampleBuilder > p_sample_builder) -> GISASSimulation
 
         GISASSimulation::GISASSimulation(std::shared_ptr< ISampleBuilder > p_sample_builder)
@@ -21221,7 +21221,7 @@ class OffSpecSimulation(Simulation):
     def __init__(self, *args):
         """
         __init__(OffSpecSimulation self) -> OffSpecSimulation
-        __init__(OffSpecSimulation self, ISample p_sample) -> OffSpecSimulation
+        __init__(OffSpecSimulation self, MultiLayer p_sample) -> OffSpecSimulation
         __init__(OffSpecSimulation self, std::shared_ptr< ISampleBuilder > p_sample_builder) -> OffSpecSimulation
 
         OffSpecSimulation::OffSpecSimulation(std::shared_ptr< class ISampleBuilder > p_sample_builder)

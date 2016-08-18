@@ -18,15 +18,14 @@
 
 #include "ISampleBuilder.h"
 
-//! @class CylindersWithSizeDistributionBuilder
+//! Cylinders in BA with size distributions (IsGISAXS example #3, part II).
 //! @ingroup standard_samples
-//! @brief Cylinders in BA with size distributions (IsGISAXS example #3, part II)
 
 class CylindersWithSizeDistributionBuilder : public ISampleBuilder
 {
 public:
     CylindersWithSizeDistributionBuilder();
-    ISample *buildSample() const;
+    MultiLayer* buildSample() const;
 
 protected:
     void init_parameters();
@@ -37,16 +36,14 @@ private:
 };
 
 
-//! @class TwoTypesCylindersDistributionBuilder
+//! Builds mixture of cylinder particles with different size distribution (IsGISAXS example #2)
 //! @ingroup standard_samples
-//! @brief Builds sample: mixture cylinder particles with different size
-//! distribution (IsGISAXS example #2)
 
 class BA_CORE_API_ TwoTypesCylindersDistributionBuilder : public ISampleBuilder
 {
 public:
     TwoTypesCylindersDistributionBuilder();
-    ISample *buildSample() const;
+    MultiLayer* buildSample() const;
 
 protected:
     void init_parameters();
@@ -59,6 +56,5 @@ private:
     double m_sigma1_ratio;
     double m_sigma2_ratio;
 };
-
 
 #endif // PARTICLEDISTRIBUTIONSBUILDER_H

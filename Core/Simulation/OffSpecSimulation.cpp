@@ -16,7 +16,8 @@
 #include "OffSpecSimulation.h"
 #include "BornAgainNamespace.h"
 #include "Histogram2D.h"
-#include "ISample.h"
+#include "ISampleBuilder.h"
+#include "MultiLayer.h"
 #include "SimulationElement.h"
 
 OffSpecSimulation::OffSpecSimulation()
@@ -25,7 +26,7 @@ OffSpecSimulation::OffSpecSimulation()
     initialize();
 }
 
-OffSpecSimulation::OffSpecSimulation(const ISample& p_sample)
+OffSpecSimulation::OffSpecSimulation(const MultiLayer& p_sample)
     : Simulation(p_sample)
     , mp_alpha_i_axis(0)
 {
@@ -48,12 +49,12 @@ void OffSpecSimulation::prepareSimulation()
 int OffSpecSimulation::getNumberOfSimulationElements() const
 {
     checkInitialization();
-    const IAxis &phi_axis = m_instrument.getDetectorAxis(0);
-    const IAxis &alpha_axis = m_instrument.getDetectorAxis(1);
+    const IAxis& phi_axis = m_instrument.getDetectorAxis(0);
+    const IAxis& alpha_axis = m_instrument.getDetectorAxis(1);
     return phi_axis.getSize()*alpha_axis.getSize()*mp_alpha_i_axis->getSize();
 }
 
-Histogram2D *OffSpecSimulation::getIntensityData() const
+Histogram2D* OffSpecSimulation::getIntensityData() const
 {
     const std::unique_ptr<OutputData<double> > data(getDetectorIntensity());
     return new Histogram2D(*data);
@@ -162,9 +163,9 @@ void OffSpecSimulation::initSimulationElementVector()
     double phi_i = beam.getPhi();
     checkInitialization();
 
-    for (size_t alpha_i_index = 0; alpha_i_index < mp_alpha_i_axis->getSize(); ++alpha_i_index) {
+    for (size_t iAlpha = 0; iAlpha < mp_alpha_i_axis->getSize(); ++iAlpha) {
         // Incoming angle by convention defined as positive:
-        double alpha_i = mp_alpha_i_axis->getBin(alpha_i_index).getMidPoint();
+        double alpha_i = mp_alpha_i_axis->getBin(iAlpha).getMidPoint();
         beam.setCentralK(wavelength, alpha_i, phi_i);
         m_instrument.setBeam(beam);
         std::vector<SimulationElement> sim_elements_alpha_i =
@@ -180,11 +181,10 @@ void OffSpecSimulation::transferResultsToIntensityMap()
     updateIntensityMap();
     const IAxis &phi_axis = m_instrument.getDetectorAxis(0);
     size_t phi_f_size = phi_axis.getSize();
-    if (phi_f_size*m_intensity_map.getAllocatedSize()!=m_sim_elements.size()) {
-        throw Exceptions::RuntimeErrorException("OffSpecSimulation::transferResultsToIntensityMap: "
-                                    "intensity map size does not conform to number of "
-                                    "calculated intensities");
-    }
+    if (phi_f_size*m_intensity_map.getAllocatedSize()!=m_sim_elements.size())
+        throw Exceptions::RuntimeErrorException(
+            "OffSpecSimulation::transferResultsToIntensityMap: "
+            "intensity map size does not conform to number of calculated intensities");
     for (size_t i=0; i<mp_alpha_i_axis->getSize(); ++i)
         transferDetectorImage(i);
 }
@@ -216,18 +216,16 @@ void OffSpecSimulation::transferDetectorImage(int index)
         detector_image[i] = m_sim_elements[index*detector_size + i].getIntensity();
     m_instrument.applyDetectorResolution(&detector_image);
     size_t y_axis_size = m_instrument.getDetectorAxis(1).getSize();
-    for (size_t i=0; i<detector_size; ++i) {
+    for (size_t i=0; i<detector_size; ++i)
         m_intensity_map[index*y_axis_size + i%y_axis_size] += detector_image[i];
-    }
 }
 
 void OffSpecSimulation::checkInitialization() const
 {
-    if (!mp_alpha_i_axis || mp_alpha_i_axis->getSize()<1) {
+    if (!mp_alpha_i_axis || mp_alpha_i_axis->getSize()<1)
         throw Exceptions::ClassInitializationException(
                 "OffSpecSimulation::checkInitialization() "
                 "Incoming alpha range not configured.");
-    }
     if (m_instrument.getDetectorDimension()!=2)
         throw Exceptions::RuntimeErrorException(
             "OffSpecSimulation::checkInitialization: detector is not two-dimensional");

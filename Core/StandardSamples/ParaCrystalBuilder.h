@@ -29,7 +29,7 @@ class BA_CORE_API_ RadialParaCrystalBuilder : public ISampleBuilder
 {
 public:
     RadialParaCrystalBuilder();
-    ISample* buildSample() const;
+    MultiLayer* buildSample() const;
 
 protected:
     void init_parameters();
@@ -52,7 +52,7 @@ class BA_CORE_API_ Basic2DParaCrystalBuilder : public ISampleBuilder
 public:
     Basic2DParaCrystalBuilder();
     virtual ~Basic2DParaCrystalBuilder();
-    virtual ISample* buildSample() const;
+    virtual MultiLayer* buildSample() const;
 private:
     IFTDistribution2D* m_pdf1;
 };
@@ -65,7 +65,7 @@ class BA_CORE_API_ HexParaCrystalBuilder : public ISampleBuilder
 {
 public:
     HexParaCrystalBuilder();
-    virtual ISample* buildSample() const;
+    virtual MultiLayer* buildSample() const;
 
 protected:
     virtual void init_parameters();
@@ -87,7 +87,7 @@ class BA_CORE_API_ RectParaCrystalBuilder : public ISampleBuilder
 {
 public:
     RectParaCrystalBuilder(){}
-    virtual ISample* buildSample() const;
+    virtual MultiLayer* buildSample() const;
 };
 
 //! @class IsGISAXS08BBuilder
@@ -99,7 +99,7 @@ class BA_CORE_API_ IsGISAXS08BBuilder : public ISampleBuilder
 {
 public:
     IsGISAXS08BBuilder(){}
-    virtual ISample* buildSample() const;
+    virtual MultiLayer* buildSample() const;
 };
 
 #endif // PARACRYSTALBUILDER_H

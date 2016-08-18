@@ -22,7 +22,7 @@
 #include "ParticleLayout.h"
 #include "RealParameter.h"
 
-ISample* ParticleInTheAirBuilder::buildSample() const
+MultiLayer* ParticleInTheAirBuilder::buildSample() const
 {
     const IFormFactor* form_factor = getFormFactor();
     if(!form_factor)

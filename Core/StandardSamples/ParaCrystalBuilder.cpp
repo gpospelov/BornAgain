@@ -35,7 +35,7 @@ RadialParaCrystalBuilder::RadialParaCrystalBuilder()
     init_parameters();
 }
 
-ISample* RadialParaCrystalBuilder::buildSample() const
+MultiLayer* RadialParaCrystalBuilder::buildSample() const
 {
     MultiLayer* multi_layer = new MultiLayer();
 
@@ -86,7 +86,7 @@ Basic2DParaCrystalBuilder::~Basic2DParaCrystalBuilder()
     delete m_pdf1;
 }
 
-ISample* Basic2DParaCrystalBuilder::buildSample() const
+MultiLayer* Basic2DParaCrystalBuilder::buildSample() const
 {
     const IFTDistribution2D* pdf2 = getFTDistribution2D();
     MultiLayer* multi_layer = new MultiLayer();
@@ -138,7 +138,7 @@ HexParaCrystalBuilder::HexParaCrystalBuilder()
     init_parameters();
 }
 
-ISample* HexParaCrystalBuilder::buildSample() const
+MultiLayer* HexParaCrystalBuilder::buildSample() const
 {
     MultiLayer* multi_layer = new MultiLayer();
 
@@ -184,7 +184,7 @@ void HexParaCrystalBuilder::init_parameters()
 // RectParaCrystalBuilder
 // -----------------------------------------------------------------------------
 
-ISample* RectParaCrystalBuilder::buildSample() const
+MultiLayer* RectParaCrystalBuilder::buildSample() const
 {
     MultiLayer* multi_layer = new MultiLayer();
 
@@ -223,7 +223,7 @@ ISample* RectParaCrystalBuilder::buildSample() const
 // IsGISAXS08BBuilder
 // -----------------------------------------------------------------------------
 
-ISample* IsGISAXS08BBuilder::buildSample() const
+MultiLayer* IsGISAXS08BBuilder::buildSample() const
 {
     MultiLayer* multi_layer = new MultiLayer();
 

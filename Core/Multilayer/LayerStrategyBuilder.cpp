@@ -21,6 +21,7 @@
 #include "IParticle.h"
 #include "InterferenceFunctionStrategies.h"
 #include "InterferenceFunctions.h"
+#include "MultiLayer.h"
 #include "Layer.h"
 #include "LayerSpecularInfo.h"
 #include "Simulation.h"

@@ -51,7 +51,7 @@ class BA_CORE_API_ BoxCompositionRotateXBuilder : public BoxCompositionBuilder
 {
 public:
     BoxCompositionRotateXBuilder(){}
-    ISample* buildSample() const;
+    MultiLayer* buildSample() const;
 };
 
 //! @class BoxCompositionRotateYBuilder
@@ -62,7 +62,7 @@ class BA_CORE_API_ BoxCompositionRotateYBuilder : public BoxCompositionBuilder
 {
 public:
     BoxCompositionRotateYBuilder(){}
-    ISample* buildSample() const;
+    MultiLayer* buildSample() const;
 };
 
 //! @class BoxCompositionRotateZBuilder
@@ -73,7 +73,7 @@ class BA_CORE_API_ BoxCompositionRotateZBuilder : public BoxCompositionBuilder
 {
 public:
     BoxCompositionRotateZBuilder(){}
-    ISample* buildSample() const;
+    MultiLayer* buildSample() const;
 };
 
 //! @class BoxCompositionRotateZandYBuilder
@@ -84,7 +84,7 @@ class BA_CORE_API_ BoxCompositionRotateZandYBuilder : public BoxCompositionBuild
 {
 public:
     BoxCompositionRotateZandYBuilder(){}
-    ISample* buildSample() const;
+    MultiLayer* buildSample() const;
 };
 
 //! @class BoxStackCompositionBuilder
@@ -95,7 +95,7 @@ class BA_CORE_API_ BoxStackCompositionBuilder : public BoxCompositionBuilder
 {
 public:
     BoxStackCompositionBuilder(){}
-    ISample* buildSample() const;
+    MultiLayer* buildSample() const;
 };
 
 #endif // BOXCOMPOSITIONBUILDER_H

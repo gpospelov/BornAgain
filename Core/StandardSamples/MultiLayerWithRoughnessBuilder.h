@@ -28,7 +28,7 @@ class BA_CORE_API_ MultiLayerWithRoughnessBuilder : public ISampleBuilder
 {
 public:
     MultiLayerWithRoughnessBuilder();
-    ISample* buildSample() const;
+    MultiLayer* buildSample() const;
 
 protected:
     void init_parameters();

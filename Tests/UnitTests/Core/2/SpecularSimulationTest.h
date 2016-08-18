@@ -14,19 +14,10 @@ class SpecularSimulationTest : public ::testing::Test
 {
  protected:
     SpecularSimulationTest();
-
-    class SampleBuilder : public ISampleBuilder
-    {
-    public:
-        virtual ISample *buildSample() const { return new Layer(); }
-    };
-
-    std::shared_ptr<class ISampleBuilder> sample_builder;
     MultiLayer multilayer;
 };
 
 SpecularSimulationTest::SpecularSimulationTest()
-    : sample_builder(new SampleBuilder)
 {
     HomogeneousMaterial mat0("ambience", 0.0, 0.0);
     HomogeneousMaterial mat1("PartA", 5e-6, 0.0);
@@ -127,8 +118,6 @@ TEST_F(SpecularSimulationTest, SimulationClone)
     EXPECT_EQ(size_t(10), clone->getScalarR(0).size());
     EXPECT_EQ(size_t(10), clone->getScalarT(0).size());
     EXPECT_EQ(size_t(10), clone->getScalarKz(0).size());
-
 }
-
 
 #endif // SPECULARSIMULATIONTEST_H

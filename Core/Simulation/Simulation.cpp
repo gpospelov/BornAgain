@@ -15,7 +15,8 @@
 
 #include "Simulation.h"
 #include "DWBASimulation.h"
-#include "ISample.h"
+#include "ISampleBuilder.h"
+#include "MultiLayer.h"
 #include "Logger.h"
 #include "OMPISimulation.h"
 #include "ParameterPool.h"
@@ -32,7 +33,7 @@ Simulation::Simulation()
 
 Simulation::~Simulation() {} // forward class declaration prevents move to .h
 
-Simulation::Simulation(const ISample& p_sample)
+Simulation::Simulation(const MultiLayer& p_sample)
     : IParameterized("Simulation")
 {
     mP_sample.reset(p_sample.clone());
@@ -102,8 +103,8 @@ void Simulation::runOMPISimulation()
     ompi.runSimulation(this);
 }
 
-//! The ISample object will not be owned by the Simulation object
-void Simulation::setSample(const ISample& sample)
+//! The MultiLayer object will not be owned by the Simulation object
+void Simulation::setSample(const MultiLayer& sample)
 {
     mP_sample.reset(sample.clone());
 }
@@ -118,7 +119,7 @@ void Simulation::setSampleBuilder(std::shared_ptr<class ISampleBuilder> p_sample
     mP_sample.reset(0);
 }
 
-std::string Simulation::addParametersToExternalPool(std::string path, ParameterPool *external_pool,
+std::string Simulation::addParametersToExternalPool(std::string path, ParameterPool* external_pool,
                                                     int copy_number) const
 {
     // add own parameters
@@ -157,7 +158,7 @@ const DistributionHandler& Simulation::getDistributionHandler() const
 void Simulation::updateSample()
 {
     if (mp_sample_builder) {
-        ISample *p_new_sample = mp_sample_builder->buildSample();
+        MultiLayer* p_new_sample = mp_sample_builder->buildSample();
         std::string builder_type = typeid(*mp_sample_builder).name();
         if (builder_type.find("ISampleBuilder_wrapper") != std::string::npos) {
             msglog(MSG::DEBUG2) << "Simulation::updateSample() -> "
@@ -213,7 +214,7 @@ void Simulation::runSingleSimulation()
 
         for (int i_thread = 0; i_thread < m_options.getNumberOfThreads(); ++i_thread) {
             if (i_thread*element_thread_step >= total_batch_elements) break;
-            DWBASimulation *p_dwba_simulation = mP_sample->createDWBASimulation();
+            DWBASimulation* p_dwba_simulation = mP_sample->createDWBASimulation();
             verifyDWBASimulation(p_dwba_simulation);
             std::vector<SimulationElement>::iterator begin_it = batch_start
                                                                 + i_thread * element_thread_step;
@@ -271,7 +272,7 @@ void Simulation::normalize(std::vector<SimulationElement>::iterator begin_it,
     }
 }
 
-void Simulation::initProgressHandlerDWBA(ProgressHandlerDWBA *dwba_progress)
+void Simulation::initProgressHandlerDWBA(ProgressHandlerDWBA* dwba_progress)
 {
     // if we have external ProgressHandler (which is normally coming from GUI),
     // then we will create special callbacks for every DWBASimulation.
@@ -281,7 +282,7 @@ void Simulation::initProgressHandlerDWBA(ProgressHandlerDWBA *dwba_progress)
     }
 }
 
-void Simulation::verifyDWBASimulation(DWBASimulation *dwbaSimulation)
+void Simulation::verifyDWBASimulation(DWBASimulation* dwbaSimulation)
 {
     if (!dwbaSimulation)
         throw Exceptions::RuntimeErrorException(
@@ -296,8 +297,10 @@ std::vector<SimulationElement>::iterator Simulation::getBatchStart(int n_batches
     imposeConsistencyOfBatchNumbers(n_batches, current_batch);
     int total_size = m_sim_elements.size();
     int size_per_batch = total_size/n_batches;
-    if (total_size%n_batches) ++size_per_batch;
-    if (current_batch*size_per_batch >= total_size) return m_sim_elements.end();
+    if (total_size%n_batches)
+        ++size_per_batch;
+    if (current_batch*size_per_batch >= total_size)
+        return m_sim_elements.end();
     return m_sim_elements.begin() + current_batch*size_per_batch;
 }
 

@@ -41,7 +41,7 @@ void CylindersInDWBABuilder::init_parameters()
     registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
 }
 
-ISample* CylindersInDWBABuilder::buildSample() const
+MultiLayer* CylindersInDWBABuilder::buildSample() const
 {
     MultiLayer* multi_layer = new MultiLayer();
 
@@ -81,7 +81,7 @@ void CylindersInBABuilder::init_parameters()
     registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
 }
 
-ISample* CylindersInBABuilder::buildSample() const
+MultiLayer* CylindersInBABuilder::buildSample() const
 {
     MultiLayer* multi_layer = new MultiLayer();
 
@@ -118,7 +118,7 @@ void LargeCylindersInDWBABuilder::init_parameters()
     registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
 }
 
-ISample* LargeCylindersInDWBABuilder::buildSample() const
+MultiLayer* LargeCylindersInDWBABuilder::buildSample() const
 {
     MultiLayer* multi_layer = new MultiLayer();
 

@@ -32,7 +32,7 @@ public:
     virtual ~DWBASimulation();
 
     //! Initializes the simulation with the parameters from simulation
-    virtual void init(const Simulation &simulation,
+    virtual void init(const Simulation& simulation,
                       std::vector<SimulationElement>::iterator begin_it,
                       std::vector<SimulationElement>::iterator end_it);
 

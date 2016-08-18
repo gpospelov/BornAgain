@@ -18,38 +18,36 @@
 
 #include "ISampleBuilder.h"
 
-//! @class SquareLatticeBuilder
+//! Builds sample: 2D lattice with different disorder (IsGISAXS example #6).
 //! @ingroup standard_samples
-//! @brief Builds sample: 2D lattice with different disorder (IsGISAXS example #6)
 
 class BA_CORE_API_ SquareLatticeBuilder : public ISampleBuilder
 {
 public:
     SquareLatticeBuilder(){}
-    ISample *buildSample() const;
+    MultiLayer* buildSample() const;
 };
 
 
-//! @class CenteredSquareLatticeBuilder
+//! Builds sample: 2D lattice with different disorder (IsGISAXS example #6).
 //! @ingroup standard_samples
-//! @brief Builds sample: 2D lattice with different disorder (IsGISAXS example #6)
 
 class BA_CORE_API_ CenteredSquareLatticeBuilder : public ISampleBuilder
 {
 public:
     CenteredSquareLatticeBuilder(){}
-    ISample *buildSample() const;
+    MultiLayer* buildSample() const;
 };
 
-//! @class RotatedSquareLatticeBuilder
+
+//! Builds sample: 2D lattice with different disorder (IsGISAXS example #6).
 //! @ingroup standard_samples
-//! @brief Builds sample: 2D lattice with different disorder (IsGISAXS example #6)
 
 class BA_CORE_API_ RotatedSquareLatticeBuilder : public ISampleBuilder
 {
 public:
     RotatedSquareLatticeBuilder(){}
-    ISample *buildSample() const;
+    MultiLayer* buildSample() const;
 };
 
 #endif // TWODIMLATTICEBUILDER_H

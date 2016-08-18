@@ -28,7 +28,7 @@ class BA_CORE_API_ CylindersInDWBABuilder : public ISampleBuilder
 {
 public:
     CylindersInDWBABuilder();
-    ISample* buildSample() const;
+    MultiLayer* buildSample() const;
 
 protected:
     void init_parameters();
@@ -46,7 +46,7 @@ class BA_CORE_API_ CylindersInBABuilder : public ISampleBuilder
 {
 public:
     CylindersInBABuilder();
-    ISample* buildSample() const;
+    MultiLayer* buildSample() const;
 
 protected:
     void init_parameters();
@@ -64,7 +64,7 @@ class BA_CORE_API_ LargeCylindersInDWBABuilder : public ISampleBuilder
 {
 public:
     LargeCylindersInDWBABuilder();
-    ISample* buildSample() const;
+    MultiLayer* buildSample() const;
 
 protected:
     void init_parameters();

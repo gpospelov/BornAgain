@@ -25,7 +25,7 @@
 #include "RealParameter.h"
 #include "Units.h"
 
-ISample* LayersWithAbsorptionBuilder::buildSample() const
+MultiLayer* LayersWithAbsorptionBuilder::buildSample() const
 {
     const IFormFactor* form_factor = getFormFactor();
     if(!form_factor)

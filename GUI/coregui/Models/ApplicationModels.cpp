@@ -25,6 +25,7 @@
 #include "JobModel.h"
 #include "MaterialModel.h"
 #include "MaterialSvc.h"
+#include "MultiLayer.h"
 #include "RealDataModel.h"
 #include "SampleBuilderFactory.h"
 #include "SampleModel.h"

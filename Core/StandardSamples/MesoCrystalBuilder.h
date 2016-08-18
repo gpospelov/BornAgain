@@ -33,7 +33,7 @@ public:
     MesoCrystalBuilder();
 
     virtual ~MesoCrystalBuilder(){}
-    virtual ISample* buildSample() const;
+    virtual MultiLayer* buildSample() const;
 
 protected:
     virtual void init_parameters();

@@ -16,7 +16,7 @@
 #include "IMinimizerTest.h"
 #include "FitSuite.h"
 #include "GISASSimulation.h"
-#include "ISample.h"
+#include "MultiLayer.h"
 #include "MinimizerFactory.h"
 #include "MinimizerOptions.h"
 #include "SampleBuilderFactory.h"
@@ -48,7 +48,7 @@ IMinimizerTest::IMinimizerTest(const std::string& minimizer_name,
 
 bool IMinimizerTest::runTest()
 {
-    std::unique_ptr<ISample> sample(createSample());
+    std::unique_ptr<MultiLayer> sample(createSample());
     for (size_t i = 0; i < m_parameters.size(); ++i)
         sample->setParameterValue(m_parameters[i].m_name, m_parameters[i].m_real_value);
 
@@ -97,10 +97,10 @@ std::unique_ptr<FitSuite> IMinimizerTest::createFitSuite()
     return result;
 }
 
-std::unique_ptr<ISample> IMinimizerTest::createSample()
+std::unique_ptr<MultiLayer> IMinimizerTest::createSample()
 {
     SampleBuilderFactory builderFactory;
-    std::unique_ptr<ISample> result(builderFactory.createSample(m_sample_builder_name));
+    std::unique_ptr<MultiLayer> result(builderFactory.createSample(m_sample_builder_name));
     return result;
 }
 

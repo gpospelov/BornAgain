@@ -26,7 +26,7 @@
 
 // --- CoreShellParticleBuilder ---
 
-ISample* CoreShellParticleBuilder::buildSample() const
+MultiLayer* CoreShellParticleBuilder::buildSample() const
 {
     MultiLayer* multi_layer = new MultiLayer();
 
@@ -58,7 +58,7 @@ ISample* CoreShellParticleBuilder::buildSample() const
 
 // --- CoreShellBoxRotateZandYBuilder ---
 
-ISample* CoreShellBoxRotateZandYBuilder::buildSample() const
+MultiLayer* CoreShellBoxRotateZandYBuilder::buildSample() const
 {
     const double layer_thickness(100.0*Units::nanometer);
 
@@ -67,7 +67,6 @@ ISample* CoreShellBoxRotateZandYBuilder::buildSample() const
     HomogeneousMaterial mSubstrate("Substrate", 3.212e-6, 3.244e-8);
     HomogeneousMaterial mCore("Ag", 1.245e-5, 5.419e-7);
     HomogeneousMaterial mShell("AgO2", 8.600e-6, 3.442e-7);
-
 
     // core shell particle
     const double shell_length(50.0*Units::nanometer);

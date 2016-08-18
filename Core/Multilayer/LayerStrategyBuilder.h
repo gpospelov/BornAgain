@@ -28,9 +28,8 @@ class Layer;
 class LayerSpecularInfo;
 class Simulation;
 
-//! @class LayerStrategyBuilder
+//! Methods to generate a simulation strategy for decorated Layer SimulationParameters.
 //! @ingroup algorithms_internal
-//! @brief Methods to generate a simulation strategy for decorated Layer SimulationParameters
 
 class BA_CORE_API_ LayerStrategyBuilder
 {
@@ -48,9 +47,9 @@ public:
     virtual IInterferenceFunctionStrategy* createStrategy();
 
 protected:
-    std::unique_ptr<class Layer> mP_layer;                            //!< decorated layer
-    std::unique_ptr<class Simulation> mP_simulation;                  //!< simulation
-    SimulationOptions m_sim_params;          //!< simulation parameters
+    std::unique_ptr<class Layer> mP_layer;                     //!< decorated layer
+    std::unique_ptr<class Simulation> mP_simulation;           //!< simulation
+    SimulationOptions m_sim_params;                            //!< simulation parameters
     std::unique_ptr<class LayerSpecularInfo> mP_specular_info; //!< R and T coefficients for DWBA
     size_t m_layout_index; //!< index for the layout to be used in the layer
 

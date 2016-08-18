@@ -28,7 +28,7 @@ class BA_CORE_API_ MagneticParticleZeroFieldBuilder : public ISampleBuilder
 {
 public:
     MagneticParticleZeroFieldBuilder();
-    ISample* buildSample() const;
+    MultiLayer* buildSample() const;
 
 protected:
     void init_parameters();
@@ -46,7 +46,7 @@ class BA_CORE_API_ MagneticCylindersBuilder : public ISampleBuilder
 {
 public:
     MagneticCylindersBuilder();
-    ISample* buildSample() const;
+    MultiLayer* buildSample() const;
 
 protected:
     void init_parameters();

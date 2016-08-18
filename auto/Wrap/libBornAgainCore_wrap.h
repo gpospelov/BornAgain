@@ -247,7 +247,7 @@ public:
     virtual void printSwigPublic(std::ostream &ostr) const {
       IParameterized::print(ostr);
     }
-    virtual ISample *buildSample() const;
+    virtual MultiLayer *buildSample() const;
 
 /* Internal director utilities */
 public:

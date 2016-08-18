@@ -18,16 +18,14 @@
 
 #include "ISampleBuilder.h"
 
-//! @class TransformBoxBuilder
+//! Rotated box in 3 layers system.
 //! @ingroup standard_samples
-//! @brief Rotated box in 3 layers system
 
 class BA_CORE_API_ TransformBoxBuilder : public ISampleBuilder
 {
 public:
     TransformBoxBuilder(){}
-    ISample *buildSample() const;
+    MultiLayer* buildSample() const;
 };
-
 
 #endif // TRANSFORMATIONSBUILDER_H

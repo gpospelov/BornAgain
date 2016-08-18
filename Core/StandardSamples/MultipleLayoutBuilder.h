@@ -29,7 +29,7 @@ class BA_CORE_API_ MultipleLayoutBuilder : public ISampleBuilder
 {
 public:
     MultipleLayoutBuilder();
-    ISample* buildSample() const;
+    MultiLayer* buildSample() const;
 
 protected:
     void init_parameters();

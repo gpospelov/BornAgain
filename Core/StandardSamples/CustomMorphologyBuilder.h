@@ -28,7 +28,7 @@ class BA_CORE_API_ CustomMorphologyBuilder : public ISampleBuilder
 {
 public:
     CustomMorphologyBuilder() {}
-    ISample* buildSample() const;
+    MultiLayer* buildSample() const;
 };
 
 #endif // CUSTOMMORPHOLOGYBUILDER_H

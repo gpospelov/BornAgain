@@ -27,22 +27,21 @@ class SizeSpacingCorrelationApproximationStrategy : public IInterferenceFunction
 {
 public:
     SizeSpacingCorrelationApproximationStrategy(SimulationOptions sim_params, double kappa);
-    virtual ~SizeSpacingCorrelationApproximationStrategy() {}
+    ~SizeSpacingCorrelationApproximationStrategy() final {}
 
-    virtual void init(const SafePointerVector<FormFactorInfo>& form_factor_infos,
-                      const IInterferenceFunction& iff);
+    void init(const SafePointerVector<FormFactorInfo>& form_factor_infos,
+              const IInterferenceFunction& iff) final;
 
-protected:
+private:
     //! Evaluates the intensity for given list of evaluated form factors
-    virtual double evaluateForList(const SimulationElement& sim_element,
-                                   const std::vector<complex_t>& ff_list) const;
+    double evaluateForList(const SimulationElement& sim_element,
+                           const std::vector<complex_t>& ff_list) const final;
 
     //! Evaluates the intensity for given list of evaluated form factors
     //! in the presence of polarization of beam and detector
     double evaluateForMatrixList(const SimulationElement& sim_element,
-                                 const matrixFFVector_t& ff_list) const;
+                                 const matrixFFVector_t& ff_list) const final;
 
-private:
     complex_t getMeanCharacteristicFF(const kvector_t q,
                                       const std::vector<complex_t>& ff_list) const;
     Eigen::Matrix2cd getMeanCharacteristicMatrixFF(const kvector_t q,

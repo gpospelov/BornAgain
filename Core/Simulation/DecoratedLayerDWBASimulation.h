@@ -28,19 +28,16 @@ class BA_CORE_API_ DecoratedLayerDWBASimulation : public LayerDWBASimulation
 {
 public:
     DecoratedLayerDWBASimulation(const Layer* p_layer, size_t layout_index=0);
-    virtual ~DecoratedLayerDWBASimulation();
+    ~DecoratedLayerDWBASimulation() final;
 
-    DecoratedLayerDWBASimulation* clone() const
-    {
+    DecoratedLayerDWBASimulation* clone() const {
         throw Exceptions::NotImplementedException(
-            "DecoratedLayerDWBASimulation::clone() -> Error: not implemented.");
-    }
+            "DecoratedLayerDWBASimulation::clone() -> Error: not implemented."); }
 
-    virtual void run();
-protected:
-    virtual void runProtected();
+    void run() final;
 
 private:
+    void runProtected() final;
     IInterferenceFunctionStrategy* createAndInitStrategy() const;
     void calculateCoherentIntensity(const IInterferenceFunctionStrategy* p_strategy);
     size_t m_layout_index;

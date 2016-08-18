@@ -17,7 +17,6 @@
 \newpage
 \chapter{Using the Python API}  \label{sec:Usage}
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Running a simulation}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -40,9 +39,7 @@ All these steps can be organized in either a Graphical User Interface (GUI) or b
 In the following, we describe how to write a
 \Code{Python} script which runs a \BornAgain\ simulation. For tutorials about this programming language, the users are referred to \cite{Lut09}.
 
-
 % More information about the general software architecture and \BornAgain\ internal design are given in \cref{sec:SoftwareArchitecture}.
-
 
 %===============================================================================
 \subsection{Units:}
@@ -252,7 +249,7 @@ upper edge of last bin \Code{phi\_f\_max} all together define $\phi_f$ detector 
 while \Code{n\_alpha}, \Code{alpha\_f\_min} and \Code{alpha\_f\_max} are related to
 $\alpha_f$ detector axis.
 
-\ImportantPoint{Remark:}{Axis binning\\
+\Emph{Axis binning:
 By default axes are binned to provide constant bin size in k-space, which means slightly
 non-equidistant binning in angle space. Other possible options, including user defined
 axes with custom variable bin size are explained elsewhere.
@@ -676,10 +673,8 @@ containing an axes
 binning description and the intensity data itself.
 \vspace*{2mm}
 
-\ImportantPoint{Remark:}{
-We recognize the importance of supporting the most common data formats. We are going to provide
-this feature in the following releases and welcome users' requests on this subject.
-}
+\Emph{We recognize the importance of supporting the most common data formats. We are going to provide
+this feature in the following releases and welcome users' requests on this subject.}
 \vspace*{1mm}
 
 To associate the simulation and the reference data to the fitting engine, method \newline
@@ -1114,13 +1109,10 @@ During a standard simulation (i.e. no Monte-Carlo integration involved) intensit
 \vspace*{2mm}
 
 
-\MakeRemark{}{
-The \Code{IntensityData} object is not intended for direct usage from Python API. The idea is
+\Note{The \Code{IntensityData} object is not intended for direct usage from Python API. The idea is
 that the API provides the user with the possibility to export the data from BornAgain internal format to the format of his choice as well as import user's data into BornAgain.
 For the moment this functionality is limited to a few options explained below.
-We encourage users feedback to implement the support of most requested formats.
-}\\
-
+We encourage users feedback to implement the support of most requested formats.}
 
 
 \subsubsection{Import/export of intensity data}

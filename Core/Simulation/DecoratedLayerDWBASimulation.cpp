@@ -23,12 +23,10 @@
 DecoratedLayerDWBASimulation::DecoratedLayerDWBASimulation(
     const Layer* p_layer, size_t layout_index)
     : LayerDWBASimulation(p_layer), m_layout_index(layout_index)
-{
-}
+{}
 
 DecoratedLayerDWBASimulation::~DecoratedLayerDWBASimulation()
-{
-}
+{}
 
 void DecoratedLayerDWBASimulation::run()
 {
@@ -36,7 +34,7 @@ void DecoratedLayerDWBASimulation::run()
     try {
         runProtected();
         setStatus(COMPLETED);
-    } catch (const std::exception &ex) {
+    } catch (const std::exception& ex) {
         setRunMessage(std::string(ex.what()));
         setStatus(FAILED);
         throw Exceptions::RuntimeErrorException(

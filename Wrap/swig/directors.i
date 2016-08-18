@@ -1,7 +1,7 @@
  // manually declare which classes can be derived in Python and passed back to C++
  // this can be used to reduce the bloat in the swig-generated code
  
-%feature("director") ISampleBuilder;
+%feature("director") IMultiLayerBuilder;
 %feature("director") INamed;
 %feature("director") INamedShared;
 %feature("director") IParameterized;

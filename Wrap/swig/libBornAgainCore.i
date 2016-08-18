@@ -152,7 +152,7 @@
 #include "IParticle.h"
 #include "IResolutionFunction2D.h"
 #include "ISample.h"
-#include "ISampleBuilder.h"
+#include "IMultiLayerBuilder.h"
 #include "ISampleVisitor.h"
 #include "ISelectionRule.h"
 #include "IShape2D.h"
@@ -286,7 +286,7 @@
 %include "FitStrategyAdjustMinimizer.h"
 
 %include "IFactory.h"
-%include "ISampleBuilder.h"
+%include "IMultiLayerBuilder.h"
 %include "ISampleVisitor.h"
 %include "ICompositeSample.h"
 %include "IClusteredParticles.h"
@@ -410,7 +410,7 @@
 %include "ISelectionRule.h"
 %include "SpecularSimulation.h"
 %include "ThreadInfo.h"
-%template(SampleBuilderFactory) IFactory<std::string, ISampleBuilder>;
+%template(SampleBuilderFactory) IFactory<std::string, IMultiLayerBuilder>;
 //%include "SampleBuilderFactory.h"
 %template(SimulationFactory) IFactory<std::string, GISASSimulation>;
 //%include "SimulationFactory.h"

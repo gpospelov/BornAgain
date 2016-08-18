@@ -5,7 +5,7 @@
 #include "OutputData.h"
 #include "Beam.h"
 #include "Layer.h"
-#include "ISampleBuilder.h"
+#include "IMultiLayerBuilder.h"
 #include "BornAgainNamespace.h"
 #include "Layer.h"
 #include <memory>

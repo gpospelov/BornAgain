@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Multilayer/ISampleBuilder.h
-//! @brief     Defines pure virtual base class ISampleBuilder.
+//! @file      Core/Multilayer/IMultiLayerBuilder.h
+//! @brief     Defines pure virtual base class IMultiLayerBuilder.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef ISAMPLEBUILDER_H
-#define ISAMPLEBUILDER_H
+#ifndef IMULTILAYERBUILDER_H
+#define IMULTILAYERBUILDER_H
 
 #include "IParameterized.h"
 
@@ -25,11 +25,11 @@ class IFTDistribution2D;
 //! Interface to the class capable to build samples to simulate.
 //! @ingroup simulation_internal
 
-class BA_CORE_API_ ISampleBuilder : public IParameterized
+class BA_CORE_API_ IMultiLayerBuilder : public IParameterized
 {
 public:
-    ISampleBuilder() : IParameterized("SampleBuilder") {}
-    virtual ~ISampleBuilder() {}
+    IMultiLayerBuilder() : IParameterized("SampleBuilder") {}
+    virtual ~IMultiLayerBuilder() {}
 
     virtual MultiLayer* buildSample() const = 0;
 
@@ -40,4 +40,4 @@ public:
     const IFTDistribution2D* getFTDistribution2D() const;
 };
 
-#endif // ISAMPLEBUILDER_H
+#endif // IMULTILAYERBUILDER_H

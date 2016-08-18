@@ -3,7 +3,7 @@
 
 #include "SpecularSimulation.h"
 #include "HomogeneousMaterial.h"
-#include "ISampleBuilder.h"
+#include "IMultiLayerBuilder.h"
 #include "Exceptions.h"
 #include "FixedBinAxis.h"
 #include "Units.h"

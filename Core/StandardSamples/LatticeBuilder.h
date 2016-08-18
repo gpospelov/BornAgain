@@ -16,7 +16,7 @@
 #ifndef LATTICEBUILDER_H
 #define LATTICEBUILDER_H
 
-#include "ISampleBuilder.h"
+#include "IMultiLayerBuilder.h"
 
 class ISample;
 
@@ -24,7 +24,7 @@ class ISample;
 //! @ingroup standard_samples
 //! @brief Builds sample: cylinders with 1DDL structure factor
 
-class BA_CORE_API_ Lattice1DBuilder : public ISampleBuilder
+class BA_CORE_API_ Lattice1DBuilder : public IMultiLayerBuilder
 {
 public:
     Lattice1DBuilder();

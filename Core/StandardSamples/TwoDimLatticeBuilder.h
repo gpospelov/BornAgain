@@ -16,12 +16,12 @@
 #ifndef TWODIMLATTICEBUILDER_H
 #define TWODIMLATTICEBUILDER_H
 
-#include "ISampleBuilder.h"
+#include "IMultiLayerBuilder.h"
 
 //! Builds sample: 2D lattice with different disorder (IsGISAXS example #6).
 //! @ingroup standard_samples
 
-class BA_CORE_API_ SquareLatticeBuilder : public ISampleBuilder
+class BA_CORE_API_ SquareLatticeBuilder : public IMultiLayerBuilder
 {
 public:
     SquareLatticeBuilder(){}
@@ -32,7 +32,7 @@ public:
 //! Builds sample: 2D lattice with different disorder (IsGISAXS example #6).
 //! @ingroup standard_samples
 
-class BA_CORE_API_ CenteredSquareLatticeBuilder : public ISampleBuilder
+class BA_CORE_API_ CenteredSquareLatticeBuilder : public IMultiLayerBuilder
 {
 public:
     CenteredSquareLatticeBuilder(){}
@@ -43,7 +43,7 @@ public:
 //! Builds sample: 2D lattice with different disorder (IsGISAXS example #6).
 //! @ingroup standard_samples
 
-class BA_CORE_API_ RotatedSquareLatticeBuilder : public ISampleBuilder
+class BA_CORE_API_ RotatedSquareLatticeBuilder : public IMultiLayerBuilder
 {
 public:
     RotatedSquareLatticeBuilder(){}

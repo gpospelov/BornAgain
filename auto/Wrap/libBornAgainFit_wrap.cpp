@@ -3446,8 +3446,8 @@ namespace Swig {
 #define SWIGTYPE_p_std__functionT_double_fdouble_const_p_unsigned_int_double_pF_t swig_types[28]
 #define SWIGTYPE_p_std__invalid_argument swig_types[29]
 #define SWIGTYPE_p_std__shared_ptrT_IFitObserver_t swig_types[30]
-#define SWIGTYPE_p_std__shared_ptrT_IObserver_t swig_types[31]
-#define SWIGTYPE_p_std__shared_ptrT_ISampleBuilder_t swig_types[32]
+#define SWIGTYPE_p_std__shared_ptrT_IMultiLayerBuilder_t swig_types[31]
+#define SWIGTYPE_p_std__shared_ptrT_IObserver_t swig_types[32]
 #define SWIGTYPE_p_std__shared_ptrT_MinimizerOption_t swig_types[33]
 #define SWIGTYPE_p_std__string swig_types[34]
 #define SWIGTYPE_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t swig_types[35]
@@ -24163,8 +24163,8 @@ static swig_type_info _swigt__p_std__functionT_double_fdouble_const_pF_t = {"_p_
 static swig_type_info _swigt__p_std__functionT_double_fdouble_const_p_unsigned_int_double_pF_t = {"_p_std__functionT_double_fdouble_const_p_unsigned_int_double_pF_t", "IMinimizer::function_gradient_t *|std::function< double (double const *,unsigned int,double *) > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__invalid_argument = {"_p_std__invalid_argument", "std::invalid_argument *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__shared_ptrT_IFitObserver_t = {"_p_std__shared_ptrT_IFitObserver_t", "std::shared_ptr< IFitObserver > *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_std__shared_ptrT_IMultiLayerBuilder_t = {"_p_std__shared_ptrT_IMultiLayerBuilder_t", "std::shared_ptr< IMultiLayerBuilder > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__shared_ptrT_IObserver_t = {"_p_std__shared_ptrT_IObserver_t", "std::shared_ptr< IObserver > *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_std__shared_ptrT_ISampleBuilder_t = {"_p_std__shared_ptrT_ISampleBuilder_t", "std::shared_ptr< ISampleBuilder > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__shared_ptrT_MinimizerOption_t = {"_p_std__shared_ptrT_MinimizerOption_t", "Configurable::option_t *|std::shared_ptr< MinimizerOption > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__string = {"_p_std__string", "std::string *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t = {"_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t", "std::vector< FitParameter *,std::allocator< FitParameter * > > *", 0, 0, (void*)0, 0};
@@ -24215,8 +24215,8 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_std__functionT_double_fdouble_const_p_unsigned_int_double_pF_t,
   &_swigt__p_std__invalid_argument,
   &_swigt__p_std__shared_ptrT_IFitObserver_t,
+  &_swigt__p_std__shared_ptrT_IMultiLayerBuilder_t,
   &_swigt__p_std__shared_ptrT_IObserver_t,
-  &_swigt__p_std__shared_ptrT_ISampleBuilder_t,
   &_swigt__p_std__shared_ptrT_MinimizerOption_t,
   &_swigt__p_std__string,
   &_swigt__p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t,
@@ -24267,8 +24267,8 @@ static swig_cast_info _swigc__p_std__functionT_double_fdouble_const_pF_t[] = {  
 static swig_cast_info _swigc__p_std__functionT_double_fdouble_const_p_unsigned_int_double_pF_t[] = {  {&_swigt__p_std__functionT_double_fdouble_const_p_unsigned_int_double_pF_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__invalid_argument[] = {  {&_swigt__p_std__invalid_argument, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__shared_ptrT_IFitObserver_t[] = {  {&_swigt__p_std__shared_ptrT_IFitObserver_t, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_std__shared_ptrT_IMultiLayerBuilder_t[] = {  {&_swigt__p_std__shared_ptrT_IMultiLayerBuilder_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__shared_ptrT_IObserver_t[] = {  {&_swigt__p_std__shared_ptrT_IObserver_t, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_std__shared_ptrT_ISampleBuilder_t[] = {  {&_swigt__p_std__shared_ptrT_ISampleBuilder_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__shared_ptrT_MinimizerOption_t[] = {  {&_swigt__p_std__shared_ptrT_MinimizerOption_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__string[] = {  {&_swigt__p_std__string, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t[] = {  {&_swigt__p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t, 0, 0, 0},{0, 0, 0, 0}};
@@ -24319,8 +24319,8 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_std__functionT_double_fdouble_const_p_unsigned_int_double_pF_t,
   _swigc__p_std__invalid_argument,
   _swigc__p_std__shared_ptrT_IFitObserver_t,
+  _swigc__p_std__shared_ptrT_IMultiLayerBuilder_t,
   _swigc__p_std__shared_ptrT_IObserver_t,
-  _swigc__p_std__shared_ptrT_ISampleBuilder_t,
   _swigc__p_std__shared_ptrT_MinimizerOption_t,
   _swigc__p_std__string,
   _swigc__p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t,

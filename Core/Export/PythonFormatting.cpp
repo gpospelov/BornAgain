@@ -21,7 +21,7 @@
 #include "IShape2D.h"
 #include "InfinitePlane.h"
 #include "IParameterized.h"
-#include "ISampleBuilder.h"
+#include "IMultiLayerBuilder.h"
 #include "Line.h"
 #include "Macros.h"
 #include "MultiLayer.h"

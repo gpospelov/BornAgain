@@ -3697,18 +3697,6 @@ class ISample(ICloneable, IParameterized):
         return _libBornAgainCore.ISample_accept(self, p_visitor)
 
 
-    def createDWBASimulation(self):
-        """
-        createDWBASimulation(ISample self) -> DWBASimulation *
-
-        DWBASimulation * ISample::createDWBASimulation() const
-
-        Returns an  ISimulation if DWBA is required. 
-
-        """
-        return _libBornAgainCore.ISample_createDWBASimulation(self)
-
-
     def to_str(self, indent=0):
         """
         to_str(ISample self, int indent=0) -> std::string
@@ -6537,123 +6525,91 @@ class FitStrategyAdjustMinimizer(IFitStrategy):
 FitStrategyAdjustMinimizer_swigregister = _libBornAgainCore.FitStrategyAdjustMinimizer_swigregister
 FitStrategyAdjustMinimizer_swigregister(FitStrategyAdjustMinimizer)
 
-class ISampleBuilder(IParameterized):
-    """
-
-
-    Interface to the class capable to build samples to simulate.
-
-    C++ includes: ISampleBuilder.h
-
-    """
+class IMultiLayerBuilder(IParameterized):
+    """Proxy of C++ IMultiLayerBuilder class"""
     __swig_setmethods__ = {}
     for _s in [IParameterized]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
-    __setattr__ = lambda self, name, value: _swig_setattr(self, ISampleBuilder, name, value)
+    __setattr__ = lambda self, name, value: _swig_setattr(self, IMultiLayerBuilder, name, value)
     __swig_getmethods__ = {}
     for _s in [IParameterized]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
-    __getattr__ = lambda self, name: _swig_getattr(self, ISampleBuilder, name)
+    __getattr__ = lambda self, name: _swig_getattr(self, IMultiLayerBuilder, name)
     __repr__ = _swig_repr
 
     def __init__(self):
-        """
-        __init__(ISampleBuilder self) -> ISampleBuilder
-
-        ISampleBuilder::ISampleBuilder()
-
-        """
-        if self.__class__ == ISampleBuilder:
+        """__init__(IMultiLayerBuilder self) -> IMultiLayerBuilder"""
+        if self.__class__ == IMultiLayerBuilder:
             _self = None
         else:
             _self = self
-        this = _libBornAgainCore.new_ISampleBuilder(_self, )
+        this = _libBornAgainCore.new_IMultiLayerBuilder(_self, )
         try:
             self.this.append(this)
         except:
             self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_ISampleBuilder
+    __swig_destroy__ = _libBornAgainCore.delete_IMultiLayerBuilder
     __del__ = lambda self: None
 
     def buildSample(self):
-        """
-        buildSample(ISampleBuilder self) -> MultiLayer
-
-        virtual ISample* ISampleBuilder::buildSample() const =0
-
-        """
-        return _libBornAgainCore.ISampleBuilder_buildSample(self)
+        """buildSample(IMultiLayerBuilder self) -> MultiLayer"""
+        return _libBornAgainCore.IMultiLayerBuilder_buildSample(self)
 
 
     def set_subtest(self, subtest_item):
-        """
-        set_subtest(ISampleBuilder self, IParameterized subtest_item)
+        """set_subtest(IMultiLayerBuilder self, IParameterized subtest_item)"""
+        return _libBornAgainCore.IMultiLayerBuilder_set_subtest(self, subtest_item)
 
-        void ISampleBuilder::set_subtest(const IParameterized *subtest_item)
-
-        """
-        return _libBornAgainCore.ISampleBuilder_set_subtest(self, subtest_item)
-
-    __swig_setmethods__["m_subtest_item"] = _libBornAgainCore.ISampleBuilder_m_subtest_item_set
-    __swig_getmethods__["m_subtest_item"] = _libBornAgainCore.ISampleBuilder_m_subtest_item_get
+    __swig_setmethods__["m_subtest_item"] = _libBornAgainCore.IMultiLayerBuilder_m_subtest_item_set
+    __swig_getmethods__["m_subtest_item"] = _libBornAgainCore.IMultiLayerBuilder_m_subtest_item_get
     if _newclass:
-        m_subtest_item = _swig_property(_libBornAgainCore.ISampleBuilder_m_subtest_item_get, _libBornAgainCore.ISampleBuilder_m_subtest_item_set)
+        m_subtest_item = _swig_property(_libBornAgainCore.IMultiLayerBuilder_m_subtest_item_get, _libBornAgainCore.IMultiLayerBuilder_m_subtest_item_set)
 
     def getFormFactor(self):
-        """
-        getFormFactor(ISampleBuilder self) -> IFormFactor
-
-        const IFormFactor * ISampleBuilder::getFormFactor() const 
-
-        """
-        return _libBornAgainCore.ISampleBuilder_getFormFactor(self)
+        """getFormFactor(IMultiLayerBuilder self) -> IFormFactor"""
+        return _libBornAgainCore.IMultiLayerBuilder_getFormFactor(self)
 
 
     def getFTDistribution2D(self):
-        """
-        getFTDistribution2D(ISampleBuilder self) -> IFTDistribution2D
-
-        const IFTDistribution2D * ISampleBuilder::getFTDistribution2D() const 
-
-        """
-        return _libBornAgainCore.ISampleBuilder_getFTDistribution2D(self)
+        """getFTDistribution2D(IMultiLayerBuilder self) -> IFTDistribution2D"""
+        return _libBornAgainCore.IMultiLayerBuilder_getFTDistribution2D(self)
 
 
     def registerParameter(self, name, parpointer):
         """
-        registerParameter(ISampleBuilder self, std::string const & name, int64_t parpointer) -> RealParameter
+        registerParameter(IMultiLayerBuilder self, std::string const & name, int64_t parpointer) -> RealParameter
 
         RealParameter & IParameterized::registerParameter(const std::string &name, double *parpointer)
 
         """
-        return _libBornAgainCore.ISampleBuilder_registerParameter(self, name, parpointer)
+        return _libBornAgainCore.IMultiLayerBuilder_registerParameter(self, name, parpointer)
 
 
     def setParameterValue(self, name, value):
         """
-        setParameterValue(ISampleBuilder self, std::string const & name, double value)
+        setParameterValue(IMultiLayerBuilder self, std::string const & name, double value)
 
         void IParameterized::setParameterValue(const std::string &name, double value)
 
         """
-        return _libBornAgainCore.ISampleBuilder_setParameterValue(self, name, value)
+        return _libBornAgainCore.IMultiLayerBuilder_setParameterValue(self, name, value)
 
     def __disown__(self):
         self.this.disown()
-        _libBornAgainCore.disown_ISampleBuilder(self)
+        _libBornAgainCore.disown_IMultiLayerBuilder(self)
         return weakref_proxy(self)
 
     def onChange(self):
-        """onChange(ISampleBuilder self)"""
-        return _libBornAgainCore.ISampleBuilder_onChange(self)
+        """onChange(IMultiLayerBuilder self)"""
+        return _libBornAgainCore.IMultiLayerBuilder_onChange(self)
 
 
     def _print(self, ostr):
-        """_print(ISampleBuilder self, std::ostream & ostr)"""
-        return _libBornAgainCore.ISampleBuilder__print(self, ostr)
+        """_print(IMultiLayerBuilder self, std::ostream & ostr)"""
+        return _libBornAgainCore.IMultiLayerBuilder__print(self, ostr)
 
-ISampleBuilder_swigregister = _libBornAgainCore.ISampleBuilder_swigregister
-ISampleBuilder_swigregister(ISampleBuilder)
+IMultiLayerBuilder_swigregister = _libBornAgainCore.IMultiLayerBuilder_swigregister
+IMultiLayerBuilder_swigregister(IMultiLayerBuilder)
 
 class ISampleVisitor(_object):
     """
@@ -14910,7 +14866,7 @@ class Simulation(ICloneable, IParameterized):
 
     def setSampleBuilder(self, sample_builder):
         """
-        setSampleBuilder(Simulation self, std::shared_ptr< ISampleBuilder > sample_builder)
+        setSampleBuilder(Simulation self, std::shared_ptr< IMultiLayerBuilder > sample_builder)
 
         void Simulation::setSampleBuilder(std::shared_ptr< ISampleBuilder > sample_builder)
 
@@ -14922,7 +14878,7 @@ class Simulation(ICloneable, IParameterized):
 
     def getSampleBuilder(self):
         """
-        getSampleBuilder(Simulation self) -> std::shared_ptr< ISampleBuilder >
+        getSampleBuilder(Simulation self) -> std::shared_ptr< IMultiLayerBuilder >
 
         std::shared_ptr<ISampleBuilder> Simulation::getSampleBuilder() const
 
@@ -15189,7 +15145,7 @@ class GISASSimulation(Simulation):
         """
         __init__(GISASSimulation self) -> GISASSimulation
         __init__(GISASSimulation self, MultiLayer p_sample) -> GISASSimulation
-        __init__(GISASSimulation self, std::shared_ptr< ISampleBuilder > p_sample_builder) -> GISASSimulation
+        __init__(GISASSimulation self, std::shared_ptr< IMultiLayerBuilder > p_sample_builder) -> GISASSimulation
 
         GISASSimulation::GISASSimulation(std::shared_ptr< ISampleBuilder > p_sample_builder)
 
@@ -21222,7 +21178,7 @@ class OffSpecSimulation(Simulation):
         """
         __init__(OffSpecSimulation self) -> OffSpecSimulation
         __init__(OffSpecSimulation self, MultiLayer p_sample) -> OffSpecSimulation
-        __init__(OffSpecSimulation self, std::shared_ptr< ISampleBuilder > p_sample_builder) -> OffSpecSimulation
+        __init__(OffSpecSimulation self, std::shared_ptr< IMultiLayerBuilder > p_sample_builder) -> OffSpecSimulation
 
         OffSpecSimulation::OffSpecSimulation(std::shared_ptr< class ISampleBuilder > p_sample_builder)
 
@@ -24107,7 +24063,7 @@ class SpecularSimulation(ICloneable, IParameterized):
         """
         __init__(SpecularSimulation self) -> SpecularSimulation
         __init__(SpecularSimulation self, ISample sample) -> SpecularSimulation
-        __init__(SpecularSimulation self, std::shared_ptr< ISampleBuilder > sample_builder) -> SpecularSimulation
+        __init__(SpecularSimulation self, std::shared_ptr< IMultiLayerBuilder > sample_builder) -> SpecularSimulation
 
         SpecularSimulation::SpecularSimulation(std::shared_ptr< ISampleBuilder > sample_builder)
 
@@ -24168,7 +24124,7 @@ class SpecularSimulation(ICloneable, IParameterized):
 
     def setSampleBuilder(self, sample_builder):
         """
-        setSampleBuilder(SpecularSimulation self, std::shared_ptr< ISampleBuilder > sample_builder)
+        setSampleBuilder(SpecularSimulation self, std::shared_ptr< IMultiLayerBuilder > sample_builder)
 
         void SpecularSimulation::setSampleBuilder(std::shared_ptr< ISampleBuilder > sample_builder)
 
@@ -24180,7 +24136,7 @@ class SpecularSimulation(ICloneable, IParameterized):
 
     def getSampleBuilder(self):
         """
-        getSampleBuilder(SpecularSimulation self) -> std::shared_ptr< ISampleBuilder >
+        getSampleBuilder(SpecularSimulation self) -> std::shared_ptr< IMultiLayerBuilder >
 
         std::shared_ptr<ISampleBuilder> SpecularSimulation::getSampleBuilder() const
 
@@ -24349,7 +24305,7 @@ class SampleBuilderFactory(_object):
 
     def __init__(self):
         """
-        __init__(IFactory<(std::string,ISampleBuilder)> self) -> SampleBuilderFactory
+        __init__(IFactory<(std::string,IMultiLayerBuilder)> self) -> SampleBuilderFactory
 
         IFactory< Key, AbstractProduct >::IFactory()
 
@@ -24362,7 +24318,7 @@ class SampleBuilderFactory(_object):
 
     def createItem(self, item_key):
         """
-        createItem(SampleBuilderFactory self, std::string const & item_key) -> ISampleBuilder
+        createItem(SampleBuilderFactory self, std::string const & item_key) -> IMultiLayerBuilder
 
         AbstractProduct* IFactory< Key, AbstractProduct >::createItem(const Key &item_key)
 
@@ -24374,8 +24330,8 @@ class SampleBuilderFactory(_object):
 
     def registerItem(self, *args):
         """
-        registerItem(SampleBuilderFactory self, std::string const & item_key, IFactory< std::string,ISampleBuilder >::CreateItemCallback CreateFn, std::string const & itemDescription) -> bool
-        registerItem(SampleBuilderFactory self, std::string const & item_key, IFactory< std::string,ISampleBuilder >::CreateItemCallback CreateFn) -> bool
+        registerItem(SampleBuilderFactory self, std::string const & item_key, IFactory< std::string,IMultiLayerBuilder >::CreateItemCallback CreateFn, std::string const & itemDescription) -> bool
+        registerItem(SampleBuilderFactory self, std::string const & item_key, IFactory< std::string,IMultiLayerBuilder >::CreateItemCallback CreateFn) -> bool
 
         bool IFactory< Key, AbstractProduct >::registerItem(const Key &item_key, CreateItemCallback CreateFn, const std::string &itemDescription="")
 
@@ -24401,7 +24357,7 @@ class SampleBuilderFactory(_object):
 
     def begin(self):
         """
-        begin(SampleBuilderFactory self) -> IFactory< std::string,ISampleBuilder >::const_iterator
+        begin(SampleBuilderFactory self) -> IFactory< std::string,IMultiLayerBuilder >::const_iterator
 
         const_iterator IFactory< Key, AbstractProduct >::begin() const 
 
@@ -24411,7 +24367,7 @@ class SampleBuilderFactory(_object):
 
     def end(self):
         """
-        end(SampleBuilderFactory self) -> IFactory< std::string,ISampleBuilder >::const_iterator
+        end(SampleBuilderFactory self) -> IFactory< std::string,IMultiLayerBuilder >::const_iterator
 
         const_iterator IFactory< Key, AbstractProduct >::end() const 
 

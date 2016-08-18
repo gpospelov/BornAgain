@@ -23,7 +23,6 @@
 
 class IMaterial;
 class ISampleVisitor;
-class DWBASimulation;
 
 //! Interface for sample components and properties related to scattering.
 //! @ingroup samples_internal
@@ -42,8 +41,6 @@ public:
 
     //! Calls the ISampleVisitor's visit method.
     virtual void accept(ISampleVisitor* p_visitor) const=0;
-
-    virtual DWBASimulation* createDWBASimulation() const;
 
     //! Returns textual representation of this and its descendants.
     virtual std::string to_str(int indent=0) const;

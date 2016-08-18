@@ -16,7 +16,7 @@
 #ifndef LAYERSWITHABSORPTIONBUILDER_H
 #define LAYERSWITHABSORPTIONBUILDER_H
 
-#include "ISampleBuilder.h"
+#include "IMultiLayerBuilder.h"
 
 //! The LayersWithAbsorptionBuilder class generates a multilayer with 3 layers with
 //! absorption (refractive index has imaginary part).
@@ -25,7 +25,7 @@
 //! The middle layer is populated with particles.
 //! Requires IComponentService which generates form factors, used for bulk form factors testing.
 
-class BA_CORE_API_ LayersWithAbsorptionBuilder : public ISampleBuilder
+class BA_CORE_API_ LayersWithAbsorptionBuilder : public IMultiLayerBuilder
 {
 public:
     LayersWithAbsorptionBuilder() {}

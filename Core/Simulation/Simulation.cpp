@@ -15,7 +15,7 @@
 
 #include "Simulation.h"
 #include "DWBASimulation.h"
-#include "ISampleBuilder.h"
+#include "IMultiLayerBuilder.h"
 #include "MultiLayer.h"
 #include "Logger.h"
 #include "OMPISimulation.h"
@@ -40,7 +40,7 @@ Simulation::Simulation(const MultiLayer& p_sample)
     init_parameters();
 }
 
-Simulation::Simulation(std::shared_ptr<ISampleBuilder> p_sample_builder)
+Simulation::Simulation(std::shared_ptr<IMultiLayerBuilder> p_sample_builder)
     : IParameterized("Simulation"), mp_sample_builder(p_sample_builder)
 {
     init_parameters();
@@ -109,7 +109,7 @@ void Simulation::setSample(const MultiLayer& sample)
     mP_sample.reset(sample.clone());
 }
 
-void Simulation::setSampleBuilder(std::shared_ptr<class ISampleBuilder> p_sample_builder)
+void Simulation::setSampleBuilder(std::shared_ptr<class IMultiLayerBuilder> p_sample_builder)
 {
     if (!p_sample_builder)
         throw Exceptions::NullPointerException("Simulation::setSampleBuilder() -> "
@@ -160,7 +160,7 @@ void Simulation::updateSample()
     if (mp_sample_builder) {
         MultiLayer* p_new_sample = mp_sample_builder->buildSample();
         std::string builder_type = typeid(*mp_sample_builder).name();
-        if (builder_type.find("ISampleBuilder_wrapper") != std::string::npos) {
+        if (builder_type.find("IMultiLayerBuilder_wrapper") != std::string::npos) {
             msglog(MSG::DEBUG2) << "Simulation::updateSample() -> "
                                    "OMG, some body has called me from python, what an idea... ";
             setSample(*p_new_sample);

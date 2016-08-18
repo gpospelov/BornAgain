@@ -26,7 +26,7 @@ namespace Geometry {
     double __getitem__(unsigned int i) { return (*($self))[i]; }
 };
 
-%extend ISampleBuilder {
+%extend IMultiLayerBuilder {
     virtual RealParameter* registerParameter(const std::string& name, int64_t parpointer) {
         return &((*($self)).registerParameter(name, (double*)parpointer)); }
 

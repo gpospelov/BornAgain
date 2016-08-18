@@ -24,7 +24,7 @@
 template<class T> class OutputData;
 class DWBASimulation;
 class MultiLayer;
-class ISampleBuilder;
+class IMultiLayerBuilder;
 class ProgressHandlerDWBA;
 
 //! Main class to run the simulation.
@@ -35,7 +35,7 @@ class BA_CORE_API_ Simulation : public ICloneable, public IParameterized
 public:
     Simulation();
     Simulation(const MultiLayer& p_sample);
-    Simulation(std::shared_ptr<ISampleBuilder> p_sample_builder);
+    Simulation(std::shared_ptr<IMultiLayerBuilder> p_sample_builder);
     virtual ~Simulation();
 
     virtual Simulation* clone() const=0;
@@ -56,10 +56,10 @@ public:
     MultiLayer* getSample() const { return mP_sample.get(); }
 
     //! Sets the sample builder
-    void setSampleBuilder(std::shared_ptr<ISampleBuilder> sample_builder);
+    void setSampleBuilder(std::shared_ptr<IMultiLayerBuilder> sample_builder);
 
     //! return sample builder
-    std::shared_ptr<ISampleBuilder> getSampleBuilder() const { return mp_sample_builder; }
+    std::shared_ptr<IMultiLayerBuilder> getSampleBuilder() const { return mp_sample_builder; }
 
     //! Gets the number of elements this simulation needs to calculate
     virtual int getNumberOfSimulationElements() const=0;
@@ -133,7 +133,7 @@ protected:
     std::vector<SimulationElement>::iterator getBatchEnd(int n_batches, int current_batch);
 
     std::unique_ptr<MultiLayer> mP_sample;
-    std::shared_ptr<ISampleBuilder> mp_sample_builder;
+    std::shared_ptr<IMultiLayerBuilder> mp_sample_builder;
     SimulationOptions m_options;
     DistributionHandler m_distribution_handler;
     ProgressHandler_t m_progress;

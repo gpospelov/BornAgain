@@ -16,7 +16,7 @@
 #ifndef MULTIPLELAYOUTBUILDER_H
 #define MULTIPLELAYOUTBUILDER_H
 
-#include "ISampleBuilder.h"
+#include "IMultiLayerBuilder.h"
 
 class ISample;
 
@@ -25,7 +25,7 @@ class ISample;
 //! @brief Builds sample: mixture of cylinders and prisms without interference
 //! using multiple particle layouts
 
-class BA_CORE_API_ MultipleLayoutBuilder : public ISampleBuilder
+class BA_CORE_API_ MultipleLayoutBuilder : public IMultiLayerBuilder
 {
 public:
     MultipleLayoutBuilder();

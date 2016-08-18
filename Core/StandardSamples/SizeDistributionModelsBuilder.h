@@ -16,13 +16,13 @@
 #ifndef SIZEDISTRIBUTIONMODELSBUILDER_H
 #define SIZEDISTRIBUTIONMODELSBUILDER_H
 
-#include "ISampleBuilder.h"
+#include "IMultiLayerBuilder.h"
 
 //! Creates the sample demonstrating size distribution model in decoupling approximation.
 //! @ingroup standard_samples
 //! Equivalent of Examples/python/simulation/ex03_InterferenceFunctions/ApproximationDA.py
 
-class BA_CORE_API_ SizeDistributionDAModelBuilder : public ISampleBuilder
+class BA_CORE_API_ SizeDistributionDAModelBuilder : public IMultiLayerBuilder
 {
 public:
     SizeDistributionDAModelBuilder(){}
@@ -34,7 +34,7 @@ public:
 //! approximation.
 //! Equivalent of Examples/python/simulation/ex03_InterferenceFunctions/ApproximationLMA.py
 
-class BA_CORE_API_ SizeDistributionLMAModelBuilder : public ISampleBuilder
+class BA_CORE_API_ SizeDistributionLMAModelBuilder : public IMultiLayerBuilder
 {
 public:
     SizeDistributionLMAModelBuilder(){}
@@ -45,7 +45,7 @@ public:
 //! @ingroup standard_samples
 //! Equivalent of Examples/python/simulation/ex03_InterferenceFunctions/ApproximationSSCA.py
 
-class BA_CORE_API_ SizeDistributionSSCAModelBuilder : public ISampleBuilder
+class BA_CORE_API_ SizeDistributionSSCAModelBuilder : public IMultiLayerBuilder
 {
 public:
     SizeDistributionSSCAModelBuilder(){}
@@ -55,7 +55,7 @@ public:
 //! Builds sample: size spacing correlation approximation (IsGISAXS example #15).
 //! @ingroup standard_samples
 
-class BA_CORE_API_ CylindersInSSCABuilder : public ISampleBuilder
+class BA_CORE_API_ CylindersInSSCABuilder : public IMultiLayerBuilder
 {
 public:
     CylindersInSSCABuilder(){}

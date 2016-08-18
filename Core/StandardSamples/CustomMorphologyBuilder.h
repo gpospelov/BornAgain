@@ -16,7 +16,7 @@
 #ifndef CUSTOMMORPHOLOGYBUILDER_H
 #define CUSTOMMORPHOLOGYBUILDER_H
 
-#include "ISampleBuilder.h"
+#include "IMultiLayerBuilder.h"
 
 class ISample;
 
@@ -24,7 +24,7 @@ class ISample;
 //! @ingroup standard_samples
 //! @brief Builds sample: mixture of different particles (IsGISAXS example #7)
 
-class BA_CORE_API_ CustomMorphologyBuilder : public ISampleBuilder
+class BA_CORE_API_ CustomMorphologyBuilder : public IMultiLayerBuilder
 {
 public:
     CustomMorphologyBuilder() {}

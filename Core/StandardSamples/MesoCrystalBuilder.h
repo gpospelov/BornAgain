@@ -16,7 +16,7 @@
 #ifndef MESOCRYSTALBUILDER_H
 #define MESOCRYSTALBUILDER_H
 
-#include "ISampleBuilder.h"
+#include "IMultiLayerBuilder.h"
 #include "Complex.h"
 
 class IFormFactor;
@@ -27,7 +27,7 @@ class MesoCrystal;
 //! Builds sample: mesocrystals of cylindrical shape composed by spherical nanoparticles.
 //! @ingroup standard_samples
 
-class BA_CORE_API_ MesoCrystalBuilder : public ISampleBuilder
+class BA_CORE_API_ MesoCrystalBuilder : public IMultiLayerBuilder
 {
 public:
     MesoCrystalBuilder();

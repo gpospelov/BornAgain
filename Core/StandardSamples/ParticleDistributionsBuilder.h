@@ -16,12 +16,12 @@
 #ifndef PARTICLEDISTRIBUTIONSBUILDER_H
 #define PARTICLEDISTRIBUTIONSBUILDER_H
 
-#include "ISampleBuilder.h"
+#include "IMultiLayerBuilder.h"
 
 //! Cylinders in BA with size distributions (IsGISAXS example #3, part II).
 //! @ingroup standard_samples
 
-class CylindersWithSizeDistributionBuilder : public ISampleBuilder
+class CylindersWithSizeDistributionBuilder : public IMultiLayerBuilder
 {
 public:
     CylindersWithSizeDistributionBuilder();
@@ -39,7 +39,7 @@ private:
 //! Builds mixture of cylinder particles with different size distribution (IsGISAXS example #2)
 //! @ingroup standard_samples
 
-class BA_CORE_API_ TwoTypesCylindersDistributionBuilder : public ISampleBuilder
+class BA_CORE_API_ TwoTypesCylindersDistributionBuilder : public IMultiLayerBuilder
 {
 public:
     TwoTypesCylindersDistributionBuilder();

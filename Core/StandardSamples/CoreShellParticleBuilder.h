@@ -16,7 +16,7 @@
 #ifndef CORESHELLPARTICLEBUILDER_H
 #define CORESHELLPARTICLEBUILDER_H
 
-#include "ISampleBuilder.h"
+#include "IMultiLayerBuilder.h"
 
 class ISample;
 
@@ -24,7 +24,7 @@ class ISample;
 //! @ingroup standard_samples
 //! @brief Builds sample: Core Shell Nanoparticles (IsGISAXS example #11).
 
-class BA_CORE_API_ CoreShellParticleBuilder : public ISampleBuilder
+class BA_CORE_API_ CoreShellParticleBuilder : public IMultiLayerBuilder
 {
 public:
     CoreShellParticleBuilder(){}
@@ -36,7 +36,7 @@ public:
 //! @ingroup standard_samples
 //! @brief Rotation and translation of core shell box particle in 3 layers system.
 
-class BA_CORE_API_ CoreShellBoxRotateZandYBuilder : public ISampleBuilder
+class BA_CORE_API_ CoreShellBoxRotateZandYBuilder : public IMultiLayerBuilder
 {
 public:
     CoreShellBoxRotateZandYBuilder(){}

@@ -20,7 +20,7 @@
 #include "Instrument.h"
 
 class MultiLayer;
-class ISampleBuilder;
+class IMultiLayerBuilder;
 class IHistogram;
 class Histogram2D;
 
@@ -32,7 +32,7 @@ class BA_CORE_API_ GISASSimulation : public Simulation
 public:
     GISASSimulation();
     GISASSimulation(const MultiLayer& p_sample);
-    GISASSimulation(std::shared_ptr<ISampleBuilder> p_sample_builder);
+    GISASSimulation(std::shared_ptr<IMultiLayerBuilder> p_sample_builder);
 
     virtual ~GISASSimulation() {}
 

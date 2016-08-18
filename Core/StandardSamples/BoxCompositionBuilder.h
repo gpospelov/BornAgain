@@ -16,7 +16,7 @@
 #ifndef BOXCOMPOSITIONBUILDER_H
 #define BOXCOMPOSITIONBUILDER_H
 
-#include "ISampleBuilder.h"
+#include "IMultiLayerBuilder.h"
 
 class ISample;
 class HomogeneousMaterial;
@@ -28,7 +28,7 @@ class ParticleComposition;
 //! @brief Parent class to test all kind of compositions made out of boxes.
 //! Reproduces Python functional test transform_BoxComposition.py
 
-class BA_CORE_API_ BoxCompositionBuilder : public ISampleBuilder
+class BA_CORE_API_ BoxCompositionBuilder : public IMultiLayerBuilder
 {
 public:
     BoxCompositionBuilder();

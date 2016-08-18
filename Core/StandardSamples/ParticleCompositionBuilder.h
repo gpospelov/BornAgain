@@ -16,13 +16,13 @@
 #ifndef PARTICLECOMPOSITIONBUILDER_H
 #define PARTICLECOMPOSITIONBUILDER_H
 
-#include "ISampleBuilder.h"
+#include "IMultiLayerBuilder.h"
 
 //! @class ParticleCompositionBuilder
 //! @ingroup standard_samples
 //! @brief Builds sample: two layers of spheres at hex lattice
 
-class BA_CORE_API_ ParticleCompositionBuilder : public ISampleBuilder
+class BA_CORE_API_ ParticleCompositionBuilder : public IMultiLayerBuilder
 {
 public:
     ParticleCompositionBuilder(){}

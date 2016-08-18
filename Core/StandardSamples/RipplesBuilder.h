@@ -16,13 +16,13 @@
 #ifndef RIPPLESBUILDER_H
 #define RIPPLESBUILDER_H
 
-#include "ISampleBuilder.h"
+#include "IMultiLayerBuilder.h"
 
 //! @class CosineRippleBuilder
 //! @ingroup standard_samples
 //! @brief Builds sample: cosine ripple within the 1D-paracrystal model
 
-class BA_CORE_API_ CosineRippleBuilder : public ISampleBuilder
+class BA_CORE_API_ CosineRippleBuilder : public IMultiLayerBuilder
 {
 public:
     CosineRippleBuilder();
@@ -46,7 +46,7 @@ private:
 //! @brief Builds sample: triangular ripple within the 1D-paracrystal model
 //! (from PRB 85, 235415, 2012)
 
-class BA_CORE_API_ TriangularRippleBuilder : public ISampleBuilder
+class BA_CORE_API_ TriangularRippleBuilder : public IMultiLayerBuilder
 {
 public:
     TriangularRippleBuilder();

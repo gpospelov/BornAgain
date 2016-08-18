@@ -16,12 +16,12 @@
 #ifndef TRANSFORMATIONSBUILDER_H
 #define TRANSFORMATIONSBUILDER_H
 
-#include "ISampleBuilder.h"
+#include "IMultiLayerBuilder.h"
 
 //! Rotated box in 3 layers system.
 //! @ingroup standard_samples
 
-class BA_CORE_API_ TransformBoxBuilder : public ISampleBuilder
+class BA_CORE_API_ TransformBoxBuilder : public IMultiLayerBuilder
 {
 public:
     TransformBoxBuilder(){}

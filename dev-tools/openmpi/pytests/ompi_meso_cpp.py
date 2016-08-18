@@ -14,12 +14,12 @@ comm = MPI.COMM_WORLD
 world_size = comm.Get_size()
 world_rank = comm.Get_rank()
 
-class MesoSampleBuilder(ISampleBuilder):
+class MesoSampleBuilder(IMultiLayerBuilder):
     """
     Meso crystal sample builder
     """
     def __init__(self):
-        ISampleBuilder.__init__(self)
+        IMultiLayerBuilder.__init__(self)
         self.sample = None
         # parameters describing the sample
 

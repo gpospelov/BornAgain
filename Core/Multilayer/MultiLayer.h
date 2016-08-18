@@ -19,15 +19,14 @@
 #include "ICompositeSample.h"
 #include "Vectors3D.h"
 
-class GISASSimulation;
+class DWBASimulation;
 class Layer;
 class LayerInterface;
 class LayerRoughness;
 
-//! @class MultiLayer
+//! Our sample model: a stack of layers one below the other.
 //! @ingroup samples
-//! @brief Stack of layers one below the other
-//!
+
 //! Example of system of 4 layers (3 interfaces):
 //!
 //!  ambience    layer #0        z=getLayerBottomZ(0)=0.0
@@ -47,13 +46,9 @@ public:
 
     virtual void accept(ISampleVisitor* visitor) const { visitor->visit(this); }
 
-    //! Returns textual representation of *this and its descendants.
     virtual std::string to_str(int indent=0) const;
 
-    //! Returns number of layers in multilayer
     size_t getNumberOfLayers() const { return m_layers.size(); }
-
-    //! Returns number of interfaces in multilayer
     size_t getNumberOfInterfaces() const { return m_interfaces.size(); }
 
     //! Adds object to multilayer, overrides from ISample
@@ -113,7 +108,7 @@ public:
 
     //! look for the presence of DWBA terms (e.g. included particles)
     //! and return ISimulation if needed
-    DWBASimulation* createDWBASimulation() const final;
+    DWBASimulation* createDWBASimulation() const;
 
     //! returns layer index
     int getIndexOfLayer(const Layer* layer) const;

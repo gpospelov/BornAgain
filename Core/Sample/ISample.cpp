@@ -24,12 +24,6 @@ ISample* ISample::cloneInvertB() const
         "ISample::cloneInvertB() -> Error! Method is not implemented");
 }
 
-DWBASimulation* ISample::createDWBASimulation() const
-{
-    throw Exceptions::NotImplementedException(
-        "ISample::createDWBASimulation() -> Error! Method is not implemented");
-}
-
 std::string ISample::to_str(int indent) const
 {
     std::stringstream ss;

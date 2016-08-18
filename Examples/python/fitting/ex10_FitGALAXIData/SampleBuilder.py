@@ -6,12 +6,12 @@ import bornagain as ba
 import ctypes
 
 
-class MySampleBuilder(ba.ISampleBuilder):
+class MySampleBuilder(ba.IMultiLayerBuilder):
     """
 
     """
     def __init__(self):
-        ba.ISampleBuilder.__init__(self)
+        ba.IMultiLayerBuilder.__init__(self)
         self.sample = None
 
         # parameters describing the sample

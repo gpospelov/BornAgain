@@ -16,7 +16,7 @@
 #ifndef PARTICLEINTHEAIRBUILDER_H
 #define PARTICLEINTHEAIRBUILDER_H
 
-#include "ISampleBuilder.h"
+#include "IMultiLayerBuilder.h"
 
 //! @class ParticleInTheAirBuilder
 //! @ingroup standard_samples
@@ -24,7 +24,7 @@
 //! populated with particles of certain types.
 //! Requires IComponentService which generates form factors, used for bulk form factors testing.
 
-class BA_CORE_API_ ParticleInTheAirBuilder : public ISampleBuilder
+class BA_CORE_API_ ParticleInTheAirBuilder : public IMultiLayerBuilder
 {
 public:
     ParticleInTheAirBuilder() {}

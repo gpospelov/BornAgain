@@ -43,17 +43,16 @@ public:
 
     double evaluate(const kvector_t q) const final;
 
-protected:
-    Lattice1DParameters m_lattice_params;
-    IFTDecayFunction1D* mp_pdf;
-    static const int nmax = 20; //!< maximum value for qx*Lambdax and qy*lambday
-
 private:
     InterferenceFunction1DLattice(const Lattice1DParameters& lattice_params);
     //! Registers some class members for later access via parameter pool
     void init_parameters();
 
+    Lattice1DParameters m_lattice_params;
+    IFTDecayFunction1D* mp_pdf;
     int m_na; //!< determines the number of reciprocal lattice points to use
+
+    static const int nmax = 20; //!< maximum value for qx*Lambdax and qy*lambday
 };
 
 #endif // INTERFERENCEFUNCTION1DLATTICE_H

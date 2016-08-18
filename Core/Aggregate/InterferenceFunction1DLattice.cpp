@@ -21,16 +21,12 @@
 #include "Pi.h"
 #include "RealParameter.h"
 
-using namespace BornAgain;
-
 //! @param length: Lattice length
 //! @param xi: rotation of lattice with respect to x-axis
 InterferenceFunction1DLattice::InterferenceFunction1DLattice(double length, double xi)
-    : mp_pdf(0), m_na(0)
+    : m_lattice_params(length, xi), mp_pdf(nullptr), m_na(0)
 {
-    m_lattice_params.m_length = length;
-    m_lattice_params.m_xi = xi;
-    setName(InterferenceFunction1DLatticeType);
+    setName(BornAgain::InterferenceFunction1DLatticeType);
     init_parameters();
 }
 
@@ -87,14 +83,14 @@ double InterferenceFunction1DLattice::evaluate(const kvector_t q) const
 
 InterferenceFunction1DLattice::InterferenceFunction1DLattice(
     const Lattice1DParameters& lattice_params)
-    : m_lattice_params(lattice_params), mp_pdf(0), m_na(0)
+    : m_lattice_params(lattice_params), mp_pdf(nullptr), m_na(0)
 {
-    setName(InterferenceFunction1DLatticeType);
+    setName(BornAgain::InterferenceFunction1DLatticeType);
     init_parameters();
 }
 
 void InterferenceFunction1DLattice::init_parameters()
 {
-    registerParameter(Length, &m_lattice_params.m_length).setUnit("nm").setNonnegative();
-    registerParameter(Xi, &m_lattice_params.m_xi).setUnit("rad");
+    registerParameter(BornAgain::Length, &m_lattice_params.m_length).setUnit("nm").setNonnegative();
+    registerParameter(BornAgain::Xi, &m_lattice_params.m_xi).setUnit("rad");
 }

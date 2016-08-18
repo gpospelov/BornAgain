@@ -21,8 +21,8 @@ def get_sample(lattice_rotation_angle=45.0*deg):
     m_substrate = ba.HomogeneousMaterial("Substrate", 6e-6, 2e-8)
     m_particle = ba.HomogeneousMaterial("Particle", 6e-4, 2e-8)
 
-    box_length, box_width, box_height = 10*nm, 10000*nm, 10.0*nm
-    lattice_length = 30.0*nm
+    box_length, box_width, box_height = 10*nm, 10000*nm, 10*nm
+    lattice_length = 30*nm
 
     # collection of particles
     interference = ba.InterferenceFunction1DLattice(

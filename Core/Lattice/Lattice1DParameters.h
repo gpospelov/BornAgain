@@ -17,14 +17,16 @@
 #define LATTICE1DPARAMETERS_H
 
 
-//! @class Lattice1DParameters
+//! Basic parameters of a one-dimensional lattice.
 //! @ingroup samples
-//! @brief Additional parameters for 1D lattice
 
 class BA_CORE_API_ Lattice1DParameters
 {
 public:
-    Lattice1DParameters() : m_length(0), m_xi(0) { }
+    Lattice1DParameters() : m_length(0), m_xi(0) {}
+    //! @param length: Lattice constant.
+    //! @param xi: TODO: seems unused; explain or remove
+    Lattice1DParameters(double length, double xi) : m_length(length), m_xi(xi) {}
 
     double m_length;
     double m_xi;

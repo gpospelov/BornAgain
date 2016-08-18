@@ -16,11 +16,10 @@
 #include "Layer.h"
 #include "BornAgainNamespace.h"
 #include "Exceptions.h"
-#include "IInterferenceFunction.h"
+#include "ILayout.h"
 #include "ISampleVisitor.h"
 #include "Materials.h"
 #include "ParameterPool.h"
-#include "ParticleLayout.h"
 #include "RealParameter.h"
 
 Layer::Layer() : m_thickness(0), mp_material(0)

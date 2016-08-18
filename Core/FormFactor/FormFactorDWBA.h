@@ -32,7 +32,7 @@ public:
 
     virtual FormFactorDWBA* clone() const;
 
-    virtual void accept(ISampleVisitor* visitor) const;
+    virtual void accept(ISampleVisitor* visitor) const { visitor->visit(this); }
 
     //! Sets reflection/transmission info for scalar DWBA simulation
     virtual void setSpecularInfo(const ILayerRTCoefficients* p_in_coeffs,

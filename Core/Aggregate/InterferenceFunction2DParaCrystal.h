@@ -40,7 +40,6 @@ public:
 
     void accept(ISampleVisitor* visitor) const final { visitor->visit(this); }
 
-    //! Returns textual representation of *this and its descendants.
     std::string to_str(int indent=0) const final;
 
     static InterferenceFunction2DParaCrystal* createSquare(double peak_distance,
@@ -52,18 +51,10 @@ public:
                                                               double domain_size_1 = 0.0,
                                                               double domain_size_2 = 0.0);
 
-    //! @brief Sets the sizes of coherence domains
-    //! @param size_1: size in first lattice direction
-    //! @param size_2: size in second lattice direction
     void setDomainSizes(double size_1, double size_2);
 
-    //! @brief Sets the probability distributions (Fourier transformed) for the two
-    //! lattice directions.
-    //! @param pdf_1: probability distribution in first lattice direction
-    //! @param pdf_2: probability distribution in second lattice direction
     void setProbabilityDistributions(const IFTDistribution2D& pdf_1,
                                      const IFTDistribution2D& pdf_2);
-
 
     double evaluate(const kvector_t q) const final;
 
@@ -76,17 +67,16 @@ public:
 
     Lattice2DParameters getLatticeParameters() const { return m_lattice_params; }
 
-    //! Adds parameters from local pool to external pool and recursively calls its direct children.
-    virtual std::string addParametersToExternalPool(std::string path, ParameterPool* external_pool,
-                                                    int copy_number = -1) const;
+    std::string addParametersToExternalPool(std::string path, ParameterPool* external_pool,
+                                            int copy_number = -1) const final;
 
-    //! Returns the particle density associated with this 2d paracrystal lattice
     double getParticleDensity() const final;
 
 private:
-    //! Registers some class members for later access via parameter pool
     void init_parameters();
-
+    double interferenceForXi(double xi) const;
+    double interference1D(double qx, double qy, double xi, size_t index) const;
+    complex_t FTPDF(double qx, double qy, double xi, size_t index) const;
     void transformToPrincipalAxes(double qx, double qy, double gamma, double delta, double& q_pa_1,
                                   double& q_pa_2) const;
 
@@ -96,20 +86,11 @@ private:
     double m_damping_length; //!< Damping length for removing delta function singularity at q=0.
     bool m_use_damping_length; //!< Flag that determines if the damping length should be used.
     double m_domain_sizes[2]; //!< Coherence domain sizes
-
-    //! Returns interference function for fixed angle xi.
-    double interferenceForXi(double xi) const;
-
-    //! Returns interference function for fixed xi in the dimension determined by the given index.
-    double interference1D(double qx, double qy, double xi, size_t index) const;
-
-    complex_t FTPDF(double qx, double qy, double xi, size_t index) const;
-
+    mutable double m_qx;
+    mutable double m_qy;
 #ifndef SWIG
     std::unique_ptr<IntegratorReal<InterferenceFunction2DParaCrystal>> mP_integrator;
 #endif
-    mutable double m_qx;
-    mutable double m_qy;
 };
 
 #endif // INTERFERENCEFUNCTION2DPARACRYSTAL_H

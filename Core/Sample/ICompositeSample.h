@@ -20,9 +20,8 @@
 
 class ISampleVisitor;
 
-//! @class ICompositeSample
+//! Pure virtual base class for tree-like composite samples.
 //! @ingroup samples_internal
-//! @brief Interface to describe the tree-like composition of samples
 
 class BA_CORE_API_ ICompositeSample : public ISample
 {
@@ -32,8 +31,7 @@ public:
 
     ICompositeSample* clone() const = 0;
 
-    //! calls the ISampleVisitor's visit method
-    virtual void accept(ISampleVisitor* visitor) const;
+    virtual void accept(ISampleVisitor* visitor) const { visitor->visit(this); }
 
     //! Registers child in the container.
     virtual void registerChild(ISample* sample);
@@ -51,7 +49,7 @@ public:
     virtual std::vector<const ISample*> getChildren() const;
 
     //! Returns number of children.
-    virtual size_t size() const;
+    virtual size_t size() const { return m_samples.size(); }
 
     //! Adds parameters from local pool to external pool and recursively calls its direct children.
     virtual std::string addParametersToExternalPool(std::string path, ParameterPool* external_pool,
@@ -59,7 +57,7 @@ public:
 
 private:
     //! Check child index
-    bool childIndexInRange(size_t index) const;
+    bool childIndexInRange(size_t index) const { return index<m_samples.size(); }
 
     //! List of registered children.
     std::vector<ISample*> m_samples;

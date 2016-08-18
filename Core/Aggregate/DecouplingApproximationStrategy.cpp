@@ -34,6 +34,7 @@ void DecouplingApproximationStrategy::init(
             "No formfactors for Decoupling Approximation.");
 }
 
+//! Evaluates the intensity for given list of evaluated form factors.
 double DecouplingApproximationStrategy::evaluateForList(
     const SimulationElement& sim_element, const std::vector<complex_t>& ff_list) const
 {
@@ -58,8 +59,10 @@ double DecouplingApproximationStrategy::evaluateForList(
     return total_abundance * (intensity + amplitude_norm * (itf_function - 1.0));
 }
 
-double DecouplingApproximationStrategy::evaluateForMatrixList(const SimulationElement& sim_element,
-                                                              const matrixFFVector_t& ff_list) const
+//! Evaluates the intensity for given list of evaluated form factors
+//! in the presence of polarization of beam and detector.
+double DecouplingApproximationStrategy::evaluateForMatrixList(
+    const SimulationElement& sim_element, const matrixFFVector_t& ff_list) const
 {
     Eigen::Matrix2cd mean_intensity = Eigen::Matrix2cd::Zero();
     Eigen::Matrix2cd mean_amplitude = Eigen::Matrix2cd::Zero();

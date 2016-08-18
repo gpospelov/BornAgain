@@ -22,7 +22,7 @@ ICompositeSample::~ICompositeSample() {}
 
 //! Registers child in the container
 
-void ICompositeSample::registerChild(ISample *sample)
+void ICompositeSample::registerChild(ISample* sample)
 {
     if(!sample)
         throw Exceptions::NullPointerException(
@@ -32,41 +32,37 @@ void ICompositeSample::registerChild(ISample *sample)
 
 //! remove registered child from the container
 
-void ICompositeSample::deregisterChild(ISample *sample)
+void ICompositeSample::deregisterChild(ISample* sample)
 {
-    std::vector<ISample*>::iterator it = std::find(m_samples.begin(), m_samples.end(), sample);
-    if (it != m_samples.end()) {
+    auto it = std::find(m_samples.begin(), m_samples.end(), sample);
+    if (it != m_samples.end())
         m_samples.erase(it);
-    }
 }
 
-ISample *ICompositeSample::operator[](size_t index)
+ISample* ICompositeSample::operator[](size_t index)
 {
-    if (childIndexInRange(index)) {
+    if (childIndexInRange(index))
         return m_samples[index];
-    }
-    return 0;
+    return nullptr;
 }
 
-const ISample *ICompositeSample::operator[](size_t index) const
+const ISample* ICompositeSample::operator[](size_t index) const
 {
-    if (childIndexInRange(index)) {
+    if (childIndexInRange(index))
         return m_samples[index];
-    }
-    return 0;
+    return nullptr;
 }
 
-std::vector<const ISample *> ICompositeSample::getChildren() const
+std::vector<const ISample*> ICompositeSample::getChildren() const
 {
-    std::vector<const ISample *> result;
-    for (size_t i=0; i<m_samples.size(); ++i) {
+    std::vector<const ISample*> result;
+    for (size_t i=0; i<m_samples.size(); ++i)
         result.push_back(m_samples[i]);
-    }
     return result;
 }
 
 std::string ICompositeSample::addParametersToExternalPool(std::string path,
-                                                          ParameterPool *external_pool,
+                                                          ParameterPool* external_pool,
                                                           int copy_number) const
 {
     std::string new_path
@@ -75,9 +71,9 @@ std::string ICompositeSample::addParametersToExternalPool(std::string path,
     // We need a mechanism to handle cases with multiple children with the same name.
     // First run through all direct children and save their names
     Utils::StringUsageMap strUsageMap;
-    for (size_t i = 0; i < m_samples.size(); ++i) {
+    for (size_t i = 0; i < m_samples.size(); ++i)
         strUsageMap.add(new_path + m_samples[i]->getName()); // saving child names
-    }
+
     // Now run through the direct children again and assign a copy number for
     // all children with the same name
     Utils::StringUsageMap strUsageMap2;
@@ -94,19 +90,4 @@ std::string ICompositeSample::addParametersToExternalPool(std::string path,
         m_samples[i]->addParametersToExternalPool(new_path, external_pool, ncopy);
     }
     return new_path;
-}
-
-bool ICompositeSample::childIndexInRange(size_t index) const
-{
-    return index<m_samples.size();
-}
-
-void ICompositeSample::accept(ISampleVisitor* visitor) const
-{
-    visitor->visit(this);
-}
-
-size_t ICompositeSample::size() const
-{
-    return m_samples.size();
 }

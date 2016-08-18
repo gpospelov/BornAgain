@@ -82,6 +82,9 @@ std::string InterferenceFunction2DParaCrystal::to_str(int indent) const
     return ss.str();
 }
 
+//! Sets the probability distributions (Fourier transformed) for the two lattice directions.
+//! @param pdf_1: probability distribution in first lattice direction
+//! @param pdf_2: probability distribution in second lattice direction
 void InterferenceFunction2DParaCrystal::setProbabilityDistributions(
         const IFTDistribution2D& pdf_1, const IFTDistribution2D& pdf_2)
 {
@@ -144,6 +147,9 @@ InterferenceFunction2DParaCrystal* InterferenceFunction2DParaCrystal::createHexa
     return p_new;
 }
 
+//! Sets the sizes of coherence domains.
+//! @param size_1: size in first lattice direction
+//! @param size_2: size in second lattice direction
 void InterferenceFunction2DParaCrystal::setDomainSizes(double size_1, double size_2)
 {
     m_domain_sizes[0] = size_1;
@@ -168,6 +174,7 @@ void InterferenceFunction2DParaCrystal::init_parameters()
     registerParameter(DomainSize2, &m_domain_sizes[1]).setUnit("nm").setNonnegative();
 }
 
+//! Returns interference function for fixed angle xi.
 double InterferenceFunction2DParaCrystal::interferenceForXi(double xi) const
 {
     double result = interference1D(m_qx, m_qy, xi, 0)*
@@ -175,6 +182,7 @@ double InterferenceFunction2DParaCrystal::interferenceForXi(double xi) const
     return result;
 }
 
+//! Returns interference function for fixed xi in the dimension determined by the given index.
 double InterferenceFunction2DParaCrystal::interference1D(
     double qx, double qy, double xi, size_t index) const
 {

@@ -113,7 +113,7 @@ public:
 
     //! look for the presence of DWBA terms (e.g. included particles)
     //! and return ISimulation if needed
-    virtual DWBASimulation* createDWBASimulation() const;
+    DWBASimulation* createDWBASimulation() const final;
 
     //! returns layer index
     int getIndexOfLayer(const Layer* layer) const;

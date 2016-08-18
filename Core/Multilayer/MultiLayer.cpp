@@ -48,10 +48,12 @@ void MultiLayer::init_parameters()
 
 void MultiLayer::clear() // TODO: understand need
 {
-    for(size_t i=0; i<m_layers.size(); i++) delete m_layers[i];
+    for(size_t i=0; i<m_layers.size(); i++)
+        delete m_layers[i];
     m_layers.clear();
 
-    for(size_t i=0; i<m_interfaces.size(); i++) delete m_interfaces[i];
+    for(size_t i=0; i<m_interfaces.size(); i++)
+        delete m_interfaces[i];
     m_interfaces.clear();
 
     m_layers_z.clear();
@@ -66,22 +68,19 @@ MultiLayer* MultiLayer::clone() const
     newMultiLayer->m_layers_z = m_layers_z;
 
     std::vector<Layer*> layer_buffer;
-    for(size_t i=0; i<m_layers.size(); i++) {
+    for(size_t i=0; i<m_layers.size(); i++)
         layer_buffer.push_back(m_layers[i]->clone() );
-    }
 
     for(size_t i=0; i<m_interfaces.size(); i++) {
         const Layer* topLayer = layer_buffer[i];
         const Layer* bottomLayer = layer_buffer[i+1];
 
         LayerInterface* newInterface(0);
-        if(m_interfaces[i]->getRoughness()) {
+        if(m_interfaces[i]->getRoughness())
             newInterface = LayerInterface::createRoughInterface(topLayer,
                     bottomLayer, *m_interfaces[i]->getRoughness() );
-        } else {
-            newInterface = LayerInterface::createSmoothInterface(topLayer,
-                    bottomLayer );
-        }
+        else
+            newInterface = LayerInterface::createSmoothInterface(topLayer, bottomLayer );
         newMultiLayer->addAndRegisterLayer( layer_buffer[i] );
         newMultiLayer->addAndRegisterInterface( newInterface );
     }

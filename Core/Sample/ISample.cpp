@@ -26,7 +26,8 @@ ISample* ISample::cloneInvertB() const
 
 DWBASimulation* ISample::createDWBASimulation() const
 {
-    return nullptr;
+    throw Exceptions::NotImplementedException(
+        "ISample::createDWBASimulation() -> Error! Method is not implemented");
 }
 
 std::string ISample::to_str(int indent) const
@@ -63,9 +64,4 @@ bool ISample::containsMagneticMaterial() const
         if( child->containsMagneticMaterial() )
             return true;
     return false;
-}
-
-std::vector<const ISample*> ISample::getChildren() const
-{
-    return std::vector<const ISample*> {};
 }

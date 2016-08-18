@@ -22,15 +22,15 @@ This chapter introduces the basic theory of small-angle scattering (SAS).
 We specifically consider scalar neutron propagation,
 adjourning the notationally more involved
 vectorial theory of X-rays and polarized neutrons
-a later edition. % TODO REVERT TEMPORARY % to the later \cref{SPol}.
+to a later edition. % TODO REVERT TEMPORARY % to the later \cref{SPol}.
 Our exposition is self-contained,
 except for the initial passage from the microscopic
 to the macroscopic Schrödinger equation,
-which we outline only briefly (\cref{Swave}).
+which we outline only briefly (\Cref{Swave}).
 The standard description of scattering in first order Born approximation
 is introduced in a way that is suitable subsequent modification
 into the distorted wave Born approximation
-needed for grazing-incidence small-angle scattering (Sec.\ref{SBornApprox}).
+needed for grazing-incidence small-angle scattering (\Cref{SBornApprox}).
 % TODO RESTORE REF
 % Finally, we discuss how the physical scattering law
 % (the double differential cross section
@@ -91,7 +91,7 @@ This has implications for the sign of the imaginary part of the
 refractive index,
 \index{Index of refraction|see {Refractive index}}
 \index{Refractive index!sign convention}%
-as explained in \cref{Sabsorption}.}
+as explained in \Cref{Sabsorption}.}
 
 Inserting \cref{Estationarywave} in \cref{ESchrodi},
 we obtain the stationary Schrödinger equation
@@ -496,6 +496,7 @@ of the Fourier transform of the perturbative potential,
 
 \def\tc{\text{c}}
 
+%-------------------------------------------------------------------------------
 \begin{figure}[t]
 \begin{center}
 \includegraphics[width=.5\textwidth]{fig/drawing/experimental_geometry.png}
@@ -503,6 +504,7 @@ of the Fourier transform of the perturbative potential,
 \caption{Experimental geometry with a twodimensional pixel detector.}
 \label{FexpGeom}
 \end{figure}
+%-------------------------------------------------------------------------------
 
 To conclude this chapter on the foundations of small-angle scattering,
 we shall derive the geometric factors
@@ -524,9 +526,7 @@ This figure also shows the coordinate system
 according to unanimous GISAS convention,
 with $z$ normal to the sample plane,
 and with the incident beam in the $xz$ plane.
-The origin is at the sample position;
-more precisely, it is for $x$ and $y$ at the center of the sample,
-and for $z$ at the sample surface.
+The origin is at the center of the sample surface.
 We suppose that the detector is mounted perpendicular to the $x$ axis
 at a distance $L$ from the sample position.
 %the $x$ axis intersects the detector plane at $(L,y_\tc,z_\tc)$.
@@ -537,7 +537,7 @@ Each pixel has a width~$\Delta y$ and a height~$\Delta z$.
 
 Since the differential scattering cross section \cref{Exsectiondef}
 is given with respect to a solid-angle element $\d\Omega$,
-we need to express scattered wavevector $\k_\tf$ in spherical coordinates,
+we need to express the scattered wavevector $\k_\tf$ in spherical coordinates,
 using the horizontal azimuth angle~$\phi_\tf$
 and the vertical glancing angle $\alpha_\tf$.
 The projection of $(\alpha_\tf,\phi_\tf)$ into
@@ -554,6 +554,7 @@ From elementary trigonometry one finds
 \cref{Fconstalphi} shows lines of equal $\alpha_\tf$,~$\phi_\tf$
 in the detector plane.
 
+%-------------------------------------------------------------------------------
 \begin{figure}[t]
 \begin{center}
 \includegraphics[width=.47\textwidth]{fig/drawing/SAS_const_alphi.ps}
@@ -562,9 +563,10 @@ in the detector plane.
 in the detector plane,
 for a planar detector at distance~$L$ from the sample.
 The black dot indicates the beamstop location for
-the central incident beam ($\hat\k_\ti = \hat x$).}
+the central incident beam (SAS geometry, $\hat\k_\ti = \hat x$).}
 \label{Fconstalphi}
 \end{figure}
+%-------------------------------------------------------------------------------
 
 To determine the scattering vector $\q_{ij}$
 that corresponds to a pixel $(i,j)$,
@@ -635,6 +637,7 @@ Using pixel coordinates instead of angles, this can be rewritten as
 \subsection{Data representation}
 %===============================================================================
 
+%-------------------------------------------------------------------------------
 \begin{figure}[t]
 \begin{center}
 \includegraphics[width=.47\textwidth]{fig/drawing/SAS_const_q_x.ps}
@@ -643,9 +646,11 @@ Using pixel coordinates instead of angles, this can be rewritten as
 \end{center}
 \caption{Lines of constant $q_x$ (left), $q_y$ or $q_z$ (right),
 in units of the incident wavenumber $K=2\pi/\lambda$,
-for a planar detector and a central incident beam as in Fig.~\protect\ref{Fconstalphi}.}
+for a planar detector.
+SAS geometry as in Fig.~\protect\ref{Fconstalphi}.}
 \label{Fconstq}
 \end{figure}
+%-------------------------------------------------------------------------------
 
 The transform \cref{Eqalgo} between pixel coordinates $y$,~$z$
 and physical scattering vector components $q_y$, $q_z$
@@ -656,8 +661,9 @@ Figs.~\ref{Fconstalphi}--\ref{Fconstp}
 show the rather extreme conditions at scattering angles of up to 45$^\circ$,
 which are unusually large angles by the standards of SAS or GISAS.
 In most experimental situations,
-angles, and therefore nonlinearities, are considerably smaller.
+scattering angles, and therefore nonlinearities, are much smaller.
 
+%-------------------------------------------------------------------------------
 \begin{figure}[t]
 \begin{center}
 \includegraphics[width=.47\textwidth]{fig/drawing/SAS_const_p_yz.ps}
@@ -668,6 +674,7 @@ after transformation into the physical coordinates $q_y$,~$q_z$.
 The blue and red curves correspond to horizontal and vertical lines in the detector.}
 \label{Fconstp}
 \end{figure}
+%-------------------------------------------------------------------------------
 
 The left detector frame in \cref{Fconstq}
 shows circles of constant values of $\pm q_x$.

@@ -52,7 +52,7 @@ public:
 
     double getDampingLength() const { return m_damping_length; }
 
-protected:
+private:
     double m_peak_distance; //!< the distance to the first neighbor peak
     double m_damping_length; //!< damping length of paracrystal
     //! Fourier transformed probability distribution of the nearest particle
@@ -61,7 +61,6 @@ protected:
     double m_kappa; //!< Size-spacing coupling parameter
     double m_domain_size; //!< Size of coherence domain
 
-private:
     //! Registers some class members for later access via parameter pool
     void init_parameters();
 };

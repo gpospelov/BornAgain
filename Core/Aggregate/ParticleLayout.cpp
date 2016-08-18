@@ -64,6 +64,7 @@ ParticleLayout* ParticleLayout::clone() const
     return p_new;
 }
 
+//! Returns a clone with inverted magnetic fields.
 ParticleLayout* ParticleLayout::cloneInvertB() const
 {
     ParticleLayout* p_new = new ParticleLayout();
@@ -80,16 +81,15 @@ ParticleLayout* ParticleLayout::cloneInvertB() const
     return p_new;
 }
 
-void ParticleLayout::accept(ISampleVisitor* visitor) const
-{
-    visitor->visit(this);
-}
-
+//! Adds generic particle to the layout.
 void ParticleLayout::addParticle(const IAbstractParticle& particle)
 {
     addAndRegisterAbstractParticle(particle.clone());
 }
 
+//! Adds generic particle to the layout with only abundance defined.
+//! @param particle to be added
+//! @param abundance Particle abundance
 void ParticleLayout::addParticle(const IAbstractParticle& particle, double abundance)
 {
     std::unique_ptr<IAbstractParticle> P_particle_clone { particle.clone() };
@@ -97,6 +97,10 @@ void ParticleLayout::addParticle(const IAbstractParticle& particle, double abund
     addAndRegisterAbstractParticle(P_particle_clone.release());
 }
 
+//! Adds particle to the layout with abundance and position defined.
+//! @param particle to be added
+//! @param abundance Particle abundance
+//! @param position Particle position
 void ParticleLayout::addParticle(const IParticle& particle, double abundance,
                                  const kvector_t position)
 {
@@ -107,6 +111,11 @@ void ParticleLayout::addParticle(const IParticle& particle, double abundance,
     addAndRegisterAbstractParticle(P_particle_clone.release());
 }
 
+//! Adds particle to the layout with abundance, position and the rotation defined.
+//! @param particle to be added
+//! @param abundance Particle abundance
+//! @param position Particle position
+//! @param rotation Particle rotation
 void ParticleLayout::addParticle(const IParticle& particle, double abundance,
                                  const kvector_t position, const IRotation& rotation)
 {
@@ -127,6 +136,9 @@ const IAbstractParticle* ParticleLayout::getParticle(size_t index) const
     throw Exceptions::OutOfBoundsException(
         "ParticleLayout::getParticle() -> Error! Not so many particles in this decoration.");
 }
+
+//! Returns information on all particles (type and abundance)
+//! and generates new particles if an IAbstractParticle denotes a collection
 SafePointerVector<const IParticle> ParticleLayout::getParticles() const
 {
     SafePointerVector<const IParticle> particle_vector;
@@ -144,11 +156,13 @@ SafePointerVector<const IParticle> ParticleLayout::getParticles() const
     return particle_vector;
 }
 
+//! Get abundance fraction of particle with index
 double ParticleLayout::getAbundanceOfParticle(size_t index) const
 {
     return m_particles[index]->getAbundance();
 }
 
+//! Returns interference functions
 const IInterferenceFunction* ParticleLayout::getInterferenceFunction() const
 {
     return mP_interference_function.get();
@@ -174,7 +188,7 @@ void ParticleLayout::addAndRegisterAbstractParticle(IAbstractParticle* child)
     registerChild(child);
 }
 
-//! Adds interference function with simultaneous registration in parent class.
+//! Sets interference function with simultaneous registration in parent class
 void ParticleLayout::setAndRegisterInterferenceFunction(IInterferenceFunction* child)
 {
     if (mP_interference_function)

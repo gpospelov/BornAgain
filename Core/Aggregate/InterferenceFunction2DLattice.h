@@ -51,7 +51,7 @@ public:
     //! Returns the particle density associated with this 2d lattice
     double getParticleDensity() const final;
 
-protected:
+private:
     //! Returns interference from a single reciprocal lattice vector
     double interferenceAtOneRecLatticePoint(double qx, double qy) const;
 
@@ -68,7 +68,6 @@ protected:
     IFTDecayFunction2D* mp_pdf;
     static const int nmax = 20; //!< maximum value for qx*Lambdax and qy*lambday
 
-private:
     InterferenceFunction2DLattice(const Lattice2DParameters& lattice_params);
 
     //! Registers some class members for later access via parameter pool

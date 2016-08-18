@@ -3593,7 +3593,7 @@ class CustomBinAxis(VariableBinAxis):
 CustomBinAxis_swigregister = _libBornAgainCore.CustomBinAxis_swigregister
 CustomBinAxis_swigregister(CustomBinAxis)
 
-class IShape2D(ICloneable):
+class IShape2D(ICloneable, INamed):
     """
 
 
@@ -3603,11 +3603,11 @@ class IShape2D(ICloneable):
 
     """
     __swig_setmethods__ = {}
-    for _s in [ICloneable]:
+    for _s in [ICloneable, INamed]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, IShape2D, name, value)
     __swig_getmethods__ = {}
-    for _s in [ICloneable]:
+    for _s in [ICloneable, INamed]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, IShape2D, name)
 
@@ -19891,14 +19891,15 @@ class Lattice1DParameters(_object):
     __getattr__ = lambda self, name: _swig_getattr(self, Lattice1DParameters, name)
     __repr__ = _swig_repr
 
-    def __init__(self):
+    def __init__(self, *args):
         """
         __init__(Lattice1DParameters self) -> Lattice1DParameters
+        __init__(Lattice1DParameters self, double length, double xi) -> Lattice1DParameters
 
         Lattice1DParameters::Lattice1DParameters()
 
         """
-        this = _libBornAgainCore.new_Lattice1DParameters()
+        this = _libBornAgainCore.new_Lattice1DParameters(*args)
         try:
             self.this.append(this)
         except:
@@ -23282,6 +23283,7 @@ class Polygon(IShape2D):
         """
         __init__(Geometry::Polygon self, vdouble1d_t x, vdouble1d_t y) -> Polygon
         __init__(Geometry::Polygon self, vdouble2d_t points) -> Polygon
+        __init__(Geometry::Polygon self, Geometry::PolygonPrivate const * d) -> Polygon
 
         Geometry::Polygon::Polygon(std::vector< std::vector< double > > points)
 

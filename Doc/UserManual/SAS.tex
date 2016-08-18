@@ -512,7 +512,7 @@ that allow us to convert differential cross sections into detector counts.
 We shall also discuss how to present data on a physically meaningful scale.
 
 %===============================================================================
-\subsection{Coordinate transform}
+\subsection{Pixel coordinates, scattering angles, and $\symbf{q}$ components}
 %===============================================================================
 
 We assume that scattered radiation is detected in a flat,
@@ -553,6 +553,14 @@ From elementary trigonometry one finds
 \end{equation}
 \cref{Fconstalphi} shows lines of equal $\alpha_\tf$,~$\phi_\tf$
 in the detector plane.
+To emphasize the curvature of the constant-$\alpha_\tf$ lines,
+scattering angles up to more than 25$^\circ$ are shown.
+In typical SAS or GISAS,
+scattering angles are much smaller,
+and therefore the mappings between pixel coordinates,
+scattering angles, and $\q$ components are in a good first approximation linear.
+\BornAgain\ is of course not restricted to this linear regime,
+but uses the exact nonlinear mappings described in the following.
 
 %-------------------------------------------------------------------------------
 \begin{figure}[t]
@@ -633,10 +641,6 @@ Using pixel coordinates instead of angles, this can be rewritten as
 %(usually as the centre between the transmitted
 %and the specularly reflected beam spot).
 
-%===============================================================================
-\subsection{Data representation}
-%===============================================================================
-
 %-------------------------------------------------------------------------------
 \begin{figure}[t]
 \begin{center}
@@ -656,23 +660,20 @@ The transform \cref{Eqalgo} between pixel coordinates $y$,~$z$
 and physical scattering vector components $q_y$, $q_z$
 is nonlinear, due to the square-root term in the denominator of~\cref{Ekf_by_pixel}.
 For $y,z\ll L$, however, nonlinear terms loose importance.
-To emphasize nonlinearities,
-Figs.~\ref{Fconstalphi}--\ref{Fconstp}
-show the rather extreme conditions at scattering angles of up to 45$^\circ$,
-which are unusually large angles by the standards of SAS or GISAS.
-In most experimental situations,
-scattering angles, and therefore nonlinearities, are much smaller.
 
 %-------------------------------------------------------------------------------
 \begin{figure}[t]
 \begin{center}
-\includegraphics[width=.47\textwidth]{fig/drawing/SAS_const_p_yz.ps}
+\includegraphics[width=1\textwidth]{fig/ff2/ff_det_box.pdf}
 \end{center}
-\caption{The outer contour of the blue and red grid
-shows the border of a square detector image
-after transformation into the physical coordinates $q_y$,~$q_z$.
-The blue and red curves correspond to horizontal and vertical lines in the detector.}
-\label{Fconstp}
+\caption{Simulated detector image for small-angle scattering from
+uncorrelated rectangular prisms.
+The incoming wavelength is 0.1~nm.
+The prisms have edge lengths $L_y=L_z=10$~nm;
+the length $L_x$, in beam direction, is varied as shown above the plots.
+The circular modulation is comes from a factor $\sinc(q_x L_x/2)$ in the prism form factor,
+with $q_x$ given by~\cref{Eqxasy}.}
+\label{Fdetbox}
 \end{figure}
 %-------------------------------------------------------------------------------
 
@@ -691,8 +692,21 @@ that $q_x$ goes with the square of the two other components of the scattering ve
 Therefore, under typical small angle conditions $y,z\to L$
 the dependence of the scattering signal on $q_x$ is unimportant:
 one basically measures $\chi(\q)\simeq \chi(0,q_y,q_z)$.
+The exception, for sample structures with long correlations in $x$~direction,
+is illustrated in~\cref{Fdetbox}.
 
-\Work{Show consequences of $q_x$ for box example.}
+%-------------------------------------------------------------------------------
+\begin{figure}[t]
+\begin{center}
+\includegraphics[width=.47\textwidth]{fig/drawing/SAS_const_p_yz.ps}
+\end{center}
+\caption{The outer contour of the blue and red grid
+shows the border of a square detector image
+after transformation into the physical coordinates $q_y$,~$q_z$.
+The blue and red curves correspond to horizontal and vertical lines in the detector.}
+\label{Fconstp}
+\end{figure}
+%-------------------------------------------------------------------------------
 
 As anticipated in \cref{Eqxasy},
 the other two components of $\q$ are in first order linear in the pixel coordinates,

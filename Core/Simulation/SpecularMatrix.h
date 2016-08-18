@@ -21,10 +21,9 @@
 #include "Vectors3D.h"
 #include <vector>
 
-//! @class SpecularMatrix
+//! Implements method 'execute' to compute refraction angles and transmission/reflection
+//! coefficients for coherent wave propagation in a multilayer.
 //! @ingroup algorithms_internal
-//! @brief Implements method 'execute' to compute refraction angles and transmission/reflection
-//! coefficients for coherent wave propagation in a multilayer
 
 class BA_CORE_API_ SpecularMatrix : public ISimulation
 {

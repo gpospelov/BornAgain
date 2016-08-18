@@ -15,15 +15,9 @@
 
 #include "IFormFactor.h"
 #include "Exceptions.h"
-#include "ISampleVisitor.h"
 #include "WavevectorInfo.h"
 
 IFormFactor::~IFormFactor() {}
-
-void IFormFactor::accept(ISampleVisitor* visitor) const
-{
-    visitor->visit(this);
-}
 
 #ifndef SWIG
 Eigen::Matrix2cd IFormFactor::evaluatePol(const WavevectorInfo&) const

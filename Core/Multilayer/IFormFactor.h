@@ -37,7 +37,7 @@ public:
     virtual IFormFactor* clone() const=0;
 
     //! @{ \internal
-    virtual void accept(ISampleVisitor* visitor) const;
+    virtual void accept(ISampleVisitor* visitor) const { visitor->visit(this); }
     //! @}
 
     //! Passes the refractive index of the ambient material in which this particle is embedded.

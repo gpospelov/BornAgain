@@ -18,9 +18,8 @@
 
 #include "ICloneable.h"
 
-//! @class FormFactorInfo
+//! Information about particle position and abundance.
 //! @ingroup formfactors_internal
-//! @brief The %FormFactorInfo holds information about particle position and abundance
 
 class BA_CORE_API_ FormFactorInfo : public ICloneable
 {
@@ -28,7 +27,6 @@ public:
     FormFactorInfo()
         : mp_ff(0), m_abundance(0.0) {}
     virtual ~FormFactorInfo();
-    /* out-of-place implementation required due to IFormFactor */
     virtual FormFactorInfo* clone() const;
     class IFormFactor* mp_ff;
     double m_abundance;

@@ -50,9 +50,10 @@ InterferenceFunction1DLattice* InterferenceFunction1DLattice::clone() const
 
 void InterferenceFunction1DLattice::setDecayFunction(const IFTDecayFunction1D& pdf)
 {
-    if (mp_pdf != &pdf)
+    if (mp_pdf != &pdf) {
         delete mp_pdf;
-    mp_pdf = pdf.clone();
+        mp_pdf = pdf.clone();
+    }
     double omega = mp_pdf->getOmega();
     double qa_max = (m_lattice_params.m_length / Pi::PI2) * nmax / omega;
     m_na = (int)(std::abs(qa_max) + 0.5);

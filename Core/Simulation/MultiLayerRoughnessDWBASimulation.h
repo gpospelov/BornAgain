@@ -30,15 +30,10 @@ class BA_CORE_API_ MultiLayerRoughnessDWBASimulation : public DWBASimulation
 {
 public:
     MultiLayerRoughnessDWBASimulation(const MultiLayer* p_multi_layer);
-    virtual ~MultiLayerRoughnessDWBASimulation();
+    ~MultiLayerRoughnessDWBASimulation() final;
+    MultiLayerRoughnessDWBASimulation* clone() const final;
 
-    MultiLayerRoughnessDWBASimulation* clone() const
-    {
-        throw Exceptions::NotImplementedException(
-            "MultiLayerRoughnessDWBASimulation::clone() -> Error: not implemented.");
-    }
-
-    virtual void run();
+    void run() final;
 
     //! Sets magnetic reflection/transmission info for specific layer
     void setSpecularInfo(size_t i_layer, const LayerSpecularInfo& specular_info);
@@ -47,7 +42,7 @@ public:
     double evaluate(const SimulationElement& sim_element);
 
 protected:
-    virtual void runProtected();
+    void runProtected() final;
 
     complex_t get_refractive_term(size_t ilayer) const;
     complex_t get_sum8terms(size_t ilayer, const SimulationElement& sim_element);

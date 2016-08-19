@@ -31,20 +31,17 @@ class BA_CORE_API_ MultiLayerDWBASimulation : public DWBASimulation
 {
 public:
     MultiLayerDWBASimulation(const MultiLayer* p_multi_layer);
-    virtual ~MultiLayerDWBASimulation();
+    ~MultiLayerDWBASimulation() final;
+    MultiLayerDWBASimulation* clone() const final;
 
-    MultiLayerDWBASimulation* clone() const {
-        throw Exceptions::NotImplementedException(
-            "MultiLayerDWBASimulation::clone() -> Error: not implemented"); }
+    void init(const Simulation& simulation,
+              std::vector<SimulationElement>::iterator begin_it,
+              std::vector<SimulationElement>::iterator end_it) final;
 
-    virtual void init(const Simulation& simulation,
-                      std::vector<SimulationElement>::iterator begin_it,
-                      std::vector<SimulationElement>::iterator end_it);
-
-    virtual void run();
+    void run() final;
 
 protected:
-    virtual void runProtected();
+    void runProtected() final;
 
     //! calculates intensity map for samples with magnetization
     void collectRTCoefficientsScalar();

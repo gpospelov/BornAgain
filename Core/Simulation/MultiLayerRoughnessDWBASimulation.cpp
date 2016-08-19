@@ -53,6 +53,13 @@ MultiLayerRoughnessDWBASimulation::~MultiLayerRoughnessDWBASimulation()
     delete mp_multi_layer;
 }
 
+MultiLayerRoughnessDWBASimulation* MultiLayerRoughnessDWBASimulation::clone() const
+{
+    throw Exceptions::NotImplementedException(
+        "Bug: unexpected call to MultiLayerRoughnessDWBASimulation::clone(); "
+        "functionality not yet implemented");
+}
+
 void MultiLayerRoughnessDWBASimulation::run()
 {
     setStatus(RUNNING);

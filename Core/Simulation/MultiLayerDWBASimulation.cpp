@@ -44,6 +44,13 @@ MultiLayerDWBASimulation::~MultiLayerDWBASimulation()
     delete mp_roughness_dwba_simulation;
 }
 
+MultiLayerDWBASimulation* MultiLayerDWBASimulation::clone() const
+{
+    throw Exceptions::NotImplementedException(
+        "Bug: unexpected call to MultiLayerDWBASimulation::clone(); "
+        "functionality not yet implemented");
+}
+
 void MultiLayerDWBASimulation::init(const Simulation& simulation,
                                     std::vector<SimulationElement>::iterator begin_it,
                                     std::vector<SimulationElement>::iterator end_it)
@@ -125,8 +132,7 @@ void MultiLayerDWBASimulation::collectRTCoefficientsScalar()
     // run through layers and construct T,R functions
     for(size_t i_layer=0;
         i_layer<mp_multi_layer->getNumberOfLayers(); ++i_layer) {
-        msglog(MSG::DEBUG2) << "MultiLayerDWBASimulation::run()"
-                "-> Layer " << i_layer;
+        msglog(MSG::DEBUG2) << "MultiLayerDWBASimulation::run() -> Layer " << i_layer;
         LayerSpecularInfo layer_coeff_map;
         ScalarSpecularInfoMap* p_coeff_map = new ScalarSpecularInfoMap(mp_multi_layer, i_layer);
         layer_coeff_map.addRTCoefficients(p_coeff_map);
@@ -151,15 +157,14 @@ void MultiLayerDWBASimulation::collectRTCoefficientsMatrix()
     // run through layers and add DWBA from each layer
     for(size_t i_layer=0;
         i_layer<mp_multi_layer->getNumberOfLayers(); ++i_layer) {
-        msglog(MSG::DEBUG2) << "MultiLayerDWBASimulation::runMagnetic()"
-                "-> Layer " << i_layer;
+        msglog(MSG::DEBUG2) << "MultiLayerDWBASimulation::runMagnetic() -> Layer " << i_layer;
         LayerSpecularInfo layer_coeff_map;
         MatrixSpecularInfoMap* p_coeff_map = new MatrixSpecularInfoMap(mp_multi_layer, i_layer);
         layer_coeff_map.addRTCoefficients(p_coeff_map);
 
         // layer DWBA simulation
         auto pos = m_layer_dwba_simulations_map.find(i_layer);
-        if(pos != m_layer_dwba_simulations_map.end() ) {
+        if (pos != m_layer_dwba_simulations_map.end() ) {
             for (size_t i=0; i<pos->second.size();++i) {
                 LayerDWBASimulation* p_layer_dwba_sim = pos->second[i];
                 p_layer_dwba_sim->setSpecularInfo(layer_coeff_map);

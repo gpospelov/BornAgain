@@ -27,7 +27,7 @@ class MultiLayer;
 class IMultiLayerBuilder;
 class ProgressHandlerDWBA;
 
-//! Main class to run the simulation.
+//! Main class to run the simulation, base class for OffSpecularSimulation and GISASSimulation.
 //! @ingroup simulation
 
 class BA_CORE_API_ Simulation : public ICloneable, public IParameterized

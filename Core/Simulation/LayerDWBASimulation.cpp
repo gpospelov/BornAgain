@@ -29,6 +29,14 @@ LayerDWBASimulation::~LayerDWBASimulation()
     delete mp_specular_info;
 }
 
+LayerDWBASimulation* LayerDWBASimulation::clone() const
+{
+    throw Exceptions::NotImplementedException(
+        "Bug: unexpected call to LayerDWBASimulation::clone(); "
+        "functionality not yet implemented");
+}
+
+
 void LayerDWBASimulation::setSpecularInfo(const LayerSpecularInfo& specular_info)
 {
     if (mp_specular_info != &specular_info) {

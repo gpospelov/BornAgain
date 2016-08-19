@@ -29,8 +29,9 @@ class BA_CORE_API_ LayerDWBASimulation : public DWBASimulation
 public:
     LayerDWBASimulation(const Layer* p_layer);
     virtual ~LayerDWBASimulation();
+    LayerDWBASimulation* clone() const;
 
-    LayerDWBASimulation* clone() const =0;
+    void run() =0;
 
     void setSpecularInfo(const LayerSpecularInfo& specular_info);
 

@@ -20,16 +20,17 @@
 #include "GISASSimulation.h"
 #include "ProgressHandlerDWBA.h"
 
-//! @class DWBASimulation
+//! Base class for different simulations, using DWBA.
 //! @ingroup algorithms_internal
-//! @brief Base class for different simulations, using DWBA.
 
 class BA_CORE_API_ DWBASimulation : public ISimulation
 {
 public:
     DWBASimulation();
-
     virtual ~DWBASimulation();
+    virtual DWBASimulation* clone() const;
+
+    virtual void run() {}
 
     //! Initializes the simulation with the parameters from simulation
     virtual void init(const Simulation& simulation,
@@ -39,9 +40,9 @@ public:
     //! Returns output data containing calculated intensity.
     const OutputData<double>& getDWBAIntensity() const { return m_dwba_intensity; }
 
-    virtual DWBASimulation* clone() const;
-
 protected:
+    virtual void runProtected() {}
+
     //! Returns true if the sample requires a polarized calculation
     bool checkPolarizationPresent() const;
 

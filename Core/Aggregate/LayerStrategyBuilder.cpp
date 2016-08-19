@@ -47,7 +47,7 @@ IInterferenceFunctionStrategy* LayerStrategyBuilder::createStrategy()
 {
     collectFormFactorInfos();
     collectInterferenceFunction();
-    IInterferenceFunctionStrategy* p_result(0);
+    IInterferenceFunctionStrategy* p_result(nullptr);
     switch (mP_layer->getLayout(m_layout_index)->getApproximation())
     {
     case ILayout::DA:
@@ -129,9 +129,8 @@ FormFactorInfo* LayerStrategyBuilder::createFormFactorInfo(
             p_ff_framework = new FormFactorDWBAPol(*P_ff_particle);
         else
             p_ff_framework = new FormFactorDWBA(*P_ff_particle);
-    } else {
+    } else
         p_ff_framework = P_ff_particle->clone();
-    }
     p_result->mp_ff = p_ff_framework;
     // Other info (abundance)
     p_result->m_abundance = particle->getAbundance();

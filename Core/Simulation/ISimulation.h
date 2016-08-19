@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Simulation/ISimulation.h
-//! @brief     Defines interface class ISimulation.
+//! @brief     Defines and implements interface class ISimulation.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -19,9 +19,8 @@
 #include "ICloneable.h"
 #include <string>
 
-//! @class ISimulation
+//! Pure virtual base class, encapsulating different simulations.
 //! @ingroup algorithms_internal
-//! @brief Interface class, encapsulating different simulations.
 
 class BA_CORE_API_  ISimulation : public ICloneable
 {
@@ -32,7 +31,7 @@ public:
 
     virtual ~ISimulation() {}
 
-    ISimulation* clone() const;
+    ISimulation* clone() const =0;
 
     virtual void run() {}
 

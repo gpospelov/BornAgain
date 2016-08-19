@@ -16324,20 +16324,10 @@ class IMaterial(INamed):
     for _s in [INamed]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, IMaterial, name)
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
-
-    def __init__(self, name):
-        """
-        __init__(IMaterial self, std::string const & name) -> IMaterial
-
-        IMaterial::IMaterial(const std::string &name)
-
-        """
-        this = _libBornAgainCore.new_IMaterial(name)
-        try:
-            self.this.append(this)
-        except:
-            self.this = this
     __swig_destroy__ = _libBornAgainCore.delete_IMaterial
     __del__ = lambda self: None
 
@@ -16385,16 +16375,16 @@ class IMaterial(INamed):
         return _libBornAgainCore.IMaterial_getRefractiveIndex(self)
 
 
-    def createTransformedMaterial(self, rotation):
+    def createTransformedMaterial(self, transform):
         """
-        createTransformedMaterial(IMaterial self, IRotation rotation) -> IMaterial
+        createTransformedMaterial(IMaterial self, Geometry::Transform3D const & transform) -> IMaterial
 
         const IMaterial * IMaterial::createTransformedMaterial(const IRotation &rotation) const
 
         Create a new material that is transformed with respect to this one. 
 
         """
-        return _libBornAgainCore.IMaterial_createTransformedMaterial(self, rotation)
+        return _libBornAgainCore.IMaterial_createTransformedMaterial(self, transform)
 
 
     def __eq__(self, other):
@@ -16475,16 +16465,16 @@ class HomogeneousMaterial(IMaterial):
         return _libBornAgainCore.HomogeneousMaterial_setRefractiveIndex(self, refractive_index)
 
 
-    def createTransformedMaterial(self, rotation):
+    def createTransformedMaterial(self, arg2):
         """
-        createTransformedMaterial(HomogeneousMaterial self, IRotation rotation) -> IMaterial
+        createTransformedMaterial(HomogeneousMaterial self, Geometry::Transform3D const & arg2) -> IMaterial
 
         const IMaterial * HomogeneousMaterial::createTransformedMaterial(const IRotation &rotation) const
 
         Create a new material that is transformed with respect to this one. 
 
         """
-        return _libBornAgainCore.HomogeneousMaterial_createTransformedMaterial(self, rotation)
+        return _libBornAgainCore.HomogeneousMaterial_createTransformedMaterial(self, arg2)
 
 HomogeneousMaterial_swigregister = _libBornAgainCore.HomogeneousMaterial_swigregister
 HomogeneousMaterial_swigregister(HomogeneousMaterial)
@@ -16572,16 +16562,16 @@ class HomogeneousMagneticMaterial(HomogeneousMaterial):
         return _libBornAgainCore.HomogeneousMagneticMaterial_isScalarMaterial(self)
 
 
-    def createTransformedMaterial(self, rotation):
+    def createTransformedMaterial(self, transform):
         """
-        createTransformedMaterial(HomogeneousMagneticMaterial self, IRotation rotation) -> IMaterial
+        createTransformedMaterial(HomogeneousMagneticMaterial self, Geometry::Transform3D const & transform) -> IMaterial
 
         const IMaterial * HomogeneousMagneticMaterial::createTransformedMaterial(const IRotation &rotation) const
 
         Create a new material that is transformed with respect to this one. 
 
         """
-        return _libBornAgainCore.HomogeneousMagneticMaterial_createTransformedMaterial(self, rotation)
+        return _libBornAgainCore.HomogeneousMagneticMaterial_createTransformedMaterial(self, transform)
 
     __swig_destroy__ = _libBornAgainCore.delete_HomogeneousMagneticMaterial
     __del__ = lambda self: None

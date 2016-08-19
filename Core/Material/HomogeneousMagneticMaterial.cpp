@@ -14,11 +14,9 @@
 // ************************************************************************** //
 
 #include "HomogeneousMagneticMaterial.h"
-#include "Rotations.h"
 #include "Transform3D.h"
 
-const double HomogeneousMagneticMaterial::m_magnetic_prefactor
-                 = -2.91042993836710484e-3;
+const double HomogeneousMagneticMaterial::m_magnetic_prefactor = -2.91042993836710484e-3;
 
 HomogeneousMagneticMaterial::HomogeneousMagneticMaterial(
         const std::string& name, const complex_t refractive_index,
@@ -32,16 +30,15 @@ HomogeneousMagneticMaterial::HomogeneousMagneticMaterial(
 HomogeneousMagneticMaterial::HomogeneousMagneticMaterial(
         const std::string& name, double refractive_index_delta,
         double refractive_index_beta, const kvector_t magnetic_field)
-: HomogeneousMaterial(name, refractive_index_delta, refractive_index_beta)
-, m_magnetic_field(magnetic_field)
+    : HomogeneousMaterial(name, refractive_index_delta, refractive_index_beta)
+    , m_magnetic_field(magnetic_field)
 {
     initializePrivateMemebers();
 }
 
 HomogeneousMagneticMaterial* HomogeneousMagneticMaterial::clone() const
 {
-    return new HomogeneousMagneticMaterial(getName(), getRefractiveIndex(),
-            getMagneticField());
+    return new HomogeneousMagneticMaterial(getName(), getRefractiveIndex(), getMagneticField());
 }
 
 Eigen::Matrix2cd HomogeneousMagneticMaterial::getScatteringMatrix(
@@ -58,9 +55,8 @@ Eigen::Matrix2cd HomogeneousMagneticMaterial::getScatteringMatrix(
 }
 
 const IMaterial* HomogeneousMagneticMaterial::createTransformedMaterial(
-        const IRotation& rotation) const
+        const Geometry::Transform3D& transform) const
 {
-    Geometry::Transform3D transform = rotation.getTransform3D();
     kvector_t mag_field_transformed = transform.transformed(m_magnetic_field);
     return new HomogeneousMagneticMaterial(getName(), getRefractiveIndex(),
             mag_field_transformed);

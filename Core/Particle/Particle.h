@@ -39,35 +39,23 @@ public:
     //! Returns a clone with inverted magnetic fields
     virtual Particle* cloneInvertB() const;
 
-    //! calls the ISampleVisitor's visit method
-    virtual void accept(ISampleVisitor* visitor) const;
+    virtual void accept(ISampleVisitor* visitor) const { visitor->visit(this); }
 
-    //! Returns textual representation of *this and its descendants.
     virtual std::string to_str(int indent=0) const;
 
-    //! Sets the refractive index of the ambient material (which influences its scattering power)
     void setAmbientMaterial(const IMaterial& material) final;
-
-    //! Returns the ambient material.
     const IMaterial* getAmbientMaterial() const final { return mP_ambient_material.get(); }
 
     //! Create a form factor for this particle with an extra scattering factor
     virtual IFormFactor* createTransformedFormFactor(
         const IRotation* p_rotation, kvector_t translation) const;
 
-    //! Sets _material_.
     void setMaterial(const IMaterial& material);
-
-    //! Returns particle's material.
     const IMaterial* getMaterial() const { return mP_material.get(); }
 
-    //! Returns refractive index of the particle
     complex_t getRefractiveIndex() const;
 
-    //! Sets the form factor
     void setFormFactor(const IFormFactor& form_factor);
-
-    //! Returns the form factor
     const IFormFactor* getFormFactor() const { return mP_form_factor.get(); }
 
 protected:

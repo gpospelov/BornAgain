@@ -55,7 +55,7 @@ TEST_F(HomogeneousMaterialTest, HomogeneousMaterialTransform)
     HomogeneousMaterial material("Material1", refIndex);
 
     RotationZ transform(45.*Units::degree);
-    const IMaterial * tMaterial = material.createTransformedMaterial(transform);
+    const IMaterial * tMaterial = material.createTransformedMaterial(transform.getTransform3D());
 
     EXPECT_EQ("Material1", tMaterial->getName());
     EXPECT_EQ(refIndex, tMaterial->getRefractiveIndex());
@@ -96,7 +96,7 @@ TEST_F(HomogeneousMaterialTest, HomogeneousMaterialClone)
     EXPECT_EQ(complex_t(-5.0,12.0), matrix2(1,1));
 
     RotationZ transform(45.*Units::degree);
-    const IMaterial * tMaterial = clone->createTransformedMaterial(transform);
+    const IMaterial * tMaterial = clone->createTransformedMaterial(transform.getTransform3D());
 
     EXPECT_EQ("Material1", tMaterial->getName());
     EXPECT_EQ(refIndex2, tMaterial->getRefractiveIndex());

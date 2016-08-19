@@ -18,9 +18,8 @@
 
 #include "HomogeneousMaterial.h"
 
-//! @class HomogeneousMagneticMaterial
+//! A homogeneous material with magnetization.
 //! @ingroup materials
-//! @brief An homogeneous material with magnetization.
 
 class BA_CORE_API_ HomogeneousMagneticMaterial : public HomogeneousMaterial
 {
@@ -58,7 +57,8 @@ public:
 #endif
 
     //! Create a new material that is transformed with respect to this one
-    virtual const IMaterial *createTransformedMaterial(const IRotation &rotation) const;
+    virtual const IMaterial* createTransformedMaterial(
+        const Geometry::Transform3D& transform) const;
 
 protected:
     virtual void print(std::ostream &ostr) const {

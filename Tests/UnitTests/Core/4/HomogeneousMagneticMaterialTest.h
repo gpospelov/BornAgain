@@ -72,7 +72,7 @@ TEST_F(HomogeneousMagneticMaterialTest, HomogeneousMagneticMaterialTransform)
     HomogeneousMagneticMaterial material("MagMaterial", refIndex, magnetism);
 
     RotationZ transform(45.*Units::degree);
-    const IMaterial * tMaterial = material.createTransformedMaterial(transform);
+    const IMaterial * tMaterial = material.createTransformedMaterial(transform.getTransform3D());
 
     EXPECT_EQ("MagMaterial", tMaterial->getName());
     EXPECT_EQ(refIndex, tMaterial->getRefractiveIndex());
@@ -113,7 +113,7 @@ TEST_F(HomogeneousMagneticMaterialTest, HomogeneousMagneticMaterialClone)
     EXPECT_EQ(magnetism2, clone->getMagneticField());
 
     RotationZ transform(45.*Units::degree);
-    const IMaterial * tMaterial = clone->createTransformedMaterial(transform);
+    const IMaterial * tMaterial = clone->createTransformedMaterial(transform.getTransform3D());
 
     EXPECT_EQ("MagMaterial", tMaterial->getName());
     EXPECT_EQ(refIndex2, tMaterial->getRefractiveIndex());

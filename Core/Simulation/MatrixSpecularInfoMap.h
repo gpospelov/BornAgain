@@ -22,10 +22,8 @@
 
 class MultiLayer;
 
-//! @class MatrixSpecularInfoMap
+//! Implementation of ISpecularInfoMap for matrix valued reflection/transmission coefficients.
 //! @ingroup algorithms_internal
-//! @brief Implementation of ISpecularInfoMap for matrix valued reflection/
-//! transmission coefficients
 
 class BA_CORE_API_ MatrixSpecularInfoMap : public ISpecularInfoMap
 {

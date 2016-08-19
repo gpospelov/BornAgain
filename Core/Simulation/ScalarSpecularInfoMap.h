@@ -24,10 +24,8 @@ class MultiLayer;
 class ILayerRTCoefficients;
 class ScalarRTCoefficients;
 
-//! @class ScalarSpecularInfoMap
+//! Implementation of ISpecularInfoMap for scalar valued reflection/transmission coefficients.
 //! @ingroup algorithms_internal
-//! @brief Implementation of ISpecularInfoMap for scalar valued reflection/
-//! transmission coefficients
 
 class BA_CORE_API_ ScalarSpecularInfoMap : public ISpecularInfoMap
 {
@@ -35,7 +33,8 @@ public:
     ScalarSpecularInfoMap(const MultiLayer* multilayer, int layer);
     virtual ~ScalarSpecularInfoMap() {}
 
-    virtual ScalarSpecularInfoMap* clone() const;
+    virtual ScalarSpecularInfoMap* clone() const {
+        return new ScalarSpecularInfoMap(mp_multilayer, m_layer); }
 
     //! Retrieves the amplitude coefficients for the given angles
     virtual const ILayerRTCoefficients* getOutCoefficients(

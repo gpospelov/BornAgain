@@ -16,7 +16,9 @@
 #ifndef ISPECULARINFOMAP_H
 #define ISPECULARINFOMAP_H
 
-#include "ILayerRTCoefficients.h"
+#include "WinDllMacros.h"
+
+class ILayerRTCoefficients;
 
 //! Interface class providing access to the reflection and transmittion coefficients.
 //! @ingroup algorithms_internal

@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "LayerSpecularInfo.h"
+#include "ILayerRTCoefficients.h"
 #include "ISpecularInfoMap.h"
 
 LayerSpecularInfo::LayerSpecularInfo() {}

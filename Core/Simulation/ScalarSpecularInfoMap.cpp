@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "ScalarSpecularInfoMap.h"
+#include "ISpecularInfoMap.h"
 #include "MultiLayer.h"
 #include "ScalarRTCoefficients.h"
 #include "SpecularMatrix.h"
@@ -21,26 +22,20 @@
 ScalarSpecularInfoMap::ScalarSpecularInfoMap(const MultiLayer *multilayer, int layer)
     : mp_multilayer(multilayer)
     , m_layer(layer)
-{
-}
-
-ScalarSpecularInfoMap *ScalarSpecularInfoMap::clone() const
-{
-    return new ScalarSpecularInfoMap(mp_multilayer, m_layer);
-}
+{}
 
 const ILayerRTCoefficients *ScalarSpecularInfoMap::getOutCoefficients(
-        double alpha_f, double phi_f, double wavelength) const
+        double alpha_f, double, double wavelength) const
 {
-    (void)phi_f; // phi has no effect on R,T, so just pass zero:
+    // phi_f has no effect on R,T, so just pass zero:
     kvector_t kvec = Geometry::vecOfLambdaAlphaPhi(wavelength, -alpha_f, 0.0);
     return getCoefficients(kvec);
 }
 
 const ILayerRTCoefficients *ScalarSpecularInfoMap::getInCoefficients(
-        double alpha_i, double phi_i, double wavelength) const
+        double alpha_i, double, double wavelength) const
 {
-    (void)phi_i; // phi has no effect on R,T, so just pass zero:
+    // phi_i has no effect on R,T, so just pass zero:
     kvector_t kvec = Geometry::vecOfLambdaAlphaPhi(wavelength, alpha_i, 0.0);
     return getCoefficients(kvec);
 }

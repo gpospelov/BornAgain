@@ -15,13 +15,14 @@
 
 #include "MatrixSpecularInfoMap.h"
 #include "ILayerRTCoefficients.h"
+#include "ISpecularInfoMap.h"
 #include "MultiLayer.h"
 #include "SpecularMagnetic.h"
 
 MatrixSpecularInfoMap::MatrixSpecularInfoMap(const MultiLayer* multilayer, int layer)
     : m_layer(layer)
 {
-    if (multilayer){
+    if (multilayer) {
         mP_multilayer.reset((multilayer->clone()));
         mP_inverted_multilayer.reset(multilayer->cloneInvertB());
     }
@@ -30,7 +31,7 @@ MatrixSpecularInfoMap::MatrixSpecularInfoMap(const MultiLayer* multilayer, int l
 MatrixSpecularInfoMap* MatrixSpecularInfoMap::clone() const
 {
     MatrixSpecularInfoMap* result = new MatrixSpecularInfoMap(0, m_layer);
-    if (mP_multilayer){
+    if (mP_multilayer)  {
         result->mP_multilayer.reset(mP_multilayer->clone());
         result->mP_inverted_multilayer.reset(mP_inverted_multilayer->clone());
     }

@@ -15,8 +15,8 @@
 
 #include "LayerStrategyBuilder.h"
 #include "FormFactorInfo.h"
-#include "FormFactorTools.h"
-#include "IFormFactor.h"
+#include "FormFactorDWBA.h"
+#include "FormFactorDWBAPol.h"
 #include "ILayout.h"
 #include "IParticle.h"
 #include "InterferenceFunctionStrategies.h"
@@ -126,9 +126,9 @@ FormFactorInfo* LayerStrategyBuilder::createFormFactorInfo(
     size_t n_layers = mP_layer->getNumberOfLayers();
     if (n_layers>1) {
         if (requiresMatrixFFs())
-            p_ff_framework = FormFactorTools::createDWBAMatrixFormFactor(*P_ff_particle);
+            p_ff_framework = new FormFactorDWBAPol(*P_ff_particle);
         else
-            p_ff_framework = FormFactorTools::createDWBAScalarFormFactor(*P_ff_particle);
+            p_ff_framework = new FormFactorDWBA(*P_ff_particle);
     } else {
         p_ff_framework = P_ff_particle->clone();
     }

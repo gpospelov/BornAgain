@@ -127,8 +127,8 @@ complex_t MultiLayerRoughnessDWBASimulation::get_refractive_term(size_t ilayer) 
            mp_multi_layer->getLayer(ilayer+1)->getRefractiveIndex2();
 }
 
-complex_t MultiLayerRoughnessDWBASimulation::get_sum8terms(size_t ilayer,
-                                                           const SimulationElement& sim_element)
+complex_t MultiLayerRoughnessDWBASimulation::get_sum8terms(
+    size_t ilayer, const SimulationElement& sim_element)
 {
     double wavelength = sim_element.getWavelength();
     double alpha_i = sim_element.getAlphaI();

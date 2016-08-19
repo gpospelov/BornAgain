@@ -66,25 +66,22 @@ protected:
     virtual double evaluateForMatrixList(const SimulationElement& sim_element,
                                          const matrixFFVector_t& ff_list) const = 0;
 
-    SafePointerVector<FormFactorInfo> m_ff_infos;          //!< form factor info
+    SafePointerVector<FormFactorInfo> m_ff_infos;        //!< form factor info
     std::unique_ptr<IInterferenceFunction> mP_iff;       //!< interference function
-    SimulationOptions m_options;                     //!< simulation options
+    SimulationOptions m_options;                         //!< simulation options
     std::unique_ptr<LayerSpecularInfo> mP_specular_info; //!< R and T coefficients for DWBA
 
 private:
-    //! Constructs one list of evaluated form factors to be used in subsequent
-    //! calculations
+    //! Constructs one list of evaluated form factors to be used in subsequent calculations
     void calculateFormFactorList(const SimulationElement& sim_element) const;
 
-    //! Constructs lists of evaluated form factors to be used in subsequent
-    //! calculations
+    //! Constructs lists of evaluated form factors to be used in subsequent calculations
     void calculateFormFactorLists(const SimulationElement& sim_element) const;
 
     //! Clears the cached form factor lists
     void clearFormFactorLists() const;
 
-    //! Perform a Monte Carlo integration over the bin for the evaluation of the
-    //! intensity
+    //! Perform a Monte Carlo integration over the bin for the evaluation of the intensity
     double MCIntegratedEvaluate(const SimulationElement& sim_element) const;
 
     //! Perform a Monte Carlo integration over the bin for the evaluation of the
@@ -97,12 +94,8 @@ private:
     //! Evaluate polarized for fixed angles
     double evaluate_for_fixed_angles_pol(double* fractions, size_t dim, void* params) const;
 
-    //! cached form factor evaluations
-    mutable std::vector<complex_t> m_ff;
-
-    //! cached polarized form factors
-    mutable matrixFFVector_t m_ff_pol;
-
+    mutable std::vector<complex_t> m_ff; //!< cached form factor evaluations
+    mutable matrixFFVector_t m_ff_pol; //!< cached polarized form factors
 #ifndef SWIG
     std::unique_ptr<IntegratorMCMiser<IInterferenceFunctionStrategy>> mP_integrator;
     std::unique_ptr<IntegratorMCMiser<IInterferenceFunctionStrategy>> mP_integrator_pol;

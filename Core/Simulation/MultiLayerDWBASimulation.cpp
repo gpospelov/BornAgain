@@ -20,6 +20,7 @@
 #include "LayerDWBASimulation.h"
 #include "LayerInterface.h"
 #include "LayerRoughness.h"
+#include "LayerSpecularInfo.h"
 #include "Logger.h"
 #include "MatrixSpecularInfoMap.h"
 #include "MultiLayer.h"
@@ -140,10 +141,8 @@ void MultiLayerDWBASimulation::collectRTCoefficientsScalar()
         }
 
         // layer roughness DWBA
-        if(mp_roughness_dwba_simulation) {
-            mp_roughness_dwba_simulation->setSpecularInfo(i_layer,
-                    layer_coeff_map);
-        }
+        if(mp_roughness_dwba_simulation)
+            mp_roughness_dwba_simulation->setSpecularInfo(i_layer, layer_coeff_map);
     } // i_layer
 }
 

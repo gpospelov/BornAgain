@@ -18,7 +18,6 @@
 #include "FormFactorInfo.h"
 #include "IInterferenceFunction.h"
 #include "Layer.h"
-#include "LayerSpecularInfo.h"
 #include "MathFunctions.h"
 #include "RealParameter.h"
 #include "SimulationElement.h"

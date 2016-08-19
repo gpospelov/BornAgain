@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Simulation/ISpecularInfoMap.h
-//! @brief     Defines interface ISpecularInfoMap.
+//! @brief     Defines and implements interface ISpecularInfoMap.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

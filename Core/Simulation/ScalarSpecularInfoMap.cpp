@@ -19,12 +19,12 @@
 #include "ScalarRTCoefficients.h"
 #include "SpecularMatrix.h"
 
-ScalarSpecularInfoMap::ScalarSpecularInfoMap(const MultiLayer *multilayer, int layer)
+ScalarSpecularInfoMap::ScalarSpecularInfoMap(const MultiLayer* multilayer, int layer)
     : mp_multilayer(multilayer)
     , m_layer(layer)
 {}
 
-const ILayerRTCoefficients *ScalarSpecularInfoMap::getOutCoefficients(
+const ILayerRTCoefficients* ScalarSpecularInfoMap::getOutCoefficients(
         double alpha_f, double, double wavelength) const
 {
     // phi_f has no effect on R,T, so just pass zero:
@@ -32,7 +32,7 @@ const ILayerRTCoefficients *ScalarSpecularInfoMap::getOutCoefficients(
     return getCoefficients(kvec);
 }
 
-const ILayerRTCoefficients *ScalarSpecularInfoMap::getInCoefficients(
+const ILayerRTCoefficients* ScalarSpecularInfoMap::getInCoefficients(
         double alpha_i, double, double wavelength) const
 {
     // phi_i has no effect on R,T, so just pass zero:
@@ -40,7 +40,7 @@ const ILayerRTCoefficients *ScalarSpecularInfoMap::getInCoefficients(
     return getCoefficients(kvec);
 }
 
-const ScalarRTCoefficients *ScalarSpecularInfoMap::getCoefficients(kvector_t kvec) const
+const ScalarRTCoefficients* ScalarSpecularInfoMap::getCoefficients(kvector_t kvec) const
 {
     SpecularMatrix::MultiLayerCoeff_t coeffs;
     SpecularMatrix::execute(*mp_multilayer, kvec, coeffs);

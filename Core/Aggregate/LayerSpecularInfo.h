@@ -22,12 +22,10 @@
 class ISpecularInfoMap;
 class ILayerRTCoefficients;
 
-//! @class LayerSpecularInfo
+//! Holds the amplitude information of the radiation wavefunction in a specific layer
+//! for different incoming (outgoing) angles of the beam in the top layer
+//! (these amplitudes correspond to the specular part of the neutron wavefunction).
 //! @ingroup algorithms_internal
-//! @brief Holds the amplitude information of the neutron
-//! wavefunction in a specific layer for different incoming (outgoing) angles of
-//! the neutron beam in the top layer (these amplitudes correspond to the
-//! specular part of the neutron wavefunction)
 
 class BA_CORE_API_ LayerSpecularInfo : public ICloneable
 {

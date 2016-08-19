@@ -33,9 +33,9 @@ class BA_CORE_API_ LayerSpecularInfo : public ICloneable
 {
 public:
     LayerSpecularInfo();
-    virtual ~LayerSpecularInfo();
+    ~LayerSpecularInfo() final;
 
-    virtual LayerSpecularInfo* clone() const;
+    LayerSpecularInfo* clone() const final;
 
     //! Adds the amplitude coefficients for the (time-reversed) outgoing
     //! wavevector with the given angles
@@ -52,6 +52,5 @@ public:
 private:
     std::unique_ptr<ISpecularInfoMap> mP_coeff_map;
 };
-
 
 #endif // LAYERSPECULARINFO_H

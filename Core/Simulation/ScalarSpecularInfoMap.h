@@ -17,6 +17,7 @@
 #define SCALARSPECULARINFOMAP_H
 
 #include "ISpecularInfoMap.h"
+#include "ILayerRTCoefficients.h"
 #include "Vectors3D.h"
 
 class MultiLayer;

@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "MatrixSpecularInfoMap.h"
+#include "ILayerRTCoefficients.h"
 #include "MultiLayer.h"
 #include "SpecularMagnetic.h"
 

@@ -19,10 +19,9 @@
 #include "ParameterDistribution.h"
 #include <vector>
 
-//! @class DistributionHandler
+//! Provides the functionality to average over parameter distributions with weights.
+
 //! @ingroup algorithms_internal
-//! @brief Provides the functionality to average over parameter distributions
-//! with weights
 class BA_CORE_API_ DistributionHandler : public IParameterized
 {
 public:
@@ -54,6 +53,5 @@ private:
     Distributions_t m_distributions;
     std::vector<std::vector<ParameterSample> > m_cached_samples;
 };
-
 
 #endif // DISTRIBUTIONHANDLER_H

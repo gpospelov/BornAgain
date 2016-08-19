@@ -27,9 +27,8 @@ class ISample;
 class IMultiLayerBuilder;
 class MultiLayer;
 
-//! @class SpecularSimulation
+//! Main class to run a specular simulation.
 //! @ingroup simulation
-//! @brief Main class to run a specular simulation.
 
 class BA_CORE_API_ SpecularSimulation : public ICloneable, public IParameterized
 {

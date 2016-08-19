@@ -22,7 +22,7 @@
 //! Pure virtual base class, encapsulating different simulations.
 //! @ingroup algorithms_internal
 
-class BA_CORE_API_  ISimulation : public ICloneable
+class BA_CORE_API_ ISimulation : public ICloneable
 {
 public:
     enum ESimulationStatus { IDLE, RUNNING, COMPLETED, FAILED };

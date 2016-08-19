@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "MultiLayerRoughnessDWBASimulation.h"
-#include "DWBADiffuseReflection.h"
+#include "ILayerRTCoefficients.h"
 #include "Faddeeva.hh"
 #include "Layer.h"
 #include "LayerInterface.h"

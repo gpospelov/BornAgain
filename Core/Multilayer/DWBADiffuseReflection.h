@@ -23,7 +23,7 @@ class MultiLayer;
 //! Calculation of diffuse (aka off-specular) reflection from multilayers.
 //! @ingroup algorithms_internal
 
-class BA_CORE_API_ DWBADiffuseReflection : public ISimulation
+class BA_CORE_API_ DWBADiffuseReflection
 {
 public:
     DWBADiffuseReflection();

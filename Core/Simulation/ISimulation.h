@@ -19,7 +19,8 @@
 #include "ICloneable.h"
 #include <string>
 
-//! Pure virtual base class, encapsulating different simulations.
+//! Pure virtual base class, encapsulating most simulations
+//! (but not those of type Simulation or SpecularSimulation).
 //! @ingroup algorithms_internal
 
 class BA_CORE_API_ ISimulation : public ICloneable

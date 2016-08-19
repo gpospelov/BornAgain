@@ -16,7 +16,6 @@
 #ifndef SPECULARMAGNETIC_H
 #define SPECULARMAGNETIC_H
 
-#include "ISimulation.h"
 #include "MatrixRTCoefficients.h"
 #include "Vectors3D.h"
 #include <vector>
@@ -25,7 +24,7 @@
 //! the coherent wave solution in a multilayer with magnetization.
 //! @ingroup algorithms_internal
 
-class BA_CORE_API_ SpecularMagnetic : public ISimulation
+class BA_CORE_API_ SpecularMagnetic
 {
 public:
     //! Layer coefficients describing refraction and reflection/transmission.

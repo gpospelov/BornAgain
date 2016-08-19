@@ -5391,7 +5391,7 @@ Create new histogram by applying rectangular clip.
 // File: classHomogeneousMagneticMaterial.xml
 %feature("docstring") HomogeneousMagneticMaterial "
 
-An homogeneous material with magnetization.
+A homogeneous material with magnetization.
 
 C++ includes: HomogeneousMagneticMaterial.h
 ";
@@ -5431,7 +5431,7 @@ Indicates that the material is not scalar. This means that different polarizatio
 Get the scattering matrix (~potential V) from the material. This matrix appears in the full three-dimensional Schroedinger equation. 
 ";
 
-%feature("docstring")  HomogeneousMagneticMaterial::createTransformedMaterial "const IMaterial * HomogeneousMagneticMaterial::createTransformedMaterial(const IRotation &rotation) const
+%feature("docstring")  HomogeneousMagneticMaterial::createTransformedMaterial "const IMaterial * HomogeneousMagneticMaterial::createTransformedMaterial(const Geometry::Transform3D &transform) const
 
 Create a new material that is transformed with respect to this one. 
 ";
@@ -5458,25 +5458,21 @@ Constructs a material with  name and refractive_index parameters delta and beta 
 %feature("docstring")  HomogeneousMaterial::~HomogeneousMaterial "virtual HomogeneousMaterial::~HomogeneousMaterial()
 ";
 
-%feature("docstring")  HomogeneousMaterial::clone "HomogeneousMaterial * HomogeneousMaterial::clone() const 
+%feature("docstring")  HomogeneousMaterial::clone "virtual HomogeneousMaterial* HomogeneousMaterial::clone() const 
 ";
 
-%feature("docstring")  HomogeneousMaterial::getRefractiveIndex "virtual complex_t HomogeneousMaterial::getRefractiveIndex() const
-
-Return refractive index. 
+%feature("docstring")  HomogeneousMaterial::getRefractiveIndex "virtual complex_t HomogeneousMaterial::getRefractiveIndex() const 
 ";
 
 %feature("docstring")  HomogeneousMaterial::setRefractiveIndex "void HomogeneousMaterial::setRefractiveIndex(const complex_t refractive_index)
-
-Set refractive index. 
 ";
 
-%feature("docstring")  HomogeneousMaterial::getScatteringMatrix "Eigen::Matrix2cd HomogeneousMaterial::getScatteringMatrix(double k_mag2) const
+%feature("docstring")  HomogeneousMaterial::getScatteringMatrix "virtual Eigen::Matrix2cd HomogeneousMaterial::getScatteringMatrix(double) const
 
 Get the scattering matrix (~potential V) from the material. This matrix appears in the full three-dimensional Schroedinger equation. 
 ";
 
-%feature("docstring")  HomogeneousMaterial::createTransformedMaterial "const IMaterial * HomogeneousMaterial::createTransformedMaterial(const IRotation &rotation) const
+%feature("docstring")  HomogeneousMaterial::createTransformedMaterial "virtual const IMaterial* HomogeneousMaterial::createTransformedMaterial(const Geometry::Transform3D &) const
 
 Create a new material that is transformed with respect to this one. 
 ";
@@ -7037,9 +7033,7 @@ Indicates whether the interaction with the material is scalar. This means that d
 %feature("docstring")  IMaterial::isMagneticMaterial "bool IMaterial::isMagneticMaterial() const 
 ";
 
-%feature("docstring")  IMaterial::getRefractiveIndex "virtual complex_t IMaterial::getRefractiveIndex() const
-
-Return refractive index. 
+%feature("docstring")  IMaterial::getRefractiveIndex "virtual complex_t IMaterial::getRefractiveIndex() const 
 ";
 
 %feature("docstring")  IMaterial::getSpecularScatteringMatrix "Eigen::Matrix2cd IMaterial::getSpecularScatteringMatrix(const kvector_t k) const
@@ -7052,7 +7046,7 @@ Get the effective scattering matrix from the refractive index and a given waveve
 Get the scattering matrix (~potential V) from the material. This matrix appears in the full three-dimensional Schroedinger equation. 
 ";
 
-%feature("docstring")  IMaterial::createTransformedMaterial "const IMaterial * IMaterial::createTransformedMaterial(const IRotation &rotation) const
+%feature("docstring")  IMaterial::createTransformedMaterial "virtual const IMaterial* IMaterial::createTransformedMaterial(const Geometry::Transform3D &transform) const =0
 
 Create a new material that is transformed with respect to this one. 
 ";
@@ -9144,7 +9138,7 @@ Methods to generate a simulation strategy for decorated  Layer SimulationParamet
 C++ includes: LayerStrategyBuilder.h
 ";
 
-%feature("docstring")  LayerStrategyBuilder::LayerStrategyBuilder "LayerStrategyBuilder::LayerStrategyBuilder(const Layer &decorated_layer, const Simulation &simulation, const SimulationOptions &sim_params, size_t layout_index)
+%feature("docstring")  LayerStrategyBuilder::LayerStrategyBuilder "LayerStrategyBuilder::LayerStrategyBuilder(const Layer &decorated_layer, const MultiLayer &sample, const SimulationOptions &sim_params, size_t layout_index)
 ";
 
 %feature("docstring")  LayerStrategyBuilder::~LayerStrategyBuilder "LayerStrategyBuilder::~LayerStrategyBuilder()
@@ -10642,14 +10636,14 @@ Returns a clone of this  ISample object.
 Returns a clone with inverted magnetic fields. 
 ";
 
-%feature("docstring")  Particle::accept "void Particle::accept(ISampleVisitor *visitor) const
+%feature("docstring")  Particle::accept "virtual void Particle::accept(ISampleVisitor *visitor) const
 
 calls the  ISampleVisitor's visit method 
 ";
 
 %feature("docstring")  Particle::to_str "std::string Particle::to_str(int indent=0) const
 
-Returns textual representation of *this and its descendants. 
+Returns textual representation of this and its descendants. 
 ";
 
 %feature("docstring")  Particle::setAmbientMaterial "void Particle::setAmbientMaterial(const IMaterial &material) final
@@ -10659,7 +10653,7 @@ Sets the refractive index of the ambient material (which influences its scatteri
 
 %feature("docstring")  Particle::getAmbientMaterial "const IMaterial* Particle::getAmbientMaterial() const final
 
-Returns the ambient material. 
+Returns particle's material. 
 ";
 
 %feature("docstring")  Particle::createTransformedFormFactor "IFormFactor * Particle::createTransformedFormFactor(const IRotation *p_rotation, kvector_t translation) const
@@ -10668,28 +10662,20 @@ Create a form factor for this particle with an extra scattering factor.
 ";
 
 %feature("docstring")  Particle::setMaterial "void Particle::setMaterial(const IMaterial &material)
-
-Sets  material. 
 ";
 
 %feature("docstring")  Particle::getMaterial "const IMaterial* Particle::getMaterial() const
 
-Returns particle's material. 
+Returns nullptr, unless overwritten to return a specific material. 
 ";
 
-%feature("docstring")  Particle::getRefractiveIndex "complex_t Particle::getRefractiveIndex() const
-
-Returns refractive index of the particle. 
+%feature("docstring")  Particle::getRefractiveIndex "complex_t Particle::getRefractiveIndex() const 
 ";
 
 %feature("docstring")  Particle::setFormFactor "void Particle::setFormFactor(const IFormFactor &form_factor)
-
-Sets the form factor. 
 ";
 
-%feature("docstring")  Particle::getFormFactor "const IFormFactor* Particle::getFormFactor() const
-
-Returns the form factor. 
+%feature("docstring")  Particle::getFormFactor "const IFormFactor* Particle::getFormFactor() const 
 ";
 
 
@@ -13229,7 +13215,7 @@ C++ includes: WavevectorInfo.h
 // File: classMathFunctions_1_1Convolve_1_1Workspace.xml
 
 
-// File: namespace_0D297.xml
+// File: namespace_0D295.xml
 
 
 // File: namespace_0D368.xml
@@ -13695,12 +13681,6 @@ enables exception throw in the case of NaN, Inf
 ";
 
 
-// File: DecouplingApproximationStrategy_8cpp.xml
-
-
-// File: DecouplingApproximationStrategy_8h.xml
-
-
 // File: FormFactorInfo_8cpp.xml
 
 
@@ -13729,12 +13709,6 @@ enables exception throw in the case of NaN, Inf
 
 
 // File: IInterferenceFunction_8h.xml
-
-
-// File: IInterferenceFunctionStrategy_8cpp.xml
-
-
-// File: IInterferenceFunctionStrategy_8h.xml
 
 
 // File: ILayout_8h.xml
@@ -13773,31 +13747,10 @@ enables exception throw in the case of NaN, Inf
 // File: InterferenceFunctions_8h.xml
 
 
-// File: InterferenceFunctionStrategies_8h.xml
-
-
-// File: LayerSpecularInfo_8cpp.xml
-
-
-// File: LayerSpecularInfo_8h.xml
-
-
-// File: LayerStrategyBuilder_8cpp.xml
-
-
-// File: LayerStrategyBuilder_8h.xml
-
-
 // File: ParticleLayout_8cpp.xml
 
 
 // File: ParticleLayout_8h.xml
-
-
-// File: SizeSpacingCorrelationApproximationStrategy_8cpp.xml
-
-
-// File: SizeSpacingCorrelationApproximationStrategy_8h.xml
 
 
 // File: BornAgainNamespace_8h.xml
@@ -14012,18 +13965,6 @@ global helper function for comparison of axes
 
 
 // File: FormFactorDecoratorRotation_8h.xml
-
-
-// File: FormFactorDWBA_8cpp.xml
-
-
-// File: FormFactorDWBA_8h.xml
-
-
-// File: FormFactorDWBAPol_8cpp.xml
-
-
-// File: FormFactorDWBAPol_8h.xml
 
 
 // File: IFormFactorDecorator_8h.xml
@@ -14557,16 +14498,34 @@ Set all element intensities to given value.
 // File: Materials_8h.xml
 
 
+// File: DecouplingApproximationStrategy_8cpp.xml
+
+
+// File: DecouplingApproximationStrategy_8h.xml
+
+
 // File: DWBADiffuseReflection_8cpp.xml
 
 
 // File: DWBADiffuseReflection_8h.xml
 
 
-// File: IFormFactor_8cpp.xml
+// File: FormFactorDWBA_8cpp.xml
 
 
-// File: IFormFactor_8h.xml
+// File: FormFactorDWBA_8h.xml
+
+
+// File: FormFactorDWBAPol_8cpp.xml
+
+
+// File: FormFactorDWBAPol_8h.xml
+
+
+// File: IInterferenceFunctionStrategy_8cpp.xml
+
+
+// File: IInterferenceFunctionStrategy_8h.xml
 
 
 // File: ILayerRTCoefficients_8h.xml
@@ -14576,6 +14535,9 @@ Set all element intensities to given value.
 
 
 // File: IMultiLayerBuilder_8h.xml
+
+
+// File: InterferenceFunctionStrategies_8h.xml
 
 
 // File: IRoughness_8cpp.xml
@@ -14605,6 +14567,18 @@ Set all element intensities to given value.
 // File: LayerRoughness_8h.xml
 
 
+// File: LayerSpecularInfo_8cpp.xml
+
+
+// File: LayerSpecularInfo_8h.xml
+
+
+// File: LayerStrategyBuilder_8cpp.xml
+
+
+// File: LayerStrategyBuilder_8h.xml
+
+
 // File: MatrixRTCoefficients_8cpp.xml
 
 
@@ -14630,6 +14604,12 @@ Set all element intensities to given value.
 
 
 // File: ScalarSpecularInfoMap_8h.xml
+
+
+// File: SizeSpacingCorrelationApproximationStrategy_8cpp.xml
+
+
+// File: SizeSpacingCorrelationApproximationStrategy_8h.xml
 
 
 // File: SpecularMagnetic_8cpp.xml
@@ -14741,12 +14721,6 @@ Set all element intensities to given value.
 // File: IClusteredParticles_8h.xml
 
 
-// File: IFormFactorBorn_8cpp.xml
-
-
-// File: IFormFactorBorn_8h.xml
-
-
 // File: IParticle_8cpp.xml
 
 
@@ -14786,24 +14760,22 @@ Set all element intensities to given value.
 // File: TRange_8h.xml
 
 
-// File: Rotations_8cpp.xml
-%feature("docstring")  CreateProduct "IRotation* CreateProduct(const IRotation &left, const IRotation &right)
-
-Returns concatenated rotation (first right, then left). 
-";
-
-
-// File: Rotations_8h.xml
-%feature("docstring")  CreateProduct "BA_CORE_API_ IRotation* CreateProduct(const IRotation &left, const IRotation &right)
-
-Returns concatenated rotation (first right, then left). 
-";
-
-
 // File: ICompositeSample_8cpp.xml
 
 
 // File: ICompositeSample_8h.xml
+
+
+// File: IFormFactor_8cpp.xml
+
+
+// File: IFormFactor_8h.xml
+
+
+// File: IFormFactorBorn_8cpp.xml
+
+
+// File: IFormFactorBorn_8h.xml
 
 
 // File: ISample_8cpp.xml
@@ -14831,6 +14803,20 @@ Returns concatenated rotation (first right, then left).
 ";
 
 %feature("docstring")  VisitSampleTreePostorder "BA_CORE_API_ void VisitSampleTreePostorder(const ISample &sample, ISampleVisitor &visitor)
+";
+
+
+// File: Rotations_8cpp.xml
+%feature("docstring")  CreateProduct "IRotation* CreateProduct(const IRotation &left, const IRotation &right)
+
+Returns concatenated rotation (first right, then left). 
+";
+
+
+// File: Rotations_8h.xml
+%feature("docstring")  CreateProduct "BA_CORE_API_ IRotation* CreateProduct(const IRotation &left, const IRotation &right)
+
+Returns concatenated rotation (first right, then left). 
 ";
 
 
@@ -15226,9 +15212,6 @@ David N. Williams
 
 
 // File: dir_3a34810b9fbc1682c26e767b1a1a5860.xml
-
-
-// File: dir_b68f57b1e17bed671dde6594d8b31be9.xml
 
 
 // File: dir_a3eed303c38754514b4d9174b7e731d6.xml

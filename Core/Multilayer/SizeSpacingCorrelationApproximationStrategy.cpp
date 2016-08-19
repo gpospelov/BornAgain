@@ -43,9 +43,8 @@ double SizeSpacingCorrelationApproximationStrategy::evaluateForList(
     double qp = getqp(sim_element.getMeanQ());
     double diffuse_intensity = 0.0;
     double total_abundance = 0.0;
-    for (size_t i = 0; i < m_ff_infos.size(); ++i) {
+    for (size_t i = 0; i < m_ff_infos.size(); ++i)
         total_abundance += m_ff_infos[i]->m_abundance;
-    }
     if (total_abundance <= 0.0)
         return 0.0;
     for (size_t i = 0; i < m_ff_infos.size(); ++i) {
@@ -159,9 +158,8 @@ SizeSpacingCorrelationApproximationStrategy::getCharacteristicDistribution(doubl
 {
     const InterferenceFunctionRadialParaCrystal *p_iff
         = dynamic_cast<const InterferenceFunctionRadialParaCrystal *>(mP_iff.get());
-    if (p_iff == 0) {
+    if (p_iff == 0)
         throw Exceptions::ClassInitializationException("Wrong interference function for SSCA");
-    }
     return p_iff->FTPDF(qp);
 }
 

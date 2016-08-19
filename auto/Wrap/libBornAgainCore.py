@@ -16367,9 +16367,7 @@ class IMaterial(INamed):
         """
         getRefractiveIndex(IMaterial self) -> complex_t
 
-        virtual complex_t IMaterial::getRefractiveIndex() const
-
-        Return refractive index. 
+        virtual complex_t IMaterial::getRefractiveIndex() const 
 
         """
         return _libBornAgainCore.IMaterial_getRefractiveIndex(self)
@@ -16379,7 +16377,7 @@ class IMaterial(INamed):
         """
         createTransformedMaterial(IMaterial self, Geometry::Transform3D const & transform) -> IMaterial
 
-        const IMaterial * IMaterial::createTransformedMaterial(const IRotation &rotation) const
+        virtual const IMaterial* IMaterial::createTransformedMaterial(const Geometry::Transform3D &transform) const =0
 
         Create a new material that is transformed with respect to this one. 
 
@@ -16435,7 +16433,7 @@ class HomogeneousMaterial(IMaterial):
         """
         clone(HomogeneousMaterial self) -> HomogeneousMaterial
 
-        HomogeneousMaterial * HomogeneousMaterial::clone() const 
+        virtual HomogeneousMaterial* HomogeneousMaterial::clone() const 
 
         """
         return _libBornAgainCore.HomogeneousMaterial_clone(self)
@@ -16445,9 +16443,7 @@ class HomogeneousMaterial(IMaterial):
         """
         getRefractiveIndex(HomogeneousMaterial self) -> complex_t
 
-        virtual complex_t HomogeneousMaterial::getRefractiveIndex() const
-
-        Return refractive index. 
+        virtual complex_t HomogeneousMaterial::getRefractiveIndex() const 
 
         """
         return _libBornAgainCore.HomogeneousMaterial_getRefractiveIndex(self)
@@ -16459,8 +16455,6 @@ class HomogeneousMaterial(IMaterial):
 
         void HomogeneousMaterial::setRefractiveIndex(const complex_t refractive_index)
 
-        Set refractive index. 
-
         """
         return _libBornAgainCore.HomogeneousMaterial_setRefractiveIndex(self, refractive_index)
 
@@ -16469,7 +16463,7 @@ class HomogeneousMaterial(IMaterial):
         """
         createTransformedMaterial(HomogeneousMaterial self, Geometry::Transform3D const & arg2) -> IMaterial
 
-        const IMaterial * HomogeneousMaterial::createTransformedMaterial(const IRotation &rotation) const
+        virtual const IMaterial* HomogeneousMaterial::createTransformedMaterial(const Geometry::Transform3D &) const
 
         Create a new material that is transformed with respect to this one. 
 
@@ -16483,7 +16477,7 @@ class HomogeneousMagneticMaterial(HomogeneousMaterial):
     """
 
 
-    An homogeneous material with magnetization.
+    A homogeneous material with magnetization.
 
     C++ includes: HomogeneousMagneticMaterial.h
 
@@ -16566,7 +16560,7 @@ class HomogeneousMagneticMaterial(HomogeneousMaterial):
         """
         createTransformedMaterial(HomogeneousMagneticMaterial self, Geometry::Transform3D const & transform) -> IMaterial
 
-        const IMaterial * HomogeneousMagneticMaterial::createTransformedMaterial(const IRotation &rotation) const
+        const IMaterial * HomogeneousMagneticMaterial::createTransformedMaterial(const Geometry::Transform3D &transform) const
 
         Create a new material that is transformed with respect to this one. 
 
@@ -22429,7 +22423,7 @@ class Particle(IParticle):
         """
         accept(Particle self, ISampleVisitor visitor)
 
-        void Particle::accept(ISampleVisitor *visitor) const
+        virtual void Particle::accept(ISampleVisitor *visitor) const
 
         calls the  ISampleVisitor's visit method 
 
@@ -22444,7 +22438,7 @@ class Particle(IParticle):
 
         std::string Particle::to_str(int indent=0) const
 
-        Returns textual representation of *this and its descendants. 
+        Returns textual representation of this and its descendants. 
 
         """
         return _libBornAgainCore.Particle_to_str(self, indent)
@@ -22468,7 +22462,7 @@ class Particle(IParticle):
 
         const IMaterial* Particle::getAmbientMaterial() const final
 
-        Returns the ambient material. 
+        Returns particle's material. 
 
         """
         return _libBornAgainCore.Particle_getAmbientMaterial(self)
@@ -22492,8 +22486,6 @@ class Particle(IParticle):
 
         void Particle::setMaterial(const IMaterial &material)
 
-        Sets  material. 
-
         """
         return _libBornAgainCore.Particle_setMaterial(self, material)
 
@@ -22504,7 +22496,7 @@ class Particle(IParticle):
 
         const IMaterial* Particle::getMaterial() const
 
-        Returns particle's material. 
+        Returns nullptr, unless overwritten to return a specific material. 
 
         """
         return _libBornAgainCore.Particle_getMaterial(self)
@@ -22514,9 +22506,7 @@ class Particle(IParticle):
         """
         getRefractiveIndex(Particle self) -> complex_t
 
-        complex_t Particle::getRefractiveIndex() const
-
-        Returns refractive index of the particle. 
+        complex_t Particle::getRefractiveIndex() const 
 
         """
         return _libBornAgainCore.Particle_getRefractiveIndex(self)
@@ -22528,8 +22518,6 @@ class Particle(IParticle):
 
         void Particle::setFormFactor(const IFormFactor &form_factor)
 
-        Sets the form factor. 
-
         """
         return _libBornAgainCore.Particle_setFormFactor(self, form_factor)
 
@@ -22538,9 +22526,7 @@ class Particle(IParticle):
         """
         getFormFactor(Particle self) -> IFormFactor
 
-        const IFormFactor* Particle::getFormFactor() const
-
-        Returns the form factor. 
+        const IFormFactor* Particle::getFormFactor() const 
 
         """
         return _libBornAgainCore.Particle_getFormFactor(self)

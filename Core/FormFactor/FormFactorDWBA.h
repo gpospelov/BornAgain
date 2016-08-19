@@ -20,9 +20,8 @@
 
 class ILayerRTCoefficients;
 
-//! @class FormFactorDWBA
+//! Evaluates a coherent sum of the four DWBA terms in a scalar formfactor.
 //! @ingroup formfactors_internal
-//! @brief Evaluates a coherent sum of the four DWBA terms in a scalar formfactor.
 
 class BA_CORE_API_ FormFactorDWBA: public IFormFactorDecorator
 {

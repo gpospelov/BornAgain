@@ -16,6 +16,7 @@
 #include "LayerSpecularInfo.h"
 #include "ILayerRTCoefficients.h"
 #include "ISpecularInfoMap.h"
+#include "SimulationElement.h"
 
 LayerSpecularInfo::LayerSpecularInfo() {}
 LayerSpecularInfo::~LayerSpecularInfo() {}
@@ -34,13 +35,13 @@ void LayerSpecularInfo::addRTCoefficients(ISpecularInfoMap* rt_coefficient_map)
 }
 
 const ILayerRTCoefficients* LayerSpecularInfo::getOutCoefficients(
-        double alpha_f, double phi_f, double wavelength) const
+    const SimulationElement& sim_element) const
 {
-    return mP_coeff_map->getOutCoefficients(alpha_f, phi_f, wavelength);
+    return mP_coeff_map->getOutCoefficients(sim_element);
 }
 
-const ILayerRTCoefficients *LayerSpecularInfo::getInCoefficients(
-        double alpha_i, double phi_i, double wavelength) const
+const ILayerRTCoefficients* LayerSpecularInfo::getInCoefficients(
+    const SimulationElement& sim_element) const
 {
-    return mP_coeff_map->getInCoefficients(alpha_i, phi_i, wavelength);
+    return mP_coeff_map->getInCoefficients(sim_element);
 }

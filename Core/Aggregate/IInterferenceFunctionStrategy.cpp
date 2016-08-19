@@ -77,15 +77,12 @@ void IInterferenceFunctionStrategy::calculateFormFactorList(
 
     double wavelength = sim_element.getWavelength();
     double wavevector_scattering_factor = Pi::PI/wavelength/wavelength;
-    double alpha_i = sim_element.getAlphaI();
-    double phi_i = sim_element.getPhiI();
-    cvector_t k_i = Geometry::vecOfLambdaAlphaPhi(wavelength, alpha_i, phi_i).complex();
-    WavevectorInfo wavevectors(k_i, Geometry::toComplexVector(sim_element.getMeanKF()), wavelength);
+    WavevectorInfo wavevectors(sim_element.getKI(), sim_element.getMeanKF(), wavelength);
 
     const std::unique_ptr<const ILayerRTCoefficients> P_in_coeffs(
-        mP_specular_info->getInCoefficients(alpha_i, 0.0, wavelength));
+        mP_specular_info->getInCoefficients(sim_element));
     const std::unique_ptr<const ILayerRTCoefficients> P_out_coeffs(
-        mP_specular_info->getOutCoefficients(sim_element.getAlphaMean(), 0.0, wavelength));
+        mP_specular_info->getOutCoefficients(sim_element));
     for( auto it: m_ff_infos ) {
         it->mp_ff->setSpecularInfo(P_in_coeffs.get(), P_out_coeffs.get());
         complex_t ff_mat = it->mp_ff->evaluate(wavevectors);
@@ -100,16 +97,12 @@ void IInterferenceFunctionStrategy::calculateFormFactorLists(
 
     double wavelength = sim_element.getWavelength();
     double wavevector_scattering_factor = Pi::PI/wavelength/wavelength;
-    double alpha_i = sim_element.getAlphaI();
-    double phi_i = sim_element.getPhiI();
-    cvector_t k_i = Geometry::vecOfLambdaAlphaPhi(wavelength, alpha_i, phi_i).complex();
-    WavevectorInfo wavevectors(k_i, Geometry::toComplexVector(sim_element.getMeanKF()), wavelength);
+    WavevectorInfo wavevectors(sim_element.getKI(), sim_element.getMeanKF(), wavelength);
 
     const std::unique_ptr<const ILayerRTCoefficients> P_in_coeffs(
-        mP_specular_info->getInCoefficients(alpha_i, phi_i, wavelength));
+        mP_specular_info->getInCoefficients(sim_element));
     const std::unique_ptr<const ILayerRTCoefficients> P_out_coeffs(
-        mP_specular_info->getOutCoefficients(sim_element.getAlphaMean(), sim_element.getPhiMean(),
-                                             wavelength));
+        mP_specular_info->getOutCoefficients(sim_element));
     for ( auto it: m_ff_infos ) {
         it->mp_ff->setSpecularInfo(P_in_coeffs.get(), P_out_coeffs.get());
         Eigen::Matrix2cd ff_mat = it->mp_ff->evaluatePol(wavevectors);

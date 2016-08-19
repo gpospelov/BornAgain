@@ -130,19 +130,15 @@ complex_t MultiLayerRoughnessDWBASimulation::get_refractive_term(size_t ilayer) 
 complex_t MultiLayerRoughnessDWBASimulation::get_sum8terms(
     size_t ilayer, const SimulationElement& sim_element)
 {
-    double wavelength = sim_element.getWavelength();
-    double alpha_i = sim_element.getAlphaI();
-    double alpha_f = sim_element.getAlphaMean();
-
     const std::unique_ptr<const ILayerRTCoefficients> P_in_plus(
-        mp_specular_info_vector[ilayer]->getInCoefficients(alpha_i, 0.0, wavelength));
+        mp_specular_info_vector[ilayer]->getInCoefficients(sim_element));
     const std::unique_ptr<const ILayerRTCoefficients> P_out_plus(
-        mp_specular_info_vector[ilayer]->getOutCoefficients(alpha_f, 0.0, wavelength));
+        mp_specular_info_vector[ilayer]->getOutCoefficients(sim_element));
 
     const std::unique_ptr<const ILayerRTCoefficients> P_in_minus(
-        mp_specular_info_vector[ilayer + 1]->getInCoefficients(alpha_i, 0.0, wavelength));
+        mp_specular_info_vector[ilayer + 1]->getInCoefficients(sim_element));
     const std::unique_ptr<const ILayerRTCoefficients> P_out_minus(
-        mp_specular_info_vector[ilayer + 1]->getOutCoefficients(alpha_f, 0.0, wavelength));
+        mp_specular_info_vector[ilayer + 1]->getOutCoefficients(sim_element));
 
     complex_t kiz_plus = P_in_plus->getScalarKz();
     complex_t kfz_plus = P_out_plus->getScalarKz();

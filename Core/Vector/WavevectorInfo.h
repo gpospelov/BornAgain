@@ -18,9 +18,8 @@
 
 #include "Vectors3D.h"
 
-//! @class WavevectorInfo
+//! Holds all wavevector information relevant for calculating form factors.
 //! @ingroup formfactors_internal
-//! @brief Holds all wavevector information relevant for calculating form factors.
 
 class BA_CORE_API_ WavevectorInfo
 {
@@ -28,6 +27,10 @@ public:
     WavevectorInfo() {}
     WavevectorInfo(cvector_t ki, cvector_t kf, double wavelength)
         : m_ki(ki), m_kf(kf), m_wavelength(wavelength) {}
+    WavevectorInfo(kvector_t ki, kvector_t kf, double wavelength)
+        : m_ki(Geometry::toComplexVector(ki))
+        , m_kf(Geometry::toComplexVector(kf))
+        , m_wavelength(wavelength) {}
 
     cvector_t getKi() const { return m_ki; }
     cvector_t getKf() const { return m_kf; }

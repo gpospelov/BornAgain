@@ -2664,6 +2664,7 @@ class WavevectorInfo(_object):
         """
         __init__(WavevectorInfo self) -> WavevectorInfo
         __init__(WavevectorInfo self, cvector_t ki, cvector_t kf, double wavelength) -> WavevectorInfo
+        __init__(WavevectorInfo self, kvector_t ki, kvector_t kf, double wavelength) -> WavevectorInfo
 
         WavevectorInfo::WavevectorInfo(cvector_t ki, cvector_t kf, double wavelength)
 

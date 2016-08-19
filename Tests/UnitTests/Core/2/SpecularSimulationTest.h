@@ -6,8 +6,9 @@
 #include "IMultiLayerBuilder.h"
 #include "Exceptions.h"
 #include "FixedBinAxis.h"
-#include "Units.h"
 #include "Layer.h"
+#include "MultiLayer.h"
+#include "Units.h"
 #include <iostream>
 
 class SpecularSimulationTest : public ::testing::Test

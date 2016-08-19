@@ -1,24 +1,26 @@
-#ifndef SCALARSPECULARINFOMAPTEST_H
-#define SCALARSPECULARINFOMAPTEST_H
+#ifndef MATRIXSPECULARINFOMAPTEST_H
+#define MATRIXSPECULARINFOMAPTEST_H
 
-#include "MultiLayer.h"
 #include "HomogeneousMaterial.h"
 #include "Layer.h"
+#include "MatrixRTCoefficients.h"
+#include "MatrixSpecularInfoMap.h"
+#include "MultiLayer.h"
 #include "Pi.h"
-#include "ScalarRTCoefficients.h"
-#include "ScalarSpecularInfoMap.h"
+#include "SimulationElement.h"
 #include <memory>
 
-class ScalarSpecularInfoMapTest : public ::testing :: Test
+class MatrixSpecularInfoMapTest : public ::testing :: Test
 {
 protected:
-    ScalarSpecularInfoMapTest();
-    virtual ~ScalarSpecularInfoMapTest() { delete mp_multilayer; }
-
+    MatrixSpecularInfoMapTest();
+    virtual ~MatrixSpecularInfoMapTest() {
+        delete mp_multilayer;
+    }
     MultiLayer* mp_multilayer;
 };
 
-ScalarSpecularInfoMapTest::ScalarSpecularInfoMapTest()
+MatrixSpecularInfoMapTest::MatrixSpecularInfoMapTest()
 {
     mp_multilayer = new MultiLayer;
 
@@ -32,20 +34,25 @@ ScalarSpecularInfoMapTest::ScalarSpecularInfoMapTest()
     mp_multilayer->addLayer(substrate_layer);
 }
 
-TEST_F(ScalarSpecularInfoMapTest, getCoefficients)
+TEST_F(MatrixSpecularInfoMapTest, getCoefficients)
 {
-    ScalarSpecularInfoMap map(mp_multilayer, 0);
-    std::unique_ptr<const ScalarRTCoefficients> P_rt_coeffs(
-        (ScalarRTCoefficients*) map.getOutCoefficients(1.0, 1.0, 2.0*Pi::PI));
+    MatrixSpecularInfoMap map(mp_multilayer, 0);
+    SimulationElement sim_element(Pi::PI2, 1.0, 1.0, nullptr);
+    std::unique_ptr<const MatrixRTCoefficients> P_rt_coeffs(
+                (MatrixRTCoefficients*) map.getOutCoefficients(sim_element));
     complex_t R0 = complex_t(0.1750375, -0.0222467);
     complex_t lambda0 = complex_t(0.841471, 0.0);
+    (void)R0;
+    (void)lambda0;
+
     EXPECT_TRUE(nullptr != P_rt_coeffs.get());
 
     EXPECT_EQ(0.0, P_rt_coeffs->T1plus()(0));
     EXPECT_EQ(0.0, P_rt_coeffs->T1plus()(1));
 
     EXPECT_EQ(0.0, P_rt_coeffs->T1min()(0));
-    EXPECT_EQ(complex_t(1.0,0.0), P_rt_coeffs->T1min()(1).real());
+    EXPECT_NEAR(1.0, P_rt_coeffs->T1min()(1).real(), 1e-6);
+    EXPECT_NEAR(0.0, P_rt_coeffs->T1min()(1).imag(), 1e-6);
 
     EXPECT_NEAR(1.0, P_rt_coeffs->T2plus()(0).real(), 1e-6);
     EXPECT_NEAR(0.0, P_rt_coeffs->T2plus()(0).imag(), 1e-6);
@@ -72,13 +79,6 @@ TEST_F(ScalarSpecularInfoMapTest, getCoefficients)
     EXPECT_NEAR(lambda0.imag(), P_rt_coeffs->getKz()(0).imag(), 1e-6);
     EXPECT_NEAR(lambda0.real(), P_rt_coeffs->getKz()(1).real(), 1e-6);
     EXPECT_NEAR(lambda0.imag(), P_rt_coeffs->getKz()(1).imag(), 1e-6);
-
-    EXPECT_NEAR(1.0, P_rt_coeffs->getScalarT().real(), 1e-6);
-    EXPECT_NEAR(0.0, P_rt_coeffs->getScalarT().imag(), 1e-6);
-    EXPECT_NEAR(R0.real(), P_rt_coeffs->getScalarR().real(), 1e-6);
-    EXPECT_NEAR(R0.imag(), P_rt_coeffs->getScalarR().imag(), 1e-6);
-    EXPECT_NEAR(lambda0.real(), P_rt_coeffs->getScalarKz().real(), 1e-6);
-    EXPECT_NEAR(lambda0.imag(), P_rt_coeffs->getScalarKz().imag(), 1e-6);
 }
 
-#endif // SCALARSPECULARINFOMAPTEST_H
+#endif // MATRIXSPECULARINFOMAPTEST_H

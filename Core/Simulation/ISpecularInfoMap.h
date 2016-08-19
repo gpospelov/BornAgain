@@ -19,6 +19,7 @@
 #include "WinDllMacros.h"
 
 class ILayerRTCoefficients;
+class SimulationElement;
 
 //! Interface class providing access to the reflection and transmittion coefficients.
 //! @ingroup algorithms_internal
@@ -35,11 +36,11 @@ public:
 
     //! Retrieves the amplitude coefficients for the given angles
     virtual const ILayerRTCoefficients* getOutCoefficients(
-        double alpha_f, double phi_f, double wavelength) const =0;
+        const SimulationElement& sim_element) const =0;
 
     //! Retrieves the amplitude coefficients for the given angles
     virtual const ILayerRTCoefficients* getInCoefficients(
-        double alpha_i, double phi_i, double wavelength) const =0;
+        const SimulationElement& sim_element) const =0;
 };
 
 #endif // ISPECULARINFOMAP_H

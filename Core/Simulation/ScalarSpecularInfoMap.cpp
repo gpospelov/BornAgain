@@ -17,6 +17,7 @@
 #include "ISpecularInfoMap.h"
 #include "MultiLayer.h"
 #include "ScalarRTCoefficients.h"
+#include "SimulationElement.h"
 #include "SpecularMatrix.h"
 
 ScalarSpecularInfoMap::ScalarSpecularInfoMap(const MultiLayer* multilayer, int layer)
@@ -25,19 +26,15 @@ ScalarSpecularInfoMap::ScalarSpecularInfoMap(const MultiLayer* multilayer, int l
 {}
 
 const ILayerRTCoefficients* ScalarSpecularInfoMap::getOutCoefficients(
-        double alpha_f, double, double wavelength) const
+        const SimulationElement& sim_element) const
 {
-    // phi_f has no effect on R,T, so just pass zero:
-    kvector_t kvec = Geometry::vecOfLambdaAlphaPhi(wavelength, -alpha_f, 0.0);
-    return getCoefficients(kvec);
+    return getCoefficients(-sim_element.getMeanKF());
 }
 
 const ILayerRTCoefficients* ScalarSpecularInfoMap::getInCoefficients(
-        double alpha_i, double, double wavelength) const
+        const SimulationElement& sim_element) const
 {
-    // phi_i has no effect on R,T, so just pass zero:
-    kvector_t kvec = Geometry::vecOfLambdaAlphaPhi(wavelength, alpha_i, 0.0);
-    return getCoefficients(kvec);
+    return getCoefficients(sim_element.getKI());
 }
 
 const ScalarRTCoefficients* ScalarSpecularInfoMap::getCoefficients(kvector_t kvec) const

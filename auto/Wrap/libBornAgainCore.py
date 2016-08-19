@@ -2666,7 +2666,7 @@ class WavevectorInfo(_object):
         __init__(WavevectorInfo self, cvector_t ki, cvector_t kf, double wavelength) -> WavevectorInfo
         __init__(WavevectorInfo self, kvector_t ki, kvector_t kf, double wavelength) -> WavevectorInfo
 
-        WavevectorInfo::WavevectorInfo(cvector_t ki, cvector_t kf, double wavelength)
+        WavevectorInfo::WavevectorInfo(kvector_t ki, kvector_t kf, double wavelength)
 
         """
         this = _libBornAgainCore.new_WavevectorInfo(*args)
@@ -3633,7 +3633,7 @@ class IShape2D(ICloneable, INamed):
 
         virtual bool Geometry::IShape2D::contains(const Bin1D &binx, const Bin1D &biny) const =0
 
-        Returns true if area defined by two bins is inside or on border of the shape. 
+        Returns true if area defined by two bins is inside or on border of polygon (more precisely, if mid point of two bins satisfy this condition). 
 
         """
         return _libBornAgainCore.IShape2D_contains(self, *args)
@@ -3647,7 +3647,7 @@ class ISample(ICloneable, IParameterized):
     """
 
 
-    Interface for objects related to scattering.
+    Interface for sample components and properties related to scattering.Pure virtual base class of  ICompositeSample,  IFormFactor,  IInterferenceFunction,  IRoughness,  IRotation. So it is somewhat more abstract than the name "ISample" suggests.
 
     C++ includes: ISample.h
 
@@ -3705,7 +3705,7 @@ class ISample(ICloneable, IParameterized):
 
         std::string ISample::to_str(int indent=0) const
 
-        Returns textual representation of *this and its descendants. 
+        Returns textual representation of this and its descendants. 
 
         """
         return _libBornAgainCore.ISample_to_str(self, indent)
@@ -3741,7 +3741,7 @@ class ISample(ICloneable, IParameterized):
 
         std::vector< const IMaterial * > ISample::containedMaterials() const
 
-        Returns set of unique materials contained in this  ISample. Must be reimplemented in derived classes that define a material. 
+        Returns set of unique materials contained in this  ISample. 
 
         """
         return _libBornAgainCore.ISample_containedMaterials(self)
@@ -3763,9 +3763,9 @@ class ISample(ICloneable, IParameterized):
         """
         getChildren(ISample self) -> swig_dummy_type_const_isample_vector
 
-        std::vector< const ISample * > ISample::getChildren() const
+        virtual std::vector<const ISample*> ISample::getChildren() const
 
-        Returns a vector of children (const). Default implementation returns empty vector. 
+        Returns a vector of children. 
 
         """
         return _libBornAgainCore.ISample_getChildren(self)
@@ -3777,7 +3777,7 @@ class ISample(ICloneable, IParameterized):
 
         virtual size_t ISample::size() const
 
-        Returns number of children. Default implementation returns zero. 
+        Returns number of children. 
 
         """
         return _libBornAgainCore.ISample_size(self)
@@ -3789,7 +3789,7 @@ class ISample(ICloneable, IParameterized):
 
 
 
-        Interface for objects related to scattering.
+        Interface for sample components and properties related to scattering.Pure virtual base class of  ICompositeSample,  IFormFactor,  IInterferenceFunction,  IRoughness,  IRotation. So it is somewhat more abstract than the name "ISample" suggests.
 
         C++ includes: ISample.h
 
@@ -6527,7 +6527,14 @@ FitStrategyAdjustMinimizer_swigregister = _libBornAgainCore.FitStrategyAdjustMin
 FitStrategyAdjustMinimizer_swigregister(FitStrategyAdjustMinimizer)
 
 class IMultiLayerBuilder(IParameterized):
-    """Proxy of C++ IMultiLayerBuilder class"""
+    """
+
+
+    Interface to the class capable to build samples to simulate.
+
+    C++ includes: IMultiLayerBuilder.h
+
+    """
     __swig_setmethods__ = {}
     for _s in [IParameterized]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
@@ -6539,7 +6546,12 @@ class IMultiLayerBuilder(IParameterized):
     __repr__ = _swig_repr
 
     def __init__(self):
-        """__init__(IMultiLayerBuilder self) -> IMultiLayerBuilder"""
+        """
+        __init__(IMultiLayerBuilder self) -> IMultiLayerBuilder
+
+        IMultiLayerBuilder::IMultiLayerBuilder()
+
+        """
         if self.__class__ == IMultiLayerBuilder:
             _self = None
         else:
@@ -6553,12 +6565,22 @@ class IMultiLayerBuilder(IParameterized):
     __del__ = lambda self: None
 
     def buildSample(self):
-        """buildSample(IMultiLayerBuilder self) -> MultiLayer"""
+        """
+        buildSample(IMultiLayerBuilder self) -> MultiLayer
+
+        virtual MultiLayer* IMultiLayerBuilder::buildSample() const =0
+
+        """
         return _libBornAgainCore.IMultiLayerBuilder_buildSample(self)
 
 
     def set_subtest(self, subtest_item):
-        """set_subtest(IMultiLayerBuilder self, IParameterized subtest_item)"""
+        """
+        set_subtest(IMultiLayerBuilder self, IParameterized subtest_item)
+
+        void IMultiLayerBuilder::set_subtest(const IParameterized *subtest_item)
+
+        """
         return _libBornAgainCore.IMultiLayerBuilder_set_subtest(self, subtest_item)
 
     __swig_setmethods__["m_subtest_item"] = _libBornAgainCore.IMultiLayerBuilder_m_subtest_item_set
@@ -6567,12 +6589,22 @@ class IMultiLayerBuilder(IParameterized):
         m_subtest_item = _swig_property(_libBornAgainCore.IMultiLayerBuilder_m_subtest_item_get, _libBornAgainCore.IMultiLayerBuilder_m_subtest_item_set)
 
     def getFormFactor(self):
-        """getFormFactor(IMultiLayerBuilder self) -> IFormFactor"""
+        """
+        getFormFactor(IMultiLayerBuilder self) -> IFormFactor
+
+        const IFormFactor * IMultiLayerBuilder::getFormFactor() const 
+
+        """
         return _libBornAgainCore.IMultiLayerBuilder_getFormFactor(self)
 
 
     def getFTDistribution2D(self):
-        """getFTDistribution2D(IMultiLayerBuilder self) -> IFTDistribution2D"""
+        """
+        getFTDistribution2D(IMultiLayerBuilder self) -> IFTDistribution2D
+
+        const IFTDistribution2D * IMultiLayerBuilder::getFTDistribution2D() const 
+
+        """
         return _libBornAgainCore.IMultiLayerBuilder_getFTDistribution2D(self)
 
 
@@ -6791,7 +6823,7 @@ class ICompositeSample(ISample):
     """
 
 
-    Interface to describe the tree-like composition of samples.
+    Pure virtual base class for tree-like composite samples.
 
     C++ includes: ICompositeSample.h
 
@@ -6827,9 +6859,9 @@ class ICompositeSample(ISample):
         """
         accept(ICompositeSample self, ISampleVisitor visitor)
 
-        void ICompositeSample::accept(ISampleVisitor *visitor) const
+        virtual void ICompositeSample::accept(ISampleVisitor *visitor) const
 
-        calls the  ISampleVisitor's visit method 
+        Calls the  ISampleVisitor's visit method. 
 
         """
         return _libBornAgainCore.ICompositeSample_accept(self, visitor)
@@ -6877,7 +6909,7 @@ class ICompositeSample(ISample):
         """
         size(ICompositeSample self) -> size_t
 
-        size_t ICompositeSample::size() const
+        virtual size_t ICompositeSample::size() const
 
         Returns number of children. 
 
@@ -8007,8 +8039,6 @@ class Ellipse(IShape2D):
 
         Geometry::Ellipse::Ellipse(double xcenter, double ycenter, double xradius, double yradius, double theta=0.0)
 
-        Ellipse constructor
-
         Parameters:
         -----------
 
@@ -8038,7 +8068,7 @@ class Ellipse(IShape2D):
         """
         clone(Ellipse self) -> Ellipse
 
-        Ellipse * Geometry::Ellipse::clone() const 
+        Ellipse* Geometry::Ellipse::clone() const 
 
         """
         return _libBornAgainCore.Ellipse_clone(self)
@@ -8051,7 +8081,7 @@ class Ellipse(IShape2D):
 
         bool Geometry::Ellipse::contains(const Bin1D &binx, const Bin1D &biny) const
 
-        Returns true if area defined by two bins is inside or on border of ellipse. More precisely, if mid point of two bins satisfy this condition. 
+        Returns true if area defined by two bins is inside or on border of ellipse; more precisely, if mid point of two bins satisfy this condition. 
 
         """
         return _libBornAgainCore.Ellipse_contains(self, *args)
@@ -14771,7 +14801,7 @@ class Simulation(ICloneable, IParameterized):
     """
 
 
-    Main class to run the simulation.
+    Main class to run the simulation, base class for OffSpecularSimulation and  GISASSimulation.
 
     C++ includes: Simulation.h
 
@@ -14843,11 +14873,11 @@ class Simulation(ICloneable, IParameterized):
         """
         setSample(Simulation self, MultiLayer sample)
 
-        void Simulation::setSample(const ISample &sample)
+        void Simulation::setSample(const MultiLayer &sample)
 
         Sets the sample to be tested.
 
-        The  ISample object will not be owned by the  Simulation object. 
+        The  MultiLayer object will not be owned by the  Simulation object. 
 
         """
         return _libBornAgainCore.Simulation_setSample(self, sample)
@@ -14857,7 +14887,7 @@ class Simulation(ICloneable, IParameterized):
         """
         getSample(Simulation self) -> MultiLayer
 
-        ISample* Simulation::getSample() const
+        MultiLayer* Simulation::getSample() const
 
         Returns the sample. 
 
@@ -14869,7 +14899,7 @@ class Simulation(ICloneable, IParameterized):
         """
         setSampleBuilder(Simulation self, std::shared_ptr< IMultiLayerBuilder > sample_builder)
 
-        void Simulation::setSampleBuilder(std::shared_ptr< ISampleBuilder > sample_builder)
+        void Simulation::setSampleBuilder(std::shared_ptr< IMultiLayerBuilder > sample_builder)
 
         Sets the sample builder. 
 
@@ -14881,7 +14911,7 @@ class Simulation(ICloneable, IParameterized):
         """
         getSampleBuilder(Simulation self) -> std::shared_ptr< IMultiLayerBuilder >
 
-        std::shared_ptr<ISampleBuilder> Simulation::getSampleBuilder() const
+        std::shared_ptr<IMultiLayerBuilder> Simulation::getSampleBuilder() const
 
         return sample builder 
 
@@ -15148,7 +15178,7 @@ class GISASSimulation(Simulation):
         __init__(GISASSimulation self, MultiLayer p_sample) -> GISASSimulation
         __init__(GISASSimulation self, std::shared_ptr< IMultiLayerBuilder > p_sample_builder) -> GISASSimulation
 
-        GISASSimulation::GISASSimulation(std::shared_ptr< ISampleBuilder > p_sample_builder)
+        GISASSimulation::GISASSimulation(std::shared_ptr< IMultiLayerBuilder > p_sample_builder)
 
         """
         this = _libBornAgainCore.new_GISASSimulation(*args)
@@ -18735,7 +18765,7 @@ class InterferenceFunctionRadialParaCrystal(IInterferenceFunction):
 
         std::string InterferenceFunctionRadialParaCrystal::to_str(int indent=0) const final
 
-        Returns textual representation of *this and its descendants. 
+        Returns textual representation of this and its descendants. 
 
         """
         return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_to_str(self, indent)
@@ -19100,7 +19130,7 @@ class InterferenceFunction2DParaCrystal(IInterferenceFunction):
 
         std::string InterferenceFunction2DParaCrystal::to_str(int indent=0) const final
 
-        Returns textual representation of *this and its descendants. 
+        Returns textual representation of this and its descendants. 
 
         """
         return _libBornAgainCore.InterferenceFunction2DParaCrystal_to_str(self, indent)
@@ -19252,7 +19282,7 @@ class InterferenceFunction2DParaCrystal(IInterferenceFunction):
 
         double InterferenceFunction2DParaCrystal::getParticleDensity() const final
 
-        Returns the particle density associated with this 2d paracrystal lattice. 
+        If defined by this interference function's parameters, returns the particle density (per area). Otherwise, returns zero or a user-defined value 
 
         """
         return _libBornAgainCore.InterferenceFunction2DParaCrystal_getParticleDensity(self)
@@ -19837,7 +19867,7 @@ class Lattice1DParameters(_object):
     """
 
 
-    Additional parameters for 1D lattice.
+    Basic parameters of a one-dimensional lattice.
 
     C++ includes: Lattice1DParameters.h
 
@@ -19853,7 +19883,16 @@ class Lattice1DParameters(_object):
         __init__(Lattice1DParameters self) -> Lattice1DParameters
         __init__(Lattice1DParameters self, double length, double xi) -> Lattice1DParameters
 
-        Lattice1DParameters::Lattice1DParameters()
+        Lattice1DParameters::Lattice1DParameters(double length, double xi)
+
+        Parameters:
+        -----------
+
+        length: 
+         Lattice constant.
+
+        xi: 
+        TODO: seems unused; explain or remove 
 
         """
         this = _libBornAgainCore.new_Lattice1DParameters(*args)
@@ -20398,7 +20437,7 @@ class Line(IShape2D):
     """
 
 
-    The line segment.
+    A line segment.
 
     C++ includes: Line.h
 
@@ -20419,8 +20458,6 @@ class Line(IShape2D):
 
         Geometry::Line::Line(double x1, double y1, double x2, double y2)
 
-        Line segment constructor. 
-
         """
         this = _libBornAgainCore.new_Line(x1, y1, x2, y2)
         try:
@@ -20432,7 +20469,7 @@ class Line(IShape2D):
         """
         clone(Line self) -> Line
 
-        Line * Geometry::Line::clone() const 
+        Line* Geometry::Line::clone() const 
 
         """
         return _libBornAgainCore.Line_clone(self)
@@ -20445,7 +20482,7 @@ class Line(IShape2D):
 
         bool Geometry::Line::contains(const Bin1D &binx, const Bin1D &biny) const
 
-        Returns true if the line crosses the area defined by two given bins. 
+        Returns true if area defined by two bins is inside or on border of polygon (more precisely, if mid point of two bins satisfy this condition). 
 
         """
         return _libBornAgainCore.Line_contains(self, *args)
@@ -20459,7 +20496,7 @@ class VerticalLine(IShape2D):
     """
 
 
-    Vertical infinite line.
+    An infinite vertical line.
 
     C++ includes: Line.h
 
@@ -20480,8 +20517,6 @@ class VerticalLine(IShape2D):
 
         Geometry::VerticalLine::VerticalLine(double x)
 
-        Infinite vertical line constructor
-
         Parameters:
         -----------
 
@@ -20499,7 +20534,7 @@ class VerticalLine(IShape2D):
         """
         clone(VerticalLine self) -> VerticalLine
 
-        VerticalLine * Geometry::VerticalLine::clone() const 
+        VerticalLine* Geometry::VerticalLine::clone() const 
 
         """
         return _libBornAgainCore.VerticalLine_clone(self)
@@ -20512,7 +20547,7 @@ class VerticalLine(IShape2D):
 
         bool Geometry::VerticalLine::contains(const Bin1D &binx, const Bin1D &biny) const
 
-        Returns true if the line crosses the area defined by two given bins. 
+        Returns true if area defined by two bins is inside or on border of polygon (more precisely, if mid point of two bins satisfy this condition). 
 
         """
         return _libBornAgainCore.VerticalLine_contains(self, *args)
@@ -20536,7 +20571,7 @@ class HorizontalLine(IShape2D):
     """
 
 
-    Horizontal infinite line.
+    An infinite horizontal line.
 
     C++ includes: Line.h
 
@@ -20557,8 +20592,6 @@ class HorizontalLine(IShape2D):
 
         Geometry::HorizontalLine::HorizontalLine(double y)
 
-        Infinite vertical line constructor
-
         Parameters:
         -----------
 
@@ -20576,7 +20609,7 @@ class HorizontalLine(IShape2D):
         """
         clone(HorizontalLine self) -> HorizontalLine
 
-        HorizontalLine * Geometry::HorizontalLine::clone() const 
+        HorizontalLine* Geometry::HorizontalLine::clone() const 
 
         """
         return _libBornAgainCore.HorizontalLine_clone(self)
@@ -20589,7 +20622,7 @@ class HorizontalLine(IShape2D):
 
         bool Geometry::HorizontalLine::contains(const Bin1D &binx, const Bin1D &biny) const
 
-        Returns true if the line crosses the area defined by two given bins. 
+        Returns true if area defined by two bins is inside or on border of polygon (more precisely, if mid point of two bins satisfy this condition). 
 
         """
         return _libBornAgainCore.HorizontalLine_contains(self, *args)
@@ -20821,9 +20854,7 @@ class MultiLayer(ICompositeSample):
     """
 
 
-    Stack of layers one below the other.
-
-    Example of system of 4 layers (3 interfaces):
+    Our sample model: a stack of layers one below the other.Example of system of 4 layers (3 interfaces):
 
     ambience layer #0 z=getLayerBottomZ(0)=0.0 ------ interface #0 Fe, 20A layer #1 z=getLayerBottomZ(1)=-20.0 ------ interface #1 Cr, 40A layer #2 z=getLayerBottomZ(2)=-60.0 ------ interface #2 substrate layer #3 z=getLayerBottomZ(3)=-60.0
 
@@ -20861,7 +20892,7 @@ class MultiLayer(ICompositeSample):
 
         virtual void MultiLayer::accept(ISampleVisitor *visitor) const
 
-        calls the  ISampleVisitor's visit method 
+        Calls the  ISampleVisitor's visit method. 
 
         """
         return _libBornAgainCore.MultiLayer_accept(self, visitor)
@@ -20874,7 +20905,7 @@ class MultiLayer(ICompositeSample):
 
         std::string MultiLayer::to_str(int indent=0) const
 
-        Returns textual representation of *this and its descendants. 
+        Returns textual representation of this and its descendants. 
 
         """
         return _libBornAgainCore.MultiLayer_to_str(self, indent)
@@ -20884,9 +20915,7 @@ class MultiLayer(ICompositeSample):
         """
         getNumberOfLayers(MultiLayer self) -> size_t
 
-        size_t MultiLayer::getNumberOfLayers() const
-
-        Returns number of layers in multilayer. 
+        size_t MultiLayer::getNumberOfLayers() const 
 
         """
         return _libBornAgainCore.MultiLayer_getNumberOfLayers(self)
@@ -20896,9 +20925,7 @@ class MultiLayer(ICompositeSample):
         """
         getNumberOfInterfaces(MultiLayer self) -> size_t
 
-        size_t MultiLayer::getNumberOfInterfaces() const
-
-        Returns number of interfaces in multilayer. 
+        size_t MultiLayer::getNumberOfInterfaces() const 
 
         """
         return _libBornAgainCore.MultiLayer_getNumberOfInterfaces(self)
@@ -21157,7 +21184,7 @@ class OffSpecSimulation(Simulation):
         __init__(OffSpecSimulation self, MultiLayer p_sample) -> OffSpecSimulation
         __init__(OffSpecSimulation self, std::shared_ptr< IMultiLayerBuilder > p_sample_builder) -> OffSpecSimulation
 
-        OffSpecSimulation::OffSpecSimulation(std::shared_ptr< class ISampleBuilder > p_sample_builder)
+        OffSpecSimulation::OffSpecSimulation(std::shared_ptr< class IMultiLayerBuilder > p_sample_builder)
 
         """
         this = _libBornAgainCore.new_OffSpecSimulation(*args)
@@ -23029,7 +23056,7 @@ class ParticleLayout(ILayout):
         """
         clone(ParticleLayout self) -> ParticleLayout
 
-        ParticleLayout * ParticleLayout::clone() const
+        ParticleLayout * ParticleLayout::clone() const final
 
         Returns a clone of this  ISample object. 
 
@@ -23041,7 +23068,7 @@ class ParticleLayout(ILayout):
         """
         cloneInvertB(ParticleLayout self) -> ParticleLayout
 
-        ParticleLayout * ParticleLayout::cloneInvertB() const
+        ParticleLayout * ParticleLayout::cloneInvertB() const final
 
         Returns a clone with inverted magnetic fields. 
 
@@ -23053,7 +23080,7 @@ class ParticleLayout(ILayout):
         """
         accept(ParticleLayout self, ISampleVisitor visitor)
 
-        void ParticleLayout::accept(ISampleVisitor *visitor) const
+        void ParticleLayout::accept(ISampleVisitor *visitor) const final
 
         calls the  ISampleVisitor's visit method 
 
@@ -23095,7 +23122,7 @@ class ParticleLayout(ILayout):
         """
         getNumberOfParticles(ParticleLayout self) -> size_t
 
-        virtual size_t ParticleLayout::getNumberOfParticles() const
+        size_t ParticleLayout::getNumberOfParticles() const final
 
         Returns number of particles. 
 
@@ -23107,9 +23134,7 @@ class ParticleLayout(ILayout):
         """
         getParticle(ParticleLayout self, size_t index) -> IAbstractParticle
 
-        const IAbstractParticle * ParticleLayout::getParticle(size_t index) const
-
-        get information about particle with index
+        const IAbstractParticle * ParticleLayout::getParticle(size_t index) const final
 
         Returns particle info. 
 
@@ -23121,7 +23146,7 @@ class ParticleLayout(ILayout):
         """
         getParticles(ParticleLayout self) -> SafePointerVector< IParticle const >
 
-        SafePointerVector< const IParticle > ParticleLayout::getParticles() const
+        SafePointerVector< const IParticle > ParticleLayout::getParticles() const final
 
         Returns information on all particles (type and abundance) and generates new particles if an  IAbstractParticle denotes a collection 
 
@@ -23145,7 +23170,7 @@ class ParticleLayout(ILayout):
         """
         getInterferenceFunction(ParticleLayout self) -> IInterferenceFunction
 
-        const IInterferenceFunction * ParticleLayout::getInterferenceFunction() const
+        const IInterferenceFunction * ParticleLayout::getInterferenceFunction() const final
 
         Returns interference functions. 
 
@@ -23159,8 +23184,6 @@ class ParticleLayout(ILayout):
 
         void ParticleLayout::addInterferenceFunction(const IInterferenceFunction &interference_function)
 
-        Sets interference function.
-
         Adds interference functions. 
 
         """
@@ -23171,7 +23194,7 @@ class ParticleLayout(ILayout):
         """
         getTotalParticleSurfaceDensity(ParticleLayout self) -> double
 
-        double ParticleLayout::getTotalParticleSurfaceDensity() const
+        double ParticleLayout::getTotalParticleSurfaceDensity() const final
 
         Returns surface density of all particles. 
 
@@ -23183,7 +23206,7 @@ class ParticleLayout(ILayout):
         """
         setTotalParticleSurfaceDensity(ParticleLayout self, double particle_density)
 
-        virtual void ParticleLayout::setTotalParticleSurfaceDensity(double particle_density)
+        void ParticleLayout::setTotalParticleSurfaceDensity(double particle_density) final
 
         Sets surface density of all particles. 
 
@@ -23197,7 +23220,7 @@ class Polygon(IShape2D):
     """
 
 
-    The polygon in 2D space.
+    A polygon in 2D space.Polygon defined by two arrays with x and y coordinates of points. Sizes of arrays should coincide. If polygon is unclosed (the last point doesn't repeat the first one), it will be closed automatically.
 
     C++ includes: Polygon.h
 
@@ -23218,15 +23241,7 @@ class Polygon(IShape2D):
         __init__(Geometry::Polygon self, vdouble2d_t points) -> Polygon
         __init__(Geometry::Polygon self, Geometry::PolygonPrivate const * d) -> Polygon
 
-        Geometry::Polygon::Polygon(std::vector< std::vector< double > > points)
-
-        Polygon defined by two dimensional array with (x,y) coordinates of polygon points. The size of second dimension should be 2. If polygon is unclosed (the last point doesn't repeat the first one), it will be closed automatically.
-
-        Parameters:
-        -----------
-
-        points: 
-        Two dimensional vector of (x,y) coordinates of polygon points. 
+        Geometry::Polygon::Polygon(const PolygonPrivate *d)
 
         """
         this = _libBornAgainCore.new_Polygon(*args)
@@ -23241,7 +23256,7 @@ class Polygon(IShape2D):
         """
         clone(Polygon self) -> Polygon
 
-        Polygon * Geometry::Polygon::clone() const 
+        virtual Polygon* Geometry::Polygon::clone() const 
 
         """
         return _libBornAgainCore.Polygon_clone(self)
@@ -23254,7 +23269,7 @@ class Polygon(IShape2D):
 
         bool Geometry::Polygon::contains(const Bin1D &binx, const Bin1D &biny) const
 
-        Returns true if area defined by two bins is inside or on border of polygon. More precisely, if mid point of two bins satisfy this condition. 
+        Returns true if area defined by two bins is inside or on border of polygon (more precisely, if mid point of two bins satisfy this condition). 
 
         """
         return _libBornAgainCore.Polygon_contains(self, *args)
@@ -23488,8 +23503,6 @@ class Rectangle(IShape2D):
 
         Geometry::Rectangle::Rectangle(double xlow, double ylow, double xup, double yup)
 
-        Rectangle constructor with lower left and upper right coordinates
-
         Parameters:
         -----------
 
@@ -23516,7 +23529,7 @@ class Rectangle(IShape2D):
         """
         clone(Rectangle self) -> Rectangle
 
-        Rectangle * Geometry::Rectangle::clone() const 
+        Rectangle* Geometry::Rectangle::clone() const 
 
         """
         return _libBornAgainCore.Rectangle_clone(self)
@@ -23529,7 +23542,7 @@ class Rectangle(IShape2D):
 
         bool Geometry::Rectangle::contains(const Bin1D &binx, const Bin1D &biny) const
 
-        Returns true if mid point of two bins is inside rectangle. 
+        Returns true if area defined by two bins is inside or on border of polygon (more precisely, if mid point of two bins satisfy this condition). 
 
         """
         return _libBornAgainCore.Rectangle_contains(self, *args)
@@ -24042,7 +24055,7 @@ class SpecularSimulation(ICloneable, IParameterized):
         __init__(SpecularSimulation self, ISample sample) -> SpecularSimulation
         __init__(SpecularSimulation self, std::shared_ptr< IMultiLayerBuilder > sample_builder) -> SpecularSimulation
 
-        SpecularSimulation::SpecularSimulation(std::shared_ptr< ISampleBuilder > sample_builder)
+        SpecularSimulation::SpecularSimulation(std::shared_ptr< IMultiLayerBuilder > sample_builder)
 
         """
         this = _libBornAgainCore.new_SpecularSimulation(*args)
@@ -24103,7 +24116,7 @@ class SpecularSimulation(ICloneable, IParameterized):
         """
         setSampleBuilder(SpecularSimulation self, std::shared_ptr< IMultiLayerBuilder > sample_builder)
 
-        void SpecularSimulation::setSampleBuilder(std::shared_ptr< ISampleBuilder > sample_builder)
+        void SpecularSimulation::setSampleBuilder(std::shared_ptr< IMultiLayerBuilder > sample_builder)
 
         Sets the sample builder. 
 
@@ -24115,7 +24128,7 @@ class SpecularSimulation(ICloneable, IParameterized):
         """
         getSampleBuilder(SpecularSimulation self) -> std::shared_ptr< IMultiLayerBuilder >
 
-        std::shared_ptr<ISampleBuilder> SpecularSimulation::getSampleBuilder() const
+        std::shared_ptr<IMultiLayerBuilder> SpecularSimulation::getSampleBuilder() const
 
         return sample builder 
 

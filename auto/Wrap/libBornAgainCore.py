@@ -7077,7 +7077,7 @@ class Crystal(IClusteredParticles):
         """
         accept(Crystal self, ISampleVisitor visitor)
 
-        void Crystal::accept(ISampleVisitor *visitor) const
+        virtual void Crystal::accept(ISampleVisitor *visitor) const
 
         calls the  ISampleVisitor's visit method 
 
@@ -10216,7 +10216,7 @@ class IFormFactorDecorator(IFormFactor):
     """
 
 
-    Encapsulates another formfactor and adds extra functionality (a scalar factor, a Debye-Waller factor, ...).
+    Encapsulates another formfactor and adds extra functionality (a scalar factor, a Debye-Waller factor, a position-dependent phase factor, ...).
 
     C++ includes: IFormFactorDecorator.h
 
@@ -22540,7 +22540,7 @@ class ParticleComposition(IParticle):
     """
 
 
-    A composition of particles at fixed positions.
+    A composition of particles at fixed positions
 
     C++ includes: ParticleComposition.h
 
@@ -22601,9 +22601,9 @@ class ParticleComposition(IParticle):
         """
         accept(ParticleComposition self, ISampleVisitor visitor)
 
-        void ParticleComposition::accept(ISampleVisitor *visitor) const
+        virtual void ParticleComposition::accept(ISampleVisitor *visitor) const
 
-        Calls the  ISampleVisitor's visit method. 
+        calls the  ISampleVisitor's visit method 
 
         """
         return _libBornAgainCore.ParticleComposition_accept(self, visitor)
@@ -22765,7 +22765,7 @@ class ParticleCoreShell(IParticle):
         """
         accept(ParticleCoreShell self, ISampleVisitor visitor)
 
-        void ParticleCoreShell::accept(ISampleVisitor *visitor) const
+        virtual void ParticleCoreShell::accept(ISampleVisitor *visitor) const
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -22813,7 +22813,7 @@ class ParticleCoreShell(IParticle):
         """
         getCoreParticle(ParticleCoreShell self) -> Particle
 
-        const Particle * ParticleCoreShell::getCoreParticle() const
+        const Particle* ParticleCoreShell::getCoreParticle() const
 
         Returns the core particle. 
 
@@ -22825,7 +22825,7 @@ class ParticleCoreShell(IParticle):
         """
         getShellParticle(ParticleCoreShell self) -> Particle
 
-        const Particle * ParticleCoreShell::getShellParticle() const
+        const Particle* ParticleCoreShell::getShellParticle() const
 
         Returns the shell particle. 
 

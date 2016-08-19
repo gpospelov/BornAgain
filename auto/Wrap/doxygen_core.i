@@ -736,7 +736,7 @@ Returns a clone of this  ISample object.
 Returns a clone with inverted magnetic fields. 
 ";
 
-%feature("docstring")  Crystal::accept "void Crystal::accept(ISampleVisitor *visitor) const
+%feature("docstring")  Crystal::accept "virtual void Crystal::accept(ISampleVisitor *visitor) const
 
 calls the  ISampleVisitor's visit method 
 ";
@@ -2898,7 +2898,7 @@ Returns scattering amplitude for complex wavevector bin.
 // File: classFormFactorDecoratorFactor.xml
 %feature("docstring") FormFactorDecoratorFactor "
 
-Decorates a formfactor with a constant factor.
+Decorates a formfactor with a constant factor. Base class of  FormFactorDecoratorMaterial.
 
 C++ includes: FormFactorDecoratorFactor.h
 ";
@@ -2909,12 +2909,12 @@ C++ includes: FormFactorDecoratorFactor.h
 %feature("docstring")  FormFactorDecoratorFactor::~FormFactorDecoratorFactor "virtual FormFactorDecoratorFactor::~FormFactorDecoratorFactor()
 ";
 
-%feature("docstring")  FormFactorDecoratorFactor::clone "FormFactorDecoratorFactor * FormFactorDecoratorFactor::clone() const
+%feature("docstring")  FormFactorDecoratorFactor::clone "virtual FormFactorDecoratorFactor* FormFactorDecoratorFactor::clone() const
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  FormFactorDecoratorFactor::accept "void FormFactorDecoratorFactor::accept(ISampleVisitor *visitor) const
+%feature("docstring")  FormFactorDecoratorFactor::accept "virtual void FormFactorDecoratorFactor::accept(ISampleVisitor *visitor) const
 
 Calls the  ISampleVisitor's visit method. 
 ";
@@ -2944,7 +2944,7 @@ C++ includes: FormFactorDecoratorMaterial.h
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  FormFactorDecoratorMaterial::accept "void FormFactorDecoratorMaterial::accept(ISampleVisitor *visitor) const
+%feature("docstring")  FormFactorDecoratorMaterial::accept "virtual void FormFactorDecoratorMaterial::accept(ISampleVisitor *visitor) const
 
 Calls the  ISampleVisitor's visit method. 
 ";
@@ -2986,7 +2986,7 @@ C++ includes: FormFactorDecoratorMultiPositionFactor.h
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  FormFactorDecoratorMultiPositionFactor::accept "void FormFactorDecoratorMultiPositionFactor::accept(ISampleVisitor *visitor) const
+%feature("docstring")  FormFactorDecoratorMultiPositionFactor::accept "virtual void FormFactorDecoratorMultiPositionFactor::accept(ISampleVisitor *visitor) const
 
 Calls the  ISampleVisitor's visit method. 
 ";
@@ -3021,12 +3021,12 @@ C++ includes: FormFactorDecoratorPositionFactor.h
 %feature("docstring")  FormFactorDecoratorPositionFactor::~FormFactorDecoratorPositionFactor "virtual FormFactorDecoratorPositionFactor::~FormFactorDecoratorPositionFactor()
 ";
 
-%feature("docstring")  FormFactorDecoratorPositionFactor::clone "FormFactorDecoratorPositionFactor * FormFactorDecoratorPositionFactor::clone() const
+%feature("docstring")  FormFactorDecoratorPositionFactor::clone "virtual FormFactorDecoratorPositionFactor* FormFactorDecoratorPositionFactor::clone() const
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  FormFactorDecoratorPositionFactor::accept "void FormFactorDecoratorPositionFactor::accept(ISampleVisitor *visitor) const
+%feature("docstring")  FormFactorDecoratorPositionFactor::accept "virtual void FormFactorDecoratorPositionFactor::accept(ISampleVisitor *visitor) const
 
 Calls the  ISampleVisitor's visit method. 
 ";
@@ -3060,7 +3060,7 @@ Constructor, setting form factor and rotation.
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  FormFactorDecoratorRotation::accept "void FormFactorDecoratorRotation::accept(ISampleVisitor *visitor) const
+%feature("docstring")  FormFactorDecoratorRotation::accept "virtual void FormFactorDecoratorRotation::accept(ISampleVisitor *visitor) const
 
 Calls the  ISampleVisitor's visit method. 
 ";
@@ -6298,7 +6298,7 @@ wavevector transfer q=k_i-k_f
 // File: classIFormFactorDecorator.xml
 %feature("docstring") IFormFactorDecorator "
 
-Encapsulates another formfactor and adds extra functionality (a scalar factor, a Debye-Waller factor, ...).
+Encapsulates another formfactor and adds extra functionality (a scalar factor, a Debye-Waller factor, a position-dependent phase factor, ...).
 
 C++ includes: IFormFactorDecorator.h
 ";
@@ -8042,7 +8042,7 @@ Calls the  ISampleVisitor's visit method.
 // File: classISample.xml
 %feature("docstring") ISample "
 
-Interface for sample components and properties related to scattering.Pure virtual base class of  ICompositeSample,  IFormFactor,  IInterferenceFunction,  IRoughness,  IRotation. So it is somewhat more abstract than the name \"ISample\" suggests.
+Interface for sample components and properties related to scattering. Pure virtual base class of  ICompositeSample,  IFormFactor,  IInterferenceFunction,  IRoughness,  IRotation. So it is somewhat more abstract than the name \"ISample\" suggests.
 
 C++ includes: ISample.h
 ";
@@ -10682,7 +10682,7 @@ Returns nullptr, unless overwritten to return a specific material.
 // File: classParticleComposition.xml
 %feature("docstring") ParticleComposition "
 
-A composition of particles at fixed positions.
+A composition of particles at fixed positions
 
 C++ includes: ParticleComposition.h
 ";
@@ -10712,9 +10712,9 @@ Returns a clone of this  ISample object.
 Returns a clone with inverted magnetic fields. 
 ";
 
-%feature("docstring")  ParticleComposition::accept "void ParticleComposition::accept(ISampleVisitor *visitor) const
+%feature("docstring")  ParticleComposition::accept "virtual void ParticleComposition::accept(ISampleVisitor *visitor) const
 
-Calls the  ISampleVisitor's visit method. 
+calls the  ISampleVisitor's visit method 
 ";
 
 %feature("docstring")  ParticleComposition::addParticle "void ParticleComposition::addParticle(const IParticle &particle)
@@ -10794,7 +10794,7 @@ Returns a clone of this  ISample object.
 Returns a clone with inverted magnetic fields. 
 ";
 
-%feature("docstring")  ParticleCoreShell::accept "void ParticleCoreShell::accept(ISampleVisitor *visitor) const
+%feature("docstring")  ParticleCoreShell::accept "virtual void ParticleCoreShell::accept(ISampleVisitor *visitor) const
 
 Calls the  ISampleVisitor's visit method. 
 ";
@@ -10814,12 +10814,12 @@ Returns particle's material.
 Create a form factor for this particle with an extra scattering factor. 
 ";
 
-%feature("docstring")  ParticleCoreShell::getCoreParticle "const Particle * ParticleCoreShell::getCoreParticle() const
+%feature("docstring")  ParticleCoreShell::getCoreParticle "const Particle* ParticleCoreShell::getCoreParticle() const
 
 Returns the core particle. 
 ";
 
-%feature("docstring")  ParticleCoreShell::getShellParticle "const Particle * ParticleCoreShell::getShellParticle() const
+%feature("docstring")  ParticleCoreShell::getShellParticle "const Particle* ParticleCoreShell::getShellParticle() const
 
 Returns the shell particle. 
 ";
@@ -13850,6 +13850,45 @@ global helper function for comparison of axes
 // File: SampleLabelHandler_8h.xml
 
 
+// File: FormFactorDecoratorDebyeWaller_8cpp.xml
+
+
+// File: FormFactorDecoratorDebyeWaller_8h.xml
+
+
+// File: FormFactorDecoratorFactor_8cpp.xml
+
+
+// File: FormFactorDecoratorFactor_8h.xml
+
+
+// File: FormFactorDecoratorMaterial_8cpp.xml
+
+
+// File: FormFactorDecoratorMaterial_8h.xml
+
+
+// File: FormFactorDecoratorMultiPositionFactor_8cpp.xml
+
+
+// File: FormFactorDecoratorMultiPositionFactor_8h.xml
+
+
+// File: FormFactorDecoratorPositionFactor_8cpp.xml
+
+
+// File: FormFactorDecoratorPositionFactor_8h.xml
+
+
+// File: FormFactorDecoratorRotation_8cpp.xml
+
+
+// File: FormFactorDecoratorRotation_8h.xml
+
+
+// File: IFormFactorDecorator_8h.xml
+
+
 // File: FitKernel_8cpp.xml
 
 
@@ -13929,45 +13968,6 @@ global helper function for comparison of axes
 
 
 // File: IObserver_8h.xml
-
-
-// File: FormFactorDecoratorDebyeWaller_8cpp.xml
-
-
-// File: FormFactorDecoratorDebyeWaller_8h.xml
-
-
-// File: FormFactorDecoratorFactor_8cpp.xml
-
-
-// File: FormFactorDecoratorFactor_8h.xml
-
-
-// File: FormFactorDecoratorMaterial_8cpp.xml
-
-
-// File: FormFactorDecoratorMaterial_8h.xml
-
-
-// File: FormFactorDecoratorMultiPositionFactor_8cpp.xml
-
-
-// File: FormFactorDecoratorMultiPositionFactor_8h.xml
-
-
-// File: FormFactorDecoratorPositionFactor_8cpp.xml
-
-
-// File: FormFactorDecoratorPositionFactor_8h.xml
-
-
-// File: FormFactorDecoratorRotation_8cpp.xml
-
-
-// File: FormFactorDecoratorRotation_8h.xml
-
-
-// File: IFormFactorDecorator_8h.xml
 
 
 // File: FormFactorAnisoPyramid_8cpp.xml
@@ -15181,10 +15181,10 @@ David N. Williams
 // File: dir_cca9b87b2505f372a6ce58947a507789.xml
 
 
+// File: dir_bf9305b59ff90d350d733ebceacfed28.xml
+
+
 // File: dir_4470199ae7eb44153ffe31d163ed0f28.xml
-
-
-// File: dir_c8e420540f3cc673520907fed872650b.xml
 
 
 // File: dir_05b265732c0b4c8e8dad02f2f774744b.xml

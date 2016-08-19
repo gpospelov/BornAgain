@@ -24,9 +24,8 @@ class IMaterial;
 class ILayerRTCoefficients;
 class WavevectorInfo;
 
-//! @class IFormFactor
+//! The basic interface for form factors.
 //! @ingroup formfactors_internal
-//! @brief The basic interface for form factors.
 
 class BA_CORE_API_ IFormFactor : public ISample
 {

@@ -26,7 +26,7 @@ class IMaterial;
 class IParticle;
 class Layer;
 class LayerSpecularInfo;
-class Simulation;
+class MultiLayer;
 
 //! Methods to generate a simulation strategy for decorated Layer SimulationParameters.
 //! @ingroup algorithms_internal
@@ -35,7 +35,7 @@ class BA_CORE_API_ LayerStrategyBuilder
 {
 public:
     LayerStrategyBuilder(
-        const Layer& decorated_layer, const Simulation& simulation,
+        const Layer& decorated_layer, const MultiLayer& sample,
         const SimulationOptions& sim_params, size_t layout_index);
 
     virtual ~LayerStrategyBuilder();
@@ -48,7 +48,7 @@ public:
 
 protected:
     std::unique_ptr<class Layer> mP_layer;                     //!< decorated layer
-    std::unique_ptr<class Simulation> mP_simulation;           //!< simulation
+    std::unique_ptr<class MultiLayer> mP_sample;               //!< sample
     SimulationOptions m_sim_params;                            //!< simulation parameters
     std::unique_ptr<class LayerSpecularInfo> mP_specular_info; //!< R and T coefficients for DWBA
     size_t m_layout_index; //!< index for the layout to be used in the layer

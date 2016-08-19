@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "LayerStrategyBuilder.h"
+#include "Exceptions.h"
 #include "FormFactorInfo.h"
 #include "FormFactorDWBA.h"
 #include "FormFactorDWBAPol.h"
@@ -24,15 +25,14 @@
 #include "MultiLayer.h"
 #include "Layer.h"
 #include "LayerSpecularInfo.h"
-#include "Simulation.h"
 
 LayerStrategyBuilder::LayerStrategyBuilder(
-    const Layer& decorated_layer, const Simulation& simulation,
+    const Layer& decorated_layer, const MultiLayer& sample,
     const SimulationOptions& sim_params, size_t layout_index)
     : m_sim_params{sim_params}, mP_specular_info{nullptr}, m_layout_index{layout_index}
 {
     mP_layer.reset(decorated_layer.clone());
-    mP_simulation.reset(simulation.clone());
+    mP_sample.reset(sample.clone());
     assert(mP_layer->getNumberOfLayouts() > 0);
 }
 
@@ -79,7 +79,7 @@ IInterferenceFunctionStrategy* LayerStrategyBuilder::createStrategy()
 
 bool LayerStrategyBuilder::requiresMatrixFFs() const
 {
-    return mP_simulation->getSample()->containsMagneticMaterial();
+    return mP_sample->containsMagneticMaterial();
 }
 
 void LayerStrategyBuilder::collectFormFactorInfos()

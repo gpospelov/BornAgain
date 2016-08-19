@@ -542,6 +542,11 @@ Each pixel has a width~$\Delta y$ and a height~$\Delta z$.
 \index{Detector!pixel coordinate}%
 \index{Pixel|see {Detector}}%
 
+The affine-linear conversion from pixel indices $i,j$ to pixel coordinates $x_i,y_i$
+requires an experimental calibration of the origin.
+\Work{How is this done in \BornAgain?}
+\index{Detector!calibration}%
+
 Since the differential scattering cross section \cref{Exsectiondef}
 is given with respect to a solid-angle element $\d\Omega$,
 we need to express the scattered wavevector $\k_\tf$ in spherical coordinates,
@@ -568,9 +573,8 @@ In typical SAS or GISAS,
 scattering angles are much smaller,
 and therefore the mapping between pixel coordinates and
 scattering angles is in a good first approximation linear.
-, and $\q$ components
-\BornAgain\ is of course not restricted to this linear regime,
-but uses the exact nonlinear mappings described in the following.
+Of course \BornAgain\ is not restricted to this linear regime,
+but uses the exact nonlinear mapping~\cref{Eyzdet}.
 
 %-------------------------------------------------------------------------------
 \begin{figure}[t]
@@ -607,20 +611,6 @@ The result is rather simple:
    z\end{array}\right).
 \end{equation}
 \vspace*{-5pt}}
-The wavevector $\q_{ij}$ can then be determined through the following steps:
-\begin{equation}\label{Eqalgo}
-  \begin{array}{cl}
-      (i,j)&\\
-      \downarrow&\mbox{affine-linear relations}\\
-      (y,z)\\
-      \downarrow&\mbox{use (\protect\ref{Ekf_by_pixel})}\\
-      \k_\tf&\\
-      \downarrow&\mbox{use (\protect\ref{Eq})}\\
-      \q&\\
-  \end{array}
-\end{equation}
-where the first step is mathematically trivial,
-but requires an experimental calibration of the origin of the $(x,y)$ scale.
 
 
 %-------------------------------------------------------------------------------
@@ -714,6 +704,21 @@ towards the physical coordinates $q_y$ and~$q_z$.
 As shown in \cref{Fconstp},
 this would yield a barrel-shaped illuminated area
 in the $q_y$,~$q_z$~plane.
+
+To summarize this section,
+the wavevector $\q_{ij}$ can be determined from the pixel indices
+through the following steps:
+\begin{equation}\label{Eqalgo}
+  \begin{array}{cl}
+      (i,j)&\\
+      \downarrow&\mbox{calibrate of origin, then employ affine-linear mapping}\\
+      (y,z)\\
+      \downarrow&\mbox{use (\protect\ref{Ekf_by_pixel})}\\
+      \k_\tf&\\
+      \downarrow&\mbox{use (\protect\ref{Eq})}\\
+      \q&\\
+  \end{array}
+\end{equation}
 
 \Note{\indent Transforming detector images
   from pixel coordinates into the $q_y$,~$q_z$~plane is not implemented in \BornAgain,

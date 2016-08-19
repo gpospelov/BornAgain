@@ -19,9 +19,8 @@
 #include "IFormFactorDecorator.h"
 #include "Vectors3D.h"
 
-//! @class FormFactorDecoratorMultiPositionFactor
+//! The formfactor for the same particle at different fixed positions.
 //! @ingroup formfactors_internal
-//! @brief The formfactor for the same particle at different fixed positions.
 
 class BA_CORE_API_ FormFactorDecoratorMultiPositionFactor : public IFormFactorDecorator
 {
@@ -31,7 +30,7 @@ public:
 
     virtual FormFactorDecoratorMultiPositionFactor* clone() const;
 
-    virtual void accept(ISampleVisitor* visitor) const;
+    virtual void accept(ISampleVisitor* visitor) const { visitor->visit(this); }
 
     virtual double getVolume() const;
 

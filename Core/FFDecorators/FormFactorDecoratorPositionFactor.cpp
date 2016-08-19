@@ -25,16 +25,6 @@ FormFactorDecoratorPositionFactor::FormFactorDecoratorPositionFactor(
     setName(BornAgain::FormFactorDecoratorPositionFactorType);
 }
 
-FormFactorDecoratorPositionFactor* FormFactorDecoratorPositionFactor::clone() const
-{
-    return new FormFactorDecoratorPositionFactor(*mp_form_factor, m_position);
-}
-
-void FormFactorDecoratorPositionFactor::accept(ISampleVisitor* visitor) const
-{
-    visitor->visit(this);
-}
-
 complex_t FormFactorDecoratorPositionFactor::evaluate(
         const WavevectorInfo& wavevectors) const
 {

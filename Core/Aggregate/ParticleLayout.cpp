@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "ParticleLayout.h"
+#include "BornAgainNamespace.h"
 #include "Exceptions.h"
 #include "IInterferenceFunction.h"
 #include "ISampleVisitor.h"

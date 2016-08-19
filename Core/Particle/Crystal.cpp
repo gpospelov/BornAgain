@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "Crystal.h"
+#include "BornAgainNamespace.h"
 #include "FormFactorCrystal.h"
 #include "FormFactorDecoratorDebyeWaller.h"
 
@@ -42,11 +43,6 @@ Crystal* Crystal::cloneInvertB() const
     Crystal* p_new = new Crystal(mp_lattice_basis->cloneInvertB(), m_lattice);
     p_new->setDWFactor(m_dw_factor);
     return p_new;
-}
-
-void Crystal::accept(ISampleVisitor* visitor) const
-{
-    visitor->visit(this);
 }
 
 IFormFactor* Crystal::createTotalFormFactor(const IFormFactor& meso_crystal_form_factor,

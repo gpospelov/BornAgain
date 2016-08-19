@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "FormFactorDecoratorMaterial.h"
+#include "BornAgainNamespace.h"
 #include "IMaterial.h"
 #include "ISampleVisitor.h"
 #include "Pi.h"
@@ -28,13 +29,7 @@ FormFactorDecoratorMaterial::FormFactorDecoratorMaterial(const IFormFactor& form
 }
 
 FormFactorDecoratorMaterial::~FormFactorDecoratorMaterial()
-{
-}
-
-void FormFactorDecoratorMaterial::accept(ISampleVisitor* visitor) const
-{
-    visitor->visit(this);
-}
+{}
 
 FormFactorDecoratorMaterial* FormFactorDecoratorMaterial::clone() const
 {

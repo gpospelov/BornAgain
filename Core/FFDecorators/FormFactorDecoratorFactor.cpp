@@ -14,23 +14,13 @@
 // ************************************************************************** //
 
 #include "FormFactorDecoratorFactor.h"
-#include "ISampleVisitor.h"
+#include "BornAgainNamespace.h"
 
 FormFactorDecoratorFactor::FormFactorDecoratorFactor(const IFormFactor& form_factor,
                                                      const complex_t factor)
     : IFormFactorDecorator(form_factor), m_factor(factor)
 {
     setName(BornAgain::FormFactorDecoratorFactorType);
-}
-
-FormFactorDecoratorFactor *FormFactorDecoratorFactor::clone() const
-{
-    return new FormFactorDecoratorFactor(*mp_form_factor, m_factor);
-}
-
-void FormFactorDecoratorFactor::accept(ISampleVisitor* visitor) const
-{
-    visitor->visit(this);
 }
 
 complex_t FormFactorDecoratorFactor::evaluate(const WavevectorInfo& wavevectors) const

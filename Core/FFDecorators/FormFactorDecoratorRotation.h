@@ -31,7 +31,7 @@ public:
 
     virtual FormFactorDecoratorRotation *clone() const;
 
-    virtual void accept(ISampleVisitor *visitor) const;
+    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
 
     virtual complex_t evaluate(const WavevectorInfo& wavevectors) const;
 

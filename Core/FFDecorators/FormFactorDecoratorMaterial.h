@@ -21,21 +21,20 @@
 
 class IMaterial;
 
-//! @class FormFactorDecoratorMaterial
-//! @ingroup formfactors_decorations
-//! @brief Decorates a scalar formfactor with the correct factor for the material's
+//! Decorates a scalar formfactor with the correct factor for the material's
 //! refractive index and that of its surrounding material.
+//! @ingroup formfactors_decorations
 
 class BA_CORE_API_ FormFactorDecoratorMaterial : public FormFactorDecoratorFactor
 {
 public:
     FormFactorDecoratorMaterial(const IFormFactor& form_factor);
 
-	virtual ~FormFactorDecoratorMaterial();
+    virtual ~FormFactorDecoratorMaterial();
 
     virtual FormFactorDecoratorMaterial* clone() const;
 
-    virtual void accept(ISampleVisitor* visitor) const;
+    virtual void accept(ISampleVisitor* visitor) const { visitor->visit(this); }
 
     //! Sets the material of the scatterer
     virtual void setMaterial(const IMaterial& material);

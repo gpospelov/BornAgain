@@ -19,7 +19,7 @@
 #include "IFormFactor.h"
 
 //! Encapsulates another formfactor and adds extra functionality
-//! (a scalar factor, a Debye-Waller factor, ...).
+//! (a scalar factor, a Debye-Waller factor, a position-dependent phase factor, ...).
 //! @ingroup formfactors_internal
 
 class BA_CORE_API_ IFormFactorDecorator : public IFormFactor
@@ -27,8 +27,8 @@ class BA_CORE_API_ IFormFactorDecorator : public IFormFactor
 public:
     IFormFactorDecorator(const IFormFactor& form_factor) : mp_form_factor(form_factor.clone()) {}
     virtual ~IFormFactorDecorator() { delete mp_form_factor; }
-    virtual IFormFactorDecorator* clone() const = 0;
-    virtual void accept(ISampleVisitor* visitor) const = 0;
+    virtual IFormFactorDecorator* clone() const =0;
+    virtual void accept(ISampleVisitor* visitor) const =0;
 
     virtual void setAmbientMaterial(const IMaterial &material) {
         if (mp_form_factor)

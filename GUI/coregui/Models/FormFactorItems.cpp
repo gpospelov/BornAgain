@@ -15,6 +15,7 @@
 // ************************************************************************** //
 
 #include "FormFactorItems.h"
+#include "BornAgainNamespace.h"
 #include "FormFactors.h"
 #include "GUIHelpers.h"
 #include "Units.h"

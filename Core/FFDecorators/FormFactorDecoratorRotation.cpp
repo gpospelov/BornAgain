@@ -33,11 +33,6 @@ FormFactorDecoratorRotation* FormFactorDecoratorRotation::clone() const
     return new FormFactorDecoratorRotation(*mp_form_factor, *P_rotation);
 }
 
-void FormFactorDecoratorRotation::accept(ISampleVisitor* visitor) const
-{
-    visitor->visit(this);
-}
-
 complex_t FormFactorDecoratorRotation::evaluate(const WavevectorInfo& wavevectors) const
 {
     cvector_t rotated_ki = m_transform.transformedInverse(wavevectors.getKi());

@@ -18,9 +18,8 @@
 
 #include "IFormFactorDecorator.h"
 
-//! @class FormFactorDecoratorDebyeWaller
+//! Debye-Waller factors in radial and z directions.
 //! @ingroup formfactors_internal
-//! @brief Debye-Waller factors in radial and z directions.
 
 class BA_CORE_API_ FormFactorDecoratorDebyeWaller : public IFormFactorDecorator
 {

@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "ParticleCoreShell.h"
+#include "BornAgainNamespace.h"
 #include "FormFactors.h"
 #include "Materials.h"
 #include "Particle.h"
@@ -60,11 +61,6 @@ ParticleCoreShell* ParticleCoreShell::cloneInvertB() const
     return p_result;
 }
 
-void ParticleCoreShell::accept(ISampleVisitor* visitor) const
-{
-    visitor->visit(this);
-}
-
 void ParticleCoreShell::setAmbientMaterial(const IMaterial& material)
 {
     mp_shell->setAmbientMaterial(material);
@@ -102,16 +98,6 @@ IFormFactor* ParticleCoreShell::createTransformedFormFactor(const IRotation* p_r
     P_result->addFormFactor(*P_ff_core, 1.0);
 
     return P_result.release();
-}
-
-const Particle* ParticleCoreShell::getCoreParticle() const
-{
-    return mp_core;
-}
-
-const Particle* ParticleCoreShell::getShellParticle() const
-{
-    return mp_shell;
 }
 
 void ParticleCoreShell::addAndRegisterCore(const Particle &core, kvector_t relative_core_position)

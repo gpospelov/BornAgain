@@ -18,6 +18,7 @@
 #include "BeamAngleItems.h"
 #include "BeamItem.h"
 #include "BeamWavelengthItem.h"
+#include "BornAgainNamespace.h"
 #include "ComboProperty.h"
 #include "DetectorItems.h"
 #include "Distributions.h"

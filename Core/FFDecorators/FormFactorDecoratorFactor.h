@@ -17,22 +17,20 @@
 #define FORMFACTORDECORATORFACTOR_H
 
 #include "IFormFactorDecorator.h"
-#include "BornAgainNamespace.h"
 
-//! @class FormFactorDecoratorFactor
+//! Decorates a formfactor with a constant factor.
+//!   Base class of FormFactorDecoratorMaterial.
 //! @ingroup formfactors_internal
-//! @brief Decorates a formfactor with a constant factor.
 
 class BA_CORE_API_ FormFactorDecoratorFactor : public IFormFactorDecorator
 {
 public:
     FormFactorDecoratorFactor(const IFormFactor& form_factor, const complex_t factor);
-
     virtual ~FormFactorDecoratorFactor() {}
+    virtual FormFactorDecoratorFactor* clone() const {
+        return new FormFactorDecoratorFactor(*mp_form_factor, m_factor); }
 
-    virtual FormFactorDecoratorFactor* clone() const;
-
-    virtual void accept(ISampleVisitor* visitor) const;
+    virtual void accept(ISampleVisitor* visitor) const { visitor->visit(this); }
 
     //! Evaluate the form factor for scalar calculations
     virtual complex_t evaluate(const WavevectorInfo& wavevectors) const;

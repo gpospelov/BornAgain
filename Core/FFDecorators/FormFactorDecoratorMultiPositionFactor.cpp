@@ -30,11 +30,6 @@ FormFactorDecoratorMultiPositionFactor* FormFactorDecoratorMultiPositionFactor::
     return new FormFactorDecoratorMultiPositionFactor(*mp_form_factor, m_positions);
 }
 
-void FormFactorDecoratorMultiPositionFactor::accept(ISampleVisitor* visitor) const
-{
-    visitor->visit(this);
-}
-
 double FormFactorDecoratorMultiPositionFactor::getVolume() const
 {
     size_t nbr_particles = m_positions.size();

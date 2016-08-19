@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "ParticleDistributionsBuilder.h"
+#include "BornAgainNamespace.h"
 #include "Distributions.h"
 #include "FormFactorCylinder.h"
 #include "HomogeneousMaterial.h"

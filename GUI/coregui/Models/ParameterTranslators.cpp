@@ -15,19 +15,10 @@
 // ************************************************************************** //
 
 #include "ParameterTranslators.h"
+#include "BornAgainNamespace.h"
 #include "ParticleItem.h"
 #include "RotationItems.h"
 #include "VectorItem.h"
-
-
-PositionTranslator::PositionTranslator()
-{
-}
-
-PositionTranslator *PositionTranslator::clone() const
-{
-    return new PositionTranslator();
-}
 
 QStringList PositionTranslator::split(const QString &par_name) const
 {
@@ -57,14 +48,6 @@ std::string PositionTranslator::translate(const QString &name) const
     return "";
 }
 
-RotationTranslator::RotationTranslator()
-{
-}
-
-RotationTranslator *RotationTranslator::clone() const
-{
-    return new RotationTranslator();
-}
 
 QStringList RotationTranslator::split(const QString &par_name) const
 {

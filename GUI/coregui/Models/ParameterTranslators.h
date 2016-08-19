@@ -22,33 +22,32 @@ class IParameterTranslator {
 public:
     virtual ~IParameterTranslator() {}
 
-    virtual IParameterTranslator *clone() const=0;
+    virtual IParameterTranslator* clone() const=0;
 
     virtual QStringList split(const QString &par_name) const=0;
     virtual std::string translate(const QString &name) const=0;
 };
 
+
 class PositionTranslator : public IParameterTranslator {
 public:
-    PositionTranslator();
-    virtual ~PositionTranslator() {}
+    ~PositionTranslator() final {}
 
-    virtual PositionTranslator *clone() const;
+    virtual PositionTranslator* clone() const { return new PositionTranslator(); }
 
     virtual QStringList split(const QString &par_name) const;
     virtual std::string translate(const QString &name) const;
 };
 
+
 class RotationTranslator : public IParameterTranslator {
 public:
-    RotationTranslator();
-    virtual ~RotationTranslator() {}
+    ~RotationTranslator() final {}
 
-    virtual RotationTranslator *clone() const;
+    virtual RotationTranslator* clone() const { return new RotationTranslator(); }
 
     virtual QStringList split(const QString &par_name) const;
     virtual std::string translate(const QString &name) const;
 };
 
 #endif // PARAMETERTRANSLATORS_H
-

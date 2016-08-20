@@ -28,8 +28,8 @@ public:
     WavevectorInfo(cvector_t ki, cvector_t kf, double wavelength)
         : m_ki(ki), m_kf(kf), m_wavelength(wavelength) {}
     WavevectorInfo(kvector_t ki, kvector_t kf, double wavelength)
-        : m_ki(Geometry::toComplexVector(ki))
-        , m_kf(Geometry::toComplexVector(kf))
+        : m_ki(ki.complex())
+        , m_kf(kf.complex())
         , m_wavelength(wavelength) {}
 
     cvector_t getKi() const { return m_ki; }

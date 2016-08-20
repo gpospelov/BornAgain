@@ -1462,18 +1462,6 @@ def vecOfLambdaAlphaPhi(_lambda, _alpha, _phi):
 
     """
     return _libBornAgainCore.vecOfLambdaAlphaPhi(_lambda, _alpha, _phi)
-
-def toComplexVector(real_vector):
-    """
-    toComplexVector(kvector_t real_vector) -> cvector_t
-
-    BA_CORE_API_ BasicVector3D< std::complex< double > > Geometry::toComplexVector(const BasicVector3D< double > &real_vector)
-
-    Todo
-    Replace by member function complex() 
-
-    """
-    return _libBornAgainCore.toComplexVector(real_vector)
 class ICloneable(_object):
     """
 
@@ -1945,6 +1933,11 @@ class kvector_t(_object):
         return _libBornAgainCore.kvector_t_complex(self)
 
 
+    def real(self):
+        """real(kvector_t self) -> kvector_t"""
+        return _libBornAgainCore.kvector_t_real(self)
+
+
     def angle(self, v):
         """
         angle(kvector_t self, kvector_t v) -> double
@@ -2383,6 +2376,11 @@ class cvector_t(_object):
 
         """
         return _libBornAgainCore.cvector_t_unit(self)
+
+
+    def real(self):
+        """real(cvector_t self) -> kvector_t"""
+        return _libBornAgainCore.cvector_t_real(self)
 
 
     def project(self, v):

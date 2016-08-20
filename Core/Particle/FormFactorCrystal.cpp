@@ -45,14 +45,13 @@ complex_t FormFactorCrystal::evaluate(const WavevectorInfo& wavevectors) const
 {
     // construct reciprocal vector
     cvector_t q = wavevectors.getQ();
-    kvector_t q_real(q.x().real(), q.y().real(), q.z().real());
     cvector_t k_zero;
     // calculate the used radius in function of the reciprocal lattice scale
     double radius = 2.1 * m_max_rec_length;
 
     // retrieve nearest reciprocal lattice vectors
-    m_lattice.computeReciprocalLatticeVectorsWithinRadius(q_real, radius);
-    const KVectorContainer &rec_vectors = m_lattice.getKVectorContainer();
+    m_lattice.computeReciprocalLatticeVectorsWithinRadius(q.real(), radius);
+    const KVectorContainer& rec_vectors = m_lattice.getKVectorContainer();
 
     // perform convolution on these lattice vectors
     complex_t result(0.0, 0.0);
@@ -76,18 +75,17 @@ Eigen::Matrix2cd FormFactorCrystal::evaluatePol(const WavevectorInfo& wavevector
 {
     // construct reciprocal vector
     cvector_t q = wavevectors.getQ();
-    kvector_t q_real(q.x().real(), q.y().real(), q.z().real());
     cvector_t k_zero;
     // calculate the used radius in function of the reciprocal lattice scale
     double radius = 2.1 * m_max_rec_length;
 
     // retrieve nearest reciprocal lattice vectors
-    m_lattice.computeReciprocalLatticeVectorsWithinRadius(q_real, radius);
-    const KVectorContainer &rec_vectors = m_lattice.getKVectorContainer();
+    m_lattice.computeReciprocalLatticeVectorsWithinRadius(q.real(), radius);
+    const KVectorContainer& rec_vectors = m_lattice.getKVectorContainer();
 
     // perform convolution on these lattice vectors
     Eigen::Matrix2cd result = Eigen::Matrix2cd::Zero();
-    for (auto rec: rec_vectors) {
+    for (const auto& rec: rec_vectors) {
         cvector_t q_i = rec.complex();
         cvector_t min_q_i= -q_i;
         cvector_t q_i_min_q = q_i - q;

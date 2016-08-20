@@ -33,7 +33,7 @@ BasicVector3D<double> BasicVector3D<double>::conj() const
 
 //! Returns complex conjugate vector
 template<>
-BasicVector3D<complex_t > BasicVector3D<complex_t >::conj() const
+BasicVector3D<complex_t> BasicVector3D<complex_t >::conj() const
 {
     return BasicVector3D<complex_t >(std::conj(v_[0]), std::conj(v_[1]), std::conj(v_[2]));
 }
@@ -49,8 +49,7 @@ double BasicVector3D<double>::phi() const
 template<>
 double BasicVector3D<double>::theta() const
 {
-    return x() == 0.0 && y() == 0.0 && z() == 0.0 ?
-        0.0 : std::atan2(magxy(),z());
+    return x() == 0.0 && y() == 0.0 && z() == 0.0 ? 0.0 : std::atan2(magxy(),z());
 }
 
 //! Returns cosine of polar angle.
@@ -69,9 +68,22 @@ double BasicVector3D<double>::sin2Theta() const
 
 //! Returns this, trivially converted to complex type.
 template<>
-BasicVector3D<std::complex<double>> BasicVector3D<double>::complex() const
+BasicVector3D<complex_t> BasicVector3D<double>::complex() const
 {
-    return BasicVector3D<std::complex<double>>( v_[0], v_[1], v_[2] );
+    return BasicVector3D<complex_t>( v_[0], v_[1], v_[2] );
+}
+
+//! Returns real parts.
+template<>
+BasicVector3D<double> BasicVector3D<complex_t>::real() const
+{
+    return BasicVector3D<double>( v_[0].real(), v_[1].real(), v_[2].real() );
+}
+
+template<>
+BasicVector3D<double> BasicVector3D<double>::real() const
+{
+    return *this;
 }
 
 //! Returns unit vector in direction of this. Throws for null vector.
@@ -85,12 +97,12 @@ BasicVector3D<double> BasicVector3D<double>::unit() const
 }
 
 template<>
-BasicVector3D<std::complex<double>> BasicVector3D<std::complex<double>>::unit() const
+BasicVector3D<complex_t> BasicVector3D<complex_t>::unit() const
 {
     double len = mag();
     if ( len==0.0 )
         throw Exceptions::DivisionByZeroException("Cannot normalize zero vector");
-    return BasicVector3D<std::complex<double>>(x()/len, y()/len, z()/len);
+    return BasicVector3D<complex_t>(x()/len, y()/len, z()/len);
 }
 
 // -----------------------------------------------------------------------------
@@ -109,13 +121,6 @@ double BasicVector3D<double>::angle(const BasicVector3D<double>& v) const
         if(cosa < -1) cosa = -1;
     }
     return std::acos(cosa);
-}
-
-BasicVector3D<std::complex<double> > toComplexVector(const BasicVector3D<double> &real_vector)
-{
-    return BasicVector3D<std::complex<double> >(complex_t(real_vector.x()),
-                                                complex_t(real_vector.y()),
-                                                complex_t(real_vector.z()));
 }
 
 // -----------------------------------------------------------------------------

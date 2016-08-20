@@ -24,13 +24,14 @@
 class BA_CORE_API_ FormFactorDecoratorDebyeWaller : public IFormFactorDecorator
 {
 public:
-    //! Isotropic Debye-Waller factor.
-    FormFactorDecoratorDebyeWaller(const IFormFactor& form_factor, double dw_factor);
-
     //! Anisotropic Debye-Waller factor.
     FormFactorDecoratorDebyeWaller(const IFormFactor& form_factor, double dw_h_factor,
                                    double dw_r_factor);
-//    ~FormFactorDecoratorDebyeWaller() final {}
+
+    //! Isotropic Debye-Waller factor.
+    FormFactorDecoratorDebyeWaller(const IFormFactor& form_factor, double dw_factor)
+        : IFormFactorDecorator(form_factor, dw_factor, dw_factor) {}
+
     FormFactorDecoratorDebyeWaller* clone() const final {
         return new FormFactorDecoratorDebyeWaller(*mp_form_factor, m_h_dw_factor, m_r_dw_factor); }
 
@@ -38,13 +39,9 @@ public:
 
     virtual complex_t evaluate(const WavevectorInfo& wavevectors) const;
 
-protected:
-    virtual void init_parameters();
-
 private:
     double m_h_dw_factor; //!< the Debye-Waller factor in the z-direction
     double m_r_dw_factor; //!< the Debye-Waller factor in the radial direction
-    void initialize();
 };
 
 #endif // FORMFACTORDECORATORDEBYEWALLER_H

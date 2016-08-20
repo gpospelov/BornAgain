@@ -20,19 +20,13 @@
 #include "RealParameter.h"
 
 FormFactorDecoratorDebyeWaller::FormFactorDecoratorDebyeWaller(
-    const IFormFactor& form_factor, double dw_factor)
-    : IFormFactorDecorator(form_factor),
-      m_h_dw_factor(dw_factor), m_r_dw_factor(dw_factor)
-{
-    initialize();
-}
-
-FormFactorDecoratorDebyeWaller::FormFactorDecoratorDebyeWaller(
     const IFormFactor& form_factor, double dw_h_factor, double dw_r_factor)
     : IFormFactorDecorator(form_factor),
       m_h_dw_factor(dw_h_factor), m_r_dw_factor(dw_r_factor)
 {
-    initialize();
+    setName(BornAgain::FormFactorDecoratorDebyeWallerType);
+    registerParameter(BornAgain::HeightDWFactor, &m_h_dw_factor).setPositive();
+    registerParameter(BornAgain::RadiusDWFactor, &m_r_dw_factor).setPositive();
 }
 
 complex_t FormFactorDecoratorDebyeWaller::evaluate(const WavevectorInfo& wavevectors) const
@@ -42,16 +36,4 @@ complex_t FormFactorDecoratorDebyeWaller::evaluate(const WavevectorInfo& wavevec
     double qz2 = std::norm(q.z());
     double dw = std::exp(-qz2 * m_h_dw_factor - qr2 * m_r_dw_factor);
     return dw * mp_form_factor->evaluate(wavevectors);
-}
-
-void FormFactorDecoratorDebyeWaller::init_parameters()
-{
-    registerParameter(BornAgain::HeightDWFactor, &m_h_dw_factor).setPositive();
-    registerParameter(BornAgain::RadiusDWFactor, &m_r_dw_factor).setPositive();
-}
-
-void FormFactorDecoratorDebyeWaller::initialize()
-{
-    setName(BornAgain::FormFactorDecoratorDebyeWallerType);
-    init_parameters();
 }

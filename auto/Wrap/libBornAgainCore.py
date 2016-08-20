@@ -1934,7 +1934,12 @@ class kvector_t(_object):
 
 
     def real(self):
-        """real(kvector_t self) -> kvector_t"""
+        """
+        real(kvector_t self) -> kvector_t
+
+        BA_CORE_API_ BasicVector3D< double > Geometry::BasicVector3D< std::complex< double > >::real() const
+
+        """
         return _libBornAgainCore.kvector_t_real(self)
 
 
@@ -2379,7 +2384,12 @@ class cvector_t(_object):
 
 
     def real(self):
-        """real(cvector_t self) -> kvector_t"""
+        """
+        real(cvector_t self) -> kvector_t
+
+        BA_CORE_API_ BasicVector3D< double > Geometry::BasicVector3D< std::complex< double > >::real() const
+
+        """
         return _libBornAgainCore.cvector_t_real(self)
 
 
@@ -9759,7 +9769,11 @@ class IFormFactor(ISample):
     """
 
 
-    The basic interface for form factors.
+    Pure virtual base class for all form factors.
+
+    The actual form factor is returned by the complex valued function  IFormFactor::evaluate, which depends on the incoming and outgoing wave vectors ki and kf. If it only depends on the scattering vector q=ki-kf, then it is a IBornFormFactor.
+
+    Other children besides IBornFormFactor are  IFormFactorDecorator,  FormFactorWeighted,  FormFactorDWBAPol.
 
     C++ includes: IFormFactor.h
 
@@ -9809,7 +9823,7 @@ class IFormFactor(ISample):
         """
         accept(IFormFactor self, ISampleVisitor visitor)
 
-        virtual void ISample::accept(ISampleVisitor *p_visitor) const =0
+        virtual void IFormFactor::accept(ISampleVisitor *visitor) const =0
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -9835,7 +9849,7 @@ class IFormFactor(ISample):
 
         virtual complex_t IFormFactor::evaluate(const WavevectorInfo &wavevectors) const =0
 
-        Returns scattering amplitude for complex wavevector bin. 
+        Returns scattering amplitude for complex wavevectors ki, kf. 
 
         """
         return _libBornAgainCore.IFormFactor_evaluate(self, wavevectors)
@@ -10101,7 +10115,9 @@ class IFormFactorBorn(IFormFactor):
     """
 
 
-    Pure virtual interface for Born form factors. Depends only on q=ki-kf.
+    Base class for Born form factors. In contrast to the generic  IFormFactor, a Born form factor does not depend on the incoming and outgoing wave vectors ki and kf, except through their difference, the scattering vector q=ki-kf.
+
+    NOTE: These class should be pure virtual; the functions evaluate and evaluatePol should be declared final; the functions clone, accept, evaluate_for_q, getRadialExtension should be =0 instead of having trivial implementations. HOWEVER, this does conflict with inclusion of this class in Wrap/swig/directors.i, which in turn is necessary for CustomFormFactor.py to work.
 
     C++ includes: IFormFactorBorn.h
 
@@ -10139,7 +10155,7 @@ class IFormFactorBorn(IFormFactor):
         """
         clone(IFormFactorBorn self) -> IFormFactorBorn
 
-        virtual IFormFactorBorn* IFormFactorBorn::clone() const =0
+        virtual IFormFactorBorn* IFormFactorBorn::clone() const
 
         Returns a clone of this  ISample object. 
 
@@ -10151,7 +10167,7 @@ class IFormFactorBorn(IFormFactor):
         """
         accept(IFormFactorBorn self, ISampleVisitor visitor)
 
-        void IFormFactorBorn::accept(ISampleVisitor *visitor) const
+        virtual void IFormFactorBorn::accept(ISampleVisitor *visitor) const
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -10165,7 +10181,7 @@ class IFormFactorBorn(IFormFactor):
 
         complex_t IFormFactorBorn::evaluate(const WavevectorInfo &wavevectors) const
 
-        Returns scattering amplitude for complex wavevector bin. 
+        Returns scattering amplitude for complex wavevectors ki, kf. 
 
         """
         return _libBornAgainCore.IFormFactorBorn_evaluate(self, wavevectors)
@@ -10175,18 +10191,24 @@ class IFormFactorBorn(IFormFactor):
         """
         evaluate_for_q(IFormFactorBorn self, cvector_t q) -> complex_t
 
-        virtual complex_t IFormFactorBorn::evaluate_for_q(const cvector_t q) const =0
+        complex_t IFormFactorBorn::evaluate_for_q(const cvector_t q) const
 
-        evaluate scattering amplitude for complex wavevector
-
-        Parameters:
-        -----------
-
-        q: 
-        wavevector transfer q=k_i-k_f 
+        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. 
 
         """
         return _libBornAgainCore.IFormFactorBorn_evaluate_for_q(self, q)
+
+
+    def getRadialExtension(self):
+        """
+        getRadialExtension(IFormFactorBorn self) -> double
+
+        double IFormFactorBorn::getRadialExtension() const
+
+        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+
+        """
+        return _libBornAgainCore.IFormFactorBorn_getRadialExtension(self)
 
     def __disown__(self):
         self.this.disown()
@@ -10210,6 +10232,8 @@ class IFormFactorDecorator(IFormFactor):
 
 
     Encapsulates another formfactor and adds extra functionality (a scalar factor, a Debye-Waller factor, a position-dependent phase factor, ...).
+
+    This class is designed according to the Decorator Pattern. It inherits from  IFormFactor and has a member of type IFormFactor*.
 
     C++ includes: IFormFactorDecorator.h
 
@@ -10735,10 +10759,20 @@ class FormFactorPolygonalPrism(IFormFactorBorn):
     for _s in [IFormFactorBorn]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, FormFactorPolygonalPrism, name)
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
+
+    def __init__(self, height):
+        """
+        __init__(FormFactorPolygonalPrism self, double const height) -> FormFactorPolygonalPrism
+
+        FormFactorPolygonalPrism::FormFactorPolygonalPrism(const double height)
+
+        """
+        this = _libBornAgainCore.new_FormFactorPolygonalPrism(height)
+        try:
+            self.this.append(this)
+        except:
+            self.this = this
 
     def evaluate_for_q(self, q):
         """
@@ -10807,10 +10841,20 @@ class FormFactorPolygonalSurface(IFormFactorBorn):
     for _s in [IFormFactorBorn]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, FormFactorPolygonalSurface, name)
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
+
+    def __init__(self):
+        """
+        __init__(FormFactorPolygonalSurface self) -> FormFactorPolygonalSurface
+
+        FormFactorPolygonalSurface::FormFactorPolygonalSurface()
+
+        """
+        this = _libBornAgainCore.new_FormFactorPolygonalSurface()
+        try:
+            self.this.append(this)
+        except:
+            self.this = this
 
     def evaluate_for_q(self, q):
         """
@@ -10818,13 +10862,7 @@ class FormFactorPolygonalSurface(IFormFactorBorn):
 
         complex_t FormFactorPolygonalSurface::evaluate_for_q(const cvector_t q) const final
 
-        evaluate scattering amplitude for complex wavevector
-
-        Parameters:
-        -----------
-
-        q: 
-        wavevector transfer q=k_i-k_f 
+        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. 
 
         """
         return _libBornAgainCore.FormFactorPolygonalSurface_evaluate_for_q(self, q)
@@ -11089,13 +11127,7 @@ class FormFactorBox(IFormFactorBorn):
 
         complex_t FormFactorBox::evaluate_for_q(const cvector_t q) const final
 
-        evaluate scattering amplitude for complex wavevector
-
-        Parameters:
-        -----------
-
-        q: 
-        wavevector transfer q=k_i-k_f 
+        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. 
 
         """
         return _libBornAgainCore.FormFactorBox_evaluate_for_q(self, q)
@@ -11223,13 +11255,7 @@ class FormFactorCone(IFormFactorBorn):
 
         complex_t FormFactorCone::evaluate_for_q(const cvector_t q) const final
 
-        evaluate scattering amplitude for complex wavevector
-
-        Parameters:
-        -----------
-
-        q: 
-        wavevector transfer q=k_i-k_f 
+        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. 
 
         """
         return _libBornAgainCore.FormFactorCone_evaluate_for_q(self, q)
@@ -11377,7 +11403,7 @@ class FormFactorCrystal(IFormFactor):
         """
         clone(FormFactorCrystal self) -> FormFactorCrystal
 
-        FormFactorCrystal * FormFactorCrystal::clone() const
+        FormFactorCrystal* FormFactorCrystal::clone() const final
 
         Returns a clone of this  ISample object. 
 
@@ -11427,7 +11453,7 @@ class FormFactorCrystal(IFormFactor):
 
         complex_t FormFactorCrystal::evaluate(const WavevectorInfo &wavevectors) const final
 
-        Returns scattering amplitude for complex wavevector bin. 
+        Returns scattering amplitude for complex wavevectors ki, kf. 
 
         """
         return _libBornAgainCore.FormFactorCrystal_evaluate(self, wavevectors)
@@ -11646,13 +11672,7 @@ class FormFactorCylinder(IFormFactorBorn):
 
         complex_t FormFactorCylinder::evaluate_for_q(const cvector_t q) const final
 
-        evaluate scattering amplitude for complex wavevector
-
-        Parameters:
-        -----------
-
-        q: 
-        wavevector transfer q=k_i-k_f 
+        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. 
 
         """
         return _libBornAgainCore.FormFactorCylinder_evaluate_for_q(self, q)
@@ -11684,9 +11704,9 @@ class FormFactorDecoratorDebyeWaller(IFormFactorDecorator):
         __init__(FormFactorDecoratorDebyeWaller self, IFormFactor form_factor, double dw_h_factor, double dw_r_factor) -> FormFactorDecoratorDebyeWaller
         __init__(FormFactorDecoratorDebyeWaller self, IFormFactor form_factor, double dw_factor) -> FormFactorDecoratorDebyeWaller
 
-        FormFactorDecoratorDebyeWaller::FormFactorDecoratorDebyeWaller(const IFormFactor &form_factor, double dw_h_factor, double dw_r_factor)
+        FormFactorDecoratorDebyeWaller::FormFactorDecoratorDebyeWaller(const IFormFactor &form_factor, double dw_factor)
 
-        Anisotropic Debye-Waller factor. 
+        Isotropic Debye-Waller factor. 
 
         """
         this = _libBornAgainCore.new_FormFactorDecoratorDebyeWaller(*args)
@@ -11723,9 +11743,9 @@ class FormFactorDecoratorDebyeWaller(IFormFactorDecorator):
         """
         evaluate(FormFactorDecoratorDebyeWaller self, WavevectorInfo wavevectors) -> complex_t
 
-        complex_t FormFactorDecoratorDebyeWaller::evaluate(const WavevectorInfo &wavevectors) const
+        complex_t FormFactorDecoratorDebyeWaller::evaluate(const WavevectorInfo &wavevectors) const final
 
-        Returns scattering amplitude for complex wavevector bin. 
+        Returns scattering amplitude for complex wavevectors ki, kf. 
 
         """
         return _libBornAgainCore.FormFactorDecoratorDebyeWaller_evaluate(self, wavevectors)
@@ -11928,13 +11948,7 @@ class FormFactorEllipsoidalCylinder(IFormFactorBorn):
 
         complex_t FormFactorEllipsoidalCylinder::evaluate_for_q(const cvector_t q) const final
 
-        evaluate scattering amplitude for complex wavevector
-
-        Parameters:
-        -----------
-
-        q: 
-        wavevector transfer q=k_i-k_f 
+        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. 
 
         """
         return _libBornAgainCore.FormFactorEllipsoidalCylinder_evaluate_for_q(self, q)
@@ -12028,13 +12042,7 @@ class FormFactorFullSphere(IFormFactorBorn):
 
         complex_t FormFactorFullSphere::evaluate_for_q(const cvector_t q) const final
 
-        evaluate scattering amplitude for complex wavevector
-
-        Parameters:
-        -----------
-
-        q: 
-        wavevector transfer q=k_i-k_f 
+        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. 
 
         """
         return _libBornAgainCore.FormFactorFullSphere_evaluate_for_q(self, q)
@@ -12147,13 +12155,7 @@ class FormFactorFullSpheroid(IFormFactorBorn):
 
         complex_t FormFactorFullSpheroid::evaluate_for_q(const cvector_t q) const final
 
-        evaluate scattering amplitude for complex wavevector
-
-        Parameters:
-        -----------
-
-        q: 
-        wavevector transfer q=k_i-k_f 
+        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. 
 
         """
         return _libBornAgainCore.FormFactorFullSpheroid_evaluate_for_q(self, q)
@@ -12200,7 +12202,7 @@ class FormFactorGauss(IFormFactorBorn):
         """
         clone(FormFactorGauss self) -> FormFactorGauss
 
-        FormFactorGauss* FormFactorGauss::clone() const
+        FormFactorGauss* FormFactorGauss::clone() const final
 
         Returns a clone of this  ISample object. 
 
@@ -12246,7 +12248,7 @@ class FormFactorGauss(IFormFactorBorn):
 
         double FormFactorGauss::getRadialExtension() const final
 
-        Returns width. 
+        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
         """
         return _libBornAgainCore.FormFactorGauss_getRadialExtension(self)
@@ -12258,13 +12260,7 @@ class FormFactorGauss(IFormFactorBorn):
 
         complex_t FormFactorGauss::evaluate_for_q(const cvector_t q) const final
 
-        evaluate scattering amplitude for complex wavevector
-
-        Parameters:
-        -----------
-
-        q: 
-        wavevector transfer q=k_i-k_f 
+        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. 
 
         """
         return _libBornAgainCore.FormFactorGauss_evaluate_for_q(self, q)
@@ -12392,13 +12388,7 @@ class FormFactorHemiEllipsoid(IFormFactorBorn):
 
         complex_t FormFactorHemiEllipsoid::evaluate_for_q(const cvector_t q) const final
 
-        evaluate scattering amplitude for complex wavevector
-
-        Parameters:
-        -----------
-
-        q: 
-        wavevector transfer q=k_i-k_f 
+        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. 
 
         """
         return _libBornAgainCore.FormFactorHemiEllipsoid_evaluate_for_q(self, q)
@@ -12594,13 +12584,7 @@ class FormFactorLongBoxGauss(IFormFactorBorn):
 
         complex_t FormFactorLongBoxGauss::evaluate_for_q(const cvector_t q) const final
 
-        evaluate scattering amplitude for complex wavevector
-
-        Parameters:
-        -----------
-
-        q: 
-        wavevector transfer q=k_i-k_f 
+        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. 
 
         """
         return _libBornAgainCore.FormFactorLongBoxGauss_evaluate_for_q(self, q)
@@ -12728,13 +12712,7 @@ class FormFactorLongBoxLorentz(IFormFactorBorn):
 
         complex_t FormFactorLongBoxLorentz::evaluate_for_q(const cvector_t q) const final
 
-        evaluate scattering amplitude for complex wavevector
-
-        Parameters:
-        -----------
-
-        q: 
-        wavevector transfer q=k_i-k_f 
+        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. 
 
         """
         return _libBornAgainCore.FormFactorLongBoxLorentz_evaluate_for_q(self, q)
@@ -13317,7 +13295,7 @@ class FormFactorLorentz(IFormFactorBorn):
         """
         clone(FormFactorLorentz self) -> FormFactorLorentz
 
-        FormFactorLorentz* FormFactorLorentz::clone() const
+        FormFactorLorentz* FormFactorLorentz::clone() const final
 
         Returns a clone of this  ISample object. 
 
@@ -13375,13 +13353,7 @@ class FormFactorLorentz(IFormFactorBorn):
 
         complex_t FormFactorLorentz::evaluate_for_q(const cvector_t q) const final
 
-        evaluate scattering amplitude for complex wavevector
-
-        Parameters:
-        -----------
-
-        q: 
-        wavevector transfer q=k_i-k_f 
+        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. 
 
         """
         return _libBornAgainCore.FormFactorLorentz_evaluate_for_q(self, q)
@@ -13940,7 +13912,7 @@ class FormFactorSphereGaussianRadius(IFormFactorBorn):
         """
         clone(FormFactorSphereGaussianRadius self) -> FormFactorSphereGaussianRadius
 
-        FormFactorSphereGaussianRadius * FormFactorSphereGaussianRadius::clone() const
+        FormFactorSphereGaussianRadius* FormFactorSphereGaussianRadius::clone() const final
 
         Returns a clone of this  ISample object. 
 
@@ -13978,13 +13950,7 @@ class FormFactorSphereGaussianRadius(IFormFactorBorn):
 
         complex_t FormFactorSphereGaussianRadius::evaluate_for_q(const cvector_t q) const final
 
-        evaluate scattering amplitude for complex wavevector
-
-        Parameters:
-        -----------
-
-        q: 
-        wavevector transfer q=k_i-k_f 
+        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. 
 
         """
         return _libBornAgainCore.FormFactorSphereGaussianRadius_evaluate_for_q(self, q)
@@ -14030,7 +13996,7 @@ class FormFactorSphereLogNormalRadius(IFormFactorBorn):
         """
         clone(FormFactorSphereLogNormalRadius self) -> FormFactorSphereLogNormalRadius
 
-        virtual FormFactorSphereLogNormalRadius* FormFactorSphereLogNormalRadius::clone() const
+        FormFactorSphereLogNormalRadius* FormFactorSphereLogNormalRadius::clone() const final
 
         Returns a clone of this  ISample object. 
 
@@ -14042,7 +14008,7 @@ class FormFactorSphereLogNormalRadius(IFormFactorBorn):
         """
         accept(FormFactorSphereLogNormalRadius self, ISampleVisitor visitor)
 
-        virtual void FormFactorSphereLogNormalRadius::accept(ISampleVisitor *visitor) const
+        void FormFactorSphereLogNormalRadius::accept(ISampleVisitor *visitor) const final
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -14054,7 +14020,7 @@ class FormFactorSphereLogNormalRadius(IFormFactorBorn):
         """
         getRadialExtension(FormFactorSphereLogNormalRadius self) -> double
 
-        double FormFactorSphereLogNormalRadius::getRadialExtension() const
+        double FormFactorSphereLogNormalRadius::getRadialExtension() const final
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -14066,15 +14032,9 @@ class FormFactorSphereLogNormalRadius(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorSphereLogNormalRadius self, cvector_t q) -> complex_t
 
-        complex_t FormFactorSphereLogNormalRadius::evaluate_for_q(const cvector_t q) const
+        complex_t FormFactorSphereLogNormalRadius::evaluate_for_q(const cvector_t q) const final
 
-        evaluate scattering amplitude for complex wavevector
-
-        Parameters:
-        -----------
-
-        q: 
-        wavevector transfer q=k_i-k_f 
+        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. 
 
         """
         return _libBornAgainCore.FormFactorSphereLogNormalRadius_evaluate_for_q(self, q)
@@ -14118,7 +14078,7 @@ class FormFactorSphereUniformRadius(IFormFactorBorn):
         """
         clone(FormFactorSphereUniformRadius self) -> FormFactorSphereUniformRadius
 
-        FormFactorSphereUniformRadius* FormFactorSphereUniformRadius::clone() const
+        FormFactorSphereUniformRadius* FormFactorSphereUniformRadius::clone() const final
 
         Returns a clone of this  ISample object. 
 
@@ -14156,13 +14116,7 @@ class FormFactorSphereUniformRadius(IFormFactorBorn):
 
         complex_t FormFactorSphereUniformRadius::evaluate_for_q(const cvector_t q) const final
 
-        evaluate scattering amplitude for complex wavevector
-
-        Parameters:
-        -----------
-
-        q: 
-        wavevector transfer q=k_i-k_f 
+        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. 
 
         """
         return _libBornAgainCore.FormFactorSphereUniformRadius_evaluate_for_q(self, q)
@@ -14348,13 +14302,7 @@ class FormFactorTrivial(IFormFactorBorn):
 
         complex_t FormFactorTrivial::evaluate_for_q(const cvector_t) const final
 
-        evaluate scattering amplitude for complex wavevector
-
-        Parameters:
-        -----------
-
-        q: 
-        wavevector transfer q=k_i-k_f 
+        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. 
 
         """
         return _libBornAgainCore.FormFactorTrivial_evaluate_for_q(self, arg2)
@@ -14651,13 +14599,7 @@ class FormFactorTruncatedSpheroid(IFormFactorBorn):
 
         complex_t FormFactorTruncatedSpheroid::evaluate_for_q(const cvector_t q) const final
 
-        evaluate scattering amplitude for complex wavevector
-
-        Parameters:
-        -----------
-
-        q: 
-        wavevector transfer q=k_i-k_f 
+        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. 
 
         """
         return _libBornAgainCore.FormFactorTruncatedSpheroid_evaluate_for_q(self, q)
@@ -14669,7 +14611,9 @@ class FormFactorWeighted(IFormFactor):
     """
 
 
-    Coherent sum of different form factors with different weights. Acts on scalar form factors.
+    Coherent sum of different scalar  IFormFactor's with different weights, at the same position.
+
+    Used by  ParticleComposition and  ParticleCoreShell. If particles are at different positions, use  FormFactorDecoratorMultiPositionFactor instead.
 
     C++ includes: FormFactorWeighted.h
 
@@ -14703,7 +14647,7 @@ class FormFactorWeighted(IFormFactor):
         """
         clone(FormFactorWeighted self) -> FormFactorWeighted
 
-        FormFactorWeighted * FormFactorWeighted::clone() const
+        FormFactorWeighted * FormFactorWeighted::clone() const final
 
         Returns a clone of this  ISample object. 
 
@@ -14715,7 +14659,7 @@ class FormFactorWeighted(IFormFactor):
         """
         accept(FormFactorWeighted self, ISampleVisitor visitor)
 
-        void FormFactorWeighted::accept(ISampleVisitor *visitor) const
+        void FormFactorWeighted::accept(ISampleVisitor *visitor) const final
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -14727,7 +14671,7 @@ class FormFactorWeighted(IFormFactor):
         """
         getRadialExtension(FormFactorWeighted self) -> double
 
-        double FormFactorWeighted::getRadialExtension() const
+        double FormFactorWeighted::getRadialExtension() const final
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -14750,7 +14694,7 @@ class FormFactorWeighted(IFormFactor):
         """
         setAmbientMaterial(FormFactorWeighted self, IMaterial material)
 
-        void FormFactorWeighted::setAmbientMaterial(const IMaterial &material)
+        void FormFactorWeighted::setAmbientMaterial(const IMaterial &material) final
 
         Passes the refractive index of the ambient material in which this particle is embedded. 
 
@@ -14762,9 +14706,9 @@ class FormFactorWeighted(IFormFactor):
         """
         evaluate(FormFactorWeighted self, WavevectorInfo wavevectors) -> complex_t
 
-        complex_t FormFactorWeighted::evaluate(const WavevectorInfo &wavevectors) const
+        complex_t FormFactorWeighted::evaluate(const WavevectorInfo &wavevectors) const final
 
-        Returns scattering amplitude for complex wavevector bin. 
+        Returns scattering amplitude for complex wavevectors ki, kf. 
 
         """
         return _libBornAgainCore.FormFactorWeighted_evaluate(self, wavevectors)
@@ -19763,7 +19707,14 @@ class Lattice(_object):
 
 
     def reciprocalLatticeVectorsWithinRadius(self, input_vector, radius):
-        """reciprocalLatticeVectorsWithinRadius(Lattice self, kvector_t input_vector, double radius) -> vector_kvector_t"""
+        """
+        reciprocalLatticeVectorsWithinRadius(Lattice self, kvector_t input_vector, double radius) -> vector_kvector_t
+
+        std::vector< kvector_t > Lattice::reciprocalLatticeVectorsWithinRadius(const kvector_t input_vector, double radius) const
+
+        Computes a list of reciprocal lattice vectors within a specified distance of a given vector. 
+
+        """
         return _libBornAgainCore.Lattice_reciprocalLatticeVectorsWithinRadius(self, input_vector, radius)
 
 

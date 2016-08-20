@@ -10,24 +10,23 @@ phi_min, phi_max = -1.0, 1.0
 alpha_min, alpha_max = 0.0, 2.0
 
 def sinc(x):
-    if abs(x) == 0.:
+    if abs(x) == 0:
         return 1.
     else:
         return cmath.sin(x)/x
 
+
 class CustomFormFactor(ba.IFormFactorBorn):
     """
-    A custom defined form factor
-    The particle is a polyhedron, whose planar cross section is a "plus" shape
-    with a side length L.
-    H is the height of particle
+    A custom defined form factor.
+    The particle is a prism of height H, with a base in form of a Greek cross ("plus" sign)
+    with side length L.
     """
     def __init__(self, L, H):
-        ba.IFormFactorBorn.__init__(self)
+        ba.IFormFactorBorn.__init__(self) #super(ba.IFormFactorBorn,self).__init__()
         # parameters describing the form factor
         self.L = L
         self.H = H
-
 
     def clone(self):
         """
@@ -46,7 +45,6 @@ class CustomFormFactor(ba.IFormFactorBorn):
         return 0.5*self.H*self.L**2*cmath.exp(complex(0., 1.)*qzhH)*\
                sinc(qzhH)*(sinc(0.5*qyhL)*(sinc(qxhL)-0.5*sinc(0.5*qxhL))+\
                sinc(0.5*qxhL)*sinc(qyhL))
-
 
 
 def get_sample():

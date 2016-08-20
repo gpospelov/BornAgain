@@ -19,10 +19,18 @@
 #include "IFormFactor.h"
 #include "Vectors3D.h"
 
-//! Pure virtual base class for Born form factors.
+//! Base class for Born form factors.
 //! In contrast to the generic IFormFactor, a Born form factor does not depend
 //! on the incoming and outgoing wave vectors ki and kf, except through their
 //! difference, the scattering vector q=ki-kf.
+//!
+//! NOTE: These class should be pure virtual;
+//! the functions evaluate and evaluatePol should be declared final;
+//! the functions clone, accept, evaluate_for_q, getRadialExtension should be =0
+//! instead of having trivial implementations.
+//! HOWEVER, this does conflict with inclusion of this class in Wrap/swig/directors.i,
+//! which in turn is necessary for CustomFormFactor.py to work.
+//!
 //! @ingroup formfactors_internal
 
 class BA_CORE_API_ IFormFactorBorn : public IFormFactor
@@ -31,8 +39,8 @@ public:
     IFormFactorBorn() {}
     virtual ~IFormFactorBorn() {}
 
-    virtual IFormFactorBorn* clone() const=0;
-    virtual void accept(ISampleVisitor* visitor) const =0;
+    virtual IFormFactorBorn* clone() const { return new IFormFactorBorn(); }
+    virtual void accept(ISampleVisitor* visitor) const { visitor->visit(this); }
 
     virtual complex_t evaluate(const WavevectorInfo& wavevectors) const;
 #ifndef SWIG
@@ -40,8 +48,10 @@ public:
 #endif
 
     //! Returns scattering amplitude for complex scattering wavevector q=k_i-k_f.
-    virtual complex_t evaluate_for_q(const cvector_t q) const =0;
-};
+    virtual complex_t evaluate_for_q(const cvector_t q) const;
+
+    virtual double getRadialExtension() const;
+    };
 
 #ifdef POLYHEDRAL_DIAGNOSTIC
 //! Information about the latest form factor evaluation. Not thread-safe.

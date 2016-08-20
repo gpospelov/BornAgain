@@ -29,7 +29,7 @@
 // TODO CLARIFY WHY THIS IS INCLUDED
 %include "../../auto/Wrap/doxygen_core.i"
 
- // include the list of smart pointers (common between Core and Fit)
+// include the list of smart pointers (common between Core and Fit)
 %include "shared_pointers.i"
 
 %include "warnings.i"
@@ -37,10 +37,10 @@
 %include "directors.i"
 
 %template(vdouble1d_t) std::vector<double>;
-%template(vdouble2d_t) std::vector< std::vector<double> >;
-%template(vector_integer_t) std::vector<int >;
-%template(vector_longinteger_t) std::vector<unsigned long int >;
-%template(vector_complex_t) std::vector< std::complex<double> >;
+%template(vdouble2d_t) std::vector< std::vector<double>>;
+%template(vector_integer_t) std::vector<int>;
+%template(vector_longinteger_t) std::vector<unsigned long int>;
+%template(vector_complex_t) std::vector< std::complex<double>>;
 %template(vector_string_t) std::vector<std::string>;
 %nodefaultctor ParameterPool;
 
@@ -245,9 +245,9 @@
 
 // SWIG does not automatically instantiate templates, so we declare these by hand
 %template(kvector_t) Geometry::BasicVector3D<double>;
-%template(vector_kvector_t) std::vector< Geometry::BasicVector3D<double>>;
+%template(vector_kvector_t) std::vector<Geometry::BasicVector3D<double>>;
 %template(cvector_t) Geometry::BasicVector3D<std::complex<double>>;
-%template(vector_cvector_t) std::vector< Geometry::BasicVector3D<std::complex<double>> >;
+%template(vector_cvector_t) std::vector<Geometry::BasicVector3D<std::complex<double>>>;
 
 %include "Complex.h"
 %include "Units.h"
@@ -299,7 +299,7 @@
 %include "FTDistributions2D.h"
 %include "FixedBinAxis.h"
 %include "IFormFactor.h"
-%template(vector_IFormFactorPtr_t) std::vector<IFormFactor *>;
+%template(vector_IFormFactorPtr_t) std::vector<IFormFactor*>;
 %include "IFormFactorBorn.h"
 %include "IFormFactorDecorator.h"
 %include "FormFactorPolyhedron.h"

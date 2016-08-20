@@ -152,6 +152,11 @@ Returns unit vector in direction of this. Throws for null vector.
 Returns this, trivially converted to complex type. 
 ";
 
+%feature("docstring")  Geometry::BasicVector3D::real "BasicVector3D<double> Geometry::BasicVector3D< T >::real() const
+
+Returns real parts. 
+";
+
 %feature("docstring")  Geometry::BasicVector3D::dot "auto Geometry::BasicVector3D< T >::dot(const BasicVector3D< U > &v) const -> decltype(this->x()*v.x())
 
 Returns dot product of vectors (antilinear in the first [=self] argument).
@@ -226,9 +231,17 @@ Returns cosine of polar angle.
 Returns squared sine of polar angle. 
 ";
 
-%feature("docstring")  Geometry::BasicVector3D::complex "BasicVector3D< std::complex< double > > Geometry::BasicVector3D< double >::complex() const
+%feature("docstring")  Geometry::BasicVector3D::complex "BasicVector3D< complex_t > Geometry::BasicVector3D< double >::complex() const
 
 Returns this, trivially converted to complex type. 
+";
+
+%feature("docstring")  Geometry::BasicVector3D::real "BasicVector3D< double > Geometry::BasicVector3D< complex_t >::real() const
+
+Returns real parts. 
+";
+
+%feature("docstring")  Geometry::BasicVector3D::real "BasicVector3D< double > Geometry::BasicVector3D< double >::real() const
 ";
 
 %feature("docstring")  Geometry::BasicVector3D::unit "BasicVector3D< double > Geometry::BasicVector3D< double >::unit() const
@@ -236,7 +249,7 @@ Returns this, trivially converted to complex type.
 Returns unit vector in direction of this. Throws for null vector. 
 ";
 
-%feature("docstring")  Geometry::BasicVector3D::unit "BasicVector3D< std::complex< double > > Geometry::BasicVector3D< std::complex< double > >::unit() const
+%feature("docstring")  Geometry::BasicVector3D::unit "BasicVector3D< complex_t > Geometry::BasicVector3D< complex_t >::unit() const
 ";
 
 %feature("docstring")  Geometry::BasicVector3D::angle "double Geometry::BasicVector3D< double >::angle(const BasicVector3D< double > &v) const
@@ -257,6 +270,9 @@ Returns angle with respect to another vector.
 ";
 
 %feature("docstring")  Geometry::BasicVector3D::complex "BA_CORE_API_ BasicVector3D< std::complex< double > > Geometry::BasicVector3D< double >::complex() const
+";
+
+%feature("docstring")  Geometry::BasicVector3D::real "BA_CORE_API_ BasicVector3D< double > Geometry::BasicVector3D< std::complex< double > >::real() const
 ";
 
 %feature("docstring")  Geometry::BasicVector3D::unit "BA_CORE_API_ BasicVector3D< std::complex< double > > Geometry::BasicVector3D< std::complex< double > >::unit() const
@@ -2594,13 +2610,7 @@ Returns the (approximate in some cases) radial size of the particle of this form
 
 %feature("docstring")  FormFactorBox::evaluate_for_q "complex_t FormFactorBox::evaluate_for_q(const cvector_t q) const final
 
-evaluate scattering amplitude for complex wavevector
-
-Parameters:
------------
-
-q: 
-wavevector transfer q=k_i-k_f 
+Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. 
 ";
 
 
@@ -2656,13 +2666,7 @@ Returns the (approximate in some cases) radial size of the particle of this form
 
 %feature("docstring")  FormFactorCone::evaluate_for_q "complex_t FormFactorCone::evaluate_for_q(const cvector_t q) const final
 
-evaluate scattering amplitude for complex wavevector
-
-Parameters:
------------
-
-q: 
-wavevector transfer q=k_i-k_f 
+Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. 
 ";
 
 
@@ -2720,10 +2724,10 @@ C++ includes: FormFactorCrystal.h
 %feature("docstring")  FormFactorCrystal::FormFactorCrystal "FormFactorCrystal::FormFactorCrystal(const Lattice &lattice, const IFormFactor &basis_form_factor, const IFormFactor &meso_form_factor)
 ";
 
-%feature("docstring")  FormFactorCrystal::~FormFactorCrystal "FormFactorCrystal::~FormFactorCrystal()
+%feature("docstring")  FormFactorCrystal::~FormFactorCrystal "FormFactorCrystal::~FormFactorCrystal() final
 ";
 
-%feature("docstring")  FormFactorCrystal::clone "FormFactorCrystal * FormFactorCrystal::clone() const
+%feature("docstring")  FormFactorCrystal::clone "FormFactorCrystal* FormFactorCrystal::clone() const final
 
 Returns a clone of this  ISample object. 
 ";
@@ -2745,23 +2749,12 @@ Returns the (approximate in some cases) radial size of the particle of this form
 
 %feature("docstring")  FormFactorCrystal::evaluate "complex_t FormFactorCrystal::evaluate(const WavevectorInfo &wavevectors) const final
 
-Returns scattering amplitude for complex wavevector bin. 
+Returns scattering amplitude for complex wavevectors ki, kf. 
 ";
 
-%feature("docstring")  FormFactorCrystal::evaluatePol "Eigen::Matrix2cd FormFactorCrystal::evaluatePol(const WavevectorInfo &wavevectors) const
+%feature("docstring")  FormFactorCrystal::evaluatePol "Eigen::Matrix2cd FormFactorCrystal::evaluatePol(const WavevectorInfo &wavevectors) const final
 
 Returns scattering amplitude for matrix interactions. 
-";
-
-%feature("docstring")  FormFactorCrystal::evaluate_for_q "complex_t FormFactorCrystal::evaluate_for_q(const cvector_t q) const
-
-evaluate scattering amplitude for complex wavevector
-
-Parameters:
------------
-
-q: 
-wavevector transfer q=k_i-k_f 
 ";
 
 
@@ -2851,13 +2844,7 @@ Returns the (approximate in some cases) radial size of the particle of this form
 
 %feature("docstring")  FormFactorCylinder::evaluate_for_q "complex_t FormFactorCylinder::evaluate_for_q(const cvector_t q) const final
 
-evaluate scattering amplitude for complex wavevector
-
-Parameters:
------------
-
-q: 
-wavevector transfer q=k_i-k_f 
+Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. 
 ";
 
 
@@ -2869,14 +2856,14 @@ Debye-Waller factors in radial and z directions.
 C++ includes: FormFactorDecoratorDebyeWaller.h
 ";
 
-%feature("docstring")  FormFactorDecoratorDebyeWaller::FormFactorDecoratorDebyeWaller "FormFactorDecoratorDebyeWaller::FormFactorDecoratorDebyeWaller(const IFormFactor &form_factor, double dw_factor)
-
-Isotropic Debye-Waller factor. 
-";
-
 %feature("docstring")  FormFactorDecoratorDebyeWaller::FormFactorDecoratorDebyeWaller "FormFactorDecoratorDebyeWaller::FormFactorDecoratorDebyeWaller(const IFormFactor &form_factor, double dw_h_factor, double dw_r_factor)
 
 Anisotropic Debye-Waller factor. 
+";
+
+%feature("docstring")  FormFactorDecoratorDebyeWaller::FormFactorDecoratorDebyeWaller "FormFactorDecoratorDebyeWaller::FormFactorDecoratorDebyeWaller(const IFormFactor &form_factor, double dw_factor)
+
+Isotropic Debye-Waller factor. 
 ";
 
 %feature("docstring")  FormFactorDecoratorDebyeWaller::clone "FormFactorDecoratorDebyeWaller* FormFactorDecoratorDebyeWaller::clone() const final
@@ -2889,9 +2876,9 @@ Returns a clone of this  ISample object.
 Calls the  ISampleVisitor's visit method. 
 ";
 
-%feature("docstring")  FormFactorDecoratorDebyeWaller::evaluate "complex_t FormFactorDecoratorDebyeWaller::evaluate(const WavevectorInfo &wavevectors) const
+%feature("docstring")  FormFactorDecoratorDebyeWaller::evaluate "complex_t FormFactorDecoratorDebyeWaller::evaluate(const WavevectorInfo &wavevectors) const final
 
-Returns scattering amplitude for complex wavevector bin. 
+Returns scattering amplitude for complex wavevectors ki, kf. 
 ";
 
 
@@ -2906,9 +2893,6 @@ C++ includes: FormFactorDecoratorFactor.h
 %feature("docstring")  FormFactorDecoratorFactor::FormFactorDecoratorFactor "FormFactorDecoratorFactor::FormFactorDecoratorFactor(const IFormFactor &form_factor, const complex_t factor)
 ";
 
-%feature("docstring")  FormFactorDecoratorFactor::~FormFactorDecoratorFactor "virtual FormFactorDecoratorFactor::~FormFactorDecoratorFactor()
-";
-
 %feature("docstring")  FormFactorDecoratorFactor::clone "virtual FormFactorDecoratorFactor* FormFactorDecoratorFactor::clone() const
 
 Returns a clone of this  ISample object. 
@@ -2921,7 +2905,7 @@ Calls the  ISampleVisitor's visit method.
 
 %feature("docstring")  FormFactorDecoratorFactor::evaluate "complex_t FormFactorDecoratorFactor::evaluate(const WavevectorInfo &wavevectors) const
 
-Evaluate the form factor for scalar calculations. 
+Returns scattering amplitude for complex wavevectors ki, kf. 
 ";
 
 
@@ -2936,15 +2920,15 @@ C++ includes: FormFactorDecoratorMaterial.h
 %feature("docstring")  FormFactorDecoratorMaterial::FormFactorDecoratorMaterial "FormFactorDecoratorMaterial::FormFactorDecoratorMaterial(const IFormFactor &form_factor)
 ";
 
-%feature("docstring")  FormFactorDecoratorMaterial::~FormFactorDecoratorMaterial "FormFactorDecoratorMaterial::~FormFactorDecoratorMaterial()
+%feature("docstring")  FormFactorDecoratorMaterial::~FormFactorDecoratorMaterial "FormFactorDecoratorMaterial::~FormFactorDecoratorMaterial() final
 ";
 
-%feature("docstring")  FormFactorDecoratorMaterial::clone "FormFactorDecoratorMaterial * FormFactorDecoratorMaterial::clone() const
+%feature("docstring")  FormFactorDecoratorMaterial::clone "FormFactorDecoratorMaterial * FormFactorDecoratorMaterial::clone() const final
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  FormFactorDecoratorMaterial::accept "virtual void FormFactorDecoratorMaterial::accept(ISampleVisitor *visitor) const
+%feature("docstring")  FormFactorDecoratorMaterial::accept "void FormFactorDecoratorMaterial::accept(ISampleVisitor *visitor) const final
 
 Calls the  ISampleVisitor's visit method. 
 ";
@@ -2959,12 +2943,10 @@ Sets the material of the scatterer.
 Sets the ambient material. 
 ";
 
-%feature("docstring")  FormFactorDecoratorMaterial::getAmbientRefractiveIndex "complex_t FormFactorDecoratorMaterial::getAmbientRefractiveIndex() const
-
-Retrieves the refractive index of the ambient material. 
+%feature("docstring")  FormFactorDecoratorMaterial::getAmbientRefractiveIndex "complex_t FormFactorDecoratorMaterial::getAmbientRefractiveIndex() const 
 ";
 
-%feature("docstring")  FormFactorDecoratorMaterial::evaluatePol "Eigen::Matrix2cd FormFactorDecoratorMaterial::evaluatePol(const WavevectorInfo &wavevectors) const
+%feature("docstring")  FormFactorDecoratorMaterial::evaluatePol "Eigen::Matrix2cd FormFactorDecoratorMaterial::evaluatePol(const WavevectorInfo &wavevectors) const final
 
 Returns scattering amplitude for matrix interactions. 
 ";
@@ -2975,33 +2957,40 @@ Returns scattering amplitude for matrix interactions.
 
 The formfactor for the same particle at different fixed positions.
 
+If several particle components are at the same position, use  FormFactorWeighted.
+
 C++ includes: FormFactorDecoratorMultiPositionFactor.h
 ";
 
-%feature("docstring")  FormFactorDecoratorMultiPositionFactor::FormFactorDecoratorMultiPositionFactor "FormFactorDecoratorMultiPositionFactor::FormFactorDecoratorMultiPositionFactor(const IFormFactor &form_factor, std::vector< kvector_t > positions)
+%feature("docstring")  FormFactorDecoratorMultiPositionFactor::FormFactorDecoratorMultiPositionFactor "FormFactorDecoratorMultiPositionFactor::FormFactorDecoratorMultiPositionFactor(const IFormFactor &form_factor, const std::vector< kvector_t > &positions)
 ";
 
-%feature("docstring")  FormFactorDecoratorMultiPositionFactor::clone "FormFactorDecoratorMultiPositionFactor * FormFactorDecoratorMultiPositionFactor::clone() const
+%feature("docstring")  FormFactorDecoratorMultiPositionFactor::clone "FormFactorDecoratorMultiPositionFactor * FormFactorDecoratorMultiPositionFactor::clone() const final
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  FormFactorDecoratorMultiPositionFactor::accept "virtual void FormFactorDecoratorMultiPositionFactor::accept(ISampleVisitor *visitor) const
+%feature("docstring")  FormFactorDecoratorMultiPositionFactor::accept "void FormFactorDecoratorMultiPositionFactor::accept(ISampleVisitor *visitor) const final
 
 Calls the  ISampleVisitor's visit method. 
 ";
 
-%feature("docstring")  FormFactorDecoratorMultiPositionFactor::getVolume "double FormFactorDecoratorMultiPositionFactor::getVolume() const
+%feature("docstring")  FormFactorDecoratorMultiPositionFactor::getVolume "double FormFactorDecoratorMultiPositionFactor::getVolume() const final
 
 Returns the total volume of the particle of this form factor's shape. 
 ";
 
-%feature("docstring")  FormFactorDecoratorMultiPositionFactor::evaluate "complex_t FormFactorDecoratorMultiPositionFactor::evaluate(const WavevectorInfo &wavevectors) const
+%feature("docstring")  FormFactorDecoratorMultiPositionFactor::getRadialExtension "double FormFactorDecoratorMultiPositionFactor::getRadialExtension() const final
 
-Returns scattering amplitude for complex wavevector bin. 
+throws makes-no-sense exception 
 ";
 
-%feature("docstring")  FormFactorDecoratorMultiPositionFactor::evaluatePol "Eigen::Matrix2cd FormFactorDecoratorMultiPositionFactor::evaluatePol(const WavevectorInfo &wavevectors) const
+%feature("docstring")  FormFactorDecoratorMultiPositionFactor::evaluate "complex_t FormFactorDecoratorMultiPositionFactor::evaluate(const WavevectorInfo &wavevectors) const final
+
+Returns scattering amplitude for complex wavevectors ki, kf. 
+";
+
+%feature("docstring")  FormFactorDecoratorMultiPositionFactor::evaluatePol "Eigen::Matrix2cd FormFactorDecoratorMultiPositionFactor::evaluatePol(const WavevectorInfo &wavevectors) const final
 
 Returns scattering amplitude for matrix interactions. 
 ";
@@ -3015,28 +3004,25 @@ Decorates a formfactor with a position dependent phase factor.
 C++ includes: FormFactorDecoratorPositionFactor.h
 ";
 
-%feature("docstring")  FormFactorDecoratorPositionFactor::FormFactorDecoratorPositionFactor "FormFactorDecoratorPositionFactor::FormFactorDecoratorPositionFactor(const IFormFactor &form_factor, kvector_t position)
+%feature("docstring")  FormFactorDecoratorPositionFactor::FormFactorDecoratorPositionFactor "FormFactorDecoratorPositionFactor::FormFactorDecoratorPositionFactor(const IFormFactor &form_factor, const kvector_t &position)
 ";
 
-%feature("docstring")  FormFactorDecoratorPositionFactor::~FormFactorDecoratorPositionFactor "virtual FormFactorDecoratorPositionFactor::~FormFactorDecoratorPositionFactor()
-";
-
-%feature("docstring")  FormFactorDecoratorPositionFactor::clone "virtual FormFactorDecoratorPositionFactor* FormFactorDecoratorPositionFactor::clone() const
+%feature("docstring")  FormFactorDecoratorPositionFactor::clone "FormFactorDecoratorPositionFactor* FormFactorDecoratorPositionFactor::clone() const final
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  FormFactorDecoratorPositionFactor::accept "virtual void FormFactorDecoratorPositionFactor::accept(ISampleVisitor *visitor) const
+%feature("docstring")  FormFactorDecoratorPositionFactor::accept "void FormFactorDecoratorPositionFactor::accept(ISampleVisitor *visitor) const final
 
 Calls the  ISampleVisitor's visit method. 
 ";
 
-%feature("docstring")  FormFactorDecoratorPositionFactor::evaluate "complex_t FormFactorDecoratorPositionFactor::evaluate(const WavevectorInfo &wavevectors) const
+%feature("docstring")  FormFactorDecoratorPositionFactor::evaluate "complex_t FormFactorDecoratorPositionFactor::evaluate(const WavevectorInfo &wavevectors) const final
 
-Returns scattering amplitude for complex wavevector bin. 
+Returns scattering amplitude for complex wavevectors ki, kf. 
 ";
 
-%feature("docstring")  FormFactorDecoratorPositionFactor::evaluatePol "Eigen::Matrix2cd FormFactorDecoratorPositionFactor::evaluatePol(const WavevectorInfo &wavevectors) const
+%feature("docstring")  FormFactorDecoratorPositionFactor::evaluatePol "Eigen::Matrix2cd FormFactorDecoratorPositionFactor::evaluatePol(const WavevectorInfo &wavevectors) const final
 
 Returns scattering amplitude for matrix interactions. 
 ";
@@ -3050,24 +3036,24 @@ Equips a formfactor with a rotation.
 C++ includes: FormFactorDecoratorRotation.h
 ";
 
-%feature("docstring")  FormFactorDecoratorRotation::FormFactorDecoratorRotation "FormFactorDecoratorRotation::FormFactorDecoratorRotation(const IFormFactor &form_factor, const IRotation &transform)
+%feature("docstring")  FormFactorDecoratorRotation::FormFactorDecoratorRotation "FormFactorDecoratorRotation::FormFactorDecoratorRotation(const IFormFactor &form_factor, const IRotation &rotation)
 
 Constructor, setting form factor and rotation. 
 ";
 
-%feature("docstring")  FormFactorDecoratorRotation::clone "FormFactorDecoratorRotation * FormFactorDecoratorRotation::clone() const
+%feature("docstring")  FormFactorDecoratorRotation::clone "FormFactorDecoratorRotation * FormFactorDecoratorRotation::clone() const final
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  FormFactorDecoratorRotation::accept "virtual void FormFactorDecoratorRotation::accept(ISampleVisitor *visitor) const
+%feature("docstring")  FormFactorDecoratorRotation::accept "void FormFactorDecoratorRotation::accept(ISampleVisitor *visitor) const final
 
 Calls the  ISampleVisitor's visit method. 
 ";
 
-%feature("docstring")  FormFactorDecoratorRotation::evaluate "complex_t FormFactorDecoratorRotation::evaluate(const WavevectorInfo &wavevectors) const
+%feature("docstring")  FormFactorDecoratorRotation::evaluate "complex_t FormFactorDecoratorRotation::evaluate(const WavevectorInfo &wavevectors) const final
 
-Returns scattering amplitude for complex wavevector bin. 
+Returns scattering amplitude for complex wavevectors ki, kf. 
 ";
 
 
@@ -3107,7 +3093,7 @@ Calls the  ISampleVisitor's visit method.
 // File: classFormFactorDWBA.xml
 %feature("docstring") FormFactorDWBA "
 
-Evaluates a coherent sum of the four DWBA terms in a scalar formfactor.
+Evaluates the coherent sum of the four DWBA terms in a scalar  IFormFactorDecorator.
 
 C++ includes: FormFactorDWBA.h
 ";
@@ -3115,15 +3101,15 @@ C++ includes: FormFactorDWBA.h
 %feature("docstring")  FormFactorDWBA::FormFactorDWBA "FormFactorDWBA::FormFactorDWBA(const IFormFactor &form_factor)
 ";
 
-%feature("docstring")  FormFactorDWBA::~FormFactorDWBA "virtual FormFactorDWBA::~FormFactorDWBA()
+%feature("docstring")  FormFactorDWBA::~FormFactorDWBA "FormFactorDWBA::~FormFactorDWBA() final
 ";
 
-%feature("docstring")  FormFactorDWBA::clone "FormFactorDWBA * FormFactorDWBA::clone() const
+%feature("docstring")  FormFactorDWBA::clone "FormFactorDWBA * FormFactorDWBA::clone() const final
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  FormFactorDWBA::accept "virtual void FormFactorDWBA::accept(ISampleVisitor *visitor) const
+%feature("docstring")  FormFactorDWBA::accept "void FormFactorDWBA::accept(ISampleVisitor *visitor) const final
 
 Calls the  ISampleVisitor's visit method. 
 ";
@@ -3133,18 +3119,21 @@ Calls the  ISampleVisitor's visit method.
 Sets reflection/transmission info for scalar DWBA simulation. 
 ";
 
-%feature("docstring")  FormFactorDWBA::evaluate "complex_t FormFactorDWBA::evaluate(const WavevectorInfo &wavevectors) const
+%feature("docstring")  FormFactorDWBA::evaluate "complex_t FormFactorDWBA::evaluate(const WavevectorInfo &wavevectors) const final
 
-Returns scattering amplitude for complex wavevector bin. 
+Returns scattering amplitude for complex wavevectors ki, kf. 
 ";
 
 
 // File: classFormFactorDWBAPol.xml
 %feature("docstring") FormFactorDWBAPol "
 
-Evaluates a coherent sum of the 16 matrix DWBA terms in a polarized formfactor.
+Evaluates the coherent sum of the 16 matrix DWBA terms in a polarized  IFormFactor.
 
 C++ includes: FormFactorDWBAPol.h
+";
+
+%feature("docstring")  FormFactorDWBAPol::FormFactorDWBAPol "FormFactorDWBAPol::FormFactorDWBAPol()=delete
 ";
 
 %feature("docstring")  FormFactorDWBAPol::FormFactorDWBAPol "FormFactorDWBAPol::FormFactorDWBAPol(const IFormFactor &form_factor)
@@ -3153,32 +3142,32 @@ C++ includes: FormFactorDWBAPol.h
 %feature("docstring")  FormFactorDWBAPol::~FormFactorDWBAPol "FormFactorDWBAPol::~FormFactorDWBAPol()
 ";
 
-%feature("docstring")  FormFactorDWBAPol::clone "FormFactorDWBAPol * FormFactorDWBAPol::clone() const
+%feature("docstring")  FormFactorDWBAPol::clone "FormFactorDWBAPol * FormFactorDWBAPol::clone() const final
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  FormFactorDWBAPol::accept "void FormFactorDWBAPol::accept(ISampleVisitor *visitor) const
+%feature("docstring")  FormFactorDWBAPol::accept "void FormFactorDWBAPol::accept(ISampleVisitor *visitor) const final
 
-calls the  ISampleVisitor's visit method 
+Calls the  ISampleVisitor's visit method. 
 ";
 
-%feature("docstring")  FormFactorDWBAPol::evaluate "complex_t FormFactorDWBAPol::evaluate(const WavevectorInfo &wavevectors) const
+%feature("docstring")  FormFactorDWBAPol::evaluate "complex_t FormFactorDWBAPol::evaluate(const WavevectorInfo &wavevectors) const final
 
-Throws exception. 
+Throws not-implemented exception. 
 ";
 
-%feature("docstring")  FormFactorDWBAPol::evaluatePol "Eigen::Matrix2cd FormFactorDWBAPol::evaluatePol(const WavevectorInfo &wavevectors) const
+%feature("docstring")  FormFactorDWBAPol::evaluatePol "Eigen::Matrix2cd FormFactorDWBAPol::evaluatePol(const WavevectorInfo &wavevectors) const final
 
 Calculates and returns a polarized form factor calculation in DWBA. 
 ";
 
-%feature("docstring")  FormFactorDWBAPol::getVolume "double FormFactorDWBAPol::getVolume() const
+%feature("docstring")  FormFactorDWBAPol::getVolume "double FormFactorDWBAPol::getVolume() const final
 
 Returns the total volume of the particle of this form factor's shape. 
 ";
 
-%feature("docstring")  FormFactorDWBAPol::getRadialExtension "double FormFactorDWBAPol::getRadialExtension() const
+%feature("docstring")  FormFactorDWBAPol::getRadialExtension "double FormFactorDWBAPol::getRadialExtension() const final
 
 Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
@@ -3237,13 +3226,7 @@ Returns the (approximate in some cases) radial size of the particle of this form
 
 %feature("docstring")  FormFactorEllipsoidalCylinder::evaluate_for_q "complex_t FormFactorEllipsoidalCylinder::evaluate_for_q(const cvector_t q) const final
 
-evaluate scattering amplitude for complex wavevector
-
-Parameters:
------------
-
-q: 
-wavevector transfer q=k_i-k_f 
+Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. 
 ";
 
 
@@ -3278,13 +3261,7 @@ Returns the (approximate in some cases) radial size of the particle of this form
 
 %feature("docstring")  FormFactorFullSphere::evaluate_for_q "complex_t FormFactorFullSphere::evaluate_for_q(const cvector_t q) const final
 
-evaluate scattering amplitude for complex wavevector
-
-Parameters:
------------
-
-q: 
-wavevector transfer q=k_i-k_f 
+Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. 
 ";
 
 
@@ -3331,13 +3308,7 @@ Returns the (approximate in some cases) radial size of the particle of this form
 
 %feature("docstring")  FormFactorFullSpheroid::evaluate_for_q "complex_t FormFactorFullSpheroid::evaluate_for_q(const cvector_t q) const final
 
-evaluate scattering amplitude for complex wavevector
-
-Parameters:
------------
-
-q: 
-wavevector transfer q=k_i-k_f 
+Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. 
 ";
 
 
@@ -3355,7 +3326,7 @@ C++ includes: FormFactorGauss.h
 %feature("docstring")  FormFactorGauss::FormFactorGauss "FormFactorGauss::FormFactorGauss(double width, double height)
 ";
 
-%feature("docstring")  FormFactorGauss::clone "FormFactorGauss* FormFactorGauss::clone() const
+%feature("docstring")  FormFactorGauss::clone "FormFactorGauss* FormFactorGauss::clone() const final
 
 Returns a clone of this  ISample object. 
 ";
@@ -3373,18 +3344,12 @@ Calls the  ISampleVisitor's visit method.
 
 %feature("docstring")  FormFactorGauss::getRadialExtension "double FormFactorGauss::getRadialExtension() const final
 
-Returns width. 
+Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
 
 %feature("docstring")  FormFactorGauss::evaluate_for_q "complex_t FormFactorGauss::evaluate_for_q(const cvector_t q) const final
 
-evaluate scattering amplitude for complex wavevector
-
-Parameters:
------------
-
-q: 
-wavevector transfer q=k_i-k_f 
+Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. 
 ";
 
 
@@ -3440,13 +3405,7 @@ Returns the (approximate in some cases) radial size of the particle of this form
 
 %feature("docstring")  FormFactorHemiEllipsoid::evaluate_for_q "complex_t FormFactorHemiEllipsoid::evaluate_for_q(const cvector_t q) const final
 
-evaluate scattering amplitude for complex wavevector
-
-Parameters:
------------
-
-q: 
-wavevector transfer q=k_i-k_f 
+Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. 
 ";
 
 
@@ -3544,13 +3503,7 @@ Returns the (approximate in some cases) radial size of the particle of this form
 
 %feature("docstring")  FormFactorLongBoxGauss::evaluate_for_q "complex_t FormFactorLongBoxGauss::evaluate_for_q(const cvector_t q) const final
 
-evaluate scattering amplitude for complex wavevector
-
-Parameters:
------------
-
-q: 
-wavevector transfer q=k_i-k_f 
+Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. 
 ";
 
 
@@ -3605,13 +3558,7 @@ Returns the (approximate in some cases) radial size of the particle of this form
 
 %feature("docstring")  FormFactorLongBoxLorentz::evaluate_for_q "complex_t FormFactorLongBoxLorentz::evaluate_for_q(const cvector_t q) const final
 
-evaluate scattering amplitude for complex wavevector
-
-Parameters:
------------
-
-q: 
-wavevector transfer q=k_i-k_f 
+Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. 
 ";
 
 
@@ -3871,7 +3818,7 @@ C++ includes: FormFactorLorentz.h
 %feature("docstring")  FormFactorLorentz::FormFactorLorentz "FormFactorLorentz::FormFactorLorentz(double width, double height)
 ";
 
-%feature("docstring")  FormFactorLorentz::clone "FormFactorLorentz* FormFactorLorentz::clone() const
+%feature("docstring")  FormFactorLorentz::clone "FormFactorLorentz* FormFactorLorentz::clone() const final
 
 Returns a clone of this  ISample object. 
 ";
@@ -3894,13 +3841,7 @@ Returns the (approximate in some cases) radial size of the particle of this form
 
 %feature("docstring")  FormFactorLorentz::evaluate_for_q "complex_t FormFactorLorentz::evaluate_for_q(const cvector_t q) const final
 
-evaluate scattering amplitude for complex wavevector
-
-Parameters:
------------
-
-q: 
-wavevector transfer q=k_i-k_f 
+Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. 
 ";
 
 
@@ -3947,13 +3888,7 @@ C++ includes: FormFactorPolyhedron.h
 
 %feature("docstring")  FormFactorPolygonalSurface::evaluate_for_q "complex_t FormFactorPolygonalSurface::evaluate_for_q(const cvector_t q) const final
 
-evaluate scattering amplitude for complex wavevector
-
-Parameters:
------------
-
-q: 
-wavevector transfer q=k_i-k_f 
+Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. 
 ";
 
 %feature("docstring")  FormFactorPolygonalSurface::getVolume "double FormFactorPolygonalSurface::getVolume() const
@@ -4238,7 +4173,7 @@ C++ includes: FormFactorSphereGaussianRadius.h
 %feature("docstring")  FormFactorSphereGaussianRadius::~FormFactorSphereGaussianRadius "FormFactorSphereGaussianRadius::~FormFactorSphereGaussianRadius()
 ";
 
-%feature("docstring")  FormFactorSphereGaussianRadius::clone "FormFactorSphereGaussianRadius * FormFactorSphereGaussianRadius::clone() const
+%feature("docstring")  FormFactorSphereGaussianRadius::clone "FormFactorSphereGaussianRadius* FormFactorSphereGaussianRadius::clone() const final
 
 Returns a clone of this  ISample object. 
 ";
@@ -4255,13 +4190,7 @@ Returns the (approximate in some cases) radial size of the particle of this form
 
 %feature("docstring")  FormFactorSphereGaussianRadius::evaluate_for_q "complex_t FormFactorSphereGaussianRadius::evaluate_for_q(const cvector_t q) const final
 
-evaluate scattering amplitude for complex wavevector
-
-Parameters:
------------
-
-q: 
-wavevector transfer q=k_i-k_f 
+Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. 
 ";
 
 
@@ -4276,33 +4205,27 @@ C++ includes: FormFactorSphereLogNormalRadius.h
 %feature("docstring")  FormFactorSphereLogNormalRadius::FormFactorSphereLogNormalRadius "FormFactorSphereLogNormalRadius::FormFactorSphereLogNormalRadius(double mean, double scale_param, size_t n_samples)
 ";
 
-%feature("docstring")  FormFactorSphereLogNormalRadius::~FormFactorSphereLogNormalRadius "FormFactorSphereLogNormalRadius::~FormFactorSphereLogNormalRadius()
+%feature("docstring")  FormFactorSphereLogNormalRadius::~FormFactorSphereLogNormalRadius "FormFactorSphereLogNormalRadius::~FormFactorSphereLogNormalRadius() final
 ";
 
-%feature("docstring")  FormFactorSphereLogNormalRadius::clone "virtual FormFactorSphereLogNormalRadius* FormFactorSphereLogNormalRadius::clone() const
+%feature("docstring")  FormFactorSphereLogNormalRadius::clone "FormFactorSphereLogNormalRadius* FormFactorSphereLogNormalRadius::clone() const final
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  FormFactorSphereLogNormalRadius::accept "virtual void FormFactorSphereLogNormalRadius::accept(ISampleVisitor *visitor) const
+%feature("docstring")  FormFactorSphereLogNormalRadius::accept "void FormFactorSphereLogNormalRadius::accept(ISampleVisitor *visitor) const final
 
 Calls the  ISampleVisitor's visit method. 
 ";
 
-%feature("docstring")  FormFactorSphereLogNormalRadius::getRadialExtension "double FormFactorSphereLogNormalRadius::getRadialExtension() const
+%feature("docstring")  FormFactorSphereLogNormalRadius::getRadialExtension "double FormFactorSphereLogNormalRadius::getRadialExtension() const final
 
 Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
 
-%feature("docstring")  FormFactorSphereLogNormalRadius::evaluate_for_q "complex_t FormFactorSphereLogNormalRadius::evaluate_for_q(const cvector_t q) const
+%feature("docstring")  FormFactorSphereLogNormalRadius::evaluate_for_q "complex_t FormFactorSphereLogNormalRadius::evaluate_for_q(const cvector_t q) const final
 
-evaluate scattering amplitude for complex wavevector
-
-Parameters:
------------
-
-q: 
-wavevector transfer q=k_i-k_f 
+Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. 
 ";
 
 
@@ -4317,7 +4240,7 @@ C++ includes: FormFactorSphereUniformRadius.h
 %feature("docstring")  FormFactorSphereUniformRadius::FormFactorSphereUniformRadius "FormFactorSphereUniformRadius::FormFactorSphereUniformRadius(double mean, double full_width)
 ";
 
-%feature("docstring")  FormFactorSphereUniformRadius::clone "FormFactorSphereUniformRadius* FormFactorSphereUniformRadius::clone() const
+%feature("docstring")  FormFactorSphereUniformRadius::clone "FormFactorSphereUniformRadius* FormFactorSphereUniformRadius::clone() const final
 
 Returns a clone of this  ISample object. 
 ";
@@ -4334,13 +4257,7 @@ Returns the (approximate in some cases) radial size of the particle of this form
 
 %feature("docstring")  FormFactorSphereUniformRadius::evaluate_for_q "complex_t FormFactorSphereUniformRadius::evaluate_for_q(const cvector_t q) const final
 
-evaluate scattering amplitude for complex wavevector
-
-Parameters:
------------
-
-q: 
-wavevector transfer q=k_i-k_f 
+Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. 
 ";
 
 
@@ -4440,13 +4357,7 @@ Returns the (approximate in some cases) radial size of the particle of this form
 
 %feature("docstring")  FormFactorTrivial::evaluate_for_q "complex_t FormFactorTrivial::evaluate_for_q(const cvector_t) const final
 
-evaluate scattering amplitude for complex wavevector
-
-Parameters:
------------
-
-q: 
-wavevector transfer q=k_i-k_f 
+Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. 
 ";
 
 
@@ -4563,20 +4474,16 @@ Returns the (approximate in some cases) radial size of the particle of this form
 
 %feature("docstring")  FormFactorTruncatedSpheroid::evaluate_for_q "complex_t FormFactorTruncatedSpheroid::evaluate_for_q(const cvector_t q) const final
 
-evaluate scattering amplitude for complex wavevector
-
-Parameters:
------------
-
-q: 
-wavevector transfer q=k_i-k_f 
+Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. 
 ";
 
 
 // File: classFormFactorWeighted.xml
 %feature("docstring") FormFactorWeighted "
 
-Coherent sum of different form factors with different weights. Acts on scalar form factors.
+Coherent sum of different scalar  IFormFactor's with different weights, at the same position.
+
+Used by  ParticleComposition and  ParticleCoreShell. If particles are at different positions, use  FormFactorDecoratorMultiPositionFactor instead.
 
 C++ includes: FormFactorWeighted.h
 ";
@@ -4584,20 +4491,20 @@ C++ includes: FormFactorWeighted.h
 %feature("docstring")  FormFactorWeighted::FormFactorWeighted "FormFactorWeighted::FormFactorWeighted()
 ";
 
-%feature("docstring")  FormFactorWeighted::~FormFactorWeighted "FormFactorWeighted::~FormFactorWeighted()
+%feature("docstring")  FormFactorWeighted::~FormFactorWeighted "FormFactorWeighted::~FormFactorWeighted() final
 ";
 
-%feature("docstring")  FormFactorWeighted::clone "FormFactorWeighted * FormFactorWeighted::clone() const
+%feature("docstring")  FormFactorWeighted::clone "FormFactorWeighted * FormFactorWeighted::clone() const final
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  FormFactorWeighted::accept "void FormFactorWeighted::accept(ISampleVisitor *visitor) const
+%feature("docstring")  FormFactorWeighted::accept "void FormFactorWeighted::accept(ISampleVisitor *visitor) const final
 
 Calls the  ISampleVisitor's visit method. 
 ";
 
-%feature("docstring")  FormFactorWeighted::getRadialExtension "double FormFactorWeighted::getRadialExtension() const
+%feature("docstring")  FormFactorWeighted::getRadialExtension "double FormFactorWeighted::getRadialExtension() const final
 
 Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
@@ -4605,17 +4512,17 @@ Returns the (approximate in some cases) radial size of the particle of this form
 %feature("docstring")  FormFactorWeighted::addFormFactor "void FormFactorWeighted::addFormFactor(const IFormFactor &form_factor, double weight=1.0)
 ";
 
-%feature("docstring")  FormFactorWeighted::setAmbientMaterial "void FormFactorWeighted::setAmbientMaterial(const IMaterial &material)
+%feature("docstring")  FormFactorWeighted::setAmbientMaterial "void FormFactorWeighted::setAmbientMaterial(const IMaterial &material) final
 
 Passes the refractive index of the ambient material in which this particle is embedded. 
 ";
 
-%feature("docstring")  FormFactorWeighted::evaluate "complex_t FormFactorWeighted::evaluate(const WavevectorInfo &wavevectors) const
+%feature("docstring")  FormFactorWeighted::evaluate "complex_t FormFactorWeighted::evaluate(const WavevectorInfo &wavevectors) const final
 
-Returns scattering amplitude for complex wavevector bin. 
+Returns scattering amplitude for complex wavevectors ki, kf. 
 ";
 
-%feature("docstring")  FormFactorWeighted::evaluatePol "Eigen::Matrix2cd FormFactorWeighted::evaluatePol(const WavevectorInfo &wavevectors) const
+%feature("docstring")  FormFactorWeighted::evaluatePol "Eigen::Matrix2cd FormFactorWeighted::evaluatePol(const WavevectorInfo &wavevectors) const final
 
 Calculates and returns a polarized form factor calculation in DWBA. 
 ";
@@ -6202,7 +6109,11 @@ C++ includes: FitSuiteFunctions.h
 // File: classIFormFactor.xml
 %feature("docstring") IFormFactor "
 
-The basic interface for form factors.
+Pure virtual base class for all form factors.
+
+The actual form factor is returned by the complex valued function  IFormFactor::evaluate, which depends on the incoming and outgoing wave vectors ki and kf. If it only depends on the scattering vector q=ki-kf, then it is a IBornFormFactor.
+
+Other children besides IBornFormFactor are  IFormFactorDecorator,  FormFactorWeighted,  FormFactorDWBAPol.
 
 C++ includes: IFormFactor.h
 ";
@@ -6218,6 +6129,11 @@ C++ includes: IFormFactor.h
 Returns a clone of this  ISample object. 
 ";
 
+%feature("docstring")  IFormFactor::accept "virtual void IFormFactor::accept(ISampleVisitor *visitor) const =0
+
+Calls the  ISampleVisitor's visit method. 
+";
+
 %feature("docstring")  IFormFactor::setAmbientMaterial "virtual void IFormFactor::setAmbientMaterial(const IMaterial &)
 
 Passes the refractive index of the ambient material in which this particle is embedded. 
@@ -6225,7 +6141,7 @@ Passes the refractive index of the ambient material in which this particle is em
 
 %feature("docstring")  IFormFactor::evaluate "virtual complex_t IFormFactor::evaluate(const WavevectorInfo &wavevectors) const =0
 
-Returns scattering amplitude for complex wavevector bin. 
+Returns scattering amplitude for complex wavevectors ki, kf. 
 ";
 
 %feature("docstring")  IFormFactor::evaluatePol "Eigen::Matrix2cd IFormFactor::evaluatePol(const WavevectorInfo &wavevectors) const
@@ -6252,7 +6168,9 @@ Sets reflection/transmission info.
 // File: classIFormFactorBorn.xml
 %feature("docstring") IFormFactorBorn "
 
-Pure virtual interface for Born form factors. Depends only on q=ki-kf.
+Base class for Born form factors. In contrast to the generic  IFormFactor, a Born form factor does not depend on the incoming and outgoing wave vectors ki and kf, except through their difference, the scattering vector q=ki-kf.
+
+NOTE: These class should be pure virtual; the functions evaluate and evaluatePol should be declared final; the functions clone, accept, evaluate_for_q, getRadialExtension should be =0 instead of having trivial implementations. HOWEVER, this does conflict with inclusion of this class in Wrap/swig/directors.i, which in turn is necessary for CustomFormFactor.py to work.
 
 C++ includes: IFormFactorBorn.h
 ";
@@ -6263,19 +6181,19 @@ C++ includes: IFormFactorBorn.h
 %feature("docstring")  IFormFactorBorn::~IFormFactorBorn "virtual IFormFactorBorn::~IFormFactorBorn()
 ";
 
-%feature("docstring")  IFormFactorBorn::clone "virtual IFormFactorBorn* IFormFactorBorn::clone() const =0
+%feature("docstring")  IFormFactorBorn::clone "virtual IFormFactorBorn* IFormFactorBorn::clone() const
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  IFormFactorBorn::accept "void IFormFactorBorn::accept(ISampleVisitor *visitor) const
+%feature("docstring")  IFormFactorBorn::accept "virtual void IFormFactorBorn::accept(ISampleVisitor *visitor) const
 
 Calls the  ISampleVisitor's visit method. 
 ";
 
 %feature("docstring")  IFormFactorBorn::evaluate "complex_t IFormFactorBorn::evaluate(const WavevectorInfo &wavevectors) const
 
-Returns scattering amplitude for complex wavevector bin. 
+Returns scattering amplitude for complex wavevectors ki, kf. 
 ";
 
 %feature("docstring")  IFormFactorBorn::evaluatePol "Eigen::Matrix2cd IFormFactorBorn::evaluatePol(const WavevectorInfo &wavevectors) const
@@ -6283,15 +6201,14 @@ Returns scattering amplitude for complex wavevector bin.
 Returns scattering amplitude for matrix interactions. 
 ";
 
-%feature("docstring")  IFormFactorBorn::evaluate_for_q "virtual complex_t IFormFactorBorn::evaluate_for_q(const cvector_t q) const =0
+%feature("docstring")  IFormFactorBorn::evaluate_for_q "complex_t IFormFactorBorn::evaluate_for_q(const cvector_t q) const
 
-evaluate scattering amplitude for complex wavevector
+Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. 
+";
 
-Parameters:
------------
+%feature("docstring")  IFormFactorBorn::getRadialExtension "double IFormFactorBorn::getRadialExtension() const
 
-q: 
-wavevector transfer q=k_i-k_f 
+Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
 
 
@@ -6300,7 +6217,12 @@ wavevector transfer q=k_i-k_f
 
 Encapsulates another formfactor and adds extra functionality (a scalar factor, a Debye-Waller factor, a position-dependent phase factor, ...).
 
+This class is designed according to the Decorator Pattern. It inherits from  IFormFactor and has a member of type IFormFactor*.
+
 C++ includes: IFormFactorDecorator.h
+";
+
+%feature("docstring")  IFormFactorDecorator::IFormFactorDecorator "IFormFactorDecorator::IFormFactorDecorator()=delete
 ";
 
 %feature("docstring")  IFormFactorDecorator::IFormFactorDecorator "IFormFactorDecorator::IFormFactorDecorator(const IFormFactor &form_factor)
@@ -8768,7 +8690,7 @@ Returns the nearest lattice point from a given vector.
 Returns the nearest reciprocal lattice point from a given vector. 
 ";
 
-%feature("docstring")  Lattice::computeReciprocalLatticeVectorsWithinRadius "void Lattice::computeReciprocalLatticeVectorsWithinRadius(const kvector_t input_vector, double radius) const
+%feature("docstring")  Lattice::reciprocalLatticeVectorsWithinRadius "std::vector< kvector_t > Lattice::reciprocalLatticeVectorsWithinRadius(const kvector_t input_vector, double radius) const
 
 Computes a list of reciprocal lattice vectors within a specified distance of a given vector. 
 ";
@@ -8776,9 +8698,6 @@ Computes a list of reciprocal lattice vectors within a specified distance of a g
 %feature("docstring")  Lattice::setSelectionRule "void Lattice::setSelectionRule(const ISelectionRule &p_selection_rule)
 
 Sets a selection rule for the reciprocal vectors. 
-";
-
-%feature("docstring")  Lattice::getKVectorContainer "const KVectorContainer& Lattice::getKVectorContainer() const 
 ";
 
 
@@ -13266,12 +13185,6 @@ Returns file names that agree with glob pattern.
 
 
 // File: namespaceGeometry.xml
-%feature("docstring")  Geometry::toComplexVector "BA_CORE_API_ BasicVector3D< std::complex< double > > Geometry::toComplexVector(const BasicVector3D< double > &real_vector)
-
-Todo
-Replace by member function complex() 
-";
-
 %feature("docstring")  Geometry::vecOfLambdaAlphaPhi "BA_CORE_API_ BasicVector3D< double > Geometry::vecOfLambdaAlphaPhi(const double _lambda, const double _alpha, const double _phi)
 
 Creates a vector<double> as a wavevector with given wavelength and angles. Specifically needed for grazing-incidence scattering. 
@@ -15161,9 +15074,6 @@ David N. Williams
 
 
 // File: WavevectorInfo_8h.xml
-
-
-// File: todo.xml
 
 
 // File: dir_5f1a4a05eca575eab319839347bb4113.xml

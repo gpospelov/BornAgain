@@ -36,14 +36,13 @@ public:
     virtual void accept(ISampleVisitor* visitor) const =0;
 
     virtual void setAmbientMaterial(const IMaterial &material) {
-        if (mp_form_factor)
-            mp_form_factor->setAmbientMaterial(material);  }
+        mp_form_factor->setAmbientMaterial(material);  }
 
     virtual double getVolume() const {
-        return mp_form_factor ? mp_form_factor->getVolume() : 0; }
+        return mp_form_factor->getVolume(); }
 
     virtual double getRadialExtension() const {
-        return mp_form_factor ? mp_form_factor->getRadialExtension() : 0; }
+        return mp_form_factor->getRadialExtension(); }
 
 protected:
     IFormFactor* mp_form_factor;

@@ -46,7 +46,7 @@ public:
     //! Passes the refractive index of the ambient material in which this particle is embedded.
     virtual void setAmbientMaterial(const IMaterial&) {}
 
-    //! Returns scattering amplitude for complex wavevector bin
+    //! Returns scattering amplitude for complex wavevectors ki, kf.
     virtual complex_t evaluate(const WavevectorInfo& wavevectors) const =0;
 
 #ifndef SWIG

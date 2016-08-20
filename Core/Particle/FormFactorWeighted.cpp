@@ -37,11 +37,6 @@ FormFactorWeighted* FormFactorWeighted::clone() const
     return result;
 }
 
-void FormFactorWeighted::accept(ISampleVisitor* visitor) const
-{
-    visitor->visit(this);
-}
-
 double FormFactorWeighted::getRadialExtension() const
 {
     double result { 0.0 };

@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/FFDecorators/IFormFactorDecorator.h
-//! @brief     Defines pure virtual interface class IFormFactorDecorator.
+//! @brief     Defines and implements pure virtual interface class IFormFactorDecorator.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -20,11 +20,16 @@
 
 //! Encapsulates another formfactor and adds extra functionality
 //! (a scalar factor, a Debye-Waller factor, a position-dependent phase factor, ...).
+//!
+//! This class is designed according to the Decorator Pattern.
+//! It inherits from IFormFactor _and_ has a member of type IFormFactor*.
+//!
 //! @ingroup formfactors_internal
 
 class BA_CORE_API_ IFormFactorDecorator : public IFormFactor
 {
 public:
+    IFormFactorDecorator() =delete;
     IFormFactorDecorator(const IFormFactor& form_factor) : mp_form_factor(form_factor.clone()) {}
     virtual ~IFormFactorDecorator() { delete mp_form_factor; }
     virtual IFormFactorDecorator* clone() const =0;

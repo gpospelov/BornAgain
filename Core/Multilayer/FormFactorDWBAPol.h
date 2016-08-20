@@ -20,7 +20,7 @@
 
 class ILayerRTCoefficients;
 
-//! Evaluates a coherent sum of the 16 matrix DWBA terms in a polarized formfactor.
+//! Evaluates the coherent sum of the 16 matrix DWBA terms in a polarized IFormFactor.
 //! @ingroup formfactors_internal
 
 class BA_CORE_API_ FormFactorDWBAPol : public IFormFactor
@@ -31,21 +31,22 @@ public:
 
     virtual FormFactorDWBAPol* clone() const;
 
-    //! calls the ISampleVisitor's visit method
-    virtual void accept(ISampleVisitor* visitor) const;
+    virtual void accept(ISampleVisitor* visitor) const { visitor->visit(this); }
 
-    //! Throws exception
+    //! Throws not-implemented exception
     virtual complex_t evaluate(const WavevectorInfo& wavevectors) const;
 
     //! Calculates and returns a polarized form factor calculation in DWBA
     virtual Eigen::Matrix2cd evaluatePol(const WavevectorInfo& wavevectors) const;
 
     //! Returns the total volume of the particle of this form factor's shape
-    virtual double getVolume() const;
+    virtual double getVolume() const {
+        return mp_form_factor ? mp_form_factor->getVolume() : 0; }
 
     //! Returns the (approximate in some cases) radial size of the particle of this
     //! form factor's shape. This is used for SSCA calculations
-    virtual double getRadialExtension() const;
+    virtual double getRadialExtension() const {
+        return mp_form_factor ? mp_form_factor->getRadialExtension() : 0; }
 
     //! Sets reflection/transmission info for scalar DWBA simulation
     virtual void setSpecularInfo(const ILayerRTCoefficients* p_in_coeffs,

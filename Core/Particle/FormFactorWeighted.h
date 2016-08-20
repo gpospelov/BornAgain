@@ -18,10 +18,12 @@
 
 #include "IFormFactor.h"
 
-//! @class FormFactorWeighted
+//! Coherent sum of different scalar IFormFactor's with different weights, at the same position.
+//!
+//! Used by ParticleComposition and ParticleCoreShell.
+//! If particles are at different positions, use FormFactorDecoratorMultiPositionFactor instead.
+//!
 //! @ingroup formfactors_internal
-//! @brief Coherent sum of different form factors with different weights.
-//! Acts on scalar form factors.
 
 class BA_CORE_API_ FormFactorWeighted : public IFormFactor
 {
@@ -31,7 +33,7 @@ public:
 
     virtual FormFactorWeighted* clone() const;
 
-    virtual void accept(ISampleVisitor* visitor) const;
+    virtual void accept(ISampleVisitor* visitor) const { visitor->visit(this); }
 
     virtual double getRadialExtension() const;
 

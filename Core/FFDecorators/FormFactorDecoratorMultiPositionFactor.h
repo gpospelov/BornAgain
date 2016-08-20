@@ -20,6 +20,9 @@
 #include "Vectors3D.h"
 
 //! The formfactor for the same particle at different fixed positions.
+//!
+//! If several particle components are at the same position, use FormFactorWeighted instead.
+//!
 //! @ingroup formfactors_internal
 
 class BA_CORE_API_ FormFactorDecoratorMultiPositionFactor : public IFormFactorDecorator

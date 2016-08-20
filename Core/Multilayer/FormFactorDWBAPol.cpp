@@ -20,18 +20,15 @@
 #include "WavevectorInfo.h"
 
 FormFactorDWBAPol::FormFactorDWBAPol(const IFormFactor &form_factor)
-: mp_form_factor(form_factor.clone())
-, mp_in_coeffs(0)
-, mp_out_coeffs(0)
+    : mp_form_factor(form_factor.clone())
+    , mp_in_coeffs(0)
+    , mp_out_coeffs(0)
 {
     setName(BornAgain::FormFactorPolarizedDWBAType);
 }
 
 FormFactorDWBAPol::~FormFactorDWBAPol()
-{
-}
-
-void FormFactorDWBAPol::accept(ISampleVisitor* visitor) const { visitor->visit(this); }
+{}
 
 FormFactorDWBAPol* FormFactorDWBAPol::clone() const
 {
@@ -55,16 +52,6 @@ Eigen::Matrix2cd FormFactorDWBAPol::evaluatePol(const WavevectorInfo& wavevector
             m_M21_S + m_M21_RS + m_M21_SR + m_M21_RSR +
             m_M22_S + m_M22_RS + m_M22_SR + m_M22_RSR;
     return result;
-}
-
-double FormFactorDWBAPol::getVolume() const
-{
-    return mp_form_factor ? mp_form_factor->getVolume() : 0;
-}
-
-double FormFactorDWBAPol::getRadialExtension() const
-{
-    return mp_form_factor ? mp_form_factor->getRadialExtension() : 0;
 }
 
 void FormFactorDWBAPol::setSpecularInfo(const ILayerRTCoefficients* p_in_coeffs,

@@ -21,7 +21,7 @@
 
 //! The formfactor for the same particle at different fixed positions.
 //!
-//! If several particle components are at the same position, use FormFactorWeighted instead.
+//! If several particle components are at the same position, use FormFactorWeighted.
 //!
 //! @ingroup formfactors_internal
 
@@ -38,6 +38,8 @@ public:
     virtual double getVolume() const;
 
     virtual complex_t evaluate(const WavevectorInfo& wavevectors) const;
+
+    virtual double getRadialExtension() const; //!< throws makes-no-sense exception
 
 #ifndef SWIG
     virtual Eigen::Matrix2cd evaluatePol(const WavevectorInfo& wavevectors) const;

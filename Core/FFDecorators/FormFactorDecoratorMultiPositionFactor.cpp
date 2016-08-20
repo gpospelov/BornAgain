@@ -17,6 +17,7 @@
 #include "BornAgainNamespace.h"
 #include "ISampleVisitor.h"
 #include "WavevectorInfo.h"
+#include <stdexcept>
 
 FormFactorDecoratorMultiPositionFactor::FormFactorDecoratorMultiPositionFactor(
     const IFormFactor &form_factor, std::vector<kvector_t> positions)
@@ -40,6 +41,12 @@ complex_t FormFactorDecoratorMultiPositionFactor::evaluate(const WavevectorInfo&
 {
     cvector_t q = wavevectors.getQ();
     return getPositionsFactor(q) * mp_form_factor->evaluate(wavevectors);
+}
+
+double FormFactorDecoratorMultiPositionFactor::getRadialExtension() const
+{
+    throw std::runtime_error(
+        "Bug: Senseless call to FormFactorDecoratorMultiPositionFactor::getRadialExtension()");
 }
 
 Eigen::Matrix2cd FormFactorDecoratorMultiPositionFactor::evaluatePol(

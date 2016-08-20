@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Rotation/Rotations.cpp
+//! @file      Core/Sample/Rotations.cpp
 //! @brief     Implements IRotation classes.
 //!
 //! @homepage  http://www.bornagainproject.org

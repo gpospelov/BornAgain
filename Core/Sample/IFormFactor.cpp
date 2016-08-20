@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Multilayer/IFormFactor.cpp
+//! @file      Core/Sample/IFormFactor.cpp
 //! @brief     Implements interface class IFormFactor.
 //!
 //! @homepage  http://www.bornagainproject.org

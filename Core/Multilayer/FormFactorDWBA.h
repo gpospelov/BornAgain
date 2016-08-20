@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/FormFactor/FormFactorDWBA.h
+//! @file      Core/Multilayer/FormFactorDWBA.h
 //! @brief     Defines class FormFactorDWBA.
 //!
 //! @homepage  http://www.bornagainproject.org

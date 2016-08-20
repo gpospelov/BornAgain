@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Simulation/DistributionHandler.cpp
+//! @file      Core/Parametrization/DistributionHandler.cpp
 //! @brief     Implements class DistributionHandler.
 //!
 //! @homepage  http://www.bornagainproject.org

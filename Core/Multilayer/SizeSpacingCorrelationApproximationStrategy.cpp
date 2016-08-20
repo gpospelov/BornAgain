@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Aggregate/SizeSpacingCorrelationApproximationStrategy.cpp
+//! @file      Core/Multilayer/SizeSpacingCorrelationApproximationStrategy.cpp
 //! @brief     Implements class SizeSpacingCorrelationApproximationStrategy.
 //!
 //! @homepage  http://www.bornagainproject.org

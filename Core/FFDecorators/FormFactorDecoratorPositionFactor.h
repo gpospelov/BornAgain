@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/FormFactor/FormFactorDecoratorPositionFactor.h
+//! @file      Core/FFDecorators/FormFactorDecoratorPositionFactor.h
 //! @brief     Defines class FormFactorDecoratorPositionFactor.
 //!
 //! @homepage  http://www.bornagainproject.org

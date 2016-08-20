@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Multilayer/IFormFactor.h
+//! @file      Core/Sample/IFormFactor.h
 //! @brief     Defines and implements pure virtual interface IFormFactor.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -25,9 +25,14 @@ class ILayerRTCoefficients;
 class WavevectorInfo;
 
 //! Pure virtual base class for all form factors.
+//!
 //! The actual form factor is returned by the complex valued function IFormFactor::evaluate,
 //! which depends on the incoming and outgoing wave vectors ki and kf.
 //! If it only depends on the scattering vector q=ki-kf, then it is a IBornFormFactor.
+//!
+//! Other children besides IBornFormFactor are IFormFactorDecorator, FormFactorWeighted,
+//! FormFactorDWBAPol.
+
 //! @ingroup formfactors_internal
 
 class BA_CORE_API_ IFormFactor : public ISample

@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Particle/IFormFactorBorn.h
+//! @file      Core/Sample/IFormFactorBorn.h
 //! @brief     Defines pure virtual interface class IFormFactorBorn.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -20,7 +20,7 @@
 #include "Vectors3D.h"
 
 //! Pure virtual base class for Born form factors.
-//! In contrast to a generic form factor, a Born form factor does not depend
+//! In contrast to the generic IFormFactor, a Born form factor does not depend
 //! on the incoming and outgoing wave vectors ki and kf, except through their
 //! difference, the scattering vector q=ki-kf.
 //! @ingroup formfactors_internal

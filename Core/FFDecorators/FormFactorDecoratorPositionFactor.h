@@ -26,23 +26,22 @@ class BA_CORE_API_ FormFactorDecoratorPositionFactor : public IFormFactorDecorat
 {
 public:
     FormFactorDecoratorPositionFactor(const IFormFactor& form_factor, kvector_t position);
-    virtual ~FormFactorDecoratorPositionFactor() {}
 
-    virtual FormFactorDecoratorPositionFactor* clone() const {
+    FormFactorDecoratorPositionFactor* clone() const final{
         return new FormFactorDecoratorPositionFactor(*mp_form_factor, m_position); }
-    virtual void accept(ISampleVisitor* visitor) const { visitor->visit(this); }
 
-    virtual complex_t evaluate(const WavevectorInfo& wavevectors) const;
+    void accept(ISampleVisitor* visitor) const final { visitor->visit(this); }
+
+    complex_t evaluate(const WavevectorInfo& wavevectors) const final;
 
 #ifndef SWIG
-    virtual Eigen::Matrix2cd evaluatePol(const WavevectorInfo& wavevectors) const;
+    Eigen::Matrix2cd evaluatePol(const WavevectorInfo& wavevectors) const final;
 #endif
-
-protected:
-    kvector_t m_position;
 
 private:
     complex_t getPositionFactor(const cvector_t q) const;
+
+    kvector_t m_position;
 };
 
 #endif // FORMFACTORDECORATORPOSITIONFACTOR_H

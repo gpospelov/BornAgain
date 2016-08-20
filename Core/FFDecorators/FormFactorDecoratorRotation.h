@@ -29,11 +29,11 @@ public:
     //! Constructor, setting form factor and rotation.
     FormFactorDecoratorRotation(const IFormFactor &form_factor, const IRotation &transform);
 
-    virtual FormFactorDecoratorRotation *clone() const;
+    FormFactorDecoratorRotation *clone() const final;
 
-    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
+    void accept(ISampleVisitor *visitor) const final { visitor->visit(this); }
 
-    virtual complex_t evaluate(const WavevectorInfo& wavevectors) const;
+    complex_t evaluate(const WavevectorInfo& wavevectors) const final;
 
 protected:
     Geometry::Transform3D m_transform;

@@ -31,18 +31,18 @@ public:
     FormFactorDecoratorMultiPositionFactor(const IFormFactor& form_factor,
                                            std::vector<kvector_t> positions);
 
-    virtual FormFactorDecoratorMultiPositionFactor* clone() const;
+    FormFactorDecoratorMultiPositionFactor* clone() const final;
 
-    virtual void accept(ISampleVisitor* visitor) const { visitor->visit(this); }
+    void accept(ISampleVisitor* visitor) const final { visitor->visit(this); }
 
-    virtual double getVolume() const;
+    double getVolume() const final;
 
-    virtual complex_t evaluate(const WavevectorInfo& wavevectors) const;
+    complex_t evaluate(const WavevectorInfo& wavevectors) const final;
 
-    virtual double getRadialExtension() const; //!< throws makes-no-sense exception
+    double getRadialExtension() const final; //!< throws makes-no-sense exception
 
 #ifndef SWIG
-    virtual Eigen::Matrix2cd evaluatePol(const WavevectorInfo& wavevectors) const;
+    Eigen::Matrix2cd evaluatePol(const WavevectorInfo& wavevectors) const final;
 #endif
 
 private:

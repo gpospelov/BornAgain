@@ -11706,8 +11706,8 @@ class FormFactorDecoratorDebyeWaller(IFormFactorDecorator):
 
     def __init__(self, *args):
         """
-        __init__(FormFactorDecoratorDebyeWaller self, IFormFactor form_factor, double dw_factor) -> FormFactorDecoratorDebyeWaller
         __init__(FormFactorDecoratorDebyeWaller self, IFormFactor form_factor, double dw_h_factor, double dw_r_factor) -> FormFactorDecoratorDebyeWaller
+        __init__(FormFactorDecoratorDebyeWaller self, IFormFactor form_factor, double dw_factor) -> FormFactorDecoratorDebyeWaller
 
         FormFactorDecoratorDebyeWaller::FormFactorDecoratorDebyeWaller(const IFormFactor &form_factor, double dw_h_factor, double dw_r_factor)
 

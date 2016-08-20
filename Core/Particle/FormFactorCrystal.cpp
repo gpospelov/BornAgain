@@ -35,21 +35,6 @@ FormFactorCrystal::~FormFactorCrystal()
     delete mp_meso_form_factor;
 }
 
-FormFactorCrystal* FormFactorCrystal::clone() const
-{
-    return new FormFactorCrystal(m_lattice, *mp_basis_form_factor, *mp_meso_form_factor);
-}
-
-double FormFactorCrystal::getVolume() const
-{
-    return mp_meso_form_factor->getVolume();
-}
-
-double FormFactorCrystal::getRadialExtension() const
-{
-    return mp_meso_form_factor->getRadialExtension();
-}
-
 complex_t FormFactorCrystal::evaluate_for_q(const cvector_t) const
 {
     throw Exceptions::LogicErrorException(

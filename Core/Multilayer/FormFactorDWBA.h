@@ -27,26 +27,25 @@ class BA_CORE_API_ FormFactorDWBA: public IFormFactorDecorator
 {
 public:
     FormFactorDWBA(const IFormFactor& form_factor);
-    virtual ~FormFactorDWBA() {}
+    ~FormFactorDWBA() final {}
 
-    virtual FormFactorDWBA* clone() const;
+    FormFactorDWBA* clone() const final;
 
-    virtual void accept(ISampleVisitor* visitor) const { visitor->visit(this); }
+    void accept(ISampleVisitor* visitor) const final { visitor->visit(this); }
 
     //! Sets reflection/transmission info for scalar DWBA simulation
-    virtual void setSpecularInfo(const ILayerRTCoefficients* p_in_coeffs,
-                                 const ILayerRTCoefficients* p_out_coeffs);
+    void setSpecularInfo (const ILayerRTCoefficients* p_in_coeffs,
+                          const ILayerRTCoefficients* p_out_coeffs);
 
-    virtual complex_t evaluate(const WavevectorInfo& wavevectors) const;
+    complex_t evaluate(const WavevectorInfo& wavevectors) const final;
 
     friend class TestPolarizedDWBATerms;
 
-protected:
+private:
     void calculateTerms(const WavevectorInfo& wavevectors) const;
 
-    mutable complex_t m_term_S, m_term_RS, m_term_SR, m_term_RSR;
-    const ILayerRTCoefficients* mp_in_coeffs;
-    const ILayerRTCoefficients* mp_out_coeffs;
+    const ILayerRTCoefficients* mp_in_coeffs;  //!< not owned by this
+    const ILayerRTCoefficients* mp_out_coeffs; //!< not owned by this
 };
 
 #endif // FORMFACTORDWBA_H

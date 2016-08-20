@@ -10190,11 +10190,6 @@ class IFormFactorBorn(IFormFactor):
         """
         return _libBornAgainCore.IFormFactorBorn_evaluate_for_q(self, q)
 
-
-    def check_initialization(self):
-        """check_initialization(IFormFactorBorn self) -> bool"""
-        return _libBornAgainCore.IFormFactorBorn_check_initialization(self)
-
     def __disown__(self):
         self.this.disown()
         _libBornAgainCore.disown_IFormFactorBorn(self)

@@ -30,21 +30,17 @@ class BA_CORE_API_ IFormFactorBorn : public IFormFactor
 public:
     IFormFactorBorn() {}
     virtual ~IFormFactorBorn() {}
-    virtual IFormFactorBorn* clone() const=0;
 
-    virtual void accept(ISampleVisitor* visitor) const;
+    virtual IFormFactorBorn* clone() const=0;
+    virtual void accept(ISampleVisitor* visitor) const =0;
 
     virtual complex_t evaluate(const WavevectorInfo& wavevectors) const;
-
 #ifndef SWIG
     virtual Eigen::Matrix2cd evaluatePol(const WavevectorInfo& wavevectors) const;
 #endif
 
     //! Returns scattering amplitude for complex scattering wavevector q=k_i-k_f.
-    virtual complex_t evaluate_for_q(const cvector_t q) const=0;
-
-protected:
-    virtual bool check_initialization() const;
+    virtual complex_t evaluate_for_q(const cvector_t q) const =0;
 };
 
 #ifdef POLYHEDRAL_DIAGNOSTIC

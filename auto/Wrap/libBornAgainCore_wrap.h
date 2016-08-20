@@ -376,10 +376,6 @@ public:
     virtual double getRadialExtension() const;
     virtual void setSpecularInfo(ILayerRTCoefficients const *arg0, ILayerRTCoefficients const *arg1);
     virtual complex_t evaluate_for_q(cvector_t const q) const;
-    virtual bool check_initialization() const;
-    virtual bool check_initializationSwigPublic() const {
-      return IFormFactorBorn::check_initialization();
-    }
 
 /* Internal director utilities */
 public:
@@ -410,7 +406,7 @@ private:
       return method;
     }
 private:
-    mutable swig::SwigVar_PyObject vtable[19];
+    mutable swig::SwigVar_PyObject vtable[18];
 #endif
 
 };

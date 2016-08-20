@@ -27,7 +27,7 @@ class BA_CORE_API_ FormFactorDecoratorRotation : public IFormFactorDecorator
 {
 public:
     //! Constructor, setting form factor and rotation.
-    FormFactorDecoratorRotation(const IFormFactor &form_factor, const IRotation &transform);
+    FormFactorDecoratorRotation(const IFormFactor &form_factor, const IRotation &rotation);
 
     FormFactorDecoratorRotation *clone() const final;
 

@@ -17,8 +17,6 @@
 #include "ISampleVisitor.h"
 #include "WavevectorInfo.h"
 
-void IFormFactorBorn::accept(ISampleVisitor* visitor) const { visitor->visit(this); }
-
 complex_t IFormFactorBorn::evaluate(const WavevectorInfo& wavevectors) const
 {
     return evaluate_for_q(wavevectors.getQ());
@@ -26,11 +24,5 @@ complex_t IFormFactorBorn::evaluate(const WavevectorInfo& wavevectors) const
 
 Eigen::Matrix2cd IFormFactorBorn::evaluatePol(const WavevectorInfo& wavevectors) const
 {
-    Eigen::Matrix2cd unit_matrix = Eigen::Matrix2cd::Identity();
-    return evaluate(wavevectors) * unit_matrix;
-}
-
-bool IFormFactorBorn::check_initialization() const
-{
-    return true;
+    return evaluate(wavevectors) * Eigen::Matrix2cd::Identity();
 }

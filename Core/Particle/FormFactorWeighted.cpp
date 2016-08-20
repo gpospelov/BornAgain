@@ -24,9 +24,8 @@ FormFactorWeighted::FormFactorWeighted()
 
 FormFactorWeighted::~FormFactorWeighted()
 {
-    for (size_t index=0; index<m_form_factors.size(); ++index) {
+    for (size_t index=0; index<m_form_factors.size(); ++index)
         delete m_form_factors[index];
-    }
 }
 
 FormFactorWeighted* FormFactorWeighted::clone() const

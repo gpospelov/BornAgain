@@ -20,12 +20,14 @@
 #include <memory>
 
 FormFactorDecoratorRotation::FormFactorDecoratorRotation(
-    const IFormFactor& form_factor, const IRotation& transform)
+    const IFormFactor& form_factor, const IRotation& rotation)
     : IFormFactorDecorator(form_factor)
 {
     setName(BornAgain::FormFactorDecoratorRotationType);
-    m_transform = transform.getTransform3D();
+    m_transform = rotation.getTransform3D();
 }
+
+// TODO: can we avoid the conversion from IRotation to Transform3D and back?
 
 FormFactorDecoratorRotation* FormFactorDecoratorRotation::clone() const
 {

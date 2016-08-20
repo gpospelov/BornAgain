@@ -29,7 +29,7 @@ class BA_CORE_API_ FormFactorDecoratorMultiPositionFactor : public IFormFactorDe
 {
 public:
     FormFactorDecoratorMultiPositionFactor(const IFormFactor& form_factor,
-                                           std::vector<kvector_t> positions);
+                                           const std::vector<kvector_t>& positions);
 
     FormFactorDecoratorMultiPositionFactor* clone() const final;
 
